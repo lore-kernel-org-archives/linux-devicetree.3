@@ -1,502 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5421051EDF8
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 16:59:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F155208A9;
+	Tue, 13 Oct 2026 16:59:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791910745; cv=none; b=HvDwRwLDmYhg1YBBCy32zpanUdp5hENJvJ5mnszpENEjlfOtLDe1bgo1Mh0RD+b7XJOrQjozKw7sbK12kXPgI0XDYj/66bcKfKg8PyQ49g2AttPXdKhI4haSGwNJNV3T5wlVGK33Aaw7r7rWM/wsmMz/xJEl3eY3z3ErHto6Je8=
+	t=1791910762; cv=none; b=I/vKKP0eRkneUfZOOGK4h0F0Svl04Bfru6T6/69BmAapg34WPn2iPE70JeuH7E+HCz8ZA9AFf4Yc+aaRs3MHrMyEVwhdFyNRZl4SoJganT2zs0BDHyuS/plDsXT+75zgdjIgrqsWFebnxGJD052owgpn03S8g5vODVidmuGCy8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791910745; c=relaxed/simple;
-	bh=PRdqOBPs8s38CvZA6uPoAM8POtGRnQklVHbIdOOz5So=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=ra5AylDSycHU5NmvIhG0lin5gHkH1ObJEwPCb9tPaTJ6t2vK1YHmtEJpJ9g3jHNR/o5xTUC5LN4cttbJPG5tqpEgkttHdr8b4z2AWFyQWIbnolhCqJoiQ2zrOIpYHRfQQev2oI90DgKUi7uleNn0+Kp280/xCdGtbP3ZVwQFvNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ta9YNUXH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791910762; c=relaxed/simple;
+	bh=iZwcWXW9P1s2FGcBHBY8OWwVOV8yIE8tuCxLW32Qpjs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QVeQFOHkwxHuMVkHXSRxCrR7qWV3Jo0wxdoRohYMF7MoZ4glldzfcna78KHQO7SGYE0aCNRiT4ootrHwbr4vQH75GUhipqLfbPurmtzu29RHgHExXcA4znVPMVEItlQKChePp4LdcQaSu6vNewffB9N/Cd+rYxsVIMgZyCgCMkg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QyP4vueB; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ta9YNUXH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B538B1F000FF;
-	Tue, 13 Oct 2026 16:59:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791910743;
-	bh=7rf9l6tketF+QBP9xkJNJiWtgEUDnWbhBZg1Kurq7l0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Ta9YNUXHRryiuVISf8kN2q/EautspJSqJKrEyA8gI9WDOgftG2jq/QICDZusfem2C
-	 07wl+OlE294SUTuDy16R5+PCT9cojgwes5WHGzAKHuXstaLg+LYVPGdWS0//nMEgG8
-	 QAw/7ybnfYwC8WsvrItvyEXJ70+fKy0otY4s3NZ72jYF+xO5DttS4CbQZyCzoJOsPw
-	 1OKqNbgEGkQjwLn8WRpkb7ltJhcCmeU6wuHxTU+qWgpiSPyPVnuV9Xdh8GlqY1fMM2
-	 Rc8TEng3zbn6bo6U1NDKgGmhJY4wRX1EH7DhuZ+CRYtw6lDKXwQUHljgkIN/7TCzMl
-	 ZzbwfnPuUXawQ==
-Message-ID: <sashiko-outbox-170178@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 2/5] drm/microchip: add a driver for the Microchip
- GFX2D GPU
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Cyrille Pitchen" <cyrille.pitchen@microchip.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261013-cpitchen-mainline_gfx2d-v11-2-7527f2efab0a@microchip.com>
-References: <20261013-cpitchen-mainline_gfx2d-v11-0-7527f2efab0a@microchip.com>
- <20261013-cpitchen-mainline_gfx2d-v11-2-7527f2efab0a@microchip.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Oct 2026 16:59:03 +0000
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QyP4vueB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791910760; x=1823446760;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=iZwcWXW9P1s2FGcBHBY8OWwVOV8yIE8tuCxLW32Qpjs=;
+  b=QyP4vueBtRk8GlsW04Q1R3IuC3NQR8wjk8dkO3NE0HE9K6CXeK+JXsxt
+   rC9OLnGR950H86Q2PGyuLUADHlr+PC7TEgH0nWZB/SMPh+DUudzNVsr+2
+   XWs5B8QmaiZCceEfc2yr4DAfHXA50sYTHmdDcSY2iOoCCmLFv83N5E9LM
+   N4pZEzsjy4UH6i9dFyYd9L+MRnxt7j5mQUD2HSNOuMsDZ27weh+QtMjod
+   WhumKMq16wc4MC+j1hVsq/MeX+4uQqZW/QzdJrF4+1VW4KFVXkqNd/wBc
+   Xg1t0ec3bxU3f7f1Eg1Yc4CWrh93uOkbcszrhSiN1vqT4jvEbOxmA8EIm
+   g==;
+X-CSE-ConnectionGUID: DHPhrAPMR7Cs++BxpH10zg==
+X-CSE-MsgGUID: IjsXISVeQi2CqRjCnnLF8g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="530703"
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="530703"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 09:59:19 -0700
+X-CSE-ConnectionGUID: yeQrbO5FQVaXF7XDvrw0MA==
+X-CSE-MsgGUID: MYBPdhK7RtCYBfQ6CPBcVw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="1551482"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 09:59:15 -0700
+Date: Tue, 13 Oct 2026 19:59:13 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Paulius Zaleckas <paulius.zaleckas@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
+	Eddie James <eajames@linux.ibm.com>, Joel Stanley <joel@jms.id.au>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Rupesh Majhi <zoone.rupert@gmail.com>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 6/6] iio: pressure: dps310: add Zilltek ZTS8032 support
+Message-ID: <as5jYcTlEuOzD6go@ashevche-desk.local>
+References: <20261013112124.1878296-1-paulius.zaleckas@gmail.com>
+ <20261013112124.1878296-7-paulius.zaleckas@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013112124.1878296-7-paulius.zaleckas@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 9 potential issue(=
-s) to consider:
-- [High] build: Undefined macro kzalloc_obj causes compilation failure
-- [High] drm: Use-after-free in driver remove due to synchronous teardown
-- [High] drm: Use-after-free of gfx2d_obj in mchp_gfx2d_thread
-- [High] drm: Use-after-free of gfx2d_obj in drm_dbg following unref
-- [High] pm: AB-BA deadlock between pm_runtime suspend and IRQ thread
-- [High] drm/microchip: VIVT cache coherency bug in multi-process dmabuf sh=
-aring
-- [High] drm/microchip: mchp_gfx2d_wait sleeps with mutex held, breaking ti=
-meouts
-- [Medium] locking: Acquiring spinlock_t in hardirq context triggers PREEMP=
-T_RT BUG
-- [Medium] pm: System suspend fails with -EBUSY due to PM resume failure in=
- IRQ thread
---
+On Tue, Oct 13, 2026 at 02:21:24PM +0300, Paulius Zaleckas wrote:
+> The Zilltek ZTS8032 has the DPS310 register map, scale factors and
+> compensation, with these differences:
+> 
+> - two more pressure coefficients, c31 and c40 at 0x22-0x25, adding
+>   c40 * Praw_sc^4 + c31 * Traw_sc * Praw_sc^3 to the polynomial
+> - TMP_EXT is MEAS_CFG bit 3, and the temperature coefficients are for
+>   the internal sensor (COEF_SRCE reads 0x06). TMP_CFG bit 7 is the top
+>   bit of a 4-bit TMP_RATE, so the DPS310 TMP_EXT write would select a
+>   25/16 Hz background rate instead of the external sensor.
+> - product ID 0x11 instead of 0x10, the driver does not check it
+> 
+> Add its chip data, reading 22 coefficient bytes and leaving TMP_CFG at
+> 0, and the I2C and OF IDs.
+> 
+> Tested on a ZTS8032 at 0x76 over I2C: in_pressure_input is within 1 Pa
+> of the datasheet formula evaluated from the raw and coefficient
+> registers at every oversampling rate from 1 to 128, and TMP_CFG reads
+> 0x00 after probe.
 
-commit 008c58aa5740c6e3849d9b3c0fa7843a52355ee3
-Author: Cyrille Pitchen <cyrille.pitchen@microchip.com>
-Subject: drm/microchip: add a driver for the Microchip GFX2D GPU
+...
 
-This commit introduces a DRM driver for the Microchip GFX2D GPU, supporting
-basic 2D operations like FILL, COPY, BLEND, and ROP. The driver communicates
-with the GPU via a ring buffer and tracks command completion using a mailbox
-mechanism with LDR/STR instructions.
+>  	help
+> -	  Support for the Infineon DPS310 digital barometric pressure sensor.
+> -	  It can be accessed over I2C bus.
+> +	  Support for the Infineon DPS310 and Zilltek ZTS8032 digital
+> +	  barometric pressure sensors. They can be accessed over I2C bus.
 
-> diff --git a/drivers/gpu/drm/microchip/mchp_gfx2d_cmd.c b/drivers/gpu/drm=
-/microchip/mchp_gfx2d_cmd.c
-> index e462d9bca3170..7a5e8452e690a 100644
-> --- a/drivers/gpu/drm/microchip/mchp_gfx2d_cmd.c
-> +++ b/drivers/gpu/drm/microchip/mchp_gfx2d_cmd.c
-> @@ -207,6 +207,41 @@ static void mchp_gfx2d_release_command(struct mchp_g=
-fx2d_device *priv,
->  				       struct mchp_gfx2d_command *cmd,
->  				       bool recycle)
->  {
->  	struct mchp_gfx2d_gem_object *gfx2d_obj;
->  	int i;
-> =20
->  	drm_dbg(&priv->drm, "cmd %u: release command\n", cmd->id);
-> =20
->  	gfx2d_obj =3D cmd->target;
->  	if (gfx2d_obj) {
->  		mchp_gfx2d_gem_unref(gfx2d_obj);
->  		drm_dbg(&priv->drm,
->  			"cmd %u: unref object %u (%d) as target\n",
->  			cmd->id,
->  			gfx2d_obj->id, atomic_read(&gfx2d_obj->gpu_active));
+Please, format it to be scalable:
 
-[Severity: High]
-Is it safe to access gfx2d_obj after calling mchp_gfx2d_gem_unref()?
+	  Support for the following digital barometric pressure sensors:
+	  - Infineon DPS310
+	  - Zilltek ZTS8032
+	  They can be accessed over I2C bus.
 
-If this was the last reference, the object could be freed immediately by
-drm_gem_object_put(). The very next line logs gfx2d_obj->id and
-gfx2d_obj->gpu_active, which would result in a use-after-free.
+>  	  This driver can also be built as a module.  If so, the module will be
+>  	  called dps310.
 
->  	}
-> =20
->  	for (i =3D 0; i < ARRAY_SIZE(cmd->sources); i++) {
->  		struct mchp_gfx2d_source *src =3D &cmd->sources[i];
-> =20
->  		gfx2d_obj =3D src->gfx2d_obj;
-> =20
->  		if (!gfx2d_obj)
->  			continue;
-> =20
->  		mchp_gfx2d_gem_unref(gfx2d_obj);
->  		drm_dbg(&priv->drm,
->  			"cmd %u: unref object %u (%d) as source %d at (%d,%d)\n",
->  			cmd->id,
->  			gfx2d_obj->id, atomic_read(&gfx2d_obj->gpu_active),
->  			i, src->x, src->y);
+...
 
-[Severity: High]
-Can this similarly cause a use-after-free on the source object?
+>   * https://www.infineon.com/dgdl/?fileId=5546d462576f34750157750826c42242
+>   *
+> + * The Zilltek ZTS8032 is register compatible, with two more pressure
+> + * calibration coefficients (c31, c40) and temperature calibrated against
+> + * the internal sensor.
 
->  	}
-> =20
->  	mchp_gfx2d_free_rectangles(cmd);
-> =20
->  	if (recycle) {
->  		mutex_lock(&priv->free_cmdlist_mutex);
+Any datasheet link?
 
-[ ... ]
+...
 
-> @@ -1726,6 +1726,38 @@ int mchp_gfx2d_wait(struct mchp_gfx2d_device *priv,
->  		    struct mchp_gfx2d_gem_object *gfx2d_obj,
->  		    const struct drm_mchp_timespec *timeout)
->  {
->  	struct device *dev =3D priv->drm.dev;
->  	int ret;
-> =20
->  	ret =3D pm_runtime_resume_and_get(dev);
->  	if (ret)
->  		return ret;
-> =20
->  	(void)mchp_gfx2d_progress(priv);
-> =20
->  	drm_dbg(&priv->drm, "obj %u: poll object\n", gfx2d_obj->id);
-> =20
->  	ret =3D mchp_gfx2d_gem_wait(gfx2d_obj, NULL);
->  	if (!ret || !timeout)
->  		goto put_autosuspend;
-> =20
->  	mutex_lock(&gfx2d_obj->mutex);
-> =20
->  	drm_dbg(&priv->drm, "obj %u: wait for object\n", gfx2d_obj->id);
-> =20
->  	mutex_lock(&priv->wlist_mutex);
->  	list_add_tail(&gfx2d_obj->w_node, &priv->wlist);
->  	mutex_unlock(&priv->wlist_mutex);
-> =20
->  	mchp_gfx2d_enable_exend(priv);
-> =20
->  	ret =3D mchp_gfx2d_gem_wait(gfx2d_obj, timeout);
+> -	u8 coef[DPS310_COEF_LEN];
+> +	u8 coef[ZTS8032_COEF_LEN];
 
-[Severity: High]
-Does holding gfx2d_obj->mutex across the sleeping mchp_gfx2d_gem_wait() call
-break timeout expectations for concurrent waiters?
+I would add
 
-If a second thread attempts to wait on the same GEM object with a short
-timeout, it will block uninterruptibly on this mutex rather than observing
-its own specified timeout. This could trigger a hung task warning if the
-first thread specified a long timeout and the GPU hangs.
+#define MAX_COEF_LEN	18
 
-> =20
->  	mutex_lock(&priv->wlist_mutex);
->  	list_del(&gfx2d_obj->w_node);
->  	mutex_unlock(&priv->wlist_mutex);
-> =20
->  	drm_dbg(&priv->drm, "obj %u: %s for object\n",
->  		gfx2d_obj->id,
->  		ret ? "failed to wait" : "successfully waited");
-> =20
->  	mutex_unlock(&gfx2d_obj->mutex);
-> =20
->  put_autosuspend:
->  	pm_runtime_put_autosuspend(dev);
-> =20
->  	return ret;
->  }
+to the first patch along with the HW specific define and use here (in that patch)
 
-> diff --git a/drivers/gpu/drm/microchip/mchp_gfx2d_drv.c b/drivers/gpu/drm=
-/microchip/mchp_gfx2d_drv.c
-> index 81b807ad4bad1..0f34a17387cc3 100644
-> --- a/drivers/gpu/drm/microchip/mchp_gfx2d_drv.c
-> +++ b/drivers/gpu/drm/microchip/mchp_gfx2d_drv.c
-> @@ -31,6 +31,19 @@
->  static int mchp_gfx2d_open(struct drm_device *dev, struct drm_file *file=
-_priv)
->  {
->  	struct mchp_gfx2d_file *ctx;
-> =20
->  	ctx =3D kzalloc_obj(*ctx);
+	u8 coef[MAX_COEF_LEN];
 
-[Severity: High]
-Is kzalloc_obj defined somewhere in the kernel? It appears to be an
-undefined macro and will cause a compilation failure. Should this be
-kzalloc(sizeof(*ctx), GFP_KERNEL) instead?
+so, in this patch you will just add a new HW definition and bump
 
->  	if (!ctx)
->  		return -ENOMEM;
-> =20
->  	mutex_init(&ctx->rectangles_mutex);
-> =20
->  	file_priv->driver_priv =3D ctx;
-> =20
->  	return 0;
->  }
+#define MAX_COEF_LEN	22
 
-[ ... ]
+...
 
-> @@ -84,6 +84,8 @@ static void mchp_gfx2d_disable_irq(struct mchp_gfx2d_de=
-vice *priv)
->  {
->  	scoped_guard(mutex, &priv->irq_mutex) {
->  		scoped_guard(spinlock_irqsave, &priv->irq_lock) {
->  			priv->irq_active =3D false;
->  		}
->  	}
->  }
-> =20
->  static irqreturn_t mchp_gfx2d_interrupt(int irq, void *dev_id)
->  {
->  	struct mchp_gfx2d_device *priv =3D dev_id;
->  	u32 status, mask, pending;
-> =20
->  	/*
->  	 * We can't call pm_runtime_get_if_active() from here to verify that
->  	 * the peripheral clock is actually enabled before accessing the
->  	 * hardware registers because pm_runtime_get_if_active() returns
->  	 * an error if `dev->power.disable_depth > 0`, which would be true if
->  	 * mchp_gfx2d_runtime_suspend() had been called from pm_runtime_force_s=
-uspend(),
->  	 * which calls pm_runtime_disable() first.
->  	 * Indeed, mchp_gfx2d_runtime_suspend() may need the IRQ handler and
->  	 * thread to be executed so the `priv->running_cmdlist_empty` event is
->  	 * notified.
->  	 *
->  	 * Instead, we first hold the `priv->irq_lock' lock to prevent races
->  	 * with the mchp_gfx2d_runtime_{suspend,resume}() and mchp_gfx2d_remove=
-()
->  	 * functions, then we test the `priv->irq_active` boolean, which can be
->  	 * true only if the peripheral clock is enabled.
->  	 */
->  	guard(spinlock)(&priv->irq_lock);
+> +	if (data->info->coef_len == ZTS8032_COEF_LEN) {
 
-[Severity: Medium]
-Is it safe to acquire priv->irq_lock here since it is defined as a
-spinlock_t?
+This is a bit fragile. What if it will be HW in the future that has 22+ size
+but incompatible with ZTS case?
 
-On PREEMPT_RT kernels, spinlock_t becomes a sleepable rt_mutex. Acquiring it
-in a hardirq context will trigger a lockdep BUG. Does this lock need to be
-converted to a raw_spinlock_t?
+> +		data->c31 = sign_extend32((coef[18] << 8) | coef[19], 15);
+> +		data->c40 = sign_extend32((coef[20] << 8) | coef[21], 15);
+> +	}
 
-> =20
->  	if (unlikely(!priv->irq_active))
->  		return IRQ_HANDLED;
-> =20
->  	status =3D readl(priv->regs + GFX2D_IS);
->  	mask =3D readl(priv->regs + GFX2D_IM);
->  	pending =3D status & mask;
-> =20
->  	if (pending & GFX2D_IRQ_EXEND)
->  		return IRQ_WAKE_THREAD;
-> =20
->  	return IRQ_HANDLED;
->  }
-> =20
->  static irqreturn_t mchp_gfx2d_thread(int irq, void *dev_id)
->  {
->  	struct mchp_gfx2d_device *priv =3D dev_id;
->  	struct mchp_gfx2d_gem_object *gfx2d_obj;
->  	struct device *dev =3D priv->drm.dev;
->  	bool is_suspended =3D false;
->  	bool enable_exend =3D false;
->  	int ret;
-> =20
->  	/*
->  	 * See comment in mchp_gfx2d_interrupt() about `priv->irq_active`.
->  	 * Here, we just hold `priv->irq_mutex` instead of `priv->irq_lock` but
->  	 * the rationale behind is the same.
->  	 */
->  	guard(mutex)(&priv->irq_mutex);
-> =20
->  	if (unlikely(!priv->irq_active))
->  		return IRQ_HANDLED;
-> =20
->  	drm_dbg(&priv->drm, "enter IRQ thread\n");
-> =20
->  	ret =3D pm_runtime_resume_and_get(dev);
+-- 
+With Best Regards,
+Andy Shevchenko
 
-[Severity: High]
-Could this lock ordering lead to an AB-BA deadlock between the PM core lock
-and priv->irq_mutex?
 
-When the PM core auto-suspends the device, it holds the device's PM lock and
-invokes mchp_gfx2d_runtime_suspend(), which eventually calls
-mchp_gfx2d_disable_irq(). This function blocks trying to acquire
-priv->irq_mutex.
-
-Concurrently, if an interrupt fires, the IRQ thread acquires
-priv->irq_mutex and then calls pm_runtime_resume_and_get(dev), which
-blocks waiting for the PM core lock.
-
-[Severity: Medium]
-Will this cause system suspend to fail with -EBUSY?
-
-During system suspend, pm_runtime_force_suspend() disables runtime PM
-before calling the suspend callback. When mchp_gfx2d_stop() waits for
-pending commands, this IRQ thread wakes up but will fail here with -EACCES
-because runtime PM is disabled.
-
-It will exit without processing the commands, causing mchp_gfx2d_stop() to
-time out and return -EBUSY, which ultimately aborts the system suspend.
-
->  	if (ret)
->  		goto exit;
-> =20
->  	writel(GFX2D_IRQ_EXEND, priv->regs + GFX2D_ID);
-> =20
->  	do {} while (mchp_gfx2d_progress(priv));
-> =20
->  	mutex_lock(&priv->cmdlist_mutex);
->  	is_suspended =3D priv->is_suspended;
->  	mutex_unlock(&priv->cmdlist_mutex);
-> =20
->  	/*
->  	 * When suspended, the EXEND interrupt is already enabled from
->  	 * mchp_gfx2d_progress() if needed.
->  	 */
->  	if (is_suspended)
->  		goto put_autosuspend;
-> =20
->  	mutex_lock(&priv->wlist_mutex);
->  	list_for_each_entry(gfx2d_obj, &priv->wlist, w_node) {
->  		if (is_active(gfx2d_obj)) {
->  			enable_exend =3D true;
->  			break;
->  		}
->  	}
->  	mutex_unlock(&priv->wlist_mutex);
-> =20
->  	if (enable_exend) {
->  		drm_dbg(&priv->drm,
->  			"enable EXEND interrupt: still waiting for object %u (%d)\n",
->  			gfx2d_obj->id, atomic_read(&gfx2d_obj->gpu_active));
-
-[Severity: High]
-Can this drm_dbg() dereference a freed object?
-
-The IRQ thread releases priv->wlist_mutex before accessing gfx2d_obj.
-If the thread sleeping on this object wakes up, removes it from the wait
-list, and drops the final GEM reference, the object can be freed before this
-debug print executes.
-
-Should a GEM reference be taken while the lock is held to prevent this
-use-after-free?
-
->  	} else {
->  		enable_exend =3D mchp_gfx2d_has_pending_commands(priv);
->  		if (enable_exend)
->  			drm_dbg(&priv->drm,
->  				"enable EXEND interrupt: some commands are pending\n");
->  	}
-
-[ ... ]
-
-> @@ -326,6 +326,17 @@ static void mchp_gfx2d_remove(struct platform_device=
- *pdev)
->  {
->  	struct mchp_gfx2d_device *priv =3D platform_get_drvdata(pdev);
->  	struct device *dev =3D &pdev->dev;
->  	int ret;
-> =20
->  	drm_dev_unplug(&priv->drm);
-> =20
->  	ret =3D pm_runtime_get_sync(dev);
->  	if (ret < 0)
->  		dev_warn(dev, "Failed to resume device on remove\n");
->  	else
->  		(void)mchp_gfx2d_stop(priv, true);
-> =20
->  	mchp_gfx2d_disable_irq(priv);
->  	pm_runtime_put_noidle(dev);
->  	pm_runtime_dont_use_autosuspend(dev);
->  	pm_runtime_disable(dev);
->  	pm_runtime_set_suspended(dev);
->  	mchp_gfx2d_cleanup_command_queue(priv);
-
-[Severity: High]
-Does mchp_gfx2d_cleanup_command_queue() free resources too early?
-
-drm_dev_unplug() prevents new ioctls but does not block waiting for
-existing drm_dev_enter() sections to exit. If an in-flight ioctl (such as
-MCHP_GFX2D_SUBMIT) continues executing and calls mchp_gfx2d_alloc_command(),
-it will attempt to allocate from the destroyed priv->cmd_cache.
-
-This causes an immediate use-after-free on unbind. Should these resources be
-managed via drmm_ helpers or freed in the DRM release callback?
-
->  }
-
-> diff --git a/drivers/gpu/drm/microchip/mchp_gfx2d_ioctl.c b/drivers/gpu/d=
-rm/microchip/mchp_gfx2d_ioctl.c
-> index 5ee060cdf7b51..12fa4e87a2a09 100644
-> --- a/drivers/gpu/drm/microchip/mchp_gfx2d_ioctl.c
-> +++ b/drivers/gpu/drm/microchip/mchp_gfx2d_ioctl.c
-> @@ -305,6 +305,14 @@ static void mchp_gfx2d_flush_user_alias(struct drm_g=
-em_object *obj)
->  {
->  	struct mm_struct *mm =3D current->mm;
->  	struct vm_area_struct *vma;
-> =20
->  	VMA_ITERATOR(vmi, mm, 0);
-> =20
->  	if (!mm)
->  		return;
-> =20
->  	mmap_read_lock(mm);
->  	for_each_vma(vmi, vma)
->  		if (vma->vm_private_data =3D=3D obj)
->  			/* clean+invalidate D by user VA */
->  			__cpuc_flush_user_range(vma->vm_start, vma->vm_end,
->  						vma->vm_flags);
-
-[Severity: High]
-Is it reliable to flush the cache by walking only current->mm?
-
-If this buffer is shared via DMA-BUF between multiple processes (such as a
-Wayland compositor and a client), the client's writes might reside in its
-own process's VIVT cache. When the compositor calls
-DRM_IOCTL_MCHP_GFX2D_SYNC_FOR_GPU, it only flushes its own mm, leaving the
-client's dirty cache lines unflushed. This could cause the GPU to read stale
-data.
-
-Additionally, using the internal __cpuc_flush_user_range() macro bypasses
-architecture API boundaries. Should this be handled using standard cache
-management APIs that ensure all VIVT aliases are flushed?
-
->  	mmap_read_unlock(mm);
->  }
-> =20
->  static int mchp_gfx2d_ioctl_sync_for_gpu(struct drm_device *dev, void *d=
-ata,
->  					 struct drm_file *file_priv)
->  {
->  	struct mchp_gfx2d_device *priv =3D drm_to_dev(dev);
->  	struct drm_mchp_gfx2d_sync_for_gpu *args =3D data;
->  	struct mchp_gfx2d_gem_object *gfx2d_obj;
->  	enum dma_data_direction dir;
->  	struct drm_gem_object *obj;
->  	int ret =3D 0;
->  	int idx;
-> =20
->  	if (!drm_dev_enter(dev, &idx))
->  		return -ENODEV;
-> =20
->  	obj =3D drm_gem_object_lookup(file_priv, args->handle);
->  	if (!obj) {
->  		ret =3D -ENOENT;
->  		goto exit;
->  	}
-> =20
->  	gfx2d_obj =3D to_mchp_gfx2d_bo(obj);
-> =20
->  	dir =3D gfx2d_obj->direction;
->  	if (valid_dma_direction(dir)) {
->  		dma_sync_single_for_device(dev->dev, gfx2d_obj->base.dma_addr,
->  					   obj->size, dir);
-> =20
->  		/*
->  		 * On SAM9X60 and SAM9X75 SoCs (ARM926), dma_sync_single_for_device()
->  		 * flushes the data cache based on the kernel virtual address of
->  		 * the DRM GEM object.
->  		 * However, the user-space virtual address created by mmap is
->  		 * different from the kernel one. Since, ARM926 has a VIVT data cache,
->  		 * there are cache aliasing issues resulting in graphical glitches
->  		 * if the data cache is not flushed properly.
->  		 * So, one work-around is to call mchp_gfx2d_flush_user_alias() here.
->  		 */
->  		if (priv->caps->has_cache_aliasing)
->  			mchp_gfx2d_flush_user_alias(obj);
->  	}
-> =20
->  	drm_gem_object_put(obj);
->  exit:
->  	drm_dev_exit(idx);
-> =20
->  	return ret;
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013-cpitchen-m=
-ainline_gfx2d-v11-0-7527f2efab0a@microchip.com?part=3D2
