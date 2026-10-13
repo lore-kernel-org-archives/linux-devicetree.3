@@ -1,114 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B697448F03D;
-	Tue, 13 Oct 2026 05:46:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3107B2749C1
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 05:48:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791870423; cv=none; b=vE078mi0a0hNgfu9+HHW9oNsCKL3qZWhR0wCGwbalnt3nDm9R9R6RRnUvU/k/jWaK9PCqw6uIKdCNRNSQSWVHFYJb+iPvbKWqxOA78ux2G2VrSr7xEAWi3hvC9JKtnKV4mGodjJQ5ysPf1zdHMzB6+z/PfDAewVNSsGf1OrVtWM=
+	t=1791870496; cv=none; b=KrxJ2gcqPP83QieSUxlMKhXSa0ZGofc1oR0zf+Yq6/drL63uNHJOYXliEJcnB1FEeIw+K2TKLLdr/sASmqXSm08Yz0ekBIYjwKJzJmceXjIjdhLhc09VU5fA0klUNuwnIO6Y+/UnbbZ2THRYO8tZ29H37XL8PQisO7nSLi7Dl34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791870423; c=relaxed/simple;
-	bh=CBPCuL8U0TsGb4GEszzoU0ytkaR9kaOQhhtNWG1SSBw=;
+	s=arc-20240116; t=1791870496; c=relaxed/simple;
+	bh=xm36sgpSu2bXj9dtVTt2F31mcs9c7B71mqkTGkSs8Xo=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=hcmDE88mUlEapUuiOCeZ3R8d9foBlQuD/lAApVMI3kuGhvRlXOsIn0FVHrFXLqnVSGH8l6MVFCMVyWlK4R1azpc5E1JH3AlEs0EEExHvPJvwF0ZpVgqQyQhxT3ZMwqRZ91Bdf5G8FRJPyB0+mZYSnr/6TkA9KxK6jRHLraj0QCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a2Poz1gs; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=d7T1J9hFFcxrOYJ0AQWTY5LMFMvMy6EP+8t9VNhMN8ZJeYoXzHfrOIXd9AkUyvtTPsC976VKDhnuChM8nQyuIJw98c0CDIIGYACncDiWJlW6mT+Jc7RFjotHOEWqeHRLgGspPcZyMqJQnMx/4/pPImV6uyLKHWSsyVeucaXawO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ngiVEaJp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a2Poz1gs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2A0C1F000FF;
-	Tue, 13 Oct 2026 05:46:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ngiVEaJp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D2381F000FF;
+	Tue, 13 Oct 2026 05:48:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791870414;
-	bh=hfoty2myeeNDg4UHIGPtwOev+qiCrpet+Uf8g0/6qTM=;
+	s=k20260515; t=1791870494;
+	bh=fRVUcHD3u2hihhm5+bkEpRJL5lMMq7luy7d/Y++AEek=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=a2Poz1gssLYrcKpG5LdLQA/8u4KwTJlSepawFf0pcWUvL3uTDmbhbBjCVkbOYxydW
-	 L5WecK5eD6yJ2y60M3kYwFMxWfzUDhn2VJJ9fPk9YAAOK+FSY15EbpU0J7TtzrfY/5
-	 XGGwGWvd/MEfkmVVgjdflg0kqjy4JVD7vICXdUqfDPrztB6dYD6z8q0cfkmU8uJ4+s
-	 guQiLhX+2PbwyfXrruVvuUahzrik9pq8GceqE5QZoeDVNW2aju8kSj5Bdg4UGRf3Li
-	 P6+y0wQVOK1I27Ex3u04dXH3P7Jdf+gQQ+GWAyXW0vFZvau1e4o3zLrd318ePmCAee
-	 JV21IxUsnGiCA==
-Message-ID: <sashiko-outbox-169010@kernel.org>
+	b=ngiVEaJpC7t7hrTJU8caDlS3T1ndblUbjo5GtV0CTlgXuNOMKPkMpCe5Ypu3j6INr
+	 CqTHGhHHADgcftw+83aoOGowlOi3ABhL6ft+YOGZSe5igK6naw6Jh4pE8PfxW70CmG
+	 RKSA7H7Xb46cUl3LtL2+pbU27B2p11Lci2YNcZstsRZs26kaG+qqMiFGpHpZHGvIcZ
+	 GUT4X7838mIBfccRWYDadE8ITcnx0YrHML5SNo9JyJB4GTUWU3K5KqkZPiZLnuAfM4
+	 03EUcTmZtFKUz6HbttYKfRX9v204I2THjeXZnuq/rBImbNIU8D4Lutuy8Ot9ahXTEe
+	 NRUQrOU4VtJIQ==
+Message-ID: <sashiko-outbox-169011@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 6/6] leds: aw2013: Move reset register write
+Subject: Re: [PATCH RFC v3 9/9] tee: optee: support RPMI asynchronous
+ notification doorbells
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Paul Sajna" <sajattack@postmarketos.org>
-Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
-In-Reply-To: <20261012-aw2013-aw20xx-rename-v3-6-cab1fdd050b6@postmarketos.org>
-References: <20261012-aw2013-aw20xx-rename-v3-0-cab1fdd050b6@postmarketos.org>
- <20261012-aw2013-aw20xx-rename-v3-6-cab1fdd050b6@postmarketos.org>
+To: "Amirreza Zarrabi" <amirreza.zarrabi@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261012-rpmi-tee-service-grp-dev-v3-9-975b574667e2@oss.qualcomm.com>
+References: <20261012-rpmi-tee-service-grp-dev-v3-0-975b574667e2@oss.qualcomm.com>
+ <20261012-rpmi-tee-service-grp-dev-v3-9-975b574667e2@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Oct 2026 05:46:53 +0000
+Date: Tue, 13 Oct 2026 05:48:14 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] leds: aw2013: Double mutex unlock on error paths in aw2013_probe()
-- [Low] leds: aw2013: Use of dev_err() instead of dev_err_probe() for probe=
- failures
+- [High] tee: optee: race between async notif callback and teardown causes =
+UAF/NULL deref
 --
 
-commit 96e8f9d5ce7deeb0752d6125191c77378696f3e4
-Author: Paul Sajna <sajattack@postmarketos.org>
+commit fbdb2da759a2fc5e6692fd4d211f0b6f63644339
+Author: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
 
-leds: aw2013: Move reset register write
+tee: optee: support RPMI asynchronous notification doorbells
 
-This patch moves the chip reset register write from aw2013_probe_dt() to
-aw2013_probe(), and unlocks the mutex before calling aw2013_probe_dt() to
-avoid a deadlock. The deadlock would otherwise occur when LED classdev
-registration triggers a brightness set callback.
+This commit introduces support for RPMI asynchronous notification doorbells
+in OP-TEE. It allocates a TEE-to-REE RPMI signal, passes it to OP-TEE, and
+queues bottom-half processing on a private workqueue. It also adds teardown
+logic to stop asynchronous notifications and drain the workqueue upon
+cleanup.
 
-> diff --git a/drivers/leds/leds-aw2013.c b/drivers/leds/leds-aw2013.c
-> index 6e661afd77755..8d1d649064c71 100644
-> --- a/drivers/leds/leds-aw2013.c
-> +++ b/drivers/leds/leds-aw2013.c
+> diff --git a/drivers/tee/optee/rpmi_abi.c b/drivers/tee/optee/rpmi_abi.c
+> index 0ed2de96758e2..6434767a22497 100644
+> --- a/drivers/tee/optee/rpmi_abi.c
+> +++ b/drivers/tee/optee/rpmi_abi.c
+
 [ ... ]
-> @@ -504,6 +502,14 @@ static int aw2013_probe(struct i2c_client *client)
->  	if (ret)
->  		goto error_reg;
-> =20
-> +	ret =3D regmap_write(chip->regmap, AW2013_RSTR, AW2013_RSTR_RESET);
-> +	if (ret) {
-> +		dev_err(&chip->client->dev, "Failed to reset the chip: %d\n", ret);
 
-[Severity: Low]
-Is dev_err() the right function to use here for reporting a probe failure?
-The subsystem guidelines recommend using dev_err_probe() in probe paths
-to ensure proper handling of -EPROBE_DEFER and correct kernel log formattin=
-g.
-
-> +		goto error_reg;
-> +	}
+> +static void optee_rpmi_notif_callback(struct rpmi_tee_device *rdev, u32 =
+signal,
+> +				      void *cb_data)
+> +{
+> +	struct optee *optee =3D cb_data;
 > +
-> +	mutex_unlock(&chip->mutex);
+> +	queue_work(optee->rpmi.notif_wq, &optee->rpmi.notif_work);
+> +}
 > +
->  	ret =3D aw2013_probe_dt(chip);
->  	if (ret < 0)
->  		goto error_reg;
+> +/* Relinquish is not a barrier for an already-selected transport callbac=
+k. */
+> +static void optee_rpmi_async_notif_uninit(struct optee *optee)
+> +{
+> +	struct optee_rpmi *rpmi =3D &optee->rpmi;
+> +	struct rpmi_tee_device *rdev =3D rpmi->rdev;
+> +	int rc;
+> +
+> +	if (!rpmi->notif_wq)
+> +		return;
+> +
+> +	rc =3D optee_stop_async_notif(optee->ctx);
+> +	if (rc)
+> +		dev_warn(&rdev->dev, "stop notifications failed: %d\n", rc);
+> +
+> +	rc =3D rdev->ops->notifier_ops->notify_relinquish(rdev, rpmi->signal);
+> +	if (rc && rc !=3D -EOPNOTSUPP)
+> +		dev_warn(&rdev->dev,
+> +			 "relinquish notification failed: %d\n", rc);
+> +
+> +	destroy_workqueue(rpmi->notif_wq);
+> +
+> +	rpmi->notif_wq =3D NULL;
+> +}
 
 [Severity: High]
-Can jumping to error_reg here cause a double unlock of chip->mutex?
+Can an in-flight RPMI notification invoke optee_rpmi_notif_callback()
+concurrently with or after this teardown process?
 
-By moving mutex_unlock(&chip->mutex) to execute before aw2013_probe_dt(),
-the mutex is now unlocked on this error path. However, jumping to error_reg
-causes it to fall through to the error label, which unconditionally unlocks
-the mutex again:
+As the comment mentions, notify_relinquish() is not a barrier for an
+already-selected transport callback. If the callback runs concurrently,
+queue_work() accesses the workqueue without locking. This can cause a
+use-after-free if destroy_workqueue() is executing, or a NULL pointer
+dereference if rpmi->notif_wq has already been set to NULL.
 
-error_reg:
-	regulator_bulk_disable(ARRAY_SIZE(chip->regulators),
-			       chip->regulators);
-
-error:
-	mutex_unlock(&chip->mutex);
-	return ret;
-
-Additionally, if aw2013_probe_dt() succeeds but the subsequent
-regulator_bulk_disable() fails, it also jumps to the error label and unlocks
-the already-unlocked mutex.
+Furthermore, if the callback execution is delayed until after
+optee_rpmi_remove() completes, the optee structure itself is freed
+via kfree(optee), which would lead to a use-after-free when the callback
+dereferences optee->rpmi.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012-aw2013-aw2=
-0xx-rename-v3-0-cab1fdd050b6@postmarketos.org?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012-rpmi-tee-s=
+ervice-grp-dev-v3-0-975b574667e2@oss.qualcomm.com?part=3D9
