@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41646403E9B;
-	Tue, 13 Oct 2026 14:58:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 238FF41167C
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 14:58:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791903500; cv=none; b=t3Zr4gMRnwH0hiGx5+n2p6dFtYPHY6mHbHjyUkiKbf69fIbKgLa8j689LV/SFclvl4YON05eKSI3+L6HTGV6NWaTcHEkQjto+FwuZnnr5fsMhO3aqovvWNr1OUInrGQlJ3wgyOipGwDamM+oAEsDxtkBxNepDlYSO+QCb2gOxTU=
+	t=1791903536; cv=none; b=GioL6YH2/pPyxU+2EkIKki3xLsoPq5BUQEyWmJtOtaNPFnhpdaxpNzyYqrir1fXp/KY9G5awabnuqwmxpPekgZYGyGjtVMwtYRALLzcB12EedqxLCB63JUKEIqdAvEeu0hG5V9nAG+Cj2FW+N47r8zRrWvfKdOQLjX0RWn5da2o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791903500; c=relaxed/simple;
-	bh=AesWvpSqDZiN3Gc5vT1oG/ZFt2uFeIR/WsPgFEY4YPE=;
+	s=arc-20240116; t=1791903536; c=relaxed/simple;
+	bh=OcS5L0vfr/bA0G455WaS8wkUnhNqH6rn0NuScVAMuIg=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=kwpnQQvrdaigepfDwJl/FhppmJxClvV2TX9lmBA4IhXr4f0XdjYavtYWeTJ4BAyZW5ZTX1POfIL8xuS52rjdfsKhaGE+Nenpv8sPOCIDBVIzPI6z+JySvaH4FGs00crav+suSxScY62LQvlzlXMpB+G3YfTZ+2ryDLpelvG3ZA4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AXMHW/9b; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=sZI7yfKSmqW2qw+HY+FVRRXmJfBalkLs1kyq/jvsyKL4p0fJ4leVUL8EedT/Vw4QMlQqnW7y9Qn4XXzZG3Vm+5lSV76Z2j86A4ET85gRs+lcPINUA9TfG1DonD9XOTMB17GEAO+XMev/iVPYs8R7ds0pypIMHzqJ2PvlTdvapr4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ACkLY39Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AXMHW/9b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7806B1F000FF;
-	Tue, 13 Oct 2026 14:58:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ACkLY39Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B2721F000FF;
+	Tue, 13 Oct 2026 14:58:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791903497;
-	bh=cWghkI4pZFc10+YbElzFuA7RMwPdieryb71st2duIm0=;
+	s=k20260515; t=1791903534;
+	bh=soFU+qXa0/ORPPu9drT6BB+vJBeOanASsxCKHGvltzc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AXMHW/9bqHxTpcpDqCgvkPrl5JzHWKkdSuwVjrTX+USxyPed1/DqWQGwMBdhEKZpw
-	 ncPgBoPirswt0x5+We7mPSe3glJh5dSc4UKJoSHcarvwaLFYB2yiM+30S/kBhu642Q
-	 H3y0fr77hBTdaVQecCEvu7vKlzB7QsKBsljBQYnQZy4C+PW7Eh2U2nQNziHw/qKW4+
-	 cq+vW40DGITucEVsfRnTkP7obH+oDIMcWDZya9CGA/JkwmjGT+C/QHnMRd7SooLJAn
-	 GOMs7Acr73I5wrMRGcfd++2aTVsiVtw9cYJOMPRIpOw4kqTsdTL6usSJ8sWLuNUDbJ
-	 5Sz35nCeo7RuA==
-Message-ID: <sashiko-outbox-169953@kernel.org>
+	b=ACkLY39Zu4orqPJL1n+JAZomNQbxs/iPkqWfeksAkQ0qT8jGcMWVr5ZJXEMAM9qdS
+	 5quIUDGck1qI+vR8W6+CYZStaJLnWICmg2q2YmMCr3YoCTS89xkVHHqzv3MXGQTNaJ
+	 qWOWUDky7+zvs1fQu0TsMGPEd8HwxRPgyR3qSEJH6noNLcYRbZoFjpmipiSYqo35E0
+	 3kRL45nw8LAWwVibF1+VzQyAsU9sH8fqYEgsa3/tuadiGoC7B31uFaH0OZRTM77qFb
+	 /1ig+FkdP/w6VCYKYHY0WvfZmw/y3Ki34yDDuSQc6IhpeYAHBn8iViN4EVFr0hcTWG
+	 lcc/237AKL1VA==
+Message-ID: <sashiko-outbox-169954@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] Input: aw8697 - Add Awinic AW8697 haptics driver
+Subject: Re: [PATCH 3/3] drm/nouveau/tegra: Keep the fuse clock enabled
+ while the GPU is powered
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Armandas Kvietkus" <armandas.kvietkus@proton.me>
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20261013-mainlining-v3-2-fca981f62b57@proton.me>
-References: <20261013-mainlining-v3-0-fca981f62b57@proton.me>
- <20261013-mainlining-v3-2-fca981f62b57@proton.me>
+To: "Sasha Levin" <sashal@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261013145210.103565-3-sashal@kernel.org>
+References: <20261013145210.103565-1-sashal@kernel.org>
+ <20261013145210.103565-3-sashal@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Oct 2026 14:58:17 +0000
+Date: Tue, 13 Oct 2026 14:58:54 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,51 +47,49 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] irq: passing NULL devname to devm_request_threaded_irq()
+- [Medium] nouveau: tegra: clk_fuse leak on power_down failure
 --
 
-commit dcca01e09d9b46c0ca4b04c76dcbcff656133fd5
-Author: Armandas Kvietkus <armandas.kvietkus@proton.me>
+commit 4446c1485fff0b05a5e79c1e4d70e14c4beda300
+Author: Sasha Levin <sashal@kernel.org>
 
-Input: aw8697 - Add Awinic AW8697 haptics driver
+    drm/nouveau/tegra: Keep the fuse clock enabled while the GPU is powered
 
-Add a driver for the Awinic AW8697 LRA haptic driver IC. It supports
-FF_RUMBLE and calibrates the LRA resonance at probe. Based on the aw86927
-driver.
+This commit modifies nouveau's Tegra power management sequence to keep the
+fuse clock enabled while the GPU is powered. This resolves an issue where
+the GM20B GPU would fail to initialize on some boots.
 
-> diff --git a/drivers/input/misc/aw8697.c b/drivers/input/misc/aw8697.c
-> new file mode 100644
-> index 0000000000000..9f703f81df213
-> --- /dev/null
-> +++ b/drivers/input/misc/aw8697.c
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c b/drivers=
+/gpu/drm/nouveau/nvkm/engine/device/tegra.c
+> index 3c8d0878891ad..31f8eaa9d6509 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c
+
 [ ... ]
-> +static int aw8697_probe(struct i2c_client *client)
-> +{
-[ ... ]
-> +	err =3D regmap_read(haptics->regmap, AW8697_SYSINT_REG, &val);
-> +	if (err)
-> +		return dev_err_probe(dev, err, "Failed to clear interrupts\n");
+
+> @@ -95,6 +100,8 @@ nvkm_device_tegra_power_down(struct nvkm_device_tegra =
+*tdev)
+>  			return ret;
+>  	}
+> =20
+> +	clk_disable_unprepare(tdev->clk_fuse);
 > +
-> +	err =3D devm_request_threaded_irq(dev, client->irq, NULL, aw8697_irq,
-> +					IRQF_ONESHOT, NULL, haptics);
+>  	return 0;
+>  }
 
-[Severity: Low]
-Does passing NULL as the devname argument here cause issues with procfs
-interrupt reporting?=20
+[Severity: Medium]
+Does this code leak the clk_fuse enable and prepare counts if
+regulator_disable() fails?
 
-The interrupt core assigns this pointer directly to the action name field.
-When exposed to userspace via /proc/interrupts, passing NULL causes it to
-print (null) when formatted by the seq_file interface, which degrades
-diagnostic information.=20
+If regulator_disable() fails and returns an error, the function immediately
+returns early. Because the new clk_disable_unprepare() call is positioned
+at the very end of this function, it is skipped entirely on this error path.
 
-Could a valid string like the device name or client name be passed here
-instead of NULL?
-
-> +	if (err)
-> +		return dev_err_probe(dev, err, "Failed to request irq\n");
-> +
-> +	INIT_WORK(&haptics->play_work, aw8697_play_work);
+Since callers like nvkm_device_tegra_dtor() ignore the return value of
+nvkm_device_tegra_power_down() and proceed to free the device structure,
+would this result in a permanent resource leak where the clk_fuse's prepare
+and enable counts are never decremented?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013-mainlining=
--v3-0-fca981f62b57@proton.me?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013145210.1035=
+65-1-sashal@kernel.org?part=3D3
