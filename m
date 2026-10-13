@@ -1,59 +1,88 @@
-Received: from mail-m49230.qiye.163.com (mail-m49230.qiye.163.com [45.254.49.230])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96B12343882;
-	Tue, 13 Oct 2026 12:55:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.230
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 195894E2F2A
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 12:57:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791896122; cv=none; b=Bv7SXK83rOzNkPC1mfwy7GNmnaluCb9ial+cz8rMzrb0cIIoChMV811v2PSAj6SWkDPfwBs2suc2xFYscAwDxyYFMXbwClzd1XHSYAlzQeAOFMl7MHBHK9lg390DCVfXjL+O4G0tifKRaM0StTOJDQB2gdlfJIGpZaQEGt3EyBQ=
+	t=1791896272; cv=none; b=VCgSjU78X/J5wEF6xxeHZCB0O+QiUaIWW5Fw6O312ylfwHLXP9ZYCThzHnKt/miUZmGEZa/m9sRMKBOMpVfBWRWt3XWL+LL7/0+fEZUODvLbdRi4BxzWJEP+qkL5K8Tg1EcmBtExIDg/bwebl3+I101b9+q+lGH+7FlouC+P8do=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791896122; c=relaxed/simple;
-	bh=EvB3Z2XyDhQwH45gURXKFb/m8BuDOSRmKYIVZjHvTfo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=De1Vil4LLykra/LOtM83gLSCqC/mnUNj0ULj7UfTsEI+Qe6WZEWHXGq26t+f9WnqtoeDG42DIEK38n1xaylNLwcKmZeXSuWZwiPgWr/vnUJUDhgGyOFW2Rn0xmSoDOnN00p1Q6TxC7NK+xB/ysnLuhpThTnaVOIOcNnsL+pMhsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=aMrkd1w3; arc=none smtp.client-ip=45.254.49.230
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1791896272; c=relaxed/simple;
+	bh=3GF8ccrJ2E7j4uN5tjI8S9AApC9/OI47ZxEUXhdNQ5w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=te2HKpsXy3XyCKEGwKB3OynIVabPTIpOEx6Nc0Y8AbuTyp15Hqi/uX8KTs7PmmKzWJmTiBmEyml89/75hZnWcCrxg6xcutIC2HOOxtaeZz6J7giP1AkkEiq1StfPwjTujCKbCWn5CrBH2QSor9Cx4BiHO4a5wKHYRLb1QCilrVQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=xiVmiPVw; arc=none smtp.client-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="aMrkd1w3"
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 50e2b9417;
-	Tue, 13 Oct 2026 20:49:59 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: Sandy Huang <hjc@rock-chips.com>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Andy Yan <andy.yan@rock-chips.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Robert Foss <rfoss@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Dave Jones <s.dave.jones@gmail.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="xiVmiPVw"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c2e8c710847so359835566b.0
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 05:57:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sartura.hr; s=sartura; t=1791896269; x=1792501069; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nunSQ8CQNv0JezPiian0cV99V25mrgz6BvoT7slRlb0=;
+        b=xiVmiPVwxUa1zJvo/e0Q7CS+8X4bwk599NOa4fh6Ug/D522+oHPeIOA2tYA6QgMgrg
+         oPG/e+hyosFyi3cYXrrruQZ0WloNrWmQOMjXbw4qf+L2gwk9hTwBOHL2tm8kVdawYq9Z
+         MCwmYyv4plNMmZyOGRFrQOq74q6FcJs4hEAz2JmwKYAl8YhO9yYyPRw2hm+C0qIXkWo/
+         rKtM5JH2bgWEmnYjtTMnw7MVmlfTaj6HQKdZl0LfEDSgJMGrrDDenZtKaw0BjT3KcMJ1
+         L/F+WhaH85g1/GWTXwxZjCRD/UGp8WmvucjpL1y/s1JQNqD3JjdiI3fbX8jXmpo6Dgs9
+         9EUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791896269; x=1792501069;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nunSQ8CQNv0JezPiian0cV99V25mrgz6BvoT7slRlb0=;
+        b=Fy2neKcWPkl+0IfwMLgJEqx7nLeP5+Zd1eb8J//8U4lFmNP6Bxzq9eyhvYkXz7ivES
+         ej+0p9eSxuE1dkhaq4yIjf+3bBHq0adXAefgWqi82ufEh+Tru9TfuPGZiXzqygcXAtbI
+         to2p8WZ9oKPUZSEx022rR/1QzYt2xkzDAS4pjziywVp0KAT1U63z5+YZWxyEalMxr9v6
+         ehmduqI00WMzfhiTi0lvhJ9NwbGwSoBFcI146AOA8UfnD7x1NHmDTVs2tHPzuX9wDmL2
+         oW53ZhvWEYxivTtCOWJcmP4/zZO+P/X9ToQaWQdcnHqAWOfaxcZcBNsgnLNxrLLZXWLe
+         aKZg==
+X-Forwarded-Encrypted: i=1; AKwUvBx8TEmUzm5ppmz5fyDMoC0XQCfIdZeWjjPdtgZ21xlQpSqbDMkxLu2O+D64mCA5iFsrQXfrj5+0w1g1@vger.kernel.org
+X-Gm-Message-State: AFq9FYJEKUtMgY587lFmiVjehUhcF3BlyALEJMIHfPNM1A/tN30e6kzc
+	YcyYqqJia3REAWcXa/DeEFo1CrmRWlIHweNpb32oQEM6MBiE5NlPwnEtGJTy1KNuYWk=
+X-Gm-Gg: AYBFou1/TO+T6pVingIv5v6o4mRgZekGEnt7uoN+KuLJyC/Y6VlLS5uNPnA47kLPYCe
+	JQZvdMCJjYr7875TnPX7K7wKbaiAPIEV/Gpv8/iQPpuxxzmMdqp9EaivO3WCaL4YgjCnJl/M7Ie
+	ZV57LF2yVZAf+e0QYiSh+SQcPCC54o/2oRCdz708nPQdoRzRrn1warr+fdIYgTvjtERCsd7Jl95
+	9CHsDpM5SEhbC9T/SxBPwK708msb+DNpYrI88BURs3WDI1e0YvLvlrUdvdtXQ7+3GksakHdi7o6
+	aQIffOj8RGVZNTWOMhhO+fhdH24qGvxXjb0HeJax4PuCI6WnFpkolsVSTgLOGEQ87Xzp+GIzt8o
+	xLXznP8dvwju5eLNAV8N1EgCa6WMU+QX+L3T2S5Whsf7seaqRjYKmLCH+sYEZ9WScoBbQkEdq8E
+	GKDzIHQgwzwGs8TlaZbqIAEtovA+NpL4x0CFzstsGznhShr6iBFXo6Go1NilU75Tx8sBVWNqHxR
+	Z0C2C9Hdle8lYrIgjxmGgCDW12cFiGXvzQnzqXi2aE3ukaFUWWuCTagGjenpYmwQUr8pm0Sq7JA
+	AXWp2NPdW4BHHDGjrpNpZg1WSxQZAp4=
+X-Received: by 2002:a17:907:c317:b0:c2e:62af:b6f3 with SMTP id a640c23a62f3a-c31a9afb29amr1158692166b.15.1791896269434;
+        Tue, 13 Oct 2026 05:57:49 -0700 (PDT)
+Received: from threadripper-fedora-workstation (d-zg2-045.globalnet.hr. [213.149.37.45])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9ac9ecfsm605985766b.74.2026.10.13.05.57.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 05:57:48 -0700 (PDT)
+From: Robert Marko <robert.marko@sartura.hr>
+To: linux@roeck-us.net,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Steen.Hegelund@microchip.com,
+	daniel.machon@microchip.com,
+	UNGLinuxDriver@microchip.com,
+	nicolas.ferre@microchip.com,
+	claudiu.beznea@tuxon.dev,
+	lars.povlsen@microchip.com,
+	linux-hwmon@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v1 6/6] arm64: dts: rockchip: rk356x: Add eDP controller and phy nodes
-Date: Tue, 13 Oct 2026 20:49:46 +0800
-Message-Id: <20261013124946.1807886-7-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261013124946.1807886-1-damon.ding@rock-chips.com>
-References: <20261013124946.1807886-1-damon.ding@rock-chips.com>
+	linux-kernel@vger.kernel.org
+Cc: luka.perkov@sartura.hr,
+	Robert Marko <robert.marko@sartura.hr>
+Subject: [PATCH 2/6] hwmon: sparx5: separate temperature reading from sensor dispatch
+Date: Tue, 13 Oct 2026 14:56:26 +0200
+Message-ID: <20261013125735.1542349-2-robert.marko@sartura.hr>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261013125735.1542349-1-robert.marko@sartura.hr>
+References: <20261013125735.1542349-1-robert.marko@sartura.hr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -61,84 +90,90 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa13550074b03a8kunm2e7c128b301c
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZS0pIVhlJHR1KHxodSUpOTFYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=aMrkd1w3cOMiKQR592KKTSf8/Xz+rXFqkIdE5hn8Rm8zrg785Tlf48qPwLc/ZkLfqinhKQJRDAc7ffodadXmJ65XQJkjhRQqiaILyk+HIVPftpjDxU+8uVTcbLoYe3Noj13fCyXC/0KpWFbhQJeFkkp7JNdyE7QFwRVbmtwm9ko=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=u0DlQ/xf40TjrEq/cqhW2BlOW/2RL9CDbLOchel23Qo=;
-	h=date:mime-version:subject:message-id:from;
 
-Add the eDP PHY GRF (with the eDP PHY child node) and the eDP
-controller nodes for the RK3568/RK3566 SoCs.
+Move temperature conversion into a helper and dispatch reads by sensor
+type. Preserve the existing temperature calculation and error handling
+in preparation for adding fan monitoring.
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+Signed-off-by: Robert Marko <robert.marko@sartura.hr>
 ---
- arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 41 +++++++++++++++++++
- 1 file changed, 41 insertions(+)
+ drivers/hwmon/sparx5-temp.c | 54 +++++++++++++++++++++----------------
+ 1 file changed, 31 insertions(+), 23 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-index a5832895bd39..3b60e4355ad8 100644
---- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-@@ -403,6 +403,20 @@ usb2phy1_grf: syscon@fdca8000 {
- 		reg = <0x0 0xfdca8000 0x0 0x8000>;
- 	};
+diff --git a/drivers/hwmon/sparx5-temp.c b/drivers/hwmon/sparx5-temp.c
+index aa91780737446..0fd5c147f8167 100644
+--- a/drivers/hwmon/sparx5-temp.c
++++ b/drivers/hwmon/sparx5-temp.c
+@@ -37,38 +37,46 @@ static void s5_temp_enable(struct s5_hwmon *hwmon)
+ 	writel(val, hwmon->base + TEMP_CFG);
+ }
  
-+	edp_phy_grf: syscon@fdcb0000 {
-+		compatible = "rockchip,rk3568-edp-phy-grf", "syscon", "simple-mfd";
-+		reg = <0x0 0xfdcb0000 0x0 0x100>;
-+		clocks = <&cru PCLK_EDPPHY_GRF>;
++static int s5_read_temp(struct s5_hwmon *hwmon, long *temp)
++{
++	int value;
++	u32 stat;
 +
-+		edp_phy: edp-phy {
-+			compatible = "rockchip,rk3568-edp-phy";
-+			clocks = <&pmucru XIN_OSC0_EDPPHY_G>;
-+			clock-names = "refclk";
-+			#phy-cells = <0>;
-+			status = "disabled";
-+		};
-+	};
++	stat = readl_relaxed(hwmon->base + TEMP_STAT);
++	if (!(stat & TEMP_STAT_VALID))
++		return -EAGAIN;
++	value = stat & TEMP_STAT_TEMP;
++	/*
++	 * From register documentation:
++	 * Temp(C) = TEMP_SENSOR_STAT.TEMP / 4096 * 352.2 - 109.4
++	 */
++	value = DIV_ROUND_CLOSEST(value * 3522, 4096) - 1094;
++	/*
++	 * Scale down by 10 from above and multiply by 1000 to
++	 * have millidegrees as specified by the hwmon sysfs
++	 * interface.
++	 */
++	value *= 100;
++	*temp = value;
 +
- 	pmucru: clock-controller@fdd00000 {
- 		compatible = "rockchip,rk3568-pmucru";
- 		reg = <0x0 0xfdd00000 0x0 0x1000>;
-@@ -879,6 +893,33 @@ hdmi_out: port@1 {
- 		};
- 	};
++	return 0;
++}
++
+ static int s5_read(struct device *dev, enum hwmon_sensor_types type,
+-		   u32 attr, int channel, long *temp)
++		   u32 attr, int channel, long *val)
+ {
+ 	struct s5_hwmon *hwmon = dev_get_drvdata(dev);
+-	int rc = 0, value;
+-	u32 stat;
  
-+	edp: edp@fe0c0000 {
-+		compatible = "rockchip,rk3568-edp";
-+		reg = <0x0 0xfe0c0000 0x0 0x10000>;
-+		clocks = <&pmucru XIN_OSC0_EDPPHY_G>, <&cru PCLK_EDP_CTRL>, <&cru HCLK_VO>;
-+		clock-names = "dp", "pclk", "hclk";
-+		interrupts = <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>;
-+		phys = <&edp_phy>;
-+		phy-names = "dp";
-+		power-domains = <&power RK3568_PD_VO>;
-+		resets = <&cru SRST_EDP_24M>, <&cru SRST_P_EDP_CTRL>;
-+		reset-names = "dp", "apb";
-+		status = "disabled";
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			edp_in: port@0 {
-+				reg = <0>;
-+			};
-+
-+			edp_out: port@1 {
-+				reg = <1>;
-+			};
-+		};
-+	};
-+
- 	qos_gpu: qos@fe128000 {
- 		compatible = "rockchip,rk3568-qos", "syscon";
- 		reg = <0x0 0xfe128000 0x0 0x20>;
+-	switch (attr) {
+-	case hwmon_temp_input:
+-		stat = readl_relaxed(hwmon->base + TEMP_STAT);
+-		if (!(stat & TEMP_STAT_VALID))
+-			return -EAGAIN;
+-		value = stat & TEMP_STAT_TEMP;
+-		/*
+-		 * From register documentation:
+-		 * Temp(C) = TEMP_SENSOR_STAT.TEMP / 4096 * 352.2 - 109.4
+-		 */
+-		value = DIV_ROUND_CLOSEST(value * 3522, 4096) - 1094;
+-		/*
+-		 * Scale down by 10 from above and multiply by 1000 to
+-		 * have millidegrees as specified by the hwmon sysfs
+-		 * interface.
+-		 */
+-		value *= 100;
+-		*temp = value;
++	switch (type) {
++	case hwmon_temp:
++		if (attr == hwmon_temp_input)
++			return s5_read_temp(hwmon, val);
+ 		break;
+ 	default:
+-		rc = -EOPNOTSUPP;
+ 		break;
+ 	}
+ 
+-	return rc;
++	return -EOPNOTSUPP;
+ }
+ 
+ static umode_t s5_is_visible(const void *_data, enum hwmon_sensor_types type,
 -- 
-2.34.1
+2.56.0
 
