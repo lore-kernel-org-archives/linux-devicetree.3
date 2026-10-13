@@ -1,151 +1,150 @@
-Received: from mail-m49207.qiye.163.com (mail-m49207.qiye.163.com [45.254.49.207])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6CDD5172C2;
-	Tue, 13 Oct 2026 16:19:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.207
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2011F502D55;
+	Tue, 13 Oct 2026 16:22:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791908361; cv=none; b=Ck00OcwpbnbVBXWJux+TPUUa6GzA/j3L3U8aq6igdfI38BLUPTVJOxAzUAOqDO9VeYBULlBxiEE1Bg6ykScIjICMQi5yBN+iR5jHZC4Bz0eIT6j7cS+yXIt9xnP0Bp9Zexm7isbRkhN4O5zykNx4yC6g/HR+m5yh0f/IVo2Ilh4=
+	t=1791908568; cv=none; b=F8aswQQ3DTipp9Z71Ne/7YH9mNVAmjIfqP1tKReFu1/44LZOutPfy7naifNECcASQ18rwvJYWh17SDfznXqatPDCDrnB30mjsT8wTivtUm9H1W/JRxS3F6lDm/jOuJOSymLOwK2gkqWi9uu+etqOV7xcp5KaHcCbN15LVgfy/Hw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791908361; c=relaxed/simple;
-	bh=V//fyByUz0D0sXY8NlFGg1smxPDIVQcRElynbzq8xzE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Y6U0Z8gTwdUObovYhA6T2jYL58v+te9ncPQiZUnMs7Bl2qi1piCwzcxBwuenXLgKVryKAD6AYroqbT5mRlWLyPGFVsySDp516DO0E++c2gRFEIED/WAqoxSVGfdpo39k3QRotZ87AqvUWNW67M7t4gNpMUsfbvn34fTcxION/kY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=esBq9R/0; arc=none smtp.client-ip=45.254.49.207
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1791908568; c=relaxed/simple;
+	bh=zRJxuOVYQTNcPnPYqTgvUfVbxqZCkxhjzqBFG3X+/3U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=klulxQG2DmaGB6lXuZlZ2eopPR1sNxW2CNLYe9Jgfk0fsiaGJMo73U3rgES0kNUDD8xc4NDAfDcVsVL6PWaetR1AbI1bx1h+XurVFEAbqIEUZk7j7gOUaalFwBphOvG/N457351gC+A7q1cb1tgSP+TdgSmQeEPtoxi2F8gjoG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VqiS6SNv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="esBq9R/0"
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 50e2b940d;
-	Tue, 13 Oct 2026 20:49:53 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: Sandy Huang <hjc@rock-chips.com>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Andy Yan <andy.yan@rock-chips.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Robert Foss <rfoss@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Dave Jones <s.dave.jones@gmail.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v1 1/6] dt-bindings: display: rockchip: analogix-dp: Add support for RK3568
-Date: Tue, 13 Oct 2026 20:49:41 +0800
-Message-Id: <20261013124946.1807886-2-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261013124946.1807886-1-damon.ding@rock-chips.com>
-References: <20261013124946.1807886-1-damon.ding@rock-chips.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VqiS6SNv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1D241F000FF;
+	Tue, 13 Oct 2026 16:22:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791908566;
+	bh=RruG4ycM1RDlyZhr3aFgF7U9rGlonUOm6YZBye8aWoI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VqiS6SNvYr81gHOz6sWd2drWdeahWpXx+WTjJV0a29MnSmc5QfS18A11p4u9/cXYG
+	 LwDngovM0JtfEmzBtUOPyrQkTi2ljMEnbDi8MWrjaAdpbdEUgIt64XI/FAzoj4LqRP
+	 OM8BErFC2nmF/IuLTUNNC6vkQIw8ugK2adjIVy8i7sBPWb9q3ZoDIa2j7rlVpuywDa
+	 9OEIUh7J7avXvu94kI4jT3N1IujK8d5X/Kf2lqmsyW2RDNKxWvBY0V0r+/8BwiOzm2
+	 b+kanaTWOrAHFT6Ap8x07uLp965j6i6+hHT4CTceliJRGMp1HwzMOfupEq7iD6Wqwn
+	 vP8lIQiNficaw==
+Date: Tue, 13 Oct 2026 17:22:41 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Jacky Chou <jacky_chou@aspeedtech.com>
+Cc: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>,
+	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
+	"davem@davemloft.net" <davem@davemloft.net>,
+	"kuba@kernel.org" <kuba@kernel.org>,
+	"pabeni@redhat.com" <pabeni@redhat.com>,
+	"robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"ratbert@faraday-tech.com" <ratbert@faraday-tech.com>,
+	"edumazet@kernel.org" <edumazet@kernel.org>,
+	"hkallweit1@gmail.com" <hkallweit1@gmail.com>,
+	"linux@armlinux.org.uk" <linux@armlinux.org.uk>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: =?utf-8?B?5Zue6KaGOiBbUEFUQ0ggbmV0LW5l?= =?utf-8?Q?xt?= v2 1/6]
+ dt-bindings: net: ftgmac100: Add AST2700 compatible
+Message-ID: <20261013-subwoofer-zestfully-fe98c6158ba9@spud>
+References: <20261006-support_ast2700-v2-1-36de51fb8066@aspeedtech.com>
+ <179161911824.434549.4075299707625994950@kernel.org>
+ <20261012-aide-wimp-4edf96aaca1d@spud>
+ <SEYPR06MB51346A6CB5D7D7FC6D3FC4DD9D9E2@SEYPR06MB5134.apcprd06.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1354ff06a03a8kunm2e7c128b3006
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTEpNVkgZHkxNTENJGUgfT1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=esBq9R/0QwuJDYEtUDg/KknoEf7ksaQ6gizTruRkyCR2u10Wc22GMR33bSvqXmlMkjNtueJ7cE8cwrjHlLY2rslWcSTFtVpKvEdcaZcIXtZEaxocYkP0xempWqC3vjvhud7ANeDNZ0SFpMljUV3zVZ4fM5VKFGRE5yhXiW6CMBs=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=aqA05e3tEQzex5IV+W6xDQvoZ2RGk3y5IlP3Z09UWS0=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="04Khn4zl3vmOXjoL"
+Content-Disposition: inline
+In-Reply-To: <SEYPR06MB51346A6CB5D7D7FC6D3FC4DD9D9E2@SEYPR06MB5134.apcprd06.prod.outlook.com>
 
-Document the "rockchip,rk3568-edp" compatible.  Like RK3576/RK3588,
-the RK3568 eDP controller has the dp/pclk/hclk clocks and dp/apb
-resets, but unlike them it does not use GRF registers, so make the
-"rockchip,grf" property conditional on the SoC.
+--04Khn4zl3vmOXjoL
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Also document the optional avdd-0v9 and avdd-1v8 supplies, which are
-needed by the RK3568 eDP controller.
+On Tue, Oct 13, 2026 at 05:23:21AM +0000, Jacky Chou wrote:
+> Hi Conor,
+>=20
+> Thank you for your reply.
+>=20
+> > > dt-bindings: net: ftgmac100: Add AST2700 compatible
+> > >
+> > > This adds aspeed,ast2700-mac to the FTGMAC100 compatible list, which
+> > > requires the faraday,ftgmac100 fallback. It also updates the RMII RCLK
+> > > clock description to include AST2700, and allows the resets property
+> > > for
+> > > AST2700 in the same way as for AST2600.
+> > >
+> > > > diff --git
+> > > > a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> > > > b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> > > > index d14410018bcf6..bee9570a6f63f 100644
+> > > > --- a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> > > > +++ b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> > > > @@ -18,6 +18,7 @@ properties:
+> > > >                - aspeed,ast2400-mac
+> > > >                - aspeed,ast2500-mac
+> > > >                - aspeed,ast2600-mac
+> > > > +              - aspeed,ast2700-mac
+> > > >            - const: faraday,ftgmac100
+> > >
+> > > [Severity: Low]
+> > > With this patch, "aspeed,ast2700-mac", "faraday,ftgmac100" becomes a
+> > > valid compatible pair. However, at this commit, ftgmac100_of_match[]
+> > > in drivers/net/ethernet/faraday/ftgmac100.c has no aspeed,ast2700-mac
+> > entry.
+> > > Such a node could only bind through the generic faraday,ftgmac100
+> > > entry (FTGMAC100_FARADAY).
+> > >
+> > > On that path, ftgmac100_probe() would do the following:
+> > >
+> > >   - program the ring-end bits at BIT(15) instead of the Aspeed BIT(30)
+> > >   - leave is_aspeed false, so ftgmac100_setup_clk() never claims
+> > >     MACCLK/RCLK
+> > >   - register the embedded MDIO bus through ftgmac100_setup_mdio()
+> > >   - never set a DMA mask wider than 32 bits
+> > >
+> > > Would an AST2700 node work correctly if it fell back to the Faraday
+> > > match?
+> >=20
+> > Sounds like no, can the submitter please clarify if the fallback is val=
+id?
+> >=20
+>=20
+> Agreed. I think the 'aspeed,ast2700-mac' should not be based on the 'fara=
+day,ftgmac100'.
+> Maybe the dt-bindings put ast2700-mac as a const like:
+> ```
+> ...
+> properties:
+>   compatible:
+>     oneOf:
+>       - const: faraday,ftgmac100
+>       - const: aspeed,ast2700-mac             // as a const
+>       - items:
+>           - enum:
+>               - aspeed,ast2400-mac
+>               - aspeed,ast2500-mac
+>               - aspeed,ast2600-mac
+>           - const: faraday,ftgmac100
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
----
- .../rockchip/rockchip,analogix-dp.yaml        | 25 ++++++++++++++++++-
- 1 file changed, 24 insertions(+), 1 deletion(-)
+Looks good. I am curious whether the existing fallbacks used with other
+aspeed devices are also inaccurate? Could be worth looking into?
 
-diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
-index 39dafe75a680..f8670a4e0430 100644
---- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
-+++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
-@@ -15,6 +15,7 @@ properties:
-     enum:
-       - rockchip,rk3288-dp
-       - rockchip,rk3399-edp
-+      - rockchip,rk3568-edp
-       - rockchip,rk3576-edp
-       - rockchip,rk3588-edp
- 
-@@ -47,6 +48,16 @@ properties:
-       - const: dp
-       - const: apb
- 
-+  avdd-0v9-supply:
-+    description:
-+      A 0.9V supply that powers up the SoC internal circuitry. The actual
-+      supply source varies between different boards.
-+
-+  avdd-1v8-supply:
-+    description:
-+      A 1.8V supply that powers up the SoC internal circuitry. The actual
-+      supply source varies between different boards.
-+
-   rockchip,grf:
-     $ref: /schemas/types.yaml#/definitions/phandle
-     description:
-@@ -61,11 +72,22 @@ required:
-   - clock-names
-   - resets
-   - reset-names
--  - rockchip,grf
- 
- allOf:
-   - $ref: /schemas/display/bridge/analogix,dp.yaml#
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: rockchip,rk3568-edp
-+    then:
-+      properties:
-+        rockchip,grf: false
-+    else:
-+      required:
-+        - rockchip,grf
-+
-   - if:
-       properties:
-         compatible:
-@@ -100,6 +122,7 @@ allOf:
-         compatible:
-           contains:
-             enum:
-+              - rockchip,rk3568-edp
-               - rockchip,rk3576-edp
-               - rockchip,rk3588-edp
-     then:
--- 
-2.34.1
+--04Khn4zl3vmOXjoL
+Content-Type: application/pgp-signature; name=signature.asc
 
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas5a0QAKCRB4tDGHoIJi
+0o+LAP9JUwd35G4Tddq1MXi0RiDXQvzTdxhiFYm4I4c91blSHwD+N66kE3iFrYOh
+sDgkxcrp8cn1htDbzr1Dve3Jh1FYqA0=
+=nq6T
+-----END PGP SIGNATURE-----
+
+--04Khn4zl3vmOXjoL--
