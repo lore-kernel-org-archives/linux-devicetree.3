@@ -1,201 +1,127 @@
-Received: from mail2.kuutio.org (mail2.kuutio.org [91.107.195.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC845539771;
-	Tue, 13 Oct 2026 18:56:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.107.195.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791917815; cv=none; b=W7EhXf37Ktu9zJ3Av6cFbL5Swd5PMkOIfV2bLvcfPBj2BQpPkk5e7UZoeCuqn9GLzTw8w45eYoxm+vz9TyCFU6Pg1jNlPoa+y0unoHvy0s6PkwCImAtYjnoCyw/zirlgKXARZ450ymoFBA6vW3+7pPyjWeK7yklmUzKk/vIlz9c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791917815; c=relaxed/simple;
-	bh=3Z5wkhQuIMxIlRf3AAcqX8yHNgmJO0wIvtgXyDkrwKk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pvzwGmGkUXNSgR7x7BzBK0l6UWMd/IX7p3zwmut+N/ms2o8tbUUca7B0aqb9zszDlsjlzljo+pLTxMWRDNKyiZnrZuR4xzgkQhlE3ZQrDIjvbUmvpSV7dvopZxl0YvotkZDSuI3dvPFosQFZaRPYhMEW8Xh+CHtcCUGR3P+XKds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lemmela.net; spf=pass smtp.mailfrom=lemmela.net; arc=none smtp.client-ip=91.107.195.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lemmela.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lemmela.net
-Received: from localhost (mail2.kuutio.org [127.0.0.1])
-	by mail2.kuutio.org (Postfix) with ESMTP id CFA581FD41;
-	Tue, 13 Oct 2026 18:56:43 +0000 (UTC)
-X-Virus-Scanned: amavis at kuutio.org
-Received: from mail2.kuutio.org ([127.0.0.1])
- by localhost (mail2.kuutio.org [127.0.0.1]) (amavis, port 10024) with LMTP
- id eNxlaPmmxRHB; Tue, 13 Oct 2026 18:56:43 +0000 (UTC)
-Received: from muovi.kuutio.org (nbqchc6j3dhrbnnpubi-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:adc:6a00::8be])
-	by mail2.kuutio.org (Postfix) with ESMTPSA id 3EA48206A5;
-	Tue, 13 Oct 2026 18:56:42 +0000 (UTC)
-From: Oskari Lemmela <oskari@lemmela.net>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Aleksander Jan Bajkowski <olek2@wp.pl>,
-	Javen Xu <javen_xu@realsil.com.cn>,
-	Marek Vasut <marek.vasut@mailbox.org>,
-	Issam Hamdi <ih@simonwunderlich.de>,
-	Chukun Pan <amadeus@jmu.edu.cn>,
-	Jan Hoffmann <jan@3e8.eu>,
-	Florian Fainelli <f.fainelli@gmail.com>
-Cc: Russell King <linux@armlinux.org.uk>,
-	Andrew Lunn <andrew@lunn.ch>,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Manuel Stocker <mensi@mensi.ch>,
-	dam.dejean@gmail.com,
-	Oskari Lemmela <oskari@lemmela.net>
-Subject: [PATCH net-next v3 2/2] net: phy: realtek: support unaligned RTL8224 PHY packages
-Date: Tue, 13 Oct 2026 21:56:35 +0300
-Message-ID: <20261013185635.1412452-3-oskari@lemmela.net>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261013185635.1412452-1-oskari@lemmela.net>
-References: <20261013185635.1412452-1-oskari@lemmela.net>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81362538D94
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 18:57:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.173
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791917828; cv=pass; b=pY65DEEAVXQ14jYFzESSJIAp6RsiUZGeEO3YtoiQUSWDVV9ayy8XLbL1isNP/3dZ0wqGzpsWylPhDGsyIyMX05gsKaggZWmsp/fcVbqOBXYXlQuwtaSTJSBOY3KrLjR6NHH2N3CMAlOgLYBsfp/hmH3XabYbn1MG3FB0WW4yKqc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791917828; c=relaxed/simple;
+	bh=UdFnEN23ZFL6cWSBzWu9juvqVYubuE8e4CCZuSkb0f4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fFOobwtgevbv4nRX35pHVpKKSNNmK8FvQcqQNuxTFLOZgE3jtLAXg0g78KvnyvBFXt9XRG/tN/jXK0ARVawkEBsB87NbaXJIL/kNPEqeE83Q55dH9GpxYt9uvYEJQGi5x60en9u4axRdFjnUVn2Svjx/Htugu+MO/HnpklRNOW8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bBL5Szn7; arc=pass smtp.client-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bBL5Szn7"
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-35cd4e8bdbdso1739660eec.1
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 11:57:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791917826; cv=none;
+        d=google.com; s=arc-20260327;
+        b=S0oiYtoqn+G827uMH8eOeRIMWBkLRUAYZXkZPOLdcVUB9PcC/YZ4u7NuUw34nDFogj
+         L4cDcot2MFASAi/Yt1mvqN+0NjDJx9zxFjbY5OlTPfJi+d63MSN9JtPvSyt/t6roxEKJ
+         FgqmAzXiibbMuHonBugTsiXeLLcdKKckcJqXj7HxNoqyQKttWplvZreclH5UxIs9JQNr
+         ZGxD4W9cdc3x0HKj+s1jgNipdOaVLuZK6qY2I8+L+Q9VSBcna8OPodMBHSsIU4SZP4iF
+         KtS7EoAueRpDoFHToiwoFsVl/fX8WX3yMOyx27ObsTZ3fHNeXFShkoFR97tyUPLoT5M2
+         VAfg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=UdFnEN23ZFL6cWSBzWu9juvqVYubuE8e4CCZuSkb0f4=;
+        fh=iso1q5kv7/J9+G4DJ+phgVCzhMMRdI3sSnvkaijbQoQ=;
+        b=q83hlNECpDHF+0kv+Kl5os8qsOY5Ym/8MjfIgjLYb87QPKU6MEB1HQBwASiq91CrR+
+         6v5WPFmDhWMGqIm1DiSmqQpm7hOVpanfhTPGpwE4oqdoJKoni1DAocu+9WgO2hCSAavt
+         g3zUZUGZO7n+uOI3IpT1QrAWwaQFqnATZ+Txvjb6EGqtHxH7bsoP7xjHIEkgr27+EhmP
+         awagxWBL/ool56zVYEzMsRiX2IxpbMzHclzBHE580/cc15BZgmba53owxWMXb/mCkehp
+         BLgdE2v8/p/Y3vObMGLuAy5QunvYNxnlxnJHb5Y2GhFndkUv2lFfPG0FSsLch+mt4mSx
+         Ub5w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791917826; x=1792522626; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UdFnEN23ZFL6cWSBzWu9juvqVYubuE8e4CCZuSkb0f4=;
+        b=bBL5Szn7TWVoKFg1ZYDGMX2S/a0MgumDzIFdDyQpxAs25psBPG0ZpCZWBgkBvBQr4Y
+         CXHmK0Mh5onjNJcbIcWiHOX3XmMne77LVtqpWVRgPxN9447+o3CQWnfAYoeD3mV6zxSA
+         R3l55ZMKDANO+UxoNZhuGox4tim/UAH/crJU1lyRm4nZYq7LnJC2UA4PZ77zM4nde2m1
+         Vbg9ur2OeUs+WdPVOeBdnKq0UNq0U3suZqDgKtJy0l7COIwgAVjMxcLU/2Vd0VbJ7EEF
+         FeKXBEgpTNGbVGJXW81G5XI1sZt51FVZNhw/A+cRXKX7w8W2fbY4w+jt9axpnYxumRLC
+         hRIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791917826; x=1792522626;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UdFnEN23ZFL6cWSBzWu9juvqVYubuE8e4CCZuSkb0f4=;
+        b=B1tBcyHBC5b3suZy5jS9yFT9O0JL2Lg6GVe9BirAMmVGwhVocRcV2puHfieOf/4fCo
+         tgM4GoZD/qb2SvjGOmtbrIU2HBkF9uqYYndaZgpYxJvwIH4ejgVVYr07dwqxPzBMuxXh
+         thvgB4c2m0vSuExDIx+zYuDQkW2FRfjs8/6CdgXKLkbTFQTEBDV2EDKwbWDyZ0uKyg97
+         PCsWlP2HWmrTjC1LrmE7dHf0XjsJOgkgBuGxbBSYhnh7gOfMTZT4D4ijdOvh2/lkpbFa
+         y4cayMErCkKTPo2gxY5kE3I6lBAcVx2TYa4BNvOO/FIAbfeQ0IxftzWjj0/GWbmtKC0q
+         6MLg==
+X-Forwarded-Encrypted: i=1; AKwUvByx9pX1vduywkXQUcAtIIALuBvePpO7kLzpMxVLs38UexIGtHOubL9FwoQoW6qL8cGA7mJb3LBKQgBP@vger.kernel.org
+X-Gm-Message-State: AFq9FYLNI0hktEPfbQ5HPAoE3D+I7s04sYlk1r86sJbH5OlprOJWVrE7
+	dwD5rQDkviTxNPEXhIuGpW0gP+VsuDKrdD27YKQgIiza/a2YdaPpqBUvrzK/K6zNzJlljNPpM9Z
+	NFFW2Iksi2uT5oVZlCzy3U8BC52wyABw=
+X-Gm-Gg: AYBFou1BYRihpAkcoSwjPpoK9r8uBbkf50QY3rD9/gzjmP5cjIP7s2mxCwNS0mvVuPi
+	S1vzzWPoiQ96ZJy5s+PGuWeQMd2zjVyEmVfByZN71QgM9EMTqm13f4KoX3vUwxy2A3fHgDNjs71
+	dl4ikTHhQlAE0muu5Yy+FPpRapR3GN/xwnVodvfd2onHGzaHPsz7qWtlTEJSJRSKMpunnsbVcUh
+	pjVDRxdGXs7/4sA7tWGEGM2PVwcqg5Tqqf44CoNEdu5JCXp/MVkl5IPu/Kt/3KzhUuN8r7DoBXr
+	nDoS1ZlOLbycIF+WwlByW6LaEAFdh1en1BK0tlBmRhheRi41LPsFBTMYHIsGYi2J9Md7VXMllQP
+	faTk64dDIudqN
+X-Received: by 2002:a05:7300:de49:b0:35b:b3fa:40f7 with SMTP id
+ 5a478bee46e88-35bb3fa4218mr5269925eec.38.1791917826305; Tue, 13 Oct 2026
+ 11:57:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261013184755.530392-1-clamor95@gmail.com> <ebfcdeef-d0dd-4c4a-87bf-4ef3fd505b5f@sirena.org.uk>
+ <CAPVz0n2ZY1L=kwSkjLeTYNvDA2Gf0Oenetj8hK13g6+qf_xnaA@mail.gmail.com> <964527c4-0105-4bee-8fd2-a9020981b02f@sirena.org.uk>
+In-Reply-To: <964527c4-0105-4bee-8fd2-a9020981b02f@sirena.org.uk>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Tue, 13 Oct 2026 21:56:54 +0300
+X-Gm-Features: AclHuK_S0QaqCFW5w4Kb_wTSLK_O9WStPmy1OozO53A1PmbZln0ct4QN1H7jeQg
+Message-ID: <CAPVz0n1YdOHG70_ynqL0V1Q3=38USHCbCQc9EBzHAmrNb4eQnQ@mail.gmail.com>
+Subject: Re: [PATCH v1 0/2 RESEND] ASoC: codecs: Add support for Fortemedia
+ FM34NE DSP
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Manuel Stocker <mensi@mensi.ch>
+=D0=B2=D1=82, 13 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 21:5=
+5 Mark Brown <broonie@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Tue, Oct 13, 2026 at 09:51:56PM +0300, Svyatoslav Ryhel wrote:
+> > =D0=B2=D1=82, 13 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE =
+21:49 Mark Brown <broonie@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> > > On Tue, Oct 13, 2026 at 09:47:51PM +0300, Svyatoslav Ryhel wrote:
+>
+> > > > The Fortemedia FM34NE is digital sound processing chip used for
+> > > > active noise suppression mainly on ASUS Transformers.
+>
+> > > > Resending since previous attempt seems to be malformed.
+>
+> > > Please send a new version if you have rebased, tooling gets very
+> > > confused about which v1 it's talking about.
+>
+> > I have not rebased, it seems that format-patch malformed first
+> > iteration. Both patchsets are made from the same commits with same
+> > hash.
+>
+> That sounds like a rebase to me, and in any case the same issue is going
+> to apply - if you are not sending *identical* patches the tooling will
+> get confused about what version it's looking at.
 
-The RTL8224 driver groups its four ports by rounding each PHY address
-down to a multiple of four and uses the low two address bits as the
-port index. This assumes that the first port's MDIO address is aligned
-to a multiple of four.
-
-The Hasivo S1100WP-8GT-2S+ uses two RTL8224 packages at MDIO addresses
-1-4 and 5-8. Extend the driver to support such configurations by using
-the base address from an ethernet-phy-package node when present and
-calculating each port's offset relative to that address.
-
-Use the package-relative port index to select the MDI pair order and
-polarity fields. Reject PHY addresses outside the four-port package
-and propagate explicit package errors rather than falling back to
-another base address.
-
-Share base-address parsing between probe and MDI configuration, and
-calculate the port offset when configuring MDI rather than caching it
-in an additional per-PHY private allocation.
-
-Join both DT-described and legacy packages with devm_phy_package_join(),
-as only the base address is needed, not a shared package node. This
-avoids mixing OF and non-OF joins, which can unbalance package-node
-references when members select the same base address.
-
-Keep the existing aligned-address assumption when no package node
-is present.
-
-Signed-off-by: Manuel Stocker <mensi@mensi.ch>
-[Oskari: rebased on net-next and reworked package handling]
-Signed-off-by: Oskari Lemmela <oskari@lemmela.net>
----
- drivers/net/phy/realtek/realtek_main.c | 56 +++++++++++++++++++++-----
- 1 file changed, 47 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/net/phy/realtek/realtek_main.c b/drivers/net/phy/realtek/realtek_main.c
-index e14960192e79..cc5ebedd0e8f 100644
---- a/drivers/net/phy/realtek/realtek_main.c
-+++ b/drivers/net/phy/realtek/realtek_main.c
-@@ -2720,10 +2720,35 @@ static int rtl8224_package_modify_mmd(struct phy_device *phydev, int devad,
- 	return ret;
- }
- 
--static int rtl8224_mdi_config_order(struct phy_device *phydev)
-+static int rtl8224_get_base_addr(struct phy_device *phydev, u32 *base_addr)
-+{
-+	struct device *dev = &phydev->mdio.dev;
-+	struct device_node *np;
-+	int ret;
-+
-+	*base_addr = phydev->mdio.addr & ~3;
-+	np = of_get_parent(dev->of_node);
-+	if (of_node_name_eq(np, "ethernet-phy-package")) {
-+		ret = of_property_read_u32(np, "reg", base_addr);
-+		of_node_put(np);
-+		if (ret)
-+			return dev_err_probe(dev, ret,
-+					     "Missing or invalid PHY package reg\n");
-+
-+		if (phydev->mdio.addr < *base_addr ||
-+		    phydev->mdio.addr - *base_addr >= 4)
-+			return dev_err_probe(dev, -EINVAL,
-+					     "PHY address outside RTL8224 package\n");
-+	} else {
-+		of_node_put(np);
-+	}
-+
-+	return 0;
-+}
-+
-+static int rtl8224_mdi_config_order(struct phy_device *phydev, u8 port_offset)
- {
- 	struct device_node *np = phydev->mdio.dev.of_node;
--	u8 port_offset = phydev->mdio.addr & 3;
- 	u32 order = 0;
- 	int ret;
- 
-@@ -2745,10 +2770,10 @@ static int rtl8224_mdi_config_order(struct phy_device *phydev)
- 					  order ? BIT(port_offset) : 0);
- }
- 
--static int rtl8224_mdi_config_polarity(struct phy_device *phydev)
-+static int rtl8224_mdi_config_polarity(struct phy_device *phydev, u8 port_offset)
- {
- 	struct device_node *np = phydev->mdio.dev.of_node;
--	u8 offset = (phydev->mdio.addr & 3) * 4;
-+	u8 offset = port_offset * 4;
- 	u32 polarity = 0;
- 	int ret;
- 
-@@ -2772,20 +2797,33 @@ static int rtl8224_mdi_config_polarity(struct phy_device *phydev)
- 
- static int rtl8224_config_init(struct phy_device *phydev)
- {
-+	u32 base_addr;
-+	u8 port_offset;
- 	int ret;
- 
--	ret = rtl8224_mdi_config_order(phydev);
-+	ret = rtl8224_get_base_addr(phydev, &base_addr);
- 	if (ret)
- 		return ret;
- 
--	return rtl8224_mdi_config_polarity(phydev);
-+	port_offset = phydev->mdio.addr - base_addr;
-+	ret = rtl8224_mdi_config_order(phydev, port_offset);
-+	if (ret)
-+		return ret;
-+
-+	return rtl8224_mdi_config_polarity(phydev, port_offset);
- }
- 
- static int rtl8224_probe(struct phy_device *phydev)
- {
--	/* Chip exposes 4 ports, join all of them in the same package */
--	return devm_phy_package_join(&phydev->mdio.dev, phydev,
--				     phydev->mdio.addr & ~3, 0);
-+	struct device *dev = &phydev->mdio.dev;
-+	u32 base_addr;
-+	int ret;
-+
-+	ret = rtl8224_get_base_addr(phydev, &base_addr);
-+	if (ret)
-+		return ret;
-+
-+	return devm_phy_package_join(dev, phydev, base_addr, 0);
- }
- 
- static bool rtlgen_supports_2_5gbps(struct phy_device *phydev)
--- 
-2.55.0
-
+Noted, thanks.
