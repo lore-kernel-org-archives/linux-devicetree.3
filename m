@@ -1,113 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F406F4AC16F;
-	Tue, 13 Oct 2026 06:18:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB434AEBC6
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 06:19:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791872320; cv=none; b=QdpwAQQ9/ZPpI131NgRUhxU2dlX4NXCdL0g2XTpH//3j09CF4s9H/ylhqcXEa8EcM+kf5zyB3/f/L1X5Q5eMsC7oGh/HvId1qqW+v+GwdhBxTSkeQrddVkufIi9EIS8UnXXhbRFGazDSTsNQAOcSrX4JNRb+aLCglgXamJT9Nbg=
+	t=1791872371; cv=none; b=rN5q3GvDvKZ5tiquqfAD9HkqRmTkaLLqvpmQuczI6MzSbHjf+K2KKOJFVlQ7oqMN31bueNFBcMF8RAKpOota9zZH5qZPZZyaYziRb1a2hfjFep7g3uF+vsR54/xT0mL1soiVNxJZUBocNvxS2gFEGNxovK9w4SfReutMisWCGMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791872320; c=relaxed/simple;
-	bh=WentKVAOiKsBXIB5iMZUsqbbqMZe2x2fSFuyOroG99I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=quZMR/yoTv9tqJR/XBzcxR/7Vm5FSw4NTXlNm68hpJijlxOVu1dmhpuBx7xn5s5e34/KrQAYicz6EpnFIvQ5ldkrNkUuRtIr5iFO+0O6zN68jHtaWFNrqzDVMyoLMkoY3kGlFP3LrmJT9COY5apcUYJznPNRwWbuucYBDcEsQPc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eICTKQo+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791872371; c=relaxed/simple;
+	bh=6UsELNCTtBVT15YmxhvPJaLTSocnKF/U4Li7maIpCt4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=kzYaXlyTK+7FH7kbovzWzCASudaezsK/HLzV9ESbs0/YAOIyR1/h6fVbr+gDFLfW6Dr5IlnG4ld2gpdnx5trcsnN3jfkfcdndVis36zqqdTDQNphOMq7y0WpHy3n+29u0Y29w0mCQJW0x51juXD6wPqUEp+vBXUbiqubs59w6gQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PbL1xaE0; arc=none smtp.client-ip=209.85.208.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eICTKQo+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 952611F000FF;
-	Tue, 13 Oct 2026 06:18:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791872319;
-	bh=JWq2mQbmO9RAw9xT+tskDbvNi7O3rokYBk2esU3pDMw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=eICTKQo+E0lRMmncVMybDw4dbTe054NYyy7KBKel8y04qqerr2bpZbbH0oJgZCDQ9
-	 fRiCTwxdcXTLyxob2giS/dzCTjqrpjNGEw9XG90lb1dcA6KpduGPk+SG380mYoMP8i
-	 SDIZZTxybLdwKkZFNF1YvYJdX2vldEsUQe0bOhYmeIlmk2lJDymQRtbAlGTpgc2c+n
-	 VwZUHcPcJAYtTtSy3rc6HEznaFY9E0CZMUWWdgLIGhfiVdRwFM+9sCH1a1jzJqBdma
-	 VgmQThggWYTwWjprSwk8UMbyGO+7IH0DvvRq8FbXlrryVpyYewDCi8rWedEkDpYr4A
-	 5xFHOVyScOQhw==
-Message-ID: <971b67a9-7e3a-4fde-a8a1-e5a78f8d6436@kernel.org>
-Date: Tue, 13 Oct 2026 08:18:32 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PbL1xaE0"
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3a1981228f8so17094151fa.1
+        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 23:19:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791872368; x=1792477168; darn=vger.kernel.org;
+        h=content-type:mime-version:content-transfer-encoding:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6UsELNCTtBVT15YmxhvPJaLTSocnKF/U4Li7maIpCt4=;
+        b=PbL1xaE04in7+jpadT5vv4XsPrLGsmHW6kyB9iz8PQDwf96/u/DXaJWdu29dYTlyF9
+         NZbLX1dKT/x+8Ytz2pqiGgvgqgwgCjixA8l5nH765g1+LagEKlPswnlv6StrY7Okqa+3
+         NJAUXZQLIVTuv1GFoyna/hDWRx8mfzCxU+C+OPWXAgO/W+ISSuKJ1eOSc6EakQKRiavk
+         uL3BfSp/AzfObP+6GSbocPEpuf6l1KSCz33IM58WLFKlx6ZFBGB51xtyi6wO/N1BSKJK
+         eH+agbfLM4OkLSHIkdWK2LX/WkeQX6Ap4C3ThmkylXIdRmc8ZkmiXpR0of9tyyCYmLgs
+         IFkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791872368; x=1792477168;
+        h=content-type:mime-version:content-transfer-encoding:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6UsELNCTtBVT15YmxhvPJaLTSocnKF/U4Li7maIpCt4=;
+        b=kKRQgfbCGDutuBrJGyBk1bF10DqWE2P8HUzU+OmOKN/iVfGQAz34W19hAN4+s9QIk7
+         IICowuephiD+7KKGnM5XkjJNetBQdjTPGfetGjcK4FyajBWQhkFc552x0EbdKu7tdd1q
+         GYXqBnmSixY+ut5L6lqMZQ92qrmn/pxChJrr7jq5wbLf8QqEfCEWlc1JziVnPDdN5rt/
+         p78B0wDJwN6U5fc7u4+Pl+o2MYYOszVBULXfFEpRp9c/qrAX//aSTYGfLwI6UYZ3pW9p
+         hVQ56FGMj3SmS5t95tvzAQu/CA139cmqrySiRx7d9vnT8zu+3gxJbjWl1kYe5PeOjx34
+         kG8w==
+X-Forwarded-Encrypted: i=1; AKwUvBwX/udVnms3dzey65fab4FQtcCYWS9bq+T4q96h2JIX0JGb6Eb109f19W4+7ClvjTYXwSJh/RKKdDP0@vger.kernel.org
+X-Gm-Message-State: AFq9FYJjQ3ERBGC5hRYLSsydrzc11M9ML++7EyvDTTB1CVh2SQn0/vQ9
+	WJw1QoWy/sfJ7Cfa4FwqFQQzLCzxHUnQ4U3xMxWJhykjKpk5KZLJgpbn
+X-Gm-Gg: AYBFou1PaPg7clDB43RruohUFcI/Fq7c+Si3zYxHoUvLyT+DCSeVl9235v8AyMPt9fh
+	B1WYa8B1B6zNHxrq8MA+8LM7Ha4Vl+vE6/3wXhVAG0rxnmm+sTfvZ1sinTQpEGp6LznanOcjuzZ
+	Sv6hW2iEgaQatOmp5IsIua1SL2cSo8FLsC4ONVRQF6csLzRcFi+barKc51NjHwsfduHfIMt3vRS
+	a0wWzKOv+wIFUER7ONn7R3HtaSS+6qBT4VGHP0hiGjBPNdoNQyJ24MmIgpOuJlsgpuA+Pk08WEL
+	vstDOaXw0PAVuZMFZSipxrs8C9142j1Q/WbZ/N02pZvd5AsXYiHtugH8v6p60O25xe5zjmPpm03
+	TkLU1mPyhmmfBijuWqG9LQPND2pIPOcCAujFjBZgpqC1ZscK/5TEHfM2CRwN1iwnreJnBye3qID
+	4qNFnmmVnGd+wjAQR8Zkbf15zeKSC/B3PtDqpifsz/qKziHyl0qqTmW3rWFJR+I9d+n4BsF/GhL
+	4yAuOxB9KyxI4xHfQy22LOvcS31gvixnoSe7YTZK/FSOKMkUvyixZF4cw==
+X-Received: by 2002:a05:651c:211b:b0:3a9:7425:7c33 with SMTP id 38308e7fff4ca-3a9c570c4a9mr29246931fa.28.1791872368005;
+        Mon, 12 Oct 2026 23:19:28 -0700 (PDT)
+Received: from [127.0.1.1] (ip-024-215.users.dtel.ru. [91.210.24.215])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9c3c9bff8sm33912331fa.7.2026.10.12.23.19.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 23:19:27 -0700 (PDT)
+From: Fil Dunsky <filipp.dunsky@gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>,
+ Russell King <linux@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-i2c@vger.kernel.org, linux-watchdog@vger.kernel.org
+Subject: Re: [PATCH v2 10/11] ARM: multi_v7_defconfig: Enable Cortina Systems
+ CS75xx GPIO, I2C and TWD watchdog
+In-Reply-To: <abe6e89f-2379-4928-a77e-0baee12b23e4@kernel.org>
+References: <20261013-b4-cs75xx-s2-v2-0-94f8c0a90cda@gmail.com>
+ <20261013-b4-cs75xx-s2-v2-10-94f8c0a90cda@gmail.com>
+ <abe6e89f-2379-4928-a77e-0baee12b23e4@kernel.org>
+Date: Tue, 13 Oct 2026 09:19:25 +0300
+Message-ID: <179187236528.3113952.1605165361017352112@gmail.com>
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 00/10] ARM: Add support for Cortina Systems CS75xx and
- Securifi Almond+
-To: filipp.dunsky@gmail.com, Arnd Bergmann <arnd@arndb.de>,
- Linus Walleij <linusw@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Drew Fustini <fustini@kernel.org>, Lorenzo Pieralisi
- <lpieralisi@kernel.org>, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-serial@vger.kernel.org, Jason Li <jason.li@cortina-access.com>,
- Conor Dooley <conor.dooley@microchip.com>
-References: <20261013-b4-cs75xx-v6-0-37e8f3969b7c@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261013-b4-cs75xx-v6-0-37e8f3969b7c@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"; format="fixed"
 
-On 13/10/2026 08:06, Fil Dunsky via B4 Relay wrote:
-> This series adds initial support for the Cortina Systems CS75xx
-> ("Goldengate G2") network processors and the first board using one, the
-> Securifi Almond+ touchscreen Wi-Fi router (CS7542, 2x Cortex-A9 r2p1,
-> PL310 r3p1, 512 MiB DDR3, 512 MiB NAND).
-> 
+On 13/10/2026 08:13, Krzysztof Kozlowski wrote:
+> On 13/10/2026 05:47, Fil Dunsky via B4 Relay wrote:
+>> +CONFIG_I2C_CS75XX=y
+>
+> This should be module.
+>
+[...]
+>> +CONFIG_GPIO_CS75XX=y
+>
+> This as well.
 
+Will do, both become =m in the next version.
 
-Way too many versions of huge patchsets. I already counted 4 today.
+Thanks,
+Fil
 
-Best regards,
-Krzysztof
