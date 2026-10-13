@@ -1,115 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4E194B44B8;
-	Tue, 13 Oct 2026 06:31:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7618F3C1D75
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 06:37:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791873098; cv=none; b=NEOedbLpS2lUC/BJAqL7TSlZ5kuWGJoSzlBhZUs+G8UUb2FGq7BRcXiQJT16s8LNFoeJ9MK6rHBxjfqTchhvWihOv77JkfbMkdSXPvEtuWfOA8OjYi/tnEkflPMcI94C7qbtlGcbpfANdFLhUR+D5+9R5+nELDfZgTvByI0P9IA=
+	t=1791873440; cv=none; b=nZ1JNTYs537kmTQ6B9w5g9xI7Iu6khRTThWqqWuO56melSDqOZ1tQSGehoIiDuDWxL8hyu3+vujzZc8zPbARS26RsX4TSf/r9roBJOXp1AceUUpw08LE6F6XgiBrN0tb2Af6XrQj6Q4SM2TwxhuHuMUAIFNfdgk9yLE4aFFrwCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791873098; c=relaxed/simple;
-	bh=oa+hL0321nW9Vwn1O3ILBBR3F88eydIuimTI3ISKCd4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EyP1x5rCkPr0nMqJVbkOKMPHOJdS8toR7FS1iWdy+PykJ/iSoG2v7vFGPVGufLiiNG0q5xxRqRD75sSKnidF8GUtBtVjbXuRMwAWhNGGqdRKoNJqNyHuJ1B+MCZfrTBMzKDzCTpmFXkh1wD/T740YNCLOj9eBaehid8kcRobTeI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LfxmsxoD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791873440; c=relaxed/simple;
+	bh=1/TE8jVp1mgIX3w95Qd56lz15ABuBS61Pi2gCb8R3Ds=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=fSkzpgfzDtygGO/gln9YJSMvL6xOkZu6c0pLsMjEg6jfPz8EW53Gge1OXNQvOJBJqdDEJl9ibsvd3NqKGVkJNMxZku/EenS5YukTv7qDUe95Z6ZPI4nxQ25WRTTDr4xizcSdX7mKwSDIvo+w7SLcNPNIP8suN0I+4PpiAkiN/tU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g+2o1y3/; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LfxmsxoD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC2031F000FF;
-	Tue, 13 Oct 2026 06:31:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791873096;
-	bh=ysieIhLPikkToW2dfhq3fTbSynlZIJEUp5hlkhgJWaM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=LfxmsxoDhWv+zNEv9x+kWUc4/I1YMrYc6XMe51XeffW0S4jvftWJII52jEIfsGlTb
-	 uRkVS1MXohKxY8YDMZHnl6VALyzFk0XV3TPvzHQ0tZ0t3gyAsYpSvZTIKPwzRd7hNM
-	 ehBIKWwFrr4QqIIr1x7CAMv7bCZp6t8RsBmk4ll0FbZSmSuKC9IfBltEp76vSTkv7D
-	 kpaJkLxld2momnjAzXs4K6kGPSkQJaUDzVnCWTSPLI6Qsxn+CyFXjE92t2hI5nI3/M
-	 uJhY26lPX2yD+C0UOYDUpA/VwpAhVONMyzQnKhRcwKvgPX4Bgb1hWJW/+Yug7jVOiF
-	 4tMS2knm7jRUg==
-Message-ID: <62ce5a6e-5f79-4245-b432-d8eacf34709b@kernel.org>
-Date: Tue, 13 Oct 2026 08:31:28 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g+2o1y3/"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a1635f7c89so25788685e9.2
+        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 23:37:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791873438; x=1792478238; darn=vger.kernel.org;
+        h=content-type:mime-version:content-transfer-encoding:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1/TE8jVp1mgIX3w95Qd56lz15ABuBS61Pi2gCb8R3Ds=;
+        b=g+2o1y3/Qb+VFogNhJTLfABPi3jNMKJ8xDV3ARSQIFY1DuLSfvLolbZ1FGtslUHRYj
+         KUrE7CDXlybFIxxhdzDdOJotwrstec6NDm0xEe5LYkgZYByhGBX8uGJ8JMMgDINDFRbB
+         4lkGuMmS/8jnVzEw4OE88EZFWY8VWxK4qmeRlsOkimvxVfyMI0lkAVLgkqGMcm/KsLZ5
+         2wFB9jowc5OUk/mzxXfpuZT592XIasSP2ZUXFilXM7UAGDc3hfmywsF70JqggBBCLHeM
+         qy6g/BDhtAoPDhNI+Kv9NBiDtVVvlvOPcT357LCftrYJwiBP5qYHY+lxWfbOpITnXhU4
+         Yn2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791873438; x=1792478238;
+        h=content-type:mime-version:content-transfer-encoding:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1/TE8jVp1mgIX3w95Qd56lz15ABuBS61Pi2gCb8R3Ds=;
+        b=GwttNHlOt/foq1RE4D2wcgqfnw6TBEYq35rAmgPp9i9Dlfus/NYPQBfam104kSvjOF
+         kupzVa3ULk82oqLNw3mz6+A+YetA04KBGoHe5MP2wgjTz1iJ1emOUJCs58qhiEiYWy6s
+         PtAra6lmvFcY1EpmqH8ub1xvBtkB7P06uLh98fotjjfvj7Z5eDY/hlLlqKSNi4namfyH
+         UgpQdQIcawP6bN3IhqYV8WCWfgH5nhLW8ZXb9YF6yMTP67+XyqyR7YTCDwxoPRq4SdCZ
+         mbYcrpz3VeBhUZMXSC086Eu3QAwKftOItlk1WNEbhWy8+6ma/wMfyXi5v7691ooVsOCa
+         Y9jA==
+X-Forwarded-Encrypted: i=1; AKwUvBzvranOZk1ms0G9YjAB1jDkUN8Fsmq4TVRI/g8FkNeIRafStpcJtS7ja6OAAl6ogg5W02gEuosAYEKf@vger.kernel.org
+X-Gm-Message-State: AFq9FYK3peNIYYCk0oDcXUHmGwy6cFYauMbItz1xiI+5i1qCa6Wd5udT
+	6teSUdI0DsaQPCsiaiZ8wxtlEjAj/8y13aIbE/3s0b4+4ohdosnmfNOO
+X-Gm-Gg: AYBFou3XSwh2eyKBB2kW0ePiaBA18tXobA4FXIQeGhiYHNbyISJS7r5MIiCcYoVO9FN
+	pWmObtmjUByz9S2VgqElt25uWrfCyPsQt/gSkntWzDk4iddxXOmf0y5sNf4/mCvvh5ylA9dsUM/
+	nNo2yQE//WXmxat6VOSCW5NAneNIwbgrAD/D76rg4KQwuY0HvEIQBU4PI5Zgd4g7Nsuq5UDlUmM
+	P3yuXsPquQE381ZVggiF1vO/9t0BI+mi/+jem54aBrHdKcG/IcXPM4n++DyLfB3lN8UNYjDU/n2
+	5rk6rsyyhMihOCxkTWktMwILMMY3iFtVpv3hOuQ0RbfSGx1G3G9+HIaVM3DCoqdv0S6QE7X8nr5
+	ox/9hZmP0gmj9oXVuaTjDu+WDUd6+dynT4eLHv1egJduD0YAYqkBamHcdNW2cxZ75nYpxu1PPob
+	Unel9aM1jpVz7xeEqPQGfSL66zgia8QNsQI+GDSoOx2ewgIGm6pG1dfGaqbTdVp0w1F267wekl/
+	RO2lxZhvG17E+AGMC4b0sZD2Kh42QZx/OMYQeIK0L4UTBJzYCfEcHBldA==
+X-Received: by 2002:a05:600c:348f:b0:49c:fc6e:8caf with SMTP id 5b1f17b1804b1-4a18e4c05e5mr229014865e9.19.1791873437754;
+        Mon, 12 Oct 2026 23:37:17 -0700 (PDT)
+Received: from [127.0.1.1] (ip-024-215.users.dtel.ru. [91.210.24.215])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a19471edd5sm434795675e9.11.2026.10.12.23.37.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 23:37:17 -0700 (PDT)
+From: Fil Dunsky <filipp.dunsky@gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linusw@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Drew Fustini <fustini@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+ Jason Li <jason.li@cortina-access.com>,
+ Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v6 00/10] ARM: Add support for Cortina Systems CS75xx and
+ Securifi Almond+
+In-Reply-To: <971b67a9-7e3a-4fde-a8a1-e5a78f8d6436@kernel.org>
+References: <20261013-b4-cs75xx-v6-0-37e8f3969b7c@gmail.com>
+ <971b67a9-7e3a-4fde-a8a1-e5a78f8d6436@kernel.org>
+Date: Tue, 13 Oct 2026 09:37:14 +0300
+Message-ID: <179187343453.3124451.12229499654368455627@gmail.com>
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/6] dt-bindings: leds: aw2013: Add awinic,aw2027
- compatible
-To: Paul Sajna <sajattack@postmarketos.org>, Lee Jones <lee@kernel.org>,
- Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Nikita Travkin <nikitos.tr@gmail.com>,
- Alexey Min <alexeymin@minlexx.ru>
-Cc: Nikita Travkin <nikita@trvn.ru>, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht
-References: <20261012-aw2013-aw20xx-rename-v3-0-cab1fdd050b6@postmarketos.org>
- <20261012-aw2013-aw20xx-rename-v3-1-cab1fdd050b6@postmarketos.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261012-aw2013-aw20xx-rename-v3-1-cab1fdd050b6@postmarketos.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"; format="fixed"
 
-On 13/10/2026 07:39, Paul Sajna wrote:
-> The aw2027 is largely the same as the aw2013, with the
-> exception of the way the max current is written to registers.
-> This exception makes it different enough to not work without
-> driver modifications, but similar enough to fall under the
-> umbrella of the same driver.
-> 
-> Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
-> ---
->  Documentation/devicetree/bindings/leds/leds-aw2013.yaml | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
+On 13/10/2026 08:18, Krzysztof Kozlowski wrote:
+> Way too many versions of huge patchsets. I already counted 4 today.
 
+Sorry about that, my mistake. I will leave this series alone for at
+least 48 hours now and collect all comments before the next version.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Thanks,
+Fil
 
-Best regards,
-Krzysztof
