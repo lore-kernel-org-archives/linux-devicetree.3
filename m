@@ -1,216 +1,99 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 126244BD0F8
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 10:33:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C80723E5598;
+	Tue, 13 Oct 2026 10:35:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791887630; cv=none; b=t0U2i2+NaRx4Qx8/285oz0oa2rUrLVXuiJtx46ZmcLQdMnGcwJ0KJqN4jW5GGK+KgQdbUx46dI82E2K9eW11Xy+hY7xTevn0aTwDfZJmSn82pvGaXliZGwBdPtKR1Xh04EinqvGrDHrQUqXQLsfPVjyKtfZw0RJwP3Quop3A75k=
+	t=1791887717; cv=none; b=kb9WBkLWu8KEzKMX1h4g/UxbMPy4ST93TR+xFQBWaCvZ/5lm3+phkSh3d1i/J5jXsJ8OB7VKNrunnElSOS7UhD3Jzx/JYIZqz0G5xABpkV0YP5Q1/HP1SLNOQdAqGekwbLKrmgq10hDwsLKnjm7oXqhsGO1z7gLWRo/bZffEGlY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791887630; c=relaxed/simple;
-	bh=VVyZjNphYVGJM/rWxbCNdFFmqMiC03mYNzpp8hWUnNY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=p0urRK/X08chMe8YPRGz2H/IRM36uhDRDqnCjwTJEN2JJyZwu6yEE0vPYH8LqHe0BJ0LARwvY9Tkg1r7t74NPiWpekG+7+5A0JH2wHbmw27ksNfSem2TSM0h4nB9XI3ezOcJ9Q9tIQL7ftVvPln2uG1UU6TXD4kX1RPWd21Z16I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KJ3Zlk3I; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OSV9TqEd; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791887717; c=relaxed/simple;
+	bh=WJw1l5C7dWOsl3t3BSS+VSSSIGILXuXga4yd98q6jkE=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=SNczge3NXXNs8jivbjDjW+2AYebpciINFXNE4a35/KJgGjDl7jW45WhkGYX96+tewdtQLISeO2UPCVpbOR36Nnd+dHYSzxp910KgtwyI30VGFkmtTRI89N9X7uIL7Ht1acqsH14QxNfkjp3uUJklDk9or7iZ70YblVolHl+ZxF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=crh3mbX6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KJ3Zlk3I";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OSV9TqEd"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D8HQEx988760
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 10:33:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=0vSG8Ljr5b10pBXucNpPOPKZ
-	f1BmJbl53I6Oq9DgsGI=; b=KJ3Zlk3IhP6BXtSNbZ3XO1PwV4ShC1Vu0zAijAWN
-	uWx7u6lZ/QqL7cv59e4KMrQqi5s4pg3RrgzndC7budPfwi6PpOunYbCnaKNP4bHN
-	JltrgL0OmfmnXf4r47z5caLBtQc+GejYfFPLw9ZEQBHYQ3aWEPa6aij+UYnRYzYx
-	X0TBBilKy44rq7kPfkGV6UIJXQpJvwK6FcmI52es5Glj5EIBOy7xYTwY5IOeDMNz
-	3PVrOnJaAGSEqG5/TC0JedcxuXgBe7fqMSYRrjshyuNFIXw8AlHH6r3y+L4J/m4j
-	kmnOkMIIdLlenO/2ovmsx6xF/3Nbpu8QiIO3YuUQHqMhtQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h98hcaeyj-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 10:33:48 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93dd3c3badbso629488885a.2
-        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 03:33:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791887627; x=1792492427; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0vSG8Ljr5b10pBXucNpPOPKZf1BmJbl53I6Oq9DgsGI=;
-        b=OSV9TqEdNIERNxerqk+HhyxuXJei4U7qIcMjW2iXYQtcSQvFi3OQjA6YWejQf5gLeh
-         UXh0+ZdUKBVKU+mq3wrxiOyhQm5lhgMD6DfAbfUOVLGuE67MVHXdT6FjkmRpEmHk9/ib
-         xHUY9NcbhdsrbTCKc3xReMjy5VKNPkAn0OL737huq7X+eUe2JcG1C9Di+z65Q1UmZOgj
-         y4bk+vjz93xLhx0D6Kcy7QnynIJDdi/HkFFe/vgDXbG1S0sxQjizE4/+uxTM2X+NWD9k
-         5JKWJ8RUvCFGFZa5MV3kjDitaqLAVdQDj9XPPDe9M2vjmtsc04AYvM1me8Qf7kZ/z25D
-         tPSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791887627; x=1792492427;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0vSG8Ljr5b10pBXucNpPOPKZf1BmJbl53I6Oq9DgsGI=;
-        b=jL9VS5SiXaobua0ZuoUOfvDOfv5kWsKdDZuW4QVESq0pOG4pSALYAl7xYxYF9nh/ad
-         ga0cW3aPse4WAJ2CYt0PWpF4IIccbqbLUdBg9RWl8P/CWfFnbSq8vMA9lLsIWYmzOUFd
-         lEuH8l0pYoo6VL9QnsMbOV2IDcxw7yPh0TjHfEz/QIFGtXI2s8nsRTtlEYWlcDoAnKwl
-         4ITEMUg1tx+i0nJXSEK8WQlHHPYz/IUbTObqKrd5x6VHYy8/46+v3L1f6bo82jPSfkdt
-         0bKs65Gfkr1e8S9o3IYvCqTZH4FBVARXReP0UvyuEAZe8uT0oB+t8XdE+K66H9vR8LaF
-         jwXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxZ8FTQrO1P6CQ78T4oJzyEy9Iw4uXi8YmrMbBvBxNeiwjEg+uydLVOhX7xax4vNnq9aTHNCxD7Tog4@vger.kernel.org
-X-Gm-Message-State: AFq9FYLT1b5J0Q6kmLfLtvhgjyxLIkfPpG9N+Y4lNqDMLEYZr8XFKm1c
-	3Af3IWVWOtf4wUL4JSOccrVmrT4KWJXcgfMBEhpf6zWwsUTyjxkYXkyB2OhaoefNk0BILmFCJrd
-	kRpO9jxFbsVCYe+V1fcS+Iu0NWcBNeiuU+CbMHHZbbTf3Crm8qHoPkFi8d+UDpT3u
-X-Gm-Gg: AYBFou3LYNBfkZhamXY0O1SDDw8kQzoK44Xe50Y0HJlRpE2fWewgfl90qOFgONnwT4l
-	Pi9kwWEViXzEIpTmspKu9MZj5Qrt/vvjq7iJ/FtPMQqHJ7fLLBr3sUlnIzuhEvU3NwLGGSt2Mrq
-	b/e9BWHDrMAK/btBFKyJ0kzlLeZoIcKfdbkm0SQn2n5rj1Fpp+RmcPDMX5/GwDa50UR6a722D9p
-	3/f4CPJ5Iop1RVMo8A+uZBuXrsiwnDMPMEE39qyUJk5yH6lQaqcRoJ5FUIGOY8I0zLr7mGZ3LZd
-	RY0vrteUX/Lu3wVpz9ZVHUOPKTBu2eq6HpLqHGGDdW0wJYDUroWtdLxtjp6ZbAoVfmMWrk27TaH
-	38g2IsXAN+t9eaH9D7K8Mb9xO5mN1VjAE+YnEiVlAAH3qzV4RtgL9dtg9ifkSqZdYJVWPJTcq92
-	BQVX8K3m9Q+jCi
-X-Received: by 2002:a05:620a:2a10:b0:93e:c12c:9b71 with SMTP id af79cd13be357-93ec12c9ef0mr1880576085a.76.1791887627094;
-        Tue, 13 Oct 2026 03:33:47 -0700 (PDT)
-X-Received: by 2002:a05:620a:2a10:b0:93e:c12c:9b71 with SMTP id af79cd13be357-93ec12c9ef0mr1880571485a.76.1791887626526;
-        Tue, 13 Oct 2026 03:33:46 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bcdde3667csm3574962e87.5.2026.10.13.03.33.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 03:33:45 -0700 (PDT)
-Date: Tue, 13 Oct 2026 13:33:43 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Nabige Aala <nabige.aala@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Kuogee Hsieh <quic_khsieh@quicinc.com>,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
-        Mahadevan P <mahadevan.p@oss.qualcomm.com>
-Subject: Re: [PATCH v2 12/13] phy: qcom: edp: Add Nord PHY configuration data
- tables
-Message-ID: <qqfucmyebsvemdr5px33wabsxxq4owozwmxcqu62sprs5k32bo@kb5pjx2m4ucq>
-References: <20261012-nord-drv-dt-v2-0-a2ab9af954d2@oss.qualcomm.com>
- <20261012-nord-drv-dt-v2-12-a2ab9af954d2@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="crh3mbX6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E2921F000FF;
+	Tue, 13 Oct 2026 10:35:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791887716;
+	bh=acFml3hEL8YkzifhRvpBu0Q25U1QuvZ8zu9cqe3oLYc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=crh3mbX6IlPd4+y6x3S9mLk2Wgl2WZL3ekdnILtnW4IW2HDmIxJXNrjM2Sjc3/LN0
+	 xE5F1aBRqz/+RWjMrBTdJa1ARXmtplSfxYTkNY2xL/3DI4IqaZ/aLQlYX/9eecTFWL
+	 2ptDRut8XSceqF7ml/jnQnRTsf0KdtlGnOftAcZsyWwveE8JA3wdYaxBemyOOMNfbs
+	 UcoQ5EI/NOb4NyEhvWI7G6qtNmgraP4sMAiRd010kEBBjarUQ5lIaRIM912oQaOnuR
+	 irP4yKVliJM1/S9c5WPiPauDJlN/SuhOWQLsPMvmy1qai3avATurh+wq1+CoY78+M0
+	 Xg9iV1W4U24mQ==
+Message-ID: <sashiko-outbox-169518@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: usb: snps,dwc3: document usb-psy-name
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Qianhui Xu" <xiaqinghuan@mail.ustc.edu.cn>, linux-usb@vger.kernel.org
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261013102927.1141696-2-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261013102927.1141696-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261013102927.1141696-2-xiaqinghuan@mail.ustc.edu.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 13 Oct 2026 10:35:15 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012-nord-drv-dt-v2-12-a2ab9af954d2@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA0MSBTYWx0ZWRfX1QQiZZ4JJHuO
- WAEgRu6rS7jsIuZ8M1pMRipF2U9lQCy2SglaMtQ5UTeTljknKGL7z1oxgsfzjQ8fvNDXT8OWo3N
- h3TdUNEYp6IZMs1Fo05ToScduksdsZr4lPvd4o7wyqy/6VSqf8crsZAXjROXWGvB9cJI/rTWyeH
- J9gN+S9OiCHEx15f3Oi0ryE4Ggdjn9ZcC/aBXIkOSLlhAAHbaSzKQdMJglninhvojG15XxWHRSj
- B67L1Fsg57snDh3AEphgNya7BcOJjcPIB2ZrYM1l6N2MtWVaOMJExsiBHMR9KoNexYYwXAPcXiS
- Y9NLu/bobrL0CGNalwkg6hdByrHQnQfyhYTzMKBFMlQAyQk+2Z/XWO2qvLpDDcPHE5NvN8ffOuq
- mwhO6aXcOf6hWjQqcj52yKsLIkpkFSy3P/XxvPg0kHtNdsBGjPuJ8+eeCndgNrse+kT2wEyL3LA
- vkbb6Ws7mHEWt94oiVQ==
-X-Authority-Analysis: v=2.4 cv=VPVIDNPX c=1 sm=1 tr=0 ts=6ace090c cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=XaE-5AV0Kcntrrlu8H4A:9 a=CjuIK1q_8ugA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-ORIG-GUID: 8uxLPMG-2PI7qeQH0HiBWaaBWpDap_oa
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA0MSBTYWx0ZWRfX842I3Vg58h/u
- txLo6BxGUQ5Umz+75Z4SzmiFb/SJN7UfOrXRwwffX/G+B1xwAzK9e6LgO1+9YcXfW6Q9+UgqrXM
- SUDDYrnBte/cEkeSMt3eFHNmIAXYEcE=
-X-Proofpoint-GUID: 8uxLPMG-2PI7qeQH0HiBWaaBWpDap_oa
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 malwarescore=0 impostorscore=0 spamscore=0
- suspectscore=0 lowpriorityscore=0 adultscore=0 phishscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130041
 
-On Mon, Oct 12, 2026 at 07:02:22PM +0530, Nabige Aala wrote:
-> From: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
-> 
-> Add Nord-specific AUX channel, VCO divider, LDO and TX resistor
-> calibration data: edp_phy_aux_cfg_nord[], edp_phy_vco_div_cfg_nord[],
-> qcom_edp_ldo_config_nord() and tx_res_cfg_nord[], sourced from HPG
-> Tables 2-1-a, 2-1-b and 2-1-d.
-> 
-> Signed-off-by: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
-> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
-> ---
->  drivers/phy/qualcomm/phy-qcom-edp.c | 33 +++++++++++++++++++++++++++++++++
->  1 file changed, 33 insertions(+)
-> 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-edp.c b/drivers/phy/qualcomm/phy-qcom-edp.c
-> index 3e857d105668..cb5f6e0ae607 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-edp.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-edp.c
-> @@ -1741,6 +1741,39 @@ static int qcom_edp_com_configure_pll_nord(const struct qcom_edp *edp)
->  	return 0;
->  }
->  
-> +static const u8 edp_phy_aux_cfg_nord[DP_AUX_CFG_SIZE] = {
-> +	0x00, 0x13, 0xa4, 0x00, 0x0a, 0x26, 0x0a, 0x03, 0x37, 0x03, 0x02, 0x02, 0x04,
-> +};
-> +
-> +static const u8 edp_phy_vco_div_cfg_nord[4] = {
-> +	0x00, 0x00, 0x02, 0x01,
-> +};
-> +
-> +static int qcom_edp_ldo_config_nord(const struct qcom_edp *edp)
-> +{
-> +	const struct phy_configure_opts_dp *dp_opts = &edp->dp_opts;
-> +
-> +	writel(0xd0, edp->tx0 + TXn_LDO_CONFIG);
-> +	writel(dp_opts->lanes > 2 ? 0xd0 : 0x00, edp->tx1 + TXn_LDO_CONFIG);
-> +	writel(0x03, edp->edp + DP_PHY_LDO_CFG_NORD);
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct qcom_edp_tx_res_entry tx_res_cfg_nord[] = {
-> +	{ 0, TXn_RES_CODE_LANE_OFFSET_TX0, 0x06 },
-> +	{ 0, TXn_RES_CODE_LANE_OFFSET_TX1, 0x06 },
-> +	{ 1, TXn_RES_CODE_LANE_OFFSET_TX0, 0x06 },
-> +	{ 1, TXn_RES_CODE_LANE_OFFSET_TX1, 0x06 },
-> +	{ 0, TXn_TX_EMP_POST1_LVL,         0x06 },
-> +	{ 1, TXn_TX_EMP_POST1_LVL,         0x06 },
-> +	{ 0, TXn_TX_BAND_NORD,             0x05 },
-> +	{ 1, TXn_TX_BAND_NORD,             0x05 },
-> +	{ 2, DP_PHY_TX_LN0_DRV_LVL_NORD,  0x12 },
-> +	{ 2, DP_PHY_TX_LN1_DRV_LVL_NORD,  0x12 },
-> +	QCOM_EDP_TX_RES_ENTRY_END,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: formalizing OS-specific string property instead of =
+hardware phandle
+--
 
-As I was fearing, this table does more than its non-NORD counterpard.
-No, please don't do it.
+commit 9d9ee3558a17b54512300202ecbcaedb7bd4d866
+Author: Xu Qianhui <xiaqinghuan@mail.ustc.edu.cn>
 
-> +};
+dt-bindings: usb: snps,dwc3: document usb-psy-name
+
+This commit adds the usb-psy-name property to the snps,dwc3-common.yaml
+binding schema. It aims to resolve dtbs_check failures by documenting a
+property currently read by the driver to find the power supply.
+
+> diff --git a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml =
+b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
+> index 6c0b8b6538246..6609a709c1d7b 100644
+> --- a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
+> +++ b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
+[ ... ]
+> @@ -51,6 +51,13 @@ properties:
+>        - items:
+>            pattern: "^usb(2-([0-9]|1[0-4])|3-[0-3])$"
+> =20
+> +  usb-psy-name:
+> +    description:
+> +      Name of the USB power supply accepting the input current limit
+> +      requested by the gadget after USB configuration, and during bus
+> +      suspend and resume.
+> +    $ref: /schemas/types.yaml#/definitions/string
+
+[Severity: Medium]
+Does formalizing this OS-specific string property instead of using a
+hardware phandle violate Device Tree UABI guidelines?
+
+Adding usb-psy-name to the official schema codifies an OS-specific internal
+identifier into the Device Tree UABI. Hardware relationships are typically
+expected to be described using standard phandle references, such as:
+power-supplies =3D <&phandle>;
+
+Could the driver be updated to support standard phandle properties and
+treat the string-based lookup as a deprecated legacy fallback, rather than
+promoting it to the official UABI schema?
+
 > +
->  static const struct of_device_id qcom_edp_phy_match_table[] = {
->  	{ .compatible = "qcom,glymur-dp-phy", .data = &glymur_phy_cfg, },
->  	{ .compatible = "qcom,sa8775p-edp-phy", .data = &sa8775p_dp_phy_cfg, },
-> 
-> -- 
-> 2.34.1
-> 
+>    snps,usb2-lpm-disable:
+>      description: Indicate if we don't want to enable USB2 HW LPM for host
+>        mode.
 
--- 
-With best wishes
-Dmitry
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013102927.1141=
+696-1-xiaqinghuan@mail.ustc.edu.cn?part=3D1
