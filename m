@@ -1,95 +1,50 @@
-Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from morty.yoxcu.de (morty.yoxcu.de [194.36.144.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5198737B413
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 19:53:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 234FA5437FE;
+	Tue, 13 Oct 2026 20:26:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.36.144.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791921217; cv=none; b=SrWJxzAjRLAdWwqP40WpVPmp8r6baH28krsRGaLzJLPmgD0+H+9Tofu9mJzgBgNQK4GdPICiASIAeHC0wvnPUVHXDO7pgTtRvlzTToOUzfp2rR+FppMyDp2hF6LMbzxyngQmDcymsAElub1P6YjTHgsoiMIM31uaKdnOgWX9PP4=
+	t=1791923190; cv=none; b=CtTMFt0GSv4L7E8aW5G9OSxqpWhjtFNo7tfjGu37Hvf5YyzOQu1Git/S6t5aAGlVr+gK3UY1+o8QwwUEy7Qm8EtQ3vTbUjbN0o9iyLN/tVTPwAXx2LIAMBfV5hEMWXtlAsE2fUDAJInfeuBnhsKeCzuQDcgkWEDV0fyhbGNCuHE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791921217; c=relaxed/simple;
-	bh=9X+B3VzuP6c2+GbMDzQKaInOmGWlAa6Crsdlsjiub+4=;
+	s=arc-20240116; t=1791923190; c=relaxed/simple;
+	bh=e7OaXtRaIUPN6KYJqgmrutd005XtXbDuy5qcL3itMZg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rOXdKIhCmaVI4kRojfLmIpP9RNq0HTISXt/5e/9LU1XNJxEsSD2ta9h8PsaeT2PAOxv3pAbfLUEzTvxFO7YOe+h+Rj7FIPPZKA1nH1POpQeKikXDmwIrCFI0g2FOM2g2UnLqgDm/wB5paQbGgZ9dp5KDchiR2H58LK8v8mWolrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org; spf=none smtp.mailfrom=thinkoid.org; dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b=EPUCk5Vh; arc=none smtp.client-ip=209.85.219.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=thinkoid.org
+	 MIME-Version; b=O4jNtKUgXkV50wZHXfjHDva+teT/gjetMne6V7MDuufEm3ZtBEPD6C+aj4baN15WTs4a65U66tcxUKKhJAGd7NNGbS3bDkZBBlVytCOGh8nOm2RyzAXAtpN4Bq2JsZZNL/NBRC11ZS1OKBAbhFCBPYmvNq0fHveNQmkMX47CAFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=yoxcu.de; spf=pass smtp.mailfrom=yoxcu.de; dkim=pass (2048-bit key) header.d=yoxcu.de header.i=@yoxcu.de header.b=JAq2c9tl; arc=none smtp.client-ip=194.36.144.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=yoxcu.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yoxcu.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b="EPUCk5Vh"
-Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-91791ec1b83so28427596d6.1
-        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 12:53:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thinkoid-org.20251104.gappssmtp.com; s=20251104; t=1791921214; x=1792526014; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HcBu6oPAez1ljZeSMUFIBe+d1rm2GYp83jcwBgf/ZWA=;
-        b=EPUCk5VhzC4xZLPu5RJNFkGJNQIaQGlNdADxDxWxR//Q6VGL5HifvRB4F1j3YoqkIO
-         D997XkDKGrvbKBkYRhUaDKBlUsJKe3qweZTasPrGov7LJl6T9VnlZ/jVEL3do5ifowEv
-         KFFBa3pDn/YlhqbEdcjCbEbwnQAYj1+yfWPEn6L6CDGymP5DPD3zhoRoqvLcgCmEBvSW
-         6fqfOsaR0+AOsXCEIIGG7hdUpfMQPJ8BTW+dXRpg266MqkkZ0wmvoV7/Q2/4++21uc1S
-         vBq7Wsoi5aVZFMUOpNeRoHGu7kvF3OoQIT0d4xY1dE/HBSO7RL9fVox9wAAAgDxo/q9F
-         FSuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791921214; x=1792526014;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HcBu6oPAez1ljZeSMUFIBe+d1rm2GYp83jcwBgf/ZWA=;
-        b=m9Qrs38heZNqqlhQWPxPXR/dEio3DNEMW1y8oHlCJIMLmYEO/cbBrcYVcvfAmug8vl
-         h0tP9iK9596hw9DVHtkc/T9hXzsav3BrbE0YWX9CaMTaZfMfI596IH2QgN0I7cLX0O1Z
-         zawq9X4btH+SmPp5xvDx3tEdmzPpL8V3ypGBK258qdq0S7BSgxagss51Ib3fJ1hQN0TH
-         TOyZxrUVHhGe6i5cVNy4sl4+ISTMoeOJ9IdLtWSftIi9eKtXvGH+yQHAp87xTDoay7+o
-         lBkcdUP8XuY8BaOonOhYCPyH/iX6PDUolcg/JikhdPRUaQSA80fSP6rWpVn6GwvBJ6Pn
-         VQJw==
-X-Forwarded-Encrypted: i=1; AKwUvBwyCSzh4Sa08zdUrr7V2TdsZ70jwxR2mHmGwBGbAgdtRvG1yy1GREbQGyrbntSX8P9pVLPUUIPA6UiY@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ2gtm23bHnkIssSPYafCwEknKXTCc7V3wk+hhaPkZNqkxmWJEW
-	GLSw3x5Kk0RHF3FVnmjebUvAlM7sTf6BPDIIL3N66djHU4aHfz3SSzxqHY6o1NTXByo=
-X-Gm-Gg: AYBFou253BHdRmetF1+C20kdJ6ojGaalTXPlMBdvaza38uqAH7alCMJC2PmNMduAd/X
-	WihNyLkxsSrwDB13g8ht/4wNpnBYahujtMsLuQvYjzjHB88IMwSGjXVjiI+FozhyHVAE1lHxtmt
-	BAwu1H4XxhlC0vgFJVKimMVw6zQXkcBgy/RMARiTbnPVS9wAwhSyC9aZBpKUIVN8P+eb1xBdyt6
-	LdDGVrTne6yaxHy6vNzGGU6IGjA/YJXgmF46fLb2hY9wRjkh+O3lMh9D2il1lbgXlgfp3bzSxbK
-	9HTUfHZnwf/kBFH9sUruio404MTI8i9FibnmLojLTd/lYxo871Hd+emWSPOwChid2ieqx7GEsI0
-	LxEbNz1IFK0P1c7pkAQaVhLm9VcsyNxii9pqKTU7RrgoeHX4EmEOd/6uFVHgSTaMKpjB14osbuS
-	YyX1IN/s5ypHG4zBtmjixclymTke4/CTwWWEZfwYzEVpfa/1YquaLdgGuuR/aWzNFc5p1xkg==
-X-Received: by 2002:ad4:5fc9:0:b0:91b:8d12:bac9 with SMTP id 6a1803df08f44-91b8d12bb24mr93591896d6.0.1791921214109;
-        Tue, 13 Oct 2026 12:53:34 -0700 (PDT)
-Received: from localhost.localdomain ([2605:a601:a61d:7a00::11])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97c35bfcsm33085666d6.42.2026.10.13.12.53.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 12:53:33 -0700 (PDT)
-From: Liviu Nicoara <lnicoara@thinkoid.org>
-To: Michael Burch <me@michaelburch.net>,
-	Aleksandrs Vinarskis <alex@vinarskis.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=yoxcu.de header.i=@yoxcu.de header.b="JAq2c9tl"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2B0AA1D87E62;
+	Tue, 13 Oct 2026 22:26:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yoxcu.de; s=dkim;
+	t=1791923185; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=SjLgg6eeaAg4win7q0F1mhz2B/Z2dOV+sRH+5a6YmUE=;
+	b=JAq2c9tlV6izlK1l+nI3W9qsr9+PqKJaJK1chT8SpHRSxS7IV9oX8CSg/Sya22Q2RUOv2u
+	eav97KdPSaAEH1+PsL15wow1yBMXpB1uQ0FmvZTO1LT7HyBYNyt7jCXN/ADCi6CYuOajyx
+	MX6dt4w0Tcnnfy60fPyvhQjiba6yLrVTrI25+TYnhW2L/HxTI2B7WnMU6oTz9mXntImEIu
+	1vq2vfMagfFqDdPbFGl2ahCtxiLejeRywJ30kmm7FuA+r0ObRJiunmXrh+GMMI0xfZFByR
+	Esz3ans/hUL3wFftDZFWM1jQy1UiEJ7pD51pJde9BTUePbKG/cPKQRmn6sBF6Q==
+From: yoxcu <mick@yoxcu.de>
+To: Georgi Djakov <djakov@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
 	linux-arm-msm@vger.kernel.org,
+	linux-pm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Tobias Heider <tobias.heider@canonical.com>,
-	Val Packett <val@packett.cool>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Stephan Gerhold <stephan.gerhold@linaro.org>,
-	linux-hardening@vger.kernel.org,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v6 3/3] arm64: dts: qcom: x1e80100-dell-xps13-9345: introduce EC
-Date: Tue, 13 Oct 2026 15:53:27 -0400
-Message-ID: <20261013195327.19571-1-lnicoara@thinkoid.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261013172718.12355-1-me@michaelburch.net>
-References: <20261013172718.12355-1-me@michaelburch.net>
+	Michael Auer <mick@yoxcu.de>
+Subject: [PATCH RFC 2/2] interconnect: qcom: sdm845: Own the ALC BCM to drop its boot vote
+Date: Tue, 13 Oct 2026 22:26:11 +0200
+Message-ID: <20261013202611.3070778-3-mick@yoxcu.de>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261013202611.3070778-1-mick@yoxcu.de>
+References: <20261013202611.3070778-1-mick@yoxcu.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -97,33 +52,77 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, 13 Oct 2026 12:27:16 -0500, Michael Burch wrote:
-> These two should be AMUX1_GPIO and AMUX2_GPIO. My unit (BIOS 2.14.0)
-> shows what Liviu reported [1]: 0x14c (lpddr5_therm) reads 130.048 C from
-> boot on, and that is the value the EC is sent.
+From: Michael Auer <mick@yoxcu.de>
 
-Same here, and the ADC1 table settles what my readings left open.
-On this unit (also BIOS 2.14.0), with all four GPIO channels defined
-in one DTB on a 7.2.6 kernel:
+On the OnePlus 6 the bootloader leaves a vote on the ALC BCM
+(rpmh_read() on the APPS DRV returns 0x2000000f). No driver owns this
+BCM, so the vote is never removed and the SoC never reaches AOSS sleep
+or CX collapse (qcom_stats aosd and cxsd stay at 0).
 
-0x14a  38.6 C        0x14c  130.0 C (constant)
-0x14b  32.7 C        0x14d   34.7 C
+Add a node without consumers for the ALC BCM on mem_noc. The provider
+then owns the BCM and drops the vote at sync_state.
 
-A charger on the left USB-C port warmed 0x14b by 1.6 C in three
-minutes; 0x14d stayed within 0.1 C. So usb_charger_left_therm is
-AMUX2_GPIO, 0x14b, as your table says; 0x14a reads a board
-temperature and warms with the SoC.
+With this change ALC reads 0 after boot and suspend reaches CX
+collapse. The average current in an idle push standby test (Wi-Fi on)
+was 35.6 mA, against 43.7 mA with the ALC vote kept in the sleep set.
 
-> +	sys_therm0: channel@14a {
-> +		reg = <ADC5_GEN3_AMUX1_GPIO_100K_PU(1)>;
+Assisted-by: LLM
+Signed-off-by: Michael Auer <mick@yoxcu.de>
+---
+ drivers/interconnect/qcom/sdm845.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-One note on the shape: hamoa-pmics.dtsi already defines
-channel@14a and channel@14b as pm8550_gpio_01 and pm8550_gpio_02,
-with gpio3 and gpio4 in high impedance for them. The EC's io-channels
-can reference those two directly; redefining the nodes in the board
-file only adds the labels, which the EC node does not need.
+diff --git a/drivers/interconnect/qcom/sdm845.c b/drivers/interconnect/qcom/sdm845.c
+index 1c434fd12ead..2a35ed7fce49 100644
+--- a/drivers/interconnect/qcom/sdm845.c
++++ b/drivers/interconnect/qcom/sdm845.c
+@@ -1114,6 +1114,13 @@ static struct qcom_icc_node ebi = {
+ 	.buswidth = 4,
+ };
+ 
++/* No consumers, owns the ALC BCM so sync_state drops the boot vote */
++static struct qcom_icc_node alc = {
++	.name = "alc",
++	.channels = 1,
++	.buswidth = 1,
++};
++
+ static struct qcom_icc_node qhs_mdsp_ms_mpu_cfg = {
+ 	.name = "qhs_mdsp_ms_mpu_cfg",
+ 	.channels = 1,
+@@ -1250,6 +1257,14 @@ static struct qcom_icc_bcm bcm_acv = {
+ 	.nodes = { &ebi },
+ };
+ 
++static struct qcom_icc_bcm bcm_alc = {
++	.name = "ALC",
++	.enable_mask = BIT(0),
++	.keepalive = false,
++	.num_nodes = 1,
++	.nodes = { &alc },
++};
++
+ static struct qcom_icc_bcm bcm_mc0 = {
+ 	.name = "MC0",
+ 	.keepalive = true,
+@@ -1646,6 +1661,7 @@ static const struct qcom_icc_desc sdm845_gladiator_noc = {
+ static struct qcom_icc_bcm * const mem_noc_bcms[] = {
+ 	&bcm_mc0,
+ 	&bcm_acv,
++	&bcm_alc,
+ 	&bcm_sh0,
+ 	&bcm_sh1,
+ 	&bcm_sh2,
+@@ -1669,6 +1685,7 @@ static struct qcom_icc_node * const mem_noc_nodes[] = {
+ 	[SLAVE_SERVICE_MEM_NOC] = &srvc_memnoc,
+ 	[MASTER_LLCC] = &llcc_mc,
+ 	[SLAVE_EBI1] = &ebi,
++	[MASTER_ALC] = &alc,
+ };
+ 
+ static const struct qcom_icc_desc sdm845_mem_noc = {
+-- 
+2.43.0
 
-Happy to test a v7 with the two channels moved.
-
-Liviu
