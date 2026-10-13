@@ -1,125 +1,239 @@
-Received: from smtpcmd04132.aruba.it (smtpcmd04132.aruba.it [62.149.158.132])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E9751A128
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 17:29:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.158.132
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC3483F105B;
+	Tue, 13 Oct 2026 17:31:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791912589; cv=none; b=ArhxKEpLYPA3ZVIVc49PjDZhieoVkeOf8d6G/BxYz4MI7TcpIOIsXY/XSbOhFWTUXpcy6AHHB34PTjIQwV+/syMumpGOFkQx28CSz0/23JPRPpuO6cy7M2sdC7rXGOEZDbja0BhQh2ccR2rtE9D4b5bdiJtfCV/PPKDzUC7Bl+A=
+	t=1791912706; cv=none; b=E347YHXBZmfUC4Lv4S5fcdXG/Fnr2ja5QuLtrWlTaAvwBWYMbTlQ+ozoyxQFsH0LuQzt4PB3sO/Jmi/HuagWSRpegitUImybP9td7c5QqpRpMFkXSA/aNJVAzmmjF9fPN0YA3jaSMlY7O9mT9/UXzBRMe4tfgXW8dXqug54b79c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791912589; c=relaxed/simple;
-	bh=JXjuI24D+JN92IftggV2Z3vBtLO72/3deJBrbhK4KLI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HmOuKDDTSclISUGPRLEpHVs68uFlS+SgUi2DWHbsZxbf0u6mEL4CyX/EFEuGomtoCwv6b7U6AF0fgmPyPzTJXkyiHhgy8GyX6nE9d0V9XVzaUjUQ26zx/l5x5PPKKBLtuTLds+nKUWOc5P2jGjq1P9x+xkDL5xUjrdqYxUrt8us=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it; spf=pass smtp.mailfrom=mythread.it; dkim=pass (2048-bit key) header.d=mythread.it header.i=@mythread.it header.b=LGbvyeEv; arc=none smtp.client-ip=62.149.158.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mythread.it
+	s=arc-20240116; t=1791912706; c=relaxed/simple;
+	bh=v/vKKtpOzS8YzsPNGdZBQvqeKkAcEpPqOMnXjUDK6v8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=C6PQiIgyLBg7ds7JTazSqqUlzc1XgMQDa6pcb8jKj+QHlAI3hrt9fswI7NkEYOrgeq0SG7rr8gRgke+CheEdJsMDxES6anAYNoG7kVo0UJ+aoaqIybssxsia+dgtBCuIus0+5yGElOCM+a0zmNF4UnrqvIdgFm2WUsHVEHtneOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RP0AZWag; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mythread.it header.i=@mythread.it header.b="LGbvyeEv"
-Received: from fedora ([94.34.125.0])
-	by Aruba SMTP with ESMTPSA
-	id GgGqxY4osk92eGgGqx6MKu; Tue, 13 Oct 2026 19:26:37 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mythread.it; s=a1;
-	t=1791912397; bh=JXjuI24D+JN92IftggV2Z3vBtLO72/3deJBrbhK4KLI=;
-	h=Date:From:To:Subject:MIME-Version:Content-Type;
-	b=LGbvyeEvh4iONzllWdZOA4PoXGGIQy5BwNCPTz+mPAEQoiVdMs8IhF/OjjER7jnFk
-	 SlWqj45toc8UYkzDKBWNxxBAmO0DevsZ/Mdwn8TLT/icOJDli2RaWYdTmChdOOiusV
-	 AAu00xasYwQ6amRscUF3hwUvS2Rwj9CM2UWgia7UZamVxGulpkC5vyeErdqURQ7l9O
-	 ZUQSrMYzqWMB1Xc/e+kvKvDmF/fF6/d0Kwb04xa/BQ2Y4yEt3rJ9IdDssrkoiyWa1h
-	 VQannN7EQOMTH3WBqRwegks+E1jgdBkCU8VpuIBRRS/KvnY9afnO7eegI86GOxuydO
-	 a/KffNvJ4quGg==
-Date: Tue, 13 Oct 2026 19:26:35 +0200
-From: Alessio Ferri <alessio.ferri@mythread.it>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: Johannes Berg <johannes@sipsolutions.net>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Broadcom internal kernel review
- list <bcm-kernel-feedback-list@broadcom.com>, Thomas Bogendoerfer
- <tsbogend@alpha.franken.de>, linux-wireless@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mips@vger.kernel.org
-Subject: Re: [PATCH v2 0/5] bcma: support the BCM6362 integrated WLAN
- backplane
-Message-ID: <20261013192635.5384335c@fedora>
-In-Reply-To: <6ceddef2-09af-49ba-87c8-4c39e34d36ac@broadcom.com>
-References: <20261012-bcm6362-wlan-v2-0-4752da7e0982@mythread.it>
-	<b7e21fad06d27f88b3c18060b4f4a69149de52eb.camel@sipsolutions.net>
-	<20261013145630.52fdec0d@DELL-MOBILE03.ad.smart.it>
-	<20261013181600.58ad8dc3@DELL-MOBILE03.ad.smart.it>
-	<6ceddef2-09af-49ba-87c8-4c39e34d36ac@broadcom.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RP0AZWag"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ED681F00893;
+	Tue, 13 Oct 2026 17:31:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791912704;
+	bh=P9yR/iQvDBD3fVqX5zNUr7e6YuxSLAfgJx2C9bX9mSA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RP0AZWagpWx8ooO3zve15EY0NR6XeW6zRpQCg83idaGBKc+gX7vR6qKKLyk+uS6jN
+	 Yy7ZXuHwNEz2fjUp9OmlzJ8LJugiSviNiaL0SxxzJ8eXL6yvBihqKK1AHwj+MJMgsr
+	 C5ONhehkgTm0Cw+F10gs19lNCT7q+NM4ZEcvufCDajHIOT+ckKsa/sB7Q2YuTsSEIx
+	 8fiYDnYMoSCm98ahoETeDjmJDLBYBBl3YLK5x+46iVDZgkSxKg6fd2zGep5uHyfID8
+	 fiFmPc0SlkJsI15Ti7wmOrgILq16GCtGZYZqySaqsjkCzovf3970Z4ynbMtNPVTCpy
+	 zsDMRta+FQj7g==
+Date: Tue, 13 Oct 2026 18:31:39 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Robert Marko <robert.marko@sartura.hr>
+Cc: linux@roeck-us.net, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, Steen.Hegelund@microchip.com,
+	daniel.machon@microchip.com, UNGLinuxDriver@microchip.com,
+	nicolas.ferre@microchip.com, claudiu.beznea@tuxon.dev,
+	lars.povlsen@microchip.com, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, luka.perkov@sartura.hr
+Subject: Re: [PATCH 1/6] dt-bindings: hwmon: sparx5: add LAN969x fan
+ controller
+Message-ID: <20261013-footwear-boxer-458afbcff303@spud>
+References: <20261013125735.1542349-1-robert.marko@sartura.hr>
+ <20261013-stylized-plethora-2a9e27545adb@spud>
+ <CA+HBbNHZZePJh6s2xujmjA57GYZTgwhMqBnf0atM9aPQJP77Rw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="GZAyrRYchvfkwe6C"
+Content-Disposition: inline
+In-Reply-To: <CA+HBbNHZZePJh6s2xujmjA57GYZTgwhMqBnf0atM9aPQJP77Rw@mail.gmail.com>
+
+--GZAyrRYchvfkwe6C
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-X-CMAE-Envelope: MS4xfJeKBQJQmnPe1Xg0Lp8Q0DrUYJ2ttd191ob+gky4vHAn4IbBZx4yvhQVWKuDNpp7Ni0oAOe60vfJmwH+5B5qVXQBkWtim5enuXFigv2zSjd5gevXtEr3
- rGLbVAh/a5aAL4dLUutT9B6+SX75kRH6M9sle6f1SpiAiPsjgwO8DH7Lq+UsAgSUN/BwZCo7ftolfJevkuBGgjxMhSDFAdwLEUln6obFYGw0yYJjyz2/HuAU
- 6/mbyh1+LQOmUcgq3/Fhc955lVn7vgH3R1TQbZusFlioksvfQfpIBKzexJP6wK2G9AvFDnjk3P3lUCafnkjgFGUp4zCA51qHDrKkmFZvAyTCnrBK2dBp8OsY
- 0ef03CwpgmLDNWXBK+gIuwbVd7wDafXJcFKlkVqTMmXySebTzPYw0rOawp8JvbKbLlNMeWQc8FYOPjyajv9+BVzg+Heu4zDTc+0JAwn7lobk6hTGbtZDAiV/
- BlZvPZFQTTX4OYNNFPxi09FYPPOoNxK4gIgzG1PEevjjInc8k+Mzl+YXevI4/11/HD4BxDyS+brl39H9Fi6TFL0sHO2R6kk9V6gVFOOawNvc0z1PK3Yn1K4H
- oZkI4QprqDo/eCCKlFZ8wcoVoAZTLTK+yrqQtfv1jPwULA==
 
-Il giorno Tue, 13 Oct 2026 09:25:30 -0700
-Florian Fainelli <florian.fainelli@broadcom.com> ha scritto:
-
-> On 10/13/26 09:16, Alessio Ferri wrote:
-> > On Tue, 13 Oct 2026 14:56:30 +0200
-> > Alessio Ferri <alessio.ferri@mythread.it> wrote:
-> >  =20
-> >> On Tue, 13 Oct 2026 14:29:37 +0200
-> >> Johannes Berg <johannes@sipsolutions.net> wrote:
-> >> =20
-> >>> On Mon, 2026-10-12 at 00:45 +0200, Alessio Ferri wrote: =20
-> >>>>
-> >>>> My router is running daily with it, using openwrt kernel 6.12. =20
-> >>>
-> >>> [...]
-> >>>     =20
-> >>>> This was drafted with the help of an LLM and cross built with gcc
-> >>>> mips cross compiler and checked with the dev version of sparse.
-> >>>> This time i also ran dt-check-style and it didn't flag anything.
-> >>>>     =20
-> >>>
-> >>> So ... are you running it or not? I'm confused.
-> >>>     =20
-> >>
-> >> I don't see your source of confusion: i am running it with kernel
-> >> 6.12 and it works, but last i checked the current kernel is not
-> >> version 6.12... so i had to rebuild it for the current kernel and
-> >> i did it with help from an LLM. And also i ran the checks for the
-> >> dt part, OpenWRT build system couldn't care less that i didn't
-> >> even register the bindings, but i know bindings maintainer care
-> >> about it.=20
-> >>> Either way, I have no idea what to do with it - I guess Rafa=C5=82 if
-> >>> you want this picked up then let folks know? But the last patch
-> >>> should probably go through some MIPS trees anyway, so the others
-> >>> might as well go there too, I don't care (and don't really _want_
-> >>> to be responsible for this obscure corner just because some wifi
-> >>> drivers use it).
-> >>>
-> >>> johannes =20
-> >>
-> >> The original code is Broadcom's. You can also ask Broadcom
-> >> directly if this is correct/sane for them. =20
-> >=20
-> > I must say that i was pretty vague in the last statement:
-> > By "code" i really meant "C headers", and by "ask Broadcom
-> > directly" i meant "ping the Broadcom devs already included in the
-> > cc if they do not respond by themselves in a few days". =20
+On Tue, Oct 13, 2026 at 07:08:34PM +0200, Robert Marko wrote:
+> On Tue, Oct 13, 2026 at 6:30=E2=80=AFPM Conor Dooley <conor@kernel.org> w=
+rote:
+> >
+> > On Tue, Oct 13, 2026 at 02:56:25PM +0200, Robert Marko wrote:
+> > > LAN969x integrates a PWM fan controller with a tachometer input in
+> > > addition to the Sparx5-compatible temperature sensor. Add a LAN969x
+> > > hardware-monitor compatible and describe the second register region.
+> > >
+> > > Describe the fan as a child node using a two-cell PWM specifier for t=
+he
+> > > period and standard polarity flags. The child also carries the option=
+al
+> > > tachometer pulses-per-revolution and thermal cooling properties.
+> > >
+> > > Keep the existing microchip,lan9691-temp compatible for device tree A=
+BI
+> > > compatibility.
+> > >
+> > > Signed-off-by: Robert Marko <robert.marko@sartura.hr>
+> > > ---
+> > >  .../bindings/hwmon/microchip,sparx5-temp.yaml | 90 +++++++++++++++++=
++-
+> > >  1 file changed, 87 insertions(+), 3 deletions(-)
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/hwmon/microchip,sparx5=
+-temp.yaml b/Documentation/devicetree/bindings/hwmon/microchip,sparx5-temp.=
+yaml
+> > > index 611fcadb1e771..e91c2a3ccd3c9 100644
+> > > --- a/Documentation/devicetree/bindings/hwmon/microchip,sparx5-temp.y=
+aml
+> > > +++ b/Documentation/devicetree/bindings/hwmon/microchip,sparx5-temp.y=
+aml
+> > > @@ -4,13 +4,15 @@
+> > >  $id: http://devicetree.org/schemas/hwmon/microchip,sparx5-temp.yaml#
+> > >  $schema: http://devicetree.org/meta-schemas/core.yaml#
+> > >
+> > > -title: Microchip Sparx5 Temperature Monitor
+> > > +title: Microchip Sparx5 Hardware Monitor
+> > >
+> > >  maintainers:
+> > >    - Lars Povlsen <lars.povlsen@microchip.com>
+> > >
+> > >  description: |
+> > > -  Microchip Sparx5 embedded temperature monitor
+> > > +  Microchip Sparx5 temperature monitor with a fan controller on LAN9=
+69x.
+> > > +  The fan child's pwms property references this node to specify the
+> > > +  PWM period and polarity.
+> > >
+> > >  properties:
+> > >    compatible:
+> > > @@ -18,11 +20,19 @@ properties:
+> > >        - const: microchip,sparx5-temp
+> > >        - items:
+> > >            - enum:
+> > > +              - microchip,lan9691-hwmon
+> > >                - microchip,lan9691-temp
+> > >            - const: microchip,sparx5-temp
+> > >
+> > >    reg:
+> > > -    maxItems: 1
+> > > +    minItems: 1
+> > > +    maxItems: 2
+> > > +
+> > > +  reg-names:
+> > > +    minItems: 1
+> > > +    items:
+> > > +      - const: temp
+> > > +      - const: fan
+> > >
+> > >    clocks:
+> > >      items:
+> > > @@ -31,11 +41,67 @@ properties:
+> > >    '#thermal-sensor-cells':
+> > >      const: 0
+> > >
+> > > +  '#pwm-cells':
+> > > +    const: 2
+> > > +    description: |
+> > > +      Number of cells in a PWM specifier.
+> > > +      - cell 0: PWM period in nanoseconds
+> > > +      - cell 1: PWM polarity: 0 or PWM_POLARITY_INVERTED
+> > > +
+> > > +  fan:
+> > > +    $ref: fan-common.yaml#
+> > > +    unevaluatedProperties: false
+> > > +
+> > > +    properties:
+> > > +      cooling-levels:
+> > > +        description:
+> > > +          PWM duty-cycle values corresponding to thermal cooling sta=
+tes.
+> > > +        items:
+> > > +          maximum: 255
+> > > +
+> > > +      pulses-per-revolution:
+> > > +        minimum: 1
+> > > +        maximum: 4
+> > > +        default: 2
+> > > +
+> > > +    required:
+> > > +      - pwms
+> > > +
+> > > +    dependencies:
+> > > +      '#cooling-cells':
+> > > +        - cooling-levels
+> > > +      cooling-levels:
+> > > +        - '#cooling-cells'
+> > > +
+> > >  required:
+> > >    - compatible
+> > >    - reg
+> > >    - clocks
+> > >
+> > > +allOf:
+> > > +  - if:
+> > > +      properties:
+> > > +        compatible:
+> > > +          contains:
+> > > +            const: microchip,lan9691-hwmon
+> > > +    then:
+> > > +      properties:
+> > > +        reg:
+> > > +          minItems: 2
+> > > +        reg-names:
+> > > +          minItems: 2
+> > > +      required:
+> > > +        - '#pwm-cells'
+> > > +        - reg-names
+> > > +    else:
+> > > +      properties:
+> > > +        '#pwm-cells': false
+> > > +        fan: false
+> > > +        reg:
+> > > +          maxItems: 1
+> > > +        reg-names:
+> > > +          maxItems: 1
+> > > +
+> > >  additionalProperties: false
+> > >
+> > >  examples:
+> > > @@ -46,3 +112,21 @@ examples:
+> > >          #thermal-sensor-cells =3D <0>;
+> > >          clocks =3D <&sys_clk>;
+> > >      };
+> > > +
+> > > +  - |
+> > > +    #include <dt-bindings/pwm/pwm.h>
+> > > +
+> > > +    hwmon: hwmon@e2020100 {
+> > > +        compatible =3D "microchip,lan9691-hwmon", "microchip,sparx5-=
+temp";
+> > > +        reg =3D <0xe2020100 0xc>, <0xe2010348 0xc>;
+> >
+> > Are these actually the same device? These are somewhat disparate
+> > register regions - and the second is at a very odd offset.
 >=20
-> As you should know by now, the folks working on this never cared for=20
-> upstream in any way shape or form, so using bcma and Device Tree, and=20
-> combining both might be a tad too much to ask to review.
+> Not really, they can be separately configured and have their own register=
+ space.
 >=20
-> That said, I think you approach makes sense, but Jonas Gorski who is
-> not copied on this patch series, but is now aware of it, should
-> really be reviewing this.
+> I did not see a point in separate drivers, but we could model these as
+> separate DT
+> nodes with their individual bindings if that is more appropriate.
 
-Thank you, bcma felt the simplest way to integrate it and it is
-directly used by b43, which is primary user of the device.
-Will wait for Jonas input then.
+Doing that seems more appropriate to me.
+
+--GZAyrRYchvfkwe6C
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas5q+wAKCRB4tDGHoIJi
+0gzXAP9jIRVOGR1N1MGiguEHKD2U5b6VJpB8hxA7f8I8m727RQD/SdMGdtxaTCdp
+/h5u8x95jfEpATwvdc9htfT3ghTakwo=
+=tl+d
+-----END PGP SIGNATURE-----
+
+--GZAyrRYchvfkwe6C--
