@@ -1,214 +1,191 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D803F246781;
-	Tue, 13 Oct 2026 09:56:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25CDE4BD359
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 09:58:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791885401; cv=none; b=Ozj3P6aKRFS0ZfSkd/TtnTX2PclYKt2yYUPzIa8MyC9iiXbeYrUHid8oLxvdBzS3p4Lm3Eky06ytKEKYJxXYH0DiuXhuzh0f647fOllYl7XvRJws9A8Rcfuoex98UYWSmHEXb7+23SZz9qQFGOEY80gE+slcSP5NQVObHFIxjVQ=
+	t=1791885508; cv=none; b=X7dYzeXokKp4wyxPjMmfyqDUHXclbtrKceljiO3qr75c3gP5kO2rvD7NMlpDhhV5RNAFb+x23LrhWN1REZB/9WXkRXp3mqUsvdmb4giknPGJRiAUnfwu5lDqnYZE5IJ5atVsZmD0PMA0KxBTbGsyfEzukNNpUAYcJTLZwHmKOQQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791885401; c=relaxed/simple;
-	bh=PlVvTdkWjp0YX/ia1aYjkyxCtGTcPvQfZMqeqi6ZbQU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ifWCR24VWzTwFzleK10Gt5SoM5EQaZ1fX2fcStiK7wIvLctkg2PPKejmc35HZpQ+PFNZN9wNo/ZgfibNtMERDo4XTq6CUYD+HwBt/SmrpIR8ktTcfXO62Fo5PduksQFevI6mQYaa67dpxPhvjgB8kqNyKho2ZT3YQOs6IOYq4VU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FL6bAAK1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791885508; c=relaxed/simple;
+	bh=2dPTRel0DT3n+CZtpIwB+FFkdaQRRQzMwPcArTP1QWY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LtErZwWkauC9TGYWv0Xf4AA3M18LcW6IQ/8sr59eh1N4+FnyB6JLtf+k0IZ+s27zp8kfHn+Kuy/HNwTI0nFDXrrXD2Bt+Dq64Yi4NKX0R+5dKzRsJ9qCMNadbVOpJDxIJ0Noa1gGmxoBtPtlaZKydJgSbMGTmKgNY+1TbYeDhd8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JMFT0x/Q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=excWAuUf; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FL6bAAK1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C55F31F000FF;
-	Tue, 13 Oct 2026 09:56:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791885399;
-	bh=Q7fj9Vp+tJj7vJqMJATzo0vyG2yGkhzhjEgsT39DDVI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FL6bAAK1wmdEJY0kUnZUcDtzMSWohJp9SOCaOF43QWDUhT0/iL+EQrzkosR+1+gbK
-	 n3CYnRul7jUIP5IfLrkv+P8pOPh2mpHNS0Uk7wGHOYoV0XS1R0aERG9phPvMAFz/m5
-	 QcZdYbCJMmhUbrAflNX57QafmAdlmP34KxetYLnLS9rdkS7h4MXNYvwBtSTDHXg93c
-	 LXsP/R+zgGNL6f6XUxUQk4JWLfXvGkhLVMFwJUUaIpFMyzcLic/mA0L8NUYvPS8sHb
-	 2QPEtRlQjY4pusEYwNfnlZ8LI5GQyhY4CKycn3vvy+P2KTQn0xXPvmjqDkcMg8QP74
-	 qEjGgM633sPKg==
-Date: Tue, 13 Oct 2026 15:26:30 +0530
-From: Sumit Garg <sumit.garg@kernel.org>
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: Sumit Garg <sumit.garg@kernel.org>, Will Deacon <will@kernel.org>,
-	brendan.jackman@linux.dev, catalin.marinas@arm.com, rppt@kernel.org,
-	akpm@linux-foundation.org, sudeep.holla@kernel.org,
-	jenswi@kernel.org, robh@kernel.org, mark.rutland@arm.com,
-	ardb@kernel.org, thierry.reding@kernel.org, david@kernel.org,
-	danielmentz@google.com, linux-arm-kernel@lists.infradead.org,
-	linux-mm@kvack.org, op-tee@lists.trustedfirmware.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/8] arm64: Unmap FF-A lent memory from direct map
-Message-ID: <as4ATqhp0bPI03PA@sumit-xelite>
-References: <20260921110050.3977591-1-vdonnefort@google.com>
- <arIYtjmSKCs14SqO@sumit-xelite>
- <arKW_91EeKA-w96m@willie-the-truck>
- <are21BjeS1O3RYE3@sumit-xelite>
- <aruh86rd5FMv2i9G@willie-the-truck>
- <ar5TPvANFUoosxGW@sumit-xelite>
- <asOAYODGZa-7EIV1@google.com>
- <asOD31rTX6dNfD1o@google.com>
- <aszdnInyJxLhSQRp@sumit-xelite>
- <as3798SFCfKFirag@google.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JMFT0x/Q";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="excWAuUf"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D7Oum6015766
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 09:58:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	q3ffTM87Chgi1G9fTBz/2oDG9xpCCSCvK3xemsC7/Os=; b=JMFT0x/QhIve9LNV
+	RmsGXNrDHU2YziJBpPE9fojAYA5Jlxpqia/OMl0DCTmM4Vl6Rz7z+t79fi9EBST2
+	g15yrL/S6MtccbBV0xXN5SpU8BnQIUL6MEmSaC5IiiczaBxxa0jihurViwK+hty9
+	400HpHg9UGE04+4QSpWuF+29YTNa57KpCLETyc8s1NOuLQGE1Qr1Im5af4fUGVx9
+	Ht3Igqu6DWwFFxVMdjFn+tR3V/ezVw1kVP7GyQX70998I5/VFZDwb0k+DdP5g5Ec
+	xNhrwLqRS+QiH+7xZjs1I3AkFA9PgCT9c3fJvLgq+gvYyvKBflej7rC2uJfH14qo
+	UyPNiw==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9g7ugmmk-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 09:58:24 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-35cbea41088so523637eec.1
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 02:58:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791885504; x=1792490304; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=q3ffTM87Chgi1G9fTBz/2oDG9xpCCSCvK3xemsC7/Os=;
+        b=excWAuUfiiIBGIxsiN1IfOcLviU2/tKZZlI+P2SxChi/xB0A772QrcNEwA0LxUoWjJ
+         OpmjovHetBZIv6F7zF018T+wxnfIIqL2fvRUdSEoiIdEm1aDDdRYYMbahLn1s1XY8KnN
+         dyuB8p1ymZxpELsMP6cZb6GDQs2Z2jN3WSLOauHvZRapfU9LZBKRH/hv2wv9rT5cw39D
+         eCmpF9W3wc9lCjdM7zoIH2w2H5xrFSqaWZ9/i1k1yI1tD2/rno32WAjiTXiGYGlJG5qk
+         vbwDe61/BoS0k+NErgbO+o1H9RF7yTBJAsjnW/JnhwyInHZYXnkkY05cVkrYKwcI5/3W
+         caLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791885504; x=1792490304;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=q3ffTM87Chgi1G9fTBz/2oDG9xpCCSCvK3xemsC7/Os=;
+        b=d8+HsOYSemKJcrqXQQySWZ/nNfxttfnjadxw2yGyqQY7HNZQjSu6MX67GEx9/8Cqw5
+         R2wafiPzNZ7NqpbLSnStNJuJIDz2DKyAtEr+dcK3QPYh6jt9a98EQzVfh7soYoEwaMQV
+         kz7Gb8fJdKOS6ToQMwaTF6SNEsX0Pz5Mq919m4cUYSGsvpLEZ17b3qAyyiDPzqN2Wtdq
+         T8tnV4GmunNGFRhUqg2QKm1yL+DVdHNEHaxpiJRChE5K17eH/FWD83M6ql2oXqTAMmnM
+         u0j7Wxf5e7B0AVCShmS3cwvJckCO8fD7GySOYhef5zEKwR3xzahlCGKFc1WXM6puki6k
+         eEsQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwaZuPDR0yOyElmLkwItc7fkKHPRSnzOd+syVa2eHBIz+mTinSNN1CKtauc+WvvFSjDncEfpmu34QWq@vger.kernel.org
+X-Gm-Message-State: AFq9FYJfrNpmoHNpCx1XGBaGy04Nzinsj34I7pJhU5vNFTHU7+C5lB9f
+	h6mj5U5fcSEpfUCnbwB0wi/xyO+oK5d43ruyHb1XZ6AkvBoS+e4E6IZmH6+ERHUdf5yPh6ZXpcQ
+	PykrBGHjcXaZracUfPK7E6yFzsbICTg6c+ih/HDaArPNGhxCnRfsiKwog7xo8rSne
+X-Gm-Gg: AYBFou1pndIzNQZyn5SJh9vKu7J2Us0jGFwhU3ffK8xBjuWJCTChqRLAWGmA1ixwgRL
+	XeKi4JaA7itCQa0BwfvEDpHRxThjM0i3nPq/mCNBdY4B4qEGugzB0covhvL/ioQVwcVOD1GNrw4
+	hnqdik5W2zdILTmivxFuCNupieIAvsa0KqzGSNP60MgCIY35E1JbJqY9qtax578bYE3jXC6dXi6
+	hqZmEzVNY7mERFAcIm/yo2YKUZ0IdwgQq7cTsJZrYdoTmZu7ZrrIt2qAdfPWxiiu2JFOlopG39P
+	T2mZzYT1Qp6iFLjDyT39QWUlXnhsKHe6uULarJBTwN0JNN4Y2gYYK8BY/0hFpOGweK+/64r9gwn
+	B42x3U+i/09zcxNf0uA+1rpIEv9J9nAA=
+X-Received: by 2002:a05:693c:87d5:10b0:351:433a:acfd with SMTP id 5a478bee46e88-3537e0796acmr16646929eec.38.1791885503543;
+        Tue, 13 Oct 2026 02:58:23 -0700 (PDT)
+X-Received: by 2002:a05:693c:87d5:10b0:351:433a:acfd with SMTP id 5a478bee46e88-3537e0796acmr16646878eec.38.1791885502644;
+        Tue, 13 Oct 2026 02:58:22 -0700 (PDT)
+Received: from [10.216.22.79] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35977229a6esm27114030eec.8.2026.10.13.02.58.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 02:58:22 -0700 (PDT)
+Message-ID: <62d0573e-4085-4a74-b730-faecbe4cacba@oss.qualcomm.com>
+Date: Tue, 13 Oct 2026 15:28:16 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <as3798SFCfKFirag@google.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] remoteproc: qcom_q6v5_pas: Add remoteproc support for
+ SOCCP on Nord
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        shengchao.guo@oss.qualcomm.com
+References: <20261009-soccp_driver_dtbinding-v1-0-40862f7fc58b@oss.qualcomm.com>
+ <20261009-soccp_driver_dtbinding-v1-2-40862f7fc58b@oss.qualcomm.com>
+ <77e47222-e633-4d38-b598-8a02921a5d17@oss.qualcomm.com>
+Content-Language: en-US
+From: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+In-Reply-To: <77e47222-e633-4d38-b598-8a02921a5d17@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzOSBTYWx0ZWRfX5hx8GEFKtsyT
+ 9p6dvwFD4xDxhMzmJzyxsnMj4kJjn2DYRW1DefpOPkFZHA0Jb75wwVlVV6wqdurImWf6fr4Dha+
+ yGVsh+lPwQ9uGvHQmgixCCRI+vyx7uYZiISCYpTLC5gyUWfOvESrZGV3iqpS8bcPcLhn1cPTI3X
+ 9XfzCeLmal9a3QkQ97Ly1VAgmAZlQG3W9daUQDcK47TgtmJis5pQvnT17sEcpzL2m/Y6cpi9QlQ
+ 79Wbx79KUluum6YNkK6DB/FWfSdm6MGu/1HPSGtBYEJu8AGukqzNHJoTIxSqniPdR9vKLTyDVnV
+ obi3yzHv5afl1h7R1ZL4Wn5ZTATFYKImCMcFL0EUYOaCj4XPcAlML7Gj65W+rSGYhF69Jn1g1Zn
+ qg02CZUMfdQJlPYuAScMeAcwfxMMjjgMSl/Sn/GBzxEvvJTt1s3nQd+bZMNzRVLETaU4SG/hxkE
+ oR7LmUt/e7N8ffiOtQg==
+X-Authority-Analysis: v=2.4 cv=Z495j3RA c=1 sm=1 tr=0 ts=6ace00c0 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=bJu89BRhDEOEog6wxuYA:9 a=QEXdDO2ut3YA:10
+ a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-ORIG-GUID: 63rubHDYIbkoX4WNQJ6XAnmNWKoDA7_f
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzOSBTYWx0ZWRfX9gaqVcr5wrNC
+ rglCLFQPjPpb8XLsmsZbXkxggBUbix8u+1MVmHHel9qL6bZQ5y/trMwCTddd4j0Vlo5MfC2O7ZP
+ EJkxiwfRYtqZDBwE3DkjV81YpxhQB90=
+X-Proofpoint-GUID: 63rubHDYIbkoX4WNQJ6XAnmNWKoDA7_f
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 clxscore=1015
+ malwarescore=0 priorityscore=1501 phishscore=0 suspectscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130039
 
-On Tue, 13 Oct 2026 at 10:37:59 +0100, Vincent Donnefort wrote:
->On Mon, Oct 12, 2026 at 06:46:12PM +0530, Sumit Garg wrote:
->> On Mon, 05 Oct 2026 at 12:02:55 +0100, Vincent Donnefort wrote:
->> > Sorry, not sure why Sumit's email was dropped...
->>
->> The problem was with my mutt config, it should be fixed now.
->>
->> >
->> > On Mon, Oct 05, 2026 at 11:48:00AM +0100, Vincent Donnefort wrote:
->> > > On Thu, Oct 01, 2026 at 06:04:06PM +0530, Sumit Garg wrote:
->> > > > On Tue, 29 Sep 2026 at 12:33:07 +0100, Will Deacon wrote:
->> > > > > On Sat, Sep 26, 2026 at 05:43:08PM +0530, Sumit Garg wrote:
->> > > > > > Looks like you dropped me from your reply.
->> > > > >
->> > > > > Huh, that's weird. If I hit reply-all ('g') in mutt, it moves the entire
->> > > > > CC list to To: and drops you. I suspect the same thing happened to Thierry
->> > > > > when he replied here:
->> > > > >
->> > > > > https://lore.kernel.org/all/arJcN60nagFKXj2Q@orome/
->> > > > >
->> > > > > I can't figure out why that's happening :/
->> > > > > I manually tried to fix the To: and Cc: lines in this message.
->> > > >
->> > > > Thanks.
->> > > >
->> > > > >
->> > > > > > On Tue, 22 Sep 2026 at 15:55:59 +0100, Will Deacon wrote:
->> > > > > > > I spoke to Brendan at LPC (?) last year but this doesn't really work
->> > > > > > > for arm64 because it relies on being able to unmap arbitrary parts of
->> > > > > > > the linear map, which isn't generally possible unless you force pte-level
->> > > > > > > mappings for everything, which is prohibitive for perf/power.
->> > > > > >
->> > > > > > As per the cover letter it's about allocating pages that are not present
->> > > > > > in the direct map. This essentially fits the protected DMABufs use-case
->> > > > > > where we don't want any kernel mapping to exist at any time. Bufers
->> > > > > > allocated from protected DMABufs are only meant to be accessed by the
->> > > > > > TEE implementation or HW accelerators like in the secure media pipeline.
->> > > > >
->> > > > > That sounds like it should probably build on top of this series, then.
->> > > >
->> > > > The main problem I see with this series is it tries to move from the generic
->> > > > CMA allocator to a reserved FF-A CMA pool which again comes from the
->> > > > DT. We already support reserved pool allocations via "no-map" which are
->> > > > discovered dynamically from OP-TEE.
->> > >
->> > > I can't think of a way around a DT declaration. We need to know what region is
->> > > PTE-level before the direct map is installed and of_reserved_mem is very handy
->> > > for that purpose. And as this PTE-level mapping is costly we certainly only want
->> > > to enable it for platforms that absolutely need it.
->> > >
->>
->> I am rather thinking of a way to turn the default CMA allocator to be
->> PTE-level mapped. Since the overall idea for this dynamic protected
->> buffers was to reuse memory efficiently, otherwise the reserved buffer
->> approach is already there to use as "no-map" via DT.
->
->When the default CMA allocator is setup, it is already too late
->(dma_contiguous_reserve() is called after map_mem()). I am not sure this can be
->reordered easily due to the dependency on dma_limits_init().
+On 10/13/2026 2:27 PM, Konrad Dybcio wrote:
+> On 10/9/26 9:35 AM, Anurag Pateriya wrote:
+>> The SoC Control Processor (SoCCP) is small RISC-V MCU that controls
+>> USB Type-C, battery charging and various other functions on Qualcomm SoCs.
+> 
+> But that's not what it does on this SoC.
+> 
 
-Yeah I saw that constraint too, let's leave it for future extension
-then although having this reordering dependency fixed will be ideal.
+Yes. I will update this in next version.
 
->
->So the only case it would work would be when a reserved memory has set
->"linux,cma-default".
->
+>> It provides a solution for control-plane processing, reducing per-subsystem
+>> microcontroller reinvention. Add support for SoCCP PAS loader on Nord
+>> platform
+>>
+>> Signed-off-by: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+>> ---
+>>   drivers/remoteproc/qcom_q6v5_pas.c | 15 +++++++++++++++
+>>   1 file changed, 15 insertions(+)
+>>
+>> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
+>> index a005546c265d..6fa958044218 100644
+>> --- a/drivers/remoteproc/qcom_q6v5_pas.c
+>> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
+>> @@ -1545,6 +1545,20 @@ static const struct qcom_pas_data nord_cdsp3_resource = {
+>>   	.smem_host_id = 197,
+>>   };
+>>   
+>> +static const struct qcom_pas_data nord_soccp_resource = {
+>> +	.crash_reason_smem = 656,
+>> +	.firmware_name = "soccp.mbn",
+>> +	.pas_id = 51,
+>> +	.proxy_pd_names = (char*[]){
+>> +		"cx",
+>> +		"mx",
+>> +		NULL
+>> +	},
+>> +	.ssr_name = "soccp",
+>> +	.sysmon_name = "soccp",
+>> +	.auto_boot = true,
+> 
+> No DTB?
+> 
+> Konrad
 
-Let's rather just turn DT based default CMA pool to support PTE-level
-mapping and keep it configurable via Kconfig or cmdline or DT.
+The base patch isn't merged yet for nord-ride-embedded.dts.
+we need to enable for both rrd and ride-embedded boards.
+I was planning to send them together once nord-ride-embedded.dts is merged.
 
--Sumit
+Thanks,
+Anurag
 
->>
->> If we can have "cma_unmap" cmdline option alongside "cma" then it can
->> turn the existing default CMA allocator to support unmapping buffers.
->> Not requiring a DT change at all, although we can have the DT property
->> for the default pool too if platforms want to opt for.
->>
->> > > >
->> > > > If we can rather support a generic CMA like allocator for arm64 which
->> > > > can support unmapped allocations then I am all for it. These platform
->> > > > specific reserved pools isn't a scalable solution.
->> > >
->> > > What do you mean by generic CMA allocator here? An extension to
->> > > shared-dma-pool? Or having the CMA automatically doing the unmap/map on
->> > > cma_alloc() cma_release()?
->> > >
->> > > Right now I have created an API for the unmapping/remapping part. It adds a
->> > > burden on the caller, but the alternative solution is introducing post-alloc
->> > > pre-dealloc callbacks in the CMA, which looked a bit overkilled to me when
->> > > the users of that "ffa-pool" are only optee and the nvidia video dma-buf heap.
->> > >
->>
->> I am not too worried about where the actual implementation lives but
->> looks like CMA driver to be the better place. I think use-cases like
->> guest_memfd proposed as a user for __GFP_UNMAPPED on arm64 will also be
->> looking for this feature.
->>
->> -Sumit
->>
->> > >
->> > > >
->> > > > > You could allocate the DMABufs from a CMA region that has no linear alias.
->> > > >
->> > > > Allocation from generic CMA pool is already the case here:
->> > > >
->> > > > tee_shm_alloc_dma_mem() ->
->> > > >   dma_alloc_pages()
->> > > >
->> > > > Do you mean it's just fine to unmap buffers allocated from generic CMA
->> > > > region since it doesn't have any linear alias?
->> > > >
->> > > > >
->> > > > > > > Vincent's series tackles that by using a pool so that only that part of
->> > > > > > > memory requires the pte-level mappings in the linear map. That's the
->> > > > > > > whole point of it, so I don't think it makes sense to drop it in favour
->> > > > > > > of Brendan's approach (which doesn't work).
->> > > > > > >
->> > > > > >
->> > > > > > For protected DMABufs, we even don't require any pte-level mappings in
->> > > > > > linear map. The whole idea of mapping and unmapping is just a bottleneck
->> > > > > > for performance sensitive secure media pipeline use-cases. That's why if
->> > > > > > we can support __GFP_UNMAPPED with the memory allocator on arm64 would
->> > > > > > be the best fit for this use-case.
->> > > > >
->> > > > > The point is that you will require pte-level mappings for the linear map
->> > > > > if you want to unmap from it at runtime on arm64. If you don't, then you
->> > > > > can end up needing to split a block mapping (e.g. pmd-level) when you
->> > > > > decide to unmap only part of it and there isn't a safe way to do that on
->> > > > > arm64 without transiently unmapping the entire block, which can lead to
->> > > > > fatal translation faults during that window.
->> > > >
->> > > > I agree with you here, what I am rather trying to find if on arm64 there
->> > > > is any possibilty to have a generic allocator for unmapped pages. That's
->> > > > the use-case here as well as what Brendan't patch-set was trying to address.
->> > > >
->> > > > >
->> > > > > > Now the question is why arm64 can't support __GFP_UNMAPPED similar to
->> > > > > > how Brendan is doing it for x86?
->> > > > >
->> > > > > Because arm64 != x86? Presumably x86 doesn't have the strict
->> > > > > break-before-make requirements we have on arm64.
->> > > > >
->> > > >
->> > > > Sure, sounds like you are eluding to that the generic MM flag
->> > > > __GFP_UNMAPPED being proposed can't be supported on arm64, right?
->> > > >
->> > > > -Sumit
->> >
->> > --
->> > Vincent
->
