@@ -1,171 +1,330 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F5C395AE2
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 09:32:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72C773859E2
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 09:32:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791883958; cv=none; b=ZW1lLbVTVPWioi5DfLA02FleZUCrQBvP+pUB3IsEdwfk/QqPdScQZzgI93bL6offwV2nMojIok3/bkxiwMM6FZAhMM2xwYeMc/CZTO4q03HRYnoxLaXZsLrX5kIjgU/VwhYjAi1k1R74pomXaZroWlnH82AcoNFZpAcktwEfpLs=
+	t=1791883973; cv=none; b=gQoQWK/g23gtUioeYQfYkgfpg2xOJshS3BeTPiaLpNFS3GS8I2YSbm2fDVOVrqKBWcG+gIIuGDHriIyJ3BaXqUygRncAl+dPI5KJPDhAnVhkVNGg2+7tp8IroNyHkfb4pKQxwb2AlybXbwbvmLYBLhp0AErKh9TilflP8chtXjw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791883958; c=relaxed/simple;
-	bh=cbcFPermP78NZKc5qPlLyRAJgAr5+F3kxdBjMxXY43g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LNAVOJe6h0eF7AjfrTkQssytJvuLp6nq8FinUFi0uqjvLQUliOnYnBIu5IFMA1rSyZj8BWrrNnx3uELv2BaCRG3plcxfwzLpEsrRjmxlLM/owBRTRNJ+NPr+thS2QnHTA5Zd7lcQuS1fu/7kLgJ/sUbpkYsbGQlrpQbO5QEQWrk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=etVYrReD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OSW4zuDv; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791883973; c=relaxed/simple;
+	bh=cla9maN5wMpaaG3n4Vw15P7yOx5hDOcvJwh8pgOdmgA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=AB1WKnplgiDNE197gsdNT6gH/FdOPE8oBrXRzmRtakpBmkMwxHTOOQW8HEpBcHgac9wUpYvg3re6QgHfTBVQy+cCmREjyRSfWF11zv7gxyiJ1o4mIR76gFDSPcHxKZt5MWebBdquKRI4nkKfPJdCRLcTcJY5wZSaybQou5p/yTs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mTxjg2jV; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="etVYrReD";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OSW4zuDv"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D7OXSD015284
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 09:32:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	sCfanTdzF+SA3fKg/IDYE7BzKnCyd1eqz0NMWJFx8YE=; b=etVYrReDVvZXmCtg
-	EZgl10pD21YhzzCw+uodd/0ss/dioKLuFBkeDrId7fPMOZHm932BI2YAOYwTI5sk
-	3CDOr+ley1ubJsq8FMPXLlvfUHTyz688wxhpoaQNWrtveIBDrguiRq4leanj5Zuj
-	L3OuMSeCeBjhg3G17NTUm8y9qbbSzBuOmSmgmqSpPtaKcUg3ViA4SxQRRw2BQadj
-	NkDPVDtkc+gsv5tcpLwK0G8jUFxAWcynFSWdenu8a4EhgckCTAXK4dMvU9bI5GX/
-	R9l1PhePSndWBskI8agjIkzwgGOv7zVrRcUE3ntUTWguXp2RVvNxCXI4dRChCRJF
-	9t7eqQ==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9g7ugh7t-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 09:32:36 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3823dcc1647so2738479a91.3
-        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 02:32:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mTxjg2jV"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-487049569b6so1892077f8f.1
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 02:32:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791883956; x=1792488756; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1791883969; x=1792488769; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sCfanTdzF+SA3fKg/IDYE7BzKnCyd1eqz0NMWJFx8YE=;
-        b=OSW4zuDvAgogYNm5f/MIP01z7YIq7/fAtOIJYFAK7u5jrjZkGuZNOas5XMc/owhcwh
-         /Xo62XzhM7zzmvobZ12tWee96KCfSJXgv6blfFlw1CuAb0rtxh/hO+pO7pbioyNHS+eE
-         eGoQhMKiDXz22Q/jVsz57co074GhAxXw2FFPQEmcgYqig15UZo7xvdqZ3QsPv4o1fEI7
-         Dd/puXZO6EYtBJby/mruwx9ns2c3Yc8XOvFShAVliwBznZzxsWGWRURPBDfiKHlVqAKO
-         KOTwMxEI9htk5M65dEB3SYjQPTm1vEoEyz2UOYKp5O1oNYHfK2J3Yn01Egcp7slQ6Xk+
-         /Rkw==
+        bh=rrwyteEkSmVugKNDSB7rq3Nq/U0fxherldXaw1AGqq8=;
+        b=mTxjg2jVtU5g+ugEKCThvrIPT0Y8JopUxG7RK7lYFQknKF1USK+f7PiR5lWt4XcvyM
+         yGXQ8GUuTzo8XJBfDvnXxqa3cWjbW/3DUfn+Sj7KGN2TVyiCXIvOco1nTexJ5F18g7S4
+         sdH2mXOLOiOnb2Dczjvj/GNa6NgFMAj4Lv/U6T529cZr1ohB+Fxca4gcYFAk+tCjWDGH
+         xGA5vLQTum4KNQybksU4Q7EimtFPw1FYqgSl6st0XTVAob8l5o3s+eFuD5e3uWAFoC5f
+         K/KY/XQk5CLvDGFmEg3it1wcdK3zF/Q5ISeOLdeScXlBqOf5Dks/9jqe3u7qOfQgMhxD
+         5h9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791883956; x=1792488756;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sCfanTdzF+SA3fKg/IDYE7BzKnCyd1eqz0NMWJFx8YE=;
-        b=M3g7Tw3Br/+4rLZ1j4tmRXhWil753YOT2SYQPa6X3kYVbxy6t1pwIHNCj9Wr8g33tY
-         i+uEBY7jrOnCeh1JjDrnMxu9/TpvzteimGcG+2x2riRkcuz33HCn3Us9GqVnD+s0UZiT
-         Jnqq9AV1QIFiEMAmWD/nKknLrKEDpNxbpWTvG/s8mpGYEYjKcfKyBRglx3cLEuQKKJf0
-         RO9qfgCSMmjqhqT7ZjDdscJ86kBprpWdPmpbtUYkIOpvkUpc40p31KHXqO2IQucjWxRB
-         5wveaVptgn9GRvO1EGxi62ZilwYqsCnlTn4/sva7g+gmwH02EQyfL7KDn4SaW691jEZg
-         +jwg==
-X-Forwarded-Encrypted: i=1; AKwUvBwZLjewBjBRa2nv52V0IMiP8uOH7I0EP2idD+i7NODOzRldA9NtlTYguX1UFAfCHSh8ed9pKA5BhsU9@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ+0IWGX/imKQvyiAiGB86q0DVz66nnFtlstzJKGXot0KxyMyqr
-	j3H8kDJhpMqsSK0BhnhODO0/EetLuG+g4RC64Sk4HmcRRMJHwFDlR4lOh39ftdDCBjHoSfClUGv
-	efDvgxB5ua1bFaiKW7pY00i5eGjlHkmrUyDxwNqZH3TVMTSjwqX02j592uyTj/nWX
-X-Gm-Gg: AYBFou0ud9f7fsnn5kTcIb2i0CbenoBmKXTNGi6S0in1Apdb5AGzaK5sFTIbbaQU82T
-	6Jo2BEjx8tKTsOgJaDpTaG4+R3soGY1cVjmMebkt0d1dkM6hV02xHmlAL2Fu8UTEt4R419o8aH7
-	IRDVR8DfDt1r7cVHsDI48qbexAloLkIOnxGJNlvBhxRmS0K5q5xRkZVjUbXXhBFONq1iHivgAnM
-	ORvaL6g3x+SOqNgfV9mfNmON16CE2EshZtKgWQ4zXYF4xsKAuX6w2A40RKyLNdJAp7cXdb5+6hf
-	vzUWfCeEbO1iACQV7EfJwmTv4KdlNfP9bS1rJmDelDgXSEmKEAa8nWGCzG9j0y7ixXUw7SFk1Xy
-	5M+RPeZzr9SNRexeBvVhyU4guOGzTzHkmYIdn
-X-Received: by 2002:a17:90b:1d03:b0:39e:345b:3322 with SMTP id 98e67ed59e1d1-3ab3a60f97emr9055327a91.23.1791883956212;
-        Tue, 13 Oct 2026 02:32:36 -0700 (PDT)
-X-Received: by 2002:a17:90b:1d03:b0:39e:345b:3322 with SMTP id 98e67ed59e1d1-3ab3a60f97emr9055311a91.23.1791883955654;
-        Tue, 13 Oct 2026 02:32:35 -0700 (PDT)
-Received: from [10.217.240.243] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3d9e07329sm5141574a12.5.2026.10.13.02.32.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 02:32:35 -0700 (PDT)
-Message-ID: <2c93f85d-a6f0-420a-9b7d-cd72a7963ab8@oss.qualcomm.com>
-Date: Tue, 13 Oct 2026 15:02:29 +0530
+        d=1e100.net; s=20260707; t=1791883969; x=1792488769;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rrwyteEkSmVugKNDSB7rq3Nq/U0fxherldXaw1AGqq8=;
+        b=bjmZuoL1I3H6c8iAFwU7/iN0o+HBczISPNJSEMN6dRZYSo/JXHfR7ZoLNxYGwn+Vhw
+         PlM2zK8jFrbC5vJB/xjx/hBYg19UoJ+lxdVP1OGwbn2MFTSJnHNZ1xevi7AmxwXnJX+2
+         t8dLuNiKfqJINgqsWebL4HFu9qSlUETkkNa1Yfx8GwVmjSkm3+adJ2oR4sI53ENs4gwn
+         kpwKXfuE8rZL+8TbEFhhsnn8N8PimaN+RrclM7vQMPF/FLk/s6v44NMr2NUgiLIrTZcD
+         bnwO+gX2p7R0AM43QgK/0cpSE3Wxdz7xsSmEG/Z5SeWoUsg9OkbPZM3/qASoqvIPpU07
+         3Qnw==
+X-Forwarded-Encrypted: i=1; AKwUvBwQ+NZlQ1YizqINhC4e9FuFCRMHDoehIX552K5KJ07jIlrGUH8KQ3cjr53Nxd3XFNZ9QNYy06a0JV/U@vger.kernel.org
+X-Gm-Message-State: AFq9FYKfHiSNPeTKLxKDy3j6gyFZMKOqbMVZzFfGS8rPFdPxASALoSN1
+	U9okIwY6qNULLgLEBabJ3NBWR6kq+m09eeMTaZWb1xqeuDMpO1sT4T/H
+X-Gm-Gg: AYBFou2gmSxqOR+UwtJ6OHxXEkXUI4kox+bIAerZgpuidlSvHuLBBjtYdF/hwC+ycHZ
+	/L27I6BrNROIIwOfCbAY8ZJICQuaL7x4nXrzXnVyGDEmmXsrJgrW5sDoQ+1rVC4xipLGvXii0MO
+	HuOqk3THWDQqVMqd30FBjgaQqay84+/lr9/Ct9EM+cgNbt/upJyUXiU+0Skx4ZlEgJB3pl5/I08
+	/ajb2Cwa1zkz6X/SwlwFX5Y3zNyW3b97+RE4dxxmH3prVDmcnLXyN+9D8e08kmRg9ng1yjacMh9
+	mVEuc2p5p5zb/rafgrg5bpN4o+F5B8TCCqjqi0MGJwKPipPCYLCNXBdnwflTbhpVVx1lHjiFw8w
+	kC/wx3H9aJEVJy+qebvjFEC+59qTcXPX4yElYIMStovRgX65adx2Mu3rLYZucXsRzCbjpNuSvnW
+	gkrDWdu0CMevWBQZqaA67V516jNTx2KmIpzE8Iov5mnZeTcefctd3B6LFkwbFpSKI6ytQ0BF8Bl
+	fr9zXZXUySXIK32oQ8xsdYYT0YS/VLfSDI=
+X-Received: by 2002:adf:e009:0:10b0:48c:7dac:8957 with SMTP id ffacd0b85a97d-48dbacda6b7mr16184465f8f.32.1791883968322;
+        Tue, 13 Oct 2026 02:32:48 -0700 (PDT)
+Received: from ingenieria31.oficinasStQ.local ([79.112.15.218])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc4ec6sm3986774f8f.48.2026.10.13.02.32.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 02:32:45 -0700 (PDT)
+From: =?UTF-8?q?M=C3=A0xim=20Pedraza=20Padilla?= <maximpedraza@gmail.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>
+Cc: Francesco Valla <francesco@valla.it>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Javier Martinez Canillas <javierm@redhat.com>,
+	Jocelyn Falempe <jfalempe@redhat.com>,
+	Sam Ravnborg <sam@ravnborg.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-efi@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-embedded@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v5 00/13] Add splash DRM client
+Date: Tue, 13 Oct 2026 11:32:30 +0200
+Message-Id: <20261013093243.505776-1-maximpedraza@gmail.com>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] dt-bindings: arm: qcom: Add Talos Lyra EVK board
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>,
-        Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
-References: <20261012-talos-lyra-evk-v2-v2-0-dcc9316ebb59@oss.qualcomm.com>
- <20261012-talos-lyra-evk-v2-v2-1-dcc9316ebb59@oss.qualcomm.com>
- <1cb252eb-a7d9-4eac-8d28-8d7781ea430d@kernel.org>
-Content-Language: en-US
-From: Ruchira Revdekar <ruchira.revdekar@oss.qualcomm.com>
-In-Reply-To: <1cb252eb-a7d9-4eac-8d28-8d7781ea430d@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzNyBTYWx0ZWRfXzvWE/VgGiWgV
- zsTSw0XwYsmOHFnRcNDYJK4ZRHB4URDtySrK0DqbT2Q31eSUTnRhtHo/5hdEh7glg/rXplH7JOk
- Mpe44kK3OTu2fk59iietlOIeUUhUc4cDoA8lytUeZv7HLsSBweox3YvyKQG3RQgXCyLwkcHH8Hw
- e9fAlRCG/V4jbkcfHigGHzKl+BJvzET7wM8fOfkEQCz2K+yVU1AjslREMLndjPYXn19X3gtNffD
- /VSBdpNfmimOh9h4ygfsBL4DeW5usVF2MORP2/gJkI70J0aLQ5MSXgKemLsSd94gPSuTklhto6H
- DE4/rcxszVGkawnkRZWpvBlB6YzG7AQhU2nS0z8qnicst3FWK5R0dBvCx6nKg7fwJs5PENc6E9E
- JYPl2tLn3iHwg5KnO3I1x3FReyl0pQJS+O8ABVc2Ew3e3yKa3nXhdTaYBNieXFj79Wa+sWyuLBo
- YemNHTqcknQOu5f+feQ==
-X-Authority-Analysis: v=2.4 cv=Z495j3RA c=1 sm=1 tr=0 ts=6acdfab4 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=hQPrJiczcKPEErDkTKkA:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-ORIG-GUID: KZ0Tc8Neu10AN9iOlp0GEzTawwnO0UWy
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzNyBTYWx0ZWRfX98vL02ClH2Uy
- RuPp/mvwpxCDMi3n+p+aN+5wXFrpLltFLQPDyMWcfXV0CaHYoaqmFNVVtJ34JnX0xTG3rZkrxxY
- fiweOBfHq56IzPAhlyQChJBN4Ue2H6A=
-X-Proofpoint-GUID: KZ0Tc8Neu10AN9iOlp0GEzTawwnO0UWy
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 clxscore=1015
- malwarescore=0 priorityscore=1501 phishscore=0 suspectscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130037
+Content-Transfer-Encoding: 8bit
 
-Hi Krzysztof,
+This is the fifth version of the splash client, which I took over from
+Francesco with v4 [1]. The changes are the review of v4: the BGRT is now
+read through accessors in efi-bgrt.c rather than exported data, as Jani
+asked, and the issues sashiko found are fixed. Testing now also covers
+several outputs, a tiled display, the error paths and Falcon mode.
 
-On 12-10-2026 16:54, Krzysztof Kozlowski wrote:
-> On 12/10/2026 08:16, Ruchira Revdekar wrote:
->> From: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
->>
->> Add the qcom,talos-lyra-evk compatible string for the Talos Lyra EVK
->> board, which pairs the Talos Lyra EVK SoM with a common carrier board.
->>
->> Tested-by: Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
-> 
-> No, this did not happen.
-> 
-> Please do not add inapplicable/fake tags.
-> 
-> 
-> Best regards,
-> Krzysztof
+Why this is in the kernel
+-------------------------
 
-Apologies. The tag was added based on internal validation but Nirmesh
-had not yet formally posted it to the mailing list at the time of
-submission. That was a mistake on our part.
+Maxime asked in v1 why this should not be left to userspace or to the
+bootloader. The cases it is for are the ones neither covers:
 
-Nirmesh has since replied to this thread with his formal Tested-by:
+  - Nothing initialises the display before the kernel does. U-Boot's
+    Falcon mode, meant to cut boot time, starts the kernel from the SPL
+    and never runs U-Boot proper, where display support lives: there is
+    no bootloader splash to hand over, and the device tree is the only
+    thing that reaches the kernel. Userspace comes seconds later.
 
-Tested-by: Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
+  - One kernel image for several products. An image built into the
+    kernel, with CONFIG_EXTRA_FIRMWARE, means one kernel per logo, or
+    every logo in every product's kernel, all of them staying in memory
+    for good. Francesco described exactly this case in v2: one board
+    support package for a family of devices, each with its own logo and
+    background, picked by the bootloader.
 
-will include it correctly in v3. The same applies to the identical
-tag in patch 2.
+  - A splash handed over from the bootloader does not always survive the
+    native driver taking over the display.
 
-Best regards,
-Ruchira
+Where the image comes from
+--------------------------
+
+In this order: a BMP named on the command line, the device tree, the
+EFI BGRT, and "drm_splash.bmp" loaded as firmware; with none of them,
+only the background is drawn.
+
+The device tree node lives under /chosen (patch 6) and carries the BMP
+either in the node, which dtc fills in with /incbin/, or in a reserved
+memory region the bootloader loaded it into. The region keeps the image
+out of the device tree, so that it can be changed from userspace by
+updating a partition, as Francesco suggested. A node is only there if
+someone put it there for that board, so it goes before the BGRT.
+
+The command line wins over everything else, each parameter for its own
+part only, as console= wins over stdout-path: splash_bmp (or "none"),
+splash_color, splash_pos, splash_offset and splash_rotation. Without it
+a BMP loaded as firmware could be neither placed nor turned, and it lets
+a placement be tried without rebuilding a device tree.
+
+Placement uses a position with -1 centring an axis, plus an offset, in
+screen pixels. A rotation turns the image and not the screen, counter
+clockwise as for panels and as DRM_MODE_ROTATE_* count. A device tree
+image is placed as its node says, a BGRT image at the table offsets, and
+anything else is centred; placement given on the command line applies
+whatever the source.
+
+BGRT images with the ACPI 6.2 orientation bits set are no longer skipped
+but turned (patch 11). I took the meaning of the bits and of the offsets
+from Plymouth, the main user of the BGRT, so that the kernel and
+Plymouth put the image in the same place and the handover does not
+jump. I have not found the specification text to check against;
+corrections are welcome.
+
+Changes since v4
+----------------
+
+  - efi: bgrt: patch 2 adds accessors for the boot graphics instead of
+    exporting bgrt_tab and bgrt_image_size, with stubs in efi-bgrt.h for
+    CONFIG_ACPI_BGRT=n (Jani [2]); both variables are __ro_after_init
+    (Ard [3]). Ard, this is the shape we discussed [4]: it is no longer
+    the patch you acked, so I have not carried your Acked-by.
+  - The client reads the BGRT through those accessors only, and drops
+    its own wrappers, its stubs and the #ifdef around them; no "static
+    inline" in drm_splash.c any more (Jani [5]).
+  - Fixes from sashiko's review [6]:
+    - when the render thread could not be created, the framebuffers
+      were freed but the modesets still pointed at them, and the next
+      restore committed them: a use-after-free that closing the last
+      DRM file is enough to trigger;
+    - when no buffer could be created, the scanouts were not freed, and
+      a later restore committed a mode without a framebuffer;
+    - a BMP loaded as firmware that arrived after the render thread had
+      left (another master took over) was kept until unbind; it is now
+      released when it arrives.
+  - The binding and the documentation now ask a bootloader that loads no
+    image into the reserved region to disable or remove the node, rather
+    than to clear the region, which left the kernel an invalid image to
+    complain about on every boot (sashiko [7]).
+  - Dropped the RFC tag: v4 drew no objection to the approach, and I
+    consider the series ready to be applied.
+
+Changes in v4
+-------------
+
+Fixes to Francesco's patches, folded in and listed in the commit notes;
+most of them were also in sashiko's review of v3 [9]:
+
+  - the render thread stayed in TASK_UNINTERRUPTIBLE for good when the
+    BMP firmware was missing (hung task warning), could miss a wake up,
+    and kthread_stop() was called on a thread that had already exited
+    (use-after-free), never existed or failed to start;
+  - a use-after-free on unbind: the image was released after
+    drm_client_release(), which frees the client;
+  - a use-after-free in the firmware callback when the device goes away
+    first, as the request cannot be cancelled; unregister now waits;
+  - the BMP bounds check could overflow and let a crafted bitmap offset
+    read 4 GiB away;
+  - the 24 bit blitters read a byte past the image;
+  - buffers went to the wrong modesets when one was skipped, tiled
+    groups dereferenced a buffer before creating it and swapped width
+    and height, a failed dumb buffer left an ERR_PTR behind, and the
+    modeset list was walked without modeset_mutex;
+  - the BGRT symbols are exported (Mario's report [10]), GPL only;
+  - the DRM_CLIENT_DEFAULT entry is indented with tabs (patch 1).
+
+Additions: the device tree source and its binding, placement, rotation,
+the background colour following the image, BGRT orientation, the
+command line parameters, and the documentation.
+
+Testing
+-------
+
+  - QEMU versatilepb (pl111, 16 bpp): 39 cases for the device tree
+    source (inline and region, invalid nodes, placement, clamping,
+    rotations, rows with and without padding, backgrounds), plus 17 for
+    the command line and the order of the sources, each compared pixel
+    by pixel.
+  - QEMU virt arm64 (virtio-gpu, 32 bpp) with KASAN, with the BMP loaded
+    as firmware from an initramfs and the driver unbound afterwards: no
+    reports, also with a crafted bitmap offset and with the firmware
+    arriving only after the unbind (sysfs fallback).
+  - Several outputs, on virtio-gpu with two heads: with the first output
+    off and the second on, v3 put the buffer on the dead output and left
+    the live one blank; now the splash is on the live one.
+  - A tiled display, simulated by forcing on two virtio-gpu heads EDIDs
+    with a DisplayID tiled topology block (2x1 tiles of 1024x768): one
+    2048x768 buffer, the image centred across both tiles; v3 oopsed on
+    such a display.
+  - The error paths sashiko pointed at, with a debug patch forcing them:
+    without the fix, a failed thread creation followed by a restore gives
+    KASAN use-after-free reports, and a failed buffer creation a WARN in
+    the atomic code; with it, neither.
+  - x86-64 with OVMF for the BGRT through the new accessors, including
+    forced orientation bits, and drm_client_lib built as a module.
+  - An AM335x board (tilcdc, 800x480 panel of which only the bottom 297
+    lines are visible, 16 bpp), booting over TFTP and NFS: 27 cases,
+    plus 9 with the BMP loaded as firmware from an initramfs, checked
+    by reading the scanout buffer back through /dev/mem.
+  - The handover on the same board, with the product's Qt5 application
+    drawing through EGLFS and the SGX GPU: it takes the display straight
+    from the splash, and when it exits the splash is restored, pixel for
+    pixel.
+  - Falcon mode, on an AM335x board booting from NAND: the SPL starts
+    the kernel directly, with the device tree appended to it and the
+    image inline in the node, and U-Boot proper never runs. The splash
+    comes up as the node asks, checked pixel by pixel.
+  - W=1 and sparse clean; every patch builds on its own on arm and
+    x86-64; checkpatch --strict clean apart from a quoted modpost line
+    and the MAINTAINERS reminder answered by the next patch;
+    dt_binding_check clean for the binding.
+
+Not tested: a BGRT with orientation bits from real firmware.
+
+Open questions
+--------------
+
+  - Rob: how the image should be described, a BMP in a property or raw
+    pixels described like simple-framebuffer [8]. The binding here uses
+    the BMP; the client would need a second drawing path for the other.
+  - Once the binding settles I will send the dt-schema change that lets
+    the node live under /chosen; until then dtbs_check flags it.
+  - The splash is a DRM client, so a device using it has no fbdev
+    emulation and no /dev/fb0. That rules it out where userspace still
+    draws through fbdev.
+
+Based on drm-misc-next as of 2026-10-12 (725953d4da85).
+
+[1] https://lore.kernel.org/all/aryqYhHqFk3cXh9d@bywater/
+[2] https://lore.kernel.org/all/5c92c6f27b0778124d2365603374f70bd9b69b8d@intel.com/
+[3] https://lore.kernel.org/all/001eb42a-ec22-474a-83c6-371f1f4b2b8c@app.fastmail.com/
+[4] https://lore.kernel.org/all/9cf259a5-6083-433c-8544-ca3f6286334e@app.fastmail.com/
+[5] https://lore.kernel.org/all/1800459b75ea057c42f8c601a09646cca938b3db@intel.com/
+[6] https://lore.kernel.org/all/20261002091339.B64EB1F00893@smtp.kernel.org/
+[7] https://lore.kernel.org/all/20261002091338.E12D61F000FF@smtp.kernel.org/
+[8] https://lore.kernel.org/all/CAEUXW=Gh6wMk1i=x_KT0eSdkHeHs8Hkxkj4hfsuTRyY6=aphpw@mail.gmail.com/
+[9] https://sashiko.dev/#/patchset/20260510-drm_client_splash-v3-0-a9aee9f0b2fc%40valla.it
+[10] https://lore.kernel.org/dri-devel/5d7067de-97b7-4232-9cf6-e4b978696482@amd.com/
+
+v4: https://lore.kernel.org/r/20261001195847.141192-1-maximpedraza@gmail.com
+v3: https://lore.kernel.org/r/20260510-drm_client_splash-v3-0-a9aee9f0b2fc@valla.it
+v2: https://lore.kernel.org/r/20260106-drm_client_splash-v2-0-6e86a7434b59@valla.it
+v1: https://lore.kernel.org/r/20251027-drm_client_splash-v1-0-00698933b34a@valla.it
+
+Màxim
+
+Francesco Valla (3):
+  drm: client: add splash client
+  MAINTAINERS: add entry for DRM splash client
+  drm: docs: remove bootsplash from TODO
+
+Màxim Pedraza Padilla (10):
+  drm/clients: Kconfig: indent DRM_CLIENT_DEFAULT with tabs
+  efi: bgrt: add accessors for the boot graphics
+  dt-bindings: display: add a boot logo node under /chosen
+  drm/client: splash: add a device tree image source
+  drm/client: splash: place the device tree image where it asks
+  drm/client: splash: turn the device tree image as it asks
+  drm/client: splash: take the background colour from the image source
+  drm/client: splash: turn the BGRT image on panels mounted turned
+  drm/client: splash: prefer what the command line asks for
+  drm/client: splash: document the image sources and parameters
+
+ .../bindings/display/boot-logo.yaml           |  151 ++
+ Documentation/gpu/drm-client.rst              |    6 +
+ Documentation/gpu/todo.rst                    |   17 -
+ MAINTAINERS                                   |    9 +
+ drivers/firmware/efi/efi-bgrt.c               |   74 +-
+ drivers/gpu/drm/clients/Kconfig               |   91 +-
+ drivers/gpu/drm/clients/Makefile              |    1 +
+ drivers/gpu/drm/clients/drm_client_internal.h |    9 +
+ drivers/gpu/drm/clients/drm_client_setup.c    |    8 +
+ drivers/gpu/drm/clients/drm_splash.c          | 1465 +++++++++++++++++
+ include/linux/efi-bgrt.h                      |   39 +-
+ 11 files changed, 1844 insertions(+), 26 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/boot-logo.yaml
+ create mode 100644 drivers/gpu/drm/clients/drm_splash.c
+
+
+base-commit: 725953d4da85cfb97a4c309fad6346b72f8529e7
+-- 
+2.39.5
 
