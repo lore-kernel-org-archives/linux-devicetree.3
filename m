@@ -1,197 +1,131 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8411B3E5A1F;
-	Tue, 13 Oct 2026 07:10:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F27004B4863
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 07:10:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791875424; cv=none; b=cVyu2FJsQZHgaOrR5tvRNK/xIowzfOhOx/8UNc410hWVDyS12wYTJTrZmR8gQ/PSwStNzyZdk2NemkUpsbyNmuVE+udUoG1//AIifX5CqKxiWnKdO3usOHqQIMHjkmfE1731CTLtpNSGe3S1oczLH6hcWPk2ud3sevk4I85d9ac=
+	t=1791875428; cv=none; b=TVx9AOchhRE+C1ZgRhhRLTQZbMKUv+kUdZ9aPiSNRRj+vU68VIlgmcQztr7GbrVUtoE5Rc2Cgc0PqefNsFf+ZifYY3hDF4HrQiOawGkWVm/cOJWuAEFL9Hi2sFdgh3sItX5zquGXSK5yvOCG8oecu48OKC/nQ1JYX0ZaP1HtEWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791875424; c=relaxed/simple;
-	bh=40UxKO6+x+fC3YVsdc6BFyvhZNRTxQba4nAox1wImeo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BdhN/N1TJXJPrzcRSuhRBDbmmgzLFitMTDhrt1obbORAAtBOKj0YmslD4ulPArRtsSnXthPQ8JCOPFvrrnWGzIf+HjGNXQFc/yH/Z62xpFKPVxrBV2NTB//VAs0v0XIePtjLxqOBR0WAEGhrBnoNFxrE5RVFPo9EqUcM+3bJurE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PCbX5wNo; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791875428; c=relaxed/simple;
+	bh=YC4l7vs6phBF/kwZPYqd6bhtkTN6nnOLPDyVW74IR1o=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=QiK1rvA+8fWowf4Gur0+w7WOzPgBcJzcKl9kD0PnnBEE/Gpl6noLzNPId1zTvMMwjEclZp1ijZ59Rsm/OIMFLjw9muCN73zpjlqQR8FrKSoBAva/qfYQdMFO5En7l8OHWKwHnC1LAtCEuyMWOvDgQM1BYBa0FlsoZT+Ehf3QXXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YdUCZbR5; arc=none smtp.client-ip=209.85.167.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PCbX5wNo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791875422; x=1823411422;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=40UxKO6+x+fC3YVsdc6BFyvhZNRTxQba4nAox1wImeo=;
-  b=PCbX5wNoYcAiylQDo1OfObH0UOGieWz0wsjFNpU0n/rxIMm5J07hCY6i
-   DvLU1Vn92Z2QYzTOhVmP7pmmWS4/519hx9QB3ZiX7Yqyo2gpJ8JRsK9w+
-   sLafMpQjWOsxizkrSx8lbFgcgRTqo1fYi2hs2WRSIhgh3o4njnlHpIVsv
-   QAw08x9RP/frertG1XKuC9sSLM7WKPfeLX4y1DUzB6mH6GciuUMsHve6H
-   /HFAAOT3SMtgIYVHXQhjgLMnE98jzYRU2y1PqwBixYnE6lJ96DnMOZhXN
-   Ev/Yn16NYHDCo5BpPy1bT5y6CsIgarDlXDH0yNd7ZYsg/l6XMGS3U633e
-   w==;
-X-CSE-ConnectionGUID: GJES+LywRNuVl8XaEyDxxA==
-X-CSE-MsgGUID: TAA7S5EWSjyyBcHmzUl3Pw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="488229"
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="488229"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 00:10:21 -0700
-X-CSE-ConnectionGUID: 1W9NQU1kQm6uPTwR4G1eDA==
-X-CSE-MsgGUID: yTGA8lL0QdqXc4qqXsqUpA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="1065334"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 00:10:18 -0700
-Date: Tue, 13 Oct 2026 10:10:10 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: longzhao@ambarella.com
-Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
-	Linus Walleij <linusw@kernel.org>,
-	Michael Walle <mwalle@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org,
-	Chanho Min <chanho.min@lge.com>
-Subject: Re: [PATCH 3/7] gpio: pl061: convert register access to regmap
-Message-ID: <as3ZUgUkZbqw40e6@ashevche-desk.local>
-References: <20261009-cv75-gpio-v1-0-5836bd438423@ambarella.com>
- <20261009-cv75-gpio-v1-3-5836bd438423@ambarella.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YdUCZbR5"
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5bcb0f245e0so1918792e87.3
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 00:10:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791875425; x=1792480225; darn=vger.kernel.org;
+        h=content-type:mime-version:content-transfer-encoding:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YC4l7vs6phBF/kwZPYqd6bhtkTN6nnOLPDyVW74IR1o=;
+        b=YdUCZbR59sndgbI3P34/lHcO0G/fRRWAKHnvwtv94VTPjZnZwGfRN6MF77V9+Z34Vr
+         mosY+lnsCjFgdSKG40s3y8h5D2kjIBqCcWkYPE1pzTu+kj16pGHGgVZrvEOuuKapbrtl
+         Y4XcCywfKx0jahc7aAC0E3D7Vf6PGw3v36vg/Fv8YKc3dOELhaIRVENBD9FUnY7Z37n6
+         6vV0Mv4adKPXAdIULtb01BJhzr0QZVn1fsfSCzRKZVv79/iQt2xUDFfvDyWEwjbxIlmb
+         yznhDisbxu31BTE09Ai2YmX24chIlY7OpbHApiCZN9LCUv3/GynuhMFaBRQxcTIuf4xL
+         FFpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791875425; x=1792480225;
+        h=content-type:mime-version:content-transfer-encoding:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YC4l7vs6phBF/kwZPYqd6bhtkTN6nnOLPDyVW74IR1o=;
+        b=ODg7kjuMy7Eb4lYOKJhQBpSSCGBuUWYN7KcpG2SEjGcxQcw2JT6iOg8jFwjcCHmQgN
+         LnhUhqVW2uvTX+FbNAlsucy4uhFXg/2/jL6uaUYFOxEfU75Y3U0NameINOCJhTJxjEby
+         7wwBO4NSXtmWmPzcChlCvF2d0354bFFinBgiDuQphmNOx5yDMxs2tOTveaMrqonlXgN1
+         OYoKvvosSjkSYSyY5HsSIYXGymjw+bCZSHL++cLrnEt4mDwEs9HsDPZ8HMPnSfyESmJ8
+         sXEVTE3WmsuMpDLz+37BkhlBQZHbnSi2M5AsBUCAvs0ZccLiCcrvtoaVmDGjPS0aPWGf
+         UdQg==
+X-Forwarded-Encrypted: i=1; AKwUvBw6wwWN/MHgob/A07lsopGUKbJ6erBMblj9KhLx5okuCmbPTmyQtznTjNiFsKwD84Aob6l0dMvb9LpP@vger.kernel.org
+X-Gm-Message-State: AFq9FYIDAtqU6eEdqT+0QPOm4YHSmrYGA1VAXhGz9B9y8fzUnyS9TaAC
+	q5R6kRaQW42dhzk6kgELqCTyiX1oEsWAhq6mQir+00bsn9YEhyzrx5si
+X-Gm-Gg: AYBFou2nGya4Z59QaqmZCdJq+o01dZ9x5ydk5T6HyauFHuYy0J0hIP1YIM285hrl2fu
+	4LPmAMnlQ8dv95frekWCsQD7aofoGdtQ40hqmdxZfo60EO4GhIScvUsEMSjyOvPApjeP6e54Spi
+	B1bCj6wArbBaSnIP1JpJFy5HpoDXPgKbmhP0NTi8cot68d0UZv11o6A2I9b3ztW7dJXWzXXGtU8
+	SlRYb+K8fSDvQt/ZrEk3DJ7kE7ou3Je/quaQwi2joq3E7CqIK4XYxlWdgeJVz6vRzxdlVMsAfyd
+	FG6VTD46DxrVNNOlYSuC7rz5CNadOUtFQxkGnLoAKjNOXxWZnca8Xa9FvWTE5XIj51n8mJHUjne
+	tM1mot10rO2WlzfRyJ7+vTPMA1/VJHgce8KMpKU1a2qUWTqPOyIbnCOrlm4t292M1R5NHZzCqBQ
+	NYZz4aBrTRTGtKKZ2i4SoERfMkIUjx3jIBVO0Cy1Ax4sCemW+9xNJHzARezWHB9ORNgcqkx+uRr
+	DJ4DTINd/sENZcP/MYECkICLP0gvmuNxBiYJINlrNXFzJ6Dzpuw7NJS
+X-Received: by 2002:a05:6512:3989:b0:5bc:b15d:beb9 with SMTP id 2adb3069b0e04-5bcde6c3067mr3863262e87.29.1791875424914;
+        Tue, 13 Oct 2026 00:10:24 -0700 (PDT)
+Received: from [127.0.1.1] (ip-024-215.users.dtel.ru. [91.210.24.215])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bcdde36114sm3388236e87.1.2026.10.13.00.10.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 00:10:24 -0700 (PDT)
+From: Fil Dunsky <filipp.dunsky@gmail.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>,
+ Russell King <linux@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>,
+ Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org,
+ linux-watchdog@vger.kernel.org
+Subject: Re: [PATCH 00/11] Cortina Systems CS75xx: interrupt controller, GPIO,
+ I2C and TWD watchdog
+In-Reply-To: <20261012-dreamlike-hazily-19bb60326f0a@spud>
+References: <20261012-b4-cs75xx-s2-v1-0-8a7641b7b79c@gmail.com>
+ <20261012-dreamlike-hazily-19bb60326f0a@spud>
+Date: Tue, 13 Oct 2026 10:10:22 +0300
+Message-ID: <179187542217.3247897.4323160442877168450@gmail.com>
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009-cv75-gpio-v1-3-5836bd438423@ambarella.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"; format="fixed"
 
-On Fri, Oct 09, 2026 at 06:57:56PM +0800, Long Zhao via B4 Relay wrote:
+Hi Conor,
 
-> Replace readb()/writeb() with a MMIO regmap while keeping the existing
-> gpio_chip and girq irqchip. Use a raw spinlock so irq_ack() can run
-> under the irq descriptor lock.
+Sorry for the late reply, and for sending v2 and v3 without addressing
+this - I missed your mail.
 
-...
+On Mon, Oct 12, 2026 at 07:48:00PM +0100, Conor Dooley wrote:
+> I think what's here looks really suspect - regions of two registers
+> wide, interlaced between devices etc.
+> You mention syscons here, and really that's where I think that this
+> should go. The region at 0xf007_0000 looks exactly like a syscon to me
+> and should be modelled as one.
 
-> +static const struct regmap_config pl061_regmap_config = {
-> +	.reg_bits = 16,
-> +	.val_bits = 8,
-> +	.reg_stride = 4,
-> +	.max_register = GPIOIC,
-> +	.volatile_reg = pl061_volatile_reg,
+Understood. The block at 0xf007_0000 is the "peripheral" register block
+of the vendor kernel: the interrupt status/enable pairs, the UARTs, GPIO
+banks, the I2C (BIW), SPI, MDIO and timer registers are all packed into
+it. Would you be fine with a "cortina,cs7542-peripheral", "syscon",
+"simple-mfd" node covering it, with the interrupt controller as a child
+node without its own reg that gets a regmap from the parent? The UART,
+GPIO and I2C nodes would stay separate devices with their own reg, as
+you suggest below.
 
-But this might be a dead code as long as there is no regcache defined.
-Should we specify the cache type here?
+> I think it's fine to make a GPIO controller at this point, and leave
+> pinctrl to later, but I don't think that it is acceptable to pretend
+> that the mux registers are part of the GPIO controller. The pinctrl-less
+> GPIO controller would have to either rely on something else (e.g.
+> firmware) setting the mux registers or be not entirely functional until
+> the pinctrl arrives
 
-> +	.fast_io = true,
+Agreed. The next version drops the mux register from the GPIO binding
+and driver and relies on the boot loader's pin mux. A line that the
+boot loader leaves muxed to a peripheral then stays unusable as a GPIO
+until the pin controller exists; I will check which of the Almond+
+lines (reset button, touchscreen interrupt) that affects before
+sending, and leave those out of the dts if needed.
 
-No need, this is provided by struct regmap_bus::regmap_mmio in regmap-mmio.c.
+I will not send it before the interrupt controller question is settled,
+and not before 48 hours have passed in any case.
 
-> +	.use_raw_spinlock = true,
-> +};
-
-...
-
-> static int pl061_direction_output(struct gpio_chip *gc, unsigned offset,
-
->  {
->  	struct pl061 *pl061 = gpiochip_get_data(gc);
->  	unsigned long flags;
-> -	unsigned char gpiodir;
-> +	unsigned int mask = BIT(offset);
->  
->  	raw_spin_lock_irqsave(&pl061->lock, flags);
-> -	writeb(!!value << offset, pl061->base + (BIT(offset + 2)));
-> -	gpiodir = readb(pl061->base + GPIODIR);
-> -	gpiodir |= BIT(offset);
-> -	writeb(gpiodir, pl061->base + GPIODIR);
-> +	regmap_write(pl061->regmap, BIT(offset + PL061_DATA_OFFSET),
-> +		     !!value << offset);
-
-regmap_assign_bits()
-
-> +	regmap_set_bits(pl061->regmap, GPIODIR, mask);
->  
->  	/*
->  	 * gpio value is set again, because pl061 doesn't allow to set value of
->  	 * a gpio pin before configuring it in OUT mode.
->  	 */
-> -	writeb(!!value << offset, pl061->base + (BIT(offset + 2)));
-> +	regmap_write(pl061->regmap, BIT(offset + PL061_DATA_OFFSET),
-> +		     !!value << offset);
-
-Ditto.
-
-I already pointed out twice to this...
-
->  	raw_spin_unlock_irqrestore(&pl061->lock, flags);
->  
->  	return 0;
->  }
-
-...
-
->  static int pl061_set_value(struct gpio_chip *gc, unsigned int offset, int value)
->  {
->  	struct pl061 *pl061 = gpiochip_get_data(gc);
->  
-> -	writeb(!!value << offset, pl061->base + (BIT(offset + 2)));
-> +	regmap_write(pl061->regmap, BIT(offset + PL061_DATA_OFFSET),
-> +		     !!value << offset);
-
-Ditto.
-
->  	return 0;
->  }
-
-...
-
-> static int pl061_irq_type(struct irq_data *d, unsigned trigger)
-
->  	struct pl061 *pl061 = gpiochip_get_data(gc);
->  	int offset = irqd_to_hwirq(d);
->  	unsigned long flags;
-> -	u8 gpiois, gpioibe, gpioiev;
-> -	u8 bit = BIT(offset);
-> +	unsigned int gpiois = 0, gpioibe = 0, gpioiev = 0;
-> +	unsigned int bit = BIT(offset);
-
-Since these are long lines, try to move them up to follow the reversed xmas
-tree order.
-
-...
-
->  static void pl061_irq_handler(struct irq_desc *desc)
->  {
->  	unsigned long pending;
-> +	unsigned int mis = 0;
->  	int offset;
->  	struct gpio_chip *gc = irq_desc_get_handler_data(desc);
->  	struct pl061 *pl061 = gpiochip_get_data(gc);
-
->  	chained_irq_enter(irqchip, desc);
->  
-> -	pending = readb(pl061->base + GPIOMIS);
-> -	if (pending) {
-
-This is a dup check, please, add a precursor patch that just drops this
-redundant 'if (pending) { }' check.
-
-> +	regmap_read(pl061->regmap, GPIOMIS, &mis);
-> +	if (mis) {
-> +		pending = mis;
->  		for_each_set_bit(offset, &pending, PL061_GPIO_NR)
->  			generic_handle_domain_irq(gc->irq.domain,
->  						  offset);
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Thanks,
+Fil
 
