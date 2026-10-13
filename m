@@ -1,154 +1,293 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F155208A9;
-	Tue, 13 Oct 2026 16:59:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D374F5187F3;
+	Tue, 13 Oct 2026 17:04:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791910762; cv=none; b=I/vKKP0eRkneUfZOOGK4h0F0Svl04Bfru6T6/69BmAapg34WPn2iPE70JeuH7E+HCz8ZA9AFf4Yc+aaRs3MHrMyEVwhdFyNRZl4SoJganT2zs0BDHyuS/plDsXT+75zgdjIgrqsWFebnxGJD052owgpn03S8g5vODVidmuGCy8o=
+	t=1791911047; cv=none; b=qZAELinpPEIiaMjQuPhucO5ZFu9ZE9GbTZMItT5bHtM0+EiQnvPBG5/MdyacuVA5Dn+oDQDplcMv9y8UgJ0BfH2RenjRM1XHa9kWf37HW/gTMYbwgttmWJCHyKzdGqhqnB5Cuv8ShV29onF4GmPO8StAgvr8ZovpZ29GdNmIFH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791910762; c=relaxed/simple;
-	bh=iZwcWXW9P1s2FGcBHBY8OWwVOV8yIE8tuCxLW32Qpjs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QVeQFOHkwxHuMVkHXSRxCrR7qWV3Jo0wxdoRohYMF7MoZ4glldzfcna78KHQO7SGYE0aCNRiT4ootrHwbr4vQH75GUhipqLfbPurmtzu29RHgHExXcA4znVPMVEItlQKChePp4LdcQaSu6vNewffB9N/Cd+rYxsVIMgZyCgCMkg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QyP4vueB; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791911047; c=relaxed/simple;
+	bh=x0tlcIF2lObPCdrx3V3Hg3SZs1jyCigLQXwl1Sc4VK0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=g0q0f8uziuYlCoL2jDtKESmmeui3ZgzCIutVTOe7gya/BhIVcYxfnkG171jp/Fk9L+7v8NuJ+3DaF5shzHmm0DtKT8wW8fc5OqOUxY+AOM076DTaahg6YfOB6YQRWJ1g8/ChvdNjYJEOjX8f8ukU7GwbuRFSCVzF9ePgXFlsl5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=iMwrHCj5; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QyP4vueB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791910760; x=1823446760;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=iZwcWXW9P1s2FGcBHBY8OWwVOV8yIE8tuCxLW32Qpjs=;
-  b=QyP4vueBtRk8GlsW04Q1R3IuC3NQR8wjk8dkO3NE0HE9K6CXeK+JXsxt
-   rC9OLnGR950H86Q2PGyuLUADHlr+PC7TEgH0nWZB/SMPh+DUudzNVsr+2
-   XWs5B8QmaiZCceEfc2yr4DAfHXA50sYTHmdDcSY2iOoCCmLFv83N5E9LM
-   N4pZEzsjy4UH6i9dFyYd9L+MRnxt7j5mQUD2HSNOuMsDZ27weh+QtMjod
-   WhumKMq16wc4MC+j1hVsq/MeX+4uQqZW/QzdJrF4+1VW4KFVXkqNd/wBc
-   Xg1t0ec3bxU3f7f1Eg1Yc4CWrh93uOkbcszrhSiN1vqT4jvEbOxmA8EIm
-   g==;
-X-CSE-ConnectionGUID: DHPhrAPMR7Cs++BxpH10zg==
-X-CSE-MsgGUID: IjsXISVeQi2CqRjCnnLF8g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="530703"
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="530703"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 09:59:19 -0700
-X-CSE-ConnectionGUID: yeQrbO5FQVaXF7XDvrw0MA==
-X-CSE-MsgGUID: MYBPdhK7RtCYBfQ6CPBcVw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="1551482"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 09:59:15 -0700
-Date: Tue, 13 Oct 2026 19:59:13 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Paulius Zaleckas <paulius.zaleckas@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
-	Eddie James <eajames@linux.ibm.com>, Joel Stanley <joel@jms.id.au>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Rupesh Majhi <zoone.rupert@gmail.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 6/6] iio: pressure: dps310: add Zilltek ZTS8032 support
-Message-ID: <as5jYcTlEuOzD6go@ashevche-desk.local>
-References: <20261013112124.1878296-1-paulius.zaleckas@gmail.com>
- <20261013112124.1878296-7-paulius.zaleckas@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="iMwrHCj5"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id AC60EC653F4;
+	Tue, 13 Oct 2026 17:04:58 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id DC78E60362;
+	Tue, 13 Oct 2026 17:04:02 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 06E2611D71770;
+	Tue, 13 Oct 2026 19:03:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791911037; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=K5KzQ9Q3OfGaPYx8IICSG1GMcopMbejHgte/43UVeBk=;
+	b=iMwrHCj5Q9XMd1RPed6KNzyVpgWx/Xr1MJr1N4qJrvg8QjCbEY6dsx8KfVQiBv0NzEudfJ
+	FzDBFLA7C7AN736GVEVy1RQYHgHKAQCaM4t0dWdGOcWza3+uEGduASQhq6yTvxXrbiirKg
+	ee4clz97AfKwB31k3wp23dmRj+3v2P5fSzIGstqzzNeAhKxyxWGkH3zftEonto5KhMXkVk
+	UitekmJ/shqG+9BGYxY3EJcmHeJnLR3jXb2qTyW5NByioSu27OaRVBH2yx4mm/h1TpEa/f
+	rMCSDmkeef9NURIERhwaYslWq02vuvHoypPErKzs060Cl18PKteNXdgSQpPrfA==
+Date: Tue, 13 Oct 2026 19:03:47 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>, Rob Herring
+ <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
+ <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 15/15] Introduce v18 dtb version
+Message-ID: <20261013190347.4f1d9b9d@bootlin.com>
+In-Reply-To: <as3ZWBr3wRonkxXF@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+ <20260826083146.304291-16-herve.codina@bootlin.com>
+ <arDMhoNNXcPi81sR@gractus.seuss>
+ <20260925152157.511dc65c@bootlin.com>
+ <as3ZWBr3wRonkxXF@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013112124.1878296-7-paulius.zaleckas@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Oct 13, 2026 at 02:21:24PM +0300, Paulius Zaleckas wrote:
-> The Zilltek ZTS8032 has the DPS310 register map, scale factors and
-> compensation, with these differences:
+Hi David, Rob,
+
+On Tue, 13 Oct 2026 18:10:39 +1100
+David Gibson <david@gibson.dropbear.id.au> wrote:
+
+> On Fri, Sep 25, 2026 at 03:21:57PM +0200, Herve Codina wrote:
+> > Hi David,
+> > 
+> > On Mon, 21 Sep 2026 16:20:02 +1000
+> > David Gibson <david@gibson.dropbear.id.au> wrote:
+> >   
+> > > On Wed, Aug 26, 2026 at 10:31:46AM +0200, Herve Codina wrote:  
+> > > > This v18 version will add support for
+> > > >   - Structured tags.
+> > > >     Those tags value definition will allow "old" libfdt, dtc and other
+> > > >     tools to skip unknown tags if encountered in future dtb version.
+> > > > 
+> > > >     libfdt, dtc and other tools implementing version v18 will be able to
+> > > >     skip unknown tags available in dtbd generated with later version of
+> > > >     dtc.
+> > > > 
+> > > >   - dt_flags header field.
+> > > >     For now this flag field is set to 0. It is a placeholder for future
+> > > >     dtb version and could be used to store some dtb related information
+> > > >     such as the kind of dtb. For instance, the future addons format will
+> > > >     use this field to clearly identify that the dtb is an addon dtb.
+> > > > 
+> > > >   - last_comp_version_w header field.
+> > > >     This field is similar to last_comp_version but for writing.
+> > > >     It contains the lowest version of the devicetree data structure with
+> > > >     which the version used can safely perform modifications (taking into
+> > > >     account following rules related to unknown tags).
+> > > >     If this lowest version is greater than the last known supported
+> > > >     version, modification are simply forbidden and lead to a
+> > > >     FDT_ERR_BADVERSION error.
+> > > > 
+> > > > For modification, when an unknown tag that can be skipped is involved
+> > > > and last_comp_version_w allows modifications, the following rules
+> > > > apply:    
+> > > 
+> > > "last_comp_version_w allows modifications" is a bit hard to
+> > > understand.  What exactly is the version number against which we're
+> > > comparing that value?  
+> > 
+> > We had one last_comp_version.
+> > 
+> > Now we have two last_comp_version, one for reading and one for writing.
+> > We compare again the dtb version supported by our libfdt version.
+> > 
+> > This comes from the discussion [1]
+> > 
+> > [1] https://lore.kernel.org/all/CAL_JsqLRrbZje_gGZPBDni6StFa+6rdiECtk49on8VfkP7CDvw@mail.gmail.com/  
 > 
-> - two more pressure coefficients, c31 and c40 at 0x22-0x25, adding
->   c40 * Praw_sc^4 + c31 * Traw_sc * Praw_sc^3 to the polynomial
-> - TMP_EXT is MEAS_CFG bit 3, and the temperature coefficients are for
->   the internal sensor (COEF_SRCE reads 0x06). TMP_CFG bit 7 is the top
->   bit of a 4-bit TMP_RATE, so the DPS310 TMP_EXT write would select a
->   25/16 Hz background rate instead of the external sensor.
-> - product ID 0x11 instead of 0x10, the driver does not check it
+> Ok, I now see that the logic is you simply fail to proceed with writes
+> if the library's latest understood version is < last_comp_version_w.
 > 
-> Add its chip data, reading 22 coefficient bytes and leaving TMP_CFG at
-> 0, and the I2C and OF IDs.
+> As I said elsewhere, this approach doesn't particularly make sense to
+> me.  If lib_version >= last_comp_version you *can* write, even if it
+> means stripping everything that's not understood at lib_version.
 > 
-> Tested on a ZTS8032 at 0x76 over I2C: in_pressure_input is within 1 Pa
-> of the datasheet formula evaluated from the raw and coefficient
-> registers at every oversampling rate from 1 to 128, and TMP_CFG reads
-> 0x00 after probe.
+> So the real question here is how do we know, for any given structured
+> tag, what write operations require the version to be downgraded (which
+> might in turn require this and/or other structured tags to be stripped
+> entirely).
 
-...
+The rules is well known. An old libfdt version will strip the tag and
+downgrade the version. If, when we define a new tags this rules cannot be
+follow by olf libfdt version, last_comp_version_w will be set to protect
+against modification.
 
->  	help
-> -	  Support for the Infineon DPS310 digital barometric pressure sensor.
-> -	  It can be accessed over I2C bus.
-> +	  Support for the Infineon DPS310 and Zilltek ZTS8032 digital
-> +	  barometric pressure sensors. They can be accessed over I2C bus.
+Maybe the problem is just downgrading the version.
 
-Please, format it to be scalable:
+Instead of downgrading it could be better if we mark the dtb "one or more
+'unknown' tags have been removed due to a write by an old libfdt version" ?
 
-	  Support for the following digital barometric pressure sensors:
-	  - Infineon DPS310
-	  - Zilltek ZTS8032
-	  They can be accessed over I2C bus.
+We have a dt_flags header field. We can dedicate one bit for this marker.
 
->  	  This driver can also be built as a module.  If so, the module will be
->  	  called dps310.
+Could it make sense ?
 
-...
+> 
+> This is related to (though not the same as) the question of whether
+> introducing a new structured tags requires a bump to the dtb version
+> (though not to last_comp_version, of course).
+> 
+> Here's the simplest model I can think of.  It's what I'd suggest,
+> unless one of it's limitations is a showstopper for what you have in mind:
+> 
+>  - version and last_comp_version retain their meanings.  No new header
+>    version.
+>  - New structured tags *do* require a new version.  If a dtb wants to
+>    include a specific tag, it must label itself with a version that
+>    defines that tag.  To enforce that:
+>     - For read operations, if we encounter a (known) tag that
+>       doesn't belong in the header version, we throw an error (either
+>       BADSTRUCTURE, or a new error for the purpose).
+>        - If version <= FDT_LAST_SUPPORTED_VERSION and we encounter an
+>          unknown tag that also trips the error (since if it was
+> 	 defined in this version, we should know about it).
+>     - For write operations (including in-place), we always error if
+>       version > FDT_LAST_SUPPORTED_VERSION (done in fdt_rw_probe_()).
+>     - fdt_open_into() _is_ permitted if version > FDT_LAST_SUPPORTED_VERSION.
+>       It will strip all unknown structured tags from the entire tree
+>       and downgrade the version to FDT_LAST_SUPPORTED_VERSION.
+> 
+> This does mean that every new tag does require a new version, which
+> may make experimenting with new tags more awkward.  More
+> significantly, it also means that any change requires a version
+> downgrade, even if it's just updating a handful of properties.
+> 
+> On the plus side, it's fairly simple, retains as much as possible
+> current version semantics.  Most especially there's no tricky
+> questions about what sorts of writes might invalidate an unknown tag
+> (they'll all be stripped by the time we permit a write operation).
+> 
+> If those limitations really are a showstopper, I do have a few other
+> models that might work, though.
 
->   * https://www.infineon.com/dgdl/?fileId=5546d462576f34750157750826c42242
->   *
-> + * The Zilltek ZTS8032 is register compatible, with two more pressure
-> + * calibration coefficients (c31, c40) and temperature calibrated against
-> + * the internal sensor.
+The use case we want to support (initially mentioned by Rob) can be summarize
+in the following.
 
-Any datasheet link?
+Assume:
+ - bootloader: supported version 2.0
+ - kernel: supported version 3.0
+ - dtb version 3.0: New tags, skippable but unknown in version 2.0
 
-...
+The bootloader has to modify the dtb version 3.0. I has to add nodes such as
+'choosen', 'memory', 'reserved-memory', plus probably modify some others
+properties (usual fixup() stuff).
 
-> -	u8 coef[DPS310_COEF_LEN];
-> +	u8 coef[ZTS8032_COEF_LEN];
+Then it passes this dtb to the kernel.
 
-I would add
+This bootloader (version 2.0) will encounter unknown tags. We don't want the
+bootloader stops in that case and we just want him to do the best it can do
+ending to pass the dtb to the kernel.
 
-#define MAX_COEF_LEN	18
+Indeed, if this bootloader writes a property with an unknown related tag, it
+has to handle this unknwon related tag (rules already exposed).
 
-to the first patch along with the HW specific define and use here (in that patch)
+When the dtb version 3.0 has defined new tags, the rules related to
+modification performed are well known and several thinks can be done to avoid
+the old bootloader applying modification rules.
+- The tag is not skippable
+  Game over for the old bootloader, an error is reported if the tag is found
+- last_comp_version_w
+  Game over for the old bootloader, modification not allowed.
 
-	u8 coef[MAX_COEF_LEN];
+In that case, the only solution is to bump the bootloader version.
 
-so, in this patch you will just add a new HW definition and bump
+> 
+> > > >   - When a property is modified, tags related to this property are
+> > > >     removed and the dtb version is downgraded.    
+> > > 
+> > > We need a definition of what "related to" means somewhere.  
+> > 
+> > Yes a tag is said related to a property if it is available after its FDT_PROP and
+> > before the next FDT_PROP (other proterty) of FDT_BEGIN_NODE (subnode) for FDT_NODE_END
+> > (end of node).
+> > 
+> > This is defined by "structured tag"
+> > 
+> > Devicetree Specification will be updated to have all of this documentation
+> > available.  
+> 
+> Ok.
+> 
+> > > >   - When a property is removed, tags related to this property are
+> > > >     obviously removed. The dtb version is kept unchanged.
+> > > > 
+> > > >   - When a property or a node is added, obviously no unknown tags are
+> > > >     added and the dtb version is kept unchanged.    
+> > > 
+> > > Again, this rule doesn't make sense to me at the same time as the
+> > > property modification rule.  
+> > 
+> > A current libfdt/dtc version cannot add tags which will be defined in the
+> > future.  
+> 
+> Sure, but it can still add whole new nodes or properties.  The
+> question is whether a version can mandate the presence of certain
+> tags.  Dowgrading the version when we strip tags from a modified
+> property suggests "yes", but _not_ downgrading the version when we
+> add new property suggests "no".
 
-#define MAX_COEF_LEN	22
+If the version mandate some tags on nodes and properties, last_comp_version_w
+will be used to block old bootloaders. They are not more allowed to modify the
+dtb. They need to be bumped to newer versions.
 
-...
+> 
+> > > >   - When a node is removed, tags related to this node are obviously
+> > > >     removed. The dtb version is kept unchanged.
+> > > > 
+> > > >   - Adding, removing or modifying a property is not considered as a node
+> > > >     modification and so, those operations have no impacts on unknown
+> > > >     tags related to the node. Those node related tags are kept
+> > > >     unchanged.
+> > > > 
+> > > >   - The only modification considered as a node modification is setting
+> > > >     its name. We consider that this operation has no impact on tags
+> > > >     related to the node. Here also, those node related tags and the dtb
+> > > >     version are kept unchanged.
+> > > > 
+> > > >   - Global (dtb related) unknown tags are kept unchanged regardless the
+> > > >     modification done.
+> > > > 
+> > > > In all cases, if unknown tags are not involved in a modification, the
+> > > > dtb version is not downgraded when the modification is made.
+> > > > 
+> > > > It is worth noting that with this v18 version, the dtb version is not
+> > > > downgraded for any modification but only when unknown tags are removed
+> > > > due to a property modification. In v17 or older version any modification
+> > > > led to a dtb version downgrade.    
+> > > 
+> > > I don't think removing that behaviour is safe.  Even if the rules
+> > > above make sense specifically for the metadata tags (which I'm not yet
+> > > convinced of), that's not sufficient.  If nothing else, future
+> > > versions could add extra header fields.  If we modify the tree, those
+> > > header fields could be stale, or even removed.  
+> > 
+> > last_comp_version_w will be used by the future version to prevent this
+> > kind of issue with old version.
+> > 
 
-> +	if (data->info->coef_len == ZTS8032_COEF_LEN) {
-
-This is a bit fragile. What if it will be HW in the future that has 22+ size
-but incompatible with ZTS case?
-
-> +		data->c31 = sign_extend32((coef[18] << 8) | coef[19], 15);
-> +		data->c40 = sign_extend32((coef[20] << 8) | coef[21], 15);
-> +	}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Best regards,
+Hervé
