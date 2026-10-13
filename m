@@ -1,47 +1,40 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75B1E4BB5DE;
-	Tue, 13 Oct 2026 10:43:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73B3C3FC5A1;
+	Tue, 13 Oct 2026 10:45:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791888224; cv=none; b=REUAlPyfmfCYRdJCbmVw44Lmdd2Qmgm3ckQyvIJhwP4JFdURnqty6xNIYy0uXS/duq37A9vfV6o0YNlllD7U+4kKIqy/fkKx6arhugYAHZfNRQxsvy3km40365pPs0b2n21jPommWcjX7D6v1iNxL4+WlwCUxkcHnPy3PvGizjA=
+	t=1791888332; cv=none; b=Lc6FxZIopK9By2EviCCPCMHz3WLdtublOCK2cPks02jvLPbhZ2PfTeNWp6Yuog+PHgBZVsrLcUGV64INGMDcukDQhYFViBSlUNNYeFw938VORKjHy7PlN930klozwS08oaAPNXp7LuYSpqYnRNAMACQ9GDywRl0FEqdW3ubE1X0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791888224; c=relaxed/simple;
-	bh=EuVyf57fGMcVzKgAQWn1agsjo+XGjiWvgAxubL3wlWY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=NIgIDf3n3+Z6SFuX8Bc5/F/B9UX9gHMoxghAkntwlmnxVAE8vWoTpFtWuEqLo8quqygSds/gV6fxrBbDw3MG3jQvnaAemW3PsAG9sqM59J7G6yMmpdDMBdOyaBtvN537x9SHb4hEmJO3lT7bPUuEFyyp6MB6lGbQiUjFmEM2FKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=phzdRqsb; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791888332; c=relaxed/simple;
+	bh=73no7mk5zY0fT9RmHVWdNYH+hEaQpHWWjUrSfrrunLA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=fJkMDDkrLUaK/wrOZhcSWamRlO+zF6b4RlVPoFjXB0QKSJVs9obHFyP/qP4lqDj8SH/QVBU4MRR+tf/CzzMQJG9UL97KEdaBsqF62pif3w1LMdizZ1Dlah/s1ZNTpaaDr/WmM53NhNN0pOesqQ2ZdXdhx6WiQjMHDv3rgZ8s474=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=PSxp7+h2; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="phzdRqsb"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D6CRuB949361;
-	Tue, 13 Oct 2026 10:43:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	IDNoe1SHhae2JQwQbhN5yxbOdDteCaB9eo5F5TjqbEo=; b=phzdRqsb/1a30fcV
-	QxZYor08/Y7qjWiIF6Ldr7kEy740TmmQdYtgzyI759b51y8E2i2Exa/McGKcfa/D
-	csONGBlVsnmco9ne0+N5YaoT6pCrpaBPVe991e+M1W5Z9e6MhEqEwueeEttdLG69
-	hKjFPR9RLBVqjzJ1OiLSITj8h/WIo7vlw6CVkD81+IT/8ZXzwbK70tg30eWkW9uu
-	qIeUOe+RmahUmlSuwrfutcrxZW21GqfIIoSg8pUuoJntQUmOre2Rt4seWsQPzPCy
-	8Ujl0t3t1SqMKl4MJeddsNeiSMxMKVw6hEAwkyozfOqEOOSma3qJtYCzO75s300j
-	NfTwqg==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9f6294ka-34
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 13 Oct 2026 10:43:31 +0000 (GMT)
-Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69D5ppqU651631;
-	Tue, 13 Oct 2026 05:51:51 GMT
-Received: from hu-hgautam-hyd.qualcomm.com (hu-hgautam-hyd.qualcomm.com [10.147.247.91])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTP id 69D5plAa651483;
-	Tue, 13 Oct 2026 05:51:51 +0000 (GMT)
-From: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-Date: Tue, 13 Oct 2026 11:21:33 +0530
-Subject: [PATCH v9 10/10] MAINTAINERS: Add Qualcomm QAIF driver entry
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="PSxp7+h2"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id CDEA24E4120A;
+	Tue, 13 Oct 2026 10:45:27 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9069F60362;
+	Tue, 13 Oct 2026 10:45:27 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8317711D70DB1;
+	Tue, 13 Oct 2026 12:45:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791888326; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=XZK57Ew8RtsB4VB6YRRGpa0+57nwvbdU6CuWfPyEudA=;
+	b=PSxp7+h25CGTjoeUV9H+L+tGXjpzpK9HwdWakYwv2PBWq/9Nr6JMumNTMyAbctoR0KItim
+	K0dupXMIkwhqctBG+SreVqiX+CoNq6+svtahxarOYGi3uxC9CHicKZuZZjqS43httUTtJx
+	q9VcimuMfKeFIEL+VK33C6b4YnLTpTNlKpa5/HQcQxwlx2Z3ooIzHyCSl6YgvUev9BHnKR
+	1JRXm5eVm29eCBUXOnUh114a9MydBS/0viRCr/72XlcQOqC9YAhXVaxKWWuoSbW3UH9Fag
+	FWdQ0TbnAhdtXDUzsSadzQspoPvVuvkO8kXWCCSh1q47oMQAjRUzClf81jLapg==
+From: Paul Louvel <paul.louvel@bootlin.com>
+Subject: [PATCH v6 0/3] Add Renesas RZ/N1x EDAC driver
+Date: Tue, 13 Oct 2026 12:44:57 +0200
+Message-Id: <20261013-paul-v7-3-rc1-edac-v6-0-2f1d6f2f74db@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,86 +43,173 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-b4-qaif-shikra-audio-v9-10-f3022e28f2fd@oss.qualcomm.com>
-References: <20261013-b4-qaif-shikra-audio-v9-0-f3022e28f2fd@oss.qualcomm.com>
-In-Reply-To: <20261013-b4-qaif-shikra-audio-v9-0-f3022e28f2fd@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-        Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>,
-        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
-        Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
-        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
-        Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WQy07DMBAAf6XKGaNdv9MT/4E42BubGpWkStIIV
+ OXfsVsJBRKQelxpZ3a0l2oIfQpDtd9dqj5MaUhdmwf9sKvo4NrXwFKT54oD11CjZid3PrLJMMF
+ 6QhYaRwyjNHWsdSRlqgye+hDTx1X6/HKbh7N/CzQWU9k4pGHs+s/r1QnL3r8HJmTAGhDaWm4F9
+ +7Jd914TO0jde/Fd4O5/BM24IMwJNGh/QGXvokvC8ymhGdJVMoiCGwghrsKCuwJJWjUGIjWBWJ
+ RwMWmRGSJsgItOSG9E3cVFNg3FpR0yqOFdYFcFthNicwSqaXOCkOO6rVEfUsQQG1KVJbkTziIy
+ KWnXyXzPH8BbZwWfJMCAAA=
+X-Change-ID: 20260916-paul-v7-3-rc1-edac-1f479f96fc57
+To: Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+ linux-edac@vger.kernel.org, devicetree@vger.kernel.org, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Herve Codina <herve.codina@bootlin.com>, 
+ "Paul Louvel (Schneider Electric)" <paul.louvel@bootlin.com>, 
+ Wolfram Sang <wsa+renesas@sang-engineering.com>
 X-Mailer: b4 0.15.2
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Authority-Analysis: v=2.4 cv=FOKOVOos c=1 sm=1 tr=0 ts=6ace0b53 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=VwQbUJbxAAAA:8 a=COk6AnOGAAAA:8 a=PFusfAj7JESbPCsvM_wA:9 a=QEXdDO2ut3YA:10
- a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA0MiBTYWx0ZWRfX275LTJ03tJ+l
- 8C9lZjIAHqW+tigBYDNAT7rCvg4/LaYmDOrWj1QM5qXwLc7k8LKlGBHtinAc45Duy77+4ht54In
- 79RhooIsBN1P1pxJNxfOwJ20uFEKdJc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA0MiBTYWx0ZWRfX30Q5PnHZct5+
- lOINbnFwRbppOvltL1s4DJnKTtegricLDiVKF7Bm/HpXQ2tiOGd+dbUUcpZWqOtTAd5OWU0pT05
- 2YHoqLxvYOO7vMd89jUTPbUhVsDfkLaet807Rf0WlkgQVjJPOjxO9GgaPEQtxMRxK10To/71ps3
- lH4xP2vTnCNdiwdy/AejbwsaDuMoz9lvpFdY/hHbJrLfrlyPzPEJuZSCAOcGROkSOeKVaK1ainv
- zKYO9B7ngWhNTvYMHOT7o39dSI7/47x4+9RiGeNgEgEu/z4RxFygrqIhupQEq9V9jEuhrLrs18r
- 9veLJ12+1xmPYP3lnSozgxrLWK73wijFsTJyavm6jObC0liSKayxEZ25TCULhwMMjcZhVhy8vSV
- uqAzEtD+HcSvdogEkW3nJgoUTkBAv/hDPg3pI4grejM6j/aDeeoG2YvFEwwrcgsvglH95qU7mEN
- awkOopLsMOLPpkby+HQ==
-X-Proofpoint-GUID: _glnj8Q4TRpfpXzU6MluSlQmHL0iyXmd
-X-Proofpoint-ORIG-GUID: _glnj8Q4TRpfpXzU6MluSlQmHL0iyXmd
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0
- spamscore=0 clxscore=1015 priorityscore=1501 malwarescore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130042
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791888321; l=4772;
+ i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
+ bh=73no7mk5zY0fT9RmHVWdNYH+hEaQpHWWjUrSfrrunLA=;
+ b=lNqhsb2xp9E1y/aOuVEhW+R0PxZEeCGTJLYN6vTYyPFiElj4A1cu1GYNwbrhSwk2oN/FnWSbv
+ Xyb30laJ/54CZ4jApcoyJvjVOCjeQIBMUvVHfXq1hCtDw2adB4y84Iv
+X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
+ pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
+X-Last-TLS-Session-Version: TLSv1.3
 
-Add a dedicated MAINTAINERS entry for the Qualcomm Audio Interface (QAIF)
-driver so changes to its devicetree binding, dt-bindings header, and ASoC
-driver files are routed to the Qualcomm ASoC maintainers and mailing lists.
+The Cadence memory controller found on Renesas RZ/N1x SoCs supports ECC
+with SECDED.
 
-Signed-off-by: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+The memory controller found on the r9a06g032 supports at most a single
+DIMM of DDR2/3, up to 2GB.
+
+Add the EDAC driver for this memory controller, and the relevant
+device-tree binding. Also add the EDAC node to the existing r9a06g032
+SoC base device-tree.
+
+Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com>
 ---
- MAINTAINERS | 9 +++++++++
- 1 file changed, 9 insertions(+)
+Changes in v6:
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 70a11f2ff61d..9ccc1d995ad0 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -22424,6 +22424,15 @@ F:	sound/soc/codecs/wcd93*.*
- F:	sound/soc/codecs/wsa88*.*
- F:	sound/soc/qcom/
- 
-+QCOM AUDIO INTERFACE (QAIF) DRIVER
-+M:	Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-+M:	Srinivas Kandagatla <srini@kernel.org>
-+L:	linux-sound@vger.kernel.org
-+L:	linux-arm-msm@vger.kernel.org
-+S:	Supported
-+F:	Documentation/devicetree/bindings/sound/qcom,shikra-qaif-cpu.yaml
-+F:	sound/soc/qcom/qaif*
-+
- QCOM EMBEDDED USB DEBUGGER (EUD)
- M:	Souradeep Chowdhury <quic_schowdhu@quicinc.com>
- L:	linux-arm-msm@vger.kernel.org
+- Patch 2:
 
--- 
-2.34.1
+  - Sorted the includes alphabetically. I have also ran a check with
+    IWYU and, after careful checking, there is no superfluous header.
+
+  - cdns_get_mem_sz() helper inlined into cnds_setup_mc().
+
+  - Debugfs helpers built unconditionally with no-op stubs if debugfs is
+    not selected.
+
+  - Port command channel error reporting removed since it does not
+    belong to an EDAC driver.
+
+  - Removed useless comments.
+
+  - Renamed macro prefix to CDNS_* instead of CDNS_DDR_*. Also indented
+    all the macros definition at the same level.
+
+  - Dropped cnds_ prefix to the private structure.
+
+  - Shortened interrupt unmasking into a single macro to shorten line
+    column length.
+
+  - OR'ing flags to detect type of errors in irq handler.
+
+- Link to v5: https://patch.msgid.link/20261005-paul-v7-3-rc1-edac-v5-0-140a0f124bc0@bootlin.com
+
+Changes in v5:
+
+- Patch 1:
+
+    - Reworded commit title.
+
+    - Dropped unused label.
+
+    - Switch to plain flow scalar for description.
+
+    Note: keeping cdns,ddr-edac compatible after Krzysztof's comment.
+
+- Patch 2:
+
+    - Setup IRQ after allocating and registering the device to EDAC
+      core.
+
+    - Explicitly free the interrupt line with devm_free_irq() to avoid
+      any UAF before releasing MC.
+
+- Link to v4: https://patch.msgid.link/20260928-paul-v7-3-rc1-edac-v4-0-4646a5b7cac9@bootlin.com
+
+Changes in v4:
+- Patch 1 and 3: drop the RZN1 family compatible, as requested by Geert.
+- Patch 2:
+
+    - Instead of using FIELD_MODIFY macro that expect a compile-time
+      constant mask, use binary operators instead. Note that the new
+      code is doing exactly what FIELD_MODIFY do, minus the error if
+      cdns_rmw() is not inlined.
+
+    - Use a spinlock instead of mutex since the locked region will be
+      really fast to execute. Only lock it once for two register rmw.
+
+    - Use edac_debugfs_* facility instead of sysfs attributes. Use a
+      separate "bits" and "inject" file instead of just a single file.
+      This is better since clients can read the previously set syndrome.
+
+    - Cleaned up the probe function in separate functions. Use a remove
+      function instead of registering custom devm action. Use a goto for
+      resources cleaning.
+
+    - Mask all interrupts before un-registering the memory controller.
+
+- Link to v3: https://patch.msgid.link/20260924-paul-v7-3-rc1-edac-v3-0-bd8054a5b180@bootlin.com
+
+Changes in v3:
+- Patch 2:
+
+    - Added trailing newline to end message.
+
+    - Forgot mutex_init() in probe...
+
+    - Registering the MC at the end of the probe.
+
+- Link to v2: https://patch.msgid.link/20260924-paul-v7-3-rc1-edac-v2-0-bc1406161ecc@bootlin.com
+
+Changes in v2:
+- Patch 2:
+
+    - FIELD_MODIFY() is always called with a compile-time constant mask
+      in this driver. I see no problem here.
+
+    - Use devm_clk_get_enabled() so the driver does not need to store
+      struct clk_bulk_data outside the stack space.
+      Clocks are not manipulated outside of probe.
+
+    - Introduced a mutex for rmw operations in inject_ctrl_store() sysfs
+      callback. Rename drv to priv in cdns_rmw().
+
+    - Return IRQ_NONE if the stat int register is empty.
+
+    - I see no reason to follow Sashiko last remark on this patch.
+      Is an unhandled interrupt a big deal in this case ?
+
+- Link to v1: https://patch.msgid.link/20260924-paul-v7-3-rc1-edac-v1-0-70be37c41a18@bootlin.com
+
+---
+Paul Louvel (3):
+      dt-bindings: edac: cdns,ddr-edac: add Cadence DDR EDAC
+      EDAC/cadence: Add Cadence DDR EDAC driver
+      ARM: dts: renesas: r9a06g032: add EDAC node
+
+ .../devicetree/bindings/edac/cdns,ddr-edac.yaml    |  61 ++++
+ MAINTAINERS                                        |   7 +
+ arch/arm/boot/dts/renesas/r9a06g032.dtsi           |   9 +
+ drivers/edac/Kconfig                               |  10 +
+ drivers/edac/Makefile                              |   1 +
+ drivers/edac/cadence_edac.c                        | 377 +++++++++++++++++++++
+ 6 files changed, 465 insertions(+)
+---
+base-commit: d9f39b2c0579f313d14954a9ec584511c543aab5
+change-id: 20260916-paul-v7-3-rc1-edac-1f479f96fc57
+
+Best regards,
+--  
+Paul Louvel, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
