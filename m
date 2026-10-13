@@ -1,159 +1,284 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40392492187
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 06:06:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D550C49365B;
+	Tue, 13 Oct 2026 06:07:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791871595; cv=none; b=qICdJAd3yQ+PLqOYG8g4w4EadC77QBOqUrWbH7qxiphPJ2IDFlTk54h8o8RSbeAC4tNN4Ix9HqPK79S/Qlany/QARb4fWl383vQ8PU4Nl5UHSeH+4tWIUSiePLUPWu92HpnC7WAVY5gNc4dh38xzy/EiynuUK+xF6/lCtREgC+M=
+	t=1791871632; cv=none; b=rXq0EFOmNk+QvYX8WA7B3JVjiTpsGYcKDs90KQkOU3j0oIoRCMVqWU4BIoglDQRVTvy4TvCkSwWod+lY8m7SeUuyHFekSGjuFrB+xdHAiAtjYsI83/mKrwsptbMTy4Gg5lszNamOzBKUs/GrcQ9++d+Z/zcYwFTVacaAVtu4aeY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791871595; c=relaxed/simple;
-	bh=jKBCUCn+td6u/3sbwm42C8Jz26hnQBdGnVitYLh9jlI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PvWpthNykQYVvdYEkYChzLqsVF8o4/I2MyutrAwhoUI4kUm1bYOcX/HwlBkNPTW6O/Oj6Lme5PDH8nNlTLvoO7YsEcCd+dZinJlSxdjm3TdjGI9stmvoeUqTNGhY05+4j/7eA5KfUUv+B5llWfBQR/438awC+wM1kdDe5AEFtQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Xp6MWfu0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UckK6tNs; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791871632; c=relaxed/simple;
+	bh=TNGWmdE2mDGHSS0WWS7jNynKjpzziPWp6Oi/xTIeheQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Bi1/6zsUHBGjm+0QGw3rCf0D6TuJuQFcCa3SyMkC38Yw7KcgbizzrYMlTJmAwwtxotoJEqMM4Z+dIrRuQVJvDXnglmzy7UvWy0iG/RKuTY6rZoBIw4TF5cj58QxkAn9neCWpFcBSMofIS75BaSh8EfwhV56RABjOoSe8gCFnsPo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LcpMBEUL; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Xp6MWfu0";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UckK6tNs"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D216ll989363
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 06:06:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	lBpEuv0VacJ7/LOvL3HaJpLo8m8Hmqbr7rbjKNUqTB4=; b=Xp6MWfu03rxCXJ4X
-	9WoxFhM/UBuwwDdjrTmhhS4hQxjt7O7WKG7MLK2BMtKMMjRpkJWC3or5TmXXgOKa
-	lGX19fmYFMpkryFjBG0drysSKqO8kbtOdQX8gD9f6WpUjRsUMbay4u+cV1xbDgJF
-	Ycs1r24wen8yZwCplQ17VSBqYJxFb614Szrg/ynnYXVp52aOr0utTttf0NaE3HiF
-	Xwu/UXpjh86KjAi1hpmtU+RYGMLA5fpc+NHcZZJEJVCQCe1M3+MJYbU5S3VTX40N
-	pkPEvWJldnVl9Kbz70Y2tc+9fgnrFnqV9CtJTL9IQ4+SyeqzZ6vv+1VPYFTdThs+
-	nmuvGA==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h98hc9c08-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 06:06:33 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-35a4d2e39acso6743793eec.1
-        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 23:06:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791871592; x=1792476392; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lBpEuv0VacJ7/LOvL3HaJpLo8m8Hmqbr7rbjKNUqTB4=;
-        b=UckK6tNsn077NJ7m/CsX3Pgd81sdYkWpdcQSs62Wwp/froDLNy4MTwJNawm45S/AqH
-         NjzyCJFGrhVbJ3vcJVdGBmADFcuZqyQjLIC0uRWtB6JL978+PrWLbVgtaNm4NJ/FUMod
-         Kzvt5YzuM10hVh/jIOpGPTraofWKWXLtX2qU9Uors6LrBMyLiljLx0JYx6GiccHeipdm
-         TumBdon7aHojoEeLZ2pz5hNGO1GsGJRgNxXxl4I9maMIkIReJsHOYDuIDKJflp1PIoXQ
-         VSxb1Pz7ZxKZVrIeBUo//ES98NuPq7yJgIs+8LNADjiF3y581sAR0lrGt9dhWljBXEyx
-         pqSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791871592; x=1792476392;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lBpEuv0VacJ7/LOvL3HaJpLo8m8Hmqbr7rbjKNUqTB4=;
-        b=VZLUzPYHqo3Dt4zhMeiOw1LDwZm02fbBUh/gFsv5SlV9tC+15xsKtnvjxMb+KEWQzv
-         dkHTaHaQo8sQRkOcWy7JWCsyFPM1JOWQbD5V7bk724FNYvOt19LVJ1uNCLcymZF/Z3VX
-         MxBDwcBp2uh4kW34m/A+1iNfe6GUWq83iAv4JclyX+Rou2Ro9uWa5Q2NdnaYgafSdsdo
-         hH3vc7B8sy6h16EUu/oo+LaANDpF7vGIkLxkL6/e7+DxbWeGhlvrONcLHSWlkFnpItEP
-         fH+30Nedq5x6AJxN6/3VI0O1g1DtI4auV1kX/Tat5fcX9mks0ChtHF0W8R8CQf8rxVBW
-         k62A==
-X-Forwarded-Encrypted: i=1; AKwUvBwx75DIOscX+bdbnZYcoItJU/3++1xEkj0kXu5zFhb0u3ItQFAJOMy422/qoPNg0l+K0VcGnH0vaKV7@vger.kernel.org
-X-Gm-Message-State: AFq9FYLbq3RtHxbjtNAn+26Jc7sHwl0SLdQAJiM/m6ydP0KtJZkg+BR1
-	xejHuIU37pVkrOvYjWY3Haxu2POa5CDBmsxcVG4eV8HdpOKWa1q3AHWu2Me0wWae5XMJVEQUcjY
-	BoYqEecvELupmXsO/zq2SMkiaiEBzb2gTKNyQNrOtdCh88s7ecl2fmN4DVt7a2hHY
-X-Gm-Gg: AYBFou3YLhn/p9aRQrDVZQ7QGwFyeNLVotmhdIZXoK4PlFJVuhh2lwtRTo6EsibijU+
-	8Dodv9JfVdV6a7ZjyoJu2D0w3mNlLWbHC9p/BnBFPrXUXgqCpthMB45XLH/thfZsXQz6dVb2nvG
-	bNJIcvJWqf9HFTwEf/4HRVOOoVtpI1KBzHSnG+KrPihE3yADYA9q/kWyHajY6v854vcklnM3lGA
-	PSzURPl7esgqqgH7/b4s5P3WaZDTLZ7UQT8XtaUpgJyMHmvPkYX6PmfMZpoo77M+AiEIxRCK6k/
-	xYeDQ7dcNUKxSHoUcbl9NB0Pn92HyrbO6Vw7gxN+7sWDduqrarEyNziX1Js/7nyy8eA3/IUTPM9
-	D4gHrG1oDkp5THf4JO0G+UAlyOujKb679NQ==
-X-Received: by 2002:a05:693c:240c:b0:35c:dd03:55d2 with SMTP id 5a478bee46e88-35cdd035d62mr237978eec.26.1791871592457;
-        Mon, 12 Oct 2026 23:06:32 -0700 (PDT)
-X-Received: by 2002:a05:693c:240c:b0:35c:dd03:55d2 with SMTP id 5a478bee46e88-35cdd035d62mr237937eec.26.1791871591944;
-        Mon, 12 Oct 2026 23:06:31 -0700 (PDT)
-Received: from [192.168.0.172] ([183.83.141.157])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca1b53dsm37232595eec.6.2026.10.12.23.06.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 23:06:31 -0700 (PDT)
-Message-ID: <43f487cc-c8e3-4993-bf1e-41e3a9aaa7e3@oss.qualcomm.com>
-Date: Tue, 13 Oct 2026 11:36:23 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LcpMBEUL"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7AD95C2BCF7;
+	Tue, 13 Oct 2026 06:07:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791871632;
+	bh=TNGWmdE2mDGHSS0WWS7jNynKjpzziPWp6Oi/xTIeheQ=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=LcpMBEUL2FVEJJp3BGxrWrXVf+nYbI25Jw/6KyNjPxR0T4PcCS9mDD/9+pnU09pLQ
+	 NzMVBEM9rkRfKdumlDBiC++IjWWEDgDEMReUSZEyrEk3NIvI5vD7bY2jpITOH17pfs
+	 Sk/raI0bK/Lzmb7CDwHj0vNx1iu7xVOdFd1mCJ22z5huEq1aZOdTSW1dAK7BlvVJE7
+	 xgiuTI5MRU28MJqLUqfiygwyzDwTL/fUIflN5j0thhLcZ3WahaA7De4nzvMIWduf+D
+	 whUjDQnaFFp3SlRy547jS4D+HyTeiGAVSA0EZ2/EsegUymKcr48mxl+KUHp/f/mg0r
+	 VtiKuV7k/1F0Q==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 637FFCC6B0A;
+	Tue, 13 Oct 2026 06:07:12 +0000 (UTC)
+From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
+Subject: [PATCH v3 00/11] Cortina Systems CS75xx: interrupt controller,
+ GPIO, I2C and TWD watchdog
+Date: Tue, 13 Oct 2026 09:07:10 +0300
+Message-Id: <20261013-b4-cs75xx-s2-v3-0-181bb0d23f4c@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 0/2] media: qcom: Add support for the iris codec on
- shikra
-To: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab
- <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
-        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-References: <20261001-shikra_vpu-v6-0-37143dc1bb9d@oss.qualcomm.com>
-Content-Language: en-US
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-In-Reply-To: <20261001-shikra_vpu-v6-0-37143dc1bb9d@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAyNCBTYWx0ZWRfX6hKwR4OOXv7v
- i9uAfdoQYrfShr8nu0ylHOuPLKg9IexkNU6wSCYiHDw+cUsvVksXzGXjlw3H+2EsKickM1OoMgp
- uIoN+jMe7L6DNFi+Y62yAKthkNK8jBNW+tWWmuaNRJ+REhKQQat+43kww/U1OHWL8SCwFTo9RDF
- 1wPqPrybdUPNzzqwz2J9R07PcVMzL+oZGKpgXYNPrJIDvss5ILI4uGR+3odMUk1lOvDLCAlZnG9
- Ak8lADUqhQSBTSR06S+2WxUQ51aPUfuFP04d6WcWtuId5tlS6s54RNLzp1rBlhneQh1jcES4/nC
- sgyuQxSsQhdxam52LiIzHvz6p++qAC76W7OpaMg/ssuu41XukZ/4/Agnq8LCy9BqZ2a1cZBoh4p
- D1thbkyWvHPeFFdz+XimUmROEA6KY02AJxvvGdGJTPkYSgnrLRtL15vUqkYyiTJFygvZoNnJJEX
- NTEa3t3sJbgZ8gNzNtg==
-X-Authority-Analysis: v=2.4 cv=VPVIDNPX c=1 sm=1 tr=0 ts=6acdca69 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=bQUMaMctTmycBtt4xuJn5A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=Q6wxVgh2rZIxxIaB2AUA:9 a=QEXdDO2ut3YA:10 a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-ORIG-GUID: rg1UKIbiPssUTfC0Fo8u9ORExSveMzrk
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAyNCBTYWx0ZWRfX5V5EyOaQChPs
- IJKXdBQu1MvGLl9wedU1KiB97tb/P+FDvNL1+m7j39NVezA2qOHdz0M52SKMIap9/zOFSRG+D5/
- Tp/sgBUvVG3skaCpjwi18J4FTm6wmLI=
-X-Proofpoint-GUID: rg1UKIbiPssUTfC0Fo8u9ORExSveMzrk
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 malwarescore=0 impostorscore=0 spamscore=0
- suspectscore=0 lowpriorityscore=0 adultscore=0 phishscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130024
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22Py2rDMBBFf8VoXRW9H6aU/kfpQqOMEpU4bi3Hu
+ AT/e2UnC1O6vDDn3Ds3UnDIWEjb3MiAUy65v9QgnxoST+FyRJoPNRPBhOGMCwqKxmL1PNMiqE5
+ aOeVF0hxJRb4GTHnedO8f91yu8IlxXB2PiwG/r7VnvJ+RDksJW0/bvDxq5K5mMpRRadEl6Y0HG
+ 9+OXcjn59h3r6sRQkFaQ5fHtjHKqhSYZUmAqx5Q4KzUDKzV4KIENOhCiGRdd8pl7Ief7feJb2P
+ +f3PidYIL1igOFqzfTdhEk9jD8g8sKuxVcpEFz+Ih7OFlWX4BNghSTYMBAAA=
+X-Change-ID: 20261012-b4-cs75xx-s2-5f548492f51e
+To: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
+ Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Russell King <linux@armlinux.org.uk>, 
+ Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ linux-i2c@vger.kernel.org, linux-watchdog@vger.kernel.org, 
+ Fil Dunsky <filipp.dunsky@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791871630; l=11019;
+ i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
+ bh=TNGWmdE2mDGHSS0WWS7jNynKjpzziPWp6Oi/xTIeheQ=;
+ b=/FhFw5Xw8PFdf99Tb00yTOlvjAOweQkycmkU+7+ROvIUBz2JQ/du0RjlFo6PMa1X++tvNrIt2
+ hBzqGBm1ULQB5qugZdWL7bEhqahxifNSUmsTeb986wrj2G3z1/yWWvR
+X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
+ pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
+X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
+ auth_id=1085
+X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
+Reply-To: filipp.dunsky@gmail.com
 
-Hello Bjorn,
+This is the second step of the Cortina Systems CS75xx ("Goldengate G2")
+/ Securifi Almond+ support. It applies on top of the platform series
+"ARM: Add support for Cortina Systems CS75xx and Securifi Almond+"
+v6 [1] and adds:
 
-On 10/1/2026 7:11 PM, Vikash Garodia wrote:
-> Vikash Garodia (2):
->        arm64: dts: qcom: shikra: Add Iris video codec node
->        arm64: dts: qcom: shikra-evk: Enable Iris core
-> 
->   arch/arm64/boot/dts/qcom/shikra-evk.dtsi |  6 ++++
->   arch/arm64/boot/dts/qcom/shikra.dtsi     | 61 ++++++++++++++++++++++++++++++++
->   2 files changed, 67 insertions(+)
+  - a driver for the per-CPU private watchdog of the ARM11 MPCore,
+    Cortex-A5 and Cortex-A9 ("arm,cortex-a9-twd-wdt"),
+  - the peripheral interrupt controller that combines the interrupts of
+    the low speed peripherals into one GIC interrupt,
+  - the GPIO banks,
+  - the I2C controller,
+  - the device tree nodes, including the reset button of the Almond+,
+    and the multi_v7_defconfig and MAINTAINERS updates.
 
-Do you plan to apply the DT patches to get them in 7.4 ?
+As in the first series there is no public documentation; register
+layouts come from the GPL vendor kernels (2.6.36 for the Almond+, 4.9
+for the Verizon FiOS G1100 with the same SoC) and were checked on the
+board with the out-of-tree OpenWrt port these drivers are based on.
 
-Regards,
-Vikash
+The patches go to different trees and only depend on each other through
+the device tree: the irqchip (1-2), GPIO (3-4), I2C (5-6) and watchdog
+(7) patches can be picked up independently, the dts, defconfig and
+MAINTAINERS patches (8-11) need the platform series.
+
+TWD watchdog:
+
+The binding "arm,cortex-a9-twd-wdt" (watchdog/arm,twd-wdt.yaml) exists
+and several dtsi files use it, but there has been no driver since
+mpcore_wdt was deleted in v3.11 ("watchdog: delete mpcore_wdt driver").
+The reasons given then were that the watchdog is banked per CPU while
+the driver only programmed the CPU that happened to run the ioctl, that
+it used request_irq() for a per-CPU interrupt, and that it had no users.
+
+This driver does not use the interrupt at all (the watchdog runs in
+reset mode) and programs, pings and stops the watchdogs of all online
+CPUs with on_each_cpu() under cpus_read_lock(). A CPU hotplug state
+arms the watchdog of a CPU coming online while the device is active and
+stops it on a CPU going offline, since an offline CPU cannot ping it.
+A watchdog found running at probe time on any CPU is reported as
+WDOG_HW_RUNNING and reprogrammed with the driver's timeout without
+being stopped; the reset flag sets WDIOF_CARDRESET.
+
+On the Almond+ the stock U-Boot arms the watchdog and the board resets
+after ~300 s unless it is serviced. With this driver the watchdog core
+pings it until userspace takes over.
+
+The driver also registers a restart handler: the CPU that restarts the
+system lets its own watchdog expire right away. The platform series has
+no other way to restart the CS75xx, so without it "reboot" hangs.
+
+Interrupt controller:
+
+A status register shows the level of 15 sources and an enable register
+masks them; the sources are acknowledged in the peripherals. The driver
+uses a generic chip on a linear domain and a chained handler. There is
+a second status/enable pair right behind it whose purpose I do not know;
+it is not described.
+
+GPIO and pin muxing:
+
+Each pin is either a GPIO line or belongs to a peripheral (NAND,
+Ethernet, UART, I2C, PCIe reset, ...). The choice is made per pin in one
+GPIO_MUX register per bank, and these registers live in the global
+control block at 0xf0000000, which also holds the boot straps, the
+clock and PLL settings, peripheral resets and the other pin mux
+registers.
+
+In this version the GPIO node gets its bank's GPIO_MUX register as a
+second reg entry. A line is switched to GPIO when it is requested as a
+GPIO or as an interrupt and switched back to the setting found at probe
+time when it is released. This keeps the driver self-contained, but it
+means that requesting a line that is in use by a peripheral silently
+takes the pin away from it; on this board exporting all lines through
+sysfs hangs it (NAND and Ethernet pins lose their function). Boards can
+list such lines in gpio-reserved-ranges.
+
+I think the proper model is a pin controller for the global control
+block: the block becomes a syscon (it is also needed by the clock driver
+that will replace the fixed-clock), a pinctrl driver on top of it
+describes the pins, the GPIO function and the peripheral groups, the
+GPIO nodes get gpio-ranges and the GPIO driver uses
+gpiochip_generic_request()/gpiochip_generic_free(). Pinmux ownership
+then refuses GPIO requests for pins claimed by a peripheral's pinctrl
+state. The remaining pin mux registers of the block are only partially
+understood, which is why I did not start with that. Would you accept
+the GPIO driver in this form first, with the pinctrl conversion (and a
+binding change to gpio-ranges) later, or should the pin controller come
+first?
+
+I2C:
+
+The controller transfers one byte per command with an OpenCores-like
+command register. The driver supports plain I2C and emulated SMBus
+without quick commands (every message carries at least one data byte)
+and without 10-bit addresses.
+
+Testing:
+
+Tested on a Securifi Almond+ with next-20260929 plus series 1 v4 and
+this series, both CPUs online. The watchdog found the TWD armed by the boot
+loader on both CPUs and took it over ("running on CPU0-1, taking
+over"); pinged for 60 s from userspace and then left alone, it reset
+the board when timeleft reached zero. The I2C and GPIO interrupts are
+delivered through the new peripheral interrupt controller; the reset
+button (GPIO 37) is claimed by gpio-keys as an active-low input and
+reports KEY_RESTART; an I2C read of the touch controller at 0x48 is
+ACKed and an empty address returns -ENXIO without timeouts. reboot(2)
+issued from CPU1 restarted the board through the restart handler.
+The same drivers also run in an OpenWrt image on Linux 6.18 booted from
+NAND through the stock U-Boot, where the SX8650 touchscreen uses a
+level-triggered GPIO interrupt.
+
+Build tested with multi_v7_defconfig (GCC 14 and Clang 21, W=1),
+dt_binding_check and dtbs_check. Not tested: CPU hotplug of the
+watchdog (the platform has no cpu_die yet), repeated START between
+messages on I2C (only single-message transfers were run), GPIO
+interrupts with real edges.
+
+Open questions:
+
+1. GPIO muxing, see above.
+2. The TWD watchdog binding marks clocks as optional, the driver
+   requires them (the rate is needed to compute the timeout). Should
+   the binding be tightened, or should the driver fall back to
+   something when there is no clock?
+3. Is a separate MAINTAINERS entry for the TWD watchdog driver the
+   right thing, or should it be listed under the watchdog subsystem?
+
+[1] https://lore.kernel.org/all/20261013-b4-cs75xx-v6-0-37e8f3969b7c@gmail.com/
+
+---
+Changes in v3:
+- rebase on v6 of the platform series
+- watchdog: follow rate changes of the clock, which on many MPCore
+  systems scales with the CPU clock, and restore the watchdog of the
+  boot CPU on resume (sashiko-bot)
+- i2c: reset the controller with its interrupt disabled, check the
+  prescaler against the field width exactly, wait for a bus held by
+  another master up to the adapter timeout (sashiko-bot)
+- Link to v2: https://patch.msgid.link/20261013-b4-cs75xx-s2-v2-0-94f8c0a90cda@gmail.com
+
+Changes in v2:
+- rebase on v5 of the platform series
+- gpio, i2c, watchdog: do not include <linux/mod_devicetable.h> (Uwe)
+- watchdog: the prescaler cannot be changed in watchdog mode (verified
+  on the board), so a watchdog left running by the bootloader with a
+  different prescaler is stopped before it is reprogrammed (sashiko-bot)
+- i2c: complete a failed transfer only once its stop condition is done,
+  so that the stop interrupt cannot race with the next transfer; take
+  the lock over the whole interrupt handler; report a NACK of the last
+  byte of a write; enable the interrupt again after a reset on timeout;
+  fail with -EBUSY when the bus stays busy (sashiko-bot)
+- gpio: update the both-edges mask only for a valid trigger type and
+  test it under the lock in the interrupt handler; refuse more than 32
+  lines (sashiko-bot)
+- Link to v1: https://patch.msgid.link/20261012-b4-cs75xx-s2-v1-0-8a7641b7b79c@gmail.com
+
+---
+Fil Dunsky (11):
+      dt-bindings: interrupt-controller: Add Cortina Systems CS7542 peripheral interrupt controller
+      irqchip: Add Cortina Systems CS75xx peripheral interrupt controller
+      dt-bindings: gpio: Add Cortina Systems CS7542 GPIO controller
+      gpio: Add Cortina Systems CS75xx GPIO driver
+      dt-bindings: i2c: Add Cortina Systems CS7542 I2C controller
+      i2c: Add Cortina Systems CS75xx I2C controller driver
+      watchdog: Add ARM TWD (MPCore private) watchdog driver
+      ARM: dts: cortina: cs7542: Add interrupt controller, GPIO and I2C
+      ARM: dts: cortina: almondplus: Add reset button and enable I2C
+      ARM: multi_v7_defconfig: Enable Cortina Systems CS75xx GPIO, I2C and TWD watchdog
+      MAINTAINERS: Add Cortina Systems CS75xx interrupt controller, GPIO and I2C
+
+ .../bindings/gpio/cortina,cs7542-gpio.yaml         |  68 +++
+ .../bindings/i2c/cortina,cs7542-i2c.yaml           |  56 +++
+ .../interrupt-controller/cortina,cs7542-intc.yaml  |  57 +++
+ MAINTAINERS                                        |  12 +
+ .../dts/cortina/cs7542-securifi-almondplus.dts     |  19 +
+ arch/arm/boot/dts/cortina/cs7542.dtsi              |  75 ++++
+ arch/arm/configs/multi_v7_defconfig                |   3 +
+ drivers/gpio/Kconfig                               |  12 +
+ drivers/gpio/Makefile                              |   1 +
+ drivers/gpio/gpio-cs75xx.c                         | 336 +++++++++++++++
+ drivers/i2c/busses/Kconfig                         |  11 +
+ drivers/i2c/busses/Makefile                        |   1 +
+ drivers/i2c/busses/i2c-cs75xx.c                    | 392 +++++++++++++++++
+ drivers/irqchip/Kconfig                            |  12 +
+ drivers/irqchip/Makefile                           |   1 +
+ drivers/irqchip/irq-cs75xx.c                       | 103 +++++
+ drivers/watchdog/Kconfig                           |  15 +
+ drivers/watchdog/Makefile                          |   1 +
+ drivers/watchdog/arm_twd_wdt.c                     | 472 +++++++++++++++++++++
+ 19 files changed, 1647 insertions(+)
+---
+base-commit: 6474fa070f2b8013b4b87350b775b8c3be6e8aac
+change-id: 20261012-b4-cs75xx-s2-5f548492f51e
+prerequisite-message-id: <20261013-b4-cs75xx-v6-0-37e8f3969b7c@gmail.com>
+prerequisite-patch-id: 104c6fb668f30ac8c2c5b3b6c524c18caa8808c4
+prerequisite-patch-id: e7d503348cbec7558cd084162133f8e34df1c1bc
+prerequisite-patch-id: 1d5770db02b983d012f6c58806fbf3f5291a06c9
+prerequisite-patch-id: 8515988ae3509d4289a8d845803353f5ed412982
+prerequisite-patch-id: 6c0137d52f201d8ec085ee6cc7b2d49af15583d8
+prerequisite-patch-id: 24e110f3c8c008deffdda079bdc27db729b5014d
+prerequisite-patch-id: 74958574be7df70bb792f0f6e767d5cae13e1086
+prerequisite-patch-id: 15c11a668a1a281649fa0713371e7f07ee44917e
+prerequisite-patch-id: 9b4a468b7b74861017ef533ba0a5574bc14b212e
+prerequisite-patch-id: 1f232c94dd3fc0d862203b7c0c1449e6ba9a6859
+
+Best regards,
+--  
+Fil Dunsky <filipp.dunsky@gmail.com>
+
+
