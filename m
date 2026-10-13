@@ -1,92 +1,279 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F714B95C0;
-	Tue, 13 Oct 2026 09:46:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10B953EC810
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 09:46:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791884789; cv=none; b=Be/+cQAAP/UY17Gf3/OQEivJjWTPZg6VxoyhxPpWVJI9bVrn/SXMO9vjkoRkJArCbwIsJw2ZBusP6syPY4/URPjP6pp9UG+c4h21oV4wgmsr/xzznUq6mwqhBQ7VXH7gzrscQImYMsNSkzlNJ4S3pWO3wP/fqFBWNDHtLlurUTM=
+	t=1791884813; cv=none; b=DdveYzaYI40I9YqsjQLIq+YWbriIjqSRrA74USzTCowIY0f17wY/tQDDhcDIvhZeEM/VgzuMh6glpJc1uDNcj8uGRR7p8FacUEZHbVM3SWd40i3m47TF1fdYFukaxLRJihdvI4tD81vJK30HwF//yTB2bP05wIX2H03mXzLnIfU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791884789; c=relaxed/simple;
-	bh=dsQ3c3r30MByiQl80F9uySddLkO/UAS3WgjYmjdt+fs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=meOysWyzREQ35qCXeOs4pzgT4KFHch//RdL1QZUOXe6lQSmb+oLGMCzhYc0nDVAzzf8y0ag9YensTgqIbcY/nGEbt/3KFl68IstxRynRaA51xCWJCiSg7JerFucIvlwa8CCRjuz+IC2n7SpjR1Zqwxh+GkdzZ9/ZTeuIrQFA954=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=J8F5AjUs; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791884813; c=relaxed/simple;
+	bh=Ry6whsfUsu53BZMgX8P0B7FbPjRMwxS3dEgGUZ2+s1U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=J4CbUHI8EnOBzuyFrZ/WEqzcWtvesqJxS3eZVlr9kpovOcT3zkgP/6E+pFfjRjxWnclUVgYdUSs0s3XHUQq7xZuxc6UDxTszJK1s9szzIjbDd35C8KWSmvkem+r+F5RxpSCCzAFQh+1qWPRyyxCsp6uly0rI5odRm8IPBsTtVDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fhTmpPeH; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="J8F5AjUs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791884787; x=1823420787;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=dsQ3c3r30MByiQl80F9uySddLkO/UAS3WgjYmjdt+fs=;
-  b=J8F5AjUseXBAZY/iEPMxONLDQOgT8Ln4zjDklWKSn7eyNzRufP3ptSiN
-   eemGACbL+ezF4Xy1/Hz3jWUz654rAGtiLOhJKC+M7VGcgM/xoMUYSaSRY
-   R/4F1EfvUGZSkzTRQPUdeRJyWQPSyyapAJJxLdWdPNLi4XbvLj3VEldbV
-   OZnTpsnLUPp0ZZosH5H4enZtGFGsmcTnJye4JR7cuomNTXxw0Fu8N6h74
-   uyg/wKfR010ALPXuNxPeDNtZFfMhsVQ3QqoU/lQhHGdD4UDfY8vQ4rOp6
-   DpoM24zsF1LtApDUerWdEK+0sfTIOhIR4NhDBy6jx47R+q25Sss2lqQkc
-   w==;
-X-CSE-ConnectionGUID: a9koeaZnRXyKlN+QBWmI/Q==
-X-CSE-MsgGUID: KD67smqoQFeuOdSWBeUn7A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="504747"
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="504747"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 02:46:27 -0700
-X-CSE-ConnectionGUID: jFIpIThAT2iEEf0urpX9OQ==
-X-CSE-MsgGUID: smM8Y3woQKiB7j0xfwBQXA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="1091222"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 02:46:23 -0700
-Date: Tue, 13 Oct 2026 12:46:21 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: zl020895 <zl020895@163.com>
-Cc: longzhao@ambarella.com, Bartosz Golaszewski <brgl@kernel.org>,
-	linux-gpio@vger.kernel.org, Linus Walleij <linusw@kernel.org>,
-	Michael Walle <mwalle@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: Re: [PATCH 7/7] gpio: pl061: add Ambarella register-layout
- variant
-Message-ID: <as397YYv1k_IfIJC@ashevche-desk.local>
-References: <20261009-cv75-gpio-v1-0-5836bd438423@ambarella.com>
- <20261009-cv75-gpio-v1-7-5836bd438423@ambarella.com>
- <as3a7UTe9YEyBAY3@ashevche-desk.local>
- <179f2223.7d43.1a1347ce995.Coremail.zl020895@163.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fhTmpPeH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791884811;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UUkzT3aq37LJADFn6x+rptOFGT8F+q5O9gHeHYLf1Hk=;
+	b=fhTmpPeHFEuvmqGq4wOhIQ07Vn8EBR7BZngPczZXKfjUtL8CPIJxcSmyXaVVfe8JkUoadr
+	IC0zaPB+1PgjaRh/+vyHt6COTSJa5roArH+rXsJMhHTQKRzwZrok+1t/ULYO6t4SAvNmnq
+	ms9f5KCbL0fS4GkD6oLizAnTMr0KxFM=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-75-TgrihILROuCm41BWTuCufQ-1; Tue,
+ 13 Oct 2026 09:46:47 +0000
+X-MC-Unique: TgrihILROuCm41BWTuCufQ-1
+X-Mimecast-MFC-AGG-ID: TgrihILROuCm41BWTuCufQ_1791884806
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 85BB6195422F;
+	Tue, 13 Oct 2026 09:46:45 +0000 (UTC)
+Received: from [10.43.2.199] (unknown [10.43.2.199])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 630D0180034F;
+	Tue, 13 Oct 2026 09:46:42 +0000 (UTC)
+Message-ID: <a68ee429-c63e-4948-bc98-d895ed8066da@redhat.com>
+Date: Tue, 13 Oct 2026 11:46:41 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179f2223.7d43.1a1347ce995.Coremail.zl020895@163.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v12 09/12] dpll: sit9531x: implement output pin
+ state on a DPLL
+To: Ali Rouhi <arouhi@sitime.com>, Jiri Pirko <jiri@resnulli.us>
+Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Carolina Jubran <cjubran@nvidia.com>,
+ Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20261009183151.78497-1-arouhi@sitime.com>
+ <20261009183151.78497-10-arouhi@sitime.com>
+Content-Language: en-US
+From: Ivan Vecera <ivecera@redhat.com>
+In-Reply-To: <20261009183151.78497-10-arouhi@sitime.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-On Tue, Oct 13, 2026 at 04:59:23PM +0800, zl020895 wrote:
+On 10/9/26 20:31, Ali Rouhi wrote:
+> From: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
+> 
+> An output is driven by its PLL rather than selected by it, so its state
+> says whether it carries a signal: connected while it drives, disconnected
+> while it is muted.  Setting the state mutes or un-mutes it by forcing the
+> pad to Hi-Z, the only per-output control the device offers that leaves the
+> divider alone.
+> 
+> The force bit and the state bit are separate, and a pad follows the loaded
+> configuration while the force bit is clear, so both are read to decide
+> whether an output is muted and both are written to change it.  Which of
+> the four register banks applies depends on the slot and on whether the pad
+> is single-ended or differential.
+> 
+> A mute or un-mute is a per-output control, but each one that changes
+> something runs the device-wide programming sequence of the previous
+> patch, so a request for the state the output already has is answered
+> from the registers without entering it.  A request that fails after some
+> of its writes landed still announces the change, so a subscriber is not
+> left with the old state; the pin handle is read once, so a teardown
+> racing the request cannot hand the notification a cleared one.  A failed
+> entry into the programming state is left the way a commit leaves it:
+> loops re-locked and the settling time waited for.
+> 
+> This is also where output pins start being registered at all: until now
+> the registration filter took inputs only, so the output operations the
+> earlier patches added -- direction and frequency -- had nothing to
+> dispatch on.
+> 
+> Signed-off-by: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
+> Assisted-by: LLM
+> Signed-off-by: Ali Rouhi <arouhi@sitime.com>
+> ---
+>   drivers/dpll/sit9531x/core.c | 344 +++++++++++++++++++++++++++++------
+>   drivers/dpll/sit9531x/core.h |   7 +
+>   drivers/dpll/sit9531x/dpll.c | 130 +++++++++++++
+>   3 files changed, 427 insertions(+), 54 deletions(-)
+> 
+> diff --git a/drivers/dpll/sit9531x/core.c b/drivers/dpll/sit9531x/core.c
+> index ea15830b0efa..19aeabd3cd4f 100644
+> --- a/drivers/dpll/sit9531x/core.c
+> +++ b/drivers/dpll/sit9531x/core.c
+> @@ -488,71 +488,50 @@ static int sit9531x_output_forced_hiz(struct sit9531x_dev *sitdev,
+>                                          muted);
+>   }
+> 
+> -/* Attempts to re-lock the output loops before reporting them open. */
+> -#define SIT9531X_LOOP_LOCK_TRIES       3
+> -
+>   /*
+> - * sit9531x_prg_abort - leave the programming state without committing
+> + * sit9531x_output_state_refresh - read an output's mute state back
+>    *
+> - * Entering the state is two writes, and the second can fail with the debug
+> - * block already unlocked and the part possibly already in PRG_CMD.  There
+> - * is nothing to commit in that case, but the loops still have to be closed
+> - * and the debug key put back, which is otherwise only done by
+> - * sit9531x_prg_commit().
+> + * Used when a mute could not be confirmed at the time it was written.  The
+> + * driver does not poll output state, so without this the cached value would
+> + * stand until something else happened to write it.
+> + *
+> + * Caller must hold sitdev->multiop_lock.
+>    */
+> -static void sit9531x_prg_abort(struct sit9531x_dev *sitdev)
+> +int sit9531x_output_state_refresh(struct sit9531x_dev *sitdev, u8 out_idx)
+>   {
+> -       u8 attempt;
+> -       int rc = -EIO;
+> +       bool muted;
+> +       int rc;
+> 
+> -       for (attempt = 0; attempt < SIT9531X_LOOP_LOCK_TRIES; attempt++) {
+> -               rc = sit9531x_write_u8(sitdev, SIT9531X_REG_PRG_DIR_GEN,
+> -                                      SIT9531X_LOOP_LOCK);
+> -               if (!rc)
+> -                       break;
+> -               usleep_range(1000, 2000);
+> -       }
+> +       lockdep_assert_held(&sitdev->multiop_lock);
+> +
+> +       rc = sit9531x_output_forced_hiz(sitdev, out_idx, &muted);
+>          if (rc)
+> -               dev_err(sitdev->dev,
+> -                       "output loops left unlocked after a failed entry: %d\n",
+> -                       rc);
+> +               return rc;
+> +
+> +       sitdev->out[out_idx].enabled = !muted;
+> +       sitdev->out[out_idx].state_stale = false;
+> 
+> -       sit9531x_write_u8(sitdev, SIT9531X_REG_OUTSYS_DEBUG,
+> -                         SIT9531X_DEBUG_LOCK_VAL);
+> +       return 0;
+>   }
+> 
+> -/*
+> - * Enter the output-system programming state: unlock the debug
+> - * registers on Page 3 and issue the PRG_CMD state command.  Register
+> - * writes that reconfigure the output system only take effect when
+> - * they are made inside this state.
+> - */
+> -static int sit9531x_prg_enter(struct sit9531x_dev *sitdev)
+> +static int sit9531x_hiz_set_bit(struct sit9531x_dev *sitdev,
+> +                               unsigned int reg, u8 bit, bool set)
+>   {
+> +       u8 cur, new_val;
+>          int rc;
+> 
+> -       rc = sit9531x_write_u8(sitdev, SIT9531X_REG_OUTSYS_DEBUG,
+> -                              SIT9531X_DEBUG_UNLOCK_VAL);
+> +       rc = sit9531x_read_u8(sitdev, reg, &cur);
+>          if (rc)
+>                  return rc;
+> 
+> -       rc = sit9531x_write_u8(sitdev, SIT9531X_REG_PRG_DIR_GEN,
+> -                              SIT9531X_PRG_CMD_STATE);
+> -       if (rc) {
+> -               /*
+> -                * The debug block is unlocked at this point, and a transfer
+> -                * that reported an error may still have reached the part --
+> -                * which would leave the device in PRG_CMD with its output
+> -                * loops open.  Callers skip the commit when the entry
+> -                * fails, so close both here.
+> -                */
+> -               sit9531x_prg_abort(sitdev);
+> -               return rc;
+> -       }
+> +       new_val = set ? (cur | BIT(bit)) : (cur & ~BIT(bit));
+> 
+> -       return 0;
+> +       return sit9531x_write_u8(sitdev, reg, new_val);
+>   }
+> 
+> +/* Attempts to re-lock the output loops before reporting them open. */
+> +#define SIT9531X_LOOP_LOCK_TRIES       3
+> +
+>   /*
+>    * Commit a programming sequence started by sit9531x_prg_enter():
+>    * update the NVM shadow and re-lock the loops.  The sleep gives the
+> @@ -622,6 +601,251 @@ static int sit9531x_prg_commit(struct sit9531x_dev *sitdev)
+>          return 0;
+>   }
+> 
+> +/*
+> + * Enter the output-system programming state: unlock the debug
+> + * registers on Page 3 and issue the PRG_CMD state command.  Register
+> + * writes that reconfigure the output system only take effect when
+> + * they are made inside this state.
+> + */
+> +static int sit9531x_prg_enter(struct sit9531x_dev *sitdev)
+> +{
+> +       int rc;
+> +
+> +       rc = sit9531x_write_u8(sitdev, SIT9531X_REG_OUTSYS_DEBUG,
+> +                              SIT9531X_DEBUG_UNLOCK_VAL);
+> +       if (rc)
+> +               return rc;
+> +
+> +       rc = sit9531x_write_u8(sitdev, SIT9531X_REG_PRG_DIR_GEN,
+> +                              SIT9531X_PRG_CMD_STATE);
+> +       if (rc) {
+> +               /*
+> +                * The debug block is unlocked at this point, and a transfer
+> +                * that reported an error may still have reached the part --
+> +                * which would leave the device in PRG_CMD with its output
+> +                * loops open.  Callers skip the commit when the entry fails,
+> +                * so leave the state here the way every completed sequence
+> +                * does: nothing was changed, so the update commits what the
+> +                * part already holds, the loops are re-locked, and the
+> +                * settling time is waited out before the caller drops the
+> +                * lock and the next request programs the part.  The entry
+> +                * failure is the error to report.
+> +                */
+> +               sit9531x_prg_commit(sitdev);
+> +               return rc;
+> +       }
+> +
+> +       return 0;
+> +}
+> +
+> +/*
+> + * sit9531x_output_hiz_write - mute or unmute an output
+> + *
+> + * Muting takes control of the pin (MASK=1) and forces it to Hi-Z
+> + * (STATE=0) on every Hi-Z pair of the slot -- differential, CMOS OutP
+> + * and CMOS OutN -- because the output must go quiet whichever way it is
+> + * wired; unmuting releases the override on all of them and hands the pin
+> + * back to the device.  The caller must already be in the programming
+> + * state.
+> + */
+> +static int sit9531x_output_hiz_write(struct sit9531x_dev *sitdev, u8 slot,
+> +                                    bool mute)
+> +{
+> +       struct sit9531x_hiz_pair p[SIT9531X_HIZ_PAIRS];
+> +       u8 mask[SIT9531X_HIZ_PAIRS], state[SIT9531X_HIZ_PAIRS];
+> +       int i, rc, undo_rc;
 
-> You did give Reviewed-by earlier. After that
-> tag the commit gained the DAT cache, so I dropped the tag because the
-> code changed. If you are still fine with that version, I will restore
-> it.
+Reverse X-mas here, please.
 
-Yes, I'm fine, please keep it, it was not that change that requires
-reconsideration, but thanks for explaining the reason why.
+With both of them...
 
-> >Ick?! I thought I gave a tag for this. What's going on?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Reviewed-by: Ivan Vecera <ivecera@redhat.com>
 
