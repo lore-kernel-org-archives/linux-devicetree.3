@@ -1,138 +1,207 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 002955038F5
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 14:38:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43A9B51AED7;
+	Tue, 13 Oct 2026 14:40:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791902293; cv=none; b=SKXpHg/qAIz4VSe1fKj/lpQ6whzDDnC2as3i0mWk4Xst50bM4oyHeZigdaGlc5hBbwBfQp2/R6t1RCSvGyF+0yGwXL59FZVGUPrP3nkZ4ng1bDZxNBw4so+2FtjxpJy/6it14Ja+/BkWRh+plRq2PNug9xOmJC8XbT/k0UxsNHw=
+	t=1791902455; cv=none; b=sQPzvTUbpL2UrlYiX6+JsGWhWxKYvX7fsSu3ySkVwKNxf/TF+9hHIWxQ+il7pIegrV7MQWWEn33Gt2II8chPufs//f34Dx68DAf2qLX7h3x85k6sNrmmSVfqsD6QF2SCX2T8nnwipyTpy+aqMYQCe8S4WhYZc9qeh7yGPARFTi4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791902293; c=relaxed/simple;
-	bh=Fy4hww/bwmxQbL1BwdmGfWhDcfwRm+UBIieq6CF5cl4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EkkmKpU86vJQ04w2V/YpNl8rNnQFETCxu+S1UcDn0tkqbcK3nnvAUZQaMAF5kPvHfBXoMm+mTb3X0q8zu9KoZ6SPNGrwHgZzGxBP0wMi8vsOyt3CwXbS9RwxbtHRsQvpe5KSl+bjcXtbXDWp9cRQmWpYUvm1/JsQd2/0PlymBc8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=b1pbe1si; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="b1pbe1si"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a018792ab3so25776955e9.0
-        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 07:38:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791902290; x=1792507090; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Fy4hww/bwmxQbL1BwdmGfWhDcfwRm+UBIieq6CF5cl4=;
-        b=b1pbe1si2E3iCvTwpnUvD68ItEgscrvhe6z0QxoCT4Lk9Q+AaVPC8gosjyH+hNVD5Q
-         n6H3H6tqols9NIuIA8vK8bzggzNpPcL+1V0bGEPaLuHRCWItBkIAQ9vzqCMfqmI9duvB
-         W4nkhH6e2QrqNSUtASVrG5tSq1C/73+cYsWeXh21p6wpAk4IaeWDR2AYzCBBlFq2Mfm5
-         WqidzRV1LIfUgOjXwc/3uwZ6i0LFczf5l83yd8xX2eh0DMtOI7f9qpSpgmEdMI2xcC6k
-         1sQSRAWM9D/zdnr6eMD9aGPQINnLnByV1S5sQnfxZV16fDr/YLuB9ZZqSkP3XJTSPcm/
-         VGDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791902290; x=1792507090;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Fy4hww/bwmxQbL1BwdmGfWhDcfwRm+UBIieq6CF5cl4=;
-        b=RsiEYLQyuxVzivvkw3L8vjvHLqT295EZ6Jv1N3YAOmBT8QCLZH0NHsYnN/ZvyuyuSb
-         IOnPRpztDxe/8yyJHPxhJF5xVXFuL+nG73bVyUWj7/CV6QyxMeNWhNzcV4XLU0Yz7UAY
-         i/EcNkbr0g6WnkFkf8MjGlMmWdxnacEkfDmQQbTrCwb6ACCKcqs+BCjPXlYTgMYQ+cH/
-         rR4ZQ0+aCj3TzhGrgEXatJlmkf8MDJV5G2/l2ZgR2mKlLsdNtOc6n+DcUUqgaZ5HRdAb
-         foUtfRQ6SqWWajCk4ofguf/AXv7FRgfW6rbnyqkwJkKej6UtYyVtQKELCIdsGZnN1L63
-         JmUw==
-X-Forwarded-Encrypted: i=1; AKwUvByo051mPk9Fmc2+wUJ3bZCI3YiVGdKT+zUq2qTFCqQkN5WtkPEf67efmUuWr6d6iE86mo1qITYmW+eu@vger.kernel.org
-X-Gm-Message-State: AFq9FYKUQuie8vEetGFzCHQrgCXTREjGXbLLDjo4LrUyN5tMi+VMaA2I
-	3hv7BFL+7ooiDBcH1ZCqPtoJuioSNYqA9cxSJYQ0tg3wYu0VpcEOqFNlxU0Yed9yKDU=
-X-Gm-Gg: AYBFou1RlFghismaC+yye+/Ed0syTSqGeERtN8QGUj7EXqlH1OutSTz+h7UFMpyNsLB
-	6XLN81Z73wQqXYIGyiuRRmsYAjDTNRhaoXrYBHniPmUP59aC+Qi/7aexQBaBXBWPDl4JmF9rBp3
-	ZX4+PQDo4bWVjI2WCxJHXYtesy7sBNU+idvtlP3BzrTNvbpt3a5jO2N6e2CPYIzATH/Kttnt1Mg
-	VaVWKXJx7biffWP+4PJYoWT85+AroKINSkvrdPSilNyhWgkfq6k4ZBFJmErXtqwfEeCKxS0bTSX
-	kG9X0ECmsOEVPfigaCfni4HJ22D1kEzlfwERPAqPJqKGE0hNoqqTTIQ2+LAzf3DM2z3ppnRzCxP
-	aQvYKTlJHF7+lXLY09AxLsmS0MAE4W+EezFhgMfwIQJ0tyaZrXIto8C+neAjykPO9jH1L58QkLr
-	UoUDqCEHzAkAIP+cdudgX5FcpMQukGypqNFtyGAG0dxNNySqbrkLpfIAl6e7k7E9NdiEiVULquT
-	C+wJRbN
-X-Received: by 2002:a05:600c:310b:b0:4a1:813f:2a5b with SMTP id 5b1f17b1804b1-4a18e4a9da8mr235341925e9.14.1791902290063;
-        Tue, 13 Oct 2026 07:38:10 -0700 (PDT)
-Received: from [10.11.12.111] ([79.115.63.240])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a19c8244edsm198277585e9.2.2026.10.13.07.38.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 07:38:09 -0700 (PDT)
-Message-ID: <4576292d-2c3c-47db-8422-9f9e730cfecc@linaro.org>
-Date: Tue, 13 Oct 2026 17:38:06 +0300
+	s=arc-20240116; t=1791902455; c=relaxed/simple;
+	bh=YD1i5N64AwyiZAOcbQ6m8sqofEPSt70zGsK4VQLTngc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n26opvDqOX0cdkLCJkrokUbaYvcmifnkEuC/87EkakGkSaBd5/PieWmSh9G3rEScSTnf1ikG3XGrvqrg9xgHnFKWgUcb2Q5IXd3f/bdVe2S0L11N8B9kfPOxLAoshGuvx8RMfWV6ZVR53em5jGRDkzMZPB7/HiV5HCpB6s4zrkM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; arc=none smtp.client-ip=92.121.34.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 060232000E5;
+	Tue, 13 Oct 2026 16:40:47 +0200 (CEST)
+Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com [134.27.226.22])
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id E2F26200012;
+	Tue, 13 Oct 2026 16:40:46 +0200 (CEST)
+Received: from lsv051416.swis.nl-cdc01.nxp.com (lsv051416.swis.nl-cdc01.nxp.com [10.168.48.122])
+	by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 697B2202DA;
+	Tue, 13 Oct 2026 16:40:46 +0200 (CEST)
+Date: Tue, 13 Oct 2026 16:40:46 +0200
+From: Jan Petrous <jan.petrous@oss.nxp.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>,
+	NXP S32 Linux Team <s32@nxp.com>, Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Bogdan Hamciuc <bogdan.hamciuc@nxp.com>,
+	Ionut Vicovan <ionut.vicovan@nxp.com>, Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Clark Wang <xiaoning.wang@nxp.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Chester Lin <chester62515@gmail.com>,
+	Matthias Brugger <mbrugger@suse.com>,
+	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	imx@lists.linux.dev, linux-pci@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	Vincent Guittot <vincent.guittot@linaro.org>
+Subject: Re: [PATCH RFC v3 01/12] dt-bindings: phy: Add NXP S32G SerDes
+ subsystem
+Message-ID: <as5C7o1joORcdesQ@lsv051416.swis.nl-cdc01.nxp.com>
+References: <20260919-s32g_serdes-v3-0-9d68868c1e89@oss.nxp.com>
+ <20260919-s32g_serdes-v3-1-9d68868c1e89@oss.nxp.com>
+ <as0tiQwquNkdlF2i@SMW015318>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 0/5] thermal: samsung: Add support for Google GS101 TMU
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: jyescas@google.com, linux-kernel@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-hardening@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260603-acpm-tmu-v8-0-0f1810a356e6@linaro.org>
- <8142519a-0062-4f0f-b978-980e049f99c1@oss.qualcomm.com>
- <fe159792-c58a-46a9-950b-6c21d2172601@linaro.org>
- <04a1331f-1375-471e-a674-87039aeb0328@oss.qualcomm.com>
-Content-Language: en-US
-From: Tudor Ambarus <tudor.ambarus@linaro.org>
-In-Reply-To: <04a1331f-1375-471e-a674-87039aeb0328@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <as0tiQwquNkdlF2i@SMW015318>
+X-Virus-Scanned: ClamAV using ClamSMTP
 
+On Mon, Oct 12, 2026 at 01:57:13PM -0500, Frank Li wrote:
+> On Sat, Sep 19, 2026 at 08:54:29AM +0200, Jan Petrous via B4 Relay wrote:
+> > [You don't often get email from devnull+jan.petrous.oss.nxp.com@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> >
+> > From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
+> >
+> > The S32G SerDes subsystem multiplexes two lanes between a PCIe PHY and
+> > two DesignWare XPCS instances. Describe it with one node per SerDes and
+> > one child node per lane.
+> >
+> > Compared to the previous revision, the vendor nxp,sys-mode property is
+> > removed: the SS_RW_REG_0[SUBSYS_MODE] value is fully derivable from the
+> > child-node lane mux and the XPCS instance routing (nxp,xpcs-instance).
+> > Each working mode described here has a unique lane mux, so the mode is
+> > a pure function of the child nodes. The reference-clock rate is
+> > validated against the derived mode; it is not used to select it.
+> >
+> > The 3.125 Gbit/s working modes are deliberately not described yet.
+> > Distinguishing them from the 1.25 Gbit/s dual-XPCS mode requires a
+> > per-lane 2500BASE-X capability that this binding does not express, and
+> > the reference clock does not distinguish them either - both accept 100
+> > or 125 MHz. They are added by the 2500BASE-X follow-up.
+> >
+> > Only the PCIe lane child gets '#phy-cells'. An XPCS lane is not a
+> > generic PHY provider; the Ethernet controller references it through the
+> > standard pcs-handle property instead.
+> 
+> Is it possible Ether controller use standard phy interface? of use standard
+> pcs-handle to phy convertion
+> 
+> pcs-handle = <&pcs>
+> 
+> pcs: pcs = {
+> 	compatible = "pcs-to-phy";
+> 	phys = <&phy ...>;
+> }
+> 
 
+The MAC needs a phylink_pcs, not a PHY: the XPCS does the C37 autoneg
+and link state. pcs-handle is the standard property for that, and in
+v4 the XPCS is driven by pcs-xpcs. The lane mux is fixed before the
+SerDes reset is released, so the MAC has nothing to set on a generic
+PHY, and a "pcs-to-phy" node would describe a block the SoC does not
+have.
 
-On 10/13/26 5:31 PM, Daniel Lezcano wrote:
-> On 10/13/26 16:26, Tudor Ambarus wrote:
->>
->>
->> On 10/13/26 4:33 PM, Daniel Lezcano wrote:
->>> Hi Tudor,
->>
->> Hi!
->>
->>>
->>> I noticed I picked up your series without notifying you
->>>
->>> However, I did not pay attention but picked also the dts files.
->>>
->>> Shall I drop them ? (AFAICS there is one comment) and let you handle them separately ?
->>>
->>
->> Yes, please. dts and defconfig patches shall go via the Samsung SoC tree.
->>
->> About the driver itself, I was about to send a v9, where I addressed
->> some issues sashiko spotted. Do you prefer to drop everything and wait
->> for my v9? Otherwise I can do incremental patches.
-> Well the v8 is in my tree since a while now and I'm about to send a PR. The patches can be dropped but the v9 will have to wait for the next release. If you want this v8 in, it depends on the sashiko report. Is it minor or major ?
+> >
+> > S32G2 and S32G3 use distinct compatibles without fallback because the
+> > full reference-manual mode tables differ per SoC and per SerDes
+> > instance.
+> >
+> > Co-developed-by: Vincent Guittot <vincent.guittot@linaro.org>
+> > Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
+> > Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
+> > ---
+> >  .../devicetree/bindings/phy/nxp,s32g-serdes.yaml   | 258 +++++++++++++++++++++
+> >  1 file changed, 258 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/phy/nxp,s32g-serdes.yaml b/Documentation/devicetree/bindings/phy/nxp,s32g-serdes.yaml
+> > new file mode 100644
+> > index 000000000000..6343d01bfde4
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/phy/nxp,s32g-serdes.yaml
+> > @@ -0,0 +1,258 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/phy/nxp,s32g-serdes.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: NXP S32G2xxx/S32G3xxx SerDes PHY subsystem
+> > +
+> > +maintainers:
+> > +  - Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>
+> > +  - Jan Petrous <jan.petrous@oss.nxp.com>
+> > +
+> > +description: |
+> > +  The SerDes subsystem multiplexes two SerDes lanes between one PCIe
+> > +  controller PHY and two Synopsys DesignWare XPCS (Ethernet PCS) instances,
+> > +  behind a shared 2-lane combo PHY. The active routing is selected by the
+> > +  SS_RW_REG_0[SUBSYS_MODE] field.
+> > +
+> > +  Reference-manual working modes described by this binding:
+> > +
+> > +  Mode  Lane0   Lane1   PHY refclk (MHz)  Description
+> > +  ------------------------------------------------------------
+> > +  0     PCIe    PCIe    100               PCIe x2
+> > +  1     PCIe    XPCS0   100               PCIe x1 + SGMII
+> > +  2     PCIe    XPCS1   100               PCIe x1 + SGMII
+> > +  3     XPCS0   XPCS1   100 or 125        dual SGMII, 1.25 Gbit/s
+> > +
+> > +  Which Ethernet MAC an XPCS instance feeds is fixed by the SoC integration
+> > +  and differs per SoC and per SerDes instance - on S32G3 SerDes_0, XPCS0
+> > +  feeds GMAC0 and XPCS1 feeds PFE_MAC2, while on SerDes_1 the same two
+> > +  instances feed PFE_MAC0 and PFE_MAC1. That mapping is a property of the
+> > +  SoC, not of this binding, and is resolved by the driver.
+> 
+> Roughly look like use argument is little bit better
+> 
+> <&phys PHY_MODE instance(0/1)>;
+> 
 
-They are minor corner-case races (an interrupt firing midway through
-system suspend after runtime PM is force-suspended, and module unload
-racing with a concurrent sysfs temperature read), plus a few small
-cleanups (adding `select REGMAP_MMIO`, implementing `.change_mode()`,
-and renaming the driver from "gs-tmu" to "exynos-acpm-tmu").
+Rob suggested that in v2 [1]. Child nodes stayed because:
 
-None of them affect normal operation, so please keep patches 1-3
-(dt-bindings, driver, MAINTAINERS) for your PR and just drop patches 4
-and 5 (dts and defconfig). I will send incremental patches on top to
-address those items.
+- SUBSYS_MODE is written before the reset is released, so the SerDes
+  driver needs the whole lane mux at its own probe. With cells it would
+  have to walk the tree for its consumers, including disabled ones, and
+  an unconnected lane has no consumer to carry a cell.
 
-Thanks!
-ta
+- The MAC uses pcs-handle, which has no argument cells, so the XPCS
+  instance has nowhere else to go.
+
+- A type cell duplicates phy_set_mode_ext(PHY_MODE_PCIE) from the PCIe
+  driver.
+
+- In mode 0 there is one x2 PHY, not two lane PHYs.
+
+I will put this in the v4 commit message. If you or Rob still prefer
+cells, let me know.
+
+[1] https://lore.kernel.org/all/CAL_Jsq+SswpTjQShfkdhVwL_k8gJ_5+NrecPCUiFR52UB5zNMA@mail.gmail.com/
+
+BR.
+/Jan
