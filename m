@@ -1,391 +1,393 @@
-Received: from mail.fris.de (mail.fris.de [116.203.77.234])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72033389104;
-	Tue, 13 Oct 2026 11:51:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791892312; cv=none; b=jeUaQ4Oz7oAP6BXMeQ37UJBXfj99uV1HwaE0t5qzNkdosazVnlWBWkdX7HcxWEOWclNouKzVSpbHWQbmC15x0DXqps9eExAjZujWygtUgXPp78lhW54NftIEyWS3bGizb+96jBkQDTbz/kXn4+cPEFmvCImnJPzcLbBfjqHsabI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791892312; c=relaxed/simple;
-	bh=Nh3EWY6Qf3SWKHyBzyosLrzbl2u4ADCKvvfT0FTmCNg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Wike/NBb/0N3hWOqfxPaWUM9BDT77SV62iiWRjho+n0/DFZHqDakQ0GH/zai7g8HrymZwN/s0aFe7z+eJ8fKPsC3S6O1PCuTYnyBKVqFVne9TwIDk0NKXlPaWbnahVP8GvOVdc1IxEJkH8R0Ub51Rotn/vSaf6crg40W9v+IFRw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=LbTRI2b/; arc=none smtp.client-ip=116.203.77.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD8594EF146
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 11:54:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791892445; cv=pass; b=TNLCn6i6A7tlVJK45N0+jCO6OrIVMpq36lRLV+u3L16deV89IRgE0FOmdm/qTSXM1sW4SmwbdfGhOPHMsIJ+9xPkBkEGCWg/VDzw/m8all2ZQsAMPsU1cUaYFpmgaR6xmfhRZOrIPvlwfHYbOJ/h1d/5cTsLog3kcsjZgDqFDhQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791892445; c=relaxed/simple;
+	bh=8oEKiTeBHaTRi3F7yMJ7yENZE8ADE+WNsHJTSee7X4s=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cGRqROFl3CAiEZHx6hMapz31CJ8BOZx03+C9OSOX36FUQvIF5swf41Qy6GcWPrhqNK0UD8O6OoJH3zJhKgeMBSRSk1f4T83+4fOwA4XYt72OVYzv8zAkj+pXP2vtXsnSCliXt0WQISD9c2a1lcO7/h/jQbfDu5rSunHI+ybBsCc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VwmVGgkK; arc=pass smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="LbTRI2b/"
-From: Frieder Schrempf <frieder@fris.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
-	t=1791892304;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BUAOO2g1S6N+IEVzTRP75gwGuHNEJ0tzC+aT31NxblU=;
-	b=LbTRI2b/G0N1TC6nbovg5lKcAu9kya64pYvS7hLimCqkP8niOgs2DZvrJwbEld1stC2igi
-	AHUxfbOHloi6QqPN1cq4IFzuEmGkAN6Xg1evWqb1/JYnbU98rsEQxHQNSqmBqD1oknyxQy
-	fqs9GsUdSGREC0ZYP10cFT+CiadLdgnArR9Tp1piOPTAsdOBWo08GkUTzIxMo/frDndZGQ
-	k3uisSYE5YOO77kVKvGZoz06kDkJgeruUZ5pXfCXXscvrVFGm3uioYMqKS+beUP6LIdexX
-	mBy1iiPnWk3QRXCNPorZAweNy52oDje0NUbSFwZwzdMHfVArkNS9NpiZ7AJ2Rw==
-Date: Tue, 13 Oct 2026 13:51:08 +0200
-Subject: [PATCH v2 3/9] arm64: dts: imx8mp-kontron: Fix GPIO labels
- according to OSM spec
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VwmVGgkK"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48c4be28b82so2790085f8f.2
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 04:54:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791892442; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ra/CaFs3ST3kiCUyh+6PyfLNr9SggfQlCAYMblFTfAiGJ1nP+RUxSfp+RcyWKci/p2
+         Y2roe+wb3PZhuklfoMsKwKkauHFN+SZ/YDTuUX/XhAWy/q+W7srCdc7fdy2bcGI/vVwo
+         pKm5LDc3z2ZQ62FiFGfWwUFHHVfK3hlZpwBD7dEi2lafSXTCK8X53gPJSlqqTBkzELYF
+         YcsewKtYv91+haBWhN3by12O7OJfL4ig1XVwYdf9JN25cp0dHddMquDCOVXNiXkog00W
+         nRgSFA/5m9rX1gSZQ34OystcuaasvVPNNuiZMn1fQBJyedkewER059jj5510Vt8swuAI
+         uyvg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vlBithpxv3+SM0u2mf9npK5R1KY9qWHzphcmNHpcqZE=;
+        fh=LujM5mRTvFCwAf3tWNidrf7JJLGBU8U3v+4LBTw/4l8=;
+        b=GNVUDLFbS7zCt/gPraR9kQ+Kp+N+GyYMlzZ95gsxwBsrxlYQSdZ7rxARj37Fi/iKX+
+         OBHiZGne8mS5OrAV6dAwVZ99jI90jXS03ziL/W32IZspEhUUNU+R4AIycc+ac3v//M66
+         YamYGbmfAPoUNBADnBZ32w/aQeHkHlqRVRrirZ/9xhVaINx5ApM2fbZ3ulGOg7bj5pEO
+         H5YyBvYh+ziveyoYWwjPX/W4+eeY7NpuVhXEaIr5AxTdwYr9fRs34GYtDwxSLYiMM/Ky
+         Wwlr15TmsKARhI31C7y4owOS5ImiG1uzLfgR4pMS9cnceYmxXZJxRbqYK7cOCq68e16f
+         8iAw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791892442; x=1792497242; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vlBithpxv3+SM0u2mf9npK5R1KY9qWHzphcmNHpcqZE=;
+        b=VwmVGgkKNUYfDldqs0SnHXUuV7IzYAeh0sLoG7CfA2q9OPbQK5+864mBxcSc8Tb8qG
+         6KZIzxANjNYChwwP7jjyUPfcOICl7ZCWW/ZhSIBGp1PUMw0kKgSB5BY8AVnMXnwoV3MX
+         6x909Hx69RdQJsvhWllG9qPJdRWXfF1h2pIkS8ujteNAdN2p5/lAFxASS/8UPNMVv6/2
+         tE8U9FmEcXLrOpBnFbnAeQcKStQKhPGNEEZBBq9QbK5MlZQ0vRRqkU1D3jgj1bmjTrRp
+         xk9t5xS2e/sdh2jIn+ueYW2kK8I5xhsOqHuNyiYI8vRMFCt7syf/NXaPqfM+clXKYEwI
+         6uaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791892442; x=1792497242;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vlBithpxv3+SM0u2mf9npK5R1KY9qWHzphcmNHpcqZE=;
+        b=Yog9d6TNOgRt/hD5IE67BnHDwxDYDSfEaqY/pYwn+cJXFbrQkDYOMDBZzBSvvyO4s2
+         tSvar6qW7c17SLWYfeCJ6G2aTLtWy7PQLcdNi/spQ80eYsgwrbbnLbQCak/guWuSvdRa
+         Lfglpihtl/nDUXpm7SUG7eHqyOZ+sVcpuRvYiR4vahcrr0940AKcY7obMf2yrshRVPsM
+         IgUiI63U+Z/aRlofYBmyqBUC6hve/qIQ6i5G7BBkVnuUB9ykjxfaLI5cHDq6MU4gmm/4
+         /tN6Tp7KNZmAWIMGZnHSNi/4DSi0F314gfrX06Z7pma/iErlpu+9QyEceg3e6QeKTj+2
+         tzFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzkveWkW+S4yYb/5z0jV/ALHb45hFhcUiH3GxvU+NQOd0tWlhqL+TtC5vYmtowTAhNqXXVBn47wttxj@vger.kernel.org
+X-Gm-Message-State: AFq9FYKttAZjJGxeKKxZ0a2HscXFsgaeN1Adchth+p/Dbdtk6QDikr4W
+	m2/27TgiDUxEYKftwey3+tfnWq8Mb4OuLT0yEiSPSveBCGtPlCGjG0Ru1ML7lMeNVAAmfRzRXMA
+	wbxAETLQ2ddKDebClE5gTh2hdQwAlI2Y=
+X-Gm-Gg: AYBFou2j9xVLpiWZxce8Z06k8zGNq6VO0tQyfL6V4/utHOV/Y8suP1Md7q4WGE09O8G
+	Fm5yspkRoGwrdtkYk1VJ5zEMXDkQj4aoooLSdXUKMlJPILWkQI8pEt8NL+85YRFBoPZsAr1mPvK
+	HqC0JbiPu7AqgPlGyo5zvkebJ2IySlPaCS83c8UiTKmovYAw0sV/ptJ5sEuLy5Led65/Qxu2nxq
+	zZHIL+dyoGum6E25ULzZCYrSax2Q09kM8882oF2epaIb80itUd/jV5R0NvcLJeDMGk7ZL/y1Cht
+	yZaw9qbxaR7VyYW8zfZ3lAz00xx9C7P0vRUXh/Y81MXJahAnXafIIollYXv5mdyS7sLfz+YL9IG
+	a6Nwwaq/ruZHDlcY6HuB+0jlmJbgpoZoIC3Zodmzy+ZYOvWl7GKslGVndYzK6rDG2ejsO7PobEQ
+	==
+X-Received: by 2002:a05:6000:186f:b0:488:89ad:56b8 with SMTP id
+ ffacd0b85a97d-48de2ba2231mr3749233f8f.0.1791892441488; Tue, 13 Oct 2026
+ 04:54:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-upstreaming-gpio-label-fixes-v2-3-d464ca652c91@kontron.de>
-References: <20261013-upstreaming-gpio-label-fixes-v2-0-d464ca652c91@kontron.de>
-In-Reply-To: <20261013-upstreaming-gpio-label-fixes-v2-0-d464ca652c91@kontron.de>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>, 
- Frieder Schrempf <frieder.schrempf@kontron.de>
-Cc: Eberhard Stoll <eberhard.stoll@kontron.de>, devicetree@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-X-Developer-Signature: v=1; a=openpgp-sha256; l=13713;
- i=frieder.schrempf@kontron.de; h=from:subject:message-id;
- bh=CVbrqOYOR/kudULUbAIkDjJqdA8G3mDUbqVWz9U+PYA=;
- b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JIeuctB+LQ8KRnvtXfyi2qe7+venXnyUPo2JfPFesu3pF1
- 21Skv2LjlIWBjEuBlkxRRYpfovXtmaxPvLHqqNg5rAygQxh4OIUgInELGBk2LF92aO7f2etlDe6
- /1aIr9p3y6JdAqekH89ijbtSa3Rego3hr8h/5Xt3H9ut+vWm/v685OyAziw/jnccLIeyU3Y/3Gi
- RyQkA
-X-Developer-Key: i=frieder.schrempf@kontron.de; a=openpgp;
- fpr=1A0F38EB3D365D4C1FC67B5A69761B25107C8216
+References: <20261009184122.1378797-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20261009184122.1378797-9-prabhakar.mahadev-lad.rj@bp.renesas.com> <TY3PR01MB1134605F95A87C6335DA319C4869F2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+In-Reply-To: <TY3PR01MB1134605F95A87C6335DA319C4869F2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Tue, 13 Oct 2026 12:53:33 +0100
+X-Gm-Features: AclHuK_vgE7RX-bhU5EsKuw0wEUNHv3FisPOnuwxTo3XomXHMF6LXgDT8XOl2lo
+Message-ID: <CA+V-a8u7ScDHzSmGG-7ObW4HaCRomkLGdvuy2hd5obEBvjF9LA@mail.gmail.com>
+Subject: Re: [PATCH v2 8/8] iio: adc: rzt2h: Add support for RZ/V2H(P) SoC
+To: Biju Das <biju.das.jz@bp.renesas.com>
+Cc: Cosmin-Gabriel Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>, 
+	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	"magnus.damm" <magnus.damm@gmail.com>, 
+	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>, 
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>, 
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Eberhard Stoll <eberhard.stoll@kontron.de>
+Hi Biju,
 
-The OSM specification provides generic names for all pads. Fix the
-GPIO labels to use the correct pad names in order to align the
-labels with the spec and with other OSM module devicetrees.
+On Mon, Oct 12, 2026 at 7:36=E2=80=AFAM Biju Das <biju.das.jz@bp.renesas.co=
+m> wrote:
+>
+> Hi Prabhakar,
+>
+> > -----Original Message-----
+> > From: Prabhakar <prabhakar.csengg@gmail.com>
+> > Sent: 09 October 2026 19:41
+> > Subject: [PATCH v2 8/8] iio: adc: rzt2h: Add support for RZ/V2H(P) SoC
+> >
+> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> >
+> > Add support for the ADC found on the Renesas RZ/V2H(P) SoC, which share=
+s the RZ/T2H ADC IP but differs in
+> > channel count, sampling, calibration and resolution support.
+> >
+> > The RZ/V2H(P) ADC provides 8 channels, has a fixed conversion time of
+> > 20 ADCLK cycles, does not support calibration, and supports selectable =
+12-bit and 8-bit conversion
+> > resolution.
+> >
+> > Expose the fixed sampling frequency as a read-only attribute and allow =
+the conversion resolution to be
+> > changed through the scale attribute.
+> > Use extended scan types so the reported scan type follows the selected =
+resolution, and prevent resolution
+> > changes while buffered capture is active.
+> >
+> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> > ---
+> > v1->v2:
+> > - Updated Kconfig description
+> > - Included array_size.h
+> > - Dropped unnecessary extra line in rzt2h_adc_write_scale
+> > ---
+> >  drivers/iio/adc/Kconfig     |  10 +-
+> >  drivers/iio/adc/rzt2h_adc.c | 201 +++++++++++++++++++++++++++++++++++-
+> >  2 files changed, 205 insertions(+), 6 deletions(-)
+> >
+> > diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig index a8=
+02d8ee4dd9..9a58f8b5868b 100644
+> > --- a/drivers/iio/adc/Kconfig
+> > +++ b/drivers/iio/adc/Kconfig
+> > @@ -1587,14 +1587,18 @@ config RZN1_ADC
+> >         module will be called rzn1-adc.
+> >
+> >  config RZT2H_ADC
+> > -     tristate "Renesas RZ/T2H / RZ/N2H ADC driver"
+> > +     tristate "Renesas RZ/T2H / RZ/N2H (and similar SoCs) ADC driver"
+> >       depends on ARCH_RENESAS || COMPILE_TEST
+> >       select IIO_ADC_HELPER
+> >       select IIO_BUFFER
+> >       select IIO_KFIFO_BUF
+> > +     select POWER_SEQUENCING
+> >       help
+> > -       Say yes here to build support for the ADC found in Renesas
+> > -       RZ/T2H / RZ/N2H SoCs.
+> > +       Say yes here to build support for the ADC found in Renesas SoCs=
+:
+> > +       - RZ/N2H
+> > +       - RZ/T2H
+> > +       - RZ/V2H(P)
+> > +       - RZ/V2N
+> >
+> >         To compile this driver as a module, choose M here: the
+> >         module will be called rzt2h_adc.
+> > diff --git a/drivers/iio/adc/rzt2h_adc.c b/drivers/iio/adc/rzt2h_adc.c =
+index 0703c2025e3f..be8273f3b61d
+> > 100644
+<snip>
+> >  static const struct rzt2h_adc_chip_info rzt2h_adc_info =3D {
+> >       .chan_template =3D &rzt2h_adc_chan_template,
+> >       .sst_to_freq =3D rzt2h_adc_sst_to_freq,
+> > @@ -796,6 +973,7 @@ static const struct rzt2h_adc_chip_info rzt2h_adc_i=
+nfo =3D {  };
+> >
+> >  static const struct of_device_id rzt2h_adc_match[] =3D {
+> > +     { .compatible =3D "renesas,r9a09g057-adc", .data =3D &rzv2h_adc_i=
+nfo },
+> >       { .compatible =3D "renesas,r9a09g077-adc", .data =3D &rzt2h_adc_i=
+nfo },
+> >       { }
+> >  };
+> > @@ -804,8 +982,17 @@ MODULE_DEVICE_TABLE(of, rzt2h_adc_match);  static =
+int
+> > rzt2h_adc_pm_runtime_suspend(struct device *dev)  {
+> >       struct rzt2h_adc *adc =3D dev_get_drvdata(dev);
+> > +     int ret;
+> > +
+> > +     ret =3D pwrseq_disable(adc->pwrseq);
+> > +     if (ret)
+> > +             return ret;
+> > +
+> > +     ret =3D reset_control_assert(adc->rstc);
+>
+> I guess to apply assert reset, IP needs power.
+> So, you need to asset first and then power off.
+>
+The HW manual doesn't mention any ordering of power and reset,
+although it does mention the ordering of power and clock which the
+current code adheres to. For example see the below logs where register
+RZT2H_ADANSA0_REG is written a value of 0x56 at the begining of the
+suspend call and the same register is read back in the suspend call
+after turning off the power and in the resume path the same register
+is read back at the very end and we can see the value of this register
+is reported as 0x0 which is expected to reset to its initial value
+(full log can be seen here
+https://gist.github.com/prabhakarlad/def672bbca9cc51d0398a6549bcf1b80).
+Please let me know if I have misunderstood something here.
 
-Also align the labels in the BL and SMARC board devicetrees that
-override the GPIO labels of the SoM.
+Logs:
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<=
+<<<<<<<<<<<<<<<
+rzv2h-evk login: root
 
-Fixes: 946ab10e3f40 ("arm64: dts: Add support for Kontron OSM-S i.MX8MP SoM and BL carrier board")
-Signed-off-by: Eberhard Stoll <eberhard.stoll@kontron.de>
-Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
----
- .../boot/dts/freescale/imx8mp-kontron-bl-osm-s.dts | 37 ++++++++------
- .../boot/dts/freescale/imx8mp-kontron-osm-s.dtsi   | 50 +++++++++++--------
- .../boot/dts/freescale/imx8mp-kontron-smarc.dtsi   | 58 ++++++++++++----------
- 3 files changed, 83 insertions(+), 62 deletions(-)
+WARNING: Poky is a reference Yocto Project distribution that should be used=
+ for
+testing and development purposes only. It is recommended that you create yo=
+ur
+own distribution for production use.
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-kontron-bl-osm-s.dts b/arch/arm64/boot/dts/freescale/imx8mp-kontron-bl-osm-s.dts
-index b6ffea952b69f..831bf8cfc5bd1 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-kontron-bl-osm-s.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-kontron-bl-osm-s.dts
-@@ -127,7 +127,7 @@ &gpio2 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_gpio2>;
- 	gpio-line-names = "", "", "", "", "", "", "", "", "", "", "", "",
--			  "SDIO_A_CD", "SDIO_A_CLK", "SDIO_A_CMD", "SDIO_A_D0",
-+			  "SDIO_A_CD#", "SDIO_A_CLK", "SDIO_A_CMD", "SDIO_A_D0",
- 			  "SDIO_A_D1", "SDIO_A_D2", "SDIO_A_D3", "CAN_ADDR2",
- 			  "CAN_ADDR3";
- };
-@@ -139,13 +139,13 @@ &gpio2 {
-  *   GPIO_B_1      -> IO_EXP_RST
-  */
- &gpio3 {
--	gpio-line-names = "PCIE_WAKE", "TFT_STBY", "PCIE_A_PERST", "SDIO_B_D5",
-+	gpio-line-names = "PCIe_WAKE#", "TFT_STBY", "PCIe_A_PERST#", "SDIO_B_D5",
- 			  "SDIO_B_D6", "SDIO_B_D7", "UART_B_RX", "I2S_LRCLK",
- 			  "UART_B_RTS", "UART_B_CTS", "SDIO_B_D0", "SDIO_B_D1",
- 			  "SDIO_B_D2", "SDIO_B_D3", "SDIO_B_WP", "SDIO_B_D4",
--			  "PCIE_SM_ALERT", "SDIO_B_CLK", "SDIO_B_CMD", "IO_EXP_INT",
--			  "IO_EXP_RST", "", "BOOT_SEL0", "BOOT_SEL1",
--			  "", "", "SDIO_B_CD", "SDIO_B_PWR_EN",
-+			  "PCIe_SM_ALERT#", "SDIO_B_CLK", "SDIO_B_CMD", "IO_EXP_INT",
-+			  "IO_EXP_RST", "", "BOOT_SEL0#", "BOOT_SEL1#",
-+			  "", "", "SDIO_B_CD#", "SDIO_B_PWR_EN",
- 			  "HDMI_CEC", "HDMI_HPD";
- };
- 
-@@ -157,10 +157,14 @@ &gpio3 {
-  */
- &gpio4 {
- 	gpio-line-names = "", "", "", "",
--			  "ETH_A_MDC", "ETH_A_MDIO", "ETH_A_RXD0", "ETH_A_RXD1",
--			  "ETH_A_RXD2", "ETH_A_RXD3", "ETH_A_RX_DV", "ETH_A_RX_CLK",
--			  "ETH_A_TXD0", "ETH_A_TXD1", "ETH_A_TXD2", "ETH_A_TXD3",
--			  "ETH_A_TX_EN", "ETH_A_TX_CLK", "CSI_ENABLE", "",
-+			  "ETH_MDC", "ETH_MDIO",
-+			  "ETH_A_(S)(R)(G)MII_RXD0", "ETH_A_(S)(R)(G)MII_RXD1",
-+			  "ETH_A_(R)(G)MII_RXD2", "ETH_A_(R)(G)MII_RXD3",
-+			  "ETH_A_(R)(G)MII_RX_DV(_ER)", "ETH_A_(R)(G)MII_RX_CLK",
-+			  "ETH_A_(S)(R)(G)MII_TXD0", "ETH_A_(S)(R)(G)MII_TXD1",
-+			  "ETH_A_(S)(R)(G)MII_TXD2", "ETH_A_(S)(R)(G)MII_TXD3",
-+			  "ETH_A_(R)(G)MII_TX_EN(_ER)", "ETH_A_(R)(G)MII_TX_CLK",
-+			  "CSI_ENABLE", "",
- 			  "USB_HUB_RST", "TFT_RESET", "CAN_A_TX", "UART_A_CTS",
- 			  "UART_A_RTS", "CAN_A_RX", "CAN_B_TX", "CAN_B_RX",
- 			  "I2S_B_DATA_IN", "CARRIER_PWR_EN", "I2S_A_DATA_IN", "I2S_B_DATA_OUT";
-@@ -168,20 +172,21 @@ &gpio4 {
- 
- /*
-  * Rename SoM signals according to board usage:
-- *   SPI_A_SDI	-> CAN_ADDR0
-- *   SPI_A_SDO	-> CAN_ADDR1
-+ *   SPI_A_SDI_(IO0) -> CAN_ADDR0
-+ *   SPI_A_SDO_(IO1) -> CAN_ADDR1
-  */
- &gpio5 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_gpio5>;
- 	gpio-line-names = "I2S_BITCLK", "I2S_A_DATA_OUT", "I2S_MCLK", "VCC_PANEL_EN",
- 			  "PWM_1", "PWM_0", "SPI_A_SCK", "CAN_ADDR1",
--			  "CAN_ADDR0", "SPI_A_CS0", "SPI_B_SCK", "SPI_B_SDO",
--			  "SPI_B_SDI", "SPI_B_CS0", "I2C_A_SCL", "I2C_A_SDA",
--			  "I2C_B_SCL", "I2C_B_SDA", "PCIE_SMCLK", "PCIE_SMDAT",
--			  "I2C_CAM_SCL", "I2C_CAM_SDA", "UART_A_RX", "UART_A_TX",
-+			  "CAN_ADDR0", "SPI_A_CS0#", "SPI_B_SCK", "SPI_B_SDO",
-+			  "SPI_B_SDI", "SPI_B_CS0#", "I2C_A_SCL", "I2C_A_SDA",
-+			  "I2C_B_SCL", "I2C_B_SDA", "PCIe_SMCLK", "PCIe_SMDAT",
-+			  "I2C_CAM_SCL/CSI_TX_P", "I2C_CAM_SDA/CSI_TX_N",
-+			  "UART_A_RX", "UART_A_TX",
- 			  "UART_C_RX", "UART_C_TX", "UART_CON_RX", "UART_CON_TX",
--			  "PCIe_CLKREQ", "UART_B_TX";
-+			  "PCIe_CLKREQ#", "UART_B_TX";
- };
- 
- &hdmi_pvi {
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-kontron-osm-s.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-kontron-osm-s.dtsi
-index 3c183ab573bed..3459ee2c0eb64 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-kontron-osm-s.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-kontron-osm-s.dtsi
-@@ -141,16 +141,19 @@ &gpio1 {
- 	gpio-line-names = "GPIO_A_0", "GPIO_A_1", "", "",
- 			  "", "GPIO_A_2", "GPIO_A_3", "GPIO_A_4",
- 			  "GPIO_A_5", "USB_B_EN", "USB_A_ID", "USB_B_ID",
--			  "USB_A_EN", "USB_A_OC","CAM_MCK", "USB_B_OC",
--			  "ETH_B_MDC", "ETH_B_MDIO", "ETH_B_TXD3", "ETH_B_TXD2",
--			  "ETH_B_TXD1", "ETH_B_TXD0", "ETH_B_TX_EN", "ETH_B_TX_CLK",
--			  "ETH_B_RX_DV", "ETH_B_RX_CLK", "ETH_B_RXD0", "ETH_B_RXD1",
--			  "ETH_B_RXD2", "ETH_B_RXD3";
-+			  "USB_A_EN", "USB_A_OC#","CAM_MCK", "USB_B_OC#",
-+			  "ETH_B_MDC", "ETH_B_MDIO",
-+			  "ETH_B_(S)(R)(G)MII_TXD3", "ETH_B_(S)(R)(G)MII_TXD2",
-+			  "ETH_B_(S)(R)(G)MII_TXD1", "ETH_B_(S)(R)(G)MII_TXD0",
-+			  "ETH_B_(R)(G)MII_TX_EN(_ER)", "ETH_B_(R)(G)MII_TX_CLK",
-+			  "ETH_B_(R)(G)MII_RX_DV(_ER)", "ETH_B_(R)(G)MII_RX_CLK",
-+			  "ETH_B_(S)(R)(G)MII_RXD0", "ETH_B_(S)(R)(G)MII_RXD1",
-+			  "ETH_B_(R)(G)MII_RXD2", "ETH_B_(R)(G)MII_RXD3";
- };
- 
- &gpio2 {
- 	gpio-line-names = "", "", "", "", "", "", "", "", "", "", "", "",
--			  "SDIO_A_CD", "SDIO_A_CLK", "SDIO_A_CMD", "SDIO_A_D0",
-+			  "SDIO_A_CD#", "SDIO_A_CLK", "SDIO_A_CMD", "SDIO_A_D0",
- 			  "SDIO_A_D1", "SDIO_A_D2", "SDIO_A_D3", "SDIO_A_PWR_EN",
- 			  "SDIO_A_WP";
- };
-@@ -158,13 +161,13 @@ &gpio2 {
- &gpio3 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_gpio3>;
--	gpio-line-names = "PCIE_WAKE", "GPIO_A_7", "PCIE_A_PERST", "SDIO_B_D5",
-+	gpio-line-names = "PCIe_WAKE#", "GPIO_A_7", "PCIe_A_PERST#", "SDIO_B_D5",
- 			  "SDIO_B_D6", "SDIO_B_D7", "UART_B_RX", "I2S_LRCLK",
- 			  "UART_B_RTS", "UART_B_CTS", "SDIO_B_D0", "SDIO_B_D1",
- 			  "SDIO_B_D2", "SDIO_B_D3", "SDIO_B_WP", "SDIO_B_D4",
--			  "PCIE_SM_ALERT", "SDIO_B_CLK", "SDIO_B_CMD", "GPIO_B_0",
--			  "GPIO_B_1", "", "BOOT_SEL0", "BOOT_SEL1",
--			  "", "", "SDIO_B_CD", "SDIO_B_PWR_EN",
-+			  "PCIe_SM_ALERT#", "SDIO_B_CLK", "SDIO_B_CMD", "GPIO_B_0",
-+			  "GPIO_B_1", "", "BOOT_SEL0#", "BOOT_SEL1#",
-+			  "", "", "SDIO_B_CD#", "SDIO_B_PWR_EN",
- 			  "HDMI_CEC", "HDMI_HPD";
- };
- 
-@@ -172,10 +175,14 @@ &gpio4 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_gpio4>;
- 	gpio-line-names = "GPIO_B_5", "GPIO_B_6", "GPIO_B_7", "GPIO_C_0",
--			  "ETH_A_MDC", "ETH_A_MDIO", "ETH_A_RXD0", "ETH_A_RXD1",
--			  "ETH_A_RXD2", "ETH_A_RXD3", "ETH_A_RX_DV", "ETH_A_RX_CLK",
--			  "ETH_A_TXD0", "ETH_A_TXD1", "ETH_A_TXD2", "ETH_A_TXD3",
--			  "ETH_A_TX_EN", "ETH_A_TX_CLK", "GPIO_B_3", "GPIO_B_4",
-+			  "ETH_MDC", "ETH_MDIO",
-+			  "ETH_A_(S)(R)(G)MII_RXD0", "ETH_A_(S)(R)(G)MII_RXD1",
-+			  "ETH_A_(R)(G)MII_RXD2", "ETH_A_(R)(G)MII_RXD3",
-+			  "ETH_A_(R)(G)MII_RX_DV(_ER)", "ETH_A_(R)(G)MII_RX_CLK",
-+			  "ETH_A_(S)(R)(G)MII_TXD0", "ETH_A_(S)(R)(G)MII_TXD1",
-+			  "ETH_A_(S)(R)(G)MII_TXD2", "ETH_A_(S)(R)(G)MII_TXD3",
-+			  "ETH_A_(R)(G)MII_TX_EN(_ER)", "ETH_A_(R)(G)MII_TX_CLK",
-+			  "GPIO_B_3", "GPIO_B_4",
- 			  "GPIO_B_2", "GPIO_A_6", "CAN_A_TX", "UART_A_CTS",
- 			  "UART_A_RTS", "CAN_A_RX", "CAN_B_TX", "CAN_B_RX",
- 			  "I2S_B_DATA_IN", "CARRIER_PWR_EN", "I2S_A_DATA_IN", "I2S_B_DATA_OUT";
-@@ -183,13 +190,14 @@ &gpio4 {
- 
- &gpio5 {
- 	gpio-line-names = "I2S_BITCLK", "I2S_A_DATA_OUT", "I2S_MCLK", "PWM_2",
--			  "PWM_1", "PWM_0", "SPI_A_SCK", "SPI_A_SDO",
--			  "SPI_A_SDI", "SPI_A_CS0", "SPI_B_SCK", "SPI_B_SDO",
--			  "SPI_B_SDI", "SPI_B_CS0", "I2C_A_SCL", "I2C_A_SDA",
--			  "I2C_B_SCL", "I2C_B_SDA", "PCIE_SMCLK", "PCIE_SMDAT",
--			  "I2C_CAM_SCL", "I2C_CAM_SDA", "UART_A_RX", "UART_A_TX",
-+			  "PWM_1", "PWM_0", "SPI_A_SCK", "SPI_A_SDO_(IO1)",
-+			  "SPI_A_SDI_(IO0)", "SPI_A_CS0#", "SPI_B_SCK", "SPI_B_SDO",
-+			  "SPI_B_SDI", "SPI_B_CS0#", "I2C_A_SCL", "I2C_A_SDA",
-+			  "I2C_B_SCL", "I2C_B_SDA", "PCIe_SMCLK", "PCIe_SMDAT",
-+			  "I2C_CAM_SCL/CSI_TX_P", "I2C_CAM_SDA/CSI_TX_N",
-+			  "UART_A_RX", "UART_A_TX",
- 			  "UART_C_RX", "UART_C_TX", "UART_CON_RX", "UART_CON_TX",
--			  "PCIe_CLKREQ", "UART_B_TX";
-+			  "PCIe_CLKREQ#", "UART_B_TX";
- };
- 
- &i2c1 { /* OSM-S I2C_A */
-@@ -623,7 +631,7 @@ pinctrl_pcie: pciegrp {
- 			MX8MP_IOMUXC_UART4_RXD__PCIE_CLKREQ_B		0x19 /* PCIe_CLKREQ# */
- 			MX8MP_IOMUXC_NAND_CE1_B__GPIO3_IO02		0x19 /* PCIe_A_PERST# */
- 			MX8MP_IOMUXC_NAND_ALE__GPIO3_IO00		0x19 /* PCIe_WAKE# */
--			MX8MP_IOMUXC_NAND_READY_B__GPIO3_IO16		0x19 /* PCIe_SM_ALERT */
-+			MX8MP_IOMUXC_NAND_READY_B__GPIO3_IO16		0x19 /* PCIe_SM_ALERT# */
- 		>;
- 	};
- 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-kontron-smarc.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-kontron-smarc.dtsi
-index d63c10b9b3d72..a88883e847457 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-kontron-smarc.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-kontron-smarc.dtsi
-@@ -82,22 +82,25 @@ ethphy0: ethernet-phy@1 {
-  *   GPIO_A_5 -> GPIO3
-  *   USB_B_EN -> n.a.
-  *   USB_B_ID -> n.a.
-- *   USB_B_OC -> n.a.
-+ *   USB_B_OC# -> n.a.
-  */
- &gpio1 {
- 	gpio-line-names = "GPIO_A_0", "GPIO_A_1", "", "",
- 			  "", "GPIO0", "GPIO1", "GPIO2",
- 			  "GPIO3", "", "USB_A_ID", "",
--			  "USB_A_EN", "USB_A_OC","CAM_MCK", "",
--			  "ETH_B_MDC", "ETH_B_MDIO", "ETH_B_TXD3", "ETH_B_TXD2",
--			  "ETH_B_TXD1", "ETH_B_TXD0", "ETH_B_TX_EN", "ETH_B_TX_CLK",
--			  "ETH_B_RX_DV", "ETH_B_RX_CLK", "ETH_B_RXD0", "ETH_B_RXD1",
--			  "ETH_B_RXD2", "ETH_B_RXD3";
-+			  "USB_A_EN", "USB_A_OC#", "CAM_MCK", "",
-+			  "ETH_B_MDC", "ETH_B_MDIO",
-+			  "ETH_B_(S)(R)(G)MII_TXD3", "ETH_B_(S)(R)(G)MII_TXD2",
-+			  "ETH_B_(S)(R)(G)MII_TXD1", "ETH_B_(S)(R)(G)MII_TXD0",
-+			  "ETH_B_(R)(G)MII_TX_EN(_ER)", "ETH_B_(R)(G)MII_TX_CLK",
-+			  "ETH_B_(R)(G)MII_RX_DV(_ER)", "ETH_B_(R)(G)MII_RX_CLK",
-+			  "ETH_B_(S)(R)(G)MII_RXD0", "ETH_B_(S)(R)(G)MII_RXD1",
-+			  "ETH_B_(R)(G)MII_RXD2", "ETH_B_(R)(G)MII_RXD3";
- };
- 
- /*
-  * Rename SoM signals according to SMARC module usage:
-- *   SDIO_A_CD -> SDIO_CD
-+ *   SDIO_A_CD# -> SDIO_CD
-  *   SDIO_A_CLK -> SDIO_CK
-  *   SDIO_A_CMD -> SDIO_CMD
-  *   SDIO_A_D0 -> SDIO_D0
-@@ -117,7 +120,7 @@ &gpio2 {
- /*
-  * Rename SoM signals according to SMARC module usage:
-  *   GPIO_A_7 -> TEST
-- *   PCIE_A_PERST -> PCIE_A_RST
-+ *   PCIe_A_PERST# -> PCIE_A_RST
-  *   SDIO_B_D5 -> n.a.
-  *   SDIO_B_D6 -> n.a.
-  *   SDIO_B_D7 -> n.a.
-@@ -131,20 +134,21 @@ &gpio2 {
-  *   SDIO_B_D3 -> GPIO11
-  *   SDIO_B_WP -> n.a.
-  *   SDIO_B_D4 -> n.a.
-- *   PCIE_SM_ALERT -> SMB_ALERT
-+ *   PCIe_SM_ALERT# -> SMB_ALERT
-  *   SDIO_B_CLK -> GPIO6
-  *   SDIO_B_CMD -> GPIO7
-  *   GPIO_B_0 -> LCD0_BKLT_EN
-  *   GPIO_B_1 -> LCD1_BKLT_EN
-- *   BOOT_SEL0 -> BOOT_SEL2
-- *   SDIO_B_CD -> n.a.
-+ *   BOOT_SEL0# -> BOOT_SEL2
-+ *   BOOT_SEL1# -> BOOT_SEL1
-+ *   SDIO_B_CD# -> n.a.
-  *   SDIO_B_PWR_EN -> n.a.
-  *   HDMI_CEC -> n.a.
-  *   SDIO_B_PWR_EN -> n.a.
-  */
- &gpio3 {
- 	pinctrl-0 = <&pinctrl_gpio3>, <&pinctrl_gpio3_smarc>;
--	gpio-line-names = "PCIE_WAKE", "TEST", "PCIE_A_RST", "",
-+	gpio-line-names = "PCIe_WAKE#", "TEST", "PCIE_A_RST", "",
- 			  "", "", "SER2_RX", "I2S0_LRCK",
- 			  "SER2_RTS", "SER2_CTS", "GPIO8", "GPIO9",
- 			  "GPIO10", "GPIO11", "", "",
-@@ -176,10 +180,14 @@ &gpio3 {
-  */
- &gpio4 {
- 	gpio-line-names = "", "", "", "LED",
--			  "ETH_A_MDC", "ETH_A_MDIO", "ETH_A_RXD0", "ETH_A_RXD1",
--			  "ETH_A_RXD2", "ETH_A_RXD3", "ETH_A_RX_DV", "ETH_A_RX_CLK",
--			  "ETH_A_TXD0", "ETH_A_TXD1", "ETH_A_TXD2", "ETH_A_TXD3",
--			  "ETH_A_TX_EN", "ETH_A_TX_CLK", "ETH2_INT", "USB_HUB_RST",
-+			  "ETH_MDC", "ETH_MDIO",
-+			  "ETH_A_(S)(R)(G)MII_RXD0", "ETH_A_(S)(R)(G)MII_RXD1",
-+			  "ETH_A_(R)(G)MII_RXD2", "ETH_A_(R)(G)MII_RXD3",
-+			  "ETH_A_(R)(G)MII_RX_DV(_ER)", "ETH_A_(R)(G)MII_RX_CLK",
-+			  "ETH_A_(S)(R)(G)MII_TXD0", "ETH_A_(S)(R)(G)MII_TXD1",
-+			  "ETH_A_(S)(R)(G)MII_TXD2", "ETH_A_(S)(R)(G)MII_TXD3",
-+			  "ETH_A_(R)(G)MII_TX_EN(_ER)", "ETH_A_(R)(G)MII_TX_CLK",
-+			  "ETH2_INT", "USB_HUB_RST",
- 			  "ETH1_INT", "GPIO4", "CAN0_TX", "SER0_CTS",
- 			  "SER0_RTS", "CAN0_RX", "CAN1_TX", "CAN1_RX",
- 			  "", "CARRIER_PWR_EN", "I2S0_SDIN", "";
-@@ -194,28 +202,28 @@ &gpio4 {
-  *   PWM_1 -> LCD1_BKLT_PWM
-  *   PWM_0 -> LCD0_BKLT_PWM
-  *   SPI_A_SCK -> SPI0_CK
-- *   SPI_A_SDO -> SPI0_DO
-- *   SPI_A_SDI -> SPI0_DIN
-- *   SPI_A_CS0 -> SPI0_CS0
-+ *   SPI_A_SDO_(IO1) -> SPI0_DO
-+ *   SPI_A_SDI_(IO0) -> SPI0_DIN
-+ *   SPI_A_CS0# -> SPI0_CS0
-  *   SPI_B_SCK -> ESPI_CK
-  *   SPI_B_SDO -> ESPI_IO_0
-  *   SPI_B_SDI -> ESPI_IO_1
-- *   SPI_B_CS0 -> ESPI_CS0
-+ *   SPI_B_CS0# -> ESPI_CS0
-  *   I2C_A_SCL -> I2C_PM_CK
-  *   I2C_A_SDA -> I2C_PM_DAT
-  *   I2C_B_SCL -> I2C_GP_CK
-  *   I2C_B_SDA -> I2C_GP_DAT
-- *   PCIE_SMCLK -> HDMI_CTRL_CK
-- *   PCIE_SMDAT -> HDMI_CTRL_DAT
-- *   I2C_CAM_SCL -> I2C_CAM1_CK
-- *   I2C_CAM_SDA -> I2C_CAM1_DAT
-+ *   PCIe_SMCLK -> HDMI_CTRL_CK
-+ *   PCIe_SMDAT -> HDMI_CTRL_DAT
-+ *   I2C_CAM_SCL/CSI_TX_P -> I2C_CAM1_CK
-+ *   I2C_CAM_SDA/CSI_TX_N -> I2C_CAM1_DAT
-  *   UART_A_RX -> SER0_RX
-  *   UART_A_TX -> SER0_TX
-  *   UART_C_RX -> SER3_RX
-  *   UART_C_TX -> SER3_TX
-  *   UART_CON_RX -> SER1_RX
-  *   UART_CON_TX -> SER1_TX
-- *   PCIe_CLKREQ -> PCIE_A_CKREQ
-+ *   PCIe_CLKREQ# -> PCIE_A_CKREQ
-  *   UART_B_TX -> SER2_TX
-  */
- &gpio5 {
+root@rzv2h-evk:~# >>>>>>>>> First Cycle <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+root@rzv2h-evk:~# cat /sys/bus/iio/devices/iio\:device0/in_voltage0_raw
+[   46.125340] rzv2h-cpg 10420000.clock-controller: CLK_ON 0x640/adc_0_adcl=
+k on
+[   46.132399] rzv2h-cpg 10420000.clock-controller: CLK_ON 0x640/adc_0_pclk=
+ on
+[   46.139386] Resuming ADC
+[   46.141915] rzv2h-cpg 10420000.clock-controller: deassert id:110 offset:=
+0x93c
+[   46.149054] Enabling ADC pwrseq
+[   46.152245] ADANSA0_REG: 0x0 in resume
+216
+root@rzv2h-evk:~# [   46.531171] Suspending ADC
+[   46.533951] ADANSA0_REG: 0x56 before power down
+[   46.538732] Disabling ADC pwrseq
+[   46.542095] ADANSA0_REG: 0x56 after power down
+[   46.546681] rzv2h-cpg 10420000.clock-controller: assert id:110 offset:0x=
+93c
+[   46.553829] rzv2h-cpg 10420000.clock-controller: CLK_ON 0x640/adc_0_pclk=
+ off
+[   46.560951] rzv2h-cpg 10420000.clock-controller: CLK_ON 0x640/adc_0_adcl=
+k off
 
--- 
-2.55.0
+root@rzv2h-evk:~# ->>>>>>>>> Second Cycle <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+root@rzv2h-evk:~# cat /sys/bus/iio/devices/iio\:device0/in_voltage0_raw
+[   50.491213] rzv2h-cpg 10420000.clock-controller: CLK_ON 0x640/adc_0_adcl=
+k on
+[   50.498271] rzv2h-cpg 10420000.clock-controller: CLK_ON 0x640/adc_0_pclk=
+ on
+[   50.505242] Resuming ADC
+[   50.507785] rzv2h-cpg 10420000.clock-controller: deassert id:110 offset:=
+0x93c
+[   50.514923] Enabling ADC pwrseq
+[   50.518111] ADANSA0_REG: 0x0 in resume
+126
+root@rzv2h-evk:~# [   50.896990] Suspending ADC
+[   50.899881] ADANSA0_REG: 0x56 before power down
+[   50.904545] Disabling ADC pwrseq
+[   50.907914] ADANSA0_REG: 0x56 after power down
+[   50.912504] rzv2h-cpg 10420000.clock-controller: assert id:110 offset:0x=
+93c
+[   50.919642] rzv2h-cpg 10420000.clock-controller: CLK_ON 0x640/adc_0_pclk=
+ off
+[   50.926761] rzv2h-cpg 10420000.clock-controller: CLK_ON 0x640/adc_0_adcl=
+k off
 
+root@rzv2h-evk:~#
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<=
+<<<<<<<<<<<<<<<
+
+Changes made to generate the above logs:
+--------------------------------------------------
+diff --git a/drivers/clk/renesas/rzv2h-cpg.c b/drivers/clk/renesas/rzv2h-cp=
+g.c
+index 7ce94680c79a..eab6237dca4c 100644
+--- a/drivers/clk/renesas/rzv2h-cpg.c
++++ b/drivers/clk/renesas/rzv2h-cpg.c
+@@ -1169,7 +1169,7 @@ static int rzv2h_mod_clock_endisable(struct
+clk_hw *hw, bool enable)
+        u32 value;
+        int error;
+
+-       dev_dbg(dev, "CLK_ON 0x%x/%pC %s\n", reg, hw->clk,
++       dev_err(dev, "CLK_ON 0x%x/%pC %s\n", reg, hw->clk,
+                str_on_off(enable));
+
+        if (enabled =3D=3D enable)
+@@ -1324,7 +1324,7 @@ static int __rzv2h_cpg_assert(struct
+reset_controller_dev *rcdev,
+        u32 mon;
+        int ret;
+
+-       dev_dbg(rcdev->dev, "%s id:%ld offset:0x%x\n",
++       dev_err(rcdev->dev, "%s id:%ld offset:0x%x\n",
+                assert ? "assert" : "deassert", id, reg);
+
+        if (!assert)
+diff --git a/drivers/iio/adc/rzt2h_adc.c b/drivers/iio/adc/rzt2h_adc.c
+index be8273f3b61d..36ff6da87138 100644
+--- a/drivers/iio/adc/rzt2h_adc.c
++++ b/drivers/iio/adc/rzt2h_adc.c
+@@ -984,9 +984,14 @@ static int rzt2h_adc_pm_runtime_suspend(struct device =
+*dev)
+        struct rzt2h_adc *adc =3D dev_get_drvdata(dev);
+        int ret;
+
++       pr_err("Suspending ADC\n");
++
++       writew(0x56, adc->base + RZT2H_ADANSA0_REG);
++       pr_err("ADANSA0_REG: 0x%x before power down\n",
+readw(adc->base + RZT2H_ADANSA0_REG));
+        ret =3D pwrseq_disable(adc->pwrseq);
+        if (ret)
+                return ret;
++       pr_err("ADANSA0_REG: 0x%x after power down\n", readw(adc->base
++ RZT2H_ADANSA0_REG));
+
+        ret =3D reset_control_assert(adc->rstc);
+        if (ret)
+@@ -1001,6 +1006,8 @@ static int rzt2h_adc_pm_runtime_resume(struct device =
+*dev)
+        const struct rzt2h_adc_chip_info *chip_info =3D adc->chip_info;
+        int ret;
+
++       pr_err("Resuming ADC\n");
++
+        ret =3D reset_control_deassert(adc->rstc);
+        if (ret)
+                return ret;
+@@ -1011,6 +1018,8 @@ static int rzt2h_adc_pm_runtime_resume(struct device =
+*dev)
+                return ret;
+        }
+
++       pr_err("ADANSA0_REG: 0x%x in resume\n", readw(adc->base +
+RZT2H_ADANSA0_REG));
++
+        if (!(chip_info->features & RZT2H_ADC_FEATURE_CALIBRATION))
+                return 0;
+
+diff --git a/drivers/power/sequencing/pwrseq-renesas-pwrrdy.c
+b/drivers/power/sequencing/pwrseq-renesas-pwrrdy.c
+index 40760977f7de..b6886dba92a9 100644
+--- a/drivers/power/sequencing/pwrseq-renesas-pwrrdy.c
++++ b/drivers/power/sequencing/pwrseq-renesas-pwrrdy.c
+@@ -8,6 +8,7 @@
+ #include <linux/delay.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
++#include <linux/pwrseq/consumer.h>
+ #include <linux/pwrseq/provider.h>
+ #include <linux/regmap.h>
+
+@@ -31,6 +32,7 @@ static int pwrseq_rzv2h_adc_enable(struct
+pwrseq_device *pwrseq)
+        struct regmap *regmap =3D pwrseq_device_get_drvdata(pwrseq);
+        int ret;
+
++       pr_err("Enabling ADC pwrseq\n");
+        ret =3D regmap_clear_bits(regmap, RZV2H_SYS_ADC_CFG,
+                                RZV2H_SYS_ADC_CFG_SY_MSTP_ADA);
+        if (ret)
+@@ -45,6 +47,7 @@ static int pwrseq_rzv2h_adc_disable(struct
+pwrseq_device *pwrseq)
+ {
+        struct regmap *regmap =3D pwrseq_device_get_drvdata(pwrseq);
+
++       pr_err("Disabling ADC pwrseq\n");
+        return regmap_set_bits(regmap, RZV2H_SYS_ADC_CFG,
+                               RZV2H_SYS_ADC_CFG_SY_MSTP_ADA);
+ }
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+--------------------------
+
+
+Cheers,
+Prabhakar
