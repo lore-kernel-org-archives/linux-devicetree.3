@@ -1,31 +1,44 @@
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1964040DB53;
-	Tue, 13 Oct 2026 09:59:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 656F94AEBC6;
+	Tue, 13 Oct 2026 10:00:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791885598; cv=none; b=fBrZ6L12XhmvQDXS/rL+UWSW4zqej2VBXj5qTzqSWkZPF7MQegoW8lk/sD4U69mELj/AUpm5clU7YW458Bd2+U56OO6o0iPNiAaBsUIDGJj+KNaRT36jhwZGbsX1FEwKBm1C5dSira0RoY739em/nSj3fuXsvZToell3YY3Dz4Y=
+	t=1791885633; cv=none; b=IsfT2RLpW4Izt5q1m+cwoaBaCq3Z80Mb03jQAkCmn5cDRr9vTTf5G6mf0bu0sI1RjNeRknKQ9D9JEyDLRko2Mnqy/x73wVMOo1v1rYAunlUMSFNVxivqV/Mk1zRUHYacQkbvvunib9sjeAGMN8VYc7jSEZjUy7MgITkO9+Ign8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791885598; c=relaxed/simple;
-	bh=dUlL9M0ac+ElyrJhMA1aGNoBfZHQuHzk2sU1ZpuuXIg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=fvJ3J3ZVgGsip2Y2dPbdZ6z5LTu+nYzQHTj9amlhtvd4Tg9N1+nsOfFTWtKMEJTqO56AOpBybRcTBGN9sjx10/ANlPiq83E/pmiYJd3hVeKT0X1Yc4M9x1bHvi4JnJRgIZwHuGANgBTyt528hFnnI7pTsFX4LaoFhTfzj6qrRGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.204.34.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpip3t1791885572tb6b18932
-X-QQ-Originating-IP: 1BGUWLkxMiuAX64AvAO65k2urEB/lKhw04MWwEKwyfI=
-Received: from [192.168.30.32] ( [localhost])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 13 Oct 2026 17:59:24 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 14585725684793915466
-EX-QQ-RecipientCnt: 10
-From: Xilin Wu <sophon@radxa.com>
-Date: Tue, 13 Oct 2026 17:59:19 +0800
-Subject: [PATCH] arm64: dts: qcom: sc8280xp: Fix GPU SMMU context fault
- interrupts
+	s=arc-20240116; t=1791885633; c=relaxed/simple;
+	bh=46BqH9BAIlunijNkff3H/ga0UxeXAdMhqT/msNSQh+A=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=azjtfkLwkXd+tr321Eq6f0374T4VZTu+p1r3moxLGA2S7CsX/oRR8UAh/181RJ2m5Go7BpAtyNg3KstnwduR/t2zaaMIT97Sz2wAUnSZfCEk5Hbi3rjBU1i8wfxbAr+FHgHy/N4BDm1/Q8neJtW9RPoviI49hqfXa9fNPGwhyLM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amieiro.net; spf=pass smtp.mailfrom=amieiro.net; dkim=pass (2048-bit key) header.d=amieiro.net header.i=@amieiro.net header.b=ZZsCZ1Hp; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amieiro.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amieiro.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=amieiro.net header.i=@amieiro.net header.b="ZZsCZ1Hp"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4j3qZy3txKz8v1s;
+	Tue, 13 Oct 2026 12:00:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amieiro.net; s=MBO0001;
+	t=1791885626;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=zSBJwzPrQS+I6gxzPMgU+tr1yFEQWRfxcIuKNoQhreI=;
+	b=ZZsCZ1HpMZE++6zSZoi5JvtlKIJJXy6Dcuh6Lt8XMsJ+x5ptT2eqnGvLVwT0lGZp0yhCR7
+	n8b0hf8mbxl9tPtuN2+NBU5JC8BGsRZWHjb0LUqjLHY3ytdMxVyaxiYrmy/Oy1dmIx0HEY
+	zJ6rqDUWloV9fcxlhXThJvXLKXH7it+gONFJFU1hy/zKxwiwoXLxq0J3Hmlt+B/dgA6RhB
+	LA8sJABgz8oEQoxcrvrz/0GvLAoxD1O9OLm3X34Ql9+A4qe/n4/zD5jgj3e5Y19uEGSch3
+	Q4Syq0ep+AT1LqrLTS+F7OW4WI/qwxjxXuP7ReVUdlKRhQLJ0lGM4yHobSAoug==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of flavio@amieiro.net designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=flavio@amieiro.net
+From: Flavio Amieiro <flavio@amieiro.net>
+Subject: [PATCH v3 0/2] leds: Add support for the is31fl3206 LED driver
+Date: Tue, 13 Oct 2026 07:00:08 -0300
+Message-Id: <20261013-add-is31fl3206-support-v3-0-66a762a3c12f@amieiro.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -34,92 +47,84 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-sc8280xp-gpu-smmu-fix-v1-1-8a781e3f1554@radxa.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QqCQBCF4VeRuW5gd4qUXiW60PVkE2jLjhuC+
- O5tevkdOP9KhqQwulUrJXzV9DMV+FNF4dVOA1j7YhInV+/8mS000rgl8hAz2zhmfurCcDUuraC
- vO6HyjQll3rv3x2HL3Rth/sdo234gElMUeQAAAA==
-X-Change-ID: 20261013-sc8280xp-gpu-smmu-fix-e07e4a2ed7b2
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42Nyw7CIBQFf6VhLYaHpdWV/2FcUB72Gi0NUKJp+
+ u9CjQsXJi4nOWdmRsF4MAEdqhl5kyCAGzLwTYVUL4eLwaAzI0aYoIQyLLXGEDi1N86IwGEaR+c
+ j1nXd2FZwuW8kyufRGwuPVXw6vzlM3dWoWGxl0UOIzj/XcqJl94nwX5FEMcGkVUQIpdiO6qO8g
+ wHvtoOJqGQS+0/EskhJolln66bl9lu0LMsLPqCwTRkBAAA=
+X-Change-ID: 20261012-add-is31fl3206-support-d557f863a97a
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dragon@radxa.com, Xilin Wu <sophon@radxa.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1929; i=sophon@radxa.com;
- h=from:subject:message-id; bh=dUlL9M0ac+ElyrJhMA1aGNoBfZHQuHzk2sU1ZpuuXIg=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFnnGP7O054UzRf3vpv7n8q6dbv2bj9deO5t6/zHSVPus
- AQsW33xe0cpC4MYF4OsmCKLQjzDXPbK3GtPxUr1YOawMoEMYeDiFICJ5HAyMjyO2vtj5YO/cxOe
- vjtkbWSxbFfhlNs/Cysfr+RXFGv4qjuBkeFHU/MbX2+uSwv+PZY63ulw1mE/y4p5NxTCimvnh8g
- 4cXMDAA==
-X-Developer-Key: i=sophon@radxa.com; a=openpgp;
- fpr=205F009D07796DD6E516752E32C31567AD9E324E
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: MRlJlBnjh5AJey+NVI641g+syhYURjqEZ25cexL43X6GxnTP3nBAgNNX
-	tC9cIFZc/bTwIlJaHIpJRPYjmPI2GMg9QLNUeBRGsbKutLyMVFXocI3M0TgNLFpCKsLU66N
-	0V7/lilpqXBsM6lIuRq7bu08sF0yzzhzNOinNSPa4AwmXaJG9gQD1On0Prch+tDV/1OBQpz
-	5gKLxkWhoKNVlGvrNj6T49lfqlDPCwgGSdgOsi/xrb4Yq+D4yAwBSDoLvB7CN/OBRXDt28z
-	8p9taocd8hdbUQj9OLS9kVboHj8UAZCMja4FfPChio/cdjyK0n5kkVu439C7gqEMj/DEziW
-	bhhXS0l68Zf6YGfXOGq5elpV+6+np+UNfdFB/UkgkjE7Kweqy6deZhxBFk8tDXcR/ywcGqk
-	HqjPLHmOrcEhbYHlvbjoQHHOge7DTadCrrUydIFKJ0brq/2nwf985JXc7d3OuC+GyBIUiDF
-	DIkiSQpW/pc7G379FYdYaRF/pmeZ40fLpczr5Epsk4cU3ZmewNY15/n+9DR25I+77zITmik
-	D0FDihyqTBDvCbs7LWPC0DLRn783uEX96RWlujcahcyquYgQYq1ilHeCkZIkEQbkDDshYIF
-	8II2xvGAlwpw9RQXFw87nF1KkxJm1Z9vCsEGTQ0693ezyjVQV5kKTgm8x01IPa5/gYvMwm2
-	cXWv8WwhPP+8kPC2LtcVnvyuOXj/j2GC9YOEcmTghqwmkWgvgu9Dtw1RgGC8z5BN3/zgWc1
-	SJ9i9CXiX7Ae/T81xxcaLDNJEZEheIDVvfbsr6J7ysbV5cXWwJLk/v4YqNeBQmHD2uyr6pA
-	w9fSAbySEwTw1jtdG5q616BSlmid+vXV0njoiq49Ft/apjmFvEm+nGQdFwf+ta7aA+ED+zF
-	JrmFrF/7ZBpTyGpa5fPA63VDBC6rrs/OnlY2iT8Etz1un5m02WLuAf/UCbs/F9M0VjKvHc6
-	vqjx81XBC8Td+aLQA1IcLlGKtup0VZP4naaMaFkzXvSCobvr2P0oS17D2yeET5OAfS3lgD1
-	3KgSKfTpkj9MzdztxR
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
+Cc: linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Flavio Amieiro <flavio@amieiro.net>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2481; i=flavio@amieiro.net;
+ h=from:subject:message-id; bh=46BqH9BAIlunijNkff3H/ga0UxeXAdMhqT/msNSQh+A=;
+ b=owGbwMvMwCX2bmrBFGnZ5lDG02pJDFnnGDV3JThzcr8Ni3lV9M/M6NDJRz1Xl+hoLJ+4yJln2
+ 5wXR/9c7yhlYRDjYpAVU2RhKWMp824/2Lx72mpJmDmsTCBDGLg4BWAi+TsYGb79Lb8bpOvG6ijA
+ OZXV+fTKGeUTjHdNzVml92iu4rcTB7gZ/mcav/7Q/fzIFYHrr0QqtP25+Vu+bjhqUblu/s+Dkq5
+ bFrMDAA==
+X-Developer-Key: i=flavio@amieiro.net; a=openpgp;
+ fpr=047604764B87C183BB96AB19EE9570941B1D8355
+X-Rspamd-Queue-Id: 4j3qZy3txKz8v1s
 
-The GPU SMMU interrupt list includes PMU interrupts as the first two
-context fault interrupts. This makes the driver register the fault
-handlers for context banks 0 and 1 on SPIs 678 and 679 instead of 680
-and 681. Translation faults are consequently left unhandled, which
-can stall the GPU and prevent recovery.
+This patch series adds support for the is31fl3206 LED driver to the
+already existing is31fl32xx driver.
 
-List SPIs 680 through 686 in context bank order to match the seven
-context banks exposed to non-secure software.
+The main difference between this specific variant and the others in
+the series is that the LED Control Register controls not only the
+enable status of the channel, but also the maximum output current for
+it.
 
-Fixes: eec51ab2fd6f ("arm64: dts: qcom: sc8280xp: Add GPU related nodes")
-Signed-off-by: Xilin Wu <sophon@radxa.com>
+Because the layout of the register is very different from the previously
+supported variants, this patch follows a similar pattern present in the
+driver for paths that deviated from the norm: the chipdef can define a
+pointer to an extra function that (if non-NULL) will be called during
+probing. This was already done for reset_func and for sw_shutdown_func
+in order to support other chips in the same family but here, if the
+function is defined, the original initialization code will not run. This
+is because, in the previously existing cases, the lack of a register
+meant the generic code could be skipped, while here the registers exist,
+but differ in function.
+
+The patches keep the previous behavior of using only the PWM registers
+to control the state of the LEDs. For that reason, the current output
+is always set to the maximum value.
+
+Signed-off-by: Flavio Amieiro <flavio@amieiro.net>
 ---
- arch/arm64/boot/dts/qcom/sc8280xp.dtsi | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+Changes in v3:
+- Reorganizes the commits so the dt-bindings are documented before using
+  them
+- Link to v2: https://patch.msgid.link/20261013-add-is31fl3206-support-v2-0-ca0d2bf5783f@amieiro.net
 
-diff --git a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-index fbcfd3883bbb..504ba6618bc7 100644
---- a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-@@ -3533,18 +3533,13 @@ gpu_smmu: iommu@3da0000 {
- 			#global-interrupts = <2>;
- 			interrupts = <GIC_SPI 672 IRQ_TYPE_LEVEL_HIGH>,
- 				     <GIC_SPI 673 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 678 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 679 IRQ_TYPE_LEVEL_HIGH>,
- 				     <GIC_SPI 680 IRQ_TYPE_LEVEL_HIGH>,
- 				     <GIC_SPI 681 IRQ_TYPE_LEVEL_HIGH>,
- 				     <GIC_SPI 682 IRQ_TYPE_LEVEL_HIGH>,
- 				     <GIC_SPI 683 IRQ_TYPE_LEVEL_HIGH>,
- 				     <GIC_SPI 684 IRQ_TYPE_LEVEL_HIGH>,
- 				     <GIC_SPI 685 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 686 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 687 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 688 IRQ_TYPE_LEVEL_HIGH>,
--				     <GIC_SPI 689 IRQ_TYPE_LEVEL_HIGH>;
-+				     <GIC_SPI 686 IRQ_TYPE_LEVEL_HIGH>;
- 
- 			clocks = <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
- 				 <&gcc GCC_GPU_SNOC_DVM_GFX_CLK>,
+Changes in v2:
+- Avoid double initialization when enable_all_channels is non-NULL
+- Add missing entry in the i2c_device_id table
+- Link to v1: https://patch.msgid.link/20261013-add-is31fl3206-support-v1-0-08c066cc241d@amieiro.net
+
+To: Lee Jones <lee@kernel.org>
+To: Pavel Machek <pavel@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-leds@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org
 
 ---
-base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
-change-id: 20261013-sc8280xp-gpu-smmu-fix-e07e4a2ed7b2
+Flavio Amieiro (2):
+      dt-bindings: leds: Add issi,is31fl3206 to leds-is31fl32xx
+      leds: is31f132xx: Add support for is31fl3206
+
+ .../devicetree/bindings/leds/leds-is31fl32xx.txt   |  1 +
+ drivers/leds/leds-is31fl32xx.c                     | 95 ++++++++++++++++++----
+ 2 files changed, 80 insertions(+), 16 deletions(-)
+---
+base-commit: 05b4738b0078f7d6f154f68068a11c8a0635e9df
+change-id: 20261012-add-is31fl3206-support-d557f863a97a
 
 Best regards,
 --  
-Xilin Wu <sophon@radxa.com>
+Flavio Amieiro <flavio@amieiro.net>
 
