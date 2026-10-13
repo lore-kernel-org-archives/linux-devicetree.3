@@ -1,38 +1,42 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6414D568522;
-	Tue, 13 Oct 2026 22:45:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EC0A55C30C;
+	Tue, 13 Oct 2026 22:51:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791931513; cv=none; b=RrbSa4BGKxFIxRr5QHH5ssSlOMQHp9ZcpzFGKgqSmuNLWyPIAaaglb6CuRtNvswMWOKzQGudpxlJ2dyDGvN6FLziRX2ZcxmKVJGPaE5x2DPRrHxtQoDqfLsD6SYRnQhoSm1rtlWwb5jKXbXHv29pQp3O3KIN+h+4TfIbjiUxdL8=
+	t=1791931926; cv=none; b=VmUEA+Wgtzu+4gM3NqNYOGrI2v0VCCdtGRvLtlXxl3G2/WqbcPpsZOjqKJjF5BITe+LvW6DF4DcuDhUaRnHEAFsVFVpuxvQTiKg5KiyjNQHqT93EeiV2p9i/Za2eoA9VljTX14t1eSKYAAiKmbRsWp4n+B2GQX3A5NDDO5uDTY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791931513; c=relaxed/simple;
-	bh=s15ihJ8YRuLkrmk35st+iOJ5yoQB9omR5C4j45yrdJ8=;
+	s=arc-20240116; t=1791931926; c=relaxed/simple;
+	bh=aGe8nmSYDlD89HTgEIf0ZL1zah8iMagTLLYRYG/Zwn4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hlvbFOXhfjYNgalS8ADWE/lfbfoVoy2Cw2+NtPqlptGdUKSnS1OEERxHmPmwd0Tt4q3+KQy0xBh5KbQo4l1BhUf8ME1JrqreR7Dc0opSfhl5zm0jQde/K5qR6PH55/fMuIRhLsC8+rWXMCsxeWIOK47d+xKu/FQrB3d0rVFtm+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kugeCDuL; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=LcscgusnB+/CISxb3RJUJbuEVELgJlJtnepH9OZi7Kt0vaAsTlXb1wzCmIiIk+M4n/VA0hAI8NCgMWt/NcJSAhOTDmyPnE5xTwLBV0UYAWIVlfLcaFNdYhzQ4cG0YiaHFT+iEoRoHfBYF0ILgZiSXp6SKZkVrI9/lQeNOZFLiHY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=hz/RgD9z; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kugeCDuL"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id ED4D2C2BD00;
-	Tue, 13 Oct 2026 22:45:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791931513;
-	bh=s15ihJ8YRuLkrmk35st+iOJ5yoQB9omR5C4j45yrdJ8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=kugeCDuL4Br2kvikeojHB/p3ANSiR96wLPfeQdFALWdkXuGcMW7tFj2/SugO54DW9
-	 ciH78PcWwe3BwIgiK8atjIDIVFfoNOzfIvxQyWnGhXT3uFNF2p78k3cFlMQ07UOLIO
-	 FHEh+ohZHPEPG4a8wAvSmz4K9aOORxxQSix6L86Yfgv3Thdh+Z8UGszaE8FoVl0K8U
-	 UQL+CKw8IxO9dkjXqcI31NKC9uU4m3qGQDb2skAjSoeybbNGlQkUfST+RXU4U5G8tk
-	 6pQjqjM4kRUHqgzwkqJKeX7ipZwtBRFFiUOi5/fGLXDWuyZ6CAiqANajf9ww++IEXC
-	 LsxUL9x8pPuFg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D1DA9CC6B1D;
-	Tue, 13 Oct 2026 22:45:12 +0000 (UTC)
-From: Mizuno Miotsuki via B4 Relay <devnull+founder.crepuse.com@kernel.org>
-Date: Wed, 14 Oct 2026 06:45:11 +0800
-Subject: [PATCH v5 3/3] Input: add Nsiway NS2009 resistive touchscreen
- driver
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="hz/RgD9z"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1791931912;
+	bh=aGe8nmSYDlD89HTgEIf0ZL1zah8iMagTLLYRYG/Zwn4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=hz/RgD9z8WHcN3LTL8qA4lGYsKX7/T/GZJJAAVzXeAsmKvIaUkUtuRGj9UC/P4GqD
+	 M4s7XzYid6QbMcNhYIXsTx80WEEOssdwSJZSQtACTHrOnUYU/Bd5S3LEeAxwIP20N9
+	 LCM7cox81TSZtOQp5avw9mKGZlf1c89RLt2svn+wwqCajPbJhsIWkocMkMtsRJYniK
+	 SrD3Zyzw1jCKiw1GrM7U4phVpHD+x9zm2aKvxugxHFv+MsBdPKEM6ZR8I7okVOb/8B
+	 yedvfJyUOodJNdVRlsPBTH7HwWIYSybZhZZ3E9YMCx2N3V/p48W7gEbXLgl5rsTQqE
+	 4Ixm8KFEdujLQ==
+Received: from localhost (unknown [100.64.0.241])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: cristicc)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2873617E0962;
+	Wed, 14 Oct 2026 00:51:52 +0200 (CEST)
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Date: Wed, 14 Oct 2026 01:51:19 +0300
+Subject: [PATCH v5 02/15] drm/rockchip: vop2: Fix resource leak on
+ vop2_enable() error path
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,340 +45,144 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-review-self-ns2009-v4-20261013-v5-3-0851740cd939@crepuse.com>
-References: <20261014-review-self-ns2009-v4-20261013-v5-0-0851740cd939@crepuse.com>
-In-Reply-To: <20261014-review-self-ns2009-v4-20261013-v5-0-0851740cd939@crepuse.com>
-To: dmitry.torokhov@gmail.com
-Cc: krzk+dt@kernel.org, linux-input@vger.kernel.org, 
- linux-kernel@vger.kernel.org, icenowy@aosc.io, conor+dt@kernel.org, 
- robh@kernel.org, devicetree@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9878;
- i=founder@crepuse.com; s=20261012; h=from:subject:message-id;
- bh=TDCTyGDEUKd8X8csU6CJK+bDq8VurdV+ZeVGdvYWx+w=;
- b=owGbwMvMwCUmds2G2fVJ/hLG02pJDFnntpQ5nvrc3/AllueG4ITiRBMH6+C2kK777/Yl5X69u
- tha1dG+YyILgxgXg6WYIstsUfbyQ80rrs2d0GQHM4eVCWSItEgDAxCwMPDlJuaVGukY6ZlqG+oZ
- GukY6BgzcHEKwFTrLmdkOPCX3Z5p7kbOVYpShXcunWtVM38Rf1DszJ0nv0QTHzz7cIvhn5XsxTN
- t54q32n2eOGm7h8sHLtk6UdXXcYJnYuzY4n0L+AE=
-X-Developer-Key: i=founder@crepuse.com; a=openpgp;
- fpr=9B150777C283A8D69D90823E16D63C0345E46FA4
-X-Endpoint-Received: by B4 Relay for founder@crepuse.com/20261012 with
- auth_id=1166
-X-Original-From: Mizuno Miotsuki <founder@crepuse.com>
-Reply-To: founder@crepuse.com
+Message-Id: <20261014-dw-hdmi-qp-yuv-v5-2-6fab0fe43a9b@collabora.com>
+References: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com>
+In-Reply-To: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com>
+To: Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Daniel Stone <daniels@collabora.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Daniel Stone <daniel@fooishbar.org>, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>, 
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
+ Igor Paunovic <royalnet026@gmail.com>
+X-Mailer: b4 0.15.2
 
-From: Mizuno Miotsuki <founder@crepuse.com>
+vop2_enable() returns void, so callers cannot tell whether powering up
+the VOP2 succeeded.
 
-Add a polling driver for the NS2009 four-wire resistive touchscreen
-controller, derived from Icenowy Zheng's original implementation.
+Additionally, if rockchip_drm_dma_attach_device() fails, vop2_enable()
+returns without disabling the core clocks or dropping the runtime PM
+reference taken earlier, leaking both.
 
-Read 12-bit X, Y and Z1 samples every 30 ms. Validate the two-byte response
-and its zero padding, discard incomplete samples and release contact on
-read errors. Report touch state on every valid sample so input-core state
-resets cannot strand a held contact. Apply common touchscreen transforms
-and a configurable raw Z1 contact threshold.
+Make vop2_enable() return int and unwind all resources on every failure
+path.  As disabling the core clocks is also needed in vop2_disable(),
+factor it out into a local helper used by both.
 
-Acquire VDD and an optional external VREF. Enable supplies when input is
-opened and disable them after polling stops. Preserve an outstanding
-reference if disable fails so reopening cannot accumulate references;
-retry cleanup after input unregisters.
-
-Touch reporting and input lifecycle tests passed on an UNIHIKER M10 V1.2
-using the real shared vcc_io regulator. Tests used a registration-name-only
-validation module and a temporary live-DT supply property. The shared rail
-remained always-on; no electrical power switching is claimed.
-
-Signed-off-by: Mizuno Miotsuki <founder@crepuse.com>
+Fixes: 604be85547ce ("drm/rockchip: Add VOP2 driver")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260623202043.8BFE21F000E9@smtp.kernel.org/
+Link: https://lore.kernel.org/all/20260623202043.8BFE21F000E9@smtp.kernel.org/
+Tested-by: Igor Paunovic <royalnet026@gmail.com>
+Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- MAINTAINERS                        |   1 +
- drivers/input/touchscreen/Kconfig  |  10 ++
- drivers/input/touchscreen/Makefile |   1 +
- drivers/input/touchscreen/ns2009.c | 230 +++++++++++++++++++++++++++++++++++++
- 4 files changed, 242 insertions(+)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 39 +++++++++++++++++++---------
+ 1 file changed, 27 insertions(+), 12 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 696f2badc49c..e282c02ec13f 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -19472,6 +19472,7 @@ M:	Mizuno Miotsuki <founder@crepuse.com>
- L:	linux-input@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/input/touchscreen/nsiway,ns2009.yaml
-+F:	drivers/input/touchscreen/ns2009.c
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+index bfb384142568..e0caea93a896 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+@@ -860,6 +860,13 @@ static int vop2_core_clks_prepare_enable(struct vop2 *vop2)
+ 	return ret;
+ }
  
- NTB AMD DRIVER
- M:	Basavaraj Natikar <Basavaraj.Natikar@amd.com>
-diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/Kconfig
-index 9b9ae8ac3f7f..d4cdf1a7e057 100644
---- a/drivers/input/touchscreen/Kconfig
-+++ b/drivers/input/touchscreen/Kconfig
-@@ -691,6 +691,16 @@ config TOUCHSCREEN_MTOUCH
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called mtouch.
++static void vop2_core_clks_disable_unprepare(struct vop2 *vop2)
++{
++	clk_disable_unprepare(vop2->pclk);
++	clk_disable_unprepare(vop2->aclk);
++	clk_disable_unprepare(vop2->hclk);
++}
++
+ static void rk3588_vop2_power_domain_enable_all(struct vop2 *vop2)
+ {
+ 	u32 pd;
+@@ -871,7 +878,7 @@ static void rk3588_vop2_power_domain_enable_all(struct vop2 *vop2)
+ 	vop2_writel(vop2, RK3588_SYS_PD_CTRL, pd);
+ }
  
-+config TOUCHSCREEN_NS2009
-+	tristate "Nsiway NS2009 touchscreen controller"
-+	depends on I2C
-+	help
-+	  Say Y here if you have a resistive touchscreen using the Nsiway
-+	  NS2009 controller connected over I2C.
-+
-+	  To compile this driver as a module, choose M here: the module will be
-+	  called ns2009.
-+
- config TOUCHSCREEN_NOVATEK_NVT_TS
- 	tristate "Novatek NT11205 touchscreen support"
- 	depends on I2C
-diff --git a/drivers/input/touchscreen/Makefile b/drivers/input/touchscreen/Makefile
-index bfd9de83389d..c5fc2062d7cf 100644
---- a/drivers/input/touchscreen/Makefile
-+++ b/drivers/input/touchscreen/Makefile
-@@ -68,6 +68,7 @@ obj-$(CONFIG_TOUCHSCREEN_MIGOR)		+= migor_ts.o
- obj-$(CONFIG_TOUCHSCREEN_MMS114)	+= mms114.o
- obj-$(CONFIG_TOUCHSCREEN_MSG2638)	+= msg2638.o
- obj-$(CONFIG_TOUCHSCREEN_MTOUCH)	+= mtouch.o
-+obj-$(CONFIG_TOUCHSCREEN_NS2009)	+= ns2009.o
- obj-$(CONFIG_TOUCHSCREEN_NOVATEK_NVT_TS)	+= novatek-nvt-ts.o
- obj-$(CONFIG_TOUCHSCREEN_HP600)		+= hp680_ts_input.o
- obj-$(CONFIG_TOUCHSCREEN_HP7XX)		+= jornada720_ts.o
-diff --git a/drivers/input/touchscreen/ns2009.c b/drivers/input/touchscreen/ns2009.c
-new file mode 100644
-index 000000000000..9d9af1dc9542
---- /dev/null
-+++ b/drivers/input/touchscreen/ns2009.c
-@@ -0,0 +1,230 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Nsiway NS2009 resistive touchscreen controller
-+ *
-+ * Copyright (C) 2017 Icenowy Zheng <icenowy@aosc.xyz>
-+ * Portions derived from silead.c:
-+ * Copyright (C) 2014-2015 Intel Corporation
-+ */
-+
-+#include <linux/i2c.h>
-+#include <linux/input.h>
-+#include <linux/input/touchscreen.h>
-+#include <linux/module.h>
-+#include <linux/property.h>
-+#include <linux/regulator/consumer.h>
-+
-+#define NS2009_POLL_INTERVAL_MS		30
-+#define NS2009_MAX_12BIT		0xfff
-+
-+#define NS2009_READ_X_LOW_POWER_12BIT	0xc0
-+#define NS2009_READ_Y_LOW_POWER_12BIT	0xd0
-+#define NS2009_READ_Z1_LOW_POWER_12BIT	0xe0
-+
-+/* Historical driver default; boards may override via firmware properties. */
-+#define NS2009_DEFAULT_PEN_DOWN_Z1	80
-+
-+struct ns2009_data {
-+	struct i2c_client *client;
-+	struct touchscreen_properties prop;
-+	struct regulator_bulk_data supplies[2];
-+	unsigned int num_supplies;
-+	bool supplies_enabled;
-+	u16 pen_down_z1;
-+};
-+
-+static int ns2009_read_data(struct ns2009_data *data, u8 command, u16 *value)
-+{
-+	u8 raw[2];
-+	int error;
-+
-+	error = i2c_smbus_read_i2c_block_data(data->client, command,
-+					      sizeof(raw), raw);
-+	if (error < 0)
-+		return error;
-+	if (error != sizeof(raw))
-+		return -EIO;
-+	/* The 12-bit result is left-aligned; the remaining bits must be zero. */
-+	if (raw[1] & 0x0f) {
-+		dev_err_ratelimited(&data->client->dev,
-+				    "invalid sample for command %#02x: %02x %02x\n",
-+				    command, raw[0], raw[1]);
-+		return -EIO;
-+	}
-+
-+	*value = (raw[0] << 4) | (raw[1] >> 4);
-+	return 0;
-+}
-+
-+static void ns2009_poll(struct input_dev *input)
-+{
-+	struct ns2009_data *data = input_get_drvdata(input);
-+	u16 x, y, z1;
-+	int error;
-+
-+	error = ns2009_read_data(data, NS2009_READ_Z1_LOW_POWER_12BIT, &z1);
-+	if (error)
-+		goto read_error;
-+
-+	if (z1 < data->pen_down_z1)
-+		goto release;
-+
-+	error = ns2009_read_data(data, NS2009_READ_X_LOW_POWER_12BIT, &x);
-+	if (error)
-+		goto read_error;
-+
-+	error = ns2009_read_data(data, NS2009_READ_Y_LOW_POWER_12BIT, &y);
-+	if (error)
-+		goto read_error;
-+
-+	/* The input core filters repeats and may independently clear key state. */
-+	input_report_key(input, BTN_TOUCH, 1);
-+	touchscreen_report_pos(input, &data->prop, x, y, false);
-+	input_sync(input);
-+	return;
-+
-+read_error:
-+	dev_err_ratelimited(&data->client->dev,
-+			    "failed to poll touch data: %d\n", error);
-+	/* An unreadable sample must not leave an active touch stuck down. */
-+release:
-+	input_report_key(input, BTN_TOUCH, 0);
-+	input_sync(input);
-+}
-+
-+static void ns2009_power_off(void *arg)
-+{
-+	struct ns2009_data *data = arg;
-+	int error;
-+
-+	if (!data->supplies_enabled)
-+		return;
-+
-+	error = regulator_bulk_disable(data->num_supplies, data->supplies);
-+	if (error)
-+		dev_err(&data->client->dev, "failed to disable supplies: %d\n",
-+			error);
-+	else
-+		data->supplies_enabled = false;
-+}
-+
-+static int ns2009_open(struct input_dev *input)
-+{
-+	struct ns2009_data *data = input_get_drvdata(input);
-+	int error;
-+
-+	if (data->supplies_enabled)
-+		return 0;
-+
-+	error = regulator_bulk_enable(data->num_supplies, data->supplies);
-+	if (!error)
-+		data->supplies_enabled = true;
-+	return error;
-+}
-+
-+static void ns2009_close(struct input_dev *input)
-+{
-+	ns2009_power_off(input_get_drvdata(input));
-+}
-+
-+static int ns2009_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct ns2009_data *data;
-+	struct input_dev *input;
-+	u32 value;
-+	int error;
-+
-+	if (!i2c_check_functionality(client->adapter,
-+				     I2C_FUNC_SMBUS_READ_I2C_BLOCK))
-+		return dev_err_probe(dev, -EOPNOTSUPP,
-+				     "required SMBus block read is unavailable\n");
-+
-+	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	data->client = client;
-+	data->supplies[0].supply = "vdd";
-+	data->num_supplies = 1;
-+	if (device_property_present(dev, "vref-supply")) {
-+		data->supplies[1].supply = "vref";
-+		data->num_supplies++;
-+	}
-+
-+	error = devm_regulator_bulk_get(dev, data->num_supplies, data->supplies);
-+	if (error)
-+		return dev_err_probe(dev, error, "failed to get supplies\n");
-+
-+	error = devm_add_action_or_reset(dev, ns2009_power_off, data);
-+	if (error)
-+		return error;
-+
-+	input = devm_input_allocate_device(dev);
-+	if (!input)
-+		return -ENOMEM;
-+	data->pen_down_z1 = NS2009_DEFAULT_PEN_DOWN_Z1;
-+	if (device_property_present(dev, "touchscreen-min-pressure")) {
-+		error = device_property_read_u32(dev, "touchscreen-min-pressure",
-+						 &value);
-+		if (error)
-+			return dev_err_probe(dev, error,
-+					     "failed to read touchscreen-min-pressure\n");
-+		if (!value || value > NS2009_MAX_12BIT)
-+			return dev_err_probe(dev, -EINVAL,
-+					     "touchscreen-min-pressure must be 1..4095\n");
-+		data->pen_down_z1 = value;
-+	}
-+	input_set_drvdata(input, data);
-+
-+	input->name = "ns2009_ts";
-+	input->phys = "input/ts";
-+	input->open = ns2009_open;
-+	input->close = ns2009_close;
-+	input->id.bustype = BUS_I2C;
-+
-+	__set_bit(INPUT_PROP_DIRECT, input->propbit);
-+	input_set_capability(input, EV_KEY, BTN_TOUCH);
-+	input_set_abs_params(input, ABS_X, 0, NS2009_MAX_12BIT, 32, 0);
-+	input_set_abs_params(input, ABS_Y, 0, NS2009_MAX_12BIT, 16, 0);
-+	touchscreen_parse_properties(input, false, &data->prop);
-+
-+	error = input_setup_polling(input, ns2009_poll);
-+	if (error)
-+		return dev_err_probe(dev, error, "failed to set up polling\n");
-+
-+	input_set_poll_interval(input, NS2009_POLL_INTERVAL_MS);
-+
-+	error = input_register_device(input);
-+	if (error)
-+		return dev_err_probe(dev, error,
-+				     "failed to register input device\n");
+-static void vop2_enable(struct vop2 *vop2)
++static int vop2_enable(struct vop2 *vop2)
+ {
+ 	int ret;
+ 	u32 version;
+@@ -879,25 +886,24 @@ static void vop2_enable(struct vop2 *vop2)
+ 	ret = pm_runtime_resume_and_get(vop2->dev);
+ 	if (ret < 0) {
+ 		drm_err(vop2->drm, "failed to get pm runtime: %d\n", ret);
+-		return;
++		return ret;
+ 	}
+ 
+ 	ret = vop2_core_clks_prepare_enable(vop2);
+-	if (ret) {
+-		pm_runtime_put_sync(vop2->dev);
+-		return;
+-	}
++	if (ret)
++		goto err_put_pm;
+ 
+ 	ret = rockchip_drm_dma_attach_device(vop2->drm, vop2->dev);
+ 	if (ret) {
+-		drm_err(vop2->drm, "failed to attach dma mapping, %d\n", ret);
+-		return;
++		drm_err(vop2->drm, "failed to attach dma mapping: %d\n", ret);
++		goto err_disable_clks;
+ 	}
+ 
+ 	version = vop2_readl(vop2, RK3568_VERSION_INFO);
+ 	if (version != vop2->version) {
+ 		drm_err(vop2->drm, "Hardware version(0x%08x) mismatch\n", version);
+-		return;
++		ret = -EINVAL;
++		goto err_detach_dma;
+ 	}
+ 
+ 	/*
+@@ -932,6 +938,17 @@ static void vop2_enable(struct vop2 *vop2)
+ 		    VOP2_INT_BUS_ERRPR << 16 | VOP2_INT_BUS_ERRPR);
+ 	vop2_writel(vop2, RK3568_SYS1_INT_EN,
+ 		    VOP2_INT_BUS_ERRPR << 16 | VOP2_INT_BUS_ERRPR);
 +
 +	return 0;
-+}
 +
-+static const struct i2c_device_id ns2009_id[] = {
-+	{ .name = "ns2009" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, ns2009_id);
++err_detach_dma:
++	rockchip_drm_dma_detach_device(vop2->drm, vop2->dev);
++err_disable_clks:
++	vop2_core_clks_disable_unprepare(vop2);
++err_put_pm:
++	pm_runtime_put_sync(vop2->dev);
 +
-+static const struct of_device_id ns2009_of_match[] = {
-+	{ .compatible = "nsiway,ns2009" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, ns2009_of_match);
-+
-+static struct i2c_driver ns2009_driver = {
-+	.driver = {
-+		.name = "ns2009",
-+		.of_match_table = ns2009_of_match,
-+	},
-+	.probe = ns2009_probe,
-+	.id_table = ns2009_id,
-+};
-+module_i2c_driver(ns2009_driver);
-+
-+MODULE_AUTHOR("Icenowy Zheng <icenowy@aosc.xyz>");
-+MODULE_DESCRIPTION("Nsiway NS2009 resistive touchscreen controller");
-+MODULE_LICENSE("GPL");
++	return ret;
+ }
+ 
+ static void vop2_disable(struct vop2 *vop2)
+@@ -942,9 +959,7 @@ static void vop2_disable(struct vop2 *vop2)
+ 
+ 	regcache_drop_region(vop2->map, 0, vop2_regmap_config.max_register);
+ 
+-	clk_disable_unprepare(vop2->pclk);
+-	clk_disable_unprepare(vop2->aclk);
+-	clk_disable_unprepare(vop2->hclk);
++	vop2_core_clks_disable_unprepare(vop2);
+ }
+ 
+ static bool vop2_vp_dsp_lut_is_enabled(struct vop2_video_port *vp)
 
 -- 
-2.56.0
-
+2.55.0
 
