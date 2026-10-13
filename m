@@ -1,103 +1,117 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 107464BC00B
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 10:45:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27C564C14E5;
+	Tue, 13 Oct 2026 10:48:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791888338; cv=none; b=c0tOF1DvxHSNmNEzOH8vLMWyavG79C+09QeJSFGr7+x7pU5Wt7B0kgrHr1uZyI7eOw/zy5h89rvcASmZO76Oisf4d4dlS1CIJvoaQll1q6RD0VI+Ud5la0Wfho+cRDIvNeyjtdFVRUhCzoxH2ZM7xRTZMqwWCdpirqBUBjTD2BE=
+	t=1791888537; cv=none; b=Kl6qwoo3H3WWnb8yQ0J+9V6LTJ9AGBSgOZ3DsIORwePaL/2ICt9QsFB56J4UipjN2/1Kn3NbjMEmzE20tSpR3L7plH0ZSZCULH5VvOT4jDSYa1TgzHBeYlykTTmAbzKEeXpk+VIuyQaxlt1ENUz2Pce47wT2eORAHvSqgRnuH58=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791888338; c=relaxed/simple;
-	bh=M50cgOBy/LauGa0pGoFBLyHKSyVtAgLQdzrWGmCAWp8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fGgKv4B7NjExPU11WhMstASingludZj34RVKx96t4OWikZ6wdaNG7gdAY/m1J3cfjsHkHqwAuqWM/bMG3TDZz9f202DbeOQLNGv/e2BM/df/rf6mbRepuQu8cXe/ReGACK7/om2sq56CEJJ6QVIvzRUVqEu9sF67aNxLLMLpGVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=0fkgAN9L; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1791888537; c=relaxed/simple;
+	bh=PU12tnr5NOCs4bPLwIyCrmBNHHzahZ6eKs8gFnG0X5M=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=n6hTEYZ+yMGqo82GGBnIbNPlcoJixVvHycRsfdillWSt8HPojK5CwLwtULhQz11mI8DXdK7MqLb+VvqDUWWbQh9Fu3rnfciRk1JBMO5yz97x/iHU3morMS9TBgIxG8VLBUYXRXVj6rsuGM8Tgis4Jzp3mzJibaSarWCzQpdzHU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=xJvN/0qm; arc=none smtp.client-ip=162.62.57.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="0fkgAN9L"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id B2738C653EC;
-	Tue, 13 Oct 2026 10:46:30 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3B56E60362;
-	Tue, 13 Oct 2026 10:45:35 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 83EB911D703F3;
-	Tue, 13 Oct 2026 12:45:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791888334; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=xH0gEgoLRWaLsp635rB2jonezfltFGPWmAbpMXeeiOk=;
-	b=0fkgAN9Lk9jmmZdqjtSfpYOv/Q0/7cI/M5LCQKQJkC0CM+zTroJi7cCU2QusI1hp45r/Em
-	46lK2yCaGRMgxth4ibUQM0I+7eEIEP5xV/2fOBL7Af14/RIDJ4kJOYGqrxgfX1eUJbiWsW
-	nhCRBHjWJqU3xeFaWNnKvcT8QPaNna70ik/tHf4aElLURSR9acaBN3eK+XH9qZ9/hEMKIt
-	M2GZ84WSm9AIEzIvoKwV8/P7/6ZEMyCxvtKezsSQTlA44lIe7yepo/6HdLrecqUwoPW9BH
-	keO6uEYQxBiZrCzb7a+/1/eNc0ehYND6mdtYweHmHO+j/i2IAM9MyvCrUYNb3Q==
-From: Paul Louvel <paul.louvel@bootlin.com>
-Date: Tue, 13 Oct 2026 12:45:00 +0200
-Subject: [PATCH v6 3/3] ARM: dts: renesas: r9a06g032: add EDAC node
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="xJvN/0qm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1791888528; bh=m4Bl/vY2N1MPYgLK8qSEQQ1wtqzLVBSpXYWmQ7yKnP4=;
+	h=From:To:Cc:Subject:Date;
+	b=xJvN/0qm1OwQOdTr9TmIUhVN6eamTAb8R1kr7BdSPNUQajGYH2ElsjXbmy+BD3NvU
+	 m90v3PEk+udtAXZfLrCUIqpgXGlZvPxfJc3Qs+M8S8LJ4C4EnHNyght+L0uW+12rLc
+	 nzvuJwJygNiXkd3wb+fpvlsllBJMHZoK/INZhXf4=
+Received: from DiagonAlley ([120.253.195.162])
+	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
+	id BD285CE7; Tue, 13 Oct 2026 18:47:18 +0800
+X-QQ-mid: xmsmtpt1791888438tzzmn2amf
+Message-ID: <tencent_D9A0A9BF766957BDB9C77A8EFA5941993908@qq.com>
+X-QQ-XMAILINFO: OI219bxu/rL8F4mhi91T2Qq7TAyxRqbVvpmwFI4X2twUBueCQWIA75VHJd8VCA
+	 ulWlDmZvZw0bFJ16BPjc3f96fXd9dCZBuxac4G9d/86grL460kmdh/xdxmZB4x05f0Vv7TqiGD2a
+	 e4R1JoPAh0tL5HV8H+Hrv9D5uRy1BWF+QvhAj5IR5XTyTFefYr3UfJk5jFiTWb9q4JQE/mPqg0Bc
+	 m42npPgZDqJtooLBBsWQQsrPWKXaKRFn0HHmTjs7gYNdB1ekTVuC2BeZRPgfukLkcmLPOxyphoio
+	 S/y4AvhHVXGoVkzzZbVH7T/O7CyfyxxY5vR7l/Qyq8T/zmhuVYS9DZr0e70zWll2KBpnP5TpERNY
+	 iGQ7o00EODMwUw2ebKsA79ZgoAapolsC4ojN/MD0UT4snphO/gx36DbnHJlnTY8QXU29WuVK7pK6
+	 NuzI/n7snMjOYG3SrADkti3MpD4ZgeTpqrsgyzQhypgOkWd9M5eydgFN0fn4T1MhQiSqoQMf3wLI
+	 0blVKPXU80UWbBcObRv1GgZ2lsaYWTt0YRUu1VwzAYzXcJZBKzm4OBpThp9ALnoyCDHTqgdk7piQ
+	 B6uewWAxGrTH9+kM8UzmbYyuTuLY88X1bH/41Qy//LlSMfcGx6OPCYiyT+NQ/FK/wTrLe+lfCZPQ
+	 TU6zYOTrEKoaP+kvs5xy5vTmiciPy2dudkWt1fci/LRYQazDzocAowY/OEGDViKAzZEYrGJYDQzV
+	 Rgk74DRMlhiM9MzRANM3GN6TV1YB1xnZpZxs305AX4F+YJjTLlbdSl9f4ssxo9wf6J51ZmlPnPc+
+	 ruwOYrc+zDBCU5dl1kOWDSioMOHo4GI/T9NU5sIqwhKsiXwJqMiOed3lv8uSWGkKcF0IFjHZ9R5o
+	 zOOUujZWZbhgiyldFVQq32kdaHARZEE868uOd90a0KSGPjPFWC45NKszJMV5WmvIXGr10wEv7Qlf
+	 J9QrE9UnyKAs1fnJbUThZhJO3oIZQyU42izL19rH/GQbqRJPpwcZSuH/PvuXe6p00MMpFW6sH6Vd
+	 vMK8VsU79v9wo8SO9w2cFmwiaKJxSHpx3hnLfIT//fN+QuZQAqhpLMWCLC5TH3GiiPbfXcY+M69q
+	 QKsufQ99G5/q5E9EP5Qt0PwSO00gB+3qgP4A6D87t5654weCReiYF0Xxp9oVoOC5Y5Fy7Ix/pKSI
+	 sT7VnNR3o4Vj8/fwK45ef/4xKFF9UFfhkpL3w=
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+From: Mingxuan Guo <gmx472@qq.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mingxuan Guo <gmx472@qq.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v3] dt-bindings: media: i2c: dongwoon,dw9768: add Giantec GT9764
+Date: Tue, 13 Oct 2026 18:47:18 +0800
+X-OQ-MSGID: <20261013104718.1750602-1-gmx472@qq.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-paul-v7-3-rc1-edac-v6-3-2f1d6f2f74db@bootlin.com>
-References: <20261013-paul-v7-3-rc1-edac-v6-0-2f1d6f2f74db@bootlin.com>
-In-Reply-To: <20261013-paul-v7-3-rc1-edac-v6-0-2f1d6f2f74db@bootlin.com>
-To: Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- linux-edac@vger.kernel.org, devicetree@vger.kernel.org, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, 
- Herve Codina <herve.codina@bootlin.com>, 
- "Paul Louvel (Schneider Electric)" <paul.louvel@bootlin.com>, 
- Wolfram Sang <wsa+renesas@sang-engineering.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791888321; l=1057;
- i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
- bh=M50cgOBy/LauGa0pGoFBLyHKSyVtAgLQdzrWGmCAWp8=;
- b=/oClhJBknzwXfOGSxLToZK3Q007FHEMpTYbcYyKXgcZ0sG74BWHd+91tvnvKDnOzv/A/0u+8G
- vax2Vrnvt9TD/YuN4rimQHFnmwwfMOnoZwRe2DJ6WKMcfYw35/5oSPh
-X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
- pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-Add EDAC node to the SoC base device tree file.
+The GT9764 is one of Giantec's VCM driver parts and shares the register
+model of the GT9769 already covered by this binding: the vendor's VCM
+driver application note (AN971) covers GT9764, GT9767, GT9768, GT9769,
+GT9772 and GT9778, all built around the same 10-bit DAC with the AAC
+actuator-control extensions.
 
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com>
+Document it as a specific compatible that requires the GT9769 as its
+fallback, so the existing driver binds through the GT9769 entry and no
+driver change is needed.
+
+Signed-off-by: Mingxuan Guo <gmx472@qq.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- arch/arm/boot/dts/renesas/r9a06g032.dtsi | 9 +++++++++
- 1 file changed, 9 insertions(+)
+Changes in v3:
+- Drop the comments duplicating the compatibles, including the two that
+  were already in the file (Krzysztof Kozlowski).
 
-diff --git a/arch/arm/boot/dts/renesas/r9a06g032.dtsi b/arch/arm/boot/dts/renesas/r9a06g032.dtsi
-index 19c9bce0a26d..8152464d4e6b 100644
---- a/arch/arm/boot/dts/renesas/r9a06g032.dtsi
-+++ b/arch/arm/boot/dts/renesas/r9a06g032.dtsi
-@@ -164,6 +164,15 @@ dmamux: dma-router@a0 {
- 			};
- 		};
+Changes in v2:
+- This replaces the v1 series ([PATCH 1/2] binding + [PATCH 2/2] driver):
+  use the GT9769 as a fallback compatible instead of a standalone driver
+  entry (Conor Dooley), and drop the driver patch accordingly.  This also
+  clears the Media CI warning about the compatible being undocumented.
+
+ .../devicetree/bindings/media/i2c/dongwoon,dw9768.yaml         | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9768.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9768.yaml
+index a0855d3b7..23cd49428 100644
+--- a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9768.yaml
++++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9768.yaml
+@@ -20,9 +20,13 @@ description: |-
  
-+		edac: memory-controller@4000d000 {
-+			compatible = "renesas,r9a06g032-ddr-edac", "cdns,ddr-edac";
-+			reg = <0x4000d000 0x1000>;
-+			interrupts = <GIC_SPI 76 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&sysctrl R9A06G032_CLK_DDRC>, <&sysctrl R9A06G032_HCLK_DDRC>;
-+			clock-names = "ddrc", "pclk";
-+			status = "disabled";
-+		};
-+
- 		udc: usb@4001e000 {
- 			compatible = "renesas,r9a06g032-usbf", "renesas,rzn1-usbf";
- 			reg = <0x4001e000 0x2000>;
-
--- 
-2.56.0
+ properties:
+   compatible:
+-    enum:
+-      - dongwoon,dw9768 # for DW9768 VCM
+-      - giantec,gt9769  # for GT9769 VCM
++    oneOf:
++      - enum:
++          - dongwoon,dw9768
++          - giantec,gt9769
++      - items:
++          - const: giantec,gt9764
++          - const: giantec,gt9769
+ 
+   reg:
+     maxItems: 1
 
