@@ -1,113 +1,113 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E6CF522685
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 17:12:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E4135218AB;
+	Tue, 13 Oct 2026 17:12:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791911543; cv=none; b=RtAjL2PugqAXJI82LC9uclNdEp58RqJlYv1WCI2R1VqZKDbAkthOXeX0oBtFZaK2EHzOzAoSU3aj4lWJIUljRzOSk2TDpXuqRpUIsIDAeqd+jsnKoYcbYIMNw6NLf/UxvbTdAMY5e87Z+00BRhDCtc1dvfcmUCmDJzsyppbrmmQ=
+	t=1791911574; cv=none; b=S9LONYQRJCsw88I+u4JuZNva343NBPbGEtfOja0Is6C2cmBN86FGgRimGmBayo09Q+m+PSuUnt23GErL/UkW4kQxtqnY+PWA3v9u96belaoY7KrnwtJwVwO4l2RNhTIIuBVWT4HubgrV5HqQex7dc1L1KO7CJbyG3D+6kAMJpkY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791911543; c=relaxed/simple;
-	bh=T8NlhaeVZy6s9aCXxQDmOlcnQfGg7C5XfWYHzD/xFw0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=JzCzPY6A7YMsANHEMc1G2MdI86sF0pWK9DxUMi1DJlB/JpuRhvZTuI2MhMMaWGNFHRVjKbSG1J8xAhQWhVFkwv9yAZmLn+xvXyzPk465Hg9Z0WlQtTNhp88H0UnCbfKoLtFUdrlblTWNwU+sGN1TqK310MIRW6USG/4Xm8buDp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=gIwAZpJu; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="gIwAZpJu"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 6AF941A1211;
-	Tue, 13 Oct 2026 17:12:19 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D863660362;
-	Tue, 13 Oct 2026 17:12:18 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AD28C11D7185F;
-	Tue, 13 Oct 2026 19:12:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791911534; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=hV8HMJDWqmywJZRWh24mzyeI9ctzMOp+YlqUbyGw7g8=;
-	b=gIwAZpJurkDQBahCsCqIbskG2gt9/prCtlnZC+DRYwoC2yr8yEOJvam5+oj9tchPbjerLx
-	mIY2oON/ZebscTCmrcErr7ynJrs9F+jESU5GJSJ4ErhqSTsjgBew6jW+U/QPCTZ9aIQPdJ
-	WCsifudwCNUwZFlBqhWgmiThggVlWyjuH+cFGxD0nR0EzT/OQj9XvhwaBnuckrSIpLG1oy
-	Dv+uHnSlqcm6DoacDDrM0nynPUSy6WxEqVAlM3ajyOBB+Hdfw1adRpNfRVL+ddY2LvVpVC
-	JtJ3RVqXusu486PoBHbdLQqigySpC3CzXjaJDwWtQhs+0+QI9WommO+vqxT8iQ==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: sashiko-bot@kernel.org,  sashiko-reviews@lists.linux.dev,
-  conor+dt@kernel.org,  linux-clk@vger.kernel.org,
-  devicetree@vger.kernel.org,  robh@kernel.org
-Subject: Re: [PATCH v8 3/7] clk: nuvoton: ma35d1: Retrieve HXT/LXT from DT
- when possible
-In-Reply-To: <1jmrss7byt.fsf@starbuckisacylon.baylibre.com> (Jerome Brunet's
-	message of "Mon, 05 Oct 2026 11:06:50 +0200")
-References: <20261004-perso-ma35d1-upstream-clk-v8-0-e1a106a128c0@bootlin.com>
-	<20261004-perso-ma35d1-upstream-clk-v8-3-e1a106a128c0@bootlin.com>
-	<20261004205903.E62F91F000FF@smtp.kernel.org>
-	<875wzhjhe6.fsf@bootlin.com>
-	<1jmrss7byt.fsf@starbuckisacylon.baylibre.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Tue, 13 Oct 2026 19:12:11 +0200
-Message-ID: <87fqy9v82c.fsf@bootlin.com>
+	s=arc-20240116; t=1791911574; c=relaxed/simple;
+	bh=N9YboAI3l9JLB3r7z572GPOgLzaT9hJb2bn87VaEfsY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZB0Fh8hYBpBSha9fJ14MvBa0SjUXl0xAN7x785xpSYSe/qsq/ZNJRPUCjhUoi4xPzNoVLvddR5Zt7Y5bKkoXtwGhNyuriWVN7MQ2xbOqcmYSLSalvVfTvakqrlxHa8gFMA93xKtbHWf+gzTc5grJ8lkqiE65DTqa2Dq2/m02pGM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 5B4542000F0;
+	Tue, 13 Oct 2026 19:12:51 +0200 (CEST)
+Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com [134.27.226.22])
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 4ECED2000EB;
+	Tue, 13 Oct 2026 19:12:51 +0200 (CEST)
+Received: from lsv15141.swis.ro-buh01.nxp.com (lsv15141.swis.ro-buh01.nxp.com [10.162.246.138])
+	by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 83166202DA;
+	Tue, 13 Oct 2026 19:12:50 +0200 (CEST)
+From: Claudiu Manoil <claudiu.manoil@nxp.com>
+To: netdev@vger.kernel.org
+Cc: s32@nxp.com,
+	linux-kernel@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	devicetree@vger.kernel.org
+Subject: [PATCH net-next v2 0/5] net: enetc: S32N79 pseudo-MAC (PPM) networking support
+Date: Tue, 13 Oct 2026 20:12:44 +0300
+Message-Id: <cover.1791908694.git.claudiu.manoil@nxp.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-Hi Jerome,
+This series adds networking support for the ENETCv4.4 pseudo-MAC (PPM)
+ports found on the NXP S32N79 SoC. On S32N79, the ENETCv4 ports are
+not wired to any external PHY/MII; instead they are internal "pseudo-MAC"
+links into the on-chip NETC switch. These links are proprietary, expose
+no standard IEEE interface, and run at a speed fixed at boot time by the
+Port PCR[PSPEED] register.
 
->>>> -	hws[HXT] =3D ma35d1_clk_fixed("hxt", 24000000);
->>>
->>> [Severity: Critical]
->>> Does this unconditional removal break ABI compatibility with older devi=
-ce
->>> trees?
->>>
->>> Because HXT (index 0) is exported as a public ABI in the DT bindings,
->>> removing its explicit registration leaves hws[HXT] as NULL in the provi=
-der's
->>> clock array. If an existing downstream or older device tree consumer ex=
-plicitly
->>> references this clock via clocks =3D <&clk HXT>, won't the provider's
->>> of_clk_hw_onecell_get() fail to resolve the clock and return an error?
->>
->> Jerome, your wisdom matters here :-) For me this is a false positive,
->> because nobody outside this driver should access hws[HXT] and the clock
->> is still referenced through the DT, just not provided by this
->> driver. For me this is not an issue we should consider, let me know
->> otherwise.
->
-> Strictly speaking there is (used to be) a clock at this index so it is
-> not a false positive. Someone crazy enough could have gone through here
-> to get the OSC even if does not make a lot of sense.
->
-> This clock should never have existed to start with but it got in the
-> bindings ... and that is the pain of dealing with bad bindings :/
->
-> You've got 2 options:
-> * Removing the ID from the bindings explaining clearly that it conflicts
->   with the fact this clock is actually an input according to the same
->   bindings. I suspect the DT maintainers won't like this much ...
->
-> * Keep the bad support binding in the driver: You'll need a pass-through
->   clock element where the parent data is the fw_name and a fallback to
->   an `hxt-fake-internal' fixed clock. Feel free to add a comment
->   explaining how bad it is to use that clock and what user should be
->   doing instead.
+A key use case is a port that has no "ethernet" DT node at all: NETC is
+reached over PCI from a host that probes the ENETC, while the internal
+NETC switch it connects to is not owned by Linux. Such a port must have
+its fixed link synthesized at probe time.
 
-Too bad. I am pretty sure nobody ever used that yet (since it is both
-very recent and fundamentally broken) but okay, I'll keep registering a
-dummy fixed clock there in case anybody ever cares about that lookup.
+The driver synthesizes the fixed link directly in C using an of_changeset:
+of_changeset_create_node() adds a "fixed-link" subnode onto the PCI
+function's dynamic OF node (CONFIG_PCI_DYNAMIC_OF_NODES), with the "speed"
+property read from PCR[PSPEED] at probe time and "full-duplex" set.
+phylink then picks up the fixed-link node through dev_fwnode().
 
-> You'll probably need to play that last trick with the lxt anyway ?
+The series touches three subsystems:
+  - net/enetc:  pseudo-MAC fixed-link support + probing of 4.4 devices
+  - arm64 dts:  NETC IEP18 ECAM node on S32N79 and its RDB board enable
+  - PCI:        a quirk creating the OF node for the ENETC PMAC functions
 
-Yes, it is already handled indeed.
+Because this is primarily a networking feature and the pieces are
+interdependent at runtime, it would be most convenient to merge the
+whole series through the netdev tree.
 
-Thanks!
-Miqu=C3=A8l
+Patch 1 has a runtime (not Kconfig) dependency on
+CONFIG_PCI_DYNAMIC_OF_NODES; absent that, the pseudo-MAC probe path
+fails gracefully with -ENODEV.
+
+v2:
+ - Switched patch 1 from a DT overlay blob (of_overlay_fdt_apply() + a
+   .dtso compiled to .dtbo) to of_changeset_create_node(), per review
+   feedback. This drops the embedded overlay externs, the Makefile
+   .dtbo wrapping, and the OF_OVERLAY Kconfig dependency. The operating
+   speed is now baked directly into the changeset-created fixed-link
+   node (read once from PCR[PSPEED] at probe time); the phylink
+   get_fixed_state callback is no longer needed and was removed.
+ - Patch 2: described why there are two ENETC PF IDs in the commit
+   message, as per review.
+ - Patch 3: replaced the 'msi-parent' stub property with 'msi-map', as
+   per H/W spec.
+ - Patch 5: reworded the commit message to match patch 1's fixed-link
+   approach (no functional change); added Bjorn's Acked-by.
+v1: initial submission.
+
+Claudiu Manoil (5):
+  net: enetc: Add pseudo-MAC support for ENETCv4 Ports via a fixed-link
+    node
+  net: enetc: Enable probing of version 4.4 devices
+  arm64: dts: s32n79: add NETC IEP18 ECAM node for ENETC PPM ports
+  arm64: dts: s32n79-rdb: enable NETC IEP18
+  PCI: Create OF node for NXP ENETC pseudo-MAC functions
+
+ arch/arm64/boot/dts/freescale/s32n79-rdb.dts  |   4 +
+ arch/arm64/boot/dts/freescale/s32n79.dtsi     |  24 ++++
+ drivers/net/ethernet/freescale/enetc/enetc.c  |  12 ++
+ drivers/net/ethernet/freescale/enetc/enetc.h  |   1 +
+ .../net/ethernet/freescale/enetc/enetc4_pf.c  | 113 +++++++++++++++++-
+ .../net/ethernet/freescale/enetc/enetc_hw.h   |   1 +
+ .../freescale/enetc/enetc_pf_common.c         |  41 ++++++-
+ .../freescale/enetc/enetc_pf_common.h         |   1 +
+ drivers/pci/quirks.c                          |   2 +
+ 9 files changed, 190 insertions(+), 9 deletions(-)
+
+-- 
+2.34.1
+
