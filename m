@@ -1,337 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A668A13D53C
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 12:48:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BC2E282F2A
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 12:49:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791895687; cv=none; b=e4MoCwqhDq2564AaTFFFLSqh4fXdLzWYZQJS8Indev+VgIA4fVcpRC23ZphdZKD2vrAVX57hF4CsK6QM/Tx4uRoC4WHHhx+Hebvsp4n+H3k/Gqu6PmJQObiqM5onVT6GJCihD4qfHeaIdemW2UZPAXzRQwUsOs18qHCHlHQyPQ8=
+	t=1791895756; cv=none; b=X+u9ghTUGV6AP3WUe12maUOsrovWXvg1zE1o94XgotQqqyMVuFC6Ukx05gYqF8lZVqNIZMoGV95glbx5KtZOJ6TNwC8PAUA4tncrb6+cSMY0Nr8wWYSDXJgto9s+Tl0rlrqVHHTzdNFpgSqjDEAAsQ1O+Ta1yKTmaEKG+nRh6M4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791895687; c=relaxed/simple;
-	bh=9heYegikZiO2vq9h6PXpNtM3i+xqEgmr3YoEnP/PXbc=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=padZdvp8a5QfzdYIKClJnO7btrmluic4zdhzTbbPlK+86+uANuZxWZ1tSKShAAsA2KAkGKdBGmbPAFAngZejhus4PQs7ekikLuwqgql0M00zxk/o6l183BMiNddylSTu+IBLRr5Ktqve10dTUaFL88J1GjTpv3+I5z9MW9zNUuQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RyxlVt3I; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791895756; c=relaxed/simple;
+	bh=Y2nhOCq3e5obtIKrWFEWNJ3Z3gLydgJkCSXS6s/8lrE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nj24BRTppuv6k8XM2UkrsvWfHSBzwI0AJFP7CYh/+9t1Oj8PEeCeTQVf1mqpHn9iaexBCzzWzeDEb5BopSAO/TVaE3XbcMeOM3e2fbi4KbTiAOG2u+2LPdei02VE9dJqQRgrEGjOIt7YeKpVrvRKCHRmRC/OQ/9MxcnuOJBW5gQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=j9SWrRSf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=I1JDDEB1; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RyxlVt3I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFBB21F0089C;
-	Tue, 13 Oct 2026 12:48:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791895685;
-	bh=W5ZlcwT6aJ2TaPXbqJoYDIvDB7S6H0GHHn51JqUITbY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RyxlVt3ICOYqptKo0Bo6zIkm2PmrMpAdu1sFBqeY8DxeqXZW23aOs9OTb/vuOJHSW
-	 ZhUGC/gso7LcZLzDbrghMyWV8+lLRM6DqgUEOXJoV7EC0+vfGX7c2voB+f9KLYHVUG
-	 JEYjprGd9r5pEtm/uF3sK8ckVoZWDKqbma1zIanxLcARnL9LmMvlDr7oPyAvUjp+bs
-	 DEKpQJeFwnem9OQvJqk3XmKS6p29HTQyS9ySF59yvG0D9mMgdQd0dV6SwRnpOYL7Th
-	 6I+bDkpY/yYGESB1AN1Kblh5SrCSk1b/WV6ol+Z5qpUaPmoU0CYbsNhaY58+Fv29Lk
-	 OtIMHKqZdupIA==
-Message-ID: <sashiko-outbox-169737@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/7] rust: kernel: Add greybus abstractions
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ayush Singh" <ayush@beagleboard.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, ojeda@kernel.org, gary@garyguo.net
-In-Reply-To: <20261013-gb-uart-transport-v3-4-81d0a8a1acf7@beagleboard.org>
-References: <20261013-gb-uart-transport-v3-0-81d0a8a1acf7@beagleboard.org>
- <20261013-gb-uart-transport-v3-4-81d0a8a1acf7@beagleboard.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Oct 2026 12:48:04 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="j9SWrRSf";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="I1JDDEB1"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D8A2fa302898
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 12:49:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	FQRECZeTA80E3xQl4tU300FfuX5snDvBVupZiuxncKQ=; b=j9SWrRSfeCHX1JMO
+	Z0ondfYsY+pNvVh1XN4AXYK60rGASjVkCkI2Y5/vDCgYzp2CF5HTRHbGy6ypINKP
+	OSD28RaH8KtrutYeLdNlRmRzngfCH4FMBS09OSm4ZQFmBLAaCgMoL5qT3p9/F59S
+	U1JElEXcRbTMDsm1e0jpNMjKN2pnDYuLVUXm0sjzuouA9l6xfULu71x8p/ltx7DL
+	7pG6u2RpeRs38gJTCiOx2/2lgVyHqdyGVec7jkiDqctPrjuPu7nCqoD9iCb9kFdb
+	ebtE5mMe1I3xCJV87plIz1m6aKAsQHXKkbjXFTcWj5Tck23idbOEVjvwQurg9v5+
+	gMYdzA==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h98sqaxje-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 12:49:13 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5350d8a2368so6525771cf.2
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 05:49:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791895752; x=1792500552; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FQRECZeTA80E3xQl4tU300FfuX5snDvBVupZiuxncKQ=;
+        b=I1JDDEB1CwnwJ3buu+nnYRcj6ju5awhIz1CXgSOMtRHFSAWU84PKOkN0H3RPoz4R7G
+         ivC8Jia27emxZkS3SaT7QIqn3q7kjzZfr5w4n83Q/Vk0tSoHzuptEQM2n04i7lofImOq
+         lOtqk0maZKzvu7g5YZDd8ZZpDna5zG7+2FnxxM0iruxOOp9/KbrB5YuKVM8se+n/7VAz
+         YVKxnObXbOJfpbr7jtHvcw6RQAWBjhTLNMeLeYixKpmB9h8Tp+w8ciOp3+VEVhfQAlD7
+         ejPBWCNc9uxJUxWlkrgta7i+M73PwOtf8ucw7xe+bt993CTBtrdviY05w+Xf1My8L9dy
+         j80g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791895752; x=1792500552;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FQRECZeTA80E3xQl4tU300FfuX5snDvBVupZiuxncKQ=;
+        b=aCJoGpt0ubMnje5en7GQw4pz6FYUeyqTdP3Jlq2VH/wghi8ymTJF/Lv7U3wf5EsGgK
+         yQAmkvwpvdzaGlgaa5OhRvK8+5wTNYgBqK6zj7GbXORp08Kwsb7JCE87blZMxd5zRHmv
+         n3hqrCH6VNqpFqAja9XiZCAt+3xowxd+4ItmwGoqhVblROEeVf4vRB99BU4STg8g6NUb
+         UZ5XsSc87rvbRqeQUyh5z3GOwXmrUWfJxAkTIpuhBZSCFRmtPIX8IdGkAAyD2dsEEfb6
+         plXV7ymrXt9GgsJ9APE4AGpw6yFNqWhQXbhSSO3QYOt2YlcaSzX27ldlxzKYi2tmwdcv
+         CtmQ==
+X-Forwarded-Encrypted: i=1; AKwUvByUsqu+92yvYYqSKNWVgDVeW5U5AO92dNpE+r+5LaUErxqst4pwflk5l+TiM6BraY/MdMOKq4FK+fia@vger.kernel.org
+X-Gm-Message-State: AFq9FYJPVs1vdBe/Vm+Bkzw5jtM8nQglBIucDGODbNgL6eLf6MzksOGh
+	0L6XmwJA5QuxKXIkp0k6+PPdBDZ/wCNziWugP6EatLN+gsnZ0RrmBuZZkJkZ4jqpDbxU9x6hbrw
+	RpJ8j1QLvI1X/bcn+MKemxBEAOGUC7FW/tor8JmfL/M7RFtG3zprJ8QJyBHeswEuC
+X-Gm-Gg: AYBFou1axg0/TjJ+Gkg7cdKamg/BQMjdEYj6DPLPcR8GDZWBUAEJ7SRqK5mahnmhLNi
+	GWlPTHQTdpYtSzHZYzt6p9kAa801RstND7i73NCY1i/wbK7KugbGcohsBc8wauhK1b3fEsn8M05
+	g8OyERsrhksLClLjRrpptPZ+EGSZYUE1P9X3xQtK0cxrjEvvydcIm0mQEUEDGNjIIele3ihMUgC
+	PFoXmfR/WMgbm2MJqX0WY+HldpHe8UQ+iSebTYA0xh7Hl2VZhu5sFVRUfORn8pyABUKFAAvKpr+
+	eDJbCQuP034+WygbjWlPurdWfIUX092UU5+qPN5ulH4tPlgU35u/iGvc+lfSV60JRSIRjKDrIOm
+	XQc222c2ce5gDId9HMYKInA==
+X-Received: by 2002:a05:620a:3186:b0:939:8bc:8826 with SMTP id af79cd13be357-93ebd10c0e2mr2434231685a.2.1791895751587;
+        Tue, 13 Oct 2026 05:49:11 -0700 (PDT)
+X-Received: by 2002:a05:620a:3186:b0:939:8bc:8826 with SMTP id af79cd13be357-93ebd10c0e2mr2434219585a.2.1791895749845;
+        Tue, 13 Oct 2026 05:49:09 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c34722912a8sm272313266b.34.2026.10.13.05.49.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 05:49:08 -0700 (PDT)
+Message-ID: <f34b2632-840c-4761-bc35-deed96b9405f@oss.qualcomm.com>
+Date: Tue, 13 Oct 2026 14:49:07 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] arm64: dts: qcom: kaanapali: Add CoreSight nodes for
+ APSS debug block
+To: Jie Gan <jie.gan@oss.qualcomm.com>,
+        Bjorn Andersson
+ <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260922-add-etm-devices-for-multiple-qcom-platforms-v1-0-c2a8c3225a2e@oss.qualcomm.com>
+ <20260922-add-etm-devices-for-multiple-qcom-platforms-v1-3-c2a8c3225a2e@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260922-add-etm-devices-for-multiple-qcom-platforms-v1-3-c2a8c3225a2e@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA1MCBTYWx0ZWRfX4qYjOFxkODem
+ n8OrwP9xkIxOrHOhs9c0dH2y1JPv0/AgYHZjFFOnkVjHH/fVNulo9wLUriln8FbnNjGYjVEv5Ax
+ Cm6e9fXUuLmdIrrdT3yANzVp/VulDWrfPdKGnfJ2h9krJICgsp3gBi2y4XxaXGTfvZhOZPouQLu
+ RCdkoAxYkAXTEZz4LJttalcxOlMzBdTBL8hhE9VoyKKpBC9RdK5SGtvD/dxX70R4rSzjv8vWiKa
+ Atk6tgyZ83UaIR4qlZ5WNH3ZHF6nPWsXFC/uwLoUUSShGo5FssCnW08hgAAzCjzhvQ1E8lujEej
+ hHHoun4OQZaDbHyCsC3mMrznuSbyfx5xCsS9qdQBhIjJrNVRZiuAoJE/M7Oizfo5XFG7XaBE0/U
+ am+6TwRmuUbo5NiAM05jnGFWVrFk3dw56edH8MPg8d/Amn4e836qymhLJgOWN2ApuC+oxA5yDw8
+ 6Ycz4kpgfa1fXaJG3PQ==
+X-Authority-Analysis: v=2.4 cv=JN+uIMKb c=1 sm=1 tr=0 ts=6ace28c9 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=uzhSaxHqr0uYvXhH--oA:9 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA1MCBTYWx0ZWRfXw2DHbN8ilqJj
+ pT6tbKJIZEeMIbxVB37Km5ZIQu+fCyOV+0L7xoC8DNShsxj5/kQqAoA1yhNy9ctf9/0zpYgIX3k
+ qQlLGBPE5QKH6YUaHYOYb9Z2fSBfeig=
+X-Proofpoint-ORIG-GUID: kL218Ajuekte83KD4i47kTJ9SFaHnpQw
+X-Proofpoint-GUID: kL218Ajuekte83KD4i47kTJ9SFaHnpQw
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 priorityscore=1501 adultscore=0 suspectscore=0
+ phishscore=0 impostorscore=0 lowpriorityscore=0 clxscore=1015 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130050
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] greybus: safe Connection methods allow UAF of parent devices
-- [High] greybus: rust: UAF of driver data due to eager drop in Registratio=
-n::drop
-- [Low] rust: missing #[inline] on trivial abstraction functions
-- [Low] rust: missing // INVARIANT comment and size validation in GbOperati=
-onMsgHdr
---
+On 9/22/26 12:35 PM, Jie Gan wrote:
+> The APSS debug block is built with CoreSight devices like ETE,
+> replicator, funnel and TMC ETF. Add dt nodes for these devices to enable
+> ETM trace.
+> 
+> The replicator, funnel and TMC ETF nodes in this block are physically
+> powered by the CPU cluster power rail rather than by a dedicated always-on
+> rail. Add a power-domains property referencing the cluster_pd domain to
+> each of these nodes, so their power state is tied to the CPU cluster
+> domain and the runtime PM core can power the domain on before the
+> devices are accessed and let it be powered off otherwise.
+> 
+> Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/kaanapali.dtsi | 567 ++++++++++++++++++++++++++++++++
+>  1 file changed, 567 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+> index 131fd2a16c54..d9313de53ee5 100644
+> --- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+> @@ -218,6 +218,110 @@ domain_ss3: domain-sleep-0 {
+>  		};
+>  	};
+>  
+> +	ete-0 {
+> +		compatible = "arm,embedded-trace-extension";
 
-commit 75320c1f601296bad85db7371e32bc7e97df53b7
-Author: Ayush Singh <ayush@beagleboard.org>
+No power-domains for these too?
 
-rust: kernel: Add greybus abstractions
+[...]
 
-This commit adds Rust abstractions for the Greybus core to support implemen=
-ting
-Greybus host drivers in Rust. The abstractions cover the APIs used by gb-so=
-ftsvc
-and gb-uart-node drivers, including host device registration, connection ma=
-nagement,
-and SVC protocol structures. It also introduces lifetime and ownership rule=
-s for
-Greybus messages and callbacks within the Rust bindings.
-
-> diff --git a/rust/kernel/greybus/hd.rs b/rust/kernel/greybus/hd.rs
-> --- /dev/null
-> +++ b/rust/kernel/greybus/hd.rs
-
-[ ... ]
-
-> +    unsafe extern "C" fn message_send(
-> +        hd: *mut bindings::gb_host_device,
-> +        dest_cport_id: u16,
-> +        msg: *mut bindings::gb_message,
-> +        gfp_mask: bindings::gfp_t,
-> +    ) -> c_int {
-> +        // SAFETY: gb_host_device and HostDevice have the same layout.
-> +        let hd =3D unsafe { Device::<device::CoreInternal<'_>>::from_raw=
-(hd) };
-> +        // SAFETY: message_send is only ever called after a successful c=
-all to
-> +        // gb_hd_add, hence it's guaranteed that Device::set_drvdata() h=
-as been called
-> +        // and stored a Pin<KBox<T>>.
-> +        let data =3D unsafe { hd.as_ref().drvdata_borrow() };
-> +        // SAFETY: The caller guarantees msg is valid for the duration o=
-f this call.
-> +        let msg =3D unsafe { Message::from_raw(msg) };
+> +		tmc@1d029000 {
+> +			compatible = "arm,coresight-tmc", "arm,primecell";
+> +			reg = <0x0 0x1d029000 0x0 0x1000>;
 > +
-> +        match T::message_send(&data, dest_cport_id, msg, Flags::new(gfp_=
-mask)) {
+> +			clocks = <&aoss_qmp>;
+> +			clock-names = "apb_pclk";
+> +			power-domains = <&cluster_pd>;
 
-[Severity: High]
-Does this code allow a use-after-free of the driver data?
+Is there only being a single cluster_pd a mistake on kaanapali?
 
-Thread A could initiate a request through gb_operation_request_send(), which
-calls this message_send wrapper without taking locks that serialize against
-deletion. This wrapper borrows the driver data T via drvdata_borrow() and
-invokes T::message_send().
+The CPUs have a different Aff1 value in the MPIDR register, so one
+would think there's 2 (also according to the cpu-map)
 
-If the hardware receives the request and replies immediately, the response =
-can
-be processed by gb_operation_work() in a workqueue, dropping the operation's
-active count to 0. Meanwhile, if Thread B executes Registration::drop and
-calls gb_hd_del(), it cancels operations. Since the active count is 0,
-wait_event(!gb_operation_is_active(operation)) returns immediately without
-waiting for message_send to return.
-
-When gb_hd_del() finishes, Registration::drop eagerly extracts and drops
-the driver data. If Thread A was preempted inside T::message_send or before
-returning to C, it could resume execution and access the freed driver data.
-
-[ ... ]
-
-> +    /// Looks up the connection bound to cport on interface id.
-> +    pub fn find_connection_by_intf(&self, id: u8, cport: u16) -> Option<=
-ARef<Connection>> {
-
-[Severity: Low]
-This isn't a bug, but should this trivial abstraction function have an
-#[inline] attribute? The Rust subsystem guidelines recommend #[inline] for
-functions forwarding to a C binding call.
-
-> +        // SAFETY: By the type invariant of Self, self.as_raw() is a poi=
-nter to a valid
-> +        // struct gb_host_device.
-> +        let ptr =3D NonNull::new(unsafe {
-> +            bindings::gb_connection_hd_find_by_intf(self.as_raw(), id, c=
-port)
-> +        })?;
-> +
-> +        // SAFETY: ptr is a valid gb_connection
-> +        Some(unsafe { ARef::from_raw(ptr.cast()) })
-> +    }
-> +}
-
-[ ... ]
-
-> +impl<T> Registration<T> {
-> +    fn as_raw(&self) -> *mut bindings::gb_host_device {
-
-[Severity: Low]
-This isn't a bug, but this small wrapper function is missing the #[inline]
-attribute, which the Rust subsystem guidelines recommend for trivial getters
-in abstractions.
-
-> +        self.ptr.as_ptr()
-> +    }
-> +}
-
-[ ... ]
-
-> +impl<T> Drop for Registration<T> {
-> +    fn drop<'a>(&'a mut self) {
-> +        // SAFETY: By the type invariant of Self, self.as_raw() is a poi=
-nter to a valid
-> +        // struct gb_host_device.
-> +        unsafe { bindings::gb_hd_del(self.as_raw()) }
-> +
-> +        {
-> +            // SAFETY: hd is a valid pointer to gb_host_device.
-> +            let hd_dev =3D unsafe { Device::<device::CoreInternal<'_>>::=
-from_raw(self.as_raw()) };
-> +            // SAFETY: The driver data was set to a T in Registration::n=
-ew() and has not been
-> +            // taken since, and this is the only place that takes it.
-> +            drop(unsafe { hd_dev.as_ref().drvdata_obtain::<T>() });
-
-[Severity: High]
-Can the eager drop of driver data here lead to a use-after-free if
-message_send is still executing concurrently?
-
-Since gb_hd_del() may return without waiting for message_send if the
-operation's active count drops to 0 (e.g., from an immediate hardware respo=
-nse),
-we might drop the driver data while Thread A is still executing the wrapper
-or driver code referencing it.
-
-> +        }
-> +
-> +        // SAFETY: By the type invariant of Self, self.as_raw() is a poi=
-nter to a valid
-> +        // struct gb_host_device.
-> +        unsafe { bindings::gb_hd_put(self.as_raw()) };
-> +    }
-> +}
-
-> diff --git a/rust/kernel/greybus/mod.rs b/rust/kernel/greybus/mod.rs
-> --- /dev/null
-> +++ b/rust/kernel/greybus/mod.rs
-
-[ ... ]
-
-> +    /// Returns the payload, i.e. the message without its operation head=
-er.
-> +    pub const fn payload_bytes(&self) -> &[u8] {
-
-[Severity: Low]
-This isn't a bug, but should this small abstraction getter have an #[inline]
-attribute? The Rust subsystem guidelines recommend it for trivial abstracti=
-ons.
-
-> +        // SAFETY: By the type invariant the message is valid.
-> +        let payload =3D unsafe { (*self.0.get()).payload };
-
-[ ... ]
-
-> +    /// Returns the interface at the far end of the connection.  In case=
-s like SVC connection,
-> +    /// interface can be NULL.
-> +    #[inline]
-> +    pub const fn interface(&self) -> Option<&Interface> {
-> +        // SAFETY: By the type invariant the connection is valid.
-> +        let intf_ptr =3D unsafe { (*self.0.get()).intf };
-> +
-> +        if intf_ptr.is_null() {
-> +            None
-> +        } else {
-> +            // SAFETY: By the previous check,  intf_ptr is valid.
-> +            Some(unsafe { Interface::from_raw(intf_ptr) })
-
-[Severity: High]
-Does this code allow for a use-after-free of the parent interface?
-
-Device::find_connection_by_intf returns an ARef<Connection>, which safely
-increments the gb_connection kref. This allows the Rust driver to hold the
-connection alive indefinitely.
-
-In C, gb_connection_create() assigns raw pointers to its parent gb_interface
-and gb_host_device but does not take a reference count on them.
-
-During hardware removal, the Greybus core can destroy the interface and host
-device when their own refcounts drop to zero. The gb_connection remains ali=
-ve
-due to the outstanding Rust ARef, but its intf and hd pointers become
-dangling.
-
-Calling interface() on the retained Connection unsafely derives a safe Rust
-reference &Interface from a dangling pointer.
-
-> +        }
-> +    }
-> +
-> +    /// Returns the CPort id this connection uses on the interface.
-> +    #[inline]
-> +    pub const fn intf_cport_id(&self) -> u16 {
-> +        // SAFETY: By the type invariant the connection is valid.
-> +        unsafe { (*self.0.get()).intf_cport_id }
-> +    }
-> +
-> +    /// Returns the CPort id this connection uses on the host device.
-> +    #[inline]
-> +    pub const fn hd_cport_id(&self) -> u16 {
-> +        // SAFETY: By the type invariant the connection is valid.
-> +        unsafe { (*self.0.get()).hd_cport_id }
-> +    }
-> +
-> +    /// Returns the host device this connection belongs to.
-> +    #[inline]
-> +    pub const fn host_device(&self) -> &hd::Device {
-> +        // SAFETY: By the type invariant the connection is valid, and it=
-s hd is alive for as
-> +        // long as the connection is.
-> +        unsafe { hd::Device::from_raw((*self.0.get()).hd) }
-
-[Severity: High]
-Does this code allow for a use-after-free of the host device?
-
-Similar to interface(), the hd pointer in gb_connection is not kept alive
-by the connection's own reference count. If the parent device goes away, th=
-is
-can safely return a reference to a dangling pointer if the connection is st=
-ill
-held via ARef<Connection>.
-
-> +    }
-> +}
-
-> diff --git a/rust/kernel/greybus/protocols.rs b/rust/kernel/greybus/proto=
-cols.rs
-> --- /dev/null
-> +++ b/rust/kernel/greybus/protocols.rs
-
-[ ... ]
-
-> +/// The header every Greybus message starts with.
-> +///
-> +/// # Invariants
-> +///
-> +/// The size field covers the header and the payload that follows it.
-> +#[repr(transparent)]
-> +pub struct GbOperationMsgHdr(bindings::gb_operation_msg_hdr);
-> +
-> +// SAFETY: gb_operation_msg_hdr is a POD type with no padding and no int=
-erior mutability.
-> +unsafe impl kernel::transmute::AsBytes for GbOperationMsgHdr {}
-> +
-> +impl GbOperationMsgHdr {
-> +    /// Builds a header. size is the whole message, this header included.
-> +    #[inline]
-> +    pub const fn new(size: u16, operation_id: u16, type_: u8, result: u8=
-) -> Self {
-> +        Self(bindings::gb_operation_msg_hdr {
-> +            size: size.to_le(),
-
-[Severity: Low]
-Does this constructor violate the documented invariant for this struct?
-
-The struct defines an # Invariants section documenting that the size field
-covers the header and the payload that follows it. However, the constructor
-accepts any size: u16 without validation (e.g., ensuring it is at least the
-minimum header size), allowing safe code to construct a header that structu=
-rally
-violates its own invariant.
-
-Also, the Rust subsystem guidelines mandate that constructing a struct with=
- an
-# Invariants section must be accompanied by an // INVARIANT: comment
-explaining how the invariant is upheld, which appears to be missing here.
-
-> +            operation_id: operation_id.to_le(),
-> +            type_,
-> +            result,
-> +            pad: [0u8; 2],
-> +        })
-> +    }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013-gb-uart-tr=
-ansport-v3-0-81d0a8a1acf7@beagleboard.org?part=3D4
+Konrad
