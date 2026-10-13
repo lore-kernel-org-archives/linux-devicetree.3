@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C52A4492E52;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFBE4493D49;
 	Tue, 13 Oct 2026 06:06:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791871564; cv=none; b=H6refnvPJ505whbJsL9U3PJb4qIn8BZSS2nFVOpiLJhuxcDgyIckRhBeqhSkTBydiyozkRQZOMNLA3RlYPfXkDCaR3MfDbtvyKQrv5zzEvyQ7iOUKennFfK7a5u3gVtbOXP8DkHNw7DMEEpF7BksrKxMDduqc4E+xEUDKcgH3LY=
+	t=1791871565; cv=none; b=S9Wc7vREV1Ttu6nGLN9i1CnF76jQ9kdv6bK+4P1K+mYigwHkD/aVLL/IBqIAPhiy80KJDc5+Kp+aC8hxkubdi7MpfkL4puQLc1SJDIccrphSW6vz5lLE73cDTVUEe1lIVecFUVVk7c1V6QSoD1CXl/PITDYMSJlx8Q6qMKrqopg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791871564; c=relaxed/simple;
-	bh=ncEev3AGZKvWWkasRL1X0+uWOAP6NQ4Xwr+gcNBRlgg=;
+	s=arc-20240116; t=1791871565; c=relaxed/simple;
+	bh=GCubckKkvtS/EOiOIxWc0YpDQoyEYzgiiDMrguNF01I=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=DrPhu9H7bVG0dkTl5OlV8XzS4QfwMGxUsQa7SD+pjg4L8UuTy/49Gq0O9xAQJUBDYIJkjoOKwg5Pe2CzqWKXWAVe1xnEawHCappAXfnNiI8B98d1DH+rU4k8eO+Fz4Ktxzi2S2zjkxNuV44R4DwaGgaaKccbiuJ0QmogJZNkdL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WCHAsdOQ; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=M3QcAHiwxZFGcZ92ijpptsndL2dBKIiUdOjUtcxkcxAi11Pot1CnlSyJRT9XZmFW7gI0sTizQa9itj/oTFZjbBg72CZ5n9tsCjwuwYPRqlhQeD5RRImrYZT3oFoariV3g8oYioQvNBq+bXMryjYfA5V0+nOhmGWNtOpTFzFjqOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g3SqOs6N; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WCHAsdOQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9DC8BC2BD00;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g3SqOs6N"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B5CEFC2BD05;
 	Tue, 13 Oct 2026 06:06:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1791871564;
-	bh=ncEev3AGZKvWWkasRL1X0+uWOAP6NQ4Xwr+gcNBRlgg=;
+	bh=GCubckKkvtS/EOiOIxWc0YpDQoyEYzgiiDMrguNF01I=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=WCHAsdOQkZ39XAcNUrYZxcUHfjuubCHFNMymR2FNNbQJ2kL6M+e2A6UVbQeSRlo1b
-	 6DlidYyuZfwFV4MWxm39bwBVDlXkXex4uYSjo2Btmots8uT5le3VZj2f6tQhmDR8Fo
-	 GgtnQHXuZHwSdequX5nao32nJULHxn7X2vuhXj3NRbc07N4/a/XAtvHjQ3UC995Y5d
-	 NvJ7pQ9obs6r/tsdqhEen2yfsHbUz5wdjGpBQUGNMn9iGPapr5RAsUnJoRNo7E8/HZ
-	 lyfX8zhS22b9fvvBl7ud4zEY+g2zu2R3m/B/apfNuTwFoor8DY5HE2wbYXw+MSHMtJ
-	 d16I+Y2cekltw==
+	b=g3SqOs6NLzQD48/dhjDm/OyNn+i/4ddae7nPTq4svH7IyWCDG96EcNpcsGvlWoryT
+	 DznOaDgn2tRq3Rf1va11pe9rw06OpdVo6m5o1SMDitSIFG2Eh6hUovfSkubguiI9N5
+	 fMr48fZnKB1x4MA0ewEOUJE/vvqQbtIrK5+APN2Gvzha92dkJC0zBqD28vsqCXiot6
+	 RIYAE3z1DXvR+bWo/pxukQ/BOxO2k6mMlHOkHLAQAzwOxLKaBbVW9Y0bKPoJ2C89Gl
+	 AtdSm982HE54aeodxiU450hbPxPcr8MFXBTpaFWZqV+R7Zg2qUpTDqlme7wprrg3bB
+	 +w1nRZsCWHENg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8BBF9CC6B09;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A1E4ECC6B03;
 	Tue, 13 Oct 2026 06:06:04 +0000 (UTC)
 From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Date: Tue, 13 Oct 2026 09:06:10 +0300
-Subject: [PATCH v6 09/10] ARM: multi_v7_defconfig: Enable Cortina Systems
- CS75xx support
+Date: Tue, 13 Oct 2026 09:06:11 +0300
+Subject: [PATCH v6 10/10] MAINTAINERS: Add entry for Cortina Systems CS75xx
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +40,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-b4-cs75xx-v6-9-37e8f3969b7c@gmail.com>
+Message-Id: <20261013-b4-cs75xx-v6-10-37e8f3969b7c@gmail.com>
 References: <20261013-b4-cs75xx-v6-0-37e8f3969b7c@gmail.com>
 In-Reply-To: <20261013-b4-cs75xx-v6-0-37e8f3969b7c@gmail.com>
 To: Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linusw@kernel.org>, 
@@ -58,11 +57,11 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Jason Li <jason.li@cortina-access.com>, 
  Fil Dunsky <filipp.dunsky@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791871561; l=1073;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791871561; l=1124;
  i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=6lUn6eCTFyPOKvxFHES2Y+JrDHysCcc0CgLi4Om4C1M=;
- b=kVxdDf62zda7RwL6bbCoV3ymK7Q2Nfnk6YLNCTNAWhecwHYrxOt7vUErNLbo4b3znWGGoVxe6
- jMgUwDhdf72CFoixOuU2n1d5pyFRc69dpGfzdbhbaPgbf6yteugkdx/
+ bh=NwAetqwg8dZTsEYKE0lK90ntL9PQOHqCts3OMdvEgqE=;
+ b=xo1XP3gkLC0HMoVbk0evrUE44urUoG5F0+NhAqZiIU9oWTAlaj4RtvuCI/Ysn+QNQZJe4Y9MC
+ SS9P1Z2rrCFBQy/QE4nGUgGPPmCek+dcBfzMwbFigui1ogV/PpBxpG5
 X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
  pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
 X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
@@ -72,36 +71,37 @@ Reply-To: filipp.dunsky@gmail.com
 
 From: Fil Dunsky <filipp.dunsky@gmail.com>
 
-Enable the Cortina Systems CS75xx platform and its UART driver with
-console support, as used on the Securifi Almond+ router.
+Add an entry covering the Cortina Systems CS75xx platform code, device
+trees, bindings and UART driver.
 
 Reviewed-by: Linus Walleij <linusw@kernel.org>
 Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 ---
- arch/arm/configs/multi_v7_defconfig | 3 +++
- 1 file changed, 3 insertions(+)
+ MAINTAINERS | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/arch/arm/configs/multi_v7_defconfig b/arch/arm/configs/multi_v7_defconfig
-index 069d5a49f..23f144359 100644
---- a/arch/arm/configs/multi_v7_defconfig
-+++ b/arch/arm/configs/multi_v7_defconfig
-@@ -45,6 +45,7 @@ CONFIG_MACH_BERLIN_BG2CD=y
- CONFIG_MACH_BERLIN_BG2Q=y
- CONFIG_ARCH_DIGICOLOR=y
- CONFIG_ARCH_EXYNOS=y
-+CONFIG_ARCH_CORTINA_ACCESS=y
- CONFIG_ARCH_HIGHBANK=y
- CONFIG_ARCH_HISI=y
- CONFIG_ARCH_HI3xxx=y
-@@ -396,6 +397,8 @@ CONFIG_SERIAL_FSL_LPUART=y
- CONFIG_SERIAL_FSL_LPUART_CONSOLE=y
- CONFIG_SERIAL_CONEXANT_DIGICOLOR=y
- CONFIG_SERIAL_CONEXANT_DIGICOLOR_CONSOLE=y
-+CONFIG_SERIAL_CORTINA=y
-+CONFIG_SERIAL_CORTINA_CONSOLE=y
- CONFIG_SERIAL_ST_ASC=y
- CONFIG_SERIAL_ST_ASC_CONSOLE=y
- CONFIG_SERIAL_STM32=y
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 2d137a339..176046436 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -2914,6 +2914,17 @@ F:	tools/perf/tests/shell/coresight/*
+ F:	tools/perf/util/cs-etm-decoder/*
+ F:	tools/perf/util/cs-etm.*
+ 
++ARM/CORTINA SYSTEMS CS75XX ARM ARCHITECTURE
++M:	Fil Dunsky <filipp.dunsky@gmail.com>
++L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
++S:	Maintained
++F:	Documentation/devicetree/bindings/arm/cortina.yaml
++F:	Documentation/devicetree/bindings/serial/cortina,cs7542-uart.yaml
++F:	arch/arm/boot/dts/cortina/
++F:	arch/arm/include/debug/cs75xx.S
++F:	arch/arm/mach-goldengate/
++F:	drivers/tty/serial/cortina-uart.c
++
+ ARM/CORTINA SYSTEMS GEMINI ARM ARCHITECTURE
+ M:	Hans Ulli Kroll <ulli.kroll@googlemail.com>
+ M:	Linus Walleij <linusw@kernel.org>
 
 -- 
 2.53.0
