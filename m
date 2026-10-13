@@ -1,163 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B01E3F3297;
-	Tue, 13 Oct 2026 17:43:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 694A9519928;
+	Tue, 13 Oct 2026 17:46:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791913392; cv=none; b=h92twzCej8wVtABe9KqXDC1GHmr+UB5IoR9vUBPuZFHRTb14rAVUA52qb7uZTSwwQ04reYWVUrJafpeRfMpdG7LQW547yr76OM+M9HL3n065ysG0o2f7gJ7Ok1zVtP6/ZZMTvOw0hIAo4BEx53uBezzzwyLO/qcciMzTOlpnnPE=
+	t=1791913590; cv=none; b=osoVhuBVmXooF8ndzGEoprdL/p+9RzkqBbbYeCi1AX70cSvWn1E195xdHPNzp2m/BN7jUPU5vfobErc3KDaIH/Pcp0vH3LZctyDt+L3OJQuzvCi89CG0yn3n9Fg6WCgt9XkQRWG/SVzRfJS4M07wlycsXrj4hpZGllOywyBHapM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791913392; c=relaxed/simple;
-	bh=BfLysc7irxR+XDTczYre+fCkPr8C+IBZcwMYjkmeQtc=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=h/ihOc4VbHJ9jgaNA6Fuwrbb38IhSPCB1bbrYMxCNpY3xh7ZO99PmgYxF0xTFQHsAAposiX3FKz6RvVM7hwBDW/0KcesqXghbvls5FIllhGrQ+wzZ6uMYS/sF6mDzJknd4Wu0q2rQryIDJBnhoesHPP6B2XufSq8lAczTGb2rMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NfrvLbt+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791913590; c=relaxed/simple;
+	bh=vf5ncqnzFHEa2zJ+HjrFKRIj4lljiqdUitPFf/ueiKw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=YNUJbOk11eYt/X9qSkotqHVs2lEKEVG8OaY+E1x+JwrBlJREVUTbNVT7mHBVzrVenSSHUXQP6oQzViMMJKveRXi9G6xZ7FznqsOQpAuRqf/TfNl/kdq+4gINWmmDLdPuQXxOvkAu32hqewmjLkxbVfbp7UEgVtvqrMnwF3LEMvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NwvZ+S1z; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NfrvLbt+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54E1E1F00893;
-	Tue, 13 Oct 2026 17:43:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791913390;
-	bh=Clciui7Ad+2C/TJ///VSZeRTPX3odvcPRsa574mjyU4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NfrvLbt+WRBWlATlmsZyTNQE4XjAQjBUQ4Z5qn752zDqg4DLVR/LUgYixmSJWN5ke
-	 NEYie6d7xQIR3GpqcojH00VhcuyxJcHWP1au7dqacibM0oV9W8w06TqKaukp6ZUEL1
-	 rCnxkHVKTWkc+rP4qhQsZQqrmYRBPc+wWgF6Dtne37GErvhgeemXwaNDyaQuoXkUoF
-	 QSC8dFvjKd2A0E9r5GQJxKDp2dL9nyP5SkiKRu4LRzWjPyhvxBItBvPOF1bE+7SQW2
-	 rItRRSCcObgSuv5z53oDYOB/bEh0RLclHMIvFEuwQ/WWU3wxnDNihZfT7JtFd9zj9L
-	 m45URVdJtyHZw==
-Message-ID: <sashiko-outbox-170247@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 2/7] mfd: Add driver for ASUS Transformer embedded
- controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-input@vger.kernel.org, mfd@lists.linux.dev, linux-leds@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com, lee@kernel.org
-In-Reply-To: <20261013173504.451391-3-clamor95@gmail.com>
-References: <20261013173504.451391-1-clamor95@gmail.com>
- <20261013173504.451391-3-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Oct 2026 17:43:08 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NwvZ+S1z"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D9BF7C2BCF4;
+	Tue, 13 Oct 2026 17:46:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791913589;
+	bh=vf5ncqnzFHEa2zJ+HjrFKRIj4lljiqdUitPFf/ueiKw=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=NwvZ+S1zhrkAFjjsHPO3ANhKdXEBDnT61VBKD9yki4/a8QRFw6WoCDW9kC8fnsQwe
+	 tpHx73D5FsFpLRFoX//Pv4HEpzvUwaICwC7IbhZNXuBF7asOGfyDM9Tf095SVXXr7L
+	 R3Dg2cLhh6+XqGruZ2dNboo9JnPc8Fn4RO5FUeU/c7Sy/84+O+w98nm/xUGjoWk8Wo
+	 jS3WjWJXl6L1CfGDsS4yEvl5nKoc6NMtVLlRd/JHbYCiupBdxLwzMujvmpuFH/bWUa
+	 O+c/ZhLcs++eSXHQngQz3bvWH6yQDMNQdDJqQDsOOP1e6Pq/CbQsgbpcjsSweG0psQ
+	 l9JCH9HrqdT3g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B143CCC6B1A;
+	Tue, 13 Oct 2026 17:46:29 +0000 (UTC)
+From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
+Date: Wed, 14 Oct 2026 01:46:00 +0800
+Subject: [PATCH] dt-bindings: vendor-prefixes: add Ambarella
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261014-cv75-prefix-v1-1-fe95ed567880@ambarella.com>
+X-B4-Tracking: v=1; b=H4sIAFduzmoC/yWNzQ5AMBCEX0X2rEnb+H8VcaAW64B0ESJ9dy3Hb
+ zLzzQOMlpChih6weBLTunhQcQRmapcRBfWeQUudKakSYc48FZvFgS6RYNEpI9u81yX4xR9/trr
+ 5mY9uRrMHRWhMxPtq73DnnHsB9JFY7H4AAAA=
+X-Change-ID: 20261014-cv75-prefix-4e8b1c0a7d29
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Long Zhao <longzhao@ambarella.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Linus Walleij <linusw@kernel.org>, devicetree@vger.kernel.org, 
+ Long Zhao <zl020895@163.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791913588; l=1442;
+ i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
+ bh=/DBR6bJT9D7LQ4feEnzdAHUOtPgBVZpuVoWKIq8de8w=;
+ b=HBTRhm1gjTs0qja+wL9IWY5zHWPD46YwsAvZnu/RgayZpaETzqhNCbT/WnJiPVMaJ1ei6l9jB
+ fg7IHg6aixqDT7SzNh1RugYBMhIAO1DzAsf8+WUFzXRG3bz2EQtMb2J
+X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
+ pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
+X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
+ auth_id=903
+X-Original-From: Long Zhao <longzhao@ambarella.com>
+Reply-To: longzhao@ambarella.com
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] mfd: bespoke parent-child accessor and global shared header
-- [Medium] mfd: hard-coded cell IDs instead of PLATFORM_DEVID_AUTO
---
+From: Long Zhao <longzhao@ambarella.com>
 
-commit b490e5f8ad65fb577857c831f5de2998a3c0d3de
-Author: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
+Document the Ambarella, Inc. vendor prefix so Ambarella DT bindings
+can be applied without waiting for the SoC series.
 
-mfd: Add driver for ASUS Transformer embedded controller
+Signed-off-by: Long Zhao <longzhao@ambarella.com>
+---
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Linus Walleij <linusw@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: Long Zhao <longzhao@ambarella.com>
+Cc: Long Zhao <zl020895@163.com>
+Cc: linux-kernel@vger.kernel.org
+---
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Support Nuvoton NPCE795-based ECs as used in Asus Transformer TF201, TF300T,
-TF300TG, TF300TL and TF700T pad and dock, as well as TF101 dock and TF600T,
-P1801-T and TF701T pad. This is a glue driver handling detection and common
-operations for EC's functions.
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 85a27937832e..f48aa6dabbe9 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -112,6 +112,8 @@ patternProperties:
+     description: Amarula Solutions
+   "^amazon,.*":
+     description: Amazon.com, Inc.
++  "^ambarella,.*":
++    description: Ambarella, Inc.
+   "^amcc,.*":
+     description: Applied Micro Circuits Corporation (APM, formally AMCC)
+   "^amd,.*":
 
-> diff --git a/drivers/mfd/asus-transformer-ec.c b/drivers/mfd/asus-transfo=
-rmer-ec.c
-> new file mode 100644
-> index 0000000000000..37dcd1b77465d
-> --- /dev/null
-> +++ b/drivers/mfd/asus-transformer-ec.c
+---
+base-commit: 34cf6dafc47441dfb6b356a095b89c3585a93714
+change-id: 20261014-cv75-prefix-4e8b1c0a7d29
 
-[ ... ]
+Best regards,
+--  
+Long Zhao <longzhao@ambarella.com>
 
-> +int asus_dockram_access_ctl(struct i2c_client *client, u64 *out, u64 mas=
-k,
-> +			    u64 xor)
-> +{
-> +	struct dockram_ec_data *ddata =3D i2c_get_clientdata(client);
-> +	u8 *buf =3D ddata->ctl_buf;
-> +	u64 val;
-> +	int ret =3D 0;
 
-[Severity: Medium]
-Does this introduce a bespoke parent-child accessor?
-
-The MFD architecture guidelines strictly prohibit writing bespoke accessors=
- or
-helper functions in the parent driver to pass state to child devices, as th=
-is
-creates tight coupling. Instead, child drivers should retrieve parent data
-using standard APIs like dev_get_drvdata(pdev->dev.parent).
-
-[ ... ]
-
-> +static const struct mfd_cell asus_ec_tf101_dock_mfd_devices[] =3D {
-> +	MFD_CELL_BASIC("asus-transformer-ec-battery", NULL, NULL, 0, 1),
-> +	MFD_CELL_BASIC("asus-transformer-ec-charger", NULL, NULL, 0, 1),
-> +	MFD_CELL_BASIC("asus-transformer-ec-led", NULL, NULL, 0, 1),
-> +	MFD_CELL_NAME("asus-transformer-ec-kbc"),
-> +	MFD_CELL_NAME("asus-transformer-ec-keys"),
-> +};
-
-[Severity: Medium]
-Are these hard-coded cell IDs intended?
-
-The MFD guidelines require using PLATFORM_DEVID_AUTO for automatic cell
-indexing to avoid sysfs naming collisions and driver load failures. Here it
-appears a hard-coded ID of 1 is assigned for the battery, charger, and led
-subdevices.
-
-[ ... ]
-
-> +	/* Parent I2C controller uses DMA, ASUS EC and child devices do not */
-> +	client->dev.coherent_dma_mask =3D 0;
-> +	client->dev.dma_mask =3D &client->dev.coherent_dma_mask;
-> +
-> +	return devm_mfd_add_devices(dev, 0, cells, num_cells, NULL, 0, NULL);
-> +}
-
-[Severity: Medium]
-Could we pass PLATFORM_DEVID_AUTO instead of 0 for the base id here?
-
-Passing 0 bypasses auto-indexing and violates the MFD subsystem constraints
-for cell identification.
-
-> diff --git a/include/linux/mfd/asus-transformer-ec.h b/include/linux/mfd/=
-asus-transformer-ec.h
-> new file mode 100644
-> index 0000000000000..d09d3b70171ef
-> --- /dev/null
-> +++ b/include/linux/mfd/asus-transformer-ec.h
-
-[ ... ]
-
-> +/**
-> + * struct asusec_core - public part shared with all cells
-> + *
-> + * @model: firmware version running on the EC
-> + * @name: prefix associated with the EC
-> + * @dockram: pointer to Dockram's i2c_client
-> + * @notify_list: notify list used by cells
-> + * @keyboard_mask: mask of keyboard packets
-> + */
-> +struct asusec_core {
-> +	const char *model;
-> +	const char *name;
-> +	struct i2c_client *dockram;
-> +	struct blocking_notifier_head notify_list;
-> +	u8 keyboard_mask;
-> +};
-
-[Severity: Medium]
-Is this shared structure and header required in the global include director=
-y?
-
-This appears to violate the MFD API layering guidelines, which state that
-driver-specific header files should not be included in the global
-include/linux/mfd/ directory if they are only used by the parent and its
-immediate children. They should be kept local to drivers/mfd/ to avoid
-tight coupling.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013173504.4513=
-91-1-clamor95@gmail.com?part=3D2
