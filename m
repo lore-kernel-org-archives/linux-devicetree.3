@@ -1,81 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9739751992B
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 15:09:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00D03502D40
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 15:12:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791904169; cv=none; b=Vi6lQ706RNCy/Ezt40EFXI+vzfHmwpZBJ/VmLig0BtzY68tnD1CwKRwJDfldDms5cMlfNa9OoNPe10f4Tr3CgoPUpBIKyV5mDX4ZkRPIcPvkefLovS3Y99IeZSionfi8RlpxpnfhX9kJHNiY7HHtN3l0eXJnt2/SMrsUTs2FGEU=
+	t=1791904359; cv=none; b=Fhm1kkiWOfKVJ/DoW3u6uAN9VNGDmUUgHCmYgvSrGY6LOJr4fXuBIGdHDNmdoFUaD8j/QxrA/1Y0ozBdAe4BkXmV2l+PPbcR0zKs+HkEZYSIAJiay+XJcJcWJuhxy09DROBkzndV7Z0pzkCPavZZiN74PKft/Z3HgjZFqlS8qPY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791904169; c=relaxed/simple;
-	bh=JzJnXJjt5k2C2q3Rf1h7pvRovHT6SYws8/FAHg3gXmg=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IH/8a+s2dCDoCqoDoZDErFCGP5q8lbyLkztpZAVUgIz9sBqvbw45XCjDw22aLylG3IY+Bt/r8S3MvKQMxRRJAvijhJbbR+WJeCRJbbWNd0bPe0xp+adI+rMAvDVK8tA8aikAc8HXSt1QSQU3IMgb0gfUUtV0mqZao0LaH7aF+40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=myMw8iUM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791904359; c=relaxed/simple;
+	bh=qYeQNT3tjV04rlnvVwiGcycmzog7//CwXI+8H6Sk9I4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kuDEkrFt7O5FyUWbyU2va8YtTPG8guVaV+BwpZJFxMBgi73MTEVTbH1eWsfDSsq3Hd0LuCKD/BjdU9t3xsD8x4rxL90kGaTM4zEZyEN50bY5hNL8AhexlwjyFyL5OsX/k/1JbguuZaI2cpPVpECq7UTHf9yQdgluytTE3aMcUhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=M/NwNVQL; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="myMw8iUM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68B191F0089B
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 15:09:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791904168;
-	bh=JzJnXJjt5k2C2q3Rf1h7pvRovHT6SYws8/FAHg3gXmg=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=myMw8iUMj8ew/uSlXxWwXPm4SGmUAylivxBH3Gtr5ryhM1aXUudamajMyG1T0//yX
-	 wjfRLyWFmmxEwYVxFE4cyRZFLN7XXUuHq8TfDtwYWFMv0qIFKBPdWwgguJHYvcTPJJ
-	 Og48A37aKhX7l5Q0gHD2wZCLihKWyDu4C5qYcqjVwUfxliCuZzgMunHcSupxf1wfCq
-	 tbCn6aowlBmrVsXcttEQrEmdxJINOfhfjeeNOsIMu30QcV+naUhhyM7h5kBm49qCxD
-	 1hWBzRbDtObqnYMs0h7D6tNOnZykf+Kw11BAEj6WhqkwSmunmMYakW7L1LsaJbOIlG
-	 NTwaavOCFr1Kg==
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5bb7ae22913so1909080e87.3
-        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 08:09:28 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwqHiV5h4r46gycXe2neAZDqQjj0PE1Kfp78iNcMeVwRcmC/JASjn3oLLqUS0brvU5+S2R4HKAFYBZH@vger.kernel.org
-X-Gm-Message-State: AFq9FYIQBmlkYRz9ewZ2UeHRyWNg90iDEUsSyrjFgnPYN/HPtK+5XwFI
-	lk6svRUxYa/iuiE21C83osNZNRLdzUFLg+QHBgaJqdkJW4kyjPPEtapE98KAgFECxUHV+qPs0OZ
-	sSzVELNRht77ey2URBh2E5UuZX0r+b8fwMnVWmQfR9g==
-X-Received: by 2002:a05:6512:6c4:b0:5ba:3abe:425b with SMTP id
- 2adb3069b0e04-5bcde5aa70bmr4129065e87.40.1791904167039; Tue, 13 Oct 2026
- 08:09:27 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 13 Oct 2026 11:09:25 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 13 Oct 2026 11:09:25 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <73c4ceaf.9c2f.1a13599e8ca.Coremail.zl020895@163.com>
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="M/NwNVQL"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48de6a62a4cso289877f8f.2
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 08:12:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=lex.la; s=google; t=1791904356; x=1792509156; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qYeQNT3tjV04rlnvVwiGcycmzog7//CwXI+8H6Sk9I4=;
+        b=M/NwNVQLcoQ9APOs6MyeogDXjBfcOqF7ewHZPLeXJA0+t4fYOoSRW7AHiLDTBWQUB8
+         ewWPVjgviK9nF3bM/Isdp4HPeXqk+p9QcaQXt8f05BgClqrSmrEiymsDxlqa+WW+az1g
+         OHd36vw2RFKkFGtvFE2fMZxfC+PGmWYur/CKhenTwf1a5y/WzA/aijHOq2k6dHCvJwGt
+         Mlcpsbe0R2TrGtg1MghQQd6aZOMaSkPJBFlEu5Gwy9mU+2lMhMTDs/JR3p7yIox6+HOF
+         kWUdYk2LKNXUkjeGNjpiJnkef9lyMHAhXqmKlov/GNRennfSR4pqK2OybtkaAcs/EEkL
+         H/lw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791904356; x=1792509156;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qYeQNT3tjV04rlnvVwiGcycmzog7//CwXI+8H6Sk9I4=;
+        b=B3Ic53d5THZwkPsp0xIeEHRdfuSiHQY/nkPVZZNtUj9sXrOjnx8XY6iJliMXjbAQ+5
+         dpawZ8vn0zs+QnhHcECvvLq3AGzbO4qvJyyGr5FrQLtESYbVfCvViAIc8Nr6WKWK4muD
+         BEuCLXHHhsnwDqcZgd2ADpghd3GtfjpQyfxDISvy9J5MwrWFHUupaZI1nGyktnDyX8o4
+         sh4Prat5taOBLCQn5PjDHIuMCoyGF+Wj0iNMrHzGegYI13hXRNwtCCFC7wA3q4icJKim
+         7n7IIOJHhjHqkxORhUCu8DzE5eYOwzyLku5mSR3s9hg9DJM9WLKKe80K5FR7i7O4+McP
+         xQNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz1FT0csy1MRGR948nbLRoOc0N70AAdX4rt6P1hGfKPaHHGg7cJEgZoQRpgt4Aed6H7aQ06F1IDd3yF@vger.kernel.org
+X-Gm-Message-State: AFq9FYLd6fOUMjYUL8iaT2iesKNIPOZl/9tG0Qa3lH5fISNLllZacQ67
+	pnKOmKUVhbAx6NI+lSsTCpYxcLuRg8unxZWJZRwn7/vH3HEBVGqMCQmBO/UZ2dxXCKE=
+X-Gm-Gg: AYBFou1EjSEJoPrJZ/sl5uGReVziuoj+XkMd658FYzzgq1jc9QyNeRsHjPNx+EF14Dr
+	2tzbEg2jJ9kleQQlV0KtFpXtPZ4R2M6oSPJzIUuCWJ0K8r2dhgRtJFRXUlEZg8du57lAHUFX4dr
+	xXy/IMDB3jfWFnJhFyS7afw9yvidVG4D+zKNccQ8Axiq601jOsqiLnvHmLRS/y3EoSbKnOCOoHF
+	b2irajHdu4aWLWBMj1yXMQdSlrsW8QTsimGCyLZ72XVMNXuufhLrFhvemXbx9LowkLf9UmLE/Li
+	mIOmNdWFegLwKxCULBHE74GeHUUh2ZF8MUGbUg8+oVvHDcpdPWBF/S2XTmKOJjFcJsoAdPaP3CL
+	NjdSr6DxbG9GgmqdDArX1cbyqfGmsK8Tg6JU3ZKyXXLIQexBxdazGVeDnCP+1X5DWokcL2BgwrZ
+	sWzztxaii7jzENnXT8ohU7XHc+iSTQmzXsO4A9+dlJ83uo7GdQfw==
+X-Received: by 2002:a05:600c:3e8d:b0:4a1:7701:f863 with SMTP id 5b1f17b1804b1-4a18e4aeae4mr233814475e9.15.1791904355994;
+        Tue, 13 Oct 2026 08:12:35 -0700 (PDT)
+Received: from remote-01 ([84.17.55.226])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0967c03sm5740158f8f.6.2026.10.13.08.12.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 08:12:35 -0700 (PDT)
+From: Aleksei Sviridkin <f@lex.la>
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: Russell King <linux@armlinux.org.uk>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	netdev@vger.kernel.org,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Conor Dooley <conor@kernel.org>,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	"Chester A. Unal" <chester.a.unal@arinc9.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH net-next v6 0/3] net: phylink: wait for a PHY that probes after the MAC
+Date: Tue, 13 Oct 2026 18:12:33 +0300
+Message-ID: <20261013151233.2474217-1-f@lex.la>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <aa01ab1c-da2c-4638-816b-f535b635379b@redhat.com>
+References: <aa01ab1c-da2c-4638-816b-f535b635379b@redhat.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009-cv75-gpio-v1-0-5836bd438423@ambarella.com>
- <CAMRc=MezU71ByUoO-GMxSwsFsGZTUmQisYYrYEwtdbwyFiEqsw@mail.gmail.com> <73c4ceaf.9c2f.1a13599e8ca.Coremail.zl020895@163.com>
-Date: Tue, 13 Oct 2026 11:09:25 -0400
-X-Gmail-Original-Message-ID: <CAMRc=MeDEfaqciXt+u6a7riof=KObrWB2qJ96LjFEzoGwi=eSQ@mail.gmail.com>
-X-Gm-Features: AclHuK9_9YzpLfejzw7rn-1jwhqIoegOlkZSxzlWKn2bfBr_tjHwRd0W1yQHDBo
-Message-ID: <CAMRc=MeDEfaqciXt+u6a7riof=KObrWB2qJ96LjFEzoGwi=eSQ@mail.gmail.com>
-Subject: Re: Re:Re: [PATCH 0/7] gpio: add Ambarella CV75 PL061 support
-To: zl020895 <zl020895@163.com>
-Cc: longzhao@ambarella.com, 
-	Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Michael Walle <mwalle@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Conor Dooley <conor+dt@kernel.org>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Conor Dooley <conor.dooley@microchip.com>, Chanho Min <chanho.min@lge.com>, 
-	linux-gpio@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Tue, 13 Oct 2026 16:10:41 +0200, zl020895 <zl020895@163.com> said:
-> Hi Bart,
->
-> Yes. This is effectively a v10 of the GPIO patches from the combined CV75 series. I split them out and restarted the numbering at v1 because some maintainers preferred separate series, so I am trying that.
->
+On 10/13/26 09:53, Paolo Abeni wrote:
+> The above looks like a significant amount of complexity for OoT driver,
+> and I understand it could be solved with a different kconf?
 
-Please don't top post on mailing lists and wrap your messages around 80 lines.
+The PHY driver is in mainline, air_en8811h. Only the board's device
+tree lives in OpenWrt.
 
-May I ask which maintainer asked you to reset the numbering? This doesn't make
-any sense, this is a continuation of the other series and should be numbered as
-v10 and include the changelog.
+A config change can avoid it, but it is expensive here. Building
+air_en8811h in is not enough, since it loads its firmware with
+request_firmware_direct() from the root filesystem, which is not mounted
+yet when the switch probes. It also needs CONFIG_EXTRA_FIRMWARE with
+144 KB of blobs, in a kernel that OpenWrt shares between every board
+of the subtarget.
 
-Bart
+Is that the expected answer for a board like this one, or would you
+take a smaller change in phylink?
+
+Aleksei
