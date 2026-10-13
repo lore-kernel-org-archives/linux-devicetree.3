@@ -1,117 +1,189 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00D03502D40
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 15:12:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A08A151A155
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 15:15:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791904359; cv=none; b=Fhm1kkiWOfKVJ/DoW3u6uAN9VNGDmUUgHCmYgvSrGY6LOJr4fXuBIGdHDNmdoFUaD8j/QxrA/1Y0ozBdAe4BkXmV2l+PPbcR0zKs+HkEZYSIAJiay+XJcJcWJuhxy09DROBkzndV7Z0pzkCPavZZiN74PKft/Z3HgjZFqlS8qPY=
+	t=1791904540; cv=none; b=ImpNs4jBNVmaLhc/N4S0mhB6RehSS4yTL4A7lIyCFHMR2EQcpraKdjZNmL2hO+d4eenszKiyCY2IsTUVcnd6LdOpEZH0Z0vZnIZ3QhjvA4oTOwYlZH1LprogP4S5MBmXNqrSVgT2/K3CIjh5dEM6YA6Sh4gsn1LGc1psHXmYe2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791904359; c=relaxed/simple;
-	bh=qYeQNT3tjV04rlnvVwiGcycmzog7//CwXI+8H6Sk9I4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kuDEkrFt7O5FyUWbyU2va8YtTPG8guVaV+BwpZJFxMBgi73MTEVTbH1eWsfDSsq3Hd0LuCKD/BjdU9t3xsD8x4rxL90kGaTM4zEZyEN50bY5hNL8AhexlwjyFyL5OsX/k/1JbguuZaI2cpPVpECq7UTHf9yQdgluytTE3aMcUhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=M/NwNVQL; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
+	s=arc-20240116; t=1791904540; c=relaxed/simple;
+	bh=NapyJptIydBk5J98yC370DZ0xJWQKRaBbCy2B6XYHdA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qSO5NsrYKeBqUnfZSPdS6jfBJ5RFmBeWuHkY3kZdlV9TERSy42rB8XV1M+sC4QBIkNXC2nZNImBuoddI17cy/kuG8SoUK2ZJ2wNs/h1dNA5v7EzI/HWHakay+pKGvY/8bwIrm7ss3nKbeUrcJqsd6JwqAH/DM1K722uF645eVYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dBR1jNe2; arc=none smtp.client-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="M/NwNVQL"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48de6a62a4cso289877f8f.2
-        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 08:12:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dBR1jNe2"
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc4e9e56e9aso1052725a12.2
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 08:15:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1791904356; x=1792509156; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qYeQNT3tjV04rlnvVwiGcycmzog7//CwXI+8H6Sk9I4=;
-        b=M/NwNVQLcoQ9APOs6MyeogDXjBfcOqF7ewHZPLeXJA0+t4fYOoSRW7AHiLDTBWQUB8
-         ewWPVjgviK9nF3bM/Isdp4HPeXqk+p9QcaQXt8f05BgClqrSmrEiymsDxlqa+WW+az1g
-         OHd36vw2RFKkFGtvFE2fMZxfC+PGmWYur/CKhenTwf1a5y/WzA/aijHOq2k6dHCvJwGt
-         Mlcpsbe0R2TrGtg1MghQQd6aZOMaSkPJBFlEu5Gwy9mU+2lMhMTDs/JR3p7yIox6+HOF
-         kWUdYk2LKNXUkjeGNjpiJnkef9lyMHAhXqmKlov/GNRennfSR4pqK2OybtkaAcs/EEkL
-         H/lw==
+        d=gmail.com; s=20251104; t=1791904538; x=1792509338; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2rkGQo5r8xJBTb8dqMKiMW12xMK6T9au6oc+12YcxIA=;
+        b=dBR1jNe2zWAjzp5Bc6vkfwkBFJT/e/xEeahREKd0JJot7RWYmlid9VLytpa/O3jrwW
+         P5Ptck1EnD1e8U7lCGtukjez7EDLIMYgIVSGIfCbRg5zZe2bIeLv/0yrrfpgxzweip1s
+         R0otIA3SH4LNMPXlLyxZwpZ/F3T85Ssk0Z/3V6Yo3ESx6iTitPmD7zfxRduALS11tctY
+         jnNMq0SVZeOzUlal2D3yFrMeycUtMFX2h+/LR910q61QM97mZz5DeCK7fefFAI9fDhAJ
+         zXF2aP7VzDt1z1GZrVbQkZKDyFsublEff2OzotGs8KhTDvcYAoGJoPCQ1tXyIqCrmhb3
+         Ju3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791904356; x=1792509156;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qYeQNT3tjV04rlnvVwiGcycmzog7//CwXI+8H6Sk9I4=;
-        b=B3Ic53d5THZwkPsp0xIeEHRdfuSiHQY/nkPVZZNtUj9sXrOjnx8XY6iJliMXjbAQ+5
-         dpawZ8vn0zs+QnhHcECvvLq3AGzbO4qvJyyGr5FrQLtESYbVfCvViAIc8Nr6WKWK4muD
-         BEuCLXHHhsnwDqcZgd2ADpghd3GtfjpQyfxDISvy9J5MwrWFHUupaZI1nGyktnDyX8o4
-         sh4Prat5taOBLCQn5PjDHIuMCoyGF+Wj0iNMrHzGegYI13hXRNwtCCFC7wA3q4icJKim
-         7n7IIOJHhjHqkxORhUCu8DzE5eYOwzyLku5mSR3s9hg9DJM9WLKKe80K5FR7i7O4+McP
-         xQNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz1FT0csy1MRGR948nbLRoOc0N70AAdX4rt6P1hGfKPaHHGg7cJEgZoQRpgt4Aed6H7aQ06F1IDd3yF@vger.kernel.org
-X-Gm-Message-State: AFq9FYLd6fOUMjYUL8iaT2iesKNIPOZl/9tG0Qa3lH5fISNLllZacQ67
-	pnKOmKUVhbAx6NI+lSsTCpYxcLuRg8unxZWJZRwn7/vH3HEBVGqMCQmBO/UZ2dxXCKE=
-X-Gm-Gg: AYBFou1EjSEJoPrJZ/sl5uGReVziuoj+XkMd658FYzzgq1jc9QyNeRsHjPNx+EF14Dr
-	2tzbEg2jJ9kleQQlV0KtFpXtPZ4R2M6oSPJzIUuCWJ0K8r2dhgRtJFRXUlEZg8du57lAHUFX4dr
-	xXy/IMDB3jfWFnJhFyS7afw9yvidVG4D+zKNccQ8Axiq601jOsqiLnvHmLRS/y3EoSbKnOCOoHF
-	b2irajHdu4aWLWBMj1yXMQdSlrsW8QTsimGCyLZ72XVMNXuufhLrFhvemXbx9LowkLf9UmLE/Li
-	mIOmNdWFegLwKxCULBHE74GeHUUh2ZF8MUGbUg8+oVvHDcpdPWBF/S2XTmKOJjFcJsoAdPaP3CL
-	NjdSr6DxbG9GgmqdDArX1cbyqfGmsK8Tg6JU3ZKyXXLIQexBxdazGVeDnCP+1X5DWokcL2BgwrZ
-	sWzztxaii7jzENnXT8ohU7XHc+iSTQmzXsO4A9+dlJ83uo7GdQfw==
-X-Received: by 2002:a05:600c:3e8d:b0:4a1:7701:f863 with SMTP id 5b1f17b1804b1-4a18e4aeae4mr233814475e9.15.1791904355994;
-        Tue, 13 Oct 2026 08:12:35 -0700 (PDT)
-Received: from remote-01 ([84.17.55.226])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0967c03sm5740158f8f.6.2026.10.13.08.12.33
+        d=1e100.net; s=20260707; t=1791904538; x=1792509338;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2rkGQo5r8xJBTb8dqMKiMW12xMK6T9au6oc+12YcxIA=;
+        b=IH+6ktMEHigbSI4j/vtFvTW2F5nv14Xpze3RB4Xm17pN22dXFeVCOGaSvTzxbO0lb1
+         9u8aB/iBEeeJaFXHnky7Oxk2Rl24kf8QXLNi217Q3e3JjpM4U/m52W0+ZOprovtEXQva
+         Zq07j3cfmGpJk0WxzNVxlKOat6lN/tQ5kEkpG6rSiAiNgGWI8tFrvbjENsWFWz+VqxUZ
+         PCU9UScGcTlt8MB4T0uUNzjrEDpZqXgRtEA7EEwF7C1P8Wj2R/JMJs9AsDqs1tHPsZlg
+         Vvd8cOhTjmxQTCLcKsanOFdiPwcAQCnx+T/n+5K28/6KX9F/qRhuv9wUMlRL9m8h0tLZ
+         w6og==
+X-Forwarded-Encrypted: i=1; AKwUvBxI25FgM00O1lqjgFoqNX0j/sajREtzR8Oj1yRuZbSbh9CNXk8cX/MOFVdUQQ6nFEwkJOBFtDKfDEEd@vger.kernel.org
+X-Gm-Message-State: AFq9FYI/ifEl2MDqOczgJxNaerqFsdh7zgs+6FTFb5hNhg3h6ov0jAKe
+	URokoaWO5iCgBF2RVBUmrBud3V3N3LWJ4bdmc5uPZT23oaOyjckK1VqN
+X-Gm-Gg: AYBFou3HoxM3OP/OVDts2OATmJrxcoGHmI3otaQDs8XQSSEcNFnTZ/PHomq3KZ4Lmsg
+	fkdrG+HDfeAq0Dekj6Iay4cUtishq1co9nbYTrQ7WTJRVzH5UsVM2ENBSPRZKZ0JFYhzOm/j6zQ
+	auf+tsccB4HQ/X9cdNIOhqnlbz2ocvpVOwq18PONjHYU0uNvIUbkbGz0r1c7VIGoP55uBbPqAoV
+	izLV7EWj1bDArql1Eus2sJJ/iWbatVG9+TEJy3E4dw89MfJI1WorwptH6NpizAKOfIIuWxJ77sE
+	k1vdxwZLdJXRqzBk2RFA4u39G42jTsAj4X/ygZ2ewx+0SAPMpMR7IegUIjGqAUfJxN/Kijd2fFR
+	ps4TwY2ioZN03onEG+I409uBQ4Ww7wu+BQ+h3kZ9974WEw+t3el7e51T56DlEc2484/FfyJPygc
+	PhYT139qrTf0W0gL9crpCQ9TC8SuROiILrO2ir/xW9H8nu1Ag4mrQL+YUvFeJkx2wF/jcAeIOuF
+	A==
+X-Received: by 2002:a17:902:f54f:b0:2e6:1a1:ef63 with SMTP id d9443c01a7336-2e842cdb1e7mr112815415ad.44.1791904537778;
+        Tue, 13 Oct 2026 08:15:37 -0700 (PDT)
+Received: from localhost ([104.156.230.40])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422b8c4csm58698205ad.56.2026.10.13.08.15.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 08:12:35 -0700 (PDT)
-From: Aleksei Sviridkin <f@lex.la>
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: Russell King <linux@armlinux.org.uk>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	netdev@vger.kernel.org,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	Rob Herring <robh@kernel.org>,
+        Tue, 13 Oct 2026 08:15:37 -0700 (PDT)
+Date: Tue, 13 Oct 2026 23:15:21 +0800
+From: Chang Yu <marcus.yu.56@gmail.com>
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: Chang Yu <marcus.yu.56@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Conor Dooley <conor@kernel.org>,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	"Chester A. Unal" <chester.a.unal@arinc9.com>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH net-next v6 0/3] net: phylink: wait for a PHY that probes after the MAC
-Date: Tue, 13 Oct 2026 18:12:33 +0300
-Message-ID: <20261013151233.2474217-1-f@lex.la>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <aa01ab1c-da2c-4638-816b-f535b635379b@redhat.com>
-References: <aa01ab1c-da2c-4638-816b-f535b635379b@redhat.com>
+	Shi Hao <i.shihao.999@gmail.com>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 1/2] dt-bindings: iio: light: add as7343
+Message-ID: <as5LCasyTFjTNL0x@zephyrus-g14.localdomain>
+References: <20261013115639.167433-1-marcus.yu.56@gmail.com>
+ <20261013115639.167433-2-marcus.yu.56@gmail.com>
+ <20261013143639.000017b9@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013143639.000017b9@gmail.com>
 
-On 10/13/26 09:53, Paolo Abeni wrote:
-> The above looks like a significant amount of complexity for OoT driver,
-> and I understand it could be solved with a different kconf?
-
-The PHY driver is in mainline, air_en8811h. Only the board's device
-tree lives in OpenWrt.
-
-A config change can avoid it, but it is expensive here. Building
-air_en8811h in is not enough, since it loads its firmware with
-request_firmware_direct() from the root filesystem, which is not mounted
-yet when the switch probes. It also needs CONFIG_EXTRA_FIRMWARE with
-144 KB of blobs, in a kernel that OpenWrt shares between every board
-of the subtarget.
-
-Is that the expected answer for a board like this one, or would you
-take a smaller change in phylink?
-
-Aleksei
+On Tue, Oct 13, 2026 at 02:36:39PM +0200, Joshua Crofts wrote:
+> On Tue, 13 Oct 2026 19:56:38 +0800
+> Chang Yu <marcus.yu.56@gmail.com> wrote:
+> 
+> > Add binding for AMS AS7343 which is a 14-channel multi-spectral sensor
+> > with i2c address of 0x39.
+> > 
+> > The GPIO pin is not described because the datasheet does not document
+> > how to use it for hardware synchronization at all. The GPIO register
+> > also has no mode-select bit to isolate the pin from the chip's
+> > internal control logic. Exposing it as a generic GPIO could result
+> > in kernel writes being overwritten by internal logic.
+> > 
+> > Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
+> > Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
+> > ---
+> > Changes in v6:
+> >  - Add a ref to leds/common.yaml for the LDR pin.
+> > 
+> > Changes in v5:
+> >  - Remove the GPIO pin.
+> > 
+> > Changes in v4:
+> >  - Fix led-max-microamp property name.
+> > 
+> > Changes in v3:
+> >  - Add missing include for gpio.
+> >  - Expand GPIO descrption to include hardware synchronization.
+> >  - Use led-max-microamp instead of led-current-microamp for the LDR pin.
+> > 
+> > Changes in v2:
+> >  - Add the LDR, the interrupt pin, and the GPIO pin to the bindings.
+> >  - Fix node name and unit address mismatch.
+> >  - Include MAINTAINERS changes.
+> > 
+> >  .../bindings/iio/light/ams,as7343.yaml        | 66 +++++++++++++++++++
+> >  MAINTAINERS                                   |  6 ++
+> >  2 files changed, 72 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+> > 
+> > diff --git a/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+> > new file mode 100644
+> > index 000000000000..7fb10b0d4843
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+> > @@ -0,0 +1,66 @@
+> > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/iio/light/ams,as7343.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: AMS AS7343 14-Channel Multi-Spectral Sensor
+> > +
+> > +maintainers:
+> > +  - Chang Yu <marcus.yu.56@gmail.com>
+> > +
+> > +description: |
+> > +  The AMS AS7343 is a 14-channel multi-spectral sensor with i2c address of 0x39.
+> > +  https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
+> > +
+> > +properties:
+> > +  compatible:
+> > +    enum:
+> > +      - ams,as7343
+> > +
+> > +  reg:
+> > +    description:
+> > +      I2C address of the device (0x39).
+> > +    maxItems: 1
+> > +
+> > +  interrupts:
+> > +    description:
+> > +      Open drain output active low interrupt pin.
+> > +    maxItems: 1
+> > +
+> > +  vdd-supply: true
+> > +
+> > +  led-max-microamp:
+> > +    description:
+> > +      The driver current for the external LED connected to the LDR pin.
+> > +    minimum: 4000
+> > +    maximum: 258000
+> > +    multipleOf: 2000
+> > +    default: 12000
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - vdd-supply
+> > +
+> > +additionalProperties: false
+> 
+> Should be unevaluatedProperties as you're using $refs in the binding,
+> but Jonathan could tweak that when applying.
+> 
+There was a discussion about this back in v2 in which Conor was suggesting
+keeping additionalProperties: false if I recall. I don't know the exact
+pros vs cons so I'll defer to the experts here.
