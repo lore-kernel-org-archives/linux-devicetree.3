@@ -1,292 +1,1057 @@
-Received: from e234-55.smtp-out.ap-northeast-1.amazonses.com (e234-55.smtp-out.ap-northeast-1.amazonses.com [23.251.234.55])
-	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 351BA2E06EF;
-	Tue, 13 Oct 2026 03:28:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.251.234.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE2CB44D697
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 03:28:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791862123; cv=none; b=BKjOrFess+1wIPERsDMOCOubb9rGiomOlVlHo2nrs6MHg46qhYe6uDXY5uSOa2w9fRA1SimcYECP3T5vqyQYaPLFOS3F/AZ5upLnyKlDlLwAMD9mF+rXVa7KAVLqPAhbOM+/uMCuRkpXGxKqrenqb5at5U5MqeoOyQL/Ak8Z3JY=
+	t=1791862124; cv=none; b=dFM2qlnRWG/69sBqVGa1f/0DLDRKtgKyljAPjTJ4Prh48J7HKj61E5U2BHM1SJ8KD49Lof8llPltimkf/Q4Rp1xu4Q3uvUZCkVM9bVMlQmbyQEv+hnYQpj4MtUsyorU8/BkGDRqgg0IW9CvEfWM61SYsiSqCpm1gONwM7Z3+mOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791862123; c=relaxed/simple;
-	bh=EAHjtUyEutHNXTRtPLQflIbP6+jO6d10TiKaL5o6WkY=;
-	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Date:
-	 MIME-Version:Content-Type; b=c1FQ4yXMo79YaJwMuM/3co7aSZw6UmlWJlUR/UjH69P5z+fVPK6C8oL/3DwyomqrqY6sWKkeGUmPz5N7u+hM1JaBHBlgw59ESQIzGjlmqKjT6f9QsQpYvt/Sxkovy6yVHrTtxiJacSod5w2dMhZkMavaqPiqwh4tPeZocn2IxtE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz; spf=pass smtp.mailfrom=send.fqwqf.xyz; dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b=Ofvfocxx; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=gA9SvLdQ; arc=none smtp.client-ip=23.251.234.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.fqwqf.xyz
+	s=arc-20240116; t=1791862124; c=relaxed/simple;
+	bh=VHEiYz0oXa9SyJORql5ZK0BXZIv8kdaqSKP3TshY+DA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=vAlKWgU5KpCzg/9Po1ngt1Ygy0M/HoWmJ+ICfG1uNlAEMUY6M/pOkHkFjQ7kkzNfs+qsmbWApN7fH0hKkAiif//YOS7yu8C62YXx1JFIgzrY/9sKULGuc5DUWoUHoGvAS+8JOR/8rWv/Z8PRJMdGRKj3nwP182u0TQAFTcYA5RI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YgWKS589; arc=none smtp.client-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b="Ofvfocxx";
-	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="gA9SvLdQ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
-	d=fqwqf.xyz; t=1791862119;
-	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
-	bh=EAHjtUyEutHNXTRtPLQflIbP6+jO6d10TiKaL5o6WkY=;
-	b=OfvfocxxWrqOf1YxEC2/DQeiJYxDnnLk8GkKLLIy6rcMVjqJr+EfZOcSpMAigxI6
-	RFiRlGfMpnQ3UPYZx2xaBqL5BI8IyOswR+Fnu2aAYi760oDX+a8luGZz8/gfwr+E705
-	JGWeCcd/cQYUD06sXUTCYDy+I9ekyVMfzNr+N1+w=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1791862119;
-	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
-	bh=EAHjtUyEutHNXTRtPLQflIbP6+jO6d10TiKaL5o6WkY=;
-	b=gA9SvLdQdITeZgA67DTuTqIb2ZonsRklajZSXE8IJfMhKg20tdNfmQEWdun/aRPy
-	M0wwKpoiKrZGRWEJzncEN246i23OFaEJIAbObv7iOrWVJjpe61jOYLQOwLujUxigQcP
-	2U+hjXSe44s4Xu94KtsIuBE5dfthdW98n9HVcmy0=
-In-Reply-To:
- <010601a1334094a9-1f793e14-c414-4780-98ff-f5acdac353a2-000000@ap-northeast-1.amazonses.com>
-References:
- <010601a1334094a9-1f793e14-c414-4780-98ff-f5acdac353a2-000000@ap-northeast-1.amazonses.com>
-X-Mailer: git-send-email 2.53.0
-From: Jizhou Tong <fqwqf@fqwqf.xyz>
-To: Jingyuan Liang <jingyliang@chromium.org>
-Cc: jikos@kernel.org, bentiss@kernel.org, dmitry.torokhov@gmail.com, 
-	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	daleyo@gmail.com, broonie@kernel.org, u.kleine-koenig@baylibre.com, 
-	linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Subject: [RFC PATCH v2 3/6] HID: spi-hid: assemble bounded fragmented input
- reports
-Message-ID: <010601a1334e19cf-6aaf0037-c92d-4814-8d21-4fca36ed0a8d-000000@ap-northeast-1.amazonses.com>
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Oct 2026 03:28:38 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YgWKS589"
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3550c917fd3so3547183eec.0
+        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 20:28:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791862121; x=1792466921; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2WXRv4W5Vx9agdKexEdxeqeyJbl64oXj3bU7ZOGUNvg=;
+        b=YgWKS589SZwcilZgYn0slPskAgtL5CiwwkSa8D3dkVW6p1BPDuvLxcjCHFj2iQcKMH
+         Cc3voInH620/nkBQXl3/RcXPz8nmh0qmA58hmjVNZ5mijRTA3MeJBikhcHalwxyYazvh
+         /L9Vf7GcF/ykTQzGrG5TnlVHiE15LmF1kOss1BwmbIAhBV2HFzNZ06QIJiOG4iuxlwXl
+         biXz2+xvBnFm1OcaQVPOC6A/qn9z/zZBbJmAk2MI6BpgXjPnGHCvC4PvuJSjTsyRGwM3
+         8J7UWWcWs5VuR32byLkdT+Yzwjte5kTGtKSDQ5rNvJkDCtpp6+cVeiq0NsBWh1ECFyqc
+         FbTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791862121; x=1792466921;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2WXRv4W5Vx9agdKexEdxeqeyJbl64oXj3bU7ZOGUNvg=;
+        b=kKrblyLOlFC10sVPDjTz1k+zhyySSEQdUrwSKtittwTV2yboXzVjMAqZNwxHlszFtx
+         cgdto9y/k4w86z6NvbP/gTZS040iEu4VAKLLPPsn0GZnjRachh+dMahj+k9R0CXu2mGI
+         Q8l3XkmMrLASBZfHprcHt4Qwr49joKF/l3axIDOkMX0VaeQV4pZmfP0BAChoi5ssLVgu
+         zWayCbNLQAoe/ewtc9OviSgdvHlUrdvelvqRqN9OHnftG+j0yrwSPmkemJcp6cSRnqWt
+         7XcjHn0R4cdrv4bYVeSOtQa+3jUrfcmdze4d4X5GyrcQfb9JI6/BMDCAuWSoF7iGWYN6
+         TgEA==
+X-Forwarded-Encrypted: i=1; AKwUvBw+s+e0nVYapLRhUqJ4eKPpaKLKvc6s7D1OE/D5pf9ke5uvdcN+sYDpBbYBCMrfNULRcNTfjB7utN2U@vger.kernel.org
+X-Gm-Message-State: AFq9FYJWipYegv6h2KQ4ApLV7ULigwVyZ6ZPUcBoawAXpX6hSLf0Zd7Y
+	npqmU+CGzYIr0WP+JqVOFJS5x32uCICvxvkQ1W4Df0rB5/0qzyxNnXvg
+X-Gm-Gg: AYBFou1i2iiPTzpCPx95x2s+DxA7EmmKJBiqm88BviyKDLSzSmtvkhiAIvaDRDKVBCw
+	PeoFMDpXA2CmJck3BSHO3oEkNeFlKTBZo7ctA6ZSi20PNRT6NNMN/ieI65cM5jTqbupxwkARtro
+	5pzIULI1U6ptYbCsss7W3JGS5hibmTYDnBYbNTjavx6GOamHMskVTD+UXGJp3NFEPkJXkVmvR38
+	KF9d4wUnB5XD1mPbVTSy2ETzCQLbtTrsTPIeP+2gexEC8CMQQPxbQDNPJBflaf8rBNbffSmc9Gd
+	+U05b+jJ3u2w2aEdrmbv+a6aJoyS9aELtQuRbxvQEHWnsa8DqPgoWlrI6ctlBWJzyaowTNEdQc2
+	tJ+EQoto51UnMelACOYV36kQ8lO0muZduBw6nmBsCclzqhmUohD7Q3Ndx6UWTAiO42VyAcQsUK3
+	Vi17F+ZHTxhdKgYjyebS6fL2JhX62FOtXwUlfG2eA2z9+pun+cDUnTeaGlZHltTG3YqQpCAl7K5
+	4Vz+UxmjlcnTrx/pA2wgyLIrrX2i3GhUjT9TxVEe9f6kw==
+X-Received: by 2002:a05:7300:8803:b0:353:7b46:4819 with SMTP id 5a478bee46e88-3537e032905mr18673470eec.8.1791862120532;
+        Mon, 12 Oct 2026 20:28:40 -0700 (PDT)
+Received: from [127.0.0.2] ([2401:4900:8900:441a:ba51:e5f4:3ca4:4b87])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-353814b556esm43617106eec.18.2026.10.12.20.28.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 20:28:40 -0700 (PDT)
+From: Ramshouriesh R <rshouriesh@gmail.com>
+Date: Tue, 13 Oct 2026 08:58:24 +0530
+Subject: [PATCH v7 2/3] media: i2c: hm1092: add Himax HM1092 mono NIR
+ sensor driver
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Feedback-ID: :1.ap-northeast-1.6BGMgStFQE7EJYq5syaCRzdneEHVt/+DAaGDrqUmDs9QLO4/SllUBZ3fHvnZ8rcAX/3IjUyTRgi5JFZsWrikFHwlPJqCkqEMlxDFM4JXh+ycxH/J5Tudg5bGdz6h4331g1L1EFsGR8kuYNfGLsrxz4Nym4YXoPcZxeVkrHry4Zx21n8vEVLEjc7s+OCM8PU9:1.ap-northeast-1.DTXDV/V9GPBWozcllKo8innbNB2qs2O/3F8XZSzd9ZM=:AmazonSES
-X-SES-Outgoing: 2026.10.13-23.251.234.55
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-hm1092-driver-v7-2-d81a9b152ffd@gmail.com>
+References: <20261013-hm1092-driver-v7-0-d81a9b152ffd@gmail.com>
+In-Reply-To: <20261013-hm1092-driver-v7-0-d81a9b152ffd@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Jake Steinman <j@metarealtyinc.ca>, 
+ Eduard Kulyk <kulikeduard89@gmail.com>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Ramshouriesh R <rshouriesh@gmail.com>
+X-Mailer: b4 0.15.2
 
-Keep fragment lengths separate from complete HID report lengths.
-Assemble DATA reports into a dedicated buffer, enforce the declared
-content length and final padding, and reject fragmented command
-responses. Discard incomplete reports after a one-second gap or during
-error recovery and suspend.
+Add a V4L2 subdev driver for the Himax HM1092, a 1 megapixel monochrome
+near-infrared image sensor with a single-lane MIPI CSI-2 interface,
+typically used as the face-authentication IR camera on laptops.
 
-Require a body header before parsing and bound=
- allocations to 8 KiB.
-Preserve the v5 request serialization and response =
-matching.
+The driver supports the sensor's 560x360 10-bit mono mode, test patterns,
+exposure, analogue gain and digital gain controls, and the standard
+fwnode properties (orientation and rotation). It also reports the
+1296x736 native pixel array, the 1280x720 active array and the mode's
+1150x718 crop.
 
-Use the existing max_fragment_length descriptor field for each =
-fragment;
-max_input_length describes a complete input report and remains =
-distinct.
+The vendor Windows configuration supplies a 24 MHz external clock and
+programs the MIPI PLL with a divide-by-12 pre-divider and a multiply-by-90
+multiplier. This gives a 180 MHz CSI-2 DDR link frequency, a 360 Mbit/s
+single-lane bit rate and a 36 MHz pixel rate. With HTS 1616 and VTS 750,
+the resulting frame rate is approximately 29.7 frames per second.
 
-Signed-off-by: Jizhou Tong <fqwqf@fqwqf.xyz>
+The exposure, analogue gain and digital gain register layout was
+independently identified by Jake Steinman. Program multi-byte controls as
+separate high- and low-byte writes, and bracket exposure and gain updates
+with the sensor's group hold. The exposure default is 500 lines, selected
+from illuminated captures on an ASUS Zenbook A14 and programmed by the
+init sequence so the hardware and control states agree. The controls were
+exercised on that system, including full-range exposure and analogue gain
+tests and digital gain endpoint updates while streaming.
+
+Assisted-by: Claude:claude-opus-5
+Co-developed-by: Jake Steinman <j@metarealtyinc.ca>
+Signed-off-by: Jake Steinman <j@metarealtyinc.ca>
+Link: https://lore.kernel.org/r/20260727131252.1580332-1-j@metarealtyinc.ca
+Link: https://lore.kernel.org/r/20260727154058.2350497-1-j@metarealtyinc.ca
+Signed-off-by: Ramshouriesh R <rshouriesh@gmail.com>
 ---
- drivers/hid/spi-hid/spi-hid-core.c | 70 +++++++++++++++++++++++++-----
- drivers/hid/spi-hid/spi-hid-core.h |  4 ++
- 2 files changed, 63 =
-insertions(+), 11 deletions(-)
+ MAINTAINERS                |   7 +
+ drivers/media/i2c/Kconfig  |  11 +
+ drivers/media/i2c/Makefile |   1 +
+ drivers/media/i2c/hm1092.c | 868 +++++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 887 insertions(+)
 
-diff --git a/drivers/hid/spi-hid/spi-hid-co=
-re.c b/drivers/hid/spi-hid/spi-hid-core.c
-index 9d02c156fcd641e9c944c0dfe08=
-b5aad57a97f6a..2778d147b202ab663928a851198eca8fe628b16a 100644
---- a/drivers/hid/spi-hid/spi-hid-core.c
-+++ b/drivers/hid/spi-hid/spi-hid-=
-core.c
-@@ -146,7 +146,6 @@ static void spi_hid_parse_dev_desc(const struct =
-hidspi_dev_descriptor *raw,
- 	desc->max_input_length =3D =
-le16_to_cpu(raw->max_input_len);
- 	desc->max_output_length =3D =
-le16_to_cpu(raw->max_output_len);
-=20
--	/* FIXME: multi-fragment not =
-supported, field below not used */
- 	desc->max_fragment_length =3D =
-le16_to_cpu(raw->max_frag_len);
-=20
- 	desc->vendor_id =3D =
-le16_to_cpu(raw->vendor_id);
-@@ -335,6 +334,7 @@ static int =
-spi_hid_suspend(struct spi_hid *shid)
- 	 */
- 	disable_irq(shid->spi->irq);
- 	cancel_work_sync(&shid->reset_work);
-+	shid->fragment_len =3D 0;
-=20
- 	guard(mutex)(&shid->power_lock);
- 	if (!device_may_wakeup(dev)) {
-@@ -468,6 +468,7 @@ static void spi_hid_error_handler(struct spi_hid *shid)
- 		return;
-=20
- 	disable_irq(shid->spi->irq);
-+	shid->fragment_len =3D 0;
-=20
- 	if (shid->reset_attempts++ >=3D SPI_HID_MAX_RESET_ATTEMPTS) {
- 		dev_err(dev, "unresponsive device, aborting\n");
-@@ -1039,6 +1040,48 @@ static int spi_hid_process_input_report(struct =
-spi_hid *shid,
- 	return 0;
- }
-=20
-+/* Only DATA reports may be fragmented; =
-command responses remain atomic. */
-+static int spi_hid_accept_fragment(str=
-uct spi_hid *shid,
-+				   const struct spi_hid_input_header *header)
+diff --git a/MAINTAINERS b/MAINTAINERS
+index c5519d67b6f4..fcba2a83baa9 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -11969,6 +11969,13 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/media/i2c/himax,hm1246.yaml
+ F:	drivers/media/i2c/hm1246.c
+ 
++HIMAX HM1092 SENSOR DRIVER
++M:	Ramshouriesh R <rshouriesh@gmail.com>
++L:	linux-media@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/media/i2c/himax,hm1092.yaml
++F:	drivers/media/i2c/hm1092.c
++
+ HIMAX HX83112B TOUCHSCREEN SUPPORT
+ M:	Job Noorman <job@noorman.info>
+ L:	linux-input@vger.kernel.org
+diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+index 7de2d095c969..24ea80676849 100644
+--- a/drivers/media/i2c/Kconfig
++++ b/drivers/media/i2c/Kconfig
+@@ -137,6 +137,17 @@ config VIDEO_HI847
+           To compile this driver as a module, choose M here: the
+           module will be called hi847.
+ 
++config VIDEO_HM1092
++	tristate "Himax HM1092 sensor support"
++	select V4L2_CCI_I2C
++	help
++	  This is a Video4Linux2 sensor driver for the Himax HM1092
++	  monochrome near-infrared CMOS image sensor, used as the
++	  face-authentication IR camera on laptops.
++
++	  To compile this driver as a module, choose M here: the
++	  module will be called hm1092.
++
+ config VIDEO_HM1246
+ 	tristate "Himax HM1246 sensor support"
+ 	depends on OF
+diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
+index 59e31af457cd..b25b9d73a04d 100644
+--- a/drivers/media/i2c/Makefile
++++ b/drivers/media/i2c/Makefile
+@@ -45,6 +45,7 @@ obj-$(CONFIG_VIDEO_GC2145) += gc2145.o
+ obj-$(CONFIG_VIDEO_HI556) += hi556.o
+ obj-$(CONFIG_VIDEO_HI846) += hi846.o
+ obj-$(CONFIG_VIDEO_HI847) += hi847.o
++obj-$(CONFIG_VIDEO_HM1092) += hm1092.o
+ obj-$(CONFIG_VIDEO_HM1246) += hm1246.o
+ obj-$(CONFIG_VIDEO_I2C) += video-i2c.o
+ obj-$(CONFIG_VIDEO_IMX111) += imx111.o
+diff --git a/drivers/media/i2c/hm1092.c b/drivers/media/i2c/hm1092.c
+new file mode 100644
+index 000000000000..0ae30fb6b78f
+--- /dev/null
++++ b/drivers/media/i2c/hm1092.c
+@@ -0,0 +1,868 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Himax HM1092 monochrome near-infrared image sensor driver.
++ *
++ * Copyright (c) 2026 Ramshouriesh R <rshouriesh@gmail.com>
++ */
++
++#include <linux/clk.h>
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
++#include <linux/i2c.h>
++#include <linux/module.h>
++#include <linux/pm_runtime.h>
++#include <linux/regulator/consumer.h>
++#include <media/v4l2-cci.h>
++#include <media/v4l2-ctrls.h>
++#include <media/v4l2-device.h>
++#include <media/v4l2-fwnode.h>
++
++/*
++ * CSI-2 D-PHY link frequency (DDR, i.e. half the per-lane bit rate).
++ *
++ * The vendor Windows configuration supplies a 24 MHz EXTCLK and programs the
++ * MIPI PLL pre-divider to 12 (0x030d = 0x0c) and multiplier to 90
++ * (0x030f = 0x5a):
++ *   link freq  = 24000000 * 90 / 12          = 180000000
++ *   bit rate   = link freq * 2               = 360000000 bps
++ *   pixel_rate = bit rate * 1 lane / 10 bpp  = 36000000 pixels/s
++ */
++#define HM1092_LINK_FREQ		180000000ULL
++#define HM1092_MCLK			24000000
++#define HM1092_BITS_PER_SAMPLE		10
++
++#define HM1092_REG_STREAM		CCI_REG8(0x0100)
++#define HM1092_STREAM_STANDBY		0x00
++#define HM1092_STREAM_ON		0x01
++
++#define HM1092_REG_TEST_PATTERN		CCI_REG8(0x0601)
++#define HM1092_TEST_PATTERN_MAX		4
++
++/*
++ * Exposure is a 16-bit value in lines and analogue gain an 8-bit register.
++ * Digital gain is a 10-bit value in 2.8 fixed point (0x100 is unity) split
++ * across 0x020e/0x020f; bits above bit 9 are ignored by the sensor.
++ * The register layout is not documented publicly; it was recovered from the
++ * vendor Windows driver. The exposure default (500) was selected from
++ * illuminated hardware tests and is also programmed by the init sequence at
++ * 0x0202/0x0203.
++ */
++#define HM1092_REG_EXPOSURE_H		CCI_REG8(0x0202)
++#define HM1092_REG_EXPOSURE_L		CCI_REG8(0x0203)
++#define HM1092_EXPOSURE_MIN		2
++#define HM1092_EXPOSURE_MARGIN		21
++#define HM1092_EXPOSURE_STEP		1
++#define HM1092_EXPOSURE_DEFAULT		500
++
++#define HM1092_REG_ANALOGUE_GAIN	CCI_REG8(0x0205)
++#define HM1092_ANALOGUE_GAIN_MIN	0
++#define HM1092_ANALOGUE_GAIN_MAX	0xff
++#define HM1092_ANALOGUE_GAIN_STEP	1
++#define HM1092_ANALOGUE_GAIN_DEFAULT	0
++
++#define HM1092_REG_DIGITAL_GAIN_H	CCI_REG8(0x020e)
++#define HM1092_REG_DIGITAL_GAIN_L	CCI_REG8(0x020f)
++#define HM1092_DIGITAL_GAIN_MIN		0x0100
++#define HM1092_DIGITAL_GAIN_MAX		0x03ff
++#define HM1092_DIGITAL_GAIN_STEP	1
++#define HM1092_DIGITAL_GAIN_DEFAULT	0x0100
++
++#define HM1092_REG_GROUP_HOLD		CCI_REG8(0x0104)
++#define HM1092_GROUP_HOLD_START		0x01
++#define HM1092_GROUP_HOLD_END		0x00
++
++/*
++ * Pixel array geometry. The vendor specifies a 1280x720 active array; the
++ * full array including the surrounding dummy/optical-black pixels is 1296x736
++ * (8 pixels of margin on each side). The single fixed mode reads a window out
++ * of the active array (X_ADDR [0x0030..0x04ad], Y_ADDR [0x0008..0x02d5]);
++ * subsequent internal processing produces the 560x360 output.
++ */
++#define HM1092_NATIVE_WIDTH		1296U
++#define HM1092_NATIVE_HEIGHT		736U
++#define HM1092_ACTIVE_LEFT		8U
++#define HM1092_ACTIVE_TOP		8U
++#define HM1092_ACTIVE_WIDTH		1280U
++#define HM1092_ACTIVE_HEIGHT		720U
++#define HM1092_CROP_LEFT		48U
++#define HM1092_CROP_TOP			8U
++#define HM1092_CROP_WIDTH		1150U
++#define HM1092_CROP_HEIGHT		718U
++
++static const struct cci_reg_sequence hm1092_init_regs[] = {
++	{ CCI_REG8(0x0103), 0x00 },
++	{ CCI_REG8(0x030a), 0x05 },
++	{ CCI_REG8(0x030d), 0x0c },
++	{ CCI_REG8(0x030f), 0x5a },
++	{ CCI_REG8(0x0307), 0x00 },
++	{ CCI_REG8(0x0309), 0x01 },
++	{ CCI_REG8(0x0387), 0x01 },
++	{ CCI_REG8(0x0100), 0x02 },
++	{ CCI_REG8(0x4265), 0x02 },
++	{ CCI_REG8(0x4002), 0x2b },
++	{ CCI_REG8(0x4001), 0x00 },
++	{ CCI_REG8(0x0101), 0x03 },
++	{ CCI_REG8(0x4024), 0x40 },
++	{ CCI_REG8(0x0203), 0xf4 },
++	{ CCI_REG8(0x0202), 0x01 },
++	{ CCI_REG8(0x0341), 0xee },
++	{ CCI_REG8(0x0340), 0x02 },
++	{ CCI_REG8(0x0343), 0x50 },
++	{ CCI_REG8(0x0342), 0x06 },
++	{ CCI_REG8(0x0345), 0x30 },
++	{ CCI_REG8(0x0344), 0x00 },
++	{ CCI_REG8(0x0349), 0xad },
++	{ CCI_REG8(0x0348), 0x04 },
++	{ CCI_REG8(0x0347), 0x08 },
++	{ CCI_REG8(0x0346), 0x00 },
++	{ CCI_REG8(0x034b), 0xd5 },
++	{ CCI_REG8(0x034a), 0x02 },
++	{ CCI_REG8(0x5015), 0xb3 },
++	{ CCI_REG8(0x0350), 0x53 },
++	{ CCI_REG8(0x0361), 0x30 },
++	{ CCI_REG8(0x0360), 0x00 },
++	{ CCI_REG8(0x034d), 0x30 },
++	{ CCI_REG8(0x034c), 0x02 },
++	{ CCI_REG8(0x034f), 0x68 },
++	{ CCI_REG8(0x034e), 0x01 },
++	{ CCI_REG8(0x0390), 0x03 },
++	{ CCI_REG8(0x0383), 0x00 },
++	{ CCI_REG8(0x0387), 0x10 },
++	{ CCI_REG8(0x50dd), 0x01 },
++	{ CCI_REG8(0x50cb), 0x21 },
++	{ CCI_REG8(0x5005), 0x28 },
++	{ CCI_REG8(0x5004), 0x40 },
++	{ CCI_REG8(0x5007), 0x28 },
++	{ CCI_REG8(0x5006), 0x40 },
++	{ CCI_REG8(0x5011), 0x00 },
++	{ CCI_REG8(0x501d), 0x4c },
++	{ CCI_REG8(0x5013), 0x03 },
++	{ CCI_REG8(0x4131), 0x01 },
++	{ CCI_REG8(0x5283), 0x03 },
++	{ CCI_REG8(0x5282), 0xff },
++	{ CCI_REG8(0x5010), 0x20 },
++	{ CCI_REG8(0x4132), 0x20 },
++	{ CCI_REG8(0x50d5), 0xe0 },
++	{ CCI_REG8(0x50d7), 0x12 },
++	{ CCI_REG8(0x50bb), 0x14 },
++	{ CCI_REG8(0x50b7), 0x00 },
++	{ CCI_REG8(0x50b9), 0xff },
++	{ CCI_REG8(0x50b8), 0x70 },
++	{ CCI_REG8(0x50ba), 0xff },
++	{ CCI_REG8(0x50fa), 0x02 },
++	{ CCI_REG8(0x50b4), 0x00 },
++	{ CCI_REG8(0x50a2), 0x0b },
++	{ CCI_REG8(0x50ad), 0x07 },
++	{ CCI_REG8(0x50ac), 0x24 },
++	{ CCI_REG8(0x50af), 0x40 },
++	{ CCI_REG8(0x50ae), 0x20 },
++	{ CCI_REG8(0x50ab), 0x07 },
++	{ CCI_REG8(0x50aa), 0x22 },
++	{ CCI_REG8(0x50a7), 0x00 },
++	{ CCI_REG8(0x50a6), 0x00 },
++	{ CCI_REG8(0x5099), 0x11 },
++	{ CCI_REG8(0x509b), 0x03 },
++	{ CCI_REG8(0x50b3), 0x04 },
++	{ CCI_REG8(0x50a0), 0x30 },
++	{ CCI_REG8(0x5098), 0x00 },
++	{ CCI_REG8(0x52f2), 0x53 },
++	{ CCI_REG8(0x5209), 0x0c },
++	{ CCI_REG8(0x5216), 0x02 },
++	{ CCI_REG8(0x521e), 0x01 },
++	{ CCI_REG8(0x50e8), 0x00 },
++	{ CCI_REG8(0x5200), 0x60 },
++	{ CCI_REG8(0x5202), 0x00 },
++	{ CCI_REG8(0x5201), 0x80 },
++	{ CCI_REG8(0x5203), 0x01 },
++	{ CCI_REG8(0x5208), 0x0b },
++	{ CCI_REG8(0x520d), 0x40 },
++	{ CCI_REG8(0x520c), 0x15 },
++	{ CCI_REG8(0x5215), 0x04 },
++	{ CCI_REG8(0x50ea), 0x74 },
++	{ CCI_REG8(0x5214), 0x28 },
++	{ CCI_REG8(0x5218), 0x07 },
++	{ CCI_REG8(0x5217), 0x01 },
++	{ CCI_REG8(0x0310), 0x00 },
++	{ CCI_REG8(0x4b31), 0x06 },
++	{ CCI_REG8(0x4b3b), 0x02 },
++	{ CCI_REG8(0x4b45), 0x01 },
++	{ CCI_REG8(0x4b44), 0x0c },
++	{ CCI_REG8(0x4b47), 0x00 },
++	{ CCI_REG8(0x5101), 0x13 },
++	{ CCI_REG8(0x5100), 0x03 },
++	{ CCI_REG8(0x5103), 0x33 },
++	{ CCI_REG8(0x5102), 0x23 },
++	{ CCI_REG8(0x5105), 0x42 },
++	{ CCI_REG8(0x5104), 0x43 },
++	{ CCI_REG8(0x5106), 0x40 },
++	{ CCI_REG8(0x5119), 0x00 },
++	{ CCI_REG8(0x5118), 0x00 },
++	{ CCI_REG8(0x511b), 0x00 },
++	{ CCI_REG8(0x511a), 0x00 },
++	{ CCI_REG8(0x511d), 0x00 },
++	{ CCI_REG8(0x511c), 0x00 },
++	{ CCI_REG8(0x511e), 0x00 },
++	{ CCI_REG8(0x5131), 0x23 },
++	{ CCI_REG8(0x5130), 0x13 },
++	{ CCI_REG8(0x5133), 0x43 },
++	{ CCI_REG8(0x5132), 0x33 },
++	{ CCI_REG8(0x5135), 0x40 },
++	{ CCI_REG8(0x5134), 0x42 },
++	{ CCI_REG8(0x5136), 0x40 },
++	{ CCI_REG8(0x5149), 0x01 },
++	{ CCI_REG8(0x5148), 0x01 },
++	{ CCI_REG8(0x514b), 0x01 },
++	{ CCI_REG8(0x514a), 0x01 },
++	{ CCI_REG8(0x514d), 0x01 },
++	{ CCI_REG8(0x514c), 0x01 },
++	{ CCI_REG8(0x514e), 0x01 },
++	{ CCI_REG8(0x51c0), 0x00 },
++	{ CCI_REG8(0x51c6), 0x00 },
++	{ CCI_REG8(0x51cc), 0x00 },
++	{ CCI_REG8(0x51d2), 0x00 },
++	{ CCI_REG8(0x51d8), 0x00 },
++	{ CCI_REG8(0x51c1), 0x81 },
++	{ CCI_REG8(0x51c7), 0x81 },
++	{ CCI_REG8(0x51cd), 0x81 },
++	{ CCI_REG8(0x51d3), 0x81 },
++	{ CCI_REG8(0x51d9), 0x81 },
++	{ CCI_REG8(0x51c2), 0xec },
++	{ CCI_REG8(0x51c8), 0xec },
++	{ CCI_REG8(0x51ce), 0xec },
++	{ CCI_REG8(0x51d4), 0xec },
++	{ CCI_REG8(0x51da), 0xec },
++	{ CCI_REG8(0x51c3), 0x00 },
++	{ CCI_REG8(0x51c9), 0x00 },
++	{ CCI_REG8(0x51cf), 0x00 },
++	{ CCI_REG8(0x51d5), 0x00 },
++	{ CCI_REG8(0x51db), 0x00 },
++	{ CCI_REG8(0x51c4), 0x55 },
++	{ CCI_REG8(0x51ca), 0x55 },
++	{ CCI_REG8(0x51d0), 0x54 },
++	{ CCI_REG8(0x51d6), 0x53 },
++	{ CCI_REG8(0x51dc), 0x53 },
++	{ CCI_REG8(0x51c5), 0x44 },
++	{ CCI_REG8(0x51cb), 0x24 },
++	{ CCI_REG8(0x51d1), 0x24 },
++	{ CCI_REG8(0x51d7), 0x14 },
++	{ CCI_REG8(0x51dd), 0x14 },
++	{ CCI_REG8(0x51e0), 0x09 },
++	{ CCI_REG8(0x51e2), 0x04 },
++	{ CCI_REG8(0x51e4), 0x08 },
++	{ CCI_REG8(0x51e6), 0x08 },
++	{ CCI_REG8(0x51e1), 0x03 },
++	{ CCI_REG8(0x51e3), 0x03 },
++	{ CCI_REG8(0x51e5), 0x07 },
++	{ CCI_REG8(0x51e8), 0x04 },
++	{ CCI_REG8(0x51e7), 0x07 },
++	{ CCI_REG8(0x51e9), 0x46 },
++	{ CCI_REG8(0x51eb), 0x62 },
++	{ CCI_REG8(0x51ea), 0x43 },
++	{ CCI_REG8(0x51ed), 0x00 },
++	{ CCI_REG8(0x51ec), 0x61 },
++	{ CCI_REG8(0x51ee), 0x00 },
++	{ CCI_REG8(0x5206), 0x80 },
++	{ CCI_REG8(0x3110), 0x02 },
++	{ CCI_REG8(0x3704), 0x02 },
++	{ CCI_REG8(0x3704), 0x02 },
++	{ CCI_REG8(0x4b20), 0x9e },
++	{ CCI_REG8(0x4b18), 0x00 },
++	{ CCI_REG8(0x4b3e), 0x00 },
++	{ CCI_REG8(0x4b0e), 0x0e },
++	{ CCI_REG8(0x4800), 0xac },
++	{ CCI_REG8(0x0104), 0x01 },
++	{ CCI_REG8(0x0104), 0x00 },
++	{ CCI_REG8(0x4801), 0xae },
++	{ CCI_REG8(0x0000), 0x00 },
++	{ CCI_REG8(0x0037), 0x30 },
++};
++
++struct hm1092_mode {
++	u32 width;
++	u32 height;
++	u32 hts;
++	u32 vts;
++};
++
++static const struct hm1092_mode hm1092_mode_560x360 = {
++	.width = 560,
++	.height = 360,
++	.hts = 0x0650,
++	.vts = 0x02ee,
++};
++
++static const char * const hm1092_supply_names[] = {
++	"dovdd",
++	"avdd",
++	"dvdd",
++};
++
++/*
++ * The available HM1092 documentation does not describe the test patterns.
++ * Their names are based on observed output from hardware testing; the
++ * register and mode values were reverse-engineered from the Windows driver.
++ */
++static const char * const hm1092_test_pattern_menu[] = {
++	"Disabled",
++	"Solid Color Fill",
++	"Standard Color Bars",
++	"Fade To Grey Color Bars",
++	"Pseudorandom data",
++};
++
++static const s64 hm1092_link_freq_menu[] = {
++	HM1092_LINK_FREQ,
++};
++
++struct hm1092 {
++	struct device *dev;
++	struct v4l2_subdev sd;
++	struct media_pad pad;
++	struct v4l2_ctrl_handler ctrl_handler;
++	struct regmap *regmap;
++	struct clk *img_clk;
++	struct gpio_desc *reset;
++	struct regulator_bulk_data supplies[ARRAY_SIZE(hm1092_supply_names)];
++	struct v4l2_ctrl *link_freq;
++	struct v4l2_ctrl *pixel_rate;
++	struct v4l2_ctrl *hblank;
++	struct v4l2_ctrl *vblank;
++	struct v4l2_ctrl *exposure;
++	u8 mipi_lanes;
++};
++
++static inline struct hm1092 *to_hm1092(struct v4l2_subdev *sd)
 +{
-+	struct spi_hid_input_report body;
-+	u16 len =3D header->report_length;
-+	unsigned int total;
-+	int error;
-+
-+	if (shid->fragment_len &&
-+	    time_after(jiffies, shid->fragment_time + msecs_to_jiffies(1000)))
-+		goto invalid;
-+	if (!shid->fragment_len) {
-+		if =
-(header->last_fragment_flag)
-+			return spi_hid_process_input_report(shid, =
-shid->input);
-+		spi_hid_populate_input_body(shid->input->body, &body);
-+		if (body.report_type !=3D DATA || body.content_length > shid->bufsize)
-+			goto invalid;
-+		shid->fragment_expected =3D HIDSPI_INPUT_BODY_SIZE(bod=
-y.content_length);
-+	}
-+	total =3D shid->fragment_len + len;
-+	if (total > round_up(shid->bufsize + HIDSPI_INPUT_BODY_HEADER_SIZE, 4) ||
-+	    (!header->last_fragment_flag && total >=3D shid->fragment_expected) =
-||
-+	    (header->last_fragment_flag && total !=3D ALIGN(shid->fragment_exp=
-ected, 4)))
-+		goto invalid;
-+	memcpy((u8 *)shid->fragment + =
-offsetof(struct spi_hid_input_buf, body) +
-+	       shid->fragment_len, =
-shid->input->body, len);
-+	shid->fragment_len =3D total;
-+	shid->fragment_time =3D jiffies;
-+	if (!header->last_fragment_flag)
-+		return 0;
-+
-+	memcpy(shid->fragment->header, shid->input->header, =
-HIDSPI_INPUT_HEADER_SIZE);
-+	put_unaligned_le16((total / 4) | BIT(14), =
-&shid->fragment->header[1]);
-+	error =3D spi_hid_process_input_report(shid,=
- shid->fragment);
-+	shid->fragment_len =3D 0;
-+	return error;
-+invalid:
-+	shid->fragment_len =3D 0;
-+	return -EPROTO;
++	return container_of(sd, struct hm1092, sd);
 +}
 +
- static int =
-spi_hid_bus_validate_header(struct spi_hid *shid,
- 				       struct =
-spi_hid_input_header *header)
- {
-@@ -1061,24 +1104,20 @@ static int =
-spi_hid_bus_validate_header(struct spi_hid *shid,
- 	 * report_length is =
-device-provided and is used as the size of the body
- 	 * transfer, so it must never exceed the input buffer.
- 	 */
--	if (header->report_length > max_body) {
-+	if (header->report_length < =
-HIDSPI_INPUT_BODY_HEADER_SIZE ||
-+	    header->report_length > max_body) {
- 		dev_err(dev, "Input report too big: %u > %u\n",
- 			=
-header->report_length, max_body);
- 		return -EMSGSIZE;
- 	}
-=20
--	if (shid->desc.max_input_length !=3D 0 &&
--	    header->report_length > =
-shid->desc.max_input_length) {
-+	if (shid->desc.max_fragment_length &&
-+	    header->report_length > shid->desc.max_fragment_length) {
- 		dev_err(dev, "Input report body size %u > max expected of %u\n",
--			header->report_length, shid->desc.max_input_length);
-+			header->report_length, shid->desc.max_fragment_length);
- 		return -EMSGSIZE;
- 	}
-=20
--	if (header->last_fragment_flag !=3D 1) {
--		dev_err(dev, "Multi-fragment reports not supported\n");
--		return -EOPNOTSUPP;
--	}
--
- 	if (header->sync_const !=3D =
-SPI_HID_INPUT_HEADER_SYNC_BYTE) {
- 		dev_err(dev, "Invalid input report =
-sync constant (0x%x)\n",
- 			header->sync_const);
-@@ -1149,6 +1188,7 @@ =
-static int spi_hid_set_request(struct spi_hid *shid, u8 *arg_buf, u16 =
-arg_len,
- /* Schedule a reset to recover from an error in the IRQ handler. =
-*/
- static irqreturn_t spi_hid_irq_error(struct spi_hid *shid)
- {
-+	shid->fragment_len =3D 0;
- 	set_bit(SPI_HID_ERROR, &shid->flags);
- 	schedule_work(&shid->reset_work);
-=20
-@@ -1231,7 +1271,7 @@ static =
-irqreturn_t spi_hid_dev_irq(int irq, void *_shid)
- 		}
- 	}
-=20
--	error =3D spi_hid_process_input_report(shid, shid->input);
-+	error =3D spi_hid_accept_fragment(shid, &header);
- 	if (error) {
- 		dev_err(dev, "Failed to process input report: %d\n", error);
- 		return spi_hid_irq_error(shid);
-@@ -1249,6 +1289,9 @@ static int =
-spi_hid_alloc_buffers(struct spi_hid *shid, size_t report_size)
- 	size_t xfer_size;
- 	void *tmp;
-=20
-+	if (report_size > SZ_8K)
-+		return -EMSGSIZE;
++static int hm1092_set_ctrl(struct v4l2_ctrl *ctrl)
++{
++	struct hm1092 *hm1092 = container_of(ctrl->handler, struct hm1092,
++					     ctrl_handler);
++	int release_ret;
++	int ret = 0;
 +
- 	tmp =3D devm_krealloc(dev, shid->output, =
-outbufsize, GFP_KERNEL | __GFP_ZERO);
- 	if (!tmp)
- 		return -ENOMEM;
-@@ -1264,6 +1307,11 @@ static int spi_hid_alloc_buffers(struct spi_hid =
-*shid, size_t report_size)
- 		return -ENOMEM;
- 	shid->response =3D tmp;
-=20
-+	tmp =3D devm_krealloc(dev, shid->fragment, inbufsize, GFP_KERNEL | =
-__GFP_ZERO);
-+	if (!tmp)
++	/*
++	 * The control value is cached by the framework and (re)applied from
++	 * hm1092_enable_streams() once the device is powered up for streaming.
++	 */
++	ret = pm_runtime_get_if_in_use(hm1092->dev);
++	if (ret <= 0)
++		return ret;
++
++	ret = 0;
++
++	switch (ctrl->id) {
++	case V4L2_CID_EXPOSURE:
++	case V4L2_CID_ANALOGUE_GAIN:
++	case V4L2_CID_DIGITAL_GAIN:
++		ret = cci_write(hm1092->regmap, HM1092_REG_GROUP_HOLD,
++				HM1092_GROUP_HOLD_START, NULL);
++		if (ret)
++			break;
++
++		if (ctrl->id == V4L2_CID_EXPOSURE) {
++			cci_write(hm1092->regmap, HM1092_REG_EXPOSURE_H,
++				  ctrl->val >> 8, &ret);
++			cci_write(hm1092->regmap, HM1092_REG_EXPOSURE_L,
++				  ctrl->val & 0xff, &ret);
++		} else if (ctrl->id == V4L2_CID_ANALOGUE_GAIN) {
++			cci_write(hm1092->regmap, HM1092_REG_ANALOGUE_GAIN,
++				  ctrl->val, &ret);
++		} else {
++			cci_write(hm1092->regmap, HM1092_REG_DIGITAL_GAIN_H,
++				  ctrl->val >> 8, &ret);
++			cci_write(hm1092->regmap, HM1092_REG_DIGITAL_GAIN_L,
++				  ctrl->val & 0xff, &ret);
++		}
++
++		release_ret = cci_write(hm1092->regmap, HM1092_REG_GROUP_HOLD,
++					HM1092_GROUP_HOLD_END, NULL);
++		if (!ret)
++			ret = release_ret;
++		break;
++	case V4L2_CID_TEST_PATTERN:
++		ret = cci_write(hm1092->regmap, HM1092_REG_TEST_PATTERN,
++				ctrl->val, NULL);
++		break;
++	default:
++		ret = -EINVAL;
++		break;
++	}
++
++	pm_runtime_put(hm1092->dev);
++
++	return ret;
++}
++
++static const struct v4l2_ctrl_ops hm1092_ctrl_ops = {
++	.s_ctrl = hm1092_set_ctrl,
++};
++
++static int hm1092_init_controls(struct hm1092 *hm1092)
++{
++	struct v4l2_ctrl_handler *ctrl_hdlr = &hm1092->ctrl_handler;
++	const struct hm1092_mode *mode = &hm1092_mode_560x360;
++	struct v4l2_fwnode_device_properties props;
++	s64 hblank, pixel_rate;
++	int ret;
++
++	ret = v4l2_fwnode_device_parse(hm1092->dev, &props);
++	if (ret)
++		return ret;
++
++	v4l2_ctrl_handler_init(ctrl_hdlr, 9);
++
++	hm1092->link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr,
++						   &hm1092_ctrl_ops,
++						   V4L2_CID_LINK_FREQ,
++						   0, 0,
++						   hm1092_link_freq_menu);
++
++	pixel_rate = div_u64(HM1092_LINK_FREQ * 2 * hm1092->mipi_lanes,
++			     HM1092_BITS_PER_SAMPLE);
++	hm1092->pixel_rate = v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
++					       V4L2_CID_PIXEL_RATE, 0,
++					       pixel_rate, 1, pixel_rate);
++
++	hblank = mode->hts - mode->width;
++	hm1092->hblank = v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
++					   V4L2_CID_HBLANK, hblank, hblank, 1,
++					   hblank);
++
++	hm1092->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
++					   V4L2_CID_VBLANK,
++					   mode->vts - mode->height,
++					   0xffff - mode->height, 1,
++					   mode->vts - mode->height);
++
++	hm1092->exposure = v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
++					     V4L2_CID_EXPOSURE,
++					     HM1092_EXPOSURE_MIN,
++					     mode->vts -
++					     HM1092_EXPOSURE_MARGIN,
++					     HM1092_EXPOSURE_STEP,
++					     HM1092_EXPOSURE_DEFAULT);
++
++	v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
++			  V4L2_CID_ANALOGUE_GAIN,
++			  HM1092_ANALOGUE_GAIN_MIN,
++			  HM1092_ANALOGUE_GAIN_MAX,
++			  HM1092_ANALOGUE_GAIN_STEP,
++			  HM1092_ANALOGUE_GAIN_DEFAULT);
++
++	v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
++			  V4L2_CID_DIGITAL_GAIN,
++			  HM1092_DIGITAL_GAIN_MIN,
++			  HM1092_DIGITAL_GAIN_MAX,
++			  HM1092_DIGITAL_GAIN_STEP,
++			  HM1092_DIGITAL_GAIN_DEFAULT);
++
++	v4l2_ctrl_new_std_menu_items(ctrl_hdlr, &hm1092_ctrl_ops,
++				     V4L2_CID_TEST_PATTERN,
++				     ARRAY_SIZE(hm1092_test_pattern_menu) - 1,
++				     0, 0, hm1092_test_pattern_menu);
++
++	v4l2_ctrl_new_fwnode_properties(ctrl_hdlr, &hm1092_ctrl_ops, &props);
++
++	if (ctrl_hdlr->error) {
++		ret = ctrl_hdlr->error;
++		goto err_free;
++	}
++
++	hm1092->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
++	hm1092->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
++	hm1092->vblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
++
++	hm1092->sd.ctrl_handler = ctrl_hdlr;
++
++	return 0;
++
++err_free:
++	v4l2_ctrl_handler_free(ctrl_hdlr);
++
++	return ret;
++}
++
++static void hm1092_update_pad_format(struct v4l2_mbus_framefmt *fmt)
++{
++	fmt->width = hm1092_mode_560x360.width;
++	fmt->height = hm1092_mode_560x360.height;
++	fmt->code = MEDIA_BUS_FMT_Y10_1X10;
++	fmt->field = V4L2_FIELD_NONE;
++	fmt->colorspace = V4L2_COLORSPACE_RAW;
++	fmt->ycbcr_enc = V4L2_YCBCR_ENC_DEFAULT;
++	fmt->quantization = V4L2_QUANTIZATION_DEFAULT;
++	fmt->xfer_func = V4L2_XFER_FUNC_NONE;
++}
++
++static int hm1092_enable_streams(struct v4l2_subdev *sd,
++				 struct v4l2_subdev_state *state,
++				 u32 pad, u64 streams_mask)
++{
++	struct hm1092 *hm1092 = to_hm1092(sd);
++	int ret;
++
++	ret = pm_runtime_resume_and_get(hm1092->dev);
++	if (ret)
++		return ret;
++
++	ret = cci_multi_reg_write(hm1092->regmap, hm1092_init_regs,
++				  ARRAY_SIZE(hm1092_init_regs), NULL);
++	if (ret) {
++		dev_err(hm1092->dev, "failed to write init registers\n");
++		goto out;
++	}
++
++	ret = __v4l2_ctrl_handler_setup(hm1092->sd.ctrl_handler);
++	if (ret)
++		goto out;
++
++	ret = cci_write(hm1092->regmap, HM1092_REG_STREAM,
++			HM1092_STREAM_ON, NULL);
++	if (ret)
++		dev_err(hm1092->dev, "failed to start streaming\n");
++
++out:
++	if (ret)
++		pm_runtime_put(hm1092->dev);
++
++	return ret;
++}
++
++static int hm1092_disable_streams(struct v4l2_subdev *sd,
++				  struct v4l2_subdev_state *state,
++				  u32 pad, u64 streams_mask)
++{
++	struct hm1092 *hm1092 = to_hm1092(sd);
++	int ret;
++
++	ret = cci_write(hm1092->regmap, HM1092_REG_STREAM,
++			HM1092_STREAM_STANDBY, NULL);
++	pm_runtime_put(hm1092->dev);
++
++	return ret;
++}
++
++static int hm1092_enum_mbus_code(struct v4l2_subdev *sd,
++				 struct v4l2_subdev_state *state,
++				 struct v4l2_subdev_mbus_code_enum *code)
++{
++	if (code->index)
++		return -EINVAL;
++
++	code->code = MEDIA_BUS_FMT_Y10_1X10;
++
++	return 0;
++}
++
++static int hm1092_enum_frame_size(struct v4l2_subdev *sd,
++				  struct v4l2_subdev_state *state,
++				  struct v4l2_subdev_frame_size_enum *fse)
++{
++	if (fse->index)
++		return -EINVAL;
++
++	if (fse->code != MEDIA_BUS_FMT_Y10_1X10)
++		return -EINVAL;
++
++	fse->min_width = hm1092_mode_560x360.width;
++	fse->max_width = hm1092_mode_560x360.width;
++	fse->min_height = hm1092_mode_560x360.height;
++	fse->max_height = hm1092_mode_560x360.height;
++
++	return 0;
++}
++
++static int hm1092_get_selection(struct v4l2_subdev *sd,
++				const struct v4l2_subdev_client_info *ci,
++				struct v4l2_subdev_state *state,
++				struct v4l2_subdev_selection *sel)
++{
++	switch (sel->target) {
++	case V4L2_SEL_TGT_CROP:
++		sel->r.left = HM1092_CROP_LEFT;
++		sel->r.top = HM1092_CROP_TOP;
++		sel->r.width = HM1092_CROP_WIDTH;
++		sel->r.height = HM1092_CROP_HEIGHT;
++		return 0;
++	case V4L2_SEL_TGT_CROP_DEFAULT:
++	case V4L2_SEL_TGT_CROP_BOUNDS:
++		sel->r.left = HM1092_ACTIVE_LEFT;
++		sel->r.top = HM1092_ACTIVE_TOP;
++		sel->r.width = HM1092_ACTIVE_WIDTH;
++		sel->r.height = HM1092_ACTIVE_HEIGHT;
++		return 0;
++	case V4L2_SEL_TGT_NATIVE_SIZE:
++		sel->r.left = 0;
++		sel->r.top = 0;
++		sel->r.width = HM1092_NATIVE_WIDTH;
++		sel->r.height = HM1092_NATIVE_HEIGHT;
++		return 0;
++	default:
++		return -EINVAL;
++	}
++}
++
++static int hm1092_init_state(struct v4l2_subdev *sd,
++			     struct v4l2_subdev_state *state)
++{
++	hm1092_update_pad_format(v4l2_subdev_state_get_format(state, 0));
++
++	return 0;
++}
++
++static const struct v4l2_subdev_video_ops hm1092_video_ops = {
++	.s_stream = v4l2_subdev_s_stream_helper,
++};
++
++static const struct v4l2_subdev_pad_ops hm1092_pad_ops = {
++	.get_fmt = v4l2_subdev_get_fmt,
++	.enum_mbus_code = hm1092_enum_mbus_code,
++	.enum_frame_size = hm1092_enum_frame_size,
++	.get_selection = hm1092_get_selection,
++	.enable_streams = hm1092_enable_streams,
++	.disable_streams = hm1092_disable_streams,
++};
++
++static const struct v4l2_subdev_ops hm1092_subdev_ops = {
++	.video = &hm1092_video_ops,
++	.pad = &hm1092_pad_ops,
++};
++
++static const struct media_entity_operations hm1092_entity_ops = {
++	.link_validate = v4l2_subdev_link_validate,
++};
++
++static const struct v4l2_subdev_internal_ops hm1092_internal_ops = {
++	.init_state = hm1092_init_state,
++};
++
++static int hm1092_check_hwcfg(struct hm1092 *hm1092)
++{
++	struct v4l2_fwnode_endpoint bus_cfg = {
++		.bus = {
++			.mipi_csi2 = {
++				.num_data_lanes = 1,
++			},
++		},
++		.bus_type = V4L2_MBUS_CSI2_DPHY,
++	};
++	struct device *dev = hm1092->dev;
++	struct fwnode_handle *ep, *fwnode = dev_fwnode(dev);
++	unsigned long link_freq_bitmap;
++	int ret;
++
++	ep = fwnode_graph_get_endpoint_by_id(fwnode, 0, 0, 0);
++	ret = v4l2_fwnode_endpoint_alloc_parse(ep, &bus_cfg);
++	fwnode_handle_put(ep);
++	if (ret)
++		return dev_err_probe(dev, ret, "parsing endpoint failed\n");
++
++	ret = v4l2_link_freq_to_bitmap(dev, bus_cfg.link_frequencies,
++				       bus_cfg.nr_of_link_frequencies,
++				       hm1092_link_freq_menu,
++				       ARRAY_SIZE(hm1092_link_freq_menu),
++				       &link_freq_bitmap);
++	if (ret)
++		goto out;
++
++	if (bus_cfg.bus.mipi_csi2.num_data_lanes != 1) {
++		ret = dev_err_probe(dev, -EINVAL,
++				    "only 1 data lane is supported, got %u\n",
++				    bus_cfg.bus.mipi_csi2.num_data_lanes);
++		goto out;
++	}
++
++	hm1092->mipi_lanes = bus_cfg.bus.mipi_csi2.num_data_lanes;
++
++out:
++	v4l2_fwnode_endpoint_free(&bus_cfg);
++	return ret;
++}
++
++static int hm1092_get_pm_resources(struct hm1092 *hm1092)
++{
++	hm1092->reset = devm_gpiod_get_optional(hm1092->dev, "reset",
++						GPIOD_OUT_HIGH);
++	if (IS_ERR(hm1092->reset))
++		return dev_err_probe(hm1092->dev, PTR_ERR(hm1092->reset),
++				     "failed to get reset gpio\n");
++
++	for (unsigned int i = 0; i < ARRAY_SIZE(hm1092_supply_names); i++)
++		hm1092->supplies[i].supply = hm1092_supply_names[i];
++
++	return devm_regulator_bulk_get(hm1092->dev,
++				       ARRAY_SIZE(hm1092_supply_names),
++				       hm1092->supplies);
++}
++
++static int hm1092_power_off(struct device *dev)
++{
++	struct v4l2_subdev *sd = dev_get_drvdata(dev);
++	struct hm1092 *hm1092 = to_hm1092(sd);
++
++	gpiod_set_value_cansleep(hm1092->reset, 1);
++	clk_disable_unprepare(hm1092->img_clk);
++	regulator_bulk_disable(ARRAY_SIZE(hm1092_supply_names),
++			       hm1092->supplies);
++
++	return 0;
++}
++
++static int hm1092_power_on(struct device *dev)
++{
++	struct v4l2_subdev *sd = dev_get_drvdata(dev);
++	struct hm1092 *hm1092 = to_hm1092(sd);
++	int ret;
++
++	/*
++	 * Power-up sequence:
++	 *   1. enable all rails (~3 ms ramp)
++	 *   2. hold reset asserted
++	 *   3. start MCLK and let the sensor clock for ~1 ms
++	 *   4. release reset and wait 18 ms for the sensor to come up
++	 */
++	ret = regulator_bulk_enable(ARRAY_SIZE(hm1092_supply_names),
++				    hm1092->supplies);
++	if (ret)
++		return ret;
++	fsleep(3000);
++
++	gpiod_set_value_cansleep(hm1092->reset, 1);
++
++	ret = clk_prepare_enable(hm1092->img_clk);
++	if (ret) {
++		regulator_bulk_disable(ARRAY_SIZE(hm1092_supply_names),
++				       hm1092->supplies);
++		return ret;
++	}
++	fsleep(1000);
++
++	gpiod_set_value_cansleep(hm1092->reset, 0);
++	fsleep(18000);
++
++	return 0;
++}
++
++static void hm1092_remove(struct i2c_client *client)
++{
++	struct v4l2_subdev *sd = i2c_get_clientdata(client);
++	struct hm1092 *hm1092 = to_hm1092(sd);
++
++	v4l2_async_unregister_subdev(sd);
++	v4l2_subdev_cleanup(sd);
++	media_entity_cleanup(&sd->entity);
++	v4l2_ctrl_handler_free(sd->ctrl_handler);
++	pm_runtime_disable(hm1092->dev);
++	if (!pm_runtime_status_suspended(hm1092->dev)) {
++		hm1092_power_off(hm1092->dev);
++		pm_runtime_set_suspended(hm1092->dev);
++	}
++}
++
++static int hm1092_probe(struct i2c_client *client)
++{
++	struct hm1092 *hm1092;
++	unsigned long freq;
++	int ret;
++
++	hm1092 = devm_kzalloc(&client->dev, sizeof(*hm1092), GFP_KERNEL);
++	if (!hm1092)
 +		return -ENOMEM;
-+	shid->fragment =3D tmp;
 +
- 	/* io_lock serializes the separate, DMA-aligned TX and RX regions. */
- 	xfer_size =3D ALIGN(max(inbufsize, outbufsize), ARCH_DMA_MINALIGN) +
- 		    ARCH_DMA_MINALIGN;
-diff --git a/drivers/hid/spi-hid/spi-hid-core.h =
-b/drivers/hid/spi-hid/spi-hid-core.h
-index 554288dd17631edc1a503755b04170c0=
-4501bcb7..635d66daaf456cdb65c57146758ea7c64a1537f7 100644
---- a/drivers/hid/spi-hid/spi-hid-core.h
-+++ b/drivers/hid/spi-hid/spi-hid-=
-core.h
-@@ -61,6 +61,10 @@ struct spi_hid {
- 	struct spi_hid_output_buf =
-*output;	/* Output buffer. */
- 	struct spi_hid_input_buf *input;	/* Input =
-buffer. */
- 	struct spi_hid_input_buf *response;	/* Response buffer. */
-+	struct spi_hid_input_buf *fragment;
-+	u16 fragment_len;
-+	u16 fragment_expected;
-+	unsigned long fragment_time;
-=20
- 	struct drm_panel_follower panel_follower;
- 	bool	is_panel_follower;
---=20
-2.53.0
++	hm1092->dev = &client->dev;
++
++	hm1092->img_clk = devm_v4l2_sensor_clk_get(hm1092->dev, NULL);
++	if (IS_ERR(hm1092->img_clk))
++		return dev_err_probe(hm1092->dev, PTR_ERR(hm1092->img_clk),
++				     "failed to get imaging clock\n");
++
++	freq = clk_get_rate(hm1092->img_clk);
++	if (freq != HM1092_MCLK)
++		return dev_err_probe(hm1092->dev, -EINVAL,
++				     "external clock %lu is not supported\n",
++				     freq);
++
++	v4l2_i2c_subdev_init(&hm1092->sd, client, &hm1092_subdev_ops);
++
++	ret = hm1092_check_hwcfg(hm1092);
++	if (ret)
++		return ret;
++
++	ret = hm1092_get_pm_resources(hm1092);
++	if (ret)
++		return ret;
++
++	hm1092->regmap = devm_cci_regmap_init_i2c(client, 16);
++	if (IS_ERR(hm1092->regmap))
++		return PTR_ERR(hm1092->regmap);
++
++	ret = hm1092_init_controls(hm1092);
++	if (ret)
++		return ret;
++
++	hm1092->sd.internal_ops = &hm1092_internal_ops;
++	hm1092->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
++	hm1092->sd.entity.ops = &hm1092_entity_ops;
++	hm1092->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
++	hm1092->pad.flags = MEDIA_PAD_FL_SOURCE;
++	ret = media_entity_pads_init(&hm1092->sd.entity, 1, &hm1092->pad);
++	if (ret)
++		goto err_ctrls;
++
++	hm1092->sd.state_lock = hm1092->ctrl_handler.lock;
++	ret = v4l2_subdev_init_finalize(&hm1092->sd);
++	if (ret)
++		goto err_entity;
++
++	/*
++	 * The sensor is left powered off; runtime PM brings it up on demand
++	 * from hm1092_enable_streams(). There is no I2C access during probe
++	 * (e.g. a chip-ID read) that would require it to be powered here.
++	 */
++	pm_runtime_enable(hm1092->dev);
++
++	ret = v4l2_async_register_subdev_sensor(&hm1092->sd);
++	if (ret)
++		goto err_subdev;
++
++	return 0;
++
++err_subdev:
++	pm_runtime_disable(hm1092->dev);
++	v4l2_subdev_cleanup(&hm1092->sd);
++
++err_entity:
++	media_entity_cleanup(&hm1092->sd.entity);
++
++err_ctrls:
++	v4l2_ctrl_handler_free(hm1092->sd.ctrl_handler);
++
++	return ret;
++}
++
++static DEFINE_RUNTIME_DEV_PM_OPS(hm1092_pm_ops, hm1092_power_off,
++				 hm1092_power_on, NULL);
++
++static const struct of_device_id hm1092_of_match[] = {
++	{ .compatible = "himax,hm1092" },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, hm1092_of_match);
++
++static struct i2c_driver hm1092_i2c_driver = {
++	.driver = {
++		.name = "hm1092",
++		.pm = pm_ptr(&hm1092_pm_ops),
++		.of_match_table = hm1092_of_match,
++	},
++	.probe = hm1092_probe,
++	.remove = hm1092_remove,
++};
++
++module_i2c_driver(hm1092_i2c_driver);
++
++MODULE_DESCRIPTION("Himax HM1092 monochrome NIR image sensor driver");
++MODULE_LICENSE("GPL");
+
+-- 
+2.55.0
 
