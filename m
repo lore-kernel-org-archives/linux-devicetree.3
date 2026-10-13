@@ -1,64 +1,64 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D267535FAC
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 18:14:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3AB8535FC9
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 18:14:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791915285; cv=none; b=qhu6D5PxotX+H7IGRq3Ic5cdaefX8X8RKgtI2n2xr/JY65Hi/Nq0KJAk5PnIbTUmQzcLSs6aDZp1cIClYqWhqa2RW75dvbw6MIrMRwnLbTdksggMa6ZbpQkGfTV6NVHrSXfHqpSUPb2p/PLuLkEPr27MyvzeYM2LFW3/aWEJZ+E=
+	t=1791915288; cv=none; b=qVNVicLdvzfeaadKyf9qvP7c5rj5SEOECL7K/XP4foO4kel30gSyRz9Gy722dJRWigP8tJZnRNsc82gTvH52z8O12inuIcCxS1/MYKVdpVq8O+bWImR9+1oz10gQAejiLdyQG8JR235OZfzvAaT1SEJ9RPIxwpqZ0BJHLWoNB8U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791915285; c=relaxed/simple;
-	bh=98M+cff6j0XiJ9T6ZM/odfPd7A2vCJn3FWi368Ee22w=;
+	s=arc-20240116; t=1791915288; c=relaxed/simple;
+	bh=ypcKL7OHA/Mp3aidesnI7PkLRF47Uxbg+Hs698A49cI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NnMtfu8vM50TaDsUOjoFKsM0wRAppXoSKsfcCDCisOOvSYP0vMt7Apt2RNhX+rEbJU45q883AYi7qqOLMFusTb0gy9hJC9WJ6eTcxDfPDV6PflKTmTzI1w6nvDuvvF7WjBPv15hJ1sg7W343cKihq5Cp6LHsezAD2IHJWWDTRus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XRz4AZ/V; arc=none smtp.client-ip=209.85.128.41
+	 MIME-Version; b=q6YOuzk3mLNaxztWeSmMB18hXs5jYoNxwzKq1r7sTZi0wyHttg4CjuTX9MYQvOdvsKtFz+QB1bYXYwnm+QoN3wbjXbQGiLKNZn3AdaAmCztCL7rpBtsIYpJLYRulwBG/yoFR41lSNN5KY8kfwBY0f2rNhZhy5Iue/dOAf75Gqo4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EC8uSwS9; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XRz4AZ/V"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso1782915e9.3
-        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 11:14:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EC8uSwS9"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a022fee0caso30632235e9.1
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 11:14:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791915278; x=1792520078; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791915280; x=1792520080; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=84y+98dUTavPi8UlWvfsOTAI4E9Cfm8/Vo72h+4TbCE=;
-        b=XRz4AZ/VrA76G3jveY1IrCMbqnl492PeWS30Inbs2860PEqotAMBhouFIGc2DRPpKc
-         UuWwHjuz4ymwLBdFtLV0m4ulXtPc0p76nEISFn1GrwtFKwpXFlvEQEarg111vWmMmVuh
-         3GP2iM8mVA22VJBFzVfPQfXOOcUOzkOOS8N2zs1F85FVtPKfpOkbK8e068MzgWIOJ/sE
-         ucbTqYkFXKbpWEi8hVdoV7sZxxBPmYsSys/+2yOqxadEqGntNT3wD7KCDiA9eyjbhkWE
-         VhLcypp1+4LZHkwIFuLS2YgpMCp0+k6v2GK0rj580ZNu+gXhmWil3YxD02bbkDgTyPND
-         coKg==
+        bh=R1c6v+GzYwmvzitf8Fx6L18lOJ1Tc1khL5KUR7+u7xo=;
+        b=EC8uSwS9H0/vCLn8CQm3+o5UqysR4iRnzZSn6mIca20ZUmwnwBmwvqjEUubFnjiCvp
+         i50n30G9OctJsMlt2NIIRKNf/cIF/vO3sKgHItRIwbrnCcVwp2cMDRUF4ORZtbrR596y
+         l0s0AB5kaJY80skd8xnvQ1mHXO8GMrgyARsl3hEDEPuXgxhziH2p0k1uHacfvmgzhLXO
+         7CD8Fp4jLxf2aVUYJAZB28W/RnVs1oQljzwd8B4bvOuNI0aDrcg0BqLLJwj4cwawSkSL
+         DqmADe6B5Ku8zADwupebyV/ICkdUGGtmG+fg9r7EomNdqafz6OupiLJbfgrOMPNnL11g
+         AsKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791915278; x=1792520078;
+        d=1e100.net; s=20260707; t=1791915280; x=1792520080;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=84y+98dUTavPi8UlWvfsOTAI4E9Cfm8/Vo72h+4TbCE=;
-        b=iCPJb42+tJqBEPXy/gz63nBhiSaCWCHe02qkazckDz2Zsq/+vlmQ8/uAC0sp0WnR2I
-         45lKYvEgUsbL8FC1vDI2eKPVElcRK/VudSjYTYdgj2FEJ5gwy+pJnx2Szeqnx4yV+CIr
-         qVxbPPhVCFz5A+/WVwxy4kpuaJwqPgFoeMzg2N87VdbO5YGTqMoMmyeCBiy12LrtDTQz
-         nBKHBm+WCEr+NkqelALDJBZAr01qAWncK9Va+peIo5BjSC2xUsCV32b6h6rOFJ5sEajm
-         ycZ1A7hupzIq4HVWZ3o1BinucXvzG6FMLHqhitoC8qW5ejO0ipfDjn4B+KhkMdCoxY4k
-         O93A==
-X-Forwarded-Encrypted: i=1; AKwUvBySWtsGbB8D30VOWVHjx4uMzsxq9u/NifKU+pxW0Pwaa6KI1CVE+UNY3nAywT8qOO/DnRa3GA/2e27i@vger.kernel.org
-X-Gm-Message-State: AFq9FYIYSZDs6VXnJ5YKprMWSSGUoNfvB8YJVJkp9PZoxtYmesqw/dd4
-	AkIY9sj6Vjbb4XkCl4Hoy6fiAiYkuwMuaRCTJPjrJruC+5cxGz+2vvaN
-X-Gm-Gg: AYBFou31iqCmLtSSzB4HcjLMhQzSZf4FOrVxjqbH2i5JhBjeMvb4gJz/+6tf6ndGx2z
-	+YBDy9nofZoYdRn7TDOh3z0O1XIiWB7wSUZRcfF3FW/K7kpbxDs/jZ97N9eV1HDwj9or9mFicUH
-	u/9oNkr466wgVcim5bAThYioIoPbVDALaonvFnJNJFUljp3JkOzPMWN5TrSMfkvsaUu2+YGaaGA
-	n51YGx8RiToKvhfaXBNbLncUFH7dif2Tpht3vNYy4u+vcCyNiUxOfKxWUzzTsSf5ntazqQn5vf+
-	rAi2U/IPoL2OiCVMNW+C8RP/1ahQa1t40ut9dTC5zy0RWGNqTzVN5ZQW9BKcq5GvE/5be+k80hi
-	BBHgQ1VlBqnk1UYVrCYTRsgEBG528Ez4q2o/3XY46dN4TwkQU2sdtNG9FHFMsnuRW//iQZ7LaCg
-	eOkQYRwh29jzF1v/p1t1Hl/KxroRKsNlsT16cpA/iS/BdaacsV6uNgIBmqsCq6ibKpKCZ+al2xV
-	SfVwc31qW1MwHDyhUk=
-X-Received: by 2002:a05:600c:8708:b0:4a1:7b05:3a6d with SMTP id 5b1f17b1804b1-4a18e49881amr250198175e9.8.1791915278441;
-        Tue, 13 Oct 2026 11:14:38 -0700 (PDT)
+        bh=R1c6v+GzYwmvzitf8Fx6L18lOJ1Tc1khL5KUR7+u7xo=;
+        b=diqkXwN2m6MZ5ahZiHIpNVMPLhEluYGhwgCs2o0nWwwedfSxHv5Hx5g1ZugVSFiMux
+         FZAsfknbVjCiUT/HsC6dYr4ah7DgeMydo5UXDrqdWkAGqYrn34E6T84i8cc5chjPjSY5
+         5Lzs8rojHa42w+rBI4tzDwEZt7qqKZrpfiff8dqkLAUERq2AunxrMdLKiWtirrDQWAEH
+         tN7R5aw6HrrJnZPzHn23ipvdiP7BFGOfcFKit3CJvlDhvqHcjSCKKXYKFXfbTv6jiPTL
+         OYdtCt0TJ5MVvO2cMIHq6FAePtqVSQagot8lqm3m4v8LsAKVUnq8j4IQOoPXeRaEPNz7
+         Tjew==
+X-Forwarded-Encrypted: i=1; AKwUvBwhxcBWjVIRD3YyRq5MVeyum0sZx9zZO5Ux4nRJSwf54jxHbk5yl7yPjZ/afpy2ibhHS+HaMkYYPfSa@vger.kernel.org
+X-Gm-Message-State: AFq9FYK2Qxt/l3kbb4w/ZUqUwHc3RKlTTsvqbZYy4flTgHp1L/wc8PXU
+	pSfBwplKw2wCNg2qY6LkFpev1WALUhae0X2D3hnJPtcsacpck7RhN+kh
+X-Gm-Gg: AYBFou2U1rHtifNBiv2/1ok1J023Vvz8sN5Ji59tkLTDNZ5fg/GAgclwDwDEC4g903E
+	drPqwsHkfxSLQrPLE6jPusX700Trg/+OOtOba2w6sMHLWJmStUEbevcN3kJYtkFn2hBogpDBLsM
+	vS6qJBwA/hJboKgCX2g8WbrrWSWejUTLH0mf+gcA6R6YoZCgyvy0kK35Icy6cRsKgkDG/h31qYP
+	LyQKkbxUry6Q2u4P+3vchCIZ8suYd04H1KTlxHfQCVzPOmurlKWcCYErt9Yp0pnQlHDGB59/DrF
+	l3v3riKE6KzOXClszcQ6ucI18rO/WF+ss7eINEI3Hb0UkMRSlPs54YJ6UsqDWN1yf8F1TAftmt5
+	QNhWXxi24pRhmQ7FOFE14VlrfJRrchBYdYhDOKdJZi5+d0JIBuQh8744MMDtKDIMUHGLnM47ezH
+	UXjakrkAYGvamy46m/zUiWWE7dSChWIp9D/7wH1xxPncjG9WPoM5kJfSAK7ci8Ki6V1BBQ9PxP3
+	UN3G5OQ4VpF8th3bV4=
+X-Received: by 2002:a05:600c:4e11:b0:4a1:7f41:b9dc with SMTP id 5b1f17b1804b1-4a18e4d67famr268817885e9.23.1791915279782;
+        Tue, 13 Oct 2026 11:14:39 -0700 (PDT)
 Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf1358asm383933345e9.4.2026.10.13.11.14.37
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf1358asm383933345e9.4.2026.10.13.11.14.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 11:14:37 -0700 (PDT)
+        Tue, 13 Oct 2026 11:14:39 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
@@ -69,9 +69,9 @@ To: Liam Girdwood <lgirdwood@gmail.com>,
 	Milo Kim <milo.kim@ti.com>
 Cc: linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org
-Subject: [PATCH v2 6/7] regulator: lp872x: Add support for input and regulator power supplies
-Date: Tue, 13 Oct 2026 21:14:16 +0300
-Message-ID: <20261013181417.492252-7-clamor95@gmail.com>
+Subject: [PATCH v2 7/7] regulator: lp872x: Use macro to fill regulator descriptor
+Date: Tue, 13 Oct 2026 21:14:17 +0300
+Message-ID: <20261013181417.492252-8-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261013181417.492252-1-clamor95@gmail.com>
 References: <20261013181417.492252-1-clamor95@gmail.com>
@@ -83,163 +83,308 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The LP872x support dedicated main power supply input usually shared with
-parent power supply for one of internal regulators (ldo1).
-
-Add support for retrieving and managing these supply regulators using the
-regulator framework to ensure proper power supply dependencies and
-power-up sequencing.
+Switch to using the macro for filling the LP872x regulator descriptor
+to improve readability.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- drivers/regulator/lp872x.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ drivers/regulator/lp872x.c | 275 ++++++++-----------------------------
+ 1 file changed, 61 insertions(+), 214 deletions(-)
 
 diff --git a/drivers/regulator/lp872x.c b/drivers/regulator/lp872x.c
-index 50870ffe75ac5..633ac1da1de62 100644
+index 633ac1da1de62..8b95c2cbb0237 100644
 --- a/drivers/regulator/lp872x.c
 +++ b/drivers/regulator/lp872x.c
-@@ -471,6 +471,7 @@ static const struct regulator_ops lp8725_buck_ops = {
+@@ -468,82 +468,59 @@ static const struct regulator_ops lp8725_buck_ops = {
+ 	.get_current_limit = regulator_get_current_limit_regmap,
+ };
+ 
++#define LP872X_LDO(_id, match, supply, _volt_table, _vsel_reg,		\
++		   _enable_reg, _enable_mask) {				\
++	.name = (match),						\
++	.supply_name = (supply),					\
++	.of_match = (match),						\
++	.id = _id,							\
++	.ops = &lp872x_ldo_ops,						\
++	.n_voltages = ARRAY_SIZE(_volt_table),				\
++	.volt_table = _volt_table,					\
++	.type = REGULATOR_VOLTAGE,					\
++	.owner = THIS_MODULE,						\
++	.vsel_reg = _vsel_reg,						\
++	.vsel_mask = LP872X_VOUT_M,					\
++	.enable_reg = _enable_reg,					\
++	.enable_mask = _enable_mask,					\
++}
++
++#define LP8720_LDO(ids, match, supply, _volt_table)			\
++	LP872X_LDO(LP8720_ID_##ids, match, supply, _volt_table,		\
++		   LP872X_##ids##_VOUT, LP8720_ENABLE, LP872X_EN_##ids##_M)
++
++#define LP8725_LDO(ids, match, supply)					\
++	LP872X_LDO(LP8725_ID_##ids, match, supply, lp872x_ldo_vtbl,	\
++		   LP872X_##ids##_VOUT, LP8725_LDO_CTRL, LP872X_EN_##ids##_M)
++
++#define LP8725_LILO(ids, match, supply)					\
++	LP872X_LDO(LP8725_ID_##ids, match, supply, lp8725_lilo_vtbl,	\
++		   LP8725_##ids##_VOUT, LP8725_LDO_CTRL, LP8725_EN_##ids##_M)
++
++#define LP8725_BUCK(ids, match) {					\
++	.name = (match),						\
++	.supply_name = "vinb",						\
++	.of_match = (match),						\
++	.id = LP8725_ID_##ids,						\
++	.ops = &lp8725_buck_ops,					\
++	.n_voltages = ARRAY_SIZE(lp8725_buck_vtbl),			\
++	.volt_table = lp8725_buck_vtbl,					\
++	.type = REGULATOR_VOLTAGE,					\
++	.owner = THIS_MODULE,						\
++	.enable_reg = LP872X_GENERAL_CFG,				\
++	.enable_mask = LP8725_##ids##_EN_M,				\
++	.curr_table = lp8725_buck_uA,					\
++	.n_current_limits = ARRAY_SIZE(lp8725_buck_uA),			\
++	.csel_reg = LP8725_##ids##_VOUT2,				\
++	.csel_mask = LP8725_BUCK_CL_M,					\
++}
++
  static const struct regulator_desc lp8720_regulator_desc[] = {
- 	{
- 		.name = "ldo1",
-+		.supply_name = "vbatt",
- 		.of_match = of_match_ptr("ldo1"),
- 		.id = LP8720_ID_LDO1,
- 		.ops = &lp872x_ldo_ops,
-@@ -485,6 +486,7 @@ static const struct regulator_desc lp8720_regulator_desc[] = {
- 	},
- 	{
- 		.name = "ldo2",
-+		.supply_name = "vin1",
- 		.of_match = of_match_ptr("ldo2"),
- 		.id = LP8720_ID_LDO2,
- 		.ops = &lp872x_ldo_ops,
-@@ -499,6 +501,7 @@ static const struct regulator_desc lp8720_regulator_desc[] = {
- 	},
- 	{
- 		.name = "ldo3",
-+		.supply_name = "vin1",
- 		.of_match = of_match_ptr("ldo3"),
- 		.id = LP8720_ID_LDO3,
- 		.ops = &lp872x_ldo_ops,
-@@ -513,6 +516,7 @@ static const struct regulator_desc lp8720_regulator_desc[] = {
- 	},
- 	{
- 		.name = "ldo4",
-+		.supply_name = "vin2",
- 		.of_match = of_match_ptr("ldo4"),
- 		.id = LP8720_ID_LDO4,
- 		.ops = &lp872x_ldo_ops,
-@@ -527,6 +531,7 @@ static const struct regulator_desc lp8720_regulator_desc[] = {
- 	},
- 	{
- 		.name = "ldo5",
-+		.supply_name = "vin2",
- 		.of_match = of_match_ptr("ldo5"),
- 		.id = LP8720_ID_LDO5,
- 		.ops = &lp872x_ldo_ops,
-@@ -541,6 +546,7 @@ static const struct regulator_desc lp8720_regulator_desc[] = {
- 	},
+-	{
+-		.name = "ldo1",
+-		.supply_name = "vbatt",
+-		.of_match = of_match_ptr("ldo1"),
+-		.id = LP8720_ID_LDO1,
+-		.ops = &lp872x_ldo_ops,
+-		.n_voltages = ARRAY_SIZE(lp872x_ldo_vtbl),
+-		.volt_table = lp872x_ldo_vtbl,
+-		.type = REGULATOR_VOLTAGE,
+-		.owner = THIS_MODULE,
+-		.vsel_reg = LP872X_LDO1_VOUT,
+-		.vsel_mask = LP872X_VOUT_M,
+-		.enable_reg = LP8720_ENABLE,
+-		.enable_mask = LP872X_EN_LDO1_M,
+-	},
+-	{
+-		.name = "ldo2",
+-		.supply_name = "vin1",
+-		.of_match = of_match_ptr("ldo2"),
+-		.id = LP8720_ID_LDO2,
+-		.ops = &lp872x_ldo_ops,
+-		.n_voltages = ARRAY_SIZE(lp872x_ldo_vtbl),
+-		.volt_table = lp872x_ldo_vtbl,
+-		.type = REGULATOR_VOLTAGE,
+-		.owner = THIS_MODULE,
+-		.vsel_reg = LP872X_LDO2_VOUT,
+-		.vsel_mask = LP872X_VOUT_M,
+-		.enable_reg = LP8720_ENABLE,
+-		.enable_mask = LP872X_EN_LDO2_M,
+-	},
+-	{
+-		.name = "ldo3",
+-		.supply_name = "vin1",
+-		.of_match = of_match_ptr("ldo3"),
+-		.id = LP8720_ID_LDO3,
+-		.ops = &lp872x_ldo_ops,
+-		.n_voltages = ARRAY_SIZE(lp872x_ldo_vtbl),
+-		.volt_table = lp872x_ldo_vtbl,
+-		.type = REGULATOR_VOLTAGE,
+-		.owner = THIS_MODULE,
+-		.vsel_reg = LP872X_LDO3_VOUT,
+-		.vsel_mask = LP872X_VOUT_M,
+-		.enable_reg = LP8720_ENABLE,
+-		.enable_mask = LP872X_EN_LDO3_M,
+-	},
+-	{
+-		.name = "ldo4",
+-		.supply_name = "vin2",
+-		.of_match = of_match_ptr("ldo4"),
+-		.id = LP8720_ID_LDO4,
+-		.ops = &lp872x_ldo_ops,
+-		.n_voltages = ARRAY_SIZE(lp8720_ldo4_vtbl),
+-		.volt_table = lp8720_ldo4_vtbl,
+-		.type = REGULATOR_VOLTAGE,
+-		.owner = THIS_MODULE,
+-		.vsel_reg = LP872X_LDO4_VOUT,
+-		.vsel_mask = LP872X_VOUT_M,
+-		.enable_reg = LP8720_ENABLE,
+-		.enable_mask = LP872X_EN_LDO4_M,
+-	},
+-	{
+-		.name = "ldo5",
+-		.supply_name = "vin2",
+-		.of_match = of_match_ptr("ldo5"),
+-		.id = LP8720_ID_LDO5,
+-		.ops = &lp872x_ldo_ops,
+-		.n_voltages = ARRAY_SIZE(lp872x_ldo_vtbl),
+-		.volt_table = lp872x_ldo_vtbl,
+-		.type = REGULATOR_VOLTAGE,
+-		.owner = THIS_MODULE,
+-		.vsel_reg = LP872X_LDO5_VOUT,
+-		.vsel_mask = LP872X_VOUT_M,
+-		.enable_reg = LP8720_ENABLE,
+-		.enable_mask = LP872X_EN_LDO5_M,
+-	},
++	LP8720_LDO(LDO1, "ldo1", "vbatt", lp872x_ldo_vtbl),
++	LP8720_LDO(LDO2, "ldo2", "vin1", lp872x_ldo_vtbl),
++	LP8720_LDO(LDO3, "ldo3", "vin1", lp872x_ldo_vtbl),
++	LP8720_LDO(LDO4, "ldo4", "vin2", lp8720_ldo4_vtbl),
++	LP8720_LDO(LDO5, "ldo5", "vin2", lp872x_ldo_vtbl),
  	{
  		.name = "buck",
-+		.supply_name = "vinb",
- 		.of_match = of_match_ptr("buck"),
- 		.id = LP8720_ID_BUCK,
- 		.ops = &lp8720_buck_ops,
-@@ -556,6 +562,7 @@ static const struct regulator_desc lp8720_regulator_desc[] = {
+ 		.supply_name = "vinb",
+@@ -560,145 +537,15 @@ static const struct regulator_desc lp8720_regulator_desc[] = {
+ };
+ 
  static const struct regulator_desc lp8725_regulator_desc[] = {
- 	{
- 		.name = "ldo1",
-+		.supply_name = "vin1",
- 		.of_match = of_match_ptr("ldo1"),
- 		.id = LP8725_ID_LDO1,
- 		.ops = &lp872x_ldo_ops,
-@@ -570,6 +577,7 @@ static const struct regulator_desc lp8725_regulator_desc[] = {
- 	},
- 	{
- 		.name = "ldo2",
-+		.supply_name = "vin2",
- 		.of_match = of_match_ptr("ldo2"),
- 		.id = LP8725_ID_LDO2,
- 		.ops = &lp872x_ldo_ops,
-@@ -584,6 +592,7 @@ static const struct regulator_desc lp8725_regulator_desc[] = {
- 	},
- 	{
- 		.name = "ldo3",
-+		.supply_name = "vin2",
- 		.of_match = of_match_ptr("ldo3"),
- 		.id = LP8725_ID_LDO3,
- 		.ops = &lp872x_ldo_ops,
-@@ -598,6 +607,7 @@ static const struct regulator_desc lp8725_regulator_desc[] = {
- 	},
- 	{
- 		.name = "ldo4",
-+		.supply_name = "vin3",
- 		.of_match = of_match_ptr("ldo4"),
- 		.id = LP8725_ID_LDO4,
- 		.ops = &lp872x_ldo_ops,
-@@ -612,6 +622,7 @@ static const struct regulator_desc lp8725_regulator_desc[] = {
- 	},
- 	{
- 		.name = "ldo5",
-+		.supply_name = "vin3",
- 		.of_match = of_match_ptr("ldo5"),
- 		.id = LP8725_ID_LDO5,
- 		.ops = &lp872x_ldo_ops,
-@@ -626,6 +637,7 @@ static const struct regulator_desc lp8725_regulator_desc[] = {
- 	},
- 	{
- 		.name = "lilo1",
-+		.supply_name = "vinlilo1",
- 		.of_match = of_match_ptr("lilo1"),
- 		.id = LP8725_ID_LILO1,
- 		.ops = &lp872x_ldo_ops,
-@@ -640,6 +652,7 @@ static const struct regulator_desc lp8725_regulator_desc[] = {
- 	},
- 	{
- 		.name = "lilo2",
-+		.supply_name = "vinlilo2",
- 		.of_match = of_match_ptr("lilo2"),
- 		.id = LP8725_ID_LILO2,
- 		.ops = &lp872x_ldo_ops,
-@@ -654,6 +667,7 @@ static const struct regulator_desc lp8725_regulator_desc[] = {
- 	},
- 	{
- 		.name = "buck1",
-+		.supply_name = "vinb",
- 		.of_match = of_match_ptr("buck1"),
- 		.id = LP8725_ID_BUCK1,
- 		.ops = &lp8725_buck_ops,
-@@ -670,6 +684,7 @@ static const struct regulator_desc lp8725_regulator_desc[] = {
- 	},
- 	{
- 		.name = "buck2",
-+		.supply_name = "vinb",
- 		.of_match = of_match_ptr("buck2"),
- 		.id = LP8725_ID_BUCK2,
- 		.ops = &lp8725_buck_ops,
-@@ -745,6 +760,7 @@ static const struct regmap_config lp872x_regmap_config = {
- static int lp872x_probe(struct i2c_client *cl)
- {
- 	struct device *dev = &cl->dev;
-+	const char *in_supply_name;
- 	struct lp872x *lp;
- 	int ret;
+-	{
+-		.name = "ldo1",
+-		.supply_name = "vin1",
+-		.of_match = of_match_ptr("ldo1"),
+-		.id = LP8725_ID_LDO1,
+-		.ops = &lp872x_ldo_ops,
+-		.n_voltages = ARRAY_SIZE(lp872x_ldo_vtbl),
+-		.volt_table = lp872x_ldo_vtbl,
+-		.type = REGULATOR_VOLTAGE,
+-		.owner = THIS_MODULE,
+-		.vsel_reg = LP872X_LDO1_VOUT,
+-		.vsel_mask = LP872X_VOUT_M,
+-		.enable_reg = LP8725_LDO_CTRL,
+-		.enable_mask = LP872X_EN_LDO1_M,
+-	},
+-	{
+-		.name = "ldo2",
+-		.supply_name = "vin2",
+-		.of_match = of_match_ptr("ldo2"),
+-		.id = LP8725_ID_LDO2,
+-		.ops = &lp872x_ldo_ops,
+-		.n_voltages = ARRAY_SIZE(lp872x_ldo_vtbl),
+-		.volt_table = lp872x_ldo_vtbl,
+-		.type = REGULATOR_VOLTAGE,
+-		.owner = THIS_MODULE,
+-		.vsel_reg = LP872X_LDO2_VOUT,
+-		.vsel_mask = LP872X_VOUT_M,
+-		.enable_reg = LP8725_LDO_CTRL,
+-		.enable_mask = LP872X_EN_LDO2_M,
+-	},
+-	{
+-		.name = "ldo3",
+-		.supply_name = "vin2",
+-		.of_match = of_match_ptr("ldo3"),
+-		.id = LP8725_ID_LDO3,
+-		.ops = &lp872x_ldo_ops,
+-		.n_voltages = ARRAY_SIZE(lp872x_ldo_vtbl),
+-		.volt_table = lp872x_ldo_vtbl,
+-		.type = REGULATOR_VOLTAGE,
+-		.owner = THIS_MODULE,
+-		.vsel_reg = LP872X_LDO3_VOUT,
+-		.vsel_mask = LP872X_VOUT_M,
+-		.enable_reg = LP8725_LDO_CTRL,
+-		.enable_mask = LP872X_EN_LDO3_M,
+-	},
+-	{
+-		.name = "ldo4",
+-		.supply_name = "vin3",
+-		.of_match = of_match_ptr("ldo4"),
+-		.id = LP8725_ID_LDO4,
+-		.ops = &lp872x_ldo_ops,
+-		.n_voltages = ARRAY_SIZE(lp872x_ldo_vtbl),
+-		.volt_table = lp872x_ldo_vtbl,
+-		.type = REGULATOR_VOLTAGE,
+-		.owner = THIS_MODULE,
+-		.vsel_reg = LP872X_LDO4_VOUT,
+-		.vsel_mask = LP872X_VOUT_M,
+-		.enable_reg = LP8725_LDO_CTRL,
+-		.enable_mask = LP872X_EN_LDO4_M,
+-	},
+-	{
+-		.name = "ldo5",
+-		.supply_name = "vin3",
+-		.of_match = of_match_ptr("ldo5"),
+-		.id = LP8725_ID_LDO5,
+-		.ops = &lp872x_ldo_ops,
+-		.n_voltages = ARRAY_SIZE(lp872x_ldo_vtbl),
+-		.volt_table = lp872x_ldo_vtbl,
+-		.type = REGULATOR_VOLTAGE,
+-		.owner = THIS_MODULE,
+-		.vsel_reg = LP872X_LDO5_VOUT,
+-		.vsel_mask = LP872X_VOUT_M,
+-		.enable_reg = LP8725_LDO_CTRL,
+-		.enable_mask = LP872X_EN_LDO5_M,
+-	},
+-	{
+-		.name = "lilo1",
+-		.supply_name = "vinlilo1",
+-		.of_match = of_match_ptr("lilo1"),
+-		.id = LP8725_ID_LILO1,
+-		.ops = &lp872x_ldo_ops,
+-		.n_voltages = ARRAY_SIZE(lp8725_lilo_vtbl),
+-		.volt_table = lp8725_lilo_vtbl,
+-		.type = REGULATOR_VOLTAGE,
+-		.owner = THIS_MODULE,
+-		.vsel_reg = LP8725_LILO1_VOUT,
+-		.vsel_mask = LP872X_VOUT_M,
+-		.enable_reg = LP8725_LDO_CTRL,
+-		.enable_mask = LP8725_EN_LILO1_M,
+-	},
+-	{
+-		.name = "lilo2",
+-		.supply_name = "vinlilo2",
+-		.of_match = of_match_ptr("lilo2"),
+-		.id = LP8725_ID_LILO2,
+-		.ops = &lp872x_ldo_ops,
+-		.n_voltages = ARRAY_SIZE(lp8725_lilo_vtbl),
+-		.volt_table = lp8725_lilo_vtbl,
+-		.type = REGULATOR_VOLTAGE,
+-		.owner = THIS_MODULE,
+-		.vsel_reg = LP8725_LILO2_VOUT,
+-		.vsel_mask = LP872X_VOUT_M,
+-		.enable_reg = LP8725_LDO_CTRL,
+-		.enable_mask = LP8725_EN_LILO2_M,
+-	},
+-	{
+-		.name = "buck1",
+-		.supply_name = "vinb",
+-		.of_match = of_match_ptr("buck1"),
+-		.id = LP8725_ID_BUCK1,
+-		.ops = &lp8725_buck_ops,
+-		.n_voltages = ARRAY_SIZE(lp8725_buck_vtbl),
+-		.volt_table = lp8725_buck_vtbl,
+-		.type = REGULATOR_VOLTAGE,
+-		.owner = THIS_MODULE,
+-		.enable_reg = LP872X_GENERAL_CFG,
+-		.enable_mask = LP8725_BUCK1_EN_M,
+-		.curr_table = lp8725_buck_uA,
+-		.n_current_limits = ARRAY_SIZE(lp8725_buck_uA),
+-		.csel_reg = LP8725_BUCK1_VOUT2,
+-		.csel_mask = LP8725_BUCK_CL_M,
+-	},
+-	{
+-		.name = "buck2",
+-		.supply_name = "vinb",
+-		.of_match = of_match_ptr("buck2"),
+-		.id = LP8725_ID_BUCK2,
+-		.ops = &lp8725_buck_ops,
+-		.n_voltages = ARRAY_SIZE(lp8725_buck_vtbl),
+-		.volt_table = lp8725_buck_vtbl,
+-		.type = REGULATOR_VOLTAGE,
+-		.owner = THIS_MODULE,
+-		.enable_reg = LP872X_GENERAL_CFG,
+-		.enable_mask = LP8725_BUCK2_EN_M,
+-		.curr_table = lp8725_buck_uA,
+-		.n_current_limits = ARRAY_SIZE(lp8725_buck_uA),
+-		.csel_reg = LP8725_BUCK2_VOUT2,
+-		.csel_mask = LP8725_BUCK_CL_M,
+-	},
++	LP8725_LDO(LDO1, "ldo1", "vin1"),
++	LP8725_LDO(LDO2, "ldo2", "vin2"),
++	LP8725_LDO(LDO3, "ldo3", "vin2"),
++	LP8725_LDO(LDO4, "ldo4", "vin3"),
++	LP8725_LDO(LDO5, "ldo5", "vin3"),
++	LP8725_LILO(LILO1, "lilo1", "vinlilo1"),
++	LP8725_LILO(LILO2, "lilo2", "vinlilo2"),
++	LP8725_BUCK(BUCK1, "buck1"),
++	LP8725_BUCK(BUCK2, "buck2"),
+ };
  
-@@ -761,6 +777,12 @@ static int lp872x_probe(struct i2c_client *cl)
- 		return dev_err_probe(dev, PTR_ERR(lp->regmap),
- 				     "Failed to init regmap\n");
- 
-+	/* LDO0 parent supplies chip itself */
-+	in_supply_name = lp->info->rdesc[0].supply_name;
-+	ret = devm_regulator_get_enable(dev, in_supply_name);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to enable supply regulator\n");
-+
- 	lp->dev = dev;
- 	i2c_set_clientdata(cl, lp);
- 
+ static int lp872x_init_dvs(struct lp872x *lp)
 -- 
 2.53.0
 
