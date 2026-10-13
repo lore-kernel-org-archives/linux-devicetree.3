@@ -1,141 +1,173 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55CF83E1203;
-	Tue, 13 Oct 2026 13:03:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 912E035E1D5
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 13:07:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791896617; cv=none; b=eYe1rz4kxKvxPmBVBAiLvQQfZtGqAucVW7qnYAbz/dWdqglOVrBPn+61GBwEU2xck/Ixs6It8FdsumQI6Xpxnc7uqG07t0TP2+AsndMalPXrPBKewJtMDjEivn/Y9y8wPIeC2wlx/CaYDJ79GhfW6NCIIL7IydpBsq1OYEaZlzc=
+	t=1791896877; cv=none; b=ahfWcPrF1k+4VpzCq2I78G9+k2AiTTll86SOchgKrHffnjeE224+c6SD7Nl95zS2IRIbaiNaoniuRPjntx6hgE3yZ7VyVpwTy2dUJMkw/gaNHOUV/VYyfAF1ZffRTL3cNOGUk66pyp7oljJ42y2JoIT6VGYyjuSrseNGxqFCTYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791896617; c=relaxed/simple;
-	bh=egmBtondgyOXHx5RLyTTc2jqoZj6T+91zbuQyedbmiE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MXKCg6hR3UjnsmesamBWmwEUU2LLm0Uz5nGOGZs6H96ytogzPKzWHmeziuPbiQjhCG36HQHY0nwfSjAA52DYBn7VpBwppyQ7HRsFmd6BL/u8Xc1PbohW3Orz18UYMXVv4qYH+3QLbNXlcS4vTpCmCn+eEAQs0Wgq7IQZIU7zbnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=NHz8tD9O; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1791896877; c=relaxed/simple;
+	bh=0xbvjh0qVnVnxjHTJSiLmD0m4hgDtlYxlp2IfFAvr8I=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=HTSPfDwnAl5vtQ1LxvqzZfEFd2vqQE75M2u9edqR4anO6ztTfxjFmgX1rSeUPxY9NfPikyz5muQ9eZvL5Tcu6KVCOGILdoSGz7AWYT7KFMprWl+LtqcdjEg/ylPiPap5l6sHaUZHGRfTaYis1V2F7WZhm8f9uWDgMmu/mEgDfoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iO8B2ogb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="NHz8tD9O"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=TIHcLfREShiK1c2i9NlsVC922V9xk09myq8IMmakA5k=; b=NHz8tD9O5+lLMvWRRVIuyb/ffs
-	oQlD8v1zY4aVLgkRGo2l7QfPvge2/tDH7tmb8SQEBW0TbC5fzHA3ao847WSYUuIDkEDR+nSncP/KG
-	jRSv0I2XXaNvnO87UZon+sOi+eL4+s/07iKwRl3rANL/viPNA9BwWIvYLpK+07oFguGFLgkJ6W4fj
-	apz4ffO7gVOPeiOh1b1fNPJM1VbaZNdUXANi4cMdUmBRxPhSSm6O/YyaxOLwLk4G5o7y+8pza4tFb
-	roUxnmShOFci6SLpVkzDVGQyjCIlQF59KQJBCAHFZ6k1pce+2z203Tnc7bhXDCifAtrRrkC5JiKtF
-	JCljZXlw==;
-Received: from sslproxy06.your-server.de ([78.46.172.3])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xGcAG-0003cr-18;
-	Tue, 13 Oct 2026 15:03:32 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy06.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xGcAF-0000yV-36;
-	Tue, 13 Oct 2026 15:03:31 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: imx@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org,
- conor+dt@kernel.org, Frank.Li@kernel.org
-Subject: Re: [PATCH 4/5] arm64: dts: freescale: Add LVDS overlays for TQMa8Xx
-Date: Tue, 13 Oct 2026 15:03:31 +0200
-Message-ID: <14085313.O9o76ZdvQC@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To: <sashiko-outbox-169626@kernel.org>
-References:
- <20261013111737.998282-1-alexander.stein@ew.tq-group.com>
- <20261013111737.998282-5-alexander.stein@ew.tq-group.com>
- <sashiko-outbox-169626@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iO8B2ogb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D92091F00893;
+	Tue, 13 Oct 2026 13:07:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791896876;
+	bh=Pc111dWqD/+4hadu/mUCBmEBatSWytrOd9+u2A89lYk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=iO8B2ogbtlj8MfmbdobnKAX3bci2GMg26LTk/cZECpB6xyZ1mSQflfl4/rARdYTkK
+	 K8HqWct43Y5N+S8DxOMm4dKCfLvFvfqqdSdJDs4wf7VETpaOBc1ARAZdQtkIvkwMXx
+	 sRWQOWEme1vwhJi99oWEi47912e/ZWmLaCrHsGmf1kMXb807MmqCNKieO+0BdmUpnB
+	 xJXEl+/nESErgjmuepzraO+5BgNUh2KYXRuYZgULD82mpI7lBlibPUFs8Q9EnXCjGW
+	 CGPyJyAj5pmOodaoFNHnGMs58CtuFv7ovoqV6RCj2B+6M7wW7ZlEWc7x7qtUb74ml2
+	 FepDslQ4iyYyg==
+Message-ID: <sashiko-outbox-169773@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 5/7] drivers: greybus: Add software SVC
+ implementation
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ayush Singh" <ayush@beagleboard.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, ojeda@kernel.org, gary@garyguo.net
+In-Reply-To: <20261013-gb-uart-transport-v3-5-81d0a8a1acf7@beagleboard.org>
+References: <20261013-gb-uart-transport-v3-0-81d0a8a1acf7@beagleboard.org>
+ <20261013-gb-uart-transport-v3-5-81d0a8a1acf7@beagleboard.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 13 Oct 2026 13:07:55 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28152/Tue Oct 13 08:26:14 2026)
 
-Am Dienstag, 13. Oktober 2026, 13:28:27 Mitteleurop=C3=A4ische Sommerzeit s=
-chrieb sashiko-bot@kernel.org:
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [High] dts: unit address mismatch in dc0_pc channel@1 breaks LVDS1 hard=
-ware mapping
-> --
->=20
-> commit 9e71d1e0ae4bcdbdae19947de71699d2eb47af70
-> Author: Alexander Stein <alexander.stein@ew.tq-group.com>
->=20
-> arm64: dts: freescale: Add LVDS overlays for TQMa8Xx
->=20
-> Add overlays for the supported LVDS display tianma tm070jvhg33 on both
-> LVDS0 and LVDS1 channels on connector X14 (+ control on X22).
-> The corresponding display controller PLL is configured with 10x the
-> pixelclock.
->=20
-> > diff --git a/arch/arm64/boot/dts/freescale/mba8xx-lvds1-tm070jvhg33.dts=
-o b/arch/arm64/boot/dts/freescale/mba8xx-lvds1-tm070jvhg33.dtso
-> > new file mode 100644
-> > index 0000000000000..4a8ba61962725
-> > --- /dev/null
-> > +++ b/arch/arm64/boot/dts/freescale/mba8xx-lvds1-tm070jvhg33.dtso
->=20
-> [ ... ]
->=20
-> > +&dc0_pc {
-> > +	#address-cells =3D <1>;
-> > +	#size-cells =3D <0>;
-> > +	status =3D "okay";
-> > +
-> > +	channel@1 {
-> > +		reg =3D <0>;
->=20
-> [Severity: High]
-> Does this reg value incorrectly map channel@1 to hardware index 0 instead=
- of 1?
->=20
-> It appears this overrides the channel@1 child node of &dc0_pc but explici=
-tly
-> sets reg =3D <0>. This will incorrectly update hardware channel 0, overri=
-ding the
-> base device tree which expects channel 1, and will also trigger a DTC unit
-> address mismatch warning.
->=20
-> This can cause the LVDS1 display output to not function correctly because=
- its
-> pixel combiner channel configuration is applied to channel 0 instead of
-> channel 1.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] locking: dropping trait object inside SpinLock causes atomic conte=
+xt violation
+- [Medium] gb_softsvc: operation_id leak when core drops SVC requests
+- [Low] build: missing Make rule for exported header breaks compilation
+--
 
-Ah, that's true. Will fix in v2.
-Actually I would like to skip those "overwrites" as the value are already s=
-et
-in base .dtsi. But then dtbs_check complains like this:
-> /fragment@3/__overlay__/channel@1: node has a unit name, but no reg or ra=
-nges property
+commit 004105b6fb260c2da6da56325f81d73a5407f5e0
+Author: Ayush Singh <ayush@beagleboard.org>
 
-Best regards,
-Alexander
+drivers: greybus: Add software SVC implementation
+   =20
+A Greybus network requires an SVC (Supervisory Controller) to bring
+interfaces up, assign device IDs and connect CPorts to the AP. On a
+UniPro network the SVC is a real entity on the bus, but transports that
+merely carry Greybus messages - a UART, an I2C bus, a network link -
+have no such entity, so every host driver for those transports ends up
+open-coding an SVC emulation of its own.
 
-> > +		status =3D "okay";
-> > +	};
-> > +};
->=20
->=20
+[ ... ]
 
+> diff --git a/drivers/greybus/gb_softsvc.rs b/drivers/greybus/gb_softsvc.rs
+> new file mode 100644
+> index 0000000000000..144e2364aa59c
+> --- /dev/null
+> +++ b/drivers/greybus/gb_softsvc.rs
 
-=2D-=20
-TQ-Systems GmbH | M=C3=BChlstra=C3=9Fe 2, Gut Delling | 82229 Seefeld, Germ=
-any
-Amtsgericht M=C3=BCnchen, HRB 105018
-Gesch=C3=A4ftsf=C3=BChrer: Detlef Schneider, R=C3=BCdiger Stahl, Stefan Sch=
-neider
-http://www.tq-group.com/
+[ ... ]
 
+> +    fn map_remove(&self, primary_id: u8, intf_count: u8, dev: &kernel::d=
+evice::Device) {
+> +        let id =3D match primary_id.checked_sub(INTF_ID_START) {
+> +            Some(x) =3D> x,
+> +            None =3D> {
+> +                dev_warn!(dev, "Invalid interace id");
+> +                return;
+> +            }
+> +        };
+> +        let mut guard =3D self.intf_map.lock();
+> +
+> +        for i in 0..intf_count {
+> +            let _ =3D guard[usize::from(id + i)].take();
 
+[Severity: High]
+Does taking the item out of the SpinLock guard here drop the trait object
+while atomic context is still active?
+
+If this is the last reference to the Arc, the Drop implementation of the
+underlying dyn InterfaceOps (provided by external host drivers) will be
+executed synchronously. If the driver's Drop routine performs any sleepable
+operations (like taking a mutex or flushing a workqueue to cleanly tear down
+the transport), could this trigger a 'BUG: scheduling while atomic' kernel
+panic?
+
+Should the items be moved out of the lock and dropped after the guard is
+released?
+
+> +        }
+> +    }
+
+[ ... ]
+
+> +    fn send_request<P: AsBytes>(&self, hd: &hd::Device, ty: u8, payload:=
+ P) -> Result<()> {
+> +        let msg =3D Msg::request(self.new_operation_id()?, ty, payload);
+> +        hd.data_rcvd(protocols::GB_SVC_CPORT_ID, msg.as_bytes());
+> +        Ok(())
+> +    }
+
+[Severity: Medium]
+Is there a mechanism to prevent operation_id leaks if the core drops SVC
+requests?
+
+When gb_softsvc sends a request via hd.data_rcvd(), the greybus core might
+drop the request early (for instance, if the GFP_ATOMIC memory allocation
+fails in gb_operation_create_incoming() or gb_operation_get_active() fails
+in gb_connection_recv_request() in drivers/greybus/operation.c).
+
+If the core silently drops the message without calling
+gb_operation_request_handle() or sending a response back to the SVC,
+could the svc_operation_id IdPool leak IDs until find_unused_id() fails
+with EOVERFLOW, preventing the soft SVC from sending further requests?
+
+[ ... ]
+
+> diff --git a/drivers/greybus/gb_softsvc_exports.c b/drivers/greybus/gb_so=
+ftsvc_exports.c
+> new file mode 100644
+> index 0000000000000..a0e360c4d137f
+> --- /dev/null
+> +++ b/drivers/greybus/gb_softsvc_exports.c
+> @@ -0,0 +1,15 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +// SPDX-FileCopyrightText: Copyright (c) 2026 BeagleBoard.org. All right=
+s reserved.
+> +
+> +/*
+> + * Exports Rust symbols from the `gb_softsvc` crate for use by dependent=
+ modules.
+> + *
+> + * This is a workaround until the build system supports Rust cross-module
+> + * dependencies natively.
+> + */
+> +
+> +#include <linux/export.h>
+> +
+> +#define EXPORT_SYMBOL_RUST_GPL(sym) extern int sym; EXPORT_SYMBOL_GPL(sy=
+m)
+> +
+> +#include "exports_gb_softsvc_generated.h"
+
+[Severity: Low]
+Does the Makefile lack a target rule to generate exports_gb_softsvc_generat=
+ed.h?
+
+Compiling the kernel with CONFIG_GREYBUS_SOFTSVC enabled seems to
+unconditionally fail at build time because the generated header is included
+here but never built.
+
+If the generation rule is introduced later in the series, will this break
+bisectability?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013-gb-uart-tr=
+ansport-v3-0-81d0a8a1acf7@beagleboard.org?part=3D5
