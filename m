@@ -1,189 +1,265 @@
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022126.outbound.protection.outlook.com [52.101.126.126])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BC3C3AA500;
-	Tue, 13 Oct 2026 05:23:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.126
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791869007; cv=fail; b=CSgQU/CL++UrqQqxPMGhH1QO6OyxA0166ObSqHmkKG7nljo/OppnNnQM1K946BgV0KZRRs1XBK/GU0UgVheRWpfKPYDJ+8JRwXq+GxJfO8lmtunfP1/tCPXEeLE+hl+LMqYkM+uImfQaGpMrOMXEKlXDeSMsVzbS7V/ycKPJFGs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791869007; c=relaxed/simple;
-	bh=88gLLKXMmLUjaOsYVu3wSf+pdVk2tzg9UIqW77aUtY0=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=hDtf5OdbUBbjrl3fIKa6VwwGvMwKJFQBKjulyvl2Z1cnPeM7DA6KPJOmVxInnb6FiYayKAzqdoPZpihZ5haj6t7MNpVrTgNAqB3Ozr0s2f+TpTr4vML1FHPr6thSViZhrt/dLNiet9l0sPUVMSYt2IF4d7w6G8a5qSx1ZiS6PZQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b=MV6GDi2W; arc=fail smtp.client-ip=52.101.126.126
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8490C39A070
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 05:27:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791869223; cv=none; b=NQIoX+ZIghYpZsHCU5wlCC8gpEusJ0rfPb8Cco172u1vlMHRPGzkfM7CQQQcfm5aSl7nrCMHLgkA+uLfUY3BYkGl5wm2DsXgR1/mSqWSSFsl40MbrVGEVDt+ZBGM7zvHDAOmNG+6VeJ8Fckm5EQZ2BY2631MioUT5DRR6JqDO3k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791869223; c=relaxed/simple;
+	bh=ZfNaWKsAbncNMqZkU7N4j0OkCpAgt94wB3w2if4Q5OY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=by8FL4BG8NHDGaqE3kDd3VxZ3B4TSx7xeCbH5u7boAc11tESfxAvHcNI7eZ+xqFPY/CiJ2i4WGdO0wnGjfMA6Muw7+XRt1oQKwB9JEd15n8i77prrzMSpxgkgMUafTWiOH2m8qSLJT/qVBFTXhscC7ycQ8uB+aR/sJ8f/mwVicU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jY7wJjxv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RaUQt/OJ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b="MV6GDi2W"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wr5zEYGfuzS7tGg7aXexDJIaZBDm2CjmjJKjYi7ZaaDMy712crTXTMEk7Nr6HQbzMqFoMAN9B99oEtxCIcQYDSZQ2LRQ35R/s+1UomYbZibYO68Zn0wqGztjjubxAdjof7FbxthUECj2ZE3pgAMH45JUPhgVVv3f7hKOneD2JEPZBIu/6Fbpuk5JvAOXOBcOo8FGSmImrjHtoc+Ow7DLyDzL8oXTSND7+2jGh5gqhFBNzk4Nu3Ho5hJy60ZqDCIU4meLjs/iP1xuSCizli+Bc8dQxLyOHKqdyxrJ9igdBjjUg8IU2iPoMk/VCqJU3D3qqcOC1TLPgUv4ffWxwRIW+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=88gLLKXMmLUjaOsYVu3wSf+pdVk2tzg9UIqW77aUtY0=;
- b=xV94pLsrPnDBiGsvyoDNcAJdSYoD8auU25pSNlE0Qo7hEbbKWXfJdiQReaKm7zvwuqNzqIZC+8zelLqK9N1LUvJBfH5ufW6fr/7oXJkL/QTfLAgh2hoHwvSB1zDLyyOIa5/qpuSCqT3Fnq6e3zgvN0Ytpxq4qkwCtzn9l34PK1/bDNwHtpUm6Q8gOAcTqhm6Gs1+24wFq1YG1HD/FjpOGBJW1aTEAeMC/gBB8RNAv6iLYetO5hk54mc3NGoc6WTUMKBw13xc2Rh1HD7aFnXt6TuFfUUiBr6g5Oz9LHzjjqhKN9UEKf/l17VIjgwIgJxUIn7Xkiwnj1vrvaURPcCZNw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
- header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=88gLLKXMmLUjaOsYVu3wSf+pdVk2tzg9UIqW77aUtY0=;
- b=MV6GDi2WGc6gaRORJjFnmyj+yOD5ZFR9WrjVdfNL6z3v5E9v2/A8MCC6eIWmc0eujOqfoB9MPcmbDY96qCgxTvgPpU7wa1aGBxE4WEOHHkGeeMMi9CvkUSPcm5gbFHStyiv17YHuPpXKgh0xDxE9wwou1e79Pv7YfNi1RxfH21/G4BmnEbnJbtNMnLoPo3ANtz/Rb6SGdkVNdQ8vKd5ayd9OvxLwsvoaW95VzQbtNjT/LuZAxafbbYIUd//NzU0QSTI6lhRELNa36rMCXZlPAq0fYkz/X8i9lrRpIshv1suG6orTM4W72q5kIgAaiDeWxS2lYp6UeEQRelVIRiCq6Q==
-Received: from SEYPR06MB5134.apcprd06.prod.outlook.com (2603:1096:101:5a::12)
- by OSNPR06MB8906.apcprd06.prod.outlook.com (2603:1096:604:49c::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
- 2026 05:23:21 +0000
-Received: from SEYPR06MB5134.apcprd06.prod.outlook.com
- ([fe80::f53d:547a:8c11:fc6c]) by SEYPR06MB5134.apcprd06.prod.outlook.com
- ([fe80::f53d:547a:8c11:fc6c%3]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
- 05:23:21 +0000
-From: Jacky Chou <jacky_chou@aspeedtech.com>
-To: Conor Dooley <conor@kernel.org>, "netdev-bot+sashiko@kernel.org"
-	<netdev-bot+sashiko@kernel.org>
-CC: "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, "davem@davemloft.net"
-	<davem@davemloft.net>, "kuba@kernel.org" <kuba@kernel.org>,
-	"pabeni@redhat.com" <pabeni@redhat.com>, "robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
-	<conor+dt@kernel.org>, "ratbert@faraday-tech.com" <ratbert@faraday-tech.com>,
-	"edumazet@kernel.org" <edumazet@kernel.org>, "hkallweit1@gmail.com"
-	<hkallweit1@gmail.com>, "linux@armlinux.org.uk" <linux@armlinux.org.uk>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject:
- =?big5?B?pl7C0DogW1BBVENIIG5ldC1uZXh0IHYyIDEvNl0gZHQtYmluZGluZ3M6IG5ldDog?=
- =?big5?Q?ftgmac100:_Add_AST2700_compatible?=
-Thread-Topic: [PATCH net-next v2 1/6] dt-bindings: net: ftgmac100: Add AST2700
- compatible
-Thread-Index: AQHdVWM2owd1VMPC/Ei4XAumWNgo4rb2b4oAgAPRq4CAALb8gA==
-Date: Tue, 13 Oct 2026 05:23:21 +0000
-Message-ID:
- <SEYPR06MB51346A6CB5D7D7FC6D3FC4DD9D9E2@SEYPR06MB5134.apcprd06.prod.outlook.com>
-References: <20261006-support_ast2700-v2-1-36de51fb8066@aspeedtech.com>
- <179161911824.434549.4075299707625994950@kernel.org>
- <20261012-aide-wimp-4edf96aaca1d@spud>
-In-Reply-To: <20261012-aide-wimp-4edf96aaca1d@spud>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=aspeedtech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SEYPR06MB5134:EE_|OSNPR06MB8906:EE_
-x-ms-office365-filtering-correlation-id: 3a2f3751-df87-4262-380a-08df28ea18ad
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|1800799024|7416014|376014|366016|10067099003|261009223027099003|38070700021|4143699003|18002099003|22082099003|56012099006;
-x-microsoft-antispam-message-info:
- 2x6FnQ1yWujYi/nioIHgVqvJeZirWFrm6Iqxtqp12ddtwQrT804+xDcEsYThp6R+EkymDybxSRZ0UjeB0m7n8VG1u8WQVAHX1VC+UtVYW0TaEYuiFOq4jNR38DeYTbmKFsPUsWCdy+XSJSPH6mBCn1d0NV+VIN9HXKXSwTRWSnwNslC2sflqANf4TcS4aH1VIsBgFWtps/EnBRyA01Qo47c0NCIV0byVAoE0zpnkdw+Kx5vnSK50tkCWAvf1l46fYQG6cIK9JaD/Ra684wgA+GV5J10BWNbrOIJ9icBX7AVMBioRldWH5Mi8LYCUMK+3zyGIsgcP0jdbXQq/0Bm56fj4LjtrbE+01a29Usqc0aCBuKk+J2K+jsAc/BpDHj9u/yAS7PDtIjeNEjKQZjG0uTCRLkGvuJSFfIkkuNkOkDfqCz3ygi/tOd6FsGpoDk0dgU5PgqCYFO4P1tpMCbEn2+Vj5wQ/8/3pfg1onhqI8jIV04JptqIGaUF2qSx1wrDk8KiTbWq0FxNgBUo95yirRNRqCGTOueQKpdXXwVWdJrBX2TL5/z8vICaZejhk8hTk4rkEZubuThrsW92bZf1g+y3Oe1LLn6i6yW275k2GjwLJ/cmqbE2btrlN2H7EhNE9oQNIKuHw4rGfv72NsD9AhQcBlrjR2GsS1yT/zbxYGIlIFLc3gd150KA/s4sEzEEYhecfKY0P9rczyliHpuGbxTjzSrpEBB5Z/7Kp3qXV0qE=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:zh-tw;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SEYPR06MB5134.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(10067099003)(261009223027099003)(38070700021)(4143699003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?big5?B?RU1qRjF0SmZRNlhYM24rTHloS085WGRJa09WdXR5Q2VRWVovRFFYQkVlb2dIa0s3?=
- =?big5?B?Y3ZWNjJDWW1nV3Ric0hqSnJYRUtHcDFZeXNyWFFyWEprM1MvUFE3UjBINDhIYlUx?=
- =?big5?B?WjFuYURvZXhyTlpYSlJ4bWQxeklTSEozOGdpN2liSUIzNStTTDV3dUJNS29DdGsv?=
- =?big5?B?WXBlM1BZYXhlOXU1Z2N3bksweis4aWpmd3ZubXdnTkthUzY3bDBiWDEvYXpCQUgy?=
- =?big5?B?ZU8vRjRrdnFnbTQvYlZmclNSUjU0anVYZ2REdzlPUDRmcmprSGhoRnUzNitJTDIy?=
- =?big5?B?WDdMeVdHMmMrR3NtTjVhUmFnOWJMUC9pQitVMVMreFNITGtUbkM1d003aXJrMWtI?=
- =?big5?B?YjlKODdFdUFlcVNBd1VabU5YM0xrZWZ0bnNoWUxoZmU3eng1ZFFXS3NqdURJNG94?=
- =?big5?B?Zm1lVnp4MVZqamJZOTBWUWxYMG90T3R3bjdBTkV6MW5CSWpibHNhMFg4T09pallF?=
- =?big5?B?TWc4ckVmUktwZHp6RUp0ZTBNT28wQ0dIajhtcEV3M1prbUwrZnFDUWxlODRWN1lt?=
- =?big5?B?WWEzUVRGdFVlRHFSbjF1aE8vYTVycGc1Q0l2eG01VkVEQkNsNDZFeVI5eE8xZ2I4?=
- =?big5?B?Z2pxbDZBWG8weEtBdzl1RnY2bERsSTlHeGpXN0xEM2ZBckl4OUNvaisrbldHeDg3?=
- =?big5?B?MzBPS0pMK3hyZC8vZFpHSmlJeWxGa2Z2bUlrcFVUWEpEbFZUMG15OVhyajF6K2N4?=
- =?big5?B?bXZ4SU5qZjJzS2tIWG5mRUUwcmduK2dEdFBIMWpxUWh3cithd2FGbzZ6eVR3OEph?=
- =?big5?B?dDh1eG16M0hESDMwL3ZobEdNUWdidkVKYUxSK0hYY2Y2aUhXcUJOWU03dE8rS2Vh?=
- =?big5?B?Y3g5S3pjRG4zd0o0Ulk3VGFEM1VQaEZzalE4eU45WDZNbEZzTnB6U3JteURiazJv?=
- =?big5?B?ang1MDd3L2gvRm1hbndmT3Q5WS9Xc1RMdDRpTldBcGJBZExjQ0M5MGNJUG5SMkFY?=
- =?big5?B?Kzg4RllUYXF3d3FzMXRjNVlVcjdqcWpLL1dHMEtNVENVNG1YMkNLOTZuaFI5Y2RW?=
- =?big5?B?T3JvWlFldEZpYTA1VjFNUi8rNklkUTB2Z0JzbTc4NVptWisvcWtneU5vVHNoaFE4?=
- =?big5?B?Um9MNGJ2STdjVXZQdHk1S3RMMkdPNG5vQ0NTNjRGcldaajdzam9rRkFDMHgyV1lx?=
- =?big5?B?b0pPcFhXUk1nRnAvakN6RzNubjNKamhmTWhTbGdFbkhxV0cydmNNMEpRUTRxYVFt?=
- =?big5?B?NjNhdC9LTTJRd0JFTEsrU0xvQzFYUXBWczFiMTRpdVZQTS9lVTFvWUJ3TndGSGVi?=
- =?big5?B?cUw3dENzSEpDMTJsSVd3cFpSdXI2SVdLTlN2R2w5SHduY3VIc0h4VXlDTUpwQVlV?=
- =?big5?B?MDJIWE5QUUx0eEJaU3NtcGFSVXpMNDJMNjVFcDJ6V3dpcHhRUlpwKzJpbHJwQVZI?=
- =?big5?B?bHF2dm9zU3ZIQ2ZmajFZWkZZY0VJd25saUxxWi9NUDJEaFpsM2JuaEpQeHU3ajVT?=
- =?big5?B?S3FRMFVoZmVvM0xLV09vMitsdVNINVFIWnRqeVhGeWJFVGUvTTRjQ2o2eHNnYVB1?=
- =?big5?B?dkJ0QnhENnpsU3IrVzBudTBrUm1zNG55aWJ3S3Q4cEJZSGwvRW9xUjBXd0oyN2ZO?=
- =?big5?B?Sit5dGpQL09LVjVwVnpLc2ZReVJzOWdaeWJLei9SMXNsamRHQzkyNEd4eVZYM0Iv?=
- =?big5?B?TXZPKzREOEZRTkdzVmxHRU1UTUpRREdXZWxrZTd1NUJ2aFpneUdtTS9GNHBqYmtX?=
- =?big5?B?YndnNytJR0xWY0tsREdVajV2eXZBbjFjOVFHNk91RHQ2RXdlc21ZcVpJZVV1UVlt?=
- =?big5?B?TlBGUzFjVDdwRkVtMWdaY0NCSHJQUDk5Tlljbm1pVmNpMWVBS28wR0lHakVoUUdp?=
- =?big5?B?QUN5bzdMSEdFaDZKWXhlekJOd2VYeWpjckg4QndDaHFXelFlMCs5bWlJd3NvRGJk?=
- =?big5?B?UmtPWVY4MVdodWZLM0dHQ2tCM2ptc1AycnlPNENkeXlFazZQQmlDeDFYRjVmb2w5?=
- =?big5?B?WWdNQnNGTEFOclByVWpsV3pUS0luUHpXTUFmZlp4RzJ6bGtvMU84YnNHSGUxTUgz?=
- =?big5?B?UU9aS1V5MDlVaUxBaFhJSjh5ZkE1VHY5NUlNN21CQUtXWlFoNkNzV21xT3B0Ym5X?=
- =?big5?B?TE1PL0lYMW1Kd3dnVmtWTHZIZW9wRHFpUjJPMkJhRHVDQTVTUVFIUzhwL1hONlNX?=
- =?big5?B?cFp6RXBBYm52aEY4UWZOQ3lXUXowR3NKazZMbW1NV0hQeWVwUFRKbmpsalZrSWFp?=
- =?big5?B?ZjhnRCtKZGNJOHlwcEpVNE5IRnRhQT09?=
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jY7wJjxv";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RaUQt/OJ"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D46eMQ174876
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 05:27:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	YRsgQMQw6PX7D0IOH1wURx/XjvgO77sRYYgiaOmNJpA=; b=jY7wJjxv3vkEwmM2
+	RD6EC1GTjnGHLN1B/G3m6a7LkvLFbzBklwBOjFgpRzGsQ2860Dk2TU1DkNSLBkFx
+	8/Bgt1YBsP8/fxHEvmkdY+0IqdFULHpCip8tb+SGdGHLZ616sFRD+UoVXEnufTIW
+	kCUiO4rzcQRPDlGXqKsNgdw+jSvLIZYW5PBXFoYRsp+7c+rvfk25J78mdjA8YCef
+	uwgJFhDCJ3wWqTGDQ//bSpY+nalHvBUpagH9E8dxpgcOm02/u52Dc0oopQRTIUCR
+	urUXC9cR2RRF84FIQmau97sGOA2VW4Ft/LvwuWMxKltw0KQCRNeD7hU/HGyahHVJ
+	AmyxJA==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9daqr84f-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 05:27:01 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cd5e41413e5so2295111a12.2
+        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 22:27:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791869221; x=1792474021; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YRsgQMQw6PX7D0IOH1wURx/XjvgO77sRYYgiaOmNJpA=;
+        b=RaUQt/OJO9i5Trm/Woyeg69NSmn9rNddTWDWrw1SLUwSGyXtNagZeV+nPznDp8Z/Xc
+         qZm5OI4KAoyDUCJO0Sq24UXpa4a93QxkOVjrt6ZxhBqHr3OLqvtBpba3ABkz3RUgGhS2
+         8Cel9nB0U3NzghmbdTzubbhAArPEtezVL8qL3vzc/SHp6TOIfQ6pbjQkabLEuz63q/2e
+         VB5QKXSLGShaAyJSPf9e4DNsUKofgPtB7w00FxfjwqMGOnK8+5CEWPYBl7R/J4V803UT
+         MEVrZ5GaFAadS7GHqhELWuv2aBIgVTk/tZw2JHN+vrLWchVEuJc9taUqe46G1+QZ5srG
+         tDCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791869221; x=1792474021;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YRsgQMQw6PX7D0IOH1wURx/XjvgO77sRYYgiaOmNJpA=;
+        b=ZnGlLIqmmqsB0Mj1NPpCb9CGYzcI9+EHZzxbARxuAbOjbyuIeczniaIMu2v93gU5Wg
+         Of4ASdD3I1AnAZZ778fQzN6Q9H634jS3cyvV304wGQtjpOPjU9ynx+asS6q4I2Zdf3c3
+         Gt0SjBAyRFGpCsBhoh+uzC/ajtt+WNH3NTbkXCBOaT9k+BDDpL5YclU6rzwFaem4SMTT
+         0Uqm8OorweXHQCF1UBz/siaH/cEVfbqgHiLkmByVLzyHzaOkpHOw8T0GHRuETWCxxXzF
+         14+Ws8TTtXG1QGGPBy3vhoeve4SPU63Vm+zENGP7iHDs5sTNxqHb6u/LC+NovrTQZBrC
+         4quQ==
+X-Gm-Message-State: AFq9FYKQ6XPBEr6YMpXhNO3FhZiK6AqwQJCsKlJ6VNsQEnGOH/pCEqKT
+	grGYRmSsT7V7JbKXFlcrlLLqibL1KV+6Zzaz1NsSjLh5lQVZTm3g/fGze4XtIEo/vALhIZ+El+O
+	ADSxNk+reKg+k181Ox6vfPFjVQ2zIXlkmOGDsVmGkdv0h4BhyaN2jg3Llj2Yv6OyX
+X-Gm-Gg: AYBFou1mDeQqJqyULmiDLYrhBSVjkx54i3ObzRRax6UzFr7//znqD1fX4wT+9XN31XB
+	dai7U2ugDJUETVkisEKKmszVT4Jhab6S3KtER7+7Mte08f82ARge/urmTcLCASKKVOlQFtq/xVV
+	VkI4J1eG74TSVGppndLBYoRlhhoGNhpyx+47V/IvjSCF+pCuGbxvfjy5iAmaCdixW0FCXzF67Df
+	2KPSje/NTcei00z97UrEIzxs9LdJj3Z2fzKLe0JL1o9xIs3LQ0vth8cYej2ZblZrMcePJsb9zyw
+	pIP/tIx9WpQS3a3+YtBBl7z6E87yfu0D1nWZTqzqaD+S/0h4aQ5Bbw11MQwN83n0NdEtwrjHY63
+	s6EoRYZkRgzPABnZJOAGDm6tB2FVaotOF2g==
+X-Received: by 2002:a05:6a20:8f29:b0:3e0:2b03:4008 with SMTP id adf61e73a8af0-3e16bd8348cmr9457043637.12.1791869220721;
+        Mon, 12 Oct 2026 22:27:00 -0700 (PDT)
+X-Received: by 2002:a05:6a20:8f29:b0:3e0:2b03:4008 with SMTP id adf61e73a8af0-3e16bd8348cmr9457028637.12.1791869220208;
+        Mon, 12 Oct 2026 22:27:00 -0700 (PDT)
+Received: from [10.152.193.243] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c3106e07sm4533371b3a.11.2026.10.12.22.26.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 22:26:59 -0700 (PDT)
+Message-ID: <4c70c070-5504-4a98-88ae-e4fedb976e2f@oss.qualcomm.com>
+Date: Tue, 13 Oct 2026 10:56:56 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	VmoOJeVY3rGyrSih93NPZjoYtqDs5epwVLjJH4xoH+/8KVApC2e+VN9TZ571s7g6QkcC1VKrOWAzRdmIaRq6i0UGFbqMNlps9BOzZ21U+XdbmWUJp/564UkRCxJiWNRlOUaSF/B5EmOWUKUAzzy8U1ykRQZpiRbCe4l4nWKhbnSjFdrOIauvHR8vtMiZh9vi+uCBOadVmugo8qnQrrTQR++zi+8EfPESgow2Qu5YWT6mH7WjURorT41yY3R9X8emwfWUsB42swsn4HOgGsKGs1W91FvEVWR06aC09G1pzX4GmOPhQy3iInHLolvol4uDXs4hzBpbripuHXNIWqCnWQ==
-X-OriginatorOrg: aspeedtech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SEYPR06MB5134.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a2f3751-df87-4262-380a-08df28ea18ad
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Oct 2026 05:23:21.0828
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: eB8FL5E52kuF8mzo77k1oA1ahgcQXMDxIubwNrPEa1y71WwtUOESp31qzJGBN6WRDTIF5DM3zdRki49iN/bAR3yAjKpQT9hGbHbefeIwGgI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSNPR06MB8906
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH ath-next 12/17] wifi: ath12k: Enable MSI interrupt support
+ for DP interrupt
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+References: <20261008-mpp_bringup-v1-0-2c5797b5e4ac@oss.qualcomm.com>
+ <20261008-mpp_bringup-v1-12-2c5797b5e4ac@oss.qualcomm.com>
+ <sashiko-outbox-164040@kernel.org>
+Content-Language: en-US
+From: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
+In-Reply-To: <sashiko-outbox-164040@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: Gs84pRGnnMP8X5qKTXDxVnyquxqqmptb
+X-Authority-Analysis: v=2.4 cv=FZuiV5+6 c=1 sm=1 tr=0 ts=6acdc125 cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=COk6AnOGAAAA:8 a=L5L5rDMhSj7ZP6xeACoA:9 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAyMSBTYWx0ZWRfX0ONMhfnklHC9
+ ajNGCXBwRYGkmN/knj+aHrqYwfPCfiF5iGWZLWuPTsLeOHNdkrHBwDwoUJD6yqi4RmNL8ZBsG78
+ z4HJIPmlt78+ZU25GJZpO4JSuA/yGDU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAyMSBTYWx0ZWRfX9ExrmUjgvEhZ
+ qAd+E1IpsHwiyREG0wX+LleDErH95Nr+p2yBYezyyYxwITfDkXgk+3rTUo8eO8MaXEf6c+NvcIK
+ BhryP5B2l0eKFG562nsXRQByFZVVVM3c85n7bvT3Z6EyVS5gsae3BZMtRJMitDGMXMjwCYlb2SZ
+ STMklch5cbovoMSmztNqX8+9r+LoivEl/AQ8AFQmGY4l1OR6/mUzCsGa0cROU+bPA6iRXSu2J4G
+ rs7XfhihdhML+Uz1LgaVO4gWpOA68yurughPr0ROfqSqOZyA1zt9RewmHmQuG9/0v94inY12Oq8
+ wxHsfXueYg+GDmeoE7ije4zYyUAslnCPuGMbCueQp+5w2m6L7Yi9+oazHZG3eYaT99cFM1g433x
+ FbW/d7rUk/ixqHS7ogjDOSGTzsQ1/+6KwvLCJv6eCeKmaDf+UqGSz9GVbpXy2kPKGIDesv118Qu
+ hAJMV5nh2DmgTqsCZCQ==
+X-Proofpoint-ORIG-GUID: Gs84pRGnnMP8X5qKTXDxVnyquxqqmptb
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 clxscore=1015 impostorscore=0
+ adultscore=0 bulkscore=0 spamscore=0 malwarescore=0 phishscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610130021
 
-SGkgQ29ub3IsDQoNClRoYW5rIHlvdSBmb3IgeW91ciByZXBseS4NCg0KPiA+IGR0LWJpbmRpbmdz
-OiBuZXQ6IGZ0Z21hYzEwMDogQWRkIEFTVDI3MDAgY29tcGF0aWJsZQ0KPiA+DQo+ID4gVGhpcyBh
-ZGRzIGFzcGVlZCxhc3QyNzAwLW1hYyB0byB0aGUgRlRHTUFDMTAwIGNvbXBhdGlibGUgbGlzdCwg
-d2hpY2gNCj4gPiByZXF1aXJlcyB0aGUgZmFyYWRheSxmdGdtYWMxMDAgZmFsbGJhY2suIEl0IGFs
-c28gdXBkYXRlcyB0aGUgUk1JSSBSQ0xLDQo+ID4gY2xvY2sgZGVzY3JpcHRpb24gdG8gaW5jbHVk
-ZSBBU1QyNzAwLCBhbmQgYWxsb3dzIHRoZSByZXNldHMgcHJvcGVydHkNCj4gPiBmb3INCj4gPiBB
-U1QyNzAwIGluIHRoZSBzYW1lIHdheSBhcyBmb3IgQVNUMjYwMC4NCj4gPg0KPiA+ID4gZGlmZiAt
-LWdpdA0KPiA+ID4gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbmV0L2ZhcmFk
-YXksZnRnbWFjMTAwLnlhbWwNCj4gPiA+IGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRp
-bmdzL25ldC9mYXJhZGF5LGZ0Z21hYzEwMC55YW1sDQo+ID4gPiBpbmRleCBkMTQ0MTAwMThiY2Y2
-Li5iZWU5NTcwYTZmNjNmIDEwMDY0NA0KPiA+ID4gLS0tIGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0
-cmVlL2JpbmRpbmdzL25ldC9mYXJhZGF5LGZ0Z21hYzEwMC55YW1sDQo+ID4gPiArKysgYi9Eb2N1
-bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbmV0L2ZhcmFkYXksZnRnbWFjMTAwLnlhbWwN
-Cj4gPiA+IEBAIC0xOCw2ICsxOCw3IEBAIHByb3BlcnRpZXM6DQo+ID4gPiAgICAgICAgICAgICAg
-ICAtIGFzcGVlZCxhc3QyNDAwLW1hYw0KPiA+ID4gICAgICAgICAgICAgICAgLSBhc3BlZWQsYXN0
-MjUwMC1tYWMNCj4gPiA+ICAgICAgICAgICAgICAgIC0gYXNwZWVkLGFzdDI2MDAtbWFjDQo+ID4g
-PiArICAgICAgICAgICAgICAtIGFzcGVlZCxhc3QyNzAwLW1hYw0KPiA+ID4gICAgICAgICAgICAt
-IGNvbnN0OiBmYXJhZGF5LGZ0Z21hYzEwMA0KPiA+DQo+ID4gW1NldmVyaXR5OiBMb3ddDQo+ID4g
-V2l0aCB0aGlzIHBhdGNoLCAiYXNwZWVkLGFzdDI3MDAtbWFjIiwgImZhcmFkYXksZnRnbWFjMTAw
-IiBiZWNvbWVzIGENCj4gPiB2YWxpZCBjb21wYXRpYmxlIHBhaXIuIEhvd2V2ZXIsIGF0IHRoaXMg
-Y29tbWl0LCBmdGdtYWMxMDBfb2ZfbWF0Y2hbXQ0KPiA+IGluIGRyaXZlcnMvbmV0L2V0aGVybmV0
-L2ZhcmFkYXkvZnRnbWFjMTAwLmMgaGFzIG5vIGFzcGVlZCxhc3QyNzAwLW1hYw0KPiBlbnRyeS4N
-Cj4gPiBTdWNoIGEgbm9kZSBjb3VsZCBvbmx5IGJpbmQgdGhyb3VnaCB0aGUgZ2VuZXJpYyBmYXJh
-ZGF5LGZ0Z21hYzEwMA0KPiA+IGVudHJ5IChGVEdNQUMxMDBfRkFSQURBWSkuDQo+ID4NCj4gPiBP
-biB0aGF0IHBhdGgsIGZ0Z21hYzEwMF9wcm9iZSgpIHdvdWxkIGRvIHRoZSBmb2xsb3dpbmc6DQo+
-ID4NCj4gPiAgIC0gcHJvZ3JhbSB0aGUgcmluZy1lbmQgYml0cyBhdCBCSVQoMTUpIGluc3RlYWQg
-b2YgdGhlIEFzcGVlZCBCSVQoMzApDQo+ID4gICAtIGxlYXZlIGlzX2FzcGVlZCBmYWxzZSwgc28g
-ZnRnbWFjMTAwX3NldHVwX2NsaygpIG5ldmVyIGNsYWltcw0KPiA+ICAgICBNQUNDTEsvUkNMSw0K
-PiA+ICAgLSByZWdpc3RlciB0aGUgZW1iZWRkZWQgTURJTyBidXMgdGhyb3VnaCBmdGdtYWMxMDBf
-c2V0dXBfbWRpbygpDQo+ID4gICAtIG5ldmVyIHNldCBhIERNQSBtYXNrIHdpZGVyIHRoYW4gMzIg
-Yml0cw0KPiA+DQo+ID4gV291bGQgYW4gQVNUMjcwMCBub2RlIHdvcmsgY29ycmVjdGx5IGlmIGl0
-IGZlbGwgYmFjayB0byB0aGUgRmFyYWRheQ0KPiA+IG1hdGNoPw0KPiANCj4gU291bmRzIGxpa2Ug
-bm8sIGNhbiB0aGUgc3VibWl0dGVyIHBsZWFzZSBjbGFyaWZ5IGlmIHRoZSBmYWxsYmFjayBpcyB2
-YWxpZD8NCj4gDQoNCkFncmVlZC4gSSB0aGluayB0aGUgJ2FzcGVlZCxhc3QyNzAwLW1hYycgc2hv
-dWxkIG5vdCBiZSBiYXNlZCBvbiB0aGUgJ2ZhcmFkYXksZnRnbWFjMTAwJy4NCk1heWJlIHRoZSBk
-dC1iaW5kaW5ncyBwdXQgYXN0MjcwMC1tYWMgYXMgYSBjb25zdCBsaWtlOg0KYGBgDQouLi4NCnBy
-b3BlcnRpZXM6DQogIGNvbXBhdGlibGU6DQogICAgb25lT2Y6DQogICAgICAtIGNvbnN0OiBmYXJh
-ZGF5LGZ0Z21hYzEwMA0KICAgICAgLSBjb25zdDogYXNwZWVkLGFzdDI3MDAtbWFjICAgICAgICAg
-ICAgIC8vIGFzIGEgY29uc3QNCiAgICAgIC0gaXRlbXM6DQogICAgICAgICAgLSBlbnVtOg0KICAg
-ICAgICAgICAgICAtIGFzcGVlZCxhc3QyNDAwLW1hYw0KICAgICAgICAgICAgICAtIGFzcGVlZCxh
-c3QyNTAwLW1hYw0KICAgICAgICAgICAgICAtIGFzcGVlZCxhc3QyNjAwLW1hYw0KICAgICAgICAg
-IC0gY29uc3Q6IGZhcmFkYXksZnRnbWFjMTAwDQouLi4NCmBgYA0KDQpUaGFua3MsDQpKYWNreQ0K
-DQo=
+
+
+On 10/8/2026 4:15 PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [Medium] ath12k: leaked IRQ disable depth when NAPI poll is aborted
+> - [Medium] ath12k: NAPI netdev and MSI IRQs leak on AHB probe failure
+> --
+> 
+> commit 05cbf53b4f5fb7b0ba611762ab10f0a7205ad37a
+> Author: Sowmiya Sree Elavalagan <quic_ssreeela@quicinc.com>
+> 
+> wifi: ath12k: Enable MSI interrupt support for DP interrupt
+>     
+> Configure and request external MSI interrupts for DP ring groups on the
+> QCN6432 platform. Create a NAPI context for each active external interrupt
+> group and disable the corresponding IRQs while NAPI polling is in progress.
+> 
+>> diff --git a/drivers/net/wireless/ath/ath12k/pcic.c b/drivers/net/wireless/ath/ath12k/pcic.c
+>> index fea284c3707ba..06178b4f20d17 100644
+>> --- a/drivers/net/wireless/ath/ath12k/pcic.c
+>> +++ b/drivers/net/wireless/ath/ath12k/pcic.c
+>> @@ -181,6 +181,112 @@ static irqreturn_t ath12k_pcic_ce_interrupt_handler(int irq, void *arg)
+>>  	return IRQ_HANDLED;
+>>  }
+>>  
+>> +static void ath12k_pcic_ext_grp_enable(struct ath12k_ext_irq_grp *irq_grp)
+>> +{
+>> +	int i;
+>> +
+>> +	for (i = 0; i < irq_grp->num_irq; i++)
+>> +		enable_irq(irq_grp->ab->irq_num[irq_grp->irqs[i]]);
+>> +}
+>> +
+>> +static int ath12k_pcic_ext_grp_napi_poll(struct napi_struct *napi, int budget)
+>> +{
+>> +	struct ath12k_ext_irq_grp *irq_grp = container_of(napi,
+>> +						struct ath12k_ext_irq_grp,
+>> +						napi);
+>> +	struct ath12k_base *ab = irq_grp->ab;
+>> +	int work_done;
+>> +
+>> +	work_done = ath12k_dp_service_srng(ab->dp, irq_grp, budget);
+>> +	if (work_done < budget) {
+>> +		if (likely(napi_complete_done(napi, work_done)))
+>> +			ath12k_pcic_ext_grp_enable(irq_grp);
+>> +	}
+> 
+> [Severity: Medium]
+> Can this leak the OS-level IRQ disable depth?
+> 
+> If napi_disable() interrupts a scheduled NAPI instance before it runs, or if
+> the poll uses its full budget, the networking core (__napi_poll in
+> net/core/dev.c) observes napi_disable_pending() and calls napi_complete()
+> directly without scheduling the driver's custom poll loop again.
+> 
+> Because the hardware IRQ handler (ath12k_pci_ext_interrupt_handler) uses
+> disable_irq_nosync() instead of masking the interrupt via device registers,
+> this skips the paired enable_irq() call here, leaving the OS-level IRQ disable
+> depth unbalanced.
+> 
+> The driver's teardown path (ath12k_pci_ext_irq_disable) further increments
+> the depth by blindly calling disable_irq_nosync(). Upon resume or
+> re-enablement, enable_irq() will only decrement the leaked depth by 1,
+> leaving the IRQ physically disabled permanently.
+> 
+
+This is handled by the ATH12K_FLAG_EXT_IRQ_ENABLED flag. The IRQ handler checks this flag
+before disabling the IRQ and scheduling NAPI. During teardown, this flag is cleared using
+test_and_clear_bit(), so subsequent IRQ handler calls will return without disabling the
+IRQ or scheduling NAPI.
+
+>> +
+>> +	if (work_done > budget)
+>> +		work_done = budget;
+>> +
+>> +	return work_done;
+>> +}
+>> +
+>> +static int ath12k_pcic_ext_irq_config(struct ath12k_base *ab,
+>> +				      struct msi_desc **msi_desc, int num_msi)
+>> +{
+>> +	struct ath12k_ahb *ab_ahb = ath12k_ab_to_ahb(ab);
+>> +	struct ath12k_ext_irq_grp *irq_grp;
+>> +	int j, i, k, vec_idx = 0, ret = 0;
+>> +	u8 userpd_id = ab_ahb->userpd_id;
+>> +	u32 num_irq, base_idx;
+>> +	struct msi_desc *desc;
+>> +
+>> +	base_idx = ATH12K_MSI_IRQ_CE0_OFFSET + CE_COUNT_MAX;
+>> +
+>> +	for (i = 0; i < ATH12K_EXT_IRQ_GRP_NUM_MAX; i++) {
+>> +		num_irq = 0;
+>> +		desc = msi_desc[vec_idx];
+>> +		irq_grp = &ab->ext_irq_grp[i];
+>> +		irq_grp->ab = ab;
+>> +		irq_grp->grp_id = i;
+>> +
+>> +		if (ab->hw_params->ring_mask->tx[i] ||
+>> +		    ab->hw_params->ring_mask->rx[i] ||
+>> +		    ab->hw_params->ring_mask->rx_err[i] ||
+>> +		    ab->hw_params->ring_mask->rx_wbm_rel[i] ||
+>> +		    ab->hw_params->ring_mask->reo_status[i] ||
+>> +		    ab->hw_params->ring_mask->host2rxdma[i] ||
+>> +		    ab->hw_params->ring_mask->rx_mon_dest[i]) {
+>> +			num_irq = 1;
+>> +		}
+>> +
+>> +		if (!num_irq)
+>> +			continue;
+>> +
+>> +		irq_grp->napi_ndev = alloc_netdev_dummy(0);
+> 
+> [Severity: Medium]
+> Does this dummy netdev and the associated MSI IRQs leak if probe fails?
+> 
+> For hybrid bus devices (e.g., QCN6432), ath12k_ahb_probe() delegates IRQ
+> configuration to ath12k_pcic_config_irq(), which explicitly allocates memory
+> for dummy NAPI netdevs (alloc_netdev_dummy()) and manually requests MSIs
+> without using devm_ variants.
+> 
+> If ath12k_ahb_probe() fails in subsequent initialization steps (such as
+> arch_init or ath12k_core_init), the error handling paths jump to labels
+> (err_deinit_arch, err_rproc_deconfigure) that appear to skip releasing these
+> resources by not calling ath12k_pcic_free_irq() or ath12k_ahb_disable_irq(),
+> leading to a permanent memory and IRQ leak on probe failure.
+> 
+
+Sure, I will address this in the next version.
+>> +		if (!irq_grp->napi_ndev) {
+>> +			ret = -ENOMEM;
+>> +			goto fail_allocate;
+>> +		}
+> 
+
