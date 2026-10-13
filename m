@@ -1,91 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D27103E639D;
-	Tue, 13 Oct 2026 09:36:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A423E3DCD8D
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 09:37:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791884213; cv=none; b=WQizlwZN4itkw9TFAyWPPRloNZOl9QjLx3QnD2Y5/gBjFTUl8oALImgWDxH56p772ShO3rLIFXb9w1qEV9mwpwLOgEjYy8WyxN3xAHOpKi3kkyHLM/+HTk6ZqcC4kFih0S30SttXTYsxclkAiFpoTMKQ6XP7sNYNKC2OpxD0UWc=
+	t=1791884275; cv=none; b=ltdpsOMX9IO3V3TSMzTMWgsm9drR67Rqrol04WJ1Z3G+R4tk3t3P9dneQHD/YIX6KTqKyaU7hdHzNpqUAuy2+NNhMPpydRw+w63740xwhl6FOalEyYwtCzfPaCtYdsFAVM602NzhYJZFtPKKubpg5eczzCx9hsMKaoQ6FP0hm1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791884213; c=relaxed/simple;
-	bh=tNCwhbKQX3GoNtYVyhZBJh2dlGyNtTTcqphKYqvtCK4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e8MYffJ0TYlgGguoqj8w3jHsf8o4lqIaecSb2aKV0UZTiEve3nTlwHZwGqDqCHqxVPLakK5L+UXOlA9acvobSR7EVAA8qgIOIxbJtLjsCXGbKFVUeaFpvbLPYch8f7z9fofJgo4FNULk+VcxLJLIf+gzH6eWifpNWTqv/Nkl128=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ihHQIh0u; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791884275; c=relaxed/simple;
+	bh=2ayAFFb+DUz96xoDh3MBAGQTWLWO2Yi4jW89/kvabEc=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=pPgMbZDD4tOdfHzJxv0yrX/Tcl0HC6eBopxdt+rffO109foJNdtKxnp9xHOfohOrBB/Idwro/CNWCAbHk/3jRwSYwJUSfqoTqj2TQTGyg5jzaapXv6Uk7vOmhiTeodOYY9t2cRVnSQZcLsJK46SwaL9SYV2Ni4k6gXucePSY/fY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=skhEaINj; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ihHQIh0u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1D991F00898;
-	Tue, 13 Oct 2026 09:36:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791884212;
-	bh=I13S9NHzPBYqCmO9iZd06Lej7+82C/tFnkGCX+GzMsw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ihHQIh0uvs/YMXqAqc47VvtzXg9IoEtUc0pLV0lEJUJCZZFj44IxUyqA2mDEH0+em
-	 3ii/2NVVohA3q4McFk+Mu+K5rMhO9NEtNsR0BX8rZ+1RvCaYqXSAPklo68HNgQp/2d
-	 e3xXJ/RCnjzOX0bqJ6bRPgUTRS4OztMfXGn1uvsFUmWNJFyt6O2S6PNVfEwJ5x/WxH
-	 SMeKHeZP3vyLCpjvvREvQxpqSELMM5GK5aJ/2KgzohMDpXjZmAHfvL0p+Opkpg5mQR
-	 SPV1UR3LPykn0YVtsSOg3vESrt8A9COHQvJknkIMcQhAWYD7KaI/bE7+KYEhZrVx1M
-	 pB+7n8P+SUoZQ==
-Date: Tue, 13 Oct 2026 11:36:49 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Luca Weiss <luca.weiss@fairphone.com>
-Cc: Douglas Anderson <dianders@chromium.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	cros-qcom-dts-watchers@chromium.org, ~postmarketos/upstreaming@lists.sr.ht, 
-	phone-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, Luca Weiss <luca@lucaweiss.eu>
-Subject: Re: [PATCH 2/3] dt-bindings: arm: qcom: Add Samsung Galaxy Book2 Go
-Message-ID: <20261013-naughty-orange-cheetah-db85ba@quoll>
-References: <20261012-book2go-v1-0-7188e7ea7a15@fairphone.com>
- <20261012-book2go-v1-2-7188e7ea7a15@fairphone.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="skhEaINj"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 650AAC653E5;
+	Tue, 13 Oct 2026 09:38:45 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id DC11560362;
+	Tue, 13 Oct 2026 09:37:49 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D19F811D703F1;
+	Tue, 13 Oct 2026 11:37:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791884265; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references:autocrypt;
+	bh=u2mEZ3XIqrqWo6anRB/8NKALcH+wjEUwjzjiCXOic6I=;
+	b=skhEaINji+2Nx23tj0+vlVC+INBRqHuBEvOpI2GawllaxCVDWyN+Qywh+0RB9mojqG1a4p
+	zNXxzbsrL5xabJySIFeqzN9/VYmZrQIncPaHdPqHeBIPjgEUDvglc8xgQEnIk/LHGs3gyh
+	PagqOsWmOQoAjtaciZ2Ct33NgxOXoiYalRiffBBZPlKY3ruud10NKqXDXzxpV3W//2vFjd
+	z65cSTnHGG98vfUKkzOrnK/3oEGSY7lK2BJ9aMsHjClFBTbzYM/JjHeKGzO+S7O+gvLOXi
+	M6IWttiBNTMYM+GuJgJFRVmNPTRgqHqUvtb06dlM/qxlNehu6ouh4Y+MnX4pNA==
+Message-ID: <7d6b1e81114dd98b5ff5f2c71f577c951af14250.camel@bootlin.com>
+Subject: Re: [PATCH v8 5/5] watchdog: aaeon: Add watchdog driver for
+ SRG-IMX8P MCU
+From: Thomas Perrot <thomas.perrot@bootlin.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: thomas.perrot@bootlin.com, conor+dt@kernel.org, 
+	linux-watchdog@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, 
+	devicetree@vger.kernel.org, Frank.Li@kernel.org
+Date: Tue, 13 Oct 2026 11:37:42 +0200
+In-Reply-To: <20260731100434.195B51F000E9@smtp.kernel.org>
+References: <20260731-dev-b4-aaeon-mcu-driver-v8-0-9ab00e80df2a@bootlin.com>
+	 <20260731-dev-b4-aaeon-mcu-driver-v8-5-9ab00e80df2a@bootlin.com>
+	 <20260731100434.195B51F000E9@smtp.kernel.org>
+Autocrypt: addr=thomas.perrot@bootlin.com; prefer-encrypt=mutual;
+ keydata=mQGNBF+/ZOUBDAC2DghCjZvmgYcve02OG7dGZ7Iy58uEwne3LB7w7nRwdAxKw7ZaiVqwY
+ O+yNGVi+GVx7oA6Wn4pv46z+QDRLQiq6OseuXhkSGCg7U/yBCUq12B/GRGO1Qt2Qi1mJJT1s+1qZ5
+ Gxv6Nypz9qKVn94GM2bR1hXBga0t87vBpebThOHmX5d/0dqIcVxRCM7onNb0dDyRoVgLS5rBhQzrL
+ CMrJaCy39xZUy0J1SOlH4Mgk6EhJIPYY4wlzikGX6urg+Tc9EjGd78ry0e0p5U5qgjFR5QGJDy1Gn
+ U3CfwbT9sowdCASDbQDUoltlv2iWJCLa0xl97KVchCa0pr7HKbFA3J5SLKqFYUBCkFL+5WudYlz2n
+ XxiUgyviMQxyK+ij66kEi6/2zFDAecd43pHV7790ptqZBC3Jc67Emj7Vo3ShX6RXPPxxbeCTOF2uk
+ I45aJ9XcVFH/MFE96NjXj8uahnIsiTPyuCUoJu8tj7TSQyue874qJqVQvqlFyt2aZYJZ8ruq8AEQE
+ AAbQpVGhvbWFzIFBlcnJvdCA8dGhvbWFzLnBlcnJvdEBib290bGluLmNvbT6JAc4EEwEIADgCGwMF
+ CwkIBwIGFQoJCAsCBBYCAwECHgECF4AWIQSHQHfGpqMKIwOoEiGfwAsFcf4K7QUCX79mdwAKCRCfw
+ AsFcf4K7fhbC/wP0kSl6id2E/K3+UdXk6CLMVRbCFLCREzQs5WFpQ6l/I0WGOamhrOgegdszheiVF
+ orlUP8d37XSpFAqydhKGaN78V5Dps0Wmwm4lIlS4MtQXJtSLUHXDJLIZLW0pw8tiPLKsd1o/yDkXE
+ dnpsjJTRG6SdDSHnyOB2/gh4p+yTaLytFdARk/r4/P26+L+FiH0fFl+RnBt19LPklfKgeDc7GwIif
+ ja+nIWpp3W23DAUuI6xduEut25Q89yu7Ci8CliLfAiLy9bIGjBQWU2Y+1/j/7KuPj6VbBsZWLTZY0
+ hUmpJSTnWAqc9SMsNxo7NSQuddgviz5e2tqucaRqxP02FGzNa8U4NAKdWaXrlHG5Dglj9XH0DK+SH
+ +c96qqFewYD8VPQ6XAGxQcXbrtJmiMor1R2DfziispLRvJcfYs8xqabbCtoS3ouXB9XRi8hn7A2kh
+ ME1ryS+Oh63JshXHnw6bmjCpVd/p+fGLIGU6A47pJOpviKR4jEO84pl2ejtDZ3Tc=
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-Kr1WNLVwttji5ffo0/h/"
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261012-book2go-v1-2-7188e7ea7a15@fairphone.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Oct 12, 2026 at 08:11:04PM +0200, Luca Weiss wrote:
-> From: Luca Weiss <luca@lucaweiss.eu>
-> 
-> The Samsung Galaxy Book2 Go is a laptop with a Snapdragon 7c+ Gen 3 SoC
-> (SC7280).
-> 
-> It appears to exist in three variants:
-> 
->   NP340XNAA-EXP:
->     4GB RAM + 128GB UFS, WiFi-only (NP340XNA-KA1UK)
-> 
->   NP345XNAA-EXP:
->     4GB RAM + 128GB UFS, 5G (NP345XNA-KA1UK)
->     8GB RAM + 256GB UFS, 5G (NP345XNA-KA2UK)
-> 
-> The internal code name is Hermes2-14.
-> 
-> Signed-off-by: Luca Weiss <luca@lucaweiss.eu>
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
-> ---
->  Documentation/devicetree/bindings/arm/qcom.yaml | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-> index ff8a35df7862..5048e878b7ca 100644
-> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
-> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-> @@ -887,6 +887,11 @@ properties:
->            - const: google,zombie-sku514
->            - const: qcom,sc7280
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+--=-Kr1WNLVwttji5ffo0/h/
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Best regards,
-Krzysztof
+Hello,
 
+On Fri, 2026-07-31 at 10:04 +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider:
+> - [Medium] Contradiction between driver code and DT binding regarding
+> timeout-sec property
+> --
+>=20
+
+I=E2=80=99ll add "timeout-sec: true" to the binding and reword the descript=
+ion
+in v9.
+
+Kind regards,
+Thomas Perrot
+
+> --- Patch [5]: [PATCH v8 5/5] watchdog: aaeon: Add watchdog driver
+> for SRG-IMX8P MCU ---
+> commit fca789df9bd6f6279b387ae274aa7dc26fa4cecd
+> Author: Thomas Perrot (Schneider Electric)
+> <thomas.perrot@bootlin.com>
+>=20
+> watchdog: aaeon: Add watchdog driver for SRG-IMX8P MCU
+>=20
+> Add watchdog driver for the Aaeon SRG-IMX8P embedded controller.
+> This driver provides system monitoring and recovery capabilities
+> through the MCU's watchdog timer.
+>=20
+> > diff --git a/drivers/watchdog/aaeon_mcu_wdt.c
+> > b/drivers/watchdog/aaeon_mcu_wdt.c
+> > new file mode 100644
+> > index 0000000000000..661d14393c6ec
+> > --- /dev/null
+> > +++ b/drivers/watchdog/aaeon_mcu_wdt.c
+> [ ... ]
+> > +static int aaeon_mcu_wdt_probe(struct platform_device *pdev)
+> > +{
+> [ ... ]
+> > +	/*
+> > +	 * The MCU firmware has a fixed hardware timeout of 25
+> > seconds that
+> > +	 * cannot be changed. The watchdog core handles automatic
+> > pinging to
+> > +	 * support software timeouts longer than the hardware
+> > limit. The default
+> > +	 * software timeout of 240 seconds can be overridden via
+> > the DT
+> > +	 * timeout-sec property or the watchdog_timeout kernel
+> > boot parameter.
+> > +	 */
+> > +	wdt->timeout =3D AAEON_MCU_WDT_TIMEOUT;
+> > +	wdt->min_timeout =3D AAEON_MCU_WDT_MIN_TIMEOUT;
+> > +	wdt->max_hw_heartbeat_ms =3D AAEON_MCU_WDT_HEARTBEAT_MS;
+> > +	watchdog_init_timeout(wdt, timeout, dev->parent);
+>=20
+> [Severity: Medium]
+> Will this cause device tree validation failures when users specify
+> the
+> timeout-sec property?
+>=20
+> The driver code and comment indicate that the timeout can be
+> overridden via
+> the DT timeout-sec property on the parent node. However, the DT
+> schema for
+> the parent MFD (Documentation/devicetree/bindings/mfd/aaeon,srg-
+> imx8p-mcu.yaml)
+> enforces additionalProperties: false and does not define the timeout-
+> sec
+> property.
+>=20
+> If a user follows the driver's instructions and adds the timeout-sec
+> property
+> to the MFD parent node, dtbs_check will fail. Should the timeout-sec
+> property
+> be added to the DT binding?
+
+--=20
+Thomas Perrot, Bootlin
+Embedded Linux and kernel engineering
+https://bootlin.com
+
+--=-Kr1WNLVwttji5ffo0/h/
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQGzBAABCAAdFiEEh0B3xqajCiMDqBIhn8ALBXH+Cu0FAmrN++YACgkQn8ALBXH+
+Cu25yAv+K91gmW41FZGVkEKepYv1T/G7POoLs3EWiP9U5GngGOC8QKvVjPc4Fupu
+CjOOnlXxz8oVUDziimHtPtFs36753Gd5ansCDLbnsTc22vsN7qm7cx9gU22nNiQd
++a8kt0HpMpj2nl2N1ki6AKHuLoYXM0ThY1HAgchZKt2Vfk0BtJH/EWGUBklATw5d
+wEqbgjstnPL48WozVUsgo8C4kz/6Rf+t5eAOZTB6oXe+2BH4YUmUOODrL4Ylz3Kn
+DinT+rxVaFRNncFoe5A7UvJjIauN5LxKjHT6yU65NRozt0Z46bevv4Sn8Xlt6AjP
+Art5kFD2BWHDbvUnzpG4/9mFC1TtrgF28CftD9mTXqxWDu1peCZcZy1A8ewXm5/B
+EaRUEuv/GaAucE0P0hPj33icKSsAE8S7iYgHFs6GJmaI2MbpQAE/tzQ8kxTSEJ6x
+4l02V1cLmYjfYkR72mHS0VsbEpWOrjA7pfpq4ZffFOA8o01n7mUQWCbRCk3OX6uX
+XD3Xxyod
+=Jyec
+-----END PGP SIGNATURE-----
+
+--=-Kr1WNLVwttji5ffo0/h/--
