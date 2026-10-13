@@ -1,128 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74347279DCC
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 05:04:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 75A5B485924;
+	Tue, 13 Oct 2026 05:17:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791867887; cv=none; b=La86TT3J6A3UVtSKY0ohnZT6tsdv6HHa1EE3yguvDf7QaZrLe57qnmRf4qZluj647VvrXVxtr7eUiQ1Ec/sDZvFAUCRTeQ7zxEIOv5p7psijZfEyfFr6ea7J1rMWdoSj7pKCrP3PBrGjunST/z0uXi1yG9x4gy03Ns4fe1PtGsg=
+	t=1791868656; cv=none; b=pMEAWfsrL+ow3wTCv5chrwyu/xh6lOLpHHZ9nIOTgJVg0UDZIZ9PRwC8U9NjSkm9asAYqC53cw+WOY2aHKh+UDPeEODInwdkOXe4Pdxeuks3Wma7eLGrjSR5gfRTc3Ppb9Fqw2gn7KRBsnbFk+810+s1JuPh+S5j478/IwLrKQc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791867887; c=relaxed/simple;
-	bh=NxhMN+sOiXG0lxx/C+6YmMMicf2GQA/2t9zBRkveSRs=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=MGtjD4KEBBoyW8F/9Xw1tNYUzHYxLlGaCcltge6D64JF6zB1Vi5ZaUxHLj0m9qDSUSl0WxJwSEto/4zOMxkKtwibdifUAjvLKJUt6AN+o5xErAlWulkmk7aI1PZKR2eLj2aqzxZDZrnKdPuLq4J0QT9X3I3tBnMAJhdShD/O058=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UiJ1CsRA; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UiJ1CsRA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADDD71F000FF;
-	Tue, 13 Oct 2026 05:04:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791867886;
-	bh=F5TacoJtAFL51OeoHC0AKVymmi5T1fjqfP9ht2VQlOs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UiJ1CsRATccLnfes44mxLW0l/AtG9UqUsumnFB7ngr2GbC7w0x0rB4I70Pgf89cws
-	 2kRLJDW7r3PDBSjD7l9fqYzQxQfHOxJ255ccSjzCIp+hkLvY/1kzMuxuMdpUua7wYn
-	 6rz+pkB1are+fkQ8NWy+qmbXH53GBHifHEoApLOZJscfs7baQfq0QUfVYKijdbfxSB
-	 ZriIPHLllHsE563C3j7s4VCf5Aw+POf1qOZeMXiR7CUymThsxqojzmRGGUEaMPkPTE
-	 PaxcHxZCTELGeQuAT850R0Xuvztk/ZaF/N6P7lTA+emYcPEiW3liVMTNeoP76zozEH
-	 NsvHpHFIUlzgw==
-Message-ID: <sashiko-outbox-168988@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] arm64: dts: qcom: shikra-iqs: add M.2 Wi-Fi and
- Bluetooth overlay
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Linghui Wu" <linghui.wu@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261013045527.56941-1-linghui.wu@oss.qualcomm.com>
-References: <20261012122934.3240030-1-linghui.wu@oss.qualcomm.com>
- <20261013045527.56941-1-linghui.wu@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Oct 2026 05:04:45 +0000
+	s=arc-20240116; t=1791868656; c=relaxed/simple;
+	bh=ZW+ADp7BI6KoXt57sY5rD0TzWorKxw1qLn0xytDrwIA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Vz8pPgBfjFIUpi4tuJz0iAKVvVyCWVpdzirTe5uzSCSaO9bAEw80tszOaaGryOyntkrdCtRmiENq1LvPfgKxJAH8V9DgYPsuaK9hY9r5yiZJfhiV6sDfs955nNNYnMhq06Qrg3S6acmG+H2rXPvIlZIxs/iavB8iHHG4TQGXY50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [223.64.68.159])
+	by gateway (Coremail) with SMTP id _____8CxQNHrvs1qVDsVAA--.62324S3;
+	Tue, 13 Oct 2026 13:17:31 +0800 (CST)
+Received: from [10.161.0.102] (unknown [223.64.68.159])
+	by front1 (Coremail) with SMTP id qMiowJAxlMznvs1qp7IrAA--.64852S2;
+	Tue, 13 Oct 2026 13:17:27 +0800 (CST)
+Message-ID: <2d89d84a-f7d1-439b-b111-e5ee21caeb88@loongson.cn>
+Date: Tue, 13 Oct 2026 13:17:26 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 0/2] i2c: ls2x: Add clock- related properties and
+ parsing
+To: Hongliang Wang <wanghongliang@loongson.cn>,
+ Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+ loongarch@lists.linux.dev
+References: <20260817090721.30582-1-wanghongliang@loongson.cn>
+From: Binbin Zhou <zhoubinbin@loongson.cn>
+In-Reply-To: <20260817090721.30582-1-wanghongliang@loongson.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJAxlMznvs1qp7IrAA--.64852S2
+X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAgESCGrMT-oSTAADsX
+X-Coremail-Antispam: 1Uk129KBj93XoWxAr4kWFy7ZF48Wr4kGF13Jrc_yoWrWFy3pF
+	sxCa95Gr1jga48Wwsxt3yxZF95Xws8J39rGrnrWw15ua1avr1DZF1xKr909FykZrs2kayj
+	gr9IgF1DKFy5AFcCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUvjb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6r4j6r4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYIkI8VC2zVCFFI0UMc
+	02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAF
+	wI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r
+	126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAF
+	wI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc4
+	0Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AK
+	xVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr
+	1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxU2BT5DUUU
+	U
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] dt: unresolved phandles in dtso cause overlay application failure
-- [High] dt: missing status okay for i2c3 prevents child devices from probi=
-ng
---
 
-commit 20bd5cfd16cb2c55b562568723f33d895fa37020
-Author: Linghui Wu <linghui.wu@oss.qualcomm.com>
 
-arm64: dts: qcom: shikra-iqs: add M.2 Wi-Fi and Bluetooth overlay
-   =20
-Add an overlay for M.2 Key-E Wi-Fi and Bluetooth modules on Qualcomm
-Shikra IQS EVK. Describe the PCIe and UART connections through the
-M.2 connector, the 3.3 V supply, the W_DISABLE signals and the PCIe
-reset signal. Disable the onboard Wi-Fi and Bluetooth nodes when the
-overlay is selected.
+On 2026/8/17 17:07, Hongliang Wang wrote:
+> Hi all:
+> 
+> This patch set adds clock related properties and parsing in dts and acpi.
+> 
+> ======
+> V10:
+> Patch (2/2):
+> - Replace '/' operator with div64_u64() to avoid __udivdi3 linker error on
+>    32‑bit architectures with CONFIG_COMPILE_TEST.
+> 
+> Link to V9:
+> https://lore.kernel.org/all/20260810074927.25284-1-wanghongliang@loongson.cn/
+> 
+> V9:
+> Patch (2/2):
+> - Rewrite the commit description
+> - Use 64-bit arithmetic to avoid integer overflow during the clock calculation
+> - Add checks to reject zero clock rates and ensure valid clock inputs
+> - Modify the comment for clocks and clock-div properties
+> - Add Tested-by tag from Xi Ruoyao, thanks
+> 
+> Link to V8:
+> https://lore.kernel.org/all/20260721122604.12717-1-wanghongliang@loongson.cn/
+> 
+> V8:
+> Patch (2/2):
+> Fix the potential issues from Sashiko AI review:
+>   - Add error checking for the pointer returned by devm_clk_get_optional_enabled();
+>   - Add zero-value checking for the match data to provide default div.
+> 
+> Link to V7:
+> https://lore.kernel.org/all/20260707035104.3092-1-wanghongliang@loongson.cn/
+> 
+> V7:
+> Patch (2/2):
+> Fix the potential issues from Sashiko AI review:
+>   - Move the clock property parsing process to probe function to solve the issue
+>     of calling `devm_clk_get_optional_enabled()` dynamically causes unbounded memory
+>     leaks and unbalanced clock enable counts.
+>   - Add non-zero checking to priv->div.
+> 
+> Link to V6:
+> https://lore.kernel.org/all/20260608024533.32419-1-wanghongliang@loongson.cn/
+> 
+> V6:
+> - Add Reviewed-by tag from Huacai, thanks.
+> Patch (1/2):
+>   - Remove CC stable.
+> 
+> Link to V5:
+> https://lore.kernel.org/all/20260604015848.18643-1-wanghongliang@loongson.cn/
+> 
+> V5:
+> Patch (1/2):
+>   - Adjust the position of #include <dt-bindings/clock/loongson,ls2k-clk.h>;
+>   - Add CC stable;
+>   - Fix Signed-off-by.
+> Patch (2/2):
+>   - Replace 2K0500/2K1000/2K2000 with LS2K0500/2K1000/2K2000;
+>   - Replace 7A1000/7A2000 with LS7A1000/7A2000;
+>   - Replace if (clk && !IS_ERR(clk)) with if(!IS_ERR_OR_NULL(clk));
+>   - Add document that clocks and clock-div are only ACPI properties in ACPI;
+>   - Remove unsigned int cast in code (unsigned long)device_get_match_data(dev);
+>   - Add CC stable;
+>   - Fix Signed-off-by.
+> 
+> Link to V4:
+> https://lore.kernel.org/all/20260526031021.32662-1-wanghongliang@loongson.cn/
+> 
+> V4:
+> - Add Acked-by tag from Conor Dooley, thanks.
+> Patch (2/2):
+>   - Adjust the position of #include <linux/clk.h>;
+>   - Remove struct ls2x_i2c_chip_data and use macro to describe div;
+>   - Use div instead of factor in ls2x_i2c_adjust_bus_speed;
+>   - Reverse the "if & else" code logic in ls2x_i2c_adjust_bus_speed;
+> 
+> Link to V2:
+> The PATCH v3 is incomplete, v4 is the replacement of v3, so the previous patch link is v2.
+> 
+> [PATCH v2] dt-bindings: i2c: ls2x-i2c: Add clocks and clock-frequency properties
+> https://lore.kernel.org/all/20260507081010.12810-1-wanghongliang@loongson.cn/
+> [PATCH v2] i2c: ls2x: Add clocks property parsing and adjust bus speed
+> https://lore.kernel.org/all/20260507081010.12810-2-wanghongliang@loongson.cn/
+> 
+> V2:
+> [PATCH v2] dt-bindings: i2c: ls2x-i2c: Add clocks and clock-frequency properties
+> - Remove the custom properties clock-input and clock-div, use clock framework;
+> [PATCH v2] i2c: ls2x: Add clocks property parsing and adjust bus speed
+> - Use clock framework to obtain the i2c reference clock in dts.
+> 
+> Link to V1:
+> https://lore.kernel.org/all/20260325011852.19079-1-wanghongliang@loongson.cn/
+> 
+> Hongliang Wang (2):
+>    dt-bindings: i2c: ls2x-i2c: Add clocks and clock-frequency properties
+>    i2c: ls2x: Add clocks property parsing and adjust bus speed
+> 
+>   .../bindings/i2c/loongson,ls2x-i2c.yaml       |  3 ++
+>   drivers/i2c/busses/i2c-ls2x.c                 | 44 +++++++++++++++++--
+>   2 files changed, 44 insertions(+), 3 deletions(-)
+> 
 
-> diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-evk-m2-wifi-bt.dtso b/ar=
-ch/arm64/boot/dts/qcom/shikra-iqs-evk-m2-wifi-bt.dtso
-> new file mode 100644
-> index 0000000000000..9496c6558eef6
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/shikra-iqs-evk-m2-wifi-bt.dtso
-[ ... ]
-> +&i2c3 {
-> +	qps_gpio_expander: gpio@3c {
-> +		compatible =3D "nxp,pca9534";
-> +		reg =3D <0x3c>;
-> +		gpio-controller;
-> +		#gpio-cells =3D <2>;
-> +	};
-> +};
+For the whole series,
 
-[Severity: High]
-Does this overlay need to set status =3D "okay" for the i2c3 bus?
+Reviewed-by: Binbin Zhou <zhoubinbin@loongson.cn>
 
-In the base device tree, the i2c3 bus has status =3D "disabled". Because the
-parent I2C bus remains disabled, the child qps_gpio_expander will never pro=
-be.
-Consequently, the m2_keye_3p3 regulator, which relies on a GPIO from this
-expander, will defer indefinitely, leaving the M.2 Wi-Fi/BT module unpowere=
-d.
+-- 
+Thanks.
+Binbin
 
-> +
-> +&pcie {
-> +	iommu-map =3D <0x0 &apps_smmu 0x0800 0x0 0x1>,
-> +		    <0x100 &apps_smmu 0x0801 0x0 0x1>;
-> +	vddpe-3v3-supply =3D <&m2_keye_3p3>;
-> +};
-
-[Severity: High]
-Do the &pcie, &pcie_port0, and &tc9563 labels exist in the upstream
-platform code?
-
-Applying this overlay at runtime or via the bootloader will fail due to
-unresolvable symbols. None of these labels are defined in the upstream
-platform code (shikra.dtsi, shikra-iqs-som.dtsi, or shikra-iqs-evk.dts).
-Does this overlay rely on unmerged or out-of-tree patches that add PCIe
-support to the Shikra platform?
-
-> +
-> +&pcie_port0 {
-> +	compatible =3D "pciclass,0604";
-> +	reset-gpios =3D <&tlmm 118 GPIO_ACTIVE_LOW>;
-> +
-> +	port {
-> +		pcie_port0_ep: endpoint {
-> +			remote-endpoint =3D <&m2_e_pcie_ep>;
-> +		};
-> +	};
-> +};
-> +
-> +&tc9563 {
-> +	reg =3D <0x1ff00 0x0 0x0 0x0 0x0>;
-> +	status =3D "disabled";
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013045527.5694=
-1-1-linghui.wu@oss.qualcomm.com?part=3D1
