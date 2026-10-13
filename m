@@ -1,78 +1,133 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A1DC2F7EE6;
-	Tue, 13 Oct 2026 08:59:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE61F3B9922
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 09:05:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791881993; cv=none; b=aLcTcJKCjCIFLdbQDMcl0jzq4mhIsMTyG6EXnY+229ZUWkdVOmf1ouOcPyJmvNBBs2OItRmeFVriPV65hWisJir+EDaKmfYtyxEQFN8TxQQP7u+T7ohvWn2LpPJIEPpn6Vw3nIOtKJSQrsUFi1nscRSLTcHwCXlUWzn2DLXZGXw=
+	t=1791882329; cv=none; b=GK9UzAjKb7lis7IZ6gicqQNq8mS9if5MPemotqfvfa7RVgfj6fue0JAtQpMBSE1sb1AnS+CEJjcR8iLI1otShNy6cWaDGgOFLrg62YUhoQs1xoVp/rB58w+n4eoXbeH8HPxN+yTtzQeIm+7ea9DFReLE5355NkD9Kk9IyT2qcpQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791881993; c=relaxed/simple;
-	bh=E+OB+7ryd2uCOa1wQ2cOEUOH0WEIAsx12e86IoqGjbQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=emVfPUC72FRJ4J+qtbxsSZNaf1uOX/9HR0nt/CEBP9st0A390EnQ6X2fkxRzYLQZXb5aS++Ztcq14HY5OZ8eT+M79GBdjTmVEiF+1ofKfrCM0zr/AC5eLMjI0xCDPqlytKEPL/xJL59DYrUG3oBpwLR8IYPpteDEwyrXSbEiYiY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=J3HqYlFI; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791882329; c=relaxed/simple;
+	bh=ZFmLcCeL3cuHdz8AwMbttcGTR73WQSlfkvmtDN5wQf8=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=nso7+3rQiBUPeLBWL/g3fjm5OqslCDd4FG4eq8jkknurlcD9yGfgTAVYqoMu/vMvQ4d+qTD8wDjhIGLjMriSUAMVlga9aVpXKziUa8h6IVhNZ/05MFZWQa+N0+5eVP2pCZg8qgajdr6BYRFdGmoSTqPZXGTDcFRlb+Ox8kOORNQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=idd7msZS; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=rayI3YWz; arc=none smtp.client-ip=202.12.124.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="J3HqYlFI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=E+OB+7ryd2uCOa1wQ2cOEUOH0WEIAsx12e86IoqGjbQ=; b=J
-	3HqYlFI0x76puVtuzCj6BNmT3kSdkaQzPSezdcdjoS+1Geli47hzqINGyHxCJZ1E
-	1DcF8HDysdNHWUXqlsBpKfPafAVy2k/kG0QYuDMqHZDaL77RsoCUMYpSbJkCAafX
-	ajwiBjC8VBvrpU678QRST8xkgOZvagtgQBZXI+MNrg=
-Date: Tue, 13 Oct 2026 16:59:23 +0800 (CST)
-From: zl020895  <zl020895@163.com>
-To: "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>
-Cc: longzhao@ambarella.com, "Bartosz Golaszewski" <brgl@kernel.org>,
-	linux-gpio@vger.kernel.org, "Linus Walleij" <linusw@kernel.org>,
-	"Michael Walle" <mwalle@kernel.org>, "Rob Herring" <robh@kernel.org>,
-	"Krzysztof Kozlowski" <krzk@kernel.org>,
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
-	"Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>,
-	"Conor Dooley" <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re:Re: [PATCH 7/7] gpio: pl061: add Ambarella register-layout
- variant
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <as3a7UTe9YEyBAY3@ashevche-desk.local>
-References: <20261009-cv75-gpio-v1-0-5836bd438423@ambarella.com>
- <20261009-cv75-gpio-v1-7-5836bd438423@ambarella.com>
- <as3a7UTe9YEyBAY3@ashevche-desk.local>
-X-NTES-SC: AL_Qu2SA/STvkEt5SmZZukdnUoTj+Y/XMK0uvwk1YdVc/wElDLh/QIGXnx4LVn57NCEASONoSqOQD9f5t9aVplH+dw2VSZJxP0KkMC8A4mHNA==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="idd7msZS";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="rayI3YWz"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.stl.internal (Postfix) with ESMTP id C3EE01D0014C
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 05:05:26 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Tue, 13 Oct 2026 05:05:26 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1791882316;
+	 x=1791968716; bh=5Vu+OzUk0MIMBYSS2c/IxqZ4LiwoE9Nz2IqLhJSI37c=; b=
+	idd7msZSsfRL3u79KkWVHMhvQE2Iq5DPnSingn8n5pygs5gk1oXJoa0gUNnua8Hq
+	Dwy54W32VjKEA9er6JthFzKN2QcJHy9huiaG/Nq5Lu9eQQtytY4zXDb1d94GNUuI
+	inIrY3qWfHcUao2bDYhY72QHLTHCj/1UEY+fd4l3lxug7yQpG9nWdyoY0atlyzq6
+	WTX8f8X9USO3Hk+w/u+XG9l8KSJA6oni56Fsgkcepcs6P4sz8Py0tA+d9HqSe6N2
+	SweMD5e0016IudfYfbt53fkaUGMiA00mr0IrZjH2Ig5F2TIGKq1nRBuTmhP0PuWW
+	Co2Torw8uBXcBnPdvvU6iQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791882316; x=
+	1791968716; bh=5Vu+OzUk0MIMBYSS2c/IxqZ4LiwoE9Nz2IqLhJSI37c=; b=r
+	ayI3YWzKU5LUBrAzpF0W+HMthGVmZhb+z8sSbJN6Bzr3im8LedSX22LqhBIZ9TNn
+	tHB+d8dcFyH/YO8YUcW/NJOVvBnrIxzCLIX3IRHQH+rXGSUq7DeGoUkzb4Y6GCJJ
+	I12bNBQpgiR49p6GvdAkJuxIG9/dnkhRuuVaUbK95mErniixIgjUcQwV/EpAizbm
+	TdIa/WzNoo/gaUBVCpTXIeCIvKIi2HzamF6IqrsLjjlB67HnSwFtWVZV3xbQFM06
+	JL4V5axHJMMNwlEall2p5LCid7cQwO3lnTeoFaJwSdwzxKPoJCAgecI803/W18qA
+	GeSbnXs+3LYFFm6pYJtew==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791882316; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
+	s=fm1:rsa-sha256:h5+W6FI+YlFSMtdH5tiMNbk2hxVGo7Xa88eTqA+sutSw+cB
+	fSp3WyjEhdb3K4FBlx1kgb/uKPS8eRocuHM6mpMiRkMLOQHW5wmM+sq9P5/Ef2fZ
+	3fWGDChtmH/cP2c6XEmhWESuQFAHYwR1hrWfZD5cCqJ21KTPMIv+2chG1FANPEjz
+	Ltt6CdDrwLIu0xK0ROfkaMvBqQcWiE3h3SX6GrhCTZOf5pEmRrbnhp4iduGTWoPD
+	x7CC+hag79e9oBS5iqa8V0Q7Ckyta2jpuNHw3ftPG+jAuoVLzdwCeM0cc1uVznS1
+	Wv4nP/9hsODrpX8F2UJ9Fsbp6mch45ZVZlYSbeQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:YlRJbN86xwXuiKasg+HYpYUGf7FUWur5wgJz9NO67zo=:ZFmLcCeL3cuHdz8AwMbttcGTR73WQSlfkvmtDN5wQf8=;
+X-ME-Sender: <xms:RvTNauy3DPzUGJinL1qQ5nkQ05tHOrXW9qg6p8T3rTOl4OSnDSp_kw>
+    <xme:RvTNalErx89Iu7OGUtpLMtQG56nFAozNamFYO48-5ya37o5aYFpvnYfm__R2AzQ0d
+    CyRCgdJmCZ8SjdBfRjZy57_MDmmjI3RMEUrLqkZiC63BXOKsSRRqb8>
+X-ME-Proxy-Cause: dmFkZTEaKGcxRZWYC2ZzlxnfGYHVFhHnMmkDqoeW31U+gEtaJKhI6TlLUmnksXJOUEBrd8
+    yBlHpJ2LC6dZ7XmxwbOaq1yRrnpd7SiaJ8Ggp8hbsA0vpEDveQTHee9kHbDkEYeDcNjOdv
+    c8HHJ3t5VPwERagUysZAWfIV309Y3knQIFpnR1bJg5dL8c3RMwoJBFGFYOBxLcSsx6jCdi
+    9bIYNQIB6RrnhaNg9/TRKM11VmCsaXs2HypU3I1uYaieqsG4ypc9LDuS9YAdzrEOdZqV1z
+    bsoRPAvE2UAp2JvGmXQSLGlE92Z8vTGU7D1lzOPHEFReiYt6XM8zHN4tyC5Fi5hBPZFvfQ
+    6NSj1S8McnVav/vuOhoHLYKRwxVO0jI7qJGxEcuCCL+XekWVn/arUhpLZn8kQqHiiCokqR
+    KDFd61k7au6y8GK4/tKl9o7gwgUBm3z4a6yNnIGYFVPPiGJg8ndjVsQOntLn4KtX72lFwD
+    0/g243eETcuARDPnkk5+ZOKc+FJcACtmYaIG28X/1Jgp2VS6fyYxCo+w3LxFB4/9bULbtj
+    79IJxW3OIaHqkoPVpcDbVNzBW9Q/Qznqm6kTiVrKiznLIEX9uVKZmqf5QP9rO9WwEUrnbB
+    GMIXPbPSW/zIFCpPIfX96ztVpdQ395de/GweoDXxgi54srp709yqGrIHxiKA
+X-ME-Proxy: <xmx:SfTNajarx3o0JmpfaqmZ224StPTnpAxy7rWKLZ3KrGpPJrufNHzA8A>
+    <xmx:SfTNaqUglVjJXHJ7xKHOjJCTZEBXNdVjEQFXcN7W4D9pzlcaoR_hpw>
+    <xmx:SfTNatItlfZ4pjEJ0leoFl-hpcYJVsdOQFywJ6oo21IHfsVdu9D0-g>
+    <xmx:SfTNagGMKnMqbFToTrE2FAcbBwgN8Vc7dQSe2xXwQh4_MYKpJSqxuw>
+    <xmx:TPTNakG6G3To8SYyvfPexCKyGeW0-zHAIo9l4HWowG0eZv9kDsz2OWo6>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 91C8432A008E; Tue, 13 Oct 2026 05:05:10 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179f2223.7d43.1a1347ce995.Coremail.zl020895@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:dCgvCgD3Pzfs8s1qv45XAA--.13348W
-X-CM-SenderInfo: d2oqjiqyzvqiywtou0bp/xtbC7QsFdmrN8uvmDwAA3C
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+X-ThreadId: Aj8tA9m21Bng
+Date: Tue, 13 Oct 2026 11:04:50 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Fil Dunsky" <filipp.dunsky@gmail.com>,
+ "Krzysztof Kozlowski" <krzk@kernel.org>
+Cc: "Linus Walleij" <linusw@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ "Jiri Slaby" <jirislaby@kernel.org>, "Russell King" <linux@armlinux.org.uk>,
+ "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
+ "Drew Fustini" <fustini@kernel.org>,
+ "Lorenzo Pieralisi" <lpieralisi@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+ "Jason Li" <jason.li@cortina-access.com>,
+ "Conor.Dooley" <conor.dooley@microchip.com>
+Message-Id: <192a1f7f-79e6-403f-9910-d46b871cae2b@app.fastmail.com>
+In-Reply-To: <179187343453.3124451.12229499654368455627@gmail.com>
+References: <20261013-b4-cs75xx-v6-0-37e8f3969b7c@gmail.com>
+ <971b67a9-7e3a-4fde-a8a1-e5a78f8d6436@kernel.org>
+ <179187343453.3124451.12229499654368455627@gmail.com>
+Subject: Re: [PATCH v6 00/10] ARM: Add support for Cortina Systems CS75xx and Securifi
+ Almond+
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-SGkgQW5keSwKCllvdSBkaWQgZ2l2ZSBSZXZpZXdlZC1ieSBlYXJsaWVyLiBBZnRlciB0aGF0CnRh
-ZyB0aGUgY29tbWl0IGdhaW5lZCB0aGUgREFUIGNhY2hlLCBzbyBJIGRyb3BwZWQgdGhlIHRhZyBi
-ZWNhdXNlIHRoZQpjb2RlIGNoYW5nZWQuIElmIHlvdSBhcmUgc3RpbGwgZmluZSB3aXRoIHRoYXQg
-dmVyc2lvbiwgSSB3aWxsIHJlc3RvcmUKaXQuCgpUaGFua3MgZm9yIHRoZSByZXZpZXcuCgpCZXN0
-IHJlZ2FyZHMsCkxvbmcgWmhhbwoKQXQgMjAyNi0xMC0xMyAxNToxNzowMSwgIkFuZHkgU2hldmNo
-ZW5rbyIgPGFuZHJpeS5zaGV2Y2hlbmtvQGxpbnV4LmludGVsLmNvbT4gd3JvdGU6Cj5PbiBGcmks
-IE9jdCAwOSwgMjAyNiBhdCAwNjo1ODowMFBNICswODAwLCBMb25nIFpoYW8gdmlhIEI0IFJlbGF5
-IHdyb3RlOgo+Cj4+IEFkZCBhIDMyLWJpdCwgMzItbGluZSBsYXlvdXQgd2l0aCBEQVQvRElSL0lT
-L0lCRS9JRVYvSUUvTUlTL0lDIHBsdXMKPj4gTUFTSyBhbmQgRU5BQkxFLiBQcm9iZSB1bm1hc2tz
-IHRoZSBiYW5rIGFuZCBlbmFibGVzIHRoZSBjb250cm9sbGVyLgo+PiBJUlEgdHlwZSBjaGFuZ2Vz
-IGFsc28gY2xlYXIgdGhlIHBlbmRpbmcgYml0LiBUaGlzIGRlcml2YXRpdmUgZG9lcyBub3QKPj4g
-bmVlZCB3cml0ZS1hZnRlci1kaXJlY3Rpb24gb3Igc3lzdGVtIHN1c3BlbmQgc2F2ZS9yZXN0b3Jl
-Lgo+PiAKPj4gQ2FjaGUgREFUIChSRUdDQUNIRV9GTEFUX1MsIG5vdCB2b2xhdGlsZSkgc28gZ3Bp
-b19zZXQoKSB1cGRhdGVzIG9uZQo+PiBiaXQgZnJvbSB0aGUgb3V0cHV0IHNoYWRvdyBpbnN0ZWFk
-IG9mIHJlYWQtbW9kaWZ5LXdyaXRpbmcgdGhlIHBpbgo+PiBsZXZlbCBhY3Jvc3MgdGhlIGJhbmsu
-Cj4+IAo+PiBNYXRjaCB0aGUgcGFydCB3aXRoIGRlc2lnbmVyIEFNQkFfVkVORE9SX0FNQkFSRUxM
-QSAoSkVQMTA2IGlkZW50aXR5Cj4+IDB4NjgsIGJpdCA3IHNldCkgYW5kIHBhcnQgbnVtYmVyIDB4
-MDYxLgo+Cj5JY2s/ISBJIHRob3VnaHQgSSBnYXZlIGEgdGFnIGZvciB0aGlzLiBXaGF0J3MgZ29p
-bmcgb24/Cj4KPi0tIAo+V2l0aCBCZXN0IFJlZ2FyZHMsCj5BbmR5IFNoZXZjaGVua28KPgo=
+On Tue, Oct 13, 2026, at 08:37, Fil Dunsky wrote:
+> On 13/10/2026 08:18, Krzysztof Kozlowski wrote:
+>> Way too many versions of huge patchsets. I already counted 4 today.
+>
+> Sorry about that, my mistake. I will leave this series alone for at
+> least 48 hours now and collect all comments before the next version.
+
+Please just wait until all soc patches for the 7.4 merge window are
+upstream, I don't think anyone is going to look at this before
+then anyway.
+
+    Arnd
