@@ -1,132 +1,91 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8C93388396
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 09:35:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D27103E639D;
+	Tue, 13 Oct 2026 09:36:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791884155; cv=none; b=JM7jNEiI+ok7k1O/MmcAtpJI/F/vrHSHPGqHjFtxdDjOE4Pi86pxyuXzOO/S2hJ2It1R24foYuXSeePUy5TSy0fc80qYiY+aQeqF4tMQTy9wCeX7oyYIrj4bbQhKs2WcZ3dkbwRAWL28/2Pqb79v2jFB39R76I9bDON50ZjSJfI=
+	t=1791884213; cv=none; b=WQizlwZN4itkw9TFAyWPPRloNZOl9QjLx3QnD2Y5/gBjFTUl8oALImgWDxH56p772ShO3rLIFXb9w1qEV9mwpwLOgEjYy8WyxN3xAHOpKi3kkyHLM/+HTk6ZqcC4kFih0S30SttXTYsxclkAiFpoTMKQ6XP7sNYNKC2OpxD0UWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791884155; c=relaxed/simple;
-	bh=qSkGUohML2p/xeSbT4MWkS/eFydJi+duS3OhUaoaXUQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jmnZYps5cQDa86qOMERx99B+X9Y9cacOmj/y2mm+Qu2uDu4yilYOI8kvxeerUGAWkerpD/6hvbHuJHoyg5T20OCxjyZCRu8N6Ll8GuoyhjU5qH2V2JSgMowoKUQ4VFkV70RyTrTKccWS2cS1at34opCSHht9M9nBBIPgqWu1TE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DHXd+P4V; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791884213; c=relaxed/simple;
+	bh=tNCwhbKQX3GoNtYVyhZBJh2dlGyNtTTcqphKYqvtCK4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e8MYffJ0TYlgGguoqj8w3jHsf8o4lqIaecSb2aKV0UZTiEve3nTlwHZwGqDqCHqxVPLakK5L+UXOlA9acvobSR7EVAA8qgIOIxbJtLjsCXGbKFVUeaFpvbLPYch8f7z9fofJgo4FNULk+VcxLJLIf+gzH6eWifpNWTqv/Nkl128=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ihHQIh0u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DHXd+P4V"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791884152;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ymRVYAINTCGe65FkaCIpcmD55uZ5dvwqAGaT9G+s7bI=;
-	b=DHXd+P4VVgIw3KBe40QZi+Uq4s9VpfAOjiJF9eHn61Q7ZgqWN2wiCiLqFovONeYWSOetnj
-	g1sGDF27MCwhJPtxQPqyL5kpZr1ju9HhIrvKy8DnmZD5YJUNYNdWSX26fnj/s/Bh6dLCis
-	pecuo/U1KTX6kebTQKKw4m2CkkAIwLo=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-580-pU5W5lYsM7q3g9VjC4EBpQ-1; Tue,
- 13 Oct 2026 09:35:49 +0000
-X-MC-Unique: pU5W5lYsM7q3g9VjC4EBpQ-1
-X-Mimecast-MFC-AGG-ID: pU5W5lYsM7q3g9VjC4EBpQ_1791884147
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D8F7C180133A;
-	Tue, 13 Oct 2026 09:35:46 +0000 (UTC)
-Received: from [10.43.2.199] (unknown [10.43.2.199])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 6C1FD1956086;
-	Tue, 13 Oct 2026 09:35:43 +0000 (UTC)
-Message-ID: <ce4b7f56-70c6-4436-a453-91fdc13ef634@redhat.com>
-Date: Tue, 13 Oct 2026 11:35:42 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ihHQIh0u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1D991F00898;
+	Tue, 13 Oct 2026 09:36:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791884212;
+	bh=I13S9NHzPBYqCmO9iZd06Lej7+82C/tFnkGCX+GzMsw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ihHQIh0uvs/YMXqAqc47VvtzXg9IoEtUc0pLV0lEJUJCZZFj44IxUyqA2mDEH0+em
+	 3ii/2NVVohA3q4McFk+Mu+K5rMhO9NEtNsR0BX8rZ+1RvCaYqXSAPklo68HNgQp/2d
+	 e3xXJ/RCnjzOX0bqJ6bRPgUTRS4OztMfXGn1uvsFUmWNJFyt6O2S6PNVfEwJ5x/WxH
+	 SMeKHeZP3vyLCpjvvREvQxpqSELMM5GK5aJ/2KgzohMDpXjZmAHfvL0p+Opkpg5mQR
+	 SPV1UR3LPykn0YVtsSOg3vESrt8A9COHQvJknkIMcQhAWYD7KaI/bE7+KYEhZrVx1M
+	 pB+7n8P+SUoZQ==
+Date: Tue, 13 Oct 2026 11:36:49 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Luca Weiss <luca.weiss@fairphone.com>
+Cc: Douglas Anderson <dianders@chromium.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	cros-qcom-dts-watchers@chromium.org, ~postmarketos/upstreaming@lists.sr.ht, 
+	phone-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, Luca Weiss <luca@lucaweiss.eu>
+Subject: Re: [PATCH 2/3] dt-bindings: arm: qcom: Add Samsung Galaxy Book2 Go
+Message-ID: <20261013-naughty-orange-cheetah-db85ba@quoll>
+References: <20261012-book2go-v1-0-7188e7ea7a15@fairphone.com>
+ <20261012-book2go-v1-2-7188e7ea7a15@fairphone.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v12 05/12] dpll: sit9531x: register DPLL devices
- and pins
-To: Ali Rouhi <arouhi@sitime.com>, Jiri Pirko <jiri@resnulli.us>
-Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>,
- Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Carolina Jubran <cjubran@nvidia.com>,
- Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20261009183151.78497-1-arouhi@sitime.com>
- <20261009183151.78497-6-arouhi@sitime.com>
-Content-Language: en-US
-From: Ivan Vecera <ivecera@redhat.com>
-In-Reply-To: <20261009183151.78497-6-arouhi@sitime.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261012-book2go-v1-2-7188e7ea7a15@fairphone.com>
 
-On 10/9/26 20:31, Ali Rouhi wrote:
-> From: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
+On Mon, Oct 12, 2026 at 08:11:04PM +0200, Luca Weiss wrote:
+> From: Luca Weiss <luca@lucaweiss.eu>
 > 
-> Register each of the four on-chip PLLs as a DPLL device, and the crystal
-> that feeds them as a pin on each.  The inputs and the outputs need a
-> state callback the core insists on before it will take a pin, so they are
-> registered by the patches that add theirs; what this patch builds is the
-> device, the pin machinery around it, and the one pin whose state never
-> changes.
+> The Samsung Galaxy Book2 Go is a laptop with a Snapdragon 7c+ Gen 3 SoC
+> (SC7280).
 > 
-> The callbacks a device needs from the start come with it -- lock status
-> and the operating mode -- along with the direction of each pin.  The rest
-> of the pin operations follow in later patches.  The device selects its
-> reference by priority, so automatic is the one mode advertised.  A
-> profile that sets manual active select is still reported as automatic,
-> since nothing in the driver drives a manual selection, and probe warns
-> about it.
+> It appears to exist in three variants:
 > 
-> Both need somewhere to read from.  The chip reports its state across
-> several pages, and a netlink call must not turn into a burst of I2C
-> transactions, so a kthread worker polls the interesting registers twice a
-> second into a per-input and per-PLL cache, and the callbacks answer from
-> it.  Output state is not polled: it changes only through a request, and
-> the getter reads the device again when one could not be confirmed.  The
-> same tick compares the new state against the old and notifies the core
-> only on a change; the first tick takes the baseline.  Where a board wires
-> INTRB, the interrupt schedules that tick immediately rather than
-> replacing it: the poll stays as the fallback, since this device gives no
-> way to be sure an edge was not missed.
+>   NP340XNAA-EXP:
+>     4GB RAM + 128GB UFS, WiFi-only (NP340XNA-KA1UK)
 > 
-> Which PLL drives an output is read from the PLLs' output-enable masks,
-> which PLLC and PLLD keep in mirrored bit order.  An output two masks
-> claim goes to the first PLL, with a warning.
+>   NP345XNAA-EXP:
+>     4GB RAM + 128GB UFS, 5G (NP345XNA-KA1UK)
+>     8GB RAM + 256GB UFS, 5G (NP345XNA-KA2UK)
 > 
-> The clock_id that keys a device in the DPLL core is built from the SiTime
-> OUI and the part's position: sixteen bits of the I2C bus number and the
-> address.  Bus numbers are not bounded by the number of adapters -- a DT
-> alias or a mux child can number a bus 256 or above on a board with a
-> handful of them -- so the bus gets the width; the variant needs no field,
-> since one address on one bus holds one part.
+> The internal code name is Hermes2-14.
 > 
-> Signed-off-by: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
-> Assisted-by: LLM
-> Signed-off-by: Ali Rouhi <arouhi@sitime.com>
+> Signed-off-by: Luca Weiss <luca@lucaweiss.eu>
+> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 > ---
->   drivers/dpll/sit9531x/Kconfig  |    4 +
->   drivers/dpll/sit9531x/Makefile |    2 +-
->   drivers/dpll/sit9531x/core.c   | 1763 ++++++++++++++++++++++++++++++--
->   drivers/dpll/sit9531x/core.h   |  258 ++++-
->   drivers/dpll/sit9531x/dpll.c   |  411 ++++++++
->   drivers/dpll/sit9531x/dpll.h   |   68 ++
->   drivers/dpll/sit9531x/regs.h   |  259 ++++-
->   7 files changed, 2671 insertions(+), 94 deletions(-)
->   create mode 100644 drivers/dpll/sit9531x/dpll.c
->   create mode 100644 drivers/dpll/sit9531x/dpll.h
+>  Documentation/devicetree/bindings/arm/qcom.yaml | 5 +++++
+>  1 file changed, 5 insertions(+)
 > 
-Reviewed-by: Ivan Vecera <ivecera@redhat.com>
+> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+> index ff8a35df7862..5048e878b7ca 100644
+> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
+> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+> @@ -887,6 +887,11 @@ properties:
+>            - const: google,zombie-sku514
+>            - const: qcom,sc7280
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
 
