@@ -1,211 +1,602 @@
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from e234-57.smtp-out.ap-northeast-1.amazonses.com (e234-57.smtp-out.ap-northeast-1.amazonses.com [23.251.234.57])
+	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D21A2471CF8
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 03:28:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27DF447729A;
+	Tue, 13 Oct 2026 03:28:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.251.234.57
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791862118; cv=none; b=P9HfywCfAspkguVeg0ieqtCjFqD9lDb9Iugzv34kW6+pD8Nkd1uzaqYmqKlq8ev8Xq+6p5NJsXsjug9VoteqnFKs/SgnqcsIYgZi5FnlQAmJnkQEF8gf6XsEKmV0ig8DsV1qY4k1UR0CTeM4sXczOkIfmSYsVG+eepCpWdlzrDs=
+	t=1791862123; cv=none; b=ui3v490qYu+UwNTPNO6TyPZKP+rzDqUClHCeukVNRRUziEhngmzWNFyVuxjFsjCVvXJ8bIxyPKuBNHA04t428UutJdy1LCzAMx7NXlQAgxQ/3K/r13D5iWL+O9lChRThwzyrxVgLT4oj+/o6fA1zXr6kxQlm/bR2fScxaxPaDjI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791862118; c=relaxed/simple;
-	bh=1596ZXtdhvZVs+Tdnu6Ajw7/QmvSTVTcByw56Brktwc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JmiA09vXpHeNYN9/J45DhKrdBdK0Nh0rCepL9G/5QUWcMpXAzwQlyvDoUtSjNX0tieREnJhj0WmNz3mTwoNKuoIxRFfuD8IQ/2TmnFBDrEwK7QaHNcJZMyfJlVreYlg1vu+JAlUxbxLZ3Qs29R3dzxsUTHL7zBP8OGSBgnsDQTE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W91FFlHc; arc=none smtp.client-ip=74.125.82.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791862123; c=relaxed/simple;
+	bh=ROlGM0exL/yGE2xPI+bQdBLzxd/wtNPOLTmJCEyMQm0=;
+	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Date:
+	 MIME-Version:Content-Type; b=HTT6treMiSZ4w01+MpdBHq+n2/j75MmYHVHUP6f+LsMAxUqjD8bwjEQ0WR0K2fYUiM4Z8+9A5jrE0KSem/QZjrq4kOnaEdCsWA5btb0/xgmKYyyT09e3sVFxUOe0Jd2NyYqi3ea5x9r2N0mx9bZZYU5gCWpczvPmHyc5B6C4wvg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz; spf=pass smtp.mailfrom=send.fqwqf.xyz; dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b=FIljL8nq; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=s+M+tYQ4; arc=none smtp.client-ip=23.251.234.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.fqwqf.xyz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W91FFlHc"
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3535a54bed9so3469121eec.1
-        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 20:28:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791862116; x=1792466916; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+8wCm2Nfy1YlIAb2uRfBFA3ucdNuFD+nuit8STLj3RM=;
-        b=W91FFlHcUkJSt2HrR9od60ZMxoiq4czabMLAHTBvIZKvZXtJ2k87DyVzvWa52Thp+N
-         yEIdIFeiR7iGGqj+dyoFxQu7P2SHxSfg9cAvr8i5vEFx/XeXr8CmmHy9keFdUzEVOlH5
-         ZmFRsml7GRBmCobiUiOW6wCVv9/0+xCjrWXPsfDvoq5HAgjkb/Z4Gyhsbn2QODvuBY8k
-         7yNHYPCtKLtC5SuibL0GpECx3nrn+Ny9IIPI1gKhzxxybM6aHlTcyoyJbfyUrcwIdLJ+
-         Z8lf6sEglefQO7jumuItchredFVLyOrbkQ43ZsxCNN3qySIUtojrgM1m6kSj2Vl7UaWW
-         rgLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791862116; x=1792466916;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+8wCm2Nfy1YlIAb2uRfBFA3ucdNuFD+nuit8STLj3RM=;
-        b=JDKwwlp8uCL1Lt4kpB6WOrK6cKOADMao+2T/GkjR82uzp7pA1FcihsuTqV0aHaz5Ey
-         pB8C1tVQmRHVakcTGrAPMxsb/BxZxMcb8j86FF3it0PkWfCHP3yJQqp3QaMjmMHDDp9o
-         zDubwJAgnCF7hziDoMPSIvkBJSOs7PaZDkLTDGl+Fz2VEvkdfE4fY5Ho3JrSkZZFkNSw
-         WoqOxI/jr0jU9pZ+NCuirz30laa0kZ+Pb0kP4AAqq3Zy9ZEjsvRwI2Kkf5caHUD8zjOl
-         /w4O+t8jN43T7S+YSdOHV2caWx5scH9HRZOoamEg1nWYsVLP963bG7FXzV2EsmORQUyp
-         nwWw==
-X-Forwarded-Encrypted: i=1; AKwUvBzEiVhK6WWfiMuSn6qVMA41SU60vN8fV5v3ySbYKcSC5iWgsPmSEzy1M/0k6Xt2mCgyKIwa6Axy5vdH@vger.kernel.org
-X-Gm-Message-State: AFq9FYJD0IKM0iYvxQJ2kdaK09xfKRGsEQ61N8VP7Wpxa2Tl6/K3roHK
-	Ndk/9kfXzETDxNuSJE4pS/tp4+/5cuxd8VZVw8eUfbzO1fOIO+Y1/AHm
-X-Gm-Gg: AYBFou1YAG7Ya7xonLyoJMQusIzWHThooNa5kikDS45md4O50QcuH/ST1CTBIxc40jj
-	fQiShFxtltN2BILQdrrEaIGYej6dEcSisN/lSvkaNusr87Yi0IvRyj2qD8pr3BTQCxu1z57zj1j
-	PTliSNiD5PPSI8RIAG/n4Yu2iFMNbBivykh1bk9mavuc73sVMZuOLYTeVfrJuuM2Ai82aOSBIxG
-	latalCoaYCctgno5Qoznf6HwBQWyBsyZCglhqFGjrYlOIZu6ZgEKRbMaCvpATQpLlBYzCqhN7ys
-	u8HmXnSotlspf7okR3Ey2NqAC0cZYPMSx8ECfRSOnzUb2pzwKGN/QRStr8vj4NsOSyXI3jqJbLt
-	ieE4mX6IIa/2KUlxO3225PqszwTxAd+0J/LmZMgGH4kx3ha7LfKi4ZcEJFzsdW3HzU1ZjHB9GK3
-	yX7/3V0DzIyUaCigIJxYOzZTqX9GXiVbUwDfymVxx01zRwdtAKVloAA53+4qqM7FfgsUA5BlzKS
-	fmMlKEY/aoUcr9SOM+GGHv2NBgc/UwYByy3Hn5ChuCXvA==
-X-Received: by 2002:a05:7300:d205:b0:35a:22a4:133 with SMTP id 5a478bee46e88-35a22a421b2mr7256994eec.20.1791862115599;
-        Mon, 12 Oct 2026 20:28:35 -0700 (PDT)
-Received: from [127.0.0.2] ([2401:4900:8900:441a:ba51:e5f4:3ca4:4b87])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-353814b556esm43617106eec.18.2026.10.12.20.28.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 20:28:35 -0700 (PDT)
-From: Ramshouriesh R <rshouriesh@gmail.com>
-Date: Tue, 13 Oct 2026 08:58:23 +0530
-Subject: [PATCH v7 1/3] media: dt-bindings: Add Himax HM1092 NIR sensor
+	dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b="FIljL8nq";
+	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="s+M+tYQ4"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
+	d=fqwqf.xyz; t=1791862117;
+	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
+	bh=ROlGM0exL/yGE2xPI+bQdBLzxd/wtNPOLTmJCEyMQm0=;
+	b=FIljL8nq4B33aolP/WUC4Fbn7jvZNH1U6yc/2IxTBiYJtEjpbIY4gAkfAm57+OJn
+	5bRcW+Pm1Kx05B0LAWEbAyeDP7LjHnOtoP75WRsaMTiyaFr7E3GS+yU8s5PGzW8I3lp
+	XeHQ4c42aKQJcU90FxBIlD5C71TbWQDDrbP6cHHk=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1791862117;
+	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
+	bh=ROlGM0exL/yGE2xPI+bQdBLzxd/wtNPOLTmJCEyMQm0=;
+	b=s+M+tYQ4ZijobPCpnxtdBRw2y4fOpQj1DKT6RuTrjIeePFfGou8sBhD6iPjFmhd7
+	UKU5vMSCm95sMJRhLGYixaGrJQfFgkzzgVVtlVn+66TMlZ84al+6NV6SedjlbdCS3T8
+	PN0apvge9qx+4FmYMivf732nCza5LA/uvMADX0rA=
+In-Reply-To:
+ <010601a1334094a9-1f793e14-c414-4780-98ff-f5acdac353a2-000000@ap-northeast-1.amazonses.com>
+References:
+ <010601a1334094a9-1f793e14-c414-4780-98ff-f5acdac353a2-000000@ap-northeast-1.amazonses.com>
+X-Mailer: git-send-email 2.53.0
+From: Jizhou Tong <fqwqf@fqwqf.xyz>
+To: Jingyuan Liang <jingyliang@chromium.org>
+Cc: jikos@kernel.org, bentiss@kernel.org, dmitry.torokhov@gmail.com, 
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	daleyo@gmail.com, broonie@kernel.org, u.kleine-koenig@baylibre.com, 
+	linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Subject: [RFC PATCH v2 2/6] HID: spi-hid: add spi-mem quad-SPI transfers
+Message-ID: <010601a1334e11ce-a752559f-b39e-41dd-ad92-8cc2c08f53c7-000000@ap-northeast-1.amazonses.com>
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 13 Oct 2026 03:28:36 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-hm1092-driver-v7-1-d81a9b152ffd@gmail.com>
-References: <20261013-hm1092-driver-v7-0-d81a9b152ffd@gmail.com>
-In-Reply-To: <20261013-hm1092-driver-v7-0-d81a9b152ffd@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Jake Steinman <j@metarealtyinc.ca>, 
- Eduard Kulyk <kulikeduard89@gmail.com>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ramshouriesh R <rshouriesh@gmail.com>, 
- Conor Dooley <conor.dooley@microchip.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=utf-8
+Feedback-ID: :1.ap-northeast-1.6BGMgStFQE7EJYq5syaCRzdneEHVt/+DAaGDrqUmDs9QLO4/SllUBZ3fHvnZ8rcAX/3IjUyTRgi5JFZsWrikFHwlPJqCkqEMlxDFM4JXh+ycxH/J5Tudg5bGdz6h4331g1L1EFsGR8kuYNfGLsrxz4Nym4YXoPcZxeVkrHry4Zx21n8vEVLEjc7s+OCM8PU9:1.ap-northeast-1.DTXDV/V9GPBWozcllKo8innbNB2qs2O/3F8XZSzd9ZM=:AmazonSES
+X-SES-Outgoing: 2026.10.13-23.251.234.57
 
-Add a dt-binding schema for the Himax HM1092, a 1 megapixel monochrome
-near-infrared CMOS image sensor used as the face-authentication IR
-camera on laptops. The sensor streams 10-bit RAW over a single MIPI
-CSI-2 data lane.
+Use explicit opcode, address, dummy and data phases for the 1-4-4 reads
+and 1-4-4 writes used by the Romulus touchpad. Four quad dummy bytes
+provide the eight read dummy clocks. The output data phase excludes the
+opcode and address already supplied to spi-mem.
 
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
-Signed-off-by: Ramshouriesh R <rshouriesh@gmail.com>
+Register the frontends =
+through spi-mem so controllers exposing memory
+operations can execute the =
+transactions. Single-lane devices retain
+their ordinary spi_sync/spi_write =
+transfers. Reject bus-width
+combinations this transport cannot encode.
+
+Only quad writes require the four-byte opcode/address prefix; preserve
+the existing short-write behavior for single-lane SPI.
+
+Controllers do not need mem_ops to bind these frontends. Single-lane
+transfers bypass spi_mem_exec_op(); for supported memory operations,
+spi-mem can fall back to ordinary SPI messages when mem_ops are absent.
+The new SPI_MEM Kconfig dependency remains required.
+
+Signed-off-by: Jizhou Tong <fqwqf@fqwqf.xyz>
 ---
- .../bindings/media/i2c/himax,hm1092.yaml           | 101 +++++++++++++++++++++
- 1 file changed, 101 insertions(+)
+ drivers/hid/spi-hid/Kconf=
+ig        |  2 +-
+ drivers/hid/spi-hid/spi-hid-acpi.c | 28 ++++++-----
+ drivers/hid/spi-hid/spi-hid-core.c | 80 ++++++++++++++++++++++--------
+ drivers/hid/spi-hid/spi-hid-core.h |  1 +
+ drivers/hid/spi-hid/spi-hid-of.=
+c   | 35 ++++++-------
+ drivers/hid/spi-hid/spi-hid.h      |  6 +--
+ 6 files changed, 96 insertions(+), 56 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/himax,hm1092.yaml b/Documentation/devicetree/bindings/media/i2c/himax,hm1092.yaml
-new file mode 100644
-index 000000000000..e0a8bee62afc
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/i2c/himax,hm1092.yaml
-@@ -0,0 +1,101 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/i2c/himax,hm1092.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/hid/spi-hid/Kconfig b/drivers/hid/spi-hid/Kconfig
+index 656dbda1c5d873e5bc6c87dda1fbe81460425d30..c84da18ab82819b019cd58a2d3e=
+b9a7b0f6417b0 100644
+--- a/drivers/hid/spi-hid/Kconfig
++++ b/drivers/hid/spi-hid/Kconfig
+@@ -6,7 +6,7 @@
+ menuconfig SPI_HID
+ 	tristate "SPI HID support"
+ 	default y
+-	depends on SPI
++	depends on SPI && SPI_MEM
+=20
+ if SPI_HID
+=20
+diff --git =
+a/drivers/hid/spi-hid/spi-hid-acpi.c b/drivers/hid/spi-hid/spi-hid-acpi.c
+index a52cafe86c052f0ab8c4761c43355969eb689157..790342073e6f53d61a193429094=
+e965c7819aeda 100644
+--- a/drivers/hid/spi-hid/spi-hid-acpi.c
++++ b/drivers/hid/spi-hid/spi-hid-acpi.c
+@@ -194,8 +194,9 @@ static void =
+spi_hid_acpi_sleep_minimal_reset_delay(struct spihid_ops *ops)
+ 	fsleep(1000 * conf->minimal_reset_delay_ms);
+ }
+=20
+-static int spi_hid_acpi_probe(struct spi_device *spi)
++static int spi_hid_acpi_probe(struct spi_mem *mem)
+ {
++	struct spi_device *spi =3D mem->spi;
+ 	struct device *dev =3D &spi->dev;
+ 	struct acpi_device *adev;
+ 	struct spi_hid_acpi_config *config;
+@@ -232,7 +233,7 @@ static int spi_hid_acpi_probe(struct spi_device *spi)
+ 		return error;
+ 	}
+=20
+-	return spi_hid_core_probe(spi, &config->ops, =
+&config->property_conf);
++	return spi_hid_core_probe(mem, &config->ops, =
+&config->property_conf);
+ }
+=20
+ static const struct acpi_device_id =
+spi_hid_acpi_match[] =3D {
+@@ -242,20 +243,21 @@ static const struct =
+acpi_device_id spi_hid_acpi_match[] =3D {
+ };
+ MODULE_DEVICE_TABLE(acpi, =
+spi_hid_acpi_match);
+=20
+-static struct spi_driver spi_hid_acpi_driver =3D =
+{
+-	.driver =3D {
+-		.name	=3D "spi_hid_acpi",
+-		.owner	=3D THIS_MODULE,
+-		.pm	=3D &spi_hid_core_pm,
+-		.acpi_match_table =3D spi_hid_acpi_match,
+-		.probe_type =3D PROBE_PREFER_ASYNCHRONOUS,
+-		.dev_groups =3D =
+spi_hid_groups,
++static struct spi_mem_driver spi_hid_acpi_driver =3D {
++	.spidrv =3D {
++		.driver =3D {
++			.name =3D "spi_hid_acpi",
++			.pm =3D &spi_hid_core_pm,
++			.acpi_match_table =3D spi_hid_acpi_match,
++			.probe_type =3D PROBE_PREFER_ASYNCHRONOUS,
++			.dev_groups =3D =
+spi_hid_groups,
++		},
+ 	},
+-	.probe		=3D spi_hid_acpi_probe,
+-	.remove		=3D spi_hid_core_remove,
++	.probe =3D spi_hid_acpi_probe,
++	.remove =3D spi_hid_core_remove,
+ };
+=20
+-module_spi_driver(spi_hid_acpi_=
+driver);
++module_spi_mem_driver(spi_hid_acpi_driver);
+=20
+ MODULE_DESCRIPTION("HID over SPI ACPI transport driver");
+ MODULE_AUTHOR("Angela Czubak <aczubak@google.com>");
+diff --git a/drivers/hid/spi-hid/spi-hid-core.c b/drivers/hid/spi-hid/spi-h=
+id-core.c
+index 65a1cd2c72e8025f50a188e17afd2fa5b359abb1..=
+9d02c156fcd641e9c944c0dfe08b5aad57a97f6a 100644
+--- =
+a/drivers/hid/spi-hid/spi-hid-core.c
++++ b/drivers/hid/spi-hid/spi-hid-core=
+.c
+@@ -216,7 +216,20 @@ static int spi_hid_input_sync(struct spi_hid *shid,=
+ void *buf, u16 length,
+ 				 shid->input_transfer[0].len,
+ 				 shid->input_transfer[1].rx_buf, 0, 0);
+=20
+-	error =3D =
+spi_sync(shid->spi, &shid->input_message);
++	if (shid->spi->mode & =
+SPI_RX_QUAD) {
++		struct spi_mem_op op =3D
++			SPI_MEM_OP(SPI_MEM_OP_CMD(sh=
+id->conf->read_opcode, 1),
++				   SPI_MEM_OP_ADDR(3, is_header ?
++					shid->conf->input_report_header_address :
++					=
+shid->conf->input_report_body_address, 4),
++				   SPI_MEM_OP_DUMMY(4, 4),
++				   SPI_MEM_OP_DATA_IN(length, rx, 4));
 +
-+title: Himax HM1092 Monochrome NIR Sensor
++		error =3D =
+spi_mem_exec_op(shid->mem, &op);
++		shid->input_message.status =3D error;
++	} else {
++		error =3D spi_sync(shid->spi, &shid->input_message);
++	}
+ 	if (error) {
+ 		dev_err(&shid->spi->dev, "Error starting sync transfer: =
+%d\n", error);
+ 		shid->bus_error_count++;
+@@ -232,11 +245,24 @@ static int=
+ spi_hid_output(struct spi_hid *shid, const void *buf, u16 length)
+ {
+ 	int error;
+=20
+-	if (length > shid->xfer_size)
++	if (length > =
+shid->xfer_size ||
++	    ((shid->spi->mode & SPI_TX_QUAD) && length < 4))
+ 		return -EMSGSIZE;
+=20
+-	memcpy(shid->xfer_buf, buf, length);
+-	error =3D spi_write(shid->spi, shid->xfer_buf, length);
++	if (shid->spi->mode & SPI_TX_QUAD) {
++		struct spi_mem_op op =3D
++			SPI_MEM_OP(SPI_MEM_OP_CMD(shid->conf->write_opcode, 1),
++				   SPI_MEM_OP_ADDR(3, shid->conf->output_report_address, 4),
++				   SPI_MEM_OP_NO_DUMMY,
++				   SPI_MEM_OP_DATA_OUT(length - 4, =
+shid->xfer_buf, 4));
 +
-+maintainers:
-+  - Ramshouriesh R <rshouriesh@gmail.com>
++		/* spi-mem supplies the opcode and address =
+outside the data phase. */
++		memcpy(shid->xfer_buf, (const u8 *)buf + 4, =
+length - 4);
++		error =3D spi_mem_exec_op(shid->mem, &op);
++	} else {
++		memcpy(shid->xfer_buf, buf, length);
++		error =3D spi_write(shid->spi, =
+shid->xfer_buf, length);
++	}
+=20
+ 	if (error) {
+ 		shid->bus_error_count++;
+@@ -1287,7 +1313,7 @@ static void spi_hid_find_max_report(struct hid_device=
+ *hid, u32 type,
+ static int spi_hid_ll_start(struct hid_device *hid)
+ {
+ 	struct spi_device *spi =3D hid->driver_data;
+-	struct spi_hid *shid =3D =
+spi_get_drvdata(spi);
++	struct spi_hid *shid =3D spi_mem_get_drvdata(spi_ge=
+t_drvdata(spi));
+ 	int error =3D 0;
+ 	/*
+ 	 * HID_MIN_BUFFER_SIZE is the =
+minimum transport buffer size, not a
+@@ -1319,7 +1345,7 @@ static void =
+spi_hid_ll_stop(struct hid_device *hid)
+ static int spi_hid_ll_open(struct =
+hid_device *hid)
+ {
+ 	struct spi_device *spi =3D hid->driver_data;
+-	struct spi_hid *shid =3D spi_get_drvdata(spi);
++	struct spi_hid *shid =3D=
+ spi_mem_get_drvdata(spi_get_drvdata(spi));
+=20
+ 	set_bit(SPI_HID_STARTED, =
+&shid->flags);
+ 	return 0;
+@@ -1328,7 +1354,7 @@ static int =
+spi_hid_ll_open(struct hid_device *hid)
+ static void =
+spi_hid_ll_close(struct hid_device *hid)
+ {
+ 	struct spi_device *spi =3D =
+hid->driver_data;
+-	struct spi_hid *shid =3D spi_get_drvdata(spi);
++	struct spi_hid *shid =3D spi_mem_get_drvdata(spi_get_drvdata(spi));
+=20
+ 	clear_bit(SPI_HID_STARTED, &shid->flags);
+ 	shid->reset_attempts =3D 0;
+@@ -1337,7 +1363,7 @@ static void spi_hid_ll_close(struct hid_device *hid)
+ static int spi_hid_ll_power(struct hid_device *hid, int level)
+ {
+ 	struct spi_device *spi =3D hid->driver_data;
+-	struct spi_hid *shid =3D =
+spi_get_drvdata(spi);
++	struct spi_hid *shid =3D spi_mem_get_drvdata(spi_ge=
+t_drvdata(spi));
+ 	int error =3D 0;
+=20
+ 	guard(mutex)(&shid->output_lock);
+@@ -1350,7 +1376,7 @@ static int spi_hid_ll_power(struct hid_device *hid, =
+int level)
+ static int spi_hid_ll_parse(struct hid_device *hid)
+ {
+ 	struct spi_device *spi =3D hid->driver_data;
+-	struct spi_hid *shid =3D =
+spi_get_drvdata(spi);
++	struct spi_hid *shid =3D spi_mem_get_drvdata(spi_ge=
+t_drvdata(spi));
+ 	struct device *dev =3D &spi->dev;
+ 	unsigned int rsize =3D shid->desc.report_descriptor_length;
+ 	int error, len;
+@@ -1395,7 +1421,7 @@ static int spi_hid_ll_output_report=
+(struct hid_device *hid, __u8 *buf,
+ 				    size_t len)
+ {
+ 	struct spi_device *spi =3D hid->driver_data;
+-	struct spi_hid *shid =3D =
+spi_get_drvdata(spi);
++	struct spi_hid *shid =3D spi_mem_get_drvdata(spi_ge=
+t_drvdata(spi));
+ 	struct device *dev =3D &spi->dev;
+ 	struct spi_hid_output_report report =3D {
+ 		.report_type =3D =
+OUTPUT_REPORT,
+@@ -1428,7 +1454,7 @@ static int spi_hid_ll_raw_request(stru=
+ct hid_device *hid,
+ 				  size_t len, unsigned char rtype, int reqtype)
+ {
+ 	struct spi_device *spi =3D hid->driver_data;
+-	struct spi_hid *shid =3D =
+spi_get_drvdata(spi);
++	struct spi_hid *shid =3D spi_mem_get_drvdata(spi_ge=
+t_drvdata(spi));
+ 	struct device *dev =3D &spi->dev;
+ 	int ret;
+=20
+@@ -1490,7 +1516,7 @@ static struct hid_ll_driver spi_hid_ll_driver =3D {
+ static ssize_t bus_error_count_show(struct device *dev,
+ 				    struct device_attribute *attr, char *buf)
+ {
+-	struct spi_hid *shid =3D dev_get_drvdata(dev);
++	struct spi_hid *shid =3D=
+ spi_mem_get_drvdata(dev_get_drvdata(dev));
+=20
+ 	return sysfs_emit(buf, =
+"%u (%d)\n",
+ 			  shid->bus_error_count, shid->bus_last_error);
+@@ -1501,7 +1527,7 @@ static ssize_t regulator_error_count_show(struct =
+device *dev,
+ 					  struct device_attribute *attr,
+ 					  char *buf)
+ {
+-	struct spi_hid *shid =3D dev_get_drvdata(dev);
++	struct spi_hid *shid =3D=
+ spi_mem_get_drvdata(dev_get_drvdata(dev));
+=20
+ 	return sysfs_emit(buf, =
+"%u (%d)\n",
+ 			  shid->regulator_error_count,
+@@ -1513,7 +1539,7 @@ =
+static ssize_t device_initiated_reset_count_show(struct device *dev,
+ 						 struct device_attribute *attr,
+ 						 char *buf)
+ {
+-	struct spi_hid *shid =3D dev_get_drvdata(dev);
++	struct spi_hid *shid =3D=
+ spi_mem_get_drvdata(dev_get_drvdata(dev));
+=20
+ 	return sysfs_emit(buf, =
+"%u\n", shid->dir_count);
+ }
+@@ -1644,9 +1670,10 @@ static int =
+spi_hid_register_panel_follower(struct spi_hid *shid)
+ 	return drm_panel_add_follower(dev, &shid->panel_follower);
+ }
+=20
+-int spi_hid_core_probe(struct spi_device *spi, struct spihid_ops *ops,
++int spi_hid_core_probe(struct spi_mem *mem, struct spihid_ops *ops,
+ 		       struct spi_hid_conf *conf)
+ {
++	struct spi_device *spi =3D =
+mem->spi;
+ 	struct device *dev =3D &spi->dev;
+ 	struct spi_hid *shid;
+ 	int error;
+@@ -1654,10 +1681,20 @@ int spi_hid_core_probe(struct =
+spi_device *spi, struct spihid_ops *ops,
+ 	if (spi->irq <=3D 0)
+ 		return dev_err_probe(dev, spi->irq ?: -EINVAL, "Missing IRQ\n");
+=20
++	if ((spi->mode & (SPI_RX_QUAD | SPI_TX_QUAD)) &&
++	    (spi->mode & =
+(SPI_RX_QUAD | SPI_TX_QUAD)) !=3D
++	    (SPI_RX_QUAD | SPI_TX_QUAD))
++		return dev_err_probe(dev, -EINVAL,
++				     "Quad mode needs four lanes=
+ in both directions\n");
 +
-+description:
-+  The Himax HM1092 is a 1 megapixel monochrome near-infrared CMOS image
-+  sensor with a MIPI CSI-2 interface, commonly used as the IR camera for
-+  face authentication on laptops. It outputs 10-bit RAW over a single
-+  MIPI CSI-2 data lane.
++	if (spi->mode & (SPI_RX_DUAL | SPI_TX_DUAL | =
+SPI_RX_OCTAL | SPI_TX_OCTAL))
++		return dev_err_probe(dev, -EOPNOTSUPP, =
+"Unsupported SPI bus width\n");
 +
-+allOf:
-+  - $ref: /schemas/media/video-interface-devices.yaml#
+ 	shid =3D devm_kzalloc(dev, =
+sizeof(*shid), GFP_KERNEL);
+ 	if (!shid)
+ 		return -ENOMEM;
+=20
++	shid->mem =3D mem;
+ 	shid->spi =3D spi;
+ 	shid->power_state =3D =
+HIDSPI_OFF;
+ 	shid->ops =3D ops;
+@@ -1665,7 +1702,7 @@ int =
+spi_hid_core_probe(struct spi_device *spi, struct spihid_ops *ops,
+ 	set_bit(SPI_HID_RESET_PENDING, &shid->flags);
+ 	shid->is_panel_follower =
+=3D drm_is_panel_follower(&spi->dev);
+=20
+-	spi_set_drvdata(spi, shid);
++	spi_mem_set_drvdata(mem, shid);
+=20
+ 	/* Using now populated conf let's =
+pre-calculate the read approvals */
+ 	spi_hid_populate_read_approvals(shid-=
+>conf, shid->read_approval_header,
+@@ -1726,9 +1763,10 @@ int =
+spi_hid_core_probe(struct spi_device *spi, struct spihid_ops *ops,
+ }
+ EXPORT_SYMBOL_GPL(spi_hid_core_probe);
+=20
+-void spi_hid_core_remove(struc=
+t spi_device *spi)
++int spi_hid_core_remove(struct spi_mem *mem)
+ {
+-	struct spi_hid *shid =3D spi_get_drvdata(spi);
++	struct spi_device *spi =
+=3D mem->spi;
++	struct spi_hid *shid =3D spi_mem_get_drvdata(mem);
+ 	struct device *dev =3D &spi->dev;
+ 	int error;
+=20
+@@ -1753,12 +1791,14 @@ void spi_hid_core_remove(struct spi_device *spi)
+ 		if (error)
+ 			dev_err(dev, "failed to disable regulator\n");
+ 	}
 +
-+properties:
-+  compatible:
-+    const: himax,hm1092
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  avdd-supply:
-+    description: Analogue circuit voltage supply.
-+
-+  dovdd-supply:
-+    description: I/O circuit voltage supply.
-+
-+  dvdd-supply:
-+    description: Digital circuit voltage supply.
-+
-+  reset-gpios:
-+    maxItems: 1
-+    description: Active low GPIO connected to the XSHUTDOWN pad.
-+
-+  port:
-+    $ref: /schemas/graph.yaml#/$defs/port-base
-+    additionalProperties: false
-+
-+    properties:
-+      endpoint:
-+        $ref: /schemas/media/video-interfaces.yaml#
-+        unevaluatedProperties: false
-+
-+        required:
-+          - link-frequencies
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - avdd-supply
-+  - dovdd-supply
-+  - dvdd-supply
-+  - port
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        camera@24 {
-+            compatible = "himax,hm1092";
-+            reg = <0x24>;
-+
-+            reset-gpios = <&tlmm 109 GPIO_ACTIVE_LOW>;
-+            pinctrl-names = "default";
-+            pinctrl-0 = <&cam_ir_default>;
-+
-+            clocks = <&camcc 1>;
-+            assigned-clocks = <&camcc 1>;
-+            assigned-clock-rates = <24000000>;
-+
-+            orientation = <0>;
-+
-+            avdd-supply = <&vreg_l7m_2p9>;
-+            dvdd-supply = <&vreg_l7m_2p9>;
-+            dovdd-supply = <&vreg_l4m_1p8>;
-+
-+            port {
-+                hm1092_ep: endpoint {
-+                    link-frequencies = /bits/ 64 <180000000>;
-+                    remote-endpoint = <&camss_csiphy0_inep>;
-+                };
-+            };
-+        };
-+    };
-+...
-
--- 
-2.55.0
++	return 0;
+ }
+ EXPORT_SYMBOL_GPL(spi_hid_core_remove);
+=20
+ static int spi_hid_core_pm_suspend(struct device *dev)
+ {
+-	struct spi_hid *shid =3D dev_get_drvdata(dev);
++	struct spi_hid *shid =3D=
+ spi_mem_get_drvdata(dev_get_drvdata(dev));
+=20
+ 	if =
+(shid->is_panel_follower)
+ 		return 0;
+@@ -1768,7 +1808,7 @@ static int =
+spi_hid_core_pm_suspend(struct device *dev)
+=20
+ static int =
+spi_hid_core_pm_resume(struct device *dev)
+ {
+-	struct spi_hid *shid =3D =
+dev_get_drvdata(dev);
++	struct spi_hid *shid =3D spi_mem_get_drvdata(dev_ge=
+t_drvdata(dev));
+=20
+ 	if (shid->is_panel_follower)
+ 		return 0;
+diff --git a/drivers/hid/spi-hid/spi-hid-core.h b/drivers/hid/spi-hid/spi-h=
+id-core.h
+index 9cbe2e57400443bd68056057d08f97c39c403a70..=
+554288dd17631edc1a503755b04170c04501bcb7 100644
+--- =
+a/drivers/hid/spi-hid/spi-hid-core.h
++++ b/drivers/hid/spi-hid/spi-hid-core=
+.h
+@@ -44,6 +44,7 @@ struct spi_hid_device_descriptor {
+=20
+ /* Driver context */
+ struct spi_hid {
++	struct spi_mem *mem;
+ 	void *xfer_alloc;
+ 	u8 *xfer_buf;
+ 	size_t xfer_size;
+diff --git a/drivers/hid/spi-hid/spi-hid-of.c b/drivers/hid/spi-hid/spi-hid=
+-of.c
+index 605edecc4f7ee0423c37f0960cd4974b04ab387c..=
+51bcb1a1b2a85480044c6514890f790e2930f523 100644
+--- =
+a/drivers/hid/spi-hid/spi-hid-of.c
++++ b/drivers/hid/spi-hid/spi-hid-of.c
+@@ -175,8 +175,9 @@ static void spi_hid_of_sleep_minimal_reset_delay(struct=
+ spihid_ops *ops)
+ 	fsleep(1000 * conf->timing_data->minimal_reset_delay_ms=
+);
+ }
+=20
+-static int spi_hid_of_probe(struct spi_device *spi)
++static int spi_hid_of_probe(struct spi_mem *mem)
+ {
++	struct spi_device *spi =3D mem->spi;
+ 	struct device *dev =3D &spi->dev;
+ 	struct spi_hid_of_config *config;
+ 	int error;
+@@ -197,16 +198,11 @@ =
+static int spi_hid_of_probe(struct spi_device *spi)
+ 	if (!config->timing_data)
+ 		config->timing_data =3D &timing_data;
+=20
+-	/*
+-	 * FIXME: multi-SPI not supported. Once it is, derive the
+-	 * HID-over-SPI flags from spi->mode.
+-	 */
+-
+ 	error =3D =
+spi_hid_of_populate_config(config, dev);
+ 	if (error)
+ 		return dev_err_probe(dev, error, "Unable to populate config data\n");
+=20
+-	return spi_hid_core_probe(spi, &config->ops, &config->property_conf);
++	return spi_hid_core_probe(mem, &config->ops, &config->property_conf);
+ }
+=20
+ static const struct of_device_id spi_hid_of_match[] =3D {
+@@ -222,21 +218,22 @@ static const struct spi_device_id =
+spi_hid_of_id_table[] =3D {
+ };
+ MODULE_DEVICE_TABLE(spi, =
+spi_hid_of_id_table);
+=20
+-static struct spi_driver spi_hid_of_driver =3D {
+-	.driver =3D {
+-		.name	=3D "spi_hid_of",
+-		.owner	=3D THIS_MODULE,
+-		.pm	=3D &spi_hid_core_pm,
+-		.of_match_table =3D spi_hid_of_match,
+-		.probe_type =3D PROBE_PREFER_ASYNCHRONOUS,
+-		.dev_groups =3D =
+spi_hid_groups,
++static struct spi_mem_driver spi_hid_of_driver =3D {
++	.spidrv =3D {
++		.driver =3D {
++			.name =3D "spi_hid_of",
++			.pm =3D &spi_hid_core_pm,
++			.of_match_table =3D spi_hid_of_match,
++			.probe_type =3D PROBE_PREFER_ASYNCHRONOUS,
++			.dev_groups =3D =
+spi_hid_groups,
++		},
++		.id_table =3D spi_hid_of_id_table,
+ 	},
+-	.probe		=3D spi_hid_of_probe,
+-	.remove		=3D spi_hid_core_remove,
+-	.id_table	=3D spi_hid_of_id_table,
++	.probe =3D spi_hid_of_probe,
++	.remove =3D spi_hid_core_remove,
+ };
+=20
+-module_spi_driver(spi_hid_of_dr=
+iver);
++module_spi_mem_driver(spi_hid_of_driver);
+=20
+ MODULE_DESCRIPTION("HID over SPI OF transport driver");
+ MODULE_AUTHOR("Dmitry Antipov <dmanti@microsoft.com>");
+diff --git a/drivers/hid/spi-hid/spi-hid.h b/drivers/hid/spi-hid/spi-hid.h
+index 17b2fdf192ed2cf40db0638874112c72595fdd6d..dd3a851777a22eefa9005dc6f7a=
+18bf62c5ac6b3 100644
+--- a/drivers/hid/spi-hid/spi-hid.h
++++ b/drivers/hid/spi-hid/spi-hid.h
+@@ -7,7 +7,7 @@
+ #ifndef SPI_HID_H
+ #define SPI_HID_H
+=20
+-#include <linux/spi/spi.h>
++#include =
+<linux/spi/spi-mem.h>
+ #include <linux/sysfs.h>
+=20
+ /* struct spi_hid_conf - Conf provided to the core */
+@@ -35,10 +35,10 @@ struct spihid_ops {
+ 	void (*sleep_minimal_reset_delay)=
+(struct spihid_ops *ops);
+ };
+=20
+-int spi_hid_core_probe(struct spi_device=
+ *spi, struct spihid_ops *ops,
++int spi_hid_core_probe(struct spi_mem *mem,=
+ struct spihid_ops *ops,
+ 		       struct spi_hid_conf *conf);
+=20
+-void spi_hid_core_remove(struct spi_device *spi);
++int =
+spi_hid_core_remove(struct spi_mem *mem);
+=20
+ extern const struct =
+attribute_group *spi_hid_groups[];
+ extern const struct dev_pm_ops =
+spi_hid_core_pm;
+--=20
+2.53.0
 
