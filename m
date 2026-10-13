@@ -1,130 +1,156 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40D17374E5A
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 03:36:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEEA737CD40;
+	Tue, 13 Oct 2026 03:42:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791862585; cv=none; b=EUG3KNvTRmJHb33ytoOGQfYg2JHyc7Q6v1uzChbNwmAsMcilpNMP/jtamblsNncvHrLNSXS8WtaGkSfzizf/ZajkYvzFg+l6Uri3XO/QPB34c5S335GWvysMM70aJe92yACNvdb5Ww6HHEgdLvzqiq/LksHh9uqpAyzNA9fGZDE=
+	t=1791862925; cv=none; b=spQ7PPKdgNwmhnpDL4zhwJgtyb+LOtDZ0UxD8mdszlvRjLsPNFFrd/EjtiWwf/DD4ZWjVpInxctfFu/7JFzt/m5cYYRm9XA7b0WVR2HPz/PsD6QAiIjzLt8qbJWjpmSA/wYn7BdQFB34nvAXW7QwuS0KfdAXeHtrnFWaDKwcoSg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791862585; c=relaxed/simple;
-	bh=dD1EE3WFvAWvd/EDSYeIxCvaGuhw80sfAw1IKDa4bJg=;
+	s=arc-20240116; t=1791862925; c=relaxed/simple;
+	bh=LgqZ2r/2M4U9cdgg84ni2Lkez1AJ3jOC2ynvvPA/G40=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=OSr+iTcjbocLtmAG566Z26ZuS6VtyiLhRI1cEqrkWMdt2W7569Z9lrJXm/G+6XoTInqJ24TPcKACrPrpvxYJiE0jF3ljHI4IMKkJ36E4QKNygHk4SD7FVRJyn/dM/0P9mr0Ws36DgjV8NGe/AZQBkeLZ8fSF6jvcuR0ax17GbM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eR5/Hi9/; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=i7kt+s1BoBWINFGf93ULh1ylLzIIAfgk8eItuJYns/3DRWjVTHQGWDhUU5YN/yePE6Acp64wXrSNPIIpRZB9ZmYQKmPHoMVxBewiv5NImGGATSTRzVdtKhThgb+8j/KQ8xCTflrmu3pr62F93/nGHQfA6mXUJndk0ibbfvZL/5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fbQGNknb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eR5/Hi9/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A681C1F000FF;
-	Tue, 13 Oct 2026 03:36:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fbQGNknb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DCCD1F000FF;
+	Tue, 13 Oct 2026 03:42:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791862583;
-	bh=pwUmRWNpWQv7nNJlxejJ3uSo/DIOOFm7Bjk4E4Ahk0g=;
+	s=k20260515; t=1791862924;
+	bh=TMpqeSpJpMq25eQazLVdcuUaoKDVQ9KiyQ/0JfXj4kE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eR5/Hi9/yngCj2xKZ1i53AWONV7fXi9P3AG+uTVhS5juT8aOGco5rmY7ZpGOiTlNe
-	 ujln6OtlJTOX+LEA/9K0wj0O3+UuuXZO6L8nc4gSe5pRRwpNwOuzHpFOHo7Z6zfhuF
-	 jst/7kuRI7m0ajl8N3VntiYskJP5R0WvSseMtvTBrR0Qb3dwzpeyWlV8WC3ynAkdSZ
-	 W2KqE97wcFa60wkePfVC0UzQfl8sgl/8xBigsKTRnTpDq7F8EypXuBe7a3lEw444ec
-	 IEefr7Ytg2ezooGsnNSINAyEf7Unv/G2qwN1Vlb5W6G3IIXIakmXumn8iyTP6/D5mv
-	 Easar/Yt+84wQ==
-Message-ID: <sashiko-outbox-168909@kernel.org>
+	b=fbQGNknbHreW0ikjeEcLtGpZbSjdvYJ9TRvUfDFrUYfcH5Xsp8wXGQV4v6j+3mCvw
+	 ZXW0wr30iZTBmGZvQ5r3koVr334sVOacFHPuhI2nISWC/2G7Ns8lC0jf+FuACDyZ7V
+	 /iDKwXuP0ibeY5+46dLxrYYBtKPZpToDX9wACwvfhYJ3Hugbf9sh1vZf1dTEHdO+a8
+	 OqPI0QJNug7JWMhUZziz8M4wDEOI7QK9Gxen8hUAR3u75VlmRYJwwv6+RpyXqY/+xz
+	 wHSOPQplOValWLal9vBRwX1TB0HzAaCkdi2c2sZshf9pcN9psjZuRWXPBBaIEOnAF+
+	 E1SUCBYw60exQ==
+Message-ID: <sashiko-outbox-168912@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 3/3] media: i2c: hm1092: Add ACPI enumeration and the
- 19.2 MHz configuration
+Subject: Re: [PATCH 1/2] leds: is31f132xx: Add support for is31fl3206
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ramshouriesh R" <rshouriesh@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261013-hm1092-driver-v7-3-d81a9b152ffd@gmail.com>
-References: <20261013-hm1092-driver-v7-0-d81a9b152ffd@gmail.com>
- <20261013-hm1092-driver-v7-3-d81a9b152ffd@gmail.com>
+To: "Flavio Amieiro" <flavio@amieiro.net>
+Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
+In-Reply-To: <20261013-add-is31fl3206-support-v1-1-08c066cc241d@amieiro.net>
+References: <20261013-add-is31fl3206-support-v1-0-08c066cc241d@amieiro.net>
+ <20261013-add-is31fl3206-support-v1-1-08c066cc241d@amieiro.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Oct 2026 03:36:23 +0000
+Date: Tue, 13 Oct 2026 03:42:03 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] media: hm1092: crop rectangle exceeds crop bounds for 19.2 MHz m=
-ode
+- [Medium] leds: Double execution of LED control register initialization
+- [Medium] leds: Missing is31fl3206 entry in legacy i2c_device_id table
 --
 
-commit 49dd5f72932dde1fcdf6ace7b8dcb87f89cb643e
-Author: Jake Steinman <j@metarealtyinc.ca>
+commit 4f6d324bacf9d9547e9fba515fa86ec07e7ad36d
+Author: Flavio Amieiro <flavio@amieiro.net>
 
-media: i2c: hm1092: Add ACPI enumeration and the 19.2 MHz configuration
+leds: is31f132xx: Add support for is31fl3206
 
-This commit adds support for the HIMX1092 sensor enumerated through ACPI on
-Intel IPU6/IPU7 laptops. It converts the single fixed mode into a table of
-configurations based on the external clock rate, adding a 19.2 MHz configur=
-ation.
+This patch adds support for the IS31FL3206 variant to the is31fl32xx LED
+driver. It introduces a custom function to enable all channels since this
+chip uses a different LED control register layout.
 
-Link: https://lore.kernel.org/r/b0d32a3b82eca233652f878b7ca91e4dc2d8e863.17=
-91608336.git.j@metarealtyinc.ca
-
-> diff --git a/drivers/media/i2c/hm1092.c b/drivers/media/i2c/hm1092.c
-> index 0ae30fb6b78ff..c7b148076e94c 100644
-> --- a/drivers/media/i2c/hm1092.c
-> +++ b/drivers/media/i2c/hm1092.c
-> @@ -277,18 +275,265 @@ static const struct cci_reg_sequence hm1092_init_r=
-egs[] =3D {
+> diff --git a/drivers/leds/leds-is31fl32xx.c b/drivers/leds/leds-is31fl32x=
+x.c
+> index 285085d274538..9c09548acabfa 100644
+> --- a/drivers/leds/leds-is31fl32xx.c
+> +++ b/drivers/leds/leds-is31fl32xx.c
 
 [ ... ]
 
-> +static const struct hm1092_mode hm1092_modes[] =3D {
-> +	{
-> +		.mclk =3D 24000000,
-> +		.link_freq_index =3D 0,
-> +		.width =3D 560,
-> +		.height =3D 360,
-> +		.hts =3D 0x0650,
-> +		.vts =3D 0x02ee,
-> +		.exposure_def =3D 500,
-> +		.crop =3D {
-> +			.left =3D 48,
-> +			.top =3D 8,
-> +			.width =3D 1150,
-> +			.height =3D 718,
-> +		},
-> +		.regs =3D hm1092_560x360_regs,
-> +		.num_regs =3D ARRAY_SIZE(hm1092_560x360_regs),
-> +	}, {
-> +		.mclk =3D 19200000,
-> +		.link_freq_index =3D 1,
-> +		.width =3D 648,
-> +		.height =3D 368,
-> +		.hts =3D 0x0654,
-> +		.vts =3D 0x02e4,
-> +		.exposure_def =3D 360,
-> +		.crop =3D {
-> +			.left =3D 0,
-> +			.top =3D 0,
-> +			.width =3D 1294,
-> +			.height =3D 734,
-> +		},
+> @@ -315,6 +342,33 @@ static int is31fl32xx_reset_regs(struct is31fl32xx_p=
+riv *priv)
+>  	return 0;
+>  }
+> =20
+> +static int is31fl32xx_enable_all_channels(struct is31fl32xx_priv *priv)
+> +{
+> +	const struct is31fl32xx_chipdef *cdef =3D priv->cdef;
+> +	int ret;
+> +
+> +	if (cdef->led_control_register_base !=3D IS31FL32XX_REG_NONE) {
+> +		u8 value =3D
+> +			GENMASK(cdef->enable_bits_per_led_control_register-1, 0);
+> +		u8 num_regs =3D cdef->channels /
+> +			cdef->enable_bits_per_led_control_register;
+> +		int i;
+> +
+> +		for (i =3D 0; i < num_regs; i++) {
+> +			ret =3D is31fl32xx_write(priv,
+> +					       cdef->led_control_register_base+i,
+> +					       value);
+> +			if (ret)
+> +				return ret;
+> +		}
+> +	}
+> +
+> +	if (cdef->enable_all_channels_func)
+> +		return cdef->enable_all_channels_func(priv);
 
 [Severity: Medium]
-Does this crop rectangle exceed the crop bounds reported by
-hm1092_get_selection()?
+Since is31fl3206_cdef sets both led_control_register_base and
+enable_all_channels_func, won't this generic loop write 0x01 to all 12 cont=
+rol
+registers first?
 
-Looking at hm1092_get_selection() when V4L2_SEL_TGT_CROP_BOUNDS is requeste=
-d,
-it returns a smaller region:
+Because there is no early return or else branch here, won't it fall through=
+ and
+call the custom enable_all_channels_func, which writes 0x10 to the exact sa=
+me
+registers again?
 
-	case V4L2_SEL_TGT_CROP_BOUNDS:
-		sel->r.left =3D HM1092_ACTIVE_LEFT; /* 8 */
-		sel->r.top =3D HM1092_ACTIVE_TOP; /* 8 */
-		sel->r.width =3D HM1092_ACTIVE_WIDTH; /* 1280 */
-		sel->r.height =3D HM1092_ACTIVE_HEIGHT; /* 720 */
-		return 0;
+Does this double-write waste I2C bandwidth during probe/resume and briefly
+leave the hardware in an unintended state?
 
-Since the crop rectangle for the 19.2 MHz mode has a width of 1294 (which
-is greater than 1280) and starts at a left offset of 0 (instead of 8), it
-extends outside the reported bounds. This violates the V4L2 API contract.
-Will this cause v4l2-compliance test failures?
+> +
+> +	return 0;
+> +}
+> =20
+
+[ ... ]
+
+> @@ -552,7 +594,22 @@ static const struct is31fl32xx_chipdef is31fl3293_cd=
+ef =3D {
+>  	.sw_shutdown_func			=3D is31fl3293_software_shutdown,
+>  };
+> =20
+> +static const struct is31fl32xx_chipdef is31fl3206_cdef =3D {
+> +	.channels				=3D 12,
+> +	.shutdown_reg				=3D 0x00,
+> +	.pwm_update_reg			=3D 0x13,
+> +	.global_control_reg			=3D 0x26,
+> +	.reset_reg				=3D 0x2f,
+> +	.output_frequency_setting_reg		=3D 0x27,
+> +	.pwm_register_base			=3D 0x04,
+> +	.led_control_register_base		=3D 0x17,
+> +	.enable_bits_per_led_control_register	=3D 1,
+> +	.brightness_steps			=3D 256,
+> +	.enable_all_channels_func		=3D is31fl3206_enable_all_channels,
+> +};
+> +
+>  static const struct of_device_id of_is31fl32xx_match[] =3D {
+> +	{ .compatible =3D "issi,is31fl3206",  .data =3D &is31fl3206_cdef, },
+>  	{ .compatible =3D "issi,is31fl3293",  .data =3D &is31fl3293_cdef, },
+>  	{ .compatible =3D "issi,is31fl3236",  .data =3D &is31fl3236_cdef, },
+
+[Severity: Medium]
+This adds the "issi,is31fl3206" string to the of_device_id match table, but
+shouldn't a corresponding "is31fl3206" entry also be added to the is31fl32x=
+x_id
+array (the i2c_device_id table) further down in the file?
+
+Does omitting this entry break driver auto-loading via I2C modalias and
+sysfs-based device instantiation on non-DT platforms?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013-hm1092-dri=
-ver-v7-0-d81a9b152ffd@gmail.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013-add-is31fl=
+3206-support-v1-0-08c066cc241d@amieiro.net?part=3D1
