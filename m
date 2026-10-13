@@ -1,184 +1,247 @@
-Received: from e234-54.smtp-out.ap-northeast-1.amazonses.com (e234-54.smtp-out.ap-northeast-1.amazonses.com [23.251.234.54])
-	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2031543F4B8;
-	Tue, 13 Oct 2026 03:13:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.251.234.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B88861E8826
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 03:28:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791861235; cv=none; b=nQ6xApEwl5CEkG9eF6ghncyvcYY1hp9LyXpGArD+MfSn/m90b/yFhP1Dzi1d6MO137WGz4urMmLO+UrmqaxG50jkVjGDe7uPpu1RBR4IxhAjEWR1KGvVG9gx9uE2kE2uTI/vu9vE+NjCB5vzEXXlPHBddYnaNGNM6YxFSJQ4xFE=
+	t=1791862113; cv=none; b=jNxUKU5XNLtHgxoSzn+LCQk7vuB6v4zyFgS3823AxBo8icOUJRcbqwZeoVWy+Fxcz7TjQjtUNReACC+RhXO+aP1CLZpOqmsYcZ/xcSDP9+/UPPbR+hZ9aOcu8wZ8mU9fuiHhEL354WM3Y1f+anpNUVVgGKs3mvBe/Yw0h/1dazE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791861235; c=relaxed/simple;
-	bh=TUTqmkkvh7WxY821F+q48V6CF/i1cKj3s2m40QlvN2I=;
-	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Date:
-	 MIME-Version:Content-Type; b=ePPAKMUlB/j0bGKVBDhSw4S/4HBcJoE0rAZvGiR9ZN0wP7ET267RMEIaVfr7Qbk619nyc1Vam/0DEjUtUHWyxy/HXyAwS27Aj5XEF+gWs0W8ArOKzX826e3BEtsY8pEMOBve6dLOZMKQTOrqZRrN+yVDpQxwrAZXfNP8MvJjOq0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz; spf=pass smtp.mailfrom=send.fqwqf.xyz; dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b=TUepCVEZ; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=ZSiD9CSf; arc=none smtp.client-ip=23.251.234.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.fqwqf.xyz
+	s=arc-20240116; t=1791862113; c=relaxed/simple;
+	bh=OpkNEosHIOs8WqLCXNhMppYqMXPT3Ef4+D+jHFu3JMo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=qLnyPy+J7HLB+cGTFq3F4lJ/Ahbkxg7y2QLgBGJW+CDz0NOGbVDyhD8YJD4BUl82z48n9k8z5elwefUcBfz3aMzih35TcMX5ebxsSs+mK5G1U6shMCdlt3PqQOFq/zGVyazQmfPZbQhX+xucaJ25hw9vnNyM0vKp93DAUHfwsk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XRrPDSPv; arc=none smtp.client-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b="TUepCVEZ";
-	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="ZSiD9CSf"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
-	d=fqwqf.xyz; t=1791861233;
-	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
-	bh=TUTqmkkvh7WxY821F+q48V6CF/i1cKj3s2m40QlvN2I=;
-	b=TUepCVEZV6hOecNyEHFFFmhYYI/DjU8m3EKQYCtB7tyfmAeSfX88u81rqAq7yaar
-	WjthnjWnHlfNx1dVwPgK4ip+q7NHx5aJxER8S3e6poRGe+PncjEFPOvd+SZcoylgL/c
-	pCSMxXuWLhooOmfKjyxC7RBJdLxjjLKJnyVkMca0=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1791861233;
-	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
-	bh=TUTqmkkvh7WxY821F+q48V6CF/i1cKj3s2m40QlvN2I=;
-	b=ZSiD9CSfd/mlVEefDTWylTOOZh3MANU7e3FXUgK9McFC+kMNQle3DqrDX4JzELGI
-	j3BxTixk4RG2HPwEOaj/nT/CxfjgJJ++nCB57ZzwoE5tzS4VdheUabgQpVG7AgO7pZi
-	l900UvPg5qqajmy0SM+r+gQqBgNpb0CnxrnfwXsc=
-In-Reply-To:
- <010601a126bfbf4d-27ca6d8c-0c4e-4191-a92d-6dc7d3fbac60-000000@ap-northeast-1.amazonses.com>
-References:
- <010601a126bfbf4d-27ca6d8c-0c4e-4191-a92d-6dc7d3fbac60-000000@ap-northeast-1.amazonses.com>
-X-Mailer: git-send-email 2.53.0
-From: Jizhou Tong <fqwqf@fqwqf.xyz>
-To: Jingyuan Liang <jingyliang@chromium.org>
-Cc: jikos@kernel.org, bentiss@kernel.org, dmitry.torokhov@gmail.com, 
-	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	daleyo@gmail.com, broonie@kernel.org, u.kleine-koenig@baylibre.com, 
-	linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Subject: [RFC PATCH v2 0/6] HID: spi-hid: add Romulus13 quad-SPI support on
- v5
-Message-ID: <010601a1334094a9-1f793e14-c414-4780-98ff-f5acdac353a2-000000@ap-northeast-1.amazonses.com>
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Oct 2026 03:13:52 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XRrPDSPv"
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-35c76e9614aso214324eec.0
+        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 20:28:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791862111; x=1792466911; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=gPDLvflVsdaOtvpAPaHITYN9gwgzEsbuu3isrtlsRc8=;
+        b=XRrPDSPvXwWK3RrsbHR6zgD317Am+Wwr4pkJbavT4Mf2bYURvELPcLp2J97xWiNzpy
+         C/NMeccI4JKydjssxYDRv8+6ZO+Q6w+PDYCCyfgUzhVZwUI2VDJfhWcQNJhlf8/5eMyy
+         Gbavxs1IQ9fDHKSKnRjfrVW/aeXHhtQyZ7cMoQagk7jIcdMckiyF5/w9KYGPyvlho/Vs
+         bFv12+lPWny4W/qqTq4nFKvVu/joo64q15Mr6d0fHZA2hfgdM8u7hI5nWM3f5G5axXPY
+         dkSkDQvSV+Z3NRtVSoDAtylnqxBTtAM+EmvZu2zozvsq/13LPcP8QT/ylBH8cGft5372
+         r2WQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791862111; x=1792466911;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gPDLvflVsdaOtvpAPaHITYN9gwgzEsbuu3isrtlsRc8=;
+        b=vtuh9EEKEYk+k77zwQIJXVLhvYQvASK+2AqkdEAJFhPWe9uk50SFcwLfsReIm1dPOO
+         GtVKRZpWRUkagKwZxN7939Z45w/QylzkHX6V9XUMXT7w0vt9z0g06L16yeJBiboIRw8v
+         Yx96L/ds4Jf6r/F4iL95ykx1n0fdZF0RN9k/lQhXW82Uq9kprqxm/NDqdWZTMS4LDHCg
+         CYU63B87gFoP1vAMTQuXHYOFEjpR/4efXgaJjjfOfX7LOejLTYlTExe0ISUxaXOlZ2Ss
+         qVYWQ/1wpPQDRr0Suc6/XtMZyawkeo1xTI9mqpqasgYOGoHyCgnA/k7H0zLNbW5WqFrp
+         GxpA==
+X-Forwarded-Encrypted: i=1; AKwUvBw/wJ2m9qBpif2Gszmad3SEI5eAnBb8m3zRFxaD7raVEfD50+B2jnenV3ZwbYHAWKXGeb6BWgib5DVi@vger.kernel.org
+X-Gm-Message-State: AFq9FYKs2zY+p4EDEcwexgK4lhuKmtVYgjOxRJQeuFRQBmr/1HEsLbCt
+	k7LzkOwEDHBSHauZ2bNiyFmittxoL9lGVnBIVb7hKZGZjx/ZZ/Zan4v8X83XtPLb+gQ=
+X-Gm-Gg: AYBFou32FZ8zVsyn1IrDgB4UTD3O/Hl/isnOl36k0FLKbXbzDXI1JEdmVsmACTWwB41
+	cO4y7XIydnCX8toVaTJC6zhnwuVB1L5SQoOlQ86RA1CfTFzwVL4hGH+yvVWLdufTDxz/6PJRPVo
+	+eH5VDGzLWivX6TNbiDV3E5HuUZ6HEPb/1mHfsgIzRkiLxjcbbEjVU3Xl4EN2ZGKe6tpofBwOgj
+	Z8qIVMdPHG/v9Nz2ddsQBqBkdRylyqPxPTFozuyANM/WJVXKmR7XnPFKiZd6ZB49YyRmlySf97j
+	+TI1jrwBUG1StF92xRyVH9ifsJu27QfoklyReMMq8bGrGXSigyIAVvjNt8n0hK0mdk4mEe3z0i8
+	uVRpG2wbrpZAD7TG7V7/yVRGwXlLU/TvfMHlPnUtyvrMjatgzhP7Y5L2CCKCLc0j7kiqdl1N6np
+	5+IS9HoaBZjhqRrIWRTyCkCqcYjsPo9NVqvtRJj0PQFg8SewzU1M4EFlQ/y/zyyB914ixNudNIQ
+	s25kSUC6SLAIyri64fmga8H50KTdimvGslePSse8fmpFw==
+X-Received: by 2002:a05:693c:4097:b0:358:8bd2:fda1 with SMTP id 5a478bee46e88-3588bd2ffb0mr14776025eec.30.1791862110546;
+        Mon, 12 Oct 2026 20:28:30 -0700 (PDT)
+Received: from [127.0.0.2] ([2401:4900:8900:441a:ba51:e5f4:3ca4:4b87])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-353814b556esm43617106eec.18.2026.10.12.20.28.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 20:28:29 -0700 (PDT)
+From: Ramshouriesh R <rshouriesh@gmail.com>
+Subject: [PATCH v7 0/3] media: Add Himax HM1092 mono NIR sensor driver
+Date: Tue, 13 Oct 2026 08:58:22 +0530
+Message-Id: <20261013-hm1092-driver-v7-0-d81a9b152ffd@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Feedback-ID: :1.ap-northeast-1.6BGMgStFQE7EJYq5syaCRzdneEHVt/+DAaGDrqUmDs9QLO4/SllUBZ3fHvnZ8rcAX/3IjUyTRgi5JFZsWrikFHwlPJqCkqEMlxDFM4JXh+ycxH/J5Tudg5bGdz6h4331g1L1EFsGR8kuYNfGLsrxz4Nym4YXoPcZxeVkrHry4Zx21n8vEVLEjc7s+OCM8PU9:1.ap-northeast-1.DTXDV/V9GPBWozcllKo8innbNB2qs2O/3F8XZSzd9ZM=:AmazonSES
-X-SES-Outgoing: 2026.10.13-23.251.234.54
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33QTU7DMBAF4KtUXmNkj/+74h6IxSQeN0akQU6JQ
+ FXujtMuiFyJ5ZPmezOaK5upZJrZ8XBlhZY85+lcg3s6sH7A84l4jjUzEGCFlZ4PoxQBeCx5ocL
+ RJkCMMYGQrJrPQil/3/pe3+55/ureqb9sJdvEkOfLVH5uCxe5zd27nZBN9yK54FF20UsCpTrzc
+ hoxfzz308i27gX2GloNVesUkrIhWtS+1epfrar2JiG6lHSivtV6r02rddUCpaIenI4+tNrsdWi
+ 1qRplMh3W95J4uNz+af/4NVu1CS4kAOW0x71e1/UX4JY2UPIBAAA=
+X-Change-ID: 20260618-hm1092-driver-a6f2aaddf201
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Jake Steinman <j@metarealtyinc.ca>, 
+ Eduard Kulyk <kulikeduard89@gmail.com>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Ramshouriesh R <rshouriesh@gmail.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.15.2
 
-Hi Jingyuan and Dale,
+This adds a V4L2 subdev driver and DT binding for the Himax HM1092, a
+1 megapixel monochrome near-infrared image sensor. On laptops it sits
+behind the IR camera used for face unlock. It speaks a single MIPI CSI-2
+data lane and outputs 10-bit RAW.
 
-This ports my Surface Laptop 7 (Romulus13) additions=
- onto the complete
-v5 SPI-HID series, preserving v5's request serialization=
-, response
-matching and IRQ/PM model. It is based on the two error-handling=
- fixes
-submitted separately.
+The driver exposes one fixed mode, test patterns, exposure, analogue
+gain and digital gain controls, pixel-array selection targets and the
+standard fwnode properties. The mode is selected by the external clock
+rate, since each known platform pairs its clock with its own PLL setup
+and init sequence:
 
-The main addition is a spi-mem transport for =
-the touchpad's 1-4-4 reads
-and writes. Reads use eight dummy clocks; writes=
- supply the opcode and
-address separately from the report data. Dedicated =
-aligned TX/RX regions
-keep streaming DMA away from protocol parsing buffers=
-. The managed
-allocation is overallocated, with its base kept separately =
-from the
-explicitly ARCH_DMA_MINALIGN-aligned view. Single-lane transfers =
-retain
-spi_sync()/spi_write(), including their existing short-write =
-behavior.
+  24 MHz EXTCLK (Qualcomm, devicetree): 560x360, 180 MHz link frequency
+  19.2 MHz EXTCLK (Intel IPU, ACPI HIMX1092): 648x368, 180.48 MHz
 
-Controllers without mem_ops remain supported; patch 2/6 =
-describes the
-fallback behavior and SPI_MEM dependency.
+Both run the single lane at about 360 Mbit/s and deliver about 30 frames per
+second.
 
-The series also adds bounded DATA fragmentation and the Romulus timing,
-opcodes, binding and reset behavior. On this device, a reset loses the
-heatmap mode selected by iptsd while leaving the report descriptor
-unchanged. Recreating the HID device after descriptor refresh lets
-hidraw consumers reconnect and select that mode again. Other devices
-retain v5's CRC-based reuse behavior. Romulus still waits for the reset
-handshake and schedules recovery on timeout; READY and the old HID resume
-callback are deferred until re-probe, including failed-suspend rollback.
+Patch 2 adds the driver with the 24 MHz configuration. It has been
+tested on an ASUS Zenbook A14: the sensor probes, streams, changes
+brightness across the full exposure and analogue gain ranges, accepts
+digital gain updates while streaming, and returns to runtime suspend
+after capture. Its register programming was extracted from
+com.qti.sensormodule.hm1092.bin in the Qualcomm camera stack shipped for
+that system. Jake Steinman independently identified the exposure,
+analogue gain, digital gain and group-hold registers from Dell's
+hm1092.sys. The available documentation does not identify the
+test-pattern modes, so their menu names are based on output observed
+during hardware testing.
 
-Software tests compile actual driver functions under ASan/UBSan,
-covering transport phases/errors, 65,536 header lengths, 5,048 fragment
-combinations and resume/descriptor-refresh paths, including missing
-Romulus handshakes and failed-suspend rollback. Both RFC 3/6 and the
-complete series compile with W=3D1 on ARM64 against the stated v5 base.
-The allocator tests include five DMA alignments with storage aligned to
-only eight bytes, resize failures and capacity rollback. Short writes
-are accepted on single-lane SPI and rejected on quad SPI.
+Patch 3, from Jake Steinman, adds ACPI enumeration and the 19.2 MHz
+configuration used on Intel IPU6/IPU7 laptops. It was posted on top of
+v6 and is carried here at his suggestion. It has been tested on a Dell
+XPS 16 (IPU7) and a Dell Latitude 7350 (IPU6).
 
-The previous revision of this v5 integration boots and works in normal
-use on SL7. Across two logged s2idle cycles, the touchpad was re-enumerated
-and iptsd reconnected automatically, with READY and zero transport or
-regulator errors afterward. This revision's allocation, short-write and
-Romulus handshake changes have build and software-test coverage.
+One open point on patch 3: the 19.2 MHz configuration reads out
+(0,0)/1294x734, which is what the vendor sequence programs and includes
+the dummy border. That crop lies outside the (8,8)/1280x720 crop bounds,
+which describe the active array. Reviewers' preference is welcome on
+whether to widen the bounds to the native array or keep them as is.
 
-The local test kernel retains the downstream GENI/GPI QSPI controller
-and Romulus DT integration. Those dependencies are outside this HID
-series. This RFC is for transport/interface review; in particular, I
-would appreciate feedback on registering both frontends through
-spi-mem (which adds a SPI_MEM dependency), and on the device-specific
-HID rebind after reset.
+The ipu-bridge entry for HM1092 was applied separately to media/next as
+commit 4fdb0342f05e ("media: ipu-bridge: Add Himax HM1092 IR sensor").
+Capturing Y10 on IPU7 also needs a staging/ipu7 format addition that
+Jake posted alongside patch 3; it is independent of this series and not
+included here. The board-level device tree and PHY work that wires this
+camera up on the ASUS Zenbook A14 will be sent as its own series.
 
-Base: the v5 series plus the two error-handling =
-fixes.
-https://lore.kernel.org/all/20261009-send-upstream-v5-0-384af01da3ee=
-@chromium.org/
+Signed-off-by: Ramshouriesh R <rshouriesh@gmail.com>
+---
+Changes in v7:
+- Rebase onto next-20261012.
+- hm1092: follow the sub-device pad op API change that added a
+  struct v4l2_subdev_client_info argument: take it in get_selection,
+  and drop .set_fmt, which only mirrored v4l2_subdev_get_fmt(), as done
+  for the other fixed-format drivers.
+- hm1092: limit the digital gain control to 0x3ff. The register is a
+  10-bit 2.8 fixed-point value and the sensor ignores higher bits, so
+  1024 and above wrapped back to black frames (reported by Eduard Kulyk).
+- hm1092: handle negative pm_runtime_get_if_in_use() returns without
+  touching unpowered hardware or dropping an unacquired runtime PM
+  reference.
+- hm1092: credit Jake Steinman as a co-developer of the control support
+  and carry the requested coding-assistant disclosure.
+- New patch 3 from Jake Steinman: ACPI enumeration and the 19.2 MHz
+  configuration, with Eduard Kulyk's Tested-by. Drop its
+  <linux/mod_devicetable.h> include as requested by Uwe Kleine-König.
+- Cover: describe both configurations, document the separately applied
+  ipu-bridge entry and correct the v5 data-lanes history.
+- Link to v6: https://patch.msgid.link/20260801-hm1092-driver-v6-0-5979f223748a@gmail.com
+
+Changes in v6:
+- dt-bindings: update the example to the PLL-derived 180 MHz link
+  frequency.
+- hm1092: replace the inconsistent 400 MHz link frequency and derived
+  80 MHz pixel rate with 180 MHz and 36 MHz. The new values are derived
+  from the ASUS Windows configuration's 24 MHz external clock and the
+  sensor PLL dividers.
+- hm1092: report the 1296x736 native array, 1280x720 active array and
+  1150x718 mode crop as distinct selection targets.
+- hm1092: add exposure, analogue gain and digital gain controls using the
+  register map supplied by Jake Steinman. Keep multi-byte controls as
+  separate writes, use group hold, derive the exposure maximum from VTS,
+  and program the hardware-tested 500-line exposure default in both the
+  init table and control. Hardware-test the controls on the 560x360 mode.
+- hm1092: do not power the sensor on in probe(). There is no I2C access
+  during probe, so leave it suspended and let runtime PM power it for
+  streaming.
+- Link to v5: https://patch.msgid.link/20260709-hm1092-driver-v5-0-a1f5baa6fe08@gmail.com
+
+Changes in v5:
+- dt-bindings: drop the local data-lanes constraint and omit it from
+  the example. Keep the inherited video-interfaces.yaml property allowed,
+  even though it does not describe configurable hardware.
+- hm1092: implement the get_selection pad op (CROP, CROP_DEFAULT,
+  CROP_BOUNDS and NATIVE_SIZE) reporting the sensor's pixel-array
+  geometry, as required by libcamera.
+- Link to v4: https://patch.msgid.link/20260705-hm1092-driver-v4-0-0a13ec274d89@gmail.com
+
+Changes in v4:
+- dt-bindings: make data-lanes optional for the fixed single-lane sensor,
+  constrain explicit values to <1>, and omit it from the example.
+- hm1092: add the copyright notice.
+- hm1092: replace the private register representation and write helper
+  with CCI register sequences and direct CCI writes.
+- hm1092: use descriptive test-pattern names based on hardware captures;
+  the available documentation does not identify these modes.
+- hm1092: parse fwnode properties before creating controls and set
+  read-only flags after validating control creation.
+- hm1092: use the generic get_fmt callback for the fixed sensor mode.
+- hm1092: initialize endpoint parsing with the fixed one-lane default,
+  reject other lane configurations, and remove the redundant endpoint
+  presence check.
+- hm1092: use fsleep() and null-safe GPIO calls, and apply the requested
+  declaration, brace, return-value and error-path formatting cleanups.
+- Link to v3: https://patch.msgid.link/20260702-hm1092-driver-v3-0-85faa7ff4fec@gmail.com
+
+Changes in v3:
+- dt-bindings: add the Reviewed-by tag from Conor Dooley.
+- hm1092: initialize RAW colorimetry fields in the pad format helper so
+  userspace values cannot leak into subdevice state.
+- hm1092: return -ENXIO when the required firmware graph endpoint is
+  absent instead of deferring probe indefinitely.
+- Link to v2: https://patch.msgid.link/20260702-hm1092-driver-v2-0-4f9f369d6a48@gmail.com
 
 Changes in v2:
-- Use a designated initializer for the new =
-Romulus SPI ID,
-  following Uwe's review of the v5 OF frontend.
-- No functional changes from v1.
+- hm1092: use pm_ptr() instead of pm_sleep_ptr() for the dev_pm_ops
+  pointer. The ops come from DEFINE_RUNTIME_DEV_PM_OPS(), so gating them
+  on CONFIG_PM_SLEEP dropped runtime PM on a CONFIG_PM=y, PM_SLEEP=n
+  build.
+- hm1092: free the control handler on the error paths in
+  hm1092_init_controls(); the fwnode-parse and ctrl_hdlr->error returns
+  leaked the handler.
+- Link to v1: https://patch.msgid.link/20260701-hm1092-driver-v1-0-d1bd81e233b5@gmail.com
 
-v1: https://lore.kernel.=
-org/all/010601a126bfbf4d-27ca6d8c-0c4e-4191-a92d-6dc7d3fbac60-000000@ap-nor=
-theast-1.amazonses.com/
+---
+Jake Steinman (1):
+      media: i2c: hm1092: Add ACPI enumeration and the 19.2 MHz configuration
 
-OF frontend review:
-https://lore.kernel.=
-org/all/aszWnnc6RR9d5SYw@monoceros/
+Ramshouriesh R (2):
+      media: dt-bindings: Add Himax HM1092 NIR sensor
+      media: i2c: hm1092: add Himax HM1092 mono NIR sensor driver
+
+ .../bindings/media/i2c/himax,hm1092.yaml           |  101 ++
+ MAINTAINERS                                        |    7 +
+ drivers/media/i2c/Kconfig                          |   11 +
+ drivers/media/i2c/Makefile                         |    1 +
+ drivers/media/i2c/hm1092.c                         | 1138 ++++++++++++++++++++
+ 5 files changed, 1258 insertions(+)
+---
+base-commit: 4eb2586bd40db27d77cc5b724ca9386ed0c71d53
+change-id: 20260618-hm1092-driver-a6f2aaddf201
 
 Best regards,
-Jizhou Tong
-
-Jizhou Tong (6):
-  HID: spi-hid: isolate DMA transfers from protocol =
-buffers
-  HID: spi-hid: add spi-mem quad-SPI transfers
-  HID: spi-hid: assemble bounded fragmented input reports
-  dt-bindings: input: describe the Romulus13 QSPI touchpad
-  HID: spi-hid: support the Romulus13 QSPI touchpad
-  HID: spi-hid: expose readiness for reset diagnostics
-
- .../ABI/testing/sysfs-bus-spi-devices-spi-hid |  30 +++
- .../input/microsoft,romulus13-touchpad.yaml   |  86 ++++++++
- MAINTAINERS                                   |   7 +
- drivers/hid/spi-hid/Kconfig                   |   2 +-
- drivers/hid/spi-hid/spi-hid-acpi.c            |  28 +--
- drivers/hid/spi-hid/spi-hid-core.c            | 207 ++++++++++++++----
- drivers/hid/spi-hid/spi-hid-core.h            |   8 +
- drivers/hid/spi-hid/spi-hid-of.c              |  55 +++--
- drivers/hid/spi-hid/spi-hid.h                 |   8 +-
- 9 files changed, 355 insertions(+), 76 deletions(-)
- create mode 100644 Documentation/ABI/testing/sysfs-bus-spi-devices-spi-hid
- create mode 100644 Documentation/devicetree/bindings/input/microsoft,=
-romulus13-touchpad.yaml
-
-
-base-commit: ee9c669f9bf5fd2c24206746ded9382fe810=
-df89
-prerequisite-patch-id: b401890d766019f0677a572f18bb389cd8827721
-prerequisite-patch-id: beaf91cb29f3a735559a3251092ac0ac17810b10
-prerequisite-patch-id: 909ee816b83e0bc8bb4b560f8c7cc0c8109c4516
-prerequisite-patch-id: 8b60145a9a853a32881af27181c26dff0e82a33e
-prerequisite-patch-id: bcb36384a391e48222f0924b0c571fb0eac19ae7
-prerequisite-patch-id: 816dfccf7d35ea041c0d7c08c7bfbe061a45c7dc
-prerequisite-patch-id: 67a41d4cb6bfa41248d89a8f967d4414cff2da2e
-prerequisite-patch-id: d0bf155ff4d70a3aeb88ec0232f04a4b2edb3598
-prerequisite-patch-id: f18d9032e5ed5713beb37527dba225ec79589b31
-prerequisite-patch-id: 854affdd16efb5696f9ed1d2a8cdb50dababe724
-prerequisite-patch-id: 248c986cba937716c739b804039376ac3823f618
-prerequisite-patch-id: 24df0c559e4b401af9acd4bc7bad99dd4b4724d4
-prerequisite-patch-id: 2827fd11c245e7f91c73506b9c7c392b44f8d9f3
---=20
-2.53.0
+--  
+Ramshouriesh R <rshouriesh@gmail.com>
 
