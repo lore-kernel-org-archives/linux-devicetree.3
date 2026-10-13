@@ -1,249 +1,129 @@
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB6F4542ED7
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 19:49:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5198737B413
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 19:53:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791920952; cv=none; b=lU1ELsVrJkrlh4p58LxARF9HwZ9S43GkjmCCnTb8qspVIDGmjXWjtuzc8u0GtmDPZ1MRcLm8MgjQxCfYAPJgzFoWG0ymKFxsjxdESCZmChra0OpNkI+0xwhPKlPGJIvQAxrIuNNiKAfsSNR3OqXQE7js15ThAISvOJf6oQcZI6Q=
+	t=1791921217; cv=none; b=SrWJxzAjRLAdWwqP40WpVPmp8r6baH28krsRGaLzJLPmgD0+H+9Tofu9mJzgBgNQK4GdPICiASIAeHC0wvnPUVHXDO7pgTtRvlzTToOUzfp2rR+FppMyDp2hF6LMbzxyngQmDcymsAElub1P6YjTHgsoiMIM31uaKdnOgWX9PP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791920952; c=relaxed/simple;
-	bh=tiT2F/ECbxiEabWBAP09wZ9MI4I+09GcYjUweKp+W5s=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=kkkPO1yCFlQ5oCgyvAIl1793coBOyQDItnesuJ2exqNuBrYuGoId9KrB3gmyia8A01N59qSUYTY/PLtqVb4ItSo9/eOsA3UV69hCu+axtsCEX0yIBxHir5ndniSMv398sY2Zs/GHfMJUVd1oGu4yKO3G1x+mDXu4VEXrnV1ooPI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=beagleboard.org; spf=fail smtp.mailfrom=beagleboard.org; dkim=pass (2048-bit key) header.d=beagleboard.org header.i=@beagleboard.org header.b=knc6/tKj; arc=none smtp.client-ip=74.125.82.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=beagleboard.org
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=beagleboard.org
+	s=arc-20240116; t=1791921217; c=relaxed/simple;
+	bh=9X+B3VzuP6c2+GbMDzQKaInOmGWlAa6Crsdlsjiub+4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rOXdKIhCmaVI4kRojfLmIpP9RNq0HTISXt/5e/9LU1XNJxEsSD2ta9h8PsaeT2PAOxv3pAbfLUEzTvxFO7YOe+h+Rj7FIPPZKA1nH1POpQeKikXDmwIrCFI0g2FOM2g2UnLqgDm/wB5paQbGgZ9dp5KDchiR2H58LK8v8mWolrg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org; spf=none smtp.mailfrom=thinkoid.org; dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b=EPUCk5Vh; arc=none smtp.client-ip=209.85.219.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=thinkoid.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=beagleboard.org header.i=@beagleboard.org header.b="knc6/tKj"
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-144f79153f5so206757c88.0
-        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 12:49:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b="EPUCk5Vh"
+Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-91791ec1b83so28427596d6.1
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 12:53:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=beagleboard.org; s=google; t=1791920950; x=1792525750; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:user-agent
-         :message-id:date:references:in-reply-to:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=ReAJUuSEnDcRQKK/UhSnvjLFcmpy/PcXbUdjFmS7Wvc=;
-        b=knc6/tKjiJMLpuScV6DSTh/RtWFL51d48dGSkGpABiVVjpY1LH2GdWY1an3wuGpiiq
-         PEkKeJnXqiN+M36vnktCX3Jhvzp57Br0ypGLKOUtBmNtKKLJFSVWKa+6kPYgmKqZwBfY
-         0lrr7T56F3hDdm+k4X0krC2meP3j7lPrM0FvcIIj1f5h9cqPZyyQsBwyolAmU6cUroTb
-         yPUuraJhpNX1a2e2G3I7GeZLgEyi5dXlnsNd66qvUfovyZCYkUc74xxOd1q1XA1N8INo
-         wJJ1MepuJxIAQTw6pkSZf1ke32McoYokvuzki1nY0o0WfR/bOEMWUyfdcsCKPhRcodfv
-         EjRg==
+        d=thinkoid-org.20251104.gappssmtp.com; s=20251104; t=1791921214; x=1792526014; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HcBu6oPAez1ljZeSMUFIBe+d1rm2GYp83jcwBgf/ZWA=;
+        b=EPUCk5VhzC4xZLPu5RJNFkGJNQIaQGlNdADxDxWxR//Q6VGL5HifvRB4F1j3YoqkIO
+         D997XkDKGrvbKBkYRhUaDKBlUsJKe3qweZTasPrGov7LJl6T9VnlZ/jVEL3do5ifowEv
+         KFFBa3pDn/YlhqbEdcjCbEbwnQAYj1+yfWPEn6L6CDGymP5DPD3zhoRoqvLcgCmEBvSW
+         6fqfOsaR0+AOsXCEIIGG7hdUpfMQPJ8BTW+dXRpg266MqkkZ0wmvoV7/Q2/4++21uc1S
+         vBq7Wsoi5aVZFMUOpNeRoHGu7kvF3OoQIT0d4xY1dE/HBSO7RL9fVox9wAAAgDxo/q9F
+         FSuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791920950; x=1792525750;
-        h=content-transfer-encoding:content-type:mime-version:user-agent
-         :message-id:date:references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ReAJUuSEnDcRQKK/UhSnvjLFcmpy/PcXbUdjFmS7Wvc=;
-        b=YHvy87IeBr2mYZsfhfElSASdHUDtUwU8XyjTokZ0r0NySp4IaqHl+GfoBgz6mdfH5D
-         WGgnDZ6rAj1EBEwrEQNDlR0KUcC3IxoyS8D+qWq3Vj8Oyhv9NuSvdKB0S7oGLJ5iFwB2
-         kcfKRCWA3NBacp2MXybxZ5y+TY7/u5AJ2ertj0+Prs6z0AFPNJvk4Zt6M9f0D3Dxy3dq
-         J4ExPMeR5gqU4GT8iwlX3s5Xtui7hVJ+E6nLNUeE/tIS664+zGabB1lGoUqjxonJszFR
-         HAJ3mH/mLrp6etVRLX4N/8Jel1dC44hy7MaU1NAm9agiL66dj0uBhkmy6Ib/KFIhTiBl
-         oqOg==
-X-Forwarded-Encrypted: i=1; AKwUvBwXFOBeHvf3xV2l0T24I1o5BYYa6koIjvBGqMraiQhSOB0xwvg/fapnOq/70KDkIXNMvcMo77Yjy8qR@vger.kernel.org
-X-Gm-Message-State: AFq9FYLia9wZmKtnidR3zZsQIUt/OUthMW4Almc33yJbxUJPcbonwQ0j
-	Q8vkiEogc/0WA+fLVjLVUIA1jBKLREntsPlKMhnEU6aRrz4bX6LgqzMT67ondVquPA==
-X-Gm-Gg: AYBFou1HZ+LqsxDxXjmQTy8Nsm7WWOVQtEOLIXZsiJygpccXEeS0IU67yeWwGPqVe5H
-	iWy4dbPTp6J4FIZh+vWfIDeb8G9FgoeqPsfy0xBon7GvFUQjWVqFh0FdIxRvgwznJoy2pT7Bbv7
-	DrpSGEqQ5RXLBwZ2s1y6imW4oWVQs7qgRRaXLGP385wW/6RYZegHs4zg59hEllFHKFZT8rzhtpp
-	c/XPEjB+m+qEhhDwBTyHM2aB8PF/3wQc6cT4LuGE5ySrNGVjiVN1CGVzQALlgs9uIF4UWGiJ3sD
-	CVBtB4Yn3yxfrTiM29XjzkDB7E98i8I+V3m+Ins4ZLpzvUaeKt+rPyLNFeKO1m8mMrYXS7s2AkY
-	B/JlAOaXU0fJXd+A+K/B5Wrh8YhusPrH1nGL/F9RZdtX6K9pFX0/+hdmG9QvrxgkHkS9xXRmrKB
-	wV3nLqtdXRHhPNSLvKUMRgJq7BVyfs7IlnxJbJK6xOzJMlUyvJU1SNtyu4gDjcTsROZ+xDWh1N
-X-Received: by 2002:a05:7022:170c:b0:145:5c7:7185 with SMTP id a92af1059eb24-16a10f299a3mr17694738c88.5.1791920949453;
-        Tue, 13 Oct 2026 12:49:09 -0700 (PDT)
-Received: from fedorapc ([2405:201:4019:32fc:3c55:6b24:5147:322b])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a42407e7sm40620145c88.15.2026.10.13.12.49.04
+        d=1e100.net; s=20260707; t=1791921214; x=1792526014;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HcBu6oPAez1ljZeSMUFIBe+d1rm2GYp83jcwBgf/ZWA=;
+        b=m9Qrs38heZNqqlhQWPxPXR/dEio3DNEMW1y8oHlCJIMLmYEO/cbBrcYVcvfAmug8vl
+         h0tP9iK9596hw9DVHtkc/T9hXzsav3BrbE0YWX9CaMTaZfMfI596IH2QgN0I7cLX0O1Z
+         zawq9X4btH+SmPp5xvDx3tEdmzPpL8V3ypGBK258qdq0S7BSgxagss51Ib3fJ1hQN0TH
+         TOyZxrUVHhGe6i5cVNy4sl4+ISTMoeOJ9IdLtWSftIi9eKtXvGH+yQHAp87xTDoay7+o
+         lBkcdUP8XuY8BaOonOhYCPyH/iX6PDUolcg/JikhdPRUaQSA80fSP6rWpVn6GwvBJ6Pn
+         VQJw==
+X-Forwarded-Encrypted: i=1; AKwUvBwyCSzh4Sa08zdUrr7V2TdsZ70jwxR2mHmGwBGbAgdtRvG1yy1GREbQGyrbntSX8P9pVLPUUIPA6UiY@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ2gtm23bHnkIssSPYafCwEknKXTCc7V3wk+hhaPkZNqkxmWJEW
+	GLSw3x5Kk0RHF3FVnmjebUvAlM7sTf6BPDIIL3N66djHU4aHfz3SSzxqHY6o1NTXByo=
+X-Gm-Gg: AYBFou253BHdRmetF1+C20kdJ6ojGaalTXPlMBdvaza38uqAH7alCMJC2PmNMduAd/X
+	WihNyLkxsSrwDB13g8ht/4wNpnBYahujtMsLuQvYjzjHB88IMwSGjXVjiI+FozhyHVAE1lHxtmt
+	BAwu1H4XxhlC0vgFJVKimMVw6zQXkcBgy/RMARiTbnPVS9wAwhSyC9aZBpKUIVN8P+eb1xBdyt6
+	LdDGVrTne6yaxHy6vNzGGU6IGjA/YJXgmF46fLb2hY9wRjkh+O3lMh9D2il1lbgXlgfp3bzSxbK
+	9HTUfHZnwf/kBFH9sUruio404MTI8i9FibnmLojLTd/lYxo871Hd+emWSPOwChid2ieqx7GEsI0
+	LxEbNz1IFK0P1c7pkAQaVhLm9VcsyNxii9pqKTU7RrgoeHX4EmEOd/6uFVHgSTaMKpjB14osbuS
+	YyX1IN/s5ypHG4zBtmjixclymTke4/CTwWWEZfwYzEVpfa/1YquaLdgGuuR/aWzNFc5p1xkg==
+X-Received: by 2002:ad4:5fc9:0:b0:91b:8d12:bac9 with SMTP id 6a1803df08f44-91b8d12bb24mr93591896d6.0.1791921214109;
+        Tue, 13 Oct 2026 12:53:34 -0700 (PDT)
+Received: from localhost.localdomain ([2605:a601:a61d:7a00::11])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97c35bfcsm33085666d6.42.2026.10.13.12.53.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 12:49:09 -0700 (PDT)
-From: Ayush Singh <ayush@beagleboard.org>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Ayush Singh <ayush@beagleboard.org>,  David Gibson
- <david@gibson.dropbear.id.au>,  Rob Herring <robh@kernel.org>,  Krzysztof
- Kozlowski <krzk@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,  Laurent
- Pinchart <laurent.pinchart@ideasonboard.com>,  David Lechner
- <dlechner@baylibre.com>,  Geert Uytterhoeven <geert@linux-m68k.org>,
-  devicetree-compiler@vger.kernel.org,  devicetree@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  devicetree-spec@vger.kernel.org,  Hui Pu
- <hui.pu@gehealthcare.com>,  Ian Ray <ian.ray@gehealthcare.com>,  Luca
- Ceresoli <luca.ceresoli@bootlin.com>,  Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>,  Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 15/15] Introduce v18 dtb version
-In-Reply-To: <20261013192342.149768ed@bootlin.com> (Herve Codina's message of
-	"Tue, 13 Oct 2026 19:23:42 +0200")
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
-	<20260826083146.304291-16-herve.codina@bootlin.com>
-	<arDMhoNNXcPi81sR@gractus.seuss> <20260925152157.511dc65c@bootlin.com>
-	<as3ZWBr3wRonkxXF@gractus.seuss> <87pkxd4jly.fsf@beagleboard.org>
-	<20261013192342.149768ed@bootlin.com>
-Date: Wed, 14 Oct 2026 01:19:02 +0530
-Message-ID: <87ld814c0h.fsf@beagleboard.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+        Tue, 13 Oct 2026 12:53:33 -0700 (PDT)
+From: Liviu Nicoara <lnicoara@thinkoid.org>
+To: Michael Burch <me@michaelburch.net>,
+	Aleksandrs Vinarskis <alex@vinarskis.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	Tobias Heider <tobias.heider@canonical.com>,
+	Val Packett <val@packett.cool>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Stephan Gerhold <stephan.gerhold@linaro.org>,
+	linux-hardening@vger.kernel.org,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v6 3/3] arm64: dts: qcom: x1e80100-dell-xps13-9345: introduce EC
+Date: Tue, 13 Oct 2026 15:53:27 -0400
+Message-ID: <20261013195327.19571-1-lnicoara@thinkoid.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261013172718.12355-1-me@michaelburch.net>
+References: <20261013172718.12355-1-me@michaelburch.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Herve Codina <herve.codina@bootlin.com> writes:
+On Tue, 13 Oct 2026 12:27:16 -0500, Michael Burch wrote:
+> These two should be AMUX1_GPIO and AMUX2_GPIO. My unit (BIOS 2.14.0)
+> shows what Liviu reported [1]: 0x14c (lpddr5_therm) reads 130.048 C from
+> boot on, and that is the value the EC is sent.
 
-> Hi Ajush,
->
-> On Tue, 13 Oct 2026 22:34:57 +0530
-> Ayush Singh <ayush@beagleboard.org> wrote:
->
->> David Gibson <david@gibson.dropbear.id.au> writes:
->>=20
->> > On Fri, Sep 25, 2026 at 03:21:57PM +0200, Herve Codina wrote:=20=20
->> >> Hi David,
->> >>=20
->> >> On Mon, 21 Sep 2026 16:20:02 +1000
->> >> David Gibson <david@gibson.dropbear.id.au> wrote:
->> >>=20=20=20
->> >> > On Wed, Aug 26, 2026 at 10:31:46AM +0200, Herve Codina wrote:=20=20
->> >> > > This v18 version will add support for
->> >> > >   - Structured tags.
->> >> > >     Those tags value definition will allow "old" libfdt, dtc and =
-other
->> >> > >     tools to skip unknown tags if encountered in future dtb versi=
-on.
->> >> > >=20
->> >> > >     libfdt, dtc and other tools implementing version v18 will be =
-able to
->> >> > >     skip unknown tags available in dtbd generated with later vers=
-ion of
->> >> > >     dtc.
->> >> > >=20
->> >> > >   - dt_flags header field.
->> >> > >     For now this flag field is set to 0. It is a placeholder for =
-future
->> >> > >     dtb version and could be used to store some dtb related infor=
-mation
->> >> > >     such as the kind of dtb. For instance, the future addons form=
-at will
->> >> > >     use this field to clearly identify that the dtb is an addon d=
-tb.
->> >> > >=20
->> >> > >   - last_comp_version_w header field.
->> >> > >     This field is similar to last_comp_version but for writing.
->> >> > >     It contains the lowest version of the devicetree data structu=
-re with
->> >> > >     which the version used can safely perform modifications (taki=
-ng into
->> >> > >     account following rules related to unknown tags).
->> >> > >     If this lowest version is greater than the last known support=
-ed
->> >> > >     version, modification are simply forbidden and lead to a
->> >> > >     FDT_ERR_BADVERSION error.
->> >> > >=20
->> >> > > For modification, when an unknown tag that can be skipped is invo=
-lved
->> >> > > and last_comp_version_w allows modifications, the following rules
->> >> > > apply:=20=20=20=20
->> >> >=20
->> >> > "last_comp_version_w allows modifications" is a bit hard to
->> >> > understand.  What exactly is the version number against which we're
->> >> > comparing that value?=20=20
->> >>=20
->> >> We had one last_comp_version.
->> >>=20
->> >> Now we have two last_comp_version, one for reading and one for writin=
-g.
->> >> We compare again the dtb version supported by our libfdt version.
->> >>=20
->> >> This comes from the discussion [1]
->> >>=20
->> >> [1] https://lore.kernel.org/all/CAL_JsqLRrbZje_gGZPBDni6StFa+6rdiECtk=
-49on8VfkP7CDvw@mail.gmail.com/=20=20
->> >
->> > Ok, I now see that the logic is you simply fail to proceed with writes
->> > if the library's latest understood version is < last_comp_version_w.
->> >
->> > As I said elsewhere, this approach doesn't particularly make sense to
->> > me.  If lib_version >=3D last_comp_version you *can* write, even if it
->> > means stripping everything that's not understood at lib_version.
->> >
->> > So the real question here is how do we know, for any given structured
->> > tag, what write operations require the version to be downgraded (which
->> > might in turn require this and/or other structured tags to be stripped
->> > entirely).
->> >
->> > This is related to (though not the same as) the question of whether
->> > introducing a new structured tags requires a bump to the dtb version
->> > (though not to last_comp_version, of course).
->> >
->> > Here's the simplest model I can think of.  It's what I'd suggest,
->> > unless one of it's limitations is a showstopper for what you have in m=
-ind:
->> >
->> >  - version and last_comp_version retain their meanings.  No new header
->> >    version.
->> >  - New structured tags *do* require a new version.  If a dtb wants to
->> >    include a specific tag, it must label itself with a version that
->> >    defines that tag.  To enforce that:
->> >     - For read operations, if we encounter a (known) tag that
->> >       doesn't belong in the header version, we throw an error (either
->> >       BADSTRUCTURE, or a new error for the purpose).
->> >        - If version <=3D FDT_LAST_SUPPORTED_VERSION and we encounter an
->> >          unknown tag that also trips the error (since if it was
->> > 	 defined in this version, we should know about it).
->> >     - For write operations (including in-place), we always error if
->> >       version > FDT_LAST_SUPPORTED_VERSION (done in fdt_rw_probe_()).
->> >     - fdt_open_into() _is_ permitted if version > FDT_LAST_SUPPORTED_V=
-ERSION.
->> >       It will strip all unknown structured tags from the entire tree
->> >       and downgrade the version to FDT_LAST_SUPPORTED_VERSION.
->> >
->> > This does mean that every new tag does require a new version, which
->> > may make experimenting with new tags more awkward.  More
->> > significantly, it also means that any change requires a version
->> > downgrade, even if it's just updating a handful of properties.
->> >
->> > On the plus side, it's fairly simple, retains as much as possible
->> > current version semantics.  Most especially there's no tricky
->> > questions about what sorts of writes might invalidate an unknown tag
->> > (they'll all be stripped by the time we permit a write operation).
->> >
->> > If those limitations really are a showstopper, I do have a few other
->> > models that might work, though.=20=20
->>=20
->> The limitations do not sound too bad. And it feels easier to implement t=
-han
->> keeping track of read and write versions separately for each new tag.
->
-> But it doesn't handle the use case I mentioned in a previous reply :(
->
-> bootloader knows about version 2.0
-> kernel knowns about version 3.0
->
-> dtb 3.0 we want the bootloader to skip tags it doesn't know about but thi=
-s same
-> bootloader has to handle 'unknown' tags on some modification. We want to =
-have=20
-> possibilities to let this bootloader perform those modifications (under p=
-recise
-> known rules) and pass this dtb to the kernel.
->
-> Best regards,
-> Herv=C3=A9
+Same here, and the ADC1 table settles what my readings left open.
+On this unit (also BIOS 2.14.0), with all four GPIO channels defined
+in one DTB on a 7.2.6 kernel:
 
-Apologies, I guess your email with the bootloader case came while I was
-composing, hence missed it.
+0x14a  38.6 C        0x14c  130.0 C (constant)
+0x14b  32.7 C        0x14d   34.7 C
 
-Anyway, that is an interesting case, and well, it does happen rather
-frequently in embedded devices. I just did not consider it in the earlier
-reply. If I remember correctly, U-boot does some dt fixups after detecting
-things like GPU in case of TI AM62 (used in BeaglePlay and PocketBeagle 2).
+A charger on the left USB-C port warmed 0x14b by 1.6 C in three
+minutes; 0x14d stayed within 0.1 C. So usb_charger_left_therm is
+AMUX2_GPIO, 0x14b, as your table says; 0x14a reads a board
+temperature and warms with the SoC.
 
-Best Regards,
-Ayush Singh
+> +	sys_therm0: channel@14a {
+> +		reg = <ADC5_GEN3_AMUX1_GPIO_100K_PU(1)>;
 
---=20
-BeagleBoard.org Foundation
-https://www.beagleboard.org
+One note on the shape: hamoa-pmics.dtsi already defines
+channel@14a and channel@14b as pm8550_gpio_01 and pm8550_gpio_02,
+with gpio3 and gpio4 in high impedance for them. The EC's io-channels
+can reference those two directly; redefining the nodes in the board
+file only adds the labels, which the EC node does not need.
+
+Happy to test a v7 with the two channels moved.
+
+Liviu
