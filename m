@@ -1,102 +1,143 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90EFE30C606;
-	Tue, 13 Oct 2026 14:12:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39DB03B9DAD
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 14:13:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791900742; cv=none; b=i8GuOBXbXsekufnD1s8KMTZBAHzFzP16liFcvzKFs0SI+peSo2txNPrEsvqkBkAaxCwKO5t1IZ+i9JmwXX85Lt+HFvyL0Biau/LkPvTqOVmX1kx/x8QqXAocoVwOtQX8nZjnTOKA+xx/RLsrjBY8EcuyWlbizWIA3NAdVuZpSn0=
+	t=1791900827; cv=none; b=u7roWZbzZF7VXlkh+uTTCEe/GrfFGFucX+2KtFU8Lb0bXITa8D4LdYlSj15Hdoi7XUdX3I7K7odPYu19oU2MpE3rg1Nf/RKG035uxMW7RxPu3LbiBS7X/dGDe5DiHZgiSyrIRC9s7/+crdpz/bTSZrW+sjD4SWFBXmflR7V/Hr0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791900742; c=relaxed/simple;
-	bh=9hCI+KLlF44LjYuZ2V43HBQqMnF64LjM3PfDokYjQ0U=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=iBHLqsVb24jJkzpw7EycDMpsMGdwSJGSIKffFR0qQXJAXIzqVhWRIIk7ngLd+368KFvZyKhJRy8F5WejPdNDIFRl31Zh84SbJrNTGdaYJM0uNA+9UX575O3gZ2m9WIg43qiBCfUOP6ga0Gx3WU1C5sTdKfoL30uuLL1WEg9UzlQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=NxFy8Uyl; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791900827; c=relaxed/simple;
+	bh=BI+5aQ0+LBfg4aAnZvaEZICWpSHJyKque700BIPcUjs=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=m5wZ8pVySIQAtv8xjEl15HUHZ25kvoqygK6/DUmzP5DAc1NcxAu5UwI/76T8hrW/KqnUW4nuYvpeCvA5zZDHO9fQAs/xMycDdZuADOtsrGsER6u6MbDhb+6RVlpF3TrhtADLTA3Uy421dZM4NiZe3wZq1LarSLpypk5N3a72eGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NfCIgtGz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="NxFy8Uyl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=9hCI+KLlF44LjYuZ2V43HBQqMnF64LjM3PfDokYjQ0U=; b=N
-	xFy8UylF7Z9Eh+XhQPDIDNqOP9M2CP8vbAIYSs+teya2vK/Tk7boOafHkRC4Zzow
-	QOFFPvFHhzQtJI1b07yhfki8bM5VRUBNhl3LbUT9Z/nbdyogVabgth9C5K5NwCbA
-	m/RWbf+cKJT/WKJmrEW6hB6Sz5ar4WDPGAWODdrgwg=
-Date: Tue, 13 Oct 2026 22:10:41 +0800 (CST)
-From: zl020895  <zl020895@163.com>
-To: "Bartosz Golaszewski" <brgl@kernel.org>
-Cc: longzhao@ambarella.com,
-	"Long Zhao via B4 Relay" <devnull+longzhao.ambarella.com@kernel.org>,
-	"Linus Walleij" <linusw@kernel.org>,
-	"Michael Walle" <mwalle@kernel.org>,
-	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
-	"Rob Herring" <robh@kernel.org>,
-	"Krzysztof Kozlowski" <krzk@kernel.org>,
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
-	"Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>,
-	"Conor Dooley" <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	"Conor Dooley" <conor.dooley@microchip.com>,
-	"Chanho Min" <chanho.min@lge.com>, linux-gpio@vger.kernel.org
-Subject: Re:Re: [PATCH 0/7] gpio: add Ambarella CV75 PL061 support
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <CAMRc=MezU71ByUoO-GMxSwsFsGZTUmQisYYrYEwtdbwyFiEqsw@mail.gmail.com>
-References: <20261009-cv75-gpio-v1-0-5836bd438423@ambarella.com>
- <CAMRc=MezU71ByUoO-GMxSwsFsGZTUmQisYYrYEwtdbwyFiEqsw@mail.gmail.com>
-X-NTES-SC: AL_Qu2SA/Wbv04v5ySfZekdnUoTj+Y/XMK0uvwk1YdVc84FkSfp3wMjT35qOEXs9/qoFCWqvTu+SwFvxuB9c7JXbkDZ1ziFg3nW8RhAFZ01ug==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NfCIgtGz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95DF21F000FF;
+	Tue, 13 Oct 2026 14:13:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791900825;
+	bh=Vhy06hrRUceGRvbs++YMTilBAjCcyiNSffAft6ImOqE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=NfCIgtGzuHupfw2B59BH36CaW9fYFjoxGMuoLJ2Tx5NO/E22JuxooUJb8BRLj319T
+	 bvFPqdmVt7v1D0SgG5tdlDk/tYVO9/wAU44r3bSUa/F6z0sRC4oJoGDcStV6LmfAhc
+	 Ccc7PW+jYAJzNDoB3fSOqW05TTuC1mymrYX0fAlY7WR1WxkFhm8V52xIu4UtDhhnxR
+	 hFp1e0JCIccNztBn2WybkIwHt1JGqzuPHLyEwEzP8vft6N/tMTlWGoysw+7kp8nJ0H
+	 qr6krXIW82CeTwj4V7SPOYhueT9XUT8o9VGKqquqngGqxHPo3P66cdFkNdpeCqBN08
+	 G2eF+kiK2HkUQ==
+Message-ID: <sashiko-outbox-169889@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4] arm64: dts: qcom: sm7125-samsung: add initial device
+ tree
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Erikas Bitovtas" <xerikasxx@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261013-sm7125-samsung-v4-1-3233901b48bb@gmail.com>
+References: <20261013-sm7125-samsung-v4-1-3233901b48bb@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 13 Oct 2026 14:13:44 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Message-ID: <73c4ceaf.9c2f.1a13599e8ca.Coremail.zl020895@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:gygvCgD3fzvhO85qYSchAA--.60W
-X-CM-SenderInfo: d2oqjiqyzvqiywtou0bp/xtbC7gFVxmrOO+FTVgAA3H
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-SGkgQmFydCwKClllcy4gVGhpcyBpcyBlZmZlY3RpdmVseSBhIHYxMCBvZiB0aGUgR1BJTyBwYXRj
-aGVzIGZyb20gdGhlIGNvbWJpbmVkIENWNzUgc2VyaWVzLiBJIHNwbGl0IHRoZW0gb3V0IGFuZCBy
-ZXN0YXJ0ZWQgdGhlIG51bWJlcmluZyBhdCB2MSBiZWNhdXNlIHNvbWUgbWFpbnRhaW5lcnMgcHJl
-ZmVycmVkIHNlcGFyYXRlIHNlcmllcywgc28gSSBhbSB0cnlpbmcgdGhhdC4KCkJlc3QgcmVnYXJk
-cywKTG9uZyBaaGFvCgpBdCAyMDI2LTEwLTEzIDIwOjU4OjA4LCAiQmFydG9zeiBHb2xhc3pld3Nr
-aSIgPGJyZ2xAa2VybmVsLm9yZz4gd3JvdGU6Cj5PbiBGcmksIDkgT2N0IDIwMjYgMTI6NTc6NTMg
-KzAyMDAsIExvbmcgWmhhbyB2aWEgQjQgUmVsYXkKPjxkZXZudWxsK2xvbmd6aGFvLmFtYmFyZWxs
-YS5jb21Aa2VybmVsLm9yZz4gc2FpZDoKPj4gU3BsaXQgZnJvbSB0aGUgY29tYmluZWQgQ1Y3NSBi
-cmluZy11cCBzZXJpZXMuIFRoZXNlIHBhdGNoZXMgY29udmVydAo+PiB0aGUgQVJNIFBMMDYxIGRh
-dGEgcGF0aCB0byByZWdtYXAsIHRoZW4gYWRkIHRoZSBDVjc1IGxheW91dC4KPj4KPj4gUGxlYXNl
-IHRha2UgdGhpcyBzZXJpZXMgdGhyb3VnaCB0aGUgR1BJTyB0cmVlLiBUaGUgcXVpcmssIHRoZSBQ
-TDA2MQo+PiBjb252ZXJzaW9uIGFuZCB0aGUgQW1iYXJlbGxhIGxheW91dCBiZWxvbmcgdG9nZXRo
-ZXIuCj4+Cj4+IFRoZSBHUElPIGRyaXZlciBkb2VzIG5vdCBkZXBlbmQgb24gQVJDSF9BTUJBUkVM
-TEEuIFRoZSBiaW5kaW5nIHVzZXMKPj4gdGhlIGFtYmFyZWxsYSB2ZW5kb3IgcHJlZml4LCB3aGlj
-aCBpcyBhZGRlZCBieSB0aGUgU29DIHNlcmllcyBhbmQgaXMKPj4gbm90IGluIG1haW5saW5lIHll
-dDsgZHRfYmluZGluZ19jaGVjayBuZWVkcyB0aGF0IHByZWZpeC4KPj4KPj4gR1BJTyBkYXRhIHBh
-dGggdXNlcyBncGlvLXJlZ21hcCB3aXRoIHR3byBsYXlvdXRzIChBUk0gUHJpbWVDZWxsIGFuZAo+
-PiBBbWJhcmVsbGEpLiBBUk0gUEwwNjEgc2V0cyBHUElPX1JFR01BUF9RVUlSS19TRVRfQUZURVJf
-RElSLiBJUlEgc3RheXMKPj4gYSBjdXN0b20gUEwwNjEgaXJxY2hpcC4gVGhlIGxpbmVhciBkb21h
-aW4gaXMgY3JlYXRlZCB3aXRoIHRoZSBQTDA2MQo+PiBwcml2YXRlIGRhdGEgYW5kIGF0dGFjaGVk
-IGJ5IGdwaW8tcmVnbWFwLiByZWdtYXAtaXJxIGlzIG5vdCB1c2VkLgo+Pgo+PiBUZXN0ZWQgb24g
-dGhlIENWNzUgRVZLLiBUaGUgYm9hcmQgYm9vdHMuIGdwaW8taGFtbWVyIHRvZ2dsZXMgZ3Bpb2No
-aXAwIGxpbmUgMjYgdGVuIHRpbWVzLCBhbmQgZ3Bpby1ldmVudC1tb24gb24gbGluZSAyNyByZWNv
-cmRzIHRlbiBhbHRlcm5hdGluZyByaXNpbmcgYW5kIGZhbGxpbmcgZWRnZXMuCj4+Cj4+IENoYW5n
-ZXMgc2luY2UgdGhlIHBhdGNoZXMgaW4gdGhlIGNvbWJpbmVkIHY5Ogo+PiAtIGR0LWJpbmRpbmdz
-OiBleHBsYWluIHRoYXQgQ1Y3NSBpcyBhIG1vZGlmaWVkIFBMMDYxIChDb25vcikKPj4gLSBncGlv
-LXJlZ21hcDogbW92ZSBxdWlya3MgYWZ0ZXIgZml4ZWRfZGlyZWN0aW9uX291dHB1dCAoQW5keSkK
-Pj4gLSBncGlvOiBwbDA2MTogdXNlIHJlZ21hcF90ZXN0X2JpdHMoKSwgcmVnbWFwX2NsZWFyX2Jp
-dHMoKSBhbmQKPj4gICByZWdtYXBfc2V0X2JpdHMoKSBmb3IgZGlyZWN0aW9uIGFuZCBpbnRlcnJ1
-cHQgZW5hYmxlIChBbmR5KS4KPj4gICBUaGUgZGF0YSByZWdpc3RlciBzdGF5cyByZWdtYXBfd3Jp
-dGUoKTogcmVnbWFwX3NldF9iaXRzKCkgY2FuCj4+ICAgb25seSBzZXQgYml0cyB0byAxLCBzbyBp
-dCBjYW5ub3QgZHJpdmUgYSBwaW4gbG93Lgo+PiAtIGdwaW86IHBsMDYxOiBhZGQgQW1iYXJlbGxh
-IHJlZ2lzdGVyLWxheW91dCB2YXJpYW50OiBjYWNoZSBEQVQKPj4gICAoUkVHQ0FDSEVfRkxBVF9T
-LCBub3Qgdm9sYXRpbGUpIHNvIGdwaW9fc2V0KCkgZG9lcyBub3QKPj4gICByZWFkLW1vZGlmeS13
-cml0ZSB0aGUgcGluIGxldmVsIChTYXNoaWtvKS4gRHJvcCB0aGUgUmV2aWV3ZWQtYnkKPj4gICBm
-cm9tIEFuZHkgYW5kIExpbnVzIG9uIHRoaXMgY29tbWl0OyB0aGUgY29kZSBjaGFuZ2VkIGFmdGVy
-Cj4+ICAgdGhvc2UgdGFncy4KPj4KPj4gTGluazogaHR0cHM6Ly9wYXRjaC5tc2dpZC5saW5rLzIw
-MjYxMDAxLWN2NzUtdjUtdjktMC00ODZjYzI4OWE0YjhAYW1iYXJlbGxhLmNvbQo+Pgo+Cj5JcyB0
-aGlzIGVmZmVjdGl2ZWx5IGEgdjEwIG9mIHRoaXMgc2VyaWVzIG9yIHNvbWV0aGluZyBlbnRpcmVs
-eSBuZXc/Cj4KPkJhcnQK
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Low] dts: rmtfs_mem node lacks unit address matching reg property
+- [Low] dts: virtual i2c-gpio node placed inside memory-mapped soc bus
+- [Low] dts: framebuffer node retains unit address without reg property
+--
+
+commit 6c9915e6435fc32203fc912dbc6609069cf97bc9
+Author: Erikas Bitovtas <xerikasxx@gmail.com>
+
+arm64: dts: qcom: sm7125-samsung: add initial device tree
+
+Samsung Galaxy A52/A72 are devices released on atoll (SM7125) platform
+in 2021. Add initial device tree for SM7125 Samsung platform with
+support for various basic components.
+
+> diff --git a/arch/arm64/boot/dts/qcom/sm7125-samsung-a52q.dts b/arch/arm6=
+4/boot/dts/qcom/sm7125-samsung-a52q.dts
+> index 0000000000000..ecba5be8164ea
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/sm7125-samsung-a52q.dts
+
+[ ... ]
+
+> +&rmtfs_mem {
+> +	reg =3D <0x0 0xf4f00000 0x0 0x202000>;
+> +};
+
+[Severity: Low]
+Does appending this reg property cause a dtc warning about a missing
+unit address?
+
+In sm7125-samsung-common.dtsi, the base node is defined without one:
+
+		rmtfs_mem: memory {
+			compatible =3D "qcom,rmtfs-mem";
+			qcom,use-guard-pages;
+
+When a node has a reg property, its name should include the corresponding
+unit address. Should the base node be updated or the name overridden here
+to match the reg address (e.g., rmtfs_mem: memory@f4f00000)?
+
+> diff --git a/arch/arm64/boot/dts/qcom/sm7125-samsung-common.dtsi b/arch/a=
+rm64/boot/dts/qcom/sm7125-samsung-common.dtsi
+> index 0000000000000..7c5d062bd0809
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/sm7125-samsung-common.dtsi
+
+[ ... ]
+
+> +	chosen {
+> +		#address-cells =3D <2>;
+> +		#size-cells =3D <2>;
+> +		ranges;
+> +
+> +		framebuffer@9c000000 {
+> +			compatible =3D "simple-framebuffer";
+> +			memory-region =3D <&cont_splash_mem>;
+> +			width =3D <1080>;
+> +			height =3D <2400>;
+> +			stride =3D <(1080 * 4)>;
+> +			format =3D "a8r8g8b8";
+> +			clocks =3D <&gcc GCC_DISP_HF_AXI_CLK>;
+> +		};
+> +	};
+
+[Severity: Low]
+Is the @9c000000 unit address appropriate for the framebuffer node since
+it relies on memory-region instead of a reg property?
+
+A node must only have a unit address if it has a reg property.
+
+Additionally, should chosen retain the #address-cells, #size-cells,
+and ranges properties if it no longer has any children with a reg
+property?
+
+[ ... ]
+
+> +&soc {
+> +	i2c_17: i2c-17 {
+> +		compatible =3D "i2c-gpio";
+> +		sda-gpios =3D <&tlmm 51 (GPIO_ACTIVE_HIGH|GPIO_OPEN_DRAIN)>;
+> +		scl-gpios =3D <&tlmm 52 (GPIO_ACTIVE_HIGH|GPIO_OPEN_DRAIN)>;
+> +
+> +		i2c-gpio,delay-us =3D <2>;
+
+[Severity: Low]
+Should this virtual i2c-gpio node be placed at the root level (/)
+instead of inside the memory-mapped &soc bus?
+
+The i2c_17 node is a bit-banged software I2C controller without
+memory-mapped registers, so it lacks a reg property. dtc will flag a
+warning that the node lacks a reg property but is in a bus.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013-sm7125-sam=
+sung-v4-1-3233901b48bb@gmail.com?part=3D1
