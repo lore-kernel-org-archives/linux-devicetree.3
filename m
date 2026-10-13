@@ -1,194 +1,142 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E81A23ED6A
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 05:57:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D281747A0A9
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 05:59:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791871073; cv=none; b=n2/jaEg+8zvI5PxLS3rzhrDx9ySJqCoADVivbM5CPYVOqFtPzty89wm0qDhUq2tIYdIj2LnQo3RYmU0ckRT2LpjmMSmNTNA2yttC2byhFlzmiegFkUEGIg85HKWVxkhk7aR9xCkdoypINmheCOe75c0POt8tl1lcsndhuA6cFXg=
+	t=1791871143; cv=none; b=qKzHuquKg+dcNSWgFhOSElpNOtmEFZChoZBVnD16q/0LhfopFAX0J40veOdeUVdGELIhKks6IbJmV0YMQhmN8SnORcWyvYxtgfa5ekH0NBYkgnSmeSCqtF4sqdjankkcu4G21mTuZGvLv1hl4zmx9V4jBga+sQVPXYEqVLtd+Ds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791871073; c=relaxed/simple;
-	bh=5aLW0/GtYzRagq5FBsVmgnHxHE5z3/58lXepyBjU8HQ=;
+	s=arc-20240116; t=1791871143; c=relaxed/simple;
+	bh=RYTiKcZXZuYfy1GZ3O601X1MSQ0M09VMkW5F09qgqTg=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=S3lPCmF9IEhZoA/TSEhn9EpO57x+9ZRorWyqzsi7Ef4+wPROPJHpxJQuBN5w+feg0t2qQqDWVBd/ehBCBR03c23sqxTkkRFo3BK9wZnvqHDzIqHrs0GhaPLnXeiDVeYCwnbU/gXlijB9/m6DO2+UAs5kKg03sdvK9eEXmMedi50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gMzlMnWW; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=FZzNneD31gThUgRS2yygYsCfUs7vD7v3sEnUPP+rFYaDsU8YOPif5SV/hgWQTuk+BgoBq/Qiif29dZ2B0ZR65R6ydy9vCLnlBEFE6Zvf3xhALEGwQcbIARgBSAzG725q0l2PQqEvpZuHi0oNXT4wxpNg5sc8+Blv5yg/PCDg+Uk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XH/6wRba; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gMzlMnWW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A5D51F000FF;
-	Tue, 13 Oct 2026 05:57:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XH/6wRba"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E8E31F000FF;
+	Tue, 13 Oct 2026 05:59:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791871071;
-	bh=jDC5I4OssBwiX1+mppFFZbuSAU0HYhJjqhM+PUuYFtI=;
+	s=k20260515; t=1791871142;
+	bh=grNF8NrMJrJsf0jCVXNyCC8qgOaJS1baygpuMpNE2uY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gMzlMnWWmwH+cxF+OmSBDcNnQLyo2siwO2qEOJcRbypjMIkzZRFcWQ+afdZufWkEi
-	 d5o19jboSzSd5hpKWbUpwyhDaEXEl6SxtokNZ3smgnycR7dhVM5uCclbpTXyYyYmgd
-	 HJ9lGrsC8+poROuoLs1i4VJq4QYq2VVK28A2Tk8NWey8e69Fanv0isCGRgYC1hdzrL
-	 fYMgIXH5wE9Anq9aSpxh/JJEQnfv0cMFo69VcqPJOW5K11GhDen3li/b0cNnsYyFQn
-	 5e4GsmulM9X7FHSck2Zs74yvwP5W+KRbiPeZOdbjmzSWmhd0NyaAvE8osOR0MrFqKF
-	 PdjD6+w1q9H7Q==
-Message-ID: <sashiko-outbox-169026@kernel.org>
+	b=XH/6wRbaB1PcsI/3UKnOabPr84HdujZajIZdbAsIQI4xXVQaU8y2VHUMBsaI5Pvfd
+	 CLTCkD8mX5YYHu6nB6jaZk69HfiSGy5IMmOKmZ9Vb3XjzSO7wQ9CzIYoXFG/RJU0H/
+	 tlGD6BBFgMwTrj6oQhlwZxCuIUdqNfMxCMGGE/EicqzMklGwfuCmySW5vPn5pKj1J3
+	 3W5spx2Bj0PImfn2hMwiLg1Zu4vsi6XYZn6xv+6tT+zrNzUneuOMoVI9dEk31VznhU
+	 4BtaIDrAhMgv3io1ykJCBu5JSRg3j0XsRXCbxY49wLqEmFxp6o5yQHPx6aqkEb0GoL
+	 kb1xtz9UE0/DA==
+Message-ID: <sashiko-outbox-169029@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v3 4/9] tee: optee: add RPMI shared-memory and
- parameter support
+Subject: Re: [PATCH RFC v3 6/9] tee: optee: add RPMI RPC handling
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Amirreza Zarrabi" <amirreza.zarrabi@oss.qualcomm.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261012-rpmi-tee-service-grp-dev-v3-4-975b574667e2@oss.qualcomm.com>
+In-Reply-To: <20261012-rpmi-tee-service-grp-dev-v3-6-975b574667e2@oss.qualcomm.com>
 References: <20261012-rpmi-tee-service-grp-dev-v3-0-975b574667e2@oss.qualcomm.com>
- <20261012-rpmi-tee-service-grp-dev-v3-4-975b574667e2@oss.qualcomm.com>
+ <20261012-rpmi-tee-service-grp-dev-v3-6-975b574667e2@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Oct 2026 05:57:50 +0000
+Date: Tue, 13 Oct 2026 05:59:02 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] tee: optee: OOB access in RPC handlers due to unvalidated memref s=
-ize
-- [High] tee: optee: NULL pointer dereference in RPC handlers from empty me=
-mref
-- [Medium] tee: optee: IDA nonce leak on memory_share failure allows DoS
+- [High] tee/optee: Use-After-Free race in SHM_FREE RPC due to missing refc=
+ount
+- [Medium] tee/optee: Memory leak via type confusion in SHM_FREE RPC
 --
 
-commit 75de307b7e8cbec8782ab18004851de96c3a4c73
+commit 3440aa8b7411752d7f5d5849d15211a269875fce
 Author: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
 
-tee: optee: add RPMI shared-memory and parameter support
+tee: optee: add RPMI RPC handling
 
-OP-TEE commands and RPCs need shared memory that secure world can
-identify through RPMI parcels.
-
-Register normal-world pages as read-write parcels shared with the
-OP-TEE endpoint. Track each parcel ID and nonce with the common
-shared-memory map. Store the combined identity in tee_shm.sec_world_id
-and allocate nonzero nonces to distinguish registered memory from NULL
-references. Reuse nonces after successful parcel reclamation.
-
-Add conversions between TEE parameters and parcel memory references.
-
-On client memory unregistration, ask OP-TEE to release its mapping
-before reclaiming the parcel. Supplicant memory has already been
-released by OP-TEE through its SHM_FREE RPC and only needs reclaiming.
+OP-TEE can suspend a yielding call to request services from normal world
+through RPC. This patch adds handlers for shared-memory allocation and
+free requests, returning RPMI parcel references. It routes other
+commands through the common OP-TEE RPC dispatcher.
 
 > diff --git a/drivers/tee/optee/rpmi_abi.c b/drivers/tee/optee/rpmi_abi.c
-> new file mode 100644
-> index 0000000000000..940676794280d
-> --- /dev/null
+> index bbb219ddab381..8b90c3653e80d 100644
+> --- a/drivers/tee/optee/rpmi_abi.c
 > +++ b/drivers/tee/optee/rpmi_abi.c
 
 [ ... ]
 
-> +static int optee_rpmi_shm_register(struct tee_context *ctx, struct tee_s=
-hm *shm,
-> +				   struct page **pages, size_t num_pages,
-> +				   unsigned long start)
-> +{
-
-[ ... ]
-
-> +	rc =3D ida_alloc_min(&optee->rpmi.nonce_ida, 1, GFP_KERNEL);
-> +	if (rc < 0) {
-> +		sg_free_table(&sgt);
-> +		return rc;
-> +	}
-> +
-> +	args.nonce =3D rc;
-> +	args.sg =3D sgt.sgl;
-> +	rc =3D rdev->ops->mem_ops->memory_share(rdev, &args);
-> +	sg_free_table(&sgt);
-> +	/* A failed exchange may leave a parcel using this nonce. */
-> +	if (rc)
-> +		return rc;
-
-[Severity: Medium]
-Does this error path leak the allocated IDA nonce?
-
-If memory_share() fails (for instance, when firmware rejects the request),
-it appears the nonce allocated via ida_alloc_min() is returned without being
-freed. Since TEE_IOC_SHM_REGISTER is accessible to unprivileged users, could
-this be repeatedly triggered to exhaust the IDA space and cause a denial of
-service for subsequent shared memory registrations?
-
-> +
-> +	global_id =3D optee_rpmi_global_id(args.parcel_id, args.nonce);
-
-[ ... ]
-
-> +/* Convert an RPMI parcel reference to a memref; callers own SHM lifetim=
-e. */
-> +static int from_msg_param_rpmi_mem(struct optee *optee, struct tee_param=
- *p,
-> +				   u32 attr, const struct optee_msg_param *mp)
+> +static void optee_rpmi_handle_rpc_shm_free(struct tee_context *ctx,
+> +					   struct optee *optee,
+> +					   struct optee_msg_arg *arg)
 > +{
 > +	struct tee_shm *shm;
-> +	u64 offset;
+> +	u64 type, global_id;
 > +
-> +	p->attr =3D TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INPUT + attr -
-> +		  OPTEE_MSG_ATTR_TYPE_PMEM_INPUT;
+> +	if (arg->num_params !=3D 1 ||
+> +	    arg->params[0].attr !=3D OPTEE_MSG_ATTR_TYPE_VALUE_INPUT)
+> +		goto err_bad_param;
 > +
-> +	if (mp->u.pmem.size > SIZE_MAX)
-> +		return -EOVERFLOW;
-> +	p->u.memref.size =3D mp->u.pmem.size;
+> +	type =3D arg->params[0].u.value.a;
+> +	global_id =3D arg->params[0].u.value.b;
+> +	/* SHM_FREE requires a non-NULL identity. */
+> +	if (!optee_rpmi_nonce(global_id) || arg->params[0].u.value.c)
+> +		goto err_bad_param;
 > +
-> +	if (!optee_rpmi_nonce(mp->u.pmem.global_id)) {
-> +		/* Return NULL shm. */
-> +		if (mp->u.pmem.offs)
-> +			return -EINVAL;
-> +		p->u.memref.shm =3D NULL;
-> +		p->u.memref.shm_offs =3D 0;
-> +		return 0;
+> +	shm =3D optee_shm_handle_map_lookup(&optee->rpmi.shm_map, global_id);
 
 [Severity: High]
-Can a malformed RPC request with an empty PMEM argument cause a NULL pointer
-dereference in the common RPC handlers?
+Does this code allow a use-after-free if concurrent free requests are made?
 
-If OP-TEE sends a request with a NULL reference (global_id =3D=3D 0), this
-function successfully sets shm to NULL and returns 0. When the common RPC
-handlers in drivers/tee/optee/rpc.c (such as handle_rpc_func_rpmb_probe_nex=
-t()
-or handle_rpc_func_cmd_i2c_transfer()) process the parameters, they appear =
-to
-dereference the shm pointer or pass it to tee_shm_get_va() without checking=
- if
-it is valid.
+If a compromised or buggy TEE issues concurrent OPTEE_RPC_CMD_SHM_FREE RPC
+requests for the same global_id, multiple kernel threads could obtain the s=
+ame
+unrefcounted shm pointer from optee_shm_handle_map_lookup() before it is
+removed from the map.
 
+Both threads would then concurrently call tee_shm_free() (or
+optee_rpc_cmd_free_suppl()), causing a use-after-free when the second thread
+attempts to drop the reference count.
+
+> +	if (!shm)
+> +		goto err_bad_param;
+> +
+> +	switch (type) {
+
+[Severity: Medium]
+Could this code cause a memory leak by trusting the type from the message?
+
+The type is read directly from the untrusted secure world message without
+verifying that the shm object actually corresponds to that allocation type.
+
+If the secure world requests to free a supplicant-allocated buffer but spoo=
+fs
+the type as OPTEE_RPC_SHM_TYPE_KERNEL, the kernel will execute
+tee_shm_free(shm).
+
+This bypasses optee_rpc_cmd_free_suppl(), preventing the free message from
+reaching the user-space supplicant, which will then permanently leak the
+memory.
+
+> +	case OPTEE_RPC_SHM_TYPE_APPL:
+> +		optee_rpc_cmd_free_suppl(ctx, shm);
+> +		break;
+> +	case OPTEE_RPC_SHM_TYPE_KERNEL:
+> +		tee_shm_free(shm);
+> +		break;
+> +	default:
+> +		goto err_bad_param;
 > +	}
 > +
-> +	shm =3D optee_shm_handle_map_lookup(&optee->rpmi.shm_map,
-> +					  mp->u.pmem.global_id);
-> +	if (!shm || mp->u.pmem.offs < shm->offset)
-> +		return -EINVAL;
+> +	arg->ret =3D TEEC_SUCCESS;
+> +	return;
 > +
-> +	offset =3D mp->u.pmem.offs - shm->offset;
-> +	if (offset > SIZE_MAX)
-> +		return -EOVERFLOW;
-> +
-> +	p->u.memref.shm =3D shm;
-> +	p->u.memref.shm_offs =3D offset;
-
-[Severity: High]
-Are we missing bounds checking for the memory reference size and offset?
-
-The size and offset from the OP-TEE message are assigned to the tee_param
-without bounds validation. While this might be necessary to return required
-buffer sizes in TEEC_ERROR_SHORT_BUFFER, downstream RPC handlers in
-drivers/tee/optee/rpc.c (like handle_rpc_func_rpmb_probe_next() and
-handle_rpc_func_rpmb_frames()) appear to trust these parameters blindly.
-
-Could a compromised OP-TEE use this to trigger out-of-bounds reads and writ=
-es
-in the kernel by causing the handlers to calculate out-of-bounds pointers v=
-ia
-tee_shm_get_va() and perform operations like memcpy()?
-
-> +
-> +	return 0;
+> +err_bad_param:
+> +	arg->ret =3D TEEC_ERROR_BAD_PARAMETERS;
 > +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012-rpmi-tee-s=
-ervice-grp-dev-v3-0-975b574667e2@oss.qualcomm.com?part=3D4
+ervice-grp-dev-v3-0-975b574667e2@oss.qualcomm.com?part=3D6
