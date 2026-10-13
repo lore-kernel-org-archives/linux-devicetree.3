@@ -1,358 +1,217 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C4244078C1
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 10:17:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 775353EA977
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 10:19:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791886637; cv=none; b=kB5iz2f0YFb9JnVOpdwew129yWKdug2URfM/oAOlOsmD8HKeqDXMrQTmhJRmV9KfnaKwQytwks30yQxzLYVA1rH5XnxrwcVJiKseqZU0h0Ra6Ab9vj5wMTDU1LXq027anCVXSqJ26WsrahoOm31DwnbM6rPzh4fgJCMXQCr5go4=
+	t=1791886757; cv=none; b=UV3oCjcMRKh120ToIeUQTgHR/JGKueluzBZlTB1gEmaGwcJeV7aIrjofLwdRniVUCYesSY7i5T0PZpMp4ddlb/+QRGUro9bLnQ0P+RVAloRd8CiRRwHuxB89kK23twWO7u16qlJ823dNBTpXgJCjkFSl+TczcEMFXaze1NfzS7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791886637; c=relaxed/simple;
-	bh=Nc/7L25ppw473cMZLDfSHTkAdQ61YYv4xbHO2l7mNJU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JvucuPI3QDPtQOOB+J3sNIOvr9SBlsw3nWOar+Hhm/Nk6RPwEEK3p+bgs9SV7MjZjPTx1j7alihWsyXljG8nuoIcz4Hjb8p8odajp2thG4ZWooW89Em7+upkj3ibN3bdm9u7md6FezMvs+4bFp3DXv1CEzzXPv0IMCAWwKZlEnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fKnf5Pyz; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FFZcBgfI; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1791886757; c=relaxed/simple;
+	bh=3xSL9LPTGLgFsEJgy6ZzYNM745Z+ZyKzpW4+6bkDYHo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=O03j3MyCqvphj73G6qnXiJ4sYr0FfI6GCHft+VEYwno96InnRQ8ABijVjzQblUJYEQ8R4GkDHyWAp7RAwYwmR1MeWDNALWkQj5CHwv3tirb/7r8JE3XbVS24AIdfHZRidEoVThlzibTgSf/wRu8An21FxsTooY9DqeYXDC2mj2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=g+SsL8wG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IffmXmL1; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fKnf5Pyz";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FFZcBgfI"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D8Ok38989880
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 10:17:15 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="g+SsL8wG";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IffmXmL1"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D9WSB1173800
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 10:19:15 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	0Oz2dYBmsXZrEzu3Z+NF+l80IiagmDpRDshu2vMAG6U=; b=fKnf5PyzQIitLqHk
-	/w4QuRiSVo6GKqod1N2AuvuOF5L6nDflGy8lY/xk4rORieCQfGa6Zm95fsEbzCug
-	x7cqrv3m/XrM4C7nvaaJ4k/Io9VL4tidR67oGxA3n/Ey5TzJBBqntThflDd4e7vy
-	EwRnw3RfyjhwWft5GBqfPoxL7ca7WPpQCkXieoLXV1cTb9WE6vbqf/VW8G3vFnDR
-	tnEUCM/UeA7DQIlsGk2EySEMzHpY0KLAAwvbuH+W4dLgdFzErtl/lgiNAmPRL4nI
-	egULl3PhrcnUHBTK8xTL3USlXFCmq+JfOHehffxKs0deRdszkyxFFIadIfcvujZO
-	+pD4XQ==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h98hcacuv-1
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=7Hhfq7fiw28ZkDfvmDF1BDlx
+	jnaYKRw6TyjN4JrVX4g=; b=g+SsL8wG0HIRiVNkfIddsxB99Jn0oQla+0oDMREd
+	rxMP5t6pwMbbuo83h6PuLoOT7kn7YDI0oK6C3XcnmZX0WGxNe305I3U+KJYc8xBj
+	jBEM732rBJMa3TVw1wPuwaMus54MJa9KblXoI5u6WE1OrbwoxhTpYSCWruiu/s+n
+	Z94zeoPiTilNEsFbF3f9bYFWFpyBh5heV8wzJNRFrGKJHmV6jjd2alQUPBnSXnFC
+	CO7DCf2clXltf7sxLa1c5y0ur4ihe5OngyWKt/DV9TnLxaaXHLZcsHDuHTyJJo39
+	9tXB9FyZoQOkAoG6dxU3GMARsIH+6Z1bAeE0/GHAxslnlA==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9daqsf4c-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 10:17:15 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cb48f41343aso3129479a12.1
-        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 03:17:15 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 10:19:15 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93a3f673221so848740685a.0
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 03:19:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791886635; x=1792491435; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0Oz2dYBmsXZrEzu3Z+NF+l80IiagmDpRDshu2vMAG6U=;
-        b=FFZcBgfIZ1mU05f3kXDGzaNq1B0+NceTnUsJiObwEjwt5lWFP0+3ygwxZiXk6+akAE
-         cInWfcUi2JQ0zempHpVje9b1khdU/QoqznVegZ1LTBVBp+P6udPJ9lIuUnbUG5h32u1N
-         BLU2NCSfJl69kP+KIkrfDHVVVf7jVh8+T4kyw3yvrlO8tBw2fXAMBe8SFcqgFsnHnI4p
-         SpNQrxknZU48HC4ZtztXzwt38PCldfsRccJB3g5MNksPT1f4UNCbnAvjFUAILQni5h8A
-         /rGOlC5HepC0Rl8dUrpin0o6J9Y9pw6T3mHgPiehS6VS6Xt+3R7xfzuvlIF6SPQIZUBH
-         vL2w==
+        d=oss.qualcomm.com; s=google; t=1791886754; x=1792491554; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7Hhfq7fiw28ZkDfvmDF1BDlxjnaYKRw6TyjN4JrVX4g=;
+        b=IffmXmL196GpZYYhpoBu0XqCES0gQWLtrSJVmwToVor5hQS681qImCvtMP5hsMlQxd
+         PFk1ITozzpXihARC1BdJXvbc9dH97Q7aLcufwtGz2y9vIGuPmvnOfYSKMXQ6QajlZ/fT
+         9rZK7mvNXT5sXg1GuBBUBGOWnM55FipovGXqnwwsBh96XSNS8EB6YrIFsBibxEb9G0aD
+         Fzj7Ru0Qk8eQSuhE5ddEulHD6nbmeo0zAiDPoNqhTGMr0mGeFXjOOIDo1qE1lIPBklrl
+         YUeJVKF1m570A+07YqtJFY3uS21Z5D9Npia/DPJNINKwPAQy9G03PRUcWDMg5o3OAeul
+         rfzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791886635; x=1792491435;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1791886754; x=1792491554;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0Oz2dYBmsXZrEzu3Z+NF+l80IiagmDpRDshu2vMAG6U=;
-        b=xKIk+4/QrINCRyRswEkVHrkZqrM3ekHuFlFROxpMblmINo9fVebmw8NnPEV6xh9486
-         GGCMsdZP4iid+LTQkKCBGCa92y2JjNEjmD0O3frEi8Qb6y5bfyX1PV1GMzHxURvE5MNg
-         CEhIzVafbFFd02BKLTf4/pODPoaUZ34W8saVwejYYPPcKDBaN0YBO9UDP6MB7p+52HSl
-         iR6wKHPLMZ1pEowVY3u572do6t6w/c9SvHaSjDBTPtP8mtdwa2NjRm7KITWNnvu+I9Qs
-         Gb+g24UZqa8WG/jbufMJiFuNHrtREqSH0zS4iCkhA4vrvgyuLD/5NwwzgIyVQv59VPaB
-         d3Uw==
-X-Forwarded-Encrypted: i=1; AKwUvBwmhaIKxExH5P5jStfD+XDbjLGILHamGHR2bRGDeqJyP+OKFO5t3SBggQRSJHq7HTOWp+2UenMVsOy3@vger.kernel.org
-X-Gm-Message-State: AFq9FYLnLzEEWE+V5i/1+tthDNf8WI1djqSNs/lO+G1uCuEfF58/k9+F
-	/YpesMIJWs1ub6qzFXdvGzHrTDzGPYDul6kLhoLPu0SszE/5JMqZmswOcG6kTpOlnktoS2kibfQ
-	Cj079ZjLfm6l+XApmTAeXzw6dnsahpL1S2wZiFHhYBoWVTxVbblmxNFmtVJhPN+A2
-X-Gm-Gg: AYBFou2gQvccy3G8i32etTamN4y4vDthGSApanZJA6anbMTv7jbcbppLgnmJaIx8iYO
-	N94h+EIUuxQxFEeqlhWHLLsOkIRqJC/eyPxz/F1Uz4zflGV5anMJTAoyn2kYKiuMmrDnWjrBo8j
-	+ZQrhH+2Rs97hB8kdpIOfu/TynHLcog2u84RR7jYXHsNPh+2jRFhs9TkK/IeZnfH1XwWJ+MWiYq
-	f/1H0a+D8EYUsHrQ8wGc+CeyWm1yYFHfdQisiCd4xr5ImRF1fRPA9OsPy43rMGz49Z7/tDW4dRW
-	Fz9HlGgToBaGdbMRuQt7w9/Iw92ZECueBVj3qLKyNfxJmvCjO+feww0B0eU4N77x39KmIjrm4W/
-	w4LCuRUzpansmhsn7zKOEDLU09rNvbrzVKyDv5vpw4bSEbI0=
-X-Received: by 2002:a05:6300:8811:b0:3de:71c4:a22b with SMTP id adf61e73a8af0-3e16baa4b6cmr6890581637.1.1791886634916;
-        Tue, 13 Oct 2026 03:17:14 -0700 (PDT)
-X-Received: by 2002:a05:6300:8811:b0:3de:71c4:a22b with SMTP id adf61e73a8af0-3e16baa4b6cmr6890566637.1.1791886634372;
-        Tue, 13 Oct 2026 03:17:14 -0700 (PDT)
-Received: from hu-qianyu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd5dadd0986sm4186777a12.18.2026.10.13.03.17.13
+        bh=7Hhfq7fiw28ZkDfvmDF1BDlxjnaYKRw6TyjN4JrVX4g=;
+        b=t/cjU82Ka2VvMp8Heea4fUx22IkKHqRJ63sONIEdYK1VlTVH64MtOEoELNjSL7EMIy
+         IR+6CfCyLs6hSRHrjt1plS7unrcFwyVPECCcqge36atkctP7ftMuxsJnGySXUKFbd2Kl
+         CiZltb5MtaHt3g5nChSmqH1jtGuG/ZvcuhAhITVxs3/EjLQ5YrVTP0Zz5J3t7ev2RP7Z
+         JFQUqY/gWdmUv5SbPzebkS2+CL/ADC1Er4wux+VR8NqX8QXIQsX2RvGPzQiszgY/5pKb
+         fICV+swBLDO0ttpsghyDhy2OJD1TZpIWbrtaTJCX65BlhQabJmS+Lvi+KU50c6WCjoBk
+         UNgQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwLs3T6HzbBsVSbA8wZCm7UuHjB/J3UrmM3DwegzG7zFI5qBtlecSk+59yJB4NDyjM4cUZoK2yWh5fG@vger.kernel.org
+X-Gm-Message-State: AFq9FYL4lYCMC1/g8tOjYsimI3Ym8kECsrEa9MJxegA24Rm/X7RDJiDG
+	WZtt7xzQ8lPXmt5x7cSWAa7nw4oVhpwPpmek2sYGhphYHc7O2LCjFAIHWtHnBD1+R4axl3jNuVt
+	frmPZgNsAk8KKQIOgyl6XazrxlgIIN5fW9yW8Gt4lXIjvxtGTUs0Yfn374Fj9+AHL
+X-Gm-Gg: AYBFou0ap+ezp7x5fXZOpVwl7yLWK4vZHvYlUOqGk03yqE68ZRoOvSDCuswqwW5EZNE
+	5rFK2t5NQoZV2UoWCgo0Vp6uTTkdv22/xGNHQxNLeds8u7JqBmlVIp6rL3gUax9y/E/N4j3rCzS
+	Nvkl6GqFE1CTrSHXcBfNk8+2nR1++yNHWeHM62RHEVpBp8Phy5dUbvia4P0eY9dqbnrCkuJQieD
+	p0W+1MxftUQiCByK3ilHBNitsj0S+tl0I0iy5KsURLGPT3rfLy4bfbWHqK+7QXpp6I/FO4+TT7U
+	imKk6rT+dUFlsp2/rvQX4h0m7cTdqsPl2Qj9LQzsEaPkt/oGN4fnO8kBxDzJtAmpivjdTcRv/Z6
+	FRgV8XEC16fsQZ7npIcJrIM3PD2HRTDmTPen4PDnyBk0ov8hsXWMsiQtZ9DMpjWL6KLEuzcQ7rA
+	C27s4APNb7ZIfn
+X-Received: by 2002:a05:620a:6405:b0:93d:e031:5ad with SMTP id af79cd13be357-93ebd224911mr1904653785a.17.1791886754570;
+        Tue, 13 Oct 2026 03:19:14 -0700 (PDT)
+X-Received: by 2002:a05:620a:6405:b0:93d:e031:5ad with SMTP id af79cd13be357-93ebd224911mr1904649885a.17.1791886753984;
+        Tue, 13 Oct 2026 03:19:13 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bcf282952dsm1594993e87.7.2026.10.13.03.19.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 03:17:13 -0700 (PDT)
-From: Qiang Yu <qiang.yu@oss.qualcomm.com>
-Date: Tue, 13 Oct 2026 03:16:47 -0700
-Subject: [PATCH v3 3/3] arm64: dts: qcom: Add refgen supplies for PCIe PHY
- on Glymur and Mahua boards
+        Tue, 13 Oct 2026 03:19:12 -0700 (PDT)
+Date: Tue, 13 Oct 2026 13:19:10 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Nabige Aala <nabige.aala@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Kuogee Hsieh <quic_khsieh@quicinc.com>,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
+        Mahadevan P <mahadevan.p@oss.qualcomm.com>
+Subject: Re: [PATCH v2 07/13] phy: qcom: edp: Add Nord-specific register
+ offsets
+Message-ID: <q7riz5qxge3gqjqz23xz5aecfhlg7bry5w3wzgblnyozm7ac7y@b5s3z7vk2k2w>
+References: <20261012-nord-drv-dt-v2-0-a2ab9af954d2@oss.qualcomm.com>
+ <20261012-nord-drv-dt-v2-7-a2ab9af954d2@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-phy_refgen_1012-v3-3-f28305289499@oss.qualcomm.com>
-References: <20261013-phy_refgen_1012-v3-0-f28305289499@oss.qualcomm.com>
-In-Reply-To: <20261013-phy_refgen_1012-v3-0-f28305289499@oss.qualcomm.com>
-To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Qiang Yu <qiang.yu@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791886628; l=7612;
- i=qiang.yu@oss.qualcomm.com; s=20250513; h=from:subject:message-id;
- bh=Nc/7L25ppw473cMZLDfSHTkAdQ61YYv4xbHO2l7mNJU=;
- b=UIBsEVC0DuFMJuHxAN8ATaQoJ1+XYaeksu+ymMRI3qcSULz22rHRgH+2Lar8Xrkq7AzAhoLwO
- cl7TgMxFys0D+6dNqBZuPRitAeXxybEyY+QB9ItflUR5ctXd64ikh4p
-X-Developer-Key: i=qiang.yu@oss.qualcomm.com; a=ed25519;
- pk=Rr94t+fykoieF1ngg/bXxEfr5KoQxeXPtYxM8fBQTAI=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA0MCBTYWx0ZWRfX6Y9BvDO+VGyK
- P/skRimsF0WxaPB7zmmZuNrLNCYfuq2qVo7BbKFFgHhunJnHzXazegKu4j7R1WevPiR5G8yCXo8
- w8Cv/0eu2lrM+NdmnmBsSHKp5YqyxxipYeeorHutPhT/CpOO5W0FC/XLuU2QnF/upUkjxNXEV+o
- 8+pCv5MXi35GzvSxuaKs5QufJ1JClO5W4Oo6H2/q4z2W5A5ZVryPjiPBqTqBHSlh+RTgBoZ6p0m
- QAlE1o97wBwJ2iidKXGw0TPY2aY8h2x38fa54pEix95xpf3sgYupNcIX2enFhRJtFzhBQdkcjqa
- k7NOdDxOe//iPozHK1r6WGz6sQ2IoQMy4D5xT7bShbWxkErx37lr9Eb+xqQu0sNIQyBxxNsFpYg
- sK+ICQQOyAgYdW2BS7obQewY84K99uR2XDt6qGboHonhv6tKLFR/A+ki+SujjrgsyEPx/BM9PGd
- XyP2sAAPNeZmx/AQoZA==
-X-Authority-Analysis: v=2.4 cv=VPVIDNPX c=1 sm=1 tr=0 ts=6ace052b cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=hooUR3UheFJlRPkIXLkA:9 a=QEXdDO2ut3YA:10
- a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-ORIG-GUID: JrKkLg8hE5N_dCovU7j_VBJGvBt5DgKU
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA0MCBTYWx0ZWRfX745UpNIgSbEq
- B7ceMs4lrHH9tXa6mJyKveYYZi5RBZuoYbzIUF9mcukwnOUBzGfV0SQrcGBmsB/bTungS53wSUU
- brDo/gwByNbiHFzLjMoBdcyhXcL3w/E=
-X-Proofpoint-GUID: JrKkLg8hE5N_dCovU7j_VBJGvBt5DgKU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012-nord-drv-dt-v2-7-a2ab9af954d2@oss.qualcomm.com>
+X-Proofpoint-GUID: 6mSWW74U8j7E8_dvzQnpMprsULuwLVIG
+X-Authority-Analysis: v=2.4 cv=FZuiV5+6 c=1 sm=1 tr=0 ts=6ace05a3 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=zGc1Ob07GAFFi9FfrWcA:9 a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA0MCBTYWx0ZWRfX282htBASRUIk
+ i4gK96x8DflDaHnXV3fIQ/4e1CIfhwfttWQDRSZOdUWADEEuVCAKPv/j+YFG467tE/QbLlk8HIJ
+ k7E2Reh3L8dJnDTjoN8NCy5ofo4Wjro=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA0MCBTYWx0ZWRfX14J87iQjiWE/
+ 1XHaIxJedwLGJEV+vWcjttg0apEszV6EhdKPfO4AzhUU3ANlcIPyIIf/gMxVhwTonVAknlwqjgH
+ Nq2IxAKnM4DUXtNcgeBYmTWDSzb2/T5QdM6+lFocKRL1a/DrhmxV8QchxxMb/M4Z/2FsuBW9Upi
+ iKNNdC3zqSeEJl+fzm76kGAv0cOljP0qNHy7/fUHLietJJzb9N8qhCJguctQWfS/gTxwQ6pQiwk
+ gO56qXp3WFFQLxfvAvbJSA2UvsL+dM4lwH0kuad0fyBx1FdZlW3Px+cjd9RzVToQfKMESEd5+tR
+ hyw3lSduM7GI5xC1vVk5wVG4RPAturEh5nrgoVyFOPbWsWgNmERlu5vOECEAWyGyw9yZIclo7Ys
+ DZIWaXYscTiNng/qvd6xIx0Jc3viBh1x1zsF1Dlxnh17r7cSRPwXOuEocG9W7sH9sqK3Gn9UPR7
+ MFTmLdZ560K7uzkTBcg==
+X-Proofpoint-ORIG-GUID: 6mSWW74U8j7E8_dvzQnpMprsULuwLVIG
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 malwarescore=0 impostorscore=0 spamscore=0
- suspectscore=0 lowpriorityscore=0 adultscore=0 phishscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130040
+ priorityscore=1501 lowpriorityscore=0 clxscore=1015 impostorscore=0
+ adultscore=0 bulkscore=0 spamscore=0 malwarescore=0 phishscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610130040
 
-The PCIe PHYs on Glymur and Mahua require a reference voltage provided by
-REFGEN, which in turn is powered by two LDOs.
+On Mon, Oct 12, 2026 at 07:02:17PM +0530, Nabige Aala wrote:
+> From: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
+> 
+> Nord relocates several DP PHY and QSERDES v8 COM registers relative
+> to existing SoCs.
 
-Since there is no devicetree node for REFGEN, add the vdda-refgen0p9 and
-vdda-refgen1p2 supplies for each PCIe PHY node.
+Why?
 
-Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a14-ux3407na.dts    | 2 ++
- arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts    | 4 ++++
- arch/arm64/boot/dts/qcom/glymur-crd.dtsi                         | 6 ++++++
- arch/arm64/boot/dts/qcom/glymur-hp-elitebook-x-g2q.dts           | 4 ++++
- arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts           | 6 ++++++
- arch/arm64/boot/dts/qcom/glymur-qcb.dts                          | 6 ++++++
- arch/arm64/boot/dts/qcom/mahua-crd.dts                           | 2 ++
- arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts | 6 ++++++
- 8 files changed, 36 insertions(+)
+> Add Nord-specific defines for the relocated and
+> new-only registers in phy-qcom-qmp-qserdes-dp-com-v8.h and
+> phy-qcom-edp.c so Nord sequences can reference them by name.
 
-diff --git a/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a14-ux3407na.dts b/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a14-ux3407na.dts
-index e96e65a0c5b4..d1746845a609 100644
---- a/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a14-ux3407na.dts
-+++ b/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a14-ux3407na.dts
-@@ -735,6 +735,8 @@ &pcie4 {
- &pcie4_phy {
- 	vdda-phy-supply = <&vreg_l1c1>;
- 	vdda-pll-supply = <&vreg_l4f1>;
-+	vdda-refgen0p9-supply = <&vreg_l1c1>;
-+	vdda-refgen1p2-supply = <&vreg_l4f1>;
- 
- 	status = "okay";
- };
-diff --git a/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts b/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
-index 95da35125d75..bf3c828c8a0b 100644
---- a/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
-+++ b/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
-@@ -818,6 +818,8 @@ &pcie4 {
- &pcie4_phy {
- 	vdda-phy-supply = <&vreg_l1c_e1>;
- 	vdda-pll-supply = <&vreg_l4f_e1>;
-+	vdda-refgen0p9-supply = <&vreg_l1c_e1>;
-+	vdda-refgen1p2-supply = <&vreg_l4f_e1>;
- 
- 	status = "okay";
- };
-@@ -843,6 +845,8 @@ &pcie5 {
- &pcie5_phy {
- 	vdda-phy-supply = <&vreg_l2f_e0>;
- 	vdda-pll-supply = <&vreg_l4c_e0>;
-+	vdda-refgen0p9-supply = <&vreg_l2f_e0>;
-+	vdda-refgen1p2-supply = <&vreg_l4c_e0>;
- 
- 	status = "okay";
- };
-diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-index 58158b51fe29..b3f876956e7e 100644
---- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-+++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-@@ -764,6 +764,8 @@ &pcie4 {
- &pcie4_phy {
- 	vdda-phy-supply = <&vreg_l1c_e1_0p82>;
- 	vdda-pll-supply = <&vreg_l4f_e1_1p08>;
-+	vdda-refgen0p9-supply = <&vreg_l1c_e1_0p82>;
-+	vdda-refgen1p2-supply = <&vreg_l4f_e1_1p08>;
- 
- 	status = "okay";
- };
-@@ -800,6 +802,8 @@ &pcie5 {
- &pcie5_phy {
- 	vdda-phy-supply = <&vreg_l2f_e0_0p82>;
- 	vdda-pll-supply = <&vreg_l4h_e0_1p2>;
-+	vdda-refgen0p9-supply = <&vreg_l2f_e0_0p82>;
-+	vdda-refgen1p2-supply = <&vreg_l4h_e0_1p2>;
- 
- 	status = "okay";
- };
-@@ -821,6 +825,8 @@ &pcie6 {
- &pcie6_phy {
- 	vdda-phy-supply = <&vreg_l1c_e1_0p82>;
- 	vdda-pll-supply = <&vreg_l4f_e1_1p08>;
-+	vdda-refgen0p9-supply = <&vreg_l1c_e1_0p82>;
-+	vdda-refgen1p2-supply = <&vreg_l4f_e1_1p08>;
- 
- 	status = "okay";
- };
-diff --git a/arch/arm64/boot/dts/qcom/glymur-hp-elitebook-x-g2q.dts b/arch/arm64/boot/dts/qcom/glymur-hp-elitebook-x-g2q.dts
-index 096d40e49210..7f79470ec004 100644
---- a/arch/arm64/boot/dts/qcom/glymur-hp-elitebook-x-g2q.dts
-+++ b/arch/arm64/boot/dts/qcom/glymur-hp-elitebook-x-g2q.dts
-@@ -545,6 +545,8 @@ &pcie4 {
- &pcie4_phy {
- 	vdda-phy-supply = <&vreg_l1c_e1_0p91>;
- 	vdda-pll-supply = <&vreg_l4f_e1_1p2>;
-+	vdda-refgen0p9-supply = <&vreg_l1c_e1_0p91>;
-+	vdda-refgen1p2-supply = <&vreg_l4f_e1_1p2>;
- 
- 	status = "okay";
- };
-@@ -581,6 +583,8 @@ &pcie5 {
- &pcie5_phy {
- 	vdda-phy-supply = <&vreg_l2f_e0_0p94>;
- 	vdda-pll-supply = <&vreg_l4h_e0_1p2>;
-+	vdda-refgen0p9-supply = <&vreg_l2f_e0_0p94>;
-+	vdda-refgen1p2-supply = <&vreg_l4h_e0_1p2>;
- 
- 	status = "okay";
- };
-diff --git a/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts b/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
-index 769f195c99d9..130946ba9785 100644
---- a/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
-+++ b/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
-@@ -743,6 +743,8 @@ &pcie4 {
- &pcie4_phy {
- 	vdda-phy-supply = <&vreg_l1c_e1>;
- 	vdda-pll-supply = <&vreg_l4f_e1>;
-+	vdda-refgen0p9-supply = <&vreg_l1c_e1>;
-+	vdda-refgen1p2-supply = <&vreg_l4f_e1>;
- 
- 	status = "okay";
- };
-@@ -779,6 +781,8 @@ &pcie5 {
- &pcie5_phy {
- 	vdda-phy-supply = <&vreg_l2f_e0>;
- 	vdda-pll-supply = <&vreg_l4h_e0>;
-+	vdda-refgen0p9-supply = <&vreg_l2f_e0>;
-+	vdda-refgen1p2-supply = <&vreg_l4h_e0>;
- 
- 	status = "okay";
- };
-@@ -800,6 +804,8 @@ &pcie6 {
- &pcie6_phy {
- 	vdda-phy-supply = <&vreg_l1c_e1>;
- 	vdda-pll-supply = <&vreg_l4f_e1>;
-+	vdda-refgen0p9-supply = <&vreg_l1c_e1>;
-+	vdda-refgen1p2-supply = <&vreg_l4f_e1>;
- 
- 	status = "okay";
- };
-diff --git a/arch/arm64/boot/dts/qcom/glymur-qcb.dts b/arch/arm64/boot/dts/qcom/glymur-qcb.dts
-index 17d8ff3aed23..f26bdc1cd84a 100644
---- a/arch/arm64/boot/dts/qcom/glymur-qcb.dts
-+++ b/arch/arm64/boot/dts/qcom/glymur-qcb.dts
-@@ -448,6 +448,8 @@ &pcie4 {
- &pcie4_phy {
- 	vdda-phy-supply = <&vreg_l1c_e1_0p82>;
- 	vdda-pll-supply = <&vreg_l4f_e1_1p08>;
-+	vdda-refgen0p9-supply = <&vreg_l1c_e1_0p82>;
-+	vdda-refgen1p2-supply = <&vreg_l4f_e1_1p08>;
- 
- 	status = "okay";
- };
-@@ -484,6 +486,8 @@ &pcie5 {
- &pcie5_phy {
- 	vdda-phy-supply = <&vreg_l2f_e0_0p82>;
- 	vdda-pll-supply = <&vreg_l4h_e0_1p2>;
-+	vdda-refgen0p9-supply = <&vreg_l2f_e0_0p82>;
-+	vdda-refgen1p2-supply = <&vreg_l4h_e0_1p2>;
- 
- 	status = "okay";
- };
-@@ -505,6 +509,8 @@ &pcie6 {
- &pcie6_phy {
- 	vdda-phy-supply = <&vreg_l1c_e1_0p82>;
- 	vdda-pll-supply = <&vreg_l4f_e1_1p08>;
-+	vdda-refgen0p9-supply = <&vreg_l1c_e1_0p82>;
-+	vdda-refgen1p2-supply = <&vreg_l4f_e1_1p08>;
- 
- 	status = "okay";
- };
-diff --git a/arch/arm64/boot/dts/qcom/mahua-crd.dts b/arch/arm64/boot/dts/qcom/mahua-crd.dts
-index 17e40f2a6259..45c95543fff8 100644
---- a/arch/arm64/boot/dts/qcom/mahua-crd.dts
-+++ b/arch/arm64/boot/dts/qcom/mahua-crd.dts
-@@ -23,6 +23,8 @@ / {
- &pcie3b_phy {
- 	vdda-phy-supply = <&vreg_l3c_e1_0p89>;
- 	vdda-pll-supply = <&vreg_l2c_e1_1p14>;
-+	vdda-refgen0p9-supply = <&vreg_l1c_e1_0p82>;
-+	vdda-refgen1p2-supply = <&vreg_l4f_e1_1p08>;
- };
- 
- &tcsr {
-diff --git a/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts b/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts
-index 26d6d8285e04..ac7e1382166d 100644
---- a/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts
-+++ b/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts
-@@ -813,6 +813,8 @@ &pcie4 {
- &pcie4_phy {
- 	vdda-phy-supply = <&vreg_l1c_e1_0p82>;
- 	vdda-pll-supply = <&vreg_l4f_e1_1p2>;
-+	vdda-refgen0p9-supply = <&vreg_l1c_e1_0p82>;
-+	vdda-refgen1p2-supply = <&vreg_l4f_e1_1p2>;
- 
- 	status = "okay";
- };
-@@ -850,6 +852,8 @@ &pcie5 {
- &pcie5_phy {
- 	vdda-phy-supply = <&vreg_l2f_e0_0p94>;
- 	vdda-pll-supply = <&vreg_l4h_e0_1p2>;
-+	vdda-refgen0p9-supply = <&vreg_l2f_e0_0p94>;
-+	vdda-refgen1p2-supply = <&vreg_l4h_e0_1p2>;
- 
- 	status = "okay";
- };
-@@ -872,6 +876,8 @@ &pcie6 {
- &pcie6_phy {
- 	vdda-phy-supply = <&vreg_l1c_e1_0p82>;
- 	vdda-pll-supply = <&vreg_l4f_e1_1p2>;
-+	vdda-refgen0p9-supply = <&vreg_l1c_e1_0p82>;
-+	vdda-refgen1p2-supply = <&vreg_l4f_e1_1p2>;
- 
- 	status = "okay";
- };
+Typically we don't do it, If something differs, it should get its own
+set of headers, describing all necessary offsets (especially for the
+QSERDES). Otherwise it's not obvious if other regs (without the _NORD
+counterpart) are valid or not.
+
+> 
+> Assisted-by: LLM
+> Signed-off-by: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
+> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
+> ---
+>  drivers/phy/qualcomm/phy-qcom-edp.c                   | 7 +++++++
+>  drivers/phy/qualcomm/phy-qcom-qmp-qserdes-dp-com-v8.h | 3 +++
+>  2 files changed, 10 insertions(+)
+> 
+> diff --git a/drivers/phy/qualcomm/phy-qcom-edp.c b/drivers/phy/qualcomm/phy-qcom-edp.c
+> index a3c893f72908..d5c6835b6c70 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-edp.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-edp.c
+> @@ -42,8 +42,15 @@
+>  #define DP_PHY_VCO_DIV                          0x0074
+>  #define DP_PHY_TX0_TX1_LANE_CTL                 0x007c
+>  #define DP_PHY_TX2_TX3_LANE_CTL                 0x00a0
+> +#define DP_PHY_TX2_TX3_LANE_CTL_NORD            0x00c0
+>  
+>  #define DP_PHY_STATUS                           0x00e0
+> +#define DP_PHY_STATUS_NORD                      0x0110
+> +#define DP_PHY_LDO_CFG_NORD                     0x00f0
+> +
+> +#define DP_PHY_TX_LN0_DRV_LVL_NORD             0x00e4
+> +#define DP_PHY_TX_LN1_DRV_LVL_NORD             0x00e8
+> +#define TXn_TX_BAND_NORD                        0x0024
+>  
+>  /* LANE_TXn registers */
+>  #define TXn_CLKBUF_ENABLE                       0x0000
+
+I'd suggest adding these together with the actual users.
+
+> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-qserdes-dp-com-v8.h b/drivers/phy/qualcomm/phy-qcom-qmp-qserdes-dp-com-v8.h
+> index 93edabb830af..008b17222a8d 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-qmp-qserdes-dp-com-v8.h
+> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-qserdes-dp-com-v8.h
+> @@ -48,5 +48,8 @@
+>  #define DP_QSERDES_V8_COM_CLK_FWD_CONFIG_1		0x2f4
+>  #define DP_QSERDES_V8_COM_CMN_STATUS			0x314
+>  #define DP_QSERDES_V8_COM_C_READY_STATUS		0x33c
+> +#define DP_QSERDES_V8_COM_SVS_MODE_CLK_SEL_NORD		0x17c
+> +#define DP_QSERDES_V8_COM_CMN_STATUS_NORD		0x1d0
+> +#define DP_QSERDES_V8_COM_C_READY_STATUS_NORD		0x1f8
+>  
+>  #endif
+> 
+> -- 
+> 2.34.1
+> 
 
 -- 
-2.34.1
-
+With best wishes
+Dmitry
