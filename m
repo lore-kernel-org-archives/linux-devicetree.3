@@ -1,96 +1,82 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BA1951D51F
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 13:19:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A914E5172EF
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 13:23:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791983973; cv=none; b=M0vlLOb//yyqLUXG/v9SJi1beGpl5OI3ae36A7GdXF3wYkEQk8/RaNKJVEkGrao0ip8YZNAPvy4mTndfkrC4gsC8Ar8JBWMsE3WjOQjDVlxqoFRUNVSFMvEFyO4IKMaXmslssbzw/MYtzSdMGlh/a522xHlyq8vB7YByZEVFmaY=
+	t=1791984208; cv=none; b=gdgjK/a9miGx7NgGMdLVMp358L4lK5oiqvaGUMGpWqswggg1frMKcoQq/6LwjVDYtAlKDk3O2HKnyUvgjfwSLAKDG3pcdgk150uaJosNGKx1ZokoaVvwz92hobhTr4A02Ri/IAUcm/rXcs0KN3BE3mZB2UecI/XB5xNwSWgySJE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791983973; c=relaxed/simple;
-	bh=i/s6KUBdap9Z3Ok4iOwoMoNKoc6aOT96NXd4ABGNsy4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Xdp/BIiad1ieMGggfK5yxCeBWE1tmGxqCvRiMzfb0th8dauq21ycpvfcgenOH/+eif7pb9nZbk2Nuh1IRJKsjqTuA3FBCfCK8tPmwBMaE0uYS63bPifXctj5JNitbeIx91Orr4ESSeDeDdC4A8PFl0lH5LFVA6pVbNujDUnFMps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wdka+eXG; arc=none smtp.client-ip=209.85.128.46
+	s=arc-20240116; t=1791984208; c=relaxed/simple;
+	bh=rnAfDQx7rD0LoelzY+i08EvNOwwd5qC1oOG3COH6+C4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kZG3ZNaERfUr8XhnNRTPQfhSEpbWbxDWiuyOmXagFRXRDFzR2pPDZ3uQjRvM2Nb5HAqekDWcPGiz7LYOg/UDSBd4K8sIN4Ko1I8dcQ11+X7dhnr3/OQBBg1grcxGj9LQti5yc+4TMkQeU6OyYXv4/r7+PEMAx90XWft6HpDVtl4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mw4YGq4U; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wdka+eXG"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a17baef589so8798875e9.0
-        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 06:19:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mw4YGq4U"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a19cba5c14so35272655e9.3
+        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 06:23:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791983966; x=1792588766; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uzahybzV+rPPTOVLReiRhlUbRXkC0hUx0uIZGUpCKiE=;
-        b=Wdka+eXGvuwwuF0qIhHa0UWiWf70k5VrYiUkTOW+ewo7fELR/v+iuJiaZ3UKIL4C88
-         T7mikbizahWjtEDmnCA2C7jCXz/qUEcZ+yo2znZtwHJ/P/+T5ZHBzfs2n4vp9isOhF/4
-         bVoVkQWpvPxyGi+HPLTGG1sVlGQhX7o1KTj3KS191xdm3XFWr3A02zXcjzJoFBQc0C4q
-         9ehdLOrfeNmGo+CaM8bU3Bt/X7WOBS/ZZG6gwWyrFmx/ldI8FSFJY4o69oFqGmI5FdWB
-         KjdMBFuiuL1e0yzFrTjxu/R13jJkWb1vNEODwcWuq0PUsERCNkOIrwILoj7qo87b2CSy
-         Dt5w==
+        d=gmail.com; s=20251104; t=1791984204; x=1792589004; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Exht4vpfvBf2QY5fB2SjsZesTTxLrNkrbtQgeDFiJPs=;
+        b=mw4YGq4US6dyConrSiwMzbSKUZnzmYXn+q2oUQKE3ngEAEPeHKm7Wtx/XMfW/qjv8O
+         5NwuZDhx6XsMrakuW52vtNepo8UT0IKxUZ1/6UB/UjFN73PDz/P/uYyMabJ5fRc6P91u
+         gIuqTWUtym96ab/p4T13VzmtwCgu/8Irx3SpKuKZ0sDKrjMVx9BGOddjaDm3a1L9GkSF
+         AQS0jQ1Tmkm04Vv6MoyLtkKx/BByr9X3DgL0iYZL8Ag40E40jSpnWchq6vixGN3Q7eyz
+         XF+2uP+gdb+eGcRwhcX90gzuRPbHyHJi3NMbOuWrrdL3lOuduDYF6fm218Pnas3oo414
+         NrBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791983966; x=1792588766;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uzahybzV+rPPTOVLReiRhlUbRXkC0hUx0uIZGUpCKiE=;
-        b=YBDWMnF8bYBvjoAZsBSWhV9yNswTH3XVP2Y0x6zQ4yNrnwFdiAE0aMz58GugmDpSkv
-         OE9sLMqTfq9uClqT4xhYJkphSEOhTEBC34kPG3agIv8H0dJHSD0wdJ8XbF+izugLAdHq
-         8i8bnWdg/4PqaBAlK/l+/9NglqFVPxO2JG/NlB5mfaNg76pnqTShUSKClWLL5jA799ot
-         s7JzxIKcSwFEW3ahANEP2aaaKFtX4HPTfllNSylUh07Zc1LtyK57NJQ/Wg1RpD+at5FG
-         Rc8ZYDqYO/xryAnYv/9fHVloeICKOBQ7b/sUr3BcZGKXDGWQ41kxYiRjDwq3cTsoCwl1
-         gK6g==
-X-Forwarded-Encrypted: i=1; AKwUvBz2YvuEGGKT0LjAeoEZjgmQxmYAhPJwYlUBrYyVReZ49j300N4dZ5kg6bJ29LrtuO4JARbA+Q5RUt9F@vger.kernel.org
-X-Gm-Message-State: AFq9FYJfg8yMhI2YwnSvk1L0vchYkvpNogQy5Bwx0mRLC8RpOVzlCjAD
-	dCbQ3YfFgisNAt2oxv1T858SQyDTjDcPwXq7tOniBlsqouNabx/5gmD/
-X-Gm-Gg: AYBFou1+0pZXB6p1Ad6ACAv6IYWRtVwgvmMTC0KIfIS2w3zBDS502I/Ng+bS7NMWPIc
-	Pxyc6zSsfFwff9Uat5Y8wLfWBRnsTDr4vSVFeEYjVgEKuBD/3HQQwxW05zOyMgLC8s3uEOhGynn
-	0/359k2B8ttNXNWUhepOd6apLwYRwIL5ba4QjvOIuF8zXntxwgVm2RvBFMgftM2F+8Ih9I3myGS
-	AzCiK5cOXS6gWcH0cOAyO/2Scl08kVA0X/k95aDtMH+RdIeqg8TwhFiSV8pO4nqcCS5wzxGnS6U
-	NXuIG4xHU2I2rC+ZKDuVKmiTMWLXJsb14pJMZZ5qy6xso3pOvZudoLugSp7ZFYZDwjm1jS7rKKA
-	ldqIvjuJBnCPcwOExSyn8bhKK0oCujrM2IBvtOdVOatF/6++wlto/y0upSH220PvWkn7HtlA8ic
-	v3fD1+9g1BNKD/bgF/AzIg5tFWPsaVU6lTdp3gwysbDfoJC9p2u2kbVST1TkPiMhnuqi4pw+gjd
-	CKIHkvjqi6bmZC/baysG2aEyunrnDICx6fuU/6G+NIxWkXZf73wAkc7TUjjewb1djtdvkxcQZiP
-	h9cvsCQIqsiMb0eqLZwUNDdybbBP
-X-Received: by 2002:a05:600d:17:b0:4a1:9663:7639 with SMTP id 5b1f17b1804b1-4a196637a39mr222910695e9.34.1791983965675;
-        Wed, 14 Oct 2026 06:19:25 -0700 (PDT)
-Received: from iku.example.org ([2a06:5906:61b:2d00:ea0c:b1b4:c6cc:a0af])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bcecbd0dsm1413825e9.8.2026.10.14.06.19.24
+        d=1e100.net; s=20260707; t=1791984204; x=1792589004;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Exht4vpfvBf2QY5fB2SjsZesTTxLrNkrbtQgeDFiJPs=;
+        b=aqU+J1zj2kyX6/Dg5/CRkoog1fM+t44ZH7q1gHNcFd4Zn11f4pSqFkO0dr5mIvS9o6
+         bSLq/JiRGYOAf1EX+iCJrv9VmURaizLazFOO/DrmtwwdYb4901tSPmLTDmSYZRql1ec8
+         tyWD9NNh0FZhMclgtQcO9TISqtePu7G9JAk6HRTehhAI5NUDbtSAO5ZyeH/ROFWSSPJH
+         aT3sOIYf341mdkWNgC/FIrV1w/Fiv8k8JujFAGip0VstFNIzWM27NZpJ5pgpVK+Cvgu/
+         hmxrRKlh1AuVbbaD9Pr2lqFV5Dhv2PrOR0kXY+CZACdw3UMTdkpfOZgI9g3wFOmysQBe
+         mOGg==
+X-Forwarded-Encrypted: i=1; AKwUvBwYt14YttDKQVVd0jh2drj14vOXeFNZtZz4VZvetPudYkZbW652JuLW9vY3LM+gO/PsyKcU5cgGsvuI@vger.kernel.org
+X-Gm-Message-State: AFq9FYJKWbiIs2zE0YfdS5v9eEz+MQJMlhVd7FWQ55dIpbH0C0ggxQ+W
+	JJ7IJTSbc1lkjVXnMCa5WR15OnuINLKNDOaxOvE6wzGKirjraBi0BGM9
+X-Gm-Gg: AYBFou2EdNvexyoub7aWu6bebi2xVRqnz3sCem7NgHP+3ROtLt30Pclnlw9/XzvEpsj
+	lMssrNT5ziqGjI54nO4iBrSTODvnxcgEjadP3uTiNeuLdda+1z/ARVAHlstP9MG3oUfAnIsYvQQ
+	Y6Y1NfI7/AtE543w1Wa0Yxug53x14Z/sZ3Zo3xhep7wIU7gjJYA43+HEhmJJUa6c2nZEVu7F5LY
+	DynfFm4qeyPWN+1+Hgq0B8B019xZhNIJYAAie8ZZLtXuOewW9v64rRmlzpXKnUSTBIpCDCoG8cf
+	ZqtYUuLkYe4G8Q9QdIHjOI/zBcwP5uxa9z/yrtRXls+0NPR8bxp/bdeyr2hxyZlF2f/efVGl1hZ
+	Pis53e7QisJfP8DVQGAKsdz9qpgu41UWzwwKgIIsWQRojK9J6eMizeMsjkD6TCSu6WT6kZsQZA+
+	Ju0/comdrwQPnoHH/K/RpSP8q/iyHkFqFIiRjyYD1MrPofvbU8pzwUR4fMU6sW5UgSUAndS+7iQ
+	AXVjDYihcXxDg==
+X-Received: by 2002:a05:600c:8217:b0:4a1:a496:fc17 with SMTP id 5b1f17b1804b1-4a1a4bd3da9mr153963305e9.5.1791984203545;
+        Wed, 14 Oct 2026 06:23:23 -0700 (PDT)
+Received: from localhost.localdomain ([194.154.195.114])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a1bcf69402sm782515e9.14.2026.10.14.06.23.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 06:19:25 -0700 (PDT)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	=?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <clement.leger@bootlin.com>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
+        Wed, 14 Oct 2026 06:23:23 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Russell King <linux@armlinux.org.uk>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-renesas-soc@vger.kernel.org,
-	netdev@vger.kernel.org,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH net-next v3 13/13] net: dsa: Kconfig: Enable support for RZ/T2H and RZ/N2H SoCs
-Date: Wed, 14 Oct 2026 14:19:01 +0100
-Message-ID: <20261014131906.990077-14-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	platform-driver-x86@vger.kernel.org,
+	linux-hwmon@vger.kernel.org
+Subject: [PATCH v6 0/3] platform/arm64: Lenovo Yoga Slim 7x Gen 11 embedded controller
+Date: Wed, 14 Oct 2026 15:23:12 +0200
+Message-ID: <20261014132315.4659-1-okerixx@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261014131906.990077-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20261014131906.990077-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -99,51 +85,121 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+The Lenovo Yoga Slim 7x Gen 11 is a Qualcomm Snapdragon X2 Elite (glymur)
+laptop. It carries a Compal EF06 embedded controller on I2C at address
+0x70, which is the only source on this machine for the board thermistors,
+the fan tachometer, the keyboard backlight, Fn-lock, and the mic-mute
+and airplane-mode keys.
 
-Update the Kconfig entry for the Renesas RZ/N1 A5PSW Ethernet switch
-driver to depend on ARCH_RENESAS instead of ARCH_RZN1. This allows
-the driver to be built for other Renesas SoCs that integrate a similar
-Ethernet switch IP, such as RZ/T2H and RZ/N2H.
+Patch 1 documents the binding, patch 2 adds the driver, patch 3 adds the
+node to the board.
 
-Also update the help text and prompt to reflect support for the ETHSW
-variant used on these SoCs.
+Why one driver
+--------------
 
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Reviewed-by: Vladimir Oltean <olteanv@gmail.com>
----
-v2->v3:
-- No change
+The automated review of v2 asked for the hwmon part to become an
+auxiliary driver under drivers/hwmon/. The hwmon channels, the LED and
+the input device all sit behind one command mailbox and one interrupt,
+so the driver stays in one file, like huawei-gaokun-ec,
+lenovo-thinkpad-t14s and qcom-hamoa-ec next to it. It is documented
+under Documentation/ABI only.
 
-v1->v2:
-- Added RB tag
----
- drivers/net/dsa/Kconfig | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+Notes
+-----
 
-diff --git a/drivers/net/dsa/Kconfig b/drivers/net/dsa/Kconfig
-index fe8cd5338fda..f6894495b9ed 100644
---- a/drivers/net/dsa/Kconfig
-+++ b/drivers/net/dsa/Kconfig
-@@ -101,13 +101,14 @@ source "drivers/net/dsa/xrs700x/Kconfig"
- source "drivers/net/dsa/realtek/Kconfig"
- 
- config NET_DSA_RZN1_A5PSW
--	tristate "Renesas RZ/N1 A5PSW Ethernet switch support"
--	depends on OF && (ARCH_RZN1 || COMPILE_TEST)
-+	tristate "Renesas RZ/N1 A5PSW and RZ/{T2H,N2H} ETHSW Ethernet switch support"
-+	depends on OF && (ARCH_RENESAS || COMPILE_TEST)
- 	select NET_DSA_TAG_RZN1_A5PSW
- 	select PCS_RZN1_MIIC
- 	help
--	  This driver supports the A5PSW switch, which is embedded in Renesas
--	  RZ/N1 SoC.
-+	  This driver supports the Advanced 5-Port Switch (A5PSW) found on
-+	  Renesas RZ/N1 SoCs, and the Ethernet Switch (ETHSW) found on
-+	  Renesas RZ/T2H and RZ/N2H SoCs.
- 
- config NET_DSA_KS8995
- 	tristate "Micrel KS8995 family 5-ports 10/100 Ethernet switches"
+Fan speed is reported but not controlled, deliberately - the EC enforces no
+thermal floor over a manual setpoint. Patch 2 has the measurement.
+
+Tested on a Lenovo Yoga Slim 7x Gen 11 (DMI 83QR, "Yoga Slim 7 14Q8Y11").
+
+Changes in v6:
+- Patch 2: style fixes from Ilpo's review. fn_lock_show() now checks the
+  read error inside the scoped_guard() block, and lines are no longer
+  wrapped where they fit in 100 columns. To keep one line short, the
+  probe error "adapter does not support SMBus block transfers" now reads
+  "adapter lacks SMBus block transfers".
+- Patch 2: the Kconfig help also mentions Fn-lock and the hotkeys, and
+  the commit message says the driver exposes the thermistors it finds at
+  probe.
+- Link to v5: https://lore.kernel.org/all/20261003202143.4697-1-okerixx@gmail.com/
+
+Changes in v5:
+- Patch 2: drop the battery cell voltages. They live in an EC bank shared
+  with other EC activity, and 43-79% of reads failed the signature check
+  across runs; retries, a cache and a stale window only hid that.
+- Patch 2: fn_lock had the polarity inverted: 1 left the multimedia keys
+  primary and the Fn-lock LED off. SCUK bit 7 selects the multimedia keys
+  and bit 5 turns the LED off, as the vendor ACPI FNUS method reports it;
+  1 now means F1..F12, as documented and as in ideapad-laptop.
+- Patch 2: FIELD_MODIFY() for the backlight level; notify fn_lock when
+  the EC toggles it on Fn+Esc; Kconfig help updated; the ABI entry dated
+  October 2026 for 7.5.
+- Patch 3: pick up Reviewed-by from Konrad and Abel.
+- Link to v4: https://lore.kernel.org/all/20260922165737.260443-1-okerixx@gmail.com/
+
+Changes in v4:
+- Patch 2, after Ilpo's review: the missing includes added where the
+  symbols are used; the cache and stale periods defined in milliseconds
+  with the unit in the name and converted to jiffies at the call;
+  lockdep_assert_held() in the command path every EC access goes
+  through; each EC read checked right after the call; ARRAY_SIZE() for
+  the cell loop; MILLIDEGREE_PER_DEGREE from units.h; braces on the
+  multi-line returns; the ABI entry dated September 2026 for 7.4.
+- Patch 2: the i2c id was 20 characters, the size of i2c_device_id.name,
+  leaving no room for the terminator; now "slim7x-gen11-ec".
+- Patch 2: symbol prefix renamed from yoga_ec to slim7x11_ec, naming the
+  machine like the driver does. No user-visible name changes.
+- Link to v3: https://lore.kernel.org/all/20260921144953.15113-1-okerixx@gmail.com/
+
+Changes in v3:
+- Add the board DT node as patch 3. It was posted on its own [1], and a
+  node cannot be merged before its binding (Konrad).
+- Add the "Why one driver" section above.
+- Patch 2: name the driver after the module, and the i2c id after the
+  compatible.
+- Patch 2: spell out both SCUK bits the Fn-lock toggle moves instead of
+  the 0xa0/0x5f masks.
+- Patch 2: return -ENODATA for a thermistor reading of 0, as probe already
+  treats 0 as "not fitted".
+- Patch 2: ten tries for a cell-voltage sample instead of thirty.
+- Patch 2: include what is used directly, devm_mutex_init(), comment the
+  mutex, fix the address in MODULE_AUTHOR, say in the commit message that
+  results cannot be matched to commands.
+- Link to v2: https://lore.kernel.org/all/20260908183403.2107-1-okerixx@gmail.com/
+
+Changes in v2:
+- Patch 2: drop #include <linux/mod_devicetable.h>; <linux/i2c.h> already
+  provides both of_device_id (via linux/of.h) and i2c_device_id (via
+  linux/device-id/i2c.h), and the header is on its way out.
+  Reported-by: Uwe Kleine-Koenig <u.kleine-koenig@baylibre.com>
+- Patch 2: add "depends on INPUT" to EC_LENOVO_YOGA_SLIM7X_GEN11; the driver
+  registers an input device unconditionally, so a config with INPUT=n did
+  not link.
+- Patch 1: pick up Conor Dooley's Acked-by.
+- Link to v1: https://lore.kernel.org/all/20260908091752.5508-1-okerixx@gmail.com/
+
+[1] https://lore.kernel.org/all/20260914082950.9393-1-okerixx@gmail.com/
+
+Oleg Keri (3):
+  dt-bindings: embedded-controller: add Lenovo Yoga Slim 7x Gen 11 EC
+  platform/arm64: add Lenovo Yoga Slim 7x Gen 11 EC driver
+  arm64: dts: qcom: glymur-lenovo-yoga-slim7x: add the embedded
+    controller
+
+ .../sysfs-driver-lenovo-yoga-slim7x-gen11-ec  |  22 +
+ .../lenovo,yoga-slim7x-gen11-ec.yaml          |  56 ++
+ MAINTAINERS                                   |   8 +
+ .../dts/qcom/glymur-lenovo-yoga-slim7x.dts    |  12 +-
+ drivers/platform/arm64/Kconfig                |  24 +
+ drivers/platform/arm64/Makefile               |   1 +
+ .../arm64/lenovo-yoga-slim7x-gen11-ec.c       | 530 ++++++++++++++++++
+ 7 files changed, 651 insertions(+), 2 deletions(-)
+ create mode 100644 Documentation/ABI/testing/sysfs-driver-lenovo-yoga-slim7x-gen11-ec
+ create mode 100644 Documentation/devicetree/bindings/embedded-controller/lenovo,yoga-slim7x-gen11-ec.yaml
+ create mode 100644 drivers/platform/arm64/lenovo-yoga-slim7x-gen11-ec.c
+
+
+base-commit: 1fffefb00cc0b0da1f2ae24e3d33364530ea6515
 -- 
 2.55.0
 
