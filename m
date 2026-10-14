@@ -1,90 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A447430D410;
-	Wed, 14 Oct 2026 07:04:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA42E48094D
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 07:08:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791961450; cv=none; b=XF7enrHwgh/kr9tV/mnlBNHtJyBMTc0HRCu1J5oIfRjJERZGvNnDFW3eZF2Mc0eUPw0aHlHQnbXVawd0bHUTppouNpQO2nDKYAJ/kKvD7H2dW+TESUm5dJCzwQhraQNQ9pud+YNv8k1eMJ1oGY3x5OscIGWWIi5C5QV8K3+DVXY=
+	t=1791961709; cv=none; b=GE++clcSQBWnTCxsSlcLo4utFOv0D7/s9MS2Uq22b+dRF+EC+y6VZxRUcYVGqtzluzibgfN5E33FmSGRSPSs/AaIuIf1VTmlM2o21kPOJPmrbXVgvQJjhghbbzca9rPBk1Iy3jNssCZm6GZ6WwLY1JXKANRLxxgWrnGm9ektfoI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791961450; c=relaxed/simple;
-	bh=effApVqbX6TaP60lYcuWqqNdAYdSPychen8ungTpImA=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=rIbZjDVRD6RFWgywjfC3uLkQ1xSM8HOjvYRhwZi41NQiO7q+D8eCvAYiatYG4QxzVlZVKtbklrPfpjQ0RRj36fX4APlGBg2ncaAU5P+XX+96xS5+BYfyxmeJVuswXWoO3C72MLdSQObtXaGg79OzD+Esfx0wBhmIg3LnoJIsAmE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G079IqHI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791961709; c=relaxed/simple;
+	bh=0qtI+1ruZBNaLTkzRZwiEy3kiz2UbhsH+GjByvYkReM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qFi0j2dU1P06Wn8tJ+gnYZoAYyEbA280QHEV5bLeV0FnBW5x7ldavDfxHnl0CcTxM2FRGhR98/9iXgeNCT/6xYMlxXaJORoZ916CjGMg6aWmvNuzCWQqKjvYklbgR+xP6JPDBW4AGPt9aGdAjuJ/dS1bSQQ0cYX5e0ge8haTdcY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dBgBHQwL; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G079IqHI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F11CE1F000FF;
-	Wed, 14 Oct 2026 07:04:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791961449;
-	bh=3Zq4E38kVSnchpNSMMvZwIYt+PcaJ1J6OJkqnVHJgrg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=G079IqHIIKgbKDDHaRsMJD5kNqKex9DmwEc4iCATEnzjBiVJLAgVUSNe6vwk2kQU4
-	 JPgfJXoLR9M4+D9Defr4usH7p6n+jUk/DBca9IgogYMlQLk16L6TvBfBFz252KFJ2E
-	 n6+84fyUXTgn7kqXd424yPW4BShs/HO0jUUBD2OubmOf7e1ddN9k4IAs7OUFIBXcxo
-	 7nvTFUaOjL6gxsccGCw2GpR6Rw39sv0cEze/AS9Xmm5xQXYD48mSluuTKzIbiImFKj
-	 yYMNjejyxn7q4HaZ2a7DXEVP8nS32+QgGIJiMJQuBu7C6fcPT0EQtxBZ2kKAjFBA9t
-	 oGy0XTYQs8PfQ==
-Message-ID: <sashiko-outbox-170921@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 10/10] arm64: dts: apple: Add minimal t604x (M4
- Pro/Max) device trees
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yureka Lilian" <yureka@cyberchaos.dev>
-Cc: linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261014-apple-m4-pro-max-initial-devicetrees-v2-10-961edd8d661b@cyberchaos.dev>
-References: <20261014-apple-m4-pro-max-initial-devicetrees-v2-0-961edd8d661b@cyberchaos.dev>
- <20261014-apple-m4-pro-max-initial-devicetrees-v2-10-961edd8d661b@cyberchaos.dev>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 14 Oct 2026 07:04:08 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dBgBHQwL"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a16bc2278aso26445825e9.1
+        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 00:08:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791961704; x=1792566504; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0qtI+1ruZBNaLTkzRZwiEy3kiz2UbhsH+GjByvYkReM=;
+        b=dBgBHQwL1t8g5LsC5lSrTpvlB4s7cDy/EKi90yBy83MLRr389a0yAI1/qp57HivSJo
+         NC1VLfnhnubCA/iCqdETRohJZUtp40hYL5Lf5C5pCrwCO4/NS0cKh593NlqNH+93WbfS
+         8f22BPTHeedh4WC5XFYlFLUMBjZhvRsrWklUHxUj6SeXbWfHm5xadaC5Eu+6ZOCmWjnn
+         D61CRrEyw8vWLrpm+kkxwfv3feIUqh5V521fOMQ5pF5+40zMFcUdnn88WDVLJLwUWhbk
+         mH4qEEd+HqAHHW13M0Dx1KnI6eXq5eM/f+Q+JPciZqX2Wv6HHqkZmgYBEDBxU8pMWNXc
+         +VMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791961704; x=1792566504;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0qtI+1ruZBNaLTkzRZwiEy3kiz2UbhsH+GjByvYkReM=;
+        b=GG/E28/WlFCWpDDFwKWlE+gCZsSqvOzCXYigTnYv/4lJv2m7l7MfT1QW/pe6SlDM+f
+         UaVx28G8gi0Ka07PB6c2EuSllPSAk957rf/cxHHz/bdmBk4jotiqpym71mukJdyZnEzS
+         VGrrVQ9aH2kLMWD97aWuqAjI79vqQrD2Hr8vzF0m1G2Hok11ckdnGJz1ISq03c2BvTkq
+         nJPLIZzemlhe59XGl47/H7ZwfNIKkU6mkY6wu0PnCYPFKzFG8Jdzul0cWHyTA/NEX8Zn
+         lfkN+BO0ZTyBKvAbeq6pjf55IJC2E6TUvC7qR/HS+JfCOdCiECGk3hT29nbcLAea7QB/
+         9AFA==
+X-Forwarded-Encrypted: i=1; AKwUvBzasraEhXwZAMvznKnIK0cdym9JC3PrXxgcVBw3oDqenbrvBc17BxiRJBJ0V39sZGsz9DWvXZ4Re13I@vger.kernel.org
+X-Gm-Message-State: AFq9FYISu/nXD78OUftAwF7Q/ESzRTbOMD8gl4aUrz4PSXWmMpyR6TF6
+	NZ7QtRIAep0S+AjJmbwTfwJSNFc+J6wLDRxWHwH++F1IxqNz0LuysBXk
+X-Gm-Gg: AYBFou1g8AG0EHN8WUbtP3E4Va4a/2MAhNeGyui08XZ6rR9qBL6Htw92o1wZ7ElMm7T
+	T/0w15LsHQ5ILBeGslCRetNlaOYg6Pi9PcKHPQXoLs6F4G5T8mufghaSCbqjmN2kwilPKxzMzPm
+	g1N26sQfLGfO0LV8LtvFfVM5pCSRsozK6D7p3A2IQSfkxTcg7l3gBFRbGgwlnMQ8K8N5/5wcVOR
+	iCu1iZuI8d5ayOJgDSpU2cVbpTgO1YPsVFLBPG0io/1bVbJf679ZilujYArVNB1wkLM13nCKoIi
+	acdLbPKHTn3Ar6eKveaO0+Dxh84dIW185mmnkhwvO5UnlhF3SRs1uxnyQvzut3GduzEaL1Kdoot
+	uiq2SXwAXvSsw5a6YQV5DQpkrM0zZEBqxYcuZsATJMu+OayfzaYxk9LH0AE1q+VU1l9ewL3Ab4O
+	2JzYKMWDe4ZiMzzXbzIUL6DVKzEXytvpac9HmOsqYMmNpTRQ30sFRpb+G1TTZiHzrVTyJ5ZDeXV
+	mq7kDRJWc43eK/dV8Hm5Be2zGRh3ueRZE8EW/G1OBSTOlYRpbZJxMHO36vz5NQXUjPFPDYXf2Dp
+	PkevZ7RzE8vq+7Ye3k3DfbxNE3jwtnOg3FnNcdBfvd4opGSm3FQcXhASit1N+g==
+X-Received: by 2002:a05:600c:3ba2:b0:4a1:acab:234c with SMTP id 5b1f17b1804b1-4a1acab23acmr109596385e9.10.1791961699061;
+        Wed, 14 Oct 2026 00:08:19 -0700 (PDT)
+Received: from navid-pc ([2a01:4b00:a856:6220::a11])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1b481b7f8sm32291785e9.3.2026.10.14.00.08.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 00:08:18 -0700 (PDT)
+From: Navid Ghahremani <ghahramani.navid@gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Navid Ghahremani <ghahramani.navid@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Arnd Bergmann <arnd@arndb.de>,
+	=?UTF-8?q?Stefan=20D=C3=B6singer?= <stefandoesinger@gmail.com>
+Subject: Re: [PATCH 01/24] dt-bindings: cache: l2c2x0: Describe ZTE device-read serialization
+Date: Wed, 14 Oct 2026 08:08:17 +0100
+Message-ID: <20261014070817.1718976-1-ghahramani.navid@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261012-eggplant-nyala-of-mathematics-5005e8@quoll>
+References: <20261010130024.177503-2-ghahramani.navid@gmail.com> <20261012-eggplant-nyala-of-mathematics-5005e8@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] kbuild: Makefile entries for device trees are not sorted alphabetic=
-ally
---
+Hi Krzysztof,
 
-commit 82cbbc1479b59d13a418d2b1deaeea36cb85e6fa
-Author: Yureka Lilian <yureka@cyberchaos.dev>
+Thank you for the feedback and guidance.
 
-arm64: dts: apple: Add minimal t604x (M4 Pro/Max) device trees
+Dropping this from DT patchwork makes complete sense for the RFC.
 
-This commit introduces minimal device trees for the Apple M4 Pro and M4
-Max systems, including multiple MacBook Pro, Mac mini, and Mac Studio
-models. It also wires up the new targets in the arm64 Apple device tree
-Makefile.
+Based on discussions with Arnd Bergmann and Stefan Dösinger, I have
+decided to decouple the contentious silicon bus/cache workaround
+(patches 01, 02, and 03) completely from the mainline platform series.
 
-> diff --git a/arch/arm64/boot/dts/apple/Makefile b/arch/arm64/boot/dts/app=
-le/Makefile
-> index 4f31beeb11ac4..12fc777405b3f 100644
-> --- a/arch/arm64/boot/dts/apple/Makefile
-> +++ b/arch/arm64/boot/dts/apple/Makefile
-> @@ -94,6 +94,12 @@ dtb-$(CONFIG_ARCH_APPLE) +=3D t6031-j516c.dtb
->  dtb-$(CONFIG_ARCH_APPLE) +=3D t6032-j575d.dtb
->  dtb-$(CONFIG_ARCH_APPLE) +=3D t6034-j514m.dtb
->  dtb-$(CONFIG_ARCH_APPLE) +=3D t6034-j516m.dtb
-> +dtb-$(CONFIG_ARCH_APPLE) +=3D t6040-j773s.dtb
+For v2, I am dropping the RFC tag and submitting a clean 24-patch series
+covering the core SoC platform, split CRM clock bindings/drivers,
+logical reset bindings, GPIO, Generic PCIe PHY, PCIe host, MDIO,
+Ethernet switch, SPI-MEM, and board DTS.
 
-[Severity: Low]
-This isn't a bug, but could we keep these build targets alphabetically
-sorted? Placing t6040-j773s.dtb before the j614s and j616s entries breaks
-the sequential ordering convention, which is typically maintained to prevent
-merge conflicts when multiple patch series add new devices in parallel.
+I will ensure all patches in v2 are properly routed per subsystem and
+directly CC the respective subsystem maintainers as determined by
+scripts/get_maintainer.pl. All DT bindings have also been verified
+against dtschema and dt-doc-validate with zero warnings.
 
-> +dtb-$(CONFIG_ARCH_APPLE) +=3D t6040-j614s.dtb
-> +dtb-$(CONFIG_ARCH_APPLE) +=3D t6040-j616s.dtb
-> +dtb-$(CONFIG_ARCH_APPLE) +=3D t6041-j575c.dtb
-> +dtb-$(CONFIG_ARCH_APPLE) +=3D t6041-j614c.dtb
-> +dtb-$(CONFIG_ARCH_APPLE) +=3D t6041-j616c.dtb
->  dtb-$(CONFIG_ARCH_APPLE) +=3D t8112-j413.dtb
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014-apple-m4-p=
-ro-max-initial-devicetrees-v2-0-961edd8d661b@cyberchaos.dev?part=3D10
+Best regards,
+Navid
