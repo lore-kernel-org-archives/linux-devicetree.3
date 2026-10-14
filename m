@@ -1,778 +1,312 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7127F4ED182;
-	Wed, 14 Oct 2026 11:32:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 801CB3C1D7B;
+	Wed, 14 Oct 2026 11:36:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791977575; cv=none; b=qedRA26q2RtgjqihfnMfa8QScSW/6ZUoPr8xABz5VFvg5e6ACCEIPg657yvV+DrL43TPtac4P+aGFfyHE9tmEEhfm/Ri7vpF8Fo82rwgJmucCHS3LSDuCoruaIqCSuLs7a/eyDihxu3fU8/C4V1N5wjghK9eFQXqs0zjiXAnzk8=
+	t=1791977773; cv=none; b=njBcflOqo86Bso3iQ8ZXg7/nDXIIDz+d+VsjhGh4QUTeS+e6qwGBaG0FbikPDAnPTzfK+YkPZYQaEOrY2BmX3TeGLOy467bagawQJSYbrLqCbwggZ9YAoS5wyzH94Jc621uolkSsRcakeLcsCTxqrR71Ny+OZasl70VLNNTynlk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791977575; c=relaxed/simple;
-	bh=JgL0ClifhWzeZw5xGNMf8jf5gMh/4PCz9dozdoKiH3o=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=pqha6HEOEJ6ZddHvZaQ/7W9Tavt/SZSoKA3oITa6o4S8IavzTPPnsNB1KC9Edys4Sq2h37cDHZ5T5V/iWT1yhRkR2yYDSBXWfhJdV4/RGRAxHJieoU6v9j0kgOPI9Y0FSgB1sgrPsl5bK8tQCTwZ1i2kMSfpp9/lEoAo3i4evBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=O/j2X7c8; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791977773; c=relaxed/simple;
+	bh=G3+BwTQMQIIo+pZvUQsXZ2mhLhJzgxm9PN6ac1jR4Z0=;
+	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=EjLZ5Bq3LDqrZyK3bIV91PoJAA+/UQztcok3F2aMAquqqbDz4EVoqkFwUpwfettaeIJy2WKLEwBWAVKUWTFMDwMskGa5/jC8dazbMqamW/O98sUL9mMmJNg4pAMWKnxN1npdgs7byqkry6bVOFLcGyQ+8ZH8zAcrxXmMCwOIXzw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=SfBdOf0Z; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="O/j2X7c8"
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="SfBdOf0Z"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791977571; x=1823513571;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=JgL0ClifhWzeZw5xGNMf8jf5gMh/4PCz9dozdoKiH3o=;
-  b=O/j2X7c8//oDdJV4+qcSgTogL5u8OZ8arm+5IOeCE4Be717JfYaZDLLj
-   q7XuAcLYoKm1QCJfmlOZ8lU+ykFgq7Wf8pJXUOnxgntUfEtAcuoLciKpX
-   50mJUwmZib8aBAUgyfCZSzjQR8civ1H3pCrRUXVchnCaEWY35a7OGJHYR
-   ObC0DeUnIEIcyuoEaZGH7Ai2gYRPDRg0Uc4jsigQ4AeBVDCNJ6ANdshIt
-   KyeU7ABbtfj4vp8bEkoi8w+l4t5+ce5irNCvYaUf/zZuKniZK0BF3rJiJ
-   2JoQeinwvRP2wW5VMFYC+OQcQCY6OG5Sz3ICbeCnlMCmnus3JDYNo9GUq
-   w==;
-X-CSE-ConnectionGUID: ZEesX7Q5QkCe7G9eEgPdwg==
-X-CSE-MsgGUID: R5rYs0SrQHGt6nIJdXimXg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="607353"
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1791977777; x=1823513777;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=G3+BwTQMQIIo+pZvUQsXZ2mhLhJzgxm9PN6ac1jR4Z0=;
+  b=SfBdOf0Z7mTqJdVJxSZQhvaUJKbYS1Cy99wRvV4QowHoKggbbRxIvo8d
+   Bct9xEO7fD0s40xTZvhQDoKmQCVljYn3uiTLi2PCKzMe0Vn8tjc2IpRPt
+   7QB5AuMqqRvgmMAGx/7Kv6S90LE6hvkvvqNCanoRIM63azc8Qqepsg0s1
+   xX5kPnuqFUPZoMjsh+YsmR5mDCoOWa+nIqttY1+di5fAJ9NKOmm3d3MbQ
+   5c/U6vb90BH1Q2Uop5J/8wpVlAobFp/RfVpzy6gj6xblhtI+J6CTRlbfx
+   pP/MPpEcdNVMWJzpTfqu0OhUQJqSJI7G1cOxILy8UaiEAdIjg9Mn6whla
+   g==;
+X-CSE-ConnectionGUID: z9bJHHOMQZaV62hi/jbfKQ==
+X-CSE-MsgGUID: eMmMYA9QSTa0veDcAuUJ3w==
 X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="607353"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 04:32:50 -0700
-X-CSE-ConnectionGUID: NtaTOkjpQFi+arNDSpBAIQ==
-X-CSE-MsgGUID: iucbEzg8QTqJUHtTHuf19A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="1499985"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.234])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 04:32:45 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Wed, 14 Oct 2026 14:32:41 +0300 (EEST)
-To: Oleg Keri <okerixx@gmail.com>
-cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-    Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
-    Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
-    Guenter Roeck <linux@roeck-us.net>, Bjorn Andersson <andersson@kernel.org>, 
-    Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
-    linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org, 
-    linux-hwmon@vger.kernel.org
-Subject: Re: [PATCH v5 2/3] platform/arm64: add Lenovo Yoga Slim 7x Gen 11
- EC driver
-In-Reply-To: <20261003202143.4697-3-okerixx@gmail.com>
-Message-ID: <32061ef6-99d4-8a1f-ad4b-e413d30f261f@linux.intel.com>
-References: <20261003202143.4697-1-okerixx@gmail.com> <20261003202143.4697-3-okerixx@gmail.com>
+   d="scan'208";a="296439960"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 04:36:16 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
+ chn-vm-ex2.mchp-main.com (10.10.87.31) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.49; Wed, 14 Oct 2026 04:36:09 -0700
+Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Wed, 14 Oct 2026 04:36:05 -0700
+Message-ID: <c30e7704a5f0bbc7c064bd78c09effc79a9e755c.camel@microchip.com>
+Subject: Re: [PATCH net-next v14 9/9] net: dsa: lan9645x: add port statistics
+From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
+To: <netdev-bot+sashiko@kernel.org>
+CC: <UNGLinuxDriver@microchip.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
+	<davem@davemloft.net>, <kuba@kernel.org>, <pabeni@redhat.com>,
+	<horms@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <woojung.huh@microchip.com>, <linux@armlinux.org.uk>,
+	<Steen.Hegelund@microchip.com>, <daniel.machon@microchip.com>,
+	<geert+renesas@glider.be>, <magnus.damm@gmail.com>, <edumazet@kernel.org>,
+	<richardcochran@gmail.com>, <linux-kernel@vger.kernel.org>,
+	<netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-renesas-soc@vger.kernel.org>
+Date: Wed, 14 Oct 2026 13:36:05 +0200
+In-Reply-To: <179180428793.434549.2970303377957273063@kernel.org>
+References: <20261008-dsa_lan9645x_switch_driver_base-v14-9-3d2a72661213@microchip.com>
+	 <179180428793.434549.2970303377957273063@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
 
-On Sat, 3 Oct 2026, Oleg Keri wrote:
+On Mon, 2026-10-12 at 11:24 +0000, netdev-bot+sashiko@kernel.org wrote:
+> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
+e content is safe
+>=20
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issue(s) to consider.
+>=20
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 2
+>=20
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>=20
+> - [Medium] lan9645x_stats_get_stats64() counts bad frames in
+>   rtnl_link_stats64.rx_packets.
+> - [Low] In lan9645x_stats_get_stats64(), rx_errors is the sum
+>   c[SCNT_RX_SHORT] + c[SCNT_RX_JABBER] + c[SCNT_RX_CRC] +=E2=80=A6
+> - [Low] __lan9645x_stats_view_idx_hw_read() selects the port with
+>   lan_wr(SYS_STAT_CFG_STAT_VIEW_SET(idx), lan9645x, SYS_STAT_CFG).
+>=20
+> --
+>=20
+> net: dsa: lan9645x: add port statistics
+>=20
+> This commit adds port statistics support to the lan9645x DSA driver. A
+> delayed work polls the 32-bit hardware counters every 3 seconds and
+> accumulates them into 64-bit software counters. The counters are exposed
+> through ethtool -S, the standard ethtool stats groups and get_stats64, wi=
+th
+> the pMAC counters summed into the aggregate source.
+>=20
+> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c b/driv=
+ers/net/dsa/microchip/lan9645x/lan9645x_stats.c
+> > new file mode 100644
+> > index 0000000000000..a21afb4d98532
+> > --- /dev/null
+> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c
+> > @@ -0,0 +1,854 @@
+>=20
+> [ ... ]
+>=20
+> > +static void lan9645x_stats_update_counter(u64 *sw, u32 hw)
+> > +{
+> > +     if (hw < (*sw & U32_MAX))
+> > +             *sw +=3D (u64)1 << 32; /* value has wrapped */
+> > +
+> > +     *sw =3D (*sw & ~(u64)U32_MAX) + hw;
+> > +}
+> > +
+> > +static int __lan9645x_stats_view_idx_hw_read(struct lan9645x *lan9645x=
+,
+> > +                                          enum lan9645x_view_stat_type=
+ vtype,
+> > +                                          int idx)
+> > +{
+>=20
+> [ ... ]
+>=20
+> > +     lan_wr(SYS_STAT_CFG_STAT_VIEW_SET(idx), lan9645x, SYS_STAT_CFG);
+>=20
+> [Severity: Low]
+> What happens to the counters if this lan_wr() fails?
+>=20
+> lan_wr() returns void and only does WARN_ON_ONCE(regmap_write(...)), so
+> this function never sees a failed STAT_VIEW select. The SYS_CNT window
+> read by the lan_bulk_rd() calls below is the same for every port. If the
+> reads still succeed, buf holds the counters of the previously selected
+> port.
+>=20
+> __lan9645x_stats_view_idx_transfer() then passes those values through
+> lan9645x_stats_update_counter() into the requested port's shadow. If the
+> wrong value is larger, the shadow takes it. On the next correct poll,
+> this check:
+>=20
+>         if (hw < (*sw & U32_MAX))
+>                 *sw +=3D (u64)1 << 32; /* value has wrapped */
+>=20
+> adds 2^32. That counter then stays about 4G too high until the next
+> setup.
+>=20
+> lan9645x_stats_clear_view() has the same unchecked write:
+>=20
+>         lan_wr(SYS_STAT_CFG_STAT_VIEW_SET(idx) |
+>                SYS_STAT_CFG_STAT_CLEAR_SHOT_SET(groups),
+>                lan9645x, SYS_STAT_CFG);
+>=20
+> If that write is dropped, the poll for !CLEAR_SHOT passes at once and a
+> clear that never happened is reported as success. That case looks
+> harmless, since the shadow later takes the uncleared hardware value.
+>=20
+> ocelot_port_update_stats() follows the same pattern, and every other
+> lan_wr() in this driver also ignores write errors. Fixing this would
+> probably mean having the helper return the regmap_write() result.
+>=20
+> > +
+> > +     /* Each region for this index contains counters which are at sequ=
+ential
+> > +      * addresses, so we can use bulk reads to ease lock pressure a bi=
+t.
+> > +      */
+> > +     for (int r =3D 0; r < vstats->num_regions; r++) {
+> > +             region =3D vstats->regions[r];
+> > +             err =3D lan_bulk_rd(&vstats->buf[region.cnts_base_idx],
+> > +                               region.cnt, lan9645x,
+> > +                               SYS_CNT(region.base_offset));
+>=20
+> [ ... ]
+>=20
+> > +void lan9645x_stats_get_stats64(struct lan9645x *lan9645x, int port,
+> > +                             struct rtnl_link_stats64 *stats)
+> > +{
+>=20
+> [ ... ]
+>=20
+> > +     stats->rx_bytes =3D c[SCNT_RX_OCT] + c[SCNT_RX_PMAC_OCT];
+> > +
+> > +     stats->rx_packets =3D c[SCNT_RX_SHORT] +
+> > +                         c[SCNT_RX_JABBER] +
+> > +                         c[SCNT_RX_SZ_64] +
+> > +                         c[SCNT_RX_SZ_65_127] +
+> > +                         c[SCNT_RX_SZ_128_255] +
+> > +                         c[SCNT_RX_SZ_256_511] +
+> > +                         c[SCNT_RX_SZ_512_1023] +
+> > +                         c[SCNT_RX_SZ_1024_1526] +
+> > +                         c[SCNT_RX_SZ_JUMBO] +
+> > +                         c[SCNT_RX_LONG] +
+> > +                         c[SCNT_RX_PMAC_SHORT] +
+> > +                         c[SCNT_RX_PMAC_FRAG] +
+> > +                         c[SCNT_RX_PMAC_JABBER] +
+> > +                         c[SCNT_RX_PMAC_SZ_64] +
+> > +                         c[SCNT_RX_PMAC_SZ_65_127] +
+> > +                         c[SCNT_RX_PMAC_SZ_128_255] +
+> > +                         c[SCNT_RX_PMAC_SZ_256_511] +
+> > +                         c[SCNT_RX_PMAC_SZ_512_1023] +
+> > +                         c[SCNT_RX_PMAC_SZ_1024_1526] +
+> > +                         c[SCNT_RX_PMAC_SZ_JUMBO] +
+> > +                         c[SCNT_RX_PMAC_LONG];
+>=20
+> [Severity: Medium]
+> Should rx_packets include the error counters?
+>=20
+> The rtnl_link_stats64 documentation in include/uapi/linux/if_link.h
+> describes rx_packets as "Number of good packets received by the
+> interface". It describes rx_errors as "Total number of bad packets
+> received on this network device".
+>=20
+> SCNT_RX_SHORT, SCNT_RX_JABBER and SCNT_RX_LONG, plus their pMAC
+> versions, are added to both rx_packets and rx_errors. Each runt, jabber
+> and oversize frame is therefore counted as good and as bad.
+>=20
+> The SZ_* buckets also seem to include CRC-errored frames. The v5
+> changelog removed rx_crc from rx_packets "as they are already counted in
+> SZ_* buckets". So rx_packets ends up counting every frame received.
+>=20
+> This also does not match FramesReceivedOK in
+> lan9645x_stats_get_eth_mac_stats(), which is UC + MC + BC. The two
+> standard interfaces would report different good RX counts for the same
+> port.
+>=20
+> ocelot_port_get_stats64() uses a similar formula. Is that the intended
+> meaning of rx_packets for this new driver?
+>=20
+> Separately, c[SCNT_RX_PMAC_FRAG] is added to rx_packets but not to
+> rx_errors, while c[SCNT_RX_PMAC_SHORT] is added to both. The comment in
+> lan9645x_stats_get_rmon_stats() says SCNT_RX_PMAC_FRAG counts runts with
+> an invalid CRC.
+>=20
+> Should SCNT_RX_PMAC_FRAG go into rx_errors too, or be removed from
+> rx_packets? This has no effect until MAC merge sends traffic to the pMAC.
+>=20
 
-> The Lenovo Yoga Slim 7x Gen 11 (Qualcomm glymur / Snapdragon X2 Elite)
-> carries a Compal EF06 embedded controller on I2C at address 0x70. The
-> platform firmware describes it as an ACPI GenericSerialBus region, but the
-> machine boots from device tree, so nothing otherwise talks to it.
-> 
-> Commands are exchanged with two raw I2C block transfers: a 7 byte write to
-> register 0x02 carrying the command and up to six arguments, then a 6 byte
-> read of register 0x01 for the result, with a short delay in between before
-> the result register is valid. The EC offers no way to match a result to
-> its command; the delay is the one the vendor ACPI code uses.
-> 
-> Expose what the EC offers that the rest of the kernel does not already
-> provide:
-> 
->   - five board thermistors as hwmon temperature channels. These are
->     charger, CPU voltage regulator, 5 V rail and ambient sensors, not die
->     sensors, and read considerably cooler than tsens
->   - CPU fan speed in RPM
->   - the keyboard backlight as an LED, off/low/high
->   - Fn-lock as a read/write sysfs attribute, matching the ideapad-laptop
->     interface. The EC reports Fn+Esc as an event but keeps no state of its
->     own, so the driver owns the bit and toggles it on the key
->   - the mic-mute and airplane-mode keys as KEY_MICMUTE and KEY_RFKILL.
->     These reach the host only as EC events; they are not on the keyboard's
->     HID interface and have no GPIO of their own
-> 
-> The EC signals pending events on a dedicated line, and keeps pulsing it
-> until they are read - so the queue must be drained completely on every
-> interrupt, including codes this driver ignores. Leaving one behind makes
-> the controller pulse indefinitely.
-> 
-> Fan speed is reported but not controlled. The EC accepts a manual setpoint,
-> however it enforces no thermal floor over it: with the fan pinned at
-> roughly 2000 RPM under full load the SoC rose from 69 to 91 degrees in 30
-> seconds without the EC ever overriding. Exposing pwm1_enable or fan1_target
-> would therefore let userspace overheat the machine, so neither is
-> implemented.
-> 
-> Note this is the Gen 11 machine specifically. Its EC differs from the
-> Qualcomm reference EC that the reference designs place at address 0x76,
-> which is not populated here, and so EC_QCOM_HAMOA does not drive it.
-> 
-> Signed-off-by: Oleg Keri <okerixx@gmail.com>
+Dismissed, intended.
 
-Hi,
+As for v14, this follows mscc/ocelot, which computes rx_packets the
+same way. The hardware has no good-frames-only octet counter, rx_oct
+counts octets in good and bad frames, so rx_bytes cannot follow the
+uapi description either. rx_packets is made to count the same frames
+rx_bytes counts octets for: the size buckets cover good and bad frames
+from 64 bytes up to MAXLEN, and short, fragment, jabber and long frames
+fall outside that range, so every received frame is counted once. Bad
+frames are also reported in rx_errors.
 
-A few style nits below.
+FramesReceivedOK is the 802.3 good frame count and is meant to differ,
+as it does in ocelot, where it is the sum of the green counters.
 
-> ---
->  .../sysfs-driver-lenovo-yoga-slim7x-gen11-ec  |  22 +
->  drivers/platform/arm64/Kconfig                |  23 +
->  drivers/platform/arm64/Makefile               |   1 +
->  .../arm64/lenovo-yoga-slim7x-gen11-ec.c       | 547 ++++++++++++++++++
->  4 files changed, 593 insertions(+)
->  create mode 100644 Documentation/ABI/testing/sysfs-driver-lenovo-yoga-slim7x-gen11-ec
->  create mode 100644 drivers/platform/arm64/lenovo-yoga-slim7x-gen11-ec.c
-> 
-> diff --git a/Documentation/ABI/testing/sysfs-driver-lenovo-yoga-slim7x-gen11-ec b/Documentation/ABI/testing/sysfs-driver-lenovo-yoga-slim7x-gen11-ec
-> new file mode 100644
-> index 000000000000..80d01fc32abb
-> --- /dev/null
-> +++ b/Documentation/ABI/testing/sysfs-driver-lenovo-yoga-slim7x-gen11-ec
-> @@ -0,0 +1,22 @@
-> +What:		/sys/bus/i2c/devices/*/fn_lock
-> +Date:		October 2026
-> +KernelVersion:	7.5
-> +Contact:	Oleg Keri <okerixx@gmail.com>
-> +Description:
-> +		Control fn-lock mode.
-> +
-> +			* 1 -> Switched On
-> +			* 0 -> Switched Off
-> +
-> +		When switched on, the function keys act as F1..F12 and the
-> +		multimedia functions require the Fn modifier.
-> +
-> +		The embedded controller reports the Fn+Esc key as an event but
-> +		keeps no state of its own, so this attribute is the state: the
-> +		driver toggles it when the key is pressed, and writing it takes
-> +		effect immediately. A toggle from the key is signalled with
-> +		sysfs_notify(), so the attribute can be polled.
-> +
-> +		For example::
-> +
-> +		  # echo "0" > /sys/bus/i2c/devices/9-0070/fn_lock
-> diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kconfig
-> index e32e01b2a9bd..a04573749e94 100644
-> --- a/drivers/platform/arm64/Kconfig
-> +++ b/drivers/platform/arm64/Kconfig
-> @@ -90,6 +90,29 @@ config EC_LENOVO_THINKPAD_T14S
->  
->  	  Say M or Y here to include this support.
->  
-> +config EC_LENOVO_YOGA_SLIM7X_GEN11
-> +	tristate "Lenovo Yoga Slim 7x Gen 11 Embedded Controller driver"
-> +	depends on ARCH_QCOM || COMPILE_TEST
-> +	depends on I2C
-> +	depends on INPUT
-> +	depends on HWMON
-> +	select NEW_LEDS
-> +	select LEDS_CLASS
-> +	help
-> +	  Say Y here to enable the EC driver for the (Snapdragon X2 Elite,
-> +	  glymur-based) Lenovo Yoga Slim 7x Gen 11 laptop. The EC provides
-> +	  thermistors and CPU fan speed as hwmon channels, and the keyboard
-> +	  backlight as an LED.
-> +
-> +	  This is the Gen 11 (glymur) machine specifically. Its EC is a Compal
-> +	  design at i2c address 0x70 and speaks a different protocol from the
-> +	  Qualcomm reference EC that the reference designs place at 0x76, so
-> +	  EC_QCOM_HAMOA does not drive it - and conversely this driver does not
-> +	  cover the X1E-based Yoga Slim 7x Gen 9.
-> +
-> +	  To compile this driver as a module, choose M here: the module will
-> +	  be called lenovo-yoga-slim7x-gen11-ec.
-> +
->  config EC_QCOM_HAMOA
->  	tristate "Embedded Controller driver for Qualcomm Hamoa/Glymur reference devices"
->  	depends on ARCH_QCOM || COMPILE_TEST
-> diff --git a/drivers/platform/arm64/Makefile b/drivers/platform/arm64/Makefile
-> index 7681be4a46e9..605cca4d42a9 100644
-> --- a/drivers/platform/arm64/Makefile
-> +++ b/drivers/platform/arm64/Makefile
-> @@ -9,4 +9,5 @@ obj-$(CONFIG_EC_ACER_ASPIRE1)	+= acer-aspire1-ec.o
->  obj-$(CONFIG_EC_HUAWEI_GAOKUN)	+= huawei-gaokun-ec.o
->  obj-$(CONFIG_EC_LENOVO_YOGA_C630) += lenovo-yoga-c630.o
->  obj-$(CONFIG_EC_LENOVO_THINKPAD_T14S) += lenovo-thinkpad-t14s.o
-> +obj-$(CONFIG_EC_LENOVO_YOGA_SLIM7X_GEN11) += lenovo-yoga-slim7x-gen11-ec.o
->  obj-$(CONFIG_EC_QCOM_HAMOA) += qcom-hamoa-ec.o
-> diff --git a/drivers/platform/arm64/lenovo-yoga-slim7x-gen11-ec.c b/drivers/platform/arm64/lenovo-yoga-slim7x-gen11-ec.c
-> new file mode 100644
-> index 000000000000..1ef11b9eeffa
-> --- /dev/null
-> +++ b/drivers/platform/arm64/lenovo-yoga-slim7x-gen11-ec.c
-> @@ -0,0 +1,547 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/bits.h>
-> +#include <linux/cleanup.h>
-> +#include <linux/container_of.h>
-> +#include <linux/delay.h>
-> +#include <linux/dev_printk.h>
-> +#include <linux/device.h>
-> +#include <linux/err.h>
-> +#include <linux/errno.h>
-> +#include <linux/gfp_types.h>
-> +#include <linux/hwmon.h>
-> +#include <linux/i2c.h>
-> +#include <linux/input.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/kstrtox.h>
-> +#include <linux/leds.h>
-> +#include <linux/lockdep.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/pm.h>
-> +#include <linux/sysfs.h>
-> +#include <linux/types.h>
-> +#include <linux/units.h>
-> +
-> +#define SLIM7X11_EC_BLOCK_READ	0x01
-> +#define SLIM7X11_EC_BLOCK_WRITE	0x02
-> +#define SLIM7X11_EC_RESP_LEN	6
-> +#define SLIM7X11_EC_REQ_LEN	7
-> +
-> +#define SLIM7X11_EC_CMD_RAM_READ	0xb0
-> +#define SLIM7X11_EC_CMD_RAM_WRITE	0xb1
-> +#define SLIM7X11_EC_CMD_FAN		0x46
-> +#define SLIM7X11_EC_FAN_GET_SPEED	0x81
-> +
-> +#define SLIM7X11_EC_CMD_EVENT	0x84
-> +#define SLIM7X11_EC_EVT_MAX_DRAIN	64
-> +#define SLIM7X11_EC_EVT_FN_LOCK	0x0f
-> +#define SLIM7X11_EC_EVT_MIC_MUTE	0x18
-> +#define SLIM7X11_EC_EVT_FLIGHT_MODE	0x19
-> +
-> +#define SLIM7X11_EC_SCUK		0x1c
-> +#define SLIM7X11_EC_SCUK_MEDIA	BIT(7)
-> +#define SLIM7X11_EC_SCUK_LED_OFF	BIT(5)
-> +#define SLIM7X11_EC_SCUK_MEDIA_MASK	(SLIM7X11_EC_SCUK_MEDIA | SLIM7X11_EC_SCUK_LED_OFF)
-> +
-> +#define SLIM7X11_EC_KBLT		0x03
-> +#define SLIM7X11_EC_KBLT_LEVEL	GENMASK(1, 0)
-> +#define SLIM7X11_EC_KBLT_AUTO	3
-> +#define SLIM7X11_EC_KBLT_MAX	2
-> +
-> +#define SLIM7X11_EC_TEMP_FIRST	0x12
-> +#define SLIM7X11_EC_NUM_TEMP	6
-> +#define SLIM7X11_EC_TEMP_MAX	120
-> +
-> +struct slim7x11_ec {
-> +	struct i2c_client *client;
-> +	/* serializes all EC access */
-> +	struct mutex lock;
-> +	unsigned long temp_present;
-> +	struct led_classdev kbd_led;
-> +	u8 kblt_level;
-> +	bool kblt_restore;
-> +	struct input_dev *keys;
-> +};
-> +
-> +static int slim7x11_ec_command(struct slim7x11_ec *ec, u8 cmd, u8 arg0, u8 arg1,
-> +			       u8 resp[SLIM7X11_EC_RESP_LEN])
-> +{
-> +	u8 req[SLIM7X11_EC_REQ_LEN] = { cmd, arg0, arg1 };
-> +	int ret;
-> +
-> +	lockdep_assert_held(&ec->lock);
-> +
-> +	ret = i2c_smbus_write_i2c_block_data(ec->client, SLIM7X11_EC_BLOCK_WRITE,
-> +					     sizeof(req), req);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	usleep_range(2000, 3000);
-> +
-> +	ret = i2c_smbus_read_i2c_block_data(ec->client, SLIM7X11_EC_BLOCK_READ,
-> +					    SLIM7X11_EC_RESP_LEN, resp);
-> +	if (ret < 0)
-> +		return ret;
-> +	if (ret != SLIM7X11_EC_RESP_LEN)
-> +		return -EIO;
-> +
-> +	return 0;
-> +}
-> +
-> +static int slim7x11_ec_ram_read(struct slim7x11_ec *ec, u8 addr, u8 *val)
-> +{
-> +	u8 resp[SLIM7X11_EC_RESP_LEN];
-> +	int ret;
-> +
-> +	ret = slim7x11_ec_command(ec, SLIM7X11_EC_CMD_RAM_READ, addr, 0, resp);
-> +	if (ret)
-> +		return ret;
-> +
-> +	*val = resp[0];
-> +	return 0;
-> +}
-> +
-> +static int slim7x11_ec_ram_write(struct slim7x11_ec *ec, u8 addr, u8 val)
-> +{
-> +	u8 resp[SLIM7X11_EC_RESP_LEN];
-> +
-> +	return slim7x11_ec_command(ec, SLIM7X11_EC_CMD_RAM_WRITE, addr, val, resp);
-> +}
-> +
-> +static int slim7x11_ec_fan_read(struct slim7x11_ec *ec, long *rpm)
-> +{
-> +	u8 resp[SLIM7X11_EC_RESP_LEN];
-> +	int ret;
-> +
-> +	ret = slim7x11_ec_command(ec, SLIM7X11_EC_CMD_FAN, SLIM7X11_EC_FAN_GET_SPEED, 0,
-> +				  resp);
-> +	if (ret)
-> +		return ret;
-> +
-> +	*rpm = resp[0] * 100;
-> +	return 0;
-> +}
-> +
-> +static umode_t slim7x11_ec_is_visible(const void *drvdata,
-> +				      enum hwmon_sensor_types type,
-> +				      u32 attr, int channel)
-> +{
-> +	const struct slim7x11_ec *ec = drvdata;
-> +
-> +	switch (type) {
-> +	case hwmon_temp:
-> +		if (!(ec->temp_present & BIT(channel)))
-> +			return 0;
-> +		return 0444;
-> +	case hwmon_fan:
-> +		return 0444;
-> +	default:
-> +		return 0;
-> +	}
-> +}
-> +
-> +static int slim7x11_ec_read(struct device *dev, enum hwmon_sensor_types type,
-> +			    u32 attr, int channel, long *val)
-> +{
-> +	struct slim7x11_ec *ec = dev_get_drvdata(dev);
-> +	int ret;
-> +	u8 raw;
-> +
-> +	guard(mutex)(&ec->lock);
-> +
-> +	switch (type) {
-> +	case hwmon_temp:
-> +		ret = slim7x11_ec_ram_read(ec, SLIM7X11_EC_TEMP_FIRST + channel, &raw);
-> +		if (ret)
-> +			return ret;
-> +		if (!raw)
-> +			return -ENODATA;
-> +		if (raw > SLIM7X11_EC_TEMP_MAX)
-> +			return -EIO;
-> +		*val = raw * MILLIDEGREE_PER_DEGREE;
-> +		return 0;
-> +	case hwmon_fan:
-> +		return slim7x11_ec_fan_read(ec, val);
-> +	default:
-> +		return -EOPNOTSUPP;
-> +	}
-> +}
-> +
-> +static const char * const slim7x11_ec_temp_labels[SLIM7X11_EC_NUM_TEMP] = {
-> +	"Charger A",
-> +	"CPU VR",
-> +	"5V rail",
-> +	"Ambient",
-> +	"Charger B",
-> +	"Thermistor 6",
-> +};
-> +
-> +static int slim7x11_ec_read_string(struct device *dev, enum hwmon_sensor_types type,
-> +				   u32 attr, int channel, const char **str)
-> +{
-> +	switch (type) {
-> +	case hwmon_temp:
-> +		*str = slim7x11_ec_temp_labels[channel];
-> +		return 0;
-> +	case hwmon_fan:
-> +		*str = "CPU fan";
-> +		return 0;
-> +	default:
-> +		return -EOPNOTSUPP;
-> +	}
-> +}
-> +
-> +static enum led_brightness slim7x11_ec_kbd_led_get(struct led_classdev *led)
-> +{
-> +	struct slim7x11_ec *ec = container_of(led, struct slim7x11_ec, kbd_led);
-> +	u8 raw;
-> +
-> +	guard(mutex)(&ec->lock);
-> +
-> +	if (slim7x11_ec_ram_read(ec, SLIM7X11_EC_KBLT, &raw))
-> +		return 0;
-> +
-> +	raw = FIELD_GET(SLIM7X11_EC_KBLT_LEVEL, raw);
-> +
-> +	if (raw == SLIM7X11_EC_KBLT_AUTO)
-> +		return SLIM7X11_EC_KBLT_MAX;
-> +
-> +	return raw;
-> +}
-> +
-> +static int slim7x11_ec_kbd_led_level(struct slim7x11_ec *ec, u8 level, u8 *old)
-> +{
-> +	u8 raw;
-> +	int ret;
-> +
-> +	ret = slim7x11_ec_ram_read(ec, SLIM7X11_EC_KBLT, &raw);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (old)
-> +		*old = FIELD_GET(SLIM7X11_EC_KBLT_LEVEL, raw);
-> +
-> +	FIELD_MODIFY(SLIM7X11_EC_KBLT_LEVEL, &raw, level);
-> +
-> +	return slim7x11_ec_ram_write(ec, SLIM7X11_EC_KBLT, raw);
-> +}
-> +
-> +static int slim7x11_ec_kbd_led_set(struct led_classdev *led,
-> +				   enum led_brightness brightness)
-> +{
-> +	struct slim7x11_ec *ec = container_of(led, struct slim7x11_ec, kbd_led);
-> +
-> +	guard(mutex)(&ec->lock);
-> +
-> +	return slim7x11_ec_kbd_led_level(ec, brightness, NULL);
-> +}
-> +
-> +static const struct hwmon_ops slim7x11_ec_hwmon_ops = {
-> +	.is_visible = slim7x11_ec_is_visible,
-> +	.read = slim7x11_ec_read,
-> +	.read_string = slim7x11_ec_read_string,
-> +};
-> +
-> +static const struct hwmon_channel_info * const slim7x11_ec_hwmon_info[] = {
-> +	HWMON_CHANNEL_INFO(temp,
-> +			   HWMON_T_INPUT | HWMON_T_LABEL,
-> +			   HWMON_T_INPUT | HWMON_T_LABEL,
-> +			   HWMON_T_INPUT | HWMON_T_LABEL,
-> +			   HWMON_T_INPUT | HWMON_T_LABEL,
-> +			   HWMON_T_INPUT | HWMON_T_LABEL,
-> +			   HWMON_T_INPUT | HWMON_T_LABEL),
-> +	HWMON_CHANNEL_INFO(fan,
-> +			   HWMON_F_INPUT | HWMON_F_LABEL),
-> +	NULL
-> +};
-> +
-> +static const struct hwmon_chip_info slim7x11_ec_chip_info = {
-> +	.ops = &slim7x11_ec_hwmon_ops,
-> +	.info = slim7x11_ec_hwmon_info,
-> +};
-> +
-> +static int slim7x11_ec_fn_lock_toggle(struct slim7x11_ec *ec)
-> +{
-> +	u8 raw;
-> +	int ret;
-> +
-> +	ret = slim7x11_ec_ram_read(ec, SLIM7X11_EC_SCUK, &raw);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (raw & SLIM7X11_EC_SCUK_MEDIA)
-> +		raw &= ~SLIM7X11_EC_SCUK_MEDIA_MASK;
-> +	else
-> +		raw |= SLIM7X11_EC_SCUK_MEDIA_MASK;
-> +
-> +	return slim7x11_ec_ram_write(ec, SLIM7X11_EC_SCUK, raw);
-> +}
-> +
-> +static void slim7x11_ec_report_key(struct slim7x11_ec *ec, unsigned int code)
-> +{
-> +	if (!ec->keys)
-> +		return;
-> +
-> +	input_report_key(ec->keys, code, 1);
-> +	input_sync(ec->keys);
-> +	input_report_key(ec->keys, code, 0);
-> +	input_sync(ec->keys);
-> +}
-> +
-> +static irqreturn_t slim7x11_ec_irq(int irq, void *data)
-> +{
-> +	struct slim7x11_ec *ec = data;
-> +	unsigned int i;
-> +
-> +	guard(mutex)(&ec->lock);
-> +
-> +	for (i = 0; i < SLIM7X11_EC_EVT_MAX_DRAIN; i++) {
-> +		u8 resp[SLIM7X11_EC_RESP_LEN];
-> +
-> +		if (slim7x11_ec_command(ec, SLIM7X11_EC_CMD_EVENT, 0, 0, resp))
-> +			break;
-> +		if (!resp[0])
-> +			break;
-> +
-> +		switch (resp[0]) {
-> +		case SLIM7X11_EC_EVT_FN_LOCK:
-> +			if (!slim7x11_ec_fn_lock_toggle(ec))
-> +				sysfs_notify(&ec->client->dev.kobj, NULL, "fn_lock");
-> +			break;
-> +		case SLIM7X11_EC_EVT_MIC_MUTE:
-> +			slim7x11_ec_report_key(ec, KEY_MICMUTE);
-> +			break;
-> +		case SLIM7X11_EC_EVT_FLIGHT_MODE:
-> +			slim7x11_ec_report_key(ec, KEY_RFKILL);
-> +			break;
-> +		default:
-> +			break;
-> +		}
-> +	}
-> +
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +static void slim7x11_ec_register_keys(struct slim7x11_ec *ec)
-> +{
-> +	struct device *dev = &ec->client->dev;
-> +	struct input_dev *input;
-> +	int ret;
-> +
-> +	input = devm_input_allocate_device(dev);
-> +	if (!input) {
-> +		dev_warn(dev, "no memory for the hotkey device\n");
-> +		return;
-> +	}
-> +
-> +	input->name = "Lenovo Yoga Slim 7x hotkeys";
-> +	input->phys = "lenovo-yoga-slim7x-gen11-ec/input0";
-> +	input->id.bustype = BUS_I2C;
-> +	input_set_capability(input, EV_KEY, KEY_MICMUTE);
-> +	input_set_capability(input, EV_KEY, KEY_RFKILL);
-> +
-> +	ret = input_register_device(input);
-> +	if (ret) {
-> +		dev_warn(dev, "cannot register the hotkey device: %d\n", ret);
-> +		return;
-> +	}
-> +
-> +	ec->keys = input;
-> +}
-> +
-> +static ssize_t fn_lock_show(struct device *dev, struct device_attribute *attr,
-> +			    char *buf)
-> +{
-> +	struct slim7x11_ec *ec = dev_get_drvdata(dev);
-> +	u8 raw;
-> +	int ret;
-> +
-> +	scoped_guard(mutex, &ec->lock)
-> +		ret = slim7x11_ec_ram_read(ec, SLIM7X11_EC_SCUK, &raw);
-> +
-> +	if (ret)
-> +		return ret;
+SCNT_RX_PMAC_FRAG is the size class below 64 bytes for pMAC runts with
+an invalid CRC, so it belongs in rx_packets next to the size buckets.
+Its frames are already in rx_errors through SCNT_RX_PMAC_CRC, which
+counts CRC errors at any frame size, in the same way a frame of 64
+bytes or more with a bad CRC sits in a size bucket and in
+SCNT_RX_CRC. Adding it to rx_errors would count those runts twice.
 
-Please put this inside scoped_guard(). There's little reason to do 
-"optimization" like this at the cost of error handling clarity.
 
-> +
-> +	return sysfs_emit(buf, "%u\n", !(raw & SLIM7X11_EC_SCUK_MEDIA));
-> +}
-> +
-> +static ssize_t fn_lock_store(struct device *dev, struct device_attribute *attr,
-> +			     const char *buf, size_t count)
-> +{
-> +	struct slim7x11_ec *ec = dev_get_drvdata(dev);
-> +	bool enable;
-> +	u8 raw;
-> +	int ret;
-> +
-> +	ret = kstrtobool(buf, &enable);
-> +	if (ret)
-> +		return ret;
-> +
-> +	guard(mutex)(&ec->lock);
-> +
-> +	ret = slim7x11_ec_ram_read(ec, SLIM7X11_EC_SCUK, &raw);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (enable)
-> +		raw &= ~SLIM7X11_EC_SCUK_MEDIA_MASK;
-> +	else
-> +		raw |= SLIM7X11_EC_SCUK_MEDIA_MASK;
-> +
-> +	ret = slim7x11_ec_ram_write(ec, SLIM7X11_EC_SCUK, raw);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return count;
-> +}
-> +static DEVICE_ATTR_RW(fn_lock);
-> +
-> +static struct attribute *slim7x11_ec_attrs[] = {
-> +	&dev_attr_fn_lock.attr,
-> +	NULL
-> +};
-> +ATTRIBUTE_GROUPS(slim7x11_ec);
-> +
-> +static int slim7x11_ec_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	struct device *hwmon;
-> +	struct slim7x11_ec *ec;
-> +	unsigned int i;
-> +	int ret;
-> +
-> +	if (!i2c_check_functionality(client->adapter,
-> +				     I2C_FUNC_SMBUS_I2C_BLOCK)) {
 
-Use just one line?
-
-> +		return dev_err_probe(dev, -ENODEV,
-> +				     "adapter does not support SMBus block transfers\n");
-> +	}
-> +
-> +	ec = devm_kzalloc(dev, sizeof(*ec), GFP_KERNEL);
-> +	if (!ec)
-> +		return -ENOMEM;
-> +
-> +	ec->client = client;
-> +	i2c_set_clientdata(client, ec);
-> +
-> +	ret = devm_mutex_init(dev, &ec->lock);
-> +	if (ret)
-> +		return ret;
-> +
-> +	scoped_guard(mutex, &ec->lock) {
-> +		for (i = 0; i < SLIM7X11_EC_NUM_TEMP; i++) {
-> +			u8 raw;
-> +
-> +			ret = slim7x11_ec_ram_read(ec, SLIM7X11_EC_TEMP_FIRST + i,
-> +						   &raw);
-
-I don't know why this line in particular is split at this point, you have 
-much longer code lines below.
-
-It's generally okay to have code lines go up to 100 chars as long as one 
-doesn't hide key logic to the very end of a line. Taking advantage of that 
-is most useful to avoid breaking function calls with many args excessively 
-and other boilerplatey stuff.
-
-> +			if (ret) {
-> +				return dev_err_probe(dev, ret,
-> +						     "failed to read thermistor %u\n",
-> +						     i);
-> +			}
-> +
-> +			if (raw > 0 && raw <= SLIM7X11_EC_TEMP_MAX)
-> +				ec->temp_present |= BIT(i);
-> +		}
-> +	}
-> +
-> +	if (!ec->temp_present) {
-> +		return dev_err_probe(dev, -ENODEV,
-> +				     "no thermistor reported a usable value\n");
-> +	}
-> +
-> +	dev_dbg(dev, "thermistors present: %#lx\n", ec->temp_present);
-> +
-> +	hwmon = devm_hwmon_device_register_with_info(dev, "yoga_slim7x_ec", ec,
-> +						     &slim7x11_ec_chip_info, NULL);
-> +	if (IS_ERR(hwmon))
-> +		return PTR_ERR(hwmon);
-> +
-> +	ec->kbd_led.name = "platform::kbd_backlight";
-> +	ec->kbd_led.max_brightness = SLIM7X11_EC_KBLT_MAX;
-> +	ec->kbd_led.brightness_get = slim7x11_ec_kbd_led_get;
-> +	ec->kbd_led.brightness_set_blocking = slim7x11_ec_kbd_led_set;
-> +
-> +	ret = devm_led_classdev_register(dev, &ec->kbd_led);
-> +	if (ret) {
-> +		return dev_err_probe(dev, ret,
-> +				     "failed to register keyboard backlight\n");
-
-I don't get why you split this, you've a longer dev_err_probe() line 
-below.
-
-> +	}
-> +
-> +	if (client->irq) {
-> +		slim7x11_ec_register_keys(ec);
-> +
-> +		ret = devm_request_threaded_irq(dev, client->irq, NULL,
-> +						slim7x11_ec_irq, IRQF_ONESHOT,
-> +						"lenovo-yoga-slim7x-gen11-ec", ec);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret, "cannot request the EC interrupt\n");
-> +
-> +		scoped_guard(mutex, &ec->lock) {
-> +			for (i = 0; i < SLIM7X11_EC_EVT_MAX_DRAIN; i++) {
-> +				u8 resp[SLIM7X11_EC_RESP_LEN];
-> +
-> +				if (slim7x11_ec_command(ec, SLIM7X11_EC_CMD_EVENT, 0, 0, resp))
-> +					break;
-> +				if (!resp[0])
-> +					break;
-> +			}
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int slim7x11_ec_suspend(struct device *dev)
-> +{
-> +	struct slim7x11_ec *ec = dev_get_drvdata(dev);
-> +
-> +	guard(mutex)(&ec->lock);
-> +	ec->kblt_restore = !slim7x11_ec_kbd_led_level(ec, 0, &ec->kblt_level);
-> +
-> +	return 0;
-> +}
-> +
-> +static int slim7x11_ec_resume(struct device *dev)
-> +{
-> +	struct slim7x11_ec *ec = dev_get_drvdata(dev);
-> +
-> +	guard(mutex)(&ec->lock);
-> +	if (ec->kblt_restore) {
-> +		ec->kblt_restore = false;
-> +		slim7x11_ec_kbd_led_level(ec, ec->kblt_level, NULL);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static DEFINE_SIMPLE_DEV_PM_OPS(slim7x11_ec_pm_ops, slim7x11_ec_suspend, slim7x11_ec_resume);
-> +
-> +static const struct of_device_id slim7x11_ec_of_match[] = {
-> +	{ .compatible = "lenovo,yoga-slim7x-gen11-ec" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, slim7x11_ec_of_match);
-> +
-> +static const struct i2c_device_id slim7x11_ec_i2c_id[] = {
-> +	{ "slim7x-gen11-ec" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(i2c, slim7x11_ec_i2c_id);
-> +
-> +static struct i2c_driver slim7x11_ec_driver = {
-> +	.driver = {
-> +		.name = "lenovo-yoga-slim7x-gen11-ec",
-> +		.of_match_table = slim7x11_ec_of_match,
-> +		.dev_groups = slim7x11_ec_groups,
-> +		.pm = pm_sleep_ptr(&slim7x11_ec_pm_ops),
-> +	},
-> +	.probe = slim7x11_ec_probe,
-> +	.id_table = slim7x11_ec_i2c_id,
-> +};
-> +module_i2c_driver(slim7x11_ec_driver);
-> +
-> +MODULE_AUTHOR("Oleg Keri <okerixx@gmail.com>");
-> +MODULE_DESCRIPTION("Lenovo Yoga Slim 7x Gen 11 embedded controller");
-> +MODULE_LICENSE("GPL");
-> 
-
--- 
- i.
+> > +
+> > +     stats->multicast =3D c[SCNT_RX_MC] + c[SCNT_RX_PMAC_MC];
+> > +
+> > +     stats->rx_errors =3D c[SCNT_RX_SHORT] +
+> > +                        c[SCNT_RX_JABBER] +
+> > +                        c[SCNT_RX_CRC] +
+> > +                        c[SCNT_RX_LONG] +
+> > +                        c[SCNT_RX_PMAC_SHORT] +
+> > +                        c[SCNT_RX_PMAC_JABBER] +
+> > +                        c[SCNT_RX_PMAC_CRC] +
+> > +                        c[SCNT_RX_PMAC_LONG];
+> > +
+> > +     stats->rx_length_errors =3D c[SCNT_RX_JABBER] +
+> > +                               c[SCNT_RX_LONG] +
+> > +                               c[SCNT_RX_PMAC_JABBER] +
+> > +                               c[SCNT_RX_PMAC_LONG];
+> > +
+> > +     /* SCNT_RX_CRC counts CRC errors, alignment errors and RX_ER even=
+ts at
+> > +      * any frame size, so a short frame with a bad CRC is counted her=
+e.
+> > +      */
+> > +     stats->rx_crc_errors =3D c[SCNT_RX_CRC] + c[SCNT_RX_PMAC_CRC];
+>=20
+> [Severity: Low]
+> Is a jabber frame counted twice in rx_errors?
+>=20
+> This comment says SCNT_RX_CRC counts CRC errors "at any frame size". The
+> v12 changelog describes SCNT_RX_JABBER as "the too-long-with-bad-CRC half
+> of the event".
+>=20
+> If both are true, an oversize frame with a bad FCS increments both
+> SCNT_RX_CRC and SCNT_RX_JABBER. rx_errors above adds the two together.
+>=20
+> If the hardware keeps these two counters disjoint, is the "any frame
+> size" wording in this comment accurate?
+>=20
+> --
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/20261008-dsa_lan9645x_switch_driver_base-v14-0-3d2a72661213%40microchip=
+.com
 
