@@ -1,98 +1,131 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A6E4470438;
-	Wed, 14 Oct 2026 06:41:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12F762F3C07
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 06:54:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791960118; cv=none; b=CTwCTD+i+pBQVW46Y5hdr8MBIo8FbSoFpm70sU2VTmspijTeOhdKpy7zUTKrMnzZvMJcs+UfV4YBQ/Ob38437a7d2FCxtLk31zKRR16/bAPNa3d5whwa9x6GZCyGkLgELKQf5u6dRh5usB1XJaCN9gdhwkWh916bzvv/tndVLH8=
+	t=1791960868; cv=none; b=hkaXTASHmVW1UdCZ4N54zN1I6BZgIz/Yht2DX7N1frPUaoy06BpWipP2z+xOZCRaSCK6yIoQCLGfmn9WdfqKHHxwSc0t49SubPp8ZktA+AoG5Jms0KIi1HjoWUamEa5ZMfenCSRk/ORb6/RxsM5gVMijZM6rMxLBVPTPv8RDr5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791960118; c=relaxed/simple;
-	bh=o72n1cSWA/x66f0FI2qYr1BLdnEOvPwevayrmClAUPE=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=A74zKRL1Kbiv4sg/L5zRoqZbl4i780l9WExkx2s+Y/Nbh65w9o4YE2mbrYDsT/wEPNHwbKaourhH3ZcZP2d3wG+tGtR/N1+tH6sEMtLcJ0VqMZ9ZkmgcvLhXr1PPoSM4U1GEsp9iNHw511FtxAXMOoFwcH8AiN6ujxAN1hBZAWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=Q6O9wOBr; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1791960868; c=relaxed/simple;
+	bh=1lY3CYybFEm2Ao4CWDffJZ194nqrvI6uIdH6GtWt1NU=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=UlcSnSV0aGF4ob80d4nUcs6T5ZJAsQ4FanOOUP7ZA+fxnvc2W2seMYXOo5z2g6Kflx485Ee9jC7lBc94DbeRiIruVPFbACp3+6tLF62h18dTB+ZHG38E08JQkTtLUaHjuUmau1E++l6UbXBX9k30pFvMCFVIev96cYKuXu8mUgI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nGu9ieny; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="Q6O9wOBr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1791960117; x=1823496117;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=o72n1cSWA/x66f0FI2qYr1BLdnEOvPwevayrmClAUPE=;
-  b=Q6O9wOBrwkVt/1dkHVXc0XefnaZCWEEcf30KpqrCa/fiKyVZ9dAeMX4p
-   lvF1cY1AXI78qCp9jTjs/RTuK+0TVgjdOWA55nx3n8Fc5bbN1MEWLF2qx
-   IHKNq+tua9RwbJG/DjCVdjc7SH+ycp7g73t+UE40tdFbxOo9FlSEsAImy
-   7tjQiO7ulHqg8GULp22r3GLRkJySCOE9FI+cIpN3MlXYrFcAknuws1csO
-   /GhWvTDAYh2iegEggc1DACMM8esScCWIT78YpbWvyUspy99wx2EVnEI3Q
-   dFx+YQJfCGusNVzSEgBPfgp84NjOIs1TTBtAhfHalnuUrb8Gtt3SQYEcv
-   A==;
-X-CSE-ConnectionGUID: E6UD/4c/S+2Gk9hz6D3ZCQ==
-X-CSE-MsgGUID: 6+O+i4/pSjSq8LcJWDXNQQ==
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="232101734"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 13 Oct 2026 23:41:56 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Tue, 13 Oct 2026 23:41:55 -0700
-Received: from che-ll-i67131.microchip.com (10.10.85.11) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Tue, 13 Oct 2026 23:41:47 -0700
-From: Manikandan Muralidharan <manikandan.m@microchip.com>
-To: <pratyush@kernel.org>, <mwalle@kernel.org>,
-	<takahiro.kuwano@infineon.com>, <miquel.raynal@bootlin.com>,
-	<richard@nod.at>, <vigneshr@ti.com>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>, <srini@kernel.org>, <nicolas.ferre@microchip.com>,
-	<alexandre.belloni@bootlin.com>, <claudiu.beznea@tuxon.dev>,
-	<linux@armlinux.org.uk>, <richardcochran@gmail.com>, <linusw@kernel.org>,
-	<arnd@arndb.de>, <aaro.koskinen@iki.fi>, <gregkh@linuxfoundation.org>,
-	<mathieu.dubois-briand@bootlin.com>, <michael@walle.cc>,
-	<linux-mtd@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<netdev@vger.kernel.org>
-CC: <manikandan.m@microchip.com>
-Subject: [PATCH v8 8/8] ARM: configs: sama5: enable Microchip/SST SFDP EUI NVMEM layout
-Date: Wed, 14 Oct 2026 12:10:12 +0530
-Message-ID: <dfe67f77151c9e2271477bd30a5262fbacea9a4c.1790847519.git.manikandan.m@microchip.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1790847519.git.manikandan.m@microchip.com>
-References: <cover.1790847519.git.manikandan.m@microchip.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nGu9ieny"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12F841F000FF;
+	Wed, 14 Oct 2026 06:54:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791960864;
+	bh=5ij3wVeFWOo+52d38tKKn8wx2nLPZFw6AE5S4TLaXnk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nGu9ienyDvc8fH3tIA10+zSX2ykuSVNq1osJJ75dUNhehEqsEbqZtzQmdXm8CM/Ov
+	 XZSgIkNBC8jOYFY17mAfMuWFqhQ7sUHkOAe3uuvZYiU9bGxgxLFdOJwvaEP3Qhi4Yl
+	 TMqql+CwxlY12hZUHa2qtk51kBTWtaBwlj4xDcVaAZpLQLH6d2FHM8tGcmhW8XFHCz
+	 o57cP/XrPD5XN2ab8rLYqLODkV+qRVxx8DOe0668OCOReXAPy7KJd4HWTOHRbk+3k6
+	 Avjdk9BYKMUuJqkj3b17AAD2POH0Jj7swl0/ymDe4pe1vUo9wOfm1owZWpvGBEjb47
+	 iNLdjtf4mcoXw==
+Message-ID: <sashiko-outbox-170903@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 3/7] arm64: dts: qcom: nord-rrd: Enable ADSP and
+ CDSPs
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Shawn Guo" <shengchao.guo@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261014063953.549379-4-shengchao.guo@oss.qualcomm.com>
+References: <20261014063953.549379-1-shengchao.guo@oss.qualcomm.com>
+ <20261014063953.549379-4-shengchao.guo@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 14 Oct 2026 06:54:23 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 
-Enable CONFIG_NVMEM_LAYOUT_SST26VF_SFDP_EUI so the factory EUI-48 stored
-in the SST26VF QSPI flash SFDP can be used as a MAC address on boards
-such as the sama5d27_wlsom1.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] dts: qcom: identical firmware and DTB paths for all CDSP instanc=
+es
+--
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Signed-off-by: Manikandan Muralidharan <manikandan.m@microchip.com>
----
- arch/arm/configs/sama5_defconfig | 1 +
- 1 file changed, 1 insertion(+)
+commit df6b28010f1754564cc47d083b73f91275527a95
+Author: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 
-diff --git a/arch/arm/configs/sama5_defconfig b/arch/arm/configs/sama5_defconfig
-index 1eafad9139f1..f8cc94106c54 100644
---- a/arch/arm/configs/sama5_defconfig
-+++ b/arch/arm/configs/sama5_defconfig
-@@ -219,6 +219,7 @@ CONFIG_PWM=y
- CONFIG_PWM_ATMEL=y
- CONFIG_PWM_ATMEL_HLCDC_PWM=y
- CONFIG_PWM_ATMEL_TCB=y
-+CONFIG_NVMEM_LAYOUT_SST26VF_SFDP_EUI=y
- CONFIG_EXT4_FS=y
- CONFIG_FANOTIFY=y
- CONFIG_AUTOFS_FS=m
--- 
-2.43.0
+arm64: dts: qcom: nord-rrd: Enable ADSP and CDSPs
 
+This commit enables the ADSP (HPASS DSP) and CDSPs remoteproc instances on
+the Nord RRD board by specifying their firmware and DTB paths.
+
+> diff --git a/arch/arm64/boot/dts/qcom/nord-rrd.dts b/arch/arm64/boot/dts/=
+qcom/nord-rrd.dts
+> index 3673003c8b213..0b0acd33a2e19 100644
+> --- a/arch/arm64/boot/dts/qcom/nord-rrd.dts
+> +++ b/arch/arm64/boot/dts/qcom/nord-rrd.dts
+
+[ ... ]
+
+> +&remoteproc_cdsp0 {
+> +	firmware-name =3D "qcom/nord/cdsp.mbn",
+> +			"qcom/nord/cdsp_dtb.mbn";
+> +
+> +	status =3D "okay";
+> +};
+> +
+> +&remoteproc_cdsp1 {
+> +	firmware-name =3D "qcom/nord/cdsp.mbn",
+> +			"qcom/nord/cdsp_dtb.mbn";
+
+[Severity: Medium]
+Will this cause resource conflicts by sharing the exact same Device Tree Bl=
+ob
+(cdsp_dtb.mbn) across multiple CDSP instances?
+
+The DTB typically contains DSP-specific hardware configurations like PAS ID=
+s,
+minidump allocations, and IPC settings. While sharing the base firmware
+binary might be possible, assigning the same DTB to CDSP1 overrides the
+unique default configurations.
+
+For example, looking at nord_cdsp1_resource in qcom_q6v5_pas.c, the driver
+explicitly expects unique names:
+
+drivers/remoteproc/qcom_q6v5_pas.c:
+	.firmware_name =3D "cdsp1.mbn",
+	.dtb_firmware_name =3D "cdsp1_dtb.mbn",
+
+Should CDSP1, CDSP2, and CDSP3 use their respective unique DTB names instead
+of CDSP0's dtb?
+
+> +
+> +	status =3D "okay";
+> +};
+> +
+> +&remoteproc_cdsp2 {
+> +	firmware-name =3D "qcom/nord/cdsp.mbn",
+> +			"qcom/nord/cdsp_dtb.mbn";
+
+[Severity: Medium]
+Does this have the same issue of overriding the default cdsp2_dtb.mbn with
+CDSP0's DTB?
+
+> +
+> +	status =3D "okay";
+> +};
+> +
+> +&remoteproc_cdsp3 {
+> +	firmware-name =3D "qcom/nord/cdsp.mbn",
+> +			"qcom/nord/cdsp_dtb.mbn";
+
+[Severity: Medium]
+Does this similarly misconfigure CDSP3 by assigning it CDSP0's DTB?
+
+> +
+> +	status =3D "okay";
+> +};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014063953.5493=
+79-1-shengchao.guo@oss.qualcomm.com?part=3D3
