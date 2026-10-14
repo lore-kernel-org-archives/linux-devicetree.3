@@ -1,106 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB09F47604A
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 09:30:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 570E833556B;
+	Wed, 14 Oct 2026 09:32:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791970216; cv=none; b=lTDjYxPQIEdokaHwHJM+Zp+D63mB1lpBRVCkPODHzaO4fmcH7LTu7v56EXdouq7Wh/I7jovcvVbQbSLzXS5Vi7hFzneX8WW95OsDQMbxsjW8OwPUeghYGgrTgDRTz0RWOJAO9CSfnZwS3Hj34U+LNdkNoYQRpeSw3y9eEBDRTPE=
+	t=1791970329; cv=none; b=ZhK18ZW8oO5elxzxejCW5ukzOeXgiSPH1bshfXf1hOb28pGLYiqzeUrqCTTznGHUzS83K+JfJeoJqFGA7RljlrwTsQWVSZmt1Kl3rs//slv0xGa/NChmKTlBzmxNkPgnkg4mbvTgYlnHLyhbfEvGpplK7/gECcuK9nafX9jMFS4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791970216; c=relaxed/simple;
-	bh=q7dCmNLhuX0yvgKATkPAvcWhNI4Ppx24gsT/TkFB6JY=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=lWTz0DXUeXOItBumdKath0YYRGxXmKXxVwSdk0Zi9y+pMRaKLYRwl3AQs8UM2za9as6TZRDZFYpu8YNzec6zG7KfLEFDfabF+qZ1RH71jSOIx6Zu56rByXrwaIGMYrwFBGTeMLw8qxjTkK26ORN6/8d6e4YRjnDn0/Q9r8pF/go=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ny4/RH4g; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791970329; c=relaxed/simple;
+	bh=J3ZibQyOt8EOgISnWGqIE2j058wGdTalEs7Qvrrjuo8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kjhkCWas7WcmQe4M6tNUeqphb8I6Vgs0kcznxZ5AlSMMzPgs94b6aSZhurznaxDVybMmcAeKP66sdrM5/fmOLJKY201gGETbqsc+pzGNxBFor5DlWKWKcLIVBYOga4fC3SXxt6zlKkWCHHnLGOJWcvclOpfofdDWi/9GSCfpz1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LrngTVa1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ny4/RH4g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAAED1F000FF;
-	Wed, 14 Oct 2026 09:30:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LrngTVa1"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 589351F000FF;
+	Wed, 14 Oct 2026 09:32:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791970213;
-	bh=On57Bzwhzo3WQFmj1BY6ctAtl4D6nBlEcRisHuccSOI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Ny4/RH4gfVn99GJkTgXdKblvC0RUKJiY3ZtfFDk1jO7sWxUPjf4TM3GMOhI52U+uM
-	 1QXpevzjw3N1irUOgGENd9UcR4/Svcpz75fcJuhM2s0CSy+pv2BVj4Kj1Tx3IDeI0W
-	 Bzqd4AmR+j/t/cRViuZ8frwDtCr0glLmaoQUEr6IB8x4RKzOD5jSLI0hDId7ucMDDG
-	 ks+Vf4NwIYkJQ99GGOMpfLGrUYEqFBMUxyK4AA2bnQe3BTk+YsMoM3F3ctyW3KmPT1
-	 oZW+Pd6enNkIC7DkkYMyaxu2LX+F1R0J23Uf0v33pgq8Vc3p6GX8OZoVS+DDpKDaQF
-	 dzfeYqaAcazHA==
-Message-ID: <sashiko-outbox-171075@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 5/9] ASoC: qcom: lpass-va-macro: Add SoundWire
- microphone support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mohammad Rafi Shaik" <mohammad.rafi.shaik@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261014-add_shikra_support_v5-v5-5-fb9f0667e613@oss.qualcomm.com>
-References: <20261014-add_shikra_support_v5-v5-0-fb9f0667e613@oss.qualcomm.com>
- <20261014-add_shikra_support_v5-v5-5-fb9f0667e613@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 14 Oct 2026 09:30:12 +0000
+	s=k20260515; t=1791970327;
+	bh=7k4L+XmcqaiR3rYth3e/iXoJ284HcXQrcyi4M9FtnVY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LrngTVa1jUTKYUsoYGUOMDX3+DwPxtZlRrBhAywQRS3C37zmj7O2UnvVUCd03yEJM
+	 VgbZp21hjpAmEC8cGNn4rTLy0bA3e36Kr8tkjL3ocu9F3hbOjLPoVS1X2zYde+w9u0
+	 xVE/Ie1Ew8mpcG/AkMcVaEPuRGzfGlus4EErsDdbIgPy5ew//yHSL/7iI2RFj6q/Ct
+	 zstX53fO+QP4r2hlVKtw/+g3ysfRR6NhWlN+e43F4ZWQCSepsHE3NXs7d2+kKkkr6w
+	 egw5ULdatf7EB6pHcuYb+hvCXeA2syNyi2mQZL3OAXhxQ/v8fHNotkLWLOp7kFo2gE
+	 CGsx+DYUPD4FA==
+Date: Wed, 14 Oct 2026 11:32:05 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	George Moussalem <george.moussalem@outlook.com>, linux-arm-msm@vger.kernel.org, linux-pwm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: pwm: add IPQ5210 binding
+Message-ID: <as9L8IEDMXuAYd4G@monoceros>
+References: <20261008-pwm-v1-1-0b8776398632@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5vstc2aamyuvuzxl"
+Content-Disposition: inline
+In-Reply-To: <20261008-pwm-v1-1-0b8776398632@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] ASoC: qcom: lpass-va-macro: Stale hardware domain state when swi=
-tching decimator mux dynamically
---
 
-commit 06fa19ab9efeab4b7696e8d81e98eecb28b18195
-Author: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+--5vstc2aamyuvuzxl
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] dt-bindings: pwm: add IPQ5210 binding
+MIME-Version: 1.0
 
-ASoC: qcom: lpass-va-macro: Add SoundWire microphone support
-   =20
-The VA decimators can currently capture audio only from DMIC inputs.
-Add support for routing audio from SoundWire microphone (SMIC) inputs
-as well.
+Hello,
 
-> diff --git a/sound/soc/codecs/lpass-va-macro.c b/sound/soc/codecs/lpass-v=
-a-macro.c
-> index 53828dd80b832..cdef2b187407e 100644
-> --- a/sound/soc/codecs/lpass-va-macro.c
-> +++ b/sound/soc/codecs/lpass-va-macro.c
+On Thu, Oct 08, 2026 at 02:14:00PM +0530, Varadarajan Narayanan wrote:
+> Add DT binding for the PWM block in Qualcomm IPQ5210 SoC with
+> qcom,ipq6018-pwm as the fallback.
+>=20
+> Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.=
+com>
+> ---
+>  Documentation/devicetree/bindings/pwm/qcom,ipq6018-pwm.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/pwm/qcom,ipq6018-pwm.yaml =
+b/Documentation/devicetree/bindings/pwm/qcom,ipq6018-pwm.yaml
+> index f9f1f652e752..c6b9004dd30e 100644
+> --- a/Documentation/devicetree/bindings/pwm/qcom,ipq6018-pwm.yaml
+> +++ b/Documentation/devicetree/bindings/pwm/qcom,ipq6018-pwm.yaml
+> @@ -15,6 +15,7 @@ properties:
+>        - items:
+>            - enum:
+>                - qcom,ipq5018-pwm
+> +              - qcom,ipq5210-pwm
+>                - qcom,ipq5332-pwm
+>                - qcom,ipq9574-pwm
+>            - const: qcom,ipq6018-pwm
 
-[ ... ]
+applied to
 
-> @@ -1003,6 +1032,18 @@ static int va_macro_enable_dec(struct snd_soc_dapm=
-_widget *w,
-> =20
->  	switch (event) {
->  	case SND_SOC_DAPM_PRE_PMU:
-> +		/*
-> +		 * ADC_DMIC_SEL is shared by the DMIC and the SoundWire mic
-> +		 * mux, so its value depends on the order in which userspace
-> +		 * restores the two controls. Program it from the resolved
-> +		 * mux state of this decimator, which is what selects the
-> +		 * input domain.
-> +		 */
-> +		snd_soc_component_update_bits(comp, dec_cfg_reg,
-> +					      CDC_VA_TX_PATH_ADC_DMIC_SEL_MASK,
-> +					      is_amic_enabled(comp, decimator) ?
-> +					      CDC_VA_TX_PATH_ADC_DMIC_SEL_ADC :
-> +					      CDC_VA_TX_PATH_ADC_DMIC_SEL_DMIC);
+https://git.kernel.org/pub/scm/linux/kernel/git/ukleinek/linux.git pwm/for-=
+next
 
-[Severity: Medium]
-The outer decimator muxes like va_dec0_mux are defined using the standard
-SOC_DAPM_ENUM macro.  Unlike the inner muxes like va_smic0_mux which have
-custom put callbacks (va_macro_put_dec_enum), the outer muxes lack a custom
-put callback to sync this register on the fly.
+as merge window material.
 
-If an active capture stream is running and the outer decimator mux is
-dynamically toggled between VA_DMIC and SWR_MIC, the mux widget remains
-powered.  Since the power state doesn't cycle, DAPM will bypass the
-SND_SOC_DAPM_PRE_PMU event in va_macro_enable_dec() shown here.
+Best regards
+Uwe
 
-Will this cause ADC_DMIC_SEL to become stale and the hardware to continue
-capturing from the old domain while DAPM routes the new one, resulting in
-silent or corrupted audio until the stream is restarted?
+--5vstc2aamyuvuzxl
+Content-Type: application/pgp-signature; name="signature.asc"
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014-add_shikra=
-_support_v5-v5-0-fb9f0667e613@oss.qualcomm.com?part=3D5
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrPTBMACgkQj4D7WH0S
+/k5qpwf/fYRYL3KOYtqsaTbKGMI1tnzLWBoRH7mNKKshjl7O8aGhSqyEk+8QZ6b2
+t8VaFB9Wo4Al5ZCp+q/3MUnwvR93/E5e0J8TNlFkw7sdY0/AeATU3w26c4vDXQde
+9cvZKItIV3wBQEsMPzciWh7APIQOWUjqSVgBw+HgR1w1p7tKbNc1kfrz3wYSbMjA
+xlXR9ryFpWCEAaNttRpFFIVPNe4ZNVSJ2QdS3e4ZGSIgpLADvSzlAkJF8PMCMsaK
+G78MfgR4qlKgmFq534xCvI0SUbqYPcwsGQprvwUIoiXjfGAtkOFuKPGeAR4yekfl
+WCha/w3q1GUFE3B3fOS84Ks675jsOA==
+=Y704
+-----END PGP SIGNATURE-----
+
+--5vstc2aamyuvuzxl--
