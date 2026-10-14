@@ -1,96 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0B247CA79;
-	Wed, 14 Oct 2026 09:12:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EEAF3BBFB2;
+	Wed, 14 Oct 2026 09:12:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791969136; cv=none; b=NqnDzxQ79mFq3tJL/7oPpBW8LFwTeHWFK5e4a2vPakqBCJJBIdA8Y/tEOuvCncEH+wqyTaIQfi4dob7EDC1LZnMpdv3+mVaDAGrK+P3X7ZXC99VqG6YrZ2xoxZpnONEO4DeMLBhvMjCJ8yc6H1b59fwajzbS3glaNBgm4Se2MtI=
+	t=1791969157; cv=none; b=Ipq4Lc8ecNrJUfSQHyMGYkoWTS28nxNmoEwKVUMycnoNIlPM/1CbePytOCQf0bMBwbD55dY5lpC6QSr8H4L8sHtds6ec2U81jTuNmgZXZD1Bz9NxtomhSO9zSuRaWJv9kpLjljnENDavHjyDiWIcWW7SQ/tE16KQhXve7gGWV2o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791969136; c=relaxed/simple;
-	bh=Y99uqPqfDhQ120rnGroawz9lqy6eeL55mgnbGQJ5KsM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Jn+xfNbdWgeXRg4Ctx0APgaK8sqXmvSI/P5G1W5Xon1LAVjM8BxfBtChjGygt9RJnrRterFd93Mk4mTSkarbZf3JAOoyxHyxsVMF0DSFAw5r3K/bInHzf6a6MUBFdbeE0hKDwqfAHeRrFIwUPJ7zkJ5rr1d+ZD+Rwwn3pFHHx40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SH6m4y/Q; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SH6m4y/Q"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 74ECE1F00893;
-	Wed, 14 Oct 2026 09:12:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791969134;
-	bh=Y99uqPqfDhQ120rnGroawz9lqy6eeL55mgnbGQJ5KsM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SH6m4y/Q26xnIfaLbL0LKLJ9GsyrvgptTxf9IYL4V98FafFL5Ymzx0S7S132c/sGx
-	 7F2o0leazSbBgVqjBhcrbQZbCUtsFLB4Xv/uMjRWfyOybBZ2V14NISOTBkt0W3Cq7k
-	 MV2lb+hpFGtOoy6rDtkPRn949Gi3loTPKY+lb7NfWM+ir50TnzSpOrhKs4caHsuv4R
-	 ftnPxr/tp4gpoS/YPRT8ACZ+EuvAnJe1uTKj+FNzHPB7ZNoKPsWf8vzCMLmkTCkP9T
-	 Zk5SHP1fb2w8Y5iX2Z3y+8bk7GiEFRAKxcLjus49xueXsFKpGrnZVTtJi1fmhA7bOW
-	 aMdKlk4lvCXHw==
-Date: Wed, 14 Oct 2026 11:12:11 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Yureka Lilian <yureka@cyberchaos.dev>
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
-	Neal Gompa <neal@gompa.dev>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
-	Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Hector Martin <marcan@marcan.st>, 
-	Sasha Finkelstein <k@chaosmail.tech>, Linus Walleij <linusw@kernel.org>, 
-	Mark Kettenis <kettenis@openbsd.org>, Andi Shyti <andi.shyti@kernel.org>, asahi@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-i2c@vger.kernel.org
-Subject: Re: [PATCH v2 06/10] dt-bindings: pwm: apple,s5l-fpwm: Add t6041
- compatible
-Message-ID: <as9HQml198veWxDy@monoceros>
-References: <20261014-apple-m4-pro-max-initial-devicetrees-v2-0-961edd8d661b@cyberchaos.dev>
- <20261014-apple-m4-pro-max-initial-devicetrees-v2-6-961edd8d661b@cyberchaos.dev>
+	s=arc-20240116; t=1791969157; c=relaxed/simple;
+	bh=hK91owu3CIMmiIzqFkzkSTbAGhIDGulLKvYuiZCJAGw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XVuwRItZK9rIbzHJM/tvludlOrAcGiArK+XForrU/QPdqMYbqIYZwUMqR0xT0s7GzJqDBxPtu2ebEnz2ykyTxlafkoZ5aODHAcLROTafoLBYFMiauwVUv/bd4IVqYSgUKXBrz4ZbrsLIMAgAD8yUiM+ajgfZ39gUw411H7KHZjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.204.34.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
+X-QQ-mid: zesmtpip3t1791969119tcb4ea60d
+X-QQ-Originating-IP: SB5iD+s/jtIVlg3nPPo2Q5OGSv0OnUuvZDMVUw85Kwo=
+Received: from [127.0.0.1] ( [localhost])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 14 Oct 2026 17:11:57 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 4673881643528853335
+EX-QQ-RecipientCnt: 10
+Message-ID: <C40ED949A0A7F842+faa4a30f-d228-44de-977a-fa73723045f9@radxa.com>
+Date: Wed, 14 Oct 2026 17:11:54 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mzqqhllyskho77o3"
-Content-Disposition: inline
-In-Reply-To: <20261014-apple-m4-pro-max-initial-devicetrees-v2-6-961edd8d661b@cyberchaos.dev>
+User-Agent: Mozilla Thunderbird
+Reply-To: sophon@radxa.com
+Subject: Re: [PATCH] arm64: dts: qcom: sc8280xp: Fix GPU SMMU context fault
+ interrupts
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dragon@radxa.com
+References: <20261013-sc8280xp-gpu-smmu-fix-v1-1-8a781e3f1554@radxa.com>
+ <bf865b13-4773-45d6-a93b-4db4f77b1feb@oss.qualcomm.com>
+From: Xilin Wu <sophon@radxa.com>
+Organization: Radxa Computer (Shenzhen) Co., Ltd
+In-Reply-To: <bf865b13-4773-45d6-a93b-4db4f77b1feb@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: NhdiEwnVOUqE1gnLn6MZhwXs/7z7gAOsdYqoSGcOf0NvG7JgRzLE7NUx
+	PsID5qYDIHuhtUaPEdxpUzD1Q4O+0hSBf9ovxDIsVOrtwXo9HgxxwFhYZ8N09BxgjYDqSfq
+	62doNaHQXgL/oZQBRAx4Tle20EF1P+8lmXRLs0NHvY/MImn6fvXiE/qoGocVOXawgoaRfUC
+	fww55LQrtpHUOeA+XPVDccCzvUlmRqUY7wprYuyOnw+mRDGsQ3iWvNJ7Y7GD6f8ZUnSE4Zy
+	QwLO70KXt8bruyz+94UzpjpaSmPDnlw+T+vtdVhHGkGlzGuGbTbs+n1SQXuPIZKeHo2BD7O
+	9d+oFFbcGJaZKOHnxNOPO2GDzG/Bxli/gn4ItHlG7wiuk1VKiN08X4qTZLkpszKTEvvRyEK
+	AUX6HUuPACIjHqgMeVdTRvPb4PVqODu2OtTEvc9CV8AAu0ezO3oYJRQoKhsXYxGloTyWCpC
+	MjMR5fzEKdOrwK1lH5NqqUrpAcZux/m111T5Qo6eG4cgjQJbMA1lye1O1Foshn8OsULrYZv
+	aiwHUy1eijyHitmWx9SWEIldYsWMqcIL1GSikBnsm/IErseqY9RkHgNlwCkRarcqAgEGPbp
+	wWyQY9oSuUt6i9KLJ897vkG6da8uR5MnFxnPpijt4AfJIIy8EttGFzXnKGTkGI/CvMuNNXB
+	wNIE3/gonhbZRk+Tk58IWQaJfsrP+sC/Z9z/WbFfz/TV+HDtGWWG3Njw/Iho3uLLk+zy3D6
+	xMU6L7urcyBqXwufh8H0JT5a5cf+MS7d5SX5s+PPxHSHvpj2H9ixJNbag0F4rMAV1pbs4pI
+	zsSaF23bb4OTxLigmADddixTYIysDIl7cW2/JXGZGFPTxAMsgwHw0io9ed2C8fyFcnpxqde
+	bCh6O8a/4SqRtOa2kE06L/ibcNBv8UfyJgNsRdQHA/3LHN0fZ2+neDe+fun2iuN2JtDGQxG
+	ea6pLH7J/i2yOCSFGmR9g/dfxPdSDmk6u1GF9+XCzFCV9N8YQ82l2vldA0YpgSJxUyKckye
+	mvhNvEusGi3v1dHq5jAksadIUK9X8X1Z8tp137cA==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 
+On 10/14/2026 4:59 PM, Konrad Dybcio wrote:
+> On 10/13/26 11:59 AM, Xilin Wu wrote:
+>> The GPU SMMU interrupt list includes PMU interrupts as the first two
+>> context fault interrupts. This makes the driver register the fault
+>> handlers for context banks 0 and 1 on SPIs 678 and 679 instead of 680
+>> and 681. Translation faults are consequently left unhandled, which
+>> can stall the GPU and prevent recovery.
+> 
+> the context interrupts are 680-688 and 703
+> 
+> Konrad
 
---mzqqhllyskho77o3
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 06/10] dt-bindings: pwm: apple,s5l-fpwm: Add t6041
- compatible
-MIME-Version: 1.0
+Thanks for the clarification. I limited the list to seven because IDR1 
+reports NUMCB=7 on my board. However, DT should describe the full 
+hardware interrupt list, and arm-smmu already ignores entries beyond the 
+reported context-bank count. In EL2, IDR1 does report NUMCB=10. I'll 
+include SPIs 680–688 and 703 in v2.
 
-On Wed, Oct 14, 2026 at 08:56:13AM +0200, Yureka Lilian wrote:
-> The PWM controller on Apple Silicon M4 Pro/Max SoCs is compatible with
-> the t8103 (M1) one. Add "apple,t6041-fpwm"as per-SoC compatibles for M4
-> Pro/Max.
->=20
-> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
-Fine for me to go in via apple-soc
-
-Acked-by: Uwe Kleine-K=F6nig <ukleinek@kernel.org>
-
-Best regards
-Uwe
-
---mzqqhllyskho77o3
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrPR2gACgkQj4D7WH0S
-/k5U+wgApfuQUcC81+F0xRcpsmtZvSbz5AVEGouH3+XNu/8L1latDub6jMQMtvpf
-5e17zrSmAvr24cslWxo3aSYXrCZ3kqrNyTq/53kwfaU6pCWFsjBf1O/34BERZlEU
-5WlDJIN8cx2+unVaKOYjECKUcaPrGJJAe3Xy9tR2+iBmIOqpurdQeMb49PqCGwRh
-dPvcAPWyNne3XIu++Gz2xXdzg2vx0jRAbo3aZIjtOKfbC76DHvJWHMPTUReikd8x
-7lLFFuU8p01k32f+S24v9ivYJe6n4MaLTeD/N2IYaLLMtL5P4yOTKvD+SqQ43gBr
-S9TQlFnLEXFvb4g4OCuixPOzrCde+A==
-=V9CH
------END PGP SIGNATURE-----
-
---mzqqhllyskho77o3--
+-- 
+Best regards,
+Xilin Wu <sophon@radxa.com>
