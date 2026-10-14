@@ -1,155 +1,313 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 536AF47F3D9
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 22:41:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24A3D31B101;
+	Wed, 14 Oct 2026 22:49:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792017713; cv=none; b=l8qBH94Ttl05PNM0YgOR4fiQpoFre2Ri618/ZxASj/57sVvKjAayUyn1I6JNvfddrGSRVT1FWjM0w3qduG9Vo2SoUduX8S8dW4Mw54/NLH6r5spmIKgCZQapai9ExSHZlniZi2y+hQK0+mhRUSYx+7KEawU6GJbfD8UnXNjg2aw=
+	t=1792018164; cv=none; b=qBzsARnUNY/EsKh0y4z+C2crutPISwntL46rOHpsU2BtesN4vpc1wSXprbn7uIE7PcEmUMFuiAgxX0AOryip2cgA2U4s7CGsonXswwimaRu5IROUSWnDCYy379AdY7wWW9IjSTtoW2dGF251SdPm0BBhOax8JKO6AI17V/62MXM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792017713; c=relaxed/simple;
-	bh=3tnQhV3t6WaqIYSSxsrr689m4KdaCcLhv656ggjUxbk=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=j+V4NsNzzFFUHv482jwkLvISuSmaR0iATHGlcZ8Ljler8twedFZSGnBooTCrif466CTiSetNM7qC06ewijayqV+ELM57ONG67mTXswvGFp0LN9W4vnU+51yZVr9+45WQtpYjqWUQWWFx3qMVgIND1LfO+b/k27Zmb0tBID+RkiM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZhQ6FmIp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792018164; c=relaxed/simple;
+	bh=2n+tSWBKRK+TZ7ijom245GqFpekUQvs5xbdt+IxqpJA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=S440Kb/Q/oac+ajSv5c+4NHlAtmSvU/krfTBRt2LMlGNpiTfjZZxUsly9UZLV+cPgmJojZmq83IaK8Ui7hFw7DLpDwMnz5HX1n//FegpCQRphbiMkGZ0yH7XFo5lHmef0R0RbUu8ZB+AkHlzR+Xjo/NBgGi3JzcTR3x1EWGt/pQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K3WkrGqR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZhQ6FmIp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA1721F000C4;
-	Wed, 14 Oct 2026 22:41:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K3WkrGqR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCC0A1F000C4;
+	Wed, 14 Oct 2026 22:49:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792017710;
-	bh=8rQPeS4GWfDb5rK9p3/Y+jOQZjitr1hnW78wVldaSCs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZhQ6FmIpsXG6sNMWv9d5vCClCNoVQlexS+nRSna8OwYWj67JpUKOPCMySMl6CRj3x
-	 zxFPocev+f1KKwA7tAJWNArubD7fiPQ3+K6wv4f5oQfqSIOKehOcqi6qFU5hTJohBO
-	 37FQunVfiD98fFirpAHiy49kBAksn2eEGAAZJn0/JxPntVkZ5ZDMCGnBxkU9coXAw4
-	 QQYiOPsEOdMQgh0KDONKThAADuyoT+MrQyyYqAplpCi8TPjvH72Gmqm3HwP3Q0ezhh
-	 euKHicCs0LAbR4xQABaeO2d9O8Giwo3Yp7e0XdjnhfcIiLMMhg3OUO2E8aTDzludka
-	 SlTfD02AXwGbg==
-Message-ID: <sashiko-outbox-172000@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v13 12/12] dpll: sit9531x: model the inter-PLL
- sync net as a pair of pins
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ali Rouhi" <arouhi@sitime.com>
-Cc: =?utf-8?b?ZGV2aWNldHJlZUB2Z2VyLmtlcm5lbC5vcmc=?= <devicetree@vger.kernel.org>, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261013224131.27149-13-arouhi@sitime.com>
-References: <20261013224131.27149-1-arouhi@sitime.com>
- <20261013224131.27149-13-arouhi@sitime.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 14 Oct 2026 22:41:49 +0000
+	s=k20260515; t=1792018162;
+	bh=a+VLM+36tmgQYYXNxE5+5p9zimFvNHmmZ//pOlOgDHc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=K3WkrGqRDGu1SLHDBhaoOJO1KXPkT0ihkApPQjJZcly8C6xERK0BynDVBNjY7pRCt
+	 ANWBXv6614dAbecH/DWkK8FAzTIjUSE0xd9M60HWBvQh0am9URSApjpmEsSSH/y20k
+	 bVC7/QMLOrXS0t19SEIF+d3UmIukVbdNMM5z0VXEdAikMeqs/8SrU4v05QNcrUBbLw
+	 Ud3yN9aC96wtpwydm+Mptwlv8dA8sX8XHRPsvbHRTJ684E4HglJUdySZVt36Gb7c6v
+	 CZecPdfLmxdiKvejeu/iwx7aT7xr9EZfRLtT0SUCdq/3PSRnYQCoXqNINFiiUQPTlI
+	 JKNtIwScIX8Fw==
+Date: Wed, 14 Oct 2026 23:49:17 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Olivier MOYSAN <olivier.moysan@foss.st.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: iio: adc: add bindings for stm32 mdf
+ filter
+Message-ID: <20261014-unmade-sphinx-71cb25110d58@spud>
+References: <20261001145702.2628429-1-olivier.moysan@foss.st.com>
+ <20261001145702.2628429-2-olivier.moysan@foss.st.com>
+ <20261001-tribesman-gauze-862e1ef0cdd8@spud>
+ <bb8af256-5a77-4215-9eeb-fbcd0cae1829@foss.st.com>
+ <20261008-9e2a48675c1a4c28f2dfa73b@squawk>
+ <950f2801-a613-4f5a-a5a7-cb30101cf293@foss.st.com>
+ <20261009-8db882a9fa159f8759aa7327@squawk>
+ <2ba9235f-182e-4906-92e2-e35cf831d289@foss.st.com>
+ <20261014-untrimmed-partly-81a4a21db49c@spud>
+ <48e528a5-0c54-4778-bd29-b6f44ae95be7@foss.st.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="MwIaf7mBDFu+e2ZQ"
+Content-Disposition: inline
+In-Reply-To: <48e528a5-0c54-4778-bd29-b6f44ae95be7@foss.st.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dpll: sit9531x: stale INTSYNC state cache on resume error due to=
- missing read-through
---
+--MwIaf7mBDFu+e2ZQ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit e06eb4f817583cad992628e6390b7200bbd62de7
-Author: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
+On Wed, Oct 14, 2026 at 06:51:45PM +0200, Olivier MOYSAN wrote:
+> On 10/14/26 17:15, Conor Dooley wrote:
+> > On Mon, Oct 12, 2026 at 02:56:04PM +0200, Olivier MOYSAN wrote:
+> > > On 10/9/26 21:12, Conor Dooley wrote:
+> > > > On Thu, Oct 08, 2026 at 06:37:26PM +0200, Olivier MOYSAN wrote:
+> > > > > On 10/8/26 12:11, Conor Dooley wrote:
+> > > > > > On Wed, Oct 07, 2026 at 11:01:28AM +0200, Olivier MOYSAN wrote:
+> > > > > > > On 10/1/26 20:32, Conor Dooley wrote:
+> > > > > > > >=20
+> > > > > > > > > +
+> > > > > > > > > +required:
+> > > > > > > > > +  - compatible
+> > > > > > > > > +  - reg
+> > > > > > > > > +  - ranges
+> > > > > > > > > +  - clocks
+> > > > > > > > > +  - clock-names
+> > > > > > > > > +  - clock-ranges
+> > > > > > > > > +  - "#address-cells"
+> > > > > > > > > +  - "#size-cells"
+> > > > > > > > > +
+> > > > > > > > > +additionalProperties: false
+> > > > > > > > > +
+> > > > > > > > > +patternProperties:
+> > > > > > > > > +  "^sitf@[0-9]+$":
+> > > > > > > > > +    type: object
+> > > > > > > > > +    description: Serial interface child node
+> > > > > > > >=20
+> > > > > > > > Why is this a child node at all?
+> > > > > > > > Probably not worth reviewing more without a link to the doc=
+s for this
+> > > > > > > > device so I can figure out what on earth is going on!
+> > > > > > > >=20
+> > > > > > >=20
+> > > > > > > The MDF is a digital filter for sigma-delta bitstreams, rathe=
+r than the
+> > > > > > > analog-to-digital converter itself.
+> > > > > > >=20
+> > > > > > > Here is the link to STM32MP25 reference manuel
+> > > > > > > https://www.st.com/resource/en/reference_manual/rm0457-stm32m=
+p2325xx-advanced-armbased-3264bit-mpus-stmicroelectronics.pdf
+> > > > > > > Chapter 45: Multi-function digital filter (MDF)
+> > > > > > >=20
+> > > > > > > On STMP32MP25 SoC, the MDF provides 8 serial interfaces (SITF=
+) and 8 digital
+> > > > > > > filters (DFLT) which can be connected through a multiplexer.
+> > > > > > >=20
+> > > > > > > Below is a schematic view of typical applications targeted by=
+ this
+> > > > > > > peripheral
+> > > > > > >=20
+> > > > > > >=20
+> > > > > > > Audio use case:
+> > > > > > >=20
+> > > > > > > 		mdf
+> > > > > > >                +-------------------------------------+
+> > > > > > > +------+    | +------+    +------+    +------+    |
+> > > > > > > | dmic | -> | | sitf | -> | mux  | -> | dflt | -- | -> audio =
+device
+> > > > > > > +------+    | +------+    +------+    +------+    |
+> > > > > > >                +-------------------------------------+
+> > > > > > >=20
+> > > > > > > For instance, in an audio use case the serial interface can b=
+e configured to
+> > > > > > > provide the clock to the digital microphone (cck0, cck1 or bo=
+th) at a common
+> > > > > > > predefined rate, and to retrieve the PDM samples.
+> > > > > > > The serial interface provides this samples to a digital filte=
+r, which
+> > > > > > > delivers PCM samples on its output.
+> > > > > > >=20
+> > > > > > >=20
+> > > > > > > Analog use case:
+> > > > > > >=20
+> > > > > > > 		mdf
+> > > > > > >                  +-------------------------------------+
+> > > > > > > +--------+    | +------+    +------+    +------+    |
+> > > > > > > | sd adc | -> | | sitf | -> | mux  | -> | dflt | -- | -> iio =
+device
+> > > > > > > +--------+    | +------+    +------+    +------+    |
+> > > > > > >                  +-------------------------------------+
+> > > > > >=20
+> > > > > >=20
+> > > > > > So, looking at the docs and a brief chat with Jonathan about th=
+is
+> > > > > > device, I believe you've got things backwards and this is actua=
+lly the backend,
+> > > > > > and the adc should be the one populating the io-backends proper=
+ty
+> > > > > > pointing to this device. You should have io-backend-cells, and =
+I assume
+> > > > > > that there should be a cell for the adc to select which dlft it=
+ is connected
+> > > > > > to.
+> > > > > >=20
+> > > > >=20
+> > > > > There have already been lengthy discussions in the past about a D=
+FSDM
+> > > > > peripheral on STM32MP1, which has features similar to those of th=
+e MDF and
+> > > > > similar implementation constraints. For the DFSDM, a solution bas=
+ed on an
+> > > > > IIO backend had been upstreamed. The MDF follows the same archite=
+cture. I
+> > > > > need to take a little time to dive back into this issue.
+> > > >=20
+> > > > One thing to note there is that you retrofitted the backends onto t=
+hat
+> > > > device, and the original design here is much older (it's a text
+> > > > binding).
+> > > >=20
+> > > >=20
+> > > > >=20
+> > > > > DFSDM sources:
+> > > > > drivers/iio/adc/stm32-dfsdm-adc.c
+> > > > > drivers/iio/adc/stm32-dfsdm-core.c
+> > > > >=20
+> > > > > Here is a sample of DFSDM DT
+> > > > >=20
+> > > > > sd_adc0: simple-sd-adc0 {
+> > > > > 	compatible =3D "sd-modulator";
+> > > > > 	#io-backend-cells =3D <0>;
+> > > > > 	vref-supply =3D <&v3v3>;
+> > > >=20
+> > > > Yeah, pretty sure this is wrong (backwards). The backend is the thi=
+ng
+> > > > that gets data from an ADC not the ADC.
+> > > >=20
+> > >=20
+> > > The backend framework was introduced to implement complex IIO aggrega=
+te
+> > > devices. The hardwares that were driving this need were analog device=
+ ad9467
+> > > and ST DFSDM.
+> > >=20
+> > > https://lore.kernel.org/linux-iio/20231204144925.4fe9922f@jic23-huawe=
+i/T/#m222f5175273b81dbfe40b7f0daffcdc67d6cb8ff
+> > >=20
+> > >  From drivers/iio/industrialio-backend.c:
+> > >=20
+> > > "The typical architecture is to have one device as the frontend devic=
+e which
+> > > can be "linked" against one or multiple backend devices. All the IIO =
+and
+> > > userspace interface is expected to be registers/managed by the fronte=
+nd
+> > > device which will callback into the backends when needed (to get/set =
+some
+> > > configuration that it does not directly control)."
+> > >=20
+> > >   *                                    ---------------------
+> > >   * ------------------                 | ------------
+> > >   * |     ADC        |-----------------| | ADC CORE |
+> > >   * | (Frontend/IIO) | Serial Data (eg | |(backend) |-------
+> > >   * |                |-----------------| ------------
+> > >   * ------------------                 ---------------------
+> > >=20
+> > > The MDF (or DFSDM) use case, follows this topology:
+> > > - The SD modulator (ADC core) registers in backend framework
+> > > - The MDF registers in IIO framework and exposes the IIO devices
+> > >    It also get configuration (ref voltage) from SD modulator, to comp=
+ute
+> > > scaling.
+> > >=20
+> > > I agree that if we consider the terms frontend and backend, the eleme=
+nts in
+> > > the data flow do not have the roles that we would naturally expect. H=
+owever,
+> > > if we consider the expected role of the elements using the iio-backend
+> > > framework, the usage seems coherent to me.
+> >=20
+> > I didn't even get as far as sd modulators or whatever, if I understand
+> > correctly the ADC inputs on this device are fed by the onboard ADC?
+> > (https://lore.kernel.org/linux-iio/20261006-adc-stm32mp25-v1-v4-0-d31ec=
+75aecf3@foss.st.com/)
+> > In that case, I can't really see how it makes sense for the primary iio
+> > device to change when data is fed back through the mdf or taken
+> > directly from the ADC itself, particularly given how that would affect
+> > the userspace interface.
+> >=20
+> > The "serial" side of this seems in a similar vein to the adi,axi-adc
+> > stuff, which when considered with the ADC inputs, really does give me
+> > the impression this is backwards.
+>=20
+> Some clarifications about the STM32MP25. This SoC does indeed provide ADC=
+s,
+> and these can be connected to the MDF via a dedicated interface. (but not
+> the serial interface).
+>=20
+> However, this use case is not supported by the driver. Only sigma-delta
+> modulators, external to the SoC and connected via the serial interface, a=
+re
+> supported. On ST boards, the only available SD modulators are digital
+> microphones.
 
-    dpll: sit9531x: model the inter-PLL sync net as a pair of pins
-   =20
-This commit models the internal inter-PLL synchronization network in the
-sit9531x device as a pair of pins (output on source, input on destination).
-It adds logic to detect, configure, and restore the INTSYNC state across
-various operations and suspend/resume cycles.
+Quite frankly, I don't care what you are choosing to implement in the
+driver or what your first-party boards support. The binding must
+represent the capabilities of the device, not what subset you deem
+relevant at this point in time. I'm not going to ack anything that does
+not consider all use cases for the device, especially since I the more I
+look the more I am convinced that this is the wrong way to model the
+relationship between devices and therefore intentionally ignoring a use case
+is likely to be problematic when someone does decide that they want to use
+that feature.
 
-> diff --git a/drivers/dpll/sit9531x/core.c b/drivers/dpll/sit9531x/core.c
-> index a744de2c75858..a7b0b2d35cb7c 100644
-> --- a/drivers/dpll/sit9531x/core.c
-> +++ b/drivers/dpll/sit9531x/core.c
-> @@ -4882,8 +5266,34 @@ static int sit9531x_suspend(struct device *dev)
->  static int sit9531x_resume(struct device *dev)
->  {
->  	struct sit9531x_dev *sitdev =3D dev_get_drvdata(dev);
-> +	int rc;
-> +	u8 i;
-> =20
->  	sit9531x_page_cache_drop(sitdev);
-> +
-> +	/*
-> +	 * A part that lost power across suspend comes back with its
-> +	 * profile's INTSYNC routing and output mutes, not with what the
-> +	 * caches say, and the poll watches neither.  Read them back here;
-> +	 * a cache that cannot be read is left for the getter's read-through.
-> +	 * Nothing races this: the poll is parked and the IRQ disabled.
-> +	 */
-> +	mutex_lock(&sitdev->multiop_lock);
-> +	rc =3D sit9531x_intsync_src_detect(sitdev);
-> +	if (rc)
-> +		dev_warn(sitdev->dev,
-> +			 "INTSYNC source not re-detected on resume: %d\n", rc);
+> Anyway, if the internal ADC to MDF use case was supported, the issue would
+> be the same. The whole ADC + MDF set would be presented at the interface =
+as
+> an aggregated device, and the ADC data would not be directly accessible to
+> the user.
 
-[Severity: Medium]
-If sit9531x_intsync_src_detect() fails to read from the device, the code
-logs a warning but leaves sitdev->intsync_src holding its pre-suspend value.
-Unlike the output mutes right below which set a state_stale flag, is there
-anything triggering a subsequent read if this initial resume read fails?
+Of course, that's what I was talking about when I said:
+| In that case, I can't really see how it makes sense for the primary iio
+| device to change when data is fed back through the mdf or taken
+| directly from the ADC itself, particularly given how that would affect
+| the userspace interface.
 
-> +	for (i =3D 0; i < sitdev->info->num_outputs; i++) {
-> +		rc =3D sit9531x_output_state_refresh(sitdev, i);
-> +		if (rc) {
-> +			dev_warn(sitdev->dev,
-> +				 "Output %u mute state not read on resume: %d\n",
-> +				 i, rc);
-> +			sitdev->out[i].state_stale =3D true;
-> +		}
-> +	}
-> +	mutex_unlock(&sitdev->multiop_lock);
-> +
->  	if (sitdev->irq > 0)
->  		enable_irq(sitdev->irq);
+To me, in that ADC to MDF use case, the frontend portion of the aggregate
+device presented to userspace needs to be the ADC and the MDF needs to be
+the backend, since otherwise the ADC will simultaneously be frontend and
+backend, depending on which channel is considered. That makes no sense to me
+when the MDF can always be the backend, for all use cases and avoid that
+sort of problem entirely.
+I've heard no argument as to why the MDF cannot be a backend, just that you
+don't want to because the previous device didn't, but copying what was
+done before isn't a justification that bears weight if how it was done
+before isn't the way it should be done.
 
-[ ... ]
+Thanks,
+Conor.
 
-> diff --git a/drivers/dpll/sit9531x/dpll.c b/drivers/dpll/sit9531x/dpll.c
-> index dc8d84133b72b..5f530c4a8271d 100644
-> --- a/drivers/dpll/sit9531x/dpll.c
-> +++ b/drivers/dpll/sit9531x/dpll.c
+--MwIaf7mBDFu+e2ZQ
+Content-Type: application/pgp-signature; name=signature.asc
 
-[ ... ]
+-----BEGIN PGP SIGNATURE-----
 
-> @@ -869,8 +940,325 @@ sit9531x_dpll_output_pin_direction_get(const struct=
- dpll_pin *pin,
-> +static int
-> +sit9531x_dpll_intsync_src_state_on_dpll_get(const struct dpll_pin *pin,
-> +					    void *pin_priv,
-> +					    const struct dpll_device *dpll,
-> +					    void *dpll_priv,
-> +					    enum dpll_pin_state *state,
-> +					    struct netlink_ext_ack *extack)
-> +{
-> +	struct sit9531x_dpll *sitdpll =3D dpll_priv;
-> +	struct sit9531x_dev *sitdev =3D sitdpll->dev;
-> +
-> +	mutex_lock(&sitdev->multiop_lock);
-> +	if (sit9531x_dpll_intsync_src_connected(sitdev, sitdpll))
-> +		*state =3D DPLL_PIN_STATE_CONNECTED;
-> +	else
-> +		*state =3D DPLL_PIN_STATE_DISCONNECTED;
-> +	mutex_unlock(&sitdev->multiop_lock);
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatAG7QAKCRB4tDGHoIJi
+0lf0APoDDmWLKbnSiCnHdRPcy+vbGQhQMeNRusw0qJ8Bot87jwD/dNYXNfEsRY9R
+URObrWxRpVhyloeQ5A2gSFp3xlKWNwk=
+=BK0a
+-----END PGP SIGNATURE-----
 
-[Severity: Medium]
-The comment in sit9531x_resume() states that "a cache that cannot be read
-is left for the getter's read-through." However, this getter directly
-returns the cached intsync_src value without attempting to read from the
-hardware if the cache is stale.
-
-Because the resume path does not invalidate the cache on failure, could this
-result in reporting an incorrect, out-of-sync INTSYNC state to user space
-and erroneously accepting or rejecting configuration requests?
-
-> +
-> +	return 0;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013224131.2714=
-9-1-arouhi@sitime.com?part=3D12
+--MwIaf7mBDFu+e2ZQ--
