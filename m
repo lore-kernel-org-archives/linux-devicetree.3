@@ -1,264 +1,175 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89C8148B37B;
-	Wed, 14 Oct 2026 20:19:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A0E14A2E11
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 20:33:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792009192; cv=none; b=WA0NswVGXpkUWjETiWUW16dE3g59DDoDri4sFloKodwo/pVXpyM/JSI/IwtIJptcXfYvaRWHdnAHunRLMEfDi2uro1dUhTOzaCEQpSulPvOQJ9vHOlgGej8VtE1m+MJSdrRlDBwm0fNkhesAW0OdnaakszqD21ZJ9Z6NRUZ2CeE=
+	t=1792010004; cv=none; b=kocTpKKMr5YUA6GmeMsBsllADz4Svc0mkX6bleKhtx83ENtNsDchAoagg7BwyeyItFFiYpi39qbNE4Hj0DvZ6bqXGzzxma5eMem0CA95iqP+xEt19Y9Zfx+yTmCYhnUHkXIXbdlXx3MykGzUSECFatTWfPxxrL29h2vQoAFaRnw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792009192; c=relaxed/simple;
-	bh=P0WBF/wz9WotxVezDgWS5cfXyWEipNWeQpFa9vHQgso=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ArnWYJZkKZE5pW+ovamf7UV57zi+7NEOtCB716i1bmfWedaLhwGbynlzHNbZ1tL3IN9TSAegH8MEAf0DxPN6pUNI/MLSlXA09Wqz8tgNkVXmX1d3DiTlgaRF3NS6qy7rNj2eqOgHDY1OiZ6VbAs0hvHHFzPnp2AHlzV9HAvMc/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GGyil6e3; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792010004; c=relaxed/simple;
+	bh=XedB3bQ5TD8tLMEqewVYT3GzFLRum5kV4+kJPLmxAzw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Brjibvq6G4BNigMxA7s2knHGplDC3sqtPUh9w/AGoaR0dcDakUmlZwEcFaz9hQJNe1QzVS9LN3yh50FzFJPSmcNQqoaY74RO8wgi2UlCgLQKK9YupQ85gEPGrKL7ly9p5z+IQtJLfZrD8s+JxmHj8A1XNTOY2Qen8xeHw+7uZoQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NfLHLq+E; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GGyil6e3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792009188; x=1823545188;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=P0WBF/wz9WotxVezDgWS5cfXyWEipNWeQpFa9vHQgso=;
-  b=GGyil6e3wIGD2o+FvAoBn08k8L7d8eIeKgFN9Br+0ZlaeNSKGCSi0DcB
-   /5LrFixiaWXRdy22WuSVaTqGUV5mKQJKAA4tCagdSjeEO1fqJxbZ9+b7s
-   wbY1FldJbavMPbwa8eNUV5UOD/S49WR28OJDk4HRc7unHNFHj52/qAnhx
-   MtBzH80PojrmEo8NYFXhLQX/V09RTL69ls36lNpMeyzVxCjhWSTCi5YSG
-   73S080uHDG30QaWS4bsXkiWjIYz+11KhKhvXHzI8rBrhoWC3qeT7DajZn
-   IiM7ZUQrJabSZYEJuSx6Pb9+62NvBuusrtihGyImj6i2GKLwmrRzvrkjX
-   Q==;
-X-CSE-ConnectionGUID: 6P22c+GHQZymWXKDelua8Q==
-X-CSE-MsgGUID: j0vLWFTqR16lq4dvgb82Hw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="667726"
-X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
-   d="scan'208";a="667726"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 13:19:48 -0700
-X-CSE-ConnectionGUID: ZrDByyW5QbWg2CSQyYO0mA==
-X-CSE-MsgGUID: BInblgMUQQqssqBcMnc3Jw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
-   d="scan'208";a="1483915"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa001.jf.intel.com with ESMTP; 14 Oct 2026 13:19:45 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xH5Ru-00000000FAF-2qQ2;
-	Wed, 14 Oct 2026 20:19:42 +0000
-Date: Thu, 15 Oct 2026 04:19:22 +0800
-From: kernel test robot <lkp@intel.com>
-To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, linux-usb@vger.kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Xu Qianhui <xiaqinghuan@mail.ustc.edu.cn>
-Subject: Re: [PATCH 3/3] usb: dwc3: support two connectors sharing one HS
- data bus
-Message-ID: <202610150418.XE8EkA7P-lkp@intel.com>
-References: <20261013102927.1141696-4-xiaqinghuan@mail.ustc.edu.cn>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NfLHLq+E"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49ff680331aso15838705e9.3
+        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 13:33:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792010001; x=1792614801; darn=vger.kernel.org;
+        h=content-type:mime-version:references:in-reply-to:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QMDqN9lUNJYAv7hFugtzWfD8cPTp+VesYYa39/Jkf94=;
+        b=NfLHLq+E8XQ6i7lXw2OmVWvy5wdyXWmUgI9ByJZPD2R8FL2sCJNyN7YmVVwY5lJ0Ak
+         XFO2Ytby+P2nPgKzh444fZNBFaE9wukjD+lrBMflhpPWJg+0uLf8H0aGBWOko8Jnlibu
+         ooFAsvH0VsjCtum41RpB3pukwnEcT70wJpoxfVCoYz7TYcUmpwVXPRPV1bjEt1/ggQWA
+         isqhCWmYyy9lEqWh8iIiriz+xnRv6zF76n4oQJpxIqQqJ6wwzsIuoBqUuYXPoresKKRH
+         p2JFUQFF6PiVRZitmYP6lHHNQQ9tSg10qnBl763LoMzzUGJwan0sDixgl35Bzvt3FPG1
+         jleQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792010001; x=1792614801;
+        h=content-type:mime-version:references:in-reply-to:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QMDqN9lUNJYAv7hFugtzWfD8cPTp+VesYYa39/Jkf94=;
+        b=fzkHt+n1dvry2SwKvpqVU5sd6ijecnzJmn6TlxIo241GGcnQwx9OnrWJ43uaxnTUuQ
+         IzxXC2mGSzr1iaI9K+KMTwevV5yoK+8YhQxlDXDSg6J92ZeU5DOXYYuIBz8uTFMZYRJZ
+         RVeIUnrFu1F/w7pwwAgbepvfKRGXEw5NfoNfNHso4kxm3X5nT42ynLhQFNMY3Mms/cL8
+         qXpIE7fZSzXOKXudIU+lq9T9FHK5/j8syUAV99AxsD5fsalnPuNbQa0k2Vki8jhw68ON
+         4uE8P7GGZ41Tsfvv+BqNgFCjLzLXYHSzzWmJ8cL17d29JvmP+e3YSAF9AbNcmSqeztq9
+         e7Hw==
+X-Forwarded-Encrypted: i=1; AKwUvBw6ZVqrJBLgNdIn0JZFUcQIQLgMu2b9DAwOxoSy9GerFgL9UukkJ479DMrQQ2MjVSNP5JhhQPmszA/K@vger.kernel.org
+X-Gm-Message-State: AFq9FYLQmoLsm8Spzpj27872HszLVkc1pc//EkBjKXse+xB7tTcOZl37
+	QsyvkUAO/PH1r6AK43M4MNIcwoPksE3Q+7z5GWsv67AUiCMGJ1dhHkob
+X-Gm-Gg: AYBFou1AxBfB4rhI2/3Gt+4F2JJ3Af3OfYq1l9eQ2oYpzY7NqWFfLqyJp3CAKtMaFz9
+	TrVrexRTPeVeTjqtYysKX1x+IGXtGhCGHdZAq83ELz8TlUKLinrvZHrFQoE5YtkotcQlFs/HVOw
+	f5QOp3/H8GmG9Dd4uhFd6ivLbnuRLIc1JrgMa8EU0WjE/ShGr4KQbujhUXXiPwC+I+fsp0bmomX
+	kdubvr/FOITVL9dmq3NtbKvbWSGykUA9Zklwx2ClS66BRQRU/U0gqMov/QM0WdEHzskb7Pe/9C5
+	FW+J+TsqdhZUFB4jYZqzMEiG6gi5F9KsGs4LpsO9fstl/xkMV1ckZ+72be9SJ/ujhyLvuiL2ssk
+	X2YHB5AKdwIX42mTcNHaX8t9mSXwAljvvM76+YiQG52fVaqFdHCh/XoNdQsr3VEP4AHsS4fS23q
+	DKLoXs3WXVZN86K8P7ZHuLPYE3FI0aAwuZTW70y6DHazf5nBDwSsw21Gk2XzcjcX9OoplmDDQAR
+	WxR8kUC/g3NJKgezY86TOwSoUoHKEw6LnsJPudluZb4h79sCwU=
+X-Received: by 2002:a05:600c:8105:b0:4a1:714d:eed with SMTP id 5b1f17b1804b1-4a18e4841c1mr348140235e9.14.1792010001180;
+        Wed, 14 Oct 2026 13:33:21 -0700 (PDT)
+Received: from silicon.doe.home (91.141.74.240.wireless.dyn.drei.com. [91.141.74.240])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd6834dasm16939225e9.4.2026.10.14.13.33.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 13:33:20 -0700 (PDT)
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+To: linux-arm-kernel@lists.infradead.org,
+ Navid Ghahremani <ghahramani.navid@gmail.com>
+Cc: arnd@arndb.de, krzk@kernel.org,
+ Navid Ghahremani <ghahramani.navid@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH v2 19/24] dt-bindings: spi: Add ZTE ZX family SPI flash controller
+ binding
+Date: Wed, 14 Oct 2026 22:33:01 +0200
+Message-ID: <0hKeGS29RSCCKJETWWv9dA@gmail.com>
+In-Reply-To: <20261014072109.1759502-20-ghahramani.navid@gmail.com>
+References:
+ <20261014072109.1759502-1-ghahramani.navid@gmail.com>
+ <20261014072109.1759502-20-ghahramani.navid@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013102927.1141696-4-xiaqinghuan@mail.ustc.edu.cn>
+Content-Type: multipart/signed; boundary="nextParttwTE2U3XQbmQGd0wk4ry0w";
+ micalg="pgp-sha256"; protocol="application/pgp-signature"
 
-Hi Qianhui,
+--nextParttwTE2U3XQbmQGd0wk4ry0w
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+Date: Wed, 14 Oct 2026 22:33:01 +0200
+Message-ID: <0hKeGS29RSCCKJETWWv9dA@gmail.com>
+In-Reply-To: <20261014072109.1759502-20-ghahramani.navid@gmail.com>
+MIME-Version: 1.0
 
-kernel test robot noticed the following build warnings:
+Am Mittwoch, 14. Oktober 2026, 09:20:59 Mitteleurop=C3=A4ische Sommerzeit s=
+chrieb=20
+Navid Ghahremani:
 
-[auto build test WARNING on usb/usb-testing]
-[also build test WARNING on usb/usb-next usb/usb-linus linus/master v7.3-rc7 next-20261012]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+> +      - zte,zx29-qspi
+> +      - zte,zx279128s-spifc
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Qianhui-Xu/dt-bindings-usb-snps-dwc3-document-usb-psy-name/20261013-182925
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
-patch link:    https://lore.kernel.org/r/20261013102927.1141696-4-xiaqinghuan%40mail.ustc.edu.cn
-patch subject: [PATCH 3/3] usb: dwc3: support two connectors sharing one HS data bus
-config: arm-defconfig (https://download.01.org/0day-ci/archive/20261015/202610150418.XE8EkA7P-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 6719b9e31d6a93099612c474eec76d9f41d0275a)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261015/202610150418.XE8EkA7P-lkp@intel.com/reproduce)
+Unless there is a hardware difference that matters to the driver I think on=
+e=20
+compatible should be enough. Probably zte,zx-qspi. Although since this=20
+controller is very specific for flash chips zte,zx-spifc or zte,spifc are w=
+orthy=20
+considerations too. As far as I can see this controller only has flash memo=
+ry=20
+ops and can't even send a generic byte stream.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610150418.XE8EkA7P-lkp@intel.com/
+Note that at least my board, and probably yours too, has a "normal" SPI=20
+controller too. In my case it can talk to SPI displays or a SLIC analog pho=
+ne=20
+controller. It has a different hardware interface and needs a separate driv=
+er.
 
-All warnings (new ones prefixed by >>):
+> +
+> +  clocks:
+> +    items:
+> +      - description: work clock, the source of the SPI clock
+> +      - description: register (APB) clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: wclk
+> +      - const: pclk
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
 
->> drivers/usb/dwc3/core.c:171:16: warning: variable 'mux_role' set but not used [-Wunused-but-set-variable]
-     171 |         enum usb_role mux_role = USB_ROLE_NONE;
-         |                       ^
-   1 warning generated.
+I think the interrupt should be required by the binding too. The driver is=
+=20
+still free to ignore it, but the binding is supposed to describe the hardwa=
+re,=20
+not the driver.
+
+My hardware has two DMA lines too. I don't know if they are always there. F=
+or=20
+pragmatic reasons (the DMA controller is its own beast and for usability le=
+ss=20
+important than the flash controller) I'd make the DMA properties optional.
+
+--nextParttwTE2U3XQbmQGd0wk4ry0w
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmrP5v0bFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMywyAAoJED0TvMhUTxoi2R4QAJrkefuQh8NSuzy0O/W9
+qb5I7KRk0N26kgWskLDtuWqXqefXm6Oskjmc8yQ9+nzbWVXGn79+aGItk3ttv1a0
+nBkSRSt3U9zm5+vo5A7oOKaCEo3cjOEsMTDmu8Z5lJ66EAuNNIds3AM+/YR1nYuC
+IdIUYdWcK0HlBqoq66pAD6/3xjRyVzlT7t4LBRmk+hC3cl+TrJM8O7weNidq7RiW
+FGst++ElWV1RmZVgZTDmlBlf1ThJLV9v27LzOonW4u9hg2U3GOtobvV70QyFEVen
+/ixuJyOsuo8lxFwl9SA9Xl7JNOMImNQ1tPFAPh2WiVW065ovdTUZ/3ElEz5AVOlZ
+BjvU+eNAmGhWHsi9Ubwl8o08Bj45MVDaA4OONRzpzi3CyllYUuZr5UqS0aPRRk75
+382FFCDCd+vW+K4sfgwqhxSV5X7BYnynfPuHWr6d0e97zg2tzXBbXHlP0XJEvozs
+xS2pl76i+xFzPjQPyhtU0LFiYpGxYJwJg9oxjLa2IesafouvmcR7X18kp2VwfsjX
+ZWsvHLrr80HevR6I1FXyt+qVO+WnaTiFoj2/Rw9mPSg5HT/EWkrUCgINZ+iwiVIS
+TbFGV3QGFtV04PpdSY8i+hvcQBlE2Yyv/StywaqZEB0P65ZykVfI6JvDUFnkDzkL
+utvIuPk6/MSMNwQBQIOwV7Bp
+=7T89
+-----END PGP SIGNATURE-----
+
+--nextParttwTE2U3XQbmQGd0wk4ry0w--
 
 
-vim +/mux_role +171 drivers/usb/dwc3/core.c
 
-   165	
-   166	static void __dwc3_set_mode(struct work_struct *work)
-   167	{
-   168		struct dwc3 *dwc = work_to_dwc(work);
-   169		unsigned long flags;
-   170		struct dwc3_role_mux *mux = dwc->role_mux;
- > 171		enum usb_role mux_role = USB_ROLE_NONE;
-   172		int mux_port = 0;
-   173		int ret;
-   174		u32 reg;
-   175		u32 desired_dr_role;
-   176		int i;
-   177	
-   178		mutex_lock(&dwc->mutex);
-   179		spin_lock_irqsave(&dwc->lock, flags);
-   180		desired_dr_role = dwc->desired_dr_role;
-   181		if (mux) {
-   182			mux_port = mux->desired_port;
-   183			mux_role = mux->desired_role;
-   184		}
-   185		spin_unlock_irqrestore(&dwc->lock, flags);
-   186	
-   187		if (mux && READ_ONCE(mux->error))
-   188			goto out;
-   189	
-   190		pm_runtime_get_sync(dwc->dev);
-   191	
-   192		if (dwc->current_dr_role == DWC3_GCTL_PRTCAP_OTG)
-   193			dwc3_otg_update(dwc, 0);
-   194	
-   195		if (!desired_dr_role)
-   196			goto out;
-   197	
-   198		if (desired_dr_role == dwc->current_dr_role &&
-   199		    (!mux || mux_port == mux->active_port))
-   200			goto out;
-   201	
-   202		if (desired_dr_role == DWC3_GCTL_PRTCAP_OTG && dwc->edev)
-   203			goto out;
-   204	
-   205		switch (dwc->current_dr_role) {
-   206		case DWC3_GCTL_PRTCAP_HOST:
-   207			dwc3_host_exit(dwc);
-   208			break;
-   209		case DWC3_GCTL_PRTCAP_DEVICE:
-   210			dwc3_gadget_exit(dwc);
-   211			dwc3_event_buffers_cleanup(dwc);
-   212			break;
-   213		case DWC3_GCTL_PRTCAP_OTG:
-   214			dwc3_otg_exit(dwc);
-   215			spin_lock_irqsave(&dwc->lock, flags);
-   216			dwc->desired_otg_role = DWC3_OTG_ROLE_IDLE;
-   217			spin_unlock_irqrestore(&dwc->lock, flags);
-   218			dwc3_otg_update(dwc, 1);
-   219			break;
-   220		default:
-   221			break;
-   222		}
-   223	
-   224		/*
-   225		 * When current_dr_role is not set, there's no role switching.
-   226		 * Only perform GCTL.CoreSoftReset when there's DRD role switching.
-   227		 */
-   228		if (dwc->current_dr_role && ((DWC3_IP_IS(DWC3) ||
-   229				DWC3_VER_IS_PRIOR(DWC31, 190A)) &&
-   230				desired_dr_role != DWC3_GCTL_PRTCAP_OTG)) {
-   231			reg = dwc3_readl(dwc, DWC3_GCTL);
-   232			reg |= DWC3_GCTL_CORESOFTRESET;
-   233			dwc3_writel(dwc, DWC3_GCTL, reg);
-   234	
-   235			/*
-   236			 * Wait for internal clocks to synchronized. DWC_usb31 and
-   237			 * DWC_usb32 may need at least 50ms (less for DWC_usb3). To
-   238			 * keep it consistent across different IPs, let's wait up to
-   239			 * 100ms before clearing GCTL.CORESOFTRESET.
-   240			 */
-   241			msleep(100);
-   242	
-   243			reg = dwc3_readl(dwc, DWC3_GCTL);
-   244			reg &= ~DWC3_GCTL_CORESOFTRESET;
-   245			dwc3_writel(dwc, DWC3_GCTL, reg);
-   246		}
-   247	
-   248		/*
-   249		 * The previous host/gadget has been torn down above, so it is safe to
-   250		 * move the shared HS data path to the requesting connector.
-   251		 */
-   252		if (mux && mux_port != mux->active_port) {
-   253			ret = gpiod_direction_output(mux->select, mux_port);
-   254			if (ret) {
-   255				WRITE_ONCE(mux->error, ret);
-   256				goto out;
-   257			}
-   258	
-   259			spin_lock_irqsave(&dwc->lock, flags);
-   260			mux->active_port = mux_port;
-   261			spin_unlock_irqrestore(&dwc->lock, flags);
-   262		}
-   263	
-   264		spin_lock_irqsave(&dwc->lock, flags);
-   265	
-   266		dwc3_set_prtcap(dwc, desired_dr_role, false);
-   267	
-   268		spin_unlock_irqrestore(&dwc->lock, flags);
-   269	
-   270		switch (desired_dr_role) {
-   271		case DWC3_GCTL_PRTCAP_HOST:
-   272			ret = dwc3_host_init(dwc);
-   273			if (ret) {
-   274				dev_err(dwc->dev, "failed to initialize host\n");
-   275			} else {
-   276				if (dwc->usb2_phy)
-   277					otg_set_vbus(dwc->usb2_phy->otg, true);
-   278	
-   279				for (i = 0; i < dwc->num_usb2_ports; i++)
-   280					phy_set_mode(dwc->usb2_generic_phy[i], PHY_MODE_USB_HOST);
-   281				for (i = 0; i < dwc->num_usb3_ports; i++)
-   282					phy_set_mode(dwc->usb3_generic_phy[i], PHY_MODE_USB_HOST);
-   283	
-   284				if (dwc->dis_split_quirk) {
-   285					reg = dwc3_readl(dwc, DWC3_GUCTL3);
-   286					reg |= DWC3_GUCTL3_SPLITDISABLE;
-   287					dwc3_writel(dwc, DWC3_GUCTL3, reg);
-   288				}
-   289			}
-   290			break;
-   291		case DWC3_GCTL_PRTCAP_DEVICE:
-   292			dwc3_core_soft_reset(dwc);
-   293	
-   294			dwc3_event_buffers_setup(dwc);
-   295	
-   296			if (dwc->usb2_phy)
-   297				otg_set_vbus(dwc->usb2_phy->otg, false);
-   298			phy_set_mode(dwc->usb2_generic_phy[0], PHY_MODE_USB_DEVICE);
-   299			phy_set_mode(dwc->usb3_generic_phy[0], PHY_MODE_USB_DEVICE);
-   300	
-   301			ret = dwc3_gadget_init(dwc);
-   302			if (ret)
-   303				dev_err(dwc->dev, "failed to initialize peripheral\n");
-   304			break;
-   305		case DWC3_GCTL_PRTCAP_OTG:
-   306			dwc3_otg_init(dwc);
-   307			dwc3_otg_update(dwc, 0);
-   308			break;
-   309		default:
-   310			break;
-   311		}
-   312	
-   313	out:
-   314		pm_runtime_put_autosuspend(dwc->dev);
-   315		mutex_unlock(&dwc->mutex);
-   316	}
-   317	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
