@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D588F55D875
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D328055D86E
 	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 16:34:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791995686; cv=none; b=E3kgW1+9lGQddSf9YvZd1jSTWt65FffNK2iPsh3sBHXF9H4FVWHB8fNJPHcZpcT2dvuWNKgyDezOfPJrzu86Q0fr9+0XN5+MUltkp9cM1ItPZigAOCGAf93kwfB3KFLTCa59B98f2etxLo7AV0otx+n9cA1NJ3a2xLdS2oTUTFw=
+	t=1791995686; cv=none; b=AB/eZ51GRzohdxGrS00rp8PWFCJT2G9Qu88OOTnCOqDp3EX6qNwFHCBgALijMUdTADNj8C1Gk5strV8voFIqkXtkX6iJavXeEaEj1ctR11WUF9GFvIbnki2buKy6xQgG8KuZ4C1NzIXJXCvDT0QNetM2mFeAq38f8W/kkh5Kuw4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791995686; c=relaxed/simple;
-	bh=CVP/lsh2OMxbAxyrsqtFsBf7NrmFGY3bXfa3uq0o7zE=;
+	bh=d0+KUaLwT/Dk7ZkgV4daJOv/D8kFOZkamvSLINiAhJw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=a9iLu0Wb5tdZ9xFK0hWQhhdMSn1PqbSTCmqmG/LC1MnzmiFQGXORlLpRPwhF2S9yZZWMDorMDjtfbgqjQe+6Vmv9+Lk8KQODycRrjI13G3aAfp4W54fTUtwfJTZubq2OtwnljclyiRn69X259Gh0x/hYbPjgdkhtEESj7KczAsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Olu6vZzz; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=Ky14cAjcVzFZylPEjlrrYRbWKDifWPbxuKu5qRtYtn8LKHxerqhTjcONNfJgn1TEQscPsV/fLFzCb2787Wsq/RHmT2mbqKXRDDIjYE0XkES/xh0nmLGqs2amoRjvDvIJEE9/kEiYYjrije0y5bzY0KwA9+JfDM/fkZL5HT1Lo2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qFbX5nNM; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Olu6vZzz"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A0B5CC2BD04;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qFbX5nNM"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A0A20C2BCFA;
 	Wed, 14 Oct 2026 16:34:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1791995686;
-	bh=CVP/lsh2OMxbAxyrsqtFsBf7NrmFGY3bXfa3uq0o7zE=;
+	bh=d0+KUaLwT/Dk7ZkgV4daJOv/D8kFOZkamvSLINiAhJw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Olu6vZzz8emS87CbFVEuz5AS8IW4ir9L+xE+oDaUs87vEY5dESWbfTyVX4kATTWfS
-	 zs40MyTl3CNtCliT9NwCBdVA2ILbUPK8pYgIWc1LJh/lYi/SXlL3+UnIot1/oZ+OHl
-	 sUoeZd/x37f3wnrL9mtXR1Oz9IbdTQjd0i7ge1CWZRx6ssxbhdhMwEcMn7OHKV0BEh
-	 H9HyAHIVdH+K+ziXK48aw45a9XoKzq/NUJdTpmhOfuTXrEF+kwN+8sfzNjg94VKuFT
-	 xItiGWH2I40Na5WHnbf3tkh5ywtxX4B4bEipGwMWEeRRxe62JIRSssRlNj8VaACJPt
-	 xMcb2XzVDEepw==
+	b=qFbX5nNMzLa1yn7qKbd3umcPSKrzUO8eY9bX+KmC4dUs/3RenZVKTRln+/PDYP8UF
+	 9o2IUbTmZG0wJW+eZ4Mvda5UwJl4HLpzt+09gEmw+JP2QfEHltyc6hutDexSp/11Ot
+	 kkJ6c91r6sEspyYl4nCEadwMAEyQfh3X08JLgTk3FAThGpeUVokzpM09lezUDBSgvY
+	 wRV8tlpwy++YJRprRxJRmugyq8A/6z5SflkY34Q5qM0CX4dDvMqe6TVD/2zkblsrJn
+	 1axwyDkOSe0hmsm5XPKkH+oIXACGm4A+jkUtZIapd1+VLPBIbR6WS30ltv4MrOmMg3
+	 GRb38xuZOZpcw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8D828CC6B2D;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7745FCC6B1A;
 	Wed, 14 Oct 2026 16:34:46 +0000 (UTC)
 From: Joachim Eastwood via B4 Relay <devnull+joachim.eastwood.gmail.com@kernel.org>
-Date: Wed, 14 Oct 2026 18:33:04 +0200
-Subject: [PATCH 4/9] arm64: dts: rockchip: rk3588s-nanopi: move vcc_3v3_s0
- to nanopi-r6
+Date: Wed, 14 Oct 2026 18:33:03 +0200
+Subject: [PATCH 3/9] arm64: dts: rockchip: rk3588s-nanopi: add voltage
+ iio-hwmon device
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-nanopi-m6-improvements-v1-4-e713f71eb4d3@gmail.com>
+Message-Id: <20261014-nanopi-m6-improvements-v1-3-e713f71eb4d3@gmail.com>
 References: <20261014-nanopi-m6-improvements-v1-0-e713f71eb4d3@gmail.com>
 In-Reply-To: <20261014-nanopi-m6-improvements-v1-0-e713f71eb4d3@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -50,11 +50,11 @@ Cc: Diederik de Haas <diederik@cknow-tech.com>, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  Joachim Eastwood <joachim.eastwood@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791995685; l=3028;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791995685; l=1213;
  i=joachim.eastwood@gmail.com; s=20260701; h=from:subject:message-id;
- bh=LW5ZqnxsOBSTr6UvbPg/uqbC8B0uUFOPy+2nS2Lvnv0=;
- b=xobRsExttICvlp8s0V+6I7q0DL9iq1IbxeHH7rjT7TMHvmLis5EnZc3ilg6J95NCik+ehSEON
- JX9Xmt+uojMBJjXqLVxnJpbUUnyQuzCcsr7RgF8UnCCVM35fbKZA1pi
+ bh=0FgBsPDSF/Ke2BFVA9LlVUDw3XaAvZxxd2wbi+fKjz4=;
+ b=ELmy2+RH7U4BXzexGX41iowrehf66vJrLCX+8TFFN8FUsuvHdzFQ5iUh2XfXqy9/nTdXHPxM/
+ LYIUg6huebvDi25rjXyKjfGXgb5qvb2In9NXxJPixfwbJSxZi+jPzaL
 X-Developer-Key: i=joachim.eastwood@gmail.com; a=ed25519;
  pk=ZN/8xWtdYaSd5oEfloYSZ1a+/ri0n0VZqjlEeHlbXFU=
 X-Endpoint-Received: by B4 Relay for joachim.eastwood@gmail.com/20260701
@@ -64,96 +64,44 @@ Reply-To: joachim.eastwood@gmail.com
 
 From: Joachim Eastwood <joachim.eastwood@gmail.com>
 
-This regulator (power switch) is only present on R6 boards, and not M6
-boards. It is regulator-always-on and regulator-boot-on because it's
-controlled by the vcc_1v8_s0 power rail from the PMIC.
+The NanoPi 6 series have a resistor divider on the main input supply to
+support voltage measurements. Hook this up as a hwmon device so it is
+possible to monitor the voltage.
 
-On R6 boards it's used by the Ethernet phy, and some VCCIO rails on the
-SoC itself.
+Output from sensors on NanoPi-M6:
+vdd_usbc_iio_hwmon-isa-0000
+Adapter: ISA adapter
+in1:     19.80 V
 
 Signed-off-by: Joachim Eastwood <joachim.eastwood@gmail.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3588s-nanopi-m6.dtsi |  4 ++++
- arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi | 14 ++++++++++++++
- arch/arm64/boot/dts/rockchip/rk3588s-nanopi.dtsi    | 11 -----------
- 3 files changed, 18 insertions(+), 11 deletions(-)
+ arch/arm64/boot/dts/rockchip/rk3588s-nanopi.dtsi | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-m6.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-m6.dtsi
-index 6644d3b72c9c..6205a542cd1a 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-m6.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-m6.dtsi
-@@ -85,6 +85,10 @@ &i2s0_sdi0
- 	status = "okay";
- };
- 
-+&gmac1 {
-+	phy-supply = <&vcc_3v3_s3>;
-+};
-+
- &pcie2x1l1 { /* M.2 E-key 2230 */
- 	vpcie3v3-supply = <&vdd_mpcie_3v3>;
- };
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi
-index ac9eebd2b790..b0892a3c633b 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi
-@@ -48,6 +48,16 @@ lan2_led: led-3 {
- 		};
- 	};
- 
-+	vcc_3v3_s0: regulator-vcc-3v3-s0 {
-+		compatible = "regulator-fixed";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-name = "vcc_3v3_s0";
-+		vin-supply = <&vcc_3v3_s3>;
-+	};
-+
- 	vcc5v0_usb_otg0: regulator-vcc5v0-usb-otg0 {
- 		compatible = "regulator-fixed";
- 		enable-active-high;
-@@ -61,6 +71,10 @@ vcc5v0_usb_otg0: regulator-vcc5v0-usb-otg0 {
- 	};
- };
- 
-+&gmac1 {
-+	phy-supply = <&vcc_3v3_s0>;
-+};
-+
- &pinctrl {
- 	gpio-key {
- 		key1_pin: key1-pin {
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-nanopi.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s-nanopi.dtsi
-index a47677926a59..a99e2e60c5f7 100644
+index 8c77ee71ebf8..a47677926a59 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588s-nanopi.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3588s-nanopi.dtsi
-@@ -61,16 +61,6 @@ vcc_1v1_nldo_s3: regulator-vcc-1v1-nldo-s3 {
+@@ -95,6 +95,19 @@ vcc5v0_host_20: regulator-vcc5v0-host-20 {
+ 		regulator-max-microvolt = <5000000>;
  		vin-supply = <&vcc5v0_sys>;
  	};
++
++	vdiv_vdd_usbc: voltage-divider-vdd-usbc {
++		compatible = "voltage-divider";
++		#io-channel-cells = <1>;
++		io-channels = <&saradc 2>;
++		output-ohms = <10000>;
++		full-ohms = <110000>;
++	};
++
++	vdd-usbc-iio-hwmon {
++		compatible = "iio-hwmon";
++		io-channels = <&vdiv_vdd_usbc 0>;
++	};
+ };
  
--	vcc_3v3_s0: regulator-vcc-3v3-s0 {
--		compatible = "regulator-fixed";
--		regulator-always-on;
--		regulator-boot-on;
--		regulator-min-microvolt = <3300000>;
--		regulator-max-microvolt = <3300000>;
--		regulator-name = "vcc_3v3_s0";
--		vin-supply = <&vcc_3v3_s3>;
--	};
--
- 	vcc_3v3_sd_s0: regulator-vcc-3v3-sd-s0 {
- 		compatible = "regulator-fixed";
- 		enable-active-high;
-@@ -154,7 +144,6 @@ &gmac1 {
- 	clock_in_out = "output";
- 	phy-handle = <&rgmii_phy1>;
- 	phy-mode = "rgmii-rxid"; /* Vendor provided tx delay value below */
--	phy-supply = <&vcc_3v3_s3>;
- 	pinctrl-0 = <&gmac1_miim
- 		     &gmac1_tx_bus2
- 		     &gmac1_rx_bus2
+ &combphy0_ps {
 
 -- 
 2.56.0
