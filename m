@@ -1,52 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66C1C4F798D;
-	Wed, 14 Oct 2026 11:10:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 309994A3D25;
+	Wed, 14 Oct 2026 11:12:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791976255; cv=none; b=Q1rBQAhrdkGOEkDqTeI90yDgyE3a9fmN5Eev9O7K42tOUyoACMdTHdNeH7jlCvtsOIqE3O3Im1o0yR9nLHGk1cgVUYjdlccrD/0QBSqPBqSurWQ2pFM2PtDbedHbohaHlshqt0hVcgvKOu/Cub02sfnVg/EBPht+ch7QiufLdqY=
+	t=1791976365; cv=none; b=NJV7IsnDdfZOadAgHDDu8b3Krpdn5M0e3cdskWP7wt8n5HoGiS/XExeeVQz9zNK2kAFGobja7FI1dPKbuui3jiUytcKpZBvlk9M7jCTMo9aDTnXeFVw/RvlyCvGQl/NsA080Cg2g45BN8X9syLz3uAjv2w2mEwW6XWAuxAXDziw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791976255; c=relaxed/simple;
-	bh=dEHPKb1DKoNwCQMbfM4JudnCdMqGpWORd6mwaTX1o8I=;
+	s=arc-20240116; t=1791976365; c=relaxed/simple;
+	bh=mrbgHGmoTJ6Qjt4BBd+tSZJEzLxFk416rgq/+VCK0dM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OxXEoJjidzUpsMCrXM72xcyVQZ9M+vj+Ch5+BZSVXkfQZ9JNbk0XenWMWiXoDT2wJbLnEAw8AEyA2tZ6HhK0Shf46LvFnBli5b3snqEh7v7U7JTcar/xng/ogWWlvE0paILxIh8DXoqMh/OsuVuZAWC2no/S8OJhjCn8rOL9UZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CWx4n9R4; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=lesdiYphG9seN2+q+z4lOtMsmlkS9Z3hwBX/1j2MiCeloeMFn0jcp1VZaTe3JZ1ufKEMZI9SUxMPpgGlro4yf/wPIdd7FuJo0vJP/X1VZwdKiZsVR3g467CyTlhwUqZWSW8eAOqmTPTAZv5fRgaDpRfy6pM+W37RJyDRYub4RWI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FtFTcpXS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CWx4n9R4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F4171F000FF;
-	Wed, 14 Oct 2026 11:10:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FtFTcpXS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9CFA1F0089A;
+	Wed, 14 Oct 2026 11:12:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791976251;
-	bh=y96IkeDxhN2mv/HtCGTf5fVU+AZ1Foo8ubrdmppnui8=;
+	s=k20260515; t=1791976360;
+	bh=j9yuGhjODcfK+Fr1SrXbKjEuCi06P90b/uCOBAwgIsc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CWx4n9R46TUqwkh7PD3NrIpvAN6CeIsqtkLYPEI3nayTP82qiokRVEOSoTXi7JDun
-	 0T0Y0ZEdhNY2vwCweSoDYhfikgZsICh522SJERQY0izF6rslpI26wHSvQIRECpsgPw
-	 3T8DjC2hYwURj40OV3fgiSvD+O4LbCMP2loE5Hb3qn0Q/X6ZDvxT8K8G6R8xy9n45W
-	 XkCJlBrfGwp7E33utB0UnoF0NNz+aoNjOUT0mKmuIfJbZJpYRgX53yGP0t/xm9KADF
-	 r5HiAjK5/IcJVwY9jbWjDDP9ib7KsTnjIst2A5lQBCczmVDW6JacaVfo5Wh07knVNM
-	 ToBz+IPNA4kow==
-Date: Wed, 14 Oct 2026 13:10:48 +0200
+	b=FtFTcpXSiHB4NhY0GrK8Lr8CTWmq2V2WmEGQm6eUORIVxJxWwmJ4oyf0BE4RDAVeR
+	 qKsdQctipLDR7JXvUd6N3l6BLRfPRuRKoxyzg9ww3mYtXdCh6I8h8UhzLf/Ty4661S
+	 Pw/KlLre7yC5JtYvfcrXJYGmC7pCuU4j91X05BT+gAuLyTUj68PZhagsgNV2vZ2BsS
+	 /hfI8oo7KGQmoZjZfX+oTbZp4AAthU8UI20tWSlDMW6ekKSraRBBkXHeHpvZO+MS3A
+	 ba4lVVAIFTvjE78XqDypweVZ3hjL683Wu2pGDk4l7Gmbz/sOX6t+gtv05+uRSi3K1R
+	 RdQuNn6bXQqfw==
+Date: Wed, 14 Oct 2026 13:12:36 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Larisa Grigore <larisa.grigore@oss.nxp.com>
-Cc: NXP S32 Linux Team <s32@nxp.com>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@sandisk.com>, 
-	Bart Van Assche <bvanassche@acm.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	"Martin K. Petersen" <mkp@kernel.org>, Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>, 
-	Ajay Neeli <ajay.neeli@amd.com>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Pedro Sousa <pedrom.sousa@synopsys.com>, Hannes Reinicke <hare@suse.de>, 
-	Joao Pinto <Joao.Pinto@synopsys.com>, linux-scsi@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-arm-msm@vger.kernel.org, clizzi@redhat.com, aruizrui@redhat.com, eballetb@redhat.com, 
-	echanude@redhat.com
-Subject: Re: [PATCH v8 07/12] dt-bindings: ufs: Add NXP S32N79 UFS host
- controller
-Message-ID: <20261014-valiant-goose-of-revolution-efec17@quoll>
-References: <20261013103003.373156-1-larisa.grigore@oss.nxp.com>
- <20261013103003.373156-8-larisa.grigore@oss.nxp.com>
+To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, linux-usb@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: usb: snps,dwc3: document usb-psy-name
+Message-ID: <20261014-brilliant-sympathetic-marmoset-ed5fce@quoll>
+References: <20261013102927.1141696-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261013102927.1141696-2-xiaqinghuan@mail.ustc.edu.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -55,53 +45,55 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261013103003.373156-8-larisa.grigore@oss.nxp.com>
+In-Reply-To: <20261013102927.1141696-2-xiaqinghuan@mail.ustc.edu.cn>
 
-On Tue, Oct 13, 2026 at 12:29:58PM +0200, Larisa Grigore wrote:
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  clock-names:
-> +    items:
-> +      - const: core
+On Tue, Oct 13, 2026 at 06:29:25PM +0800, Qianhui Xu wrote:
+> From: Xu Qianhui <xiaqinghuan@mail.ustc.edu.cn>
+> 
+> The dwc3 driver looks up "usb-psy-name" to find the power supply which
+> accepts the input current limit requested by the gadget after USB
 
-I don't get why you added the clock-names.
+It does it for ACPI, no?
 
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - reg-names
-> +  - clocks
-> +  - clock-names
-> +  - operating-points-v2
+> configuration, and while the bus is suspended or resumed
+> (dwc3_vbus_draw_work()), but the property is not described by any
+> binding:
+> 
+>   $ git grep -n usb-psy-name -- Documentation/
+>   (no match)
+> 
+> As a result, any DTS using it fails dtbs_check.  The property is read
 
-Your opp-table is empty, so requiring such property looks like wrongly
-written driver.
+No. Just run:
 
-> +
-> +allOf:
-> +  - $ref: ufs-common.yaml
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    ufshc@4ac80000 {
-> +        compatible = "nxp,s32n79-ufshc";
-> +        reg = <0x4ac80000 0x1000>, <0x4ac40000 0x1000>;
-> +        reg-names = "ufshc", "scm";
-> +        interrupt-parent = <&irqsteer_coss>;
-> +        interrupts = <211>;
-> +        clocks = <&clks 0x92>;
-> +        clock-names = "core";
-> +        operating-points-v2 = <&ufs_opp_table>;
-> +
-> +        ufs_opp_table: opp-table {
-> +            compatible = "operating-points-v2";
-> +
-> +            opp-0 {
-> +                opp-hz = /bits/ 64 <0>;
+git grep usb-psy-name
+
+There is no isngle usage of it.
+
+> from the DWC3 device node, which for the single-node flavours (e.g.
+> qcom,snps-dwc3.yaml) is the node that $refs this file, so document it
+> here.
+> 
+> Signed-off-by: Xu Qianhui <xiaqinghuan@mail.ustc.edu.cn>
+> ---
+>  .../devicetree/bindings/usb/snps,dwc3-common.yaml          | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
+> index 6c0b8b6538..6609a709c1 100644
+> --- a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
+> +++ b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
+> @@ -51,6 +51,13 @@ properties:
+>        - items:
+>            pattern: "^usb(2-([0-9]|1[0-4])|3-[0-3])$"
+>  
+> +  usb-psy-name:
+> +    description:
+> +      Name of the USB power supply accepting the input current limit
+> +      requested by the gadget after USB configuration, and during bus
+> +      suspend and resume.
+
+Power supplies are not referenced by names, but phandles.
 
 Best regards,
 Krzysztof
