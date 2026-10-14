@@ -1,165 +1,108 @@
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com [165.173.180.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0C6D53977B
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 14:55:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.176
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791989714; cv=none; b=SwBqtLfJuRA8E2S6EwOP3WlYxsCDBQJ+2HhKsCH+/eOPAbae7tSfVj7751k09Y7ktelpv2MfnRxuk1ps+WgIBSGNWinFQBNY+iev52njK9dLiLXZR7xWDAbq+W9HZKmnhWOKWySJsZZpBC5VQuiIfq4AgI8Np9XkhW/DjVmW5jU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791989714; c=relaxed/simple;
-	bh=QakIRovc0TVKNQht6OlwetbBWzG2d5kDs2PKBQl9iiE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=p4jFFh/Mpoy37IyNu2mcAHIEXv2+P8wRVYRs6fY+EfgHBmbDLQYIlgHTGBUt+Fw2OtgX9vBbPIIp3ubgrypoJ7aGKzHOfpe/NAPaExGi/vbwEKCbznZwMCyKiqBhRXrL1NPCqbr4MSffvg85ipzcNS/jTWnosYIEy/RoWM2Hnh8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=LrcgccZx; arc=none smtp.client-ip=209.85.160.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE6F250C29B;
+	Wed, 14 Oct 2026 14:55:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791989730; cv=pass; b=hIDS2uGlFU2lD04kDINGAeBxKZODbpbq/JOStQdOcSB7K0dj17byEtffDE1lSvlJdxQAgsVgUyIwwSmKLLlzM6vZfnu40YbWv1SldDZgyPWTGcwJI2+R6bNaHVbhC3BILeQTYkKvVJfnEIQ1+9qegENmOXJ66XOU7iy34B1xKDI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791989730; c=relaxed/simple;
+	bh=CA9g32FsvjIGy2NDJ20+Q4DRxnVN7V2LPet+zGjT+fg=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=mghEHGYdyYcm2MLsv/JY7QSf0JuYRVPvHtXS9FrAxILXzJyj5NS+In4wNniS56ou+i1mXIPULwnK9cQC2uBTLZ7e6V8KRFQGoKenYnu7x5/+1rGZCYttqmcvDOK6EdI+41UwWvAjANI7ZfK7Q/bdgwgmXTmr+3HSEUV+bNRGGO0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=EJlJ5thm; arc=pass smtp.client-ip=165.173.180.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="LrcgccZx"
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-534e6545939so3938091cf.3
-        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 07:55:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1791989705; x=1792594505; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9QCcIHMwt8UPRdNjGegrJCBOmv89ai6OoP2efzt4zBg=;
-        b=LrcgccZxx7Jgo7dxHC5DuhhrIsOKmo7SwS+IJNdqVv9Iy44+RmxIxC/EozGO2vYn4R
-         9Tub8V/n4o+i1pvwVqbTm0GAp4VDbte/G8d/j1cyz97gkWrX44OmO3i216W1GDVrBreT
-         8eK3F4iDYQIqO6Wyn0EfcFZQOnJcyCKVBfsjWBOq+XbNLjNHcChSnnEShmV+JM3gUJHw
-         qV2Fo1+87Rm5Xa83p6xzlknu0okEXglg9Mclb7+x+rL/oM8nDCcYrsakrKt54QObMYr5
-         HajQlG36eUanTwfhKH9d4Rw4kl67bD5LqEYE+sA+8ZOa0ES8KgrdbYUzyCjVHCf9qGCx
-         2XXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791989705; x=1792594505;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9QCcIHMwt8UPRdNjGegrJCBOmv89ai6OoP2efzt4zBg=;
-        b=Q0iV9oTjh+5w5mZAwYNlos+0KSKhAk0WDXZ+gGt1aAmJAvR6qLVDb9OIROYtGMnahW
-         GZ+wZ6997B5Re22t0GtshR89chOegaTKnQpnlGxUHI13VvzffBbxBpnEMhWFbxx6Cin/
-         xmWO3qtLoWSuKUofaH6VR6c6deVz9SrN9lZV7YXBrc1iv5T/oxfwv03aWznvblw8cOzg
-         y0x8Ir9yLJnpNmEqhvqZ2ryA+KMbqEv4q+73NeiLmJNlD+Vyti7d9Jgi0Xl0lkTlEIqs
-         Mg0UJRGfLbrbOKI5nbJTCtK1H2s1r+hOdzjh9Fq9dbCDBPPAvmQBuP3pJYB6zEjJkAWN
-         zpYg==
-X-Forwarded-Encrypted: i=1; AKwUvBxQRMDtJ45UzPiT4iT7poI0WHrM/7yWaC4bryFyTRRFkHuGIRXw1wFnBrZek85GfYeXw5Sbb6YEIT6n@vger.kernel.org
-X-Gm-Message-State: AFq9FYJK0e6RMu/Hd7vv3tftjoRgP5Apncw3nHBOX/J26Y+0fqpfy21W
-	rgjZd0wEBKcsYw8NuC1YQNe7kRAF6P+ex0OCjwzB5GuWXedQX/rrjxky44ahCB4ng8M=
-X-Gm-Gg: AYBFou1gGj11dAgDOTmsZSoVs8wAG6nQkLCqL2hcsXM5Bn/8pboAnRtIozgozxB7WPK
-	ayk/8VA8/5EzxgYQ1M11HsroiweZSkBTkXGYiOJbfSw1ry6EZHeNtpriiusQFa8t4c2SWWI+F08
-	RlJz/gTTH10i+lxs+7pg27BZ5Crvfsz5H9BrwQFkTDzkLVq4fOS6P6MOJe68MTYvm3aQhfB3t5e
-	XB+ar4u2OsF4ly/hbAR1SgUYgTknrIVbkyD31P+p+lBBX+5fXWmsysw5A42VDKwIj3nsqKbJ5cT
-	+wKVafXTwGyYFerlZHbV5CWKqB2Eyh+8IUDbv+3xfI8rg+hZuIu4x7QCAJYP+LG60NjMRWJaEF+
-	8x9yLdbupbYL9kpmIz+sgCg1mhj1KfXAPSOstRVUGANzmwgiZeJzqi/QPkKe1tQiPnn/nGdUpvi
-	4p4V/jFTH51tWslq9waaR9yIHXgNhPuRiHTc0UDDnNNQO3bwWmyAzC9L4XMM84GHUQB/XJots=
-X-Received: by 2002:ac8:5cd4:0:b0:535:70ff:58b with SMTP id d75a77b69052e-5359fb26794mr248817971cf.38.1791989705320;
-        Wed, 14 Oct 2026 07:55:05 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b755c35sm126150641cf.15.2026.10.14.07.55.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 07:55:04 -0700 (PDT)
-Message-ID: <b8a8ca4f-c575-448a-baea-4b9f82f15e39@riscstar.com>
-Date: Wed, 14 Oct 2026 09:55:03 -0500
+	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="EJlJ5thm"
+ARC-Seal: i=1; a=rsa-sha256; t=1791989700; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=m4nbkDhWbwMxRGHxUhdo9vdHlCk+0PjpIcLwr/rfKuYgwLUfY764hLB+y1N31hk+2Wi4CJcvqV02n17Yxxh7mSW6Zv02JikuJyzJ7NURHlGqsjV2RE4FtvVZEewFRgFZx8MP1qwGBEZmrOGbu4BUeJncEXaQzu4RKzCOA83EXjw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791989700; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=CA9g32FsvjIGy2NDJ20+Q4DRxnVN7V2LPet+zGjT+fg=; 
+	b=V+64rw46zLps7k9TwGXl5+cF91xERMXQZNkMz/qYyrDtrAA0GFPBmPinlJggW96LWjdEaKe2a/pOFCrMGVtQ/AajUb18bKGf00KYa4llRKkBJUpd8aUuZ1BWn8yR3lK6QhDSHZl6ylz/sQRbW3mhZGRBOdEZC/fcaOH9/yXpbRA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=icenowy.me;
+	spf=pass  smtp.mailfrom=uwu@icenowy.me;
+	dmarc=pass header.from=<uwu@icenowy.me>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791989700;
+	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+	bh=CA9g32FsvjIGy2NDJ20+Q4DRxnVN7V2LPet+zGjT+fg=;
+	b=EJlJ5thmYHTGuloONFxmtnSL0L2U4jeqes2F9PqN9JWlipQBiXpx7agn94gr8jUW
+	x/KVdqrxykVwyiPenP4qYHZAVZeDzgzpbyI0lv3bz/b0LFWqg7HkXrNnKNQVRsVlqNc
+	Y22rlLwfDc6d18/Yd4GopoI8gZloez457zXYWdlrZKMk+qcyXlaoK1OGzjwR+M6uXVp
+	kFwTrAOXTxLomOOV9jb6l4qdjzR0hT9NoaK9KkLr/53j9xYmesq8OEJJSsOIQR2T5cQ
+	B+kzCbvKRtCdJmCYan3SgewUDG48NqQmyMkxBqdzGLM0gogyuyf/BN+BK/DMp1rH4Ap
+	aRj9jRhTdQ==
+Received: by smtp.zohomail.com with SMTPS id 1791989698099683.4759366619081;
+	Wed, 14 Oct 2026 07:54:58 -0700 (PDT)
+Message-ID: <1227d18b5e03cd2e5b4b423cd7ca44284da0e4ff.camel@icenowy.me>
+Subject: Re: [PATCH v2 1/4] dt-bindings: vendor-prefixes: Add vendor prefix
+ for Teclast
+From: Icenowy Zheng <uwu@icenowy.me>
+To: Mikhail Kalashnikov <iuncuim@gmail.com>, Chen-Yu Tsai <wens@kernel.org>,
+  Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland
+ <samuel@sholland.org>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, Andre Przywara
+	 <andre.przywara@arm.com>
+Date: Wed, 14 Oct 2026 22:54:43 +0800
+In-Reply-To: <20261001022415.913959-2-iuncuim@gmail.com>
+References: <20261001022415.913959-1-iuncuim@gmail.com>
+	 <20261001022415.913959-2-iuncuim@gmail.com>
+Organization: Anthon Open-Source Community
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: interrupt-controller: introduce
- toshiba,tc9564-msigen.yaml
-To: Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor@kernel.org>
-Cc: tglx@kernel.org, radu@rendec.net, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, p.zabel@pengutronix.de, mohd.anwar@oss.qualcomm.com,
- lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Daniel Thompson <daniel@riscstar.com>
-References: <20261012190245.3988619-1-elder@riscstar.com>
- <20261012190245.3988619-2-elder@riscstar.com>
- <20261013-coexist-sixtyfold-cc6614086d3a@spud>
- <20261014-eminent-normal-lynx-3ebba3@quoll>
- <c5af1a40-e498-4855-8797-2663db83b9e6@kernel.org>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <c5af1a40-e498-4855-8797-2663db83b9e6@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On 10/14/26 5:22 AM, Krzysztof Kozlowski wrote:
->> I still do not understand why do we need to describe the inner wirings
->> of the tc9564 device. So far I found no posting of DTS showing proper
->> usage of it on the host. Without proper usage, what is the point exactly
->> to describe the inner specifics of tc9564?
-> And as shown here:
-> https://lore.kernel.org/all/20261012152408.3729237-5-elder@riscstar.com/
-> 
-> there is no single user of any of this (this=reset, clock, irqchip
-> probably and more) in upstreamed patches.
-> 
-> I am getting tired to keep discussing it, so next time instead of words,
-> please post CODE which is the argument - who uses any of these devices
-> you keep adding.
+=E5=9C=A8 2026-10-01=E5=9B=9B=E7=9A=84 10:24 +0800=EF=BC=8CMikhail Kalashni=
+kov=E5=86=99=E9=81=93=EF=BC=9A
+> Teclast is a Chinese consumer-electronics brand. Add its vendor
+> prefix
+> so that board compatible strings can use it.
+>=20
+> Assisted-by: OpenCode:DeepSeek-V4.1-Flash
+> Signed-off-by: Mikhail Kalashnikov <iuncuim@gmail.com>
+> ---
+> =C2=A0Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+> =C2=A01 file changed, 2 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> index ba2002969..c7c2fcd37 100644
+> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> @@ -1694,6 +1694,8 @@ patternProperties:
+> =C2=A0=C2=A0=C2=A0=C2=A0 description: Techvision Intelligent Technology C=
+o., Ltd
+> =C2=A0=C2=A0 "^techwell,.*":
+> =C2=A0=C2=A0=C2=A0=C2=A0 description: Techwell, Inc.
+> +=C2=A0 "^teclast,.*":
+> +=C2=A0=C2=A0=C2=A0 description: Guangzhou Shangke Information Technology=
+ Co., Ltd.
 
-I'll take a break from my in-order responses to messages, and will
-respond to this first.
+I am feeling weird trademark/owner discrepancy, although I checked the
+footnote of Teclast homepage and the owner here is correct (although
+the name is only seen on the Chinese homepage and on the English one
+it's just "Teclast").
 
+BTW Shangke Information has another brand name, for PC parts, called
+Maxsun -- although it might take a while for this name to be considered
+for DT bindings.
 
-Our ultimate goal is to support the two DWMAC interfaces attached
-to PCIe functions within the TC9564.  This is a complex SoC which
-interfaces with the host via an upstream PCIe switch port, and
-incorporates an embedded PCIe endpoint with two functions.
+Thanks,
+Icenowy
 
-Based on your request, I will plan to send *all* of the code that's
-required for DWMAC support for review later today and tomorrow.  I
-have been pacing myself (in part not to inundate the lists with
-patches).
-
-
-A block diagram representing the TC9564 SoC is included in this
-devicetree binding:
-
-  
-https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git/commit/?h=char-misc-next&id=ed0a1c1eaa376e11cf8c97d898f2811b8ded322f
-
-That explains (and attempts to show) that devices (including clock
-and reset functionality) use PCI endpoint BARs for access to their 
-registers.  Other IP blocks shown are an address translation unit,
-a block of SRAM, two XGMAC interfaces, and an MSI generator for
-each of the two embedded PCI functions.
-
-
-To show the final DTS file, I have squashed the working code I have
-and refer you here, starting at line 994:
-
-  
-https://github.com/riscstar/linux/blob/18d7146c807a6264388c919391b77a795612e342/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts#L994
-
-
-Note that this exposes many internal details of the SoC, which
-Krzysztof objected to here:
-  
-https://lore.kernel.org/lkml/fbeac5ba-a28d-4d34-8d23-4946aef515ea@kernel.org/
-
-I responded, explaining some history on this code and asking
-for clarification on criteria for when it's acceptable to
-describe chip internals in devicetree, but received no answer.
-
-
-The PCI endpoint bus enables a PCI endpoint to be treated as
-a *bus* that provides access to multiple peripherals, rather
-than as a simple single-peripheral device.  This goes well
-beyond the capability of the PCI enumeration process to
-discover the nature of the hardware, leveraging devicetree as
-a hardware description language to describe the organization
-within a complex chip.
-
-I understand the desire to consider the PCI endpoint (function)
-as the boundary for devicetree descriptions.  But I also see
-great benefit from viewing the SoC as a subsystem in itself,
-whose IP blocks and connections between them are described
-using devicetree.
-
-					-Alex
+> =C2=A0=C2=A0 "^teejet,.*":
+> =C2=A0=C2=A0=C2=A0=C2=A0 description: TeeJet
+> =C2=A0=C2=A0 "^teltonika,.*":
