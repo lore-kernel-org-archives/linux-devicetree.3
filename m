@@ -1,190 +1,98 @@
-Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32B0355294B
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 16:57:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5B863FB7E0;
+	Wed, 14 Oct 2026 17:10:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791997032; cv=none; b=PxLEb27kYswOoEkURLwmvXT3OVlktigeDWSEpzrJZTm2oQ1F9PgorqvDO4hq2jXrx1x4Yj3yJlpvfF5C942sifFkCavdx4ItvRT3S4Mwe1Nda2tK+Oh9sD8RZduZwbbf6YzpA34hgufhvFb7pL2pgnivh1nj6kniNdxYn+gWwIg=
+	t=1791997843; cv=none; b=BieIb+lazRO0Jf1BytaXhkkuhJTfv+zdJiUaWnUii5OfB0/zM+KIiF/u78U1uxnhKcp7eeTQe+AxJTMcsbQg0h0Pmh+Isi1aGQ/U7ezG7eOtbJfygLs/SfFGd/LYQKiXHTunesOyN66mJ6/sjJpVvj4oq2mOMfnuw1Drf66ZO8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791997032; c=relaxed/simple;
-	bh=nRmxIe3nekvo3LsmeCDFBt3HhYTvzYYTtP4ISLeLSHw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=p0AM62NYDZhl5EFTmvTrhLigOXp3sJfgbVKviNMD3Dom/0W12sTYWt5VThRpJZhwfwOqVzocC/CaBGaAwZvj5erB48iTpQTu5PeZypKeLtONqqUCHboQrtxK6WkD+CJKv82U0sHkMpyxyy27oiPra5rW8m1yU9DqQcrfez/mKSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=oAxiewNt; arc=none smtp.client-ip=209.85.219.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1791997843; c=relaxed/simple;
+	bh=ZcAlgZHFiRmVzmP4H64tEj7/iJeu8Ic2k+Xizy9UXd8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HLbAeAPQLKMdC/Zh2gXKPW8iRUHX7aNbx+by3OlIo2f24yjBW/Fdu4sl2swXpPuHmDLYEFi/5ADpa1pW2JG1NohYcSNZ7/AYEvr1fxsAZvsaPYojIivDFA5U8g/ra7WrWI4kvec+PJbDi7nmYJZ2jHw/Vmj8PVWLlcYWN7Uycg4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=lmnLOLmM; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="oAxiewNt"
-Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-91b834592afso32900886d6.0
-        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 09:57:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1791997030; x=1792601830; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xqICNawrxpnV+J/cqg3H34juTALn0ZUgodfLDyK948I=;
-        b=oAxiewNtYa9j7vGWiahciu8kcCFNknM3vBEqyW7YvMIHH/w2QkpbpwY06UriCKhbvR
-         1XJ1Qxu3pHMK0quF++Ut+FKhXJz9KF9spQ8Dyfqjeu7tpgjCA+/VoFwDEOnkVrXRHPDI
-         uz2d9saI6C2umBKOA6UyIveItBMT91kcz/bCkLJ3esTHyqwU+VfJhrAOBd+b1sKq/eTa
-         A5H0qsCqJNUnsddGc4UmrlWm3I+d5jKUiwWIoY1jqVoUXgJdQD8pbmD3eqsEMvKeNSD9
-         LdAOlRppmM/KGnHnN7/VzLmtwqkvS2ZMZPoGvdTJWNf34ayIGeQHsVeRDYGTmLeQkJGo
-         tMuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791997030; x=1792601830;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xqICNawrxpnV+J/cqg3H34juTALn0ZUgodfLDyK948I=;
-        b=v+6J/lbzjDqf80crqJci80Lu/lUeGK8VTYX2lnMR6YOhJpory9jSzPJRregeju7BFe
-         UFo4yjmGvmMzf8Q9e7oxlyMw1ePIsVHtE41PXjPt4zqwVgXS7Kgu8Tewp3fbi8sSymGr
-         QM9wfwMBJaPE3zFJJwFbxa9ZKTii/oPtBtJg1DyJm/LmJbEeOJ7Sv9LsRoTCvHinYOSo
-         RbaFFQ0o7aU9UzsOP83er0K5K3O3eg/epxW93VZpiV7XCRp2bknSUee28SOLLcd/b5SE
-         /SGY2qISrjAC8IE0WUL22uPK8AxfVho/ugstcgdf4EV043j3wJHUdWJr2/9L8YWpCvuH
-         VL/A==
-X-Forwarded-Encrypted: i=1; AKwUvBxiWbxZ3cLAjy3L3BgNlLXbLyzuJdJYUtapa6ctwhz9m5LwVsNyR0cibaQoAtAF537XFezcqLngSiyI@vger.kernel.org
-X-Gm-Message-State: AFq9FYJjgKsryazW8MuHr9GVX9gnJFMEvDxiZSorYuwWEF+1iDdByXy/
-	ke6KImEpqh51TEi4Pem+eFKXsA+hMzhkR6OVVI6wR6DAazF0Uhss0HSVq+3OfG1jtLRGTSotvn3
-	pThOokrQ=
-X-Gm-Gg: AYBFou1W3uuF0QWy6Guu79q/yYIis7b8usMZPxqmnGvs8JNrRM4ge2+L1tsRSpHuRf8
-	fi8wMZyE+lxVJWZ6EJf1bkjxeimgcaakkx+HTUZLPo2HTYFXuc82psox1gffQK71I4kIFsAEUQc
-	vrB5nEIQs/RQmXOUXyyOh4FW7IHVOVrWdYuT1FWwnOq7evuf1fAUZapS5OwFBHfD6Zff61PWTZI
-	chfuHpq4SophfKyZV50TkvK77KbXvBLN3mZQp2NGrZ8+8ha56aw7S9PJQtfWDKJVX53oTZ5EO9Z
-	98fiSgJU9/a3YO3HLAX5EOXTB0/qAKpmRqXRl7UK18S2fGZ/+pwZeGGr7bKIvl1NsAy0LjYkq9w
-	ohCBOB31XVsyal+KkffvgzfoAFwTr4wgs2eUrOq/cT196SLmhwQ76VtZtUjJggEWW3eVJlADSbV
-	asTQZVxoE5JzKHj3uW1a1igsaFnyMq6Uwfb1th9NkHdGK6u5f82bEaan3C4wxbAEDnTr80coTIk
-	mqC8qgmFw==
-X-Received: by 2002:a05:6214:c4b:b0:919:51e9:8f16 with SMTP id 6a1803df08f44-91b55806079mr321358506d6.32.1791997030041;
-        Wed, 14 Oct 2026 09:57:10 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97b35e23sm57382956d6.17.2026.10.14.09.57.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 09:57:09 -0700 (PDT)
-Message-ID: <af5ce6ac-244c-4fc4-bbc1-8875eec8508a@riscstar.com>
-Date: Wed, 14 Oct 2026 11:57:08 -0500
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="lmnLOLmM"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=xroLQRGFlVBdqILrwWhxRndvE/GU7qXvt3u/3iPUAeU=; b=lmnLOLmMv8N6XJzHwczRNtQcQJ
+	rwcdD4fg3iW3B++JwobDzwU6XsLWC2ygRZIm+ag7ZTtLUEyCQKkc3ECF0ZYT3qI4J2fmzpvl4+S5b
+	UykNPFNm4XlF7DtTLDwIActVpa1Xet/sYCIbC7oS1aQmmjUdTosn4STQbolQo6OFVKGw=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xH2Ud-00AmlA-Rx; Wed, 14 Oct 2026 19:10:19 +0200
+Date: Wed, 14 Oct 2026 19:10:19 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: Aleksei Sviridkin <f@lex.la>, Russell King <linux@armlinux.org.uk>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Vladimir Oltean <olteanv@gmail.com>, netdev@vger.kernel.org,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Conor Dooley <conor@kernel.org>,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	"Chester A. Unal" <chester.a.unal@arinc9.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH net-next v6 0/3] net: phylink: wait for a PHY that probes
+ after the MAC
+Message-ID: <b175c750-104a-4859-a137-09de78a6d8bb@lunn.ch>
+References: <aa01ab1c-da2c-4638-816b-f535b635379b@redhat.com>
+ <20261013151233.2474217-1-f@lex.la>
+ <3d3b9f10-e3e8-4d50-b543-0d451cb07598@redhat.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: interrupt-controller: introduce
- toshiba,tc9564-msigen.yaml
-To: Conor Dooley <conor@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, tglx@kernel.org, radu@rendec.net,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- p.zabel@pengutronix.de, mohd.anwar@oss.qualcomm.com,
- lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Daniel Thompson <daniel@riscstar.com>
-References: <20261012190245.3988619-1-elder@riscstar.com>
- <20261012190245.3988619-2-elder@riscstar.com>
- <20261013-coexist-sixtyfold-cc6614086d3a@spud>
- <20261014-eminent-normal-lynx-3ebba3@quoll>
- <c5af1a40-e498-4855-8797-2663db83b9e6@kernel.org>
- <b8a8ca4f-c575-448a-baea-4b9f82f15e39@riscstar.com>
- <20261014-getting-bronze-d8ab7598d9ee@spud>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <20261014-getting-bronze-d8ab7598d9ee@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3d3b9f10-e3e8-4d50-b543-0d451cb07598@redhat.com>
 
-On 10/14/26 11:41 AM, Conor Dooley wrote:
-> On Wed, Oct 14, 2026 at 09:55:03AM -0500, Alex Elder wrote:
->> On 10/14/26 5:22 AM, Krzysztof Kozlowski wrote:
->>>> I still do not understand why do we need to describe the inner wirings
->>>> of the tc9564 device. So far I found no posting of DTS showing proper
->>>> usage of it on the host. Without proper usage, what is the point exactly
->>>> to describe the inner specifics of tc9564?
->>> And as shown here:
->>> https://lore.kernel.org/all/20261012152408.3729237-5-elder@riscstar.com/
->>>
->>> there is no single user of any of this (this=reset, clock, irqchip
->>> probably and more) in upstreamed patches.
->>>
->>> I am getting tired to keep discussing it, so next time instead of words,
->>> please post CODE which is the argument - who uses any of these devices
->>> you keep adding.
->>
->> I'll take a break from my in-order responses to messages, and will
->> respond to this first.
-> 
-> Not really replying to any of this, but figured it was worth
-> mentioning that I am reviewing with the assumption that it's similar
-> to the microchip lan9xxx devices that can either be a standalone SoC
-> or connected as PCI endpoint.
+On Wed, Oct 14, 2026 at 12:04:36PM +0200, Paolo Abeni wrote:
+> On 10/13/26 17:12, Aleksei Sviridkin wrote:
+> > On 10/13/26 09:53, Paolo Abeni wrote:
+> > > The above looks like a significant amount of complexity for OoT driver,
+> > > and I understand it could be solved with a different kconf?
+> > 
+> > The PHY driver is in mainline, air_en8811h. Only the board's device
+> > tree lives in OpenWrt.
+> > 
+> > A config change can avoid it, but it is expensive here. Building
+> > air_en8811h in is not enough, since it loads its firmware with
+> > request_firmware_direct() from the root filesystem, which is not mounted
+> > yet when the switch probes. It also needs CONFIG_EXTRA_FIRMWARE with
+> > 144 KB of blobs, in a kernel that OpenWrt shares between every board
+> > of the subtarget.
+> > 
+> > Is that the expected answer for a board like this one, or would you
+> > take a smaller change in phylink?
+> To me this series still looks too much churn for something that has
+> alternative options. I would like to hear a 2nd opinion from Russell,
+> Andrew or Heiner.
 
-Yes, that was one of two things that this was modeled upon.
+I think the hardware design is poor, it would of made everybody life
+easier spending an extra $1 on an EEPROM for the PHY firmware.
 
-The other is the Raspberry Pi RP1, which is probably a more
-similar example.
+One alternative is to put the firmware download into the
+bootloader. That means it is not in the initramfs, which seems to be
+the major reason for doing this. By the time Linux gets to drive the
+hardware, the hardware is actually usable. That makes our life
+simpler.
 
-> You keep calling it an SoC, which I took to mean that this had
-> linux-capable CPU cores on it. Is that not actually the case?
-
-Well it is an SoC, in that it has numerous interacting
-components that are aggregated into a single chip.
-
-It does, in fact, have an embedded CPU that uses SRAM, but
-it's just an Arm Cortex M3 and is not Linux capable.
-
-So no, it is not a Linux-capable SoC the way the LAN966x is.
-
-					-Alex
-
->> Our ultimate goal is to support the two DWMAC interfaces attached
->> to PCIe functions within the TC9564.  This is a complex SoC which
->> interfaces with the host via an upstream PCIe switch port, and
->> incorporates an embedded PCIe endpoint with two functions.
->>
->> Based on your request, I will plan to send *all* of the code that's
->> required for DWMAC support for review later today and tomorrow.  I
->> have been pacing myself (in part not to inundate the lists with
->> patches).
->>
->>
->> A block diagram representing the TC9564 SoC is included in this
->> devicetree binding:
->>
->> https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git/commit/?h=char-misc-next&id=ed0a1c1eaa376e11cf8c97d898f2811b8ded322f
->>
->> That explains (and attempts to show) that devices (including clock
->> and reset functionality) use PCI endpoint BARs for access to their
->> registers.  Other IP blocks shown are an address translation unit,
->> a block of SRAM, two XGMAC interfaces, and an MSI generator for
->> each of the two embedded PCI functions.
->>
->>
->> To show the final DTS file, I have squashed the working code I have
->> and refer you here, starting at line 994:
->>
->> https://github.com/riscstar/linux/blob/18d7146c807a6264388c919391b77a795612e342/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts#L994
->>
->>
->> Note that this exposes many internal details of the SoC, which
->> Krzysztof objected to here:
->> https://lore.kernel.org/lkml/fbeac5ba-a28d-4d34-8d23-4946aef515ea@kernel.org/
->>
->> I responded, explaining some history on this code and asking
->> for clarification on criteria for when it's acceptable to
->> describe chip internals in devicetree, but received no answer.
->>
->>
->> The PCI endpoint bus enables a PCI endpoint to be treated as
->> a *bus* that provides access to multiple peripherals, rather
->> than as a simple single-peripheral device.  This goes well
->> beyond the capability of the PCI enumeration process to
->> discover the nature of the hardware, leveraging devicetree as
->> a hardware description language to describe the organization
->> within a complex chip.
->>
->> I understand the desire to consider the PCI endpoint (function)
->> as the boundary for devicetree descriptions.  But I also see
->> great benefit from viewing the SoC as a subsystem in itself,
->> whose IP blocks and connections between them are described
->> using devicetree.
-
+	Andrew
