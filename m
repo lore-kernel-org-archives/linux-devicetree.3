@@ -1,227 +1,131 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5957B4E5320
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 12:37:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF6F84E80CC;
+	Wed, 14 Oct 2026 12:37:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791981430; cv=none; b=Q1xKQBAsXS82Sbm1C6Wfly1LC+sG9sSHBiWhGeSAiqLbuYUCrniiPmI137N4/tWMG15ajG8gb3a9ttbHxXOfjhZrsDrLUtShLBPKjsfEhZA95L/xq3GLMokBOCh4Zb0exrB2FbAYm5ix7BINxRIGsjVJmiXM948aGe9jJOVzRxo=
+	t=1791981432; cv=none; b=lXJOyyPCA7W122VlYHcJUB698aOKXCwpzLjq0hbQQFPD8B2AandommN4KAuPr6QRjvXsPhWTuBbdeCLWgCGaUa6Yeacdn0eMnkRwCqLOa3/ZRIIrq9Ly6NOGWw7NEJMacBRDlCJK+SXmgy78zMMvwuiH3C5EbTJTS3yHQ+yJLLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791981430; c=relaxed/simple;
-	bh=2sBp7G5mc6uJL64UNxM6dPPb+46Qh7eHGxK9GvyQ9M8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=i98lRp3afr1YFq+uCDTilDnCd5/xxnYuVXAb+ISxl6kJG6O2r58Jm4kNhmUOIS3XruIDYHnc0JtzyoO0+logsrL61xd5UXAaeVG1c9UuCvE7vZeLOelyAI9Vbj1vyoepC2dJo5b8ZY1rpPHgRoCRcqX/U1Ggd/e36gkX88a+p3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AlfsYFZZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=K1FVo13O; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791981432; c=relaxed/simple;
+	bh=7uSCPyNA9hYTau3ViEp9GhTrfshCNKJ/zqI6j1VxtSY=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=skE8vi5f2Zfcv+Q8IQH2o6456m32gvqDuOpx1LK8eyHEcVfk/5AeR/yAZ7aHwRBNfKSOPycjBC6hofSZX4SKWTMzMfWrp3omSLIKi1rn/IZRWb2AuvoBbO+BZ2BdIzZk0Dx1sXH6HHrPvd1CvomnRIqoijZ+169MNTJlGZkTRI0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OFYlGaqg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AlfsYFZZ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="K1FVo13O"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69ECW1lb2087984
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 12:37:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	rewnoAte/tJ+Uf3m9Ci2S88OVFipQXBWInPmr2cUEoY=; b=AlfsYFZZiHLF5rCi
-	wGlfXU/2kSJ+RvyjkPXizaFvhtZcX3+soS8b9X0bEtpg2jMZ1/KehuZctksYXhy4
-	w9GsiK/7mhC3RvdEaF0j0rqYO4HWDnEm7ERb2G+36WyxrWGnY0dE6DebcM/ugyeB
-	jcWDmG/3njb5u1KZ+SCDCpOEG3IFdeBR9BKxj0xw1uOjuPDUzMhV27+gBwH7VX28
-	69lITh8sNIuvikehQB59dc4gYzSmSRJLtNZ1wxtF94p0evtDy02VaTKHFKw0NBeR
-	WsIqoCGxiZowXFKI1j+zcpye3M52Ah7lbkDzsUaoqMPSQPZSH1LDw32zKDvstXIp
-	qoiYLw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9x49juaj-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 12:37:08 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93ecdc701a2so43291585a.3
-        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 05:37:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791981428; x=1792586228; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rewnoAte/tJ+Uf3m9Ci2S88OVFipQXBWInPmr2cUEoY=;
-        b=K1FVo13O3ebtcq5qxMYXWD4B24F1JsdFDD5oPDj9KWrgH7jToQBjhhTgdCC51IoceV
-         oaxkHWuUOG2Ca+V5/UN6xM7jcyTlgGUOZiZ7aeceGShrir4vmapajudoSAwdVdHp7aPc
-         r40Bs1hkHO1FigJQq7wUL1mWY04h+rugTVd2FgZj3lG6E0THR8Kco02EKmDSPj1nru1l
-         jOxEjsCAX4LUauGyxDwsBo4gnFd2TZF69vJNcxbORqbIhgNAfiu1uBM06a1z6SbzMt8V
-         V9HjxnPlDMC0Rl104Dj75Sp/11eIwGNyapxjto598YIyP00AO2LGt+puwRnISrA7KOnF
-         tPNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791981428; x=1792586228;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rewnoAte/tJ+Uf3m9Ci2S88OVFipQXBWInPmr2cUEoY=;
-        b=buT0q45h43ACJpp0SPyOwRN0dYhqaP9h1VwU22QHuGbSjcbZHCphIl7f1kcAAiMmv2
-         LIzBhjzgY2jo8j6wChcetsCi3+22OafGlQC87U8xysB3UW3t50bnlE8wtppldSVRCyse
-         /ZrVunOcFI0kbu8KY63c1luCd/jMnjDl0qKQBAn3tpZYcBdxWdsHLTwLWvpIeqY32Ag8
-         RvfLB9Tkj6R1CE2nITJ01h3NkI7QXFRNUH46BbiaN5SZCQZAoo4C9F9GwzAGouWl2SrV
-         zYlz0r14QFotiC//7sfBN+qgogiJbJtwY2tUxAVFUVn3OvOTMJ2ralz9ze4cGyVv51t/
-         4TTQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzVG0QiD4av6gsx2Z7sCPlj24nne6BuNipnKg+IUJnHmU5FK8c0g1i3ZazDSwwmzaPmTCETqa88Cn9u@vger.kernel.org
-X-Gm-Message-State: AFq9FYI3u7h/F0wXRF4/85KZ449wtEjk3Ke7la1vDhxTEXGf1NtBDVhy
-	05OeubolCH3RhJ3ddtPENhTkT75iqJVa1+TZjepjctHOcm15MIaeopcxUjuli1uc/0Zq5v5vMnC
-	WMtcxIE8dLWIMnmstocbkfBASQeYlnxr+AdB6CnzF7v12DichyXmxrVYtOVgy4r58
-X-Gm-Gg: AYBFou04258HuUG6z3JCaplEyMpNdaE2xreEDna65T0hTjQrdIFQ/7g3dvswDfRMDw4
-	EUY1kyuu3eeB86CSgxKCB+IDnNxtCJ1zpG+RTviUNvujKEEC11uMXz7MQ5PNn6CCpAlYac3PY3L
-	gUl/F2SuCZCp1RjQLKbc5bD+RJMh5EZ4wzsd0QKnpa9KMWehqoVQU1abrQNtXdsUYcH7P9L5WWq
-	KoymYvMZg37NCJXR+DUAYuiwbjkrZ5voH5UotD7u5we3NAo9hMxVSDKYm+8glp1FfhoGD+PguM3
-	b9hqVtQZl4i/2Puxf6z7KxhDH4NfuGa2kN/zQrVlZ6zUi9xiT+y2XfuY1G7V9vTy6XRzxT51quV
-	kPXHIUrR6yDLOK8eidwO7kHoxZMpC
-X-Received: by 2002:a05:620a:44c4:b0:93b:d7a2:dd2b with SMTP id af79cd13be357-93ebd282089mr2546072085a.59.1791981427411;
-        Wed, 14 Oct 2026 05:37:07 -0700 (PDT)
-X-Received: by 2002:a05:620a:44c4:b0:93b:d7a2:dd2b with SMTP id af79cd13be357-93ebd282089mr2546067185a.59.1791981426847;
-        Wed, 14 Oct 2026 05:37:06 -0700 (PDT)
-Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a19f318c31sm206122615e9.3.2026.10.14.05.37.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 05:37:05 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Wed, 14 Oct 2026 14:36:40 +0200
-Subject: [PATCH net-next v16 1/7] net: stmmac: dwmac4: don't program the
- 1us tick counter without a CSR clock
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OFYlGaqg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05B151F008A3;
+	Wed, 14 Oct 2026 12:37:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791981431;
+	bh=EyujO6LreswkVKkIMfcZj0sBOrMuUNoqqwofZg3zjIM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=OFYlGaqgmApbJgl6LENgncMYh3zuMBtlIVjT9AaUjvyCUKs6MciDeopMUBK4waChc
+	 PKGeYex7r1hezA16yvIv9nw67xLdOM6smIhhsbmsIjtnVS/Blb3SKmdoyxaoJ+6lsZ
+	 hk6L9GvKuCNgG5aPs08hx98jSBa1NXFJPeB5E3JilWxQDTy9gD+kHRokw6V2nEJ1YB
+	 zvqUoPHLfQvFlZbMSb+8ueK7OmxSrdAiKmziGAGz58Z9c3+t77M3KjAqOYBtfLtG6i
+	 0fDq6HRQsjqL5E9mx7oZLdlMO+WecQdPpXTSir2YEO9ndTJ6M+PbCqc0c3bBZsNIjv
+	 Px0vH5Jmafznw==
+Message-ID: <sashiko-outbox-171290@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH DNM RFC 16/16] pmdomain: qcom: rpmhpd: Stop forwarding
+ MMCX pstate to CX
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Konrad Dybcio" <konradybcio@kernel.org>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261014-topic-qc_clk_dvfs-v1-16-3041b788e9f7@oss.qualcomm.com>
+References: <20261014-topic-qc_clk_dvfs-v1-0-3041b788e9f7@oss.qualcomm.com>
+ <20261014-topic-qc_clk_dvfs-v1-16-3041b788e9f7@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 14 Oct 2026 12:37:10 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-qcom-sa8255p-emac-v16-1-0266c2ead980@oss.qualcomm.com>
-References: <20261014-qcom-sa8255p-emac-v16-0-0266c2ead980@oss.qualcomm.com>
-In-Reply-To: <20261014-qcom-sa8255p-emac-v16-0-0266c2ead980@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-        Alexandre Torgue <alexandre.torgue@foss.st.com>,
-        Vinod Koul <vkoul@kernel.org>,
-        Giuseppe Cavallaro <peppe.cavallaro@st.com>,
-        Chen-Yu Tsai <wens@kernel.org>,
-        Jernej Skrabec <jernej.skrabec@gmail.com>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Kevin Hilman <khilman@baylibre.com>,
-        Jerome Brunet <jbrunet@baylibre.com>, Shawn Guo <shawnguo@kernel.org>,
-        Fabio Estevam <festevam@gmail.com>,
-        Jan Petrous <jan.petrous@oss.nxp.com>, s32@nxp.com,
-        Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
-        Romain Gantois <romain.gantois@bootlin.com>,
-        Geert Uytterhoeven <geert+renesas@glider.be>,
-        Magnus Damm <magnus.damm@gmail.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Christophe Roullier <christophe.roullier@foss.st.com>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Eric Dumazet <edumazet@kernel.org>, Radu Rendec <radu@rendec.net>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-        linux-stm32@st-md-mailman.stormreply.com,
-        linux-arm-kernel@lists.infradead.org,
-        Drew Fustini <dfustini@tenstorrent.com>, linux-sunxi@lists.linux.dev,
-        linux-amlogic@lists.infradead.org, linux-mips@vger.kernel.org,
-        imx@lists.linux.dev, linux-renesas-soc@vger.kernel.org,
-        linux-rockchip@lists.infradead.org, sophgo@lists.linux.dev,
-        linux-riscv@lists.infradead.org, brgl@kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Sashiko <sashiko-bot@kernel.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2229;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=2sBp7G5mc6uJL64UNxM6dPPb+46Qh7eHGxK9GvyQ9M8=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqz3dl4m+qpuql2x9Vuhi+JubZ+193cRWj0/Vsd
- rhj3qvfaZWJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCas93ZQAKCRAFnS7L/zaE
- wxR0D/wIXdjVmoAyOQeH7rB9q9+tq0uz6+cpOevgEQPFym6rHDfDydYuv+Yx0TwmDKaVxqZEqA9
- jkqxQdxY0HzAlkxLaSYJL9dSajCUAOaQizKey3sUqyZ7gTnQDdYKJIM0saQvyScb+N+VM1CDA8k
- nCOaR4A1ZkyhRe1eaRwXPwqDRV23Y3dscokhHny/y2qlzPrjHUcocoY9Pxz2mKFyd/1dPshepuB
- ALhQTHp2qyGnx/sbNa40NyMyYIxUSOqLNpg7MPPZ/eHcKYgkGdFKBuvD2nc/aTbpFGHG5jyxLP7
- frCLl5Xa+7k1cT8qg4UPQXAjT5M9VZGOy0QgPZLiQMJdI7DjYAqQCNwAjEPF6Bdmm3tpaZetRLC
- XgnGVlbnhs/uZHx/2whbV9/5bXedTCMQikDfotazCFTGCdTIo+U5ShDYDkAFqkFxFAMdt1Q77RU
- FrTnQ/+A4OMvVXId7/C5hRBwuLsxeyoEqwLXi7guVcuc++nVFS9OqFGBV0mCz2L/Hv3+M0qQ3SK
- 5kDrgaYLzvgplw4JYzqeNct7wnTR6M+0AxpMQbSCzDQKiIXYKo22NyVVXf8wZNCzpQ3j8Wix6vp
- 14Gpzo8HiHXuQp4PsyR+VZQ3zaYmSmsJGP8CN32EV6T2d1AeDhgTNRKD1oP6kJRByraeJ6rRevV
- 024vzSVRofGO1kA==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Authority-Analysis: v=2.4 cv=YJcKWhGx c=1 sm=1 tr=0 ts=6acf7774 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=Xm6EMxWvXKbCXn_Kg3kA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA1MCBTYWx0ZWRfX2/ezBWkThcJF
- ZiTJr6j4ZA9ID8v+42nRDgIBeaskGhZCpAgKx9UU52Aot+BQa/WqZRSFVwqV4mtQAObYEZtJOLH
- Ig5RWend8KSpjRL8g05Y7LG/EGom4Lg0lijWUGi+tHF6DNU2e1cq6fzg4rfPbMFb2GE/dSIDWXf
- KKB4LfLIel6ysWTTJau5tdDLJ0qN6LJvoU6xB67ItROLohF85IAt+40aNWDpfA8d6jDuEjciYWz
- j4zkUHyc+159lYpKkIHpWQGk3hnht+VV+gPhyGcRGG79dcmP+X+9pciiGZ8OWwYFofJS9TRi0wG
- KgW8+lsPTI6jqo494+alUDkN2aQMXKvc14a+CyIgda8+bpOn6UGux2CjY6/HLwBULjFiJIygHdZ
- n573cFWJZ++JnLegG8MXcZpYd5xjokcubgYJzDr/o0ejzgYJQR7A65YBi5T28Ty3HqtxUjkkgB0
- T4pIidubSN6nizluWcw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA1MCBTYWx0ZWRfX8vcoANRx249y
- Kv7NKc0MUcAsdIArET8qTeSEZU6BFLFmipDcsLhbsQ8YeOPxMtNBQzNNUCsM/ZBX//MTdvGO218
- 4fML5RiyuUwRYNPLNuQRjvj8xklkd1A=
-X-Proofpoint-GUID: XprUXZDv4PCM8Syl1CiVqQ0nH2-2jpIw
-X-Proofpoint-ORIG-GUID: XprUXZDv4PCM8Syl1CiVqQ0nH2-2jpIw
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 clxscore=1015 impostorscore=0 malwarescore=0
- spamscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140050
 
-dwmac4_core_init() derives the TIC counter value from the rate of the CSR
-clock. If no such clock is available (for instance because clocks are
-managed by firmware and not described in DT), the rate is 0 and
-(0 / 1000000) - 1 underflows to 0xffffffff, which is then written
-to the register and can break the LPI timers that count in microseconds.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] pmdomain: qcom: missing error cleanup in rpmhpd_probe() corrupts g=
+pd_list
+- [High] pmdomain: qcom: missing clk-dvfs data causes system hangs
+--
 
-Leave the register at its reset value when the CSR clock rate is
-unknown. The RX watchdog conversion helpers already cope with a missing
-clock by falling back to clk_ref_rate or returning 0, so nothing else
-needs to change.
+commit e0f5d54b21f4fa98424f55031a683613420b6a75
+Author: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-This is first hit with the Qualcomm sa8255p ethernet, whose DT has no
-clocks.
+pmdomain: qcom: rpmhpd: Stop forwarding MMCX pstate to CX
 
-Fixes: 68f5d3dc2808 ("net: stmmac: qcom-ethqos: add support for sa8255p")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/179052656185.2160803.1751830002645522416@kernel.org/
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+This commit modifies the MMCX and MMCX_AO power domains to suppress
+performance-state propagation to their CX and CX_AO parent domains. The
+parent relationship is kept solely for power ordering.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-index cd6c5d6f42b5445918f277a2b4168d8f473bfca1..259e2ebed8c14dfdb9318da9be03c5f1dc9b1284 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-@@ -48,9 +48,14 @@ static void dwmac4_core_init(struct mac_device_info *hw,
- 	value = readl(ioaddr + GMAC_CONFIG);
- 	writel(value | GMAC_CORE_INIT, ioaddr + GMAC_CONFIG);
- 
--	/* Configure LPI 1us counter to number of CSR clock ticks in 1us - 1 */
-+	/* Configure LPI 1us counter to number of CSR clock ticks in 1us - 1.
-+	 * Platforms with firmware-managed clocks may not expose the CSR clock
-+	 * to linux, in which case there's no meaningful value to program.
-+	 */
- 	clk_rate = clk_get_rate(priv->plat->stmmac_clk);
--	writel((clk_rate / 1000000) - 1, ioaddr + GMAC4_MAC_ONEUS_TIC_COUNTER);
-+	if (clk_rate >= 1000000)
-+		writel((clk_rate / 1000000) - 1,
-+		       ioaddr + GMAC4_MAC_ONEUS_TIC_COUNTER);
- 
- 	/* Enable GMAC interrupts */
- 	writel(GMAC_INT_DEFAULT_ENABLE, ioaddr + GMAC_INT_EN);
+> diff --git a/drivers/pmdomain/qcom/rpmhpd.c b/drivers/pmdomain/qcom/rpmhp=
+d.c
+> index fa8fed5bd3e58..4d9463b4d5df0 100644
+> --- a/drivers/pmdomain/qcom/rpmhpd.c
+> +++ b/drivers/pmdomain/qcom/rpmhpd.c
+> @@ -154,6 +156,7 @@ static struct rpmhpd mmcx_w_cx_parent =3D {
+>  	.pd =3D { .name =3D "mmcx", },
+>  	.peer =3D &mmcx_ao_w_cx_parent,
+>  	.parent =3D &cx.pd,
+> +	.parent_flags =3D GENPD_SUBDOMAIN_NO_PERF_STATE_PROPAGATION,
 
--- 
-2.47.3
+[Severity: High]
+The commit message explicitly warns that this patch must not be merged with=
+out
+filling out clock DVFS data for all platforms first. It appears platforms
+such as SM8550, SM8450, and SM8250 do not yet receive the necessary DVFS da=
+ta
+updates.
 
+Will this cause the CX power domain to lack required performance state vote=
+s,
+leading to system hangs and hardware lockups when multimedia blocks operate=
+ on
+these older platforms?
+
+[ ... ]
+
+> @@ -1223,9 +1227,13 @@ static int rpmhpd_probe(struct platform_device *pd=
+ev)
+>  	for (i =3D 0; i < num_pds; i++) {
+>  		if (!rpmhpds[i])
+>  			continue;
+> -		if (rpmhpds[i]->parent)
+> -			pm_genpd_add_subdomain(rpmhpds[i]->parent,
+> -					       &rpmhpds[i]->pd);
+> +		if (rpmhpds[i]->parent) {
+> +			ret =3D pm_genpd_add_subdomain_with_flags(rpmhpds[i]->parent,
+> +							        &rpmhpds[i]->pd,
+> +							        rpmhpds[i]->parent_flags);
+> +			if (ret)
+> +				return ret;
+
+[Severity: High]
+Does returning directly here leave statically allocated PM domains globally
+registered in the genpd core?
+
+By the time this loop executes, all PM domains have already been initialized
+and added to the global gpd_list by pm_genpd_init() in the preceding loop.
+Because the PM domain structures are statically allocated file globals,
+returning an error without cleanup leaves their gpd_list_node members in the
+global gpd_list.
+
+If probe is later retried, for example via deferred probe, pm_genpd_init()
+will be invoked again on these same static structures, potentially leading =
+to
+list corruption.
+
+Would an error path that calls pm_genpd_remove() for initialized domains and
+pm_genpd_remove_subdomain() for previously added subdomains be needed here?
+
+> +		}
+>  	}
+> =20
+>  	return of_genpd_add_provider_onecell(pdev->dev.of_node, data);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014-topic-qc_c=
+lk_dvfs-v1-0-3041b788e9f7@oss.qualcomm.com?part=3D16
