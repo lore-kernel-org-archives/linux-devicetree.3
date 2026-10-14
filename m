@@ -1,123 +1,167 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C0655448AD
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 14:20:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BA63549390
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 14:21:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791987649; cv=none; b=NQW7/OWsbEWJIN6j9I/p39tlfnlrPNFx/8ZIJqG/j6fqkWdUJB25n7zAWgN/hVlWiMsjsOYNR4k7vxUV1dnhh7pZRa8Fkg2R2DBD1RQx0AWa6PidmEsaNQPinTfTXvsxWuytexePExXH1oJR+O8ohmRAJ7xB7rS19BBkxoXmbKk=
+	t=1791987663; cv=none; b=u2nOowhlSj/drKtQxl+sJhJM8bz84p5JQOivyyarQKs4d0rysxNkipLrmYNLp+8+042bXPb4quvaSdsodJ/TwznZDbsQIueHTxoc1YTFFH3eoRF1Fchxz1Rr5zGfdZHV3sHRF9BCyqugn7JDW5cuV6pCuCo1cifi3RUouxhN/jE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791987649; c=relaxed/simple;
-	bh=0vkgScNjk0FeEApM5592IqDNqPxwZ6cp5Ok4J3uj89g=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=fTqWN4M22dibXhxZVHtTUsZqh3xv8XJiAv1NfEf1hK1t/nRRRI/VRCRQ/kp8xdyUwigWyHoTC7a+Nywvynomul4h/zkLVAcnkvhqgBL5lotqosmmZrmRSRI1dCrDv9T1EKAffJy0pIJGHT6m2A3rMFotzb6Bw5hw7RogtLUg3ss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=FiZtFlyw; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1791987663; c=relaxed/simple;
+	bh=XGNrFoZ7MV8C7/dY+VSILAwCYiTvCmyJQJRuuRE54UA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=o+gVMwEVENlBm5FuFeP69MFIDfHrS2w68Wmu749U547IFWsC1NxMcN75GJEem4V8IOYwebPzOhX/lZAxqROOZP8P/pgjmlUNChmghr4obPTYJwcPTj3uhLPT/hBkNih4mH0EXKIiTpHYD7H/Ob6dTtnfJZfUY2V2KBQkANjCg1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XQsQ3V2+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hCsYsYns; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="FiZtFlyw"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 26E79C6344B;
-	Wed, 14 Oct 2026 14:21:39 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 2AAE560368;
-	Wed, 14 Oct 2026 14:20:43 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C0FD410328A4A;
-	Wed, 14 Oct 2026 16:20:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791987638; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=3F8TAptLzVl/pAtD0MwYH1gnZrqAcrHZKcdljRfH8y8=;
-	b=FiZtFlywkfFHhu5Fp8SSVauY8LD3I2zaiudqAdBbBu54EKBI29OyC90d4vcuJCPMR7BV0R
-	RLbolPztpiC1XVt9lbB6iT4k/tuG2Z1BjhKY+g2yXrKcYro8cg+L1x/GfDay7gVz4PfR/f
-	nZczQU4IuvqJB7ZWr/pcQtl0A5doe5rOxrjYbRzixarfMMPTenv6idvb2X3LU6eLr/471B
-	Nuy14xH4g4aXzacEQuh3lEw96r2S3keZxtE2i5dA4TeAf4XaWLHAzkWWDM14hh7vFBsl7K
-	1TmOfGXtIiUxJ4zFRNwQxpG9DrIwvk8VhNlLEPQGmHBR2lUp69WLypuMBp1SzQ==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: sashiko-bot@kernel.org,  sashiko-reviews@lists.linux.dev,
-  conor+dt@kernel.org,  linux-clk@vger.kernel.org,
-  devicetree@vger.kernel.org,  robh@kernel.org
-Subject: Re: [PATCH v8 3/7] clk: nuvoton: ma35d1: Retrieve HXT/LXT from DT
- when possible
-In-Reply-To: <87wlrkzog2.fsf@bootlin.com> (Miquel Raynal's message of "Wed, 14
-	Oct 2026 10:17:01 +0200")
-References: <20261004-perso-ma35d1-upstream-clk-v8-0-e1a106a128c0@bootlin.com>
-	<20261004-perso-ma35d1-upstream-clk-v8-3-e1a106a128c0@bootlin.com>
-	<20261004205903.E62F91F000FF@smtp.kernel.org>
-	<875wzhjhe6.fsf@bootlin.com>
-	<1jmrss7byt.fsf@starbuckisacylon.baylibre.com>
-	<87fqy9v82c.fsf@bootlin.com>
-	<179191290452.266355.16355634952216272745.b4-reply@b4>
-	<87wlrkzog2.fsf@bootlin.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Wed, 14 Oct 2026 16:20:35 +0200
-Message-ID: <87a4ogxt1o.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XQsQ3V2+";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hCsYsYns"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EBLuQ23951277
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 14:21:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	guDtRT+BFrNgrMr9QvoZtjIgkyZewpK+lc9ir5W7b48=; b=XQsQ3V2+7aeVELol
+	Ty82a8+AuF1t9jlkHQFWPGqV0R1T/GK+hcYNI/jB/xE2U98nVKQjh5LTXxgH9Z/p
+	vXORGa0AWtbQzyGpze8vXqeSkm/EQSTQUBEDHb4PIce784LMrvhQQisXC/+VrQg1
+	uqEXXg1kM64HJJ0Vb6vywpDypIJZ+5ofYbMUUCa6vkaVMV+zhIRGXm+OyNQMYJmA
+	tdBDVH3qrmhCc5rDyyGwV2XdSDQ5DWw1QXD1+5F3vt9ggiq/cVRAAQ17B2qEVMLj
+	3RbBcP91MMTjRXH7h8bYm0/ezdrYQmBFfkFgDhiK2OgCf5/fzf4oytw483Dyw4iM
+	FYpRpg==
+Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ha42p20qs-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 14:21:01 +0000 (GMT)
+Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5e95e7cc02fso76252e0c.1
+        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 07:21:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791987660; x=1792592460; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=guDtRT+BFrNgrMr9QvoZtjIgkyZewpK+lc9ir5W7b48=;
+        b=hCsYsYns9JjdldGvVgZdsiZ/Ap5OQD/8g3yztfGHtisUHqhoYTSDeVBR0CjrpxsBcD
+         FFLe5spTCOecLGum9Irb+2Ujvyfm4izc1/jq0+dlFw5yp+ODXdIC1qV9g6aASoxFKdnh
+         ZAcUaqEOnLhajrikc+0CMi4kmSb1tkv+kOXSGLiPNJT4YXcgoZhft6pnU+dwH6dHhs2A
+         /0BbonRX3LvZZtlpCH4XX7X1K4DGxptj05XHRNNlL3AFoCI5o/xW8uZdAEnLDe+6LvCt
+         fnQq2989W9hfpTIXc75UBVRK13WLKvzY0bskNLENjHndrzqTP7nFjf4D1iLwU3Fcj2K2
+         34Rg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791987660; x=1792592460;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=guDtRT+BFrNgrMr9QvoZtjIgkyZewpK+lc9ir5W7b48=;
+        b=b0soy65VeMMoXaXi+UDUsHMogjaN9d2sRuoi9Npt4O7H1G1lulL9hlIHc4MSq8LoX6
+         BlFzOG46WUPEX0nnYFCReyNsxG4npQI3+cNjUTZu1V8G2Ov3Ul+3yvzKZ0JRhsKn5YRR
+         NMy6efnDnlYH8b+QBl/T84dxjpqif6elwBdTnQV+BZStJrUN1OPFguYjQeoG6QysY1QC
+         5qWKCR6dhrqcrB48pyMRjLhE7JfhB9y60R0zy67CeEbh0SzbNLEaXxfeqRzRvv+sd9SL
+         7d2dmtkXGpK1LdYKuhv/feLeqgNIJwvpzhCWDdjITyUhlYz2bgyP6NWSwHX0Yf9xNN03
+         tOvA==
+X-Forwarded-Encrypted: i=1; AKwUvBxQ91/EpOE6rdpE3sX0y0QKXJ7e9zAYGNP886RsSzNtFimjydxO5pAJ7ejC8X/IqH+Mvm30/nvY+hwQ@vger.kernel.org
+X-Gm-Message-State: AFq9FYJcVhdH4tkLbopeRGU5FIAkjQu7k8G/HDqQa5kLKqA8T+5MmAHS
+	LJEQMWDbyKnYB3SHt1cAbU5j/fcSD+ecCzn8tMcof6ZkRBq2BBLYB/YEQ1ySBYygZJfKarHuyle
+	jMZ5dmaq8R00XEonGtvH5rytfZc+N3s/bkOwtMGqGYK6509vcwJHGYh1enPYe7SUA
+X-Gm-Gg: AYBFou3Pb7SSsar0bQw5RCEV3fuR+wIIaauogbc4xqbMZ1WQPqDIqlOsWGZFkq3SI8C
+	9h9FOpgYcZwArDfaJdSsu/86KB6jus7nIERgFsPMFC2eCaGUM2nVUEPylC0yHgdnyeTMrlHl5/3
+	FuZRqSjQub21gBZ4g1yAqDLgSRW/nWjbFKCvnPKtkpRX5W+aekJMG+OlSbPEb1DVvVFzUDSZPsP
+	zNO+/guaU8aQgn1vOGHEYEDVKYb6u+CRLwkP6PPF7ZRNM4CRr3wFMD5LcbUambf7kahOOVUJgBc
+	5WU8qdI4D1/7CJCidae8bNEIkzEG5osAkOxHAHKp0k1zW8Xonrmd4QvyAjpwqXgXRxwQM9/kWpf
+	o+xwv10eHal/RJp3aS06/Xg==
+X-Received: by 2002:a05:6122:4a0f:20b0:5ce:bde0:9b53 with SMTP id 71dfb90a1353d-5e91f49ed42mr3157613e0c.3.1791987660494;
+        Wed, 14 Oct 2026 07:21:00 -0700 (PDT)
+X-Received: by 2002:a05:6122:4a0f:20b0:5ce:bde0:9b53 with SMTP id 71dfb90a1353d-5e91f49ed42mr3157584e0c.3.1791987659925;
+        Wed, 14 Oct 2026 07:20:59 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b20388ad72sm1182036a12.24.2026.10.14.07.20.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Oct 2026 07:20:57 -0700 (PDT)
+Message-ID: <d82177b4-8e93-4818-bd4d-b4f696396373@oss.qualcomm.com>
+Date: Wed, 14 Oct 2026 16:20:54 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 11/16] clk: qcom: gdsc: Make GDSC parenting optional
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
+        Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Mike Tipton <mike.tipton@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+        driver-core@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org
+References: <20261014-topic-qc_clk_dvfs-v1-0-3041b788e9f7@oss.qualcomm.com>
+ <20261014-topic-qc_clk_dvfs-v1-11-3041b788e9f7@oss.qualcomm.com>
+ <lx5jywz6pnwfcoczp4z6k55qeol3ruqkyfsutngmg6n3xqnynq@6jgoutrnav2f>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <lx5jywz6pnwfcoczp4z6k55qeol3ruqkyfsutngmg6n3xqnynq@6jgoutrnav2f>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA1NyBTYWx0ZWRfX3hQSvghy741N
+ bp3iAyh8hLea5nkvps+aMHPJcx7f3si1YsxcP97yJki1KZDAi2OnHuj0tLoqvr5iyiflH8Nch/A
+ ce2S7MPQCsnHrU3szrlHf1JIylaN7CA=
+X-Proofpoint-ORIG-GUID: liis4Qoe-FepYwqmG3LWGAq9UaYLGqwc
+X-Authority-Analysis: v=2.4 cv=aeb0Dhot c=1 sm=1 tr=0 ts=6acf8fcd cx=c_pps
+ a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=NbljYO6N7a6c2dGYBmcA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
+ a=hhpmQAJR8DioWGSBphRh:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA1NyBTYWx0ZWRfXyRtJW7Fhw3Up
+ 0RM5scrKB1zr0lNxnArIFZc1o2pJOvGZ+n8S5czN0X6J7jrGvibKR4PzwIV7CHMFCq1FytPYB2d
+ 4YQSqCGje0oADuqld+z6MqB6TSWZBU+/L8oO6mYT16E9pKrgpiVf+VfLFtAIpCUrrWAmKEBpKmY
+ GROaAiSPMdvpoo0Lal70e0O67ZfDESC9qwDXLNVDo5DjKEIpUeghfN0LdSP1rwE+cAEcl6RSzOu
+ tefBDt5SGcuvb3zoT09bPtBEQV97/NUJf38i2D7+u3nfIP/ctcYGGwABaGtTBgtioZF9uS4Y468
+ QbVmIYJJVYbXrF/ikMXxJNXcS+wpk7UUFcg3kYfkuXgAZYheDs/Bw9qNVrOv0wIfepffixtegIO
+ qWJiCVlPm3XNjbzFkzaxrYqzRnifaVYiGwA77vwmXBHKvjE7kgJesQinoCMCa2Xc+WFaYrlOERj
+ xZPiRxevP2QiqNf8Ktg==
+X-Proofpoint-GUID: liis4Qoe-FepYwqmG3LWGAq9UaYLGqwc
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
+ spamscore=0 priorityscore=1501 malwarescore=0 clxscore=1015 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140057
 
-On 14/10/2026 at 10:17:01 +02, Miquel Raynal <miquel.raynal@bootlin.com> wrote:
-
-> On 13/10/2026 at 19:35:04 +02, Jerome Brunet <jbrunet@baylibre.com> wrote:
->
->> On 2026-10-13 19:12 +0200, Miquel Raynal wrote:
->>> Hi Jerome,
->>> 
->>> >>>> -	hws[HXT] = ma35d1_clk_fixed("hxt", 24000000);
->>> >>>
->>> >>> [Severity: Critical]
->>> >>> Does this unconditional removal break ABI compatibility with older device
->>> >>> trees?
->>> >>>
->>> >>> Because HXT (index 0) is exported as a public ABI in the DT bindings,
->>> >>> removing its explicit registration leaves hws[HXT] as NULL in the provider's
->>> >>> clock array. If an existing downstream or older device tree consumer explicitly
->>> >>> references this clock via clocks = <&clk HXT>, won't the provider's
->>> >>> of_clk_hw_onecell_get() fail to resolve the clock and return an error?
->>> >>
->>> >> Jerome, your wisdom matters here :-) For me this is a false positive,
->>> >> because nobody outside this driver should access hws[HXT] and the clock
->>> >> is still referenced through the DT, just not provided by this
->>> >> driver. For me this is not an issue we should consider, let me know
->>> >> otherwise.
->>> >
->>> > Strictly speaking there is (used to be) a clock at this index so it is
->>> > not a false positive. Someone crazy enough could have gone through here
->>> > to get the OSC even if does not make a lot of sense.
->>> >
->>> > This clock should never have existed to start with but it got in the
->>> > bindings ... and that is the pain of dealing with bad bindings :/
->>> >
->>> > You've got 2 options:
->>> > * Removing the ID from the bindings explaining clearly that it conflicts
->>> >   with the fact this clock is actually an input according to the same
->>> >   bindings. I suspect the DT maintainers won't like this much ...
->>> >
->>> > * Keep the bad support binding in the driver: You'll need a pass-through
->>> >   clock element where the parent data is the fw_name and a fallback to
->>> >   an `hxt-fake-internal' fixed clock. Feel free to add a comment
->>> >   explaining how bad it is to use that clock and what user should be
->>> >   doing instead.
->>> 
->>> Too bad. I am pretty sure nobody ever used that yet (since it is both
->>> very recent and fundamentally broken) but okay, I'll keep registering a
->>> dummy fixed clock there in case anybody ever cares about that lookup.
+On 10/14/26 4:17 PM, Dmitry Baryshkov wrote:
+> On Wed, Oct 14, 2026 at 02:19:11PM +0200, Konrad Dybcio wrote:
+>> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 >>
->> Maybe I'm a bit too cautious with this. If you get the DT folks to ack
->> the removal of the ID, I'm fine with you dropping the workaround.
->
-> Ok, I will try.
+>> Clock controller power-domain attachments currently become parents of all
+>> top-level GDSCs exported by that controller. This conflates resources
+>> needed to access or operate the controller with actual power-collapse
+>> hierarchy.
+>>
+>> Allow callers of gdsc_register() to suppress parents inferred from the
+>> controller device and its attached domain list.
+> 
+> I think, each GDSC has a parent (in the hardware). If we don't represent
+> it in practice, we likely need to fix that.
 
-Actually while reworking a bit my series I realized keeping HXT and LXT
-is only needed for legacy DT, so we can keep their registration limited
-to these old cases, and just no longer care about providing valid HXT
-and LXT lookups in newer cases. Bindings shall not change, so let's keep
-them that way. It is just no longer valid with newer DTs to reference
-the clock controller to query HXT nor LXT. The result is pretty clean,
-developpers will very easily identify the legacy part (as opposed to the
-current state) and we avoid the churn of removing stale clock IDs.
+The next patch allows setting a precise set of parents instead. Perhaps
+this commit message could be improved.
+
+Konrad
