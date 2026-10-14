@@ -1,136 +1,108 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sonic.asd.mail.yahoo.com (sonic-asso1-0020.asd.mail.yahoo.com [34.2.90.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF01236DA0A;
-	Wed, 14 Oct 2026 19:41:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792006907; cv=pass; b=bLufYkMVWWHMdc8sfkmTAhYZuBwcgAON25ggUWxoADuJ4CBygCMRCTab147Hl5FFtg/tXOcnf18MeJl5XjogV8zlTs+voWlPfIevL8+EocZSeHOr+PMRKp5BS8T0dwKK4eeu+4ZBwzzLo3cDG3eTnXZjv58QPqYC2d7zICjUkXk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792006907; c=relaxed/simple;
-	bh=3kiqDHXOFYarnpPmrSQ6KreQBzixYm9FgKqGaA3CXMM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=T/BZxEqIQ0bVmIc1khQeKOf2XQ3tXtw/EgH0NeF6SKckmoR3+2d3OrxSeMdgntlH0eIL/mpbuRK4gkYdfFXdBDn73L2vYOb/pJALTVvBQUoXJoRbJMoBNzdeG7JsWUyz+kokycXJLn2CWWpIn1TBD9Sz+QzIiLRmhoV0L+dbCAI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=W0Ubx5QN; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58D47485517
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 19:46:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.2.90.19
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792007181; cv=none; b=XaM79rf5KyHAkkamPLZOTAmu1Ch1pNWTMn7IX4R8uUOMI6zPPdR6VXvUqjeyumg6x6QD8TX0WmtZi+AAq3s8ScsKo7oteLk6QWR4j8ijutlHe8DLxgQXsKDdUrIcKPibRnNttRKEj8M516m0cbrL5Jtac9HAIT0eFcQFtvfitAs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792007181; c=relaxed/simple;
+	bh=yDFwglLcn+Et0o475/lV2WZBBgW6lHLcNPBxxjrCQrQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=JHu+DKSHXnN5GWn7Hk0Ze3nCLARzbgS7hf+qxSo+IDq4SPLRDxCqGY09S24RFXa9C1HrWTS0eZ3AtWQ0hcXUG6+odbZzo4zQkwabnmr9XCdF0uMPp2uvqf/tr06G285oQt49IOP4K6WJwNdgs+XOp/vPxLGzsIsRNl9CbrZoFmY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=abqkm85A; arc=none smtp.client-ip=34.2.90.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="W0Ubx5QN"
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 66001201C8F;
-	Wed, 14 Oct 2026 21:41:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792006898;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hQBqU5bjyvst58Zc94ghtKF7c6DSrihGDVx2Uj/uHQw=;
-	b=W0Ubx5QNFt+5tNCfpIYQ52BsewhQo4t4p5+YiOgoQ+co54MM4YeESJ0TowRE3XAdb0BbKb
-	Ea+gfqMsh7BfSp1hC6DufcCnqQeL4x52wMw7D6JQDSqczErcQ6zLjvz/Z7XYC8ntZYg7eb
-	PuxUE2my2rCu/ApXpkg5EqaOv20xm5E5YDCjUHjhlsK9s1uC8WczPBXGK7djPpSurBlqJm
-	PU39laKcpb4rVjoVtp9duXoWyvVBYXLhIt1mY9WmgYEfrmTrwHv1OWMcO/6KXXrLlks5Mq
-	6cZS6vSPbjnE8PQws+iahHMx32vrMYaF9M+FLKmQRgXuCH7ceVTKJMXzKaO+jA==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792006898; a=rsa-sha256;
-	cv=none;
-	b=RSebYfutT3dLYGHUDo1Gg3wUAcL+TqkcTZ2rOZu22f1s9fzVQyhX9kaSOtdpKpwklce/ZD
-	/1SAkHDagZTT/mXUwoaVJiQ/8E42OU+fIDRowPvU6dxkIJsFAkiMeUr32/UXYN+U1FUUef
-	KFFSIGfyfevQC82HNuLjJpqOvzx2DYsv8ukTsj8DH74F5cTX9/up9yUd5ZWJV7azuLgqw2
-	4pKyly6IaTXbrI0FdIO5F/Zb56Z9BlTbZgRpAufNfSM57QaLwdq4zyaQK6PKxM+0cncJTo
-	cCm129gQwdFNkUtreQB/c9Y95J2MVLjyl/VDX6a0/TK0iDvnH//l4/PdUzdh7A==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792006898;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hQBqU5bjyvst58Zc94ghtKF7c6DSrihGDVx2Uj/uHQw=;
-	b=Vw4ROAOTkz6DkXlDgA+XKY36lBANG1hfuNV2fM7GTzWKO6Cc/PpreS6FRDEkNZMry/oxL2
-	19d+6hq1gWgswDEid7oTuPciqQWh8Dwk/Kx5q60nmmwebkqhuQ7IdbOEsYklbFT6VmPZGx
-	lalY4inVvI2M/HI7Pui0LW0+q2vS3nIn/bODWfcsYuxVRwnM1VvgZgOGHTVWgXwPc4l2tu
-	OLpnzvKiTVLd+tMoB1Yrq4IC1qHxdP3AMcYse21ymRZ15tIWExtXhezQH2grFBTvsn0wA+
-	H0zADIOvNx7xsBQmLYFJP/7QygFhI0I2Sa3rW/LegcaT6yMk/3n5bO+yPRi4OA==
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ore@pengutronix.de>)
-	id 1xH4r4-005uMh-0w;
-	Wed, 14 Oct 2026 21:41:38 +0200
-Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
-	(envelope-from <ore@pengutronix.de>)
-	id 1xH4r4-00000004lyy-0bAo;
-	Wed, 14 Oct 2026 21:41:38 +0200
-Date: Wed, 14 Oct 2026 21:41:38 +0200
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: Carlo Szelinsky <github@szelinsky.de>
-Cc: Kory Maincent <kory.maincent@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Corey Leavitt <corey@leavitt.info>,
-	Jonas Jelonek <jelonek.jonas@gmail.com>,
-	Simon Horman <horms@kernel.org>,
-	Aleksander Jan Bajkowski <olek2@wp.pl>,
-	Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, netdev-bot+sashiko@kernel.org,
-	sashiko-bot@kernel.org, devicetree@vger.kernel.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v8 0/7] net: pse-pd: decouple controller lookup
- from MDIO probe
-Message-ID: <as_a8jrU9F45iCk4@pengutronix.de>
-References: <e70bea49-c18a-4d47-9cf5-fd7b8e7675cc@bootlin.com>
- <20261013090933.3552546-1-github@szelinsky.de>
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="abqkm85A"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792007176; bh=LlsN9iNWBETqK/lTYo54mWuOREfl0PggeOoUj9EqgjU=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To; b=abqkm85Ahz5l5hQBBPsrs3nKhrTYoan8b0rum1VBxg0KTA80hvURNYyyKhCSH1fq7ZqAuAwGCAw6JUy3l7XKg25Qg9pwuabUxQPNfdRkezXKI1hwvH+a+TY/MxaG7KfXX/7BFLrRLwaNW1Cf3A0LZqEECvspeNPtOOPcXdxLzP+SgfIRY5rdzCqp/BnHSEy1Pa+y2Gl+0ry8f2r1X+YTdnMH4klxcinEKvzDyfu8aeEDZ/9tf+E+RZBZuc9F1JAEVkQvEfb0ls4Rp8LvY3RvLBdK+S2pEk1M9tiTMgzOn3zVQcRGtSDl/A/8ptQDgP7wtFBEShA/zSfJo100GA+h7w==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792007176; bh=1KHDJXsJi2ykJLKh78TaTeW3wHPxU0rcZA+0v2tAEcf=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=Nba7pf3+s/+4VlfCpmUTc2qP23qLEXX7bAXR3CWNhYbTqY7wP8kXK7M+H3gTKIxOlYLGCU9U6s8BLLigZfUoPPUP3U2B3puJhvv6SCBIGN9A0r2OrJFB9PGHYlCZVXmn+ICAGEU4IyxOjsMxPE8OPnbLJpWtIsRl5hcDN71udHoueyj9DNYkxBxiljUoNH9i5i4TLcCe4Nv9LfuwGFDUqYEZ5oHB4/Q8L0JURTgYcVfmz4dAAajRfIOwWrPVLWvr80LbbcBdevFgegbdCfnpmCEeVnqe92rrOJtA56eh5LGP+zfqvXIdaq6xmQDmtt55s7YGp0axbfP6zmuC8z0xIg==
+X-YMail-OSG: 0IS2NakVM1lJ9u_yGlzetUUb8zMb3Ev287e8UcsEDESCCZVhgUbK.olSf1FcpSh
+ XEtUXqHr3lJ0zLLhRxM792pNJIpGIT29J4yK6AWOnI_6bdF8OEkULskFGycEr5NBqCgPlLhvRsZm
+ RhCAzG.z0LASvyNGR3uzbgLYak38JXTcyFq6a6znPWGwiL6KJNPxPlh3aLVIsEYtRYgkCaT8nsFn
+ JeJXHeICbhA59zuAON86bAkhJldL6nyZUPNI.BNrbmEfjq7Em8EiwpSPU94UZMET.MgfmHcb8DqH
+ O4bgdrw.RAV2Rv0UP_vk040BiV5b.ZOj1Ex9s9DOpiFp5LyqobcPIg8VtEyp.r.7l5zEb6ff_xc6
+ wczPXCX8jGTF200MZXb4Hu4Sj_g2.Z.eoMQGe3UKy6rUkzvdwfXzdvJ30Lnx3PB.f0kKrQwebeHp
+ Lc96w3yx6XspbQj0C26uqQB5eSj3qh7nFIVc6pMBvW836y0.vlOtvNN1eaooRsV1TjW5R2s6A6x6
+ aGvsbnjJFIH0hnOfD.f2G.Vj.G2TDBC3YBumfeVuADzdbp5glu86CQOMz4Jcagp1PHZXP9OE5snc
+ jUKynXUHCtcOQNLZERr1no8hi0i0kK0ff1y_fbhk3qb352m6XnqtjDcb0IUGUnyFzsz6c18Xxich
+ Uq2AbmZcgZflqdDmD3Jk.QatrqoA0Bu5N6pNR4hRuTh0ci_BkXCEWXl7otclF6iKyAkt1FEJGESn
+ P7DxbpOd.kDLA9x_jNO6Cor6Ku.Fb5UajmqQGiHztmxy5UAldbxG8xwI9WM5eb1sdgoPjUxPBewO
+ PXDvm4ZOn.v9E3NPkF55ShwrW8YiqoK7ZymMnX3s.Fe_Atz296RbjLshf5qkzOI5Ba4pwyTbByre
+ aMYDWEgDuE.bCyd6hAUx.mDwTsAgDhcsgamGbEKVN5wn.oufAu2ee4DFrZiH6x0lUNtte01AOUtf
+ kWD3lyYRVFOTKQPkBCCKqJ.tdGdxQ6u4_poMd8Q4vSxAwPllVov7kOzrpri2XN.hIKix..o9YZsY
+ SVqKSYJW7Hv6BmF23YmbX8lS7GQkBdlh.toyrxzBW0BENl5_CT1Wsp9BlQQFTe865oW46.ffMNYf
+ pY_qvxy18S_IZquqr_ygDDQPltMkNkBslI7VrSG6Z_E9fH4Hylc_VTQJJ3_VQXu1KHy3pDzvu2MC
+ QnZyfHacU87JAFmnYh6XsA1lrB.Cwcw3ZsqDGEJ8vNlS4X.Q.RRr4jn9PU3LlDQDN8lY1bGqeocI
+ OTP9RMoYgYl_8h9M0uRYzERjIYWQItegMfmOtCH3SNdrI1xh7cRHDC0Op8FmvDDS6.aR6.y4QwmG
+ tOUTN7yiq2ZYgqMQfpZLUiF5Bp5E0l9ny_cRpUl1RLykyeELwTx1hLCi3RDdZmNUdYdlO0OtKHYF
+ Q8fNmS1JXcMUWpKInMmvx5UVSs50A6PoSjdWzsQj57xV4coNs2YaRiOr3uJM7wEawIpC1oWJQx90
+ AJp0_tULHCQth8ParCxMt2W.6.VWM3lI5ht.J_DlGloSKdt1fxqK.MHu6rRgHHeWtMp_2U4ISy26
+ AsKzeIDeP8nzhZxn56j9CqhyiqH0RVQOMbbWjAthUXXhf5_Gkgrdw9IQ2wZSNA8UMWlJOmgbEUxg
+ qlHy_.9YDhwv131uGlGfptP.BN.ZmbPf..GT0OGm7Pu9.udphIIi3EqbqJ7k7ul5G5tkreia8QUc
+ pekTUm.8xh3eAqFkxZ0TVbbkLi_a1nccxJ2PTxTYbgXYFkSk7l1t.B.jrr8rer04Raw_Zxp23XuR
+ EEuXXkpENU_6BvuDzuN0AEcf85vqL93d9gbqKMfYd_S5dj1Lz5gEgidbYosZsCs7X0F7a8ELzk9z
+ dpxBr4g45S10DoL9laa13_OuE7WkaJ14QXjblSXl2foRAAyqhfcytqBFsFK5TKrHjkaqXfJnpUrw
+ FZ6ExKy4ggPZRAt94PGHEYy1Qukv3qH1.DorEe6cnIMSGf_ps9CgVK.mHL.x5EkcHTYSaesOdtEe
+ wS_xkmLfYQ5xFP1t5EkOF7PUlwU8ebQwPZXDaNJkTdVmR
+X-Sonic-MF: <m.abubakar365@yahoo.com>
+X-Sonic-ID: 146d13c2-cb13-499e-9a21-220dc14a804f
+Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-asso1-prod-sonicconsumer-svc-102 with HTTP; Wed, 14 Oct 2026 19:46:16 +0000
+Received: from dip31.lsn.bf1.yahoo.com ([67.195.177.40])
+          by hello (SMTP) with SMTP ID 34d3f16bea1af7245a4043044686d416;
+          Wed, 14 Oct 2026 19:46:10 +0000 (UTC)
+From: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
+To: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	andriy.shevchenko@intel.com,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	m.abubakar365@yahoo.com
+Subject: Re: [PATCH v6 2/2] iio: pressure: add Sensirion SDP31 driver
+Date: Thu, 15 Oct 2026 00:45:44 +0500
+Message-ID: <20261014194544.2705-1-m.abubakar365@yahoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <asz4O0zceqa5lz8m@debian-BULLSEYE-live-builder-AMD64>
+References: <asz4O0zceqa5lz8m@debian-BULLSEYE-live-builder-AMD64>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261013090933.3552546-1-github@szelinsky.de>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
 
-Hi Carlo,
+On Mon, 12 Oct 2026 12:09:47 -0300
+Marcelo Schmitt <marcelo.schmitt1@gmail.com> wrote:
 
-On Tue, Oct 13, 2026 at 11:09:33AM +0200, Carlo Szelinsky wrote:
-> On 10/13/26 10:39, Kory Maincent wrote:
-> > On 10/13/26 09:40, Paolo Abeni wrote:
-> >> @Carlo: you should always reply to the AI review, even to point out
-> >> previous discussion on the same point. And you should try to be more
-> >> concise (even in the cover latter, should a repost be needed).
-> >
-> > Indeed, the cover letter should be more concise. It's hard to read like 
-> > that.
-> 
-> Hi Köry, hi Paolo,
-> 
-> Thanks for the feedback. I will reply to the AI review points and make
-> the cover letter shorter.
-> 
-> I am already working on v9, because some of the AI findings are real.
-> So if you don't mind, you may want to wait for v9 before reviewing.
+> > +	indio_dev->name = "sdp31";
+> Hmm, I'm not sure whether it is a big deal or not but, the hardcoded name might
+> cause confusion if the part connected is sdp32 or sdp33. [...]
+> The full disambiguation solution would probably be to read the product
+> identifier bits and match those against a table of supported devices.
 
-If it is possible to split this patch set, please try. it will be easier
-to pass the review.
+Hi Marcelo,
 
-Thank you for your work!
+Thanks for taking a look, and good point.
 
--- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+I kept the name hardcoded because, after Conor's comment on v4, the SDP32
+and SDP33 use sensirion,sdp31 as a fallback compatible, the way the sdp510
+does with the sdp500 driver. You're right that it isn't quite the same
+situation, though: the sdp500 and sdp510 are identical, while the SDP3x
+parts differ in range. The readings are still correct, since the scale is
+read from the sensor at probe, but the name would always say "sdp31".
+
+Reading the product identifier at probe and taking the name from a small
+chip_info table would fix that, and I'm happy to do it in a v7. Jonathan,
+would you prefer that, or is the current approach fine?
+
+Thanks,
+Muhammad
