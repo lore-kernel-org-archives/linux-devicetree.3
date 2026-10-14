@@ -1,74 +1,220 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com [209.85.217.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B2E04AA402
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 23:41:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 845A419046E
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 00:35:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791934901; cv=none; b=btJmCJhwk0sPvM5upbVcPEVGOgOE1KkL1wfMQ+nX6LQEdG9t+RzSTTagc+sQAx/AkxGcKI9ChnBF3RGaFRnfQJS9p7NvS1WB/+AjiUdDVIOHON00a3hq2aqm1zz/TM1ohvRap41QoJ8Z+zSl1n4p2MeW0p3oWjBfyhzjtFmcFis=
+	t=1791938151; cv=none; b=Si26wQ+plfmOwLAMV1tTIA1x8r3S9A1Flm8q+8GfWKORFgyQz0lyR4rRGJ8h+mVScWHAtxtEPXNoqHt1zXhxsxvxp+wkKtEHa67Is7wM84mjStEbDV8oh2QPyls2UbYvdmLL5Yx3qFcVXPu4j6MV5hObc/wvCCYzdloZ+rP8pyo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791934901; c=relaxed/simple;
-	bh=A3FUhVOWfdIO0Hl31ZT5JPOkd0XdxMUAl3z6A0+0Pww=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Iap2MzAfDC9jj4xK9B/kV/7akW8PPTPE0rYwe4SAWtVVBY1M7hjO25yyoiAl9n/Gji4jG5BaoIbUri6lnviSfY/yjfZq025C0ughhnhWfuookn81EWnBDaKeijEgbJeF7Ix1jJPGBAeFDDcoWvH/3IaiLt9N0CKll0VUjpddMfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JUc/+8zW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791938151; c=relaxed/simple;
+	bh=b4gq6g1PmafbonBhTXkrQ58KOfN1rO/0cHgI2tmQK48=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=u/niC+zNrlGrkNwxcYletuxvFJ7qu2EyxnV7bpBeH4cEfVFRyYRWpAewYbkzwB2Nn8oPu/HZQhLGOAmsITaF2Y5Ua9zqWnAeqtyofE6nj0y1gV9ZJoinadOh+yh91NYsSnGQ/Uf/pk87PTterwlKemKsArG0sfVJ8OJ4ZzLwHn4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=eCWTd60u; arc=none smtp.client-ip=209.85.217.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JUc/+8zW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5B1B1F0089A
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 23:41:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791934899;
-	bh=A3FUhVOWfdIO0Hl31ZT5JPOkd0XdxMUAl3z6A0+0Pww=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=JUc/+8zWtQEDYr5Anj1fugo+bpaucFV0Oe5d13K8oGe8MRNEXMg1EV+4InNIfz/3C
-	 6mM+RUySLQ7P1YlC8m+BWLmDpzH8CFkQsrVMJalN1IB09qcst9b5jwMcwJMRb3AW6T
-	 /jgw49sFOhXCP1UTaHDpfioI45qnwAxILr8a9OilWQrswOMl2FKGnoO7KW5PVKYY7R
-	 t4l9+lBND9VIEPHhL/vA7qc4gHKTvbdBefZWO4tNhl62xv+I3N6Caqk3wfkvqD0yhA
-	 SBnisRmqWGYZfI8C3bsU3mwsKIKQQN2gz33qUhi/X6dJ5Fm77niAhioi2TtLSidWnE
-	 RQIdOJrg6feDA==
-Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3a9787a15bdso29675521fa.1
-        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 16:41:39 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByMcUcWKFHlw4IuFSGDYw2fTlGqiFWKGpHt+oDoprWX5QXHb70zz47+wFrUKDyDjkQsb+Xc1x38LpBx@vger.kernel.org
-X-Gm-Message-State: AFq9FYLUfKjkk2DMJjrSfx2CnuFPC6rFvqpxZMd/qxuX76H2q+u1LwlJ
-	f2KnaSYUgagoIENecRS6Kf9PWlZEF5zkhLb9NHUWY9iEO7ZY32GffhRCYRoq4i76DQmL1VhiYF/
-	Og91lvnWBUgpAPl7c6OR68he4Eq71SYk=
-X-Received: by 2002:a05:651c:3253:b0:3a9:decc:71d8 with SMTP id
- 38308e7fff4ca-3a9decc7400mr21468171fa.20.1791934898564; Tue, 13 Oct 2026
- 16:41:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="eCWTd60u"
+Received: by mail-vs1-f52.google.com with SMTP id ada2fe7eead31-7c1ecff2b1fso1040218137.1
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 17:35:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1791938147; x=1792542947; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fETuRtPje6LTC2rIz2bJlcHYx0+4RuHZEXBtVbxeG+A=;
+        b=eCWTd60uHatGMyKs82dkkfn0nOIANTXmqbzBwUJ8LC6YK6B4dzN/vuGsaxflMAJwML
+         AasRQM0iANomMgpfmh2FoI5wjtLr1pdxctan8y2LM/uSnlngqyUtaZN0o41EJCmjumpS
+         6sd9/gJO2AQ0Sgtcn7BBWbO+zaHx5jrMZoRU6yKxdHM66B/K6+iJEiSt89K9UyAuaFIq
+         FayMFoSVK+QirRoTX2wRLNH+jxHtQrOlrR46cX6vjt02gcI295VkFb+G+FuUdlbRJMwa
+         DWCbyRgHlj2FWq82GjtyYDTLIPWtyF8x0Z28Ivnz/ljcNxQZOo+/Cl80VkcIwEmsKCpr
+         yoHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791938147; x=1792542947;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fETuRtPje6LTC2rIz2bJlcHYx0+4RuHZEXBtVbxeG+A=;
+        b=yk7uPS5NL/3aLmJO6oUl7VNwARAm5cU/q4U2i0e2McV2lwGun6hh2QoF8STk4y+xM1
+         CchyVDS9DCujjwy/YJJpR5a2kehI9ikWwY5Y1slYO80bZQfydRN0bW8ds/twETXeYvRo
+         xr+cnClthTDdtYtS4JoS4yHm4nISV9YaZyY2UeSVJ1xeleumdQMZ13bas0ch/nXgUaV5
+         xlUQyuI3KnUXsBRiSfADJ6ddRYn3DstGsp93yA4NZvsDtHmWjD5pQQuF00EVmqf1G0Fg
+         qhzzEVTmF/SsVC81sIVYTngU2b7wbyC0/oYsgUE/Vi8ZJvQTO7ITyPFq+nRbCV+XarVC
+         GZeQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzLvfUF4LfAWTivvV746uE6kQW16ABR79z/EzVJ9rCRpx/67TkxRTvcSE041QRSZIpIy6iE0mjultRI@vger.kernel.org
+X-Gm-Message-State: AFq9FYJLUdwum5ZCv/jk7ENWYVH0KJ0lCRXDZMKM21o9PyhyRI2gGoch
+	UOeqc++p9+lLc0dbRWR19mSXOs6i3LtHq/hv3p8GuV7xoJPSgHKjXihGEDQhnGza8B4=
+X-Gm-Gg: AYBFou36BE+n558fh0FjI0rlWe7JCeNlPhkTSy0XbSZUiPeK59JhE4rSnuRhBOozscE
+	glod9EPHaxwqjmbt4XN+ovDmR0iiYmSSY7wdHVXWBGGauSPZG2BPof3SULpi4nfaNBmwrw62hUf
+	tMzYaIXXjzhA1qMDcSLhxLKbb3iPs8H/VoECgGDierTppb2yCfxbKZpKBS++3FPAj94fUaSizaD
+	7ou8TBVS7xMca8CzI3UFk3KFH/J9zu4BLhsqYVbXlpGSIqyc8A/ha+WCILHds6Euomtis3mjCLJ
+	njtRzxCpetEuGgQZFgxZYy9ildrYqyZjUJbo3vJbiXfEh9/SSdqAK/5xwFikcAeXXKgdukkFwRP
+	yG4fXJKWnsvzrrtvOYoNMxdpw9nNoMGHB7C5RWMtbNyxQAGZ1dVoCY6KO0yzeplfe50RkucAO9i
+	pV82d15Hen/MIqoZJCa8p+TfGPzs+y0Nb5e6c3nvY6zGTP+X0p6qYMaaarDuk6DYlZaszcK8hFA
+	8yeiN3hSDMf7hymd0g3PMAzvtiGxenZq8cumbSPmrM=
+X-Received: by 2002:a05:6102:5121:b0:7c3:6466:3155 with SMTP id ada2fe7eead31-7cb375fcf5cmr3438386137.33.1791938147238;
+        Tue, 13 Oct 2026 17:35:47 -0700 (PDT)
+Received: from hiagonb ([2804:14c:4c5:8bf0::33ca])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cbbd178e4csm4108537137.2.2026.10.13.17.35.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 17:35:46 -0700 (PDT)
+Date: Tue, 13 Oct 2026 21:35:40 -0300
+From: Hiago De Franco <hfranco@baylibre.com>
+To: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Chen Wang <chen.wang@linux.dev>, Inochi Amaoto <inochiama@gmail.com>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: Chen-Yu Yeh <chenyou910331@gmail.com>, 
+	Andrei Lalaev <andrey.lalaev@gmail.com>, devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	sophgo@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] riscv: dts: sophgo: add cv1800b ethernet support overlay
+Message-ID: <as7OCfOlcnqvvE2y@hiagonb>
+References: <20261001-milkv-duo-eth-overlay-v1-1-78bc1454f35b@baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261014-cv75-prefix-v1-1-fe95ed567880@ambarella.com>
-In-Reply-To: <20261014-cv75-prefix-v1-1-fe95ed567880@ambarella.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 14 Oct 2026 01:41:26 +0200
-X-Gmail-Original-Message-ID: <CAD++jLn9SgrgCoY6rZTeSqtUz2PXitK15cNcw2sxd3gOjG3MvQ@mail.gmail.com>
-X-Gm-Features: AclHuK-5QJaToI1M3VEyCK9SLAW1pZniBd844zSmFeaZWQCAJufzB3jf4co85pc
-Message-ID: <CAD++jLn9SgrgCoY6rZTeSqtUz2PXitK15cNcw2sxd3gOjG3MvQ@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: vendor-prefixes: add Ambarella
-To: longzhao@ambarella.com
-Cc: Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, devicetree@vger.kernel.org, 
-	Long Zhao <zl020895@163.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001-milkv-duo-eth-overlay-v1-1-78bc1454f35b@baylibre.com>
 
-On Tue, Oct 13, 2026 at 7:46=E2=80=AFPM Long Zhao via B4 Relay
-<devnull+longzhao.ambarella.com@kernel.org> wrote:
+Hi Inochi Amaoto,
 
-> From: Long Zhao <longzhao@ambarella.com>
->
-> Document the Ambarella, Inc. vendor prefix so Ambarella DT bindings
-> can be applied without waiting for the SoC series.
->
-> Signed-off-by: Long Zhao <longzhao@ambarella.com>
+Just a friendly ping about this patch. Not sure if it was picked up by
+you already.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Thanks!
 
-Yours,
-Linus Walleij
+On Thu, Oct 01, 2026 at 04:38:30PM -0300, Hiago De Franco wrote:
+> The CV1800B SoC has a DWMAC controller connected to an internal 10/100
+> Ethernet PHY. Both the MAC (gmac0) and the MDIO multiplexer used to
+> reach the internal PHY are already described in cv180x.dtsi, but are
+> disabled by default.
+> 
+> Enable gmac0 and the MDIO multiplexer to make ethernet work.
+> 
+> Tested on a Milk-V Duo (CV1800B) with its IO base board. The link comes
+> up at 100Mbps/Full and the interface gets an address via DHCP.
+> 
+> This can not be enabled by default as others may want to use the same
+> pins as GPIO, that is the reason an overlay is being used.
+> 
+> Signed-off-by: Hiago De Franco <hfranco@baylibre.com>
+> ---
+> Hi,
+> 
+> This is a continuation of patch [1]. The same patch was sent before [2],
+> and an overlay was suggested, altought it was not sent. Therefore I am
+> sending this overlay now.
+> 
+> U-Boot logs:
+> 
+> milkv_duo# setenv fdtoverlay_addr_r 0x82480000
+> milkv_duo# boot
+> ** Booting bootflow 'mmc@4310000.bootdev.part_1' with extlinux
+> 1:	Poky (Yocto Project Reference Distro)
+> Retrieving file: /Image.gz
+> append: root=/dev/mmcblk0p2 ro rootwait console=ttyS0,115200 earlycon=sbi
+> Retrieving file: /cv1800b-milkv-duo.dtb
+> Retrieving file: /cv1800b-milkv-duo-eth.dtbo
+>    Uncompressing Kernel Image to 0
+> \## Flattened Device Tree blob at 82200000
+>    Booting using the fdt blob at 0x82200000
+> Working FDT set to 82200000
+>    Loading Device Tree to 0000000083560000, end 0000000083568fff ... OK
+> Working FDT set to 83560000
+> 
+> Kernel logs:
+> 
+> root@milkv-duo:~# ip a
+> 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue qlen 1000
+>     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+>     inet 127.0.0.1/8 scope host lo
+>        valid_lft forever preferred_lft forever
+> 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq qlen 1000
+>     link/ether 22:9c:5e:8d:3b:0c brd ff:ff:ff:ff:ff:ff
+>     inet 192.168.0.124/24 brd 192.168.0.255 scope global eth0
+>        valid_lft forever preferred_lft forever
+> root@milkv-duo:~# dmesg | grep stmmaceth
+> [    0.580448] stmmaceth 4070000.ethernet: IRQ eth_wake_irq not found
+> [    0.587750] stmmaceth 4070000.ethernet: IRQ sfty not found
+> [    0.594165] stmmaceth 4070000.ethernet: Hash table entries set to unexpected value 0
+> [    0.604856] stmmaceth 4070000.ethernet: User ID: 0x10, Synopsys ID: 0x37
+> [    0.612359] stmmaceth 4070000.ethernet: 	DWMAC1000
+> [    0.617641] stmmaceth 4070000.ethernet: DMA HW capability register supported
+> [    0.625189] stmmaceth 4070000.ethernet: Active PHY interface: RMII (4)
+> [    0.632191] stmmaceth 4070000.ethernet: RX Checksum Offload Engine supported
+> [    0.639720] stmmaceth 4070000.ethernet: COE Type 2
+> [    0.644915] stmmaceth 4070000.ethernet: TX Checksum insertion supported
+> [    0.651995] stmmaceth 4070000.ethernet: Normal descriptors
+> [    0.657911] stmmaceth 4070000.ethernet: Ring mode enabled
+> [    0.663737] stmmaceth 4070000.ethernet: Enable RX Mitigation via HW Watchdog Timer
+> [    0.671939] stmmaceth 4070000.ethernet: device MAC address 22:9c:5e:8d:3b:0c
+> [   13.104870] stmmaceth 4070000.ethernet eth0: Register MEM_TYPE_PAGE_POOL RxQ-0
+> [   13.125037] stmmaceth 4070000.ethernet eth0: PHY [mdio_mux-0.0:01] driver [Generic PHY] (irq=POLL)
+> [   13.172421] stmmaceth 4070000.ethernet eth0: No Safety Features support found
+> [   13.203664] stmmaceth 4070000.ethernet eth0: IEEE 1588-2002 Timestamp supported
+> [   13.229963] stmmaceth 4070000.ethernet eth0: configuring for phy/internal link mode
+> [   15.278278] stmmaceth 4070000.ethernet eth0: Link is Up - 100Mbps/Full - flow control rx/tx
+> 
+> [1] https://lore.kernel.org/sophgo/20260930-milkv-duo-ethernet-v1-1-428ff137f5d3@baylibre.com/
+> [2] https://lore.kernel.org/sophgo/20260803163323.74414-1-chenyou910331@gmail.com/
+> ---
+>  arch/riscv/boot/dts/sophgo/Makefile                   |  3 +++
+>  arch/riscv/boot/dts/sophgo/cv1800b-milkv-duo-eth.dtso | 17 +++++++++++++++++
+>  2 files changed, 20 insertions(+)
+> 
+> diff --git a/arch/riscv/boot/dts/sophgo/Makefile b/arch/riscv/boot/dts/sophgo/Makefile
+> index d5c80d4ff005..adea990ad912 100644
+> --- a/arch/riscv/boot/dts/sophgo/Makefile
+> +++ b/arch/riscv/boot/dts/sophgo/Makefile
+> @@ -1,5 +1,8 @@
+>  # SPDX-License-Identifier: GPL-2.0
+>  dtb-$(CONFIG_ARCH_SOPHGO) += cv1800b-milkv-duo.dtb
+> +cv1800b-milkv-duo-eth-dtbs := cv1800b-milkv-duo.dtb cv1800b-milkv-duo-eth.dtbo
+> +dtb-$(CONFIG_ARCH_SOPHGO) += cv1800b-milkv-duo-eth.dtb
+> +dtb-$(CONFIG_ARCH_SOPHGO) += cv1800b-milkv-duo-eth.dtbo
+>  dtb-$(CONFIG_ARCH_SOPHGO) += cv1812h-huashan-pi.dtb
+>  dtb-$(CONFIG_ARCH_SOPHGO) += sg2000-milkv-duo-s.dtb
+>  dtb-$(CONFIG_ARCH_SOPHGO) += sg2002-licheerv-nano-b.dtb
+> diff --git a/arch/riscv/boot/dts/sophgo/cv1800b-milkv-duo-eth.dtso b/arch/riscv/boot/dts/sophgo/cv1800b-milkv-duo-eth.dtso
+> new file mode 100644
+> index 000000000000..52c85b4e0155
+> --- /dev/null
+> +++ b/arch/riscv/boot/dts/sophgo/cv1800b-milkv-duo-eth.dtso
+> @@ -0,0 +1,17 @@
+> +// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+> +/*
+> + * Enable ethernet support on Milk-V Duo (CV1800B).
+> + *
+> + * Copyright (c) 2026, Hiago De Franco <hfranco@baylibre.com>
+> + */
+> +
+> +/dts-v1/;
+> +/plugin/;
+> +
+> +&gmac0 {
+> +	status = "okay";
+> +};
+> +
+> +&mdio {
+> +	status = "okay";
+> +};
+> 
+> ---
+> base-commit: d24e8ac715de2e16a53c144005b1863660a5fbea
+> change-id: 20261001-milkv-duo-eth-overlay-cf7738449a40
+> 
+> Best regards,
+> --  
+> Hiago
+> 
+
+Best regards,
+-- 
+Hiago
