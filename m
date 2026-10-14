@@ -1,139 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27FB6568FCE
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 18:11:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8E47377AAD;
+	Wed, 14 Oct 2026 18:20:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792001487; cv=none; b=mT7DwVhxinM56wM6+ADh71Pt/ymFf1QXz8/tHpC6lb9azPz2bNVpZlFwnEJqeFfxraGDSf3zMfWdCKr8QF67JyEegqyWAoq/yBVLRqlQdKH7gUzaI4lUVoKZFf4yYVOImtQG7tZt5y/6I/juGeQt66GB6O3Y1tLq3ewZYyZ/oMU=
+	t=1792002038; cv=none; b=o6N1FveotQYw1jUB7fLcfPxKLMswJZwEXAkjlVXh0fI5pHv4S4QVLjex0Htpf1hl8wZMWGYJ2rw8tCcvyn6MFgHteVyF+mI28CRwGkSXPjJ+FRp4DPG3KWj+9J4i1RbQAmGXVT3RKEGY1imHxwTcaFypo9BWRrDPaAH1ZubmBL4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792001487; c=relaxed/simple;
-	bh=Jt5a8grOsBKx9q8HqPBZ85rXVrGMmzJVdNrqMXW9tdI=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=by+3orjiDfQjBy2/6J/AaX8VXS6JXfotCg5RRrAb1ghxOtcBQ//eHwdsskHM3ASXEXvqzwIHDLsa9GUV46Xp1Gr+3XtED2YF4BNCzW+gSbkq3sn9tHgLQsqK/9uye7ggVnHCQMcno9qA+BhO8roj+0rHgyBSZezNrHeLvq1DOB0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BFc+S5uX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792002038; c=relaxed/simple;
+	bh=HOQd/xdM4sAke3u78emWdP9D/WXlb6Htxk91Pxg4QmQ=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=VKDTIKDEkjxVqDoHVO9V673oOxjoX22ZfpEz2b/5eyK53wQRnzeEYJ3SHrN5fSY35g564kcpwvboJR8eMiL3QSj7u8CKgVUKLJZXWWhk0IPprANe6GO35lDT0x+kqQOrNXHnI9WowMMTVCt4H6PPtN2oK/HhrtGg5ezYyaSsgqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eeovrYGy; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BFc+S5uX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFA691F000C4;
-	Wed, 14 Oct 2026 18:11:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792001482;
-	bh=7G4S4XAfZ67pFcr5D+W4s0IBhJNuIDRq7h3GJbulRuA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BFc+S5uXhKHCgkNTTCuuALLn/+BTw91feinvjQ5ECL1AA+HGkgptGOtuOqe97pyyS
-	 pZdKTHrKJ4uPKRYzybJgmqJFIaVpLrlWIn3jWqzg9cfb0FMuIBI5tfs2WaBHkZr2u9
-	 G1CmghxwRgri1E275bdAPIMYZQVRFUWkreQQM9RnXKkPjsddWVONZ3HdM9IJsqSPYK
-	 c0/F9hhIIubCebxKthS53HX+O+xjh0y8UykqXbzsjs6co5AmVqHUlnMCLLZfK3Af9o
-	 RszL82UVqCJT2P8kCh2kVT2SbGegFNLohxxVqcuSkJDcInw3WMiJeMJ8555Mi65u+8
-	 ALRsFqwHPmtLQ==
-Message-ID: <sashiko-outbox-171674@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 01/14] media: imx678: Rework into generic Starvis 2
- sensor driver.
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dave Stevenson" <dave.stevenson@raspberrypi.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261014-media-starvis2-v3-1-c958362b5d06@raspberrypi.com>
-References: <20261014-media-starvis2-v3-0-c958362b5d06@raspberrypi.com>
- <20261014-media-starvis2-v3-1-c958362b5d06@raspberrypi.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 14 Oct 2026 18:11:21 +0000
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eeovrYGy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792002036; x=1823538036;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=HOQd/xdM4sAke3u78emWdP9D/WXlb6Htxk91Pxg4QmQ=;
+  b=eeovrYGyVr6Vz66c3XxUHpbYmQuNHNymajpdNQlAiAndxvXmnhPwpA0A
+   OMoGemBZUYVr/KzWurA/qHfLP+Ei0RWX2i7n0un/hKi1Qg/uLvn7PQ2WN
+   FeB6w9+Fcy93c9PITphAY57YdvAkOslZtd4LfSa+MQtMLVZVuFMIZgV8B
+   En6j1/GG6k2K24nf16eW+agWUidcKsDIJ6Zhi+QEaqcaIlDTw7nClJ6WF
+   BND6ltk/ki10fKUYnPgmC1TC5o/Mzwgy1FTSn2qeddrWxQIDdtRILw4a9
+   zHXoeNHa9zNU7IqUOBB+HzbmY20lDANoGOWoJnM8Oz2cQWYSM/8b8j/fq
+   Q==;
+X-CSE-ConnectionGUID: XRFSV1bER6iDvbgZrY+aQw==
+X-CSE-MsgGUID: nUH9xiFhTCuLULM4dw1O+A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="658149"
+X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
+   d="scan'208";a="658149"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 11:20:30 -0700
+X-CSE-ConnectionGUID: K0WeQ58XTPW9uYRLRQ1kjw==
+X-CSE-MsgGUID: RZSsfdpHRte4GH0IJu6YFA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
+   d="scan'208";a="1517070"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.234])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 11:20:24 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Wed, 14 Oct 2026 21:20:21 +0300 (EEST)
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+    Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+    Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+    Guenter Roeck <linux@roeck-us.net>, Bjorn Andersson <andersson@kernel.org>, 
+    Abel Vesa <abelvesa@kernel.org>, devicetree@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org, 
+    linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v3 2/3] platform: arm64: Add a driver for the EC found
+ on ASUS Glymur machines
+In-Reply-To: <5c87c231-6c76-4363-9f4d-6c43dd63ee9f@oss.qualcomm.com>
+Message-ID: <81e7e5b7-247b-b57f-5d78-4fac468ab121@linux.intel.com>
+References: <20260923-topic-asus_ec-v3-0-2bf3bb9da879@oss.qualcomm.com> <20260923-topic-asus_ec-v3-2-2bf3bb9da879@oss.qualcomm.com> <d20f4159-de71-7e9d-46a6-5953364937cd@linux.intel.com> <5c87c231-6c76-4363-9f4d-6c43dd63ee9f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="8323328-707764721-1792002021=:1157"
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] media: UAF of active_state due to unsafe cleanup ordering in remov=
-e()
-- [Low] media: sony-starvis2: sensor left active after identify
---
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-commit baf6081a4a9848a2866e87a317711ee36642f79e
-Author: Dave Stevenson <dave.stevenson@raspberrypi.com>
+--8323328-707764721-1792002021=:1157
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-    media: imx678: Rework into generic Starvis 2 sensor driver.
-   =20
-    The register layout and programming model for multiple of the
-    Sony Starvis2 sensors is identical, so prepare for supporting
-    those by renaming all common parts of the driver to a starvis2_
-    prefix, and renaming the driver.
+On Wed, 14 Oct 2026, Konrad Dybcio wrote:
 
-> diff --git a/drivers/media/i2c/imx678.c b/drivers/media/i2c/sony-starvis2=
-.c
-> index 8413fd44d6575..b4733990d03a7 100644
-> --- a/drivers/media/i2c/imx678.c
-> +++ b/drivers/media/i2c/sony-starvis2.c
+> On 10/8/26 1:28 PM, Ilpo J=C3=A4rvinen wrote:
+> > On Wed, 23 Sep 2026, Konrad Dybcio wrote:
+> >=20
+> >> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> >>
+> >> Some Qualcomm Snapdragon X2 Elite (Extreme)-based ASUS laptops (at
+> >> least the Zenbook A14 and A16) expose a custom, somewhat
+> >> Qualcomm reference-derived EC interface. Introduce a driver to
+> >> communicate with said EC, allowing for fan speed reporting, keyboard
+> >> backlight setting and receiving of a number of miscellaneous sideband
+> >> events.
+>=20
+> [...]
+>=20
+>=20
+> >> +=09ret =3D asus_qcom_ec_write(ec, ASUS_QCOM_EC_RECM_OFFS, frame,
+> >> +=09=09=09=09 ASUS_QCOM_EC_RECM_FRAME_LEN);
+> >> +=09if (ret < 0)
+> >> +=09=09return ret;
+> >> +
+> >> +=09ret =3D asus_qcom_ec_read(ec, ASUS_QCOM_EC_RECM_OFFS, resp,
+> >> +=09=09=09=09ASUS_QCOM_EC_RECM_FRAME_LEN);
+> >> +=09if (ret < 0)
+> >> +=09=09return ret;
+> >> +
+> >> +=09*out =3D (count =3D=3D 2) ? get_unaligned_le16(resp) : resp[0];
+> >=20
+> > Same problem here when it comes to sparse.
+> >=20
+> > Does the ec really input be16 and output le16?
+>=20
+> Yep, it really does..
 
-[ ... ]
+I suggest you mention it in a comment then, as otherwise somebody else=20
+might wonder the same thing. :-)
 
-> @@ -1078,10 +1103,10 @@ static int imx678_identify_model(struct imx678 *i=
-mx678)
->  	 * This sensor's ID registers become accessible 80ms after coming out
->  	 * of STANDBY mode.
->  	 */
-> -	cci_write(imx678->cci, IMX678_REG_MODE_SELECT, 0, &ret);
-> -	fsleep(IMX678_MODULE_ID_DELAY);
-> +	cci_write(starvis2->cci, STARVIS2_REG_MODE_SELECT, 0, &ret);
-> +	fsleep(STARVIS2_MODULE_ID_DELAY);
-
-[Severity: Low]
-In starvis2_identify_model(), the sensor is woken from standby by writing 0=
- to
-STARVIS2_REG_MODE_SELECT to read the chip ID. However, the driver never wri=
-tes
-STARVIS2_MODE_STANDBY (1) back to the register before returning.
-
-While pm_runtime_idle() in probe() will normally power off the regulators
-entirely, if runtime PM is disabled in the kernel (CONFIG_PM=3Dn) or the
-device's power state is forced 'on' by userspace, the regulators will remain
-on.
-
-Without reverting to standby mode, the sensor could remain active indefinit=
-ely
-after probe, unnecessarily consuming power. Should a write to return to
-standby mode be added before the function returns?
-
-[ ... ]
-
-> @@ -1380,45 +1407,45 @@ static int imx678_probe(struct i2c_client *client)
-
-[ ... ]
-
-> -static void imx678_remove(struct i2c_client *client)
-> +static void starvis2_remove(struct i2c_client *client)
->  {
->  	struct v4l2_subdev *sd =3D i2c_get_clientdata(client);
-> -	struct imx678 *imx678 =3D to_imx678(sd);
-> +	struct starvis2 *starvis2 =3D to_starvis2(sd);
-> =20
->  	v4l2_async_unregister_subdev(sd);
->  	v4l2_subdev_cleanup(sd);
->  	media_entity_cleanup(&sd->entity);
-> -	v4l2_ctrl_handler_free(imx678->sd.ctrl_handler);
-> +	v4l2_ctrl_handler_free(starvis2->sd.ctrl_handler);
-
-[Severity: High]
-Does this cleanup ordering create a race condition that could lead to a
-use-after-free?
-
-v4l2_async_unregister_subdev() unregisters the device node but does not
-block currently executing ioctls on open file descriptors. Then,
-v4l2_subdev_cleanup() unconditionally frees sd->active_state.
-
-However, v4l2_ctrl_handler_free() (which synchronizes with running ioctls
-by taking the handler lock) is called after v4l2_subdev_cleanup().
-
-If a user opens the V4L2 subdevice node and concurrently calls an ioctl like
-VIDIOC_S_CTRL, starvis2_set_ctrl() could dereference the freed active_state.
-
-Should v4l2_ctrl_handler_free() be called before v4l2_subdev_cleanup() to
-ensure proper synchronization and protect the active state from being freed
-while ioctls are still using it?
+> Ack for the other comments
+>=20
+> Konrad
+>=20
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014-media-star=
-vis2-v3-0-c958362b5d06@raspberrypi.com?part=3D1
+ i.
+
+--8323328-707764721-1792002021=:1157--
