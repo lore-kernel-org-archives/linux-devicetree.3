@@ -1,235 +1,595 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f4.google.com (mail-pj2-f4.google.com [74.125.227.132])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CE495349D0
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 17:31:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1743E556B8B
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 17:50:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.132
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791999104; cv=none; b=ifd1Zk8EMVUjIzd+XuCORR0XSXS46Kl+pFIIyJfqOzxaYZgGSD7xzGmVV8hwF5Pgs9/AL4pIo/aMuZpJjbMtvgRJlDd+El7nS3yllDX+7ExIo5XpJEgnEoeUY5Bwt4aF5VrzzXZWLdkv/PRbm6CQYt9NYIATDSQ1AXjlP3dt1DM=
+	t=1792000235; cv=none; b=r3dbPyywNhb9TAv1h+cU9GMUYZtyogj/nK6Md899YDZ6j+9xRqCdEHzXOqQnW/SV7GOoaHg/9cgSun9x7of+83WeAAaSKlTJYCUsL6bxtdh9tn94sxjdd500qTspwq7W9q82KDYdKzU5QHl3nZwEj2HYLbIGI7xKYI5zeYgUn6M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791999104; c=relaxed/simple;
-	bh=121EF6tgvtQmCI553ZeF6I+UbkvEWY/a0feXoJuQ+5M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TXc2Dnes1dYKL5c3X38mNpYn32JtqbrEy+h4McYstbLl9RGm5xjPU+J0LO8RsARU6h1ww0RbH+uTZ1KcfBdSwnBvK7FUAOtgUyucoogmvrG+j2Czdb2ZA7sEjNdgnSIZXYFnGmk5Rb+SbM88x86lw38FIBu/tJFx2zMPRJRSBX8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ARxqgK2z; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gYYzCE8n; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792000235; c=relaxed/simple;
+	bh=kR933n8CDQ9fwFh6PwSbJrQSvXtoKLACtGEq0PzM0q0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QWl0OLIBTyLog7twveHHijvwtySGa1BtJ4YTQgmhATEAGlqlvYhQFNB1hwv1D+ZZOzqYc4apLeT5Jz3i6jc/jCbBt0kEa7EckYlQWYj3p6CH2DJZ9JDjrnnPSuv4JWl80tPAfA1xdlW1rpIUP/BFuVqfNrMarZhr1Ff7yKtoeCU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SmtDu/ic; arc=none smtp.client-ip=74.125.227.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ARxqgK2z";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gYYzCE8n"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EEbMkR152717
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 17:31:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=lkj6WmLM94TLi7LkJSNtIzaP
-	frHo6K3hQ/enHwG6gPU=; b=ARxqgK2zwJNKzaI+JAXUrYvIyxi3iBuILGUfZu5o
-	adNmbIs8cWR5bF1mcjdLC0X2gN9qfEbH5rtrGqt/iiKhw8PLlCev2O7dmQfnMqtW
-	pgEsyddaZngCo70WOSYUMQNnAaZ583vLR46QT1445VfJPw9lY4T7uiejGi1miA8E
-	w2d08GyguICu3r0vPDwOT11FmEp0dlWkJNcqXBdU/5DC57wcZWisTRkKL+fk3vQY
-	mfDam/3cu1JN0F2NWJ7PsquCMfR51cnlosF3wy72BN6NsSGBrZaHHdY9GRs5W8F5
-	7qbtWK6e9GOeVJn9BoOdgtVz9Y19ujsO4RSKLLg3NxuYLg==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ha7aehvws-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 17:31:23 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91b529a8610so13285296d6.0
-        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 10:31:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SmtDu/ic"
+Received: by mail-pj2-f4.google.com with SMTP id 98e67ed59e1d1-3ac845e7231so152720a91.1
+        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 10:50:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791999083; x=1792603883; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lkj6WmLM94TLi7LkJSNtIzaPfrHo6K3hQ/enHwG6gPU=;
-        b=gYYzCE8nAazUmgO668F6jwWgghVWX5J3kT9opv1/prfq6uVx7Fjs+CXjHBTmV6/D3K
-         TvDC/PbtpL4ugo41EmmswzmX+WHNxLzY8zuU027oNhD1YUDPBDs60hdLkZGtKobLj410
-         bOYEvEtBxsiWwLA7F03W4bXi2pU8oDdwcgaTrpu8tV3a5AhhZjg+V7hQ3aBGqS1GuqJ/
-         wGOVbRcWnEe16vsPRFVzZhZ04ooaXkwr/W+rGBahVVY9Wml8EVgWEAPQhQ5EtLHACctv
-         wsSbxrVinUvFLEwvfwVuyi3xweTZWdbzW1lTsEO7aBO0MMyWXbRLfasL9vOITz1oYVYg
-         8ATw==
+        d=gmail.com; s=20251104; t=1792000232; x=1792605032; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nujP9rgCHe8pVwsy2vxm07nZV8x4bv342qsfibZkYP0=;
+        b=SmtDu/icqwpdEbZa6gjM/Isy6E0x/FnhLCuQzIXTupA+dUyPghvZ3HZkU7+w+iaddy
+         MOGN9E2P/OmsYUmWFvqeIcwRGvGbWQOT8XvVGmkURn82iF06zPvIEEeNGFS+T/upFYen
+         8MRmaa5BD+Mkn2URcM7YFJHRfzXYGtRAz2Kbm1Coycv/tJ+KqaLkrIGAuytAGWidKNUG
+         7oFT1vVThwwT8a7XIQR0M0vz9DbvitVAzucpnpxlTJiGdJz3j9tXVf2PKR5eS0gyiRYW
+         t+pUBGWefhZM/5ZWuCX2WxH8kqcnlwtsFuLeaKhiqNN5N/lXUyOHU/wvTtik5/QBXvxz
+         ac9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791999083; x=1792603883;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lkj6WmLM94TLi7LkJSNtIzaPfrHo6K3hQ/enHwG6gPU=;
-        b=n/mh1ho0UHWOdkJnuOrDWsfPsKm4+aAfK7aEVhjCTKChf4sM0jVTYtNe6g1yEkhOsJ
-         fYOkp+1flD24AdYwvyO9N+R+mNo0JnVXkwRd7TjJBA1N6NIHrzosgLt0Kirbuuc7dxcO
-         sI7A24HaoPk13TTmo2kE00L56kck9J0PcZmu6NNq4t0U+6Cw26jlXemDp8aMjMyp3XJC
-         mccBwJvhHV++lJJqtxd9RQSwpsJxRCxRGCidvvgXaO4C/JAuxImQpiH43iLLtivSdQHN
-         F7bNBIjlSpKOu6sDJiXhbBx40EDNhV4irTmTRoYKJplprnfN+43j+msUyBmf/bNaQC1H
-         2OuA==
-X-Forwarded-Encrypted: i=1; AKwUvBxWY/Gej2gBZWAfDnvpat/JDbF07tlz0wFl6wt8h4IpMdRwHAZFFOAPgt6kDhZ7pj4J5pxxevz1yYM1@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRBigy9qvk7AY7Rb/XyZvo6Zo3TPA5fCq++LqNiDXvM2oGEkw3
-	3cLIsodfLbjvlzWmjuMIwPVlfsIAvnzd5nAcpx2BWqYEhzj+/LaikksE1i1Ie70/YW05G5xJU+l
-	2yXgrRU0DrJac2pnqSe3P+YLRKDeTvgKamXDQbQ07RTZRwtq1Q2nw0/S5/9tF3188
-X-Gm-Gg: AYBFou0DSg4/jiTimqFRVSKont6J8SGFDq4+C5a8asFRI3lTWTFOguORdil8LNHPRRZ
-	34nshz90m/JO6dDpLOSjHXJe2uRRR48OaHZ4Zz+mP7KX0GWsH2OKAiIJ4GGbSSGW+9d52la2HdF
-	4T9yNAetiWzywQjwqI2KHr1zTapE87SQ57HNHV5FaBlRlFZCtpQU5NcqpVUaAXDSlIryy7WVHrg
-	+z4oI38rOlrj+t+BCPQutrHPtXWdEhABq0Qd1cUMe83Q4Bgkf2zwboidKUiONv7m3A0GXxScG1V
-	Zt/a4S22msNHEM800y/84tKiB1pXnW5oNhymoAChjtk7vgRrNpAEnbSrhYI5oxSh2YkMqis4krQ
-	EexdR9GvqF08C+Iib6Vn5sS4qsKD/OrBi7kM7akEmQ8Fs94dgDRheWZQSyxxY+XaPtIOq4xT7C4
-	ZXCSxhbgj/jv8m
-X-Received: by 2002:a05:620a:1a1a:b0:93a:1b82:4962 with SMTP id af79cd13be357-93ebd22932dmr2719649385a.47.1791999082159;
-        Wed, 14 Oct 2026 10:31:22 -0700 (PDT)
-X-Received: by 2002:a05:620a:1a1a:b0:93a:1b82:4962 with SMTP id af79cd13be357-93ebd22932dmr2719640685a.47.1791999081425;
-        Wed, 14 Oct 2026 10:31:21 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5be33d93de0sm789552e87.67.2026.10.14.10.31.10
+        d=1e100.net; s=20260707; t=1792000232; x=1792605032;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nujP9rgCHe8pVwsy2vxm07nZV8x4bv342qsfibZkYP0=;
+        b=1CPUJHeZLRbUEItKx9wFpdy+HiVN26VU0LYcBGPGkUFTfrEqp6yHkUItSgEWhskOnd
+         me4//H3toKcE+/oIB0yX8LCy7y/nVgNgTo07BnSquTFzMDuk7kmt7drkeEC72JRCrso1
+         pPbFUj4nyMGYZ/1nE+CWbQs+7BONSSVVubJibULjokEXNbv4AsGLeqvxsZFlkYNZQwzY
+         9zeXFKgXHm8AxE+DedW9YyAakxp/c9ozxUzIj0TGF0qgOkendOdZcst67/MMeakx5J4v
+         66Z8BiF4AVOgwaw9bEofrchW3NPvKNGLy7BNpLBIAIeFQ1ZcxX6jUo6E9/MlIc2RABH+
+         aNNg==
+X-Forwarded-Encrypted: i=1; AKwUvBzlNZjq2w4Ex5U+xErx0oNao3G05xrmFAI0bIBLUXRQtBi0DNrEMhAxHppnw6gdxwPDp/rpnEhsoS/Z@vger.kernel.org
+X-Gm-Message-State: AFq9FYK2X+oYxdTVdjU+YsEtdZJs7/GZFnfIrcQQ7v+5bsZUl8QG5FAr
+	PrEeBbUkGQvuQJr5DgUnec7utiQ967A36jHuN5krr9oypACdAB1iZM3j
+X-Gm-Gg: AYBFou1zrFMGg1loeuByNXDVFu+7Nm/9OsXcR/c9jt5Rt4zJaoP1AXlOh4gAVHeNEPB
+	Ngj2mWzS21mkPlP1CHuyoLXXqCXMaOJw3OiZBhvcCA+ZyvknKMiseE+RBUSWg52hW2LwfI8Di7k
+	npZn0moxpty1mUnL7QRNYHzMYd5F4KUhrXtGDFuAWSWaj0zQjJCL5fIdV6sXdV7VtV/9iOaYCJN
+	vl6z0Hs1dnaEYszM3wVqUC9JHp38ON0H0MB65NsZxDzCxasWkyH1PY9nhsA9AMdJ2ZQPTGk3JeB
+	Q0wTpzAArSVE0CMVOyX8VhCd/0EuwXPtt95s4s8MY16On9HAZ3ZGRagBVP+qsZUhb0fNkdqdt20
+	cms9OICG90ErIPjUhAlDvxB/9ExsFQaNZxAGKsfdp78eZ5BTNboYh2Ghh8aPVZf8PnXRSoxbKEZ
+	XyKn7M3+ibbQwFnfF6k9GBGKcBygxPsg1/szu9tectsm1/Vtf/VKJ3ybaId4/rTj1UcAadpbGMQ
+	VEX4Tn/oN/xif9pSvVn
+X-Received: by 2002:a17:90b:1e41:b0:3ab:2737:3396 with SMTP id 98e67ed59e1d1-3ab3a9d3e2cmr14452410a91.65.1792000232105;
+        Wed, 14 Oct 2026 10:50:32 -0700 (PDT)
+Received: from AERO17.taila7786d.ts.net ([156.231.115.17])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac9449ae48sm403009a91.13.2026.10.14.10.50.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 10:31:19 -0700 (PDT)
-Date: Wed, 14 Oct 2026 20:31:06 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-        Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Mike Tipton <mike.tipton@oss.qualcomm.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        driver-core@lists.linux.dev, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org
-Subject: Re: [PATCH RFC 07/16] clk: qcom: Add clock-owned GenPD DVFS
- aggregation
-Message-ID: <ussxpger36nwnvuqv4nmtogxkrn4krogw254qbtusdf7y2ofn4@pswnav4mz6lm>
-References: <20261014-topic-qc_clk_dvfs-v1-0-3041b788e9f7@oss.qualcomm.com>
- <20261014-topic-qc_clk_dvfs-v1-7-3041b788e9f7@oss.qualcomm.com>
- <ygwhik5t6w74xcqz4igmb6t5esmjjgrmtwqqqmo4doj34t7rpu@jkngx4v76rxg>
- <6c9937a6-88c3-4e5f-85a3-73d929d3ba01@oss.qualcomm.com>
- <dbyuabhh3phhe3uq2kvhcnuem7qb2a6j5yvhl6ylizqikt2rlk@vyvrcj3lewtp>
- <dad15717-4439-41b7-8552-0176c9cd1505@oss.qualcomm.com>
+        Wed, 14 Oct 2026 10:50:28 -0700 (PDT)
+From: Pufan Jin <cyan2254650260@gmail.com>
+To: Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Rob Herring <robh@kernel.org>
+Cc: andrew@lunn.ch,
+	Conor Dooley <conor.dooley@microchip.com>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/3] arm64: zynqmp: Add support for ALINX EdgeBoard FZ3A
+Date: Thu, 15 Oct 2026 01:50:17 +0800
+Message-ID: <20261014175020.62907-1-cyan2254650260@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <dad15717-4439-41b7-8552-0176c9cd1505@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: pIhL988Q8ph-pdmPNJw9oJZjxPztSsLA
-X-Proofpoint-GUID: pIhL988Q8ph-pdmPNJw9oJZjxPztSsLA
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA2OSBTYWx0ZWRfX1RU9DnoX487W
- HF8YFW99j7QSx1OK2zhFWhOsEvgNOXzdxvYqn4R04KTB9KAAZbD3gmwxZNKBisaqeqKuB1JzgP2
- PgCiW+iLwBcrhnuhe7dupLkOIZk1onc=
-X-Authority-Analysis: v=2.4 cv=NctzRGD4 c=1 sm=1 tr=0 ts=6acfbc6b cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
- a=qblbxwZfGeKRjrM4MhMA:9 a=CjuIK1q_8ugA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA2OSBTYWx0ZWRfX4eBlPczsma//
- lf91VdrzwqqkY6YFohVm5NubJP+avFyL23VBR1cVj75B1LSi9DRXX5vUp86drONEgdo5NzCcXfO
- frBnMJHufQgzdByCVTJdW4D9cCkOQIZcxeDyflp/6s/4lKi9wJwbvtM1JUbocKCzUEwX/n1gaAj
- Hd9nujxbL6HFgaAyaiGqAfgF428vQAPnvm0LDxvGw14/KbvgBIkmgM9zO967iBuLTdbl9Y1GSfv
- mFS1skeXJ27VhgBVKZl4nd2zTAHV9tC1osHZoGBlxIfm0R72AinBXwa7YxXFdurwXqJw0L7lFx6
- vJgtWmiVVoyKTEcYpCBjoXZo7ENFrghrg30xuaHU5SxL2ua3yY/EpCVpPyZpe1jK41cL2mdDH5R
- bP4cQSuSDZOUYwlipcNumTfcyar5PlKvHlWosCR+APoAJzx/1IzLAgRjciXZUct6+AsUiHGpTGl
- /QuwpE7VXFhbp8/Sitw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1015 suspectscore=0 lowpriorityscore=0
- spamscore=0 phishscore=0 impostorscore=0 bulkscore=0 malwarescore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610140069
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 14, 2026 at 06:45:46PM +0200, Konrad Dybcio wrote:
-> On 10/14/26 6:30 PM, Dmitry Baryshkov wrote:
-> > On Wed, Oct 14, 2026 at 05:26:00PM +0200, Konrad Dybcio wrote:
-> >> On 10/14/26 4:36 PM, Dmitry Baryshkov wrote:
-> >>> On Wed, Oct 14, 2026 at 02:19:07PM +0200, Konrad Dybcio wrote:
-> >>>> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> >>>>
-> >>>> Clocks on Qualcomm SoCs need a minimum power rail performance state to
-> >>>> operate at a given frequency. We currently leave this to clock
-> >>>> consumers, so a driver has to know which power domains supply both the
-> >>>> clock and its parents. This ties knowledge of the clock tree to
-> >>>> individual consumers and doesn't protect other users that prepare or
-> >>>> change the same clock without making those power requests.
-> >>>
-> >>> Why would they prepare or change the same clock without making power
-> >>> requests? If it's a legitimate user of the clock, it should have an OPP
-> >>> table. If it's not, it should have a separate API to set the clock via a
-> >>> legitimate user / aggregator.
-> >>
-> >> That's the entire problem that motivated this series. The consumer
-> >> doesn't know what it needs on Qualcomm platforms. The power
-> >> requirements are that of the clock controller's, not of that device's.
-> > 
-> > I'd still say that the consumers know that they need a certain
-> > frequency, which demands a certain voltage / power / etc.
-> 
-> Right, but the meaningful difference here is that the consumers
-> only know they need a certain frequency. The required power votes
-> from that don't stem from the consumer's requirements. They stem
-> from the clock controller's inner workings that are necessary to
-> fulfill the consumer's demand.
+The ALINX EdgeBoard FZ3A is an embedded computing board from ALINX based on
+the Xilinx Zynq UltraScale+ XCZU3EG SoC. The hardware was designed and
+manufactured by ALINX for Baidu's AI EdgeBoard program.
 
-Doesn't Iris core also have "we need this power to work on this
-frequency" kind of requirements? My assumption has always been that
-those are just folded into the clock requrements.
+This series adds the ALINX vendor prefix, documents the board compatible,
+and adds a device tree for the board's PS peripherals:
+  - UART1 debug console
+  - eMMC (HS200) and microSD card
+  - GEM3 Ethernet with Micrel KSZ9031 PHY on the MDIO bus
+  - I2C0 and I2C1
+  - QSPI NOR flash
+  - PCIe
+  - USB 3.0 host
+  - DisplayPort output
 
-> 
-> [...]
-> 
-> >> The Qualcomm case is easy - RPMH is *always* reachable, so the
-> >> pmdomain provider needs no clocks itself. For the other cases,
-> >> "patches welcome".
-> > 
-> > Ok. There is a promise that I2C PMICs will never ever be involved in the
-> > clock / power tables.
-> 
-> Or at least that someone who needs them will contribute a
-> solution to this problem.
+Public board documentation and product links:
+  - https://ai.baidu.com/tech/hardware/deepkit
+  - https://ai.baidu.com/ai-doc/HWCE/8kq9b2121
+  - https://www.alinx.com/
+  - https://vd100-20232-v101.readthedocs.io/zh-cn/en/VD100_S1_RSTdocument_EN/00_aboutALINX_EN.html
 
-I meant actual I2C PMICs, like PM8008.
+Tested on ALINX EdgeBoard FZ3A hardware with Linux 7.3.0-rc5: the board boots
+from SD card into userspace over the serial console, gem3 negotiates
+1000Mbps/Full duplex with phy-mode = "rgmii-id", and the eMMC runs in
+HS200 mode.
 
-> 
-> > 
-> >>
-> >> [...]
-> >>
-> >>>> +static unsigned int
-> >>>> +qcom_clk_dvfs_aggregate(struct qcom_clk_dvfs_rail_voter *rail_voter)
-> >>>> +{
-> >>>> +	struct qcom_clk_dvfs_vote *vote;
-> >>>> +	unsigned int level = 0;
-> >>>> +
-> >>>> +	list_for_each_entry(vote, &rail_voter->votes, node)
-> >>>> +		level = max(level, vote->level);
-> >>>> +
-> >>>> +	return max(level, rail_voter->safety_floor_level);
-> >>>
-> >>> I guess you want to avoid having too many voters, but would it be
-> >>> possible to have one voter per 'signficant' clock and let GenPD itself
-> >>> aggregate all the votes?
-> >>
-> >> What does "significant" mean here?
-> > 
-> > I'd define it as "using a different power domain or requiring a
-> > different corner".
-> 
-> I still don't get it
+The base DTB passes CHECK_DTBS=y without warnings, the bindings pass
+dt_binding_check, and the DTS passes dt-check-style.
 
-When the consumer votes for a frequency A / domain BX / level cc, usually
-the parent clock (at the corresponding frquency nA) also has domain BX
-and level cc. Sometimes (like in the case of PLLs) it's not the case.
-The domain might change or the level might change. In those cases that
-clock must have an explicit voting (I'd still prefer OPP).
+Apologies for the threading issues in v2 caused by an SMTP relay breakdown;
+v3 is sent as a clean, unified thread and addresses all reviewer comments.
 
+Changes in v3:
+  - Update author and submission email to cyan2254650260@gmail.com
+  - Patch 1:
+    - Fix legal transliteration to "Xinyi Electronic Technology (Shanghai)
+      Co., Ltd. (ALINX)" (Conor Dooley)
+    - Add website link in commit message (Conor Dooley)
+    - Collect Conor's Acked-by
+  - Patch 2:
+    - Collect Conor's Acked-by
+  - Patch 3:
+    - Add public board documentation and product links in commit message
+      and DTS header comment (Michal Simek)
+    - Conform to DTS coding style:
+      - Sort compatible before model in root node
+      - Sort children in natural-sort order
+      - Reorder properties in canonical order (phys before phy-names, etc.)
+      - Add required blank lines before status properties
+      - Alphabetize pinctrl children and pin configurations
+
+Changes in v2:
+  - Use the correct vendor prefix 'alinx' instead of 'ebdee', and rename
+    the board and DTS file accordingly (Krzysztof Kozlowski)
+  - Describe the board as a single board computer with the SoC, DDR4 and
+    eMMC on one PCB (Andrew Lunn)
+  - Add the MDIO bus and describe the KSZ9031 PHY with phy-handle (Andrew Lunn)
+  - Enable eMMC HS200 on sdhci0: drop no-1-8-v, add pinctrl and mmc-hs200-1_8v
+  - Drop power-source and bias-high-impedance from pinctrl_gem3_default,
+    which only produce spurious warnings on pre-2023.1 PM firmware
+
+
+Pufan Jin (3):
+  dt-bindings: vendor-prefixes: Add ALINX vendor prefix
+  dt-bindings: soc: xilinx: Add ALINX EdgeBoard FZ3A
+  arm64: zynqmp: Add ALINX EdgeBoard FZ3A
+
+ .../bindings/soc/xilinx/xilinx.yaml           |   1 +
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ arch/arm64/boot/dts/xilinx/Makefile           |   1 +
+ .../xilinx/zynqmp-alinx-edgeboard-fz3a.dts    | 360 ++++++++++++++++++
+ 4 files changed, 364 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/xilinx/zynqmp-alinx-edgeboard-fz3a.dts
+
+Range-diff against v2:
+1:  c33ea63b7 ! 1:  ceeae5872 dt-bindings: vendor-prefixes: Add ALINX vendor prefix
+    @@
+      ## Metadata ##
+    -Author: Pufan Jin <2254650260@qq.com>
+    +Author: Pufan Jin <cyan2254650260@gmail.com>
+     
+      ## Commit message ##
+         dt-bindings: vendor-prefixes: Add ALINX vendor prefix
+     
+    -    Add vendor prefix for ALINX (Shanghai Xin'yi Electronics Technology
+    +    Add vendor prefix for ALINX (Xinyi Electronic Technology (Shanghai)
+         Co., Ltd.).
+     
+    -    Signed-off-by: Pufan Jin <2254650260@qq.com>
+    +    Link: https://www.alinx.com/
+    +    Signed-off-by: Pufan Jin <cyan2254650260@gmail.com>
+    +    Acked-by: Conor Dooley <conor.dooley@microchip.com>
+     
+      ## Documentation/devicetree/bindings/vendor-prefixes.yaml ##
+     @@ Documentation/devicetree/bindings/vendor-prefixes.yaml: patternProperties:
+    @@ Documentation/devicetree/bindings/vendor-prefixes.yaml: patternProperties:
+        "^alientek,.*":
+          description: Guangzhou Xingyi Intelligent Technology Co., Ltd.
+     +  "^alinx,.*":
+    -+    description: Shanghai Xin'yi Electronics Technology Co., Ltd. (ALINX)
+    ++    description: Xinyi Electronic Technology (Shanghai) Co., Ltd. (ALINX)
+        "^allegro,.*":
+          description: Allegro DVT
+        "^allegromicro,.*":
+2:  888548b4e ! 2:  da2a7b3e7 dt-bindings: soc: xilinx: Add ALINX EdgeBoard FZ3A
+    @@
+      ## Metadata ##
+    -Author: Pufan Jin <2254650260@qq.com>
+    +Author: Pufan Jin <cyan2254650260@gmail.com>
+     
+      ## Commit message ##
+         dt-bindings: soc: xilinx: Add ALINX EdgeBoard FZ3A
+     
+         Document the ALINX EdgeBoard FZ3A compatible.
+     
+    -    Signed-off-by: Pufan Jin <2254650260@qq.com>
+    +    Signed-off-by: Pufan Jin <cyan2254650260@gmail.com>
+    +    Acked-by: Conor Dooley <conor.dooley@microchip.com>
+     
+      ## Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml ##
+     @@ Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml: properties:
+3:  cd96303fb ! 3:  273fcd977 arm64: zynqmp: Add ALINX EdgeBoard FZ3A
+    @@
+      ## Metadata ##
+    -Author: Pufan Jin <2254650260@qq.com>
+    +Author: Pufan Jin <cyan2254650260@gmail.com>
+     
+      ## Commit message ##
+         arm64: zynqmp: Add ALINX EdgeBoard FZ3A
+    @@ Commit message
+         The base DTB passes CHECK_DTBS=y, and the Xilinx SoC binding passes
+         dt_binding_check.
+     
+    -    Signed-off-by: Pufan Jin <2254650260@qq.com>
+    +    Link: https://ai.baidu.com/tech/hardware/deepkit
+    +    Link: https://ai.baidu.com/ai-doc/HWCE/8kq9b2121
+    +    Link: https://www.alinx.com/
+    +    Signed-off-by: Pufan Jin <cyan2254650260@gmail.com>
+     
+      ## arch/arm64/boot/dts/xilinx/Makefile ##
+     @@
+    @@ arch/arm64/boot/dts/xilinx/zynqmp-alinx-edgeboard-fz3a.dts (new)
+     + * Device tree for the ALINX EdgeBoard FZ3A
+     + * based on the Xilinx Zynq UltraScale+ XCZU3EG
+     + *
+    ++ * Product info: https://ai.baidu.com/tech/hardware/deepkit
+    ++ * Documentation: https://ai.baidu.com/ai-doc/HWCE/8kq9b2121
+    ++ *
+     + * Copyright (c) 2026 Pufan Jin
+     + */
+     +
+    @@ arch/arm64/boot/dts/xilinx/zynqmp-alinx-edgeboard-fz3a.dts (new)
+     +#include "zynqmp-clk-ccf.dtsi"
+     +
+     +/ {
+    -+	model = "ALINX EdgeBoard FZ3A";
+     +	compatible = "alinx,edgeboard-fz3a", "xlnx,zynqmp";
+    ++	model = "ALINX EdgeBoard FZ3A";
+     +
+     +	aliases {
+     +		ethernet0 = &gem3;
+    @@ arch/arm64/boot/dts/xilinx/zynqmp-alinx-edgeboard-fz3a.dts (new)
+     +		stdout-path = "serial0:115200n8";
+     +	};
+     +
+    -+	dpcon: connector {
+    -+		compatible = "dp-connector";
+    -+		label = "mini-DP";
+    -+		type = "mini";
+    -+
+    -+		port {
+    -+			dpcon_in: endpoint {
+    -+				remote-endpoint = <&dpsub_dp_out>;
+    -+			};
+    -+		};
+    -+	};
+    -+
+     +	dp_aclk: clock-dp-aclk {
+     +		compatible = "fixed-clock";
+     +		#clock-cells = <0>;
+    @@ arch/arm64/boot/dts/xilinx/zynqmp-alinx-edgeboard-fz3a.dts (new)
+     +		clock-frequency = <100000000>;
+     +	};
+     +
+    -+	memory@0 {
+    -+		device_type = "memory";
+    -+		reg = <0x0 0x0 0x0 0x7ff00000>;
+    ++	dpcon: connector {
+    ++		compatible = "dp-connector";
+    ++		label = "mini-DP";
+    ++		type = "mini";
+    ++
+    ++		port {
+    ++			dpcon_in: endpoint {
+    ++				remote-endpoint = <&dpsub_dp_out>;
+    ++			};
+    ++		};
+     +	};
+     +
+     +	vcc_3v3_pcie: regulator-pcie {
+     +		compatible = "regulator-fixed";
+    -+		regulator-name = "pcie-reset";
+    -+		regulator-min-microvolt = <3300000>;
+    -+		regulator-max-microvolt = <3300000>;
+    -+		gpios = <&gpio 37 GPIO_ACTIVE_HIGH>;
+     +		enable-active-high;
+    ++		gpios = <&gpio 37 GPIO_ACTIVE_HIGH>;
+     +		regulator-always-on;
+     +		regulator-boot-on;
+    ++		regulator-max-microvolt = <3300000>;
+    ++		regulator-min-microvolt = <3300000>;
+    ++		regulator-name = "pcie-reset";
+     +	};
+     +
+     +	reserved_memory: reserved-memory {
+    ++		ranges;
+     +		#address-cells = <2>;
+     +		#size-cells = <2>;
+    -+		ranges;
+     +
+     +		linux_cma: cma {
+     +			compatible = "shared-dma-pool";
+    ++			alloc-ranges = <0x0 0x0 0x0 0x7ff00000>;
+     +			reusable;
+    -+			alloc-ranges = <0x0 0x0 0x0 0x80000000>;
+    -+			size = <0x0 0x20000000>;	/* 512MB */
+    -+			linux,cma-default;
+    ++			size = <0x0 0x20000000>;
+     +		};
+     +	};
+    ++
+    ++	memory@0 {
+    ++		device_type = "memory";
+    ++		reg = <0x0 0x0 0x0 0x7ff00000>;
+    ++	};
+     +};
+     +
+     +&ams_pl {
+    @@ arch/arm64/boot/dts/xilinx/zynqmp-alinx-edgeboard-fz3a.dts (new)
+     +	snps,dis_u2_susphy_quirk;
+     +	snps,hsphy_interface = "ulpi";
+     +	snps,usb3_lpm_capable;
+    ++
+     +	status = "okay";
+     +};
+     +
+    @@ arch/arm64/boot/dts/xilinx/zynqmp-alinx-edgeboard-fz3a.dts (new)
+     +	clocks = <&lpd_lsbus>, <&zynqmp_clk GEM3_REF>,
+     +		 <&zynqmp_clk GEM3_TX>, <&zynqmp_clk GEM3_RX>,
+     +		 <&zynqmp_clk GEM_TSU>;
+    -+	pinctrl-names = "default";
+    -+	pinctrl-0 = <&pinctrl_gem3_default>;
+    -+	phy-mode = "rgmii-id";
+     +	phy-handle = <&phy0>;
+    ++	phy-mode = "rgmii-id";
+    ++	pinctrl-0 = <&pinctrl_gem3_default>;
+    ++	pinctrl-names = "default";
+    ++
+     +	status = "okay";
+     +
+     +	mdio {
+    @@ arch/arm64/boot/dts/xilinx/zynqmp-alinx-edgeboard-fz3a.dts (new)
+     +		#size-cells = <0>;
+     +
+     +		phy0: ethernet-phy@1 {
+    -+			reg = <1>;
+     +			compatible = "ethernet-phy-id0022.1620";
+    ++			reg = <1>;
+     +		};
+     +	};
+     +};
+     +
+     +&gpio {
+     +	clocks = <&lpd_lsbus>;
+    ++
+     +	status = "okay";
+     +};
+     +
+     +&i2c0 {
+     +	clock-frequency = <400000>;
+    -+	pinctrl-names = "default";
+     +	pinctrl-0 = <&pinctrl_i2c0_default>;
+    ++	pinctrl-names = "default";
+    ++
+     +	status = "okay";
+     +};
+     +
+     +&i2c1 {
+     +	clock-frequency = <400000>;
+    -+	pinctrl-names = "default";
+     +	pinctrl-0 = <&pinctrl_i2c1_default>;
+    ++	pinctrl-names = "default";
+    ++
+     +	status = "okay";
+     +};
+     +
+    @@ arch/arm64/boot/dts/xilinx/zynqmp-alinx-edgeboard-fz3a.dts (new)
+     +
+     +&pcie {
+     +	phys = <&psgtr 0 PHY_TYPE_PCIE 0 0>;
+    ++
+     +	status = "okay";
+     +};
+     +
+     +&pinctrl0 {
+     +	status = "okay";
+     +
+    ++	pinctrl_gem3_default: gem3-default {
+    ++		conf {
+    ++			groups = "ethernet3_0_grp";
+    ++			slew-rate = <SLEW_RATE_SLOW>;
+    ++		};
+    ++
+    ++		conf-mdio {
+    ++			bias-disable;
+    ++			groups = "mdio3_0_grp";
+    ++			slew-rate = <SLEW_RATE_SLOW>;
+    ++		};
+    ++
+    ++		conf-rx {
+    ++			low-power-disable;
+    ++			pins = "MIO70", "MIO71", "MIO72", "MIO73", "MIO74",
+    ++			       "MIO75";
+    ++		};
+    ++
+    ++		conf-tx {
+    ++			bias-disable;
+    ++			low-power-enable;
+    ++			pins = "MIO64", "MIO65", "MIO66", "MIO67", "MIO68",
+    ++			       "MIO69";
+    ++		};
+    ++
+    ++		mux {
+    ++			function = "ethernet3";
+    ++			groups = "ethernet3_0_grp";
+    ++		};
+    ++
+    ++		mux-mdio {
+    ++			function = "mdio3";
+    ++			groups = "mdio3_0_grp";
+    ++		};
+    ++	};
+    ++
+     +	pinctrl_i2c0_default: i2c0-default {
+     +		conf {
+     +			bias-pull-up;
+    @@ arch/arm64/boot/dts/xilinx/zynqmp-alinx-edgeboard-fz3a.dts (new)
+     +		};
+     +	};
+     +
+    -+	pinctrl_usb0_default: usb0-default {
+    -+		mux {
+    -+			function = "usb0";
+    -+			groups = "usb0_0_grp";
+    -+		};
+    -+	};
+    -+
+     +	pinctrl_sdhci0_default: sdhci0-default {
+    -+		mux {
+    -+			groups = "sdio0_0_grp";
+    -+			function = "sdio0";
+    -+		};
+    -+
+     +		conf {
+    ++			bias-disable;
+     +			groups = "sdio0_0_grp";
+     +			slew-rate = <SLEW_RATE_SLOW>;
+    -+			bias-disable;
+     +		};
+    -+	};
+     +
+    -+	/*
+    -+	 * Omit 'power-source' and 'bias-high-impedance' to avoid spurious
+    -+	 * warnings on the board's pre-2023.1 PM firmware. Bank voltage
+    -+	 * and pin directions are already configured by hardware.
+    -+	 */
+    -+	pinctrl_gem3_default: gem3-default {
+     +		mux {
+    -+			function = "ethernet3";
+    -+			groups = "ethernet3_0_grp";
+    -+		};
+    -+
+    -+		conf {
+    -+			groups = "ethernet3_0_grp";
+    -+			slew-rate = <SLEW_RATE_SLOW>;
+    -+		};
+    -+
+    -+		conf-rx {
+    -+			pins = "MIO70", "MIO71", "MIO72", "MIO73", "MIO74",
+    -+			       "MIO75";
+    -+			low-power-disable;
+    -+		};
+    -+
+    -+		conf-tx {
+    -+			pins = "MIO64", "MIO65", "MIO66", "MIO67", "MIO68",
+    -+			       "MIO69";
+    -+			bias-disable;
+    -+			low-power-enable;
+    -+		};
+    -+
+    -+		mux-mdio {
+    -+			function = "mdio3";
+    -+			groups = "mdio3_0_grp";
+    ++			function = "sdio0";
+    ++			groups = "sdio0_0_grp";
+     +		};
+    ++	};
+     +
+    -+		conf-mdio {
+    -+			groups = "mdio3_0_grp";
+    -+			slew-rate = <SLEW_RATE_SLOW>;
+    -+			bias-disable;
+    ++	pinctrl_usb0_default: usb0-default {
+    ++		mux {
+    ++			function = "usb0";
+    ++			groups = "usb0_0_grp";
+     +		};
+     +	};
+     +};
+    @@ arch/arm64/boot/dts/xilinx/zynqmp-alinx-edgeboard-fz3a.dts (new)
+     +&psgtr {
+     +	clocks = <&gtr_refclk0>, <&gtr_refclk1>, <&gtr_refclk2>;
+     +	clock-names = "ref0", "ref1", "ref2";
+    ++
+     +	status = "okay";
+     +};
+     +
+     +&qspi {
+     +	clocks = <&zynqmp_clk QSPI_REF>, <&lpd_lsbus>;
+     +	num-cs = <1>;
+    ++
+     +	status = "okay";
+     +
+     +	flash: flash@0 {
+    -+		#address-cells = <1>;
+    -+		#size-cells = <1>;
+     +		compatible = "jedec,spi-nor";
+     +		reg = <0x0>;
+    ++		#address-cells = <1>;
+    ++		#size-cells = <1>;
+     +		spi-max-frequency = <50000000>;
+     +		spi-rx-bus-width = <4>;
+     +		spi-tx-bus-width = <1>;
+    @@ arch/arm64/boot/dts/xilinx/zynqmp-alinx-edgeboard-fz3a.dts (new)
+     +};
+     +
+     +&sdhci0 {
+    ++	assigned-clock-rates = <187498125>;
+    ++	bus-width = <8>;
+    ++	cap-mmc-hw-reset;
+     +	clocks = <&zynqmp_clk SDIO0_REF>, <&lpd_lsbus>;
+    -+	pinctrl-names = "default";
+    -+	pinctrl-0 = <&pinctrl_sdhci0_default>;
+    -+	non-removable;
+     +	disable-wp;
+    ++	mmc-hs200-1_8v;
+     +	no-sd;
+     +	no-sdio;
+    -+	mmc-hs200-1_8v;
+    -+	cap-mmc-hw-reset;
+    -+	bus-width = <8>;
+    ++	non-removable;
+    ++	pinctrl-0 = <&pinctrl_sdhci0_default>;
+    ++	pinctrl-names = "default";
+     +	xlnx,mio-bank = <0>;
+    -+	assigned-clock-rates = <187498125>;
+    ++
+     +	status = "okay";
+     +};
+     +
+    @@ arch/arm64/boot/dts/xilinx/zynqmp-alinx-edgeboard-fz3a.dts (new)
+     +	clocks = <&zynqmp_clk SDIO1_REF>, <&lpd_lsbus>;
+     +	disable-wp;
+     +	no-1-8-v;
+    ++
+     +	status = "okay";
+     +};
+     +
+     +&uart0 {
+     +	clocks = <&zynqmp_clk UART0_REF>, <&lpd_lsbus>;
+    ++
+     +	status = "okay";
+     +};
+     +
+     +&uart1 {
+     +	clocks = <&zynqmp_clk UART1_REF>, <&lpd_lsbus>;
+    ++
+     +	status = "okay";
+     +};
+     +
+     +&usb0 {
+    -+	phy-names = "usb3-phy";
+     +	phys = <&psgtr 1 PHY_TYPE_USB3 0 1>;
+    -+	pinctrl-names = "default";
+    ++	phy-names = "usb3-phy";
+     +	pinctrl-0 = <&pinctrl_usb0_default>;
+    ++	pinctrl-names = "default";
+     +	reset-gpios = <&gpio 44 GPIO_ACTIVE_LOW>;
+     +
+     +	status = "okay";
+    @@ arch/arm64/boot/dts/xilinx/zynqmp-alinx-edgeboard-fz3a.dts (new)
+     +		 <&zynqmp_clk DP_AUDIO_REF>,
+     +		 <&zynqmp_clk DP_VIDEO_REF>;
+     +	clock-names = "dp_apb_clk", "dp_aud_clk", "dp_vtc_pixel_clk_in";
+    -+	phy-names = "dp-phy0", "dp-phy1";
+     +	phys = <&psgtr 3 PHY_TYPE_DP 0 2>,
+     +	       <&psgtr 2 PHY_TYPE_DP 1 2>;
+    ++	phy-names = "dp-phy0", "dp-phy1";
+    ++
+     +	status = "okay";
+     +};
 -- 
-With best wishes
-Dmitry
+2.56.0
+
