@@ -1,107 +1,199 @@
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5ADFA8632B
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 07:53:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2098712B94
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 07:54:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791964417; cv=none; b=HEbhs7+7uUHYYx0oWqJTMAZxH62hxywQL6pzvTwD9v/48MJYo6Udj97gvt6oWz0W26l60YKn4+ySjSXh5sD0mGyNclT2VYid2XdwoK5Sm4SYgpVK/9TeVf14WEFpFLdWBSIJydXnztwqsmVqqdeLbIzANFJdTRrFPFT6V2P1Tpw=
+	t=1791964442; cv=none; b=m9LtyyTE0MettHqYt6srEbuC6gN/OPTsda6yPdFKcGOYg0W009PpmTh12bX9lxi0MMNXPhwnAOhBN70PDe0b3+6PCHDx1JyKCWQSKSacJdC6NOnWCdc1QMiX0GsXZlU3Bn+FxzGwLRTFDIdBwDpwDvjLyqh+OamkZ1mx+i8D2zU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791964417; c=relaxed/simple;
-	bh=gWnFIumBNB38GLNiC2esLxbYtH3AlO3I5H/ucrrclsw=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=f4lYrJC9U2POUQhue32IQuXX1tAa1g4cBnn2E32V9/9H+NqiyFap98buwVh3YjP42CdDPoiRihr+o8PIRWzlACNzr3nYvx+XmW0Id1y2SntDRkOXiN9tOV+hRAmPUyXK3eqkkwVEKOQbKbYMSGSWPc8NUjZ56/bYDtwQnpt7WXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=Eq/m0WJ/; arc=none smtp.client-ip=218.76.62.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ultrarisc.com
+	s=arc-20240116; t=1791964442; c=relaxed/simple;
+	bh=yVKH7rNz+J3cvjQxxrSMMiXJZV3rqzqWv40e7Y31h1Q=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=iFxmT7J0FaToud2JOijCzS8w2NyxLawzuauDmyu+N8lJZ03icFWwRHmdIEKSmNftsM93HFTHOvLID1jTzjGFp88yDJrpoficZUQsoOlClhe/CJhhvn9kW/ZHDmbu1DlsI8TF0fR60ndWXiWp9WN4UHE0vvWw8pBOMm4SMG70vmo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CEUBI6ZM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="Eq/m0WJ/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	References:Date:Message-Id; bh=NePItArx6fu3hQGx/oeADV7VFrP4JQGPe
-	LFVzL2Fp8k=; b=Eq/m0WJ/DcUrb4ZAAphIT+keAYzhm57YtiYYGkmQJCtS3LkYs
-	WApGaMoR0C75SthM84qGPVBrVseYaJ43CRO3tlG6Ei9RUEpd0B6ChpgcgcxU25ar
-	1ko0AmC6ZHdxb/omhV2l1Pb4VlWwiUTl157O7flFGp8RyXohEqGl2FuKNM=
-Received: from [127.0.0.1] (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwCnYwXhNM9qAgUCAA--.681S2;
-	Wed, 14 Oct 2026 15:53:05 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CEUBI6ZM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64EA51F000FF;
+	Wed, 14 Oct 2026 07:54:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791964440;
+	bh=HOiTKYiucM7r64NYxuNDlmUrtabJvfR4a8JF6hth8Ts=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=CEUBI6ZMYo+Ygk5hsW2lm8FP+UkLrjSrvVpvnml4gNJUNH5W1WRUc4Dn9F60USwq7
+	 kTOcqv8HhIo9UkYmDZX9l+hyKgLX+IJ/RyTGvH4LZg9/y7C+r8I3ajb2nN5EtTN7Cq
+	 HlP4eOGoX7Ths3OYC0FgzPsdt0k53ODJuwLCOcMcy5KuCTNN5+abFn0arqnvJdccnY
+	 MV7zT/GNk34V1SoZxyKOaWhHiEcOY2chi+bzloTUwOZYquZMnGiVasmbmAD4jHeq0g
+	 w0W8un1NTzt+kA3CcBIxbb2j67qvuuMog/jZpji9Wf0bq6nZnloG/qGYz9SYzoL334
+	 /YQZRgiZcEHmw==
+Message-ID: <sashiko-outbox-170968@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] nvmem: Add Sophgo SG2044 eFuse driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Inochi Amaoto" <inochiama@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261014074516.240247-3-inochiama@gmail.com>
+References: <20261014074516.240247-1-inochiama@gmail.com>
+ <20261014074516.240247-3-inochiama@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 14 Oct 2026 07:53:59 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v3 7/7] riscv: dts: ultrarisc: Add Milk-V Titan board
- device tree
-From: Xincheng Ji <jixincheng@ultrarisc.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Conor Dooley <conor@kernel.org>, sashiko-reviews@lists.linux.dev, 
- Xincheng Ji <jixincheng@ultrarisc.com>, devicetree@vger.kernel.org, 
- robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <d184f986-7bdd-465b-9ec6-31fe1975aec1@lunn.ch>
-References: <20261013-ultrarisc-dts-v3-0-5ff3ebb2a90d@ultrarisc.com>
- <20261013-ultrarisc-dts-v3-7-5ff3ebb2a90d@ultrarisc.com>
- <sashiko-outbox-169511@kernel.org>
- <20261013-siesta-starship-f078a51d2389@spud>
- <d184f986-7bdd-465b-9ec6-31fe1975aec1@lunn.ch>
-Date: Wed, 14 Oct 2026 15:53:04 +0800
-Message-Id: <179196438407.4116447.10264692072060845573.b4-reply@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791964384; l=954;
- i=jixincheng@ultrarisc.com; s=20260922; h=from:subject:message-id;
- bh=gWnFIumBNB38GLNiC2esLxbYtH3AlO3I5H/ucrrclsw=;
- b=EB9r5MSkJmjQhSGVrtz0iXbxpdoT1+OYxZXZyETcDdwj2SQNenddd7FKmfV5+ws1Be0SVXxyQ
- P6u2V3IbXZ8A+qXaDzsOCBAV8f0VdR+11goHUNnHiy+maL0AA/CLC2N
-X-Developer-Key: i=jixincheng@ultrarisc.com; a=ed25519;
- pk=n848dcS5D6g0vLad/rjp4Gf/1eedTe1a3pYUrkt2260=
-X-CM-TRANSID:AQAAfwCnYwXhNM9qAgUCAA--.681S2
-X-Coremail-Antispam: 1UD129KBjvdXoWruF15ArWktFWktw1fGr13CFg_yoWfGFc_ur
-	WI9rsrCw1kJrn7Xan3Kr15Jan2kwn7Xr18KF4Yqr4jq3s8JF95JFyjqr1FvF48JrsxArnx
-	Xr90vFW3GFs0vjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbIkFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Jr0_
-	Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr0_Gr
-	1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
-	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r12
-	6r1DMxkIecxEwVCm-wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s
-	026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_
-	JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20x
-	vEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE
-	14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf
-	9x0JUBVbkUUUUU=
-X-CM-SenderInfo: pml0x0xfkh0wg6xo325dul2uoofrz/1tbiAQAJDmq-VKkAAgAhsN
 
-  Hi Andrew,
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [Critical] mm: heap buffer overflow in sg2044_efuses_read allocation
+- [High] nvmem: sophgo-efuse: heap buffer overflow due to word-to-byte calc=
+ulation error
+- [High] nvmem: sophgo-efuse: uninitialized mutex triggers kernel panic or =
+undefined behavior
+- [High] locking: uninitialized mutex efuse->mutex causes crash
+- [Low] nvmem: sophgo-efuse: sg2044_efuses_read_strip() returns negative er=
+ror code as u32
+- [Low] endianness: byte order reversal on big-endian via memcpy
+--
 
-  On 2026-10-13 20:08 +0200, Andrew Lunn wrote: 
-> > > > +&ethernet {
-> > > > +	phy-handle = <&phy0>;
-> > > > +	/*
-> > > > +	 * The PCB does not add RGMII TX or RX clock delays. The DP1000
-> > > > +	 * integration adds fixed delays in both directions.
-> > > > +	 */
-> > > > +	phy-mode = "rgmii-id";
-> 
-> If the PCB does not add delays, rgmii-id is correct. What is important
-> is how the MAC driver handles this, it needs to mask the value passed
-> to the PHY. Assuming this has been tested on real hardware, it
-> probably does.
-> 
-> 	 Andrew
- 
-  Yes, this has been tested on real DP1000 hardware.
+commit ff98cc30d6e5cb08398ecc6957a9d51875c1b34b
+Author: Inochi Amaoto <inochiama@gmail.com>
 
-  The DP1000 MAC integration provides the fixed RGMII TX/RX delays and
-  masks the delay flags before passing the interface mode to the PHY.
-  With `phy-mode = "rgmii-id"`, link establishment and network traffic
-  work correctly in our testing.
+nvmem: Add Sophgo SG2044 eFuse driver
 
-  Thanks,
-  Xincheng
+This patch adds a new nvmem driver for Sophgo eFuses used on system-on-chips
+such as the SG2044. The driver exposes the shadow registers, which are
+organized as 32-bit values, as memory-mapped io.
 
--- 
-Xincheng Ji <jixincheng@ultrarisc.com>
+> diff --git a/drivers/nvmem/sophgo-efuse.c b/drivers/nvmem/sophgo-efuse.c
+> new file mode 100644
+> index 0000000000000..5f90adaf8e4fc
+> --- /dev/null
+> +++ b/drivers/nvmem/sophgo-efuse.c
+[ ... ]
+> +static u32 sg2044_efuses_read_strip(struct sophgo_efuses *efuse,
+> +				    unsigned int offset, u32 *strip)
+> +{
+> +	u32 val =3D FIELD_PREP(SG2044_EFUSE_ADR_ADDR, offset);
+> +	int ret;
+> +
+> +	guard(mutex)(&efuse->mutex);
+> +
+> +	writel(val, efuse->base + SG2044_EFUSE_ADR);
+> +
+> +	ret =3D sg2044_efuse_set_mode(efuse, SG2044_EFUSE_MODE_READ);
+> +	if (ret < 0)
+> +		return ret;
 
+[Severity: Low]
+Does this code return a negative error code as a u32?
+
+sg2044_efuse_set_mode() returns an int (such as -ETIMEDOUT), which gets cast
+to a large unsigned integer when returned here. Even though the caller
+assigns it back to an int ret, returning negative values via an unsigned ty=
+pe
+is poor practice and obscures the logic.
+
+Should the return type of sg2044_efuses_read_strip() be int instead of u32?
+
+[ ... ]
+> +static int sg2044_efuses_read(void *context, unsigned int offset, void *=
+val,
+> +			      size_t bytes)
+> +{
+> +	struct sophgo_efuses *efuse =3D context;
+> +	unsigned int start, start_offset, end, i;
+> +	u32 value;
+> +	u8 *buf;
+> +	int ret;
+> +
+> +	start =3D rounddown(offset, SG2044_EFUSE_ALIGN);
+> +	end =3D roundup(offset + bytes, SG2044_EFUSE_ALIGN);
+> +	start_offset =3D offset - start;
+> +
+> +	start /=3D SG2044_EFUSE_ALIGN;
+> +	end /=3D SG2044_EFUSE_ALIGN;
+> +
+> +	ret =3D readl_poll_timeout(efuse->base + SG2044_EFUSE_MD, value,
+> +				 (value & SG2044_EFUSE_BOOT_DONE),
+> +				 1, SG2044_BOOT_TIMEOUT);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	buf =3D kzalloc(end - start, GFP_KERNEL);
+
+[Severity: Critical]
+Does this allocate an undersized buffer?
+
+The variables start and end were divided by SG2044_EFUSE_ALIGN (4), changing
+them from byte offsets to 32-bit word indices. The allocation size is exact=
+ly
+end - start bytes, effectively allocating only 1 byte per 4-byte word inste=
+ad
+of (end - start) * SG2044_EFUSE_ALIGN.
+
+> +	if (!buf)
+> +		return -ENOMEM;
+> +
+> +	for (i =3D start; i < end; i++) {
+> +		ret =3D sg2044_efuses_read_strip(efuse, i, &value);
+> +		if (ret)
+> +			goto failed;
+> +
+> +		memcpy(&buf[(i - start) * 4], &value, SG2044_EFUSE_ALIGN);
+
+[Severity: Critical]
+Because the buffer allocation size is implicitly treated as words but
+allocated as bytes, this loop writes 4 bytes per word iteration into the
+undersized buffer, leading to an out-of-bounds heap write.
+
+[Severity: Low]
+Additionally, can this cause a byte order reversal on big-endian
+architectures?
+
+readl() returns a 32-bit integer in native endianness. The loop then uses
+memcpy() to write this native integer's bytes into a byte buffer.
+
+On big-endian systems, this places the most-significant byte at the lowest
+address, reversing the intended nvmem byte-stream order.
+
+[ ... ]
+> +static int sophgo_efuses_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct sophgo_efuses *efuse;
+> +	struct nvmem_config config =3D {
+> +		.dev =3D &pdev->dev,
+> +		.add_legacy_fixed_of_cells =3D true,
+> +		.read_only =3D true,
+> +		.reg_read =3D sg2044_efuses_read,
+> +		.stride =3D 1,
+> +		.word_size =3D 1,
+> +		.name =3D "sophgo-efuse",
+> +		.id =3D NVMEM_DEVID_AUTO,
+> +		.root_only =3D true,
+> +	};
+> +
+> +	efuse =3D devm_kzalloc(dev, sizeof(*efuse), GFP_KERNEL);
+
+[Severity: High]
+Is efuse->mutex left uninitialized?
+
+This allocates the efuse structure (zero-initialized), but mutex_init() is
+never called on efuse->mutex anywhere in the probe function.
+
+Later, reading from the eFuse calls sg2044_efuses_read_strip() which attemp=
+ts
+to acquire the lock:
+
+    guard(mutex)(&efuse->mutex);
+
+Locking a zero-initialized mutex will cause a null-pointer dereference crash
+on lock contention because the internal wait lists are not initialized.
+
+Should mutex_init(&efuse->mutex) be added after allocation?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014074516.2402=
+47-1-inochiama@gmail.com?part=3D2
