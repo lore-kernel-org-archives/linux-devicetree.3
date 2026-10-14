@@ -1,312 +1,214 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 801CB3C1D7B;
-	Wed, 14 Oct 2026 11:36:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A2D34D2ED6
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 11:42:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791977773; cv=none; b=njBcflOqo86Bso3iQ8ZXg7/nDXIIDz+d+VsjhGh4QUTeS+e6qwGBaG0FbikPDAnPTzfK+YkPZYQaEOrY2BmX3TeGLOy467bagawQJSYbrLqCbwggZ9YAoS5wyzH94Jc621uolkSsRcakeLcsCTxqrR71Ny+OZasl70VLNNTynlk=
+	t=1791978175; cv=none; b=hdaEXIdCohJEV7JO2vJx49YECPrPr8T5OTVlZt+FLrvzpqRYFZkHCcXCgVmTTr6XcBGUnvawquQwujICFqZzripHysq2OwcAYARYH0952KAw4cMz9s2LW+zOhUoEhW8QnXx2xtUZsjIddSRtgHaVrs1ZoNikJcSc2qZUidKrgH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791977773; c=relaxed/simple;
-	bh=G3+BwTQMQIIo+pZvUQsXZ2mhLhJzgxm9PN6ac1jR4Z0=;
-	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=EjLZ5Bq3LDqrZyK3bIV91PoJAA+/UQztcok3F2aMAquqqbDz4EVoqkFwUpwfettaeIJy2WKLEwBWAVKUWTFMDwMskGa5/jC8dazbMqamW/O98sUL9mMmJNg4pAMWKnxN1npdgs7byqkry6bVOFLcGyQ+8ZH8zAcrxXmMCwOIXzw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=SfBdOf0Z; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1791978175; c=relaxed/simple;
+	bh=+lAxMa4FDoe5WWam2wq8S/OfloRAPh4BEjl4Hm+tQ7I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RZ27UyeBdPP9W6D6mI0KOgRx121WmKkO/nX/fW1/xnD6c8579mfD7hebxWAf5DkEh/l5GnuEXWGYOiMRVo0NWKsVW/VxoByA3DjN3OOs0uWbxgv5CnoNWjDyF99jlKVixFdB6Bmi+h6jOyHZqPKPKIz4E8yf1QTjR3jHfImvsGk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MiTtRKOY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PzpoTzjj; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="SfBdOf0Z"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1791977777; x=1823513777;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=G3+BwTQMQIIo+pZvUQsXZ2mhLhJzgxm9PN6ac1jR4Z0=;
-  b=SfBdOf0Z7mTqJdVJxSZQhvaUJKbYS1Cy99wRvV4QowHoKggbbRxIvo8d
-   Bct9xEO7fD0s40xTZvhQDoKmQCVljYn3uiTLi2PCKzMe0Vn8tjc2IpRPt
-   7QB5AuMqqRvgmMAGx/7Kv6S90LE6hvkvvqNCanoRIM63azc8Qqepsg0s1
-   xX5kPnuqFUPZoMjsh+YsmR5mDCoOWa+nIqttY1+di5fAJ9NKOmm3d3MbQ
-   5c/U6vb90BH1Q2Uop5J/8wpVlAobFp/RfVpzy6gj6xblhtI+J6CTRlbfx
-   pP/MPpEcdNVMWJzpTfqu0OhUQJqSJI7G1cOxILy8UaiEAdIjg9Mn6whla
-   g==;
-X-CSE-ConnectionGUID: z9bJHHOMQZaV62hi/jbfKQ==
-X-CSE-MsgGUID: eMmMYA9QSTa0veDcAuUJ3w==
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="296439960"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 04:36:16 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
- chn-vm-ex2.mchp-main.com (10.10.87.31) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.49; Wed, 14 Oct 2026 04:36:09 -0700
-Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Wed, 14 Oct 2026 04:36:05 -0700
-Message-ID: <c30e7704a5f0bbc7c064bd78c09effc79a9e755c.camel@microchip.com>
-Subject: Re: [PATCH net-next v14 9/9] net: dsa: lan9645x: add port statistics
-From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
-To: <netdev-bot+sashiko@kernel.org>
-CC: <UNGLinuxDriver@microchip.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
-	<davem@davemloft.net>, <kuba@kernel.org>, <pabeni@redhat.com>,
-	<horms@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>, <woojung.huh@microchip.com>, <linux@armlinux.org.uk>,
-	<Steen.Hegelund@microchip.com>, <daniel.machon@microchip.com>,
-	<geert+renesas@glider.be>, <magnus.damm@gmail.com>, <edumazet@kernel.org>,
-	<richardcochran@gmail.com>, <linux-kernel@vger.kernel.org>,
-	<netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-renesas-soc@vger.kernel.org>
-Date: Wed, 14 Oct 2026 13:36:05 +0200
-In-Reply-To: <179180428793.434549.2970303377957273063@kernel.org>
-References: <20261008-dsa_lan9645x_switch_driver_base-v14-9-3d2a72661213@microchip.com>
-	 <179180428793.434549.2970303377957273063@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MiTtRKOY";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PzpoTzjj"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EBLvkB2516033
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 11:42:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	gYNEnyEkn35I3MZ1lPe7Nrs1olcDgPyFtd06w40U+1s=; b=MiTtRKOYd9q8LsYO
+	L3bOR25GftQSPcfLowtWIHET82QTU19AI2PqkJ9MiPV+BKHzsZO8P1k29Kcg/aIo
+	6q2h60b+wGc8o43CjfSPbC/f8L2rA2i2oB36Rf+4hgV/MUUI8FDptKPnMKXKQLEf
+	9KW1cqW8mb0sqkgz/dBwQSG6G5Dq2coO7OZc6G7MuGqeu9oSB4Q0e61UBpCLpSbn
+	2t985zowZ/+3iPPrMDL1lqlOtSJO186oFUDyLq2wFfsBDh3I02B8xb1V7xNl/HrZ
+	/7EUvzsAGSebV+vTLxfJlyz+jFXs5HlGSkjGSRbj8OatyD5/iqBL5amYX6RkXXTK
+	LZWBTQ==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ha4709bjt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 11:42:52 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc7d2ff0087so3819283a12.0
+        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 04:42:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791978171; x=1792582971; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gYNEnyEkn35I3MZ1lPe7Nrs1olcDgPyFtd06w40U+1s=;
+        b=PzpoTzjjDIJsMa8NE1nbF7PUz8fTso+xaTZb6OTy7T/NhgNIy4m4jQVvwxkTAI/7gX
+         JWgICX9EtwSdt+5J3gZq8dqw5H2LipxrRvarCfZoxhp8w/nkfI+p2zzpY65+IxkuDsZR
+         7A0Ttru9iEcLhf06d+9Ocx4Lvn2ykPezmh9Q3ys51Wpv4/qoAnuo9XXxbIA9WwgFuYHm
+         1RtKaBHIc28ZCC/CHSRcF7roHfE1LXShPVYnQMQXJ38J8WP5DKfyjqdpo+uOl0ShOl+V
+         B1K5T7LV/0h7ibJ5IxJSJmAO3faspCybZ3vnSPai0Wo3D1zI3ezW72U4WeWYQvJ+ZBhP
+         BVFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791978171; x=1792582971;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gYNEnyEkn35I3MZ1lPe7Nrs1olcDgPyFtd06w40U+1s=;
+        b=M/a78bdoLI3LpLpR7LwuBflqR74/dbyJKyEM6fLu8mZr+6EQLW7QYGqwhhcomF7yoW
+         mptrdtT5ZfBipukI2XpjBQBUGRM54MLA50/O/zeQH/p8H2Y9Sh9kB3AvBHnR4zfg62IZ
+         u39/4KAkNF/JEPddiSZFOC8PggCD6oucL+dSqpzJWewhIB9I7VDTd+fhsfc/MwEXT650
+         OFEFiI3KIDo4jy/pnXyFQjZnpodBHEVb3EyOzgPrDoGsCrFBxszW35F+EbJgDCUhEsyn
+         LpXiC3voHl6lDywSJe4CYu97SCo9rEyV188b8vbh5n5gre4mERBryUz5TUg9QaKXFhsm
+         lxYg==
+X-Forwarded-Encrypted: i=1; AKwUvBx2o3vB35xamLzykYy5ZkhK/4fOMi07toefE2uckOo612Jr/0jUXejGPvfpqDgyxQIUu9vz+IQLaOlR@vger.kernel.org
+X-Gm-Message-State: AFq9FYK2vjdjKPB94ogltSsXQdQdgjbXhRVtsebQ58NFpZYoo9KlwX8H
+	o9cx+OrqAVHr8m4oh7ksAFINC1OirxkLQbB3MY2w1Mb8SpaSm613wdlOrbwpcIk/sO5ORry/VoH
+	WsGzVbgmeiXuaK6kTSgWrNsE2VimJ9oBlbyEgAd2ttfLCz57CPJ5+skGO0nXn/IE/
+X-Gm-Gg: AYBFou1uWpTAUMgM8VhZk3fnKc7IhDP2xl4nfb5T8WzhrJQWS4vJTe8DT+TZvc0kxIp
+	EsrpHolBbbY4nrHeVndqM1zumZ9l2Ff9zwy0/TMKKkybdvwTPMJjaG/QxY1Xci+XGwxa1Of2Mib
+	jq2SFYM8bxDrEOHphY/Afz05nQCOAd60rHCNMCzIocofweoBwAz22U2f1+5Dtp2o+h16625E0L2
+	4UzjI08S+dyyVfWUIZJu/lJa84vahMKi52VQNkzcOqZpxlyvERpi8ehK5iYji+rE2llgYQs79JB
+	CpaStB2OZPA/kD1lZ5Kgi1q6N/TjOH2HnglYuRoe1NEdp0VsG/p8K+Q+m6F4Q83X3mKFe372To4
+	tkCWWoSRnl0jDRWtxBeDeE/Su8kfkH/8MABs=
+X-Received: by 2002:a05:6a00:4f94:b0:899:9267:3a9d with SMTP id d2e1a72fcca58-8999267419dmr10100616b3a.59.1791978171153;
+        Wed, 14 Oct 2026 04:42:51 -0700 (PDT)
+X-Received: by 2002:a05:6a00:4f94:b0:899:9267:3a9d with SMTP id d2e1a72fcca58-8999267419dmr10100592b3a.59.1791978170652;
+        Wed, 14 Oct 2026 04:42:50 -0700 (PDT)
+Received: from [10.217.240.130] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d804e391dsm1020134b3a.39.2026.10.14.04.42.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Oct 2026 04:42:50 -0700 (PDT)
+Message-ID: <413f66db-5089-4b3c-8afc-8d8083e80ddf@oss.qualcomm.com>
+Date: Wed, 14 Oct 2026 17:12:43 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/4] arm64: dts: qcom: talos: Add Talos Lyra EVK board
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>,
+        Akash Kumar <akakum@qti.qualcomm.com>,
+        Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>,
+        Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>,
+        Vishnu Saini <vishsain@qti.qualcomm.com>,
+        Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>,
+        akash.kumar@oss.qualcomm.com
+References: <20261012-talos-lyra-evk-v2-v2-0-dcc9316ebb59@oss.qualcomm.com>
+ <20261012-talos-lyra-evk-v2-v2-3-dcc9316ebb59@oss.qualcomm.com>
+ <ecuc74jw2pmgeijojvqayrnkntukzzyjlx7iq2iutovr7x2xkz@uvf2bd4o6pxi>
+Content-Language: en-US
+From: Ruchira Revdekar <ruchira.revdekar@oss.qualcomm.com>
+In-Reply-To: <ecuc74jw2pmgeijojvqayrnkntukzzyjlx7iq2iutovr7x2xkz@uvf2bd4o6pxi>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA0NiBTYWx0ZWRfX88ftb5oVSBw7
+ Xa2GeFh2XhY5cv5ZveJK1xbHTBUcH1HK2hFQ2FSHQHw2nYZBjfk3oINWNTvnp3AH9OSt8VXhPRh
+ jYe9otKpifrbrSEroP7u/7c+eFd6r97QPF7k8HkFQkmpi9fLirF1jHwPOZLMd1psMjqqnfXmVaB
+ efq4us88imcAznPpMosqq+ilcgWAu5yWlEcaqRzSDvdBB7o6IJ0Rd4dpl2qxwUZ5udUenDj/4UM
+ vKPpSEAtbL551cL6VRTGxlCnMqLnAUR5ELHRQ15oS5lak8KURm28PcRdeod5XHTZ6h27RhXv4p2
+ Z/GP2NM7nS7yvAagrVWCaIlFdIz+di42a1xx7tM60RKIVcUg6I+XKdv2dGRID1vrnjmNFO1hxZW
+ xwsWZdHqZ97aIvyLhjPYSY4LRPjkU0c0SoQWAViNlVwdtMC34qA0QcXs8MsFc2dcWxzkKDVALu5
+ ozhdQcz3arGW2abrYqw==
+X-Proofpoint-GUID: IPjykm_kGh3dkbt2Vr3UMjLTLkpL5qYN
+X-Authority-Analysis: v=2.4 cv=P6avFSAu c=1 sm=1 tr=0 ts=6acf6abc cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=C4XqHXXxGoFwxBuGTzMA:9 a=QEXdDO2ut3YA:10
+ a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-ORIG-GUID: IPjykm_kGh3dkbt2Vr3UMjLTLkpL5qYN
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA0NiBTYWx0ZWRfX+AkATX0+uVIN
+ IM7coT4NjjOi0F+vXSUQ8OJvFprcyTq982DybwmBaHz76QUN7eetDBte9OhGPt/q1C38j8Z/VX/
+ ECx6IMyVsVXBCcrNVaJ0dNJR/RMHmF4=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0
+ suspectscore=0 clxscore=1015 impostorscore=0 malwarescore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140046
 
-On Mon, 2026-10-12 at 11:24 +0000, netdev-bot+sashiko@kernel.org wrote:
-> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
-e content is safe
->=20
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issue(s) to consider.
->=20
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 2
->=20
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->=20
-> - [Medium] lan9645x_stats_get_stats64() counts bad frames in
->   rtnl_link_stats64.rx_packets.
-> - [Low] In lan9645x_stats_get_stats64(), rx_errors is the sum
->   c[SCNT_RX_SHORT] + c[SCNT_RX_JABBER] + c[SCNT_RX_CRC] +=E2=80=A6
-> - [Low] __lan9645x_stats_view_idx_hw_read() selects the port with
->   lan_wr(SYS_STAT_CFG_STAT_VIEW_SET(idx), lan9645x, SYS_STAT_CFG).
->=20
-> --
->=20
-> net: dsa: lan9645x: add port statistics
->=20
-> This commit adds port statistics support to the lan9645x DSA driver. A
-> delayed work polls the 32-bit hardware counters every 3 seconds and
-> accumulates them into 64-bit software counters. The counters are exposed
-> through ethtool -S, the standard ethtool stats groups and get_stats64, wi=
-th
-> the pMAC counters summed into the aggregate source.
->=20
-> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c b/driv=
-ers/net/dsa/microchip/lan9645x/lan9645x_stats.c
-> > new file mode 100644
-> > index 0000000000000..a21afb4d98532
-> > --- /dev/null
-> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c
-> > @@ -0,0 +1,854 @@
->=20
-> [ ... ]
->=20
-> > +static void lan9645x_stats_update_counter(u64 *sw, u32 hw)
-> > +{
-> > +     if (hw < (*sw & U32_MAX))
-> > +             *sw +=3D (u64)1 << 32; /* value has wrapped */
-> > +
-> > +     *sw =3D (*sw & ~(u64)U32_MAX) + hw;
-> > +}
-> > +
-> > +static int __lan9645x_stats_view_idx_hw_read(struct lan9645x *lan9645x=
-,
-> > +                                          enum lan9645x_view_stat_type=
- vtype,
-> > +                                          int idx)
-> > +{
->=20
-> [ ... ]
->=20
-> > +     lan_wr(SYS_STAT_CFG_STAT_VIEW_SET(idx), lan9645x, SYS_STAT_CFG);
->=20
-> [Severity: Low]
-> What happens to the counters if this lan_wr() fails?
->=20
-> lan_wr() returns void and only does WARN_ON_ONCE(regmap_write(...)), so
-> this function never sees a failed STAT_VIEW select. The SYS_CNT window
-> read by the lan_bulk_rd() calls below is the same for every port. If the
-> reads still succeed, buf holds the counters of the previously selected
-> port.
->=20
-> __lan9645x_stats_view_idx_transfer() then passes those values through
-> lan9645x_stats_update_counter() into the requested port's shadow. If the
-> wrong value is larger, the shadow takes it. On the next correct poll,
-> this check:
->=20
->         if (hw < (*sw & U32_MAX))
->                 *sw +=3D (u64)1 << 32; /* value has wrapped */
->=20
-> adds 2^32. That counter then stays about 4G too high until the next
-> setup.
->=20
-> lan9645x_stats_clear_view() has the same unchecked write:
->=20
->         lan_wr(SYS_STAT_CFG_STAT_VIEW_SET(idx) |
->                SYS_STAT_CFG_STAT_CLEAR_SHOT_SET(groups),
->                lan9645x, SYS_STAT_CFG);
->=20
-> If that write is dropped, the poll for !CLEAR_SHOT passes at once and a
-> clear that never happened is reported as success. That case looks
-> harmless, since the shadow later takes the uncleared hardware value.
->=20
-> ocelot_port_update_stats() follows the same pattern, and every other
-> lan_wr() in this driver also ignores write errors. Fixing this would
-> probably mean having the helper return the regmap_write() result.
->=20
-> > +
-> > +     /* Each region for this index contains counters which are at sequ=
-ential
-> > +      * addresses, so we can use bulk reads to ease lock pressure a bi=
-t.
-> > +      */
-> > +     for (int r =3D 0; r < vstats->num_regions; r++) {
-> > +             region =3D vstats->regions[r];
-> > +             err =3D lan_bulk_rd(&vstats->buf[region.cnts_base_idx],
-> > +                               region.cnt, lan9645x,
-> > +                               SYS_CNT(region.base_offset));
->=20
-> [ ... ]
->=20
-> > +void lan9645x_stats_get_stats64(struct lan9645x *lan9645x, int port,
-> > +                             struct rtnl_link_stats64 *stats)
-> > +{
->=20
-> [ ... ]
->=20
-> > +     stats->rx_bytes =3D c[SCNT_RX_OCT] + c[SCNT_RX_PMAC_OCT];
-> > +
-> > +     stats->rx_packets =3D c[SCNT_RX_SHORT] +
-> > +                         c[SCNT_RX_JABBER] +
-> > +                         c[SCNT_RX_SZ_64] +
-> > +                         c[SCNT_RX_SZ_65_127] +
-> > +                         c[SCNT_RX_SZ_128_255] +
-> > +                         c[SCNT_RX_SZ_256_511] +
-> > +                         c[SCNT_RX_SZ_512_1023] +
-> > +                         c[SCNT_RX_SZ_1024_1526] +
-> > +                         c[SCNT_RX_SZ_JUMBO] +
-> > +                         c[SCNT_RX_LONG] +
-> > +                         c[SCNT_RX_PMAC_SHORT] +
-> > +                         c[SCNT_RX_PMAC_FRAG] +
-> > +                         c[SCNT_RX_PMAC_JABBER] +
-> > +                         c[SCNT_RX_PMAC_SZ_64] +
-> > +                         c[SCNT_RX_PMAC_SZ_65_127] +
-> > +                         c[SCNT_RX_PMAC_SZ_128_255] +
-> > +                         c[SCNT_RX_PMAC_SZ_256_511] +
-> > +                         c[SCNT_RX_PMAC_SZ_512_1023] +
-> > +                         c[SCNT_RX_PMAC_SZ_1024_1526] +
-> > +                         c[SCNT_RX_PMAC_SZ_JUMBO] +
-> > +                         c[SCNT_RX_PMAC_LONG];
->=20
-> [Severity: Medium]
-> Should rx_packets include the error counters?
->=20
-> The rtnl_link_stats64 documentation in include/uapi/linux/if_link.h
-> describes rx_packets as "Number of good packets received by the
-> interface". It describes rx_errors as "Total number of bad packets
-> received on this network device".
->=20
-> SCNT_RX_SHORT, SCNT_RX_JABBER and SCNT_RX_LONG, plus their pMAC
-> versions, are added to both rx_packets and rx_errors. Each runt, jabber
-> and oversize frame is therefore counted as good and as bad.
->=20
-> The SZ_* buckets also seem to include CRC-errored frames. The v5
-> changelog removed rx_crc from rx_packets "as they are already counted in
-> SZ_* buckets". So rx_packets ends up counting every frame received.
->=20
-> This also does not match FramesReceivedOK in
-> lan9645x_stats_get_eth_mac_stats(), which is UC + MC + BC. The two
-> standard interfaces would report different good RX counts for the same
-> port.
->=20
-> ocelot_port_get_stats64() uses a similar formula. Is that the intended
-> meaning of rx_packets for this new driver?
->=20
-> Separately, c[SCNT_RX_PMAC_FRAG] is added to rx_packets but not to
-> rx_errors, while c[SCNT_RX_PMAC_SHORT] is added to both. The comment in
-> lan9645x_stats_get_rmon_stats() says SCNT_RX_PMAC_FRAG counts runts with
-> an invalid CRC.
->=20
-> Should SCNT_RX_PMAC_FRAG go into rx_errors too, or be removed from
-> rx_packets? This has no effect until MAC merge sends traffic to the pMAC.
->=20
+Hi Dmitry,
 
-Dismissed, intended.
+On 12-10-2026 17:29, Dmitry Baryshkov wrote:
+> On Mon, Oct 12, 2026 at 11:46:28AM +0530, Ruchira Revdekar wrote:
+>> From: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
+>>
+>> Add the device tree for the Talos Lyra EVK platform which combines
+>> the Talos Lyra EVK SoM and Lyra carrier board.
+>>
+>> This device tree adds board-specific peripheral configuration on top
+>> of the SoM, including:
+>>
+>> - Native DisplayPort output
+>> - GPIO expanders on i2c5
+>> - SPI-attached TPM (ST33)
+>> - USB host and peripheral controllers
+>> - Power and reset keys
+>>
+>> Co-developed-by: Akash Kumar <akakum@qti.qualcomm.com>
+>> Signed-off-by: Akash Kumar <akakum@qti.qualcomm.com>
+>> Co-developed-by: Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>
+>> Signed-off-by: Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>
+>> Co-developed-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+>> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+>> Co-developed-by: Vishnu Saini <vishsain@qti.qualcomm.com>
+>> Signed-off-by: Vishnu Saini <vishsain@qti.qualcomm.com>
+>> Tested-by: Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
+>> Signed-off-by: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
+>> Signed-off-by: Ruchira Revdekar <ruchira.revdekar@oss.qualcomm.com>
+>> ---
+>>  arch/arm64/boot/dts/qcom/Makefile           |   1 +
+>>  arch/arm64/boot/dts/qcom/talos-lyra-evk.dts | 137 ++++++++++++++++++++++++++++
+>>  2 files changed, 138 insertions(+)
+>>
+>> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+>> index 88230c4e00ea..2f25575e6efe 100644
+>> --- a/arch/arm64/boot/dts/qcom/Makefile
+>> +++ b/arch/arm64/boot/dts/qcom/Makefile
+>> @@ -456,6 +456,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-valve-deckard.dtb
+>>  dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-mtp.dtb
+>>  dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-qrd.dtb
+>>  dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk.dtb
+>> +dtb-$(CONFIG_ARCH_QCOM)	+= talos-lyra-evk.dtb
+>>  
+>>  talos-evk-el2-dtbs	:= talos-evk.dtb talos-el2.dtbo
+>>  
+>> diff --git a/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts b/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts
+>> new file mode 100644
+>> index 000000000000..cfb563658fe0
+>> --- /dev/null
+>> +++ b/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts
+>> @@ -0,0 +1,137 @@
+>> +// SPDX-License-Identifier: BSD-3-Clause
+>> +/*
+>> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+>> + */
+>> +/dts-v1/;
+>> +
+>> +#include "talos-lyra-evk-som.dtsi"
+>> +
+>> +/ {
+>> +	model = "Qualcomm Technologies, Inc. QCS615 Talos lyra EVK";
+> 
+> Is it 'lyra' or 'Lyra'?
+> 
 
-As for v14, this follows mscc/ocelot, which computes rx_packets the
-same way. The hardware has no good-frames-only octet counter, rx_oct
-counts octets in good and bad frames, so rx_bytes cannot follow the
-uapi description either. rx_packets is made to count the same frames
-rx_bytes counts octets for: the size buckets cover good and bad frames
-from 64 bytes up to MAXLEN, and short, fragment, jabber and long frames
-fall outside that range, so every received frame is counted once. Bad
-frames are also reported in rx_errors.
+Ack, it should be 'Lyra'. Will fix this in V3.
 
-FramesReceivedOK is the 802.3 good frame count and is meant to differ,
-as it does in ocelot, where it is the sum of the green counters.
+Thanks for the review.
 
-SCNT_RX_PMAC_FRAG is the size class below 64 bytes for pMAC runts with
-an invalid CRC, so it belongs in rx_packets next to the size buckets.
-Its frames are already in rx_errors through SCNT_RX_PMAC_CRC, which
-counts CRC errors at any frame size, in the same way a frame of 64
-bytes or more with a bad CRC sits in a size bucket and in
-SCNT_RX_CRC. Adding it to rx_errors would count those runts twice.
-
-
-
-> > +
-> > +     stats->multicast =3D c[SCNT_RX_MC] + c[SCNT_RX_PMAC_MC];
-> > +
-> > +     stats->rx_errors =3D c[SCNT_RX_SHORT] +
-> > +                        c[SCNT_RX_JABBER] +
-> > +                        c[SCNT_RX_CRC] +
-> > +                        c[SCNT_RX_LONG] +
-> > +                        c[SCNT_RX_PMAC_SHORT] +
-> > +                        c[SCNT_RX_PMAC_JABBER] +
-> > +                        c[SCNT_RX_PMAC_CRC] +
-> > +                        c[SCNT_RX_PMAC_LONG];
-> > +
-> > +     stats->rx_length_errors =3D c[SCNT_RX_JABBER] +
-> > +                               c[SCNT_RX_LONG] +
-> > +                               c[SCNT_RX_PMAC_JABBER] +
-> > +                               c[SCNT_RX_PMAC_LONG];
-> > +
-> > +     /* SCNT_RX_CRC counts CRC errors, alignment errors and RX_ER even=
-ts at
-> > +      * any frame size, so a short frame with a bad CRC is counted her=
-e.
-> > +      */
-> > +     stats->rx_crc_errors =3D c[SCNT_RX_CRC] + c[SCNT_RX_PMAC_CRC];
->=20
-> [Severity: Low]
-> Is a jabber frame counted twice in rx_errors?
->=20
-> This comment says SCNT_RX_CRC counts CRC errors "at any frame size". The
-> v12 changelog describes SCNT_RX_JABBER as "the too-long-with-bad-CRC half
-> of the event".
->=20
-> If both are true, an oversize frame with a bad FCS increments both
-> SCNT_RX_CRC and SCNT_RX_JABBER. rx_errors above adds the two together.
->=20
-> If the hardware keeps these two counters disjoint, is the "any frame
-> size" wording in this comment accurate?
->=20
-> --
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
-set/20261008-dsa_lan9645x_switch_driver_base-v14-0-3d2a72661213%40microchip=
-.com
-
+Best regards,
+Ruchira
