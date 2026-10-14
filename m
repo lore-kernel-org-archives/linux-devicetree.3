@@ -1,224 +1,115 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B21BA4A841D;
-	Wed, 14 Oct 2026 08:52:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB2E2356772
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 08:52:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791967952; cv=none; b=qucIMRzQIbkjN8qfBFatCaIQEQx4WSj/2fDW6df+YK4gEg7PiLhu02uuETtzySDSBgLAarj0wnoryqyZRUUr3fa4wYNKBPl7EYBtgW1M7lPMVLZeWAwq+py4qoyzblWTfpiTUqViE+WC5k/wByt7mM/VsZeyu9lPCxWAkO5Z9Zg=
+	t=1791967974; cv=none; b=EwVLDbMfVECuDnAKIlAOcujMssyM4I8IPGWxsRug8l8up/jwWB/WCGIYbmV/udWm2jKqbsXojZZml99O2U4ZNwSxH65GrAgP8ZiBqIAH75A+fx5uY71dEZnL+rqk8Gi6G0/TyuQhbR7ms0uMNBgVOK61wyf977dR6DXvTJW1aEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791967952; c=relaxed/simple;
-	bh=uBgXEUhJEyTCvIva/iLkM0JNPDAeftjCSjsxPOdBnrY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=TZnSDTArhyOE27l5y+vKJzDaAKKQ/A/LWhx9mPOAUyd7a8E/8DEtDrYqeR0TgeW4GW1T4qqJXYTEeBt4iom8yoyzmg29dCDqmDDj6CwmmLPfwY8cKcPkDQ+oWtKjwm6l7Wv/oYmURel4LoX7GWIPEwPEtMZ0pOORc4NQ9AmLjSQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=I39l4qPT; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1791967974; c=relaxed/simple;
+	bh=aLq/9poOHSW2CZK30xBTidTbvLIzYcPe2Ed9NAUlYos=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=m3Kry3M26KCBLlLWdnOxu0OX9h1nFfloKiAAAlX6Xt7lw0qJ9xA3yDlvPAw4wvJcpDAxizeJuh5d2A2BKjgcRPbqzhKtXL20fzU9acgiJxxa0fdKzn+14dqL25FWWOcncUwOnN2uAQLCznPkGeIgwDRCvXshomngcRD+F9xIezc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YvlvTZl0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="I39l4qPT"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 1F8BFC63440;
-	Wed, 14 Oct 2026 08:53:18 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3A2A560368;
-	Wed, 14 Oct 2026 08:52:22 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DAE79103286A7;
-	Wed, 14 Oct 2026 10:52:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791967940; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=i48MIGwzBxi2do2WYXSYPbruC3HoFCZMxRU1UUDDuYs=;
-	b=I39l4qPTZiayixscQ25oSYYL3NpbdUqY5vfY8WjlnawudFpyJfGrP7Qd2xXs+oY+HTA5L9
-	HYG+p+V4eBlDcIkQ33/sT8qNfxC8TxPzOExPZE/a5dM+N52o+LuWWB8KjPTdbW+x9UMPeB
-	Qhecxah11hmwDPZRaT9PiF59W4bRSzao28f6nvWfzVCtSEvWNU49ziJdfT9UvzUTpIujSw
-	iU/fUi0oEKauswQ54YxEGuXjuFAKJNNr7aF6yW+3HO1ThHWX9cevyrzYYK6akFYkZC0gOW
-	PhIc3r6BCCYQxX/ItYeHQdHgIF9KDMPtMIGn2ZmhijQyiPsPDfQXidzI/a9xkA==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Manikandan Muralidharan <manikandan.m@microchip.com>
-Cc: <pratyush@kernel.org>,  <mwalle@kernel.org>,
-  <takahiro.kuwano@infineon.com>,  <richard@nod.at>,  <vigneshr@ti.com>,
-  <robh@kernel.org>,  <krzk+dt@kernel.org>,  <conor+dt@kernel.org>,
-  <srini@kernel.org>,  <nicolas.ferre@microchip.com>,
-  <alexandre.belloni@bootlin.com>,  <claudiu.beznea@tuxon.dev>,
-  <linux@armlinux.org.uk>,  <richardcochran@gmail.com>,
-  <linusw@kernel.org>,  <arnd@arndb.de>,  <aaro.koskinen@iki.fi>,
-  <gregkh@linuxfoundation.org>,  <mathieu.dubois-briand@bootlin.com>,
-  <michael@walle.cc>,  <linux-mtd@lists.infradead.org>,
-  <devicetree@vger.kernel.org>,  <linux-kernel@vger.kernel.org>,
-  <linux-arm-kernel@lists.infradead.org>,  <netdev@vger.kernel.org>
-Subject: Re: [PATCH v8 5/8] nvmem: layouts: add Microchip/SST SFDP EUI
- layout driver
-In-Reply-To: <89aa4ac1eee01e3c425c12367f1e036354787ce8.1790847519.git.manikandan.m@microchip.com>
-	(Manikandan Muralidharan's message of "Wed, 14 Oct 2026 12:10:09
-	+0530")
-References: <cover.1790847519.git.manikandan.m@microchip.com>
-	<89aa4ac1eee01e3c425c12367f1e036354787ce8.1790847519.git.manikandan.m@microchip.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Wed, 14 Oct 2026 10:52:14 +0200
-Message-ID: <87fqy8zmtd.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YvlvTZl0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 148F51F000FF;
+	Wed, 14 Oct 2026 08:52:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791967973;
+	bh=pgcnWIl1ebJoyKPhbdG65WUJc7B3m+GDIbjIM433k78=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=YvlvTZl0GHORfEM/6PEwS51xVGFOvJLAE6UMQVqGQF0Txb4w3EA2o04uQunH6pGoU
+	 90BZe2GVV+zIGZhO9QEtRQ95adyw5ik3dLnLZuTSm0xZQBs3sJaIyoUfaS83jSovbJ
+	 x+RYUD3T4CnVF7ZXYY3UJAWhr9YqXvDsIWp0L82LEp09DkVKyt41pe6gHE6p0NZuZd
+	 TQ+7viyaG75yl+ge3Wq69AXcomRu/HFDIlaAlgN5iJrwdUjInBfIlpvOaZJDNV4iV3
+	 s27iCRowsRdNSX60yOFN+k7dkxeRzaebWVKG79ewcr/TMQoAlIOhS5yj9ghPXYSNg8
+	 8BIHaK9IDjv9g==
+Message-ID: <sashiko-outbox-171042@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1] arm64: dts: qcom: talos: Make the ADSP remote heap
+ no-map
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jianping Li" <jianping.li@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261014083820.468-1-jianping.li@oss.qualcomm.com>
+References: <20261014083820.468-1-jianping.li@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 14 Oct 2026 08:52:52 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] arm64: dts: qcom: talos: SEA crash shifted to FastRPC dma_alloc_co=
+herent due to un-restored HLOS permissions
+--
 
-On 14/10/2026 at 12:10:09 +0530, Manikandan Muralidharan <manikandan.m@micr=
-ochip.com> wrote:
+commit af4a6b835881c10ea8fa53c33cf956e604f98923
+Author: Jianping Li <jianping.li@oss.qualcomm.com>
 
-> Add an NVMEM layout that exposes the factory-programmed EUI-48 identifier
-> from the Microchip/SST vendor SFDP parameter table (e.g. SST26VF064BEUI)
-> as a "mac-address" cell, for use as a network MAC address. The vendor
-> table is located at runtime via the SFDP NVMEM device (no offset in DT),
-> and a read_post_process callback reverses the LSB-first bytes into
-> canonical MAC order. Binds to an "nvmem-layout" node with compatible
-> "microchip,sst26vf-sfdp-eui".
->
-> Signed-off-by: Manikandan Muralidharan <manikandan.m@microchip.com>
+arm64: dts: qcom: talos: Make the ADSP remote heap no-map
 
-Mostly minor nits, see below.
+This commit isolates the ADSP remote heap by changing its declaration
+from reusable to no-map. This is intended to prevent normal kernel
+allocations from triggering a Synchronous External Abort (SEA) when
+accessing pages within the heap.
 
-> --- a/drivers/nvmem/layouts/Makefile
-> +++ b/drivers/nvmem/layouts/Makefile
-> @@ -6,4 +6,5 @@
->  obj-$(CONFIG_NVMEM_LAYOUTS) +=3D fixed-layout.o
->  obj-$(CONFIG_NVMEM_LAYOUT_SL28_VPD) +=3D sl28vpd.o
->  obj-$(CONFIG_NVMEM_LAYOUT_ONIE_TLV) +=3D onie-tlv.o
-> +obj-$(CONFIG_NVMEM_LAYOUT_SST26VF_SFDP_EUI) +=3D sst26vf-sfdp-eui.o
->  obj-$(CONFIG_NVMEM_LAYOUT_U_BOOT_ENV) +=3D u-boot-env.o
+Link: https://lore.kernel.org/all/20260424-talosaudio-v3-1-9e2ad5d78a2e@oss=
+.qualcomm.com/
 
-Not sure this is ordered alphabetically, so in general add it at the end.
+> diff --git a/arch/arm64/boot/dts/qcom/talos.dtsi b/arch/arm64/boot/dts/qc=
+om/talos.dtsi
+> index eedfdce3c479e..163c14971374c 100644
+> --- a/arch/arm64/boot/dts/qcom/talos.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/talos.dtsi
+> @@ -683,7 +683,7 @@ pil_gpu_mem: pil-gpu@97715000 {
+>  		adsp_rpc_remote_heap_mem: adsp-rpc-remote-heap {
+>  			compatible =3D "shared-dma-pool";
+>  			alloc-ranges =3D <0x0 0x80000000 0x0 0x80000000>;
+> -			reusable;
+> +			no-map;
 
-> +/* SFDP header and parameter header, as laid out on the flash. */
-> +struct sfdp_header {
-> +	u8 signature[4];
-> +	u8 minor;
-> +	u8 major;
-> +	u8 nph;
-> +	u8 unused;
-> +};
-> +
-> +struct sfdp_parameter_header {
-> +	u8 id_lsb;
-> +	u8 minor;
-> +	u8 major;
-> +	u8 length;
-> +	u8 parameter_table_pointer[3];
-> +	u8 id_msb;
-> +};
-> +
-> +#define SFDP_SIGNATURE			0x50444653U
-> +
-> +#define SFDP_PARAM_HEADER_ID(h)		(((h)->id_msb << 8) | (h)->id_lsb)
-> +#define SFDP_PARAM_HEADER_PTP(h)	get_unaligned_le24((h)->parameter_table=
-_pointer)
-> +
-> +/* Microchip (vendor) parameter table identifier: id_msb << 8 | id_lsb. =
-*/
+[Severity: High]
+Does changing this to no-map just shift the Synchronous External Abort
+from ZRAM to the FastRPC driver's dma_alloc_coherent() path?
 
-This is not relevant, we saw it just above         ^^^^^^^^^^^^^^^^^^^^^^^
+By marking this region no-map, it becomes a coherent DMA pool, shifting
+its allocations to FastRPC's dma_alloc_coherent() path.
 
-> +#define SFDP_MCHP_VENDOR_ID		0x01bf
-> +
-> +#define SFDP_MCHP_EUI48_MARKER_OFFSET	0x60
-> +#define SFDP_MCHP_EUI48_MARKER		0x30
-> +#define SFDP_MCHP_EUI48_OFFSET		0x61
-> +
-> +static int sfdp_eui_read_post_process(void *priv, const char *id, int in=
-dex,
-> +				      unsigned int offset, void *buf,
-> +				      size_t bytes)
-> +{
-> +	u8 *data =3D buf;
-> +	int i;
-> +
-I believe the if against the length is wrong and should be inverted and
-placed here:
+FastRPC dynamically assigns the allocated memory chunk to the DSP during
+fastrpc_req_mmap(), which revokes HLOS access:
 
-        if (bytes !=3D ETH_ALEN)
-                return -EINVAL;
+drivers/misc/fastrpc.c:fastrpc_req_mmap() {
+        ...
+        err =3D qcom_scm_assign_mem(buf->dma_addr, (u64)buf->size,
+                &src_perms, fl->cctx->vmperms, fl->cctx->vmcount);
+        ...
+}
 
-Since lenght does not change, prefer to bail out early.
+When the user unmaps the memory, fastrpc_req_munmap_impl() calls
+fastrpc_buf_free() and returns the memory to the DMA pool without
+restoring HLOS permissions.
 
-> +	/* SFDP stores the address least-significant octet first; reverse it. */
-> +	for (i =3D 0; i < bytes / 2; i++)
-> +		swap(data[i], data[bytes - 1 - i]);
-> +
-> +	if (bytes =3D=3D ETH_ALEN && !is_valid_ether_addr(buf))
+The next allocation from the DMA pool will trigger an SEA when
+dma_alloc_coherent() attempts to memset() the still-DSP-owned pages:
 
-Is bytes !=3D ETH_ALEN a valid use case?
+drivers/misc/fastrpc.c:__fastrpc_buf_alloc() {
+        ...
+        buf->virt =3D dma_alloc_coherent(dev, buf->size, &buf->dma_addr,
+                                       GFP_KERNEL);
+        ...
+}
 
-> +		return -EINVAL;
-> +
-> +	return 0;
-> +}
-> +
-> +static int sfdp_eui_find_vendor_table(struct nvmem_device *nvmem, u32 *p=
-tp)
-> +{
-> +	struct sfdp_parameter_header ph;
-> +	struct sfdp_header hdr;
-> +	int nph, i, ret;
-> +
-> +	ret =3D nvmem_device_read(nvmem, 0, sizeof(hdr), &hdr);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	if (get_unaligned_le32(hdr.signature) !=3D SFDP_SIGNATURE)
-> +		return -EINVAL;
-> +
-> +	/* The number of parameter headers (NPH) field is zero-based. */
-> +	nph =3D hdr.nph;
+>  			alignment =3D <0x0 0x400000>;
+>  			size =3D <0x0 0x800000>;
+>  		};
 
-nph =3D hdr.nph + 1 ?
-
-> +
-> +	for (i =3D 0; i <=3D nph; i++) {
-
-and here the usual i < nph?
-
-> +		ret =3D nvmem_device_read(nvmem, sizeof(hdr) + i * sizeof(ph),
-> +					sizeof(ph), &ph);
-> +		if (ret < 0)
-> +			return ret;
-> +
-> +		if (SFDP_PARAM_HEADER_ID(&ph) !=3D SFDP_MCHP_VENDOR_ID)
-> +			continue;
-> +
-> +		*ptp =3D SFDP_PARAM_HEADER_PTP(&ph);
-> +		return 0;
-> +	}
-> +
-> +	return -ENOENT;
-> +}
-
-...
-
-> +	info.name =3D "mac-address";
-> +	info.offset =3D base + SFDP_MCHP_EUI48_OFFSET;
-> +	info.bytes =3D ETH_ALEN;
-> +	info.np =3D of_get_child_by_name(layout_np, "mac-address");
-> +	info.read_post_process =3D sfdp_eui_read_post_process;
-> +
-> +	ret =3D nvmem_add_one_cell(nvmem, &info);
-> +	if (ret)
-> +		of_node_put(info.np);
-> +	else
-> +		dev_dbg(dev, "exposed EUI-48 at SFDP offset 0x%x\n", info.offset);
-
-This one is not really useful anymore.
-
-> +
-> +	of_node_put(layout_np);
-> +
-> +	return ret;
-> +}
-> +
-
-Thanks,
-Miqu=C3=A8l
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014083820.468-=
+1-jianping.li@oss.qualcomm.com?part=3D1
