@@ -1,326 +1,136 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 217392D8379
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 19:36:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792006608; cv=none; b=R3U3gUShJ4Fm6FHEPvbn/sAbcPZZSzOYgKIm1zhUlLIEPT+AppH+GtNXFIiNZ4EdicEm0bAseiMez9Qtg7jjee7g4eYMPAQgThzcc1WEyBlaifMjPa6bmtugZLliiup9O9oPgTiQnX8v1NSKpxB70lMLDsM+F63srQriiZwuN/4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792006608; c=relaxed/simple;
-	bh=i4sGmaUsQrWPzzh+NGsLESOuKrZv5hjj573ejtUNhck=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=TGEPi5yLyJJVCf42Yy03yCYZ+ntVHWewWWIvHpfl17dgFrBChg9D/bm6KasojdX9Mb+B6n5EYusaXhTHAaMm+lxOtdXsCxWtoUQZBDud8Pyyz/Me5oyO3Y6xMzCqYqOacrQ/0AG2x/4ft+Pdykgasi41hvgXzHRFQZ7rcap/Akw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=idUWt3b5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VauncNtw; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF01236DA0A;
+	Wed, 14 Oct 2026 19:41:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792006907; cv=pass; b=bLufYkMVWWHMdc8sfkmTAhYZuBwcgAON25ggUWxoADuJ4CBygCMRCTab147Hl5FFtg/tXOcnf18MeJl5XjogV8zlTs+voWlPfIevL8+EocZSeHOr+PMRKp5BS8T0dwKK4eeu+4ZBwzzLo3cDG3eTnXZjv58QPqYC2d7zICjUkXk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792006907; c=relaxed/simple;
+	bh=3kiqDHXOFYarnpPmrSQ6KreQBzixYm9FgKqGaA3CXMM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=T/BZxEqIQ0bVmIc1khQeKOf2XQ3tXtw/EgH0NeF6SKckmoR3+2d3OrxSeMdgntlH0eIL/mpbuRK4gkYdfFXdBDn73L2vYOb/pJALTVvBQUoXJoRbJMoBNzdeG7JsWUyz+kokycXJLn2CWWpIn1TBD9Sz+QzIiLRmhoV0L+dbCAI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=W0Ubx5QN; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="idUWt3b5";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VauncNtw"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EEagCJ500313
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 19:36:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Y1gZTQEx9ycgZaHgljZp4WD4sCW1ofNgSifstnE3H7Y=; b=idUWt3b54amvU0C2
-	8gKcHOk4cbT0fV3ZRCIyyRpw8A8wc8aFVJIZpifrVyTVHGgp3xxZtYtiPXPGcilF
-	MWL0fQsSUAt1Tesf+tIVR0WqqETV2gl08/UQGTfevpSvzcwMZ+2gElPShcqTQytu
-	8iUQUJCf8W0Z0MfgvrCAKYaYxBRYY7T91oTMktVZPUpIgnRlWVTMxKFbjniCCo9B
-	k2K0cgtEOJ9tF72Qv6IA9CdvpqAKL/8Vn6lEJgcRUFtUDAOp/x+QgTd2/VSZOwNY
-	HF+Jt81MI9RhLwHDZM1l+SaiFVIWlfnYYKyYd2P8Vs6lUAc1YQW136X0iRru3aoZ
-	R+dJsQ==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4haagf1fqe-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 19:36:46 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-91b937ecbb4so56777606d6.2
-        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 12:36:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792006605; x=1792611405; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Y1gZTQEx9ycgZaHgljZp4WD4sCW1ofNgSifstnE3H7Y=;
-        b=VauncNtw+ItDvA4G3uxHRMc0Ef5k6L7DUue9H+tvKQOq2A7nS/nRkfDiO4OSoCvpdH
-         gRyfyDoXtJQu4jP//lVgZzPwq1eZoDyJek36ngJ1kdFibnAwv5jLB7egxbAZyOveDroS
-         ZSQg4WajU1VzQgFGaQiiEw2hS4r1zDKCL9/ZrLtVKoL64SjJohTLLnkaGsMj+bEejfsQ
-         SOJI5Mj8NjMkS2Tx+nVsG1/DTv8zCopk/Bc0uV1cX07wveop2UCzYJ3rXITprLCV5jV0
-         76bPtCeezbUPMYbLXBIyk3UFoIcnNatZzE0r9a5aXAi/djtzd4D0twUb+UY3Z/qMDa9y
-         T51w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792006605; x=1792611405;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y1gZTQEx9ycgZaHgljZp4WD4sCW1ofNgSifstnE3H7Y=;
-        b=n0n7cNcn23zZ3FGjlJ2rSXIbqsEQ8hUkJR9kgYv/ckhCCZwzXKzNaWbETunskZ5/YF
-         CWySqpItFFYRH2tskPlNjDtKzICBVL0CyRJpYyyW7zH0j7h8HnZjR8sMzZw7/UU4gnCq
-         lMwFMvQMzaIbgEMUBX1mXBL4quiA34v87Zbu9D5XBy8pWvIiB5qHwDa8rD8Pb4VDscVA
-         qzTOc0cCUijwbq/Oy7Of45hZD2CQMIVs6IV8fA9gdFML/oujFLqsnkhidpCN1VbpH0F0
-         ZzWoa3wTlFDVVtT7ruZWvVur6AXkximE2Gx5d4MO8cW9wBioON5MkybTxiQ+rnaoSsix
-         0Zxg==
-X-Forwarded-Encrypted: i=1; AKwUvBwPnUpTcUa0B7cnX2XWQ4AMQLYu7Lchcc844cmS3bQBPwDAbQabBbQ5gqv2KZ9zVRE55m3dE9rJKYyG@vger.kernel.org
-X-Gm-Message-State: AFq9FYLBnTPt7JYGmg5rTjTMx0DuLvTpJpKV/p63umTBySOrhV6AMl7Q
-	STStQ3wzuXk+bwUb0bklD8mcPNGxGHOsGk2wKy8htY+SjzeQvhDKJq0Eg6oN3jF472R7g3xp/xi
-	B2pl8K2W2nSK2NQrYgqSZiyaexU8onuUDRvBPXQElE/17nuXQdRMPB1QgiqHLBQ+D
-X-Gm-Gg: AYBFou3BjADTr39tvmvinW5QHeC9vpZaII17S+OY7qz+YLtqanScEm+BGM88oIvLxcR
-	BQaY/uJL76MU/JWXIJAUK6iuGn0sy4tr/U/SQKWHGub7v1+a/Cb9zyJIwfkGjUXalAEXutu3rYb
-	YERwDpV+tUTHSkTPyzvViqgI1yYCcy0IrqWIFDsVXKk9p26m1vmdCpq1W2j6bmyVNnr1x5F/uLl
-	7VN/QKZKVceRBASm+M3IlBRkimv+6Bp7RLZbL+erCAX+SSleYYT0EIkGurd8coOEKsr26hT5U/Y
-	myQWGfx31G2jZLfrNiK4jVJ3cjDkNmyCXdnlkuDvm3Od2eQS+MvSY5QGivNOHN2wCUNDtQ4wGkH
-	j1vDi8JF+LxdELLY=
-X-Received: by 2002:a05:6214:4984:b0:91b:9496:6a18 with SMTP id 6a1803df08f44-91b949670aamr134233896d6.37.1792006605123;
-        Wed, 14 Oct 2026 12:36:45 -0700 (PDT)
-X-Received: by 2002:a05:6214:4984:b0:91b:9496:6a18 with SMTP id 6a1803df08f44-91b949670aamr134233566d6.37.1792006604636;
-        Wed, 14 Oct 2026 12:36:44 -0700 (PDT)
-Received: from [10.100.0.2] ([187.14.53.100])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97b3a310sm60429976d6.16.2026.10.14.12.36.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 12:36:44 -0700 (PDT)
-Message-ID: <205907ce-69b9-48e0-b585-6100e35a8c22@oss.qualcomm.com>
-Date: Wed, 14 Oct 2026 21:36:41 +0200
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="W0Ubx5QN"
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 66001201C8F;
+	Wed, 14 Oct 2026 21:41:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792006898;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hQBqU5bjyvst58Zc94ghtKF7c6DSrihGDVx2Uj/uHQw=;
+	b=W0Ubx5QNFt+5tNCfpIYQ52BsewhQo4t4p5+YiOgoQ+co54MM4YeESJ0TowRE3XAdb0BbKb
+	Ea+gfqMsh7BfSp1hC6DufcCnqQeL4x52wMw7D6JQDSqczErcQ6zLjvz/Z7XYC8ntZYg7eb
+	PuxUE2my2rCu/ApXpkg5EqaOv20xm5E5YDCjUHjhlsK9s1uC8WczPBXGK7djPpSurBlqJm
+	PU39laKcpb4rVjoVtp9duXoWyvVBYXLhIt1mY9WmgYEfrmTrwHv1OWMcO/6KXXrLlks5Mq
+	6cZS6vSPbjnE8PQws+iahHMx32vrMYaF9M+FLKmQRgXuCH7ceVTKJMXzKaO+jA==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792006898; a=rsa-sha256;
+	cv=none;
+	b=RSebYfutT3dLYGHUDo1Gg3wUAcL+TqkcTZ2rOZu22f1s9fzVQyhX9kaSOtdpKpwklce/ZD
+	/1SAkHDagZTT/mXUwoaVJiQ/8E42OU+fIDRowPvU6dxkIJsFAkiMeUr32/UXYN+U1FUUef
+	KFFSIGfyfevQC82HNuLjJpqOvzx2DYsv8ukTsj8DH74F5cTX9/up9yUd5ZWJV7azuLgqw2
+	4pKyly6IaTXbrI0FdIO5F/Zb56Z9BlTbZgRpAufNfSM57QaLwdq4zyaQK6PKxM+0cncJTo
+	cCm129gQwdFNkUtreQB/c9Y95J2MVLjyl/VDX6a0/TK0iDvnH//l4/PdUzdh7A==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792006898;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hQBqU5bjyvst58Zc94ghtKF7c6DSrihGDVx2Uj/uHQw=;
+	b=Vw4ROAOTkz6DkXlDgA+XKY36lBANG1hfuNV2fM7GTzWKO6Cc/PpreS6FRDEkNZMry/oxL2
+	19d+6hq1gWgswDEid7oTuPciqQWh8Dwk/Kx5q60nmmwebkqhuQ7IdbOEsYklbFT6VmPZGx
+	lalY4inVvI2M/HI7Pui0LW0+q2vS3nIn/bODWfcsYuxVRwnM1VvgZgOGHTVWgXwPc4l2tu
+	OLpnzvKiTVLd+tMoB1Yrq4IC1qHxdP3AMcYse21ymRZ15tIWExtXhezQH2grFBTvsn0wA+
+	H0zADIOvNx7xsBQmLYFJP/7QygFhI0I2Sa3rW/LegcaT6yMk/3n5bO+yPRi4OA==
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ore@pengutronix.de>)
+	id 1xH4r4-005uMh-0w;
+	Wed, 14 Oct 2026 21:41:38 +0200
+Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <ore@pengutronix.de>)
+	id 1xH4r4-00000004lyy-0bAo;
+	Wed, 14 Oct 2026 21:41:38 +0200
+Date: Wed, 14 Oct 2026 21:41:38 +0200
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Carlo Szelinsky <github@szelinsky.de>
+Cc: Kory Maincent <kory.maincent@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Corey Leavitt <corey@leavitt.info>,
+	Jonas Jelonek <jelonek.jonas@gmail.com>,
+	Simon Horman <horms@kernel.org>,
+	Aleksander Jan Bajkowski <olek2@wp.pl>,
+	Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>, netdev-bot+sashiko@kernel.org,
+	sashiko-bot@kernel.org, devicetree@vger.kernel.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v8 0/7] net: pse-pd: decouple controller lookup
+ from MDIO probe
+Message-ID: <as_a8jrU9F45iCk4@pengutronix.de>
+References: <e70bea49-c18a-4d47-9cf5-fd7b8e7675cc@bootlin.com>
+ <20261013090933.3552546-1-github@szelinsky.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: johannes.goede@oss.qualcomm.com
-Subject: Re: [PATCH v3] arm64: dts: qcom: x1e78100-thinkpad-t14s: Add thermal
- zones for PMICs
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>, andersson@kernel.org,
-        konradybcio@kernel.org
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        stephan.gerhold@linaro.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261014193524.5590-1-daniel.lezcano@oss.qualcomm.com>
-Content-Language: en-US, nl
-In-Reply-To: <20261014193524.5590-1-daniel.lezcano@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA3OCBTYWx0ZWRfX3b7QFGny2aX1
- u0g7E0mOi7lO/XAisaGUliKgcnW1UEWpUp9NILZmL+UqNj19SFcM3o329pBZPsMrClYXMxQ6dg7
- X1NLbobbt1cIoaGqZH2rwCXnpf2HTWA/J7K6rQBFBoc49CxrlGQDlgwHpW6i/uUC8YT3FmsNlBD
- 1Rck97WTz4MWIpzN0G83g0jKji6N7B/WFWi0R3Ov51lU2M8eGvQNd0qN7c6v3Ssg6r4/A7nLMCZ
- 5/1gzouIlKRF9ogI2D9dvyItA8vY87tcClpgRI+qAelA6K1sfGXMbjHwOeHQsxvUo5KXZGEm2qv
- XxZuYVR6jWwHvHE2/LKZohL3NVTo6d8OQ74jAfzVvhBwhAHw8fDtBZUfEeTwuxYXPmIaUqotpo1
- mROaXAEEzziO38lpNIXtKx+9TZSmbsvmA0hUNGyvBoU7Sdv5zTxgogNDVXHpwf/gUss+pUuYyI5
- DS9lxlUZyMymmCJAmdw==
-X-Proofpoint-GUID: hVgJJEuJIHpeTLYoFmz7Yh2PiFqIOq5F
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA3OCBTYWx0ZWRfX/aG77LI4HMle
- O5Mds7p4VUXWWnRGEasXPXb4ZW+hUj/rhZxIIyGs01vpyKDh2bGGAg0z5q+BH2UlYB0rRWB/LLS
- 4RnFTkpww0kV8y7H6g2MRIHyJgn6d8w=
-X-Proofpoint-ORIG-GUID: hVgJJEuJIHpeTLYoFmz7Yh2PiFqIOq5F
-X-Authority-Analysis: v=2.4 cv=V/noQuni c=1 sm=1 tr=0 ts=6acfd9ce cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=nR5e2CNZUcRYUIBrilOkzg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=ISy6eMC9JirD1J4fssoA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 lowpriorityscore=0 impostorscore=0
- bulkscore=0 adultscore=0 clxscore=1015 phishscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610140078
+In-Reply-To: <20261013090933.3552546-1-github@szelinsky.de>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
 
-Hi,
+Hi Carlo,
 
-On 14-Oct-26 21:35, Daniel Lezcano wrote:
-> Add thermal zones for the ThinkPad T14s and describe the board
-> temperature sensors exposed through the PMK8550 VADC.
+On Tue, Oct 13, 2026 at 11:09:33AM +0200, Carlo Szelinsky wrote:
+> On 10/13/26 10:39, Kory Maincent wrote:
+> > On 10/13/26 09:40, Paolo Abeni wrote:
+> >> @Carlo: you should always reply to the AI review, even to point out
+> >> previous discussion on the same point. And you should try to be more
+> >> concise (even in the cover latter, should a repost be needed).
+> >
+> > Indeed, the cover letter should be more concise. It's hard to read like 
+> > that.
 > 
-> Add a passive thermal zone for the keyboard area, which is the main
-> thermal constraint under sustained load. The EC reports a thermal alert
-> at 57.85°C, so use this value as the passive trip point and allow the
-> thermal framework to throttle all CPUs and the GPU when the threshold is
-> reached. Use a 1000 m°C hysteresis and a 500 ms passive polling interval.
+> Hi Köry, hi Paolo,
 > 
-> An earlier approach used staged CPU cluster throttling in an attempt to
-> start thermal mitigation before reaching the target temperature. Testing
-> did not show a significant improvement compared to throttling all CPUs at
-> the EC thermal alert threshold. It also introduced a latency imbalance
-> between the different CPU clusters, which could negatively affect
-> workloads depending on where tasks are scheduled.
+> Thanks for the feedback. I will reply to the AI review points and make
+> the cover letter shorter.
 > 
-> A more optimal solution would require a significantly more complex,
-> system-wide approach, accounting for the workload distribution and the
-> available power and thermal headroom across the CPU clusters and other
-> devices. Such an approach would also require kernel mechanisms which are
-> not currently available. Keep the thermal policy simple here and use a
-> single passive trip, which at least ensures that the system is actively
-> mitigated before reaching temperatures that could ultimately lead to a
-> thermal shutdown.
-> 
-> The mitigation temperature is derived from the platform behaviour when
-> using the balanced power profile available under Windows. A separate
-> change will adjust this trip point dynamically according to events
-> reported by the embedded controller. Name the trip
-> "keyboard-ec-alert" so that the EC driver can identify the corresponding
-> trip point in the device tree.
-> 
-> Also add a 73°C critical trip to shut the system down if the keyboard
-> temperature reaches an unsafe level.
-> 
-> Add a thermal zone for the back cover with a 73°C critical shutdown
-> trip.
-> 
-> Describe the SoC, SMB, SDX, east and west board temperature sensors as
-> monitoring-only thermal zones.
-> 
-> Thermal camera measurements were also used to compare the reported
-> temperatures with the physical temperature of the chassis. The measured
-> values appear to primarily represent temperatures inside the enclosure
-> rather than the user-contact surface temperature. No unsafe external
-> surface temperature was observed during these tests, although this should
-> not be considered a substitute for formal platform thermal qualification.
-> 
-> Finally, enable ADC thermal monitoring on the corresponding PMK8550 VADC
-> channels used by these thermal zones.
-> 
-> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+> I am already working on v9, because some of the AI findings are real.
+> So if you don't mind, you may want to wait for v9 before reviewing.
 
-Thanks, patch looks good to me:
+If it is possible to split this patch set, please try. it will be easier
+to pass the review.
 
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Thank you for your work!
 
-Regards,
-
-Hans
-
-
-
-> ---
->  .../qcom/x1e78100-lenovo-thinkpad-t14s.dtsi   | 105 ++++++++++++++++++
->  1 file changed, 105 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi b/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi
-> index 75ad74bcb042..2d0a434d2248 100644
-> --- a/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi
-> @@ -502,6 +502,81 @@ platform {
->  			};
->  		};
->  	};
-> +
-> +	thermal-zones {
-> +		backcover-thermal {
-> +			critical-action = "shutdown";
-> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_THM_100K_PU(1)>;
-> +
-> +			trips {
-> +				backcover-critical {
-> +					temperature = <73000>;
-> +					hysteresis = <1000>;
-> +					type = "critical";
-> +				};
-> +			};
-> +		};
-> +
-> +		east-thermal {
-> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX4_THM_100K_PU(1)>;
-> +		};
-> +
-> +		keyboard-thermal {
-> +			critical-action = "shutdown";
-> +			polling-delay-passive = <500>;
-> +
-> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX2_GPIO_100K_PU(1)>;
-> +
-> +			trips {
-> +				keyboard_ec_alert: keyboard-ec-alert {
-> +					temperature = <57850>;
-> +					hysteresis = <1000>;
-> +					type = "passive";
-> +				};
-> +
-> +				keyboard-critical {
-> +					temperature = <73000>;
-> +					hysteresis = <1000>;
-> +					type = "critical";
-> +				};
-> +			};
-> +
-> +			cooling-maps {
-> +				map0 {
-> +					trip = <&keyboard_ec_alert>;
-> +					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu8 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu9 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu10 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu11 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-> +				};
-> +			};
-> +		};
-> +
-> +		sdx-thermal {
-> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX3_THM_100K_PU(1)>;
-> +		};
-> +
-> +		smb-thermal {
-> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX2_THM_100K_PU(1)>;
-> +		};
-> +
-> +		soc-thermal {
-> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_GPIO_100K_PU(1)>;
-> +		};
-> +
-> +		west-thermal {
-> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX5_THM_100K_PU(1)>;
-> +		};
-> +	};
->  };
->  
->  &apps_rsc {
-> @@ -1285,6 +1360,36 @@ usb0_pwr_1p15_reg_en: usb0-pwr-1p15-reg-en-state {
->  	};
->  };
->  
-> +&pmk8550_vadc {
-> +	channel@144 {
-> +		qcom,adc-tm;
-> +	};
-> +
-> +	channel@145 {
-> +		qcom,adc-tm;
-> +	};
-> +
-> +	channel@146 {
-> +		qcom,adc-tm;
-> +	};
-> +
-> +	channel@147 {
-> +		qcom,adc-tm;
-> +	};
-> +
-> +	channel@148 {
-> +		qcom,adc-tm;
-> +	};
-> +
-> +	channel@14a {
-> +		qcom,adc-tm;
-> +	};
-> +
-> +	channel@14b {
-> +		qcom,adc-tm;
-> +	};
-> +};
-> +
->  &qupv3_0 {
->  	status = "okay";
->  };
-
+-- 
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
