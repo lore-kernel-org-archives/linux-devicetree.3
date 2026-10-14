@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02FF348F00F
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 12:31:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9E3449B215;
+	Wed, 14 Oct 2026 12:32:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791981075; cv=none; b=lQs4INAV1rTG9869H/PHJaojqKOCB9LlDawNVuP/d9jzMBLwY++w240d7WLp79ebyQokmiBP7h9G3tfvMSCUdpQC1unt3OlzO5caEWx+cMjIZWm/wMtQ/oHrT2XielAsa8sQmEV2A2KMtLAvzFp7Q5d1Lb64qrKpIOGRhuZKMTg=
+	t=1791981175; cv=none; b=J3AiumIPg+yHoZ/jyE5HESNHV1cY6QnPzYOZGmjGd/BSm0C+CWYiLmAJO3RYibpONtE5yFXtsyToZQIUfZYfdeUZEbi8gGedw4PQWp9Yh5eRgHnv6rwsgE8Axeseraw7oZD/hSUPguglBA99bqHT8hsekPcQSXizL7o0DPRAats=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791981075; c=relaxed/simple;
-	bh=y3qFI03aHuWHpWlt+UBKPIORPHQ2WnkLQ7RrdDkl7hE=;
+	s=arc-20240116; t=1791981175; c=relaxed/simple;
+	bh=ISBNZZjiNTWr/CT9ccLOlzX81bbqY6ihRWX5qwX3qW4=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=iSXB3QHf7QFWEO2wMUwazQF/WWt+OwiWJNwFbt646SlrFC2F08xAtsS0A/05MtXRBzL42VH1OaI3VbRd/xveL3rfG4iQ6N/wUaFN/yP5jUZnOZ6UT+WEOh7tSrJFGjfJguJ5mbOERJWtLOu93/Y95z65aP834MGqUc02PcwgLbo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cgXi8o3n; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=k9Zt62VIceZ9865IIrlfua/NrQaAyPCXVj3eqebZ8MVMj3I1PyClrS1pz7QuL6s0OnlFKdSX7lvIOKyfsCInlSK25IeeWz+iEKIE62ozzH4O0eyRn/TQsjcXjjqMSviOGRRISNFSHBCtj21SoFK9GNi7CO8mCFuLJj2hIco1Vrk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aou5uSbF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cgXi8o3n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E89351F00898;
-	Wed, 14 Oct 2026 12:31:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aou5uSbF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FC261F000FF;
+	Wed, 14 Oct 2026 12:32:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791981073;
-	bh=jKvdjsq0hT6ikRaocF0lBtP2qFwUWgotKHzMZTJOO4Q=;
+	s=k20260515; t=1791981174;
+	bh=/1ewICq/0iNkNN2SDGelYtgQLG8hstST+MXzyv2iBO4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cgXi8o3nLNe4cel44AArRg3K1gY6c17J+KzQ7uqE/Kl0HqNBtqUNZQnv76vAaUbJd
-	 g+3rQIGyer+Dbe7BodRMQl6WaiETbUoWKDy6/G0+HKJSO1zTXjwHbyzFPG9DgmtFnT
-	 AkPd4xi1+JDQpy65LklA2tU9XjBc22SaRHU1wSVnoUFO35RHtPhqtth9q4gpxYK1qY
-	 0Bo2ZLtCg5RiniIBBu2WZhgBlL2OVKEKQ9kHKI3w14nSQO2oZ6ordXrjI9Y9eDspmB
-	 6447z0CBcgmimzUOTcLWUmeKIClnaMIgtw/q8msiTld8Ulfg4SoNIoIeiLMSB3Brw/
-	 zqKwvephTiiGw==
-Message-ID: <sashiko-outbox-171280@kernel.org>
+	b=aou5uSbFs5X67NTYTkLG2G7Hs9NP6JzbtJr35DZ13Ti9A+PplCvEtKSRrYxHm6c4r
+	 7chAbRamGXNK6QMiRFqknqWaR2StZJqyVOvVuLMVG7KVLl3EUgW7h36W1no9Be+gbk
+	 qFbMuxlHizQoZ92yeWOD2rFtpAES0962CPAfYVkNzyywCTaIINncKL03Jdc1jniRS1
+	 xQ/A+DWb7+d9oxeKgx7pALvOb8Omi+TZDE6JX+Fl/BEEDqrmcNB1Hjrn65PnRA/gLO
+	 kDM4bJzwyW8zj53VYL513rEl77Sfx/JVbTwV/zg2gdvg1vrU/wOx5EhCQ2RW03iiBq
+	 MAuhiTQ25Vdwg==
+Message-ID: <sashiko-outbox-171282@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] ASoC: tegra: Support WM8994 by machine driver
+Subject: Re: [PATCH RFC 12/16] clk: qcom: gdsc: Link required power domains
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261014120148.126160-3-clamor95@gmail.com>
-References: <20261014120148.126160-1-clamor95@gmail.com>
- <20261014120148.126160-3-clamor95@gmail.com>
+To: "Konrad Dybcio" <konradybcio@kernel.org>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261014-topic-qc_clk_dvfs-v1-12-3041b788e9f7@oss.qualcomm.com>
+References: <20261014-topic-qc_clk_dvfs-v1-0-3041b788e9f7@oss.qualcomm.com>
+ <20261014-topic-qc_clk_dvfs-v1-12-3041b788e9f7@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 14 Oct 2026 12:31:12 +0000
+Date: Wed, 14 Oct 2026 12:32:53 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,106 +46,109 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] sound/soc: NULL pointer dereference in tegra_wm8994_remove() durin=
-g unload
-- [Medium] ASoC: tegra: dropped headphone and button events due to SND_JACK=
-_MICROPHONE
+- [High] clk: qcom: gdsc: Unbalanced hardware state on GenPD unlink leaves =
+GDSCs powered without required rails
+- [Low] clk: qcom: gdsc: Redundant wait_for_off logic for non-votable domai=
+ns
 --
 
-commit c25c1a719a0690a201ec3decc5bc7bc2cec57601
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+commit a3b8e242fc8ba2eae7b378662d9af778b3739733
+Author: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-ASoC: tegra: Support WM8994 by machine driver
+clk: qcom: gdsc: Link required power domains
 
-Add Wolfson Microelectronics WM8994 codec support to the Tegra ASoC
-machine driver. The WM8994 codec is found on devices like LG Optimus 2X
-(P990/star) and Samsung Captivate Glide (SGH-i927).
+This commit models enable-only requirements for GDSCs as GenPD subdomain
+links without propagating the GDSC performance state to the rail. It allows
+GDSCs to specify only the power-domain endpoints they require while powered.
 
-> diff --git a/sound/soc/tegra/tegra_wm8994.c b/sound/soc/tegra/tegra_wm899=
-4.c
-> new file mode 100644
-> index 0000000000000..1550faeba7256
-> --- /dev/null
-> +++ b/sound/soc/tegra/tegra_wm8994.c
-> @@ -0,0 +1,175 @@
+> diff --git a/drivers/clk/qcom/gdsc.c b/drivers/clk/qcom/gdsc.c
+> index 2d0803e1eb3b1..73054c600c29a 100644
+> --- a/drivers/clk/qcom/gdsc.c
+> +++ b/drivers/clk/qcom/gdsc.c
+[ ... ]
+> @@ -379,7 +384,10 @@ static int gdsc_disable(struct generic_pm_domain *do=
+main)
+>  	if (sc->pwrsts =3D=3D PWRSTS_RET_ON)
+>  		return 0;
+> =20
+> -	ret =3D gdsc_toggle_logic(sc, GDSC_OFF, domain->synced_poweroff);
+> +	if (sc->num_required_pds && !(sc->flags & VOTABLE))
+> +		wait_for_off =3D true;
+> +
+> +	ret =3D gdsc_toggle_logic(sc, GDSC_OFF, wait_for_off);
+
+[Severity: Low]
+This isn't a bug, but is setting wait_for_off here redundant for non-votable
+domains?
+
+Looking at gdsc_toggle_logic(), the wait parameter appears to only affect
+the execution path when sc->flags & VOTABLE is true:
+
+static int gdsc_toggle_logic(...) {
+    ...
+    /* If disabling votable gdscs, don't poll on status */
+    if ((sc->flags & VOTABLE) && status =3D=3D GDSC_OFF && !wait) {
+        udelay(TIMEOUT_US);
+        return 0;
+    }
+    ...
+    ret =3D gdsc_poll_status(sc, status);
+}
+
+Since gdsc_toggle_logic() falls through to gdsc_poll_status() for all
+non-votable domains regardless of the wait parameter, does overriding it
+here have any effect?
 
 [ ... ]
-
-> +static int tegra_wm8994_init(struct snd_soc_pcm_runtime *rtd)
-> +{
-> +	struct tegra_machine *machine =3D snd_soc_card_get_drvdata(rtd->card);
-> +	int err;
-> +
-> +	err =3D tegra_asoc_machine_init(rtd);
-> +	if (err)
-> +		return err;
-> +
-> +	if (!machine->gpiod_mic_det && machine->asoc->add_mic_jack) {
-> +		struct snd_soc_dai *codec_dai =3D snd_soc_rtd_to_codec(rtd, 0);
-> +		struct snd_soc_component *component =3D codec_dai->component;
-> +
-> +		err =3D snd_soc_card_jack_new_pins(rtd->card, "Mic Jack",
-> +						 SND_JACK_MICROPHONE,
-> +						 machine->mic_jack,
-> +						 tegra_wm8994_mic_jack_pins,
-> +						 ARRAY_SIZE(tegra_wm8994_mic_jack_pins));
-> +		if (err) {
-
-[Severity: Medium]
-Will this silently drop headphone and button events from the codec?
-
-The ALSA jack is explicitly initialized with only the SND_JACK_MICROPHONE
-capability. However, the WM8994 codec handles full headset detection and tr=
-ies
-to report events as SND_JACK_HEADSET | SND_JACK_BTN_0.
-
-Because the ALSA jack type is restricted to SND_JACK_MICROPHONE, the ALSA c=
-ore
-filters out the SND_JACK_HEADPHONE and button bits in snd_jack_report(),
-preventing them from reaching the input layer. Additionally, since the DAPM
-pin configuration only maps the microphone, automatic DAPM routing will fail
-to turn on the Headphone Jack widget upon headset insertion.
-
-> +			dev_err(rtd->dev, "Mic Jack creation failed: %d\n", err);
-> +			return err;
-> +		}
-> +
-> +		wm8994_mic_detect(component, machine->mic_jack, 1);
+> @@ -669,13 +779,25 @@ int gdsc_register(struct gdsc_desc *desc,
+>  			ret =3D gdsc_add_subdomain_list(desc->pd_list, &scs[i]->pd);
+> =20
+>  		if (ret)
+> -			goto err_pm_subdomain_remove;
+> +			goto err_remove_parents;
+>  	}
+> =20
+> -	return of_genpd_add_provider_onecell(dev->of_node, data);
+> +	ret =3D of_genpd_add_provider_onecell(dev->of_node, data);
+> +	if (!ret)
+> +		return 0;
+> =20
+> -err_pm_subdomain_remove:
+> +err_remove_parents:
+>  	gdsc_pm_subdomain_remove(desc, i);
+> +err_remove_domains:
+> +	while (linked--) {
+> +		if (scs[linked])
+> +			gdsc_remove_required_subdomains(desc, scs[linked],
+> +							scs[linked]->num_required_pds);
 > +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int tegra_wm8994_remove(struct snd_soc_card *card)
-> +{
-> +	struct snd_soc_dai_link *link =3D &card->dai_link[0];
-> +	struct snd_soc_pcm_runtime *rtd =3D snd_soc_get_pcm_runtime(card, link);
-> +	struct tegra_machine *machine =3D snd_soc_card_get_drvdata(rtd->card);
-> +	struct snd_soc_dai *codec_dai =3D snd_soc_rtd_to_codec(rtd, 0);
+> +	while (initialized--) {
+> +		if (scs[initialized])
+> +			pm_genpd_remove(&scs[initialized]->pd);
+> +	}
 
 [Severity: High]
-Does this code trigger a NULL pointer dereference during module unload?
+Does this error path leave initialized GDSCs physically powered ON while
+their required supply rails are powered OFF?
 
-When the driver is unbound, devm_snd_soc_register_card() invokes
-snd_soc_unregister_card(). This calls soc_cleanup_card_resources(), which
-explicitly deletes and frees all PCM runtimes (rtd) from the rtd_list via
-snd_soc_remove_pcm_runtime() before calling snd_soc_card_remove(card).
+During initialization, gdsc_get_rail_voters() powers ON the required rails
+via pm_runtime_resume_and_get(). Then gdsc_init() turns ON the GDSC
+hardware, and gdsc_add_required_subdomains() links the rails as parents,
+transferring the power vote to GenPD. Finally, gdsc_put_rail_voters()
+drops the explicit pm_runtime vote.
 
-When snd_soc_card_remove() finally invokes this tegra_wm8994_remove() callb=
-ack,
-the call to snd_soc_get_pcm_runtime() will return NULL because the rtd_list
-is empty. The code then unconditionally dereferences this NULL pointer here=
- in
-rtd->card and the snd_soc_rtd_to_codec(rtd, 0) macro.
+If we take this err_remove_domains path, gdsc_remove_required_subdomains()
+removes the GenPD links. This drops the GenPD power vote, causing the
+required rails to physically power OFF.
 
-> +	struct snd_soc_component *component =3D codec_dai->component;
-> +
-> +	if (!machine->gpiod_mic_det && machine->asoc->add_mic_jack)
-> +		wm8994_mic_detect(component, NULL, 1);
-> +
-> +	return 0;
-> +}
+However, the loop then calls pm_genpd_remove() without physically powering
+OFF the GDSCs. Will this violate hardware power sequencing constraints by
+leaving the GDSCs powered ON without their required rails?
+
+> =20
+>  	return ret;
+>  }
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014120148.1261=
-60-1-clamor95@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014-topic-qc_c=
+lk_dvfs-v1-0-3041b788e9f7@oss.qualcomm.com?part=3D12
