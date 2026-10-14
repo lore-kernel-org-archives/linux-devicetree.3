@@ -1,109 +1,157 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 570E833556B;
-	Wed, 14 Oct 2026 09:32:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B3C3A4F2C
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 09:35:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791970329; cv=none; b=ZhK18ZW8oO5elxzxejCW5ukzOeXgiSPH1bshfXf1hOb28pGLYiqzeUrqCTTznGHUzS83K+JfJeoJqFGA7RljlrwTsQWVSZmt1Kl3rs//slv0xGa/NChmKTlBzmxNkPgnkg4mbvTgYlnHLyhbfEvGpplK7/gECcuK9nafX9jMFS4=
+	t=1791970529; cv=none; b=euv3UJmNwkTxdODQ4cefXGdm2OAqzfO8zFMhIVPIzEzupnRF4I7joBJq4sOU0UMhvQHg8rjq+TI4VsIZlb623NnPiqkg9m89CwU+ppirMuErHGxRaojTNpyTMYPDqMTBuWtFIjcw96+QAPqvGxdaLETt21Zv8X5Z7+LtqfB6gYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791970329; c=relaxed/simple;
-	bh=J3ZibQyOt8EOgISnWGqIE2j058wGdTalEs7Qvrrjuo8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kjhkCWas7WcmQe4M6tNUeqphb8I6Vgs0kcznxZ5AlSMMzPgs94b6aSZhurznaxDVybMmcAeKP66sdrM5/fmOLJKY201gGETbqsc+pzGNxBFor5DlWKWKcLIVBYOga4fC3SXxt6zlKkWCHHnLGOJWcvclOpfofdDWi/9GSCfpz1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LrngTVa1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791970529; c=relaxed/simple;
+	bh=Gmw+7adA/v9MnBGYhhkWFRs0s7pn2lOwS+aH1AfKY5M=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=BTS27RUD994JNAXHkR2uLfTh9bKht2H0k0unZw8PTaiPOiXYKGpx2E5uohTXU0bOsZTWSUo7JBG58qbhNimbmFE+fXDoIBo0XK3y9hzXOfEXAxaVPbMaF9vAvfIg7jXksOeUFyoSSzcuOJvgVoffHkmznHzkVVpqMd3nsA3eIkg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JXes+ZRf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LrngTVa1"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 589351F000FF;
-	Wed, 14 Oct 2026 09:32:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JXes+ZRf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 220371F000FF;
+	Wed, 14 Oct 2026 09:35:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791970327;
-	bh=7k4L+XmcqaiR3rYth3e/iXoJ284HcXQrcyi4M9FtnVY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LrngTVa1jUTKYUsoYGUOMDX3+DwPxtZlRrBhAywQRS3C37zmj7O2UnvVUCd03yEJM
-	 VgbZp21hjpAmEC8cGNn4rTLy0bA3e36Kr8tkjL3ocu9F3hbOjLPoVS1X2zYde+w9u0
-	 xVE/Ie1Ew8mpcG/AkMcVaEPuRGzfGlus4EErsDdbIgPy5ew//yHSL/7iI2RFj6q/Ct
-	 zstX53fO+QP4r2hlVKtw/+g3ysfRR6NhWlN+e43F4ZWQCSepsHE3NXs7d2+kKkkr6w
-	 egw5ULdatf7EB6pHcuYb+hvCXeA2syNyi2mQZL3OAXhxQ/v8fHNotkLWLOp7kFo2gE
-	 CGsx+DYUPD4FA==
-Date: Wed, 14 Oct 2026 11:32:05 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	George Moussalem <george.moussalem@outlook.com>, linux-arm-msm@vger.kernel.org, linux-pwm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: pwm: add IPQ5210 binding
-Message-ID: <as9L8IEDMXuAYd4G@monoceros>
-References: <20261008-pwm-v1-1-0b8776398632@oss.qualcomm.com>
+	s=k20260515; t=1791970528;
+	bh=xAIbpM8vCjTFj1NDfirVJarGf0k/ei8jS0dMfo2BQ/c=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JXes+ZRfJhHQFBfpf23n9i71lAhmj+k1pAW1QvacnTpIGhVLWgqawh7nUsNXzamuq
+	 2VniJfO3LjylTKTR8Gw2gy4Df8gDw/SYvq60ueETApg3oA4gcjWGSYGAXyaWFHISO3
+	 G6lnBiersHUYtEcsbWNiuFLteXgH1fgRyWS8k4EA9YOrK8QTvu3qElonFa7zjb4Q3b
+	 JZPWQoPTdzRYNPqlZf+c4X5SPpzfquLsdQ8UGWpJRBxzjLCTCwW33H6MeGc5sFftTg
+	 Pm6en57+j99JmFhmQ2CL2zg9ZiGUABnhaGLENJMtYi2rU39nerGmVbidOFIaTdC1LI
+	 h45JGxexvEM+g==
+Message-ID: <sashiko-outbox-171080@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 8/9] ASoC: qcom: lpass-tx-macro: Add support for
+ Bolero v4.0
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mohammad Rafi Shaik" <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261014-add_shikra_support_v5-v5-8-fb9f0667e613@oss.qualcomm.com>
+References: <20261014-add_shikra_support_v5-v5-0-fb9f0667e613@oss.qualcomm.com>
+ <20261014-add_shikra_support_v5-v5-8-fb9f0667e613@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 14 Oct 2026 09:35:27 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5vstc2aamyuvuzxl"
-Content-Disposition: inline
-In-Reply-To: <20261008-pwm-v1-1-0b8776398632@oss.qualcomm.com>
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] cleanup: Mixing goto-based error handling with __free() scope-ba=
+sed cleanup
+- [Medium] ASoC: qcom: lpass-tx-macro: SWR_MIC bitwise check misidentifies =
+RX_SWR_MIC
+--
 
---5vstc2aamyuvuzxl
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] dt-bindings: pwm: add IPQ5210 binding
-MIME-Version: 1.0
+commit 64e799e2b76860a53ceff3f36c16c6368d70c60e
+Author: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
 
-Hello,
+ASoC: qcom: lpass-tx-macro: Add support for Bolero v4.0
 
-On Thu, Oct 08, 2026 at 02:14:00PM +0530, Varadarajan Narayanan wrote:
-> Add DT binding for the PWM block in Qualcomm IPQ5210 SoC with
-> qcom,ipq6018-pwm as the fallback.
->=20
-> Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.=
-com>
-> ---
->  Documentation/devicetree/bindings/pwm/qcom,ipq6018-pwm.yaml | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/pwm/qcom,ipq6018-pwm.yaml =
-b/Documentation/devicetree/bindings/pwm/qcom,ipq6018-pwm.yaml
-> index f9f1f652e752..c6b9004dd30e 100644
-> --- a/Documentation/devicetree/bindings/pwm/qcom,ipq6018-pwm.yaml
-> +++ b/Documentation/devicetree/bindings/pwm/qcom,ipq6018-pwm.yaml
-> @@ -15,6 +15,7 @@ properties:
->        - items:
->            - enum:
->                - qcom,ipq5018-pwm
-> +              - qcom,ipq5210-pwm
->                - qcom,ipq5332-pwm
->                - qcom,ipq9574-pwm
->            - const: qcom,ipq6018-pwm
+This commit adds support for the Bolero v4.0 TX macro in the Hawi platform.
+It introduces v4.0 specific register defaults, extends regmap accessors, and
+registers a separate decimator widget table to handle the new mux enum and
+DAPM events.
 
-applied to
+> diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-t=
+x-macro.c
+> index 6deaaabe43afa..6480a6c9032e3 100644
+> --- a/sound/soc/codecs/lpass-tx-macro.c
+> +++ b/sound/soc/codecs/lpass-tx-macro.c
+[ ... ]
+> @@ -929,6 +998,10 @@ static int tx_macro_enable_dec(struct snd_soc_dapm_w=
+idget *w,
+> =20
+>  	switch (event) {
+>  	case SND_SOC_DAPM_PRE_PMU:
+> +		/* Disable the ADPT block before enabling the decimator */
+> +		if (tx->data->has_adpt)
+> +			snd_soc_component_write_field(component, CDC_ADPT0_ADPT_CTRL,
+> +						      CDC_TX_ADPT_CTRL_EN_MASK, 0x0);
+>  		adc_mux_reg =3D CDC_TX_INP_MUX_ADC_MUXn_CFG1(decimator);
+>  		if (snd_soc_component_read(component, adc_mux_reg) & SWR_MIC) {
 
-https://git.kernel.org/pub/scm/linux/kernel/git/ukleinek/linux.git pwm/for-=
-next
+[Severity: Medium]
+Will this bitwise check incorrectly match the newly added RX_SWR_MIC?
 
-as merge window material.
+The adc_mux_text_v9_3 enum added below introduces RX_SWR_MIC at index 3. Wh=
+en
+RX_SWR_MIC is selected, snd_soc_component_read() & SWR_MIC evaluates to
+3 & 1 =3D=3D 1 (true).
 
-Best regards
-Uwe
+This erroneously triggers SWR_MIC-specific logic for RX_SWR_MIC in both
+tx_macro_enable_dec() and is_amic_enabled(). If a machine driver routes
+RX_SWR_MIC and powers it up, the PRE_PMU block will read the irrelevant SMIC
+mux register and overwrite CDC_TX_TOP_CSR_SWR_DMICn_CTL if the leftover val=
+ue
+is >=3D 5.
 
---5vstc2aamyuvuzxl
-Content-Type: application/pgp-signature; name="signature.asc"
+Even if not routed, the teardown bug in PRE_PMD executes when userspace
+switches the mux away from an active path to RX_SWR_MIC.
 
------BEGIN PGP SIGNATURE-----
+[ ... ]
+> @@ -2027,6 +2103,418 @@ static const struct snd_soc_dapm_route tx_audio_m=
+ap_v9_2[] =3D {
+>  	{"TX SMIC MUX7", "SWR_MIC11", "TX SWR_INPUT11"},
+>  };
+> =20
+> +static const char * const adc_mux_text_v9_3[] =3D {
+> +	"MSM_DMIC", "SWR_MIC", "ANC_FB_TUNE1", "RX_SWR_MIC"
+> +};
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrPTBMACgkQj4D7WH0S
-/k5qpwf/fYRYL3KOYtqsaTbKGMI1tnzLWBoRH7mNKKshjl7O8aGhSqyEk+8QZ6b2
-t8VaFB9Wo4Al5ZCp+q/3MUnwvR93/E5e0J8TNlFkw7sdY0/AeATU3w26c4vDXQde
-9cvZKItIV3wBQEsMPzciWh7APIQOWUjqSVgBw+HgR1w1p7tKbNc1kfrz3wYSbMjA
-xlXR9ryFpWCEAaNttRpFFIVPNe4ZNVSJ2QdS3e4ZGSIgpLADvSzlAkJF8PMCMsaK
-G78MfgR4qlKgmFq534xCvI0SUbqYPcwsGQprvwUIoiXjfGAtkOFuKPGeAR4yekfl
-WCha/w3q1GUFE3B3fOS84Ks675jsOA==
-=Y704
------END PGP SIGNATURE-----
+[ ... ]
+> @@ -2250,6 +2751,9 @@ static int tx_macro_probe(struct platform_device *p=
+dev)
+>  	struct device_node *np =3D dev->of_node;
+>  	struct tx_macro *tx;
+>  	void __iomem *base;
+> +	struct reg_default *reg_defaults __free(kfree) =3D NULL;
+> +	struct regmap_config *reg_config __free(kfree) =3D NULL;
+> +	size_t def_count;
+>  	int ret, reg;
 
---5vstc2aamyuvuzxl--
+[ ... ]
+> @@ -2304,7 +2808,40 @@ static int tx_macro_probe(struct platform_device *=
+pdev)
+>  		}
+>  	}
+> =20
+> -	tx->regmap =3D devm_regmap_init_mmio(dev, base, &tx_regmap_config);
+> +	reg_config =3D kmemdup(&tx_regmap_config, sizeof(*reg_config), GFP_KERN=
+EL);
+> +	if (!reg_config) {
+> +		ret =3D -ENOMEM;
+> +		goto err;
+> +	}
+
+[Severity: Medium]
+Is it safe to mix goto-based error handling with scope-based cleanup in this
+function?
+
+The new reg_defaults and reg_config pointers are declared with the
+__free(kfree) attribute for automatic scope-based cleanup. However,
+tx_macro_probe() handles errors unconditionally by jumping to the err or
+err_rpm_put labels via goto statements.
+
+The global Linux kernel cleanup guidelines explicitly forbid mixing goto-ba=
+sed
+error paths with __free() cleanup blocks in the same function. Doing so cau=
+ses
+confusing ownership semantics and can lead to bugs where the compiler emits
+cleanup instructions at label destinations that interfere with the expected
+control flow. The subsystem rules require converting all resources to
+scope-based cleanup or converting none of them.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014-add_shikra=
+_support_v5-v5-0-fb9f0667e613@oss.qualcomm.com?part=3D8
