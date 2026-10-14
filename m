@@ -1,144 +1,139 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 673B64A3D5D
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 08:28:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C883499F22
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 08:30:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791966505; cv=none; b=D6LVhfBWGg1MO2TDBCIdM3n8YcUZTCiicOSeyWjgXIUDrVeJ2V0qUQ4tJBzZ+QMv+IpGOObakvELu6tx/HY0A/UwVAYlgUCgAr+ULI//9jUCQkDek2rme5VIRB+m6ZzGm+rn28G0L76mUShKvl0l+KlWW/oFDlbnjD5l7tnWboE=
+	t=1791966635; cv=none; b=qxYBfWRyzbbbJCLaonh8Ihxu52PWRNG6Ps3zbbNK7mP2pyFudx1aR2Kq3Oj7cjNTDg3gZiXpQf2Wi9gw66g3XSQGzu7gc3zDoGfG9aXzQc2SjJthNzExpBB6uTgPxQtJ7aubwsbs8VuE8TYX7V7YfBLYzgTcC7fTmSWglfBqx8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791966505; c=relaxed/simple;
-	bh=PxjXnyE+J/xpLz4nh/Ja/g7djpWi6xUNobr7X/sVQUA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JRAhfk4RgoHgT1/cvKhJJRb0JQ8MpB2VgxJSCf5sH29An0hhNBE/F/kjUh2abdmNd+84wGiI29dU5pjuafOHkYV33eap9phq3hm4P3IO8kjvDUVWr/467HdU1zmzrXBJQ4j6+b738CJveC+bYjUOQZiUnc2cAf867e4LXBaaFws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LK3z/nxT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KAVChM9u; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791966635; c=relaxed/simple;
+	bh=R4rmzB0tpot0BkFidDBKSzcVNityaJcRd26Z65Qgp8g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ne5X42icmAyOMOXC++Cgs6CUQsqHpZQekit5m7hTqWT38XXlonhdeh3IwcuQs4J48+9zcZC+EeJJTd7+NQqxMrqXvdggiJpx5GmSbZEd0WcHePZEyE8KCK6ssSq8ShSkMLEFgSDJIOFWFlAVbwH5q60+oEP+x08YuRn2zFMJ9XI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RCskCYYp; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LK3z/nxT";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KAVChM9u"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69E6vQ7m2088027
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 08:28:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=VMGXmKefTrrItT0jKBuyO87y
-	HZi0iBu9x9zcbx+7vyg=; b=LK3z/nxTu2GBiot4PpxndfrEDj6eMsxiXeaeVsRA
-	XPsIHDmSM1PFigi0k+1nv7REGi1PfAB4QOYtUS5Zrci3l68prhKAeWynglISBHXG
-	apiHW2ehCYlKq0t/+7Cc0Lt0+WPBDS5uROIOzJGI2CMnDyVj1JNEB4UnWb47pGWs
-	HvA+34/xCqIbUk5+RAPVAgAVW3owAvWDavuCW/WNvCrSYGWvlyUMBQfKFCSyw83c
-	Q2zSQadXzC3iVrLyIISJfaOAhI2KAH8IfYJzT3H9XlsxCa/JRZgwJzY7SPE7AqmM
-	McvpUCeQEYsEQVaMK4n4ZQupWnZ9a8cfhypjaNlt49pi9w==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9x49hugx-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 08:28:23 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93cbf2fd504so17811385a.2
-        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 01:28:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RCskCYYp"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso6340585e9.1
+        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 01:30:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791966503; x=1792571303; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VMGXmKefTrrItT0jKBuyO87yHZi0iBu9x9zcbx+7vyg=;
-        b=KAVChM9uH5SH6rBc/NWCQ+5OBZgNKHi33kuChOApRADWPE6YAJ48GYjiEaheYy/iKc
-         sRUTc7u/5uYdyX5ltR1felyX6ZO6elcx8kSfUWTu0viufcJOR10OS0z08Jd4uTWlssxA
-         TEA10xsyzSs4KBjwl95rYJdzCkaz52E8FSbh4hjn8cRNhOcgSwpMiWBzbldrw8HHrP+B
-         d8Ys9dUcEwUNUL9W1U5gbdGbP+l6Wm/ff+TGI8p9583BmVecX7Qb/FI294ibi4mXYjiN
-         ZCOqTr/L+RAlBZ5dW/yxqueJ/LnOwQkwRjxPC0ZRsWjgERR0av+0QH3rvtnGpQ9iN+ig
-         vNhg==
+        d=gmail.com; s=20251104; t=1791966631; x=1792571431; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cQrhVOMwNqoVIytixPfhP0MphHNQ9fMhJFoWlxHFbYI=;
+        b=RCskCYYpuPbtAPIA5AKz4DKFvNu5RgTeCvoHJ+tWs1cxmZ0ydv1K2B4JA+UV2jmP9N
+         9uYxouI/CMVFrA+DeXT6YcBey1gcwZ5njYqjRdLkA/De8J5sw2iyvV+xYhenZ19Wxybp
+         I0/5f8FY/OHhFGIsyY4IBRv/fjAOMu/W9CtXB6MAt2oxjG5Dc2ITPKaTddQkfMiziO9j
+         ipvEKE2hR9w594VxmgGuVk51sUaVko6SKp1bHs1I11egIwZMXm9fj8FPbXH8nQQNxr1I
+         2xlR+YVO+SthZdCWPf5uGHwcPYHS3K8KFhe+YOpFlHbAiO2kTWYzRH0EFAcB0XB2/r7O
+         X5xA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791966503; x=1792571303;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VMGXmKefTrrItT0jKBuyO87yHZi0iBu9x9zcbx+7vyg=;
-        b=Qob6tX1iZqRzAJHBTbmaZNi0sy5GxT57BpHQvuiCrYwLoYDHwi39O6Yy3FV6gOAMjc
-         cO/LZbXSVyGcmsMjIvn5dbfLJZD2/doHrZ+PnYVaJAMr5deft/LlOnorX7XyuBBjgt+A
-         3A/1JLxY+TY58IcajsC0BWE3kWsE5GYATMf1tp6/scvIg2a67whXBVFlGL2PQmjoyi+m
-         biPo6WCwR642OV1Al360sjqZtfDNqgaeeEAtDQrORBAdrlqapFQtntDQ61IWgX/agBKr
-         inXYHfJipCBtwMrgdqMkNVXiItzk6/97wFWTNEr4gOJwIPzsn9JQYc1sSo/jYqerhWou
-         J7Dw==
-X-Forwarded-Encrypted: i=1; AKwUvBysjRM9WGyyor8U5YJD/9yZiec2S/tsCTqKAhKrDLltwrKGswY8qhJZcIT0Ltiw7+wfdqnANx6PmxWX@vger.kernel.org
-X-Gm-Message-State: AFq9FYKvH0Xyf+c5ThWHCCOizooojmM6i0MFjNeFsQWa8xJ9a5ALoS2D
-	KpxeuQAfcGCX5C8xfPZnHvB1xy3p7Wsil+ofTGBEtK3uh5DTiK5zIwKuTGjRSisskX2YvILLRim
-	M6gO2oQOcWiYexQT/ZoyPhl1QVaTGqitKcXT71Y56vkvaqEt27Ms8Ho2NqvqbAmIh
-X-Gm-Gg: AYBFou1u9BSPgYcZidSAcP9uEOX/89pD/D+NqCPVR2+cgadOsACypbcwesl2JWsiaEE
-	4lHRjWSE/1cOxx2tya9jHaBroMALY+oWfTuwLaVhdM0BethBMbNrhHqqDanfs3LG7NkDEeuLHEQ
-	ayAkHO8WQjv/zBgVFVMpLz2ngBDoKQF9r5beMUd1bV1eAht7n5XvqXdhGHLRKDLDlSPN2lJwn3/
-	+Z/VRt33X49P/bOaE6RDPNEcSBtES/O+XlphS6GS+r+4nnuzmEu2WlSHJV0KG8+jAecUrpFfTF0
-	3kQePscCpxVeMqqEwx44LrmoaAZ5h2ke0Ak4OMTLB20fFOGQUhy4ffC+Kj6cQFz1aY8LmxRwXEa
-	M50uw9I9llXUFp2Kn
-X-Received: by 2002:a05:620a:710d:b0:93c:66da:ee08 with SMTP id af79cd13be357-93ebd2257b8mr2355777185a.14.1791966502604;
-        Wed, 14 Oct 2026 01:28:22 -0700 (PDT)
-X-Received: by 2002:a05:620a:710d:b0:93c:66da:ee08 with SMTP id af79cd13be357-93ebd2257b8mr2355774085a.14.1791966502013;
-        Wed, 14 Oct 2026 01:28:22 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.215])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18beacd2csm465803755e9.14.2026.10.14.01.28.20
+        d=1e100.net; s=20260707; t=1791966632; x=1792571432;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cQrhVOMwNqoVIytixPfhP0MphHNQ9fMhJFoWlxHFbYI=;
+        b=qiplG3AOdjBHjmJzNBpxwUNKlveW53PggEpkzTUPIJMVEelUk4WXfm7gZZrQxydNnK
+         oOnIZ8SjvJZ2sUNc2KV91ShJ9fIpsuaFrDVU778SKDayCsj0UkzozV/kiSxDHjDj75aO
+         /zmHqQ2ZGoko25hd00VaDtIFVupSQfIbLUWbgMEwdYF2JYGVIz4EsTMdUya7ZKb5A8wM
+         YmA7CGq5JJsfBEOEgGxpEyuLv6dAzOBIIt6iltoxqvmdDGOb/4yjK7xUELHqxjFrq9i9
+         PloEIrQ2NiDySNPmvxn0oZu/6o7GLqS99FQIqG60hjW37Sn7Pem+haQRtgowqy7t5F3b
+         SKjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxF1ezdvhDGDzK7w5FkAgZ9qLDjL/Kzmr8vRizvt1vuBa4P8HpzJBMbMB4AvPfhUXqmeidYLWEbpDjZ@vger.kernel.org
+X-Gm-Message-State: AFq9FYKEYxFPGR9D2ZzpFElOcWewr78+/sjSHODBWFRdmdanKG2WXzxU
+	0U6JV694hGgPizUD7WW6/6qcrXcEj5kxybhveA03svVcF0YpWPT5EtRg
+X-Gm-Gg: AYBFou0bPVCbNcxNAyaSgEmG9IJ0E/G9cNpSHwnKFn5KCHw46hV0TIO6AysA9cwocBH
+	BbQoDqWD1St3qaS4T7dDvNSvbnrRNqSlErO0TB8NMvgASFJfhLHO8h54UOV7WdaSBEidSnUCadh
+	OTHMM/iKjYp+wnty7tGFFi+B9QUwqUK3XL+fpRapARI3yW24dKNQXX3kTWyVBTedxbCxH9oDcNo
+	GAt4Uo0u+HdY5KnLZE8WJKGOLNbtxCflqgt7GvPNPln6K/OkUcYESzH14Ne3vdVngSjeODBVj46
+	jIRuk5lyUEm3GrRcg1AYj0D1QB25PkSA0rsTfHl6thfF1L8d0v58SAz7jexg3GUfPQCiClazDeC
+	d/6cdb0HxTWOCkoC4kpL4xhu6ye+zF+NBa96Jar4mNPL/ualq8Gd2R4ObSiUS+euLoFawoKIlPx
+	A269bhg/jGBIQUB9tFUUpOKBNV2tyGU1PlcN79kHHQH4OSo06Q7AuMhxJ+pw7LC1eaQUa1qGfft
+	KUV8U9VjfhEZGuilkfwPrFvn0Gmf2fqxKP/6hzQ0e4eBljGd+WjNdkR
+X-Received: by 2002:a05:600c:5251:b0:49f:e772:6ddf with SMTP id 5b1f17b1804b1-4a18e4d5a01mr295506985e9.32.1791966631257;
+        Wed, 14 Oct 2026 01:30:31 -0700 (PDT)
+Received: from zeus.localdomain (212.71.14.70.adsl.dyn.edpnet.net. [212.71.14.70])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18c198134sm431809745e9.15.2026.10.14.01.30.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 01:28:21 -0700 (PDT)
-Date: Wed, 14 Oct 2026 11:28:19 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Cc: Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v2 2/3] clk: qcom: ipq5210: Use icc-clk for enabling NoC
- related clocks
-Message-ID: <ifufryrchrnkxk324wgker6qsfpscfydnd4mx672f4xnstbleu@2sbsmbbxb7kj>
-References: <20261013-icc-v2-0-196b219e25c1@oss.qualcomm.com>
- <20261013-icc-v2-2-196b219e25c1@oss.qualcomm.com>
+        Wed, 14 Oct 2026 01:30:26 -0700 (PDT)
+From: Sander Speetjens <sander.speetjens@gmail.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Jonathan Bell <jonathan@raspberrypi.com>,
+	Stefan Wahren <wahrenst@gmx.net>,
+	linux-rtc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	sander.speetjens@gmail.com,
+	pbrobinson@gmail.com
+Subject: [PATCH v11 0/3] Raspberry Pi 5 RTC driver
+Date: Wed, 14 Oct 2026 10:30:13 +0200
+Message-ID: <20261014083016.332338-1-sander.speetjens@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013-icc-v2-2-196b219e25c1@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=YJcKWhGx c=1 sm=1 tr=0 ts=6acf3d27 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=Rt3kCFFBWhWisHNmluDamg==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=6-BTNVOJgJThklozbYwA:9 a=CjuIK1q_8ugA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDAzMyBTYWx0ZWRfX3qibPRlhXvZx
- PRdBc3Uy7+FozTd6TMnKlJ5kFbOFRor7trk00Ss5fbnrS/wufUhdYXTvUi18DDcX2aJFlgrI3pr
- V7uYOuZ6QzBLGKSWQwrfCHOLLCkOzJhvGnhE/ha27TC3iUIfoZloCntYUzVPJdI9hrEL4ruJLoN
- WVMSzOyfbjo5NtxypBdxVf2X8/tKumidugqcPaNPJU+6U9DAL7qHALjYQm9yxBOZ976xRbojLrA
- AdM2Vu3TS2UQFLz6YY8M7sODJWQaWyhw3e4eQSTPqgnXOz7S/91izTHvLrzESynSjoRpEpuFTay
- ftJhPlhhYSQXlqOPkhju5ejzK8lue2jbn6kC+JPVR4aOs4uO4ztPNMduVmYMUi3l/FG6UX0HQYI
- Cs6xq3Acn4oj3NVOhpbESxpQeBOOhHuXQk1JWSozqzzC78ueOc3XnH96gbfQM0OS78OAbde5O06
- R984RnkbqpMWG/fO/WA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDAzMyBTYWx0ZWRfX1pWgG4XRLRta
- 9JzWjr8PjoiNPEAf3SdRecm9ABsXvBL8CR8xDQuLjZ8uFDri6TfRBhBWIKpsvblzpFkOTwJO5ti
- vJl6oibkjwwHgkQ1mbcm6dQaJNQoQfg=
-X-Proofpoint-GUID: d6aophMh7R9-yqhCBx_Oz-hmHRyKhV_V
-X-Proofpoint-ORIG-GUID: d6aophMh7R9-yqhCBx_Oz-hmHRyKhV_V
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 clxscore=1015 impostorscore=0 malwarescore=0
- spamscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140033
+Content-Transfer-Encoding: 8bit
 
-On 26-10-13 12:39:44, Varadarajan Narayanan wrote:
-> Use the icc-clk framework to enable few clocks to be able to
-> create paths and use the peripherals connected on those NoCs.
-> 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+The Raspberry Pi 5 has a battery-backed RTC located
+on the DA9091 PMIC accessed via the I2C bus[1].
+Access to the RTC is provided exclusively through the VideoCore firmware
+mailbox interface (not via a direct I2C register interface).
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+As stated by jamesh on the Rasperry Pi forum [2],
+"There are no plans to release a public datasheet for the DA9091."
+So we are stuck with the firmware interface for now.
+PhilE also states that "The firmware needs full control of the DA9091,
+sometimes with extremely low latency,
+otherwise there's a risk the supply could just cut the power."
+
+This series adds:
+  - a DT property for the charging voltage of the RTC battery
+  - the RTC driver that talks to the firmware
+
+The driver and binding are based on (and largely taken from) the
+downstream Raspberry Pi kernel. The main changes for upstream are
+the addition of a dt binding property for setting the charging voltage and
+binding the driver from the raspberrypi-firmware driver instead of from
+the DT.
+
+The driver supports time read/write, alarm, and optional trickle
+charging voltage configuration via the device-tree.
+
+Testing
+- Hardware: Raspberry Pi 5 Model B revC
+- Kernel: v7.2
+- dt_binding_check: passed
+- Basic RTC operations (read/write time, alarm) verified
+
+[1] https://www.raspberrypi.com/news/introducing-raspberry-pi-5/
+[2] https://forums.raspberrypi.com/viewtopic.php?t=359073
+
+Sander Speetjens (3):
+  dt-bindings: rtc: Add missing type to trickle-voltage-millivolt
+  dt-bindings: rtc: Add property for Raspberry Pi 5 RTC
+  rtc: Add Raspberry Pi 5 RTC driver
+
+ .../arm/bcm/raspberrypi,bcm2835-firmware.yaml |   6 +
+ .../devicetree/bindings/rtc/rtc.yaml          |   1 +
+ drivers/firmware/raspberrypi.c                |  25 ++
+ drivers/rtc/Kconfig                           |  12 +
+ drivers/rtc/Makefile                          |   1 +
+ drivers/rtc/rtc-raspberrypi.c                 | 275 ++++++++++++++++++
+ include/soc/bcm2835/raspberrypi-firmware.h    |   2 +
+ 7 files changed, 322 insertions(+)
+ create mode 100644 drivers/rtc/rtc-raspberrypi.c
+
+
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+-- 
+2.56.0
+
