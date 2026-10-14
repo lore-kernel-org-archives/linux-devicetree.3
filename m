@@ -1,310 +1,182 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D304A1E47CC;
-	Wed, 14 Oct 2026 20:44:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBE2847140F
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 20:57:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792010647; cv=none; b=kToraf8mLy/ytfgLvL+XYC8yvN0bFLZekZJbfq4i30yjU1P0+iOsldzfnCHiXkR2osjmsZnItP/B8rF29pKBZFRW00p3qRT1N/BMyaBmnnjSOqQZ+eUwSTOGaolNimdPuqKEpfyd07ogdJGbMrqgGRCEHIwB8E1k9F7Ns4a6a4U=
+	t=1792011477; cv=none; b=HpokN9xmOk3Pvx3gk/Jn5bxiJgUE60Ab6QbBfr4ED8DpQ6NI6rYIeaFnEisIQSYL23ltW0TtXc3bIuF/IiZNeD+Fzy6l1G9/kAmAZgkxhl9DWfU1APAy249qqRiLNvQwW+yPc5tP3sMyf+ryjwOO7ktGYEl+xEEj7wxv3qT5Kz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792010647; c=relaxed/simple;
-	bh=jn7IRmbONuBC8oZpjq61XkKCykiipOmii1osgmIlLXk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YgHX26r+0zaz/OnOGUNAct9CU2Oav8Y1C9P6Uac1uyrbBe+RrgPriEkAcqehcmbigalI1zoUv+rEF+HQiOWPty48SQC0rPwEE0D3uQyOTZNeqfk1Yv6N8j8CAN8b0sY1+PC8nuq00Lz+G0gJj1+kBJdWPaANYTo6MzJSiFpMOd0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=mBWXnT99; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1792011477; c=relaxed/simple;
+	bh=jiRBljgKuKiE+P6dq12P5OkOLeXucCVMJReCf6g+vnk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LS5yhL3Vi3JcwhMBqSF/slzBfeC711aFfkX9dGPdvC824/2p8x2AK1c3v5rGsjpKbtE4Ul6OxUFDRjhbHUdy1xMI1lK9b6WYUsXGISKb7x6AXSzpYY0ZsNKwXp3hi+vzqRaQvb7ZQdP8K0D/TT/7ER2ZuEKu0IBGbIWSsxe7/Qs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GkHw6Xh8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cDafBj+D; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="mBWXnT99"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9709F595515;
-	Wed, 14 Oct 2026 22:36:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1792010181; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=TpEWT3sVkC8/ApBQ3Zbal71RzkTTFaAnxbPQim+BB+o=;
-	b=mBWXnT99GgRMTIKvfHWABp9bwdoRjhDdtIUjlpTYZyRF/Ufu2H9uPP0fAmOM83GE7Vx0Vw
-	9tdh97dTrc6QFNsIOnJTtmv074jg/UdvAuAwmJ3ywyUPaOUL7ejzukQfuf4m0TS7sy4E6G
-	8s3/D/PcAF1RTu3+7IAq5lCLtsFm18UAbDl+Y5AB5P6QRY6brJ9ExXPDupnmdSdjp9mFNH
-	DNXxcn0/M/nBX0P0U2I+wJLn7S1ylOtCTxW84IBvdPE5xBqu7cWoyYSPw5DSCXNTn2qhhe
-	eyNlE+BxYAuitA1TvG6pUnQ7DWc1tNGOSz/0yut24W5h1UNtabVIHSReVvr/gw==
-Message-ID: <7108eadf-5dc8-4f39-beee-d748aa88e9af@cjdns.fr>
-Date: Wed, 14 Oct 2026 22:36:18 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GkHw6Xh8";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cDafBj+D"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EEbLta3642994
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 20:57:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=Tdom7tnqrfqhiAr3bCDpoJLd
+	konZqaXCM3eCfjDGwls=; b=GkHw6Xh8yvBfUCJGvTj1kZUo/GEDtrYx/IkPailO
+	U9A00x8a4bHWd7+s8NvKGyJnHvCh0ac+SB+ek/pSkxbn4dZrHOaDJh8YmurDNstR
+	1J2AwTGh72QKS35T8YLeYMhcjMq8yxU5PTTYjHFc4FnmVP9i1kUZx83Iq8Tp0iUM
+	0bS87QKAB74ukuHfRYfo+nd2H5T58rYMK4JGY6y3m6UxLlMH5hWEuI5NBliTGgDb
+	5r/qQKwrWx6L/LM0u2EWkOgM3dSXtWGCrkRdcTvZmzokL6/t5xaR/fhfTLaajKWB
+	gp32Pe7sOVcq/O+tg9wj3Umvr661dEUIK4q7vfkFjB8Aqw==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ha470bfbw-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 20:57:53 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93cbf2fd504so142381485a.2
+        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 13:57:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792011473; x=1792616273; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Tdom7tnqrfqhiAr3bCDpoJLdkonZqaXCM3eCfjDGwls=;
+        b=cDafBj+DQLG4M7JRmsLs0yWpVs3+CbKVsuMeihqDtYBfBVnKMmJQ8u9RBtYahwsWz5
+         klpg3ClW9ZavnKwLX3IBINtL3SPY/r87Vp7P7PdVAKMVN+6mIHSHU3oVILGrc/O4zXGI
+         gxFzpIdRe5G6t2V4luaC3jtW+ZB3jCoN0RHpAo8hsdGg5Tvx7pPkebfXoZ3+n8/r0S2l
+         9hgvCEerXLO3elG7H64p0It31/nV9jcdeL2AojPPXso9xCbglIpgeVDdRI9P5XbtEvLc
+         uHdOrxmXUMiEMsgzFX3lccs6hoTc2MTjyXWy0/vk7Y1TWLuXeG0J7fSui03LHhHvetmT
+         jWUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792011473; x=1792616273;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Tdom7tnqrfqhiAr3bCDpoJLdkonZqaXCM3eCfjDGwls=;
+        b=bccEpQDJ9UfNDuqcZ22Qh2+lL2ecJQNsVWzcHDDe7LrhwUILcRpjhlx1q+CpLvBrtu
+         M6vLc55dEB5K70YuYjtVp0r+YvtFxo27Y2PYXufW/JTqY6A8kFEnCIMeww0JR3apsiBi
+         Tq+X36dScgPH5fbsbFzm7VDAmeNgPiWh7ee8K/1Y59X/WaUHXpQuyAI09ytvxczsl/hC
+         qQjMElCN2rocDTGFuwLSAQSjV2aZjjYg+SV5ECrAciWN4DJLTmIG1c5wmGns3HVL0Gte
+         Em6xWLtoYzHbSeYEiuUJL5Xs8lKgrCCNQxv0S9rbO1DJ5oi2yjY2dFiJgsPa8XQsdVvU
+         6A2w==
+X-Forwarded-Encrypted: i=1; AKwUvBzcUvczo3UCM3/lNJonoCVHlBiqGZaSkQvWeaMarh/rUf7bxkpWEtl9wCfitEG78ogyC6PPzofPM0yz@vger.kernel.org
+X-Gm-Message-State: AFq9FYKAxEDplTe3MP0nbPsdik5MZB50eAHUqAW0Q1l+4tnyZRUvn8TO
+	o43Awz668FpDoVo83TzsyjW39YKvTAMm7qVY6d2xsRpnn2d5r8WFTGCVuWR/yzuc8665riaOE4B
+	X8uJIqsuzTN1Y/FjH3qs/VvNk71YkiOW8ItZDbdh7P2p1L7+78AQrkUwq0HuNDr7bwRzEWhDL
+X-Gm-Gg: AYBFou0RdfMh70yEe/b6Bsnqmblv5oWWdO78TyDLJw24gIjmGq374VAv4zhini8RMPk
+	IvaUX/moJks/Dzj182R418Te/p6/vS+TiW1LaLItL2M9kw6a2EeGbQrM2ZAqpqfY1qwt7OXyF81
+	e9wlkORfrAVXWklfWtYDoG1jbdncSE9WeHSRbKivGkbVGiuwz2oGaEbN1AsKcNJ0TAdnmcaGn+F
+	XifJp4y2oZ/JwMKxp7cWs1ke/zN7U9xy9wNOoORgg1mXLL7GSDfwyCc5IlyA/9hWCxmGq6NsSsC
+	4wPozORqbKagMKIdEWzBtgnX7yGw6vOX/cZ8o51xbegKP/b1wt7/8+LuLmXN5C/AUdQsgZ4RiOH
+	cbr3FnEx2GMGYQmHEzMar1BOU2OclMCF3yb6MKr06Zx3ziIo47MPsEkI9lZVcR+j9RuJ0RlW615
+	KSGtae/kMG3FZM
+X-Received: by 2002:a05:620a:3194:b0:93c:7d49:7b69 with SMTP id af79cd13be357-93ebd2963bcmr2795852485a.60.1792011472854;
+        Wed, 14 Oct 2026 13:57:52 -0700 (PDT)
+X-Received: by 2002:a05:620a:3194:b0:93c:7d49:7b69 with SMTP id af79cd13be357-93ebd2963bcmr2795849885a.60.1792011472382;
+        Wed, 14 Oct 2026 13:57:52 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3aafdefdc4asm1613741fa.30.2026.10.14.13.57.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 13:57:51 -0700 (PDT)
+Date: Wed, 14 Oct 2026 23:57:48 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH v2 4/5] arm64: dts: qcom: add device tree for SDM845-HDK
+Message-ID: <rqsztjjpis5ddd3adpwds56svbbeugoh2zhzlat5jilozkzncx@jrwnidovsh3j>
+References: <20261014-sdm845-hdk-v2-0-6d0b4b42f267@oss.qualcomm.com>
+ <20261014-sdm845-hdk-v2-4-6d0b4b42f267@oss.qualcomm.com>
+ <sashiko-outbox-171533@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH v9 5/5] clocksource/timer-econet-en751221: Support
- EN751627 without percpu IRQ
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
- linux-mips@vger.kernel.org
-Cc: conor+dt@kernel.org, daniel.lezcano@kernel.org,
- devicetree@vger.kernel.org, krzk+dt@kernel.org,
- linux-kernel@vger.kernel.org, naseefkm@gmail.com, robh@kernel.org,
- tglx@kernel.org, grandmaster@al2klimov.de
-References: <20260918153606.344143-1-cjd@cjdns.fr>
- <20260918153606.344143-6-cjd@cjdns.fr>
- <5874ea6e-4e2f-416e-bcc1-851461c7308b@oss.qualcomm.com>
-Content-Language: en-US
-From: Caleb James DeLisle <cjd@cjdns.fr>
-In-Reply-To: <5874ea6e-4e2f-416e-bcc1-851461c7308b@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <sashiko-outbox-171533@kernel.org>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA4MyBTYWx0ZWRfX8Kja+8PN+NT0
+ NeaLOfH+7MYRZnhNT5dFoc+I85Aksv8No2+ezVBVNxwcV+7vyn12MKDajjGEwfjrk78mWfRptwU
+ CBL4ls3Ziu4/hRJkqp8ZJ200PKFQ11Xk5gNe2f8rYXvvgPFLbyBhgLUFpYLXG8hn3gprsqSaZj5
+ qDfHbr8PjybGxWvlqPii4T0owVZ+uH9q7Y/KSlnDAgk2ALYR+NuTLoKP2FW3uHx3YOc0FUba8gb
+ Z9dtMopIlAM4CV4MY/stngxeXlQR7XhADuz2WLz80WzsQ9YS6czL7ykk4e18UqYWKfkZfXZFe9t
+ iyZCPVT9IISp8fHbRBSPxRQrimkJc8Li8t70NHHSBTRmf05SvyW5PC22tYpADzG6pBAA8FzfHA0
+ csZFeA1mcbXGVEKLlQGw39/ICxSxM4NWTxLif6izefmFQu0VqAuXmLYu6RrZA80YtHjJ0w09jeh
+ n7Zru+iY9Zg5OCnmJkA==
+X-Proofpoint-GUID: RN0S4CS_Vy_Ai5v_uugSzXLqm9lha6L0
+X-Authority-Analysis: v=2.4 cv=P6avFSAu c=1 sm=1 tr=0 ts=6acfecd1 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=s4Caojyv45IKULvEKnIA:9 a=CjuIK1q_8ugA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: RN0S4CS_Vy_Ai5v_uugSzXLqm9lha6L0
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA4MyBTYWx0ZWRfXy5W7pVBQeS3H
+ pxHxlHpZyv4IzvhPuUyF/KdiCeRGHEZJMxhosRa+MoFRGPXe9X41O3m6WBqJ0tm9V/8ZrXT/U/6
+ 4IO53TE0Vjd205FPIVC6pCC4ywwYjoM=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0
+ suspectscore=0 clxscore=1015 impostorscore=0 malwarescore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140083
 
-Hello Daniel,
+On Wed, Oct 14, 2026 at 04:31:17PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+> - [High] dts: usb_1_qmpphy swaps vdda-phy and vdda-pll voltage supplies
+> - [Medium] dts: home_pin_a pinctrl incorrectly configures gpio6 instead of gpio5
+> - [Medium] dts: impossible 1.8V vin-supply for 3.3V fixed regulator vreg_sys_bob_3p3
+> --
+> 
+> commit 48f1c407e24f3899e533d5dddbd59a77b4901a02
+> Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> 
+> arm64: dts: qcom: add device tree for SDM845-HDK
+> 
+> This patch adds the device tree for the SDM845-HDK board, a development
+> platform utilizing the modem-less SDA845 SoC. It introduces initial support
+> for features like HDMI display, uSD, UFS, USB, and various onboard peripherals.
+> 
+> > diff --git a/arch/arm64/boot/dts/qcom/sdm845-hdk.dts b/arch/arm64/boot/dts/qcom/sdm845-hdk.dts
+> > new file mode 100644
+> > index 0000000000000..4dd426912d20f
+> > --- /dev/null
+> > +++ b/arch/arm64/boot/dts/qcom/sdm845-hdk.dts
+> 
+> [ ... ]
+> 
+> > +	vreg_sys_bob_3p3: regulator-sys-bob {
+> > +		compatible = "regulator-fixed";
+> > +		regulator-name = "sys_bob";
+> > +		regulator-min-microvolt = <3300000>;
+> > +		regulator-max-microvolt = <3300000>;
+> > +
+> > +		regulator-always-on;
+> > +		regulator-boot-on;
+> > +
+> > +		vin-supply = <&vreg_s4a_1p8>;
+> > +	};
+> 
+> [Severity: Medium]
+> Is vreg_s4a_1p8 the correct vin-supply for this regulator?
+> 
+> vreg_s4a_1p8 provides 1.8V, but vreg_sys_bob_3p3 is defined as a 3.3V fixed
+> regulator. A fixed regulator cannot step up a 1.8V input to 3.3V.
+> 
+> Could this create an incorrect power dependency tree, potentially causing the
+> 1.8V supply to be kept awake unnecessarily or turned off while the 3.3V rail
+> is still needed?
 
-Thank you for the review.
-
-
-On 14/10/2026 20:43, Daniel Lezcano wrote:
->
-> Hi Caleb,
->
-> with the help of a LLM, I got the following two issues with the changes
->
-> On 9/18/26 17:36, Caleb James DeLisle wrote:
->> EN751627 is based on the 1004Kc which uses a different interrupt number
->> for each CPU timer. Support both this and the EN751221 which uses a
->> single percpu interrupt.
->>
->> Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
->> ---
->>   drivers/clocksource/timer-econet-en751221.c | 122 ++++++++++++++++----
->>   1 file changed, 99 insertions(+), 23 deletions(-)
->>
->> diff --git a/drivers/clocksource/timer-econet-en751221.c 
->> b/drivers/clocksource/timer-econet-en751221.c
->> index f2c4c1ee0a56..ff86a7edd31d 100644
->> --- a/drivers/clocksource/timer-econet-en751221.c
->> +++ b/drivers/clocksource/timer-econet-en751221.c
->> @@ -21,10 +21,12 @@
->>   #define ECONET_MAX_DELTA        GENMASK(ECONET_BITS - 2, 0)
->>   /* 34Kc hardware has 1 block and 1004Kc has 2. */
->>   #define ECONET_NUM_BLOCKS        DIV_ROUND_UP(NR_CPUS, 2)
->> +#define ECONET_NUM_IRQS            NR_CPUS
->>     static struct {
->>       void __iomem    *membase[ECONET_NUM_BLOCKS];
->> -    int        irq;
->> +    int        irqs[ECONET_NUM_IRQS];
->> +    bool        is_percpu;
->>       u32        freq_hz;
->>   } econet_timer __ro_after_init;
->>   @@ -102,6 +104,25 @@ static int cevt_init_cpu(uint cpu)
->>       struct clock_event_device *cd = &per_cpu(econet_timer_pcpu, cpu);
->>       u32 reg;
->>   +    if (!reg_ctl(cpu)) {
->> +        pr_err("%s: missing address resource for CPU %d\n", cd->name,
->> +               cpu);
->> +        return -EINVAL;
->> +    }
->> +    if (cd->irq <= 0) {
->> +        pr_err("%s: missing IRQ for CPU %d\n", cd->name, cpu);
->> +        return -EINVAL;
->> +    }
->> +    if (!econet_timer.is_percpu) {
->> +        int ret = irq_force_affinity(cd->irq, cpumask_of(cpu));
->> +
->> +        if (ret) {
->> +            pr_err("%s: failed to set IRQ affinity to CPU %d: %pe\n",
->> +                   cd->name, cpu, ERR_PTR(ret));
->> +            return ret;
->> +        }
->> +    }
->> +
->>       pr_debug("%s: Setting up clockevent for CPU %d\n", cd->name, cpu);
->>         reg = ioread32(reg_ctl(cpu)) | ctl_bit_enabled(cpu);
->> @@ -110,7 +131,10 @@ static int cevt_init_cpu(uint cpu)
->>       clockevents_config_and_register(cd, econet_timer.freq_hz,
->>                       ECONET_MIN_DELTA, ECONET_MAX_DELTA);
->>   -    enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
->> +    if (econet_timer.is_percpu)
->> +        enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
->> +    else
->> +        enable_irq(cd->irq);
->
-> The new path calls enable_irq() each time a CPU starts, but the 
-> hotplug state has no teardown callback to disable it. After an 
-> offline/online cycle, the next enable_irq() encounters depth zero and 
-> warns about an unbalanced enable.
-> The IRQ also remains eligible for migration when its CPU goes offline. 
-> Since cevt_interrupt() selects the timer using this_cpu_ptr(), an 
-> interrupt migrated to another CPU checks and acknowledges that CPU’s 
-> timer rather than the source timer, potentially leaving the source 
-> interrupt asserted.
-> Add a CPU-offline callback that masks the CPU’s timer interrupt and 
-> balances enable_irq() with disable_irq_nosync() before migration.
->
-
-I got this note from sashiko, and my thought process was that this CPU 
-doesn't have hotplug, the vendor implementation didn't have it, the 
-vendor doesn't make any MIPS based products anymore so no new products 
-are coming out with this timer. So supporting hotplug here is adding 
-code that will never run and adds confusion.
-
-That said, I'm definitely open to alternative opinions on that.
+This is the least awkward description. This regulator is powered by
+vph_pwr and enabled by S4A. Using S4A as vin-supply is the most logical
+way to express it.
 
 
->>       return 0;
->>   }
->> @@ -141,19 +165,52 @@ static void __init cevt_init(struct device_node 
->> *np)
->>                         CLOCK_EVT_FEAT_C3STOP |
->>                         CLOCK_EVT_FEAT_PERCPU;
->>           cd->set_next_event    = cevt_set_next_event;
->> -        cd->irq            = econet_timer.irq;
->> +
->> +        if (econet_timer.is_percpu)
->> +            cd->irq = econet_timer.irqs[0];
->> +        else
->> +            cd->irq = econet_timer.irqs[i];
->> +
->>           cd->cpumask        = cpumask_of(i);
->>           cd->name        = np->name;
->>   -        cevt_dev_init(i);
->> +        /*
->> +         * Tolerate CPUs that could exist but don't.
->> +         * Fail in cevt_init_cpu when they try to start.
->> +         */
->> +        if (reg_ctl(i))
->> +            cevt_dev_init(i);
->>       }
->>   }
->>     static int __init timer_init(struct device_node *np)
->>   {
->> -    int num_blocks = DIV_ROUND_UP(num_possible_cpus(), 2);
->> +    int num_blocks = of_address_count(np);
->> +    int num_irqs = of_irq_count(np);
->>       struct clk *clk;
->> -    int ret;
->> +    int ret, i;
->> +
->> +    econet_timer.is_percpu = of_device_is_compatible(np, 
->> "econet,en751221-timer");
->> +
->> +    if (econet_timer.is_percpu && num_irqs != 1) {
->> +        pr_err("%pOFn: EN751221 clock must have 1 IRQ not %d\n", np,
->> +               num_irqs);
->> +        return -EINVAL;
->> +    }
->> +    if (num_irqs > ARRAY_SIZE(econet_timer.irqs)) {
->> +        pr_err("%pOFn: Too many IRQs max %zd got %d\n", np,
->> +               ARRAY_SIZE(econet_timer.irqs), num_irqs);
->> +        return -EINVAL;
->> +    }
->> +    if (num_blocks > ARRAY_SIZE(econet_timer.membase)) {
->> +        pr_err("%pOFn: Too many regs: max %zd got %d\n", np,
->> +               ARRAY_SIZE(econet_timer.membase), num_blocks);
->> +        return -EINVAL;
->> +    }
->> +    if (num_blocks == 0) {
->> +        pr_err("%pOFn: At least one reg block must be provided\n", np);
->> +        return -EINVAL;
->> +    }
->
-> The binding requires four interrupts and two register blocks for 
-> EN751627, but the driver sizes its resource arrays from NR_CPUS and 
-> rejects DTs exceeding those sizes. Consequently, a UP kernel 
-> (NR_CPUS=1) or an SMP kernel configured for two CPUs rejects a valid 
-> EN751627 DT before registering any timer.
->
-
-This is a fair point, and I suppose a reasonable thing to do here is 
-instead set num_blocks = ARRAY_SIZE(econet_timer.membase) so we just 
-don't use the other blocks. I can send an updated patchset with that.
-
-
-Does this sound good to you?
-
-
-Thanks,
-
-Caleb
-
-
->
->>       clk = of_clk_get(np, 0);
->>       if (IS_ERR(clk)) {
->> @@ -164,7 +221,7 @@ static int __init timer_init(struct device_node *np)
->>       econet_timer.freq_hz = clk_get_rate(clk);
->>       clk_put(clk);
->>   -    for (int i = 0; i < num_blocks; i++) {
->> +    for (i = 0; i < num_blocks; i++) {
->>           econet_timer.membase[i] = of_iomap(np, i);
->>           if (!econet_timer.membase[i]) {
->>               pr_err("%pOFn: failed to map register [%d]\n", np, i);
->> @@ -173,22 +230,32 @@ static int __init timer_init(struct device_node 
->> *np)
->>           }
->>       }
->>   -    econet_timer.irq = irq_of_parse_and_map(np, 0);
->> -    if (econet_timer.irq <= 0) {
->> -        pr_err("%pOFn: irq_of_parse_and_map failed\n", np);
->> -        ret = -EINVAL;
->> -        goto out_membase;
->> +    for (i = 0; i < num_irqs; i++) {
->> +        econet_timer.irqs[i] = irq_of_parse_and_map(np, i);
->> +        if (econet_timer.irqs[i] <= 0) {
->> +            pr_err("%pOFn: failed mapping irq %d\n", np, i);
->> +            ret = -EINVAL;
->> +            goto out_irq_mapping;
->> +        }
->>       }
->>   -    irq_set_status_flags(econet_timer.irq, IRQ_NOAUTOEN);
->> -
->> -    ret = request_percpu_irq(econet_timer.irq, cevt_interrupt, 
->> np->name,
->> -                 &econet_timer_pcpu);
->> -
->> -    if (ret < 0) {
->> -        pr_err("%pOFn: IRQ %d setup failed (%d)\n", np,
->> -               econet_timer.irq, ret);
->> -        goto out_irq_mapping;
->> +    for (i = 0; i < num_irqs; i++) {
->> +        irq_set_status_flags(econet_timer.irqs[i], IRQ_NOAUTOEN);
->> +
->> +        if (econet_timer.is_percpu)
->> +            ret = request_percpu_irq(econet_timer.irqs[i],
->> +                         cevt_interrupt, np->name,
->> +                         &econet_timer_pcpu);
->> +        else
->> +            ret = request_irq(econet_timer.irqs[i], cevt_interrupt,
->> +                      IRQF_TIMER | IRQF_NOBALANCING,
->> +                      np->name, NULL);
->> +
->> +        if (ret < 0) {
->> +            pr_err("%pOFn: IRQ %d setup failed: %pe\n", np,
->> +                   i, ERR_PTR(ret));
->> +            goto out_irq_free;
->> +        }
->>       }
->>         cevt_init(np);
->> @@ -220,9 +287,17 @@ static int __init timer_init(struct device_node 
->> *np)
->>       return 0;
->>     out_irq_free:
->> -    free_percpu_irq(econet_timer.irq, &econet_timer_pcpu);
->> +    while (--i >= 0) {
->> +        if (econet_timer.is_percpu)
->> +            free_percpu_irq(econet_timer.irqs[i], &econet_timer_pcpu);
->> +        else
->> +            free_irq(econet_timer.irqs[i], NULL);
->> +    }
->>   out_irq_mapping:
->> -    irq_dispose_mapping(econet_timer.irq);
->> +    for (i = 0; i < num_irqs; i++) {
->> +        if (econet_timer.irqs[i] > 0)
->> +            irq_dispose_mapping(econet_timer.irqs[i]);
->> +    }
->>   out_membase:
->>       for (int i = 0; i < ARRAY_SIZE(econet_timer.membase); i++) {
->>           if (econet_timer.membase[i]) {
->> @@ -235,3 +310,4 @@ static int __init timer_init(struct device_node *np)
->>   }
->>     TIMER_OF_DECLARE(econet_timer_hpt, "econet,en751221-timer", 
->> timer_init);
->> +TIMER_OF_DECLARE(econet_timer_en751627, "econet,en751627-timer", 
->> timer_init);
->
+-- 
+With best wishes
+Dmitry
