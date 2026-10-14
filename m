@@ -1,326 +1,276 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D78E74E323D;
-	Wed, 14 Oct 2026 10:00:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 629D24DA9C6
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 10:01:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791972005; cv=none; b=HmUsDut8FdMrrDo0QeQUOICul2ZgK44udEVL0d7Z8eo9DgW11oeBlxQUY84OJBFoqQw7WTtGcLIlmPoWbdBGhyv/ug15C8tt3jILCRBc3LO5YeUaBkXCRmYChoxshVphhHZD9Zsd1TlfdGZjVJI1siTiFWg9mBmut6OTYq1CM0o=
+	t=1791972112; cv=none; b=F58veb38DtwFyWoFqoeETX5h5jkKiy5GLa9nHB2fp2LuvEBdBf6WAC4YGd5/8tq7Wpi6RnBm+apucQDEs9pOC23xNtMJ+cx+9lf5QeGUut3wI5nF7KlZQv/0X81sqTfSN/nlb0KKMEAQ04h7SexPkl2linhYQKYbSKCZDoyebxY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791972005; c=relaxed/simple;
-	bh=k5iO9wvNr9q6UBwSYLG3p7VKauGZZ9xWZCkjcGBVkkA=;
-	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Z58lfh+k6ie4aT0mHClxDYaoc/Wk1SvGaZOjZjRdblQ1DKkbPyncT6p5N7X22C8W8u4IZXsU2CdjbwMd1GrebM3dEfb8pttf5jaX5X8RLpLbIiSLCoyS2bCLfRN3UeJIPfMqGWnX5HfPA6ZXOVmXcfAEtQZXwoaN8ixkdgeNj48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=y7u+xHRk; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1791972112; c=relaxed/simple;
+	bh=dA1kJxBVNYRK3wJrOfY6LmMtHsB2vzPS5APo3K99OZ4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=BDq6UsKgjIBzKKPGX0DZi1YlR36hgkn+UBxxik+Ax+MfWr4K/SAmC7JHdcIA5PBMAdZJRNyGvy/pyaytGeR0mCLSVgJs56dWfrLeZy0qwfHYVwH2HkFmChJyTJC2bIUSbiimXKW8sWxJ9ckvvBSVHF4RMA9yJdWy1umlsOfesa4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jj0WL+J9; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RYw6MbnF; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="y7u+xHRk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1791972003; x=1823508003;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=k5iO9wvNr9q6UBwSYLG3p7VKauGZZ9xWZCkjcGBVkkA=;
-  b=y7u+xHRkq65EgvcR3T2AzMdDE5DfBZ0bHuDj/P1GQLh4l7ufajJ3deeC
-   Dx0AtIYL1pcE4+Y7rqXWTOSLHcShKpseoawLqIYqZakt5NKApOlihBtSS
-   sbeeKGyl6zhdMbpjzxS2EvHWdS+rUwi5FfjRO4OfXRSrNy7ma4p7dcjnd
-   FtmM0GLlUudV08JaPYzWHspKii33lKenQIHoOMcBZHcbKBCeT6PXKXby0
-   cSyrUSzhdC386+FaXxpdFGmjqTi0BLIafSCejMI0nY8oH/rlvSPW4PCWf
-   6eoWflBmbZTJvR0J/qZIMiVPsfzUEIbdXpEMDU9LqGTQX0tInC7x3Xh++
-   Q==;
-X-CSE-ConnectionGUID: +AgjuoQ3Q1yhSnY9YAPcGA==
-X-CSE-MsgGUID: 46xyAabAR4S5eetuz+uEmg==
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="64075340"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 14 Oct 2026 02:59:56 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Wed, 14 Oct 2026 02:59:56 -0700
-Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Wed, 14 Oct 2026 02:59:52 -0700
-Message-ID: <08cf1da4e15141060ceece86fa1c03ada384ba82.camel@microchip.com>
-Subject: Re: [PATCH net-next v14 1/9] net: dsa: add tag driver for LAN9645X
-From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
-To: <netdev-bot+sashiko@kernel.org>
-CC: <UNGLinuxDriver@microchip.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
-	<davem@davemloft.net>, <kuba@kernel.org>, <pabeni@redhat.com>,
-	<horms@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>, <woojung.huh@microchip.com>, <linux@armlinux.org.uk>,
-	<Steen.Hegelund@microchip.com>, <daniel.machon@microchip.com>,
-	<geert+renesas@glider.be>, <magnus.damm@gmail.com>, <edumazet@kernel.org>,
-	<richardcochran@gmail.com>, <linux-kernel@vger.kernel.org>,
-	<netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-renesas-soc@vger.kernel.org>
-Date: Wed, 14 Oct 2026 11:59:52 +0200
-In-Reply-To: <179180427718.434549.18360749106735687436@kernel.org>
-References: <20261008-dsa_lan9645x_switch_driver_base-v14-1-3d2a72661213@microchip.com>
-	 <179180427718.434549.18360749106735687436@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jj0WL+J9";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RYw6MbnF"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69E8oweF3001160
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 10:01:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=Twe4bOGFXZPC6mmxXuMGAv
+	q+HqmTqYhaOFzSY+3Po5w=; b=jj0WL+J9h9IoYSHnQnkOykbokYMd52crb05Wc+
+	tF1JmoACcGwT7RX0stEDZ0aFJOA1sjZ3R4ZT/SLKVtBxgLgpBDtj1YI6ie6t7U0i
+	lG92ep2jWKRc+wuJS8NcM0mQHbc+wPnvBgefDhlt0FWVDUVCATTL+jaFtQD/ckXC
+	pr4IVnnzGk7D1WDou+u8oKDhC53ar3cMrb/sRtnp1cgj6xwNx3xQzgt3lz2Ohp98
+	LcpeBXMCbHa913U4D6Zfxi36VLbO7SsZxJIh9b8UTjAVTGscN8/7MfZB6pSIjPmV
+	JScgycAXIfqlz7PajkaHwAtRRPEI3cdfqsCKSlrVBrfeYEWQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9sbeucuj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 10:01:48 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-92e82060977so160061885a.1
+        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 03:01:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791972107; x=1792576907; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Twe4bOGFXZPC6mmxXuMGAvq+HqmTqYhaOFzSY+3Po5w=;
+        b=RYw6MbnFOXtMjsgNAYlv9+B3pplhhVsCEGE3MFJxB/eBYODwtRe7bsMhK4ibiAmEt7
+         rK60ICoCkdwW6UzQ3yCw38BQ8CWTRj3WopZHewXkPYZaQGN8tE5Q9LaWsdZYMBypSiW2
+         vQ28JCHmC3I7WNegt1I63w6d+stQ9YRzEo4yQif7bVLxlimyC3XXOCumgKRuRcs1TmQ6
+         iy+dcQB7pS7nKDei7Oc9vVRwJpNxFXNE4U9YRJs6ACByP+7k48t56i+UhT0xQAJjYr+t
+         u0pfD97vwlF4KGWbu2Joe+gdNg3wTGqmxZbD82UGJz5mvI7o3uCzLB2P45jO4lFxMtj0
+         Ky+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791972107; x=1792576907;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Twe4bOGFXZPC6mmxXuMGAvq+HqmTqYhaOFzSY+3Po5w=;
+        b=aRzDOkQzs9v85XdWLGtsbClmP1rZXVPkH/Axg5M9h22OElguYwXbnu+YgVN79KEHhP
+         8WASFyYTIUo89+7QU/4w9nnt3co1S8Om7hKkCsVA4y1A51z9wgYjahbhL4xCr/so8G44
+         JkH3Xa7aquZ4nPFbLRWNHd464R7MTrrcjkuHU+tEsPgB/LP/hatk5aX8cIOzV3fujJpx
+         Um9J0g2MqYxKYvvBT+mm+EcbDSeCPP6hy2o3ROuEhVVbKB+hy0KJxdghhPJqhHc25ZTE
+         mZd8JfqQQBCV5NfJPbYXVARROLvE5F0Qj1VCqMZ/qx72xYkeuI54+f+LEkCqJRZ7JcWb
+         fDgg==
+X-Forwarded-Encrypted: i=1; AKwUvBw0HdmtnyLX9oeMHmZJZvG62Dg7TFBm7X1H4SqwaQNjbeK+xLP3Rnl6sUMSHh51udE6x2M0JHXLm0cY@vger.kernel.org
+X-Gm-Message-State: AFq9FYIUb4UQLX1jXd30omWsCCVbfmRP4mHLC60UAofw+b0AXmDI7cnL
+	AmG6piDJZcutKeiR/SAHCVoLXVH/fYIrZwBNaAtRCuBW6GFMv5ZmRbl7ijK66Gdq7P6YeDYfjMI
+	AN9c4x3vQvGkf4xo5GvhuStrjJe6/tSRu9GlIX1ONmJ5mjoyI9qKgxrVbij6PAZYO
+X-Gm-Gg: AYBFou1nkSiWIRhZz4vRfLPagq0uruYqUtTGDeoWEnbj3nlMdncT6teIjsth9xW/gnX
+	FN3Ekh9NxJqc0ZCyiFFKWgl0dSoRVo79PX1XRjqIFrg+OUYHf2pMROpMwihE9SA/4sil7O7S3e5
+	BMRk857j3cCc88DDTKi7bNenSGzL+z0QOdaWUkCkrvtrjfbNhM9f2DWaEDB8RegBsRWYJN5XKXL
+	T26TLqC4Cplc7Js8sc5EE25s4Vm+8HlFmm73/KJDelnXvTHsaKe3vbEjsQAJ+rM3pTnN+C4CrTp
+	/9EAV0Wc3k1fur8+2QZbWPZC1udKPxYnVp7leOIUYKDYJLSVf73DKPKoJvYFInLNVL9fwdxFMFq
+	23kySKtUNnDBV24aYDvb+K6V7f6ql
+X-Received: by 2002:a05:620a:c86:b0:93e:c12d:4ecc with SMTP id af79cd13be357-93ec12d5528mr1550863285a.44.1791972107178;
+        Wed, 14 Oct 2026 03:01:47 -0700 (PDT)
+X-Received: by 2002:a05:620a:c86:b0:93e:c12d:4ecc with SMTP id af79cd13be357-93ec12d5528mr1550859185a.44.1791972106608;
+        Wed, 14 Oct 2026 03:01:46 -0700 (PDT)
+Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc85b1sm10382169f8f.54.2026.10.14.03.01.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 03:01:45 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: [PATCH v16 0/2] phy: qcom: add the SGMII SerDes PHY for
+ firmware-managed systems
+Date: Wed, 14 Oct 2026 12:01:33 +0200
+Message-Id: <20261014-sa8255p-eth-phy-v16-0-6310fac52e85@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAP1Sz2oC/x2MQQqAIBAAvyJ7bkGFLPtKdFhqy72UaEQh/T3pO
+ AMzBTIn4QyDKpD4kizHXsG4RsEcaN8YZakCrLbOaG0xU2/bNiKfAWN40JF23q++p46gVjHxKve
+ /HKf3/QAc0WwhYgAAAA==
+X-Change-ID: 20261002-sa8255p-eth-phy-6a0699f98a7a
+To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5541;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=dA1kJxBVNYRK3wJrOfY6LmMtHsB2vzPS5APo3K99OZ4=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqz1MBKaDX7KCIBz6idXxyLNSK20L8E4xFCar2/
+ sioO86nPH2JAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCas9TAQAKCRAFnS7L/zaE
+ w+gZD/47iRUku+z7ViQgcn8YCIkHtybTtMtxM2NZL7Q3qW500PETUxwLE+LPdsratZXIzj6pzQu
+ o6eilyTLHoWGJ1CmNQK6g9Icvy7fwm3AOpkszxRAe2ewOwotQTB1MS4qis6vM2UvJgFq8+MC2l4
+ IiwFmhtE8cwsofOCnkVASE9UmniZeDHpAF7szZTHU1mPP7fB5gWwsLHxDC8MeeQYRmGC/xrpZqC
+ V0TuX0LvevaKizxtMMqf8X6+y+1CX02mut8KNugsKrN+ymVfcainIa34NouIWGkZOJ4JRmr0oAg
+ SgZzIWROt0hYxvgL8kKqaOnqVTbPfN4Myi2985pNEqWkoIW02lpJy2PX4n0wVjY9GksGn2X8W7x
+ Hd/NiHSNBNRZRyv1daBaI2mnhRicZuMYXxhTcGpibemTEgGf6rqY2Q0QeNFFYpdqC6coTabdTAE
+ 8Vk/8xNRtDq3mvoCdEei99PNl4BOlnxuJXVqYx9xvdVzqy5+dxIPJLI7jCZoUOwuV7Y4xozMsng
+ 2eQ+adQ+dPspjVJfZqX50U1hDrXKigJLtNbh0fs/bKjfRgEJKu0bOIX8xgLt398Ad4OfyiHqCDM
+ gNDHS6asc2Mqxh8R1RZoxktoAoWnpilPFTuIksyXe5U49Vlf5i7e/xzvk7ZZ4iEvgjl9nrad442
+ TScsKKsA1MxF+dQ==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Proofpoint-ORIG-GUID: sNoihb2uBXHPirrHqgE5NMFzRjDw1oKg
+X-Proofpoint-GUID: sNoihb2uBXHPirrHqgE5NMFzRjDw1oKg
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDAzOSBTYWx0ZWRfX9WYX9IiSlryC
+ BdGygsMJZU8GDKzQR51TC0vCbgY0ysqt8RcZGLUCozVQyyOSWWWTmRZpaVlxtF3XcasVHuo5qCJ
+ SB0T9v9kVOG7ztvYb+Lipvu0UtLrLEPFzcOsmnZatEgQCj8q+Vhzx93SN89Qg9tzVvHBsVZCJ4J
+ qebEi1q6Q1Lq2d58r3yPhm+lEBgh3HhelpTlVrv4JtEQEN+ca3pr8ANKLj8679DnLU6s8SWnY3w
+ EIpAa1j/4TLJE4sBbOnlcs1OahUcyQDJqs0nhV1TFq/uc7r0nt2b+2jWiCyLQI26rI/k3L1tU+M
+ EUqEyE8jyPtlucQRxFa7jb2SaZmvmnK/sfDDBLlAAcnzT4nKJFTR1916Imh8EvllaaUggqA81fT
+ JOMTkVyzTBFsE+EP1FoSHN2SVIk61Efg37K1bxxtppBeLTb0OA0aNdkvS+tJ9e9edVpkM6Momv0
+ ad9okLJytvJ/VpswZ5w==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDAzOSBTYWx0ZWRfXwcIKeVSNeTff
+ 8klCPDGjHNjKiitf26D2szW5FBWuhoTw0rW8uAEjvxE5CcD5lrrvxBYDEiFVw9mapG3QJ+ZuVOw
+ +OOpT9Zs+bcUZxEujyHaTt9hUDK0oAg=
+X-Authority-Analysis: v=2.4 cv=U7AHnuru c=1 sm=1 tr=0 ts=6acf530c cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=bC-a23v3AAAA:8
+ a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=PHq6YzTAAAAA:8
+ a=h8s98YD0dNPsP74th3cA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+ a=FO4_E8m0qiDe52t0p3_H:22 a=cvBusfyB2V15izCimMoJ:22 a=ZKzU8r6zoKMcqsNulkmm:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 malwarescore=0 lowpriorityscore=0
+ adultscore=0 impostorscore=0 bulkscore=0 phishscore=0 suspectscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610140039
 
-On Mon, 2026-10-12 at 11:24 +0000, netdev-bot+sashiko@kernel.org wrote:
-> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
-e content is safe
->=20
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issue(s) to consider.
->=20
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 (1) =C2=B7 Low: 2
->=20
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->=20
-> - [Medium] In lan9645x_rcv() (net/dsa/tag_lan9645x.c:459), every tag
->   popped by the hardware is restored as an 802.1Q hwaccel tag with=E2=80=
-=A6
-> - [Low] The comment above skb_postpull_rcsum() in lan9645x_rcv()
->   (net/dsa/tag_lan9645x.c:416-421) says the bytes to subtract are "what=
-=E2=80=A6
-> - [Low] lan9645x_rcv() (net/dsa/tag_lan9645x.c:450) restores the popped
->   VLAN tag only when `dsa_port_is_vlan_filtering(dp) && ifh_gap_len`.
->=20
-> Pre-existing issues:
-> - [Medium] This problem wasn't introduced by this patch, but the new
->   tagger adds another lockless reader of it.
->=20
-> --
->=20
-> net: dsa: add tag driver for LAN9645X
->=20
-> This adds a DSA tag driver for the Microchip LAN9645x switch when a front
-> port is used as the CPU (NPI) port. Extraction uses a long prefix plus a
-> 28 byte IFH, and injection uses only the IFH. VLAN tags popped by the
-> hardware are restored on receive as 802.1Q hwaccel tags, and on transmit
-> the VLAN tag is moved from the payload into the IFH.
->=20
-> > diff --git a/net/dsa/tag_lan9645x.c b/net/dsa/tag_lan9645x.c
-> > new file mode 100644
-> > index 0000000000000..00339daecfcbd
-> > --- /dev/null
-> > +++ b/net/dsa/tag_lan9645x.c
-> > @@ -0,0 +1,514 @@
->=20
-> [ ... ]
->=20
-> > +static struct sk_buff *lan9645x_xmit(struct sk_buff *skb,
-> > +                                  struct net_device *ndev)
-> > +{
-> > +     struct dsa_port *dp =3D dsa_user_to_port(ndev);
-> > +     u32 vlan_tci, tag_type;
-> > +     u32 qos_class;
-> > +     void *ifh;
-> > +
-> > +     skb =3D lan9645x_xmit_get_vlan_info(skb, dsa_port_bridge_dev_get(=
-dp),
-> > +                                       &vlan_tci, &tag_type);
->=20
-> [Severity: Medium]
-> This isn't a bug introduced by this patch, but this adds one more lockles=
-s
-> reader of dp->bridge in the xmit path.
->=20
-> dsa_port_bridge_dev_get() does this with no READ_ONCE() and no lifetime
-> protection:
->=20
->         return dp->bridge ? dp->bridge->dev : NULL;
->=20
-> On bridge leave, dsa_port_bridge_leave()->dsa_port_bridge_destroy() clear=
-s
-> the pointer and frees the last reference right away:
->=20
->         dp->bridge =3D NULL;
->=20
->         if (!refcount_dec_and_test(&bridge->refcount))
->                 return;
->         ...
->         kfree(bridge);
->=20
-> There is no RCU grace period between the two. Can a transmit on the user
-> port that races with the bridge leave load the old dp->bridge and then re=
-ad
-> ->dev from a freed dsa_bridge?
->=20
-> The window is narrow. tag_ocelot.c, tag_sja1105.c and the
-> dsa_software_vlan_untag() helpers use the same pattern, so the root cause
-> is in the DSA core and not in this tagger.
->=20
+As Jakub suggested: I'm sending this separately targetting the PHY tree
+as there are no build-time dependencies on the rest of the series.
 
-Dismissed, preexisting.
+Add support for the firmware-managed variant of the Serdes PHY present
+on the Qualcomm sa8255p platforms.
 
-This is the existing DSA core pattern, shared with tag_dsa, tag_ocelot,
-tag_sja1105, tag_vsc73xx_8021q and dsa_software_vlan_untag().
-dsa_port_bridge_destroy() frees the dsa_bridge without waiting for a
-grace period, so a tagger cannot fix this locally. The fix belongs in
-the DSA core.
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+---
+Changes in v16:
+- Split out the PHY patches into a separate series
+- Set the SerDes line rate through the OPP API
+- Link to v15: https://patch.msgid.link/20260923-qcom-sa8255p-emac-v15-0-e82f33720737@oss.qualcomm.com
 
+Changes in v15:
+- Squash patches 6 and 7 to avoid a potential hang-on-resume regression
+  (Sashiko)
+- Fix the AUTONEG_DISABLE early return path in forced mode (Sashiko)
+- Fix Kconfig dependencies on generic power domains (Sashiko)
+- Set the performance level back to 0 on unbind in the PHY driver
+  (Sashiko)
+- Use devm_pm_runtime_enable() where applicable
+- Link to v14: https://patch.msgid.link/20260908-qcom-sa8255p-emac-v14-0-ec212b747a7d@oss.qualcomm.com
 
-> [ ... ]
->=20
-> > +     /* Reset skb->data past the actual ethernet header. */
-> > +     skb_pull(skb, ETH_HLEN);
-> > +
-> > +     /* We must deliver the skb so skb->csum only covers the data beyo=
-nd the
-> > +      * real ethernet header. The fake ethernet header in the prefix i=
-s
-> > +      * not part of skb->csum already. We must subtract what remains o=
-f the
-> > +      * prefix, the ifh and the gap. The start is derived from the cur=
-rent
-> > +      * skb->data rather than saved on entry, because the pskb_may_pul=
-l()
-> > +      * calls above may have reallocated skb->head.
-> > +      */
-> > +     skb_postpull_rcsum(skb,
-> > +                        skb->data - LAN9645X_TOTAL_TAG_LEN - ifh_gap_l=
-en,
-> > +                        LAN9645X_TOTAL_TAG_LEN + ifh_gap_len);
->=20
-> [Severity: Low]
-> This isn't a bug, but the comment doesn't list everything the call
-> subtracts.
->=20
-> The length is LAN9645X_TOTAL_TAG_LEN + ifh_gap_len, which is 44 + gap
-> bytes. That is 2 bytes of prefix remainder, plus 28 bytes of IFH, plus th=
-e
-> gap, plus the 14 byte real Ethernet header.
->=20
-> The code looks right, because dsa_switch_rcv() does skb_push(ETH_HLEN) an=
-d
-> then eth_type_trans() without adjusting the checksum. Could the comment
-> also mention the real Ethernet header? Otherwise someone might later
-> shorten the length to match the comment.
->=20
-> [ ... ]
->=20
-> > +     dp =3D dsa_user_to_port(skb->dev);
-> > +
-> > +     if (dsa_port_is_vlan_filtering(dp) && ifh_gap_len) {
->=20
-> [Severity: Low]
-> Can frames lose their VLAN tag while vlan_filtering is changing?
->=20
-> dsa_port_vlan_filtering() calls the driver op before it updates the
-> software flag:
->=20
->         err =3D ds->ops->port_vlan_filtering(ds, dp->index, vlan_filterin=
-g,
->                                            extack);
->         ...
->                 dp->vlan_filtering =3D vlan_filtering;
->=20
-> In this series, lan9645x_port_vlan_filtering() programs VLAN_POP_CNT righ=
-t
-> away through lan9645x_vlan_port_apply(). Frames that the hardware pops in
-> that window reach lan9645x_rcv() with ifh_gap_len !=3D 0 while
-> dsa_port_is_vlan_filtering(dp) is still false. They are delivered with no
-> tag.
->=20
-> The reverse transition has the same problem, including bridge leave via
-> lan9645x_vlan_set_hostmode(). Frames popped before the change but handled
-> after dp->vlan_filtering is cleared also lose their tag.
->=20
-> POP_CNT is 0 on non-filtering ports, so the gap is already 0 there. Would
-> checking only ifh_gap_len keep the CPU view consistent with what the
-> hardware did?
->=20
-> > +             /* The tag is restored as a C-tag, not as the TAG_TYPE th=
-e IFH
-> > +              * reports. The classifier recognizes both TPIDs as VLAN =
-tags,
-> > +              * so an S-tag has already been used for classification b=
-y the
-> > +              * time we get here. Restoring it as 802.1AD would make t=
-he
-> > +              * bridge push it back into the payload and reclassify th=
-e frame
-> > +              * to the port pvid, on a different VID than the one the
-> > +              * hardware forwarded it on.
-> > +              */
-> > +             __vlan_hwaccel_put_tag(skb, htons(ETH_P_8021Q), vlan_tci)=
-;
-> > +     }
->=20
-> [Severity: Medium]
-> Is the 802.1Q-only assumption enforced anywhere? The commit message says:
->=20
->   This assumes a bridge vlan_protocol of 802.1Q, which is the only
->   protocol the driver offloads.
->=20
-> The xmit side of this file does handle non-802.1Q bridges, in
-> lan9645x_xmit_get_vlan_info():
->=20
->         br_vlan_get_proto(br, &proto);
->         ...
->                 if (ntohs(hdr->h_vlan_proto) =3D=3D proto &&
->                     ntohs(hdr->h_vlan_TCI) & VLAN_VID_MASK) {
->         ...
->         *tag_type =3D (proto !=3D ETH_P_8021Q) ? LAN9645X_IFH_TAG_TYPE_S =
-:
->                                              LAN9645X_IFH_TAG_TYPE_C;
->=20
-> DSA doesn't handle SWITCHDEV_ATTR_ID_BRIDGE_VLAN_PROTOCOL.
-> __br_vlan_set_proto() sends that attribute with
-> SWITCHDEV_F_SKIP_EOPNOTSUPP, so setting "vlan_protocol 802.1ad" on the
-> bridge seems to succeed while the lan9645x ports stay offloaded. The swit=
-ch
-> driver in this series doesn't appear to check the bridge vlan_protocol
-> either.
->=20
-> On such a bridge, every tag restored here has an 0x8100 TPID, and
-> __allowed_ingress() in net/bridge/br_vlan.c then does:
->=20
->         if (skb->vlan_proto !=3D br->vlan_proto) {
->                 /* Protocol-mismatch, empty out vlan_tci for new tag */
->                 skb_push(skb, ETH_HLEN);
->                 skb =3D vlan_insert_tag_set_proto(skb, skb->vlan_proto,
->                                                 skb_vlan_tag_get(skb));
->=20
-> This pushes the tag back into the payload and classifies the frame to the
-> pvid. Wouldn't frames trapped or copied to the CPU then land on the pvid?
-> That is the same misclassification the C-tag normalization is meant to
-> avoid, only in the opposite configuration.
->=20
-> Should rcv follow the bridge vlan_protocol the way xmit does? Or should t=
-he
-> driver refuse 802.1ad bridges?
+Changes in v14:
+- let genpd's own runtime suspend/resume callbacks own the perf state entirely
+  by calling dev_pm_genpd_set_performance_state() in set_mode()
+  unconditionally in the sgmii PHY driver
+- drop usleep_range() from the PHY driver when setting the state as the level
+  setting is already synchronous
+- add missing power-domains limits for ma35d1/k3-dwmac
+- fix ordering of clearing the sgmii loopback
+- configure the wrapper clocks synchronously in scmi setup
+- Link to v13: https://patch.msgid.link/20260713-qcom-sa8255p-emac-v13-0-119f8699ef8e@oss.qualcomm.com
 
-The driver does not support 802.1ad bridges, and rcv is only one part
-of that. The hardware forwarding path does not follow the bridge
-vlan_protocol. The classifier treats both TPIDs as VLAN tags, and the
-egress TPID follows the ingress tag type. Restoring the tag with the
-bridge protocol in rcv would hide one symptom without making 802.1ad
-work. On xmit the protocol is taken from the bridge because the stack
-picks the TPID of the frames it sends.
+Changes in v13:
+- Reapply OPP on speed change in the PHY driver
+- Use linux/device-id/of.h instead of mod_devicetable.h
+- Fix the "invalid PTP clock rate" warning on sa8255p
+- Add commits necessary to allow correct link speed change with SCMI
+- Link to v12: https://patch.msgid.link/20260706-qcom-sa8255p-emac-v12-0-e3ab1ecf2901@oss.qualcomm.com
 
-In v15 I will refuse VLAN filtering on a bridge whose vlan_protocol is
-not 802.1Q. That covers creating or joining a VLAN-aware 802.1ad bridge,
-but not a later protocol change, since DSA does not propagate
-SWITCHDEV_ATTR_ID_BRIDGE_VLAN_PROTOCOL.
+Changes in v12:
+- Drop the power-domain-names from the SGMII PHY DT bindings
+- Add missing Kconfig dependency on PM for the new SGMII PHY driver
+- Link to v11: https://patch.msgid.link/20260629-qcom-sa8255p-emac-v11-0-1b7fb95b51f9@oss.qualcomm.com
 
+Changes in v11:
+- Take a new approach: add a dedicated driver for the firmware-managed
+  SGMII PHY and simplify changes made to the MAC driver
+- Link to v10: https://patch.msgid.link/20260323-qcom-sa8255p-emac-v10-0-79302b238a16@oss.qualcomm.com
 
->=20
-> --
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
-set/20261008-dsa_lan9645x_switch_driver_base-v14-0-3d2a72661213%40microchip=
-.com
+Changes in v10:
+- Fix unit address in DT example
+- Link to v9: https://patch.msgid.link/20260316-qcom-sa8255p-emac-v9-0-c58934e76ff2@oss.qualcomm.com
 
-pw-bot: cr
+Changes in v9:
+- Rebase on top of current linux-next again
+- Link to v8: https://patch.msgid.link/20260311-qcom-sa8255p-emac-v8-0-58227bcf1018@oss.qualcomm.com
+
+Changes in v8:
+- Rebase on top of recent changes in linux-next which required an
+  extensive rework
+- Drop partial R-b tags
+- Link to v7: https://patch.msgid.link/20260306-qcom-sa8255p-emac-v7-0-d6a3013094b7@oss.qualcomm.com
+
+Changes in v7:
+- Restored the correct authorship after learning git uses .mailmap for
+  the --author switch
+- Rebased on top of changes from Russell
+- Fixed resource management issues in error paths
+- Link to v6: https://lore.kernel.org/r/20260112-qcom-sa8255p-emac-v6-0-86a3d4b2ad83@oss.qualcomm.com
+
+Changes in v6:
+- Fix $id value in the bindings
+- Drop patch 3/8 from the series
+- Update init/exit callback signatures
+- Link to v5: https://lore.kernel.org/r/20251107-qcom-sa8255p-emac-v5-0-01d3e3aaf388@linaro.org
+- Link to v6: https://lore.kernel.org/r/20251219-qcom-sa8255p-emac-v6-0-487f1082461e@oss.qualcomm.com
+
+Changes in v5:
+- Name the DT binding document after the new compatbile
+- Add missing space
+- Make the power-domains limits stricter
+- Link to v4: https://lore.kernel.org/r/20251104-qcom-sa8255p-emac-v4-0-f76660087cea@linaro.org
+
+Changes in v4:
+- Remove the phys property from the SCMI bindings
+- Mark the power-domain-names property as required
+- Set maxItems for power-domains to 1 for all existing bindings to
+  maintain the current requirements after modifying the value in the
+  top-level document
+- Link to v3: https://lore.kernel.org/r/20251027-qcom-sa8255p-emac-v3-0-75767b9230ab@linaro.org
+
+Changes in v3:
+- Drop 'power' and 'perf' prefixes from power domain names
+- Rebase on top of Russell's changes to dwmac
+- Rebase on top of even more changes from Russell that are not yet
+  in next (E1vB6ld-0000000BIPy-2Qi4@rmk-PC.armlinux.org.uk)
+- Link to v2: https://lore.kernel.org/all/20251008-qcom-sa8255p-emac-v2-0-92bc29309fce@linaro.org/
+
+Changes in v2:
+- Fix the power-domains property in DT bindings
+- Rework the DT bindings example
+- Drop the DTS patch, it will go upstream separately
+- Link to v1: https://lore.kernel.org/r/20250910-qcom-sa8255p-emac-v1-0-32a79cf1e668@linaro.org
+
+---
+Bartosz Golaszewski (2):
+      dt-bindings: phy: document the serdes PHY on sa8255p
+      phy: qcom: add the SGMII SerDes PHY driver for SCMI systems
+
+ .../bindings/phy/qcom,sa8255p-dwmac-sgmii-phy.yaml |  50 +++++++++
+ drivers/phy/qualcomm/Kconfig                       |  11 ++
+ drivers/phy/qualcomm/Makefile                      |   1 +
+ drivers/phy/qualcomm/phy-qcom-sgmii-eth-scmi.c     | 113 +++++++++++++++++++++
+ 4 files changed, 175 insertions(+)
+---
+base-commit: 1fffefb00cc0b0da1f2ae24e3d33364530ea6515
+change-id: 20261002-sa8255p-eth-phy-6a0699f98a7a
+
+Best regards,
+-- 
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
