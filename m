@@ -1,177 +1,175 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56016522EF0
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 14:05:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791986748; cv=none; b=PHUbzllaUzkJXdpdSu0vd1YhqcBQw0i1d9wHR8g2CrKmBy/E/53ekdVKvKFLPGoxuQtNqGkW1D7CDf//qNcUcLuM7IxbPrY0Noryht05Sdjd/oQa6PrApnnVWT/Hv4hMFlJPOrEYIwMJitHExui/BbVnsg6EfBhYNk9XnPAAVRs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791986748; c=relaxed/simple;
-	bh=ISgqwQwd1WJVQMG+3HZ82LwF02NXekQ8kwdnDHTu7qU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nLH4Noc7oD4RPOn7Ku1LXuaZ+x30HHJol2MknZWE848gO9jmHUpPd0sRGAZCcgccNjBHkPOaVICdEZ7i7hzjkhWFbofWeP0GT4Ib6vwoREtaQg6We2ufElGVIO/+ob/F6F911WHoqVEo/LgifmBQ42U4zzQHyDXx+yN/eodrqBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nCe1EvZP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TKdMGIGq; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D67854488D
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 14:06:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791986814; cv=pass; b=cR0B69cNxqbXxeIp1pkPYec/y2xnGHx48unUDyi0DRjB3Bd1zIQz0/UgjCv4m3Mn7p8e+UqqLTdTFVez7Zuo+Zmwzn8Oj62n5V9CHMc2m5z3u6tjs+KoG00yyNK6bDSK3tikISeAW+6jhuHlmecH1dkCxpMOQM34a/1hM6qulCU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791986814; c=relaxed/simple;
+	bh=0LcwAlWWK0AFCf1TILkUnxNzteLJZfEicsPDrj8s9Co=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kKxUqTCP94+eXrUE5oZC9pbQHrxILJjZMzwxUlqjR+B/ft0YudJG2Qhvfy78al6Rgp5lR1AKJgg1kDO6RGPvoKGd3hPdthtLOewmVn+Ekmht4itjRqyNHY8sWvwfjkshjeVFT10qGoH8FBqrxh5sM7qTnElHAmmUN7Gls3LH+B0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=eNe1DuNO; arc=pass smtp.client-ip=209.85.160.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nCe1EvZP";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TKdMGIGq"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EAR4Z3466270
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 14:05:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	pVpqOXgKn0VsPxuA6dqYU8O/g3ed5Mas2OnmRjlWtHM=; b=nCe1EvZP/0aHf93I
-	BdHU2vT98aD5USlH/P+wqwb22JSku1+uqNnuW6l3q9f2qtOUMjuDDyhS/AKwQ9f/
-	YZsVsxjWmMn76m0UhAtPtVVw2OnpgqJrj86RhZrv3D1SsYGwuvAbIDXGTTIjU9aS
-	6hIIK36//VRJj3FSeXCdrzcZgAjxwDYT4pQrKcalEL9FlbJYj3+WuAots4Hqm7PI
-	m2KpLgQ81UN21xtv0MJ6aRUs4pP5ExZS5S/81C9CgovP1HKAtUzm4iqtzku+GXDc
-	GyGD9QLmffNJ4wX82sO2ms12M2t34WgmqIhOLjMtPm5QGX2Rnjt3ImmytdLfFg4F
-	ZV+MAw==
-Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ha80crts0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 14:05:46 +0000 (GMT)
-Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5de7ad7cdbfso142095e0c.1
-        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 07:05:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="eNe1DuNO"
+Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-4a6f2825dd6so153955fac.2
+        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 07:06:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791986807; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oEYbDDBYtY1lt/c6sUGHWlmJ/d6BYJMAZyEy3HLE96mtZJuAjU9FOA3GVFYH09DvQJ
+         4n6Nkdt/NMLGoI6wx3l4xpBZsOdTyAEsV66leDXV8lDh9U/PltXcU8jBFT/LDDUgDz4Q
+         ACLCp5aTm7s4tpVenCwPJuLMs+jzmCQf0YiAMplWOg02piYqblf6wV8MFkV8uKKfTSAd
+         bIA4e4+TauFG5UNc6Ls7bRdDaqtBSrLkCebH9ogcr60rxYRxTH0/KN/agg7pDB8EWNY6
+         tsH1zsLBY+LzILKq0jpLjT+eUn/9/GYVKTf9U9FJu2Lc03huKARSxNMkR3XhlK9XWyU0
+         4eOw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=45UmRzUopsg3Oy314idTfdd3gLWGouyWXj8QTFCxVZ0=;
+        fh=LsrtUu9YGkPqyS6Jkya2BD5uKw3+FZ+1SiE7pxQxFvE=;
+        b=jKsJ9qJU+WkcIGKo5EWOJLqmmC9Ouh7Id1A0+vBj9+HqM2lnY8dfxtYCf8jOy1DGzf
+         UBKjHi+g/kMwT/2ry37VXQa5PIwRzdGg7oS1dJUAh7+2lMiP4ia2joYc0WgQBcTsb7tK
+         pS2eOhsiOM0V3tAObvi7JkNo1WEorBNoO36kaRC8zSazNmt5hVuMKGVvikoIZre7pSlE
+         9XSRa6KouOQdNGgNAH3lg9J9FeRuwNLejGK3Pl++ysoz9XLe29Pa/yyiCsLUv8WUHcVy
+         ke9Dl5jPuu7KOkFkC2nDgqpzoQltlI2i2baZfG4BkMjo97qILN5b/9dxBt9FD60GwIkT
+         yqGA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791986745; x=1792591545; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=raspberrypi.com; s=google; t=1791986807; x=1792591607; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pVpqOXgKn0VsPxuA6dqYU8O/g3ed5Mas2OnmRjlWtHM=;
-        b=TKdMGIGqBaUsFvOYj2Z5eagxgq/Eye+f86Qpei7NhtMBEHi5tcBvuwDRv0PTqYLmiQ
-         yw2RPCNhFTUvsZkssqUG1GJBK5yxJLjbQpvd049JXpgnm751WCpmTr7ym8xvftzeOFee
-         2Dn5DL7TaaYKmxLTgum6aW6SJqovRt7pNY0SNp5T99sPXKVy5Od6UddG6xJFCswfMCvZ
-         Y8b6v4z5I2igzitdsSCVKKOZmJUcqpHPOsFd7TUHP1fnRitrx2MxDxE8qdTSO6uohmY/
-         2xzL2vTe3hdYSxRxA8ewCl/qj9JvO8V9TgU9J279/n/Ulbx3p/ttZHAsW08z369LXZ3H
-         YCFw==
+        bh=45UmRzUopsg3Oy314idTfdd3gLWGouyWXj8QTFCxVZ0=;
+        b=eNe1DuNODth6IsJInnlNhfk876kXkB83E4SamZQQVGKZeHYyBu+7NWSd2RP3rMgvbq
+         yqeA2SSB3+ImWPbUiy9WBxk/iFnY5urRw3sNLUaXzn/np+H7eaOQ6j0R3nbjmNayBcLi
+         xHXnX8IcR+Zpe4Hxi6XIPEBoKRKl+kKGWDccRlrJOnbadtwH5l7LjSoUh2PCF80T2VIg
+         CfqYGx/wlP+1IzZdBoWD3KQTvXTKZuAXFzy6DOgiGldW6mcoPweGZUKkrPXOwEa45puE
+         r1wAkx0UyjCKQCuQ9fRovXQ0+ayQxZHz4wXr4JzIAcdyYkELld9L2417nSgHWDP2IVIN
+         NSZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791986745; x=1792591545;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pVpqOXgKn0VsPxuA6dqYU8O/g3ed5Mas2OnmRjlWtHM=;
-        b=gNJt95WdUfKSMVL+ERVJ2Yaxx3LmjVOsNLmGGxdMRuYXgCyRGYa917Eja5uzGsJFJg
-         9cqXLdDsJ5sEhfRgWbKghpu6ETZyPIKuAI6aVDbxUSiyuiko6WsusBC62uydyG0O/F/I
-         cG+GXroxnBnFGhfCinidGDLPzF+52v/bpaa2mZFSl/cHKUEkj0GWRBkhMMDcZpaFpbSH
-         8Kw4j0hFM61P3l/HoV5z65GoURiBtOZorcM7hI01aFFYp7Hgr97MOAKLWKI0IAxowP51
-         C9T5FdkX+mJPB0rUnDqEyf6wmyGLd5H5HQqKnf5l/nbM6E0QjRGSnd5X/aM7XRt2N6TA
-         wZNA==
-X-Forwarded-Encrypted: i=1; AKwUvBxWZHOB6DxJ8oZg7d7JuF4J4nLT9hzss9z88qqwaxiuINE1Ev98QGCcBiS8JQgy5y2UJoiACQYq7pml@vger.kernel.org
-X-Gm-Message-State: AFq9FYIwHDRZXH0+ANSNA1p6imNw9whGw88/1br6ie2ME+JPBqH2DluX
-	lDPfxXLnlLZxcbuffB5OtUU+7CxmdlEVBm6WxUBRvFZp10aUjy20qHT+RK8giGMyHItJ3vyW8eV
-	aUcntxwoiSdwLbyhOKo1nZ+GOSdYhZCgYJQVEQ49FsN5td/OTAD1C4mro9Aby56Me
-X-Gm-Gg: AYBFou26hOlZcB/5rJDdIIDason/7cIkh4WEz9TIrqrFZRmX3ZAuV1eE/6p2QF7r4sr
-	QkmlDvhPU8Y+bUCZEEZlVQsdRe5jJJ18e5O7usjuJZ5SVw28VcBtCAvrSP8cst7GmInwTahVhna
-	y3uyJiWX4K/X5XzPKt3MljtanFEOJ0+D9jsUZ5W6kvBxjPaySPbt4GcUW7ChXzhsl4jcpYDMcrJ
-	uf6QiZb4vbG+p+wLHuxywcDFW3BJCjp/M4kzqAcB1ptVTLcwHMD8HFczSIyN15FAf13q6u3Q+Tb
-	bsvIvBAi6d/3Ag+W2SA8wEY38tXv7yGYrZf/9Iv3j2wbGEbR8zdaQP3Ge0u0S+sgr/mcNYBl4Zi
-	TsxWnIeCAVoHSh0nIsFECSQ==
-X-Received: by 2002:a05:6122:4659:20b0:5c9:f6b0:e5e0 with SMTP id 71dfb90a1353d-5e91f45e3edmr3449597e0c.3.1791986744675;
-        Wed, 14 Oct 2026 07:05:44 -0700 (PDT)
-X-Received: by 2002:a05:6122:4659:20b0:5c9:f6b0:e5e0 with SMTP id 71dfb90a1353d-5e91f45e3edmr3449553e0c.3.1791986744082;
-        Wed, 14 Oct 2026 07:05:44 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b203862c4esm1222206a12.16.2026.10.14.07.05.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 07:05:43 -0700 (PDT)
-Message-ID: <d2ab26d1-2feb-4759-bdfa-7db9b923e7a6@oss.qualcomm.com>
-Date: Wed, 14 Oct 2026 16:05:41 +0200
+        d=1e100.net; s=20260707; t=1791986807; x=1792591607;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=45UmRzUopsg3Oy314idTfdd3gLWGouyWXj8QTFCxVZ0=;
+        b=Fne4d+439ox8lHsPCsXoOqg5bSfP8vfxxpSehbB9wzUW2J3UxXDAAq2oXYq2PwoohO
+         HSxH19DWRobu47ts3uTTH2nmcBLLe7ooI4Oz7B32ZIQYHz3KpAUgKpLsjWyz7E2m9E7j
+         Ij5fKfwvlwB7dWF1Ov9tNl0F+nvfiS2w/WfOgr4G2SRgwuXvqgBdZ7r/a6yi6VaSm34u
+         mXSl8FQwRo5YTxCouPAIc/pgrve2v+jEB7Xa+RbX2z6sHJMOUToSDP2TMY+DO84ZE2ZX
+         7MiYix4C1HGG1iSBvICLOVpO8K4bT3es3QTKWRYzvjRKujNgPz09bZjE1Iiqyiae8MaA
+         4HYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwgWDmuT6VKZ86dS1CfAw2pgjc41mgfgwsQk2mZVq19TltURX8kjoSBYt0/5kR37SvNJxnG95vNf6Tq@vger.kernel.org
+X-Gm-Message-State: AFq9FYI5h0W1VP9iji8DHB6RTUZMhVrP9z3+SKXNWJn6rla9xmE3L8eN
+	0YSsPFX9G5Bf8M0FXi3cmcSqrpbl8K8M6C9XFvp1IcZUpvVoK4WOZDLPybXjfmNltbd4/ZMKDxJ
+	I6RSIpnbeKbHhvsHH9aXCNP2WRoTD0CtoBstIRwA4cQ==
+X-Gm-Gg: AYBFou10s9BhdE0SMboBH02GfEB+dd9b7yrqY5EfpArP52uNpSbB5kw3BMsdTCVqFZR
+	u3JX5gpYZiiPgs8/h4VH784cLc+nCC9dgfxviDi2yh4whe+Gx1p7jXVWl2lqsgRkx0wpJnzOYgE
+	BZsBKNlBff9Bj3lhHXxRkf92bpfY9g8YtkZ4CDaKxLN54/ahAbZxw5ed51Ht2OVwIDWL1t1FqV/
+	sa740W5OeEMAkPsHKKEcMQOYf749r2CElqN/UbF2bNe1MNPWN2rV2ElktXkge2bQ/tazojW2Qr4
+	3noztkocJwmT+x59Ip73uzxaV0dl4Cog3Adtr8nMWbPAbbvVq/eAFCUq8MTlx0IR8MgpupUQkkC
+	H2h1orjwT8Fd5gFsB/AYG8+OiMhMrvsKnds90eQlNd6xkWRi5ORNNmi7XbmREQpsCCIB1EBg=
+X-Received: by 2002:a05:6870:c454:20b0:4a6:9884:df32 with SMTP id
+ 586e51a60fabf-4a69884e90bmr5145882fac.30.1791986806999; Wed, 14 Oct 2026
+ 07:06:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 0/5] nvmem: Add a UEFI variable backed NVMEM provider
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-        Jeff Johnson <jjohnson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
-        linux-wireless@vger.kernel.org, ath12k@lists.infradead.org
-References: <20261014-b4-nvmem-efivar-v1-0-187c85f65018@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261014-b4-nvmem-efivar-v1-0-187c85f65018@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA1NiBTYWx0ZWRfX1nonnhB6wiXD
- baJJXolCaJpZH2JCExN6YghcI8tIAdrOxhQIFLJK08k148zlyCpxc0mtbURQVt+g5l3gboyyhPX
- Y1kbhFzN/rqBnm/VdZF2CGeiW+zB7Sw=
-X-Proofpoint-GUID: mDxDwIM9V72pZ-vDXOXSq3bysfl2lh2-
-X-Proofpoint-ORIG-GUID: mDxDwIM9V72pZ-vDXOXSq3bysfl2lh2-
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA1NiBTYWx0ZWRfX55DNwEuIlPfK
- Ye39lmLpUWzC3JBDpLoRhtaI1OUMnoiZ2vR5oK0Pi7zTR6RpuZPOIFaSqLwbBfNlhHLOFigd8Ez
- +tq8qNL3aRDJMUTGIHvL+OCNtHI7++zvGaf0S4QYaPxjrlmmuGdpjbcQ3FBM6/3Vcc1pNnAgFt1
- s+paRyY040t8qerYBp7wujGQ8hekFHgyfX+koCiCVTy5IfQnwuoW+XeKMnPfTHE1/67GWVB3ZA0
- aMWfzJjO7V+NwCKaWblfK6//IGwhDkAKj2aM2sUj5hUOOyEaQpFEJAD2n1H2goz7orBNt+xPRPY
- Ic89ZFig/yoZdWTmbLesNvIFtA7+u0cZqqjk3c9dhiVq4wozI6XSjvR3U3pmyGdhvzSu6jA4pWp
- FI1KMfCjDDtLlHyqVTphvQPAaoiu3TOBlJo4FlBuqC8/VhXFVEHHhdChy0sNX2GpWHJh5OpGc0J
- OuM3Ql+Y4tAPWJTFhyg==
-X-Authority-Analysis: v=2.4 cv=JegpPkKV c=1 sm=1 tr=0 ts=6acf8c3a cx=c_pps
- a=wuOIiItHwq1biOnFUQQHKA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=PngBsCrCUa3bum75zpkA:9 a=QEXdDO2ut3YA:10
- a=XD7yVLdPMpWraOa8Un9W:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 phishscore=0 suspectscore=0 priorityscore=1501
- bulkscore=0 lowpriorityscore=0 impostorscore=0 spamscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140056
+References: <20261013-media-starvis2-v2-0-3670722d250a@raspberrypi.com>
+ <20261013-media-starvis2-v2-13-3670722d250a@raspberrypi.com> <179198580881.2512054.3955199510169892039@freya>
+In-Reply-To: <179198580881.2512054.3955199510169892039@freya>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Wed, 14 Oct 2026 15:06:30 +0100
+X-Gm-Features: AclHuK8ciYOFPl8qXkuGtN5q6F621BPykoHgivZ0NylfNaoIYKBd2rEh12LHy8w
+Message-ID: <CAPY8ntCjTWTtVn-EyvYYnMdgH4DFtf6eDbJOdhh4s_ZYfiNADw@mail.gmail.com>
+Subject: Re: [PATCH v2 13/13] media: sony-starvis2: Add support for IMX585
+To: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Alexander Shiyan <eagle.alexander923@gmail.com>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 10/14/26 3:02 PM, Abel Vesa wrote:
-> This is an RFC: I do not expect it to be merged as-is, it is sent to get
-> feedback on the approach.
-> 
-> Some values a platform needs (for example the WLAN and Bluetooth MAC
-> addresses on the Qualcomm laptops) are not always available to the kernel
-> in a convenient form. They may live in firmware-owned SPI-NOR storage
-> (e.g. a DPP partition) for which there is no straightforward, universally
-> working way to read them from the non-secure world.
-> 
-> As an alternative, this series allows such values to be provisioned once
-> into a UEFI variable and consumed in the kernel. It adds a generic NVMEM
-> provider that exposes the contents of a UEFI variable as an NVMEM device,
-> so the data can be consumed through the standard nvmem-cells bindings.
-> MAC addresses are just the motivating use case; the provider itself is
-> generic.
-> 
-> The first two patches are the actual proposal:
-> 
->   - dt-bindings: nvmem: Add UEFI variable NVMEM provider
->   - nvmem: Add UEFI variable NVMEM provider
-> 
-> The remaining three patches are included only to illustrate how a
-> consumer would use the provider; they are not meant for merging as part
-> of this series:
-> 
->   - Bluetooth: hci_qca: consume a "bd-address" nvmem cell
->   - wifi: ath12k: consume a "mac-address" cell
->   - arm64: dts: qcom: glymur-crd: wire both to a "MacAddresses" variable
+Hi Jai
 
-I think we can take advantage of Loic's work here
+On Wed, 14 Oct 2026 at 14:50, Jai Luthra <jai.luthra@ideasonboard.com> wrote:
+>
+> Hi Dave,
+>
+> Thank you for the series.
+>
+> Quoting Dave Stevenson (2026-10-13 20:47:12)
+> > IMX585 is an 8MPix Starvis 2 sensor, so add support for it.
+> >
+> > Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> > ---
+> >  drivers/media/i2c/sony-starvis2.c | 302 ++++++++++++++++++++++++++++++++++++++
+> >  1 file changed, 302 insertions(+)
+> >
+> > diff --git a/drivers/media/i2c/sony-starvis2.c b/drivers/media/i2c/sony-starvis2.c
+> > index 1ce2b86c57ac..c9a3dd4fe529 100644
+> > --- a/drivers/media/i2c/sony-starvis2.c
+> > +++ b/drivers/media/i2c/sony-starvis2.c
+> [...]
+> > +const struct starvis2_variant imx585_variant_def = {
+> > +     .name = "imx585",
+> > +     .id_reg = CCI_REG16_LE(0x5a1d),
+> > +     .id_mask = 0x3ff,
+> > +     .id_value = 0x259,
+> > +     .active_area = {
+> > +             .top = 0,
+> > +             .left = 0,
+> > +             .width = 3857,
+> > +             .height = 2201,
+> > +     },
+>
+> s/.active_area/.native_area
+>
+> Apologies for the drive-by comment, I just spotted this and thought it
+> might result in a painful debug session.
 
-https://lore.kernel.org/linux-arm-msm/20260507-block-as-nvmem-v2-0-bf17edd5134e@oss.qualcomm.com/
+Indeed.
+Sashiko had already picked up on that and a couple of other things,
+and Krzysztof has made comments on the binding patch, so I'm hoping to
+get a v3 out today or tomorrow addressing them.
+As mentioned on libcamera-devel earlier, there are a couple of other
+changes required for imx585, so that may hold me up.
 
-Konrad
+https://sashiko.dev/#/patchset/20261013-media-starvis2-v2-0-3670722d250a@raspberrypi.com
+
+> I'll do a proper review for the series, hopefully within this week :-)
+
+Hold off for the v3, but that would be great.
+
+Thanks
+  Dave
+
+> Thanks,
+> Jai
+>
+> > +     .active_area = {
+> > +             .top = 20,
+> > +             .left = 0,
+> > +             .width = 3856,
+> > +             .height = 2180,
+> > +     },
+> > +     .pixel_rate = 594000000,
+> > +     .pix_per_clk = 8,
+> > +     .common_regs = imx585_common_regs,
+> > +     .num_common_regs = ARRAY_SIZE(imx585_common_regs),
+> > +     .vmax_default = 2250,
+> > +     .hmax_min_link_freq = imx585_min_hmax_2lane,
+> > +     .hmax_min_pixel_array = 550,
+> > +};
+> > +
+>
+> [...]
