@@ -1,229 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA4235326B5;
-	Wed, 14 Oct 2026 14:03:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3079553ECFC
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 14:05:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791986627; cv=none; b=tCUliTsidJAggnOwwIwuljMhTuDZZ5OKnxrDit21BWE7y5/DtPBanZj1NWSTkJN6TvSYjvkuqlelj/DCrkx1U/lWgcFzlIjWdc37d5hvwO4nYMNY3Fiu4GwEY6RJWq7xtnmAt2gYUyaUzRk4u2ZI39wcL84G2MGGnlwNs5lGWtU=
+	t=1791986715; cv=none; b=XlS1w1eJHnMZWwgMpn2eXeeoXUlAG8hJ5ULomtXzukaXVsUSZMFaEkm312Sftivc+du3O9X4TfRXAH6eq6U85YXKpo7g5idj0xXCJM9IdJ75igWPVSsYQ7FHs4YkuegA8X3HHfHsMCUfWmfLGWorRNc7HucnHZsvNOs/eOVroIk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791986627; c=relaxed/simple;
-	bh=QXboNzLTxr3eBXF9UQJDEX3cXMIc5L36e1L2g+PHYp8=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=pokTIHMxfBEm5XF6qlCtaAbgVIdobLf5WLTFtCnrd4amB7X5J8N9FpD4JUksjjm6jPw/KGJFnm2Jhtje+TgmKlbr8df7FaWkQHZIxrjDlhgCgPojXLkRasj5iMK6SNareCiIpo1dlnnm35U6r3vHKDEDQ+694xwTK69kamLvLME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AXGrzPxe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791986715; c=relaxed/simple;
+	bh=on2PEhB3zQq1g4jTu3KddnrV7cQSAaGoMUS/teguhck=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jXPGbSqdVMVWbSTcm1rbezxn95ARqr4+yl0TicLhC00P/kln79n82yPdckrcMuw9K9fuoXsoUv0pUEQb1k+yFX4zQdf1p9S+hllYPPuzqUMTGKiC3C2R6pLtv4t//Mr07TfdwhQEfL8KKNDyyKWc2XtMPVih8efV+A61JbdzZP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=H4YyJgJC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Gqm+93QL; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AXGrzPxe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B08F51F00A2F;
-	Wed, 14 Oct 2026 14:03:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791986621;
-	bh=mQBE2FT0ku1TFYAqWdNwA6z/reMUrV8Ne9aQWDEfQ9o=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AXGrzPxeDwZ5DsK10+ILVTEai/qj5/uZxdwJga45L5AyuHqKA8FbCndjXmadwLb1g
-	 pS14rZoMCpEto/NWgukdF0ATU/3/bHXWNL8urfexQsDez6k8UKR2AFfHd6sEAVWLfZ
-	 N38RUt2j1P+MTvaAVOnZonPCRT1Ddzaznks22zCN3n7RKNElAa4j6I1KyT79fF/1nj
-	 U353D91HklhfBbeO+EsTUzPCjwbAMw2HYjjf2vNyf8T8QjrU2zkWA8X2xXHJb3Ltw0
-	 3D7+4CXaevTvZHiBhHCb9n9yUIoyic85EnCjZAQ6NxXxy445I2zMp2Zd+F4rYEgF6T
-	 EYpHbvI14d1/A==
-Message-ID: <sashiko-outbox-171400@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] Input: add OnePlus/OPPO Pad pogo-pin keyboard
- serdev driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: wyibo6109@gmail.com, linux-input@vger.kernel.org
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20261014135251.11234-3-wyibo6109@gmail.com>
-References: <20261010143836.173883-1-wyibo6109@gmail.com>
- <20261014135251.11234-1-wyibo6109@gmail.com>
- <20261014135251.11234-3-wyibo6109@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 14 Oct 2026 14:03:40 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="H4YyJgJC";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Gqm+93QL"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EDPbKd3018180
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 14:05:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	DXB1+owYQBBqW88XzzY6K4eceuh+GlN0C86aFl0rv78=; b=H4YyJgJCbnABl9nz
+	FmZ7sqPp+0OU5N0uI4WwVsQ6BxuZtcWiYZwgKoCwW9E/5flb+LG/sKBPnUMaNxGb
+	7MiUv6vxm7rrJbssZja31V8RfPFlrQZnt4pmlMul6VixjbYUpA0WzmfXSmxssXsH
+	GexKlSPHb4hhG/zIxIejefUy3VlURerLDXzfPEfZFE6w+E8ycwFaDDvZSLAq7tVz
+	Ph5zbELPlNS8yM7v3qB2/zxDXe08DKhDLq2hCDYVlbcyt4Cx01KAMKto9sft7DEG
+	ZNjw1b90zrQdHjUPewyxunuqZJHwgsqSU4Q9iiHBK/BDfDVeL7xKFNUXBM0H/+jz
+	QAPAzA==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9s2b4nq5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 14:05:09 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-90520763ceaso16704696d6.2
+        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 07:05:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791986709; x=1792591509; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DXB1+owYQBBqW88XzzY6K4eceuh+GlN0C86aFl0rv78=;
+        b=Gqm+93QLsvhXkJGzpMiguhMUoOOWRp47JkJb/vPHAmMuqVmorC5sjrbFdCBfaRWp3i
+         5yh6XyFHB01QIV/05mexdANyKCBPLA3hyh7kF2udnQP9kH7v94z6GEamTe+RuzwNrY59
+         e7MRyGo9tjbVFHTp+LloYaLEvQAFqFbN8wvMbgUxV5I+gj8KoqFhNOZOpcS7pGKl351A
+         MfroU84up89C1p8xQ13PbqfD6m5h1mSgva89+GPg+CicaxXavVZJoxQEAaR87Mq1V7B3
+         QXmo6aACGyekZVhW/EBQ+2QCp/ur3XzpfVn37YrnMedZRgj6DlKE2I6m9Fa6GewkYw1Q
+         5I9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791986709; x=1792591509;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DXB1+owYQBBqW88XzzY6K4eceuh+GlN0C86aFl0rv78=;
+        b=xdyRd8mAe4ULYpZhF0Iv4TOq2fbeljEfyfjsBFLB8xG99+Tux+b0zfrPZKUN2yebHG
+         PAE9YspEnMnf29GTu1g2EdBAJWOiZ/kWYn4fSXNOtAdJoU/ayL1XG5544F1e0cCAhbBD
+         kigyjYt18ktQ8yhzLEIT2AGRTI1p/2rYWr9Z/U5nOmIlDC8ski9jm7LwAZTp0k55AC/U
+         sRc8rR5o8nWS/OfpZKRWYvCZQdYF1YWL2LT4IbmCuffWnMStG5qTMpfdKVwFTw1ZMO6S
+         EcF5BV8e3PMFEzDjgDrEjsAmHo3EY/mhrfJ8vEnDC4fyebqG4qaJ9DwwZ0zmgZUuOsL5
+         zKSQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzAGYHfEcQ/dTJ5BY4p/23eU6dDDUZgE6iB5hEjPqh3dj3x2v3HizDoYJjtg4vvashsN7iFM/FCsq6I@vger.kernel.org
+X-Gm-Message-State: AFq9FYL1xwdFddi3cVuCgJc0sGIFtqSv9zJjJvo3+Ml3+gTE57JyeHz/
+	go+h/YaEhs0BJGx1B49O+Dn92nyPBPMBn8UuQJpCa8VofWKB1EptKnrbLhUrWcH1JJxjAYr5AAs
+	lPx7XIiLKPl0nuwa+OD9Sy6x8L+eoxbo0cfrYGT/1kthB7ztGk2S5Sj4vWUQmlFrH
+X-Gm-Gg: AYBFou2BOsvn/tuSQGbPS1EMRhfgohNLGWPsZF9lR8zENrYtQI0iqDO60QwQlhsswWh
+	/Scl+SZTL3mveeFWLGmytVQMHGLoPBIKRRIO1OP63VUxgNGUch2j3HXN4qaQ8dMgtBcVK3fcQzJ
+	OTJBtaZvm/M4DUgJ5j48cdh7THDv7blkE2ZPzmVh8RU3SuCF4cvwE1stgusgoXeilbcDwcJHdat
+	WI4Llid2Qm9vBERUXna6fa6IB2MiXn7KJ9+/y30r+Wm2cUybjMrnATmDCAeZOKDNIYni0WSqXcG
+	6bLXon8jNH/iEGUakLOOn14vqnpqnDt70S7uRdy5dSgVFD/9VMPjiGOp3ZLd6466MM+LIIy6dx4
+	dgOt9dr9hqCt9zJaGFV7b8A==
+X-Received: by 2002:a05:620a:6498:b0:93e:e111:2771 with SMTP id af79cd13be357-93ee1112d0cmr1775884885a.2.1791986708878;
+        Wed, 14 Oct 2026 07:05:08 -0700 (PDT)
+X-Received: by 2002:a05:620a:6498:b0:93e:e111:2771 with SMTP id af79cd13be357-93ee1112d0cmr1775875785a.2.1791986708169;
+        Wed, 14 Oct 2026 07:05:08 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9c6805985sm38426281fa.2.2026.10.14.07.05.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Oct 2026 07:05:07 -0700 (PDT)
+Message-ID: <11f513bf-fdc1-419d-8eb6-5cabb6220fbb@oss.qualcomm.com>
+Date: Wed, 14 Oct 2026 16:05:03 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 5/5] arm64: dts: qcom: glymur-crd: Source MAC
+ addresses from a UEFI variable
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Marcel Holtmann <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+        Jeff Johnson <jjohnson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+        linux-wireless@vger.kernel.org, ath12k@lists.infradead.org
+References: <20261014-b4-nvmem-efivar-v1-0-187c85f65018@oss.qualcomm.com>
+ <20261014-b4-nvmem-efivar-v1-5-187c85f65018@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261014-b4-nvmem-efivar-v1-5-187c85f65018@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=RPQmjIi+ c=1 sm=1 tr=0 ts=6acf8c16 cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=jRqq2JA-ig1rCJpZVWcA:9 a=QEXdDO2ut3YA:10
+ a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-GUID: -E-JziQ50StLpHHKyaYwDzovmFYyCHac
+X-Proofpoint-ORIG-GUID: -E-JziQ50StLpHHKyaYwDzovmFYyCHac
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA1NiBTYWx0ZWRfXwd9ebL5LyfMF
+ pRtDJ1I6GfbSUkGISs+qxCHJnEamiNVvfFZeXlnyn+Vy5CDbNGuyiQL/YR+JF/UqykWQPQ9n5Vm
+ rnqtBHUHxXPk7vu7ijYqZ6L8s+J1Nufw2AwGOYPsjhQXPlk+JVFWK/xKjqJhUdGpriV8Ko8wlVx
+ +v8k834m0eHUz/XBcJnIWQWopfeyF4QSSGiEArlkIhSU33+RjAyMqabn0gAVjbm1j1ZjwIPc84f
+ 5DSUDP3jv0lxSiMiJTV0RT4tpBoDP4aTBj1o6ZbzMW58nJ5gg74voJA7SSPF8DHuoW6a7iZghTo
+ MDH0fQqMoJJ4bqjj+dIFmObCj904Ngwobn2xFt6ocUAWsoSiZRyXVGA5IHma1hcfwEc3i3dod71
+ gzAKWxMclpgdI/VlXI/XMUt/1pen9SIjbwAcJqrYEQ96sz8y1Lzywci7QbEOqClydrvYWMwSR28
+ pX6p83VrpPo+QLqobcw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA1NiBTYWx0ZWRfX753Ia3WGCxwF
+ g9vWMJfPPWqZqHwJjOfGz1ZyPCoHatF8xy/oDhEPrtUFH6lgwP1FbFZ08TYNdk0rdPYrZtskZif
+ kPP+ky6+qERBMhzsX5lp4v0/ccQW3Bs=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 priorityscore=1501 clxscore=1015 malwarescore=0
+ phishscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140056
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] input: incorrect work cancellation order and UART teardown sequenc=
-e cause UAF
-- [High] input: early return in pogo_wake_irq_enable bypasses teardown sync=
-hronization causing UAF
-- [Medium] input: data race on link state variables kb->connected and kb->h=
-b_seen
-- [Medium] input: spontaneous battery status frames break protocol by masqu=
-erading as command replies
-- [Low] input: lockless tx_pending synchronization allows late echoes to fa=
-lsely complete retries
---
+On 10/14/26 3:02 PM, Abel Vesa wrote:
+> Add an nvmem-efivar provider exposing the "MacAddresses" UEFI variable,
+> carrying the Bluetooth BD_ADDR (bytes 0-5) and the WLAN MAC address
+> (bytes 6-11), both MSB first. The variable is looked up by name, so no
+> vendor GUID needs to be hardcoded.
+> 
+> Wire the bd-address cell to the Bluetooth controller and the mac-address
+> cell to the WLAN endpoint (pci17cb,1107) via the standard nvmem-cells
+> binding. Until the variable is provisioned the cells read as zeroes and
+> the controllers keep using their default addresses.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/glymur-crd.dtsi | 22 ++++++++++++++++++++++
+>  1 file changed, 22 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> index 58158b51fe29..2dd09ab1d550 100644
+> --- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> @@ -31,6 +31,22 @@ chosen {
+>  		stdout-path = "serial0:115200n8";
+>  	};
+>  
+> +	/* BD_ADDR and WLAN MAC from the "MacAddresses" UEFI variable. */
 
-commit a6ba6892df355bac066ccad7a6e524f24c69aa8a
-Author: Yibo Wang <wyibo6109@gmail.com>
+Let's drop this comment and sort the node
 
-    Input: add OnePlus/OPPO Pad pogo-pin keyboard serdev driver
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-This commit adds a serdev driver for the Tinno keyboard MCU used by
-OnePlus and OPPO smart keyboards. The MCU communicates over a half-duplex
-UART using a framed protocol. It supports touchpad, function keys, and
-backlight control.
-
---- a/drivers/input/keyboard/oneplus-pogo-kbd.c
-+++ b/drivers/input/keyboard/oneplus-pogo-kbd.c
-[ ... ]
-> +static int pogo_xfer(struct pogo_kbd *kb, u8 cmd, const u8 *payload, u8 =
-len,
-> +		     u8 *resp, unsigned int resp_size)
-> +{
-[ ... ]
-> +		/*
-> +		 * Drop any late echo/reply of the previous attempt: with
-> +		 * tx_pending cleared the RX path ignores frames until the
-> +		 * transfer below re-arms, so a delayed reply cannot complete
-> +		 * the fresh iteration or race the resp buffer.
-> +		 */
-> +		WRITE_ONCE(kb->tx_pending, false);
-> +		reinit_completion(&kb->echo_done);
-> +		reinit_completion(&kb->resp_done);
-> +		kb->tx_cmd =3D cmd;
-> +		WRITE_ONCE(kb->tx_pending, true);
-
-[Severity: Low]
-Does this lockless synchronization for tx_pending allow late echoes to fals=
-ely
-complete retries?
-
-If the UART RX path (pogo_handle_frame) observes tx_pending =3D=3D true and
-matches the command, but then stalls just before calling
-complete(&kb->echo_done), pogo_xfer() could time out and start a new retry.
-When the RX thread resumes and calls complete(), it would satisfy the new
-retry's completion with the old echo, potentially masking a real transmissi=
-on
-failure.
-
-[ ... ]
-> +static void pogo_handle_sync(struct pogo_kbd *kb, const u8 *p, unsigned =
-int len)
-> +{
-[ ... ]
-> +	if (!kb->connected || replug) {
-> +		kb->connected =3D true;
-> +		kb->hb_seen =3D false;
-
-[Severity: Medium]
-Could this modify the link state variables concurrently with pogo_power_off=
-()?
-
-Since pogo_power_off() modifies kb->connected and kb->powered while holding
-kb->state_lock, but pogo_handle_sync() updates kb->connected and kb->hb_seen
-here locklessly, the RX thread might clobber the teardown state. This could
-leave kb->connected =3D true after the hardware is unpowered, bypassing che=
-cks
-in sysfs interfaces and potentially backfeeding power through the UART pins.
-
-> +		kb->retry_ms =3D POGO_RETRY_MIN_MS;
-> +		if (!READ_ONCE(kb->quitting))
-> +			schedule_work(&kb->plug_work);
-> +	}
-> +}
-> +
-> +static void pogo_handle_frame(struct pogo_kbd *kb, const u8 *f, unsigned=
- int n)
-> +{
-[ ... ]
-> +	default:
-> +		if (cmd =3D=3D OWB_CMD_GENERAL_ACK && len >=3D 4 &&
-> +		    payload[0] =3D=3D OWB_GEN_BATTERY_STATUS)
-> +			kb->battery_level =3D payload[2];
-> +
-> +		if (READ_ONCE(kb->tx_pending) && cmd =3D=3D kb->tx_cmd + 1) {
-
-[Severity: Medium]
-Should there be an 'else' block for the battery status check?
-
-The MCU can spontaneously transmit battery status frames (cmd 0x3B,
-payload[0] 0x0E). If the host is currently waiting for a general command
-reply (kb->tx_cmd =3D=3D 0x3A), the condition cmd =3D=3D kb->tx_cmd + 1 wil=
-l match.
-This causes the battery frame to be falsely accepted as the command reply,
-which could cause pogo_set_general() to fail with -EPROTO and drop the real
-reply that arrives later.
-
-> +			/* reply layout for callers: cmd, len, payload */
-> +			kb->resp_len =3D min_t(unsigned int, len + 2, sizeof(kb->resp));
-> +			memcpy(kb->resp, &f[3], kb->resp_len);
-> +			complete(&kb->resp_done);
-> +		} else {
-[ ... ]
-> +static void pogo_wake_irq_enable(struct pogo_kbd *kb, bool enable)
-> +{
-> +	if (enable =3D=3D kb->wake_irq_enabled)
-> +		return;
-
-[Severity: High]
-Does this early return bypass the synchronization barrier during teardown?
-
-In pogo_wake_isr(), the hardware interrupt calls disable_irq_nosync() and s=
-ets
-kb->wake_irq_enabled =3D false. If pogo_remove() calls pogo_wake_irq_enable=
-(kb, false)
-while the ISR is executing after the flag has been updated, this early retu=
-rn
-will skip the disable_irq() call entirely.
-
-This allows pogo_remove() to proceed with teardown and free the memory whil=
-e the
-ISR is still running and about to queue detect_work, leading to a use-after=
--free.
-
-> +	if (enable) {
-[ ... ]
-> +static void pogo_remove(struct serdev_device *serdev)
-> +{
-> +	struct pogo_kbd *kb =3D serdev_device_get_drvdata(serdev);
-> +
-> +	/*
-> +	 * Stop the world first: with quitting set, the RX path and the
-> +	 * works stop queueing each other, so the cancels below cannot be
-> +	 * undone again.  The wake IRQ is disabled (and any in-flight ISR
-> +	 * finished) before detect_work is cancelled.
-> +	 */
-> +	WRITE_ONCE(kb->quitting, true);
-> +	pogo_wake_irq_enable(kb, false);
-> +	cancel_delayed_work_sync(&kb->detect_work);
-> +	cancel_delayed_work_sync(&kb->hb_work);
-> +	cancel_work_sync(&kb->plug_work);
-
-[Severity: High]
-Could the cancellation order and serdev teardown sequence cause a use-after=
--free?
-
-Because detect_work is cancelled before hb_work, if hb_work is running
-concurrently, it can re-queue detect_work after it has been cancelled. The
-lockless check !READ_ONCE(kb->quitting) allows a thread to read false, stal=
-l,
-and queue the work after these cancellations are finished.
-
-Additionally, since the serdev port remains open during pogo_remove() (it c=
-loses
-later via devres), the UART RX callback can still execute, evaluate the loc=
-kless
-quitting flag as false, and queue plug_work after cancel_work_sync(&kb->plu=
-g_work)
-has already returned.=20
-
-This sequence can leave works queued while devres frees the kb memory.
-
-> +
-> +	/* unregisters the input devices, the last possible led_work queuer */
-> +	pogo_power_off(kb);
-> +
-> +	/* flush a led_work queued before the inputs went away */
-> +	cancel_work_sync(&kb->led_work);
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014135251.1123=
-4-1-wyibo6109@gmail.com?part=3D2
+Konrad
