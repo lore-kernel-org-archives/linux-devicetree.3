@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10E04360EC5
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 23:27:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07B0E360EC5
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 23:29:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792020467; cv=none; b=XoiH5lUZ24HjvPd+5VhzmAGfaiN2eSxu/mGC/kXPNWkXWObbE7gDVchjarbJaGlhFXg5+1XEVIuzzCRdcNKppOMsVJ+YOJWYUXinV7QL0n/4PdZBJ/rO6FxGRXVvyQd15IDFTTIx3WRxYKrH0CJMitZZ2udHLC/ZYo8W4efbbMc=
+	t=1792020573; cv=none; b=uigCCvshtlCHYBI2L/bJKyq2Fb4+NDBnZaITk4KAmcTKbmi8wm4DBlj4mTQlj1DPlEOhnh129pe+y040/z8eTQIwwL2FNDtJR+1oo0Qw5JtPCLxpWjnej4+AvOm7gQq09/6sGLbqEPgbmRE/pT4P3nTnjxvEs7e5OvjHqP9RMM0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792020467; c=relaxed/simple;
-	bh=Szww6CTCB0u669EcPIOLr1UC8jhFphaL9JG4Qwn5L4E=;
+	s=arc-20240116; t=1792020573; c=relaxed/simple;
+	bh=xYiHiwDx+mdKo2Nh+pM+F7K4gRKI0lIhN4Hqp3UpL3I=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=POVM7J09lNXkQx4RcgrxGmvSkYoVcwees7VQsHvPwJGfKQs1mYSxz0NOHWQ8Whxu9jeQv2U8WLXjgexclHZDJx8S7zq47pdkvyZVa3wsqunnaFRz0/DZd4KuXqzFy0R+ktF84sUg4wBhZlOcSlWfyGjekdUuC+BdtO8cQAPW/nk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bwYI7e8u; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=QED82COjbdup2hSgSPGuocX18geJmZnLc+O8ldLm9Rao8H/Mym8Aos1moAsUDYRmCt8Jr35M/o3149PSZ0zzXlhj6ALmMjq9kkKTV7QCz5E7jZny0++EdbagLVEoSHmNZSxNGdfXWyxGj0ocqB9yl6nmpYwj2wr+OWrGy9Z2lpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i1iS9YLv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bwYI7e8u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A0821F000C4;
-	Wed, 14 Oct 2026 23:27:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i1iS9YLv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38AEB1F000C4;
+	Wed, 14 Oct 2026 23:29:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792020465;
-	bh=tfM7viAjRQJSEdFOGkPErrGXeOIiQBf3Ae8I9/aYOSA=;
+	s=k20260515; t=1792020571;
+	bh=XaVzdBXSu2sn0O3ZvG1wZeBkDUi/+eXeFc139l5OxwY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bwYI7e8uSGOKFpQ5EskOESFHtPFTLprJmy4lCRKLYngkvspCAyjvRB5fe4vCwVVik
-	 qcHjUYvTiOodyjtEtY3Plf7MXS9q15fVjgi353RGgrGyJOY6dIbNj4NLcT+7q2d0D4
-	 cEojdg+wTLeMGZ2QNU0Yn5bE3iHxRfSDOWOpftxjJOsk/oU6sSF0d+TA4dcl1VuyFK
-	 jnlI5Qx5clQ9GCe4fer8wckBfMwTNgVtRbUi/GCmY/OHaAVDeqgJUcqdz4LXwgihyV
-	 q752hKIn/tMq6cIk6w0IcENaK9xVy20CXnMCb0wuBzacV4GHAjqmvCZvQR7EiJ2orD
-	 uDIuJ7ZDoMqGQ==
-Message-ID: <sashiko-outbox-172019@kernel.org>
+	b=i1iS9YLvbuXUi7M7drut6SU674jSLeenuM4a9XfEuhOQ5lt2rvOMff1AdbPwMR64E
+	 hkfVS87hr+ZgUZmZ9Gr58v0bp687LgEBUCsJofqNDYBQIQO6vm75yuLz1T36XMay/J
+	 4Okete7DNkcwS7RJ7LGYXgmymNHcX+8Tz5nYIJkOm9iZjQRiKL8FOv7T2IZ4rFRhcU
+	 6No6u0PcsioKn5qei7an0JmDDFuSOo5OKbi3pf+2Vu9IC2rbEejZR0wk3MIlBD7eix
+	 Op2HGIEYhiqbU9ypUTttwhxiXlz8V+I51aks0zD9BuZ9IWLJqXo3JSHu5gM5QojF1A
+	 iKKp188wqXpvw==
+Message-ID: <sashiko-outbox-172020@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 5/6] of/overlay: rewrite /aliases path values to
- live-tree paths
+Subject: Re: [PATCH v8 4/6] of: update /aliases lookup on reconfig
+ notifications
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261014-nh-of-alias-overlay-v8-5-0f74f05ac762@nexthop.ai>
+In-Reply-To: <20261014-nh-of-alias-overlay-v8-4-0f74f05ac762@nexthop.ai>
 References: <20261014-nh-of-alias-overlay-v8-0-0f74f05ac762@nexthop.ai>
- <20261014-nh-of-alias-overlay-v8-5-0f74f05ac762@nexthop.ai>
+ <20261014-nh-of-alias-overlay-v8-4-0f74f05ac762@nexthop.ai>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 14 Oct 2026 23:27:44 +0000
+Date: Wed, 14 Oct 2026 23:29:30 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,81 +47,99 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] of: refcount underflow in dup_and_fixup_symbol_prop()
+- [High] of: UAF in of_find_node_opts_by_path() due to lockless read of of_=
+aliases
 --
 
-commit c5eaae3d3771753bc9d29f750410340abc26ee23
+commit b06b8f06ef78bdf618e4aa0aefa4a93a890ea63d
 Author: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 
-of/overlay: rewrite /aliases path values to live-tree paths
+of: update /aliases lookup on reconfig notifications
 
-This commit rewrites overlay-internal path values in the /aliases node
-to live-tree paths so they can be properly resolved. It uses the existing
-dup_and_fixup_symbol_prop() helper to accomplish this.
+This commit introduces a reconfig notifier to dynamically update the /alias=
+es
+lookup table when device tree overlays add or remove aliases. It mirrors
+property changes into aliases_lookup and manages entries added at runtime
+versus boot time. An aliases_mutex is added to protect the lookup list.
 
-> diff --git a/drivers/of/overlay.c b/drivers/of/overlay.c
-> --- a/drivers/of/overlay.c
-> +++ b/drivers/of/overlay.c
+Link: https://lore.kernel.org/lkml/1435675876-2159-1-git-send-email-geert+r=
+enesas@glider.be/ [1]
+Link: https://lore.kernel.org/lkml/20150630172131.D4E6CC4041A@trevor.secret=
+lab.ca/ [2]
 
+> diff --git a/drivers/of/base.c b/drivers/of/base.c
+> index 6a6d9f8439dd1..b70dedce06fe4 100644
+> --- a/drivers/of/base.c
+> +++ b/drivers/of/base.c
 [ ... ]
-
-> @@ -370,6 +370,19 @@ static int add_changeset_property(struct overlay_cha=
-ngeset *ovcs,
->  		new_prop =3D dup_and_fixup_symbol_prop(ovcs, overlay_prop);
->  		if (IS_ERR(new_prop))
->  			return PTR_ERR(new_prop);
-> +	} else if (!is_pseudo_property(overlay_prop->name) &&
-> +		   of_node_is_aliases(target->np)) {
-> +		/* rewrite overlay-internal alias values to live-tree paths */
-> +		new_prop =3D dup_and_fixup_symbol_prop(ovcs, overlay_prop);
+> @@ -1934,6 +1934,159 @@ static void of_alias_add(struct alias_prop *ap, s=
+truct device_node *np,
+>  		 ap->alias, ap->stem, ap->id, np);
+>  }
+> =20
+[ ... ]
+> +static int of_aliases_reconfig_notifier(struct notifier_block *nb,
+> +					unsigned long action, void *arg)
+> +{
+> +	struct of_reconfig_data *rd =3D arg;
+> +
+> +	/* of_aliases may still be NULL when an overlay creates the node */
+> +	if (!rd->dn || !of_node_is_aliases(rd->dn))
+> +		return NOTIFY_DONE;
+> +
+> +	mutex_lock(&aliases_mutex);
+> +	switch (action) {
+> +	case OF_RECONFIG_ATTACH_NODE:
+> +		if (!of_aliases)
+> +			of_aliases =3D of_node_get(rd->dn);
+> +		break;
+> +	case OF_RECONFIG_DETACH_NODE:
+> +		if (of_aliases =3D=3D rd->dn) {
+> +			of_aliases =3D NULL;
+> +			of_aliases_forget_all();
+> +			of_node_put(rd->dn);
+> +		}
+> +		break;
 
 [Severity: High]
-Could this call to dup_and_fixup_symbol_prop() trigger a reference count
-underflow?
+Does this lockless read of of_aliases in of_find_node_opts_by_path() introd=
+uce
+a Use-After-Free race?
 
-Looking at dup_and_fixup_symbol_prop(), it retrieves nodes using
-__of_find_node_by_path() but then explicitly drops references to them:
+The commit message states: "on DETACH the changeset holds its own references
+across the notifier so the put here cannot be the final one while readers
+still walk the node."
 
-drivers/of/overlay.c:dup_and_fixup_symbol_prop() {
-    ...
-	fragment_node =3D __of_find_node_by_path(ovcs->overlay_root, path + 1);
-	overlay_node =3D __of_find_node_by_path(fragment_node, "__overlay__/");
-	of_node_put(fragment_node);
-	of_node_put(overlay_node);
-    ...
-}
+While the changeset holds a reference during the notifier, a reader in
+of_find_node_opts_by_path() in drivers/of/base.c reading of_aliases is
+completely lockless and not in an RCU read-side critical section. If the
+reader thread is preempted immediately after loading the of_aliases pointer
+but before calling of_node_get():
 
-However, as documented in drivers/of/of_private.h, __of_find_node_by_path()
-operates without taking node references:
+CPU1 (Reader)
+of_find_node_opts_by_path()
+   // Starts executing: aliases =3D of_node_get(of_aliases);
+   // Reads global of_aliases pointer
+   <preempted>
 
-drivers/of/of_private.h:
-/*
- * All functions with two leading underscores operate
- * without taking node references, so you either have to
- * own the devtree lock or work on detached trees only.
- */
-struct device_node *__of_find_node_by_path(const struct device_node *parent=
-, ...);
+CPU2 (Changeset detach)
+of_aliases_reconfig_notifier()
+   of_aliases =3D NULL;
+   of_node_put(rd->dn);
+<changeset completes detachment, drops its final reference>
+<node is freed>
 
-Because the references were never initially acquired, calling of_node_put()
-here will underflow the reference count. This drops the independent referen=
-ces
-held by the changeset fragments and could lead to premature freeing of the
-nodes and a use-after-free during subsequent access.
+CPU1 (Reader resumes)
+   // Calls of_node_get() with the stale pointer
+   of_node_get(stale_pointer); // Use-After-Free
 
-> +		if (new_prop =3D=3D ERR_PTR(-ENOMEM))
-> +			return -ENOMEM;
-> +		if (IS_ERR(new_prop)) {
-> +			if (new_prop =3D=3D ERR_PTR(-EINVAL))
-> +				pr_warn("%pOF/%s is not a valid string; alias will be inert\n",
-> +					target->np, overlay_prop->name);
-> +			/* not overlay-internal: copy verbatim, consumers validate */
-> +			new_prop =3D __of_prop_dup(overlay_prop, GFP_KERNEL);
-> +		}
->  	} else {
->  		new_prop =3D __of_prop_dup(overlay_prop, GFP_KERNEL);
->  	}
+Can the reader be preempted long enough for the changeset detach to fully
+complete and free the node before the reader increments the refcount?
+
+> +	case OF_RECONFIG_ADD_PROPERTY:
+> +		of_alias_create(rd->prop, alias_alloc, true);
+> +		break;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014-nh-of-alia=
-s-overlay-v8-0-0f74f05ac762@nexthop.ai?part=3D5
+s-overlay-v8-0-0f74f05ac762@nexthop.ai?part=3D4
