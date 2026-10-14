@@ -1,117 +1,250 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1339190462
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 21:48:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DDD544606A
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 21:50:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792014509; cv=none; b=MY7J291IufdUCVa6zsOtHkN3tR2gVtQY79+pnTIABASpRp4GPLAEqzWW+rJtds5i2ClbUu+z8P2BcH4/kpUQeEfoL83AQ1L05jesKkRG0g48CPx+z0bpwuoipo9X2rRmhZVC9LORoiZpj8CAstbTSG5NdeSi6jzyT3hOuAx71BE=
+	t=1792014603; cv=none; b=DzzWeWb7NIhxQvLJM6EPpfoM1C7jssACdIEE5BpBe8PyvfA+KFH5vZBUWIfTkkLpKTYSg4sHLgdvnXRyBzjNMvLE0wYbn7MK0GIZ2wZq4FhoSHyqBMRWrjp9Wfu7wK/TI3bAxE7GW2kM7araOV50Fo5zKV7PKYq9tBR91bqITRo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792014509; c=relaxed/simple;
-	bh=n+LmNjfM7/bObakBcuSaeNIVw/Y3M0ZKlDAw32Lj438=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=trruTTT+UfJDiQZroo6gWDEr1kexO6UOjyHsbMbX+VWgIKbu9SPSMBLBRx+T/1YvRf5XezYm6YnRXQQCskfTkVzeDAtK2iPMvX7TqbzHHZ2tyE5S3zaPmRCEMZNLPKWEyOC1cs6K7IDHdeuArtFUWZmD2BTel9Q+YNkCjOD2W+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mLEmHPF1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792014603; c=relaxed/simple;
+	bh=5m8gmcJPfJEo+Xj/WVPQkBA6oxY16fLfxxTTJcTCHE4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=vFCivgnEggG2EnUDRf6uECn1I0LwLZb3CcfEvMHynZg5WjttmPCmnOdmBU7noBZz2/tNf9yAeiu5tHWreIriNfL/f2AU8IgldaPRpQxbK5YzkrEuz8rezLBzDOPIeJEambkAS3lYGlc7LKrzP/PhirnnLnnpymQOS2A6zb21a0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VxSFItDf; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mLEmHPF1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0474C1F000C4;
-	Wed, 14 Oct 2026 21:48:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792014508;
-	bh=5g+VtGhlbyeLyHYgNRZs6nJ+giFT9fcMAM0DtjsZj9g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mLEmHPF1H1NDoRc8NjY71QkQvDx1EzUQ61OMCjdDSsgAiJTPKjj0uItE1y5oB95xf
-	 WwOLkEV3puFdLJ/x+fMFI7lYGfvR6Ia/o+Mzc+KU2aIso8U+l5ND2No7T0uYZ2m7x0
-	 UILCFmxOv2m5YWyaHdpiEVRNAjXqc2S3psJsbgNRtgma/JtOHVKCBGb4L0GRPsbQo7
-	 gSO0Mxo8V3FR05/jFXysTl3ghvPIRi1UiMFu3sB9o9rB9P6s1xKvY/knylfxNchYIj
-	 OHa5t9NvGuNmY+0o5RwOSj/PE8a48+oe/UTzNNP1PUAS5lBrTAQtqqZD7QHySJl7zU
-	 NJR11mb3/MDNg==
-Message-ID: <sashiko-outbox-171938@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/6] remoteproc: amd_mbv_bram: Bound device name
- formatting
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ben Levinsky" <ben.levinsky@amd.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261014213426.2957480-2-ben.levinsky@amd.com>
-References: <20261014213426.2957480-1-ben.levinsky@amd.com>
- <20261014213426.2957480-2-ben.levinsky@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 14 Oct 2026 21:48:27 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VxSFItDf"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a018792ab3so37655965e9.0
+        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 14:50:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792014599; x=1792619399; darn=vger.kernel.org;
+        h=content-type:mime-version:references:in-reply-to:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/JnSzh6uRY1DGm8qF/E1ET6S+smMFNdEHSczgKhtiNs=;
+        b=VxSFItDf+1NqR3NwOWw6ZGZRSLuvEUTYkGVJHA/AF7y9GPNjWzRCzYLRizAwRyPPbX
+         3XBxsiFNpxi5GE2Af039tLgWF2A8AI8Hpxy8RjnDsJwDq0d4g/OjF5CbmiL5i+z7WXbC
+         5dI8Ncs/z+REp5hnMafFL3MKPC6m5EogVEoA8NkIy/GkIkyc91u1jV3MFGjqOK2hqypw
+         3S1H5eOdV3rVJUrW+RbhzDWCx9ggqKIOeaU/4yCpY6l+CmZFB/POtwZnXmabTAHFHjoY
+         4Ot761/5DBHYlaSHdGgKNSv+kYnyk86YNby9VzjNDz7sk9L1FLeA5n531KvWvjJd6x1h
+         SrxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792014599; x=1792619399;
+        h=content-type:mime-version:references:in-reply-to:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/JnSzh6uRY1DGm8qF/E1ET6S+smMFNdEHSczgKhtiNs=;
+        b=P86vc2GkutqlurZz+hN3HqKgjkhwv/urZ22DzUElQYLuprJa2ezK3vhfqFbi94bFVW
+         q+OI3EImwd7PBFOeDeD7LXrS08/CdazWbMKiKpJAcJWlSDDXxOgNDqwWbooqqLqtz8Uh
+         BgcGSLtE3JI53Yn3vdtGUCi1o6tDWecohUwHMht4CzAXGe22wElMuTjP5iZGRH7J1uWW
+         bd47ovxZFAFL0ACYpjoH1BcUSDXjn8o7B47q86QmP6wd8E6vU00/uj7TVbEskMRupWBG
+         wryMGXPuH41sRkpRUZSJ0in5NY2IXDKiNlCRor0M1jTqOUV9WElRKA4vHq/Xz3C773oH
+         ve4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwHcljBXnbypNwvM7MuVJX1YiuV5uVfFa4HRj1memM4euZOh9mn5T/txHVWWCtnzWnLrK9o6eJDpAJm@vger.kernel.org
+X-Gm-Message-State: AFq9FYJhlg9o3j1ZhBCWpEQBtI+6lxoR+guyGcxL4DGi6RwY56pEQZi1
+	RJRKTd0KW7DzTFFY6tLqhJGHwnOFBqIXaiYzIIEJXjsp+egZXzhjdwya
+X-Gm-Gg: AYBFou3kImnm++JTo2/HJ/fM0VR73Uf+bAr2aM/Xw2Ak7CxWhdMBsTKzYFBzVh12HAi
+	QTOxF4fuPtjIHSNHvOXw8v5d9IIEu1VE4b4f4G1mDiiB2cOscsFDYQOUpE7l2wT24KsHSMekPTH
+	/xKM8+1myLZT7SaJQGsYA+ZBUJrtqff6Yn+tkf+JU3ennV2ZsKb667owgUCHTXdonVLGhGdQChR
+	zLBiEWg+46CRQnxBZTxMKkJdvfnm3nN/InXV2ZWL8pOtihMRzhxfwDFzI10oN47XQ5HYRxV+d3/
+	wWx8TZlMiBzJ/x9fSz4+GdJn4rDfuSAer84UWLxXU6pZDEjEBW4FeYhdVLPA0u9oyA1t6pl5t3r
+	0H0UF0vatO5KdOhO0Gvh72AYj25JiSUJS81K20zAZ0Ycjx48lf579W4PDziwtd5ftU74sTQ9Xgd
+	vi68HRWnC2T8nx5Yb007gesaxFggkOL27HkjAgrZeRpiEmInqV3/Pipjkytp+UK2YjM5GoldMS5
+	TQNHr5jPl7otjL14reviku7vlRrA0HhNQRuGTsvsSp5uhQu96U=
+X-Received: by 2002:a05:600c:6990:b0:4a1:80d8:aed5 with SMTP id 5b1f17b1804b1-4a18e49c43bmr343979005e9.6.1792014599154;
+        Wed, 14 Oct 2026 14:49:59 -0700 (PDT)
+Received: from silicon.doe.home (91.141.74.240.wireless.dyn.drei.com. [91.141.74.240])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bdbb4a30sm19614465e9.15.2026.10.14.14.49.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 14:49:58 -0700 (PDT)
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+To: linux-arm-kernel@lists.infradead.org,
+ Navid Ghahremani <ghahramani.navid@gmail.com>
+Cc: arnd@arndb.de, krzk@kernel.org,
+ Navid Ghahremani <ghahramani.navid@gmail.com>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH v2 04/24] dt-bindings: clock: Add ZTE ZX279128S CRM clock bindings
+Date: Wed, 14 Oct 2026 23:48:32 +0200
+Message-ID: <P2sItgLkRqGZa4OOeZAnJw@gmail.com>
+In-Reply-To: <20261014072109.1759502-5-ghahramani.navid@gmail.com>
+References:
+ <20261014072109.1759502-1-ghahramani.navid@gmail.com>
+ <20261014072109.1759502-5-ghahramani.navid@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; boundary="nextPartKiOmKHBbRlSSdhbtK6AHkQ";
+ micalg="pgp-sha256"; protocol="application/pgp-signature"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] remoteproc: carveout memory leak on rproc_parse_fw() failure
---
+--nextPartKiOmKHBbRlSSdhbtK6AHkQ
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+Date: Wed, 14 Oct 2026 23:48:32 +0200
+Message-ID: <P2sItgLkRqGZa4OOeZAnJw@gmail.com>
+In-Reply-To: <20261014072109.1759502-5-ghahramani.navid@gmail.com>
+MIME-Version: 1.0
 
-commit bb5382f10341b400baaa921ca1112dc728aa259e
-Author: Ben Levinsky <ben.levinsky@amd.com>
+Am Mittwoch, 14. Oktober 2026, 09:20:44 Mitteleurop=C3=A4ische Sommerzeit s=
+chrieb=20
+Navid Ghahremani:
+> Add Device Tree binding schemas for the ZTE ZX279128S clock controllers:
+> topcrm, lspcrpm, and crm2. Define fixed clock lists and simple-mfd
+> for child nodes inside topcrm.
 
-remoteproc: amd_mbv_bram: Bound device name formatting
+This would be easier to review if it were split in 3 patches, one yaml per=
+=20
+patch. I'll try to comment on the details anyway.
 
-Pass the device name through a constant format string to prevent percent
-conversions in the device name from consuming nonexistent variadic argument=
-s,
-and bound it to 31 characters.
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - const: zte,zx279128s-crm2
+> +      - items:
+> +          - const: zte,zx279128s-crm2
+> +          - const: syscon
 
-> diff --git a/drivers/remoteproc/amd_mbv_bram_rproc.c b/drivers/remoteproc=
-/amd_mbv_bram_rproc.c
-> index e4a103cf84558..6cf33c7b7e641 100644
-> --- a/drivers/remoteproc/amd_mbv_bram_rproc.c
-> +++ b/drivers/remoteproc/amd_mbv_bram_rproc.c
-> @@ -72,7 +72,7 @@ static int amd_bram_rproc_prepare(struct rproc *rproc)
->  				   resource_size(&res), da,
->  				   rproc_mem_entry_ioremap_wc,
->  				   rproc_mem_entry_iounmap,
-> -				   dev_name(priv->dev));
-> +				   "%.31s", dev_name(priv->dev));
->  	if (!mem)
->  		return -ENOMEM;
-> =20
+Afaiu this makes "syscon" optional. Why do you need syscon? Why might you n=
+ot=20
+need syscon?
 
-[Severity: Medium]
-Could this introduce a regression where the carveout memory leaks?
+The goal should be to avoid "syscon" as much as possible. The meaning of th=
+e=20
+syscon compatible is that a different driver will access these registers=20
+directly instead of going through a properly exported interface like #clock-
+cells. Is there anything in crm2 that is not a clock or reset?
 
-If rproc_parse_fw() fails during boot (for instance, due to a memory
-allocation failure in rproc_elf_load_rsc_table()), the error path in
-rproc_fw_boot() bypasses rproc_resource_cleanup():
+> a/Documentation/devicetree/bindings/clock/zte,zx279128s-lspcrpm.yaml
+> b/Documentation/devicetree/bindings/clock/zte,zx279128s-lspcrpm.yaml new
 
-drivers/remoteproc/remoteproc_core.c:rproc_fw_boot() {
-    ...
-	ret =3D rproc_parse_fw(rproc, fw);
-	if (ret)
-		goto unprepare_rproc;
-    ...
-clean_up_resources:
-	rproc_resource_cleanup(rproc);
-    ...
-unprepare_rproc:
-	rproc_unprepare_device(rproc);
-    ...
-}
+> +maintainers:
+> +  - Stefan D=C3=B6singer <stefandoesinger@gmail.com>
+> +  - Navid Ghahremani <ghahramani.navid@gmail.com>
 
-Because the driver adds the carveout to rproc->carveouts shortly after this
-allocation:
+I think you should be the maintainer alone here, I don't have the hardware =
+to=20
+do proper testing of patches.
 
-	mem =3D rproc_mem_entry_init(...);
-	if (!mem)
-		return -ENOMEM;
+> +description: |
+> +  Each of the two groups of low speed peripherals (LSP) has a peripheral
+> clock +  module (LSP CRPM) of its own, fed by the top CRM.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - zte,zx279128s-lsp0crpm
+> +      - zte,zx279128s-lsp1crpm
 
-	rproc_add_carveout(rproc, mem);
+I think splitting those into different bindings is still a viable choice. Y=
+eah,=20
+ZTE gave them very similar names, but from what I can see the two controlle=
+rs=20
+have nothing in common.
 
-And relies on the core's rproc_resource_cleanup() for cleanup, the carveout
-would remain on the list if parsing fails.
+> +patternProperties:
+> +  "^phy@[01]$":
+> +    type: object
+> +    description: PCIe PHY child nodes
 
-Subsequent rproc_boot() attempts would then call prepare() again, potential=
-ly
-adding duplicate carveouts and causing unbounded list growth.
+You can drop the phy child node and just add "#phy-cells=3D1". See https://
+docs.kernel.org/devicetree/bindings/writing-bindings.html : "DON=E2=80=99T =
+create=20
+nodes just for the sake of instantiating drivers. Multi-function devices on=
+ly=20
+need child nodes when the child nodes have their own DT resources. A single=
+=20
+node can be multiple providers (e.g. clocks and resets)."
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014213426.2957=
-480-1-ben.levinsky@amd.com?part=3D1
+In practical terms, putting a child node into the DT makes this a public AB=
+I=20
+contract. The alternative is to split the device with an MFD driver or usin=
+g=20
+the aux bus. In the latter case, what components a device consists of is a=
+=20
+driver implementation detail that can easily be changed later.
+
+The PHY subsystem has a quirk that devm_of_phy_provider_register wants the=
+=20
+device node to have a DT node, which is not the case if the device is an MF=
+D=20
+child. device_set_of_node_from_dev(dev, dev->parent); helps.
+
+The other purpose of having a DT child node is if a sub-component is likely=
+ to=20
+be used in a different piece of hardware. syscon-reboot is a pretty generic=
+=20
+example of that.
+
+> --- /dev/null
+> +++ b/include/dt-bindings/clock/zte,zx279128s-crm.h
+
+I'd suggest to rename clock/zte,zx279128s-crm.h to clock/zte,zx279128s-clk.=
+h.=20
+"CRM" implies clock-reset-manager, but the -reset.h header has the reset=20
+handles, so the "crm.h" header won't have them.
+
+> +#define ZX279128S_TOP_PLL_A9		0
+> +#define ZX279128S_TOP_PLL_LSP		1
+> +#define ZX279128S_TOP_CPU		2
+
+Do they all need to be exported? You only need those that will be used for =
+a=20
+clock =3D <&topcrm ZX279128S_TOP_SOMETHING> handle. That could e.g. be the =
+CPU=20
+wclk and pclk, but the parent PLL itself can remain a driver detail. Most=20
+likely all your device clocks have a gate somewhere. In my zx29 case I only=
+=20
+export gates from the clock driver, with the exception of the Cortex M0 mux=
+ -=20
+the Cortex M0 can't be turned off, so it has no gate.
+
+I realize that a lot of devices may be missing from the DTSI in patch 23.
+
+> +/* Low speed peripherals 0 */
+> +#define ZX279128S_LSP0_UART0_WCLK	0
+> +#define ZX279128S_LSP0_UART0_PCLK	1
+> +#define ZX279128S_LSP0_UART1_WCLK	2
+> +#define ZX279128S_LSP0_UART1_PCLK	3
+> +#define ZX279128S_LSP0_SPI_WCLK		4
+> +#define ZX279128S_LSP0_SPI_PCLK		5
+> +#define ZX279128S_LSP0_GPIO_PCLK	6
+
+E.g. exporting those intuitively makes sense.
+
+--nextPartKiOmKHBbRlSSdhbtK6AHkQ
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmrP+LAbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMywyAAoJED0TvMhUTxoiZU8QAII3V/w/xVzGX/pRFfpS
+42pGLIJGE3EDmanSGuj8ztdc4DUNBzuzuPpXp+xCmgIyDIUokzxLyrj5PQhehLNp
+qaKehvOsvlckx/h5Z4ZFYW+rgjZtSLFD6/GmeeXzSdqUcfDUZr8BVKlxOcyIIeDe
+pt0C8+bupAw+hTZxnf0V+/aN3OhFlhBuyv13tHzIApsOWl0W78iSfk8AFo/hpfrS
+19VeqvlmLx9GuHDxHkkLZp2LcXANHQcW6/kuDBHY1D7N9CtJvaHS3d/uHwENVna+
+U/HoZvfGY91niTHjClR5zWazHFN3ZNOXQ1SjwECfKmaBPXSiiPAEkQbDVuwFkdP5
+Wcq+7vW8ERwBLyY0GtkuPIlrf09jXFodZE78h9Rz73dMEHLnhuSkCal8A7A0jWUe
+7F7cIsQQtj/H4jaf0EtJHUmEzluvA1U/hzGqamP16b9mdKidERu7jeqF5DznAjJR
+n1GFXS/4KXbGb0ae0VhlveMEEDOrE0vPc5pAbf0MbFvyEuB8c92LbEa+zcgE5RKL
+RjMWm/ZylriszvK1pRqguVFyLauoQMxbPxYBMUzR4oW/42PFCscCHeq70yXlnbow
+t3IZ2h9y6jIpnKti4YSwLe6vHqy1N57YVq1NxigFSGThA6wFfh/mnPts/8c/wHF0
+OsHPbBD97iWsYrs78pXxUsGr
+=Aaje
+-----END PGP SIGNATURE-----
+
+--nextPartKiOmKHBbRlSSdhbtK6AHkQ--
+
+
+
