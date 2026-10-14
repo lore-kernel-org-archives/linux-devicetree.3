@@ -1,87 +1,38 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-107.mta0.migadu.com [91.218.175.107])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 572475616BC
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 16:36:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D90515961
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 16:41:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.107
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791995781; cv=none; b=H+YEYbPBgKgXxCYk8v9w1ncHyBxUzUCOqfZOOSLYAzwMWwOAt7RAfNXxS+hylcZZ0mKCNrZA6lvifaPEXPiCkvncn3LPY2Z8tjKNxOsafDibMMWDRxkJDUixzMSGH3xzpZOe1zzLgmD0ABnztLmZp6JlHSRO4Bpxhw3kLWSM1h4=
+	t=1791996093; cv=none; b=HvYTZZ9CeNOAlzDMw/vBVOVGcz5ELw5Q1cWs6tbWlKfFTLVKdAAcmTzX9PQWN8OUh0TTZtUY7cYfmvlZ8WknFU058hJ0NL+r2eahrom4vmwZhknDYIG8bgSOGJglpmRoyD2jIykJwKvzc9hm1+tXdM1dTxsNFZAiiK7BSqeNUlc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791995781; c=relaxed/simple;
-	bh=PklsOs09Vlf82YwgBbtSpUmzn87NUh90iD+8UJYGK3w=;
+	s=arc-20240116; t=1791996093; c=relaxed/simple;
+	bh=kQ75PMv+BY9OnLoeEVPyFqxTAPL+KhKo+I77xMhcgcc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=m+EL4lzXxpXdqhkHjFv5Ebf0TTIad3lhVN6Rzuy1qzissmLd/2rULbdUA0jBbd/AQ5XlKwtlZTzeSjOzauTBsddz/n+lFk/S/XcGNOzAlpO0FAn01apk12hAaSl+/DVkUHpLRJ0pCiRbu1eevWJbL7yulFK0D9fiQsMMw4a0pOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NTMjNEvY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Y6TTLrhV; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=MQYjEP6M+WgPAO3JGRoCdysHpwoS/7nLwgOJN/cBy+3e7PJhn0QUlDo7kUXVgvaycRJU7BFsCDMeolmMeSZRtNH8Y/2l+ajEvkD3MnFFRPmSVn0t0stHIcga90GN0U3+62sVqheyPH2K97ZwHxws8ex54zSg1ShWN9s2jD+W4K8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=MsOieU8G; arc=none smtp.client-ip=91.218.175.107
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NTMjNEvY";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Y6TTLrhV"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EEbEoa301147
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 16:36:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	qZE4atZVuUnxe4gh8yTrME7HVReQ6qljuMq3IYiqA/Q=; b=NTMjNEvYqdTCrKll
-	f6XgOd60FLUu0XdMAj4D7IwL++ZnvVk0xw3E9JzHsXJ5cLwEOOQq3ip4lcEj3Qsz
-	FQjLfPpM9zxfgv3zGMEYeSPgpIfndEwxOrtxSneycTU/s2FeHk06HmPPMYTlx3Ma
-	VorPWR5d7vtllaxOSeBTeEsBifuxva5XOLjtdg/zpLiQ7g7soCORo+i8zsJMNwgG
-	YxXHxU7XBSeSJsREwCIvF6zEhvS6aRW9IHeaoxldVxCCf5PaiaNXBVxwvpYdbwWi
-	wKzzxsCyVjL0f6aT2QyitUg1BKR992QBb+EQK4OC9L9HmcVsqp7eFdoRNUTkUea2
-	QRN/qA==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ha4622jfu-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 16:36:18 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-9179d9bc964so14317416d6.1
-        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 09:36:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791995777; x=1792600577; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qZE4atZVuUnxe4gh8yTrME7HVReQ6qljuMq3IYiqA/Q=;
-        b=Y6TTLrhVhlcXX5WZmRZbeD6ohqU2i5YpE2EAkHLJkWSYXHJlhj1ZxDkK2zEVvXkrTq
-         EJieSrUjxDLNFGdXgePJXqBPQrqPD9fUXEQDe562osZrld9t67GJTQjJFMbMj59QI1dI
-         5yHYC6trTqFSVCKpPmGvHfo131p5rgeDTDd+DOu5oz7EeenYq95dkvwWhK6EwQtVxgFD
-         D/J5hojQImNhJ7w6Wi/SkRLbWAlCJwU8CG4eWP+3rnShOuGy3O//XNhZrTusDXNZ/bFP
-         ciT2qy/n+0ewDoBd0LITtkfD9WdFB5LJdbVGWL18tZ+spR5a0YmsgMfd67z+O9n0vwJs
-         8duQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791995777; x=1792600577;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qZE4atZVuUnxe4gh8yTrME7HVReQ6qljuMq3IYiqA/Q=;
-        b=B7AiGH3MGe1DqaRQvOp1vs1DStcZ7tCTLYUNm7asM1w/MIKEJD6i4PT2/Q29NrAMhF
-         647lhC4Lj9utYH+Z18XRyR1YAUiZrov0EmM5m7KVI3N1PcqwhppI4r4i8e8G+ikarNHa
-         o5lMChxVTybg76ItTvTrujzP56BHT+Rq6KkIOW+h7ZBJwqzV0KgyTv5BX55TBYibbkgT
-         jJF8NtaIV00sQD+N9hZ8OkNESfD+7/vhGDIVvQcbfjek9ISohBd15nuptdK/TmVtZMny
-         84r5aJeZejOsH4F8rbH8pObN2Vlz+GLYZpR3QlZl6hLwD/14WvMBXFDUjEL4nainMiiL
-         852w==
-X-Forwarded-Encrypted: i=1; AKwUvBzX9E/TCetStbEz1u0NoZjFxHaz6sF6f3NDqN8RaI3kdbOIeAz3ZEi+HpdFXqVUo68gu8zE2EgtZkV0@vger.kernel.org
-X-Gm-Message-State: AFq9FYKy4AWpH9Y/g3+IkyxUYY2UWDn7xGUcnqcWpU0+64aZxHm/Bet0
-	KNEvuRymCRAGOkxNQHtxGKkbABBSgCDxkiw1e4U0Y2LHMem3F9HuMDrq9jmiIfrqRS+Z7SSMm6O
-	1FSYFl2bxQcoHu17BK8kpq52dOfnOvN+Qjsv6KBTXdDedcL5d8Sc3f0OkZEZzwmOm
-X-Gm-Gg: AYBFou01qWGesBAUIG7gNQwtKEq97xjYCYP146aaK0Vc9zAsrd00kCNPVayD8I9gGLr
-	z/h1NNob7FWlGjmb8Tk1hiyIr6g+GhHUoXH7jC5lAYAXYib2EiidkyOzzksgtI2y0HIwE4g0BFr
-	BJjOp89j3iEXraGWl+yAbXks/B6AQeKJzY/iQrUsj8EaZxF++3uYNonVqq3kQHMjZrKUudn/Sva
-	XyInfRmP5Wj+vXBhOqx6bdRbYdw+qZlPaRUb5sxVMim51XNtmTnsxGkGvjYe1UY5FOArqaWakbK
-	2K4vQ7iLQkrDr6qr92njkTFTh4iWadCvkgxZU+DZP742u08EAWtlkzUMQg51ImM6r6hSNEuktqf
-	MXQJCdFGtITk7BnhJEd9iYw==
-X-Received: by 2002:a05:620a:3186:b0:939:8bc:8826 with SMTP id af79cd13be357-93ebd10c0e2mr3128588085a.2.1791995777390;
-        Wed, 14 Oct 2026 09:36:17 -0700 (PDT)
-X-Received: by 2002:a05:620a:3186:b0:939:8bc:8826 with SMTP id af79cd13be357-93ebd10c0e2mr3128568885a.2.1791995775873;
-        Wed, 14 Oct 2026 09:36:15 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b20386327csm1289977a12.18.2026.10.14.09.36.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 09:36:14 -0700 (PDT)
-Message-ID: <b4c0761b-34f2-42ad-97e7-ab34ae776281@oss.qualcomm.com>
-Date: Wed, 14 Oct 2026 18:36:06 +0200
+	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="MsOieU8G"
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=kQ75PMv+BY9OnLoeEVPyFqxTAPL+KhKo+I77xMhcgcc=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791996088; v=1; x=1792600888;
+ b=MsOieU8GejELPQB8oXQZ702KEehwpVk1NSUAGj509KZOkxXo5eNCJepaJ/YuteKifIZQYZkI
+ LAOlwOis9kUDG7Nmyg3M19OQIHYRwjOeuVG2GmHB3aF3yB3J0vLmSncpSBgfV6fjZ6qrd+60w6F
+ ob9OFUTVW8QwncRsah8TiUOe/JxE3ouS3l/2ax47QVaUjqJwhwF/m/ywYMoFxM7wMAuy94qe3/h
+ hleDlYsc2Sjcch8KM51WPNmB3Bn1BYxS0II3bJS2+TZRzDKBCaZgZ0CrUnTLF6d4ekOedWJ4VZR
+ 7wBQPdJVxe4CD6D80pW1aUKuwL/fd+awHvVz8j2qHHLQw==
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 454a9d4a808200d2;
+	Wed, 14 Oct 2026 16:41:28 +0000
+X-Mizu-Trace-ID: 454a9d4a808200d2
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <12d14e1d-8355-4b3b-9eef-bd5e90dfd19f@packett.cool>
+Date: Wed, 14 Oct 2026 13:41:19 -0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,120 +40,72 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] dt-bindings: usb: snps,dwc3: Fix downstream port
- numbering
-To: Neil Armstrong <neil.armstrong@linaro.org>,
-        Chen-Yu Tsai <wenst@chromium.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Felipe Balbi <balbi@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, linux-usb@vger.kernel.org,
-        devicetree@vger.kernel.org, Kevin Hilman <khilman@baylibre.com>,
-        Jerome Brunet <jbrunet@baylibre.com>,
-        Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-        Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
-        Neal Gompa <neal@gompa.dev>, Joel Stanley <joel@jms.id.au>,
-        Andrew Jeffery <andrew@codeconstruct.com.au>,
-        Ryan Chen <ryan_chen@aspeedtech.com>,
-        Billy Tsai
- <billy_tsai@aspeedtech.com>,
-        Michal Simek <michal.simek@amd.com>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>,
-        Peter Griffin
- <peter.griffin@linaro.org>,
-        =?UTF-8?Q?Andr=C3=A9_Draszik?=
- <andre.draszik@linaro.org>,
-        Tudor Ambarus <tudor.ambarus@linaro.org>,
-        Heiko Stuebner <heiko@sntech.de>,
-        Alim Akhtar <alim.akhtar@samsung.com>,
-        Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
-        Masami Hiramatsu <mhiramat@kernel.org>, Yixun Lan <dlan@kernel.org>,
-        Troy Mitchell <troy.mitchell@linux.spacemit.com>,
-        Minda Chen <minda.chen@starfivetech.com>,
-        Shyam Pandey <radhey.shyam.pandey@amd.com>,
-        Wei Yang <yangwei1@eswincomputing.com>,
-        Senchuan Zhang <zhangsenchuan@eswincomputing.com>,
-        Hang Cao <caohang@eswincomputing.com>, Li Jun <jun.li@nxp.com>,
-        Peng Fan <peng.fan@nxp.com>, Roy Luo <royluo@google.com>,
-        Yang Xiwen <forbidden405@foxmail.com>,
-        Ahmad Zainie <wan.ahmad.zainie.wan.mohamad@intel.com>,
-        Robert Marko <robert.marko@sartura.hr>, Xu Yang <xu.yang_2@nxp.com>,
-        Wesley Cheng <quic_wcheng@quicinc.com>,
-        Stanley Chang <stanley_chang@realtek.com>,
-        Ze Huang <huang.ze@linux.dev>, Aswath Govindraju <a-govindraju@ti.com>,
-        Roger Quadros <rogerq@kernel.org>,
-        linux-arm-kernel@lists.infradead.org,
-        linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
-        asahi@lists.linux.dev, linux-aspeed@lists.ozlabs.org,
-        imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-rockchip@lists.infradead.org,
-        linux-riscv@lists.infradead.org, spacemit@lists.linux.dev
-References: <20261014082037.1774672-1-wenst@chromium.org>
- <20261014082037.1774672-3-wenst@chromium.org>
- <7020a7a6-332e-4fd0-a659-d82eb768614c@linaro.org>
- <CAGXv+5G1kgyumbj7wGf6rPFbg3spSO0zYmEkn-hZT4qUdJbytA@mail.gmail.com>
- <03375a31-0ac6-47a4-b0dc-6327080e1622@linaro.org>
+Subject: Re: [PATCH v1] arm64: dts: qcom: talos: Make the ADSP remote heap
+ no-map
+To: Jianping Li <jianping.li@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ ekansh.gupta@oss.qualcomm.com, quic_chennak@quicinc.com
+References: <20261014083820.468-1-jianping.li@oss.qualcomm.com>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <03375a31-0ac6-47a4-b0dc-6327080e1622@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+From: Val Packett <val@packett.cool>
+In-Reply-To: <20261014083820.468-1-jianping.li@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: aJXX_da_lap7ENodcVAxL-mTkAoL74NW
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA2NiBTYWx0ZWRfXw53CmEzTnAI5
- 9MCRoF2BrsMy8YncDdVEOvQRiAB9T+N+Us9psr2dxHVwk5ym6QbQ3CD+pRVFoDWr62o1tQL502x
- UVZRKLI9yYKiePq7i0idnbY6n2w5WUG9jVAtDqVD3WBHWQ2cj0/0/+F33cnTc4wEWg1GjrA3rj2
- t93xLFMxh5pLsHn0kgAy9/sMCYNFAHVJxl8+pErsIR5DToipC29RV1W/AYvRiBctjEM1rtoW00K
- 7H5x0ZBKyyMbK6/WvQqjwkVaOzPk3nfiioD6G9Gr4Td0p5zJ9C72jhxVge3o4RLDuYVDz8n1lsv
- eWbqwuy6JCFjRUv3c2xYR9OwkHtpUkCvXQ5aVueXgLpsudxXB1qyrypGluNM27JgeYmELnCb2BG
- XNQ0vXt8446G8W6PgXu5W5b17AwqmsT6fbPWEACYl6u083j6INZjpaQet1QwvffirxDSLLnZxuV
- tyl7YAL+KW99g9pKErg==
-X-Authority-Analysis: v=2.4 cv=ErZHPicA c=1 sm=1 tr=0 ts=6acfaf82 cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=KKAkSRfTAAAA:8 a=auHUQpDKApYGa_LtnhgA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=1HOtulTD9v-eNWfpl4qZ:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA2NiBTYWx0ZWRfXwXGqD1GNTnQo
- L3uLSetpKkhFeLigGDHA9/YH+phYf0ohXUwt1qjDSSWLtGHXKAbes25ejXE9jT4LhA591MQxQ50
- EsAY2yiI/r+90Yos333D+BpAwRp3OLQ=
-X-Proofpoint-GUID: aJXX_da_lap7ENodcVAxL-mTkAoL74NW
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 bulkscore=0 impostorscore=0 adultscore=0
- suspectscore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610140066
 
-On 10/14/26 11:44 AM, Neil Armstrong wrote:
-> On 10/14/26 11:29, Chen-Yu Tsai wrote:
->> On Wed, Oct 14, 2026 at 5:28 PM Neil Armstrong
->> <neil.armstrong@linaro.org> wrote:
->>>
->>> On 10/14/26 10:20, Chen-Yu Tsai wrote:
->>>> The DWC3 controller can operate in host mode. It does so with a XHCI
->>>> compliant host controller. The XHCI has two downstream ports, one for
->>>> HS and one for SS. USB downstream ports start from 1, not 0.
+On 10/14/26 5:38 AM, Jianping Li wrote:
 
-[...]
+> The ADSP remote heap is declared as a reusable CMA pool. FastRPC
+> assigns the entire region to the DSP through qcom_scm_assign_mem()
+> during probe without allocating the pages from CMA. Consequently,
+> the pages remain available for movable HLOS allocations even after
+> HLOS access to the region has been revoked.
+>
+> On Talos, GPU stress testing triggers a synchronous external abort
+> when zram accesses pages within the ADSP remote heap.
+>
+> Replace reusable with no-map to prevent the region from being reused
+> for normal kernel allocations and exclude it from the kernel's
+> standard memory mapping.
+>
+> Fixes: b0b51a5f1911f ("arm64: dts: qcom: talos: Add memory-region for audio PD")
+> Link: https://lore.kernel.org/all/20260424-talosaudio-v3-1-9e2ad5d78a2e@oss.qualcomm.com/
+> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
+> ---
+>   arch/arm64/boot/dts/qcom/talos.dtsi | 2 +-
+
+This also applies to: glymur, agatti, sm8250, kodiak, sm8750.. (at least 
+those I've found by grepping for the adsp_rpc_remote_heap_mem label)
+
+I've been hitting the SEA on a kodiak phone (sm7325-motorola-dubai) 
+constantly with just light everyday usage:
+
+Internal error: synchronous external abort: 0000000096000010 [#1]  SMP
+CPU: 7 UID: 10000 PID: 26485 Comm: pool-24 Tainted: G   M    W         
+7.3.0-rc6-next-20261009-uwu+ #167 PREEMPT(full)
+Tainted: [M]=MACHINE_CHECK, [W]=WARN
+Hardware name: motorola Motorola Edge 30 (Tianma)/Motorola Edge 30 
+(Tianma), BIOS 2026.07-gca7686425f32-dirty 07/01/2026
+pstate: 60400005 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+pc : clear_page+0x30/0x70
+lr : prep_new_page+0x94/0x178 ...
+Call trace:
+  clear_page+0x30/0x70 (P)
+  get_page_from_freelist+0x1bd8/0x1c00
+  __alloc_frozen_pages_noprof+0x1cc/0x3f8
+  alloc_pages_mpol+0x124/0x210
+  vma_alloc_folio_noprof+0x124/0x200
+  vma_alloc_zeroed_movable_folio+0x3c/0x50
+  do_pte_missing+0x9e0/0xf80
+  ...
 
 
->> IMHO having consistent numbering across controller types would be
->> better. This avoids making the USB core and hub code deal with more
->> exceptions, and also easier to understand and write device trees.
-> 
-> I was in the impression the port number not necessarily reflects
-> an actual physical numbering, and can be a logical number we would
-> then map in the kernel.
-> 
-> I don't see any issue here having base 0 for the bindings and then
-> converting it to base 1 for the XHCI port numbering.
+This no-map does seem to fix it.
 
-I thought base1 comes from the USB spec and not just XHCI?
 
-Konrad
+Thanks,
+~val
+
