@@ -1,292 +1,337 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010046.outbound.protection.outlook.com [52.101.69.46])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2DB14EF14D;
-	Wed, 14 Oct 2026 14:14:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791987283; cv=fail; b=fMFB7pjgPRrA8FaAIHCNfwhElJPdpM1jhNEO8uDPQh894oSaMpb8ZU24UGuBIRXdp5/5vsGJ3uR4Sspry3sKMcN6nBAqjqUcvS8YxrRY2uoFVB0M9B97hOyVC1XkRNlWzQhKFqtodpanyyjOP6RvegrEfI4FFzGxabKBtyH/Z0I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791987283; c=relaxed/simple;
-	bh=PN/79TtKG1Twx/if6loW28TPYH3F06rhG3sa7PcQiGA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=HK9jsbNIchweXOo0vKvx4dSX9jq8spLRSowbW07PiYNsA7LIjHjAtrq7yldKrvQyZzAArAc9KvBulNq4f+fdPyHxUnfYAPEnsNGJnDaWJxfRp6DHDJtrPctOpW4zdtfICdtWJeF95JQEON/jPOw85U9/hVlCsW76ea2BUyzGJRc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=I2nuYJJv; arc=fail smtp.client-ip=52.101.69.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 867374E3234
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 14:17:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791987427; cv=none; b=A/thhbkkpibaB4wUf0sKqKvE2pFT2BZ4SubUTG2ZCVA0RpWWR7y4eOoyRdiFQbUVbADBnuH1obDuzO+EK/CgWojhfVxGHmk4vqkeU6RU3Xyqvq/M6LP8vAmW+tp5EdjIhDkVbiRsTqeHr3haKu1c/kHidTY7YcXH6P23YtwMaOI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791987427; c=relaxed/simple;
+	bh=bgHFfuc6EdWx8rSax2do4tdHnzY0R4ikfH/Rh1vNpvQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Qx42vehxtPkFePyt1bUwQQ3ARL8ttRD1pTg570X06Ka5LUA2yJz8oT6adXt2tV59LXIBG969z0GwwFV+ARHBU4XBsabO9gb8/seGUXG4lrMxG9JC9evb+UPLHhVSQOol+rYdv8Hr36BWPcsTeBaYfe7aCeDLYDys48IQukeZCA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jbunqgzc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=j+ENacVA; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="I2nuYJJv"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nLqBHUx2iXyUx0YPWorspLmuqp72cNpoiVctqwPnb/baq+b8JFJmiu/UDyh66GWBbd+SkCQzwTkShHoageKaL5oUoC2lrahVG/ymRXJAdRjJSE+mZg41BoXBmA+UkHWlp25pH5vR4I3PK3W5l1SBGjCHSy5Xq8D01KgTif7Q0NTG/GnOw6MOaIucLtb3iaAxNKrl0EFC+lYbVSCBI+x4Bb3zCuzTHfqb4n9gTKxN9cL9IR7oL/uPt54P+nu2Vofz27H+X8VC1GvCPYaDMDx9/0UDq0Dx0i972gOqQz2vPTGlX8+wfKQ289em3ZZgmCFmikK2+gTe75iQPOK0BuIlxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y98FdFXP6lNVVSuw4Al/ZqHmCmhFcPmxUMackPfNcdg=;
- b=rz1sxN1YScoJ6mg8zc3LhW9dYVu8DW6UVuTxIFsJQf1qyGPyPGieqNRex3iqSwp6/F6oQ8dPr43CXguGGymRmEDjUUT5lKokPmi+JLPQzGKZAp08DtghWVbBBwgE1QF8CVny48Ios/i0PYhQb/yVDiN1UVElLsG+R9FvBkSxvyM8UzVjKLXr7UDukrZ1adzWZ5RueZmlCeC7CcwfH1eXLl1FuqzXpIlgw9zZXWW6p5B0SbrGwsIMlxndZPUsn6TBm5vizar4FjifOfgp8XLEhrh0xJyZ2ELgUYXTJK4R5ODJUaTh5Zu3iQL7AWI2h27xEGsGOGx+2e517cXpczsYEg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y98FdFXP6lNVVSuw4Al/ZqHmCmhFcPmxUMackPfNcdg=;
- b=I2nuYJJvOlctjIeY2K098zVxLJD3Y47lq1ElZY3skq57E3RuHS2Ll263lQyfxS7+skMWYLF3jcbyrG7p95Fe52Ob5D5M2HAXfeXONgFBXPztdE3JvL/lKfjD4gThvzMtaWahZmqUNLM1ai3KRJyZT91y/6n1lA3vv/RYGU7QL92GTmxcdEtMUHQsiW0m6mjg+bfwVmr8tpnOs+SfdLMnquIFg8B+ESPbIsbcfaWSk/FVI8DW1Tq6GXrlM+If+cWHE4hwNhvH/78obPrY0/gaEiu4Wnc1PTHrTtmne/O3B+evdmY/UQYOL68tYEPvSUQfSXN05+6lKPQQZMxWuS0tbw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by BR0PR04MB672694.eurprd04.prod.outlook.com (2603:10a6:2c8:49::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Wed, 14 Oct
- 2026 14:14:32 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0522.012; Wed, 14 Oct 2026
- 14:14:32 +0000
-Date: Wed, 14 Oct 2026 09:14:15 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Jan Petrous <jan.petrous@oss.nxp.com>
-Cc: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>,
-	NXP S32 Linux Team <s32@nxp.com>, Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Bogdan Hamciuc <bogdan.hamciuc@nxp.com>,
-	Ionut Vicovan <ionut.vicovan@nxp.com>, Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Clark Wang <xiaoning.wang@nxp.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Chester Lin <chester62515@gmail.com>,
-	Matthias Brugger <mbrugger@suse.com>,
-	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	imx@lists.linux.dev, linux-pci@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	Vincent Guittot <vincent.guittot@linaro.org>
-Subject: Re: [PATCH RFC v3 01/12] dt-bindings: phy: Add NXP S32G SerDes
- subsystem
-Message-ID: <as-ON6s8sNjQC9NP@SMW015318>
-References: <20260919-s32g_serdes-v3-0-9d68868c1e89@oss.nxp.com>
- <20260919-s32g_serdes-v3-1-9d68868c1e89@oss.nxp.com>
- <as0tiQwquNkdlF2i@SMW015318>
- <as5C7o1joORcdesQ@lsv051416.swis.nl-cdc01.nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <as5C7o1joORcdesQ@lsv051416.swis.nl-cdc01.nxp.com>
-X-ClientProxiedBy: CY5PR19CA0063.namprd19.prod.outlook.com
- (2603:10b6:930:69::6) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jbunqgzc";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="j+ENacVA"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EBVQwQ2515931
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 14:17:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	c23MFofHP0klFIrGtzPvfehmbgdnuZ+gVK4BzbRbTsM=; b=jbunqgzc2+ZMmLGg
+	qrJcujJBn4ImqbJeT7hSI5C+Wr2JE+nO3OoEothkkYkrghXs4apP/kczkvCoFrdC
+	0LVtX6j5mOU8dBHIDrbiuKY0eMeBq0aTaF2BPTRAKzWcRjYiInvllL3tU+4aKelr
+	D4P4QWoyyyllQEkrQ9IcAoC+KfPAbkZp186EGQ5AmtkjuVKIOVwjG52iVO6LbVzO
+	uVJBfCcgWbA+bBAFyX8L/oUefCG8jSrtlM0ry0VA7V3pTjVYVSzFqWrRDrMai3re
+	lpu0RjuJhhE26iQbsR/aZI2ts7JjS2z/yRF/C1bdfHDkBdsnP2WphcQ8T10TySge
+	mGL3lw==
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ha4709xfk-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 14:17:04 +0000 (GMT)
+Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5c7c0d2b0aaso1761550e0c.1
+        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 07:17:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791987423; x=1792592223; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=c23MFofHP0klFIrGtzPvfehmbgdnuZ+gVK4BzbRbTsM=;
+        b=j+ENacVArUa//d8J0OOdWcJKiVDHF2uC2MMvho5sFv/2esrppyLJk7F9OlzXx5mQeo
+         ktlNFnWHEIBzPvSTt4PysdbAkC5JUV33WsB8dfgro2OA4K7rm4DxbwOe+g5pfE6a5Lxx
+         B7qEDPvZLcwxyU3w4poChHpXezPjVe6aohCXssj2FIaPvnLhHs3TboOv3VVpaMzigLy2
+         FkfUUTAksKsnQl1QEYd5neQfBhOzetzVqFsl+93jfM9lCJSArxv4z44xYfTZ3yuw6Wj5
+         npLb2DIzfHQQEY+8pbrD7oURBA1KFjzgDsbWTPatJw0jqdysA1hYOY/CYvhXdI1CcCxV
+         XlKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791987423; x=1792592223;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=c23MFofHP0klFIrGtzPvfehmbgdnuZ+gVK4BzbRbTsM=;
+        b=mlyQWgXFkmhAsQlhfKyAOwa+zCJ59KCWYQ1iwqGP8rbr4KHwv2h9PRVf/ZjFLDUKUg
+         rI2sneBViIORD7HgbL0iLHg9n33el3U9kOwXj0D54h0T7oQ/2KilB9ajy7flsXoh1xqC
+         N4/ZY8BdGQ+C4fX3PFOEE8oDHjWgoN1yJADH0+ZkNFjSi8gjEbBfDhfjorE3Cs3PHmDz
+         xXXn+DfuBXuZ44LIVR6tABSHdTIvdrIfUUoAU4MFTmqmUuw8/ASXm6igb/zI4kH1jbrV
+         ckFWbimujwhYxhqC232COxFNQ6Cc8ZHk+PlF+DVwjfZba8FyelNwL6Qaj+2gC+ngnv2l
+         w4sw==
+X-Forwarded-Encrypted: i=1; AKwUvByMAOougA+lowJsqddtgy2DU3Mnm20q1nencGPGOD+SVpTp2W8fHeITYZNRJvjxPCUqX7DkM742UBZr@vger.kernel.org
+X-Gm-Message-State: AFq9FYI0m7/sYfY7bjZxI5W0r8pnKBdRrRAbGkjcGXhm8AJh/dDaYnGT
+	Mle154eEKb0OyaRdkL0jx5GxlN2xkr9b289DtgCRe3lpY4zNLoOHJN7LnP3tCI2kNDZ0LoWOuZR
+	cnOoM7NRMLF0K5/27v8H3B2CTES4Gb3uqF4MSmgXZ/0Yrrrl9U85PVl/NWhFTDCNX
+X-Gm-Gg: AYBFou2T9zTKqAi496XXLt9e5vty/xSZpTG13nstJ1jrnv/IznhuAKmndxIy0Sxlpj9
+	05NvF86CTb9IT2hVHRZj/bWx9JpQgz0nW7T3PLy6aPwlEAUocdN/hTucKR5McSJTogsKs+6FQhx
+	VJDQFbvMh+OUefjKbtfIELZzXEQPscAzfLDyXpoX1ITz/MjpQbvgK+IqdZNt8jJtTJWvTKQGCX5
+	d6oSkhY0DmopRZS+AC6ptWmcXsrX8UrAKocvFXZh2o/ru9NGF4Y/OhcBjBZSRNS+1j5OVvZUte0
+	o7wx8GOznKZxRUujGPvcbVmdjblsery+/I5FDAVQ641uPMl2lTgaFkm+3RPunY7LeTgMv4yxdoc
+	G+RJyeG/wR0yLiOb0flN+sn4sP580+uGYWUwuoQc5b7hmZFGONw4+hPccmLMbGDhzVAkyySALvI
+	N1DQOJE8Sb149HIV0FJxCMCcrlsmd+dP1xGSGF+AVHy6wUmbmx4SwbffoYo2a1+HS84V8=
+X-Received: by 2002:a05:6122:9001:b0:5ce:d56f:efac with SMTP id 71dfb90a1353d-5e91f54fab5mr5102418e0c.21.1791987418613;
+        Wed, 14 Oct 2026 07:16:58 -0700 (PDT)
+X-Received: by 2002:a05:6122:9001:b0:5ce:d56f:efac with SMTP id 71dfb90a1353d-5e91f54fab5mr5102224e0c.21.1791987413320;
+        Wed, 14 Oct 2026 07:16:53 -0700 (PDT)
+Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec? (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl. [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9ae46f0sm721182966b.79.2026.10.14.07.16.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Oct 2026 07:16:52 -0700 (PDT)
+Message-ID: <46ba46c8-c84e-44d9-8729-9298867b19fd@oss.qualcomm.com>
+Date: Wed, 14 Oct 2026 16:16:51 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|BR0PR04MB672694:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5e211a71-4092-4569-dc7c-08df29fd777b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|7416014|19092799006|366016|376014|261009223027099003|10067099003|3023799007|4143699003|11063799006|5023799004|6133799003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	iqMi9E1CI8+ZHT4bf1CGCFjhTyhtGc7XZ1Nau/DLYqSUFE3to6qHDos+vLxmA4t/N+oVTc1h0dX7+wqrggRRvN0Ygp9pQFNgzZR65pDZ+EHGtnH6Ey6yZLXe4FPGs6aFDLK8rCNMdHq0vL9tddzs215wT0J2cjcNX9H8c+r0eaU+EnSpUxr7aWkQq9r02fJB5lE1UKvV2mAe7sHfemHyfaOTwJutYWM+mZxnx7xi9pZw0qcwe9RsW1vsQ5Gcn4nko/rdo5JwJZaGJMTsys5dKlv+kt1m1LwhxkmNr14cFxqt62YTI4X2PuuQ7Qwu5LcIkmit81zOiDjtzBbAQOr0Zqn7P8w0ddYa60dbNl0bRClDt0Ban3Mu/bpokGssZz+Y/IA299o/s4FLlvfo+zlfgv/P+52Sr7kDGTTtFj+9ufeK2TTKq5iEw13cnO4VqfMTVj5/aCCW0CZqxpOhDtqg1Z1gXEM2hOfTcB5WEHUwtDQveIuXypokEqNlDVjTtml4rQt82/zKxNPK4N4YqeIaeHRJTdsPhWJq3QzBvInNCuIqcWuLdrbZiZVMv+5+XhCA8ESpMD6ts7cAy3fzcRLzlF6hlTq+pUS9FHUpSh3D7CyMtJ5b9dwDAUNGEVc6/Lto
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(19092799006)(366016)(376014)(261009223027099003)(10067099003)(3023799007)(4143699003)(11063799006)(5023799004)(6133799003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?qZb3KyE7u/U2W2UkG+hqSgnTIuPqUukPgDfjVESg+bn/zCqEDjfdJPXi/1Uw?=
- =?us-ascii?Q?ABiZ3+7qQXMKoJ8bQ8EBZV9ox7isY8PlkHkcKaTiKqOoeA3zIiMATcWRnuxw?=
- =?us-ascii?Q?smBWUtS97w/rAFPwdsa/Qqeu+2jES1epyMsdNW9j1K2/d5Fpr+Q7YxZIhWaT?=
- =?us-ascii?Q?uroObGNeKhIxtnfQB0nYJ590sxFlAa5SWKon/bJJ4x6YhB/vj0ogBpObz/z2?=
- =?us-ascii?Q?vd5F7oDXD3nczv6KjaenuVkQCuPJuWIHZ+GZwkjzlTVn+ubAR2hJKPwMXJod?=
- =?us-ascii?Q?TgJK4FyoC92tX1GoimpIFA1AADvxBOZ03X2aztgkJheB7eOK4CimI0wR355c?=
- =?us-ascii?Q?1RBvLq9Bgcs1JkL1liIXuOueKglrkv1EwKzWFKjTirfPt/J8GZnXFYxOLefu?=
- =?us-ascii?Q?Kx+gNAU4RiziFqUiB/pEiKhCmBd/hJJzc3DRi8WNkUiNr1+Ys9t2KbjN5Uxg?=
- =?us-ascii?Q?nmuzlxoyxBRq0/HqGjt1lplLmcdewz57nBbz7NUeSiQ20sh/dCiUyBMxu2rp?=
- =?us-ascii?Q?5Wni5dLXLq+RI3D1LnoAiUg+HM08rN9qivte5LbMNHr2HiJqj1OdO9tDdI3Q?=
- =?us-ascii?Q?i+JVudZuyE9HNULxhNuJ3QrgRnTLb236s1FSqutY4OCUHYNDS6Ip7AGspsyJ?=
- =?us-ascii?Q?dOYI1V1UIKXZtEL4S729QLH2Z1dCKEsunBevUlDgKeMLfxbp6x0P+NJooJML?=
- =?us-ascii?Q?uLvBPdZ+KIYJuMvu4qGUWQlnjLmujahl4JxNQjbtcwgDvnp5GNNVREkPHJ67?=
- =?us-ascii?Q?9/s0x5nEfZ7YG3JemVXGqyuCdZ2qQJS7nXokdW2qA5JdxiPsDYVsJhac6i8b?=
- =?us-ascii?Q?vQuqUZfvnNrZtaYnG6MI14pSvX5MBWeaH0hoosrzqzHXcvSND0pkoudNqNhI?=
- =?us-ascii?Q?1M+nYDaBSksQMISFEKhsNgXdC8U40qJoYmCgzs7e68df4RN84dAewKxqQDc/?=
- =?us-ascii?Q?XwfylmJbom+73OVTOh60v/ddw9biqeczS4riePbwyX4DSJH84e/y6y2cLhFi?=
- =?us-ascii?Q?UVq0TneAbx9Vb09mY4jtJUlvi2o3TQzTh56sFGfXYcB5A2m5kFFfZph132UQ?=
- =?us-ascii?Q?ZA2V8pyxUXSmsx9NO0xSkSHW1OfqyO4/OnjtQ/u9FNPof0iXDjczZVT7bw7l?=
- =?us-ascii?Q?beoxpKZLbMnpm+TpABPhOlnsgRbYatCNujIUcXBNqm5GfzuqjVDL/2qYaNec?=
- =?us-ascii?Q?nFQtNJ91EzvVadwanwA3mBQcQOoyXKdymnN8egzruwTOI+Y796LxuNi4Eh8l?=
- =?us-ascii?Q?ohKRlLxgazVoD8j7gF1Fnb48ELCUkAipnPkCmsr1qKCeR6d6SePIrXna3cgs?=
- =?us-ascii?Q?rJPE6gTcnb+j4vOWFqoVOpQPpc8TTuy3Wp1N3JtT36izvKk04mcOsIKCaxlx?=
- =?us-ascii?Q?CVQ6NIwhX4OVmocsvSYAgEGRyw0u7OPhMv9tXDjmHPfIM1vCLpUNSwIN+Q07?=
- =?us-ascii?Q?dEiLDEyDrwHD06lbLB5a5l5Vs8B6trhQgdX+oG+GbM9KhGwnVoyYGtAYGgdb?=
- =?us-ascii?Q?rbp0CtDKkNc5azwkf1tvyVnd83fkAtw7/yf4NeEPdTf6bksnyL1SUiCTth+b?=
- =?us-ascii?Q?winbqyNMlR4b1QwTlOGbJ3Sev8y7oO0eGbyXKbnNzO9zq29tKlQvbkBkOlaD?=
- =?us-ascii?Q?UX3ZQY6MnzkWJClcgrw+Nh4zL6aDqBn4MzZHxWbP7Jsh9zxON88Y68lur2D8?=
- =?us-ascii?Q?32fdr003fPJRi1bAnR1KO34+HNZz01th8hgNoi6TPG3m4v+cViy4Am4xyjrZ?=
- =?us-ascii?Q?C8LyZ8bm+0sozq690SUzeNBsfobjyidkp+vXTjKmPJaJWro9abVY?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5e211a71-4092-4569-dc7c-08df29fd777b
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 14:14:32.0856
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0M9bjZCrrVK6Oix02h3lHDishrjZt1IeTyhBLKLynv+l5/rcuM6ULuFvCpWDPHRdNJ0+qqxZmKFK4jm6aG521yZWrfKGP9Upo4WGsS35foYgrYo3dlXKxKBoVRHzb5ju
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BR0PR04MB672694
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] arm64: dts: qcom: x1e78100-thinkpad-t14s: Add thermal
+ zones for PMICs
+To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>, andersson@kernel.org,
+        konradybcio@kernel.org
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stephan.gerhold@linaro.org
+References: <20261001181055.9149-1-daniel.lezcano@oss.qualcomm.com>
+From: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Content-Language: en-US, nl
+In-Reply-To: <20261001181055.9149-1-daniel.lezcano@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA1NiBTYWx0ZWRfXzz2H7zeaNy31
+ LDWHnTCu0Yj3xFh+Is8uRy3R/av6jVdTUJzIX1aPNk8W1JQdRSNIOreX8GNJ0/RQirNyvTBoOOG
+ Aq5jAiKlY3YV/96VuKg6CRclfcx/m6Y+E87eQIoER1l7zPMYEGn+rJlcY5OFdxdtWZmpUsR9o9o
+ HmeRp0KEviXQq8AJjv4CMG3FZQxzIsGVUF6JZFZ/ypZHekEPTcnTOO1tLvKA6N3PUP7I/Q9dYrj
+ ByNpg716szefg0voxaEizStqFNuy4kDDsaIJGb9a/YGiz9ZJhexY7ZF55TmOLNYRkTc6VmMCfy3
+ DFdoDINTbNUyuF+CqAb/BqHI79sxFubnhkE3KGJyvvOGe3i/MMfE5EM1k9G/MfZ6ehyC564UkHU
+ zi8FwvzN9M3mh8adx2hIqS6n7j9kRZaONEZeAf/t5XttWFNurMpD1qAA98yLZr0kip+nkqEPppb
+ ScPoJAFO59aSDL4aYBg==
+X-Proofpoint-GUID: N2lH7Ef__Eg2PbwB78G3wM5TzlbXL3RO
+X-Authority-Analysis: v=2.4 cv=P6avFSAu c=1 sm=1 tr=0 ts=6acf8ee0 cx=c_pps
+ a=wuOIiItHwq1biOnFUQQHKA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=ISy6eMC9JirD1J4fssoA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=XD7yVLdPMpWraOa8Un9W:22
+X-Proofpoint-ORIG-GUID: N2lH7Ef__Eg2PbwB78G3wM5TzlbXL3RO
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA1NiBTYWx0ZWRfX6ePrayEro/ti
+ aATjaxB93Vca/lkbNpQVwPczlkpHX8BFgRqUbQAyrOFQdcJcCYTEluY6sqKQDALc4rKXR3tj+nm
+ SfrQKm5cxMFP8Ebe6XkSKt2fdd4h+ko=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0
+ suspectscore=0 clxscore=1011 impostorscore=0 malwarescore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140056
 
-On Tue, Oct 13, 2026 at 04:40:46PM +0200, Jan Petrous wrote:
-> On Mon, Oct 12, 2026 at 01:57:13PM -0500, Frank Li wrote:
-> > On Sat, Sep 19, 2026 at 08:54:29AM +0200, Jan Petrous via B4 Relay wrote:
-> > > [You don't often get email from devnull+jan.petrous.oss.nxp.com@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> > >
-> > > From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
-> > >
-> > > The S32G SerDes subsystem multiplexes two lanes between a PCIe PHY and
-> > > two DesignWare XPCS instances. Describe it with one node per SerDes and
-> > > one child node per lane.
-> > >
-> > > Compared to the previous revision, the vendor nxp,sys-mode property is
-> > > removed: the SS_RW_REG_0[SUBSYS_MODE] value is fully derivable from the
-> > > child-node lane mux and the XPCS instance routing (nxp,xpcs-instance).
-> > > Each working mode described here has a unique lane mux, so the mode is
-> > > a pure function of the child nodes. The reference-clock rate is
-> > > validated against the derived mode; it is not used to select it.
-> > >
-> > > The 3.125 Gbit/s working modes are deliberately not described yet.
-> > > Distinguishing them from the 1.25 Gbit/s dual-XPCS mode requires a
-> > > per-lane 2500BASE-X capability that this binding does not express, and
-> > > the reference clock does not distinguish them either - both accept 100
-> > > or 125 MHz. They are added by the 2500BASE-X follow-up.
-> > >
-> > > Only the PCIe lane child gets '#phy-cells'. An XPCS lane is not a
-> > > generic PHY provider; the Ethernet controller references it through the
-> > > standard pcs-handle property instead.
-> >
-> > Is it possible Ether controller use standard phy interface? of use standard
-> > pcs-handle to phy convertion
-> >
-> > pcs-handle = <&pcs>
-> >
-> > pcs: pcs = {
-> > 	compatible = "pcs-to-phy";
-> > 	phys = <&phy ...>;
-> > }
-> >
->
-> The MAC needs a phylink_pcs, not a PHY: the XPCS does the C37 autoneg
-> and link state. pcs-handle is the standard property for that, and in
-> v4 the XPCS is driven by pcs-xpcs. The lane mux is fixed before the
-> SerDes reset is released, so the MAC has nothing to set on a generic
-> PHY, and a "pcs-to-phy" node would describe a block the SoC does not
-> have.
->
-> > >
-> > > S32G2 and S32G3 use distinct compatibles without fallback because the
-> > > full reference-manual mode tables differ per SoC and per SerDes
-> > > instance.
-> > >
-> > > Co-developed-by: Vincent Guittot <vincent.guittot@linaro.org>
-> > > Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
-> > > Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
-> > > ---
-> > >  .../devicetree/bindings/phy/nxp,s32g-serdes.yaml   | 258 +++++++++++++++++++++
-> > >  1 file changed, 258 insertions(+)
-> > >
-> > > diff --git a/Documentation/devicetree/bindings/phy/nxp,s32g-serdes.yaml b/Documentation/devicetree/bindings/phy/nxp,s32g-serdes.yaml
-> > > new file mode 100644
-> > > index 000000000000..6343d01bfde4
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/phy/nxp,s32g-serdes.yaml
-> > > @@ -0,0 +1,258 @@
-> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/phy/nxp,s32g-serdes.yaml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: NXP S32G2xxx/S32G3xxx SerDes PHY subsystem
-> > > +
-> > > +maintainers:
-> > > +  - Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>
-> > > +  - Jan Petrous <jan.petrous@oss.nxp.com>
-> > > +
-> > > +description: |
-> > > +  The SerDes subsystem multiplexes two SerDes lanes between one PCIe
-> > > +  controller PHY and two Synopsys DesignWare XPCS (Ethernet PCS) instances,
-> > > +  behind a shared 2-lane combo PHY. The active routing is selected by the
-> > > +  SS_RW_REG_0[SUBSYS_MODE] field.
-> > > +
-> > > +  Reference-manual working modes described by this binding:
-> > > +
-> > > +  Mode  Lane0   Lane1   PHY refclk (MHz)  Description
-> > > +  ------------------------------------------------------------
-> > > +  0     PCIe    PCIe    100               PCIe x2
-> > > +  1     PCIe    XPCS0   100               PCIe x1 + SGMII
-> > > +  2     PCIe    XPCS1   100               PCIe x1 + SGMII
-> > > +  3     XPCS0   XPCS1   100 or 125        dual SGMII, 1.25 Gbit/s
-> > > +
-> > > +  Which Ethernet MAC an XPCS instance feeds is fixed by the SoC integration
-> > > +  and differs per SoC and per SerDes instance - on S32G3 SerDes_0, XPCS0
-> > > +  feeds GMAC0 and XPCS1 feeds PFE_MAC2, while on SerDes_1 the same two
-> > > +  instances feed PFE_MAC0 and PFE_MAC1. That mapping is a property of the
-> > > +  SoC, not of this binding, and is resolved by the driver.
-> >
-> > Roughly look like use argument is little bit better
-> >
-> > <&phys PHY_MODE instance(0/1)>;
-> >
->
-> Rob suggested that in v2 [1]. Child nodes stayed because:
->
-> - SUBSYS_MODE is written before the reset is released, so the SerDes
->   driver needs the whole lane mux at its own probe. With cells it would
->   have to walk the tree for its consumers, including disabled ones, and
->   an unconnected lane has no consumer to carry a cell.
->
-> - The MAC uses pcs-handle, which has no argument cells, so the XPCS
->   instance has nowhere else to go.
->
-> - A type cell duplicates phy_set_mode_ext(PHY_MODE_PCIE) from the PCIe
->   driver.
->
-> - In mode 0 there is one x2 PHY, not two lane PHYs.
->
-> I will put this in the v4 commit message. If you or Rob still prefer
-> cells, let me know.
+Hi,
 
-I think Rob suggestion is better.  ethernet controller should support
-standard phy interface, more devices will share phy between PCI and
-ethernet.
+On 1-Oct-26 20:10, Daniel Lezcano wrote:
+> Add thermal zones for the ThinkPad T14s and describe the board
+> temperature sensors exposed through the PMK8550 VADC.
+> 
+> Add a passive thermal zone for the keyboard area, which is the main
+> thermal constraint under sustained load. The EC reports a thermal alert
+> at 57.85°C, so use this value as the passive trip point and allow the
+> thermal framework to throttle all CPUs and the GPU when the threshold is
+> reached. Use a 1000 m°C hysteresis and a 500 ms passive polling interval.
+> 
+> An earlier approach used staged CPU cluster throttling in an attempt to
+> start thermal mitigation before reaching the target temperature. Testing
+> did not show a significant improvement compared to throttling all CPUs at
+> the EC thermal alert threshold. It also introduced a latency imbalance
+> between the different CPU clusters, which could negatively affect
+> workloads depending on where tasks are scheduled.
+> 
+> A more optimal solution would require a significantly more complex,
+> system-wide approach, accounting for the workload distribution and the
+> available power and thermal headroom across the CPU clusters and other
+> devices. Such an approach would also require kernel mechanisms which are
+> not currently available. Keep the thermal policy simple here and use a
+> single passive trip, which at least ensures that the system is actively
+> mitigated before reaching temperatures that could ultimately lead to a
+> thermal shutdown.
+> 
+> The mitigation temperature is derived from the platform behaviour when
+> using the balanced power profile available under Windows. A separate
+> change will adjust this trip point dynamically according to events
+> reported by the embedded controller. Name the trip
+> "keyboard-ec-alert" so that the EC driver can identify the corresponding
+> trip point in the device tree.
+> 
+> Also add a 73°C critical trip to shut the system down if the keyboard
+> temperature reaches an unsafe level.
+> 
+> Add a thermal zone for the back cover with a 73°C critical shutdown
+> trip.
+> 
+> Describe the SoC, SMB, SDX, east and west board temperature sensors as
+> monitoring-only thermal zones.
+> 
+> Thermal camera measurements were also used to compare the reported
+> temperatures with the physical temperature of the chassis. The measured
+> values appear to primarily represent temperatures inside the enclosure
+> rather than the user-contact surface temperature. No unsafe external
+> surface temperature was observed during these tests, although this should
+> not be considered a substitute for formal platform thermal qualification.
+> 
+> Finally, enable ADC thermal monitoring on the corresponding PMK8550 VADC
+> channels used by these thermal zones.
+> 
+> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
 
-Frank
+Thank you for your work in this.
 
->
-> [1] https://lore.kernel.org/all/CAL_Jsq+SswpTjQShfkdhVwL_k8gJ_5+NrecPCUiFR52UB5zNMA@mail.gmail.com/
->
-> BR.
-> /Jan
->
+> ---
+>  .../qcom/x1e78100-lenovo-thinkpad-t14s.dtsi   | 105 ++++++++++++++++++
+>  1 file changed, 105 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi b/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi
+> index 75ad74bcb042..5d3a0a5ead68 100644
+> --- a/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi
+> @@ -20,6 +20,81 @@ / {
+>  	compatible = "lenovo,thinkpad-t14s", "qcom,x1e78100", "qcom,x1e80100";
+>  	chassis-type = "laptop";
+>  
+> +	thermal-zones {
+
+I believe all nodes should be shorted by label, then name which is why
+the first node before this was "wcd938x: audio-codec" since "audio-codec"
+starts with an a.
+
+So this should be at the end of the global nodes.
+
+
+> +		soc-thermal {
+> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_GPIO_100K_PU(1)>;
+> +		};
+> +
+> +		keyboard-thermal {
+> +			critical-action = "shutdown";
+> +			polling-delay-passive = <500>;
+> +
+> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX2_GPIO_100K_PU(1)>;
+> +
+> +			trips {
+> +				keyboard_ec_alert: keyboard-ec-alert {
+> +					temperature = <57850>;
+> +					hysteresis = <1000>;
+> +					type = "passive";
+> +				};
+> +
+> +				keyboard-critical {
+> +					temperature = <73000>;
+> +					hysteresis = <1000>;
+> +					type = "critical";
+> +				};
+> +			};
+> +
+> +			cooling-maps {
+> +				map0 {
+> +					trip = <&keyboard_ec_alert>;
+> +					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu8 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu9 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu10 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu11 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+> +				};
+> +			};
+> +		};
+> +
+> +		backcover-thermal {
+> +			critical-action = "shutdown";
+> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_THM_100K_PU(1)>;
+> +
+> +			trips {
+> +				backcover-critical {
+> +					temperature = <73000>;
+> +					hysteresis = <1000>;
+> +					type = "critical";
+> +				};
+> +			};
+> +		};
+> +
+> +		smb-thermal {
+> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX2_THM_100K_PU(1)>;
+> +		};
+> +
+> +		sdx-thermal {
+> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX3_THM_100K_PU(1)>;
+> +		};
+> +
+> +		east-thermal {
+> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX4_THM_100K_PU(1)>;
+> +		};
+> +
+> +		west-thermal {
+> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX5_THM_100K_PU(1)>;
+> +		};
+> +	};
+> +
+>  	wcd938x: audio-codec {
+>  		compatible = "qcom,wcd9385-codec";
+>  
+> @@ -1612,6 +1687,36 @@ wwan_sw_en: wwan-sw-en-state {
+>  	};
+>  };
+>  
+> +&pmk8550_vadc {
+
+Idem, referenced existing nodes should also be sorted
+alphabetically, so this should be the first node after
+the existing &pmc8380_5_gpios reference.
+
+Regards,
+
+Hans
+
+
+
+> +	channel@144 {
+> +		qcom,adc-tm;
+> +	};
+> +
+> +	channel@145 {
+> +		qcom,adc-tm;
+> +	};
+> +
+> +	channel@146 {
+> +		qcom,adc-tm;
+> +	};
+> +
+> +	channel@147 {
+> +		qcom,adc-tm;
+> +	};
+> +
+> +	channel@148 {
+> +		qcom,adc-tm;
+> +	};
+> +
+> +	channel@14a {
+> +		qcom,adc-tm;
+> +	};
+> +
+> +	channel@14b {
+> +		qcom,adc-tm;
+> +	};
+> +};
+> +
+>  &usb_1_ss0_hsphy {
+>  	vdd-supply = <&vreg_l3j_0p8>;
+>  	vdda12-supply = <&vreg_l2j_1p2>;
+
