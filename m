@@ -1,182 +1,112 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBE2847140F
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 20:57:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 058E93C0621;
+	Wed, 14 Oct 2026 21:32:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792011477; cv=none; b=HpokN9xmOk3Pvx3gk/Jn5bxiJgUE60Ab6QbBfr4ED8DpQ6NI6rYIeaFnEisIQSYL23ltW0TtXc3bIuF/IiZNeD+Fzy6l1G9/kAmAZgkxhl9DWfU1APAy249qqRiLNvQwW+yPc5tP3sMyf+ryjwOO7ktGYEl+xEEj7wxv3qT5Kz4=
+	t=1792013526; cv=none; b=SIhXr8S67lo9uhvkW3e3sxeBpOBKEhAtuaag2I1CEAhOuxzceyJPgsyZkZi4tQGeAsa7TEOk0YnHmuoD27tMTGKKlS/SPmoIjiL3FYI8zu9DO90i8xTo4KEcK3MQ4U3dDfkDnI/F8gXdwaCbQXDmiKMcMd1jiosbewHEUxciuvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792011477; c=relaxed/simple;
-	bh=jiRBljgKuKiE+P6dq12P5OkOLeXucCVMJReCf6g+vnk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LS5yhL3Vi3JcwhMBqSF/slzBfeC711aFfkX9dGPdvC824/2p8x2AK1c3v5rGsjpKbtE4Ul6OxUFDRjhbHUdy1xMI1lK9b6WYUsXGISKb7x6AXSzpYY0ZsNKwXp3hi+vzqRaQvb7ZQdP8K0D/TT/7ER2ZuEKu0IBGbIWSsxe7/Qs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GkHw6Xh8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cDafBj+D; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792013526; c=relaxed/simple;
+	bh=Mb7sbWbMfHESa0aAXF7BdF35M8lFzlOgXSETY1QlwaE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=pA/n9l54ufgSZDLTOuUEtIPhE2ahDWZ7mSHygr/N6N1G0iQGoqysu05S+VyoMFKCrgb70LABIMMZa+2BDmIVJUdDr6RKp7VWcXiz6ZFw2d7Pt2ydA4Uct67zfAmOYLI5+mzx6rBORjSErOpBniPlELUTB20VcIzHdksfxZVN018=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lH4XGLpt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GkHw6Xh8";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cDafBj+D"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EEbLta3642994
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 20:57:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=Tdom7tnqrfqhiAr3bCDpoJLd
-	konZqaXCM3eCfjDGwls=; b=GkHw6Xh8yvBfUCJGvTj1kZUo/GEDtrYx/IkPailO
-	U9A00x8a4bHWd7+s8NvKGyJnHvCh0ac+SB+ek/pSkxbn4dZrHOaDJh8YmurDNstR
-	1J2AwTGh72QKS35T8YLeYMhcjMq8yxU5PTTYjHFc4FnmVP9i1kUZx83Iq8Tp0iUM
-	0bS87QKAB74ukuHfRYfo+nd2H5T58rYMK4JGY6y3m6UxLlMH5hWEuI5NBliTGgDb
-	5r/qQKwrWx6L/LM0u2EWkOgM3dSXtWGCrkRdcTvZmzokL6/t5xaR/fhfTLaajKWB
-	gp32Pe7sOVcq/O+tg9wj3Umvr661dEUIK4q7vfkFjB8Aqw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ha470bfbw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 20:57:53 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93cbf2fd504so142381485a.2
-        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 13:57:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792011473; x=1792616273; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Tdom7tnqrfqhiAr3bCDpoJLdkonZqaXCM3eCfjDGwls=;
-        b=cDafBj+DQLG4M7JRmsLs0yWpVs3+CbKVsuMeihqDtYBfBVnKMmJQ8u9RBtYahwsWz5
-         klpg3ClW9ZavnKwLX3IBINtL3SPY/r87Vp7P7PdVAKMVN+6mIHSHU3oVILGrc/O4zXGI
-         gxFzpIdRe5G6t2V4luaC3jtW+ZB3jCoN0RHpAo8hsdGg5Tvx7pPkebfXoZ3+n8/r0S2l
-         9hgvCEerXLO3elG7H64p0It31/nV9jcdeL2AojPPXso9xCbglIpgeVDdRI9P5XbtEvLc
-         uHdOrxmXUMiEMsgzFX3lccs6hoTc2MTjyXWy0/vk7Y1TWLuXeG0J7fSui03LHhHvetmT
-         jWUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792011473; x=1792616273;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Tdom7tnqrfqhiAr3bCDpoJLdkonZqaXCM3eCfjDGwls=;
-        b=bccEpQDJ9UfNDuqcZ22Qh2+lL2ecJQNsVWzcHDDe7LrhwUILcRpjhlx1q+CpLvBrtu
-         M6vLc55dEB5K70YuYjtVp0r+YvtFxo27Y2PYXufW/JTqY6A8kFEnCIMeww0JR3apsiBi
-         Tq+X36dScgPH5fbsbFzm7VDAmeNgPiWh7ee8K/1Y59X/WaUHXpQuyAI09ytvxczsl/hC
-         qQjMElCN2rocDTGFuwLSAQSjV2aZjjYg+SV5ECrAciWN4DJLTmIG1c5wmGns3HVL0Gte
-         Em6xWLtoYzHbSeYEiuUJL5Xs8lKgrCCNQxv0S9rbO1DJ5oi2yjY2dFiJgsPa8XQsdVvU
-         6A2w==
-X-Forwarded-Encrypted: i=1; AKwUvBzcUvczo3UCM3/lNJonoCVHlBiqGZaSkQvWeaMarh/rUf7bxkpWEtl9wCfitEG78ogyC6PPzofPM0yz@vger.kernel.org
-X-Gm-Message-State: AFq9FYKAxEDplTe3MP0nbPsdik5MZB50eAHUqAW0Q1l+4tnyZRUvn8TO
-	o43Awz668FpDoVo83TzsyjW39YKvTAMm7qVY6d2xsRpnn2d5r8WFTGCVuWR/yzuc8665riaOE4B
-	X8uJIqsuzTN1Y/FjH3qs/VvNk71YkiOW8ItZDbdh7P2p1L7+78AQrkUwq0HuNDr7bwRzEWhDL
-X-Gm-Gg: AYBFou0RdfMh70yEe/b6Bsnqmblv5oWWdO78TyDLJw24gIjmGq374VAv4zhini8RMPk
-	IvaUX/moJks/Dzj182R418Te/p6/vS+TiW1LaLItL2M9kw6a2EeGbQrM2ZAqpqfY1qwt7OXyF81
-	e9wlkORfrAVXWklfWtYDoG1jbdncSE9WeHSRbKivGkbVGiuwz2oGaEbN1AsKcNJ0TAdnmcaGn+F
-	XifJp4y2oZ/JwMKxp7cWs1ke/zN7U9xy9wNOoORgg1mXLL7GSDfwyCc5IlyA/9hWCxmGq6NsSsC
-	4wPozORqbKagMKIdEWzBtgnX7yGw6vOX/cZ8o51xbegKP/b1wt7/8+LuLmXN5C/AUdQsgZ4RiOH
-	cbr3FnEx2GMGYQmHEzMar1BOU2OclMCF3yb6MKr06Zx3ziIo47MPsEkI9lZVcR+j9RuJ0RlW615
-	KSGtae/kMG3FZM
-X-Received: by 2002:a05:620a:3194:b0:93c:7d49:7b69 with SMTP id af79cd13be357-93ebd2963bcmr2795852485a.60.1792011472854;
-        Wed, 14 Oct 2026 13:57:52 -0700 (PDT)
-X-Received: by 2002:a05:620a:3194:b0:93c:7d49:7b69 with SMTP id af79cd13be357-93ebd2963bcmr2795849885a.60.1792011472382;
-        Wed, 14 Oct 2026 13:57:52 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3aafdefdc4asm1613741fa.30.2026.10.14.13.57.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 13:57:51 -0700 (PDT)
-Date: Wed, 14 Oct 2026 23:57:48 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH v2 4/5] arm64: dts: qcom: add device tree for SDM845-HDK
-Message-ID: <rqsztjjpis5ddd3adpwds56svbbeugoh2zhzlat5jilozkzncx@jrwnidovsh3j>
-References: <20261014-sdm845-hdk-v2-0-6d0b4b42f267@oss.qualcomm.com>
- <20261014-sdm845-hdk-v2-4-6d0b4b42f267@oss.qualcomm.com>
- <sashiko-outbox-171533@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lH4XGLpt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86BE61F000C7;
+	Wed, 14 Oct 2026 21:32:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792013524;
+	bh=sU9N9t+rSJbdzfZ3EGowiDCPXCTLK+Yw+P9GxmRYz1g=;
+	h=From:Subject:Date:To:Cc;
+	b=lH4XGLptaQqNsFgDjcW/GtR5HeupPmlqTRIhQZ/oK7A517/GBqdkroZNLZ9SGkD4U
+	 yZ6ewNhlbTjyttPD3qhRbwdHoHRuVMkAubxgG7zOsz9N9swBy1FYt9czSqi8/Rsah3
+	 MFh5eCEG6Xu8KFw8zFwfG18LML4FNGTqDAWFBdMoqaKI1E9mPtRVGsaLU+C1NYwLD2
+	 0ucp+hF5Akv951WlgkYh9tX9YaTVbSVQkPF61FfJCzasiPnoKPeClQ790htjXOjfq8
+	 8/pQkcAMYI11DoIAqajqoVtxPhp+eYDt9igSb7Xro1UlkJVVFLuimpQ8p6KTKmx4q4
+	 /TgRzxDhSeHUA==
+Received: by venus (Postfix, from userid 1000)
+	id 68603180A50; Wed, 14 Oct 2026 23:32:02 +0200 (CEST)
+From: Sebastian Reichel <sre@kernel.org>
+Subject: [PATCH 0/4] Add DP AltMode VDO definitions for DT usage
+Date: Wed, 14 Oct 2026 23:31:48 +0200
+Message-Id: <20261014-dp-altmode-dt-defines-v1-0-b657c9b6e4c3@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <sashiko-outbox-171533@kernel.org>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA4MyBTYWx0ZWRfX8Kja+8PN+NT0
- NeaLOfH+7MYRZnhNT5dFoc+I85Aksv8No2+ezVBVNxwcV+7vyn12MKDajjGEwfjrk78mWfRptwU
- CBL4ls3Ziu4/hRJkqp8ZJ200PKFQ11Xk5gNe2f8rYXvvgPFLbyBhgLUFpYLXG8hn3gprsqSaZj5
- qDfHbr8PjybGxWvlqPii4T0owVZ+uH9q7Y/KSlnDAgk2ALYR+NuTLoKP2FW3uHx3YOc0FUba8gb
- Z9dtMopIlAM4CV4MY/stngxeXlQR7XhADuz2WLz80WzsQ9YS6czL7ykk4e18UqYWKfkZfXZFe9t
- iyZCPVT9IISp8fHbRBSPxRQrimkJc8Li8t70NHHSBTRmf05SvyW5PC22tYpADzG6pBAA8FzfHA0
- csZFeA1mcbXGVEKLlQGw39/ICxSxM4NWTxLif6izefmFQu0VqAuXmLYu6RrZA80YtHjJ0w09jeh
- n7Zru+iY9Zg5OCnmJkA==
-X-Proofpoint-GUID: RN0S4CS_Vy_Ai5v_uugSzXLqm9lha6L0
-X-Authority-Analysis: v=2.4 cv=P6avFSAu c=1 sm=1 tr=0 ts=6acfecd1 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=s4Caojyv45IKULvEKnIA:9 a=CjuIK1q_8ugA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-ORIG-GUID: RN0S4CS_Vy_Ai5v_uugSzXLqm9lha6L0
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA4MyBTYWx0ZWRfXy5W7pVBQeS3H
- pxHxlHpZyv4IzvhPuUyF/KdiCeRGHEZJMxhosRa+MoFRGPXe9X41O3m6WBqJ0tm9V/8ZrXT/U/6
- 4IO53TE0Vjd205FPIVC6pCC4ywwYjoM=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 bulkscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0
- suspectscore=0 clxscore=1015 impostorscore=0 malwarescore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140083
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0Q6CMAyF4VchvbbJtggGX8V4UWjBEh1kHcaE8
+ O5Oufxycv4NTJKKwbXaIMlbTedY4E8V9A+Ko6ByMQQXGu+8Q16Qnvk1syBnZBk0imEgqqk9d5d
+ mqKF8l1SGz797ux+2tZukz78Y7PsXRUYHJnkAAAA=
+X-Change-ID: 20261010-dp-altmode-dt-defines-2aa5a94b76f5
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ linux-arm-msm@vger.kernel.org, kernel@collabora.com, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1647;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=Mb7sbWbMfHESa0aAXF7BdF35M8lFzlOgXSETY1QlwaE=;
+ b=owEBbQKS/ZANAwAKAdju1/PIO/qaAcsmYgBqz/TQGcp6wF8P8bq+yUhm+bV9dkEdDnyOEi6TJ
+ 0TsUKTp+aaJAjMEAAEKAB0WIQTvZg0HRj+Lcmp5VBPY7tfzyDv6mgUCas/00AAKCRDY7tfzyDv6
+ mmQWD/0ZLmcrm2qIQ9ZwFK8Gv/BjgvkaCFGmaFJSQFBj0SQj6/lUOFBMauA0MvE6ZijzvCpoyoE
+ azqANY5G7eMKlZ106ByVaQQ1BRTBpNc2OzCFXIP5/7bfkHmx1SIAhAI8YLn+ktmIhHgjTQ6GMQ+
+ afcbVr0ffREqfRNEJa6bkB6Q0SslaeHR9eHcjmN8gWJnKOFvUKlNxUTrQbABmMD0bJuRYnmajjU
+ oFX3d7cknM7xSa9hTRvKBUuv/t8cj4ZdMtEvWD529oYYvzn3oC3SjJMztPh0HIm7L51MRXJlQCq
+ oDyMl2yjdXacK0GnPl6ntPpVRuEot3qewQgqjjWoFN4CzmKsHlAQpegNnCqIObc93PDAhIkntAw
+ JLhUanvzkKzdAuD1DrEVgQ6JdiCVB4mnu+zZhwx7EI4rzVwtYIV2EUJAkd5zBH4TaqvLT0XIAbU
+ 7Vev4VT4rdaf/Hw43Wf12nRvMSkwuBwVSbTGgYAXjvCqcZ/Ma9Yf+aJTVRHyzbTqx75p8/F0KFL
+ 9ezMoyhf1QDnAUjV4jAm0DiYQeOezqEqO8i0B5Fn4OOeu1jc74lnC53M1J1lLyoc3oQCRJuIyZW
+ Ny6ZiKJQs1n3IqSnmVi3tVbvGB988CwipdVPqw/M/NkN+pUj9Z5/ZhnjiqcNMqfqHzSPdqAFOO3
+ bLviFcfj1uoO8Kg==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-On Wed, Oct 14, 2026 at 04:31:17PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-> - [High] dts: usb_1_qmpphy swaps vdda-phy and vdda-pll voltage supplies
-> - [Medium] dts: home_pin_a pinctrl incorrectly configures gpio6 instead of gpio5
-> - [Medium] dts: impossible 1.8V vin-supply for 3.3V fixed regulator vreg_sys_bob_3p3
-> --
-> 
-> commit 48f1c407e24f3899e533d5dddbd59a77b4901a02
-> Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> 
-> arm64: dts: qcom: add device tree for SDM845-HDK
-> 
-> This patch adds the device tree for the SDM845-HDK board, a development
-> platform utilizing the modem-less SDA845 SoC. It introduces initial support
-> for features like HDMI display, uSD, UFS, USB, and various onboard peripherals.
-> 
-> > diff --git a/arch/arm64/boot/dts/qcom/sdm845-hdk.dts b/arch/arm64/boot/dts/qcom/sdm845-hdk.dts
-> > new file mode 100644
-> > index 0000000000000..4dd426912d20f
-> > --- /dev/null
-> > +++ b/arch/arm64/boot/dts/qcom/sdm845-hdk.dts
-> 
-> [ ... ]
-> 
-> > +	vreg_sys_bob_3p3: regulator-sys-bob {
-> > +		compatible = "regulator-fixed";
-> > +		regulator-name = "sys_bob";
-> > +		regulator-min-microvolt = <3300000>;
-> > +		regulator-max-microvolt = <3300000>;
-> > +
-> > +		regulator-always-on;
-> > +		regulator-boot-on;
-> > +
-> > +		vin-supply = <&vreg_s4a_1p8>;
-> > +	};
-> 
-> [Severity: Medium]
-> Is vreg_s4a_1p8 the correct vin-supply for this regulator?
-> 
-> vreg_s4a_1p8 provides 1.8V, but vreg_sys_bob_3p3 is defined as a 3.3V fixed
-> regulator. A fixed regulator cannot step up a 1.8V input to 3.3V.
-> 
-> Could this create an incorrect power dependency tree, potentially causing the
-> 1.8V supply to be kept awake unnecessarily or turned off while the 3.3V rail
-> is still needed?
+Make DP AltMode devicetree entries more readable by adding a few
+defines. This hopefully helps to correctly describe the supported
+DP AltMode when boards are being upstreamed. Apparently right now
+all upstream boards with DP AltMode *should* have set their VDO to
+0x00001c46, which means that they can output DP1.4 with C, D or E
+pin mapping on a receptacle that also has functional USB 2.
 
-This is the least awkward description. This regulator is powered by
-vph_pwr and enabled by S4A. Using S4A as vin-supply is the most logical
-way to express it.
+The patch series is based on current master.
 
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+Sebastian Reichel (4):
+      dt-bindings: connector: Add DP AltMode VDO definitions
+      arm64: dts: rockchip: Use DP AltMode defines
+      arm64: dts: mediatek: Use DP AltMode defines
+      arm64: dts: qcom: Use DP AltMode defines
 
--- 
-With best wishes
-Dmitry
+ .../boot/dts/mediatek/mt8390-genio-common.dtsi     |  8 ++-
+ .../boot/dts/mediatek/mt8395-genio-common.dtsi     | 10 +++-
+ arch/arm64/boot/dts/qcom/qrb5165-rb5.dts           |  8 ++-
+ arch/arm64/boot/dts/qcom/sm8150-hdk.dts            |  9 +++-
+ .../dts/rockchip/rk3576-anbernic-rg-vita-pro.dts   |  8 ++-
+ .../boot/dts/rockchip/rk3576-armsom-cm5-io.dts     |  8 ++-
+ .../boot/dts/rockchip/rk3576-armsom-sige5.dts      |  8 ++-
+ .../boot/dts/rockchip/rk3588-rock-5b-5bp-5t.dtsi   |  8 ++-
+ .../boot/dts/rockchip/rk3588s-indiedroid-nova.dts  |  8 ++-
+ include/dt-bindings/usb/pd.h                       | 58 ++++++++++++++++++++++
+ 10 files changed, 115 insertions(+), 18 deletions(-)
+---
+base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
+change-id: 20261010-dp-altmode-dt-defines-2aa5a94b76f5
+
+Best regards,
+--  
+Sebastian Reichel <sebastian.reichel@collabora.com>
+
