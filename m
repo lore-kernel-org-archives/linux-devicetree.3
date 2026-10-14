@@ -1,106 +1,122 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11728485926;
-	Wed, 14 Oct 2026 07:58:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E61486B8C
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 08:04:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791964714; cv=none; b=QkQORUUiPWWb5W1hOZ7yH8cXM5gnsvcMbvtccXaWZw8MTNMUfrehNPMsshQ1pwLvexVTDzViuHIcoR1f/couoe0jAJHMLSmMWMvy2yA7yeLYmiynwZ/uGwNs5quAVoVjQqSfYStUQB8peEhoZkh+H7rCHhBL7VXn4br/l/xbhlc=
+	t=1791965098; cv=none; b=pb/Xw/MRPcuYyv/D8aI1brNFfgidUUMZCFAeoapHr09NXYxutGgB2izyz6vtxdeyaAHbj/N7y1vbn1rC7IH0VZ5A+nrA7oDXMebLHQDP93nzBDkI03jPF72rz7Dx7EXsqxs+BuIB0lwfmvVH7+aDToaeG9pusZNGI8z6eij0ZUI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791964714; c=relaxed/simple;
-	bh=wvihMDM/JyiCgIYwYLwnC9f8ft+XH9aYsBIvW0CS9Gg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CX0ZgdbA07pe1fUAH6jAccaChOdcbsojOtpfUxiP1Vc8qgmrYQ6L2IUZlbgvfCHBLe/gypJpHzlWlbn5K3w//tQGft3xZN6m2xKK3V++B8+eyYF2FDrcrFfwBq7uaPven3FEV+dl08MOrrnDhGi+w4V2xK/489M0Axfgxwy/GSI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=xKthjOOb; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1791965098; c=relaxed/simple;
+	bh=qRhR1LL6foT4QhkBCJiTLRkaPKNeIrNbHQtNKCf7+HE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=XTvqL/KlW0YcM11BqJhKFQteuBgVkX569p/WINK356MnfjhuqvXtIWQAs7+f42z4rMIYdj0rpt/se9Zl7Ht4yu4zXkqCvC2q8p+KGWW+oGox4LXMNdgpkfOAxrklI/TPyKYW8W3N35hqos9ViLsgHaB+uwUQjhgnMkwQZrvjlas=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=sYLTXX4j; arc=none smtp.client-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="xKthjOOb"
-Received: from francesco-nb.. (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id 6DC2222B63;
-	Wed, 14 Oct 2026 09:58:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1791964709;
-	bh=GboN9DUCZqNahO4XvXD5zPpQKdGt2Yc6N+rShIKk0XM=; h=From:To:Subject;
-	b=xKthjOObolv5rS1NFfb00J2+i5NzwS0n+icBxXzUz7wOx2vAg5ZXVZdDuCV8I16fs
-	 1RT/PsX9XmefNPGDllWTTUt+3kswDwNdNJXtZ3xCkLQazu4pIwZdC3ONn+ssDEbA7q
-	 fbLEhcq1A/I7JxfzOPwCoBOb0Of3WknmI9nZ8+23ygPshc7EaBc5niDvwWqt5ydoAk
-	 qwxGG/39e0tYwOzsIpYEh+ltVQ81LPN7ph7SaWp181xxju/RjbQx7CWnDAe6lHCr6k
-	 c0w+b3mAW7ZS3dFFMqYTuJ4GQto6gLMKpkXTh9OVVPyEfQzNVequbqDgzBgVKb0TRu
-	 DSoz5SAHe1zxA==
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 1/2] arm64: dts: freescale: imx95-toradex-osm-dev: Remove ETH_A PHY interrupt
-Date: Wed, 14 Oct 2026 09:58:09 +0200
-Message-ID: <20261014075812.29154-2-francesco@dolcini.it>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261014075812.29154-1-francesco@dolcini.it>
-References: <20261014075812.29154-1-francesco@dolcini.it>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="sYLTXX4j"
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261014080453euoutp01ab87758b2347bff077fedd7ac35dfe1f~eVsIcGmaZ1649816498euoutp01q
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 08:04:53 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261014080453euoutp01ab87758b2347bff077fedd7ac35dfe1f~eVsIcGmaZ1649816498euoutp01q
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791965093;
+	bh=bUro6dOpqOZkLgIwXsmgcxwmdXRb9oPBkMDddypWdxI=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=sYLTXX4jX0eYOunJVd7rJnsGiRdr/zInUJvJvtB7yc1gEsBQ1ynQSIKyUFV89jmFf
+	 sVFhthw9dIdWYVU4hd7rNd/SA2RFvqQ25zBRPzrPpt/ieBN1HKnx0RocMHbtnPtOwU
+	 4aRhWNg+R1wYx61CXgLOAGFSToXFE4S9/AjVYvHA=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261014080453eucas1p158cc49f0c63d9419059a2228a44c0a76~eVsIQsCC52533225332eucas1p1G;
+	Wed, 14 Oct 2026 08:04:53 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261014080452eusmtip2b271c365d5fbcb7f579007b96b7e0073~eVsHlyttp2605826058eusmtip2i;
+	Wed, 14 Oct 2026 08:04:52 +0000 (GMT)
+Message-ID: <15f70a45-a754-488c-8ba3-9e63bb956033@samsung.com>
+Date: Wed, 14 Oct 2026 10:04:52 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH v2 2/2] of: reserved_mem: allocate and map the
+ reserved_mem array early
+To: Wandun <chenwandun1@gmail.com>, linux-mm@kvack.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Mike Rapoport <rppt@kernel.org>, Rob Herring <robh@kernel.org>, Saravana
+	Kannan <saravanak@kernel.org>, Oreoluwa Babatunde
+	<oreoluwa.babatunde@oss.qualcomm.com>, Andrew Morton
+	<akpm@linux-foundation.org>
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <42cdc3f4-95f7-4efa-be23-b3fafae84109@gmail.com>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261014080453eucas1p158cc49f0c63d9419059a2228a44c0a76
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261008152450eucas1p1d5517eadc2c1d684ff6d4ddc010f6331
+X-EPHeader: CA
+X-CMS-RootMailID: 20261008152450eucas1p1d5517eadc2c1d684ff6d4ddc010f6331
+References: <20261008152403.766439-1-m.szyprowski@samsung.com>
+	<CGME20261008152450eucas1p1d5517eadc2c1d684ff6d4ddc010f6331@eucas1p1.samsung.com>
+	<20261008152403.766439-3-m.szyprowski@samsung.com>
+	<a8ac6daa-e721-4cba-bef3-3333643db23d@gmail.com>
+	<81d6c6be-d03b-4fa8-be30-1425c4d1ad40@samsung.com>
+	<42cdc3f4-95f7-4efa-be23-b3fafae84109@gmail.com>
 
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
+On 10.10.2026 08:40, Wandun wrote:
+> On 10/9/26 19:27, Marek Szyprowski wrote:
+>> On 09.10.2026 04:16, Wandun wrote:
+>>> On 10/8/26 23:24, Marek Szyprowski wrote:
+>>>> Get rid of the static, limited-size reserved_mem array and replace it
+>>>> with array allocated by memblock_alloc_raw() and accessed through a
+>>>> temporary early_memremap() mapping. Such mapping is needed for some
+>>>> architectures (like ARM64), where linear map is not yet available during
+>>>> early boot scan. Having a single, writeable array with all reserved
+>>>> regions removes the need to perform two step initialization introduced
+>>>> by commit 8a6e02d0c00e ("of: reserved_mem: Restructure how the reserved
+>>>> memory regions are processed"), so all regions can be processed
+>>>> directly during the early scan again.
+>>> One concern about the ordering here: the new memblock_alloc_raw() for the
+>>> reserved_mem array runs *before* the static ("reg") regions are reserved,
+>>> so the array can be allocated from inside one of them which makes the
+>>> subsequent static region reservation fail.
+>> Well, that's what Sashiko already reported. It will be trivial to process
+>> 'static' regions before doing the reserved_mem allocation, but this in turn
+>> returns us to the point of not being able to handle their reservation
+>> failures. I wonder what's worse...
+> Indeed, every option has its pros and cons.
+>
+> Could we reconsider the approach from my v2 series [1]:
+> record the nodes whose early reservation failed in an reserve_failed_nodes
+> array, and have the late scan skip them.
+>
+> As I understand it, this handles the vast majority of cases. And if
+> the number of failed nodes exceeds the reserve_failed_nodes array size,
+> the system is already misbehaving and the DTS configuration itself
+> needs to be revisited; even in that case, the v2 approach behaves exactly
+> the same as the current code, so nothing gets worse.
+Frankly speaking I would only keep the information if any of the early reservation
+failed or not and just print information that "Early reservation of some memory
+regions failed - system might be unstable, please fix Your device-tree". I see no
+point over-engineering this more for no visible benefit.
 
-GPIO_A7 is a boot strap on the OSM iMX95 module. The pull-up on the OSM
-Development Board Ethernet PHY interrupt line causes the module to enter
-USB loader mode instead of booting normally when the reset button is
-held for more than 0.5 seconds.
+I will send v3 of this patchset with such assumption.
+> Also, IIUC, setting a memblock flag may split memblock regions, and since
+> memblock cannot resize before paging_init(), that would increase the chance
+> of a panic.
+The memblock flags are already set for each reserved region, so adding one more
+flags probably won't increase significantly the number of memblock entries.
+Adjacent regions with same flags are already being merged by the memblock layer,
+so many adjacent reserved regions might be covered by a single memblock entry.
 
-The PHY interrupt connection has been removed from the carrier board,
-and GPIO_A7 is now available in the jumper area for general-purpose use.
-
-Remove the PHY interrupt configuration to use polling, and move the
-GPIO_A7 pinctrl configuration to the GPIO controller.
-
-Fixes: 39be5a7e3ecc ("arm64: dts: freescale: Add Toradex OSM iMX95")
-Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
----
- arch/arm64/boot/dts/freescale/imx95-toradex-osm-dev.dts | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/freescale/imx95-toradex-osm-dev.dts b/arch/arm64/boot/dts/freescale/imx95-toradex-osm-dev.dts
-index b3d54be07c43..8f56c2bafb66 100644
---- a/arch/arm64/boot/dts/freescale/imx95-toradex-osm-dev.dts
-+++ b/arch/arm64/boot/dts/freescale/imx95-toradex-osm-dev.dts
-@@ -115,6 +115,11 @@ &flexcan3 {
- 	status = "okay";
- };
- 
-+&gpio1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_gpio_a7>;
-+};
-+
- &gpio5 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_gpio_a1>, <&pinctrl_gpio_a2>, <&pinctrl_gpio_a3>,
-@@ -317,10 +322,6 @@ &netc_emdio {
- 
- 	ethphy_a: ethernet-phy@2 {
- 		reg = <2>;
--		pinctrl-names = "default";
--		pinctrl-0 = <&pinctrl_gpio_a7>;
--		interrupt-parent = <&gpio1>;
--		interrupts = <11 IRQ_TYPE_LEVEL_LOW>;
- 		ti,rx-internal-delay = <DP83867_RGMIIDCTL_2_00_NS>;
- 		ti,tx-internal-delay = <DP83867_RGMIIDCTL_2_00_NS>;
- 	};
+Best regards
 -- 
-2.47.3
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
