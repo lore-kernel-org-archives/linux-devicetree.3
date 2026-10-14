@@ -1,131 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12F762F3C07
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 06:54:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8221541D135;
+	Wed, 14 Oct 2026 06:56:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.39.247.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791960868; cv=none; b=hkaXTASHmVW1UdCZ4N54zN1I6BZgIz/Yht2DX7N1frPUaoy06BpWipP2z+xOZCRaSCK6yIoQCLGfmn9WdfqKHHxwSc0t49SubPp8ZktA+AoG5Jms0KIi1HjoWUamEa5ZMfenCSRk/ORb6/RxsM5gVMijZM6rMxLBVPTPv8RDr5I=
+	t=1791960985; cv=none; b=kfbYSly1xmLaohLYWrVwLvv8QnXpWpvh3NSXOufUMSMDX+rXACE1at8K/adPii60ebYvZIe2W8pPgf4loheiK62fOmxaTVh1aY2N+MFJdZSczZXndeI966Zx1gKGzEZqL5vKLn07LI4yMcDhi371aIcboOfiecGNg3O6hZi8dWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791960868; c=relaxed/simple;
-	bh=1lY3CYybFEm2Ao4CWDffJZ194nqrvI6uIdH6GtWt1NU=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=UlcSnSV0aGF4ob80d4nUcs6T5ZJAsQ4FanOOUP7ZA+fxnvc2W2seMYXOo5z2g6Kflx485Ee9jC7lBc94DbeRiIruVPFbACp3+6tLF62h18dTB+ZHG38E08JQkTtLUaHjuUmau1E++l6UbXBX9k30pFvMCFVIev96cYKuXu8mUgI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nGu9ieny; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791960985; c=relaxed/simple;
+	bh=pchHXEt1J4aJR0AWs0OX96hBjb602vhBljsRc6MgM7g=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=YhrvC1PWwsPKRfqgudG0/tXl6dD3RDZTv4RjMwro4O0FCA6anXz6vD+NY3HRj8J8s99+13zBGaic1vHDSM/bihF8jzMTF3D07/LdxEYBGI5WYc6KtV2blYdVONwcsLTYfBqNK6cdCl7Sseh1AJC4QNkLvrKTXhuPyDsWqLnnyto=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev; spf=pass smtp.mailfrom=cyberchaos.dev; dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b=cCZPlIQc; arc=none smtp.client-ip=195.39.247.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nGu9ieny"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12F841F000FF;
-	Wed, 14 Oct 2026 06:54:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791960864;
-	bh=5ij3wVeFWOo+52d38tKKn8wx2nLPZFw6AE5S4TLaXnk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nGu9ienyDvc8fH3tIA10+zSX2ykuSVNq1osJJ75dUNhehEqsEbqZtzQmdXm8CM/Ov
-	 XZSgIkNBC8jOYFY17mAfMuWFqhQ7sUHkOAe3uuvZYiU9bGxgxLFdOJwvaEP3Qhi4Yl
-	 TMqql+CwxlY12hZUHa2qtk51kBTWtaBwlj4xDcVaAZpLQLH6d2FHM8tGcmhW8XFHCz
-	 o57cP/XrPD5XN2ab8rLYqLODkV+qRVxx8DOe0668OCOReXAPy7KJd4HWTOHRbk+3k6
-	 Avjdk9BYKMUuJqkj3b17AAD2POH0Jj7swl0/ymDe4pe1vUo9wOfm1owZWpvGBEjb47
-	 iNLdjtf4mcoXw==
-Message-ID: <sashiko-outbox-170903@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/7] arm64: dts: qcom: nord-rrd: Enable ADSP and
- CDSPs
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shawn Guo" <shengchao.guo@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261014063953.549379-4-shengchao.guo@oss.qualcomm.com>
-References: <20261014063953.549379-1-shengchao.guo@oss.qualcomm.com>
- <20261014063953.549379-4-shengchao.guo@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 14 Oct 2026 06:54:23 +0000
+	dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b="cCZPlIQc"
+From: Yureka Lilian <yureka@cyberchaos.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
+	s=mail; t=1791960975;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=RFRhkU5N0xkY+h+ZZaHcxaa1ZMJtDptcbJ0QND+y2ZU=;
+	b=cCZPlIQcPSnjvO680NjrZGy0BG6CEKO524p5wCykGaevyWasCNuGYmGtaMmcEvn9oM89hq
+	b8zrbS8P0V+Gu2GfoUfdPbZV/YOqmP1DnY9rsCE4gp0zQ9NFmjghU0lItKy3GPrFV/OXmc
+	+utiL/vJPVDjsmPooYSCUJ3YEf4Nl1k=
+Subject: [PATCH v2 00/10] Initial Apple Silicon M4 Pro/Max device trees and
+ dt-bindings
+Date: Wed, 14 Oct 2026 08:56:07 +0200
+Message-Id: <20261014-apple-m4-pro-max-initial-devicetrees-v2-0-961edd8d661b@cyberchaos.dev>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42PTQ6CMBCFr0K6dkxbDD+uvIdhUcpUxiBt2kogh
+ Ltb0AO4/JJv3nuzsoCeMLBrtjKPEwWyYwJ5ypju1fhAoC4xk1wWgvMalHMDwusCzlt4qRlopEh
+ qgC5da4weMYDOW5kbVaqqQpainEdD81Fzb74c3u0Tddyzd6OnEK1fjh2T2L1fpeD/VU4COJSVM
+ G1uZFeb4qaXFn16woZzElmzbdsHS+3j9u8AAAA=
+X-Change-ID: 20261009-apple-m4-pro-max-initial-devicetrees-c3b23fa7a88e
+To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+ Neal Gompa <neal@gompa.dev>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Radu Rendec <radu@rendec.net>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ Hector Martin <marcan@marcan.st>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Sasha Finkelstein <k@chaosmail.tech>, Linus Walleij <linusw@kernel.org>, 
+ Mark Kettenis <kettenis@openbsd.org>, Andi Shyti <andi.shyti@kernel.org>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org, 
+ Yureka Lilian <yureka@cyberchaos.dev>, Florian Klink <flokli@flokli.de>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dts: qcom: identical firmware and DTB paths for all CDSP instanc=
-es
---
+Hi,
 
-commit df6b28010f1754564cc47d083b73f91275527a95
-Author: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+This series adds initial device trees and dt-bindings for the Apple
+Silicon devices using the M4 Pro/Max (t6040/t6041) SoCs.
 
-arm64: dts: qcom: nord-rrd: Enable ADSP and CDSPs
+This series covers only a minimal amount of hardware, which is useful
+as a basis for future developments. The hardware added here has remained
+largely unchanged between the M3 and M4 generations.
 
-This commit enables the ADSP (HPASS DSP) and CDSPs remoteproc instances on
-the Nord RRD board by specifying their firmware and DTB paths.
+The dt-bindings changes should be mostly boring (in a good way!). The
+device trees themselves are roughly organized into the MacBook Pro
+models on one side (t604x-j614-j616) and the Mac mini and Mac Studio on
+the other side (t604x-j575-j773). I'm hoping to re-use these dtsi files
+for the M5 Pro/Max versions of these machines in the future.
+I applied some version of dt-check-style formatting to all new files
+with the exception of the generated pmgr nodes.
 
-> diff --git a/arch/arm64/boot/dts/qcom/nord-rrd.dts b/arch/arm64/boot/dts/=
-qcom/nord-rrd.dts
-> index 3673003c8b213..0b0acd33a2e19 100644
-> --- a/arch/arm64/boot/dts/qcom/nord-rrd.dts
-> +++ b/arch/arm64/boot/dts/qcom/nord-rrd.dts
+Merge strategy:
+Since there are no actual driver changes, we'd prefer to merge the
+dt-bindings changes through the apple-soc tree once Acked by the
+respective maintainers.
 
-[ ... ]
+Thanks,
 
-> +&remoteproc_cdsp0 {
-> +	firmware-name =3D "qcom/nord/cdsp.mbn",
-> +			"qcom/nord/cdsp_dtb.mbn";
-> +
-> +	status =3D "okay";
-> +};
-> +
-> +&remoteproc_cdsp1 {
-> +	firmware-name =3D "qcom/nord/cdsp.mbn",
-> +			"qcom/nord/cdsp_dtb.mbn";
+Yureka
 
-[Severity: Medium]
-Will this cause resource conflicts by sharing the exact same Device Tree Bl=
-ob
-(cdsp_dtb.mbn) across multiple CDSP instances?
+Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+---
+Changes in v2:
+- Remove accidental t6050 hunk from "dt-bindings: interrupt-controller:
+- Remove accidental Acked-By & Reviewed-By from "dt-bindings: interrupt-controller: 
+- Fix missing "0x" hexadecimal prefix in cpu cache sizes
+- Use _fe power domains instead of their disabled _cpu counterparts in
+  Mac mini and Mac Studio framebuffer nodes
+- Link to v1: https://patch.msgid.link/20261010-apple-m4-pro-max-initial-devicetrees-v1-0-781fb3f2d9f6@cyberchaos.dev
 
-The DTB typically contains DSP-specific hardware configurations like PAS ID=
-s,
-minidump allocations, and IPC settings. While sharing the base firmware
-binary might be possible, assigning the same DTB to CDSP1 overrides the
-unique default configurations.
+To: Sven Peter <sven@kernel.org>
+To: Janne Grunau <j@jannau.net>
+To: Neal Gompa <neal@gompa.dev>
+To: Wim Van Sebroeck <wim@linux-watchdog.org>
+To: Guenter Roeck <linux@roeck-us.net>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Thomas Gleixner <tglx@kernel.org>
+To: Radu Rendec <radu@rendec.net>
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>
+To: Hector Martin <marcan@marcan.st>
+To: Uwe Kleine-König <ukleinek@kernel.org>
+To: Sasha Finkelstein <k@chaosmail.tech>
+To: Linus Walleij <linusw@kernel.org>
+To: Mark Kettenis <kettenis@openbsd.org>
+To: Andi Shyti <andi.shyti@kernel.org>
+Cc: asahi@lists.linux.dev
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-watchdog@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-pwm@vger.kernel.org
+Cc: linux-gpio@vger.kernel.org
+Cc: linux-i2c@vger.kernel.org
+apple,aic2: Add t6041 compatible"
 
-For example, looking at nord_cdsp1_resource in qcom_q6v5_pas.c, the driver
-explicitly expects unique names:
+---
+Yureka Lilian (10):
+      dt-bindings: watchdog: apple,wdt: Add t6041 compatible
+      dt-bindings: interrupt-controller: apple,aic2: Add t6041 compatible
+      dt-bindings: arm: cpus: Add Apple M4 Pro/Max CPU core compatibles
+      dt-bindings: arm: power: apple,pmgr-pwrstate: Add t6041 compatible
+      dt-bindings: arm: apple: apple,pmgr: Add t6041 compatible
+      dt-bindings: pwm: apple,s5l-fpwm: Add t6041 compatible
+      dt-bindings: pinctrl: apple,pinctrl: Add t6041 compatible
+      dt-bindings: i2c: apple,i2c: Add t6041 compatible
+      dt-bindings: arm: apple: Add M4 Pro/Max based devices
+      arm64: dts: apple: Add minimal t604x (M4 Pro/Max) device trees
 
-drivers/remoteproc/qcom_q6v5_pas.c:
-	.firmware_name =3D "cdsp1.mbn",
-	.dtb_firmware_name =3D "cdsp1_dtb.mbn",
+ Documentation/devicetree/bindings/arm/apple.yaml   |   27 +
+ .../devicetree/bindings/arm/apple/apple,pmgr.yaml  |    1 +
+ Documentation/devicetree/bindings/arm/cpus.yaml    |    2 +
+ .../devicetree/bindings/i2c/apple,i2c.yaml         |    1 +
+ .../bindings/interrupt-controller/apple,aic2.yaml  |    2 +
+ .../devicetree/bindings/pinctrl/apple,pinctrl.yaml |    1 +
+ .../bindings/power/apple,pmgr-pwrstate.yaml        |    1 +
+ .../devicetree/bindings/pwm/apple,s5l-fpwm.yaml    |    1 +
+ .../devicetree/bindings/watchdog/apple,wdt.yaml    |    1 +
+ arch/arm64/boot/dts/apple/Makefile                 |    6 +
+ arch/arm64/boot/dts/apple/t6040-j614s.dts          |   24 +
+ arch/arm64/boot/dts/apple/t6040-j616s.dts          |   24 +
+ arch/arm64/boot/dts/apple/t6040-j773s.dts          |   28 +
+ arch/arm64/boot/dts/apple/t6040.dtsi               |   65 +
+ arch/arm64/boot/dts/apple/t6041-j575c.dts          |   22 +
+ arch/arm64/boot/dts/apple/t6041-j614c.dts          |   18 +
+ arch/arm64/boot/dts/apple/t6041-j616c.dts          |   18 +
+ arch/arm64/boot/dts/apple/t6041-pmgr.dtsi          | 2297 ++++++++++++++++++++
+ arch/arm64/boot/dts/apple/t6041.dtsi               |  713 ++++++
+ arch/arm64/boot/dts/apple/t604x-j575-j773.dtsi     |   47 +
+ arch/arm64/boot/dts/apple/t604x-j614-j616.dtsi     |   65 +
+ 21 files changed, 3364 insertions(+)
+---
+base-commit: a8ac6027e82415f431bbba49ab535c44f2edaf4d
+change-id: 20261009-apple-m4-pro-max-initial-devicetrees-c3b23fa7a88e
 
-Should CDSP1, CDSP2, and CDSP3 use their respective unique DTB names instead
-of CDSP0's dtb?
+Best regards,
+--  
+Yureka Lilian <yureka@cyberchaos.dev>
 
-> +
-> +	status =3D "okay";
-> +};
-> +
-> +&remoteproc_cdsp2 {
-> +	firmware-name =3D "qcom/nord/cdsp.mbn",
-> +			"qcom/nord/cdsp_dtb.mbn";
-
-[Severity: Medium]
-Does this have the same issue of overriding the default cdsp2_dtb.mbn with
-CDSP0's DTB?
-
-> +
-> +	status =3D "okay";
-> +};
-> +
-> +&remoteproc_cdsp3 {
-> +	firmware-name =3D "qcom/nord/cdsp.mbn",
-> +			"qcom/nord/cdsp_dtb.mbn";
-
-[Severity: Medium]
-Does this similarly misconfigure CDSP3 by assigning it CDSP0's DTB?
-
-> +
-> +	status =3D "okay";
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014063953.5493=
-79-1-shengchao.guo@oss.qualcomm.com?part=3D3
