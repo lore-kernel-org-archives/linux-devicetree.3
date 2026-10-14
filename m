@@ -1,82 +1,83 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65939485CE3
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 07:23:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 934CC486637
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 07:23:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791962584; cv=none; b=O8GI/l+L7wCmZ8oUOtUk5G6JBlSciCb7PajOthnB2hCQ0f7LsLpcojw5zLF2Yo1xLqDW98zw5mx8/r2n2JNW/eh0L8jlg7kW/xGI972V1UWAr8BFxX8g1GNzzbRcsBARJepsdKgVW7iny21FdXU0TiILJMA+5psNS47rglnt0RQ=
+	t=1791962586; cv=none; b=nthgnnjHIl1tjzEOG1y04jN6SVthf4siT6z1nxYXWB4vVde1IbxeAuRA87iBO20AemA3adGGyCGiJEUi3w3YIyfzbQaS96WXIMa6FhxxPS/itcWsUbJlVVn5tY6LQ4etZQKELZsb+iqQ3Fu5HTDeMyh2uzrGMyBGHd8yLEBuAFY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791962584; c=relaxed/simple;
-	bh=KDfB6WzKCxNKnAQO0MMr3WCuaPApE4DDdJllKHW9deE=;
+	s=arc-20240116; t=1791962586; c=relaxed/simple;
+	bh=fSNDOr0MMjJ6MUKZPg9+bicighZuXgJ9O1lxVLqM3xA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=i/55vjQjEiEYBPzDHKftHj2mag9Ue917UJNnvi+SQtP9AumFeErnql6SJ3P+ru/EegluECVm2qSGRUnjM3mIS92QRNGANqYHmbMQA0Y/KZWREC/5vWGYl+EwWLCOyOCL9tdhAsQT7Ayn2MlG/iT61+2aSAmvD21t8Iz41UFWPF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r7/S/dau; arc=none smtp.client-ip=209.85.221.47
+	 MIME-Version; b=cBVh2OTKn6azLPn6RZz+h4BQeQ017aR+bO03jqXeawHQFskycFlOJ6IjeL/nmynUf4YggkDZ2+PoecqU6TqYSIa3xmIVv+sWTj/lQAmJpJ+v9p3bF5FcYKbpjnfj5TIWq8KVTrujl6SXaa+BZb+ixFVfkpkP6nRkLpkzneKf8iw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R8VDxiTS; arc=none smtp.client-ip=209.85.221.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r7/S/dau"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48deeadb3fdso75391f8f.0
-        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 00:23:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R8VDxiTS"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48b042c0759so2824023f8f.2
+        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 00:23:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791962578; x=1792567378; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791962582; x=1792567382; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xDxjmt0bS4RhBRZPFlTXI4Mvp3X2uTTGOkn+NXVrE0c=;
-        b=r7/S/dau52+u2udQx8CeSLih1/F6GxvtoHyatVts/S5W1Ezlm6U8CgoKfpdAN8yvdM
-         A/26hjvUMvFQZJlipaQJCpiAQybtWAVKRBvha0R+9CXd8O6bFJEnNlYF0ualuhTdUSWh
-         P/dBKYbulax6y6XVZHFRa/pZhRze8WecAHHyKHkfidAxidw+7Kw57hXA+XML6IbbKcaH
-         8IhvS/g0hjXX6ngpOrGbKW/8jYMGQgPqKFEq0DFrtuHlUscbJfD1tUU9HagLfXeHhwqZ
-         RY2/+muOdJVeIJbCJREIMZVh3SFnviWB2Ur228EyCTxEekXRBdzhLv+SaVr2dW1vZWRI
-         aUwA==
+        bh=HJ88z5GPX8b+VXAqaP3/v3qo/EtaXQO2geHV+4a1+Gc=;
+        b=R8VDxiTSHSboHzB0OIrpg98X8QmYJhiyRdepCcMJnxfGBnW9i6B6Awr0/ll7OTC899
+         Unqx5HxMVn+Bmnd0MFffLi6AlMGiJ6nqrVJ3uRMLKJFJXo/uA55TAp49hBKEcj0mHJLg
+         yjTeP6JYubFGwm/bvzU3sS+umsydAb5yaTWjDc0hRbDCGasZPKeR958V8+q4MNbvICIT
+         o6LeVT2M0BF8GITLZ+hD7zuaXeEyeUWymnT4z6K4XtG2e5jiOjJagh2jExHYjxopLzaI
+         5/wRNVnrII2GZQSYPs4ZHPGD912GbAZUHkVAiRgjp6YDcLiGManEUIPlRjIdrNh+uo+G
+         wIjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791962578; x=1792567378;
+        d=1e100.net; s=20260707; t=1791962582; x=1792567382;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xDxjmt0bS4RhBRZPFlTXI4Mvp3X2uTTGOkn+NXVrE0c=;
-        b=IXskqf9niylfQQrLG2mML+cIwj1YRKjCDTyXBCc8DtEBKqh4yqeNWVHHgZB5+4vYMD
-         pIiB29T6+Gke9qK5+HISAb2fjkiw8PfkykmyAVeMBCreW/ojbfPJtQazHrFH8ZgAMnIi
-         n/G+D2sQSbbcpeZE6JSGai6kvVrZbxr7hAGgMXqStchKO4d9//XIDdLooF8JoowjCuKi
-         PlQENpANm+jC9EAtmZF2wMd6HxSt6r9srcoLphMryrbALBU/Obh2TA0KWgQA4CXrNRCW
-         N9U4Z5dLMKA77Q1Kqt5SJgyPpsyI1QFltxBC4V/xa6QvT5tW01sEyT9gCTeniDC3EuzR
-         ddgw==
-X-Forwarded-Encrypted: i=1; AKwUvBxHh46MTat4kB3QSa27+RV2lbWmLCgaJTfn8QRGl5Pe5d1aR88EZI/zWptpvM7IzU3CYHzVpGrqiiRE@vger.kernel.org
-X-Gm-Message-State: AFq9FYIowAgW/yHOkgmDfq3wAyH5UW7/3a8Dbx5EOYQvJ+CV/BxmHVYx
-	KHP0KFXmdJujc2OIpZhoDDsJ0DW5MOAsttGoLU59K8E59aDGoR5Rx+O4
-X-Gm-Gg: AYBFou3AGzXTnZAzei7hb3fnOhwEvEcAJfjMdQFc1QFX2cLprP16Z3BfOfbofnzUXut
-	YUA/REK7+t2KRIrP26ZH0pASJi/qytUc5sTn/nE3lNsxmqhpwqKc44A07wrnl2DvrTc8T1y2AhI
-	r7FLR4zkXUsxwQ78uFRVnfTcL4x9xHdB1XzneURoyLP/ZJvzDPm+ThAPogEi3Gs67GWJGMjfL1Z
-	AQn4Dnk7wRNpD/qVJCDQulv44ekMuEcZ7II2m+ray/v15onU2Txa6ttIEm03qeQUg0KqRMceYU6
-	GL96ICnMdR79bndW+4GbWHHSM/+WGXT6uuGIMWqTYcqLCBKVS+ndr5tUBCbZ3xcU8YyAnlP6akd
-	lsxPqMUZIJsE7lIdOsHIAOZdF0VSDPeFlTsTsMPGw7Bvf2UDezcwjLrhOTl9DYZo9S14I26bU66
-	G72ay1AzzKm8G95/kLrI3ZSjvpGX52v8MzYbQtvP0ndhWq8/o87+To7WPzgCFlWFvDK93j0eGTG
-	sxo2rWwgd8/qFw6p9DvNHzQE1irloALMmp46JN0hIFQIJJ/SxbKysBYqxWHGC4M2bORqKMiXrqn
-	r7+eliHB6XIztfwPVdyZdWRsVdPgTBPqEAYtMLxfE9DJl9VqRxrM1IEudhxDTA==
-X-Received: by 2002:a05:6000:29c3:b0:48d:7579:1cdf with SMTP id ffacd0b85a97d-48dba9e633bmr15389523f8f.8.1791962578267;
-        Wed, 14 Oct 2026 00:22:58 -0700 (PDT)
+        bh=HJ88z5GPX8b+VXAqaP3/v3qo/EtaXQO2geHV+4a1+Gc=;
+        b=CTeumR8ZJEVq4dYsll72ZqI0tyQFU0WTtf7LKtwMTA5EpWj2ojVZGQpnjF7oEjobV2
+         JgNZFLxTDEYWf3+N8i/uzONcU0XBGb1O3ZmWTdWYk/69wKJBH5ZW4Eoj8ZwRbAkEDHGL
+         7xRu+i43e3HN9FGZGNV5mRQgpVuUmoytlY5xYhA6fkp6pyodZ4irLWVl6qm1h61Y2+Kc
+         leh0p/1L+SMsCfSNsTxZuVQ63Qy2T53DDDq3SdrkIOViSCM0sR9MO1zbqRn2KKGV48ff
+         lMUIFHMNrAl3o44kveplx2Qi3PbZsZnpDMFbhEmXZq6K1lKICOHCFNqJo4Q5i5emWXTD
+         CLVw==
+X-Forwarded-Encrypted: i=1; AKwUvBzUM1DOKBAInzLnkbPSL0GxZ4Ggm6pXcrxFVabDrm3VIRktKObzy5o0rGxVPJgW0shdKXgsyPho6ZAL@vger.kernel.org
+X-Gm-Message-State: AFq9FYL2FLl1njkrVWkHG7paFW7gUBRW/fV6QcJWWk6opomI9WQSYFfM
+	VUQfxzRep/wRYj877Ad/+tBDRmQ8ywRaRDkGOBiIw0FwBZUiPtNvwMOf
+X-Gm-Gg: AYBFou0er5SqCjyilHVFhFwJH44rw9lQFVl5n4XiBK/hdsev5HFAyJcptxiMFEkH7Ce
+	mHmY9qP0Snk+Qp5YkgymlLpOtq/icKOpW7arlQ4i6QfAYn66wdQxfuFszxAAy5bJlOJyIO6Mnew
+	sgWs3MkoT6eNJ6KUFtUAs74pQIgXMUWUtkVP3xWFSRG7MLTjiRJfn8A/ua7qZBfGNorMmvZWB0j
+	+JAn4YBqv9Cuqd3QoE3uZNZB7kh2nytGoLESRnjbnTHfy0EXF+8X9CtdTULj2FJf2ABeNlhivte
+	8K3+9GK6Qp15AulwHuo06oDRVWygPraCAYD8cPtuTG/vYwd3jMDMVqILMO7B1wkGmNuBeeI+0tf
+	w6g6gCp0aVHt4nL7hHxSxdgF9uj70sKlpWsg5DoR/9e/WtvOrVrcJLY66yvfs8z/R4BcRoAB/uB
+	wGhx2xdbkFb1PjNzkxKM+fT0KTIDuSQUatnfgeQCqXVQqkZBjQiAl6p7BsMHMs+4ZAe191AJMYr
+	2D1zhrI22iLeGk/+mPGC7XnNAwWfku0CTrD6Ue4EgYo/1kTxmyNhcowBLGkqvcrmxm6+ujcW0wy
+	N78MvUrkLai2js0RmCZnedv0Z8qcziVDo1Mwfmsy0/MpZQqqfCGeB8vLasDZEg==
+X-Received: by 2002:a05:6000:2dc5:b0:48a:fb26:23a4 with SMTP id ffacd0b85a97d-48dd6517828mr15172799f8f.31.1791962582334;
+        Wed, 14 Oct 2026 00:23:02 -0700 (PDT)
 Received: from navid-pc ([2a01:4b00:a856:6220::a11])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de3f7f8b8sm8500933f8f.35.2026.10.14.00.22.56
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de3f7f8b8sm8500933f8f.35.2026.10.14.00.23.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 00:22:56 -0700 (PDT)
+        Wed, 14 Oct 2026 00:23:01 -0700 (PDT)
 From: Navid Ghahremani <ghahramani.navid@gmail.com>
 To: linux-arm-kernel@lists.infradead.org
 Cc: arnd@arndb.de,
 	stefandoesinger@gmail.com,
 	krzk@kernel.org,
 	Navid Ghahremani <ghahramani.navid@gmail.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	linux-gpio@vger.kernel.org,
+	linux-phy@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 07/24] dt-bindings: gpio: Add ZTE ZX279128S GPIO controller
-Date: Wed, 14 Oct 2026 08:20:47 +0100
-Message-ID: <20261014072109.1759502-8-ghahramani.navid@gmail.com>
+Subject: [PATCH v2 10/24] dt-bindings: phy: Add ZTE ZX279128S PCIe PHY binding
+Date: Wed, 14 Oct 2026 08:20:50 +0100
+Message-ID: <20261014072109.1759502-11-ghahramani.navid@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261014072109.1759502-1-ghahramani.navid@gmail.com>
 References: <20261014072109.1759502-1-ghahramani.navid@gmail.com>
@@ -88,72 +89,60 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Describe the register-clock consumer and GPIO banks.
+Add Device Tree binding for the PCIe SerDes PHY found inside the
+topcrm block of the ZTE ZX279128S SoC.
 
 Signed-off-by: Navid Ghahremani <ghahramani.navid@gmail.com>
 ---
- .../bindings/gpio/zte,zx279128s-gpio.yaml     | 53 +++++++++++++++++++
- 1 file changed, 53 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/gpio/zte,zx279128s-gpio.yaml
+ .../bindings/phy/zte,zx279128s-pcie-phy.yaml  | 40 +++++++++++++++++++
+ 1 file changed, 40 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/phy/zte,zx279128s-pcie-phy.yaml
 
-diff --git a/Documentation/devicetree/bindings/gpio/zte,zx279128s-gpio.yaml b/Documentation/devicetree/bindings/gpio/zte,zx279128s-gpio.yaml
+diff --git a/Documentation/devicetree/bindings/phy/zte,zx279128s-pcie-phy.yaml b/Documentation/devicetree/bindings/phy/zte,zx279128s-pcie-phy.yaml
 new file mode 100644
-index 0000000000..132c7126fd
+index 0000000000..7bfa363294
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/gpio/zte,zx279128s-gpio.yaml
-@@ -0,0 +1,53 @@
++++ b/Documentation/devicetree/bindings/phy/zte,zx279128s-pcie-phy.yaml
+@@ -0,0 +1,40 @@
 +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 +%YAML 1.2
 +---
-+$id: http://devicetree.org/schemas/gpio/zte,zx279128s-gpio.yaml#
++$id: http://devicetree.org/schemas/phy/zte,zx279128s-pcie-phy.yaml#
 +$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+title: ZTE zx279128s GPIO controller
++title: ZTE ZX279128S PCIe PHY
 +
 +maintainers:
 +  - Navid Ghahremani <ghahramani.navid@gmail.com>
 +
 +description:
-+  The ZTE zx279128s has several identical GPIO banks. Each bank has 16
-+  lines and is described by its own node.
++  PCIe PHY block inside the ZTE ZX279128S Top CRM.
 +
 +properties:
 +  compatible:
-+    const: zte,zx279128s-gpio
++    const: zte,zx279128s-pcie-phy
 +
 +  reg:
-+    maxItems: 1
++    description: Port index (0 or 1)
++    items:
++      - enum: [0, 1]
 +
-+  clocks:
-+    maxItems: 1
-+
-+  gpio-controller: true
-+
-+  '#gpio-cells':
-+    const: 2
-+
-+  gpio-line-names:
-+    maxItems: 16
++  "#phy-cells":
++    const: 0
 +
 +required:
 +  - compatible
 +  - reg
-+  - clocks
-+  - gpio-controller
-+  - '#gpio-cells'
++  - "#phy-cells"
 +
 +additionalProperties: false
 +
 +examples:
 +  - |
-+    #include <dt-bindings/clock/zte,zx279128s-crm.h>
-+
-+    gpio@94407000 {
-+        compatible = "zte,zx279128s-gpio";
-+        reg = <0x94407000 0x40>;
-+        clocks = <&lsp0crpm ZX279128S_LSP0_GPIO_PCLK>;
-+        gpio-controller;
-+        #gpio-cells = <2>;
++    phy@0 {
++        compatible = "zte,zx279128s-pcie-phy";
++        reg = <0>;
++        #phy-cells = <0>;
 +    };
 -- 
 2.55.0
