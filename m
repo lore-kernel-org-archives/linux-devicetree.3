@@ -1,111 +1,139 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 030314B8286
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 18:10:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27FB6568FCE
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 18:11:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792001417; cv=none; b=as7TAbAWD9hdzI8cr7oruJpy730TV4ew3XGTYJvP4EFhbRpzihL71z3XuEzqHuEBmYIFyVsL6FiQ77ZJA6RZSBLO2e3wnLKpl+uPgETL6kYZPXO8lYeeU2sNtf5oE7Uejt8Ln1eqr6EPhnyLyN4VLlPNFLo6E2w/ZqxV+OEvwIo=
+	t=1792001487; cv=none; b=mT7DwVhxinM56wM6+ADh71Pt/ymFf1QXz8/tHpC6lb9azPz2bNVpZlFwnEJqeFfxraGDSf3zMfWdCKr8QF67JyEegqyWAoq/yBVLRqlQdKH7gUzaI4lUVoKZFf4yYVOImtQG7tZt5y/6I/juGeQt66GB6O3Y1tLq3ewZYyZ/oMU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792001417; c=relaxed/simple;
-	bh=L0MysqEw/025L1HKR9aD1OC3k7QZ52RiAF5RNFLwKyg=;
+	s=arc-20240116; t=1792001487; c=relaxed/simple;
+	bh=Jt5a8grOsBKx9q8HqPBZ85rXVrGMmzJVdNrqMXW9tdI=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=B1A4tviadsahKPw8WX1oOpK/0XwemqfZuQAB0+LeViRMUNeRnduH8K+83ub4pCOaZFWChstSMt5H3WiGPrTTYXUtLZkLbMMmFL0cVnWzW2/M4HSR62exx2PRlQJxipqcA0/iRTnfb8VhOGKXf0u1T/VGmKZONENDUzOhk41yGUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IuR4pwrJ; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=by+3orjiDfQjBy2/6J/AaX8VXS6JXfotCg5RRrAb1ghxOtcBQ//eHwdsskHM3ASXEXvqzwIHDLsa9GUV46Xp1Gr+3XtED2YF4BNCzW+gSbkq3sn9tHgLQsqK/9uye7ggVnHCQMcno9qA+BhO8roj+0rHgyBSZezNrHeLvq1DOB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BFc+S5uX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IuR4pwrJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4282D1F000C4;
-	Wed, 14 Oct 2026 18:10:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BFc+S5uX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFA691F000C4;
+	Wed, 14 Oct 2026 18:11:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792001415;
-	bh=0NkNrf7tiAsjlg2/nhgY+1e8kER5taZWFp0aZvzttyA=;
+	s=k20260515; t=1792001482;
+	bh=7G4S4XAfZ67pFcr5D+W4s0IBhJNuIDRq7h3GJbulRuA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IuR4pwrJ/5M4zZdqusQEbeTtuTH4+8KUB0oell6t57SCiN1kyh1reS/cJaBoxUUT2
-	 yzWuVTcsC4EE2Q498oBW/ly+F6Ecz4HcicelzS4Ghm3onsL5uwDBZHsNYEgDkRmFss
-	 KKUsJyL0K6qW90UiE8qpRf21H8pTpkwCy0Py43tJuqz/InSMZ7hhc3hxb+dprMEq6u
-	 gQJiHRvzgKePOkY3FlGMAve9KO8Qr2l6N9XJh7Pj5hvFQPHMZkjvoMrmyaCPl2+Pme
-	 LQKa0ZhKSeK1A8Fu6OrrTx8sJQwOu+RFxj047TZLEYSzZziYyl6Hky/o95Hk5z9n9x
-	 sleuxLpVqBx3A==
-Message-ID: <sashiko-outbox-171668@kernel.org>
+	b=BFc+S5uXhKHCgkNTTCuuALLn/+BTw91feinvjQ5ECL1AA+HGkgptGOtuOqe97pyyS
+	 pZdKTHrKJ4uPKRYzybJgmqJFIaVpLrlWIn3jWqzg9cfb0FMuIBI5tfs2WaBHkZr2u9
+	 G1CmghxwRgri1E275bdAPIMYZQVRFUWkreQQM9RnXKkPjsddWVONZ3HdM9IJsqSPYK
+	 c0/F9hhIIubCebxKthS53HX+O+xjh0y8UykqXbzsjs6co5AmVqHUlnMCLLZfK3Af9o
+	 RszL82UVqCJT2P8kCh2kVT2SbGegFNLohxxVqcuSkJDcInw3WMiJeMJ8555Mi65u+8
+	 ALRsFqwHPmtLQ==
+Message-ID: <sashiko-outbox-171674@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/3] arm64: zynqmp: Add ALINX EdgeBoard FZ3A
+Subject: Re: [PATCH v3 01/14] media: imx678: Rework into generic Starvis 2
+ sensor driver.
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Pufan Jin" <cyan2254650260@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261014175020.62907-4-cyan2254650260@gmail.com>
-References: <20261014175020.62907-1-cyan2254650260@gmail.com>
- <20261014175020.62907-4-cyan2254650260@gmail.com>
+To: "Dave Stevenson" <dave.stevenson@raspberrypi.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261014-media-starvis2-v3-1-c958362b5d06@raspberrypi.com>
+References: <20261014-media-starvis2-v3-0-c958362b5d06@raspberrypi.com>
+ <20261014-media-starvis2-v3-1-c958362b5d06@raspberrypi.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 14 Oct 2026 18:10:14 +0000
+Date: Wed, 14 Oct 2026 18:11:21 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] dts: memory corruption due to memory@0 truncation without reserved=
--memory
+- [High] media: UAF of active_state due to unsafe cleanup ordering in remov=
+e()
+- [Low] media: sony-starvis2: sensor left active after identify
 --
 
-commit 47a176ea68469cbcbe7f485f00a695a0a5b3915f
-Author: Pufan Jin <cyan2254650260@gmail.com>
+commit baf6081a4a9848a2866e87a317711ee36642f79e
+Author: Dave Stevenson <dave.stevenson@raspberrypi.com>
 
-arm64: zynqmp: Add ALINX EdgeBoard FZ3A
+    media: imx678: Rework into generic Starvis 2 sensor driver.
+   =20
+    The register layout and programming model for multiple of the
+    Sony Starvis2 sensors is identical, so prepare for supporting
+    those by renaming all common parts of the driver to a starvis2_
+    prefix, and renaming the driver.
 
-Add device tree for the ALINX EdgeBoard FZ3A, a single board computer
-based on the Xilinx Zynq UltraScale+ XCZU3EG SoC.
-
-Link: https://ai.baidu.com/tech/hardware/deepkit
-Link: https://ai.baidu.com/ai-doc/HWCE/8kq9b2121
-Link: https://www.alinx.com/
-
-> diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-alinx-edgeboard-fz3a.dts b=
-/arch/arm64/boot/dts/xilinx/zynqmp-alinx-edgeboard-fz3a.dts
-> new file mode 100644
-> index 0000000000000..6cad90091a4c9
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/xilinx/zynqmp-alinx-edgeboard-fz3a.dts
+> diff --git a/drivers/media/i2c/imx678.c b/drivers/media/i2c/sony-starvis2=
+.c
+> index 8413fd44d6575..b4733990d03a7 100644
+> --- a/drivers/media/i2c/imx678.c
+> +++ b/drivers/media/i2c/sony-starvis2.c
 
 [ ... ]
 
-> +	reserved_memory: reserved-memory {
-> +		ranges;
-> +		#address-cells =3D <2>;
-> +		#size-cells =3D <2>;
-> +
-> +		linux_cma: cma {
-> +			compatible =3D "shared-dma-pool";
-> +			alloc-ranges =3D <0x0 0x0 0x0 0x7ff00000>;
-> +			reusable;
-> +			size =3D <0x0 0x20000000>;
-> +		};
-> +	};
-> +
-> +	memory@0 {
-> +		device_type =3D "memory";
-> +		reg =3D <0x0 0x0 0x0 0x7ff00000>;
-> +	};
+> @@ -1078,10 +1103,10 @@ static int imx678_identify_model(struct imx678 *i=
+mx678)
+>  	 * This sensor's ID registers become accessible 80ms after coming out
+>  	 * of STANDBY mode.
+>  	 */
+> -	cci_write(imx678->cci, IMX678_REG_MODE_SELECT, 0, &ret);
+> -	fsleep(IMX678_MODULE_ID_DELAY);
+> +	cci_write(starvis2->cci, STARVIS2_REG_MODE_SELECT, 0, &ret);
+> +	fsleep(STARVIS2_MODULE_ID_DELAY);
+
+[Severity: Low]
+In starvis2_identify_model(), the sensor is woken from standby by writing 0=
+ to
+STARVIS2_REG_MODE_SELECT to read the chip ID. However, the driver never wri=
+tes
+STARVIS2_MODE_STANDBY (1) back to the register before returning.
+
+While pm_runtime_idle() in probe() will normally power off the regulators
+entirely, if runtime PM is disabled in the kernel (CONFIG_PM=3Dn) or the
+device's power state is forced 'on' by userspace, the regulators will remain
+on.
+
+Without reverting to standby mode, the sensor could remain active indefinit=
+ely
+after probe, unnecessarily consuming power. Should a write to return to
+standby mode be added before the function returns?
+
+[ ... ]
+
+> @@ -1380,45 +1407,45 @@ static int imx678_probe(struct i2c_client *client)
+
+[ ... ]
+
+> -static void imx678_remove(struct i2c_client *client)
+> +static void starvis2_remove(struct i2c_client *client)
+>  {
+>  	struct v4l2_subdev *sd =3D i2c_get_clientdata(client);
+> -	struct imx678 *imx678 =3D to_imx678(sd);
+> +	struct starvis2 *starvis2 =3D to_starvis2(sd);
+> =20
+>  	v4l2_async_unregister_subdev(sd);
+>  	v4l2_subdev_cleanup(sd);
+>  	media_entity_cleanup(&sd->entity);
+> -	v4l2_ctrl_handler_free(imx678->sd.ctrl_handler);
+> +	v4l2_ctrl_handler_free(starvis2->sd.ctrl_handler);
 
 [Severity: High]
-Does this truncated memory range safely protect firmware memory from Linux?
+Does this cleanup ordering create a race condition that could lead to a
+use-after-free?
 
-ZynqMP U-Boot typically features automatic memory fixups
-(fdt_fixup_memory_banks) which overwrite the reg property of memory@0 to
-the full hardware-detected DDR size before booting Linux.
+v4l2_async_unregister_subdev() unregisters the device node but does not
+block currently executing ioctls on open file descriptors. Then,
+v4l2_subdev_cleanup() unconditionally frees sd->active_state.
 
-Since the device tree lacks a corresponding reserved-memory node with
-no-map for this 1MB region, Linux might see the U-Boot expanded memory
-range, map the entire memory, and allocate from the firmware's region,
-potentially leading to memory corruption or boot crashes.
+However, v4l2_ctrl_handler_free() (which synchronizes with running ioctls
+by taking the handler lock) is called after v4l2_subdev_cleanup().
 
-Should this firmware region be explicitly reserved using a reserved-memory
-child node with no-map instead?
+If a user opens the V4L2 subdevice node and concurrently calls an ioctl like
+VIDIOC_S_CTRL, starvis2_set_ctrl() could dereference the freed active_state.
 
-> +};
+Should v4l2_ctrl_handler_free() be called before v4l2_subdev_cleanup() to
+ensure proper synchronization and protect the active state from being freed
+while ioctls are still using it?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014175020.6290=
-7-1-cyan2254650260@gmail.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014-media-star=
+vis2-v3-0-c958362b5d06@raspberrypi.com?part=3D1
