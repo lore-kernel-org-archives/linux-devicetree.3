@@ -1,524 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC4CF551985;
-	Wed, 14 Oct 2026 15:15:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86EAD55198C
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 15:22:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791990961; cv=none; b=KkzKBEDGBdXHn1rDvkoXR5pJZOWDQ6KO8IFWWHYlX93oFoNlyQT+0mQMmALRhHVsSzebo1UsuAFj9COQP9B2GG9BCmasHc+RJQkU6RRub9Mea7BQ0PnwX+ET85BF7qQX9sZ0Q13kYAYdl9q0Lv315bXGCx0Bs7XdqGydtEBhu04=
+	t=1791991369; cv=none; b=SuVXnAFZz9Ml6h1Mnh1FFy/Dh6aky6cDLubE+hE/gJDoMCcaXppIsTUSkgkDqJY1FUb/Pp+puAFZdc2N/s5wZzGcwxnSQKvanqBKa4w60NsVUkFpVDCwJI86MjI0UlUFRWQNCq8VJZvsMqZRsXxYEaewaIYMVGcl4R37VZTdAdI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791990961; c=relaxed/simple;
-	bh=da/Ta1JvxajZY2CzpGsXRs9Ct+4CftaOfi5W0X5CI7g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SELcFCIBXt9z2pLI+ddNjBmn7NXXV0NKPATowd57aRtxEDvrYHUOmSipnYkcy6zrzMPiaTQfR17gD/dwoVoqYUW88WZJU5n8mCuSqd4eJN9qtYz7Z7qMTJbJNGFZjodVSAGL7mpP0zx8fd8y5BZpGtqz/7ykvB6NQRd/TS1wbdA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e5YUPj17; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791991369; c=relaxed/simple;
+	bh=2ZU6MwfjnLqrDRReQEGGcxuZxUUQUqDtTL1lntQBV7c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZrtSGo10jYbV1TbzIJ7Odzld3+Y3jzmjb6IJPYXVPGod/dV9bsGY/MNaN/0Za6f5++xsDhxdl2w8SkEBIYN0pyeZvvv3Dpjlg8JRkfiwuIPyWL3yz/0aS1v0EC1Qrj+B1YpB4WLtJ3k35N2qDSr9V5WaksHdOeh+A21PK+Ao1/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lRTJaaX5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Oa5NYCLj; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e5YUPj17"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 903C01F000C4;
-	Wed, 14 Oct 2026 15:15:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791990958;
-	bh=iLGFxT3LpQisUlcvSZoVD1R5romywJtb5bDVbgrtQLE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=e5YUPj17wU5tJ5EKkwj9IdgLtTAi7/hIZHn9ZuIJNiSMmwr51h4NVYJZzbhr07WtA
-	 o2F23BNbJC6jv3gfIViAK30PZ+mnBjd9VDlSijeImaxvD3AFISvYdEhfjVJMnUXAIB
-	 9A7GIB+JGJPThGfyme3vculLUDW1qeYOySTWuYI8f/YdjQvttbBMsE0avmn7UuwpwI
-	 +Sk70Dy4UGbFL+kiXQw+JTgdNDtsTGenB4KuDuUQZjGE9uM976V5xDLRGQBlV6Rnrb
-	 zowmqBTTV0krxumZ0c2qVbNKABj/5hnwYMnREw94t6bJsysu1mjt0fcZRvsenl7Mbq
-	 d37vOcXyW1+nw==
-Date: Wed, 14 Oct 2026 16:15:53 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Olivier MOYSAN <olivier.moysan@foss.st.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: iio: adc: add bindings for stm32 mdf
- filter
-Message-ID: <20261014-untrimmed-partly-81a4a21db49c@spud>
-References: <20261001145702.2628429-1-olivier.moysan@foss.st.com>
- <20261001145702.2628429-2-olivier.moysan@foss.st.com>
- <20261001-tribesman-gauze-862e1ef0cdd8@spud>
- <bb8af256-5a77-4215-9eeb-fbcd0cae1829@foss.st.com>
- <20261008-9e2a48675c1a4c28f2dfa73b@squawk>
- <950f2801-a613-4f5a-a5a7-cb30101cf293@foss.st.com>
- <20261009-8db882a9fa159f8759aa7327@squawk>
- <2ba9235f-182e-4906-92e2-e35cf831d289@foss.st.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lRTJaaX5";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Oa5NYCLj"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EEbJA03642833
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 15:22:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	MQwxNYjPO9tbvCrCR1s+whpG+EIzL/7a283QqDnqnbo=; b=lRTJaaX5FMs0taNi
+	0N4GuwqfoTWjVSX6o7mz+daoiXNEOjiKIgxhUJYIrmywgq8TekA/moMm7hNwbyPz
+	QPTOHbuvoXlL69QLdONij3qkU7v4HG2aBQlNSpenRKnDKV1J9En+Nfa47wVDQfwQ
+	iCHACVOAi/toYNJ6wA1CwWVMNTsNURHPAq1BDcZs7aHYBLpOuciiDtiL9qg+j2Ns
+	ifag7HqVnQ39wfi0/yKhyedBJgFzVvrJi0jw47yKKczhBoJ2QVN8xKjhZ0W6Q4nq
+	ICEwzQ/qiIbJgwtO8VoAp+IRSVilOiCu4r/Isqt8bkRzWRYxYcwt09Iqr0vDby+j
+	X/jMHg==
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ha470a71y-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 15:22:46 +0000 (GMT)
+Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5e97167fb2eso22916e0c.0
+        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 08:22:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791991366; x=1792596166; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MQwxNYjPO9tbvCrCR1s+whpG+EIzL/7a283QqDnqnbo=;
+        b=Oa5NYCLj1jleQowTcjcWUIBIWV5BSh1Bm3Hs15vSDfBVm7TafSMwssNgzhXhXww0jR
+         X7N5ZKy9KaFrelQ1F42gEim2zsKvflW785E1pz7m4/nT3aiS2qmpUI/uO3KbVzTpA2KW
+         E3AppRC1XwiCCzPI2dkP8G/lEU+9i2Qz8OgqTuBTVeuPQNfdxHsSfCICmVlLsXsN1mY7
+         CFi5pVEiPlpM04o6oj8lvz3nLe3TBrj0xyFVH3LeSJiex/GJizveVH8TP3xcENRBv1QR
+         haz9zxIFHvN6mFOsXvQ2zi1mOiOqdVjIUtlPJqRguWvhhwJKRHx67t/9Hw1gGCDZAVyD
+         q2DQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791991366; x=1792596166;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MQwxNYjPO9tbvCrCR1s+whpG+EIzL/7a283QqDnqnbo=;
+        b=08dki3ST1fUeMSUYwz7TP1jcL+tANwv2dGcUk9cTisKfg1iCEWBuaRl3vIehocVpT3
+         XgnSTRkGTFm4/rejxL41QcBTbjFIl4I5p0DC4z8fPeifsOodUs7pgo4DnrkGHG1FRgUw
+         HLUyrzk95R0IRWT8eWIW+7EuhfZJT8AG7i27j7Tg6ndH/p6rNClMr/8WTyz5oZ4/pX4P
+         y0sHWDrvqkmw0QZv2ds2cttOkxm0Grg2JvoHCQHhPlKlMwwvFjeTRxkaorEXN7Yca+w0
+         GzqARYE2AZXr88w5dljXMi6Udyd8/RpPo0DdgJMzYxc4wPUyThBssF6wmqOtmHLB2Rtf
+         FC8A==
+X-Forwarded-Encrypted: i=1; AKwUvByNYohMDTJa5rF9emx+i+7hAf448DB7ijcECnYN8jw4I6cIUPlHX9KNqcJOcvPKbmKMayi9V84U8S/J@vger.kernel.org
+X-Gm-Message-State: AFq9FYKACE0uM43wRuQWnNydFIqSnH5cHmoaMVyfXisJRJo3pGalmyaM
+	l+rmgfG3CSP3fxIIHWGTJSP1Uzk7/9Rr24uqoucsRLsFD4iBZtDNM7MNQ3Webj5zZzZwF0Fmcyf
+	HfS5RaT12bw3FF2zDyN8Jez7Vf2zOnTxsnWpY8YRmg08lrcrk0RzqsqYNVNBUQ6BU
+X-Gm-Gg: AYBFou3fPvnU+990j8LuIsmTP+1c9aQ/qvZTzAYRCrhpTmJDTQqxLSCm23k48Eygqy6
+	aLhNgBi+OD42q+fdk2B9sIyblGJgKQHQPIDoj8dX+kPLQIyETXEYLb5BouphLptsBhehmxv/QDm
+	6cis/KeulMfv3rgoIyfipfXf/dkkgvJoZ1Xd8CzK2uJvU/rf82hfi2BkQp2IbFiK0zb9BoWwgxi
+	ydXPQ4E3om6rdYKu4SrpOkTNpsFCN62MUUrBtQ4QSGsQCVNJg2wwgC82zU7954VcoNTQpI94fAr
+	QcOXArB2/qPEfePsff/G4OY1z9cr/uY8rstyM2pDZU/8AOVcubgzYQ8O4AFfLnfXuPsb89kX+1+
+	XvlJaD3l7QLhUV53KGRBSqQ==
+X-Received: by 2002:a05:6122:8111:b0:5d2:d60c:6c48 with SMTP id 71dfb90a1353d-5e91efb84camr3492454e0c.0.1791991365638;
+        Wed, 14 Oct 2026 08:22:45 -0700 (PDT)
+X-Received: by 2002:a05:6122:8111:b0:5d2:d60c:6c48 with SMTP id 71dfb90a1353d-5e91efb84camr3492426e0c.0.1791991365164;
+        Wed, 14 Oct 2026 08:22:45 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9a68c08sm713903466b.31.2026.10.14.08.22.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Oct 2026 08:22:44 -0700 (PDT)
+Message-ID: <bc6a824c-f242-4047-9198-dda53f789704@oss.qualcomm.com>
+Date: Wed, 14 Oct 2026 17:22:40 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="daw9WKulJwF5PBoA"
-Content-Disposition: inline
-In-Reply-To: <2ba9235f-182e-4906-92e2-e35cf831d289@foss.st.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH DNM RFC 14/16] clk: qcom: Enable clk-dvfs on SM8650
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
+        Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Mike Tipton <mike.tipton@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+        driver-core@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org
+References: <20261014-topic-qc_clk_dvfs-v1-0-3041b788e9f7@oss.qualcomm.com>
+ <20261014-topic-qc_clk_dvfs-v1-14-3041b788e9f7@oss.qualcomm.com>
+ <rfcbfy5z45w43ju2qjslrcnxfbhqbcx5fr5bii2icewm5ggihu@lsooj5mc7mpk>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <rfcbfy5z45w43ju2qjslrcnxfbhqbcx5fr5bii2icewm5ggihu@lsooj5mc7mpk>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA2MSBTYWx0ZWRfX+8Or4khTZg8G
+ 8GtOuklOYhTmgP8yRUQSiDLkftGuBBv8R5nxqCQ/LROaQlHtnMfCsQcaFemn9M2N56LI81EcrFW
+ rry2kgW+TQ/966SWbVjAV/TVvTT2cFRWjrbrxH7CmsQIqRcw8wW3r9wg8Hv7XbWCExnFXpwgY6l
+ tLfg/t6DWHmBawPcy0wKU/fBQFYjqDqRucTlx86Abq3pEVHPZ2qrA5KsDFUysfWzh+8MQX72od9
+ /r5OEEFNwPDezaU0gYHeR7apSrZYg1i4dT6mPUDcChS9WW9gFmoDNuCHCmrYRq/ph7lkj0Ow99r
+ atRarKX/gmJ89FvJjxC08dgQlAzg/JrXAloZql6Dv6NEU+yp1qtromeeq2pLKlOdebddqzQfYyo
+ HOUCrSjOiQlamwAXO87JE04MIzV2p2k2i/9sUThquD+IYwsPkDbs3WOphzfgIW3B6u74Pp6LG3k
+ DoATTtmdsKE8PkTgl2A==
+X-Proofpoint-GUID: ojgSE8HsevC7ZJJpy_1wgzqn-LcUWCMa
+X-Authority-Analysis: v=2.4 cv=P6avFSAu c=1 sm=1 tr=0 ts=6acf9e46 cx=c_pps
+ a=wuOIiItHwq1biOnFUQQHKA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=xncweAwc9hG03UQb53QA:9 a=QEXdDO2ut3YA:10
+ a=XD7yVLdPMpWraOa8Un9W:22
+X-Proofpoint-ORIG-GUID: ojgSE8HsevC7ZJJpy_1wgzqn-LcUWCMa
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA2MSBTYWx0ZWRfX9ecr1jKdfpSY
+ ysofhSnV/ypyoL8D2vqGo98bmL03SH3m3WYed80Vb3CL8JM91ZotVzex2lBYS14JSJns5aLnjlz
+ dHXGu4ieQbpJbDN50crD/JgZGv5pV8w=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0
+ suspectscore=0 clxscore=1015 impostorscore=0 malwarescore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140061
 
---daw9WKulJwF5PBoA
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 10/14/26 4:40 PM, Dmitry Baryshkov wrote:
+> On Wed, Oct 14, 2026 at 02:19:14PM +0200, Konrad Dybcio wrote:
+>> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>>
+>> Make use of the clock-dvfs infrastructure and fill in the power
+>> requirements for SM8650's clocks to ensure the hardware can operate in
+>> accordance with the specification.
 
-On Mon, Oct 12, 2026 at 02:56:04PM +0200, Olivier MOYSAN wrote:
-> Hi Conor,
->=20
-> On 10/9/26 21:12, Conor Dooley wrote:
-> > On Thu, Oct 08, 2026 at 06:37:26PM +0200, Olivier MOYSAN wrote:
-> > > Hi Conor,
-> > >=20
-> > > On 10/8/26 12:11, Conor Dooley wrote:
-> > > > On Wed, Oct 07, 2026 at 11:01:28AM +0200, Olivier MOYSAN wrote:
-> > > > > Hi Conor,
-> > > > >=20
-> > > > > Thanks for the review
-> > > > >=20
-> > > > > On 10/1/26 20:32, Conor Dooley wrote:
-> > > > > > On Thu, Oct 01, 2026 at 04:56:45PM +0200, Olivier Moysan wrote:
-> > > > > > > Add bindings that describes STM32 MDF settings to support
-> > > > > > > digital filtering for Pulse Density Modulation (PDM) micropho=
-nes
-> > > > > > > and analog sigma delta modulators.
-> > > > > > >=20
-> > > > > > > Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
-> > > > > > > ---
-> > > > > > >     .../bindings/iio/adc/st,stm32-mdf-adc.yaml    | 383 +++++=
-+++++++++++++
-> > > > > > >     1 file changed, 383 insertions(+)
-> > > > > > >     create mode 100644 Documentation/devicetree/bindings/iio/=
-adc/st,stm32-mdf-adc.yaml
-> > > > > > >=20
-> > > > > > > diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm=
-32-mdf-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-mdf-ad=
-c.yaml
-> > > > > > > new file mode 100644
-> > > > > > > index 000000000000..f2fbc3e150e8
-> > > > > > > --- /dev/null
-> > > > > > > +++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-mdf-=
-adc.yaml
-> > > > > > > @@ -0,0 +1,383 @@
-> > > > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > > > > > +%YAML 1.2
-> > > > > > > +---
-> > > > > > > +$id: http://devicetree.org/schemas/iio/adc/st,stm32-mdf-adc.=
-yaml#
-> > > > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > > > > > +
-> > > > > > > +title: STMicroelectronics STM32 Multi-function Digital Filte=
-r (MDF) ADC
-> > > > > > > +
-> > > > > > > +maintainers:
-> > > > > > > +  - Olivier Moysan <olivier.moysan@foss.st.com>
-> > > > > > > +
-> > > > > > > +description: |
-> > > > > > > +  STM32 MDF ADC is a sigma delta analog-to-digital converter=
- dedicated to
-> > > > > > > +  interface external sigma delta modulators to STM32 micro c=
-ontrollers.
-> > > > > > > +
-> > > > > > > +properties:
-> > > > > > > +  compatible:
-> > > > > > > +    enum:
-> > > > > > > +      - st,stm32mp25-mdf
-> > > > > > > +      - st,stm32mp23-mdf
-> > > > > > > +
-> > > > > > > +  reg:
-> > > > > > > +    minItems: 1
-> > > > > > > +    maxItems: 2
-> > > > > >=20
-> > > > > > This needs an items list here. The size of the regions seems li=
-ke crap
-> > > > > > to begin with...
-> > > > > >=20
-> > > > > > > +
-> > > > > > > +  clocks:
-> > > > > > > +    maxItems: 1
-> > > > > > > +
-> > > > > > > +  clock-names:
-> > > > > > > +    description: Internal clock used for MDF digital process=
-ing.
-> > > > > > > +    items:
-> > > > > > > +      - const: ker_ck
-> > > > > >=20
-> > > > > > This is pointless when you only have one.
-> > > > > >=20
-> > > > >=20
-> > > > > I agree that it could be dropped. However, it is useful for using
-> > > > > devm_regmap_init_mmio_clk.
-> > > >=20
-> > > > Ah, because that function if you pass NULL to it, it doesn't mean no
-> > > > string, it means no clock.
-> > > >=20
-> > >=20
-> > > The MDF has two clocks (AHB clock for register accesses and ker_ck for
-> > > peripheral processing). However, these two clocks share the same gate=
-=2E So,
-> > > only the ker_ck clock is exposed in the driver.
-> >=20
-> > That's incorrect, you should have two clocks in DT if the block has two
-> > even if they have a shared gate.
-> >=20
->=20
-> This would not be consistent with the architectural choice made for the
-> STM32MP25. The RCC driver provides an abstraction to manage these two clo=
-cks
-> as one, since they are controlled by the same gate. The binding incorpora=
-tes
-> this abstraction to manage only a single clock.
->=20
-> A large number of peripherals on STM32MP25 have the same architecture and
-> follow this implementation rule. So managing both clocks in the MDF driver
-> would create a consistency issue with the other peripherals.
+[...]
 
-Doesn't really matter how you've modelled the clock controller, cos you
-can just have the same clock be both inputs, and retain a correct model
-of this hardware?
+>>  #include <dt-bindings/clock/qcom,sm8650-camcc.h>
+>> +#include <dt-bindings/power/qcom,rpmhpd.h>
+> 
+> I've commented to the cover letter. For me it feels like the layering
+> violation.
 
->=20
-> > > The regmap api is a convenient way to manage registers and gate the A=
-HB
-> > > clock only on register accesses. Removing clock-names no longer allow=
-s you
-> > > to benefit from clock management handled by the regmap framework, and=
- means
-> > > that this must be managed explicitly, partially or entirely, in the d=
-river.
-> > >=20
-> > > > >=20
-> > > > > > > +
-> > > > > > > +  "#clock-cells":
-> > > > > > > +    enum: [0, 1]
-> > > > > >=20
-> > > > > > Why is this not fixed? Also why are parts of your own device co=
-nsuming
-> > > > > > the clocks?
-> > > >=20
-> > > > Reading the docs, this has to be 1, you have two clocks?
-> > > >=20
-> > > > Not sure why you skipped this and skipped explaining why you are
-> > > > consuming your own clocks.
-> > > >=20
-> > >=20
-> > > Yes, we can have two clocks gated independently but sharing the same =
-rate.
-> > >=20
-> > > Using the clock framework apis seemed to me the right way to manage c=
-ck1 and
-> > > cck0 gating and divider computing. I think I would have to introduce
-> > > proprietary properties and have to implement code in the driver, that=
- would
-> > > be handled natively by the framework otherwise.
-> >=20
-> > The CCF is still the right way to do it, especially since CCK0/1 can be
-> > exported to other devices. I don't believe you need to actually have a
-> > reference in DT to do this though, plenty of "real" clock controllers
-> > have only one input clock and hang a whole tree with multiple layers off
-> > that.
-> > Down below I mentioned this under "ouroboros devices", I think this kind
-> > of ability to chose which clock a channel uses is a fairly normal thing
-> > to do in IIO land, I just dunno what the preferred mechanism is - I just
-> > know that it is not referencing yourself (probably it's some sort of
-> > property that you put in a channel node that says 'blah-clock =3D "cck0=
-"',
-> > but better that the IIO folks answer.
-> >=20
->=20
-> The adc.yaml binding do not expose clock properties. But maybe IIO experts
-> can answer about this.
->=20
-> > > > > > > +  clock-output-names:
-> > > > > > > +    description: |
-> > > > > > > +      CCK0 and CCK1 are optional output clocks, which share =
-the same clock frequency,
-> > > > > > > +      but can be gated independently to save power.
-> > > > > > > +    minItems: 1
-> > > > > > > +    maxItems: 2
-> > > > > > > +    oneOf:
-> > > > > > > +      - items:
-> > > > > > > +          - const: cck0
-> > > > > > > +      - items:
-> > > > > > > +          - const: cck1
-> > > > > > > +      - items:
-> > > > > > > +          - const: cck0
-> > > > > > > +          - const: cck1
-> > > > > > > +
-> > > > > > > +  clock-frequency:
-> > > > > > > +    description: |
-> > > > > > > +      Common clock frequency (Hz) for CCK0 and CCK1 output c=
-locks.
-> > > > > > > +      The frequency must be a multiple of the "ker_ck" clock=
- frequency.
-> > > > > > > +    maximum: 25000000
-> > > > > >=20
-> > > > > > Should not be needed, the consumers request what they need.
-> > > > > >=20
-> > > > >=20
-> > > > > The CCKx clock frequency depends on the maximum rate supported by=
- the sigma
-> > > > > delta converters (for instance a digital mic) and the expected de=
-cimation
-> > > > > ratio on the bitstream. Typically this determines the frequency o=
-n the SPI
-> > > > > bus.
-> > > > > This rate is defined statically and shared by the CCKx clocks. So=
- IMHO, as
-> > > > > this rate is unique, it can look strange to let the consumer defi=
-ne it.
-> > > > > Moreover, it seems to me that clock-frequency is already used to =
-configure
-> > > > > the frequency of a provider in some other bindings.
-> > > > > For instance: Documentation/devicetree/bindings/clock/silabs,si57=
-0.yaml
-> > > >=20
-> > > > This is a binding from the age of antiquity, using it to justify yo=
-ur
-> > > > use is actually harming your argument rather than helping. Your clo=
-ck
-> > > > consumers should be providing the information about what the rate s=
-hould
-> > > > be, and if you need to do this in dt you can use assigned-clock-rat=
-es.
-> > > >=20
-> > >=20
-> > > ok, I will move this to clock consumer with assigned-clock properties.
-> > >=20
-> > > > > So, it's not clear for me, what is the restriction on clock-frequ=
-ency
-> > > > > property.
-> > > > > > > +
-> > > > > > > +  ranges: true
-> > > > > > > +
-> > > > > > > +  clock-ranges: true
-> > > > > > > +
-> > > > > > > +  resets:
-> > > > > > > +    maxItems: 1
-> > > > > > > +
-> > > > > > > +  reset-names:
-> > > > > > > +    items:
-> > > > > > > +      - const: mdf
-> > > >=20
-> > > > Same applies here as to the clock names fwiw.
-> > > >=20
-> > >=20
-> > > Yes, I removed this.
-> > >=20
-> > > > > > > +
-> > > > > > > +  access-controllers:
-> > > > > > > +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> > > > > > > +    description: |
-> > > > > > > +      Phandle to the rifsc device to check access right.
-> > > > > > > +
-> > > > > > > +  power-domains:
-> > > > > > > +    maxItems: 1
-> > > > > > > +
-> > > > > > > +  st,interleave:
-> > > > > > > +    description: |
-> > > > > > > +      List of phandles of interleaved filters. The indexes o=
-f interleaved filters must be
-> > > > > > > +      consecutives starting from 0 (i.e in range [0..N]). Th=
-e samples from interleaved filters
-> > > > > > > +      are muxed in a single channel and retrieved through th=
-e device associated to the filter 0.
-> > > > > > > +      The filters 1..N have to be enabled, but inherit their=
- configuration from filter 0.
-> > > > > > > +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> > > > > >=20
-> > > > > > No idea what these even are, but this is probably not the right=
- way to
-> > > > > > represent the relationship between devices. They're apparently =
-ADCs, but
-> > > > > > this is also an ADC so I'm not sure what's going on here at all.
-> > > >=20
-> > > > Yeah, after more thought this should not be done like this at all,
-> > > > especially if these filters the phandle point to are part of this d=
-evice
-> > > > itself, which I suspect they are. If that's the case, you don't need
-> > > > phandles to even do this, you just need an int that says what N is.
-> > > >=20
-> > >=20
-> > > Yes, can be an index as it is an internal reference. I will change th=
-is.
-> > >=20
-> > > > > >=20
-> > > > > > > +
-> > > > > > > +required:
-> > > > > > > +  - compatible
-> > > > > > > +  - reg
-> > > > > > > +  - ranges
-> > > > > > > +  - clocks
-> > > > > > > +  - clock-names
-> > > > > > > +  - clock-ranges
-> > > > > > > +  - "#address-cells"
-> > > > > > > +  - "#size-cells"
-> > > > > > > +
-> > > > > > > +additionalProperties: false
-> > > > > > > +
-> > > > > > > +patternProperties:
-> > > > > > > +  "^sitf@[0-9]+$":
-> > > > > > > +    type: object
-> > > > > > > +    description: Serial interface child node
-> > > > > >=20
-> > > > > > Why is this a child node at all?
-> > > > > > Probably not worth reviewing more without a link to the docs fo=
-r this
-> > > > > > device so I can figure out what on earth is going on!
-> > > > > >=20
-> > > > >=20
-> > > > > The MDF is a digital filter for sigma-delta bitstreams, rather th=
-an the
-> > > > > analog-to-digital converter itself.
-> > > > >=20
-> > > > > Here is the link to STM32MP25 reference manuel
-> > > > > https://www.st.com/resource/en/reference_manual/rm0457-stm32mp232=
-5xx-advanced-armbased-3264bit-mpus-stmicroelectronics.pdf
-> > > > > Chapter 45: Multi-function digital filter (MDF)
-> > > > >=20
-> > > > > On STMP32MP25 SoC, the MDF provides 8 serial interfaces (SITF) an=
-d 8 digital
-> > > > > filters (DFLT) which can be connected through a multiplexer.
-> > > > >=20
-> > > > > Below is a schematic view of typical applications targeted by this
-> > > > > peripheral
-> > > > >=20
-> > > > >=20
-> > > > > Audio use case:
-> > > > >=20
-> > > > > 		mdf
-> > > > >               +-------------------------------------+
-> > > > > +------+    | +------+    +------+    +------+    |
-> > > > > | dmic | -> | | sitf | -> | mux  | -> | dflt | -- | -> audio devi=
-ce
-> > > > > +------+    | +------+    +------+    +------+    |
-> > > > >               +-------------------------------------+
-> > > > >=20
-> > > > > For instance, in an audio use case the serial interface can be co=
-nfigured to
-> > > > > provide the clock to the digital microphone (cck0, cck1 or both) =
-at a common
-> > > > > predefined rate, and to retrieve the PDM samples.
-> > > > > The serial interface provides this samples to a digital filter, w=
-hich
-> > > > > delivers PCM samples on its output.
-> > > > >=20
-> > > > >=20
-> > > > > Analog use case:
-> > > > >=20
-> > > > > 		mdf
-> > > > >                 +-------------------------------------+
-> > > > > +--------+    | +------+    +------+    +------+    |
-> > > > > | sd adc | -> | | sitf | -> | mux  | -> | dflt | -- | -> iio devi=
-ce
-> > > > > +--------+    | +------+    +------+    +------+    |
-> > > > >                 +-------------------------------------+
-> > > >=20
-> > > >=20
-> > > > So, looking at the docs and a brief chat with Jonathan about this
-> > > > device, I believe you've got things backwards and this is actually =
-the backend,
-> > > > and the adc should be the one populating the io-backends property
-> > > > pointing to this device. You should have io-backend-cells, and I as=
-sume
-> > > > that there should be a cell for the adc to select which dlft it is =
-connected
-> > > > to.
-> > > >=20
-> > >=20
-> > > There have already been lengthy discussions in the past about a DFSDM
-> > > peripheral on STM32MP1, which has features similar to those of the MD=
-F and
-> > > similar implementation constraints. For the DFSDM, a solution based o=
-n an
-> > > IIO backend had been upstreamed. The MDF follows the same architectur=
-e. I
-> > > need to take a little time to dive back into this issue.
-> >=20
-> > One thing to note there is that you retrofitted the backends onto that
-> > device, and the original design here is much older (it's a text
-> > binding).
-> >=20
-> >=20
-> > >=20
-> > > DFSDM sources:
-> > > drivers/iio/adc/stm32-dfsdm-adc.c
-> > > drivers/iio/adc/stm32-dfsdm-core.c
-> > >=20
-> > > Here is a sample of DFSDM DT
-> > >=20
-> > > sd_adc0: simple-sd-adc0 {
-> > > 	compatible =3D "sd-modulator";
-> > > 	#io-backend-cells =3D <0>;
-> > > 	vref-supply =3D <&v3v3>;
-> >=20
-> > Yeah, pretty sure this is wrong (backwards). The backend is the thing
-> > that gets data from an ADC not the ADC.
-> >=20
->=20
-> The backend framework was introduced to implement complex IIO aggregate
-> devices. The hardwares that were driving this need were analog device ad9=
-467
-> and ST DFSDM.
->=20
-> https://lore.kernel.org/linux-iio/20231204144925.4fe9922f@jic23-huawei/T/=
-#m222f5175273b81dbfe40b7f0daffcdc67d6cb8ff
->=20
-> From drivers/iio/industrialio-backend.c:
->=20
-> "The typical architecture is to have one device as the frontend device wh=
-ich
-> can be "linked" against one or multiple backend devices. All the IIO and
-> userspace interface is expected to be registers/managed by the frontend
-> device which will callback into the backends when needed (to get/set some
-> configuration that it does not directly control)."
->=20
->  *                                    ---------------------
->  * ------------------                 | ------------
->  * |     ADC        |-----------------| | ADC CORE |
->  * | (Frontend/IIO) | Serial Data (eg | |(backend) |-------
->  * |                |-----------------| ------------
->  * ------------------                 ---------------------
->=20
-> The MDF (or DFSDM) use case, follows this topology:
-> - The SD modulator (ADC core) registers in backend framework
-> - The MDF registers in IIO framework and exposes the IIO devices
->   It also get configuration (ref voltage) from SD modulator, to compute
-> scaling.
->=20
-> I agree that if we consider the terms frontend and backend, the elements =
-in
-> the data flow do not have the roles that we would naturally expect. Howev=
-er,
-> if we consider the expected role of the elements using the iio-backend
-> framework, the usage seems coherent to me.
+I understand. I still think it's okay given this is a driver only
+for a specific SoC.
 
-I didn't even get as far as sd modulators or whatever, if I understand
-correctly the ADC inputs on this device are fed by the onboard ADC?
-(https://lore.kernel.org/linux-iio/20261006-adc-stm32mp25-v1-v4-0-d31ec75ae=
-cf3@foss.st.com/)
-In that case, I can't really see how it makes sense for the primary iio
-device to change when data is fed back through the mdf or taken
-directly from the ADC itself, particularly given how that would affect
-the userspace interface.
+[...]
 
-The "serial" side of this seems in a similar vein to the adi,axi-adc
-stuff, which when considered with the ADC inputs, really does give me
-the impression this is backwards.
+>> +static const struct qcom_clk_dvfs_data cam_cc_camnoc_axi_rt_clk_src_dvfs = {
+>> +	.pd_indices = (const unsigned int[]) { DT_PMDOMAIN_MMCX, DT_PMDOMAIN_MXC },
+>> +	.num_pd_indices = 2,
+>> +	.rates = (const struct qcom_clk_dvfs_rate[]) {
+>> +		{ 300000000, RPMH_REGULATOR_LEVEL_LOW_SVS },
+>> +		{ 400000000, RPMH_REGULATOR_LEVEL_SVS },
+> 
+> And does it actually have the same vote on both MMCX and MXC? I'd need
+> to check the clock tree.
 
---daw9WKulJwF5PBoA
-Content-Type: application/pgp-signature; name=signature.asc
+In this case the RCG needs VDD_MM and its direct child branch
+needs MXC for the flipflops.
 
------BEGIN PGP SIGNATURE-----
+[...]
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas+cqQAKCRB4tDGHoIJi
-0vjrAP9bGRQrGs/YcMGw8wt/KTggN+lbhYobYz8FRuTX/GNV5wD+O9lnMWipDKp6
-fOWbwmaImLFW/eZD9mx5ZIy6OeXJDg8=
-=X5b1
------END PGP SIGNATURE-----
+>> +static const struct qcom_clk_dvfs_data cam_cc_cphy_rx_clk_src_dvfs = {
+>> +	.pd_indices = (const unsigned int[]) {
+>> +		DT_PMDOMAIN_MMCX, DT_PMDOMAIN_MX, DT_PMDOMAIN_MXC,
+> 
+> Three domains... If we want to have three votes, we really need to have
+> three votes in the .rates array. But then it starts to feel like an OPP
+> table.
 
---daw9WKulJwF5PBoA--
+In this case, yes, three domains, same RPMH level for this clock alone.
+
+Konrad
