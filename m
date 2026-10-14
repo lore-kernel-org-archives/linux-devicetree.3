@@ -1,65 +1,65 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7530F48FF81
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 07:23:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5E914908BB
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 07:23:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791962607; cv=none; b=R9BEtKk7cjgHUWCafp1u68Lej0I+akuJKuzSLoatixSTzuxtr5sG4aHiiGH6YATxoxiNSEJtdHO/FdQibNZmP/Z0JNVorir1OxxXNFInkDUmxJ7jRhBw86lotfA+5HSK1W2COdIPQitJxP9bBc7O3xLCEZkUd36+gCcP243H3A8=
+	t=1791962608; cv=none; b=bysAlqgcxOC34M2mlUYaRLcXiYMHpT87TUb9xTety95hveYGi60hI0l2LjzLlwmgIYw0JVTZtaUk/2RX0chXMbRsrNQBpgsemjqYCNKaFZUt5vhbEFNjTZVvWgLtJA92V0LIqEGk/lY28hLlVF9ui5GhEokvnLE9QWelyX1KmcU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791962607; c=relaxed/simple;
-	bh=IIYhiUmZqdRiAhQTgEW9kA9/gg2iFsZpmkKtuSuG6Cw=;
+	s=arc-20240116; t=1791962608; c=relaxed/simple;
+	bh=kp34iCmI4gYR2F2VaX9bwcbyxBQZXztbDcgJom4mmak=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mR1SOaN+sK5x6UjNPxFB78yJ4h8oGoZ0/kEZQrz3B+BLeT2bShCxMtK7f7CUqGtGoe8TL2FgfGgS5frMioMciVsguM/P+tQ7N211FZ0lCJ+hIrOX5Nv0bGjOU3+NUNxNcWcDkscRaySbLaJMbN6nY/I/YXsEkVuGzbjDj8ENwxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aXUej/Qc; arc=none smtp.client-ip=209.85.128.41
+	 MIME-Version; b=ShfIbVfbKLfLhrIvQN1hE6df2Yo6uGgMVPf+9QCCprbTJ1uwKBwYhCdJCljn6WNeJNvFxXwOtWdtsi4GH/emOfydee4YUPwWTu8ExLID3FgD5YquepJPlBpq5dxG4X+Axg7HlcvfyfKws8rADofOPSKpRmlu3xvyF8BW4EmNEjs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O7WbdbV1; arc=none smtp.client-ip=209.85.128.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aXUej/Qc"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a19cba5c14so31040725e9.3
-        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 00:23:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O7WbdbV1"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a1880e1bf1so5437825e9.1
+        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 00:23:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791962598; x=1792567398; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791962600; x=1792567400; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8x9KsBewSFYSs1uygWN9H4G3vWtytmr+Iw9MGOEX/xM=;
-        b=aXUej/Qch6B1GllJpPV7WUHusvzwCjfKp4QyXD3/uYD1evcGFB8nrjqqn2toHpZ3cH
-         T6P4mdMepE99mhLKV+14VH1Q3sGPvTgiQ7+69VRyGRet1r17Pxyns+iCzymlzSEeFY7k
-         K9phven/x/EraXCdayHnMQ7kFJ/LHBmUuRRu+OaR4fXY5k/BbiLHyx79v+Foo5veHaOi
-         rQgdeAFn1zgAWl5jdG/MY7obHNgb6Ul2dnC+7awh4096gLDmLED/1OvuQh2fzzM7D34q
-         zw9vag1MqcHtU4vBOk0J2wOjkG6BUXjsPr4JsdLFI4q6zUB9O7/GtixXE6fV8C9OLMeG
-         XZsw==
+        bh=SOB0hFLW8NAJjDWYePu7p10HP778mqXX1LJvbg4+2So=;
+        b=O7WbdbV1PKJH9TuSu+rn/96eR5bGJyQUr4fqK/vy+igcSO6ZtSNB2lXxgSTl0BYc33
+         TtDjJhj4OtmhOysvp9BOsM0jMSi/URICT7DCHcNctfP5c+x9ajjnFgfyE2rdI6allLf7
+         k1G3/z62RhJYdE8Fovy53ELuew/y+0Ew1Aawas3V1y1QhEsD2Ia/3zifjr8Aqog/QUzl
+         BOIcHnY0MBOhPzDj41p0I0gDH0tn9eNjtDWw+cgImFo84ccQtnEBbRIQeb8ov8Xriciu
+         tqG8KqPfMZCl5jKeTKbM+LRmmJTa1I8rmGgDTD9YN7uPACgaSRqsiiio/cKGNOm28PRA
+         oC6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791962598; x=1792567398;
+        d=1e100.net; s=20260707; t=1791962600; x=1792567400;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8x9KsBewSFYSs1uygWN9H4G3vWtytmr+Iw9MGOEX/xM=;
-        b=UfukqtJT3kT8luTo9py8IUD0QTkZ7WH50pJzh6oKhKL+n6MbmG2guCe14Q0jzYQQqi
-         1K/NCBwL4YXo45OsX9c4XpoSRyzCw5YV7Ds9bWwdKsP6k64PJM1p35soJO00Jv37WZ3R
-         1zMz3tEV4mVb3U7YxvX4ydvtB053tViJofmL1dxZgdEikSm+ONnVQ7OVSzeLtgaNb3sz
-         MB/1xmSi8Nstl0zvk74tUZefSkIhttBs8kuqz+q3VDVQ9Dv+tv6yCuGJ33HLD2AuilYa
-         eCqLkInc4wJ9a9nP7xXC/kSvKCMd0AU3UjlOyDgNPwoOsF6JZIrquWPjTQLgAQUxH4UF
-         Ao6w==
-X-Forwarded-Encrypted: i=1; AKwUvByZXSW6JHZpm2KEZFQa+AmP2mZilflazd3GjDes7t3xCfje9n89Kr2qjMsI5sGDfgYXPGqYOe1e/0xY@vger.kernel.org
-X-Gm-Message-State: AFq9FYIcCb2QVXX0mbcmOZyEyBwqAEFhcDjJAOiyWZTbTDzcl29oG3hy
-	urq3CK4SsWVj5uUHiJiL3aHDEQE3mSgLJ9d+JGe4auOGnwVHDhSGoCfl
-X-Gm-Gg: AYBFou3uAUCkHdnteRdhF/yHgdK5xHa6Df6BjIDHAP207gFXiLpFRAZZvOsTwpAyhoD
-	7zOYGM1xnTiicG9SNRQXT1gAYcsCJw/MQVGNlW69ZDFOR3Ywa6vCesWgElRadDjtBWjWw/KDiLW
-	75yAF7l8NgJ1AETBrwUJ+QHSYzTUQOBrCTKzEUW6tJh1ZUVEEockFh5fXrh7VUBG0tH3OvsRTpL
-	ZIAGeOWHjbWR76KoqIdo77gCpZLqDRtLdX4VvfqiJuepw1bvqsFFrBzDbHoXmhzUrxblgLq9Np6
-	lGzlEpNL2vNF68fgqJ13OeilMIHyFjvlkCO/uuWJ68QwHnD8TTSWnPAnDXLAgRXKzYtkbB6dVDd
-	CO41xJ9+2sUggGiqlR1iIeOhVJC7hWIOkzxKvWry/y8rVC1YOWqhgxKdazhgztruDbDxDjeYf4r
-	LKiEpYKNQF+IV+Zc6DC90lzxWPYZUPF8OEKKXMtALb//cwOBcZGNrTgTIDu44vVGR8Q6sHWseJE
-	lYVhD5bdAwD/BWpgWwPVQG8yqNpX8JEFW/PB5+QGTxf8qeGbvmXhedv8NLrVIHPO+EXQVRyRQnR
-	IaVSjQo4auQ+7ILOuKBmXeI1iVw3CCkPoOdX+WwImmx2CYI3tzCF2CenMDWF9w==
-X-Received: by 2002:a05:600c:4f89:b0:4a1:acaa:9d4c with SMTP id 5b1f17b1804b1-4a1acaa9f79mr83413695e9.25.1791962598362;
-        Wed, 14 Oct 2026 00:23:18 -0700 (PDT)
+        bh=SOB0hFLW8NAJjDWYePu7p10HP778mqXX1LJvbg4+2So=;
+        b=PfBf/tJd2bnlsGdHh+X0wA1360sLpy21PHS+0sglyuj4rkjyXG+o6bmVPyKkKPiF4p
+         4vHrb7BuXAmFmtWzSQzUFzRTtx2KybKxfybOJbY/lIYCu8v/iAFWPOshwwm/zs7mIrbc
+         BHWBkgdzogSvUiF5YKBMsrSzzDKD7AQrbyR97b8Ap6XNKd8XngsS25qjjqAqQrUYjAQq
+         9e9fsv2wHY6vlG3iGomID371enf18K/GJopMwkKcEhwFag/FyCZCrhhpJS56AVXSqy8U
+         BUNoMhOOAoel8ILcT7CMve4hn4TMzOOnuOqhmKlfYllEpGjQFD/swhniILLzAw/TFkKk
+         NAAA==
+X-Forwarded-Encrypted: i=1; AKwUvBw7vIxE4cpxw/JwXM0HdjEXmx9ReRp+DcgRa4Ig9avoYUj/3y1Wg0I51Zub6ym5zapuSqDdnkeEC06w@vger.kernel.org
+X-Gm-Message-State: AFq9FYJGCQK5mKhrIOCrJGQH/XG8QWvBkrQNs7kpzjdKahz9lz36nQNK
+	NgNL9J7FQ8z1eXg5mVQGX/t4NtyZ800Ed/jW4ABxefV3zofu9hALXLMH
+X-Gm-Gg: AYBFou0Ziu83CFK6A+svoDftsSLPlNZH2Rch92f6/AAuh+e8CkG6MBVA6z+woPSxmU1
+	8jGYmfo6zWlGfcwgDMK7AvjuuT8O3sbXS5wvt8/3XU72t5O28iKbUVqmuvEoZk/z5lA2Nkjzl34
+	KBiNKGqUNQFzWPP0/bH3oVfuYH/6NxSjhw9eJCI/17oKXTBy1U6S1z8SbuzHO0TmigE7eLq4xJH
+	MriD6FrF8si88mKLW0W3N7AQ20OvhMVoqOtqiH4rIVudpxTGeXwKW8ValtNxG7MSbZ45R07YPFt
+	MUIg271guQ2dAN5jGifnK53mc5ZuphuRtRzsjy8W66q0ACr2uZzTuI/6exAggWtZ95aGmaaVSu9
+	gzqrgfl/aMGspbTn/Jc9kGo58FOSLf0F3P0LsSLGfRc+BEq0doNyREDzOq6LPwqHhftPe8vFcH9
+	eixLCB7rw3LDJTnj1W7fHplWJvOFzxGmf/lWqkodX4OsNXlWjYx65DqiMCyfh2q3NscR0vXInac
+	Pe/EtoEs8PUPLIRwTCh8zWKvflb9wsNMqDwZ2xYfP8QELS3WwQuVTBa+FGyHJaCVwV0lsv0iYbz
+	zYXQ87qBe4nDW6+nzPWmZQpx5aAxhH7LRzq0+gE63ta4SBd7tddR/52j5GyJOmDFXYmp4dj+
+X-Received: by 2002:a05:600c:4f46:b0:49f:cbf1:e77b with SMTP id 5b1f17b1804b1-4a18e4a5355mr364127835e9.10.1791962599738;
+        Wed, 14 Oct 2026 00:23:19 -0700 (PDT)
 Received: from navid-pc ([2a01:4b00:a856:6220::a11])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de3f7f8b8sm8500933f8f.35.2026.10.14.00.23.17
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de3f7f8b8sm8500933f8f.35.2026.10.14.00.23.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 00:23:17 -0700 (PDT)
+        Wed, 14 Oct 2026 00:23:19 -0700 (PDT)
 From: Navid Ghahremani <ghahramani.navid@gmail.com>
 To: linux-arm-kernel@lists.infradead.org
 Cc: arnd@arndb.de,
@@ -71,9 +71,9 @@ Cc: arnd@arndb.de,
 	Conor Dooley <conor+dt@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 23/24] ARM: dts: zte: Add ZX279128S SoC description
-Date: Wed, 14 Oct 2026 08:21:03 +0100
-Message-ID: <20261014072109.1759502-24-ghahramani.navid@gmail.com>
+Subject: [PATCH v2 24/24] ARM: dts: zte: Add ZTE ZXHN H3600 board
+Date: Wed, 14 Oct 2026 08:21:04 +0100
+Message-ID: <20261014072109.1759502-25-ghahramani.navid@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261014072109.1759502-1-ghahramani.navid@gmail.com>
 References: <20261014072109.1759502-1-ghahramani.navid@gmail.com>
@@ -85,436 +85,395 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the base device tree for the dual Cortex-A9 ZTE ZX279128S SoC,
-including GIC, arch timer, CRM clock and reset controllers, GPIO,
-pin control, Ethernet switch, MDIO, PCIe PHYs and controllers, SPI,
-and DWC3 USB.
+Add the device tree for the ZTE ZXHN H3600 Wi-Fi 6 home gateway router.
+Configure the internal Gigabit switch ports, external Sanechips ZX5201
+WAN PHY, SPI NAND flash on the SPI controller, LEDs, buttons, and
+MediaTek MT7915 Wi-Fi cards on PCIe ports 0 and 1.
 
 Signed-off-by: Navid Ghahremani <ghahramani.navid@gmail.com>
 ---
- arch/arm/boot/dts/zte/zx279128s.dtsi | 416 +++++++++++++++++++++++++++
- 1 file changed, 416 insertions(+)
- create mode 100644 arch/arm/boot/dts/zte/zx279128s.dtsi
+ arch/arm/boot/dts/zte/Makefile                |   2 +
+ .../boot/dts/zte/zx279128s-zte-zxhn-h3600.dts | 364 ++++++++++++++++++
+ 2 files changed, 366 insertions(+)
+ create mode 100644 arch/arm/boot/dts/zte/zx279128s-zte-zxhn-h3600.dts
 
-diff --git a/arch/arm/boot/dts/zte/zx279128s.dtsi b/arch/arm/boot/dts/zte/zx279128s.dtsi
+diff --git a/arch/arm/boot/dts/zte/Makefile b/arch/arm/boot/dts/zte/Makefile
+index f052cfbd63..29cc864459 100644
+--- a/arch/arm/boot/dts/zte/Makefile
++++ b/arch/arm/boot/dts/zte/Makefile
+@@ -1,3 +1,5 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ dtb-$(CONFIG_SOC_ZX297520V3) += \
+ 	zx297520v3-dlink-dwr932m.dtb
++
++dtb-$(CONFIG_SOC_ZX279128S) += zx279128s-zte-zxhn-h3600.dtb
+diff --git a/arch/arm/boot/dts/zte/zx279128s-zte-zxhn-h3600.dts b/arch/arm/boot/dts/zte/zx279128s-zte-zxhn-h3600.dts
 new file mode 100644
-index 0000000000..8896a8b067
+index 0000000000..d46390f075
 --- /dev/null
-+++ b/arch/arm/boot/dts/zte/zx279128s.dtsi
-@@ -0,0 +1,416 @@
++++ b/arch/arm/boot/dts/zte/zx279128s-zte-zxhn-h3600.dts
+@@ -0,0 +1,364 @@
 +// SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
 +/*
-+ * ZTE zx279128s SoC: dual Cortex-A9 with an L2C-310 cache controller, a
-+ * five-port gigabit switch, two PCIe controllers and a SPI NAND controller.
++ * ZTE ZXHN H3600 (also sold as ZXHN H1600): home gateway with four LAN ports,
++ * a WAN port and an MT7915 Wi-Fi 6 chip on both PCIe controllers.
 + *
 + * Copyright (C) 2026 Navid Ghahremani <ghahramani.navid@gmail.com>
 + */
 +
-+#include <dt-bindings/clock/zte,zx279128s-crm.h>
-+#include <dt-bindings/reset/zte,zx279128s-reset.h>
-+#include <dt-bindings/interrupt-controller/arm-gic.h>
++/dts-v1/;
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/input/input.h>
++#include <dt-bindings/leds/common.h>
++
++#include "zx279128s.dtsi"
 +
 +/ {
-+	#address-cells = <1>;
-+	#size-cells = <1>;
-+	compatible = "zte,zx279128s";
++	model = "ZTE ZXHN H3600";
++	compatible = "zte,zxhn-h3600", "zte,zx279128s";
 +
-+	cpus {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		enable-method = "zte,zx279128s-smp";
-+
-+		cpu@0 {
-+			compatible = "arm,cortex-a9";
-+			device_type = "cpu";
-+			next-level-cache = <&l2cc>;
-+			reg = <0>;
-+		};
-+
-+		cpu@1 {
-+			compatible = "arm,cortex-a9";
-+			device_type = "cpu";
-+			next-level-cache = <&l2cc>;
-+			reg = <1>;
-+		};
++	aliases {
++		serial0 = &serial0;
++		serial1 = &serial1;
 +	};
 +
-+	osc: clock-25000000 {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <25000000>;
++	chosen {
++		stdout-path = "serial0:115200n8";
 +	};
 +
++	memory@40000000 {
++		device_type = "memory";
++		reg = <0x40000000 0x20000000>;
++	};
 +
-+	soc {
++	reserved-memory {
 +		#address-cells = <1>;
 +		#size-cells = <1>;
-+		compatible = "simple-bus";
-+		interrupt-parent = <&gic>;
 +		ranges;
 +
-+		sram@200800 {
-+			compatible = "mmio-sram";
-+			reg = <0x00200800 0x1000>;
++		/*
++		 * The stock kernel reserves the top 38 MiB for the packet
++		 * processor. Keep Linux, and in particular DMA buffers, out.
++		 */
++		pp@5da00000 {
++			reg = <0x5da00000 0x2600000>;
++			no-map;
++		};
++	};
++
++	/* All LEDs are active low. Colours only where seen on the panel. */
++	leds {
++		compatible = "gpio-leds";
++
++		/* One power LED with two elements: both on shows orange */
++		led_power_red: led-power-red {
++			color = <LED_COLOR_ID_RED>;
++			function = LED_FUNCTION_POWER;
++			gpios = <&gpio2 6 GPIO_ACTIVE_LOW>;
++			default-state = "on";
++		};
++
++		led_power_green: led-power-green {
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_POWER;
++			gpios = <&gpio2 7 GPIO_ACTIVE_LOW>;
++		};
++
++		led_wlan_2g: led-wlan-2g {
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_WLAN_2GHZ;
++			gpios = <&gpio0 1 GPIO_ACTIVE_LOW>;
++		};
++
++		led_broadband: led-broadband {
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_WAN;
++			gpios = <&gpio0 8 GPIO_ACTIVE_LOW>;
++		};
++
++		led_phone1: led-phone1 {
++			color = <LED_COLOR_ID_GREEN>;
++			function = "phone";
++			function-enumerator = <1>;
++			gpios = <&gpio1 12 GPIO_ACTIVE_LOW>;
++		};
++
++		led_phone2: led-phone2 {
++			color = <LED_COLOR_ID_GREEN>;
++			function = "phone";
++			function-enumerator = <2>;
++			gpios = <&gpio1 13 GPIO_ACTIVE_LOW>;
++		};
++
++		led_wlan_5g: led-wlan-5g {
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_WLAN_5GHZ;
++			gpios = <&gpio2 8 GPIO_ACTIVE_LOW>;
++		};
++
++		led_usb: led-usb {
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_USB;
++			gpios = <&gpio2 9 GPIO_ACTIVE_LOW>;
++		};
++
++		led_internet_red: led-internet-red {
++			color = <LED_COLOR_ID_RED>;
++			function = LED_FUNCTION_WAN_ONLINE;
++			gpios = <&gpio3 0 GPIO_ACTIVE_LOW>;
++		};
++
++		led_internet_green: led-internet-green {
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_WAN_ONLINE;
++			gpios = <&gpio3 1 GPIO_ACTIVE_LOW>;
++		};
++
++		led_wps: led-wps {
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_WPS;
++			gpios = <&gpio3 2 GPIO_ACTIVE_LOW>;
++		};
++	};
++
++	/* Polled: the GPIO driver does not support interrupts */
++	keys {
++		compatible = "gpio-keys-polled";
++		poll-interval = <50>;
++
++		key-reset {
++			label = "reset";
++			gpios = <&gpio0 2 GPIO_ACTIVE_LOW>;
++			linux,code = <KEY_RESTART>;
++			debounce-interval = <60>;
++		};
++
++		key-wps {
++			label = "wps";
++			gpios = <&gpio0 12 GPIO_ACTIVE_LOW>;
++			linux,code = <KEY_WPS_BUTTON>;
++			debounce-interval = <60>;
++		};
++
++		key-wifi {
++			label = "rfkill";
++			gpios = <&gpio3 12 GPIO_ACTIVE_LOW>;
++			linux,code = <KEY_RFKILL>;
++			debounce-interval = <60>;
++		};
++
++		key-led {
++			label = "led";
++			gpios = <&gpio0 3 GPIO_ACTIVE_LOW>;
++			linux,code = <KEY_LIGHTS_TOGGLE>;
++			debounce-interval = <60>;
++		};
++	};
++};
++
++&gmac {
++	status = "okay";
++};
++
++&gmac_port0 {
++	label = "lan1";
++	phy-handle = <&phy10>;
++	phy-mode = "internal";
++	nvmem-cells = <&macaddr_tag_1e 0>;
++	nvmem-cell-names = "mac-address";
++	status = "okay";
++};
++
++&gmac_port1 {
++	label = "lan2";
++	phy-handle = <&phy11>;
++	phy-mode = "internal";
++	nvmem-cells = <&macaddr_tag_1e 0>;
++	nvmem-cell-names = "mac-address";
++	status = "okay";
++};
++
++&gmac_port2 {
++	label = "lan3";
++	phy-handle = <&phy12>;
++	phy-mode = "internal";
++	nvmem-cells = <&macaddr_tag_1e 0>;
++	nvmem-cell-names = "mac-address";
++	status = "okay";
++};
++
++&gmac_port3 {
++	label = "lan4";
++	phy-handle = <&phy13>;
++	phy-mode = "internal";
++	nvmem-cells = <&macaddr_tag_1e 0>;
++	nvmem-cell-names = "mac-address";
++	status = "okay";
++};
++
++&gmac_port4 {
++	label = "wan";
++	phy-handle = <&phy8>;
++	phy-mode = "gmii";
++	nvmem-cells = <&macaddr_tag_1e 1>;
++	nvmem-cell-names = "mac-address";
++	status = "okay";
++};
++
++&mdio {
++	/* the ZX5201 WAN PHY */
++	pinctrl-names = "default";
++	pinctrl-0 = <&ext_phy_pins>;
++	status = "okay";
++
++	/* external Sanechips ZX5201; its SerDes answers on address 9 */
++	phy8: ethernet-phy@8 {
++		reg = <8>;
++	};
++
++	phy10: ethernet-phy@a {
++		reg = <10>;
++	};
++
++	phy11: ethernet-phy@b {
++		reg = <11>;
++	};
++
++	phy12: ethernet-phy@c {
++		reg = <12>;
++	};
++
++	phy13: ethernet-phy@d {
++		reg = <13>;
++	};
++};
++
++/* MT7915: main interface on pcie0, second interface (HIF2) on pcie1 */
++/*
++ * The two lines reset the whole MT7915, which is behind both controllers.
++ * Whichever controller starts first releases it.
++ */
++&pcie0 {
++	reset-gpios = <&gpio3 5 GPIO_ACTIVE_LOW>;
++	enable-gpios = <&gpio3 7 GPIO_ACTIVE_HIGH>;
++	status = "okay";
++};
++
++&pcie1 {
++	reset-gpios = <&gpio3 5 GPIO_ACTIVE_LOW>;
++	enable-gpios = <&gpio3 7 GPIO_ACTIVE_HIGH>;
++	status = "okay";
++};
++
++&serial0 {
++	status = "okay";
++};
++
++&usb {
++	status = "okay";
++};
++
++&serial1 {
++	status = "okay";
++};
++
++&spifc {
++	status = "okay";
++
++	flash@0 {
++		compatible = "spi-nand";
++		reg = <0>;
++		spi-max-frequency = <50000000>;
++		spi-rx-bus-width = <2>;
++		spi-tx-bus-width = <1>;
++
++		partitions {
++			compatible = "fixed-partitions";
 +			#address-cells = <1>;
 +			#size-cells = <1>;
-+			ranges = <0 0x00200800 0x1000>;
 +
-+			/* the parked second core jumps here on every wake-up */
-+			smp-sram@0 {
-+				compatible = "zte,zx279128s-smp-sram";
-+				reg = <0x0 0x8>;
++			partition@0 {
++				label = "bootloader";
++				reg = <0x0000000 0x0100000>;
++				read-only;
 +			};
-+		};
 +
-+		scu@800000 {
-+			compatible = "arm,cortex-a9-scu";
-+			reg = <0x00800000 0x100>;
-+		};
++			partition@100000 {
++				label = "tag";
++				reg = <0x0100000 0x0100000>;
++				read-only;
 +
-+		timer@800200 {
-+			compatible = "arm,cortex-a9-global-timer";
-+			reg = <0x00800200 0x20>;
-+			interrupts = <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_EDGE_RISING)>;
-+			clocks = <&topcrm ZX279128S_TOP_A9_PERIPH>;
-+		};
++				nvmem-layout {
++					compatible = "fixed-layout";
++					#address-cells = <1>;
++					#size-cells = <1>;
 +
-+		timer@800600 {
-+			compatible = "arm,cortex-a9-twd-timer";
-+			reg = <0x00800600 0x20>;
-+			interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_EDGE_RISING)>;
-+			clocks = <&topcrm ZX279128S_TOP_A9_PERIPH>;
-+		};
++					/* the LAN ports' MAC; the WAN port uses the next one */
++					macaddr_tag_1e: macaddr@1e {
++						compatible = "mac-base";
++						reg = <0x1e 0x6>;
++						#nvmem-cell-cells = <1>;
++					};
++				};
++			};
 +
-+		watchdog@800620 {
-+			compatible = "arm,cortex-a9-twd-wdt";
-+			reg = <0x00800620 0x20>;
-+			interrupts = <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_EDGE_RISING)>;
-+			clocks = <&topcrm ZX279128S_TOP_A9_PERIPH>;
-+			status = "disabled";
-+		};
++			partition@200000 {
++				label = "wifi";
++				reg = <0x0200000 0x0100000>;
++				read-only;
++			};
 +
-+		gic: interrupt-controller@801000 {
-+			compatible = "arm,cortex-a9-gic";
-+			#address-cells = <0>;
-+			#interrupt-cells = <3>;
-+			interrupt-controller;
-+			reg = <0x00801000 0x1000>,
-+			      <0x00800100 0x0100>;
-+		};
++			partition@300000 {
++				label = "usercfg";
++				reg = <0x0300000 0x0200000>;
++				read-only;
++			};
 +
-+		l2cc: cache-controller@c00000 {
-+			compatible = "arm,pl310-cache";
-+			reg = <0x00c00000 0x1000>;
-+			cache-unified;
-+			cache-level = <2>;
-+			arm,data-latency = <2 2 2>;
-+			arm,tag-latency = <2 2 2>;
++			partition@500000 {
++				label = "defcfg";
++				reg = <0x0500000 0x0200000>;
++				read-only;
++			};
++
 +			/*
-+			 * As the stock firmware (AUX_CTRL 0x76430001). Without
-+			 * shared-override the PL310 turns normal non-cacheable
-+			 * shared accesses (dma_alloc_coherent buffers) into
-+			 * cacheable ones, so devices and CPUs see stale data.
++			 * Slot 0 of the boot loader, up to its slot 1 at
++			 * 0x2700000: it reads the kernel from the start, stepping
++			 * over bad blocks, and finds the slot header, which
++			 * holds the kernel's length and CRC. A rootfs length of 0
++			 * makes it check nothing else.
 +			 */
-+			arm,shared-override;
-+			prefetch-data = <1>;
-+			prefetch-instr = <1>;
-+			arm,double-linefill = <1>;
-+			arm,double-linefill-incr = <0>;
-+		};
-+
-+		usb: usb@9100000 {
-+			compatible = "zte,zx279128s-dwc3";
-+			reg = <0x09100000 0x100000>;
-+			interrupts = <GIC_SPI 50 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&topcrm ZX279128S_TOP_USB_REF>,
-+				 <&topcrm ZX279128S_TOP_USB_ACLK>,
-+				 <&topcrm ZX279128S_TOP_USB_SUSPEND>;
-+			clock-names = "ref", "bus_early", "suspend";
-+			/* in the order the vendor firmware releases them */
-+			resets = <&topcrm ZX279128S_RESET_USB_B11>,
-+				 <&topcrm ZX279128S_RESET_USB_B14>,
-+				 <&topcrm ZX279128S_RESET_USB_B9>,
-+				 <&topcrm ZX279128S_RESET_USB_B10>;
-+			dr_mode = "host";
-+			status = "disabled";
-+		};
-+
-+		pcie0: pcie@f000000 {
-+			compatible = "zte,zx279128s-pcie";
-+			reg = <0x0f000000 0x4000>,
-+			      <0x09500000 0x1000>,
-+			      <0x1c000000 0x200000>;
-+			reg-names = "dbi", "ctrl", "config";
-+			#address-cells = <3>;
-+			#size-cells = <2>;
-+			device_type = "pci";
-+			bus-range = <0x00 0xff>;
-+			ranges = <0x82000000 0 0x10000000 0x10000000 0 0x08000000>;
-+			dma-ranges = <0x43000000 0 0x40000000 0x40000000 0 0x20000000>;
-+			interrupts = <GIC_SPI 63 IRQ_TYPE_LEVEL_HIGH>;
-+			#interrupt-cells = <1>;
-+			interrupt-map-mask = <0 0 0 7>;
-+			interrupt-map = <0 0 0 1 &gic GIC_SPI 63 IRQ_TYPE_LEVEL_HIGH>,
-+					<0 0 0 2 &gic GIC_SPI 63 IRQ_TYPE_LEVEL_HIGH>,
-+					<0 0 0 3 &gic GIC_SPI 63 IRQ_TYPE_LEVEL_HIGH>,
-+					<0 0 0 4 &gic GIC_SPI 63 IRQ_TYPE_LEVEL_HIGH>;
-+			linux,pci-domain = <0>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&pcie0_pins>;
-+			clocks = <&crm2 ZX279128S_CRM2_PCIE0_CLK>;
-+			clock-names = "pcie";
-+			resets = <&crm2 ZX279128S_CRM2_RESET_PCIE0>;
-+			reset-names = "core";
-+			phys = <&pcie0_phy>;
-+			phy-names = "pcie";
-+			status = "disabled";
-+		};
-+
-+		pcie1: pcie@f100000 {
-+			compatible = "zte,zx279128s-pcie";
-+			reg = <0x0f100000 0x4000>,
-+			      <0x09600000 0x1000>,
-+			      <0x2c000000 0x200000>;
-+			reg-names = "dbi", "ctrl", "config";
-+			#address-cells = <3>;
-+			#size-cells = <2>;
-+			device_type = "pci";
-+			bus-range = <0x00 0xff>;
-+			ranges = <0x82000000 0 0x20000000 0x20000000 0 0x08000000>;
-+			dma-ranges = <0x43000000 0 0x40000000 0x40000000 0 0x20000000>;
-+			interrupts = <GIC_SPI 78 IRQ_TYPE_LEVEL_HIGH>;
-+			#interrupt-cells = <1>;
-+			interrupt-map-mask = <0 0 0 7>;
-+			interrupt-map = <0 0 0 1 &gic GIC_SPI 78 IRQ_TYPE_LEVEL_HIGH>,
-+					<0 0 0 2 &gic GIC_SPI 78 IRQ_TYPE_LEVEL_HIGH>,
-+					<0 0 0 3 &gic GIC_SPI 78 IRQ_TYPE_LEVEL_HIGH>,
-+					<0 0 0 4 &gic GIC_SPI 78 IRQ_TYPE_LEVEL_HIGH>;
-+			linux,pci-domain = <1>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&pcie1_pins>;
-+			clocks = <&crm2 ZX279128S_CRM2_PCIE1_CLK>;
-+			clock-names = "pcie";
-+			resets = <&crm2 ZX279128S_CRM2_RESET_PCIE1>;
-+			reset-names = "core";
-+			phys = <&pcie1_phy>;
-+			phy-names = "pcie";
-+			status = "disabled";
-+		};
-+
-+		gmac: ethernet@92000000 {
-+			compatible = "zte,zx279128s-gmac";
-+			reg = <0x92000000 0x400000>;
-+			interrupts = <GIC_SPI 36 IRQ_TYPE_LEVEL_HIGH>;
-+			status = "disabled";
-+
-+			ethernet-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				gmac_port0: port@0 {
-+					reg = <0>;
-+					status = "disabled";
-+				};
-+
-+				gmac_port1: port@1 {
-+					reg = <1>;
-+					status = "disabled";
-+				};
-+
-+				gmac_port2: port@2 {
-+					reg = <2>;
-+					status = "disabled";
-+				};
-+
-+				gmac_port3: port@3 {
-+					reg = <3>;
-+					status = "disabled";
-+				};
-+
-+				gmac_port4: port@4 {
-+					reg = <4>;
-+					status = "disabled";
-+				};
-+			};
-+		};
-+
-+		topcrm: clock-controller@94000000 {
-+			compatible = "zte,zx279128s-topcrm", "syscon", "simple-mfd";
-+			reg = <0x94000000 0x1000>;
-+			clocks = <&osc>;
-+			clock-names = "osc";
-+			#clock-cells = <1>;
-+			#reset-cells = <1>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			reboot {
-+				compatible = "syscon-reboot";
-+				offset = <0x44>;
-+				mask = <0x1>;
-+				value = <0x1>;
++			partition@700000 {
++				label = "kernel";
++				reg = <0x0700000 0x0400000>;
 +			};
 +
-+			pcie0_phy: phy@0 {
-+				compatible = "zte,zx279128s-pcie-phy";
-+				reg = <0>;
-+				#phy-cells = <0>;
++			partition@b00000 {
++				/* Erase old rootfs/UBI headers during migration. */
++				label = "slot0_gap";
++				reg = <0x0b00000 0x1b00000>;
 +			};
 +
-+			pcie1_phy: phy@1 {
-+				compatible = "zte,zx279128s-pcie-phy";
-+				reg = <1>;
-+				#phy-cells = <0>;
-+			};
-+		};
-+
-+		crm2: clock-controller@94100000 {
-+			compatible = "zte,zx279128s-crm2", "syscon";
-+			reg = <0x94100000 0x1000>;
-+			#clock-cells = <1>;
-+			#reset-cells = <1>;
-+		};
-+
-+		/*
-+		 * The pin mux. What most of its bits select isn't known, so each
-+		 * bit is a pin of its own.
-+		 */
-+		pinmux: pinctrl@94200000 {
-+			compatible = "zte,zx279128s-pinmux", "pinctrl-single";
-+			reg = <0x94200000 0x10>;
-+			#pinctrl-cells = <2>;
-+			pinctrl-single,bit-per-mux;
-+			pinctrl-single,register-width = <32>;
-+			pinctrl-single,function-mask = <0x1>;
-+
-+			/* the interface to an external Ethernet PHY */
-+			ext_phy_pins: ext-phy-pins {
-+				pinctrl-single,bits = <0x0c 0x0 0x00180800>;
++			partition@2600000 {
++				label = "trailer";
++				reg = <0x2600000 0x0100000>;
 +			};
 +
-+			pcie0_pins: pcie0-pins {
-+				pinctrl-single,bits = <0x0c 0x0 0x00004000>;
++			partition@2700000 {
++				label = "stock";
++				reg = <0x2700000 0x2000000>;
++				read-only;
 +			};
 +
-+			pcie1_pins: pcie1-pins {
-+				pinctrl-single,bits = <0x0c 0x0 0x00000002>;
++			/*
++			 * Keep slot 1 (0x2700000..0x4700000) intact. cspboot
++			 * mistakes UBI erase-counter headers for boot headers;
++			 * its scan must find both firmware headers before UBI.
++			 */
++			partition@4700000 {
++				label = "ubi";
++				reg = <0x4700000 0x3900000>;
 +			};
-+		};
-+
-+		lsp0crpm: clock-controller@94400000 {
-+			compatible = "zte,zx279128s-lsp0crpm";
-+			reg = <0x94400000 0x1000>;
-+			clocks = <&topcrm ZX279128S_TOP_LSP0_PCLK>,
-+				 <&topcrm ZX279128S_TOP_LSP0_25M>,
-+				 <&topcrm ZX279128S_TOP_LSP0_32K>,
-+				 <&topcrm ZX279128S_TOP_LSP0_100M>;
-+			clock-names = "pclk", "wclk25m", "wclk32k", "wclk100m";
-+			#clock-cells = <1>;
-+		};
-+
-+		serial0: serial@94404000 {
-+			compatible = "arm,pl011", "arm,primecell";
-+			arm,primecell-periphid = <0x0018c011>;
-+			reg = <0x94404000 0x1000>;
-+			interrupts = <GIC_SPI 11 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&lsp0crpm ZX279128S_LSP0_UART0_WCLK>,
-+				 <&lsp0crpm ZX279128S_LSP0_UART0_PCLK>;
-+			clock-names = "uartclk", "apb_pclk";
-+			status = "disabled";
-+		};
-+
-+		serial1: serial@94405000 {
-+			compatible = "arm,pl011", "arm,primecell";
-+			arm,primecell-periphid = <0x0018c011>;
-+			reg = <0x94405000 0x1000>;
-+			interrupts = <GIC_SPI 12 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&lsp0crpm ZX279128S_LSP0_UART1_WCLK>,
-+				 <&lsp0crpm ZX279128S_LSP0_UART1_PCLK>;
-+			clock-names = "uartclk", "apb_pclk";
-+			status = "disabled";
-+		};
-+
-+		spifc: spi@94406000 {
-+			compatible = "zte,zx279128s-spifc";
-+			reg = <0x94406000 0x1000>;
-+			clocks = <&lsp0crpm ZX279128S_LSP0_SPI_WCLK>,
-+				 <&lsp0crpm ZX279128S_LSP0_SPI_PCLK>;
-+			clock-names = "wclk", "pclk";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			status = "disabled";
-+		};
-+
-+		gpio0: gpio@94407000 {
-+			compatible = "zte,zx279128s-gpio";
-+			reg = <0x94407000 0x40>;
-+			clocks = <&lsp0crpm ZX279128S_LSP0_GPIO_PCLK>;
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+		};
-+
-+		gpio1: gpio@94407040 {
-+			compatible = "zte,zx279128s-gpio";
-+			reg = <0x94407040 0x40>;
-+			clocks = <&lsp0crpm ZX279128S_LSP0_GPIO_PCLK>;
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+		};
-+
-+		gpio2: gpio@94407080 {
-+			compatible = "zte,zx279128s-gpio";
-+			reg = <0x94407080 0x40>;
-+			clocks = <&lsp0crpm ZX279128S_LSP0_GPIO_PCLK>;
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+		};
-+
-+		gpio3: gpio@944070c0 {
-+			compatible = "zte,zx279128s-gpio";
-+			reg = <0x944070c0 0x40>;
-+			clocks = <&lsp0crpm ZX279128S_LSP0_GPIO_PCLK>;
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+		};
-+
-+		gpio4: gpio@94407100 {
-+			compatible = "zte,zx279128s-gpio";
-+			reg = <0x94407100 0x40>;
-+			clocks = <&lsp0crpm ZX279128S_LSP0_GPIO_PCLK>;
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+		};
-+
-+		gpio5: gpio@94407140 {
-+			compatible = "zte,zx279128s-gpio";
-+			reg = <0x94407140 0x40>;
-+			clocks = <&lsp0crpm ZX279128S_LSP0_GPIO_PCLK>;
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+		};
-+
-+		lsp1crpm: clock-controller@9a100000 {
-+			compatible = "zte,zx279128s-lsp1crpm";
-+			reg = <0x9a100000 0x1000>;
-+			clocks = <&topcrm ZX279128S_TOP_LSP1_PCLK>,
-+				 <&topcrm ZX279128S_TOP_LSP1_ACLK>,
-+				 <&topcrm ZX279128S_TOP_LSP1_25M>,
-+				 <&topcrm ZX279128S_TOP_LSP1_49M>,
-+				 <&topcrm ZX279128S_TOP_LSP1_100M>;
-+			clock-names = "pclk", "aclk", "wclk25m", "wclk49m", "wclk100m";
-+			#clock-cells = <1>;
-+		};
-+
-+		mdio: mdio@9a101000 {
-+			compatible = "zte,zx279128s-mdio";
-+			reg = <0x9a101000 0x18>;
-+			clocks = <&lsp1crpm ZX279128S_LSP1_MDIO_WCLK>,
-+				 <&lsp1crpm ZX279128S_LSP1_MDIO_PCLK>;
-+			clock-names = "wclk", "pclk";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			status = "disabled";
 +		};
 +	};
 +};
