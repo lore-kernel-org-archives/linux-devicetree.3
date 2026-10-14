@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB77274650;
-	Wed, 14 Oct 2026 05:53:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 071CA409279;
+	Wed, 14 Oct 2026 05:58:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791957241; cv=none; b=FUyoZpVVM1LC8b5rPxYJCN7U+eqiQ0S8OOj3Ff+GhDOpFr60K1dnYlMqoXaDuHbom1sZsi3iaFe4xjdyf/vY7KgejIpsZLztK5usguMemXwzLJQRg11TymzRmsol9Gt6GrqzeyK+P+KDz6kdN05XDKG9yR3J6OxcitR1AMzSNYg=
+	t=1791957495; cv=none; b=QaQmMZ3aMVMOqiDDaUavDdyQoXMoc1KP9fYnGLXz5O7JzrFEPr0/YC5CoVnDQVmJ1z7/27tsPaQ1AyFN4wOsI3z2qgc6lEewv9pyxb/MnU7bq5LgZPWmEBICPB/0iLhKrvIpWBIKK2JOZaVFnq2oqZoMThyS0cVp+ssLUIHiRoU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791957241; c=relaxed/simple;
-	bh=vVm0FOajQFffyOs0LAnfx8dJlsrzh7gYl7hBe69/Txw=;
+	s=arc-20240116; t=1791957495; c=relaxed/simple;
+	bh=xvRXfhb1ChpesI2F6zY7z4p9M+BBmKYWbfw/sqijP4w=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GJ280F0EgJb9SZhDdyanoSZ3p6DUpQaW/3ftmwuGb+Uw3dpW5OgjVdLcC1TfiqJP9G5FONyswgVbHjXWtKK+W4xOp65hgW14ZCcHRCsCSs4Hludm2Iujm1gvSNMj/DL2yXqiLTarV8CN1w3cp1HGcY9yvOuddjIFSb8KXSStXI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fXHagODU; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=q9XEA+prrdLceyzGEX3HjpDsFwKZSxv8woB011BRXDNLcP9qHFpR4450S6TbY11zxxjBNdtye15DoylK0VvNP0VATf2F1rF11jqECcas8ULv8eRXEKDmjJOwRRzte4KijTwrj7dzrkgNh4HAto45r6rxRnJpYN4SehKF/F2bFLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BaA1noIF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fXHagODU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 328711F00893;
-	Wed, 14 Oct 2026 05:53:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BaA1noIF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4D1D1F000FF;
+	Wed, 14 Oct 2026 05:58:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791957239;
-	bh=71Y0wmRhfQg16pu9dm9O0XbJTlde/Ki76IIpjRJ4LFs=;
+	s=k20260515; t=1791957493;
+	bh=0AiepSceSI0wbLAXLdkjMHeYRhrWogIFFJqYVDbTWa0=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fXHagODUU/0RicdM2mmGG65XnJqRRYTPzANomdVj5K0Tgwer3aNTP9K7qs7ynba3Q
-	 LoWJyfeEsrdUncF4PFOrICh+fq3kS2mekPpbWXs/PvCzwSKoPNQSp6DvywTHigxg/K
-	 0LBpNybgYtJrOTyQX+VQugHRG95m2nOD86GGraVViTsZcWOqg55m5oXXR69E54HqN/
-	 qf2VxHps3wzP5MH4dXFT73/bGI3Xe7o1zAuCGmdigyEooLb9rus207h54wPbENv2JC
-	 DHq3+sRhv91JYWl8zN/sLl64pda6haTV0LKjIOhO0p1f68PMoUINF63KiFvVfM1ZaP
-	 FKEq2eBL3vzFg==
-Message-ID: <a8a10c4b-993d-4cd4-9e99-fe7b0eff5597@kernel.org>
-Date: Wed, 14 Oct 2026 07:53:51 +0200
+	b=BaA1noIFo2zINthQwR9TN2eAWQiRZRUkfl9zvnEo8h7RmTP2kGxKE5+22en2BZMjX
+	 e/1V2IJdiW6t0NdMth2kM3ibgwX2rtFDkz6H5KuhDHY80bzwxc2C+zBC+8XQWjIKM8
+	 CrbNvdJzu6gIQjAvisdOe0uuaxI9tRN7JniULIyb4cahvHF6pTPB1FAtrN3hRDh5XW
+	 /WffhBZ5RQWkHEtgmq23tqt6N2VOUAJMLz+5jJj1xDXgirE+RLvckEaZu/yC233EBc
+	 Svj8FTpIs5QpMIk0gIikyguAVQs8IDr6EwDIDOdxxdgZ9h1ZRpnVLWqt4cCd3u1PxT
+	 PMoG4fkwU0W9A==
+Message-ID: <e723950e-44f1-4b2d-9677-7fe599ffe3c4@kernel.org>
+Date: Wed, 14 Oct 2026 07:58:06 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,19 +35,19 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 3/4] arm64: dts: imx8mp-skov-revc: convert to overlays
-To: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- =?UTF-8?Q?S=C3=B8ren_Andersen?= <san@skov.dk>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
-References: <20261012-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v10-0-0906e57486a3@pengutronix.de>
- <20261012-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v10-3-0906e57486a3@pengutronix.de>
- <20261013-musical-brown-mamba-ff87a8@quoll> <87v774j0z8.fsf@pengutronix.de>
+Subject: Re: [PATCH 1/5] dt-bindings: crypto: add Rambus CryptoManager Hub
+To: Alex Ousherovitch <aousherovitch@rambus.com>,
+ Conor Dooley <conor+dt@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ Herbert Xu <herbert@gondor.apana.org.au>, Jonathan Corbet <corbet@lwn.net>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
+Cc: devicetree@vger.kernel.org,
+ Joel Wittenauer <Joel.Wittenauer@cryptography.com>,
+ linux-crypto@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Shuah Khan <skhan@linuxfoundation.org>,
+ Thi Nguyen <thin@rambus.com>
+References: <20261013174847.2192609-1-aousherovitch@rambus.com>
+ <20261013174847.2192609-2-aousherovitch@rambus.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -93,66 +93,23 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <87v774j0z8.fsf@pengutronix.de>
+In-Reply-To: <20261013174847.2192609-2-aousherovitch@rambus.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14/10/2026 07:38, Steffen Trumtrar wrote:
-> 
-> Hi,
-> 
-> On 2026-10-13 at 09:31 +02, Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> 
->> On Mon, Oct 12, 2026 at 08:30:32AM +0200, Steffen Trumtrar wrote:
->>> The i.MX8MP Skov RevC jutouch 10" and Tian 7" variants are pretty
->>> similar, apart from the Display and touch controller.
->>>
->>> Move the common bindings to imx8mp-skov-revc-touch.dts and convert both
->>> variants to use overlays applied on this base version.
->>>
->>> Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
->>> ---
->>>  arch/arm64/boot/dts/freescale/Makefile             |  5 ++
->>>  .../imx8mp-skov-revc-jutouch-jt101tm023.dtso       | 38 ++++++++++
->>>  .../dts/freescale/imx8mp-skov-revc-tian-g07017.dts | 81 ----------------------
->>>  .../freescale/imx8mp-skov-revc-tian-g07017.dtso    | 40 +++++++++++
->>>  ...h-jt101tm023.dts => imx8mp-skov-revc-touch.dts} | 26 +++----
->>>  5 files changed, 91 insertions(+), 99 deletions(-)
->>>
->>> diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
->>> index 475e1ad9116e1..7c1b61249778e 100644
->>> --- a/arch/arm64/boot/dts/freescale/Makefile
->>> +++ b/arch/arm64/boot/dts/freescale/Makefile
->>> @@ -707,6 +707,11 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revb-lt6.dtb
->>>  dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revb-mi1010ait-1cp1.dtb
->>>  dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-bd500.dtb
->>>  dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-hdmi.dtb
->>> +
->>> +imx8mp-skov-revc-jutouch-jt101tm023-dtbs += imx8mp-skov-revc-touch.dtb \
->>> +	imx8mp-skov-revc-jutouch-jt101tm023.dtbo
->>> +imx8mp-skov-revc-tian-g07017-dtbs += imx8mp-skov-revc-touch.dtb \
->>> +	imx8mp-skov-revc-tian-g07017.dtbo
->>>  dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-jutouch-jt101tm023.dtb
->>>  dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-tian-g07017.dtb
->>>  dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-dev.dtb
->>> diff --git
->>> a/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt101tm023.dtso
->>> b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt101tm023.dtso
->>> new file mode 100644
->>> index 0000000000000..33ddd08a7adb5
->>> --- /dev/null
->>> +++ b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt101tm023.dtso
->>
->> I do not understand this. This is a board, so not an overlay.
-> 
-> yes, that's what I did up until v4. New board with new dts.
-> 
-> - Link to v4: https://patch.msgid.link/20260706-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v4-0-dfc0c8827c02@pengutronix.de
-> 
-> The boards are all very similar apart from the touch panel, but they are all "real" boards and don't share a SOM, so dtsi is also not correct.
+On 13/10/2026 19:48, Alex Ousherovitch wrote:
+> Add device tree binding schema for the Rambus CryptoManager Hub (CMH)
+> hardware crypto accelerator.  The binding describes the parent
+> SoC-level node with its SIC register region and one queue@N child
+> node per mailbox the host owns, each carrying a reg (mailbox instance
+> index), an optional interrupt, VCQ ring geometry (rambus,num-slots /
+> rambus,slot-stride-bytes) and a rambus,cores affinity list.  Which
+> crypto cores are present is discovered from the SIC CORE_ENABLE
+> register at probe, not described in the device tree.
 > 
 
-So why this is not a DTS?
+Hm? You already sent it 5 times, so how this can be v1? Did you just
+ignore entire feedback you receive? Where is any explanation of that?
 
 Best regards,
 Krzysztof
