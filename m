@@ -1,107 +1,210 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BA234B8298;
-	Wed, 14 Oct 2026 11:49:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791978586; cv=none; b=R5mPmHFduz3TeOkkLfV53xJxTXOGIw6dCUKqZq42hGXQHizd0tEJbSUA4nerBF8N0oubm7wF2/0DkERaDJ6heECXXg37pIbRHCHTnEfsrWPGIELmUf8oJLjyJ5/qj50rH5s+NlQpc9kNzADKm/lNPcMGjAxF+knBIAIwuS34g+w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791978586; c=relaxed/simple;
-	bh=hGb7b/5SXxlz683vgCL3vE66j2izRt0r+y3lcstocew=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SEwfj38Lv38rHvZZbVXsEbkZXw4EEWC8CSY5E7q/hYUTv6zM6QhU5V9w57hi+B8V5P2mqrZirJrj68UtBEmr150rPAKjAYy/AhUcSK0K6OccIOmY+h2jkNPcdEtqQ5CHy2berxrK4rlc7+kzzMBMvlGR9AAsNdSZXjUUd441Zj8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y0MoJte8; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1C3238D41F
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 11:50:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791978642; cv=pass; b=JsqNN32QuaCcbZAAGH2vtOqc9Yj5OIhuhpKy2lWD9QqavOjkIP5Xl69hhgiEa0ePQft8Qpt3AZYDHzvHzah3DMgzszsy1rFU7lzrEEloDsY6Um5IIvYR2xLiFg1BLoen2QOEUla0TnpTabsv3kdEJDFsuFkUWSfklR6lxWZVYEM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791978642; c=relaxed/simple;
+	bh=YzE367kx9h5ucZyKgNsjxCV6DacyE/ZX6U4dDTaRoHQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EUefqaxFzUBw+xvmeSu4YbqEYUyZzYhSttQPakmhmYb2XEyc+p/7PRlqLygMxSxvRs1Xj10rpzsV0+YOdUUAeNXjhz/QjM+Y7kpAwqaXcatQbd6sW6tzjsi73YYMDjjZ9B75RdYq1hdpNyZVss06e1wG4LuA5ahW4QF4duLorrI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T0YmS6rn; arc=pass smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y0MoJte8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A0561F000FF;
-	Wed, 14 Oct 2026 11:49:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791978579;
-	bh=hGb7b/5SXxlz683vgCL3vE66j2izRt0r+y3lcstocew=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Y0MoJte8CFCWQ5Z/wI+32Sn3LK8yQzrOXCr9LuaNKLjfPfhK63GMnFi6+BuoQeRyd
-	 DOn9y6IeCHpuzSXZJr+9c7O6I32hGzSzGUJpK2W3iYnY+cbApBE5rtDz4czypHgJQN
-	 3rylwfhhduzT53BpD8iGM4kPVR5471tptQcUJD00JQwB6V4NyCj7V3jBzIGPSeaSOI
-	 4nf1FX7zBh6BWgFoKtVO4QoEGXSVvV2V+/e7EbzbfoBMOflMpQ8DaPZdY8txdSBh3X
-	 2p8ywTKyw8uksme4VJMQa5SacVsEYAhpHGINNg78HE3/fCDO82TuKd02ilzSPGne37
-	 8s2AQxRTKtzHQ==
-Date: Wed, 14 Oct 2026 12:49:34 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 2/2] ASoC: tegra: Support WM8994 by machine driver
-Message-ID: <22fd0ef9-2995-498e-a212-c07a01172dcc@sirena.org.uk>
-References: <20261013183226.513658-1-clamor95@gmail.com>
- <20261013183226.513658-3-clamor95@gmail.com>
- <10dca96b-78b2-4f46-bf4f-de67d25c916e@sirena.org.uk>
- <CAPVz0n0X58xfwhQo=V_5UQBc_cLfG8CqFPuoG4FqN9MM8MFisw@mail.gmail.com>
- <86a4957f-cb8f-4126-83a4-d525ef7b1dd6@sirena.org.uk>
- <CAPVz0n2L_4ik6nS_eQY-tQqtdLqgHofumZUU7wJjzbLGVft8kQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T0YmS6rn"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48870973bddso2405793f8f.1
+        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 04:50:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791978635; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XzkPTvamvRytNRl+J4OXtDzHFCWkXYMb5NgiEJ7NPxO7DjD92qRzHAN6dvtGYOqpnG
+         O0Or6U/qnq1YNG57GYIwA6DIiDTja66d0rrM1nVjGclucZ5rmMexbeHVxVuB15uTf8i8
+         t2z3oKYcTd2udgtZqpFORXL4YK/9n48+Y0/f0br2JA2DUeNJg5jA5Sc+4FDpR32ksc9s
+         e4zwtm1kGgV0TOFDYp0T2R09/gDtYqUTzPS8DsveDSYH4yTPoy6q9n6dD1lubiYMKZZy
+         s9B6dbSwQW83iNHNrjJ7ll7iX7wYbjeKyg5UBte0to7yBKxtD/pQ2DEY4SMzj8zGJShX
+         BAJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=gsB6r14qi7ICCBa3crZHyjHVyyF0McKRspvIoEcEfgQ=;
+        fh=q0RLrpmAJ/qg674ptnFpLW5Fh3XWkrYm+0sy1ZsSDRQ=;
+        b=mvpasAw8OcOYFB3vODodUPAE2QX5kcAW9RKMJid20HOT/dlWn6TkKaOFXEjG+3h97m
+         +eH8BcUczRGaLaGtnhDUPLNm9sHgST1DJeNOgXKLKkZ1gq24Tedn27uAH0ap/k8y9svn
+         hup9twRA7i8W+betucABxPzlZHVtkBg6Q7Qpt9UgbzF+1Ze9yH/qhVCiT7WJQEje8L9P
+         2yu6L5BgBBiVprZG6U2xaW9EYKgIrrLALZm63bSxSeKEvasQcFlCvLMJbcAp8F725tGB
+         oD95C91AvRvOHQrrZ7a9v6F2s/14fp1FyU+5I1O3ung8ADON4JVTxL1o0JG0p/Ou71X7
+         MMYQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791978635; x=1792583435; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gsB6r14qi7ICCBa3crZHyjHVyyF0McKRspvIoEcEfgQ=;
+        b=T0YmS6rnTtHj2/FM1OJUokKrXHM3NME2WAkgPhv4Ni+pPVIDJf8AuBGKdVzDcplRmW
+         S4XwMFY+X0+nfinJrD4iar41jkQ6h5KQFDzUdCTtIXs0JA/DcDJ3rxmvyX5jcnOEAeYa
+         Ae4kdPG5xb/7u4J8Y6A5O1bYHr6PP5qs7+Krn9zAFIKbQbjZaNXROHRDBVm+NwROcXnI
+         R+oLlGsJFtB0cXcKEAZ14jIbYXv/iq+tk6HTdoDaGBbmGe3FHdo224n9rf75AM0wYdW6
+         r+VAHE9Yxte28L5mqZSq7TtBXBXKKCdRR46OtxIA7oQOsevZSQWy90n2CEp4UHGr8ZAG
+         7gPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791978635; x=1792583435;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gsB6r14qi7ICCBa3crZHyjHVyyF0McKRspvIoEcEfgQ=;
+        b=C0A0VE6Khog2xzpspgbPixAWq+9n2PFeOp57wrHE3e+3j2rGKgvj+gGrcfC/986bBH
+         NNuCX0uYIGI3squH5022rfrppbhaiaxuIR9g12ndDtpFnOWjKBEoQ9fdIkmoD6JePknw
+         5K/pC+uAdBJSpcl8Nyupa3iEmMoyFM7GncbPaNApcdYSsikkQYJvFyRXWNbGeHBbFhqL
+         J6pnouBMyoPccJZWvFlo7w6Z4bPW+wJ4X/bIXeGzJQnFlKB+mWwtBpzpJZu7Ekf5XahH
+         L8TIFlxr3TCoH8Yv9RCTpZuhVNflp+RWS9D2+seaYCMEhyHYf1fZmVKLmivBrVVkJp9b
+         QOiA==
+X-Forwarded-Encrypted: i=1; AKwUvByUiCqwoXdSsopYpfZZT30pMhPbKF1HI+cd2KkdAKHPLfyFnAxGN7/Sk1LLuh7SQ+PDTjYBBgP/ZKU6@vger.kernel.org
+X-Gm-Message-State: AFq9FYL4zwnyeSZ+GOqyfrZPRsU9xZHN8iP2dBpfh2o5ZfrVSJTvmeZF
+	BS7h+VB05Yi2aDoTOUp3W1GuC+x/vDsP0Ywc2l86ssm8qIl7mQnUyiD4viN24e13LTdKrD/gXV4
+	mKh+OLU8O1cYgcHu27rp+7A8ZdZvCXx2ObtxPrqs=
+X-Gm-Gg: AYBFou2NbkH3cb+cPi82gbuJtz2bnA9Mvo2jh6UEQFCHYuB1TG+TQR3JoZFPchGTDJe
+	sgQoWAGJK8HmvSayebzJtKv34iYi+yhKMU9DKnE5fyM5k0So5HUsqHwww7l6jWZAg9+LMH/z5ab
+	BiLz9CibNlnIHyc/x7kw+SE4Dm2FRZfC6B9J3obDKbV8W8j+2bz9hm6ZFC5eZi3dC5sTxD4dmwH
+	P56XU+J0jV5Re0GrsZ+b5nqdbfkJHYjxoXAVzKtrVQ0PIcOAZcFCfJvyMRs+Hul4P7xeu/GpV/l
+	DnGjswON/apSA4Q6gyIWUZToqUGKnbViolWF/2HOIXayH+1186PMpVADr7S4kGldfI4bWqjzAra
+	AYJvyr5MiHRBt30OznoljmgtNRYq16OSyBVngKOzjwKz8la/2zg0C0wRQEZ0HGqJInzdjtvJNjA
+	==
+X-Received: by 2002:a05:6000:2506:b0:48b:946:c1f7 with SMTP id
+ ffacd0b85a97d-48db94bb90bmr29562583f8f.31.1791978634671; Wed, 14 Oct 2026
+ 04:50:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="hnn4yMXF7KGTHvw7"
-Content-Disposition: inline
-In-Reply-To: <CAPVz0n2L_4ik6nS_eQY-tQqtdLqgHofumZUU7wJjzbLGVft8kQ@mail.gmail.com>
-X-Cookie: Live free or die.
-
-
---hnn4yMXF7KGTHvw7
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+References: <20261001154326.754314-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20261001154326.754314-5-prabhakar.mahadev-lad.rj@bp.renesas.com> <20261003013310.D30A61F000FF@smtp.kernel.org>
+In-Reply-To: <20261003013310.D30A61F000FF@smtp.kernel.org>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Wed, 14 Oct 2026 12:50:08 +0100
+X-Gm-Features: AclHuK-yCqqeOjMwwFQaMKLml8XUsF3SK8FdUMhRnNk9iZskJVvyr9TZ3F42bUI
+Message-ID: <CA+V-a8u-xhSopVPya+tZRZrn8mSWYzsEAXHpRC6eTwCk4DUmnQ@mail.gmail.com>
+Subject: Re: [PATCH net-next v2 04/12] dt-bindings: net: dsa:
+ renesas,rzn1-a5psw: Add RZ/T2H and RZ/N2H ETHSW support
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, 
+	wsa+renesas@sang-engineering.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 14, 2026 at 12:00:31PM +0300, Svyatoslav Ryhel wrote:
-> =D0=B2=D1=82, 13 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 22=
-:04 Mark Brown <broonie@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+Hi,
 
-> > On Tue, Oct 13, 2026 at 09:56:03PM +0300, Svyatoslav Ryhel wrote:
-> > > =D0=B2=D1=82, 13 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=
-=BE 21:52 Mark Brown <broonie@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+On Sat, Oct 3, 2026 at 2:33=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
+>
+> Thank you for your contribution! Sashiko AI review found 2 potential issu=
+e(s) to consider:
+> - [Medium] dt-bindings: net: dsa: a5psw: globally requiring interrupts br=
+eaks backward ABI
+> - [Low] dt-bindings: net: dsa: a5psw: missing port count restriction for =
+ETHSW variant
+> --
+>
+> commit ac61e34c73e390592b92437f35f98d8807997f55
+> Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>
+> dt-bindings: net: dsa: renesas,rzn1-a5psw: Add RZ/T2H and RZ/N2H ETHSW su=
+pport
+>
+> This commit extends the A5PSW DSA binding to cover the ETHSW variant used=
+ on
+> newer Renesas SoCs. It updates the schema with new compatible strings, mo=
+difies
+> interrupt and clock properties, and accounts for the 4-port topology.
+>
+> > diff --git a/Documentation/devicetree/bindings/net/dsa/renesas,rzn1-a5p=
+sw.yaml b/Documentation/devicetree/bindings/net/dsa/renesas,rzn1-a5psw.yaml
+> > index fab6aa6237e93..863633185912f 100644
+> > --- a/Documentation/devicetree/bindings/net/dsa/renesas,rzn1-a5psw.yaml
+> > +++ b/Documentation/devicetree/bindings/net/dsa/renesas,rzn1-a5psw.yaml
+> [ ... ]
+> > @@ -73,14 +145,48 @@ properties:
+> >                phandle pointing to a PCS sub-node compatible with
+> >                renesas,rzn1-miic.yaml#
+> >
+> > -unevaluatedProperties: false
+> > -
+> >  required:
+> >    - compatible
+> >    - reg
+> >    - clocks
+> >    - clock-names
+> >    - power-domains
+> > +  - interrupts
+> > +  - interrupt-names
+>
+> [Severity: Medium]
+> Does adding interrupts and interrupt-names to the top-level required arra=
+y
+> cause a regression by breaking backward compatibility for legacy device t=
+rees?
+>
+No, because the existing SoCs already have the interrupts and
+interrupt-names properties in the SoC DTSI.
 
-> > Please make the entire comment a C++ one so things look more intentiona=
-l.
+> Existing device trees for the older renesas,rzn1-a5psw hardware that do n=
+ot
+> specify the interrupts property will now fail validation. Since the Linux
+> driver does not currently utilize interrupts, it is perfectly valid and
+> functional for older device trees to omit them.
+>
+> Should these properties only be required conditionally within the then bl=
+ock
+> for the new hardware variant?
+>
+> > +
+> > +allOf:
+> > +  - $ref: dsa.yaml#/$defs/ethernet-ports
+> > +
+> > +  - if:
+> > +      properties:
+> > +        compatible:
+> > +          contains:
+> > +            const: renesas,r9a09g077-ethsw
+> > +    then:
+> > +      properties:
+> > +        interrupts:
+> > +          minItems: 24
+> > +        interrupt-names:
+> > +          minItems: 24
+> > +        clocks:
+> > +          minItems: 3
+> > +        clock-names:
+> > +          minItems: 3
+> > +      required:
+> > +        - resets
+>
+> [Severity: Low]
+> Does this conditional block need to restrict the port count for the new
+> ETHSW variant?
+>
+> The global patternProperties for ethernet-ports allows
+> "^(ethernet-)?port@[0-4]$", which globally permits up to 5 ports. This is
+> correct for the older A5PSW variant but incorrect for the new 4-port ETHS=
+W
+> variant.
+>
+Agreed, I will add a check to validate this.
 
-> May you please be more specific how the title comment should look?
-> Just to be sure we are on the same page here.
+Cheers,
+Prabhakar
 
-C++ comments are ones that start with //
-
-> Ohh, you are right. There is a missing asoc_machine fragment that adds
-
-> SND_SOC_DAPM_LINE("Line Out", NULL),
-> SND_SOC_DAPM_INPUT("FM Radio"),
-
-> If these are all required changes and you are ok with picking this
-> patch, may I reload it without delays?
-
-Yes.
-
---hnn4yMXF7KGTHvw7
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrPbE0ACgkQJNaLcl1U
-h9A4/Qf/fSNG54QWI8X3hWalEQr7JxIBPf25tMg2w6dnBEhnzDMWZmmML497/E1Q
-dpYgCWVADwHMKhog0L0s3mLpGbv4XR+O0VLMEtP4KpN0i7d3nUFR3eJT4qruXmju
-3C2tSzhH/U4Vpye1d1lNjbDfvItNjSQxUscdVKEy6PCcX+ANIs3ZEgq+YyF5n2l3
-2Bo9ZpG7CC87K50aeEteaUAtxCVUE58q6Xc4dsio894P6X5PoEdLH0eee32s+Civ
-iR7q3hVOVJZO1xWuy0B8ltm1/YxRr5Rfv3y/acRZHLaAF43J2qH1MwSnNhJNnmSX
-P+j0VSQ8DDYVcrkRSzRTUblRA8PX5Q==
-=JrMG
------END PGP SIGNATURE-----
-
---hnn4yMXF7KGTHvw7--
+> Without a port count restriction here (e.g., overriding and disabling por=
+t@4),
+> device trees with invalid 5-port configurations for the new variant will
+> silently pass schema validation.
+>
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001154326.75=
+4314-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D4
