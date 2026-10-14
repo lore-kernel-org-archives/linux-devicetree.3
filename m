@@ -1,279 +1,127 @@
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FFAE4A4F00
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 23:17:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10E04360EC5
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 23:27:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792019867; cv=none; b=Ut1MjHn3l1pwm/x+GJWNe2rKbzC7zHQewDITd7/ZCQx9fGsEoare28eK6VZgnG1azCuNKEv3SJ7fyWN3mZuSnU4kE0nyO+2TAR7xABZoGtRacQ2YabV9Z6kQAnu0oRdJtyKBeAj0gno4EmBy0AdTVHL+WtTIIYs4p/GhJ3+T4v4=
+	t=1792020467; cv=none; b=XoiH5lUZ24HjvPd+5VhzmAGfaiN2eSxu/mGC/kXPNWkXWObbE7gDVchjarbJaGlhFXg5+1XEVIuzzCRdcNKppOMsVJ+YOJWYUXinV7QL0n/4PdZBJ/rO6FxGRXVvyQd15IDFTTIx3WRxYKrH0CJMitZZ2udHLC/ZYo8W4efbbMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792019867; c=relaxed/simple;
-	bh=vO1oV8bwHSlX0sH4gGWcdp/dFwfkrZ/9K0rxzsPh390=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Qa+sxpP2Do9+nMqbB/mblMVvEdkbT+yVU+DCLzYW2c5tLuC/mKprZEJjvkZljbHgwsIWLRyKqv43qyOR0gAZgWpWkKpsDFN2Eb8oOkFkI/hd+6ZChJG5rVsccMVFMlE1YrGAic/a6pw08c0+coy4rN0r2TwfoaGPMCwYHPwls0U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=NpCRQoRa; arc=none smtp.client-ip=74.125.82.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
+	s=arc-20240116; t=1792020467; c=relaxed/simple;
+	bh=Szww6CTCB0u669EcPIOLr1UC8jhFphaL9JG4Qwn5L4E=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=POVM7J09lNXkQx4RcgrxGmvSkYoVcwees7VQsHvPwJGfKQs1mYSxz0NOHWQ8Whxu9jeQv2U8WLXjgexclHZDJx8S7zq47pdkvyZVa3wsqunnaFRz0/DZd4KuXqzFy0R+ktF84sUg4wBhZlOcSlWfyGjekdUuC+BdtO8cQAPW/nk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bwYI7e8u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="NpCRQoRa"
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-30b6dad2382so10844425eec.0
-        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 16:17:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1792019861; x=1792624661; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=j6C8jGqFinDpuPjyzpS5QwSEVjMYW1BhAN63U/eJnyk=;
-        b=NpCRQoRasKFZvwKvpW0aKW6m/lvRoFBO2/N5pssvEJZLla3/AVgvqiDPZJrR09x2Z3
-         yjrkl5t3HzZHZuH2//Clj2zoZCJQIGWpLpZhVTZy5mDPlW8OB8MQRWJUm1LJS5Jra2gE
-         S4coXQi0QTM4uH068PBHO1tBrXpp2PSas9Q+XBVrULPg4X+GMGiDFWxaYc1a2vrvkJnr
-         UGPKJ09jzSR0iRJShm6EfX0bB3JWCKqIs7yWizcyaAC8ncVfNPdYQVoCdjD+aB4NBa3c
-         OkCNh9y7Lo7zMdMzTJogV+5RIra5i0OPcjWq7AWkjClcjs5rVrBFvDvMpmlK9w/pdW0O
-         QtMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792019861; x=1792624661;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=j6C8jGqFinDpuPjyzpS5QwSEVjMYW1BhAN63U/eJnyk=;
-        b=BQrJQmGr6EP0KtuKkPJ6v5/AKN0jVxbm3M0yFvaZ8u7lxKKfAqd5oX9jUQVGtNGusy
-         vECPzyQCki/N1cAdY2MOhrwkRM0I/XhqWtyOWG8g/AUqtH6UPQtci6kr+6IWt1E3emRM
-         E8FTwvLRs6geZcvAiCU1b0Hup6DfSEVxRVfREjWf3sF0NRIgGLaEx9OIcIp/dwhoYkBG
-         IcWCxFfOUhgTy9SRCT0gX9cDoKmLp6uKBoDbdc0SRWJDNDGjaWSF4l3cfsVjXy8R1SgW
-         YvKHiiOSM8i+a7Ysa/xCUBc49iX3QwML3f5JNtX2XZkufkiP7clWBUilFjKh4tJ2awz0
-         0uGQ==
-X-Gm-Message-State: AFq9FYJpS7rUds7qyU3uBRTF0YjqiZ8IRjHychp95Tah0Kpnyk96eHbF
-	Q6g7+1Dh7fttIRvEVex8sZEu6FjdLXstS+Nhd2F3MGkSDtxbQF+IQZfpqn0ftAKNzGn3M4zKRjw
-	wqYx1igA=
-X-Gm-Gg: AYBFou0K21dKTkMPbQGMCFIidpr0d6qDYjAnUzgbZMDuusa8ZDw1s27Z7W9fVI5o6fq
-	DBndzNJYI+QSdLPqi+U3dg6Psni5rjtfAOKp9kEncitiGvkBdd1/yhz0PzqARZx6ZSrURC4Hhlr
-	+0gqbJfHcfVU7H/eksOx0oFqbkVuMznCtArR3vsvcMrDsUnx3J9kXzAaAW9S1ExvtMyCq47WsqJ
-	8ETvVs3Z2VvJg/aJfgAruoXEAlXbhr+236GgOJEAdRszOk5ShAJsz8Br1oVp1Edci9j9C4bXEo5
-	mEQ3hB7fBmYFZnlh4iPjzUYbZ1R9Iqylp2P8+1D7H/NJAW9Vyznpb531ECMJY5QbBTB2qO/jjA1
-	NbaosD5BPMWyOVx+tEQamTTdXAlAC0HLEtDCRWxpzmiWvUffGhMpjN8H13l4BluTnqQqhedgyxW
-	H9G4aOovm7sUWg6WKRQKAjtXZb/ERqblAK36blBVkIglX5ytOZ5Ww1v0pU2cRkFxThtYpOcz97c
-	w==
-X-Received: by 2002:a05:7300:ae10:b0:35e:3727:5412 with SMTP id 5a478bee46e88-35e37275518mr2835980eec.9.1792019861246;
-        Wed, 14 Oct 2026 16:17:41 -0700 (PDT)
-Received: from [127.0.0.2] ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35de709d928sm10678679eec.25.2026.10.14.16.17.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 16:17:40 -0700 (PDT)
-From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Date: Wed, 14 Oct 2026 16:17:31 -0700
-Subject: [PATCH v8 6/6] of: unittest: cover /aliases updates from overlay
- apply/revert
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bwYI7e8u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A0821F000C4;
+	Wed, 14 Oct 2026 23:27:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792020465;
+	bh=tfM7viAjRQJSEdFOGkPErrGXeOIiQBf3Ae8I9/aYOSA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=bwYI7e8uSGOKFpQ5EskOESFHtPFTLprJmy4lCRKLYngkvspCAyjvRB5fe4vCwVVik
+	 qcHjUYvTiOodyjtEtY3Plf7MXS9q15fVjgi353RGgrGyJOY6dIbNj4NLcT+7q2d0D4
+	 cEojdg+wTLeMGZ2QNU0Yn5bE3iHxRfSDOWOpftxjJOsk/oU6sSF0d+TA4dcl1VuyFK
+	 jnlI5Qx5clQ9GCe4fer8wckBfMwTNgVtRbUi/GCmY/OHaAVDeqgJUcqdz4LXwgihyV
+	 q752hKIn/tMq6cIk6w0IcENaK9xVy20CXnMCb0wuBzacV4GHAjqmvCZvQR7EiJ2orD
+	 uDIuJ7ZDoMqGQ==
+Message-ID: <sashiko-outbox-172019@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 5/6] of/overlay: rewrite /aliases path values to
+ live-tree paths
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261014-nh-of-alias-overlay-v8-5-0f74f05ac762@nexthop.ai>
+References: <20261014-nh-of-alias-overlay-v8-0-0f74f05ac762@nexthop.ai>
+ <20261014-nh-of-alias-overlay-v8-5-0f74f05ac762@nexthop.ai>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 14 Oct 2026 23:27:44 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-nh-of-alias-overlay-v8-6-0f74f05ac762@nexthop.ai>
-References: <20261014-nh-of-alias-overlay-v8-0-0f74f05ac762@nexthop.ai>
-In-Reply-To: <20261014-nh-of-alias-overlay-v8-0-0f74f05ac762@nexthop.ai>
-To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
- Frank Rowand <frowand.list@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, Shawn Guo <shawnguo@kernel.org>, 
- Grant Likely <grant.likely@secretlab.ca>, 
- Grant Likely <grant.likely@linaro.org>, 
- Pantelis Antoniou <pantelis.antoniou@konsulko.com>, 
- David Daney <david.daney@cavium.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Abdurrahman Hussain <abdurrahman@nexthop.ai>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792019849; l=6029;
- i=abdurrahman@nexthop.ai; s=20260510; h=from:subject:message-id;
- bh=vO1oV8bwHSlX0sH4gGWcdp/dFwfkrZ/9K0rxzsPh390=;
- b=KSfTWA8RN8kwkvxeYymegrm+s9/YF1TFnvLA36VUkdztJSJ+reL1vW7b3MYoFmFutTXMc+Fw+
- EiUeWQBct6FDuKmoPOQ7I7oX3uKfPHB+bonJEbhpT+5vV0o63F958Qx
-X-Developer-Key: i=abdurrahman@nexthop.ai; a=ed25519;
- pk=omTm9cCAbO0ZhS32aKfJDKue0W3sQGpG9ub5eYHif8I=
 
-Add overlay_alias.dtso and of_unittest_overlay_alias().
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] of: refcount underflow in dup_and_fixup_symbol_prop()
+--
 
-The overlay has two fragments: target-path="" grafts a labeled node
-under the run-time target base, and target-path="/aliases" adds
-`testcase-alias99 = &<label>` at the DT root. The runner applies it
-with a non-NULL base via of_overlay_fdt_apply() (overlay_data_apply()
-always passes NULL), asserts of_alias_get_id() on the grafted node
-returns 99, reverts, and asserts of_alias_get_highest_id() reports
-the stem gone. A precondition check runs before the apply.
+commit c5eaae3d3771753bc9d29f750410340abc26ee23
+Author: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 
-This exercises the reconfig notifier, the absolute target-path
-lookup, and the /aliases value rewrite together; any one missing
-turns the get_id assertion into -ENODEV.
+of/overlay: rewrite /aliases path values to live-tree paths
 
-The grafted-node reference is dropped before of_overlay_remove():
-overlay-created nodes must be back at refcount 1 when the changeset
-is destroyed. The post-remove assertion uses of_alias_get_highest_id()
-because it is keyed by stem and needs no node reference. The apply is
-wrapped in EXPECT_BEGIN/END for the "memory leak will occur" warning
-printed for properties added to nodes the overlay didn't create,
-like the other overlay tests.
+This commit rewrites overlay-internal path values in the /aliases node
+to live-tree paths so they can be properly resolved. It uses the existing
+dup_and_fixup_symbol_prop() helper to accomplish this.
 
-The overlay is not added to the fdtoverlay static build test:
-fdtoverlay has no target-base concept, so the empty target-path
-cannot be resolved statically.
+> diff --git a/drivers/of/overlay.c b/drivers/of/overlay.c
+> --- a/drivers/of/overlay.c
+> +++ b/drivers/of/overlay.c
 
-Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
----
- drivers/of/unittest-data/Makefile           |  5 ++
- drivers/of/unittest-data/overlay_alias.dtso | 25 ++++++++++
- drivers/of/unittest.c                       | 73 +++++++++++++++++++++++++++++
- 3 files changed, 103 insertions(+)
+[ ... ]
 
-diff --git a/drivers/of/unittest-data/Makefile b/drivers/of/unittest-data/Makefile
-index 01a966e39f23..fdfec5a7923b 100644
---- a/drivers/of/unittest-data/Makefile
-+++ b/drivers/of/unittest-data/Makefile
-@@ -22,6 +22,7 @@ obj-$(CONFIG_OF_OVERLAY) += overlay.dtbo.o \
- 			    overlay_18.dtbo.o \
- 			    overlay_19.dtbo.o \
- 			    overlay_20.dtbo.o \
-+			    overlay_alias.dtbo.o \
- 			    overlay_bad_add_dup_node.dtbo.o \
- 			    overlay_bad_add_dup_prop.dtbo.o \
- 			    overlay_bad_phandle.dtbo.o \
-@@ -66,6 +67,10 @@ DTC_FLAGS_testcases += -Wno-interrupts_property \
- #			  overlay_bad_add_dup_prop.dtbo \
- #			  overlay_bad_phandle.dtbo \
- #			  overlay_bad_symbol.dtbo \
-+#
-+# overlay_alias.dtbo needs a run-time target base for its empty target-path;
-+# fdtoverlay has no equivalent, so it is also not included:
-+#			  overlay_alias.dtbo \
- 
- apply_static_overlay_1 := overlay_0.dtbo \
- 			  overlay_1.dtbo \
-diff --git a/drivers/of/unittest-data/overlay_alias.dtso b/drivers/of/unittest-data/overlay_alias.dtso
-new file mode 100644
-index 000000000000..17e02d1940f6
---- /dev/null
-+++ b/drivers/of/unittest-data/overlay_alias.dtso
-@@ -0,0 +1,25 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/dts-v1/;
-+/plugin/;
-+
-+/*
-+ * overlay_alias - declare an /aliases entry that points, via label, at a
-+ * node grafted under the run-time target base (empty target-path).
-+ */
-+
-+/ {
-+	fragment@0 {
-+		target-path = "";
-+		__overlay__ {
-+			testcase_target: alias-target {
-+			};
-+		};
-+	};
-+
-+	fragment@1 {
-+		target-path = "/aliases";
-+		__overlay__ {
-+			testcase-alias99 = &testcase_target;
-+		};
-+	};
-+};
-diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
-index e255f54f4d76..2f5e4056efae 100644
---- a/drivers/of/unittest.c
-+++ b/drivers/of/unittest.c
-@@ -3475,6 +3475,77 @@ static struct notifier_block of_nb = {
- 	.notifier_call = of_notify,
- };
- 
-+/* created by cmd_wrap_S_dtbo in scripts/Makefile.dtbs */
-+extern uint8_t __dtbo_overlay_alias_begin[];
-+extern uint8_t __dtbo_overlay_alias_end[];
-+
-+static void __init of_unittest_overlay_alias(void)
-+{
-+	const char *base_path =
-+		"/testcase-data/overlay-node/test-bus/test-unittest100";
-+	const char *target_path =
-+		"/testcase-data/overlay-node/test-bus/test-unittest100/alias-target";
-+	u32 size = __dtbo_overlay_alias_end - __dtbo_overlay_alias_begin;
-+	struct device_node *base, *target;
-+	int ovcs_id = 0;
-+	int id, ret;
-+
-+	base = of_find_node_by_path(base_path);
-+	if (!base) {
-+		unittest(0, "could not find alias target base %s\n", base_path);
-+		return;
-+	}
-+
-+	id = of_alias_get_highest_id("testcase-alias");
-+	if (id != -ENODEV) {
-+		unittest(0, "unexpected testcase-alias%d before overlay apply\n",
-+			 id);
-+		goto out_put_base;
-+	}
-+
-+	EXPECT_BEGIN(KERN_INFO,
-+		     "OF: overlay: WARNING: memory leak will occur if overlay removed, property: /aliases/testcase-alias99");
-+
-+	ret = of_overlay_fdt_apply(__dtbo_overlay_alias_begin, size,
-+				   &ovcs_id, base);
-+
-+	EXPECT_END(KERN_INFO,
-+		   "OF: overlay: WARNING: memory leak will occur if overlay removed, property: /aliases/testcase-alias99");
-+
-+	if (ret < 0) {
-+		unittest(0, "overlay_alias apply failed, ret = %d\n", ret);
-+		if (ovcs_id)
-+			of_overlay_remove(&ovcs_id);
-+		goto out_put_base;
-+	}
-+
-+	target = of_find_node_by_path(target_path);
-+	if (!target) {
-+		unittest(0, "could not find grafted target %s\n", target_path);
-+	} else {
-+		id = of_alias_get_id(target, "testcase-alias");
-+		unittest(id == 99,
-+			 "of_alias_get_id() = %d after overlay apply, expected 99\n",
-+			 id);
-+		/* changeset destroy expects overlay nodes back at refcount 1 */
-+		of_node_put(target);
-+	}
-+
-+	ret = of_overlay_remove(&ovcs_id);
-+	if (ret) {
-+		unittest(0, "overlay_alias remove failed, ret = %d\n", ret);
-+		goto out_put_base;
-+	}
-+
-+	id = of_alias_get_highest_id("testcase-alias");
-+	unittest(id == -ENODEV,
-+		 "of_alias_get_highest_id() = %d after overlay remove, expected -ENODEV\n",
-+		 id);
-+
-+out_put_base:
-+	of_node_put(base);
-+}
-+
- static void __init of_unittest_overlay_notify(void)
- {
- 	int ovcs_id;
-@@ -3649,6 +3720,8 @@ static void __init of_unittest_overlay(void)
- 
- 	of_unittest_overlay_gpio();
- 
-+	of_unittest_overlay_alias();
-+
- 	of_unittest_remove_tracked_overlays();
- 
- 	of_unittest_overlay_notify();
+> @@ -370,6 +370,19 @@ static int add_changeset_property(struct overlay_cha=
+ngeset *ovcs,
+>  		new_prop =3D dup_and_fixup_symbol_prop(ovcs, overlay_prop);
+>  		if (IS_ERR(new_prop))
+>  			return PTR_ERR(new_prop);
+> +	} else if (!is_pseudo_property(overlay_prop->name) &&
+> +		   of_node_is_aliases(target->np)) {
+> +		/* rewrite overlay-internal alias values to live-tree paths */
+> +		new_prop =3D dup_and_fixup_symbol_prop(ovcs, overlay_prop);
 
--- 
-2.54.0
+[Severity: High]
+Could this call to dup_and_fixup_symbol_prop() trigger a reference count
+underflow?
 
+Looking at dup_and_fixup_symbol_prop(), it retrieves nodes using
+__of_find_node_by_path() but then explicitly drops references to them:
+
+drivers/of/overlay.c:dup_and_fixup_symbol_prop() {
+    ...
+	fragment_node =3D __of_find_node_by_path(ovcs->overlay_root, path + 1);
+	overlay_node =3D __of_find_node_by_path(fragment_node, "__overlay__/");
+	of_node_put(fragment_node);
+	of_node_put(overlay_node);
+    ...
+}
+
+However, as documented in drivers/of/of_private.h, __of_find_node_by_path()
+operates without taking node references:
+
+drivers/of/of_private.h:
+/*
+ * All functions with two leading underscores operate
+ * without taking node references, so you either have to
+ * own the devtree lock or work on detached trees only.
+ */
+struct device_node *__of_find_node_by_path(const struct device_node *parent=
+, ...);
+
+Because the references were never initially acquired, calling of_node_put()
+here will underflow the reference count. This drops the independent referen=
+ces
+held by the changeset fragments and could lead to premature freeing of the
+nodes and a use-after-free during subsequent access.
+
+> +		if (new_prop =3D=3D ERR_PTR(-ENOMEM))
+> +			return -ENOMEM;
+> +		if (IS_ERR(new_prop)) {
+> +			if (new_prop =3D=3D ERR_PTR(-EINVAL))
+> +				pr_warn("%pOF/%s is not a valid string; alias will be inert\n",
+> +					target->np, overlay_prop->name);
+> +			/* not overlay-internal: copy verbatim, consumers validate */
+> +			new_prop =3D __of_prop_dup(overlay_prop, GFP_KERNEL);
+> +		}
+>  	} else {
+>  		new_prop =3D __of_prop_dup(overlay_prop, GFP_KERNEL);
+>  	}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014-nh-of-alia=
+s-overlay-v8-0-0f74f05ac762@nexthop.ai?part=3D5
