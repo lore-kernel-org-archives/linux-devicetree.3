@@ -1,151 +1,138 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CCB850B410
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 13:10:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D134E0216
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 13:11:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791983411; cv=none; b=QzcutfauxQwyduTU4BQuzB8sXZvRjE0elMbb6jeWoRhBYdnRTdc/6zi6N3MkYrvEHcmnakI40+s+/c0DoPniUJZhuoMTq0L0nwFCUT9D7uffWkf8euwgTOAX61l3SfI7ZsXvaPLVcqcMBCQIgdGsJDc5+tUocsrLd6OqtJd7+kY=
+	t=1791983466; cv=none; b=RHFy9foxZzQUaoHOEOdQFBh/0CtQGME+6lw6hlA6DDTyebqzlTo8KItI2g2bmN7nFfmXnS87FapE5aPhotiGBjgSyF0W95kOMYVGJgo+MB56OYcTHGlZ8o7JUlO/KCVqGjspqKmyOq4Tn+dAf7f7Mx4v70oLgsUscp/dlGnphl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791983411; c=relaxed/simple;
-	bh=6OSz3KWxmArSvMQoIxNTUe7AI3RBM05RYDSdcbfMf10=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=ck8S8c6CBfGgP8jyEoWEgjJ4raAbJTL/zCjCHA5UYUHBqBFxsgJgpugafs9+PNoFvE5UvRw4YE+jqUl9nXlfwoIJ+ujWzMr7GtpUSK3rr3yxCBrEw4fGllpUuIQ9zLl8v7GSAXhSQ9sI3ADeEGeKB7nDwZ9R0+CPLjENKb1kIjs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=aF+vsymD; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791983466; c=relaxed/simple;
+	bh=ZVGXxMb2C6ltKy97W2/fdduX+Fu2Hl2Ps7zha0/p/wU=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=QnHWvs2mhGy6Q5sHrFH2MTpm/C9RO1re74sTwObDL1a5sdLr2Iz0YDIoEmdbNksgteuWMfp8mevMLM1Ht/1oJ8F622z93Ir8dM74R9eHZ3XM1ksnOTNhs4t8qTFuSbP30Vuj3gPSMHuwC7AJLHsWp/5aQHYp1inOohc660aZbZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W1B+nPnT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="aF+vsymD"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a19cba5c14so35085635e9.3
-        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 06:10:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791983408; x=1792588208; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/SOir1Jg8Hp6YB8Cf9PmJZVgPuwRcGgEcz1iexy1UgU=;
-        b=aF+vsymDYNJoiipFZNi4gUM3QB+ayMmr/AVJg6znvWpfUwwHI9hSfObrT/bpoAW4aV
-         iU70v1lOhyWsKsehmZcGEQ/T6jwv+5gRoLAfnNCp1ly1lPRCSWORUWRkoFfqt9Mm0O2a
-         POUdBc3khQXZO5o7regv8H7eCle1WOVT2YiMnSyywg6/Di6UJYJNxIgMgu/z+YIXHWh+
-         PxtBTaOpFcd//5hS3uWn6hnzJJUx1e8E9KW5ldF3DUQkzNXGEaJPeDGvLe4u5pBvIazt
-         +bEkLqr7N81WNGPXPiy9x9iA4ciMIkbfgbCGKsZdgWtUfBdMQbtArILqYwbXK09qC1sm
-         5+aQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791983408; x=1792588208;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/SOir1Jg8Hp6YB8Cf9PmJZVgPuwRcGgEcz1iexy1UgU=;
-        b=xHsTaLClKjJ3atd8u0MiEbQ6xN+EVzwW1dYn7PLPW1ATUOlsyndGs66PjtkJtzLqBh
-         UykVvJ1+808yMlQek9zjBmo1ZLoDjTZs1p+YCLczdQPHexY+dd2Dq5p2coMfTQv5J2P5
-         /LJInyrQiAItdvXPfjKy9rMIYQ5amWTXZbcKtnyemENdxqef1mdPQC2+3S4uSxaWvf+8
-         ESJ7+aCdd7uLOKMlEZ61/kWD5WGrS3W+TANkGih/CbFyLP5YoF0WV6UH4qLCkh+hfVIL
-         TzwTbdGuZjc8A20mR3KFbdI2RzRkkotHZMH0x6PhZWequhiyo/sSPCm8677HEgQtD6Fv
-         /Ong==
-X-Forwarded-Encrypted: i=1; AKwUvBzq+cZ/M1G1aiH0QQ7j+0rnIqK2XPI6shbQEVflsrd0UjgnwnjWfC3/y8sBFZumOKN65vJ639SzHY9e@vger.kernel.org
-X-Gm-Message-State: AFq9FYKUpAxY0p1mSYVuleGHK4dPGIcWWqSLUQwdkkyO46CjVu3OQtbR
-	2V3bahakOau7utrEzYNRO4F6Idd25zETtOCzBlV1lYRWMENcE+0rNSif4jUKMfG43GM=
-X-Gm-Gg: AYBFou1RanZUiiZQTM3PIDk9Pi8Q7mMGjwAnMjnmWMVLGZzjxPXC/16z7IZXiyLyEni
-	umL6ElyzYBzAAT7cALtC80kCYSFyPzSUhNIyuQVn2uvZWZn++ZpZbCxW5csqKv6G5/ubtdaa+nV
-	G0SS/Diqg941G5HbFl7UIwvLWn48Sj8e580xGPLcifyWtTV7dDbgvqo+khQn8zHyRnvzp4O6hLk
-	hmYi/iHWLIjrmHf9Yz7FEe1QwzDtdhjP0Ee4lsYMKLJ9t7CbpTETMTHEe2r+87Yq17YMhcl1NGB
-	9hMiB4/nlh95seZQcasN1V1b2lUVWZwhyWAK6au2AVJY/vpwTbCMh4iHeeHbPOCZjU6V19JLnZ4
-	JTJu14czU0OPo0NkjcEHQD2oe5HZFzoPZMFDOb5M/QAn7gl5CIrIJthRnUoGNIhTLLQXCGU6i/5
-	wlcEGvhfSSXEucfOeYvQniOs4U89FmRtl+QPNn4hDCc7SNmhmIQixgQFqNOgz1n6zl2SzTBYy73
-	rhQPlZpvc5P34oin4oW/gWBwsbEKX/CgU0rsZHRQlwqvroFw4SsoA==
-X-Received: by 2002:a05:600c:609b:b0:4a1:83f0:7c91 with SMTP id 5b1f17b1804b1-4a18e4ca1dcmr297299055e9.18.1791983408111;
-        Wed, 14 Oct 2026 06:10:08 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:fdbf:f373:6d5b:93e4? ([2a01:e0a:106d:1080:fdbf:f373:6d5b:93e4])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48ded185de7sm3478320f8f.31.2026.10.14.06.10.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 06:10:07 -0700 (PDT)
-Message-ID: <8d7346c0-1eda-4e48-8df8-926d05c370d3@linaro.org>
-Date: Wed, 14 Oct 2026 15:10:06 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W1B+nPnT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E34BE1F000FF;
+	Wed, 14 Oct 2026 13:11:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791983465;
+	bh=o8clkFwrTflVrvYlJ777tRm6kP0D9lTkVvxTP05dH8Y=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=W1B+nPnTfGrDqMOcDJWxPQutnWG47jND2WXkcA9qnB1tJ3NDjr5bxiQkKOkiahrlN
+	 Q845JivOVE58wJFEH2ceJ5HtZuucsSfQNKjW0Yt3v0qnaFQtf3xsU0Y8EyhR/Hk5VN
+	 H6rIXduprtOnbSjXmUa/akNb/Fiy0njXQqPHeLhQ3Pdpu7JembiegOqWwnqbu1B6UY
+	 WypeiQgckA7esD1tukMfsIgRKnIVyyAGkeD+NZe1aluKjBqbHu/eqvm542yBN7vp18
+	 7tIpYTCCbDDL6awMbZlxqlWMCHzG1YD3iBIUe+vaPIPRTvhRjagKk5L3sxrZdzVohY
+	 NbFr97ojVbSqQ==
+Message-ID: <sashiko-outbox-171319@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC 1/5] dt-bindings: nvmem: Add UEFI variable NVMEM
+ provider
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Abel Vesa" <abel.vesa@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261014-b4-nvmem-efivar-v1-1-187c85f65018@oss.qualcomm.com>
+References: <20261014-b4-nvmem-efivar-v1-0-187c85f65018@oss.qualcomm.com>
+ <20261014-b4-nvmem-efivar-v1-1-187c85f65018@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 14 Oct 2026 13:11:04 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2] arm64: dts: qcom: sm8650-valve-deckard: Add initial
- support of camera sensors
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abel.vesa@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-References: <20261002101748.2454305-1-vladimir.zapolskiy@linaro.org>
- <7ff7a265-59ac-4ab3-af14-385fd02fc6ce@oss.qualcomm.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <7ff7a265-59ac-4ab3-af14-385fd02fc6ce@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 10/14/26 15:07, Konrad Dybcio wrote:
-> On 10/2/26 12:17 PM, Vladimir Zapolskiy wrote:
->> Add initial support of camera sensors on Valve "Steam Frame" device.
->>
->> The change enables CAMSS and adds description of
->> - a pair of OmniVision OV6211 monochrome eyetracking camera sensors,
->> - a pair of OmniVision OG01A1B monochrome front camera sensors.
->>
->> There is another pair of OmniVision OG0VE10 camera sensors found on
->> the device, its description requires a combo mode feature support in
->> the SM8650 CAMSS CSIPHY driver.
->>
->> Signed-off-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
->> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
->> ---
-> 
-> [...]
-> 
->> +	vreg_cam_front_left_1p2: regulator-cam-front-left-1p2 {
->> +		compatible = "regulator-fixed";
->> +		regulator-name = "cam_front_left_1p2";
->> +		regulator-min-microvolt = <1200000>;
->> +		regulator-max-microvolt = <1200000>;
->> +
->> +		gpio = <&tlmm 37 GPIO_ACTIVE_HIGH>;
-> 
-> GPT points out this and vreg_cam_front_right_1p2 poke the same
-> GPIO (but have different supplies - l2n vs l2m)
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: nvmem: use of deprecated direct cell syntax
+- [Medium] dt-bindings: nvmem: efivar-guid omission allows variable spoofing
+- [Low] dt-bindings: missing pattern constraint for efivar-guid
+--
 
-This is exact, same gpio for 2 different regulators.
+commit 648d72d2afdafd63b69b67763f6747f4034d85b2
+Author: Abel Vesa <abel.vesa@oss.qualcomm.com>
 
-Neil
+dt-bindings: nvmem: Add UEFI variable NVMEM provider
 
-> 
-> Konrad
+This commit introduces a new device tree binding for an NVMEM provider that
+exposes the contents of UEFI variables. It allows provisioned UEFI data to
+be consumed via standard nvmem-cells bindings, optionally looking up the
+variable by name if the vendor GUID is omitted.
 
+> diff --git a/Documentation/devicetree/bindings/nvmem/nvmem-efivar.yaml b/=
+Documentation/devicetree/bindings/nvmem/nvmem-efivar.yaml
+> new file mode 100644
+> index 0000000000000..cdc10bee3c6ff
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/nvmem/nvmem-efivar.yaml
+[ ... ]
+> +allOf:
+> +  - $ref: nvmem.yaml#
+> +  - $ref: nvmem-deprecated-cells.yaml#
+
+[Severity: Medium]
+Does this binding use the deprecated direct cell syntax?
+
+The NVMEM subsystem guidelines state that defining fixed cells as direct
+subnodes is deprecated and that no new bindings should use it. New NVMEM
+providers should use the fixed-layout standard with an nvmem-layout child
+node containing the cells instead.
+
+[ ... ]
+> +  efivar-guid:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    description:
+> +      Vendor GUID of the UEFI variable, in the canonical
+
+[Severity: Low]
+Would it be better to add a pattern constraint to enforce the documented
+canonical format?
+
+The schema validation will currently accept arbitrary strings since it
+relies on the generic string definition without a regex pattern. Adding a
+constraint such as "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-=
+F]{4}-[0-9a-fA-F]{12}$"
+would prevent malformed GUID strings from passing validation.
+
+> +      "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" form. Optional; when omitted
+> +      the variable is looked up by name across the whole variable store.
+
+[Severity: Medium]
+Does making the GUID optional introduce a risk of variable spoofing?
+
+The UEFI specification states that variables are uniquely identified only by
+the (Name, GUID) tuple. If an attacker with local write access creates a
+variable with the same Name but under an unauthenticated GUID, could the
+implementation return the spoofed variable depending on firmware enumeration
+order?
+
+[ ... ]
+> +examples:
+> +  - |
+> +    nvmem-efivar {
+> +        compatible =3D "nvmem-efivar";
+> +        efivar-name =3D "ConfigData";
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <1>;
+> +
+> +        cell_a: cell@0 {
+> +            reg =3D <0x0 0x6>;
+> +        };
+> +
+> +        cell_b: cell@6 {
+> +            reg =3D <0x6 0x6>;
+> +        };
+
+[Severity: Medium]
+Does this example propagate the deprecated direct subnode anti-pattern?
+
+As noted above regarding nvmem-deprecated-cells.yaml, new NVMEM providers
+should demonstrate the use of the fixed-layout standard with an nvmem-layout
+child node instead of defining fixed cells as direct subnodes.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014-b4-nvmem-e=
+fivar-v1-0-187c85f65018@oss.qualcomm.com?part=3D1
