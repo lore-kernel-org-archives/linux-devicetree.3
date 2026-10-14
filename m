@@ -1,144 +1,109 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF004FC33E;
-	Wed, 14 Oct 2026 09:39:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBCD14F0544
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 09:39:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791970771; cv=none; b=h/7GcBjLwbjJc09nKUICxBbxGLPOjFGD4gWYK1rFkQjRkRwUTJwgtGpMSqGp9W4EEvxHnoHw0ytC3RgaE1leoTw0PqXdz0IPHruIR58nuAuuC/YQ7tfdEoWkZaNUYONDOZVFD0ouU4V8LNL2USHnzzpj4Kqx22z81PgpAFC5UBQ=
+	t=1791970784; cv=none; b=D3D9wxmLik/EOP4WBcpiKqxxFQj854Opx8TLAZbldHsOBE7YUfetcioVYsZ4VpT9qS4rq4nabzUDWkKWFJX+kPm3hAOMzUm/HZMPe1ZPFGpZ6VlTAfDrlxYf2wbchzcLhaUrIjDbsGt4PZaK8t818XX7SMrzAG7jzj35fVyu0xc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791970771; c=relaxed/simple;
-	bh=r/wahqHiEoyAZQhGQeU48qJzdO0Mb6kfkuPNjZePG1U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=F7qjLvkWLcmvF4/UJI6Ks8xRpQI9sXtnOwA0xi4tBrjBOyIF2lqTucBEwqZXW6do/WF4SoxHzomzTWtN4+RNATU+8/Hvy0ucMkn9A3ee9C6ce2JPrhZUJp/Sy8SOV3VqmIG84ekZsXmwaJKFpqcijmg3sj5qyoofPIn5hgXS8yI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=nR1Fx1jq; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1791970784; c=relaxed/simple;
+	bh=okzaYTuseeajn/y9/bMRisEYExitpZUhSZUqWkpEvcw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QvQ3EpsZNrqatVWYAbgBH9Gjfsaqq+ilDQQR4vNhEVi8EG+z7IddG3cfanhosRShj/kDoJL6SE28eiP0XEGH+tCuZbqawtGB6FTdAaikUnsR9SanUKoHi1+gNV6EHUDzbi3BUgb6z7IC3+9didqsp4xtK5BKTDOMub65WZGAlnk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=lgYSlXmk; arc=none smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="nR1Fx1jq"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=TpeTFtRKkdVPFxwXXxf9+WzZqUtm/D3M7A4QvZCvXUM=; b=nR1Fx1jqqoPGLdwt6Yib4pIJ41
-	QkHHgfymMBPIUksJftc9ChvONa5o2gG3tbYKdwdfLKB0B37k2A1RdMbI0GrM2z1d4+BkjrO5yx6om
-	v7xiTOBvnt7mqWrmjfs24ZBxGmfpXzBaPsLyiIFn7lFvKKBt2zoZ6f1p3GPsbcNWXIQKZ4xBtExw/
-	qvSJpZVORNIxt1qqf64eh1z1CRADs1BuRLlWixsvQ133UHae5hZGFMnQHBGa6ttehB2D6AG2ZWh06
-	xTVOZeJ908jL9VPWl4U4zzDHtX6eh23EZz4kE23GXtSOebdOYSt2lhki6o356JC7+EsVZSW6VWC12
-	T6fyBN+A==;
-Received: from sslproxy08.your-server.de ([78.47.166.52])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xGvSJ-0002qD-0E;
-	Wed, 14 Oct 2026 11:39:27 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy08.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xGvSI-000Cgx-2F;
-	Wed, 14 Oct 2026 11:39:26 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: imx@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org,
- conor+dt@kernel.org, Frank.Li@kernel.org
-Subject:
- Re: [PATCH v2 1/5] dt-bindings: firmware: imx: Add SCU controlled display
- pixel link nodes
-Date: Wed, 14 Oct 2026 11:39:25 +0200
-Message-ID: <5233262.GXAFRqVoOG@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To: <sashiko-outbox-170937@kernel.org>
-References:
- <20261014071657.118378-1-alexander.stein@ew.tq-group.com>
- <20261014071657.118378-2-alexander.stein@ew.tq-group.com>
- <sashiko-outbox-170937@kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="lgYSlXmk"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c350db5a761so491822766b.1
+        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 02:39:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791970781; x=1792575581; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=i1GZw3cNFikclMDGa5RfJqbcmWgweDgc3stMA6cogOA=;
+        b=lgYSlXmke3NhGXgHOPHA5I/ODRDwVTY5w3VnVAo81ZF3piDNIh4XsBoU3F1iz85PkI
+         MJPqAvklJACU2gpmfPp0bDi3ftPc2S1Jokv5afqZqDrddeeLU6yg5u0LIZMjrpADrc1N
+         onBTXCA0w65ZLXeQQNQKl8w+ebMwLaeR5v+FDs2l8+xScqBXny0GK0jMDpASiBiMiJaM
+         lMv3DXgCMB3swRdoZZbcFYcBfWygGMUKeWYEsz9X8IOMACwEMYccR+UV+LSjSUVZuKuF
+         MMJM070xA+/vncqYacXgO07gjHyxC6in/VCb6VWENb131SGyDpWngnu01nYwWEMxibmW
+         9ZDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791970781; x=1792575581;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=i1GZw3cNFikclMDGa5RfJqbcmWgweDgc3stMA6cogOA=;
+        b=AstL+NZirMthUwahADam1jn/6N5lx/h3VrXrL+/BZyul9l8QghmTYOTEqydNM0IeRj
+         YdRsS+7MRa7+MgR3QtkoenLKUw+sqNWQjTiDnl8DJiieeGw2OjgMH5kXJrhw2xr+7IQM
+         ezUQHIa8Fha89Qju5ewMoYFz0lKfut5/fpNUUdCCWk/1cShHpLtUGyVSwPAIGfe7ZmT9
+         8yaWF6oBIzCpXv7qE6bJ4i6Ue5ms2s8WNBVnITid/L0RuZWQ3bueUGQmi7Fk0M43wTl6
+         uCZJWNSdDwwQA/J65RrixCBvTuJGmg0lRz9/+CaRYbK40HS41c8k4S7imrlCQX0pVotx
+         g28g==
+X-Forwarded-Encrypted: i=1; AKwUvBydqjrTQRnuoXxWqnLPU/9/LXVVFoy9S24cLdhFZOmNwxOtZrI5E+HWfHSj+aDN/y8tqv0bth0vRoNP@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/XZjSpwlP+IeINKybl16F1fE9tA4fMZ5ELqtmlFpQ/3qBJ3Cr
+	JXpnSJgT+uMQBVoiOWHruVbOiHqTdYa89uGLhuiQ4Jw3DtzPBbW0GkTYDhfQyByu0VM=
+X-Gm-Gg: AYBFou2sNeq8hzFOKp0B45CmkRqtCzeErvLThzxsmF9w90s3hn2Jzdm1s5AmSOxLiXl
+	GEk7Ftgl4aEjUKX8qdI3eclwAhHeKue2JoI22gK38N5OsitaObp3I5whnSHbl28lN/X9HXXOZ/r
+	UfVu45Yhg72fLW1S0ccAqfv9cd86+BoMPRRv4h28C4BS50gk825scOuU4Y7mKg8rov8QeHvK2mn
+	2rni7TV/7qLPDU4iSWi/IJXnJ+MKHDliSTY8946o9iW4uIds0okVQHqhL65tFj5XWrv49eT85/9
+	vHStAk3VJZMPpuiul9iRmrnswYl+CdiMutfmDd2iu1Fm/A1D4wUhDXT+EBfKhcP3QVSi+0r5fKn
+	AxvYBe3I8w9mQveENFlYxlYZeDo2v4Xu89evGwXI3TbHmEgQ4+oBC5VjPdJGXR1nmr1k6j4xopQ
+	W6BgiqMF2bdvVKux62mNLiRHErrG+Frx8rKSiG83AjkAKF+hU/S0/7PcknmLFpaeTPDtb112h10
+	CFQ57mzLp+m
+X-Received: by 2002:a17:906:c116:b0:c31:8441:35ff with SMTP id a640c23a62f3a-c31aa0e9367mr1389779166b.48.1791970780874;
+        Wed, 14 Oct 2026 02:39:40 -0700 (PDT)
+Received: from [192.168.0.167] ([109.76.126.202])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9ae59f9sm681485866b.80.2026.10.14.02.39.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Oct 2026 02:39:40 -0700 (PDT)
+Message-ID: <d08f3f62-713f-43e5-bec8-dd58997c2249@linaro.org>
+Date: Wed, 14 Oct 2026 10:39:38 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28153/Wed Oct 14 08:24:15 2026)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 5/8] phy: qcom-mipi-csi2: Add Hawi support
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss
+ <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+Cc: Suresh Vankadara <svankada@qti.qualcomm.com>,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>, linux-i2c@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org
+References: <20261013-hawi-maili-camss-v2-0-fc93222da89c@oss.qualcomm.com>
+ <20261013-hawi-maili-camss-v2-5-fc93222da89c@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261013-hawi-maili-camss-v2-5-fc93222da89c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Am Mittwoch, 14. Oktober 2026, 09:24:09 Mitteleurop=C3=A4ische Sommerzeit s=
-chrieb sashiko-bot@kernel.org:
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [Low] dt-bindings: firmware: fsl,scu: enforces non-generic child node n=
-ames
-> --
->=20
-> commit bc38a98038b8a49cd066c13a1783d4225b66e234
-> Author: Liu Ying <victor.liu@nxp.com>
->=20
-> dt-bindings: firmware: imx: Add SCU controlled display pixel link nodes
->=20
-> This commit documents the SCU controlled display pixel link child nodes=20
-> in the fsl,scu firmware binding.
->=20
-> > diff --git a/Documentation/devicetree/bindings/firmware/fsl,scu.yaml b/=
-Documentation/devicetree/bindings/firmware/fsl,scu.yaml
-> > index 307f1c6278532..cd6cda1192a89 100644
-> > --- a/Documentation/devicetree/bindings/firmware/fsl,scu.yaml
-> > +++ b/Documentation/devicetree/bindings/firmware/fsl,scu.yaml
-> > @@ -30,6 +30,26 @@ properties:
-> >        Clock controller node that provides the clocks controlled by the=
- SCU
-> >      $ref: /schemas/clock/fsl,scu-clk.yaml
-> > =20
-> > +  dc0-pixel-link0:
-> > +    description:
-> > +      Display pixel link0 in display controller subsystem0 controlled =
-by the SCU
-> > +    $ref: /schemas/display/bridge/fsl,imx8qxp-pixel-link.yaml
->=20
-> [Severity: Low]
-> Does this naming scheme violate the Devicetree Specification Section 2.2
-> (Generic Names Recommendation)?
->=20
-> The specification recommends that node names reflect the general function
-> of the device and avoid hardware-specific programming models or block ind=
-ices.
-> Enforcing exact node names like dc0-pixel-link0 prevents device tree sour=
-ces
-> from using generic names.
->=20
-> Looking at the SCU firmware driver in drivers/firmware/imx/imx-scu.c, chi=
-ld
-> nodes are populated using devm_of_platform_populate(), and the downstream
-> bridge driver in drivers/gpu/drm/bridge/imx/imx8qxp-pixel-link.c binds us=
-ing
-> the compatible string (fsl,imx8qxp-dc-pixel-link), not the node name.=20
->=20
-> Since there is no driver or firmware ABI requirement dictating these fixed
-> node names, would it be better to use patternProperties, for example
-> ^pixel-link(-[0-9]+)?$, to allow and validate generic naming?
+On 13/10/2026 12:02, Nihal Kumar Gupta wrote:
+> From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+> 
+> Add support for the Hawi 2nm CSI-2 D-PHY.
+> 
+> Reuse the Kaanapali lane table and adjust the data-lane CTRL0 value
+> from 0x8e to 0x8c for Hawi-specific tuning. This prevents potential
+> stream stalls and SMMU faults.
+> 
+> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+> ---
 
-=46ine with me. Will replace by patternProperties supporting the (same) node
-names: "^dc[0-1]-pixel-link[0-1]$"
-
-The distinction between DC[0-1] is necessary as can't be enumerated linearly
-because they belong to different display controllers and are located in the
-same SCU node.
-
-Best regards
-Alexander
-
-> [ ... ]
->=20
->=20
-
-
-=2D-=20
-TQ-Systems GmbH | M=C3=BChlstra=C3=9Fe 2, Gut Delling | 82229 Seefeld, Germ=
-any
-Amtsgericht M=C3=BCnchen, HRB 105018
-Gesch=C3=A4ftsf=C3=BChrer: Detlef Schneider, R=C3=BCdiger Stahl, Stefan Sch=
-neider
-http://www.tq-group.com/
-
-
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
