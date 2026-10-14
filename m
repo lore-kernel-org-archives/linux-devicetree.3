@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A02F47ECC6;
-	Wed, 14 Oct 2026 10:20:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C73522C21D0;
+	Wed, 14 Oct 2026 10:22:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791973260; cv=none; b=am8zE+bPh2NLrM5AEZRWlwRs+TMca6kkIjbeayy52sHwEhwiGS4qMyc8VTBlDqus92NGC41A93irUkpeSj9wrdLhFcHlBCatS9uRPDHorU6rrxB+h92vrzxi7J0fuKBkMBDkNXL4VD6j5oCmcRGWw7DiufUTPyQk3XX7h0ybma0=
+	t=1791973355; cv=none; b=WdrBUWhESKBekUZmnyExKItt6cKe1Fu0v7THeg2koX/glSI/BbsbMAwaYfsOFVfwJD77ZB4GjcRXYsvKKKUSzIOiRvGsbj+bPyU2zMD7GFBbxeUxMzzxKwCkfJPCGA2AFYVn9Hx9fpJnGgm8HQMbMdY6vIJyEftx3ADdNPEUtA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791973260; c=relaxed/simple;
-	bh=VhpDEZvTkXWqvyp2s8oj2CfAOxwHTIQU4dABiDBxRBk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mPSGXP9mOFyRVlZ0F3ZvIYYNlWioJEFyI79ayiPeDMNXz+HCb81/1SXkZwGmmRcGqMXqHcar1esZ6NdXcHenqMEAOXQ5TVzO1V40q5ev7tm7nFZmpRHpt1Ks+lasbsUXL7jFixn7nVPF1zUwRHUh38bgynfrA2pNLPhXXN1Tz8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LzAVM2XJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791973355; c=relaxed/simple;
+	bh=1ESQ0ekRio6WEiqPpZNuXzRCMorhN8/L6m7ea8uJC8s=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=arGmyB1fV9HDauVQVUCXqEzW3pm2KmO7lUfT2FWs4kl4HTrWXGGo83RvDZB+ciXxwhvTPpnx4BbEnPEGZnRQrQPDBaboD+dFhbDcsyKxbAc3qRTJ8ceNgSt4MuuP22muHoclezQpUEzeve0BNgQk5L709D5+7riP4IX90ARRk3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K2kM6Zga; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LzAVM2XJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE4A31F000FF;
-	Wed, 14 Oct 2026 10:20:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K2kM6Zga"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B0CA1F00898;
+	Wed, 14 Oct 2026 10:22:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791973258;
-	bh=gWrSo/PMIGTc7kwWlNZNJ6yFmB8LvpG1bvD0PiyoSR4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=LzAVM2XJOLZYS2PM2+BzzYUUSQmQUvTCTh3tI1GNgWp/t+cn0AlhGl6G9jqYjS6Y7
-	 MKdBGy9mPDaqnft8G9IcunnPtBK71JU8j8qdVgb+MSHnp9m+LcX+5Yfk/xVKYpM5fM
-	 gG+6kRKx3hknYdPHoe5Qps09nhFlSnFvKyhWIGf+1tD2xAVojGFa60+jVoehTpEbWd
-	 /l2Kpr4kfSIKY+eBsLj+w3oCytLD1+hogKdCFiam0qAlZu04JCQCgfx2VpLqtQIC66
-	 Qo2i3NXm+ajvZnYrmhCq/oEynJqSVwoOOpxS1Lwc+tkrT3xtThuTDgIou7jBN04psx
-	 3gdVHqX/2Pfyg==
-Message-ID: <9bf93bde-8abe-4a83-afc6-d5f6954ed3c1@kernel.org>
-Date: Wed, 14 Oct 2026 12:20:49 +0200
+	s=k20260515; t=1791973354;
+	bh=HFwvdFjQOwo7pNUIA7Q1LUEaShtAWaPIThtJF3QfRdg=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=K2kM6Zga5EhfcsonE7sl3EtIK834t52YBu16IpCI54NiHzwbxmjsop6jsIk4seoj3
+	 njJaiBnWL97Mky0phu1y9UjhuwQz43S++fXQhFTaqOCvAt5Y3CWHlddrdzcOw4HvQD
+	 OwRSsDgQeM+ImnftFCyosIEzLm06LF+Sw8A+uwibe47IxbaAp1crYzv0TRWkLhUuZ/
+	 sjaXy5f2p2dVFmncemOue2KWkbbi1T8ySgYR7sjjr9HJDJadx3FE8ysaARLs/ShGJ7
+	 QObrWjZpdlAaIqiSwA5p4QBsUx2sfobMcSd4UIn/jSIi6ioVDd/WsGsm+EarAFiRTP
+	 5VWMjU8ncMtNQ==
+Message-ID: <c5af1a40-e498-4855-8797-2663db83b9e6@kernel.org>
+Date: Wed, 14 Oct 2026 12:22:25 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,20 +35,20 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/4] arm64: dts: qcom: qcs6490-rb3gen2: add the clock
- controller
-To: Alex Elder <elder@riscstar.com>, sboyd@kernel.org,
- bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org,
- konradybcio@kernel.org
-Cc: abelvesa@kernel.org, kees@kernel.org, gustavoars@kernel.org,
- mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com,
- danielt@kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
- linux-kernel@vger.kernel.org, Daniel Thompson <daniel@riscstar.com>
-References: <20261012152408.3729237-1-elder@riscstar.com>
- <20261012152408.3729237-5-elder@riscstar.com>
+Subject: Re: [PATCH 1/2] dt-bindings: interrupt-controller: introduce
+ toshiba,tc9564-msigen.yaml
 From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Cc: Alex Elder <elder@riscstar.com>, tglx@kernel.org, radu@rendec.net,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ p.zabel@pengutronix.de, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Daniel Thompson <daniel@riscstar.com>
+References: <20261012190245.3988619-1-elder@riscstar.com>
+ <20261012190245.3988619-2-elder@riscstar.com>
+ <20261013-coexist-sixtyfold-cc6614086d3a@spud>
+ <20261014-eminent-normal-lynx-3ebba3@quoll>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -93,83 +93,100 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261012152408.3729237-5-elder@riscstar.com>
+In-Reply-To: <20261014-eminent-normal-lynx-3ebba3@quoll>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12/10/2026 17:24, Alex Elder wrote:
-> The clock controller within the TC9564 SoC is accessed via a PCI
-> endpoint bus through BAR 4 of the first embedded PCIe function.
-> A syscon node is created to provide access to a range of memory
-> that is used by the clock controller and shared with other devices.
+On 14/10/2026 12:15, Krzysztof Kozlowski wrote:
+> On Tue, Oct 13, 2026 at 06:54:11PM +0100, Conor Dooley wrote:
+>> On Mon, Oct 12, 2026 at 02:02:43PM -0500, Alex Elder wrote:
+>>> Define the binding for the MSIGEN interrupt controller present in the
+>>> Toshiba TC9564 SoC.
+>>>
+>>> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+>>> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+>>> Signed-off-by: Alex Elder <elder@riscstar.com>
+>>> ---
+>>>  .../toshiba,tc9564-msigen.yaml                | 70 +++++++++++++++++++
+>>>  MAINTAINERS                                   |  6 ++
+>>>  2 files changed, 76 insertions(+)
+>>>  create mode 100644 Documentation/devicetree/bindings/interrupt-controller/toshiba,tc9564-msigen.yaml
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/interrupt-controller/toshiba,tc9564-msigen.yaml b/Documentation/devicetree/bindings/interrupt-controller/toshiba,tc9564-msigen.yaml
+>>> new file mode 100644
+>>> index 0000000000000..39dc63964bd52
+>>> --- /dev/null
+>>> +++ b/Documentation/devicetree/bindings/interrupt-controller/toshiba,tc9564-msigen.yaml
+>>> @@ -0,0 +1,70 @@
+>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>>> +%YAML 1.2
+>>> +---
+>>> +$id: http://devicetree.org/schemas/interrupt-controller/toshiba,tc9564-msigen.yaml#
+>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>> +
+>>> +title: Toshiba TC9564 MSIGEN Interrupt Controller
+>>> +
+>>> +maintainers:
+>>> +  - Daniel Thompson <daniel@riscstar.com>
+>>> +  - Alex Elder <elder@riscstar.com>
+>>> +
+>>> +description: |
+>>> +  The Toshiba TC9564 is an SoC accessed by a host system through the
+>>> +  upstream PCIe port on the PCIe switch it implements.  The switch
+>>> +  includes an embedded PCIe endpoint that provides access to various
+>>> +  SoC peripherals (including an interrupt controller) via its BARs.
+>>> +
+>>> +  The TC9564 MSIGEN (MSI Generator) provides an interrupt controller
+>>> +  with 25 hardware interrupt lines.  It aggregates internal interrupts
+>>> +  and generates a single PCIe MSI to the host.  Each PCIe function
+>>> +  implements an MSIGEN instance.
+>>> +
+>>> +  Each MSIGEN uses a gated clock and reset line.  These are provided
+>>> +  by the clock and reset controllers internal to the TC9564.
+>>> +
+>>> +allOf:
+>>> +  - $ref: /schemas/interrupt-controller.yaml#
+>>> +
+>>> +properties:
+>>> +  compatible:
+>>> +    const: toshiba,tc9564-msigen
+>>> +
+>>> +  reg:
+>>> +    maxItems: 1
+>>> +
+>>> +  interrupt-controller: true
+>>> +
+>>> +  '#interrupt-cells':
+>>> +    const: 1
+>>> +
+>>> +  clocks:
+>>> +    maxItems: 1
+>>> +    description: Gate clock from the TC9564 clock controller
+>>
+>> I'm surprised that the clock is not mandatory.. Realistically the reset
+>> is also mandatory, there's probably one instance of this on the device,
+>> where both clock and reset are connected. I'd add both to the required
+>> list.
+>>
+>> Otherwise this looks
+>> fine to me. I know you mentioned this device in the other series that
+>> we were discussing but I don't see how it is related and is perfectly
+>> fine to implement as a standalone device as you have done here.
 > 
-> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
-> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
-> Signed-off-by: Alex Elder <elder@riscstar.com>
-> ---
-> v3: 
-> - What was formerly described as a "clock" node is now "clock-controller"
-> - Label for the 25 MHz input clock is added (new in this version)
-> - The clock-controller node is now a sub-device of the config syscon
-> - The config syscon is now (also) compatible with "simple-mfd"
-> - The clock-controller DTS node no longer defines a toshiba,config-syscon
->   property, and the config syscon no longer requires a label
-> - The clock-controller now requires a (parent) clock property, which
->   refers to the new 25 MHz clock
-> 
->  arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 18 ++++++++++++++++--
->  1 file changed, 16 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> index b8d290eed2f38..e7601daf1bc5a 100644
-> --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> @@ -9,6 +9,7 @@
->  #define PM7250B_SID 8
->  #define PM7250B_SID1 9
->  
-> +#include <dt-bindings/clock/toshiba,tc9564.h>
+> I still do not understand why do we need to describe the inner wirings
+> of the tc9564 device. So far I found no posting of DTS showing proper
+> usage of it on the host. Without proper usage, what is the point exactly
+> to describe the inner specifics of tc9564?
 
-Unused.
+And as shown here:
+https://lore.kernel.org/all/20261012152408.3729237-5-elder@riscstar.com/
 
->  #include <dt-bindings/iio/qcom,spmi-adc7-pmk8350.h>
->  #include <dt-bindings/iio/qcom,spmi-adc7-pm7325.h>
->  #include <dt-bindings/leds/common.h>
-> @@ -891,7 +892,7 @@ pcie@0,0 {
->  		pinctrl-0 = <&tc9563_resx_n>;
->  		pinctrl-names = "default";
->  
-> -		clock-25000000 {
-> +		tc9564_xo_board: clock-25000000 {
->  			compatible = "fixed-clock";
->  			#clock-cells = <0>;
->  			clock-frequency = <25000000>;
-> @@ -967,7 +968,7 @@ dev@0,0 {
->  				#size-cells = <2>;
->  				ranges;	/* This will be updated dynamically */
->  
-> -				pci-ep-bus@4 {
-> +				pcie_s1b5d0f0_bar4_bus: pci-ep-bus@4 {
->  					compatible = "simple-bus";
->  					#address-cells = <1>;
->  					#size-cells = <1>;
-> @@ -995,6 +996,19 @@ pci-ep-bus@4 {
->  	};
->  };
->  
-> +&pcie_s1b5d0f0_bar4_bus {
-> +	syscon@0 {
-> +		compatible = "syscon", "simple-mfd";
-> +		reg = <0x0 0x2000>;
-> +
-> +		tc9564_clock0: clock-controller {
-> +			compatible = "toshiba,tc9564-clock";
-> +			clocks = <&tc9564_xo_board>;
-> +			#clock-cells = <1>;
+there is no single user of any of this (this=reset, clock, irqchip
+probably and more) in upstreamed patches.
 
-So here is DTS which is supposed to be the argument why you need inner
-device representation in DTS and... no usage of that at all. Otherwise
-point me which part of this patch references tc9564_clock0 via phandle.
+I am getting tired to keep discussing it, so next time instead of words,
+please post CODE which is the argument - who uses any of these devices
+you keep adding.
 
 Best regards,
 Krzysztof
