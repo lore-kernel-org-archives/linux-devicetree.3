@@ -1,115 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB2E2356772
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 08:52:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75DEC41A4FD
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 08:59:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791967974; cv=none; b=EwVLDbMfVECuDnAKIlAOcujMssyM4I8IPGWxsRug8l8up/jwWB/WCGIYbmV/udWm2jKqbsXojZZml99O2U4ZNwSxH65GrAgP8ZiBqIAH75A+fx5uY71dEZnL+rqk8Gi6G0/TyuQhbR7ms0uMNBgVOK61wyf977dR6DXvTJW1aEA=
+	t=1791968395; cv=none; b=hwig+Qn8MPW+HyYHkHEcipvCmW4Yqilimo4FQL5ChUK3kye8FyfgflXBzan//2SxnCgNA8kA5Nog31y3B5SvVZtSGfP/2zvlXC5jBq0Wz8yiyC7UOgd9MorwTRyWBsewQRPVVuUXQHuPIqgVlTgNZGvAUUiq9wlfhXUDDt+G5Q0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791967974; c=relaxed/simple;
-	bh=aLq/9poOHSW2CZK30xBTidTbvLIzYcPe2Ed9NAUlYos=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=m3Kry3M26KCBLlLWdnOxu0OX9h1nFfloKiAAAlX6Xt7lw0qJ9xA3yDlvPAw4wvJcpDAxizeJuh5d2A2BKjgcRPbqzhKtXL20fzU9acgiJxxa0fdKzn+14dqL25FWWOcncUwOnN2uAQLCznPkGeIgwDRCvXshomngcRD+F9xIezc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YvlvTZl0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791968395; c=relaxed/simple;
+	bh=66G7fcj5SVUDiUzPjQ1YEp3TvTinSBhpH6QuNlsiRL4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=paQ9QcP66GzYx93s7s8ST77CYfTkzobGzPfOOCGC3zrvvqvIGVnPcd4pkuatKUxoE5+vURB7pTKgQPoPGVv/iEOMISZ/UxKGJ19Sy1jgqmyKiDWz3D9rC8LGI2bx234KYWl1g1VmWUzfu+B/0wvn+0lmGUVCm4lQ/qtGq5dlFy0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RhXaCVxL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NmAMbPSu; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YvlvTZl0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 148F51F000FF;
-	Wed, 14 Oct 2026 08:52:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791967973;
-	bh=pgcnWIl1ebJoyKPhbdG65WUJc7B3m+GDIbjIM433k78=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YvlvTZl0GHORfEM/6PEwS51xVGFOvJLAE6UMQVqGQF0Txb4w3EA2o04uQunH6pGoU
-	 90BZe2GVV+zIGZhO9QEtRQ95adyw5ik3dLnLZuTSm0xZQBs3sJaIyoUfaS83jSovbJ
-	 x+RYUD3T4CnVF7ZXYY3UJAWhr9YqXvDsIWp0L82LEp09DkVKyt41pe6gHE6p0NZuZd
-	 TQ+7viyaG75yl+ge3Wq69AXcomRu/HFDIlaAlgN5iJrwdUjInBfIlpvOaZJDNV4iV3
-	 s27iCRowsRdNSX60yOFN+k7dkxeRzaebWVKG79ewcr/TMQoAlIOhS5yj9ghPXYSNg8
-	 8BIHaK9IDjv9g==
-Message-ID: <sashiko-outbox-171042@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1] arm64: dts: qcom: talos: Make the ADSP remote heap
- no-map
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jianping Li" <jianping.li@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261014083820.468-1-jianping.li@oss.qualcomm.com>
-References: <20261014083820.468-1-jianping.li@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 14 Oct 2026 08:52:52 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RhXaCVxL";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NmAMbPSu"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69E3u5Gv2222165
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 08:59:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	66G7fcj5SVUDiUzPjQ1YEp3TvTinSBhpH6QuNlsiRL4=; b=RhXaCVxL4nQkRxjV
+	gOBNlwKzbF8tbikdGQw5ytgmWhS1hVFEREk2h1s1uOnEV617QIBeXXGMxn28stQK
+	ql1sZwJGacqTjFCO6J7d2wXpr27RGPVlND5wTY+ovF6+nj1NoYb+IwGl19poJPgp
+	gui4LgWPTSpyrw3Hv5i39MjR/fY3+w/IhQTc7U69ana0hSfUQJql8K7omGBxZlc6
+	i5IER43PFVw0uq6roDJFA2WjbgbyNk0Tl7c0VqebfkxGNHdWjYVCq43PhGimte1b
+	sG65yq1hyMPmBrs3eVGZV340hGhGPoG0z4nRK32vU6s5nNxWI/Vo5vI8kvTHYfqF
+	yE9bMg==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9txsarkj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 08:59:50 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-5338bd59032so9242561cf.1
+        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 01:59:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791968389; x=1792573189; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=66G7fcj5SVUDiUzPjQ1YEp3TvTinSBhpH6QuNlsiRL4=;
+        b=NmAMbPSuPpbCZqp9nFAJlQs7EgS4rK+10jl1qgVjMn2tAvmhzJbodudO2JveEi7L9r
+         IR9us8QODILXmH/a9dKzMXKf0xf0VVoruTlI7dDK/N8H383DZgPWi/0up9d7zHydrf95
+         dE96g3VrQzmj6JsMwa7cpulpUx4lz8A4byIY9OD4gzmd1RywWlmRbwhy7LHNUqwGPqgT
+         mWRz6IU+u3wo8i1DVkdxhqbcF7cpo8gNXOIiiM7G0CKWYppq+edd/x4Qog+gpHWk0yEB
+         MamzPqTIFa3XZcgXx1SS8jspeUe3pOeQrlrQpHjvd2ooudXuaggt3plRXVWgg/iFzs7K
+         NsGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791968389; x=1792573189;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=66G7fcj5SVUDiUzPjQ1YEp3TvTinSBhpH6QuNlsiRL4=;
+        b=x7vkblaRsmyfkQlTN/kFB8XfLSnvVTWFUFkO87W1342+UnI7dmz09OaugewcK7xOKb
+         kVH1gWCfGmkggr4i7gu3LZ4pp2oWKF0xyJL8mu1yWpA2g1xR4sHxSsWknIEHq+0K5xMH
+         SatrAVKfdzrQSn4jcheW/VBIf5YV2i8RbgLhEJLMHkLEy4Qriwgp7ME9FfmJwp6Qesuf
+         424CBLbvY0+38Y7uTWRAXnSBWVubkg+VozQJvgpaqZslYer+JrS5/CcTQtOljFlMPefn
+         LPQDbnN0dO9qhJ8kFkc2uBO+9a9hrMidbqxCtl07LnN/laheiVc4ol0bwL03c0Lh91Mf
+         trQA==
+X-Forwarded-Encrypted: i=1; AKwUvBwJ39RkMXy6/9DZQMLp/ZwMSnU7WEufdn0DwWdHs8AN5jfBVrLx4bTp6uWuBdqpRFfnNMhvpud+DnJW@vger.kernel.org
+X-Gm-Message-State: AFq9FYIt6YQOkNUYR0LPex1A4ORgOy4mcklEm1ynvXTpnSRlyU0uJzbD
+	7CMn5c1vxsMrqguKZ1bMbpB9wx0EkEmwc2w3gL0tKw7WkQnE7e4h88B6TXMnR25ERsvkBlCRIf+
+	9gMyoFR1CGqklIhU/s8q3LJKCmIfZdxT9eBotOeBrgZ3XNMFcNWYZ3o+nJk0zhv6e
+X-Gm-Gg: AYBFou0uq0uf9ZzuJN48AC3WD8/czBCl+vhhSq7t7TGFz9kB1R1wcaTU8dIH0NfPsdG
+	PZRwZUjX6w2ZShzqsUAJPiEbdlsCfFdHfocpxr50EMwki77ZYCHn0aRMM5wIOBhIkKpEXkKGlgL
+	2UBQb8rG+/MxQXawlRn38ZRvULKJrxP67j2uy/rs77812WTtfE4CPnF0bkku6EN3OkcylzwY7NI
+	mWHyMbIS1uxCG0xbhAPVal76XyV8PgE/D9MncCy0u+yPF0yTlRPz6lV9tdykgW3bGtFPaDxizBV
+	HJZdPxpYy5l94pzp2pAvNM3/okM9Vf4ZXrz3vWW0+BfSdeRSE4t6ckmoXLXVtnH9iGugWAKzXTz
+	bqxbp7/Hb20suOEUCjJWNow==
+X-Received: by 2002:a05:620a:2855:b0:939:8148:1e3d with SMTP id af79cd13be357-93ebd0d7987mr2542467685a.2.1791968389532;
+        Wed, 14 Oct 2026 01:59:49 -0700 (PDT)
+X-Received: by 2002:a05:620a:2855:b0:939:8148:1e3d with SMTP id af79cd13be357-93ebd0d7987mr2542465785a.2.1791968389062;
+        Wed, 14 Oct 2026 01:59:49 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9a38044sm676555466b.14.2026.10.14.01.59.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Oct 2026 01:59:48 -0700 (PDT)
+Message-ID: <bf865b13-4773-45d6-a93b-4db4f77b1feb@oss.qualcomm.com>
+Date: Wed, 14 Oct 2026 10:59:45 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: sc8280xp: Fix GPU SMMU context fault
+ interrupts
+To: Xilin Wu <sophon@radxa.com>, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, dragon@radxa.com
+References: <20261013-sc8280xp-gpu-smmu-fix-v1-1-8a781e3f1554@radxa.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261013-sc8280xp-gpu-smmu-fix-v1-1-8a781e3f1554@radxa.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDAzNSBTYWx0ZWRfX9fQmmI88nKzI
+ 9BX6U7Hl64aPLld/n5n3U/ot4ucnbYZnpPSQx77kCzY9A2bip9kWNNHsZHTvEd+KZbSuLwIQTBG
+ hZgtmbUXNm+9QYs6Q6vzHLP8MTwHRktyqroMyoqkJvDhA95LXp4wE4WzNUiV5H8clPvZBWSUbk9
+ LFajVFq37+jogTAmPVLB6Ekj+5pP7x9M77poHnqLCb16EJCeVCBnc3BbMedH/BuJ76/S8hlwz3S
+ EARj1kUFzVqlpNMUyDrLhL1TCPlAh9vVvFnUhtelB66Ignc1tlrWoLdssM1y3EJIhPfNR/kXAH9
+ c+wYTHGEFDbQQ5QLC32sEpp+Y2+mGRrQRqi4Y5x+7oIjqzA1XRJPDtLIvmAE7nBNXyP4yKuKHls
+ 96p3W0w6iJw7WyeM3mqnagU+BJiJD4fRbqv33V7bL/wmYGl3QlLfTZNzJBhy1H+BBG6vtyxXXZN
+ u3kJqYVPMSip3DnCClg==
+X-Authority-Analysis: v=2.4 cv=LPPz05W9 c=1 sm=1 tr=0 ts=6acf4486 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=UsXhU33V2knouzrRtw8A:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDAzNSBTYWx0ZWRfX7AjXPLwXoPe6
+ Lj15c/qJqSvMFXMxVMQShm1S6F0BF1J1EcaoCNQYjKV/RIYeLHM0KIAz/70A28wHh4Q/yo/ECaY
+ uCTNnmiwJ6LF7bll0UHdccTf4NqoFkU=
+X-Proofpoint-ORIG-GUID: xpfJYgdIBSgc0jYBECqDAsJU9ybM1Gb0
+X-Proofpoint-GUID: xpfJYgdIBSgc0jYBECqDAsJU9ybM1Gb0
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 priorityscore=1501 clxscore=1015 adultscore=0 malwarescore=0
+ phishscore=0 lowpriorityscore=0 spamscore=0 suspectscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140035
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] arm64: dts: qcom: talos: SEA crash shifted to FastRPC dma_alloc_co=
-herent due to un-restored HLOS permissions
---
+On 10/13/26 11:59 AM, Xilin Wu wrote:
+> The GPU SMMU interrupt list includes PMU interrupts as the first two
+> context fault interrupts. This makes the driver register the fault
+> handlers for context banks 0 and 1 on SPIs 678 and 679 instead of 680
+> and 681. Translation faults are consequently left unhandled, which
+> can stall the GPU and prevent recovery.
 
-commit af4a6b835881c10ea8fa53c33cf956e604f98923
-Author: Jianping Li <jianping.li@oss.qualcomm.com>
+the context interrupts are 680-688 and 703
 
-arm64: dts: qcom: talos: Make the ADSP remote heap no-map
-
-This commit isolates the ADSP remote heap by changing its declaration
-from reusable to no-map. This is intended to prevent normal kernel
-allocations from triggering a Synchronous External Abort (SEA) when
-accessing pages within the heap.
-
-Link: https://lore.kernel.org/all/20260424-talosaudio-v3-1-9e2ad5d78a2e@oss=
-.qualcomm.com/
-
-> diff --git a/arch/arm64/boot/dts/qcom/talos.dtsi b/arch/arm64/boot/dts/qc=
-om/talos.dtsi
-> index eedfdce3c479e..163c14971374c 100644
-> --- a/arch/arm64/boot/dts/qcom/talos.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/talos.dtsi
-> @@ -683,7 +683,7 @@ pil_gpu_mem: pil-gpu@97715000 {
->  		adsp_rpc_remote_heap_mem: adsp-rpc-remote-heap {
->  			compatible =3D "shared-dma-pool";
->  			alloc-ranges =3D <0x0 0x80000000 0x0 0x80000000>;
-> -			reusable;
-> +			no-map;
-
-[Severity: High]
-Does changing this to no-map just shift the Synchronous External Abort
-from ZRAM to the FastRPC driver's dma_alloc_coherent() path?
-
-By marking this region no-map, it becomes a coherent DMA pool, shifting
-its allocations to FastRPC's dma_alloc_coherent() path.
-
-FastRPC dynamically assigns the allocated memory chunk to the DSP during
-fastrpc_req_mmap(), which revokes HLOS access:
-
-drivers/misc/fastrpc.c:fastrpc_req_mmap() {
-        ...
-        err =3D qcom_scm_assign_mem(buf->dma_addr, (u64)buf->size,
-                &src_perms, fl->cctx->vmperms, fl->cctx->vmcount);
-        ...
-}
-
-When the user unmaps the memory, fastrpc_req_munmap_impl() calls
-fastrpc_buf_free() and returns the memory to the DMA pool without
-restoring HLOS permissions.
-
-The next allocation from the DMA pool will trigger an SEA when
-dma_alloc_coherent() attempts to memset() the still-DSP-owned pages:
-
-drivers/misc/fastrpc.c:__fastrpc_buf_alloc() {
-        ...
-        buf->virt =3D dma_alloc_coherent(dev, buf->size, &buf->dma_addr,
-                                       GFP_KERNEL);
-        ...
-}
-
->  			alignment =3D <0x0 0x400000>;
->  			size =3D <0x0 0x800000>;
->  		};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014083820.468-=
-1-jianping.li@oss.qualcomm.com?part=3D1
+Konrad
