@@ -1,160 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C56214CDA36
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 22:41:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9A6347FAF5
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 22:41:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792017709; cv=none; b=iQOjEQJjjEPdIOmKvJdLav+FUDBAkOskrJ9jW1dbO6MJHHf0XUSq2kT5nlpv2YVdZyzEnKbG/18MsHir5P4Y1urhVGlk8FxcXBMgZ6fzO/LuHJ8nKjugvfdH5Ftv0XaaTjA+kmMfSxrhX7fEdKyKrVNJbGqiQEFlbu5oQFs4RrY=
+	t=1792017712; cv=none; b=qZbk41ATshcQJi8LV3GWVLCNzPfMFIs37IcxoPfqR3S9lv2tDOQZ402abKMLlENzllZZxMNOj+XeuyZk2DMQ+D8Qt+sELr7JTA4jmJrclPoLSLe0DB5lKt7Qxu+PobdmgzRsKkZGamyksYWPSl17SvXipSTQDZrb1ewiv+q9KPQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792017709; c=relaxed/simple;
-	bh=DSMmvoDhvs8V4voOqDtRHqYT5O5L5OzB4c9QtLyZbFk=;
+	s=arc-20240116; t=1792017712; c=relaxed/simple;
+	bh=AaJbglGuyQtzXYk9lkD+WgS/Fb8hZmUD8NdkvFK71T4=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=Mt6uRdYuwBgd1ofMgdVepTxJpSuNGile5PGB25Sy7GL9uD8MpsPcrYHI9JvNa+UpsTBCZI8ff618tVqkDBk9MXd6OHikdzKacLCZgg4uwGf5+0o+dDv5jJIAnU2mWlby4j1BSjCQ0yJWN/FiJw0uL7MubQit9chGfpqnLTbm5uc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DsTUfB9d; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=e/qXJFI8sp6UqO+DCu6CSw9UiMxm0itM/febIqCQQerps7eTp4gocANWcTqNnOlHKcBtsCWYGrLAB5356RQqpYqti0GjhoiFift6gAUZcvVoApvqyvOvmZDDW2w1Cro3TbgYZ26xV13TjxLDc/HP9m//OZwevSjdf2B/uqYnXWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S3mq3OVx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DsTUfB9d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0056E1F000C4;
-	Wed, 14 Oct 2026 22:41:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S3mq3OVx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A1A11F000C7;
+	Wed, 14 Oct 2026 22:41:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792017706;
-	bh=6rbKSMCHeKYIGjV9zvk+EzfxpAmqST6Dlt+aMcpZ6PA=;
+	s=k20260515; t=1792017708;
+	bh=qfAYY5q80c+jENXXtJ25EVm9UX2zIk/9hamTrbHIptE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DsTUfB9dXagl/dwMkcE3YmayWORrMn7S0EACshPFAMqh/JO+eCjBptNqF0pc3Bpit
-	 cYwFszbm7/KZeOj5YpYo9w0ge2XuZSqCAYCtIDw2pT1SvG9nKmSGm276fATOYMAp7X
-	 RnG9HzgpEw3b8S5wlz3E4DcYZFuj5Glbbm6fB/R4rQoeQyz8pYRQHUNBLf+zozGZj8
-	 Tkzy0tZBU4vRS7S+VPUGGf51E1/phmREXHCg4Z9DSr2oy7S4BSt85y7BN7nUY9rS+L
-	 UgeK84JmXLVLFJywepKZ7HYuhUAosjQQkzgL3ByGZvReUMCHlHLPEc1+Ny0wJilR9x
-	 yMkbtsfF2+qGA==
-Message-ID: <sashiko-outbox-171990@kernel.org>
+	b=S3mq3OVxWnOCBAnfPKXkzfqLbW6ij8AwzzYzIGLhwOUiA16ULK6O7j+hb5msCqcUM
+	 VP1B0IhpqJ8cskPIbd/F+9j9cBqEC/5Pr4KW5e6dr+aHPhVigTKcy5TgzK/qZN+vpj
+	 I2Hf5m6HOb/RLwdN46gEu/bQKLf28M7ALFxK6ihCfVesWgwtHuPxaKbKayIkY0r7AU
+	 j6CiPl8nOpaWDC/7qWR1kwBmySRpHYsGprXEsJhVMsnMl6bNu48hzKIn4FtQGHjXk/
+	 zS+Kv9kojh9lP5Rvai+8/P6DZwAGg6UpxOtbRl5P1Lt2+J04jWbYarv9xdHOWXyYCW
+	 H6bt952vyh5Rg==
+Message-ID: <sashiko-outbox-171996@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v13 05/12] dpll: sit9531x: register DPLL
- devices and pins
+Subject: Re: [PATCH net-next v13 08/12] dpll: sit9531x: add support to get
+ and set frequency on pins
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Ali Rouhi" <arouhi@sitime.com>
 Cc: =?utf-8?b?ZGV2aWNldHJlZUB2Z2VyLmtlcm5lbC5vcmc=?= <devicetree@vger.kernel.org>, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261013224131.27149-6-arouhi@sitime.com>
+In-Reply-To: <20261013224131.27149-9-arouhi@sitime.com>
 References: <20261013224131.27149-1-arouhi@sitime.com>
- <20261013224131.27149-6-arouhi@sitime.com>
+ <20261013224131.27149-9-arouhi@sitime.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 14 Oct 2026 22:41:45 +0000
+Date: Wed, 14 Oct 2026 22:41:47 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] build: undefined macro kzalloc_obj causes compilation failure
-- [Low] locking: sit9531x_chan_state_fetch called without required multiop_=
-lock
+- [Medium] dpll: sit9531x: byte order reversal when reading DIVN registers
 --
 
-commit 5f5cba1ccd97d6786f10dd67578b1b35e4e746e8
+commit f43a2163b7c3dc5944868b5794ea65a8398e4775
 Author: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
-Subject: dpll: sit9531x: register DPLL devices and pins
 
-This commit registers SiT9531x PLLs as DPLL devices and exposes their inputs
-and outputs as DPLL pins. It implements device and pin structures, initial
-hardware state fetching, and periodic polling for state changes.
+dpll: sit9531x: add support to get and set frequency on pins
+
+This commit adds the ability to get and set pin frequencies for the sit9531x
+DPLL driver. It reads and writes DIVN registers to compute output frequency
+based on VCO rate and a divider.
 
 > diff --git a/drivers/dpll/sit9531x/core.c b/drivers/dpll/sit9531x/core.c
+> index f3dbe949f219b..875a5fe783d5c 100644
 > --- a/drivers/dpll/sit9531x/core.c
 > +++ b/drivers/dpll/sit9531x/core.c
 [ ... ]
-> @@ -934,22 +934,17 @@
->  	for (i =3D 0; i < sitdev->info->num_outputs; i++) {
->  		/*
->  		 * Nothing runs concurrently before registration, but the
->  		 * output fetch walks paged registers under the same contract
->  		 * as at runtime, so it holds the lock the same way.
->  		 */
->  		mutex_lock(&sitdev->multiop_lock);
->  		rc =3D sit9531x_out_state_fetch(sitdev, i);
->  		mutex_unlock(&sitdev->multiop_lock);
->  		if (rc) {
->  			dev_err(sitdev->dev,
->  				"Failed to fetch output %u state: %d\n", i, rc);
->  			return rc;
->  		}
->  	}
-> =20
->  	for (i =3D 0; i < SIT9531X_NUM_PLLS; i++) {
->  		rc =3D sit9531x_chan_state_fetch(sitdev, i);
-
-[Severity: Low]
-sit9531x_chan_state_fetch() explicitly invokes sit9531x_prio_table_read(),
-which is documented as requiring the caller to hold sitdev->multiop_lock
-to protect paged I2C register accesses.
-
-Is it intentional to omit the lock acquisition here? The adjacent loops in
-this initialization sequence acquire the lock before calling the state
-fetchers.
-
->  		if (rc) {
->  			dev_err(sitdev->dev,
->  				"Failed to fetch PLL%c state: %d\n",
->  				'A' + i, rc);
->  			return rc;
->  		}
->  	}
-> =20
->  	return 0;
->  }
+> @@ -1342,6 +1481,675 @@ int sit9531x_input_prio_add(struct sit9531x_dev *=
+sitdev, u8 pll_idx,
 [ ... ]
-> @@ -1338,15 +1338,15 @@
->  static struct sit9531x_dpll_pin *
->  sit9531x_dpll_pin_alloc(struct sit9531x_dpll *sitdpll,
->  			enum dpll_pin_direction dir, u8 id)
->  {
->  	struct sit9531x_dpll_pin *pin;
-> =20
->  	pin =3D kzalloc_obj(*pin, GFP_KERNEL);
+> +static int sit9531x_divn_static(struct sit9531x_dev *sitdev, u8 pll_idx,
+> +				s64 *divn)
+> +{
+> +	u32 int_part, fracn_raw =3D 0, fracd_raw =3D 0;
+> +	u64 fracd;
+> +	s64 fracn;
+> +	int rc, i;
+> +	u8 v;
+> +
+> +	rc =3D sit9531x_read_pll_u8(sitdev, pll_idx,
+> +				  SIT9531X_PLL_REG_DIVN_INT, &v);
+> +	if (rc)
+> +		return rc;
+> +	int_part =3D v;
+> +
+> +	for (i =3D 3; i >=3D 0; i--) {
+> +		rc =3D sit9531x_read_pll_u8(sitdev, pll_idx,
+> +					  SIT9531X_PLL_REG_DIVN_NUM + i, &v);
+> +		if (rc)
+> +			return rc;
+> +		fracn_raw =3D (fracn_raw << 8) | v;
+> +	}
 
-[Severity: Low]
-Is kzalloc_obj defined somewhere in the tree?
+[Severity: Medium]
+Since the device registers are big-endian, does this loop reverse the byte
+order? By looping i from 3 down to 0 and shifting the result left, the
+value from the highest address (which should be the LSB) is placed into
+the most significant byte of fracn_raw, which could result in incorrect
+VCO frequency calculations.
 
-It does not appear to exist in the standard kernel API, which will result
-in a build failure during compilation. Should this be replaced with
-kzalloc(sizeof(*pin), GFP_KERNEL)?
+> +
+> +	for (i =3D 3; i >=3D 0; i--) {
+> +		rc =3D sit9531x_read_pll_u8(sitdev, pll_idx,
+> +					  SIT9531X_PLL_REG_DIVN_DEN + i, &v);
+> +		if (rc)
+> +			return rc;
+> +		fracd_raw =3D (fracd_raw << 8) | v;
+> +	}
 
->  	if (!pin)
->  		return ERR_PTR(-ENOMEM);
-> =20
->  	pin->dpll =3D sitdpll;
->  	pin->dir =3D dir;
->  	pin->id =3D id;
-> =20
->  	return pin;
->  }
-[ ... ]
-> @@ -1593,16 +1593,16 @@
->  struct sit9531x_dpll *sit9531x_dpll_alloc(struct sit9531x_dev *sitdev, u=
-8 ch)
->  {
->  	struct sit9531x_dpll *sitdpll;
-> =20
->  	sitdpll =3D kzalloc_obj(*sitdpll, GFP_KERNEL);
-
-[Severity: Low]
-Similarly here, the undefined kzalloc_obj macro is used. Can this be updated
-to kzalloc(sizeof(*sitdpll), GFP_KERNEL) to avoid compilation failures?
-
->  	if (!sitdpll)
->  		return ERR_PTR(-ENOMEM);
-> =20
->  	sitdpll->dev =3D sitdev;
->  	sitdpll->id =3D ch;
->  	sitdpll->lock_status =3D DPLL_LOCK_STATUS_UNLOCKED;
->  	sitdpll->lock_status_error =3D DPLL_LOCK_STATUS_ERROR_NONE;
->  	INIT_LIST_HEAD(&sitdpll->pins);
-> =20
->  	return sitdpll;
->  }
-[ ... ]
+[Severity: Medium]
+Similarly for the denominator, is the byte order also reversed here by
+reading the highest address first and shifting it into the MSB?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013224131.2714=
-9-1-arouhi@sitime.com?part=3D5
+9-1-arouhi@sitime.com?part=3D8
