@@ -1,87 +1,67 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 565E7385D8A
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 14:51:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0C6D53977B
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 14:55:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791989481; cv=none; b=G0kEWO8VpIiUMoUKIFv8iw6FKgzfJ1iFgTPAB8bNdqktP+B5T+IBJk+0sF7YQqunEjHemUCeNTYnVG1NQBq96irHobb60rz1o0z82QF5sI9r1P78ZYPPj+2flPOdUa+wJ55c6I4IZb77TpwpmKPQqQixP+UF/yX/uRRUHo9F05Y=
+	t=1791989714; cv=none; b=SwBqtLfJuRA8E2S6EwOP3WlYxsCDBQJ+2HhKsCH+/eOPAbae7tSfVj7751k09Y7ktelpv2MfnRxuk1ps+WgIBSGNWinFQBNY+iev52njK9dLiLXZR7xWDAbq+W9HZKmnhWOKWySJsZZpBC5VQuiIfq4AgI8Np9XkhW/DjVmW5jU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791989481; c=relaxed/simple;
-	bh=r7EI2AFQ34jkhyTMFRLVSSUi6/MbKTiuSV0l5tRZJvw=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=TqF5ctVmv04+6Gbof+4vJxujfhYN+GsVt27f/81UA0fdvG5oSHgxB1Bn87e9/rO/tQqFKLDqRJCOxGIA7t8TBprU6lao0qXCq0ToDK7LUq7PylHAueQ/kIddnmulLhTqvt5wOOjq4TZfoGx88OTZDmuPRGSJjhK/j66gtHYQt5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cUenlRIe; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kcqgE3Lv; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791989714; c=relaxed/simple;
+	bh=QakIRovc0TVKNQht6OlwetbBWzG2d5kDs2PKBQl9iiE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=p4jFFh/Mpoy37IyNu2mcAHIEXv2+P8wRVYRs6fY+EfgHBmbDLQYIlgHTGBUt+Fw2OtgX9vBbPIIp3ubgrypoJ7aGKzHOfpe/NAPaExGi/vbwEKCbznZwMCyKiqBhRXrL1NPCqbr4MSffvg85ipzcNS/jTWnosYIEy/RoWM2Hnh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=LrcgccZx; arc=none smtp.client-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cUenlRIe";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kcqgE3Lv"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EEbExG301159
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 14:51:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	hVVSzhTW9kumvXgJOiyqLMgcROQBkpfkvWgSjEtJ+pI=; b=cUenlRIeEQLSQbyj
-	HEKF+03vpc6tbtmn4xZhMHrLhT3rEI2/2G4/TW3n58F0FlI5/fSH2B4ClvNB7l0/
-	gTE7SgxB/PKUPSq3RAoTG+yafwWJNdzuUHDRYopCxTkMsKakSYD7ecVeXJG6Tu48
-	WRUZl/2UAXW4BFuquJkRF9GBEt4BOK5P4zlRIjTFgg1TkBhTV0j1Mzsux5LAdgAq
-	kO4P2w9G0cpwja9iLSrcaQDsQXr4GuscOpPelm6GJI7dS0mV6gfb9MqcvyU2rVnL
-	ozmHmk9D9fWZC1ppRfaOly/Tb40wfg/B2uu6cq+iCTcEHONKwnxleV8vu94bhBQ/
-	FbNpsQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ha462244k-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 14:51:19 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93caf6c528aso736209085a.0
-        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 07:51:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="LrcgccZx"
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-534e6545939so3938091cf.3
+        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 07:55:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791989479; x=1792594279; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hVVSzhTW9kumvXgJOiyqLMgcROQBkpfkvWgSjEtJ+pI=;
-        b=kcqgE3Lvy8RUBkqfTInXzigHPkyrHYrcSCF18uL9gdmbhhU+TP4P7qnmfmWt+pFfy3
-         ps/yPa0BKtAp2PCbej2su4A/+dOIT0nmAZEYvR4Qe1yQtg7EsXVlm2ou9zIvi9+zfS19
-         ChBFo2pg7XxfH02RcaytFQFsDKQnSGAF6ZVjY+m+kse4Ma3Lu79e/EZCUupnwxGov9zs
-         Aun5y1JreTszQjrNgfAQDtZ/Rg4L8OI2yx0FZPIJurfq+QJcZx/9K+CQVkpSLQUKTqoN
-         CPqh1e97d/0YTH1tvNADzWKAB2OLth8VG0455J/gKh7q8PxOz1OKQcm+f6m74RgazUxv
-         3JnQ==
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1791989705; x=1792594505; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9QCcIHMwt8UPRdNjGegrJCBOmv89ai6OoP2efzt4zBg=;
+        b=LrcgccZxx7Jgo7dxHC5DuhhrIsOKmo7SwS+IJNdqVv9Iy44+RmxIxC/EozGO2vYn4R
+         9Tub8V/n4o+i1pvwVqbTm0GAp4VDbte/G8d/j1cyz97gkWrX44OmO3i216W1GDVrBreT
+         8eK3F4iDYQIqO6Wyn0EfcFZQOnJcyCKVBfsjWBOq+XbNLjNHcChSnnEShmV+JM3gUJHw
+         qV2Fo1+87Rm5Xa83p6xzlknu0okEXglg9Mclb7+x+rL/oM8nDCcYrsakrKt54QObMYr5
+         HajQlG36eUanTwfhKH9d4Rw4kl67bD5LqEYE+sA+8ZOa0ES8KgrdbYUzyCjVHCf9qGCx
+         2XXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791989479; x=1792594279;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791989705; x=1792594505;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hVVSzhTW9kumvXgJOiyqLMgcROQBkpfkvWgSjEtJ+pI=;
-        b=FaQ59wCXpVn8ezlRdHJ2Itd/YLo0S3i/F3sD61uHVOvapNSo7GGA+zhnY3sL3VDEM7
-         o7jp8Zd0XPZ2BmulKU9HqTP2BAqLCRO07RHgPP28/pOX/SSO7WVlikZfUeUIuj1s45Xy
-         l6HJ0bNUlmjEuTSbepBGsDmz1XSB4kU8KZ9aR1lSBT3XbKkRVQmACC1Sx93ivyi8355h
-         +u7vkY7UBOGhkG3VzGCFPT7MeQVm5Ky7g+PDwL7N+fnOO7lOnC3NcTTg9S5dj2Ff117b
-         o3ZfscguaTqX0kLhZI3m+ZzLIc0+xDj8FAjRyB7+YXCBfsc6JtWEX4OmFKmLNQ+yhVXq
-         4QDg==
-X-Forwarded-Encrypted: i=1; AKwUvByjXXGZSPuFFMfnllODPc6TapUGeBLAmY5KfWQNVWZ1V4RcbSKGKCI3uOYhoqlyASsVrS4YrykF0u58@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJSAlAf+JT1PrTvB7A/hqMInW0kFCv+u/TjZla8wrxfPrNx2K4
-	aekEBUrkIR4Oyh/8hc966yUMu46KOHkVqkoIDtXMhTYQTjkHe2uiZsmbZ9D9+1oSCXuFZZtCJp2
-	uSOn6Hr/cXtGExiEwd9T9UkLOuXR+kummanNNzgnGBBVoqy+6ptkHcHem0Gc1Up/g
-X-Gm-Gg: AYBFou0/v+vZc7Xlu8erUx0xcHwiSpr4Xe+k/bQsQODA4HWmOM3GQJ8/N7ntYzD08oK
-	ZIPDoF864BNO45Otji0bSeuPZKxl83447tZkKxoqJBRs3d98WHjIaGNWTb/56QAHkZc0NM+O7nJ
-	mfFOUVcXWIiApX470cnBJrjGrNyYvVfY81eFw2P0Oxyr24+wKeBMFP+9dEg4LD5MUKEebiGNR6M
-	XhpUT0rmDzz+7tG+NCbSBqebOdvOLgMp6gsPLGN7xy0qkN4p5pAc9k86uor7HLk8yxViW+qyJcA
-	V/c6Fj3d/+hvEm2kDFbulO+eGOoLkpNKqj5rWnwAzC6FhddmyqM0kpJkH69KPDE4X69rIEVk43K
-	LTUeXxAuuDNj4pTez+HnzGbj4FprSrGATVj3ocd/TUkoD4ZL+tfaBhW66CpcqcX2Xr0W7FDsev9
-	fDKba+BuCuMRqgPokVDR4p1qMAH+GlAJRBIs6C1M0LB5pIg1hSsIjOBfJFQKZbDOYUjqQ=
-X-Received: by 2002:a05:620a:3720:b0:93e:5dcb:eb9b with SMTP id af79cd13be357-93ebd24ecabmr2820956885a.42.1791989478636;
-        Wed, 14 Oct 2026 07:51:18 -0700 (PDT)
-X-Received: by 2002:a05:620a:3720:b0:93e:5dcb:eb9b with SMTP id af79cd13be357-93ebd24ecabmr2820951685a.42.1791989478135;
-        Wed, 14 Oct 2026 07:51:18 -0700 (PDT)
-Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec? (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl. [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9ae6fb7sm705759566b.84.2026.10.14.07.51.16
+        bh=9QCcIHMwt8UPRdNjGegrJCBOmv89ai6OoP2efzt4zBg=;
+        b=Q0iV9oTjh+5w5mZAwYNlos+0KSKhAk0WDXZ+gGt1aAmJAvR6qLVDb9OIROYtGMnahW
+         GZ+wZ6997B5Re22t0GtshR89chOegaTKnQpnlGxUHI13VvzffBbxBpnEMhWFbxx6Cin/
+         xmWO3qtLoWSuKUofaH6VR6c6deVz9SrN9lZV7YXBrc1iv5T/oxfwv03aWznvblw8cOzg
+         y0x8Ir9yLJnpNmEqhvqZ2ryA+KMbqEv4q+73NeiLmJNlD+Vyti7d9Jgi0Xl0lkTlEIqs
+         Mg0UJRGfLbrbOKI5nbJTCtK1H2s1r+hOdzjh9Fq9dbCDBPPAvmQBuP3pJYB6zEjJkAWN
+         zpYg==
+X-Forwarded-Encrypted: i=1; AKwUvBxQRMDtJ45UzPiT4iT7poI0WHrM/7yWaC4bryFyTRRFkHuGIRXw1wFnBrZek85GfYeXw5Sbb6YEIT6n@vger.kernel.org
+X-Gm-Message-State: AFq9FYJK0e6RMu/Hd7vv3tftjoRgP5Apncw3nHBOX/J26Y+0fqpfy21W
+	rgjZd0wEBKcsYw8NuC1YQNe7kRAF6P+ex0OCjwzB5GuWXedQX/rrjxky44ahCB4ng8M=
+X-Gm-Gg: AYBFou1gGj11dAgDOTmsZSoVs8wAG6nQkLCqL2hcsXM5Bn/8pboAnRtIozgozxB7WPK
+	ayk/8VA8/5EzxgYQ1M11HsroiweZSkBTkXGYiOJbfSw1ry6EZHeNtpriiusQFa8t4c2SWWI+F08
+	RlJz/gTTH10i+lxs+7pg27BZ5Crvfsz5H9BrwQFkTDzkLVq4fOS6P6MOJe68MTYvm3aQhfB3t5e
+	XB+ar4u2OsF4ly/hbAR1SgUYgTknrIVbkyD31P+p+lBBX+5fXWmsysw5A42VDKwIj3nsqKbJ5cT
+	+wKVafXTwGyYFerlZHbV5CWKqB2Eyh+8IUDbv+3xfI8rg+hZuIu4x7QCAJYP+LG60NjMRWJaEF+
+	8x9yLdbupbYL9kpmIz+sgCg1mhj1KfXAPSOstRVUGANzmwgiZeJzqi/QPkKe1tQiPnn/nGdUpvi
+	4p4V/jFTH51tWslq9waaR9yIHXgNhPuRiHTc0UDDnNNQO3bwWmyAzC9L4XMM84GHUQB/XJots=
+X-Received: by 2002:ac8:5cd4:0:b0:535:70ff:58b with SMTP id d75a77b69052e-5359fb26794mr248817971cf.38.1791989705320;
+        Wed, 14 Oct 2026 07:55:05 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b755c35sm126150641cf.15.2026.10.14.07.55.04
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 07:51:17 -0700 (PDT)
-Message-ID: <11b3e38d-a9be-46f6-972f-e07bae9f2be7@oss.qualcomm.com>
-Date: Wed, 14 Oct 2026 16:51:16 +0200
+        Wed, 14 Oct 2026 07:55:04 -0700 (PDT)
+Message-ID: <b8a8ca4f-c575-448a-baea-4b9f82f15e39@riscstar.com>
+Date: Wed, 14 Oct 2026 09:55:03 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,79 +69,97 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Subject: Re: [PATCH v2] arm64: dts: qcom: x1e78100-thinkpad-t14s: Add thermal
- zones for PMICs
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>, andersson@kernel.org,
-        konradybcio@kernel.org
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stephan.gerhold@linaro.org
-References: <20261001181055.9149-1-daniel.lezcano@oss.qualcomm.com>
- <46ba46c8-c84e-44d9-8729-9298867b19fd@oss.qualcomm.com>
- <f8f161d1-be35-4fb7-8dee-8bda3a231438@oss.qualcomm.com>
-Content-Language: en-US, nl
-In-Reply-To: <f8f161d1-be35-4fb7-8dee-8bda3a231438@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH 1/2] dt-bindings: interrupt-controller: introduce
+ toshiba,tc9564-msigen.yaml
+To: Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor@kernel.org>
+Cc: tglx@kernel.org, radu@rendec.net, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, p.zabel@pengutronix.de, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Daniel Thompson <daniel@riscstar.com>
+References: <20261012190245.3988619-1-elder@riscstar.com>
+ <20261012190245.3988619-2-elder@riscstar.com>
+ <20261013-coexist-sixtyfold-cc6614086d3a@spud>
+ <20261014-eminent-normal-lynx-3ebba3@quoll>
+ <c5af1a40-e498-4855-8797-2663db83b9e6@kernel.org>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <c5af1a40-e498-4855-8797-2663db83b9e6@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: MnclETrvztekU8eZYS2VQixXO7VCWiqO
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA1OSBTYWx0ZWRfX4XqBCd6/Tv8b
- cw1iI4CgM9HTRTbsgFEUo5VPZdohM6DQkOXoZqIDc8N2iEeQyhefHE5EfJISedWBEbSxBymVPGL
- 8Zh1QhdLFaRGnE7FnONTsjHINUq4+qS9e9R4lXSsvZSv+qaPgVAsxV04Bk03HqSl41IlRys52YT
- TbPCZB8wWNixb8ivr4cQkgc99bgxG8+RHgjT50/Lyo3vHzurqGWSOe1y8xoCNG/RsgNaIGTeXqQ
- MGXkkX9pO11qYNoVSsPFX7Tom4AXAK+bAB3AonrKgnd/6CLyy+2s9ZvT+ap6yjjUdCemn3dQX39
- SjyVGgTVfXdp7LKyYJZe0cWadP7q0IpGDcFnPVv4ifgisbesMWoT8i9Xpq6+Zox2+LtrpmHg+oJ
- mMrN//NeBJMtA8Y/bW+andQ/mq4yW0U36lCOR8YlapLthFDO9laBbEQFugbtiokmwHV8vehZmTD
- dF2d0jtHXK4tYsjwm5A==
-X-Authority-Analysis: v=2.4 cv=ErZHPicA c=1 sm=1 tr=0 ts=6acf96e7 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=kZM-igeZ-aZi2Humd7QA:9
- a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA1OSBTYWx0ZWRfX7Dw/E4KFwe6C
- lFlnBszJs8FYPtkV/wId+KkwrcJmaotsjMxoC7u7R8+AuGOoWHe+HC6KILoyY2ZS9WWlClEjwwR
- wAYzD7gdsQrrTnezLxXcwIoLBELrDjo=
-X-Proofpoint-GUID: MnclETrvztekU8eZYS2VQixXO7VCWiqO
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 bulkscore=0 impostorscore=0 adultscore=0
- suspectscore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610140059
 
-Hi,
-
-On 14-Oct-26 16:31, Konrad Dybcio wrote:
-> On 10/14/26 4:16 PM, Hans de Goede wrote:
->> Hi,
+On 10/14/26 5:22 AM, Krzysztof Kozlowski wrote:
+>> I still do not understand why do we need to describe the inner wirings
+>> of the tc9564 device. So far I found no posting of DTS showing proper
+>> usage of it on the host. Without proper usage, what is the point exactly
+>> to describe the inner specifics of tc9564?
+> And as shown here:
+> https://lore.kernel.org/all/20261012152408.3729237-5-elder@riscstar.com/
 > 
-> [...]
+> there is no single user of any of this (this=reset, clock, irqchip
+> probably and more) in upstreamed patches.
 > 
->>> +	thermal-zones {
->>
->> I believe all nodes should be shorted by label, then name which is why
->> the first node before this was "wcd938x: audio-codec" since "audio-codec"
->> starts with an a.
->>
->> So this should be at the end of the global nodes.
-> 
-> By the node name
-> 
-> FWIW:
-> 
-> label: node-name@unit-address {
-> 	property = value
-> };
+> I am getting tired to keep discussing it, so next time instead of words,
+> please post CODE which is the argument - who uses any of these devices
+> you keep adding.
 
-Ah right I swapped the label and node-name, thank you for
-clarifying.
-
-Regards,
-
-Hans
+I'll take a break from my in-order responses to messages, and will
+respond to this first.
 
 
+Our ultimate goal is to support the two DWMAC interfaces attached
+to PCIe functions within the TC9564.  This is a complex SoC which
+interfaces with the host via an upstream PCIe switch port, and
+incorporates an embedded PCIe endpoint with two functions.
+
+Based on your request, I will plan to send *all* of the code that's
+required for DWMAC support for review later today and tomorrow.  I
+have been pacing myself (in part not to inundate the lists with
+patches).
+
+
+A block diagram representing the TC9564 SoC is included in this
+devicetree binding:
+
+  
+https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git/commit/?h=char-misc-next&id=ed0a1c1eaa376e11cf8c97d898f2811b8ded322f
+
+That explains (and attempts to show) that devices (including clock
+and reset functionality) use PCI endpoint BARs for access to their 
+registers.  Other IP blocks shown are an address translation unit,
+a block of SRAM, two XGMAC interfaces, and an MSI generator for
+each of the two embedded PCI functions.
+
+
+To show the final DTS file, I have squashed the working code I have
+and refer you here, starting at line 994:
+
+  
+https://github.com/riscstar/linux/blob/18d7146c807a6264388c919391b77a795612e342/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts#L994
+
+
+Note that this exposes many internal details of the SoC, which
+Krzysztof objected to here:
+  
+https://lore.kernel.org/lkml/fbeac5ba-a28d-4d34-8d23-4946aef515ea@kernel.org/
+
+I responded, explaining some history on this code and asking
+for clarification on criteria for when it's acceptable to
+describe chip internals in devicetree, but received no answer.
+
+
+The PCI endpoint bus enables a PCI endpoint to be treated as
+a *bus* that provides access to multiple peripherals, rather
+than as a simple single-peripheral device.  This goes well
+beyond the capability of the PCI enumeration process to
+discover the nature of the hardware, leveraging devicetree as
+a hardware description language to describe the organization
+within a complex chip.
+
+I understand the desire to consider the PCI endpoint (function)
+as the boundary for devicetree descriptions.  But I also see
+great benefit from viewing the SoC as a subsystem in itself,
+whose IP blocks and connections between them are described
+using devicetree.
+
+					-Alex
