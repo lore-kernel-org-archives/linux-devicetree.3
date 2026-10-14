@@ -1,60 +1,62 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 425EA489881
-	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 07:45:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1E9D4A3F16
+	for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 07:45:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791963955; cv=none; b=CVG4br6LjJTBhnCUCRUHr61ndPd3loQD0h/pL5wz6FRQ72FhMZHplLdmA0Zkz9WEgT6SvYSsgy3WLnJJHTARG6OAdYaWdVIRt4sOWjHFkGCjEaaz6Tkz/lg9s0UEqmB+VPLXgct8oUpsZfyguKc55ecJXy3z9k32NG2k8s7TETs=
+	t=1791963963; cv=none; b=SQK7bTFMKFqw/iA4gGYAEP2h/v6Rgfx6SaWLVjXNAmA3b4tOnhhJuGHauq9JX9/RFlSXjxRxuGJCRofs/0QHkJfcHCY5P5/6uBuGBpWc2phoRKOtXvoYImnO3W52PF63KhvxKkTL4cZN3gDDXVdvvKiXevhQGGjxJBJtoY2raz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791963955; c=relaxed/simple;
-	bh=FG/LJNXH1VUYYc/k/8W7Og7Fpv4MygAGBEKkCvtgcNo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MggFpjoVpbCjeoKwjCiQ3sHL6ff6r1L0QTFbCXEsLB5lYAgmx67YsgLtLVxaJUb5UAa5eF7L/OCn6dfDEIN/7cK8ILpr3WlKxeSruJ47Tnrf4mjnrWrbsr9K9Wkm2yopRb9x3YiInuKvhbFWdEU2i/4Qwlpi1xvYFn+CBWBfG5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oBGd50BJ; arc=none smtp.client-ip=209.85.214.172
+	s=arc-20240116; t=1791963963; c=relaxed/simple;
+	bh=k1r41giEFofExMQ2e6Ka53lnCCUSRqj2gUqcvshC6U0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=AP8w5ZQDNHRsovZELkmN/bTxfVbRimwRLiH5dPnj2ayVM3/Tocp98siJl1kcK9ZE9RAJP7RyHQU7TUJh7CtFWXcIj64vhFlTSMUuSzppni7q7X868YyYingwgSks9Ej13YcRQzgzS3zvCSYbvdUw+wgLlgzB/pP8+ZYGda0iKVE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jCrkmq1c; arc=none smtp.client-ip=209.85.210.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oBGd50BJ"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e940d5d2beso990905ad.0
-        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 00:45:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jCrkmq1c"
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-868b3248b2cso2907217b3a.1
+        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 00:45:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791963949; x=1792568749; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hCKIAVPSYo0vK8WrzKbxMMpR/7Fs8ssXef3I4R/nZQA=;
-        b=oBGd50BJWqnpw1RWZLe2K/yPcnVFT1GAS8WukkO+VbH5oj6oqtLg0al0l1BqtuVM6O
-         YWxtUL8OmCEMtwfhNFpSkG5I3qRc6tmuScb5YdCAtwGbjP1Jvp2fGMSMCO1WyEKQ0Hva
-         k97qnbJUMvmlIXlx4zleGdFg5Jg84tXb78tkhdnkYpP1hHNiGevzU4+yBnw3juQlNUBP
-         pT7atz0NOR2Ib62U+bUu91rR39mixyjDb1/Te7d0mqFn4qd3bozW9nYNt+VSb4NwLpUZ
-         eeUeHJS8GlS5bx7vOepbRv88kVbS+D9Bc8gFcBZ6TETIxJ/6/PIecJRkDPLI932eq7Oa
-         m9Ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791963949; x=1792568749;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791963956; x=1792568756; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hCKIAVPSYo0vK8WrzKbxMMpR/7Fs8ssXef3I4R/nZQA=;
-        b=qRQCR/aP3zuNxtHaxYg0Fjx+8KjdUA2/2blxZrWMf42+oaQswj9g319Dd46NrA8j6u
-         WK6Cg4iuuegGIoYFBAST0SSDjQ8YhDfZpthfBfRVt0sY5Ek+XR9b+oK6FzXWC19E0+tj
-         WzfejNyK8n7FDT+ep9ZHsbUN223nFsm5z3oKy/r5dhY+DqwkFLogiyiYT3Rm3fXy7pwi
-         STUXRH9kz41tZT4RbrKfX08r6lnUBSZRY5QmdSlTnnt5vRlBfcPdAkSScP46ctztCXY3
-         oAdl/xCfQoPZCmKRiOt8MjhSyptLDdGLpZIEpvhDtrDYnTb3r95zAQ6xGOr14/FJKtc0
-         uq0Q==
-X-Gm-Message-State: AFq9FYKqUhTViaWwPXOaWBYwgm+7cZuVAiqZh/VhKIc909a/KXgZ8op4
-	TDIivrUEDMCbD450L3mqx1N+R4K0qdje/AbRnxHYmjhdGGWlFzZXcyw1
-X-Gm-Gg: AYBFou31ERx4O/V9ed/RMJz0H8QdiB/mPPtkPaD22gXriOda08iC1rhF1v85Aq1F4T6
-	yfSiv+alwEjiKHUScxw97zrxOs5lyPWS+hWDEkCwDpszXHgNLNkamgccU40AnMaDmGA/eFSrzlD
-	NCGZbw+NMlLHdLakrujz1KpOikkLi3MED+wuztmluYLg3aTNrk2WPgz8+CUpEhG4lb+zm6biKzB
-	w+JXoO1I/Eci8B0Q9Gouq/rre8URKsYA+Xth5R0Yv1z5A7QhbIyZkHkmeCFsU1+GXDVpVwguBTs
-	uuimcC+flBC+Cw4sQPa+uG1DJfqbOvqsyTWx3AePM+0xZpqwXhbC+2BQVq4gsns2wMm76Q3GOJS
-	K6neGfECTGOmAxJmVdU7alFjtZvkPemHFUZCYModTpOc6dHqLMouTjSiCLy2txE24nksGlrR8UY
-	Cn/2vk0cmH57/Y8Whq61/Gwp5W6Y1YTkEylJ80FrOEfwAbxbv/fXCeJoJabmiwakGbaC9M
-X-Received: by 2002:a17:902:e74d:b0:2e2:cb65:a719 with SMTP id d9443c01a7336-2e842ab6a10mr114098215ad.15.1791963949146;
-        Wed, 14 Oct 2026 00:45:49 -0700 (PDT)
+        bh=p/Mwahr2z9hW7MyIWREn6uWQ3XJrmLHNA2tUduWF5gQ=;
+        b=jCrkmq1ch0UBXo2ID85PoS6bxtXQrfTVszzjjTN2lEmBiInG9LNSwlszUMt3WPpM1e
+         jqB1/EqbGhG5lGLJ2uG3diphDri+A9MBr88CF7WeSRtuq9S+5ZI9GA3f/zDBONutMQ4e
+         KoUu0zwb7tfIGGRV7ebOtrriStdrJVBIS0zgvEqSJMz41gQLwTDp3v5sFVmIkNMoYxS4
+         HiTREYgnTGu/p9qgrZt+PeK8jYXXtxjrkS9COCVZOq/k9+S1LwoUiiMZzc6tdBmMhZ6U
+         7kMpqJMnC3M50Pjw2tagu0bIKbusnt6CJ9u8jLpgstPY+IWdtvbdrDR++fveesADxo02
+         tD6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791963956; x=1792568756;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=p/Mwahr2z9hW7MyIWREn6uWQ3XJrmLHNA2tUduWF5gQ=;
+        b=xekqBmHmYPeIjgdw+DVbXmjL9BKrFcXj/O9GWSVsNK+eabFz/r6If5wM0EHxy69KBQ
+         rEoXSsqb8z/k3WVZ3AHgyMNmAMfOmZIJ9g9nyIPs1m0rKbggukCU/VWlXldpUVFrl37b
+         ujnHq9A7RxXc9QTxDW8T0r2yFN5qBHyUXzGAadzOLaAXCxjRYAEpu5mDEcONAd8DK1Rg
+         c6rbHBP7XfGSzMvptEnDmF1aeTvIKDfjfkImrg5iXyuSMrawJ1nwicJlQBfOKUid5fRn
+         X54P5xAfFtgZ4BUCb0zzSc/uFt1gs6PXX2MDAydgrVh4Jk+TOX4yg31d5V9vypPKQc9v
+         vgmA==
+X-Gm-Message-State: AFq9FYIQdFQhuEpANJgO6GbpCeXj5wSP1cqYVg+xwdIvDe2aJZSLPRxz
+	MA44gHytdjDYLchLrTQgsOcRDxzhpaiYvO6dsHIN6AiwtiKAKMKQI+DBGcHuSEVzrD4=
+X-Gm-Gg: AYBFou1mH/4viAa1imiXEyJIqzg08FN+ClTt77/KTWhDWbekm6tu5cu2u2WRjA3ItM9
+	FI2BzgQF0gwjYda2Mm9RFvGUe5RijY94FcgPr5C/I4b4kbUE+LnKT9ivOI8kv1Bu5mRE0P8iFkf
+	FHwhsIDpTq6+sfcooShI1sQQHVb0bFR1MBntilq866thWc6evi0R/yYLiiMnG1oOmZrbAo+ZLM8
+	p7u30y8WKSoffj1WYDVapxH0JS7tPNl2LgUcDqjh6WI+SVBgn6ebMSckUaRFE7TP/wsnb2hPppP
+	/0z1fQD0PafnpJVFxtTiR1Jw9CIte511BBOBWI0O8IhLzwmVUNU9r2PGFxq6SFDPZt2VD8iwCzK
+	sCWN8BqcMRKiHbfhNishVigrKL8jVJ07bFQtTdNxm/3f9AetbQoJfemEgnQytfmxIiA8/uaE94F
+	XjB0T220h7wGUCxRRs8BtrYwlvPO9EpQOKAaBgk7GaHJ4WlFdcLhEko5GYec2THijU1/7y
+X-Received: by 2002:a05:6a00:3d4b:b0:89d:e946:8c64 with SMTP id d2e1a72fcca58-89de9468d0cmr338050b3a.57.1791963955830;
+        Wed, 14 Oct 2026 00:45:55 -0700 (PDT)
 Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8421b1347sm67038615ad.44.2026.10.14.00.45.47
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d7f518b74sm797660b3a.4.2026.10.14.00.45.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 00:45:48 -0700 (PDT)
+        Wed, 14 Oct 2026 00:45:55 -0700 (PDT)
 From: Inochi Amaoto <inochiama@gmail.com>
 To: Srinivas Kandagatla <srini@kernel.org>,
 	Rob Herring <robh@kernel.org>,
@@ -72,10 +74,12 @@ Cc: devicetree@vger.kernel.org,
 	linux-riscv@lists.infradead.org,
 	Yixun Lan <dlan@gentoo.org>,
 	Longbin Li <looong.bin@gmail.com>
-Subject: [PATCH 0/3] Add SG2044 eFUSE driver
-Date: Wed, 14 Oct 2026 15:45:12 +0800
-Message-ID: <20261014074516.240247-1-inochiama@gmail.com>
+Subject: [PATCH 1/3] dt-bindings: nvmem: Add SG2044 eFuse controller
+Date: Wed, 14 Oct 2026 15:45:13 +0800
+Message-ID: <20261014074516.240247-2-inochiama@gmail.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261014074516.240247-1-inochiama@gmail.com>
+References: <20261014074516.240247-1-inochiama@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -84,25 +88,82 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add SG2044 eFUSE driver, The eFUSE contains factory-programmed data,
-and it will be auto loaded into shadow registers while startup. So
-only MMIO read is needed.
+Sophgo SG2044 uses eFuses used to store factory-programmed data
+such as ROM patch, public keys and other factory information.
 
-Inochi Amaoto (3):
-  dt-bindings: nvmem: Add SG2044 eFuse controller
-  nvmem: Add Sophgo SG2044 eFuse driver
-  riscv: dts: sophgo: sg2044: Add eFUSE device
-
- .../bindings/nvmem/sophgo,efuse.yaml          |  61 ++++++
- .../boot/dts/sophgo/sg2044-sophgo-srd3-10.dts |   4 +
- arch/riscv/boot/dts/sophgo/sg2044.dtsi        |  12 ++
- drivers/nvmem/Kconfig                         |  12 ++
- drivers/nvmem/Makefile                        |   2 +
- drivers/nvmem/sophgo-efuse.c                  | 177 ++++++++++++++++++
- 6 files changed, 268 insertions(+)
+Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+---
+ .../bindings/nvmem/sophgo,efuse.yaml          | 61 +++++++++++++++++++
+ 1 file changed, 61 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/nvmem/sophgo,efuse.yaml
- create mode 100644 drivers/nvmem/sophgo-efuse.c
 
---
+diff --git a/Documentation/devicetree/bindings/nvmem/sophgo,efuse.yaml b/Documentation/devicetree/bindings/nvmem/sophgo,efuse.yaml
+new file mode 100644
+index 000000000000..d4bffe2724ac
+--- /dev/null
++++ b/Documentation/devicetree/bindings/nvmem/sophgo,efuse.yaml
+@@ -0,0 +1,61 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/nvmem/sophgo,efuse.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Sophgo SoC eFuse-based NVMEM
++
++description:
++  Sophgo SoCs contain factory-programmed eFuses used to store ROM patch,
++  public key and other factory information.
++
++maintainers:
++  - Inochi Amaoto <inochiama@gmail.com>
++
++allOf:
++  - $ref: nvmem.yaml#
++
++properties:
++  compatible:
++    enum:
++      - sophgo,sg2044-efuse
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    minItems: 1
++    items:
++      - description: Core clock
++      - description: APB clock
++
++  clock-names:
++    minItems: 1
++    items:
++      - const: core
++      - const: apb
++
++  resets:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - clocks
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    efuse@40000000 {
++        compatible = "sophgo,sg2044-efuse";
++        reg = <0x40000000 0x1000>;
++        #address-cells = <1>;
++        #size-cells = <1>;
++        clocks = <&clk 0>,
++                 <&clk 1>;
++        clock-names = "core", "apb";
++    };
++
++...
+-- 
 2.56.0
 
