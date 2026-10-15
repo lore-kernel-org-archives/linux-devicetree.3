@@ -1,116 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19E113F23BE
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 19:06:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EEF84A2062;
+	Thu, 15 Oct 2026 19:08:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792091193; cv=none; b=X1JikyXNRlNLkH+5UffBZ4Sq6fI7eNxokv6hSLbiJKmapJtSOBansQ5GeCxjbFTfmhpUzKxi1J/q5R5knVtff2vW1SajQ5zDx5x0Ge1KrjRITbfoqi0iufQmueyOcW2OBkl0MxpINLmFgyRFWZSHycws1NjvmVauIAExxAmESP4=
+	t=1792091286; cv=none; b=iv+aDbBDxqidjrsPzR/vNq13Pbjhf2ayS483jkT7t4NCBRXqSeXm/x2kLE8KRhygu7U4SaO73HUBigGsHg7S9fy77eRQ0M4L4cBmft0gcHbrh4wAOtKfEXTUVvvmtbmpIEY6qKs4ks3QDGOrW94jf1CjJO3Tp/8CJ9Sv23XhOUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792091193; c=relaxed/simple;
-	bh=gDU6Vo7wzauBgKSeLmNOhWycwc4Mjw0doZtylmYXFS0=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=CLeebM2e8z0vKBGihIAmKN7mvFPfQdnaRLT9ZCG5bXlNrQtH374mCMpsMljpnMDLomXN/5S7n/MeGFwITCjaYwaLECqakA31CcB85G/a91vnQO3FtOjn39AquzLU/tAXxfeOcohPMGlFq8ARqEohdXRnckRG/3SjQgzZgMtBn0k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aaTocO0F; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792091286; c=relaxed/simple;
+	bh=cyU3X4JdKoxg9kUry1GAjfUWGDLRoQEz8UieWr1cxb4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=og+DV+rh4r56yZw7t4AXgqm8BJ/HMvlwDNSRuBJJGCsD/aFiz8isrVqDB08NM8ByEuZFxpG7P8SFtFBGOE3oUj/z3AIWGWt6ZL4XqQRryCxvXgeB2Ncb5j0jB6l4y3N8OTJodD5h2brzheJNelVjNrlXHJe+gJ3VbieUcCnV1cg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=et8klXTX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aaTocO0F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72F891F000C4;
-	Thu, 15 Oct 2026 19:06:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="et8klXTX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 994EF1F000C4;
+	Thu, 15 Oct 2026 19:08:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792091191;
-	bh=V4oOWsdkXWlhCRhA4V6tBrbRkRQXYEj4yKUhwmJslNI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aaTocO0FoGis8eZrX1Og6I3GSNNNsronN/v2aYSgnET9eiVreyMoOvhHcopXKQh7D
-	 W7D8Ox9RPZ/gaU0Cb0Yek7k7U7OuBHhOGNfpZxNPpSxjlG5ZSaC2gTASNWKr5Ycxhm
-	 uoDfl+HNXYoR6HpqMTS6BzFWVhTrV7nevG1FW7avMBSUUc6NyvtAwGHkYvmCf+pylN
-	 vL81oZ1Z2qHTbXxZhFZ0cwPsmd1YhiB2HCF51WAs9TGB2yCiaaDWNMA+O0eaAkvKYa
-	 gNi+HbKb6SDrooyR7rzCp+VpaoBF1ttzTYmf7T8TYP0X0C2HTE4EiPzf0ei//FN1ws
-	 vRcmvX2gW3Q5Q==
-Message-ID: <sashiko-outbox-173346@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 1/2] riscv: dts: spacemit: k1: add PowerVR GPU
- device node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Iker Pedrosa" <ikerpedrosam@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261015-orangepi-gpu-v1-1-03566a615660@gmail.com>
-References: <20261015-orangepi-gpu-v1-0-03566a615660@gmail.com>
- <20261015-orangepi-gpu-v1-1-03566a615660@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 19:06:31 +0000
+	s=k20260515; t=1792091284;
+	bh=uOLB46dfm0aerWqo4MfS0HfL8CCeDthLlQvQVMVFuVM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=et8klXTXLJglDd5uZg1slra9e0Xq9rIEh8OqusA0qBEtB7+kUpPInQx9jvMMELUxA
+	 8N/G9s1ZGbpj+o6gL6Rm07lZSnHAvSCyuivYwCFXfAciV7gK6taEcrAcF8H3Ibkbsn
+	 0quw91+s/Xnqx/qI7+vjtx9Fi14T1hCJ38qcJgb9AJadMNIP0UZXpqk0NQCTRWu+AJ
+	 IBrMbjo9D0idyoexyyHmGfM9ReHS+W5TOrUVPCt75SmPckAFapJVPlv+d2asXEnPIz
+	 ZglE5gCNhNokb4svGKVj9o7r94NRHo6aXaMcYBuDq9L7Ti3Wqy89+H/FIcVZSfGsOa
+	 nOeT6nuuxJuVw==
+Date: Thu, 15 Oct 2026 14:08:02 -0500
+From: Rob Herring <robh@kernel.org>
+To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>, Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
+	Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
+	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Subject: Re: [PATCH v8 01/10] ASoC: dt-bindings: qcom,shikra-qaif-cpu: Add
+ binding
+Message-ID: <20261015190802.GA5059-robh@kernel.org>
+References: <20260928-b4-qaif-shikra-audio-v8-0-ac618057fe85@oss.qualcomm.com>
+ <20260928-b4-qaif-shikra-audio-v8-1-ac618057fe85@oss.qualcomm.com>
+ <20261006141620.GA1950759-robh@kernel.org>
+ <CAC-tS8DzW88Lu_k-yKQtyfYc8u5-rh9WKTSanJ6dq6Xo3wp+kQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAC-tS8DzW88Lu_k-yKQtyfYc8u5-rh9WKTSanJ6dq6Xo3wp+kQ@mail.gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] dts: build failure due to missing k1-power.h dt-binding header
-- [Low] dts: undocumented compatible strings for spacemit k1-gpu
---
+On Mon, Oct 12, 2026 at 12:15:52PM +0530, Harendra Gautam wrote:
+> > > +
 
-commit 8e44783c41b2ae5db8c6c7e6e7e39b06ba8d49af
-Author: Iker Pedrosa <ikerpedrosam@gmail.com>
+[...]
 
-riscv: dts: spacemit: k1: add PowerVR GPU device node
+> > > +
+> > > +      qcom,qaif-aif-lane-map:
+> > > +        $ref: /schemas/types.yaml#/definitions/uint32-array
+> > > +        description:
+> > > +          Per-lane direction map, one entry per lane starting from lane 0.
+> > > +          Use 0 for TX (output/speaker) and 1 for RX (input/mic).
+> > > +        minItems: 1
+> > > +        maxItems: 8
+> > > +        items:
+> > > +          enum: [0, 1]
+> >
+> > Can't you use a single uint32 bit mask for this?
+> Here intention to keep this consistent with the other tdm mask array properties.
 
-Add device tree node for the Imagination Technologies PowerVR Rogue GPU
-(BVNC 36.29.52.182 / BXE-2-32) found in the Spacemit K1 SoC.
+What I mean is use 1-bit per lane/slot. That *is* aligned to the 
+existing properties:
 
-> diff --git a/arch/riscv/boot/dts/spacemit/k1.dtsi b/arch/riscv/boot/dts/s=
-pacemit/k1.dtsi
-> index 3fabfd34114b2..82cade2f76fe4 100644
-> --- a/arch/riscv/boot/dts/spacemit/k1.dtsi
-> +++ b/arch/riscv/boot/dts/spacemit/k1.dtsi
-> @@ -5,6 +5,7 @@
-> =20
->  #include <dt-bindings/clock/spacemit,k1-syscon.h>
->  #include <dt-bindings/phy/phy.h>
-> +#include <dt-bindings/power/spacemit,k1-power.h>
+  '^dai-tdm-slot-[rt]x-idle-mask$':
+    $ref: /schemas/types.yaml#/definitions/uint32
+    description: Idle slot mask. Optional. A bit being set to 1 indicates
+      that the corresponding TDM slot is inactive/idle.
 
-[Severity: Low]
-Does this header exist in the tree? It doesn't appear to be added in this
-patch or in the tree yet, which causes a fatal preprocessor error and
-compilation failure.
+It can be extended to an array if you someday have more than 32 lanes, 
+but it seems you only have 8 ATM.
 
-[ ... ]
-
-> @@ -1119,6 +1120,17 @@ multimedia-bus {
->  			#size-cells =3D <2>;
->  			dma-ranges =3D <0x0 0x00000000 0x0 0x00000000 0x0 0x80000000>,
->  				     <0x0 0x80000000 0x1 0x00000000 0x3 0x80000000>;
-> +
-> +			gpu: gpu@cac00000 {
-> +				compatible =3D "spacemit,k1-gpu", "img,img-bxe-2-32", "img,img-rogue=
-";
-
-[Severity: Low]
-Are these compatible strings documented in a DT binding schema?
-
-"spacemit,k1-gpu" and "img,img-bxe-2-32" appear to be undocumented, which w=
-ill
-cause dt_binding_check to fail. Omitting them from the schema also means
-their constraints (like required clocks or power domains) won't be properly
-validated.
-
-> +				reg =3D <0x0 0xcac00000 0x0 0x80000>;
-> +				interrupts =3D <75>;
-> +				clocks =3D <&syscon_apmu CLK_GPU>;
-> +				clock-names =3D "core";
-> +				resets =3D <&syscon_apmu RESET_GPU>;
-> +				power-domains =3D <&syscon_apmu K1_PMDOMAIN_GPU>;
-
-[Severity: Low]
-Is it possible to build this node? This relies on K1_PMDOMAIN_GPU which was
-presumably provided by the missing spacemit,k1-power.h header mentioned
-above.
-
-> +				status =3D "disabled";
-> +			};
->  		};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-orangepi-g=
-pu-v1-0-03566a615660@gmail.com?part=3D1
+Rob
