@@ -1,227 +1,143 @@
-Received: from 0001.3ffe.de (0001.3ffe.de [159.69.201.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF2942BD09;
-	Thu, 15 Oct 2026 09:21:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.201.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6268E3DD86F
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 09:21:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792056068; cv=none; b=CUkC0TCKcZpgQX8loyFHKpnBF285sHNxCNwbwJMoh+3BfTyfoLTGGjl5TxoDYWRqgJehUqvRRsIPAeIKkImCGyHqEm1+4E19SkxxSMkMH9UYQbDH25cbAWWDVJ08AzNlDf6BQywH9JK/fL1cy0UdQJci+HQfATgrXcE7VE58lro=
+	t=1792056073; cv=none; b=AmUlPmpdN2PYZQconN5WHDjmj5e6ENsjMWMpwOFxuBOGyHQSzfE1bXWXc7zaWHk1f205lxGOwLc6D5LFidD9u6EilsAgdjvYyTpOePLrX72HfW9AfXUFD2l0THpuZntfy5ZMQdgwxyfQy4qRZ1kaPv2pS9rWJHQUdgRiuxKum9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792056068; c=relaxed/simple;
-	bh=Q5f7uMuv+Z1b7bEoZ+l0snFvcQAc1leSwiaOXkuQp3s=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:
-	 References:In-Reply-To; b=i78XuJMu1sTr+CufULoPMKO6Y6gQtfO8sYBXPdTbkduzbY98FPAkIuJ5PDVJVe/+Dye3+dO+YZzYoAOQaP0opOu6iaD0e+HiuSnyXo0lpP8QkdgnTb9btSHt8azPOk3MpLW69VtXkOcpH81WspDCfMMzUaPqGm/YtmmNJLEOfGE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=walle.cc; spf=pass smtp.mailfrom=walle.cc; dkim=pass (2048-bit key) header.d=walle.cc header.i=@walle.cc header.b=qkTBo9hI; arc=none smtp.client-ip=159.69.201.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=walle.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=walle.cc
+	s=arc-20240116; t=1792056073; c=relaxed/simple;
+	bh=BVcDLfpDj/oFkCe26qke9KzcwFHeCJSdn66nfZMpo14=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=MU5j+eU7y61r2+taqcMyb5Nj5o1Rg1htAzx0/5YepPhuuIqrTIHktRSAAjKFGC1F6NbjnFgJcpHHg0QwePKgolikxODsCGC2pwgVjlPuxx2ZX0BCceiXvgO5I4kNYSnC25JGIW5Xs4EUMuBi+p/cUhdVqG0FzE6syxMF9O3YR28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gB0uk+3M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=walle.cc header.i=@walle.cc header.b="qkTBo9hI"
-Received: from localhost (unknown [213.135.10.150])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.3ffe.de (Postfix) with ESMTPSA id 57DC648D;
-	Thu, 15 Oct 2026 11:21:04 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=walle.cc; s=mail2022082101;
-	t=1792056064;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RhOXfJe2evQSmltYZcqoysV/ojsK0GjNWYjg2pyAuN0=;
-	b=qkTBo9hI6+sPXqeenT12ELPrdYL0GOJOtyFSPIXgxRq6GK4IMmNUqa4zVqQwJyGhapmTjI
-	ku5fbIeLlZw9IMaQV0mZxTKY7LL9rrPyW0jWHGVvz4VcSokzRzM+x9FQfuq8p5uBKgDVL1
-	wtN+QkhNuhLSM3kvlPcr7dkJPfzp0F4NcZ4qJxGJ4svJz0IrIXK5JIxlR0zK3Z8rl8WU8D
-	+VI81JPzU0CjbUX7sCpRqh40Fky5f3U0viqxNrw55gL8fqrdBVObQaQcLOzzGF0DCgapz2
-	Nv2v9AHnch1xy+b/hPijrh81mUG2kPf0svxawFPomN+5yrYI4o7MY9XDkHXEuA==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gB0uk+3M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 947B31F000C4;
+	Thu, 15 Oct 2026 09:21:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792056071;
+	bh=BPEjcWcIJgQmPAxkJ+vFij99DVDAbya65v2U827pyLM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=gB0uk+3MBXHdUWX7hQKB2AMvTUGV5iupezQ0+V+wQDsyFQfmz2ZmtgRWgD3b+Zb6Y
+	 Y40JK5bizCPFoXZcScyO5zQn/XqMwwYzPkENZCThDQYDZnE8y1Aw7vz53pC/2pTnIx
+	 Q5hl08HgHEILU9DwMBLzc58HzmVcTwb55y85qqKubqhZsIywfIGwvjYUuuQzdc3hrc
+	 GsruyZ10BziQAK3YjTujrEtMj0Z3X+Zmm0PsrYDBJ4lUmh78xabBrNjqZgP/+NP6sb
+	 dkfdV/YIyhTjxVAiYaVehvKiOESUxnz6FBi+kvZYRKW0FLioQsMegWBpdlUBCWEUPA
+	 2K6KODmlcXHEg==
+Message-ID: <sashiko-outbox-172562@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: oneplus-kebab: new device
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Frieder Hannenheim" <git@fhannenheim.net>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261015-kebab_dts-v1-2-1fee1204a18b@fhannenheim.net>
+References: <20261015-kebab_dts-v1-0-1fee1204a18b@fhannenheim.net>
+ <20261015-kebab_dts-v1-2-1fee1204a18b@fhannenheim.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 15 Oct 2026 09:21:10 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=499acbdbca56ee494925b2505869d62d751ec95367d3b21bbc9e541b217b;
- micalg=pgp-sha384; protocol="application/pgp-signature"
-Date: Thu, 15 Oct 2026 11:21:02 +0200
-Message-Id: <DM5AUTOSX5TD.2RD50MZ8S8GAF@walle.cc>
-Subject: Re: [PATCH v8 4/8] mtd: spi-nor: sfdp: expose the SFDP as a
- read-only NVMEM device
-From: "Michael Walle" <michael@walle.cc>
-To: "Manikandan Muralidharan" <manikandan.m@microchip.com>,
- <pratyush@kernel.org>, <mwalle@kernel.org>, <takahiro.kuwano@infineon.com>,
- <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>,
- <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
- <srini@kernel.org>, <nicolas.ferre@microchip.com>,
- <alexandre.belloni@bootlin.com>, <claudiu.beznea@tuxon.dev>,
- <linux@armlinux.org.uk>, <richardcochran@gmail.com>, <linusw@kernel.org>,
- <arnd@arndb.de>, <aaro.koskinen@iki.fi>, <gregkh@linuxfoundation.org>,
- <mathieu.dubois-briand@bootlin.com>, <linux-mtd@lists.infradead.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <netdev@vger.kernel.org>
-X-Mailer: aerc 0.20.0
-References: <cover.1790847519.git.manikandan.m@microchip.com>
- <093672d183a06dc2f37366b2f9ff144316850863.1790847519.git.manikandan.m@microchip.com>
-In-Reply-To: <093672d183a06dc2f37366b2f9ff144316850863.1790847519.git.manikandan.m@microchip.com>
 
---499acbdbca56ee494925b2505869d62d751ec95367d3b21bbc9e541b217b
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] dts: i2c2 controller left disabled preventing PMIC probe
+- [Medium] dts: pm8008_default pinctrl state is defined but unreferenced
+- [Low] dts: gpio-keys-state pinctrl is dead boilerplate
+- [Low] dts: downstream qcom,kona root compatible string
+--
 
-On Wed Oct 14, 2026 at 8:40 AM CEST, Manikandan Muralidharan wrote:
-> The SPI NOR core already reads the SFDP tables during enumeration and
-> caches them in nor->sfdp->dwords (see spi_nor_parse_sfdp()). Re-expose
-> that cached data as a read-only NVMEM device, in on-flash byte order,
-> rooted at the flash's SFDP child node (compatible "jedec,sfdp").
->
-> This lets NVMEM cells reference any SFDP data: a fixed-layout for
-> parameters at a known offset, or an nvmem-layout parser for vendor data
-> whose location must be discovered at runtime. The device is only register=
-ed
-> when an "sfdp" node is present in the device tree.
->
-> Signed-off-by: Manikandan Muralidharan <manikandan.m@microchip.com>
-> ---
->  drivers/mtd/spi-nor/core.c | 78 ++++++++++++++++++++++++++++++++++++++
->  1 file changed, 78 insertions(+)
->
-> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
-> index 8bc117b46e02..4e47459b1679 100644
-> --- a/drivers/mtd/spi-nor/core.c
-> +++ b/drivers/mtd/spi-nor/core.c
-> @@ -17,6 +17,7 @@
->  #include <linux/mtd/mtd.h>
->  #include <linux/mtd/spi-nor.h>
->  #include <linux/mutex.h>
-> +#include <linux/nvmem-provider.h>
->  #include <linux/of.h>
->  #include <linux/regulator/consumer.h>
->  #include <linux/sched/task_stack.h>
-> @@ -3001,6 +3002,75 @@ static void spi_nor_init_fixup_flags(struct spi_no=
-r *nor)
->  		nor->flags |=3D SNOR_F_IO_MODE_EN_VOLATILE;
->  }
-> =20
-> +static int spi_nor_sfdp_reg_read(void *priv, unsigned int offset,
-> +				 void *val, size_t bytes)
-> +{
-> +	struct spi_nor *nor =3D priv;
-> +	struct sfdp *sfdp =3D nor->sfdp;
-> +	size_t sfdp_size =3D sfdp->num_dwords * sizeof(*sfdp->dwords);
+commit cbd728f8988cb73cd4c57ae40422faf37ea262a5
+Author: Frieder Hannenheim <git@fhannenheim.net>
+
+arm64: dts: qcom: oneplus-kebab: new device
+
+This commit adds the initial device-tree support for the OnePlus 8T. It
+configures the framebuffer, battery, I2C devices including the PM8008 PMIC
+and fuel gauge, and pin states.
+
+Downstream reference: https://github.com/LineageOS/android_kernel_oneplus_s=
+m8250/blob/lineage-23.2/arch/arm64/boot/dts/vendor/oplus/kona-kebab-overlay=
+.dts
+
+> diff --git a/arch/arm64/boot/dts/qcom/sm8250-oneplus-kebab.dts b/arch/arm=
+64/boot/dts/qcom/sm8250-oneplus-kebab.dts
+> new file mode 100644
+> index 0000000000000..3e9802db1464b
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/sm8250-oneplus-kebab.dts
+> @@ -0,0 +1,124 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
 > +
-> +	if (offset >=3D sfdp_size || bytes > sfdp_size - offset)
-> +		return -EINVAL;
+> +/dts-v1/;
 > +
-> +	/* The cached SFDP is kept in on-flash (little-endian) byte order. */
-> +	memcpy(val, (u8 *)sfdp->dwords + offset, bytes);
+> +#include "sm8250-oneplus-common.dtsi"
 > +
-> +	return 0;
-> +}
+> +/ {
+> +	model =3D "OnePlus 8T";
+> +	compatible =3D "oneplus,kebab", "qcom,sm8250", "qcom,kona";
+
+[Severity: Low]
+Does the inclusion of the downstream "qcom,kona" string here violate the
+upstream devicetree bindings for the qcom,sm8250 SoC family?=20
+
+It appears this vendor code name is not recognized by upstream schemas.
+
+> +};
 > +
-> +/**
-> + * spi_nor_register_sfdp_nvmem() - expose the SFDP as a read-only NVMEM =
-device
-> + * @nor:	pointer to a 'struct spi_nor'
-> + *
-> + * Expose the whole SFDP, in on-flash byte order, as a read-only NVMEM d=
-evice
-> + * rooted at the flash's SFDP child node (compatible "jedec,sfdp"). This=
- lets
-> + * generic (fixed-layout) or vendor (nvmem-layout) cells reference any S=
-FDP
-> + * data. The device is only registered when a child node with the "jedec=
-,sfdp"
-> + * compatible is described in the device tree.
-> + *
-> + * Return: 0 on success or if there is nothing to do, -errno otherwise.
-> + */
-> +static int spi_nor_register_sfdp_nvmem(struct spi_nor *nor)
-> +{
-> +	struct device *dev =3D nor->dev;
-> +	struct nvmem_config config =3D { };
-> +	struct nvmem_device *nvmem;
-> +	struct device_node *np;
+
+[ ... ]
+
+> +&i2c2 {
+
+[Severity: High]
+Is the status =3D "okay"; property missing for this I2C controller?
+
+Because it is disabled by default in the base sm8250.dtsi, without explicit=
+ly
+enabling it, the bus and its child devices (like the PM8008 PMIC and its
+regulators) will likely be ignored and not probed.
+
+> +	pm8008: pmic@8 {
+> +		compatible =3D "qcom,pm8008";
+> +		reg =3D <0x8>;
 > +
-> +	if (!nor->sfdp)
-> +		return 0;
+> +		interrupt-parent =3D <&tlmm>;
+> +		interrupts =3D <112 IRQ_TYPE_EDGE_RISING>;
 > +
-> +	np =3D of_get_compatible_child(dev_of_node(dev), "jedec,sfdp");
-> +	if (!np)
-> +		return 0;
+> +		reset-gpios =3D <&tlmm 93 GPIO_ACTIVE_LOW>;
 
-I've missed replying to your former question about this, sorry. Yeah
-I was implying to always add the nvmem device regardless of the
-device tree. I don't see a reason why it should only be added if dt
-node is there. Userspace might still do something useful with it.
+[Severity: Medium]
+Should this consumer node reference the pm8008_default pinctrl state using
+pinctrl-names and pinctrl-0 properties?
 
-So if you'll respin a new version you can remove the check,
-otherwise it could be a follow-up patch.
+As it stands, the reset pin configuration (gpio93) defined in pm8008_default
+won't be applied by the pinctrl subsystem, which might lead to PMIC probe
+failure if the reset pin relies on the pull-up to avoid floating.
 
-Reviewed-by: Michael Walle <mwalle@kernel.org>
+[ ... ]
 
--michael
+> +		pinctrl {
+> +			gpio-keys-state {
+> +				pins =3D "gpio1";
+> +				function =3D "normal";
+> +			};
+> +		};
 
+[Severity: Low]
+Is this gpio-keys-state referenced anywhere?
 
-> +
-> +	config.dev =3D dev;
-> +	config.of_node =3D np;
-> +	config.name =3D "sfdp";
-> +	config.id =3D NVMEM_DEVID_AUTO;
-> +	config.owner =3D THIS_MODULE;
-> +	config.read_only =3D true;
-> +	config.word_size =3D 1;
-> +	config.stride =3D 1;
-> +	config.size =3D (int)(nor->sfdp->num_dwords * sizeof(*nor->sfdp->dwords=
-));
-> +	config.reg_read =3D spi_nor_sfdp_reg_read;
-> +	config.priv =3D nor;
-> +
-> +	nvmem =3D devm_nvmem_register(dev, &config);
-> +	of_node_put(np);
-> +	if (IS_ERR(nvmem)) {
-> +		/* NVMEM support is optional. */
-> +		if (PTR_ERR(nvmem) =3D=3D -EOPNOTSUPP)
-> +			return 0;
-> +		return dev_err_probe(dev, PTR_ERR(nvmem),
-> +				     "failed to register SFDP NVMEM device\n");
-> +	}
-> +
-> +	dev_dbg(dev, "exposed %d-byte SFDP as an NVMEM device\n", config.size);
-> +
-> +	return 0;
-> +}
-> +
->  /**
->   * spi_nor_late_init_params() - Late initialization of default flash par=
-ameters.
->   * @nor:	pointer to a 'struct spi_nor'
-> @@ -3204,6 +3274,14 @@ static int spi_nor_init_params(struct spi_nor *nor=
-)
->  		spi_nor_init_params_deprecated(nor);
->  	}
-> =20
-> +	/*
-> +	 * Expose the SFDP table as an NVMEM device only when
-> +	 * the flash actually provides one
-> +	 */
-> +	ret =3D spi_nor_register_sfdp_nvmem(nor);
-> +	if (ret)
-> +		return ret;
-> +
->  	ret =3D spi_nor_late_init_params(nor);
->  	if (ret)
->  		return ret;
+It looks like it might be an unused artifact copied from a DT binding examp=
+le,
+as it has no phandle label and isn't consumed by any other node.
 
+[ ... ]
 
---499acbdbca56ee494925b2505869d62d751ec95367d3b21bbc9e541b217b
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iKcEABMJAC8WIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCatCa/hEcbWljaGFlbEB3
-YWxsZS5jYwAKCRASJzzuPgIf+AyOAYDi48emPwhdKyXoa8JthR5GGnUzBcZHL2J2
-pZ6C6SSkmiXIHMoOJ/Th4WD1Cl8r1AgBf0EKFYwI9hHKsvev5mSZE2raQt8NV+Ew
-jpesdTau2EQaMxsXwnVl9FK/rXeEsy0+Hw==
-=sngz
------END PGP SIGNATURE-----
-
---499acbdbca56ee494925b2505869d62d751ec95367d3b21bbc9e541b217b--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-kebab_dts-=
+v1-0-1fee1204a18b@fhannenheim.net?part=3D2
