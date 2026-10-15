@@ -1,121 +1,101 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72FA34A3F08;
-	Thu, 15 Oct 2026 08:25:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 770E74ACC8A
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 08:25:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792052708; cv=none; b=BYZVYnWzo6RiNy3UDSWsPC8TqDwFFCWS1aFcCzsb7kDhJl9qj2S+OktUBsYGkyQz5pHViDiw8NoRcqhgjvdg62yTiJJRUk9rZHRFAJokQFloa184NDaeBMwx45KIIDOLyCN/OAmesmvYnqlHTIT4Itsnms1qpOZNrmwhSgCop0A=
+	t=1792052728; cv=none; b=nla6FfnEMwljwgMYF04ymlpSQiRJ7ehwd0l4IUSf31gTwB6HTwI6nY938bJ+0INhfZD1RVseVlH+1ma3EmGeOkRW+AVVjODXl7F9Q/xXB2ailHyZctDyJVFLfLLXuVKaXSnrNhaNkyrcIPi3cci8MSHrVE3bw+C7b0TlEjoo+ak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792052708; c=relaxed/simple;
-	bh=xDtLZHyfp+AIKd7OVWBh7n32PD+EWS9ETfRWqwxtIqQ=;
+	s=arc-20240116; t=1792052728; c=relaxed/simple;
+	bh=MjGHXq0yR9Gpo3xrFudvRWYYUefJtXK6z7zXZk3zLic=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZxvOmUKazP6mz4hEa52RqNUY8AdhowF7lEBhlrw4A1WOCPsWT1hjzz4IOs3cDpW9Abq+tc7Xdqppn8wvqykc80qzvnyonAjYnSE6B7frQCCyN/h8p2RJq1qQdCrgdQFazB1haIIVRW/2OQSgdx9TP3sGOJXo4UU8sprtx0ayNpY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=MZ3+x7VP; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	 MIME-Version:Content-Type; b=oyi7kh7bN6pmN2c+U79LqG01fGUIXvbBmVwfvje9XOU9HxVri9EeinhwpBy8tctDhGNP5jeKj7Q+WeoVb9mO0gClbA1rng+7Jrb1VwCFX4TazbjJLw1pFBvoghDD4br0VyddWFv8VNb1M0BWE809aV632EJHa7bqlVTJiEhTT54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iJlVG0Ro; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="MZ3+x7VP"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=ZRE9TYKLF/tjZX5aLFVe0iHhVl7KukoN/rYEWXfPZ7Y=; b=MZ3+x7VP1t2K7cPkbBmet9IWgX
-	XXbss1UeBss3IrZXh6UXVrJoJXBDTGUloSVuJ70WfmoFm5LMxxuKbRNIAEZ24TRfAOm5wGTw3Hp3a
-	V88fQKZazCehrIOlN+N3LDOl+HHP2t45BWnP4yuf0j9anSs3DiM63obW6E6vOOh2AH69O33RY6ByH
-	0vo8T+PB+mX+dupqpFdUDUq7vT7UC9l3vwxEpE7IhZH0ewvt7SnmoPzHIAyMw35hpgnFKy2YnvMME
-	FkmTyUyot1Qrz6Qbo9Wr8gvsPYqiFWhhOtzsm4Hv3XyDwQ41R2UXFqiZXFPmm3FjNax6momT3lC0o
-	1HMB07bg==;
-Received: from sslproxy08.your-server.de ([78.47.166.52])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xHGlr-000Ici-2T;
-	Thu, 15 Oct 2026 10:25:03 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy08.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xHGlr-000NCR-0T;
-	Thu, 15 Oct 2026 10:25:03 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Frank Li <Frank.li@oss.nxp.com>, Liu Ying <victor.liu@nxp.com>,
- Francesco Dolcini <francesco@dolcini.it>
-Cc: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Dong Aisheng <aisheng.dong@nxp.com>, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux@ew.tq-group.com
-Subject:
- Re: [PATCH v2 2/5] arm64: dts: imx8qxp: Add display controller subsystem
-Date: Thu, 15 Oct 2026 10:25:01 +0200
-Message-ID: <5661700.31r3eYUQgx@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To: <20261015063105.GA5720@francesco-nb>
-References:
- <20261014071657.118378-1-alexander.stein@ew.tq-group.com>
- <as-JyQG5vgaPYLeH@SMW015318> <20261015063105.GA5720@francesco-nb>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iJlVG0Ro"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a1880e1bf1so16433255e9.1
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 01:25:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792052726; x=1792657526; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MjGHXq0yR9Gpo3xrFudvRWYYUefJtXK6z7zXZk3zLic=;
+        b=iJlVG0RoylsmHtfdnUUWKj3ZTp0HL7VhAFwbyCK/A8NqXZSaAYs3+rd5DUUEYAKzfk
+         s1rCdOa1OoRa/OkSQbCBaA0AdDdIRTwQ5k0SzdOdYzLWfflpSLbhihu56idctutqAdZY
+         PB+3vwZ/b1rsGRwAbEP3PRsLQ/7Ic2LlJ+8pmd4LyX5uDXInz7vEYKJMctDkvAndkdVD
+         b9CcfMZXyGLymW9mfrhFQIi8sX5Pfvm0IdXBFA5WwOGC11hCpXQfpM8+xP6rBvwUrdMc
+         G+qCanUGqUFpFIukNdgIchl7MDp/ROmPd626gsEIhoWGxamsilSfzPzq83y5LjfbK7Qc
+         KOjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792052726; x=1792657526;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MjGHXq0yR9Gpo3xrFudvRWYYUefJtXK6z7zXZk3zLic=;
+        b=TmcnaHustZQxnWRelnUUyAuvVu3Cep48OwYGdRe7HRLewq7mWPH1B6HlbGSih7wJsp
+         3zcQJfbvjL9m1EXJV/59w7NI7corgLrjTQwsq4cnVLFh1HZ0kqfqZHl8N6QD9YDl3zs0
+         T7V5OySJ4SEQPcPTLKH7MbGGzFfzBMl3RHAQgP61E6lGvquun5bfH7I07C1rZqaiu/ul
+         vrQzYH52PUzzEJu14k4Tvjbi9y4TdkRusOcLMMrCifkZi56yIJXfm0k3bdr30XRnqQ5C
+         s+ezgPUUJd0KEo1SZxeRJzFxdc7j2iYrlem/bB9JtSKFORLt9iy4m/HyXDKRvLV8jjp5
+         YCfg==
+X-Forwarded-Encrypted: i=1; AKwUvBzaZa10BU1DFwIYEwFVTo0l3ogdthO93KUzRGjY8XubzctRQFZdN2uBQQV7XbKXSe7JJWaMe1i0TCcJ@vger.kernel.org
+X-Gm-Message-State: AFq9FYJbxE54Ku7eXYBeTwOv8Y3Zq8nGvkMg6JlPjtUf1VaTEjM5xCQ7
+	JnDd4/eZb1RTfdKc6nPfUTGVfLyBq++WbzGU4aC1hvMuWoBVT9Lj2y2U
+X-Gm-Gg: AYBFou1VgZFQl3IS9ZsNFK6VSaIfzg5XIPLOZWsm2Aai1pjg959fssS5IzRV3ku3L8r
+	8Ctjt0lGGV8ktq4q51YmL4SAHsx9wIpiCH0yEAcJVcFaXn4XkS/UYMUJyCeGoa0DLPD5ThT0Nsq
+	3cfkV3eu/SKjaABh3m3eS2kewTi6cx1KYw6vlE7zhJ4Rnwi1KyqoODCoNpGzhiXdKtCqhlO9Mu1
+	Q9GmkXNd8WtDcrmO85pswNi73iZL2DYKst3HUClhbqvaF+x+JAmXkZqrYYHQyzkcabnMoOoqpfp
+	coCwiYGZ/xg2Z9Vn8sIl5B+fC1h0ibYPTRgB8s0Ev86JyIfE5Byj+WhdcwiPM0ERmIwpcliYPRX
+	MQ8wZGJh4ibjGpdABSpRVmLXc+E7abbxDrDm2O1cSXfcmBRbSbEYZJg69uH1dlD+Ai+VyF8gcBI
+	4PxNPofOGgCJWhk/XYh/wXWRN91bGBvdSvW6A5aaRwRatE86up6FY/wq6rcnlBsK7toNiZlV8cJ
+	aFtPRuP
+X-Received: by 2002:a05:600c:4ec9:b0:4a1:7739:f9ab with SMTP id 5b1f17b1804b1-4a18e4ca953mr370896815e9.20.1792052725437;
+        Thu, 15 Oct 2026 01:25:25 -0700 (PDT)
+Received: from localhost.localdomain ([94.252.74.55])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a1bd67a080sm51822765e9.3.2026.10.15.01.25.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 01:25:24 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	LKML <linux-kernel@vger.kernel.org>,
+	platform-driver-x86@vger.kernel.org,
+	linux-hwmon@vger.kernel.org
+Subject: Re: [PATCH v6 2/3] platform/arm64: add Lenovo Yoga Slim 7x Gen 11 EC driver
+Date: Thu, 15 Oct 2026 10:25:16 +0200
+Message-ID: <179205271598.452373.17818636318443679532@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <3df5fce1-509b-1362-3b78-8f79337ebc05@linux.intel.com>
+References: <3df5fce1-509b-1362-3b78-8f79337ebc05@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28154/Thu Oct 15 08:24:22 2026)
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi,
+On Wed, 14 Oct 2026, Ilpo Järvinen wrote:
 
-Am Donnerstag, 15. Oktober 2026, 08:31:05 Mitteleurop=C3=A4ische Sommerzeit=
- schrieb Francesco Dolcini:
-> Hello Liu,
->=20
-> On Wed, Oct 14, 2026 at 08:55:21AM -0500, Frank Li wrote:
-> > On Wed, Oct 14, 2026 at 09:16:46AM +0200, Alexander Stein wrote:
->=20
-> [...]
->=20
-> > > diff --git a/arch/arm64/boot/dts/freescale/imx8-ss-dc0.dtsi b/arch/ar=
-m64/boot/dts/freescale/imx8-ss-dc0.dtsi
-> > > new file mode 100644
-> > > index 0000000000000..e94fbc6eae07d
-> > > --- /dev/null
-> > > +++ b/arch/arm64/boot/dts/freescale/imx8-ss-dc0.dtsi
-> > ...
-> > > +
-> > > +	dc0_pc: pixel-combiner@56020000 {
-> > > +		#address-cells =3D <1>;
-> > > +		#size-cells =3D <0>;
-> > > +		reg =3D <0x56020000 0x10000>;
-> >=20
-> > reg should be first property, check others, you can use
+> Thanks for the update. I've applied patch 2 to the review-ilpo-next branch
+> in the platform drivers (pdx86) tree.
 
-You are right. I'll fix.
+Thanks!
 
-> >=20
-> > https://github.com/lznuaa/dt-format/
->=20
-> We have a tool in the Linux tree, ./scripts/dtc/dt-check-style,
-> I would advise to use it and improve it if needed.
->=20
-> Documentation/devicetree/bindings/dts-coding-style.rst is the reference
-> document.
-
-Oh nice, I wasn't aware of that. Thanks for the hint.
-
-Best regards,
-Alexander
-
-=2D-=20
-TQ-Systems GmbH | M=C3=BChlstra=C3=9Fe 2, Gut Delling | 82229 Seefeld, Germ=
-any
-Amtsgericht M=C3=BCnchen, HRB 105018
-Gesch=C3=A4ftsf=C3=BChrer: Detlef Schneider, R=C3=BCdiger Stahl, Stefan Sch=
-neider
-http://www.tq-group.com/
-
-
+Oleg
