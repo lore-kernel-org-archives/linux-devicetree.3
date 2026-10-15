@@ -1,137 +1,115 @@
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3488D2C08BB
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 01:38:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5DB133939C;
+	Thu, 15 Oct 2026 01:50:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792028314; cv=none; b=RWiE1w1YvtLWku6CWYQisWMk1JFbtFqixq5lOGprBe0lnrBtT1rnQ+g8Z98vt1JtU+7YX0w2N04L0rvhJLxdaTNuoSkCLtDGL/MfjusgojAQ7IwrsHf5yZS7+2+ghVRMkL8MVzg60mTJERYoaHgMqXV7qNZHeqjea7AGvxMKXoQ=
+	t=1792029020; cv=none; b=SZBsHR3kNtLc8d1i3QjnKLe/X5mCWhb9VdqlIsOCgcv/PRzTF9h65vBfiqABOkCmjIWRotCmShrKKvtDXtG6Idiy/kHxrFdsx9Frz+oPaOaCIB1rvbX0IkF49yef5KVNz6dy1uabhCYK4tHI3ojCmR8/VlZ1asBGDgmMKktKSmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792028314; c=relaxed/simple;
-	bh=/Qgnut9+G6PGmnCXCHz/0qRV+Pfvr0slJqmidKSXVH8=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Disposition; b=mU9Mt+reYtukpICISmT8xYsRrN1+VrtYurIrz7QkM3RmKUXa6DRhVMYOTZ1VptNMEiFVzxFPF2a5IgR63HMFO5PQRexzRHZqhxf5hy+zGSDzicRhc6P/MJrIPwg8RfjWvnVKy823uiGn6y7HNuSQSS1TJwaBnrMUG8a8fUsxk/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jLDcTvu4; arc=none smtp.client-ip=74.125.82.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792029020; c=relaxed/simple;
+	bh=lqzqa6mXZFZB56ZiAqpMIdWmUh42nRNUKyxJ3d69eCw=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=ZoYQ+qGDUXB8IPZMwaUpcke0DsQwnUnYPS6IuP//crfevdXkYI5l+sj+OhF2QR7qyleizN7ERRBg23tVsOTqeFnVvf15rwhHWuJMXPJhf/p6Wj0sheqEIMs7nf8/EejeON4Hi1jaD/y3zt6EQnZ0FJckoEV6o58Lpy3RUliNI3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PGJf06ng; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jLDcTvu4"
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3514b90bb89so2647701eec.1
-        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 18:38:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792028312; x=1792633112; darn=vger.kernel.org;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=biVi8aFmQp7Egr8jmIyP2HiGBUC9LJELcNuVslQ0QHw=;
-        b=jLDcTvu4GlLenPqKYM2b3LOjBa3mCCcitaRC1KHpgVHRFLgY6U+lh5GqxdOjOAeSMZ
-         mmm41fqaAIfJxrjRFW/JlXMNgKq3KutcSbK5/nv1OEROewywV7pnmRaLZsLDZwexRde0
-         uzga7h3vawE9WH52/R1PBJVFcBuNr1fdCF1GH/rgeF/tR/+PqIR8+ce8UABklOTweAWK
-         8uyqt2he+4hjxvKgxHChhfHKfYyp5xxpfSNv1QVN+YbOxNhIrDJFafutV+TSg9kKyJoK
-         3RSvi61YLvC82yrIdoxgJzKX23kBwIasSbgnqQHp/7Kt6DvBcPdegmDYUJlNKHph/aNN
-         jpnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792028312; x=1792633112;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=biVi8aFmQp7Egr8jmIyP2HiGBUC9LJELcNuVslQ0QHw=;
-        b=TxqhPSYYFU3jV/hLr2LzU4TEOTD8H6aJ5ZD1Hp1NzmyPbOw/iob/WRevkHGDV5c6iB
-         xGj9uehOIU2OHRo/QOF/ZBa0bM5LAi8bJsiD4oR7lVend8Q7d+HiDWZpTUUGoj3Itg5l
-         T48Lhtb3WudEAUPErkvUhCLACIgWHaDhDOymH7P7vvqTtv2SlhvTDGG+Wi3xvA5G+rzI
-         xBmZ8e91YzOhXJb1XAALTpBHD2AE7BW3fjjiBS2F79T+Cc8DV6ZJ+y8NsROXOCdmBgjo
-         YdwsDFqnrR5uSYzv9tH79EAGuGoFAN/YQMK95qMXNYM85GZf0zGYPMNgWqrrglCbAldK
-         yG1A==
-X-Forwarded-Encrypted: i=1; AKwUvBxXp4OfIYRIJgbHSKB1MsH1T6ywo+iX+iHNMYNte17udp+fo/oeu1UxfJX+bK/Kl0u+uUoCv6EZTX/y@vger.kernel.org
-X-Gm-Message-State: AFq9FYIkAOU/lRBeJPv18vzNled9tNYuo2USrjR9GExmBHa6lmhO4mRG
-	UhosYbY8WKjyTzFaP1uAygTZyXjp3+SidP5vLyXKkYhOBkyVbr8hJ81l
-X-Gm-Gg: AYBFou0jRTmxpF+p4BelZGwEnW8WHtIul4ntnJKnXaBezolyNTiF1vPn3eMClZJ8Fqn
-	cV8TxBEnCrzEgnSSS255RAME8W48fwPhygd/8UiUfHmGZVvbOtotNA30bvWIKeD6VAg/vbK/WoP
-	4Uw2GbZT0oFyo3Z9MQIDYphdZxHqwEcgwX5hKjVmq8nuAegwpVGn4Df9yvU+2PLG9mFkJETltEM
-	Lor/egDO/+LfrB9CmCe1+qR7nTYJrqi4Z0r2lL924ImL9l0TwL+UWncsXWQjkydzfmfBho0Pxcf
-	FKTLJ0n5/iUlvXTq1KdigxMxMQLiknhlXntKoGkQXqLukLxqzW7b9sz0gKfAMH8hXKau978WYdF
-	ikjLMNwEnJkOgDi8HcMSDNPe75MACUjMCQUc+wxfy6QT3n9KGJSfWbuw/gGeuaw3FZ9nk1qjoXN
-	VSqqY6aa9VOu6pe6+PT6l7NoyXzgL7zC6sqPLce65arrrbjaNMxvwG6/HoD6CPV0AvMHNr1T3JY
-	3EkG75q1yg6v32FChx9zP9rrdhUl3W5CD9ZGX+yVkXvHUTo
-X-Received: by 2002:a05:7300:d209:b0:35a:47ed:c39a with SMTP id 5a478bee46e88-35a47edc590mr14634414eec.37.1792028312150;
-        Wed, 14 Oct 2026 18:38:32 -0700 (PDT)
-Received: from localhost ([2a00:79e0:2ebe:8:821:261c:74c2:4177])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca79536sm56907491eec.16.2026.10.14.18.38.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 18:38:31 -0700 (PDT)
-Date: Wed, 14 Oct 2026 18:38:30 -0700
-Message-ID: <f5d367e3847da2f3d3db0abd0a099920@gmail.com>
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Sebastian Reichel <sre@kernel.org>,
-	Ion Agorria <ion@agorria.com>,
-	=?utf-8?b?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
-	Florian Krischer <florian.krischer@fkr.dev>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-input@vger.kernel.org,
-	mfd@lists.linux.dev,
-	linux-leds@vger.kernel.org,
-	linux-pm@vger.kernel.org
-Subject: Re: [PATCH v11 6/7] power: supply: Add driver for ASUS Transformer battery
-In-Reply-To: <20261013173504.451391-7-clamor95@gmail.com>
-References: <20261013173504.451391-1-clamor95@gmail.com> <20261013173504.451391-7-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PGJf06ng"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A73B1F000C4;
+	Thu, 15 Oct 2026 01:50:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792029019;
+	bh=XqCsBBDToclNhntWS7LwgwCgD6io3q7EceQlCXtUiuU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=PGJf06ngwaQwr3biaCaU9TpAVmbFprp7n3Ipjgw+QnNJyDJ6lP8jJISWbjlWWJsTa
+	 R4RnmmLTaQliAuKDYnjo3ypOGMbGxsfj+RMFnYjUcWW3bzl9BaQ5I0esD/h9ePfMHb
+	 nRY17QRgTs9OdkABkpahY0OK4HO82/qPvVlZKtB06Mckthp7Vq/FQzBScGiNcbOZmy
+	 2P5NykZAhpS4+7brbXgufHXsK839w8P4xnvYIGRtHHfw+7oSyHH0GDGYx9pxMcL+fW
+	 9Eb+VF+d+U3mHcBgLwxvNNLOUO44ZX5amNIGycT8tAl16/mZ1Xi9XwXYcl6Y9HWqMy
+	 7zXqFugGYiDvw==
+Message-ID: <sashiko-outbox-172123@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 06/16] mtd: rawnand: sunxi: select the pattern ID for
+ the current ECC step
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "James Hilliard" <james.hilliard1@gmail.com>, "Miquel Raynal" <miquel.raynal@bootlin.com>, "Richard
+ Weinberger" <richard@nod.at>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Sebastian
+ Andrzej Siewior" <bigeasy@linutronix.de>, "Clark Williams" <clrkwllms@kernel.org>, "Steven
+ Rostedt" <rostedt@goodmis.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>
+Cc: "Chen-Yu Tsai" <wens@kernel.org>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Samuel
+ Holland" <samuel@sholland.org>, "Maxime Ripard" <mripard@kernel.org>, "Richard
+ Genoud" <richard.genoud@bootlin.com>, "Boris Brezillon" <bbrezillon@kernel.org>, "Masahiro
+ Yamada" <yamada.masahiro@socionext.com>, "Brian Norris" <computersforpeace@gmail.com>, linux-mtd@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-rt-devel@lists.linux.dev, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261014-submit-sunxi-nand-vendor-oob-layout-v1-v7-6-5d3fc6ad2da1@gmail.com>
+References: <20261014-submit-sunxi-nand-vendor-oob-layout-v1-v7-0-5d3fc6ad2da1@gmail.com>
+ <20261014-submit-sunxi-nand-vendor-oob-layout-v1-v7-6-5d3fc6ad2da1@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 15 Oct 2026 01:50:16 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
-Hi Svyatoslav,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] mtd: rawnand: sunxi: PIO mode overwrites zero pattern with SRAM =
+garbage
+--
 
-On Tue, Oct 13, 2026 at 08:35:02PM +0300, Svyatoslav Ryhel wrote:
-> +static int asus_ec_battery_get_property(struct power_supply *psy,
-> +					enum power_supply_property psp,
-> +					union power_supply_propval *val)
-> +{
-> +	struct asus_ec_battery_data *priv = power_supply_get_drvdata(psy);
-> +	int ret;
-> +
-> +	switch (psp) {
-> +	case POWER_SUPPLY_PROP_PRESENT:
-> +		val->intval = 1;
-> +		break;
-> +
-> +	default:
-> +		ret = asus_ec_battery_get_value(priv, psp);
-> +		if (ret < 0)
-> +			return ret;
-> +
-> +		val->intval = (s16)ret;
-> +
-> +		switch (psp) {
-...
-> +		case POWER_SUPPLY_PROP_TIME_TO_EMPTY_NOW:
-> +		case POWER_SUPPLY_PROP_TIME_TO_FULL_NOW:
-> +			val->intval *= 60;
-> +			break;
+commit 6c354ef3bc88ac95cdf40b092e5c146de75aa789
+Author: James Hilliard <james.hilliard1@gmail.com>
+Subject: mtd: rawnand: sunxi: select the pattern ID for the current ECC step
 
-asus_ec_battery_get_value() returns a u16 (via get_unaligned_le16()), and
-unconditionally casting it with (s16)ret sign-extends unsigned 16-bit
-properties >= 0x8000 into negative values.
+This commit fixes the pattern-ID register check during ECC exception mode.
+It updates the correction helper to test the bit corresponding to the
+current hardware step rather than always checking bit zero, which ensures
+DMA processing classifies physical all-zero and all-ones data blocks
+correctly.
 
-In particular, when the battery is not discharging or not charging,
-TIME_TO_EMPTY_NOW / TIME_TO_FULL_NOW report 0xffff, which (s16)ret turns
-into -1 and then -60 seconds instead of an unsigned value (or -ENODATA).
-Should only signed properties (like POWER_SUPPLY_PROP_CURRENT_NOW) be cast
-to s16?
+> diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/sun=
+xi_nand.c
+> index 57df88099206a..8256982d1d565 100644
+> --- a/drivers/mtd/nand/raw/sunxi_nand.c
+> +++ b/drivers/mtd/nand/raw/sunxi_nand.c
+> @@ -1101,7 +1101,7 @@ static int sunxi_nfc_hw_ecc_correct(struct nand_chi=
+p *nand, u8 *data, u8 *oob,
+>  	if (pattern_found & BIT(step)) {
+>  		u8 pattern;
+> =20
+> -		if (unlikely(!(readl(nfc->regs + NFC_REG_PAT_ID(nfc)) & 0x1))) {
+> +		if (unlikely(!(readl(nfc->regs + NFC_REG_PAT_ID(nfc)) & BIT(step)))) {
+>  			pattern =3D 0x0;
 
-Thanks.
+[Severity: Medium]
+When the pattern is identified as 0x0, the *erased out parameter remains
+false. Later in sunxi_nfc_oob_read_batch(), the code checks this boolean
+and handles PIO mode (!read->dma) by copying directly from SRAM:
 
--- 
-Dmitry
+sunxi_nfc_oob_read_batch() {
+    ...
+    if (erased) {
+        read->has_erased_chunk =3D true;
+        continue;
+    }
+
+    if (!read->dma)
+        memcpy_fromio(data, nfc->regs + NFC_RAM0_BASE, ecc->size);
+    ...
+}
+
+If scrambling is enabled for a physical all-zero block read in PIO mode,
+will this memcpy_fromio() overwrite the valid zeros populated in
+sunxi_nfc_hw_ecc_correct() with descrambled pseudo-random garbage from
+the SRAM?
+
+It appears this regression leaves PIO broken while fixing DMA zero
+pattern reads.
+
+>  		} else {
+>  			pattern =3D 0xff;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014-submit-sun=
+xi-nand-vendor-oob-layout-v1-v7-0-5d3fc6ad2da1@gmail.com?part=3D6
