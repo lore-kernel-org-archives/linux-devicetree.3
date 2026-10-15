@@ -1,86 +1,114 @@
-Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-182.mta0.migadu.com [91.218.175.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC3D94DA9B1;
-	Thu, 15 Oct 2026 22:39:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E32AD449B17
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 23:53:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792103961; cv=none; b=eV0UODhPrLf3Tnjmxdr5N+5LPgKyEHZ29LKL2lrEYaWOuOTCpj4c7LU1enm3l64z5zPmH6zxeOrAIWofrjlaffjj7N2RQRneG/G4AnfxMwDXSIi5DIjS36ZsP0m4bkOdpz0oRa4VWi5KWdkNKtBxqw9OB90rVzL+/i6NghDuILQ=
+	t=1792108408; cv=none; b=KBG923Wpxywy9CAFOU8Mz8wsTKHngOZJERauYGDNK1TIiSMVr16mndzUW6dmLa7EpBx7p5YM6GbOuonAUOHmM5EFlKj3VzLKwx8vdu0zSzzfJhI8whSrGp7QhG/WCM2DpIB/6sbSfSHTj6FGWdByP7eHPFz2ec3sHs0YBXkvO48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792103961; c=relaxed/simple;
-	bh=1zNb440uYDnmlPCW9U13QGfWctFPuHMsxgLI6Gvd55s=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=PqxOHNA4vzJBrfk77kHIKJH6JIOeS6qFjEICfbG5ThL4Pvnop480a2WdvEhIfAoUDY12cM9nSgovqQ1SGhiUOHSwTzxYwEdC0ygwoNgbGSUM97u8l6aNotA9Y2gOMDPbMSHIX8ZY9QRQvr7ocrgGegtp6k91gwPa6O0LIWYPg30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=none smtp.mailfrom=linux-m68k.org; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=jczU2LGf; arc=none smtp.client-ip=202.12.124.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux-m68k.org
+	s=arc-20240116; t=1792108408; c=relaxed/simple;
+	bh=FUpPXYfowSCUWW1Ifzz/TsytpfqsjiAGpIISXAFBqd8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ihvb8s05vc/AClU4LcWuwtU51q5qynUVoP+Dz3oM5llM25yg2Rbifynt79G/0nDKJaboL1gZjGQaTR8lNMDAQvmf2H2CdBLT8a4gjI6dQFEh+GW+PRmPO6KHRXcDfnxRxWa5kIn/pY5gQVuDCTYZgaDlXDTrQ/YYSdsNXKELIL8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=m0opDYTn; arc=none smtp.client-ip=91.218.175.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="jczU2LGf"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.stl.internal (Postfix) with ESMTP id 219D21D00163;
-	Thu, 15 Oct 2026 18:39:17 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Thu, 15 Oct 2026 18:39:17 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1792103956; x=1792190356; bh=MsfOp++XQVnQkLbK18NW8Z38dECPaCnvO7c
-	7zOmRFhY=; b=jczU2LGfvD+IdqR+PHiOZvcox0pEaB9mNCATpyjHYNqxU6Vb0j/
-	4+dWVLC2XFkFSfhZ/msB8kwFfxd9CXhPufJGtRJCJ9aar0Cd0yM2W20SkltldWAf
-	UHaxm9QUTg1QK4CW1GzIqZumfeH8FY9JhQ5GqutXKq+We/XuAEe5vANAe15htpiS
-	3M1bui+gzl8rBOrNsg/3Co3kimRCf0FDk0z7J0NxHhi2SeeqQuy7aKwuUSNzcC2+
-	mBKAw6xHubM1+8iLgpHeozmrgMHGDNP2XCwQC9p/RQ/0bqDRZR5xrCUqJI+BbsJa
-	w3oa13ErDKlzCFjPIHMHBpOe3XeDCeZQdFg==
-X-ME-Sender: <xms:FFbRas1DI_UdlcJbKHepmVN0XVgeFViwA7fKZ5FM4Y4gxgSykeqhKw>
-    <xme:FFbRaiArGuX4x9WdsB10Ii2PrHcogov-uhUJZMQociPn5_QFxoxrR85TD6rAVQ9EX
-    L3Nv-6LyPEtLNu2j8Fap6PKHU_tjNZIiciTDppqctvnsaU3sV6akCE>
-X-ME-Received: <xmr:FFbRaj6Ta55mHKNVo_9D_W0qhTuGByVI4yPQXhd6sNSTnMUJAUk8qUS7q3l4mpqp-fgQK87GbLgK5AtY-A3D7A6vOdGatJdbRjw>
-X-ME-Proxy-Cause: dmFkZTFlmHkCW3pF+j72AbU606l03hO4kL46oa1JkZipyDZBixMVJFW9+wwe4Agpip7l1A
-    btZ8CPYWQYbbpAgoHOU8pylFd5tbDCm+TNjZC67YQEjXP5H6KHAYLpTLhbUkEu6AQQOu3x
-    HdxdixDlnluhf3dCJ7V+jxgbsNpuW8/rLjKMUyIKy1KTTKvNem7xsn1ESmoaygULyYbpVo
-    NbOFamtCsItJLDPpGYqE89MjEex7OqVWRYJQmcywG1lwmiprUjCfcBbwmdzm02EO1i9Lnl
-    jznCDw4BlbvobR/2+oY9tFdKds1iqO8BEnRukKdIrGH8nIJ69Vr1SBGMcIt7HjXWk2T7Hg
-    28Jnk1zf64PKIhIuGsyxIwfpRkbfFonSvAwtO/atsRMiN5RXYMt1+IyXEHndKbZorddOCu
-    dKvME7bUY32mz5dRpAwjW7FZxgK9n1L+p+Y2kz4DOHux6rHA1Cb7ICC+tUpe84NgBDJBTI
-    xnIaR4vWv5EX3avFCkTP6XsGxakkL3Dl8e7J3/saRm6/PF279lZtu9FTfbUtAeRITCNCdU
-    YeWvxUZLlhQEr2rqr3JodFHOaxu4P1W2xroYOY+4d416RghmpdDIpyEtf6XvjfocB6PQJ0
-    Zxii1ZDWHoyhRJcfzFNa+e0IPNpwh7p2swbc9un6AN+14Avdx3QnAFq825Bg
-X-ME-Proxy: <xmx:FFbRarJpDZr-VStogePh6qF859VcLVIUqWx4Et7rP9EKUY4yKpNvcg>
-    <xmx:FFbRasvIB1yfIeY_EX46x0W_ZrJxx_hdWPs7hZYYcnJIoQ0PQ6ZdDg>
-    <xmx:FFbRaqJOiuGu94ilEhVwphZ-Pq-ED_P2XKpyaeQFI73s6DAC3n-aAA>
-    <xmx:FFbRal_blYuMelA5oTw0gOMMQkNAyvQoe2v9whnCLDTMm0aLyzfKmQ>
-    <xmx:FFbRagXF3v9cHW-35rTaH8lPPcOkYu8zSRqdHjdhJDBMl13ngI5WAey6>
-Feedback-ID: i58a146ae:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 15 Oct 2026 18:39:13 -0400 (EDT)
-Date: Fri, 16 Oct 2026 09:39:15 +1100 (AEDT)
-From: Finn Thain <fthain@linux-m68k.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-cc: Greg Ungerer <gerg@linux-m68k.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
-    linux-m68k@lists.linux-m68k.org, linux-serial@vger.kernel.org, 
-    devicetree@vger.kernel.org
-Subject: Re: [PATCH 4/5] dt-bindings: serial: create binding for mcf-uart
-In-Reply-To: <CAMuHMdUcGt7RBc0d1A-8O1Dt71RL=epPgmnetj_4NGCPvCj9LA@mail.gmail.com>
-Message-ID: <c0fd5f48-4490-2901-593c-8d9d029dfe1a@linux-m68k.org>
-References: <20261013120831.1046590-1-gerg@linux-m68k.org> <20261013120831.1046590-5-gerg@linux-m68k.org> <20261014-expensive-shrewd-nautilus-abcab6@quoll> <d256f39c-6ed5-409a-a7ed-224165d00521@linux-m68k.org>
- <CAMuHMdUcGt7RBc0d1A-8O1Dt71RL=epPgmnetj_4NGCPvCj9LA@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="m0opDYTn"
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=FUpPXYfowSCUWW1Ifzz/TsytpfqsjiAGpIISXAFBqd8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792108404; v=1; x=1792713204;
+ b=m0opDYTnqBJ9MFsVUPfK4U7gZDDrCZWKz1DTTfcnHBCwCByMolybO5hRl2+oYIHAoeLX6p32
+ F9IXfBwenRcGBRu0zF7B1mMkT0TtMWq6PvvrXb1LpQ54MzKmcGpTkOjOZow9PO+9cugJis1moIb
+ QNIe8D2XgSdFScvtDYmR8Th8=
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ba4637d7c08d0e1a;
+	Thu, 15 Oct 2026 23:53:24 +0000
+X-Mizu-Trace-ID: ba4637d7c08d0e1a
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <7033a6bb-333f-4734-a3be-42b3f943d31a@linux.dev>
+Date: Fri, 16 Oct 2026 07:53:15 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] nvmem: Add Sophgo SG2044 eFuse driver
+To: Inochi Amaoto <inochiama@gmail.com>,
+ Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: devicetree@vger.kernel.org, sophgo@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+ Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
+References: <20261014074516.240247-1-inochiama@gmail.com>
+ <20261014074516.240247-3-inochiama@gmail.com>
+ <fa4253c7-3b17-4b20-97b9-eb37f218a4c8@linux.dev>
+ <atCV8NsJc5Oatoo0@inochi.infowork>
+From: Chen Wang <chen.wang@linux.dev>
+In-Reply-To: <atCV8NsJc5Oatoo0@inochi.infowork>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
-On Thu, 15 Oct 2026, Geert Uytterhoeven wrote:
+On 10/15/2026 5:03 PM, Inochi Amaoto wrote:
+> On Thu, Oct 15, 2026 at 02:43:40PM +0800, Chen Wang wrote:
+>> Hello,
+>>
+>> On 10/14/2026 3:45 PM, Inochi Amaoto wrote:
+>>> Sophgo SoCs such as SG2044 contain eFuses used to store
+>>> factory-programmed data.
+>>>
+>>> As for SG2044, HW automatically loads the eFuse content
+>>> into shadow registers which are organized as 32bit values
+>>> exposed as MMIO.
+>>>
+>>> Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+>>> ---
+>>>    drivers/nvmem/Kconfig        |  12 +++
+>>>    drivers/nvmem/Makefile       |   2 +
+>>>    drivers/nvmem/sophgo-efuse.c | 176 +++++++++++++++++++++++++++++++++++
+>>>    3 files changed, 190 insertions(+)
+>>>    create mode 100644 drivers/nvmem/sophgo-efuse.c
+>>>
+>>> diff --git a/drivers/nvmem/Kconfig b/drivers/nvmem/Kconfig
+>>> index c36c2a4c2a0b..a7936dd65bdd 100644
+>>> --- a/drivers/nvmem/Kconfig
+>>> +++ b/drivers/nvmem/Kconfig
+>>> @@ -465,6 +465,18 @@ config NVMEM_SNVS_LPGPR
+>>>    	  This driver can also be built as a module. If so, the module
+>>>    	  will be called nvmem-snvs-lpgpr.
+>>> +config NVMEM_SOPHGO_EFUSE
+>>> +	tristate "Sophgo eFuse support"
+>>> +	depends on ARCH_SOPHGO || COMPILE_TEST
+>>> +	default ARCH_SOPHGO
+>>> +	help
+>>> +	  Say y here to enable support for reading eFuses on Sophgo SoCs
+>>> +	  such as the CV1800B. These are e.g. used to store factory programmed
+>> Why is "CV1800B"?
+>>
+> This is an old mistake, this patch follows Jishengs's patch in the first
+> design. But then almost everything changed and only thing for SG2044 left.
+> This is the thing that is left to change.
+>
+> I am not sure whether it should keep this generic name as I see it should
+> be compatible for most sophgo SoCs (at least it should be for CV1800X,
+> by just change offset). Feel free to give if you have some suggestion for
+> a better name
 
-> 
-> An "mcf" vs. "motorola" vendor prefix might still be a discussion point ;-)
-> 
+I raise this point because the subject of your patch indicates it is 
+intended for the SG2044.
 
-Motorola Solutions is still trading under that name. Sure, that entity is 
-unrelated to the Coldfire silicon presently marketed NXP, but I would not 
-presume that Motorola Solutions has no interest in this namespace.
+If you are simply using it as an example （"such as ..."）, then 
+specifying "SG2044" is sufficient, even though, based on your current 
+explanation, it would also apply to other Sophgo chips, such as the CV1800X.
+
+>
+> Regards,
+> Inochi
