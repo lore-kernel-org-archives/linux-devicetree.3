@@ -1,69 +1,68 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33BE0545DAD
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 15:57:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 632F053FD24
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 15:57:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792079887; cv=none; b=BGF6BWOvCHQ5kj69sukgR2jswM6ks3KrbBc9TKgHs7Ugd17QlCQVVUKR5y8n0Lyve4/zCT9RJVWmfY3M7VciN+JavhRoYDZNuHhrtBeTWrcka4sSE3bAzy7QK/Bhsr4eCsRw4FUeWvdq/FGaLOiTEc21d+mBbPbDhzFEGpcum6M=
+	t=1792079888; cv=none; b=IYmgaBDJU0VIxLwE6bJM5liqMlEAzCM9qxMiiPX6k6jBd1xzq49MSfYr23r7gOWkPspQwAQqN0/8DGLHtiikcT89emCYqMYxp7IweTJj0b+klxbSn57kQ7zXCFn+EfuWwm7sRfQEZ7IpTb0hNTaBOgJbP6T+jwPdypy0TvdNkUU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792079887; c=relaxed/simple;
-	bh=eoAGtS5XufptMdU0CaNJ2RLnJ3OeUveINEeLfNUGNhQ=;
+	s=arc-20240116; t=1792079888; c=relaxed/simple;
+	bh=WzSHl5a/H3/js9LTMTbl8ld/1JpeiIURXE0YgudYnNo=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kOTSuTk+uWlJ3P1MtrF5nkmDTcIwttuZEA9fsyynNoDmNPxCHhC4L8Dai3Okxs9T+6WwFHvhcPk2uPOfxEtUM5t/h5YQGmOAGDI4qxIbcQHbky1okBqvtHa7FInk/rhoJtPsC4j8bek+2zsdGYeB7MQO10g9st9qyhdKn14TDfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=oHLneqUv; arc=none smtp.client-ip=209.85.221.49
+	 In-Reply-To:To:Cc; b=I7UfgRNgE2HG36kT9PdUDT81rNZ7mFekCwHoP5sZE5ZDwVs6IVBTpMHttbcAMv42a0g8fY76GH5Kre+mIwFTzRFtgM+akVf0yGHY4Z6oyWjV0SpUWoostKqS9HaQcpuiJQJU/trnQo5feN915FSjyPeXQSg96qrb7Yrh07piZcc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=VaQxSVfC; arc=none smtp.client-ip=209.85.221.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="oHLneqUv"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48b0d19cf7eso96352f8f.1
-        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 08:57:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="VaQxSVfC"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48b060ec084so3580326f8f.0
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 08:57:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1792079861; x=1792684661; darn=vger.kernel.org;
+        d=raspberrypi.com; s=google; t=1792079866; x=1792684666; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GS5ZrpkB0RsyL8XlpuODb/jKxfXfcHSKNBqSqEyqBwU=;
-        b=oHLneqUvgFcAAVJYnGOPYU+8LqW5kh4Ims4gj5H8w4dKvuPc8Attsleqg6tRsellfp
-         2RGqERUemPMW9Zr4FfCRcrQfe2/iztE+EiFTPeG3wkf49iR6SXTfv7UfFJ5+BRWsLuJH
-         XA+iRFMjzXLIyANj8bmr9h5stGLMdW7Y+gAMhNOJLxqu43xGVFtJtFtAZAQhGpJvB78E
-         pTPaiTSN8BR3M1JRpJoKZ3b0CeCZtt7WF08TkstWpv0vqpuVUyiny6pABYprQ4KlR1vp
-         9JdyMaypvTzdz5QpBD4h5b/IlQv9wH/qphmeLCBuLMZ3nPTTmFm34sGimPK9vR8VYRxx
-         7h+Q==
+        bh=RO/skbJbno3lgmcwBPXIqDfSZdYNz13tL9r2MUMGxaE=;
+        b=VaQxSVfC+jeB28fPXmVh9hg35errO3WnOqdKN8MejbqmlPGohBikitpINRHnI6oTVG
+         yOJui5wzENkF3E5Y+qvjcF4lMhPAJFZ8tJ89Q54t0CvbdnG/BRryUJDTxac4gvcaoXcy
+         UwoQmNEX8x6rO1xYduXu4BHExyffAJwcrUwsIHYoQgNOWVPFJS7j03iOfDEKP3nD8Kga
+         DEVBE1W4Tr5lqK64QCzBDt5VmDfUuquqqQgtvi94du8mZwe9LMc3BlysnAoybELPhWPd
+         p9yanZTq15M4sd2WU1PLLTOr6EOWoPbEI9ijxxvQ+CtyeBIj63Jf9WdfyinmGh7SimQ8
+         IlKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792079861; x=1792684661;
+        d=1e100.net; s=20260707; t=1792079866; x=1792684666;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=GS5ZrpkB0RsyL8XlpuODb/jKxfXfcHSKNBqSqEyqBwU=;
-        b=HJd0VgJ2bKCAntA/E63KaSzm+3K+J1rAMDGyOb6nCdQcYRl6T50NbNSIH0naWo+fo1
-         +neBd6YDTSQ9HzeiQPdzVicb7A+RJw0mwt89ycusqQWYIHoUfI8osLsxv8iyhf5zqprR
-         3ztVQX3hd5/lrZlBJvkiTLsNIAdagNldaNTqeNHtronyTMKYZdgtr+5U8jL5FfRIuDSu
-         rrSTgabgTpduVsu1KRlz24kQ7HTulxIrOjl7z8vNgXkrTa9JNFPF/jPUL4FiyYA5X1j8
-         DyxSodE+bS3yh8m+tsJtKNflzlMuP2+BUGiwq3nAlk3po9e15ZEVxatSTgY/oBvvcNrK
-         nbrg==
-X-Forwarded-Encrypted: i=1; AKwUvBxIl5/f0g5z2O9Bh6gK2p8ZAHOYpDtpaThprZxjVzXXUEd7Zu+jVOp43ldMirebQeqnPTCDEO0GsThl@vger.kernel.org
-X-Gm-Message-State: AFq9FYIohz6HrFUyCpjar6mKuOHUiJWzZrvPQAff9ngXbtBM6APKVvh2
-	qKHvlItXCllM6M4m212VM4hB2z1KWx52WiM3FX3vLoRo8XTjwfSpsZ9fmGmInvRfERk=
-X-Gm-Gg: AYBFou11l+7s3tu43K3kcmgS6hVAkyO/3mYEh0y2+eBaxME+xC5T0JNv6C2Qch+gBH9
-	DfZbi9zQyBREp4YhllpZyF1fyb988mejLwIP25hkcqrU8GYczbjJPpmKWnooAQbPZHqmdRWssuk
-	xizrLYpOFt9bP7dfq8usMrFGhoCavcFeaqhHoVak6lxm/kK5z2HnH9xJhVnpRKOxlOGM6q5FQGf
-	HjIrmCxAU9WeL7H/QGDf4pJN2mlsRHZ+hXryEGFtX0EAWcDI3dQ1A9Sy2bf4OCOWb9Uw0A1Wybq
-	TvZ4SJkgNWtYpW7tR4SGl0vJJOT+Vkk50SRExktIQZdlMt0DNz0L4UvSw8GBugEDQNIecg5Bjdw
-	777RGB6Wpn1ahH+32HzI2jMOty8Fiw/s7QE64eDl/vh8EKHh/jEYuJCsEhqos9qToX5LuPp0VnP
-	5Cv6OsCr5cAwRTP6U7NvNGjURDK65EGj5B429upPvWgy62Yrl9Xb7xOEZoh2iHLhJBkKYEI4Pm9
-	/o1H7zQHaRYPHikfLcsEPm5J3T/pvai/HXoMZaIbadRb+j6Jw==
-X-Received: by 2002:a05:6000:26cc:b0:48d:fbd8:d598 with SMTP id ffacd0b85a97d-48dfbd8d5afmr390659f8f.17.1792079860981;
-        Thu, 15 Oct 2026 08:57:40 -0700 (PDT)
+        bh=RO/skbJbno3lgmcwBPXIqDfSZdYNz13tL9r2MUMGxaE=;
+        b=FHv166G+Row9ot25QP2VOIpEpvp55jLBEs308ObLcJzVbLuV8XAzP59046bCAn2w8K
+         BzP82kUptQ/TFyO8adUs2nX6Y+MItm8PZGfc6NYEmzKoCeEiKkW4yDj1msEcjRENZLlS
+         eY7VAj6YncvQKuFivLst7Imw//SFOQA9GntYPQRASejh30R5IkXrxE6QcHIvmucwEaJx
+         P3Wg1J6AUr6AEBmnZYTSPkbi/faQTwRA+u7JX6FLMG2I8lW3Rg+mZotQrXHcmpgd2fix
+         HWuNxJGyPQLYob2wE8MEUXVn79VCL8sSTopCKfQDaRS5/APDL9LP5aYaiQtvIqi7rP7y
+         M9rA==
+X-Forwarded-Encrypted: i=1; AKwUvBznRPKoxv6PqofAw5FzPz93co7Sr76SLfzfG+Pj44gciwlhFx2dn8xNKoXaXav0BLDBtZfe2C13RRAf@vger.kernel.org
+X-Gm-Message-State: AFq9FYLOvxn2BNZjG5YCyDDE2VoG5AumDwbmq64PKNwsNl9GJCUxwzSz
+	FikjlTcxYAcCHEmPx5Hh8HxW9pBiM8qhPmYF1cPR25sMpzJCf6FgJLC/PRowguq02fY=
+X-Gm-Gg: AYBFou1WrZpMd8bGeBs575MN6DopvpkSB98UScUmd8APlpRvCLpIT0uzcuaTZAZoY5J
+	4wQU6D0Ims/DP/C2ig0GuPuSGyU4Huv6DhZ2JTnGBOJHsnPxCHJoNyAYKiBmFIyrjt4vAJac/17
+	JxnSjpIx7vEzp57yUN8KQQoWY1aZOROPNF1iQjHmm3XE4OukJSQnLjFMcKQxNP0er3YTJIcPNBv
+	KS0Op2LfbasuPrpIW/0VSnFcAH6lZ0T4gGv/nr6TxpjweSD1dJkAIXtcy/tP9Xm1X/9b3RJh6z+
+	s8wuWXmfGDU/jJL2elW3D4T/9dYaNuyEfKF7dbdUQiFUEHywRHmouhj6uwe4dpzT9YM6WFT9ZUz
+	RvYR46Jh1KsTpKv1l7uz7d05+spnKoBtJKI2m0c7XiixMdU9RBYyYTl/sMyQRrmA7EaqjbT/OOk
+	OMS6fnSZrdQ21VGw2T63kRxEhZLeJS7Yk3Qa0FlJk6GkRtStVLWC7fmeDTKP0oDI3wnh9bpRKia
+	FWA+c82d5MivPASIISKRJ/+q9viFvKSC/U7F/+lh2xnrv2neg==
+X-Received: by 2002:a05:6000:2610:b0:48b:60a:760c with SMTP id ffacd0b85a97d-48dbacdbca4mr39528635f8f.31.1792079866485;
+        Thu, 15 Oct 2026 08:57:46 -0700 (PDT)
 Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48de0aaaaebsm19877251f8f.14.2026.10.15.08.57.40
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48de0aaaaebsm19877251f8f.14.2026.10.15.08.57.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 08:57:40 -0700 (PDT)
+        Thu, 15 Oct 2026 08:57:45 -0700 (PDT)
 From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Thu, 15 Oct 2026 16:57:31 +0100
-Subject: [PATCH v4 05/16] media: sony-starvis2: Rework 2 lane support for
- higher link freqs
+Date: Thu, 15 Oct 2026 16:57:35 +0100
+Subject: [PATCH v4 09/16] media: sony-starvis2: Use pm_runtime_autosuspend
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,7 +71,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-media-starvis2-v4-5-75fcdb4163f3@raspberrypi.com>
+Message-Id: <20261015-media-starvis2-v4-9-75fcdb4163f3@raspberrypi.com>
 References: <20261015-media-starvis2-v4-0-75fcdb4163f3@raspberrypi.com>
 In-Reply-To: <20261015-media-starvis2-v4-0-75fcdb4163f3@raspberrypi.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
@@ -86,94 +85,71 @@ Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  devicetree@vger.kernel.org, Dave Stevenson <dave.stevenson@raspberrypi.com>
 X-Mailer: b4 0.14.1
 
-With some Starvis 2 sensors, the link frequency on 2 lanes is sufficient
-to achieve a lower line time than the 4 lane value divided by 2, as
-the 4 lane value hits the minimum that the pixel array can handle.
-That can't easily be handled with the way the values are currently stored.
-
-Storing the 2 lane hmax alongside the pixel array's minimum allows the
-4 lane support to divide the value by 2, and then clip to the pixel
-array value as a minimum.
+In order to reduce the time in stopping and restarting
+streaming, use pm_runtime_autosuspend so the sensor
+isn't powered down.
 
 Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 ---
- drivers/media/i2c/sony-starvis2.c | 34 ++++++++++++++++++----------------
- 1 file changed, 18 insertions(+), 16 deletions(-)
+ drivers/media/i2c/sony-starvis2.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/media/i2c/sony-starvis2.c b/drivers/media/i2c/sony-starvis2.c
-index 189caac78066..0edb0b4dd25f 100644
+index 49dcbda9ecdd..dce150304dc6 100644
 --- a/drivers/media/i2c/sony-starvis2.c
 +++ b/drivers/media/i2c/sony-starvis2.c
-@@ -176,15 +176,15 @@ static const u64 link_freqs[] = {
- 	[STARVIS2_LINK_FREQ_1188MHZ] = 1188000000,
- };
+@@ -858,7 +858,7 @@ static int starvis2_set_ctrl(struct v4l2_ctrl *ctrl)
+ 		break;
+ 	}
  
--static const u16 imx678_min_hmax_4lane[] = {
--	[STARVIS2_LINK_FREQ_297MHZ] = 1584,
--	[STARVIS2_LINK_FREQ_360MHZ] = 1320,
--	[STARVIS2_LINK_FREQ_445MHZ] = 1100,
--	[STARVIS2_LINK_FREQ_594MHZ] =  792,
--	[STARVIS2_LINK_FREQ_720MHZ] =  660,
--	[STARVIS2_LINK_FREQ_891MHZ] =  550,
--	[STARVIS2_LINK_FREQ_1039MHZ] = 550,
--	[STARVIS2_LINK_FREQ_1188MHZ] = 550,
-+static const u16 imx678_min_hmax_2lane[] = {
-+	[STARVIS2_LINK_FREQ_297MHZ]  = 3168,
-+	[STARVIS2_LINK_FREQ_360MHZ]  = 2640,
-+	[STARVIS2_LINK_FREQ_445MHZ]  = 2200,
-+	[STARVIS2_LINK_FREQ_594MHZ]  = 1584,
-+	[STARVIS2_LINK_FREQ_720MHZ]  = 1320,
-+	[STARVIS2_LINK_FREQ_891MHZ]  = 1100,
-+	[STARVIS2_LINK_FREQ_1039MHZ] = 1100,
-+	[STARVIS2_LINK_FREQ_1188MHZ] = 1100,
- };
+-	pm_runtime_put(&client->dev);
++	pm_runtime_put_autosuspend(&client->dev);
  
- struct starvis2_inck_cfg {
-@@ -631,7 +631,8 @@ struct starvis2_variant {
- 	const struct cci_reg_sequence *common_regs;
- 	unsigned int num_common_regs;
- 	unsigned int vmax_default;
--	const u16 *hmax_min;
-+	const u16 *hmax_min_link_freq;
-+	u16 hmax_min_pixel_array;
- };
+ 	return ret;
+ }
+@@ -1046,7 +1046,7 @@ static int starvis2_enable_streams(struct v4l2_subdev *sd,
+ 	return 0;
  
- static const struct starvis2_variant imx678_variant_def = {
-@@ -656,7 +657,8 @@ static const struct starvis2_variant imx678_variant_def = {
- 	.common_regs = imx678_common_regs,
- 	.num_common_regs = ARRAY_SIZE(imx678_common_regs),
- 	.vmax_default = 2250,
--	.hmax_min = imx678_min_hmax_4lane,
-+	.hmax_min_link_freq = imx678_min_hmax_2lane,
-+	.hmax_min_pixel_array = 550,
- };
+ err_rpm_put:
+-	pm_runtime_put(&client->dev);
++	pm_runtime_put_autosuspend(&client->dev);
  
- struct starvis2_model_info {
-@@ -1203,11 +1205,8 @@ static const struct v4l2_subdev_internal_ops starvis2_internal_ops = {
- static int starvis2_init_controls(struct starvis2 *starvis2)
- {
- 	struct v4l2_ctrl_handler *ctrl_hdlr;
--	const u32 hmax_4lane =
--		starvis2->variant->hmax_min[__fls(starvis2->link_freq_bitmap)];
--	const u32 lane_scale =
--			starvis2->lane_mode == STARVIS2_LANEMODE_2L ? 2 : 1;
- 	struct i2c_client *client = v4l2_get_subdevdata(&starvis2->sd);
-+	const struct starvis2_variant *variant = starvis2->variant;
- 	struct v4l2_fwnode_device_properties props;
- 	struct v4l2_ctrl *link_freq;
- 	s32 hblank, max_hblank, vblank, max_vblank;
-@@ -1224,7 +1223,10 @@ static int starvis2_init_controls(struct starvis2 *starvis2)
- 		return ret;
+ 	return ret;
+ }
+@@ -1069,7 +1069,7 @@ static int starvis2_disable_streams(struct v4l2_subdev *sd,
  
- 	starvis2->vmax = starvis2->variant->vmax_default;
--	hmax = hmax_4lane * lane_scale;
-+
-+	hmax = variant->hmax_min_link_freq[__fls(starvis2->link_freq_bitmap)];
-+	if (starvis2->lane_mode == STARVIS2_LANEMODE_4L)
-+		hmax = max(hmax >> 1, variant->hmax_min_pixel_array);
+ 	__v4l2_ctrl_grab(starvis2->link_freq, false);
  
- 	/* PIXEL_RATE is fixed and read-only */
- 	v4l2_ctrl_new_std(ctrl_hdlr, &starvis2_ctrl_ops, V4L2_CID_PIXEL_RATE,
+-	pm_runtime_put(&client->dev);
++	pm_runtime_put_autosuspend(&client->dev);
+ 
+ 	return ret;
+ }
+@@ -1448,6 +1448,8 @@ static int starvis2_probe(struct i2c_client *client)
+ 
+ 	pm_runtime_set_active(dev);
+ 	pm_runtime_enable(dev);
++	pm_runtime_set_autosuspend_delay(dev, 1000);
++	pm_runtime_use_autosuspend(dev);
+ 
+ 	ret = starvis2_init_controls(starvis2);
+ 	if (ret)
+@@ -1495,6 +1497,7 @@ static int starvis2_probe(struct i2c_client *client)
+ error_pm_runtime:
+ 	pm_runtime_disable(&client->dev);
+ 	pm_runtime_set_suspended(&client->dev);
++	pm_runtime_dont_use_autosuspend(&client->dev);
+ 
+ error_power_off:
+ 	starvis2_power_off(&client->dev);
+@@ -1516,6 +1519,7 @@ static void starvis2_remove(struct i2c_client *client)
+ 	if (!pm_runtime_status_suspended(&client->dev))
+ 		starvis2_power_off(&client->dev);
+ 	pm_runtime_set_suspended(&client->dev);
++	pm_runtime_dont_use_autosuspend(&client->dev);
+ }
+ 
+ static const struct dev_pm_ops starvis2_pm_ops = {
 
 -- 
 2.34.1
