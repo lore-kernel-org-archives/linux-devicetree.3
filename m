@@ -1,344 +1,456 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 548EE4A7C8B
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 08:03:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF6BD4AB1AF;
+	Thu, 15 Oct 2026 08:06:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792051429; cv=none; b=Rc3QFWQzO8hJM3S1Hi6msZQEMFUbzKqSg7pdTX6Dv9/zDuiJXrSCDIOHIscLDCNpuvCf+DRungSQXFnMCGVPX9KuXAcyQN/xFvL8lp65tuKKb+oLlc0p/jtpqsaaBTcmZdDODta7KomxTChxVTRzF5Kb9RDiTor5ua0yS18or3c=
+	t=1792051568; cv=none; b=ZKCgo1EUpksZdkdStUU6PPjyib0QNoz9QCy8gMtjb6ee/nmyaT2038Io2aHkHZ4RYrDuqtGfVFkDNxjvSWFvZ6OLPXcFH3PhjpxEf/NOie+etgDU9k8+CPbvnhRGkJzUKmiAqC5kZYnAf++yBuPkQ8TsLmd8OCZGKWaB+U1NByk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792051429; c=relaxed/simple;
-	bh=UMXCWjml4lPQz/hKvhaP/9TPT70rJ9KOvp7sSO7l7SY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SMgXPUKTXwjt37MnmClbfKF3/ITkriOQtdwAGcB3/wYI73tHOcbaWsXUmpplud9i2QlOut74d9Vjv2Vw7e070lxWzY9qWkzr76hDZoX5jgu5w77GhNWCiwt3DlBAhMuhkdYoacWswEvExWxZ53mim1RtejKpSnaHVc7Isichw/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GmYSF+t4; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792051568; c=relaxed/simple;
+	bh=oJYs7+FOwLb/dKXfajd3vQUQya8Guws/380sm2/4hfw=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=CmRsHYrwRAyIiLY1i+UU8CnnrsS7bqTrxUYgVrH15xLd1P07lco7PgjzEeaZUB8YTrCxE3wnj82vfiAG4nQVfxldti2Sp5+88/iRYw7ZsiWo/l9OnJuJ/MDB0JbjJQKo1KexsumK9WlgT5FNg6E7KFnX4oaiZJyhFEgzzI78KTI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=FQGpeK5y; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GmYSF+t4"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a161d9b8c7so34825305e9.3
-        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 01:03:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792051425; x=1792656225; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3AC1hlfYXxk5mA7dVc5//s/RTKPoQs4C0p246/c7vZI=;
-        b=GmYSF+t4AVdNsnIjlbP+9xXJN1LQvrCeBJlib5aCWjK88hAlOsrOrEMMx7+AMANDbw
-         nB3MpVmtPoumenxyXOkJezYAcmZqIN8fHWQXk9eHx5lz4AkqKHSzQZattMtxr927hwJo
-         mDgKC8TbtZXeyxUU2Bscc1LRASvxHoqeyhyvNTfKsZwqLErARZIH6Xy2Ek8mLOvq5LAe
-         zEdzautP51gHZ7V3ZXS7ckduf3adI3k7Qd9t+Hwww2hXrQYVnk2IifCqlGdo6QLlKDnZ
-         8HGkP8g5c/zYdhe5JZIbfA0f4dseUtAP/5dZ63bIBrbU8ufszg49ruCwKv3mQyc5hVvu
-         pvHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792051425; x=1792656225;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3AC1hlfYXxk5mA7dVc5//s/RTKPoQs4C0p246/c7vZI=;
-        b=HUir6BrWEraGZ/rEH0UkDG/OLOUWRcGvwMi4s4MQqVjXozLLY9XgE4RMuz3/hAMRE1
-         HcbFf645ZfpOQnRlS+iyomX8wD/j+Xtm1YVErXmztAniUzciVvQvnCRMGKDbwZQN89eT
-         XvuA3eMnj8Akz3NK8V2ZFa7YALGe5HHnPJIqxx4d2dC+pxwGnjGAf5GDJxVwvfWPPkVc
-         UU2IR6ZfXd6Nk054saePjKzcztfh7279FRZUD1CjbPr8x8yIdpF0Bxsucv0WhHzJM9Ce
-         7TcA9isJ5OvbwpvrxPNIlPlAHBjpovTzUAGIKAxQHSG7ul5g7PzC3CoJzJSTXnrN7a/D
-         s+CQ==
-X-Forwarded-Encrypted: i=1; AKwUvBybKERuqdjsC/L4jNeQsj9c+9etBjhJaSPbnHw37a6aISI12l41yyxAXLKKIs/BipOOKbU/TwrT6i+g@vger.kernel.org
-X-Gm-Message-State: AFq9FYLzHu2F44foyucWOrV0a5TLyri53gEqMtwDchpoWw/lbRD6zObu
-	abkMiEB2pAoDNIQJTpOaJ/MulN99w7nC+x8A2fUuhZEa9cJrwP7XoXUB
-X-Gm-Gg: AYBFou2Ed0dlTKM5x4bLPBT9S4tPo63iyecbKBHtRo5FghuKHasAFEGwXfpYpkznMAB
-	9+3Xk1f5SRx9rA+0IDLMdkdDKv4U0F2iBV/G8Yc2ClwhZy/Wahrg87rYW/Ado1pktUPaTmpaWBX
-	wJ/ajXfA7/A0zh+amBHdQNM6H2mXiDlUR/wfjYcbTTo8aOiUn4tn2DUqBI5tLplg5X+vgCpilN1
-	DW/EbnvD/JQk1JlRi/0mhQjn2TxpjTFTRfPhXn02TCz9bV5qy+gcgO7QKaY2OV4fQPenxGp6Zui
-	nNs8N1ETE7IyZTFJJ06cRu4U5eWND17M/1/q8NmJMaHPWkWihI5e1ssDG4u6bEX1GRakMtbj1Tt
-	Lnno3Xvb0SWS7xQunZc6F92PoWXAuUyyz9nBhHVU9MKDcadQKbiy2MrMIUZx8JwN/xd03SyY8so
-	En8N1EaB8wJAMnvCpZhQMryRd2lFz1NpqeUnLYEP+Mwet2BjjhebC4YiEK10KXXMUHdG3eIk62b
-	HT+STYfAe1VHsTTBF0NZI9TIv7du45xaDmZ4rT5LF+xzhab110BzW+46xtdUthTtbCUwziBl/uF
-	4KnxQ7VCF8cnIXjpKGu6yO58sn09d4xK1Ke4vjV2FO2HJv3quC4A6Tp+OY4oMy1aqAkOgsogxbJ
-	i21fwCb4VQdSo/hwhqwUzSC0K1UDKKj0KGFiq7OnbF/Cm/pkE7lNVuiQN9jQ4d5mtgNXkrgUUmc
-	1UfcyA
-X-Received: by 2002:a05:600c:6388:b0:4a1:ac66:5ffe with SMTP id 5b1f17b1804b1-4a1ac666396mr154042545e9.15.1792051425202;
-        Thu, 15 Oct 2026 01:03:45 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bdbb4a30sm49969265e9.15.2026.10.15.01.03.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 01:03:45 -0700 (PDT)
-Date: Thu, 15 Oct 2026 10:03:39 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
-Cc: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <krzk+dt@kernel.org>, <jic23@kernel.org>, <dlechner@baylibre.com>,
- <nuno.sa@analog.com>, <Michael.Hennerich@analog.com>, <andy@kernel.org>,
- <robh@kernel.org>, <conor+dt@kernel.org>
-Subject: Re: [PATCH v4 2/2] iio: temperature: add support for Analog Devices
- MAX30210
-Message-ID: <20261015100339.00005360@gmail.com>
-In-Reply-To: <20261015012159.44-3-johnerasmusmari.geronimo@analog.com>
-References: <20261015012159.44-1-johnerasmusmari.geronimo@analog.com>
-	<20261015012159.44-3-johnerasmusmari.geronimo@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="FQGpeK5y"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1792051572; x=1823587572;
+  h=from:subject:date:message-id:mime-version:
+   content-transfer-encoding:to:cc;
+  bh=oJYs7+FOwLb/dKXfajd3vQUQya8Guws/380sm2/4hfw=;
+  b=FQGpeK5y/bhWuq2a8kbU/5HczskMA0pxPFWiGsXVJeyKHPvcFMXCD1jC
+   HF7qFGTcUSGK51LHmq8DQDh9gJ2g3lK+MWpR61JUDDIahrtd6rlR9ox9G
+   VmBRpb6dWvXmSLGQxwlx6kqzUrGh18W1nqJgkfMx8f+cmu1AcUUzz87Dp
+   TD6nqZSfHk+raj/1xQLIJV26aQcKfbOqKJPxvO5sUMhX3qU4lrjoRxQ/K
+   K00t9eTWzuOo6b5e356pdXP1R9XuqqX1nTh1qVnWuImvS/bL5msbl+3Ds
+   IfUd+/kRC4vFr/0ND8HTGVw2Bx/9cm5mXdxCyaEZ0KP9EikCifu6HjXC9
+   g==;
+X-CSE-ConnectionGUID: QDn73zA7SG6a8htV0XFwXw==
+X-CSE-MsgGUID: R06jeVEcQReB2wyymeBBrg==
+X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
+   d="scan'208";a="296490670"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 01:06:11 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
+ chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.49; Thu, 15 Oct 2026 01:06:04 -0700
+Received: from [127.0.0.1] (10.10.85.11) by chn-vm-ex01.mchp-main.com
+ (10.10.85.143) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Thu, 15 Oct 2026 01:05:58 -0700
+From: =?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?=
+	<jensemil.schulzostergaard@microchip.com>
+Subject: [PATCH net-next v15 0/9] net: dsa: add DSA support for the
+ LAN9645x switch chip family
+Date: Thu, 15 Oct 2026 10:05:54 +0200
+Message-ID: <20261015-dsa_lan9645x_switch_driver_base-v15-0-562f316f78b9@microchip.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAGOJ0GoC/43TzWrkMAwH8FcpOTeLJNuy3VPfY1kGf+4Y2kxJh
+ uwsZd59nVwSWENyTAw/2ZL+392UxpKm7u3luxvTXKZyG+oHqteXLlzd8Dv1JdYfHQExEEIfJ3f
+ 5cINlqR6X6U+5h+sljmVO48W7KfUCyfschE7Rd1X5GlMuj7XEz25I935Ij3v3q55cy3S/jX/X2
+ jOu52sVAeKwyow99D5nExwKy1m9f5Yw3sK1fP0It8/Vn2lnkjw2qZpZK5BJeGCDLVNspjzRjVl
+ U07kYjLJKAMeWKXemOGHK5Z7oGUBlZ7xumWozFZpjU1XTssk+C5mzEy2TdybpY5OrKaME6xLLL
+ ELL1JvJZ+aul7lTtpBYs4bm281maqBj0yxvByITjfdOmZZp9+aJftpqQkSF5ARxbN4TYYfimaW
+ HZZukMeygjgqbW4+7KBlQJ9QlSwA6+WCNcOCa6i5M9kwDcEkTRXZOWaEgNDcfd3GyZE+oS54M6
+ UBRMOpMTXULFMKpuy6JEpGcJmYk/G/7n8/nP3+WzwIrBQAA
+To: <UNGLinuxDriver@microchip.com>, Andrew Lunn <andrew@lunn.ch>, "Vladimir
+ Oltean" <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, "Jakub
+ Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+	<horms@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Woojung Huh
+	<woojung.huh@microchip.com>, Russell King <linux@armlinux.org.uk>, "Steen
+ Hegelund" <Steen.Hegelund@microchip.com>, Daniel Machon
+	<daniel.machon@microchip.com>, Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, Eric Dumazet <edumazet@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>, Eric Dumazet
+	<edumazet@kernel.org>
+CC: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-renesas-soc@vger.kernel.org>,
+	=?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?=
+	<jensemil.schulzostergaard@microchip.com>
+X-Mailer: b4 0.15-dev
 
-On Thu, 15 Oct 2026 09:21:59 +0800
-John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com> wrote:
+This series provides the Microchip LAN9645X Switch driver.
 
-> Add support for the Analog Devices MAX30210 I2C temperature
-> sensor.
-> 
-> The driver uses regmap for register access and integrates with
-> the IIO framework. It supports:
-> 
-> - Direct mode temperature conversion
-> - Configurable sampling frequency
-> - Threshold events
-> - FIFO operation with IIO kfifo buffer support
-> - Optional interrupt-driven data ready signaling
-> 
-> The device provides 16-bit signed temperature data and a
-> 64-sample FIFO.
-> 
-> Signed-off-by: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
-> ---
+The LAN9645x is a family of chips with ethernet switch functionality and
+multiple peripheral functions. The switch delivers up to 9 ethernet
+ports and 12 Gbps switching bandwidth.
 
-Hi, quick review from me. Please also check out Sashiko's remarks:
+The switch chip has 5 integrated copper PHYs, support for 2x RGMII
+interfaces, 2x SGMII and one QSGMII interface.
 
-https://sashiko.dev/#/patchset/20261015012159.44-1-johnerasmusmari.geronimo%40analog.com
+The switch chip is from the same design architecture family as ocelot
+and lan966x, and the driver reflects this similarity. However, LAN9645x
+does not have an internal CPU in any package, and must be driven
+externally. For register IO it supports interfaces such as SPI, I2C and
+MDIO.
 
-Josh
+The chip supports a variety of network features such as
 
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Analog Devices MAX30210 I2C Temperature Sensor driver
-> + *
-> + * Copyright 2026 Analog Devices Inc.
+* Mactable for MDB/FDB functionality
+* Bridge forwarding offload
+* VLAN-aware bridging
+* IGMP/MLD snooping
+* Link aggregation
+* PTP timestamping
+* FRER (802.1CB)
+* Media Redundancy Protocol
+* Parallel Redundancy and High-Availability Seamless Redundancy
+  (HSR/PRP) in DANH/DANP mode
+* Per stream filtering and policing
+* Shapers such as Credit Based Shaping and Time Aware Shaing
+* Frame preemption
+* A TCAM (VCAP) for line-rate frame processing
 
-Adding a link to the datasheet here would be good.
+The LAN9645x family consists of the following SKUs:
 
-> + */
-> +
-> +#include <linux/array_size.h>
-> +#include <linux/bitfield.h>
-> +#include <linux/bitops.h>
-> +#include <linux/delay.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/i2c.h>
-> +#include <linux/iio/buffer.h>
-> +#include <linux/iio/events.h>
-> +#include <linux/iio/iio.h>
-> +#include <linux/iio/kfifo_buf.h>
-> +#include <linux/iio/sysfs.h>
+LAN96455F
+LAN96457F
+LAN96459F
+LAN96455S
+LAN96457S
+LAN96459S
 
-Please separate the <linux/iio/*> specific headers from the
-generic linux headers.
+The difference between the SKUs is the number of supported ports (5, 7
+or 9) and features supported. The F subfamily supports HSR/PRP and TSN,
+while the S subfamily does not.
 
-> +#include <linux/mutex.h>
-> +#include <linux/regmap.h>
-> +#include <linux/regulator/consumer.h>
-> +#include <linux/time.h>
-> +#include <linux/types.h>
-> +#include <linux/unaligned.h>
-> +#include <linux/units.h>
+The intended way to bind this driver is using a parent MFD driver,
+responsible for the register IO protocol, and distributing regmaps to
+child devices. The goal is to use the same approach as the MFD driver in
+drivers/mfd/ocelot-spi.c, which also resets the chip before it
+instantiates its children.
 
-Missing cleanup.h, sysfs.h and asm/byteorder.h.
+This driver expects to request named regmaps from a parent device. This
+approach is similar to the DSA driver
 
-> +
-> +#define MAX30210_STATUS_REG			0x00
-> +#define   MAX30210_STATUS_A_FULL_MASK		BIT(7)
-> +#define   MAX30210_STATUS_TEMP_RDY_MASK	BIT(6)
-> +#define   MAX30210_STATUS_TEMP_DEC_MASK	BIT(5)
-> +#define   MAX30210_STATUS_TEMP_INC_MASK	BIT(4)
-> +#define   MAX30210_STATUS_TEMP_LO_MASK		BIT(3)
-> +#define   MAX30210_STATUS_TEMP_HI_MASK		BIT(2)
-> +#define   MAX30210_STATUS_PWR_RDY		BIT(0)
-> +#define MAX30210_INT_EN_REG			0x02
-> +#define MAX30210_FIFO_DATA_REG			0x08
-> +#define MAX30210_FIFO_CONF_1_REG		0x09
-> +#define   MAX30210_FIFOCONF1_A_FULL_MASK	GENMASK(5, 0)
-> +#define MAX30210_FIFO_CONF_2_REG		0x0A
-> +#define   MAX30210_FIFOCONF2_FLUSH_FIFO		BIT(4)
-> +#define MAX30210_SYS_CONF_REG			0x11
-> +#define   MAX30210_SYSCONF_RESET		BIT(0)
-> +#define MAX30210_PIN_CONF_REG			0x12
-> +#define   MAX30210_PINCONF_EXT_CNV_EN		BIT(7)
-> +#define   MAX30210_PINCONF_EXT_CVT_ICFG		BIT(6)
-> +#define   MAX30210_PINCONF_INT_FCFG_MASK	GENMASK(3, 2)
-> +#define   MAX30210_PINCONF_INT_OCFG_MASK	GENMASK(1, 0)
-> +#define MAX30210_TEMP_ALM_HI_REG		0x22
-> +#define MAX30210_TEMP_ALM_LO_REG		0x24
-> +#define MAX30210_TEMP_INC_THRESH_REG		0x26
-> +#define MAX30210_TEMP_DEC_THRESH_REG		0x27
-> +#define MAX30210_TEMP_CONF_1_REG		0x28
-> +#define   MAX30210_TEMPCONF1_CHG_DET_EN		BIT(3)
-> +#define   MAX30210_TEMPCONF1_RATE_CHG_FILTER_MASK	GENMASK(2, 0)
-> +#define MAX30210_TEMP_CONF_2_REG		0x29
-> +#define   MAX30210_TEMPCONF2_TEMP_PERIOD_MASK	GENMASK(3, 0)
-> +#define   MAX30210_TEMPCONF2_ALERT_MODE		BIT(7)
-> +#define MAX30210_TEMP_CONV_REG			0x2A
-> +#define   MAX30210_TEMPCONV_CONV_T		BIT(0)
-> +#define   MAX30210_TEMPCONV_AUTO		BIT(1)
-> +#define MAX30210_TEMP_DATA_REG			0x2B
-> +#define MAX30210_TEMP_SLOPE_REG			0x2D
-> +#define MAX30210_UNIQUE_ID_REG			0x30
-> +#define MAX30210_PART_ID_REG			0xFF
-> +
-> +#define MAX30210_PART_ID			0x45
-> +#define MAX30210_FIFO_SIZE			64
-> +#define MAX30210_FIFO_BYTES_PER_SAMPLE		3
-> +#define MAX30210_FIFO_TEMP_MASK			GENMASK(15, 0)
-> +#define MAX30210_FIFO_INVAL_DATA		GENMASK(23, 0)
-> +#define MAX30210_WATERMARK_DEFAULT		(0x40 - 0x1F)
-> +
-> +#define MAX30210_UNIQUE_ID_LEN			6
-> +#define MAX30210_EXT_CVT_FREQ_MIN		1
-> +#define MAX30210_EXT_CVT_FREQ_MAX		20
-> +
-> +struct max30210_state {
-> +	struct regmap *regmap;
-> +	/* Raw FIFO byte buffer */
-> +	u8 fifo_buf[MAX30210_FIFO_BYTES_PER_SAMPLE * MAX30210_FIFO_SIZE];
-> +	/* Protects autoconv_users and the autonomous-conversion enable bit */
-> +	struct mutex lock;
-> +	unsigned int autoconv_users;
-> +	u8 watermark;
+drivers/net/dsa/ocelot/ocelot_ext.c
 
-Does pahole agree with this layout?
+which supports being driven by an external CPU via SPI with parent
+device drivers/mfd/ocelot-spi.c.
 
-> +};
-> +
-> +static const int max30210_samp_freq_avail[][2] = {
-> +	{ 0, 15625 },
-> +	{ 0, 31250 },
-> +	{ 0, 62500 },
-> +	{ 0, 125000 },
-> +	{ 0, 250000 },
-> +	{ 0, 500000 },
-> +	{ 1, 0 },
-> +	{ 2, 0 },
-> +	{ 4, 0 },
-> +	{ 8, 0 },
-> +};
-> +
+The MFD driver will come in a later series, because there are
+requirements on the number of child devices before a driver qualifies as
+a MFD device.
 
-...
+Development is done using the LAN966x as a host CPU, running the lan966x
+swichdev driver, using the EVB-LAN9668 EDS2 board.
 
-> +static int max30210_read_raw(struct iio_dev *indio_dev,
-> +			     struct iio_chan_spec const *chan, int *val,
+The datasheet is available here:
+https://ww1.microchip.com/downloads/aemDocuments/documents/UNG/ProductDocuments/DataSheets/LAN9645xF-Data-Sheet-DS00006065.pdf
 
-Small nit, but ideally have val, val2 and mask on the same line for
-readability reasons. This goes for all instances of this in the driver.
+This series will deliver the following features:
 
-> +			     int *val2, long mask)
-> +{
-> +	struct max30210_state *st = iio_priv(indio_dev);
-> +	unsigned int uval;
-> +	int ret;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_SCALE:
-> +		*val = 5;
-> +		*val2 = MILLI;
-> +
-> +		return IIO_VAL_FRACTIONAL;
-> +	case IIO_CHAN_INFO_SAMP_FREQ: {
-> +		unsigned int period;
-> +
-> +		ret = regmap_read(st->regmap, MAX30210_TEMP_CONF_2_REG, &uval);
-> +		if (ret)
-> +			return ret;
-> +
-> +		period = FIELD_GET(MAX30210_TEMPCONF2_TEMP_PERIOD_MASK, uval);
-> +
-> +		/*
-> +		 * TEMP_PERIOD is an index into the sampling frequency lookup
-> +		 * table. Clamp in case the register holds a reserved value.
-> +		 */
-> +		if (period >= ARRAY_SIZE(max30210_samp_freq_avail))
-> +			period = ARRAY_SIZE(max30210_samp_freq_avail) - 1;
-> +
-> +		*val = max30210_samp_freq_avail[period][0];
-> +		*val2 = max30210_samp_freq_avail[period][1];
-> +
-> +		return IIO_VAL_INT_PLUS_MICRO;
-> +	}
+* Standalone ports
+* Bridge forwarding and FDB offloading
+* Multicast forwarding and MDB offloading
+* VLAN-aware bridge
+* Stats integration
 
-...
+More support will be added at a later stage. Here is a tentative plan of
+future patches for this DSA driver:
 
-> +
-> +static int max30210_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	struct iio_dev *indio_dev;
-> +	struct max30210_state *st;
-> +	int ret;
-> +
-> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*st));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +
-> +	st = iio_priv(indio_dev);
-> +	mutex_init(&st->lock);
+* Add LAG support.
+* Add TC matchall mirror support.
+* Add TC matchall police support.
+* Add DCB/qos support.
+* Add simple TC support: mqprio, cbs, tbf, ebf.
+* Add TC flower filter support.
+* Add HSR/PRP offloading support.
+* Add PTP support.
+* Add TC taprio support.
 
-devm_mutex_init() + check return value.
+For completeness I include tentative plan of planned patches for
+LAN9645x peripherals:
 
-> +
-> +	ret = devm_regulator_get_enable(dev, "vdd");
-> +	if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				     "Failed to enable vdd regulator.\n");
-> +
-> +	st->regmap = devm_regmap_init_i2c(client, &max30210_regmap);
-> +	if (IS_ERR(st->regmap))
-> +		return dev_err_probe(dev, PTR_ERR(st->regmap),
-> +				     "Failed to allocate regmap.\n");
-> +
-> +	st->watermark = MAX30210_WATERMARK_DEFAULT;
-> +
-> +	ret = max30210_setup(st, dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	indio_dev->modes = INDIO_DIRECT_MODE;
-> +	indio_dev->channels = &max30210_channel;
-> +	indio_dev->num_channels = 1;
-> +	indio_dev->name = "max30210";
-> +	indio_dev->info = &max30210_info;
-> +
-> +	/* Without an interrupt there is no way to drain the FIFO into the buffer */
-> +	if (client->irq) {
-> +		ret = devm_iio_kfifo_buffer_setup_ext(dev, indio_dev, &max30210_buffer_ops,
-> +						      max30210_fifo_attributes);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	ret = devm_iio_device_register(dev, indio_dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (!client->irq)
-> +		return 0;
-> +
-> +	/*
-> +	 * Request the IRQ after registering the IIO device so devm tears it
-> +	 * down first on removal, before the event interface is freed.
-> +	 */
-> +	return devm_request_threaded_irq(dev, client->irq, NULL,
-> +					 max30210_irq_handler, IRQF_ONESHOT,
-> +					 indio_dev->name, indio_dev);
-> +}
-> +
-> +static const struct i2c_device_id max30210_id[] = {
-> +	{ "max30210" },
+* Extend pinctrl-ocelot for LAN9645x:
+  https://lore.kernel.org/linux-gpio/20260119-pinctrl_ocelot_extend_support_for_lan9645x-v1-0-1228155ed0ee@microchip.com/
+* Add driver for internal PHY:
+  https://lore.kernel.org/netdev/20260123-phy_micrel_add_support_for_lan9645x_internal_phy-v1-1-8484b1a5a7fd@microchip.com/
+* MFD driver for managing register IO protocol and child device
+  initialization.
+* Extend pinctrl-microchip-sgpio for LAN9645x support.
+* Extend i2c_designware for LAN9645x support.
+* Add driver for outbound interrupt controller.
+* Add serdes driver for lan9645x.
 
-C99 initializers please.
+Signed-off-by: Jens Emil Schulz Østergaard <jensemil.schulzostergaard@microchip.com>
+---
+Changes in v15:
+- Individual patches mention specific v15 changes
+- basic: on link down, assert MAC_TX_RST and MAC_RX_RST instead of
+  flushing the queues and asserting PORT_RST, which can hang the port
+  when the MAC cannot transmit the frames still queued.
+- vlan: refuse VLAN filtering on bridges with a vlan_protocol other than
+  802.1Q, and only apply VLAN awareness while a port is bridged, so a
+  join after a failed one is configured correctly.
+- Link to v14: https://lore.kernel.org/r/20261008-dsa_lan9645x_switch_driver_base-v14-0-3d2a72661213@microchip.com
 
+Changes in v14:
+- Individual patches mention specific v14 changes
+- tag: classify untagged and priority tagged frames to VID 0 on xmit,
+  pull the VLAN header before reading it, restore the VLAN tag on rcv
+  whenever one was popped, and add a .flow_dissect callback that
+  accounts for popped VLAN tags.
+- bindings: use the dt-bindings: net: dsa: subject prefix, and describe
+  all switch register targets and the analyzer and PTP interrupts.
+- vlan: use TAG_NO_UNAWARE on ports with only tagged VLANs.
+- mac table: keep a CPU port host entry while another database uses the
+  same MAC table key.
+- mdb: keep the PGID reference when a mac table write fails while
+  widening a group, drop it on a failed narrow that keeps the same PGID,
+  and keep a CPU port host entry while another database uses the same
+  mac table key.
+- bridge: only enable learning on bridged ports, start a joining port
+  disabled so it does not learn before its STP state is applied, and
+  honour host flood requests from bridged ports.
+- stats: return 0 from get_sset_count() for other string sets, leave
+  RMON fragments unset, and describe the pMAC counters correctly.
+- Link to v13: https://lore.kernel.org/r/20260929-dsa_lan9645x_switch_driver_base-v13-0-827c2d3617f2@microchip.com
+
+Changes in v13:
+- Individual patches mention specific v13 changes
+- bindings: Drop the commit message paragraph citing
+  Documentation/networking/phy.rst.
+- basic: only redirect the CPU extraction queues to the NPI port while
+  its link is up, and flush the CPU port module on NPI link up.
+- Rebased on net-next, bumping DSA_TAG_PROTO_LAN9645X_VALUE to 37
+- Link to v12: https://lore.kernel.org/r/20260908-dsa_lan9645x_switch_driver_base-v12-0-2d6aa59350cd@microchip.com
+
+Changes in v12:
+- reorder the series so bridge support lands after vlan, mac table and
+  mdb support. port_fast_age() now exists before the STP state handling
+  that needs it, and host address filtering is in place before bridging.
+- include the CPU port module in the flood masks from the start, and
+  remove it again in the bridge patch where port_set_host_flood() takes
+  over on demand host flooding. Previously the host could not receive
+  unicast until the mac table patch.
+- vlan: serialize the VLAN table with fwd_domain_lock, and describe the
+  untagged VLAN, TPID and C-component conformance limitations.
+- tag driver: move an out-of-band VLAN tag into the payload before
+  reading it, instead of relying on the conduit never advertising a VLAN
+  TX offload.
+- tag driver: restore the classified VLAN as a C-tag rather than following
+  the IFH tag type, so a terminated frame lands on the VID the hardware
+  forwarded it on.
+- basic: drop the tail drop watermark setup, which programmed a
+  condition that could not trigger.
+- mdb: handle PGID exhaustion on both the add and delete paths, rather
+  than leaving a departed port in the group.
+- mdb: classify IPv4 multicast on the 01:00:5E prefix alone. Hardware does
+  not apply the 23-bit rule, so some groups were programmed as entries it
+  never matches.
+- stats: give the hardware counters and the software shadow a common
+  baseline, fix some rtnl_link_stats64 fields, and stop reporting the
+  three eth-mac fields the hardware cannot measure.
+- stats: stop the counter poller in .shutdown, which kept reading
+  registers after the parent had been shut down.
+- Link to v11: https://lore.kernel.org/r/20260805-dsa_lan9645x_switch_driver_base-v11-0-007ebc983a0a@microchip.com
+
+Changes in v11:
+- Update comment about vlan tag hwaccel use in tag driver.
+- Bump DSA_TAG_PROTO value in include/net/dsa.h.
+- stats: add comment about calling contexts of sw_lock in
+  lan9645x_stats_get_stats64
+- Link to v10: https://lore.kernel.org/r/20260713-dsa_lan9645x_switch_driver_base-v10-0-a4886a08fb15@microchip.com
+
+Changes in v10:
+- Individual patches mention specific v10 changes
+- Update tag driver after skb ownership model change in DSA taggers.
+- Link to v9: https://lore.kernel.org/r/20260708-dsa_lan9645x_switch_driver_base-v9-0-0d1512a326d7@microchip.com
+
+Changes in v9:
+- Individual patches mention specific v9 changes
+- Drop RGMII muxing to port 4.
+- Link to v8: https://lore.kernel.org/r/20260702-dsa_lan9645x_switch_driver_base-v8-0-90228d8bba58@microchip.com
+
+Changes in v8:
+- Individual patches mention specific v8 changes
+- Do not use the name CPU_PORT for the chips internal CPU port module,
+  as it collides with the DSA CPU port (the NPI front port). Drop the
+  CPU_PORT macro and reference the module as lan9645x->num_phys_ports,
+  mirroring ocelot/felix.
+- Reword the port map and related comments to distinguish the chip CPU
+  port modules (indices 9-10) from the DSA CPU port.
+- Add a port_mux_lock mutex to serialize port mux arbitration in
+  the phylink mac_prepare path.
+- Link to v7: https://lore.kernel.org/r/20260603-dsa_lan9645x_switch_driver_base-v7-0-b2f90e676707@microchip.com
+
+Changes in v7:
+- Individual patches mention specific v7 changes
+- Do not mark the BPDU range 01:80:C2:00:00:0X as offloaded in the tag driver.
+- Refactor cpu queue based frame classification to use categories default, trap
+  and copy, which mirrors usage instead of being based on frame types.
+- Add registers ANA:COMMON:CPUQ_8021_CFG for bpdu cpu queue configuration.
+- Use cpu queue LAN9645X_CPUQ_TRAP for bpdu frames.
+- Refactor IGMP/MLD/IPMC_CTRL to use new LAN9645X_CPUQ_DEF,
+  LAN9645X_CPUQ_TRAP and LAN9645X_CPUQ_COPY queues.
+- Add __aligned(2) to mac variable in lan9645x_mdb_update_dest.
+- Link to v6: https://lore.kernel.org/r/20260527-dsa_lan9645x_switch_driver_base-v6-0-4d409ae64f3c@microchip.com
+
+Changes in v6:
+- Individual patches mention specific v6 changes
+- Rebased on net-next, bumping DSA_TAG_PROTO_LAN9645X_VALUE to 34
+- Link to v5: https://lore.kernel.org/r/20260518-dsa_lan9645x_switch_driver_base-v5-0-968fbf34ffa3@microchip.com
+
+Changes in v5:
+- Individual patches mention specific v5 changes
+- Undo offset fix in postpull_rcsum. The original logic was correct for
+  CHECKSUM_COMPLETE host NICs
+- Use __always_inline in lan9645x_ifh_{get,set}
+- remove double space after = in set_merge_mask
+- remove unused fields dd_dis and tsn_dis, and add SKU supported port validation
+  during setup
+- phylink: remove MAC_2500FD
+- phylink: add comment about empty supported_interfaces for port 5-6.
+- phylink: fix 2:1 rgmii port muxing for port module 4 and 7 to be fully
+  dynamic and validate requested mux settings.
+- phylink: add comment about 2:1 rgmii port muxing for port module 4
+  and 7.
+- rx/tx-internal-delay-ps checked against supported 2ns value
+- init lan9645x->npi = -1 at probe and check port < 0 in npi_deinit
+- use ds->ageing_time_max
+- use packed p->host_flood_req for atomic r/w
+- fix typo in set_ageing_time comment
+- include lan9645x->bridge deref under lock in brige_join
+- switch -EBUSY to -EINVAL for vlan add/del in the reserved range.
+- remove reserved HSR vlan
+- lan9645x_mac_init returns error on table init timeout
+- add comment about skipping LOCKED entries on fdb dump
+- skip igmp/mld redir for npi port
+- make lan9645x_stats_init void
+- add SCNT_TX_BUFDROP to tx_dropped
+- change rmon range {0,64} -> {64, 64}. Runt frames counted elsewhere.
+- remove rx_crc, rx_symbol_err from rx_packets, as they are already
+  counted in SZ_* buckets.
+- add defensive cancel_delayed_work_sync in stats_free
+- Link to v4: https://lore.kernel.org/r/20260430-dsa_lan9645x_switch_driver_base-v4-0-f1b6005fa8b7@microchip.com
+
+Changes in v4:
+- v3 was deferred, but I made some changes based on the Sashiko review
+- Individual patches mention specific v4 changes
+- Fix offset in postpull_rcsum so prefix eth header is cleared, not
+  actual eth header, so tag driver works with CHECKSUM_COMPLETE host
+  NICs
+- Fix untagged rx on vlan aware port with pvid
+- Add comment to QSYS_RES_CFG configuration
+- Phylink_mac_prepare: fix to make sure we can dynamically change rgmii
+  on port 4
+- Move ports allocation to probe
+- tag_npi_setup: reject cascaded setups
+- Skip WARN_ON in lan9645x_to_port
+- set_host_flood changed to per port work to coalesce values and skip
+  atomic allocations
+- Fix clear HOST_PVID vlan membership when a port joins a bridge.
+- Explicit default value write to tag type register for untagged frames
+- Use lan_rmw for ANA_DROP_CFG
+- Add comment for error path in lan9645x_vlan_hw_wr
+- Remove mac_entries list and just do direct IO to mac table from
+  fdb_add/fdb_del.
+- Clean up fresh mdb when hw mac table write fails.
+- Remove rx_uc and tx_uc from ethtool stats list, as they are derivable
+  from the eth-mac group
+- Split stats_init into stats_alloc and stats_init, use alloc in probe
+  and init in dsa_setup
+- Link to v3: https://lore.kernel.org/r/20260410-dsa_lan9645x_switch_driver_base-v3-0-aadc8595306d@microchip.com
+
+Changes in v3:
+- Individual patches mention specific v3 changes.
+- Add guard before vlan_remove_tag on xmit
+- Add pskb_may_pull checks on rx
+- Remove additionalProperties: true in bindings
+- Remove unnecessary | from description in bindings
+- Change top level $ref to dsa.yaml#/$defs/ethernet-ports
+- Use ethernet-ports and ethernet-port
+- Move ethernet-ports under properties instead of patternProperties
+- Move unevaluatedProperties: false after $ref
+- Update bindings example to use ethernet-ports and ethernet-port
+- Move DEV_MAC_TAGS_CFG to port setup, instead of vlan config, so vlan
+  overhead is always included in port frame maxlen calculation.
+- Remove code disabling ipv6 on conduit
+- Use of_property_read_u32 for {rx,tx}-internal-delay-ps
+- Use dsa_user_ports(ds) instead of
+  GENMASK(lan9645x->num_phys_ports - 1, 0) as base flood mask.
+- Add comment explaining obey vlan
+- Allow disabling aging with explicit zero parameters.
+- Fix non-forwarding STP states in bridge fwd calculation.
+- Restore host flood state on bridge leave.
+- Avoid mac_entry dealloc when mac table writes fail.
+- Avoid mdb_entry dealloc when mac table writes fail.
+- Dealloc mac_entries on deinit.
+- Dealloc mdb_entries on deinit.
+- Link to v2: https://lore.kernel.org/r/20260324-dsa_lan9645x_switch_driver_base-v2-0-f7504e3b0681@microchip.com
+
+Changes in v2:
+- Individual patches have specific v2 changes.
+- Ran DSA, and std counters, selftests, which prompted several changes.
+  The following selftests pass, except for some expected failures:
+    - bridge_vlan_aware.sh
+    - bridge_vlan_unaware.sh
+    - bridge_vlan_mcast.sh
+    - no_forwarding.sh
+    - bridge_mdb.sh
+    - bridge_mld.sh
+    - test_fdb_stress_test.sh
+    - .../drivers/net/hw/ethtool_rmon.sh
+    - .../drivers/net/hw/ethtool_std_stats.sh (from Ioana's series)
+- Added new patch for MDB management, as this was required for selftests.
+- Added port_set_host_flood to enable unknown traffic to standalone during
+  promisc/ALL_MULTI (selftests).
+- Remove the dubugfs.
+- Link to v1: https://lore.kernel.org/r/20260303-dsa_lan9645x_switch_driver_base-v1-0-bff8ca1396f5@microchip.com
+
+---
+Jens Emil Schulz Østergaard (9):
+      net: dsa: add tag driver for LAN9645X
+      dt-bindings: net: dsa: add Microchip LAN9645x switch
+      net: dsa: lan9645x: add autogenerated register macros
+      net: dsa: lan9645x: add basic dsa driver for LAN9645X
+      net: dsa: lan9645x: add vlan support
+      net: dsa: lan9645x: add mac table integration
+      net: dsa: lan9645x: add mdb management
+      net: dsa: lan9645x: add bridge support
+      net: dsa: lan9645x: add port statistics
+
+ .../net/dsa/microchip,lan96455s-switch.yaml        |  208 +++
+ MAINTAINERS                                        |   10 +
+ drivers/net/dsa/Kconfig                            |    2 +
+ drivers/net/dsa/microchip/Makefile                 |    1 +
+ drivers/net/dsa/microchip/lan9645x/Kconfig         |   12 +
+ drivers/net/dsa/microchip/lan9645x/Makefile        |   12 +
+ drivers/net/dsa/microchip/lan9645x/lan9645x_mac.c  |  268 +++
+ drivers/net/dsa/microchip/lan9645x/lan9645x_main.c | 1073 +++++++++++
+ drivers/net/dsa/microchip/lan9645x/lan9645x_main.h |  443 +++++
+ drivers/net/dsa/microchip/lan9645x/lan9645x_mdb.c  |  582 ++++++
+ drivers/net/dsa/microchip/lan9645x/lan9645x_npi.c  |  116 ++
+ .../net/dsa/microchip/lan9645x/lan9645x_phylink.c  |  316 ++++
+ drivers/net/dsa/microchip/lan9645x/lan9645x_port.c |  180 ++
+ drivers/net/dsa/microchip/lan9645x/lan9645x_regs.h | 1932 ++++++++++++++++++++
+ .../net/dsa/microchip/lan9645x/lan9645x_stats.c    |  854 +++++++++
+ .../net/dsa/microchip/lan9645x/lan9645x_stats.h    |  229 +++
+ drivers/net/dsa/microchip/lan9645x/lan9645x_vlan.c |  411 +++++
+ include/linux/dsa/lan9645x.h                       |   54 +
+ include/net/dsa.h                                  |    2 +
+ net/dsa/Kconfig                                    |   11 +
+ net/dsa/Makefile                                   |    1 +
+ net/dsa/tag_lan9645x.c                             |  514 ++++++
+ 22 files changed, 7231 insertions(+)
+---
+base-commit: 518bf436318e8d1162391cd77d69d65198a4a25b
+change-id: 20260210-dsa_lan9645x_switch_driver_base-312bbfc37edb
+
+Best regards,
 -- 
-Kind regards,
-Joshua Crofts
+Jens Emil Schulz Østergaard <jensemil.schulzostergaard@microchip.com>
+
