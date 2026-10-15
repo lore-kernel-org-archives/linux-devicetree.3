@@ -1,124 +1,147 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C59564DB56E
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 12:47:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 315A851812D
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 12:48:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792068465; cv=none; b=R6WtmpNgqF/C2JDiNMsk3TC/OkkVdhr3I4X/aEJOQuvo9/sE2NOcr1uSb85niYToMD0VrsVpsQu19juqDytGM8kmD5CFcCd7so+qQcyGq0Ha9cQXk4DbbfWpFce2td8dT8iewNDmElaZcaBMTWyVQtyG0i4D/C7wtXWXCgCszWg=
+	t=1792068512; cv=none; b=EBlB5De/f6QlRvX/SUXH3WiyCbgeYOsqeU/I/1OppsxpTXi6oNo9m78fvcmDF/EKjxlZ3UjvplJl73twOs/kWg93Js2WmfRLN95xPuomk6vl4btUXOhoqE9G1JHOA5oBDlfXrv/HUG0Rwfd3xAvwlTLRVxN/Xy2329JQfaOFIJE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792068465; c=relaxed/simple;
-	bh=vi4/DLkL5GqQbQUt5lRE2mOn+66tF9AnkSd0UEY/C1g=;
+	s=arc-20240116; t=1792068512; c=relaxed/simple;
+	bh=UjElcdJO3OEH0A8uMBWXbPe8hlceoldVvnaPuBCCY7M=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=PEnY48BV5FYbJNoB4AFdv2qEWxUkdMG7ILPeWGI+fbenxxh8TPY4FfGLHX6DoJL697yWaNS7pyJ58xlX5Pgo1P3icyGPKyNi6gO0a7QOwLvUrnkN1KshUPLExgsKGtaybLImMTdiU5I72XVdLO5ORZQ3RSWeUoOhM0WR42AGGQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Elw7Rp0R; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=asvZN9kUElEF2ElHi2snVgBfIn2VEIAuA593Z6MZlwkL06/wo7nTN4WycuGC1gH3XK+RLGGKH/zXXYbzjv+j3rwT7vt+URzZvdWap8Fwe9m8cdN7DOV2VzOgmx0dqIy57+zFM3dxaOF1b0cvIWVXE/b3YWBfALI4bW9P7emKTGI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YD4AADEm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Elw7Rp0R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B79B1F000C4;
-	Thu, 15 Oct 2026 12:47:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YD4AADEm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 904691F000C4;
+	Thu, 15 Oct 2026 12:48:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792068464;
-	bh=csu0cMXX/o3C3pg13RsH2v0mbZE2IYKqp/dNwyfqz5s=;
+	s=k20260515; t=1792068510;
+	bh=jlX+OCuB4XBCYhq6c5UbQgIfx5D8rC3jQyWqx7t3ITI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Elw7Rp0RFph203W9iwVJDBeSLygwax77tyvnDd77qPC5y+XIqwettDW/lNR95t8/I
-	 Evzor3XZ5o8Pqx/yENjkeR87Hx+PlBa+zeZauTvAQOpiEFmWnooASc0Hr1eSB1IigK
-	 anRBjPrNV1ZmNHSXbaGJ/q9KFb3S+XITmkmmF26vRt3oP+V90qOAIFUyKwwwZIXTkg
-	 OCpcGBjzfovIWbgtca5Q5cEXCd04FkjbRPO9hXK/c/SWSk7GpLqJzDIBx8yrlW8+C7
-	 vZ69zhtU7b5Cx+7tYSQILqaIvaDPIXsJfI+DYcYf2tS3j4s2UCkXBQTtjW1BQDM5fL
-	 rwVfJz/HKTwHg==
-Message-ID: <sashiko-outbox-172863@kernel.org>
+	b=YD4AADEmXmH03aZHKjL0nZ9pRdAJVyg0aHhJ3dv2Djm+QuciL524L7R/5L5liK48T
+	 IC7//r8HriVJrl7Vt7qKFET9Rx0jozMjAVKP/n/5lhrESbRtl7n39XjbYB0Xbh9vyg
+	 CcXVWPNwQUzd1/J69GF62BeYGyoomgl5XKn/N2ihHtvWfB02osVV3EfjW9LlrweWpx
+	 fqeFY0UgH+LCYc6eKBcYa5xgXe2P19r21Xja3zgaJQFMlwLElX0LkOV4NOwNERWRx1
+	 /8Ct5/2E35EchvEXsTWJgQVZmQM+8c0zjcs5GYe7AFxgWWXm+aQyzu/nHU+ejx+qAz
+	 klXMRNDbivM7g==
+Message-ID: <sashiko-outbox-172864@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] arm64: dts: qcom: Add sm8250-oneplus-common.dtsi
+Subject: Re: [PATCHv2 2/2] arm64: dts: altera: Add support for the Agilex27
+ platform
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Frieder Hannenheim" <git@fhannenheim.net>
+To: "Dinh Nguyen" <dinguyen@kernel.org>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261015-kebab_dts-v2-1-e783463bffd3@fhannenheim.net>
-References: <20261015-kebab_dts-v2-0-e783463bffd3@fhannenheim.net>
- <20261015-kebab_dts-v2-1-e783463bffd3@fhannenheim.net>
+In-Reply-To: <20261015123700.2137706-2-dinguyen@kernel.org>
+References: <20261015123700.2137706-1-dinguyen@kernel.org>
+ <20261015123700.2137706-2-dinguyen@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 12:47:43 +0000
+Date: Thu, 15 Oct 2026 12:48:30 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] dts: duplicate KEY_VOLUMEDOWN input event mappings
+- [Medium] arm64: dts: altera: Missing VGIC maintenance interrupt in GICv3 =
+node
+- [Low] arm64: dts: altera: Unnecessary duplication of SoC DTSI file
+- [Low] dt-bindings: arm: altera: Undocumented compatible strings for Agile=
+x27
 --
 
-commit 2f072d0e18fa18763e323b09dc9a4287c7ab0878
-Author: Frieder Hannenheim <git@fhannenheim.net>
+commit ef21748becf923e3ea0b9bb9bcd2a6ea73fa866e
+Author: Dinh Nguyen <dinguyen@kernel.org>
 
-arm64: dts: qcom: Add sm8250-oneplus-common.dtsi
+    arm64: dts: altera: Add support for the Agilex27 platform
+   =20
+    The Agilex72 platform is being rebranded to Agilex27. The Agilex27 is
+    exactly the same as the Agilex72. Add the base DTSI and the devkit's
+    DTS.
 
-This commit introduces a common device tree include for OnePlus devices
-utilizing the Qualcomm sm8250 chipset. It provides shared configurations
-including memory mappings, regulators, and hardware button definitions.
+diff --git a/arch/arm64/boot/dts/altera/socfpga_agilex27.dtsi b/arch/arm64/=
+boot/dts/altera/socfpga_agilex27.dtsi
+new file mode 100644
+index 0000000000000..369981fe85e38
+--- /dev/null
++++ b/arch/arm64/boot/dts/altera/socfpga_agilex27.dtsi
+@@ -0,0 +1,156 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (C) 2026, Altera Corporation
++ */
++/dts-v1/;
++#include <dt-bindings/interrupt-controller/arm-gic.h>
++#include <dt-bindings/interrupt-controller/irq.h>
++
++/ {
++	compatible =3D "altr,socfpga-agilex27";
++	#address-cells =3D <2>;
++	#size-cells =3D <2>;
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8250-oneplus-common.dtsi b/arch/a=
-rm64/boot/dts/qcom/sm8250-oneplus-common.dtsi
-> new file mode 100644
-> index 0000000000000..931e381368d94
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sm8250-oneplus-common.dtsi
+[Severity: Low]
+Since the commit message states that Agilex27 is exactly the same as
+Agilex72, is it necessary to duplicate the entire SoC layout into a new
+file? Could we include the existing socfpga_agilex72.dtsi or add this
+compatible string directly to the Agilex72 device tree to avoid keeping the
+two files in sync?
 
-[ ... ]
-
-> +	gpio_keys: gpio-keys {
-> +		compatible =3D "gpio-keys";
-> +		label =3D "Volume keys";
-> +
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&vol_up_n &vol_down_n>;
-> +
-> +		key-vol-up {
-> +			label =3D "Volume Up";
-> +			gpios =3D <&pm8150_gpios 6 GPIO_ACTIVE_LOW>;
-> +			linux,code =3D <KEY_VOLUMEUP>;
-> +			debounce-interval =3D <15>;
-> +			linux,can-disable;
-> +			wakeup-source;
-> +		};
-> +
-> +		key-vol-down {
-> +			label =3D "Volume Down";
-> +			linux,code =3D <KEY_VOLUMEDOWN>;
-> +			gpios =3D <&pm8150_gpios 7 GPIO_ACTIVE_LOW>;
-> +			debounce-interval =3D <15>;
-> +			linux,can-disable;
-> +			wakeup-source;
-> +		};
-> +	};
-
-[Severity: Medium]
-The Volume Down key is explicitly mapped here to PMIC GPIO 7.
+[Severity: Low]
+Is this new compatible string documented in the corresponding devicetree
+binding YAML files? Without it, running make dtbs_check will likely trigger
+validation errors.
 
 [ ... ]
 
-> +&pon_pwrkey {
-> +	status =3D "okay";
-> +};
-> +
-> +&pon_resin {
-> +	linux,code =3D <KEY_VOLUMEDOWN>;
-> +
-> +	status =3D "okay";
-> +};
+> +	intc: interrupt-controller@7000000 {
+> +		compatible =3D "arm,gic-v3";
+> +		reg =3D <0x0 0x7000000 0x0 0x10000>,
+> +		      <0x0 0x7080000 0x0 0x100000>;
+> +		ranges;
+> +		#interrupt-cells =3D <3>;
+> +		#address-cells =3D <2>;
+> +		#size-cells =3D <2>;
+> +		interrupt-controller;
+> +		#redistributor-regions =3D <1>;
+> +		redistributor-stride =3D <0x0 0x40000>;
 
 [Severity: Medium]
-Will mapping KEY_VOLUMEDOWN concurrently to the PMIC resin (reset-in) inter=
-rupt
-here lead to duplicate input events?
+Does this GICv3 node need the interrupts property for the VGIC maintenance
+interrupt?=20
 
-Since both the gpio-keys driver and the PMIC resin driver are instantiated =
-and
-bound to KEY_VOLUMEDOWN, won't pressing the hardware button generate two
-duplicate input events to the kernel input subsystem? This would cause
-userspace volume controls to jump two steps instead of one.
+Without it, KVM initialization via vgic_set_kvm_info() cannot proceed becau=
+se
+irq_of_parse_and_map() returns 0. Could this silently break KVM virtualizat=
+ion
+support on this platform?
+
+[ ... ]
+
+diff --git a/arch/arm64/boot/dts/altera/socfpga_agilex27_socdk.dts b/arch/a=
+rm64/boot/dts/altera/socfpga_agilex27_socdk.dts
+new file mode 100644
+index 0000000000000..15d331cdeeb47
+--- /dev/null
++++ b/arch/arm64/boot/dts/altera/socfpga_agilex27_socdk.dts
+@@ -0,0 +1,27 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (C) 2026, Altera Corporation
++ */
++#include "socfpga_agilex27.dtsi"
++
++/ {
++	model =3D "Altera SoCFPGA Agilex27 SoCDK";
++	compatible =3D "altr,socfpga-agilex27-socdk", "altr,socfpga-agilex27";
+
+[Severity: Low]
+Is the altr,socfpga-agilex27-socdk board-level compatible string documented
+in the devicetree bindings?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-kebab_dts-=
-v2-0-e783463bffd3@fhannenheim.net?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015123700.2137=
+706-2-dinguyen@kernel.org?part=3D1
