@@ -1,140 +1,97 @@
-Received: from mx3.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D262148122F;
-	Thu, 15 Oct 2026 06:19:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=141.14.17.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D390347A894;
+	Thu, 15 Oct 2026 06:20:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792045197; cv=none; b=TilvxmRrBKJdML4Y66hiTFwymF4txsnU+8ETwGBxcYLbPOcrBTltQ+3b5bR1FVq6AsgZxx4VBBnTOj5TowSF0ewr9XhwoPNyXrYD9W6wamxAUGBcjOArr+moNhLbYd9mXQeqXjlXGR85pNWogMXt+h/HSthYV+P3fjQwrgGcvyg=
+	t=1792045244; cv=none; b=VMmqKbFUX293YJe/pso6Y/1Q+dytfnyBOpLdilLDQDJJgNHAINS4y59P/UcAbTFBUgiA1Peu1AEfRo5cmGLLaXuz6a7aixSk/1gHg2XybtqcwNUrz3K4QYEvqojfHHfDh1imFdtjvAp7jBIG9DArhQ3E5cFgOStCRLfScyxmlLw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792045197; c=relaxed/simple;
-	bh=uAzzCY3ndU+qqC/YhMsfqq4WI/d1uNiWBP52Yel97eg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sAQj/v1gtdxvoTX7GKh4/hoN2vcqGEIWdSmHgev32X8nZE7G4RqnjYGlAOGMawefsBuQ99oLBxFYeKwCMu7trOzf5/p4trFUS7KqAtrlQs4Wux9DVev0VloHU2viQ0usbYTzTuzIv/jgdBAuOpfGImfmnCh6Awimm0V8/kuDbwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=molgen.mpg.de; spf=pass smtp.mailfrom=molgen.mpg.de; dkim=pass (2048-bit key) header.d=molgen.mpg.de header.i=@molgen.mpg.de header.b=gV4uD0HD; arc=none smtp.client-ip=141.14.17.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=molgen.mpg.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=molgen.mpg.de
+	s=arc-20240116; t=1792045244; c=relaxed/simple;
+	bh=K/ZOGxcAPck/oG8zMA0EHFOK3zkvQ+pfWnaxGgZcJ98=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=csy4YpBO70hOMKkdH1YvWGbe+7fxKvUozU3mPaB5zAyTpsDwCs2GownW1FKFJL+IkWfbrTk/7mCDaeBsV8N44DWST3ZZPaAoue10Bv1kjYkpdhCHgbx7WC+2JuWuWarZXKl8RvcLopP7idT4CQF7xI/umRQQ4wFdabMnXM9MkXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rFzXQPBX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=molgen.mpg.de header.i=@molgen.mpg.de header.b="gV4uD0HD"
-Received: from [192.168.2.230] (p57bd9217.dip0.t-ipconnect.de [87.189.146.23])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: pmenzel)
-	by mx.molgen.mpg.de (Postfix) with ESMTPSA id 9CADF4C442F96C;
-	Thu, 15 Oct 2026 08:18:56 +0200 (CEST)
-Message-ID: <f63f8f6d-54b8-4f0d-bc4a-fdb9cdefaba2@molgen.mpg.de>
-Date: Thu, 15 Oct 2026 08:18:55 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rFzXQPBX"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 54369C2BCC7;
+	Thu, 15 Oct 2026 06:20:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792045244;
+	bh=K/ZOGxcAPck/oG8zMA0EHFOK3zkvQ+pfWnaxGgZcJ98=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=rFzXQPBXFY4zndnk7XfS8qNqGkAt5+Ut+o1LN7YYlyYAmvzOSSOaY3G5wTk+Y6AH6
+	 rZU8/K+zvA5oS7+6OTMsUpLmrhDdQ9OdpOoW5MwSrVM5Na3OsnINbgQM8B0+dOQt/x
+	 UCGgeyW/F8eolh3PfSPp7lRZto8PtViBDa/ivq6fB42rDBIrZDoKudFUExnTGJI8tJ
+	 eecM3GBChV4/N+sKoA1ZVOsaPHAQBIQKO1NvlEXS4QP1MfcKBKJpHcCADkjaDr92Vc
+	 UAHaoX0ttANF0J4+MoKX+kk51HT5F1DPuaJT3ZD8NFJMLT0b8cc+5ZPCdAxVf3rKg4
+	 2OD26N5m29SYQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 40D86CC6B34;
+	Thu, 15 Oct 2026 06:20:44 +0000 (UTC)
+From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
+Date: Thu, 15 Oct 2026 11:50:40 +0530
+Subject: [PATCH] dt-bindings: nvmem: qfprom: Add SM7250 compatible
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 4/5] wifi: ath12k: Support MAC address from the
- firmware node
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- Jeff Johnson <jjohnson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Abel Vesa <abelvesa@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-bluetooth@vger.kernel.org, linux-wireless@vger.kernel.org,
- ath12k@lists.infradead.org
-References: <20261014-b4-nvmem-efivar-v1-0-187c85f65018@oss.qualcomm.com>
- <20261014-b4-nvmem-efivar-v1-4-187c85f65018@oss.qualcomm.com>
-Content-Language: en-US
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-In-Reply-To: <20261014-b4-nvmem-efivar-v1-4-187c85f65018@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=molgen.mpg.de; s=20260906; 
-	t=1792045139; 
-	h=from:from:subject:date:message-id:mime-version:content-type:content-transfer-encoding; 
-	bh=PV4vgUC8vzMQkMRZKRfTyHLU0bvgUrJ1JuVDgdBfKCM=; 
-	b=gV4uD0HDXWf64WAe9SD47afIh0zwoLH3zySpaE8EGBTXxO5r67cW0t5HXEJB7K2/o6ySSrJmwu5U
-	Xn9QJtnZ37RLPBJ4WrgVEkb//xYuhv3wilZCdKVWrFrmGFxDPzefPy1Z3jIbE6OSDdqRmFmQtgdQo9
-	aA4eExXakMVrzNevSpL4dYNQjEZxiMtNs0PTH4TybvpSKIN/2zGVZt5gE4G9/4qJVFFPKDqFjltTo5
-	QRwm8n2NteQ7liwaSp3btR30biUUWA9xQC3i5YqpIsg3gEZzURvphqki9eo9Zc5YD11LA0/40n8aIp
-	+ywb8j5TTxo9cw3ZDlT7eND7g9fVuoGA==
+Message-Id: <20261015-qfprom-sm7250-v1-1-2401e54253ad@brar.si>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMSQqEQAxA0atI1l2QlFPjVRoXDlHT4FRREcS7W
+ +ryLf4/QNkJK2TBAY43URkHD/oEUHXF0LKR2hss2oSQYjM3kxt7o31qYzTfKEyIEJmKGnwzOW5
+ kf36//LWu5Z+r5Z7AeV5GCKsucQAAAA==
+X-Change-ID: 20261015-qfprom-sm7250-84361100e1ad
+To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Ishu Brar <patches@brar.si>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792045241; l=1040;
+ i=patches@brar.si; h=from:subject:message-id;
+ bh=Js+mOiFMtKojVlFfFjDoASGr/TjMDscmI+GpAAhGGTg=;
+ b=sRr5cyL40sr6YpjGeoZpyOQONA6bSYMeVLFmVA+zvDrgLSonGrhZsSfJyMyaySe+WOBlmnLkU
+ GE6GYNH4RRLBwoGI4fctMgU+gJcneV614LqWx80R6Q1uJ7nMWdC6n1a
+X-Developer-Key: i=patches@brar.si; a=ed25519;
+ pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
+X-Endpoint-Received: by B4 Relay for patches@brar.si/default with
+ auth_id=1189
+X-Original-From: Ishu Brar <patches@brar.si>
+Reply-To: patches@brar.si
 
-Dear Abel,
+From: Ishu Brar <patches@brar.si>
 
+Document the qcom,sm7250-qfprom compatible for the fuse block on the
+Qualcomm SM7250 SoC. It holds the GPU speed-bin value that selects the
+Adreno 620 operating points.
 
-Thank you for your patch.
+Signed-off-by: Ishu Brar <patches@brar.si>
+---
+ Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Am 14.10.26 um 15:02 schrieb Abel Vesa:
-> Read a MAC address from the device's firmware node (a DT "mac-address"/
-> "local-mac-address" property, or an nvmem cell named "mac-address" via
-> device_get_mac_address()), and use it in preference to the address from
-> the firmware board data. This mirrors what ath10k and ath11k already do
-> and lets the WLAN MAC be sourced from firmware-provisioned storage such
-> as a UEFI variable exposed through nvmem.
-> 
-> A device tree / nvmem address takes precedence over the board-data MAC,
-> so an explicitly provisioned address wins even when the firmware reports
-> a valid per-pdev address. An all-zero (absent) address is ignored.
-> 
-> Note: the provisioned address must be a valid unicast MAC; a multicast
-> address (odd first octet) is rejected by nvmem_get_mac_address().
+diff --git a/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml b/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
+index bc0a0898b..3877b46ff 100644
+--- a/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
++++ b/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
+@@ -57,6 +57,7 @@ properties:
+           - qcom,sm6115-qfprom
+           - qcom,sm6350-qfprom
+           - qcom,sm6375-qfprom
++          - qcom,sm7250-qfprom
+           - qcom,sm8150-qfprom
+           - qcom,sm8250-qfprom
+           - qcom,sm8450-qfprom
 
-Please add a paragraph how you tested this.
+---
+base-commit: f5672a3dff0291d6a45eb0c258b9d2baeb4dc577
+change-id: 20261015-qfprom-sm7250-84361100e1ad
 
-> Assisted-by: LLM
-> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> ---
->   drivers/net/wireless/ath/ath12k/mac.c | 14 +++++++++++++-
->   1 file changed, 13 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/wireless/ath/ath12k/mac.c b/drivers/net/wireless/ath/ath12k/mac.c
-> index 01f8c6572f65..f4d2d0377c8e 100644
-> --- a/drivers/net/wireless/ath/ath12k/mac.c
-> +++ b/drivers/net/wireless/ath/ath12k/mac.c
-> @@ -14878,15 +14878,27 @@ static int ath12k_mac_hw_register(struct ath12k_hw *ah)
->   	u32 ht_cap = U32_MAX, antennas_rx = 0, antennas_tx = 0;
->   	bool is_6ghz = false, is_raw_mode = false, is_monitor_disable = false;
->   	u8 *mac_addr = NULL;
-> +	u8 mac_from_dt[ETH_ALEN] = {};
->   	u8 mbssid_max_interfaces = 0;
->   
->   	wiphy->max_ap_assoc_sta = 0;
->   
-> +	/*
-> +	 * Allow a MAC address provided through the device tree (directly or
-> +	 * via an nvmem cell named "mac-address") to override the one from the
-> +	 * firmware board data.
-> +	 */
-> +	device_get_mac_address(ab->dev, mac_from_dt);
-> +
->   	for_each_ar(ah, ar, i) {
->   		u32 ht_cap_info = 0;
->   
->   		pdev = ar->pdev;
-> -		if (ar->ab->pdevs_macaddr_valid) {
-> +		if (!is_zero_ether_addr(mac_from_dt)) {
-> +			/* A device tree / nvmem address takes precedence. */
-
-The comment is redundant as the code ordering shows exactly this.
-
-> +			ether_addr_copy(ar->mac_addr, mac_from_dt);
-> +			ar->mac_addr[4] += ar->pdev_idx;
-> +		} else if (ar->ab->pdevs_macaddr_valid) {
->   			ether_addr_copy(ar->mac_addr, pdev->mac_addr);
->   		} else {
->   			ether_addr_copy(ar->mac_addr, ar->ab->mac_addr);
-> 
-
-With the commit message extended, and the comment removed:
-
-Reviewed-by: Paul Menzel <pmenzel@molgen.mpg.de>
+Best regards,
+--  
+Ishu Brar <patches@brar.si>
 
 
-Kind regards,
-
-Paul
