@@ -1,424 +1,147 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25A724CA779
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 08:48:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F4164DD3C9;
+	Thu, 15 Oct 2026 08:51:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792054136; cv=none; b=Qy5JNtR/NILcRVjkDuUxa03/m87fZbTkeVkjmJR164OrBg5z1AKLwm7w5jtapeEPsmZXK826wrZ3YLuyB03Gl3dkGsHB6/FAKskwklIdPjs5aMGjDkKPTGR2/vM8Dbx7Eu5dZXlHo3D62NAQ79g84vsQpq+1q4dzHUuH9K5u2qo=
+	t=1792054274; cv=none; b=gZifHR4UDTiMKaYrr/A0S9jrqoEnkRXVcTw8/PHugn9bgrSB+pKefOAJSKnvBF+3vMoHaoFPr/iHhrhrUXmYckD/G7of9+seWqCpgrr4szJasW3jrYB4YowrHe8RlRD9tYQGQeh0n3U7IpePDl51aXLYxTjz2ZvAO5Ib5ICyxPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792054136; c=relaxed/simple;
-	bh=y7ON+8qcT81Vfk2WnWiNZ+guWKPeprgicnwgnK4Rabw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qzo9Ri9nuGb4exznG/ZvYmP69L6GdhYU4YwsKkZ9OlEm3ZcL1PLhcidYhNF9MR2AW8E2ef7czqkc+PMdWdJv12yYKW+Buess3UPVVEkOY9aZWOf1+yDY/7t+gEqorMTufmrxk+wDMo1iguUMg8Zow8T+F6M7TF9+G/I1BBrt4jo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ze6h9acA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=g34eL2Iz; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792054274; c=relaxed/simple;
+	bh=bMwWPEBQCG9rpn7heB52ms+Zuu9YDMaWktIXKrli2ig=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=R0B15LoN1nn8GZ3U8t18DQnnmIjw1jOEdnvXADOAN9bYOQdDnU1K8qiqna3E7aldFXTAW4a9UuLliP/5zSLRrCqea5fLCiB+Wa3V48jothHTWbswm/36PLDXOhwWe/VdyB2mYwQkOnZG8QOYR9Q7Nz0Ltx9tWAEdWypsnB+NW2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bl6hpvm2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ze6h9acA";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="g34eL2Iz"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F75VMm1672414
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 08:48:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	/CQ7otyR+RYmTpGsE7cFuhQgfjawgGWN8r9jLptBkR0=; b=Ze6h9acAYpsMtz5j
-	1werfpAfpR4a+T7mGVZ48Y6ylTDSFbW/8vXFpoiphcSF3foOiGWywQYDfcnAdd/I
-	l1CoeBqrNjl/yf77+PVQ9Z7oG3pJfvD8v43gKpjKJ2NDHVWxCiZlyrys3X9sRvck
-	tqW78ATShQvaOXwnEMVB9bp6eA10p5AbsPhz3sAj5yLUfTqlNJ0n8Q+67wXSgtgX
-	aVgLGBVHyFG/Fq+2g8+nlhFQgdKIFl6pfwNtN/EhIzrFX9itDH3lQENGFYcra5dG
-	JxhTa6bXpeiOCKzwnJ3UCk5HdBs5Dt+So/D2n5U2q7BCKlIg0Zh6n7+vFBMzRxcO
-	orPciw==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hacrhbfrs-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 08:48:48 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91785bd637bso160976676d6.1
-        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 01:48:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792054128; x=1792658928; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/CQ7otyR+RYmTpGsE7cFuhQgfjawgGWN8r9jLptBkR0=;
-        b=g34eL2IzT/N6CyAKOi5Y3VzCx2dOLhUkQdvQOk2Bm9YF2OXJqGhDKszFPUAfDJuXC5
-         V4wYdEPnW6w9yBwygvC50X724DrkOQ5/NlZoUhaF5dyyil5XLePYbpQgAQtUySL37IlB
-         kdQ5mkBUcfzj5xj5vsa91TkKz6x0Z5UGjzPNAqaaxYHUP6JdMdhx3oxsNRQ1rFiTlZ4W
-         v4q65VyHUrzZE0ekv+Bkx4suNm3EMNWUAADq1dXvaOOmws0t8O0I/huPaBc1vjXA2NjV
-         PPZFwt/67oE6Spma/lehU6Wq/KIAO1ZYZN12qUf3UsHfbwbgBvb3ayKFfqgSr3fSum3S
-         yFcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792054128; x=1792658928;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/CQ7otyR+RYmTpGsE7cFuhQgfjawgGWN8r9jLptBkR0=;
-        b=n743B6Ca82YYiG1UNteEcDf1xbd5E86LGbvBF6rpAiUL10Fqp47az11wMU3WJ8309C
-         YfqiSxQ+9r+cc+d90rfDBSnW05YpUESIiZATeNViBkp9SH4qeoi4FyF8+c0Phhd2+dsT
-         B+jUFxX15Q2J1KRaAh9gdnICHMp19WomeymmDrMPc2lp8D0fL0GBmybYarc1eoiDeFtQ
-         8pFlmBilP2gqf1NAFLbZQvb+s83n9sYvzbCY9uPFwmIAzhC5TpDWcm025yKYuvZKhezd
-         WPeLjGbUc2gmOzyV2X3xQdT4W8tytASDq5LTPJwpZZM5k1iMAQ6LwtfvwSgM/jm+nOJZ
-         29zQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzAM8fwjdM1rn8p8utb6KA14iWd4cy8jlGBJg679DxbV4j56yRCStzbp+7KQQFsXjM65pFczQZtZe+c@vger.kernel.org
-X-Gm-Message-State: AFq9FYKCeyfbyO5ZpegHVrE9n46i8rkLgcdOawKYDEhJXWZp39topAbn
-	UvkGBZgH6vRcrx0K+m0yZLpnvti39jUd1oOlkM0aDccEGgY8wjgAyyTB+4Jh3G4VGbCqTiEOCLB
-	h6vGrPyYu2Kc/AqnuMIGYjklgsaPT4OnwYnIDUgv0JNjHfU+xQCTSETCqg2SCSaim
-X-Gm-Gg: AYBFou341xtzu39YFCuoEjQSq5ieJwfZzyJESZGmM8FYXPQv/CBV2bUzCDzDsvgutio
-	CoR/ZhrFEkrmKdTGGglWotWp1owZKV5efPH9MFhgGCXtaEvRMwl+GxWUeUtNC1MmwIutlefixN9
-	UJhixH12QJg0rut4iiUQVj3z7JEL66PQU4/d3COvc4/zn+dqmPMGPhwRJSgJcwfDGZ8ZPl6AmMw
-	8La6qSDRFmUMbpGVZ4JIbeHour+07SF1b8T+u1gytRd8pTrHSiE3BMxQWLpfHtqR1addq3GW8T2
-	MPH+QJbF3ZmpN/dLcLEFlLU0EmQo/hPyYzEJeXXIhGoBGdWZxH6yulXqsJb5sMhWafoDAYJwpxc
-	j/ECx1N6Xo2lrwYjNmTQA5mYAOA==
-X-Received: by 2002:a05:620a:4556:b0:93e:bdeb:f067 with SMTP id af79cd13be357-93ee10415cemr2008777285a.48.1792054127865;
-        Thu, 15 Oct 2026 01:48:47 -0700 (PDT)
-X-Received: by 2002:a05:620a:4556:b0:93e:bdeb:f067 with SMTP id af79cd13be357-93ee10415cemr2008776585a.48.1792054127436;
-        Thu, 15 Oct 2026 01:48:47 -0700 (PDT)
-Received: from [192.168.68.120] ([5.133.47.210])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a1bd97ed33sm63749335e9.5.2026.10.15.01.48.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 01:48:46 -0700 (PDT)
-Message-ID: <3c284bd6-20ba-4ce4-8421-56ac48be457b@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 09:48:45 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bl6hpvm2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E04A1F000C5;
+	Thu, 15 Oct 2026 08:51:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792054263;
+	bh=tFnV7548W2cYAgOYdNjgr+r0IhqhLRq6V7QIU9EarGc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bl6hpvm2/G34jtvGuymyBpQnb30BmSpm41F+bpgLGn/5Qwrknu3j/mc4FWfx1BHOG
+	 EsSDzkKASK5ngSqNTxxPAr9OrYIkzzKNWVrO5KI0aNnXkbJB7Xo2+X1wQOrbQrzv7h
+	 I+WdAxWYr+oxFHKwU5pCt5/3HGhZVKB/Khbbc+g2lNeDRRqHvXhq1cy8EQ7kbgjwIg
+	 sFSKrXXNcFSfGq4RzLt7J04pVBpntNuWQGa4YUZgWMbuNXPMhtqj6vOEFVz6auLTgm
+	 8Xrx4LaDLNNk7jmuQ3IDeVheVSOvnd6PsjTSjaurj1WSuvv2jhMuVwCKKZzxTxYDxC
+	 zB/0nSVuORqoA==
+Date: Thu, 15 Oct 2026 10:50:59 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: wyibo6109@gmail.com
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	linux-input@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: input: add OnePlus pogo-pin keyboard
+Message-ID: <20261015-polite-barnacle-from-valhalla-b218eb@quoll>
+References: <20261010143836.173883-1-wyibo6109@gmail.com>
+ <20261014135251.11234-1-wyibo6109@gmail.com>
+ <20261014135251.11234-2-wyibo6109@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 04/10] ASoC: qcom: Add QAIF CPU DAI ops, regmap, DT
- parsing and platform init
-To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>,
-        Srinivas Kandagatla <srini@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-        Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>,
-        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
-        Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
-        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-References: <20261013-b4-qaif-shikra-audio-v9-0-f3022e28f2fd@oss.qualcomm.com>
- <20261013-b4-qaif-shikra-audio-v9-4-f3022e28f2fd@oss.qualcomm.com>
-Content-Language: en-US
-From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-In-Reply-To: <20261013-b4-qaif-shikra-audio-v9-4-f3022e28f2fd@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: CBeTrgrupqWwckzzSUgxBWQj5VRtIHix
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAzNCBTYWx0ZWRfXx3x2c2drnYC/
- RHoEujDeHaW5Ar6+JeXEdNTsucVzWYOblHRLak2V7F2Tlw+lYOxSF+wQvj60nv9Bxf5XS67fWcs
- Ham8eLbfRCjNZqYuer412+UH4v8OLtM=
-X-Proofpoint-GUID: CBeTrgrupqWwckzzSUgxBWQj5VRtIHix
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAzNCBTYWx0ZWRfX0TSdxq2g5vOm
- OG9WZz3yl3q1rW6AS5Xke2psLXPHCatjUS43fm29U7TyZWf5QLyRfE9FpTh16U8UAla7MaqMEac
- 4ii/WviXBd+SlW2EfERKXWhcP8FS7GZR4ourtFzTomd6+C513aU2v0M4GaqdQIAw4nlB0st/mow
- QBXCuMeyNkqcJGsHAjtkoclhD9Y8D9sDnj3OmzkpEdncmG36To0WOurlwiXWaaWl8gomgHKF0hP
- grS2p8pGYIP0boTCqsMFBURn4AhQ3lt2UebHF78thxC8DAQ/Bxf5Ubl4B7By3VbjuqiddB78G23
- F4puKFDE/xWNy8OwllxcaEztP/40MFjfRjjFw8eH8ryeDOm7JHQILKymi3Qo1eLUrqNevULmKIT
- SsGAgoFgXJghlCAlrfHCtR2/CAyCD9tiQ9rnwgTASJCjseKHBqOdo5Xqa/JiACFrI4f6cwZZV6r
- i8SwjGsbCtIxxFuSR0A==
-X-Authority-Analysis: v=2.4 cv=SYZi5fRu c=1 sm=1 tr=0 ts=6ad09371 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=FTiPbF0PEYynNRljgLcA:9 a=QEXdDO2ut3YA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 phishscore=0 suspectscore=0 clxscore=1015
- spamscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150034
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261014135251.11234-2-wyibo6109@gmail.com>
 
-On 10/13/26 6:51 AM, Harendra Gautam wrote:
-> Add the QAIF CPU DAI driver to support Qualcomm audio interface paths
-> used for CDC DMA and serial AIF audio links.
+On Wed, Oct 14, 2026 at 08:52:50AM -0500, wyibo6109@gmail.com wrote:
+> From: Yibo Wang <wyibo6109@gmail.com>
 > 
-> Implement CIF DAI operations for CDC DMA paths, including channel mask
-> programming and dynamic clock control. Implement AIF DAI operations for
-> MI2S, TDM and PCM paths, including format setup, slot and lane
-> configuration, bit clock management and stream enable handling.
+> Binding for the Tinno keyboard MCU used by the OnePlus Pad 3 Pro /
+> Pad 4 and OPPO Pad 5 Pro smart keyboards, attached to a tablet UART.
+> Describes the supply, TX-gate and wake GPIOs, with a MAINTAINERS entry.
 > 
-> Also add the QAIF MMIO regmap setup, parse per-interface configuration
-> from devicetree, manage required clocks and register the CPU DAI
-> component.
+> The compatible names the tablet project the pogo port belongs to
+> (caihong, erhai or iceland), which pins the keyboard MCU generation
+> and with it the protocol extensions the host may use: the 0x3A general
+> sub-commands grew over time, from the caihong (sm8650 era) MCUs with
+> neither wake notification nor backlight, through erhai (sm8750 era,
+> wake notification) to iceland (sm8850 era, keyboard backlight).
 > 
-> Signed-off-by: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+> The touchpad geometry and the product names are fixed per project and
+> live in the driver; the common touchscreen properties
+> (touchscreen-size-x/y, touchscreen-x-mm/y-mm) remain as an optional
+> override if a variant ever needs one.
+
+Why? It's fixed. It cannot be overridden. Your example DTS even shows
+that.
+
+> 
+> Signed-off-by: Yibo Wang <wyibo6109@gmail.com>
 > ---
->  sound/soc/qcom/qaif-cpu.c | 886 ++++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 886 insertions(+)
+>  .../bindings/input/oneplus,pogo-keyboard.yaml | 73 +++++++++++++++++++
+>  MAINTAINERS                                   |  6 ++
+>  2 files changed, 79 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
 > 
-> +	}
+> diff --git a/Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml b/Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
+> new file mode 100644
+> index 000000000..fa1579ed5
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
+> @@ -0,0 +1,73 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +# Copyright (c) 2026 Yibo Wang <wyibo6109@gmail.com>
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/input/oneplus,pogo-keyboard.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +	idx = v->get_dma_idx(dai_id);
-> +	if (idx < 0) {
-> +		dev_err(rtd->dev, "Invalid DMA index: %d\n", idx);
-> +		return -EINVAL;
-> +	}
+> +title: OnePlus / OPPO Pad pogo-pin smart keyboard
+> +
+> +maintainers:
+> +  - Yibo Wang <wyibo6109@gmail.com>
+> +
+> +description: |
+> +  The Tinno keyboard MCU used by the OnePlus Pad 3 Pro / Pad 4 and OPPO
+> +  Pad 5 Pro smart keyboards.  It is attached to a tablet UART and speaks
+> +  a framed half-duplex protocol over a shared single wire; host
+> +  transmission is gated onto the wire by a PMIC GPIO for the duration of
+> +  a frame.  The device provides a keyboard matrix, a touchpad and a
+> +  keyboard backlight.
+> +
+> +allOf:
+> +  - $ref: /schemas/serial/serial-peripheral-props.yaml#
+> +  - $ref: /schemas/input/touchscreen/touchscreen.yaml#
 
-
-This is repeated like so many times in this file,
-may be consider a helper,
-> +
-> +	reg = substream->stream == SNDRV_PCM_STREAM_PLAYBACK ?
-> +		QAIF_CDC_RDDMA_INTF_CFG_REG(v, idx) :
-> +		QAIF_CDC_WRDMA_INTF_CFG_REG(v, idx);
-> +
-> +	return regmap_update_bits(drvdata->audio_qaif_map, reg,
-> +				  QAIF_CIF_INTF_ACTIVE_CH_MASK,
-> +				  regval << QAIF_CIF_INTF_ACTIVE_CH_SHIFT);
-> +}
-> +> +
-> +static const struct regmap_config audio_qaif_regmap_config = {
-> +	.name		= "audio_qaif_cpu",
-> +	.reg_bits	= 32,
-> +	.reg_stride	= 4,
-> +	.val_bits	= 32,
-> +	.cache_type	= REGCACHE_NONE,
-
-
-> +};
-> +
-> +static int of_qaif_parse_aif_intf_cfg(struct device *dev,
-> +				      struct qaif_drv_data *data)
-> +{
-> +	const struct qaif_variant *v = data->variant;
-> +	struct device_node *np = dev->of_node;
-> +	struct device_node *intf_np;
-> +	struct qaif_aif_config *cfg;
-> +	int ret;
-> +	u32 dai_id;
-> +	int intf_idx;
-> +	int num_interfaces = 0;
-> +	u32 val_buf[QAIF_MAX_LANES];
-> +	int j, n;
-> +	unsigned long configured_intf_mask = 0;
-> +
-> +	for_each_child_of_node(np, intf_np) {
-> +		if (!of_property_present(intf_np, "reg"))
-
-Do you have anyother childs that will not have reg?
-
-> +			continue;
-> +
-> +		if (num_interfaces >= QAIF_MAX_AIF_CFG_CNT) {
-
-This limit should be part of dt-bindings, is this hardware limitation or
-software?
-
-
-> +			dev_warn(dev, "Too many AIF interfaces, limiting to %d\n",
-> +				 QAIF_MAX_AIF_CFG_CNT);
-> +			of_node_put(intf_np);
-use scoped ones here.
-> +			break;
-> +		}
-> +
-> +		ret = of_property_read_u32(intf_np, "reg", &dai_id);
-> +		if (ret) {
-> +			dev_err(dev, "Missing reg for interface %pOFn\n", intf_np);
-> +			of_node_put(intf_np);
-> +			return ret;
-> +		}
-> +
-> +		intf_idx = v->get_dma_idx(dai_id);
-> +		if (intf_idx < 0) {
-> +			dev_err(dev, "Invalid DAI ID %d for interface %pOFn\n",
-> +				dai_id, intf_np);
-> +			of_node_put(intf_np);
-> +			return -EINVAL;
-> +		}
-> +		if (intf_idx >= ARRAY_SIZE(data->aif_intf_cfg)) {
-> +			dev_err(dev, "DAI ID %d maps to out-of-range intf_idx %d\n",
-> +				dai_id, intf_idx);
-> +			of_node_put(intf_np);
-> +			return -EINVAL;
-> +		}
-> +
-> +		if (configured_intf_mask & BIT(intf_idx)) {
-> +			dev_err(dev, "Duplicate reg %d for interface %pOFn\n",
-> +				dai_id, intf_np);
-> +			of_node_put(intf_np);
-> +			return -EINVAL;
-> +		}
-> +		configured_intf_mask |= BIT(intf_idx);
-> +
-> +		cfg = &data->aif_intf_cfg[intf_idx];
-> +		if (v->aif_full_cycle_en)
-> +			cfg->full_cycle_en = v->aif_full_cycle_en[intf_idx];
-> +		if (v->aif_ctrl_data_oe)
-> +			cfg->ctrl_data_oe = v->aif_ctrl_data_oe[intf_idx];
-> +		if (v->aif_loopback_en)
-> +			cfg->loopback_en = v->aif_loopback_en[intf_idx];
-> +
-> +		switch (snd_soc_daifmt_parse_format(intf_np, NULL) &
-> +			SND_SOC_DAIFMT_FORMAT_MASK) {
-> +		case SND_SOC_DAIFMT_I2S:
-> +			cfg->sync_mode = QAIF_AIF_SYNC_MODE_LONG;
-> +			cfg->sync_delay = QAIF_AIF_SYNC_DELAY_ONE;
-> +			cfg->invert_sync = true;
-> +			break;
-> +		case SND_SOC_DAIFMT_DSP_A:
-> +			cfg->sync_mode = QAIF_AIF_SYNC_MODE_ONE_SLOT;
-> +			cfg->sync_delay = QAIF_AIF_SYNC_DELAY_ONE;
-> +			break;
-> +		case SND_SOC_DAIFMT_DSP_B:
-> +			cfg->sync_mode = QAIF_AIF_SYNC_MODE_SHORT;
-> +			cfg->sync_delay = QAIF_AIF_SYNC_DELAY_SAME;
-> +			break;
-> +		default:
-> +			break;
-
-Error?
-
-
-> +		}
-> +
-> +		if (!qaif_is_aif_mi2s_port(dai_id)) {
-> +			ret = of_property_read_u32(intf_np, "dai-tdm-slot-width",
-> +						   &cfg->slot_width);
-> +			if (ret || !cfg->slot_width) {
-> +				dev_err(dev, "Missing/invalid dai-tdm-slot-width for %pOFn\n",
-> +					intf_np);
-> +				of_node_put(intf_np);
-> +				return ret ? ret : -EINVAL;
-> +			}
-> +			ret = of_property_read_u32(intf_np, "dai-tdm-slot-num",
-> +						   &cfg->slot_num);
-> +			if (ret || !cfg->slot_num) {
-> +				dev_err(dev, "Missing/invalid dai-tdm-slot-num for %pOFn\n",
-> +					intf_np);
-> +				of_node_put(intf_np);
-> +				return ret ? ret : -EINVAL;
-> +			}
-> +			snd_soc_of_get_slot_mask(intf_np, "dai-tdm-slot-rx-mask",
-> +						 &cfg->slot_en_rx_mask);
-> +			snd_soc_of_get_slot_mask(intf_np, "dai-tdm-slot-tx-mask",
-> +						 &cfg->slot_en_tx_mask);
-> +			if (!cfg->slot_en_rx_mask && !cfg->slot_en_tx_mask) {
-> +				dev_err(dev, "No active TDM slots for %pOFn\n",
-> +					intf_np);
-> +				of_node_put(intf_np);
-> +				return -EINVAL;
-> +			}
-> +		}
-> +
-> +		n = of_property_read_variable_u32_array(intf_np,
-> +							"qcom,qaif-aif-lane-map",
-> +							val_buf, 1, QAIF_MAX_LANES);
-> +		if (n < 0) {
-> +			dev_err(dev, "Missing qcom,qaif-aif-lane-map for %pOFn\n",
-> +				intf_np);
-> +			of_node_put(intf_np);
-> +			return n;
-> +		}
-> +		for (j = 0; j < n; j++) {
-> +			if (val_buf[j] > 1) {
-> +				dev_err(dev, "Invalid lane-map value %u for %pOFn\n",
-> +					val_buf[j], intf_np);
-> +				of_node_put(intf_np);
-> +				return -EINVAL;
-> +			}
-> +			cfg->lane_en_mask |= BIT(j);
-> +			if (val_buf[j])
-> +				cfg->lane_dir_mask |= BIT(j);
-> +		}
-> +
-> +		num_interfaces++;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +/**
-> + * asoc_qcom_qaif_cpu_platform_probe - Probe the QAIF CPU and platform driver
-> + * @pdev: Platform device
-> + *
-> + * Initialises the QAIF regmap, parses DT, sets up clocks and registers
-> + * the CPU DAI component and PCM platform.
-> + *
-> + * Return: 0 on success, negative error code on failure.
-> + */
-> +int asoc_qcom_qaif_cpu_platform_probe(struct platform_device *pdev)
-> +{
-> +	struct regmap_config regmap_cfg = audio_qaif_regmap_config;
-> +	struct qaif_drv_data *drvdata;
-> +	struct resource *res;
-> +	const struct qaif_variant *variant;
-> +	struct device *dev = &pdev->dev;
-> +	const struct of_device_id *match;
-> +	int ret, i, dai_id, idx;
-> +
-> +	drvdata = devm_kzalloc(dev, sizeof(*drvdata), GFP_KERNEL);
-> +	if (!drvdata)
-> +		return dev_err_probe(dev, -ENOMEM, "Failed to allocate driver data\n");
-> +	platform_set_drvdata(pdev, drvdata);
-> +
-> +	match = of_match_device(dev->driver->of_match_table, dev);
-> +	if (!match || !match->data)
-> +		return dev_err_probe(dev, -EINVAL, "No matching device data\n");
-> +
-> +	drvdata->variant = match->data;
-> +	variant = drvdata->variant;
-
-plese use device_get_match_data() here,
-
+So this is not really needed, drop
 
 > +
-> +	if (!variant->get_dma_idx)
-> +		return dev_err_probe(dev, -EINVAL,
-> +				     "variant is missing get_dma_idx callback\n");
+> +properties:
+> +  compatible:
+> +    description: |
+> +      Names the tablet project the pogo port belongs to, which pins the
+> +      keyboard MCU generation and the protocol extensions the host may
+> +      use: caihong (sm8650 era) supports neither the wake notification
+> +      nor a backlight, erhai (sm8750 era) adds the wake notification,
+> +      iceland (sm8850 era) adds the keyboard backlight.
+> +    enum:
+> +      - oneplus,caihong-pogo-keyboard
+> +      - oneplus,erhai-pogo-keyboard
+> +      - oneplus,iceland-pogo-keyboard
 > +
-> +	ret = of_qaif_parse_aif_intf_cfg(dev, drvdata);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to parse aif interfaces\n");
+> +  power-gpios:
+> +    description: GPIO enabling the keyboard supply, held high while attached.
+> +    maxItems: 1
 > +
-> +	drvdata->audio_qaif = devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(drvdata->audio_qaif))
-> +		return dev_err_probe(dev, PTR_ERR(drvdata->audio_qaif),
-> +				     "Failed to ioremap QAIF registers\n");
+> +  tx-enable-gpios:
+> +    description: GPIO gating host TX onto the shared one-wire bus.
+> +    maxItems: 1
 > +
-> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> +	if (!res)
-> +		return dev_err_probe(dev, -EINVAL, "Failed to get MMIO resource\n");
+> +  wake-gpios:
+> +    description: GPIO signalling attach/detach, also used as the wake line.
+> +    maxItems: 1
 > +
-> +	regmap_cfg.max_register = resource_size(res) - regmap_cfg.reg_stride;
-> +	drvdata->audio_qaif_map = devm_regmap_init_mmio(dev, drvdata->audio_qaif,
-> +							&regmap_cfg);
-> +	if (IS_ERR(drvdata->audio_qaif_map))
-> +		return dev_err_probe(dev, PTR_ERR(drvdata->audio_qaif_map),
-> +				     "Failed to init regmap\n");
-> +
-> +	drvdata->aud_dma_clk = devm_clk_get(dev, "aud_dma");
-> +	if (IS_ERR(drvdata->aud_dma_clk))
-> +		return dev_err_probe(dev, PTR_ERR(drvdata->aud_dma_clk),
-> +				     "Failed to get aud_dma clock\n");
-> +
-> +	drvdata->aud_dma_mem_clk = devm_clk_get(dev, "aud_dma_mem");
-> +	if (IS_ERR(drvdata->aud_dma_mem_clk))
-> +		return dev_err_probe(dev, PTR_ERR(drvdata->aud_dma_mem_clk),
-> +				     "Failed to get aud_dma_mem clock\n");
-> +
-> +	for (i = 0; i < variant->num_dai; i++) {
-> +		dai_id = variant->dai_driver[i].id;
-> +		if (qaif_is_cif_port(dai_id))
-> +			continue;
-> +		idx = variant->get_dma_idx(dai_id);
-> +		if (idx < 0)
-> +			continue;
-> +
-> +		if (drvdata->mi2s_bit_clk[idx])
-> +			continue;
-> +
+> +  touchscreen-size-x: true
+> +  touchscreen-size-y: true
+> +  touchscreen-x-mm: true
+> +  touchscreen-y-mm: true
+
+Drop all four.
+
+Best regards,
+Krzysztof
+
