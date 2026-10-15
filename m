@@ -1,111 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.fhannenheim.net (mail.fhannenheim.net [188.245.251.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59EFD51D524;
-	Thu, 15 Oct 2026 12:32:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C24B23A99F;
+	Thu, 15 Oct 2026 12:33:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.245.251.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792067535; cv=none; b=Z3/7VowbRmssISNYdYMcH9ZoH1dXdORjRfkGO8bDzsX2y5LvrnYNxVzlNG8/pdJx/u602OL1+C+cr0jtFcCRe1HBoOuIZDxhKJtMU87CtztThW2/rY30qE+YgpC4vjBH1kYC1X2arTHeZAq5UaY91wkgeFfDHBD1x5XvcYz59Ws=
+	t=1792067604; cv=none; b=h0yYWJsiRcYQw8r7gqc98K/IveaxrvkaCCdaa/fBXuby/bYbf7uiJ/3xbCY+bOQctrgxW1ROfP3UZ+94NmQMaVBESeQrv0Niw/T5XRoemmX4rFqr7C4YO3HUX0asUtH5bkrDvpUZoz/OhDyEzdIIFqX2K7x8kgDGqZHFLSDSe7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792067535; c=relaxed/simple;
-	bh=8WD1KJEKyLO9GG7VlKQaADfeScVI9vidkvvaM8Bb0dA=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=SAaXR/YtZJdbMKhkYJxwBedgtlyP6jCgtQ4aaseeV6g8p/ujTa95/Bp/36SpexzjZcMZUdYD2EsAgBxS+NOZ7CA/R0+7X+dtkmlWVKOzsOBN9XYCoBxhuS9GDaqinEa5ad99nSJ2V7sabVBWxjFmehrLNGEMMS0OznYM3raJe4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FhrFfNdb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792067604; c=relaxed/simple;
+	bh=SQY5MLGxapxEK8L5QUAko4BpcbdYTY91OPGHni5NZ98=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Fw4gFOaiKS42A0U2Q1RZHNCi6+RvyHv/m3WPhjVz7Zun+Sp9iXDwNcX068U5B9POtEdRrnLSe3dx+0QVZMAY3NLSPlN9buM8Vmw125n15VbdeWFNaVSNSE0hpowhTS+ts9Siq7skfp7CB9qhtUst5A4fPaf905CMwc050GZvZnQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fhannenheim.net; spf=pass smtp.mailfrom=fhannenheim.net; dkim=pass (1024-bit key) header.d=fhannenheim.net header.i=@fhannenheim.net header.b=jO8iwxa5; arc=none smtp.client-ip=188.245.251.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fhannenheim.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fhannenheim.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FhrFfNdb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D62B01F000C4;
-	Thu, 15 Oct 2026 12:32:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792067534;
-	bh=X8FOmBSXX+HUNGHXxMp3OHiT/S2NzydEE8rbyj6LL5Y=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FhrFfNdbHiOJlh2XuFB/qa9tJidlObqnBnsGkalNKNkjy0i5o9XE6MEniJsDPOR0Y
-	 zVCo2WURfbfEH3FRqUEzKVl2+gnEm/dvbVPCcl9XQowbTql68NyCKfSHZyALUIZpJ7
-	 RPLpoQ7IAZQvO7V3pjJj5yJ7xzCHzPZV/GrgEMvZhqpe9XUyummirJiIbC4CdHbLVX
-	 WQTFLzcjYIhhi5VlUsM6wmI56q5OfD1Tbi4PxLZslDyIH5GoZFb07omu9vO9t5p2uj
-	 FpGYCvOkd2Gbgz/1M0/LxqhCW2YNkfQQMj5Gom1XC5SdiimZ4yPPKZxm45U+GnTUUW
-	 D2DWM9cTE/f7Q==
-Message-ID: <sashiko-outbox-172803@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 05/10] clk: nuvoton: ma35d1: Use device managed
- helpers for fixed rate clocks
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Miquel Raynal" <miquel.raynal@bootlin.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261015-perso-ma35d1-upstream-clk-v9-5-1f548fa2002e@bootlin.com>
-References: <20261015-perso-ma35d1-upstream-clk-v9-0-1f548fa2002e@bootlin.com>
- <20261015-perso-ma35d1-upstream-clk-v9-5-1f548fa2002e@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 12:32:13 +0000
+	dkim=pass (1024-bit key) header.d=fhannenheim.net header.i=@fhannenheim.net header.b="jO8iwxa5"
+From: Frieder Hannenheim <git@fhannenheim.net>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fhannenheim.net;
+	s=mail; t=1792067600;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=vwIT12ykn6h/tw5Ey5S5UFdXazl/iayW8Kx4qav2cxo=;
+	b=jO8iwxa5ZjGjibQHGeesuw32/NhQZawaM+9SVgCwFraGbQaUhMoxgBgD5PspbZ5RBOCcuo
+	if6J+lxx8P4c5TDHQguZdlhb7Y0CW2srRd60DrZoDQk+HOZDPHZmKvpdhW9yyN5uxsLt4e
+	heFwcfjP6Juf9aFsyQVfPynHp3dRXZY=
+Subject: [PATCH v2 0/2] Add OnePlus 8T
+Date: Thu, 15 Oct 2026 14:32:35 +0200
+Message-Id: <20261015-kebab_dts-v2-0-e783463bffd3@fhannenheim.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22OQQrCMBBFr1JmbSQTbbGuvIcUSdqJGcVUkliU0
+ rub1K3LB4/3/wyRAlOEYzVDoIkjjz6D2lTQO+2vJHjIDEqqBiXW4k5Gm8uQorC4s23T1NTaHrL
+ /DGT5vbbO3Y/jy9yoTyVQDMcxjeGzjk1YvH/dCYUUaIlQyb3GgznZ/MSTd8SPracE3bIsX5mfP
+ 3C6AAAA
+X-Change-ID: 20261015-kebab_dts-f13f9665e9fc
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Robert Oscilowski <drgitx@gmail.com>, 
+ =?utf-8?q?Jean-Fran=C3=A7ois_Bobier?= <jf.bobier@gmail.com>, 
+ phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Frieder Hannenheim <git@fhannenheim.net>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1393; i=git@fhannenheim.net;
+ h=from:subject:message-id; bh=SQY5MLGxapxEK8L5QUAko4BpcbdYTY91OPGHni5NZ98=;
+ b=owGbwMvMwCWWw1h8YvtkuWDG02pJDFkXjr+ZU3Z2j9juH+q/OXwXPOGzEr/FIerv7Zo4nXfeB
+ Un/dWJhHaUsDGJcDLJiiizO0yV/2FcK6+iH/1OEmcPKBDKEgYtTACay8hwjw7bdidd/KhevbfhZ
+ y1UW4aB29Xm6nmz6J6eILHO+u72uvIwMl06fuDJ91ax9HmYhHdYbfvvpR97l+CG6Zn3AiQ6ZxnJ
+ jfgA=
+X-Developer-Key: i=git@fhannenheim.net; a=openpgp;
+ fpr=439719F83F79132C2F57FE216C0173C8B7931E53
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] clk: nuvoton: UAF on unbind due to unmanaged mux clocks holding de=
-vm-managed parents
---
+Adds a basic device tree for the OnePlus 8T (kebab). Common
+values for OnePlus devices using the sm8250 SOC are defined in
+sm8250-oneplus-common.
 
-commit cdff8376e12bb7360642c4498d1f771077f9d948
-Author: Miquel Raynal <miquel.raynal@bootlin.com>
+This basic device tree brings up a framebuffer, UFS, battery monitoring,
+volume keys and UART. Further functionality will be brought up in
+subsequent patch sets.
 
-clk: nuvoton: ma35d1: Use device managed helpers for fixed rate clocks
+Signed-off-by: Frieder Hannenheim <git@fhannenheim.net>
+---
+Changes in v2:
+- Add dt-binding for oneplus,kebab
+- rename power button gpios to match sm8250-samsung-common
+- remove unnecessary qup_i2c7_default and qup_i2c7_default nodes
+- remove qcom,kona from top-level compatible
+- enable i2c2 and add pinctrl to pm8008
+- remove unused pinctrl node in pm8008
+- Link to v1: https://patch.msgid.link/20261015-kebab_dts-v1-0-1fee1204a18b@fhannenheim.net
 
-Most of the clocks are already registered with device managed helpers,
-except the fixed clocks. Harmonize the driver by using the already
-available managed helper for that.
+---
+Frieder Hannenheim (2):
+      arm64: dts: qcom: Add sm8250-oneplus-common.dtsi
+      arm64: dts: qcom: oneplus-kebab: new device
 
-> diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-m=
-a35d1.c
-> index 75b7e2a84bfd9..4a745b169778d 100644
-> --- a/drivers/clk/nuvoton/clk-ma35d1.c
-> +++ b/drivers/clk/nuvoton/clk-ma35d1.c
-> @@ -139,9 +139,9 @@ static const struct clk_div_table eadc_div_table[] =
-=3D {
->  	{13, 28}, {14, 30}, {15, 32}, {0, 0},
->  };
-> =20
-> -static struct clk_hw *ma35d1_clk_fixed(const char *name, int rate)
-> +static struct clk_hw *ma35d1_clk_fixed(struct device *dev, const char *n=
-ame, int rate)
->  {
-> -	return clk_hw_register_fixed_rate(NULL, name, NULL, 0, rate);
-> +	return devm_clk_hw_register_fixed_rate(dev, name, NULL, 0, rate);
+ Documentation/devicetree/bindings/arm/qcom.yaml    |   1 +
+ arch/arm64/boot/dts/qcom/Makefile                  |   1 +
+ .../arm64/boot/dts/qcom/sm8250-oneplus-common.dtsi | 609 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8250-oneplus-kebab.dts  | 129 +++++
+ 4 files changed, 740 insertions(+)
+---
+base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+change-id: 20261015-kebab_dts-f13f9665e9fc
 
-[Severity: High]
-Does this change introduce a use-after-free on driver unbind?
+Best regards,
+--  
+Frieder Hannenheim <git@fhannenheim.net>
 
-Mux clocks in this driver are registered using clk_hw_register_mux_hws() in
-ma35d1_clk_mux(), which is not devm-managed:
-
-drivers/clk/nuvoton/clk-ma35d1.c:ma35d1_clk_mux() {
-...
-	return clk_hw_register_mux_hws(dev, name, parent_hws, num_parents,
-				       CLK_SET_RATE_NO_REPARENT, reg, shift,
-				       width, 0, &ma35d1_lock);
-}
-
-Because these mux clocks are not devm-managed, they will remain in the clock
-framework after probe failure or driver unbind. Since this patch makes their
-fixed-rate parent clocks devm-managed, those parents will now be freed on
-unbind.
-
-Will the orphaned mux clocks retain dangling pointers to the freed fixed-ra=
-te
-parents, causing a use-after-free if the clock tree is traversed later (e.g=
-.,
-via /sys/kernel/debug/clk/clk_possible_parents)?
-
->  }
-> =20
->  static struct clk_hw *ma35d1_clk_mux(struct device *dev, const char *nam=
-e,
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-perso-ma35=
-d1-upstream-clk-v9-0-1f548fa2002e@bootlin.com?part=3D5
