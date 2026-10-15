@@ -1,71 +1,71 @@
 Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com [209.85.160.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04BCE33F8C1
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 01:34:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 187B331ED93
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 01:34:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792028078; cv=none; b=XgfbblCAfQ4hagzc3QxCi8K0gzz/ZTuUgaMNd8au5n2ztwKVBeFSg1W6kYqBLHSc9dIpXh7uqCbotazsnJ70y1iXZ0ZzKxljUJvL2CYhQdV9A2pYuQk/jUcO2c4PMIl13DqN46qWI83lBze41P6e2rzNHN/QG/HdtDbMug9P+8U=
+	t=1792028079; cv=none; b=pIrrqKGJGM1ZogM4KyVP4g1jrxvqtcDRPGQoEdqT/IO9X/OKfA2rdnQxvw+pmcYeCqimV+VtMUVDSpFEGHKWwgqGu6k0MNJ62Ys+z0m7OqwloQW89RNmALticx4TFrIWva21V0WZNSi2pSFL0plDd2ttImpgU7J1PWuH2HTWKtc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792028078; c=relaxed/simple;
-	bh=/BnEzNdJn0yCUc0/5V8pCZ/H7UotnnA6rAgc31gHaME=;
+	s=arc-20240116; t=1792028079; c=relaxed/simple;
+	bh=0kxWl9QWVm1G3QyRQQoFBKdw9ex2r5DsXOknVXwQkMk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nTPK32B8DcHAe1OzRdnTTUj+1OSJY5NW3upm2K0eUccStPjUt3XVDxVZmjvJl0WWP25UmE8h/+t7xSkwpw79gQZQnQ+JSrJSrlSKv6/43QP97AOlR+a+dbkDpqtCaEcyBt/B2PIRUoGRidfFChZYenmz+vv0MV71K8pwLE7Tbqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oHuK8EUA; arc=none smtp.client-ip=209.85.160.53
+	 In-Reply-To:To:Cc; b=mbuxQ4y/IuR49u6Z4F2Igq8i7wk2AfmZ2NVYvbAniMhUjRupgIg5OXRhJ2SSGbGpUwBZFFoXmoFdR1zTu0WXlFdHCcaBXWY1ZZ2wsajXulyhj875RILaqCeT4VvokLIkUKiZuy7NhQP41JShNND8d8eyn48sUURYPxtOeJAK0fU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TyS7iliq; arc=none smtp.client-ip=209.85.160.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oHuK8EUA"
-Received: by mail-oa1-f53.google.com with SMTP id 586e51a60fabf-48ed188ee81so575891fac.1
-        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 18:34:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TyS7iliq"
+Received: by mail-oa1-f53.google.com with SMTP id 586e51a60fabf-483c607ccb4so623014fac.0
+        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 18:34:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792028072; x=1792632872; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792028076; x=1792632876; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=bNTA8wpqaz3QuKzYKJPWBZ0ACcTPYNOhXhk9kMH+rig=;
-        b=oHuK8EUAzumJqGjv6nbnkv6kWSs5NS7wZfG/DMrGH0NDIZEJ5LXshW5uTmbEypf1Wg
-         40hwCJM6eMAocg/mStzjXlLFfVChTbLDHQEQw8WdtaI6Ilca65/a8qARzObqBQv55Xvq
-         tYoE4JEgGiO3KuhhRQ/RJftxjKOx90m4pg56PGqEZ0rmiffPTpTtQUE1HefVb3HSkuAQ
-         c1zuF9ayTozwilWiN0A3Vhz3opEBwnL0rNvByeO0VqE8ltB0zbBE8Je7zth0DZ/Kg3Um
-         JAZ1yjZjuzAYogSUFHSdDUsWjlfqqexQUC+QXFC3xNlOhlIYPqoPMXNqgepWf1gfLKli
-         DxUQ==
+        bh=oafE3Y1G60hqD5AuR17ZSRtdy2A1IL7jrwTpft1hiNc=;
+        b=TyS7iliq7RGyoFcSfiuQMLejmIgwF82naohc27C6GPTpRLa9YBgWWwVPjtNsdfj11q
+         vR7ABMNYaaObWfxYvyrfvCxeIWi910HNzpXS4FAp532bJ9wXgh1j6QuWn9QmjlVKGH/l
+         qlc0n27QH8qYnciMxBK1VPG6wkEp70dnlMWtnowOi+/eITUcliSmE2buMWzYaXNgha6V
+         k8MbQcmDsQe2ErdumQvo7opI3UlYKc7lLP9P1mrEoyckligfss4w/4bLcxVPPu24WfJh
+         Rl+tRstRWv3a1wO6jbvUB4SdGm4/ngPMBGv+RUQYjDRpMvivpohC7rtPtMZJmmVxAmvk
+         55lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792028072; x=1792632872;
+        d=1e100.net; s=20260707; t=1792028076; x=1792632876;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=bNTA8wpqaz3QuKzYKJPWBZ0ACcTPYNOhXhk9kMH+rig=;
-        b=mCRhEHLoxhGbk33fbHgi4N2KMO8f0lkF5bRwEFdcMm49oiSUpqQ4tx+2MVOWGD2FVy
-         0cCfd1ShTEB3rA/pjqZhMjVGko8rgmjjQwEvV6/4pKhEWtM2AZfSQsSRni7qTvm2+RjM
-         eCLJplnYS8dF8PJ8Im5cVy9Raw0S3TjqwNe6NPDQVQrJEm+6sUZj3q1yzBNsbCAd92ov
-         0N88zVH0vub8oqLvUxts3mt2knYEGxlLF7MKbQwf8kB0FGFSOCqadZMy+KyQmlpfYxR0
-         odaNckJhmhJDBaE5QONa3YBVbDPdJIM5+W9Gd0Li2AcNoOiWQ/UfSjzDFBjoYw2JAiCd
-         7QfQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzUvcJidtKclfJCKBqY/bvF7hJn5HobbfW3Mu2IGIznlk0d5ZP7WE4WGzjYaySvi7Ax4qQXgDS45wF5@vger.kernel.org
-X-Gm-Message-State: AFq9FYKjf9pB5+UG354GQVdlIgpT68qPDTQnZNuAFeTa3YvRTpg+yC3E
-	+I/dddBwsAh6dQ+sDzl0ywBzfRUDm4z0GtR8YZHpY1d9anFw48KEVwQh
-X-Gm-Gg: AYBFou2KWzOwZ4lzjPDamQ7Yz5a4rXYFjnB7qQfNcU1ZjM71/Aye6MlYYiSY3wsZB/7
-	T/nFm9s6Z329ZjfpbqV/wop0NNJIPxgVsMTssVIWm2/hMeou6jRhtqPN5V9R/N+Xi1t+HMhxXRH
-	9rttDuRqbVBqtNFTwreszvV6RcG2gkxYCFbJzU70fe/4gFm+Hzhyp46SoQQQgHh6JQyIOaWDZww
-	1807/rfwemfyFHgz5bnEO/u2mUyKCU4pVXoNihddl76NdAVBpbggMqD6IB8sshS82SXpqLHDe/K
-	6uN+QiUiXBxctdjRc0bQ2b3Kik471ENISKeNQPEyaILm/ZpTlbaE4poU7YgeCuLgRbzUm3HHkqr
-	vxClfr26A6O3RMaH1tshuZYlCuxhJrlhZZEzxuCKUV+V0f/aooGKqzvKBNjcY5wtRvyfZbumaBL
-	9USTqI5zp+gS4j2+A/c4Bxw0DISR+VNqfztuCul152VD9gxO/9sy6B7/H5PG053B88Ig5gbQVBE
-	wf2oG3KPnZBBZvQVz3/dYZD3LY33iKR9dg/8cXluVPRHtZghO4i8wtPRiN9QScwGSxqulCPlUuF
-	LVcra3njq9onSkfGUBnabQXa3Zg0MH5ED3eXfOhr0wECZOZd37k2rpYCN5LxFPABKL7GoB+0uMW
-	rKOhlAoj3isbSAOK6SmvJ
-X-Received: by 2002:a05:6870:c2a5:b0:493:8be5:4271 with SMTP id 586e51a60fabf-4a2a8a2a2f1mr15479440fac.33.1792028071864;
-        Wed, 14 Oct 2026 18:34:31 -0700 (PDT)
+        bh=oafE3Y1G60hqD5AuR17ZSRtdy2A1IL7jrwTpft1hiNc=;
+        b=OQKFC18R1NMC9RB0Fv8QImqeyOICgsQbzIhzqKnKfO2KnjC4q1ttR8Qjwn4btCGOjd
+         ju6IvzQFafzLPmccQt7jHam2ncwhvRgcObQ31+cEyttqWPv5icUcYptyjI9Lme8vBXZ4
+         YHXqpFfebVTThF0jCWFOWTnVvuoTSplli05EAXAmyulQLVy3HLAOqcww/i4JrwLkJBmk
+         DNTkD8cWmiGpBBj0SN4i/YOYn3/TOOhQMC2AsQb6JLDxvIB9HjPIWgsjyZFGj5BMTTnk
+         sPuao5bcV9bMTl4kSFvoyNMT+CBWD7VP5xtxA1OElK2YLpY/ZgpCSZ/CXFI4/lMpx4Jg
+         2XPA==
+X-Forwarded-Encrypted: i=1; AKwUvBw9xslL/pRDmOiDbXLQApi+O1HKDVDe/QFquYsWQUoelQZbuRMKsF7vD/sKFSANK7ux8WX9+ZFJZRz/@vger.kernel.org
+X-Gm-Message-State: AFq9FYLKOeE6ETohAdYKx7usZ7Hohlu+JyefDTlhacocfyw6WAgCjfp6
+	jB6iCIKg19ibhfj4TKp4k3gsTjO4Sdb3Td339Gw46cVpKDUFa7RwLAK+
+X-Gm-Gg: AYBFou3Otv/7xdGdl0xO7U5j1t35SJgQL8HxfQLrWXHwwWGNNK07vP91H/OQvIczOuM
+	EkHrmAYIoKxR2UPwFdxhEjsT5I4p5mrWOLloWH7v3ajDznEKjdYI4L1ceND/vatyelLnJSzOYpD
+	11fF0mtDGdn2IC5Iw5lIUaOF0gvmSmF3ubCBkGEt1WfsczAAVCnCi8JfCFpWLeg68dWQUlXWGdY
+	GZ2rUSSvLHvC4Y56bJHZv3e8Dd6A4pr5fy4uD3n3ahKk1N40mfFOlgca2Scv2LBEfnZxw4c+bzW
+	GtIzm0OkZWonMWjQKGy0gku5XhM/xaPgxMyKhPX3Pv6M/4upFkJNHzgf+gLNkOrrEGjC/B6NuFk
+	39J/I6ugaZowHMi0sSda7x6aJB6P/PqpSzXwiEFfO4Pc7FHlWUVh+3I8dnDRiuoaD4zWB9zCNJP
+	2kDBrMHeS4miTXmZ0+gcKnusNtQgx5B+NT5VVciubgHvVe54S4vwglBBzd8Z49JHHwIQvz4hdF3
+	fFLKxSBLl8cPy+ADaw6S7RdZ6/UJMXP6kIXnILzJT/PSfsynXLHbWJWJ+1M3itCCpml9zHGogX1
+	REEWXJ9l+St6OjcFIayhgZOBwG/IuXF7qaQOwOPXsRv7jGWMxFVW0NYk/s+hizZmf0FRR431AmK
+	FIA1MbsPwFhsWRDez5Tia
+X-Received: by 2002:a05:6871:722:b0:48f:e0f6:bd5f with SMTP id 586e51a60fabf-4a2a8b0964amr15694991fac.48.1792028075784;
+        Wed, 14 Oct 2026 18:34:35 -0700 (PDT)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a6dfb41452sm3428139fac.4.2026.10.14.18.34.30
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a6dfb41452sm3428139fac.4.2026.10.14.18.34.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 18:34:31 -0700 (PDT)
+        Wed, 14 Oct 2026 18:34:35 -0700 (PDT)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Wed, 14 Oct 2026 19:33:58 -0600
-Subject: [PATCH v7 11/16] mtd: rawnand: sunxi: reuse ECC status within each
- transfer
+Date: Wed, 14 Oct 2026 19:34:00 -0600
+Subject: [PATCH v7 13/16] mtd: rawnand: sunxi: avoid duplicate chip setup
+ before page commands
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -74,7 +74,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-submit-sunxi-nand-vendor-oob-layout-v1-v7-11-5d3fc6ad2da1@gmail.com>
+Message-Id: <20261014-submit-sunxi-nand-vendor-oob-layout-v1-v7-13-5d3fc6ad2da1@gmail.com>
 References: <20261014-submit-sunxi-nand-vendor-oob-layout-v1-v7-0-5d3fc6ad2da1@gmail.com>
 In-Reply-To: <20261014-submit-sunxi-nand-vendor-oob-layout-v1-v7-0-5d3fc6ad2da1@gmail.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>, 
@@ -95,223 +95,83 @@ Cc: Chen-Yu Tsai <wens@kernel.org>,
  devicetree@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
 
-A completed DMA batch leaves one ECC status bitmap and one pattern
-bitmap for all its steps. Four consecutive steps also share a packed
-correction-counter register. Reading the pattern ID for every matching
-step and the counter word for every corrected step repeats MMIO accesses
-to the same completed result.
+sunxi_nfc_select_chip() programs chip selection, timing and the
+spare-area base. The page-read callbacks and PIO page/subpage writers
+call it directly, then immediately call nand_read_page_op() or
+nand_prog_page_begin_op(). Those helpers dispatch through
+sunxi_nfc_exec_op(), which performs the same selection before executing
+the command. No controller access between the two selections needs the
+first one.
 
-Snapshot status and pattern information once per completed transfer.
-Reuse the status read when the controller places pattern-found bits in
-the same register, and read the pattern ID only when a non-error step
-needs it. Cache each packed counter word while consuming its steps.
-
-Keep the snapshot local to a single transfer and invalidate the cached
-counter before processing it. Each PIO step gets a fresh snapshot, as
-does each DMA batch. The ECC decisions and returned correction counts
-are unchanged, as is the page layout; only redundant register reads are
-removed.
+Remove the duplicate calls from those callbacks. Keep selection in the
+DMA writer: it accesses registers and prepares DMA before program-begin,
+so it cannot rely on the later exec_op() call. This removes redundant
+setup only; selection still runs for each executed operation, with no
+new cached state to invalidate after resets or chip switches.
 
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/mtd/nand/raw/sunxi_nand.c | 88 +++++++++++++++++++++++++++------------
- 1 file changed, 61 insertions(+), 27 deletions(-)
+ drivers/mtd/nand/raw/sunxi_nand.c | 12 ------------
+ 1 file changed, 12 deletions(-)
 
 diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/sunxi_nand.c
-index c27cd8e04739..8d83882592de 100644
+index 74fdca27ba10..4e6fcf1e7aaf 100644
 --- a/drivers/mtd/nand/raw/sunxi_nand.c
 +++ b/drivers/mtd/nand/raw/sunxi_nand.c
-@@ -258,6 +258,7 @@ struct sunxi_nfc_timings {
- };
+@@ -1642,8 +1642,6 @@ static int sunxi_nfc_hw_ecc_read_page(struct nand_chip *nand, uint8_t *buf,
+ 	};
+ 	int ret, i, cur_off = 0;
  
- struct sunxi_nfc_ecc_read;
-+struct sunxi_nfc_ecc_snapshot;
- 
- /* OOB interpretation is independent of PIO/DMA command sequencing. */
- struct sunxi_nfc_oob_ops {
-@@ -268,7 +269,7 @@ struct sunxi_nfc_oob_ops {
- 	void (*transform_bbm)(struct nand_chip *nand, int page, u8 *bbm);
- 	/* Consume one PIO step or a DMA batch; negative values are I/O errors. */
- 	int (*read_batch)(struct nand_chip *nand, struct sunxi_nfc_ecc_read *read,
--			  u32 status, u32 pattern_found, int first_step, int nsteps);
-+			  struct sunxi_nfc_ecc_snapshot *snapshot, int first_step, int nsteps);
- 	/* Read any remaining OOB and return the maximum correction count. */
- 	int (*finish_read)(struct nand_chip *nand, struct sunxi_nfc_ecc_read *read,
- 			   int *cur_off);
-@@ -1136,23 +1137,64 @@ struct sunxi_nfc_ecc_read {
- 	bool has_erased_chunk;
- };
- 
-+struct sunxi_nfc_ecc_snapshot {
-+	u32 status;
-+	u32 pattern_found;
-+	u32 pattern_id;
-+	u32 count_reg;
-+	u32 count;
-+};
-+
-+static void sunxi_nfc_hw_ecc_read_status(struct nand_chip *nand,
-+					 struct sunxi_nfc_ecc_snapshot *snapshot)
-+{
-+	struct sunxi_nfc *nfc = to_sunxi_nfc(nand->controller);
-+	u32 pattern_found;
-+
-+	pattern_found = readl(nfc->regs + nfc->caps->reg_pat_found);
-+	snapshot->pattern_found = field_get(NFC_ECC_PAT_FOUND_MSK(nfc), pattern_found);
-+	if (nfc->caps->reg_pat_found == NFC_REG_ECC_ST)
-+		snapshot->status = pattern_found;
-+	else
-+		snapshot->status = readl(nfc->regs + NFC_REG_ECC_ST);
-+	snapshot->pattern_id = 0;
-+	if (snapshot->pattern_found & ~snapshot->status)
-+		snapshot->pattern_id = readl(nfc->regs + NFC_REG_PAT_ID(nfc));
-+	/* A new operation, including every PIO step, invalidates the count word. */
-+	snapshot->count_reg = ~0U;
-+}
-+
-+static unsigned int
-+sunxi_nfc_hw_ecc_read_count(struct nand_chip *nand,
-+			    struct sunxi_nfc_ecc_snapshot *snapshot, int step)
-+{
-+	struct sunxi_nfc *nfc = to_sunxi_nfc(nand->controller);
-+	u32 reg = NFC_REG_ECC_ERR_CNT(nfc, step);
-+
-+	/* Four consecutive DMA steps share one error-counter register. */
-+	if (snapshot->count_reg != reg) {
-+		snapshot->count = readl(nfc->regs + reg);
-+		snapshot->count_reg = reg;
-+	}
-+
-+	return NFC_ECC_ERR_CNT(step, snapshot->count);
-+}
-+
- static int sunxi_nfc_hw_ecc_correct(struct nand_chip *nand, u8 *data, u8 *oob,
--				    int step, u32 status, u32 pattern_found,
-+				    int step, struct sunxi_nfc_ecc_snapshot *snapshot,
- 				    unsigned int user_data_sz, bool *erased)
- {
--	struct sunxi_nfc *nfc = to_sunxi_nfc(nand->controller);
- 	struct nand_ecc_ctrl *ecc = &nand->ecc;
--	u32 tmp;
- 
- 	*erased = false;
- 
--	if (status & NFC_ECC_ERR(step))
-+	if (snapshot->status & NFC_ECC_ERR(step))
- 		return -EBADMSG;
- 
--	if (pattern_found & BIT(step)) {
-+	if (snapshot->pattern_found & BIT(step)) {
- 		u8 pattern;
- 
--		if (unlikely(!(readl(nfc->regs + NFC_REG_PAT_ID(nfc)) & BIT(step)))) {
-+		if (unlikely(!(snapshot->pattern_id & BIT(step)))) {
- 			pattern = 0x0;
- 		} else {
- 			pattern = 0xff;
-@@ -1168,9 +1210,7 @@ static int sunxi_nfc_hw_ecc_correct(struct nand_chip *nand, u8 *data, u8 *oob,
- 		return 0;
- 	}
- 
--	tmp = readl(nfc->regs + NFC_REG_ECC_ERR_CNT(nfc, step));
+-	sunxi_nfc_select_chip(nand, nand->cur_cs);
 -
--	return NFC_ECC_ERR_CNT(step, tmp);
-+	return sunxi_nfc_hw_ecc_read_count(nand, snapshot, step);
- }
- 
- /*
-@@ -1239,7 +1279,7 @@ static int sunxi_nfc_hw_ecc_read_extra_oob(struct nand_chip *nand,
- /* Interpret one PIO step or a completed DMA batch before reusing its status. */
- static int sunxi_nfc_oob_read_batch(struct nand_chip *nand,
- 				    struct sunxi_nfc_ecc_read *read,
--				    u32 status, u32 pattern_found,
-+				    struct sunxi_nfc_ecc_snapshot *snapshot,
- 				    int first_step, int nsteps)
- {
- 	struct sunxi_nand_chip *sunxi_nand = to_sunxi_nand(nand);
-@@ -1262,8 +1302,7 @@ static int sunxi_nfc_oob_read_batch(struct nand_chip *nand,
- 		bitflips = sunxi_nfc_hw_ecc_correct(nand,
- 						    !read->dma || randomized ? data : NULL,
- 						    read->oob_required ? oob : NULL,
--						    i, status, pattern_found,
--						    user_data_sz, &erased);
-+						    i, snapshot, user_data_sz, &erased);
- 		if (bitflips < 0) {
- 			/* Preserve PIO data before the raw erased-page check. */
- 			if (!read->dma && !randomized)
-@@ -1302,7 +1341,7 @@ static int sunxi_nfc_oob_read_batch(struct nand_chip *nand,
- 		sunxi_nfc_hw_ecc_update_stats(nand, &read->max_bitflips, bitflips);
- 	}
- 
--	if (!(status & NFC_ECC_ERR_MSK(nfc)))
-+	if (!(snapshot->status & NFC_ECC_ERR_MSK(nfc)))
- 		return 0;
- 
- 	/* Finish consuming the batch's corrected OOB before raw error rereads. */
-@@ -1310,7 +1349,7 @@ static int sunxi_nfc_oob_read_batch(struct nand_chip *nand,
- 		int step = first_step + i;
- 		int data_off, oob_off;
- 
--		if (!(status & NFC_ECC_ERR(i)))
-+		if (!(snapshot->status & NFC_ECC_ERR(i)))
- 			continue;
- 
- 		data_off = step * ecc->size;
-@@ -1352,10 +1391,10 @@ static int sunxi_nfc_hw_ecc_read_chunk(struct nand_chip *nand,
- 	unsigned int user_data_sz = sunxi_nfc_user_data_sz(sunxi_nand, step);
- 	struct sunxi_nfc *nfc = to_sunxi_nfc(nand->controller);
- 	struct nand_ecc_ctrl *ecc = &nand->ecc;
-+	struct sunxi_nfc_ecc_snapshot snapshot;
- 	int data_off = step * ecc->size;
- 	int oob_off = nand_to_mtd(nand)->writesize + sunxi_get_oob_offset(sunxi_nand, ecc, step);
- 	int page = read->page;
--	u32 pattern_found;
- 	int ret;
- 
- 	if (*cur_off != data_off) {
-@@ -1391,12 +1430,9 @@ static int sunxi_nfc_hw_ecc_read_chunk(struct nand_chip *nand,
- 
- 	*cur_off = oob_off + ecc->bytes + user_data_sz;
- 
--	pattern_found = readl(nfc->regs + nfc->caps->reg_pat_found);
--	pattern_found = field_get(NFC_ECC_PAT_FOUND_MSK(nfc), pattern_found);
-+	sunxi_nfc_hw_ecc_read_status(nand, &snapshot);
- 
--	return sunxi_nand->oob_ops->read_batch(nand, read,
--					     readl(nfc->regs + NFC_REG_ECC_ST),
--					     pattern_found, step, 1);
-+	return sunxi_nand->oob_ops->read_batch(nand, read, &snapshot, step, 1);
- }
- 
- static int sunxi_nfc_hw_ecc_read_batch_dma(struct nand_chip *nand,
-@@ -1407,10 +1443,11 @@ static int sunxi_nfc_hw_ecc_read_batch_dma(struct nand_chip *nand,
- 	struct sunxi_nfc *nfc = to_sunxi_nfc(nand->controller);
- 	struct mtd_info *mtd = nand_to_mtd(nand);
- 	struct nand_ecc_ctrl *ecc = &nand->ecc;
-+	struct sunxi_nfc_ecc_snapshot snapshot;
- 	struct scatterlist sg;
- 	int page = read->page;
- 	int ret, i;
--	u32 status, pattern_found, wait;
-+	u32 wait;
- 
- 	if (first_step) {
- 		ret = sunxi_nfc_read_column(nand, page, first_step * ecc->size,
-@@ -1466,12 +1503,9 @@ static int sunxi_nfc_hw_ecc_read_batch_dma(struct nand_chip *nand,
+ 	ret = nand_read_page_op(nand, page, 0, NULL, 0);
  	if (ret)
  		return ret;
+@@ -1669,8 +1667,6 @@ static int sunxi_nfc_hw_ecc_read_page_dma(struct nand_chip *nand, u8 *buf,
+ {
+ 	int ret;
  
--	status = readl(nfc->regs + NFC_REG_ECC_ST);
--	pattern_found = readl(nfc->regs + nfc->caps->reg_pat_found);
--	pattern_found = field_get(NFC_ECC_PAT_FOUND_MSK(nfc), pattern_found);
-+	sunxi_nfc_hw_ecc_read_status(nand, &snapshot);
+-	sunxi_nfc_select_chip(nand, nand->cur_cs);
+-
+ 	ret = nand_read_page_op(nand, page, 0, NULL, 0);
+ 	if (ret)
+ 		return ret;
+@@ -1696,8 +1692,6 @@ static int sunxi_nfc_hw_ecc_read_subpage(struct nand_chip *nand,
+ 	};
+ 	int ret, i, cur_off = 0;
  
--	return sunxi_nand->oob_ops->read_batch(nand, read, status, pattern_found,
--					     first_step, nchunks);
-+	return sunxi_nand->oob_ops->read_batch(nand, read, &snapshot, first_step, nchunks);
- }
+-	sunxi_nfc_select_chip(nand, nand->cur_cs);
+-
+ 	ret = nand_read_page_op(nand, page, 0, NULL, 0);
+ 	if (ret)
+ 		return ret;
+@@ -1726,8 +1720,6 @@ static int sunxi_nfc_hw_ecc_read_subpage_dma(struct nand_chip *nand,
+ 	int nchunks = DIV_ROUND_UP(data_offs + readlen, nand->ecc.size);
+ 	int ret;
  
- static int sunxi_nfc_hw_ecc_read_chunks_dma(struct nand_chip *nand, u8 *buf,
+-	sunxi_nfc_select_chip(nand, nand->cur_cs);
+-
+ 	ret = nand_read_page_op(nand, page, 0, NULL, 0);
+ 	if (ret)
+ 		return ret;
+@@ -1751,8 +1743,6 @@ static int sunxi_nfc_hw_ecc_write_page(struct nand_chip *nand,
+ 	struct nand_ecc_ctrl *ecc = &nand->ecc;
+ 	int ret = 0, i, cur_off = 0;
+ 
+-	sunxi_nfc_select_chip(nand, nand->cur_cs);
+-
+ 	ret = nand_prog_page_begin_op(nand, page, 0, NULL, 0);
+ 	if (ret)
+ 		return ret;
+@@ -1796,8 +1786,6 @@ static int sunxi_nfc_hw_ecc_write_subpage(struct nand_chip *nand,
+ 	struct nand_ecc_ctrl *ecc = &nand->ecc;
+ 	int ret = 0, i, cur_off = 0;
+ 
+-	sunxi_nfc_select_chip(nand, nand->cur_cs);
+-
+ 	ret = nand_prog_page_begin_op(nand, page, 0, NULL, 0);
+ 	if (ret)
+ 		return ret;
 
 -- 
 2.53.0
