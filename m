@@ -1,59 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9950248880;
-	Thu, 15 Oct 2026 03:07:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CB1E2DCF46;
+	Thu, 15 Oct 2026 03:16:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792033640; cv=none; b=DEFsDB1Aa7uaATgNFTrfoV6PTC34mgkBp4p5XXkHHLj50mZlcAiJmL96ebd5rBgD5gDaspazt/yq9difajq1bDUf52WboeK5JyYqwzl5AJxIOjx660pIdLP+uAN89/E5MDHvFoGCLAy2BPCeXXSCiXrQGNAFJzQ+gMRaUsIjouA=
+	t=1792034214; cv=none; b=WjoPRLUyuvk76JqEQPTrlT0kAeBVyudS495PfZjzr2Zowv0YN1EYZjiTZ7bUWy+4uDlL8L4UBQKWEn1SdTIf63IgNdKKk8t2YyxmDseauxlB0JKVXildwqke2J5BlGqPamRo3MKzbOTDauqIDLkIDu8/UWkk/vNBiXmPgXBoCq4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792033640; c=relaxed/simple;
-	bh=rAK7HgXGowqUeKif+VnYn5zrmeAh8fwhzBCSu3eGP1k=;
+	s=arc-20240116; t=1792034214; c=relaxed/simple;
+	bh=hOdxXgt+gcVWP6DlzjCe7Q/4RrsKfq84mV5+goxkzoY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H0T+GCPVNpoP1ev11BA+iWt9LkPji65QdmizzQMRn5nqkk/rgL97ngWE2FnKBdlX2NSQkdGSnHR4H6cujW8T9DeXHoTFuvb01IA9wDRyUQDQrf9P2uPES+lreVQye8eMmPSA8h4mgUvJ+BZhNmuENWtgGEd7wKzNnL+Dfmkl3KQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sa4+G5Eu; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=AhiTa1MLgnBafyCaHhEGaHXc7YNthSg6IN9N+ivDKp8odeWblpmPeQmYcnZEtW2rn0+9t47Onv/T0M0et6dMDh940J4YPgoEG23PdncjzbMnSV0bNwWiCNAJ3fIGOVbsfPPoQ5myVquydcmLNQcmgpCEMpSNrshkYz/YrbsRH4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L6tPt6/k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sa4+G5Eu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DD4D1F000C4;
-	Thu, 15 Oct 2026 03:07:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L6tPt6/k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96E9C1F000C4;
+	Thu, 15 Oct 2026 03:16:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792033639;
-	bh=EGVRFfnMsw6nPB9r/fY5gkO5XIAOgbWc0egL3oNP6dI=;
+	s=k20260515; t=1792034213;
+	bh=8AVJ6zfOuV6JVNYsdJG2ZNc/lQmxSzK44gUbSXPXfiY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Sa4+G5EuIrxVH9xf2sM2cRKlUOeN7qGt4kq6w3FK6ugEXrEmtekX3sN2uxrKVaFTO
-	 tN1IwhLHd67+tNPo0XmyxWFidOlOo3aipPngense/qRIi8/MTYTq/rDVE4jyJTutQn
-	 Ai6LxJrEj7qwR6TZQDRTIanQmEMy32nwzFK7zbCRJ4fnxKm/bUokieAblRW7dWmGdv
-	 8rOqNDPZyBsAHp10FrRovDRGKYdPVyYxz4YqcccgkM3AhRRPd0X+YpQZNxmaGko0eR
-	 2py8Rp5FOOLKscGPXp/uy1bmc7KTkTzRrWlA2bc345pp7sO21MSVw/+QrwPVY0nveu
-	 iUEYBkYbPC1JA==
-Date: Wed, 14 Oct 2026 22:07:17 -0500
+	b=L6tPt6/kuZ0siBp8DQC14ojkWMwCKY2snZeDy9KFq4wTw3fep/nDtYppxEiIJXk+3
+	 3LDRSekaHS4nk5A7/vnd4IUbpSBmGeKAxAYw5GjeBl6c2YsvZPDPckvWHDqY+5NODj
+	 RurYW85HkKI/sNSJlaA9VGV57DG2/26GUlP1ll9oLApra7Fj8Fs5hsYyg7CQiv5fNT
+	 sjGPEr1mbZGrRs0ByEuS6ZRFk8xGCj9awpVAXsfLHri19+8Lw9OoBPW4CdmGpGF8kz
+	 Hpzi043RcjvoURMnQAEKrGtEFGJRMUdQOSHz2UFu3U+HUaRuHWjIN+EV+tOffAh25c
+	 porTm8u/5W++g==
+Date: Wed, 14 Oct 2026 22:16:50 -0500
 From: Rob Herring <robh@kernel.org>
-To: Aleksandrs Vinarskis <alex@vinarskis.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
+To: Paul Louvel <paul.louvel@bootlin.com>
+Cc: Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Liviu Nicoara <lnicoara@thinkoid.org>,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Tobias Heider <tobias.heider@canonical.com>,
-	Val Packett <val@packett.cool>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Stephan Gerhold <stephan.gerhold@linaro.org>,
-	linux-hardening@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v6 1/3] dt-bindings: platform: introduce EC for Dell XPS
- 13 9345
-Message-ID: <20261015030717.GA295784-robh@kernel.org>
-References: <20261011-dell-xps-9345-ec-v6-0-2a66a364fe70@vinarskis.com>
- <20261011-dell-xps-9345-ec-v6-1-2a66a364fe70@vinarskis.com>
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, linux-edac@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>
+Subject: Re: [PATCH v6 1/3] dt-bindings: edac: cdns,ddr-edac: add Cadence DDR
+ EDAC
+Message-ID: <20261015031650.GA370919-robh@kernel.org>
+References: <20261013-paul-v7-3-rc1-edac-v6-0-2f1d6f2f74db@bootlin.com>
+ <20261013-paul-v7-3-rc1-edac-v6-1-2f1d6f2f74db@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -62,18 +53,14 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261011-dell-xps-9345-ec-v6-1-2a66a364fe70@vinarskis.com>
+In-Reply-To: <20261013-paul-v7-3-rc1-edac-v6-1-2f1d6f2f74db@bootlin.com>
 
-On Sun, Oct 11, 2026 at 07:50:08PM +0200, Aleksandrs Vinarskis wrote:
-> Add bindings for Embedded Controller (EC) in Dell XPS 13 9345 (platform
-> codename 'tributo'). It may be partially or fully compatible with EC
-> found in Snapdragon-based Dell Latitude, Inspiron ('thena').
+On Tue, Oct 13, 2026 at 12:44:58PM +0200, Paul Louvel wrote:
+> Add the Cadence EDAC dt binding.
+> The memory controller optionally supports ECC SECDED with DDR2/DDR3
+> memory.
 > 
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Aleksandrs Vinarskis <alex@vinarskis.com>
-> ---
->  .../embedded-controller/dell,xps13-9345-ec.yaml    | 91 ++++++++++++++++++++++
->  MAINTAINERS                                        |  5 ++
->  2 files changed, 96 insertions(+)
+> Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+> Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com>
 
-Please address sashiko comment.
+Missing my Reviewed-by.
