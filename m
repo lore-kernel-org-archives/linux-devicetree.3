@@ -1,49 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79A494A387A;
-	Thu, 15 Oct 2026 20:17:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4E3548FF81;
+	Thu, 15 Oct 2026 20:20:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792095461; cv=none; b=Ya32R0Em8qfB8K9nHL5hWh3Nz/yuYT+AOKaAULI2ZBVj/5BMloVtAWqU9iaFx3TnzKBDHOPA90B16ZiOODC3CTOTFhhxpdeSu1aCMbCJyEPVXjQCGUvuiofx1nImaYWIpuGD9xuoo0GUqiliXvznAtzuH1g0s38ondMAiOqREKc=
+	t=1792095647; cv=none; b=cRcNGHPq3xC9gcghhpCQNPO6Vd7DyV+VO02fK87G9blThhPEtzQJCaZjTQrHNECwcctrdkk07M8uhe+Mzu8M2FnlVq5jb0dfkdXvDeZI4ijr1gSzCnuvZo+HU6tGS2kkh9Rieias5lli+wnf5qheClJy8g3i+l43YEXJ1ew8R+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792095461; c=relaxed/simple;
-	bh=1csYnh8NJNkq6uRZqlYEK9ZmrxncKaIr7ge1zJ7f/MQ=;
+	s=arc-20240116; t=1792095647; c=relaxed/simple;
+	bh=CVeyxX25w3K/cWfKjOftd/8zHgKTC+R2+G5yGZVSaiU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gxx9IqN7nmXYl33vShXMDdXG6S5acye15txzWC2pjNz6gS6mxNObjHxAhgpv5/Szu0n0pTKIhwLF94D8dZcjxEOIrA9V7v5BiPG2hJTl26pebZAj5Fr/IPq6w9kuE7691vRRdC+DYleNfJU4/xKjvsSPo4lZ/939ubLQ8OanyVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nhbj4LGM; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=kO8o2FmWc2API4owmsrudfBy0YwZhJ62UUfZzAQCTD/EP1K+O5gg2iEZMlZurCYiGlFlgKb3LElcWxdX4o/uN6k74cua5iSTIxo6228IiE5YhwCWNVUpH+zMYnQwDJ12bbiioF8I16Uv3nHWneUYM47v8PN7QxOt1ix3YfhOW6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UBn4y+d6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nhbj4LGM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF5B81F000C4;
-	Thu, 15 Oct 2026 20:17:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UBn4y+d6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28B0F1F000C4;
+	Thu, 15 Oct 2026 20:20:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792095460;
-	bh=z7MWpo4yUfswYEg3QkBO+6xOC6XoabSR4y0LBHpKx6M=;
+	s=k20260515; t=1792095646;
+	bh=7YOUVUAuDJ+LB8A54CxgLAZstJTxkbUW426eqIMaE68=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nhbj4LGM27km89n5hLEeuMFX57KDu85e0nQ95I6ATW6nLLjC4+5Eu9ai2gscQG59k
-	 gNCpMWRj1B6zSNOAyC/3/m26UjBk6lDHTrO5PFW35FVYCwFfIjjzgT/raYHOBr2NlB
-	 jCDYwhvfguqn2gSeN4CH12ZjgCsRDNzcpom4f6klcrEVsoXJ2ekhcLk+WZjfrYt1zN
-	 7Y+jjy/4XskdRDOASOatbuU/s6CK05sU85gnhujM00muzK5V3mNkDEWY1NkPwoMDWt
-	 FM6jyOwOudVXcWQSurHWrWt6yw/KX4KhMcjHQ0yVu3SdePu3LfkR5SZufNTzB9f9ZH
-	 NMC7qfKKbHbOQ==
-Date: Thu, 15 Oct 2026 15:17:37 -0500
+	b=UBn4y+d6m2uaC4Bq6UF8Iq5w9WgO7AHVyBnXal7TulBgMIBec1PV8r+m+Uly2Ahyu
+	 9HAGREL01rwbBVjC350IYOUF5Tpf231E28hxdD+/HReudYDAXae3qm0La+c5xE7r2F
+	 xGx7JlEKmY7SDz3P0HLquOcUHraDsfev6ZoNSnte2oKoqp1djm93L0hWsxvA5QSt2H
+	 kSuF+iSiT1fUXvbfSF0IUkoz5E+u+1rVvHM3wkTY0hQSxyaQ/slWT9HnfGkrSedz+6
+	 i4G4Hy6msS5qrdyhmeikRAVkTAOHK5Q3C9TCirMgzrdmIwB5q8Nf79jYVIYFyBz68/
+	 wsA44DDaJQbrw==
+Date: Thu, 15 Oct 2026 15:20:44 -0500
 From: Rob Herring <robh@kernel.org>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Alexander Shiyan <eagle.alexander923@gmail.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v4 10/16] media: dt-bindings: sony,imx678: Add other
- Starvis 2 family members
-Message-ID: <20261015201737.GA2917324-robh@kernel.org>
-References: <20261015-media-starvis2-v4-0-75fcdb4163f3@raspberrypi.com>
- <20261015-media-starvis2-v4-10-75fcdb4163f3@raspberrypi.com>
+To: Jelly Jia <Jelly.Jia@cixtech.com>
+Cc: vkoul@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	robin.murphy@arm.com, devicetree@vger.kernel.org,
+	Frank.Li@kernel.org, cix-kernel-upstream@cixtech.com,
+	dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 4/6] dt-bindings: dma: arm,dma-350: Document the CIX
+ Sky1 integration
+Message-ID: <20261015202044.GA2956742-robh@kernel.org>
+References: <20261012084155.2547480-1-Jelly.Jia@cixtech.com>
+ <20261012084155.2547480-5-Jelly.Jia@cixtech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,42 +47,74 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261015-media-starvis2-v4-10-75fcdb4163f3@raspberrypi.com>
+In-Reply-To: <20261012084155.2547480-5-Jelly.Jia@cixtech.com>
 
-On Thu, Oct 15, 2026 at 04:57:36PM +0100, Dave Stevenson wrote:
-> There are multiple members of the Sony Starvis 2 image sensor family
-> that have the same hardware requirements as imx678.
-> Add them as options to the imx678 binding, rather than duplicating it.
+On Mon, Oct 12, 2026 at 04:41:53PM +0800, Jelly Jia wrote:
+> The CIX Sky1 DMA-350 integration is the same device with SoC glue around
+> it, so it is described by the arm,dma-350 node itself with an additional
+> "cix,sky1-dma350" compatible rather than by a separate wrapper node.
 > 
-> Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Extend the binding with the CIX compatible and the resources the
+> integration needs: a clock, which the CIX variant requires, an optional
+> reset, and an optional reserved memory region used when the controller
+> cannot reach all of system memory.
+> 
+> v2 -> v3:
+> - Drop the cix,irq-router property and its conditional: the Sky1
+>   interrupt gate it described is set up by the boot firmware and is not
+>   configured by Linux, so no property describes it.
+> - The CIX compatible now requires a clock.
+> 
+> Assisted-by: LLM checkpatch sparse dt_binding_check dtbs_check
+> Signed-off-by: Jelly Jia <Jelly.Jia@cixtech.com>
 > ---
->  .../devicetree/bindings/media/i2c/sony,imx678.yaml | 38 ++++++++++++++++++----
->  1 file changed, 32 insertions(+), 6 deletions(-)
+>  .../devicetree/bindings/dma/arm,dma-350.yaml  | 26 ++++++++++++++++++-
+>  1 file changed, 25 insertions(+), 1 deletion(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-> index 098f72544216..027872a134f2 100644
-> --- a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-> +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-> @@ -5,7 +5,7 @@
->  $id: http://devicetree.org/schemas/media/i2c/sony,imx678.yaml#
->  $schema: http://devicetree.org/meta-schemas/core.yaml#
+> diff --git a/Documentation/devicetree/bindings/dma/arm,dma-350.yaml b/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
+> index 429f682f15d8..4e0f9ffb0039 100644
+> --- a/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
+> +++ b/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
+> @@ -11,10 +11,22 @@ maintainers:
 >  
-> -title: Sony IMX678 Sensor
-> +title: Sony IMX678 and Starvis 2 Sensors
+>  allOf:
+>    - $ref: dma-controller.yaml#
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: cix,sky1-dma350
+> +    then:
+> +      required:
+> +        - clocks
 >  
->  maintainers:
->    - Jai Luthra <jai.luthra@ideasonboard.com>
-> @@ -13,21 +13,47 @@ maintainers:
->  description:
->    Sony IMX678 diagonal 8.86 mm (Type 1/1.8) CMOS active pixel type solid-state
->    image sensor with a square pixel array and 8.40M (3856x2180) effective pixels.
-> +  It is part of the Starvis 2 family of sensors.
-> +  Other members of the Starvis 2 have the same hardware requirements, and
-> +  therefore share this binding.
+>  properties:
+>    compatible:
+> -    const: arm,dma-350
+> +    oneOf:
+> +      - const: arm,dma-350
+> +      - items:
+> +          - const: cix,sky1-dma350
+> +          - const: arm,dma-350
+>  
+>    reg:
+>      items:
+> @@ -36,6 +48,18 @@ properties:
+>      const: 1
+>      description: The cell is the trigger input number
+>  
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+> +  memory-region:
+> +    maxItems: 1
+> +    description:
+> +      Reserved memory region used for DMA allocations when the controller
+> +      cannot reach all of system memory.
 
-If you want paragraphs, you need '>' modifier and blank line between 
-paragraphs.
+That's what dma-ranges is for.
 
 Rob
-
