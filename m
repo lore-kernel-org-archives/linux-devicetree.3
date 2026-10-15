@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D86E384CCD;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FA7B41A4FD;
 	Thu, 15 Oct 2026 16:49:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792082995; cv=none; b=ahRMoRdC7GTjM/uxnPCYey1ImEsb6Y3YqGfMDj0gX6l2WS7ppgWljHV4gvotfHgTP71gUmZUuuzB9WY5aIls3ZbR4xOOjUEOSen8sx542xWgiOhn7Libb77KFUlC/lntoOa3PBNqf29cuUsRHCCtAvKqzdpkLODHacjCKa5zbZ8=
+	t=1792082995; cv=none; b=dNsKxT8JQJGstKPb+y0miUSbsSe3k77ljtlCPvpG+5ahXoTrL8M2G78TqCgmNOtKQ1GLb1FOG295ulXZSj6fWeBOqsnnpxoMjz1KGFKoBwX5M78ZPkkMmROqT+uIxpPMrCbS/0oYLdWYJGHW8bPOx0aR2mSof4WckJSFjWZ8KVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792082995; c=relaxed/simple;
-	bh=eAb5oFB+rdh2Zz6njY91rxePgaWUNucu8QwqMo+DuCE=;
+	bh=sJ6Z8/WVLZIBxbXyU3gmvYRv6vrjKI7MPOAiduU81GE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=aAFIO4O1XxBjZGcCS0uqdbEptIzmsI38OsihWCxG8YyszzzHNzIepFchB/NFpVq+dYcOL7+Vr8jc26PXrI87rv4rGW3wT11xYVK1J6faZTDnm+Ix0BYt32GNmc+UgnoBHmMbyRHY3x53ixoEyvwxYlHlDLGKP+6LBxwSbTe/FtA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qf+AjsLh; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=Pg+rv83UaaQ9yAyjVmT5WFsDwfHVEwEKbmW4S8VOvTUfNRVlNi/TWYf5FYH06WqS+uJrRwGKhayPbq3Y6TbqDuAHUV1w0TLYnFtksFtWlQ5DViE5H39+Day3HXfcYATMCk6cKFCm2vkeLOm3eHCbTO7mHYfFl5A3vTNP4muQ50Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tH9itzjN; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qf+AjsLh"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CF26BC2BCF5;
-	Thu, 15 Oct 2026 16:49:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tH9itzjN"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 324C5C2BD05;
+	Thu, 15 Oct 2026 16:49:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792082994;
-	bh=eAb5oFB+rdh2Zz6njY91rxePgaWUNucu8QwqMo+DuCE=;
+	s=k20201202; t=1792082995;
+	bh=sJ6Z8/WVLZIBxbXyU3gmvYRv6vrjKI7MPOAiduU81GE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Qf+AjsLhz4AfkZ2mvB/FOclY9mC0ye0yqp9WCofv4H6mh2NCmqOKZxU7DPfzjGw7O
-	 eVzt4CABi/TlRVW10qeMvT7cPcawn/UVA6drd6mKYmKb43r1dMa22FNLLfQTnyVtiY
-	 yAmu4sCJ9CLVlalNWeRNn17Z7BU1mpxy6x8N82IZtbZSLjF4Hdzfil3SlYL/BFCEks
-	 TWwJERX2sZ9+/lfxhHufL9a56xdXHoEAMlBtwmUTxu5mTmAlbKwxxbnMKwIlBC3B2A
-	 lduqCTpsib8q8EKbfQatzAC4LBiaAcgZSBjH3TfxJZD8R1LxD4pIyX06c7MHid8kLy
-	 U372z/RiEeRKQ==
+	b=tH9itzjNt+nVToHHM8C4744JGhas40cHNDiphKzCJnDAN0GNrXtIvnj2Fmg4MdGMb
+	 uAcO0pCwU7t4jvIRU/oChB0ij/zO9WDT1z0NiLw8Ckr3RLhV7z8hf2zP9WemX7BG+n
+	 k27uUi5ogfhwBSr8Hi+L8PxV9U7HtM/VypOLMtdsN0OIpp21zq4gHFTXqCuf6uIHHP
+	 g5LuXbTZrgikWfNnWHM9SYsFNqZLXutJ5eqzHNXh77TPlh7R8n7sagHM5kZTIXLnVF
+	 4RGs3gwuUbavJ+dMOKI9BKvr5QNVgfkDezAQWhyBM9XIuDz2EZHgw2LuTCHDKfpNcm
+	 FJ/1ULEovPDuA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AF192CC6B39;
-	Thu, 15 Oct 2026 16:49:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1A6DECCA465;
+	Thu, 15 Oct 2026 16:49:55 +0000 (UTC)
 From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Date: Thu, 15 Oct 2026 13:49:41 -0300
-Subject: [PATCH 01/10] iio: frequency: ad9910: powerdown fix
+Date: Thu, 15 Oct 2026 13:49:47 -0300
+Subject: [PATCH 07/10] iio: frequency: ad9910: support drctl control
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-ad9910-backend-support-v1-1-3c21648c8e26@analog.com>
+Message-Id: <20261015-ad9910-backend-support-v1-7-3c21648c8e26@analog.com>
 References: <20261015-ad9910-backend-support-v1-0-3c21648c8e26@analog.com>
 In-Reply-To: <20261015-ad9910-backend-support-v1-0-3c21648c8e26@analog.com>
 To: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
@@ -58,11 +58,11 @@ Cc: Olivier Moysan <olivier.moysan@foss.st.com>,
  Randy Dunlap <rdunlap@infradead.org>, 
  Rodrigo Alencar <rodrigo.alencar@analog.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792082993; l=2033;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792082993; l=8743;
  i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
- bh=z7PqLUz1GS3N66gFTTPD/4sazamj3Ede7ek83iY24FI=;
- b=v3kIziO3EaoK9N1dW+gWYnAJBcqYdT/6j2lGpDIPLJMxA/OeAZrnJe7PdyQBwxGHRyMoYM4AK
- mfY6ZmIzvwcBkwwwtsSlJZns0QgAvD2PPvv0cXt0fZCeh3DR1zIiywX
+ bh=KYKjnOTjR5bKxvX4oXf3lCiVSWZ0EG1nyxGjh/mX3Ts=;
+ b=9b/6zETxuHc24MxegXObioS0fm3Kqpn0EtUkcpo3qSCVtvV3A9Rqr3UmmV0SaJRf4X/M4dAe4
+ txE16f84y5wD9tXGrjkUCIsT7UbjdG6pWyDMgrAl8MXIqqB7eSRoQkY
 X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
  pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
 X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
@@ -72,59 +72,266 @@ Reply-To: rodrigo.alencar@analog.com
 
 From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-Enable the software powerdown on all the applicable CFR1 register bits at
-once with an IO update.
+The DRCTL pin controls the slope direction of the AD9910 digital ramp
+generator (DRG). When dwell is enabled at a ramp limit, the DRG holds
+that limit until the next DRCTL transition, so the sweep pattern is
+defined by the waveform applied to that pin, which can be generated by
+a PWM.
 
-It turns out that DIGITAL and REFCLK_INPUT powerdown do need an IO update
-when enabling the powerdown, but that is not the case when powering it up
-again. It is an asymmetric behavior, which was observed while profiling
-power consumption in the lab.
+Get the optional "drctl" PWM and expose the integration_time attribute
+in the DRG ramp up and ramp down channels, which sets the time interval
+assigned to each ramp direction while the sweep parameter is accumulating.
 
-Fixes: 22452fe6cd08 ("iio: frequency: ad9910: initial driver implementation")
+The PWM is disabled when the resulting period is zero. The applied state
+is read back, so that integration_time reports the intervals achieved
+by the PWM provider. Writing to integration_time fails with -EOPNOTSUPP
+when no DRCTL PWM is available.
+
 Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
 ---
- drivers/iio/frequency/ad9910.c | 26 ++++++++------------------
- 1 file changed, 8 insertions(+), 18 deletions(-)
+ drivers/iio/frequency/ad9910.c | 132 +++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 126 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/iio/frequency/ad9910.c b/drivers/iio/frequency/ad9910.c
-index 04a4e184b873..8bc24d0b7442 100644
+index dc13986dff3d..3d517879dee3 100644
 --- a/drivers/iio/frequency/ad9910.c
 +++ b/drivers/iio/frequency/ad9910.c
-@@ -621,26 +621,16 @@ static int ad9910_sw_powerdown_set(struct ad9910_state *st, bool enable)
- 	if (ad9910_sw_powerdown_get(st) == enable)
- 		return 0;
+@@ -21,6 +21,7 @@
+ #include <linux/math64.h>
+ #include <linux/module.h>
+ #include <linux/property.h>
++#include <linux/pwm.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/reset.h>
+ #include <linux/seq_file.h>
+@@ -324,12 +325,16 @@ union ad9910_reg {
+ struct ad9910_state {
+ 	struct spi_device *spi;
+ 	struct clk *refclk;
++	struct pwm_device *drctl_pwm;
+ 	struct fw_upload *ram_fwu;
  
--	/*
--	 * When powering down, the DAC and AUX_DAC (SW1) must be powered down
--	 * first, as they require an I/O update to take effect. The opposite is
--	 * true when powering up, the DAC and AUX_DAC must be powered up last,
--	 * i.e., after the DIGITAL and REFCLK_INPUT (SW0) power up.
--	 */
--	if (enable) {
--		ret = ad9910_reg32_update(st, AD9910_REG_CFR1,
--					  AD9910_CFR1_SW1_POWER_DOWN_MSK,
--					  AD9910_CFR1_SW1_POWER_DOWN_MSK,
--					  true);
--		if (ret)
--			return ret;
--
-+	if (enable)
- 		return ad9910_reg32_update(st, AD9910_REG_CFR1,
--					   AD9910_CFR1_SW0_POWER_DOWN_MSK,
--					   AD9910_CFR1_SW0_POWER_DOWN_MSK,
--					   false);
--	}
-+					   AD9910_CFR1_SW_POWER_DOWN_MSK,
-+					   AD9910_CFR1_SW_POWER_DOWN_MSK,
-+					   true);
+ 	struct gpio_desc *gpio_pwdown;
+ 	struct gpio_desc *gpio_update;
+ 	struct gpio_descs *gpio_profile;
  
-+	/*
-+	 * When powering up, the DIGITAL and REFCLK_INPUT (SW0) must be powered
-+	 * up first, as they do not require an I/O update to take effect.
-+	 */
- 	ret = ad9910_reg32_update(st, AD9910_REG_CFR1,
- 				  AD9910_CFR1_SW0_POWER_DOWN_MSK, 0, false);
++	s64 ramp_up_time_ns;
++	s64 ramp_down_time_ns;
++
+ 	/* cached registers */
+ 	union ad9910_reg reg[AD9910_REG_NUM_CACHED];
+ 
+@@ -609,6 +614,66 @@ static int ad9910_sw_powerdown_set(struct ad9910_state *st, bool enable)
+ 				   AD9910_CFR1_SW1_POWER_DOWN_MSK, 0, true);
+ }
+ 
++static int ad9910_drctl_sync(struct ad9910_state *st)
++{
++	struct pwm_state state;
++	bool ndh, ndl;
++	int ret;
++
++	if (!st->drctl_pwm)
++		return 0;
++
++	ndh = FIELD_GET(AD9910_CFR2_DRG_NO_DWELL_HIGH_MSK,
++			st->reg[AD9910_REG_CFR2].val32);
++	ndl = FIELD_GET(AD9910_CFR2_DRG_NO_DWELL_LOW_MSK,
++			st->reg[AD9910_REG_CFR2].val32);
++
++	pwm_init_state(st->drctl_pwm, &state);
++
++	if (!ndh && ndl) {
++		state.duty_cycle = st->ramp_down_time_ns / 2;
++		state.period = st->ramp_down_time_ns;
++		state.polarity = PWM_POLARITY_INVERSED;
++	} else if (ndh && !ndl) {
++		state.duty_cycle = st->ramp_up_time_ns / 2;
++		state.period = st->ramp_up_time_ns;
++		state.polarity = PWM_POLARITY_NORMAL;
++	} else if (!ndh && !ndl) {
++		state.duty_cycle = st->ramp_up_time_ns;
++		state.period = st->ramp_up_time_ns + st->ramp_down_time_ns;
++		state.polarity = PWM_POLARITY_NORMAL;
++	} else {
++		state.duty_cycle = 0;
++		state.period = st->ramp_up_time_ns + st->ramp_down_time_ns;
++		state.polarity = PWM_POLARITY_NORMAL;
++	}
++
++	if (!state.period) {
++		pwm_disable(st->drctl_pwm);
++		return 0;
++	}
++
++	state.enabled = true;
++	ret = pwm_apply_might_sleep(st->drctl_pwm, &state);
++	if (ret)
++		return ret;
++
++	ret = pwm_get_state_hw(st->drctl_pwm, &state);
++	if (ret)
++		return ret;
++
++	if (!ndh && ndl) {
++		st->ramp_down_time_ns = state.period;
++	} else if (ndh && !ndl) {
++		st->ramp_up_time_ns = state.period;
++	} else if (!ndh && !ndl) {
++		st->ramp_up_time_ns = state.duty_cycle;
++		st->ramp_down_time_ns = state.period - st->ramp_up_time_ns;
++	}
++
++	return 0;
++}
++
+ static ssize_t ad9910_ext_info_read(struct iio_dev *indio_dev,
+ 				    uintptr_t private,
+ 				    const struct iio_chan_spec *chan,
+@@ -675,6 +740,13 @@ static ssize_t ad9910_ext_info_write(struct iio_dev *indio_dev,
+ 			if (ret)
+ 				return ret;
+ 		}
++
++		/*
++		 * DRCTL waveform depends on the dwell configuration, but the
++		 * previous integration time values may not suit the new
++		 * waveform, which should not prevent dwell_en from changing.
++		 */
++		ad9910_drctl_sync(st);
+ 		break;
+ 	default:
+ 		return -EINVAL;
+@@ -1054,7 +1126,8 @@ static const struct iio_chan_spec ad9910_channels[] = {
+ 		.channel = AD9910_CHANNEL_DRG_RAMP_UP,
+ 		.address = AD9910_CHAN_IDX_DRG_FREQ_RAMP_UP,
+ 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
+-				      BIT(IIO_CHAN_INFO_SAMP_FREQ),
++				      BIT(IIO_CHAN_INFO_SAMP_FREQ) |
++				      BIT(IIO_CHAN_INFO_INT_TIME),
+ 		.ext_info = ad9910_drg_ramp_ext_info,
+ 		.parent = &ad9910_channels[AD9910_CHAN_IDX_DRG_FREQ],
+ 	},
+@@ -1065,7 +1138,8 @@ static const struct iio_chan_spec ad9910_channels[] = {
+ 		.channel = AD9910_CHANNEL_DRG_RAMP_DOWN,
+ 		.address = AD9910_CHAN_IDX_DRG_FREQ_RAMP_DOWN,
+ 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
+-				      BIT(IIO_CHAN_INFO_SAMP_FREQ),
++				      BIT(IIO_CHAN_INFO_SAMP_FREQ) |
++				      BIT(IIO_CHAN_INFO_INT_TIME),
+ 		.ext_info = ad9910_drg_ramp_ext_info,
+ 		.parent = &ad9910_channels[AD9910_CHAN_IDX_DRG_FREQ],
+ 	},
+@@ -1076,7 +1150,8 @@ static const struct iio_chan_spec ad9910_channels[] = {
+ 		.channel = AD9910_CHANNEL_DRG_RAMP_UP,
+ 		.address = AD9910_CHAN_IDX_DRG_PHASE_RAMP_UP,
+ 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
+-				      BIT(IIO_CHAN_INFO_SAMP_FREQ),
++				      BIT(IIO_CHAN_INFO_SAMP_FREQ) |
++				      BIT(IIO_CHAN_INFO_INT_TIME),
+ 		.ext_info = ad9910_drg_ramp_ext_info,
+ 		.parent = &ad9910_channels[AD9910_CHAN_IDX_DRG_PHASE],
+ 	},
+@@ -1087,7 +1162,8 @@ static const struct iio_chan_spec ad9910_channels[] = {
+ 		.channel = AD9910_CHANNEL_DRG_RAMP_DOWN,
+ 		.address = AD9910_CHAN_IDX_DRG_PHASE_RAMP_DOWN,
+ 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
+-				      BIT(IIO_CHAN_INFO_SAMP_FREQ),
++				      BIT(IIO_CHAN_INFO_SAMP_FREQ) |
++				      BIT(IIO_CHAN_INFO_INT_TIME),
+ 		.ext_info = ad9910_drg_ramp_ext_info,
+ 		.parent = &ad9910_channels[AD9910_CHAN_IDX_DRG_PHASE],
+ 	},
+@@ -1098,7 +1174,8 @@ static const struct iio_chan_spec ad9910_channels[] = {
+ 		.channel = AD9910_CHANNEL_DRG_RAMP_UP,
+ 		.address = AD9910_CHAN_IDX_DRG_AMP_RAMP_UP,
+ 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
+-				      BIT(IIO_CHAN_INFO_SAMP_FREQ),
++				      BIT(IIO_CHAN_INFO_SAMP_FREQ) |
++				      BIT(IIO_CHAN_INFO_INT_TIME),
+ 		.ext_info = ad9910_drg_ramp_ext_info,
+ 		.parent = &ad9910_channels[AD9910_CHAN_IDX_DRG_AMP],
+ 	},
+@@ -1109,7 +1186,8 @@ static const struct iio_chan_spec ad9910_channels[] = {
+ 		.channel = AD9910_CHANNEL_DRG_RAMP_DOWN,
+ 		.address = AD9910_CHAN_IDX_DRG_AMP_RAMP_DOWN,
+ 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
+-				      BIT(IIO_CHAN_INFO_SAMP_FREQ),
++				      BIT(IIO_CHAN_INFO_SAMP_FREQ) |
++				      BIT(IIO_CHAN_INFO_INT_TIME),
+ 		.ext_info = ad9910_drg_ramp_ext_info,
+ 		.parent = &ad9910_channels[AD9910_CHAN_IDX_DRG_AMP],
+ 	},
+@@ -1337,6 +1415,17 @@ static int ad9910_read_raw(struct iio_dev *indio_dev,
+ 		default:
+ 			return -EINVAL;
+ 		}
++	case IIO_CHAN_INFO_INT_TIME:
++		switch (chan->channel) {
++		case AD9910_CHANNEL_DRG_RAMP_UP:
++			iio_val_s64_decompose(st->ramp_up_time_ns, val, val2);
++			return IIO_VAL_DECIMAL64_NANO;
++		case AD9910_CHANNEL_DRG_RAMP_DOWN:
++			iio_val_s64_decompose(st->ramp_down_time_ns, val, val2);
++			return IIO_VAL_DECIMAL64_NANO;
++		default:
++			return -EINVAL;
++		}
+ 	default:
+ 		return -EINVAL;
+ 	}
+@@ -1637,6 +1726,26 @@ static int ad9910_write_raw(struct iio_dev *indio_dev,
+ 			return -EINVAL;
+ 		}
+ 	}
++	case IIO_CHAN_INFO_INT_TIME: {
++		s64 val64 = iio_val_s64_compose(val, val2);
++
++		if (!st->drctl_pwm)
++			return -EOPNOTSUPP;
++		if (val64 < 0)
++			return -EINVAL;
++
++		switch (chan->channel) {
++		case AD9910_CHANNEL_DRG_RAMP_UP:
++			st->ramp_up_time_ns = val64;
++			break;
++		case AD9910_CHANNEL_DRG_RAMP_DOWN:
++			st->ramp_down_time_ns = val64;
++			break;
++		default:
++			return -EINVAL;
++		}
++		return ad9910_drctl_sync(st);
++	}
+ 	default:
+ 		return -EINVAL;
+ 	}
+@@ -1671,6 +1780,8 @@ static int ad9910_write_raw_get_fmt(struct iio_dev *indio_dev,
+ 		return IIO_VAL_INT_PLUS_NANO;
+ 	case IIO_CHAN_INFO_OFFSET:
+ 		return IIO_VAL_DECIMAL64_MICRO;
++	case IIO_CHAN_INFO_INT_TIME:
++		return IIO_VAL_DECIMAL64_NANO;
+ 	default:
+ 		return -EINVAL;
+ 	}
+@@ -2249,6 +2360,15 @@ static int ad9910_probe(struct spi_device *spi)
+ 
+ 	fsleep(AD9910_WAKEUP_DELAY_us);
+ 
++	st->drctl_pwm = devm_pwm_get(dev, "drctl");
++	if (IS_ERR(st->drctl_pwm)) {
++		ret = PTR_ERR(st->drctl_pwm);
++		if (ret != -ENOENT && ret != -ENODEV)
++			return dev_err_probe(dev, PTR_ERR(st->drctl_pwm),
++					     "failed to get drctl pwm\n");
++		st->drctl_pwm = NULL;
++	}
++
+ 	ret = ad9910_parse_fw(st);
  	if (ret)
+ 		return ret;
 
 -- 
 2.43.0
