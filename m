@@ -1,35 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D83004BD7AF;
-	Thu, 15 Oct 2026 08:20:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7324F4C8C72;
+	Thu, 15 Oct 2026 08:20:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792052456; cv=none; b=YT38ZKjcjUxhBNYSTkc0dMCIL4lsffHxi0YUPYI0ESVmf4B/jfMeVOnOuSP+k4M9IX6qMn26UGoDQ6xG4ZXPq9pw4207WdY/4kOJSdRI9qr+vmOGxdmPAgu59dQswb3v5+gCvDu9PJX+yTygyC3MVJYraBL5mB9R8jmwGQ052/g=
+	t=1792052459; cv=none; b=erUkHDdjrtd25vgfG4VqnhvbVSrgQA72Zc1f6+R7lYEXp2Qs3i01FtkKaCpiWT8VeOQaKiOkfCKOwoDnvt9XZgg7b8VV5ilsYdee+c/3fTfMFo6glt9Pfor+MHaj9ZacEHDJMz0VO0CkX7JtjJq3gW7J41ex27z+s8DiZ6kmSdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792052456; c=relaxed/simple;
-	bh=yMEzzua39wmuUbOFVUVMd/NR3qzwozugAAlXLdsCZSE=;
+	s=arc-20240116; t=1792052459; c=relaxed/simple;
+	bh=1pRVcTAZPFnh2ezwUrQpexa+VE+rZN+lQnMhd9olV1Y=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=aCMiHRRdE2GOITHMlZQVik8B6ADsuT6kBdPKJeVV4itkAoFs0lBd7FzHKP/P3kNkNkHIniQMKT1b535KVe1YievvQLtTMJsFMmv8UfKHjz50gGkmOUsmupbXS4ooHeqiD/O2V8jslnryrAFGSMYoYg7MPGUKkdJ6ejhuUCV6s3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LRP8bMx0; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=MfG9bkXu2rrLcnR5IkkGTs2M8NjhtmPRSxA/AbeV7ZTzxlnUbMIWCzwxtmv7flmjDoLsUYFipQOzqfc/zBZ0g4z+yVQCCT8iJjloFKHmJTVGPhRMOVb2mJFd3OsLBka3GsAM/Pylxpf94LqPaKyB8NQtOx/tTVF9br60ZOheDbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NS0SiHgH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LRP8bMx0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51DC51F000C5;
-	Thu, 15 Oct 2026 08:20:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NS0SiHgH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDE4A1F000C6;
+	Thu, 15 Oct 2026 08:20:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792052455;
-	bh=6mXKenAul2pgscinfPY1MCJHdb6h6XxLACr+mAY7ybk=;
+	s=k20260515; t=1792052458;
+	bh=P0uwkz2ZRN4LBCNTRakCSfnPDDZuXpCCwbG+hEciceQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=LRP8bMx0BcJBJnXM041eXZY+btqTsGp8Z9SGF/anYyy5Ag/ug662ti6pGjMPF2tMl
-	 3FCV4zaScQhr30U5zM/4ApzZgBkOCN2bgmfwtPtMy2603iE8CC7ixcYxtTuZ5WC1le
-	 Ix/0zXqWRcPs9Ne6rNavv+h8BQhCZD25S+FbFQnt91KC+QlG3rbMpIdRPBmqgccdO6
-	 okzwpgmEQEvf+FEr5STvTqhJ+5tf33p7OKvxjlz2MFhgfzkzZA0UYZ8OUA75SFRp20
-	 WWRVh8ADyTktUbfd+JDgzi31Nzt0MwNHoR48wJF6+ogILD53e6spHZNvKO8jXSmFC0
-	 FDFDrsPSNRHdQ==
+	b=NS0SiHgHpN2u2rk3uKUmA+FjafjLQyudTOfO64KSX5avtepK1MDYtY8PowYRfquWM
+	 LS9ZuoT1IayNn+vd82P30F03LPX/7BsFVF4efM4oWAYWx78k64Vqph+z3sj8Ru5Stq
+	 bnd9q89Kty9Ud6FPiXQD8gOwVI4m34AcdJ/bzBa4sqPwrh2W/jjhY7G8ixXhDfcD1/
+	 QB0N86MdS3LOaR7kYmi9sISc8C3SeQS17/FXp49lTQviOpbhU7ItoSvoc9C7MW+JlH
+	 LoqSTiRRNq9rVRAu67+I4cNZqW3eHNkK0HyQaG2bIAEcyKR7lPDqw+mV+alJfF1IFX
+	 SG+d8AFlow/nQ==
 From: Lorenzo Pieralisi <lpieralisi@kernel.org>
-Date: Thu, 15 Oct 2026 10:20:25 +0200
-Subject: [PATCH 1/2] dt-bindings: interrupt-controller: gicv5: Relax IRS
- properties constraints
+Date: Thu, 15 Oct 2026 10:20:26 +0200
+Subject: [PATCH 2/2] irqchip/gic-v5: Fix standalone IRSes OF probe
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -38,73 +37,50 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-gicv5-irs-no-cpus-v1-1-d4b337b7f000@kernel.org>
+Message-Id: <20261015-gicv5-irs-no-cpus-v1-2-d4b337b7f000@kernel.org>
 References: <20261015-gicv5-irs-no-cpus-v1-0-d4b337b7f000@kernel.org>
 In-Reply-To: <20261015-gicv5-irs-no-cpus-v1-0-d4b337b7f000@kernel.org>
 To: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
  Rob Herring <robh@kernel.org>, Sascha Bischoff <sascha.bischoff@arm.com>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>
 Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Lorenzo Pieralisi <lpieralisi@kernel.org>
+ devicetree@vger.kernel.org, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>
 X-Mailer: b4 0.15.2
 
-An IRS is architecturally allowed to be stand-alone (ie with no direct
-CPU connection).
+An IRS is architecturally allowed to be standalone, namely, with no
+direct CPUs connections. Make sure such configuration is allowed on
+OF firmware by skipping "cpus" and "arm,iaffids" IRS node properties
+parsing if they are not present so that the IRS configuration can
+complete successfully.
 
-Relax "cpus" and "arm,iaffids" properties constraints allowing a standalone
-IRS configuration.
-
-Fixes: 7d7299bd07c6 ("dt-bindings: interrupt-controller: Add Arm GICv5")
+Fixes: 5cb1b6dab2de ("irqchip/gic-v5: Add GICv5 IRS/SPI support")
 Signed-off-by: Lorenzo Pieralisi <lpieralisi@kernel.org>
-Cc: Rob Herring <robh@kernel.org>
+Cc: Sascha Bischoff <sascha.bischoff@arm.com>
+Cc: Thomas Gleixner <tglx@linutronix.de>
 Cc: Marc Zyngier <maz@kernel.org>
 ---
-I have not marked the patch for stable though I think it should go
-to stable kernels to fix the original schema. I am a bit nervous about
-making cpus and arm,iaffids optional but I don't think there is a way
-to keep them required and force them to be empty for an IRS with
-no CPU connection.
+Please do not consider this patch before we agree on what's best
+for DT bindings in patch 1, thanks.
 ---
- .../devicetree/bindings/interrupt-controller/arm,gic-v5.yaml     | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/irqchip/irq-gic-v5-irs.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/interrupt-controller/arm,gic-v5.yaml b/Documentation/devicetree/bindings/interrupt-controller/arm,gic-v5.yaml
-index 86ca7f3ac281..b901e4288816 100644
---- a/Documentation/devicetree/bindings/interrupt-controller/arm,gic-v5.yaml
-+++ b/Documentation/devicetree/bindings/interrupt-controller/arm,gic-v5.yaml
-@@ -120,13 +120,14 @@ patternProperties:
+diff --git a/drivers/irqchip/irq-gic-v5-irs.c b/drivers/irqchip/irq-gic-v5-irs.c
+index b3feb6340b59..53639e6f85bd 100644
+--- a/drivers/irqchip/irq-gic-v5-irs.c
++++ b/drivers/irqchip/irq-gic-v5-irs.c
+@@ -609,6 +609,10 @@ static int __init gicv5_irs_of_init_affinity(struct device_node *node,
+ 	u16 iaffid_mask = GENMASK(iaffid_bits - 1, 0);
+ 	int ret, i, ncpus, niaffids;
  
-       cpus:
-         description:
--          CPUs managed by the IRS.
-+          CPUs managed by the IRS. Omit it if the IRS has no associated CPUs.
- 
-       arm,iaffids:
-         $ref: /schemas/types.yaml#/definitions/uint16-array
-         description:
-           Interrupt AFFinity ID (IAFFID) associated with the CPU whose
-           CPU node phandle is at the same index in the cpus array.
-+          Omit it if the IRS has no associated CPUs.
- 
-     patternProperties:
-       "^its@[0-9a-f]+$":
-@@ -210,12 +211,14 @@ patternProperties:
-           - reg
-           - reg-names
- 
-+    dependencies:
-+      cpus: [ "arm,iaffids" ]
-+      arm,iaffids: [ cpus ]
++	/* An IRS is architecturally allowed to have no cpus associated with it */
++	if (!of_property_present(node, "cpus") && !of_property_present(node, "arm,iaffids"))
++		return 0;
 +
-     required:
-       - compatible
-       - reg
-       - reg-names
--      - cpus
--      - arm,iaffids
- 
- additionalProperties: false
- 
+ 	ncpus = of_count_phandle_with_args(node, "cpus", NULL);
+ 	if (ncpus < 0)
+ 		return -EINVAL;
 
 -- 
 2.53.0
