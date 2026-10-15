@@ -1,300 +1,165 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012010.outbound.protection.outlook.com [52.101.43.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 328F2401494
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 09:57:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792058247; cv=none; b=LBXY0BxyxHs2FiTuNwyZJJuV+Dx+/VAn2avILXpY15kFzxea8MtH/iWHHIqACTM37ECgGEIJvS/qDmDJdUUOlXjxuUbA99ZnZnzwQUhseSjHFakyVQzMSEVzBublIg2X9WptzREsDV9+yTnq/Xe7RVMuWqf2a67SzPsgZbY0fyw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792058247; c=relaxed/simple;
-	bh=m7fBCYwiDQPfOfvCg2NYD/p0ZQsHrQGr866hOEFXRQY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bIdyzeWHAfPm1HtN5vxKN1RE07p6F+LlLzF4uL1Z5MupzpgZSyjcDZt+QdWF+7bZekJefyadvXV6mkRli4/Ltz5dwUTmNSHIBesWgHcOvLuItZ/mWX9zwKWQIVlDk6/eHfswA5BDbCaKh7LMlVNeyMeI0f6yFfAHetPcEJu244I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=C+/qZHXL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fCxwTGtd; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFF6A4F4024;
+	Thu, 15 Oct 2026 09:58:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.10
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792058327; cv=fail; b=pQ1GMaYTU6Vco66gvrQCpyJWv/8zuOLPTybakfmqfto1tNw8clPOe5ozFMyQeyxWl1OXp6EyJ0zTb0gU+H+2YKlYCN5M6NiER/HGbRBQPSBq4i9XjzzwwzZUSpDWgn7KxVs5CZciipGqum+wKu/h8x4lyE0RUk8oeKuw8k4hLRQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792058327; c=relaxed/simple;
+	bh=M1sxwHffMyVQxo2AH+E7YiLi/5YQzVPvlnU7CyTgnN8=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=oSgl+mnfSi+1K2NcXbmlfV/drXthi4biTD2C6uZ1L9j5CtfG4aY2eGBe4ig65agj4aQnKgfWfKH20rCDgTM9/OAPECcIeYLxN8hUq6dKi0YFMlCpnQTClgOAoOyQPbToK2u2uSkhagPawNJ7vCzHUVXKysbGgW95kVPQf28nkdo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=T4o5kI8m; arc=fail smtp.client-ip=52.101.43.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="C+/qZHXL";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fCxwTGtd"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9jfwp1955711
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 09:57:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	1rthR7zp/u8hmriUiION4Kj0UucDTPcu6h2RFbe5VXg=; b=C+/qZHXL8cJkWiw5
-	LpqOlB9iXvRGtnn8ME99s+jcjvbiqJKqSAWKGlCeovY6dYwC/2kQy5tIXNl2SEMU
-	6UOtLRPtuaJA51MAecAKnaghh38mx53dMCEfcPbx6+0aoz8E/adv7Ck1j278NJaV
-	ZV2dIUAh98oqj++qSeLMbIajqhH9wDLMWZJM0kua5S9mDCk98cZH3/QVnPy2bRuv
-	a5d7oL7C8r+vqw5mR/ORtTWMu2ZVe1TyhNT6iti/ROpXYoYekwlg5yPErxRTLa9x
-	GxbXTdimVBv1xw558/U9lHwb9sOezK//IOUb547hkRy5pIBUn+tPfGq6LLmVgVya
-	4cSaSw==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hakdet8cm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 09:57:25 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3ac450b74b0so3684690a91.0
-        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 02:57:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792058239; x=1792663039; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1rthR7zp/u8hmriUiION4Kj0UucDTPcu6h2RFbe5VXg=;
-        b=fCxwTGtdPPxkjB00ZAcSCz2ARbpnsrShwNB1EREUfZtgojEkdU5DKyWfSrBkc25d/l
-         I4eCJGFO9XjIAUI0XJJW2VEPx/ZZb49P4j3P7M+dFIoiMxfdm51sDQheffHjDtmPPhj5
-         4Wd4aKbjiSYq8HAFrOKHrSX9aukgUrfsCHJmPO1liU/BYO/+Opr7aL8UrSdGiqUiblth
-         z4DMrKPMAK9n7L9FzLWEiZaTHWyjTpYPb8Lc78kBCuNTp7HXzSzD7AxbTtuNJwuZWzsF
-         7gQIa71y5oVOnWVbBUoLeoaaE0W8TW6LgmQeWWjP9/5WPi+qO17sxbXY9fguNUTX54sW
-         MJtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792058239; x=1792663039;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1rthR7zp/u8hmriUiION4Kj0UucDTPcu6h2RFbe5VXg=;
-        b=m+/soZIPPIzQT3Lt7gGv47XEAMnZbMklh+Xo5IaPcuGJHYYl0xschv/Kkl8GMN4j0y
-         7Khv1BH0/2DGlHF0KggiPbENwHmB620Xja1DzY/Vmzce8nlXt7qx2n+eiObu9bTJgOfS
-         exU14mvF+ZPhopjmR9hlJM/an8qJxWHFAtY5TUyInTAzSB+uTTrHKlAgedl08xgKDBbV
-         OqRkO9W3WaaSEHaHMFh78DGyVRxQFA0jETyiWOU264voaSA6C/hcTdRS6dtVcSCqXqQL
-         oXH5ch6wNUFhEDf00ZOIW6F512E5Ftet4VhCY5S0bOZghABfKJJUQzH1+RXKHP4hy4k8
-         QmdQ==
-X-Gm-Message-State: AFq9FYLEuHiap8VpgAB3pG8D6s9szbG2eBf6VlUJu3/lZc6/TBZy6WZg
-	wvxliaj/vcoI+J89/zXUrXQi8rovuVfc+sUsgVJRYqU0Fi9sfBVM8YerZhUJPRTzDULau6tzA2g
-	/kHwzUC0XnsDJ9xGudd8juKae3IMGhYtxwKYlDHGBXF8ONprV0TSn6+MBga4InsBj
-X-Gm-Gg: AYBFou29W2AUjLz+G1EE8FGHzYuSXaz9R6453SvvTuecw/NlEyFCXPTSEh4slyOKIk9
-	/7ERv3AjDcvhTeLs7AilWOh29kEK5RZwjQPcWKhvlb/LhM9O3QkzcFAcQlZqUXDlZGLS2TN14CP
-	zWWzvpWEo904ouj+ehw80DOsH+5xD7KDaET4lnfGGAhBtbBEL8h+PJthN2Np+brvI4AfgBVAyrY
-	aeLWAdEQHcaCGnfM19fB3IzPXab6n2JsN/X9p6CIuzq1ANV3UfgwdRTb6W/JyltIylmAwPwJkgj
-	/a5cjNh8OUiQTzqPio1UnyJVgIR98xlMirUlW1XQQNedg6KVlHd5bXv4RVRRKPdWfblnIXMgmRw
-	JiNca25MEtEvtITZHU5mdH2+SACmCgwQ9XqsCXcXxKpZFVYiOBGgtEzW2j0L3VSHscIZicQC1Ww
-	IYYlqO2ehYJfw=
-X-Received: by 2002:a17:90b:3a48:b0:3ab:413:49b6 with SMTP id 98e67ed59e1d1-3ab3a79a2d8mr16168844a91.41.1792058238784;
-        Thu, 15 Oct 2026 02:57:18 -0700 (PDT)
-X-Received: by 2002:a17:90b:3a48:b0:3ab:413:49b6 with SMTP id 98e67ed59e1d1-3ab3a79a2d8mr16168815a91.41.1792058238213;
-        Thu, 15 Oct 2026 02:57:18 -0700 (PDT)
-Received: from [10.79.117.80] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac945e7311sm3666246a91.4.2026.10.15.02.57.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 02:57:16 -0700 (PDT)
-Message-ID: <f5b4aa7f-16e6-47ca-94c9-c361d40ca81a@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 15:27:13 +0530
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="T4o5kI8m"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Nt55c61FAHj9/V9IhIGuAsNBj1fn6zoiA+882rhu1MlI3bKLIgYyMFH7dMy7FAJhs5F/G2oNlVhkPb0ioYPtJ8FRbYsto9M9wpCmBjEim+NY7fpJgTbSAnzDEXLv6env0O1sywsRYml79ddgrdT0DLGfb7V885arrkbXjjbzdQDe3uJJhh70IIvHDCMxXnl1wbug3jfbOVLj250B7IfU//vHm8grqCifKDPGZXPc2sOmo64oru/+L/Mn4aULGb8RcXLM/e9vAAge3VMMpWkWmG0IHxuj4jOmbszgMS66zeaho8Z9Rnq/ot5EM+itX+vm9Sy7ssDcxVJAh7qlH7v9Dw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kMSOLclpWydRlldwy6GMZc114/+qXttfYt63oAb+CEA=;
+ b=gg7gW0RSSi3gxJ/tgLrUdI76ZVLDPSz6ZNhk9rhcL3W/1VGZJfkaRr6lVsjahdLcky53v2Wj4P/Un1ZlCEZRNS0JNJxko+BQ3J40DwHJI8Cukh+RD5daTbdYRRi203JkAoN7Qy0+pQgVVRDjo177gJYa9m6RHJr/1y3jUDQPonKAB4v7TvQnR914zn3oCyYJMxgI/ZNlsBpdhrgy3VKS36NARX8zJ8Xxzy1TP1Jru3bu6oxx3hEotNAJohJYpp+yqLUnDVq1EyPCe70boIKIUcudlAYXx+YZFHIM+lTu7m1KfoEkYj3L1mjNT1SwU8IeLs3I5v7pRfQ9+mriCTdTJA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kMSOLclpWydRlldwy6GMZc114/+qXttfYt63oAb+CEA=;
+ b=T4o5kI8mRKj9Q4bZASReGeeHvIJJXSLRwSlU4iuYQvunfLVBEYnYDgNf5edphS6iJSVKieoOsxTYKntpSRvNk/sppaa8Ju5sQm0o0G1owE4H9b+ld6fXv8CFRAl7AeVSCFU1M3lJhn71qRtIrtEtNjNgQMcWcluamKNBcgky1dkOhdhG44UOuyf9g+tsXRSMMEZHRc/iJMdrCJtF5rbBmzVcTt0a9kR2MDHaw75p6cht3wdeFGVbf0MPUaFli8aN4w4L3FMqXksTpIgt5A5cupFli4QZDXBPNBAzy1t2tgrV8O/9Tz1EVbcaWC8EZYQWDLNXUxz88cCeervfTfo9Cg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by CH3PR12MB7668.namprd12.prod.outlook.com (2603:10b6:610:14d::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Thu, 15 Oct
+ 2026 09:58:40 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
+ 09:58:40 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+Subject: [PATCH 0/2] Fix NVDEC boot on Tegra210
+Date: Thu, 15 Oct 2026 18:58:01 +0900
+Message-Id: <20261015-b4-t210-pd_nvdec-nesting-v1-0-39a36b622eac@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrDuQhGqkVymlmGS008VUMlEK4
+ t0b7fIt/t9AKTMp3JoNMq2s/JEKe2kgvgaZCDlVgzOus8a2GK5YnDU4p6esiSIKaWGZcPSDDz7
+ Evu16qPmcaeTvub4//tYlvCmW4wf7/gO8sHOEfAAAAA==
+X-Change-ID: 20261015-b4-t210-pd_nvdec-nesting-f7a7b7bc8568
+To: Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Aaron Kling <webgeek1234@gmail.com>
+Cc: linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Mikko Perttunen <mperttunen@nvidia.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16-dev
+X-ClientProxiedBy: OS3P301CA0048.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:604:21c::8) To SJ2PR12MB9161.namprd12.prod.outlook.com
+ (2603:10b6:a03:566::20)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] remoteproc: qcom: pas: Support secondary images
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-References: <20261015-oob-support-glymur-v2-0-715435f52dd7@oss.qualcomm.com>
- <20261015-oob-support-glymur-v2-2-715435f52dd7@oss.qualcomm.com>
- <sashiko-outbox-172329@kernel.org>
-Content-Language: en-US
-From: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
-In-Reply-To: <sashiko-outbox-172329@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=OdENnRTY c=1 sm=1 tr=0 ts=6ad0a385 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=fJN0sLsdM5QiqpGE_s8A:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-ORIG-GUID: 7yk-RE0lgKzqJ_2hckLPLRc98OLf4gzj
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAzOSBTYWx0ZWRfXzEqgsZG/2LzI
- +LmmsLr5vh4706F7iQI2sacbDBCYXSRmqf4apcULWWu56+N+kCPtOpBjLnPnFvgSFFiDa7Pl0g0
- TnLmoQje8M9YWVX54+leLeLtK+YjC9RLTOjfFaQyN9N42VvVWsZaFYlOVYIoXaOYWnl2QrfbMBI
- 3Mq4JXNDmNCMTi9iF1Vqh2ROoVWlbrwXU26XcSIIKlCRtFJmQli5x+aDPieulu9XQTZapfAhCP7
- UgLaP+AdBrBWJWrV9RdhBXZLjo5Y0MD0x51ekRacZ0mGuysiYEhAvMb4L7VosHIFiGMavgjKIbS
- LUnan8GOpv1G4To7ChXVyvMEtdCLnN3uuTofeTChcrMnes5SYKnNgUy+VgYLIFdEscCFCPWvyqM
- pYDW0tsMrDGR7zBGV5ajStOdAokWzf5S3lHqA7YFYMhF99B9i93eoT8/vPFidTeobHU+xXG/Vif
- NJQh3Ke9ocQ2B1cZgjQ==
-X-Proofpoint-GUID: 7yk-RE0lgKzqJ_2hckLPLRc98OLf4gzj
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAzOSBTYWx0ZWRfX/DR6ZpiOE6ba
- 0BrbVdstApf1XIidJW9cN2SmukS1qBPA3MJUpO/QGZF9j4EnJETUOqHfexwkvBEqtBJkHPsqsTH
- UIeXdKxqdPHy5hjCfu/o8tcDGA2qHCE=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0 impostorscore=0 phishscore=0 clxscore=1015
- priorityscore=1501 lowpriorityscore=0 malwarescore=0 adultscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610150039
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|CH3PR12MB7668:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3c49603c-984c-43b5-f5ef-08df2aa2e3a8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|1800799024|10070799003|23010399003|11063799006|18002099003|261009223027099003|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	SPaZzOxpNNhblbPs0JftOXOdJTQh43hVrpAjP4EFukR63/qJMdcsM7+kska58iXGMZc4x3zT/fMTNp2jLCnJmuhR5KgmPKq1qdNo4CcWIWm4DFM6E1krlXA3YRLDH0Z2x72RubVfIEVNp+wHJynPuYr4b6hYLNIsxdIQJylXn0CrXyBadE2nfPx1X524VttjIo3XoY6tkZkp2A9u+41C4007okn4tKuw29pQruAppCYfht5bR3LcrzC443EKeLab98lZE8WPBScEIzyq+npLFjtI7OHqWCUuuum1lpLd86T22Fje4/0v1Zi1P5giHuirRBRZVo3JyvVtLB2lgPIyECpZyVck3zs/DvK2n7J+HcZ0GXWNjq4OnZjbftkFxg8Y2dosXEdDmsQTxLGW8nVwyQQksOktZfto7+pxOv7+l89sSdO88lkWvKPqNR3g63oOJXptKp/BHpc85Qr/uR1ADzePUk6MTIVRcLiM9lGfjnI7CkQc3YGByulBT2KbifAh2roSpnwOXlcqZ6z0K2qTwXpeBc5auGTDmkFRnHP36pmoKaZJBAZYmualWxEi+M9fiyfthYuNQjMgPEErM7kJpjKbyKTrN4zTyquwryKsrJmurZqlkZ6Rmj1lOf/SBaMZTCTJbE34tv5eQ8kADV8OnfXWxO9Cib6eNHvdW6DeRx4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(10070799003)(23010399003)(11063799006)(18002099003)(261009223027099003)(56012099006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TXFLS2FmdTQvWVBlTWU2Sm1lNHJlK1BkOTlITFJwdzVQc1JTcWE4cklFbm1P?=
+ =?utf-8?B?U3VMRjZIeThpcTIxdG9uOGg5WStuWW9yVDViNG9JdUxVdmRIMEw5UGNrMUdH?=
+ =?utf-8?B?ZlM4TFRUTDhGZk9SRmpzMkt2TmFGL1NpMUNPWmNtQklpRjM2QmhVSTFBRUYz?=
+ =?utf-8?B?VWJKNU41RXNOQlZZNEdtRitmbjV3bDNvZm83dHMwUVRVWDQ0VW9GbXJyNllp?=
+ =?utf-8?B?cWd5WHU4T28ySlBPUVZVcU5NejJLQzk0dlk3Rlh1dXdRc2pjRDZnQ2UzSWpH?=
+ =?utf-8?B?VGZGOVVRaWVjWEdQSDh3L0xrZzJSSVUxOTNia0NpNVZqaTJPcC82Y20xMjN3?=
+ =?utf-8?B?ZUFWTEFjcnlPNlo3NlNDZGpLLzZ2WUJDZm9WZ3ZOalZ1cjd4Rk9NTTlhVFZG?=
+ =?utf-8?B?dDZHQm5uYlNrcnduSEhwSko0TEhIRFVMYThyblpBU1VqSkV4c2VkczFFaERh?=
+ =?utf-8?B?L1JZam4yWE1ueXRFRStxb1l4aUdHT1R5NUhqaUJYOGJhZyszeW1maW5ndmxG?=
+ =?utf-8?B?TzJiZWVVK0IwMG4yeTdablpYTTJIdHQzSFhCUEkyanhzZytFckdaMng4cUU4?=
+ =?utf-8?B?dmlvOGg2emkwQ3NPOGhwYkljVmIzeUsyMlI5M0JyODVjUVJHcU9hWnZWTGVN?=
+ =?utf-8?B?VjcyN0NNWXVjUVlINCtud2FUS1NicWhBdDhKeWFkRDhIK1ptYURmOTIyVmpX?=
+ =?utf-8?B?eUVXQ2pHY3NYZjBaSWNPTkRWTTlxSkgxcVVkeTFOenJkam93akhnSWtyWGZt?=
+ =?utf-8?B?V2ozd2ZvZ21TTnBzV3drK1BXRnowdC83bEFWeXpWMGYrNGZrMVJmenVKSmJV?=
+ =?utf-8?B?RmQ4dU1oYkhrdXJjamVWbEh3QmJlY2tLUHNKSm9tMHp2clhUWDNCdnYyUDA1?=
+ =?utf-8?B?KzNDZWZ5L2NBSEUwanhaNXVHYmNxZVFrWkUydXUwMDlKTzF3aFZ2MnRrSVBy?=
+ =?utf-8?B?K3dxVFkvV21ockpkci9MUUdiMTE5T1Y0ZGF5VlJNZGJocWUrNE5tRjV0ajNt?=
+ =?utf-8?B?UEVzcWJiSWxsSTVnTHY3Sk9JRkpnUHhDRkI5djlsU052NEVRYjdSMFVUVkZ3?=
+ =?utf-8?B?S1ZqUW1QMnY2UEd6OFZpc1dTOGQwejU2WVpvN0sxT1ZJTFlNaVljZTRhUzc5?=
+ =?utf-8?B?Q1JsOXJJcFc3TmxLUmZtRm45ZzZrUlU0emMzMG0zSlV2anh6YWpzWEJEeGsv?=
+ =?utf-8?B?TnkyeEUyT1dBS1hIMW5YaldBQi8yVnpuNGdDVEg3RGtWa3dpREV5c3FvZW9M?=
+ =?utf-8?B?UWVjMStWektrVGFDUWlLMDY3d3dLaENLWlFEOXJtZDlXemdhd3FTNjRvSnM0?=
+ =?utf-8?B?WHBNY0lTUW50U1NkdnpzWWdXcElWbGR5TGk3Ykswd014YUFwcWdvb3JhaUEw?=
+ =?utf-8?B?V3RZV2IrOStzb0FSVnFSdnRFQVVrMEFTMWNjSDZpdjViM0wxV3p4T2t6Nloy?=
+ =?utf-8?B?a3FxRklyNVFVNmREOXkzcGVtYks1T0phKzlGZU81QjdmTDN6b3E4NVdVSGVD?=
+ =?utf-8?B?bWpjdm5PdWdpS2o0Z0xEeUI2eTQ4K3Y5dDNGUDRnTUZEZkZSdE9sTk8xVEhP?=
+ =?utf-8?B?M0Y4Wm5jdXhMSlJ5QmVjdHRmNU53Y3hOdFYxWk4yL29PRzFOWWFxczdYakxv?=
+ =?utf-8?B?WFVBazE3ZG5ZeDIvbEtNTjdmc1BOa0xiNEFHQ3c3VFVabU9rU1JkbkduQjl5?=
+ =?utf-8?B?WHFoZmhRUy8zb0hPeVpFT1ZrdHlmaTdxTXY4TE1GM3RUUk9TREFaTUpFakx6?=
+ =?utf-8?B?cmNsdEtaeE4waXNqTjZtNGtHdGFHbnV4NUNPcUIwRHowZEhNVCt2RkVtUSsy?=
+ =?utf-8?B?VlBRQ1VSR1ZUaG0vTFpUbk5seWhOaU5iZkR2Tlh5RzJsWjJjQTZvajRibldS?=
+ =?utf-8?B?ZGNWRmRVQmV2SGY0cGhxdEV3R3BCV1VDalJSYm5sZnNDeDc0V1JpcGUrb2Yv?=
+ =?utf-8?B?cHcyVlRZcVVaaFc0YnEzQ1N2aUQ2UTNPVFo4b3pJaWdRZDFMaFZWSkxWaFdv?=
+ =?utf-8?B?WEFyaWozM2psT2d4K08yTG1FM1VacnlvZFVnY2czcUxmdGpBMjBwVVpmMDdK?=
+ =?utf-8?B?QnVMVmNMYkxjRFFyU251THlDUUJ3VnJJVnVJcFBBMk9GcXR1MFdEeHdubnRW?=
+ =?utf-8?B?SzRUZk9yY3Fkb2pwRk5JMEZSQVlWSDZhbnNKV3hLYW1OalVPRjVxa3RSQXdl?=
+ =?utf-8?B?S2N2N2plakQ3V3ZNQUlxSkhvSGZzM0taMGxrby95UHI5eGR5MURnT1VXYU9K?=
+ =?utf-8?B?bmE0WHVqL2NkNW1RTzBQVFZYVFRyVEhVS1Y4L3JncVlEMzEyZi9wcVRYZ2Uv?=
+ =?utf-8?B?NS9zNU5lejRrQWRVTmNNQ21ZeXVNcEwzNWVQa3R6UWhvWG9WSXlNWS9FOTY2?=
+ =?utf-8?Q?1OidrSWHmqzrgau3gxVMs4q4ruiWzhDQeaZrwdBIsYf42?=
+X-MS-Exchange-AntiSpam-MessageData-1: gJeZ5FmAYEoJrw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3c49603c-984c-43b5-f5ef-08df2aa2e3a8
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 09:58:40.3713
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mWX3O4WpQHysjJfs4zKGOA2rZ7vP7VgwaGB6nlYUOca7Ty1OgHTUahW+uI1eVyYo/NM5DzM0UHtGz/2PJN2CHA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7668
 
+On Tegra210, parts of the NVDEC hardware unit are in the NVJPG power 
+domain. According to the TRM, the NVJPG power domains must always be 
+ungated while the NVDEC power domain is ungated. Model the dependency in 
+device tree.
 
+The first PMC patch updates the PMC driver to handle cases where a PMC 
+power domain depends on another PMC power domain (other than the core 
+domain). The second device tree patch adds the dependency in the device 
+tree.
 
-On 10/15/2026 11:35 AM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [High] qcom_q6v5_pas: NULL pointer dereference due to early returns bypassing context allocations
-> - [Medium] qcom_q6v5_pas: Memory leak of firmware objects on successful load
-> --
-> 
-> commit 3f3270df945541b7e62ff38a77d04e462e6bf823
-> Author: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
-> 
-> remoteproc: qcom: pas: Support secondary images
-> 
-> The PAS remoteproc driver currently supports one primary image and its
-> optional DTB. OOBMSS additionally requires the secondary image and DTB
-> to be loaded, authenticated, mapped, shut down, and released through
-> their own PAS identifiers and carveouts.
-> 
->> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
->> index ca8e61254c449..0bce2f0d5b4aa 100644
->> --- a/drivers/remoteproc/qcom_q6v5_pas.c
->> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
-> 
-> [ ... ]
-> 
->> @@ -241,19 +281,29 @@ static int qcom_pas_load(struct rproc *rproc, const struct firmware *fw)
->>  	if (pas->lite_dtb_pas_id)
->>  		qcom_pas_shutdown(pas->lite_dtb_pas_id);
->>  
->> -	if (pas->dtb_pas_id) {
->> -		ret = request_firmware(&pas->dtb_firmware, pas->dtb_firmware_name, pas->dev);
->> +	if (pas->secondary_dtb_pas_id) {
->> +		ret = request_firmware(&pas->secondary_dtb_firmware,
->> +				       pas->secondary_dtb_firmware_name, pas->dev);
->> +		if (ret) {
->> +			qcom_pas_release_firmware(pas);
->> +			return ret;
->> +		}
->> +	}
->> +
->> +	if (pas->secondary_pas_id) {
->> +		ret = request_firmware(&pas->secondary_firmware,
->> +				       pas->secondary_firmware_name, pas->dev);
->>  		if (ret) {
->> -			dev_err(pas->dev, "request_firmware failed for %s: %d\n",
->> -				pas->dtb_firmware_name, ret);
->> +			qcom_pas_release_firmware(pas);
->>  			return ret;
->>  		}
->> +	}
->>  
->> -		ret = qcom_mdt_pas_load(pas->dtb_pas_ctx, pas->dtb_firmware,
->> -					pas->dtb_firmware_name, &pas->dtb_mem_reloc);
->> +	if (pas->dtb_pas_id) {
->> +		ret = request_firmware(&pas->dtb_firmware, pas->dtb_firmware_name,
->> +				       pas->dev);
->>  		if (ret) {
->> -			qcom_pas_metadata_release(pas->dtb_pas_ctx);
->> -			release_firmware(pas->dtb_firmware);
->> +			qcom_pas_release_firmware(pas);
->>  			return ret;
->>  		}
->>  	}
-> 
-> [Severity: Medium]
-> When qcom_pas_load() completes successfully, it returns 0 without calling
-> release_firmware() or qcom_pas_release_firmware(). Could this leak the
-> firmware objects and their underlying buffers?
->
+The PMC patch must be applied before the device tree patch or PMC probe 
+can break.
 
-The auxiliary firmware is used later by qcom_pas_start().
-I will release it after the final qcom_mdt_pas_load() and on error
-paths.
+Cheers
+Mikko
 
-> [ ... ]
-> 
->> @@ -344,13 +435,16 @@ static int qcom_pas_start(struct rproc *rproc)
->>  	ret = qcom_q6v5_wait_for_start(&pas->q6v5, msecs_to_jiffies(5000));
->>  	if (ret == -ETIMEDOUT) {
->>  		dev_err(pas->dev, "start timed out\n");
->> -		qcom_pas_shutdown(pas->pas_id);
->>  		goto unmap_carveout;
->>  	}
->>  
->>  	qcom_pas_metadata_release(pas->pas_ctx);
->>  	if (pas->dtb_pas_id)
->>  		qcom_pas_metadata_release(pas->dtb_pas_ctx);
->> +	if (pas->secondary_pas_id)
->> +		qcom_pas_metadata_release(pas->secondary_pas_ctx);
->> +	if (pas->secondary_dtb_pas_id)
->> +		qcom_pas_metadata_release(pas->secondary_dtb_pas_ctx);
->>  
->>  	/* firmware is used to pass reference from qcom_pas_start(), drop it now */
->>  	pas->firmware = NULL;
->> @@ -358,16 +452,37 @@ static int qcom_pas_start(struct rproc *rproc)
->>  	return 0;
-> 
-> [Severity: Medium]
-> Similarly, in the success path of qcom_pas_start(), should there be a call
-> to release the secondary_dtb_firmware, secondary_firmware, and dtb_firmware
-> objects before returning 0?
->
+Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
+---
+Mikko Perttunen (2):
+      soc/tegra: pmc: Support nested PMC power domains
+      arm64: tegra: Make the NVDEC power domain a subdomain of NVJPG on Tegra210
 
-Yes, I can release firmware before returning.
-> [ ... ]
-> 
->> @@ -740,6 +876,42 @@ static int qcom_pas_alloc_memory_region(struct qcom_pas *pas)
->>  	if (IS_ERR(pas->dtb_pas_ctx))
->>  		return PTR_ERR(pas->dtb_pas_ctx);
->>  
->> +	if (!pas->secondary_pas_id)
->> +		return 0;
-> 
-> [Severity: High]
-> In qcom_pas_alloc_memory_region() (just before this diff hunk), there is an
-> early return:
-> 
-> 	if (!pas->dtb_pas_id)
-> 		return 0;
-> 
-> If a platform defines a secondary_pas_id but lacks a primary dtb_pas_id, will
-> this early return prevent the allocation of the secondary contexts?
-> 
->> +
->> +	ret = of_reserved_mem_region_to_resource(pas->dev->of_node, 2, &res);
->> +	if (ret)
->> +		return ret;
->> +
->> +	pas->secondary_mem_phys = res.start;
->> +	pas->secondary_mem_reloc = res.start;
->> +	pas->secondary_mem_size = resource_size(&res);
->> +
->> +	pas->secondary_pas_ctx =
->> +		devm_qcom_pas_context_alloc(pas->dev, pas->secondary_pas_id,
->> +					    pas->secondary_mem_phys,
->> +					    pas->secondary_mem_size);
->> +	if (IS_ERR(pas->secondary_pas_ctx))
->> +		return PTR_ERR(pas->secondary_pas_ctx);
-> 
-> [ ... ]
-> 
->> @@ -925,6 +1125,10 @@ static int qcom_pas_probe(struct platform_device *pdev)
->>  	pas->pas_ctx->use_tzmem = desc->needs_tzmem || rproc->has_iommu;
->>  	if (pas->dtb_pas_id)
->>  		pas->dtb_pas_ctx->use_tzmem = desc->needs_tzmem || rproc->has_iommu;
->> +	if (pas->secondary_pas_id)
->> +		pas->secondary_pas_ctx->use_tzmem = desc->needs_tzmem || rproc->has_iommu;
-> 
-> [Severity: High]
-> If qcom_pas_alloc_memory_region() returned early because dtb_pas_id was
-> missing, could pas->secondary_pas_ctx be NULL here, leading to a NULL pointer
-> dereference when setting use_tzmem?
->
-
-I will add condition for allocation instead of returning, so that we
-won't return early.
-
-
->> +	if (pas->secondary_dtb_pas_id)
->> +		pas->secondary_dtb_pas_ctx->use_tzmem = desc->needs_tzmem || rproc->has_iommu;
->>  
->>  	if (desc->early_boot)
->>  		pas->rproc->state = RPROC_DETACHED;
-> 
-
--- 
-Best Regards,
-Anvesh
+ arch/arm64/boot/dts/nvidia/tegra210.dtsi |  1 +
+ drivers/soc/tegra/pmc.c                  | 21 ++++++++++++++++++++-
+ 2 files changed, 21 insertions(+), 1 deletion(-)
+---
+base-commit: d419d682257d813f6cb7a28e42b35d0edf4ad038
+change-id: 20261015-b4-t210-pd_nvdec-nesting-f7a7b7bc8568
 
