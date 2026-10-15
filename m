@@ -1,57 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3EA3598C0A;
-	Thu, 15 Oct 2026 20:39:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C003B42DA3F;
+	Thu, 15 Oct 2026 20:43:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792096750; cv=none; b=Xz2rWp9uFPhSKwxrEnpxST2bIdWPdfbl4WMw1soBXbaichG/8d4KQlFifTz/Ev70sh10VBpAwT9hpJr+fRWqvUMSp7UI91qce592lgUpGIcMUw56HtGOrSC68pr5sUILtNwjrDMC4IIniZoZrwCGhEWDpS+7DNDvT8+/GBahLb4=
+	t=1792096989; cv=none; b=N2aGpSJf92/6M2KJfzsDPuoUm99huo0BhgDyIWDfvNNk/v4KoQbw/FJG3yWR8MMCHk0tmN/w7kOzYlWTMVYnkNcCuBnr0yInEWEcjMGX5eVS++pud/xojI+lrLRwLIML+1a1PsBkV9YvdivbZbpIQm+zX/ezrPcIyar3nbSoGD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792096750; c=relaxed/simple;
-	bh=gndoiN0HGGrSX8vXu1lvn7okm6dRgbzBufiibmcRMKY=;
+	s=arc-20240116; t=1792096989; c=relaxed/simple;
+	bh=pr5x9Oy5kRt7mW+BUk7k/FVWfwFLBzKn554o/sTZ1aU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MvrIv65qb8jNsyDw/+JJPOTp6Ua+Y/+07xX+XI2ZTinRkPKHDrnZDFjMIZJdbs4qtBhht6rPraJ2WX75rT2EzSxnyAy8XZFWJ+pkItvalkBmBfPhFNMzpadtO+IcY6igaRPfyvnn8R1hgJUhMz0uS/4O5p0UWIHpImdog/936AI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kQpKjQBy; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=WjyY9o76POETbR0sgT4GH/sA1R0TBb7+9xVpaipp/JlqwYYsZvttdQL+raTnRV0dknJo5ggs8zWQGC1Zr4N3s2g+qUbiAPjJn6Iw/6kw/886AFl7gJbPAyNcnkce9ojk47g0FX1CPSlaOdRuaWwyPynFLee8SqKoGICXUd/On5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EWKUem4N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kQpKjQBy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2FA71F000C4;
-	Thu, 15 Oct 2026 20:39:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EWKUem4N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAC251F000C4;
+	Thu, 15 Oct 2026 20:43:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792096742;
-	bh=d62YmESqtgY8UCW/mdTw/JJnpWt2aagGW+KCVm98MR8=;
+	s=k20260515; t=1792096986;
+	bh=Z32cr+2zpC1ByPRqQb3sKosGGUM77X1spoPfr6I4FJQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kQpKjQByrEICicmMWr+wQGdGKMF2OggpserEgG2Y3YkxkDS+Kx8FVuhFu33Cr78W4
-	 Ax0eh09IllwZT9ANuVLkPdWBh5i49beZz7SZWhkCJBqpQp3yJlLDPzb5fqE/nYF8jv
-	 M48O2eFcvf69MbXCcNE936pHksotcEtR6Gi3R1N0Bn8cGqw6rS3ks7AitnqRjwSLDo
-	 7w9Jk7Ew8dTSNkmpN8zOTfphsvhRBNb53cGlHQ4u9/6z8IVT9O7oooQvWnNmr+PBsE
-	 Zr0Z4BiHv+HjZ6qrBbOQGvAj5g0bk2WjgOqyGhvAMjPLYvqu+Cn8WforgRIy4ZMjri
-	 GXlgNugbXAVJw==
-Date: Thu, 15 Oct 2026 15:39:00 -0500
+	b=EWKUem4N7fl149UT/ZgYdhE09OSePyi0EPkqpkhRPbVf8ClPuqV9o/lTMD6BqE7tT
+	 RDUfVhkZcg9+1i5eUK03pKIA/06nB97+upAAv051ZuupUarnsIJdjV3F6x5JoB6BWG
+	 kzOpur5y9Cb347Rh5ux7uJGiViqrzNpX5HOKkP0f4ipBMIP42aWK6Sk1phBZqXFM9v
+	 6ZBJu+Khb21srN7Y8dAXkahbvh/PTGiNgoLQJDJpN7iEqtI7PC+C7z7uVV7DL0bpfc
+	 HVskZtOvrSrtkgGp3+5qiOi3VZOP2EXvq4tpmxfGDhpwrEMu/7GS6LAAcQtMM49FQP
+	 TW3+hx9ZhMPsg==
+Date: Thu, 15 Oct 2026 15:43:03 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Paolo Abeni <pabeni@redhat.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Andrew Lunn <andrew@lunn.ch>, Simon Horman <horms@kernel.org>,
-	=?iso-8859-1?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Magnus Damm <magnus.damm@gmail.com>, devicetree@vger.kernel.org,
-	Eric Dumazet <edumazet@kernel.org>, linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	linux-renesas-soc@vger.kernel.org,
-	Russell King <linux@armlinux.org.uk>,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Vladimir Oltean <olteanv@gmail.com>
-Subject: Re: [PATCH net-next v3 05/13] dt-bindings: net: dsa:
- renesas,rzn1-a5psw: Add RZ/T2H and RZ/N2H ETHSW support
-Message-ID: <179209673997.3126689.17711678980732766735.robh@kernel.org>
-References: <20261014131906.990077-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20261014131906.990077-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: Radu Sabau <radu.sabau@analog.com>
+Cc: devicetree@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-iio@vger.kernel.org, Jonathan Cameron <jic23@kernel.org>,
+	Alexandru Ardelean <alexandru.ardelean@analog.com>,
+	Nuno Sa <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>, linux-kernel@vger.kernel.org,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH v3 2/6] dt-bindings: iio: imu: Add bindings for ADI
+ ADIS16607
+Message-ID: <179209698354.3152231.7674208347588415958.robh@kernel.org>
+References: <20261015-adis16607-v3-0-f972d4efee85@analog.com>
+ <20261015-adis16607-v3-2-f972d4efee85@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -60,39 +50,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261014131906.990077-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20261015-adis16607-v3-2-f972d4efee85@analog.com>
 
 
-On Wed, 14 Oct 2026 14:18:53 +0100, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+On Thu, 15 Oct 2026 12:32:59 +0300, Radu Sabau wrote:
+> Add device tree bindings for the Analog Devices ADIS16607 Precision
+> MEMS Inertial Measurement Unit. The ADIS16607 integrates a triaxial
+> gyroscope, triaxial accelerometer, and temperature sensor, and
+> communicates over SPI Half-Duplex.
 > 
-> Extend the A5PSW DSA binding to cover the ETHSW variant used on newer
-> Renesas RZ/T2H and RZ/N2H SoCs. ETHSW is derived from the A5PSW switch
-> found on RZ/N1 but differs in register layout, clocking and interrupt
-> topology, and exposes four ports in total (including the CPU/management
-> port) instead of five.
+> Two variants are supported: adis16607-2 and adis16607-3.
 > 
-> Add a dedicated compatible for RZ/T2H and use it as the fallback
-> compatible for RZ/N2H, since both SoCs integrate the same ETHSW IP.
+> The binding exposes optional properties for:
+>   - An external clock for sync mode (falling back to the internal 8 kHz
+>     clock when absent)
+>   - A hardware reset GPIO (active low)
 > 
-> Also make interrupts and interrupt-names required for all supported
-> variants. The existing RZ/N1 SoC DTSI already provides both properties,
-> so this change does not require updates to existing RZ/N1 device trees.
-> 
-> Add myself as a co-maintainer of the binding to support ongoing work on
-> the ETHSW family across RZ/T2H and RZ/N2H devices.
-> 
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
 > ---
-> v2->v3:
-> - Added a restriction to disallow port@4
-> - Updated commit message
-> 
-> v1->v2:
-> - Added full names for SoCs
-> ---
->  .../bindings/net/dsa/renesas,rzn1-a5psw.yaml  | 157 +++++++++++++++---
->  1 file changed, 133 insertions(+), 24 deletions(-)
+>  .../devicetree/bindings/iio/imu/adi,adis16607.yaml | 82 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  7 ++
+>  2 files changed, 89 insertions(+)
 > 
 
 Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
