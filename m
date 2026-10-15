@@ -1,182 +1,189 @@
-Received: from mout.web.de (mout.web.de [212.227.17.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EDB256E050;
-	Thu, 15 Oct 2026 18:06:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C195356E043
+	for <Devicetree@vger.kernel.org>; Thu, 15 Oct 2026 18:23:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792087611; cv=none; b=Vo1zt6/WNQ2s3OMlSIAyvoWWrxgCD0T9nPKHC6EY+A+nKCMc1pCvlirJXgN8Z6mvCmgEoU8CWoFiupiWRTmLTsrwsuRmRZPfMhqpYB3EjhfPB2o/XBz8q2BJ0mtJucZgZpI0+RyLjWdnCimfTeMKPOUNj37lXYiNjiPAMELt+kA=
+	t=1792088586; cv=none; b=WEpV15O3VbWJmZTdZObvHmIJCx+9MfgQlCm7svcPUX+7XgqG/ZZVtMsDbEURK11KYGt2gnPZQ2qCvfNMSJfU97kUbVPa6evq2scl5fzEKiRMe/KcFRci2tkbRooVo+wnEznOv4XmtzuK4xhzF2AbPdxzmUWj+Oko44lxl+4I5ZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792087611; c=relaxed/simple;
-	bh=apnf5ilhckoCj/e6Ds3O0A7OciVgM9/RgqMEDtsownY=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
-	 In-Reply-To:Content-Type; b=t56t4b/yDylvP1wWKaWkHD7CAf15nRAerOM3RYJj+GFSBAYRb8I7Z5FlU4sQjCKs3l/k3PnVz8TmpNqnd2dUlcTjNTXq2G6b89PQBhxXkx2FwovfikM1Hkood0fJbCLzqTj6xxZNM8TnkOi8MeGb97zHV0u+2kNeOfbRZ6iVL0k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b=sqXRIzcC; arc=none smtp.client-ip=212.227.17.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
+	s=arc-20240116; t=1792088586; c=relaxed/simple;
+	bh=XMIvug3i0RknPRe7WxtiEDH0ly3owKWOWapuAf1DmBw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Xc7JmxxCq63637wJ6a8rShpbNkYBhrUh226xaJYMj+nWIjj5M0bDlnaF+P/BAKXElR6GtHyT4s4xS2sankY1Nv2Sy/EtqCmAWlTwzzOnCMRJWiGLC0VCiVTFPpJAc9fG7BeoX9Dpl9Lg6OByYCMCW0dKVpMhPwBU7V1U0lhF1io=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=jc1pxq+P; arc=none smtp.client-ip=74.125.82.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b="sqXRIzcC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1792087589; x=1792692389; i=markus.elfring@web.de;
-	bh=dF1lq9sYAvpOPnUPnt0z/SjBhVGrEpP1GeOVEnwZKOM=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
-	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 cc:content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=sqXRIzcC+wlYHaj58V8LjaABEuqWROEQuS+qoFOMOLNLEqbeseEMmbGdupqzPBP5
-	 446enlhc9jtph08QxbAF5k67OGGprFjHr1N1mAKm/Z9/NUgYV0zn4ZRKOJgzAvIrk
-	 daYuqFzk8oko0Nm1PwDNeJXwLLx/ouUW0jWgQA5/sgcwGzrOcrG8QSO+zGOfXC2kF
-	 BH2BHA5hQo3fqfQB9OOjqmPb0Z7/zF73+Vc3g64/a5qD+d3qCytU+LteJNI/pH26f
-	 g6TWXs4TsWgQa2Qz8Cl6jhPZ8LZ/HJKe52Zg1FghQEa57EPW4iP6UZRtG7CuoeTbq
-	 rnm7RMaxoHbu0J1tJQ==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb106
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1MUUAM-1x8igP03cW-00QW6j; Thu, 15
- Oct 2026 20:06:29 +0200
-Message-ID: <f26b6bba-2c2e-46b3-9350-0ba0785cf3ba@web.de>
-Date: Thu, 15 Oct 2026 20:06:25 +0200
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="jc1pxq+P"
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-15ea896ddc8so3468913c88.0
+        for <Devicetree@vger.kernel.org>; Thu, 15 Oct 2026 11:23:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1792088582; x=1792693382; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=E867nn/QR68vfYR6iPaGHnb6wZdyLc3jZCntABPPlec=;
+        b=jc1pxq+PK+i+oET1dwRBkVfZV0BO/nw+Kf5d+3VUHC/hCBJ5KKXn1xiZpf+r0TF/GF
+         Ji4h5Q3mzPEJ4jdhdUKvqzH8JQIO7PJ35+2CoVrO2ioR5K2zzku0PNhBHuMUcOBjGZPp
+         d8i0mSTq3+EVhQgWR4TeRWqbSNz8sYrfUV2/A=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792088582; x=1792693382;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=E867nn/QR68vfYR6iPaGHnb6wZdyLc3jZCntABPPlec=;
+        b=Z5XB0sM8UyBJExcAB/17pjLn9w8MUYiIfj6OQaRv35Kb8ZhpY/qr+ihmxeQosBiIDx
+         e4FaFR8FCPbbnaewlt+LQDOQnh+nlOVwlA0q+CB68yepC3ZGuLAdfD1nRerOYro5PSNP
+         f8fHTONJp0fq5eM/Fm0C4/IpMLyE5uq6nyIBuX4GXwhVZa5pVgGSS0eCftx5o9AdXa4g
+         l3f++Zxt6BMqehJMEmOU5MJJdRDn4FI/R3Z6kF5YRsiYdU14amNtC3P4GsDz+pB4eaXq
+         NjxgBDxOgvd+ESPoc3mvKrv+5u8BT5mLFpxWiu0ej+Jdo5k0NZ618vxpTHp8I64dDeA6
+         iwxA==
+X-Forwarded-Encrypted: i=1; AKwUvBzVVic2MWqB4q7tvehwcWPLh3EdEgQCyR5lqZuq33XaXhEEZSLl0VJtYeNK0sjFFMf/tbYP5CuATsV6@vger.kernel.org
+X-Gm-Message-State: AFq9FYK/ToztJKZ0RGGreSWYbpk5uGtvpLbAkEUOKDB7Cii6uZa61Y/1
+	qDxaztSuLX1hcB/Vs8rQWIsWsBbjt/mHXakr5BS8iYbPXmjeVkvjmji9ccNx54Umqw==
+X-Gm-Gg: AYBFou3MA4NiXz7BDDLK7620Zb07CPWbtKMCWXHaqoqknGb9zbrmjuhqBsUYCRQoXqO
+	zpxQpvQdYAXiam/1IGozytaJsQJcmosCtBGvgnZWnzFBLFUn/N8tEUAWuPJLDvnS4CVx6aYQpSD
+	IBQeM+ziT586TDoxvxEa7P3AIKXT3r9qnWerGq8CWPFJk1Apo6NsNXwJRv3pdpw+ds8NU75mICX
+	kgAOUKRTE47DR7fiotLZdRADJfiCHLboRvDt4VjOcwKXdgWU6C4l/vP1kaOBcSO6/QIqQuYSkEY
+	Gbc5gzxRosMYAnZstjaaqRw62xXJk382CpSEwj4JnaHLyenE3gK+P3GR62SQZ0y1Fb45DqP4Jqv
+	9rSghUsNSlqwK6nQ6PXg2g4DUo20DxqnyEEX0DDFKuMerRFpowcBiz/y+bdXZQlZPNcUiJkpwQR
+	TCRndnJimB0bN/vjiK0iGsNAelw8DV59abcULL73VXtd7bDizAL7J/xsjmjVfE+S8e0LgrAIzX8
+	D0JvdIhsIZUmh593GbZ82hxiTw2io1G5na1Fs30hnQvF9S3ALeBlGweQYk=
+X-Received: by 2002:a05:7022:171c:b0:14f:8e70:fad0 with SMTP id a92af1059eb24-16a6090d024mr25251303c88.33.1792088579688;
+        Thu, 15 Oct 2026 11:22:59 -0700 (PDT)
+Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:9ea0:3a29:323e:5f11])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-182a8a4a56bsm727204c88.20.2026.10.15.11.22.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 11:22:58 -0700 (PDT)
+From: Douglas Anderson <dianders@chromium.org>
+To: Devicetree-compiler@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: Chen-Yu Tsai <wenst@chromium.org>,
+	linux-kernel@vger.kernel.org,
+	Devicetree@vger.kernel.org,
+	Brian Norris <briannorris@chromium.org>,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
+	Julius Werner <jwerner@chromium.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Douglas Anderson <dianders@chromium.org>
+Subject: [PATCH 0/4] fdtfactor: Introduce fdtfactor to auto-factor overlays
+Date: Thu, 15 Oct 2026 11:21:33 -0700
+Message-ID: <20261015182221.2931742-1-dianders@chromium.org>
+X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
- Svyatoslav Ryhel <clamor95@gmail.com>, linux-pm@vger.kernel.org,
- linux-input@vger.kernel.org, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, mfd@lists.linux.dev,
- Conor Dooley <conor+dt@kernel.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Florian Krischer <florian.krischer@fkr.dev>, Ion Agorria <ion@agorria.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Lee Jones <lee@kernel.org>,
- Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
- Sebastian Reichel <sre@kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>
-References: <20261013173504.451391-7-clamor95@gmail.com>
-Subject: Re: [PATCH v11 6/7] power: supply: Add driver for ASUS Transformer
- battery
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <20261013173504.451391-7-clamor95@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:esBdW2OTnliU0jcFW5M90tsbECakvKK3ScgbsdjiOh9Inq/vFtL
- Y9IHndKeOOO+wdVIQf1M0d7SpGYcSXbLOlwyh3Yn2Lgiibmyj5xQaDZNSI3AGYTQEioA8P7
- RVo18QThBxjQwsX/LYUuFj/WRO2FZkmnrwpuqvTusEWlEMV5V9yYemZjPer9unHkC0b11/A
- ROf+GYfKH8Ce7ACJTO3Kg==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:Rdyz6YMXe2Q=;wv3VYpm5q5nxGDfSiUNs9al7UbS
- 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
+Content-Transfer-Encoding: 8bit
 
-=E2=80=A6
-> +++ b/drivers/power/supply/asus-transformer-ec-battery.c
-> @@ -0,0 +1,289 @@
-=E2=80=A6
-> +static const unsigned int asus_ec_battery_prop_offs[] =3D {
-> +	[POWER_SUPPLY_PROP_STATUS] =3D 1,
-=E2=80=A6
-> +};
-> +
-> +static int asus_ec_battery_get_value(struct asus_ec_battery_data *priv,
-> +				     enum power_supply_property psp)
-> +{
-> +	int ret, offs;
-=E2=80=A6
 
-The referenced array provides unsigned integers.
-Would you like to specify a more appropriate data type for the correspondi=
-ng variable?
+Devicetree overlays allow you to have a "base" compiled devicetree and then
+to apply an "overlay" to it to add or modify nodes. Devicetree overlays have
+at least two purposes:
 
-Regards,
-Markus
+1. Supporting add-on boards (like "hats" on a dev board). In this case the
+   main board is described as a base devicetree and the add-on board is an
+   overlay. In this case there is a clear separation between the base and the
+   add-on board and the base/overlay separation models reality nicely.
+
+2. Supporting a "family" of similar boards in a space-efficient way. In
+   upstream Linux, there are 47 distinct sc7180-trogdor boards supported.
+   These board are all highly similar, but we compile (and ship) a separate
+   devicetree for each. Devicetree overlays can make this much more efficient
+   by factoring the common bits to the base devicetree and having each
+   of the 47 boards represented by a small devicetree overlay.
+
+Up to this point, the usage of overlays in the upstream devicetree repo has
+mostly been for case #1.
+
+Many Android phones attempt to use overlays for case #2 by describing the SoC
+as the base devicetree and then describing boards in overlays. However,
+this solution doesn't get as much savings as it could since there is still
+lots of duplication between the overlays. Upstream reception towards
+structuring boards this way has also been lukewarm [1].
+
+This patch series introduces a tool to help make case #2 a reality. The
+idea (suggested by Konrad Dybcio at LPC) is to continue to represent all the
+boards in a family as completely separate device trees in source code.
+Then, after we've done building everything, have a tool to automatically
+factor things to a base devicetree and a set of overlays.
+
+This tool has quite a few advantages over other solutions:
+1. No change to the way device trees are stored / arranged upstream.
+2. No need to deal with some of the awkwardness / limitations of overlays.
+3. Better savings than just a simple partitioning, like between SoC and
+   boards.
+
+I've used this tool to reduce sc7180-trogdor device tree files (which
+are stored lz4 compressed) from 1.71 MB to 213 KB, a 87.5% savings.
+
+NOTE: on Chromebooks like sc7180-trogdor, using overlays like this is
+an optimization. On Android phones like Pixel 10, the bootloader logic
+bakes in the need for overlays. Specifically, if we want to be able to
+build a single image that supports multiple boards and have the bootloader
+auto-construct the right devicetree, we need the boards to be represented
+by overlays. This fdtfactor tool can make that a reality.
+
+The fdtfactor tool can either work directly on a set of compiled devicetree
+files or it can work on FIT (flattened image tree) file. The idea is that
+you'd create the FIT file containing all of the duplicated devicetree
+files and then fdtfactor would "optimize" them.
+
+I'll freely admit that the patches in this series were pretty heavily vibe
+coded. I'll not pretend that I have a deep understanding of the intracicies
+of how overlays are implemented. That being said:
+* I've spent quite a bit of time reviewing the code from a high-level
+  perspective: confirming that functions are well documented, well structured,
+  and make sense.
+* I believe that what the tool is doing and how the tool is used make sense.
+* I have had quite a number of internal "the AI reviews the AI" rounds to
+  the point of diminishing returns.
+At this point, I'm not embarassed to put my name behind this. While I won't
+promise that there is zero cases of the AI doing something really stupid,
+I'd be willing to bet that the end result is better (and cleaner / better
+structured) than what I would have coded up if I had spend a few weeks doing
+this on my own.
+
+[1] https://lore.kernel.org/all/20251114-elite-refined-yak-bf9e64@kuoka/
+
+
+Douglas Anderson (4):
+  tests: Fix Python test environment setup in meson.build
+  fdtfactor: Add tool to split DTBs into a base DTB and overlays
+  fdtfactor: Support compressed DTB inputs and outputs
+  fdtfactor: Add compiled FIT image factoring support
+
+ Makefile                   |    2 +-
+ README.md                  |   75 ++
+ fdtfactor                  | 2109 ++++++++++++++++++++++++++++++++++++
+ meson.build                |    1 +
+ tests/Makefile.tests       |    5 +-
+ tests/fdtfactor_board1.dts |   69 ++
+ tests/fdtfactor_board2.dts |   73 ++
+ tests/fdtfactor_board3.dts |   96 ++
+ tests/fdtfactor_other1.dts |   69 ++
+ tests/fdtfactor_other2.dts |   69 ++
+ tests/fdtfactor_test.its   |  109 ++
+ tests/meson.build          |    4 +-
+ tests/run_tests.sh         |  156 ++-
+ tests/testutils.sh         |    1 +
+ 14 files changed, 2833 insertions(+), 5 deletions(-)
+ create mode 100755 fdtfactor
+ create mode 100644 tests/fdtfactor_board1.dts
+ create mode 100644 tests/fdtfactor_board2.dts
+ create mode 100644 tests/fdtfactor_board3.dts
+ create mode 100644 tests/fdtfactor_other1.dts
+ create mode 100644 tests/fdtfactor_other2.dts
+ create mode 100644 tests/fdtfactor_test.its
+
+-- 
+2.56.0.176.g3575e65682-goog
+
