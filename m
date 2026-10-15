@@ -1,273 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80EB152FE36
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 13:35:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C4F75304C1
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 13:35:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792071355; cv=none; b=K3gNsP2OYjnrvTzfsvLB92I2lEPKj1G6ZtPDLczACvyWF/SfRcR9514go1HCmXQFgmd7QK3xetUdLMmMNjQVPwS0LleswLGJVnycvnFHwVZGhxWGPRKBHZ1DXiZrBSQslHlSGHd/H87QnTGSJeBTyz7r5hs16nptl0GbyOQVqIM=
+	t=1792071358; cv=none; b=PUENvw+McYGJiaVPWApTCX3xUTqug7G+/JbHTM2m/oPz1X1XOctH6BQ94CNK0CNQV43LMXp6tOfCcdTDxcbjroSYjP+SlHkRJM7RhtbnjmVFas2rgOA5CGR6awiVbFlQUdDFqEtR+Xbl/t4M1TnsLcOCqrsTGa9NoTvd19pq3PI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792071355; c=relaxed/simple;
-	bh=R1gW4d+O9Q9sEy3AGo0UvbIW70aG8HMJMVpg9O/HdHQ=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=qwXreF1HbJAXejw5W4+N6XoP7lszxrYPHPoYCm4ApJjNuACwZycYNIi/giQfzrAPAG40BKHCXSo2K+NHuGtg4M0DW4HnG+zGv5coa1PW1uJjxI7M0AHlIMfcnpWnlZCcmfBVZcM9FExxI9MgKg7Uz4nZwocVfo2Vlu6pc4hunSE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IKHyj//M; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792071358; c=relaxed/simple;
+	bh=+PSGHcYhlKBGUAOZOmZLd2LslZtgKoxn3b+rUp13o9E=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=bJcUMwnElHRA1fiZ7DpjDtA5ZSqT3nejNUez3FoaKuHlJPAaER+E306GcBFmCffcXYYUNmSIM5DymWz5D8TTo1peArj41p+7wrLjCQ8y35UKuPOP/P7RzPxINMz5HdRASyPaxUKHPCn24QkD2zSr8q5g+/XAPtS1o0Ak9xHr93E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GPlLOmSF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=j6tuGt4r; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IKHyj//M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCF9F1F000C6;
-	Thu, 15 Oct 2026 13:35:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792071353;
-	bh=mOto2H/Szw/PjqaMpCSFJl6c2jU+IloBRKWoX1X7sAY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IKHyj//MV2MFGuD3Ub3X68JZA55RD75aAMYus6GVO6ZDuWQadsc3Srp6waJb7WYqF
-	 ksZ9OG1i2pLMmx/kkfB0cBJa85Hw/LzhMojlyUP6aXI+/ghQFBQH6xv0+KOJMLfGil
-	 YJuo5fPJbDwRYvijx8YhpMrhYxzniQDsUA2Gt07S0jmCpXef/7OgPKDkcKfHaWswj1
-	 Ug76jqaN7zRRawp0Bta6N1YokwLeH8V0XxmmD6OL2a+OwU+xI9Y/oaMdQJ12NWJham
-	 J+gRFN4MX0B4iGyNkYeeisl4bX9UmyjQCbycICm/5k/OLFHpbzTlCb6MIprDitmR2Z
-	 CnBkMk39p0u+g==
-Message-ID: <sashiko-outbox-172932@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 2/2] media: i2c: mira016: Add driver for Mira016
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jacopo Mondi" <jacopo.mondi@ideasonboard.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261015-mira016-v7-2-828c931c5550@ideasonboard.com>
-References: <20261015-mira016-v7-0-828c931c5550@ideasonboard.com>
- <20261015-mira016-v7-2-828c931c5550@ideasonboard.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 13:35:52 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GPlLOmSF";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="j6tuGt4r"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9jgY03510289
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 13:35:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	si/Ff0+6PYM+xJYLGWHK2Xz4OkYG/9a6KfcxGBIOM8M=; b=GPlLOmSF1Lm7pu5P
+	gXV5tInEi0F71FyHXVoWuKKvWZ0arQju0g+p7t8sE2CxyZiTCqfe7YBS7+WLhTNk
+	LmYbPwTIXC/s05nK0YYsh+yok8G1HUEmFn/FpIgvzVO0EuugBM/+VsPeppBN4OLs
+	PTw05TZ7u6wJljpwMOwmvt2bSqWTQDIAk89Jm9ZDC6KDknqQAogWH0IUOKka6FqZ
+	ExLBbd4C6kE9lvCrxIKRrRVDGf95CiVQcGwVFuYmguvfufjxNlsM3kRDPVKBDHhW
+	W1NleltdcDoCjmnr/hTbRrW/2SOlvR1hz0LxG+TVYkpARS+DnW0G8owhTTT2UTAQ
+	8d00yQ==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4haqdsa919-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 13:35:56 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8881a7875e5so3614111b3a.1
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 06:35:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792071355; x=1792676155; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=si/Ff0+6PYM+xJYLGWHK2Xz4OkYG/9a6KfcxGBIOM8M=;
+        b=j6tuGt4rc39/iT8YlhFfjWIleYvJkmmvtm/0Xv4e21hte3X5VzSiR23xW3OB1+jetJ
+         QAAZGcytKn6v+y9gWGxcLwqma/+ZIEdgL3YxY4r584k8E3i2kGz6AvkHGMS+s6bsl2tl
+         mfmfQCKTlz/j6Krb2lG8M5LYy0B7kNjMwQkBmiiD14YSHHukBmFLyXD5cBSCa+ay+7M6
+         am6Xuehw/aUf81cqVHPglFe+WtBbwkDmfMRYgCvLWgcXXtb9G7PcTFlifFwJKFkgxfVE
+         V4UsouZueORPmTCSy6f2CzCFlXfaY99uhInFs2yRMHwhtShK1ZHo8WLu34VdjLNbwgAv
+         ADCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792071355; x=1792676155;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=si/Ff0+6PYM+xJYLGWHK2Xz4OkYG/9a6KfcxGBIOM8M=;
+        b=wH3jd2XHyplS9nFnImr9iJ5WMsMFVIrPNCiyoqkQNDjKN/0Nl1pN/CBm9qJWNGG15j
+         HD9Wb9NxZmEPREQg7iIdtanaHsFlEnzuHBanJg3+baoTwFZm5yaie7NpvPhXhqg07zIH
+         tGRa/XgFgVpvJBgSs+PpZeFm/Mg/+Fxw1JBVjNsm2FJBTNkbIByX7v/1LhaPHzisg5KN
+         WXGxnTeKyLQj1vv3DscJ8+Fq7EDeOV/0cOy9CvMSyh6wp+HOeizOc5Ii34GQAXuJc/em
+         8Kdlgj6rVf0LN8Nb2sCJvjnALK+mrrwUZ4YBBWK1ZT6K/FQiVcoyvBMGZKS78ttskWqJ
+         knXw==
+X-Forwarded-Encrypted: i=1; AKwUvBww8mkI7r0B5dH9c4aHRUjqbXihBUzCjyBbyx5VLIvVNokzct/cV4oKW1pDgGQdWg/cFOIbcPuoJqgM@vger.kernel.org
+X-Gm-Message-State: AFq9FYIBcH6LjYW5RmdSCX2+IQTN3hWgv0CejG53YDdl/z4I5+s2vbYH
+	mTIpybsMR6FASejsGG3AlWuvtLihZX1PRK6LP18GK2vh8R+8lBEUacZwAL0ZJ5F8zYpzLP5Al8Z
+	YrrWNtS5xNYsHLTVEsHPnv1PiT0Fdv6VWOhjkvuK0YHsmngYxr7I+yPDZsHT7NCFJ
+X-Gm-Gg: AYBFou2SYNb2IRg7nyS3hEV+FzmOoJKnZ69omfM3csB9U8FiYFM1Zv6ktdZR+GBz27t
+	j/Ac2InvHo2BOs2I6Nt+VrJvqsmP2OWDP9v21lnoLyeUHwnj99YUdEM1ACc1UBqx6ZJhxRZWPYN
+	RD6ONirfzDrg3l3rw5Csmtokfg7DmCxZhgbq5jkFWlGfxlPGeoHiiUBkyTtKiEB4YmT3p96geOS
+	2hh8UrXxcoUwxVaJ4KM/sLySIUEZcoRFWtU88HPpRwxW0g9cMdou8aPHivsKjI3msAiJUK66v6/
+	YP2Q+2yUNTB688Qcs/xhdmE233ckwt90oIK7x9M/GQVBaboJJK6OPMmp06Ek/iL2AlnmLPKUpFu
+	Sfiul6gD7ZMbOfIixbAOAQycTcpED2A==
+X-Received: by 2002:a05:6a20:258a:b0:3e0:b778:d988 with SMTP id adf61e73a8af0-3e16bf5d189mr17201051637.83.1792071355233;
+        Thu, 15 Oct 2026 06:35:55 -0700 (PDT)
+X-Received: by 2002:a05:6a20:258a:b0:3e0:b778:d988 with SMTP id adf61e73a8af0-3e16bf5d189mr17201036637.83.1792071354770;
+        Thu, 15 Oct 2026 06:35:54 -0700 (PDT)
+Received: from hu-jkona-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89ec1705f5dsm476617b3a.53.2026.10.15.06.35.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 06:35:54 -0700 (PDT)
+From: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
+Date: Thu, 15 Oct 2026 19:05:04 +0530
+Subject: [PATCH 4/4] arm64: dts: qcom: glymur: Add support for AV1E clock
+ controller
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-glymur-av1ecc-v1-4-448a476d54af@oss.qualcomm.com>
+References: <20261015-glymur-av1ecc-v1-0-448a476d54af@oss.qualcomm.com>
+In-Reply-To: <20261015-glymur-av1ecc-v1-0-448a476d54af@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Jagadeesh Kona <quic_jkona@quicinc.com>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Proofpoint-ORIG-GUID: 18wBXxEXQn-YvPMrVY3Vk5ckTSxVB1R1
+X-Authority-Analysis: v=2.4 cv=fNusTpae c=1 sm=1 tr=0 ts=6ad0d6bc cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=2qHST6af7bV6ZHC55aQA:9 a=QEXdDO2ut3YA:10
+ a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1NCBTYWx0ZWRfX14WEholTswR7
+ SMqMFG2hQYYHuQfAubB3Fm7iDNK9R1GJYJ0HQ292ROx42hdWYmFhG9GG+DqRXSRrG/4WzRWNJfi
+ vLZoEOHybc1HDdl2KJYMwh66F477JIOtIGacMo6sVBRFC0bpV4FmheFhwsBHzG7D/2BTiVT3cos
+ NLwVASDSIqt3HCTih6yUWR0GJhJgvkrw2RGhiGbXD822Dg/L7A8Hx+jp7bvXUiY5UpJuH6wRL1h
+ 7Mvt7ki9nuPK66eT8nZbznTXpt74eHEpTvxmeDSw2qW3ZACbYl0KTvZRDp5duIOZWNMrMi6WBcK
+ EtkrGW92Bvo97fYurviAgwgqbpgoucYIYpfuzT5G928QGTq6CgyuFb8QrUxM5fXsocN6lxNEp3G
+ M0V65hVj79whmu58rtZJ/i8mRILie+1lywwr679B8rlrQWeVcAqXw+WWOvyBxrc9S0DjcTt22ry
+ fiZ7X5bgNLUNSVX5DHA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1NCBTYWx0ZWRfX3+D/fJIlP/lz
+ BKrr3kw12qJg8iUaJm1gV1JsxyiYS3MbQVy4TAZGY9ijXtKL9yeefq6b6/jpQr4MJJ5D9VATn38
+ p0pRE3ZvcjTu6D6vEzU77M8Cq3D24kw=
+X-Proofpoint-GUID: 18wBXxEXQn-YvPMrVY3Vk5ckTSxVB1R1
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0
+ spamscore=0 clxscore=1015 priorityscore=1501 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150054
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] media: use-after-free of control handler in mira016_remove()
-- [Medium] media: V4L2_SUBDEV_FORMAT_TRY skips active control limits initia=
-lization
-- [Medium] media: read_poll_timeout() condition swallows I2C errors
-- [Medium] media: integer overflow in pll2 calculation
-- [Medium] media: severe precision loss in pixel rate calculation
-- [Medium] Runtime PM usage counter underflow in mira016_set_ctrl()
-- [Low] media: Kconfig missing select V4L2_FWNODE
---
+Add support for AV1 encoder clock controller (AV1ECC) node on
+Qualcomm Glymur platform.
 
-commit 1bcaca970613b0c6cece4da4dc3fbc5bef5be113
-Author: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Subject: media: i2c: mira016: Add driver for Mira016
+Signed-off-by: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/glymur.dtsi | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-This patch adds a new V4L2 I2C driver for the ams OSRAM MIRA016 camera sens=
-or.
-It introduces configurations for PLL settings, hardware timings, format
-negotiation, and integration with the V4L2 subdevice framework including
-runtime power management.
+diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
+index 65a398c0a99208584797eaca8196348c617619af..da7548e6f1c555a01513c964dd974d45f07f7266 100644
+--- a/arch/arm64/boot/dts/qcom/glymur.dtsi
++++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
+@@ -8146,6 +8146,22 @@ apps_smmu: iommu@15000000 {
+ 			dma-coherent;
+ 		};
+ 
++		av1ecc: clock-controller@15220000 {
++			compatible = "qcom,glymur-av1ecc";
++			reg = <0x0 0x15220000 0x0 0x14000>;
++			clocks = <&rpmhcc RPMH_CXO_CLK>,
++				 <&gcc GCC_AV1E_AHB_CLK>;
++
++			power-domains = <&rpmhpd RPMHPD_MMCX>,
++					<&rpmhpd RPMHPD_MXC>;
++			required-opps = <&rpmhpd_opp_low_svs>,
++					<&rpmhpd_opp_low_svs>;
++
++			#clock-cells = <1>;
++			#reset-cells = <1>;
++			#power-domain-cells = <1>;
++		};
++
+ 		pcie_smmu: iommu@15480000 {
+ 			compatible = "arm,smmu-v3";
+ 			reg = <0x0 0x15480000 0x0 0x20000>;
 
-> diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-> index 7de2d095c9696..34795bccd5d64 100644
-> --- a/drivers/media/i2c/Kconfig
-> +++ b/drivers/media/i2c/Kconfig
-> @@ -332,6 +332,18 @@ config VIDEO_IMX678
-[ ... ]
-> +config VIDEO_MIRA016
-> +	tristate "ams OSRAM MIRA016 sensor support"
-> +	depends on I2C && VIDEO_DEV
-> +	depends on GPIOLIB
-> +	select V4L2_CCI_I2C
+-- 
+2.34.1
 
-[Severity: Low]
-Does this Kconfig entry need to select V4L2_FWNODE?
-
-The driver relies on firmware node helpers like
-v4l2_fwnode_endpoint_alloc_parse() and v4l2_link_freq_to_bitmap(). If the
-kernel is configured with CONFIG_VIDEO_MIRA016=3Dy but CONFIG_V4L2_FWNODE is
-not enabled, the build might fail during the linking stage due to unresolved
-symbols.
-
-
-> diff --git a/drivers/media/i2c/mira016.c b/drivers/media/i2c/mira016.c
-> new file mode 100644
-> index 0000000000000..eec6651a2bfcf
-> --- /dev/null
-> +++ b/drivers/media/i2c/mira016.c
-[ ... ]
-> +static inline u32 mira016_calc_prate(struct mira016 *mira016, u32 h_tot)
-> +{
-[ ... ]
-> +	u32 trow_psec =3D mira016_trow_psec(mira016);
-> +
-> +	return h_tot * HZ_PER_MHZ / trow_psec * HZ_PER_MHZ;
-
-[Severity: Medium]
-Is there a risk of severe precision loss in this pixel rate calculation?
-
-Because C evaluates operators with the same precedence left-to-right, the
-division by trow_psec happens before the final multiplication. For a typical
-configuration, h_tot * 1,000,000 is around 400,000,000, and trow_psec is
-around 5,663,646. The integer division results in exactly 70.
-
-Multiplying 70 by 1,000,000 yields a flat 70,000,000 Hz, truncating all
-fractional megahertz precision. V4L2 pixel rates are exact configurations
-used for CSI-2 receiver bandwidths and frame intervals, so this truncation
-could lead to timing deviations.
-
-
-> +static int mira016_set_pad_format(struct v4l2_subdev *sd,
-> +				  const struct v4l2_subdev_client_info *ci,
-> +				  struct v4l2_subdev_state *state,
-> +				  struct v4l2_subdev_format *fmt)
-> +{
-[ ... ]
-> +	crop =3D v4l2_subdev_state_get_crop(state, 0);
-> +	crop->width =3D fmt->format.width;
-> +	crop->height =3D fmt->format.height;
-> +	crop->left =3D MIRA016_PIXEL_ARRAY_LEFT;
-> +	crop->top =3D MIRA016_PIXEL_ARRAY_TOP;
-> +
-> +	if (fmt->which =3D=3D V4L2_SUBDEV_FORMAT_TRY)
-> +		return 0;
-
-[Severity: Medium]
-Does this early return prevent the initialization of active control limits?
-
-During initialization, v4l2_subdev_init_finalize() dynamically allocates the
-active state and passes it to mira016_init_state() to set the default format
-and controls. In mira016_init_state(), the format struct's which field is
-hardcoded to V4L2_SUBDEV_FORMAT_TRY and passed here to
-mira016_set_pad_format().
-
-Because of this check, the function returns early and entirely skips the
-__v4l2_ctrl_modify_range() call for mira016->gain. Consequently, the active
-state's analogue gain control remains artificially clamped to the dummy
-bounds of [1, 1] until userspace explicitly issues a new VIDIOC_SUBDEV_S_FMT
-command.
-
-
-> +static int mira016_configure_pll(struct mira016 *mira016)
-> +{
-[ ... ]
-> +	cci_write(mira016->regmap, MIRA016_CLKGEN_TX_ESC_L_REG,
-> +		  mira016->pll.esc_l, &ret);
-> +	cci_write(mira016->regmap, MIRA016_PLL_PD_REG, 0, &ret);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return read_poll_timeout(cci_read, ret,
-> +				 (ret < 0 || (val & MIRA016_PLL_LOCKED)),
-> +				 500, 10000, false, mira016->regmap,
-> +				 MIRA016_PLL_LOCK_REG, &val, NULL);
-
-[Severity: Medium]
-Does this polling condition swallow I2C errors?
-
-If cci_read() fails due to an I2C communication error, it returns a negative
-error code in ret. The condition (ret < 0) then evaluates to true.
-
-Because the condition is met, the read_poll_timeout() macro successfully
-breaks out of the polling loop and returns 0 instead of propagating the
-error. This could mask hardware initialization failures, letting the driver
-blindly proceed as if the PLL locked correctly.
-
-
-> +static void mira016_pll_calc(struct mira016 *mira016)
-> +{
-[ ... ]
-> +	for (n =3D MIRA016_PLL_N_MIN; n < MIRA016_PLL_N_MAX; ++n) {
-> +		u32 pll1 =3D clk_in / n;
-> +
-> +		if (pll1 < MIRA016_PLL_PLL1_MIN || pll1 > MIRA016_PLL_PLL1_MAX)
-> +			continue;
-> +
-> +		for (m =3D MIRA016_PLL_M_MIN; m < MIRA016_PLL_M_MAX; ++m) {
-> +			u32 pll2 =3D pll1 * m;
-
-[Severity: Medium]
-Can this 32-bit multiplication overflow for combinations of high pll1 and m?
-
-pll1 is constrained up to MIRA016_PLL_PLL1_MAX (22 MHz, or 22,000,000) and m
-is an index up to MIRA016_PLL_M_MAX (255). The maximum product is
-22,000,000 * 255 =3D 5,610,000,000, which exceeds the 32-bit unsigned integ=
-er
-maximum (4,294,967,295).
-
-This integer wrap-around could cause the driver to incorrectly evaluate
-wrapped values (e.g., 1,315,032,704 Hz) as falling within the valid
-[640MHz, 1500MHz] range, resulting in a broken sensor data rate
-configuration. Casting to a 64-bit unsigned integer before multiplication
-might be necessary here.
-
-
-> +static int mira016_set_ctrl(struct v4l2_ctrl *ctrl)
-> +{
-[ ... ]
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	if (!pm_runtime_get_if_in_use(mira016->dev))
-> +		return 0;
-
-[Severity: Medium]
-Could this logical NOT operator bypass the check for negative error codes?
-
-If pm_runtime_get_if_in_use() returns -EINVAL (which occurs when runtime PM
-is dynamically disabled via pm_runtime_disable(), e.g. during system suspend
-or device unbind), the check !pm_runtime_get_if_in_use(...) evaluates to
-false.
-
-This causes the function to skip the early return and attempt hardware
-register access while the device may be powered off, potentially leading to
-I2C errors.
-
-> +
-> +	switch (ctrl->id) {
-> +	case V4L2_CID_EXPOSURE:
-> +		ret =3D mira016_write_exposure_reg(mira016, ctrl->val);
-> +		break;
-> +	case V4L2_CID_VBLANK:
-> +		ret =3D mira016_write_frame_duration_reg(mira016, state, ctrl->val);
-> +		break;
-> +	case V4L2_CID_ANALOGUE_GAIN:
-> +		ret =3D mira016_write_analogue_gain(mira016, state, ctrl->val);
-> +		break;
-> +	default:
-> +		ret =3D -EINVAL;
-> +		break;
-> +	}
-> +
-> +	pm_runtime_put_autosuspend(mira016->dev);
-
-Because pm_runtime_put_autosuspend() is then called unconditionally even
-though the usage counter was not incremented by the failed get call, this
-would trigger a usage counter underflow warning.
-
-
-> +static void mira016_remove(struct i2c_client *client)
-> +{
-> +	struct v4l2_subdev *sd =3D i2c_get_clientdata(client);
-> +	struct mira016 *mira016 =3D to_mira016(sd);
-> +
-> +	v4l2_ctrl_handler_free(mira016->sd.ctrl_handler);
-> +
-> +	v4l2_async_unregister_subdev(sd);
-
-[Severity: High]
-Is there a potential use-after-free here if userspace issues a control ioctl
-during device removal?
-
-The control handler is destroyed and its locks are freed before the
-subdevice is unregistered from the media core. Until
-v4l2_async_unregister_subdev() completes, the subdevice's V4L2 devnode
-remains exposed and fully accessible to userspace.
-
-If a concurrent userspace application issues a control ioctl
-(like VIDIOC_S_CTRL) during this window, the V4L2 core will dereference the
-already-freed control handler. It is generally safer to unregister the
-subdevice before tearing down its resources.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-mira016-v7=
--0-828c931c5550@ideasonboard.com?part=3D2
