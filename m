@@ -1,109 +1,518 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 822C15208D7;
-	Thu, 15 Oct 2026 12:40:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47CC251FCDA
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 12:42:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792068059; cv=none; b=lkXqvMreg1fqWEGm9Az2dmJy6POrr+QPVYb49I+qRs9KBz8o94UTWcEvqq7VQwtLyzm58dV2vxug5SE7JlkPBDw9bAtitqTYZn04TRB0TiBopWaZmdCkKa9BNgCaAfKlZCopZnW0+8UrflO83DmY/8nZbm6tVQpRXK0CUNaJDZQ=
+	t=1792068167; cv=none; b=sZKjbnFaZ68KhufJzthwVd3EvfnSjMs/2D0jAVili3+2pumRTCkJT54fbOWdr4c/nXL0k7TYW3815qS11/vlUsOqPTuk9o5/w4cpyJtNYVI5/2pOJPsRvzANDT815Rp+xU4SZx5xTRt/ItWX2ZYXC9kmAsrgxq957sKGN1qznKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792068059; c=relaxed/simple;
-	bh=DKwLVcWUN8E3dDYeubpR65D0RJ+UdxowTK4mEXnI/Ds=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=KnVQJsBg3i1m2tXb4HXtYirDX4IX35OmQzU6fK+hfrJdlK1237MwZVfKaPysVkS9F6xOhkRP7TaIpUhmHm/llXCbNNoAovil40dOXJTFPbWPyqyOulv6BZ6GPxEevfcoPjNOsguLO7ethzhiTtjefN/xVX7plLVBqRxZwSoxyts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RYRTWz+m; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792068167; c=relaxed/simple;
+	bh=iue/25EugCeiP+JlUAe0+14oDJOn0PTFfLPEqbW/HRg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=N8sTv49Tp1RzbE2yqbiWew0Ak/zSahy5JjkTHJ3SvT+FuF6cID6zZR7tQt1HrU6qUkXKGb6HPf7ufGg2+E2F/GXoBnO61iDue7ILUzt9hTsSflxmjRuoghgjjnOHM1W5H9wUQhSWFrGuk/vZnbPCdGuPGeqRkRra0ZuEYwiSVtQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=R25y7Euu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LYig4MvF; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RYRTWz+m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A93161F000C4;
-	Thu, 15 Oct 2026 12:40:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792068058;
-	bh=8mr44ruIlIuHraNgUPoKCSk1dsomii5Qenj5BOx/kFI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RYRTWz+mK492CPkvVk5HhwblexUlTQ+xI+DnYLJPL2am88N9UoACtYXvwGy5Y4zvR
-	 sX0zzB6cJ4ljq+xfwjxgbBjCPRCTH6xOISQQNe5HjTbYyz6M3TrSe7Lo3i35csCRLo
-	 qCERGuwFe9L8dR1FaRv35uSIp/GDgIZSlZkhHhJG2W2oKiGnrZfr8amzifvNtoLgrz
-	 LaJOiDanz56oiYFrdjTBln6ZtsSV32mMNd0DkC+Q45BpFAQEJeCs2MaG5btkmLTsHh
-	 P5Yg0Fit7U0SpzWIm1NdhbuJXeI4pV85yPdgLIMhh7JvyqNURrugntOQd02rl/k8mI
-	 cmFiU31kNNiJQ==
-Message-ID: <sashiko-outbox-172832@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v16 2/7] dt-bindings: net: qcom: document the
- ethqos device for SCMI-based systems
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev, linux-amlogic@lists.infradead.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, neil.armstrong@linaro.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20261014-qcom-sa8255p-emac-v16-2-0266c2ead980@oss.qualcomm.com>
-References: <20261014-qcom-sa8255p-emac-v16-0-0266c2ead980@oss.qualcomm.com>
- <20261014-qcom-sa8255p-emac-v16-2-0266c2ead980@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 12:40:57 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="R25y7Euu";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LYig4MvF"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9jWLe4078195
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 12:42:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=KgCkbIqj+Xltp5HS/aMjiyIa
+	do5whRz2Y+pFV9bEePY=; b=R25y7EuuLXCZtzDPvFdgieK2SbIvfbN1jRnQW+Qg
+	Fl/7uNZi5zwoZ+YKQLCsVdTrDJsRk17T3DAN2EwcwCUKO/LlT8TQqVhK9UDPK0U2
+	TJ3d3+MRlCI/G8R7oYHaGKlRVl0MOyBheA1VVxEi/SP6hqGYhweHPCrFvwREJwTp
+	2dmXH0GtBhjZoAbTmWS6AXpvfkcckuC/C0JSfK+kM2OsVtXaoTG5oAOfbKngdpF5
+	glNu6K8EZSka/gEgk8RWDFzCZXU3bLT3j+Y0bhiJlKXH/u2WG9s5Iajflm0fiAQZ
+	joM1dWehim2el4uVZ9WnKB1NayqHPCRZkzRaKslfkNM3RQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4havbc0qtt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 12:42:44 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93caf6c528aso912525685a.0
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 05:42:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792068163; x=1792672963; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KgCkbIqj+Xltp5HS/aMjiyIado5whRz2Y+pFV9bEePY=;
+        b=LYig4MvFwr+aBZqUIpLYUQdwgs+aVDoy8G3qeF8wWuWQEUHejwF8aR3hiwMFpil+rL
+         8ksc5hsKpk0CHEHWApe7mP87TMYHLaqqHi1AjJ6cBcXeUDeoBm2LoMDf2emLfpzAP+DB
+         9H1MZ+tT/o4ZYaJlgzDQsNlu06z0J44OBIxLQhVY9WLvHAnxHzLTPMbtMjnyuf9Pkv64
+         xWE/rA6n4ChkDBFSJKQOTD4ihM/crR7HWoC2UGvFbqM9RS2gne4N7dnLeW/NtdoIIWhu
+         vXYinkAnzUODKxHXXm30G7ugqeCjH8KrhVet1OD/okOglXyabGLdLRSG2KysecUkatSh
+         sBRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792068163; x=1792672963;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KgCkbIqj+Xltp5HS/aMjiyIado5whRz2Y+pFV9bEePY=;
+        b=g/IcuqW/2D+b8Xq8CZhO7+cD9TrNFyE5yE8MqOo9QGw0YQTKNCnvpAAyLg125rYTZi
+         4E76kaDhqWm/G3fcUUYjk7sRAbB5lmJr/cIHCRNWfYkHu1kGAtC57EelKhQNk5x9Zp7q
+         Jkru3/C0OgH9FLBBw7kD8zG7IrWUiCET5PgTqb7hyq02nJli/eYRHiPIwxiwZRpni+MC
+         kuQsywpfUn7W8mCykg60rAQ/t0UKRq46Bcu5U7zi6cbfi9pd9b8NsrLkCeSDY6TURhjK
+         Pva9eikhuhpC95udybZQYMOLgwdavYe7IEOb/QAGC06SnzA4epFLwFDJWygr4gmn7/gw
+         Kbrw==
+X-Forwarded-Encrypted: i=1; AKwUvBzNdblcYMH1FHluyVrZZfNzEfV1Jtt/v2OS3TtUXB9bVP6Sx4PNu0R+NaEeP2Hgzf6yKDMFIbK8KUU7@vger.kernel.org
+X-Gm-Message-State: AFq9FYKURrO9Lb2NDAldzMIQpnLsqJ5vjdtch4XvB8QCZmNEqBoMx2oR
+	X0blQyWWbiDnl5/Rw/HdHUHMAyc2D6tNzXchV70q0pTFPaf2YfnYntIEDQIDDFACrbHqB4WDMGL
+	+dkIjTQN674jJvgdwqbaBoghSdrKmScnvmJ+ugnoujq5GENsyuG+RfL7c2Z4QaLWG
+X-Gm-Gg: AYBFou2lSfMPSippYoflDidL1e9G9SefIp2/W3GMqCeNAdVWoAoGp3LVGrgL5Yw+AsJ
+	JQZUSvNXw8rcPjvMCXnHstGI7hHznPI2zzIX18uAgkXAFTOGpYMRCfogICRr8THvzSne6ovMC/x
+	2yhC2KhKllipACjkAmN5no9GqgZ42cIk2dwEp/p+pw1rIqZPpICo4DvXkKEV8w0qr1tyE7bjSVy
+	RG0+QUL+73VR+nWW76H2PRE2xywCFfmtfrZjamP2U86pbCiznMOyGSDTCgmJX+p7gvr+ToBZpEc
+	q4Yw6CPZuMm7btREuIhW3m2F4GiLx58z+ME8NswVmzrjDPvwq7qk4/i3yOIC+tgJjhbQOdklP9q
+	LYnqJgIon3pP8Z3u5Ed/4UKJ1g4AEjbhmjHH5Y0m+Xl48iQUpDnfuBHC/+vHYd43Bkjv3bT+VTn
+	pGoClkZffJb66O
+X-Received: by 2002:a05:620a:4407:b0:93e:942f:b8b1 with SMTP id af79cd13be357-93ebd292a3fmr3061150485a.64.1792068163082;
+        Thu, 15 Oct 2026 05:42:43 -0700 (PDT)
+X-Received: by 2002:a05:620a:4407:b0:93e:942f:b8b1 with SMTP id af79cd13be357-93ebd292a3fmr3061145985a.64.1792068162454;
+        Thu, 15 Oct 2026 05:42:42 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3aafdf4e5ebsm6660281fa.40.2026.10.15.05.42.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 05:42:41 -0700 (PDT)
+Date: Thu, 15 Oct 2026 15:42:39 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Sumit Semwal <sumit.semwal@linaro.org>,
+        Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+        Philipp Stanner <phasta@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+        iommu@lists.linux.dev
+Subject: Re: [PATCH 04/13] drm/msm/dcp: Add IPCC power notification
+Message-ID: <u7pcn75yh435vuuwqezml37bqfzdztvrywggbmkydkilwe5yzp@myijo4wd2bob>
+References: <20261015-jshekhar-drm-msm-dcp-v1-v1-0-48aad0fe4f72@oss.qualcomm.com>
+ <20261015-jshekhar-drm-msm-dcp-v1-v1-4-48aad0fe4f72@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015-jshekhar-drm-msm-dcp-v1-v1-4-48aad0fe4f72@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=QbvzLcbv c=1 sm=1 tr=0 ts=6ad0ca44 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
+ a=CLenjPMy3891WX9YFLIA:9 a=CjuIK1q_8ugA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1MCBTYWx0ZWRfX5slEgtb3ol8y
+ VKSxA33l97625MxuINnlgY3F+N+JEavDwVoORp1CgLeJUCtpWE/py3AbyiW5jStsvDDbc3A3AeO
+ Sn60g41uZRiXZBWqEOgSeJAjzKhU7iY=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1MCBTYWx0ZWRfXxP1LX1TNvk9W
+ aQEfEhbUXX8PdDOlMqz04+FvKMdyqYYeLoZ6dI1x7GkpWdv1dFtBp47NCJCu7EZtUaIGWJCzqoo
+ aSSwQqnpH7iMrYS2lM5SqoWJgzgT3yCIN7R0AwlFatU2jLtqItihVZFoFbQpRUv0u/Ag/+lNvRY
+ ewumMSwYJ/qWS/QKUDxazcLnRkLQ2SeWYf3LYegkEPzAeR0KlpgOjv+szu8Fl5o1HpEi6pJIaPK
+ HEs4ffU8hDkS130xbxIPM48pO9ioOEVU/JZRptW2rP6Q5ms1TL74LeCWeYG9z30XjBJwKiUOSvu
+ raJ/FmkihEYIlQ95JYL+TSYi+eeE9sVp+tn2M+LK3NIME3zpeSiT5Pt/IWXEoV6P6cd+XZ4sA17
+ aRKDcOfb+eMKwpgHhgq7wtWznJP+D2UkdvkG4HLd5FpGA6f09YsYPIoQ1JRLVl9yiHoTQ/q6wZd
+ d8fT+8omtV8yNhTPEfw==
+X-Proofpoint-ORIG-GUID: 4d2hYqVNOuHWrGKvHellwsooLzTiemEm
+X-Proofpoint-GUID: 4d2hYqVNOuHWrGKvHellwsooLzTiemEm
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015 malwarescore=0 lowpriorityscore=0
+ priorityscore=1501 spamscore=0 bulkscore=0 phishscore=0 suspectscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610150050
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] dt-bindings: net: missed power-domains constraint in ultrarisc,dp10=
-00-gmac.yaml
---
+On Thu, Oct 15, 2026 at 01:08:24PM +0530, Jayant Shekhar wrote:
+> DCP may be power-collapsed while the VirtIO transport remains available.
+> The host therefore needs the platform IPCC channel to wake the firmware and
+> to receive notification that it can service HFI queues.
 
-commit eaf763b0d0d309757c6cf7f9fe067155eb99eb11
-Author: Bartosz Golaszewski <brgl@kernel.org>
+Is it allowed per the VirtIO spec?
 
-dt-bindings: net: qcom: document the ethqos device for SCMI-based systems
+> 
+> Add the IPCC mailbox client and power-notify interrupt handling. Wake DCP
+> before VirtIO queue activity, wait for the firmware acknowledgment, and
+> notify the response queue when the IPCC receive path completes.
 
-This commit describes the firmware-managed variant of the QCom DesignWare M=
-AC
-in a separate file. It updates the top-level snps,dwmac.yaml to allow up to
-two power domains and restricts existing referencing bindings to a maximum =
-of
-one power domain.
+Don't describe patch contents. Describe your design decisions. The
+reasons for the flags, init/deinit functions, etc.
 
-> diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Docu=
-mentation/devicetree/bindings/net/snps,dwmac.yaml
-> index 2218a492817fd..2c4842404bf67 100644
-> --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> 
+> Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+> Assisted-by: LLM
+> ---
+>  drivers/gpu/drm/msm/Makefile       |   1 +
+>  drivers/gpu/drm/msm/dcp/dcp_drv.h  |   1 +
+>  drivers/gpu/drm/msm/dcp/dcp_ipcc.c | 212 +++++++++++++++++++++++++++++++++++++
+>  drivers/gpu/drm/msm/dcp/dcp_ipcc.h |  56 ++++++++++
+>  4 files changed, 270 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
+> index bdc34babfc21..4195bc0e1fc9 100644
+> --- a/drivers/gpu/drm/msm/Makefile
+> +++ b/drivers/gpu/drm/msm/Makefile
+> @@ -71,6 +71,7 @@ msm-display-$(CONFIG_DRM_MSM_MDP5) += \
+>  
+>  msm-display-$(CONFIG_DRM_MSM_DCP) += \
+>  	dcp/dcp_hfi_core.o \
+> +	dcp/dcp_ipcc.o \
+>  	dcp/hfi/hfi_packer.o \
+>  	dcp/hfi/hfi_unpacker.o \
+>  	dcp/hfi/hfi_utils.o
+> diff --git a/drivers/gpu/drm/msm/dcp/dcp_drv.h b/drivers/gpu/drm/msm/dcp/dcp_drv.h
+> index bf6c34af43a0..af2db3cf9066 100644
+> --- a/drivers/gpu/drm/msm/dcp/dcp_drv.h
+> +++ b/drivers/gpu/drm/msm/dcp/dcp_drv.h
+> @@ -13,6 +13,7 @@
+>  #include <linux/virtio.h>
+>  
+>  #include "dcp_hfi.h"
+> +#include "dcp_ipcc.h"
+>  
+>  struct dcp_dpu_kms;
+>  
+> diff --git a/drivers/gpu/drm/msm/dcp/dcp_ipcc.c b/drivers/gpu/drm/msm/dcp/dcp_ipcc.c
+> new file mode 100644
+> index 000000000000..e60a3ecbe3d8
+> --- /dev/null
+> +++ b/drivers/gpu/drm/msm/dcp/dcp_ipcc.c
+> @@ -0,0 +1,212 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + *
+> + * DCP IPCC power-notify mailbox client.
+> + *
+> + * The APSS-to-DCP channel must be signaled before a VirtIO queue kick.
+> + */
+> +
+> +#include <linux/device.h>
+> +#include <linux/err.h>
+> +#include <linux/jiffies.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/mailbox_client.h>
+> +#include <linux/mutex.h>
+> +#include <linux/of_irq.h>
+> +#include <linux/string.h>
+> +#include <linux/virtio.h>
+> +
+> +#include "dcp_ipcc.h"
+> +
+> +#define DCP_IPCC_POWER_NOTIFY_TIMEOUT_MS	10000
+> +
+> +static void dcp_ipcc_handle_rx(struct dcp_ipcc *ipcc)
+> +{
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&ipcc->state_lock, flags);
+> +	if (ipcc->shutting_down) {
+> +		spin_unlock_irqrestore(&ipcc->state_lock, flags);
+> +		return;
+> +	}
+> +
+> +	if (atomic_xchg(&ipcc->power_notify_pending, 0))
+> +		complete(&ipcc->power_notify_done);
 
-[ ... ]
+Can there be more than one power notification pending? Can't we just
+call complete() here?
 
-> @@ -187,7 +188,8 @@ properties:
->            - enum: [ahb, stmmaceth-ocp]
-> =20
->    power-domains:
-> -    maxItems: 1
-> +    minItems: 1
-> +    maxItems: 2
-> =20
->    mac-mode:
->      $ref: ethernet-controller.yaml#/properties/phy-connection-type
+> +
+> +	if (ipcc->resp_vq && virtqueue_kick_prepare(ipcc->resp_vq))
+> +		virtqueue_notify(ipcc->resp_vq);
+> +	spin_unlock_irqrestore(&ipcc->state_lock, flags);
+> +}
+> +
+> +static irqreturn_t dcp_ipcc_power_notify_irq(int irq, void *data)
+> +{
+> +	struct dcp_ipcc *ipcc = data;
+> +
+> +	dcp_ipcc_handle_rx(ipcc);
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static void dcp_ipcc_rx_callback(struct mbox_client *cl, void *data)
+> +{
+> +	struct dcp_ipcc *ipcc = container_of(cl, struct dcp_ipcc, client);
+> +
+> +	dcp_ipcc_handle_rx(ipcc);
+> +}
+> +
+> +int dcp_ipcc_init(struct dcp_ipcc *ipcc, struct device *dev)
+> +{
+> +	int irq, ret;
+> +
+> +	if (!ipcc || !dev)
+> +		return -EINVAL;
+> +
+> +	memset(ipcc, 0, sizeof(*ipcc));
+> +	init_completion(&ipcc->power_notify_done);
+> +	mutex_init(&ipcc->power_notify_lock);
+> +	spin_lock_init(&ipcc->state_lock);
+> +	atomic_set(&ipcc->power_notify_pending, 0);
+> +
+> +	ipcc->client.dev          = dev;
+> +	ipcc->client.tx_block     = false;
+> +	ipcc->client.tx_tout      = 0;
+> +	ipcc->client.knows_txdone = true;
+> +	ipcc->client.rx_callback  = dcp_ipcc_rx_callback;
+> +
+> +	ipcc->power_chan = mbox_request_channel_byname(&ipcc->client,
+> +						       "dcp-power-tx");
+> +	if (IS_ERR(ipcc->power_chan)) {
+> +		ret = PTR_ERR(ipcc->power_chan);
+> +		ipcc->power_chan = NULL;
+> +		if (ret != -EPROBE_DEFER)
+> +			dev_err(dev, "IPCC: failed to get 'dcp-power-tx': %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	irq = of_irq_get_byname(dev->of_node, "dcp_power_notify_irq");
+> +	if (irq <= 0) {
+> +		ret = irq ? irq : -EINVAL;
+> +		ret = dev_err_probe(dev, ret,
+> +				    "failed to get required power notify IRQ\n");
+> +		goto err_free_channel;
+> +	}
+> +
+> +	ret = request_irq(irq, dcp_ipcc_power_notify_irq,
+> +			  0, "dcp-power-notify", ipcc);
+> +	if (ret) {
+> +		ret = dev_err_probe(dev, ret,
+> +				    "failed to request power notify IRQ %d\n", irq);
+> +		goto err_free_channel;
+> +	}
+> +	ipcc->power_notify_irq = irq;
+> +
+> +	ret = enable_irq_wake(irq);
 
-[Severity: Low]
-Was Documentation/devicetree/bindings/net/ultrarisc,dp1000-gmac.yaml missed=
- in
-the updates to other bindings?
+This is typically called from the suspend callback. Why are you calling
+it in init path?
 
-The commit message states the intent to update existing bindings referencing
-snps,dwmac.yaml to limit their maxItems for power-domains to 1. However,
-ultrarisc,dp1000-gmac.yaml references snps,dwmac.yaml under its allOf node:
+> +	if (ret) {
+> +		dev_err(dev, "failed to enable power notify IRQ wake: %d\n", ret);
+> +		goto err_free_irq;
+> +	}
+> +	ipcc->power_notify_irq_wake = true;
+> +
+> +	return 0;
+> +
+> +err_free_irq:
+> +	free_irq(irq, ipcc);
+> +	ipcc->power_notify_irq = 0;
+> +err_free_channel:
+> +	mbox_free_channel(ipcc->power_chan);
+> +	ipcc->power_chan = NULL;
+> +	return ret;
+> +}
+> +
+> +void dcp_ipcc_set_resp_vq(struct dcp_ipcc *ipcc, struct virtqueue *resp_vq)
+> +{
+> +	unsigned long flags;
+> +
+> +	if (!ipcc)
+> +		return;
+> +
+> +	spin_lock_irqsave(&ipcc->state_lock, flags);
+> +	if (!ipcc->shutting_down)
+> +		ipcc->resp_vq = resp_vq;
+> +	spin_unlock_irqrestore(&ipcc->state_lock, flags);
+> +}
+> +
+> +void dcp_ipcc_deinit(struct dcp_ipcc *ipcc)
+> +{
+> +	struct mbox_chan *power_chan;
+> +	int irq;
+> +	bool irq_wake;
+> +	unsigned long flags;
+> +
+> +	if (!ipcc)
+> +		return;
 
-Documentation/devicetree/bindings/net/ultrarisc,dp1000-gmac.yaml:
-allOf:
-  - $ref: snps,dwmac.yaml#
+Oh, you again ignored the feedback. Can ipcc be NULL here? What would
+that mean?
 
-Because the top-level snps,dwmac.yaml was relaxed to allow 2 power domains
-here, and ultrarisc,dp1000-gmac.yaml lacks a local override, does it implic=
-itly
-inherit the newly relaxed limit of 2?
+> +
+> +	mutex_lock(&ipcc->power_notify_lock);
+> +	spin_lock_irqsave(&ipcc->state_lock, flags);
+> +	ipcc->shutting_down = true;
+> +	ipcc->resp_vq = NULL;
+> +	irq = ipcc->power_notify_irq;
+> +	ipcc->power_notify_irq = 0;
+> +	irq_wake = ipcc->power_notify_irq_wake;
+> +	ipcc->power_notify_irq_wake = false;
+> +	power_chan = ipcc->power_chan;
+> +	ipcc->power_chan = NULL;
+> +	spin_unlock_irqrestore(&ipcc->state_lock, flags);
 
-Could this cause a schema validation regression where device trees for the
-hardware could incorrectly specify up to two power domains without failing
-validation?
+Ugh. No.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014-qcom-sa825=
-5p-emac-v16-0-0266c2ead980@oss.qualcomm.com?part=3D2
+> +
+> +	if (irq > 0) {
+
+Can it be 0 here?
+
+> +		disable_irq(irq);
+
+What for?
+
+> +		if (irq_wake)
+> +			disable_irq_wake(irq);
+
+It is enabled at this point. Drop the useless flags.
+
+> +		free_irq(irq, ipcc);
+
+We have devm_foo() functions to simplify the teardown. Can we use them
+here?
+
+> +	}
+> +	if (power_chan)
+> +		mbox_free_channel(power_chan);
+> +	mutex_unlock(&ipcc->power_notify_lock);
+> +}
+> +
+> +int dcp_ipcc_send_power_notify(struct dcp_ipcc *ipcc)
+> +{
+> +	unsigned long flags, timeout;
+> +	int ret;
+> +
+> +	if (!ipcc)
+> +		return -ENODEV;
+> +
+> +	/* Wait for the doorbell acknowledgment before returning to VirtIO. */
+> +	mutex_lock(&ipcc->power_notify_lock);
+> +	spin_lock_irqsave(&ipcc->state_lock, flags);
+> +	if (ipcc->shutting_down || !ipcc->power_chan) {
+> +		spin_unlock_irqrestore(&ipcc->state_lock, flags);
+> +		ret = -ENODEV;
+> +		goto out_unlock;
+> +	}
+> +	spin_unlock_irqrestore(&ipcc->state_lock, flags);
+> +
+> +	reinit_completion(&ipcc->power_notify_done);
+> +	atomic_set(&ipcc->power_notify_pending, 1);
+> +
+> +	ret = mbox_send_message(ipcc->power_chan, NULL);
+> +	mbox_client_txdone(ipcc->power_chan, ret);
+> +	if (ret < 0) {
+> +		atomic_set(&ipcc->power_notify_pending, 0);
+> +		dev_err(ipcc->client.dev,
+> +			"IPCC TX: power notify failed: %d\n", ret);
+> +		goto out_unlock;
+> +	}
+> +
+> +	timeout = wait_for_completion_timeout(&ipcc->power_notify_done,
+> +					      msecs_to_jiffies(DCP_IPCC_POWER_NOTIFY_TIMEOUT_MS));
+> +	atomic_set(&ipcc->power_notify_pending, 0);
+> +	if (!timeout) {
+> +		dev_err(ipcc->client.dev,
+> +			"IPCC power notify acknowledgment timed out\n");
+> +		ret = -ETIMEDOUT;
+> +	} else {
+> +		ret = 0;
+> +	}
+> +
+> +out_unlock:
+> +	mutex_unlock(&ipcc->power_notify_lock);
+> +	return ret;
+> +}
+> diff --git a/drivers/gpu/drm/msm/dcp/dcp_ipcc.h b/drivers/gpu/drm/msm/dcp/dcp_ipcc.h
+> new file mode 100644
+> index 000000000000..a3430e5cbe72
+> --- /dev/null
+> +++ b/drivers/gpu/drm/msm/dcp/dcp_ipcc.h
+> @@ -0,0 +1,56 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + *
+> + * IPCC power-notify mailbox interface for DCP firmware.
+> + *
+> + * Channel 5 carries APSS-to-DCP wake notifications; responses arrive through
+> + * the mailbox client's RX callback.
+> + */
+> +
+> +#ifndef __DCP_IPCC_H__
+> +#define __DCP_IPCC_H__
+> +
+> +#include <linux/atomic.h>
+> +#include <linux/completion.h>
+> +#include <linux/mailbox_client.h>
+> +#include <linux/mutex.h>
+> +#include <linux/spinlock.h>
+> +
+> +struct device;
+> +struct virtqueue;
+> +
+> +/**
+> + * struct dcp_ipcc - DCP IPCC power-notification state
+> + * @client: Mailbox client used for APSS-to-DCP notifications.
+> + * @power_chan: Mailbox channel carrying power notifications.
+> + * @resp_vq: VirtIO response queue notified by the IPCC receive path.
+> + * @power_notify_done: Completion for the firmware acknowledgment.
+> + * @power_notify_lock: Serializes power notifications and teardown.
+> + * @power_notify_pending: Indicates an outstanding acknowledgment.
+> + * @state_lock: Protects shutdown state and response queue access.
+> + * @shutting_down: Prevents callbacks from accessing teardown state.
+
+What is going to access it during teardown? Can we shutdown in a logical
+way, so that there are no accessors after starting the teardown?
+
+> + * @power_notify_irq_wake: Whether IRQ wake was enabled.
+> + * @power_notify_irq: Power-notify acknowledgment IRQ number.
+> + */
+> +struct dcp_ipcc {
+> +	struct mbox_client client;
+> +	struct mbox_chan *power_chan;
+> +	struct virtqueue *resp_vq;
+> +	struct completion power_notify_done;
+> +	/* Serializes power notifications and teardown. */
+> +	struct mutex power_notify_lock;
+> +	atomic_t power_notify_pending;
+> +	/* Protects shutdown state and response queue access. */
+> +	spinlock_t state_lock;
+> +	bool shutting_down;
+> +	bool power_notify_irq_wake;
+> +	int power_notify_irq;
+> +};
+> +
+> +int dcp_ipcc_init(struct dcp_ipcc *ipcc, struct device *dev);
+> +void dcp_ipcc_set_resp_vq(struct dcp_ipcc *ipcc, struct virtqueue *resp_vq);
+> +void dcp_ipcc_deinit(struct dcp_ipcc *ipcc);
+> +int dcp_ipcc_send_power_notify(struct dcp_ipcc *ipcc);
+> +
+> +#endif /* __DCP_IPCC_H__ */
+> 
+> -- 
+> 2.43.0
+> 
+
+-- 
+With best wishes
+Dmitry
