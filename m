@@ -1,204 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ECAF4EFFCC;
-	Thu, 15 Oct 2026 09:16:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A90A336B923
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 09:16:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792055773; cv=none; b=tE/yiCyMGmlNuHDG89PzGenBgdDznhwRYoQWvQzzK4bLKhSQFYRGRskzF898Ns8uemjycTq2Qb+w9V5CE7cgfiJmJ8D3Rp8lJGaq6QdKBKZK20mwokdjhRtz+qeVzq7f/lPHvAYrI7LBQuH+YKmBwV6BBBuTh/9QQBIBYvMLZxM=
+	t=1792055819; cv=none; b=TKINOuaEMY2xRye8BYYX0DZFNE2CfrpW9jTS+dhs9CNw0CaXhSs8FDW8wFCpdoGX57OTv3g6OvelHl82kxkWEVgwJj8gowMwZ1zWTZg+trn4o6+YriEXHwuYVJnJ2lWguSHbSSGtfJLYznizaBEY2Z8zqnT0pzzPAb2JFB0atLw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792055773; c=relaxed/simple;
-	bh=wVW2O4aPJUT7VwnUuNjtOOHx0CWmUoottGKdGSSyo0g=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=JGujKRnur8sQZcFbzszrBKY3wmgEw1/fjPI4PqjxwT0nY+hlWXXT9csevlt7qACMVg3bMJjZ+rj1Lqtca4HibcKP1D6nHqD9egkTiyVnLSDNkHf2qNib2+Smyqi66pSiCljN0Y8h4oV9fINQPJRTYuhi1dMN75QRDkdVCK9yf1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m3AmY5px; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792055819; c=relaxed/simple;
+	bh=0HBBKb/hxr/TOT1J49xGL57UFD3h22NiK3c+pzHK1CI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ug6H2S83Mw3iGehBvPHi38wncBRQ9tHbLAvheYBcc+uS4EtxgY0oT5Q29PWUKiHsyq4Q4ikzCYiSVCWgNWanTCiRAXAeG5g97FMKppIxUZXp/E22tKhgFYaMOlZqf3P2yQbvmrbIMW/8QeTsSG80JYdL1snvGKjjdPo+uJah7Ls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hFD9JYoG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RoXYm4hU; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m3AmY5px"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10A701F000C4;
-	Thu, 15 Oct 2026 09:16:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792055768;
-	bh=xZ4Hg6r+QglckZPpVIuq48St3sDdd75rksi5q8AXnBo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=m3AmY5pxnhuSQCC5TAUP/zLh7rmZUObzlxkR+5pSmxaZiMRLMcha9tdv3i91jHD1w
-	 DRO/fBup0U8lG7DOsJcB4l6QFC4mS9BwYcXaadl7G0qHqqrcdck87YDUjp6YXzGPm+
-	 z+tJzjA+0RQ0oKb+4kPcF1t1SK5wHVR5SDya0qr98Gi6n5WRkqI4LEa3aU6PbrIO60
-	 C1g1qhCv2fjclbB6hw7AMFH+wGYKWaplPrhXuFKYa3iecnxSs7kshfUj1vtRiBzVZS
-	 wXJ9iVq3YKC81PoUrk8aszLGG+AC8mReGYarXmXdK9vUNUTwhC+0tRbXhPBvHxWA/E
-	 0f5jlJkeYF01A==
-Message-ID: <sashiko-outbox-172554@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/4] platform: arm64: Add a driver for the EC found
- on ASUS Glymur machines
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Konrad Dybcio" <konradybcio@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261015-topic-asus_ec-v4-2-af6305ffcb10@oss.qualcomm.com>
-References: <20261015-topic-asus_ec-v4-0-af6305ffcb10@oss.qualcomm.com>
- <20261015-topic-asus_ec-v4-2-af6305ffcb10@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 09:16:07 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hFD9JYoG";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RoXYm4hU"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F3xK8f1640679
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 09:16:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	4rEV28MGRovYUyrZpyFq8tlPu9s3MeeDYME+udyPeLs=; b=hFD9JYoGNjy400aW
+	2inXc+iqUbgUn4F1Kda1xJUGQfK5pBGxxrlUU7+GttiZU6aNunm6++qYVI4zaVeO
+	JY8qqSEgtbes21n5oWqmMkZg+uTuGR1lHygIoqTqgdNPTNpmsaiAq4IQXbM7qis+
+	VyrpREt8hsA4+R0DPO/u+JYKaz0onPvM3susmUSPQd/ij9ARmJl8HjcMlQ/vL9Dm
+	Dcu0qK5Fo2FjH4b8U8S46y+XOGv5lxY372OlDDE8a4D1kh88AZ0ABhg4bvpEAaOJ
+	gpiPzTegYbrBAuqBYx1l1ZOhXNMiusd7eORhLKJihr3MUfAJoZg39deQhjNw1Jkg
+	2L6gNQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4haqdhh92d-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 09:16:58 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92eebb130dcso91684685a.1
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 02:16:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792055812; x=1792660612; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4rEV28MGRovYUyrZpyFq8tlPu9s3MeeDYME+udyPeLs=;
+        b=RoXYm4hUSBW8mHyomjYR5yh6s3wk+PeEGAglnRoUswltup0WaSg3KwmvN7US6hFf+X
+         KYbAaWpxqqsxQ8UoQLPOqxWZyZSiuaAmSuje6dnfwjpdGfGfCWh/I87aUegqcTOveKwL
+         zNBG4K/Vq4od0DMYNVGBXsWhhCKp6GcFbpYCPhhWRHxr2UW7Q8O4bcUFUEuLxEtdeaPU
+         gdXEodkaXvsbUCSVzmggANdDUsOpDY4a3dhCFiGgZ7EM0ysjmc/8UJusfK4Flihj39Bm
+         fNZ83vBSumQeldpT/WtgDfSJ5cc9TtXuKZ8yRqLMmRsPzNNiKAsfGilkTGTxO+t4qViu
+         Z26Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792055812; x=1792660612;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4rEV28MGRovYUyrZpyFq8tlPu9s3MeeDYME+udyPeLs=;
+        b=2lkwOBCu4ERyUjPPY0Fd9ecgEphqYFX4lGPG7gSk1BLNp4z/QuwICOiyFMdZXznUG5
+         w/TQI4NI1l+3RFRzAS6WqTGKL62Hie1c1QWtPdRbnUyBl7JMJXY+uu0CTonpheL2QPVp
+         h/+AALJkq3okTNVcRWrdwvIYTpCmIyy6+OHv82WAg4XHie11/tbHKRTD4hSivyn8kbTV
+         Ur/j9pMYzRw32hxhwWbgPLU2sQ8PUiskcFqM3oDaaQWgRW7uSerqkQm6F5ZwdVUE1g6M
+         EP19d9G3fkQZOBzmJ9psT9F4rOapVEF7I8FIPVtr4uD8qmrFZkH+B/dPDkLlbilea1Yv
+         Ku+g==
+X-Forwarded-Encrypted: i=1; AKwUvByLj1+Q3EqsyQa5SkKMI2hpGxRyqK4yeKfVMQtLlzOJw6VZiicoDooCENA39Nn0SPukbCNkl4Zo1r09@vger.kernel.org
+X-Gm-Message-State: AFq9FYJhLLLHN5KXDc5H4RULNmq03wvt2HZIituDVpokI4WngHT9BmSd
+	90tZHJq8tuNeESqlgFqSZa+w592bxUWPOOpUfQqSHVu2ozBisNEg3/52GM0v7sIxRn3qPVUmVR7
+	o5I8IC79qfNkvRUep2y6H8nAFOd+dyvcFcvNK3V5dYuo433Fpt4CRR3XWr/g4rrkZ
+X-Gm-Gg: AYBFou2bPRhocOorxSMND34ZiR3vGoeBwsQZ/tLYpJpX4iY8yCRXc3GhyvVGGNPbDGv
+	rjuYhbArB6SGUtbX2o6GZKSNhG8IJn7MCYzJlv2VJlSh6UWeCW/1U+TaZtTR5Gfo9nu7YexCpLD
+	sn1JJXnA5ciSag+BROa3IiTNQNIsPDMaChGUc1n1SaHXmZOYBWaIRwl+lOLtJ0VUFWHDbrtk2ZZ
+	9PRlZXNtjotBIggpSE7uxzODaBWEcVzs3cx8a6RG2I8yPhMgCKaOFAI/VXfSwcs8pv4gofIPHtE
+	VotXe8vZJNXqJqahHeq9BRVFGs4CufE/9W5hEuz5VWDPTH+mJ/ABodLeBwbf2P7lIcSPd8WJgea
+	bNod/s7lVvqS81CPC/Cf1Cg==
+X-Received: by 2002:a05:620a:3186:b0:939:8bc:8826 with SMTP id af79cd13be357-93ebd10c0e2mr3495769385a.2.1792055811994;
+        Thu, 15 Oct 2026 02:16:51 -0700 (PDT)
+X-Received: by 2002:a05:620a:3186:b0:939:8bc:8826 with SMTP id af79cd13be357-93ebd10c0e2mr3495765885a.2.1792055811430;
+        Thu, 15 Oct 2026 02:16:51 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3eda13e80csm102304666b.58.2026.10.15.02.16.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 15 Oct 2026 02:16:50 -0700 (PDT)
+Message-ID: <1daa1740-2c91-4ea3-84a5-7f256ac0f07e@oss.qualcomm.com>
+Date: Thu, 15 Oct 2026 11:16:48 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] Add OnePlus 8T
+To: Frieder Hannenheim <git@fhannenheim.net>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: Robert Oscilowski <drgitx@gmail.com>,
+        =?UTF-8?Q?Jean-Fran=C3=A7ois_Bobier?= <jf.bobier@gmail.com>,
+        phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261015-kebab_dts-v1-0-1fee1204a18b@fhannenheim.net>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261015-kebab_dts-v1-0-1fee1204a18b@fhannenheim.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAzNiBTYWx0ZWRfX79llKG+dDAW4
+ CAoASfTa9dcPxlTAGKytoG4LFqGx9E78me/xXlPyG950DnmkB7rSF4PtbQXAuzFPD8D8hKS+sra
+ R8Rbq1u8qkCqejx+fzHDT3kZE9TWKXbfNuqEa6VTjAN/6dZIMHwh5Ov/RgLhHFpEOejK+WesMRS
+ oTIEEKPLQf4MUbN+HoYnXJ2fb0P3Pruvao/R0Asud4c+D8fLXibUvhMbqc+iH7Zc2mMrA62fzzn
+ 8jPt9jiL/71AJzmvQfuWmDa9qVoUW2R3LwRRUAEQRByyq7zreBvFdiu638nfFd819BtPDmb33SP
+ XhFcRZ+mqgQFS1GzWXD8HvtoWseV/QG5G1f0g1xUEm5OSlbbmdbHZVF6hmz+/h333jFm5yKYdcX
+ SIGuD+9fNnpY2QPyKcMKc3lVhvy4gpR8ovfyUfUPyupZ4Fvjn9I6lSoE8b1fCVrqonYcYYtKh7h
+ RrsrCno9d5SU5LuXnrg==
+X-Proofpoint-GUID: v-sGqgUC6V92dEt6liEU7BgmCj3aTtZc
+X-Authority-Analysis: v=2.4 cv=DeeCOftW c=1 sm=1 tr=0 ts=6ad09a0a cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=WE8o4AYwAAAA:8 a=ckyZQS8oqhpWkIopcVwA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22 a=6aV5INxNnvWGCTbEtcBN:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAzNiBTYWx0ZWRfX8reqhOVZFipV
+ 1pP5YSsXxz7FqdBF5BBLwmjeUS9qDEFfMmgbJ1Iwz1mOdVKYzlwGSr6Z/Hdjtp7tWY8UQh9m0xD
+ qedn7zMRE3XMNuNAJYXMnLYuEftMIxE=
+X-Proofpoint-ORIG-GUID: v-sGqgUC6V92dEt6liEU7BgmCj3aTtZc
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 suspectscore=0 malwarescore=0 phishscore=0
+ spamscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150036
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Medium] hwmon: Subsystem layering violation by directly registering hwmo=
-n device from platform driver
-- [Low] i2c: Missing named initializer in struct i2c_device_id array
-- [Low] leds: Hardcoded LED name bypasses Device Tree color/function proper=
-ties
-- [Low] kconfig: Unnecessary INPUT dependency in Kconfig
---
+On 10/15/26 10:57 AM, Frieder Hannenheim wrote:
+> Adds a basic device tree for the OnePlus 8T (kebab). Common
+> values for OnePlus devices using the sm8250 SOC are defined in
+> sm8250-oneplus-common.
+> 
+> This basic device tree brings up a framebuffer, UFS, battery monitoring,
+> volume keys and UART. Further functionality will be brought up in
+> subsequent patch sets.
+> 
+> Signed-off-by: Frieder Hannenheim <git@fhannenheim.net>
+> ---
+> Frieder Hannenheim (2):
+>       arm64: dts: qcom: Add sm8250-oneplus-common.dtsi
+>       arm64: dts: qcom: oneplus-kebab: new device
+> 
+>  arch/arm64/boot/dts/qcom/Makefile                  |   1 +
+>  .../arm64/boot/dts/qcom/sm8250-oneplus-common.dtsi | 618 +++++++++++++++++++++
+>  arch/arm64/boot/dts/qcom/sm8250-oneplus-kebab.dts  | 124 +++++
 
-commit 084ff1f8f9529e75d60a737e61f5d594cff0bfe1
-Author: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Hello, thanks for your patches. For DT additions, you also need to
+add dt-bindings for your board and validate the resulting DTBs,
+e.g. via:
 
-platform: arm64: Add a driver for the EC found on ASUS Glymur machines
-   =20
-Some Qualcomm Snapdragon X2 Elite (Extreme)-based ASUS laptops (at
-least the Zenbook A14 and A16) expose a custom, somewhat
-Qualcomm reference-derived EC interface. Introduce a driver to
-communicate with said EC, allowing for fan speed reporting, keyboard
-backlight setting and receiving of a number of miscellaneous sideband
-events.
+make [...] CHECK_DTBS=1 qcom/sm8250-foo-bar.dtb
 
-> diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kcon=
-fig
-> index e32e01b2a9bdd..84c475c62990b 100644
-> --- a/drivers/platform/arm64/Kconfig
-> +++ b/drivers/platform/arm64/Kconfig
-> @@ -33,6 +33,22 @@ config EC_ACER_ASPIRE1
->  	  laptop where this information is not properly exposed via the
->  	  standard ACPI devices.
-> =20
-> +config EC_ASUS_GLYMUR
-> +	tristate "ASUS Zenbook A16 (Qualcomm) Embedded Controller driver"
-> +	depends on ARCH_QCOM || COMPILE_TEST
-> +	depends on I2C
-> +	depends on HWMON
-> +	depends on INPUT
-                   ^^^^^
-
-[Severity: Low]
-Does this driver actually need to depend on INPUT?
-
-The driver does not appear to include <linux/input.h> or use any input
-subsystem APIs (the hotkey event is only logged via dev_dbg_ratelimited).
-Could this dependency be dropped to avoid restricting the driver from being
-built on systems without input support unnecessarily?
-
-> +	depends on PM
-> +	depends on THERMAL || THERMAL=3Dn
-> +	select NEW_LEDS
-> +	select LEDS_CLASS
-
-[ ... ]
-
-> diff --git a/drivers/platform/arm64/asus-glymur-ec.c b/drivers/platform/a=
-rm64/asus-glymur-ec.c
-> new file mode 100644
-> index 0000000000000..532610592d1fd
-> --- /dev/null
-> +++ b/drivers/platform/arm64/asus-glymur-ec.c
-
-[ ... ]
-
-> +static int asus_glymur_ec_probe(struct i2c_client *client)
-> +{
-
-[ ... ]
-
-> +	dev_dbg(dev, "ASUS Zenbook EC version %u.%u.%u\n", major, minor, patch);
-> +
-> +	ec->kbd_led.name =3D "asus::kbd_backlight";
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-[Severity: Low]
-Could this LED name be defined via Device Tree color and function properties
-instead?
-
-The LED subsystem guidelines prefer using DT `color` and `function` propert=
-ies
-to define LEDs, rather than deprecated fixed labels, to enable standard sys=
-tem
-layouts like `<color>:<function>`. Hardcoding the name here embeds the nami=
-ng
-scheme into the driver and prevents standard property extraction from the
-device tree.
-
-> +	ec->kbd_led.max_brightness =3D ASUS_EC_KBD_MAX_BRIGHTNESS;
-> +	ec->kbd_led.brightness_set_blocking =3D asus_ec_kbd_led_set;
-> +	ec->kbd_led.flags =3D LED_CORE_SUSPENDRESUME;
-> +
-> +	ret =3D devm_led_classdev_register(dev, &ec->kbd_led);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to register keyboard LED\n");
-> +
-> +	ret =3D devm_request_threaded_irq(dev, client->irq, NULL, asus_ec_irq,
-> +					IRQF_ONESHOT, dev_name(dev), ec);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to request IRQ\n");
-> +
-> +	ec->hwmon_dev =3D devm_hwmon_device_register_with_info(dev,
-> +							     "asus_glymur_ec",
-> +							     ec,
-> +							     &asus_ec_hwmon_chip_info,
-> +							     NULL);
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^=
-^^
-
-[Severity: Medium]
-Should this hwmon functionality be implemented as an auxiliary device driver
-residing in drivers/hwmon/ instead?
-
-The HWMON subsystem guidelines state that if the main functionality of a ch=
-ip
-is not hardware monitoring (such as an Embedded Controller), its hardware
-monitoring functionality must be implemented as an auxiliary device driver
-residing in drivers/hwmon/.
-
-Directly calling devm_hwmon_device_register_with_info() from a platform dri=
-ver
-like this is a structural layering violation that bypasses HWMON maintainer
-review.
-
-> +	if (IS_ERR(ec->hwmon_dev)) {
-> +		return dev_err_probe(dev, PTR_ERR(ec->hwmon_dev),
-> +				     "Failed to register hwmon\n");
-> +	}
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +static const struct of_device_id asus_glymur_ec_of_match[] =3D {
-> +	{ .compatible =3D "asus,zenbook-a14-ux3407na-ec" },
-> +	{ .compatible =3D "asus,zenbook-a16-ux3607oa-ec" },
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(of, asus_glymur_ec_of_match);
-> +
-> +static const struct i2c_device_id asus_glymur_ec_id[] =3D {
-> +	{ "asus-glymur-ec" },
-          ^^^^^^^^^^^^^^^^
-
-[Severity: Low]
-Is this missing a named initializer for the i2c_device_id?
-
-The I2C subsystem guidelines require that initialized arrays of type
-struct i2c_device_id use named initializers, such as:
-	{ .name =3D "asus-glymur-ec" },
-
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(i2c, asus_glymur_ec_id);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-topic-asus=
-_ec-v4-0-af6305ffcb10@oss.qualcomm.com?part=3D2
+Konrad
