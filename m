@@ -1,103 +1,301 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f100.google.com (mail-pj1-f100.google.com [209.85.216.100])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94A53472530
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 06:42:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F98248C8DC
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 06:42:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792046528; cv=none; b=dL2aDDjmB2xJdZeP0/ltDwL4U7sPVtTBsM9MiYNi3eCjC2AocW70389yPTZnwEp9Z4+mnHECYXArBt6qoWC6elUnaX7u7nsNMQcZt2Uhbbk+i8mDIsGfmtLInrj5HP2FakLGeSm0IARzNXXLWneR6W9hNz8rDzxwLavYT/hIMYw=
+	t=1792046559; cv=none; b=KPaVi8hYthGGV3C9exnFbM3zj0hgDka5qe2yBDUoX5LCmYOBxSFKtpsVtluCPsmYKN3KnAXyEIj/Z85XDm0B01ZHKeZowjidxHQ1asHOs2/NjR0Hi8eU/YH7bP4cWsTf+Ommd3BVnnHglcIl8Y4LvCNlV0twMOETQESOaXWjA4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792046528; c=relaxed/simple;
-	bh=iu80kc94r3HRhaCZWdpz694X+k2mZ0lP4O1x35Oq/ms=;
-	h=Message-ID:From:Subject:To:In-Reply-To:References:Content-Type:
-	 Date; b=YlLRvO3pDC0xVnYq92C8wXlFYOoPQfoqLdY0I4acWvP01cmPY8sanDiVFeff1+cRcKPN5w9WR56khfhBA1NVq5oAS8mHnjOxBhDMt0J1X1g4heA1NDaQ9Momhskd740VW54AaqGNt/GAFoFeSW0mXVnXQj7++40/hTOVdCpeihU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FAG7ZYXj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792046559; c=relaxed/simple;
+	bh=bX7otpU1hFqWRVfLXWI1jUkJwk/e0muaEfj9FYYf+V4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oevSThEoo2deAnxUgSoG+iL9yDlW+cJMe3YSqduq4F9ZxzTFvpqZGJByyI/As8l8YC5KQx7kiRFp9gGWj+VcS74HO20+FKJtNnmo8fPXu5J6UUmsEp7qnONSnQnRY8kU9rMOSYpDY6hgi7vVdzneaaq3D5EHwPFLlrKoL0vBvuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=FZ2E1Phj; arc=none smtp.client-ip=209.85.216.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FAG7ZYXj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5F091F000C6;
-	Thu, 15 Oct 2026 06:42:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792046527;
-	bh=NYEVBgKDeROqh63PQl2UHyalIjAhl2tEcV/5iKRL+7A=;
-	h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
-	b=FAG7ZYXjxXbQgl9l5+4v+xY6PMTwRy98dWWJtwHo2iimcIyxeZtWutx/EwDpGrfAm
-	 wy/Ra52Wl81q3Q2fb2/BgHKeMj4qtVClRruSiZxGRw+oM8CxBy4DO/qYy5gDMEjH0c
-	 xNbAqM2h+uCGFc00o4Hu3cqjv6tcRausfY6vYNJ3tWKuI/0nW4mOWfo1Wd3acZKqCI
-	 iFHZQucshVJQjCWfKUJHZRgxJWismTzkDxOuZPbBfoLsuRMCFRTK96Y5PjMtd40Lim
-	 2tBWjbHglqSCmibsEeJQzlp8eRWHfbAr8ibcW0VXn2UpH0VQuSTicV4OVUhhWCIoun
-	 +pKpw7mLSyjWQ==
-Message-ID: <sashiko-outbox-172353@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 5/8] nvmem: layouts: add Microchip/SST SFDP EUI
- layout driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Manikandan Muralidharan" <manikandan.m@microchip.com>, pratyush@kernel.org, mwalle@kernel.org, takahiro.kuwano@infineon.com, miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, srini@kernel.org, nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com, claudiu.beznea@tuxon.dev, linux@armlinux.org.uk, richardcochran@gmail.com, linusw@kernel.org, arnd@arndb.de, aaro.koskinen@iki.fi, gregkh@linuxfoundation.org, mathieu.dubois-briand@bootlin.com, michael@walle.cc, linux-mtd@lists.infradead.org, devicetree@vger.kernel.org
-In-Reply-To: <89aa4ac1eee01e3c425c12367f1e036354787ce8.1790847519.git.manikandan.m@microchip.com>
-References: <cover.1790847519.git.manikandan.m@microchip.com>
- <89aa4ac1eee01e3c425c12367f1e036354787ce8.1790847519.git.manikandan.m@microchip.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 06:42:05 +0000
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="FZ2E1Phj"
+Received: by mail-pj1-f100.google.com with SMTP id 98e67ed59e1d1-3ac77270fbfso846526a91.2
+        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 23:42:38 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792046558; x=1792651358;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0m4G0rGAqboYcv1BDDC8+awDWp/yb350Boz2pcceUZM=;
+        b=BVVC6BI6K8LXEvUuchBGxcWRRjqJ6nbF+VWiR9zCmhdn6K0u1FpwfgE0JNI5QrKfaa
+         L5AXOcMPTWbghsYH/4tCc/nyGZj6etPl74FpHoIGgIIfZj3vsN/bacaPb7zJWMLh7LmL
+         p0fcUlRKWiLC6I/6swWyLgbexVnQHBzLp9PTNjnLW4a5+w1EeefxcbL4DrcfgwZruWOC
+         5zFRibPkoaZrtTBQ6QUIj+YLTFq4WOwoRzJcN6pJjVaasWEC2P1qn5cEmiQPfD+qSaso
+         hp8AK7mUt+3JwxRhY57IuR+/Mv8uPLJTY4P4Y+8fXz0SEPg3x7KarT+y/M8yI7Dl2arg
+         wLcg==
+X-Forwarded-Encrypted: i=1; AKwUvBx75OSO9cC4vC5MsA+Q/wqIEtWlG/KGYE/RUzZC9LSLl22tALqmJdY1Yws/av+vbFm+G9tor1rIxltD@vger.kernel.org
+X-Gm-Message-State: AFq9FYKSLWZm3EXk8YiSOiqAG2SMGUhw1S5JcJFfj2GBhvFr125tcNMZ
+	t5NY4FZKO95NDIYhz6cTMuyBVqN48VyPR8hkl7Xg0zoKSIhEi9LdcgBK49RXS8Gpt/DCNUUoHM3
+	cNKeZ1nU+fD8wdPz8sZaMl6f95v1bATyZ7QhzKTHThwVI/GkJiZPByCj8+jqV1Y8Z+FAe0MJ95K
+	XzPZiLdvWqX4qDxw65A6Qo3RMe0e/UqwwNG+sHWfM/snOn5bxtm5CuW9BIfRIDHdFB/DIC+xMor
+	S0om/eNskZtU//klw==
+X-Gm-Gg: AYBFou12xK2BHC4yVALDdKJcUFYiAbJt9XGn2waLrm8z2xH5zVctu8XobUd6KFCLxOL
+	5iZg3dbi+uxoWUV8QgrnIPyO1OCP3PCgzqw5k2ywYOOn7VE7bVSWgRyen8or5OeRgaWLaPpmTwP
+	1wmLKxVegR5niEmllfTYEzboHFt7kLmKa/XN3L8g6GaEFaJL1TJMZizEdt6q6XNCrG52tFIK23p
+	Lkv9t903++IX0c0+tx3BzDpqr6ma3HWTZ5P9aVQRcTdFi9c2n28Ly2h8CeHAX/7SAphUB0Z/taP
+	LfbqRIzH1imJirYglMaDO4DzVUU8wsJcIpnuoBiHir0amNsF+n5aJYCchPr4j8Alm5P0YgINFbr
+	PvNZxTV3GIQarNvuZLO2urLxgdjIcAVeRHsCXrYUfsdoMd8fWcIXuNyVMswbTj5HXX6Ek5uxycg
+	mrbCB3Mwwg6iYiEot0CmWZjbnYjvzMUFzA4cEXMp4=
+X-Received: by 2002:a17:90b:2d86:b0:39e:359f:8539 with SMTP id 98e67ed59e1d1-3ab3a90b5f4mr13764219a91.15.1792046556655;
+        Wed, 14 Oct 2026 23:42:36 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ac944368b0sm1133170a91.3.2026.10.14.23.42.36
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 14 Oct 2026 23:42:36 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-yw1-f198.google.com with SMTP id 00721157ae682-8b0bf2140b7so23948427b3.3
+        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 23:42:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1792046555; x=1792651355; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0m4G0rGAqboYcv1BDDC8+awDWp/yb350Boz2pcceUZM=;
+        b=FZ2E1PhjO1qOArFR0n/nsatwgZpRmSopfvz/ZReqc72zJg9pyJMT6DhiqVVSs0cQ3M
+         ItofBh0bTO0bp4rW1+Q9lTzsNF3t/RhWSank+tp9m1wHC+pR851l4YBpa/43/jF0gFmT
+         PWDeA/iSByko2ajubDsWJ6aN+MActEaa27JLU=
+X-Forwarded-Encrypted: i=1; AKwUvBx81CSxGZtcKTYRrzi68Li4hpkkt9RKsu4w6dtf5zm9ndmcUMrGvsE9YvKbt0ngaB1DDqSU9XVeAnfh@vger.kernel.org
+X-Received: by 2002:a05:690c:6e83:b0:8b0:ad62:198f with SMTP id 00721157ae682-8b0ad622e4dmr39101827b3.20.1792046555649;
+        Wed, 14 Oct 2026 23:42:35 -0700 (PDT)
+X-Received: by 2002:a05:690c:6e83:b0:8b0:ad62:198f with SMTP id
+ 00721157ae682-8b0ad622e4dmr39101727b3.20.1792046555226; Wed, 14 Oct 2026
+ 23:42:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20261014-xg6846b-bcmbca-xrdp-reset-v1-0-daf5d177e113@kernel.org>
+In-Reply-To: <20261014-xg6846b-bcmbca-xrdp-reset-v1-0-daf5d177e113@kernel.org>
+From: William Zhang <william.zhang@broadcom.com>
+Date: Wed, 14 Oct 2026 23:42:23 -0700
+X-Gm-Features: AclHuK8MqhIxV78OkDJc7RVD1tqBLyemGOTyu9kE9xQyiV2lmNBYtrDN89lNsJA
+Message-ID: <CAHi4H7EE0_fafUh6Mnsi+R963F1n8zjiwCRV8fcP=P4K-zniVA@mail.gmail.com>
+Subject: Re: [PATCH RFC 0/5] BCMBCA PMB reset controller
+To: Linus Walleij <linusw@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Anand Gore <anand.gore@broadcom.com>, Kursad Oney <kursad.oney@broadcom.com>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
+	boundary="00000000000063213b065ddb5af6"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] nvmem: use-after-free on layout driver module unload
---
+--00000000000063213b065ddb5af6
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-commit 4e7e82e84f19ca0cc7f7eae9477c171b2bdab685
-Author: Manikandan Muralidharan <manikandan.m@microchip.com>
+Hi Linus,
 
-nvmem: layouts: add Microchip/SST SFDP EUI layout driver
 
-This commit adds an NVMEM layout that exposes the factory-programmed
-EUI-48 identifier from the Microchip/SST vendor SFDP parameter table
-as a "mac-address" cell.
+On Wed, Oct 14, 2026 at 2:48=E2=80=AFAM Linus Walleij <linusw@kernel.org> w=
+rote:
+>
+> This is another of these big upfront design binding and driver
+> hoards that is the consequence of adding new SoC support. My stake
+> is to be able to boot and test a full featured Cortex-A5 system and
+> the BCM6846 XG6846B is one such system on my desk.
+>
+> It's been cooking for a while in various prototype forms.
+>
+> IMPLEMENTATION:
+>
+> Add a shared Processor Monitor Bus (PMB) driver and a child reset
+> provider for Broadcom BCMBCA blocks. Support BCM6846 XRDP and its Runner
+> cores, PCIe0/1 and PVTMON. The PMB bus driver uses the third generation
+> Platform Management Controller (PMC3) keyhole interface. It owns the
+Power Management Controller
 
-> diff --git a/drivers/nvmem/layouts/sst26vf-sfdp-eui.c b/drivers/nvmem/lay=
-outs/sst26vf-sfdp-eui.c
-> new file mode 100644
-> index 0000000000000..641318d6f0af6
-> --- /dev/null
-> +++ b/drivers/nvmem/layouts/sst26vf-sfdp-eui.c
+> register bank and serializes complete sequences for child services.
+>
+> The fixed SoC transport is built-in and has no sysfs bind/unbind
+> controls, allowing delayed recovery to retain hardware ownership
+> until a busy transaction completes. The reset child can be modular.
+>
+> The series contains three bindings, the PMB bus driver, and the PMB reset
+> driver. Describe PMC 3.1 as a simple-mfd with two system-controller
+> children and a bus child, each owning its register window.
+>
+> The bus child exposes the PMB transport and contains the reset provider.
+> The parent uses Broadcom's "brcm,bca-pmc-3-1" compatible. The PMB and
+> reset drivers support only the BCM6846-specific compatibles for now.
+> Other BCMBCA SoCs have different reset groups or PMB interfaces.
+>
+> Use one reset specifier cell and define BCM6846_RESET_XRDP as ID 0 for
+> XRDP and its three Runner cores. The vendor sources describe individual
+> PMB device addresses and reset masks, but no ID for this combined group.
+> SoC tables map IDs to blocks, register values, timing and sequence
+> callbacks. PCIe pulses preserve lane-selection straps. PVTMON uses its
+> analog-acquisition reset. Consumers must quiesce every affected user;
+> these resets do not replace clock, power-domain, PHY or UBUS setup.
+> Power-cycle operations for USB2, WAN, PERIPH, MEMC, BIU and BIU PLL are
+> left to power-domain and platform power-management support.
+>
+> This series is based on v7.3-rc1 and is a prerequisite for the
+> forthcoming Genexis XG6846B Ethernet support series, which works.
+>
+> The BCM6846 XRDP reset sequence enabled full-MTU traffic on all four LAN
+> ports and copper WAN and has been tested on that series.
+>
+> MISSING:
+>
+> I did not add MAINTAINERS entries because I don't know how the Broadcom
+> maintainers feel about it. Tell me.
+>
+I don't mind and please add yourself as the maintainer.
 
-[ ... ]
+> MERGE STRATEGY:
+>
+> I'm not sure. Possibly through SoC with ACKs. Through an MFD immutable
+> branch if Lee wants to handle it.
+>
+> Assisted-by: LLM
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
+> ---
+> Linus Walleij (5):
+>       dt-bindings: mfd: Describe the BCM6846 PMC complex
+>       dt-bindings: soc: Describe the BCM6846 Processor Monitor Bus
+>       dt-bindings: reset: Describe the BCMBCA PMB reset controller
+>       bus: Add a shared BCMBCA PMC3 PMB transport
+>       reset: Add BCMBCA block resets through the PMB
+>
+>  .../devicetree/bindings/mfd/brcm,bcm6846-pmc.yaml  |  98 +++++++
+>  .../bindings/reset/brcm,bcm6846-pmb-reset.yaml     |  46 ++++
+>  .../bindings/soc/bcm/brcm,bcm6846-pmb.yaml         |  51 ++++
+>  drivers/bus/Kconfig                                |  13 +
+>  drivers/bus/Makefile                               |   1 +
+>  drivers/bus/bcmbca_pmc3_pmb.c                      | 232 +++++++++++++++=
+++
+>  drivers/reset/Kconfig                              |  15 ++
+>  drivers/reset/Makefile                             |   1 +
+>  drivers/reset/reset-bcmbca-pmb.c                   | 281 +++++++++++++++=
+++++++
+>  include/dt-bindings/reset/brcm,bcm6846-pmb.h       |  15 ++
+>  include/linux/soc/bcm/bcmbca-pmb.h                 |  25 ++
+>  11 files changed, 778 insertions(+)
+> ---
+> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+> change-id: 20261013-xg6846b-bcmbca-xrdp-reset-de71b80c25a4
+>
+> Best regards,
+> --
+> Linus Walleij <linusw@kernel.org>
+>
 
-> +	info.name =3D "mac-address";
-> +	info.offset =3D base + SFDP_MCHP_EUI48_OFFSET;
-> +	info.bytes =3D ETH_ALEN;
-> +	info.np =3D of_get_child_by_name(layout_np, "mac-address");
-> +	info.read_post_process =3D sfdp_eui_read_post_process;
-> +
-> +	ret =3D nvmem_add_one_cell(nvmem, &info);
+--00000000000063213b065ddb5af6
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
 
-[ ... ]
-
-> +static void sfdp_eui_remove(struct nvmem_layout *layout)
-> +{
-> +	nvmem_layout_unregister(layout);
-> +}
-
-[Severity: High]
-Does this leave a dangling pointer if the layout module is unloaded?
-
-In sfdp_eui_add_cells(), the driver registers sfdp_eui_read_post_process() =
-as
-a callback via nvmem_add_one_cell(). However, the NVMEM core tracks the
-provider device's module, not the layout driver module.=20
-
-Furthermore, nvmem_layout_unregister() is an empty stub in the NVMEM core.
-Because the core API does not remove the cells, the cell remains in the
-NVMEM device's cell list with a dangling read_post_process function pointer.
-
-If the layout module is unloaded and the cell is subsequently read (e.g.,
-via sysfs), could this execute unmapped module memory and cause a use-after=
--free?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1790847519.gi=
-t.manikandan.m@microchip.com?part=3D5
+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
+PRi27wH/XHTDMdyL0Org+kxniXue6MSNJvcQwaLO/UQrmgTygBlVGa+Qg9ZFfS00xvuqeYH7tImO
+48WiXeu9rgn5KTH0IWP1+R74KIgxJQ+65la+caZvxwC9V3ik5p/LOGA2qS4GEjGuaYF8QKhRTR4h
+/QBSktqZLbzVxpjJXrqFTA2BLlYRp9hPhqNxbn46WuLufpMWhFtjUoQi/8fRRWRsMAY0o1J0f+kB
+6EI8FoxPTOpvuLRonqHIWMHk5YRnDdqJ3G5Oc8zmV+UCAwEAAaOCAd4wggHaMA4GA1UdDwEB/wQE
+AwIFoDAMBgNVHRMBAf8EAjAAMIGTBggrBgEFBQcBAQSBhjCBgzBGBggrBgEFBQcwAoY6aHR0cDov
+L3NlY3VyZS5nbG9iYWxzaWduLmNvbS9jYWNlcnQvZ3NnY2NyNnNtaW1lY2EyMDIzLmNydDA5Bggr
+BgEFBQcwAYYtaHR0cDovL29jc3AuZ2xvYmFsc2lnbi5jb20vZ3NnY2NyNnNtaW1lY2EyMDIzMGUG
+A1UdIAReMFwwCQYHZ4EMAQUDAzALBgkrBgEEAaAyASgwQgYKKwYBBAGgMgoDAjA0MDIGCCsGAQUF
+BwIBFiZodHRwczovL3d3dy5nbG9iYWxzaWduLmNvbS9yZXBvc2l0b3J5LzBBBgNVHR8EOjA4MDag
+NKAyhjBodHRwOi8vY3JsLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMy5jcmwwJQYD
+VR0RBB4wHIEad2lsbGlhbS56aGFuZ0Bicm9hZGNvbS5jb20wEwYDVR0lBAwwCgYIKwYBBQUHAwQw
+HwYDVR0jBBgwFoAUACk2nlx6ug+vLVAt26AjhRiwoJIwHQYDVR0OBBYEFHjI7pbQZurVKsSRE/a9
+7gUEyVCkMA0GCSqGSIb3DQEBCwUAA4ICAQCFA4fU1GnG8sY7kyUXp5tle+VeWveoWb272jPauU5R
+w+udkhVXmnR0Kg7RgkCD00PLTKHNRyegXXDMArs3N9NhO3s9eSp9KjDh+h3WuQWCJH3QBHLGW0qE
+fyV87wUtBIy/QsHwO4S8OlOZiXECR7V1EGIF6t3s0W+3UzgYeHL+Ttuhda+2wIVY0EbS0eNH9Vob
+4YG17VTBBe7hyobXFpd9d1JGENFzIWncPUshOE0Wv7KlkrRc6aBOpL4p5xO1pHi9h9w8utyHkMoV
+nefXixkn5YVHnuV/jbSF/IM4Mlqt0E+n/TRp2c0eR+1AauZKENV2syNBo4aMa0BkmikBjLSnDjt/
+TYQdwHNWdV495n71idvueWwTFUhUsnudYcnh42eZENopBOYjVu2WhsffyrNz0hsuR85LriqSuBbf
+drd9DMo3DgtfJ7hh4sEAhSw/x/Br86rfLBftZMU02htlnkOI9Tp1QuDsr9+MsqY6AjKeXAy67m7H
+TVAZ9uyO9N20yU0p7igESOWKR1ccL1TPA1jrSHK18Y75ot5199FNWeE/UKoDKSML39iPZho9XPh/
+/RlsfRFiVOPrI5Gwi4YfIfi0jjEWf310/CYEmA5jrp5gUQSdo/+FgfXLKDFiEHCf5b3B1l70r6bR
+WkDCNNacYJWZtSp87i6jmw+l5xx7OkEJ9DGCAlcwggJTAgEBMGIwUjELMAkGA1UEBhMCQkUxGTAX
+BgNVBAoTEEdsb2JhbFNpZ24gbnYtc2ExKDAmBgNVBAMTH0dsb2JhbFNpZ24gR0NDIFI2IFNNSU1F
+IENBIDIwMjMCDD2ooFIye/WiO3KgZTANBglghkgBZQMEAgEFAKCBxzAvBgkqhkiG9w0BCQQxIgQg
+8pEuM/k5MoAz7ZvztcfVveFS6UVVs8/awka8Jg6xYeYwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEH
+ATAcBgkqhkiG9w0BCQUxDxcNMjYxMDE1MDY0MjM1WjBcBgkqhkiG9w0BCQ8xTzBNMAsGCWCGSAFl
+AwQBKjALBglghkgBZQMEARYwCwYJYIZIAWUDBAECMAoGCCqGSIb3DQMHMAsGCSqGSIb3DQEBBzAL
+BglghkgBZQMEAgEwDQYJKoZIhvcNAQEBBQAEggEAhP9kwuW2Id7dgA2fyie4z2uSTr7yBvOBSQgz
+hjQuTwKLgYHnrjqjzNUGAlz38abhcOhsGC28JZ9V2qDzQfwRa7cLDBFOCWzSoB2PqfpsalRxkw7n
+hmJMTpXaLliTpN+b7CzRpXL/QMwjNMcMvx/EG/K79Y2D3UHd0v7NqDbAtd3NrtMs/M9x0S/8YwB5
+NEUO6gu37zIGEa5v9IKBiGl/Vgu9DSBitOdd+TK8wlQ6EFAoLnZtHg1Pprv/QKdUKDlnWnF4IzWo
+0n9IfmoQ+pRq4nOCX5/I9hwZ8mjY8ZEhY9w+Kb8RerSp6RdLHjdl6BESNz0NSEXcYaw8rofsuO6h
+ag==
+--00000000000063213b065ddb5af6--
