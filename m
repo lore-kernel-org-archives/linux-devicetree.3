@@ -1,270 +1,129 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E493F3C1086;
-	Thu, 15 Oct 2026 08:09:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC8DE4AA006
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 08:11:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792051762; cv=none; b=pC8ybJo7qwX+O4CWcbUUMUmvHwV0UrDvqc+LWjtRmGGLdfJc2e3G/H+r2pWG/82d03vQs2fg2jfgLpBsqoZ0IjCGWwkAfpqsij68UuW+UoSqVBD2iUBHgGGIfoI2Vv3g6hgoqOZvB3ftA+injoulgUB2aeukuXDFDbyBS4jDpq8=
+	t=1792051882; cv=none; b=K/c4heclE4oMrijuU3wyyy+lCtGwpMeVZroWj6BqsE3hsHeG5tRTIPy4ICWgcNYrn8Bo5cseMsxfSPYBBz8dFqzcAFKdQzutrP+pNwPXtkGrGE2auoiwjzkIm64XedK2KichCk44Li2czJCKemGuRD78pLKW+U3eZYOCQDAb8XA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792051762; c=relaxed/simple;
-	bh=CY0z8ZQGnKABVN+rZBZRq7oipzcPxdguuy+q124zH4M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XsV43CUX9Djvs+FM522uiNcb/e93hGTpTWJ3IZFedALml04beXHDHN8otLtlugYNu9Xn79ZPAHWjmB4RjoA7CjpWkCfAZ3iKOqgwtgcNMibQZnLNyuxyECOXTgG0wLF7WsfLW/RyklyI0Q/C1S4U4WfW2zEzRo4Xir2eNefFuC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=Kfv+WYSW; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1792051882; c=relaxed/simple;
+	bh=qs5S8QPTPOrh1lF7eV5s6cjsPd+SeVHGUW9kmsUQVWY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SHMcKZghzjKye1WhAe9nnGzjHtb3dtEGVrIvYYpw2173G4Inr3MYYBZPpLj8z2D6QLH9nr6szdsOFT3QNK1E2Um16oOcNwdcwrHu/GUUxEoavInMHOzgFsZ4rQXKtVdTT9It6M0thsPE4g5fJntPV48u0NwfPR2ViiuLi9VnNu4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E5kRYIpZ; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="Kfv+WYSW"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=19Xt6ynQ3lZgWiajCCIQS5nrD0ARL9yYFFtEUFMIEvg=; b=Kfv+WYSWgAK7UQBa3Rgk/qmfht
-	kl5FF1Cdj0V7Q2N6miwhKRetMw/4ouZteg1M7tOK4GJBoWx0H0EO9J5odJAbOAeAkwKVOOMVOnbX4
-	62tEmSWCZ2mox1mGdfZSlNg+lBGeFsCbyDx2mYyG/AiZ9B1kfls14O6CF7TM0tL+WVF/30L9lbyh/
-	GXtN73oLX0Wy1S3u08CS8R+7t1Xb81hT2LhONk8KFnr7ANxys9K89njQw9iNehSgI2cYMNHRD41pA
-	+R07nmQD1BsVhuIuuuBdqE/HLgg0tY48OIyRLYMQ53IYDNIYP5uOc5hpDNjz3PqHKCHcSN6Z0n2zW
-	S1Uf9iHQ==;
-Received: from sslproxy08.your-server.de ([78.47.166.52])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xHGWV-000ERc-1d;
-	Thu, 15 Oct 2026 10:09:11 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy08.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xHGWU-000AW1-2z;
-	Thu, 15 Oct 2026 10:09:10 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Dong Aisheng <aisheng.dong@nxp.com>, Liu Ying <victor.liu@nxp.com>,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux@ew.tq-group.com
-Subject:
- Re: [PATCH v2 3/5] arm64: dts: imx8qxp: Add MIPI-LVDS combo subsystems
-Date: Thu, 15 Oct 2026 10:09:09 +0200
-Message-ID: <6836920.lOV4Wx5bFT@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To: <as-LIGGpmBc1NJYj@SMW015318>
-References:
- <20261014071657.118378-1-alexander.stein@ew.tq-group.com>
- <20261014071657.118378-4-alexander.stein@ew.tq-group.com>
- <as-LIGGpmBc1NJYj@SMW015318>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E5kRYIpZ"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a022fee0caso46737845e9.1
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 01:11:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792051879; x=1792656679; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=P/jkRp80+cF/FczhU2bxYxtjRt93BJyvM0wCmsP66FY=;
+        b=E5kRYIpZhoFW7HyNjFot/gehXvjfaaTLqO7BNSTODqYrE2P7u/asW7Z2l4Ub322RUE
+         M7RNJyXOug9N75xBpFrmn8oGGntTyIQgO+QPBjOzofbJxpL7/LokTMViCMTtd5u3fts7
+         rsrpit+LZiH1qnJ8UtF1il6eOb7X6mJIIdyQx6LhdhAu2J6Ov6rtzu73SUpwLqj7uRYH
+         D3zTAgXMz4RnEGCN/j8UuIebpSG/ai/QGMBS8N5lrZePbAoAk/+9Hc0JrolxuYUZyg4l
+         TooVkLKTP2nhtVPWp/7Q7JBSlHpSdTzEN3QdYC5HWB7w9j9GG1NnhoYCUEAwW860E6LD
+         U53w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792051879; x=1792656679;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P/jkRp80+cF/FczhU2bxYxtjRt93BJyvM0wCmsP66FY=;
+        b=o4sT0OF23X+28TEodgNL52/VJfPPl0cnuFX9SDiXVv+6uHUBTKJX5KX1d7rV53m7xN
+         xoD7GNweRso8ylG6fhF+3SoJKg8gMDjlUyIDh6UzRA5QZlkwDOQY2jq1ZIVAE8e7+2VD
+         vRUNiI0thgJlVRf49hWsPIWWaAuvkgnu690JWUFSHuYkXxid8gcIfEsHXtnBKVoZ+djY
+         x9UoaOjv9W/WmIEIHBcAvuY8Xxho1cG5OMhJ281NwYyTrxjdlNbRXJF3S6dGRUBPZCvL
+         3D+bM6T+W71Q3NbRiYoJpcPiiVYLtKFJ0arsRdDOxSyARp6v9xDguOT35N1cymIYGBU7
+         jjfg==
+X-Forwarded-Encrypted: i=1; AKwUvBzikXBlTV2apsEVaZo2hFTdFp8YHMID21VwfRi8s86dLFNimM8NdVBziD/cSWQpNe/Kt8BtYS+K299X@vger.kernel.org
+X-Gm-Message-State: AFq9FYIG0X0XurcFc928qQlrPyYUGpD4E/FS5r941w3qX8OtdNmGzWp2
+	ee3d8illD6PyD51qVE6sYF7rB+HmKWWq4w77JpTrD7NDhmC+CMf0JW3R
+X-Gm-Gg: AYBFou0O+d78UvAZ1zTO2ao1qQMYfp50mYaBoxf6v/KdNuKcsajE73AGNU+jSfvJm2c
+	S3dc1RBlrYkNy8+WXHzc675OyLCWWgtf2mcUBCwfhQy+8Oyo+r9gAy5JgLHiBiqvTrxni37ESAV
+	iNN8jdZqX3dNQ6Re3ocsl8ezWnYG2t72/mOpDooIi8gvnbKg/etw0kGw8Zt7hVoPwMoINvelbZ0
+	4yy7EDRUXcB6Dwm64q4nEAW9GqWqlycSOcCTlcVhUoGA0Z1fxHqYw/WCE8ktJpcf+TP8ltC2ShV
+	ltOFR3Md+JLQ9gMRIhr391wUWn3qK6IYaex5bmlOLL9AeYm60EjXMtXYMuB4cOBiAJvPh9gar6Z
+	/hNZs7GB5qEj+8HvZNGRlCEkXn9BYzsBUPF9kx4cwt6guClXVecZ2VqUtbJr4P8MvMX2sBHUqW7
+	oa3XkN/FmtAmBfnwZ/8Y9K2rqtq0LmjBuFw7H/ZjY9X4XpDjjBthRIy293SAYMUchh5vgT4neFH
+	cTrafGzCATqcUCCFZWbP/RddoiIX0ZkEKDNweIVNK/ziIrsC+r0wKfTbxxeHsa+Iez1nHdfjN10
+	soNNlEZSAVSV00vJf13q5qEYFCVsoG5RxDSFN+HQC68Z4ls1H9+YB7wJYjvN7Bkhqi0P/0pDU+7
+	26r/wNVDlOjkrT8J2feIa9WNpmd7spUQsAGa25S35x+Zfwy3wBToZQeTgXV3uYrjw/hPgDng5M4
+	5LXWXLrWRLW3PgRbk=
+X-Received: by 2002:a05:600c:6994:b0:49c:dada:30b7 with SMTP id 5b1f17b1804b1-4a18e446f3bmr362793635e9.2.1792051878885;
+        Thu, 15 Oct 2026 01:11:18 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd69b2a2sm22018415e9.4.2026.10.15.01.11.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 01:11:18 -0700 (PDT)
+Date: Thu, 15 Oct 2026 10:10:12 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
+Cc: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <krzk+dt@kernel.org>, <jic23@kernel.org>, <dlechner@baylibre.com>,
+ <nuno.sa@analog.com>, <Michael.Hennerich@analog.com>, <andy@kernel.org>,
+ <robh@kernel.org>, <conor+dt@kernel.org>
+Subject: Re: [PATCH v4 0/2] Add support for Analog Devices MAX30210
+Message-ID: <20261015101012.00006cc8@gmail.com>
+In-Reply-To: <20261015012159.44-1-johnerasmusmari.geronimo@analog.com>
+References: <20261015012159.44-1-johnerasmusmari.geronimo@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28154/Thu Oct 15 08:24:22 2026)
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Am Mittwoch, 14. Oktober 2026, 16:01:04 Mitteleurop=C3=A4ische Sommerzeit s=
-chrieb Frank Li:
-> On Wed, Oct 14, 2026 at 09:16:47AM +0200, Alexander Stein wrote:
-> > From: Liu Ying <victor.liu@nxp.com>
-> >
-> > The MIPI-LVDS combo subsystems are peripherals of pixel link MSI
-> > bus in i.MX8qxp display controller subsystem.  Add the MIPI-LVDS
-> > combo subsystems.
-> >
-> > Signed-off-by: Liu Ying <victor.liu@nxp.com>
-> > Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
-> > ---
-> > Changes in v2:
-> > * None
-> >
-> >  .../boot/dts/freescale/imx8qxp-ss-dc.dtsi     |   4 +
-> >  .../dts/freescale/imx8qxp-ss-mipi-lvds.dtsi   | 443 ++++++++++++++++++
-> >  arch/arm64/boot/dts/freescale/imx8qxp.dtsi    |   3 +
-> >  3 files changed, 450 insertions(+)
-> >  create mode 100644 arch/arm64/boot/dts/freescale/imx8qxp-ss-mipi-lvds.=
-dtsi
-> >
-> > diff --git a/arch/arm64/boot/dts/freescale/imx8qxp-ss-dc.dtsi b/arch/ar=
-m64/boot/dts/freescale/imx8qxp-ss-dc.dtsi
-> > index 647ee3348f494..9916a06669c87 100644
-> > --- a/arch/arm64/boot/dts/freescale/imx8qxp-ss-dc.dtsi
-> > +++ b/arch/arm64/boot/dts/freescale/imx8qxp-ss-dc.dtsi
-> > @@ -156,10 +156,12 @@ port@1 {
-> >
-> >  				dc0_pixel_link0_mipi_lvds_0_pxl2dpi: endpoint@0 {
-> >  					reg =3D <0>;
-> > +					remote-endpoint =3D <&mipi_lvds_0_pxl2dpi_dc0_pixel_link0>;
-> >  				};
-> >
-> >  				dc0_pixel_link0_mipi_lvds_1_pxl2dpi: endpoint@1 {
-> >  					reg =3D <1>;
-> > +					remote-endpoint =3D <&mipi_lvds_1_pxl2dpi_dc0_pixel_link0>;
-> >  				};
-> >  			};
-> >
-> > @@ -211,10 +213,12 @@ port@1 {
-> >
-> >  				dc0_pixel_link1_mipi_lvds_1_pxl2dpi: endpoint@0 {
-> >  					reg =3D <0>;
-> > +					remote-endpoint =3D <&mipi_lvds_1_pxl2dpi_dc0_pixel_link1>;
-> >  				};
-> >
-> >  				dc0_pixel_link1_mipi_lvds_0_pxl2dpi: endpoint@1 {
-> >  					reg =3D <1>;
-> > +					remote-endpoint =3D <&mipi_lvds_0_pxl2dpi_dc0_pixel_link1>;
-> >  				};
-> >  			};
-> >
-> > diff --git a/arch/arm64/boot/dts/freescale/imx8qxp-ss-mipi-lvds.dtsi b/=
-arch/arm64/boot/dts/freescale/imx8qxp-ss-mipi-lvds.dtsi
-> > new file mode 100644
-> > index 0000000000000..67f5392cfc803
-> > --- /dev/null
-> > +++ b/arch/arm64/boot/dts/freescale/imx8qxp-ss-mipi-lvds.dtsi
-> > @@ -0,0 +1,443 @@
-> > +// SPDX-License-Identifier: GPL-2.0+
-> > +/*
-> > + * Copyright 2024 NXP
-> > + */
-> > +
-> > +#include <dt-bindings/clock/imx8-lpcg.h>
-> > +#include <dt-bindings/firmware/imx/rsrc.h>
-> > +
-> > +/ {
-> > +	mipi_lvds_0_ipg_clk: clock-mipi-lvds0-ipg {
-> > +		compatible =3D "fixed-clock";
-> > +		#clock-cells =3D <0>;
-> > +		clock-frequency =3D <120000000>;
-> > +		clock-output-names =3D "mipi_lvds_0_ipg_clk";
-> > +	};
-> > +
-> > +	mipi_lvds_1_ipg_clk: clock-mipi-lvds1-ipg {
-> > +		compatible =3D "fixed-clock";
-> > +		#clock-cells =3D <0>;
-> > +		clock-frequency =3D <120000000>;
-> > +		clock-output-names =3D "mipi_lvds_1_ipg_clk";
-> > +	};
-> > +};
-> > +
-> > +&dc0_pl_msi_bus {
-> > +	mipi_lvds_0_irqsteer: interrupt-controller@56220000 {
-> > +		compatible =3D "fsl,imx-irqsteer";
-> > +		reg =3D <0x56220000 0x1000>;
-> > +		interrupts =3D <GIC_SPI 59 IRQ_TYPE_LEVEL_HIGH>;
-> > +		interrupt-controller;
-> > +		interrupt-parent =3D <&gic>;
-> > +		#interrupt-cells =3D <1>;
-> > +		clocks =3D <&mipi_lvds_0_lis_lpcg IMX_LPCG_CLK_4>;
-> > +		clock-names =3D "ipg";
-> > +		fsl,channel =3D <0>;
-> > +		fsl,num-irqs =3D <32>;
-> > +	};
-> > +
-> > +	mipi_lvds_0_csr: bus@56221000 {
-> > +		compatible =3D "simple-pm-bus", "syscon";
-> > +		reg =3D <0x56221000 0x1000>;
-> > +		clocks =3D <&mipi_lvds_0_di_mipi_lvds_regs_lpcg IMX_LPCG_CLK_4>;
-> > +		clock-names =3D "ipg";
-> > +		#address-cells =3D <1>;
-> > +		#size-cells =3D <1>;
->=20
-> Does any children nodes have address?
+On Thu, 15 Oct 2026 09:21:57 +0800
+John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com> wrote:
 
-AFAIK the children only use the parent's syscon and SCU, so no direct addre=
-ss.
+> This series adds support for the Analog Devices MAX30210 I2C
+> temperature sensor.
+> 
+> The device provides a 16-bit temperature output and includes
+> features such as a hardware FIFO, programmable sampling rate,
+> threshold alarms, and interrupt support. These capabilities map
+> naturally to the IIO subsystem, particularly the buffered interface
+> and event framework -- hwmon has no equivalent buffered-capture
+> framework, and its alarm attributes are polled rather than
+> interrupt-driven, so there is no path to supporting the FIFO or the
+> autonomous threshold comparators there.
+> 
+> Although the MAX30210 belongs to the same device family as the
+> MAX30208, it is implemented as a separate driver. The MAX30210 has
+> a significantly different feature set, including a 64-sample hardware
+> FIFO with configurable watermark interrupts, programmable sampling
+> rates, and event support. These features require buffered operation
+> and IRQ-driven data handling which are not present in the MAX30208
+> driver (which talks to the device directly via i2c_smbus_*() calls
+> with no regmap, and has no IIO buffer or event interface at all).
+> 
+> In addition, the MAX30210 uses a different register map and a more
+> flexible I2C address selection scheme. Supporting both devices in a
+> single driver would introduce substantial conditional logic, so a
+> separate driver keeps the implementation simpler and easier to
+> maintain.
+> 
+> Patch 1 adds the devicetree binding.
+> Patch 2 adds the IIO driver implementation.
 
-> > +		ranges;
-> > +
-> > +		mipi_lvds_0_pxl2dpi: pxl2dpi {
-> > +			compatible =3D "fsl,imx8qxp-pxl2dpi";
-> > +			fsl,sc-resource =3D <IMX_SC_R_MIPI_0>;
-> > +			power-domains =3D <&pd IMX_SC_R_MIPI_0>;
-> > +			status =3D "disabled";
-> > +
-> > +			ports {
-> > +				#address-cells =3D <1>;
-> > +				#size-cells =3D <0>;
-> > +
-> > +				port@0 {
-> > +					#address-cells =3D <1>;
-> > +					#size-cells =3D <0>;
-> > +					reg =3D <0>;
-> > +
-> > +					mipi_lvds_0_pxl2dpi_dc0_pixel_link0: endpoint@0 {
-> > +						reg =3D <0>;
-> > +						remote-endpoint =3D <&dc0_pixel_link0_mipi_lvds_0_pxl2dpi>;
-> > +						status =3D "disabled";
-> > +					};
-> > +
-> > +					mipi_lvds_0_pxl2dpi_dc0_pixel_link1: endpoint@1 {
-> > +						reg =3D <1>;
-> > +						remote-endpoint =3D <&dc0_pixel_link1_mipi_lvds_0_pxl2dpi>;
-> > +						status =3D "disabled";
-> > +					};
-> > +				};
-> > +
-> > +				port@1 {
-> > +					#address-cells =3D <1>;
-> > +					#size-cells =3D <0>;
-> > +					reg =3D <1>;
-> > +
-> > +					mipi_lvds_0_pxl2dpi_mipi_lvds_0_ldb_ch0: endpoint@0 {
-> > +						reg =3D <0>;
-> > +						remote-endpoint =3D <&mipi_lvds_0_ldb_ch0_mipi_lvds_0_pxl2dpi>;
-> > +						status =3D "disabled";
-> > +					};
-> > +
-> > +					mipi_lvds_0_pxl2dpi_mipi_lvds_0_ldb_ch1: endpoint@1 {
-> > +						reg =3D <1>;
-> > +						remote-endpoint =3D <&mipi_lvds_0_ldb_ch1_mipi_lvds_0_pxl2dpi>;
-> > +						status =3D "disabled";
-> > +					};
-> > +				};
-> > +			};
-> > +		};
-> > +
-> > +		mipi_lvds_0_ldb: ldb {
-> > +			#address-cells =3D <1>;
-> > +			#size-cells =3D <0>;
-> > +			compatible =3D "fsl,imx8qxp-ldb";
->=20
-> compatible should be first property, check others
+Please send a link to the datasheet next time, it saves time and at
+least we know which version to base reviews on.
 
-Right, thanks. Will change.
+I believe Andy also asked to to add a Datasheet tag to the commits.
 
-> > +			clocks =3D <&clk IMX_SC_R_LVDS_0 IMX_SC_PM_CLK_MISC2>,
-> > +				 <&clk IMX_SC_R_LVDS_0 IMX_SC_PM_CLK_BYPASS>;
-> > +			clock-names =3D "pixel", "bypass";
-> > +			assigned-clocks =3D <&clk IMX_SC_R_LVDS_0 IMX_SC_PM_CLK_MISC2>;
-> > +			assigned-clock-parents =3D <&clk IMX_SC_R_LVDS_0 IMX_SC_PM_CLK_BYPA=
-SS>;
-> > +			power-domains =3D <&pd IMX_SC_R_LVDS_0>;
-> > +			status =3D "disabled";
-> > +
-> > +			channel@0 {
-> > +				#address-cells =3D <1>;
-> > +				#size-cells =3D <0>;
-> > +				reg =3D <0>;
->=20
-> reg should be first one.
+Q to others: should we try to make the Datasheet tag official?
 
-Right, thanks. Will change.
-
-Best regards,
-Alexander
-=2D-=20
-TQ-Systems GmbH | M=C3=BChlstra=C3=9Fe 2, Gut Delling | 82229 Seefeld, Germ=
-any
-Amtsgericht M=C3=BCnchen, HRB 105018
-Gesch=C3=A4ftsf=C3=BChrer: Detlef Schneider, R=C3=BCdiger Stahl, Stefan Sch=
-neider
-http://www.tq-group.com/
-
-
+-- 
+Kind regards,
+Joshua Crofts
