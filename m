@@ -1,232 +1,208 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DFD2E4E01F1;
-	Thu, 15 Oct 2026 09:31:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 244174FECD3;
+	Thu, 15 Oct 2026 09:31:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792056674; cv=none; b=cB1ImKnfP+Y0VcpJMUSf09aidEoeeJWs3HxHDpBQ/s8jz8uplCQhfUGQfAxle7w/ZdVJsT8kGCe7jJVqpxOQVFvfCTBcI2LcYoCjsQce3FpKtl14uR/4CpSmHnuqvlfw+egaL7N75HZQ2NbIYGpnQw8oIhEaTvueqorRpqwNZQc=
+	t=1792056679; cv=none; b=li55yxw1FSrba21q7iYkmOdoMp1Y7fFvICSLqKOhxpGjT42UePkZA9Nxmz4Lt1FAN9R5PSpsrNoTkhg+6vu8dOt9+MJUySsRF8HSSrdVv1D08rlzqQy3FGpl+wkWU2EmTfpuS3b0zAFXbN8dx24dPNHPG8R8gekwZJmmvHqFp7c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792056674; c=relaxed/simple;
-	bh=NL9N0VW3vdF04JqZH4ay/FVcoHrGDn57nY4y+2dTgA0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EaidpofjOaXP9kqSDA61DkY7nijCa76Aly36BwJ3iRGg9hBIyJxYmuNtbEXD0KFL+ygx7aaID9AFtjlgRrY5Le7KceTDxDqz7CGZmLCUrR7GSgnnmEHjrI3x8XnrizrVbl/JvwUaebjE9iOmA36iANtGvpWC0yIhfinysOCGc/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=HsS7G5z2; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1792056679; c=relaxed/simple;
+	bh=u9UYeh1oAB6GUgqljo/JXLdxweLek+Y6WvmZUvoXLPU=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=GNd8K6E9/kpOspRa+S7sD0lOizXDz7ph+bw0QHkhhOu4YQMrzSeDagdb7eLkpbZKLjfDLPCJ231AxN2Q9D2jkh6LPTwY6MKMrpa1ciexnhGbYApiEaBo8uEuJZQVv3/Z9Vmxn89hraniRWil688nOSfYMgI0376Qlul/MHjZm4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LzgJtwf4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="HsS7G5z2"
-Received: from [10.94.176.134] (unknown [4.194.122.162])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 900F720B7166;
-	Thu, 15 Oct 2026 02:30:59 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 900F720B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1792056662;
-	bh=MycHCtKOpCViJUeUQ3alLvxWUMdQesuZvEMWTh9BpTU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=HsS7G5z2YTlyMJh+eltF/Bob62gbHOQPMm0/uY+RUwcHz/a/n9Q7DHaDm6Nf6CLAF
-	 79v7iwxOtdcJ0XgDImeJ+bgCeYQWMLG3q3SveAuSHE1Up5OqX4XKoh7C51G/xWqxmn
-	 LeFvjc3+6mIVpVxjYBuim3ZfN6F2BnZYsdful1Uc=
-Message-ID: <20175a31-2ef8-4c12-b329-616cb07d3d0b@linux.microsoft.com>
-Date: Thu, 15 Oct 2026 15:01:01 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LzgJtwf4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 101951F000C4;
+	Thu, 15 Oct 2026 09:31:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792056671;
+	bh=GDJE28v9HplFhKmYK8FEc1hvo6u/H16zAbKH8PclBc0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LzgJtwf4I5HWz54pyaEGELFSlr9tQcGEZ08+Iv/PBFZQxM84CjrDkZFfSbKmDwpAb
+	 0gA6+VdocLrKkT+qp9nBG3D1mpOIWimQigYJmymlId0IAjF579HTdzuMLFcXGSRE3v
+	 wbauKk5nsKsdKpzNbE5HUIcligoU3IamVZ6HSleL4/vk8RFMo4bXedP/s1hfWooXfE
+	 D8NYxKQNh+v1OXlojOak9ouRk4Ptxolt6YicoBo8UR352voF9DFDkKAzE2lXAC36cF
+	 p1TXQ4blssTIrS4Rc/p/6PFkEjBl/yVMLMLMC3gb9xdx4cQwz5OlV3dxVp5vr2c5hL
+	 R/9D35krhWs9w==
+Message-ID: <sashiko-outbox-172577@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 5/9] regulator: add Qualcomm LCDB driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, mfd@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
+In-Reply-To: <20261015-sm8150-display-card-v1-5-5c14928cef29@oss.qualcomm.com>
+References: <20261015-sm8150-display-card-v1-0-5c14928cef29@oss.qualcomm.com>
+ <20261015-sm8150-display-card-v1-5-5c14928cef29@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 15 Oct 2026 09:31:10 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] arm64: dts: xilinx: versal-net: Remove CPU idle states
-To: Jay Buddhabhatti <jay.buddhabhatti@amd.com>, git@amd.com,
- ptsm@microsoft.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, michal.simek@amd.com, sven@kernel.org
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260727121842.3410495-1-jay.buddhabhatti@amd.com>
- <b9213a36eb1d28f3e7b8610592c085f627f5c7cf.1791374721.git.jay.buddhabhatti@amd.com>
-Content-Language: en-US
-From: Prasanna Kumar T S M <ptsm@linux.microsoft.com>
-In-Reply-To: <b9213a36eb1d28f3e7b8610592c085f627f5c7cf.1791374721.git.jay.buddhabhatti@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] regulator: qcom-lcdb: LDO pull-down left forced on after disable e=
+rror
+- [High] regulator: qcom-lcdb: self-deadlock in short-circuit notifier chain
+- [High] regulator: qcom-lcdb: state desync on SC recovery failure
+- [Medium] regulator: qcom-lcdb: internal state corrupted on hardware write=
+ failure
+--
 
+commit 5e78a1b6d6d6c5c217f997a1d7627dc506e8ba37
+Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-On 07-10-2026 17:49, Jay Buddhabhatti wrote:
-> The sleep state powers down the CPU core, and the wake-up time cannot be
-> guaranteed because the firmware may be busy handling other tasks at the
-> time of the wake-up request. This leads to unpredictable and potentially
-> high wake-up latency during CPU idle.
-> 
-> Remove the sleep state to avoid this dependency on firmware. The default
-> backend CPU idle state simply puts core in WFI and retains its context
-> without being powered off. Since wake-up from WFI is handled entirely in
-> hardware, it is effectively immediate (a few cycles) and does not depend
-> on firmware availability.
-> 
-> Signed-off-by: Jay Buddhabhatti <jay.buddhabhatti@amd.com>
-> ---
-> Changes in v2:
-> - Remove the idle state instead of replacing it with a retention state.
-> - Update the subject and commit description.
-> 
-> Link to v1: https://lore.kernel.org/all/20260727121842.3410495-1-jay.buddhabhatti@amd.com/
-> ---
->   arch/arm64/boot/dts/xilinx/versal-net.dtsi | 29 ----------------------
->   1 file changed, 29 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/xilinx/versal-net.dtsi b/arch/arm64/boot/dts/xilinx/versal-net.dtsi
-> index 21bb917bcba1..9b74e59fd64a 100644
-> --- a/arch/arm64/boot/dts/xilinx/versal-net.dtsi
-> +++ b/arch/arm64/boot/dts/xilinx/versal-net.dtsi
-> @@ -103,7 +103,6 @@ cpu0: cpu@0 {
->   			enable-method = "psci";
->   			reg = <0>;
->   			operating-points-v2 = <&cpu_opp_table>;
-> -			cpu-idle-states = <&CPU_SLEEP_0>;
->   			d-cache-size = <0x10000>; /* 64kB */
->   			d-cache-line-size = <64>;
->   			/* 4 ways set associativity */
-> @@ -133,7 +132,6 @@ cpu100: cpu@100 {
->   			enable-method = "psci";
->   			reg = <0x100>;
->   			operating-points-v2 = <&cpu_opp_table>;
-> -			cpu-idle-states = <&CPU_SLEEP_0>;
->   			d-cache-size = <0x10000>; /* 64kB */
->   			d-cache-line-size = <64>;
->   			/* 4 ways set associativity */
-> @@ -163,7 +161,6 @@ cpu200: cpu@200 {
->   			enable-method = "psci";
->   			reg = <0x200>;
->   			operating-points-v2 = <&cpu_opp_table>;
-> -			cpu-idle-states = <&CPU_SLEEP_0>;
->   			d-cache-size = <0x10000>; /* 64kB */
->   			d-cache-line-size = <64>;
->   			/* 4 ways set associativity */
-> @@ -193,7 +190,6 @@ cpu300: cpu@300 {
->   			enable-method = "psci";
->   			reg = <0x300>;
->   			operating-points-v2 = <&cpu_opp_table>;
-> -			cpu-idle-states = <&CPU_SLEEP_0>;
->   			d-cache-size = <0x10000>; /* 64kB */
->   			d-cache-line-size = <64>;
->   			/* 4 ways set associativity */
-> @@ -223,7 +219,6 @@ cpu10000: cpu@10000 {
->   			enable-method = "psci";
->   			reg = <0x10000>;
->   			operating-points-v2 = <&cpu_opp_table>;
-> -			cpu-idle-states = <&CPU_SLEEP_0>;
->   			d-cache-size = <0x10000>; /* 64kB */
->   			d-cache-line-size = <64>;
->   			/* 4 ways set associativity */
-> @@ -253,7 +248,6 @@ cpu10100: cpu@10100 {
->   			enable-method = "psci";
->   			reg = <0x10100>;
->   			operating-points-v2 = <&cpu_opp_table>;
-> -			cpu-idle-states = <&CPU_SLEEP_0>;
->   			d-cache-size = <0x10000>; /* 64kB */
->   			d-cache-line-size = <64>;
->   			/* 4 ways set associativity */
-> @@ -283,7 +277,6 @@ cpu10200: cpu@10200 {
->   			enable-method = "psci";
->   			reg = <0x10200>;
->   			operating-points-v2 = <&cpu_opp_table>;
-> -			cpu-idle-states = <&CPU_SLEEP_0>;
->   			d-cache-size = <0x10000>; /* 64kB */
->   			d-cache-line-size = <64>;
->   			/* 4 ways set associativity */
-> @@ -313,7 +306,6 @@ cpu10300: cpu@10300 {
->   			enable-method = "psci";
->   			reg = <0x10300>;
->   			operating-points-v2 = <&cpu_opp_table>;
-> -			cpu-idle-states = <&CPU_SLEEP_0>;
->   			d-cache-size = <0x10000>; /* 64kB */
->   			d-cache-line-size = <64>;
->   			/* 4 ways set associativity */
-> @@ -343,7 +335,6 @@ cpu20000: cpu@20000 {
->   			enable-method = "psci";
->   			reg = <0x20000>;
->   			operating-points-v2 = <&cpu_opp_table>;
-> -			cpu-idle-states = <&CPU_SLEEP_0>;
->   			d-cache-size = <0x10000>; /* 64kB */
->   			d-cache-line-size = <64>;
->   			/* 4 ways set associativity */
-> @@ -373,7 +364,6 @@ cpu20100: cpu@20100 {
->   			enable-method = "psci";
->   			reg = <0x20100>;
->   			operating-points-v2 = <&cpu_opp_table>;
-> -			cpu-idle-states = <&CPU_SLEEP_0>;
->   			d-cache-size = <0x10000>; /* 64kB */
->   			d-cache-line-size = <64>;
->   			/* 4 ways set associativity */
-> @@ -403,7 +393,6 @@ cpu20200: cpu@20200 {
->   			enable-method = "psci";
->   			reg = <0x20200>;
->   			operating-points-v2 = <&cpu_opp_table>;
-> -			cpu-idle-states = <&CPU_SLEEP_0>;
->   			d-cache-size = <0x10000>; /* 64kB */
->   			d-cache-line-size = <64>;
->   			/* 4 ways set associativity */
-> @@ -433,7 +422,6 @@ cpu20300: cpu@20300 {
->   			enable-method = "psci";
->   			reg = <0x20300>;
->   			operating-points-v2 = <&cpu_opp_table>;
-> -			cpu-idle-states = <&CPU_SLEEP_0>;
->   			d-cache-size = <0x10000>; /* 64kB */
->   			d-cache-line-size = <64>;
->   			/* 4 ways set associativity */
-> @@ -463,7 +451,6 @@ cpu30000: cpu@30000 {
->   			enable-method = "psci";
->   			reg = <0x30000>;
->   			operating-points-v2 = <&cpu_opp_table>;
-> -			cpu-idle-states = <&CPU_SLEEP_0>;
->   			d-cache-size = <0x10000>; /* 64kB */
->   			d-cache-line-size = <64>;
->   			/* 4 ways set associativity */
-> @@ -493,7 +480,6 @@ cpu30100: cpu@30100 {
->   			enable-method = "psci";
->   			reg = <0x30100>;
->   			operating-points-v2 = <&cpu_opp_table>;
-> -			cpu-idle-states = <&CPU_SLEEP_0>;
->   			d-cache-size = <0x10000>; /* 64kB */
->   			d-cache-line-size = <64>;
->   			/* 4 ways set associativity */
-> @@ -523,7 +509,6 @@ cpu30200: cpu@30200 {
->   			enable-method = "psci";
->   			reg = <0x30200>;
->   			operating-points-v2 = <&cpu_opp_table>;
-> -			cpu-idle-states = <&CPU_SLEEP_0>;
->   			d-cache-size = <0x10000>; /* 64kB */
->   			d-cache-line-size = <64>;
->   			/* 4 ways set associativity */
-> @@ -553,7 +538,6 @@ cpu30300: cpu@30300 {
->   			enable-method = "psci";
->   			reg = <0x30300>;
->   			operating-points-v2 = <&cpu_opp_table>;
-> -			cpu-idle-states = <&CPU_SLEEP_0>;
->   			d-cache-size = <0x10000>; /* 64kB */
->   			d-cache-line-size = <64>;
->   			/* 4 ways set associativity */
-> @@ -632,19 +616,6 @@ llc: l4-cache { /* LLC inside CMN */
->   			cache-size = <0x1000000>; /* 16MB */
->   			cache-unified;
->   		};
-> -
-> -		idle-states {
-> -			entry-method = "psci";
-> -
-> -			CPU_SLEEP_0: cpu-sleep-0 {
-> -				compatible = "arm,idle-state";
-> -				arm,psci-suspend-param = <0x40000000>;
-> -				local-timer-stop;
-> -				entry-latency-us = <300>;
-> -				exit-latency-us = <600>;
-> -				min-residency-us = <10000>;
-> -			};
-> -		};
->   	};
->   
->   	cpu_opp_table: opp-table {
+regulator: add Qualcomm LCDB driver
 
-This change works fine.
+Adds a driver for the LCDB block found on Qualcomm PMICs (PMI632, PM6150L,
+PM8150L) to provide positive and negative bias rails for LCD panels. The
+driver supports enabling with voltage ramp-up and disabling with an LDO
+pull-down.
 
-Tested-by: Prasanna Kumar T S M <ptsm@linux.microsoft.com>
+> diff --git a/drivers/regulator/qcom-lcdb-regulator.c b/drivers/regulator/=
+qcom-lcdb-regulator.c
+> new file mode 100644
+> index 0000000000000..45b3b7118e31d
+> --- /dev/null
+> +++ b/drivers/regulator/qcom-lcdb-regulator.c
+[ ... ]
+> +static int qcom_lcdb_module_disable(struct qcom_lcdb *lcdb)
+> +{
+> +	int ret;
+> +
+> +	/* Force the LDO pull-down to discharge the output quickly */
+> +	ret =3D regmap_write(lcdb->regmap, lcdb->base + LCDB_LDO_FORCE_PD_CTL,
+> +			   LCDB_LDO_FORCE_PD_EN | LCDB_LDO_FORCE_PD_MODE);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D regmap_write(lcdb->regmap, lcdb->base + LCDB_ENABLE_CTL1, 0);
+> +	if (ret)
+> +		return ret;
 
+[Severity: High]
+If the regmap_write() to LCDB_ENABLE_CTL1 fails, the function returns
+early without reverting the prior LCDB_LDO_FORCE_PD_CTL write. Will this
+leave the physical regulator shorted to ground with the strong pull-down
+resistor active while the LDO remains enabled?
+
+> +
+> +	lcdb->off_time =3D ktime_get();
+> +
+> +	usleep_range(10000, 11000);
+> +
+> +	return regmap_write(lcdb->regmap, lcdb->base + LCDB_LDO_FORCE_PD_CTL, 0=
+);
+> +}
+[ ... ]
+> +static int qcom_lcdb_disable(struct regulator_dev *rdev)
+> +{
+> +	struct qcom_lcdb *lcdb =3D rdev_get_drvdata(rdev);
+> +
+> +	guard(mutex)(&lcdb->lock);
+> +
+> +	lcdb->enabled_mask &=3D ~BIT(rdev_get_id(rdev));
+> +	if (lcdb->enabled_mask)
+> +		return 0;
+> +
+> +	return qcom_lcdb_module_disable(lcdb);
+> +}
+
+[Severity: Medium]
+Does clearing lcdb->enabled_mask before qcom_lcdb_module_disable() completes
+permanently desynchronize the software state if the hardware disablement
+fails?=20
+
+If the write fails, the mask will remain cleared, causing qcom_lcdb_is_enab=
+led()
+to return false even though the hardware is still active. This misalignment
+might cause the next enable call to incorrectly execute the ramp-up sequence
+on an already active rail.
+
+[ ... ]
+> +static int qcom_lcdb_set_voltage_sel(struct regulator_dev *rdev, unsigne=
+d int sel)
+> +{
+> +	struct qcom_lcdb *lcdb =3D rdev_get_drvdata(rdev);
+> +
+> +	guard(mutex)(&lcdb->lock);
+> +
+> +	lcdb->uV[rdev_get_id(rdev)] =3D qcom_lcdb_sel_to_uV(sel);
+> +
+> +	return qcom_lcdb_write_voltages(lcdb, lcdb->uV[LCDB_LDO],
+> +					lcdb->uV[LCDB_NCP]);
+> +}
+
+[Severity: Medium]
+If qcom_lcdb_write_voltages() fails, the cached lcdb->uV array will already
+have been updated. Will this cause subsequent calls to qcom_lcdb_get_voltag=
+e_sel()
+to return the new but unapplied voltage instead of the actual hardware
+state?
+
+[ ... ]
+> +static void qcom_lcdb_handle_sc(struct qcom_lcdb *lcdb)
+> +{
+> +	int i;
+> +
+> +	guard(mutex)(&lcdb->lock);
+> +
+> +	if (!lcdb->enabled_mask || lcdb->sc_disabled)
+> +		return;
+> +
+> +	qcom_lcdb_module_disable(lcdb);
+> +
+> +	if (ktime_us_delta(ktime_get(), lcdb->sc_time) > LCDB_SC_RESET_CNT_DLY_=
+US) {
+> +		lcdb->sc_count =3D 0;
+> +	} else if (lcdb->sc_count > LCDB_SC_CNT_MAX) {
+> +		dev_err(lcdb->dev, "persistent short circuit, keeping the outputs off\=
+n");
+> +		lcdb->sc_disabled =3D true;
+> +
+> +		for (i =3D 0; i < LCDB_NUM_RAILS; i++)
+> +			regulator_notifier_call_chain(lcdb->rdev[i],
+> +						      REGULATOR_EVENT_FAIL, NULL);
+> +		return;
+> +	}
+
+[Severity: High]
+Can calling the synchronous notifier chain with lcdb->lock held result in a
+self-deadlock?
+
+Consumers often react to REGULATOR_EVENT_FAIL by attempting to disable the
+failing regulator via regulator_disable(). This acquires rdev->mutex and
+then invokes the driver's disable callback:
+
+regulator_disable()
+  qcom_lcdb_disable()
+    guard(mutex)(&lcdb->lock);
+
+Since lcdb->lock is already held by qcom_lcdb_handle_sc(), wouldn't this
+result in a self-deadlock?
+
+> +
+> +	lcdb->sc_count++;
+> +	lcdb->sc_time =3D ktime_get();
+> +
+> +	if (qcom_lcdb_module_enable(lcdb))
+> +		dev_err(lcdb->dev, "failed to recover from a short circuit\n");
+> +}
+
+[Severity: High]
+If qcom_lcdb_module_enable() fails here, it returns an error and the
+hardware is left off, but lcdb->enabled_mask is not cleared and
+lcdb->sc_disabled is not set.=20
+
+Does this create a state mismatch where future consumers might call
+qcom_lcdb_enable() and falsely see a success without any actual physical
+hardware enablement?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-sm8150-dis=
+play-card-v1-0-5c14928cef29@oss.qualcomm.com?part=3D5
