@@ -1,178 +1,105 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7783550B42F
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 09:49:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AC4A50AC30;
+	Thu, 15 Oct 2026 09:49:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792057797; cv=none; b=F1UHveBqb59wkMtkoumUJYkFOibk4xOZTJLT7RhYbwcCGTdaEy9sO3DtgPhxtfuO/KVwJhWiRPecY3ot1J4oD/Tq8D0TAxNI5rn7yTX4m57VjlwcbQui8udZ4de+E5pog8iSJNWjW8evnbu8+WwaggXAVLX9rW3dFOdUe+Ahpqc=
+	t=1792057797; cv=none; b=JAN/ChAhBLTstuGstdRZrUyrMIFZJ04+8uHqtFRBHa5/SEfHdsXzrOPy/vSx/0yMaPCvcBhe7WY+7RY561FQAfwGaffki1adPEaFRKuQx9BkQBiVWoZ3n0Se7jOhfK4VB4AbLKBXS81gv9hw+dbrKevqdSglPpqzjw8H9+ehZr0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792057797; c=relaxed/simple;
-	bh=XvgF8W41tbW2lHMVahBlNpldH+YcMd6GhMO1LMhmmQY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MWWjXZsi9XIyq4RpQvjRPNfvRhy4RUXN+SAjBuhMjWyozJvX0AxmaASeu9VLQ9jac4RvggqISoTpRvnxYTELQ0iufOTBGxvowj5E/pVdZxop5mk4ylXBX8OBjrQtQwv1/n1KVVG6XdHravERJZTQ6ZobT6iRH+wSPsx4sgzuf3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com; spf=pass smtp.mailfrom=imd-tec.com; dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b=eNDcIh1h; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imd-tec.com
+	bh=ttF/dM1aNWk+AZDVMok9w7Nn+KdeWaOEjOQa4pxBBsE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=B0dNnmf//U95fP9h+JTlGqeA3HnzThyhZsKt5m7WXCWwvDHiMnl2wjxLB6fbcxyVGTeIfSzc9a3KmwQdeEnDLHm2FQl/wlOimeewvqW2I2dE4O0gQX++QCUk635uELmTrVrJhD13C2Vz+67W2KH1n8m7CHHcrbbNXflTeIcmBY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jQgQPj/Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b="eNDcIh1h"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48bbb06e746so840853f8f.3
-        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 02:49:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=imd-tec.com; s=google; t=1792057793; x=1792662593; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AJMs8A9Ik9OWOlzlXjQ55DgLEVWbkbVkWzr7Q1/LXyI=;
-        b=eNDcIh1hoJ8vA1phnbTk72RnXHYklVjdn3+7LUg0Z/KUaiQUd3SclE63xHRHLsBb1d
-         HjWD/iynYwgBM2M9JcSbdw2EPRZB5uT2XqGsmk/H4pUINhWZsMnI0WDcKuvuwZXRcL8L
-         Gw/c2TLsQZNvOcRyW/vtAkiry0i3acAU/Vy9AleLCjpMQrF6Xbu90QZR3aNujgvDBhMv
-         7TFVIJzS3aTxiD4GHC+TmK6DiXWvwEAQROb3GHu6yKn7rVYYChlNkrfk1S43OeVVzCLd
-         v3u6wvATNL2cf8Dm1zgcKYsiFUXnBJiR6CgqNlYEXaLwyXCKD32mKu5uDTOqp9DxeI7K
-         ZDgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792057793; x=1792662593;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AJMs8A9Ik9OWOlzlXjQ55DgLEVWbkbVkWzr7Q1/LXyI=;
-        b=w0Y3Z8GXNMskVBGifUNarXgfWnx7oFlih8KJQyQNRCAnso+lMN6MtRihOKEBhs1BZh
-         JESp9orBWoSPtcjwdu4PmH5uDyF8Oe+Csbjhr7w/wbzLXi5CIK7zOznpz3ptZBlNKS/Y
-         OXl33Z/xgl1xa28M1+Hmo2VxlSoNb2WflksxQ8gS/RxNEeyQpvN1Qnem9pKwbcLO2FQU
-         bFBwfV9ikWktgPnGyj0ccsqKQNANal26cSwEt1EFh/KjQaNoQ1cQclv3Ssd4JsZV2NdI
-         wdMjuADJsH0kSOJKsGa1C5dEFb5665hHov8F/eXeXEQ0pKWKYoXmVAwehTJ5qpdrc59T
-         deBg==
-X-Forwarded-Encrypted: i=1; AKwUvBzFAEcXIPjkvRxbCcvqOxJLnwzMC7EFTlJp+dkIT2terIomnRzKIvBWfyVuz7/4aLvbB/P5WPo4OBu4@vger.kernel.org
-X-Gm-Message-State: AFq9FYKF2xHxbEzbjaau4v02hZgG/kjsajIFKseEdvshpqirgEJEy0gu
-	ZRp6XcViHeo0w+zkzMgcUd/BaUjgTMLSTEN0Kd4dPaxHfbamZfBuH1TcsWaqtDZjcJ8=
-X-Gm-Gg: AYBFou2/roSg/dCuY2F62jw8GS4M+/F09IUoWm3Y/JXseqdNHnKnou9B/RgNSs+kdbB
-	EIkgscBj0EsZIoV0cKJGglfRgYIzHEf3J5YOyAKaOIepDZo11I/uRJbAX1x4zHy9xMd8iMTCLGj
-	Nlt+LwqcqIr8jgaDrMJJJ2DSveehU6umS/cRZkVZzWSsO1qa5rPNlmfzJfcI3/eFS/+vTFxoc7h
-	76AmhaLRyGPOQuTLDfhOwazyite/rcLo828u4k1eevWRPBR/JI1kjF6ILJfdon98XG8FMuiJLnO
-	iS84GUHFW029ufHTowmoNaFB4MUTqm+uNRQjYCdzWHFtlnBoAx3DNop8/XQS7E7cofKLPlmMeVq
-	QyRhx7lI6XL7Q4CxXZugVWvl99Wi9wq/Eh+w/CCs9iTjCGkYN6FTeG4MSexsTqOK/lbtYc9yfea
-	2T0TufcLDuYZYAMrhbH3l6VuHvZefJY6Xezblh0h6VQIN4pf0gxfFTQVBiCJRLl8yOg7YTqVinA
-	5+a1SPEw8X3XlVWiwNfKp98hcCAgqt25GQcrl5SuP6gOV8O/96estIyxJ2zha2WXRdyDifCwyOl
-	REkeDQpcpFZSVziLl/mMLqMWan8=
-X-Received: by 2002:a05:6000:1a8b:b0:488:88ec:59c3 with SMTP id ffacd0b85a97d-48dba9bdc75mr37096945f8f.14.1792057792694;
-        Thu, 15 Oct 2026 02:49:52 -0700 (PDT)
-Received: from [127.0.1.1] ([2a00:23c6:273c:cd01:737a:1f7b:d586:a293])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc85b1sm16926246f8f.54.2026.10.15.02.49.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 02:49:52 -0700 (PDT)
-From: William Bright <william.bright@imd-tec.com>
-Date: Thu, 15 Oct 2026 10:49:31 +0100
-Subject: [PATCH v3 2/3] media: qcom: camss: Add the SM8550 CSI TPGs
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jQgQPj/Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 233B21F000C6;
+	Thu, 15 Oct 2026 09:49:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792057796;
+	bh=5PdCABJ02UEmwfes7qBJeAq3DKKkIaoZlycMlEcT4GQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jQgQPj/ZjFMZM4uyFl0mFkxraZP3JYZwWge9ZIamXvMhHNeXud5J+qHuAo7XtCYbG
+	 4oX6UVprcNldwkS85/6FoQZBadxP867J2YvC0XwvzEBhOQQBIPCHxr4tgmKYKW5fc5
+	 q/TQGl5UpwUHgBCLMmgNaftljAgtK/hCIAjBocdeOMVckzV8rMq9whCgXVaCtIzLcM
+	 Czr67UxyZO7WhAJKI6ZwB/9U0+c/OEf/ev0msuQ+TcbnMWwHFasjmuPaJogFkFPQR9
+	 XqFA8MzjUHD1XmD7IrGGh/lwTSjJm8xkfJaoIq9YY9hbl14fU2lpFnPqoZhDDVflo7
+	 As9MLVH/pZNOA==
+Date: Thu, 15 Oct 2026 11:49:48 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Ben Levinsky <ben.levinsky@amd.com>
+Cc: jassisinghbrar@gmail.com, andersson@kernel.org, 
+	mathieu.poirier@linaro.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	michal.simek@amd.com, linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, tanmay.shah@amd.com
+Subject: Re: [PATCH 5/6] dt-bindings: remoteproc: Add RPMsg resources to AMD
+ BRAM rproc
+Message-ID: <20261015-ethereal-cicada-of-perspective-c1aaca@quoll>
+References: <20261014213426.2957480-1-ben.levinsky@amd.com>
+ <20261014213426.2957480-6-ben.levinsky@amd.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-sm8550-camss-tpg-v3-2-00fe06a3c557@imd-tec.com>
-References: <20261015-sm8550-camss-tpg-v3-0-00fe06a3c557@imd-tec.com>
-In-Reply-To: <20261015-sm8550-camss-tpg-v3-0-00fe06a3c557@imd-tec.com>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Depeng Shao <quic_depengs@quicinc.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- William Bright <william.bright@imd-tec.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261014213426.2957480-6-ben.levinsky@amd.com>
 
-The SM8550 TPGs are hardware version 2.1.0, the same as x1e80100,
-so describe them with the gen1 TPG ops.
+On Wed, Oct 14, 2026 at 02:34:25PM -0700, Ben Levinsky wrote:
+> Describe the optional mailbox channels and named reserved-memory
+> regions used for RPMsg communication with a BRAM-based MicroBlaze
+> remote processor.
+> 
+> The three named memory regions provide the two virtio vrings and the
+> shared RPMsg buffer pool. Firmware and its loaded resource table remain
+> in the executable BRAM described by reg.
+> 
+> Assisted-by: LLM sparse
 
-Assisted-by: Claude:claude-opus-5-5
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Signed-off-by: William Bright <william.bright@imd-tec.com>
----
- drivers/media/platform/qcom/camss/camss.c | 50 +++++++++++++++++++++++++++++++
- 1 file changed, 50 insertions(+)
+How sparse can assist here?
 
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 5128dae79103..70f327484503 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -3553,6 +3553,54 @@ static const struct camss_subdev_resources csid_res_8550[] = {
- 	}
- };
- 
-+static const struct camss_subdev_resources tpg_res_8550[] = {
-+	/* TPG0 */
-+	{
-+		.regulators = {},
-+		.clock = { "cpas_ahb", "csiphy_rx" },
-+		.clock_rate = {
-+			{ 0 },
-+			{ 400000000 },
-+		},
-+		.reg = { "csitpg0" },
-+		.tpg = {
-+			.lane_cnt = 4,
-+			.formats = &tpg_formats_gen1,
-+			.hw_ops = &tpg_ops_gen1
-+		}
-+	},
-+	/* TPG1 */
-+	{
-+		.regulators = {},
-+		.clock = { "cpas_ahb", "csiphy_rx" },
-+		.clock_rate = {
-+			{ 0 },
-+			{ 400000000 },
-+		},
-+		.reg = { "csitpg1" },
-+		.tpg = {
-+			.lane_cnt = 4,
-+			.formats = &tpg_formats_gen1,
-+			.hw_ops = &tpg_ops_gen1
-+		}
-+	},
-+	/* TPG2 */
-+	{
-+		.regulators = {},
-+		.clock = { "cpas_ahb", "csiphy_rx" },
-+		.clock_rate = {
-+			{ 0 },
-+			{ 400000000 },
-+		},
-+		.reg = { "csitpg2" },
-+		.tpg = {
-+			.lane_cnt = 4,
-+			.formats = &tpg_formats_gen1,
-+			.hw_ops = &tpg_ops_gen1
-+		}
-+	},
-+};
-+
- static const struct camss_subdev_resources vfe_res_8550[] = {
- 	/* VFE0 */
- 	{
-@@ -7245,12 +7293,14 @@ static const struct camss_resources sm8550_resources = {
- 	.legacy_phy = true,
- 	.csiphy_res = csiphy_res_8550,
- 	.csid_res = csid_res_8550,
-+	.tpg_res = tpg_res_8550,
- 	.vfe_res = vfe_res_8550,
- 	.csid_wrapper_res = &csid_wrapper_res_sm8550,
- 	.icc_res = icc_res_sm8550,
- 	.icc_path_num = ARRAY_SIZE(icc_res_sm8550),
- 	.csiphy_num = ARRAY_SIZE(csiphy_res_8550),
- 	.csid_num = ARRAY_SIZE(csid_res_8550),
-+	.tpg_num = ARRAY_SIZE(tpg_res_8550),
- 	.vfe_num = ARRAY_SIZE(vfe_res_8550),
- };
- 
+> Signed-off-by: Ben Levinsky <ben.levinsky@amd.com>
+> ---
+>  .../bindings/remoteproc/amd,bram-rproc.yaml   | 31 +++++++++++++++++++
+>  1 file changed, 31 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/remoteproc/amd,bram-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/amd,bram-rproc.yaml
+> index c0359f447ea8..daff8e615ab6 100644
+> --- a/Documentation/devicetree/bindings/remoteproc/amd,bram-rproc.yaml
+> +++ b/Documentation/devicetree/bindings/remoteproc/amd,bram-rproc.yaml
+> @@ -84,6 +84,33 @@ properties:
+>      description:
+>        GPIO specifier controlling the soft-core reset input.
+>  
+> +  mboxes:
+> +    maxItems: 2
+> +
+> +  mbox-names:
+> +    items:
+> +      - const: tx
+> +      - const: rx
+> +
+> +  memory-region:
+> +    maxItems: 3
+> +
+> +  memory-region-names:
+> +    items:
+> +      - const: vdev0vring0
+> +      - const: vdev0vring1
+> +      - const: vdev0buffer
+> +
+> +dependentRequired:
+> +  mboxes:
+> +    - mbox-names
+> +  mbox-names:
+> +    - mboxes
 
--- 
-2.43.0
+Why do you add this? Please instruct your LLM to actually understand and
+learn dtschema.
+
+Best regards,
+Krzysztof
 
