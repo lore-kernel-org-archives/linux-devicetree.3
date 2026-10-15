@@ -1,220 +1,253 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F22F05237B8
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 13:21:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A0854F4753;
+	Thu, 15 Oct 2026 13:22:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792070502; cv=none; b=TAIkRdqKm/SawihEe36uR32ZOfC+IIQlKXfSXM8Wj6EKSPZgVfodV4Q5NUqp23ERVnchlGq8CyXiWxt8nNAfZIgfx99oWYQMmYLBQiA0aWpNL5Bx4A/1goVOwyBfxXdzWPI1W1wJGpdIvN0p0wGmM5rvuSl91PojHJu64rvyBBc=
+	t=1792070531; cv=none; b=kU/NX0GMs4CwwYyJb7fnZ8qJc2UkslEIkJLuhv8Q7cuQxtIbPUYiAh5oA2hSXxMx3PMea7mmDmv7DfEZMkS7517/P+n8VPMPNh5v4fEgoSS3M/0AK2zSwh8TXBQbb84+rwgm7/gxy89R/KawvhdrMGoL9IdNFjeIRXXY/+/Wa0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792070502; c=relaxed/simple;
-	bh=r1cDUK4n4vsOkir84Mzgh88NYpQXfnFBKPDVl4FY7Wo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sH/enhniC4Vl1p8kROlaHS3ky8obrlNloRP9D5CFlEhMRC5okiuUcgxokFB2rWbdgciKqH+rnxqukJ/RjmAcXtBJeT89w+BdfZgFHgyGsFwoUjVlsTcIRJ0QSye1epytHqXJ+8Nq3Sl5LQgV6ehC7PLM0Xdx4KdgFDK1zyLY4Q0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KjKxcA58; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NYeP1fhC; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792070531; c=relaxed/simple;
+	bh=72zWqaeDl4nLOLtnMsKwa9rz2e7NI7gjjXJbDg2f3a8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=eeG9KvRFDrukHyKU+nN4Izvy1IZ1+Di+RmnQQnD6SzUPzwR+2aEAE4L5rwHPyDtlsniCeGB02zmM1RsmKyhTA+souVeneL7vof7dCbC9YY23tuftisUzy5DFMkCS5ug/14RgMtXSaFYOn6q4dLtRfpkSJ6TmqoYb4t0tCM45R7Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Q5yHAGRY; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KjKxcA58";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NYeP1fhC"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9jYXa2966392
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 13:21:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	pB4Vm9muqHjsBGpjHRKxj8v/lRoKTmIfKwt7EToa49E=; b=KjKxcA58C7U60Ql5
-	0ocYGUoqGG6KIGic2UcwFm5pe1gVXsfpBEw4kbbl33+zH+hafjwnY92JxhXRS/Vi
-	XlqcVQ2SWs9JSKdNFz8yPRRELbuAoRTXoSVEa5MSyDLnmyc9j2c6GT6aG8L8Rj29
-	8gdg1Tevy/LFTE62JO+T5hZDnNRe+enSVDHkHzCwIJeTu97gCYZCQzoGhnHl2Iok
-	G51QSyHVq6BrUaS6Tx4IZVk323JFUsj2RXo6z9ImTGBaODMHWhDFhfgv4L53N8H6
-	3aNHi51HP816TJp0phFB2StMeCW3DbGQtq2tX1AEJ3kbOmfyVJRolBFo0ZkN1SBP
-	nYvhHw==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hae4wv7hx-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 13:21:39 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7bf97f74492so235876137.2
-        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 06:21:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792070499; x=1792675299; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pB4Vm9muqHjsBGpjHRKxj8v/lRoKTmIfKwt7EToa49E=;
-        b=NYeP1fhCeiZ4SsC2IIJeQxZLW/hqD9ui3rh9BCWAdNsQfJsMPmME2lygYulr/QcRgo
-         0xk5v6SAXk/jM0u8532jS4p6J6nz0BdQqjnyFYpgJYaiAE7lYXr8oGWBXfYKiADxhNP3
-         smbtAqCoBMiDc0mNfpc7FQJjO89Ois8qU8FE+i3ZRnM1jce7a/7vuIJqsdXMi8lLvMwH
-         fm1K1t4oNodUlrOEv+2e/6+gtOSImrYGTI6mCCmDPAfZhPEb3nsT+DqJ/zaeyx0s4Q5X
-         YuHMKCVTanEIxy17UrdMnPpLvsYeOpA407/LHJRgmL0A9bKHr6alO2w1TbDMjWH92QW2
-         QmIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792070499; x=1792675299;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pB4Vm9muqHjsBGpjHRKxj8v/lRoKTmIfKwt7EToa49E=;
-        b=BNbhR3YgY9Z76iU+SPyBw6ckbLakax5HPZnpWlw8/c4R3dPr6WWLDCW99KFrdxI117
-         hoqSxgSPlbh3WklExTmCh33Z650qA8Hv7d4fcsGAgdIF4HGDevkYp8t0ywpEbe2gO18r
-         ZY1uU/viW+E6sS9wU3dPsED/M66Bwo9zoSx2nOWjeuZE2QrQ50xDsZgDAZ/hV0w+l6He
-         N+CZoV/eEJXGEfRKBDRbeiitN7VN9xeb/ykclfTA7NJB3aIAbypOanUpkzrBNs8uREQB
-         3ryk3BfkexQ0M5wWUkxWjv9U0+9Sscz9F+XkPUU2GiN4p25om4KcYJbhcJ8GjjGbn1fP
-         vmGg==
-X-Forwarded-Encrypted: i=1; AKwUvBxnZP0R6Q19POLWua5JXgCjh4AZ7GspuEfmSIBI11iTP/Xx2b1X8wwLfthxk8vBq/KBBID2YceWGprV@vger.kernel.org
-X-Gm-Message-State: AFq9FYKt4wzn2ghIdRkSEOx+NrgSYLj7B3eeebYcMwwVS2R1Q21uuT6Q
-	nSREFBOuz1w0H80mbtOUPBG/cwWcz2xPwVElwqI8PTlw28S8PijDcHkI28s93x/C/nBY2stzI5s
-	h9iKx28lHgeEpjvpoctS8Q4MpwD4hAVBk+zuC67kxCrJ64HB4ZqOjwTi/Fph92xY6
-X-Gm-Gg: AYBFou0pRH/da/mbgPEynP5IHlA1IXa4JSYvdUjgbgVwjbmATXOB95K3c4Gnvc0+MDJ
-	jCKWTLkpmTnU4fjPjkNZKZHmMTmoo91nuj8JJ6yA1OULQ0HixlwnxqwEX7eXFbaqbSJFF4U5Jl8
-	mQksgxEdHYJCMJvBuePL+KRAoYKbSNdXUmHt1aD4uzq9VBDQVcvy/YV5OCqoahEaBmMYQeF7iyj
-	7b88grDc8Nv2N15pNALAJotuzpgIH6FQuEAJJ9/N4tfFEKHHCGXsZ49dtJiBQOS8n4W92xODtxe
-	wKEWgngYCelb4myuEYuCgAhdATFO1XmUVQBiwENnKlDBXy5gbjBnVG002p4Qe3+NrNpWCajwU+3
-	ryA9VzTNYDMShzurMBInKFA==
-X-Received: by 2002:a05:6122:2c09:b0:5ea:8fce:8a45 with SMTP id 71dfb90a1353d-5ea8fce8d42mr259255e0c.5.1792070498883;
-        Thu, 15 Oct 2026 06:21:38 -0700 (PDT)
-X-Received: by 2002:a05:6122:2c09:b0:5ea:8fce:8a45 with SMTP id 71dfb90a1353d-5ea8fce8d42mr259228e0c.5.1792070498112;
-        Thu, 15 Oct 2026 06:21:38 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b2038ac6c1sm2560431a12.35.2026.10.15.06.21.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 06:21:36 -0700 (PDT)
-Message-ID: <44878919-4835-4790-ae85-f865d0522391@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 15:21:34 +0200
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Q5yHAGRY"
+Received: from [192.168.1.215] (unknown [IPv6:2001:b07:6462:5de2:520d:d7a3:63ca:99e8])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8A8B62F8;
+	Thu, 15 Oct 2026 15:20:02 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1792070403;
+	bh=72zWqaeDl4nLOLtnMsKwa9rz2e7NI7gjjXJbDg2f3a8=;
+	h=From:Subject:Date:To:Cc:From;
+	b=Q5yHAGRYwxK4vo9XtrZKD+X+aku3maDiDBbONg6/kRVX1Ug7ePhOC37mpb0sZWi5L
+	 ZR0yKnex5wZ7qTpqLnflxPXr8Z6oIn85ClvhTWUNKFINYRvsq4Zxhpdh4R70oWCquY
+	 4tJGv9cfFiBt3HzyivjuoTQMe23Dw2KE9EyfdUuQ=
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Subject: [PATCH v7 0/2] media: i2c: Add driver for Mira016
+Date: Thu, 15 Oct 2026 15:21:48 +0200
+Message-Id: <20261015-mira016-v7-0-828c931c5550@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: talos-lyra-evk: Add CYPD6129 Type-C
- support
-To: Akash Kumar <akash.kumar@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org
-References: <20261012131518.858396-1-akash.kumar@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261012131518.858396-1-akash.kumar@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1MyBTYWx0ZWRfX+yY3G0rtYeUe
- CJHOhEXGTJdrOmf2ZdRkxplVyGQU+DAh9U5XeWAhKXNa4LZR74rKDJrQEuhME9t7mET9mmhyniJ
- jrQk+WDe5iKsXXA55/oI9HTCLR3e5Vo=
-X-Proofpoint-ORIG-GUID: zK58NQcbctbXkVPtrpUJS8dX4lggdTdH
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1MyBTYWx0ZWRfX2qCQxgdSpupA
- 9aGZb8HvYWDM/SiUL4YrJt3u6GEcRHRClz8KNat9mCu9938IfNAbE//UBo/naskvpaPVpl9Njcv
- FdpNjRW119YFWg/VjsBueHEL8haOzw5SkFdgHTrCcis9jiknWEb7HhmyuNADo1szeMbccnnENhU
- XNGwaYcan68FzIztsRzPRgAgSdy+s9kvYWpfX/xrimcuSvOEiv6qREPmMZoGcVZuGpDN+mMC/N1
- 3YHqgje0A2vOw9s9GbI8VgZXNxHj5z3EmXcdYzZI2y4mnJKw7t3oA6nQ0EbhXsR/9W/MiwlmYx0
- NfxoLEh1fG5Zp1yHh9z1k19b5MKtrVHrPf8Tb+DeyGFr4Jh5O+7Bb5+ZdXNIB/C41VAhLlDyyNl
- rlALEGtlX0Ug4Z3JSsZrVhBZS5tovPnO+bmc3ogQxKvT88L/eLduqcISL5nZ8p55i1q8jgpCyXU
- HBLtEAL1xjWX13zm1BA==
-X-Authority-Analysis: v=2.4 cv=E8BYNqdl c=1 sm=1 tr=0 ts=6ad0d363 cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=nSxbz2b1ZoL0s5JVDngA:9 a=QEXdDO2ut3YA:10 a=crWF4MFLhNY0qMRaF8an:22
-X-Proofpoint-GUID: zK58NQcbctbXkVPtrpUJS8dX4lggdTdH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 suspectscore=0 malwarescore=0 spamscore=0
- bulkscore=0 adultscore=0 priorityscore=1501 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150053
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XRy07DMBAF0F+pvMZo7PEjYcV/VCz8pEZqjOwSF
+ VX5d+wimizIcqR77l3MjdRQUqjk5XAjJcyppjy1Qz8diDuZ6T3Q5NtNOHAFI3B6TsUAU1TrYJV
+ VXKIXpKU/S4jpem86vv3e9ct+BHfpvCdOqV5y+b5Pzazn/lrx0TozCtREAIYhggb/mnwwNU82m
+ +KfXT6TXj7zLRcr540z76K2aAbQYYfjluuVY+MW9GCUHtErucPFlg8rF319lCBBOIbM7XC54Qg
+ rl42LcTQojB04iB2uHpwBkytXfb29xUWvPEr9D1+W5QcKm3cC8gEAAA==
+X-Change-ID: 20260902-mira016-77eb6b6253d4
+To: Philippe Baetens <philippebaetens@gmail.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6816;
+ i=jacopo.mondi@ideasonboard.com; h=from:subject:message-id;
+ bh=72zWqaeDl4nLOLtnMsKwa9rz2e7NI7gjjXJbDg2f3a8=;
+ b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBq0NN8ZeHtMbZ9kkUH8HebFU8cmyJOTcDSvz6Gc
+ AtWckCpRxmJAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCatDTfAAKCRByNAaPFqFW
+ PDpLEACMX9jKvVE11wRzTxbzX3u/6FmNveTu5ezpBrQZWjbDGewG7TP+W+7fcyP0rr14W36V9Uu
+ Z6Mp7DBJm98liTEBBoE7mUK4nlOX3FdHfRhjjHon61sMsxLXEUZJR2wZXzyoJqHWflGsuGBzoQ/
+ jYwcDTq2BGJgBnQOskqMPw66K6uQdn54RjkffIToRfc5ussgZHjrqyQfjEPFKsEeUunR7b3Owp9
+ muLv1zo23PsZ25iOsoPBJJytX95/TGqgmELZxPCc50/2Cr/N4q7UrPTsNSC/Wc5NEITSaxLOvC4
+ FRySy5H4XEQypv4edbUcHqzqYHBgKWQhL3qYTpHoQBOmJ0vJkYW3ZSBhzURxioRmZxuIgYKngvc
+ VCLw1rKImaOkW2wSJtxuWurhQ+MjPTuh+KtI+13Z4rSYKtkkkNq9iiubErGvH+gHhp6lYE+8+t/
+ G4RhH6912Yz9pDQtgAh/wPXipCHZfG4v9UrSQBz7W9N4766g5jBqNA0PRAWA/qRwjheK4TlsvgW
+ BBFD47BjZPGEofdJKgU6GfypealNHbqUvQ+jbLBtXyOOqLvjGL83uk/siAo0VXD6BhNhozfhnSx
+ If0JZnIZPDTJod6M0301puZ0602nFxPeNScKVtc+qZGBmWt/gLYqrjeGucqCju5NKkHogj9ouQI
+ 4+PVYuDcWMLczFw==
+X-Developer-Key: i=jacopo.mondi@ideasonboard.com; a=openpgp;
+ fpr=72392EDC88144A65C701EA9BA5826A2587AD026B
 
-On 10/12/26 3:11 PM, Akash Kumar wrote:
-> Add support for the Cypress CYPD6129 dual Type-C PD controller on the
-> Talos Lyra EVK.
+ams OSRAM Mira016 is a 0.16MP NIR enhanced global shutter image sensor.
+It supports 8, 10 and 12 bits luma-only image formats with configurable
+gains (only in 8 and 10 bit modes, with the 12 bit gains fixed at 1x).
 
-[...]
+Add a Video4Linux2 subdevice driver for it.
 
-> +	regulator-usb1-vbus {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "USB1_VBUS";
-> +		gpio = <&pm8150_gpios 10 GPIO_ACTIVE_HIGH>;
-> +		pinctrl-0 = <&usb1_en>;
-> +		pinctrl-names = "default";
-> +		enable-active-high;
-> +		regulator-always-on;
-> +	};
-> +
->  };
+The Mira016 supports binning, skipping and embedded data. It would be
+an ideal candidate for the new common RAW sensor model.
 
-Stray \n
+As the model is not available yet in mainline, this first version
+doesn't support set_selection() and doesn't support embedded data.
 
->  
->  &i2c5 {
-> @@ -59,6 +73,68 @@ expander3: gpio@3c {
->  		#gpio-cells = <2>;
->  		gpio-controller;
->  	};
-> +
-> +	typec@40 {
-> +		compatible = "cypress,cypd6129";
-> +		reg = <0x40>;
-> +		interrupt-parent = <&tlmm>;
-> +		interrupts = <86 IRQ_TYPE_LEVEL_LOW>;
+These features will be implemented on top of the new RAW sensor model
+once available.
 
-interrupts-extended = <&tlmm 86 IRQ..>;
+CI pipeline:
+https://gitlab.freedesktop.org/linux-media/users/jmondi/-/pipelines/1767338
 
-> +		pinctrl-0 = <&usb0_intr_state>;
-> +		pinctrl-names = "default";
-> +		wakeup-source;
-> +
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +
-> +		status = "okay";
+$ ./v4l2-compliance -d /dev/v4l-subdev2
+v4l2-compliance 1.33.0-5491, 64 bits, 64-bit time_t
+v4l2-compliance SHA: b32589c51481 2026-07-16 08:51:38
 
-Nodes are enabled by deafult
+Compliance test for device /dev/v4l-subdev2:
 
-> +
-> +		/*
-> +		 * connector@0 is the USB0 Type-C port with SuperSpeed support,
-> +		 * routed to usb_1. connector@1 is the USB1 Type-C port with
-> +		 * USB 2.0 HS-only support, routed to usb_2.
-> +		 */
+Driver Info:
+	Driver version   : 6.18.37
+	Capabilities     : 0x00000000
+	Client Capabilities: 0x0000000000000002
+interval-uses-which
+Required ioctls:
+	test VIDIOC_SUDBEV_QUERYCAP: OK
+	test invalid ioctls: OK
 
-We can read this from the of_graph below, please drop this comment
+Allow for multiple opens:
+	test second /dev/v4l-subdev2 open: OK
+	test VIDIOC_SUBDEV_QUERYCAP: OK
+	test for unlimited opens: OK
 
-[...]
+Debug ioctls:
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
 
->  &usb_1 {
-> -	dr_mode = "peripheral";
-> +	dr_mode = "otg";
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 0 Audio Inputs: 0 Tuners: 0
 
-This is the default
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
 
-> +	usb-role-switch;
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
 
-This belongs in the SoC DTSI
+Control ioctls:
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+	test VIDIOC_QUERYCTRL: OK
+	test VIDIOC_G/S_CTRL: OK
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 11 Private Controls: 0
 
-[...]
+Format ioctls:
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK (Not Supported)
+	test VIDIOC_TRY_FMT: OK (Not Supported)
+	test VIDIOC_S_FMT: OK (Not Supported)
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
 
->  &usb_2 {
-> -	dr_mode = "host";
-> +	dr_mode = "otg";
-> +	usb-role-switch;
->  
->  	status = "okay";
-> +
-> +	port {
-> +		usb_2_dwc3_hs: endpoint {
-> +			remote-endpoint = <&ucsi_ccg_port_1_hs>;
-> +		};
-> +	};
+Codec ioctls:
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
 
-Likewise
+Buffer ioctls:
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK (Not Supported)
+	test Requests: OK (Not Supported)
+	test blocking wait: OK (Not Supported)
 
-Konrad
+Total for device /dev/v4l-subdev2: 46, Succeeded: 46, Failed: 0, Warnings: 0
+
+Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+---
+Changes in v7:
+- Fix power on error path as reported by Sashiko
+- Link to v6: https://patch.msgid.link/20261015-mira016-v6-0-177ecfd6d357@ideasonboard.com
+
+Changes in v6:
+- Address Tarang's review comments:
+  - Remove unused macros
+  - Check for FORMAT_ACTIVE && is_streaming() at the beginning of
+    set_pad_fmt()
+  - Use mira016->dev where possible
+  - Fix pll_m_lut[] and row_length initialization
+  - Remove repeated writes to register 0xe000 from sequences
+- Use the raw regulator APIs: bulk api do not guarantee ordering, which
+  is instead specified by Mira016 manual
+- Implement soft reset handling according to the sensor manual operation
+  data flow
+- Link to v5: https://patch.msgid.link/20260930-mira016-v5-0-499a34ab8204@ideasonboard.com
+
+Changes in v5:
+- Rebase and add support for struct v4l2_subdev_client_info
+- Call pm_runtime_set_suspended() conditioanlly
+- Remove start streaming from register sequences
+- Break-out ROW_LENGTH configuration to a dedicated function
+- Remove start streaming from register sequences
+- Link to v4: https://patch.msgid.link/20260908-mira016-v4-0-1950504c131c@ideasonboard.com
+
+Changes in v4:
+- Address Sashiko comments:
+  - Correct XWIN and XRIGHT registers sizes
+  - Correct pll esc_period calculation
+  - Do not mix gotos and cleanup in endpoint parsing
+- Link to v3: https://patch.msgid.link/20260907-mira016-v3-0-b078a6793d65@ideasonboard.com
+
+Changes in v3:
+- dts: remove labels from example
+- Address Sakari's comments
+  - Parse endpoint early
+  - Do not overwrite firmware parsing errors
+  - use div_u64()
+- Link to v2: https://patch.msgid.link/20260904-mira016-v2-0-1dcf7b3a807e@ideasonboard.com
+
+Changes in v2:
+- Address Sashiko comments:
+    - Do not overwrite cci_write() return error codes
+    - Don't call mira016_calc_row_length() in init_state()
+      - This would re-calculate row length at each open() call and modify
+        the sensor configuration even for TRY states.
+      - The call is also unecessary as:
+        - row_length is initialized in probe()
+        - mira016_calc_row_length() is called by set_pad_format() for ACTIVE
+          states already
+    - Offset the gain codes by 1. The gain LUT tables are 0-indexed while
+      V4L2 controls are indexed by 1. Adjust the gain index before accessing
+      the LUT to avoid and out-of-bounds error
+    - Free the control handler before the subdev state during remove, as the
+      s_ctrl handler uses the subdev active state
+- Link to v1: https://patch.msgid.link/20260903-mira016-v1-0-af0013ef070d@ideasonboard.com
+
+---
+Jacopo Mondi (2):
+      dt-bindings: media: i2c: Add Mira016 image sensor
+      media: i2c: mira016: Add driver for Mira016
+
+ .../devicetree/bindings/media/i2c/ams,mira016.yaml |   97 +
+ MAINTAINERS                                        |    8 +
+ drivers/media/i2c/Kconfig                          |   12 +
+ drivers/media/i2c/Makefile                         |    1 +
+ drivers/media/i2c/mira016.c                        | 2358 ++++++++++++++++++++
+ 5 files changed, 2476 insertions(+)
+---
+base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
+change-id: 20260902-mira016-77eb6b6253d4
+
+Best regards,
+--  
+Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+
