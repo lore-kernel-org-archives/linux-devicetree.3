@@ -1,474 +1,187 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E6B3852ED20;
-	Thu, 15 Oct 2026 14:26:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C369653D0CE
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 14:26:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792074400; cv=none; b=BZorlhFG8yalF4qCgAaHb3KHqKw5ULL+xqmk/RAs68SBK3U+F6epItxpqMgZa9U0sh7EYxQYOuMYp8osD3Wg8rAIA5dsDpO/rhlLv2p/oNb9Ix609RXlc4GpaKdal05OS2lPSOOrj+GnZlc6+vr3HLoN6zNOUjaad9NktzzA7g4=
+	t=1792074404; cv=none; b=R8GLebgRcjKhcXSw4THUmic+TbM3D1MsBBUm/rwr5i8s93Oiz+DgQn2H0VtSqY9/S42ft9oOQ40YSXRXe06A5W0/K78kd539BPQtc3Yb8h3iv48/NSLkTglvI5F88yx5meSdcXI3vJ2brVUfQFpoz/o28b1TQH6eAjNnrFqUxBE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792074400; c=relaxed/simple;
-	bh=8nTqK/gXGNpBA+7zpgdbk84taZTWcv+6ZB6Xx4LiXow=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YdfHUsAFdPi7jgInc1lw1+G2VxPwzmJlA/MFaq9yVI0AYTWHU7zj95L7dwnhETv95SFGOqtfDtaSawpIcpBIxbYIDw/A+PGtv0A1sBsGFIFxIKgOTa2oUsc8xzI0O4au0yVYVywSL8J1bUn7J7VjtoxxoVrMl8p7EZfJii1mZvE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=nvoCIcaY; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792074404; c=relaxed/simple;
+	bh=bioD0/+GRSIZztD0rAdzeKFKyqkS+BVldDDZ5gYLA7M=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=h8XKIuRZk7QuYlO0qPQQUImRjIVwLQZJQptwQk9DioaxSi/GUKsqGX5XzFgnknLPx2GYLPj2Heai2AoEMNxKLajhqj1PpAHDtjUJDGhidLCURK4GtYIEnOnbrfsk4ujCYwqW3LOTtxa96ZsZoeUrDEJoIvGeNS1X1KU3D7cLkpU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Iw0htt73; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YKI4hYa5; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="nvoCIcaY"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8E33115A1;
-	Thu, 15 Oct 2026 07:26:24 -0700 (PDT)
-Received: from e125769.cambridge.arm.com (e125769.cambridge.arm.com [10.2.198.107])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 09FD13F871;
-	Thu, 15 Oct 2026 07:26:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792074387; bh=8nTqK/gXGNpBA+7zpgdbk84taZTWcv+6ZB6Xx4LiXow=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=nvoCIcaYVX/M+nkfRxZxnsW4WBC6eqMTL9bQlMjOLUyhc7E0U0zSrEaAfz8ri7xuH
-	 DEd+xCSjAC7Q6cL+zkrjTFh25cwBU49kQG5kkhxfabhCxph0XE3fXfM01XDMup41TH
-	 0cFv16GLInzBr5OzeKSW0LX/qH2d9uG/dingM8vg=
-From: Ryan Roberts <ryan.roberts@arm.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Alex Williamson <alex@shazbot.org>,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jean-Philippe Brucker <jpb@kernel.org>,
-	Oded Gabbay <ogabbay@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>
-Cc: Ryan Roberts <ryan.roberts@arm.com>,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	kvm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-doc@vger.kernel.org
-Subject: [RFC PATCH v2 07/15] misc/arm-cla: Set up memory translation context
-Date: Thu, 15 Oct 2026 15:25:41 +0100
-Message-ID: <20261015142552.4128028-8-ryan.roberts@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261015142552.4128028-1-ryan.roberts@arm.com>
-References: <20261015142552.4128028-1-ryan.roberts@arm.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Iw0htt73";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YKI4hYa5"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9jhwn3510339
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 14:26:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	mAQibhB3BU4XK9rhY3Rtg4MZdwMJFrdXgDdCbJcLw0w=; b=Iw0htt73hPoa3S6X
+	Ojct/r3qln6GOZp7WBO6DEMClDLMEQJRWp7Td8e9zpUQJ/tu+yy4xjv9t2JEpWni
+	KSAhnFn57Ir9dor9hoq7wInt5FFDn9ZEEw0P1k/VCX8NvDjxtbCCdYglrRWVN5Pe
+	v7VP2wYwgjuB/zvmgYsLA8yPeSNQG4MEIcXNHtJDGhV4HeU3KcI5py/60TE0tLbe
+	LO3Y7lCcX8eDDgiAetqWvqGj1ZSUtzRLmtU633jFMfS/n5mwZ9C9v90ZXBSg+UU/
+	vXwCl6wlLs6Tj9TtsZNb3fFuHRG0qBUTO8rN0EFljZhP+NIj5xT9JWfNcGJOUycv
+	8LozVA==
+Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4haqdsafd3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 14:26:33 +0000 (GMT)
+Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-7cc0a64ad59so133290137.2
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 07:26:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792074393; x=1792679193; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mAQibhB3BU4XK9rhY3Rtg4MZdwMJFrdXgDdCbJcLw0w=;
+        b=YKI4hYa5nXAHBtb1w6ov7nC788udrprSeuo0NrWAZg4WBdrrrB1FJoBwLLOq9R4ROG
+         GEpzvHuOAlFDTPN5JuySM9r+ji1bmvFgrFNOHJW2IVzykUG0EwAznBN4GFim+uc2U9QC
+         3GHztTZpDR+c88GfeGNRvHj6NYJQFP1LfhRu8dDa/9mZfqrnD10qrhJfF5lIA9+Vjo6k
+         g8RE62IqMNRQDv4AJwOfMF+6qZcoCwwi8E/LVYaV8UBgao9c5F6b2AYgnmtxfMbKGYNX
+         +YQ//z1n7iUZLLVx4us4kN3rKsBgQNdww738UDIy5GR58oKt1d3FkmxHK4zNOggcJYk9
+         j/jA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792074393; x=1792679193;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mAQibhB3BU4XK9rhY3Rtg4MZdwMJFrdXgDdCbJcLw0w=;
+        b=05eyuRpIe/m+dSxaPmAgZf8uTeA2ZkmW9maltFzGuqtWnHSCzO9hq21oehvMcynpE4
+         z+ySg3xdaNHfwLs0dsRIt3BCx0YC2GcD022aZ5bQptlyTkKG+zVr3xGEeaoCWYgwC7ct
+         c34Unh1G/OvJfKEXGSZzNHWlfyhcoA5vtnIp5Je9PfwoCidse/XNFl0watsCbiqSfCZa
+         wYw9aXH9KxiuKtMFVTMcJX4BTMGwzSMhQSaCdnA311BT4C8kYEa/TtAz6PK4PqUUcdJh
+         mxk9aH862PWN7I7ZeYLhnmjbrkTwLZ/YUWycHo3eThS3MgcK091hXZVc96kXn8TSRWg4
+         e24Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxui7EmOeDU/XEcEZ80ijEdpr2/LBqqUVzuIKwkwwqXvmOh9FulOJbY8dpRiONFVBVEqjER0YNm+qfL@vger.kernel.org
+X-Gm-Message-State: AFq9FYKgBvHrU9hJA9QDeX1z4Er/sqc9/tQRzLJGZtdsZuhclkjdNnkH
+	LB9/omQMMCbgcdAQgUpo0SXfqn1lZ0y2hpPYSDyjeU/dA9nLDGRn+22wegXD3kKiW7H5yGMq4ju
+	JkcUf2ZkwHjS/y6jUDlbSkaNh+jEnL2nNsgczezoOlscMtKzRURF1ANk78AKpBsWN
+X-Gm-Gg: AYBFou1CRE6cdSSUnQPqIbZStVWOWCXr1ZuaXmZSs5PmgZSfQkeJ4dYg2d57xeBOVcH
+	kUDfzuOjbQNctFVnn6ttYWjjHHhFE+r0cjRobr0p1K3IaSIG+ovu6YhkhxYphut7gBL5waKVPGU
+	+RSniS7kFNDQOyQSXjcHcbBY8bnRBb1lJ3j1jWTPQF0iSmNQmq9DHN6aDF/aS+8jO4RTMzAAYRr
+	X8Ldl/QJ+F2PMhzZdIAWd+w+X6wbpNcxZOh5GsrG2JeD9tEwxH4Eu8s9gtw65JUHmAkhLoc4Ijx
+	Sa7uO4FEnYGsTGBnn0Q4tqKYzS/OMg0sZND7JJFDhH/d3Vb1I7Gxd4QGvnRL57CHmbGQZQxlXv1
+	O8pCLwGuLt2iZyVmYjd690AhIHsrIeEy6CMMgfDArq6qokr5SAgFT1p9sAoaM12cEAPlP5B744A
+	nwdiNuChWzWVY7ARXHz4UCUuIMfRqL/U8xLk+o7MQ9K32g139ag+A=
+X-Received: by 2002:a05:6102:5717:b0:7bf:d9dd:82f8 with SMTP id ada2fe7eead31-7cb373808f0mr3918248137.21.1792074392544;
+        Thu, 15 Oct 2026 07:26:32 -0700 (PDT)
+X-Received: by 2002:a05:6102:5717:b0:7bf:d9dd:82f8 with SMTP id ada2fe7eead31-7cb373808f0mr3918202137.21.1792074390919;
+        Thu, 15 Oct 2026 07:26:30 -0700 (PDT)
+Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:5402:5e0b:9ef0:9b5b])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd6428b3sm69083145e9.1.2026.10.15.07.26.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 07:26:29 -0700 (PDT)
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Thu, 15 Oct 2026 16:26:05 +0200
+Subject: [PATCH v11 6/7] Bluetooth: qca: Set NVMEM BD address quirks when
+ address is invalid
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-block-as-nvmem-v11-6-f890ac74f87d@oss.qualcomm.com>
+References: <20261015-block-as-nvmem-v11-0-f890ac74f87d@oss.qualcomm.com>
+In-Reply-To: <20261015-block-as-nvmem-v11-0-f890ac74f87d@oss.qualcomm.com>
+To: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+        Johannes Berg <johannes@sipsolutions.net>,
+        Jeff Johnson <jjohnson@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Marcel Holtmann <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
+        Rocky Liao <quic_rjliao@quicinc.com>,
+        "David S. Miller" <davem@davemloft.net>,
+        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+        Simon Horman <horms@kernel.org>,
+        Srinivas Kandagatla <srini@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
+        Heiner Kallweit <hkallweit1@gmail.com>,
+        Russell King <linux@armlinux.org.uk>,
+        Saravana Kannan <saravanak@kernel.org>,
+        Christian Marangi <ansuelsmth@gmail.com>,
+        Eric Dumazet <edumazet@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Eric Dumazet <edumazet@kernel.org>
+Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-block@vger.kernel.org, linux-wireless@vger.kernel.org,
+        ath10k@lists.infradead.org, linux-bluetooth@vger.kernel.org,
+        netdev@vger.kernel.org, daniel@makrotopia.org,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Proofpoint-ORIG-GUID: yusD2eQEv1ueT9lqpHSbScmblJXel2QM
+X-Authority-Analysis: v=2.4 cv=fNusTpae c=1 sm=1 tr=0 ts=6ad0e299 cx=c_pps
+ a=P2rfLEam3zuxRRdjJWA2cw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
+ a=99fXo_IpyjsNTNVBUdkA:9 a=QEXdDO2ut3YA:10 a=ODZdjJIeia2B_SHc_B0f:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1NyBTYWx0ZWRfX0qrzt0EHa+Gk
+ T2EwwoakMjxW8NLgNV9Pn09WjOCgIEgzUTeu1O3YqdrruKCpFS2PwffGRrABwNiaKuqoU87Owje
+ 0nKLnrfzcUrKpBdEtEa6aCSuDNsr+NSH++tgAwkQY5rxgASIPlKbmIir57SE6S+WNlocvgx2bzb
+ abNCZJ6VVuOM3SbqEX73MbjF+RNFO6mSgQuWUTS8jR/+tE6KEJp2rup3i6VQVwTcvtmeTeWl+8a
+ Hy7edT+JfRyGE7l1m4S+mlb59IzRcZI41lCvJR494g2hNTVNbXf2AH8QVmuaHrybEtM6ys/R/pO
+ u4iRwURFUTDkhJRk5MDR/0gclzQBSd0px1CGEpfV6kXtGTNiCNC9l02rkN3R2NweXEt3P0QbdLU
+ N5NOuhWhFmqZ42EghO93CQvLQdem34Kljw3nPezBttfxpkGDMOxc2D+GhwisdG+/qWpKcRyLxP4
+ pbK9E9LoN6g4wpGAuQg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1NyBTYWx0ZWRfXxpRJXXC311zo
+ J3zl4tCJ/fB+r2oCqLOErQjj0sxxL11dNXghRmhbuziAJPmSsTrQvB6W7jGSoqxeT6uFFxG/oOl
+ uj3dVYnOZvx3NMIvrrX2ZSy+tPnCtl8=
+X-Proofpoint-GUID: yusD2eQEv1ueT9lqpHSbScmblJXel2QM
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0
+ spamscore=0 clxscore=1015 priorityscore=1501 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150057
 
-CLA accelerators use a Memory Translation Context to describe the
-page-table and memory-system configuration used for DMA through the CPU
-MMU. Set up the kernel-owned MTC during CLA bringup so later context
-switches only need to replace the user TTBR0 value.
+When the controller BD address is invalid (zero or default),
+set the NVMEM quirks to allow retrieving the address from a
+'local-bd-address' NVMEM cell. The BD address is often stored
+alongside the WiFi MAC address in big-endian format, so also
+set the big-endian quirk.
 
-Populate the MTC from the CPU EL1 configuration, including SCTLR, MAIR,
-TCR and TCR2 where present. Configure the accelerator to run as EL0, put
-the ASID in TTBR0 and disable TTBR1 translations because the driver only
-installs user contexts in the TTBR0 range. When running at EL2, also
-program the host HCR state.
-
-Add SETCTX and GETCTX launch helpers for MTC register access. Use the
-first available accelerator ID for these operations, since the MTC is
-shared by the CLA but the operation still requires a valid accelerator
-ID.
-
-Clear the MTC on CPU teardown, and add helpers to install and uninstall
-a user translation context by updating TTBR0 with the process page
-table, ASID and CnP state.
-
-Co-developed-by: Jean-Philippe Brucker <jpb@kernel.org>
-Signed-off-by: Jean-Philippe Brucker <jpb@kernel.org>
-Signed-off-by: Ryan Roberts <ryan.roberts@arm.com>
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 ---
- drivers/misc/arm-cla/Makefile   |   1 +
- drivers/misc/arm-cla/arm-cla.h  |  24 ++++
- drivers/misc/arm-cla/cla-init.c |  10 +-
- drivers/misc/arm-cla/cla-mtc.c  | 206 ++++++++++++++++++++++++++++++++
- drivers/misc/arm-cla/cla-ops.c  |  52 ++++++++
- 5 files changed, 291 insertions(+), 2 deletions(-)
- create mode 100644 drivers/misc/arm-cla/cla-mtc.c
+ drivers/bluetooth/btqca.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/misc/arm-cla/Makefile b/drivers/misc/arm-cla/Makefile
-index c1b14155454d..df3ad7e4a1b4 100644
---- a/drivers/misc/arm-cla/Makefile
-+++ b/drivers/misc/arm-cla/Makefile
-@@ -2,6 +2,7 @@
- 
- arm-cla-y := \
- 	cla-init.o \
-+	cla-mtc.o \
- 	cla-ops.o \
- 	cla-regs.o \
- 	cla-topology.o
-diff --git a/drivers/misc/arm-cla/arm-cla.h b/drivers/misc/arm-cla/arm-cla.h
-index 6d72d57e5422..40e95d3128ad 100644
---- a/drivers/misc/arm-cla/arm-cla.h
-+++ b/drivers/misc/arm-cla/arm-cla.h
-@@ -83,8 +83,20 @@ struct cla_regs_pl0 {
- 	u64 regstate[];
- };
- 
-+/**
-+ * struct cla_ctx_key - Unique context identifier
-+ * @mm: For PL0 contexts, the mm.
-+ * @file: for PL0 contexts, the file.
-+ */
-+struct cla_ctx_key {
-+	struct mm_struct *mm;
-+	struct file *file;
-+};
-+
- struct cla_ctx {
-+	struct cla_ctx_key key;
- 	void **regs;
-+	unsigned int asid;
- };
- 
- extern struct xarray cla_domains;
-@@ -139,6 +151,10 @@ int cla_op_regread(struct cla_dev *dev, unsigned int accid, unsigned int regidx,
- 		   size_t nregs, u64 *regs);
- int cla_op_regwrite(struct cla_dev *dev, unsigned int accid,
- 		    unsigned int regidx, size_t nregs, u64 *regs);
-+int cla_op_setctx(struct cla_dev *dev, unsigned int regidx, size_t nregs,
-+		  u64 *regs);
-+int cla_op_getctx(struct cla_dev *dev, unsigned int regidx, size_t nregs,
-+		  u64 *regs);
- int cla_op_entersr(struct cla_dev *dev, unsigned int accid, u64 *srstate);
- int cla_op_exitsr(struct cla_dev *dev, unsigned int accid, u64 *srstate);
- 
-@@ -149,4 +165,12 @@ int cla_regs_uninstall(struct cla_dev *dev, struct cla_ctx *ctx,
- int cla_ctx_alloc_regs(struct cla_domain *domain, struct cla_ctx *ctx);
- void cla_ctx_free_regs(struct cla_domain *domain, struct cla_ctx *ctx);
- 
-+int cla_mtc_setup(struct cla_dev *dev);
-+int cla_mtc_clear(struct cla_dev *dev);
-+int cla_mtc_install(struct cla_dev *dev, struct cla_ctx *ctx);
-+int cla_mtc_uninstall(struct cla_dev *dev, struct cla_ctx *ctx);
-+int cla_mtc_get_ctx(struct cla_ctx *ctx);
-+void cla_mtc_put_ctx(struct cla_ctx *ctx);
-+void cla_mtc_leak_ctx(struct cla_ctx *ctx);
-+
- #endif /* _ARM_CLA_H_ */
-diff --git a/drivers/misc/arm-cla/cla-init.c b/drivers/misc/arm-cla/cla-init.c
-index a4d2ffaa3136..58f37787a59c 100644
---- a/drivers/misc/arm-cla/cla-init.c
-+++ b/drivers/misc/arm-cla/cla-init.c
-@@ -184,7 +184,8 @@ static void cla_dev_reinit(struct cla_dev *dev)
- 	if (dev->broken)
- 		return;
- 
--	if (WARN_ON(cla_op_reset_all(dev))) {
-+	if (WARN_ON(cla_op_reset_all(dev)) ||
-+	    WARN_ON(cla_mtc_clear(dev))) {
- 		dev->broken = true;
- 		return;
+diff --git a/drivers/bluetooth/btqca.c b/drivers/bluetooth/btqca.c
+index 22b08ab05b829bef2452cacad9c25eb8a63cda19..08600b0fc041cb09c175bf456cefcb6493171aa1 100644
+--- a/drivers/bluetooth/btqca.c
++++ b/drivers/bluetooth/btqca.c
+@@ -704,8 +704,11 @@ static int qca_check_bdaddr(struct hci_dev *hdev, const struct qca_fw_config *co
  	}
-@@ -242,9 +243,14 @@ static int cla_dev_setup(unsigned int cpu)
  
- 	cla_reg_write(dev, CLA_REG_PL0CTRL, plxctrl_val);
- 
--	if (dev->accelerators)
-+	if (dev->accelerators) {
-+		ret = cla_mtc_setup(dev);
-+		if (ret)
-+			goto err;
-+
- 		cla_info(dev, "available accelerators: 0x%02x\n",
- 			 dev->accelerators);
+ 	bda = (struct hci_rp_read_bd_addr *)skb->data;
+-	if (!bacmp(&bda->bdaddr, &config->bdaddr))
++	if (!bacmp(&bda->bdaddr, &config->bdaddr)) {
+ 		hci_set_quirk(hdev, HCI_QUIRK_USE_BDADDR_PROPERTY);
++		hci_set_quirk(hdev, HCI_QUIRK_USE_BDADDR_NVMEM);
++		hci_set_quirk(hdev, HCI_QUIRK_BDADDR_NVMEM_BE);
 +	}
  
- 	dev->discovered = true;
- 	return 0;
-diff --git a/drivers/misc/arm-cla/cla-mtc.c b/drivers/misc/arm-cla/cla-mtc.c
-new file mode 100644
-index 000000000000..9ab25085dfdf
---- /dev/null
-+++ b/drivers/misc/arm-cla/cla-mtc.c
-@@ -0,0 +1,206 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Arm CLA driver - memory translation context
-+ *
-+ * Copyright 2026 Arm Limited.
-+ */
-+
-+#include <asm/kvm_arm.h>
-+#include <linux/mmu_context.h>
-+
-+#include "arm-cla.h"
-+
-+#define cla_kernel_mtc \
-+	(cla_kernel_pl == 2 ? CLA_MTC_REGIDX_PL2 : CLA_MTC_REGIDX_PL1)
-+
-+/**
-+ * cla_mtc_setup - initialize the memory translation context
-+ * @dev: CLA device
-+ *
-+ * Return: 0 on success, or a negative error code.
-+ */
-+int cla_mtc_setup(struct cla_dev *dev)
-+{
-+	int ret;
-+	u64 tcr;
-+	u64 regs[2 * CLA_MTC_PL_SIZE] = {};
-+	u64 *kregs = &regs[cla_kernel_mtc];
-+	size_t regs_size = cla_kernel_pl * CLA_MTC_PL_SIZE;
-+	u64 reserved_ttbr = phys_to_ttbr(page_to_phys(ZERO_PAGE(0)));
-+
-+	/*
-+	 * The MTC registers deliberately have the same layout as their arm64
-+	 * sysreg counterparts. Where MTC registers don't define a particular
-+	 * field, it is specified as "reserved RAZ/WI", so we can safely copy
-+	 * the whole arm64 register value to the MTC register without needing to
-+	 * do any masking. That just leaves the possibility of the CPU
-+	 * supporting a VMSA feature which is necessary for correct sharing of
-+	 * pgtables that the MTC doesn't support (e.g. MTE, PIE, POE);
-+	 * Fortunately, CLA is part of the CPU implementation so this is
-+	 * guaranteed never to happen.
-+	 */
-+
-+	/* The accelerator always runs as EL0 */
-+	kregs[CLA_MTC_PSTATE] = FIELD_PREP(CLA_MTC_PSTATE_EL, 0) |
-+				FIELD_PREP(CLA_MTC_PSTATE_PAN,
-+					   system_uses_hw_pan());
-+	kregs[CLA_MTC_TTBR0] = reserved_ttbr;
-+	kregs[CLA_MTC_TTBR1] = reserved_ttbr;
-+	kregs[CLA_MTC_SCTLR] = read_sysreg(sctlr_el1);
-+	kregs[CLA_MTC_MAIR] = read_sysreg(mair_el1);
-+
-+	if (cpus_have_final_cap(ARM64_HAS_TCR2))
-+		kregs[CLA_MTC_TCR2] = read_sysreg_s(SYS_TCR2_EL1);
-+
-+	tcr = read_sysreg(tcr_el1);
-+	/*
-+	 * Put ASID in TTBR0, so that we only have one reg to update when
-+	 * switching context.
-+	 */
-+	FIELD_MODIFY(TCR_EL1_A1, &tcr, 0);
-+	/*
-+	 * We never map anything in the TTBR1 VA range so explicitly disable
-+	 * translations via TTBR1.
-+	 */
-+	FIELD_MODIFY(TCR_EL1_EPD1_MASK, &tcr, 1);
-+	kregs[CLA_MTC_TCR] = tcr;
-+
-+	if (cla_kernel_pl == 2) {
-+		/* E2H and TGE */
-+		regs[CLA_MTC_HCR_EL2] = HCR_HOST_VHE_FLAGS;
-+	}
-+
-+	/*
-+	 * All accelerators are idle, meaning there can't be any memory
-+	 * transactions happening. So it is safe to setup the MTC in any order.
-+	 * i.e. there is no issue with setting SCTLR.M=1 before we have
-+	 * configured MAIR or TCR2.
-+	 */
-+	ret = cla_op_setctx(dev, CLA_MTC_REGIDX_PL1, regs_size, regs);
-+	if (ret) {
-+		WARN_ON(cla_mtc_clear(dev));
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * cla_mtc_clear - clear the memory translation context
-+ * @dev: CLA device
-+ *
-+ * Return: 0 on success, or a negative error code.
-+ */
-+int cla_mtc_clear(struct cla_dev *dev)
-+{
-+	/* Don't set the RES1 bit in VTCR_EL2 because in MTC they are RAZ/WI. */
-+	u64 regs[2 * CLA_MTC_PL_SIZE] = {};
-+	size_t regs_size = cla_kernel_pl * CLA_MTC_PL_SIZE;
-+
-+	/* SETCTX fails if there is no ACCID */
-+	if (!dev->accelerators)
-+		return 0;
-+
-+	/*
-+	 * All accelerators are idle, meaning there can't be any memory
-+	 * transactions happening. So it is safe to clear the MTC in any order.
-+	 * i.e. there is no issue with clearing TTBRx before setting SCTLR.M=0.
-+	 */
-+	return cla_op_setctx(dev, CLA_MTC_REGIDX_PL1, regs_size, regs);
-+}
-+
-+static int cla_mtc_install_s1(struct cla_dev *dev, struct cla_ctx *ctx)
-+{
-+	u64 ttbr0;
-+
-+	/* SETCTX fails if there is no ACCID */
-+	if (!dev->accelerators)
-+		return 0;
-+
-+	ttbr0 = phys_to_ttbr(virt_to_phys(ctx->key.mm->pgd)) |
-+		FIELD_PREP(TTBRx_EL1_ASID_MASK, ctx->asid);
-+
-+	if (system_supports_cnp())
-+		ttbr0 |= TTBRx_EL1_CnP;
-+
-+	return cla_op_setctx(dev, cla_kernel_mtc + CLA_MTC_TTBR0, 1, &ttbr0);
-+}
-+
-+static int cla_mtc_uninstall_s1(struct cla_dev *dev)
-+{
-+	u64 ttbr0 = phys_to_ttbr(page_to_phys(ZERO_PAGE(0)));
-+
-+	/* SETCTX fails if there is no ACCID */
-+	if (!dev->accelerators)
-+		return 0;
-+
-+	return cla_op_setctx(dev, cla_kernel_mtc + CLA_MTC_TTBR0, 1, &ttbr0);
-+}
-+
-+/**
-+ * cla_mtc_install - enable a translation context
-+ * @dev: CLA device
-+ * @ctx: context to install
-+ *
-+ * Return: 0 on success, or a negative error code.
-+ */
-+int cla_mtc_install(struct cla_dev *dev, struct cla_ctx *ctx)
-+{
-+	return cla_mtc_install_s1(dev, ctx);
-+}
-+
-+/**
-+ * cla_mtc_uninstall - disable the translation context
-+ * @dev: CLA device
-+ * @ctx: context to remove
-+ *
-+ * Return: 0 on success, or a negative error code.
-+ */
-+int cla_mtc_uninstall(struct cla_dev *dev, struct cla_ctx *ctx)
-+{
-+	return cla_mtc_uninstall_s1(dev);
-+}
-+
-+/**
-+ * cla_mtc_get_ctx - Get translation information
-+ * @ctx: context to get
-+ *
-+ * Grab the information needed for installing this context.
-+ * For stage 1 MTC, pin the ASID.
-+ *
-+ * Return: 0 on success, or a negative error code.
-+ */
-+int cla_mtc_get_ctx(struct cla_ctx *ctx)
-+{
-+	ctx->asid = arm64_mm_context_get(ctx->key.mm);
-+	if (ctx->asid == 0)
-+		return -ENOSPC;
-+
-+	return 0;
-+}
-+
-+/**
-+ * cla_mtc_put_ctx - Release translation information
-+ * @ctx: context to release
-+ *
-+ * Undo cla_mtc_get_ctx().
-+ */
-+void cla_mtc_put_ctx(struct cla_ctx *ctx)
-+{
-+	arm64_mm_context_put(ctx->key.mm);
-+}
-+
-+/**
-+ * cla_mtc_leak_ctx - Leak the memory translation config
-+ * @ctx: the stuck context
-+ *
-+ * On catastrophic hardware failure, when we lose control of the device and
-+ * cannot uninstall the context, take a reference to the memory context so that
-+ * it doesn't get freed. The page directory may be accessed by the hardware
-+ * sometime in the future and must not be reallocated.
-+ */
-+void cla_mtc_leak_ctx(struct cla_ctx *ctx)
-+{
-+	WARN(1, "leaking PL0 context\n");
-+	mmgrab(ctx->key.mm);
-+}
-diff --git a/drivers/misc/arm-cla/cla-ops.c b/drivers/misc/arm-cla/cla-ops.c
-index bb0bac5c2d35..ceca84fd58a9 100644
---- a/drivers/misc/arm-cla/cla-ops.c
-+++ b/drivers/misc/arm-cla/cla-ops.c
-@@ -249,6 +249,10 @@ static int cla_op_access_reg(struct cla_dev *dev, u8 op,
- 	case CLA_LAUNCH_OP_REGWRITE:
- 		max_regidx = 0x100000000;
- 		break;
-+	case CLA_LAUNCH_OP_SETCTX:
-+	case CLA_LAUNCH_OP_GETCTX:
-+		max_regidx = 0x80;
-+		break;
- 	default:
- 		WARN_ON(1);
- 		return -EINVAL;
-@@ -315,6 +319,54 @@ int cla_op_regwrite(struct cla_dev *dev, unsigned int accid,
- 				 accid, regidx, nregs, regs);
- }
+ 	kfree_skb(skb);
  
-+/**
-+ * cla_op_setctx - launch SETCTX operation.
-+ * @dev: CLA device.
-+ * @regidx: first MTC register index.
-+ * @nregs: number of registers to set. Can be greater than 8 (accessed with
-+ *         multiple SETCTX operations).
-+ * @regs: register content, array of length @nregs.
-+ *
-+ * Return: 0 on success, or an error.
-+ */
-+int cla_op_setctx(struct cla_dev *dev, unsigned int regidx, size_t nregs,
-+		  u64 *regs)
-+{
-+	/*
-+	 * Even though the MTC is shared between all accelerators, accid must be
-+	 * valid. If no accelerator is attached, the op fails.
-+	 */
-+	if (!dev->accelerators)
-+		return -ENODEV;
-+
-+	return cla_op_access_reg(dev, CLA_LAUNCH_OP_SETCTX, CLA_DATA_IN,
-+				 __ffs(dev->accelerators), regidx, nregs, regs);
-+}
-+
-+/**
-+ * cla_op_getctx - launch GETCTX operation.
-+ * @dev: CLA device.
-+ * @regidx: first MTC register index.
-+ * @nregs: number of registers to get. Can be greater than 8 (accessed with
-+ *         multiple GETCTX operations).
-+ * @regs: register content, array of length @nregs.
-+ *
-+ * Return: 0 on success, or an error.
-+ */
-+int cla_op_getctx(struct cla_dev *dev, unsigned int regidx, size_t nregs,
-+		  u64 *regs)
-+{
-+	/*
-+	 * Even though the MTC is shared between all accelerators, accid must be
-+	 * valid. If no accelerator is attached, the op fails.
-+	 */
-+	if (!dev->accelerators)
-+		return -ENODEV;
-+
-+	return cla_op_access_reg(dev, CLA_LAUNCH_OP_GETCTX, CLA_DATA_OUT,
-+				 __ffs(dev->accelerators), regidx, nregs, regs);
-+}
-+
- /**
-  * cla_op_entersr - launch ENTERSR operation.
-  * @dev: CLA device.
+
 -- 
-2.43.0
+2.34.1
 
