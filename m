@@ -1,302 +1,204 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43264490C1F
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 08:39:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FD5D3D88E0;
+	Thu, 15 Oct 2026 08:44:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792053588; cv=none; b=JTPmgSNEITfHzM8I5dAc7BVO9v87LXOJjezrdc7hEKlCaijl0xmFvLOyY48WR/aEYRDxOYltMTqSGk4XSqFmVbjKcgTAnbCKdbNHjLqCipYP0WiRG0qq4hY2IF6LKvYegu1vo1dpG4tm8IqAP5LNP65z5vOvWlDq7y6L0NSYkWQ=
+	t=1792053882; cv=none; b=ThoBJz3kMsDYhdnuWAoIy1isyU33uP1Y/q57tvrQ57LfD5cI/ZSOUvz8dIM+CgBTFUqNAiI8iy4u3fZwmjuQRPZJIPp+iBRu3n3RMbi7qlML0/yIoJUvltTmKPm0s3mHpmkh63fjInq1wZ9Nqi/FEr8jMrtjvAF+S+DzR9EURVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792053588; c=relaxed/simple;
-	bh=lPeEe7tz+0YSnJKsAf50jnjdmdW341RGDSdUQ921plk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=WAl0Q5zCncIQbEsmyh6FdBgSeTJF2QkStD5LkdqDmj91aqIV5ksUjAMc1D1dcPqPhPOZgYyRwLOSz1Mep0kweHFs7zD8eh/oP53xKE2zo73XGnMUaHncwb4p1QMI6r7oXYKx8raotnxz1FwXnCOjWJtW9B/RqYFDaYplkTjqfTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XeKAWu+8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SiNw5KNc; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792053882; c=relaxed/simple;
+	bh=bZkLoYIQQjVUK4XHgnMXsLjSW9f51PKOjGdxmTBIdGc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gjC4hiW5ZDcaUVjYId0phz4kAwrWkb4ThbtwF8Fu5eiGnXy1vflqs4fKkCNXHmS4YfeO6jjtJsQcoqbu7ph8oFRstrCz3ypoWZqS1kUj65Xq/zXv1MXgXlJqlBA5/oAVOY74NWFg+BkqwgeKdEFU6901CSR46uifzPBdAqdaAbU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QseqCGbK; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XeKAWu+8";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SiNw5KNc"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F3wgVJ1889628
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 08:39:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	QxCVevdJDei/FrP0xFIQ/25OzUVG+gGQ5ld3vJX0vpw=; b=XeKAWu+8nTF+m3il
-	2lHqIQAZSM36hW4nCyCo4ca68w2UCt10w9/1pgcd69mNWCcWvbEnSVB5w+hH5ZYG
-	NNuOlT9vLiqflMUcUAha4NSP+RpRiUWEHO0+FyX1b/q4HyL8LPxRVG0PdYSmy2WF
-	tA5qroFF5Zzwm1gyTY8jrZ8dD5FoYMHIuLbZfviIxZp+8cDhjcHeFzLggyF6fRr2
-	gg2NNzA7H6vuZtIV98u6Ycd+ZdVwRGwBLftk8x8i5KY/ougHd5UmLnn3n4Qgt7kD
-	73AruOL75hr20aWjYnSvmXGwAhGRGlE1ikf1ISCYj0z7kD7h6RmhasELwsLNW4Ty
-	evAhHg==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4haqda11ry-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 08:39:44 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93cc40759b2so1084903885a.1
-        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 01:39:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792053584; x=1792658384; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QxCVevdJDei/FrP0xFIQ/25OzUVG+gGQ5ld3vJX0vpw=;
-        b=SiNw5KNcLe6S33bbfyo1xei7+Xdu2roeKG20IQH9S2cRjW+XgiXJX7PxcSqyVI+Yl+
-         SwWmn/H4xwDFmdZvRhBZ90qBSr/r5cQogDAqRXe17XSLC9fwaF3K+yVqILLBJwJNEb+w
-         jt4B/4BVq4y1WRPQxv2oakqadLSWUAocDS+RLJyeHJrc1wizwc8P59HMCAeCR8235pDf
-         hshSq32/1Shf0Y98Z7AL4Bzll8sNgUpw/qybWEHOA3tLIZtNj8pg/EOkOpEiee/TMEHt
-         MIcPaAwBRxbj2107rmlaCkmuhDcsa+tjBC7kge5R9AURTqO29ZFeM2Sha885kNc3z1sK
-         y9fA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792053584; x=1792658384;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QxCVevdJDei/FrP0xFIQ/25OzUVG+gGQ5ld3vJX0vpw=;
-        b=0dYB0ahOARKOpuQNO8ZqBjhz7KZoKWteHGFIbzTsQguRKi+cWtddw+xsT19yrtA1TM
-         yWdmToWAbEOPi8OsR77i3nVTJ5RiU13h4P5U7Mu5Iup83RkhgWGKXYrolPruMH2b3I3E
-         hf07yH4rQUQ5K0707iaHPbVC6mQUE8MusA8qFEHqAa6sRS079Znx1rm+1QFR1Il0WXkz
-         jdy1e73K6FPobBehvObPKC8EFcWmU40vu66fyFY5QcuWxzHz8fIl6Y0E72s2SYl2KPEU
-         DfqSAI1uvMNbOK6XSxqPGb+OIYfGqpQa0tSpNF5eGkQOaLpoXUat+6njW2uC7PJeTd7W
-         7bSA==
-X-Forwarded-Encrypted: i=1; AKwUvByscJ/FkO///4SG/n9rX4ALVVBgb77aY0nWS1Pf7qMNyYoRCgatdphwTKI86FVfrPle7I97sTOcgH8i@vger.kernel.org
-X-Gm-Message-State: AFq9FYKhlQzuWh87gXVGmt3Fq+gFIiYY1Fic0+fGGb98KPZgL3tqp9uo
-	PBhA3JsusP66kKyOcNOC7Ba7qCPjaOG1Puyo0SGfBh9zS3H8drwcjhGcDQ1WQfd3Q6AsvAaUZkA
-	qmj2SA2WhzIWuBKlj/Nb0zGfsd5NW7UInlqodXOukYJGlBl56yAOteklTNnqReGVb
-X-Gm-Gg: AYBFou00PpmrKvWVzu4nXdtH3zkiafTlNxbX9FzpvFMCuPb6HTpZjdr3zu8UsSTdVME
-	hrEVgmAQFv9X19YgH8bjpyRW7lUp68cCPS5U293MWMkNiEWF6jskvc1/+ewwYfKGuMdciC5GnYD
-	AuaJvgObotZfXpUAKv+1hl8F2iDfBVB5krnKZyrX9YdUWCGio7rCynt/KyJEOGhyQqqHW83rOLS
-	y1F2ZG+ugiP5Ti9w6nE8ahZKeBhuzxWhMC4tOz82TgCLh5NILsOEIoc29ERO6+hdW7+hOqzopbw
-	mNBkseiwApOQ0LSPyhpaLIsz+ulub3ZevmhyqgigTM4p9l9i46oQQLZ43bUU7XXGZlj86gNuvyj
-	ZsNBU/ksizDljVuxV0yYR5sSl8WD3TrdvBycDDC+bTRvN36CaUIB0sW/bcR+3SDOUgDyuQ7VuJb
-	b4cC255FWc5cxI
-X-Received: by 2002:a05:620a:6489:b0:93e:9171:b82 with SMTP id af79cd13be357-93ebd208959mr2802417785a.36.1792053584268;
-        Thu, 15 Oct 2026 01:39:44 -0700 (PDT)
-X-Received: by 2002:a05:620a:6489:b0:93e:9171:b82 with SMTP id af79cd13be357-93ebd208959mr2802415285a.36.1792053583691;
-        Thu, 15 Oct 2026 01:39:43 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5be33d702a5sm1175500e87.15.2026.10.15.01.39.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 01:39:42 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 11:39:12 +0300
-Subject: [PATCH v4 5/5] arm64: dts: qcom: sdm845-hdk: add display card
- overlay
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QseqCGbK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792053880; x=1823589880;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=bZkLoYIQQjVUK4XHgnMXsLjSW9f51PKOjGdxmTBIdGc=;
+  b=QseqCGbKZZpSazTWS/JX92E31oTTW/uaSRB/KgyYE++FKmVJqq/iZEHj
+   Qm3qIcOqlTUcFp2Ah6DaRWLiTjc+jKCzJumsns6CrUfSDogyn7RykuUFd
+   nh9UHzyWdlGmyf8x2GhAEzeELVKUXaS7zw0Zz6XSh0dr98Qh1BTJcea7t
+   TY8Ce5U8HEQqNFbmA4lthTX8jFczI/mSm1qjgykRSkINR9+jhnfCphOK1
+   5A6Jdw9ZX2YFaMs5mJ0jdWnrXP+Z0rcCFRp/IWrfBD1nnHSLtxGtrXYZO
+   9oxFj1m7PvB3v7/QRRjIIN6dqbltDlkQqetPR3jzwYDWmC5nenvm+Ta8Y
+   Q==;
+X-CSE-ConnectionGUID: p1kljdykSYiDpK8FSkPk3g==
+X-CSE-MsgGUID: XDaxo7u1RlujshuYjclr6A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="848210"
+X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
+   d="scan'208";a="848210"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 01:44:40 -0700
+X-CSE-ConnectionGUID: wGs0T18cRx2rtVYfmexHUA==
+X-CSE-MsgGUID: +Cukhbh6TOyI157YdPCwvQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
+   d="scan'208";a="1576023"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa009.jf.intel.com with ESMTP; 15 Oct 2026 01:44:36 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xHH4j-00000000G7W-2o18;
+	Thu, 15 Oct 2026 08:44:33 +0000
+Date: Thu, 15 Oct 2026 16:43:40 +0800
+From: kernel test robot <lkp@intel.com>
+To: Claudiu Manoil <claudiu.manoil@nxp.com>, netdev@vger.kernel.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev, s32@nxp.com,
+	linux-kernel@vger.kernel.org,
+	Vladimir Oltean <vladimir.oltean@nxp.com>,
+	Wei Fang <wei.fang@nxp.com>, Clark Wang <xiaoning.wang@nxp.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Russell King <linux@armlinux.org.uk>, imx@lists.linux.dev,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH net-next v2 1/5] net: enetc: Add pseudo-MAC support for
+ ENETCv4 Ports via a fixed-link node
+Message-ID: <202610151650.UHqL0Sb7-lkp@intel.com>
+References: <d7b51cb29758538a4c68a700dd8cd41b6e7e08b6.1791908694.git.claudiu.manoil@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-sdm845-hdk-v4-5-b532b9f4029c@oss.qualcomm.com>
-References: <20261015-sdm845-hdk-v4-0-b532b9f4029c@oss.qualcomm.com>
-In-Reply-To: <20261015-sdm845-hdk-v4-0-b532b9f4029c@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Abel Vesa <abelvesa@kernel.org>, Ulf Hansson <ulfh@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        dri-devel@lists.freedesktop.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3699;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=lPeEe7tz+0YSnJKsAf50jnjdmdW341RGDSdUQ921plk=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBq0JE/KiJJFSOHp1Qvl9QkM40kcGJVrQLIbF4NZ
- NpZUKyKmE2JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCatCRPwAKCRCLPIo+Aiko
- 1aeICACcdX4Dx/PckMzaaUVlD8PnCWdqIzMq7iBJ53ZUgelXF/Ge4z/kW/N3OXwPXoDu+Pg0dFm
- gxLf6AhnmvNlCVDEcbWTX6nvt9USbz49QMeCkY2viWc9Nd1Kw5RbFayMpXa3+r1clnPnkUxaKWp
- j8WJoK1A4yfaA2t9B+ksT4rUWuRJ0zcfTmr+70NzqOzE0xPLbS/bnXiBHJbiJ3rSKESQzNjj0q2
- AcBRE59F8mPgBHQsUfMQ/tYxg0W0Dqyazn3DALX8lg3VSpHIhVs/3nC0/Mvq7PPLO6f4yBqdleH
- hYyg0Y6bKmo8J4T/qybGtTvMYQKB7lltijs1HK4DnPQ5yEvh
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAzNCBTYWx0ZWRfXwOWtOe7xUrAs
- fkdeHplpsCuZ13zO7waSJfFgp5+xkzjMrGGhVsrbzHzTw5pd2sspEUY+d/I0LjSW5QPfnwEF7ip
- YcqtHSIwl1ma0lDqZa/bS4zj2mWBU3Y=
-X-Authority-Analysis: v=2.4 cv=K9u3jCWI c=1 sm=1 tr=0 ts=6ad09151 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
- a=FFXsBguXHA8yshPlDHEA:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-GUID: u3zchKy9fAR1R2VgQhYN_CSS3vZsrvpa
-X-Proofpoint-ORIG-GUID: u3zchKy9fAR1R2VgQhYN_CSS3vZsrvpa
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAzNCBTYWx0ZWRfX47MMhyU00pKR
- SCJhL/qYHMm8VYeVx76qqZqdg2GaL6ufAd+RKgRlvXMQoWDfo2aPyeNO0sc7m9YVdaWWZegzc5M
- j34GvdBgYmXtzSdT0BLFbLu3D/6x7+Dkk8Vbn18dUfKWpvu7to/vDJu7rhO0KD/kWZjc18vzx29
- L1gpg+Ap+rEXIGPtex6+1Vkhj6fXJ6/OoIquZhNL3ah0N4/OC0qg4myNJj5Dns9eN8sVbZwQhLZ
- MKV3PJPCiK4Dls6br22jkdSw/20na+dP8+yLvk7Tc/I2fZoj2tKTkSRKEupyLi8tgAHBwpOYg2M
- 1xkT5I94enC2jnqEb+Zg0c9LjxcSnQ2FISlIPm/1BIiSj77fcgLE2op3ZvEdDFjTRVatLnkRTRU
- 6Enu4fX/Lsmb2DBvgHmqgKFnWv+09JW2HiVhL8LnCiaf2YanRpUfsH4bfNCAheQkf+++iw66Cf9
- D2nXOd7n1/kYzpd9hYQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 clxscore=1015 spamscore=0 priorityscore=1501
- phishscore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150034
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d7b51cb29758538a4c68a700dd8cd41b6e7e08b6.1791908694.git.claudiu.manoil@nxp.com>
 
-The SDM845 HDK can be fitted with the same display card as the SM8150
-HDK, carrying a Truly NT36850 WQHD dual-DSI panel. Here it is powered
-by the PMI8998 LAB/IBB and WLED, and it is mutually exclusive with the
-on-board LT9611 HDMI bridge.
+Hi Claudiu,
 
-The configuration follows the vendor kernel, with the bias rails at the
-5.5 V default of the LCD mode.
+kernel test robot noticed the following build errors:
 
-Assisted-by: LLM
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/Makefile                  |   4 +
- .../boot/dts/qcom/sdm845-hdk-display-card.dtso     | 109 +++++++++++++++++++++
- 2 files changed, 113 insertions(+)
+[auto build test ERROR on net-next/main]
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 5be99934cf9f..85d06a950b4a 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -356,6 +356,10 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-db845c-navigation-mezzanine.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-google-crosshatch.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-google-blueline.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-hdk.dtb
-+
-+sdm845-hdk-display-card-dtbs	:= sdm845-hdk.dtb sdm845-hdk-display-card.dtbo
-+
-+dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-hdk-display-card.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-lg-judyln.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-lg-judyp.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-mtp.dtb
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-hdk-display-card.dtso b/arch/arm64/boot/dts/qcom/sdm845-hdk-display-card.dtso
-new file mode 100644
-index 000000000000..1022ab096170
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/sdm845-hdk-display-card.dtso
-@@ -0,0 +1,109 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+/*
-+ * Display Card kit overlay.
-+ */
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+/dts-v1/;
-+/plugin/;
-+
-+/* Disable HDMI bridge related nodes (mutually exclusive with the display card) */
-+&lt9611_codec {
-+	status = "disabled";
-+};
-+
-+&ibb {
-+	regulator-min-microvolt = <5500000>;
-+	regulator-max-microvolt = <5500000>;
-+};
-+
-+&lab {
-+	regulator-min-microvolt = <5500000>;
-+	regulator-max-microvolt = <5500000>;
-+};
-+
-+&mdss_dsi0 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	panel@0 {
-+		compatible = "truly,wqhd60-nt36850";
-+		reg = <0>;
-+
-+		reset-gpios = <&tlmm 6 GPIO_ACTIVE_LOW>;
-+
-+		vddio-supply = <&vreg_l14a_1p8>;
-+		avdd-supply = <&lab>;
-+		avee-supply = <&ibb>;
-+
-+		backlight = <&pmi8998_wled>;
-+
-+		pinctrl-0 = <&disp0_reset_n_active>, <&mdp_vsync>;
-+		pinctrl-1 = <&disp0_reset_n_suspend>, <&mdp_vsync>;
-+		pinctrl-names = "default", "sleep";
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+
-+				panel0_in: endpoint {
-+					remote-endpoint = <&mdss_dsi0_out>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+
-+				panel1_in: endpoint {
-+					remote-endpoint = <&mdss_dsi1_out>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&mdss_dsi0_out {
-+	remote-endpoint = <&panel0_in>;
-+};
-+
-+&mdss_dsi1_out {
-+	remote-endpoint = <&panel1_in>;
-+};
-+
-+&pmi8998_wled {
-+	qcom,num-strings = <2>;
-+	qcom,external-pfet;
-+
-+	status = "okay";
-+};
-+
-+&tlmm {
-+	disp0_reset_n_active: disp0-reset-n-active-state {
-+		pins = "gpio6";
-+		function = "gpio";
-+		drive-strength = <8>;
-+		bias-disable;
-+	};
-+
-+	disp0_reset_n_suspend: disp0-reset-n-suspend-state {
-+		pins = "gpio6";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-pull-down;
-+	};
-+
-+	mdp_vsync: mdp-vsync-state {
-+		pins = "gpio10";
-+		function = "mdp_vsync";
-+		drive-strength = <2>;
-+		bias-pull-down;
-+	};
-+};
+url:    https://github.com/intel-lab-lkp/linux/commits/Claudiu-Manoil/net-enetc-Add-pseudo-MAC-support-for-ENETCv4-Ports-via-a-fixed-link-node/20261013-201245
+base:   net-next/main
+patch link:    https://lore.kernel.org/r/d7b51cb29758538a4c68a700dd8cd41b6e7e08b6.1791908694.git.claudiu.manoil%40nxp.com
+patch subject: [PATCH net-next v2 1/5] net: enetc: Add pseudo-MAC support for ENETCv4 Ports via a fixed-link node
+config: x86_64-buildonly-randconfig-1004-20261015 (https://download.01.org/0day-ci/archive/20261015/202610151650.UHqL0Sb7-lkp@intel.com/config)
+compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261015/202610151650.UHqL0Sb7-lkp@intel.com/reproduce)
 
--- 
-2.47.3
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610151650.UHqL0Sb7-lkp@intel.com/
 
+All errors (new ones prefixed by >>):
+
+>> drivers/net/ethernet/freescale/enetc/enetc4_pf.c:963:2: error: call to undeclared function 'of_changeset_revert'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     963 |         of_changeset_revert(priv->ppm_ocs);
+         |         ^
+>> drivers/net/ethernet/freescale/enetc/enetc4_pf.c:964:2: error: call to undeclared function 'of_changeset_destroy'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     964 |         of_changeset_destroy(priv->ppm_ocs);
+         |         ^
+>> drivers/net/ethernet/freescale/enetc/enetc4_pf.c:992:2: error: call to undeclared function 'of_changeset_init'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     992 |         of_changeset_init(ocs);
+         |         ^
+>> drivers/net/ethernet/freescale/enetc/enetc4_pf.c:994:15: error: call to undeclared function 'of_changeset_create_node'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     994 |         fixed_link = of_changeset_create_node(ocs, np, "fixed-link");
+         |                      ^
+>> drivers/net/ethernet/freescale/enetc/enetc4_pf.c:994:13: error: incompatible integer to pointer conversion assigning to 'struct device_node *' from 'int' [-Wint-conversion]
+     994 |         fixed_link = of_changeset_create_node(ocs, np, "fixed-link");
+         |                    ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>> drivers/net/ethernet/freescale/enetc/enetc4_pf.c:1000:8: error: call to undeclared function 'of_changeset_add_prop_u32'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+    1000 |         err = of_changeset_add_prop_u32(ocs, fixed_link, "speed", speed);
+         |               ^
+>> drivers/net/ethernet/freescale/enetc/enetc4_pf.c:1004:8: error: call to undeclared function 'of_changeset_add_prop_bool'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+    1004 |         err = of_changeset_add_prop_bool(ocs, fixed_link, "full-duplex");
+         |               ^
+>> drivers/net/ethernet/freescale/enetc/enetc4_pf.c:1008:8: error: call to undeclared function 'of_changeset_apply'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+    1008 |         err = of_changeset_apply(ocs);
+         |               ^
+   drivers/net/ethernet/freescale/enetc/enetc4_pf.c:1020:2: error: call to undeclared function 'of_changeset_destroy'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+    1020 |         of_changeset_destroy(ocs);
+         |         ^
+   9 errors generated.
+
+
+vim +/of_changeset_revert +963 drivers/net/ethernet/freescale/enetc/enetc4_pf.c
+
+   957	
+   958	static void enetc4_put_ppm_fixed_link(struct enetc_ndev_priv *priv)
+   959	{
+   960		if (!priv->ppm_ocs)
+   961			return;
+   962	
+ > 963		of_changeset_revert(priv->ppm_ocs);
+ > 964		of_changeset_destroy(priv->ppm_ocs);
+   965		kfree(priv->ppm_ocs);
+   966		priv->ppm_ocs = NULL;
+   967	}
+   968	
+   969	/* Pseudo-MAC ports have no real PHY; the link is fixed, with the operating
+   970	 * speed set at probe time from PCR[PSPEED]. Describe this with a fixed-link
+   971	 * subnode synthesized at runtime onto the port's own OF node, so phylink
+   972	 * picks it up through dev_fwnode() exactly as if it came from static DT.
+   973	 */
+   974	static int enetc4_add_ppm_fixed_link(struct enetc_ndev_priv *priv)
+   975	{
+   976		struct device_node *np = dev_of_node(priv->dev);
+   977		struct device_node *fixed_link;
+   978		struct of_changeset *ocs;
+   979		int speed, err;
+   980	
+   981		if (!np)
+   982			return dev_err_probe(priv->dev, -ENODEV,
+   983					     "Missing of_node for Pseudo-MAC port\n");
+   984	
+   985		enetc4_get_pcr_speed(&priv->si->hw, &speed);
+   986		speed = enetc_phylink_match_pseudo_mac_speed(speed);
+   987	
+   988		ocs = kzalloc_obj(*ocs);
+   989		if (!ocs)
+   990			return -ENOMEM;
+   991	
+ > 992		of_changeset_init(ocs);
+   993	
+ > 994		fixed_link = of_changeset_create_node(ocs, np, "fixed-link");
+   995		if (!fixed_link) {
+   996			err = -ENOMEM;
+   997			goto err_destroy;
+   998		}
+   999	
+> 1000		err = of_changeset_add_prop_u32(ocs, fixed_link, "speed", speed);
+  1001		if (err)
+  1002			goto err_put_node;
+  1003	
+> 1004		err = of_changeset_add_prop_bool(ocs, fixed_link, "full-duplex");
+  1005		if (err)
+  1006			goto err_put_node;
+  1007	
+> 1008		err = of_changeset_apply(ocs);
+  1009		if (err)
+  1010			goto err_put_node;
+  1011	
+  1012		of_node_put(fixed_link);
+  1013		priv->ppm_ocs = ocs;
+  1014	
+  1015		return 0;
+  1016	
+  1017	err_put_node:
+  1018		of_node_put(fixed_link);
+  1019	err_destroy:
+  1020		of_changeset_destroy(ocs);
+  1021		kfree(ocs);
+  1022	
+  1023		return dev_err_probe(priv->dev, err,
+  1024				     "Failed to add fixed-link node\n");
+  1025	}
+  1026	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
