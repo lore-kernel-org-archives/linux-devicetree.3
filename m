@@ -1,249 +1,373 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011044.outbound.protection.outlook.com [52.101.65.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF453383993;
-	Thu, 15 Oct 2026 17:03:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792083811; cv=none; b=CAHOpp//blTYBp+8zDYqxacR7DwCWR0z8AMs44QnFoOxkB6w8G2OwLwSON5mEm4CJJvjDAy+iAJIpZ5K3MTX0ItpoyXq6xShLMKJ2sivEHs7e+ZbepHR2nnSy/iG/tr9r1Y3qBILPVEaAICWdFj3nGu7gIW8p/HWwLZ0GREi6vM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792083811; c=relaxed/simple;
-	bh=mTsCIQlQlZ+s0i8gJLekPM5yddZtsSJVjZ/7RlKj1PA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J65hchKzPnOzYBKY7KsIZQ2FykfVd9gL78OvH9EsAANhIJOb0yYaqaf26VevvJdxYkMtglHQAbdMIj4bOkXMjbNSmCk+kBNJy0HpRvsbxunZBeEd9qgk/DZiyUalEAyZxhJB+mM0U5vwDd2Fw27vNbK/kclqdgCye18MllvMLB0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eY8xqAJH; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A25FF2C21F7;
+	Thu, 15 Oct 2026 17:03:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792083832; cv=fail; b=QrhPQCotNKDPA2kv/4xZSXC9PV8unXODB0dbgwMgkeR37frjmK5sIiSyTPQgYpZxdTBdfDvuIiFgL6UcfWI0xJ7ZRpNCGs/+bW0jwbT/d4NcpcAHwOdaP0iuLjAwLcWkdxEI9aWM6N+GHUObMick3HXVnpHHldwxtprF2h6sTCo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792083832; c=relaxed/simple;
+	bh=sJLnOPWdikwIEPe6+SHvoxP7SqqsFz8idfhLmYhLEEQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=hCW5ZICTo7Bk6WMlBNr7eHgNktSFLz421OyJfpsLXpXMQf9QZGiOJUWPkObtWITHFA45yjnvEdzl2AIA9NfRxc/I/1lT1dBWRtSsAF5/4qep15Ueu4joFWn4JIToLy5Kslty4xR/QcMbFm0jokUn/LSW+hYduncLLqG2O1QiuNA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=WrDdIm9h; arc=fail smtp.client-ip=52.101.65.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eY8xqAJH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20E6A1F000C4;
-	Thu, 15 Oct 2026 17:03:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792083798;
-	bh=LhnZdj1n9jEiu2uk0jULpLtCBawhN6CksHAm8WDiTmw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eY8xqAJHNT/9VMHehk3h2r3VKHap4XWBTDvU7FdwAAf+UlSmFV4C5jkxi2JeEykLw
-	 LHxigb6YdlVT8Pr9mWAJgho5u+XoUrwNM0fRE11tdJ2i7ht0QpcTO2nda19ZMj8YCf
-	 +n24IFub1OqkPZaO8ETUOPSurRq5RhPsenhvFQBLhhpFgtj1jSCrlEmj0jggK94vif
-	 8f5kSTVu68UOYWZ330x2sNRmfKDHr+29OhQL58TMoWNUwmULvpOdArsoGO4O3oucQl
-	 TSPaeJc0R3pwjoIFVQrMrtpMe6xQhxuXsM/+q+gu3axH4RcWvg+9qZiEtydAB1Ld7Y
-	 ineBcQWsTGRpg==
-Date: Thu, 15 Oct 2026 18:03:13 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Hyunuk Son <hyunuk.son@irondevice.com>
-Cc: lgirdwood@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, perex@perex.cz, tiwai@suse.com,
-	kiseok.jo@irondevice.com, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] ASoC: codecs: Add driver for Iron Device MA5311
-Message-ID: <9ec997b1-8443-466b-bafb-a25f9b5c47ff@sirena.org.uk>
-References: <20261015060408.128711-1-hyunuk.son@irondevice.com>
- <20261015060408.128711-3-hyunuk.son@irondevice.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="WrDdIm9h"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sjqSf37PjOgL/sztI8LghirKtbpPOIwF9CqlJyMVqwp/xr695cRaMvPCCNhVQetB2dHWU5sp9xoTuPj7PN0ocRXrYLvKx6iAMXcOuUtOyeLptJfWsUQC8ItI/Gm8b2elYjOp1RSG4y9CJUITHrNvM+LcScravGKUvXyJo9TQxJ80e66fyox2qlo5qaWsCts0WaSy8rHoRtAoRBz5Feak5ceG1JzZx2BWLIVYTF+Tw+rrEVTLHEJlScjk5R/Ee5cN8rkFKBafGZMq3iLipypZbeD43Btasj/F6v0UNQ33zzbm3YerLKYAzFerNO2PjJa/uGHt/uI6V/DbuxNmlr4fNQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hqVJ23GffrdvW1AZBa+Oa9TKhD6nxdbYi0l1ru19mzo=;
+ b=aEmev0T2UhSiIttdrqLrkihgEMGdxC8vIRQuFEm4JwrVBkwTC/Rzf/bhLcxOVeC0/q1UESBQ4Z/zaZJM5JbB2wlV/s3d78ufJY0yBpLRND1CtCbshjJj9fcKDJYHh8oogJG66jAjrKiEsVjtnvhmk45oaJrzjs7BYgo9tTQ2Sw7UV04F7/G238eyBlEDCT76j7qtHVmWYyP/ESh+WW6oc//9zgxlQWz7VjHRjHiIc89XX93ZYKfF4PjxiW71hwMrPFxT+nJNzVpxq8Xl5M2DL9+A8toxe7UG0g35XwUx4fyEKxVyKmfh9oFwcrOTlNeYwTh37WiFU55FKl6hRgw+Qw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hqVJ23GffrdvW1AZBa+Oa9TKhD6nxdbYi0l1ru19mzo=;
+ b=WrDdIm9hsr+hF8KmEB8AgXH9cV4DjR/b0x8LDXsydlOMOZcbBEQGB9MRxcvj152JesdOVJeu20B5rCWZDc4VIwdCEYjLAt2I3wPXdy3Hf0pGfpMzox4f5Dn/+sWzgepCPBF/6cC42mov0/Hr76bzOYRGcP0Z+BN3XcU2Gj+x084DetPpFtONCrcxPirj+INtaPa7bmHnVOLR+dGFfk9AQfO15SLmMDXsd3EIaGVzR8u8DUIHD5sxF84ajOSN3YAlBrEF6Iz43XFezhz8KiZ8SQq6ytSc6NEAXE227WuJssmEuxMab4gQZaIcuz8YscHs0IpXtqhr4ywR+lkytCZ2OA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by PAXPR04MB8734.eurprd04.prod.outlook.com (2603:10a6:102:21e::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
+ 2026 17:03:37 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
+ 17:03:37 +0000
+Date: Thu, 15 Oct 2026 13:03:28 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Binbin Zhou <zhoubinbin@loongson.cn>
+Cc: Binbin Zhou <zhoubb.aaron@gmail.com>,
+	Huacai Chen <chenhuacai@loongson.cn>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>, dmaengine@vger.kernel.org,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Xuerui Wang <kernel@xen0n.name>, loongarch@lists.linux.dev,
+	devicetree@vger.kernel.org, Keguang Zhang <keguang.zhang@gmail.com>
+Subject: Re: [PATCH v2 3/3] dmaengine: loongson: Add Loongson-2K0300 APB DMA
+ mux driver
+Message-ID: <atEHYLnJ5GTr1-ae@lizhi-Precision-Tower-5810>
+References: <cover.1791535540.git.zhoubinbin@loongson.cn>
+ <54a6180b35353d2c03c5a752305636baacd02e9c.1791535540.git.zhoubinbin@loongson.cn>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <54a6180b35353d2c03c5a752305636baacd02e9c.1791535540.git.zhoubinbin@loongson.cn>
+X-ClientProxiedBy: DS7PR05CA0064.namprd05.prod.outlook.com
+ (2603:10b6:8:57::26) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cYFLMnh1SSjLn+6V"
-Content-Disposition: inline
-In-Reply-To: <20261015060408.128711-3-hyunuk.son@irondevice.com>
-X-Cookie: Tax and title extra.
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PAXPR04MB8734:EE_
+X-MS-Office365-Filtering-Correlation-Id: a3e1e18f-4b90-4af0-733e-08df2ade40c0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|1800799024|376014|366016|23010399003|19092799006|56012099006|5023799004|4143699003|11063799006|261009223027099003|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	5Br2TOUZXznszCko9jw0RDe8HVrQHyqE2/eAvMA1Q3/tAnaLBxkE6Y7p9hysKRvAl/vn9Y8hVnStL1Y/1g3lWlITxynAox5mDFKLEoIGCbvh0Wz1NnQMjs02bXyZ7jZkc/yxHmLQayCwfheYZXDKrF6ITV+lDpxN4Zt3tA7PHTQWG8EZpnz+DDFApy+yf913WesFfin/DrrsYSDORdNuPis7rZYzGs8gEDoHSpbk/ALMLpv0X5KumHaCPQjyhFplprSHykh+fL2ZfQBI9BWXUB01kJyml8sow5H7fRzTwnz/5wmAxAK6YJvth8ArRzEOrO8kePdEGlcdXeueEKojjO/I5vH5PEC4UwKT6PAQYSoOpmMmCROY+YkVCGHMuV2nmkGs4SuKABFtR5+vJQedNc17FeXWuRIfLrmFc976W+YXD9kKJE61UElY0vdRZccd8l0lTXuiuIutBoY6gVqGXbJkafsugyqJjz9FYLoCfFGEEwX8aJHKh94BvLUdz7b1ZahAplDVfsBLrz02h6nii4RkvANjvwwRXG/sRfZfdX3WFDdmUPy2rxQ1XYF2RsmvIceX5oIc5HUTH5CRiZSk3BK6Z33pooLD0O74Vkp+YEzyv3jruTOVyJ5BnEWr/u2l3t/6OHC7Zc5V+fLJXiG0z+bD7dYNIwkH6XZVSOzP/9Y=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(366016)(23010399003)(19092799006)(56012099006)(5023799004)(4143699003)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?/p6fstfcEFlloLhuMp1pqXRT1nIVc1jXWVJ0ld99niebeX8of8ybdkWSNGOp?=
+ =?us-ascii?Q?UmAyMiKYV+gSJc1gLS7vAoNA6wCXk1pQdmYaKkXITZFEiQ9QusifuTdVTSpW?=
+ =?us-ascii?Q?Pzk9hC/jnjwTA1kFv+kNWGxXLjqZxzhDw+sLy836xRMVzR14SinHwJP5szQn?=
+ =?us-ascii?Q?CtmTdipxyN8Qgqv9ARM5Zgp1BBAoRd7XgF37ccDKb8nzWWogQvAacnyIcR0c?=
+ =?us-ascii?Q?nuRfQsOATQjh1tqqTRZ3myjbConMB9msH5inN8hS+339qdIC1Qlm+gfm/JgW?=
+ =?us-ascii?Q?B5BRq3UHj38Hr1bczyHA7MVBAi4/N6oDvvrPqSKyvRVpdJ9Tz9p6w8JXoFS/?=
+ =?us-ascii?Q?o+zCIDDtzUt73rH799NNPcH9Ks2xtOkTnH6GXo4YlK/am79Aq9hS/L7ySeLs?=
+ =?us-ascii?Q?eIodgfyF20S9IChmk2sJ36Fw1Uxlrvd3VePQl2+cizlUQFQCpvxbbbsEBe8V?=
+ =?us-ascii?Q?7SoULpJEeQDgeEN1gHFz4NHWbUFBdWy7gXtDf/h2rZwUOnA80FjkvWqmANUl?=
+ =?us-ascii?Q?hRP7U/95bZIetwd8HYRyQcju/8MDDpX2x/bg2bNeJIfStMDILwXZ9Hvy5s0D?=
+ =?us-ascii?Q?/gk1ZOTPdBJb8yqtL1x+TewpBpKG3UcegA4Z43ekazfhF2E7XTtOkF8pHz09?=
+ =?us-ascii?Q?iyX1UYQYdDVXb2XGZz/Q2z6E+mkstdHsDlruJq1aiKbV31ptYOEfgLsVbZUZ?=
+ =?us-ascii?Q?QcpNbZa5PW15zlP+d7R6jScz8R+P3ozfxNKnQlCa1q5MbJiFD4hlrVCJd1+m?=
+ =?us-ascii?Q?oOyJNTkzrg1IE4NiCVXgi3CcdCR9Uqk8In3EO3gO6hUxdF9I3IMKjoKvb0ad?=
+ =?us-ascii?Q?8kWsEKbX9nprhGEXaeMq74YQAbgflpET0OYY7x6p0MPK86bHZgOffCkoRq5i?=
+ =?us-ascii?Q?my8lf8NdCyk7tYL7JmEI0Vi2Ocz9MSsBfEyXIxyMrToyflQ5LBsF26nNAQnv?=
+ =?us-ascii?Q?BBC/ZVsYjnO3SEmFUOV4qvwvou9bRAp+F+iNXLtFpsJvNOubPi1/ZMYXV0Jd?=
+ =?us-ascii?Q?vVtz+JTqno/4BIDmtMvVHiPgdzABuzWG24FtBD8+Jh5ZTvTjNf6mNIH4yAXU?=
+ =?us-ascii?Q?dBye4zrx3MtV2m9MXf9TCsYAdVClvRE99sQBDvhZw6D3/6w5YTiozX++j8Cc?=
+ =?us-ascii?Q?nHhA9P5REQWiVmOBYz6iimT8Xk+SRjBu5P06iQZeuGmXOrSRwMkocqaoi67I?=
+ =?us-ascii?Q?8ZZ2/pRu5FXOpQD2mZ7otEas2s9/roCumr5DAhgkIbkS5tZGphtRP6nMEx9H?=
+ =?us-ascii?Q?IVH6VAxoVkBYFkbVuUuhGvxsh28WoYwueZNiQHqRa+bGhonCyrQCKcuIJRyD?=
+ =?us-ascii?Q?FzLn7N7FQ0+0ssalSpDj7t/EklgJF8Te6qN2LichRIPMZuPuEZjAx2w0tbQA?=
+ =?us-ascii?Q?1BH4IKo6sXZcMP7ekuWtbIqT8Dbu1b9+JS28NcxzlBrWiRYLL4cw2yytPg3O?=
+ =?us-ascii?Q?BDVO22krdw1HweiW/6LogkG+Wwd09+B5qQEak3QdCEHhQtbop/GV6Te6BEfd?=
+ =?us-ascii?Q?ReZCJZQV75p45aQsDUMDY/M6HqkMlvnnRw0nHR9dygqu425jmPQk6/iPZyWG?=
+ =?us-ascii?Q?zqPe2LRTRjIVRefywKiCTkjUTKsNF/vgfiIr1kFX16WU/KzURdPNgZeYWQde?=
+ =?us-ascii?Q?+IgWbOV8r5QkR86Nt4zV3a2Gz4FXYCobg/WKMFI1MuZYuQQJCJOneElb70w2?=
+ =?us-ascii?Q?l6AFQcW6sbL1fDVH9S30oLv947iZbWLYsJ2niCPvFaqdvMhETLXj2nl+PBHP?=
+ =?us-ascii?Q?3SU7qFhqYfOAfcxy+n2oK6TQ21F6/d4smeuDjvDt4wIsc9oD/oxr?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a3e1e18f-4b90-4af0-733e-08df2ade40c0
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 17:03:36.9162
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4VD8LO0MkzPDtEJT4EIQEVhKdmcCW4MMag8nkHvZ9/hE0Q6U1FWPs+P7XE36XC/UYz98rYyiXiGl9CIC6HzEcjepbalCn8vaWVLTKGaCSbRxrEqqBncw5ua0yGagxPje
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8734
 
-
---cYFLMnh1SSjLn+6V
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Oct 15, 2026 at 03:04:07PM +0900, Hyunuk Son wrote:
-> Add an ASoC codec driver for the Iron Device MA5311.
->=20
-> The driver supports audio playback and capture through I2S
-> and TDM interfaces. It provides ALSA mixer controls for audio
-> configuration and uses regmap for register access.
-
-There's some issues below, but nothing too major I think.
-
-> +static bool ma5311_adc_volatile_register(struct device *dev, unsigned in=
-t reg)
+On Fri, Oct 09, 2026 at 05:19:34PM +0800, Binbin Zhou wrote:
+> The Loongson-2K0300 DMA mux is not a standalone DMA controller. It is
+> implemented as a set of routing fields in the chip global configuration
+> registers CHIP_CTRL13/14/15, which select which physical channel of the
+> on-chip CMC DMA controller handles each peripheral DMA request.
+>
+> Add a driver that exposes these routing fields as an OF DMA router. The
+> router's allocation callback validates the <request> <channel> <flags>
+> specifier, programs the corresponding CHIP_CTRL register field, and then
+> rewrites the specifier to <channel> <flags> so that the parent CMC DMA
+> controller's xlate is used.
+>
+> Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
+> ---
+>  MAINTAINERS                                 |   1 +
+>  drivers/dma/loongson/Makefile               |   1 +
+>  drivers/dma/loongson/loongson2-apb-dmamux.c | 398 ++++++++++++++++++++
+>  3 files changed, 400 insertions(+)
+>  create mode 100644 drivers/dma/loongson/loongson2-apb-dmamux.c
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 78622b255f88..0b0c6ea41c64 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -15355,6 +15355,7 @@ F:	Documentation/devicetree/bindings/dma/loongson,ls2k0300-dmamux.yaml
+>  F:	Documentation/devicetree/bindings/dma/loongson,ls2x-apbdma.yaml
+>  F:	drivers/dma/loongson/loongson2-apb-cmc-dma.c
+>  F:	drivers/dma/loongson/loongson2-apb-dma.c
+> +F:	drivers/dma/loongson/loongson2-apb-dmamux.c
+>  F:	include/dt-bindings/dma/loongson,ls2k-dmamux.h
+>
+>  LOONGSON LS2X I2C DRIVER
+> diff --git a/drivers/dma/loongson/Makefile b/drivers/dma/loongson/Makefile
+> index 48c19781e729..271fd38fa8f2 100644
+> --- a/drivers/dma/loongson/Makefile
+> +++ b/drivers/dma/loongson/Makefile
+> @@ -2,3 +2,4 @@
+>  obj-$(CONFIG_LOONGSON1_APB_DMA) += loongson1-apb-dma.o
+>  obj-$(CONFIG_LOONGSON2_APB_DMA) += loongson2-apb-dma.o
+>  obj-$(CONFIG_LOONGSON2_APB_CMC_DMA) += loongson2-apb-cmc-dma.o
+> +obj-$(CONFIG_LOONGSON2_APB_CMC_DMA) += loongson2-apb-dmamux.o
+> diff --git a/drivers/dma/loongson/loongson2-apb-dmamux.c b/drivers/dma/loongson/loongson2-apb-dmamux.c
+> new file mode 100644
+> index 000000000000..01bd3ce4ca25
+> --- /dev/null
+> +++ b/drivers/dma/loongson/loongson2-apb-dmamux.c
+> @@ -0,0 +1,398 @@
+...
+> +static int loongson2_dmamux_set_route(struct loongson2_dmamux *mux, u32 request, u32 channel)
 > +{
-> +	return false;
-> +}
-
-You can just not provide a volatile function, the default is nothing
-volatile.  Since the driver isn't enabling a register cache volatile
-makes no difference anyway.
-
-> +static int ma5311_reset(struct snd_soc_component *component)
-> +{
-
-> +	ma5311->adc1_vol_left =3D 0xc0;
-> +	ma5311->adc1_vol_right =3D 0xc0;
-> +	ma5311->adc2_vol_left =3D 0xc0;
-> +	ma5311->adc2_vol_right =3D 0xc0;
-> +	ma5311->adc3_vol_left =3D 0xc0;
-> +	ma5311->adc3_vol_right =3D 0xc0;
-> +	ma5311->adc4_vol_left =3D 0xc0;
-> +	ma5311->adc4_vol_right =3D 0xc0;
-> +	ma5311->adc1_pga_left =3D 0x10;
-> +	ma5311->adc1_pga_right =3D 0x10;
-> +	ma5311->adc2_pga_left =3D 0x10;
-> +	ma5311->adc2_pga_right =3D 0x10;
-> +	ma5311->adc3_pga_left =3D 0x10;
-> +	ma5311->adc3_pga_right =3D 0x10;
-> +	ma5311->adc4_pga_left =3D 0x10;
-> +	ma5311->adc4_pga_right =3D 0x10;
-> +	ma5311->capture_mode =3D I2S_ADC1;
-
-Normally we just go with the hardware defaults for everything and let
-userspace set what it needs, this is mainly because different use cases
-often need different defaults.  Why are we setting all these volumes
-here?
-
-> +static int ma5311_adc_pga_control_put(struct snd_kcontrol *kcontrol,
-> +				      struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component =3D snd_kcontrol_chip(kcontrol);
-> +	struct ma5311_priv *ma5311 =3D snd_soc_component_get_drvdata(component);
-> +	const struct soc_mixer_control *mc =3D
-> +	    (const struct soc_mixer_control *)kcontrol->private_value;
-> +	unsigned int *cache;
-> +	unsigned int val =3D ucontrol->value.integer.value[0];
+> +	const struct loongson2_dmamux_map *map;
+> +	u32 reg_val, route_val, high_val = 0;
 > +
-> +	if (val < 0 || val > MA5311_ADC_PGA_CTRL_MASK)
+> +	if (request >= mux->config->num_maps)
 > +		return -EINVAL;
 > +
-> +	cache =3D ma5311_adc_pga_control_cache(ma5311, mc->reg);
-
-It's not clear to me why we have this cache code - I didn't spot where
-do anything with it outside of these get/put operations, it looks like
-exactly the sort of cache that you'd get from the regmap cache code.
-AFAICT could get it for free and just use the standard control
-implementations by enabling a register cache in regmap, if you don't
-want a cache for other registers for some reason you can mark them as
-volatile.
-
-> +static int ma5311_capture_mode_put(struct snd_kcontrol *kcontrol,
-> +				   struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component =3D snd_kcontrol_chip(kcontrol);
-> +	struct ma5311_priv *ma5311 =3D snd_soc_component_get_drvdata(component);
-> +	unsigned int val =3D ucontrol->value.enumerated.item[0];
-> +
-> +	if (val >=3D ARRAY_SIZE(ma5311_capture_mode_text)) {
-> +		dev_err(ma5311->dev, "%s: Out of range\n", __func__);
+> +	if (channel > mux->config->max_channel)
 > +		return -EINVAL;
-> +	}
 > +
-> +	if (ma5311->capture_mode =3D=3D val)
-> +		return 0;
+> +	map = &mux->config->maps[request];
 > +
-> +	if (ma5311->adc_power_status) {
-> +		dev_err(ma5311->dev, "Try after capture is complete.\n");
-> +		return -EBUSY;
-> +	}
-
-There's no locking between this and DAPM so we could race with power up
-here.  Taking the DAPM mutex ought to do enough.
-
-> +static int ma5311_reset_control_get(struct snd_kcontrol *kcontrol,
-> +				    struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component =3D snd_kcontrol_chip(kcontrol);
-> +	struct ma5311_priv *ma5311 =3D snd_soc_component_get_drvdata(component);
-> +
-> +	if (!ma5311->reset_gpio)
-> +		return -ENODEV;
-
-It'd be better to only register this control if the GPIO is present,
-that way we don't have a broken control that reports errors to userspace
-if the system can't support it.  It's a bit of a dodgy control to have
-in the first place, it's rather disruptive if used at the wrong time,
-but I'm not totally against it for devices that are likely to only be
-used with highly controlled userspaces.
-
-> +	switch (params_width(params)) {
-> +	case 16:
-> +	case 24:
-> +	case 32:
+> +	switch (map->type) {
+> +	case LOONGSON_DMAMUX_PAIR:
+> +		route_val = channel / 2;
+> +		break;
+> +	case LOONGSON_DMAMUX_SINGLE:
+> +		route_val = channel;
+> +		if (map->high_reg)
+> +			high_val = (channel >> 2) & 0x1;
 > +		break;
 > +	default:
-> +		dev_err(component->dev, "%s: unsupported PCM format: %d\n",
-> +			__func__, params_format(params));
 > +		return -EINVAL;
 > +	}
+> +
+> +	guard(spinlock_irqsave)(&mux->lock);
+> +
+> +	/* Write the primary register field */
+> +	reg_val = loongson2_dmamux_read(mux, map->reg);
+> +	reg_val &= ~map->mask;
+> +	reg_val |= field_prep(map->mask, route_val);
+> +	loongson2_dmamux_write(mux, map->reg, reg_val);
+> +
+> +	/* Write the extension register field if present */
+> +	if (map->high_reg) {
+> +		reg_val = loongson2_dmamux_read(mux, map->high_reg);
+> +		reg_val &= ~BIT(map->high_shift);
+> +		reg_val |= high_val << map->high_shift;
 
-Don't we need to configure anything in the hardware for clock provider
-mode here?
+assign_bit(map->high_shift, &reg_val, high_val);
 
-> +#define MA5311_RATES_PLAYBACK SNDRV_PCM_RATE_8000_96000
-> +#define MA5311_RATES_CAPTURE SNDRV_PCM_RATE_8000_96000
-> +#define MA5311_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S32_L=
-E)
+other looks good
 
-These don't seem to match what hw_params() accepts.
-
-> +static struct snd_soc_dai_driver ma5311_dai[] =3D {
-> +	{
-> +	 .name =3D "ma5311-amplifier",
-> +	 .id =3D 0,
-> +	 .playback =3D {
-> +		      .stream_name =3D "Playback",
-> +		      .channels_min =3D 1,
-> +		      .channels_max =3D 2,
-> +		      .rates =3D MA5311_RATES_PLAYBACK,
-> +		      .formats =3D MA5311_FORMATS,
-> +		      },
-> +	 .capture =3D {
-> +		     .stream_name =3D "Capture",
-> +		     .channels_min =3D 1,
-> +		     .channels_max =3D 8,
-> +		     .rates =3D MA5311_RATES_CAPTURE,
-> +		     .formats =3D MA5311_FORMATS,
-> +		     },
-> +	 .ops =3D &ma5311_dai_ops_amp,
-> +	  },
-> +};
-
-I think the device needs symmetric rate and widths too?
-
-> +static irqreturn_t ma5311_irq_thread(int irq, void *data)
+Frank
+> +		loongson2_dmamux_write(mux, map->high_reg, reg_val);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +/**
+> + * loongson2_dmamux_route_allocate() - DMA router allocation callback
+> + * @dma_spec: OF DMA specifier <request> <channel> <flags>
+> + * @ofdma:    Router's of_dma structure; ofdma->dma_router points to our
+> + *            struct dma_router embedded in struct loongson2_dmamux.
+> + *
+> + * Return: NULL as route_data (nothing to free), or an ERR_PTR on failure.
+> + */
+> +static void *loongson2_dmamux_route_allocate(struct of_phandle_args *dma_spec,
+> +					     struct of_dma *ofdma)
 > +{
-> +	struct ma5311_priv *ma5311 =3D data;
-> +	unsigned int dac_status;
-> +	unsigned int dac_ocp_status;
-> +	unsigned int dac_scp_status;
-> +	int ret =3D 0;
+> +	struct loongson2_dmamux *mux;
+> +	u32 request, channel, flags;
+> +	int ret;
 > +
-> +	ret |=3D regmap_read(ma5311->ctrl_regmap,
-> +			   MA5311_DAC_EA_DAC_STATUS, &dac_status);
+> +	if (!ofdma->dma_router)
+> +		return ERR_PTR(-EINVAL);
 > +
-> +	ret |=3D regmap_read(ma5311->ctrl_regmap,
-> +			   MA5311_DAC_EB_DAC_OCP_STATUS, &dac_ocp_status);
+> +	mux = container_of(ofdma->dma_router, struct loongson2_dmamux, dma_router);
 > +
-> +	ret |=3D regmap_read(ma5311->ctrl_regmap,
-> +			   MA5311_DAC_EC_DAC_SCP_STATUS, &dac_scp_status);
+> +	if (dma_spec->args_count != 3)
+> +		return ERR_PTR(-EINVAL);
 > +
-> +	if (ret) {
-> +		dev_crit(ma5311->dev,
-> +			 "Error Occurred During Interrupt Handling\n");
+> +	request = dma_spec->args[0];
+> +	channel = dma_spec->args[1];
+> +	flags = dma_spec->args[2];
+> +
+> +	if (request >= mux->config->num_maps ||
+> +	    channel > mux->config->max_channel)
+> +		return ERR_PTR(-EINVAL);
+> +
+> +	/* Program the SoC-specific route register */
+> +	ret = loongson2_dmamux_set_route(mux, request, channel);
+> +	if (ret)
+> +		return ERR_PTR(ret);
+> +
+> +	/* The of_node_put() will be done in of_dma_router_xlate function */
+> +	dma_spec->np = of_parse_phandle(ofdma->of_node, "dma-masters", 0);
+> +	if (!dma_spec->np)
+> +		return ERR_PTR(-ENODEV);
+> +
+> +	dma_spec->args[0] = channel;
+> +	dma_spec->args[1] = flags;
+> +	dma_spec->args_count = mux->config->parent_args_count;
+> +
+> +	return NULL;
+> +}
+> +
+> +/**
+> + * loongson2_dmamux_route_free() - DMA router free callback
+> + * @dev: Back pointer to the router's device
+> + * @route_data: Router-specific data returned by route_allocate
+> + *
+> + * The driver does not allocate any per-route resources, so this callback
+> + * is intentionally empty. It must still be provided because the OF DMA
+> + * core calls it unconditionally on some error paths (e.g. -EPROBE_DEFER)
+> + * without checking for a NULL pointer.
+> + */
+> +static void loongson2_dmamux_route_free(struct device *dev, void *route_data)
+> +{
+> +}
+> +
+> +/**
+> + * loongson2_dmamux_unregister_of_dma() - devm action to unregister the router
+> + * @data: Pointer to struct loongson2_dmamux
+> + *
+> + * Called automatically by the device-managed resource framework both on
+> + * probe failure and on driver removal, ensuring the OF DMA router is
+> + * always unregistered.
+> + */
+> +static void loongson2_dmamux_unregister_of_dma(void *data)
+> +{
+> +	struct loongson2_dmamux *mux = data;
+> +
+> +	of_dma_router_free(mux->dma_router.dev->of_node);
+> +}
+> +
+> +static int loongson2_dmamux_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct loongson2_dmamux *mux;
+> +	u32 dma_requests;
+> +	int ret;
+> +
+> +	mux = devm_kzalloc(dev, sizeof(*mux), GFP_KERNEL);
+> +	if (!mux)
+> +		return -ENOMEM;
+> +
+> +	mux->base = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(mux->base))
+> +		return PTR_ERR(mux->base);
+> +
+> +	spin_lock_init(&mux->lock);
+> +	mux->config = &ls2k0300_dmamux_config;
+> +
+> +	ret = of_property_read_u32(dev->of_node, "dma-requests", &dma_requests);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "missing dma-requests property\n");
+> +
+> +	if (dma_requests != mux->config->num_maps)
+> +		return dev_err_probe(dev, -EINVAL,
+> +				     "dma-requests=%u mismatches driver num_maps=%u",
+> +				     dma_requests, mux->config->num_maps);
+> +
+> +	mux->dma_router.dev = dev;
+> +	mux->dma_router.route_free = loongson2_dmamux_route_free;
+> +
+> +	platform_set_drvdata(pdev, mux);
+> +
+> +	ret = of_dma_router_register(dev->of_node, loongson2_dmamux_route_allocate,
+> +				     &mux->dma_router);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "Failed to register DMA router");
+> +
+> +	ret = devm_add_action_or_reset(dev, loongson2_dmamux_unregister_of_dma, mux);
+> +	if (ret)
 > +		return ret;
-
-This should be IRQ_NONE, we're returning irqreturn_t not an error code.
-
---cYFLMnh1SSjLn+6V
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrRB1AACgkQJNaLcl1U
-h9AhtQf/e2jLD9fxuDBrHk8pkz2hcUBlKE8hxvgOZzvrDeSwKFZUhwjUvxo2iGkb
-+4AVJj0GUNEFsn9aAa0O31xZJY5yyiIpOT7cr5fWBWxN3D6pYZo0wcvLLbiy9PFc
-fKPN4TaHZgsqLF12MLEEL3lqhuy2GUuW/eaEsmd2UCdJArmY9/hG0iOQU87Jxb9F
-zUJKtQTTIJjgkb5oKOyqjfldHUD++kIiOCkSiTgl2NaqrPo+nuhpAJX0XUd71Xei
-eXwcEBUu+4T990pkL7O6+/eAnALTXzkNPlyYsWiFVjINinnj2zzXhEBBq3ukr/wn
-UzRbkjJ9+9vbAazZUiQZXX/ZJG9xWA==
-=gSmu
------END PGP SIGNATURE-----
-
---cYFLMnh1SSjLn+6V--
+> +
+> +	dev_info(dev,
+> +		 "Loongson2 DMA Mux Controller registered (max_channel=%u, requests=%u)",
+> +		 mux->config->max_channel, mux->config->num_maps);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct of_device_id loongson2_dmamux_of_match[] = {
+> +	{ .compatible = "loongson,ls2k0300-dmamux" },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, loongson2_dmamux_of_match);
+> +
+> +static struct platform_driver loongson2_dmamux_driver = {
+> +	.driver = {
+> +		.name = "loongson2-dmamux",
+> +		.of_match_table = loongson2_dmamux_of_match,
+> +	},
+> +	.probe = loongson2_dmamux_probe,
+> +};
+> +module_platform_driver(loongson2_dmamux_driver);
+> +
+> +MODULE_DESCRIPTION("Loongson2 SoC DMA Mux Controller driver");
+> +MODULE_AUTHOR("Loongson Technology Corporation Limited");
+> +MODULE_LICENSE("GPL");
+> --
+> 2.52.0
+>
