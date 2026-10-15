@@ -1,63 +1,65 @@
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 043CC41442F
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 10:49:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 581F54BB810
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 10:49:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792061393; cv=none; b=mGSuy6QHwVl0ARbbbyelTZVG9pZENeKtgE2GfRf6WbYSHHzphpPha9klLLzgd6SicyQuJCUypQwJPVpetbgOIQKdeIaDsBX0WLjYZM+OrnLtN4MAGYqp6/0OaI/G+DvCK3UeyCCzaliWoYufiqaEjWYrJxB0oouTHEjJEbKSv5g=
+	t=1792061396; cv=none; b=PWwPWat4kBebBstrClSR6BtXQo8yz2xt3v64uTf53vzwXRvTEFSV/2tlN3c8BVuHBZeoLfDHgg+dDmlnO+fleRDU7HgVHp7erI+PSHEhSYL3pEjSTMG70I5fJOtz4HnDK+AvtQqKqyZsv7bsd8kzq7T4i/lSHrw5FTkx67f3jMo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792061393; c=relaxed/simple;
-	bh=cWH2oApMwLGszAVLYLTshVOSXvVg6YwcJsJ/Fg4Q7cQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QSFUvWyB6VebYbmnH2ZxHlK/h0uBBHhxVs9pLZpE0cgiEa8BM7bvCAPeYv32zKU8ls9RZvhPFek8lccvduFLAheREFsn1ATU5Jw5ZF/yTXv0njjgB91DMPZv/3zCEaJsjZ047Mvgv3Txeg4QWrOe9fCwYcaR3CPBF+etXC7x7P0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RCHV7NrY; arc=none smtp.client-ip=209.85.218.44
+	s=arc-20240116; t=1792061396; c=relaxed/simple;
+	bh=nEBAEcr1DpggMNA7XbubOTPWUzXKTrOJxdCh4sDtEpQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RzCr/f1JNzygRy1DJR5M1yyWTO8pmalILS1KKNz4I1Lvq+mCrH6wG/DWkdhkzdnGUPkdLMIRIeIo8dR1NbKxDD059qI1e/gY17dGnJ0IOGY+TLueH2aumUyKwEnkDoDXFYJgWv4gpAn/XJexYSZpyBpn6u37v7OctLwsQlHyYcU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Uf8ATGlq; arc=none smtp.client-ip=209.85.218.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RCHV7NrY"
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c262f1186f0so679706566b.1
-        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 03:49:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Uf8ATGlq"
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c247f6687dcso776158366b.2
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 03:49:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792061390; x=1792666190; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Av8/3RB6a5AVpF/WrR/TLgMG1QD5EKBDa39W6PNYmOs=;
-        b=RCHV7NrYc+hMynqLZPT8eVIagQ5n0Y8e/XfW4A5F3+byvrI/H2ngjEKxQT/UUXnnUK
-         i3KKYPa9WCO80ElQR1aShxtGMesJaxQ3rPSZIom4GVzShBEQKB56JEV3hrZ9koN5i/YU
-         O7Hj8vqQQTaLPvTHEAbcMzqpNM8e36Q1ZoL7BrQNrTILGxiDDhnsyda0FhJQ6POT5mpL
-         cUJdln0fB4fEymjNUb1rTbQrWM6ZZyMqDwxPf+h1Ieoqld2W8NasLAp3eja7CcoKlntU
-         we2b/DQ+AOZfgp8YduTTeeYxVc3q+ilaYRL/auwQLD259ra6LV8ffz++elRW7JY7bAya
-         A71g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792061390; x=1792666190;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792061391; x=1792666191; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Av8/3RB6a5AVpF/WrR/TLgMG1QD5EKBDa39W6PNYmOs=;
-        b=aZRvT1WrSdXWMLxkWSPG2DeEx3mcdXWPiKK19ZA4HqjHmUqyO13YwztiE2EAG3eNzG
-         3tGkJwNsk+KGTlUhyBnGm8xfgkQVxBCOmjHQQErCY7ix1N9IlTPeY8bwBN6TnHHuK0CE
-         DUnseAh0xq/d9HJ6xNRxxFq+GMV+KkDgg3hcxWIx48rGZvG3e/wBkvcrYv3gbNV/YxS2
-         N/grOYbDXBHCzUMU1DGeKY7eF1ZhQ8KXx/Q1xlruW9FmR+gzsf5axB6mD5ZkKCfIQmDc
-         yR+SGdp8U9ZLGyGGk/pZui3yossW4TdLztCKWf65mXOccWa50RAmwGV/S4rq6AGQrdWZ
-         pe7g==
-X-Forwarded-Encrypted: i=1; AKwUvBzIKeGAAoGGhOHtUvrOhVsBxSVeg63htSjl4XXc0KcguAdO+ndRos5xUICpP/eFgrHB9/a4tLaNndG3@vger.kernel.org
-X-Gm-Message-State: AFq9FYKhpQ+ZM6OFsfMRdK6/poNpYR2JnJyX1+h5a5e5DnhKMEhym8eq
-	X+fsBcPmrF6oN6xJr7n+J3RsgWxbXihEUgWsLOpTg48Rm9RW04XOgbNh
-X-Gm-Gg: AYBFou31f7kSI5teCKEsgsx+e3IhfaZUNYtja4YW2IUSINx2PeH6zeJhAkaRq2EVLx3
-	hwKWOOzAsTXanMhiLvRCufDY032JOF64Zhc7Zbv5RvajkW62vBDcED32txTY4v9rXKtqcXW0HP5
-	qDkgLv4AVefmYzYfEo7SojgTJXDBsJ9e4ld+hXuVSPexsHegxigEI8/yZHEmZGiAqifGcsanI2f
-	oFgROsX+hFPVzWYtyt8u99ZEYTXuLvF8LVlmdiUWX4hDFiA/NwjrCzJImkNgE3XGQelhq7rcj/h
-	O81XAYIti7nujm6Q523k+17S/swO3MMtYpzQ+ST8H4aXXJzLKrAkzXZvH0VwdUyYrQ8sewkwFM/
-	hWg6mi6jcklBfAs6fhCCTSbt7pDOE7QMz6FtsbkkHVmgxnFMA7M+muFXqwr9AE3iGNdi0IlijpI
-	azSJww9r40tbprMUcIDUbNR9RQG9FIG+hMErJk4+3YFo1YQ7m5rHo94OC/k7PrpA6+9sldpmcAA
-	oelcq0gn9haOf1jueMGMd2VRdKZ0mrOtLHnpLUkHteygdmmXtHRuihS25eF1v0CzwX2fUjkJ/k0
-	MnvgxIpOvRhO4gm7vmN7c56C/sGArdrLzNsbXA==
-X-Received: by 2002:a17:906:f58f:b0:c29:f5d5:5a97 with SMTP id a640c23a62f3a-c31aa04b413mr1921502466b.33.1792061389965;
-        Thu, 15 Oct 2026 03:49:49 -0700 (PDT)
+        bh=m/Zy7Y5eanQKJCoQxPls43jtvnUNLhviTL0wISl0Q1Y=;
+        b=Uf8ATGlqD2E7E71plUlHZjRo7gPgEIFE2QDGWsQgVD4gp1E299msUBLJoEVMtZOjr6
+         xFkeO93OjRoW8f/uYQGq094vD0uiYQoLxtqp3qHSIng69LRTpt+Zwc8hqRbuH64xJuVk
+         WS0fTkVSkIssVOmNfempPGqJ3Z71xRtoQytZvdqOvt5GZ9P57fR61aYE8Pk7Rn394Cdj
+         aG+7OyrKhLzrP1X+g5dOaBvjVOGod5GKTj+QsUCVbHp99fnEWFQ3i7TLcteorsz6SYOC
+         UoRfjzrfExiQt61k1xQGlPILzas7C3WTaAALRLPfSRAcNsnhleXmP0WQTD5wdM9e1iRt
+         MklA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792061391; x=1792666191;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=m/Zy7Y5eanQKJCoQxPls43jtvnUNLhviTL0wISl0Q1Y=;
+        b=ZviSMEw/DS4kaeSmzUm0W1vTuYTvCnXhGHCvw4aBSP9p4EOiAFdhu4B0jtYjQIN0dt
+         LFsok4fqdrQkZWVQgL/Rfp71PsiEnq8nnVjttqPsVwBTB0cf+64edm84o1XowL5FYUXP
+         0CFNm2cQ3ACmC71enwrNOi89YmvdFsCjPklUP1knLnuvV6UeSPik+yCzIBx0XNrYyYGN
+         eWGRPcoj17TuHPVyqPOHuAmgwcn1NN7FQgfRfUSx75j+8gGdf4xDttEGs6b0QEVuTiX4
+         rSohyFhauIrG+ov9enSj+BzlkSlzoLB/oqirb5q0Fj+WTsZlu0Lnco2aXKeVjCGNbzY8
+         KZWw==
+X-Forwarded-Encrypted: i=1; AKwUvBzH5bwPgS6Y+JG0m/Hy7yteJmg10iQhFfstaSpmvFzWf4uANqSSjB5mqitj9YKbhPoOZURy5Qx926r3@vger.kernel.org
+X-Gm-Message-State: AFq9FYI35YRSs/dQ7KVpMa86m5dPHPepzvCMAISC3WKYbR4ezrzTwkc2
+	UjGmIU1bOPiKhA/Xv0CIZMrBvXLbErfCzXzPBa8k+Wdc4/UcU2uWbFFs
+X-Gm-Gg: AYBFou0e14vsneryI+qsItRb6HhJylkt/e2ATbjtn8TAPLAWI7ekGGdNElmkpLvGBf7
+	HTqh2YHqjvDSYNyCLE2Pvh1eIuePJErkj5UUE3+FWQz4apWU3VkmHrybH4U/+TJ3+LyzCfN9glR
+	V3YmRwcNlAG2jBWS1Q5juQziHuozYIJHEeBkkrGStcHnUytIo1SAx4iQN+V94tPNMFgC52CLSFs
+	oi8/uN7fBQ08FANfFbZo9d3wKEX+o9GKV9Q2U6alm5ACqyONdKB5OBiKnnSgYPE5Mt0Iwi1Iddf
+	4SgootcKJVJ2dQUrL1oj1b++BVFfwjz+5geCTfJi7HxFQ7V5nUXNuDtl4KH8TF8CilCcrReJpCU
+	UhlJud4uQFFfAA7dHGoQQwNFl6SDuqPeoXBMY+zuaFSs4qwnjrJkq7EoJWU2FS6cnz35nJWc9ha
+	9F2D0K5vy1QFr51YVDDOhtxY1CyoEzrTLd4bflolxuiGRXaBKpxJitrTI0+w7iztabbZrBQHABT
+	B5NvuP7PxD3ss/if+5tC8LBu0I1yvF8H1HpZtz+PpgUhY6siI8Z/284VOgKDaIFsSYkG41DlhYY
+	4MSkuLH1APkIwhPvJedRIk8+vK8=
+X-Received: by 2002:a17:907:9801:b0:c2d:be57:f73a with SMTP id a640c23a62f3a-c31a9fcedffmr1919031566b.13.1792061391328;
+        Thu, 15 Oct 2026 03:49:51 -0700 (PDT)
 Received: from M-K2012N0113010.localdomain ([88.119.128.229])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3ed9b3af45sm107890066b.33.2026.10.15.03.49.48
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3ed9b3af45sm107890066b.33.2026.10.15.03.49.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 03:49:49 -0700 (PDT)
+        Thu, 15 Oct 2026 03:49:50 -0700 (PDT)
 From: Paulius Zaleckas <paulius.zaleckas@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>,
 	linux-iio@vger.kernel.org
@@ -74,11 +76,14 @@ Cc: Eddie James <eajames@linux.ibm.com>,
 	Rupesh Majhi <zoone.rupert@gmail.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Paulius Zaleckas <paulius.zaleckas@gmail.com>
-Subject: [PATCH v3 0/5] iio: pressure: dps310: add Zilltek ZTS8032
-Date: Thu, 15 Oct 2026 13:49:40 +0300
-Message-ID: <20261015104945.2687162-1-paulius.zaleckas@gmail.com>
+	Paulius Zaleckas <paulius.zaleckas@gmail.com>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v3 1/5] dt-bindings: vendor-prefixes: Add ZillTek Technology
+Date: Thu, 15 Oct 2026 13:49:41 +0300
+Message-ID: <20261015104945.2687162-2-paulius.zaleckas@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261015104945.2687162-1-paulius.zaleckas@gmail.com>
+References: <20261015104945.2687162-1-paulius.zaleckas@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -87,68 +92,30 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Zilltek ZTS8032 is a register compatible DPS310 with two more
-pressure calibration coefficients (c31, c40) and a different TMP_CFG
-layout.
+ZillTek Technology Corp. (Hsinchu, Taiwan) makes MEMS microphones and
+barometric pressure sensors such as the ZTS8032.
 
-1-2: Vendor prefix and the zilltek,zts8032 compatible.
-3: Per-chip data in the I2C and ACPI match data, no functional change.
-4: OF match table.
-5: ZTS8032 chip data: the coefficient count, the TMP_CFG startup value,
-   and a Horner step each for c40 and c31.
+Link: https://www.zilltek.com/
+Assisted-by: LLM
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Paulius Zaleckas <paulius.zaleckas@gmail.com>
+---
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Based on iio/testing, on top of a22dc7ebb21a ("iio: pressure: dps310:
-fix overflow in pressure compensation"). That fix replaces v2's patch 1,
-and patch 5 extends its Horner evaluation.
-
-There is no public ZTS8032 datasheet.
-
-Testing: ZTS8032 on an arm64 (MT7987) board, the series and a22dc7ebb21a
-backported to 6.12. in_pressure_input matches the datasheet formula
-evaluated from the raw and coefficient registers to within 1 Pa at every
-oversampling rate from 1 to 128, and TMP_CFG reads 0x00 after probe.
-Every patch builds without warnings with W=1 on x86_64 and i386,
-dt_binding_check passes. I have no DPS310, so patches 3-4 are untested
-on one.
-
-An LLM coding assistant (Claude Code) was used for this series: it
-ported the ZTS8032 support from the vendor driver, wrote the code and
-changelogs and the hardware test scripts, under my direction. I
-reviewed and tested the result.
-
-Changes in v3:
-- Drop v2 1/6, superseded by a22dc7ebb21a in iio/testing; rebase onto
-  it and add c40 and c31 as Horner steps. This also covers the Sashiko
-  overflow report on v2 1/6.
-- C99 initializers for the ACPI ID (Andy, Uwe)
-- Add DPS310_MAX_COEF_LEN in patch 3 and bump it in patch 5 (Andy)
-- Parse c31/c40 based on a chip flag, not the coefficient count (Andy)
-- List the supported sensors one per line in Kconfig (Andy)
-- Link to v2: https://lore.kernel.org/r/20261013112124.1878296-1-paulius.zaleckas@gmail.com
-
-Changes in v2:
-- Split the driver patch into per-chip data, OF match table and
-  ZTS8032 support (Andy)
-- Drop the linux/mod_devicetable.h include (Andy, Uwe)
-- Return -ENODATA when there is no match data (Andy)
-- Add Conor's Acked-by to the bindings
-- Link to v1: https://lore.kernel.org/r/20261012114550.1680054-1-paulius.zaleckas@ui.com
-
-Paulius Zaleckas (5):
-  dt-bindings: vendor-prefixes: Add ZillTek Technology
-  dt-bindings: iio: pressure: infineon,dps310: Add Zilltek ZTS8032
-  iio: pressure: dps310: add per-chip data
-  iio: pressure: dps310: add an OF match table
-  iio: pressure: dps310: add Zilltek ZTS8032 support
-
- .../iio/pressure/infineon,dps310.yaml         |  4 +-
- .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
- drivers/iio/pressure/Kconfig                  |  6 +-
- drivers/iio/pressure/dps310.c                 | 73 ++++++++++++++++---
- 4 files changed, 72 insertions(+), 13 deletions(-)
-
-
-base-commit: a22dc7ebb21a6bd4c8b63bc2c1dd46a24945aae7
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index ba2002969373..255dc56edc36 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -1977,6 +1977,8 @@ patternProperties:
+     description: Shenzhen Zidoo Technology Co., Ltd.
+   "^zii,.*":
+     description: Zodiac Inflight Innovations
++  "^zilltek,.*":
++    description: ZillTek Technology Corp.
+   "^zinitix,.*":
+     description: Zinitix Co., Ltd
+   "^zkmagic,.*":
 -- 
 2.55.0
 
