@@ -1,109 +1,126 @@
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72EFE2E5B2D;
-	Thu, 15 Oct 2026 13:31:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 498871D63E4;
+	Thu, 15 Oct 2026 13:31:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792071081; cv=none; b=XDY25/Vya08VnZjGP98/kUfLkprNuBrNSZqknAZxp9xMCU4xDyM77OZ+Zh/ES83hJeojA2R6bu9mjbWl1dU4kh2X8a/wPBzb2UycMWNNZOPMMBzK5l8nB5q+jfxtwqWz97JwQNJlEoHNPOY9Ahf6ttbVaesllsbw+mZaMNGMrU4=
+	t=1792071105; cv=none; b=N9ThNtJh3BZ2tJ0KLvJ1euzjvmKd447az7UJ58IOUGwPHl0GQ2o55eQ4rwbVlj37pTom74tSS66VgrvPgl4QbfHlb1oTggEYEzH8z9q0F7GU6NjfMauqwGIm7Z1FAe2EZ7vMYMsP9HVyLUoLRZO/0+ojl2c2pN7acRt+qIAyFmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792071081; c=relaxed/simple;
-	bh=vmA6XUYtlHqFYF1V3I5JQfJJrWaaZuz3a5rJ1xnV/z0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Pp1bb/6XJMGHlINiVcr5xbeIlvBJluQsrEwRlQkJs9kXKpssNlPp9c8U7GgPCy3oKu0LWqz6uPhm3TrDLW+Co2e8jp0jy2KAFavw/QwAASDPcjhlFS/zDLIb4oktJ8352rt1whTfA8tpPehwXkb5O/+iO2MMvCd+65Th7juO87E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.92.39.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: esmtpsz11t1792071051td5e74615
-X-QQ-Originating-IP: ZY3dpyG3QC+HIamw3iX4CacHKho9duMeYS2GbkIpwjU=
-Received: from [127.0.0.1] ( [180.159.160.209])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 15 Oct 2026 21:30:48 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 8017279923020972316
-Message-ID: <8E9F476DB51FFE97+cb168190-d184-474a-bec2-91edf7bdd2bb@radxa.com>
-Date: Thu, 15 Oct 2026 21:30:47 +0800
+	s=arc-20240116; t=1792071105; c=relaxed/simple;
+	bh=WciRm7bG5cSSqysZI3bBaHarO2QnG/xez1Atr9R2C+A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BAHnQfrMhDuzPwEIvJsDHab1aYs9X9td3X3Je5EaLx4XlhWlhAgs7G0PSH+VGpesEbaBZv2nZvg47KslSYwLnS4f/96OTeZsKoUoGLTesj4zO3lx7Q3gIk0YjYMzFSMDld+5eYBtML7/75qE069ltkA+bTwwtr4RGTfJseZKgzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=A+SIr/AM; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="A+SIr/AM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792071105; x=1823607105;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=WciRm7bG5cSSqysZI3bBaHarO2QnG/xez1Atr9R2C+A=;
+  b=A+SIr/AMVU9HG+lnNbwL6nxJrpDNhCZMjICwK7U2q+ovjNzZX453n+85
+   RZ4RqL7K+9I1u6aP/i44yyLlMJq2/37HC34NMhCAlLnkbHCSkKFI/rXZb
+   hOzqWxOX/xHm4VDQJOBETRK1dLjcpoLq2Oa7rWy3FIOX6OA6N/FpA518X
+   /2AsJsviMdqh0luRvfYCldrF23uybfwNYrPX5rbJWbn4HjQ+fPiK49SEU
+   SzX9zjOE7AsYiwqCN2pIpIZcdkoptoPCeClWWBX8k+EbjZVtgNkbnPDvG
+   IcncQHLLOH53vHy2E3NLyUNaRKtsMY4zg7FAb+0MLJN6bakqwLW3JsEgL
+   Q==;
+X-CSE-ConnectionGUID: sB6D9lCTS2SebrIhnx/NXg==
+X-CSE-MsgGUID: OJHyVZYkSlWWa/xyI2/QOQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="835889"
+X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
+   d="scan'208";a="835889"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 06:31:44 -0700
+X-CSE-ConnectionGUID: s534FMPgR9atlNiizCTwgQ==
+X-CSE-MsgGUID: m1cQv2e1SNygZeGv+emjuw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
+   d="scan'208";a="1578785"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.117])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 06:31:40 -0700
+Date: Thu, 15 Oct 2026 16:31:37 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Paulius Zaleckas <paulius.zaleckas@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
+	Eddie James <eajames@linux.ibm.com>, Joel Stanley <joel@jms.id.au>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Rupesh Majhi <zoone.rupert@gmail.com>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 5/5] iio: pressure: dps310: add Zilltek ZTS8032 support
+Message-ID: <atDVud25tkoN58rF@ashevche-desk.local>
+References: <20261015104945.2687162-1-paulius.zaleckas@gmail.com>
+ <20261015104945.2687162-6-paulius.zaleckas@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: sophon@radxa.com
-Subject: Re: [PATCH v2] arm64: dts: qcom: sc8280xp: add missing QUP pinctrl
- states
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260831-sc8280xp-qup-pinctrl-v2-1-a69bbbdb37e8@radxa.com>
- <3d00c7d2-026e-4ce8-bda6-bb2d0f3c3123@oss.qualcomm.com>
-From: Xilin Wu <sophon@radxa.com>
-Organization: Radxa Computer (Shenzhen) Co., Ltd
-In-Reply-To: <3d00c7d2-026e-4ce8-bda6-bb2d0f3c3123@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: Nc4Sv39/e83WTkWT9LCrG+JtKlGp2is4gTi79+kMOaP/0VXRZmEcXsYc
-	Funsydf1nz+K8V9C8t5dag7jLSZJonpJa5FgjkHLMVrceuV7G12pHAaf682GZKMyXEii4u3
-	tI4TEmErKbYilqM9aLA+0jbYKl12+IN43CJO3m3XcX0bBt+j/3X23xDDw4K/A2XDPr/3f9k
-	zo2kPsFhJGGr+M5YCLEfh6SeARKJ0TvuJHZxhWydm0vPSJ04YDAAAQP/phgNPjPkecYHjex
-	fTUbOBa2IKwxywfNrRDf2THRTWKBrEqGbxC4565oIIQVxVHa95MqmkorzAPlgGd2rWlQn5v
-	E2IpJ70Tg3duQGej4FKsVifOTFCA77M4p+3UgerGYLpIfWZZkzheaVe/ENTf2glynvPdIvx
-	TRTi2M87b+V+o//oH3wNdpaVpQX9hXCul+PI0lYy2QKT1PaCbi/ynDhv+5Tfsk0d5iEWFKz
-	aZOa8NsITHC8eg4jAz//AdYPVJTkBPbck9zF5A5ItSezlLhFTkckXhniKNBvOlM5pt6PnL7
-	t0rst3YTpyYV3lyDZ59NFdEUxXm4Z/vhuN6y38GwluKg7aVVenBAzqAWmRgGpd1l+kCoZF9
-	c82bZfbwPepVxkGK1isNcj1JADjfCs0pBj5UkG8CCMCZsrpwzo71IKfYhbYiGvkkymQD3j1
-	AHBXMORoCuTIZeTnXW7l9FgGHbZFJqt9z/I5V06vkjLv9q9QR0Vx2ubJMqiVQRmbBc+u8ur
-	6FCIPw+Vqo2IoL2YZDGrMzQvLIhqMqzr1qUghvRNeXkSzBfx74lzsROUSIPLmRHEUJcdrQa
-	ru0ZjhkR0IC60wNE3LmaKcAjke76aSfeqRI0qN3Zfm39vBmE1lCOTe2o0+dOx2AmzCtfQH8
-	CNjuK989C7ob0ft7yg9gCHw1KPHc1Aa3wFKbkeZk/zC3XsBESawyyYrErH0DabAUOW5YFxB
-	hIJ3IibatZmUYqUmIgfPBjqu1MWGgX4ehdi/uaMKhDEVwHpM0bPyKESp8nVQXKfiyJwEZOw
-	1Udy4JkUVXFr+7m4kSm4P2M52LTooUoLAYiPh0rTs+HjUSyTv7w6V5zZ/uQD/NtMJXBp345
-	BoTvz0z6UWb
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015104945.2687162-6-paulius.zaleckas@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 10/15/2026 8:18 PM, Konrad Dybcio wrote:
-> On 8/31/26 11:55 AM, Xilin Wu wrote:
->> Add the missing tlmm pinctrl states for the SC8280XP QUP engines so common
->> I2C, SPI and UART pinmux definitions are available from the SoC dtsi.
->> Populate all 24 engines using the SC8280XP lane-to-GPIO mapping, including
->> the non-linear QUP instances, and keep the mux function names aligned with
->> the driver-supported qup0..qup23 names.
+On Thu, Oct 15, 2026 at 01:49:45PM +0300, Paulius Zaleckas wrote:
+> The Zilltek ZTS8032 has the DPS310 register map, scale factors and
+> compensation, with these differences:
 > 
-> [...]
+> - two more pressure coefficients, c31 and c40 at 0x22-0x25, adding
+>   c40 * Praw_sc^4 + c31 * Traw_sc * Praw_sc^3 to the polynomial
+> - TMP_EXT is MEAS_CFG bit 3, and the temperature coefficients are for
+>   the internal sensor (COEF_SRCE reads 0x06). TMP_CFG bit 7 is the top
+>   bit of a 4-bit TMP_RATE, so the DPS310 TMP_EXT write would select a
+>   25/16 Hz background rate instead of the external sensor.
+> - product ID 0x11 instead of 0x10, the driver does not check it
 > 
->> +			qup_uart0_default: qup-uart0-default-state {
->> +				cts-pins {
->> +					pins = "gpio135";
->> +					function = "qup0";
->> +					bias-bus-hold;
->> +				};
->> +				rts-pins {
+> Add its chip data, reading 22 coefficient bytes and leaving TMP_CFG at
+> 0, a Horner step for each of c40 and c31, and the I2C and OF IDs.
 > 
-> Please keep a \n between each subnode, there's a new tool in town
-> that will be very grumpy if you don't:
-> 
-> https://lore.kernel.org/linux-arm-msm/cover.1790892852.git.waqar.hameed@axis.com/
-> 
-> https://lore.kernel.org/linux-arm-msm/e869c2bb5005830c9ac1d4bf998696ffc4eed335.1790892852.git.waqar.hameed@axis.com/
+> Tested on a ZTS8032 over I2C: in_pressure_input is within 1 Pa of the
+> datasheet formula evaluated from the raw and coefficient registers at
+> every oversampling rate from 1 to 128, and TMP_CFG reads 0x00 after
+> probe.
 
-Cool! Thanks for the pointers.
+...
 
-> 
-> with that:
-> 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> 
-> Konrad
+>  #define DPS310_COEF_LEN		18
+> -#define DPS310_MAX_COEF_LEN	18
+> +#define ZTS8032_COEF_LEN	22
+> +#define DPS310_MAX_COEF_LEN	22
 
+I probably was unclear. What I meant is the agnostic name for that.
+
+After the first patch:
+
+#define DPS310_COEF_LEN		18
+
+#define MAX_COEF_LEN		18
+
+After this one
+
+#define DPS310_COEF_LEN		18
+#define ZTS8032_COEF_LEN	22
+
+#define MAX_COEF_LEN		22
+
+...
+
+Everything else looks good to me.
 
 -- 
-Best regards,
-Xilin Wu <sophon@radxa.com>
+With Best Regards,
+Andy Shevchenko
+
+
