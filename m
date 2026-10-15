@@ -1,71 +1,70 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1794B509F10
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 09:49:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76FD850C2AB
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 09:49:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792057794; cv=none; b=kMazzCn9GOabBI1wmXiXwuX0OX9Wh8FewMmkXFhdr4ctmncwQ8j/s0OhayCbJOyqo3jQVrdAY5CeLGlnJggtI+5TVQBFoOVISmTjB5APlK5z+bKrTLVtfAlMTJq+218gN7eJEM/cTqejwRvK9oks02VN22ldKqnec1deIOc1agM=
+	t=1792057797; cv=none; b=sgukZ2daIELlNmmNy+AolNaCkaXbNgHzbz7R0LzBO3Fphopab7Mkbnbj49QJ1KgammvNEnW2G+hIjyxXJsoarkFGUgnAq0KqlZvODnRu/04ybEH0aTVhc/seS8r6vMWay7GPr2gClTYcFVMIdnSlFwkVeLLPqipmo0io23XzciA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792057794; c=relaxed/simple;
-	bh=Y5mDqQIodgDg69CwquzDO95nLQX1pocUdt6jGCRougk=;
+	s=arc-20240116; t=1792057797; c=relaxed/simple;
+	bh=ZOpltpafv/7LlNWra6wWjfFa96A+83F+yhqApR3l6JM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Dvyak4XEWMc7bNUyWIV5XVqzsT5n8fPId/EAFPGAPwn8iwteHqU19h6DKfVRh1DwbX4y1qvyH/ugjEfv4V+cbzy76Ugc0PnJ0GQ9+TsKsz5zIClw1m35DNGzJOOMX+tBPHM7Aza6Dus3EheKZirrQd89Yg8lY0JOQPF1M89JcUA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com; spf=pass smtp.mailfrom=imd-tec.com; dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b=KSFv9BXW; arc=none smtp.client-ip=209.85.128.51
+	 In-Reply-To:To:Cc; b=gRXjcnEhH5Dlf5YVVIlqFpBbCego1oeHjsatILJRj39SpGBoMyGXrQ5oVfsEuDqI2fJBIeTDc7fO7U7QKzW5JFqC/74ZVZaZICCJSWOyVUkZ2ywrM1hL7sCWQCiWhEs4wab6Fa05x5eYpvdZUYos9mDt1dN5ddAFj0Jglrcgx58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com; spf=pass smtp.mailfrom=imd-tec.com; dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b=KAa7pvlf; arc=none smtp.client-ip=209.85.221.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imd-tec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b="KSFv9BXW"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a0213948d3so30973095e9.2
-        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 02:49:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b="KAa7pvlf"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48af27fe287so174161f8f.0
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 02:49:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=imd-tec.com; s=google; t=1792057791; x=1792662591; darn=vger.kernel.org;
+        d=imd-tec.com; s=google; t=1792057794; x=1792662594; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6tngli+sbclxXmwFOjyHw6Lpl/UDG64/d2I1Pa40mIM=;
-        b=KSFv9BXWovBKAYr1N+MCRkZ9LSjI2bW0NIqEIeo7BLLzybgi+U2/tRw5jWYlvOc24a
-         EKmAafpQ1YB71dvhBXHrwMFr0G2sw8lwTnUkLMhmcct7tM2WeJnFIsWMEn8EIh3mISCm
-         pJLhZ5QCi64mDnpstJly+hkmKn32sENY31ruydTfhjzLZNkf4ic7cxd+wT8FLuUr0Lt7
-         ZNxz2yIS9blwbmooerWwLRoXnGeOAiuD8HSfxx69A8FxE2Wt3gBBFfL9yRM6dGahCF7h
-         cgS+MrC8maea8JOBGeG6poXTUNcePXNt28nFZ4V1Wuk7KBRMGiChdFquN+bpssg+rBrg
-         4w7Q==
+        bh=bZtTPFUdhwPPjPop4o2Vw8B13QBJM3YcreGJyrx1Qvs=;
+        b=KAa7pvlfN9u1gjVrWFZ+5GeN+qfPSajRIwkJ7IzoTZjpdwy3h4vC0Z3Ws3h+3Y3OZD
+         tLDamhB/H4brlXm1u+0MG7S6yw0FM06O+6McvXfODyIb9sxhUwk4zEAUCUVLZNzAyF3a
+         vkToGr5ZQDTkUpYhEKs5GOcQkvlrtBn1Qo3XBWiEY2cxVZwp7xz8sOz3/MwPMu0Xn++/
+         Emgb8LgRZp5EovzWJqNdw64sWx9bWP0OCz5LRiLS+vy8AIqAm+GB5ZEeokOL+9NeBD5S
+         +1wDW9lXZD3CEQteiAwBmtpqZdgL3K3UB7zRdjnfguT55dh8bQpsU4JJlkveI9PWG0mu
+         OlIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792057791; x=1792662591;
+        d=1e100.net; s=20260707; t=1792057794; x=1792662594;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6tngli+sbclxXmwFOjyHw6Lpl/UDG64/d2I1Pa40mIM=;
-        b=gepYLM2NIZ3t22d5mNbLWYXVZ9Crv0BMoyJEGPEOOvjYkiJnDZiP7BvHnZepBDPyNI
-         HO8ECsmM4iEdSwW5jNi4p2hHtD4FDpCwhVG56b4E6j83Y8e4l+oiVqzFKClI2v3nadbK
-         28PKsgls5DIylijTxbK870aODMATrWavxR0AQxB7T5YglK33m4HQD5c9cGMwuVTiATby
-         SXtOQSu/hDg/2BUhVw70Iqh6TP+Ez1HxtQmctE1feFceSb2vJ1YJLrPR3Q1iBo7gDMlS
-         bul3+/f5/xhXbBEKKEXFywLslVIuQ/g+FRK7zlj6dfdKzaPf2yiKPdbI8uORtAdxun64
-         Gg5g==
-X-Forwarded-Encrypted: i=1; AKwUvBwqEkEvST0l6EnL89Yhcr59+acLztONSiemNaglW0gEwblZWmLvx7pjO9r8RHrfeVHvSewmdc3FHY5d@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ5bV+KStDaV3aBI7W8BvfaYB69vN2CqsJtFFgTr5aiKifSZGzk
-	MwSykioxFCj5dBN6i3Kk6dkDC3Md/rrHIWwAV6PdRK/Rri7JGOTN/IDZIfeP+OA1wZghdHGNiLy
-	a0zSaC6YrKgRq
-X-Gm-Gg: AYBFou0/iSZ6i9GhQbVa+Z6ZtuybmWTK0cLekK5Xi8RHtdHmoWveLsg9qdTs2pnJSZR
-	y8A4ZbLN13Ul31IZya+0Bqo40n0VgtmZiwGoPRQxFLJKJ6Zd7J9nA4eYZ/7ZpgpYQF102iFp+sb
-	6ff8hzbgghGAHsARDBtQzYYPuHwT0bxYk1rGia1mU8CIntXdvzKLS0Ajnz8IMWcuX86PzI8Xuvo
-	z5ruezMNTXeBKL6/Ypof4rxf+p4rV3nbpVayNypMe8dagJj1pRGl3a2cFmoh236Nfjtml/2B9sQ
-	4itsXRC63p3t6V5KpENwnqP6JOmCqOCKVpI4e8sLUKjzA4S+VocT8Q1iRJc2okEiorkRZTquZTs
-	K0EeK+4Xdgn/JiOBCiw+iNvlvCCV4BwHjROkOUjBehKWY3wtqfk1uOhEcory5Uy1RZyF/BUONRf
-	HPJ7kRQMAOzo5MXUxuNRQ00A5QDJoH9vP0clpgM8ZZRu1KGw4s2EpNk2Bb38N1utMMcKB7vMkcq
-	MdQw3LgC1BgTKjYoluA/qefrL39Yax8S8zLnkMr3FrfpcABVfE9oTD908aVegvoRBE3IOu97ALN
-	LzJlLATdGg7rfwTsWvANtHJLupfQKugwkXXRYA==
-X-Received: by 2002:a05:600c:6384:b0:4a1:7741:ec43 with SMTP id 5b1f17b1804b1-4a18e4b8966mr345613225e9.26.1792057791376;
-        Thu, 15 Oct 2026 02:49:51 -0700 (PDT)
+        bh=bZtTPFUdhwPPjPop4o2Vw8B13QBJM3YcreGJyrx1Qvs=;
+        b=GggBS7Vpfs0sjTusL1wxGAt/nm70ve+/b3XK+B7hfbq85EjMrvIVbznqw7KG60wB/0
+         nX23JWpq2iGHQQKHBg8oi1kZjh/Rjc1BgIepCISiCXFRyzkOqvTbXfXva0cTKZuiSleZ
+         YI/oCWuWDVmKM0edWpRImpBoOWOQtz2mbDFz1Eb7ENs2UtgzkVFXRh5v8avwcQAEY/K9
+         VpQPLw3L5GxLj7tgXlZXO3R5L5N58TaO3AOAWbfvlV8WugGbLiP3RFULwu3vkNplgMiK
+         2sMagMsQU5g7yUZdN1wyiLo6HGInKFctl/caNR6nVBqgmHf3XW/lJNYAdqjSfTahRr56
+         VHjw==
+X-Forwarded-Encrypted: i=1; AKwUvBxlf6smGhn3lJ55YyTm8MCp7GTdfIO/1bYaknQ/ErVjYqNMXApzGPyAkqwrGdmb7bX1LrxUXvWi+NSg@vger.kernel.org
+X-Gm-Message-State: AFq9FYKYTJuW1WCcGW23QLbKFhMcEd6tCLzWHYn3cSvhB9wm1riOsZfx
+	Aa5WjYQVLrjmHJp1AXg3dZPBl0J72yULuOfAQa4v7liskjeKLJaj/hKiqj0n16atCyY=
+X-Gm-Gg: AYBFou09l7u89oeS/jES3BLsG0BxZ9t9sAQTritwLtwcAH6/TXvv1hdWt6BYBCBPV9a
+	YYYQ2zXyDD4eCsrsRXdHxbHdAJpy/SmnhryiNP3qbwe41DZZyiwvPiA/WjPImt8CHs53CafQtU8
+	+YxESAM/r3oY1Xp5WIO1udavInq1nZoJCIffsubU/1voyiEUaHxxUfj9GP46jHruqXX/ynxpUZE
+	8fcZXOawkn0CRtqHUmky+kXJ+HZq2Jcf5rn3ebb4nfGcmGcCNgbgG48g6pYC4WYfTBHgoKekdrJ
+	6TkqnkfEDOqS6T82pWq6zrUP5AwJmk/81hwtQM6e8NH1rRmV1LNqvzFPMjd6J4q5N3oBLPHyip3
+	rVcC9BdF6TSZk3oZ1rbb1GRnQ4xbGKZTI/rr97forfPeL1tlNpWp6tQU8zX0C/30K/40JhcyVwY
+	36yK1Gqg0QtxQUYCompbxzMjAna4i8cX7E0OUKcqedITnco1C7OmmKgdiDmqng2LOmKg2J3eueW
+	fj91gMQlkHRnEu80sh6jk+rMsQIL5Y36RnqDnE6ljHpN5+7uR5TqgWAjLu5PLhtGuzJQvA6iGfs
+	Dc3d9UO4cA9SErUZc5mjIUsz5EYYF4GFblvHeg==
+X-Received: by 2002:a05:6000:40ce:b0:48d:bb54:77e7 with SMTP id ffacd0b85a97d-48dbb547b24mr36277483f8f.29.1792057793781;
+        Thu, 15 Oct 2026 02:49:53 -0700 (PDT)
 Received: from [127.0.1.1] ([2a00:23c6:273c:cd01:737a:1f7b:d586:a293])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc85b1sm16926246f8f.54.2026.10.15.02.49.50
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc85b1sm16926246f8f.54.2026.10.15.02.49.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 02:49:51 -0700 (PDT)
+        Thu, 15 Oct 2026 02:49:53 -0700 (PDT)
 From: William Bright <william.bright@imd-tec.com>
-Date: Thu, 15 Oct 2026 10:49:30 +0100
-Subject: [PATCH v3 1/3] dt-bindings: media: qcom,sm8550-camss: Add the CSI
- TPG regions
+Date: Thu, 15 Oct 2026 10:49:32 +0100
+Subject: [PATCH v3 3/3] arm64: dts: qcom: sm8550: Add the CSI TPG regions
+ to camss
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -74,7 +73,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-sm8550-camss-tpg-v3-1-00fe06a3c557@imd-tec.com>
+Message-Id: <20261015-sm8550-camss-tpg-v3-3-00fe06a3c557@imd-tec.com>
 References: <20261015-sm8550-camss-tpg-v3-0-00fe06a3c557@imd-tec.com>
 In-Reply-To: <20261015-sm8550-camss-tpg-v3-0-00fe06a3c557@imd-tec.com>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
@@ -87,67 +86,50 @@ To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
  Konrad Dybcio <konradybcio@kernel.org>
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- William Bright <william.bright@imd-tec.com>
+ William Bright <william.bright@imd-tec.com>, 
+ Bryan O'Donoghue <bod@kernel.org>
 X-Mailer: b4 0.15.2
 
-SM8550 has three CSI test pattern generators next to the CSIPHYs.
-Allow their register regions as optional trailing entries.
+Add the three CSI test pattern generator register regions to the
+camss node, matching the updated binding. The TPG blocks sit at
+0xacf6000, 0xacf7000 and 0xacf8000 and are used to generate test
+frames without a sensor attached.
 
 Assisted-by: Claude:claude-opus-5-5
+Reviewed-by: Bryan O'Donoghue <bod@kernel.org>
 Signed-off-by: William Bright <william.bright@imd-tec.com>
 ---
- .../devicetree/bindings/media/qcom,sm8550-camss.yaml    | 17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
+ arch/arm64/boot/dts/qcom/sm8550.dtsi | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/media/qcom,sm8550-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sm8550-camss.yaml
-index 4b9ab1352e91..683a19a1f288 100644
---- a/Documentation/devicetree/bindings/media/qcom,sm8550-camss.yaml
-+++ b/Documentation/devicetree/bindings/media/qcom,sm8550-camss.yaml
-@@ -17,7 +17,8 @@ properties:
-     const: qcom,sm8550-camss
+diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+index d21c04b1a306..1270ea8e4fdd 100644
+--- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+@@ -3862,7 +3862,10 @@ camss: isp@acb7000 {
+ 			      <0x0 0x0ac71000 0x0 0xf000>,
+ 			      <0x0 0x0ac80000 0x0 0xf000>,
+ 			      <0x0 0x0accb000 0x0 0x1800>,
+-			      <0x0 0x0accf000 0x0 0x1800>;
++			      <0x0 0x0accf000 0x0 0x1800>,
++			      <0x0 0x0acf6000 0x0 0x400>,
++			      <0x0 0x0acf7000 0x0 0x400>,
++			      <0x0 0x0acf8000 0x0 0x400>;
+ 			reg-names = "csid0",
+ 				    "csid1",
+ 				    "csid2",
+@@ -3881,7 +3884,10 @@ camss: isp@acb7000 {
+ 				    "vfe1",
+ 				    "vfe2",
+ 				    "vfe_lite0",
+-				    "vfe_lite1";
++				    "vfe_lite1",
++				    "csitpg0",
++				    "csitpg1",
++				    "csitpg2";
  
-   reg:
--    maxItems: 19
-+    minItems: 19
-+    maxItems: 22
- 
-   reg-names:
-     items:
-@@ -40,6 +41,10 @@ properties:
-       - const: vfe2
-       - const: vfe_lite0
-       - const: vfe_lite1
-+      - const: csitpg0
-+      - const: csitpg1
-+      - const: csitpg2
-+    minItems: 19
- 
-   clocks:
-     maxItems: 36
-@@ -424,7 +429,10 @@ examples:
-                   <0 0x0ac71000 0 0xf000>,
-                   <0 0x0ac80000 0 0xf000>,
-                   <0 0x0accb000 0 0x1800>,
--                  <0 0x0accf000 0 0x1800>;
-+                  <0 0x0accf000 0 0x1800>,
-+                  <0 0x0acf6000 0 0x400>,
-+                  <0 0x0acf7000 0 0x400>,
-+                  <0 0x0acf8000 0 0x400>;
-             reg-names = "csid0",
-                         "csid1",
-                         "csid2",
-@@ -443,7 +451,10 @@ examples:
-                         "vfe1",
-                         "vfe2",
-                         "vfe_lite0",
--                        "vfe_lite1";
-+                        "vfe_lite1",
-+                        "csitpg0",
-+                        "csitpg1",
-+                        "csitpg2";
- 
-             clocks = <&camcc CAM_CC_CAMNOC_AXI_CLK>,
-                      <&camcc CAM_CC_CPAS_AHB_CLK>,
+ 			clocks = <&camcc CAM_CC_CAMNOC_AXI_CLK>,
+ 				 <&camcc CAM_CC_CPAS_AHB_CLK>,
 
 -- 
 2.43.0
