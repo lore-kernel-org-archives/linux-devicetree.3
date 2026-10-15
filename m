@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FAB551D50E
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 13:19:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 249B34CE689
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 13:19:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792070376; cv=none; b=u3ArEx3hs4OYxO+lfQOAo7qmyQ6QDCYxsCc0P85vRkGukz1OvQ97Y1eiRHhfuiZZeb1k46tp7OD0SxMrKt92GISM+rn34yoTq9++9bLvKIqeytVb505UUPnXrIFXjLVE5tR7ZE0+xklc+ao0c4zK9eT4Eua1rI6/AQMzTyOZMGg=
+	t=1792070377; cv=none; b=fzvdlGxDNlhTFSi6T9sVBwlH+1h0IkC9L/1OLiELUGQ3a3pZa20kYRKqn4+QP3GLiUcqjtY7BavPg90rLjZkRPDoSK/EbKLNIVjqVLJzQZgJKgpxR7YVlIRo3TDCWGSViP0OUekUqFCuScXb5Cam5ZStlvr5MzgHYO7NaCAyrRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792070376; c=relaxed/simple;
-	bh=Gn4jCbRhHx2HKuT1i1gFW+r7jo6gBoOANGLVrISOqK8=;
+	s=arc-20240116; t=1792070377; c=relaxed/simple;
+	bh=FQB8vXMAdTTCcxxq9Hv/6xEjX8Q819uWXwTrVt1s5HU=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=GSv8XN5gPPmkDAwF3m3xR0YW09BntC71XLhSnkJ73+5s+8F2F/sNkdf9UKAQF5DtFV1uTvKawyJ6so40ZRJ1q8KsXQ3KuofaQaOL1wjzxzlqJnAG4LJ4EIK3hB8Gt8VaG09SmaG2h0+eAr3zd86eTBxI/wKtACFpmybUELSXCUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TitcwsT+; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=P0Ygikr43AMI4nA59bSqtzWlCAT4qB5h80gKUTaMkgVHzvA5aLi7Go+h4Yf8cl8oMInbYypzlsQ85Ev8X7ypFQd9FcxYYQw2ZmbRRG/z5Xfs6hY2y+HzGwO83rUFaI0RHV0dafwpCkV8oQGUtsjxHZV1lvAFBeCWPGi/6cCH+pg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VM/tosDW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TitcwsT+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D66EF1F000C4;
-	Thu, 15 Oct 2026 13:19:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VM/tosDW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B56721F000C7;
+	Thu, 15 Oct 2026 13:19:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792070374;
-	bh=Skt9MLegsjAiT2Tqp1O7n+BpqPMSNorBty3sR8jJSWQ=;
+	s=k20260515; t=1792070375;
+	bh=vtcMbnS/youjFAUv4eSePSNcnWxipPXx8uOkLiyObxI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TitcwsT+kqY2bugFTRyxWmAssSmhSStPSSRfzbegy+Cl93l0QxjYrvQKoq2qq9UlA
-	 W+kolWtjy2PHVEy4Yf3Wrv37gaf8ZHLz+/hLY8EgIhdJeKkYikg9hpTNSZkzDX6Nco
-	 16AvyWVZuml6z7GDPkMxXDfC4wd52nHctXJTXVGp+/wEoxkM+KMbp1RPGggVl/MIM3
-	 +iiy1Qmc0BmqKT3bQLXLdzRbbAbKbDlX6wXiY6G9zhE2pvzoFBVAm30HNb1tFqXGML
-	 R7CR/yUIElaNXZ6dEDEWDFDGVd89bDgcmis3y7jy8iUa8EScMmnW1uyWs/pW6Y7Qo4
-	 PxBmzF6XZR8Yw==
-Message-ID: <sashiko-outbox-172921@kernel.org>
+	b=VM/tosDWU7VyI69KL2pW1H/+RxQdb9R43vEJfOYXp/CIyhrwlsD4N+pDQcEovFg7+
+	 UfifDgTmq01NgD9HPlpfAJPT3fDoZruiXUPh4aH8XPcr2H8TAv5vBvOc6rUgiqJWp1
+	 PQLzlDopIQFRp6sUWPE/EVKnCmCe6bS7q6B0TSE1T1CiANijivmtj5oCudACcRuFf0
+	 8uBqw9orFFYIMPhh7LG/ZVY/VPXWsYNrppUBPbffMr7iH0o6q8+fuFQeIrJ0LCNspJ
+	 AVyc7vPqWcpdOIlTuNypbOwAqi3r2S7iC+EFi+JQkJAhHTdQpqTCqF3GHGKqE1l9fn
+	 j4JbLueroDSgQ==
+Message-ID: <sashiko-outbox-172922@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v3 11/13] net: dsa: rzn1-a5psw: Add fixed frame
- length workaround for management port
+Subject: Re: [PATCH net-next v3 12/13] net: dsa: rzn1-a5psw: Add support for
+ RZ/T2H Ethernet switch
 Reply-To: sashiko-reviews@lists.linux.dev
 To: Prabhakar <prabhakar.csengg@gmail.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20261014131906.990077-12-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20261014131906.990077-13-prabhakar.mahadev-lad.rj@bp.renesas.com>
 References: <20261014131906.990077-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20261014131906.990077-12-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20261014131906.990077-13-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 13:19:33 +0000
+Date: Thu, 15 Oct 2026 13:19:34 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,51 +47,58 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] net: dsa: missing NULL check for of_device_get_match_data()
+- [Medium] net: dsa: mismatch between commit message and frame length adjus=
+tment
 --
 
-commit 8d40702613d22f005a1af76ac95b3654ab3e2d50
+commit c8c80059b5db71015db86eaff104015c66bd88b0
 Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-net: dsa: rzn1-a5psw: Add fixed frame length workaround for management port
+net: dsa: rzn1-a5psw: Add support for RZ/T2H Ethernet switch
 
-The ETHSW IP used in SoCs such as RZ/T2H and RZ/N2H has a hardware issue
-where the internal mgmt_tag_vld signal is asserted as a level instead of
-a single-cycle pulse. This causes the frame length counter on the
-management (CPU) port to over-increment, so valid frames are falsely
-detected as oversized and dropped.
+This commit adds device tree match data and configuration for the Renesas
+RZ/T2H SoC Ethernet switch. It configures the switch for four ports and
+specifies the DSA tagging protocol along with management port frame length
+settings.
+
+>     Add device tree match data and configuration for the Renesas RZ/T2H
+>     SoC Ethernet switch. The RZ/T2H uses the same A5PSW switch IP as RZ/N1
+>     but with four ports, the DSA tagging protocol `DSA_TAG_PROTO_RZT2H_ET=
+HSW`,
+>     and an additional 8-byte management port frame length adjustment.
 
 > diff --git a/drivers/net/dsa/rzn1_a5psw.c b/drivers/net/dsa/rzn1_a5psw.c
-> index 0b0b4055e6155..30eca64fb2183 100644
+> index 30eca64fb2183..933589084eea3 100644
 > --- a/drivers/net/dsa/rzn1_a5psw.c
 > +++ b/drivers/net/dsa/rzn1_a5psw.c
-> @@ -209,8 +209,13 @@ static int a5psw_port_enable(struct dsa_switch *ds, =
-int port,
->  static int a5psw_port_change_mtu(struct dsa_switch *ds, int port, int ne=
-w_mtu)
->  {
->  	struct a5psw *a5psw =3D ds->priv;
-> +	const struct a5psw_of_data *of_data =3D a5psw->of_data;
-> +
-> +	if (dsa_is_cpu_port(ds, port) && of_data->management_port_fixed_frame_l=
-en)
-> +		return 0;
+> @@ -1334,6 +1334,14 @@ static void a5psw_shutdown(struct platform_device =
+*pdev)
+>  	platform_set_drvdata(pdev, NULL);
+>  }
+> =20
+> +static const struct a5psw_of_data rzt2h_of_data =3D {
+> +	.nports =3D 4,
+> +	.npcs =3D 3,
+> +	.cpu_port =3D 3,
+> +	.tag_proto =3D DSA_TAG_PROTO_RZT2H_ETHSW,
+> +	.management_port_fixed_frame_len =3D 0x3fff,
 
 [Severity: Medium]
-Since this code relies on a5psw->of_data, could there be a NULL pointer
-dereference if the device is bound manually via sysfs without a matching
-device tree node?
+Is the description in the commit message accurate?
 
-Looking at a5psw_probe() where a5psw->of_data is initialized:
+The commit message mentions an "additional 8-byte management port frame len=
+gth
+adjustment", but the code here assigns a fixed maximum frame length of 0x3f=
+ff
+(16383 bytes) to management_port_fixed_frame_len and contains no 8-byte
+adjustment logic.
 
-	a5psw->of_data =3D of_device_get_match_data(dev);
-	a5psw->bridged_ports =3D BIT(a5psw->of_data->cpu_port);
+Could the commit message be updated to match the 0x3fff fixed assignment, or
+is the 8-byte adjustment logic missing from the implementation?
 
-If a user with root privileges binds the driver via sysfs (using
-driver_override and bind) without a matching device tree node,
-of_device_get_match_data() returns NULL. Does this cause an immediate
-crash when accessing cpu_port during probe?
+> +};
+> +
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014131906.9900=
-77-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D11
+77-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D12
