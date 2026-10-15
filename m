@@ -1,69 +1,69 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7114D34DB41
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 15:57:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9FA942AFB7
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 15:57:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792079891; cv=none; b=QTksq4rzNfNsSpjMt362Yz3Vu9EWRJBsEDJ8V4yCVTRVJrL7iValkl3a/mE493zraEe3z+6IPEYkQ1wD3NOjFTAMcmbeabdOu6hNGDB29MiIDeHUdKImjgk+NRhgSxjXUzf5fwVJLeZkOBdUCKboNDjC1KtVwxvw5sSSYQRxuTI=
+	t=1792079891; cv=none; b=sMFPBFa0koMM6Jdl8pg3TxWKkRdD0BgyuC9drv891OxbizfC26aMDmzZTuapRWh083OrrP1Axh7JO8G4M1hVe8asJYPUrI/xcmRcVCWCL4ienVXH9EzrWDcDfLLAjzt1sEo/Ta0dEuGCMD5oQr/sWRfo/+xMDlr2I+NIFF9i51w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792079891; c=relaxed/simple;
-	bh=LjEmyleO79NM8uWuMzakkcA0rXksukeE3zemrxG3uqk=;
+	bh=iEKrSG5ZS6Ztha7Ufb7EQPh7Js7jjseDcw7gdXubNk8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Gi0zoXC9w6BfpkHxxA0QaFna0F7TTS8un4aZVjvwVSAnD06j/M/ejTwH/6yh2frrppbatZqmSYXbhrXRoYprcX9hls97WXlxvzWVjDM1MRgLkGigABFpEuKrczW5U/wfqoo0/W1/gi+gzoLkXyWR7W3ijxOwET7MIxk6v9CtNEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=pkcVtDC+; arc=none smtp.client-ip=209.85.128.50
+	 In-Reply-To:To:Cc; b=kjiw1m6p7o1ZGn3w6vG0MXtvcUbWb7AU7hjgr6jHrbKNyXgPU56pK83yZVZ+1csi3MGx/k1WoikZW+Ktwbd47ERwuLYeCYSbk1CmA16UMYhlQ7t/gOa6CZ5efYeD1uBKWNEq6UUNMpOOMF1GmCEki/3lPmPECZAcmwA/uI3s+m8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=jQJt0OiW; arc=none smtp.client-ip=209.85.221.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="pkcVtDC+"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso22315615e9.3
-        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 08:57:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="jQJt0OiW"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48c45111bebso3505665f8f.0
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 08:57:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1792079867; x=1792684667; darn=vger.kernel.org;
+        d=raspberrypi.com; s=google; t=1792079869; x=1792684669; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=P+bUFEmLPS4/TdrbxhIqdaZX2ZeBKuPS+ZYgOUoKgys=;
-        b=pkcVtDC+zlLyKLFDN+7oZFTje66OTLEEbp4Jz6x0rGlBkq9JNwot1YV5bDpC9brdrR
-         axKDRLaWG52IUTgf5ykcibxm5RplT8Gjb07iC57RFeQjjbitp1+VWovu/M076Xq89Gmm
-         IQHtRiExi9/1LuyxXzN+UuXh3QdYRbumlvsoW6HqDa0WG0QMgMiQ04oV8vC4bFn2gWVr
-         AAq5RIflIZXG9d3ZT7FbE+3yeErphhfFoYCZ+Vr2gvIQV1aK1tP552VcHLtJ5n4O46UJ
-         6OiIitlJ7zxnV0Nie0GDOMD8qk1yYGtr+wO93NNjPeBHKzoWap+CpOF20FgQThDwtC7z
-         wO3w==
+        bh=DSkVLmo2zMnVW3BpolUkwIGWC2D4epkgGWldFd6+S98=;
+        b=jQJt0OiWmXnB4CPlSRDjhWVEmGYcQgUSGVp5keb0Bxtska96NW+z2Xxv1Np+8TAGUC
+         S63XR5q29sFyU/09gjotGZvMZY5Wl6ycsHt667cTp+lqg2eBaDAdZLnGyazJay533C9A
+         zvUbKo4WLuV+sxPV/kDq3bjtYJGbW/EG1Jss0aA10Qp5OV9eEcrdzUAP3Sa2BReRJ9VP
+         9ErhbTnzT+JPqdn2ix/w0KmtnRgr9PghdMsvY9ELx2BnPU9qGBSePx1SX9Pmf2DSSkon
+         mqOEU8AztaNX7NupmlbGKx/A/Ey903edJFj1Fm/fu31SlSNKXQx+dnM+C3qPRZe6dKIs
+         RVNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792079867; x=1792684667;
+        d=1e100.net; s=20260707; t=1792079869; x=1792684669;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=P+bUFEmLPS4/TdrbxhIqdaZX2ZeBKuPS+ZYgOUoKgys=;
-        b=SjaxhI54xRMDl/pYm9tH+Wa1PTyI+f4P8OmBoGUYxjaX/VEaDywzXxNvWQmOyqaSMX
-         ioE2a7H+GHzt4JY8DxEBmriYCQKViE7vwlNNG7cvNuBO/nth++VKnUOQbFcI1N326ztT
-         SrpI3MdaS83I6TScPOglkvyW116gdrGZ0bMIgszTn14nVzPz310KaT6DDt0QhpYBuOic
-         0ghNb8vcnu/+Ncbao5M8SWhOMUtP1zNviRE3c//CWpVtgBD7QceW4BH3er+56HNof68Q
-         UrzQ2F39Z3ahUkolt7UvBNvDF9okwYveUPDJRKYXtI06/ZvzVhyB285KqsrI1r/a8l8e
-         +nbA==
-X-Forwarded-Encrypted: i=1; AKwUvByyXzvLt+F1ApGO3D+vWW7TPdUF20z9CtgfMbzjedyaIGRHbz/vT2v+0gMF9eYc6DEawjlWTOaAcBXq@vger.kernel.org
-X-Gm-Message-State: AFq9FYI9xco/qo04VEAryNRkOZokSfaAA6UdgU1QOjmShiyw/3a3+Vf3
-	ANTy/11oDeS1iYSbtoPgwgGFo9yF1j0Tf23PyV6dWv/G2P3JSUr6xGNYJJoCCZmi4Jg=
-X-Gm-Gg: AYBFou1QVA+b11Ma2oWjO4JyDsQAugfpmd1RGdeZtf86inkCA1eA/+gDAGnP24Ey3U1
-	OrXYS8AuLiiKj8cPABQPjieojqJ88+ATAfeN9ezzK7qJBYcLXnbJH96kw2/a/DyUvmtWkN/Oc+6
-	MQd6XLd4H96pqolOl2klD0nQK/oAVjS/Wubr/q84ojk2pJBN6HeFQF1ixM7LwABxtTVE+oC3qxG
-	/SPNj75uhdKB/xlUht0RA5agZcHa7x82F09S68Ccx6DKRy1QJmDK5LqzFaXwjblz8JnsyfuuliO
-	VF3CL5cKH/Qcb90xr+h4AABE3gRcU6mZA5iZEB8jb5uca/lh/4+Qn6/LY+gZo6LrAYlgZ0uT089
-	se74M2JYF79zyjC/c0x9B8JGgOTaePlGj0twHejnpuo/Ck0zEHHnDrfwB+MDia7TOaQo8SY78Md
-	vPVWKHaRlfhIREazvbtO2+5yam6H5gmwWkrx1R3Lk4SHcE3ySPCuMgF6hVLMlVzr66AAtl7wyfV
-	lzVj9OwAHVaDXj7OgirAq0/pEFMQXpyNHP53u9WABCp3W1zgQ==
-X-Received: by 2002:a05:600c:8b09:b0:4a1:6f78:842f with SMTP id 5b1f17b1804b1-4a18e4987b8mr414276165e9.11.1792079867328;
-        Thu, 15 Oct 2026 08:57:47 -0700 (PDT)
+        bh=DSkVLmo2zMnVW3BpolUkwIGWC2D4epkgGWldFd6+S98=;
+        b=xDPE3qwaE1/pMjZ8vB63a05OFQIsLZpF+GtkSFkI9SlY6dIvj8BdQhgEdc/uHmb62v
+         WOlWeKTMfJrEPp/mwrspWffM7++QsZcXQXDtlkdsAezlCRMt6dNnQwRRwlprHO0jhxgE
+         cZ7v8A1mC6s7BCclW2vi/dVdv4I3FnWZOBNovPiDuoGTPJu+0YltM+zLo8L6UFTt9HUJ
+         XPU2dypZuN9HK+zoze2cvlg814/udoJmzVSnjzWq28fX67N5JdDVb2Q3eTYXzSs4F4T8
+         n66wOuOmMKO48YxB+ht53O5bNMw8wuA3BVRhxndbV39v0idKy+x8C0118GAZIZSoxD0T
+         4f0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw/5JFPYIWK6c6Gd87Ywn9+5YlG7QncWXo2pOW/dTPDEr3vIHsheM5Bg2b51EU14mYJHrCS8tJjEqft@vger.kernel.org
+X-Gm-Message-State: AFq9FYImDR7wohk+tRxLWnSsEkWflrrDbu2LM2Cg15VpX8R0TvVmPNJ9
+	e9DxzuaHEaWSHid6lXCvIVkVxUIweWLr8nQfMVTktZ4531b2YO3HjDSGyZ7SZMU2Ev7KspZuB8d
+	ph8yiXNw=
+X-Gm-Gg: AYBFou0RISdifb24OTd0dDuOxjC69DKY13dYwa74/HqHCnHv7fz/JOu1ribL2Fkis12
+	wmXnJHGPaQ3t6nsaGRA1oyLabWGubtEZgVXarILtfkNVkK+KaORf1nz3GH7kUJqg8OJHFardjf3
+	CT7X+dubn4s4NGeKy2kadhd3O4H9LItAUFOx20mS7yV+38jA0NbhifSe+TmYfWjZ5zbUbeFQMgE
+	ggHM/0owqkO1IR+7T62j7Aew8e+gYyPfaKUzmHYk8iFHV+ucxHhTIjBI7pUbXai0TJPIM1QJO1C
+	wFhP35/NU11EdD6AtPpoqKzRoYJ24xfRhkbb6Q7JJM0AkxVkfGDk+RqO4KISUD+2hO9+HHMpFyG
+	UCcrwmk9RoeClWzNNpHBqxat+gk/CRnuW6O05SnSZDC2KPJRJCENWfkUo9rSa69eQemhEOaSfij
+	kKmsvFqQBSfsCi8SMcXB/WIwBLVaN3XR1c/XT5srJfODkkMGC+4e8gLJlsRLPH1iygVzdWS0eO3
+	GayEc8omobFdmrE62rJgajC+W2xwWSmmDxfoaKeCsnn4lhxJw==
+X-Received: by 2002:a05:6000:4a14:b0:487:15a3:1cab with SMTP id ffacd0b85a97d-48dbaadb081mr37956659f8f.18.1792079869038;
+        Thu, 15 Oct 2026 08:57:49 -0700 (PDT)
 Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48de0aaaaebsm19877251f8f.14.2026.10.15.08.57.46
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48de0aaaaebsm19877251f8f.14.2026.10.15.08.57.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 08:57:46 -0700 (PDT)
+        Thu, 15 Oct 2026 08:57:48 -0700 (PDT)
 From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Thu, 15 Oct 2026 16:57:36 +0100
-Subject: [PATCH v4 10/16] media: dt-bindings: sony,imx678: Add other
- Starvis 2 family members
+Date: Thu, 15 Oct 2026 16:57:38 +0100
+Subject: [PATCH v4 12/16] media: sony-starvis2: Add support for IMX675
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-media-starvis2-v4-10-75fcdb4163f3@raspberrypi.com>
+Message-Id: <20261015-media-starvis2-v4-12-75fcdb4163f3@raspberrypi.com>
 References: <20261015-media-starvis2-v4-0-75fcdb4163f3@raspberrypi.com>
 In-Reply-To: <20261015-media-starvis2-v4-0-75fcdb4163f3@raspberrypi.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
@@ -83,86 +83,266 @@ To: Sakari Ailus <sakari.ailus@linux.intel.com>,
 Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
  Alexander Shiyan <eagle.alexander923@gmail.com>, 
  linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ devicetree@vger.kernel.org, Dave Stevenson <dave.stevenson@raspberrypi.com>
 X-Mailer: b4 0.14.1
 
-There are multiple members of the Sony Starvis 2 image sensor family
-that have the same hardware requirements as imx678.
-Add them as options to the imx678 binding, rather than duplicating it.
+The IMX675 is a 5MPix Starvis2 sensor that follows the same
+programming pattern as IMX678 and IMX662, so add it into the
+driver.
 
 Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- .../devicetree/bindings/media/i2c/sony,imx678.yaml | 38 ++++++++++++++++++----
- 1 file changed, 32 insertions(+), 6 deletions(-)
+ drivers/media/i2c/sony-starvis2.c | 212 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 212 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-index 098f72544216..027872a134f2 100644
---- a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-+++ b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-@@ -5,7 +5,7 @@
- $id: http://devicetree.org/schemas/media/i2c/sony,imx678.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/media/i2c/sony-starvis2.c b/drivers/media/i2c/sony-starvis2.c
+index 56e657748252..b7d3f65b21b4 100644
+--- a/drivers/media/i2c/sony-starvis2.c
++++ b/drivers/media/i2c/sony-starvis2.c
+@@ -10,6 +10,8 @@
+  *         pixels.
+  * IMX662: Diagonal 6.45mm (Type 1/2.8) CMOS image sensor with 2.12 M effective
+  *         pixels.
++ * IMX675: Diagonal 6.53mm (Type 1/2.8) CMOS image sensor with 5.12 M effective
++ *         pixels.
+  *
+  * Copyright (C) 2026 Ideas On Board Oy.
+  *
+@@ -793,6 +795,193 @@ static const struct starvis2_variant imx662_variant_def = {
+ 	.hmax_min_pixel_array = 990,
+ };
  
--title: Sony IMX678 Sensor
-+title: Sony IMX678 and Starvis 2 Sensors
- 
- maintainers:
-   - Jai Luthra <jai.luthra@ideasonboard.com>
-@@ -13,21 +13,47 @@ maintainers:
- description:
-   Sony IMX678 diagonal 8.86 mm (Type 1/1.8) CMOS active pixel type solid-state
-   image sensor with a square pixel array and 8.40M (3856x2180) effective pixels.
-+  It is part of the Starvis 2 family of sensors.
-+  Other members of the Starvis 2 have the same hardware requirements, and
-+  therefore share this binding.
- 
- allOf:
-   - $ref: /schemas/media/video-interface-devices.yaml#
- 
- properties:
-   compatible:
--    items:
--      - enum:
--          - sony,imx678-aamr
--          - sony,imx678-aaqr
--      - const: sony,imx678
-+    oneOf:
-+      - items:
-+          - enum:
-+              - sony,imx585-aamj
-+              - sony,imx585-aaqj
-+          - const: sony,imx585
-+      - items:
-+          - enum:
-+              - sony,imx662-aamr
-+              - sony,imx662-aaqr
-+          - const: sony,imx662
-+      - items:
-+          - enum:
-+              - sony,imx675-aamr
-+              - sony,imx675-aaqr
-+          - const: sony,imx675
-+      - items:
-+          - enum:
-+              - sony,imx678-aamr
-+              - sony,imx678-aaqr
-+          - const: sony,imx678
-+      - items:
-+          - enum:
-+              - sony,imx832-amr
-+              - sony,imx832-aqr
-+          - const: sony,imx832
++static const struct cci_reg_sequence imx675_common_regs[] = {
++	{ STARVIS2_REG_THIN_V_EN, 0x00 },
++	{ STARVIS2_REG_VCMODE, 0x01 },
 +
-     description:
-       The IMX678 sensor exists in a colour variant (IMX678-AAQR) and a mono
-       variant (IMX678-AAMR). The variant-specific compatible describes the
-       exact sensor variant, with the generic IMX678 compatible as a fallback.
-+      The same applies for the other sensors in the family.
++	{ CCI_REG8(0x3081), 0x00 },
++	{ STARVIS2_REG_XXS_OUTSEL, 0xaa },
++	{ STARVIS2_REG_XXS_DRV, 0x0f },
++	{ CCI_REG8(0x30cc), 0x00 },
++	{ CCI_REG8(0x30cd), 0x00 },
++	{ CCI_REG8(0x30ce), 0x02 },
++	{ CCI_REG8(0x3400), 0x01 },
++
++	{ CCI_REG8(0x3460), 0x22 },
++	{ CCI_REG8(0x347b), 0x02 },
++	{ CCI_REG8(0x3492), 0x08 },
++	{ CCI_REG8(0x3b1d), 0x17 },
++	{ CCI_REG8(0x3b44), 0x3f },
++	{ CCI_REG8(0x3b60), 0x03 },
++	{ CCI_REG8(0x3c03), 0x04 },
++	{ CCI_REG8(0x3c04), 0x04 },
++	{ CCI_REG8(0x3c0a), 0x1f },
++	{ CCI_REG8(0x3c0b), 0x1f },
++	{ CCI_REG8(0x3c0c), 0x1f },
++	{ CCI_REG8(0x3c0d), 0x1f },
++	{ CCI_REG8(0x3c0e), 0x1f },
++	{ CCI_REG8(0x3c0f), 0x1f },
++	{ CCI_REG8(0x3c30), 0x73 },
++	{ CCI_REG8(0x3c3c), 0x20 },
++	{ CCI_REG8(0x3c44), 0x06 },
++	{ CCI_REG8(0x3c7c), 0xb9 },
++	{ CCI_REG8(0x3c7d), 0x01 },
++	{ CCI_REG8(0x3c7e), 0xb7 },
++	{ CCI_REG8(0x3c7f), 0x01 },
++	{ CCI_REG8(0x3cb0), 0x00 },
++	{ CCI_REG8(0x3cb2), 0xff },
++	{ CCI_REG8(0x3cb3), 0x03 },
++	{ CCI_REG8(0x3cb4), 0xff },
++	{ CCI_REG8(0x3cb5), 0x03 },
++	{ CCI_REG8(0x3cba), 0xff },
++	{ CCI_REG8(0x3cbb), 0x03 },
++	{ CCI_REG8(0x3cc0), 0xff },
++	{ CCI_REG8(0x3cc1), 0x03 },
++	{ CCI_REG8(0x3cc2), 0x00 },
++	{ CCI_REG8(0x3cc6), 0xff },
++	{ CCI_REG8(0x3cc7), 0x03 },
++	{ CCI_REG8(0x3cc8), 0xff },
++	{ CCI_REG8(0x3cc9), 0x03 },
++	{ CCI_REG8(0x3e00), 0x1e },
++	{ CCI_REG8(0x3e02), 0x04 },
++	{ CCI_REG8(0x3e03), 0x00 },
++	{ CCI_REG8(0x3e20), 0x04 },
++	{ CCI_REG8(0x3e21), 0x00 },
++	{ CCI_REG8(0x3e22), 0x1e },
++	{ CCI_REG8(0x3e24), 0xba },
++	{ CCI_REG8(0x3e72), 0x85 },
++	{ CCI_REG8(0x3e76), 0x0c },
++	{ CCI_REG8(0x3e77), 0x01 },
++	{ CCI_REG8(0x3e7a), 0x85 },
++	{ CCI_REG8(0x3e7e), 0x1f },
++	{ CCI_REG8(0x3e82), 0xa6 },
++	{ CCI_REG8(0x3e86), 0x2d },
++	{ CCI_REG8(0x3ee2), 0x33 },
++	{ CCI_REG8(0x3ee3), 0x03 },
++	{ CCI_REG8(0x4490), 0x07 },
++	{ CCI_REG8(0x4494), 0x19 },
++	{ CCI_REG8(0x4495), 0x00 },
++	{ CCI_REG8(0x4496), 0xbb },
++	{ CCI_REG8(0x4497), 0x00 },
++	{ CCI_REG8(0x4498), 0x55 },
++	{ CCI_REG8(0x449a), 0x50 },
++	{ CCI_REG8(0x449c), 0x50 },
++	{ CCI_REG8(0x449e), 0x50 },
++	{ CCI_REG8(0x44a0), 0x3c },
++	{ CCI_REG8(0x44a2), 0x19 },
++	{ CCI_REG8(0x44a4), 0x19 },
++	{ CCI_REG8(0x44a6), 0x19 },
++	{ CCI_REG8(0x44a8), 0x4b },
++	{ CCI_REG8(0x44aa), 0x4b },
++	{ CCI_REG8(0x44ac), 0x4b },
++	{ CCI_REG8(0x44ae), 0x4b },
++	{ CCI_REG8(0x44b0), 0x3c },
++	{ CCI_REG8(0x44b2), 0x19 },
++	{ CCI_REG8(0x44b4), 0x19 },
++	{ CCI_REG8(0x44b6), 0x19 },
++	{ CCI_REG8(0x44b8), 0x4b },
++	{ CCI_REG8(0x44ba), 0x4b },
++	{ CCI_REG8(0x44bc), 0x4b },
++	{ CCI_REG8(0x44be), 0x4b },
++	{ CCI_REG8(0x44c0), 0x3c },
++	{ CCI_REG8(0x44c2), 0x19 },
++	{ CCI_REG8(0x44c4), 0x19 },
++	{ CCI_REG8(0x44c6), 0x19 },
++	{ CCI_REG8(0x44c8), 0xf0 },
++	{ CCI_REG8(0x44ca), 0xeb },
++	{ CCI_REG8(0x44cc), 0xeb },
++	{ CCI_REG8(0x44ce), 0xe6 },
++	{ CCI_REG8(0x44d0), 0xe6 },
++	{ CCI_REG8(0x44d2), 0xbb },
++	{ CCI_REG8(0x44d4), 0xbb },
++	{ CCI_REG8(0x44d6), 0xbb },
++	{ CCI_REG8(0x44d8), 0xe6 },
++	{ CCI_REG8(0x44da), 0xe6 },
++	{ CCI_REG8(0x44dc), 0xe6 },
++	{ CCI_REG8(0x44de), 0xe6 },
++	{ CCI_REG8(0x44e0), 0xe6 },
++	{ CCI_REG8(0x44e2), 0xbb },
++	{ CCI_REG8(0x44e4), 0xbb },
++	{ CCI_REG8(0x44e6), 0xbb },
++	{ CCI_REG8(0x44e8), 0xe6 },
++	{ CCI_REG8(0x44ea), 0xe6 },
++	{ CCI_REG8(0x44ec), 0xe6 },
++	{ CCI_REG8(0x44ee), 0xe6 },
++	{ CCI_REG8(0x44f0), 0xe6 },
++	{ CCI_REG8(0x44f2), 0xbb },
++	{ CCI_REG8(0x44f4), 0xbb },
++	{ CCI_REG8(0x44f6), 0xbb },
++	{ CCI_REG8(0x4538), 0x15 },
++	{ CCI_REG8(0x4539), 0x15 },
++	{ CCI_REG8(0x453a), 0x15 },
++	{ CCI_REG8(0x4544), 0x15 },
++	{ CCI_REG8(0x4545), 0x15 },
++	{ CCI_REG8(0x4546), 0x15 },
++	{ CCI_REG8(0x4550), 0x10 },
++	{ CCI_REG8(0x4551), 0x10 },
++	{ CCI_REG8(0x4552), 0x10 },
++	{ CCI_REG8(0x4553), 0x10 },
++	{ CCI_REG8(0x4554), 0x10 },
++	{ CCI_REG8(0x4555), 0x10 },
++	{ CCI_REG8(0x4556), 0x10 },
++	{ CCI_REG8(0x4557), 0x10 },
++	{ CCI_REG8(0x4558), 0x10 },
++	{ CCI_REG8(0x455c), 0x10 },
++	{ CCI_REG8(0x455d), 0x10 },
++	{ CCI_REG8(0x455e), 0x10 },
++	{ CCI_REG8(0x455f), 0x10 },
++	{ CCI_REG8(0x4560), 0x10 },
++	{ CCI_REG8(0x4561), 0x10 },
++	{ CCI_REG8(0x4562), 0x10 },
++	{ CCI_REG8(0x4563), 0x10 },
++	{ CCI_REG8(0x4564), 0x10 },
++	{ CCI_REG8(0x4569), 0x01 },
++	{ CCI_REG8(0x456a), 0x01 },
++	{ CCI_REG8(0x456b), 0x06 },
++	{ CCI_REG8(0x456c), 0x06 },
++	{ CCI_REG8(0x456d), 0x06 },
++	{ CCI_REG8(0x456e), 0x06 },
++	{ CCI_REG8(0x456f), 0x06 },
++	{ CCI_REG8(0x4570), 0x06 },
++};
++
++static const u16 imx675_min_hmax_2lane[] = {
++	[STARVIS2_LINK_FREQ_297MHZ] = 2044,
++	[STARVIS2_LINK_FREQ_360MHZ] = 1692,
++	[STARVIS2_LINK_FREQ_445MHZ] = 1376,
++	[STARVIS2_LINK_FREQ_594MHZ] = 1064,
++	[STARVIS2_LINK_FREQ_720MHZ] = 840,
++	[STARVIS2_LINK_FREQ_891MHZ] = 684,
++	[STARVIS2_LINK_FREQ_1039MHZ] = 592,
++	[STARVIS2_LINK_FREQ_1188MHZ] = 528,
++};
++
++static const struct starvis2_variant imx675_variant_def = {
++	.name = "imx675",
++	.id_reg = CCI_REG16_LE(0x4d12),
++	.id_mask = 0xfff,
++	.id_value = 0x576,
++	.native_area = {
++		.top = 0,
++		.left = 0,
++		.width = 2609,
++		.height = 1984,
++	},
++	.active_area = {
++		.top = 0,
++		.left = 0,
++		.width = 2608,
++		.height = 1984,
++	},
++	.pixel_rate = 594000000,
++	.pix_per_clk = 8,
++	.common_regs = imx675_common_regs,
++	.num_common_regs = ARRAY_SIZE(imx675_common_regs),
++	.vmax_default = 2024,
++	.hmax_min_link_freq = imx675_min_hmax_2lane,
++	.hmax_min_pixel_array = 528,
++};
++
+ struct starvis2_model_info {
+ 	enum starvis2_type type;
+ 	const u32 *codes;
+@@ -843,6 +1032,26 @@ static const struct starvis2_model_info imx662_autodetect_info = {
+ 	.auto_detect_mono = &imx662_aamr_info,
+ };
  
-   reg:
-     maxItems: 1
++static const struct starvis2_model_info imx675_aaqr_info = {
++	.type = STARVIS2_COLOR,
++	.codes = codes_bayer,
++	.num_codes = ARRAY_SIZE(codes_bayer),
++	.variant = &imx675_variant_def,
++};
++
++static const struct starvis2_model_info imx675_aamr_info = {
++	.type = STARVIS2_MONOCHROME,
++	.codes = codes_monochrome,
++	.num_codes = ARRAY_SIZE(codes_monochrome),
++	.variant = &imx675_variant_def,
++};
++
++static const struct starvis2_model_info imx675_autodetect_info = {
++	.variant = &imx675_variant_def,
++	.auto_detect_colour = &imx675_aaqr_info,
++	.auto_detect_mono = &imx675_aamr_info,
++};
++
+ static const char * const starvis2_supply_name[] = {
+ 	"avdd",  /* Analog (3.3V) supply */
+ 	"dvdd",  /* Digital Core (1.1V) supply */
+@@ -1681,10 +1890,13 @@ static const struct dev_pm_ops starvis2_pm_ops = {
+ static const struct of_device_id starvis2_of_match[] = {
+ 	{ .compatible = "sony,imx662-aamr", .data = &imx662_aamr_info },
+ 	{ .compatible = "sony,imx662-aaqr", .data = &imx662_aaqr_info },
++	{ .compatible = "sony,imx675-aamr", .data = &imx675_aamr_info },
++	{ .compatible = "sony,imx675-aaqr", .data = &imx675_aaqr_info },
+ 	{ .compatible = "sony,imx678-aamr", .data = &imx678_aamr_info },
+ 	{ .compatible = "sony,imx678-aaqr", .data = &imx678_aaqr_info },
+ 	/* for non-conforming DTs that rely on runtime check */
+ 	{ .compatible = "sony,imx662", .data = &imx662_autodetect_info },
++	{ .compatible = "sony,imx675", .data = &imx675_autodetect_info },
+ 	{ .compatible = "sony,imx678", .data = &imx678_autodetect_info },
+ 	{ /* sentinel */ }
+ };
 
 -- 
 2.34.1
