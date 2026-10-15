@@ -1,147 +1,189 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F4164DD3C9;
-	Thu, 15 Oct 2026 08:51:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E4C54C6531
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 08:51:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792054274; cv=none; b=gZifHR4UDTiMKaYrr/A0S9jrqoEnkRXVcTw8/PHugn9bgrSB+pKefOAJSKnvBF+3vMoHaoFPr/iHhrhrUXmYckD/G7of9+seWqCpgrr4szJasW3jrYB4YowrHe8RlRD9tYQGQeh0n3U7IpePDl51aXLYxTjz2ZvAO5Ib5ICyxPM=
+	t=1792054318; cv=none; b=PdP4Vojq6/EOxGsn0X7j9CZ87jTn7XNXAo/Is1cmv0n/h3+wFCwnjPaFKFKz05sVK3kQ7/DNrWx3fe0hYLp4jwqrubqrWye7GhUNLpdLnyWPcMdm8g5QJsNzvea8cvfgKOcWIMzs3L88zcjG2dcaN3j3bvWeje1hFTdjtiM0X1Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792054274; c=relaxed/simple;
-	bh=bMwWPEBQCG9rpn7heB52ms+Zuu9YDMaWktIXKrli2ig=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=R0B15LoN1nn8GZ3U8t18DQnnmIjw1jOEdnvXADOAN9bYOQdDnU1K8qiqna3E7aldFXTAW4a9UuLliP/5zSLRrCqea5fLCiB+Wa3V48jothHTWbswm/36PLDXOhwWe/VdyB2mYwQkOnZG8QOYR9Q7Nz0Ltx9tWAEdWypsnB+NW2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bl6hpvm2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792054318; c=relaxed/simple;
+	bh=Xhe12g4dSxKf6b40jd8XbuogFcTU3hR5lA457Fxwmfs=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=GPcxtkDqf6rJvhINuh+8Ci4SeBiB9PIOWeBe+ejDtFw9y9gAhq7RY+0m06d7RpEMndL3dv3DNnSdjHDEmt6MY7FrzrLqyKlRO6uo65H+mGz3yNnGWJb6F1AqaTAuKyUx0wSbGjzaXrUZ0/sYVPK33Nxx7UBdqHOSqR3eP+F4xxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=apKDf96n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bl6hpvm2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E04A1F000C5;
-	Thu, 15 Oct 2026 08:51:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="apKDf96n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 727A41F000C4;
+	Thu, 15 Oct 2026 08:51:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792054263;
-	bh=tFnV7548W2cYAgOYdNjgr+r0IhqhLRq6V7QIU9EarGc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bl6hpvm2/G34jtvGuymyBpQnb30BmSpm41F+bpgLGn/5Qwrknu3j/mc4FWfx1BHOG
-	 EsSDzkKASK5ngSqNTxxPAr9OrYIkzzKNWVrO5KI0aNnXkbJB7Xo2+X1wQOrbQrzv7h
-	 I+WdAxWYr+oxFHKwU5pCt5/3HGhZVKB/Khbbc+g2lNeDRRqHvXhq1cy8EQ7kbgjwIg
-	 sFSKrXXNcFSfGq4RzLt7J04pVBpntNuWQGa4YUZgWMbuNXPMhtqj6vOEFVz6auLTgm
-	 8Xrx4LaDLNNk7jmuQ3IDeVheVSOvnd6PsjTSjaurj1WSuvv2jhMuVwCKKZzxTxYDxC
-	 zB/0nSVuORqoA==
-Date: Thu, 15 Oct 2026 10:50:59 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: wyibo6109@gmail.com
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	linux-input@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: input: add OnePlus pogo-pin keyboard
-Message-ID: <20261015-polite-barnacle-from-valhalla-b218eb@quoll>
-References: <20261010143836.173883-1-wyibo6109@gmail.com>
- <20261014135251.11234-1-wyibo6109@gmail.com>
- <20261014135251.11234-2-wyibo6109@gmail.com>
+	s=k20260515; t=1792054312;
+	bh=0r61TlrE+NIRa75CITh1VeXZ5XKqip7dVjZ3X9FLGCg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=apKDf96nvzk9iJUoLcAQxJLaIG0/kx1zEEtVWZuBh0QSEpg4yKQf/sRMkAw4goVNY
+	 3iMqSWpI0tugxXXEsJ08/YyAcmD7KyjskhuutecG37gbek2v8j378U80nEpkblb1l2
+	 KDnAJETRZuj/fnOmoVRArJ3phVcFIWbmp/kwgPPwSkPCBWycpfP/jMxyis27mIYVNk
+	 i7Jy7lhvIlsYwi/zLQqwg/ZAPTPcublS7fe+h4MrnxE13hIqtXGMg11xx8bf2NSQiy
+	 W6enWnRh+OZTcFli9Azz5rpZwqyyF/5NrIk/w6TVN8pKQL0Uj9lKDeu6qzaG1iHQZ1
+	 PpwJVbc7UtF8g==
+Message-ID: <sashiko-outbox-172520@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/2] of: reserved_mem: allocate and map the
+ reserved_mem array early
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Marek Szyprowski" <m.szyprowski@samsung.com>, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261015082315.56876-3-m.szyprowski@samsung.com>
+References: <20261015082315.56876-1-m.szyprowski@samsung.com>
+ <CGME20261015082334eucas1p2a3bbf3650f279abbd39d05d63e35aba6@eucas1p2.samsung.com>
+ <20261015082315.56876-3-m.szyprowski@samsung.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 15 Oct 2026 08:51:51 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261014135251.11234-2-wyibo6109@gmail.com>
 
-On Wed, Oct 14, 2026 at 08:52:50AM -0500, wyibo6109@gmail.com wrote:
-> From: Yibo Wang <wyibo6109@gmail.com>
-> 
-> Binding for the Tinno keyboard MCU used by the OnePlus Pad 3 Pro /
-> Pad 4 and OPPO Pad 5 Pro smart keyboards, attached to a tablet UART.
-> Describes the supply, TX-gate and wake GPIOs, with a MAINTAINERS entry.
-> 
-> The compatible names the tablet project the pogo port belongs to
-> (caihong, erhai or iceland), which pins the keyboard MCU generation
-> and with it the protocol extensions the host may use: the 0x3A general
-> sub-commands grew over time, from the caihong (sm8650 era) MCUs with
-> neither wake notification nor backlight, through erhai (sm8750 era,
-> wake notification) to iceland (sm8850 era, keyboard backlight).
-> 
-> The touchpad geometry and the product names are fixed per project and
-> live in the driver; the common touchscreen properties
-> (touchscreen-size-x/y, touchscreen-x-mm/y-mm) remain as an optional
-> override if a variant ever needs one.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] of: memory corruption due to initializing unreserved memory regions
+- [Medium] of: memory leak on dynamically-placed nomap region init failure
+--
 
-Why? It's fixed. It cannot be overridden. Your example DTS even shows
-that.
+commit cc45d1ed473ae1f1390908145c8217f0d9614ac0
+Author: Marek Szyprowski <m.szyprowski@samsung.com>
 
-> 
-> Signed-off-by: Yibo Wang <wyibo6109@gmail.com>
-> ---
->  .../bindings/input/oneplus,pogo-keyboard.yaml | 73 +++++++++++++++++++
->  MAINTAINERS                                   |  6 ++
->  2 files changed, 79 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml b/Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
-> new file mode 100644
-> index 000000000..fa1579ed5
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
-> @@ -0,0 +1,73 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +# Copyright (c) 2026 Yibo Wang <wyibo6109@gmail.com>
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/input/oneplus,pogo-keyboard.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: OnePlus / OPPO Pad pogo-pin smart keyboard
-> +
-> +maintainers:
-> +  - Yibo Wang <wyibo6109@gmail.com>
-> +
-> +description: |
-> +  The Tinno keyboard MCU used by the OnePlus Pad 3 Pro / Pad 4 and OPPO
-> +  Pad 5 Pro smart keyboards.  It is attached to a tablet UART and speaks
-> +  a framed half-duplex protocol over a shared single wire; host
-> +  transmission is gated onto the wire by a PMIC GPIO for the duration of
-> +  a frame.  The device provides a keyboard matrix, a touchpad and a
-> +  keyboard backlight.
-> +
-> +allOf:
-> +  - $ref: /schemas/serial/serial-peripheral-props.yaml#
-> +  - $ref: /schemas/input/touchscreen/touchscreen.yaml#
+    of: reserved_mem: allocate and map the reserved_mem array early
+   =20
+    Get rid of the static, limited-size reserved_mem array and replace it
+    with array allocated by memblock_alloc_raw() and accessed directly or
+    through a temporary early_memremap() mapping.
 
-So this is not really needed, drop
+    Link: https://lore.kernel.org/all/asc6brs_g0ky0wOM@kernel.org/
 
-> +
-> +properties:
-> +  compatible:
-> +    description: |
-> +      Names the tablet project the pogo port belongs to, which pins the
-> +      keyboard MCU generation and the protocol extensions the host may
-> +      use: caihong (sm8650 era) supports neither the wake notification
-> +      nor a backlight, erhai (sm8750 era) adds the wake notification,
-> +      iceland (sm8850 era) adds the keyboard backlight.
-> +    enum:
-> +      - oneplus,caihong-pogo-keyboard
-> +      - oneplus,erhai-pogo-keyboard
-> +      - oneplus,iceland-pogo-keyboard
-> +
-> +  power-gpios:
-> +    description: GPIO enabling the keyboard supply, held high while attached.
-> +    maxItems: 1
-> +
-> +  tx-enable-gpios:
-> +    description: GPIO gating host TX onto the shared one-wire bus.
-> +    maxItems: 1
-> +
-> +  wake-gpios:
-> +    description: GPIO signalling attach/detach, also used as the wake line.
-> +    maxItems: 1
-> +
-> +  touchscreen-size-x: true
-> +  touchscreen-size-y: true
-> +  touchscreen-x-mm: true
-> +  touchscreen-y-mm: true
+> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+> index 300fb236ab59f..0fd1683cba011 100644
+> --- a/drivers/of/of_reserved_mem.c
+> +++ b/drivers/of/of_reserved_mem.c
+> @@ -381,143 +384,109 @@ static void __init __rmem_check_for_overlap(void)
+[ ... ]
+> +	/* Second pass: initialize the static regions */
+> +	fdt_for_each_subnode(child, fdt, node) {
+>  		if (!of_fdt_device_is_available(fdt, child))
+>  			continue;
+> =20
+> -		uname =3D fdt_get_name(fdt, child, NULL);
+> -
+> -		err =3D __reserved_mem_reserve_reg(child, uname);
+> -		if (!err)
+> -			count++;
+> +		__reserved_mem_init_reg(child, fdt_get_name(fdt, child, NULL));
+> +	}
 
-Drop all four.
+[Severity: High]
+Does this unconditionally initialize memory regions even if they failed
+reservation in the first pass?
 
-Best regards,
-Krzysztof
+If __reserved_mem_reserve_reg() fails for a region, it sets
+reserved_mem_reserve_failed =3D true but does not exclude the node. When
+__reserved_mem_init_reg() is called here, it will invoke
+fdt_init_reserved_mem_node() for that node anyway.
 
+Could this lead to blindly adding unreserved physical memory to the
+reserved_mem array, allowing drivers to silently overwrite standard memory
+that the page allocator considers free?
+
+Additionally, if the node initialization subsequently fails (e.g. due to a
+missing compatible match), could it execute memblock_phys_free() or
+memblock_clear_nomap() on memory it never successfully owned?
+
+drivers/of/of_reserved_mem.c:fdt_init_reserved_mem_node() {
+    ...
+	err =3D __reserved_mem_init_node(rmem, node);
+	if (err !=3D 0 && err !=3D -ENODEV) {
+		pr_info("node %s compatible matching fail\n", rmem->name);
+		rmem->name =3D NULL;
+
+		if (nomap)
+			memblock_clear_nomap(rmem->base, rmem->size);
+		else
+			memblock_phys_free(rmem->base, rmem->size);
+		return;
+    ...
+}
+
+> =20
+> -		/*
+> -		 * Save the nodes for the dynamically-placed regions
+> -		 * into an array which will be used for allocation right
+> -		 * after all the statically-placed regions are reserved
+> -		 * or marked as no-map. This is done to avoid dynamically
+> -		 * allocating from one of the statically-placed regions.
+> -		 */
+> -		if (err !=3D -ENOENT || !of_get_flat_dt_prop(child, "size", NULL))
+> -			continue;
+> +	/*
+> +	 * Allocate the dynamically-placed regions only after all the
+> +	 * statically-placed ones are reserved, to avoid overlapping with them.
+> +	 */
+> +	fdt_for_each_subnode(child, fdt, node) {
+> +		int len;
+> =20
+> -		if (dynamic_nodes_cnt =3D=3D MAX_RESERVED_REGIONS) {
+> -			pr_err("too many defined dynamic regions, skip '%s'\n",
+> -			       uname);
+> +		if (!of_fdt_device_is_available(fdt, child) ||
+> +		    (of_flat_dt_get_addr_size_prop(child, "reg", &len) && len))
+>  			continue;
+> -		}
+> =20
+> -		dynamic_nodes[dynamic_nodes_cnt] =3D child;
+> -		dynamic_nodes_cnt++;
+> -	}
+> -	for (int i =3D 0; i < dynamic_nodes_cnt; i++) {
+> -		const char *uname;
+> -		int err;
+> -
+> -		child =3D dynamic_nodes[i];
+> -		uname =3D fdt_get_name(fdt, child, NULL);
+> -		err =3D __reserved_mem_alloc_size(child, uname);
+> -		if (!err)
+> -			count++;
+> +		__reserved_mem_alloc_size(child,
+> +					  fdt_get_name(fdt, child, NULL));
+>  	}
+
+[Severity: Medium]
+If a dynamically-placed 'no-map' reserved memory region fails initialization
+here, does it permanently leak memory from memblock.reserved?
+
+When __reserved_mem_alloc_size() allocates memory via
+memblock_phys_alloc_range(), the memory is added to memblock.reserved. It
+then calls fdt_init_reserved_mem_node(), which has the following error
+handling path:
+
+drivers/of/of_reserved_mem.c:fdt_init_reserved_mem_node() {
+    ...
+	err =3D __reserved_mem_init_node(rmem, node);
+	if (err !=3D 0 && err !=3D -ENODEV) {
+		pr_info("node %s compatible matching fail\n", rmem->name);
+		rmem->name =3D NULL;
+
+		if (nomap)
+			memblock_clear_nomap(rmem->base, rmem->size);
+		else
+			memblock_phys_free(rmem->base, rmem->size);
+		return;
+    ...
+}
+
+For 'no-map' regions, this clears the nomap flag but appears to omit
+memblock_phys_free(rmem->base, rmem->size), which would leave the dynamical=
+ly
+allocated region permanently trapped in memblock.reserved.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015082315.5687=
+6-1-m.szyprowski@samsung.com?part=3D2
