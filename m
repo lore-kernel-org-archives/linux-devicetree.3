@@ -1,689 +1,368 @@
-Received: from mail.fhannenheim.net (mail.fhannenheim.net [188.245.251.181])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87CEB51D524;
-	Thu, 15 Oct 2026 12:33:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.245.251.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA53A517BA7;
+	Thu, 15 Oct 2026 12:34:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792067605; cv=none; b=ZhT+SF05xeT9z+v1Pa9Li2y4x4+WPv9LZpw7yx6BSKgqMD4O1WgtCwXM602Nj7p8F+nHVTI5GD1MZbDebhv7Mipt3BNbBOCnSCdcGEukYiH9ohwHv/nT2cWVSfoEmaKohHzIK9BxcqNIf3udMHa/IW3iwDxoggvQYWuubs8bdeY=
+	t=1792067651; cv=none; b=Xre0KEH1fftRaLtPBZSx7zUVpRZDeLjwWb+hbRxpuJLai5lTlsjmFCqd0+kyKWgRsNYbiLbqtiejYZ7JT3oK6NELEvZgUVGOUklxf/fHwEvlVGxntBdjdbwqtH7sg8IT/ULamHpmva5V8oCTYQW80ZMCwAYxAVnSylSB4KGeu9w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792067605; c=relaxed/simple;
-	bh=h+tASOPhaWA0ZjmUiiwqcRYIzi4EpjZXjQ87e+zTWGE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mpI6B7RRhFmzO15IF81taKi27ptH45O70wlwoVYS7+uVINfCxbRaGVkg70edoccY0EUFZcBKph9e+9BMVv4WN9zpMSzws5ap9R5gnGvGPrGaL31yo1TWzY0+jywzbi1QtKmxM/xRPvpEa2qkmYwHY+vNiO4GWAld89uSr9sf3X0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fhannenheim.net; spf=pass smtp.mailfrom=fhannenheim.net; dkim=pass (1024-bit key) header.d=fhannenheim.net header.i=@fhannenheim.net header.b=yUWmiLo0; arc=none smtp.client-ip=188.245.251.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fhannenheim.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fhannenheim.net
+	s=arc-20240116; t=1792067651; c=relaxed/simple;
+	bh=p27s2VWFrHAqilqGBoUIdsBBRaEGbHxwMz3zCfccEzw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dd/SuMC60SoBNgOdaoV8isAaFuRTJW29fPdv0WcEEyiVMxYngoBvH6MrGkEyG1QdHrDOO+yHuoc4QijvnkQ04dgIIBXgMSp/6zRPYrMrgPW9wMDjedxj0k0xS7IsH8qeAugllEQyfBs1wqKNVakoIeGS9l2amQuaqasf2AJBP6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J7BZb1fx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=fhannenheim.net header.i=@fhannenheim.net header.b="yUWmiLo0"
-From: Frieder Hannenheim <git@fhannenheim.net>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fhannenheim.net;
-	s=mail; t=1792067601;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vUXj1pXMQ/gWhh9k9cET0Y/bG+ka3Scx9v0tOMaHpHA=;
-	b=yUWmiLo0aEQLHGNNCi753DL+2DA+CYnwfHIs8wM1hZCNKmMnKGWF09fn7kWyajN08ZvVbD
-	B78gJT85YJBh/fGhIuN7gOaDC1yfKGDNC8hwv3OgzkTfKggGmOzgxAYSX9DExC983JeH23
-	RznbDwhP12UvuBhH8gx3wyYTrbpr/As=
-Date: Thu, 15 Oct 2026 14:32:36 +0200
-Subject: [PATCH v2 1/2] arm64: dts: qcom: Add sm8250-oneplus-common.dtsi
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J7BZb1fx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F3D01F000C4;
+	Thu, 15 Oct 2026 12:34:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792067649;
+	bh=Ea9IWsCeD09j98ilJsUEEHsq1UpfLk0qemcn5duHRIw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=J7BZb1fxR0O7goAxUfGpjxhAU08AxKj+AOfsHnwVLKlkGnyA4153xUiHLRauTv+Uz
+	 DaTVkp0j+6yXVeiu2JVXVd94I+KxEhLlm1YhYu4iuDza5ccCAtIujijTdrzd82c/UY
+	 3cXfeaq9Qmx3j+upU5o6lkryTkcrju69Fx1o09kILj+3VWlTC3beaBTqSy5A4JMXgP
+	 4CeK3sXPwLrVgWsfL4U4Po22PJ9papa8VdLY3Ye97o6UukjPRFhogehGomXagBOfP5
+	 i/1S5ufBPJ8VZ+9IDI3sDTmmmp6zKNu9j5nC/p9nKG2p7YDc3jPJT74ntPNMZ/v+JV
+	 FdhzOdOp8wfwA==
+Date: Thu, 15 Oct 2026 13:34:04 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Olivier MOYSAN <olivier.moysan@foss.st.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: iio: adc: add bindings for stm32 mdf
+ filter
+Message-ID: <20261015-attentive-conflict-1a1f538de77d@spud>
+References: <20261001-tribesman-gauze-862e1ef0cdd8@spud>
+ <bb8af256-5a77-4215-9eeb-fbcd0cae1829@foss.st.com>
+ <20261008-9e2a48675c1a4c28f2dfa73b@squawk>
+ <950f2801-a613-4f5a-a5a7-cb30101cf293@foss.st.com>
+ <20261009-8db882a9fa159f8759aa7327@squawk>
+ <2ba9235f-182e-4906-92e2-e35cf831d289@foss.st.com>
+ <20261014-untrimmed-partly-81a4a21db49c@spud>
+ <48e528a5-0c54-4778-bd29-b6f44ae95be7@foss.st.com>
+ <20261014-unmade-sphinx-71cb25110d58@spud>
+ <436ef0bf-4146-435d-8252-acec68e64b9e@foss.st.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-kebab_dts-v2-1-e783463bffd3@fhannenheim.net>
-References: <20261015-kebab_dts-v2-0-e783463bffd3@fhannenheim.net>
-In-Reply-To: <20261015-kebab_dts-v2-0-e783463bffd3@fhannenheim.net>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Robert Oscilowski <drgitx@gmail.com>, 
- =?utf-8?q?Jean-Fran=C3=A7ois_Bobier?= <jf.bobier@gmail.com>, 
- phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Frieder Hannenheim <git@fhannenheim.net>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=16572; i=git@fhannenheim.net;
- h=from:subject:message-id; bh=h+tASOPhaWA0ZjmUiiwqcRYIzi4EpjZXjQ87e+zTWGE=;
- b=owGbwMvMwCWWw1h8YvtkuWDG02pJDFkXTrDmJ3xvrT9qbFHGcineQDr87W0G9lrNto+KQVyl5
- 9tXrJHsKGVhEONikBVTZHGeLvnDvlJYRz/8nyLMHFYmkCEMXJwCMBHNqwz/rL1OzeN8ImG3Zsm+
- uU5rr7/aOslq6v1DytxHRIX2V1l5yzEyzOLbt9b+z0HOK9eVA9Pnn942bcPMbVEzeqSi+hL3m36
- awg8A
-X-Developer-Key: i=git@fhannenheim.net; a=openpgp;
- fpr=439719F83F79132C2F57FE216C0173C8B7931E53
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="FGGwO6lNFVG+3aVf"
+Content-Disposition: inline
+In-Reply-To: <436ef0bf-4146-435d-8252-acec68e64b9e@foss.st.com>
 
-This file contains common properties shared by all OnePlus devices using
-the Qualcomm sm8250 chipset.
+--FGGwO6lNFVG+3aVf
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Frieder Hannenheim <git@fhannenheim.net>
-Co-developed-by: Robert Oscilowski <drgitx@gmail.com>
-Signed-off-by: Robert Oscilowski <drgitx@gmail.com>
----
- .../arm64/boot/dts/qcom/sm8250-oneplus-common.dtsi | 609 +++++++++++++++++++++
- 1 file changed, 609 insertions(+)
+On Thu, Oct 15, 2026 at 11:19:19AM +0200, Olivier MOYSAN wrote:
+> Hi Conor,
+>=20
+> On 10/15/26 00:49, Conor Dooley wrote:
+> > On Wed, Oct 14, 2026 at 06:51:45PM +0200, Olivier MOYSAN wrote:
+> > > On 10/14/26 17:15, Conor Dooley wrote:
+> > > > On Mon, Oct 12, 2026 at 02:56:04PM +0200, Olivier MOYSAN wrote:
+> > > > > On 10/9/26 21:12, Conor Dooley wrote:
+> > > > > > On Thu, Oct 08, 2026 at 06:37:26PM +0200, Olivier MOYSAN wrote:
+> > > > > > > On 10/8/26 12:11, Conor Dooley wrote:
+> > > > > > > > On Wed, Oct 07, 2026 at 11:01:28AM +0200, Olivier MOYSAN wr=
+ote:
+> > > > > > > > > On 10/1/26 20:32, Conor Dooley wrote:
+> > > > > > > > > >=20
+> > > > > > > > > > > +
+> > > > > > > > > > > +required:
+> > > > > > > > > > > +  - compatible
+> > > > > > > > > > > +  - reg
+> > > > > > > > > > > +  - ranges
+> > > > > > > > > > > +  - clocks
+> > > > > > > > > > > +  - clock-names
+> > > > > > > > > > > +  - clock-ranges
+> > > > > > > > > > > +  - "#address-cells"
+> > > > > > > > > > > +  - "#size-cells"
+> > > > > > > > > > > +
+> > > > > > > > > > > +additionalProperties: false
+> > > > > > > > > > > +
+> > > > > > > > > > > +patternProperties:
+> > > > > > > > > > > +  "^sitf@[0-9]+$":
+> > > > > > > > > > > +    type: object
+> > > > > > > > > > > +    description: Serial interface child node
+> > > > > > > > > >=20
+> > > > > > > > > > Why is this a child node at all?
+> > > > > > > > > > Probably not worth reviewing more without a link to the=
+ docs for this
+> > > > > > > > > > device so I can figure out what on earth is going on!
+> > > > > > > > > >=20
+> > > > > > > > >=20
+> > > > > > > > > The MDF is a digital filter for sigma-delta bitstreams, r=
+ather than the
+> > > > > > > > > analog-to-digital converter itself.
+> > > > > > > > >=20
+> > > > > > > > > Here is the link to STM32MP25 reference manuel
+> > > > > > > > > https://www.st.com/resource/en/reference_manual/rm0457-st=
+m32mp2325xx-advanced-armbased-3264bit-mpus-stmicroelectronics.pdf
+> > > > > > > > > Chapter 45: Multi-function digital filter (MDF)
+> > > > > > > > >=20
+> > > > > > > > > On STMP32MP25 SoC, the MDF provides 8 serial interfaces (=
+SITF) and 8 digital
+> > > > > > > > > filters (DFLT) which can be connected through a multiplex=
+er.
+> > > > > > > > >=20
+> > > > > > > > > Below is a schematic view of typical applications targete=
+d by this
+> > > > > > > > > peripheral
+> > > > > > > > >=20
+> > > > > > > > >=20
+> > > > > > > > > Audio use case:
+> > > > > > > > >=20
+> > > > > > > > > 		mdf
+> > > > > > > > >                 +-------------------------------------+
+> > > > > > > > > +------+    | +------+    +------+    +------+    |
+> > > > > > > > > | dmic | -> | | sitf | -> | mux  | -> | dflt | -- | -> au=
+dio device
+> > > > > > > > > +------+    | +------+    +------+    +------+    |
+> > > > > > > > >                 +-------------------------------------+
+> > > > > > > > >=20
+> > > > > > > > > For instance, in an audio use case the serial interface c=
+an be configured to
+> > > > > > > > > provide the clock to the digital microphone (cck0, cck1 o=
+r both) at a common
+> > > > > > > > > predefined rate, and to retrieve the PDM samples.
+> > > > > > > > > The serial interface provides this samples to a digital f=
+ilter, which
+> > > > > > > > > delivers PCM samples on its output.
+> > > > > > > > >=20
+> > > > > > > > >=20
+> > > > > > > > > Analog use case:
+> > > > > > > > >=20
+> > > > > > > > > 		mdf
+> > > > > > > > >                   +-------------------------------------+
+> > > > > > > > > +--------+    | +------+    +------+    +------+    |
+> > > > > > > > > | sd adc | -> | | sitf | -> | mux  | -> | dflt | -- | -> =
+iio device
+> > > > > > > > > +--------+    | +------+    +------+    +------+    |
+> > > > > > > > >                   +-------------------------------------+
+> > > > > > > >=20
+> > > > > > > >=20
+> > > > > > > > So, looking at the docs and a brief chat with Jonathan abou=
+t this
+> > > > > > > > device, I believe you've got things backwards and this is a=
+ctually the backend,
+> > > > > > > > and the adc should be the one populating the io-backends pr=
+operty
+> > > > > > > > pointing to this device. You should have io-backend-cells, =
+and I assume
+> > > > > > > > that there should be a cell for the adc to select which dlf=
+t it is connected
+> > > > > > > > to.
+> > > > > > > >=20
+> > > > > > >=20
+> > > > > > > There have already been lengthy discussions in the past about=
+ a DFSDM
+> > > > > > > peripheral on STM32MP1, which has features similar to those o=
+f the MDF and
+> > > > > > > similar implementation constraints. For the DFSDM, a solution=
+ based on an
+> > > > > > > IIO backend had been upstreamed. The MDF follows the same arc=
+hitecture. I
+> > > > > > > need to take a little time to dive back into this issue.
+> > > > > >=20
+> > > > > > One thing to note there is that you retrofitted the backends on=
+to that
+> > > > > > device, and the original design here is much older (it's a text
+> > > > > > binding).
+> > > > > >=20
+> > > > > >=20
+> > > > > > >=20
+> > > > > > > DFSDM sources:
+> > > > > > > drivers/iio/adc/stm32-dfsdm-adc.c
+> > > > > > > drivers/iio/adc/stm32-dfsdm-core.c
+> > > > > > >=20
+> > > > > > > Here is a sample of DFSDM DT
+> > > > > > >=20
+> > > > > > > sd_adc0: simple-sd-adc0 {
+> > > > > > > 	compatible =3D "sd-modulator";
+> > > > > > > 	#io-backend-cells =3D <0>;
+> > > > > > > 	vref-supply =3D <&v3v3>;
+> > > > > >=20
+> > > > > > Yeah, pretty sure this is wrong (backwards). The backend is the=
+ thing
+> > > > > > that gets data from an ADC not the ADC.
+> > > > > >=20
+> > > > >=20
+> > > > > The backend framework was introduced to implement complex IIO agg=
+regate
+> > > > > devices. The hardwares that were driving this need were analog de=
+vice ad9467
+> > > > > and ST DFSDM.
+> > > > >=20
+> > > > > https://lore.kernel.org/linux-iio/20231204144925.4fe9922f@jic23-h=
+uawei/T/#m222f5175273b81dbfe40b7f0daffcdc67d6cb8ff
+> > > > >=20
+> > > > >   From drivers/iio/industrialio-backend.c:
+> > > > >=20
+> > > > > "The typical architecture is to have one device as the frontend d=
+evice which
+> > > > > can be "linked" against one or multiple backend devices. All the =
+IIO and
+> > > > > userspace interface is expected to be registers/managed by the fr=
+ontend
+> > > > > device which will callback into the backends when needed (to get/=
+set some
+> > > > > configuration that it does not directly control)."
+> > > > >=20
+> > > > >    *                                    ---------------------
+> > > > >    * ------------------                 | ------------
+> > > > >    * |     ADC        |-----------------| | ADC CORE |
+> > > > >    * | (Frontend/IIO) | Serial Data (eg | |(backend) |-------
+> > > > >    * |                |-----------------| ------------
+> > > > >    * ------------------                 ---------------------
+> > > > >=20
+> > > > > The MDF (or DFSDM) use case, follows this topology:
+> > > > > - The SD modulator (ADC core) registers in backend framework
+> > > > > - The MDF registers in IIO framework and exposes the IIO devices
+> > > > >     It also get configuration (ref voltage) from SD modulator, to=
+ compute
+> > > > > scaling.
+> > > > >=20
+> > > > > I agree that if we consider the terms frontend and backend, the e=
+lements in
+> > > > > the data flow do not have the roles that we would naturally expec=
+t. However,
+> > > > > if we consider the expected role of the elements using the iio-ba=
+ckend
+> > > > > framework, the usage seems coherent to me.
+> > > >=20
+> > > > I didn't even get as far as sd modulators or whatever, if I underst=
+and
+> > > > correctly the ADC inputs on this device are fed by the onboard ADC?
+> > > > (https://lore.kernel.org/linux-iio/20261006-adc-stm32mp25-v1-v4-0-d=
+31ec75aecf3@foss.st.com/)
+> > > > In that case, I can't really see how it makes sense for the primary=
+ iio
+> > > > device to change when data is fed back through the mdf or taken
+> > > > directly from the ADC itself, particularly given how that would aff=
+ect
+> > > > the userspace interface.
+> > > >=20
+> > > > The "serial" side of this seems in a similar vein to the adi,axi-adc
+> > > > stuff, which when considered with the ADC inputs, really does give =
+me
+> > > > the impression this is backwards.
+> > >=20
+> > > Some clarifications about the STM32MP25. This SoC does indeed provide=
+ ADCs,
+> > > and these can be connected to the MDF via a dedicated interface. (but=
+ not
+> > > the serial interface).
+> > >=20
+> > > However, this use case is not supported by the driver. Only sigma-del=
+ta
+> > > modulators, external to the SoC and connected via the serial interfac=
+e, are
+> > > supported. On ST boards, the only available SD modulators are digital
+> > > microphones.
+> >=20
+> > Quite frankly, I don't care what you are choosing to implement in the
+> > driver or what your first-party boards support. The binding must
+> > represent the capabilities of the device, not what subset you deem
+> > relevant at this point in time. I'm not going to ack anything that does
+> > not consider all use cases for the device, especially since I the more I
+> > look the more I am convinced that this is the wrong way to model the
+> > relationship between devices and therefore intentionally ignoring a use=
+ case
+> > is likely to be problematic when someone does decide that they want to =
+use
+> > that feature.
+> >=20
+> > > Anyway, if the internal ADC to MDF use case was supported, the issue =
+would
+> > > be the same. The whole ADC + MDF set would be presented at the interf=
+ace as
+> > > an aggregated device, and the ADC data would not be directly accessib=
+le to
+> > > the user.
+> >=20
+> > Of course, that's what I was talking about when I said:
+> > | In that case, I can't really see how it makes sense for the primary i=
+io
+> > | device to change when data is fed back through the mdf or taken
+> > | directly from the ADC itself, particularly given how that would affect
+> > | the userspace interface.
+> >=20
+> > To me, in that ADC to MDF use case, the frontend portion of the aggrega=
+te
+> > device presented to userspace needs to be the ADC and the MDF needs to =
+be
+> > the backend, since otherwise the ADC will simultaneously be frontend and
+> > backend, depending on which channel is considered. That makes no sense =
+to me
+> > when the MDF can always be the backend, for all use cases and avoid that
+> > sort of problem entirely.
+> > I've heard no argument as to why the MDF cannot be a backend, just that=
+ you
+> > don't want to because the previous device didn't, but copying what was
+> > done before isn't a justification that bears weight if how it was done
+> > before isn't the way it should be done.
+> >=20
+>=20
+> These topology problems were discussed at length in the case of DFSDM.
+> The main blocking point being support for interleaved channels (scan mode=
+),
+> a problematic issue that is still found with MDF.
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8250-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sm8250-oneplus-common.dtsi
-new file mode 100644
-index 000000000000..931e381368d9
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/sm8250-oneplus-common.dtsi
-@@ -0,0 +1,609 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/arm/qcom,ids.h>
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-+#include "sm8250.dtsi"
-+#include "pm8150.dtsi"
-+#include "pm8150b.dtsi"
-+#include "pm8150l.dtsi"
-+
-+/*
-+ * Delete following upstream (sm8250.dtsi) reserved
-+ * memory mappings which are different on this device.
-+ */
-+/delete-node/ &removed_mem;
-+/delete-node/ &camera_mem;
-+/delete-node/ &wlan_mem;
-+/delete-node/ &ipa_fw_mem;
-+/delete-node/ &ipa_gsi_mem;
-+/delete-node/ &gpu_mem;
-+/delete-node/ &npu_mem;
-+/delete-node/ &video_mem;
-+/delete-node/ &cvp_mem;
-+/delete-node/ &cdsp_mem;
-+/delete-node/ &slpi_mem;
-+/delete-node/ &adsp_mem;
-+/delete-node/ &spss_mem;
-+/delete-node/ &cdsp_secure_heap;
-+
-+/ {
-+	chassis-type = "handset";
-+	qcom,msm-id = <QCOM_ID_SM8250 0x10000>,
-+		      <QCOM_ID_SM8250 0x20001>;
-+	qcom,board-id = <QCOM_BOARD_ID_MTP 0x0>,
-+			<0x0 0x0>;
-+
-+	aliases {
-+		serial0 = &uart12;
-+		serial1 = &uart6;
-+	};
-+
-+	battery: battery {
-+		compatible = "simple-battery";
-+	};
-+
-+	chosen {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		stdout-path = "serial0:115200n8";
-+
-+		framebuffer: framebuffer-0 {
-+			compatible = "simple-framebuffer";
-+			memory-region = <&framebuffer_mem>;
-+			format = "a8r8g8b8";
-+			clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+				 <&gcc GCC_DISP_HF_AXI_CLK>,
-+				 <&gcc GCC_DISP_SF_AXI_CLK>,
-+				 <&dispcc DISP_CC_MDSS_VSYNC_CLK>,
-+				 <&dispcc DISP_CC_MDSS_MDP_CLK>,
-+				 <&dispcc DISP_CC_MDSS_BYTE0_CLK>,
-+				 <&dispcc DISP_CC_MDSS_BYTE0_INTF_CLK>,
-+				 <&dispcc DISP_CC_MDSS_PCLK0_CLK>,
-+				 <&dispcc DISP_CC_MDSS_ESC0_CLK>;
-+			power-domains = <&dispcc MDSS_GDSC>;
-+		};
-+	};
-+
-+	gpio_keys: gpio-keys {
-+		compatible = "gpio-keys";
-+		label = "Volume keys";
-+
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&vol_up_n &vol_down_n>;
-+
-+		key-vol-up {
-+			label = "Volume Up";
-+			gpios = <&pm8150_gpios 6 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_VOLUMEUP>;
-+			debounce-interval = <15>;
-+			linux,can-disable;
-+			wakeup-source;
-+		};
-+
-+		key-vol-down {
-+			label = "Volume Down";
-+			linux,code = <KEY_VOLUMEDOWN>;
-+			gpios = <&pm8150_gpios 7 GPIO_ACTIVE_LOW>;
-+			debounce-interval = <15>;
-+			linux,can-disable;
-+			wakeup-source;
-+		};
-+	};
-+
-+	reserved-memory {
-+		removed_mem: memory@80b00000 {
-+			reg = <0x0 0x80b00000 0x0 0xcd00000>;
-+			no-map;
-+		};
-+
-+		camera_mem: memory@8dc00000 {
-+			reg = <0x0 0x8dc00000 0x0 0x500000>;
-+			no-map;
-+		};
-+
-+		wlan_mem: memory@8e100000 {
-+			reg = <0x0 0x8e100000 0x0 0x100000>;
-+			no-map;
-+		};
-+
-+		ipa_fw_mem: memory@8e200000 {
-+			reg = <0x0 0x8e200000 0x0 0x10000>;
-+			no-map;
-+		};
-+
-+		ipa_gsi_mem: memory@8e210000 {
-+			reg = <0x0 0x8e210000 0x0 0xa000>;
-+			no-map;
-+		};
-+
-+		gpu_mem: memory@8e21a000 {
-+			reg = <0x0 0x8e21a000 0x0 0x2000>;
-+			no-map;
-+		};
-+
-+		npu_mem: memory@8e300000 {
-+			reg = <0x0 0x8e300000 0x0 0x500000>;
-+			no-map;
-+		};
-+
-+		video_mem: memory@8e800000 {
-+			reg = <0x0 0x8e800000 0x0 0x500000>;
-+			no-map;
-+		};
-+
-+		cvp_mem: memory@8ed00000 {
-+			reg = <0x0 0x8ed00000 0x0 0x500000>;
-+			no-map;
-+		};
-+
-+		cdsp_mem: memory@8f200000 {
-+			reg = <0x0 0x8f200000 0x0 0x1400000>;
-+			no-map;
-+		};
-+
-+		slpi_mem: memory@90600000 {
-+			reg = <0x0 0x90600000 0x0 0x1500000>;
-+			no-map;
-+		};
-+
-+		adsp_mem: memory@91b00000 {
-+			reg = <0x0 0x91b00000 0x0 0x2500000>;
-+			no-map;
-+		};
-+
-+		spss_mem: memory@94000000 {
-+			reg = <0x0 0x94000000 0x0 0x100000>;
-+			no-map;
-+		};
-+
-+		cdsp_secure_heap: memory@94100000 {
-+			reg = <0x0 0x94100000 0x0 0x4600000>;
-+			no-map;
-+		};
-+
-+		framebuffer_mem: memory@9c000000 {
-+			reg = <0 0x9c000000 0 0x2300000>;
-+			no-map;
-+		};
-+
-+		ramoops: ramoops@b0000000 {
-+			compatible = "ramoops";
-+			reg = <0x0 0xb0000000 0x0 0x400000>;
-+			record-size = <0x40000>;
-+			console-size = <0x40000>;
-+			ftrace-size =  <0x40000>;
-+			pmsg-size = <0x200000>;
-+			ecc-size = <0x0>;
-+		};
-+	};
-+
-+	vph_pwr: vph-pwr-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vph_pwr";
-+		regulator-min-microvolt = <3700000>;
-+		regulator-max-microvolt = <3700000>;
-+		regulator-always-on;
-+	};
-+
-+	vreg_s4a_1p8: vreg-s4a-1p8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vreg_s4a_1p8";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		regulator-allow-set-load;
-+		regulator-always-on;
-+	};
-+
-+	vreg_s6c_0p88: smpc6-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vreg_s6c_0p88";
-+		regulator-min-microvolt = <880000>;
-+		regulator-max-microvolt = <880000>;
-+		regulator-always-on;
-+		vin-supply = <&vph_pwr>;
-+	};
-+};
-+
-+&apps_rsc {
-+	regulators-0 {
-+		compatible = "qcom,pm8150-rpmh-regulators";
-+		qcom,pmic-id = "a";
-+		vdd-s1-supply = <&vph_pwr>;
-+		vdd-s2-supply = <&vph_pwr>;
-+		vdd-s3-supply = <&vph_pwr>;
-+		vdd-s4-supply = <&vph_pwr>;
-+		vdd-s5-supply = <&vph_pwr>;
-+		vdd-s6-supply = <&vph_pwr>;
-+		vdd-s7-supply = <&vph_pwr>;
-+		vdd-s8-supply = <&vph_pwr>;
-+		vdd-s9-supply = <&vph_pwr>;
-+		vdd-s10-supply = <&vph_pwr>;
-+		vdd-l2-l10-supply = <&vreg_bob>;
-+		vdd-l3-l4-l5-l18-supply = <&vreg_s6a_0p95>;
-+		vdd-l6-l9-supply = <&vreg_s8c_1p3>;
-+		vdd-l7-l12-l14-l15-supply = <&vreg_s5a_1p9>;
-+		vdd-l13-l16-l17-supply = <&vreg_bob>;
-+
-+		vreg_s5a_1p9: smps5 {
-+			regulator-name = "vreg_s5a_1p9";
-+			regulator-min-microvolt = <1904000>;
-+			regulator-max-microvolt = <2000000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_s6a_0p95: smps6 {
-+			regulator-name = "vreg_s6a_0p95";
-+			regulator-min-microvolt = <920000>;
-+			regulator-max-microvolt = <1128000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l2a_3p1: ldo2 {
-+			regulator-name = "vreg_l2a_3p1";
-+			regulator-min-microvolt = <3072000>;
-+			regulator-max-microvolt = <3072000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l3a_0p9: ldo3 {
-+			regulator-name = "vreg_l3a_0p9";
-+			regulator-min-microvolt = <928000>;
-+			regulator-max-microvolt = <932000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l5a_0p88: ldo5 {
-+			regulator-name = "vreg_l5a_0p88";
-+			regulator-min-microvolt = <880000>;
-+			regulator-max-microvolt = <880000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l6a_1p2: ldo6 {
-+			regulator-name = "vreg_l6a_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l7a_1p8: ldo7 {
-+			regulator-name = "vreg_l7a_1p8";
-+			regulator-min-microvolt = <1704000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
-+		};
-+
-+		vreg_l9a_1p2: ldo9 {
-+			regulator-name = "vreg_l9a_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l10a_1p8: ldo10 {
-+			regulator-name = "vreg_l10a_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l12a_1p8: ldo12 {
-+			regulator-name = "vreg_l12a_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l13a_ts_3p0: ldo13 {
-+			regulator-name = "vreg_l13a_ts_3p0";
-+			regulator-min-microvolt = <3008000>;
-+			regulator-max-microvolt = <3008000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l14a_1p8: ldo14 {
-+			regulator-name = "vreg_l14a_1p8";
-+			regulator-min-microvolt = <1650000>;
-+			regulator-max-microvolt = <1880000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l15a_1p8: ldo15 {
-+			regulator-name = "vreg_l15a_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l16a_2p7: ldo16 {
-+			regulator-name = "vreg_l16a_2p7";
-+			regulator-min-microvolt = <2704000>;
-+			regulator-max-microvolt = <2960000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l17a_3p0: ldo17 {
-+			regulator-name = "vreg_l17a_3p0";
-+			regulator-min-microvolt = <2856000>;
-+			regulator-max-microvolt = <3008000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l18a_0p92: ldo18 {
-+			regulator-name = "vreg_l18a_0p92";
-+			regulator-min-microvolt = <800000>;
-+			regulator-max-microvolt = <912000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+	};
-+
-+	regulators-1 {
-+		compatible = "qcom,pm8150l-rpmh-regulators";
-+		qcom,pmic-id = "c";
-+		vdd-s1-supply = <&vph_pwr>;
-+		vdd-s2-supply = <&vph_pwr>;
-+		vdd-s3-supply = <&vph_pwr>;
-+		vdd-s4-supply = <&vph_pwr>;
-+		vdd-s5-supply = <&vph_pwr>;
-+		vdd-s6-supply = <&vph_pwr>;
-+		vdd-s7-supply = <&vph_pwr>;
-+		vdd-s8-supply = <&vph_pwr>;
-+		vdd-l1-l8-supply = <&vreg_s4a_1p8>;
-+		vdd-l2-l3-supply = <&vreg_s8c_1p3>;
-+		vdd-l4-l5-l6-supply = <&vreg_bob>;
-+		vdd-l7-l11-supply = <&vreg_bob>;
-+		vdd-l9-l10-supply = <&vreg_bob>;
-+		vdd-bob-supply = <&vph_pwr>;
-+
-+		vreg_s8c_1p3: smps8 {
-+			regulator-name = "vreg_s8c_1p3";
-+			regulator-min-microvolt = <1352000>;
-+			regulator-max-microvolt = <1352000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_bob: bob {
-+			regulator-name = "vreg_bob";
-+			regulator-min-microvolt = <3008000>;
-+			regulator-max-microvolt = <4000000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_AUTO>;
-+		};
-+
-+		vreg_l1c_1p8: ldo1 {
-+			regulator-name = "vreg_l1c_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l2c_1p2: ldo2 {
-+			regulator-name = "vreg_l2c_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l3c_0p8: ldo3 {
-+			regulator-name = "vreg_l3c_0p8";
-+			regulator-min-microvolt = <800000>;
-+			regulator-max-microvolt = <800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l4c_1p7: ldo4 {
-+			regulator-name = "vreg_l4c_1p7";
-+			regulator-min-microvolt = <1704000>;
-+			regulator-max-microvolt = <2928000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l5c_1p8: ldo5 {
-+			regulator-name = "vreg_l5c_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2928000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l6c_2p96: ldo6 {
-+			regulator-name = "vreg_l6c_2p96";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2960000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l7c_cam_vcm0_2p85: ldo7 {
-+			regulator-name = "vreg_l7c_cam_vcm0_2p85";
-+			regulator-min-microvolt = <2856000>;
-+			regulator-max-microvolt = <3104000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l8c_1p8: ldo8 {
-+			regulator-name = "vreg_l8c_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l9c_2p96: ldo9 {
-+			regulator-name = "vreg_l9c_2p96";
-+			regulator-min-microvolt = <2704000>;
-+			regulator-max-microvolt = <2960000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l10c_3p0: ldo10 {
-+			regulator-name = "vreg_l10c_3p0";
-+			regulator-min-microvolt = <3000000>;
-+			regulator-max-microvolt = <3000000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l11c_3p0: ldo11 {
-+			regulator-name = "vreg_l11c_3p0";
-+			regulator-min-microvolt = <3000000>;
-+			regulator-max-microvolt = <3304000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
-+		};
-+	};
-+
-+	vreg_f: regulators-2 {
-+		compatible = "qcom,pm8009-1-rpmh-regulators";
-+		qcom,pmic-id = "f";
-+
-+		vdd-s1-supply = <&vph_pwr>;
-+		vdd-s2-supply = <&vph_pwr>;
-+		vdd-l2-supply = <&vreg_s8c_1p3>;
-+		vdd-l5-l6-supply = <&vreg_bob>;
-+		vdd-l7-supply = <&vreg_s4a_1p8>;
-+
-+		vreg_s2f_0p95: smps2 {
-+			regulator-name = "vreg_s2f_0p95";
-+			regulator-min-microvolt = <900000>;
-+			regulator-max-microvolt = <952000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_AUTO>;
-+		};
-+
-+		vreg_l1f_1p1: ldo1 {
-+			regulator-name = "vreg_l1f_1p1";
-+			regulator-min-microvolt = <1104000>;
-+			regulator-max-microvolt = <1104000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l2f_1p2: ldo2 {
-+			regulator-name = "vreg_l2f_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l3f_1p05: ldo3 {
-+			regulator-name = "vreg_l3f_1p05";
-+			regulator-min-microvolt = <1056000>;
-+			regulator-max-microvolt = <1056000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l4f_1p05: ldo4 {
-+			regulator-name = "vreg_l4f_1p05";
-+			regulator-min-microvolt = <1056000>;
-+			regulator-max-microvolt = <1056000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l5f_2p8: ldo5 {
-+			regulator-name = "vreg_l5f_2p8";
-+			regulator-min-microvolt = <2800000>;
-+			regulator-max-microvolt = <3000000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l6f_2p8: ldo6 {
-+			regulator-name = "vreg_l6f_2p8";
-+			regulator-min-microvolt = <2800000>;
-+			regulator-max-microvolt = <3000000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l7f_1p8: ldo7 {
-+			regulator-name = "vreg_l7f_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+	};
-+};
-+
-+&pm8150_gpios {
-+	vol_up_n: vol-up-n-state {
-+		pins = "gpio6";
-+		function = "normal";
-+		power-source = <1>;
-+		input-enable;
-+		bias-pull-up;
-+	};
-+
-+	vol_down_n: vol-down-n-state {
-+		pins = "gpio7";
-+		function = "normal";
-+		power-source = <1>;
-+		input-enable;
-+		bias-pull-up;
-+	};
-+};
-+
-+&pon {
-+	mode-bootloader = <0x2>;
-+	mode-recovery = <0x1>;
-+};
-+
-+&pon_pwrkey {
-+	status = "okay";
-+};
-+
-+&pon_resin {
-+	linux,code = <KEY_VOLUMEDOWN>;
-+
-+	status = "okay";
-+};
-+
-+&qup_spi4_cs_gpio {
-+	drive-strength = <6>;
-+	bias-disable;
-+};
-+
-+&qup_spi4_data_clk {
-+	drive-strength = <6>;
-+	bias-disable;
-+};
-+
-+&qupv3_id_0 {
-+	status = "okay";
-+};
-+
-+&qupv3_id_1 {
-+	status = "okay";
-+};
-+
-+&qupv3_id_2 {
-+	status = "okay";
-+};
-+
-+&tlmm {
-+	gpio-reserved-ranges = <28 4>, <40 4>;
-+};
-+
-+&uart12 {
-+	status = "okay";
-+};
-+
-+&ufs_mem_hc {
-+	vcc-supply = <&vreg_l17a_3p0>;
-+	vcc-max-microamp = <800000>;
-+	vccq-supply = <&vreg_l6a_1p2>;
-+	vccq-max-microamp = <800000>;
-+	vccq2-supply = <&vreg_s4a_1p8>;
-+	vccq2-max-microamp = <800000>;
-+
-+	status = "okay";
-+};
-+
-+&ufs_mem_phy {
-+	vdda-phy-supply = <&vreg_l5a_0p88>;
-+	vdda-pll-supply = <&vreg_l9a_1p2>;
-+
-+	status = "okay";
-+};
-+
+If I am not mistaken, you're talking about what's described in the
+section labelled "Interleaved-transfer mode" of the document you
+provided previously?
 
--- 
-2.54.0
+> The constraints that led to this approach are in the following thread:
+> https://lore.kernel.org/all/20210919191414.09270f4e@jic23-huawei/
 
+That to me seemed like a discussion about why the MDF/interleaver needs
+to be represented as a separate device, I don't see anything that
+explains why the MDF cannot be a backend.
+
+Reading the document, "Interleaved-transfer mode" doesn't trash the
+association between data and which fifo, and thereby which sensor or
+ADC, it came from. Using #io-backend-cells =3D <1> in the MDF, the
+sensor/ADC can provide the channel to which it is linked, and the data
+association restored. You already know what the set of interleaved channels
+is from the st,interleave property so there's no extra properties required
+for this I think.
+
+The problem here must be that you want to access the interleaved data? That
+could be handled by having a cell value that represents the interleaved
+data (e.g. -1), rather than a channel (1-N)? That'd support systems that
+want interleaved data (like an array of identical sensors?) and systems
+using the mode for the stated aim of it in documentation of optimising
+DMA request resources who have disparate devices where interleaved data
+itself is not useful?
+
+Thanks,
+Conor.
+
+--FGGwO6lNFVG+3aVf
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatDIPAAKCRB4tDGHoIJi
+0lSLAP4+83dGmyYNV8OdycrYzvbbmgn56o9ZFI7sRbVCNVHMAQD/eQxpY2Ywsgh3
+eVcR9wfNHtbq0BalljDqp9VRLdn8YAU=
+=Da9G
+-----END PGP SIGNATURE-----
+
+--FGGwO6lNFVG+3aVf--
