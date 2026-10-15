@@ -1,121 +1,132 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 348A92F84F
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 02:48:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E59252F84F
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 02:48:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792032511; cv=none; b=EifMFSpwYvI/IcqvY9lEMoHWE5eQ0PFCwvTUGWtPYMPlf2rKAlSbBpdKHd3rc/m2XnJNmhsQv0MUHfS9IPTi8nPD2YO3GBAijb2Uv7QBolP2IxvRXSp8BXsP18FJMjrTf1ebHkQaDR9S5nmmvlKZW2HQVNBhZxvGlNltBSuWpk4=
+	t=1792032526; cv=none; b=SjqdsSro+WnEZoUj034U5HVC1F7K88IXcf67Y/gjiODC6a4IxaBeUZ4mon8sgIE8k13+Fjk1pnFqg9mj7gv4xiq2erunHz2BreWM18M2MViivWQ0jCy8fa+UZegDiGuPBED6hmb3tviRZWfOyGvCgFd76bETH/T/+UCKKNBPK78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792032511; c=relaxed/simple;
-	bh=Oqmwbv3lEwLxiT/lsPDyCEnpAxvvN9ZyCrGbc0wFAg8=;
+	s=arc-20240116; t=1792032526; c=relaxed/simple;
+	bh=o2OFEn42Ju50QiPxSqCR9C2YduPgRgjmsuhK44U5IKY=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=emAmcM4k3E0spb/Dqb3dqRZ0V4tT3jR7BMNFMmtvySI1/bEl8zgOaF6hJzyMnDeBrH1RryN8A8O2XJ58hoYjPpM3LC/MovLoqk0ZNwFWELP4D13QcP7KwFpYZe76gxOWofOHfP7O9JzVV5SIWWc3eLcRb3LNceb0LapwCO/OxGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Py2UyM3O; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=UnTgJrPq4oaPUGo3+MECZ3kH8e7LGts5EqDG6QINtFJ2c4Ady5LltBRP7z7FAjTaM0R/0KV4Vkv04EXe7YqXAfD243cwIs7FXYPIFSFjoRuQ2wo3fxddoTpuLIcyR6ZDsAcDylWGYsg3cXRuR/kj9eD7u4KpEKPQOsUGNAu5+Nk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GGST6ess; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Py2UyM3O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7115F1F000C4;
-	Thu, 15 Oct 2026 02:48:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GGST6ess"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4039E1F000C4;
+	Thu, 15 Oct 2026 02:48:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792032509;
-	bh=l8PY5/E+nRUoDzElbwahQu2/PSoD4PHfpe/hOVLk0Ts=;
+	s=k20260515; t=1792032525;
+	bh=wzYYb9miaPsw58sbppIbqd5qgSZdTwYX7PipZcw0754=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Py2UyM3OLp4RLtcqjFFhRUCjR2KqfBtZRnYa7X5S/jKpo0lxXtnbFbQvAy8iPcv65
-	 9NUaE36rMl+/w9lHGb5mz3q7tL7NZYkjUPMQ+QpyaaNpdIPpExT84X23wlPUqeDlbM
-	 DIlwZCZeYBhuf/rgVvd3yTEoXIP3maEoHRuo8m5sO9m1rwjbp091HKFeeptRHNfjO6
-	 4VDlgc54hp4jWuLqPTs5PSy9puB/HlPz1yJi9BuYemiEmvDW5nWYrM/GYr1gTsfJWQ
-	 Mbq+gM8rgi7wIDMZ5a9ebXViCdfikQNIrc6pljwZoZcvTiWUI65U8XVmFa6y0nHKse
-	 wLnMN+1aYdJRg==
-Message-ID: <sashiko-outbox-172176@kernel.org>
+	b=GGST6ess5hOyiMsZ9pMPYC104+WeliklR+sF88oZhzv55I0u/eny4GTZs9sapVw2a
+	 zt/72NtVrkqnC9kqGx1pTe93Sa0K/4CtMSy04FYEqYlzWBNw7hZ/yMZ1m5WL0rNg3L
+	 IrTid4daN4ievXD8BG89sEKWOWIxtd0fFRuLvjfzF2sCB9yalyWcNmtRTQKlAPGEfy
+	 CmWuvRccFrQgDHshE5MAxz5FMJk0etIBisL2qn3NjFYyOJflq/Agb8dqpUlG0eJTR0
+	 4qQogb7hLpzIu/OEdWj/C1ZvCbvdRA2n5Gwa1dRrnc8jdMfy7SDVEPqOh/i6aK+pBf
+	 9xcGInZs+5zAA==
+Message-ID: <sashiko-outbox-172177@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 7/7] arm64: dts: qcom: lemans: Enable
- lemans-sa8255p-ride board support
+Subject: Re: [PATCH v2 3/7] arm64: dts: qcom: lemans: Move platform
+ resources into lemans-embedded.dtsi
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Shawn Guo" <shengchao.guo@oss.qualcomm.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261015023711.721837-8-shengchao.guo@oss.qualcomm.com>
+In-Reply-To: <20261015023711.721837-4-shengchao.guo@oss.qualcomm.com>
 References: <20261015023711.721837-1-shengchao.guo@oss.qualcomm.com>
- <20261015023711.721837-8-shengchao.guo@oss.qualcomm.com>
+ <20261015023711.721837-4-shengchao.guo@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 02:48:28 +0000
+Date: Thu, 15 Oct 2026 02:48:44 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] dts: qcom: missing status =3D "okay" for pcie0_ep and pcie1_ep
-- [Medium] dts: qcom: incorrect polarity for PCIe EP wake-gpios
+- [Medium] dts: Incorrect removal of 'compatible' from base DTSI nodes
 --
 
-commit 3fa46fe28ef2e9d52dd0b40b57be7d7192538595
-Author: Nikunj Kela <quic_nkela@quicinc.com>
+commit f8600c852f6da5600fb82650c04f9b466cb80549
+Author: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 
-arm64: dts: qcom: lemans: Enable lemans-sa8255p-ride board support
+arm64: dts: qcom: lemans: Move platform resources into lemans-embedded.dtsi
 
-Add initial device tree support for the Lemans SA8255P Ride board. Enable
-UFS storage, UART10 as the serial console, PCIe EP interfaces, thermal
-zones for PMM8654AU sensors, and SCMI protocol nodes.
+This commit moves platform resources like clocks, regulators, and interconn=
+ects
+from the base lemans.dtsi to the lemans-embedded.dtsi file. This isolates
+these managed configurations so the base devicetree can be shared with the
+GearVM variant.
 
-> diff --git a/arch/arm64/boot/dts/qcom/lemans-sa8255p-ride.dts b/arch/arm6=
-4/boot/dts/qcom/lemans-sa8255p-ride.dts
-> new file mode 100644
-> index 0000000000000..4273f47c3dffc
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/lemans-sa8255p-ride.dts
-
+> diff --git a/arch/arm64/boot/dts/qcom/lemans.dtsi b/arch/arm64/boot/dts/q=
+com/lemans.dtsi
+> index 7547042d8e851..821c86409c5da 100644
+> --- a/arch/arm64/boot/dts/qcom/lemans.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/lemans.dtsi
 [ ... ]
-
-> +&pcie0_ep {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&pcie0_ep_clkreq_default &pcie0_ep_perst_default
-> +		    &pcie0_ep_wake_default>;
-> +	reset-gpios =3D <&tlmm 2 GPIO_ACTIVE_LOW>;
+> @@ -4662,49 +3089,9 @@ gpu: gpu@3d00000 {
+[ ... ]
+>  		gmu: gmu@3d6a000 {
+> -			compatible =3D "qcom,adreno-gmu-663.0", "qcom,adreno-gmu";
 
 [Severity: Medium]
-Since the commit message states this patch enables the PCIe EP interfaces,
-should pcie0_ep include a status =3D "okay"; property?
+Does this leave the GMU node structurally incomplete for other variants?
 
-Without explicitly overriding the status, the node will likely remain
-disabled as typically defined in the base device tree, preventing the kernel
-from probing the controller.
+A compatible string is typically a fundamental description of the hardware =
+IP
+rather than a dynamically managed platform resource. Removing it from the b=
+ase
+lemans.dtsi means that any environment (like the incoming GearVM variant)
+including this file will inherit a node that has "reg" and "interrupts" but
+lacks a compatible string.
 
-> +	wake-gpios =3D <&tlmm 0 GPIO_ACTIVE_HIGH>;
+Will this break devicetree schema validation and prevent proper driver bind=
+ing
+for variants that do not include lemans-embedded.dtsi?
 
-[Severity: Medium]
-Is the polarity for the wake-gpios correct here?
-
-The PCIe WAKE# signal is architecturally active-low and open-drain. By
-configuring it as GPIO_ACTIVE_HIGH, the physical pad will be driven low
-when the driver intends to initialize or deassert it, and high when
-asserting it.
-
-Could this invert the wake signal and break PCIe endpoint power management
-wakeups?
-
-> +};
-> +
-> +&pcie1_ep {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&pcie1_ep_clkreq_default &pcie1_ep_perst_default
-> +		    &pcie1_ep_wake_default>;
-> +	reset-gpios =3D <&tlmm 4 GPIO_ACTIVE_LOW>;
+>  			reg =3D <0x0 0x03d6a000 0x0 0x34000>,
+>  			      <0x0 0x03de0000 0x0 0x10000>,
+>  			      <0x0 0x0b290000 0x0 0x10000>;
+[ ... ]
+> -		pmu@9091000 {
+> -			compatible =3D "qcom,sa8775p-llcc-bwmon", "qcom,sc7280-llcc-bwmon";
+> +		llcc_bwmon: pmu@9091000 {
 
 [Severity: Medium]
-Similarly, should pcie1_ep also include a status =3D "okay"; property to
-ensure it is enabled?
+Similarly, does removing the compatible string for the llcc_bwmon node here
+leave it incomplete in the base devicetree?
 
-> +	wake-gpios =3D <&tlmm 5 GPIO_ACTIVE_HIGH>;
+>  			reg =3D <0x0 0x9091000 0x0 0x1000>;
+>  			interrupts =3D <GIC_SPI 620 IRQ_TYPE_LEVEL_HIGH>;
+[ ... ]
+> -		pmu@90b5400 {
+> -			compatible =3D "qcom,sa8775p-cpu-bwmon", "qcom,sdm845-bwmon";
+> +		cpu_bwmon0: pmu@90b5400 {
 
 [Severity: Medium]
-Does this wake-gpios configuration also suffer from the same active-low
-signal inversion issue as pcie0_ep?
+Does this also incorrectly strip the hardware description from the cpu_bwmo=
+n0
+node for environments relying only on lemans.dtsi?
 
-> +};
+>  			reg =3D <0x0 0x90b5400 0x0 0x600>;
+>  			interrupts =3D <GIC_SPI 581 IRQ_TYPE_LEVEL_HIGH>;
+[ ... ]
+> -		pmu@90b6400 {
+> -			compatible =3D "qcom,sa8775p-cpu-bwmon", "qcom,sdm845-bwmon";
+> +		cpu_bwmon1: pmu@90b6400 {
+
+[Severity: Medium]
+Does this also incorrectly strip the hardware description from the cpu_bwmo=
+n1
+node for environments relying only on lemans.dtsi?
+
+>  			reg =3D <0x0 0x90b6400 0x0 0x600>;
+>  			interrupts =3D <GIC_SPI 581 IRQ_TYPE_LEVEL_HIGH>;
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015023711.7218=
-37-1-shengchao.guo@oss.qualcomm.com?part=3D7
+37-1-shengchao.guo@oss.qualcomm.com?part=3D3
