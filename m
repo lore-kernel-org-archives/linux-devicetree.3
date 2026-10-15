@@ -1,109 +1,90 @@
-Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AC9150E58F
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 13:07:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C5C751B16C;
+	Thu, 15 Oct 2026 13:09:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792069626; cv=none; b=RCvuJM1sbO2tq9FLMdvqEVQi342qBvT+6nROnTyASvl2uT9jQZA13BLKINhrsRv9g8PevmXmG3UubeY1UTI9HYaYxXdsr/jT2tSeu/OHj1Zl8jrJVBrPvJbOFrjhLIhHX3r00HjOv+oLSyiI4JmHPouMyBe6wyakTET8t8tGVPs=
+	t=1792069746; cv=none; b=NQXFYZ7W/OYTZ3XrMgg9X6En51HF1ectG613hCOMSqa/9/ybqIMrrrzcnQ6Dqe7w44CapzqbK7Zm8pwJxfJKEHqf1cH+qVaQfixPGOuHV2O8NeF3tJevJwMlSc5BRjUB5pk1wry/um6tTI95cWE9iJa/xh4LyzWrS8dmgGILc08=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792069626; c=relaxed/simple;
-	bh=fttiZBNkYD6sTLyS2zJ73b2MnknfJszx/6K5lwFPaaI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=o/qFL1RGDjoe6rIgDLrOzpYUYIKs4O1C540pEWrBBrH4x07n1wBpxwyWqETK806D6tlk8QAwGRiXDB3PFLTcHzGChFKp9Q10aZy6swXv2d31wS8wfgFSFQ++QWIMuR790NjTHCjufHW1eD0QgszvOxAd4ht3fyRvLtxc7ZVJ9E8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5e519c39196so1642888e0c.3
-        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 06:07:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792069624; x=1792674424;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=CSztrjFXDe2HY45Azvb46Y0IflWP3zkhLimwwlwMXh4=;
-        b=FDufGvUgcMXX0ibB5V1x3IrsbrTyMiiCcBl/1w5ztdAVMyQiWJg4hazNWsq63aOApv
-         BdUdQfThxjbnf9PgY929TIa1h/+hH5bLNBuJTSwrWXO5rMDfWaYfHum5y0ID8gOgtJwS
-         1ZVzPaki+hefnig7j//G+YZkHQFmTwjcoUNAnpFm5dMgGL+UlhApIIeON9nkFP4gWkj7
-         TpmXJ8OkxRDFMCcL0LF9RnIh0Lh/h4MU/vswVEDI4Rv7yOk6wL/kEx1gJ6ZrcvvAm42w
-         S/aVfg7OFAMbNfp3b+3ECqTU+gWK77f14irCqSIJgAjnEmQqGoxYF2kbklJovFT0+WnH
-         VW0w==
-X-Forwarded-Encrypted: i=1; AKwUvByfouYE20aHU3S2Uazrjz45woIBtehC4tRvB+4lLxxi5oxy830Jb1KkmZKkosfAypCcOgvS3/QUM0+c@vger.kernel.org
-X-Gm-Message-State: AFq9FYKVreogONeRtePcJ8SL3EYzfHs/L/GnoRPBBnvQpI4PkeXb6qkZ
-	3Diawl1DJ6PvCjC1QOwwHnm+gI4v6W4/bSkYe2Z7zgE/id4L+6G7cU26M4NghYiZ8W4=
-X-Gm-Gg: AYBFou3Wen1nI/c9t6IYy2piVvbBf3YZS/07Bg0CcM95Wrs7kwoLTpOtqASuyel6qDG
-	q08E5ZeslIg3MqRwJIntgWTek+nYueamvrbpV8e2nTCSvzUqxhXwBKhifut1qoeYWI6Qoxi6xuz
-	WjFoRk7rwIKG+oaKSBN+cqBbkdE8vHR9BhVOvUadIg+l9ov2H4xMdAZ6laZFPQhJuqNOcuWuM95
-	HI1i7Rz9xHCY25mmIeZoPYfKB0vZutfBpPxQb6RGcOKMuTZC6CZc4QM97Jik8kdUiS3glTnI1CD
-	oe5iQwO7FVmeJk5IRjkhR+5VEWnpLAq/QUqOZpV0B7Ik/hZcfrOR9ztsk8fLW5Zdr8u7D+0DD6D
-	P91eSktAnNP3ZeIXxzjm4B9SfnU9DpowydHVyCnP5/q6o7EnN7EifVzvZWux6uUvCjn7e6eiRKc
-	2BzvRCfKvRIk3LSXyJf5Akvs7ysASMkKN7+MvbeM+0ZMN2xW3OrVicnJ6dZg38zSK9Drt0aAr0n
-	7PczdpeuDnbkMtWSvor7lL+AR25qRFfFPSlw7Cls29ChPX8
-X-Received: by 2002:a05:6122:1da0:b0:5c9:a60d:3279 with SMTP id 71dfb90a1353d-5e91f4d6f14mr5910194e0c.13.1792069623822;
-        Thu, 15 Oct 2026 06:07:03 -0700 (PDT)
-Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com. [209.85.222.51])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5e91cc4044bsm13288458e0c.18.2026.10.15.06.07.03
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 06:07:03 -0700 (PDT)
-Received: by mail-ua1-f51.google.com with SMTP id a1e0cc1a2514c-9907fa1d2d1so25311241.3
-        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 06:07:03 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzjhqgIgGq20yQOlgzSjUGYTh/+adxGHc0biSPh1+1pj4dKZMb81esftl91U1AzRHGpQzMeBHfmKyco@vger.kernel.org
-X-Received: by 2002:a05:6122:218f:b0:5d9:82c1:b343 with SMTP id
- 71dfb90a1353d-5e91f250d84mr6152791e0c.1.1792069622761; Thu, 15 Oct 2026
- 06:07:02 -0700 (PDT)
+	s=arc-20240116; t=1792069746; c=relaxed/simple;
+	bh=1fdlVaal3GLrRFh6uh8s9DzMiket9ynEjYP5esVxAI0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RvPhKcZZk4TL1YlSxwLXdWNMF38PRkjtzhSDKkEmdnUF573DKw8vV2QAooR8iZjeh8laX2NvizEYPyJQXW7zCVqBvX9hCUjAUCTk1BKujwdic0pUgx576Mtq2J+jJgOfhFcsNFZZikWTDcoKXANUgJVadMbVEEclr9RJoQNYd1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D2YFSY5P; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D2YFSY5P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D98E1F000C4;
+	Thu, 15 Oct 2026 13:09:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792069744;
+	bh=5sPB/6sXfeibpDcKzKHXp+nhVUEGqxPgJsZVGdo2G9o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=D2YFSY5P+DLFLZ5Gh2caidLphvjbb+jX6QMwk4RrqOeKDmIAKu8Wta0a+t4v7jxgh
+	 zqxC+wkd5BBhGRkH8McJ4AGo+VdOBk1yMhihzi3CSWzQoHNSNHS8w3aXdoeVt1ItK3
+	 h3iB0TbVfKwYQiTNhCeKIR3jWCB1AVVfnQSMzjWr8Pi4RZme2TpOLXnRuqJItSNHXG
+	 3F7yn/s5/2fWD9ttTTsv+fw0loTLWw0WjhCgeyaIZXJUgFaVtSCCpGqx+Ei/++MWYQ
+	 /sK6GOvDFTsIzGc4NtLf/bsJl2YzSTKn5k3JG/yjepKVIagh//JJ1HZk8z95GNP/8p
+	 /cIjAsa14a8gA==
+Date: Thu, 15 Oct 2026 14:08:59 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>, linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 0/1] ASoC: dt-bindings: nvidia,tegra-audio:
+ Consolidate all codec support into a single schema
+Message-ID: <d3648f08-17b2-4a90-8c23-3036cf71f1e1@sirena.org.uk>
+References: <20261015130628.184279-1-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013120831.1046590-1-gerg@linux-m68k.org> <20261013120831.1046590-5-gerg@linux-m68k.org>
- <20261014-expensive-shrewd-nautilus-abcab6@quoll> <d256f39c-6ed5-409a-a7ed-224165d00521@linux-m68k.org>
- <20261015-adamant-realistic-bettong-a24c4f@quoll> <4e9b365b-7c5a-44f4-bfaf-d24e9162fd94@linux-m68k.org>
-In-Reply-To: <4e9b365b-7c5a-44f4-bfaf-d24e9162fd94@linux-m68k.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 15 Oct 2026 15:06:51 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdW84xXV=msd7Sc3BY+50e-gxFxc5dKL7anhrU893NFVaw@mail.gmail.com>
-X-Gm-Features: AclHuK-L4YrCSikdmKp4uyJvcLx1JbdRSylRALstebroE1ucg4vSZgEb4WIoJHw
-Message-ID: <CAMuHMdW84xXV=msd7Sc3BY+50e-gxFxc5dKL7anhrU893NFVaw@mail.gmail.com>
-Subject: Re: [PATCH 4/5] dt-bindings: serial: create binding for mcf-uart
-To: Greg Ungerer <gerg@linux-m68k.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-m68k@lists.linux-m68k.org, 
-	linux-serial@vger.kernel.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="1MDTMyHTJkEiHO1L"
+Content-Disposition: inline
+In-Reply-To: <20261015130628.184279-1-clamor95@gmail.com>
+X-Cookie: Tax and title extra.
 
-Hi Greg,
 
-On Thu, 15 Oct 2026 at 14:53, Greg Ungerer <gerg@linux-m68k.org> wrote:
-> On 15/10/26 18:56, Krzysztof Kozlowski wrote:
-> > But as proven already on the lists, no it WAS NOT tested. You have clear
-> > a warning.
-> >
-> > Otherwise you claim that tests shown errors and then you decided to
-> > still send it with errors, so then th enext question: why do you send
-> > code which your tests tell it is wrong?
->
-> Sorry, I have no idea what you are talking about.
->
-> This series of 5 patches was tested before sending, on multiple targets
-> that use this code (obviously all m68k/ColdFire platforms).
->
-> Just in case I missed something I re-ran testing with a fresh 7.3-rc7
-> code base. All 5 patches applied cleanly, with a clean compile. My testing
-> showed no new problems in normal operation. Granted sashkio did find a
-> couple of error case checking issues that you just do not normally encounter
-> in practice (but I will of course fix those for v2).
+--1MDTMyHTJkEiHO1L
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-make dt_binding_check dtbs_check
+On Thu, Oct 15, 2026 at 04:06:27PM +0300, Svyatoslav Ryhel wrote:
+> The number of codecs supported by the NVIDIA Tegra audio complex is
+> increasing, which leads to an increasing number of bindings with minimal
+> changes. The main differences between codecs are the compatible strings
+> and possible pin configurations. With the introduction of auxiliary
+> devices, a definitive description of possible pin configurations becomes
+> nearly impossible.
 
-Gr{oetje,eeting}s,
+Please don't send cover letters for single patches, if there is anything
+that needs saying put it in the changelog of the patch or after the ---
+if it's administrative stuff.  This reduces mail volume and ensures that=20
+any important information is recorded in the changelog rather than being
+lost.=20
 
-                        Geert
+--1MDTMyHTJkEiHO1L
+Content-Type: application/pgp-signature; name="signature.asc"
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+-----BEGIN PGP SIGNATURE-----
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrQ0GsACgkQJNaLcl1U
+h9DxzAf/XF+cezuzRJkynPNZClWWh5eup+5BF6H5PuLHWhv6ks/3SsTnHhp9bhJ7
+2mqSIEAAH9S5Pb+QDxKZNL/gbBpp6y1/DIA5Pi3wkMYs3V60uYEnNvXhYtLhlley
+mT3sS0eIQNYl7WUH4XwISuO04FlxoAmtTreAAmh0NoxoF1QibruAaws8rEVnDqYz
+UiqxoT3dkGtm6TQbev1eDEyS5ncd9Tgb4rueVO2jXxyUMuzniPtISM685rmD4P7q
+/mXwb9tJX+ec3lL7hp8yX5qu3h3PVgpcsGCn3jsbrUXAujkNheh1B4oE7sy9Rl1s
+IzQ7dASGZsvt7AR4Z0+Pgnt3Ml31Wg==
+=/Bs7
+-----END PGP SIGNATURE-----
+
+--1MDTMyHTJkEiHO1L--
