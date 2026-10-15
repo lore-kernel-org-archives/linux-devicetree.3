@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4112C5592E1;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BF42566C58;
 	Thu, 15 Oct 2026 17:55:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792086921; cv=none; b=AmOxWf4Bmb/X+DpvrIcEw7TBR8pc8bCnHLrtXMVQmQG8wQkDluZdUVy4agnq9TegQS77rsM70qx5C66yflgQJ/7bt3pr9+BWtADY6QRJXDiHM61zHC/U7V83OqUIncV3HbTs6rL+SR7Z3Ps8mTo35c3wSjPJcZD42onlIbERakY=
+	t=1792086921; cv=none; b=AkgDPfYL/eZa9KupgHEnre4xo8HRbIpVzLxlk28gaLxBwULAXl8NifbBeke9zs8BuureKYPddLhpBRPQCLMOTuZcU4JSW/+UMB+CcHgGJmLRxcGTAe1fXMsGujTl2Ywrw3pCyf1FRVKPvwdIkdiL4tg0SMY9boTkeFcbWvIZt0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792086921; c=relaxed/simple;
-	bh=OLOxCWkG1uAfbEHQrZsIv+PXDRKyrTYk6AYh4axR+Ek=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Ettl0wvEABATzkxuvtZ70z4q5fiYPxTJR4VoSL6rfehcCIuLZ1rxyRQxAnXxeMUSZHk090ssHWx4EIyhuO8rgE//D1GwtT7O6R52ep1rczmVjenrNv7rXUs2ItNN3RBx8gpzc+eP/FvKglSgaEsuxIKTtaoxV8a4/QyKWW3QDZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BSSpjdV1; arc=none smtp.client-ip=10.30.226.201
+	bh=NNesoLElBUv09j/SE4YghbtNRl4bZejc+cTkcFayRsU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Vrof5T8fQedsMeuUrd/tOn6RKoL1cgKATDPyx+e5N9+IQSZ4nz2VDYZOeJgMS5D4+cqCX+AJuc6RGZDKP1jQj+nfi7gdeBF9JfmBlTFr7pXb9GLjTa3pHCep3hKheI2NdxMKhYydU/XvPhAtJzi+WEgf5PO/uoUEZopUrtWn4lg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rdyrY1iS; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BSSpjdV1"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A9615C2BCF4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rdyrY1iS"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DA1EAC2BCFC;
 	Thu, 15 Oct 2026 17:55:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1792086920;
-	bh=OLOxCWkG1uAfbEHQrZsIv+PXDRKyrTYk6AYh4axR+Ek=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=BSSpjdV1Z9Fj25NlN44laBxpN1sj6fiSlFAxKUUOVtpPYfhH2MwspIuuEn2mLddVI
-	 s8BALk9Gi63ki36a5ZmsJs23g3S/WaoyZbJOGnKLyqbzD/CNRfRZsjwS2KXwlTrGyq
-	 u/iSs1QfCn584VjaWkDTtKSYZ7r7MYLVvbCLENMs3BuU/VZnmGUDiAQkQI4h3cRwCG
-	 E4+ScnwUKbO9scYnYZjgX5oZSxHccMpGryRXEWsSF7eXK6CrwFlfmhxERvTJqM4Opf
-	 ESfT8C0pT9FppScKrbeCuXMMv3ZrvUKnTXvlc2/xiCOj1sbNEsgoB3CVZtFW17VOxB
-	 37wSbSkevQFMQ==
+	bh=NNesoLElBUv09j/SE4YghbtNRl4bZejc+cTkcFayRsU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=rdyrY1iSTume5moU/1bffAZN2NMh7lO8w5GuQ7XlgDjK+GcEiymaHyahSjUocV68Z
+	 uQ4m8Sa2p8+m6Lbz6L8Iz9GCtxP5ZljK2gkCdYWtV9RC726SxpS47cJ5+Km578iOyf
+	 9K6GTr2K8KcqUHT4yZHmbVqN+3Z/m38SGKVWKw5yrX2RfL+kdsPIrWMlCzDghdm4bb
+	 GZ1ZUNPXKPGXKYwERZ2NnyIAD6NqrAJ8EnS0SfcBFma6Qu94U4hV5mmLjuI3grFAYe
+	 WEVyqihAWNZfeCD04G9JQu545DG+ti6KS8MsbasT1WKfgWo82AEFgoz7LydSja9iNC
+	 kzJ7xCb1TEVJw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 84E3ECC6B33;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C22BACCA464;
 	Thu, 15 Oct 2026 17:55:20 +0000 (UTC)
 From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
-Subject: [PATCH v6 0/4] arm64: amlogic: T7 thermal support
-Date: Thu, 15 Oct 2026 19:54:08 +0200
-Message-Id: <20261015-add-thermal-t7-vim4-v6-0-37d1c954390c@aliel.fr>
+Date: Thu, 15 Oct 2026 19:54:12 +0200
+Subject: [PATCH v6 4/4] arm64: dts: amlogic: t7: khadas-vim4: Add fan
+ cooling to thermal zones
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,12 +41,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33QzW6EIBQF4FcxrHubyxV0nFXfo+kC4VpJ/JkiN
- dNMfPeiszHGdnlIzseBh5g4eJ7ENXuIwLOf/DikULxkwrZm+GTwLmVBSAUqiWCcg9hy6E0HsYT
- Z9woQWZeyNs5aKVLzFrjx9019/3jmwF/fCY/PQ1GbicGOfe/jNRv4HmG9QKJUYi20fopj+NlWz
- XJr/DtgloAgq4bqizOlcuWb6Tx3r03YuJn2RH5O0EogkqvQYIF0IPIdQfKcyBNhiEuSmh1ifiD
- UnvhjRfpMcMpKTRenUakDofeEOid0IipUaE1emIb3D1mW5RfMQaoh8gEAAA==
-X-Change-ID: 20260410-add-thermal-t7-vim4-00e571badcc1
+Message-Id: <20261015-add-thermal-t7-vim4-v6-4-37d1c954390c@aliel.fr>
+References: <20261015-add-thermal-t7-vim4-v6-0-37d1c954390c@aliel.fr>
+In-Reply-To: <20261015-add-thermal-t7-vim4-v6-0-37d1c954390c@aliel.fr>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
  Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
  Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
@@ -55,13 +53,13 @@ Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Ronald Claveau <linux-kernel-dev@aliel.fr>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3497;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2933;
  i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
- bh=OLOxCWkG1uAfbEHQrZsIv+PXDRKyrTYk6AYh4axR+Ek=;
- b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ9ZF4UKf6484s8q/x8/Skz9VW2lQ0Mf/07Unkjvz/t7Ds
- yfKtwh0lLIwiHExyIopsvTPtTzx7vLRM1/3qKfAzGFlAhnCwMUpABNxcmdkOFX2sJR17fnIpr/K
- /B/4PPhrfJ9FGusmvzsRrXj+k9Y1oIoZ7yuuc6Rz+TreaflQorXS1qV6L8/pz3rnPrvdmXN9/jt
- GAA==
+ bh=B2WWh69HSsHWgo7xf4TXcX+65d8XeYi4tsHrfwMtAdI=;
+ b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ9ZF4WbRc+pCrMF7j8zqcj9z+kzXbsEbj3bdVCo1X3lAR
+ kMt7zhvRykLgxgXg6yYIkv/XMsT7y4fPfN1j3oKzBxWJpAhDFycAjARwVUMf2U38EWa3xKvsQyJ
+ fFFTl5R9Jir2nF7854C+d/vEHPs+djD8r/xuKlqjOvnHEtudjcpLraSSdc/+/tT3YkZlRa+NYsB
+ yFgA=
 X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
  fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
 X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
@@ -69,79 +67,143 @@ X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
 X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
 Reply-To: linux-kernel-dev@aliel.fr
 
-This series adds thermal monitoring support for the Amlogic T7 SoC,
-used on the Khadas VIM4 board.
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-The T7 exposes six thermal sensors (a53, a73, gpu, nna, vpu, hevc),
-each accessible through the secure monitor firmware interface rather
-than a directly mapped eFuse register as on older SoCs.
+Add an active trip at 50°C to all six thermal zones and map it to the
+khadas_mcu fan controller, using cooling states 1 to 5.
 
-The series is organized as follows:
-
-- Patch 1 extends the amlogic,t7-thermal DT binding to describe the
-  new amlogic,secure-monitor property.
-- Patches 2-3 extend the Meson secure monitor driver to expose a
-  thermal calibration read command (SMC ID 0x82000047).
-- Patch 4 adds the secure monitor readout path to the amlogic thermal
-  driver and introduces the amlogic,t7-thermal compatible.
-- Patches 5-7 wire up the T7 DTSI with CPU cooling cells, sensor
-  nodes, and thermal zones.
-- Patch 8 extends the Khadas VIM4 DTS to map all thermal zones to the
-  on-board MCU fan controller (states 30–100, corresponding to the
-  FAN_CTRL register range 0x1E–0x64).
-
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
 ---
-Changes in v6:
-- Rebased on next-20261014 (patches 1/8 to 4/8 already applied, dropped from this series).
-- PATCH 2: Add bus clocks and clock-names to all thermal sensor nodes.
-- PATCH 4: Change cooling device map min and max values from 30-100 to 1-5.
-           The driver maps (0,1,2,3,4,5) to (0,30,40,55,75,100)
-- Link to v5: https://lore.kernel.org/r/20260424-add-thermal-t7-vim4-v5-0-9040ca36afe2@aliel.fr
+ .../dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts  | 102 +++++++++++++++++++++
+ 1 file changed, 102 insertions(+)
 
-Changes in v5:
-- PATCH 4: Remove unnecessary variable and coding style alignment
-           according to Neil's feedback.
-- Link to v4: https://lore.kernel.org/r/20260423-add-thermal-t7-vim4-v4-0-d4c1528d5044@aliel.fr
+diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+index 0fa83362b4179..91f81f7949bf8 100644
+--- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
++++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+@@ -256,6 +256,74 @@ xtal: xtal-clk {
+ 	};
+ };
+ 
++&a53_thermal {
++	trips {
++		a53_active: a53-active {
++			temperature = <50000>; /* millicelsius */
++			hysteresis = <2000>; /* millicelsius */
++			type = "active";
++		};
++	};
++
++	cooling-maps {
++		map {
++			trip = <&a53_active>;
++			cooling-device = <&khadas_mcu 1 5>;
++		};
++	};
++};
++
++&a73_thermal {
++	trips {
++		a73_active: a73-active {
++			temperature = <50000>; /* millicelsius */
++			hysteresis = <2000>; /* millicelsius */
++			type = "active";
++		};
++	};
++
++	cooling-maps {
++		map {
++			trip = <&a73_active>;
++			cooling-device = <&khadas_mcu 1 5>;
++		};
++	};
++};
++
++&gpu_thermal {
++	trips {
++		gpu_active: gpu-active {
++			temperature = <50000>; /* millicelsius */
++			hysteresis = <2000>; /* millicelsius */
++			type = "active";
++		};
++	};
++
++	cooling-maps {
++		map {
++			trip = <&gpu_active>;
++			cooling-device = <&khadas_mcu 1 5>;
++		};
++	};
++};
++
++&hevc_thermal {
++	trips {
++		hevc_active: hevc-active {
++			temperature = <50000>; /* millicelsius */
++			hysteresis = <2000>; /* millicelsius */
++			type = "active";
++		};
++	};
++
++	cooling-maps {
++		map {
++			trip = <&hevc_active>;
++			cooling-device = <&khadas_mcu 1 5>;
++		};
++	};
++};
++
+ &i2c_m_ao_a {
+ 	status = "okay";
+ 	pinctrl-0 = <&i2c0_ao_d_pins>;
+@@ -269,6 +337,23 @@ khadas_mcu: system-controller@18 {
+ 	};
+ };
+ 
++&nna_thermal {
++	trips {
++		nna_active: nna-active {
++			temperature = <50000>; /* millicelsius */
++			hysteresis = <2000>; /* millicelsius */
++			type = "active";
++		};
++	};
++
++	cooling-maps {
++		map {
++			trip = <&nna_active>;
++			cooling-device = <&khadas_mcu 1 5>;
++		};
++	};
++};
++
+ &pwm_ab {
+ 	status = "okay";
+ 	pinctrl-0 = <&pwm_a_pins>;
+@@ -389,3 +474,20 @@ &uart_a {
+ 	clocks = <&xtal>, <&clkc_periphs CLKID_SYS_UART_A>, <&xtal>;
+ 	clock-names = "xtal", "pclk", "baud";
+ };
++
++&vpu_thermal {
++	trips {
++		vpu_active: vpu-active {
++			temperature = <50000>; /* millicelsius */
++			hysteresis = <2000>; /* millicelsius */
++			type = "active";
++		};
++	};
++
++	cooling-maps {
++		map {
++			trip = <&vpu_active>;
++			cooling-device = <&khadas_mcu 1 5>;
++		};
++	};
++};
 
-Changes in v4:
-- PATCH 4: Extract SM and syscon setup into amlogic_thermal_probe_sm() and
-           amlogic_thermal_probe_syscon() removing amlogic_thermal_initialize()
-           from Daniel's feedback.
-           Also fix pre-existing bug: move calibration readout before
-           devm_thermal_of_zone_register() to avoid reading uninitialized
-           trim_info, according to Daniel's feedback.
-- Link to v3: https://lore.kernel.org/r/20260421-add-thermal-t7-vim4-v3-0-a2e7215ed003@aliel.fr
-
-Changes in v3:
-- PATCH 1: Replace second if check by an else statement.
-  Remove unnecessary label in example according to Conor's feedback
-- Link to v2: https://lore.kernel.org/r/20260413-add-thermal-t7-vim4-v2-0-1002d90a0602@aliel.fr
-
-Changes in v2:
-- PATCH 1: change two const entries to enum, explain why sensor index is needed
-  reorder conditional compatible for required, and fallback only according to
-  Krzysztof's feedback.
-- PATCH 3: Add kerneldoc for meson_sm_get_thermal_calib exported function
-  according to Krzysztof's feedback.
-- Link to v1: https://lore.kernel.org/r/20260410-add-thermal-t7-vim4-v1-0-19f2b8da74d7@aliel.fr
-
----
-Ronald Claveau (4):
-      arm64: dts: amlogic: t7: Add cooling cells to all CPUs
-      arm64: dts: amlogic: t7: Add thermal sensor nodes
-      arm64: dts: amlogic: t7: Add thermal zones
-      arm64: dts: amlogic: t7: khadas-vim4: Add fan cooling to thermal zones
-
- .../dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts  | 102 +++++++++
- arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi        | 253 +++++++++++++++++++++
- 2 files changed, 355 insertions(+)
----
-base-commit: ab8eada9868faeee95f25d81d3d6fed0d1c98b78
-change-id: 20260410-add-thermal-t7-vim4-00e571badcc1
-
-Best regards,
 -- 
-Ronald Claveau <linux-kernel-dev@aliel.fr>
+2.49.0
 
 
