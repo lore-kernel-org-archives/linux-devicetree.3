@@ -1,113 +1,122 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B091D63E4;
-	Thu, 15 Oct 2026 13:32:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792071165; cv=none; b=rbDqN7sCmk5gyMjQDdEtALRcyXHHK0ytNZb+1/pwlx2LBOZqLtWRyES8hSiTYp5pBKq5oOILtSN0ginejwm+ndzdwHHAk9kLfuZXgsrjtJeG22+4Oqmon1KxcdIih4Yz02gwKtYHzW5MpTgNDg2UZ7pbdByV4zX3ip8xHsBF+Do=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792071165; c=relaxed/simple;
-	bh=GaY9nTD7rjLfIDii8ybCKnP1cAKGM1jIg8m7FGox+4A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mP4HQtW5lEtZ83WcaWoWGloNJUUZSZ0nfq5THE0pOk8/vS9rTzuqoohMeiu1midhiDqy1bmAPWKv3HCayy1+3Em2Hmpd73caC0yYoaKn63RUOw5u3wIxXKu03euzwNECmyg5RWarp1f6bdbS0DROC3fqJ5KVRfmlDNCsOiOat4o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HfJaZ1Yv; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D035C2FDC20
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 13:33:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.175
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792071219; cv=pass; b=MWzMV9jztcmfX5DDC5ezFcdqPrkIbUtwCXmbz1johdYbl4SIr4TAV58/++0llDJ2oEnn7SWCUsExr6Ws5v1qemp1UE29LGKI4ug/jE7y+2PwKyq2cS4ghM/H996t6b5EN2TjSBSqmj4CPThR4H2SYXkVvQ3ZCJnVGD6BVYmelKY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792071219; c=relaxed/simple;
+	bh=Z5Ri9F4+OVBBIEGoV+Mr5BnCUO8uTyNyHHmMRGWppMs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EnJWHAiI2SGKyaI++9774svJ454VwZ87fbkIg+XOINpbmUyZfZ1djWIwdbV2QdeceFWkK0LOlmcCF9oOsim957+j6KNzpxELRO/WACyciPI0mBaDO57ctSy0R/yBy8tdqRLq14bHfKTKP1YyR9dSTR9RiyJeWH1w7d+toaEJSYk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PAuGi+DB; arc=pass smtp.client-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HfJaZ1Yv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792071164; x=1823607164;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=GaY9nTD7rjLfIDii8ybCKnP1cAKGM1jIg8m7FGox+4A=;
-  b=HfJaZ1YvijJx4FQ3Q8b94JWXvP5eoV0sxCAgYsumY86LXuM7DEXfDUjt
-   xUWk8wcRC903UUHJoO+sgJGISYEZwiqOn6oDWhFFltydKBfugRhSWEUjp
-   x8Kny8Gbwevq5HuUV7wRtEoFmeVea9gnsEwqB8yNAnnTCedn1k38In2A/
-   xKAMUy4AuGcHcj2yRfALwPi9/CwFga1raK7X08fqJXOi2XpRf03YAzFgN
-   iWtD3LU10WyiizN/o9hfNQOoSwxEKHIFhbdSJt/wKesjTYhv2HZRhvfTW
-   An+2+3jzVg+yN1Z6RvH/ZIum5wO/g8iRrHjHfSuKT+ptfcjCs1woEuat7
-   A==;
-X-CSE-ConnectionGUID: PPfcF+rPSMq/0jrAN9v17g==
-X-CSE-MsgGUID: lBNDvtZRSZGyUZiicW3vEw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="738886"
-X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="738886"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 06:32:43 -0700
-X-CSE-ConnectionGUID: Jjg7omm2R2+jiRA787xeQw==
-X-CSE-MsgGUID: yMc6SDX2Q9uqTyijbyKgmA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="1789320"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.117])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 06:32:40 -0700
-Date: Thu, 15 Oct 2026 16:32:37 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Paulius Zaleckas <paulius.zaleckas@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
-	Eddie James <eajames@linux.ibm.com>, Joel Stanley <joel@jms.id.au>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Rupesh Majhi <zoone.rupert@gmail.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/5] iio: pressure: dps310: add Zilltek ZTS8032
-Message-ID: <atDV9RvEocWjlicZ@ashevche-desk.local>
-References: <20261015104945.2687162-1-paulius.zaleckas@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PAuGi+DB"
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-353804b591eso9293107eec.0
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 06:33:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792071218; cv=none;
+        d=google.com; s=arc-20260327;
+        b=CrNBMUgIZzcueuQK3xGEZxTrIRhOnLGfFQfL+5fa5J+xLYAvXOAGEg7RSJlpy5oZuy
+         QYT1+awiyZi0wWCkWP5IVgaUBazcx1R957u1UXeK/M3Oj+/CUdW84/kA7oUXXG/4my+a
+         z0fleyIhqgcfZFg4LleQSDDzkyOTNqPlkxn4+R1UmRURBP63i02DeAicHe1SVt99Ouwe
+         BOrsYeRIeW8Q5OavrlSGd8Uzpq+bt8L0TVHSNjKmmHHHLK2kkyDrmoEIvfoaXbn4+h+D
+         0sQ1K/X01xnVtRUVvYLHj+o66A64uDkYbT2SbGc7Hm0wjocKXU7VcAMOt72DxtzzCEv8
+         jW3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5OHLy2Mwpp1lBm+AFYiwQam1DsdiOVY0neamvR3LV0U=;
+        fh=fqmdaWMYtonAN4r7ojt/x3KZdtqGK9lY2k5R2ULSpW4=;
+        b=NfqkUONiVTLXzOQOMr2hlUXdLyUsa3iHcSVEJtEDTgDHe2AEqozIcDhKYsSGModv9m
+         yvQdZ847IAN2sw/GBXbqBjhYG/sdvKqD8BFYpyHnef5CgB3Df2XDnTYj5kjJqrSPyEMh
+         Luel+ihdz79V6ltBXR74W7agI/4erbM3mZZlN9bP/CJkVvfWFc0zinRQs7789pBrAgBZ
+         Zul8DfIK2HvrtXsNYcV7fiauSM+sfX/WZ5K9KP2z32xm/2KafC1iGZYm1C1IPLDmqAor
+         Lc+nV75zBRPdFC17FwzO+lY3StPXOGaDr5EiFzlzpM5ikmq95k1zcSlf+rmt2q16Hk3E
+         pKew==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792071218; x=1792676018; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5OHLy2Mwpp1lBm+AFYiwQam1DsdiOVY0neamvR3LV0U=;
+        b=PAuGi+DBtlHOAXfkTuvEgYPIz9waslOw941falizFo+xSe5yRbqlb0CwWyGRG7sxfO
+         rqZ0ccbiXIZV3s6UrBg4hAkW5k10nM4p1zSouygV07q2YjdoIBrZOZG4SLnYrhCbk/k6
+         reMDApl7nJGdp3HLpPZFQzwZoZeozOpymd0qETxSV+a8soC6YUhMOHtBhEHUcuF/niAo
+         foz+SW23qmoIa0Im0rN6ecC2P6Cc1EzG72j+rXNXX+WXRXFuS+7Y9F4AX6zYo5jqZX1H
+         nn249Xm2CiJkoVEWUwbuDy4J/n/XylSd4tpYvN3vBd1ndmnnFYMATBUbchW8GuRTP6pV
+         E7Cg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792071218; x=1792676018;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5OHLy2Mwpp1lBm+AFYiwQam1DsdiOVY0neamvR3LV0U=;
+        b=jBhvt5gLIEUSTKKywkXUVJDeQAeBbioz/lfnXzOI+6vrpy2POnaCprIKF6nwgVwGwQ
+         NulTbzccvKhoCKZtowGAmCEYx62ptaD9KmYQGJOzAerQ/j35gT+AFvNQfYU0ZJymI4Gi
+         u1rbLzANDUJDV0gDjgWYQRbafiCG/mlSjWsrxZRH1upqf3UZiLedt4m7awz9lE0yz4QZ
+         qD2DLMqk9WiCd2xYhCmo9OxOEcXTJyZV+R7UjPj/g6SaJGdC3P9oGOx+wN5Z/helm4iO
+         oJ7IHkE3z5XIdQBw4koeoWioCoA3gqFsRnHnlRkLz5L8ZBqpXHYqj3t8MG8lCB9S9nne
+         DI0w==
+X-Forwarded-Encrypted: i=1; AKwUvBzicSjJiQkBJjJUTUulnxP5qKwQnAd1Xoex1bfU8jeow7tpLhmxSWO1SkotNSAeFVjvLDPu0IYn8ONM@vger.kernel.org
+X-Gm-Message-State: AFq9FYLrRM0WXgGxLjMnF/gGfZ8+66nXVC1PwPp6ONETogiAWRoL+nJJ
+	jVxNKL1fhIE4Qjwyn8VY9q+4wh/GsP72RJfkanIpaP9kQO8TSIsJepL0NMXGXEgUhYoBVqtpiQy
+	aeoXl3tzkkYSu4vpEHpY60uC03/V4ljM=
+X-Gm-Gg: AYBFou20naoppEt18DA74sc34CQgAZl9WN57vRLjOX8vlyGkmHZPbBC2dLMJtgTa4Ob
+	gpXC99Z/EJlsiIepDlnOi1tTXf7ROgVI5m14Mr3+Zvb/QIJ9kloclNEl2GMlYdsOu0/3HbDOeAJ
+	85vULzp5sexWrNP/+ZyJ29CGZ9yz4Nc0Eld8491qhMR+AvuzjPLcxGM3JskqvmHSoF+TZQc+fAp
+	EVlXCR0rsiH8gq2qTuAoAhZQNcDJZK2Kn9nQTc6/2ISXXJemwcs4sNZSYZtfKyB3ckbbXsxkb1f
+	pJ7ohort+HvDArLJD1TZQqmJfeJoHHBU9fdWuIfoIN7GXLC36b9cqtUwrQ9rYag6d3F/ZZr61pS
+	COkAljx6yJwHweaBzOm/rN+s=
+X-Received: by 2002:a05:693c:638e:20b0:351:7bdb:6eb1 with SMTP id
+ 5a478bee46e88-3537e03ce72mr25493475eec.11.1792071217690; Thu, 15 Oct 2026
+ 06:33:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015104945.2687162-1-paulius.zaleckas@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20261015130628.184279-1-clamor95@gmail.com> <d3648f08-17b2-4a90-8c23-3036cf71f1e1@sirena.org.uk>
+In-Reply-To: <d3648f08-17b2-4a90-8c23-3036cf71f1e1@sirena.org.uk>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Thu, 15 Oct 2026 16:33:25 +0300
+X-Gm-Features: AclHuK-Vf3LgaGwxBoiNGM89Hp1VUWFEAhFQiO8r8Dz7zDRcZoB_S-mA-lnEEpc
+Message-ID: <CAPVz0n17fZyoR+DPY2fznoFCEQbKeaH_qCSQ4j==_XefuNq5Pg@mail.gmail.com>
+Subject: Re: [PATCH v1 0/1] ASoC: dt-bindings: nvidia,tegra-audio: Consolidate
+ all codec support into a single schema
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 15, 2026 at 01:49:40PM +0300, Paulius Zaleckas wrote:
-> The Zilltek ZTS8032 is a register compatible DPS310 with two more
-> pressure calibration coefficients (c31, c40) and a different TMP_CFG
-> layout.
-> 
-> 1-2: Vendor prefix and the zilltek,zts8032 compatible.
-> 3: Per-chip data in the I2C and ACPI match data, no functional change.
-> 4: OF match table.
-> 5: ZTS8032 chip data: the coefficient count, the TMP_CFG startup value,
->    and a Horner step each for c40 and c31.
-> 
-> Based on iio/testing, on top of a22dc7ebb21a ("iio: pressure: dps310:
-> fix overflow in pressure compensation"). That fix replaces v2's patch 1,
-> and patch 5 extends its Horner evaluation.
-> 
-> There is no public ZTS8032 datasheet.
-> 
-> Testing: ZTS8032 on an arm64 (MT7987) board, the series and a22dc7ebb21a
-> backported to 6.12. in_pressure_input matches the datasheet formula
-> evaluated from the raw and coefficient registers to within 1 Pa at every
-> oversampling rate from 1 to 128, and TMP_CFG reads 0x00 after probe.
-> Every patch builds without warnings with W=1 on x86_64 and i386,
-> dt_binding_check passes. I have no DPS310, so patches 3-4 are untested
-> on one.
-> 
-> An LLM coding assistant (Claude Code) was used for this series: it
-> ported the ZTS8032 support from the vendor driver, wrote the code and
-> changelogs and the hardware test scripts, under my direction. I
-> reviewed and tested the result.
+=D1=87=D1=82, 15 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 16:0=
+9 Mark Brown <broonie@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Thu, Oct 15, 2026 at 04:06:27PM +0300, Svyatoslav Ryhel wrote:
+> > The number of codecs supported by the NVIDIA Tegra audio complex is
+> > increasing, which leads to an increasing number of bindings with minima=
+l
+> > changes. The main differences between codecs are the compatible strings
+> > and possible pin configurations. With the introduction of auxiliary
+> > devices, a definitive description of possible pin configurations become=
+s
+> > nearly impossible.
+>
+> Please don't send cover letters for single patches, if there is anything
+> that needs saying put it in the changelog of the patch or after the ---
+> if it's administrative stuff.  This reduces mail volume and ensures that
+> any important information is recorded in the changelog rather than being
+> lost.
 
-I have a single nit-pick (but two patches might be updated), otherwise
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-for the whole series.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+I'll keep this in mind, thank you.
