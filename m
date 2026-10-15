@@ -1,55 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B30C475350;
-	Thu, 15 Oct 2026 20:10:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F35E34973A3;
+	Thu, 15 Oct 2026 20:11:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792095009; cv=none; b=M04xUKrPYJ8EUK+SAixn8UKqvROJ3nqBvDi1YbA0DW6utEhZPOu5gFT6sSMj6OGUhG/OIS++6WX8KvBFjVH+8gF0sgP0wIqK4jFxO8Mn65tM/guN4gWhyYLk+ee3krCZ0WSmAQ9mX/G0AM+u2qL+2kQv8LX4+AUg9uv7gbUyedk=
+	t=1792095117; cv=none; b=q/AEsi1y5AFf9zP0AntQdH/obpNNUP3Vp8TiKN1WiXkFoo+jkWg0LlpRhwyyBp0XvM+zAJc5odMRFlY9xMvSKhowiIe8G2n8HyVRhymvASEiCzFdoVYtwb1IFtCagtHtPfkKg/FhbXJRWZQ4+JIT5ywNNpd6oupDE4mb2yY6b2s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792095009; c=relaxed/simple;
-	bh=5+ITx/IV/BoxeXsLcjNXvtzt06iKyo8dX2YvX/hAwNU=;
+	s=arc-20240116; t=1792095117; c=relaxed/simple;
+	bh=r11FzxvZmA+RMkk7sbP3A1aU5tz6v55wmhTXPmT12vA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jR8AY+Bv1B6WuAHrAMrYxguwjKokalnwBaVq9r3ACpmHhiZMeQ0QI5XNOnS6/C6b8xf/JMz012uMZWObfEoclPj0pGHNhYEW6V7ER7XvVRisbqkum9Fpl4sEmrIFyoVPmGmm4qu6zRfn9OdmQQumPqAkQ/bxpt6P1YWZBw3jvos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZcaNxYGX; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y85n9dc9e3mCJQlW/8URdmPG43QDYxQnJ6wrVAIRRfr92L+a7j8cVq933BhURi5KdEh7TN3SLQhD1XNA5cXYGxcX0F2J0bhMKBLot9pTm2N0nhtngsFx356JiANtsxkhAbopVLxx9pPDtYOa7cvGhdFUsfu16Hix443HIdsec8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C6xDSguT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZcaNxYGX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 349D41F000C4;
-	Thu, 15 Oct 2026 20:10:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C6xDSguT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AA151F000C4;
+	Thu, 15 Oct 2026 20:11:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792095007;
-	bh=vGkzpNU4gEbEI0HBSrDSBMbVcu/OtmqB0nVCCkvCRSg=;
+	s=k20260515; t=1792095116;
+	bh=XyXToTfD30NMTH56PCohND5pezL23xfEZy59DIVFNXo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZcaNxYGXNMGp5Yrju7JyTI4kvcvqFC4t+hvx5QEaD6PRkpeipBX8SBeRfajgWY/7v
-	 lXlooyOgiHXpgjqwREXb3WXmjLNroziatAm4oYrY1/4exZyN/48+uKSxbiaE0rR/Lm
-	 ENDS0EnqpqLWCyZSzXDJ8QvwBGyHkMMNQlCKIoV7VtsRHv1dW3QzrVIUUwyIua8mZL
-	 bxHEumb73EhE/PYOTL8HSmdSUVaXd8cRpwG19kfCJK4WIjK6xdEonXQ8qjCIHRvExS
-	 bEe+dCquaRNw34y6xMaICo5G9Bpe1XV/rOmYLseSlwPBtNPaw4pjhRaJOT2J2x+P2K
-	 1JpPIlW4ZiarA==
-Date: Thu, 15 Oct 2026 15:10:05 -0500
+	b=C6xDSguTrak3YRNOzO3P9bCfFHDGlBHecCrl1SM1FdTxv63jam1YyMSHhXQv0GN4o
+	 6rGjahoNHj5upzPfi504vofhlw8RCZyIkNQeatgMcv5LggFdZ7FyP+UhqOeeLNjpTW
+	 6Q0vTS4wn+saw9vqG/OS4ocLo05VGXIlYen7pVNtyXwPFnDMXtfICM/IELTxQBVdjB
+	 +yrGpTjWYIBaEkzTAkJ6Tb6fzfUst0WgfI4PxK/Ynxz8NRrZ4SlljjxdB43ugBqbvO
+	 0S48njeULhPxDLEsf/dpwfL4GAq6TEkYbk93VbYYGPg422AOzMQfScKx+g2BWPyaiT
+	 //CFc76JhSGhg==
+Date: Thu, 15 Oct 2026 15:11:54 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Frank Li <Frank.Li@nxp.com>, Wilfred Mallawa <wilfred.mallawa@wdc.com>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Serge Semin <fancer.lancer@gmail.com>,
-	Niklas Cassel <cassel@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Bjorn Andersson <andersson@kernel.org>, linux-clk@vger.kernel.org,
+	Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, Jessica Zhang <jesszhan0024@gmail.com>,
+	David Airlie <airlied@gmail.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-renesas-soc@vger.kernel.org, linux-pci@vger.kernel.org,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Geert Uytterhoeven <geert+renesas@glider.be>
-Subject: Re: [PATCH v4 04/18] dt-bindings: PCI: rcar-gen4: Add optional "aer"
- interrupt for R-Car Gen4 SoCs
-Message-ID: <179209500464.2848447.6678039207382562663.robh@kernel.org>
-References: <20261015033103.3076869-1-den@valinux.co.jp>
- <20261015033103.3076869-5-den@valinux.co.jp>
+	Maxime Ripard <mripard@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+	dri-devel@lists.freedesktop.org, Conor Dooley <conor+dt@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/5] dt-bindings: display: panel: add Truly NT36850
+ WQHD panel
+Message-ID: <179209511403.2867457.13660971781879980821.robh@kernel.org>
+References: <20261015-sdm845-hdk-v4-0-b532b9f4029c@oss.qualcomm.com>
+ <20261015-sdm845-hdk-v4-1-b532b9f4029c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -58,32 +56,24 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261015033103.3076869-5-den@valinux.co.jp>
+In-Reply-To: <20261015-sdm845-hdk-v4-1-b532b9f4029c@oss.qualcomm.com>
 
 
-On Thu, 15 Oct 2026 12:30:49 +0900, Koichiro Den wrote:
-> The intreq_pcim_lperr interrupt carries Root Port AER notifications,
-> separately from the integrated MSI receiver interrupt. Describe it with
-> the "aer" name so the controller driver can use it for Root Port error
-> reporting.
+On Thu, 15 Oct 2026 11:39:08 +0300, Dmitry Baryshkov wrote:
+> Describe the Truly 5.7" WQHD dual-DSI command mode panel based on the
+> Novatek NT36850, used on the display cards for the Qualcomm SDM845 and
+> SM8150 HDKs.
 > 
-> Keep the fifth interrupt optional on R-Car Gen4 SoCs so existing device
-> trees remain valid. Extend the example accordingly.
+> The model name of the panel is not known. Neither the vendor kernel nor
+> the HDK documentation mention it, and the panel block cannot be taken
+> apart completely to check the label. So the compatible is built from
+> the vendor, resolution, refresh rate and the controller name.
 > 
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+> Assisted-by: LLM
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > ---
-> Changes since v3:
->   - Rebase on Marek's Gen5 AER binding fix:
->     https://lore.kernel.org/r/20261003215710.792518-1-marek.vasut+renesas@mailbox.org/
->     This requires "aer" for the Gen5 SoC PCIe4 controller from the
->     beginning. Update the subject to clarify that it is optional only
->     on Gen4 SoCs, for compatibility with existing DTs.
->   - Drop R-b tags due to the changes.
-> 
-> v3: https://lore.kernel.org/r/20261006084638.3821710-5-den@valinux.co.jp/
-> 
->  .../devicetree/bindings/pci/rcar-gen4-pci-host.yaml | 13 ++++++++++---
->  1 file changed, 10 insertions(+), 3 deletions(-)
+>  .../display/panel/truly,wqhd60-nt36850.yaml        | 98 ++++++++++++++++++++++
+>  1 file changed, 98 insertions(+)
 > 
 
 Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
