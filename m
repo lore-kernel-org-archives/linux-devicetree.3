@@ -1,72 +1,169 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 056D051617F;
-	Thu, 15 Oct 2026 09:59:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D20CC499F23
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 10:04:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792058346; cv=none; b=tUX5oF3Fs3pPlPi/Mm4pULcbLYuoPYVHc14wc4b61/qPQJuWEK/iTo7ZKJxrHJrV0NzvTRayytbL6Wo3nnIYyMyPTv+SSEg5CucUBrUKtOjl0Ay8nDA5ah4NOtZe1lRGDz0jt6waFpHhxwNTw0K2Fz4g4BImN6Fj2YMlWGCGf+Q=
+	t=1792058671; cv=none; b=ooMbAyjKx2yK4jFQ+/NsCed64FgCo59OnyBD88ZrNnnroBzGpewmWANm3oF4/aanWIvocFEYJC9xE3EYjZXGOLKgCEMQtl78DC6EISoYLNNDGrJLNS6VZD3LLsN2+PzA4luTS7mn0nGsKcufQGrIR9jO7J09XoMGQswVdKRxQBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792058346; c=relaxed/simple;
-	bh=Y4pBy2x0j6Suc5T0MdHA3GtQWW2AivDvn7u3767tiXM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EwdjiFZKOhqA2J6/TsRJ6i8MMxfLxivppLmAPZDn8RVWDhaNdO8JaKQ2I/+MPBDZsP8360e3qrfk5NMpNhQ0jd/2TlJ1c4Ksopb/O+6KQ9wtty4+KJ5/FTSw3MoXbBz2OKc8JJG2lIHLkO8oimx1KnMLBUP/W9/jTDp+i4f/cWA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MAABnL+Y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792058671; c=relaxed/simple;
+	bh=INvDfDUTS+M6a54dXfvstQUDS7hRA8+j1JZchHnCXIk=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=ZoMIgRG91uG0RTMMuB/hDgvQXspguvnRRRzGcbKF5YwDYGhQEoxhIQ7y9WwsqWIDw+DeL8iuqLeHrqmT/RCRl9uXNr7IUQ86M6pB4aBNIulm7WHKGDxsbj/EVjIIP2uozCiTlaQjVMQ+7+C+Czd7sM+86AFOdymhLdRysuQ3Q40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JigtQVFX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MAABnL+Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E490B1F000C4;
-	Thu, 15 Oct 2026 09:59:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JigtQVFX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34EC71F000C4;
+	Thu, 15 Oct 2026 10:04:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792058345;
-	bh=2w8nKiVNXKMTex69kXfqDRomq+Zwxb/enPBvj8nlfgw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MAABnL+YNUJ/43f1DfMwxhSMnzYFkcsn8s4nRUndb+5Yk8wa7q5CdTgrL80IMoG43
-	 wxa8IFmRn55OVqzhKceP7k9S3jKEGxJtpe0lct/zJQ210l4onti89YBNDmiU7+xoVm
-	 mTogZglMzEk6EmnG6/RDMTKgOBRbQUbf3zKAfMpdxqMsX6grS14oxtNM8dkrdM2236
-	 ACJ9VjWVTQNLyOj5FzHohAJcGEDL4JFMup2Vyvd2uRUoXuMFdphov5sguRVta5+gF2
-	 G8exkrvxQp09n8vSVgMVwnGZA307T/ko868/xfG+T9Z8pBAQBBkQTmZhelUbmyFkre
-	 S8UscuthDTANQ==
-Date: Thu, 15 Oct 2026 11:58:58 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Greg Ungerer <gerg@linux-m68k.org>, linux-m68k@lists.linux-m68k.org, 
-	linux-serial@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 4/5] dt-bindings: serial: create binding for mcf-uart
-Message-ID: <20261015-valiant-puffin-of-zoology-6ee470@quoll>
-References: <20261013120831.1046590-1-gerg@linux-m68k.org>
- <20261013120831.1046590-5-gerg@linux-m68k.org>
- <20261014-expensive-shrewd-nautilus-abcab6@quoll>
- <d256f39c-6ed5-409a-a7ed-224165d00521@linux-m68k.org>
- <CAMuHMdUcGt7RBc0d1A-8O1Dt71RL=epPgmnetj_4NGCPvCj9LA@mail.gmail.com>
+	s=k20260515; t=1792058669;
+	bh=9wBXPiPpsM5S4pDhacY+LOYtxoybPRSvF4O1rUoMmq0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JigtQVFXI6oHkI5XLlRg8ckwbmqwONSAf5cN+gItEecNdVNr/bXsBiEtyvgoO/W96
+	 rDleTN1J7ahuS5Sjqj//TAK+vlcPg2sskLglBSh8ajo06iMCoa7pqA6Xyskx11e3oY
+	 71svCeR5s1scXbK7u0qXniNpVIr62TvC6I9mfR3vHqbJvG2j54G7cXdARF/55SDRoe
+	 dJJH3TuN2Cd2BYdw+l4EUMhUYassFH/xZR5kguiSD9OzySblcjTZd7fdVTsIxhSFK0
+	 U4UFX1HLOOJ6FsDrE6KglCGYkBHvI6XHjDh9qLcNYt/kP3iCbcFybpBsM2sBAzeRaj
+	 p3jFQIvADB2fg==
+Message-ID: <sashiko-outbox-172624@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/5] dt-bindings: display/msm: dp-controller:
+ Document Kaanapali
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Balaji Kalkonda" <balaji.kalkonda@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261015-kaanapali_dp-v2-1-c15cb83d9140@oss.qualcomm.com>
+References: <20261015-kaanapali_dp-v2-0-c15cb83d9140@oss.qualcomm.com>
+ <20261015-kaanapali_dp-v2-1-c15cb83d9140@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 15 Oct 2026 10:04:28 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAMuHMdUcGt7RBc0d1A-8O1Dt71RL=epPgmnetj_4NGCPvCj9LA@mail.gmail.com>
 
-On Thu, Oct 15, 2026 at 11:19:31AM +0200, Geert Uytterhoeven wrote:
-> I guess you want:
-> 
->     items:
->       - enum:
->           - fsl,mcf5206
->           - fsl,mcf5208
->           - fsl,mcf5307
->             [...]
->       - const: fsl,mcf-uart
-> 
-> As no new (possibly incompatible) Coldfire parts will appear, a generic
-> fallback looks reasonable to me.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: qcom,kaanapali-dp omitted from existing conditional=
+ blocks
+- [Medium] dt-bindings: missing additionalProperties in patternProperties
+--
 
-Yes, although still preference is to use one device as a fallback.
+commit 98068de5d2fca0abb41ef1fecd6b1707d8f24f5d
+Author: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
 
-> 
-> An "mcf" vs. "motorola" vendor prefix might still be a discussion point ;-)
+dt-bindings: display/msm: dp-controller: Document Kaanapali
 
-Best regards,
-Krzysztof
+This commit adds device tree binding documentation for the DisplayPort
+controller on Qualcomm Kaanapali. It introduces a new compatible string
+and adds constraints for its five register ranges and six clocks.
 
+> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.=
+yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> index 094a6383bb779..0240e3c1a6d9d 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> @@ -19,6 +19,7 @@ properties:
+>      oneOf:
+>        - enum:
+>            - qcom,glymur-dp
+> +          - qcom,kaanapali-dp
+>            - qcom,sa8775p-dp
+>            - qcom,sc7180-dp
+>            - qcom,sc7280-dp
+
+[Severity: Medium]
+Does this inadvertently restrict Kaanapali from declaring an aux-bus?
+
+Because qcom,kaanapali-dp is omitted from the existing aux-bus conditional
+block, it falls into the else clause which forces aux-bus: false:
+
+      if:
+        properties:
+          compatible:
+            contains:
+              enum:
+                - qcom,glymur-dp
+                - qcom,sa8775p-dp
+                - qcom,x1e80100-dp
+      then:
+        $ref: /schemas/sound/dai-common.yaml#
+        oneOf:
+          - required:
+              - aux-bus
+          - required:
+              - "#sound-dai-cells"
+      else:
+        $ref: /schemas/sound/dai-common.yaml#
+        properties:
+          aux-bus: false
+
+This incorrectly restricts valid device trees that declare an aux-bus.
+
+[ ... ]
+
+> @@ -290,6 +291,24 @@ allOf:
+>            minItems: 6
+>            maxItems: 6
+> =20
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - qcom,kaanapali-dp
+> +    then:
+> +      properties:
+> +        reg:
+> +          minItems: 5
+> +          maxItems: 5
+> +        clocks:
+> +          minItems: 6
+> +          maxItems: 6
+> +        clock-names:
+> +          minItems: 6
+> +          maxItems: 6
+> +
+
+[Severity: Medium]
+Could this conditional block be merged with the existing block that has
+identical constraints?
+
+The constraints specified here (5 reg items, 6 clocks) exactly match the
+existing block for 2-stream MST platforms (qcom,sc8180x-dp, qcom,sdm845-dp,
+qcom,sm8350-dp). Reusing the existing block would avoid duplicating schema
+constraints.
+
+> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,kaanapali=
+-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,kaanapali-m=
+dss.yaml
+> index 9f935defd6b12..83e3596ba0ed9 100644
+> --- a/Documentation/devicetree/bindings/display/msm/qcom,kaanapali-mdss.y=
+aml
+> +++ b/Documentation/devicetree/bindings/display/msm/qcom,kaanapali-mdss.y=
+aml
+> @@ -48,6 +48,12 @@ patternProperties:
+>        compatible:
+>          const: qcom,kaanapali-dpu
+> =20
+> +  "^displayport-controller@[0-9a-f]+$":
+> +    type: object
+> +    properties:
+> +      compatible:
+> +        const: qcom,kaanapali-dp
+> +
+
+[Severity: Medium]
+Does this object definition need additionalProperties: true or
+unevaluatedProperties: false?
+
+The dtschema meta-schema requires one of these properties for object nodes
+to dictate how unlisted properties are handled. Without it, make
+dt_binding_check reports a meta-schema validation error.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-kaanapali_=
+dp-v2-0-c15cb83d9140@oss.qualcomm.com?part=3D1
