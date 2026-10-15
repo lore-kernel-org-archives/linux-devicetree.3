@@ -1,806 +1,197 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BC322554083;
-	Thu, 15 Oct 2026 14:26:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6F0D531AE2
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 14:27:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792074423; cv=none; b=KqWKe8LGiQuZqrfMSndWTb9CbUsTtap+Qu/YNYM5oEFXv8qrUj2FgCIpdF3BnxY/fXuVJqU/JdtARTCWvjW1rawyG0kfOqpp4cQZTG7bda/1qWsgDS/Lb5fa+aqYUQ5iEtUe/+l0z2Z2xd8QwcxVfeeydp6U9umtHBgaTMjxQME=
+	t=1792074481; cv=none; b=dwJx7aANRv1kCYyAalS+u0r8OnBHZpTl44tzHzVs0eu83wIfQjTe1JU38xOdM2TCN0SqZpfY30hSdhFUxujQajlZjvWfuVGyUnRDqjYM0u64r5yG2CxHk2DTi8dvY9X/c/UKetLJ5FY+Il4Do6vMr68E68iyL9BXVndU68FQ+5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792074423; c=relaxed/simple;
-	bh=6zJkdln/lwFAx0j11y2Tqo0Fge5mRgoV7t4ssd1rzXg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aIg9/Q/Bzuee4fcPFWRNuLC09/9MUL2x4AjSD+AXy3Zzp+nOnZVggWhd3I9XL2CDmuGVkuC5apBkuI28mKA/yIrgffAxI04yax4W7BykSiYzBo5UUFSmaaVRK8bdhOJ8sIQFznExGsln4U8s6gZ9ldXlQIFsJvuXhEpivQouPEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=cfBWzX7Y; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792074481; c=relaxed/simple;
+	bh=Ry8X665u45KaEpcy+8n7/bkBLUBeb1sZgvF62ASGjnY=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=tVpAHXT+aiRz9ExpNnSMFsRq99cbpmzkV2If+5fyxEQNbhohmia8oEvr+aR0f/wvldyHpLhiylT5x0duj28WnJIiedb9pkLW2zRKCQrBctvqdqr/CkE1leBvEPrfvdHF9RmZ97ATdeYdyDiSwiTY5l/JC5SNRtNASNdimFHvN1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WxTkw/pK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="cfBWzX7Y"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0C81816F8;
-	Thu, 15 Oct 2026 07:26:52 -0700 (PDT)
-Received: from e125769.cambridge.arm.com (e125769.cambridge.arm.com [10.2.198.107])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7FB6E3F871;
-	Thu, 15 Oct 2026 07:26:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792074415; bh=6zJkdln/lwFAx0j11y2Tqo0Fge5mRgoV7t4ssd1rzXg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=cfBWzX7YPsIAlT14io4tMDz1ApqxSWGQAponpdxy92FR0NicTQ6CvbEAXL0Snq6VR
-	 npc9Am0ZYDfuvMJaqXoltnafkNQU4MUvyeECZEJdiKCeICKnEZAcfC+WBY+3gGeECa
-	 YLoJCi0InAcmjyCJ5ixTEw7KaLM2Owbk2D/l14UM=
-From: Ryan Roberts <ryan.roberts@arm.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Alex Williamson <alex@shazbot.org>,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jean-Philippe Brucker <jpb@kernel.org>,
-	Oded Gabbay <ogabbay@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>
-Cc: Ryan Roberts <ryan.roberts@arm.com>,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	kvm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-doc@vger.kernel.org
-Subject: [RFC PATCH v2 15/15] misc/arm-cla: Add vfio-mdev user interface
-Date: Thu, 15 Oct 2026 15:25:49 +0100
-Message-ID: <20261015142552.4128028-16-ryan.roberts@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261015142552.4128028-1-ryan.roberts@arm.com>
-References: <20261015142552.4128028-1-ryan.roberts@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WxTkw/pK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B7741F000C4;
+	Thu, 15 Oct 2026 14:27:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792074479;
+	bh=w5ecIJMRD8CIiJRRiHNPKVYU5tzDuxTSBJeOFjzK9l0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=WxTkw/pKjvlQDT+emv+D6xZkvTguAhAEVgCFMRbwA5nIcqBWClfFYSB+3Po09kbJI
+	 Ubct/AC2FUeU62Jh4HTDUWdg6g5vAOrZ/Fk907PlYU1lrshrL0v5kA2fkU+0jUpjI3
+	 QzIr94d3HjIjYO8FQp8msz8fN9GrcxZcS3HfekgtgB3ArMVnewKuaFMYoU/Wswsrbg
+	 dFmSIiphljin9Nt4jzp4s9CrwV0nkyhJAy0ID/tMH8g7CRCbMpIBC11dsvKHmwWlCz
+	 IdVoDKdn78gH5J955+SZpW7IBYyyO0YL2xdWXq26gj2QuKLu8zLKYQdJhDpdbU1R/u
+	 Xw6+K6Kt2PT/w==
+Message-ID: <sashiko-outbox-172958@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 4/4] ASoC: codecs: pm4125: Add the MBHC callbacks
+ needed for jack detection
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mohammad Rafi Shaik" <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261015-pm4125_mbhc_support-v1-4-8bc1212db6f7@oss.qualcomm.com>
+References: <20261015-pm4125_mbhc_support-v1-0-8bc1212db6f7@oss.qualcomm.com>
+ <20261015-pm4125_mbhc_support-v1-4-8bc1212db6f7@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 15 Oct 2026 14:27:58 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Jean-Philippe Brucker <jpb@kernel.org>
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] sound: pm4125: Build failures due to undefined function and missin=
+g struct member
+- [High] ASoC: codecs: pm4125: pm4125_mbhc_program_btn_thr() OOB register w=
+rite
+- [High] ASoC: pm4125: missing lock for concurrent micbias and mbias initia=
+lization
+- [Medium] sound: pm4125: Data race and hardware state corruption in micbia=
+s control
+--
 
-Implement an interface to assign CLA devices to KVM guests. To creates a
-CLA instance:
+commit a2d3fc28945c83703320008a102f99781fb6c008
+Author: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 
-    uuid=$(uuidgen)
-    echo $uuid > /sys/class/mdev_bus/<pdev>/mdev_supported_types/arm-cla-pl1/create
-    cla_cpu=$(< /sys/bus/mdev/devices/$uuid/cpu)
+ASoC: codecs: pm4125: Add the MBHC callbacks needed for jack detection
 
-This creates a user interface in /dev/vfio: a VFIO group in
-/dev/vfio/<n>, discoverable by reading the symlink
-/sys/bus/mdev/devices/$uuid/iommu_group. Although CLA does not use an
-IOMMU, VFIO relies on IOMMU groups as an assignable unit. Here they
-correspond to CLA domains, whose devices communicate through a private
-bus.
+This commit populates the remaining wcd_mbhc_cb callbacks required by the
+MBHC framework for jack detection.
 
-The CLA device gets assigned exclusively to the first VMM that opens the
-VFIO group and device. To launch a VM with a CLA attached to vCPU #4,
-with kvmtool:
+> diff --git a/sound/soc/codecs/pm4125.c b/sound/soc/codecs/pm4125.c
+> index 2100f4e36bbbd..6dd5ce0f4bab3 100644
+> --- a/sound/soc/codecs/pm4125.c
+> +++ b/sound/soc/codecs/pm4125.c
 
-    lkvm run -k Image --console virtio -c 8
-	--vfio-platform $uuid,type=arm-cla,vcpu=4
-	--vcpu-affinity 4=$cla_cpu	# Bind vCPU 4 to the CLA's CPU
+[ ... ]
 
-Opens the group, gets the device fd, mmaps the frame, and launches the
-guest. The given vCPU thread is pinned to the CLA's CPU.
+> @@ -995,9 +1004,187 @@ static void pm4125_mbhc_program_btn_thr(struct snd=
+_soc_component *component,
+>  	}
+>  }
 
-Pinning vCPUs is not guaranteed. If the host decides to power off the
-CPUs with assigned CLAs, the guest application can't access the assigned
-device anymore. It would now access a RAZ/WI memory region.
+[Severity: High]
+Does pm4125_mbhc_program_btn_thr() write past the button threshold register=
+s?
 
-For DMA, because the TLB entries tagged with VMID+ASID are shared
-between CPU and accelerator, we pin the VMID. The stage 2 page tables
-are shared between CPU and CLA. CLA reports DMA page faults directly to
-the user, who performs the access from the CPU to handle both stage 1
-and stage 2 faults.
+The function writes to contiguous registers starting at 0x060 in a loop up =
+to
+num_btn. The device only has 5 button threshold registers (0x060 to 0x064),
+but num_btn is configured to 8 (PM4125_MBHC_MAX_BUTTONS). If this loops to =
+8,
+won't it write to 0x065, 0x066, and 0x067, silently clobbering
+PM4125_ANA_MBHC_MICB2_RAMP, PM4125_ANA_MBHC_CTL_1, and PM4125_ANA_MBHC_CTL_=
+2,
+breaking the functionality added in this patch?
 
-Signed-off-by: Jean-Philippe Brucker <jpb@kernel.org>
----
- drivers/misc/arm-cla/Kconfig        |  16 +
- drivers/misc/arm-cla/Makefile       |   2 +
- drivers/misc/arm-cla/arm-cla.h      |  48 +++
- drivers/misc/arm-cla/cla-init.c     |  11 +-
- drivers/misc/arm-cla/cla-mdev.c     | 469 ++++++++++++++++++++++++++++
- drivers/misc/arm-cla/cla-topology.c |   9 +-
- 6 files changed, 553 insertions(+), 2 deletions(-)
- create mode 100644 drivers/misc/arm-cla/cla-mdev.c
+> +static bool pm4125_mbhc_micb_en_status(struct snd_soc_component *compone=
+nt, int micb_num)
+> +{
+> +	if (micb_num !=3D MIC_BIAS_2)
+> +		return false;
 
-diff --git a/drivers/misc/arm-cla/Kconfig b/drivers/misc/arm-cla/Kconfig
-index f8436a12c1e6..5def727b7a34 100644
---- a/drivers/misc/arm-cla/Kconfig
-+++ b/drivers/misc/arm-cla/Kconfig
-@@ -8,3 +8,19 @@ config ARM_CLA
- 	  accelerators. It is only accessible from its associated CPU.
- 
- 	  If unsure, say N.
-+
-+config ARM_CLA_MDEV
-+	bool "Mediated device for Arm CLA"
-+	default y
-+	depends on KVM
-+	depends on VFIO
-+	depends on ARM_CLA
-+	depends on VFIO_GROUP
-+	select VFIO_MDEV
-+	help
-+	  Enable the VFIO mediated device interface for assigning Arm Core Local
-+	  Accelerators (CLAs) to KVM guests. Guests can access the CLA PL0 and
-+	  PL1 registers, while the host controls stage 2 address translation.
-+	  Devices in the same CLA domain can only be assigned to the same guest.
-+
-+	  If unsure, say N.
-diff --git a/drivers/misc/arm-cla/Makefile b/drivers/misc/arm-cla/Makefile
-index f848c608e8f1..973390d0b428 100644
---- a/drivers/misc/arm-cla/Makefile
-+++ b/drivers/misc/arm-cla/Makefile
-@@ -11,3 +11,5 @@ arm-cla-y := \
- 	cla-user.o
- 
- obj-$(CONFIG_ARM_CLA) += arm-cla.o
-+
-+arm-cla-$(CONFIG_ARM_CLA_MDEV) += cla-mdev.o
-diff --git a/drivers/misc/arm-cla/arm-cla.h b/drivers/misc/arm-cla/arm-cla.h
-index 43a58a329525..93365f525abb 100644
---- a/drivers/misc/arm-cla/arm-cla.h
-+++ b/drivers/misc/arm-cla/arm-cla.h
-@@ -14,6 +14,7 @@
- #include <linux/kref.h>
- #include <linux/kthread.h>
- #include <linux/list.h>
-+#include <linux/mdev.h>
- #include <linux/mm.h>
- #include <linux/mm_types.h>
- #include <linux/mutex.h>
-@@ -51,6 +52,11 @@ struct cla_accel_desc {
- 	u64 revidr;
- };
- 
-+enum cla_mdev_type {
-+	CLA_MDEV_TYPE_PL1,
-+	CLA_MDEV_NUM_TYPES,
-+};
-+
- /**
-  * struct cla_dev - CLA device
-  *
-@@ -71,6 +77,11 @@ struct cla_accel_desc {
-  * @broken:		Hardware failure.
-  * @worker:		CPU-bound worker to communicate with CLA.
-  * @call:		Scheduling work.
-+ *
-+ * Other mutable state:
-+ * @mdev_parent:	Mdev structure for the VFIO interface.
-+ * @mdev_types:		Mdev types that can be created from this device.
-+ * @mdev_types_ptr:	Pointers to @mdev_type.
-  */
- struct cla_dev {
- 	unsigned int cpu;
-@@ -88,6 +99,12 @@ struct cla_dev {
- 	bool broken;
- 	struct kthread_worker *worker;
- 	struct cla_call_on_cpu call;
-+
-+#if IS_ENABLED(CONFIG_ARM_CLA_MDEV)
-+	struct mdev_parent mdev_parent;
-+	struct mdev_type mdev_types[CLA_MDEV_NUM_TYPES];
-+	struct mdev_type *mdev_types_ptr[CLA_MDEV_NUM_TYPES];
-+#endif
- };
- 
- /**
-@@ -100,6 +117,7 @@ struct cla_dev {
-  * @pg_offset:		Mmap offset of the first device.
-  * @nr_devs:		Number of devices in the domain.
-  * @devs:		Devices.
-+ * @iommu_group:	Handle for VFIO group.
-  *
-  * Mutable, only accessed under @lock:
-  * @lock:		Protects the following members.
-@@ -127,6 +145,10 @@ struct cla_domain {
- 	struct cla_ctx *assigned_ctx;
- 	struct kthread_worker *worker;
- 	struct kthread_delayed_work reassign;
-+
-+#if IS_ENABLED(CONFIG_ARM_CLA_MDEV)
-+	struct iommu_group *iommu_group;
-+#endif
- };
- 
- /**
-@@ -187,6 +209,12 @@ struct cla_ctx_key {
- 		.file = (_file),		\
- 	}
- 
-+#define CLA_CTX_KEY_PL1(_kvm)			\
-+	{					\
-+		.type = CLA_CTX_PL1,		\
-+		.kvm = (_kvm),			\
-+	}
-+
- /**
-  * struct cla_ctx - Domain context
-  *
-@@ -342,4 +370,24 @@ int cla_user_init(void);
- void cla_user_exit(void);
- u8 cla_user_accels(struct cla_dev *dev, struct file *file);
- 
-+#if IS_ENABLED(CONFIG_ARM_CLA_MDEV)
-+int cla_mdev_init(void);
-+void cla_mdev_exit(void);
-+void cla_mdev_enable(void);
-+int cla_domain_mdev_init(struct cla_domain *domain);
-+void cla_domain_mdev_exit(struct cla_domain *domain);
-+#else
-+static inline int cla_mdev_init(void)
-+{
-+	return 0;
-+}
-+static inline void cla_mdev_exit(void) {}
-+static inline void cla_mdev_enable(void) {}
-+static inline int cla_domain_mdev_init(struct cla_domain *domain)
-+{
-+	return 0;
-+}
-+static inline void cla_domain_mdev_exit(struct cla_domain *domain) {}
-+#endif
-+
- #endif /* _ARM_CLA_H_ */
-diff --git a/drivers/misc/arm-cla/cla-init.c b/drivers/misc/arm-cla/cla-init.c
-index 1afe20aa877f..a0067240809a 100644
---- a/drivers/misc/arm-cla/cla-init.c
-+++ b/drivers/misc/arm-cla/cla-init.c
-@@ -393,6 +393,7 @@ static struct cla_dev *cla_dev_alloc(struct device *parent, int cpu,
- 	dev->regs = cla_get_regs(regs, cla_kernel_pl);
- 	dev->cpu = cpu;
- 	dev->dev = parent;
-+	dev_set_drvdata(parent, dev);
- 
- 	kthread_init_work(&dev->call.switch_ctx, cla_dev_switch_ctx_work);
- 
-@@ -519,13 +520,20 @@ static int __init cla_module_init(void)
- 		cla_cpuhp_state = ret;
- 	}
- 
-+	ret = cla_mdev_init();
-+	if (ret)
-+		goto err_hardware;
-+
- 	/* Must be last fallible step; see cla_user_init(). */
- 	ret = cla_user_init();
- 	if (ret)
--		goto err_hardware;
-+		goto err_mdev_exit;
- 
-+	cla_mdev_enable();
- 	return 0;
- 
-+err_mdev_exit:
-+	cla_mdev_exit();
- err_hardware:
- 	cla_domains_sched_exit();
- 	if (cla_cpuhp_state >= 0)
-@@ -539,6 +547,7 @@ static int __init cla_module_init(void)
- static void __exit cla_module_exit(void)
- {
- 	cla_user_exit();
-+	cla_mdev_exit();
- 	cla_domains_sched_exit();
- 	cpuhp_remove_state(cla_cpuhp_state);
- 	cla_domains_free();
-diff --git a/drivers/misc/arm-cla/cla-mdev.c b/drivers/misc/arm-cla/cla-mdev.c
-new file mode 100644
-index 000000000000..66c5dd197542
---- /dev/null
-+++ b/drivers/misc/arm-cla/cla-mdev.c
-@@ -0,0 +1,469 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Arm CLA driver - vfio-mdev interface
-+ *
-+ * Copyright 2026 Arm Limited.
-+ */
-+
-+#include <linux/cpuhplock.h>
-+#include <linux/vfio.h>
-+#include <linux/mdev.h>
-+
-+#include "arm-cla.h"
-+
-+struct cla_mdev {
-+	struct vfio_device vdev;
-+	struct cla_dev *dev;
-+	enum cla_mdev_type type;
-+};
-+
-+static bool cla_mdev_ready;
-+
-+/*
-+ * Logical CPU number. After mdev creation, this attribute appears in
-+ * /sys/bus/mdev/devices/$uuid/cpu
-+ *
-+ * This information is crucial to the user, because the device is only
-+ * accessible from this CPU.
-+ */
-+static ssize_t cpu_show(struct device *dev, struct device_attribute *attr,
-+			char *buf)
-+{
-+	struct cla_mdev *mdev = dev_get_drvdata(dev);
-+
-+	return sysfs_emit(buf, "%u\n", mdev->dev->cpu);
-+}
-+DEVICE_ATTR_RO(cpu);
-+
-+static const struct attribute *const cla_mdev_sysfs_attrs[] = {
-+	&dev_attr_cpu.attr, /* CPU ID */
-+	NULL,
-+};
-+ATTRIBUTE_GROUPS(cla_mdev_sysfs);
-+
-+static const struct mdev_type cla_mdev_types[CLA_MDEV_NUM_TYPES] = {
-+	/*
-+	 * Assign the PL0 and PL1 registers, with PL2 controlled by the
-+	 * kernel (or hypervisor)
-+	 */
-+	[CLA_MDEV_TYPE_PL1] = {
-+		.sysfs_name = "pl1",
-+		.pretty_name = "CLA PL1 and PL0 registers exclusively owned",
-+	},
-+};
-+
-+static int cla_mdev_switch_ctx(struct cla_dev *dev, struct cla_ctx *prev,
-+			       struct cla_ctx *next)
-+{
-+	struct cla_call_on_cpu *call = &dev->call;
-+
-+	lockdep_assert_cpus_held();
-+
-+	/*
-+	 * No race with reassignment work because we're holding the domain lock
-+	 * and we're domain->assigned_ctx.
-+	 */
-+	call->sched.prev_ctx = prev;
-+	call->sched.next_ctx = next;
-+	call->ret = 0;
-+	if (dev->worker && !dev->broken)
-+		kthread_queue_work(dev->worker, &call->switch_ctx);
-+
-+	kthread_flush_work(&call->switch_ctx);
-+
-+	return call->ret;
-+}
-+
-+/*
-+ * Perform a RESET on all accelerators for this dev and clear the CLA
-+ * regs. The VMM calls this when rebooting a VM. It doesn't need to be
-+ * efficient. Other devices in the domain are not reset.
-+ */
-+static int cla_mdev_reset(struct cla_mdev *mdev)
-+{
-+	int ret = 0;
-+	struct cla_ctx *ctx;
-+	struct cla_dev *dev = mdev->dev;
-+	struct cla_domain *domain = dev->domain;
-+
-+	/* Hotplug callbacks may take domain->lock, so acquire this first. */
-+	cpus_read_lock();
-+	mutex_lock(&domain->lock);
-+	if (domain->broken) {
-+		ret = -EIO;
-+		goto out_unlock;
-+	}
-+
-+	ctx = domain->assigned_ctx;
-+	/*
-+	 * This function is only reachable when a valid PL1 ctx corresponding to
-+	 * the VM is assigned to the domain: cla_mdev_open_device() waits for
-+	 * the ctx to be assigned, and the ctx only gets deassigned when the
-+	 * file has no reference anymore (no ioctl possible). So the following
-+	 * are all bugs.
-+	 */
-+	if (WARN_ON(!ctx) ||
-+	    WARN_ON(!cla_ctx_is_pl1(ctx)) ||
-+	    WARN_ON(ctx->key.kvm != mdev->vdev.kvm)) {
-+		ret = -EINVAL;
-+		goto out_unlock;
-+	}
-+
-+	/*
-+	 * This provides a clean config. The stage 1 MTC is clear. The
-+	 * accelerators and CLA regs are reset.
-+	 */
-+	ret = cla_mdev_switch_ctx(dev, ctx, NULL);
-+	if (ret)
-+		goto out_unlock;
-+
-+	ret = cla_mdev_switch_ctx(dev, NULL, ctx);
-+out_unlock:
-+	if (ret)
-+		cla_domain_set_broken(domain);
-+	mutex_unlock(&domain->lock);
-+	cpus_read_unlock();
-+	return ret;
-+}
-+
-+static int cla_mdev_open_device(struct vfio_device *vdev)
-+{
-+	struct cla_mdev *mdev =
-+		container_of(vdev, struct cla_mdev, vdev);
-+	struct cla_domain *domain = mdev->dev->domain;
-+	struct cla_ctx_key key = CLA_CTX_KEY_PL1(vdev->kvm);
-+	struct cla_ctx *ctx;
-+	int ret;
-+
-+	/*
-+	 * The user registers a KVM instance with this VFIO group. We use it to
-+	 * program the stage-2 MTC. stage-1 MTC is managed by the user/guest.
-+	 * KVM, if present, is valid for the lifetime of the vfio device file.
-+	 */
-+	if (!vdev->kvm)
-+		return -EINVAL;
-+
-+	/*
-+	 * Obtain a context for exclusive assignment. If other contexts exist
-+	 * for this domain, this returns an error. Other devices assigned to the
-+	 * same VM within the same domain get the same context.
-+	 */
-+	ctx = cla_ctx_create(domain, &key);
-+	if (IS_ERR(ctx))
-+		return PTR_ERR(ctx);
-+
-+	mutex_lock(&domain->lock);
-+	if (domain->broken) {
-+		ret = -EIO;
-+		goto err_destroy;
-+	}
-+
-+	/* Not assigned and not queued, assign it. */
-+	if (domain->assigned_ctx != ctx && list_empty(&ctx->queue_node)) {
-+		list_add_tail(&ctx->queue_node, &domain->queued_ctxs);
-+		cla_domain_schedule_reassignment(domain);
-+	}
-+	mutex_unlock(&domain->lock);
-+
-+	ret = wait_event_interruptible(ctx->waitq,
-+				       READ_ONCE(domain->assigned_ctx) == ctx ||
-+				       READ_ONCE(domain->broken));
-+
-+	mutex_lock(&domain->lock);
-+	/*
-+	 * At this point the context is either assigned or still in the queue
-+	 * (if we were interrupted). In case of error, cla_ctx_destroy() kills the
-+	 * context and deassigns it.
-+	 */
-+	if (ret)
-+		goto err_destroy;
-+
-+	if (domain->broken) {
-+		ret = -EIO;
-+		goto err_destroy;
-+	}
-+	mutex_unlock(&domain->lock);
-+	return 0;
-+
-+err_destroy:
-+	mutex_unlock(&domain->lock);
-+	cla_ctx_destroy(domain, &key);
-+	return ret;
-+}
-+
-+static void cla_mdev_close_device(struct vfio_device *vdev)
-+{
-+	struct cla_mdev *mdev =
-+		container_of(vdev, struct cla_mdev, vdev);
-+	struct cla_ctx_key key = CLA_CTX_KEY_PL1(vdev->kvm);
-+
-+	cla_ctx_destroy(mdev->dev->domain, &key);
-+}
-+
-+static long cla_mdev_ioctl(struct vfio_device *vdev, unsigned int cmd,
-+			       unsigned long arg)
-+{
-+	struct cla_mdev *mdev =
-+		container_of(vdev, struct cla_mdev, vdev);
-+	unsigned long minsz;
-+
-+	switch (cmd) {
-+	case VFIO_DEVICE_GET_INFO:
-+	{
-+		struct vfio_device_info info;
-+
-+		minsz = offsetofend(struct vfio_device_info, num_irqs);
-+
-+		if (copy_from_user(&info, (void __user *)arg, minsz))
-+			return -EFAULT;
-+
-+		if (info.argsz < minsz)
-+			return -EINVAL;
-+
-+		info.flags = VFIO_DEVICE_FLAGS_PLATFORM |
-+			     VFIO_DEVICE_FLAGS_RESET;
-+		info.num_regions = 1;
-+		info.num_irqs = 0;
-+
-+		if (copy_to_user((void __user *)arg, &info, minsz))
-+			return -EFAULT;
-+
-+		return 0;
-+	}
-+	case VFIO_DEVICE_RESET:
-+		return cla_mdev_reset(mdev);
-+	case VFIO_DEVICE_GET_IRQ_INFO:
-+	case VFIO_DEVICE_SET_IRQS:
-+	default:
-+		return -EINVAL;
-+	}
-+	return -ENOTTY;
-+}
-+
-+static int cla_mdev_get_region_info_caps(struct vfio_device *vdev,
-+					  struct vfio_region_info *region_info,
-+					  struct vfio_info_cap *caps)
-+{
-+	if (region_info->index != 0)
-+		return -EINVAL;
-+
-+	region_info->offset = 0;
-+	region_info->size = 2 * CLA_REG_SIZE;
-+	region_info->flags = VFIO_REGION_INFO_FLAG_MMAP |
-+			     VFIO_REGION_INFO_FLAG_READ |
-+			     VFIO_REGION_INFO_FLAG_WRITE;
-+	return 0;
-+}
-+
-+/* Mmap PL0 + PL1 frames. */
-+static int cla_mdev_mmap(struct vfio_device *vdev, struct vm_area_struct *vma)
-+{
-+	struct cla_mdev *mdev =
-+		container_of(vdev, struct cla_mdev, vdev);
-+	unsigned long vm_flags_required = VM_SHARED | VM_READ | VM_WRITE;
-+	size_t map_size = vma->vm_end - vma->vm_start;
-+	size_t region_size = 2 * CLA_REG_SIZE;
-+
-+	if (vma->vm_pgoff != 0)
-+		return -EINVAL;
-+
-+	if (vma->vm_end < vma->vm_start)
-+		return -EINVAL;
-+	if (map_size != region_size)
-+		return -EINVAL;
-+	if ((vma->vm_flags & vm_flags_required) != vm_flags_required)
-+		return -EINVAL;
-+	if (vma->vm_flags & VM_EXEC)
-+		return -EINVAL;
-+
-+	vm_flags_mod(vma, VM_DONTCOPY | VM_DONTDUMP | VM_DONTEXPAND |
-+			  VM_IO | VM_PFNMAP, VM_MAYEXEC);
-+	vma->vm_page_prot = pgprot_device(vma->vm_page_prot);
-+
-+	return remap_pfn_range(vma, vma->vm_start, mdev->dev->pfn, map_size,
-+			       vma->vm_page_prot);
-+}
-+
-+static const struct vfio_device_ops cla_mdev_pl1_ops = {
-+	.name = "vfio-arm-cla-pl1",
-+	.open_device = cla_mdev_open_device,
-+	.close_device = cla_mdev_close_device,
-+	.ioctl = cla_mdev_ioctl,
-+	.get_region_info_caps = cla_mdev_get_region_info_caps,
-+	.mmap = cla_mdev_mmap,
-+};
-+
-+/*
-+ * Admin creates an mdev device
-+ *
-+ *	uuid=$(uuidgen)
-+ *	echo $uuid > /sys/class/mdev_bus/<pdev>/mdev_supported_types/arm-cla-pl1/create
-+ */
-+static int cla_mdev_probe(struct mdev_device *mdev)
-+{
-+	int ret = -ENODEV;
-+	struct cla_dev *dev;
-+	enum cla_mdev_type type;
-+	struct cla_mdev *cla_mdev;
-+
-+	/* Ensure the module isn't being removed */
-+	if (!try_module_get(THIS_MODULE))
-+		return -ENODEV;
-+
-+	/* Ensure the module has finished initializing */
-+	if (!smp_load_acquire(&cla_mdev_ready))
-+		goto err_put_module;
-+
-+	dev = dev_get_drvdata(mdev->dev.parent);
-+	type = mdev->type - dev->mdev_types;
-+
-+	ret = -EINVAL;
-+	if (WARN_ON(type < 0 || type >= CLA_MDEV_NUM_TYPES))
-+		goto err_put_module;
-+
-+	cla_mdev = vfio_alloc_device(cla_mdev, vdev, &mdev->dev,
-+				     &cla_mdev_pl1_ops);
-+	if (IS_ERR(cla_mdev)) {
-+		ret = PTR_ERR(cla_mdev);
-+		goto err_put_module;
-+	}
-+
-+	cla_mdev->dev = dev;
-+	cla_mdev->type = type;
-+
-+	dev_set_drvdata(&mdev->dev, cla_mdev);
-+
-+	ret = iommu_group_add_device(dev->domain->iommu_group, &mdev->dev);
-+	if (ret)
-+		goto err_put_vdev;
-+
-+	ret = vfio_register_cpu_mmu_dev(&cla_mdev->vdev);
-+	if (ret)
-+		goto err_put_group;
-+
-+	return 0;
-+
-+err_put_group:
-+	iommu_group_remove_device(&mdev->dev);
-+err_put_vdev:
-+	dev_set_drvdata(&mdev->dev, NULL);
-+	vfio_put_device(&cla_mdev->vdev);
-+err_put_module:
-+	module_put(THIS_MODULE);
-+	return ret;
-+}
-+
-+/*
-+ * Admin removes an mdev device
-+ *
-+ *	echo 1 > /sys/bus/mdev/devices/$uuid/remove
-+ */
-+static void cla_mdev_remove(struct mdev_device *mdev)
-+{
-+	struct cla_mdev *cla_mdev = dev_get_drvdata(&mdev->dev);
-+
-+	vfio_unregister_group_dev(&cla_mdev->vdev);
-+	iommu_group_remove_device(&mdev->dev);
-+	dev_set_drvdata(&mdev->dev, NULL);
-+	vfio_put_device(&cla_mdev->vdev);
-+	module_put(THIS_MODULE);
-+}
-+
-+static struct mdev_driver cla_mdev_driver = {
-+	.device_api = VFIO_DEVICE_API_PLATFORM_STRING,
-+	.max_instances = 1,
-+	.driver = {
-+		.name = "arm-cla-mdev",
-+		.owner = THIS_MODULE,
-+		.mod_name = KBUILD_MODNAME,
-+		.dev_groups = cla_mdev_sysfs_groups,
-+	},
-+	.probe = cla_mdev_probe,
-+	.remove	= cla_mdev_remove,
-+};
-+
-+/* Allocate IOMMU groups so VFIO can create its groups based on CLA domains */
-+int cla_domain_mdev_init(struct cla_domain *domain)
-+{
-+	struct iommu_group *iommu_group;
-+
-+	if (cla_kernel_pl < 2)
-+		return 0;
-+
-+	iommu_group = iommu_group_alloc();
-+	if (IS_ERR(iommu_group))
-+		return PTR_ERR(iommu_group);
-+
-+	domain->iommu_group = iommu_group;
-+	return 0;
-+}
-+
-+void cla_domain_mdev_exit(struct cla_domain *domain)
-+{
-+	iommu_group_put(domain->iommu_group);
-+}
-+
-+int __init cla_mdev_init(void)
-+{
-+	int i, j;
-+	int ret;
-+	struct cla_dev *dev;
-+
-+	if (cla_kernel_pl < 2)
-+		return 0;
-+
-+	ret = mdev_register_driver(&cla_mdev_driver);
-+	if (ret)
-+		return ret;
-+
-+	for (i = 0; i < cla_nr_devs; i++) {
-+		dev = cla_lut_pg[i];
-+
-+		/*
-+		 * mdev_type is a kobj in sysfs, so it cannot be shared between
-+		 * CLAs. Each CLA needs its own instance.
-+		 */
-+		BUILD_BUG_ON(sizeof(cla_mdev_types) != sizeof(dev->mdev_types));
-+		memcpy(dev->mdev_types, cla_mdev_types, sizeof(cla_mdev_types));
-+		for (j = 0; j < CLA_MDEV_NUM_TYPES; j++)
-+			dev->mdev_types_ptr[j] = &dev->mdev_types[j];
-+
-+		ret = mdev_register_parent(&dev->mdev_parent, dev->dev,
-+					   &cla_mdev_driver, dev->mdev_types_ptr,
-+					   CLA_MDEV_NUM_TYPES);
-+		if (ret)
-+			goto err_unregister;
-+	}
-+
-+	return 0;
-+
-+err_unregister:
-+	for (i--; i >= 0; i--) {
-+		dev = cla_lut_pg[i];
-+		mdev_unregister_parent(&dev->mdev_parent);
-+	}
-+	mdev_unregister_driver(&cla_mdev_driver);
-+	return ret;
-+}
-+
-+/* Enable the interface, once the module initialization is complete */
-+void __init cla_mdev_enable(void)
-+{
-+	/* Synchronize with cla_mdev_probe() */
-+	smp_store_release(&cla_mdev_ready, true);
-+}
-+
-+void cla_mdev_exit(void)
-+{
-+	int i;
-+
-+	if (cla_kernel_pl < 2)
-+		return;
-+
-+	for (i = 0; i < cla_nr_devs; i++) {
-+		struct cla_dev *dev = cla_lut_pg[i];
-+
-+		mdev_unregister_parent(&dev->mdev_parent);
-+	}
-+	mdev_unregister_driver(&cla_mdev_driver);
-+}
-diff --git a/drivers/misc/arm-cla/cla-topology.c b/drivers/misc/arm-cla/cla-topology.c
-index ed7acec70019..ead6c25c6391 100644
---- a/drivers/misc/arm-cla/cla-topology.c
-+++ b/drivers/misc/arm-cla/cla-topology.c
-@@ -51,12 +51,18 @@ static struct cla_domain *cla_domain_alloc(struct cla_dev *dev, unsigned int fwi
- 	}
- 	domain->devs[0] = dev;
- 
--	ret = cla_domain_sched_init(domain);
-+	ret = cla_domain_mdev_init(domain);
- 	if (ret)
- 		goto err_free_devs;
- 
-+	ret = cla_domain_sched_init(domain);
-+	if (ret)
-+		goto err_exit_mdev;
-+
- 	return domain;
- 
-+err_exit_mdev:
-+	cla_domain_mdev_exit(domain);
- err_free_devs:
- 	kfree(domain->devs);
- err_free_id:
-@@ -187,6 +193,7 @@ void cla_domains_free(void)
- 	cla_lut_cpu = NULL;
- 	cla_lut_pg = NULL;
- 	xa_for_each(&cla_domains, fwid, domain) {
-+		cla_domain_mdev_exit(domain);
- 		xa_erase(&cla_domains, fwid);
- 		kfree(domain->devs);
- 		kfree(domain);
--- 
-2.43.0
+[ ... ]
 
+> +static int pm4125_mbhc_request_micbias(struct snd_soc_component *compone=
+nt,
+> +				       int micb_num, int req)
+> +{
+> +	return pm4125_micbias_control(component, micb_num, req, false);
+> +}
+
+[Severity: High]
+Are there missing locks for concurrent micbias and mbias initialization her=
+e?
+
+By hooking up the mbhc_micbias_control callback, pm4125_micbias_control() a=
+nd
+pm4125_global_mbias_enable() are exposed to concurrent execution by the jack
+detection workqueue and the ALSA DAPM power-up thread.
+
+In pm4125_global_mbias_enable(), secondary callers that hit
+atomic_inc_return(&pm4125->gloal_mbias_cnt) > 1 will bypass the 1ms wait and
+return immediately, using uninitialized hardware.
+
+Additionally, in pm4125_micbias_control(), the micb_ref array is modified
+non-atomically, leading to reference count corruption.
+
+[Severity: Medium]
+Can this also cause a data race and hardware state corruption?
+
+pm4125_micbias_control() modifies PM4125_ANA_MICBIAS_MICB_1_2_EN and the
+software reference counters without taking the newly introduced micb_lock.
+Since this can run concurrently with pm4125_mbhc_micb_adjust_voltage(),
+won't this corrupt the reference counts and clobber the register state?
+
+[ ... ]
+
+> +static int pm4125_mbhc_micb_adjust_voltage(struct snd_soc_component *com=
+ponent,
+> +					   int req_volt, int micb_num)
+> +{
+> +	struct pm4125_priv *pm4125 =3D snd_soc_component_get_drvdata(component);
+> +	int cur_vout_ctl, req_vout_ctl, micb_en, ret =3D 0;
+> +	unsigned int pullup_mask, en_mask;
+
+[ ... ]
+
+> +	cur_vout_ctl =3D snd_soc_component_read_field(component, PM4125_ANA_MIC=
+BIAS_LDO_1_SETTING,
+> +						    PM4125_ANA_MICBIAS_MICB_OUT_VAL_MASK);
+> +
+> +	req_vout_ctl =3D pm4125_get_micb_vout_ctl_val(component->dev, req_volt);
+
+[Severity: High]
+Will this cause a build failure?
+
+The function pm4125_get_micb_vout_ctl_val() is not declared or defined
+anywhere. Should this be using the shared WCD common helper
+wcd_get_micb_vout_ctl_val() instead?
+
+> +	if (req_vout_ctl < 0) {
+> +		ret =3D -EINVAL;
+> +		goto exit;
+> +	}
+
+[ ... ]
+
+> +static int pm4125_mbhc_micb_ctrl_threshold_mic(struct snd_soc_component =
+*component,
+> +					       int micb_num, bool req_en)
+> +{
+> +	struct pm4125_priv *pm4125 =3D snd_soc_component_get_drvdata(component);
+> +	int micb_mv;
+> +
+> +	if (micb_num !=3D MIC_BIAS_2)
+> +		return -EINVAL;
+> +
+> +	/*
+> +	 * If device tree micbias level is already above the minimum voltage
+> +	 * needed to detect threshold microphone, then do not change the
+> +	 * micbias, just return.
+> +	 */
+> +	if (pm4125->micb2_mv >=3D WCD_MBHC_THR_HS_MICB_MV)
+> +		return 0;
+
+[Severity: High]
+Will this access to pm4125->micb2_mv cause a compile error?
+
+struct pm4125_priv does not have a micb2_mv member. Based on pm4125_probe(),
+should this be pm4125->common.micb_mv[1] or pm4125->mbhc_cfg.micb_mv?
+
+> +
+> +	micb_mv =3D req_en ? WCD_MBHC_THR_HS_MICB_MV : pm4125->micb2_mv;
+> +
+> +	return pm4125_mbhc_micb_adjust_voltage(component, micb_mv, MIC_BIAS_2);
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-pm4125_mbh=
+c_support-v1-0-8bc1212db6f7@oss.qualcomm.com?part=3D4
