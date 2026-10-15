@@ -1,136 +1,107 @@
-Received: from mail-m12740.qiye.163.com (mail-m12740.qiye.163.com [115.236.127.40])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com [209.85.160.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5390C3DE440;
-	Thu, 15 Oct 2026 04:03:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.127.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 716EF4349AF
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 04:06:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792037024; cv=none; b=mzg09tCIQN/DgSURpqapVzHqzllvYgl1g8+PUT5z4XnQ0PM/fvkdCb3lrtPYEzBA+8Ing3JKa3mynGvc7Xpwawda3/28KZvFBVIktnF0OsNTbRFJH8XzlYzn5R4li4KQaVvmhWsqNAdbZq8IgMQ9bQvbbYivv3fJ7VBGGyMwCYI=
+	t=1792037168; cv=none; b=pOJ7JeqejswxfLO4rWkbziQx2LY+KCnxmtFL5waXZucWFb5W4a2E+vFrDQ7S5iWfkzNDn32U1BE5z7KYdora0tEG89fpWFYVqTD+BqvBX6CE/8H6cgIvnT396JmxX/1l98GT6a3IshRtIctmU5e9L6WaMb0AGA8yj8UIRuDt+rI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792037024; c=relaxed/simple;
-	bh=6HXh1nJs1d9mcThJGV+TzKhxt11JxPG6GterzuwLd78=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=KS8oUKpt3X3icJWBh5kK+8oNP+HBWqkQ+5D+KmGoCvW9VXFqZlUe1sDoaS8Sf2kKgpWICLAiqyMymiemjs5so/IYYTbxG76B9B+eXd6llYXREHidrkNSDSJWML+M0SInoXMBqsD7svNUEcVPkclo7rviSGN7FqjIhdZbwcUyGgY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=Okr4OX+K; arc=none smtp.client-ip=115.236.127.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1792037168; c=relaxed/simple;
+	bh=6bQ5FDzc9O5c0hTZjbwjMUSaQKlVAenIoEbVopWDjow=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rDQ/g/I9cbZW/eY7cBWfp6/X0vz1jSdimG5cmXzKCrDgjhMkLs1NckVritHW/7IZ7bKQU3ieRkWK10vpgoSYze96COqoDSz7K4B+Z8Rp3XVor38UmiBIwy2TJ7IWuQRUDyvZdGZIUm8E0wI96dLptIqe3BQmVlzbBIa+M2Xt9PE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=zhsZdRGZ; arc=none smtp.client-ip=209.85.160.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="Okr4OX+K"
-Received: from [172.16.12.48] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 511c0652a;
-	Thu, 15 Oct 2026 11:48:09 +0800 (GMT+08:00)
-Message-ID: <990c293e-9c73-44ac-b89c-641bf08770b2@rock-chips.com>
-Date: Thu, 15 Oct 2026 11:48:09 +0800
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="zhsZdRGZ"
+Received: by mail-oa1-f41.google.com with SMTP id 586e51a60fabf-48e9476e26aso1502710fac.3
+        for <devicetree@vger.kernel.org>; Wed, 14 Oct 2026 21:06:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1792037164; x=1792641964; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cygSHUA7YEh2Fllf4fUKnrZPET1t8vbMRMige3In1Uc=;
+        b=zhsZdRGZNOgwfM9WcrTl+wWggmeb/q8oEz+QLLCWV5qirrj06qVrj+cYUOYEggyDao
+         wTd+jaSOhswg62DUY22A6V+GlFnLZU2SFqSZ49gkeTPtWRo5UFiWjYsCtMPjuNqziYoM
+         MF7KQSFIaSndRgNy+0LRNcG770n3l01jZTcOl1hEFVbsW2+m1xmTiev6gUeHQJ7MHn07
+         URDfb3/kh74wHlk9j/rtO1RzntAB5Uk63UQu068JBUYIZazq7EVig0YZLugfs0Yp7EiZ
+         pjHTVkTi2fvGyOutcrNvnPJ6Qtzweh/OyJ9hJ+BP7eDORWvlLeLa/2PoNaTNtR40cWSu
+         04pA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792037164; x=1792641964;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cygSHUA7YEh2Fllf4fUKnrZPET1t8vbMRMige3In1Uc=;
+        b=JVs6FTwUyOfFx4SCZ0ktiMLkUbjPGIx5GRmsKAHKpCRCcNETF4JzUihzZKlycw11hL
+         D1iitTsY50NHgej099uSoU5o2GbDiA1ky4AL9NPOLWG1i6krAfKJ49hZGb6WJae8SKpc
+         V8ZHZ6XNP/1rIVgTGwUaq8rdo0VOP/mbGhUy/HGMQjhG3NVEWY6CvHTjCxlxL7SJ/RMb
+         mk86ynJ2oJSZgdPjqDAa8G96QEf/m85ZaYdRcNb+3aGC80aPkbBG29wAnQQK5IwkdQa+
+         o4xMBXgKdFLzmijpcSTmzyBnpC4TpG9Zd9ga/WFE7bMc0NWsj3Z6dKnumgBl/5dL1rlL
+         asMg==
+X-Forwarded-Encrypted: i=1; AKwUvByUFNZV3mN7ZZckj/Q/cynSQ3Qos0BCUd6l7BTEnBSv7MFkOZRTMIETzant7mE1uQ/EERhUp8cDZpAK@vger.kernel.org
+X-Gm-Message-State: AFq9FYKPKKnBW7eZqdg2s15/ilBV2xBYSTkay8hiX1e50iIzkPMQM9Q9
+	qU2ch2Zncqrp1z83nzZ/ObEl/lXXZgfz1jnQtErgi++TsY2vIQsKraCNt/PSzqAUk8w=
+X-Gm-Gg: AYBFou1QsqOJZfRQ1uUF9mpyIbgkXinwb9CEMIS7k4BIw2/e70u/HShiuPWYh6odtMh
+	CUEoNg/969qtJAJZycO/HrbYpeAv2hiXDuX5pLdwTvgp1+EHJPEKb+W2iDldjCO83+AGOUY2dq1
+	eNYpNHtuvRNg49TphyzW+d4o1TYu4mAgIq8WO0muuJSx/kqnsT1zCVBa4x7YBqCLGSjRVpbgo94
+	n9B9nzAEVpiYkrVSdrGeGoiAWuQkkQvq8Xj68qW/SgYWjwtkr2HZu43bOIAYsI6Uy8rlfatCCAi
+	znw2tYr4FZgUMF0uIB0PhuF2VD52Q//+01lEl4/vxKAEJ+LSo7YScQ6me2rLUjQY8459hQ0o7rv
+	n2I2jokJ6/LwMCwJzsPXj6AQDhsj3t4rr5mqhiKZHGu3zNNyQnNux5IIbrlOJgh/YvAqNmNe60K
+	hy0AnkIxR0odLImH25k00pEY0adoInQ4wr0wOc65Z0JgA+P+BWiJSfS2O0WxWxEC1eWK8XwT6zv
+	3N36vM=
+X-Received: by 2002:a05:6870:7095:b0:49c:8cd1:d293 with SMTP id 586e51a60fabf-4a2a850ae9emr14476118fac.1.1792037164109;
+        Wed, 14 Oct 2026 21:06:04 -0700 (PDT)
+Received: from localhost ([2605:a601:1514:4f00:264b:feff:fe59:d7f7])
+        by smtp.gmail.com with UTF8SMTPSA id 586e51a60fabf-4a6dfb4e92asm3570643fac.6.2026.10.14.21.06.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 21:06:03 -0700 (PDT)
+From: Sam Protsenko <semen.protsenko@linaro.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>
+Cc: Conor Dooley <conor+dt@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alexey Klimov <alexey.klimov@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] arm64: dts: exynos: Drop deprecated regmap from reboot node
+Date: Wed, 14 Oct 2026 23:06:01 -0500
+Message-ID: <20261015040601.30049-1-semen.protsenko@linaro.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: shawn.lin@rock-chips.com, Philipp Zabel <p.zabel@pengutronix.de>,
- Frank Li <Frank.Li@nxp.com>, Niklas Cassel <cassel@kernel.org>,
- Wilfred Mallawa <wilfred.mallawa@wdc.com>,
- Serge Semin <fancer.lancer@gmail.com>, linux-pci@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 02/18] PCI: dwc: Factor out the PORT_LINK_DEBUG1
- link-up check
-To: Koichiro Den <den@valinux.co.jp>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>
-References: <20261015033103.3076869-1-den@valinux.co.jp>
- <20261015033103.3076869-3-den@valinux.co.jp>
-From: Shawn Lin <shawn.lin@rock-chips.com>
-In-Reply-To: <20261015033103.3076869-3-den@valinux.co.jp>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa13dacb02903a4kunm10e744703af49f
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGkJPVh8YTh4aTBpKSEhKTlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=Okr4OX+Kt8xyDnQyvmJm9MobbukZABSGfEFoz7seJJOqBnDgx+09+gED8aJbd3TTi5JgA9goqows7oOUV9LwK7tTvi1KhlWupNFTd4mnQn9i86X78eXB44oTJEDr++iPDFMorUNk02pXNAwWuA3BY7KHoGn1TPznDZ1LP5WiL78=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=/B1vcuAwqO/2IRqfoBy0p5esdy53HEbneGYiujfDLvk=;
-	h=date:mime-version:subject:message-id:from;
 
-在 2026/10/15 星期四 11:30, Koichiro Den 写道:
-> dw_pcie_link_up() reads PORT_LINK_DEBUG1 when the glue driver provides
-> no .link_up() callback. A callback that needs a platform-specific check
-> on top of that register would have to duplicate the register read.
-> 
-> Factor the check out into dw_pcie_link_up_debug_check() and export it
-> for modular glue drivers. pcie-rcar-gen4 will be the first user: its APP
-> link-up events remain latched after the link goes down, so it has to
-> combine them with the live PORT_LINK_DEBUG1 state.
-> 
-> No functional change.
-> 
+The 'regmap' property was deprecated in "syscon-reboot" compatible and
+not needed. Remove it to keep the device tree clean.
 
-Reviewed-by: Shawn Lin <Shawn.lin@rock-chips.com>
+Signed-off-by: Sam Protsenko <semen.protsenko@linaro.org>
+---
+ arch/arm64/boot/dts/exynos/exynos850.dtsi | 1 -
+ 1 file changed, 1 deletion(-)
 
-> Suggested-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> ---
-> Changes since v3:
->    - No changes.
-> 
->   drivers/pci/controller/dwc/pcie-designware.c | 15 +++++++++++----
->   drivers/pci/controller/dwc/pcie-designware.h |  1 +
->   2 files changed, 12 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/pci/controller/dwc/pcie-designware.c b/drivers/pci/controller/dwc/pcie-designware.c
-> index c726aa71c830..49a9ba910ba8 100644
-> --- a/drivers/pci/controller/dwc/pcie-designware.c
-> +++ b/drivers/pci/controller/dwc/pcie-designware.c
-> @@ -817,17 +817,24 @@ int dw_pcie_wait_for_link(struct dw_pcie *pci)
->   }
->   EXPORT_SYMBOL_GPL(dw_pcie_wait_for_link);
->   
-> -bool dw_pcie_link_up(struct dw_pcie *pci)
-> +/* Link state from PORT_LINK_DEBUG1: up and not in training */
-> +bool dw_pcie_link_up_debug_check(struct dw_pcie *pci)
->   {
->   	u32 val;
->   
-> -	if (pci->ops && pci->ops->link_up)
-> -		return pci->ops->link_up(pci);
-> -
->   	val = dw_pcie_readl_dbi(pci, PORT_LINK_DEBUG1);
->   	return ((val & PORT_LINK_DEBUG1_LINK_UP) &&
->   		(!(val & PORT_LINK_DEBUG1_LINK_IN_TRAINING)));
->   }
-> +EXPORT_SYMBOL_GPL(dw_pcie_link_up_debug_check);
-> +
-> +bool dw_pcie_link_up(struct dw_pcie *pci)
-> +{
-> +	if (pci->ops && pci->ops->link_up)
-> +		return pci->ops->link_up(pci);
-> +
-> +	return dw_pcie_link_up_debug_check(pci);
-> +}
->   EXPORT_SYMBOL_GPL(dw_pcie_link_up);
->   
->   void dw_pcie_upconfig_setup(struct dw_pcie *pci)
-> diff --git a/drivers/pci/controller/dwc/pcie-designware.h b/drivers/pci/controller/dwc/pcie-designware.h
-> index 419932488280..2ce61709b58c 100644
-> --- a/drivers/pci/controller/dwc/pcie-designware.h
-> +++ b/drivers/pci/controller/dwc/pcie-designware.h
-> @@ -618,6 +618,7 @@ int dw_pcie_write(void __iomem *addr, int size, u32 val);
->   u32 dw_pcie_read_dbi(struct dw_pcie *pci, u32 reg, size_t size);
->   void dw_pcie_write_dbi(struct dw_pcie *pci, u32 reg, size_t size, u32 val);
->   void dw_pcie_write_dbi2(struct dw_pcie *pci, u32 reg, size_t size, u32 val);
-> +bool dw_pcie_link_up_debug_check(struct dw_pcie *pci);
->   bool dw_pcie_link_up(struct dw_pcie *pci);
->   void dw_pcie_upconfig_setup(struct dw_pcie *pci);
->   int dw_pcie_wait_for_link(struct dw_pcie *pci);
+diff --git a/arch/arm64/boot/dts/exynos/exynos850.dtsi b/arch/arm64/boot/dts/exynos/exynos850.dtsi
+index 911643008b9f..30ae952083cc 100644
+--- a/arch/arm64/boot/dts/exynos/exynos850.dtsi
++++ b/arch/arm64/boot/dts/exynos/exynos850.dtsi
+@@ -236,7 +236,6 @@ poweroff: syscon-poweroff {
+ 
+ 			reboot: syscon-reboot {
+ 				compatible = "syscon-reboot";
+-				regmap = <&pmu_system_controller>;
+ 				offset = <0x3a00>; /* SYSTEM_CONFIGURATION */
+ 				mask = <0x2>; /* SWRESET_SYSTEM */
+ 				value = <0x2>; /* reset value */
+
+base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
+-- 
+2.47.3
 
