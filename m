@@ -1,107 +1,212 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4550E474267
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 07:41:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B7CD49C4CA
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 07:44:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792050121; cv=none; b=Ob4X4ZU9Rc/vD6RRGAsVOyBLbiGeIcDYLi+lXkdGb4fX5hc3w1hhOPxDVbi/0qvhmXm8M2vHvQrppCRUyloy6bO0QptooPY53e7S74Wzjg5WmWp7EAl4DcR+Min7WjmVIwLl0h5TVljerDNwDcU26xt/Ewzmk1k8SLSfqt49O1c=
+	t=1792050292; cv=none; b=kVZUfraPqZSMxG75kjsg/IeWpt8mlvXtmHFUmhrPRLLGWNgjhNbU+Kj8EpuCaHK9TWITaMxorjMPAtu8f189Jr+FGg2RVWSLSx6du+U4jA//EgUf03EULvigDdQtVZkOJosOk7Z2csMstsH5NcGRgkv7U19V0qRlpizho+6h0s4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792050121; c=relaxed/simple;
-	bh=7hUOE8btigyGRD2TTmBp6G5vlIKkBzkcr/ByALuXRJY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YQGuZqMXaIxBOl2a78oC+FyvkVGY1azEI5zAmGSJpiY/1GaAPS/W5YFHkM7dIfb2zSCOQ9ypi+abMzq4W89uGhNgvR0PxoiR/l7ZoM5wB5iQY9sHhMwnYZNSXQBUL3b7sSy6DETF3vodKT6+1/ZomxQlarbBC8aMDOJ2bCla+Ag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dUAwrXUh; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792050292; c=relaxed/simple;
+	bh=0UA8dSV6qvMA9myM9p5q2eyTL3r5zJtR3t1wLT4sjBw=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=fZOzW4+OiYPeBHMbuS7F5OeBofmEMrXCGWQx3j+jagSstJiy06EN1Pta8uz8BDSCnWuEDJHnOs8T3fkLBpfOG+ud5jxAgmnScHcUfiXQrGsad3UtK2bRfHfBIAWycp4lNaaJEjOkRyFJ+p/3A8lg60fQxNOnU+PzLrf3TlEhVYw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=waS4rwjR; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dUAwrXUh"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48af4d4e61fso3604931f8f.2
-        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 00:41:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="waS4rwjR"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a021c809e3so46998155e9.0
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 00:44:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792050117; x=1792654917; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tNQZzmh/L9MH0WQdX7vNuWW0ZjqB6ODxMRs3YkUCNgg=;
-        b=dUAwrXUhmEO+OfR1nE7ZwOp5gMRqKu7vGsYJK4EWjHeje8TJMXHTly6FWVxrdhuS9W
-         atApGnP2PcG/c24MlM+DjeJA0GnBVU80NwKPSO//zY/anAvAU53y1zH2ZIqX34QX/Wd3
-         up+bGO7bnwe1UIpx6qBb4Bg2Cv/vbTqcKuzSrCYbnPgj5poBtyTdxILdBDrtN3FroHF4
-         wXGLVsbPbXJKQ4XmFEC19CsmXV7nAPv7qLhvbwPXv1e1dQoLKn9OfSuk1O9vrIwTgFWv
-         E6kL4B0g0H7OFmgavvLvUBablGYCfxUbJU9D8rSuy6BFUGLNwQySslamJEiNmVXqsoW4
-         mz2g==
+        d=linaro.org; s=google; t=1792050283; x=1792655083; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+dvMNnzmsfKlXaQReE9W1eWaATaq+JUXJSwSZca7lFE=;
+        b=waS4rwjRImFZkHnseAxDWYX15NVH27l6sGdcGPQT3zxqSHeQrRBK5hFrT16Gc+gAwK
+         ksMx10tYpWhf0t+ISxFj3RU6amhJHvuODPxDXspgnB+2kYrYRh9vy5jMDfoTQ/nX/ctT
+         h7ZqWVSQDs9ZaTbksPrfSjFYURJ0qf0bh9Tlq8h7myFyf+Q7hfg/7o/TdIF5qpIlynCa
+         9NIVv+wRiup0T6k7yM3TJnU9cZSjWhOFBS0uHXsQYQaWwiEglQTReF12KzWSdNkRDdP2
+         tLTQs/TYTpBk65zq8b7VDeB263iVdxQJMMRK0C2IdTAAHHuHDdMydVbYt9MRKA140RWC
+         /ucQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792050117; x=1792654917;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tNQZzmh/L9MH0WQdX7vNuWW0ZjqB6ODxMRs3YkUCNgg=;
-        b=SC1ZlqEuXSWNmqbWDT9f9AYAQQbyhvrWprn2xOCjT+Cpo8oTb57y6+VnWtWKaSPb0Q
-         pVLvKMNDbvpyPuv4ibkESbylEnBt2Gmj/3QdxnsKFGfm4mQX1Gl5WcQ9HEk11kmkwGWX
-         W13ZafaeHsyuqol6uakGRR3zvEeTtfuXLJZd+YqyK6kZGQeh/nNdNCvOWDAlOkrTgj+J
-         24sryWo3xb2M2I5FQZ1Q2fdRtleGcq7StPsfkUevAmaVl2UvzXV+msmcXyl6HD30AquX
-         R3axq6ysmg7IRGlLWDHN6VeMyC0m6BBAOMuili+VMm7THssuqj/vhy7ie4E9jH5dVies
-         rEBA==
-X-Forwarded-Encrypted: i=1; AKwUvBzbsZC63ShMofM+7lRb5siHrX7/BuUAJljvOZEh8XuMnbs40P1UmVsAqyeM5q0tAvidGGX8e1mxcXoh@vger.kernel.org
-X-Gm-Message-State: AFq9FYKVQFGMrDDpgpsr325UpZlSF6kaWdxfb0v3l2OY5HwnXktv4RoS
-	BRg1epNCpZG1vfx3Y4vxcbqmFpEglE4C8THgjJycEYqUnVbq2GmCvcXp
-X-Gm-Gg: AYBFou0jLFzgHgWKwlVsd0SVmJoXcPxkHoQZxnbWTZJSwEbUq71f7/RGrgGteEVlw3q
-	+nFDYzc/OPkwSjFk9RUpcD3jqUau1PNjXE4NjG4jDtvja0ZBdpLezQk9CZLo1P9p2NV6ixD5aEU
-	Dz8t/RxVXxw3dhqfGluJEdRhWbyD4SNTrhS6gGx5lOWHPBxcwAzMG4jAWpf/hO4CTRlv8EV1meg
-	aatZiPtBnpGyOukC519V/prIZQ5j4bFqVcikSpvmag3C8LkPYDBp5yo8McM1vLeon9LYjaXq+Tf
-	z8Yt6pbNJ+IR31O21MbdkCh7lfotawHK8qHeyKETd4DEbMrs5nOddw+F4BpUxr51kg/VlLi0/nh
-	pZXR1ofFxq8kXGJu+7UE4+yzX0QndV0DyLXEs/NIz1WuhAyL2hp5OJ77bpa21NRO7di3hZR8nn0
-	jIXWwPCv1iArAwBDSJdL/xyK5y9+s5PZh11hbkm600x0ImTBJuFP2MxCKQszEMiHSf5BebBbTpY
-	K7GFWsywrhIk5vpPOleeWqUf9ZfBAnZ35TZ5+R/VNpD7UTi+KXXWE3WASb/8KrYZgtAP29SLarv
-	KxH5+5bVXBU9lsJKNaAdFksvptlE7tZNrV8KMQU9xwBqi0kzd1v/sK7VOiPiUHPiAOdLAf+a9d+
-	otVyz3XGk/zwNTwAVsp2dICcXxeKGDdyhDj92V133e9kIAb5t07Ruk74W0pRQop+qaLsQZjCEcp
-	zeyAEL
-X-Received: by 2002:a05:6000:41cc:b0:48c:7037:aee9 with SMTP id ffacd0b85a97d-48dbad48cc3mr33849866f8f.50.1792050117131;
-        Thu, 15 Oct 2026 00:41:57 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bd777fsm15479605f8f.57.2026.10.15.00.41.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 00:41:56 -0700 (PDT)
-Date: Thu, 15 Oct 2026 09:41:54 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Chang Yu <marcus.yu.56@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Shi Hao
- <i.shihao.999@gmail.com>, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 1/2] dt-bindings: iio: light: add as7343
-Message-ID: <20261015094154.0000506c@gmail.com>
-In-Reply-To: <as5LCasyTFjTNL0x@zephyrus-g14.localdomain>
-References: <20261013115639.167433-1-marcus.yu.56@gmail.com>
-	<20261013115639.167433-2-marcus.yu.56@gmail.com>
-	<20261013143639.000017b9@gmail.com>
-	<as5LCasyTFjTNL0x@zephyrus-g14.localdomain>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+        d=1e100.net; s=20260707; t=1792050283; x=1792655083;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+dvMNnzmsfKlXaQReE9W1eWaATaq+JUXJSwSZca7lFE=;
+        b=FbgImH8Xbyeu2YqEliZ6pYEmj3disSWgFnnTFBaI+TwdJDVd6rYGkUaIu8zIEKn+kg
+         flCU4dQeIlZGuzudTamnaxf5gD4it6u6wXGfdyvmwu2vqcreCIg4QH4MECx96SwaeCRu
+         cK5A1zaT0cBPpd4JZBdJ98AlwMu+/cXMoy7rG8AuqkQ9hYRA+udvdUM54MmRkGCuS3nH
+         /TJ22PvS70KmYKzekVG9w3cQamKI7K81S1yfiv8kS7cE4sP08sZ2cWaiJP/wD2bxbiF3
+         li8lhNZMwQxNUd0kxRpiBSnmmZM9WnahluTgC72pmM5CYFr+4ULMJ5/vc8z2EYv99F73
+         MrsA==
+X-Forwarded-Encrypted: i=1; AKwUvBwepSXFARZv2ik2GdhZmxFFoQLpIexCcZ8buM6baVRQt4lJEvVEHtZ0eUuZ5+sK0X3WSmXQBIsYOdww@vger.kernel.org
+X-Gm-Message-State: AFq9FYIAMp5Vq/SdpIAAolxUjpDzAZfhHBKx/ho1tkvuLIMc8H2wDj7R
+	B8oZ0enTt/+uP05/+uJI9Ft6AA8mVeFOTJqN+s4Tl03mojF9m4VGtsDDYC0F8JzPJtY=
+X-Gm-Gg: AYBFou3hraF83sxWTFM1fEYsk7bZxn2IOPBIF6N5iQruPjiqL2KfZ1FWtNBOpV3kJ59
+	jVSJVWPT30MUsMLlywYg8kreUsCcLI6/8dClKxXfhfBFUxxL9JW/DDlR3RSESUIsYgPteCcGzO4
+	5QQ3DOjNeQB3FlhAWwRGq1Vw3ttiU8nFEIhwajMqlcZWq28QjVz+ysh4k4AkB/x/M0cAwtk21+t
+	tVFRgxkmXh6wfeU89aSBGdWny4XU8Mh4hQoKdlODrVubxcLatyOkZ5P44404rE00HsGvYfpDMZR
+	vtTqouabzV/YgdVc0XMiXFB0AH//a56HwigcRShFnx5wBe5DZPPF2HlxpZmfArTmr5nsoKkrkST
+	qiXNsLAp9DRsm498xR3khqa/8XXMbCCHrUjL4ZHbJam8GbjXxTrvNGOf3mjrY8jj5jpxfMHXKbq
+	4Zs9VT+wWmgKBUN0+dEN8vCI72oAOMq7ToqwHyx+R+O5o9sYUzmjvhyn+Mf8dNKwWRkLCuNgbnX
+	ebzM93HE+CUFYpeBA/r6AcoRdR3590J4X9zfTSL0jsQHrneoQSgtuE=
+X-Received: by 2002:a05:600c:4685:b0:4a0:27eb:49b with SMTP id 5b1f17b1804b1-4a18e4ae6fcmr385008175e9.30.1792050282515;
+        Thu, 15 Oct 2026 00:44:42 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:fdbf:f373:6d5b:93e4? ([2a01:e0a:106d:1080:fdbf:f373:6d5b:93e4])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48ded185de7sm8548506f8f.31.2026.10.15.00.44.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 15 Oct 2026 00:44:42 -0700 (PDT)
+Message-ID: <8d4d3ec2-3c97-4a46-97f8-048fdf81b853@linaro.org>
+Date: Thu, 15 Oct 2026 09:44:40 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 2/2] dt-bindings: usb: snps,dwc3: Fix downstream port
+ numbering
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Chen-Yu Tsai <wenst@chromium.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Felipe Balbi <balbi@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-usb@vger.kernel.org,
+ devicetree@vger.kernel.org, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+ Neal Gompa <neal@gompa.dev>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai
+ <billy_tsai@aspeedtech.com>, Michal Simek <michal.simek@amd.com>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Peter Griffin
+ <peter.griffin@linaro.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?=
+ <andre.draszik@linaro.org>, Tudor Ambarus <tudor.ambarus@linaro.org>,
+ Heiko Stuebner <heiko@sntech.de>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Yixun Lan <dlan@kernel.org>,
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+ Minda Chen <minda.chen@starfivetech.com>,
+ Shyam Pandey <radhey.shyam.pandey@amd.com>,
+ Wei Yang <yangwei1@eswincomputing.com>,
+ Senchuan Zhang <zhangsenchuan@eswincomputing.com>,
+ Hang Cao <caohang@eswincomputing.com>, Li Jun <jun.li@nxp.com>,
+ Peng Fan <peng.fan@nxp.com>, Roy Luo <royluo@google.com>,
+ Yang Xiwen <forbidden405@foxmail.com>,
+ Ahmad Zainie <wan.ahmad.zainie.wan.mohamad@intel.com>,
+ Robert Marko <robert.marko@sartura.hr>, Xu Yang <xu.yang_2@nxp.com>,
+ Wesley Cheng <quic_wcheng@quicinc.com>,
+ Stanley Chang <stanley_chang@realtek.com>, Ze Huang <huang.ze@linux.dev>,
+ Aswath Govindraju <a-govindraju@ti.com>, Roger Quadros <rogerq@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org, asahi@lists.linux.dev,
+ linux-aspeed@lists.ozlabs.org, imx@lists.linux.dev,
+ linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
+ spacemit@lists.linux.dev
+References: <20261014082037.1774672-1-wenst@chromium.org>
+ <20261014082037.1774672-3-wenst@chromium.org>
+ <7020a7a6-332e-4fd0-a659-d82eb768614c@linaro.org>
+ <CAGXv+5G1kgyumbj7wGf6rPFbg3spSO0zYmEkn-hZT4qUdJbytA@mail.gmail.com>
+ <03375a31-0ac6-47a4-b0dc-6327080e1622@linaro.org>
+ <b4c0761b-34f2-42ad-97e7-ab34ae776281@oss.qualcomm.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <b4c0761b-34f2-42ad-97e7-ab34ae776281@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Tue, 13 Oct 2026 23:15:21 +0800
-Chang Yu <marcus.yu.56@gmail.com> wrote:
+On 10/14/26 18:36, Konrad Dybcio wrote:
+> On 10/14/26 11:44 AM, Neil Armstrong wrote:
+>> On 10/14/26 11:29, Chen-Yu Tsai wrote:
+>>> On Wed, Oct 14, 2026 at 5:28 PM Neil Armstrong
+>>> <neil.armstrong@linaro.org> wrote:
+>>>>
+>>>> On 10/14/26 10:20, Chen-Yu Tsai wrote:
+>>>>> The DWC3 controller can operate in host mode. It does so with a XHCI
+>>>>> compliant host controller. The XHCI has two downstream ports, one for
+>>>>> HS and one for SS. USB downstream ports start from 1, not 0.
+> 
+> [...]
+> 
+> 
+>>> IMHO having consistent numbering across controller types would be
+>>> better. This avoids making the USB core and hub code deal with more
+>>> exceptions, and also easier to understand and write device trees.
+>>
+>> I was in the impression the port number not necessarily reflects
+>> an actual physical numbering, and can be a logical number we would
+>> then map in the kernel.
+>>
+>> I don't see any issue here having base 0 for the bindings and then
+>> converting it to base 1 for the XHCI port numbering.
+> 
+> I thought base1 comes from the USB spec and not just XHCI?
 
-> > Should be unevaluatedProperties as you're using $refs in the binding,
-> > but Jonathan could tweak that when applying.
-> >   
-> There was a discussion about this back in v2 in which Conor was suggesting
-> keeping additionalProperties: false if I recall. I don't know the exact
-> pros vs cons so I'll defer to the experts here.
+This is my question, is the spec says: each USB Host Controller root
+port shall be considered as a port of a Hub and numbered the same way,
+then fine, let's use the base1 numbering.
 
-Fair enough, if dt maintainers say so then it's fine.
+As I understand how USB is architectured, all downstream ports of Hubs
+are numbered in base1, and the whole topology is based on that.
 
--- 
-Kind regards,
-Joshua Crofts
+But here, we are speaking of physically separate USB busses, one
+USB2.0 and one USB3.0, a controller could also have 10 USB2.0 ports
+and 5 USB3.0 ports, who knows. The way those will be numbered is not
+part of the specification because the specification only the defines
+the topology of an USB bus, like PCI(e) defines the topology on a PCI(e) bus.
+
+How we aggregate all those busses to abstract them to software is not
+part of the spec, we chose to declare a fake root Hub with a physical
+downstream port as a virtual port of the root Hub, fine but this is
+purely software abstraction.
+
+We may only use the hardware IP port numbering in the bindings, not
+the software abstraction.
+
+We could use the base1 to describe the DWC3 ports, but how to describe
+all the physical USB busses a controller can expose ? We may not limit
+the bindings to USB2.0 and USB3.0 ports only.
+
+How about the USB4, does it use the USB3.0 port ?
+
+Neil
+
+> 
+> Konrad
+
