@@ -1,166 +1,81 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2C60545DA4
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 16:28:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D07623E6DF5;
+	Thu, 15 Oct 2026 16:32:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792081696; cv=none; b=hQ2/NDzQE96rJ8pT4A9PVLThmhCC8YEKM4NhH+Jfvipn4Faj3Qas8+v4lpijhiDgj3gLrrivS/CkFdcb3z48msWSJZAu8PXjaAk+c5BfcImnsqBmZHWA62jUwPqwkdI6w2eytbxH2OwWgrDGCMWBanlba/pBRwpmv4DGca4kRzk=
+	t=1792081957; cv=none; b=EDCrPfhYuOYEcsW/nqYatLv1pRgzNUBcsOqfrN51U0Z+a/X6oKhcuyJwceytagF4jBITK+OH95Gf/q1cxCm/bMHkMjpfHdS/2nAGbM5IHj5vmwVZnA1+ZsNSnk2sAukNxPJ18aeJnxEbax2klbrA3dr1ku2rUr75cNqnrrLl9jY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792081696; c=relaxed/simple;
-	bh=VZN2fb2ga+rAimb+At5lfyPZ8DXcR0GMUzzVA+d4nj0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tm/dtHhFAP0oQfAAJCE1kbUKnSnOaRxhbGp9PmSCNy8wRfFEASd3KFRwC1XjiwTIQEZ+S+a6Mq3zrXUEcCsIgPnqIOgFni1ale7+SpliHQ+pchm36M36hRrsN8WTAEuOVeG3XyE89KOUVCje511IsjtaAG3filspCbSWS3HiWVo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=jiCSaMqW; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1792081957; c=relaxed/simple;
+	bh=K53bHe/qRL8PgX+fC0aZ/IKukdzfGE2CeH1J1pXxbIw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sk1JDl+xfXsu8AZ9BgdjlZNBOfuYjZQ6JQYb2xWErNPSmlsPU4sU2IMH8bW6Xk2RyRLf9umLvXADDA5mSoj60H6VHVDc819w1WZHdgV2TO68xJN4E0v52Hm0jQTSPIAwZQPyvbQssMxIz1p8wTLVj8iQJCfi9D6zwReeBOJsRY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=QvHiuvww; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="jiCSaMqW"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48df54150dfso598630f8f.0
-        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 09:28:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792081679; x=1792686479; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KR4i4KxOGzdvwjOBg3czI4/01caQ5A7Fc1JHBGRwQTE=;
-        b=jiCSaMqWSm1g8TUDWxYHPti+M55ELsQiQrxtKGP52uFYZYTYxdWuJvy81ogtK4/FYH
-         eYojlAa9dNruOToL9q262x9QBLNiVycTqn3TTSI3JFsAeAb4ODZu+wXQHE3j7ViOo7W6
-         fxtmkQ9pmF9KFAxg/uO2SfrLvQ5tuNw0SciiITkvWBL5V12hqTvAx5EraDBAkCFzvS0N
-         HXtx4kiTdAVQcBTy3QUt9vPheKm0E1hMBujlQiYuDjVvNrYGeXsCYUX4er3OV0xafbPu
-         JazdYEL4mLksOGzfczVxBEMnd/hEQ169hWVoLk9jNZ9OvWW5Knir9hn+dMFIdbnCHG8a
-         T9wg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792081679; x=1792686479;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KR4i4KxOGzdvwjOBg3czI4/01caQ5A7Fc1JHBGRwQTE=;
-        b=mUpGUQ3033M/2NceIetN1baGUtc6Zu54+PCPDKvONVOjj26pz4GZub58tgMcnFRgFq
-         zQWTtCAb6wI+o+OkI9VMo2kLwhUySMO7zRTaL6Cl/9tLU9SwSZIGnKnr2ij3tDWMS9fv
-         qF4qc7oPtebiaN6CKwV7qXq4oHygguXDmn/fPtzp87sQbyMDQ4XHh5dy9bgykHewx86P
-         xvEqHUUKkNK9lwf3j+oIxZzhXdenX+3phZiuuxKB6hJ9+1kVqIVQApbgKN3lE3oKVCaH
-         Qz9lIS7FlFF6MdiXLetrSrZsP0NCg48zO6lOmgb0ixYoWfn2nTEvkMagtI/g5eTjRIGK
-         9ibQ==
-X-Forwarded-Encrypted: i=1; AKwUvByBvFBIYTGwQEP2Vf49ZGSSv1dGGKP9jrRPvSiwd853dlOYQ2h2SC0HMA5qxwBsYItOA4zqsE3X9wfO@vger.kernel.org
-X-Gm-Message-State: AFq9FYJGCe+8Po3Bu509kFKs5OkNOsVONZSIJDpgK83k8U0AZfpE5bOV
-	Jjzw4x8N+8JkWM9wABPfWCYTJAQOKso9EY+AvG/B3J7UMOa9AhctKeVXlB1ZqhjlsvU=
-X-Gm-Gg: AYBFou0Qo/Oty+Tolfh7lnePsRF2hy9Izv28E9SH9LV5xK0js2DO9PlY3gB1+Ah3swF
-	n/ieq6BLMCNZKqtk+21wyd0xOUQP2vBTPiBkXN99w2DKG7Tx/QJdU8wsGWmUyhRPQ3OAnEZHZGF
-	Z9Znh5/JVk+J1KJ5gri5zo821Nf9ZUPGACwPYxlDxSCnQAuaId7/sEIADO7Tf0gvJrtmLIoaWon
-	gh2aWRh54QCLKUPRxyL33swvgq2d+2gqevrNiOhLhYFG6iW/1AKKt9Jsly7NJqkhTFmbmCWiCGt
-	/BpKxQ/Ier1JjNjcLFiWjvCaSDnboKIPuzWV3JkUBN8N/zs3nI8tW6U9CXVS0favXRoHpuS/sr3
-	yILmpFSfp2tiBqM+k9F7fkTzMHEXnx2LMIgzEwERmeKW4lvLsdwFRyot+VwuVhmk1KQW8k1Qr3R
-	pF0wqquZbQG3/BdFA9DL1+KbFoPgwpgHMLtl0YcKnlPVWezw+QBK9+JayskyHqgEJSKlTI9cN0Y
-	5obi/zuxycsCcxv8Qpzdw==
-X-Received: by 2002:adf:f341:0:b0:487:197a:5c1f with SMTP id ffacd0b85a97d-48dbaae84e0mr31568707f8f.49.1792081678765;
-        Thu, 15 Oct 2026 09:27:58 -0700 (PDT)
-Received: from linaro.org ([2a02:2454:ff25:4f41:7bdc:6c2a:a8d2:6ad3])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0aaaa34sm19545964f8f.20.2026.10.15.09.27.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 09:27:58 -0700 (PDT)
-Date: Thu, 15 Oct 2026 18:27:46 +0200
-From: Stephan Gerhold <stephan.gerhold@linaro.org>
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Jeff Johnson <jjohnson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
-	linux-wireless@vger.kernel.org, ath12k@lists.infradead.org
-Subject: Re: [PATCH RFC 0/5] nvmem: Add a UEFI variable backed NVMEM provider
-Message-ID: <atD_AjZKaF5UtSUB@linaro.org>
-References: <20261014-b4-nvmem-efivar-v1-0-187c85f65018@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="QvHiuvww"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A328614BF;
+	Thu, 15 Oct 2026 09:32:19 -0700 (PDT)
+Received: from [10.0.138.89] (XHFQ2J9959-5.cambridge.arm.com [10.0.138.89])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E966C3F871;
+	Thu, 15 Oct 2026 09:32:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792081942; bh=K53bHe/qRL8PgX+fC0aZ/IKukdzfGE2CeH1J1pXxbIw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=QvHiuvww2XMiC1VH5lrEn7YT52tcUfUfqnhqZ6AL7/+1oS59HDeC1lXKxNrpFi1pC
+	 t0SbzJpTfupyKQqZc3bVVGYXHq188MRT6NrH01zSEEbyjpLbZx7PQxzYaj0Ht2nEy2
+	 xPD7PUul+C++YYvpS1ogXhTXImp3VMZKjPrCVxsE=
+Message-ID: <e8d97f6c-8e22-4c85-b15d-6edade16d789@arm.com>
+Date: Thu, 15 Oct 2026 17:32:18 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014-b4-nvmem-efivar-v1-0-187c85f65018@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 02/15] misc/arm-cla: Add launch operation helpers
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+ Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jean-Philippe Brucker <jpb@kernel.org>,
+ Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
+References: <20261015142552.4128028-1-ryan.roberts@arm.com>
+ <20261015142552.4128028-3-ryan.roberts@arm.com>
+ <2026101542-briskness-most-a8ca@gregkh>
+From: Ryan Roberts <ryan.roberts@arm.com>
+Content-Language: en-GB
+In-Reply-To: <2026101542-briskness-most-a8ca@gregkh>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 14, 2026 at 04:02:38PM +0300, Abel Vesa wrote:
-> This is an RFC: I do not expect it to be merged as-is, it is sent to get
-> feedback on the approach.
+On 15/10/2026 17:17, Greg Kroah-Hartman wrote:
+> On Thu, Oct 15, 2026 at 03:25:36PM +0100, Ryan Roberts wrote:
+>> From: Jean-Philippe Brucker <jpb@kernel.org>
+>>
+>> CLA commands are issued by writing optional payload registers,
+>> programming the LAUNCH register and polling LRESP until the hardware
+>> accepts or rejects the operation.
+>>
+>> Add a common launch helper that performs this sequence on the CLA's
+>> local CPU, waits for LRESP completion and translates launch response
+>> codes into Linux errors.
+>>
+>> Build accelerator reset and register read and write support on top of
+>> it. The register read and write helpers split larger accesses into
+>> multiple launch operations when an access crosses an eight-register
+>> window.
+>>
+>> Signed-off-by: Jean-Philippe Brucker <jpb@kernel.org>
 > 
-> Some values a platform needs (for example the WLAN and Bluetooth MAC
-> addresses on the Qualcomm laptops) are not always available to the kernel
-> in a convenient form. They may live in firmware-owned SPI-NOR storage
-> (e.g. a DPP partition) for which there is no straightforward, universally
-> working way to read them from the non-secure world.
-> 
-> As an alternative, this series allows such values to be provisioned once
-> into a UEFI variable and consumed in the kernel. It adds a generic NVMEM
-> provider that exposes the contents of a UEFI variable as an NVMEM device,
-> so the data can be consumed through the standard nvmem-cells bindings.
-> MAC addresses are just the motivating use case; the provider itself is
-> generic.
-> 
-> The first two patches are the actual proposal:
-> 
->   - dt-bindings: nvmem: Add UEFI variable NVMEM provider
->   - nvmem: Add UEFI variable NVMEM provider
-> 
-> The remaining three patches are included only to illustrate how a
-> consumer would use the provider; they are not meant for merging as part
-> of this series:
-> 
->   - Bluetooth: hci_qca: consume a "bd-address" nvmem cell
->   - wifi: ath12k: consume a "mac-address" cell
->   - arm64: dts: qcom: glymur-crd: wire both to a "MacAddresses" variable
-> 
-> glymur-crd is used here only as a convenient example for the consumer
-> patches.
-> 
-> Feedback on the provider, and on whether sourcing such values from a UEFI
-> variable is a reasonable approach when they cannot be read from the
-> SPI-NOR directly, is very welcome.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> You forgot to sign off on patches from others :(
 
-In general, I think the idea to take NVMEM information from a UEFI
-variable is reasonable. However, at the end the usability of this
-approach depends on vendors actually provisioning the UEFI variable.
-
-Is that the case for your "MacAddresses" example on Glymur laptops?
-Is any of these laptops shipping with this UEFI variable provisioned?
-
-I can't really imagine end users manually provisioning this variable.
-We have too much manual setup required already to be able to use these
-laptops with Linux. Ideally, we should take the information from
-wherever Windows is taking it and make it work out of the box.
-
-For existing Qualcomm laptops with the DPP partition on SPI-NOR, there
-is prior work that could be extended. I would expect you only need:
-
- 1. SCM SPI-NOR storage support from
-    https://lore.kernel.org/linux-arm-msm/20260126-scm-storage-v2-v2-0-fa045c7e7699@radxa.com/
- 2. GPT partition parser (not sure if that exists for MTD but the format
-    is certainly well documented and supported already in Linux for
-    normal block devices)
- 3. DPP parser from
-    https://github.com/TravMurav/dtbloader/blob/main/src/qcom.c
- 4. Some way to hook it up in the device tree
-
-See discussion in
-https://lore.kernel.org/linux-arm-msm/de081bdc-4b10-4cbe-9b09-4652b63bc4b9@packett.cool/
-
-The universal approach implemented here would obviously be cleaner, but
-in my opinion it depends on vendors provisioning this variable before
-shipping devices to customers.
-
-Thanks,
-Stephan
+Ahh sh*t, sorry about that. Hopefully given this is "just" an RFC that's not a
+big deal? Else, let me know and I'll resend.
