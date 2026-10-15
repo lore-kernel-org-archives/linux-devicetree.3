@@ -1,65 +1,65 @@
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65EA34C6500
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 10:49:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9279F4D7D4D
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 10:49:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792061396; cv=none; b=h1bMc0S8ZpXV0U26SCT+50ARxuo3pf12ywYhCzU+S7DVnBpd7hU5h/MrZ/sAvwTryivJusVNJTCA9EOQtv6OYwAoJfPR0V00SYJLuFbHZHZOjqIDvyvEiqmm4y7lgBSXpNs043l9m7WwrDQm7e/2CHVPSOHmbwUZxnIwpALgqow=
+	t=1792061397; cv=none; b=eMiKC6o5gx28upWZwAWb/IWpRe9e2P0suq9k2XpO8TrJ6zBTrsMZKxO5RO4eEmzW0SDq4eWYxKHma4JGGtdbnJZTN/JX4Xsy8JIIgOWPS7Zgygt2aQUNKy+kzwF35kaLLTIkOcneq6YxwmIeizoQ0Xf26Hn3aQ97/woZMiv53cg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792061396; c=relaxed/simple;
-	bh=MdVnzxM/WL1xMOmZ5fkiZNZC+hOYTLuP3CwOMPlKirY=;
+	s=arc-20240116; t=1792061397; c=relaxed/simple;
+	bh=xA3JBQH35qcvdCZAGAV76S+DLk1lnpZgBfuvhwHS6Cg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cjr9MZlKZg8bL/t7X7k07idowFdocch4GM/to+5vZBaHPUgOA+rlx7oaVVUYJX+P66/hZkP+t6mAdfPnhmvVvbvxVMKUVByr7xYQDQcQWC1lRY3/ZHMzxsdHyz34nDkSjNpMn3C3K7jYONswySxKCZZ5mU+aw8eZfu6NVw1dmRc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fgLQmLTq; arc=none smtp.client-ip=209.85.218.46
+	 MIME-Version; b=dfh+XuiZZwzl1D2pVJHDbMrPMNyRgmMnghTiVtOfbAik38dUOhcji6aZLIK07CfgkWVVN1s2TfjKSrVZJ1FsiTFGSExM3WVEEAxAjNaW9JEO/FwEfwzP/Cd8IAasEcjfp8T7lVpK+FmVj3AHZgS2NvqWTy4jj5GEGLlH3HrEWBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bUqXnlMB; arc=none smtp.client-ip=209.85.218.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fgLQmLTq"
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c350db5a761so688054966b.1
-        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 03:49:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bUqXnlMB"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c3fd91337baso19051666b.3
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 03:49:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792061393; x=1792666193; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792061394; x=1792666194; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jKvVNAZIKBPJrUX9wm9cpi3TihxLC/jhSA17k/UyT1Y=;
-        b=fgLQmLTq6sTUyV1has2C3SWrhGIOWqbF6lsWnOLqGeFRTzlXPrX/GjQQYADCKYUUQA
-         qw5Rtkq5wRXupXG4aZjf1Hh/j+TG1Y/+QJokacx+i3RyIZagXHoIa8yaucp0unvaO1pT
-         ImYdmDF1vKAbL8YxkS7xbD3cT9VjdFM2/BHaRWxdNqdX1eQ3JYl8Ix0fEFLb8TsH7CJQ
-         Eu6cAX866AVnWDpuzz4gMf7dfK24MMN16/jJgznka/yubEL6EIYXTa/iwnpzLhhBht2y
-         FOv38NZhHGdDTopdv65ARfCE6Y1bZGg0tIrE+O2XfgPshwvZcwL4d7kAnp61Z8Zt++hF
-         Qdag==
+        bh=rwtZXk2YJ9fodoj0VOFBAN64pVLRB29dfNhKqWxOQQI=;
+        b=bUqXnlMBJ0CsSdcSe18wW55UKZdWbNNOtZeRzhapQ2s7oNVj6cTXzAy/jljycJVWUc
+         aCA3QPDWTrWyqxRgp9doouie48OREtXJWUeR3/K+OZfGcMM+7vMt5vBoZz/ptdncirHr
+         slA+FlxWXgvS3vNGLbFq4AwxGIoIgzWBd13setCiLuDS6oZRKTOaxyheqsuqr3ayC5Zw
+         4xqASaN9bbTz9xHNmeMfSvXxRchljfPUsijsOn+eO6Q+gauAsUQh9W98wxt5lHzexYSH
+         GwLY8LiwXsKlw2+cyCWWSYJeg7XWc0RdQEECpjZut0YebvbCLplMY4vprEBppH/foEPk
+         BRSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792061393; x=1792666193;
+        d=1e100.net; s=20260707; t=1792061394; x=1792666194;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jKvVNAZIKBPJrUX9wm9cpi3TihxLC/jhSA17k/UyT1Y=;
-        b=VcLutZiMNgFgC8PLyeVo1jOTaP4+DGQGRgB1iykDarVwRWm+4cUek2lvfmnOn/OHMU
-         qpnQ2JVG0V/7GQ0peDwOT0M0l9LQamUI2kmUk1Us8kzb5h4IzVceE+gJGns6nhebgp8F
-         TI7w5qrQfJTgkl18lpJglFvB6tEZYziD9SJHGjbN69wTMM+k/3EUEzSj6uHONfrfLZJv
-         beLBWcqVwtMhicB9Srx2qOZVD6VUKRbeRlSTprqelgVYiyAVNb3BVleyYa4PxOrQCAIp
-         8u0l1IMdk3cWGpEpWx7cRqxnnomDx4QmEjjPexAjQuB7rmBTIQ4mAy4Vej5JLxsc2aSX
-         FRpA==
-X-Forwarded-Encrypted: i=1; AKwUvBzVNwHE8/si8WBbX/56D2A2Q7b8W63nQbg2zXmcmzRYSQUKhsHvK0eKhdlqcdWJt+yxUzb+flbXhJEo@vger.kernel.org
-X-Gm-Message-State: AFq9FYJwJavKIWuU67fzpf6GDXuL1hhbkCbxDvxGy9i6hqDLih37wDyV
-	N1p1lJv6YA5F/cOlbqssrKgcLP7zw/bxUQ22GcGBlvgx6LunuRkLjTr0
-X-Gm-Gg: AYBFou1v8QGMDksu4rt1MR/srVs/+65B8yY4EKt1DHR+9lvfGibe0rKBwxVe+zVWxrs
-	iK/E8R/ky1MAZ2MZiqWeMNNkdTjUP5LVOBvPmZXvOmxJe//wH9egjX5K+IJfEplLsxX1lUfEn3Q
-	n4ykXE94SKdYxy1BW3DwYMswre27Iwhy4cWWzES6ouQaTD+1LgcOYXb3mkPruedVuxyQyHdehEd
-	kBAP46y5ASRx9NLYv2G4rnp+VZnocBoQGU5XYAoTrF9M/I4JU05tTrJdPhdVib/RaUwi/lp6CmG
-	9ckhgWy9FPI1sKy9idpRmggW5rfEy/XKERl9qDYKlaqO7XH83Qd5IyQpXuAfTsxTrXQfBsBgFxG
-	CjnijeTS4TNUnNRsdoeBdWfRkrT7mQZeDImWC55FdULiHf6g9mWS4inn4WoCjW+W4LrEdlgouUG
-	5M7CpbSd061N6upKq/V7n/oO4M5vsySRBQ6CzRQ5LL2IH2rJ7yzFNBjU3Dj17fZWTsQSlveRY5C
-	pJdDclqWHy9IDh9OivJ4nIHsIXmAYB959rI0NipT1lVdLli62ZmGWI/Dv2eyLvpKdiCPmMAcDTh
-	VP5PktLfRarNCy/Rqc2jfZG8o+U=
-X-Received: by 2002:a17:907:6d17:b0:c26:1648:a069 with SMTP id a640c23a62f3a-c31aa08e576mr1775161966b.36.1792061392450;
-        Thu, 15 Oct 2026 03:49:52 -0700 (PDT)
+        bh=rwtZXk2YJ9fodoj0VOFBAN64pVLRB29dfNhKqWxOQQI=;
+        b=UEBSU9yyzqKlTO1CH065y8BUjzDRsjluiTxjCTK9XE+Da/5NQpJlyUOI+ucgPPrbyZ
+         sJmENujw2IZhdScE8Z/AGfX4TrF79/Eculc2QB23K8PHgplk3OZGxgpThHBpoWkUmK1C
+         z+eVQ97K2sXVxQ6PyztHqCvu15HxDxjadvc8jvTva97WulQSmBodJbdPIWgpi+GqbmFB
+         58fvtOPN6W+YLSTA+cRf6nNsOQXblaG2piN1vG7qkouL4ham6S9cCViKx9kwKmXhau33
+         +nAhumUOhUOM7pyqfGs1BSR16vin6Iw2sdq4EciXVabF7G+hxK2jJn0SG2002cRxV/It
+         J1OA==
+X-Forwarded-Encrypted: i=1; AKwUvBwjO/BvPQZCl9TlIsq6Of8CgX1KjNKHl0jqx+/s+8TbKvz/U7RWvH8GmwPIRziBEz/hIE6JLttqq+mJ@vger.kernel.org
+X-Gm-Message-State: AFq9FYJPMAGs2bHRgIpHk9OTu13B+egmW6jMAXtT/p5W175PWSbu51t+
+	bmlAyrj10fD3E9ZZziy6FwRBgbwOTOXWPs+jtxYu1YmRql3IG50Qhhx2
+X-Gm-Gg: AYBFou16DeNbIsgTc0jjFxCKNA5VZo+jdS1VW3YLsASXSAq4/+ghjPYB1TWHrmQg23T
+	CDoYLeYF4i5ROkh8Q6iKPPtCMh7dDQ5zpTITdDcs44XURabVQ+isKqmSRjAqX90yo3C11CEuuPb
+	Bq6+cfR11d24DNpxVEowJSKZowJLRUXtvDD+gWRpEKS2kDievRNMxzMkr7wN6nuviICotU2Y3ID
+	p33epiTxvC6rLjA8lyLRRrb8RzbbTlNwl1Yewsly4JVQhehqX6owNuVllHrvEvYxjtH/XNbJD1K
+	tFiQ2l7iqcUwmmWI2mvZhcnRh4YQM8ZLSB/xle3ew51XoIC+f4zgGAl6IkZ3BcVdZxqx70UBNxE
+	cTkx52S32g7Z8wNREMa5zlDUf4E69YAe5J/Ac28+ryS3UkzZC1xVajmOi/CwtZXHIpzX9bvEFR2
+	0T8ik9nvlEanWnuXqotzR2tyTXraIM021BtGzzv4DmWNjTL8sBy8bqwlmRn4+b1IL2lAV5bieG+
+	a6/dYQ/aazsud+7UpLO7l9XM9Uo1d7s1i4r6IWDOgammF5vrFV2VEHEciqB35athA7OVsPw9B5R
+	Rlu8P23uBLufOLcPwyFPH+tzQp4=
+X-Received: by 2002:a17:907:c0c:b0:c2d:bae5:27d9 with SMTP id a640c23a62f3a-c31aa0f4b65mr1766182866b.46.1792061393704;
+        Thu, 15 Oct 2026 03:49:53 -0700 (PDT)
 Received: from M-K2012N0113010.localdomain ([88.119.128.229])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3ed9b3af45sm107890066b.33.2026.10.15.03.49.51
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3ed9b3af45sm107890066b.33.2026.10.15.03.49.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 03:49:52 -0700 (PDT)
+        Thu, 15 Oct 2026 03:49:53 -0700 (PDT)
 From: Paulius Zaleckas <paulius.zaleckas@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>,
 	linux-iio@vger.kernel.org
@@ -76,11 +76,10 @@ Cc: Eddie James <eajames@linux.ibm.com>,
 	Rupesh Majhi <zoone.rupert@gmail.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Paulius Zaleckas <paulius.zaleckas@gmail.com>,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: [PATCH v3 2/5] dt-bindings: iio: pressure: infineon,dps310: Add Zilltek ZTS8032
-Date: Thu, 15 Oct 2026 13:49:42 +0300
-Message-ID: <20261015104945.2687162-3-paulius.zaleckas@gmail.com>
+	Paulius Zaleckas <paulius.zaleckas@gmail.com>
+Subject: [PATCH v3 3/5] iio: pressure: dps310: add per-chip data
+Date: Thu, 15 Oct 2026 13:49:43 +0300
+Message-ID: <20261015104945.2687162-4-paulius.zaleckas@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261015104945.2687162-1-paulius.zaleckas@gmail.com>
 References: <20261015104945.2687162-1-paulius.zaleckas@gmail.com>
@@ -92,38 +91,115 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Zilltek ZTS8032 is register compatible with the DPS310, but has two
-more pressure calibration coefficients and takes its temperature from a
-different sensor by default, so it cannot use the DPS310 compatible as a
-fallback.
+Move the coefficient count, the TMP_CFG startup value and the IIO device
+name into a per-chip structure, passed through the I2C and ACPI match
+data. This prepares for the Zilltek ZTS8032, which has two more
+coefficients and a different TMP_CFG layout.
+
+No functional change.
 
 Assisted-by: LLM
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: Paulius Zaleckas <paulius.zaleckas@gmail.com>
 ---
- .../devicetree/bindings/iio/pressure/infineon,dps310.yaml     | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/iio/pressure/dps310.c | 35 +++++++++++++++++++++++++++--------
+ 1 file changed, 27 insertions(+), 8 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/iio/pressure/infineon,dps310.yaml b/Documentation/devicetree/bindings/iio/pressure/infineon,dps310.yaml
-index 1912a1b0b4ba..416117dfd927 100644
---- a/Documentation/devicetree/bindings/iio/pressure/infineon,dps310.yaml
-+++ b/Documentation/devicetree/bindings/iio/pressure/infineon,dps310.yaml
-@@ -11,12 +11,14 @@ maintainers:
+diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
+index 1d0b3232db9e..aa80d106ac44 100644
+--- a/drivers/iio/pressure/dps310.c
++++ b/drivers/iio/pressure/dps310.c
+@@ -62,6 +62,8 @@
+ #define DPS310_RESET		0x0c
+ #define  DPS310_RESET_MAGIC	0x09
+ #define DPS310_COEF_BASE	0x10
++#define DPS310_COEF_LEN		18
++#define DPS310_MAX_COEF_LEN	18
  
- description:
-   The DPS310 is a barometric pressure and temperature sensor with an I2C
--  interface.
-+  interface. The Zilltek ZTS8032 is register compatible with it, but has
-+  additional calibration coefficients.
+ /* Make sure sleep time is <= 30ms for usleep_range */
+ #define DPS310_POLL_SLEEP_US(t)		min(30000, (t) / 8)
+@@ -86,10 +88,23 @@ static const int scale_factors[] = {
+ 	2088960,
+ };
  
- properties:
-   compatible:
-     enum:
-       - infineon,dps310
-+      - zilltek,zts8032
++struct dps310_chip_info {
++	const char *name;
++	u8 tmp_cfg;	/* TMP_CFG at startup: sensor the coefficients are for */
++	u8 coef_len;
++};
++
++static const struct dps310_chip_info dps310_chip_info = {
++	.name = "dps310",
++	.tmp_cfg = DPS310_TMP_EXT,
++	.coef_len = DPS310_COEF_LEN,
++};
++
+ struct dps310_data {
+ 	struct i2c_client *client;
+ 	struct regmap *regmap;
+ 	struct mutex lock;	/* Lock for sequential HW access functions */
++	const struct dps310_chip_info *info;
  
-   reg:
-     maxItems: 1
+ 	s32 c0, c1;
+ 	s32 c00, c10, c20, c30, c01, c11, c21;
+@@ -149,13 +164,13 @@ static const struct iio_chan_spec dps310_channels[] = {
+ static int dps310_get_coefs(struct dps310_data *data)
+ {
+ 	int rc;
+-	u8 coef[18];
++	u8 coef[DPS310_MAX_COEF_LEN];
+ 	u32 c0, c1;
+ 	u32 c00, c10, c20, c30, c01, c11, c21;
+ 
+ 	/* Read all sensor calibration coefficients from the COEF registers. */
+ 	rc = regmap_bulk_read(data->regmap, DPS310_COEF_BASE, coef,
+-			      sizeof(coef));
++			      data->info->coef_len);
+ 	if (rc < 0)
+ 		return rc;
+ 
+@@ -252,10 +267,10 @@ static int dps310_startup(struct dps310_data *data)
+ 		return rc;
+ 
+ 	/*
+-	 * Set up external (MEMS) temperature sensor in single sample, one
+-	 * measurement per second mode
++	 * Set up the temperature sensor the coefficients are for in single
++	 * sample, one measurement per second mode
+ 	 */
+-	rc = regmap_write(data->regmap, DPS310_TMP_CFG, DPS310_TMP_EXT);
++	rc = regmap_write(data->regmap, DPS310_TMP_CFG, data->info->tmp_cfg);
+ 	if (rc)
+ 		return rc;
+ 
+@@ -979,7 +994,11 @@ static int dps310_probe(struct i2c_client *client)
+ 	data->client = client;
+ 	mutex_init(&data->lock);
+ 
+-	iio->name = DPS310_DEV_NAME;
++	data->info = i2c_get_match_data(client);
++	if (!data->info)
++		return -ENODATA;
++
++	iio->name = data->info->name;
+ 	iio->channels = dps310_channels;
+ 	iio->num_channels = ARRAY_SIZE(dps310_channels);
+ 	iio->info = &dps310_info;
+@@ -1018,13 +1037,13 @@ static int dps310_probe(struct i2c_client *client)
+ }
+ 
+ static const struct i2c_device_id dps310_id[] = {
+-	{ .name = DPS310_DEV_NAME },
++	{ .name = "dps310", .driver_data = (kernel_ulong_t)&dps310_chip_info },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, dps310_id);
+ 
+ static const struct acpi_device_id dps310_acpi_match[] = {
+-	{ "IFX3100" },
++	{ .id = "IFX3100", .driver_data = (kernel_ulong_t)&dps310_chip_info },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(acpi, dps310_acpi_match);
 -- 
 2.55.0
 
