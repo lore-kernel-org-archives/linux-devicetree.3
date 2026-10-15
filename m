@@ -1,43 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19B3B1DF736;
-	Thu, 15 Oct 2026 20:15:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79A494A387A;
+	Thu, 15 Oct 2026 20:17:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792095351; cv=none; b=FzKWSZmmxecObMt8wpwwA1MpzSv+hnzpsA7ZlYv90TYezo5hV649Pl5HhEnqOvhytJW4oMfOPeWA6JdbimRwZxRKNdmcEma5zhnyH/bLbw5c6PdoeFS2zoFwzs01nXfIg4VyQ5vc0BHjN84yfXYCwog+P6NWzTYRE3jW+vd+QbI=
+	t=1792095461; cv=none; b=Ya32R0Em8qfB8K9nHL5hWh3Nz/yuYT+AOKaAULI2ZBVj/5BMloVtAWqU9iaFx3TnzKBDHOPA90B16ZiOODC3CTOTFhhxpdeSu1aCMbCJyEPVXjQCGUvuiofx1nImaYWIpuGD9xuoo0GUqiliXvznAtzuH1g0s38ondMAiOqREKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792095351; c=relaxed/simple;
-	bh=oSltm9idK3HnaWKPb7Wygo/c96CShr/Ox7Wjwpt67Z0=;
+	s=arc-20240116; t=1792095461; c=relaxed/simple;
+	bh=1csYnh8NJNkq6uRZqlYEK9ZmrxncKaIr7ge1zJ7f/MQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dbp2ie6ml6bKIuJSpKwIu2QInRdVQSKqbcc7t/ZsaJrdY/fmtpGL9nraR/TXvR7M8FCEwx1IWI9/nSV6UzvKdD8Y9TdPyCZp1Wsxc4o7y7k/5TlzSy+qLPGJ9RlI5Y3KY77yp9fQMO4g1A6SQxjYbLLPWHCfjYIPSdY51ZuhBSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KWH/FZro; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=gxx9IqN7nmXYl33vShXMDdXG6S5acye15txzWC2pjNz6gS6mxNObjHxAhgpv5/Szu0n0pTKIhwLF94D8dZcjxEOIrA9V7v5BiPG2hJTl26pebZAj5Fr/IPq6w9kuE7691vRRdC+DYleNfJU4/xKjvsSPo4lZ/939ubLQ8OanyVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nhbj4LGM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KWH/FZro"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F5DD1F000C4;
-	Thu, 15 Oct 2026 20:15:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nhbj4LGM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF5B81F000C4;
+	Thu, 15 Oct 2026 20:17:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792095349;
-	bh=6Mf+CP8MgReqGg6hHqGvrbor5AhWhA2wwP193zlZpLM=;
+	s=k20260515; t=1792095460;
+	bh=z7MWpo4yUfswYEg3QkBO+6xOC6XoabSR4y0LBHpKx6M=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KWH/FZrowMlshoFECXu965UkYoGuoM8nYnAQD4H6jEWBtkOIFEK1h3YuuMzf/LCsJ
-	 P5aMTHCdeBq5gYjJ78xAj2A1BYnbMac/K1vXbzl7oIZSHm3ilLaEKsAsnvvl2m7nmk
-	 CwvEEDqxX68gPJgdAi94McHMuCQHvMnq8ZhIJXwt8W1U5urpBEO7J3lfl2vdpJwDWX
-	 WWo/XmseeEDoe0XiCGrnKvblGyfvOtnE7Z7FM2bQN4zOlKSWwSL5V6acpOZHUu3YWt
-	 lsey81JwnLbk1c2iJwmvkoNDY7p4EtOJsv2iHTLoIw/OON/cuxeCeYuHyp6Dgj6ZkH
-	 Ki97BZgS7t+8w==
-Date: Thu, 15 Oct 2026 15:15:47 -0500
+	b=nhbj4LGM27km89n5hLEeuMFX57KDu85e0nQ95I6ATW6nLLjC4+5Eu9ai2gscQG59k
+	 gNCpMWRj1B6zSNOAyC/3/m26UjBk6lDHTrO5PFW35FVYCwFfIjjzgT/raYHOBr2NlB
+	 jCDYwhvfguqn2gSeN4CH12ZjgCsRDNzcpom4f6klcrEVsoXJ2ekhcLk+WZjfrYt1zN
+	 7Y+jjy/4XskdRDOASOatbuU/s6CK05sU85gnhujM00muzK5V3mNkDEWY1NkPwoMDWt
+	 FM6jyOwOudVXcWQSurHWrWt6yw/KX4KhMcjHQ0yVu3SdePu3LfkR5SZufNTzB9f9ZH
+	 NMC7qfKKbHbOQ==
+Date: Thu, 15 Oct 2026 15:17:37 -0500
 From: Rob Herring <robh@kernel.org>
-To: wyibo6109@gmail.com
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	linux-input@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: input: add OnePlus pogo-pin keyboard
-Message-ID: <20261015201547.GA2868930-robh@kernel.org>
-References: <20261014135251.11234-1-wyibo6109@gmail.com>
- <20261015110859.203989-1-wyibo6109@gmail.com>
- <20261015110859.203989-2-wyibo6109@gmail.com>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Alexander Shiyan <eagle.alexander923@gmail.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v4 10/16] media: dt-bindings: sony,imx678: Add other
+ Starvis 2 family members
+Message-ID: <20261015201737.GA2917324-robh@kernel.org>
+References: <20261015-media-starvis2-v4-0-75fcdb4163f3@raspberrypi.com>
+ <20261015-media-starvis2-v4-10-75fcdb4163f3@raspberrypi.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,143 +52,42 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261015110859.203989-2-wyibo6109@gmail.com>
+In-Reply-To: <20261015-media-starvis2-v4-10-75fcdb4163f3@raspberrypi.com>
 
-On Thu, Oct 15, 2026 at 06:08:58AM -0500, wyibo6109@gmail.com wrote:
-> From: Yibo Wang <wyibo6109@gmail.com>
+On Thu, Oct 15, 2026 at 04:57:36PM +0100, Dave Stevenson wrote:
+> There are multiple members of the Sony Starvis 2 image sensor family
+> that have the same hardware requirements as imx678.
+> Add them as options to the imx678 binding, rather than duplicating it.
 > 
-> Binding for the OnePlus Pad 3 Pro / Pad 4 and OPPO Pad 5 Pro pogo-pin
-> smart keyboards, built around a Tinno keyboard MCU and attached to a
-> tablet UART.  Describes the supply, TX-gate and wake GPIOs, with a
-> MAINTAINERS entry.
-> 
-> The compatible names the tablet project the pogo port belongs to
-> (caihong, erhai or iceland), which pins the keyboard generation and
-> with it the protocol extensions the host may use: the 0x3A general
-> sub-commands grew over time, from the caihong (sm8650 era) keyboards
-> with neither wake notification nor backlight, through erhai (sm8750
-> era, wake notification) to iceland (sm8850 era, keyboard backlight).
-> 
-> The keyboard is a fixed physical device, so the touchpad geometry and
-> the product names are per-project constants and live in the driver;
-> the common touchscreen properties (touchscreen-size-x/y,
-> touchscreen-x-mm/y-mm) remain as an optional override if a variant
-> ever needs one.
-> 
-> Signed-off-by: Yibo Wang <wyibo6109@gmail.com>
+> Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 > ---
->  .../bindings/input/oneplus,pogo-keyboard.yaml | 73 +++++++++++++++++++
->  MAINTAINERS                                   |  6 ++
->  2 files changed, 79 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
+>  .../devicetree/bindings/media/i2c/sony,imx678.yaml | 38 ++++++++++++++++++----
+>  1 file changed, 32 insertions(+), 6 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml b/Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
-> new file mode 100644
-> index 000000000..bab9ff3d3
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
-> @@ -0,0 +1,73 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +# Copyright (c) 2026 Yibo Wang <wyibo6109@gmail.com>
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/input/oneplus,pogo-keyboard.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: OnePlus / OPPO Pad pogo-pin smart keyboard
-> +
-> +maintainers:
-> +  - Yibo Wang <wyibo6109@gmail.com>
-> +
-> +description: |
-
-Don't need '|'.
-
-> +  The OnePlus Pad 3 Pro / Pad 4 and OPPO Pad 5 Pro pogo-pin smart
-> +  keyboards, built around a Tinno keyboard MCU.  The keyboard is
-> +  attached to a tablet UART and speaks a framed half-duplex protocol
-> +  over a shared single wire; host transmission is gated onto the wire
-> +  by a PMIC GPIO for the duration of a frame.  It provides a keyboard
-> +  matrix, a touchpad and a keyboard backlight.
-
-Wrap lines at 80 char.
-
-> +
-> +allOf:
-> +  - $ref: /schemas/serial/serial-peripheral-props.yaml#
-> +  - $ref: /schemas/input/touchscreen/touchscreen.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    description: |
-> +      Names the tablet project the pogo port belongs to, which pins the
-> +      keyboard generation and the protocol extensions the host may
-> +      use: caihong (sm8650 era) supports neither the wake notification
-> +      nor a backlight, erhai (sm8750 era) adds the wake notification,
-> +      iceland (sm8850 era) adds the keyboard backlight.
-> +    enum:
-> +      - oneplus,caihong-pogo-keyboard
-> +      - oneplus,erhai-pogo-keyboard
-> +      - oneplus,iceland-pogo-keyboard
-> +
-> +  power-gpios:
-> +    description: GPIO enabling the keyboard supply, held high while attached.
-> +    maxItems: 1
-> +
-> +  tx-enable-gpios:
-> +    description: GPIO gating host TX onto the shared one-wire bus.
-> +    maxItems: 1
-> +
-> +  wake-gpios:
-> +    description: GPIO signalling attach/detach, also used as the wake line.
-> +    maxItems: 1
-> +
-> +  touchscreen-size-x: true
-> +  touchscreen-size-y: true
-> +  touchscreen-x-mm: true
-> +  touchscreen-y-mm: true
-> +
-> +required:
-> +  - compatible
-> +  - power-gpios
-> +  - tx-enable-gpios
-> +  - wake-gpios
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-
-As this goes under 'serial' nodes:
-
-serial {
-
-> +    keyboard {
-> +        compatible = "oneplus,iceland-pogo-keyboard";
-> +        power-gpios = <&pmic_gpios 12 GPIO_ACTIVE_HIGH>;
-> +        tx-enable-gpios = <&pmic2_gpios 6 GPIO_ACTIVE_HIGH>;
-> +        wake-gpios = <&tlmm 151 GPIO_ACTIVE_LOW>;
-> +    };
-> +...
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 8014b9f82..9c29eb961 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -20156,6 +20156,12 @@ S:	Maintained
->  F:	Documentation/ABI/testing/sysfs-bus-platform-onboard-usb-dev
->  F:	drivers/usb/misc/onboard_usb_dev.c
+> diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+> index 098f72544216..027872a134f2 100644
+> --- a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+> +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+> @@ -5,7 +5,7 @@
+>  $id: http://devicetree.org/schemas/media/i2c/sony,imx678.yaml#
+>  $schema: http://devicetree.org/meta-schemas/core.yaml#
 >  
-> +ONEPLUS POGO-PIN KEYBOARD DRIVER
-> +M:	Yibo Wang <wyibo6109@gmail.com>
-> +L:	linux-input@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
-> +
->  ONENAND FLASH DRIVER
->  M:	Kyungmin Park <kyungmin.park@samsung.com>
->  L:	linux-mtd@lists.infradead.org
-> -- 
-> 2.53.0
-> 
+> -title: Sony IMX678 Sensor
+> +title: Sony IMX678 and Starvis 2 Sensors
+>  
+>  maintainers:
+>    - Jai Luthra <jai.luthra@ideasonboard.com>
+> @@ -13,21 +13,47 @@ maintainers:
+>  description:
+>    Sony IMX678 diagonal 8.86 mm (Type 1/1.8) CMOS active pixel type solid-state
+>    image sensor with a square pixel array and 8.40M (3856x2180) effective pixels.
+> +  It is part of the Starvis 2 family of sensors.
+> +  Other members of the Starvis 2 have the same hardware requirements, and
+> +  therefore share this binding.
+
+If you want paragraphs, you need '>' modifier and blank line between 
+paragraphs.
+
+Rob
+
