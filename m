@@ -1,99 +1,146 @@
-Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B68D54A7D2
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 16:01:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E19D53CA95
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 16:01:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792080117; cv=none; b=GYFh5YgNFV+GxrHDGggP1Wg9d0wtPz5zRq5Jlg60ekLD7lJwfdmtC7t5gf3JzSWgSAOmVDnHMx3KD0/r0p5AzB2VOvawQUZ9DENnGpw0cJDpohP2s889JbzdeSvbMg5C2kVULiUnAMLObnfphU+VE7fxAqjYsipHs8img6XMQK8=
+	t=1792080122; cv=none; b=W5e+4w6s8AchxT+tLifygiSdo+Ye+X5w4+73KcwGzH/+VVnI2gosgvMBV18a1sZeFde0CwWC0RoapcSWXz/6ZZWt76IoeAi9WGFLkvBCEY4nb2iRHHFzi4pb1QU/RctxAxqlCWdBnQqH677kEwo2EhY+bk0TQBGR8A9pbnIY7bI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792080117; c=relaxed/simple;
-	bh=JE8rTmi+yV9lC8I8Q8izF99dyKvC7oYaJcG+z1U7BXU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dgRpQDKaRIdEkgwbqzhkH9v7prVDRp4k3vZr3cHENjnT9Nu0FmvyGDQHJ7fzWyg87jP+/W6V1sXdTqBKwFuMgZrc2W2AUBxXT7/Jo3bbJ8ekURXmYa/QNLOB2iJEpm/3Agva+7USDMVLDkXSxawywwmrd6u5u7FW5W8Njmfvw8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=CrxBlAkl; arc=none smtp.client-ip=209.85.219.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1792080122; c=relaxed/simple;
+	bh=teCJGdXpviKgnZjCQ8q3bQpoFMiSx0DwQxMZqJmDKZo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=G9/ONqNX5sKlJ0W9PjTlGixKbuiAy4TML6R0Rqwpw4OdA6JZlruceiOYTFhXEq4dtbNDtDC0K4h5+dkKpTH8TKdpNNKnNfQdBig2xsU66i4iGETDrdupJTBYDaabVJx4D34myjv+9QwOo7ODMhRSlOzaQXyRzvlJVZC9sKzxKIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=qUCbrf3W; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="CrxBlAkl"
-Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-917d595138fso10436746d6.3
-        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 09:01:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1792080106; x=1792684906; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NALvi08ArpEQSQ23rf9GeRnMp+xRrLbipmmnb3o1ZPA=;
-        b=CrxBlAklAz/i+mewrnF88ATKZ1qirKsY0mt/ROgawZjbqQZrGAOw0yY6dRMgYEzBOB
-         WGkTXUY8wHzHE4EHlbIhqoLGBLjGwJx5ouYtr77AT0965ZP5vcOXG0kA2bk4V4a1Ll5g
-         kt5XHTAKFgmWHGVvl4m66+SqfX/3aoicIZdUimYWmI7WQaUHx+Hbl0AQkVGDTCymCq0H
-         RXGh9LmV5sfmUAl1G5e1te/WLgsaYTDF3fOx6/e+HCqgNh5oU0duep2XpOXaIYSHUjR+
-         FmcOMBGjBGk31iRGRL6U3/WIH/K1y+w4oTcNVAtFqnuMk+Eb/hEIPDvBmb/rlchqvBMx
-         2nxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792080106; x=1792684906;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NALvi08ArpEQSQ23rf9GeRnMp+xRrLbipmmnb3o1ZPA=;
-        b=DnMC/p80Lt/AeRZJUkt9ovnvb7TfqKYrb6pwfuz/K8N146JmNELbK+CI+hU5RXMUK1
-         aPdVzu88OPZCMS8izJJqZ1JMWFSDbI/QmaLDx6wyp2nGTsmwEN4uNs8ltOBgtvAWWD25
-         3QZww/WkMCPU8/RcPiVNUihyDHOaKrNkUet+3HC4FRSi4RglQgcMHeLsi9kFdw6F/2zS
-         5/6mKtqNGMbNdAOLJd3NaQUePtwPsDfV+776W1rBjMDheQufMzYBPgovo3LNLdu9yEQM
-         pow0h+wlOvrl+QPUzR4jFC9k8BEVljecPzzSWETCHQmySnnKjjFaBThsQ76ecD77pc0X
-         DJvA==
-X-Forwarded-Encrypted: i=1; AKwUvBwR6j2FlGf+xoHqk/CtSg/urtADBPKMYuHVLpNh4klTNmhaB4F+bE/WUmONmWWg/p2bs0/jddQLMZDn@vger.kernel.org
-X-Gm-Message-State: AFq9FYJi0IGyJhYOGX/SiDVzO8md0NKLZA3DTdGUXFPg9iFQ0rCbF2Xs
-	WQVqep3F8DAFJ/eB2rHrO4Kgi1sGfM1muTlDCEAw412L2ueurUZBybfrlxX5l3ZR0rA=
-X-Gm-Gg: AYBFou00IgGRD/7wEBRJNiayD2noIi7IqVU6/eXIDs1pmKB+Bsd5huSnA3Ng4KfyHFn
-	+G1aVW202cgQ5J32cgCICjnjt8R55535W4suev5k6eyz4wdgKJyx9LudPjiAwlXjKYqi2aEbekU
-	5Ncdo+TSFLBSJt1mbkJK50GWkkXumlzn7cb4rULSUHBNzbG5bxjSG5PhK9E+GuVCbXc9zbVyuEV
-	c/vfiv+66K1sxfRwqsdvvbg9tGvGtPfBV4KXhvHzvWhYoz/LiWrYIti9OPpYswkAm3S0G9dwwsl
-	GNYd2JwXjkUW/TxFa+/MzPSBko7ZgkFwy3PYGoufFizfpoEP2184Nhkgg4+1NIY0gKhQTXnPYE3
-	QtrzEs0+2G7FllVmjjS4sOp6BbLdmX8plllfcL8Yht36flMlZFuSUS3ZPRSCHYlV+eUesF6c4u+
-	7H6/IlmrWOpLOSJN6minl9ETQNJJRqOvtpED5Bj3X6MhuZurYIOypGGCVoiqKL8MFVXFzd2+k=
-X-Received: by 2002:a05:6214:4586:b0:917:aa89:4168 with SMTP id 6a1803df08f44-91b5579949bmr310643976d6.40.1792080105628;
-        Thu, 15 Oct 2026 09:01:45 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97b383dasm85388086d6.8.2026.10.15.09.01.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 09:01:45 -0700 (PDT)
-Message-ID: <4fc165eb-b57d-41f8-b7b9-c9fe433d866c@riscstar.com>
-Date: Thu, 15 Oct 2026 11:01:43 -0500
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="qUCbrf3W"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id E07521A1246;
+	Thu, 15 Oct 2026 16:01:48 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id AD3B16075C;
+	Thu, 15 Oct 2026 16:01:48 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C87C010328B42;
+	Thu, 15 Oct 2026 18:01:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792080107; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=1+P+qZ1Rnp+1GmBEO/FOhzEFRdXO6yi0oCUyQYMab1Y=;
+	b=qUCbrf3WqdIQSCHJ3uVzYmlcHzSrDNvSY9ncLPa8Owm3lqJg8C5JcT+YVNaYkZIF9WRsP8
+	UIpo2slG3OJ1/9YQ3NtGp0lqJG2+pCro3NSO1QHld/QRCz9tV+23tySo89M5bc1uEdNw8R
+	Hd26QykTnPeAJjCyPhO6RS3MymPhPeIlYOYPGJFjFMbOpfwMCiurPpVU2g7vHflboJotJ2
+	5uzPXZQDfVcw3cLOFcGX4GDpMVekcImw9+Da3KuYWLFDgQUMGxTzG13WmvhfXcKCgvk73h
+	7wL4ol8olOEyvxIBZQS332DbfI1e/eUZI4KX3/IMHOpwKyuqABbOQQQx3gkUnw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Date: Thu, 15 Oct 2026 18:01:15 +0200
+Subject: [PATCH v10 02/10] clk: nuvoton: ma35d1: Avoid possible error
+ pointer dereferencing
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2 2/2] net: phy: qcom: qca808x: Add regulator
- management
-To: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, hkallweit1@gmail.com, linux@armlinux.org.uk,
- Daniel Thompson <daniel@riscstar.com>, ansuelsmth@gmail.com,
- donggeunyoo.kernel@gmail.com, mohd.anwar@oss.qualcomm.com,
- devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261015143849.483339-1-elder@riscstar.com>
- <20261015143849.483339-3-elder@riscstar.com> <atDz2hJ6xpA3p5y7@lore-desk>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <atDz2hJ6xpA3p5y7@lore-desk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-perso-ma35d1-upstream-clk-v10-2-47c97b54a809@bootlin.com>
+References: <20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com>
+In-Reply-To: <20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com>
+To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 10/15/26 10:40 AM, Lorenzo Bianconi wrote:
->> +	if (count)
->> +		fsleep(phydev->mdio.reset_assert_delay);
-> nit: should we check reset_assert_delay field is actually set?
+MA35D1 registration helpers store their parent_hw argument straight into
+the parent data, without checking it first. In case of registration
+failure an error pointer will be stored in the table, which is then
+forwarded to the clk core, which treats any non-NULL parent as valid
+handles.
 
-Are you saying there should be an alternative delay used
-if it is not set?  Do you have a suggestion for what to
-use in that case?
+Bail out early when the parent is an error pointer, instead of building
+the parent data.
 
-					-Alex
+This issue is mostly theoretical in practice, since reaching such an
+error would involve a very early -ENOMEM.
+
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+---
+ drivers/clk/nuvoton/clk-ma35d1-divider.c |  3 +++
+ drivers/clk/nuvoton/clk-ma35d1-pll.c     |  3 +++
+ drivers/clk/nuvoton/clk-ma35d1.c         | 13 +++++++++++--
+ 3 files changed, 17 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/clk/nuvoton/clk-ma35d1-divider.c b/drivers/clk/nuvoton/clk-ma35d1-divider.c
+index e992e7c30341..57a7b4ed3b5e 100644
+--- a/drivers/clk/nuvoton/clk-ma35d1-divider.c
++++ b/drivers/clk/nuvoton/clk-ma35d1-divider.c
+@@ -90,6 +90,9 @@ struct clk_hw *ma35d1_reg_adc_clkdiv(struct device *dev, const char *name,
+ 	int ret;
+ 	int i;
+ 
++	if (IS_ERR(parent_hw))
++		return parent_hw;
++
+ 	div = devm_kzalloc(dev, sizeof(*div), GFP_KERNEL);
+ 	if (!div)
+ 		return ERR_PTR(-ENOMEM);
+diff --git a/drivers/clk/nuvoton/clk-ma35d1-pll.c b/drivers/clk/nuvoton/clk-ma35d1-pll.c
+index c7c0dc91a012..92424e9c669d 100644
+--- a/drivers/clk/nuvoton/clk-ma35d1-pll.c
++++ b/drivers/clk/nuvoton/clk-ma35d1-pll.c
+@@ -336,6 +336,9 @@ struct clk_hw *ma35d1_reg_clk_pll(struct device *dev, u32 id, u8 u8mode, const c
+ 	struct clk_hw *hw;
+ 	int ret;
+ 
++	if (IS_ERR(parent_hw))
++		return parent_hw;
++
+ 	pll = devm_kzalloc(dev, sizeof(*pll), GFP_KERNEL);
+ 	if (!pll)
+ 		return ERR_PTR(-ENOMEM);
+diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
+index ba3550c083ac..00d635cdb604 100644
+--- a/drivers/clk/nuvoton/clk-ma35d1.c
++++ b/drivers/clk/nuvoton/clk-ma35d1.c
+@@ -130,10 +130,19 @@ static struct clk_hw *ma35d1_clk_mux(struct device *dev, const char *name,
+ 				     const int *parent_idx, int num_parents)
+ {
+ 	const struct clk_hw *parent_hws[MA35D1_MUX_MAX_PARENTS] = {};
++	struct clk_hw *parent;
+ 	int i;
+ 
+-	for (i = 0; i < num_parents; i++)
+-		parent_hws[i] = (parent_idx[i] >= 0) ? hws[parent_idx[i]] : NULL;
++	for (i = 0; i < num_parents; i++) {
++		if (parent_idx[i] < 0)
++			continue;
++
++		parent = hws[parent_idx[i]];
++		if (IS_ERR(parent))
++			return parent;
++
++		parent_hws[i] = parent;
++	}
+ 
+ 	return devm_clk_hw_register_mux_parent_hws(dev, name, parent_hws, num_parents,
+ 						   CLK_SET_RATE_NO_REPARENT, reg, shift,
+
+-- 
+2.55.0
+
