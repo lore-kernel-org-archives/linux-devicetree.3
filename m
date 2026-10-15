@@ -1,183 +1,105 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EE824DEC0C
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 13:19:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F155C51EDF2
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 13:20:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792070388; cv=none; b=MSNBIW6onGIwmutM4g8YNdmcyXfzGSW3YZ+S+CRo8pnZYp6GYoGf12MhoJd15RkQydQntpnEXeCmLwF3sTG60gA2QSljKG8rxVPKWfijaP2VcuXxvqcrwxqFmEqNysf9dwn2MKVHP1o4/2G0qOqggfR1F5w53JWlplbm8sI6tTo=
+	t=1792070428; cv=none; b=fj95E7GknK1ZBYvmP6X/2dgRRpM5UEeGA3OHwTXw+o9ywLZWCkviZB7vckS4xGbPiTT8RNZZHU45itS/CNDEWA7g/+Ez2ARkyiYcOBDQI67DEbxNW5Q85XMVTP6Z/kObfn0l3u2IgN1h6c9VXti9ODV4u8q2XAjnzXR7+bisL0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792070388; c=relaxed/simple;
-	bh=RDe74eVfgS9VFxKC1KN3CSsr84zByOWGT1x9UeN3eqs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DktL5SRh0e35FgiXDCMEzmpYLBNyCXErAma5rj5jaiDDK4UjoWHSxu7wrYVfyHnGI172x5PCqWEKkVp2/Z5QMrsVz2Mn/488me+kO/thZdKNSIC+84R3C4Vm3WtJzDlFN2H2UfJglFUnBoXClAzdtxeg9Xkl9qpJjTa8TnJzloU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YK37WhFY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=clI2geWA; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792070428; c=relaxed/simple;
+	bh=QY7dcnKENHyz6hSMKxblOppniQjuIsq7IjJvakdO0Mg=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=ZYdwBX+b5c3VzwmJr0t8PhuwxQiyIP2740PobYKOR/guEG7u8itPuA6dnBAoUDUQ6u4vGNrP4y986rWO7dcJ28Gehfd0q81M908/PtF6Efg3lybcdYcqnmpQI0VMsowrE8WKH6TYcOrTzIuV/5ZbaFmS0CB4Q3VSAFa8vnItnpI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m5YeWInN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YK37WhFY";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="clI2geWA"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9jT1O2809293
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 13:19:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	0PeoYYh2gFueLL5PGHgbB9h0norbMjGxIpHfsN3x+ss=; b=YK37WhFYez6KC7fM
-	PNCUHu6WheJEzVE5fuCj5PtVPs2q7i4zEgavRZiTEtceDDVtnOwTHWXZToVUOFgm
-	HtEk7sMLkSQtBLoPZ8lKfu/a+mDhnR6oHD9gU+WX3rkghQRma+o9rws0l+Qybicl
-	VWDDwX0rbckhemfZjEClxPY4ou4YmNLUfBzzdPUjO+grp/0M7mXZ4OnpwnVJ0abD
-	kh/j4Ugu5zDLXh4X0J5kzOCiNQ/2nlpL1NEZEnVJLBpAQ/H+MK2m5LHqu/2bC+2h
-	dJF1L5lOXL1Gg6hYI8nxiga802mWC65M6GtQYDklPl1nNnkNmIhvIDCPj4cGyChS
-	SazUZw==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4han54try2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 13:19:46 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-917a54501a8so13613326d6.2
-        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 06:19:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792070385; x=1792675185; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0PeoYYh2gFueLL5PGHgbB9h0norbMjGxIpHfsN3x+ss=;
-        b=clI2geWAtPb3yh20T9FIiJdwPTvXXFGGUsMyCjvZSsxJVy1gMUKmvHTvyomRwLjSTp
-         7uQ/2AuT17M0nmJAzJJ0WV/409jsdqkKYNBauYbkAwwpuy7PoTi4pI8iE53Cimt3rT6b
-         QOvoivbqDHRS+PJSZuSVjni47UMm1UGy1Q9tq+0bQBSxomegEwzgRcWhNqfyG/iEG+p7
-         Q1wlKND8mW1LSq7Q1x5SUtRtlwhOMXe4t38QyyK0UPSH7bDVgW57uVns2fLNZxUoxwhd
-         vJWbPfbiU784miXu3ZcwHax/NYIqi/WTnYFWh+za5ZHDXHw3L1VW5glnD1JE0g+8jeMQ
-         +/Xw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792070385; x=1792675185;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0PeoYYh2gFueLL5PGHgbB9h0norbMjGxIpHfsN3x+ss=;
-        b=ofaYowVHwDF3DJ0IHTjNlASFOt6iAD7P+Fx1BHoc1lVCgX0L5mH9YtOsgwPZX2TK1D
-         yGGuXkR66wGAZkFZSwPCzmRlPMl8cxNprsbddQD+XqhH6MbFo4LsAqjyEn1hWFvlfjwo
-         0j0iLH/cIK8aflLF3ADeQD6GR/rPIIbeH8SvFrXtN7du0rupojVnib7hZH8ql2WiAcyc
-         waZPP9R+H1NmJKCWu1XJbBwFzGDThb+/wT874G2LuCWeYFl1BadcHJkjIbBMiauqZfva
-         23W3tP7QG/OX2YmgaU564zUowzH5yjQfwbG1N/OeFkJm/BrDWIWaP96b2JcX9vDkC7Aa
-         KGSA==
-X-Forwarded-Encrypted: i=1; AKwUvBwu+EvJ4j1jjNxPCG2iwzlIiaUxGfGT1W6N20+ZDK39dcoVTTmnlZZmaDWixLSkrTssHtnZpdB3IPqq@vger.kernel.org
-X-Gm-Message-State: AFq9FYKDzcB72AzdHAS+oevRYcP62L6A7qUBmDx/yoauY1M7/y6YGhR/
-	p/HoaATd4FcWpn4kjdQpsUCRlZ7SgY0Y7WE/FqhVqZ3M1hb8QGGxYAEpmgVX4n2B212aq/xVLPY
-	jm1eaPBxalFiBnBexVs6XYC7CgzN4SOX2hy6u/YkA1LeMq6GVjiAhJixDShg00mzK
-X-Gm-Gg: AYBFou3gSr6E95yOn3WAO9XuGsLqS1sxtY918WhKD4nXYTJAUrjL43F1lnZS8/cuZ0h
-	kW1DuzgUA61rl9a9DRzSbjoZzkdNsveWwDJgNBlCfL1bGlJrzphdqFpJmYz1YzJNH8LBZjuqZRo
-	AaFx8EBmLER9E6f/JRsYhZcIkGQFfavKb3xjJTZg2JgJNRBUEEzJbDGQoK1BYE+3EEqKdZJdyyJ
-	QdDY+sbmKVTEEMZfTIzzMZ+PlCr3ZyCZODWQcQHwoSkzhjeloWNiagUyrNzzZtKziylIPqNaJfv
-	JiXcdluu60BUBHdvGjX3G1l3shIk/Vtd/EMqyCHZhf+IqdPxJ1E3Gu0xkB/379eAfeo/B0uJS2B
-	Cte0dgmC8goGkXr5QFtx7aA==
-X-Received: by 2002:a05:620a:2b4e:b0:93e:6d87:4f69 with SMTP id af79cd13be357-93ebd1e4d57mr3268314785a.3.1792070385250;
-        Thu, 15 Oct 2026 06:19:45 -0700 (PDT)
-X-Received: by 2002:a05:620a:2b4e:b0:93e:6d87:4f69 with SMTP id af79cd13be357-93ebd1e4d57mr3268309085a.3.1792070384714;
-        Thu, 15 Oct 2026 06:19:44 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3edab0ee85sm123388266b.80.2026.10.15.06.19.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 06:19:43 -0700 (PDT)
-Message-ID: <4c83e787-b5e6-4394-88a8-4a2fa4ab8d1a@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 15:19:41 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m5YeWInN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A02A21F000C4;
+	Thu, 15 Oct 2026 13:20:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792070426;
+	bh=gOKdZWKanR0iLwqwgZrnyNLrpYLh/eGIzVlxMw/AIak=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=m5YeWInNAc6x09pdK6cKbBAvJUj4gh9g5TamM9TLfRzlK8dEX/i4vUBj43HyO6gVx
+	 EVNXYvoU9BYXMCmyfxTsIV2XBNdraH8rZsdCroX6Tw0pZinVFUCI97F/NGXCLAUARK
+	 IL3zSlcU67R6+brPgHtQW3OwtcTHylkmg+6j7GyMUTcEartEW6hw+8sPwpabCNKu/c
+	 BimgXC/pQMjenZiTDFucHQBGVFxuND7bcN07HoNvCOkBgJ8T5f7wNyy9sLecWsFZQf
+	 s268o/SCcPYzhmY93vStXtvtSKkIhgGY97bT6bKVYctfDn5AdF7DYAeYqryP6jIWX4
+	 4zZgQuyTE4srw==
+Message-ID: <sashiko-outbox-172925@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 3/3] arm: dts: altera: add Draeger M48 CPU Module
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Petko Manolov" <petko.manolov@konsulko.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261015131352.3624327-4-petko.manolov@konsulko.com>
+References: <20261015131352.3624327-1-petko.manolov@konsulko.com>
+ <20261015131352.3624327-4-petko.manolov@konsulko.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 15 Oct 2026 13:20:26 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: talos-lyra-evk: Add CYPD6129 Type-C
- support
-To: Akash Kumar <akash.kumar@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org
-References: <20261012131518.858396-1-akash.kumar@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261012131518.858396-1-akash.kumar@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=RYQFmFtv c=1 sm=1 tr=0 ts=6ad0d2f2 cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Ac72dwBaO6wsPz63ng8A:9 a=QEXdDO2ut3YA:10
- a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1MyBTYWx0ZWRfXxf7lIUnp9b2/
- h1SaeLGssiJizcZIQiJuVmatj+TAQ53rIm3VQo3jYX72Ml5v8mrIXy4TDzBcj6GNNB1De5sSQSm
- RdFZ8f4ClsrMzQHTquuhkCBAGxVTgUhpdKh7xUqzPX8KesiqAdH9+c+P1EVWzxdA4967mTGZr+b
- lvursyx3N1Zsk20ByDGMbKaxVlxMo7nltUFF2nbl8qkhtlp7KNwfqXTtkrxueqcMzImDEMaYokS
- BsyKRSvPqnl2SzNF/PS1jI0VDPAHPnRtSmjsft+IjiFsAN0oYNxv5For8ByYLPvELyPmgixR6Zs
- +dvxnEbYLDlFQWB4JPkq51nPTHbPhbe3geaJT3T/Mu6iiuH2mJnezYtBk46FicwgRUYtZyt9etk
- 2CuvJGNB/EwqfR0KGO5vvKSarksbVPvLRortR1GUQ/aGOuiOXVWBJCzT+N2pyG1aCOS0bYUj3Sc
- ER4kp+tYBmJUFu2cDLQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1MyBTYWx0ZWRfX6tlmivT/KZMv
- SPHj+FF6iEgOj2bM9rVQfDWZ+JF+eYOyDiea8OIPGbGhwUCXJ/4vMUCoynt+l6FxWk0E/AZOIhJ
- W/ptL8wucBFeJCDlFGBtz0EuP5p9u2Y=
-X-Proofpoint-GUID: dSw9yn3sqv5XVh_4cIVMZL-LsDs6PO5I
-X-Proofpoint-ORIG-GUID: dSw9yn3sqv5XVh_4cIVMZL-LsDs6PO5I
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 bulkscore=0 suspectscore=0 impostorscore=0
- lowpriorityscore=0 spamscore=0 malwarescore=0 clxscore=1015 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150053
 
-On 10/12/26 3:11 PM, Akash Kumar wrote:
-> Add support for the Cypress CYPD6129 dual Type-C PD controller on the
-> Talos Lyra EVK.
-> 
-> Enable the controller on I2C5 at address 0x40, configure its GPIO86
-> interrupt and wakeup support, and describe both USB Type-C connectors.
-> Connect the connectors to USB1 and USB2 through USB role-switch
-> remote-endpoint links.
-> 
-> Configure both USB controllers in OTG mode with usb-role-switch support
-> so that the CYPD6129 controller can manage their USB data roles.
-> 
-> USB1 is routed to the daughter-card board-to-board connector. Add a
-> fixed USB1 VBUS regulator controlled by PM8150 GPIO10 to provide and
-> control VBUS for the USB port on the daughter card. Configure the
-> corresponding PM8150 GPIO pinctrl state and keep the regulator enabled
-> for the board configuration.
-> 
-> Add the TLMM GPIO64 VBUS boost enable as a GPIO hog. This enables the
-> 5 V boost converter required to generate the VBUS supply for the USB
-> daughter-card connector. The boost converter output is set to 5 V by
-> the feedback network consisting of R2403 and R2401:
-> 
->     VOUT = 0.6 * (1 + R2403 / R2401)
->          = 0.6 * (1 + 75K / 10K)
->          = 5 V
-> 
-> The changes also add the I2C5 alias, CYPD6129 pinctrl configuration,
-> wakeup-source properties, USB endpoint connections, and the required
-> VBUS power-control GPIO descriptions.
-> 
-> Signed-off-by: Akash Kumar <akakum@qti.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/talos-lyra-evk.dts | 119 +++++++++++++++++++-
->  1 file changed, 117 insertions(+), 2 deletions(-)
-> ---
-> base-commit: b7e62b4d28bc0d2f16f03904616da78e4478aa88
-> change-id: 20261012-talos-lyra-evk-v2-v2-0-dcc9316ebb5
-> base commit link: https://lore.kernel.org/all/20261012-talos-lyra-evk-v2-v2-0-dcc9316ebb59@oss.qualcomm.com/
-> 
-> Link to Driver and DT-Binding change: https://lore.kernel.org/all/20261012091658.635441-1-akash.kumar@oss.qualcomm.com/
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] dts: socfpga: misplaced snps,dwmac-mdio compatible string breaks e=
+thernet
+--
 
-This depends on both the driver+dt change *and* the missing base
-DT, making this effectively unmergeable. Please either send the
-changes together or refrain from sending them until that's possible
+commit 2a1e9ba4738dc175386bf567bcce3c8d3aa0f021
+Author: Petko Manolov <petko.manolov@konsulko.com>
+Subject: arm: dts: altera: add Draeger M48 CPU Module
 
-Konrad
+This commit adds the device tree for the Altera SoCFPGA Cyclone 5 portion
+of the Draeger M48 board.
+
+> diff --git a/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48=
+.dts b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
+> new file mode 100644
+> index 0000000000000..f19e24c80e89a
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
+[ ... ]
+> +&gmac0 {
+> +	status =3D "okay";
+> +	phy-mode =3D "rgmii";
+> +	phy-handle =3D <&ethphy>;
+> +
+> +	mdio0 {
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +
+> +		ethphy: ethernet-phy@0 {
+> +			compatible =3D "snps,dwmac-mdio";
+
+[Severity: High]
+Does this compatible string belong in the parent mdio0 node instead of the
+PHY node?
+
+During board boot, the STMMAC ethernet driver (stmmac_of_get_mdio()) attemp=
+ts
+to discover and register the MDIO bus by iterating over the MAC's direct
+child nodes to find the one with the compatible =3D "snps,dwmac-mdio" prope=
+rty.
+
+Because mdio0 lacks the compatible string, the driver fails to locate the
+MDIO controller, leading to an aborted MDIO bus registration. Furthermore,
+the PHY node is assigned a wrong compatible string (it should either be
+omitted to let the generic PHY driver probe via PHY ID, or use a standard
+PHY compatible like ethernet-phy-ieee802.3-c22).
+
+Will this cause a complete failure of the Ethernet interface on this board?
+
+> +			reg =3D <0>;
+> +			rxc-skew-ps  =3D <1860>;
+> +			rxd0-skew-ps =3D <0>;
+> +			rxd1-skew-ps =3D <0>;
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015131352.3624=
+327-1-petko.manolov@konsulko.com?part=3D3
