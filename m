@@ -1,328 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx3.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73ECD457E6D
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 06:14:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D262148122F;
+	Thu, 15 Oct 2026 06:19:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=141.14.17.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792044858; cv=none; b=hbiJNCVpMYtR06fjGsrn9dNt2QeGfOVRoogv5a3RUqJNm5IOQDP1sVL3azA40eqJSuljw7AsPxqy2iltGlOoZDmDSahxSD6WsAMDOqYVFltOq5fwbjbdvV0wfymsQVS7NE+8S10EV3x4R40fDj8hPxn4EhX9Qk3AgxcaJFJHLl8=
+	t=1792045197; cv=none; b=TilvxmRrBKJdML4Y66hiTFwymF4txsnU+8ETwGBxcYLbPOcrBTltQ+3b5bR1FVq6AsgZxx4VBBnTOj5TowSF0ewr9XhwoPNyXrYD9W6wamxAUGBcjOArr+moNhLbYd9mXQeqXjlXGR85pNWogMXt+h/HSthYV+P3fjQwrgGcvyg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792044858; c=relaxed/simple;
-	bh=imQf+O2hNss+xysUdvoVWZ0bOZRzURuetfmotv27mUE=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=HqiOR8Em5iwY530GmfaNjEd25RsDmS3UfgMpmkjp24iiBvTpn60snkpwlueZvU3d5jpaWBJBDvjcGyq5IFgs9K/AH5DO94pRoq+qOoqtqrQ1n7V5O8QFmGeEETqLTteT7agf/Q+ahbZ0lZACZ1CUfK8CJzO5qaENfn2h8vGPERY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lncMKiKU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792045197; c=relaxed/simple;
+	bh=uAzzCY3ndU+qqC/YhMsfqq4WI/d1uNiWBP52Yel97eg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sAQj/v1gtdxvoTX7GKh4/hoN2vcqGEIWdSmHgev32X8nZE7G4RqnjYGlAOGMawefsBuQ99oLBxFYeKwCMu7trOzf5/p4trFUS7KqAtrlQs4Wux9DVev0VloHU2viQ0usbYTzTuzIv/jgdBAuOpfGImfmnCh6Awimm0V8/kuDbwM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=molgen.mpg.de; spf=pass smtp.mailfrom=molgen.mpg.de; dkim=pass (2048-bit key) header.d=molgen.mpg.de header.i=@molgen.mpg.de header.b=gV4uD0HD; arc=none smtp.client-ip=141.14.17.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=molgen.mpg.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=molgen.mpg.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lncMKiKU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 984CF1F000C9;
-	Thu, 15 Oct 2026 06:14:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792044848;
-	bh=EXIj9VpuWinPYqJxhGQg8sdmMebjENPkyLayjQfRQvM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lncMKiKUIiT9+pa7M5L3IZXaqddaVbwVuF47ITwh57bN/ar6xTYi8diGM230i4Oww
-	 9fTVTk+bv12EfT94Fs2uEFzb15KQmju6vPb+2Uf76YyyLU+4zUm0mS7yzIXxIa3pXP
-	 eDgteD5Wy4PXQ2SrD0PdB8m6HbcARg6gl9/7StYwoRqb5spNamc/ueWvmf1Nrz5Jl9
-	 JgqhQjDqG35FlUA7UVL/JsBtHyfhoKzunwUHBUBO2BC5CireXGLECPfoWT1HJROXbs
-	 2OvgdOFmEJJkSymuOAKnenoFHX5zrgF8j0jpxf0j6UtpQR5v9zlD54JzKluOH2ihka
-	 99IdrhOX933cQ==
-Message-ID: <sashiko-outbox-172334@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] ASoC: codecs: Add driver for Iron Device MA5311
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hyunuk Son" <hyunuk.son@irondevice.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261015060408.128711-3-hyunuk.son@irondevice.com>
-References: <20261015060408.128711-1-hyunuk.son@irondevice.com>
- <20261015060408.128711-3-hyunuk.son@irondevice.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 06:14:08 +0000
+	dkim=pass (2048-bit key) header.d=molgen.mpg.de header.i=@molgen.mpg.de header.b="gV4uD0HD"
+Received: from [192.168.2.230] (p57bd9217.dip0.t-ipconnect.de [87.189.146.23])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: pmenzel)
+	by mx.molgen.mpg.de (Postfix) with ESMTPSA id 9CADF4C442F96C;
+	Thu, 15 Oct 2026 08:18:56 +0200 (CEST)
+Message-ID: <f63f8f6d-54b8-4f0d-bc4a-fdb9cdefaba2@molgen.mpg.de>
+Date: Thu, 15 Oct 2026 08:18:55 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 4/5] wifi: ath12k: Support MAC address from the
+ firmware node
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Marcel Holtmann <marcel@holtmann.org>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ Jeff Johnson <jjohnson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Abel Vesa <abelvesa@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-bluetooth@vger.kernel.org, linux-wireless@vger.kernel.org,
+ ath12k@lists.infradead.org
+References: <20261014-b4-nvmem-efivar-v1-0-187c85f65018@oss.qualcomm.com>
+ <20261014-b4-nvmem-efivar-v1-4-187c85f65018@oss.qualcomm.com>
+Content-Language: en-US
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+In-Reply-To: <20261014-b4-nvmem-efivar-v1-4-187c85f65018@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=molgen.mpg.de; s=20260906; 
+	t=1792045139; 
+	h=from:from:subject:date:message-id:mime-version:content-type:content-transfer-encoding; 
+	bh=PV4vgUC8vzMQkMRZKRfTyHLU0bvgUrJ1JuVDgdBfKCM=; 
+	b=gV4uD0HDXWf64WAe9SD47afIh0zwoLH3zySpaE8EGBTXxO5r67cW0t5HXEJB7K2/o6ySSrJmwu5U
+	Xn9QJtnZ37RLPBJ4WrgVEkb//xYuhv3wilZCdKVWrFrmGFxDPzefPy1Z3jIbE6OSDdqRmFmQtgdQo9
+	aA4eExXakMVrzNevSpL4dYNQjEZxiMtNs0PTH4TybvpSKIN/2zGVZt5gE4G9/4qJVFFPKDqFjltTo5
+	QRwm8n2NteQ7liwaSp3btR30biUUWA9xQC3i5YqpIsg3gEZzURvphqki9eo9Zc5YD11LA0/40n8aIp
+	+ywb8j5TTxo9cw3ZDlT7eND7g9fVuoGA==
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] asoc: missing symmetric constraints allows concurrent PLL reconfig=
-uration
-- [Medium] irq: thread handler incorrectly returns negative error codes
-- [Medium] asoc: uninitialized kernel stack memory leak in ALSA control get=
-ters
-- [Medium] asoc: hardware reset ALSA control irrevocably desynchronizes DAP=
-M state
-- [Medium] asoc: falsely advertised 44.1kHz capability fails unconditionally
-- [Medium] asoc: ma5311: TOCTOU race between capture_mode_put and DAPM even=
-ts
-- [Low] i2c: missing named initializers for i2c_device_id array
---
+Dear Abel,
 
-commit cea868f0ad866edece054bdcc99ee119173a63e4
-Author: Hyunuk Son <hyunuk.son@irondevice.com>
-Date:   Thu Oct 15 06:04:07 2026 +0000
 
-    ASoC: codecs: Add driver for Iron Device MA5311
-   =20
-    Add an ASoC codec driver for the Iron Device MA5311.
-   =20
-    The driver supports audio playback and capture through I2S
-    and TDM interfaces. It provides ALSA mixer controls for audio
-    configuration and uses regmap for register access.
+Thank you for your patch.
 
-> diff --git a/sound/soc/codecs/ma5311.c b/sound/soc/codecs/ma5311.c
-> new file mode 100644
-> index 0000000000000..ea6d6793bfb21
-> --- /dev/null
-> +++ b/sound/soc/codecs/ma5311.c
+Am 14.10.26 um 15:02 schrieb Abel Vesa:
+> Read a MAC address from the device's firmware node (a DT "mac-address"/
+> "local-mac-address" property, or an nvmem cell named "mac-address" via
+> device_get_mac_address()), and use it in preference to the address from
+> the firmware board data. This mirrors what ath10k and ath11k already do
+> and lets the WLAN MAC be sourced from firmware-provisioned storage such
+> as a UEFI variable exposed through nvmem.
+> 
+> A device tree / nvmem address takes precedence over the board-data MAC,
+> so an explicitly provisioned address wins even when the firmware reports
+> a valid per-pdev address. An all-zero (absent) address is ignored.
+> 
+> Note: the provisioned address must be a valid unicast MAC; a multicast
+> address (odd first octet) is rejected by nvmem_get_mac_address().
 
-[ ... ]
+Please add a paragraph how you tested this.
 
-> +static int ma5311_adc_volume_control_get(struct snd_kcontrol *kcontrol,
-> +					 struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component =3D snd_kcontrol_chip(kcontrol);
-> +	struct ma5311_priv *ma5311 =3D snd_soc_component_get_drvdata(component);
-> +	const struct soc_mixer_control *mc =3D
-> +	    (const struct soc_mixer_control *)kcontrol->private_value;
-> +	unsigned int *cache =3D ma5311_adc_volume_control_cache(ma5311, mc->reg=
-);
-> +	unsigned int val;
+> Assisted-by: LLM
+> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> ---
+>   drivers/net/wireless/ath/ath12k/mac.c | 14 +++++++++++++-
+>   1 file changed, 13 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/wireless/ath/ath12k/mac.c b/drivers/net/wireless/ath/ath12k/mac.c
+> index 01f8c6572f65..f4d2d0377c8e 100644
+> --- a/drivers/net/wireless/ath/ath12k/mac.c
+> +++ b/drivers/net/wireless/ath/ath12k/mac.c
+> @@ -14878,15 +14878,27 @@ static int ath12k_mac_hw_register(struct ath12k_hw *ah)
+>   	u32 ht_cap = U32_MAX, antennas_rx = 0, antennas_tx = 0;
+>   	bool is_6ghz = false, is_raw_mode = false, is_monitor_disable = false;
+>   	u8 *mac_addr = NULL;
+> +	u8 mac_from_dt[ETH_ALEN] = {};
+>   	u8 mbssid_max_interfaces = 0;
+>   
+>   	wiphy->max_ap_assoc_sta = 0;
+>   
+> +	/*
+> +	 * Allow a MAC address provided through the device tree (directly or
+> +	 * via an nvmem cell named "mac-address") to override the one from the
+> +	 * firmware board data.
+> +	 */
+> +	device_get_mac_address(ab->dev, mac_from_dt);
 > +
-> +	if (!cache)
-> +		return -EINVAL;
-> +
-> +	regmap_read(ma5311->adc_regmap, mc->reg, &val);
-> +
-> +	ucontrol->value.integer.value[0] =3D val & MA5311_ADC_VOL_CTRL_MASK;
+>   	for_each_ar(ah, ar, i) {
+>   		u32 ht_cap_info = 0;
+>   
+>   		pdev = ar->pdev;
+> -		if (ar->ab->pdevs_macaddr_valid) {
+> +		if (!is_zero_ether_addr(mac_from_dt)) {
+> +			/* A device tree / nvmem address takes precedence. */
 
-[Severity: Medium]
-Does this code leak uninitialized kernel stack memory to userspace if the I=
-2C
-transaction fails? The driver uses REGCACHE_NONE, so every read triggers a
-physical I2C transaction. If regmap_read() fails and returns a negative err=
-or
-code, val remains uninitialized, but it is masked and copied to the ucontrol
-value anyway.
+The comment is redundant as the code ordering shows exactly this.
 
-> +	*cache =3D ucontrol->value.integer.value[0];
-> +
-> +	return 0;
-> +}
-> +
-> +static int ma5311_adc_volume_control_put(struct snd_kcontrol *kcontrol,
-> +					 struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component =3D snd_kcontrol_chip(kcontrol);
-> +	struct ma5311_priv *ma5311 =3D snd_soc_component_get_drvdata(component);
-> +	const struct soc_mixer_control *mc =3D
-> +	    (const struct soc_mixer_control *)kcontrol->private_value;
-> +	unsigned int val =3D ucontrol->value.integer.value[0];
-> +	unsigned int *cache;
-> +
-> +	if (val < 0 || val > MA5311_ADC_VOL_CTRL_MASK)
-> +		return -EINVAL;
-> +
-> +	cache =3D ma5311_adc_volume_control_cache(ma5311, mc->reg);
-> +
-> +	if (!cache)
-> +		return -EINVAL;
-> +
-> +	if (*cache =3D=3D val)
-> +		return 0;
-> +
-> +	regmap_update_bits(ma5311->adc_regmap, mc->reg,
-> +			   MA5311_ADC_VOL_CTRL_MASK, val);
+> +			ether_addr_copy(ar->mac_addr, mac_from_dt);
+> +			ar->mac_addr[4] += ar->pdev_idx;
+> +		} else if (ar->ab->pdevs_macaddr_valid) {
+>   			ether_addr_copy(ar->mac_addr, pdev->mac_addr);
+>   		} else {
+>   			ether_addr_copy(ar->mac_addr, ar->ab->mac_addr);
+> 
 
-[Severity: Medium]
-Should the software cache update be skipped if the regmap update fails? The
-return value of regmap_update_bits() is ignored here, which silently updates
-the software cache even when the hardware I2C write fails.
+With the commit message extended, and the comment removed:
 
-> +
-> +	*cache =3D val;
-> +
-> +	return 1;
-> +}
+Reviewed-by: Paul Menzel <pmenzel@molgen.mpg.de>
 
-[ ... ]
 
-> +static int ma5311_capture_mode_put(struct snd_kcontrol *kcontrol,
-> +				   struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component =3D snd_kcontrol_chip(kcontrol);
-> +	struct ma5311_priv *ma5311 =3D snd_soc_component_get_drvdata(component);
-> +	unsigned int val =3D ucontrol->value.enumerated.item[0];
-> +
-> +	if (val >=3D ARRAY_SIZE(ma5311_capture_mode_text)) {
-> +		dev_err(ma5311->dev, "%s: Out of range\n", __func__);
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (ma5311->capture_mode =3D=3D val)
-> +		return 0;
-> +
-> +	if (ma5311->adc_power_status) {
+Kind regards,
 
-[Severity: Medium]
-Could this lockless check of adc_power_status lead to a TOCTOU race window?
-If a user-space application writes to this mixer control concurrently with
-the start or stop of a stream, ma5311_adc_event() (which holds the
-dapm_mutex) might update the hardware state right after this check passes,
-leading to corrupted audio capture and an inconsistent hardware state.
-
-> +		dev_err(ma5311->dev, "Try after capture is complete.\n");
-> +		return -EBUSY;
-> +	}
-
-[ ... ]
-
-> +static int ma5311_reset_control_put(struct snd_kcontrol *kcontrol,
-> +				    struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component =3D snd_kcontrol_chip(kcontrol);
-> +	struct ma5311_priv *ma5311 =3D snd_soc_component_get_drvdata(component);
-> +	unsigned int val =3D ucontrol->value.enumerated.item[0];
-> +	int ret;
-> +
-> +	if (!val)
-> +		return 0;
-> +
-> +	if (!ma5311->reset_gpio)
-> +		return -ENODEV;
-> +
-> +	ma5311->last_bclk =3D 0;
-> +
-> +	gpiod_set_value_cansleep(ma5311->reset_gpio, 1);
-> +	msleep(MA5311_RESET_ASSERT_MS);
-> +	gpiod_set_value_cansleep(ma5311->reset_gpio, 0);
-> +	msleep(MA5311_RESET_RECOVERY_MS);
-> +
-> +	ret =3D ma5311_reset(component);
-
-[Severity: Medium]
-Will this hardware reset irrevocably desynchronize the DAPM state if
-triggered during an active stream? Because the regmaps use REGCACHE_NONE and
-this operation holds no stream locks, the ALSA framework cannot automatical=
-ly
-restore the previously configured dynamic state (PLL settings, DAPM routing,
-etc) after the reset.
-
-> +	dev_dbg(component->dev, "Hardware Reset Done\n");
-> +	return ret;
-> +}
-
-[ ... ]
-
-> +static int ma5311_dai_hw_params(struct snd_pcm_substream *substream,
-> +				struct snd_pcm_hw_params *params,
-> +				struct snd_soc_dai *dai)
-> +{
-> +	struct snd_soc_component *component =3D dai->component;
-> +	struct ma5311_priv *ma5311 =3D snd_soc_component_get_drvdata(component);
-> +	unsigned int bclk =3D 0;
-> +	int ret;
-> +
-> +	switch (params_rate(params)) {
-> +	case 8000:
-> +	case 12000:
-> +	case 16000:
-> +	case 24000:
-> +	case 32000:
-> +	case 44100:
-
-[Severity: Medium]
-Does the advertised support for 44.1kHz streams unconditionally fail in
-ma5311_setup_pll()? The hardware parameters explicitly accept 44100 here,
-but the ma5311_pll_matches table only contains exact multiples of 48kHz,
-which will result in no matching BCLK entry and a failure to configure
-the PLL.
-
-> +	case 48000:
-> +	case 96000:
-> +		break;
-
-[ ... ]
-
-> +static struct snd_soc_dai_driver ma5311_dai[] =3D {
-> +	{
-> +	 .name =3D "ma5311-amplifier",
-> +	 .id =3D 0,
-> +	 .playback =3D {
-> +		      .stream_name =3D "Playback",
-> +		      .channels_min =3D 1,
-> +		      .channels_max =3D 2,
-> +		      .rates =3D MA5311_RATES_PLAYBACK,
-> +		      .formats =3D MA5311_FORMATS,
-> +		      },
-> +	 .capture =3D {
-> +		     .stream_name =3D "Capture",
-> +		     .channels_min =3D 1,
-> +		     .channels_max =3D 8,
-> +		     .rates =3D MA5311_RATES_CAPTURE,
-> +		     .formats =3D MA5311_FORMATS,
-> +		     },
-> +	 .ops =3D &ma5311_dai_ops_amp,
-
-[Severity: High]
-Is it possible for concurrent playback and capture streams with different
-rates to silently overwrite the shared PLL settings? Without the
-.symmetric_rates =3D 1, .symmetric_channels =3D 1, and .symmetric_samplebit=
-s =3D 1
-flags, ALSA won't enforce symmetry. This means a second stream could
-reconfigure the PLL via ma5311_setup_pll() and instantly break the clock and
-format for the first stream.
-
-> +	  },
-> +};
-
-[ ... ]
-
-> +static irqreturn_t ma5311_irq_thread(int irq, void *data)
-> +{
-> +	struct ma5311_priv *ma5311 =3D data;
-> +	unsigned int dac_status;
-> +	unsigned int dac_ocp_status;
-> +	unsigned int dac_scp_status;
-> +	int ret =3D 0;
-> +
-> +	ret |=3D regmap_read(ma5311->ctrl_regmap,
-> +			   MA5311_DAC_EA_DAC_STATUS, &dac_status);
-> +
-> +	ret |=3D regmap_read(ma5311->ctrl_regmap,
-> +			   MA5311_DAC_EB_DAC_OCP_STATUS, &dac_ocp_status);
-> +
-> +	ret |=3D regmap_read(ma5311->ctrl_regmap,
-> +			   MA5311_DAC_EC_DAC_SCP_STATUS, &dac_scp_status);
-> +
-> +	if (ret) {
-> +		dev_crit(ma5311->dev,
-> +			 "Error Occurred During Interrupt Handling\n");
-> +		return ret;
-
-[Severity: Medium]
-Should this return IRQ_NONE instead of the negative error code from
-regmap_read()? Returning a negative errno value from an IRQ thread handler
-causes the core IRQ subsystem to misinterpret the state, which can trigger
-spurious interrupt warnings and permanently disable the interrupt line.
-
-> +	}
-
-[ ... ]
-
-> +static const struct i2c_device_id ma5311_i2c_id[] =3D { { "ma5311", 0 },=
- { } };
-
-[Severity: Low]
-Could you use named initializers for this array element? The global I2C
-subsystem guidelines require arrays of type struct i2c_device_id to use nam=
-ed
-initializers (e.g., { .name =3D "ma5311", .driver_data =3D 0 }).
-
-> +
-> +MODULE_DEVICE_TABLE(i2c, ma5311_i2c_id);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015060408.1287=
-11-1-hyunuk.son@irondevice.com?part=3D2
+Paul
