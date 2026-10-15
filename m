@@ -1,205 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CF324F85D4;
-	Thu, 15 Oct 2026 19:19:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 392FD4D0A0B;
+	Thu, 15 Oct 2026 19:21:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792091954; cv=none; b=rw3exh7fj6IErK6Z6eZxVUgt+ToYvvrpDU87BD21GGEpCMsNbf2INi7JwekfDSaPpD8Lho7HarRZtTYKgcH8Dzo58MhXKKj3t/u9IKxSHT93Pij0+/u+H/fvDPVghHBiElU82q0WK7V6kHcyu5A7sAgbIsWVU+YMckmZ3GvONRs=
+	t=1792092104; cv=none; b=o0+z8UyuUvCoQ2uFTd5U096Yf1i/zFo3L0jx4hwvNBSlOLPcGGzX714soppaS5yB1fm+DkJJNq8aYBn9gsYU/ymqawa/K7zFBk4fHQSaMQiTOZFWYcLgLH0esNsaupEtWmQfziyQGNYepWkR+j4NMZ6135CtHLh65MEmNgH6pnQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792091954; c=relaxed/simple;
-	bh=HQRyGIwCyD6KQ/SubEoF8tyFS9aUEx1UUBvhQHXufEg=;
+	s=arc-20240116; t=1792092104; c=relaxed/simple;
+	bh=9LqhazZ8y0jzFuAz+1Zjczovem69p4adWSJPxrySQ4w=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bqVrYEZQO4g8S6F/uG6eI5QM0ntcLN4IsMr59aW2ZRFt5SP1i9ujOHuypPvS6UUYKTjG7e/lQWnIzFcBLRXM3YAW8N/GcZ2I8kn8f/w2KfXY+LlFTaDD8KUh9rDTPNt0RX6Sy1b0g3Ppc/w3psD9zOIqGOTMjALuKtWl65716pE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h+4xA+rn; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=gy/g+Bl0j3eMNlEYD7AzhTXxrxM76TePdR2NqiwPBD1Nobd9+bBG3x15BijLgIH5Zc4AAMA4YWEHNEIY0OQXSj+in3ryl9eMlOnk6f0t7wAOd8BWYjaomWmKoepxc+VjoZR/1O4OxYQ1QpDSdP17JUOk/RqqoSGloS5uwR9m8io=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=n3Cv3nPi; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h+4xA+rn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 051681F000C4;
-	Thu, 15 Oct 2026 19:19:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792091947;
-	bh=8BFzn4MpV/rLytOd6a1wwUut7z6g1IMcMQ0sY+6qkTE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=h+4xA+rnBsj+BlKQeMUZDO33npAUNRADJso2vZTNrYTbYkDbqGYyApuQwvhIdegLm
-	 sn61cK7b6BGHnWW5mpOnUJhj9j18y2BPeEa/RiWVTwiH8PJtPPbSavZ4gmF5IDElst
-	 QdFzUbs4MZhVUpdeeT0j03BuymitBj5Q18xfzZIBuoHSfSWQDz5Ejd+TBq577D+9tW
-	 GKhW3Azy/RumQrrPdT3cinMdWIKuJqaUubEQOGhSQ0KL0eWEwP1HZCn0w+J+gQjOWS
-	 93yxmAzYyoR5Yl+mb9UyAaWG44A7nsKxgdOB45OIeVqSYODIM88WfSQoR6xLRlhhTA
-	 FatKBTFdexEzA==
-Date: Thu, 15 Oct 2026 20:19:02 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Jacky Chou <jacky_chou@aspeedtech.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="n3Cv3nPi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792092102; x=1823628102;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=9LqhazZ8y0jzFuAz+1Zjczovem69p4adWSJPxrySQ4w=;
+  b=n3Cv3nPih7jUBd9JIwE5Pg3aqeMV+OdAB/w+/KKONsAUxd/7DYuQzeci
+   ZChy6Y1epHlESNxDhtRHm3SrSCiU12Kvcw3Q5/BJaUy2yZRPnF5P4nrHQ
+   q7r71CEeyUCJh8/JBFPVOCIEQZxmCxKaQgZr3/WO4cjJTNoEEfEwBkfLM
+   Dw0l7FKpb5sViIDVcvLXZlB42CFe4bihFKE+27mMW3GpeAQyfuuASYTPn
+   kZWYPZPgmOxlOu7aoULoiTAOlr7Bf9Deg23TMPO8bNCX8dAYOD6bpj4Ma
+   jsQr5Zb9xxYk0Ke3DlWvnHXcpAdr2RgVj+0gRVRw8jes+iJpvTsPyXHpM
+   g==;
+X-CSE-ConnectionGUID: 3udm8/EGSPaNWc0Bq0NcAA==
+X-CSE-MsgGUID: qDy2VMzhRAyl86fT3MEsTA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="874444"
+X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
+   d="scan'208";a="874444"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 12:21:42 -0700
+X-CSE-ConnectionGUID: bSRXlOtVSZOQfVM12h86JQ==
+X-CSE-MsgGUID: EcAkDL28RuSW35z1IStPJg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
+   d="scan'208";a="2237555"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.117])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 12:21:38 -0700
+Date: Thu, 15 Oct 2026 22:21:35 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: longzhao@ambarella.com
+Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
+	Linus Walleij <linusw@kernel.org>,
+	Michael Walle <mwalle@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Po-Yu Chuang <ratbert@faraday-tech.com>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v3 1/6] dt-bindings: net: ftgmac100: Add AST2700
- compatible
-Message-ID: <20261015-anthem-kitty-d0f8794da246@spud>
-References: <20261015-support_ast2700-v3-0-8d7999171ac4@aspeedtech.com>
- <20261015-support_ast2700-v3-1-8d7999171ac4@aspeedtech.com>
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v10 3/8] gpio: pl061: drop redundant pending check in the
+ IRQ handler
+Message-ID: <atEnv-fSdwSDCcO1@ashevche-desk.local>
+References: <20261015-cv75-gpio-v10-0-3fe3eb315a55@ambarella.com>
+ <20261015-cv75-gpio-v10-3-3fe3eb315a55@ambarella.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="P44lgaogo9RFWpq3"
-Content-Disposition: inline
-In-Reply-To: <20261015-support_ast2700-v3-1-8d7999171ac4@aspeedtech.com>
-
---P44lgaogo9RFWpq3
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261015-cv75-gpio-v10-3-3fe3eb315a55@ambarella.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Oct 15, 2026 at 02:46:53PM +0800, Jacky Chou wrote:
-> Add AST2700 to the FTGMAC100 compatible list and document that its
-> RMII RCLK gate matches the earlier Aspeed SoCs. Allow the reset line for
-> AST2700 as it follows the same reset requirements as AST2600.
->=20
-> Require "phy-mode" to be present in the device tree when the AST2700
-> compatible is used, matching the driver's probe-time requirement.
->=20
-> Make aspeed,ast2700-mac a standalone compatible instead of pairing it
-> with the generic "faraday,ftgmac100" fallback: if a node ever bound
-> through the generic entry alone, ftgmac100_probe() would set
-> rxdes0_edorr_mask/txdes0_edotr_mask to BIT(15) instead of the Aspeed
-> BIT(30), skip Aspeed clock setup, and leave the DMA mask too narrow.
->=20
-> The existing aspeed,ast2400-mac, aspeed,ast2500-mac, and
-> aspeed,ast2600-mac compatibles have the same structural problem: they
-> are currently only valid when paired with "faraday,ftgmac100", and a
-> node that bound through the generic entry alone would hit the same
-> BIT(15) vs BIT(30) mismatch. Give them the same standalone treatment as
-> AST2700, so none of the Aspeed compatibles require the generic fallback
-> alongside them.
+On Thu, Oct 15, 2026 at 06:53:30PM +0800, Long Zhao via B4 Relay wrote:
 
-This needs to be two commits. One fixing the existing devices and one
-adding the new one.
+> for_each_set_bit() does nothing when the mask is zero, so the
+> if (pending) wrapper around it is redundant.
 
-> ftgmac100_of_match[] has had dedicated entries for AST2400, AST2500,
-> and AST2600 since commit 03a2aba50b2c ("net: ftgmac100: List all
-> compatibles"), so there is no known kernel + devicetree combination
-> where a node has actually bound through the generic entry and gotten
-> the wrong EDORR bit. This part is a binding correctness fix, not a fix
-> for an observed failure.
+Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-> Note that arch/arm/boot/dts/aspeed/aspeed-g4.dtsi, aspeed-g5.dtsi, and
-> aspeed-g6.dtsi still declare their MAC nodes with the two-string
-> "aspeed,astXXXX-mac", "faraday,ftgmac100" compatible, so this will make
-> dtbs_check warn against those files until the redundant fallback
-> compatible is dropped there as well. That .dtsi change will be sent as
-> a separate series through the Aspeed/arm-soc tree, since dt-bindings
-> changes don't go through that tree.
+One nit-pick below, though.
 
-This should be below the --- line or not even included in the patch.
+...
 
-pw-bot: changes-requested
+> +	for_each_set_bit(offset, &pending, PL061_GPIO_NR)
+> +		generic_handle_domain_irq(gc->irq.domain,
+> +					  offset);
 
-Thanks,
-Conor.
+Make it a single line now
 
->=20
-> Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
+		generic_handle_domain_irq(gc->irq.domain, offset);
 
-> ---
->  .../devicetree/bindings/net/faraday,ftgmac100.yaml | 26 ++++++++++++++--=
-------
->  1 file changed, 17 insertions(+), 9 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml=
- b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
-> index d14410018bcf..0a376b849a91 100644
-> --- a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
-> +++ b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
-> @@ -13,12 +13,11 @@ properties:
->    compatible:
->      oneOf:
->        - const: faraday,ftgmac100
-> -      - items:
-> -          - enum:
-> -              - aspeed,ast2400-mac
-> -              - aspeed,ast2500-mac
-> -              - aspeed,ast2600-mac
-> -          - const: faraday,ftgmac100
-> +      - enum:
-> +          - aspeed,ast2400-mac
-> +          - aspeed,ast2500-mac
-> +          - aspeed,ast2600-mac
-> +          - aspeed,ast2700-mac
-> =20
->    reg:
->      maxItems: 1
-> @@ -30,7 +29,7 @@ properties:
->      minItems: 1
->      items:
->        - description: MAC IP clock
-> -      - description: RMII RCLK gate for AST2500/2600
-> +      - description: RMII RCLK gate for AST2500/2600/2700
-> =20
->    resets:
->      maxItems: 1
-> @@ -82,26 +81,35 @@ allOf:
->            contains:
->              enum:
->                - aspeed,ast2600-mac
-> +              - aspeed,ast2700-mac
->      then:
->        properties:
->          resets: true
->      else:
->        properties:
->          resets: false
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: aspeed,ast2700-mac
-> +    then:
-> +      required:
-> +        - phy-mode
-> =20
->  unevaluatedProperties: false
-> =20
->  examples:
->    - |
->      ethernet@1e660000 {
-> -        compatible =3D "aspeed,ast2500-mac", "faraday,ftgmac100";
-> +        compatible =3D "aspeed,ast2500-mac";
->          reg =3D <0x1e660000 0x180>;
->          interrupts =3D <2>;
->          use-ncsi;
->      };
-> =20
->      ethernet@1e680000 {
-> -        compatible =3D "aspeed,ast2500-mac", "faraday,ftgmac100";
-> +        compatible =3D "aspeed,ast2500-mac";
->          reg =3D <0x1e680000 0x180>;
->          interrupts =3D <2>;
-> =20
->=20
-> --=20
-> 2.34.1
->=20
+-- 
+With Best Regards,
+Andy Shevchenko
 
---P44lgaogo9RFWpq3
-Content-Type: application/pgp-signature; name=signature.asc
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatEnJgAKCRB4tDGHoIJi
-0tRMAQDunFlmCDfUviJ8sA+t0KnHIDIY75AwiPa4adWnmVqXSwEAp1wrIKwwHcIF
-8bkBRdV58YYTs+hsuuMHbKyf8BjdoQ0=
-=a6xG
------END PGP SIGNATURE-----
-
---P44lgaogo9RFWpq3--
