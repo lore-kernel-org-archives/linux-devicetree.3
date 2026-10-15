@@ -1,471 +1,183 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2B255304BB
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 14:14:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C154D4A1E01
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 14:18:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792073658; cv=none; b=Lkezn8NYjLQ4/hTjs6A2LSfETnyhZ+JogDBh3UCGPjjIVzsv3AI0OpMLreKB7Kdw0UMYBF3lwUIgdg79eTuJGZm/w46872JBMfe4gI581mkLqB+nAbQaRXTkQ/9yr8UuJO6xLQ7NFreouFM8fb2wsCjZPPtlVrkeBvQLxp+OwR8=
+	t=1792073898; cv=none; b=S5iDINAhJuFBEVbP7k8Qk86Uz+q0Ixj6M+DkItTY+PCcZBPtEURpsjneMQrw/N4TFWG6tmYOuUXxJ/A93vZW4jw2B3phII1+QAa0Fj6OoKVUGYKTRi/La8h3O/5JcKIFscT6PSsAUxWcD0tRKd6LytFibKaSN2WJ3f9KXiL36E0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792073658; c=relaxed/simple;
-	bh=vifwALirNCulqflcyosVo587mRiiz/RrvkajLnxXmwg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=OQUlFH0Jo2jbR67MVv+j39MEH2GfGUvpe4DY+H44f5AfcJEDfyDGJxtbPW7uQOupf+b4lVmzwReE9M/Gf3iMECm/cs91pQiH4Ya2wRcjazxIkJX32YVI23gp6SeAJD7broMsu3A+qWlHMk3D1AvrtupzHmhrYJg+ck++7gLc+NA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ha8/vyvP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UsRKTPvT; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1792073898; c=relaxed/simple;
+	bh=WdMLefM7dUoJOaVxb3gVT6vIiuXbHSq9V7YKfmp1BAg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QOhF1AAqUV/UEMBMF+iyzO9vkQaCCZO54KDsnanyYy5awtjefWGUyV0I+5PgKRhik+avKZElGmDtW4tQurKXmNQm7UgCd1oTZrA5wOzQ02IttBstIbr4un16WmwCdRBKrVVfHf4cBrpi66B/jOwqKuXhRHYUmDSdnwnmvk2gBfU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=f5eCTPSQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XGvVvfls; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ha8/vyvP";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UsRKTPvT"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9kF7D2999159
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 14:14:16 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="f5eCTPSQ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XGvVvfls"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9jMV34077500
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 14:18:17 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	OsvYNszg57jlvaTs1ikqKAQgHALw87NQfyfWIWRw060=; b=ha8/vyvPKRMwqRVU
-	zKk41GEPVF+COGBKZ/Zx4rnU0krSGHIARZmS9TIkoxrWvcFZPGN7I6rEcX5HX9pR
-	uTleGOtiDx8/dyzpUUY6ysFvcymVtL+oXVbSbS5nRTgIlerrL4yhIFDP1pJqPPYm
-	cJ9lm7P6ueSoEkmEMs/U5KmPbPc2qnusigI5hWkQVdBcla56Od8keqDyNhvNI+fZ
-	94G9atKSBBYmW8bafSba28InqqFJ5LLzBW//Jb5knIoz9Hv57FLffhXjt8clCtth
-	LDdIvVVlqgAGVv4zMvkIWLUYWtprnIhA8UEii6jwyKnc1ep4KuQYz9RUTfGQG4tM
-	5z3HLw==
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hausm1bj2-1
+	suYjCd9Nie0pFdjhXxb4QQCH1IwbgguqYC73FW54hnU=; b=f5eCTPSQimTp/oxm
+	t5qkXSGaugck9ulor+MoXN8qaDI+uDMntfOJCmy26WszC2G9s5ClGeKROrYreIi3
+	G8Zydbjp+tW2E3xllOg6sYPZL9U0H1RapKs6mSJRolh4C6otGLASBRUyqhGh6ipv
+	Y0dqrX/r3pnYYE1QOXVeKIDG55wlnKF7Go8kkc3kB4jFZ+vx2tjIBA4brQo5j1fl
+	mr2SqkaiQFImuo4IjvYxLTVzXcCzhqBiGaJ6JqPHUiw05w+7ezdzKyAyxpDfbSzh
+	M8RL9WvV4+RLGfIHzF4LZ4+dfmwGbbbC59A2Gj0Nx15pVnQezd/M5iObvUU8z0y7
+	OQM6VQ==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4havbc14um-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 14:14:15 +0000 (GMT)
-Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6f8edf0c859so25169eaf.0
-        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 07:14:15 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 14:18:17 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-7cc0e22fe64so22043137.0
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 07:18:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792073655; x=1792678455; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OsvYNszg57jlvaTs1ikqKAQgHALw87NQfyfWIWRw060=;
-        b=UsRKTPvTYI1yda7Hn0ucaGqYi9GQ6/G51tq3/pshwtBT+wYXmUAEhQcAqfiEESO3EN
-         GPt737qWl40wcxRWt5iOMi4FOzNniH7yjNx9BZ3sdFa6XTIECGDjyFA8usZ0DtMn4OnQ
-         7MwHuBZGzExFShv2Fq/IuEXSzQUuNpsGgIyUUQj9744VCW4CefchRrom7Zns64HeBJVa
-         wdNzfPNvW+YfxDC7yCH8gByEOl19hu46yftA52dyuYpxuf1vLIzM+nMLfq1qSlBHlyvN
-         Jo0NQ2QcJoyHhmp3ElrW1xWR19wXRK8BHoCZDa8WhpwL4bHobefHf0ZbmZQBd3Hho2L9
-         VIQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792073655; x=1792678455;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1792073896; x=1792678696; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=OsvYNszg57jlvaTs1ikqKAQgHALw87NQfyfWIWRw060=;
-        b=N6MTK0dFxMdpaeIgaOWuo/UTL3HvxcFw9V/ZFfn/i8SQrgViYboWiuBjLvHULwlkg2
-         jbn8mwSL7BVUfwS40uYa2U55XKB+vMjb95kptv6Prf+2LiBm/SyWv5i4ukzTue6GckIr
-         QOxAfQS8/tbOZ5R5hlqV0GTTBQrlysme/ahxeZUmr8AUHRyikC/sZYZBNhgptQhPByeR
-         Ygedrk6WaiitutyNZdnjiBwVbLphgypETlOWfs7khua4cU+fAwT+G3iGPmpEL2mziLud
-         eXOY/VqdVoxtAGUEdxEU7q/lntyc46vsNZlTbr4qArD+KmuhUQb5HEK4/OPREAbkB4Jd
-         M/8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzsIXccrwTBaF3X7aLeuFxk5VQ8yPgp+Z86kUAQpZMmh5YOKpznB29VedRfQOl4B0Pxe0ieTLPIavoc@vger.kernel.org
-X-Gm-Message-State: AFq9FYIr4C0bgX70I8pkGMBGAN6m9BAUZz4JF7+VGYhV8S7dmunEsmsi
-	LcKShHfs7uFDymHLYtMBSunlrwmGf7+0zob0LIXOlSz1jRtI1FdD+LfRZ0/CjgxjbxXhsZjJu0a
-	gQ4J0yeD30dico3bnCIx2DwvFa4ptxJpYpHiOSWZ5aW/9myJi94HQuDGgul8+LoWX
-X-Gm-Gg: AYBFou3WHNjNNW8GTSdbVaRRL6oPeFsVhNyhbUsYnxFQhw3pyQj2v3uewetyP3/CYiu
-	c2zsGOjg9V4pVNqdXekvUSbkdZg5Gri01OjyfgGJuXCV1lVcL8GCozHJjV4+0ZE89k7/wnZ8IT5
-	sToRCFmlj8ReZAb+g78QBjCdE4Ymbh7QylROiCSdV/KJqhlEQ7Qr8tVEcY3yF3FGZFHaHQ2j13H
-	WrDJ1T74uGbLm9rY24ZAjbP8pTZLt1FKgL9s5/v5TuRo/hFUqpWVLFs56Fg6QWrXXviG4NiwOtp
-	rZoOIr55jujkUoSnCNukuJDN/VpXDTOFERFdfuGDNsYLxVe3b2k6ZJYOQbMhLDLy3tPbVtaqFSw
-	mVdaqGfYEEjfA1U1CJ1f76bDlFO9FHfb7ycY=
-X-Received: by 2002:a05:6820:200a:b0:6dc:e1c3:b2b4 with SMTP id 006d021491bc7-70110176ef6mr95072eaf.38.1792073654606;
-        Thu, 15 Oct 2026 07:14:14 -0700 (PDT)
-X-Received: by 2002:a05:6820:200a:b0:6dc:e1c3:b2b4 with SMTP id 006d021491bc7-70110176ef6mr95002eaf.38.1792073652940;
-        Thu, 15 Oct 2026 07:14:12 -0700 (PDT)
-Received: from hu-mohs-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6f47500ae30sm11366719eaf.1.2026.10.15.07.14.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 07:14:12 -0700 (PDT)
-From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 19:43:12 +0530
-Subject: [PATCH v1 4/4] ASoC: codecs: pm4125: Add the MBHC callbacks needed
- for jack detection
+        bh=suYjCd9Nie0pFdjhXxb4QQCH1IwbgguqYC73FW54hnU=;
+        b=XGvVvflsEPGFNITIbG9xtoOdydnlYGJeAdXUmC+kHzDjybKfQ8p8JBIxPUFir+cATd
+         E9s+U48bfg1XajCegKrJJo+CQhbt0Hi23rmMu4G9eB0pVBgkL9JU42ZrARWgGfW+OQE2
+         NpzR8/A7VRJHmNZk/EFsEgqLxVFGnU+ZitD9t3xQtT2LODPuo7E+dP928Gq59RVVQ9XN
+         3BfHPjQR/3Zt92nKwHlHfv8bk1BAckQkmxSEbl8muOjTbY5yeTNAJZ9I07dOd5utlPUe
+         X2WZScFdDZfVeazK51IBk3WlIbVWTrZ0hoiDq4pHXgPR9B3bis0IIf3hfvgEmnMmP84X
+         C5KQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792073896; x=1792678696;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=suYjCd9Nie0pFdjhXxb4QQCH1IwbgguqYC73FW54hnU=;
+        b=UJwtWaniUchLWkaTwyXIjx8QWHIQMQGrZYVzQ53NNA424UcMjxFyvp2Gqjd3mQgBiI
+         Fpsh7p7IgKRjstEb3CYZ6VDJX1dWxCSlnk0qejo/lVp1GwvtTwvnz30VdUqns9mOAB6u
+         pxKMxEmEW4OyqxBBpftjxfV8og1fY5CPDYqZiUO9N7xzeg1YjflKTZt/9CpkIIHcBpba
+         Rfm50CDNy/MOAgl9ZAjlFnFMohkyaETVFbCe1JCLTEK4j8tb+EeBBXpQ0yRmBDxkvI/K
+         V3Nl+AgVEFS5ePUI+/01Q1YdWZ3uUjMynVbluCAfaHaCtx6d8PHrDGodISTZVGhlHZwE
+         +7Xg==
+X-Forwarded-Encrypted: i=1; AKwUvByWSOJoxduoE+EnDtt1lvHN/SJZAeEK1Z2cXWZ9lKoUu0t+QvWMfG9xzNtBVPyOiwqLbIP5oC+rK5yb@vger.kernel.org
+X-Gm-Message-State: AFq9FYKj+byaJRj0GqE8ZDcLkIWidOvLW5nCpXhkO7MHql83X+roNUB0
+	Ja/Vey7tmWls/FJ3BYkgrM/E3ZsNdofuvSBMyZvwbiC32Ysu+2U7qfPuC6OsJRC81vsFiEOGTeB
+	fKiTvcBIstu1GZI4o6Pi29R47g2p7OOotKpWa7nn/AUCDsErcL7tm9BST3GUp9bip
+X-Gm-Gg: AYBFou14VH7W79jdtlgfDTZLmIeWmymfE1nPLYuMUjzVa8V3d/hOvVs1QDdaDIk7YMp
+	FjNtVq6MDDl/ZWlzvt504qAQ8sUkUxDtu5++F9HLD8c8LZ2AIp6HLHQjKA9WETaci6zrX+jmfmV
+	td0hoSMiaFxjffPxE7KtLio5ZbbvaR2BBjFRpoCDWa/KFAOceooQYdE32s+8+4B2tpEzb/atSF6
+	cfvW7vwEhVWUOGBfpym7bcR2sOAlqhdfDP677hDDnGbmzrSPmwuPglzUYL8j8A4oa1Rki+D8Bco
+	Cl2UkkE1Hr9fLsfDmRknzYTfRFaDBi578a0rb+NazZuvhaE789CqdRyt7ZHLuzIHFSipG06OVdr
+	uCZepENJc+9CsAmtzJL4TTg==
+X-Received: by 2002:ac5:ce83:0:b0:5ce:23fe:84d8 with SMTP id 71dfb90a1353d-5e91efe58e1mr4203634e0c.0.1792073896070;
+        Thu, 15 Oct 2026 07:18:16 -0700 (PDT)
+X-Received: by 2002:ac5:ce83:0:b0:5ce:23fe:84d8 with SMTP id 71dfb90a1353d-5e91efe58e1mr4203612e0c.0.1792073895639;
+        Thu, 15 Oct 2026 07:18:15 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3ed9b3dc15sm135553966b.37.2026.10.15.07.18.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 15 Oct 2026 07:18:14 -0700 (PDT)
+Message-ID: <25956f40-e7e1-4815-94a2-54ee8b1a50e7@oss.qualcomm.com>
+Date: Thu, 15 Oct 2026 16:18:12 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-pm4125_mbhc_support-v1-4-8bc1212db6f7@oss.qualcomm.com>
-References: <20261015-pm4125_mbhc_support-v1-0-8bc1212db6f7@oss.qualcomm.com>
-In-Reply-To: <20261015-pm4125_mbhc_support-v1-0-8bc1212db6f7@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: nord: add CoreSight debug nodes
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Alexey Klimov <alexey.klimov@linaro.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792073622; l=13255;
- i=mohammad.rafi.shaik@oss.qualcomm.com; s=20260424;
- h=from:subject:message-id; bh=vifwALirNCulqflcyosVo587mRiiz/RrvkajLnxXmwg=;
- b=xVkdlESIZnWIIvxIbb12RkB1Cx4qyAqsAtKha4RZ/N1qexOUb2h6oANXq128QmwXI90oDOJ+8
- /5cRNCjaEdpBrWf8wml3R93W6HCHNbhDBLsNv4/dA14rX9O9nlHBgtw
-X-Developer-Key: i=mohammad.rafi.shaik@oss.qualcomm.com; a=ed25519;
- pk=KZedmYgMGYOzuTpLGv56tdrL+pTLDP8pdmfQ91xemiA=
-X-Proofpoint-GUID: AukudxmnUG6v2OGjpoeop-JIpNSTAigx
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1NiBTYWx0ZWRfX4t4hmcKzTBRL
- 0Z4qjRzE3SQ3JgRjQs7PBlGB8vS4zz4xLXa6GaooAQQfcHLh0WWeh/5YwV8QHnaveJ9VJKK5Bcf
- aN4Ze19GpFoT5VG6aCataE0i3fqwUOKNf7YylFPWATo7vgTTsQ0rBZp7S25R6WdKRqqkDwhgdew
- vKUEg5cwqGTrhmGqfIw1KDR6vzmG8Fdr0PDzj4H9PYsFyrgoLz0LEwElFetbSDNyEAIjKHLEygO
- reocHWoyyW2ZK6pUantaaNluKnyCDnaEHE08tTBCFWKzyJz8MFKMBwIs1DwLGzE5O3VYJUAIK6v
- 8/lkEriBCk/KD+eGw8k64Y9bMDkTlNRFtBp5YuBC3bG3wyEXbimSK6U1CWOWAbH1zbGZ2tnTZeW
- GHKiZVANza2M1/OQ6wlg0xKSc6RJaTidu6oA9rpjaplKT/8zKFpoAWaqmyd5buK7hqk+YArINTB
- fY+11yC/32UCDUdI1DQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1NiBTYWx0ZWRfXy66rY9UaaboX
- wwL/3+Qhp9WULEL/1EXqXzBoUq0D2c/2Oa04DT6/m3Pg3jJ+g9kxGUu1NbdryteC95aNfEqVEwQ
- kxyy2g5LNmE2wYYcX/V9Svbp/QiDukI=
-X-Authority-Analysis: v=2.4 cv=Eb5d0/mC c=1 sm=1 tr=0 ts=6ad0dfb7 cx=c_pps
- a=V4L7fE8DliODT/OoDI2WOg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Jie Gan <jie.gan@oss.qualcomm.com>, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260922100850.527109-1-shengchao.guo@oss.qualcomm.com>
+ <20260922100850.527109-3-shengchao.guo@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260922100850.527109-3-shengchao.guo@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=QbvzLcbv c=1 sm=1 tr=0 ts=6ad0e0a9 cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=AT8lqgG73mO-_AR6YKwA:9 a=QEXdDO2ut3YA:10
- a=WZGXeFmKUf7gPmL3hEjn:22
-X-Proofpoint-ORIG-GUID: AukudxmnUG6v2OGjpoeop-JIpNSTAigx
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=iNO32DtW_iceHKFLXyIA:9 a=QEXdDO2ut3YA:10
+ a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1NiBTYWx0ZWRfX7KArVz00pMmz
+ ABpJSIXYX1lrKbXlHGPuj9mX0dXu9H9pZ63Pf/9mIirWKiBmFMiScIhpGWK+4NltqhTALyUB2+/
+ oaSKZBUOmSbA7q5YvjcO2ea9htqzLKc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1NiBTYWx0ZWRfX2ITvsIPJMN9J
+ KUwrEuXSJxu+6pt/J2sU4swXyLW7aOArc4LZEr9QkUJzwl/9pEldmHKkdGoDb1s+U3dRqQxE08J
+ +g83Bn/8bzM6L8xZAFIryf0RC4GpEMBhsd7clZ14nAegf++A5wOUDlpzSUtK217cmn1wZz6E0QO
+ /DWeZDer7e+Aqb6Kc64wyDqLsSW1U4TvQCntHY+cnZeFq62BU86nUjdxV6FiSbhHAtr0Ckboui0
+ F7rC9HN13AoMGRUXjX3mKpvvHmBa0P0H9YRFo4qPCbzAcdtVoKrOwwPp7p/BffPOOJehTX6cIbN
+ 1GWMZIrMuK/akNstJ1mALO1ZQE0lw22sLXE2ZzLjlXlkMiFGypmibARUo7hUKtxiT8XXWhNStnm
+ W8PtPGyxJ12qydw1X2VQI3DrEU/kPq7zcylL+B66VvPYcV6hOJuQSurN0JtiQ1QNEa6tZngmbVX
+ +pIpV69LkTA62Aol43w==
+X-Proofpoint-ORIG-GUID: q2_Erjco8WO32VJ5S-G9ngTHAc-eEsZs
+X-Proofpoint-GUID: q2_Erjco8WO32VJ5S-G9ngTHAc-eEsZs
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 phishscore=0 bulkscore=0 priorityscore=1501
- clxscore=1015 lowpriorityscore=0 adultscore=0 malwarescore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150056
+ impostorscore=0 clxscore=1015 malwarescore=0 lowpriorityscore=0
+ priorityscore=1501 spamscore=0 bulkscore=0 phishscore=0 suspectscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610150056
 
-The codec only hands the MBHC framework the electrical bias and button
-threshold callbacks, and leaves the rest of struct wcd_mbhc_cb empty.
-The framework falls back to driving the shared register fields itself
-for some of them, but it has no fallback at all for the ones that
-control hardware it cannot describe generically, so plug type detection
-runs without the RCO clock, without a micbias ramp and without the
-headset ground detection comparator, and never gets a usable ADC
-reading.
+On 9/22/26 12:08 PM, Shawn Guo wrote:
+> From: Jie Gan <jie.gan@oss.qualcomm.com>
+> 
+> Add the CoreSight trace topology for the Qualcomm Nord SoC: CTCU, STM,
+> TPDM/TPDA sources and aggregators, funnels, replicators, TMC ETR/ETF
+> sinks, TNoC/ITNoC nodes and per-subsystem CTIs. This wires up trace
+> sources for SOCCP, BCV/IMH/DPM, GCC, QM, DL_NOC, the CDSP NSP0-3
+> clusters, DLMM, EVA, MDSS0/1, LPASS and the AOSS SWAO priority TPDMs,
+> plus the DDR0-3 channel and LLCC TPDMs, all funneled through the
+> tn_ag aggregator into the main CoreSight funnel and out to the AOSS
+> sink.
 
-Add the callbacks the ADC based detection logic needs:
+[...]
 
- - clk_setup() enables the MBHC RCO, which clocks the detection FSM.
- - micbias_enable_status() lets the framework tell whether MIC_BIAS_2
-   is already up for recording, so it does not switch the button
-   current source on underneath a capture stream.
- - hph_pull_up_control() selects the HPHL pull up current used while
-   sensing an insertion, defaulting to 3uA as the hardware expects.
- - mbhc_micbias_control() routes the framework's MIC_BIAS_2 requests
-   through pm4125_micbias_control() so they share the reference count
-   with the DAPM micbias widgets and with the analog master bias.
- - mbhc_micb_ramp_control() ramps MIC_BIAS_2 instead of stepping it,
-   which is required before the cross connection check reads the
-   Schmitt trigger outputs.
- - mbhc_micb_ctrl_thr_mic() raises MIC_BIAS_2 to the threshold needed
-   to tell a special headset from an extension cable, and puts it back
-   afterwards.
- - get_micbias_val() reports the programmed MIC_BIAS_2 voltage. The
-   generic path assumes a 1V base, while this codec starts at 1.6V in
-   50mV steps, so the framework would scale every threshold wrongly.
- - mbhc_gnd_det_ctrl() enables the headset ground pull up comparator
-   together with ground detection, in that order on the way up and the
-   reverse on the way down.
- - hph_pull_down_ctrl() parks the headphone outputs in a pull down
-   while no jack is being driven.
 
-pm4125_mbhc_micb_adjust_voltage() changes MIC_BIAS_2 while it is
-enabled, which has to be done with the output briefly pulled up, so
-serialise it against concurrent requests with a mutex.
+> +		tpdm@12410000 {
+> +			compatible = "qcom,coresight-tpdm", "arm,primecell";
+> +			reg = <0x0 0x12410000 0x0 0x1000>;
+> +
+> +			clocks = <&aoss_qmp>;
+> +			clock-names = "apb_pclk";
+> +			label = "tpdm_ddr3_llcc_2";
+> +
+> +			qcom,cmb-element-bits = <32>;
+> +			qcom,cmb-msrs-num = <32>;
+> +
+> +			out-ports {
+> +				port {
+> +					ddr2_tpdm2_out: endpoint {
+> +						remote-endpoint = <&ddr2_tn_in9>;
+> +					};
+> +				};
+> +			};
+> +		};
+> +
+> +		tpdm@12411000 {
+> +			compatible = "qcom,coresight-tpdm", "arm,primecell";
+> +			reg = <0x0 0x12411000 0x0 0x1000>;
+> +
+> +			clocks = <&aoss_qmp>;
+> +			clock-names = "apb_pclk";
+> +			label = "tpdm_ddr3_llcc_3";
 
-Assisted-by: Claude Opus 5
-Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
----
- sound/soc/codecs/pm4125.c | 188 ++++++++++++++++++++++++++++++++++++++++++++++
- sound/soc/codecs/pm4125.h |  13 ++++
- 2 files changed, 201 insertions(+)
+GPT points out the labels should be ddr2_, not ddr3_ on these nodes
 
-diff --git a/sound/soc/codecs/pm4125.c b/sound/soc/codecs/pm4125.c
-index 2100f4e36..6dd5ce0f4 100644
---- a/sound/soc/codecs/pm4125.c
-+++ b/sound/soc/codecs/pm4125.c
-@@ -8,6 +8,7 @@
- #include <linux/irqdomain.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
-@@ -76,6 +77,8 @@ struct pm4125_priv {
- 	struct regmap_irq_chip_data *irq_chip;
- 	struct snd_soc_jack *jack;
- 	unsigned long status_mask;
-+	/* Protects micbias voltage adjustment against concurrent requests */
-+	struct mutex micb_lock;
- 	s32 micb_ref[PM4125_MAX_MICBIAS];
- 	s32 pullup_ref[PM4125_MAX_MICBIAS];
- 
-@@ -968,6 +971,12 @@ static int pm4125_set_swr_port(struct snd_kcontrol *kcontrol, struct snd_ctl_ele
- 	return 1;
- }
- 
-+static void pm4125_mbhc_clk_setup(struct snd_soc_component *component, bool enable)
-+{
-+	snd_soc_component_write_field(component, PM4125_ANA_MBHC_CTL_1,
-+				      PM4125_ANA_MBHC_CTL_RCO_EN_MASK, enable);
-+}
-+
- static void pm4125_mbhc_bias_control(struct snd_soc_component *component, bool enable)
- {
- 	snd_soc_component_write_field(component, PM4125_ANA_MBHC_ELECT,
-@@ -995,9 +1004,187 @@ static void pm4125_mbhc_program_btn_thr(struct snd_soc_component *component,
- 	}
- }
- 
-+static bool pm4125_mbhc_micb_en_status(struct snd_soc_component *component, int micb_num)
-+{
-+	if (micb_num != MIC_BIAS_2)
-+		return false;
-+
-+	return snd_soc_component_read_field(component, PM4125_ANA_MICBIAS_MICB_1_2_EN,
-+					    PM4125_ANA_MICBIAS_MICB2_EN_MASK) == 1;
-+}
-+
-+static void pm4125_mbhc_hph_l_pull_up_control(struct snd_soc_component *component,
-+					      enum mbhc_hs_pullup_iref pull_up_cur)
-+{
-+	/* Default pull up current to 3uA */
-+	if (pull_up_cur < I_OFF || pull_up_cur > I_3P0_UA || pull_up_cur == I_DEFAULT)
-+		pull_up_cur = I_3P0_UA;
-+
-+	snd_soc_component_write_field(component, PM4125_ANA_MBHC_PLUG_DETECT_CTL,
-+				      PM4125_ANA_MBHC_HSDET_PULLUP_C_MASK, pull_up_cur);
-+}
-+
-+static int pm4125_mbhc_request_micbias(struct snd_soc_component *component,
-+				       int micb_num, int req)
-+{
-+	return pm4125_micbias_control(component, micb_num, req, false);
-+}
-+
-+static void pm4125_mbhc_micb_ramp_control(struct snd_soc_component *component, bool enable)
-+{
-+	if (enable) {
-+		snd_soc_component_write_field(component, PM4125_ANA_MBHC_MICB2_RAMP,
-+					      PM4125_ANA_MBHC_MICB2_RAMP_SHIFT_MASK,
-+					      PM4125_ANA_MBHC_MICB2_RAMP_SHIFT_CTRL);
-+		snd_soc_component_write_field(component, PM4125_ANA_MBHC_MICB2_RAMP,
-+					      PM4125_ANA_MBHC_MICB2_RAMP_EN_MASK, 1);
-+	} else {
-+		snd_soc_component_write_field(component, PM4125_ANA_MBHC_MICB2_RAMP,
-+					      PM4125_ANA_MBHC_MICB2_RAMP_EN_MASK, 0);
-+		snd_soc_component_write_field(component, PM4125_ANA_MBHC_MICB2_RAMP,
-+					      PM4125_ANA_MBHC_MICB2_RAMP_SHIFT_MASK, 0);
-+	}
-+}
-+
-+static int pm4125_mbhc_micb_adjust_voltage(struct snd_soc_component *component,
-+					   int req_volt, int micb_num)
-+{
-+	struct pm4125_priv *pm4125 = snd_soc_component_get_drvdata(component);
-+	int cur_vout_ctl, req_vout_ctl, micb_en, ret = 0;
-+	unsigned int pullup_mask, en_mask;
-+
-+	switch (micb_num) {
-+	case MIC_BIAS_1:
-+		pullup_mask = PM4125_ANA_MICBIAS_MICB1_PULL_UP_MASK;
-+		en_mask = PM4125_ANA_MICBIAS_MICB1_EN_MASK;
-+		break;
-+	case MIC_BIAS_2:
-+		pullup_mask = PM4125_ANA_MICBIAS_MICB2_PULL_UP_MASK;
-+		en_mask = PM4125_ANA_MICBIAS_MICB2_EN_MASK;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	mutex_lock(&pm4125->micb_lock);
-+
-+	/*
-+	 * If requested micbias voltage is same as current micbias voltage,
-+	 * then just return. Otherwise, adjust voltage as per requested value.
-+	 * If micbias is already enabled, then to avoid slow micbias ramp-up
-+	 * or down enable pull-up momentarily, change the micbias value and
-+	 * then re-enable micbias.
-+	 */
-+	micb_en = snd_soc_component_read_field(component, PM4125_ANA_MICBIAS_MICB_1_2_EN,
-+					       en_mask);
-+	cur_vout_ctl = snd_soc_component_read_field(component, PM4125_ANA_MICBIAS_LDO_1_SETTING,
-+						    PM4125_ANA_MICBIAS_MICB_OUT_VAL_MASK);
-+
-+	req_vout_ctl = pm4125_get_micb_vout_ctl_val(component->dev, req_volt);
-+	if (req_vout_ctl < 0) {
-+		ret = -EINVAL;
-+		goto exit;
-+	}
-+
-+	if (cur_vout_ctl == req_vout_ctl)
-+		goto exit;
-+
-+	if (micb_en == 1)
-+		snd_soc_component_write_field(component, PM4125_ANA_MICBIAS_MICB_1_2_EN,
-+					      pullup_mask,
-+					      PM4125_ANA_MICBIAS_MICB_PULL_ENABLE);
-+
-+	snd_soc_component_write_field(component, PM4125_ANA_MICBIAS_LDO_1_SETTING,
-+				      PM4125_ANA_MICBIAS_MICB_OUT_VAL_MASK, req_vout_ctl);
-+
-+	if (micb_en == 1) {
-+		snd_soc_component_write_field(component, PM4125_ANA_MICBIAS_MICB_1_2_EN,
-+					      pullup_mask,
-+					      PM4125_ANA_MICBIAS_MICB_PULL_DISABLE);
-+		/* Add 2ms delay as per HW requirement after enabling micbias */
-+		usleep_range(2000, 2100);
-+	}
-+exit:
-+	mutex_unlock(&pm4125->micb_lock);
-+
-+	return ret;
-+}
-+
-+static int pm4125_mbhc_micb_ctrl_threshold_mic(struct snd_soc_component *component,
-+					       int micb_num, bool req_en)
-+{
-+	struct pm4125_priv *pm4125 = snd_soc_component_get_drvdata(component);
-+	int micb_mv;
-+
-+	if (micb_num != MIC_BIAS_2)
-+		return -EINVAL;
-+
-+	/*
-+	 * If device tree micbias level is already above the minimum voltage
-+	 * needed to detect threshold microphone, then do not change the
-+	 * micbias, just return.
-+	 */
-+	if (pm4125->micb2_mv >= WCD_MBHC_THR_HS_MICB_MV)
-+		return 0;
-+
-+	micb_mv = req_en ? WCD_MBHC_THR_HS_MICB_MV : pm4125->micb2_mv;
-+
-+	return pm4125_mbhc_micb_adjust_voltage(component, micb_mv, MIC_BIAS_2);
-+}
-+
-+static void pm4125_mbhc_get_micbias_val(struct snd_soc_component *component, int *mb)
-+{
-+	u8 vout_ctl;
-+
-+	/* Read MBHC Micbias (Mic Bias2) voltage */
-+	vout_ctl = snd_soc_component_read_field(component, PM4125_ANA_MICBIAS_LDO_1_SETTING,
-+						PM4125_ANA_MICBIAS_MICB_OUT_VAL_MASK);
-+
-+	/*
-+	 * Formula for getting micbias from vout:
-+	 *	micbias = 1.6V + VOUT_CTL * 50mV
-+	 */
-+	*mb = 1600 + (vout_ctl * 50);
-+}
-+
-+static void pm4125_mbhc_gnd_det_ctrl(struct snd_soc_component *component, bool enable)
-+{
-+	if (enable) {
-+		snd_soc_component_write_field(component, PM4125_ANA_MBHC_MECH,
-+					      PM4125_ANA_MBHC_HSG_PULLUP_COMP_EN_MASK, 1);
-+		snd_soc_component_write_field(component, PM4125_ANA_MBHC_MECH,
-+					      PM4125_ANA_MBHC_GND_DET_EN_MASK, 1);
-+	} else {
-+		snd_soc_component_write_field(component, PM4125_ANA_MBHC_MECH,
-+					      PM4125_ANA_MBHC_GND_DET_EN_MASK, 0);
-+		snd_soc_component_write_field(component, PM4125_ANA_MBHC_MECH,
-+					      PM4125_ANA_MBHC_HSG_PULLUP_COMP_EN_MASK, 0);
-+	}
-+}
-+
-+static void pm4125_mbhc_hph_pull_down_ctrl(struct snd_soc_component *component, bool enable)
-+{
-+	u8 val = enable ? PM4125_ANA_HPHPA_CNP_GND_PULL_DOWN :
-+			  PM4125_ANA_HPHPA_CNP_GND_PULL_NONE;
-+
-+	snd_soc_component_write_field(component, PM4125_ANA_HPHPA_CNP_CTL_2,
-+				      PM4125_ANA_HPHPA_CNP_GND_L_MASK, val);
-+	snd_soc_component_write_field(component, PM4125_ANA_HPHPA_CNP_CTL_2,
-+				      PM4125_ANA_HPHPA_CNP_GND_R_MASK, val);
-+}
-+
- static const struct wcd_mbhc_cb mbhc_cb = {
-+	.clk_setup = pm4125_mbhc_clk_setup,
- 	.mbhc_bias = pm4125_mbhc_bias_control,
- 	.set_btn_thr = pm4125_mbhc_program_btn_thr,
-+	.micbias_enable_status = pm4125_mbhc_micb_en_status,
-+	.hph_pull_up_control = pm4125_mbhc_hph_l_pull_up_control,
-+	.mbhc_micbias_control = pm4125_mbhc_request_micbias,
-+	.mbhc_micb_ramp_control = pm4125_mbhc_micb_ramp_control,
-+	.mbhc_micb_ctrl_thr_mic = pm4125_mbhc_micb_ctrl_threshold_mic,
-+	.get_micbias_val = pm4125_mbhc_get_micbias_val,
-+	.mbhc_gnd_det_ctrl = pm4125_mbhc_gnd_det_ctrl,
-+	.hph_pull_down_ctrl = pm4125_mbhc_hph_pull_down_ctrl,
- };
- 
- static int pm4125_mbhc_init(struct snd_soc_component *component)
-@@ -1692,6 +1879,7 @@ static int pm4125_probe(struct platform_device *pdev)
- 		return dev_err_probe(dev, ret, "Failed to get micbias\n");
- 
- 	atomic_set(&pm4125->gloal_mbias_cnt, 0);
-+	mutex_init(&pm4125->micb_lock);
- 
- 	cfg = &pm4125->mbhc_cfg;
- 	cfg->mbhc_micbias = MIC_BIAS_2;
-diff --git a/sound/soc/codecs/pm4125.h b/sound/soc/codecs/pm4125.h
-index 25fd3106f..3ee6f9c25 100644
---- a/sound/soc/codecs/pm4125.h
-+++ b/sound/soc/codecs/pm4125.h
-@@ -13,7 +13,9 @@
- #define PM4125_DIG_BASE_ADDR			0x3400
- 
- #define PM4125_ANA_MICBIAS_MICB_1_2_EN		(PM4125_ANA_BASE_ADDR+0x040)
-+#define  PM4125_ANA_MICBIAS_MICB1_EN_MASK	BIT(6)
- #define  PM4125_ANA_MICBIAS_MICB1_PULL_UP_MASK	BIT(5)
-+#define  PM4125_ANA_MICBIAS_MICB2_EN_MASK	BIT(2)
- #define  PM4125_ANA_MICBIAS_MICB2_PULL_UP_MASK	BIT(1)
- #define  PM4125_ANA_MICBIAS_MICB2_PULL_DN_MASK	BIT(0)
- #define  PM4125_ANA_MICBIAS_MICB_PULL_ENABLE	1
-@@ -25,6 +27,8 @@
- #define PM4125_ANA_TX_AMIC1			(PM4125_ANA_BASE_ADDR+0x047)
- #define PM4125_ANA_TX_AMIC2			(PM4125_ANA_BASE_ADDR+0x048)
- #define PM4125_ANA_MBHC_MECH			(PM4125_ANA_BASE_ADDR+0x05A)
-+#define  PM4125_ANA_MBHC_GND_DET_EN_MASK	BIT(6)
-+#define  PM4125_ANA_MBHC_HSG_PULLUP_COMP_EN_MASK BIT(1)
- #define PM4125_ANA_MBHC_ELECT			(PM4125_ANA_BASE_ADDR+0x05B)
- #define  PM4125_ANA_MBHC_ELECT_BIAS_EN_MASK	BIT(0)
- #define  PM4125_ANA_MBHC_ELECT_BIAS_ENABLE	1
-@@ -40,9 +44,14 @@
- #define PM4125_ANA_MBHC_BTN3_ZDET_DBG_400	(PM4125_ANA_BASE_ADDR+0x063)
- #define PM4125_ANA_MBHC_BTN4_ZDET_DBG_1400	(PM4125_ANA_BASE_ADDR+0x064)
- #define PM4125_ANA_MBHC_MICB2_RAMP		(PM4125_ANA_BASE_ADDR+0x065)
-+#define  PM4125_ANA_MBHC_MICB2_RAMP_EN_MASK	BIT(7)
-+#define  PM4125_ANA_MBHC_MICB2_RAMP_SHIFT_MASK	GENMASK(4, 2)
-+#define  PM4125_ANA_MBHC_MICB2_RAMP_SHIFT_CTRL	3
- #define PM4125_ANA_MBHC_CTL_1			(PM4125_ANA_BASE_ADDR+0x066)
-+#define  PM4125_ANA_MBHC_CTL_RCO_EN_MASK	BIT(7)
- #define PM4125_ANA_MBHC_CTL_2			(PM4125_ANA_BASE_ADDR+0x067)
- #define PM4125_ANA_MBHC_PLUG_DETECT_CTL		(PM4125_ANA_BASE_ADDR+0x068)
-+#define  PM4125_ANA_MBHC_HSDET_PULLUP_C_MASK	GENMASK(7, 6)
- #define PM4125_ANA_MBHC_ZDET_ANA_CTL		(PM4125_ANA_BASE_ADDR+0x069)
- #define PM4125_ANA_MBHC_ZDET_RAMP_CTL		(PM4125_ANA_BASE_ADDR+0x06A)
- #define PM4125_ANA_MBHC_FSM_STATUS		(PM4125_ANA_BASE_ADDR+0x06B)
-@@ -58,6 +67,10 @@
- #define  PM4125_ANA_HPHPA_CNP_CTL_1_EN_MASK	BIT(1)
- #define  PM4125_ANA_HPHPA_CNP_CTL_1_EN		1
- #define PM4125_ANA_HPHPA_CNP_CTL_2		(PM4125_ANA_BASE_ADDR+0x084)
-+#define  PM4125_ANA_HPHPA_CNP_GND_L_MASK	GENMASK(5, 4)
-+#define  PM4125_ANA_HPHPA_CNP_GND_R_MASK	GENMASK(3, 2)
-+#define  PM4125_ANA_HPHPA_CNP_GND_PULL_DOWN	2
-+#define  PM4125_ANA_HPHPA_CNP_GND_PULL_NONE	0
- #define  PM4125_ANA_HPHPA_CNP_OCP_EN_L_MASK	BIT(1)
- #define  PM4125_ANA_HPHPA_CNP_OCP_EN_R_MASK	BIT(0)
- #define  PM4125_ANA_HPHPA_CNP_OCP_ENABLE	1
-
--- 
-2.34.1
-
+Konrad
