@@ -1,84 +1,227 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EE2A3A63EF;
-	Thu, 15 Oct 2026 20:34:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792096486; cv=none; b=cVuuYBDbLw598kdnQ9ChYB+yvM/9Et1LV//ANyz6hP3M7kpxv0EHRmoN5auECmpmvyQef7l94NyjrLfgWSUqLN1f18AH1zzOgwD/6o7CCCr1tfLHlGRjeUIYB97cTYwNOYutmY8BJmf9tpoi6uguWwzCpXjB42iyH1mRR7ppvno=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792096486; c=relaxed/simple;
-	bh=sV2HEuvR9zQyz+Q4KvsucuhVmhv9nZsLKpq9zIz6v+E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BIqc97rJTP5qniRdyWtW1RQcoYsEpHBEpKOcNut/fHFE5eb6lFNKOupS5WUv6F0lZ1h3dLo2aJVxgN0skWqx8JmXvk8qmPF+PuCXzoRt9IGGfOynBMff2FM/9eu8OruH/dRPCZGamkwPbN+Yl1+Ax1DDSLc3ajihcAY9YQwIuuw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hhi/zd5W; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A61C032B102;
+	Thu, 15 Oct 2026 20:36:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.56.87.4
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792096573; cv=pass; b=ndjtEgfzgvcRp5IIG7qxrgHp+//CAxtonldfXzAIlwzUCwflGlnswBl/2IDfCNQG39v63QGQWB8lnyXnSBQP4ckzyfuWamILNjLzTlb+2oBaUyNulOUxBJeqJjg/i4z9d1Khdi3u+C6akGZ/uRGnrGGvO2PpqyMTDXXhVkVsn60=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792096573; c=relaxed/simple;
+	bh=Yj8ej3HBMwylXx0QuhOi40Co/oMLqb7i/qo+mVXTbS8=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=RX4V3s8dT+MFk/dgH6HkYPfo2rJNvddclvFWMOJtWp35m4r2Gn+O+AxrmQSkJ/r4N1w/RJ1JrHd56rcp0falw4fA2+uR7RLhwuP2sinTP/rWAetDOwhx21fsxzux8eTr4LAEmtsi1qJpgold1kp5qia7fJZn2Wk4508R9C1HqxI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it; spf=pass smtp.mailfrom=valla.it; dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b=hI4yO1Pc; dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b=IR5/yIam; arc=pass smtp.client-ip=185.56.87.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hhi/zd5W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A943E1F000C5;
-	Thu, 15 Oct 2026 20:34:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792096483;
-	bh=Iem+pLJO9ZYQDqe8VHL3AmzInyj0TGtjgP3owuH6BbI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Hhi/zd5WiI25MM7Uu1D5DQx+Y77A3b3pGnGm6oSq87Wvjws3mS2ZeSaNbGN5P6pIM
-	 P30CkKd+hVHbPpDrHS4FBXq/Qx5aL4tkaeIE4SGeHKhDJnHRjB/I9VtyRN+w5aNd1o
-	 zMrrRx+xqkHs66L3jDB+3A79nsAGkclmOExJ99bycu+sR175QNegjKKEOjZXknhDEQ
-	 QAd6J7HtB06OLgTSP2eLr7hL40SNZZEItMKbAZHt5O1rBcBCLv+WyTavZu9lB0nmaw
-	 Yhs0aU1S74bEFV5bae2ZeYho6lt+M0qqXKLY7/7fegw8u0kqOA4ybyJm01jg/W5q15
-	 ax0acgG/OIE8g==
-Date: Thu, 15 Oct 2026 15:34:42 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Oskari Lemmela <oskari@lemmela.net>
-Cc: Marek Vasut <marek.vasut@mailbox.org>, Andrew Lunn <andrew@lunn.ch>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>,
-	Daniel Golle <daniel@makrotopia.org>, netdev@vger.kernel.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Aleksander Jan Bajkowski <olek2@wp.pl>,
-	Issam Hamdi <ih@simonwunderlich.de>, linux-kernel@vger.kernel.org,
-	"David S. Miller" <davem@davemloft.net>,
-	Javen Xu <javen_xu@realsil.com.cn>, dam.dejean@gmail.com,
-	Manuel Stocker <mensi@mensi.ch>, Eric Dumazet <edumazet@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
-	Jan Hoffmann <jan@3e8.eu>, Florian Fainelli <f.fainelli@gmail.com>,
-	Chukun Pan <amadeus@jmu.edu.cn>, Conor Dooley <conor+dt@kernel.org>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>
-Subject: Re: [PATCH net-next v3 1/2] dt-bindings: net: realtek: add RTL8224
- package binding
-Message-ID: <179209648173.3102384.6472126730411571099.robh@kernel.org>
-References: <20261013185635.1412452-1-oskari@lemmela.net>
- <20261013185635.1412452-2-oskari@lemmela.net>
+	dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b="hI4yO1Pc";
+	dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b="IR5/yIam"
+ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-wc7t.prod.antispam.mailspamprotection.com; s=arckey; t=1792096567;
+	 b=c4WlbN2un9IqTv6YbNPrXuniPFcdGFq6Km+CigQHjwDcD0fC5GereLy0Za3syVg9GvM6xWHjP3
+	  cLnztuhURuD0hzYlfOSQKMIkTRG0TOng23w7bcOsxVMGsXHyBwhYy3H4NuEeLUlbbBAMf9iOgS
+	  yfH3W27V9gAqBfd3uTTN+xsoQ3Km3V6aQ1ORVEvNI+NY4miRm/ASIIu7OY7TOQJbuAFtfXNAa7
+	  t1R8BlxxwjmXgpkpWXiR52qWwYRyASg+/hxONudXDt2+55pBf0MUuCmh3rW40rb9JCJAulKJkW
+	  Ejb++qQTOMbBmGrhuKV7E/NVqSEjbnk4ER5vUGw0zn2Etw==;
+ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-wc7t.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-wc7t.prod.antispam.mailspamprotection.com; s=arckey; t=1792096567;
+	bh=Yj8ej3HBMwylXx0QuhOi40Co/oMLqb7i/qo+mVXTbS8=;
+	h=Message-ID:Date:References:In-Reply-To:Cc:To:From:Subject:
+	  Content-Transfer-Encoding:Content-Type:MIME-Version:DKIM-Signature:
+	  DKIM-Signature;
+	b=iojzPfkTb7XvHLA7SCVzDHVy1QRVjXkk2+7/vhBPM+YZ5Q7G07sSmX2XsvelU0FtbAA7KuzBUY
+	  vedQs6QO4BFoeYyr0AfefOSGQUKMJKuHhONA+YUjmPxcj9xGSMEVoxBYGKxGPnWLBON4xgXtZb
+	  S5NNKaMla1MUYQbKUrDnesBhwyYYbf8HkQ1SzCReqc1bRXymec87LJm8VFO7+4wRWn84UfakdB
+	  cbPbG0PNtcqh2XJLnOCmneIEwCN/yNAOWiT47OUZ9M8Zxhb8Pf77xQ71LufUWV6hV/67cHNRwN
+	  qhg/RwLWFjGSK7Tq909Gr+F5sGfAwEQu0cp5fRMfyU+WjA==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
+	:Message-Id:Date:Cc:To:From:Subject:Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Reply-To:List-Unsubscribe;
+	bh=9EM0isG1R2tZbZPOEASuzPFyGqzGhpBbd9nur44vny0=; b=hI4yO1PcDjHMDgKlrZyaAsvYMv
+	MJ5HLsy2EBsmQcAlz9K03V3vNH2k+/S14BJ5k0lYVqw/KZGWqNJ9jO5F9SQRWifE1/esCW+hb9mAV
+	PIkGpp4qbHm1K1knQNqxKe67EIISYrxd5NU5L1bA9g4lfeVvL1BKrAULJ+PQHmXUNd+I=;
+Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
+	by instance-europe-west4-wc7t.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1xHS2e-0000000Ch3f-1BIu;
+	Thu, 15 Oct 2026 20:27:08 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
+	s=default; h=Date:Cc:To:From:Subject:list-help:list-unsubscribe:
+	list-subscribe:list-post:list-owner:list-archive;
+	bh=9EM0isG1R2tZbZPOEASuzPFyGqzGhpBbd9nur44vny0=; b=IR5/yIam9SRLwaZzPBIrk6qjNc
+	lw49C0/GBY/dgfo3XEngJyFDBhM1eMrF0dBZYXdjAxHcqYQJhi9vM+v/mf6JqhL/vrCQDRcq4hZzl
+	YcC6I3bVytXQj9cNjbe8Nn4zGoNSr7JIgpGmG++y0XtKYweu+9kuPcP0vDCY/3OfhwL4=;
+Received: from [82.89.62.246] (port=63238 helo=[192.168.178.158])
+	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1xHS2Y-00000000KBz-4A5Q;
+	Thu, 15 Oct 2026 20:27:03 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013185635.1412452-2-oskari@lemmela.net>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v5 2/3] remoteproc: imx_rpoc: use memory-region-names
+ to avoid hidden ABI
+From: Francesco Valla <francesco@valla.it>
+To: Frank.Li@oss.nxp.com
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>, 
+ linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, 
+ Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>, 
+ Frank Li <Frank.Li@nxp.com>
+In-Reply-To: <20261015-memory-region-name-v5-2-abc358b39a96@nxp.com>
+References: <20261015-memory-region-name-v5-0-abc358b39a96@nxp.com>
+ <20261015-memory-region-name-v5-2-abc358b39a96@nxp.com>
+Date: Thu, 15 Oct 2026 22:26:51 +0200
+Message-Id: <179209601177.660553.12335999939165725188.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3455; i=francesco@valla.it;
+ h=from:subject:message-id; bh=Yj8ej3HBMwylXx0QuhOi40Co/oMLqb7i/qo+mVXTbS8=;
+ b=owGbwMvMwCX2aH1OUIzHTgbG02pJDFkXzQV8zrGv3qFZvuHfdcavcw5JyGvE3t2hvkJCM9fhb
+ +PzUNfHHaUsDGJcDLJiiiwh627c2zPX/FvaBsZHMHNYmUCGMHBxCsBEek4yMpxxmVPFv+RHypGZ
+ qkITFfPtpv8Nsglj8Te+cLinoCd7zQVGhp+Pr93cETK5eUfDuh3JS/e7fTi2Yds144OXmJpNHho
+ dMeACAA==
+X-Developer-Key: i=francesco@valla.it; a=openpgp;
+ fpr=CC70CBC9AA13257C6CCED8669601767CA07CA0EA
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - esm19.siteground.biz
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - valla.it
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-SGantispam-id: 210fbe4598e097f8a46d319f7126ebaa
+X-AntiAbuse: ID - 210fbe4598e097f8a46d319f7126ebaa
+AntiSpam-DLS: false
+AntiSpam-DLSP: 
+AntiSpam-DLSRS: 
+AntiSpam-TS: 1.0
+CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
+CFBL-Feedback-ID: 1xHS2e-0000000Ch3f-1BIu-feedback@antispam.mailspamprotection.com
+Authentication-Results: outgoing.instance-europe-west4-wc7t.prod.antispam.mailspamprotection.com;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
 
+Hello Frank,
 
-On Tue, 13 Oct 2026 21:56:34 +0300, Oskari Lemmela wrote:
-> RTL8224 packages contain four PHYs at consecutive MDIO addresses and
-> share configuration registers. Unaligned packages need an explicit base
-> address to select the correct package registers and per-port MDI fields.
+> The driver currently derives the memory region type from the referenced
+> memory node name, creating a hidden DT ABI. Since memory node names are
+> not constrained by the binding, incorrect names can silently pass DT
+> validation, as seen in examples using "vdevbuffer" instead of
+> "vdev0buffer" ([1] and [2]).
 > 
-> Introduce realtek,rtl8224-package so the package example selects a
-> dedicated schema while child PHYs retain their Clause 45 discovery
-> compatible. Validate package and child properties, document that
-> unaligned layouts require a package node, and preserve support for
-> existing aligned descriptions without package nodes.
+> Parse memory-region-names to identify the expected memory regions and avoid
+> relying on memory node names as ABI.
 > 
-> Signed-off-by: Oskari Lemmela <oskari@lemmela.net>
-> ---
->  .../bindings/net/realtek,rtl8224-package.yaml | 332 ++++++++++++++++++
->  1 file changed, 332 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/net/realtek,rtl8224-package.yaml
+> Link: https://lore.kernel.org/imx/a3602ef8-2b77-4cc3-adef-2c4cba08a5d9@nabladev.com/ [1]
+> Link: https://lore.kernel.org/imx/alexXTYQHUs76J7v@SMW015318/T/#mb9dc709ff3adc24d9db6d30c973f37b580f6f1f9 [2]
 > 
+> Signed-off-by: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
+> Reviewed-by: Peng Fan <peng.fan@nxp.com>
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+>
+> diff --git a/drivers/remoteproc/imx_rproc.c b/drivers/remoteproc/imx_rproc.c
+> index 745ce52cd822..ce9bdfc1fa98 100644
+> --- a/drivers/remoteproc/imx_rproc.c
+> +++ b/drivers/remoteproc/imx_rproc.c
+> @@ -643,7 +643,7 @@ static int imx_rproc_prepare(struct rproc *rproc)
+>  		int err;
+>  		struct resource res;
+>  
+> -		err = of_reserved_mem_region_to_resource(np, i++, &res);
+> +		err = imx_rproc_rmem_to_resource(np, i++, &res);
+>  		if (err)
+>  			break;
+>  
+> @@ -818,11 +818,20 @@ static int imx_rproc_addr_init(struct imx_rproc *priv,
+>  	if (nph <= 0)
+>  		return 0;
+>  
+> +	if (!of_property_present(np, "memory-region-names")) {
+> +		dev_warn(dev, "using node names for carveouts should be avoided\n");
+> +	} else {
+> +		if (nph != of_property_count_strings(np, "memory-region-names")) {
+> +			dev_err(dev, "invalid reserved memory name count\n");
+> +			return -EINVAL;
+> +		}
+> +	}
+> +
+>  	/* remap optional addresses */
+>  	for (a = 0; a < nph; a++) {
+>  		struct resource res;
+>  
+> -		err = of_reserved_mem_region_to_resource(np, a, &res);
+> +		err = imx_rproc_rmem_to_resource(np, a, &res);
+>  		if (err) {
+>  			dev_err(dev, "unable to resolve memory region\n");
+>  			return err;
+> diff --git a/drivers/remoteproc/imx_rproc.h b/drivers/remoteproc/imx_rproc.h
+> index 0d7d48352a10..3632bc375c71 100644
+> --- a/drivers/remoteproc/imx_rproc.h
+> +++ b/drivers/remoteproc/imx_rproc.h
+> @@ -7,6 +7,8 @@
+>  #ifndef _IMX_RPROC_H
+>  #define _IMX_RPROC_H
+>  
+> +#include <linux/of_reserved_mem.h>
+> +
+>  /* address translation table */
+>  struct imx_rproc_att {
+>  	u32 da;	/* device address (From Cortex M4 view)*/
+> @@ -45,4 +47,23 @@ struct imx_rproc_dcfg {
+>  	u32				reset_vector_mask;
+>  };
+>  
+> +static inline int imx_rproc_rmem_to_resource(struct device_node *np,
+> +					     int index,
+> +					     struct resource *res)
+> +{
+> +	int ret;
+> +
+> +	ret = of_reserved_mem_region_to_resource(np, index, res);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* "memory-region-names" is optional */
+> +	ret = of_property_read_string_index(np, "memory-region-names",
+> +					    index, &res->name);
+> +	if (ret == -EINVAL)
+> +		return 0;
+> +
+> +	return ret;
+> +}
+> +
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Shouldn't this be a regular function in imx_rproc.c instead of being
+defined as inline here? Keeping it in the driver source file would
+probably make the logic easier to follow, also considering that the
+presence of memory-region-names is evaluated there in
+imx_rproc_addr_init().
 
+>  #endif /* _IMX_RPROC_H */
+
+Regards,
+Francesco
+
+-- 
+Francesco Valla <francesco@valla.it>
