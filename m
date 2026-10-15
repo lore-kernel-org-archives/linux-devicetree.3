@@ -1,138 +1,138 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E2654856D;
-	Thu, 15 Oct 2026 18:50:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 538D15650FA
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 18:56:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792090260; cv=none; b=dtpjuBCgaTAl0tTvNFd83AxTe5FOfCscpZm5ziw618+5/eUopDbogEIMThs/nnkDR2kiA6d7Wok2KwEfDdDmSKhQjqIeo+7lwKOyOvtmuJz4NSIHZS90gTDxEJ6Ii1LcRil+S1hFyfUEmcn5cP7tZ3Y1ybAIOlk7h1YERyvvyL8=
+	t=1792090595; cv=none; b=S2eM9UKMbMGL9qKi1RIvLynvR2BK7w1/SzDocipg+L6K7MW6xHXN1MxSReX11p2ZjM/R/dn2so/SxGgnfM6wokTAqY1x53LKvo30CdbvVnamf+qNw6VqS7j0OqM2RS/RlVmStlMOEAoKwZeA2HJuvKRV/tb/m7HlOHQ7CsLugGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792090260; c=relaxed/simple;
-	bh=syEajtdnVGr81HLILeR+mXc8E8UZTA3uXwPRrCpSewM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LcDSkVRnokT9ziKLc1wgELLLtrUXVmiAWA7vfloo/3f2SndUpESGUhCY4zzl/NbCGrsokTj1JWnn//MwPPgXiVx2DktnrYEgv/8iGkeTStGtFHYfdnAQ9knneev4fGEY3PuGrCFDLBa6x/oZMp274hkQnhtDA2lGGgGkEgv9GrU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cG1iUwXp; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792090595; c=relaxed/simple;
+	bh=WfTIScce4+xOI3ZOn4jbGBOjmSx07uEqCRWoRnAARnM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=BcH3jYs7iink0OZxFJrYjSt7VtZzbtc5KMy6/w7Lt3E98S1z0Rjd1mMXeBt/6ZCmwbBpYVZf9nMUhDGESKeZXe3SOr+zRLI76UzjDEF7CnFd9qhbbx2ODvKQwqDM4yvh6jtIuu2ZPMlfn78hbEE3a1D/Y7YUrl7xNT8s9y0hU8s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hyYwR5kB; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cG1iUwXp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792090257; x=1823626257;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=syEajtdnVGr81HLILeR+mXc8E8UZTA3uXwPRrCpSewM=;
-  b=cG1iUwXp459JGn+BIGacvbCrxBRbLq1cmSvOhmBGb7bcZu9CMXbnkk6V
-   HvzYtZweokAtv6VHrjNkuu3RUvisymKJl+rDTi00lHcUWRgjzq6nXCWzR
-   bM/4KeRRoutroAo3tiMM/t30ioS0UHXuVrCMS1fT0kFPV+3xTXIwK0Qpj
-   x8/+Cc019ppN4uEf/8kfuXFXz2Uu5GrlDp7ZLNxA9L63ejY0O6mdjSKG2
-   w7M4RtIMSKaltWZHNwLokRYHZnER9KCB2QH6HnXlRUSaIH2H7LV/CTNEi
-   dzElWnsRWX2WbqNnw5gHmVtmkZJOV1jMUFxoRLnyGgLsn73E646ynjoak
-   A==;
-X-CSE-ConnectionGUID: NON/aWwRSnOtIzWe9XdIjg==
-X-CSE-MsgGUID: 0uvwJqu9QJSIAdZUf8EZTw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="882058"
-X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
-   d="scan'208";a="882058"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 11:50:56 -0700
-X-CSE-ConnectionGUID: wUJZBujDRGqTYFLdeNRQzA==
-X-CSE-MsgGUID: s3TbkpgzTFS9yj0XyQnEog==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
-   d="scan'208";a="1770326"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.117])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 11:50:51 -0700
-Date: Thu, 15 Oct 2026 21:50:48 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: radu.sabau@analog.com
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Nuno Sa <nuno.sa@analog.com>, Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Alexandru Ardelean <alexandru.ardelean@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 1/6] iio: imu: adis: Add optional self_test callback
- and fix custom reset dispatch
-Message-ID: <atEgiFbe3B3yiMfp@ashevche-desk.local>
-References: <20261015-adis16607-v3-0-f972d4efee85@analog.com>
- <20261015-adis16607-v3-1-f972d4efee85@analog.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hyYwR5kB"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49ff680331aso27495525e9.3
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 11:56:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792090589; x=1792695389; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=WFz+OPWq9luKuBDqe0uuJVjFv3DbmqRC69UJmoS/3w4=;
+        b=hyYwR5kB+Pph+oFCrPXfSDzxwVTdyKdVqXoqwO7C+hXKAm1uEZ/k8DZQYTGqCC1y6T
+         KVR7Pe21zAL3q3rAtBc+ky1EgvuayuvWfcIgl0sEhkk5B7d6caGxezFXGSkYPwWvoShT
+         zajggHd8VHhx3YA1OMDtJNSFjI76hcqvF3aLu7VRru25vq833t8d+C+GApC665ovGsSl
+         ZUjS6SmK+I0CMDsAt0dsAq1tiWAIG8lmXvVNjPAc1xx/wfT2/J/93IfPcW5wo5sZMNFk
+         SK95Au1bdxFQ2G/BHZIvbefRqx77D3VH2trnmtYg0U4EYvWOFFG2QG3QxKlLU3Lhyxta
+         svuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792090589; x=1792695389;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=WFz+OPWq9luKuBDqe0uuJVjFv3DbmqRC69UJmoS/3w4=;
+        b=V5Dr1jYgyppwK0keRA1TlsbK+NBwCFJNQ55F09MNTB9IAyZ6z8AXwXmyeA4SCQ3G+L
+         5Il6n9wtGMZtmEDOLJp7dPBYp8c3EOKeTng8GMcO/aTvVyzblIa6qH7anaUUdNWWkDkN
+         V+QtU4hUUO9WpomuDWP9kazMOuI2FIUsqz514KbkyrJUvr74JvsuacfxbrRIid98R+Uw
+         pAwamCUfpIMRVK0ssD3cXl2VolbrwqLdevNWNwMxTagMhYsyvXfO+o12jalh1+G23m4k
+         FzsDsvgXwfydQuc8elx9xqXAxQlPsCt3+Q45SUvGJN7Ue9/i/+iwN9plIsHBqP1JBCj7
+         2vIg==
+X-Forwarded-Encrypted: i=1; AKwUvBzUZD4/dgN4xJWaWsxskppHjUgxxdk6FpSpEg6HTyAXhtxiGUBtv8BcuPLXM0Um9DR38SBv/8WWcPUZ@vger.kernel.org
+X-Gm-Message-State: AFq9FYIxbGg0Te0FfjM7R+6hExghOy59GyOWOuPztFBksog9nG4R0IjZ
+	ZHXRNJr6HFg9ksDEz4khURP/cQur1yNPPbyIVNoLPzp6MymqjxmSuJ+V
+X-Gm-Gg: AYBFou3x5AOTAs2jzsCHMNlWdJ4l1ytkWx0ZyjY1E27rcP/pf6uOq4fUd1n51V2VVx+
+	PcpHMSpFKhFJixWKvr2HfBuRcGZtfU2MCdNr40wiRoRMXI6hE+GSIyFL4NCQ55zzyCqpJr29dgV
+	MCSB4j1p0QRhVNudsO4sGuaiOJuhMAjJzHkD6Y94bg05lW6JeUNFo2wya0G4ADqm8RmU23/0iZb
+	CVw7gsPHkRxfhUleA+a4cTPHnrnOFj4w45PV7OSWHfhBenaSdUB5lpsPafdyK1LSJC+AdipEeje
+	wg9fE65NqFxzqRncJZwK8wBm0PT9ueHk5CAY9UAXL1QXnhqOphN0CQJCCRralumDdo6pWTXOzQd
+	m5ld9lbad94pAevVbAwEYBUES/Tbgmce3fSk9xKCgdkAPPGt0UH3kXT28uDKIhoGOcLTYRe8B1N
+	f96PoVDVx5fqX48D7jTaHjd2uoc4xBQAl9gHH6Zyr6A0lRxZhvjIGAurNL6PbaDDh4osp7WeYpl
+	DsQ6Ev/92TYBNbOEuHMZ+2CBCJDTizhm28iP6j1bA==
+X-Received: by 2002:a05:600c:3144:b0:4a0:2423:946 with SMTP id 5b1f17b1804b1-4a18e48d362mr400641705e9.15.1792090589045;
+        Thu, 15 Oct 2026 11:56:29 -0700 (PDT)
+Received: from ipedrosa-thinkpadx1carbongen12.rmtes.csb ([67.218.239.213])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bdc036a4sm106148295e9.11.2026.10.15.11.56.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 11:56:28 -0700 (PDT)
+From: Iker Pedrosa <ikerpedrosam@gmail.com>
+Subject: [PATCH RFC 0/2] riscv: dts: spacemit: Enable PowerVR GPU on
+ OrangePi RV2
+Date: Thu, 15 Oct 2026 20:56:04 +0200
+Message-Id: <20261015-orangepi-gpu-v1-0-03566a615660@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015-adis16607-v3-1-f972d4efee85@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDE0Nj3fwikGhBpm56QamugVGKhbFlipmpgVmaElBLQVFqWmYF2LhopSA
+ 3Z6XY2loAe3MpI2MAAAA=
+X-Change-ID: 20260413-orangepi-gpu-02d839d6506f
+To: Alessio Belle <alessio.belle@imgtec.com>, 
+ Luigi Santivetti <luigi.santivetti@imgtec.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+ Iker Pedrosa <ikerpedrosam@gmail.com>
+X-Mailer: b4 0.14.3
 
-On Thu, Oct 15, 2026 at 12:32:58PM +0300, Radu Sabau via B4 Relay wrote:
+Enable the Imagination PowerVR Rogue GPU (BXE-2-32) on the SpacemiT K1
+SoC for the OrangePi RV2 board.
 
-> Add an optional self_test callback to struct adis_data, for devices
-> whose self-test doesn't fit the generic mask-write/sleep/check-status
-> sequence. Purely additive: defaults to NULL, no change for existing
-> drivers.
-> 
-> Also fix __adis_initial_startup()'s no-reset-gpio path: it called
-> __adis_reset() directly instead of adis->ops->reset(), silently
-> ignoring any driver's custom reset implementation. Invisible until now
-> since adis_default_ops.reset is __adis_reset() itself. Dispatch
-> through adis->ops->reset() instead, adding the settle-time sleep at
-> the call site for custom ops (documented not to sleep internally)
-> while skipping it for the default op (which already sleeps
-> internally).
+This series depends on:
+- Yixun Lan's power domain series [1], which provides the genpd-based
+  GPU power domain driver required for proper power sequencing.
+- Baihui Liang's dt-bindings patch [2], which adds the spacemit,k1-gpu
+  compatible string to the img,powervr-rogue binding.
 
-...
+The GPU firmware is not yet available upstream. A copy can be found
+at [3].
 
-> -		ret = __adis_reset(adis);
-> +		ret = adis->ops->reset(adis);
-> +		if (ret)
-> +			return ret;
-> +		/*
-> +		 * __adis_reset() already sleeps the settle time internally.
-> +		 * Custom reset ops are documented (struct adis_ops::reset)
-> +		 * not to, so sleep here for them.
-> +		 */
-> +		if (adis->ops->reset != __adis_reset)
-> +			msleep(timeouts->sw_reset_ms);
+With this series applied on top of [1] and [2], the full GPU bring-up
+path works end-to-end on hardware:
+- Power domain: GPU power island on/off via APMU
+- Clock: GPU clock enabled/gated through CCU
+- Reset: GPU reset line deasserted
+- Firmware: PowerVR RISC-V firmware loads and signals ready
+- DMA: dma-ranges correctly maps CPU-to-GPU physical addresses
+- DRM: kernel exposes /dev/dri/card0 and /dev/dri/renderD128
+- IRQ: GPU interrupt registered, firmware watchdog running
 
-Can't we simply stubbed ->reset to a wrapper on top of the msleep()?
+Userspace rendering requires Mesa's PowerVR Vulkan driver
+(imagination-experimental).
 
-...
+[1] https://lore.kernel.org/linux-riscv/20261008-04-k3-pm-support-v2-0-6f778a53dd2d@kernel.org/
+[2] https://lore.kernel.org/linux-riscv/20261015-spacemit-gpu-binding-v1-1-a7a23c7e7788@linux.spacemit.com/
+[2] https://gitlab.freedesktop.org/imagination/linux-firmware/-/blob/powervr/powervr/rogue_36.29.52.182_v1.fw
 
->  static inline int adis_reset(struct adis *adis)
->  {
-> +	int ret;
-> +
->  	guard(mutex)(&adis->state_lock);
-> -	return __adis_reset(adis);
-> +
-> +	ret = adis->ops->reset(adis);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/*
-> +	 * __adis_reset() already sleeps the settle time internally. Custom
-> +	 * reset ops are documented (struct adis_ops::reset) not to, so sleep
-> +	 * here for them.
-> +	 */
-> +	if (adis->ops->reset != __adis_reset)
-> +		msleep(adis->data->timeouts->sw_reset_ms);
+Signed-off-by: Iker Pedrosa <ikerpedrosam@gmail.com>
+---
+Iker Pedrosa (2):
+      riscv: dts: spacemit: k1: add PowerVR GPU device node
+      riscv: dts: spacemit: k1-orangepi-rv2: enable GPU
 
-It doesn't look scalable to have this accompanying each ->reset() call.
+ arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts |  4 ++++
+ arch/riscv/boot/dts/spacemit/k1.dtsi             | 12 ++++++++++++
+ 2 files changed, 16 insertions(+)
+---
+base-commit: 7e986b457d43edf8dd3eb3f6c34e55e92cd545f3
+change-id: 20260413-orangepi-gpu-02d839d6506f
 
-> +	return 0;
->  }
-
+Best regards,
 -- 
-With Best Regards,
-Andy Shevchenko
-
+Iker Pedrosa <ikerpedrosam@gmail.com>
 
