@@ -1,274 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazhn15013061.outbound.protection.outlook.com [52.102.174.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A84CE3E3170;
-	Thu, 15 Oct 2026 15:47:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792079288; cv=none; b=eHLSLtUqQW7RXmLrHlyms/Ob2cEKG03Sn9Py2qlJztTM4AiFC+W5/uuo6HGIice4HB6s+VkZDVs6Ou3rLEpZDMA1yixwBhpdKtfiNiCOBF25gLeHl8UL/9s/p74l1mbiF13cMnx1/XxjQUz/11JMn+nvnk3Xb908h4kSrFRBkuc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792079288; c=relaxed/simple;
-	bh=KLUY8dL35IhdVIH3PWjrPrVUXD/a//dX3Jxp0VsU3Nc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VfuYzj6aSUiTPqDogx2eZodTY3qzpJG0GM3RqFmkNRN2nCz8XIMHOJcy99VRzysPPuMJy3i/n6bIJyBBJFwiiMMGrb7zU1VbM0Ukr940jdEStgboALjFJN7loy6Z07Te+na665MindN2GlwqroVIgHhwDkHncqO7ZvCw3N7N+DM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hrPMHN6N; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF0F42BEFF6;
+	Thu, 15 Oct 2026 15:48:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.102.174.61
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792079331; cv=fail; b=PDRjYogk0MF166v1lTkdfYK0i6ClJCVqpSIDs5qc1KGqsSUtfUU94SJ2KHoh0N8pERDQstHhL6ke8R0ze2ANSBpcg/7xvi+ihIEljfi8AYjRAGaCvlEAGfoHE8LyCvYpn7ybF5jokg5dCrSwcRdUzx7/Nf5INI6i+vLorVxfe/U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792079331; c=relaxed/simple;
+	bh=vrjk3y3bm1IlxQN5z6elkTiEYt3WaX/nJad572SjzSo=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Ih/1v+Y2z2GF3Yg4Ne2dspWp8yaPMLS85GdK9Y6tptTX8gVAx55QveWCSY2bCy7EbTF2xqIXnPGxp5POptGCcMKkQ/M4IyOFhefCcZUUNAwq4dbv1lLHyIU/bCDUMazpYMOA0hX7ZRpqRRbvHjPceZfVXkvgCl8jcyu0Mc8Pa3Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=oqcYgt2h; arc=fail smtp.client-ip=52.102.174.61
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hrPMHN6N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D1B91F000C4;
-	Thu, 15 Oct 2026 15:47:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792079274;
-	bh=dP0qdNl6DzZgA1oCybzgMWhUKBRrzwDH62fU+ZHZ8l0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hrPMHN6NLyW6KL1LfSNx3K68LHINsN5poboQB6X7sFr/icDLbJPBAMJCFajCIi3Gl
-	 J1jGCCyqs0aTs5RdMRn6nrmVeNPsUYMU9Nto14emHPG03Da3XFGBt+HKsgZVK0WLdP
-	 g3l4GhXRAz8aEXItl9na9cvrKQMigMMwj4pMt0bNZy/l05+cV2cvTohda95yEA8TwC
-	 +07Uxg6M0VQB9OLVUX1o917P5csdmFv+khfdnXlQk4rf7zM6ndknOllNI82/7s8AId
-	 wdI/bcY/FcQlG0JxW8IxCtC6jOfP1OCZoYV02u2S05D1gEiEZQzdPXMi4WbzUrlsha
-	 N5n0NGNQJ++sg==
-Date: Thu, 15 Oct 2026 16:47:48 +0100
-From: Lee Jones <lee@kernel.org>
-To: Nora Schiffer <nora.schiffer@ew.tq-group.com>
-Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Isai Gaspar <isaiezequiel.gaspar@nxp.com>,
-	Marek Vasut <marex@denx.de>,
-	Pieterjan Camerlynck <pieterjanca@gmail.com>,
-	Javier Carrasco <javier.carrasco.cruz@gmail.com>,
-	linux@ew.tq-group.com, linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 09/11] leds: pca995x: Add sysfs files for error
- reporting
-Message-ID: <179198432570.839288.16507714780245784283@kernel.org>
-References: <cover.1791207391.git.nora.schiffer@ew.tq-group.com>
- <5ec0d621cc430d730e51845d4aafb1c2be166fbc.1791207391.git.nora.schiffer@ew.tq-group.com>
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="oqcYgt2h"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QODkoOmaxR4FS9w6YyKjnt/goLxF1UiDyBzS+xoMilJxK0YHIoG3if8wvLwPlsWvPoVqNxE5lzhPfqnVOQxf/qnrt6g13RnadaEkjwJBWnLYSBtGFJqFSCIC/PZFW77kgLzhDEuyB5um9hMR1V4LEnQb/g/hOhBgtuVWpGNPBTPL5l5nIXydAY/XQsqE272gSt2FqUkGbtzHN7aAR1yKMOzyqN6wcUh2o5QMxGuR4sHclgcwTAFpKn16P2mru0vXHXTn9D9tnT6REIF7ncR9ate92bMxE3t3VzcRWD2xC08Bw3Mtw4fQGSoJQNIFZYbvcISWCOSZ617SZMuTMvyAiA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ihIATp5UQQL9Dp0VU4sU+GurghNXmufV7YQeudo0EmY=;
+ b=uj2ePcszUopAgMp4dCmghqPhO1rSRUqn2KrjHU+Zdh6A3Zho7tGnVOLMAHflRtPNBn0ueu8CYiJ199VHSDBxU5+k3nW/OinbHmBREQ1mE7gkzSNFts7cbb/jEaRRRJrKfS4Gofc45QZJ6TCF9cyWxMkC+5RMVLxG1z9QHK5XIpr3or0oKxa0bVA5TEZHQucHa2CJedtjtNiwQwiIJpF6HD93hePQol0eayYKkMnHxFz5ghc6ppQoh1plUoa9oKglwzkqn0s3xp7T+H4oji9hVZb5mGX5qSVb1gjLGPcomtcEowpUAO0lbeACZHnzlVWrZZ2p8CGWKvzKgJNd+rg7xg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ihIATp5UQQL9Dp0VU4sU+GurghNXmufV7YQeudo0EmY=;
+ b=oqcYgt2hDAuyd1qM6y4l5Tcg4Q8BxkmhPwS9mEeyYGVjR7urBvGtrK2w7YHE8SjF8WXe6PKc1DbvOtUoErSYvLU4Vcom6lKFH1ofif/F/HrnZYjHNtPPNGOeUrryGh+ERSmFxCypFU5XON8KKnVZxeeKeiRvTyHbKmEvpPnmp4jRrplXX9kiwkWalRK/o8jYutf0Ei3gYtJCTGOHh4ooOJb74S7MgoKrVH3kEc50FNeujKkb7zvRBB8zZiIpsbHEgT1B6QRDGZlvUg3zasH++9P1jmgx5en9g/7/8Llt0hbVl0W0c9NIfZFORchP0oEU/c/NrlxjK0ghraBh6lvQBg==
+Received: from AM0PR10CA0014.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:208:17c::24)
+ by GV1PR10MB6658.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:150:83::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
+ 2026 15:48:31 +0000
+Received: from AM2PEPF00070CF4.eurprd02.prod.outlook.com
+ (2603:10a6:208:17c:cafe::72) by AM0PR10CA0014.outlook.office365.com
+ (2603:10a6:208:17c::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Thu, 15
+ Oct 2026 15:48:30 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ AM2PEPF00070CF4.mail.protection.outlook.com (10.167.242.6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Thu, 15 Oct 2026 15:48:30 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 15 Oct
+ 2026 17:48:57 +0200
+Received: from localhost (10.48.86.45) by STKDAG1NODE2.st.com (10.75.128.133)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 15 Oct
+ 2026 17:48:30 +0200
+From: Antonio Borneo <antonio.borneo@foss.st.com>
+To: Rob Herring <robh@kernel.org>, Russell King <linux@armlinux.org.uk>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+	<alexandre.torgue@foss.st.com>, <devicetree@vger.kernel.org>,
+	<linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+CC: Antonio Borneo <antonio.borneo@foss.st.com>, Amelie Delaunay
+	<amelie.delaunay@foss.st.com>
+Subject: [PATCH v2 RESEND 3/3] ARM: stm32: enable arm-smc watchdog on STM32MP1
+Date: Thu, 15 Oct 2026 17:48:26 +0200
+Message-ID: <20261015154826.1947492-4-antonio.borneo@foss.st.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261015154826.1947492-1-antonio.borneo@foss.st.com>
+References: <20261015154826.1947492-1-antonio.borneo@foss.st.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <5ec0d621cc430d730e51845d4aafb1c2be166fbc.1791207391.git.nora.schiffer@ew.tq-group.com>
-X-AI-Review-Draft: <5ec0d621cc430d730e51845d4aafb1c2be166fbc.1791207391.git.nora.schiffer@ew.tq-group.com>
+Content-Type: text/plain
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM2PEPF00070CF4:EE_|GV1PR10MB6658:EE_
+X-MS-Office365-Filtering-Correlation-Id: ce978ded-e9c4-4d66-8ba9-08df2ad3c31c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|36860700016|34020700016|1800799024|82310400026|23010399003|10067099003|261009223027099003|11063799006|56012099006|22082099003|18002099003|921020|12100799066;
+X-Microsoft-Antispam-Message-Info:
+	nC/UJDOcbBXJupBvK7RRPmiGG5OUdvVBt7P1Nf332mQceCPoSLK79XYAJAZ75J7ooFALGOgl1i48RCoXAUVaZ37LKCmASm6shcYGv7ba59X+oCvtQuQZoGjmV0pmhHOu7CMiI9MtIBHol/kY7vpirgo78xx6miY9AInQOO/XnBFaDpbOpvTwqDuM4V7o/ffiUx7XLs/l4ZKU+g5NLWwKzl/mKqaIrwhU+vhzNimxSrU/9dZOAGVXe+Tj/XbmO7fhC4r7bW7waoWXJ5wBBCBsnqCfbhgsV8pJnW3rjtAnnWGxhzwnVLgLqU38dA02SVDfr3joAgDrzRllX/nNqnSIcWdC0kqC8Gy2/O2SWxcD6q4KMkNYTpskKIaXVbWf30nIw6qpzFu3jZvHEkIS3T2xDCZnmNRL8MLNjS5SjNx7bx0zXh6jw7cdD+Es4aJbm2QsQTsk8DSLiBU+uShOgQVAtjKnVj4LL5cfKXlstLKACiZn+pnwKMD2Tf/+cflL7HkDB+msy87sn4shP0QJCF0vwZOCOHyTWqDkZ+C36xz6DbKXkjq+G4NYF4pu5cT0DiB7UGFHLYYfDDgqy5Fm0KNsh0TEdea2caQuAnkTq3TLUpVuFwblARhwfbRBLCEZ8RfUlNvb61PRHiuFaifZyvKbsuR0A1bHqGbn3f+n4OJnuic7EA1pKm2ESr6eC/NF32duY8JDRWKjZGea/UIjZrgE6UGOUWKvvd83BfLTGnI6V2X2tFX8hcE+5jrOzpROUsF4
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(34020700016)(1800799024)(82310400026)(23010399003)(10067099003)(261009223027099003)(11063799006)(56012099006)(22082099003)(18002099003)(921020)(12100799066);DIR:OUT;SFP:1501;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	DY5H8AFjQpqESTxiFcE3eRM8eA84MyWAGznVfHRd0lx/pKYQ+N3kITU/inQL8fYI6Z9Xt7lEFc2AMBAL3U02WQ6U2MWC//v1cr9rg5krqSF0ngdGeKFUAH804X3NcKXbLzlHbGEzaJyz6ET6P9nLrRD/6kF0KHIKMtq0Tj83jzJ4VCRbsi6DGEUY4c4OGlX78ku9JJKkg7Y9J45ghioxdlLYjI/asO3wnLZUxTKYr/ZC1fJLKRu7pfQuEcDrrNmPd0jdUTJn1O1Q9VIUwQ+Xcfhw1t7KqO1pzm5R4CyaMHra9jXguXH8SnAqjYTmTqusJyzRO+mVl4RaFZfMERk5+OXuWrGs2zeWj1CaSaTwqACurLzV2jQHZL2RMHJObjSXFy9WPyy6jUoT0JWPhGMjNCk9IcpVSu7sNaHemQ37nUK8idnTN05RUM604x4X2geG
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 15:48:30.8984
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ce978ded-e9c4-4d66-8ba9-08df2ad3c31c
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM2PEPF00070CF4.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR10MB6658
 
-On Mon, 05 Oct 2026, Nora Schiffer wrote:
+The watchdog IWDG1 is secure by default on STM32MP1 SoCs and has
+to be controlled through the arm,smc-wdt driver.
 
-> The PCA9955B/PCA9956B have builtin failure detection. Provide sysfs files
-> for individual LED status (reporting "okay", "short-circuit" or
-> "open-circuit") as well as a global "has_errors" flag. has_errors is
-> sticky and must be cleared by writing "clear" to the sysfs file.
->
-> Failure detection on the PCA9952/PCA9955 (without "B") works differently
-> and is currently unsupported.
->
-> Signed-off-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
-> ---
->  drivers/leds/leds-pca995x.c | 112 ++++++++++++++++++++++++++++++++++--
->  1 file changed, 108 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/leds/leds-pca995x.c b/drivers/leds/leds-pca995x.c
-> index 3d6053625b1c9..359803d0030fb 100644
-> --- a/drivers/leds/leds-pca995x.c
-> +++ b/drivers/leds/leds-pca995x.c
-> @@ -8,6 +8,7 @@
->   * Copyright 2023 Marek Vasut
->   */
->
-> +#include <linux/bits.h>
->  #include <linux/delay.h>
->  #include <linux/gpio/consumer.h>
->  #include <linux/i2c.h>
-> @@ -24,6 +25,9 @@
->  /* Auto-increment disabled. Normal mode */
->  #define PCA995X_MODE1_CFG		0x00
->
-> +#define PCA995X_MODE2_CLRERR		BIT(4)
-> +#define PCA995X_MODE2_ERROR		BIT(6)
-> +
->  /* LED select registers determine the source that drives LED outputs */
->  #define PCA995X_LED_OFF			0x0
->  #define PCA995X_LED_ON			0x1
-> @@ -37,19 +41,37 @@
->  #define PCA995X_IREFALL_FULL_CFG	0xFF
->  #define PCA995X_IREFALL_HALF_CFG	(PCA995X_IREFALL_FULL_CFG / 2)
->
-> +#define PCA995X_EFLAG_UNSUPPORTED	U8_MAX
-> +
-> +#define PCA995X_EFLAG_BITS		2
-> +#define PCA995X_EFLAG_MASK		GENMASK(1, 0)
-> +
->  #define ldev_to_led(c)	container_of(c, struct pca995x_led, ldev)
->
->  struct pca995x_chipdef {
->  	unsigned int num_leds;
->  	u8 pwm_base;
->  	u8 irefall;
-> +	u8 eflag_base;
->  	u8 mode2_cfg;
-> +	const struct attribute_group **attr_groups;
->  };
->
-> +static ssize_t status_show(struct device *dev, struct device_attribute *attr, char *buf);
+Enable the driver on mach-stm32 when ARCH_MULTI_V7 is enabled.
 
-Please avoid forward declaring functions.
+Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
+---
+ arch/arm/mach-stm32/Kconfig | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Shuffle things around so that it is not required.
-
-> +
-> +static DEVICE_ATTR_RO(status);
-> +
-> +static struct attribute *pca995x_led_error_attrs[] = {
-> +	&dev_attr_status.attr,
-> +	NULL,
-> +};
-> +ATTRIBUTE_GROUPS(pca995x_led_error);
-
-Are these documented as per the guidance?
-
-> +
->  static const struct pca995x_chipdef pca9952_chipdef = {
->  	.num_leds	= 16,
->  	.pwm_base	= 0x0a,
->  	.irefall	= 0x43,
-> +	.eflag_base	= PCA995X_EFLAG_UNSUPPORTED,
->  	/* Reset default */
->  	.mode2_cfg	= 0x05,
->  };
-> @@ -58,16 +80,20 @@ static const struct pca995x_chipdef pca9955b_chipdef = {
->  	.num_leds	= 16,
->  	.pwm_base	= 0x08,
->  	.irefall	= 0x45,
-> -	/* Reset default */
-> -	.mode2_cfg	= 0x01,
-> +	.eflag_base	= 0x46,
-> +	/* Reset default + clear errors on probe */
-> +	.mode2_cfg	= 0x01 | PCA995X_MODE2_CLRERR,
-> +	.attr_groups	= pca995x_led_error_groups,
->  };
->
->  static const struct pca995x_chipdef pca9956b_chipdef = {
->  	.num_leds	= 24,
->  	.pwm_base	= 0x0a,
->  	.irefall	= 0x40,
-> -	/* Reset default */
-> -	.mode2_cfg	= 0x05,
-> +	.eflag_base	= 0x41,
-> +	/* Reset default + clear errors on probe */
-> +	.mode2_cfg	= 0x05 | PCA995X_MODE2_CLRERR,
-> +	.attr_groups	= pca995x_led_error_groups,
->  };
->
->  struct pca995x_led {
-> @@ -119,6 +145,77 @@ static int pca995x_brightness_set(struct led_classdev *led_cdev,
->  	}
->  }
->
-> +static ssize_t status_show(struct device *dev, struct device_attribute *attr, char *buf)
-> +{
-> +	struct led_classdev *led_cdev = dev_get_drvdata(dev);
-> +	struct pca995x_led *led = ldev_to_led(led_cdev);
-> +	struct pca995x_chip *chip = led->chip;
-> +	const struct pca995x_chipdef *chipdef = chip->chipdef;
-> +	const char *status = "unknown";
-> +	unsigned int val;
-> +	int shift, ret;
-> +	u8 reg;
-> +
-> +	reg = chipdef->eflag_base + (led->led_no / PCA995X_OUTPUTS_PER_REG);
-> +	shift = PCA995X_EFLAG_BITS * (led->led_no % PCA995X_OUTPUTS_PER_REG);
-> +
-> +	ret = regmap_read(chip->regmap, reg, &val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	switch ((val >> shift) & PCA995X_EFLAG_MASK) {
-> +	case 0:
-> +		status = "okay";
-> +		break;
-> +	case 1:
-> +		status = "short-circuit";
-> +		break;
-> +	case 2:
-> +		status = "open-circuit";
-> +	}
-> +
-> +	return sysfs_emit(buf, "%s\n", status);
-> +}
-> +
-> +static ssize_t has_errors_show(struct device *dev, struct device_attribute *attr, char *buf)
-> +{
-> +	struct pca995x_chip *chip = dev_get_drvdata(dev);
-> +	unsigned int val;
-> +	int ret;
-> +
-> +	ret = regmap_read(chip->regmap, PCA995X_MODE2, &val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return sysfs_emit(buf, "%d\n", !!(val & PCA995X_MODE2_ERROR));
-> +}
-> +
-> +static ssize_t has_errors_store(struct device *dev, struct device_attribute *attr,
-> +				const char *buf, size_t count)
-> +{
-> +	struct pca995x_chip *chip = dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	if (!sysfs_streq(buf, "clear"))
-> +		return -EINVAL;
-> +
-> +	ret = regmap_update_bits(chip->regmap, PCA995X_MODE2,
-> +				 PCA995X_MODE2_CLRERR, PCA995X_MODE2_CLRERR);
-> +
-> +	return ret ?: count;
-> +}
-> +
-> +static DEVICE_ATTR_RW(has_errors);
-> +
-> +static struct attribute *pca995x_error_attrs[] = {
-> +	&dev_attr_has_errors.attr,
-> +	NULL,
-> +};
-> +
-> +static const struct attribute_group pca995x_error_group = {
-> +	.attrs = pca995x_error_attrs,
-> +};
-> +
->  static const struct regmap_config pca995x_regmap = {
->  	.reg_bits = 8,
->  	.val_bits = 8,
-> @@ -185,6 +282,7 @@ static int pca995x_probe(struct i2c_client *client)
->  		led->led_no = reg;
->  		led->ldev.brightness_set_blocking = pca995x_brightness_set;
->  		led->ldev.max_brightness = 255;
-> +		led->ldev.groups = chipdef->attr_groups;
->  	}
->
->  	/* Disable LED all-call address and set normal mode */
-> @@ -202,6 +300,12 @@ static int pca995x_probe(struct i2c_client *client)
->  	if (ret)
->  		goto err_put_nodes;
->
-> +	if (chipdef->eflag_base != PCA995X_EFLAG_UNSUPPORTED) {
-> +		ret = devm_device_add_group(dev, &pca995x_error_group);
-> +		if (ret)
-> +			goto err_put_nodes;
-> +	}
-> +
->  	for (i = 0; i < chipdef->num_leds; i++) {
->  		struct led_init_data init_data = {};
->
-> -- 
-> TQ-Systems GmbH | Mühlstraße 2, Gut Delling | 82229 Seefeld, Germany
-> Amtsgericht München, HRB 105018
-> Geschäftsführer: Detlef Schneider, Rüdiger Stahl, Stefan Schneider
-> https://www.tq-group.com/
->
->
-
+diff --git a/arch/arm/mach-stm32/Kconfig b/arch/arm/mach-stm32/Kconfig
+index 4ac3384e397aa..de09b2afa0f2e 100644
+--- a/arch/arm/mach-stm32/Kconfig
++++ b/arch/arm/mach-stm32/Kconfig
+@@ -13,6 +13,8 @@ menuconfig ARCH_STM32
+ 	select RESET_CONTROLLER
+ 	select STM32_EXTI if ARM_SINGLE_ARMV7M
+ 	select STM32_FIREWALL
++	select WATCHDOG if ARCH_MULTI_V7
++	select ARM_SMC_WATCHDOG if ARCH_MULTI_V7
+ 	help
+ 	  Support for STMicroelectronics STM32MP1 processors using Cortex-A7
+ 	  cores. Note that support for the earlier Cortex-M based variants
 -- 
-Lee Jones
+2.34.1
+
