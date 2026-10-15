@@ -1,144 +1,111 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A86239D6FA;
-	Thu, 15 Oct 2026 14:47:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ED22531AFF;
+	Thu, 15 Oct 2026 14:47:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075637; cv=none; b=DY4EpGtbztsfib/K5leyy+WMv/ZDcRTGvNStbU7qbSGcr+NMd3EcxZInaSripdPIEO9GoSNXzfRmTYgboOaMvvyo2HQvcAh6va/y8Sd6XN+DzSSoXzlackulfVU8r2urhvWJwrkTpkelNgqMGzVxBiZI+QYEwAZRFbevA9GjXUE=
+	t=1792075648; cv=none; b=LLUWG9Ut+k84HhAu8NnFF6RKarmwSjlCAYSLEX6qUzLOcAswAFhOcMtT13fFsEVCoxcT3ok+a2H0nGEdWkrOBJ4si22etVSqxF0FLkEwA6LvvN/BzJnpjM2BZQtGGPoQ8my7vwhiYXgIDV5FGa18653I4obBZfcfhMAtXdE7FP8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075637; c=relaxed/simple;
-	bh=rAF4YlSF7hUo8DAkMHthAjXGepF7SRPihX2Ex5pfZgI=;
+	s=arc-20240116; t=1792075648; c=relaxed/simple;
+	bh=KzG89v5CWeQH6MocM3otV1sLC0DYM8lkvo0Iu6k29QU=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=FUuXZ4EFOKJDyRNqh4TTdbJIXvFM88ZELT3HSzsVs9Eem/kUEC8RdIGOJd3P9XCKFOioKI9BEWSdiIfhC1T4bcNb7Z6e+Srx0WRugeAgXZU6JHRnsVbtbU5sodiXUCbMu/wQeSglMqZJVDZIjTErBiyv0BOFOsIjLf+Ke25CUgY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lnZc/iVm; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=JqbBJVT+NNVrUuXhMHxate1xx1//CKXel0DX9POxrx3ix26fxQt+p4HecsvKLwE/8LgHcAj7O0KriLf2oVorn2/yzk7PtzPqTgv0+dIP2rD1k9sI1RmRUKtcjTX8cYNIPtx7w1cP/A1OaJzrTOMSemnfxe9WhR0uhMTfp/68chs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o1kgJZRF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lnZc/iVm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DF881F000C5;
-	Thu, 15 Oct 2026 14:47:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o1kgJZRF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 576C91F000C4;
+	Thu, 15 Oct 2026 14:47:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792075635;
-	bh=3j+m2tKl65aJQplhL2PcqyVb7I0LigfZ2IYh3ohIJz4=;
+	s=k20260515; t=1792075647;
+	bh=eg9B/NxbYIvgWaS4irB89TWyPCoFMmIo1ofL2+jADEM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lnZc/iVmo2BemktisXZ7FeDT+Z/JZ3X3NyM4LMWn58rRh36Ps3olDN34uvIoQYj5n
-	 zYqkClSKqayoQiEVjvlbg/7KzZgDhWr6GdAdzNWL90B4782g73La/bpNzL+wv1TYIq
-	 btbc+q+VuTYRVadi/oR4z2/jgpsZ3kZcpcnfg8ai/4alD4KCCun9K/8QOcgwjpGjhD
-	 OabKaVbOB92U1DndPB8esr1YpMHZ+LOCgFddJj0eZw3wR7dd6dgwfaZ6RSf4P/yzXB
-	 plj5Yf9yHAQGGFHDtRYyiBwNztkkO1TXMEhTb3NvKeqCJXe5yCYf2t9pEeKKJT2NX8
-	 icy2/WYaE3y9A==
-Message-ID: <sashiko-outbox-172989@kernel.org>
+	b=o1kgJZRFWC2EQSMFRVrugBlmv0MnA60oliUflZJw1lnDKaseQbL546rNu8WC4e6PI
+	 M+zvVmRmWIVe/Sax6xEm6+PDKQ1kqnGG+Cp6fAkbjErG/M/Rekwk+ahPx0ABICIXq2
+	 U2OG3gsiu0H3vx9ta4yGj+KGMqAvQMc+PudXDIQEbhSH5N0WH9Tv683m+LmvmsIgoO
+	 /UtpXQgLAePe7NSz4VSQH3WhBHmMriorncniLwiA2Wm6Yk5EUYcvERGZDwW2oQ34PY
+	 fRRj7PgzKCehOWhu2XMk4F4swycFt/CQMxtoCjI8yNf7q8CBPhgOrXomEIHNmZszBg
+	 wjxbsuzZVtnmg==
+Message-ID: <sashiko-outbox-172990@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v2 09/15] misc/arm-cla: Add userspace interface
+Subject: Re: [PATCH v5 3/3] arm64: dts: freescale: add DT overlay for
+ MX95-15x15-FRDM RPMSG usage
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ryan Roberts" <ryan.roberts@arm.com>
-Cc: kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, "Oliver
- Upton" <oupton@kernel.org>, "Marc Zyngier" <maz@kernel.org>
-In-Reply-To: <20261015142552.4128028-10-ryan.roberts@arm.com>
-References: <20261015142552.4128028-1-ryan.roberts@arm.com>
- <20261015142552.4128028-10-ryan.roberts@arm.com>
+To: Frank.Li@oss.nxp.com
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261015-memory-region-name-v5-3-abc358b39a96@nxp.com>
+References: <20261015-memory-region-name-v5-0-abc358b39a96@nxp.com>
+ <20261015-memory-region-name-v5-3-abc358b39a96@nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 14:47:15 +0000
+Date: Thu, 15 Oct 2026 14:47:25 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] core: format string mismatch in dev_set_name causes init failure o=
-n 32-bit archs
-- [Medium] misc/arm-cla: missing array_index_nospec in cla_vma_fault create=
-s Spectre v1 gadget
+- [Medium] dts: overlapping reserved-memory nodes due to mismatched node na=
+mes
 --
 
-commit 91161eb49b1b380686ad6f07674f5b53c3cf7baa
-Author: Ryan Roberts <ryan.roberts@arm.com>
+commit 9406ad5f04c442814590c1435b754dffaa93d0ea
+Author: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
 
-    misc/arm-cla: Add userspace interface
-   =20
-    Expose CLA devices through a character device so userspace can enumerate
-    the available hardware and map accelerator register frames.
+arm64: dts: freescale: add DT overlay for MX95-15x15-FRDM RPMSG usage
 
-> diff --git a/drivers/misc/arm-cla/cla-user.c b/drivers/misc/arm-cla/cla-u=
-ser.c
+This commit adds an RPMSG device tree overlay for the MX95-15x15-FRDM
+board to support remoteproc and audio over rpmsg-usecases alongside the
+mx95evkrpmsg system manager configuration.
+
+> diff --git a/arch/arm64/boot/dts/freescale/imx95-15x15-frdm-rpmsg.dtso b/=
+arch/arm64/boot/dts/freescale/imx95-15x15-frdm-rpmsg.dtso
 > new file mode 100644
-> index 0000000000000..41cd5e4a7d017
+> index 0000000000000..c3deb277edabf
 > --- /dev/null
-> +++ b/drivers/misc/arm-cla/cla-user.c
-> @@ -0,0 +1,541 @@
+> +++ b/arch/arm64/boot/dts/freescale/imx95-15x15-frdm-rpmsg.dtso
+> @@ -0,0 +1,81 @@
 [ ... ]
-> +static vm_fault_t cla_vma_fault(struct vm_fault *vmf)
-> +{
-> +	struct vm_area_struct *vma =3D vmf->vma;
-> +	struct cla_ctx_key key =3D CLA_CTX_KEY_PL0(vma->vm_mm, vma->vm_file);
-> +	struct cla_domain *domain;
-> +	struct cla_dev *dev;
-> +	struct cla_ctx *ctx;
-> +	unsigned long pg;
+> +	reserved-memory {
+> +		#address-cells =3D <2>;
+> +		#size-cells =3D <2>;
 > +
-> +	/*
-> +	 * Reassignment needs mmap_lock, so we cannot wait while holding it.
-> +	 * The private futex fault-in path can reach here without allowing
-> +	 * mmap_lock to be dropped. Reject faults that do not allow retry.
-> +	 */
-> +	if (!(vmf->flags & FAULT_FLAG_ALLOW_RETRY))
-> +		return VM_FAULT_SIGBUS;
-> +
-> +	pg =3D vma->vm_pgoff + ((vmf->address - vma->vm_start) >> PAGE_SHIFT);
-> +	dev =3D cla_lut_pg[pg];
-> +	domain =3D dev->domain;
+> +		vdev0vring0: memory@88000000 {
+> +			reg =3D <0 0x88000000 0 0x8000>;
+> +			no-map;
+> +		};
 
 [Severity: Medium]
-In cla_vma_fault(), pg is calculated from the user-controlled vmf->address
-and used to index the global cla_lut_pg array.
+Does this node name conflict with the base device tree?
 
-Is there a risk that speculative execution could bypass the VMA bounds chec=
-ks
-prior to this handler, resulting in an out-of-bounds read that is immediate=
-ly
-dereferenced? Could this create a Spectre v1 gadget, and should we use
-array_index_nospec() to clamp pg before indexing?
+The base device tree imx95-15x15-frdm.dts defines this region using a
+different name:
 
-> +
-> +	mutex_lock(&domain->lock);
-> +	ctx =3D cla_domain_lookup_ctx(domain, &key);
+vdev0vring0: vdev0vring0@88000000 {
+        reg =3D <0 0x88000000 0 0x8000>;
+        no-map;
+};
+
+Because device tree overlays merge by exact node name and unit-address,
+using a generic name like memory@88000000 here will prevent the overlay
+from overriding or merging with the existing node. Instead, it will create
+duplicate sibling nodes under /reserved-memory with identical physical
+addresses.
+
+Could this duplication cause the kernel's early memory reservation code
+(__rmem_check_for_overlap) to detect overlaps and trigger 'OF: reserved mem:
+OVERLAP detected!' errors during boot, or potentially duplicate DMA pools f=
+or
+the same memory?
+
+Would it be safer to reuse the exact base node names in the overlay, or omit
+the reserved-memory block entirely if the base tree already provides the
+necessary nodes?
+
 [ ... ]
-> +static int __init cla_accel_class_add(const struct cla_accel_desc *desc)
-> +{
-> +	struct cla_accel_class *aclass;
-> +	unsigned int i;
-> +	int ret;
-[ ... ]
-> +	aclass->desc =3D *desc;
-> +	device_initialize(&aclass->dev);
-> +	aclass->dev.class =3D cla_class;
-> +	aclass->dev.devt =3D cla_devt + cla_nr_classes;
-> +	aclass->dev.release =3D cla_accel_class_release;
-> +
-> +	ret =3D dev_set_name(&aclass->dev, "%03lx:%03lx",
-> +			   FIELD_GET(CLA_IIDR_IMPLEMENTER, desc->iidr),
-> +			   FIELD_GET(CLA_IIDR_PRODUCTID, desc->iidr));
-
-[Severity: High]
-Does this format string cause argument misalignment on 32-bit architectures?
-
-Because desc->iidr is a u64, FIELD_GET() returns a 64-bit value. Using %03lx
-expects a 32-bit unsigned long on 32-bit systems. This could cause the first
-%03lx to consume the lower 32 bits, and the second %03lx to consume the upp=
-er
-32 bits, completely ignoring the intended PRODUCTID argument.
-
-If devices share the same implementer but have different product IDs, could
-this result in identical names and cause device_add() to fail with -EEXIST?
-
-> +	if (ret)
-> +		goto err_put;
-> +
-> +	/* The node cannot be opened until cla_user_init() adds the cdev. */
-> +	ret =3D device_add(&aclass->dev);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015142552.4128=
-028-1-ryan.roberts@arm.com?part=3D9
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-memory-reg=
+ion-name-v5-0-abc358b39a96@nxp.com?part=3D3
