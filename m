@@ -1,109 +1,75 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5FFE4C8C53;
-	Thu, 15 Oct 2026 08:51:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A65144C6525;
+	Thu, 15 Oct 2026 08:52:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792054322; cv=none; b=g1+bJl8p+7DKX5GpXSdMjfl5jDPSOm75HB6ABS9phvwVZ7o7tphgX+mOfBXFINJT7UWWorz6mjIDy/8iDA4d9+9kPnrvAL5ttJ4zI55Do9xop+sHJM5Jlg58gqy44j7BlDmSdsqkwoYFhcXTg2TSbQ9bEIj4DB9o4j0MoIOH4XI=
+	t=1792054334; cv=none; b=DYWRDnnokjcfFV246ABkOj1FOFe5CqQ7oyNQ4DSDt9Wz5qQXJurA7yWVpz1FahclUJa3L293hV74k6PsLXjJNUETbm4lUVJIs+jEAkACdk7WJmO+M5P5LtroRWpULvvg/uJDHWdPNSal73VHruyZWxz/dMRkEZDM7etl3G5FlUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792054322; c=relaxed/simple;
-	bh=XzL5sDkQ6gBCoosWvQKyScGFZLpTRYLTxeYG/KDWQ4Q=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=tRxfm+525KTetWUtuQPch/QoyQute72zGG6XCU0ghi1UQlg0sJtwMHMzGQKFwPcRZS7h0rmb4HXRWMrh5xgPgd0vsq+Il7w3SBPPeRswXh7SwUgu3tTx22C93qecyGOmEywch1ymtKzFBE2SLVV1Opcyg8qeRSMlrmQCAxIfj+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a0JYqDde; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792054334; c=relaxed/simple;
+	bh=DGZOX7q95dKg1bNKWiFXfRt7xnds8rIB399lMbVunZk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OdwVODUzTLOgQxeczAcIXLQPCjstjQ8giPG3xy6HPzVAxclrlG4JpcC/BUHAGS/8f2csbtOrjXr1Wm/i/P5wStIZgs0+pO4vqdX2hCXgIEd3iVvhOW3u3L5zFNJ3q3aBpUTR999/HiojG9lENSMNb+8sQP2JLyT/7yT3SI2K48Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PKTJTA7a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a0JYqDde"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D6061F000C5;
-	Thu, 15 Oct 2026 08:51:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PKTJTA7a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2E2D1F000C4;
+	Thu, 15 Oct 2026 08:52:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792054318;
-	bh=dWcQvOvf0MJoEk6VNqyDCjj1jOptNR1+bSUzeS9rWHg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=a0JYqDdeV4dUJEEKDTGctJWkP6A+yCD9pB/X1h5SItjMlV9fhcQ1qjownfE8lC7IA
-	 ECFWUWKkexj8iIhe4/bSqAozOiu2gBIWNBuyZjKmPR9ZpM1KAEq2zmSa1H9ndZYHWx
-	 SRFiZU6vcnhqcuorUnszUiSl8heO86/oqmLjHiHXgQqRiA+vX3vLhbi4/6gRECAkkQ
-	 SCFB1f+iNyM3SN/94BX5D56urZuXgcE7JDgZfs3YIS4s3+/KCPQbh56vyd62XJLVyb
-	 PnUQWLfEOHGpqm15uTU6TbGdmJXizL0kEPishoIwm2qWdn+n1YlPpHfK0ZcBg+2VeZ
-	 C+q+5BnebxFzQ==
-Message-ID: <sashiko-outbox-172521@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/5] arm64: dts: qcom: add device tree for SDM845-HDK
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261015-sdm845-hdk-v4-4-b532b9f4029c@oss.qualcomm.com>
-References: <20261015-sdm845-hdk-v4-0-b532b9f4029c@oss.qualcomm.com>
- <20261015-sdm845-hdk-v4-4-b532b9f4029c@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 08:51:57 +0000
+	s=k20260515; t=1792054330;
+	bh=uDVJmLmsibAUI39jvyadaUkuu9QSWeyPIqt22YLl4c0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PKTJTA7ax157uQp9n2BkNzx+XxPXRDcxh7r92ZYsJMaeCYJe1cgZfGcmkmMhEYm+/
+	 0kHfXrFVaT7uGlSnNg8/LqSIiJphTrZqN7DXjH+cTOrcgIfeTuN+U21ch/UI7EeCvQ
+	 Q6OBlorOrNvACiCNt5iiQ4S+3erDv7Lj/W+NhKNs/bvQneJf84l15VJ6VkX409WZu6
+	 58cnP+Ki4szHUTw5qJTesAvkzZJCHH+azulLjBTjO7lIBeiDS6hbyfUTfVfZCtf93e
+	 GcucqHuXnnMh32TBVTekKVrenU9TsxJ8AZR1T8gItoQlRpMXp7CqQkPg1CMZHXq9M6
+	 adSenK6xgaB8g==
+Date: Thu, 15 Oct 2026 10:52:04 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: wyibo6109@gmail.com
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	linux-input@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: input: add OnePlus pogo-pin keyboard
+Message-ID: <20261015-melodic-cooperative-chital-afa0fd@quoll>
+References: <20261012-weightless-meaty-fennec-cdce10@quoll>
+ <20261014134759.10946-1-wyibo6109@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261014134759.10946-1-wyibo6109@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] arm64: dts: qcom: inconsistent SDHC_2 drive strength vs comment
---
+On Wed, Oct 14, 2026 at 08:47:54AM -0500, wyibo6109@gmail.com wrote:
+> From: Yibo Wang <wyibo6109@gmail.com>
+> 
+> Hi Krzysztof,
+> 
+> On 12/10/2026 01:24, Krzysztof Kozlowski wrote:
+> > How is that possible? Same OnePlus Pad 3 Pro has different matrices?
+> 
+> No, and sorry for the wording - within one tablet project the keyboard
+> is fixed.  What I meant is that the matrices differ *between* the
+> tablet projects that ship this MCU, not within one: the vendor trees
+> carry per-project geometry (caihong, the sm8650 era project: 2764x1630;
+> erhai, the sm8750 era project: 2764x1630; iceland, the sm8850 era
+> project the tested OnePlus Pad 4 belongs to: 2560x1440), while the MCU
+> protocol has no command to query them.
+> 
+> Which also means your question from v1 is answered the other way
+> around: the geometry *is* deducible from the compatible once the
+> compatible names the project.  v3 therefore drops the DT geometry
+> entirely:
 
-commit ad3a4fdbe0a1af267d2159b955cbbffe917a1e14
-Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+I don't think we are describing here the MCU, but the keyboard, thus
+it''s physical geometry is fixed.
 
-arm64: dts: qcom: add device tree for SDM845-HDK
+Best regards,
+Krzysztof
 
-Add device tree for the Qualcomm / Lantronix SDM845 HDK. This adds support
-for the development platform using the modem-less (SDA845) SoC, including
-peripherals like HDMI, DSPs, and USB.
-
-> diff --git a/arch/arm64/boot/dts/qcom/sdm845-hdk.dts b/arch/arm64/boot/dt=
-s/qcom/sdm845-hdk.dts
-> new file mode 100644
-> index 0000000000000..a2f139751ab6a
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sdm845-hdk.dts
-
-[ ... ]
-
-> +	sdc2_default_state: sdc2-default-state {
-> +		clk-pins {
-> +			pins =3D "sdc2_clk";
-> +			bias-disable;
-> +
-> +			/*
-> +			 * It seems that mmc_test reports errors if drive
-> +			 * strength is not 16 on clk, cmd, and data pins.
-> +			 */
-> +			drive-strength =3D <16>;
-> +		};
-> +
-> +		cmd-pins {
-> +			pins =3D "sdc2_cmd";
-> +			bias-pull-up;
-> +			drive-strength =3D <10>;
-> +		};
-> +
-> +		data-pins {
-> +			pins =3D "sdc2_data";
-> +			bias-pull-up;
-> +			drive-strength =3D <10>;
-> +		};
-
-[Severity: Low]
-Is this configuration intentional? The comment in the clk-pins block just
-above explicitly warns that mmc_test reports errors if drive strength is not
-16 on clk, cmd, and data pins.=20
-
-However, cmd-pins and data-pins are configured with a drive strength of 10.
-Does the comment need updating, or should these pins be set to 16 to avoid
-potential mmc_test errors?
-
-> +	};
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-sdm845-hdk=
--v4-0-b532b9f4029c@oss.qualcomm.com?part=3D4
