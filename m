@@ -1,80 +1,174 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C2DF446BE0;
-	Thu, 15 Oct 2026 13:46:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44BA2527592
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 13:51:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792071983; cv=none; b=c1RCjYDP6flbjBCYHACtMGyF1NVS9SSLjJXBp58aROn6DoUF6XnKfwBDHZ/z/yOwHahpoEh6Ds4KS5NUCxxoMkMn7+G5iiSurXOjE4rBwvGJiw99H8juatuqd4o/WgdrhAN/eoyR6aWVKCvtoDMjkauSe+1NDye3tRx54ldfUsg=
+	t=1792072307; cv=none; b=iU9e00dSZkKodR4r/debXHDKaUYqSJ6WDchfM5bHLqj/OQH+d+hrPLNkVHSaFemtIn1zrdM/8NO99qxzmm+YA1AWb8TPtXHTrQD4XPwKBXhn/mtIUPlJty2fz4DACSU9nxAzfPUEMfQGdIrqVab6GTp8O3WkzBj0F1DLGmmHmLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792071983; c=relaxed/simple;
-	bh=SchSXgq0fYT4RQsvmnwQy3JZQxuw4u59z0kkHbicYGg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VNPihQlSz006rG6W6VobaFR11rSKB/DZLMVdNlxIK9EAAOGoJnUrmtWc5u5m5EIMSjVYgeTeeZprqHiola7YYcxvxHytfPmYZBZoo8eq0zBn+mxuhO92A9B2cZf4AUTa80KAVI8FQGznxJgtSzGV67CITf9fvMrkuGdAKa39jFg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iVz7KgO9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792072307; c=relaxed/simple;
+	bh=KjzcQY+K7aHtbS0NAuCYEVDNSyzs6TQuMVq8xZeEeMU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WqGW4bTxxSO481i1ykJryjA4O03bRvr2nPruA23r2Z/WnEvIY2j31MgpEeTtnsrxY3SFHKe/Ql9lKRtBwZ8AC4r0NBP2jZefdfYyQ5J98WNAss7IMolGWMK4yky0bm20FsEU4w6LojV0a979yIV0iQ7RQM+KC+IgshNrUuC/hBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TfGYu09J; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iF6O3pB0; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iVz7KgO9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B87B31F000C4;
-	Thu, 15 Oct 2026 13:46:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792071982;
-	bh=Kx/01Nsq1UY3kmElra+GwWgne6z+msRWvpMdj34qnwk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iVz7KgO9Cm2mX6ny5SHc02ay/J/zYG7KOkNB+c1dCyFPSh++xhzNK0dd/gZ8N7Q3F
-	 DNpCy3deOCDafeJOyy+94wg8QGz31E0cLl9S8ZBRyZXi/dp2LOXTqNRiQI/uWBlo6e
-	 mflihpcygGeZiZpLIgpl616jKl0Ni62cZYg1Ek/1yBEBXZ4iFx6ljLIKbWyWUhV+Y7
-	 wiIDv74TdBVF5Zsjam4B6NBNPRhSp0FDySL1e9jmidB9KyT4yywxbSeWqtiL1WJwJD
-	 lcf7+cyCKW2RaHbLYA7yJovxTZ34ppYEbsmp3cF1KCbkcF8o7oj3+cDd5scuLAL196
-	 skaObiIf7rIOQ==
-Date: Thu, 15 Oct 2026 14:46:16 +0100
-From: Lee Jones <lee@kernel.org>
-To: Yaozhong Li <yaozhonguwl@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>, Chris Zhong <zyw@rock-chips.com>,
-	Zhang Qing <zhangqing@rock-chips.com>, mfd@lists.linux.dev,
-	devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v3 2/3] mfd: rk8xx: Release the power hold GPIOs
- before powering off
-Message-ID: <20261015134616.GA1907748@google.com>
-References: <20260929140649.55-1-yaozhonguwl@gmail.com>
- <20260929140649.55-3-yaozhonguwl@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TfGYu09J";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iF6O3pB0"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9jVMC2416877
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 13:51:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	j4JDE7aRkhLuddWv4fnmh25SUfb4zOBGWraW4nSecoA=; b=TfGYu09JezmOIA0C
+	prQXwkEgKH4dBbaqGUYzEwgct1+3y6YQK8/ituynNTUCmXhZLsBE7wOAxSpXriv5
+	eJOLyzXZrYWoWbMZs4r39sV0nc1qKx24tY2jdTrORr9bngvcu74CU2va8nNQrFiK
+	lppenhV1VYf1cU52sXCB97gyc/KZAmIuDTE202HU5/luAqnRdu7tNCP02ie/lGPC
+	v0b4XRtAa6pxrwUgUVxpHaeKOCMwWJtSC7RO1vu9b3yHdfN+RGqiCDLqASzy36ep
+	oCW7VWQR+EAUAj+jhYhgqZuC3oR5w0F3bTyPOvLz7BxLH/YCqIE7jfnaxORVVMT5
+	dipZvw==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4haqdhjd31-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 13:51:45 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93df7a9466bso61643585a.2
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 06:51:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792072304; x=1792677104; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=j4JDE7aRkhLuddWv4fnmh25SUfb4zOBGWraW4nSecoA=;
+        b=iF6O3pB0xMaHCN6XfYquM+A/Ob/AkJwKTInp4HUwrulZrk0d99ekkKW1cNfu52qa3D
+         pjpExPnxI4T3jtmZVnHJLZ9SCxcV/M3IOfuk2hRJDtcwc+VeClTWyA3g7ZrXEClqNfc2
+         NSt/CBJeDAH25l0vaLGzhEzmVFMyREPVyo9gVGvJ01Hak83XgqY8jgNJ3l7GwuroZCkK
+         rZS83ROXx+70350FUHJAnfCUOFcHdP0kK/AxO/rl4sGMtNOkUTHU1rUpFIlFsyoY2Cif
+         djrJvfItZIfpkB+vJOIAJ03WLpMtaUizCiV+sB0Jw9na6MVToSjfxqjadyCVf4ozwSlX
+         E7rg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792072304; x=1792677104;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=j4JDE7aRkhLuddWv4fnmh25SUfb4zOBGWraW4nSecoA=;
+        b=pgTKVH7M7Xu636uR9zoTW11Axyn4MvId+pXA4CXnCUxqT7QKGuz0whkET3E8tcHz9I
+         /9MqRjTsmJIPWicCVyryO11zGp2D7ggSJHOxdTzu/c0EkC9iRd/5BKiNYklWN8DPR6PI
+         VtAIwZ+UtbG399Ist3yaKiS8RoHt6kkSHqOaOsS67YplSx9z3x9ROLpVMROgUVmHFyNJ
+         SCNrksMoK73WR92MXQ2ldqZ86JwP3L5ERQtHnGLTB457mwbuhBB5deRxI9VmFyC5uq7w
+         JHXQZATQf7RBVFsyUrOo5HkX0JmOGx/bRZV/PZ2uHFI9ytVQkYpW8ap/knencXA23zlp
+         XGww==
+X-Forwarded-Encrypted: i=1; AKwUvBzqi7NvD3rCZ5YGLdQKO/zXLyr5yqR8mKw8Rmua5cgPTClb4FBdWMcHcDgJmPwAhpQc9Z2BtFcEOWM9@vger.kernel.org
+X-Gm-Message-State: AFq9FYJjTOQYy7ytYA+90eIzMBwpq7uVgctfzT2i5D+u0AT0xubKI6qk
+	6qH7gO623T6bMZPIhe0YzH9gxlqXwLApdPHz1ijieBp9hTSyNjuJ4X0N9SAU15CS50HzllFRlrK
+	ToAh1jCc3ysvQQuLycoyZkWaa5XBoUykStNLg2LciGQ5tKtx/IfaKRgivUDZCKe/v
+X-Gm-Gg: AYBFou3PTH6r1hD9YpeeFuKtJ5S5HW3k/iOg2sItGmaFfIPry5AfvulEIQ3gJxPlq1A
+	/v3ZcucgeE9IZtOKOm8WDovQWYAaHoijDIUPNuppEHx768iZtqMMUeTAEQU0c+BIVuI+2+ZMmAF
+	j2HxmqCYl+sR+r2OqhHt5b7p6YYG2wrFFvLTXuJ3uqBeTeTIip8+2xkiAJWm1cv7nAOtgTP9djY
+	cfMpjslYpf1At0LP3E0vy5ZI0mHvp6p+Q4j7LUamKo4CCeup/X+FX/xdn26fmRoIGWQ+EZglAET
+	8SVLeXs0kIV6RPKN9yYQTZWDf7Cg1yH4l3D4g/AOGaidyOUwcbUzVhJmszrMZzUlykExthzeFyN
+	JVXt6H97eggfH4CAGGpqAdA==
+X-Received: by 2002:a05:620a:4613:b0:939:c7d1:7471 with SMTP id af79cd13be357-93ebd228f1cmr3503008985a.4.1792072303486;
+        Thu, 15 Oct 2026 06:51:43 -0700 (PDT)
+X-Received: by 2002:a05:620a:4613:b0:939:c7d1:7471 with SMTP id af79cd13be357-93ebd228f1cmr3503002285a.4.1792072302803;
+        Thu, 15 Oct 2026 06:51:42 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3aafded5544sm6741681fa.18.2026.10.15.06.51.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 15 Oct 2026 06:51:40 -0700 (PDT)
+Message-ID: <2e5bfe2f-f639-4c55-bb4e-e8893e9f098d@oss.qualcomm.com>
+Date: Thu, 15 Oct 2026 15:51:35 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929140649.55-3-yaozhonguwl@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] arm64: dts: qcom: sdm630: Drop the cluster idle
+ states
+To: fabricioakio@gmail.com, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: Abel Vesa <abelvesa@kernel.org>,
+        Alexey Minnekhanov <alexeymin@postmarketos.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Martin Botka <martin.botka@somainline.org>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261011-sdm630-idle-states-v1-0-3181d488dc0f@gmail.com>
+ <20261011-sdm630-idle-states-v1-1-3181d488dc0f@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261011-sdm630-idle-states-v1-1-3181d488dc0f@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1NSBTYWx0ZWRfX6tt5rh/1tzH0
+ OlrqxVuOju5bO4W3R0E9Sut5gfNPf3xApQ9KchklMeEyordlGRK3YA4gfXjVUUZ17T3fXcDNYX1
+ DuzXoXnB/Zpk4Z6tuyaIhni4yLNXgfs+GvmLkUneB6sgeTNc24n3ouw+/bZS4CMs7D8f1ODPVqT
+ l4nKWigQxAFwMw15yrjtdJE6HVQkBFqbMnETyrC8/4fUSEZEJVSvoOgwykoEn9CLIwzH+THPW2i
+ eKK/CNNWTip+FFQ4ldxM9bwZYg2H6mQYykyynvb6jv1BhwIdVu8bW1xW9QF1VxixXAtIVfLZTIE
+ odTEuqh7ggWSzTBDObZmW+plCGKeIS5lhudxaY/fVwQPB9bSTMYAIrsajVHKVtJGrVfBd8m3FgX
+ QKMJOUINyLtLwsdYQgMOr7vf/d9r88y69iJPGFU2a/u7ECq/1py2ihtpw3Y3Tcjeky8IWhU3EXB
+ rZ56mLJL+hHUOyWiTCA==
+X-Proofpoint-GUID: pV0Ym2CYbQkEvjA9dQd4vwF51LI6vd2L
+X-Authority-Analysis: v=2.4 cv=DeeCOftW c=1 sm=1 tr=0 ts=6ad0da71 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=pGLkceISAAAA:8 a=RwhIZBXw_0bjbjxBZPMA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1NSBTYWx0ZWRfX++AxGo/CtNt2
+ h/lSR6O2ZFy8wWCxmS8kUf0XuxXz+2N+rJGXA8lK0ivSDCskalQz93VYjtkrMBqVoFWhoQffAhp
+ yL7Z4jt2+6tN+91ytgcupW3Rzlm4aQ0=
+X-Proofpoint-ORIG-GUID: pV0Ym2CYbQkEvjA9dQd4vwF51LI6vd2L
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 suspectscore=0 malwarescore=0 phishscore=0
+ spamscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150055
 
-On Tue, 29 Sep 2026, Yaozhong Li wrote:
+On 10/12/26 4:18 AM, Fabricio Akio via B4 Relay wrote:
+> From: Fabricio Akio <fabricioakio@gmail.com>
+> 
+> The cluster idle states use PSCI parameters 0x400000f2-0x400000f4. The
+> vendor kernel encodes a cluster state differently: it puts the cluster
+> mode in StateID bits 7:4 and sets an affinity-level field, bits 25:24,
+> to 1, so cluster power collapse is 0x41000043, and only the last
+> running CPU of a cluster requests one. A flat cpu-idle-states list
+> cannot express that condition.
+> 
+> cpuidle records no successful entry into any of these states, and every
+> request for one fails. Because they are the deepest, an idle CPU keeps
+> choosing one, each attempt returns at once, and the CPU spends its idle
+> time retrying instead of sleeping. On a Motorola Moto X4 (SDM630) with
+> the screen off, the CPUs made about 133,000 failed idle entries per
+> second and spent about 10% of the time in an idle state, and the
+> battery supplied 277 mA. Without these states they spend nearly all of
+> it in one, and the battery supplies 115 mA.
+> 
+> Fixes: b190fb010664 ("arm64: dts: qcom: sdm630: Add sdm630 dts file")
+> Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
+> ---
 
-> rk808_power_off() writes the PMIC's shutdown bit directly. On boards where
-> lines driven by the SoC gate the PMIC's power-off path, a shutdown
-> performed this way does not stick: the rails drop and immediately come
-> back up, so the board restarts instead of staying off. U-Boot reports the
-> result as a power-on reset.
-> 
-> Take those lines as an optional GPIO array, hold them asserted while the
-> system runs and release them - waiting power-hold-delay-ms - before
-> writing the shutdown bit. Device trees without the property retain the
-> existing behaviour.
-> 
-> The array is claimed before any child device is registered, so that a
-> -EPROBE_DEFER from the GPIO provider does not tear down the regulators,
-> RTC and clocks that devm_mfd_add_devices() has already registered.
-> 
-> On a Firefly-RK3399 the shutdown stuck when such a line went from high to
-> low before the shutdown bit was written, and did not when the line was
-> never driven.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Yaozhong Li <yaozhonguwl@gmail.com>
+I threw an LLM at the downstream tree and it decoded the states to:
 
-Why is this still an RFC?  That means it should not be applied.
+C2D, no cluster state	2		0x00000002
+C3, no cluster state	3		0x40000003
+pwr/perf L2 D2D + C2D	L2 2		0x01000022
+pwr/perf L2 D2D + C3	L2 2		0x41000023
+pwr/perf L2 D2E + C3	L2 3		0x41000033
+pwr/perf L2 D4 + C3	L2 4		0x41000043
+System PC + L2 D4 + C3	sys3, L2 4	0x42000343
 
--- 
-Lee Jones
+sorry for getting it wrong years ago!
+
+Konrad
