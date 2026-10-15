@@ -1,101 +1,84 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 770E74ACC8A
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 08:25:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3F2B4A0F0D
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 08:29:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792052728; cv=none; b=nla6FfnEMwljwgMYF04ymlpSQiRJ7ehwd0l4IUSf31gTwB6HTwI6nY938bJ+0INhfZD1RVseVlH+1ma3EmGeOkRW+AVVjODXl7F9Q/xXB2ailHyZctDyJVFLfLLXuVKaXSnrNhaNkyrcIPi3cci8MSHrVE3bw+C7b0TlEjoo+ak=
+	t=1792052946; cv=none; b=CLMdFFQFFJz7iMjrS/0ir314m5dh4LxLwaQbtJGGS5DKq1cLrNjdaLCGhzIYOd8WveMfrlIY7gT5WowuO8zoCLSQKg1apqJg2OxnHTp5gt0Jv7Rh/Wrtbq5n6bHVqnPZg2x4TaFnb7Ic4oF4tq9UyDZM0IN+auA70gmGMHhDjMo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792052728; c=relaxed/simple;
-	bh=MjGHXq0yR9Gpo3xrFudvRWYYUefJtXK6z7zXZk3zLic=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oyi7kh7bN6pmN2c+U79LqG01fGUIXvbBmVwfvje9XOU9HxVri9EeinhwpBy8tctDhGNP5jeKj7Q+WeoVb9mO0gClbA1rng+7Jrb1VwCFX4TazbjJLw1pFBvoghDD4br0VyddWFv8VNb1M0BWE809aV632EJHa7bqlVTJiEhTT54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iJlVG0Ro; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792052946; c=relaxed/simple;
+	bh=UclMXT5dgaXzi8d+Et2aQmWDjkQGmYQfEWHeAsuzHAI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=F2+tq3j6V6eqJzt8LiK/WNICibKM6bdxKLNG/kU5W+YIwsPJdVAhUezQn5DTwZeE9G5pjdpKMgT43CGHxuyNXGaAuiiWVThg51CVGfbVKYaFOBVZSJo1A57R+1e5gFsjMUzDySzK7g0nk4Ko+xLrtKxJ7UG3aIxNayogekwplWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TY/rY+h7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iJlVG0Ro"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a1880e1bf1so16433255e9.1
-        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 01:25:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792052726; x=1792657526; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MjGHXq0yR9Gpo3xrFudvRWYYUefJtXK6z7zXZk3zLic=;
-        b=iJlVG0RoylsmHtfdnUUWKj3ZTp0HL7VhAFwbyCK/A8NqXZSaAYs3+rd5DUUEYAKzfk
-         s1rCdOa1OoRa/OkSQbCBaA0AdDdIRTwQ5k0SzdOdYzLWfflpSLbhihu56idctutqAdZY
-         PB+3vwZ/b1rsGRwAbEP3PRsLQ/7Ic2LlJ+8pmd4LyX5uDXInz7vEYKJMctDkvAndkdVD
-         b9CcfMZXyGLymW9mfrhFQIi8sX5Pfvm0IdXBFA5WwOGC11hCpXQfpM8+xP6rBvwUrdMc
-         G+qCanUGqUFpFIukNdgIchl7MDp/ROmPd626gsEIhoWGxamsilSfzPzq83y5LjfbK7Qc
-         KOjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792052726; x=1792657526;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MjGHXq0yR9Gpo3xrFudvRWYYUefJtXK6z7zXZk3zLic=;
-        b=TmcnaHustZQxnWRelnUUyAuvVu3Cep48OwYGdRe7HRLewq7mWPH1B6HlbGSih7wJsp
-         3zcQJfbvjL9m1EXJV/59w7NI7corgLrjTQwsq4cnVLFh1HZ0kqfqZHl8N6QD9YDl3zs0
-         T7V5OySJ4SEQPcPTLKH7MbGGzFfzBMl3RHAQgP61E6lGvquun5bfH7I07C1rZqaiu/ul
-         vrQzYH52PUzzEJu14k4Tvjbi9y4TdkRusOcLMMrCifkZi56yIJXfm0k3bdr30XRnqQ5C
-         s+ezgPUUJd0KEo1SZxeRJzFxdc7j2iYrlem/bB9JtSKFORLt9iy4m/HyXDKRvLV8jjp5
-         YCfg==
-X-Forwarded-Encrypted: i=1; AKwUvBzaZa10BU1DFwIYEwFVTo0l3ogdthO93KUzRGjY8XubzctRQFZdN2uBQQV7XbKXSe7JJWaMe1i0TCcJ@vger.kernel.org
-X-Gm-Message-State: AFq9FYJbxE54Ku7eXYBeTwOv8Y3Zq8nGvkMg6JlPjtUf1VaTEjM5xCQ7
-	JnDd4/eZb1RTfdKc6nPfUTGVfLyBq++WbzGU4aC1hvMuWoBVT9Lj2y2U
-X-Gm-Gg: AYBFou1VgZFQl3IS9ZsNFK6VSaIfzg5XIPLOZWsm2Aai1pjg959fssS5IzRV3ku3L8r
-	8Ctjt0lGGV8ktq4q51YmL4SAHsx9wIpiCH0yEAcJVcFaXn4XkS/UYMUJyCeGoa0DLPD5ThT0Nsq
-	3cfkV3eu/SKjaABh3m3eS2kewTi6cx1KYw6vlE7zhJ4Rnwi1KyqoODCoNpGzhiXdKtCqhlO9Mu1
-	Q9GmkXNd8WtDcrmO85pswNi73iZL2DYKst3HUClhbqvaF+x+JAmXkZqrYYHQyzkcabnMoOoqpfp
-	coCwiYGZ/xg2Z9Vn8sIl5B+fC1h0ibYPTRgB8s0Ev86JyIfE5Byj+WhdcwiPM0ERmIwpcliYPRX
-	MQ8wZGJh4ibjGpdABSpRVmLXc+E7abbxDrDm2O1cSXfcmBRbSbEYZJg69uH1dlD+Ai+VyF8gcBI
-	4PxNPofOGgCJWhk/XYh/wXWRN91bGBvdSvW6A5aaRwRatE86up6FY/wq6rcnlBsK7toNiZlV8cJ
-	aFtPRuP
-X-Received: by 2002:a05:600c:4ec9:b0:4a1:7739:f9ab with SMTP id 5b1f17b1804b1-4a18e4ca953mr370896815e9.20.1792052725437;
-        Thu, 15 Oct 2026 01:25:25 -0700 (PDT)
-Received: from localhost.localdomain ([94.252.74.55])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a1bd67a080sm51822765e9.3.2026.10.15.01.25.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 01:25:24 -0700 (PDT)
-From: Oleg Keri <okerixx@gmail.com>
-To: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	LKML <linux-kernel@vger.kernel.org>,
-	platform-driver-x86@vger.kernel.org,
-	linux-hwmon@vger.kernel.org
-Subject: Re: [PATCH v6 2/3] platform/arm64: add Lenovo Yoga Slim 7x Gen 11 EC driver
-Date: Thu, 15 Oct 2026 10:25:16 +0200
-Message-ID: <179205271598.452373.17818636318443679532@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <3df5fce1-509b-1362-3b78-8f79337ebc05@linux.intel.com>
-References: <3df5fce1-509b-1362-3b78-8f79337ebc05@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TY/rY+h7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C0111F000C7
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 08:29:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792052945;
+	bh=UclMXT5dgaXzi8d+Et2aQmWDjkQGmYQfEWHeAsuzHAI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=TY/rY+h7wanHSplyQ+Tnf4ZmmiL9+9t1MktcHS2ZZd7G7RWv76+z/hfd0CSY72vwO
+	 Au/kiOm73Q08zNZzMK6Lg1fm7pvzSVyi/8r5pVoDrQNYOjjI+jubM7ju0PuCbbiPiW
+	 vR++g1RQOAU7m94BIZ0c0xN4ykHod5RYdq1a9/D0OtgP9s5NMEkPI6jLMRI7Rr1gjk
+	 JmHdx6tJ5WynTscSrTkZtIeZSwqBvBzyEB4SGd+A6ONpLD93/keqrd7seepJG6/6d7
+	 gk8/v0mFNFsyfkPB18h2upZlBC/l2cDOLreae37JwZ2bSEAEj+jBf6YO8+Q2VRol8q
+	 hisffRmRt3T0Q==
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3a7858d3a20so13594601fa.0
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 01:29:05 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzSIGm9H0dMT2AYFAlB737UC1+VKfUjub04mBxLBImuZ2Cx6Sl8Mx3tUHoInXg5t7vZ0qne+LJ3tNyb@vger.kernel.org
+X-Gm-Message-State: AFq9FYKnWIOJES8QkVjBp6ym+7cUTM/mQyLQKhohBW6aakDpZyQpmaIV
+	C+NIgCsaPJhtsV7+ycDuGGlxGVYPemWehaZNLwJ/CQgDHR604IuX6BpLB9uAr6T4yAigVpEpAk+
+	Dxi6IAdWZiDBWEX0nw2KsFHIH3mT8exs=
+X-Received: by 2002:a05:651c:502:b0:3a6:6efb:a0e3 with SMTP id
+ 38308e7fff4ca-3a9c52544femr47372571fa.5.1792052943186; Thu, 15 Oct 2026
+ 01:29:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260602-pdm_clk_gp_mnd_v1-v1-0-1522662b6c53@oss.qualcomm.com>
+ <20260602-pdm_clk_gp_mnd_v1-v1-3-1522662b6c53@oss.qualcomm.com>
+ <CAD++jLnqCipTxkOhiwQhKFymOxu1HOTbHzLbNrGTOkCO33y8Vg@mail.gmail.com> <0cb8005e-964c-43e2-8e9d-4e955cf2ff90@oss.qualcomm.com>
+In-Reply-To: <0cb8005e-964c-43e2-8e9d-4e955cf2ff90@oss.qualcomm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 15 Oct 2026 10:28:50 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmA65GL4xxFNSHr-j=Xo2o3dNmEcKjpNEkECXb5bOX8TA@mail.gmail.com>
+X-Gm-Features: AclHuK8sF_Rp3sPUvkXokg3OYjbIVxL6iVSLlt_kf3aFbP7rWfJnEWwj0w4dISM
+Message-ID: <CAD++jLmA65GL4xxFNSHr-j=Xo2o3dNmEcKjpNEkECXb5bOX8TA@mail.gmail.com>
+Subject: Re: [PATCH 3/5] pinctrl: qcom: Add gp_mn mux function for QCS8300,
+ SA8775P and SC7280
+To: Taniya Das <taniya.das@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Richard Cochran <richardcochran@gmail.com>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Ajit Pandey <ajit.pandey@oss.qualcomm.com>, Imran Shaik <imran.shaik@oss.qualcomm.com>, 
+	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	netdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 14 Oct 2026, Ilpo Järvinen wrote:
+On Thu, Oct 15, 2026 at 9:14=E2=80=AFAM Taniya Das <taniya.das@oss.qualcomm=
+.com> wrote:
 
-> Thanks for the update. I've applied patch 2 to the review-ilpo-next branch
-> in the platform drivers (pdx86) tree.
+> > This looks all right and no-one is saying anything about it, should
+> > I just apply this one patch to the pin control tree? It doesn't seem
+> > to have any dependencies.
+> >
+> Linus Walleij, sorry for the late response. I will split the patches as
+> per comments from Konrad.
 
-Thanks!
+In the meantime Bartosz has taken responsibility of
+Qualcomm pin control patch collection and integration, so
+check with him how he want to merge this, I think just some
+separate patches for pin control would work fine.
 
-Oleg
+Yours,
+Linus Walleij
