@@ -1,138 +1,135 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36C5955D88F;
-	Thu, 15 Oct 2026 16:02:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E40C63B8BD9
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 16:12:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792080179; cv=none; b=bGn8xz33oSiz+BNGWvCcrupa4e0ePHl3g6K0boDz/lL3GFhQQ0DuyOtvwYM1Z1XhwYQsL1Tl6KdWxPt9IiaaqW+GK7XZ/G3Lcyy9Elk0F8lAg1xvm556bCO+Hqhw0R+Kddddg07LPe8a2RGqHZDi3iVkQH+s/+4yW+Kd2yqFL04=
+	t=1792080791; cv=none; b=dNWBj3VhOEztjDIo2yfSyWID5r9kEa6JbIO9R5mRiREHGhOsk4L8OsBHhu2reh3obJsZU18wy1enkVTo24Es0n6y270u/QGEHJp+DWudKyPp84fsdDmKvyO6PNhpAV8ni0fO0WX3a1QnT/CVqGjsVGbgKnXCVPd2JjuTQbLIn4k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792080179; c=relaxed/simple;
-	bh=wUIP60ReUng2toh7xrANlc05gxl0Ni0XDP3WkJdt+dk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=trkjMKs73XUZZEPNE6CpamcWStx61fVbjQ6TInj6Hv8rcHqXv1oxoKP+oQGtLZKO45V2denR7MrQVSPI/IFE4ZRdq4YYtiNo4TqtxaRXhx4sKdTO5u7hB32SpYbF1CCC7mkAlGWEGfvgV7ObsVaGk3xOtX2wXwMMJD5G5ZsATy4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=oS25sV93; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1792080791; c=relaxed/simple;
+	bh=1kypIbzYikRS1PcVZXrMdZ5fEhC65nKtiV09YWXbJg0=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=JCAjyp9sRQb97HHpQY1g7m8/qV7aHqi/CaqE669ZifwwMUQaIMEUBwFtjps4YleJfy+1wg2fmgtgQTPmxbHny5QMRWHyawTtomXH8ozpRztFF9gKcucTsxYINt+9ue9rOH9C2W0gHzdSnhE+JvSbszFokDcRmvzBJDMxvanljAg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cOvr/0QJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="oS25sV93"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 94C7B4E41255;
-	Thu, 15 Oct 2026 16:02:46 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 674526075C;
-	Thu, 15 Oct 2026 16:02:46 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 160EA10328CF5;
-	Thu, 15 Oct 2026 18:02:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792080163; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=AbpkMZVsBdBOWRwxjTkLihKxr/UR5S6eo3rRMVyn4ks=;
-	b=oS25sV93XSD557wIB4lBXK1AG3ECjXQ3/Xlt8i7iz5CqRstbNl9cYZbGW70uIC1wRn5iNg
-	ExzMWfb8ZDgKP7VxkURJiqTz4/JC91q9DmmWR2rdv7Hml3dQ9b8NKfvLAvZEMCBE6dFCBd
-	MjlEZIyMoearzV0TbcgmMTd6JWLu+HpzAOjM8wrqNUEmCaB5LuWctAB84QR8v77Fw2n1dA
-	Hc42OYjblLicTn3fhzlEAuAB1WbhnHsACYUtXAsPpBIg4lss4dthUKiIGCGP5+Iw1mcQaZ
-	xizj3KcIO3aEn9DMnW2WfwJR3kSm18N0uw10Q1vIsTZc302ETniRGUF2mLn68g==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Thu, 15 Oct 2026 18:01:23 +0200
-Subject: [PATCH v10 10/10] arm64: dts: nuvoton: ma35d1: Add LXT crystal and
- clock-names
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cOvr/0QJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2E261F000C4;
+	Thu, 15 Oct 2026 16:12:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792080777;
+	bh=ByUZ7uAbnoE6nCgX+yn6v2arJ0VrHEmiJx0y463hju4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cOvr/0QJ4HiWZfsNLCWLy7E1HsozUPqm2Me8qHUGcDxUPD4C/oVt4EfWctTagfAtY
+	 8EtBGfBkQmRjUHhRZvwfqdMVkgfvfS7TQmoPoo03EOcgGTVMadyMAm+C0wXYoUQtTK
+	 tqHdKif7YCJiaaGuNswzkdIEP1IPHsM8X/gxbCdDt/50jnif++nBSRXlbG6g9ahPPn
+	 u8QXd5jYKkVGqFwzInt2jOTZad/N3T9YNYJVRt920CfqAF5aU5bPiXM/mfVJtc0kvC
+	 4pPKOqe6rwoztdaKUoDNNDWyPH96oO6SsCPjCg/DNC7QdttIr7uDB77acuLDN6lCnf
+	 7WDYxcpXpKmhg==
+Message-ID: <sashiko-outbox-173148@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 06/16] media: sony-starvis2: Allow runtime control of
+ link frequency
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dave Stevenson" <dave.stevenson@raspberrypi.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261015-media-starvis2-v4-6-75fcdb4163f3@raspberrypi.com>
+References: <20261015-media-starvis2-v4-0-75fcdb4163f3@raspberrypi.com>
+ <20261015-media-starvis2-v4-6-75fcdb4163f3@raspberrypi.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 15 Oct 2026 16:12:56 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-perso-ma35d1-upstream-clk-v10-10-47c97b54a809@bootlin.com>
-References: <20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com>
-In-Reply-To: <20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com>
-To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
- Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
- openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
 
-The clock controller takes its two crystal oscillator inputs from the
-board: HXT and LXT. The LXT crystal is not described at all: add the
-fixed clock node for it and reference both inputs from the clock
-controller node, with their respective clock-names.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] media: starvis2: silent failure and incorrect error logging in cont=
+rol init
+--
 
-Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
-Fixes: b69af0984732 ("arm64: dts: nuvoton: Add initial ma35d1 device tree")
-Cc: stable@vger.kernel.org
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
----
----
- arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts | 6 ++++++
- arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts | 6 ++++++
- arch/arm64/boot/dts/nuvoton/ma35d1.dtsi         | 3 ++-
- 3 files changed, 14 insertions(+), 1 deletion(-)
+commit bfdfb01dd0fac7ba017bb4064e707d4ac2033da4
+Author: Dave Stevenson <dave.stevenson@raspberrypi.com>
 
-diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
-index d7670afb0a63..7752e85734ac 100644
---- a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
-+++ b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
-@@ -36,6 +36,12 @@ clk_hxt: clock-hxt {
- 		#clock-cells = <0>;
- 		clock-frequency = <24000000>;
- 	};
-+
-+	clk_lxt: clock-lxt {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <32768>;
-+	};
- };
- 
- &clk {
-diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
-index 8f3cb18d39b6..5c65f1fe5da9 100644
---- a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
-+++ b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
-@@ -36,6 +36,12 @@ clk_hxt: clock-hxt {
- 		#clock-cells = <0>;
- 		clock-frequency = <24000000>;
- 	};
-+
-+	clk_lxt: clock-lxt {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <32768>;
-+	};
- };
- 
- &clk {
-diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-index 7228ad4735b5..9a341c2b1397 100644
---- a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-+++ b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-@@ -92,7 +92,8 @@ clk: clock-controller@40460200 {
- 			compatible = "nuvoton,ma35d1-clk";
- 			reg = <0x00000000 0x40460200 0x0 0x100>;
- 			#clock-cells = <1>;
--			clocks = <&clk_hxt>;
-+			clocks = <&clk_hxt>, <&clk_lxt>;
-+			clock-names = "hxt", "lxt";
- 		};
- 
- 		pinctrl: pinctrl@40040000 {
+media: sony-starvis2: Allow runtime control of link frequency
 
--- 
-2.55.0
+This commit links V4L2_CID_LINK_FREQ to runtime controls, allowing the
+link frequency to be configured while the sensor isn't streaming. It updates
+starvis2_init_controls to handle the new link_freq allocations and refactors
+the error handling path.
 
+> diff --git a/drivers/media/i2c/sony-starvis2.c b/drivers/media/i2c/sony-s=
+tarvis2.c
+> --- a/drivers/media/i2c/sony-starvis2.c
+> +++ b/drivers/media/i2c/sony-starvis2.c
+> @@ -1224,25 +1250,26 @@ static int starvis2_init_controls(struct starvis2=
+ *starvis2)
+[ ... ]
+> -	/* LINK_FREQ is also read only */
+> -	link_freq =3D v4l2_ctrl_new_int_menu(ctrl_hdlr, &starvis2_ctrl_ops,
+> -					   V4L2_CID_LINK_FREQ,
+> -					   ARRAY_SIZE(link_freqs) - 1,
+> -					   __ffs(starvis2->link_freq_bitmap),
+> -					   link_freqs);
+> -
+> -	if (link_freq)
+> -		link_freq->flags |=3D V4L2_CTRL_FLAG_READ_ONLY;
+> +	starvis2->link_freq =3D
+> +		v4l2_ctrl_new_int_menu(ctrl_hdlr, &starvis2_ctrl_ops,
+> +				       V4L2_CID_LINK_FREQ,
+> +				       __fls(starvis2->link_freq_bitmap),
+> +				       __ffs(starvis2->link_freq_bitmap),
+> +				       link_freqs);
+> +	if (!starvis2->link_freq)
+> +		goto err_free_handler;
+
+[Severity: Low]
+Does this bypass the error logging block? If v4l2_ctrl_new_int_menu() fails
+to allocate the link_freq control, jumping directly to err_free_handler
+results in a silent failure instead of printing a control init failure mess=
+age.
+
+> +
+> +	v4l2_ctrl_modify_range(starvis2->link_freq,
+> +			       __ffs(starvis2->link_freq_bitmap),
+> +			       __fls(starvis2->link_freq_bitmap),
+> +			       ~(starvis2->link_freq_bitmap),
+> +			       __ffs(starvis2->link_freq_bitmap));
+[ ... ]
+> @@ -1285,16 +1316,20 @@ static int starvis2_init_controls(struct starvis2=
+ *starvis2)
+>  	v4l2_ctrl_new_fwnode_properties(ctrl_hdlr, &starvis2_ctrl_ops, &props);
+> =20
+>  	if (ctrl_hdlr->error) {
+> -		ret =3D ctrl_hdlr->error;
+>  		dev_err(&client->dev, "%s control init failed (%d)\n",
+>  			__func__, ret);
+
+[Severity: Low]
+Does this print the unupdated ret variable (which is 0) rather than the
+actual error code? The assignment ret =3D ctrl_hdlr->error was removed from
+before the dev_err call and moved to the err_free_handler label at the end
+of the function, leaving ret as 0 during this print.
+
+> -		v4l2_ctrl_handler_free(ctrl_hdlr);
+> -		return ret;
+> +		goto err_free_handler;
+>  	}
+> =20
+>  	starvis2->sd.ctrl_handler =3D ctrl_hdlr;
+> =20
+>  	return 0;
+> +
+> +err_free_handler:
+> +	ret =3D ctrl_hdlr->error;
+> +	v4l2_ctrl_handler_free(ctrl_hdlr);
+> +
+> +	return ret;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-media-star=
+vis2-v4-0-75fcdb4163f3@raspberrypi.com?part=3D6
