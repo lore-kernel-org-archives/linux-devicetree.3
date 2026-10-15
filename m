@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4E3548FF81;
-	Thu, 15 Oct 2026 20:20:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16AAC55C30A;
+	Thu, 15 Oct 2026 20:23:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792095647; cv=none; b=cRcNGHPq3xC9gcghhpCQNPO6Vd7DyV+VO02fK87G9blThhPEtzQJCaZjTQrHNECwcctrdkk07M8uhe+Mzu8M2FnlVq5jb0dfkdXvDeZI4ijr1gSzCnuvZo+HU6tGS2kkh9Rieias5lli+wnf5qheClJy8g3i+l43YEXJ1ew8R+c=
+	t=1792095809; cv=none; b=Z7fHTTqgipY5ZXVAhyrDgLr8L/V5hWs51vPg68IjC04jFkg05GNrEaYWpV9P6OtzM5gipbhUfDPwMv+ikatxa1b261L08SXmaS96GXqgLW3dnN04VGAUVm1LbEyBrDE4deAwjCfAmXEOkQCaxfaM8oKrhXb4P+AxoAMy+MGmndQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792095647; c=relaxed/simple;
-	bh=CVeyxX25w3K/cWfKjOftd/8zHgKTC+R2+G5yGZVSaiU=;
+	s=arc-20240116; t=1792095809; c=relaxed/simple;
+	bh=PFLnmwlTM4FhvgLEp2HJEOMnKZnZqorNEOllu2ygZEU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kO8o2FmWc2API4owmsrudfBy0YwZhJ62UUfZzAQCTD/EP1K+O5gg2iEZMlZurCYiGlFlgKb3LElcWxdX4o/uN6k74cua5iSTIxo6228IiE5YhwCWNVUpH+zMYnQwDJ12bbiioF8I16Uv3nHWneUYM47v8PN7QxOt1ix3YfhOW6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UBn4y+d6; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=S+FzWU70PAOF205RRsRrA1c3k2UpS8rkqtwwxe3jP2RGg0XviMTXL7KJGeROGcTib64fjbsZi2mMRXI+Iemf3TMmHawO9cRCM33DiAMsID3s3Pu7kLl053KFwayjQQOb10fcAPCaEyxV6WG/blzoYlxjS432iTmhwG5apxijdZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WVnuI3Y4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UBn4y+d6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28B0F1F000C4;
-	Thu, 15 Oct 2026 20:20:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WVnuI3Y4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3D731F000C4;
+	Thu, 15 Oct 2026 20:23:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792095646;
-	bh=7YOUVUAuDJ+LB8A54CxgLAZstJTxkbUW426eqIMaE68=;
+	s=k20260515; t=1792095806;
+	bh=xXwDHzZuhe8u9SnlulaNCevEzS5Sc4vDCzCCYZ3VINo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UBn4y+d6m2uaC4Bq6UF8Iq5w9WgO7AHVyBnXal7TulBgMIBec1PV8r+m+Uly2Ahyu
-	 9HAGREL01rwbBVjC350IYOUF5Tpf231E28hxdD+/HReudYDAXae3qm0La+c5xE7r2F
-	 xGx7JlEKmY7SDz3P0HLquOcUHraDsfev6ZoNSnte2oKoqp1djm93L0hWsxvA5QSt2H
-	 kSuF+iSiT1fUXvbfSF0IUkoz5E+u+1rVvHM3wkTY0hQSxyaQ/slWT9HnfGkrSedz+6
-	 i4G4Hy6msS5qrdyhmeikRAVkTAOHK5Q3C9TCirMgzrdmIwB5q8Nf79jYVIYFyBz68/
-	 wsA44DDaJQbrw==
-Date: Thu, 15 Oct 2026 15:20:44 -0500
-From: Rob Herring <robh@kernel.org>
-To: Jelly Jia <Jelly.Jia@cixtech.com>
-Cc: vkoul@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	robin.murphy@arm.com, devicetree@vger.kernel.org,
-	Frank.Li@kernel.org, cix-kernel-upstream@cixtech.com,
-	dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 4/6] dt-bindings: dma: arm,dma-350: Document the CIX
- Sky1 integration
-Message-ID: <20261015202044.GA2956742-robh@kernel.org>
-References: <20261012084155.2547480-1-Jelly.Jia@cixtech.com>
- <20261012084155.2547480-5-Jelly.Jia@cixtech.com>
+	b=WVnuI3Y4cgeI3lDXIGx7Okwtdp4PdQ/99g27WTcH74G5UI8uavEe3tgd+j3gfuhM7
+	 qssL+PqjcEvuZo3gV5S7LPBuNU3dE33zXQX8ZpH7NwYSclxY9W94j4A5onEhL7ynYX
+	 BwDSnnEnjfmcansnnrLfxELcpxG4iVQEUcCUBX4YzZv+XYl2DUgP80G1I48tJmcftu
+	 KjOcAMd+vvJBlw0bTvpELJ4CsnfLqC6gJnK5zwhE65OXBxyUQjkq415L3Tp/Oiu10K
+	 9qStRHaRmep/1GnNUuHMmUCEwmkUiHT1z9GxDQR8MlVVpB02/mUUpmM+hYw0HKrNb4
+	 UPvDvnj93Q27Q==
+Date: Thu, 15 Oct 2026 15:23:23 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Jeremy Dean Clifton <deaner92@yahoo.com>
+Cc: devicetree@vger.kernel.org, linux-pwm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>
+Subject: Re: [PATCH v3] dt-bindings: pwm: Convert NXP PCA9685 PWM controller
+ to DT schema
+Message-ID: <179209579979.3002119.6334359092410993613.robh@kernel.org>
+References: <20261012140346.3065-1-deaner92.ref@yahoo.com>
+ <20261012140346.3065-1-deaner92@yahoo.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,74 +46,49 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261012084155.2547480-5-Jelly.Jia@cixtech.com>
+In-Reply-To: <20261012140346.3065-1-deaner92@yahoo.com>
 
-On Mon, Oct 12, 2026 at 04:41:53PM +0800, Jelly Jia wrote:
-> The CIX Sky1 DMA-350 integration is the same device with SoC glue around
-> it, so it is described by the arm,dma-350 node itself with an additional
-> "cix,sky1-dma350" compatible rather than by a separate wrapper node.
+
+On Mon, 12 Oct 2026 14:03:46 +0000, Jeremy Dean Clifton wrote:
+> Convert the NXP PCA9685 PWM controller binding to DT schema format.
 > 
-> Extend the binding with the CIX compatible and the resources the
-> integration needs: a clock, which the CIX variant requires, an optional
-> reset, and an optional reserved memory region used when the controller
-> cannot reach all of system memory.
+> Changes from the text binding:
 > 
-> v2 -> v3:
-> - Drop the cix,irq-router property and its conditional: the Sky1
->   interrupt gate it described is set up by the boot firmware and is not
->   configured by Linux, so no property describes it.
-> - The CIX compatible now requires a clock.
+> Document the 'reg' property and make it required. It was missing
+> from the text binding, although the example used it and the device
+> cannot work without the I2C address.
 > 
-> Assisted-by: LLM checkpatch sparse dt_binding_check dtbs_check
-> Signed-off-by: Jelly Jia <Jelly.Jia@cixtech.com>
+> Rename the example node to the generic 'pwm', as required by
+> pwm.yaml.
+> 
+> Describe both cells of the PWM specifier, and state that 'invert'
+> and 'open-drain' apply to all outputs, as per the datasheet (INVRT
+> and OUTDRV bits in MODE2).
+> 
+> Assisted-by: LLM
+> Signed-off-by: Jeremy Dean Clifton <deaner92@yahoo.com>
 > ---
->  .../devicetree/bindings/dma/arm,dma-350.yaml  | 26 ++++++++++++++++++-
->  1 file changed, 25 insertions(+), 1 deletion(-)
+> Changes in v3:
+> - Full name in From, Signed-off-by and maintainers. (Jeremy Dean
+>   Clifton)
+> v2:
+> https://lore.kernel.org/all/0aabb9f2-a144-4267-b67e-a0972d228f2a@yahoo.com/
+> though the storage width was widened.
+> - Use the same name in 'maintainers' as in the Signed-off-by.
 > 
-> diff --git a/Documentation/devicetree/bindings/dma/arm,dma-350.yaml b/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
-> index 429f682f15d8..4e0f9ffb0039 100644
-> --- a/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
-> +++ b/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
-> @@ -11,10 +11,22 @@ maintainers:
->  
->  allOf:
->    - $ref: dma-controller.yaml#
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: cix,sky1-dma350
-> +    then:
-> +      required:
-> +        - clocks
->  
->  properties:
->    compatible:
-> -    const: arm,dma-350
-> +    oneOf:
-> +      - const: arm,dma-350
-> +      - items:
-> +          - const: cix,sky1-dma350
-> +          - const: arm,dma-350
->  
->    reg:
->      items:
-> @@ -36,6 +48,18 @@ properties:
->      const: 1
->      description: The cell is the trigger input number
->  
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +  memory-region:
-> +    maxItems: 1
-> +    description:
-> +      Reserved memory region used for DMA allocations when the controller
-> +      cannot reach all of system memory.
+> v1:
+> https://lore.kernel.org/all/20261006033518.34332-1-deaner92@yahoo.com/
+> 
+> The schema and commit message were drafted with AI assistant.
+> I verified each property against the driver source, the
+> PCA9685 datasheet and the binding. Passes make dt_binding_check.
+> 
+>  .../bindings/pwm/nxp,pca9685-pwm.txt          | 27 --------
+>  .../bindings/pwm/nxp,pca9685-pwm.yaml         | 62 +++++++++++++++++++
+>  2 files changed, 62 insertions(+), 27 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt
+>  create mode 100644 Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml
+> 
 
-That's what dma-ranges is for.
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-Rob
