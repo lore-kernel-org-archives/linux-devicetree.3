@@ -1,87 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 956F3525A86;
-	Thu, 15 Oct 2026 12:44:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F68751FCDA
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 12:45:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792068290; cv=none; b=Fs6djb0kHSKbKMkmpYyg7CzjvmjTRiozDdvP+6kVcJEwKPr226ZO9V76uYW+kkQWEQeFjHPfaXBPCRIDACr22l6kMTKhooK4kojdadcdN8XGxmpj1FGzAJUdJf6Dq7BeoGTaUHgfkmVzOrQEBp7t2VLGJJbXKeSzocl/2V/h+KA=
+	t=1792068311; cv=none; b=XHLCedVomNx8hRKFXjive6ujizrnE9cjU7TT8eZpyrGE22Rm8Go6ebNSwhn/paDEOCHNL6yiUnADPf/aTsnhn2spDszaGZGZecyNY73ElsY4cSZagc5dI9pwuqVWsnjQUiX5BW/pWBJntXRwRitM7/R26oEHJFDdPI8UDMNdmzE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792068290; c=relaxed/simple;
-	bh=7KBLTTLQ7itI1AaQ11FEEwhAACt/sfe4Yun3y+XczE0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Juc77GTVnhRkBkREcys8P9p/wTJtm5IkBnpP4Y4hIirIj2kG71EIzRKPahHypzfDIZFuLgchklAAM01w1eLiwMfzYETELhUy/DHTwZAMAH7vVskWHOefOGkf86GTv6uSTCzJG1IN5j3Gvf2KU8+hCQcTFaIJPIA9YXdQCb09exM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CE701F000C4;
-	Thu, 15 Oct 2026 12:44:48 +0000 (UTC)
-Message-ID: <4e9b365b-7c5a-44f4-bfaf-d24e9162fd94@linux-m68k.org>
-Date: Thu, 15 Oct 2026 22:44:43 +1000
+	s=arc-20240116; t=1792068311; c=relaxed/simple;
+	bh=kFSjQTN7e9mQ/iprL/j63ffU303qzce0+fjzIMoCTdw=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=RK1JL/zojJ2Nq/tAr62IfGDVA52LP3groCJ6Zr7bzuaoKPVy1No+pFAX6Z7lc9z5YUhds97Rgg6iEHhlxtaBDTUuKVmMWlNaDAhAfzbd1SrXqPMbFGNa30bR3/RKX7d9rZuxfqwNvAimE8xbdXNbGo8w+qWLimP2EyL4YkQIkxk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H9atJ0lc; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H9atJ0lc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9FC51F000C4;
+	Thu, 15 Oct 2026 12:45:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792068310;
+	bh=bmlOKhLUTHwVjSqec6tn23OBoXJFjuPaec5Of46uAr4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=H9atJ0lcAc1n6d6MlKi0BoX7imgDn4oP+Im/205DBfnBvwllT9TajHsc+mCiVRnfs
+	 Z3neM4+eJrKkI4FiGJAtugsZIHkAD8JxJe4zsAy5Bh1DvunoEZ//hurSqSVm3o5rml
+	 hovjD9RUsFX7TMNRClCp1SaWrvmEmIOGLq+4wL4aheKO3Lx/IX4S1NS/4CEOQIM2om
+	 MSdcy/6M34AF9GLgZVarv59jOhNrQDDWWsOAWT5h0u9A4t3vlldPyZIcz4ZUMClUbY
+	 XoSaDJh1nCrxUMm0AbjWm17LtTjhu8ZqH3dnmdDj7ZVCB/tnyGGU+dp8MomHxHhNwJ
+	 QBItz2VIaW2wg==
+Message-ID: <sashiko-outbox-172857@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: oneplus-kebab: new device
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Frieder Hannenheim" <git@fhannenheim.net>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261015-kebab_dts-v2-2-e783463bffd3@fhannenheim.net>
+References: <20261015-kebab_dts-v2-0-e783463bffd3@fhannenheim.net>
+ <20261015-kebab_dts-v2-2-e783463bffd3@fhannenheim.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 15 Oct 2026 12:45:08 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/5] dt-bindings: serial: create binding for mcf-uart
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: linux-m68k@lists.linux-m68k.org, linux-serial@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20261013120831.1046590-1-gerg@linux-m68k.org>
- <20261013120831.1046590-5-gerg@linux-m68k.org>
- <20261014-expensive-shrewd-nautilus-abcab6@quoll>
- <d256f39c-6ed5-409a-a7ed-224165d00521@linux-m68k.org>
- <20261015-adamant-realistic-bettong-a24c4f@quoll>
-Content-Language: en-US
-From: Greg Ungerer <gerg@linux-m68k.org>
-In-Reply-To: <20261015-adamant-realistic-bettong-a24c4f@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dt-bindings: qcom: tlmm node name and input-enable schema violation
+--
 
-On 15/10/26 18:56, Krzysztof Kozlowski wrote:
-> On Wed, Oct 14, 2026 at 10:48:41PM +1000, Greg Ungerer wrote:
->>
->> On 14/10/26 21:24, Krzysztof Kozlowski wrote:
->>> On Tue, Oct 13, 2026 at 10:07:02PM +1000, Greg Ungerer wrote:
->>>> Create documentation for a new binding to support the Freescale ColdFire
->>>> UART hardware block. This is found on pretty much all variants of the
->>>> M68K derived Freescale ColdFire family of System-on-Chip devices.
->>>>
->>>> It is not compatible with any other known UARTs.
->>>
->>> You never tested this, so limited review.
->>
->> It is tested. It is working and running on multiple ColdFire platforms.
-> 
-> You cannot run a binding. It's impossible, otherwise show me how do you
-> execute that code.
+commit d33a306deafbc7e2920b017aacb1c37a8d11464b
+Author: Frieder Hannenheim <git@fhannenheim.net>
 
-Of course you cannot run a binding. I took your statement to mean that
-this series as a whole was not tested. Which is wrong.
+arm64: dts: qcom: oneplus-kebab: new device
 
+This commit adds the initial device-tree for the OnePlus 8T.
 
-> But as proven already on the lists, no it WAS NOT tested. You have clear
-> a warning.
-> 
-> Otherwise you claim that tests shown errors and then you decided to
-> still send it with errors, so then th enext question: why do you send
-> code which your tests tell it is wrong?
+[1] https://github.com/LineageOS/android_kernel_oneplus_sm8250/blob/lineage=
+-23.2/arch/arm64/boot/dts/vendor/oplus/kona-kebab-overlay.dts
 
-Sorry, I have no idea what you are talking about.
+> diff --git a/arch/arm64/boot/dts/qcom/sm8250-oneplus-kebab.dts b/arch/arm=
+64/boot/dts/qcom/sm8250-oneplus-kebab.dts
+> new file mode 100644
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/sm8250-oneplus-kebab.dts
 
-This series of 5 patches was tested before sending, on multiple targets
-that use this code (obviously all m68k/ColdFire platforms).
+[ ... ]
 
-Just in case I missed something I re-ran testing with a fresh 7.3-rc7
-code base. All 5 patches applied cleanly, with a clean compile. My testing
-showed no new problems in normal operation. Granted sashkio did find a 
-couple of error case checking issues that you just do not normally encounter
-in practice (but I will of course fix those for v2).
+> +&tlmm {
+> +	pm8008_default: pm8008-default-state {
+> +		pins =3D "gpio93";
+> +		function =3D "gpio";
+> +		bias-pull-up;
+> +		output-high;
+> +		drive-strength =3D <2>;
+> +	};
+> +
+> +	pm8008_interrupt: pm8008-interrupt {
+> +		pins =3D "gpio112";
+> +		function =3D "gpio";
+> +		bias-disable;
+> +		input-enable;
+> +	};
 
-So, no, I didn't just send it knowing that it was failing any tests.
+[Severity: Low]
+Does this pinctrl node name violate the dt-binding schema? The
+qcom,sm8250-pinctrl.yaml schema enforces a regex that requires node
+names to end with "-state" (or "-pins"). Using "pm8008-interrupt" might
+cause a dt_binding_check failure since unevaluatedProperties is false.
 
-Regards
-Greg
+Additionally, should "input-enable" be included here? The
+qcom,tlmm-common.yaml schema explicitly forbids this property, so its
+presence will likely cause schema validation to fail when running
+make dtbs_check.
 
+> +};
 
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-kebab_dts-=
+v2-0-e783463bffd3@fhannenheim.net?part=3D2
