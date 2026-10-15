@@ -1,115 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A35394B5CD0;
-	Thu, 15 Oct 2026 09:01:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C8EB1B4138
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 09:03:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792054903; cv=none; b=UXkJRAb1k8pO58pJhrTdxWkTVI0823tbqdQuZHq4JgBnsSG4KOayQ45oHuI75Ws4kjI9Se3XG9pj6VFPMX6NZvFR+exYrdBaA/W2x8k8Laiw0JSuw+ppqSedhdm4QeldQI9mEZUutd0u169FStrF83onubDRTMho47lXtnVf8KU=
+	t=1792055015; cv=none; b=udk2IjcAQmBfhZHeLGIMq5MYm+mqyNxxLb3KiseW9OQF3dajpgtz6uAspOi/YAGEtypW48bhido+EhT3oVlnh+PNjbOq7FctWSyJVxHNIuXNXGOzYSb4jEBEKfdI8s96/S/sbY6VJpv4oF7q/ZGZBHzWgKOqTgwG99OvrOSTlYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792054903; c=relaxed/simple;
-	bh=mCJPH7EVD7s1ESUMTj9hagGTQte0u7kusN/qyF5/Vp8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=f5TGJUDfxo1haNG43+eaF0qCKEy8iBqw8imyvRjcJaiu5MuWxPXPUFxKETD3K/2yzPLHKmKrkD6ExlSUDdk6kHNe0ttzSrimQkK3PduFJbCiwI+jhPGmboU8TpfmlQwD831KHmJLYgH6My4e161Z4c6a6mQrxh1or5p7wPHGODo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VCXWMLF/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792055015; c=relaxed/simple;
+	bh=UdeR4k+OIEWzRfcj2vsrG7FM4TjcNSgKCI10q+XC2l4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QshWqV+MYiI8c99oZNNfEkwLTIPzwW1uhodW7t9Vp9WYs/AXGtHgNU88lDdKrjeA+ra2mTKG9AzWx/90pSOsz0lci5NQafQtqRos4VgILz+mkllDeiStbOptaCs/Hagx+AtQ1FDYRshEP7EuwAz8ZORkffZjcXQhnL7qp3JNTPg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UqcQ3Ugv; arc=none smtp.client-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VCXWMLF/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 053AB1F000C4;
-	Thu, 15 Oct 2026 09:01:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792054899;
-	bh=flxF3rEmn6hNkTmfUMkUgpxI5WcrtuidvkUAWlOf0kc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=VCXWMLF/zjyojYl/CmFruqvkR5Q+nChMaz4BADPhH6ds+9uMugdjdr39QvbGnJitw
-	 28d9bZIeP/KeuuCb3+TsUESqOd3BEw2uv2gAfnrVCnAcWK8ZiOSgs4ZEB+KgmSW8ik
-	 jFPPuTe7pxs5cwqNBk2SG4pgHDHyBBWaaVaFyuCfJAYYMV1ibLM/0O28AEKw+2lHv7
-	 KtGbxfSyVOXBohu0hjyQ+HCRmy0AB/g6O4E3bxCyFltWhonkPWjL+Bvw8TXll+GvuE
-	 XYhx4jaZG6HOxmjqJPnWhJyWLnki+SD12ovI6J03WvIRmhQdU6gkT6U9zUqrZg872b
-	 tFtn1cVmHVfAg==
-Message-ID: <9c0737d8-455d-4025-8482-950b64029f35@kernel.org>
-Date: Thu, 15 Oct 2026 11:01:29 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UqcQ3Ugv"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-886e61fa30fso1866430b3a.1
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 02:03:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792055013; x=1792659813; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KUIkGkj6B9Tv+hZUqi/sJY1ZKDxkj40BHrOHpN+3Sz0=;
+        b=UqcQ3Ugv8mgmwWMyroq6I9Mdp2gjn9EZprdilYupFEtVyFWfipCv97EOyDulToDYOD
+         0xR7uTjDx7tSJ0SxUccMfTZxV4sjZafimseTDiSrCKWYdMtV2zNwdweFFcoFDxeuKXtE
+         a0NMtfZ8z+m4i6XKzhAbC+SDz2U3AA5cKBjHSCdKQawWwxzLI/AsoSZwUARTKvaW0Zrp
+         E+lPuJLExNxL3scbhUDXo9UNUFydGav1fmQX8pahIaM1OI5Em9Da5nksavev8tgxCVWs
+         EAlRQarOha1ih0rAuOJVb8wiq6iNIWFee6SYtPl0L77aOngREoF9XFl5UWs2mOfIZSjD
+         mwQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792055013; x=1792659813;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KUIkGkj6B9Tv+hZUqi/sJY1ZKDxkj40BHrOHpN+3Sz0=;
+        b=f1mZ9iLKTf6cGTGKODE0Hk15QwxxDWnR4XXer//3J9SmAJZxMj75b7IUfZzUONvIpj
+         vbZd/Lira/LGdvLZ9wc/mDqUx2EMAsJYrCnn0qV+tfVk393NXUjaJRQ8fLltz6YQdvDc
+         CAuPV66dmgMm/iiry8Lpa3eP7h64tZ2irgL0QATnVI6327tJwuifXOZ/vb46rRFAflJa
+         +KWw1Mx7KIGRu6SmR1+ccqK6vYR3bvKgM/c1sFfkyzj2b1cQSmUYP1Bw2abJoFElQdEZ
+         tjDiQVxPdzT49m9P5+/Q4Fla0Z/BM5R+GP5agc8/pylY81iFe67vkIgr28LcTgjBQZRr
+         p9bA==
+X-Gm-Message-State: AFq9FYKBWwsl+o+QRHZ/LLJNaVVLI75uRAHVoPIq6qlhODZRIVTBNm2L
+	gKU00KRgxyVVOP1aJUHdqjyxOjF677nCEpdYooRwuPmUeD4ItZua4J8+
+X-Gm-Gg: AYBFou32FEdO8KPXO65f8atCF2uR4INHOGjX7cwrarFCl+4yyEAFTaxjdKalOJ9H+kZ
+	OvRTzY7aUuW3vR9i5YwEhW1LdPW7AT51AYoaUH9Dyidewa54fiRl6G6X4r6z/mwSevMr3ERbD+K
+	8cWDmTl0dvIALD0hTrOckpo5qXdFcyD09tCpMRI8jz35KBuLncaPcEfknWnbUCbBm4avn5AHqdY
+	wBknTXuHbDb+wWHVPz9xTPBA03GDQdn2k6B1zfV1qxI/GVeKUgP386K/3IHtz+nvfJ17hqS/zB8
+	K0x74oCxcCleoSeXIrlIXc1FeGtUFPyjH2yVC+01m9HeV+87CFDnXymgQi3CkJVD30wLYVwsDnE
+	FelAU9db6WpybeSD7KmHPHaYR6LDGRXCwWaByIhDLEAbMfzkJveQjBIkAacoX1etJIWpQsFH5h1
+	anw2len+NH/kPS2wbl9N1TOkXAfr0vGD7RLk8eczdeQbhwHBUlMI5P6xS/mic1wUCZfPkH
+X-Received: by 2002:a05:6a21:3944:b0:3dd:a196:3091 with SMTP id adf61e73a8af0-3e16bef498emr14329973637.65.1792055013262;
+        Thu, 15 Oct 2026 02:03:33 -0700 (PDT)
+Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd635cd3b34sm962553a12.28.2026.10.15.02.03.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 02:03:32 -0700 (PDT)
+Date: Thu, 15 Oct 2026 17:03:00 +0800
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Chen Wang <chen.wang@linux.dev>, Inochi Amaoto <inochiama@gmail.com>, 
+	Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Paul Walmsley <pjw@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>
+Cc: devicetree@vger.kernel.org, sophgo@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, Yixun Lan <dlan@gentoo.org>, 
+	Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH 2/3] nvmem: Add Sophgo SG2044 eFuse driver
+Message-ID: <atCV8NsJc5Oatoo0@inochi.infowork>
+References: <20261014074516.240247-1-inochiama@gmail.com>
+ <20261014074516.240247-3-inochiama@gmail.com>
+ <fa4253c7-3b17-4b20-97b9-eb37f218a4c8@linux.dev>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v23 1/2] dt-bindings: pwm: opencores: Update compatibles,
- examples and maintainers
-To: Hal Feng <hal.feng@starfivetech.com>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor@kernel.org>,
- Emil Renner Berthing <emil.renner.berthing@canonical.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
- Albert Ou <aou@eecs.berkeley.edu>
-Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261014110429.52762-1-hal.feng@starfivetech.com>
- <20261014110429.52762-2-hal.feng@starfivetech.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261014110429.52762-2-hal.feng@starfivetech.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <fa4253c7-3b17-4b20-97b9-eb37f218a4c8@linux.dev>
 
-On 14/10/2026 13:04, Hal Feng wrote:
-> Remove the jh8100 compatible since the JH8100 SoC has been canceled and
-> will not be released.
+On Thu, Oct 15, 2026 at 02:43:40PM +0800, Chen Wang wrote:
+> Hello,
 > 
-> Change the register size in examples to 0x10, since an OpenCores PTC IP
-> has only 4 32-bit registers: CNTR, HRC, LRC and CTRL.
+> On 10/14/2026 3:45 PM, Inochi Amaoto wrote:
+> > Sophgo SoCs such as SG2044 contain eFuses used to store
+> > factory-programmed data.
+> > 
+> > As for SG2044, HW automatically loads the eFuse content
+> > into shadow registers which are organized as 32bit values
+> > exposed as MMIO.
+> > 
+> > Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+> > ---
+> >   drivers/nvmem/Kconfig        |  12 +++
+> >   drivers/nvmem/Makefile       |   2 +
+> >   drivers/nvmem/sophgo-efuse.c | 176 +++++++++++++++++++++++++++++++++++
+> >   3 files changed, 190 insertions(+)
+> >   create mode 100644 drivers/nvmem/sophgo-efuse.c
+> > 
+> > diff --git a/drivers/nvmem/Kconfig b/drivers/nvmem/Kconfig
+> > index c36c2a4c2a0b..a7936dd65bdd 100644
+> > --- a/drivers/nvmem/Kconfig
+> > +++ b/drivers/nvmem/Kconfig
+> > @@ -465,6 +465,18 @@ config NVMEM_SNVS_LPGPR
+> >   	  This driver can also be built as a module. If so, the module
+> >   	  will be called nvmem-snvs-lpgpr.
+> > +config NVMEM_SOPHGO_EFUSE
+> > +	tristate "Sophgo eFuse support"
+> > +	depends on ARCH_SOPHGO || COMPILE_TEST
+> > +	default ARCH_SOPHGO
+> > +	help
+> > +	  Say y here to enable support for reading eFuses on Sophgo SoCs
+> > +	  such as the CV1800B. These are e.g. used to store factory programmed
 > 
-> I will maintain this pwm module in place of William.
+> Why is "CV1800B"?
 > 
-> Tested-by: Maud Spierings <maud_spierings@hotmail.com>
 
-Drop, did not happen. Is it so tricky to respond to the one patch here,
-where the tag would be applicable, instead of replying to cover letter?
+This is an old mistake, this patch follows Jishengs's patch in the first
+design. But then almost everything changed and only thing for SG2044 left.
+This is the thing that is left to change.
 
-Best regards,
-Krzysztof
+I am not sure whether it should keep this generic name as I see it should
+be compatible for most sophgo SoCs (at least it should be for CV1800X, 
+by just change offset). Feel free to give if you have some suggestion for
+a better name
+
+Regards,
+Inochi
