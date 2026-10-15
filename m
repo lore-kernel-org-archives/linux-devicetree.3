@@ -1,90 +1,131 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C5C751B16C;
-	Thu, 15 Oct 2026 13:09:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 952194E8E0D
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 13:09:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792069746; cv=none; b=NQXFYZ7W/OYTZ3XrMgg9X6En51HF1ectG613hCOMSqa/9/ybqIMrrrzcnQ6Dqe7w44CapzqbK7Zm8pwJxfJKEHqf1cH+qVaQfixPGOuHV2O8NeF3tJevJwMlSc5BRjUB5pk1wry/um6tTI95cWE9iJa/xh4LyzWrS8dmgGILc08=
+	t=1792069775; cv=none; b=CRsPng2RJ/4SL5bwtkaG4jKrYvQbagA2/d1hQiTNCXiwZCyHoOWH2lqMQJSRKb3/F1yX/fodiBAzZsKDCJAwn6JHhCimVnGK1pbu0MXcGbJFDxsbI2w6n11eK6jXI26efFcoF+ESR+vzyZ0CL7VuhWwmgYVE7Ku0Ggn1kAL2688=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792069746; c=relaxed/simple;
-	bh=1fdlVaal3GLrRFh6uh8s9DzMiket9ynEjYP5esVxAI0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RvPhKcZZk4TL1YlSxwLXdWNMF38PRkjtzhSDKkEmdnUF573DKw8vV2QAooR8iZjeh8laX2NvizEYPyJQXW7zCVqBvX9hCUjAUCTk1BKujwdic0pUgx576Mtq2J+jJgOfhFcsNFZZikWTDcoKXANUgJVadMbVEEclr9RJoQNYd1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D2YFSY5P; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792069775; c=relaxed/simple;
+	bh=ZEJFLkENJEZMuERAZJzGLz/b6lXl4CH8KP0Xbyu9rDA=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=pF+11Wcd/ZkmEHkJYxMD36j4DdTnMddXZbAKwb8UWD7hSFu/rp/ICuOS2ry36T/TxSJP1NkiqUEqYeXu1TgnFWkzWlenP/x/Mqxm1PQXj8wC8yn+7n007Iz99lVcVIObpRw2TQFbjFfhNO9vNyHDmBaUeOQITlUOANHEOtDuiIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dLGATJ5F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D2YFSY5P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D98E1F000C4;
-	Thu, 15 Oct 2026 13:09:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dLGATJ5F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E6CC1F000C4;
+	Thu, 15 Oct 2026 13:09:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792069744;
-	bh=5sPB/6sXfeibpDcKzKHXp+nhVUEGqxPgJsZVGdo2G9o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=D2YFSY5P+DLFLZ5Gh2caidLphvjbb+jX6QMwk4RrqOeKDmIAKu8Wta0a+t4v7jxgh
-	 zqxC+wkd5BBhGRkH8McJ4AGo+VdOBk1yMhihzi3CSWzQoHNSNHS8w3aXdoeVt1ItK3
-	 h3iB0TbVfKwYQiTNhCeKIR3jWCB1AVVfnQSMzjWr8Pi4RZme2TpOLXnRuqJItSNHXG
-	 3F7yn/s5/2fWD9ttTTsv+fw0loTLWw0WjhCgeyaIZXJUgFaVtSCCpGqx+Ei/++MWYQ
-	 /sK6GOvDFTsIzGc4NtLf/bsJl2YzSTKn5k3JG/yjepKVIagh//JJ1HZk8z95GNP/8p
-	 /cIjAsa14a8gA==
-Date: Thu, 15 Oct 2026 14:08:59 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 0/1] ASoC: dt-bindings: nvidia,tegra-audio:
- Consolidate all codec support into a single schema
-Message-ID: <d3648f08-17b2-4a90-8c23-3036cf71f1e1@sirena.org.uk>
-References: <20261015130628.184279-1-clamor95@gmail.com>
+	s=k20260515; t=1792069773;
+	bh=TWMToRltBkW0AUlmAtzeT7tgoRxrPKUDsovHZmJg7a0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dLGATJ5F89zCmheiYctWB3PAIsQ4vUTBq4riJ1r3MjVvl7nx9uwRpkc1cO6N6M3Xx
+	 Ov2YHykMJATszW0kYkpJHkv/tgRxuu23rj8xEeQ2lNRibC1EgoRxsCBw+83pTwu0UD
+	 WaeOgmkCBDI50+stMg9CSZfNXPT8NOc4GsXPEHbrRJS5FCiQswTYk5RSfTCS2qDSX6
+	 Vs5nJO5IbYdz7Yb6cd7qqZ07hzopwvEzvI6vMTUTpkHwXahsc9Qjfn5TPf8smrEZvM
+	 SSWRNtk2CaoBvf7uZmyzjGeNKlOK2ywwYCfEpOfXJtzneuq0Qnh2PieId+HStDxfNC
+	 hYdRYp6YNdOQA==
+Message-ID: <sashiko-outbox-172899@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 4/7] riscv: dts: eswin: add hsp bus node
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Pinkesh Vaghela" <pinkesh.vaghela@einfochips.com>, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261015125454.1381941-5-pinkesh.vaghela@einfochips.com>
+References: <20261015125454.1381941-1-pinkesh.vaghela@einfochips.com>
+ <20261015125454.1381941-5-pinkesh.vaghela@einfochips.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 15 Oct 2026 13:09:32 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="1MDTMyHTJkEiHO1L"
-Content-Disposition: inline
-In-Reply-To: <20261015130628.184279-1-clamor95@gmail.com>
-X-Cookie: Tax and title extra.
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] dts: unclocked syscon MMIO access due to missing clocks property
+--
 
---1MDTMyHTJkEiHO1L
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+commit 411f5ceff131ac2449926a00c5f169d3aa665b6d
+Author: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
 
-On Thu, Oct 15, 2026 at 04:06:27PM +0300, Svyatoslav Ryhel wrote:
-> The number of codecs supported by the NVIDIA Tegra audio complex is
-> increasing, which leads to an increasing number of bindings with minimal
-> changes. The main differences between codecs are the compatible strings
-> and possible pin configurations. With the introduction of auxiliary
-> devices, a definitive description of possible pin configurations becomes
-> nearly impossible.
+riscv: dts: eswin: add hsp bus node
 
-Please don't send cover letters for single patches, if there is anything
-that needs saying put it in the changelog of the patch or after the ---
-if it's administrative stuff.  This reduces mail volume and ensures that=20
-any important information is recorded in the changelog rather than being
-lost.=20
+This commit adds an HSP bus node to manage the HSP CFG clock used by HSP
+peripherals. This clock is required for accessing both the HSP CSR registers
+and the register spaces of HSP peripheral devices.
 
---1MDTMyHTJkEiHO1L
-Content-Type: application/pgp-signature; name="signature.asc"
+> diff --git a/arch/riscv/boot/dts/eswin/eic7700.dtsi b/arch/riscv/boot/dts=
+/eswin/eic7700.dtsi
+> --- a/arch/riscv/boot/dts/eswin/eic7700.dtsi
+> +++ b/arch/riscv/boot/dts/eswin/eic7700.dtsi
+> @@ -252,6 +252,19 @@ plic: interrupt-controller@c000000 {
+>  			#interrupt-cells =3D <1>;
+>  		};
+> =20
+> +		hsp: bus@50400000 {
+> +			compatible =3D "simple-pm-bus";
+> +			ranges =3D <0x0 0x50400000 0x0 0x50400000 0x0 0xa0000>;
+> +			clocks =3D <&clk EIC7700_CLK_GATE_HSP_CFG_CLK>;
+> +			#address-cells =3D <2>;
+> +			#size-cells =3D <2>;
+> +
+> +			syscon: syscon@50440000 {
+> +				compatible =3D "eswin,eic7700-syscfg", "syscon";
+> +				reg =3D <0x0 0x50440000 0x0 0x2000>;
+> +			};
 
------BEGIN PGP SIGNATURE-----
+[Severity: High]
+Will accessing this syscon node result in an unclocked MMIO fault?
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrQ0GsACgkQJNaLcl1U
-h9DxzAf/XF+cezuzRJkynPNZClWWh5eup+5BF6H5PuLHWhv6ks/3SsTnHhp9bhJ7
-2mqSIEAAH9S5Pb+QDxKZNL/gbBpp6y1/DIA5Pi3wkMYs3V60uYEnNvXhYtLhlley
-mT3sS0eIQNYl7WUH4XwISuO04FlxoAmtTreAAmh0NoxoF1QibruAaws8rEVnDqYz
-UiqxoT3dkGtm6TQbev1eDEyS5ncd9Tgb4rueVO2jXxyUMuzniPtISM685rmD4P7q
-/mXwb9tJX+ec3lL7hp8yX5qu3h3PVgpcsGCn3jsbrUXAujkNheh1B4oE7sy9Rl1s
-IzQ7dASGZsvt7AR4Z0+Pgnt3Ml31Wg==
-=/Bs7
------END PGP SIGNATURE-----
+The syscon node lacks a clocks property and seems to rely on the parent
+simple-pm-bus for clocks. However, generic syscon does not trigger parent
+runtime PM.
 
---1MDTMyHTJkEiHO1L--
+When looking at of_syscon_register() in drivers/mfd/syscon.c, it only attac=
+hes
+a clock if the clocks property is present on the syscon node itself:
+
+drivers/mfd/syscon.c:of_syscon_register() {
+        ...
+        if (check_res) {
+                clk =3D of_clk_get(np, 0);
+                if (IS_ERR(clk)) {
+                        ret =3D PTR_ERR(clk);
+                        /* clock is optional */
+                        if (ret !=3D -ENOENT)
+                                goto err_clk;
+                } else {
+                        ret =3D regmap_mmio_attach_clk(regmap, clk);
+        ...
+}
+
+Meanwhile, looking at simple_pm_bus_probe() in drivers/bus/simple-pm-bus.c,
+the simple-pm-bus only enables runtime PM:
+
+drivers/bus/simple-pm-bus.c:simple_pm_bus_probe() {
+        ...
+        pm_runtime_enable(&pdev->dev);
+
+        if (np)
+                of_platform_populate(np, NULL, lookup, &pdev->dev);
+        ...
+}
+
+Since simple-pm-bus strictly relies on children to wake it up, and syscon
+bypasses platform_device PM entirely, the bus is never resumed. Does this
+mean any driver or debugfs interface accessing the eswin,eic7700-syscfg
+regmap will perform MMIO without enabling the HSP_CFG_CLK?
+
+> +		};
+> +
+>  		uart0: serial@50900000 {
+>  			compatible =3D "snps,dw-apb-uart";
+>  			reg =3D <0x0 0x50900000 0x0 0x10000>;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015125454.1381=
+941-1-pinkesh.vaghela@einfochips.com?part=3D4
