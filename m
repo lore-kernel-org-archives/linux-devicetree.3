@@ -1,208 +1,249 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BADE43C3438
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 16:59:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF453383993;
+	Thu, 15 Oct 2026 17:03:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792083603; cv=none; b=N/w2/+YwjHnKhOZiqwmCetih7uy65V6JtrNlZZ2lOneD2+UrIo8AqIBplecyshldPIafuaYpJWk5/U4l1ENdri+5ONuWoF8if1TuuCsxBXNIBJU2mExnyaT0tTBTOxCZINxqM2NADHC64oe1EHzIk+L/TTBoNFWz8v/kptNTFnU=
+	t=1792083811; cv=none; b=CAHOpp//blTYBp+8zDYqxacR7DwCWR0z8AMs44QnFoOxkB6w8G2OwLwSON5mEm4CJJvjDAy+iAJIpZ5K3MTX0ItpoyXq6xShLMKJ2sivEHs7e+ZbepHR2nnSy/iG/tr9r1Y3qBILPVEaAICWdFj3nGu7gIW8p/HWwLZ0GREi6vM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792083603; c=relaxed/simple;
-	bh=HBSP3fUmWmrSE5yfO+IkM8xshlG1Wd0hNWXbX8vc2eY=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=qTSnUwMiqxSVlYFBvU2MHPHNuOpT5Te2uRzlOqINAnbWS+5mZczAn1IseX+Cz9r0xlrk0+bQRzwJNqhbiXOKNoan7zr+JpHqBCM+WhfhPNBVI5HN1EV1zTHWanqu+tlYS5K/lYhVuEUqe37BXIGW27sr9h0nvcx7S5BCjMKGeOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O/zqXeFL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792083811; c=relaxed/simple;
+	bh=mTsCIQlQlZ+s0i8gJLekPM5yddZtsSJVjZ/7RlKj1PA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=J65hchKzPnOzYBKY7KsIZQ2FykfVd9gL78OvH9EsAANhIJOb0yYaqaf26VevvJdxYkMtglHQAbdMIj4bOkXMjbNSmCk+kBNJy0HpRvsbxunZBeEd9qgk/DZiyUalEAyZxhJB+mM0U5vwDd2Fw27vNbK/kclqdgCye18MllvMLB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eY8xqAJH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O/zqXeFL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19CC71F000C4;
-	Thu, 15 Oct 2026 16:59:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eY8xqAJH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20E6A1F000C4;
+	Thu, 15 Oct 2026 17:03:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792083589;
-	bh=w7qaruVYhcvxTbOdG+pc247No0a36lH4Z64OkK0a9KY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=O/zqXeFLfj/rQtk8RHwquY2pW5rmZKDGJeP8i8TylsONTIW1ea6Tc4W+/gFr6SqWc
-	 R7HtBShW5AaapeV0ggHHv7p9u1UqHdUVjNqvyg2AVe4TSm2lv6KnC3cBDaIVz6Ilm1
-	 slYlVj3BylrQWX53kfKN7FUBkmj7eG4rhxWhD+pF76cwvdg5+ZwS4MrXo4bVjhItgj
-	 1E9jNZABS1mewkgz8XJ7BgelL74eCEZThDUk3t3rIf0mQUIMgXtjjbhm1QVXuBZRsn
-	 CRYENooqLqtwzMWVAy1oL8Mfv3e/HHNuNv2Yxg8RLUd1ja/ZTngdrNpF8kqlgwLclN
-	 gy+H4SMzMUZFA==
-Message-ID: <sashiko-outbox-173220@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 06/10] iio: frequency: ad9910: add axi backend driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rodrigo Alencar" <rodrigo.alencar@analog.com>, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261015-ad9910-backend-support-v1-6-3c21648c8e26@analog.com>
-References: <20261015-ad9910-backend-support-v1-0-3c21648c8e26@analog.com>
- <20261015-ad9910-backend-support-v1-6-3c21648c8e26@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 16:59:48 +0000
+	s=k20260515; t=1792083798;
+	bh=LhnZdj1n9jEiu2uk0jULpLtCBawhN6CksHAm8WDiTmw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eY8xqAJHNT/9VMHehk3h2r3VKHap4XWBTDvU7FdwAAf+UlSmFV4C5jkxi2JeEykLw
+	 LHxigb6YdlVT8Pr9mWAJgho5u+XoUrwNM0fRE11tdJ2i7ht0QpcTO2nda19ZMj8YCf
+	 +n24IFub1OqkPZaO8ETUOPSurRq5RhPsenhvFQBLhhpFgtj1jSCrlEmj0jggK94vif
+	 8f5kSTVu68UOYWZ330x2sNRmfKDHr+29OhQL58TMoWNUwmULvpOdArsoGO4O3oucQl
+	 TSPaeJc0R3pwjoIFVQrMrtpMe6xQhxuXsM/+q+gu3axH4RcWvg+9qZiEtydAB1Ld7Y
+	 ineBcQWsTGRpg==
+Date: Thu, 15 Oct 2026 18:03:13 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Hyunuk Son <hyunuk.son@irondevice.com>
+Cc: lgirdwood@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, perex@perex.cz, tiwai@suse.com,
+	kiseok.jo@irondevice.com, linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] ASoC: codecs: Add driver for Iron Device MA5311
+Message-ID: <9ec997b1-8443-466b-bafb-a25f9b5c47ff@sirena.org.uk>
+References: <20261015060408.128711-1-hyunuk.son@irondevice.com>
+ <20261015060408.128711-3-hyunuk.son@irondevice.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="cYFLMnh1SSjLn+6V"
+Content-Disposition: inline
+In-Reply-To: <20261015060408.128711-3-hyunuk.son@irondevice.com>
+X-Cookie: Tax and title extra.
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] iio: ad9910: incorrect destination mapping swaps amplitude and fre=
-quency
-- [High] iio: frequency: ad9910-axi: zero-divisor panic if MMIO read return=
-s ~0
-- [Medium] iio: ad9910-axi: profile channels return -EINVAL on disable
---
 
-commit 07c9b224d9d92ea624369fff596857cafd508264
-Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Date:   Thu Oct 15 16:49:46 2026 +0000
+--cYFLMnh1SSjLn+6V
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-iio: frequency: ad9910: add axi backend driver
+On Thu, Oct 15, 2026 at 03:04:07PM +0900, Hyunuk Son wrote:
+> Add an ASoC codec driver for the Iron Device MA5311.
+>=20
+> The driver supports audio playback and capture through I2S
+> and TDM interfaces. It provides ALSA mixer controls for audio
+> configuration and uses regmap for register access.
 
-Add the driver for the AD9910 AXI backend IP core, which interfaces with
-the data and control pins of the AD9910 DDS. It registers as an IIO
-backend that provides buffer output, parallel data destination configuratio=
-n,
-and PWM integration for ramp direction control.
+There's some issues below, but nothing too major I think.
 
-> diff --git a/drivers/iio/frequency/ad9910-axi-backend.c b/drivers/iio/fre=
-quency/ad9910-axi-backend.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/iio/frequency/ad9910-axi-backend.c
-
-[ ... ]
-
-> +static int ad9910_axi_chan_enable(struct iio_backend *back, unsigned int=
- chan)
+> +static bool ma5311_adc_volatile_register(struct device *dev, unsigned in=
+t reg)
 > +{
-> +	struct ad9910_axi_state *st =3D iio_backend_get_priv(back);
-> +	int ret;
-> +
-> +	guard(mutex)(&st->lock);
-> +
-> +	switch (chan) {
-> +	/*
-> +	 * Profiles are mutually exclusive, as the PROFILE[2:0] pins always
-> +	 * select one of them. Enabling a profile channel selects it, which
-> +	 * implicitly disables the previously selected one, hence there is
-> +	 * nothing to do when disabling a profile channel.
-> +	 */
-> +	case AD9910_CHAN_IDX_PROFILE_0 ... AD9910_CHAN_IDX_PROFILE_7:
-> +		chan -=3D AD9910_CHAN_IDX_PROFILE_0;
-> +		return regmap_update_bits(st->regmap, AD9910_AXI_REG_PROFILE,
-> +					  AD9910_AXI_REG_PROFILE_MSK,
-> +					  FIELD_PREP(AD9910_AXI_REG_PROFILE_MSK, chan));
-> +	case AD9910_CHAN_IDX_PARALLEL_AMP ... AD9910_CHAN_IDX_PARALLEL_POLAR_PH=
-ASE:
-> +		chan =3D min(chan - AD9910_CHAN_IDX_PARALLEL_AMP, AD9910_DEST_POLAR);
-
-[Severity: High]
-Does this subtraction incorrectly map IIO channel indices to hardware
-destination codes?
-
-Looking at enum ad9910_channel_idx, AD9910_CHAN_IDX_PARALLEL_AMP is ordered
-before AD9910_CHAN_IDX_PARALLEL_FREQ. In this subtraction, Amplitude evalua=
-tes
-to 0 and Frequency evaluates to 2.
-
-However, the hardware destination codes defined in ad9910.h map
-AD9910_DEST_FREQUENCY to 0 and AD9910_DEST_AMPLITUDE to 2.
-
-Will writing this mapped value to AD9910_AXI_REG_F_CFG cause the IIO
-parallel amplitude channel to inadvertently configure the hardware for a
-frequency destination, and vice versa?
-
-> +		ret =3D regmap_update_bits(st->regmap, AD9910_AXI_REG_F_CFG,
-> +					 AD9910_AXI_REG_F_CFG_MSK, chan);
-> +		if (ret)
-> +			return ret;
-> +
-> +		return regmap_set_bits(st->regmap, AD9910_AXI_REG_UPDATE_CTRL,
-> +				       AD9910_AXI_REG_UPDATE_PAR_IF_EN_MSK);
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +static int ad9910_axi_chan_disable(struct iio_backend *back, unsigned in=
-t chan)
-> +{
-> +	struct ad9910_axi_state *st =3D iio_backend_get_priv(back);
-> +
-> +	switch (chan) {
-> +	case AD9910_CHAN_IDX_PARALLEL_AMP ... AD9910_CHAN_IDX_PARALLEL_POLAR_PH=
-ASE:
-> +		return regmap_clear_bits(st->regmap, AD9910_AXI_REG_UPDATE_CTRL,
-> +					 AD9910_AXI_REG_UPDATE_PAR_IF_EN_MSK);
-> +	default:
-> +		return -EINVAL;
-
-[Severity: Medium]
-Will profile channels fall into this default case and return an error inste=
-ad
-of succeeding cleanly?
-
-The ad9910_axi_chan_enable() function supports enabling profile channels
-(AD9910_CHAN_IDX_PROFILE_0 to 7) and successfully returns 0. However, this
-disable function lacks a corresponding case for them.
-
-When the IIO core attempts to disable a previously enabled profile channel,
-will this unconditionally return -EINVAL and potentially leave the device
-state inconsistent or emit unwanted kernel log warnings during teardown?
-
-> +	}
+> +	return false;
 > +}
 
-[ ... ]
+You can just not provide a volatile function, the default is nothing
+volatile.  Since the driver isn't enabling a register cache volatile
+makes no difference anyway.
 
-> +static int ad9910_axi_read_raw(struct iio_backend *back,
-> +			       struct iio_chan_spec const *chan, int *val,
-> +			       int *val2, long mask)
+> +static int ma5311_reset(struct snd_soc_component *component)
 > +{
-> +	struct ad9910_axi_state *st =3D iio_backend_get_priv(back);
-> +	u32 div;
-> +	int ret;
+
+> +	ma5311->adc1_vol_left =3D 0xc0;
+> +	ma5311->adc1_vol_right =3D 0xc0;
+> +	ma5311->adc2_vol_left =3D 0xc0;
+> +	ma5311->adc2_vol_right =3D 0xc0;
+> +	ma5311->adc3_vol_left =3D 0xc0;
+> +	ma5311->adc3_vol_right =3D 0xc0;
+> +	ma5311->adc4_vol_left =3D 0xc0;
+> +	ma5311->adc4_vol_right =3D 0xc0;
+> +	ma5311->adc1_pga_left =3D 0x10;
+> +	ma5311->adc1_pga_right =3D 0x10;
+> +	ma5311->adc2_pga_left =3D 0x10;
+> +	ma5311->adc2_pga_right =3D 0x10;
+> +	ma5311->adc3_pga_left =3D 0x10;
+> +	ma5311->adc3_pga_right =3D 0x10;
+> +	ma5311->adc4_pga_left =3D 0x10;
+> +	ma5311->adc4_pga_right =3D 0x10;
+> +	ma5311->capture_mode =3D I2S_ADC1;
+
+Normally we just go with the hardware defaults for everything and let
+userspace set what it needs, this is mainly because different use cases
+often need different defaults.  Why are we setting all these volumes
+here?
+
+> +static int ma5311_adc_pga_control_put(struct snd_kcontrol *kcontrol,
+> +				      struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct snd_soc_component *component =3D snd_kcontrol_chip(kcontrol);
+> +	struct ma5311_priv *ma5311 =3D snd_soc_component_get_drvdata(component);
+> +	const struct soc_mixer_control *mc =3D
+> +	    (const struct soc_mixer_control *)kcontrol->private_value;
+> +	unsigned int *cache;
+> +	unsigned int val =3D ucontrol->value.integer.value[0];
 > +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_SAMP_FREQ:
-> +		switch (chan->address) {
-> +		case AD9910_CHAN_IDX_PARALLEL_AMP ... AD9910_CHAN_IDX_PARALLEL_POLAR_P=
-HASE: {
-> +			guard(mutex)(&st->lock);
+> +	if (val < 0 || val > MA5311_ADC_PGA_CTRL_MASK)
+> +		return -EINVAL;
 > +
-> +			ret =3D regmap_read(st->regmap, AD9910_AXI_REG_PAR_RATE,
-> +					  &div);
-> +			if (ret)
-> +				return ret;
+> +	cache =3D ma5311_adc_pga_control_cache(ma5311, mc->reg);
+
+It's not clear to me why we have this cache code - I didn't spot where
+do anything with it outside of these get/put operations, it looks like
+exactly the sort of cache that you'd get from the regmap cache code.
+AFAICT could get it for free and just use the standard control
+implementations by enabling a register cache in regmap, if you don't
+want a cache for other registers for some reason you can mark them as
+volatile.
+
+> +static int ma5311_capture_mode_put(struct snd_kcontrol *kcontrol,
+> +				   struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct snd_soc_component *component =3D snd_kcontrol_chip(kcontrol);
+> +	struct ma5311_priv *ma5311 =3D snd_soc_component_get_drvdata(component);
+> +	unsigned int val =3D ucontrol->value.enumerated.item[0];
 > +
-> +			iio_val_s64_decompose(div_s64(st->pd_clk_freq_uhz, div + 1),
-> +					      val, val2);
-
-[Severity: High]
-Could this lead to a division-by-zero panic if the MMIO read returns ~0?
-
-If the AXI IP core or bus becomes unresponsive or disconnected, the MMIO re=
-ad
-via regmap_read() may silently return 0xFFFFFFFF (~0) without an error code.
-
-Since div is a u32, div + 1 would overflow to 0. This 0 is then passed
-directly to div_s64() as the divisor.
-
-Because ad9910_axi_read_raw can be triggered from userspace by reading sysfs
-attributes, could a local attacker or unprivileged user reliably trigger a
-kernel panic if the hardware enters an error state?
-
-> +			return IIO_VAL_DECIMAL64_MICRO;
-> +		}
-> +		default:
-> +			return -EINVAL;
-> +		}
-> +	default:
+> +	if (val >=3D ARRAY_SIZE(ma5311_capture_mode_text)) {
+> +		dev_err(ma5311->dev, "%s: Out of range\n", __func__);
 > +		return -EINVAL;
 > +	}
-> +}
+> +
+> +	if (ma5311->capture_mode =3D=3D val)
+> +		return 0;
+> +
+> +	if (ma5311->adc_power_status) {
+> +		dev_err(ma5311->dev, "Try after capture is complete.\n");
+> +		return -EBUSY;
+> +	}
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-ad9910-bac=
-kend-support-v1-0-3c21648c8e26@analog.com?part=3D6
+There's no locking between this and DAPM so we could race with power up
+here.  Taking the DAPM mutex ought to do enough.
+
+> +static int ma5311_reset_control_get(struct snd_kcontrol *kcontrol,
+> +				    struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct snd_soc_component *component =3D snd_kcontrol_chip(kcontrol);
+> +	struct ma5311_priv *ma5311 =3D snd_soc_component_get_drvdata(component);
+> +
+> +	if (!ma5311->reset_gpio)
+> +		return -ENODEV;
+
+It'd be better to only register this control if the GPIO is present,
+that way we don't have a broken control that reports errors to userspace
+if the system can't support it.  It's a bit of a dodgy control to have
+in the first place, it's rather disruptive if used at the wrong time,
+but I'm not totally against it for devices that are likely to only be
+used with highly controlled userspaces.
+
+> +	switch (params_width(params)) {
+> +	case 16:
+> +	case 24:
+> +	case 32:
+> +		break;
+> +	default:
+> +		dev_err(component->dev, "%s: unsupported PCM format: %d\n",
+> +			__func__, params_format(params));
+> +		return -EINVAL;
+> +	}
+
+Don't we need to configure anything in the hardware for clock provider
+mode here?
+
+> +#define MA5311_RATES_PLAYBACK SNDRV_PCM_RATE_8000_96000
+> +#define MA5311_RATES_CAPTURE SNDRV_PCM_RATE_8000_96000
+> +#define MA5311_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S32_L=
+E)
+
+These don't seem to match what hw_params() accepts.
+
+> +static struct snd_soc_dai_driver ma5311_dai[] =3D {
+> +	{
+> +	 .name =3D "ma5311-amplifier",
+> +	 .id =3D 0,
+> +	 .playback =3D {
+> +		      .stream_name =3D "Playback",
+> +		      .channels_min =3D 1,
+> +		      .channels_max =3D 2,
+> +		      .rates =3D MA5311_RATES_PLAYBACK,
+> +		      .formats =3D MA5311_FORMATS,
+> +		      },
+> +	 .capture =3D {
+> +		     .stream_name =3D "Capture",
+> +		     .channels_min =3D 1,
+> +		     .channels_max =3D 8,
+> +		     .rates =3D MA5311_RATES_CAPTURE,
+> +		     .formats =3D MA5311_FORMATS,
+> +		     },
+> +	 .ops =3D &ma5311_dai_ops_amp,
+> +	  },
+> +};
+
+I think the device needs symmetric rate and widths too?
+
+> +static irqreturn_t ma5311_irq_thread(int irq, void *data)
+> +{
+> +	struct ma5311_priv *ma5311 =3D data;
+> +	unsigned int dac_status;
+> +	unsigned int dac_ocp_status;
+> +	unsigned int dac_scp_status;
+> +	int ret =3D 0;
+> +
+> +	ret |=3D regmap_read(ma5311->ctrl_regmap,
+> +			   MA5311_DAC_EA_DAC_STATUS, &dac_status);
+> +
+> +	ret |=3D regmap_read(ma5311->ctrl_regmap,
+> +			   MA5311_DAC_EB_DAC_OCP_STATUS, &dac_ocp_status);
+> +
+> +	ret |=3D regmap_read(ma5311->ctrl_regmap,
+> +			   MA5311_DAC_EC_DAC_SCP_STATUS, &dac_scp_status);
+> +
+> +	if (ret) {
+> +		dev_crit(ma5311->dev,
+> +			 "Error Occurred During Interrupt Handling\n");
+> +		return ret;
+
+This should be IRQ_NONE, we're returning irqreturn_t not an error code.
+
+--cYFLMnh1SSjLn+6V
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrRB1AACgkQJNaLcl1U
+h9AhtQf/e2jLD9fxuDBrHk8pkz2hcUBlKE8hxvgOZzvrDeSwKFZUhwjUvxo2iGkb
++4AVJj0GUNEFsn9aAa0O31xZJY5yyiIpOT7cr5fWBWxN3D6pYZo0wcvLLbiy9PFc
+fKPN4TaHZgsqLF12MLEEL3lqhuy2GUuW/eaEsmd2UCdJArmY9/hG0iOQU87Jxb9F
+zUJKtQTTIJjgkb5oKOyqjfldHUD++kIiOCkSiTgl2NaqrPo+nuhpAJX0XUd71Xei
+eXwcEBUu+4T990pkL7O6+/eAnALTXzkNPlyYsWiFVjINinnj2zzXhEBBq3ukr/wn
+UzRbkjJ9+9vbAazZUiQZXX/ZJG9xWA==
+=gSmu
+-----END PGP SIGNATURE-----
+
+--cYFLMnh1SSjLn+6V--
