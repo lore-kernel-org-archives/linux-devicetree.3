@@ -1,279 +1,292 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013032.outbound.protection.outlook.com [40.93.201.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E02453C3CF
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 15:27:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792078033; cv=none; b=PvOeLnR4BKbQoQLvpN2PDhkid0ne7feq+HPBVgp2yjDcaBUQTiMH7ah96SM6RgzVDfs1qdsLrLeFXYM8p20j6OBYp24O3oEGxcdl67HFlYJ0J9/EoC4m7JdmsI2rPYk3/2z7aegaGCnVLi+mCCEBXxG4kfg7hoqz7BLf2suja8M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792078033; c=relaxed/simple;
-	bh=EuQqwIzivivIRRr4Xjl/XAIJQ0ZaWwbl0Y/qlRDUkN8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HIy1zMusAB56bM25aZqqZoTPOyjCoSNAMUgifJOrEBHOndal3dzhA7VrMbGQAPXu6copPUn8bd/yGeyogbgdcryDqJiOY8o9fQLvxbXsBpQ7VZXiD+9peJquJeUlzNQLAPkpH/XuVZyF+OMo2VaIBL+rlqF5J93SAhVmQyIIdbA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=i9nPLvdh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=j8rOJbOI; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD314367295;
+	Thu, 15 Oct 2026 15:31:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.32
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792078300; cv=fail; b=BuufHSc+0MZD15Fg8YKKpN6rmpHtHTWJBlnTdzUVZEN+QLBdxnN4mLLA81dSmqfJIVYnQOqwInFx2RMoo682BApUptjE6by39cfY7zwiZXQK8oTVoEb/KXsiaTQMemFnlcnb9PcMPTd5Zr9vhNWe8ZY+at+Ljmfgj342HsI1mnM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792078300; c=relaxed/simple;
+	bh=FIlQdFFR5WsMvG1RMqwCa614z5U0UOhqcFJfk2oUt+w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=SX44FhMr+IYmbqBnztZIiJhj8wIBC0qfB/5cMNd00SLCDLeExPbcyki71g/f9LPGMVyJovYUMW1IGYgkvUqRV2+mVpFq+w/VhCcE9TMyLQLGAMN7xA5hAwSbsDNXZ8sCdvypkf8fTqGSsogrJm1sFCZiiDP4RlA57PMdQXwRdF4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=wzAAn5rL; arc=fail smtp.client-ip=40.93.201.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="i9nPLvdh";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="j8rOJbOI"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69FFMapv4078195
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 15:27:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=xpnGk7FPC+VKE9mp5pQv/hve
-	zQu7wPRB01zE5pjxB2U=; b=i9nPLvdhblTcgWfaUZrTDtWUj8gzjr8OpZ9tHwks
-	ljt3Im7IRjr4akjgALjbqnBCfqa+o6KmUa5VfOGx9eRW6BHsRlOtouRRGEPKYL9t
-	c/lvBQwXHtOumbtJDMulm/lO71c7d1e7/YkeV0UgMfMqIB52vVjqT/ogoVi5h0d8
-	oxV8qdx7+en/Ku784epf/KvcpQQwZasfxHndMOoSq38eyynCOH4ikaen+SoJwNTT
-	zhZ0i9VeYtqf6z+IJLA88aXDeuD/7xNlHN6zc9LAjMtmmrvn1qDI3WAcRN7B8ji5
-	3YnAi54oErcw9EIn5yGXKRTiWkDlDEwvWKjaw5e15Amk6A==
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4havbc1enb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 15:27:05 +0000 (GMT)
-Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6e08454f40bso155995eaf.1
-        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 08:27:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792078024; x=1792682824; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xpnGk7FPC+VKE9mp5pQv/hvezQu7wPRB01zE5pjxB2U=;
-        b=j8rOJbOIWyOeRRl6FzDgN951X2iEAE1pOk24BP9chn0bBx7QeRhSJ8K+k701pzzYB8
-         m6+XYtLsnfE88DOLEjGfJygXuXSB2d2wyKFskaqN+OmthLwgzreuTN5nBZ0/lQH2B1CQ
-         izM71XVGUYy6MTD1J3lm4WRDiE4XJmiQGMhoegs8Lb10Cme13OFNyPRWyDypksyAKsiO
-         pKx5UOwKWxe+mAGQS0eszwsZ3+PA6efNXts/T0Lk3eD3lS9OPvVAmgz90bOQTkyxEhVt
-         po++5TTzjpxv01qlP0lClzXX800X0sSS12Au8ooO/zqXrTpmi6jKB5+PT6OY5jFxsE8T
-         06aQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792078024; x=1792682824;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xpnGk7FPC+VKE9mp5pQv/hvezQu7wPRB01zE5pjxB2U=;
-        b=Duhc0TGDe1/vZXnXQWmAazZi1bmpf6kC2n1SuybSfEhiGzD9bFklq8tUKEjb4H9BJu
-         cVxIoGMzmQRISBpa86y1ExnvbBDLQZbRIWwwLiy+8/4vXyqJoGxCHHdOB+D4t4P2My7t
-         NCkYlUgEqkd4FLAXM+nn9nFT+jyOwVhWratq8ldn92YwFZHNXQ/vRNdNPGSpgRAY+iY3
-         mq8rfzzYmnM7p8YMZzallUmVlYrlqJM4ATbcLLc6m00tHxMs5NE84vaMWASW+qj0ISUq
-         mAUjTNG5We9i5Ai3a1Y+s1v8Bkxi1jfoGli8cSoYPO7QzBf3rlPyaC78ZD+BJRTAWnOV
-         tAgQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzBp+MDiWTnMR247nVwEFdMATCj6LtLHoddLvzF76SzYErziYtjxZ1A/XD72fRxsO82s1BrWqAq6Cr4@vger.kernel.org
-X-Gm-Message-State: AFq9FYLadGFrSGg1/A10OOCjhyVZ3qVoU/kBeZva7TGXpcYuP4v9pFDs
-	ALodTFmr8N4LlSyj0n/AHG39Yc7kolMbG44dxAACoDg/Qv/+bR1fKppMUBreDwDlwx6PtxN72BW
-	rZOvZvmNo3svu1+GFirGVu+ziYOvWlPTGm+ELNf/tlgR1pDL25xxqCerfStpYuYPb
-X-Gm-Gg: AYBFou2clMcYMtNaAuFKIl8lk7tl7wDs7BTmbL1nzdsoqNPazpK+prGdiGEejz7xhGp
-	ObwDgdnOa6JkJDErA3vuFpOVIMMDjP0yUyK+zrVnJCagwrPg4WI0RrlZ5kzORA2hFVgcBmBF//A
-	FR4DMXsQtvghy2b+Epw1i4GXDt8JGI3SXxjIv+DPoM3xheCKnADzMLmUgHyjroy7RpRp83gVFaI
-	nv+CehRgmWfH2uPQdRMbcf3YPOvCgFELKDzh+fb1wrLJmcXC7sN2syubrSEQVJbUNzPz6mlWdZg
-	LBheYQrzsTXisxAMVbx73nC3twFsdFka+fRGIxO03eHDh3K9m1dtSLtux3esYXEJe6PZbMLZVRr
-	19DvomLOYPh6UA6ekXKNZJL44Uvk1Mg7aN0x5KbOJbBCco+wnrJAhHg/eRpZX6Ur0TkZ7FdOZPl
-	BID2LveD2VSd7NsNyqI78=
-X-Received: by 2002:a05:6820:4a8a:b0:6de:87d1:a1e6 with SMTP id 006d021491bc7-6ef0d224eb6mr18485376eaf.2.1792078024265;
-        Thu, 15 Oct 2026 08:27:04 -0700 (PDT)
-X-Received: by 2002:a05:6820:4a8a:b0:6de:87d1:a1e6 with SMTP id 006d021491bc7-6ef0d224eb6mr18485313eaf.2.1792078023578;
-        Thu, 15 Oct 2026 08:27:03 -0700 (PDT)
-Received: from hu-vishsain-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-7013ae54701sm72109eaf.12.2026.10.15.08.26.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 08:27:01 -0700 (PDT)
-Date: Thu, 15 Oct 2026 20:56:52 +0530
-From: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Ruchira Revdekar <ruchira.revdekar@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>,
-        Akash Kumar <akakum@qti.qualcomm.com>,
-        Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>,
-        Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>,
-        Vishnu Saini <vishsain@qti.qualcomm.com>,
-        Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
-Subject: Re: [PATCH v2 3/4] arm64: dts: qcom: talos: Add Talos Lyra EVK board
-Message-ID: <atDwvO1ypm5ik2u5@hu-vishsain-blr.qualcomm.com>
-References: <20261012-talos-lyra-evk-v2-v2-0-dcc9316ebb59@oss.qualcomm.com>
- <20261012-talos-lyra-evk-v2-v2-3-dcc9316ebb59@oss.qualcomm.com>
- <ecuc74jw2pmgeijojvqayrnkntukzzyjlx7iq2iutovr7x2xkz@uvf2bd4o6pxi>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="wzAAn5rL"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NSsMyjH8O+gFEeCE8BesdMmUmAKtVqlGyJu1PDyfVv60Hg2fyOw2hU/ZyAp5ytazNCWc4XihF8F2AMm3UzE7ZSzN2sk3CKPzpfWMm1kLjxrKqBKhQ7LjpNIianGYQgM+wnju9GsHEAMDVHDm6gWkvGboLgC76vU6Ow7x9FsY+v6PovlmrCk3+AfNnvJgR/BAV5ogE4gXxV7rByFfUGJgWQKsYcxNx06/6qrt0opnc81vTwAhMayizQNF+UrrdC2VD/ja8IZv2urkrkx2bhYmtKxiqz9oxd2jFUawRSl5oz2Phtme71cgtwNwueCpGLgY2207KSR/ntAQ6bG2c30njQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1krrUAZwt+7VVMHUNs7D/N28ZRN8NYC+XdbJ7kJ0OGg=;
+ b=VQhNyo3yGm7ZrP+m/GS3doXuqj7M/GoJbXo3vVx2SqSlTBW4M8P90OB663So4csk5ZuGuaFBB0WkBgcPCPuy6xJqIt8KIaEwcjoyepzR2CaasHsZ4iM63BCbI1c3cSRx5IKP5YI6g6eI5aEztcj2JKtJ/p2GEdXLupDC9GAA3KmGM0EFT9WEVwD6avJCWX6vFDQFtNQvRIpdqm5vDxzSNnmElq8xJDg4qC9grKsEQHRzNldFWO6lqe18tOd24AIJruEJ86xRAkp8Y1eHkTZfqrm68Y9oM5btCXm0padN9004Hj1KOjstfOglUzL0DjaHCzGhHMbjLXA7yiEMZLMrdQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1krrUAZwt+7VVMHUNs7D/N28ZRN8NYC+XdbJ7kJ0OGg=;
+ b=wzAAn5rLT2T+Y8nwovcy6kuRx2Rao/iJdzM89ykYUNxg69QBbkbvFC5X0q/QsjvjakPqVJaP8aO8WdLyayMigoD+vnosSqqquc+4kk8N3UFjGqHQEBtUERDrMelAJQL5ZRYgSUPMn7a/XQULr9qm67+hjjMapu6aQnW7JvR2AHo=
+Received: from BN0PR03CA0023.namprd03.prod.outlook.com (2603:10b6:408:e6::28)
+ by PH7PR12MB7137.namprd12.prod.outlook.com (2603:10b6:510:1ed::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
+ 2026 15:31:23 +0000
+Received: from BN3PEPF00022BC8.namprd05.prod.outlook.com
+ (2603:10b6:408:e6:cafe::35) by BN0PR03CA0023.outlook.office365.com
+ (2603:10b6:408:e6::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Thu, 15
+ Oct 2026 15:31:23 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF00022BC8.mail.protection.outlook.com (10.167.248.214) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Thu, 15 Oct 2026 15:31:23 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 15 Oct
+ 2026 10:31:16 -0500
+Received: from [192.168.1.205] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Thu, 15 Oct 2026 10:31:16 -0500
+Message-ID: <0df4bfd4-2bcc-42fd-a22d-e704e4b41d5f@amd.com>
+Date: Thu, 15 Oct 2026 10:31:15 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ecuc74jw2pmgeijojvqayrnkntukzzyjlx7iq2iutovr7x2xkz@uvf2bd4o6pxi>
-X-Authority-Analysis: v=2.4 cv=QbvzLcbv c=1 sm=1 tr=0 ts=6ad0f0c9 cx=c_pps
- a=V4L7fE8DliODT/OoDI2WOg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=bWtSzjqMPnwURQZuJgYA:9
- a=CjuIK1q_8ugA:10 a=WZGXeFmKUf7gPmL3hEjn:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA2MSBTYWx0ZWRfX6nzQh5mhLOuD
- tD6HrfSMteEN+51mDoajaqkAx9KGJC/84ek2g3dK2bYYwUlQ6Vx0uXPVv/UMX9E7mg/GgnCbdNw
- NRtgtebBCuJfKDv+vN4Z7YuxS5SjJmU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA2MSBTYWx0ZWRfX/iMfcmcrwLJQ
- +HBo4lZyPBzsL9ZmWP1f5SIzz1gtTNwPNMu1ZMmkQk3zLuY+PiJPqr8gehzfk3vOAebHf+su/wE
- 8b+L38/vMHrfoOzoB0z81a3jlN01mao5IPIvlmqZRDWM0KuuScoCK3iLVwhvKOf3P4Dtq7sqzj4
- cdvzxnVFDCrKU2hLrvq/pfRENEAx0RDKs3VJ3YCWGPDfuzVv4GOMjnHctx0QOkB3axsl8RTgUex
- f8t/XGZ5UWmNjKIO54dwM0SAM7nhykTv+92dFA6p8pTXzB4y9rhaKDmbs1sWD5HQCapHBJjWH60
- BS4DI9ZllJetm4y2fTOW+PvbmzJnIHtmotPULyt0a+Ep7QcfdNNU0AWf3J3qblLtQ8a1XKG88yu
- jZUa7B5bc8kdXDJeTwT5a5Lf8zWmofkyMJ7oBKJHwhEz4zy/RJjxm/5K2KSVsqRjkh+BTDDTj8d
- b7llKG2nhNEd50G12nQ==
-X-Proofpoint-ORIG-GUID: M6o-yDkzR7Fa7hKxSxXQa_vTfulpJ_BJ
-X-Proofpoint-GUID: M6o-yDkzR7Fa7hKxSxXQa_vTfulpJ_BJ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 malwarescore=0 lowpriorityscore=0
- priorityscore=1501 spamscore=0 bulkscore=0 phishscore=0 suspectscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610150061
+User-Agent: Mozilla Thunderbird
+Reply-To: <tanmay.shah@amd.com>
+Subject: Re: [PATCH 3/6] dt-bindings: mailbox: Add AMD PL Mailbox IP
+To: Ben Levinsky <blevinsk@amd.com>, Krzysztof Kozlowski <krzk@kernel.org>
+CC: "jassisinghbrar@gmail.com" <jassisinghbrar@gmail.com>,
+	"andersson@kernel.org" <andersson@kernel.org>, "mathieu.poirier@linaro.org"
+	<mathieu.poirier@linaro.org>, "robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
+	<conor+dt@kernel.org>, "Simek, Michal" <michal.simek@amd.com>,
+	"linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "Shah, Tanmay" <tanmay.shah@amd.com>,
+	"Levinsky, Ben" <ben.levinsky@amd.com>
+References: <20261014213426.2957480-1-ben.levinsky@amd.com>
+ <20261014213426.2957480-4-ben.levinsky@amd.com>
+ <20261015-humble-eager-mushroom-9db4aa@quoll>
+ <DM4PR12MB644859F1CA3A936684A3338B839C2@DM4PR12MB6448.namprd12.prod.outlook.com>
+ <7067e343-24b9-4e3e-8e5e-42c98239ccae@amd.com>
+Content-Language: en-US
+From: "Shah, Tanmay" <tanmays@amd.com>
+In-Reply-To: <7067e343-24b9-4e3e-8e5e-42c98239ccae@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC8:EE_|PH7PR12MB7137:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0730cc81-9e32-4275-5122-08df2ad15ea6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|36860700016|23010399003|82310400026|1800799024|56012099006|4143699003|261009223027099003|11063799006|10067099003|18002099003|22082099003|6133799003|13003099007|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	bcPbL/pNUViwvQNdFAphKSjlXiZw4fksEpIcZJJkljCBiMnOAhD13qoPtSNiJeKmOp5CiFSUuUtTkKEE0ljtvUy5KIkdbPqxWr+plFaOUnLqVZpNCYQ1qHjKc/WM5QkgrRq53cLqXhhQMfhkmI9ASQm9AHhA9UjS5jbEWOmCvFy3aaGnV370K8ezunXdhcvEKXWNRDZfPvLae73fnbSqBW8OBuxt8x68LqGaI7rygp40TNguvYb70SDd0dRaQCoqLU/9bWAKj9Uoh/y18SylRtwYwHCw/zu/JDJOXNtjqVIqkTaEcPH5l2mzLaCGYkHsGfhe9z/0NW4nMdVWm2R/W8U+TpYammZBVGNWBpnjAPhtlZOIX78Ww8HwSWRE2UUxANPqygybW/S2Ej1Qv6hZw8FcU7Yr0qu24TUeYs0lPqsmE0lsOaTJKrmBQGZtR/x53zAXYV6n52sKnzL7RvattidSnIKihrLGTB9HeMO7aFOl3yQNu4jw/9iO/+kJo3h3CKp+4FslsCul8vrHf1mz1CA1g3VDG32elvFy4wPCMxwoVhc2iRS3SdplN1fFeUReM3gWYXF8d8SYksLCbPRMR2Lh7ji/7s2XLhgW0YpgkNC+gOaw5d51nHXQML2VxZbjnA/6M9RtJ8M9SY3XNx5qQQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(36860700016)(23010399003)(82310400026)(1800799024)(56012099006)(4143699003)(261009223027099003)(11063799006)(10067099003)(18002099003)(22082099003)(6133799003)(13003099007)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	X55LbwWFDGbLbuBuMyp9bOSLqMyZKvfyeNTjat0MqygfykC5kUXDlIC6saDoE97jesRFQ5aB4MxpyT9CIv5owRK5hGDV8nUysfYvVBHIQNeS2BF3b8KaZ8k0iS0C07Ej7Hs4G4R+7muGCQsW7PbT5sS1+OPvMrc3mcOtXn5Qvz7ZvyCuo89bgECqcb1O7vRLbBE5jFFG1eU3IPQfYtsIcPmpnbTvuUVJOFkR8F1bxqisvlhNd5MJADnf34GrYCsGvT/Y457ycXY+G0V7IcwVeXOBj9dZY4knarQwtsXU7p1CnyJ0uW5laaDSUsNOu9OreUPI+CBynIbE3DALEJMCCR0y8A+VNayKSBcl9RvQfiwciGfgBwzJewXOawVEix52VzAbY7u/PkXLK6tLe0MGwVgbwRvQ16Eh2UuAwNTFdAKOrhaO8TVKFnsFbUjKkR3W
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 15:31:23.3956
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0730cc81-9e32-4275-5122-08df2ad15ea6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BC8.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7137
 
-On Mon, Oct 12, 2026 at 02:59:46PM +0300, Dmitry Baryshkov wrote:
-> On Mon, Oct 12, 2026 at 11:46:28AM +0530, Ruchira Revdekar wrote:
-> > From: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
-> > 
-> > Add the device tree for the Talos Lyra EVK platform which combines
-> > the Talos Lyra EVK SoM and Lyra carrier board.
-> > 
-> > This device tree adds board-specific peripheral configuration on top
-> > of the SoM, including:
-> > 
-> > - Native DisplayPort output
-> > - GPIO expanders on i2c5
-> > - SPI-attached TPM (ST33)
-> > - USB host and peripheral controllers
-> > - Power and reset keys
-> > 
-> > Co-developed-by: Akash Kumar <akakum@qti.qualcomm.com>
-> > Signed-off-by: Akash Kumar <akakum@qti.qualcomm.com>
-> > Co-developed-by: Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>
-> > Signed-off-by: Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>
-> > Co-developed-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-> > Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-> > Co-developed-by: Vishnu Saini <vishsain@qti.qualcomm.com>
-> > Signed-off-by: Vishnu Saini <vishsain@qti.qualcomm.com>
-> > Tested-by: Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
-> > Signed-off-by: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
-> > Signed-off-by: Ruchira Revdekar <ruchira.revdekar@oss.qualcomm.com>
-> > ---
-> >  arch/arm64/boot/dts/qcom/Makefile           |   1 +
-> >  arch/arm64/boot/dts/qcom/talos-lyra-evk.dts | 137 ++++++++++++++++++++++++++++
-> >  2 files changed, 138 insertions(+)
-> > 
-> > diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-> > index 88230c4e00ea..2f25575e6efe 100644
-> > --- a/arch/arm64/boot/dts/qcom/Makefile
-> > +++ b/arch/arm64/boot/dts/qcom/Makefile
-> > @@ -456,6 +456,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-valve-deckard.dtb
-> >  dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-mtp.dtb
-> >  dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-qrd.dtb
-> >  dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk.dtb
-> > +dtb-$(CONFIG_ARCH_QCOM)	+= talos-lyra-evk.dtb
-> >  
-> >  talos-evk-el2-dtbs	:= talos-evk.dtb talos-el2.dtbo
-> >  
-> > diff --git a/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts b/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts
-> > new file mode 100644
-> > index 000000000000..cfb563658fe0
-> > --- /dev/null
-> > +++ b/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts
-> > @@ -0,0 +1,137 @@
-> > +// SPDX-License-Identifier: BSD-3-Clause
-> > +/*
-> > + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> > + */
-> > +/dts-v1/;
-> > +
-> > +#include "talos-lyra-evk-som.dtsi"
-> > +
-> > +/ {
-> > +	model = "Qualcomm Technologies, Inc. QCS615 Talos lyra EVK";
-> 
-> Is it 'lyra' or 'Lyra'?
-> 
-> > +	compatible = "qcom,talos-lyra-evk", "qcom,qcs615", "qcom,sm6150";
-> > +	chassis-type = "embedded";
-> > +
-> > +	dp0-connector {
-> > +		compatible = "dp-connector";
-> > +		label = "DP0";
-> > +		type = "full-size";
-> > +
-> > +		hpd-gpios = <&tlmm 104 GPIO_ACTIVE_HIGH>;
-> 
-> Why is it being declared here rather than in the DP controller?
-> Declaring it here would bypass DP controller state machine.
-I keep it similar to talos-evk: https://lore.kernel.org/all/20260331060107.501561-4-tessolveupstream@gmail.com/
-In next revision, i will remove hpd-gpios and use DP controller state machine:
 
- &mdss_dp0 {
-+	pinctrl-0 = <&dp_hot_plug_det>;
-+	pinctrl-names = "default";
-+
- 	status = "okay";
- };
- 
- &tlmm {
-+	dp_hot_plug_det: dp-hot-plug-det-state {
-+		pins = "gpio104";
-+		function = "dp_hot";
-+		bias-disable;
-+	};
- 
-> > +
-> > +		port {
-> > +			dp0_connector_in: endpoint {
-> > +				remote-endpoint = <&mdss_dp0_out>;
-> > +			};
-> > +		};
-> > +	};
-> > +
-> > +};
-> > +
+
+On 10/15/2026 9:29 AM, Ben Levinsky wrote:
 > 
-> [..]
+>>
+>>
+>> *From: *Krzysztof Kozlowski <krzk@kernel.org>
+>> *Date: *Thursday, October 15, 2026 at 2:46 AM
+>> *To: *Levinsky, Ben <ben.levinsky@amd.com>
+>> *Cc: *jassisinghbrar@gmail.com <jassisinghbrar@gmail.com>; andersson@kernel.org 
+>> <andersson@kernel.org>; mathieu.poirier@linaro.org <mathieu.poirier@linaro.org>; 
+>> robh@kernel.org <robh@kernel.org>; krzk+dt@kernel.org <krzk+dt@kernel.org>; 
+>> conor+dt@kernel.org <conor+dt@kernel.org>; Simek, Michal <michal.simek@amd.com>; 
+>> linux-remoteproc@vger.kernel.org <linux-remoteproc@vger.kernel.org>; 
+>> devicetree@vger.kernel.org <devicetree@vger.kernel.org>; linux-arm- 
+>> kernel@lists.infradead.org <linux-arm-kernel@lists.infradead.org>; linux- 
+>> kernel@vger.kernel.org <linux-kernel@vger.kernel.org>; Shah, Tanmay 
+>> <tanmay.shah@amd.com>
+>> *Subject: *Re: [PATCH 3/6] dt-bindings: mailbox: Add AMD PL Mailbox IP
+>>
+>> On Wed, Oct 14, 2026 at 02:34:23PM -0700, Ben Levinsky wrote:
+>>  > Document the AMD programmable-logic Mailbox IP used for bidirectional
+>>  > FIFO communication between two processor-facing interfaces.
+>>  >
+>>  > The same IP is used on ZynqMP, Versal, Versal NET and Versal Gen 2.
+>>  > Name each SoC in its compatible, and use amd,zynqmp-pl-mbox-2.1 as the
+>>  > fallback that drivers match.
+>>  >
+>>  > Define the transmit and receive channel indices together with the register
+>>  > aperture, interrupt, and interface clock. Describe the FIFO depth chosen
+>>  > when the IP is configured, so that the driver can size received messages
+>>  > to it.
+>>  >
+>>  > Assisted-by: LLM sparse
+>>
+>> How sparse assists here? It's something new. Since when does it parse
+>> yaml code?
 > 
-> > +
-> > +&usb_1 {
-> > +	dr_mode = "peripheral";
+>   Hi Krzysztof,
 > 
-> Is it going to only support peripheral mode or is OTG going to be added
-> later?
+>   Thank you for the review.
 > 
-> > +
-> > +	status = "okay";
-> > +};
-> > +
-> > +&usb_1_hsphy {
-> > +	vdd-supply = <&vreg_l5a>;
-> > +	vdda-pll-supply = <&vreg_l12a>;
-> > +	vdda-phy-dpdm-supply = <&vreg_l13a>;
-> > +
-> > +	status = "okay";
-> > +};
-> > +
-> > +&usb_2 {
-> > +	dr_mode = "host";
+>   You are right, sparse was not used for this patch. It was only run on
+>   the C patches of the series, and I applied the same trailer to the
+>   whole series by mistake. In v2 the binding patches will name only the
+>   model, and the tool list will match what was actually used on each
+>   patch.
 > 
-> Same question. Is it host-only or will OTG be added later?
+>>
+>>  > Signed-off-by: Ben Levinsky <ben.levinsky@amd.com>
+>>  > ---
+>>  >  .../mailbox/amd,zynqmp-pl-mbox-2.1.yaml       | 74 +++++++++++++++++++
+>>  >  1 file changed, 74 insertions(+)
+>>  >  create mode 100644 Documentation/devicetree/bindings/mailbox/amd,zynqmp-pl- 
+>> mbox-2.1.yaml
+>>  >
+>>  > diff --git a/Documentation/devicetree/bindings/mailbox/amd,zynqmp-pl- 
+>> mbox-2.1.yaml b/Documentation/devicetree/bindings/mailbox/amd,zynqmp-pl- 
+>> mbox-2.1.yaml
+>>  > new file mode 100644
+>>  > index 000000000000..2cc0d106b888
+>>  > --- /dev/null
+>>  > +++ b/Documentation/devicetree/bindings/mailbox/amd,zynqmp-pl-mbox-2.1.yaml
+>>  > @@ -0,0 +1,74 @@
+>>  > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>>  > +%YAML 1.2
+>>  > +---
+>>  > +$id: http://devicetree.org/schemas/mailbox/amd,zynqmp-pl-mbox-2.1.yaml# 
+>> <http://devicetree.org/schemas/mailbox/amd,zynqmp-pl-mbox-2.1.yaml#>
+>>  > +$schema: http://devicetree.org/meta-schemas/core.yaml# <http:// 
+>> devicetree.org/meta-schemas/core.yaml#>
+>>  > +
+>>  > +title: AMD Programmable Logic Mailbox IP
+>>  > +
+>>  > +maintainers:
+>>  > +  - Ben Levinsky <ben.levinsky@amd.com>
+>>  > +
+>>  > +description: |
+>>  > +  The AMD Programmable Logic Mailbox IP provides bidirectional message passing
+>>  > +  between two processor-facing interfaces. Each interface writes messages to
+>>  > +  a send FIFO and reads messages from a receive FIFO. The register aperture,
+>>  > +  interrupt, and clock described by a node belong to one processor-facing
+>>  > +  interface. Channel 0 represents transmit and channel 1 represents receive
+>>  > +  for that interface.
+>>  > +
+>>  > +properties:
+>>  > +  compatible:
+>>  > +    oneOf:
+>>  > +      - const: amd,zynqmp-pl-mbox-2.1
+>>
+>> What is 2.1? Your SoC has different versions?
 > 
-> Is there a separate VBUS supply if it's the host mode controller?
+>   2.1 is the version of the Mailbox IP core in the Xilinx IP catalog
+>   (Mailbox v2.1). It is not a SoC version. The IP is synthesized into the
+>   programmable logic, so the same core is used on every SoC, and the SoC
+>   names in the compatibles do not add information.
 > 
-> > +
-> > +	status = "okay";
-> > +};
-> > +
+>   In v2 I will use a single IP-versioned compatible, "xlnx,mailbox-2.1",
+>   and drop the SoC-specific ones. This is also the compatible the Xilinx
+>   device tree generator already emits for this IP.
 > 
-> -- 
-> With best wishes
-> Dmitry
+
+Hi here is the reasoning behind the name:
+
+We use 'amd' vendor prefix for all new drivers & bindings. Also, there
+is dedicated IPI hardware which can be used as mailbox too, and we
+should distinguish it with this PL mailbox. So I that is included in the
+compatible string. (pl-mbox).
+
+If we are also to include SOC name as well (per compatible property
+guideline), then we should include one of the SOC name as well:
+
+So, I think 'amd,zynqmp-pl-mbox-2.1' is good.
+
+Krzysztof, are you okay with above name? The 2.1 is FPGA IP design
+version number and not the SOC version number. So in future let's say
+that FPGA IP design is improved then the name (pl-mbox) will remain
+same, but only version number will be updated i.e. (from 2.1 to 3.0). Is
+it okay if we explicitly mention this in the binding description?
+
+Thank You.
+
+>>
+>>  > +      - items:
+>>  > +          - enum:
+>>  > +              - amd,versal-pl-mbox-2.1
+>>  > +              - amd,versal-net-pl-mbox-2.1
+>>  > +              - amd,versal2-pl-mbox-2.1
+>>  > +          - const: amd,zynqmp-pl-mbox-2.1
+>>  > +
+>>  > +  reg:
+>>  > +    maxItems: 1
+>>  > +
+>>  > +  interrupts:
+>>  > +    maxItems: 1
+>>  > +
+>>  > +  clocks:
+>>  > +    maxItems: 1
+>>  > +
+>>  > +  amd,mbox-pl-fifo-len:
+>>  > +    $ref: /schemas/types.yaml#/definitions/uint32
+>>  > +    minimum: 16
+>>  > +    maximum: 8192
+>>  > +    default: 16
+>>  > +    description:
+>>  > +      Depth of the send and receive FIFOs in 32-bit words, as configured by
+>>  > +      the C_MAILBOX_DEPTH parameter of the IP. Must match the configured
+>>  > +      depth.
+>>
+>> So you have multiple mailboxes per one soc different in this?
+> 
+>   Yes. The FIFO depth is chosen per IP instance when the design is
+>   synthesized, so one design can contain several mailboxes with different
+>   depths. The depth cannot be read from the registers, so the driver
+>   needs it from the device tree to size its receive buffer and to limit
+>   transmit messages. In v2 I will rename the property to
+>   "xlnx,mailbox-depth", after the IP parameter, and state this in its
+
+Please use 'amd' as vendor prefix, also keep pl in the property name:
+i.e. 'amd,pl-mailbox-depth'.
+
+>   description.
+> 
+>   Thanks,
+>   Ben
+> 
+>>
+>> Best regards,
+>> Krzysztof
+>>
+> 
+
