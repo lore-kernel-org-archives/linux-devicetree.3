@@ -1,322 +1,238 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23FE7302146;
-	Thu, 15 Oct 2026 15:34:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 649953B3BF5
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 15:40:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792078466; cv=none; b=bBC2IAvDn0B7ygQ6d7a1Fuj3dNPuraX32uI3iMzwuJ45buzM+49ovhDLpWoWQUakmfxXUpXu/GNNcsGO3V2fRt1zCnH7ayVx48esA/KeT3bm4pEzjPGPjTEjAfwRwxeU07SST6YWcIQcxDA+qo65/EFEx+Galozky/uvINyh3T4=
+	t=1792078828; cv=none; b=uugmi9xn2f/3CG4Cu+r2usaH4w0A2GEpBItl8jIGoDSitqnLd08lfPsAgn5ohHV5fGoBKNXMOblhsxyECNh1bXXHqBqo5UngeThNjDXI//qwGmHtxoI1X7XhyG+NWPLXZ+IsPwY+w+zBZfCISaiAvLa/UC9w2chnaOQj1CRA4So=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792078466; c=relaxed/simple;
-	bh=Re1OzPbimdP9ij73PTdjkN43Px4fgRdNsZsMaNTdE+I=;
+	s=arc-20240116; t=1792078828; c=relaxed/simple;
+	bh=7waXuublmZajWUNbYinRB2ryKPGa7T3b3CCFNbrGd80=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TzxmXaSJLFKfSiCs0x1MyNeWph2XgCdkTuGfnPUT+8aBOu+jVC9R7diAUkcf08NM7oN69UytBKI+U67quanzn3mHbSSTKwPzfCxfX4pEHeh815kVagwHPP03VeKOZ/jr+aI7nN4lihzs2P6votjlIrfSJTx2bKjtL9KSKpwyq3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EzzwCEOF; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=UiqlvDfXaWl8vROqCbDpcOKFaauLX3e0J2GJiO0GS/VBhSFIy1T2k+TN7sx9ECQyntVk4060pBaQ/MNmU/GFDe6aOVz+PeiFlfrPx8XgykXZWdcxlEjCL6ymzJCMwOuemAO3e8z9wPzCMXzJl25ChzmamfLV0S9IMfm1pIG2cdM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PODb2EZL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=R5UrO7vc; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EzzwCEOF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D22811F000C5;
-	Thu, 15 Oct 2026 15:34:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792078452;
-	bh=ngGxpYiIc+l9ub+qBBEMWFAzMrMU0ZfsNfzhGcP3fz8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EzzwCEOF5UCtQQ5ogYU9OpxdIw6MEJLzEYhp4FMHHDPz9zdqNu9KKf4SwbIsQ1QOc
-	 rIkKxwnXrPKoK/60OubAJUm2Sx4lECHu2yzpMb2jck/Ug5dtQRmTsBBFZaj9+3vij9
-	 8h3Z9n0xNPRb3N3tfqeURgkdcO7GstooPrriy114xO4M7WWxXmfZffjlIFNbMOziVB
-	 iPuMpeRPlU4nItY6z+g7fEL80EWwQfYvd6CaV7cPkQFuqJZcCDqrDZXdAq3mSPwQxZ
-	 Z1wcJ3IXnMT4jyvaR7W7XPAJ5/4c8A/jR/opwaKxcS7QyNkwpOG36OqbHSkhn5BY5j
-	 ySukmI888URWA==
-Date: Thu, 15 Oct 2026 16:34:06 +0100
-From: Lee Jones <lee@kernel.org>
-To: Stefan =?iso-8859-1?Q?D=F6singer?= <stefandoesinger@gmail.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Brian Masney <bmasney@redhat.com>, Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Manivannan Sadhasivam <mani@kernel.org>, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
-	mfd@lists.linux.dev
-Subject: Re: [PATCH v13 04/13] mfd: zx297520v3: Add a clock and reset MFD
-  driver
-Message-ID: <179198492486.839288.18023026004912443161@kernel.org>
-References: <20260927-zx29clk-v13-0-70d8f673386c@gmail.com>
- <20260927-zx29clk-v13-4-70d8f673386c@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PODb2EZL";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="R5UrO7vc"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9jh9L3510317
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 15:40:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=cqdRJU05uzH+XiuWI55mrxFR
+	oovj01QpFE8EN6FfoOo=; b=PODb2EZLY4lYyT1bdPySNowRhS8dvzAZF25lYEPy
+	pxO50TWHJYP0+MuIsClLDdWET/6alPQ8eBsSu8o1K344ZQzn93U8176X9su4HWYf
+	6Q6/U4olyI/EDyPUpEkbHj7qNsE0JWzWhhmsYSRnGhNO8J0bAX29zRKeS81C9IgA
+	kvNixOgHivAsiohznxDw62JZtKSnU+xuOV/qk+ISHzNiEIr2CzmP+ycABRZ8PQjc
+	TXwjvV/aS/0VKhygZyzHywoavy3Ywui8/TYzhBGCNcskZa+hVIxbFJ8mi9W8NpJB
+	8HZOldGZEe+chwzC9Ui6NwJqXcIHxYV4rR7ZNOy9ZDTIyQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4haqdsat06-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 15:40:13 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93ae8e7e546so1158089385a.1
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 08:40:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792078813; x=1792683613; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cqdRJU05uzH+XiuWI55mrxFRoovj01QpFE8EN6FfoOo=;
+        b=R5UrO7vcf5eHZQIdjxxA4L6BjuFXaXDn5xrJxE7C32o/4JYeI8QVNUnUcePs8eUUrh
+         NftHe6InZV3PN9ZTk5ldVmFrg8h7MeYShXXL3+TYQEMARAaVsJoZS951iBF0H5u7qNON
+         Zh1cW3yyrLpBtSZG9IvTpuA3gxxfgoyEujaIUI36QgGbRzKDGYoOZXgo5FfMVPtzNdyu
+         cQSuZhn+PpfBX/08TyN/xGphONxDylwI5eX99Oy2YiZlwhW32b533sBH3BThEKtEUZtg
+         69J1X4vgnBnu130FEUD/hEy2KYvL0Rb6C4Ijhbw3/rwnV82W2yArzOBnCQK+1JbpRdkp
+         mDBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792078813; x=1792683613;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cqdRJU05uzH+XiuWI55mrxFRoovj01QpFE8EN6FfoOo=;
+        b=2cCJSTZBtscQ6YSwUImE7Ax1qoYAqSgUCcFF5aWq7tHFhKdJ3IPwASFmWNVJYxmhwm
+         aUeBb7t4bf7VD7CcHK8zvcW1Hj1hn55dsI+CPupYh/B0Yq2MB/kRSryyAWvtOdZhRnt2
+         8pGhtBPOZOicFsch1RejSDyBh40cpfNZatuafLFrggiRHgYbrcVJT91/89OytaEdgTXo
+         SIFf3enY7FlGyj1/vFb2D3A2iYVS4pWZm3/pW9Do1ONf0Jma6LRN2Pnj3ARgdJcItzzj
+         jDmCYaMAqxRKgJ8ynlqrh6jcL5l0qyJQCMMIyHQFKnx8I4VoC1pqfsXDA2981frStsIQ
+         PThg==
+X-Forwarded-Encrypted: i=1; AKwUvBzgb8Fak8MSzDSnWR3flR61LWKy+zB6dmKNjIVU2jm3gq77cO3ImFTcjFTfJxhqBVc4/dWV9NQq8Lo+@vger.kernel.org
+X-Gm-Message-State: AFq9FYLKU2dV53c416ayfAXsNvRsf4zIZDFQzCPDKJzi1nWRekzc6B1M
+	g2IBrF0JzuE1ENqCGtPII7Pb4RJQvOheKZwv06e/X1mBHm8gQRqvZUcCIQko1fhUms0P4JiffGq
+	VVtegLe3hrxCtNnLXEniwgUUs/fAic6rxVRacKp0HjL4YYLdFd54zfI8KQoUAt180
+X-Gm-Gg: AYBFou204F3Wlirtnw4wwEt5yIBtN+LqwpAdAFBXPKbGNVjJSP8x9KkIQVYBaMVyBim
+	s6pn6wwnAjD9Dc/nHhlOOhfyzFexSxv1c7iVW8QpX6HnwvFkgS0hKJGBgkACwI77KjivjxUsAGQ
+	KiASTo9In+Q8njzhwId9DhH00ggNRlYJBOdNxKKQs/aiEyPObmqzaMqQW77S9ptSaKAFIqammGC
+	e4is0Nr0+Xm7MNl9lw+DUwpMchzSlRKCDWnfkM1cuWikdluwTdb+sQunQgwAa+JH93+haSc91SH
+	0COUYItTxWK1HfDxJy/yYRTTo2vOi/tGmCAt0mYjMbUu4eVB1kOfiW0814m4ifPK5QRF6cjhk3j
+	j2G7LoUjEHTXdjg==
+X-Received: by 2002:a05:620a:2996:b0:93e:fc4e:c48d with SMTP id af79cd13be357-93efc4ee847mr1283326685a.61.1792078812853;
+        Thu, 15 Oct 2026 08:40:12 -0700 (PDT)
+X-Received: by 2002:a05:620a:2996:b0:93e:fc4e:c48d with SMTP id af79cd13be357-93efc4ee847mr1283320285a.61.1792078812212;
+        Thu, 15 Oct 2026 08:40:12 -0700 (PDT)
+Received: from localhost ([188.216.77.92])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de72c7e36sm13446936f8f.37.2026.10.15.08.40.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 08:40:11 -0700 (PDT)
+Date: Thu, 15 Oct 2026 17:40:10 +0200
+From: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+To: Alex Elder <elder@riscstar.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+        kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+        krzk+dt@kernel.org, conor+dt@kernel.org, hkallweit1@gmail.com,
+        linux@armlinux.org.uk, Daniel Thompson <daniel@riscstar.com>,
+        ansuelsmth@gmail.com, donggeunyoo.kernel@gmail.com,
+        mohd.anwar@oss.qualcomm.com, devicetree@vger.kernel.org,
+        netdev@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v2 2/2] net: phy: qcom: qca808x: Add regulator
+ management
+Message-ID: <atDz2hJ6xpA3p5y7@lore-desk>
+References: <20261015143849.483339-1-elder@riscstar.com>
+ <20261015143849.483339-3-elder@riscstar.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="c1VMVBPiTXwjJlRy"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260927-zx29clk-v13-4-70d8f673386c@gmail.com>
-X-AI-Review-Draft: <20260927-zx29clk-v13-4-70d8f673386c@gmail.com>
+In-Reply-To: <20261015143849.483339-3-elder@riscstar.com>
+X-Proofpoint-ORIG-GUID: MTmkB4pVz1Vi_r717BQO_iXuI9ggZKU9
+X-Authority-Analysis: v=2.4 cv=fNusTpae c=1 sm=1 tr=0 ts=6ad0f3dd cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=WpTaRW6qxYHRGzLzQsVYzg==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=ee_2aqc6AAAA:8
+ a=npIIp4u2KQ0RR9fbO6MA:9 a=CjuIK1q_8ugA:10 a=GemZ_Bmu8yNwU_l5ZkMA:9
+ a=PEH46H7Ffwr30OY-TuGO:22 a=VOpmJXOdbJOWo2YY3GeN:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA2MiBTYWx0ZWRfX0Tw33IjxotNd
+ vX0tEpPD9FSddnopczVZuJbqyRKUXc/oQXz3/eCp9gwX5ihCWJ1HOqIGj9gt1Pa9QlSumnKORz5
+ ylduQc4m2MLsXn89kVrM0RO/Z4I3BdCJP6pVAXHGkIOFc6/eF2n9VL4Y+XSdtr9XpokjCJQmfmk
+ 8YQlnOkHptNW+9XhFxU0uIJPvaQRmARmqsgIp8zPJmz6M/yKi9YgT7u4cMHikJ+4iaXTmdAsvV/
+ 7zRSwSGxvQPqhPs3m4sAESM12v0sV3rDBw/XGcjxG3ZOvSSstIyW1VVPNhnOgVkmv3ke+7kkhlc
+ ht5QJ1YKhi0HnC55fVf6iTJuqQDk9DYv2kgZ6evjsxNisxp48jagerqIW23J9EX+afDJcUnJRCu
+ leKoQXt9Ufy508Kwm0NZWsksq8wzMIK4mHT7GRHGALeGaHvLMbPeQ/vvbMSBi5PENJMBqwooTbz
+ 8NqU1isfM72VfxDulXw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA2MiBTYWx0ZWRfX4BFik69gD/9s
+ hueiwfYLuFVHwkx0YSTKLtK0JD4pEMq/+TLdFBKso0a5EZ0JVycijizu1aBJe1WMpw4DP0HjL8a
+ 3+roJyROey1iOyKMpVI5aAfONVmdFw8=
+X-Proofpoint-GUID: MTmkB4pVz1Vi_r717BQO_iXuI9ggZKU9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0
+ spamscore=0 clxscore=1015 priorityscore=1501 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150062
 
---- checkpatch.pl (3 issues) ---
-Line 227: WARNING: DT compatible string "zte,zx297520v3-topcrm" appears un-documented -- check ./Documentation/devicetree/bindings/
-Line 228: WARNING: DT compatible string "zte,zx297520v3-matrixcrm" appears un-documented -- check ./Documentation/devicetree/bindings/
-Line 229: WARNING: DT compatible string "zte,zx297520v3-lspcrm" appears un-documented -- check ./Documentation/devicetree/bindings/
-----------------------------------
+--c1VMVBPiTXwjJlRy
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Is Checkpatch right?
-
-On Sun, 27 Sep 2026, Stefan Dösinger wrote:
-
-> This driver registers child devices for the zx297520v3 clock and reset
-> controllers. The clk-zx297520v3 and reset-zte-zx297520v3 submitted in
-> the next patches will drive the respective functionalities.
->
-> Signed-off-by: Stefan Dösinger <stefandoesinger@gmail.com>
->
+On Oct 15, Alex Elder wrote:
+> From: Daniel Thompson <daniel@riscstar.com>
+>=20
+> QCA8081 appears in embedded board designs paired with GPIO controlled
+> regulators for its power rails. Add logic to allow these regulators to
+> be turned on during a probe.
+>=20
+> In order to avoid the complexity of tracking state for suspend with and
+> without WoL we take a tremendously simple "always-on" approach to
+> regulator management, essentially relying on BMCR_PDOWN to conserve
+> power when the phy device exists.
+>=20
+> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+> Co-developed-by: Alex Elder <elder@riscstar.com>
+> Signed-off-by: Alex Elder <elder@riscstar.com>
 > ---
->
-> v13: Break out the MAINTAINERS change so Lee can selectively apply this
-> patch. I made sure it compiles without the DT binding headers.
->
-> Lee, if you prefer, I can send this patch with the MAINTAINERS change
-> folded in stand-alone (or as a pull request). It'll have to tricke into
-> the clk tree before I can PR the bindings and clk driver though.
->
-> Changes v12:
-> Added comments elaborating on the role of the driver and the hardware.
->
-> Regarding the names: zx297520v3 is the SoC's name (chip marking, boot
-> messages). TOPCRM, MATRIXCRM, LSPCRM are ZTE's names for the MMIO blocks
-> in their downstream sources. Sadly no datasheet is available. "clk",
-> "reset" names for the child nodes are mine.
->
-> Regarding personal copyright: I am not affiliated with ZTE nor paid by
-> them. This is my personal hobby project. I am using knowledge extracted
-> from ZTE's kernel dumps, but not code.
->
-> Changes v10 (All Lee Jones):
-> *) drop "select REGMAP_MMIO"
-> *) Drop comment about unimplemented hwlocks
-> *) Use MFD_CELL_[NAME|OF]
-> *) Renamed the device type enum and its values
-> *) Use device_get_match_data instead of the of_ variant
-> *) Improved debug messages
->
-> Changes v9:
-> Deassert the LSP reset and enable the LSP pclk here. In practice the
-> boot rom needs to do that because it prints to an LSP-connected UART and
-> reads the boot policy from the LSP connected flash chip.
->
-> In doing so, I migrated the match data to an enum as mfd.md suggests.
->
-> Changes v8:
-> *) Remove .of_compatible from PHY mfd child
->
-> *) Move to drivers/mfd (Sashiko)
->
-> For me either soc/zte or mfd/ is fine. Note though that this MFD parent
-> is very specific to the zx297520v3 SoC. I don't expect this to be reused
-> anywhere else. There are two more MFD-ish devices in there: soc_sys at
-> 0x140000, which I plan to handle in the same driver, and an i2c PMIC,
-> which would get its own host driver.
->
-> *) Use PLATFORM_DEVID_AUTO (Sashiko). NONE was intentional as I only
-> ever expect one instance, but I don't see any harm in doing the standard
-> thing and use AUTO
->
-> *) On the suggestion not to put the link to mfd_cells[] into match data:
-> I see that it is spelled out in Sashiko's mfd.md, written by Lee Jones,
-> the MFD maintainer. I would appreciate some education on the rationale
-> behind it: Putting a pointer into the void *data is a common pattern in
-> the kernel. I don't understand in which situation this can possibly
-> break?
->
-> Both structs are static const in the same compilation unit. data is a
-> const void *, not a uintptr_t or kernel_ulong_t, so it seems passing a
-> pointer is the intended use. What am I missing?
->
-> Changes v7:
-> Add phy MFD child
->
-> Changes v6: Make the ZTE SoC driver section depend on HAS_IOMEM
-> (Sashiko). The entire MFD section, which contains MFD_CORE, depends on
-> HAS_IOMEM even with COMPILE_TEST.
->
-> Add a NULL ptr check for of_device_get_match_data (Sashiko). While not
-> uniform, rave-sp, rohm-bd9576, atc260x, da9052-i2c protect against
-> incorrect manual attachment that way.
->
-> Add lspclk here as well in an attempt to satisfy both Conor Dooley, who
-> asks for MFD for top and matrix, and Philipp Zabel, who prefers aux but
-> at least wants the reset driver limited to one driver type.
->
-> Changes v5: Use MFD instead of Aux bus for top and matrix crm because of
-> extra functionality: Reboot in top, hwlock in Matrix.
->
-> LSP clocks stay with the aux bus and are thus not handled in this
-> driver. The clk driver will bind directly to the lspcrm node.
-> ---
->  drivers/mfd/Kconfig              |  12 +++++
->  drivers/mfd/Makefile             |   2 +
->  drivers/mfd/zte-zx297520v3-crm.c | 111 +++++++++++++++++++++++++++++++++++++++
->  3 files changed, 125 insertions(+)
->
-> diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
-> index 857ca3bb0d5b..b30600f6ff0c 100644
-> --- a/drivers/mfd/Kconfig
-> +++ b/drivers/mfd/Kconfig
-> @@ -2580,5 +2580,17 @@ config MFD_MAX7360
->  	  additional drivers must be enabled in order to use the functionality
->  	  of the device.
->
-> +config MFD_ZTE_ZX297520V3_CRM
-> +	tristate "ZTE zx297520v3 Clock and Reset Manager"
-> +	depends on ARCH_ZTE || COMPILE_TEST
-> +	select MFD_CORE
-> +	default SOC_ZX297520V3
-> +	help
-> +	  Say yes here to enable the driver for the ZTE zx297520v3 clock and
-> +	  reset manager MFD driver. This driver provides the host device for
-> +	  the clock and reset drivers and is required to boot the SoC. You
-> +	  will also need to enable CLK_ZTE_ZX297520V3 and RESET_ZTE_ZX297520V3
-> +	  to build the actual clock and reset child drivers.
-> +
->  endmenu
->  endif
-> diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
-> index 72d3944b0ad8..ab0cba2042a2 100644
-> --- a/drivers/mfd/Makefile
-> +++ b/drivers/mfd/Makefile
-> @@ -304,3 +304,5 @@ obj-$(CONFIG_MFD_RSMU_SPI)	+= rsmu_spi.o rsmu_core.o
->  obj-$(CONFIG_MFD_UPBOARD_FPGA)	+= upboard-fpga.o
->
->  obj-$(CONFIG_MFD_LOONGSON_SE)	+= loongson-se.o
-> +
-> +obj-$(CONFIG_MFD_ZTE_ZX297520V3_CRM)	+= zte-zx297520v3-crm.o
-> diff --git a/drivers/mfd/zte-zx297520v3-crm.c b/drivers/mfd/zte-zx297520v3-crm.c
-> new file mode 100644
-> index 000000000000..d896261a4d40
-> --- /dev/null
-> +++ b/drivers/mfd/zte-zx297520v3-crm.c
-> @@ -0,0 +1,111 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (C) 2026 Stefan Dösinger
-> + *
-> + * This driver splits the ZTE zx297520v3 SoC's clock and reset management devices into MFD child
-> + * nodes that are managed by independent drivers in their respective subsystems.
-> + *
-> + * ZTE's downstream kernel names the mmio regions "topcrm", "matrixcrm" and "lspcrm". For an
-> + * explanation of how the controllers relate please see the DT binding documentation found in
-> + * Documentation/devicetree/bindings/clock/zte,zx297520v3-*yaml.
-> + *
-> + * The controllers are primarily clock controllers, but they all have reset controls as well. Top
-> + * and Matrix controllers have further auxiliary functions.
-> + */
-> +
-> +#include <linux/clk.h>
-> +#include <linux/err.h>
-> +#include <linux/errno.h>
-> +#include <linux/mfd/core.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/property.h>
-> +#include <linux/reset.h>
-> +
-> +enum zx_device_type {
-> +	TYPE_INVALID = 0,
-> +	TYPE_TOPCRM,
-> +	TYPE_MATRIXCRM,
-> +	TYPE_LSPCRM,
-> +};
-> +
-> +static const struct mfd_cell zx297520v3_topcrm_cells[] = {
-> +	MFD_CELL_NAME("zx297520v3-topclk"),
-> +	MFD_CELL_NAME("zx297520v3-topreset"),
-> +	MFD_CELL_OF("reboot", NULL, NULL, 0, 0, "syscon-reboot"),
-> +	MFD_CELL_NAME("zx297520v3-usb-phy"),
-> +};
-> +
-> +static const struct mfd_cell zx297520v3_matrixcrm_cells[] = {
-> +	MFD_CELL_NAME("zx297520v3-matrixclk"),
-> +	MFD_CELL_NAME("zx297520v3-matrixreset"),
-> +};
-> +
-> +static const struct mfd_cell zx297520v3_lspcrm_cells[] = {
-> +	MFD_CELL_NAME("zx297520v3-lspclk"),
-> +	MFD_CELL_NAME("zx297520v3-lspreset"),
-> +};
-> +
-> +static int zx297520v3_crm_probe(struct platform_device *pdev)
+>  drivers/net/phy/qcom/qca808x.c | 29 +++++++++++++++++++++++++++++
+>  1 file changed, 29 insertions(+)
+>=20
+> diff --git a/drivers/net/phy/qcom/qca808x.c b/drivers/net/phy/qcom/qca808=
+x.c
+> index bab26e4c61408..4aba513b9a512 100644
+> --- a/drivers/net/phy/qcom/qca808x.c
+> +++ b/drivers/net/phy/qcom/qca808x.c
+> @@ -1,6 +1,7 @@
+>  // SPDX-License-Identifier: GPL-2.0+
+> =20
+>  #include <linux/phy.h>
+> +#include <linux/regulator/consumer.h>
+>  #include <linux/module.h>
+> =20
+>  #include "qcom.h"
+> @@ -181,15 +182,43 @@ static void qca808x_fill_possible_interfaces(struct=
+ phy_device *phydev)
+>  		__set_bit(PHY_INTERFACE_MODE_2500BASEX, possible);
+>  }
+> =20
+> +static int qca808x_power_on(struct phy_device *phydev)
 > +{
-> +	struct device *dev = &pdev->dev;
-> +	const struct mfd_cell *cells;
-> +	struct reset_control *reset;
-> +	enum zx_device_type type;
-> +	unsigned int num_cells;
-> +	struct clk *pclk;
+> +	static const char * const regulator_names[] =3D {
+> +		"avdd18", "vdd", "vdd18", "vdd125"
+> +	};
+> +	struct device *dev =3D &phydev->mdio.dev;
+> +	u32 count =3D 0;
+> +	int ret;
 > +
-> +	type = (enum zx_device_type)(kernel_ulong_t)device_get_match_data(dev);
-> +	switch (type) {
-> +	case TYPE_TOPCRM:
-> +		cells = zx297520v3_topcrm_cells;
-> +		num_cells = ARRAY_SIZE(zx297520v3_topcrm_cells);
-> +		break;
-> +
-> +	case TYPE_MATRIXCRM:
-> +		cells = zx297520v3_matrixcrm_cells;
-> +		num_cells = ARRAY_SIZE(zx297520v3_matrixcrm_cells);
-> +		break;
-> +
-> +	case TYPE_LSPCRM:
-> +		cells = zx297520v3_lspcrm_cells;
-> +		num_cells = ARRAY_SIZE(zx297520v3_lspcrm_cells);
-> +
-> +		pclk = devm_clk_get_enabled(dev, "pclk");
-> +		if (IS_ERR(pclk))
-> +			return dev_err_probe(dev, PTR_ERR(pclk), "Could not get 'pclk'\n");
-> +
-> +		reset = devm_reset_control_get_exclusive_deasserted(dev, NULL);
-> +		if (IS_ERR(reset))
-> +			return dev_err_probe(dev, PTR_ERR(reset),
-> +					     "Failed to deassert reset control\n");
-> +		break;
-> +
-> +	default:
-> +		return -ENODEV;
+> +	for (u32 i =3D 0; i < ARRAY_SIZE(regulator_names); i++) {
+> +		ret =3D devm_regulator_get_enable_optional(dev, regulator_names[i]);
+> +		if (!ret)
+> +			count++;
+> +		else if (ret !=3D -ENODEV)
+> +			return ret;
 > +	}
 > +
-> +	return devm_mfd_add_devices(dev, PLATFORM_DEVID_AUTO, cells, num_cells, NULL, 0, NULL);
+> +	if (count)
+> +		fsleep(phydev->mdio.reset_assert_delay);
+
+nit: should we check reset_assert_delay field is actually set?
+
+Regards,
+Lorenzo
+
+> +
+> +	return 0;
 > +}
 > +
-> +static const struct of_device_id of_match_zx297520v3_crm[] = {
-> +	{ .compatible = "zte,zx297520v3-topcrm", .data = (void *)TYPE_TOPCRM },
-> +	{ .compatible = "zte,zx297520v3-matrixcrm", .data = (void *)TYPE_MATRIXCRM },
-> +	{ .compatible = "zte,zx297520v3-lspcrm", .data = (void *)TYPE_LSPCRM },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, of_match_zx297520v3_crm);
+>  static int qca808x_probe(struct phy_device *phydev)
+>  {
+>  	struct device *dev =3D &phydev->mdio.dev;
+>  	struct qca808x_priv *priv;
+> +	int ret;
+> =20
+>  	priv =3D devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+>  	if (!priv)
+>  		return -ENOMEM;
+> =20
+> +	ret =3D qca808x_power_on(phydev);
+> +	if (ret)
+> +		return ret;
 > +
-> +static struct platform_driver zx297520v3_crm = {
-> +	.probe = zx297520v3_crm_probe,
-> +	.driver = {
-> +		.name = "zx297520v3-crm",
-> +		.of_match_table = of_match_zx297520v3_crm,
-> +	},
-> +};
-> +module_platform_driver(zx297520v3_crm);
-> +
-> +MODULE_AUTHOR("Stefan Dösinger <stefandoesinger@gmail.com>");
-> +MODULE_DESCRIPTION("ZTE zx297520v3 CRM driver");
-> +MODULE_LICENSE("GPL");
->
-> -- 
-> 2.55.0
->
+>  	priv->led_polarity_mode =3D QCA808X_PHY_LED_UNSET;
+> =20
+>  	phydev->priv =3D priv;
+> --=20
+> 2.53.0
+>=20
 
--- 
-Lee Jones
+--c1VMVBPiTXwjJlRy
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCatDz2gAKCRA6cBh0uS2t
+rMBrAP9e2j5pZwV3vEVm+CSoksFWsgFOQkKeWH9BCeqk59VLxQD+OrYhknLcVRGw
+bj0XGtqkWwhCO/bVeB9VeozfislTtQc=
+=upuH
+-----END PGP SIGNATURE-----
+
+--c1VMVBPiTXwjJlRy--
