@@ -1,239 +1,229 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8FFC53B5ED
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 14:26:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B31AD53C3B8;
+	Thu, 15 Oct 2026 14:26:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792074407; cv=none; b=ZUX+Rv47GegVA0KioICwzBuFiaZs9NfGmJAOl1jwe2p0HmLbHAf3ajw7VA/kwHdt5SyMqqbGvfxLZnvn1Cggk96RzmByYvmBbedBqtDG22C+A/XbUlIQ9aeksAyOavtszg1xeZoHIjeXHB/i8kDA7VbZidO1BtiTNy1CfwjyPiA=
+	t=1792074410; cv=none; b=fvDWYb0QeP4NfOhX837c8UpH6xBexZN7rUSr5/xn0+B9Ek1KBt2xXwEGlG/pAIrgfoC1EI4TWv0xbf1ZgjmSpjrlBdxY0jIFlMmI2L/W4MM5lGjPrNMNP1zxyULYacx4zfNecIiV4zkL+5w/wQ4OW/EUoaHq1eDF125eqLJLBvU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792074407; c=relaxed/simple;
-	bh=7oRRkiyidCwIvpqmvaABEOiBgTKSng/ezBEoQKDR8V8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=EbZ57fEXgbaSB/fldIDgVSxWF33HSYFznUSbdz2iWt1ekyoF+7BpU5ISpzi3uF6HwoIe+i6w1sbRts4tjFapZlOstQfjw59QWBGEl+iC32bf4zm89FGGtFdldjiFsE5WQepBSQZfaI8R9++f9znW5yB8BjVFDOcnbXnwjLpyIEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Sogn1RWg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Eb4uebjz; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792074410; c=relaxed/simple;
+	bh=+nybeMNVzVEOKArJ/Q+m2Hi2eZ6pdWjemjV8TMS/baA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RlV0OMTldPOmgCaVln3AEb6ZNCPjgp4SBbbGd6FvV5LOX6B3WiVx99O30UwmZ11C39ToOs4d3mw7DhJ9/rYe6RCOrTRPAuOMfRg6Wo/fGKjwreRGyzwXqrqH6GyynwUiaPeISnUNTirsOe9mPGM2Wlp3NXPyJFJdx4/zuFGALKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=hYvSKo5A; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Sogn1RWg";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Eb4uebjz"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9jTHO2809323
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 14:26:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	nX8NHCdH1mIPZ8Y18DIA0kViNrTV399Gnyrkc+b8WE8=; b=Sogn1RWgHxcxg1pp
-	Z5d3c+Qq0Badn10+/9vMC4yk8oGB1T2GgMV+HVF/RGEaiARDbqSQc6+IZ8kU/Srg
-	GLK2I2DEsUTqoMlfy8P7/T4NklP6q/Kcq6EKKBeGDQYceqVm1t/V7j0ZaoHQ9632
-	EKWx7E5wIt+32amyoGkpGOfKAUzIF1rNnBk20DsiTLyMZLh1YsYACbJlpVBkYG9l
-	/7gNO5sshWnNACTslxvYFPwdhK45MjbXkElGzxMJ8FWt/MNrVYb7ecyYi64Sih9B
-	W2JkRBskDaJY7IEMIVOBBAVtEYtxllEZ8oUAVcFZQFc3GVN/Emp60S/9+XOS7T2M
-	RT1nJA==
-Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4han54u1mj-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 14:26:36 +0000 (GMT)
-Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-7cc0a64ad59so133316137.2
-        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 07:26:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792074395; x=1792679195; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nX8NHCdH1mIPZ8Y18DIA0kViNrTV399Gnyrkc+b8WE8=;
-        b=Eb4uebjznzcbjSOlmxymYPJ7vcXVF2DGDUljfX3M7VK4FnL6J0HHMGvl1xRRfFoLnK
-         KvjWJhU1DnfOIdiIKvnRkG8MO4v//kFWlqUOmRY4bn7pxbh36XhoOZfHYqy3XWfA8sHj
-         T1KDO2mVi+64XMa9LbHMOGj2C4J4sCPjhoxxojem3dt888Se9LaOPJppoZFk0Xhs6KEg
-         Fp2wN//7bhr6FTWlMFFn/+1aLPYfAexEfyFuBpfKmu5ZqMhZH0roAhZXb4hnBzuJjMHL
-         QIg2x/GGTFga62MKRfIobhD5ntZGAL2ZQ7L2gME0OcJyKtCO4C/MufTwOHRg1XuafFPH
-         aghg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792074395; x=1792679195;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nX8NHCdH1mIPZ8Y18DIA0kViNrTV399Gnyrkc+b8WE8=;
-        b=GdElMu3KAo3NU2gc4EX+VjuX9tF5oYLjkTC+V1SUZ89l30AFRpYV8AbGspwIGmuva+
-         9/K/DcRy6pmLqd1qMqRSl6K1x7AZlPF8vb3DqfBY7k85gIib6U4q8ECrDJUMM93nx3wu
-         6KbbnDBB6YERwl78FHZNgctb7vwIEZCSyHdGYiOo+I7qKvPAvcgUA8c6G6n+EVi5LHMl
-         IVxrkBjVJ2Q0KddvIIvmMLPePANtCShhmAm41xZWtv+Iw9pQNOTmLP14JTyCk5GmTKvI
-         RtyBd1oSGLmcYTHvwlyIrDoWcjV6YS3JbR7PWMPLS8hKkrQFU1bQWezIuqMyQ6RE76mK
-         vDYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzGqWlMI2vxZjOB5KAqiwnlNszz1IBdzBEEg7akg3sdLmQT4vKUd+P4698CtDrOvipnsgS8BWKNNrc9@vger.kernel.org
-X-Gm-Message-State: AFq9FYLHxxxC2jdVPOWUxPhFGpw13YK0v6/OnAc3WTwdVsCjyBzBvXsQ
-	Z/CwgWgcE0T1TNS0wT5WiGUrGu1/SCiPz5YgiY6Xoga26ThTJ+dx/oH/BYTmM21WlXi4pTlEQID
-	5vGVHF6pFSnQpn3C18rk+bAWVPKs/43L6LVHJ10ZrkfaiBErtGVb6h5rYxHXScD8b
-X-Gm-Gg: AYBFou1mv1eiZ43v9hJYCwCbKOFgxDdBxi9+NIc4Z1qsvXut8KhWKHR1WIRdVmMWVld
-	jjJ0H7+GCNe+kXvsMCPahQJquVuSAYVsDcN8rYq8eeo5Z8bPskNq8osQnlWv8odpbAfpMcDioqK
-	JEcXaOUgIBSkygUYn2OeBOCpmbewOAtwyBNtwS7stVtfyPxeQVUtRaQVzMEsBkIYT+mKymioUJ4
-	1/jPRcy9BzN06gVu68I0skrtJuhM2WtUjaZMlk3cnoXCDYi1F6aqhc3m4rVJVNjEPjl0RU/ev9F
-	NmHiE1c5r+3JqJw1KtdC18XYNOG8E/iOxw7Bv6CdY42Cc6TpYaWWiulRZP0TjxLHt6O+dQlhfp6
-	+RX6YUgrKFyQ+5bca6rTIsFB59ms+2veEx6ZQoMpjaCcqQg9bjcrQjYzHOHSrrDdGpzh92iR0ks
-	mY2upsJH8ovj9IbhGevr1VNTMLRg5LzjuM3ElUmeBxP8ZnrSSRaZA=
-X-Received: by 2002:a05:6102:a15a:b0:7cb:bbcc:e52 with SMTP id ada2fe7eead31-7cbbbcc11d8mr1668730137.0.1792074395045;
-        Thu, 15 Oct 2026 07:26:35 -0700 (PDT)
-X-Received: by 2002:a05:6102:a15a:b0:7cb:bbcc:e52 with SMTP id ada2fe7eead31-7cbbbcc11d8mr1668710137.0.1792074393563;
-        Thu, 15 Oct 2026 07:26:33 -0700 (PDT)
-Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:5402:5e0b:9ef0:9b5b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd6428b3sm69083145e9.1.2026.10.15.07.26.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 07:26:32 -0700 (PDT)
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 16:26:06 +0200
-Subject: [PATCH v11 7/7] arm64: dts: qcom: arduino-imola: Add NVMEM layout
- for WiFi/BT
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="hYvSKo5A"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CF83E1713;
+	Thu, 15 Oct 2026 07:26:35 -0700 (PDT)
+Received: from e125769.cambridge.arm.com (e125769.cambridge.arm.com [10.2.198.107])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E33603F871;
+	Thu, 15 Oct 2026 07:26:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792074399; bh=+nybeMNVzVEOKArJ/Q+m2Hi2eZ6pdWjemjV8TMS/baA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=hYvSKo5AGCmdhUj81eXiaAZaYth85z7THjaAOcQDoMdWuET8YS30bD2EVziYTdF3f
+	 H/7/AjvoXwWg49MbQ8RZz7WSuBMMaMVNWgoeIHEEjlWQWm8DxDF3ZasJI8tLUDP5lW
+	 6Qq90kEjZXBMxd2uFCSMsFLphfsQ2poprLqGJ6Qk=
+From: Ryan Roberts <ryan.roberts@arm.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Alex Williamson <alex@shazbot.org>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jean-Philippe Brucker <jpb@kernel.org>,
+	Oded Gabbay <ogabbay@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>
+Cc: Ryan Roberts <ryan.roberts@arm.com>,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	kvm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-doc@vger.kernel.org,
+	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>
+Subject: [RFC PATCH v2 10/15] KVM: arm64: Introduce support to pin VMIDs
+Date: Thu, 15 Oct 2026 15:25:44 +0100
+Message-ID: <20261015142552.4128028-11-ryan.roberts@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261015142552.4128028-1-ryan.roberts@arm.com>
+References: <20261015142552.4128028-1-ryan.roberts@arm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-block-as-nvmem-v11-7-f890ac74f87d@oss.qualcomm.com>
-References: <20261015-block-as-nvmem-v11-0-f890ac74f87d@oss.qualcomm.com>
-In-Reply-To: <20261015-block-as-nvmem-v11-0-f890ac74f87d@oss.qualcomm.com>
-To: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-        Johannes Berg <johannes@sipsolutions.net>,
-        Jeff Johnson <jjohnson@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
-        Rocky Liao <quic_rjliao@quicinc.com>,
-        "David S. Miller" <davem@davemloft.net>,
-        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-        Simon Horman <horms@kernel.org>,
-        Srinivas Kandagatla <srini@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
-        Heiner Kallweit <hkallweit1@gmail.com>,
-        Russell King <linux@armlinux.org.uk>,
-        Saravana Kannan <saravanak@kernel.org>,
-        Christian Marangi <ansuelsmth@gmail.com>,
-        Eric Dumazet <edumazet@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Eric Dumazet <edumazet@kernel.org>
-Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-block@vger.kernel.org, linux-wireless@vger.kernel.org,
-        ath10k@lists.infradead.org, linux-bluetooth@vger.kernel.org,
-        netdev@vger.kernel.org, daniel@makrotopia.org,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Authority-Analysis: v=2.4 cv=RYQFmFtv c=1 sm=1 tr=0 ts=6ad0e29c cx=c_pps
- a=P2rfLEam3zuxRRdjJWA2cw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=1BEw5LmG3YzgyHxDt7YA:9 a=QEXdDO2ut3YA:10 a=ODZdjJIeia2B_SHc_B0f:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1NyBTYWx0ZWRfX1nwyNNoa+tbp
- Uc1TGmKwr9Nv7v9Y8ne56ochVvZNljV9z/dXvzLQYqQTuMqQrs7dKMTRl2rZ18TtG+m7N1uRvD/
- DkbJtNd2cVEc+uGhUgYw8mY/cPxK2mBLm/0mjY3EzAArlKzBfrJYg4V4447DxQ5NnntMTkOmP1B
- wpW7BYTONATFxbWQdbjP42WBV8ROVyrOOfUu821R8KNRzYv0WkLlcyXEz8MXe6uw5oCL+h9M8R0
- U5BvfOz2oP+bqjWmcms3TGIe+Xzfw2KfuSI9189xij1cFVWmnVlCSwX4SjbozFoAzxXUWdVrZOs
- ZZHuOF5QTJ7RHt0GFGGkqVRMcNEawwU/GSf0EhzHZZwVRPeOzwfLwHBTZj3W+W1n4PbmAjZmdzP
- /u1sGzX4fHmoPMexpSzk6v0zydknD3XngT0iSV+b3Vs0SWLXzP3pnlVS/yqkG9IbsEgx8+Hr6vp
- 3fUqiNbxCdZUa7NQk+Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1NyBTYWx0ZWRfXxcroRmfB5kxr
- w5ZTnTvlcRjar//SUwpdqgbA2gfEsAsJJZuRtSrfvuh93N+gwcdA3MkNrRFD6hCFBBgvFJnB+FA
- BtdMmDg2i24Jno98Nq9F05TMLtQK9zs=
-X-Proofpoint-GUID: f13M-JQo2fmiOcCxIQFdkm8ao5rPtjKN
-X-Proofpoint-ORIG-GUID: f13M-JQo2fmiOcCxIQFdkm8ao5rPtjKN
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 bulkscore=0 suspectscore=0 impostorscore=0
- lowpriorityscore=0 spamscore=0 malwarescore=0 clxscore=1015 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150057
+Content-Transfer-Encoding: 8bit
 
-On Arduino Uno-Q, the eMMC boot1 partition is factory provisioned
-with device-specific information such as the WiFi MAC address
-and the Bluetooth BD address. This partition can serve as an
-alternative to additional non-volatile memory, such as a
-dedicated EEPROM.
+From: Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>
 
-The eMMC boot partitions are typically good candidates, as they
-are relatively small, read-only by default (and can be enforced
-as hardware read-only), and are not affected by board reflashing
-procedures, which generally target the eMMC user or GP partitions.
+Introduce kvm_arm_pinned_vmid_get() and kvm_arm_pinned_vmid_put(), to pin
+a VMID associated with a KVM instance. This will guarantee that VMID
+remains the same after a rollover.
 
-Describe the corresponding nvmem-layout for the WiFi and Bluetooth
-addresses, and point the WiFi and Bluetooth nodes to the appropriate
-NVMEM cells to retrieve them.
+This will allow some devices, such as ones behind an SMMUv3, to have
+their TLB entries tagged with the KVM VMID. In some systems, TLB
+maintenance instructions from the CPU to the Inner Shareable domain can
+invalidate those entries.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Signed-off-by: Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>
+Signed-off-by: Jean-Philippe Brucker <jpb@kernel.org>
 ---
- arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts | 32 ++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
+ arch/arm64/include/asm/kvm_host.h |  3 ++
+ arch/arm64/kvm/vmid.c             | 77 ++++++++++++++++++++++++++++---
+ 2 files changed, 73 insertions(+), 7 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts b/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
-index c472e13fceca4eb882a59af3be9f45022a923ead..582542c16f6c0ddd8e6fef3ef6b301ef33c5abd0 100644
---- a/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
-+++ b/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
-@@ -409,7 +409,33 @@ &sdhc_1 {
- 	no-sdio;
- 	no-sd;
+diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+index cd9b9d2462f9..30d0082b15ec 100644
+--- a/arch/arm64/include/asm/kvm_host.h
++++ b/arch/arm64/include/asm/kvm_host.h
+@@ -148,6 +148,7 @@ int topup_hyp_memcache(struct kvm_hyp_memcache *mc, unsigned long min_pages);
  
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
- 	status = "okay";
-+
-+	card@0 {
-+		compatible = "mmc-card";
-+		reg = <0>;
-+
-+		partitions-boot1 {
-+			compatible = "fixed-layout";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			wifi_mac_addr: mac-addr@4400 {
-+				compatible = "mac-base";
-+				reg = <0x4400 0x6>;
-+				#nvmem-cell-cells = <1>;
-+			};
-+
-+			bd_addr: bd-addr@5400 {
-+				compatible = "mac-base";
-+				reg = <0x5400 0x6>;
-+				#nvmem-cell-cells = <1>;
-+			};
-+		};
-+	};
+ struct kvm_vmid {
+ 	atomic64_t id;
++	refcount_t pinned;
  };
  
- &spi5 {
-@@ -512,6 +538,9 @@ bluetooth {
- 		vddch0-supply = <&pm4125_l22>;
- 		enable-gpios = <&tlmm 87 GPIO_ACTIVE_HIGH>;
- 		max-speed = <3000000>;
+ struct kvm_s2_mmu {
+@@ -1359,6 +1360,8 @@ int __init kvm_arm_vmid_alloc_init(void);
+ void __init kvm_arm_vmid_alloc_free(void);
+ void kvm_arm_vmid_update(struct kvm_vmid *kvm_vmid);
+ void kvm_arm_vmid_clear_active(void);
++int kvm_arm_pinned_vmid_get(struct kvm *kvm);
++void kvm_arm_pinned_vmid_put(struct kvm *kvm);
+ 
+ static inline void kvm_arm_pvtime_vcpu_init(struct kvm_vcpu_arch *vcpu_arch)
+ {
+diff --git a/arch/arm64/kvm/vmid.c b/arch/arm64/kvm/vmid.c
+index 7fe8ba1a2851..322279f59e88 100644
+--- a/arch/arm64/kvm/vmid.c
++++ b/arch/arm64/kvm/vmid.c
+@@ -25,6 +25,10 @@ static unsigned long *vmid_map;
+ static DEFINE_PER_CPU(atomic64_t, active_vmids);
+ static DEFINE_PER_CPU(u64, reserved_vmids);
+ 
++static unsigned long max_pinned_vmids;
++static unsigned long nr_pinned_vmids;
++static unsigned long *pinned_vmid_map;
 +
-+		nvmem-cells = <&bd_addr 0>;
-+		nvmem-cell-names = "local-bd-address";
- 	};
- };
+ #define VMID_MASK		(~GENMASK(kvm_arm_vmid_bits - 1, 0))
+ #define VMID_FIRST_VERSION	(1UL << kvm_arm_vmid_bits)
  
-@@ -557,6 +586,9 @@ &wifi {
- 	qcom,ath10k-calibration-variant = "ArduinoImola";
- 	firmware-name = "qcm2290";
+@@ -47,7 +51,7 @@ static void flush_context(void)
+ 	int cpu;
+ 	u64 vmid;
  
-+	nvmem-cells = <&wifi_mac_addr 0>;
-+	nvmem-cell-names = "mac-address";
+-	bitmap_zero(vmid_map, NUM_USER_VMIDS);
++	bitmap_copy(vmid_map, pinned_vmid_map, NUM_USER_VMIDS);
+ 
+ 	for_each_possible_cpu(cpu) {
+ 		vmid = atomic64_xchg_relaxed(&per_cpu(active_vmids, cpu), 0);
+@@ -98,12 +102,14 @@ static u64 new_vmid(struct kvm_vmid *kvm_vmid)
+ 	if (vmid != 0) {
+ 		u64 newvmid = generation | (vmid & ~VMID_MASK);
+ 
+-		if (check_update_reserved_vmid(vmid, newvmid)) {
+-			atomic64_set(&kvm_vmid->id, newvmid);
+-			return newvmid;
+-		}
+-
+-		if (!__test_and_set_bit(vmid2idx(vmid), vmid_map)) {
++		/*
++		 * If it is pinned, we can keep using it. Note that reserved
++		 * takes priority, because even if it is also pinned, we need to
++		 * update the generation into the reserved_vmids.
++		 */
++		if (check_update_reserved_vmid(vmid, newvmid) ||
++		    refcount_read(&kvm_vmid->pinned) ||
++		    !__test_and_set_bit(vmid2idx(vmid), vmid_map)) {
+ 			atomic64_set(&kvm_vmid->id, newvmid);
+ 			return newvmid;
+ 		}
+@@ -169,6 +175,49 @@ void kvm_arm_vmid_update(struct kvm_vmid *kvm_vmid)
+ 	raw_spin_unlock_irqrestore(&cpu_vmid_lock, flags);
+ }
+ 
++int kvm_arm_pinned_vmid_get(struct kvm *kvm)
++{
++	struct kvm_vmid *kvm_vmid;
++	u64 vmid;
 +
- 	status = "okay";
- };
++	kvm_vmid = &kvm->arch.mmu.vmid;
++
++	guard(raw_spinlock_irqsave)(&cpu_vmid_lock);
++	vmid = atomic64_read(&kvm_vmid->id);
++
++	if (refcount_inc_not_zero(&kvm_vmid->pinned))
++		return (vmid & ~VMID_MASK);
++
++	if (nr_pinned_vmids >= max_pinned_vmids)
++		return -EINVAL;
++
++	/*
++	 * If we went through one or more rollover since that VMID was
++	 * used, make sure it is still valid, or generate a new one.
++	 */
++	if (!vmid_gen_match(vmid))
++		vmid = new_vmid(kvm_vmid);
++
++	nr_pinned_vmids++;
++	__set_bit(vmid2idx(vmid), pinned_vmid_map);
++	refcount_set(&kvm_vmid->pinned, 1);
++	return (vmid & ~VMID_MASK);
++}
++
++void kvm_arm_pinned_vmid_put(struct kvm *kvm)
++{
++	struct kvm_vmid *kvm_vmid;
++	u64 vmid;
++
++	kvm_vmid = &kvm->arch.mmu.vmid;
++	vmid = atomic64_read(&kvm_vmid->id);
++	guard(raw_spinlock_irqsave)(&cpu_vmid_lock);
++	if (refcount_dec_and_test(&kvm_vmid->pinned)) {
++		__clear_bit(vmid2idx(vmid), pinned_vmid_map);
++		nr_pinned_vmids--;
++	}
++}
++
+ /*
+  * Initialize the VMID allocator
+  */
+@@ -186,10 +235,24 @@ int __init kvm_arm_vmid_alloc_init(void)
+ 	if (!vmid_map)
+ 		return -ENOMEM;
  
-
++	pinned_vmid_map = bitmap_zalloc(NUM_USER_VMIDS, GFP_KERNEL);
++	if (!pinned_vmid_map) {
++		bitmap_free(vmid_map);
++		return -ENOMEM;
++	}
++	nr_pinned_vmids = 0;
++
++	/*
++	 * Ensure we have at least one empty slot available after rollover when
++	 * the maximum number of VMIDs are pinned. VMID#0 is reserved.
++	 */
++	max_pinned_vmids = NUM_USER_VMIDS - num_possible_cpus() - 2;
++
+ 	return 0;
+ }
+ 
+ void __init kvm_arm_vmid_alloc_free(void)
+ {
++	bitmap_free(pinned_vmid_map);
+ 	bitmap_free(vmid_map);
+ }
 -- 
-2.34.1
+2.43.0
 
