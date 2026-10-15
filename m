@@ -1,147 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C018B39D6FA;
-	Thu, 15 Oct 2026 14:42:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACC2F30D3FE
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 14:43:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075336; cv=none; b=TjNd/xufhWQMuCjszLibyichxlV7U40BXt9mjQ5jqdm4y8QjhOq6XVvVgAwtiG/8WHqXsSniPNTMwUmyh5IqnPt6eLcRjSIn9tq4jKHaisFGY3LCGebIBqVDUcCyK/QUBWy3LULpxd7YPkRohBYr6S7OhaSqSgFe8Y+cLj/A/IA=
+	t=1792075385; cv=none; b=AERGzLyGmRBtZAkBKlTWJKLo0pA650s5KzF+H+ghteWbd0+Sjjraz+kMbnu/5lS4KwDTlU0k/kqjf6Ygn5vhvRTDQ79Yh21cM2KNuZO/evBxF1VfAlbTv3vusUSrTt3y+kv/bxA3iczfI6eHr5x24n+770RfpSrj2uwW1RxFT0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075336; c=relaxed/simple;
-	bh=9yPhT3nBNiXI62aiNZzajJCF3iBq4FqwltbEoPkfwH4=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=VwEcj4ininUoxDdlU9q8DlD/wsFhCogRO5A2DpF8tCciXv/MvN/GuFTAZJkQajSv4WeGYKvbWbbCyUy2dFbYHfdEKaHYP2zTPc5MUWw0QQXFkkLKln+qrANsvcUrunEIBBMbh4BffohKg0MCOX3sIsHV7JtnSLX1lBpAnb/I1G8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=amx0TyRs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792075385; c=relaxed/simple;
+	bh=tLbfeLUBRz9kckFa/m+pJGTBBECpJriJUZabU7HaqE4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=t2A/vggaLWcKzFCOWa5TI9ilK1YrJ4xSglvVaDyg0vnOxoXicAU5pb3G6gtyhF6/6ZzDoNRdRjMi/jElgmJ7CLWFwiwBvfUfv2PnfKxYli0RcXeaWE+PqGq8BNpQfVUoER0PmzrTWpa2yQ8pccONgWHrGBXRSpn4KPl5AzFYFyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=V9lFjmry; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CcjR+uWI; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="amx0TyRs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A200D1F000C4;
-	Thu, 15 Oct 2026 14:42:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792075335;
-	bh=1XfkwT+ZV0VIETFBhqQoIsh+jM+1mmZCyZY3kXlA31E=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=amx0TyRsDXvPpzEgbMyksdzKwLUKX2R3Vxt8lJGxRneT6ScOrP1shWKeS2r+U0AOs
-	 dZ/xD41GJhRV4EZxTiE+/FHctpJr9YsfCwCSxtfW0Ph7NDggM+LN9u8q7jz1L3PzbA
-	 07jjS8rMVrhWh9q5vu7xTfTbm3HzoRQkMkrwuguJ1U1wnL/n3LRrDlXXo1QFKhgrDm
-	 XoF8ReqeXrzKDhS2EDNYx9mUgpC5lGA+COezYlyh0UqiuxIU6a8jCtdaJuzWo8IHIh
-	 zoS1/ECuwOZp0EnMT0HhO9KII6dbkG278xoAkjMLeCoUjl4B3JmywqMujrrr5Nv3n6
-	 nUWQO124OaD/w==
-Message-ID: <sashiko-outbox-172973@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v2 02/15] misc/arm-cla: Add launch operation helpers
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ryan Roberts" <ryan.roberts@arm.com>
-Cc: kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, "Oliver
- Upton" <oupton@kernel.org>, "Marc Zyngier" <maz@kernel.org>
-In-Reply-To: <20261015142552.4128028-3-ryan.roberts@arm.com>
-References: <20261015142552.4128028-1-ryan.roberts@arm.com>
- <20261015142552.4128028-3-ryan.roberts@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 14:42:14 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="V9lFjmry";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CcjR+uWI"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9jsRu2417395
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 14:43:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	80tjiWpoCbbPBE3onl4nOGkJVFrI+dWTU+A+MkoKPJA=; b=V9lFjmryGDIEEMKP
+	vvEjKem2E+mBiIQd6HfqM2z+NkWa8HGtwJXTXUwtdMXaS/FOSEfqTL0UFBueok4P
+	DQFAd2uATooAw1dujFnWWtanKvRy6h8utBlCmCVR7u/V+rjimWTFZo0gASV1T2m/
+	44wfIoehgwOv5feAWEp3X21obQdoCUDGZL/mhi5cjeavCGfDxSlG/I7/Bj71KQuN
+	n4d1My6BRqlBxOWNgv59keu/hKBVWGaLOb1W7jQxSpSkmItpgx8HTap+5LjOv6Li
+	udkS+BkPof84ppA1LIhO31yCAkgVwddsW6djJyChwCoC5n10s9xA4Uo/ND0U97hn
+	xqV6tQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4haqdhjmq6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 14:43:03 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93cc50fb0d2so103646085a.0
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 07:43:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792075383; x=1792680183; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=80tjiWpoCbbPBE3onl4nOGkJVFrI+dWTU+A+MkoKPJA=;
+        b=CcjR+uWI6PxgvkXAqNRKa/M2S9ZB7Z0zgZ2mYLmhvaAtRPN1jhussYdkkHRC5NlmJh
+         aGEchQvmXM0qkEdA1AsNgtSWQvwPuHH/GQ52eVoOREzKIuuixDnyQrbqRxGHyYeCvsrG
+         9YYnpaHsI9n2ZcPhIxRGHND6SXKj/okErf6Dk8sQpciCbWVLsy3hu5EKwVcLJBuEVZIk
+         Ya98ilEVRH43YDGqcnNUr4ajwPugT5jFOTmRLQkBs8PsWTN/stDSm8QR5FYvSaG55Zsb
+         lnrfwbQypPPFWrikktkktXSOkxDI6Qo3FPAMmsFgZ4ZrFDRNBr0DIG6lxVrqHRwHJ4pc
+         gCbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792075383; x=1792680183;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=80tjiWpoCbbPBE3onl4nOGkJVFrI+dWTU+A+MkoKPJA=;
+        b=I92ZhSL6Ikk/YTyepexM6EqxSdJYMh44MKf6olAXPOxYACrOm6VvRuCU0+RS8zh0P0
+         QSKkZ8jc+/e9g7WSCFu6CxFjk7vAdO/gbgj5G+lpLJdKM89iBVniWq6kPEvwgOh4I1R3
+         GxuLpdwqOqr4z3yWnGpAprlJ24X9uSgTzTSCBb8KCR1VBaWNtFdaq1Ah5PABsEappO3y
+         PvYuu4SKacLdL6BdsHGYHD3grwnsgtMw4pH5ZI3TteaXDBziuJtnF8ZqG38J3Ic3XsZJ
+         oijyxNL0S1HlBoh8qwN8d1m8llpPt4cS9L0CBR3qlurudOUz7NLJ7qPJjcxvzQoe5+kS
+         alSg==
+X-Forwarded-Encrypted: i=1; AKwUvBxCLrJyLyLLjt/jPEozubosAMGRqdK2Y6kwZeTZngBBMpxB6FzpYYNLKU+jJAOo3SZW2eBveslUd/D3@vger.kernel.org
+X-Gm-Message-State: AFq9FYIrpPIy61dohlpOU8nWxjMN1/AOBw6aFTW39lKB31/RbL4mG6zG
+	w6t4AND7ELFcZfp3ORkxDc2yXjvbUWxM+ixboVImuFMRs8tZaK+4ig4YGkaEYISEn5K/YXfS4z0
+	pNdGvXwb44pGGuJzvv7+2rgWcyHf8rXTaZwjudYZKqdzmn9gSHwkJ1k42o2TGiGHZXUfcQ1hF
+X-Gm-Gg: AYBFou3G5Aqw1eI9ftTD5oMmhKV0GoNZIe1uiJGFmpNgwFx6VnDs7KVPAUdgbGUMthg
+	vJfdhnYCTQxEDfeHat+Rn+e5PZVCQ2ORcR64iNC4ADyC056el+mhmh4Y6y3EKc5tlVxKH5I23aJ
+	s6pNhA6jxky6BqNRPZOu4dcgVxZR5rqxxaPfi3C2KMZIYHPS/yM+N3bV/dGwMexigfMiKBjUOaA
+	SA6I3QhQN7VkwnL+WgSkdg+LQ2S6ddng8s9qR6F3YJ9d/ulaUyZoyBPx5CfrQ8KUQ2P3LBCRmZS
+	0yu/9T97+xHYhf0sHKqXPEDj0aoGZc9bP8fJ3DSqc9b7V8zU2CROUuA/16Qx+SOkV6XfeyskkyQ
+	FHic5Tf/OIGEarA/4yHPfgw==
+X-Received: by 2002:a05:620a:4613:b0:939:c7d1:7471 with SMTP id af79cd13be357-93ebd228f1cmr3533922385a.4.1792075382615;
+        Thu, 15 Oct 2026 07:43:02 -0700 (PDT)
+X-Received: by 2002:a05:620a:4613:b0:939:c7d1:7471 with SMTP id af79cd13be357-93ebd228f1cmr3533917985a.4.1792075382099;
+        Thu, 15 Oct 2026 07:43:02 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3ed9f3deb1sm134751566b.45.2026.10.15.07.42.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 15 Oct 2026 07:43:01 -0700 (PDT)
+Message-ID: <aa0aa4e3-6541-4cfb-b947-388c62fd4b72@oss.qualcomm.com>
+Date: Thu, 15 Oct 2026 16:42:59 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 4/8] usb: misc: qcom_eud: add per-path role switch
+ support
+To: Elson Serrao <elson.serrao@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Rob Herring <robh@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Peter Chen <peter.chen@kernel.org>
+References: <20260929213513.2401005-1-elson.serrao@oss.qualcomm.com>
+ <20260929213513.2401005-5-elson.serrao@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260929213513.2401005-5-elson.serrao@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1OCBTYWx0ZWRfX6+LwwZVsVLO6
+ TAtCriH+C8xy3TeB2iiNLqC1xaNMDUuwuAU879qJJKfvlNsPW01mCgZZILzUsj5eepwlJESwVG/
+ 9N+DFnqG7T8rBROOFC5gl6qLGVZOYzwqxPd5F72G5yStYro897H5Vtvjz+472hUbWrbvUG42XAE
+ 5GKhpfi5Rcfwp/GqkXY+kVEMMn6aAFfCUHJ1X9+4MBufwZEfCjZCdK7PcYWOxOVxBIiS+tladbT
+ xzQ+Rm1BoG9PwVSyOHE6Qmpm2kZHcU1IgprJx1Wbv5iaW17njX/Xz4G/UZ+nYPF62Wl7xDwlC3G
+ H53MVWCVaElTlfBLJDseyjYc4cCyidL+KUVzADtKBgubwJqB3rKcOfwPNHQsIeIryxUGwZpddGE
+ cvz9qb5XSK3ARM/9Xosn4Gke6sUcyd0TX0viCEifEkJ0hj4r+EnV/rwjf1wpDnl/yX0xRzxFOCq
+ QkxZMqxZXOvxfYW/C1g==
+X-Proofpoint-GUID: _gD07FNpl8lvhCVgSzsv0kB0FBVrorw-
+X-Authority-Analysis: v=2.4 cv=DeeCOftW c=1 sm=1 tr=0 ts=6ad0e677 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=foisExlbF95jOuBURZEA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1OCBTYWx0ZWRfXyyw/KruV8rKK
+ FxcQqd0sIXJSmovNI+qZes2g6jU/3GW3sAvtquz7/sHvSkb590pfV29gpND8puLe1sw1QSR2Ibl
+ 4uSC60dS6YlIv8e9K5net5NJwch4Zvk=
+X-Proofpoint-ORIG-GUID: _gD07FNpl8lvhCVgSzsv0kB0FBVrorw-
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 suspectscore=0 malwarescore=0 phishscore=0
+ spamscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150058
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] misc/arm-cla: 1-second busy loop in atomic poll function stalls CPU
-- [High] misc/arm-cla: 32-bit truncation of max_regidx breaks register acce=
-ss unconditionally
---
+On 9/29/26 11:35 PM, Elson Serrao wrote:
+> The EUD hardware can support multiple High-Speed USB paths, each connected
+> to different USB controllers. The current implementation uses a single
+> chip-level role switch, which cannot properly handle multi-path
+> configurations where each path needs independent role management. Since
+> EUD is physically present between the USB connector and the controller,
+> it should also relay the role change requests from the connector.
+> 
+> Restructure the driver to support per-path role switches and remove the
+> chip-level role switch. Additionally, as EUD need not modify the USB
+> role upon enabling, remove the unnecessary role switch call from
+> enable_eud().
+> 
+> Reviewed-by: Peter Chen <peter.chen@kernel.org>
+> Signed-off-by: Elson Serrao <elson.serrao@oss.qualcomm.com>
+> ---
 
-commit 3a9a1e5f334e803060b4eaff6708691a049dc197
-Author: Jean-Philippe Brucker <jpb@kernel.org>
+[...]
 
-misc/arm-cla: Add launch operation helpers
+> +	path->np = of_node_get(np);
 
-This commit introduces helpers for CLA commands that execute sequences on t=
-he=20
-local CPU, wait for hardware responses, and translate response codes into L=
-inux=20
-errors. It also implements accelerator reset and register read/write operat=
-ions=20
-built upon these helpers.
+This changed because the binding now supports both bindings with
+eud-path@ children and without them. In the latter case, this np
+ends up being the `ports` node
 
-> diff --git a/drivers/misc/arm-cla/cla-ops.c b/drivers/misc/arm-cla/cla-op=
-s.c
-> new file mode 100644
-> index 0000000000000..46026304a057a
-> --- /dev/null
-> +++ b/drivers/misc/arm-cla/cla-ops.c
-
-[ ... ]
-
-> +/**
-> + * cla_op_wait_lresp - Wait for any LAUNCH op to complete.
-> + * @dev: CLA device.
-> + * @lresp: last LRESP value read.
-> + *
-> + * Return: 0 on success, -ETIMEDOUT in case of timeout.
-> + */
-> +int cla_op_wait_lresp(struct cla_dev *dev, u64 *lresp)
-> +{
-> +	return readq_relaxed_poll_timeout_atomic(dev->regs + CLA_REG_LRESP,
-> +			*lresp, FIELD_GET(CLA_LRESP_PENDING, *lresp) =3D=3D 0,
-> +			CLA_LRESP_DELAY_US, CLA_LRESP_TIMEOUT_US);
-> +}
-
-[Severity: High]
-Does this atomic polling loop stall the CPU for up to 1 second?
-
-The timeout here is CLA_LRESP_TIMEOUT_US (1,000,000 microseconds). Using the
-_atomic variant of the poll macro will busy-wait without yielding the CPU.
-
-Since the surrounding code in cla_wait_status_dmb() uses the sleepable
-poll_timeout_us(), does this context permit sleeping? If so, using the
-non-atomic readq_relaxed_poll_timeout() macro might prevent long scheduler
-delays.
-
-[ ... ]
-
-> +/* regidx is unsigned long here to avoid overflow during calculations */
-> +static int cla_op_access_reg(struct cla_dev *dev, u8 op,
-> +			     enum cla_launch_data_mode data_mode,
-> +			     unsigned int accid, unsigned long regidx,
-> +			     size_t nregs, u64 *regs)
-> +{
-> +	int ret =3D -EINVAL;
-> +	unsigned long max_regidx;
-> +	struct cla_launch launch =3D {
-> +		.op =3D op,
-> +		.accid =3D accid,
-> +		.data_mode =3D data_mode,
-> +	};
-> +
-> +	switch (op) {
-> +	case CLA_LAUNCH_OP_REGREAD:
-> +	case CLA_LAUNCH_OP_REGWRITE:
-> +		max_regidx =3D 0x100000000;
-
-[Severity: High]
-Will this unconditionally fail register accesses on 32-bit architectures?
-
-The constant 0x100000000 requires 33 bits. When assigned to an unsigned long
-on 32-bit platforms, it is implicitly truncated to 0.
-
-> +		break;
-> +	default:
-> +		WARN_ON(1);
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (WARN_ON(regidx + nregs > max_regidx))
-
-Since max_regidx becomes 0 on 32-bit platforms, this bounds check evaluates
-to regidx + nregs > 0, which is always true when nregs is greater than zero.
-
-Should max_regidx and regidx both be explicitly typed as u64 to prevent this
-truncation and correctly handle overflow calculations?
-
-> +		return -EINVAL;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015142552.4128=
-028-1-ryan.roberts@arm.com?part=3D2
+Konrad
