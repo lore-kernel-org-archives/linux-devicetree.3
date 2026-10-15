@@ -1,114 +1,140 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D2FC3BCD37;
-	Thu, 15 Oct 2026 12:34:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52F2451E44B
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 12:36:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792067686; cv=none; b=oUuoD/H//Lh44e87fUEHAH8BPLILHkYQrksLiQP5ezYiB3hrlcbHi1o70lGthxY3mYnNNvXd64IOTLsXkHzNRr7qHVvZcezqPcqAdHmbU/nCTXWMj6XzLlevT8bgX5/dqaD9vFC0AbPaupp2L8tWzdBTaS6QCcs1NipTq3BYA6I=
+	t=1792067775; cv=none; b=Eb2t5YzkzMrc0Hlg2rQXhYZddx/3nS/356bomAjqTw448iiOS0GNJ8PqyN2GgyIVWhRH6cgHFQCb3rMxLy1DLmTE1DuoHN+Bed572U2r7vOOGdbWHroqGvANB36o5dLdmighGZ3bp4m8hU4EWBOOjCks+OP5lmLLC1dFjm/Elh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792067686; c=relaxed/simple;
-	bh=PKYzlO5CwkWCo62CCEXO6UBShPbzkm7XCNkd0yD+MOg=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=SITq5VEZFA4DHqDx2MWkoARLnhQTXKqlav9Jw2S7MQe1hzSAOVp9NsrK83lwpWXRfUbrVxG0wQVTurrK2rZFm8TZjw67bTKvZu+VPY79CRglR73JKhkuGZthlRLQ3p0Jqj32cKBed2aG4MhY3oVqzTKFcBcfRiE5jvnkKDbLZLE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W0r5zhr1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792067775; c=relaxed/simple;
+	bh=HhSSj2Jpbd1NjgZWSsCYeRG5hiO72wvs6suPtxQRAvU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fDihfPq9bgXNA8HPoKEtKnJBd8TH74PrNge+qh2KzEHEt/ZDLoLEO2tV0T4ArKAF53upE+HDzXRF2obfeQQpKwc8IwwqrgiQF5lfRy+jrPcsPSiFU/iB1NaX7bJ64ZADNN92AVNet/6tLMbyvVun/8/59QouNctNvTG1kreU2Tc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ohw/PWHM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W0r5zhr1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A54B1F000C4;
-	Thu, 15 Oct 2026 12:34:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ohw/PWHM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 178351F000C9
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 12:36:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792067684;
-	bh=j/r4I4o9nEdVSuT6EOpxaiItEFAQBHvxFwBPttgm+g4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=W0r5zhr1mjAUIJE0h6/OLvKHyjwobmoySy9HgXt/LZj1NoOMCq1hyTy/y3ss6ig8s
-	 iq05XxW5HLh2ICcWt8gpf4599HVYU2tgLkqdx+0ZDoAxYiJHwOXxqI968N2pJcBapD
-	 lvExrw7A/SVRA8swGO1OVgntI4WCcIn00QOUgUz7QQMb0NWs3IwdTs2T+KiLZsEE9F
-	 jJplc6ebtA2wg16vYFBzJECS6t4CeLgebKsOs1O62BRpdC4+QHdRNJPe0rlO4+4RO4
-	 tfTNqT7V1uX/hTcRjA5fsXWmZrnWjDB6D1BDvJ6BXncnJi1KLYCb4WMOLtNAOCX7sa
-	 n9Bb8kRFUlhIA==
-Message-ID: <sashiko-outbox-172810@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 01/10] clk: nuvoton: ma35d1: Use clk_hw pointers as
- mux parents
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Miquel Raynal" <miquel.raynal@bootlin.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261015-perso-ma35d1-upstream-clk-v9-1-1f548fa2002e@bootlin.com>
-References: <20261015-perso-ma35d1-upstream-clk-v9-0-1f548fa2002e@bootlin.com>
- <20261015-perso-ma35d1-upstream-clk-v9-1-1f548fa2002e@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 12:34:43 +0000
+	s=k20260515; t=1792067774;
+	bh=UTsn5LMiWlp/JSayb2otn1OhoN0igsWzM/RgKJeMZww=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ohw/PWHMAwUiMqw43scdb8VM0PMHukFCIh7Ln2ZWhcEb59s1OgOklkNJBSBx624ha
+	 M6qzGVOE+wt3ZbKDcu1sdh53G+tXgi/8N1cwDhtS4x/xm1z8SeHDoUNWzH1gmVxFME
+	 OtNnTVWHbxbXabpRuvFmCYREyF+v91UqM4+sRl776qpvZgozBwwQ9ZHAnyoUROJXjP
+	 T9htrhJt/7WGUSldBETTPf0BzPj3UHKuZ4DIxcFMzsrEnjQb6N+5wZlXOxfypBP9CP
+	 97hCdEDFd+4IriUddB5BtDG6XRvu5fcZ1pbHMw+GNkaOakOukrw/Acw+4cbRzUTpgG
+	 7zCc4qZkSf4YQ==
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5be3db57938so519621e87.0
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 05:36:14 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzjMTMFCXJfM6kMMS3wk+yc6VkhCEH3+t+HQ2f/EFV/Y6E36NWdzB/phz+FA282IgiAZxshl5pRKO4n@vger.kernel.org
+X-Gm-Message-State: AFq9FYLfgyDBJHHkXJtPBVK1xnFw92vLhs3aDpntD1GSAd0E9ZpqLHq9
+	emvx/3C/XCIqb66ywk5cfZ14IQ9KqokjP78INrOa9l69UadFz48hgfhj6tnI5tQ4mP9bwkOSRtN
+	+ERUIaOI2oF8KtmjVEDfwF1F3QFeqmGo=
+X-Received: by 2002:a05:6512:438d:b0:5bc:e906:ad3 with SMTP id
+ 2adb3069b0e04-5bce9060f28mr5549281e87.14.1792067772827; Thu, 15 Oct 2026
+ 05:36:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20261012-mali-c55-renesas-dts-v4-0-c410e280bf2d@kernel.org>
+ <20261012-mali-c55-renesas-dts-v4-4-c410e280bf2d@kernel.org> <asz8oEtow_lrUU7K@zed>
+In-Reply-To: <asz8oEtow_lrUU7K@zed>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 15 Oct 2026 14:36:00 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnnSLXeYzxonkfnZA3OxLE9Hssma9fHsL=U=NmVn7ZVOg@mail.gmail.com>
+X-Gm-Features: AclHuK-ulodNdbkzNaP_Y4BbHHTacK8pusSXYjUamTyP_Oq91RNTtepybaEU-JQ
+Message-ID: <CAD++jLnnSLXeYzxonkfnZA3OxLE9Hssma9fHsL=U=NmVn7ZVOg@mail.gmail.com>
+Subject: Re: [PATCH v4 4/5] arm64: dts: renesas: r9a09g057: Add IVC and ISP nodes
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Daniel Scally <dan.scally@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] clk: ma35d1: unmanaged mux clocks leak and cause UAF on probe fail=
-ure
---
+Hi Jacopo,
 
-commit ccf1a8c0da3e763270d5ce7fb63fab6388c0c310
-Author: Miquel Raynal <miquel.raynal@bootlin.com>
+On Mon, Oct 12, 2026 at 5:39=E2=80=AFPM Jacopo Mondi
+<jacopo.mondi@ideasonboard.com> wrote:
 
-clk: nuvoton: ma35d1: Use clk_hw pointers as mux parents
+> How was this patch tested ?
 
-This commit updates the MA35D1 clock provider to use actual hardware clocks
-as mux parents rather than relying on parent data structures. This resolves
-an issue where parent lookups failed, leading to an incorrect, flat clock
-tree and missing rate assignments.
+I was using the TPG only so far, a camera module is in the mail.
 
-> diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-m=
-a35d1.c
-> --- a/drivers/clk/nuvoton/clk-ma35d1.c
-> +++ b/drivers/clk/nuvoton/clk-ma35d1.c
-[ ... ]
->  static struct clk_hw *ma35d1_clk_mux(struct device *dev, const char *nam=
-e,
->  				     void __iomem *reg, u8 shift, u8 width,
-> -				     const struct clk_parent_data *pdata,
-> -				     int num_pdata)
-> +				     struct clk_hw **hws,
-> +				     const int *parent_idx, int num_parents)
->  {
-> -	return clk_hw_register_mux_parent_data(dev, name, pdata, num_pdata,
-> -					       CLK_SET_RATE_NO_REPARENT, reg, shift,
-> -					       width, 0, &ma35d1_lock);
-> +	const struct clk_hw *parent_hws[MA35D1_MUX_MAX_PARENTS] =3D {};
-> +	int i;
-> +
-> +	for (i =3D 0; i < num_parents; i++)
-> +		parent_hws[i] =3D (parent_idx[i] >=3D 0) ? hws[parent_idx[i]] : NULL;
-> +
-> +	return clk_hw_register_mux_hws(dev, name, parent_hws, num_parents,
-> +				       CLK_SET_RATE_NO_REPARENT, reg, shift,
-> +				       width, 0, &ma35d1_lock);
->  }
+I do have the RPi camera module 3 but didn't get it to work, this
+may explain why...
 
-[Severity: High]
-If device probe fails after these muxes are registered (for example, if
-devm_of_clk_add_hw_provider() returns -ENOMEM near the end of
-ma35d1_clocks_probe()), the devres subsystem will unwind managed allocation=
-s,
-unmap clk_base, and free ma35d1_hw_data.
+> > +             ivc: isp-input@16040000 {
+> > +                     compatible =3D "renesas,r9a09g057-ivc";
+> > +                     reg =3D <0 0x16040000 0 0x10000>;
+> > +                     clocks =3D <&cpg CPG_MOD 0xe3>, <&cpg CPG_MOD 0xe=
+4>,
+> > +                              <&cpg CPG_MOD 0xe5>;
+>
+> Compared to Dan's original patch I was carrying my tree the first and
+> third ids of clock and reset properties in the ivc and isp nodes respecti=
+velty
+> are swapped
 
-Since the mux clocks registered here using clk_hw_register_mux_hws() are
-unmanaged, won't they remain registered in the clock core and permanently
-leak their internal struct clk_mux allocations?
+OK
 
-Furthermore, because they remain registered, could subsequent clock
-interactions dereference the now-unmapped clk_base register pointers,
-causing a use-after-free or unmapped memory access?
+> -                       resets =3D <&cpg 0xd3>, <&cpg 0xd1>, <&cpg 0xd2>;
+> +                       resets =3D <&cpg 0xd2>, <&cpg 0xd1>, <&cpg 0xd3>;
+>                         reset-names =3D "vresetn", "aresetn", "hresetn";
+>                         status =3D "disabled";
+>
+> Fixes the issue for me
 
-While a later patch in this series addresses a similar issue for fixed cloc=
-ks
-by switching to a devm_ variant, ma35d1_clk_mux() still uses the unmanaged
-clk_hw_register_mux_hws(). Should this be updated to use the appropriate
-managed devm_ variant to prevent this regression?
+OK
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-perso-ma35=
-d1-upstream-clk-v9-0-1f548fa2002e@bootlin.com?part=3D1
+> Why is this an issue it's not 100% clear to me.
+
+Can you try this?
+
+diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+--- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
++++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+@@ -703,6 +703,12 @@
+                return ret;
+        }
+
++       /*
++        * Allow the ISP's 2500-vclk reset recovery time.
++        * 200 us cover the RZ/V2H's documented minimum of 20 MHz.
++        */
++       usleep_range(200, 300);
++
+        /* Use "software only" context management. */
+        mali_c55_update_bits(mali_c55, MALI_C55_REG_MCU_CONFIG,
+                             MALI_C55_REG_MCU_CONFIG_OVERRIDE_MASK, 0x01);
+
+When we now retrieve the reset and assert it, it matters that
+we give the hardware time to recover. (If this works I will make
+a separate patch.)
+
+> I can't access the "additional documentation" from the Renesas website
+> where the clock/reset ids are reported. Could you please check ?
+
+These changes contradicts the manual so we can't change things
+like this unless we know more, it'd be too much trial-and-horror.
+
+The manual says:
+
+Video/ISP core
+0xe5, isp_sclk
+0xd3, isp_sresetn
+
+Register-interface bridge
+0xe2, reg_aclk
+0xd2, reg_aresetn
+
+Yours,
+Linus Walleij
