@@ -1,172 +1,108 @@
-Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60BDA385D9D
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 18:23:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.61.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BCDD37F30C;
+	Thu, 15 Oct 2026 18:24:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792088637; cv=none; b=uj5P1YQhQtGph2IWJIXWgb8rb5bPSxElN5KPHonkEjBW7dwM8M8GI6fuIv8pBJMzSAH4eoVOPxJLkKIlFsUx0De/Q9MDRWXbgGM3quKMsD6VJBn3BiZZbBDGiWdiNCvMD1IMZHCW2qeTOj/Q63KwmCtFvEnVk9zJO4jX/XnZCyc=
+	t=1792088652; cv=none; b=f4WIB0wxuvGqspn5zdG4l3KZfpQgfINw583/Ulos1zFS+XvJXtGeWc9Lq+kT6sBMK/myO0Q0urno94cGO1a+FSiSMf3yoCoQA8N//Mn70Ea6tnOxKpoknc0MZfv3TkAViAUqvl9NUWeCR1e+PEmtg3wu+uuWKd7t/c0UqR2UEkY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792088637; c=relaxed/simple;
-	bh=B3xf2pbuUdxK9OYP4Fw1N/bpiOzq0M4mNmoXGKy7lZI=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=QAtTWWV94sAO8D2j1+Dj4aIK+BTW5bTUu1NMoruHKWEg72QQbjqD3TdJ8hkEg+MEg9JPa4KKtulN6ofJAYVsKlHDpZSYSi/Rz/xxIMSPp983NJzhPZSJMM2a/nqcRP+RiWJgbPiqy+xxkBZQKSNNM1RTuGzZN+60eN3pABJ3giE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr; spf=pass smtp.mailfrom=aliel.fr; dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b=HC+TrUo7; arc=none smtp.client-ip=65.21.61.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
+	s=arc-20240116; t=1792088652; c=relaxed/simple;
+	bh=+dSo6jOK+EVtMlh8EnYN97wOjoN/ktEPgeiVNsuVkD4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BW/AptTAMcPyIWob/ZdJxkNPQD1Yd1ONtU403LiAacrX3hPofIj9+LKNFiBf9Ro5fMfF2rHwY/7xS5VOeOh4vF989Sd6r/K/P3PNRrel879xDZ0/C3o+wc4/PYqGTdupo2TyEWaHtDiP9uw87sI/p7Qti5oB5s6ABJeve6+skYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YI6LO+2E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b="HC+TrUo7"
-Message-ID: <3fe84e1c-8670-4d1b-88ac-37574af4f4f6@aliel.fr>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
-	s=courrier-s1; t=1792088104;
-	bh=B3xf2pbuUdxK9OYP4Fw1N/bpiOzq0M4mNmoXGKy7lZI=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=HC+TrUo7l9D0xogwvPslevQxUhA/R02+d5U9GBkjFjoBxoYcrGgZ+BApnRwBNxUtp
-	 BDSYtZJ+r2nw4khkwz39hWVkmO+6r2ztA3T1C1HLZ8fudqfiwdDEOgW0KG/AcHG1f9
-	 MxIaYUDxvjeT2qsIJTjzUFwL0lzNJkebVOJ1jo+0=
-Date: Thu, 15 Oct 2026 20:12:28 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YI6LO+2E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A68B1F000C4;
+	Thu, 15 Oct 2026 18:24:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792088648;
+	bh=uA57A2DWEvF/qcxiPG3vFpzt2rPKzW0R+wSjr1T3+xk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YI6LO+2Ez6GeyOjH80TxYg6+SlCszBAeDhXDr6EW4UW4d940nyW/89Kk6N/ASctEh
+	 H1YUobP5V8tpKrNLlu99o7KCbWXAE45BHRBixSsWwE8ptHPeGzmH97JVc0x2cyYXQi
+	 t/KHa6MeND9tUcZkxhuYA3OCYRSdr36nvqjX+safhonE6GfjjGg2QkCqYivJEqQrXq
+	 uglJB9sch1HJuMbIuLAyIa1OK2TcfqrgbQWeJUm8V0oxnG33WOgAcVV2rpt6iJsixD
+	 bv7uvYxO9fzxtVme0/D6ZHyH8qlk2LuJnYaJyaCKQ4VVb0eV2YASDA5XpZZAFPeu5O
+	 l0Nf0B6a6lr/Q==
+Date: Thu, 15 Oct 2026 13:24:06 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Cc: Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Sashiko AI <sashiko-bot@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>, Yanteng Si <si.yanteng@linux.dev>,
+	Frank Rowand <frowand.list@gmail.com>, devicetree@vger.kernel.org,
+	Alex Shi <alexs@kernel.org>, Dongliang Mu <dzm91@hust.edu.cn>,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v2] of: overlay: remove unused of_overlay_remove_all()
+Message-ID: <179208864454.2159760.12479056769082812070.robh@kernel.org>
+References: <20261014-b4-of-overlay-remove-all-fix-v2-1-cf5ea2cc9dc3@nexthop.ai>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Subject: Re: [PATCH v6 3/4] arm64: dts: amlogic: t7: Add thermal zones
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
-References: <20261015-add-thermal-t7-vim4-v6-0-37d1c954390c@aliel.fr>
- <20261015-add-thermal-t7-vim4-v6-3-37d1c954390c@aliel.fr>
- <sashiko-outbox-173272@kernel.org>
-Content-Language: en-US
-In-Reply-To: <sashiko-outbox-173272@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014-b4-of-overlay-remove-all-fix-v2-1-cf5ea2cc9dc3@nexthop.ai>
 
-On 10/15/26 8:00 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] dts: thermal trip points labeled as 'hot' are incorrectly typed as 'passive'
-> --
+
+On Wed, 14 Oct 2026 15:59:36 -0700, Abdurrahman Hussain wrote:
+> of_overlay_remove_all() has no in-tree callers.
 > 
-> commit f22129efed7c6439714c1c2501834a6c01be9e9e
-> Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
+> It is also subtly broken. It passes &ovcs->id to of_overlay_remove(),
+> which zeroes *ovcs_id once the changeset is reverted, before calling
+> free_overlay_changeset(). Through the aliased pointer that zeroes
+> ovcs->id itself, so free_overlay_changeset()'s "ovcs->id > 0" guard is
+> false and both idr_remove() and list_del() are skipped: the
+> overlay_changeset is kfree()d while still linked in ovcs_list and
+> registered in ovcs_idr.
 > 
-> arm64: dts: amlogic: t7: Add thermal zones
+> Rather than fix a helper nobody calls, remove it, along with its
+> !CONFIG_OF_OVERLAY stub and the paragraph documenting it in
+> overlay-notes.rst and in the zh_CN translation.
 > 
-> This commit adds thermal zones for all six sensors (a53, a73, gpu, nna,
-> vpu, and hevc) to the amlogic t7 device tree configuration.
+> ovcs_list itself stays: overlay_removal_is_ok() still walks it to check
+> that a changeset is topmost.
 > 
->> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
->> index c81632d3984e8..454a042865a5a 100644
->> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
->> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+> Reported-by: Sashiko AI <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/20260901014554.83A8D1F000E9@smtp.kernel.org
+> Suggested-by: Rob Herring <robh@kernel.org>
+> Link: https://lore.kernel.org/all/20260928182658.GA185307-robh@kernel.org/
+> Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+> ---
+> Changes in v2:
+> - Drop the one-liner fix and just remove of_overlay_remove_all(), as
+>   Rob suggested: it has no in-tree callers, so there is nothing to fix.
+> - Also drop the !CONFIG_OF_OVERLAY stub and the paragraph documenting
+>   the function in overlay-notes.rst and in the zh_CN translation.
+> - No longer tagged for stable: a removal is not a backport candidate.
+> - Link to v1: https://patch.msgid.link/20260917-b4-of-overlay-remove-all-fix-v1-1-920441cecae2@nexthop.ai
 > 
-> [ ... ]
-> 
->> +		gpu_thermal: gpu-thermal {
->> +			polling-delay = <1000>;
->> +			polling-delay-passive = <100>;
->> +			thermal-sensors = <&gpu_tsensor>;
->> +
->> +			trips {
->> +				gpu_passive: gpu-passive {
->> +					temperature = <95000>;
->> +					hysteresis = <5000>;
->> +					type = "passive";
->> +				};
->> +
->> +				gpu_hot: gpu-hot {
->> +					temperature = <105000>;
->> +					hysteresis = <5000>;
->> +					type = "passive";
-> 
-> [Severity: Medium]
-> Does this incorrectly set the trip type for gpu-hot to "passive" instead
-> of "hot"? The thermal subsystem will treat this as a passive trip point,
-> meaning the standard hot thermal events won't trigger at the 105°C
-> threshold.
-> 
->> +				};
-> 
-> [ ... ]
-> 
->> +		hevc_thermal: hevc-thermal {
->> +			polling-delay = <1000>;
->> +			polling-delay-passive = <100>;
->> +			thermal-sensors = <&hevc_tsensor>;
->> +
->> +			trips {
->> +				hevc_passive: hevc-passive {
->> +					temperature = <95000>;
->> +					hysteresis = <5000>;
->> +					type = "passive";
->> +				};
->> +
->> +				hevc_hot: hevc-hot {
->> +					temperature = <105000>;
->> +					hysteresis = <5000>;
->> +					type = "passive";
-> 
-> [Severity: Medium]
-> Similarly, should the type for hevc-hot be "hot" rather than "passive"?
-> 
->> +				};
-> 
-> [ ... ]
-> 
->> +		nna_thermal: nna-thermal {
->> +			polling-delay = <1000>;
->> +			polling-delay-passive = <100>;
->> +			thermal-sensors = <&nna_tsensor>;
->> +
->> +			trips {
->> +				nna_passive: nna-passive {
->> +					temperature = <95000>;
->> +					hysteresis = <5000>;
->> +					type = "passive";
->> +				};
->> +
->> +				nna_hot: nna-hot {
->> +					temperature = <105000>;
->> +					hysteresis = <5000>;
->> +					type = "passive";
-> 
-> [Severity: Medium]
-> Does this nna-hot trip point also need its type updated to "hot" so that
-> it behaves distinctly from the passive trip point?
-> 
->> +				};
-> 
-> [ ... ]
-> 
->> +		vpu_thermal: vpu-thermal {
->> +			polling-delay = <1000>;
->> +			polling-delay-passive = <100>;
->> +			thermal-sensors = <&vpu_tsensor>;
->> +
->> +			trips {
->> +				vpu_passive: vpu-passive {
->> +					temperature = <95000>;
->> +					hysteresis = <5000>;
->> +					type = "passive";
->> +				};
->> +
->> +				vpu_hot: vpu-hot {
->> +					temperature = <105000>;
->> +					hysteresis = <5000>;
->> +					type = "passive";
-> 
-> [Severity: Medium]
-> Is this another instance where the vpu-hot type was intended to be
-> "hot" rather than "passive"?
-> 
->> +				};
+> To: Rob Herring <robh@kernel.org>
+> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> To: Conor Dooley <conor+dt@kernel.org>
+> To: Alex Shi <alexs@kernel.org>
+> To: Yanteng Si <si.yanteng@linux.dev>
+> To: Dongliang Mu <dzm91@hust.edu.cn>
+> To: Jonathan Corbet <corbet@lwn.net>
+> To: Shuah Khan <skhan@linuxfoundation.org>
+> To: Saravana Kannan <saravanak@kernel.org>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-doc@vger.kernel.org
+> ---
+>  Documentation/devicetree/overlay-notes.rst         |  4 ----
+>  .../zh_CN/devicetree/overlay-notes.rst             |  3 ---
+>  drivers/of/overlay.c                               | 23 ----------------------
+>  include/linux/of.h                                 |  6 ------
+>  4 files changed, 36 deletions(-)
 > 
 
-You right, I will change them on next version.
+Applied, thanks!
 
--- 
-Best regards,
-Ronald
