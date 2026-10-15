@@ -1,129 +1,117 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC8DE4AA006
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 08:11:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98CFA4AB3CC
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 08:12:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792051882; cv=none; b=K/c4heclE4oMrijuU3wyyy+lCtGwpMeVZroWj6BqsE3hsHeG5tRTIPy4ICWgcNYrn8Bo5cseMsxfSPYBBz8dFqzcAFKdQzutrP+pNwPXtkGrGE2auoiwjzkIm64XedK2KichCk44Li2czJCKemGuRD78pLKW+U3eZYOCQDAb8XA=
+	t=1792051923; cv=none; b=edTU5iozA9Qfriz7eEXhDDeGA0D6DIFTT2ywPQBPVj97ypkD2BjXeU4iLHKiSEiZcxYchJ6nb6HgC5+heCwwGPnbtu9A+sQhDQMeA7EprQLhjhGXaJgmQlwxmxJA919jCnyxsUF3xaCTzGx7DLX/8+fO+cAFA8S4VMYosasUWDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792051882; c=relaxed/simple;
-	bh=qs5S8QPTPOrh1lF7eV5s6cjsPd+SeVHGUW9kmsUQVWY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SHMcKZghzjKye1WhAe9nnGzjHtb3dtEGVrIvYYpw2173G4Inr3MYYBZPpLj8z2D6QLH9nr6szdsOFT3QNK1E2Um16oOcNwdcwrHu/GUUxEoavInMHOzgFsZ4rQXKtVdTT9It6M0thsPE4g5fJntPV48u0NwfPR2ViiuLi9VnNu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E5kRYIpZ; arc=none smtp.client-ip=209.85.128.54
+	s=arc-20240116; t=1792051923; c=relaxed/simple;
+	bh=HUysfWcwgaCnsXaXq97C5D3DJcHzVD/nOuWhNnFXHNM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BSdx4Z2KDGdE3jtxr8PoYydeD2Mapf7KUfi8NDs2+vyIqn36DIpt/eGU1RqGc/YaHnexLeBW2l/nDbI/ovkFkxEpLoNIuFhmDdIh/k+GwMfs5vzKg8Zrrhfkoeqd9TXNnvyeO4Ae5+BN4hHBDy3UpFjBq9/3gibRkdv6xn5djc0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QIi3eAIQ; arc=none smtp.client-ip=209.85.221.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E5kRYIpZ"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a022fee0caso46737845e9.1
-        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 01:11:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QIi3eAIQ"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48c4649b35bso137935f8f.3
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 01:12:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792051879; x=1792656679; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=P/jkRp80+cF/FczhU2bxYxtjRt93BJyvM0wCmsP66FY=;
-        b=E5kRYIpZhoFW7HyNjFot/gehXvjfaaTLqO7BNSTODqYrE2P7u/asW7Z2l4Ub322RUE
-         M7RNJyXOug9N75xBpFrmn8oGGntTyIQgO+QPBjOzofbJxpL7/LokTMViCMTtd5u3fts7
-         rsrpit+LZiH1qnJ8UtF1il6eOb7X6mJIIdyQx6LhdhAu2J6Ov6rtzu73SUpwLqj7uRYH
-         D3zTAgXMz4RnEGCN/j8UuIebpSG/ai/QGMBS8N5lrZePbAoAk/+9Hc0JrolxuYUZyg4l
-         TooVkLKTP2nhtVPWp/7Q7JBSlHpSdTzEN3QdYC5HWB7w9j9GG1NnhoYCUEAwW860E6LD
-         U53w==
+        d=gmail.com; s=20251104; t=1792051921; x=1792656721; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GHuAmdmkXZvDWTufmXOc4smtM5tKnn8omClhm1kd2uo=;
+        b=QIi3eAIQsTmJiUBBDp7ZKpRl3L/y98j6LExy24z7934D9LKdXUM1B2VRI9PqDrt88w
+         tlPTg5lOVLsxnjvBLAu5a+iIXft7UaI72LELliTmfJjpoOfZ3ICi8M2OzrcdcSjiix0i
+         7lZs6Qy8qx6g0jTIWHV66aXWFQspl4WfXfsrVU6OutWg/gXo55CTWwt2ADGox80qIMy3
+         HKNl4+k8LKt2ATBjW3KHSQdlxB4ggG3fQKf2AxlAWzx+ip4HKgEZqTaR5Urr1TckuDe3
+         ky/NUrBUOI5uuLt1hSJL9cjhSbj1GtgWu8AtrBl+Wm3yCweR2ABMX4/E2LTML9xV+YrT
+         u6DA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792051879; x=1792656679;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=P/jkRp80+cF/FczhU2bxYxtjRt93BJyvM0wCmsP66FY=;
-        b=o4sT0OF23X+28TEodgNL52/VJfPPl0cnuFX9SDiXVv+6uHUBTKJX5KX1d7rV53m7xN
-         xoD7GNweRso8ylG6fhF+3SoJKg8gMDjlUyIDh6UzRA5QZlkwDOQY2jq1ZIVAE8e7+2VD
-         vRUNiI0thgJlVRf49hWsPIWWaAuvkgnu690JWUFSHuYkXxid8gcIfEsHXtnBKVoZ+djY
-         x9UoaOjv9W/WmIEIHBcAvuY8Xxho1cG5OMhJ281NwYyTrxjdlNbRXJF3S6dGRUBPZCvL
-         3D+bM6T+W71Q3NbRiYoJpcPiiVYLtKFJ0arsRdDOxSyARp6v9xDguOT35N1cymIYGBU7
-         jjfg==
-X-Forwarded-Encrypted: i=1; AKwUvBzikXBlTV2apsEVaZo2hFTdFp8YHMID21VwfRi8s86dLFNimM8NdVBziD/cSWQpNe/Kt8BtYS+K299X@vger.kernel.org
-X-Gm-Message-State: AFq9FYIG0X0XurcFc928qQlrPyYUGpD4E/FS5r941w3qX8OtdNmGzWp2
-	ee3d8illD6PyD51qVE6sYF7rB+HmKWWq4w77JpTrD7NDhmC+CMf0JW3R
-X-Gm-Gg: AYBFou0O+d78UvAZ1zTO2ao1qQMYfp50mYaBoxf6v/KdNuKcsajE73AGNU+jSfvJm2c
-	S3dc1RBlrYkNy8+WXHzc675OyLCWWgtf2mcUBCwfhQy+8Oyo+r9gAy5JgLHiBiqvTrxni37ESAV
-	iNN8jdZqX3dNQ6Re3ocsl8ezWnYG2t72/mOpDooIi8gvnbKg/etw0kGw8Zt7hVoPwMoINvelbZ0
-	4yy7EDRUXcB6Dwm64q4nEAW9GqWqlycSOcCTlcVhUoGA0Z1fxHqYw/WCE8ktJpcf+TP8ltC2ShV
-	ltOFR3Md+JLQ9gMRIhr391wUWn3qK6IYaex5bmlOLL9AeYm60EjXMtXYMuB4cOBiAJvPh9gar6Z
-	/hNZs7GB5qEj+8HvZNGRlCEkXn9BYzsBUPF9kx4cwt6guClXVecZ2VqUtbJr4P8MvMX2sBHUqW7
-	oa3XkN/FmtAmBfnwZ/8Y9K2rqtq0LmjBuFw7H/ZjY9X4XpDjjBthRIy293SAYMUchh5vgT4neFH
-	cTrafGzCATqcUCCFZWbP/RddoiIX0ZkEKDNweIVNK/ziIrsC+r0wKfTbxxeHsa+Iez1nHdfjN10
-	soNNlEZSAVSV00vJf13q5qEYFCVsoG5RxDSFN+HQC68Z4ls1H9+YB7wJYjvN7Bkhqi0P/0pDU+7
-	26r/wNVDlOjkrT8J2feIa9WNpmd7spUQsAGa25S35x+Zfwy3wBToZQeTgXV3uYrjw/hPgDng5M4
-	5LXWXLrWRLW3PgRbk=
-X-Received: by 2002:a05:600c:6994:b0:49c:dada:30b7 with SMTP id 5b1f17b1804b1-4a18e446f3bmr362793635e9.2.1792051878885;
-        Thu, 15 Oct 2026 01:11:18 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd69b2a2sm22018415e9.4.2026.10.15.01.11.17
+        d=1e100.net; s=20260707; t=1792051921; x=1792656721;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GHuAmdmkXZvDWTufmXOc4smtM5tKnn8omClhm1kd2uo=;
+        b=0dsGHLeHGRyaYqq+FDtzXktD5yPL0zevWvvElKoJor0q3S8QUoS04RSlZXO51gOpUO
+         kcQqw2oyJtCVScqkqlgYTRIZXD0FupM5ty/zxRjknU39A7Rs7yoXtM/5B5EWhKuWgfM6
+         I02TVHGYvQ0SKL6YfryGMziCysvNLsTi/YVNIRK1q0xpaYBmyYCK/7XjH7j+fGEYCPc8
+         lUIAO0lKNgQvaOO2TxVpVBc/S5J+YFLfLyd/jnYOQaw3bI2xGJN5s1a4vmmBKHd2pjAw
+         ZsW7CAVw0QJ9ZMPiP2aQRtyxIl9lYtawaSQwr8+pGdwM5jzR3FCa5CuynsQRmlaII7Ee
+         QbNg==
+X-Forwarded-Encrypted: i=1; AKwUvBzuXqDqGn7p2ZJBBwSq7rEuH/zAnoyK0DBwkOC+GDXs6uM0VASzw1vb7TOeOfXdqBzFbTdlIg/cni9j@vger.kernel.org
+X-Gm-Message-State: AFq9FYKPRn+/yVVTyIXbsgCs5WGl3R3LrssdfAUkJAjCZwUVRJJbXyok
+	D0lb7Y4IUdQ+3l2JsHvvE+L+BKdk9buJZpauvjIPaqpG36KfoN2iSpBrj7juHA==
+X-Gm-Gg: AYBFou3mpQnPk5l7HMQfH9XFwXgnzXIJzsD1DMIZi/1jA1RdwCqwOg1lkZp/rb7MKxB
+	ot1pal8PPA1qw8CZ4X5iHTM+x7I3DkjywzFZv1QkLBp4fCwChjHp36Rz4Kb0X/qdoSUzafNXuMn
+	jh29GKYkUpq+Clg62rsWXIM0wRiiR6xnRw5O9DENZ6gYpBr5aN1lPjRf/A7qVghOaN3sj3eU+Qq
+	tJ3e9qmds4PudugBezLfOOWEM3Ormvpy07fMITWqcFIlm5pYKxD3l3jMHFOMLBPREZlppaCd/qT
+	Micxdh+9mmt+PfStfu9m/vTJFwinHNTQIIgD1/wCeNcyrQWMx5bGY1DB8xCuzizfrQxL6vviIxG
+	fcAqfiLB0JRPH/Hh/ypEOFRGFJ97g++OORFbDUIjbfUt7OWA82acnZ0L+29B/ayN/Tv4IdG0sNW
+	kV1au7ohAnCI8ohxTlVvi4EJ3ypkLkeVVwZhbPiALLQuPboy2NxconUjQX8jGEDJHSzOqXsDU04
+	GN9jNgReh2Slx5c33GPPonEnECtF4i/tsM1EPOPWljQ8oLs7AxH1uOfOEQ6PsDEaXu43Bj4lTQD
+	E+4FgGnj7DRtLMLDrquQsZUSlK9jHWkP
+X-Received: by 2002:a05:6000:2993:20b0:48c:4442:54e with SMTP id ffacd0b85a97d-48dbaae710dmr26750262f8f.30.1792051920518;
+        Thu, 15 Oct 2026 01:12:00 -0700 (PDT)
+Received: from Lord-Beerus.station ([93.66.71.207])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de3f7f8b8sm16237534f8f.35.2026.10.15.01.11.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 01:11:18 -0700 (PDT)
-Date: Thu, 15 Oct 2026 10:10:12 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
-Cc: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <krzk+dt@kernel.org>, <jic23@kernel.org>, <dlechner@baylibre.com>,
- <nuno.sa@analog.com>, <Michael.Hennerich@analog.com>, <andy@kernel.org>,
- <robh@kernel.org>, <conor+dt@kernel.org>
-Subject: Re: [PATCH v4 0/2] Add support for Analog Devices MAX30210
-Message-ID: <20261015101012.00006cc8@gmail.com>
-In-Reply-To: <20261015012159.44-1-johnerasmusmari.geronimo@analog.com>
-References: <20261015012159.44-1-johnerasmusmari.geronimo@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+        Thu, 15 Oct 2026 01:11:59 -0700 (PDT)
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
+To: Frank Li <Frank.Li@nxp.com>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Subject: [PATCH v1 1/1] arm64: dts: imx8mn-evk: Pass GPIO_OPEN_DRAIN flag on i2c3 GPIOs
+Date: Thu, 15 Oct 2026 10:11:49 +0200
+Message-ID: <20261015081149.5919-1-stefano.r@variscite.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Thu, 15 Oct 2026 09:21:57 +0800
-John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com> wrote:
+From: Stefano Radaelli <stefano.r@variscite.com>
 
-> This series adds support for the Analog Devices MAX30210 I2C
-> temperature sensor.
-> 
-> The device provides a 16-bit temperature output and includes
-> features such as a hardware FIFO, programmable sampling rate,
-> threshold alarms, and interrupt support. These capabilities map
-> naturally to the IIO subsystem, particularly the buffered interface
-> and event framework -- hwmon has no equivalent buffered-capture
-> framework, and its alarm attributes are polled rather than
-> interrupt-driven, so there is no path to supporting the FIFO or the
-> autonomous threshold comparators there.
-> 
-> Although the MAX30210 belongs to the same device family as the
-> MAX30208, it is implemented as a separate driver. The MAX30210 has
-> a significantly different feature set, including a 64-sample hardware
-> FIFO with configurable watermark interrupts, programmable sampling
-> rates, and event support. These features require buffered operation
-> and IRQ-driven data handling which are not present in the MAX30208
-> driver (which talks to the device directly via i2c_smbus_*() calls
-> with no regmap, and has no IIO buffer or event interface at all).
-> 
-> In addition, the MAX30210 uses a different register map and a more
-> flexible I2C address selection scheme. Supporting both devices in a
-> single driver would introduce substantial conditional logic, so a
-> separate driver keeps the implementation simpler and easier to
-> maintain.
-> 
-> Patch 1 adds the devicetree binding.
-> Patch 2 adds the IIO driver implementation.
+scl-gpios and sda-gpios need GPIO_OPEN_DRAIN flag, otherwise the
+following run-time warning is seen:
 
-Please send a link to the datasheet next time, it saves time and at
-least we know which version to base reviews on.
+gpio-146 (scl): enforced open drain please flag it properly in DT/ACPI DSDT/board file
 
-I believe Andy also asked to to add a Datasheet tag to the commits.
+Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
+---
+ arch/arm64/boot/dts/freescale/imx8mn-evk.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Q to others: should we try to make the Datasheet tag official?
-
+diff --git a/arch/arm64/boot/dts/freescale/imx8mn-evk.dtsi b/arch/arm64/boot/dts/freescale/imx8mn-evk.dtsi
+index 3e590afa4fab..036afa0f6990 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mn-evk.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mn-evk.dtsi
+@@ -287,8 +287,8 @@ &i2c3 {
+ 	pinctrl-names = "default", "gpio";
+ 	pinctrl-0 = <&pinctrl_i2c3>;
+ 	pinctrl-1 = <&pinctrl_i2c3_gpio>;
+-	scl-gpios = <&gpio5 18 GPIO_ACTIVE_HIGH>;
+-	sda-gpios = <&gpio5 19 GPIO_ACTIVE_HIGH>;
++	scl-gpios = <&gpio5 18 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
++	sda-gpios = <&gpio5 19 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
+ 	status = "okay";
+ 
+ 	pca6416: gpio@20 {
 -- 
-Kind regards,
-Joshua Crofts
+2.47.3
+
