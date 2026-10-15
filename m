@@ -1,99 +1,89 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B013C39479F;
-	Thu, 15 Oct 2026 16:16:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81FF4429037;
+	Thu, 15 Oct 2026 16:16:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792080977; cv=none; b=bXGSFezthMvqrjIuWADHredAyI9+5YJLZDUY2IVeGhHyckhevO7U3ZgvQ3cYqU0kUBNQi91/1jk/vtujM6FHiwPXSFZn/+jtEwSvyOEzt9ppUic3824IdiXiqpnMHCnMcC8JYEjcsNe3Gaq/1PRXdtKqwdfNo+9EfbqdQJkw6ek=
+	t=1792081007; cv=none; b=EYxG0L50y63iYb4uZdSOSAf7VvPXE2gxmRShQQgzrofTKcozB30lBJ7jTAi1HkiZ2zVN7dGet43RhiFI/RoJS4nNjtPIal5DRbhJHc0S2qcSxcaCZvOWOh0I+/ZA2iiJPjUPJsTW1ZI1uDHCkhf23jJON5fW7BctTAByEeYPoO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792080977; c=relaxed/simple;
-	bh=pV6Xn7MVqlRKP7Lc05vcFUNKU2U+QNevFDpepLb/C6A=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=LY+hEiEdsK0jiE69gp5zbkVAilrt5CwQXiUIU+BvMhZehN3sdZSrNSNCNB6nMQRz7fS/VomKEXux/wLeIW47qRispw7ER+kN4gDNNs1b5UBrlfY9JPd9XnKQHG5WPcnLQZYcylRDJBlFRS5XobwS35bSO6fkQEH2eGjlKGAjE4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KO/vVbP4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792081007; c=relaxed/simple;
+	bh=3PfTaTOR3rxNdX3I14x8pQoP+X5GXQdWvF5tPr3VMUc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=t9JTO+4nQmQmRHBGMshX+RXz7m84MqkJp4fmtGvqcQgYMhSp4ZErcDeuQEYN2rMzYgXxnnj8l0UieR6YWU6lJyemr1oCOo1eRSVuSTJ+j7PWgGbFEtJv6rnrUP0ziywYentmn9xz6y0SXkmZm0wJ50N397MEQDt8uUncBEwFMh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=da7CctH7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KO/vVbP4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AAA31F000C4;
-	Thu, 15 Oct 2026 16:16:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="da7CctH7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EFFB1F000C4;
+	Thu, 15 Oct 2026 16:16:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792080966;
-	bh=psWLH+JhfLT73MQq5QUq3jITkhYrKx4ZQAFg11ZHijQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KO/vVbP4fKN5ljLt5JHQX0B41tvRN74bfDPyeFXO1ElYlytX6zifa/DrtvEPQr5SW
-	 BDHVCQh+U0QGQckZofuKFvYuzQFOGiZmKspsRbamFYUtOHMxlW5zoOb0UH9tpWS6HL
-	 dYr3FkOSNiEWNydGYBS6cfcBO3OWZdu/0PVgdZp/+iZg1Li5NcHLDQKdA5qHKN1z53
-	 n2BMa2ENy30nRVyENqhxM+6WG8Sa4GWtugx6Cf+yVNIC2C2QhMiuQDetdfS/mVd89j
-	 Ggv+1i0F+ESo0yInlunNQ7m0y5DTYgivpuYNNaVagAPB+3ABN/EH0YguGUt4zRMycQ
-	 m1woSFRheu5zw==
-Message-ID: <sashiko-outbox-173157@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 04/10] clk: nuvoton: ma35d1: Reparent the gates
- correctly
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Miquel Raynal" <miquel.raynal@bootlin.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261015-perso-ma35d1-upstream-clk-v10-4-47c97b54a809@bootlin.com>
-References: <20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com>
- <20261015-perso-ma35d1-upstream-clk-v10-4-47c97b54a809@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 16:16:05 +0000
+	s=k20260515; t=1792080995;
+	bh=aj8Xtl9TJfYx3DrAE8szSE/KyGLDU9N/N3sxCdMiZl0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=da7CctH7r/a3+qSxexv9g22cRy5tzyW3xFigxnkubucVb5sELoGYnu12ZO0Fv7UAy
+	 Fm3aiPVBzWYcE3OBweWOIWPLJKX5/D5SGiHDExci+JAXoaWFjP8ps7sLv7l0slTyPK
+	 fZoSve8kxn9hZ44PV1uvFTvDdXXjKmeMkv+NOcQpEsBNZqukPdar7n9CCucESqYxVx
+	 Qks06aAiHJrm/++85tjHap6RfVJz4PpewiKidx7TAKvVXxnuVmQXtgOwuyYjJ56wrb
+	 wQwHRhqg4asnbPPJxvyWSBp0LMdzUAehp5G02lS53k1BgYg3XcFnvUBY/xR2+HzAMj
+	 YIMWcUHUQciDg==
+Date: Thu, 15 Oct 2026 17:16:30 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Hyunuk Son <hyunuk.son@irondevice.com>, lgirdwood@gmail.com,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	perex@perex.cz, tiwai@suse.com, kiseok.jo@irondevice.com,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] ASoC: codecs: Add driver for Iron Device MA5311
+Message-ID: <5fac314e-637b-4c69-8f17-f69db5703c88@sirena.org.uk>
+References: <20261015060408.128711-1-hyunuk.son@irondevice.com>
+ <20261015060408.128711-3-hyunuk.son@irondevice.com>
+ <20261015-brainy-thick-toad-db0389@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="bQQvLXIMg8npceXQ"
+Content-Disposition: inline
+In-Reply-To: <20261015-brainy-thick-toad-db0389@quoll>
+X-Cookie: Tax and title extra.
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] clk: nuvoton: CCAP muxes registered with 1-bit width but 4 paren=
-ts
---
 
-commit eafc7cdaf7d2454016081e967de0730635be9342
-Author: Miquel Raynal <miquel.raynal@bootlin.com>
+--bQQvLXIMg8npceXQ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-clk: nuvoton: ma35d1: Reparent the gates correctly
+On Thu, Oct 15, 2026 at 12:41:46PM +0200, Krzysztof Kozlowski wrote:
+> On Thu, Oct 15, 2026 at 03:04:07PM +0900, Hyunuk Son wrote:
 
-The clock tree is still incorrect. There are four main clocks in this
-system: HXT, LXT, HIRC, LIRC. Each clock has a gate control to disable
-it, and in the CCF topology, the gates should be below the clocks so
-children stop ticking when gated. This commit reparents the gates under
-their respective sources and all children under the gates.
+> > Add an ASoC codec driver for the Iron Device MA5311.
 
-> diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-m=
-a35d1.c
-> index 33b397d7b7c52..65a2691002a73 100644
-> --- a/drivers/clk/nuvoton/clk-ma35d1.c
-> +++ b/drivers/clk/nuvoton/clk-ma35d1.c
-> @@ -74,34 +74,46 @@ static const struct clk_parent_data lxtg_parent_data[=
-] =3D {
-[ ... ]
->  static const int axiclk_parent_idx[] =3D { AXICLK_DIV2, AXICLK_DIV4 };
-> -static const int ccap_parent_idx[] =3D { HXT, VPLL, APLL, SYSPLL };
-> +static const int ccap_parent_idx[] =3D { HXT_GATE, VPLL, APLL, SYSPLL };
+> > +	dev_crit(ma5311->dev, "MA5311 INTN fault detected: irq=%d\n", irq);
 
-[Severity: Medium]
-The ccap_parent_idx array defines 4 parent clocks (HXT_GATE, VPLL, APLL, SY=
-SPLL).
-However, CCAP0_MUX and CCAP1_MUX are registered with ma35d1_clk_mux()
-using a 1-bit width:
+> Not really critical. That's just a codec.
 
-drivers/clk/nuvoton/clk-ma35d1.c:ma35d1_clocks_probe() {
-    ...
-    hws[CCAP0_MUX] =3D ma35d1_clk_mux(dev, "ccap0_mux", clk_base + REG_CLK_=
-CLKSEL0, 12, 1, hws,
-                                    ccap_parent_idx, ARRAY_SIZE(ccap_parent=
-_idx));
-    ...
-}
+It's a speaker amplifier so if the hardware started to go wrong it can
+potentially cause substantial physical damage to the system, possibly
+generating a lot of heat which can go very badly.  Any error here should
+be a "this should never happen" kind of thing, if there's doubt it's
+probably as well to err on the side of being loud.
 
-Since a 1-bit hardware mux field can only address 2 parents (indices 0 and =
-1),
-will attempting to select APLL or SYSPLL result in truncation of the parent
-index or a framework error, rendering those parents unusable?
+--bQQvLXIMg8npceXQ
+Content-Type: application/pgp-signature; name="signature.asc"
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-perso-ma35=
-d1-upstream-clk-v10-0-47c97b54a809@bootlin.com?part=3D4
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrQ/F0ACgkQJNaLcl1U
+h9A6kgf+IMdmKF0KbaYf0XsLB5ivBj4EMKow8ByqpE8Bz5QJxO6XZ2FH5gyVO4v6
+5JTFBjWP9l11LI7/k3pkq551OHegshjfd+s+ZAzMoHXzv5hSGadtHFKuXZCJ+6do
+pmZmFSB/kgUGdmSB/3t4nrS9x0LB9W0Mk4ch4e87ZTfvDJFwtnidw0ZQ18hIatHx
+TweBbPO5AeGeubynYuj/1Bp2S1R+o3A02hLLFsttjsWrrJRjIxkMiw8A8qUHOzQP
+kNFJIfxQ5rgC3cY2PKAX9bqNJSKABo5ymVKf+cL1Tp29lcRB6aUiBQ9tzjknk3bC
+eCkF1jyyzljJmFWSL1d7a78sAl2CqQ==
+=OGws
+-----END PGP SIGNATURE-----
+
+--bQQvLXIMg8npceXQ--
