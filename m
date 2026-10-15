@@ -1,121 +1,115 @@
-Received: from mta1.migadu.com (out-239.mta1.migadu.com [95.215.58.239])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE40B183CC3
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 06:47:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0894349C4BE;
+	Thu, 15 Oct 2026 06:47:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792046832; cv=none; b=Wk8udN4nx6AJJnU5ifQtSkexMis+94QEIkTVnKT0SKgb0hrz7yJX1QKpAfxTGhJYozhaHHFXWKwZAXv9ZqH5rtYQTvYR5rtKs8ITg+YBPUlQh8zA6MFJB1Rp1kKEARuuVHvSUxg0S4S9fWSzAlRR8RsaSzsyS83asDpFD+Vzk0E=
+	t=1792046833; cv=none; b=qzkXA/fYehsrw1qkhAqp6FhTI/+gPlILJ3ajUzm9LFJLx7p3iJhrURRIU27qk69gpFXDdMmP+xC/bV4lbW41vyy9oqQM2hVwMQ8C8cskI/zsMl0BOkIxr3llVuc7FQl2FCfLHJgUpucNVCSZJvf5ZX41adyBwpr3hdl+UwhqYRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792046832; c=relaxed/simple;
-	bh=t0IiZB/Ux47ttYhnh6RR0lffF1iWD71iJlXsK4k5DOc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NVBuOct9nJGcfky51kvSJJR3KK403toe85mfVkERb8PzYbxD6zohySG7MOaFJCyG6OIhygH6R4TYlXOVFMyitHkVLbkJasSM4sWHCKOgcMbqLuYtMH5ABRnndAf7FvB14jyeE1077w7TTPoypbZF2MeKkM7uNL28fIFycvvgs9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=TTx/nC1Q; arc=none smtp.client-ip=95.215.58.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="TTx/nC1Q"
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=t0IiZB/Ux47ttYhnh6RR0lffF1iWD71iJlXsK4k5DOc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792046827; v=1; x=1792651627;
- b=TTx/nC1QABBM3wNaW3dAXJYGE9k2GVpX8LG4qwqz576pl6UxY05/5R3tjISDNuvgKROx8XPi
- sAakGSpaeqPnSIARr7zN+QHUC6z1toBfReID365lkmYR4eeOysEATXa2LK2GnkNxGhjeKl+VHKl
- 5HaYOBTp6FkWYkEksBpcwqH4=
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c8ba14fd1bd62bdb;
-	Thu, 15 Oct 2026 06:47:05 +0000
-X-Mizu-Trace-ID: c8ba14fd1bd62bdb
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <861d25f6-7bcb-4b04-841e-89ed4cf55843@linux.dev>
-Date: Thu, 15 Oct 2026 14:46:58 +0800
+	s=arc-20240116; t=1792046833; c=relaxed/simple;
+	bh=Fhi2QQE0gYXCC0ZbXJOZaqvp8cju90o459tkZDIGBG4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=BJlRNtec9UjSZbzZ8nGqHJMN7YuOEUoDSsAeK/sg4vUUrzBRo/tcvx+t9CNDqXGdiC9Zi73BW5WVRr4TPvpVGa1PLJ5BH1CYM1w+/4UPsaLB9aDMame5FPmXHjJ69iqDQ9HIFHIP4VaDpWmrFYuAB/z30fsjjpIfNcc5DiEnpSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Thu, 15 Oct
+ 2026 14:46:59 +0800
+Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Thu, 15 Oct 2026 14:46:59 +0800
+From: Jacky Chou <jacky_chou@aspeedtech.com>
+Date: Thu, 15 Oct 2026 14:46:54 +0800
+Subject: [PATCH net-next v3 2/6] net: ftgmac100: Add AST2700 compatible
+ support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] riscv: dts: sophgo: sg2044: Add eFUSE device
-To: Inochi Amaoto <inochiama@gmail.com>,
- Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>
-Cc: devicetree@vger.kernel.org, sophgo@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
-References: <20261014074516.240247-1-inochiama@gmail.com>
- <20261014074516.240247-4-inochiama@gmail.com>
-From: Chen Wang <chen.wang@linux.dev>
-In-Reply-To: <20261014074516.240247-4-inochiama@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-ID: <20261015-support_ast2700-v3-2-8d7999171ac4@aspeedtech.com>
+References: <20261015-support_ast2700-v3-0-8d7999171ac4@aspeedtech.com>
+In-Reply-To: <20261015-support_ast2700-v3-0-8d7999171ac4@aspeedtech.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Po-Yu Chuang
+	<ratbert@faraday-tech.com>, Eric Dumazet <edumazet@kernel.org>, "Heiner
+ Kallweit" <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, "Eric
+ Dumazet" <edumazet@kernel.org>
+CC: <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Jacky Chou <jacky_chou@aspeedtech.com>,
+	Andrew Lunn <andrew@lunn.ch>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792046819; l=2037;
+ i=jacky_chou@aspeedtech.com; s=20251031; h=from:subject:message-id;
+ bh=Fhi2QQE0gYXCC0ZbXJOZaqvp8cju90o459tkZDIGBG4=;
+ b=dasE0q/o2zU1asKr1LkswAg7RIWWi7K1CPI17Bwy24mF1ko+vjReq0aAa8dPAED0gK7QSZ/tS
+ Go1LkSkapUvDhdX7XXRpyLunL6HNkp2AFcQRUxwcBL4PPrN1H/2vqRk
+X-Developer-Key: i=jacky_chou@aspeedtech.com; a=ed25519;
+ pk=8XBx7KFM1drEsfCXTH9QC2lbMlGU4XwJTA6Jt9Mabdo=
 
+Add match data for the Aspeed AST2700 FTGMAC100 controller and wire
+its compatible string into the OF match table. This lets AST2700 device
+tree nodes bind to the ftgmac100 driver.
 
-On 10/14/2026 3:45 PM, Inochi Amaoto wrote:
-> Add eFUSE controller node for SG2044.
->
-> Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
-> ---
->   arch/riscv/boot/dts/sophgo/sg2044-sophgo-srd3-10.dts |  4 ++++
->   arch/riscv/boot/dts/sophgo/sg2044.dtsi               | 12 ++++++++++++
->   drivers/nvmem/sophgo-efuse.c                         |  1 +
->   3 files changed, 17 insertions(+)
->
-> diff --git a/arch/riscv/boot/dts/sophgo/sg2044-sophgo-srd3-10.dts b/arch/riscv/boot/dts/sophgo/sg2044-sophgo-srd3-10.dts
-> index fed3d9a384a0..1b506972d465 100644
-> --- a/arch/riscv/boot/dts/sophgo/sg2044-sophgo-srd3-10.dts
-> +++ b/arch/riscv/boot/dts/sophgo/sg2044-sophgo-srd3-10.dts
-> @@ -36,6 +36,10 @@ &emmc {
->   	status = "okay";
->   };
->   
-> +&efuse0 {
-> +	status = "okay";
-> +};
-> +
->   &gmac0 {
->   	phy-handle = <&phy0>;
->   	phy-mode = "rgmii-id";
-> diff --git a/arch/riscv/boot/dts/sophgo/sg2044.dtsi b/arch/riscv/boot/dts/sophgo/sg2044.dtsi
-> index 320c4d1d08e6..9577aae08f7f 100644
-> --- a/arch/riscv/boot/dts/sophgo/sg2044.dtsi
-> +++ b/arch/riscv/boot/dts/sophgo/sg2044.dtsi
-> @@ -408,6 +408,18 @@ sd: mmc@703000b000 {
->   			status = "disabled";
->   		};
->   
-> +		efuse0: efuse@7040000000 {
-> +			compatible = "sophgo,sg2044-efuse";
-> +			reg = <0x70 0x40000000 0x0 0x1000>;
-> +			#address-cells = <1>;
-> +			#size-cells = <1>;
-> +			clocks = <&clk CLK_GATE_EFUSE>,
-> +				 <&clk CLK_GATE_APB_EFUSE>;
-> +			clock-names = "core", "apb";
-> +			resets = <&rst RST_EFUSE0>;
-> +			status = "disabled";
-> +		};
-> +
->   		i2c0: i2c@7040005000 {
->   			compatible = "sophgo,sg2044-i2c", "snps,designware-i2c";
->   			reg = <0x70 0x40005000 0x0 0x1000>;
-> diff --git a/drivers/nvmem/sophgo-efuse.c b/drivers/nvmem/sophgo-efuse.c
-> index 5f90adaf8e4f..568d17b88ff6 100644
-> --- a/drivers/nvmem/sophgo-efuse.c
-> +++ b/drivers/nvmem/sophgo-efuse.c
-> @@ -14,6 +14,7 @@
->   #include <linux/mutex.h>
->   #include <linux/nvmem-provider.h>
->   #include <linux/platform_device.h>
-> +#include <linux/slab.h>
->   
->   #define SG2044_EFUSE_CONTENT_SIZE		0x400
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
+---
+ drivers/net/ethernet/faraday/ftgmac100.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-This change is not related to DTS, should it be in patch [2/3]?
+diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
+index 6d2fe5c2f390..67b1fa464a42 100644
+--- a/drivers/net/ethernet/faraday/ftgmac100.c
++++ b/drivers/net/ethernet/faraday/ftgmac100.c
+@@ -37,7 +37,8 @@ enum ftgmac100_mac_id {
+ 	FTGMAC100_FARADAY = 1,
+ 	FTGMAC100_AST2400,
+ 	FTGMAC100_AST2500,
+-	FTGMAC100_AST2600
++	FTGMAC100_AST2600,
++	FTGMAC100_AST2700
+ };
+ 
+ struct ftgmac100_match_data {
+@@ -2017,7 +2018,8 @@ static int ftgmac100_probe(struct platform_device *pdev)
+ 
+ 	if (priv->mac_id == FTGMAC100_AST2400 ||
+ 	    priv->mac_id == FTGMAC100_AST2500 ||
+-	    priv->mac_id == FTGMAC100_AST2600) {
++	    priv->mac_id == FTGMAC100_AST2600 ||
++	    priv->mac_id == FTGMAC100_AST2700) {
+ 		priv->rxdes0_edorr_mask = BIT(30);
+ 		priv->txdes0_edotr_mask = BIT(30);
+ 		priv->is_aspeed = true;
+@@ -2131,6 +2133,10 @@ static const struct ftgmac100_match_data ftgmac100_match_data_ast2600 = {
+ 	.mac_id = FTGMAC100_AST2600
+ };
+ 
++static const struct ftgmac100_match_data ftgmac100_match_data_ast2700 = {
++	.mac_id = FTGMAC100_AST2700
++};
++
+ static const struct ftgmac100_match_data ftgmac100_match_data_faraday = {
+ 	.mac_id = FTGMAC100_FARADAY
+ };
+@@ -2142,6 +2148,8 @@ static const struct of_device_id ftgmac100_of_match[] = {
+ 	  .data = &ftgmac100_match_data_ast2500 },
+ 	{ .compatible = "aspeed,ast2600-mac",
+ 	  .data = &ftgmac100_match_data_ast2600 },
++	{ .compatible = "aspeed,ast2700-mac",
++	  .data = &ftgmac100_match_data_ast2700 },
+ 	{ .compatible = "faraday,ftgmac100",
+ 	  .data = &ftgmac100_match_data_faraday },
+ 	{ }
 
+-- 
+2.34.1
 
