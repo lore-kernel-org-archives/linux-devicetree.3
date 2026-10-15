@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDEB7231836;
-	Thu, 15 Oct 2026 03:43:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA0D819BC8;
+	Thu, 15 Oct 2026 03:44:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792035817; cv=none; b=dRtLNGq+7+7LY6FY6Bojt2otbi6GlwKy7R6a+Cg2Pqd1tyOYf/bKpEqiD46iGqRXW/piTt4cIEjCEqPkHnXtLGHsbxFg0dZ5aXSTPOTibhkLcYIXCPauXkvJ+qdSnh/dOI/nc7A8WySS+UR0rKcR89NwQCMBBqoSwTl6QgFn1+E=
+	t=1792035855; cv=none; b=EG+Yq2v1KmC1K4ogmGGrRY3fZjFxI70DufiOOrC2vOnyDVD8jPd277/OLgvnA9vBlf/McSkhEkGSNkwhm927qgwAALf9Tz6ANatI5GI+l2/AtyuSnQ1l6lj+/V1O43rC8kUdFTggj3KNDxyPqrsSjSD+/0PqiOBgvQjCPArFGz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792035817; c=relaxed/simple;
-	bh=BWoHp+YAPgfcTVyY8kJKFbo0JeglMhtAdyvVyJ/IEtU=;
+	s=arc-20240116; t=1792035855; c=relaxed/simple;
+	bh=Tt1tcquwM54PxWYG/uqLlVVbozwAXfG8t7IMFmDpV3k=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=UtrwXSNwh/H30li1qbgkcag71NqZQFjVrKfRZDwpT3v6enfE85LUj+P+bZwDOcVisihcjftNt4uhcq4YWTTM0BN3gTNNn0f9SCC9BCXRnZfVupZpFL4IiIuHe6cUnlEQEuDCAdbu1QzE3FHbSLAHO/mVpSfVHozi8wrBbqrszP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mGQVH+2C; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=gONF6eok1qiGZx/D+dErzMNokESezAjcl1F0CxSo7b9oj7egG2BxJsKFI5zQetiSFG4agD7HNOHupckRIKb7EIsLxA2z+RyZhCo/W9ZUAklBGKGzs/Z0uqWI8Y8HmudjMuMduX6lGkMerfb8bh2k9s8ldTISSIZ5LTS52GI5mSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T1paJUPv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mGQVH+2C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2675C1F000C4;
-	Thu, 15 Oct 2026 03:43:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T1paJUPv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 773DE1F000C4;
+	Thu, 15 Oct 2026 03:44:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792035816;
-	bh=qZ7SciTPz8zC3htd8nsl6KRpQ8rzqkGuuSlF+m9DnF4=;
+	s=k20260515; t=1792035854;
+	bh=k/EMLrvZUUvBEWkdJbaEVlQz8PTI+nCBNvhe6s/yivw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mGQVH+2CZtWStPpeinxH+SlnRzzr/XzqBtS4vq/FRIl+j7Eh9vD+tiYIQHEF9iw7p
-	 LP9KocmS6+7ylE6PBsgveE0sCUCSkke9VTBTrVm1xPhb6LOwX7+VaWxx/6QH7/ItSx
-	 lWd0fI5aSIYDyASUblwsG3Gwbmhf7+z+WXkdq45aY38cJzFZ7WDdsGws3CdotTLnhf
-	 YDIP/OMYgSGgjfeO+jGaP8Rn40Jfv2KBh9GVJy+CZ6F0HaLj4+SzjcJsc9pFewJZC+
-	 0ZSYeWL3qAAW1Mh6Et/WrP5KdBk5OUMGcI6pJQUkMXS999ogj//LLb8BPAWm5DMW5m
-	 H4/5JYtLH0ySg==
-Message-ID: <sashiko-outbox-172218@kernel.org>
+	b=T1paJUPve5OgVgVEjjJDpoZstmmJqsyFOIQnb29piqWddMJQOnHyfVF2zIwT63cNw
+	 ZAm6DyyKPbFh/gH5B9XhwoaUqtYwHMRqIhV3wTWcDJvjCZPmArKCrTc2zx2NdQT8kO
+	 Q7x5hctxiw5etZhgwVx9WV4OEetUiyWoOs+NXBFYnD2+jTZDdxeN5Be6eGC9SdBNvx
+	 Pk+SOrkKMHxz9/14WfEoWqbolK3g6M69Z2dVdbSNXMFqLwKNixY+KuqGswvL4ZbAwO
+	 30Ge8s/Pj2d3/XmTvXFbEX2wOxdvYeRydM8ncXDhTRi97prC2k2V1SJAi3koZF+JMd
+	 N7ZU47Xr+SW7A==
+Message-ID: <sashiko-outbox-172221@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 11/18] PCI: rcar-gen4: Take over the iMSI-RX
- interrupt
+Subject: Re: [PATCH v4 10/18] PCI: dwc: Free the MSI domain after the host
+ .deinit() callback
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Koichiro Den" <den@valinux.co.jp>
 Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20261015033103.3076869-12-den@valinux.co.jp>
+In-Reply-To: <20261015033103.3076869-11-den@valinux.co.jp>
 References: <20261015033103.3076869-1-den@valinux.co.jp>
- <20261015033103.3076869-12-den@valinux.co.jp>
+ <20261015033103.3076869-11-den@valinux.co.jp>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 03:43:35 +0000
+Date: Thu, 15 Oct 2026 03:44:13 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,80 +47,70 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] pci: dwc: infinite interrupt loop on unmapped MSI
+- [High] pci: dwc: missing synchronize_irq() after removing chained MSI han=
+dlers
 --
 
-commit d7610b61a0b56b2000f9c7946a3b5317c331ed06
+commit 5f29144f527d9dfd0c8c7686f0d2791d38c14098
 Author: Koichiro Den <den@valinux.co.jp>
 
-PCI: rcar-gen4: Take over the iMSI-RX interrupt
+PCI: dwc: Free the MSI domain after the host .deinit() callback
 
-On R-Car Gen4 SoCs, intreq_pcim_sub ("msi") carries more than the
-integrated MSI receiver. This commit requests the interrupt in the driver
-in all configurations and demultiplexes the MSIs through
-dw_handle_msi_irq() in a dedicated handler.
+dw_pcie_host_deinit() frees the iMSI-RX domain before calling the host
+.deinit() callback. For a core-owned parent interrupt,
+dw_pcie_free_msi() removes the chained handler right before the domain.
 
-> diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/co=
-ntroller/dwc/pcie-rcar-gen4.c
-> index 54260e62293b1..d51c0fc5ff363 100644
-> --- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-
-[ ... ]
-
-> @@ -613,6 +616,54 @@ static int rcar_gen4_pcie_host_msi_init(struct dw_pc=
-ie_rp *pp)
->  	return ret;
+> diff --git a/drivers/pci/controller/dwc/pcie-designware-host.c b/drivers/=
+pci/controller/dwc/pcie-designware-host.c
+> index 63b38532d069a..774e1936d9991 100644
+> --- a/drivers/pci/controller/dwc/pcie-designware-host.c
+> +++ b/drivers/pci/controller/dwc/pcie-designware-host.c
+> @@ -228,7 +228,7 @@ int dw_pcie_allocate_domains(struct dw_pcie_rp *pp)
 >  }
+>  EXPORT_SYMBOL_GPL(dw_pcie_allocate_domains);
 > =20
-> +/*
-> + * intreq_pcim_sub carries the iMSI-RX interrupt along with other contro=
-ller
-> + * notifications, so the driver owns it instead of the DesignWare core (=
-see
-> + * pp->msi_irq[0]) and demultiplexes the MSIs itself.
-> + */
-> +static irqreturn_t rcar_gen4_pcie_msi_irq_handler(int irq, void *data)
-> +{
-> +	struct rcar_gen4_pcie *rcar =3D data;
-> +	u32 status;
-> +
-> +	status =3D readl(rcar->base + PCIEINTSTS0) &
-> +		 readl(rcar->base + PCIEINTSTS0EN);
-> +	if (!(status & MSI_CTRL_INT))
-> +		return IRQ_NONE;
-> +
-> +	dw_handle_msi_irq(&rcar->dw.pp);
-> +
-> +	return IRQ_HANDLED;
+> -void dw_pcie_free_msi(struct dw_pcie_rp *pp)
+> +static void dw_pcie_remove_msi_handlers(struct dw_pcie_rp *pp)
+>  {
+>  	u32 ctrl;
+> =20
+> @@ -236,8 +236,18 @@ void dw_pcie_free_msi(struct dw_pcie_rp *pp)
+>  		if (pp->msi_irq[ctrl] > 0)
+>  			irq_set_chained_handler_and_data(pp->msi_irq[ctrl], NULL, NULL);
+>  	}
 > +}
 
 [Severity: High]
-Can this cause an infinite interrupt loop if an unmapped MSI is received?
+Does this code need a call to synchronize_irq() here?
 
-If a PCIe endpoint sends an unmapped MSI, generic_handle_demux_domain_irq()
-returns false.
+irq_set_chained_handler_and_data() uninstalls the handler but does not wait
+for concurrent executions to finish. This means an interrupt handler like
+dw_chained_msi_isr() could still be executing on another CPU.
 
-Because dw_handle_msi_irq() ignores this return value:
+[ ... ]
 
-drivers/pci/controller/dwc/pcie-designware-host.c:dw_handle_msi_irq() {
-        ...
-        for_each_set_bit(pos, &status, MAX_MSI_IRQS_PER_CTRL)
-                generic_handle_demux_domain_irq(pp->irq_domain, irq_off + p=
-os);
-}
+> @@ -718,11 +730,14 @@ void dw_pcie_host_deinit(struct dw_pcie_rp *pp)
+>  	dw_pcie_edma_remove(pci);
+> =20
+>  	if (pp->use_imsi_rx)
+> -		dw_pcie_free_msi(pp);
+> +		dw_pcie_remove_msi_handlers(pp);
+> =20
+>  	if (pp->ops->deinit)
+>  		pp->ops->deinit(pp);
 
-The write-1-to-clear hardware status bit in PCIE_MSI_INTR0_STATUS is never
-cleared for the unmapped interrupt.
+[Severity: High]
+Could the lack of interrupt synchronization cause a regression here?
 
-Since rcar_gen4_pcie_msi_irq_handler() unconditionally returns IRQ_HANDLED
-when MSI_CTRL_INT is set, the un-cleared bit keeps the interrupt line
-asserted. The generic IRQ subsystem's spurious interrupt detector won't step
-in to disable the line because the handler claims it handled the interrupt.
+If the unsynchronized interrupt handler is still in flight, pp->ops->deinit=
+(pp)
+might power down the controller out from under it.
 
-Could this introduce a hard lockup if an untrusted endpoint triggers an
-unmapped MSI?
+If the in-flight handler proceeds to call dw_handle_msi_irq(), it will read
+PCIE_MSI_INTR0_STATUS from the powered-down hardware, potentially resulting=
+ in
+an asynchronous SError (bus crash) or use-after-free.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015033103.3076=
-869-1-den@valinux.co.jp?part=3D11
+869-1-den@valinux.co.jp?part=3D10
