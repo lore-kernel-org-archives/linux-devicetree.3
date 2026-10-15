@@ -1,117 +1,95 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98CFA4AB3CC
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 08:12:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D567306776;
+	Thu, 15 Oct 2026 08:20:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792051923; cv=none; b=edTU5iozA9Qfriz7eEXhDDeGA0D6DIFTT2ywPQBPVj97ypkD2BjXeU4iLHKiSEiZcxYchJ6nb6HgC5+heCwwGPnbtu9A+sQhDQMeA7EprQLhjhGXaJgmQlwxmxJA919jCnyxsUF3xaCTzGx7DLX/8+fO+cAFA8S4VMYosasUWDw=
+	t=1792052454; cv=none; b=bw5pK2VJPPq5P1RTdvkkvRe3TIIGwyf4FDO5eKrA4RCdA0qTDY49tZRphxlYeJjbiYsk3B4q3DR/vomRSbQWXLpEhTWJaDo5VQU3GA9f2vm0YEUEetWf1IEW22RvPmzEFIpx7572/lp/J9xDTK2gCnixhpBV8QJ5TA/Xqu7zytk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792051923; c=relaxed/simple;
-	bh=HUysfWcwgaCnsXaXq97C5D3DJcHzVD/nOuWhNnFXHNM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BSdx4Z2KDGdE3jtxr8PoYydeD2Mapf7KUfi8NDs2+vyIqn36DIpt/eGU1RqGc/YaHnexLeBW2l/nDbI/ovkFkxEpLoNIuFhmDdIh/k+GwMfs5vzKg8Zrrhfkoeqd9TXNnvyeO4Ae5+BN4hHBDy3UpFjBq9/3gibRkdv6xn5djc0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QIi3eAIQ; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792052454; c=relaxed/simple;
+	bh=IDV7FULNOQqAHWeUJSJnk7sWj/SpUShAJqFjesEJ1+c=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Q8zteevLOlgH2hqld+4cBetKgLq2pHblJUfnEdbMAXPlPw/5PP1KLGoQ2HcYNtF35BQuXEo+dU2XrWgCMNfCtClo2kDvzptcHxAWYkgmgPrITFQlPEZu7iUVWCSPZSzT/xRSyQ7h40NmQEm6RxFioKUBLfBeGR9QtjAsZcVc1wk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W2i0JKzU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QIi3eAIQ"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48c4649b35bso137935f8f.3
-        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 01:12:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792051921; x=1792656721; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GHuAmdmkXZvDWTufmXOc4smtM5tKnn8omClhm1kd2uo=;
-        b=QIi3eAIQsTmJiUBBDp7ZKpRl3L/y98j6LExy24z7934D9LKdXUM1B2VRI9PqDrt88w
-         tlPTg5lOVLsxnjvBLAu5a+iIXft7UaI72LELliTmfJjpoOfZ3ICi8M2OzrcdcSjiix0i
-         7lZs6Qy8qx6g0jTIWHV66aXWFQspl4WfXfsrVU6OutWg/gXo55CTWwt2ADGox80qIMy3
-         HKNl4+k8LKt2ATBjW3KHSQdlxB4ggG3fQKf2AxlAWzx+ip4HKgEZqTaR5Urr1TckuDe3
-         ky/NUrBUOI5uuLt1hSJL9cjhSbj1GtgWu8AtrBl+Wm3yCweR2ABMX4/E2LTML9xV+YrT
-         u6DA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792051921; x=1792656721;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GHuAmdmkXZvDWTufmXOc4smtM5tKnn8omClhm1kd2uo=;
-        b=0dsGHLeHGRyaYqq+FDtzXktD5yPL0zevWvvElKoJor0q3S8QUoS04RSlZXO51gOpUO
-         kcQqw2oyJtCVScqkqlgYTRIZXD0FupM5ty/zxRjknU39A7Rs7yoXtM/5B5EWhKuWgfM6
-         I02TVHGYvQ0SKL6YfryGMziCysvNLsTi/YVNIRK1q0xpaYBmyYCK/7XjH7j+fGEYCPc8
-         lUIAO0lKNgQvaOO2TxVpVBc/S5J+YFLfLyd/jnYOQaw3bI2xGJN5s1a4vmmBKHd2pjAw
-         ZsW7CAVw0QJ9ZMPiP2aQRtyxIl9lYtawaSQwr8+pGdwM5jzR3FCa5CuynsQRmlaII7Ee
-         QbNg==
-X-Forwarded-Encrypted: i=1; AKwUvBzuXqDqGn7p2ZJBBwSq7rEuH/zAnoyK0DBwkOC+GDXs6uM0VASzw1vb7TOeOfXdqBzFbTdlIg/cni9j@vger.kernel.org
-X-Gm-Message-State: AFq9FYKPRn+/yVVTyIXbsgCs5WGl3R3LrssdfAUkJAjCZwUVRJJbXyok
-	D0lb7Y4IUdQ+3l2JsHvvE+L+BKdk9buJZpauvjIPaqpG36KfoN2iSpBrj7juHA==
-X-Gm-Gg: AYBFou3mpQnPk5l7HMQfH9XFwXgnzXIJzsD1DMIZi/1jA1RdwCqwOg1lkZp/rb7MKxB
-	ot1pal8PPA1qw8CZ4X5iHTM+x7I3DkjywzFZv1QkLBp4fCwChjHp36Rz4Kb0X/qdoSUzafNXuMn
-	jh29GKYkUpq+Clg62rsWXIM0wRiiR6xnRw5O9DENZ6gYpBr5aN1lPjRf/A7qVghOaN3sj3eU+Qq
-	tJ3e9qmds4PudugBezLfOOWEM3Ormvpy07fMITWqcFIlm5pYKxD3l3jMHFOMLBPREZlppaCd/qT
-	Micxdh+9mmt+PfStfu9m/vTJFwinHNTQIIgD1/wCeNcyrQWMx5bGY1DB8xCuzizfrQxL6vviIxG
-	fcAqfiLB0JRPH/Hh/ypEOFRGFJ97g++OORFbDUIjbfUt7OWA82acnZ0L+29B/ayN/Tv4IdG0sNW
-	kV1au7ohAnCI8ohxTlVvi4EJ3ypkLkeVVwZhbPiALLQuPboy2NxconUjQX8jGEDJHSzOqXsDU04
-	GN9jNgReh2Slx5c33GPPonEnECtF4i/tsM1EPOPWljQ8oLs7AxH1uOfOEQ6PsDEaXu43Bj4lTQD
-	E+4FgGnj7DRtLMLDrquQsZUSlK9jHWkP
-X-Received: by 2002:a05:6000:2993:20b0:48c:4442:54e with SMTP id ffacd0b85a97d-48dbaae710dmr26750262f8f.30.1792051920518;
-        Thu, 15 Oct 2026 01:12:00 -0700 (PDT)
-Received: from Lord-Beerus.station ([93.66.71.207])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de3f7f8b8sm16237534f8f.35.2026.10.15.01.11.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 01:11:59 -0700 (PDT)
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
-To: Frank Li <Frank.Li@nxp.com>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Subject: [PATCH v1 1/1] arm64: dts: imx8mn-evk: Pass GPIO_OPEN_DRAIN flag on i2c3 GPIOs
-Date: Thu, 15 Oct 2026 10:11:49 +0200
-Message-ID: <20261015081149.5919-1-stefano.r@variscite.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W2i0JKzU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABCA71F000C4;
+	Thu, 15 Oct 2026 08:20:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792052452;
+	bh=6bBRqVPfu4/8wamOq3/siJIb6epSz31x2A+7rsSjhdM=;
+	h=From:Subject:Date:To:Cc;
+	b=W2i0JKzUFkQs2wKKYOSkjZwpFSdsTmZO+jQfuKkWEQwuwmsoeBBCnH4/W2SmGCYiu
+	 32jwppO2wKolSD42H4wEuLFhKmg2swLglqP/7pZtWl/G2zNyYNCVDTzV0jrGDJr8UI
+	 H04HB3vyP+RLd1Rzo3BVpxn0raZ8KUdf/4FPt7b0RHAQlICAfot6dExUqd2RHXdGua
+	 Gg6cFpAsFenHppoX6qnvFRbh3sdGalBPsYyW4usE+oKoUO7d2I1BLiUGtTl7u5ze4I
+	 POQfqdUgE0G7UlpT1uUouupCDYhwFkMYDav/VIlMsZhLO2IiYepkLtWPcZQ4K3U6nL
+	 B5pUV/mDn9/cw==
+From: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Subject: [PATCH 0/2] irqchip/gic-v5: Fix standalone IRSes OF driver probe
+ and DT bindings
+Date: Thu, 15 Oct 2026 10:20:24 +0200
+Message-Id: <20261015-gicv5-irs-no-cpus-v1-0-d4b337b7f000@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5EQBBA0atIrVXSbZjgKmJBqTZl0aQLmUTcX
+ WP5Fv8foByEFerkgMC7qMw+wqYJ0K/zI6MM0ZCZ7GuNzXEU2guUoOhnpGVTLKlwffdxVZUbiN0
+ S2Mn/eTbta936iWm9R3CeF8khMGJ1AAAA
+X-Change-ID: 20261014-gicv5-irs-no-cpus-8c5fba3f9940
+To: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Sascha Bischoff <sascha.bischoff@arm.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>
+X-Mailer: b4 0.15.2
 
-From: Stefano Radaelli <stefano.r@variscite.com>
+The GICv5 architecture allows IRSes to be designed as standalone, ie with
+no CPU connection, to support system topologies where the IRS is separated
+from CPUs.
 
-scl-gpios and sda-gpios need GPIO_OPEN_DRAIN flag, otherwise the
-following run-time warning is seen:
+Current OF code fails the IRS probe if "cpus" and "arm,iaffids" properties,
+that define IRS<->CPU connections, are missing (which goes against the
+current schema because they are "required"), which is not correct for
+the aforementioned reasons.
 
-gpio-146 (scl): enforced open drain please flag it properly in DT/ACPI DSDT/board file
+DT schema for GICv5 must be updated in that "cpus" and "arm,iaffids"
+properties are currently defined as "required" which is not correct
+(unless there is a way to keep them "required" and empty) and must
+be relaxed.
 
-Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
+I do not think it is possible to keep "cpus" and "arm,iaffids" as
+"required" and allow them to be empty lists - I would need DT
+maintainers feedback on that to see what is best.
+
+I did not mark patches for stable kernels because I would like to get
+feedback on the DT binding changes first before sending any change that
+is potentially ABI changing back to stable kernels (strictly speaking
+I do not think the DT changes can actually break anything - the only
+potential issue is DT files that do declare "cpus" and "arm,iaffids" as
+empty list against the schema - if they do that they are already broken
+and this patchset changes nothing in that respect).
+
+Signed-off-by: Lorenzo Pieralisi <lpieralisi@kernel.org>
 ---
- arch/arm64/boot/dts/freescale/imx8mn-evk.dtsi | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Lorenzo Pieralisi (2):
+      dt-bindings: interrupt-controller: gicv5: Relax IRS properties constraints
+      irqchip/gic-v5: Fix standalone IRSes OF probe
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mn-evk.dtsi b/arch/arm64/boot/dts/freescale/imx8mn-evk.dtsi
-index 3e590afa4fab..036afa0f6990 100644
---- a/arch/arm64/boot/dts/freescale/imx8mn-evk.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mn-evk.dtsi
-@@ -287,8 +287,8 @@ &i2c3 {
- 	pinctrl-names = "default", "gpio";
- 	pinctrl-0 = <&pinctrl_i2c3>;
- 	pinctrl-1 = <&pinctrl_i2c3_gpio>;
--	scl-gpios = <&gpio5 18 GPIO_ACTIVE_HIGH>;
--	sda-gpios = <&gpio5 19 GPIO_ACTIVE_HIGH>;
-+	scl-gpios = <&gpio5 18 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-+	sda-gpios = <&gpio5 19 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
- 	status = "okay";
- 
- 	pca6416: gpio@20 {
--- 
-2.47.3
+ .../devicetree/bindings/interrupt-controller/arm,gic-v5.yaml     | 9 ++++++---
+ drivers/irqchip/irq-gic-v5-irs.c                                 | 4 ++++
+ 2 files changed, 10 insertions(+), 3 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20261014-gicv5-irs-no-cpus-8c5fba3f9940
+
+Best regards,
+--  
+Lorenzo Pieralisi <lpieralisi@kernel.org>
 
