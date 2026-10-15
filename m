@@ -1,116 +1,190 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA0D819BC8;
-	Thu, 15 Oct 2026 03:44:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F953A3E7C;
+	Thu, 15 Oct 2026 03:44:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792035855; cv=none; b=EG+Yq2v1KmC1K4ogmGGrRY3fZjFxI70DufiOOrC2vOnyDVD8jPd277/OLgvnA9vBlf/McSkhEkGSNkwhm927qgwAALf9Tz6ANatI5GI+l2/AtyuSnQ1l6lj+/V1O43rC8kUdFTggj3KNDxyPqrsSjSD+/0PqiOBgvQjCPArFGz0=
+	t=1792035901; cv=none; b=PENYbGy8HpR9PXa3Ew9kSw9PohsKSjFXCtmmmvqOTs3JHLUUvLpDuU1V6pvYC9VIDPni6oMnOIaHe5Q08KQT7HKHZhe24e17SvSz8FuL9lrZ13gO9Sl5/h15vMjyDLx70vLC1t0NC2OQoBf5j0BlJ/ZBBXzIzTwO3BKIpgt/d0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792035855; c=relaxed/simple;
-	bh=Tt1tcquwM54PxWYG/uqLlVVbozwAXfG8t7IMFmDpV3k=;
+	s=arc-20240116; t=1792035901; c=relaxed/simple;
+	bh=3uYRfmuhLiIz9fVmB55/Yp0Gcc+BjiNpcngpc4KOLQ8=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=gONF6eok1qiGZx/D+dErzMNokESezAjcl1F0CxSo7b9oj7egG2BxJsKFI5zQetiSFG4agD7HNOHupckRIKb7EIsLxA2z+RyZhCo/W9ZUAklBGKGzs/Z0uqWI8Y8HmudjMuMduX6lGkMerfb8bh2k9s8ldTISSIZ5LTS52GI5mSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T1paJUPv; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=PJBTdwBnOzJ/wIqe+C/QBm/jNb0hpSjfh3ZNhTfQNIB/GWRnlOmtRbi1Qt2gWgyG8KMpUKhan8Aosq396DvXk+5vyibZM9Ew0Cxo7/zgTdGcqW4Uuh+Iexoa/3R3sm/ZU+vgOjeciJMROopGphp366TOgOn5FG6HjWUJ7XWpIOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gh5RiXVa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T1paJUPv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 773DE1F000C4;
-	Thu, 15 Oct 2026 03:44:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gh5RiXVa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E56991F000C4;
+	Thu, 15 Oct 2026 03:44:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792035854;
-	bh=k/EMLrvZUUvBEWkdJbaEVlQz8PTI+nCBNvhe6s/yivw=;
+	s=k20260515; t=1792035896;
+	bh=fL4c1nQWp5Lcs/DXdsiSpPc5v6wpKTQtZQCF4bvfM8Y=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=T1paJUPve5OgVgVEjjJDpoZstmmJqsyFOIQnb29piqWddMJQOnHyfVF2zIwT63cNw
-	 ZAm6DyyKPbFh/gH5B9XhwoaUqtYwHMRqIhV3wTWcDJvjCZPmArKCrTc2zx2NdQT8kO
-	 Q7x5hctxiw5etZhgwVx9WV4OEetUiyWoOs+NXBFYnD2+jTZDdxeN5Be6eGC9SdBNvx
-	 Pk+SOrkKMHxz9/14WfEoWqbolK3g6M69Z2dVdbSNXMFqLwKNixY+KuqGswvL4ZbAwO
-	 30Ge8s/Pj2d3/XmTvXFbEX2wOxdvYeRydM8ncXDhTRi97prC2k2V1SJAi3koZF+JMd
-	 N7ZU47Xr+SW7A==
-Message-ID: <sashiko-outbox-172221@kernel.org>
+	b=gh5RiXVaHFQSD5xE0kELllPDcNWv/sahgaC6cBIZVIrArpl3CKBmcKV7Cvky4FE0J
+	 XoYV4fgMHOuwcBu87io91Fe2x1c8uCkJBrTg/C0kG1M0NBIjQzDAyQiy5n7PxmZH9g
+	 Hlw9yH0ktJett9flX0GGBA1tfFLLjo2Er9k2G7yFtCaFEGZ9NRBGo0KGsuTXhMSt0u
+	 X5y4bfSLZ1fS6Fn3OtQqZroxzF8bwytBm59+IqUoLRQeqyexwUObnkWf9l5LGF5niB
+	 WypaFMB89peS1hHq/wJDBcX0oe+q2rfzuIbRE2dT66JP545rteTphngZyxREXxUXqK
+	 JnDog45CBwK0Q==
+Message-ID: <sashiko-outbox-172223@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 10/18] PCI: dwc: Free the MSI domain after the host
- .deinit() callback
+Subject: Re: [PATCH v4 09/18] PCI: rcar-gen4: Add Root Port reset support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Koichiro Den" <den@valinux.co.jp>
 Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20261015033103.3076869-11-den@valinux.co.jp>
+In-Reply-To: <20261015033103.3076869-10-den@valinux.co.jp>
 References: <20261015033103.3076869-1-den@valinux.co.jp>
- <20261015033103.3076869-11-den@valinux.co.jp>
+ <20261015033103.3076869-10-den@valinux.co.jp>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 03:44:13 +0000
+Date: Thu, 15 Oct 2026 03:44:55 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] pci: dwc: missing synchronize_irq() after removing chained MSI han=
-dlers
+- [Medium] pci: rcar-gen4: PHY power leak on speed_control() failure
+- [Medium] pci: rcar-gen4: memory leak of device_node refcount from of_msi_=
+xlate
 --
 
-commit 5f29144f527d9dfd0c8c7686f0d2791d38c14098
+commit 50f3fefd40d6567632993d0a3d1141361fef7262
 Author: Koichiro Den <den@valinux.co.jp>
 
-PCI: dwc: Free the MSI domain after the host .deinit() callback
+PCI: rcar-gen4: Add Root Port reset support
 
-dw_pcie_host_deinit() frees the iMSI-RX domain before calling the host
-.deinit() callback. For a core-owned parent interrupt,
-dw_pcie_free_msi() removes the chained handler right before the domain.
+Implement the host bridge reset_root_port() callback so PCI error
+recovery can reset and reinitialize the R-Car controller. This also
+provides the reset operation for the link-down handling added later.
 
-> diff --git a/drivers/pci/controller/dwc/pcie-designware-host.c b/drivers/=
-pci/controller/dwc/pcie-designware-host.c
-> index 63b38532d069a..774e1936d9991 100644
-> --- a/drivers/pci/controller/dwc/pcie-designware-host.c
-> +++ b/drivers/pci/controller/dwc/pcie-designware-host.c
-> @@ -228,7 +228,7 @@ int dw_pcie_allocate_domains(struct dw_pcie_rp *pp)
->  }
->  EXPORT_SYMBOL_GPL(dw_pcie_allocate_domains);
-> =20
-> -void dw_pcie_free_msi(struct dw_pcie_rp *pp)
-> +static void dw_pcie_remove_msi_handlers(struct dw_pcie_rp *pp)
->  {
->  	u32 ctrl;
-> =20
-> @@ -236,8 +236,18 @@ void dw_pcie_free_msi(struct dw_pcie_rp *pp)
->  		if (pp->msi_irq[ctrl] > 0)
->  			irq_set_chained_handler_and_data(pp->msi_irq[ctrl], NULL, NULL);
->  	}
-> +}
-
-[Severity: High]
-Does this code need a call to synchronize_irq() here?
-
-irq_set_chained_handler_and_data() uninstalls the handler but does not wait
-for concurrent executions to finish. This means an interrupt handler like
-dw_chained_msi_isr() could still be executing on another CPU.
+> diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/co=
+ntroller/dwc/pcie-rcar-gen4.c
+> index cbd22e6bb44b9..54260e62293b1 100644
+> --- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
 
 [ ... ]
 
-> @@ -718,11 +730,14 @@ void dw_pcie_host_deinit(struct dw_pcie_rp *pp)
->  	dw_pcie_edma_remove(pci);
+> @@ -661,14 +704,87 @@ static int rcar_gen4_pcie_host_setup(struct dw_pcie=
+_rp *pp)
+>  	return 0;
+>  }
 > =20
->  	if (pp->use_imsi_rx)
-> -		dw_pcie_free_msi(pp);
-> +		dw_pcie_remove_msi_handlers(pp);
-> =20
->  	if (pp->ops->deinit)
->  		pp->ops->deinit(pp);
+> +static void rcar_gen4_pcie_quiesce_irqs(struct rcar_gen4_pcie *rcar)
+> +{
+> +	scoped_guard(raw_spinlock_irqsave, &rcar->app_lock) {
+> +		rcar->reinit_pending =3D true;
+> +		rcar_gen4_pcie_app_irq_sync_locked(rcar);
+> +	}
+> +}
+> +
+> +static void rcar_gen4_pcie_resume_irqs(struct rcar_gen4_pcie *rcar,
+> +				       bool recovered)
+> +{
+> +	scoped_guard(raw_spinlock_irqsave, &rcar->app_lock) {
+> +		rcar->reinit_pending =3D !recovered;
+> +		rcar_gen4_pcie_app_irq_sync_locked(rcar);
+> +	}
+> +}
+> +
+> +/*
+> + * R-Car Gen4 SoC PCIe controllers and R-Car Gen5 SoC PCIe4 controller h=
+ave
+> + * a single Root Port per instance, so the pci_dev is ignored and the wh=
+ole
+> + * controller is reset. The PCI core serializes the callers through its
+> + * device locks.
+> + */
+> +static int rcar_gen4_pcie_reset_root_port(struct pci_host_bridge *bridge,
+> +					  struct pci_dev *pdev)
+> +{
+> +	struct rcar_gen4_pcie *rcar =3D dev_get_drvdata(bridge->dev.parent);
+> +	struct dw_pcie *dw =3D &rcar->dw;
+> +	struct dw_pcie_rp *pp =3D &dw->pp;
+> +	struct device *dev =3D dw->dev;
+> +	int ret;
+> +
+> +	/* A failed resume may have left the controller powered down. */
+> +	if (dw->suspended)
+> +		return -EBUSY;
+> +
+> +	rcar_gen4_pcie_quiesce_irqs(rcar);
+> +
+> +	dw_pcie_stop_link(dw);
+> +
+> +	rcar_gen4_pcie_host_perst_assert(pp, true);
+> +
+> +	ret =3D rcar_gen4_pcie_common_reinit(rcar);
+> +	if (ret)
+> +		goto out;
+> +
+> +	ret =3D rcar_gen4_pcie_host_setup(pp);
+> +	if (ret)
+> +		goto out;
 
-[Severity: High]
-Could the lack of interrupt synchronization cause a regression here?
+[Severity: Medium]
+Does calling rcar_gen4_pcie_host_setup() on every Root Port reset lead to
+a device_node refcount leak?
 
-If the unsynchronized interrupt handler is still in flight, pp->ops->deinit=
-(pp)
-might power down the controller out from under it.
+rcar_gen4_pcie_host_setup() calls rcar_gen4_pcie_host_msi_init(), which
+calls rcar_gen4_pcie_host_msi_addr(). Inside rcar_gen4_pcie_host_msi_addr():
 
-If the in-flight handler proceeds to call dw_handle_msi_irq(), it will read
-PCIE_MSI_INTR0_STATUS from the powered-down hardware, potentially resulting=
- in
-an asynchronous SError (bus crash) or use-after-free.
+drivers/pci/controller/dwc/pcie-rcar-gen4.c:rcar_gen4_pcie_host_msi_addr() {
+    ...
+    of_msi_xlate(dev, &msi_node, 0);
+    if (!msi_node)
+        return -ENODEV;
+
+    if (!of_device_is_compatible(msi_node, "arm,gic-v3-its"))
+        return dev_err_probe(...);
+    ...
+}
+
+of_msi_xlate() internally acquires a reference to the matched device node,
+which requires the caller to release it using of_node_put(). Since
+rcar_gen4_pcie_host_msi_addr() does not appear to release this reference,
+won't this leak a kobject reference dynamically on every reset event?
+
+> +
+> +	ret =3D dw_pcie_setup_rc(pp);
+> +	if (ret)
+> +		goto out;
+> +
+> +	ret =3D dw_pcie_start_link(dw);
+> +	if (ret)
+> +		goto out;
+
+[Severity: Medium]
+If dw_pcie_start_link() fails, can this leave the PHY permanently powered
+on?
+
+It looks like rcar_gen4_pcie_start_link() powers on the PHY via
+ltssm_control(..., true) before calling speed_control(). For Gen5 devices,
+rcar_gen5_pcie_speed_control() can fail. If this occurs, the error is
+returned without calling ltssm_control(..., false).
+
+When dw_pcie_start_link() returns an error here, the code jumps to out:
+which skips dw_pcie_stop_link(), leaving the PHY powered on. Is there
+a missing power off in this error path?
+
+> +
+> +	/* Ignore errors, the link may come up later */
+> +	dw_pcie_wait_for_link(dw);
+> +	dev_dbg(dev, "Root Port reset completed\n");
+> +
+> +out:
+> +	rcar_gen4_pcie_resume_irqs(rcar, !ret);
+> +	if (ret)
+> +		dev_err(dev, "Root Port reset failed (%d); interrupts stay masked unti=
+l a reset succeeds\n",
+> +			ret);
+> +
+> +	return ret;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015033103.3076=
-869-1-den@valinux.co.jp?part=3D10
+869-1-den@valinux.co.jp?part=3D9
