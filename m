@@ -1,210 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 206C44EBAE2;
-	Thu, 15 Oct 2026 19:25:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A237955C338
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 19:26:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792092331; cv=none; b=TW1GzRSCsbMbA4tPoFeq/+oOkWWlLOFYaWf3WeCHTc5g03ckwf61U60qd6jr+P2wjoXtSqVHaVNvK/13RNWKYJv3BEnaP5SumNF2lvriSK3zb9O2UCTyzGtEenWec29fOrxFEPJyB37cXPx2eqPMbeNKmZ1jWXMZzt3Gf+05YUM=
+	t=1792092416; cv=none; b=NDInM6hQPrJj0j4cySkXTHr5dLxqCfU2J9BsdU7QG0On5K2ihHrOcyUiLQCOgGAtXybhSZXhdFECBOnYG+dWaY2sR8cBfMVW2NsNXT53nsC/cCpNnFpQEgAnYl5rcdXGxGnbLULjAtbbpS9K7cKJKqd7gMYSTf1mO5+SaPfysSU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792092331; c=relaxed/simple;
-	bh=/aDY3QvLbw7FPeyVbaZ96dHdAV8CciGipjzLko3iKMw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mNOvIu/qZTZrgFEoSQO3Qy0F/6yjw0xsUBef4IpjOIF6zVYmFy8GHJpMjA2FB8L9XUXT+K7K3YJ6KK5X1QMyXqJwRy79Usk4/KOdFY5+LD/cQiyVJHQtfczn7CgbzPZSojW9x0RP0nnhaN4+azRFM4s4o8Vwj9AWZX89ez5O5D0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Flf7EuEf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792092416; c=relaxed/simple;
+	bh=KfP/vjeGWsuZ4w73uZHQKGJi0F/32o26SPzn575BRdw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=A9Lka0DV5UrMJNIDCe2465L+co1ztDDc8gHeGIO8iIyx35XfL//2j2tm1QjK3OOdTEfLOxlDkcKtJZecVaW/5fVIJufP+k4+nhhg1vt6JxhRrB4IIO0Ik0emh9/aNf28rdS8A964qaC/llkfm/3dkmj1OzM40p2bo7xIlPj8gDw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ghleTTrA; arc=none smtp.client-ip=209.85.160.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Flf7EuEf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CA001F000C4;
-	Thu, 15 Oct 2026 19:25:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792092329;
-	bh=5q3n8w8RnVYCDNZKQP3BeaNF8Rao1383kmsL5LXStQM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Flf7EuEfYgvY4keiTrAp+xNx3tUwEpqFEwDW6GAPGyZ6cBbZINgy/tfoFbMw6sNh1
-	 Xa0ANkL0yNPDfZXsxbm4H0Wib5fcDkzue7cTUmSFDSi64SxxXt+YGna2jRQZ9y8yIX
-	 Sxt8twxiuPtgUp3AdXcegOr1rwh/zC0neNCyAY8bYW+JHGNAYgE1BDosVNiDJeAPg8
-	 Svm8rAeNgEcAdqE2wlodlqiILF4pSRkvC1y43UV7/f84kOAttQS9AOzYpqD32aWpwg
-	 wtgA/KF1nV8P0KY3eVjezfeFKGAUITtTlOeM6AvoF9puo1Z3qTTXRtjHqDmQTHWE8R
-	 cT0bSSyJzgeHA==
-Date: Thu, 15 Oct 2026 14:25:27 -0500
-From: Rob Herring <robh@kernel.org>
-To: Kyle Swenson <kyle.swenson@est.tech>
-Cc: "o.rempel@pengutronix.de" <o.rempel@pengutronix.de>,
-	"kory.maincent@bootlin.com" <kory.maincent@bootlin.com>,
-	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
-	"davem@davemloft.net" <davem@davemloft.net>,
-	"edumazet@google.com" <edumazet@google.com>,
-	"kuba@kernel.org" <kuba@kernel.org>,
-	"pabeni@redhat.com" <pabeni@redhat.com>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Roland =?iso-8859-1?Q?Kov=E1cs?= <roland.kovacs@est.tech>,
-	David =?iso-8859-1?Q?Nystr=F6m?= <david.nystrom@est.tech>
-Subject: Re: [PATCH net-next v3 1/2] dt-bindings: net: pse-pd: Add bindings
- for LTC4266 PSE Controller
-Message-ID: <20261015192527.GC5059-robh@kernel.org>
-References: <20260927212929.593366-1-kyle.swenson@est.tech>
- <20260927212929.593366-2-kyle.swenson@est.tech>
- <20261007210454.GA281943-robh@kernel.org>
- <asnpHkvHsFy2dX-9@est-xps15>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ghleTTrA"
+Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-535179e995bso70106541cf.0
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 12:26:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792092413; x=1792697213; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1BOiR3HjstR3v+8dWKVs/nFPkMjZqmy5flCQLz7ZGEc=;
+        b=ghleTTrA8sN3BkxMrEg+fVh8FkC3NAswPWRc8KNteLq+XWUBrCuH3gy2skylDXgdkk
+         2Kw6RcWY8I6DoT7Bk5FPSU1UgXyPJ57/1J3hnFDLfHFYdCEzz4SrPkQNJPc2RzmS5CLd
+         4zAzML1nBpVVqAnDE9xZZiQ4TJHyFLALOgMn5HKKTZ15PxJTsNPLsf4L5zRPe+OXhh/J
+         YwrsvGQcfpiwb90OSsB3P2MjvSRRxu7VyFbpnYrhIZoJxlCVZqKejy1JbwvcNUES9K/F
+         lSi3aGkeLfw59/s35p16i+5mLhuPk782zXkclllo+iDEPaBtZ89srxGR575AKiCr4OK7
+         t24w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792092413; x=1792697213;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1BOiR3HjstR3v+8dWKVs/nFPkMjZqmy5flCQLz7ZGEc=;
+        b=ORjiV9434bJV6gjNbfHx3hHmtzQ2zXu27bsvffBf8crQYR/NVRSa6a8nMHhTqPdn82
+         OxKJNRes4q7GeEyf47pK/wZS3Z5in+gUBKOiJqkYiKx3df52dDvnr04TqjeE1A1XyE54
+         KBD3a+o6MW1xbi2Oj0D6X0uolsfb6So18ZCG86RtTooSh/WgJSs3k+IPcymJv6BOZmA9
+         7iTu/8vuw7NpOPbmyny8PplbrghfuRgF0wyvjfRa4G2U9BNeRvuQcyC+zp8jY5gxyzgM
+         xsXzUXQVGgShvUSyzoz6OiCV9poJmMOGfaPZ7YlhwM7QZvheAZAYPXewbwLmP7FueYEt
+         1Pbw==
+X-Forwarded-Encrypted: i=1; AKwUvByPBaYKGoaERJjbY2Nygp14i/nhEvbwVgm4/A3yoofaRzL0safKuNq0wuArbM/VxHO/sKBzgYQi/vPG@vger.kernel.org
+X-Gm-Message-State: AFq9FYLSGORoKLw0uxPY3Ihsd4u2QM47X32uZELoiFNklTyhPSKVvR+0
+	wCZPmkvk+vbvs2gq9k22DPJtxo2b9Ukc+mj09r5aORLBQ8rqM9k3FHqN
+X-Gm-Gg: AYBFou1xMLBGWegK98cC5Hq8/XzZgsRh79ZhrcibTlb+Yf9ZixzBsDW5X/5L9kdlAC8
+	GwNCW21s51EZ/Ca56nlceGtgHta49bxyjboRPZoGaDqrwRKLIJzGvadJPLjZUegzh9etnqn45NH
+	5zVVXAKMmjAi5yMHEZ++3fsM+15BF3TxSy0PV2a3MFaNhK1YGoWvjKzklIOIAlsqx8791IFaDvG
+	ppEei20ZfdEAWpOE2s5ERxAI1WabyEQrzMdPefsfp4RFwwe7X0Wmez7dQSxvQQ39mb9SvI2aFhK
+	yugHMGnaBD+tWDmoecpeKgx8d1egbTz4XhoLhejC8KFw3tPAU+igoDKLZrhQQLaBF/L2TgkBdz5
+	Ug1pk/8Tu5suE46vSxOMebRODhcUImgFeoV1F4NjLdatpnkNG97eRp9v7AudDyC3PdUudD5VLOr
+	iOIJCG+j/xI1ep0tpxtZ8StIVfsxU6f7nN4JSU5UBdDeJkvvUibMalXJSf1m19qaFbFPTreFGv9
+	qrblzTJLhk2rSMREJNWHCMVPfQ=
+X-Received: by 2002:ac8:5c8b:0:b0:535:cd9e:c12f with SMTP id d75a77b69052e-535cda02393mr232419501cf.32.1792092413486;
+        Thu, 15 Oct 2026 12:26:53 -0700 (PDT)
+Received: from localhost ([144.121.52.163])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcbb8c4a1sm3270566d6.45.2026.10.15.12.26.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 12:26:52 -0700 (PDT)
+From: Ray Strode <halfline@gmail.com>
+To: rshouriesh@gmail.com
+Cc: bod@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	hverkuil+cisco@kernel.org,
+	j@metarealtyinc.ca,
+	krzk+dt@kernel.org,
+	kulikeduard89@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	robh@kernel.org,
+	sakari.ailus@linux.intel.com,
+	vladimir.zapolskiy@linaro.org
+Subject: Re: [PATCH v7 3/3] media: i2c: hm1092: Add ACPI enumeration and the 19.2 MHz configuration
+Date: Thu, 15 Oct 2026 15:26:24 -0400
+Message-ID: <20261015192632.283185-1-halfline@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261013-hm1092-driver-v7-3-d81a9b152ffd@gmail.com>
+References: <20261013-hm1092-driver-v7-3-d81a9b152ffd@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asnpHkvHsFy2dX-9@est-xps15>
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Oct 10, 2026 at 07:30:50AM +0000, Kyle Swenson wrote:
-> Hello Rob,
-> 
-> On Wed, Oct 07, 2026 at 04:04:54PM -0500, Rob Herring wrote:
-> > On Sun, Sep 27, 2026 at 09:29:48PM +0000, Kyle Swenson wrote:
-> > > Add the LTC4266 Power Sourcing Equipment controller device tree bindings
-> > > documentation.
-> > > 
-> > > Signed-off-by: Kyle Swenson <kyle.swenson@est.tech>
-> > > ---
-> > >  .../bindings/net/pse-pd/lltc,ltc4266.yaml     | 180 ++++++++++++++++++
-> > >  1 file changed, 180 insertions(+)
-> > >  create mode 100644 Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.yaml
-> > > 
-> > > diff --git a/Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.yaml b/Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.yaml
-> > > new file mode 100644
-> > > index 000000000000..e11c9d601eee
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.yaml
-> > > @@ -0,0 +1,180 @@
-> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/net/pse-pd/lltc,ltc4266.yaml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: Linear Technology LTC4266 Power Sourcing Equipment controller
-> > > +
-> > > +maintainers:
-> > > +  - Kyle Swenson <kyle.swenson@est.tech>
-> > > +
-> > > +allOf:
-> > > +  - $ref: pse-controller.yaml#
-> > > +
-> > > +properties:
-> > > +  compatible:
-> > > +    enum:
-> > > +      - lltc,ltc4266
-> > > +
-> > > +  reg:
-> > > +    maxItems: 1
-> > > +
-> > > +  interrupts:
-> > > +    maxItems: 1
-> > > +
-> > > +  channels:
-> > > +    type: object
-> > > +    additionalProperties: false
-> > > +    description:
-> > > +      Defines the 4 physical delivery channels on the controller that can be
-> > > +      referenced by PSE PIs through their "pairsets" property. The actual port
-> > > +      matrix mapping is created when PSE PIs reference these channels in their
-> > > +      pairsets.
-> > > +
-> > > +    properties:
-> > > +      '#address-cells':
-> > > +        const: 1
-> > > +
-> > > +      '#size-cells':
-> > > +        const: 0
-> > > +
-> > > +    patternProperties:
-> > > +      '^channel@[0-3]$':
-> > > +        type: object
-> > > +        additionalProperties: false
-> > > +
-> > > +        properties:
-> > > +          reg:
-> > > +            maxItems: 1
-> > > +
-> > > +          sense-resistor-micro-ohms:
-> > > +            description: Sense resistor connected to the channel's MOSFET, used
-> > > +              for current measurement and for overcurrent detection. The I_CUT
-> > > +              and I_LIM register encodings depend on which value is fitted, so
-> > > +              a wrong value programs the wrong thresholds.
-> > > +            enum: [250000, 500000]
-> > > +
-> > > +        required:
-> > > +          - reg
-> > > +          - sense-resistor-micro-ohms
-> > > +
-> > > +    required:
-> > > +      - '#address-cells'
-> > > +      - '#size-cells'
-> > > +
-> > > +  pse-pis:
-> > > +    type: object
-> > > +    additionalProperties: false
-> > > +
-> > > +    properties:
-> > > +      '#address-cells':
-> > > +        const: 1
-> > > +
-> > > +      '#size-cells':
-> > > +        const: 0
-> > > +
-> > > +    patternProperties:
-> > > +      '^pse-pi@[0-3]$':
-> > > +        type: object
-> > > +        additionalProperties: true
-> > 
-> > This cannot be true. That allows adding any property.
-> > 
-> 
-> So my intent with the additionalProperties: true was to avoid
-> replicating the entire pse-pis node from pse-controller.yaml.
-> Conceptually, my goal was to inherit everything from the
-> pse-controller.yaml binding, except limit the maxItems to 1 (since the
-> LTC4266 only supports power over a single PI).
-
-pse-controller.yaml doesn't have the constraint there either. It is fine 
-if the constraint is there. However, that means custom properties are not 
-allowed in pse-pi nodes. Maybe that's fine and is certainly easier for 
-the schema. If you do forsee a need for device specific properties in 
-this node, then you need a $ref in this node with all the common 
-properties. IOW, similar to how the graph schema is structured.
-
-
-> > > +        properties:
-> > > +          pairsets:
-> > > +            description: The LTC4266 delivers power to a PI over a single
-> > > +              pairset, driven by one of the controller's four channels. There
-> > > +              is no 4-pair mode spreading a PI over two channels, so exactly
-> > > +              one channel phandle is expected.
-> > > +            maxItems: 1
-> > > +          pairset-names:
-> > > +            maxItems: 1
-> > 
-> > An empty node is valid? Needs 'required'.
-> 
-> I thought the 'required' comes from the pse-controller.yaml binding.
-> If I adjust the example dts in the binding with something like
-
-Indeed. My mistake.
-
-> 
->            pse_pi2: pse-pi@2 {
-> -            reg = <2>;
-> -            #pse-cells = <0>;
-> -            pairset-names = "alternative-a";
-> -            pairsets = <&phys2>;
-> -            polarity-supported = "MDI";
-> -            vpwr-supply = <&vreg_pse>;
-
-If instead, you add 'foo-bar' property, you won't see any failure. 
-That's the 1st issue.
-
-Rob
+Hi,=0D
+=0D
+Regarding the crop-bounds question: the 19.2 MHz mode reports a 1294x734=0D
+crop at (0,0), which extends outside the advertised 1280x720 bounds at=0D
+(8,8).=0D
+=0D
+Reporting the native array as CROP_BOUNDS accommodates that readout window=
+=0D
+while keeping CROP_DEFAULT as the active area:=0D
+=0D
+diff --git a/drivers/media/i2c/hm1092.c b/drivers/media/i2c/hm1092.c=0D
+--- a/drivers/media/i2c/hm1092.c=0D
++++ b/drivers/media/i2c/hm1092.c=0D
+@@ -836,12 +836,12 @@=0D
+ 		sel->r =3D to_hm1092(sd)->mode->crop;=0D
+ 		return 0;=0D
+ 	case V4L2_SEL_TGT_CROP_DEFAULT:=0D
+-	case V4L2_SEL_TGT_CROP_BOUNDS:=0D
+ 		sel->r.left =3D HM1092_ACTIVE_LEFT;=0D
+ 		sel->r.top =3D HM1092_ACTIVE_TOP;=0D
+ 		sel->r.width =3D HM1092_ACTIVE_WIDTH;=0D
+ 		sel->r.height =3D HM1092_ACTIVE_HEIGHT;=0D
+ 		return 0;=0D
++	case V4L2_SEL_TGT_CROP_BOUNDS:=0D
+ 	case V4L2_SEL_TGT_NATIVE_SIZE:=0D
+ 		sel->r.left =3D 0;=0D
+ 		sel->r.top =3D 0;=0D
+=0D
+This changes only the reported bounds; the mode's crop and register=0D
+configuration stay the same.=0D
