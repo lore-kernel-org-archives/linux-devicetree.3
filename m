@@ -1,52 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A9344A409;
-	Thu, 15 Oct 2026 20:02:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6140447B406;
+	Thu, 15 Oct 2026 20:08:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792094562; cv=none; b=A1Dok13WKKIFuWDiiNK/LnwuqrFP85nK4zzLgmUK287qt/Nkmgr9CZi6CC1y22QSqqnkVR1tgfvd5FsGlp4xRFFCZdxtWL/JwWUlM/b3CeIVMYOBdOnEQQ4lBy5zSMHPKQM5JXL1LTJWZEx60sbdn5xVCGBlBBPQyLKtTUVuz+w=
+	t=1792094938; cv=none; b=cpinZ7UHvt9WjtIT0x3g/qHWRZy3gRt4jizcisuYgL3rOYUEzjoYInDuOCCtatlWNvlqBXYtmwqLyo0oXTqMqURBD/Apl1WrBx1Lhj2eu2LRmAxtMjfAmjP+va+OruokwvpjFwJluT+VZ1uGs5k+UUvsckub/OQ2XCT92kGhWSI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792094562; c=relaxed/simple;
-	bh=RpjK9XcQvr293fmfQosZWycmCuDRfWyERj8yvynmDsc=;
+	s=arc-20240116; t=1792094938; c=relaxed/simple;
+	bh=dwE/67uaybHNglH4LBSAcOL/EhJ5N0UM+zdkc5ca0HY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Xv0XtyjiXocsUJb0capVKa6xDd4Lpt5QJRHLAex+4bgnMad945e6ZpqKGIpPRVU2G1G/K/MPtj4BpvQIxpNf7ycDCtax6tX7qiXx+K1kGjF5zYPiYiWrMhSPlQ241rI4NwS/oNBu635D6dNDhUvlwT+Sq7601le3uGw6GICVbBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dc01fAVw; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=XrTAa+R9GLx3ib2BbrrXLrHuThDKem7jQut9gh6Uk6vgaI7T2BdnBHtdVw81vF0D3QMJZ8yAwSyM2GI/jVYT8nI+ZvTUfJ6tsQ8r94lPbsItpK4DwQfZQ8R376CWSntO2hTBwsTq4Q2KzmH79shb0TXPMCEWNIE2f64TgHktAUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=le80fort; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dc01fAVw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98DA61F000C4;
-	Thu, 15 Oct 2026 20:02:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="le80fort"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87EDA1F000C4;
+	Thu, 15 Oct 2026 20:08:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792094559;
-	bh=nGxemQzLP7mSaxp2FxA3NW6pQnFC4/3ja+XeKl0+AlQ=;
+	s=k20260515; t=1792094935;
+	bh=MyqUgRNC8TTLXJOkDSkT/WyzPSUxfkFlEDCnXzm6lfQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Dc01fAVwein07mQywrLDVQwSQDyPdtkuPZkQRajp5lCPoSGGFjns8btldPMB2trf4
-	 KgJ/M9jEqWP8ZbNLBCp42E4sxYve0KGfoZfZu5zbsmTPjmEk7djAGqU+lJBkyAIvIo
-	 VTk5BnrxCuaZavxMMFYKk73em3LCgblug3zNNm4ye2M1VOVrDF44pxyvGOA42WJHa2
-	 /TGev1WgkkJSx8wxgg562/JWkgYmocaElhw3N3/kqlmNWmdGisq7cEos1JEZge1LjJ
-	 OukvETxPumDSR6HklCm4NhVGpG6krstf+H9VelOvACqzZsCF+Fdso69V4rgd4uk1Br
-	 BDtnPxGCrwRCA==
-Date: Thu, 15 Oct 2026 15:02:37 -0500
+	b=le80fortspeqftGamzmiSMSuo0PkgBlXQzfv60zEfh5BTVudPeOsoL34qGK/Awi5z
+	 8PHxOyyOd0lE5OmXoYU4Tlbw7jVEtrfhcspbHmyyJoItMbutaypYv/XpgzGX2/YYRI
+	 bC3n//oLHsMBfiXwIkpGAknmWg7wUVL0Q9kwRf3liVQp0pf9NfYO47BXOm2DTwBnM2
+	 0OWxO3s8kmGAYfZdyC/kJg/cMmqXnvpVix7knIVBZ8DZyXCXb7YbeDjXzqALnOy2kD
+	 E4oBnTfqgMXOPsBbNhfJeZh5jHcFupu74hX7KhxC6AzUcRRHKfkgOK4boLwLXGRNUa
+	 NgXrjyGJzMHnw==
+Date: Thu, 15 Oct 2026 15:08:53 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Fil Dunsky <filipp.dunsky@gmail.com>
-Cc: Russell King <linux@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-kernel@vger.kernel.org,
+To: Frank.Li@oss.nxp.com
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>,
+	devicetree@vger.kernel.org,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Jiri Slaby <jirislaby@kernel.org>, linux-serial@vger.kernel.org,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Drew Fustini <fustini@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	devicetree@vger.kernel.org, Linus Walleij <linusw@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org,
+	Peng Fan <peng.fan@nxp.com>, Fabio Estevam <festevam@gmail.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-remoteproc@vger.kernel.org,
 	Conor Dooley <conor+dt@kernel.org>,
-	Jason Li <jason.li@cortina-access.com>,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v6 03/10] dt-bindings: arm: cpus: Add Cortina Systems
- CS7542 enable method
-Message-ID: <179209455732.2799921.10391094188509474166.robh@kernel.org>
-References: <20261013-b4-cs75xx-v6-0-37e8f3969b7c@gmail.com>
- <20261013-b4-cs75xx-v6-3-37e8f3969b7c@gmail.com>
+	Sascha Hauer <s.hauer@pengutronix.de>, imx@lists.linux.dev
+Subject: Re: [PATCH v5 1/3] dt-bindings: remoteproc: imx_rproc: document
+ memory-region-names to avoid hidden ABI
+Message-ID: <179209493314.2837720.2349962210068858296.robh@kernel.org>
+References: <20261015-memory-region-name-v5-0-abc358b39a96@nxp.com>
+ <20261015-memory-region-name-v5-1-abc358b39a96@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -55,22 +54,34 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261013-b4-cs75xx-v6-3-37e8f3969b7c@gmail.com>
+In-Reply-To: <20261015-memory-region-name-v5-1-abc358b39a96@nxp.com>
 
 
-On Tue, 13 Oct 2026 09:06:04 +0300, Fil Dunsky wrote:
-> On the CS7542 the bootloader parks the secondary Cortex-A9 core in a loop
-> that waits for an event and then jumps to the address found in a global
-> software register. Add the "cortina,cs7542-smp" enable method for it and,
-> as with the other release-address based methods, require cpu-release-addr
-> to point at that register.
+On Thu, 15 Oct 2026 10:39:22 -0400, Frank.Li@oss.nxp.com wrote:
+> From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
 > 
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
-> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
+> Document the optional memory-region-names property.
+> 
+> The driver currently derives the memory region type from the referenced
+> memory node name, creating a hidden DT ABI. Since memory node names are
+> not constrained by the binding, incorrect names can silently pass DT
+> validation, as seen in examples using "vdevbuffer" instead of
+> "vdev0buffer" ([1] and [2]).
+> 
+> Add memory-region-names to explicitly identify the expected memory regions
+> and avoid relying on memory node names as ABI.
+> 
+> Link: https://lore.kernel.org/imx/a3602ef8-2b77-4cc3-adef-2c4cba08a5d9@nabladev.com/ [1]
+> Link: https://lore.kernel.org/imx/alexXTYQHUs76J7v@SMW015318/T/#mb9dc709ff3adc24d9db6d30c973f37b580f6f1f9 [2]
+> Signed-off-by: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
 > ---
->  Documentation/devicetree/bindings/arm/cpus.yaml | 2 ++
->  1 file changed, 2 insertions(+)
+> Use optional property to keep back compatible with old platform.
+> New platform should use memory-region-names.
+> ---
+>  .../devicetree/bindings/remoteproc/fsl,imx-rproc.yaml         | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
 > 
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
