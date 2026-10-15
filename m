@@ -1,103 +1,82 @@
-Received: from mail-m49229.qiye.163.com (mail-m49229.qiye.163.com [45.254.49.229])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2338D2D6E58
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 02:49:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.229
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1A633E3C4F;
+	Thu, 15 Oct 2026 03:05:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792032587; cv=none; b=llBbGb3N21xtFAuFvRfxxISBkVZ6C7MUBVuQ2NOtiXrWRAwc/Gih3di0CqnUjkkaQTsZxpMyX33Mw30jlwAv5spaNnJ4EcRr6ldH0w9uuT+M1wtIXVstvK7L6u7qhRFvbuoetjisRdVZ+M6UHOa250/brxxAWHCeNu2yQG4Dmn8=
+	t=1792033523; cv=none; b=iq6UQw3+jTg7d0HfaWcxWBuTfhIjB3OIvWig+jLjPLKv3FXrESXHF8dgEtlloYCuz3DZymKhhlCcyYv3vFMkYIYSACpXYt8FkVcvUhF9X50Etdd2nJcvDyexV4I+hsxUvbNAN8TxgP5uQ7lE01gbyapqAQPPP93i+nh+Uwp6hIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792032587; c=relaxed/simple;
-	bh=m37k+lh5NwSWoeBBcaphhvGQ0pBg+5VhdFUJXKFxpO8=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=KbtIZRnc4wpygD3s66Jz+N1EeYVQI1FegzfTHs6ck9e/aieYCR9Ou7/ZvWnHdmw9005/36qD/s1tEakm3TbMsaVDz85+4Gt5NXY1oDHF7c9X6EFiRc+yZ4gno+QCgs2/Vyqi+cfbI4RHI82FtkkR9sLdfqQAHhViHsA2xk4s+Hs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=PABh/Z8N; arc=none smtp.client-ip=45.254.49.229
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1792033523; c=relaxed/simple;
+	bh=1F2/8Qoi+ZLRSLNu9c4URkV62a+R1n+aRXYPBgJ5WYQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tenMdnJ7QCKqSIvy7DJ1eyeG6QC4Q4XidCsZet8w3oCWfDHdK5Kq0gbFwCHnil75z3U9GODLXkPORiT3fz7M7EJPxOWhYF4SDH4iCg25QPtrqro7Pb9OFoGRr9dnMp9o8YB0JYjaXchOwDNt38AqpvpTw9uy8tJL01FvsZN1iGo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hbnyUnjT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="PABh/Z8N"
-Received: from [172.16.12.48] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 51193076c;
-	Thu, 15 Oct 2026 10:34:17 +0800 (GMT+08:00)
-Message-ID: <9ceed0bd-8804-4804-bbce-bb7eb7963fc2@rock-chips.com>
-Date: Thu, 15 Oct 2026 10:34:17 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hbnyUnjT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AC0E1F000C4;
+	Thu, 15 Oct 2026 03:05:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792033513;
+	bh=PnjZw2FhXq+q+owUi/YhDuk0hZ3ZixizYTEG0j3X6To=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hbnyUnjTslwyNtTfnmKPdE7+/n48Kmn/wFF0Gyhleh5ZfLm+poD37159AGbQFi2O9
+	 XqM6CrU0Ubgn1KUlnjwe9s/IqhM3Wri6/NI2yiSqG5yGTrHZ2pqcMfJ+KyqyyZILux
+	 41MNCNTwXeKWE+Gp3fdqTbsslR9Z+t8cetR8ywWWg75sxRdq6Oh66NVVQYcYne/pWI
+	 csnh3QFqgdvaIJyEf38eJpllkT3TZsnC1kXRI/a2QrxxVzewTAmFmwPzhMkaTWnHab
+	 uETF3hU4LeUkmYmUzSMJkTUSpt3f6mSkYw/JXVVKZOgPhlScwFjDgoOPytu25qA6Yb
+	 qq3isBhMW5gog==
+Date: Wed, 14 Oct 2026 22:05:10 -0500
+From: Rob Herring <robh@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: Aleksandrs Vinarskis <alex@vinarskis.com>, devicetree@vger.kernel.org,
+	conor+dt@kernel.org
+Subject: Re: [PATCH v5 1/3] dt-bindings: platform: introduce EC for Dell XPS
+ 13 9345
+Message-ID: <20261015030510.GA282943-robh@kernel.org>
+References: <20261011-dell-xps-9345-ec-v5-0-2ab1258b84c1@vinarskis.com>
+ <20261011-dell-xps-9345-ec-v5-1-2ab1258b84c1@vinarskis.com>
+ <sashiko-outbox-167353@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: shawn.lin@rock-chips.com, Diederik de Haas <diederik@cknow-tech.com>,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH 9/9] arm64: dts: rockchip: rk3588s-nanopi-m6: rename pcie2
- power rail
-To: joachim.eastwood@gmail.com, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-References: <20261014-nanopi-m6-improvements-v1-0-e713f71eb4d3@gmail.com>
- <20261014-nanopi-m6-improvements-v1-9-e713f71eb4d3@gmail.com>
-From: Shawn Lin <shawn.lin@rock-chips.com>
-In-Reply-To: <20261014-nanopi-m6-improvements-v1-9-e713f71eb4d3@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa13d690def03a4kunm6ed793153a31a9
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHx4eVhpNTEwYGR5IGR5DS1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=PABh/Z8NoX637jTmXGRO/Fgdh9rKIMLPAoJmGbAtAa9fPS0KUWrqDgnmnQSKZbIYZQr0qajDAkUQcNTnCPl2wcf/yxzef7/0DwW0NUXH1m9kFjvQHo4FSoue9vC3expHqTH0JAG9SswjNTXg+YG8ftw6f6MWnWxWbvr0X7z+ZUo=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=1YqASTwYL9cHxC7rY2PdHzRjS6kBVzdXj54JZkAOZIw=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <sashiko-outbox-167353@kernel.org>
 
-
-
-在 2026/10/15 星期四 0:33, Joachim Eastwood via B4 Relay 写道:
-> From: Joachim Eastwood <joachim.eastwood@gmail.com>
+On Sun, Oct 11, 2026 at 05:37:21PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Low] dt-bindings: architecture-specific header included in yaml example
+> --
 > 
-> vcc3v3_pcie matches the signal name in the schematics, which simplifies
-> cross-referencing.
+> commit 8b45bf401f436a6e8330c0e4539c0d77e9e73400
+> Author: Aleksandrs Vinarskis <alex@vinarskis.com>
 > 
-
-Reviewed-by: Shawn Lin <Shawn.lin@rock-chips.com>
-
-
-> Signed-off-by: Joachim Eastwood <joachim.eastwood@gmail.com>
-> ---
->   arch/arm64/boot/dts/rockchip/rk3588s-nanopi-m6.dtsi | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
+> dt-bindings: platform: introduce EC for Dell XPS 13 9345
 > 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-m6.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-m6.dtsi
-> index ca115d8e108a..dd61c61fe7d7 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-m6.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-m6.dtsi
-> @@ -36,13 +36,13 @@ user_led: led-1 {
->   		};
->   	};
->   
-> -	vcc_3v3_pcie: regulator-vcc-3v3-pcie {
-> +	vcc3v3_pcie: regulator-vcc3v3-pcie {
->   		compatible = "regulator-fixed";
->   		enable-active-high;
->   		gpios = <&gpio3 RK_PC6 GPIO_ACTIVE_HIGH>;
->   		pinctrl-names = "default";
->   		pinctrl-0 = <&pcie20x1_2_con_pwren>;
-> -		regulator-name = "vcc_3v3_pcie";
-> +		regulator-name = "vcc3v3_pcie";
->   		regulator-min-microvolt = <3300000>;
->   		regulator-max-microvolt = <3300000>;
->   		vin-supply = <&vcc5v0_sys>;
-> @@ -95,7 +95,7 @@ &pcie2x1l1 { /* M.2 E-key 2230 */
->   
->   &pcie2x1l2 { /* M.2 M-key 2280 */
->   	pinctrl-0 = <&pcie20x1_2_perstn_m0>, <&pcie20x1m0_clkreqn>, <&pcie20x1m0_waken>;
-> -	vpcie3v3-supply = <&vcc_3v3_pcie>;
-> +	vpcie3v3-supply = <&vcc3v3_pcie>;
->   };
->   
->   &pinctrl {
+> Add bindings for the Embedded Controller in the Dell XPS 13 9345. It defines
+> properties for thermal and power management over multiple i2c busses.
 > 
+> > diff --git a/Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.yaml b/Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.yaml
+> > new file mode 100644
+> > index 0000000000000..3485117b505cc
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.yaml
+> 
+> [ ... ]
+> 
+> > +examples:
+> > +  - |
+> > +    #include <dt-bindings/interrupt-controller/irq.h>
+> > +    #include <arm64/qcom/qcom-adc5-gen3.h>
+> 
+> [Severity: Low]
+> Does this example include an architecture-specific header? Including headers
+> outside of include/dt-bindings/ breaks dt-binding schema portability rules.
 
+Yeah, please don't use arch headers in examples.
+
+Rob
