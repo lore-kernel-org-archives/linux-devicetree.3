@@ -1,137 +1,250 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C53F449F129
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 08:59:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792054791; cv=none; b=gSgb9KUTd4Uk95y7ew1a8aMxebw5azIM+Bu3uYi4OOBBCT5gavwWPBTEox0qtJTveN8bASpUow8bUuUKnvyBT00LLYoaRu+fYaAPz5kSHdnFaWSCh7bUThA9xJAtH7AW0aJSzeneND4er5UuMS7IG/1FA9v8L6ZcrsoDKRDEhgU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792054791; c=relaxed/simple;
-	bh=3/cNw4sEvJBejOf977x2DG/AkG27qWXnWwL0GNmyl8E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fT5QdN/pE/AJBuDmOrA7njAJXQyWltr9+ZbDIHIPBpZEMvQD751ap90bPSP4jiNx80pX9YvjkVQDwISno6Oxw34B9FrffMBC5CjzBL6v/KrackdqYDD6A7BwV1GEVrDK1PRJ2+ttvuM42jiZlVLKDGkFmXBJ+wsHdT83Mp56bTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qupQC/rI; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14D124FE2EB
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 09:00:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792054836; cv=pass; b=O11aQ5G5+0AfzigWVqZsXy1tF36tze0glYeuInIpG8nLb5uyMMu/xKVofC43AMJX2wK0zCi2Nook5wQNseOQGdApUyVhPtX450wi8T5suf0wpEmCoIbyBTA8nTSfrkORvZ5KcCowjwlyLLAXOxofMC+ODLd+TrgIcA6UZ5ccWDc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792054836; c=relaxed/simple;
+	bh=k2Rzrx7XeCBQTzrPMgf0gJ6EQIfvVKL0241+vPFdwAI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WuwC2g9P20bhP6TONw1LsOvFjLkFuiCPuqrzc4csqhvQrAtm3oAEdTlJL78NRqqOEDw5IiA6U1/SPqORsdKuQqPsutsWbPkXgnwX+wdO5gI8lNF3blJu6zYW+btXJHBihor/bjHOljO1KjGBAkafPXnQQj3lJt6DO6Wsl372PTo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=MtY1wELf; arc=pass smtp.client-ip=74.125.224.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qupQC/rI"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e5378b281aso28093255ad.2
-        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 01:59:49 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="MtY1wELf"
+Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-677d35fd1d2so1504387d50.1
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 02:00:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792054827; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hZVxvFvXdOSytZRh3XuYEqSzt32OnVeTtg4UIm9rrwI1GJ5yhSyjnqxksRAIacCvo1
+         tzPFlMyaa+Dq1oteKtFXN8jqFylXRwfMZNH5bfT3JcX3CFOUPQERG42G8hzFAaAksH3k
+         +JGRlpKIpIagwaOulcWpgvpThGhHQlah7Hq25sVyvFJZRvSzwG2f+7PkBUnArAFOdiQ3
+         TSpJTv8ugA66xLGbo1NCDjfrL0agQ2m8YPlttlEjshXDhAUcIBFbdSQTv6zFfYmv50QF
+         yoiuBKRwFocMPjxSg3nY/cD+HSvOx9S9u7J7wvnz5/LNPYco2+zRNWsvKaC2grBfwZFq
+         gIJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=H2bwf3Gv5oNr3T6PPFbiYLp5czeo2CNPZ2amlY5zFVU=;
+        fh=fUKQ4nfyHgJ0r4gNunO84Bv17blvb3j2/0RHw/smHRw=;
+        b=OxxTLKFvEA237ZUMwkMRbV7xLn59e0T6pw/8uRW4bcBNz4uK27NudI0n20DXRo9rHH
+         qYxpCJfhn4Z4MpHYrNuXW1wmrIUY3t8vRckbMPRgZguzf6qvEVpnbyUplkGHYLLQ+57r
+         JyrlAAPPbcKQMcCMDxaB02hT52WzHqqcw9ei1tJbrvwdcbwYPfPp0C+WVKPvqR7X7O3j
+         xaRkuuodK0CFW5aa7G0XfQPKD4GwKa9zf30xa3mg2iUqBlfV0kl9zkZ4eco6yyoI4+I0
+         ddAe1iTP1jSaPf/u8ZrNgyyknfUZ42FEeRa44phCPkwkeok2tbebj0CySX+btE4oLnjV
+         mK9g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792054789; x=1792659589; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OTn0EhBpANmjKhHsvyvAy8HwjaDH/CrCTffTLDLZppg=;
-        b=qupQC/rIEVMPZFdcMZRArvtyDgs3EkHT5xOZfBnj26TUeYb8j+9/8HxA893ITTkX+p
-         gIaQFVHbbtwPZ1Omdhj07kFrOnT8MffTAF1ptDTiIkltk+PyZw/bdWau6V6b7kH90zb8
-         c4JpWnM+1So3E47MZIhtwLal4oLKFzI7eDT/X+aHbF1zIWOSJCzdKW9EybHgMotNzwgT
-         JEVSkPhW0gHP3wDA86FzhU/oMii9GWEeHf2VlRsC9kJpqJBcP2YkRML3ahQadNhLf+5Q
-         Q6Nz3SZtfSZpsu896FspTI4Aky22UpzMKTmjXU5/W6q8yoKjeBIiVdo63IYWzSIBEZdI
-         scOg==
+        d=chromium.org; s=google; t=1792054827; x=1792659627; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=H2bwf3Gv5oNr3T6PPFbiYLp5czeo2CNPZ2amlY5zFVU=;
+        b=MtY1wELf+qkksC728VBdu9SvCEgLQu23fFh7RmnRNfPh23kTCbNI5rhl/J3iTqdcoq
+         Tw6ay0Ag5IsXl+ki8ClWhtY6DdvfIsPqm75fINvzIxoXS2heVcycyx/DGkZQqz7GknnX
+         oAsdXKGPQ4lAWOKwtozm1T3ShVnsIROoRl/QE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792054789; x=1792659589;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=OTn0EhBpANmjKhHsvyvAy8HwjaDH/CrCTffTLDLZppg=;
-        b=eq28OyFLvkEMiE95GmWDqa9+jRf9CYWBCc/QqHb9fUsEGt/P7BaLfmAnGhVZyZQ+Ps
-         Ol/i/32DMasuTf46ZQtOc/DZx0FFEX5ZOXxKU+e26u5bE5ceWS+THqiWj8fl5YKtp4ie
-         MDQ6UveGd1/8xHM9qRz3fbUgmzN25naQKCVF+JRuo8tmgbRPpMO4ncgz/1ZR0LHtdoV3
-         poSeAXFcn6qhKMTs5V8E4C7kvgTQJEf67I/J5DFpCG7UCb4RGc/UzO5amX5t52D5eM6g
-         ae0k/2T8op8N00bo6vnPjGSP3IscG1F3ZrYSUi4Rl88xOZ/ONh43mz6dccIMkPuJ9hZJ
-         4I1g==
-X-Forwarded-Encrypted: i=1; AKwUvBw8uEscTel3LMDpty0pv2YVYxgmcIxwGS0zf4G5/dmvXVGe8h+p9kDBflAR9vEH5VsNeK23WWSdQmZV@vger.kernel.org
-X-Gm-Message-State: AFq9FYJEJv5H+HK4hR/1gXUhZ4jPrHDStUKN98qfl7Uukaj1Hh+x9EPT
-	1EHIXVAKlZky+A9NjGi0SFo+xH9plrxRoVWewMjXTksUAmXctK7tbwQr
-X-Gm-Gg: AYBFou1iR3GvoF9X2Ny/aNMmV++wtV4nX6HDNYHgPUemmvcTu9+SZSf8lxXKjWIlDC+
-	fjeF/splEWKhQX4I/5N+7tfsh/3LagBxBLrdv98MjMxc+PmAa+Q1OIEFZiLzA0bTJZ+RF3TAHsf
-	5OqDPxdEJLTdqFtWS6NZg3q+trgkd94Qh/s5WGx0MJjhj3eU5Ge9bDuraSOkcSGCkgirjcsC4VY
-	8xoZrB/WkRiSKtb2Er0+T2VLVRvz+TM41CT4SuHI5EEaiTqgH5TmHFrvYuoTfyCTcRgJoB3m2NG
-	OwpjugfgG7zdKxU7tFH3elcQ6K0b5NKiValW32WW+CSkJdt39dW6VgDs3leFykiu8Jdz74Ew10g
-	VBQLrIMhLxgAuSSfbveofXIj1H6IUXUousw4QTurPxUi5/ky5+Q3ctpgwPhRfFg5zOlRIFwDZ8U
-	s0ALenHm+DenaFTiKjaXZOeJT8Hvun5wzxW0Q/0vKISm1cdZ2VmuvJ/1msmoO5FXAc46Cw
-X-Received: by 2002:a17:903:38c4:b0:2e9:40ef:e44a with SMTP id d9443c01a7336-2e940efea29mr41054965ad.3.1792054788685;
-        Thu, 15 Oct 2026 01:59:48 -0700 (PDT)
-Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e95cf92dfesm5476715ad.11.2026.10.15.01.59.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 01:59:48 -0700 (PDT)
-Date: Thu, 15 Oct 2026 16:59:17 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
-	Inochi Amaoto <inochiama@gmail.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Chen Wang <chen.wang@linux.dev>, Paul Walmsley <pjw@kernel.org>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, devicetree@vger.kernel.org, 
-	sophgo@lists.linux.dev, linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
-Subject: Re: [PATCH 2/3] nvmem: Add Sophgo SG2044 eFuse driver
-Message-ID: <atCVyX1tV0VXe72k@inochi.infowork>
-References: <20261014074516.240247-1-inochiama@gmail.com>
- <20261014074516.240247-3-inochiama@gmail.com>
- <atByyAg-c8v_IiAj@monoceros>
+        d=1e100.net; s=20260707; t=1792054827; x=1792659627;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=H2bwf3Gv5oNr3T6PPFbiYLp5czeo2CNPZ2amlY5zFVU=;
+        b=oYpkHQGqEXNPLgrROIpzXH6XDbFsf2LDzyWPzu0PjZcOqvSMnCWN7mfCVU0JW4SaTP
+         tyiJzQQjqwIJbbhxkHGCIKAdAX7dCNZigTpLfUaVYpRBFQ/TEppvp2R5GBL2b82522Fz
+         kRXrqYdTGidWRg0uEiNnOn7vGmEmGyhZpstkhDtLP+rcMMEH8PsEQAFa6bTmJqZ5/MFU
+         iAYfAntAcNrU3XzL4nCq3ecN0xt3gxs99AL8Z6BnAeAnnVy32ChHTR2uXx7AbB5HaVvx
+         G/bxC3KbxmUwuSvYz3OTXBrbQvY3C6Jekibsbo0YVHCJskFzZUlXSedFfdXmOdf+bblZ
+         QZpA==
+X-Forwarded-Encrypted: i=1; AKwUvBxCkkH6AG0zULLJZvg8HmenbfnG4QMz0kId6faRM0zQC4IHM96Agn5T28TnbfXLLKFDy5U5H9jfry07@vger.kernel.org
+X-Gm-Message-State: AFq9FYISpJ6F46yb8ka+OOx0LsG+YJHo08IXDkZqlO39fUEi6sxB/hG8
+	ycffSn0JFG/cv7hi+qYAY2XsfjclY95E/c6aecvFKXP8mXyimnvqQNf+jq3bfUFCoexZ1j0THjQ
+	fF9ax5AAccU+nX6b9Gf6iq/Z5krKVY1fWGnGubIPg
+X-Gm-Gg: AYBFou15vgoc4mvLVj9vJdgkQBkbNqwItEjR9tXlDfmqlHVKyEJ+bAWmjvzNUzPHKCl
+	jIuLA/aZrlV0W1mejTtHz/+d7uQNfbccrZwfqzw4l+/pbYPiQEPasQbhc1Kgc9RtcMdjzWKhbt1
+	0tRRrBc3Wm0Ts3XI0GtO7Os2KYTUjyt6puvNGwVj1Du3v8QyPmScOaYOegK8diNj2kqtoz3+hnc
+	9SKjD6t+wTC1Ddl5MmkHcgUgj3IWL18Nsnt8rmdFSuuLOLNACXQ9/7KVgtabjGZKCpx0Sa5ufGj
+	5GQrUFZsQQu7BK5l6hA5t+aZDUgOlSVjSHsN2ryR2Hj2IP7ixYUogMCjvGvuag/TrGA=
+X-Received: by 2002:a53:ac9e:0:b0:675:449d:3d74 with SMTP id
+ 956f58d0204a3-679362786a1mr5012542d50.92.1792054826173; Thu, 15 Oct 2026
+ 02:00:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <atByyAg-c8v_IiAj@monoceros>
+References: <20261014082037.1774672-1-wenst@chromium.org> <20261014082037.1774672-3-wenst@chromium.org>
+ <7020a7a6-332e-4fd0-a659-d82eb768614c@linaro.org> <CAGXv+5G1kgyumbj7wGf6rPFbg3spSO0zYmEkn-hZT4qUdJbytA@mail.gmail.com>
+ <03375a31-0ac6-47a4-b0dc-6327080e1622@linaro.org> <b4c0761b-34f2-42ad-97e7-ab34ae776281@oss.qualcomm.com>
+ <8d4d3ec2-3c97-4a46-97f8-048fdf81b853@linaro.org>
+In-Reply-To: <8d4d3ec2-3c97-4a46-97f8-048fdf81b853@linaro.org>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Thu, 15 Oct 2026 18:00:14 +0900
+X-Gm-Features: AclHuK909vzDVZhhmMGqz8RNS4kIz2k4tldUZDjIEfGnLkXIyAs5uz5oF7-pLmQ
+Message-ID: <CAGXv+5G_ig=k-eH8Cp0ES70WxTHcBS2TVj9VmHaG9caROiAuQQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] dt-bindings: usb: snps,dwc3: Fix downstream port numbering
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Felipe Balbi <balbi@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Sven Peter <sven@kernel.org>, 
+	Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>, Joel Stanley <joel@jms.id.au>, 
+	Andrew Jeffery <andrew@codeconstruct.com.au>, Ryan Chen <ryan_chen@aspeedtech.com>, 
+	Billy Tsai <billy_tsai@aspeedtech.com>, Michal Simek <michal.simek@amd.com>, 
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Peter Griffin <peter.griffin@linaro.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, Heiko Stuebner <heiko@sntech.de>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>, Minda Chen <minda.chen@starfivetech.com>, 
+	Shyam Pandey <radhey.shyam.pandey@amd.com>, Wei Yang <yangwei1@eswincomputing.com>, 
+	Senchuan Zhang <zhangsenchuan@eswincomputing.com>, Hang Cao <caohang@eswincomputing.com>, 
+	Li Jun <jun.li@nxp.com>, Peng Fan <peng.fan@nxp.com>, Roy Luo <royluo@google.com>, 
+	Yang Xiwen <forbidden405@foxmail.com>, 
+	Ahmad Zainie <wan.ahmad.zainie.wan.mohamad@intel.com>, 
+	Robert Marko <robert.marko@sartura.hr>, Xu Yang <xu.yang_2@nxp.com>, 
+	Wesley Cheng <quic_wcheng@quicinc.com>, Stanley Chang <stanley_chang@realtek.com>, 
+	Ze Huang <huang.ze@linux.dev>, Aswath Govindraju <a-govindraju@ti.com>, 
+	Roger Quadros <rogerq@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	asahi@lists.linux.dev, linux-aspeed@lists.ozlabs.org, imx@lists.linux.dev, 
+	linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, 
+	spacemit@lists.linux.dev, Mathias Nyman <mathias.nyman@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 15, 2026 at 08:32:19AM +0200, Uwe Kleine-König wrote:
-> hello,
-> 
-> On Wed, Oct 14, 2026 at 03:45:14PM +0800, Inochi Amaoto wrote:
-> > +#include <linux/mod_devicetable.h>
+(Cc-ed Mathias, the xHCI driver maintainer in case I misunderstood xHCI.)
+
+On Thu, Oct 15, 2026 at 4:44=E2=80=AFPM Neil Armstrong
+<neil.armstrong@linaro.org> wrote:
+>
+> On 10/14/26 18:36, Konrad Dybcio wrote:
+> > On 10/14/26 11:44 AM, Neil Armstrong wrote:
+> >> On 10/14/26 11:29, Chen-Yu Tsai wrote:
+> >>> On Wed, Oct 14, 2026 at 5:28=E2=80=AFPM Neil Armstrong
+> >>> <neil.armstrong@linaro.org> wrote:
+> >>>>
+> >>>> On 10/14/26 10:20, Chen-Yu Tsai wrote:
+> >>>>> The DWC3 controller can operate in host mode. It does so with a XHC=
+I
+> >>>>> compliant host controller. The XHCI has two downstream ports, one f=
+or
+> >>>>> HS and one for SS. USB downstream ports start from 1, not 0.
+> >
 > > [...]
-> > +#include <linux/platform_device.h>
-> 
-> <linux/platform_device.h> already provides of_device_id and
-> <linux/mod_devicetable.h> pulls in a looot of dependencies this driver
-> doesn't need. So please drop the latter.
-> 
-> > +static const struct of_device_id sophgo_efuses_of_match[] = {
-> > +	{ .compatible = "sophgo,sg2044-efuse", },
-> 
-> s/,//
-> 
-> > +	{}
-> 
-> s/{}/{ }/
-> 
-> > +};
-> > +
-> 
-> Drop this empty line
-> 
-> > +MODULE_DEVICE_TABLE(of, sophgo_efuses_of_match);
-> > +
-> > +static struct platform_driver sophgo_efuses_driver = {
-> > +	.driver = {
-> > +		.name = "sophgo_efuse",
-> > +		.of_match_table = sophgo_efuses_of_match,
-> > +	},
-> > +	.probe = sophgo_efuses_probe,
-> > +};
-> > +
-> 
-> and this one, too.
-> 
-> > +module_platform_driver(sophgo_efuses_driver);
-> > +
-> 
-> Best regards
-> Uwe
+> >
+> >
+> >>> IMHO having consistent numbering across controller types would be
+> >>> better. This avoids making the USB core and hub code deal with more
+> >>> exceptions, and also easier to understand and write device trees.
+> >>
+> >> I was in the impression the port number not necessarily reflects
+> >> an actual physical numbering, and can be a logical number we would
+> >> then map in the kernel.
+> >>
+> >> I don't see any issue here having base 0 for the bindings and then
+> >> converting it to base 1 for the XHCI port numbering.
+> >
+> > I thought base1 comes from the USB spec and not just XHCI?
+>
+> This is my question, is the spec says: each USB Host Controller root
+> port shall be considered as a port of a Hub and numbered the same way,
+> then fine, let's use the base1 numbering.
+>
+> As I understand how USB is architectured, all downstream ports of Hubs
+> are numbered in base1, and the whole topology is based on that.
+>
+> But here, we are speaking of physically separate USB busses, one
+> USB2.0 and one USB3.0, a controller could also have 10 USB2.0 ports
+> and 5 USB3.0 ports, who knows. The way those will be numbered is not
+> part of the specification because the specification only the defines
+> the topology of an USB bus, like PCI(e) defines the topology on a PCI(e) =
+bus.
+
+No, the XHCI spec actually specifies how to identify the number of ports
+and which port supports what version. See below.
+
+> How we aggregate all those busses to abstract them to software is not
+> part of the spec, we chose to declare a fake root Hub with a physical
+> downstream port as a virtual port of the root Hub, fine but this is
+> purely software abstraction.
+
+As far as I understand the implementation in Linux and the XHCI spec,
+the XHCI hardware registers give the "maximum number of ports" in
+HCSPARAMS1. Then there is at least 1 "xHCI Supported Protocol Capability"
+entry in the "Extended capabilities" section that describes a group of
+ports (offset and number) and the USB protocol supported by that group.
+
+Using the example given by the XHCI spec on page 330 as figure 4-35:
+
+    XHCI port 1: HS on physical port 1
+    XHCI port 2: HS on physical port 2
+    XHCI port 3: HS on physical port 3
+    XHCI port 4: HS on physical port 4
+    XHCI port 5: SS on physical port 3
+    XHCI port 6: SS on physical port 4
+
+The DT would be something like:
+
+    xhci {
+        ports {
+            port@1 { /* graph to HS EP on USB A connector 1 */ };
+            port@2 { /* graph to HS EP on USB A connector 2 */ };
+            port@3 { /* graph to HS EP on USB A connector 3 */ };
+            port@4 { /* graph to HS EP on USB A connector 4 */ };
+            port@5 { /* graph to SS EP on USB A connector 3 */ };
+            port@6 { /* graph to SS EP on USB A connector 4 */ };
+        };
+    };
+
+> We may only use the hardware IP port numbering in the bindings, not
+> the software abstraction.
+
+And we are using hardware port numbering. It's just the numbers used
+are the physical port numbers from the XHCI registers, not the logical
+port numbers on the root hubs.
+
+In fact, we could say that the port numbers on the root hubs for XHCI
+are made up.
+
+> We could use the base1 to describe the DWC3 ports, but how to describe
+> all the physical USB busses a controller can expose ? We may not limit
+> the bindings to USB2.0 and USB3.0 ports only.
+
+Technically, there is one bus for USB 2.0 and one bus for USB 3.0. But
+currently for XHCI in DT, we describe the hardware ports directly,
+regardless of the USB protocol they support.
+
+I don't know why we don't describe the root hub, but maybe it's because
+prior to XHCI the controller and root hub were the same entity? Even for
+XHCI, the root hub is more of a logical entity.
+
+And AFAICT, the hardware registers don't distinguish between ports on the
+USB 2.0 root hub vs the USB 3.0 root hub. The port control registers are
+just in an array, indexed from 1 to maxPorts, i.e. the physical index.
+
+> How about the USB4, does it use the USB3.0 port ?
+
+I'm not familiar with USB4. A quick search says that it can tunnel
+USB 3.x, DP, and PCIe, and it doesn't have its own USB HCI defined.
+
+So I'm thinking the USB4 controller would be more like a nexus node
+or multiplexing node, or perhaps like a USB C connector. It has input
+ports for all the protocols it can tunnel, connected to their respective
+controllers (XHCI, DP, PCIe). The binding probably would be very messy
+if one controller supported multiple outgoing ports, as each downstream
+port has a 3-to-1 relationship with its respective upstream protocol
+interfaces.
 
 
-Thanks, I will strip them.
-
-Regards,
-Inochi
+ChenYu
