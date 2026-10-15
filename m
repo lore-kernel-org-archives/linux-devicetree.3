@@ -1,248 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012071.outbound.protection.outlook.com [40.93.195.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 640C7497B96;
-	Thu, 15 Oct 2026 11:19:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792063149; cv=none; b=UFtcpYqVFAsh564uIBxbU/dcdlf2VA99JwdzR+B5P3PbvrOXVHt5PQ6Xwvxa/+/AocdpO+YjPqKdcdgUy/FQNIy7guyLKsqJ+gHJkxEBCr+S/VAz7j8/7Ss9V3+fJK4fdIXn/XyUTjfNAQz5wYNr35oTkteRSZUfgVSQMV2MkWM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792063149; c=relaxed/simple;
-	bh=SHqr+iIlnGtxZydbIeZ2ElJryRCT6QPznEHyFuxBXzQ=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=uSicUJ7jwXGBdP+lW0X8l3YvWGxUKNgP+eHakli+T6tpJ2Zh41IciUH31ezLsNJIsGi/iza/xAIz9DNt+Jrn/COJAUbPHvayVhUZbI4FrSZFTWlk9X7oOiHQ8ZWUp0ICyxEZX3qZrwDUQmD569Pd1XPr24+/UwxoomANX9GyBgs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z6FTXrtL; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12FC550B409;
+	Thu, 15 Oct 2026 11:26:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.71
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792063599; cv=fail; b=dA/K6k59oQhgk5dqlB4XNDnEY9sGLA6WJ/kzGVxr55Fn/3NbLPLGxffMj5w7oAFoc1KV3zqAXEjtbg2Zjk+AJ/6CFZYZ4biDROsEoM/GB1vadwvMMlqzOh+a2Dzfy2aTTGndib2TYR0vdQb+2hNUfmcUyd0hZ4zXt5Si9KItQKA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792063599; c=relaxed/simple;
+	bh=Kaz9K5LWluj29T2axZuA8gbp4F9YCrbim4989ZRGPYE=;
+	h=From:To:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=dkQqud+nFsdX/8mVT4NG4M2eXKzywkV34sWmvElk1OtKNCiVIXVwlv/NlmbyCqAv2YrLNgNqt/FsIhBB+YYPuXbn6Ip/kF8gWuK/hmBYIJe1Nd8NlA6bKT5WKCj6j+WCDazoujWOd943J6Zu9UYpD9Rvm3mzfYdzAwhV4y0xaJg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=sHFcGOZb; arc=fail smtp.client-ip=40.93.195.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z6FTXrtL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A37F1F000C4;
-	Thu, 15 Oct 2026 11:19:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792063147;
-	bh=EUuiQTvZ5m+M7vtYBRhA91jya0KPorh/EdYN3drPH50=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Z6FTXrtLUEzweG/26yk3qKPwwqam3QLKRZk3SpoFg+bHXClEJzqwtoG1PHTggHid0
-	 0F0Y3Sks8hWWZmdQvnwGHmYtKHCuqlyAN9GDtInC3dZ38FomtCNNHsLPOJN/1oL+NJ
-	 Xc6NYBqsxITZCyZSwG7SXPIXwu6f7uJkwHl0+Djhc0Arbm8TK5ucoPzst9iyedoTN6
-	 ugGF1oxvEEKZB/A/9bseIICYw8aJsAHC0kxQ589kYhp1HXW1ZdgiggNQgrqehUJl/y
-	 IFHdeIk+J/OafUMfMG8JcmYyaoz0xHkFkM9aWXXRBsCd0F4uBlRNXgKX26Bb8yAFwT
-	 LjT4fnfglLyag==
-Message-ID: <sashiko-outbox-172734@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/2] Input: add OnePlus/OPPO Pad pogo-pin keyboard
- serdev driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: wyibo6109@gmail.com, linux-input@vger.kernel.org
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20261015110859.203989-3-wyibo6109@gmail.com>
-References: <20261014135251.11234-1-wyibo6109@gmail.com>
- <20261015110859.203989-1-wyibo6109@gmail.com>
- <20261015110859.203989-3-wyibo6109@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 11:19:07 +0000
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="sHFcGOZb"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tPb3AjHm6t41BoPXTS7HBvpJ4NF4b/cphTAV43+uiXwqXEx4BnTt9xeLfBPexxQs5N301y8wi36XKukwvhxf7dKQHiVfJnKndPqI9ZPxR9tAG/PNYbEErIJnTED/VWNSLaPIoagwGaChOYL/AJjnb0EXKsyC79zGa+wtySUtflo1rPR/oj1bYGhnAUIJmvjc2Uuc+AHI8L2HPX3RyLvCrIrae52nSAdGS+3tNEbeL0MfBOtQK8cY+FxVpBuHbzHM1zjC7TPv5G9uHB5yiJgnm2b6a0ZRwuPErX1sEMyerG6BquC+puRssyHp4EK6yk8p94zCLqDpQuGjr653GChW6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Kaz9K5LWluj29T2axZuA8gbp4F9YCrbim4989ZRGPYE=;
+ b=vgNZGjB9IsDiBLOYUHvv68E4zVegxqfeVb4xsQBAlfYJbpLnJmz/HYRIz4l6zH2RLrh0FRgAeriCmvcORtJQq8DZIzL06l+cYFaaXC61Vsfnomo8G3TBlemQurMqeh33jg6pvJdN8K8mjqMHdirwP5NZX56dwJi5Eod7h1QD/HTk7tod2ps4sKtIWmbVDRFB+mJJos6ZxiscOWxZCkZl2qClFGa4Fcg5AMheLjzH28eQsroYuxYzJJuWd4ZE5O+lGphOqDtFTF9JkRdAuFibqWRFgwPs4wi5BkmPvK4zc4SMA/USM0WZdHFXUcKSX/V+v1pbPM2xCyt+qiVv+P85Hw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=microchip.com; dmarc=pass action=none
+ header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microchip.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Kaz9K5LWluj29T2axZuA8gbp4F9YCrbim4989ZRGPYE=;
+ b=sHFcGOZbaYfsig2IaYiO00qdyofoKEukMTpvZdfXcwDUyHzIyaDNT1lg1UihXPec8O7ZN1y4dGXijHZlyaqi7hBtAGk9j07Z+8I8VO37snAnKMp0JV8awoSYwjwbvpvNq5oXjxe9wOjN+SmqbTbIzsKvqwH2G02mY68pzI2bqy4W2mcWrlyKXRFh2sZLvidFpV7agEaP3Rmz/H3ezKQVfeUv9nj592+7il4RBIm+EPbw+ycDFNC2aj+x6ZQyzFKguTneF982lMOcHAGeslnjhEB0IpqvkvVLIg9AVVCqsczCUdFsbNtl2TDCcO6sQKk7CXi7BG4/Sqr7s6g4kb/VSA==
+Received: from DS6PR11MB523643.namprd11.prod.outlook.com (2603:10b6:8:468::12)
+ by DS0PR11MB6352.namprd11.prod.outlook.com (2603:10b6:8:cb::5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.23; Thu, 15 Oct 2026 11:26:29 +0000
+Received: from DS6PR11MB523643.namprd11.prod.outlook.com
+ ([fe80::1cc0:e019:a70b:f954]) by DS6PR11MB523643.namprd11.prod.outlook.com
+ ([fe80::1cc0:e019:a70b:f954%4]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
+ 11:26:29 +0000
+From: <Manikandan.M@microchip.com>
+To: <michael@walle.cc>, <pratyush@kernel.org>, <mwalle@kernel.org>,
+	<takahiro.kuwano@infineon.com>, <miquel.raynal@bootlin.com>,
+	<richard@nod.at>, <vigneshr@ti.com>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <srini@kernel.org>, <Nicolas.Ferre@microchip.com>,
+	<alexandre.belloni@bootlin.com>, <claudiu.beznea@tuxon.dev>,
+	<linux@armlinux.org.uk>, <richardcochran@gmail.com>, <linusw@kernel.org>,
+	<arnd@arndb.de>, <aaro.koskinen@iki.fi>, <gregkh@linuxfoundation.org>,
+	<mathieu.dubois-briand@bootlin.com>, <linux-mtd@lists.infradead.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <netdev@vger.kernel.org>
+Subject: Re: [PATCH v8 3/8] nvmem: core: take a reference on dev.of_node in
+ nvmem_register()
+Thread-Topic: [PATCH v8 3/8] nvmem: core: take a reference on dev.of_node in
+ nvmem_register()
+Thread-Index: AQHdW6cSHE+HOC+e2kKLMwSXuzZQlLb+U0sAgAAlcAA=
+Date: Thu, 15 Oct 2026 11:26:29 +0000
+Message-ID: <29e64d3d-a002-496d-a4b6-b696f3f3013d@microchip.com>
+References: <cover.1790847519.git.manikandan.m@microchip.com>
+ <2e21cc4b871da8764e3a12d0ebdcf7cb799149ab.1790847519.git.manikandan.m@microchip.com>
+ <DM5AO9LBE1OI.19L3SG4BQTNB0@walle.cc>
+In-Reply-To: <DM5AO9LBE1OI.19L3SG4BQTNB0@walle.cc>
+Accept-Language: en-GB, en-US
+Content-Language: en-GB
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=microchip.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS6PR11MB523643:EE_|DS0PR11MB6352:EE_
+x-ms-office365-filtering-correlation-id: 72426daa-101d-4bd6-aa17-08df2aaf2817
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|921020|38070700021|11063799006|56012099006|4143699003|22082099003|18002099003|10067099003;
+x-microsoft-antispam-message-info:
+ u4dLfjGgA+qvOyxFKF38q5YXRR2hN6fv+jhNaQv8SxX5QhgeFqsjpJCQyelAmaNlF6f7DR72hzeYjTWXgSKtS8yyNc6/bsdYqalcv5nLcDcM4TTCPQApiCbuB4ikBeTVYAQJN5FVchdSIGUeZ7UzMv9T2RuigbuLvO9Cw5+CPNAHuIQTnTl2LT3vzT0D/yoN5Xi89ss79GyaeqfLOvmb2rtsGgGz8995+UTiQENaxZMY9+ZWyRoCzAeoaJ+H5mgrU1yFGBSY2CAStomA4fbVuQrc2gU9jVhfrxDPvL/iDeD8aPVaV0W/zBYgPU9jSOFmnHK9i92E4RxcGgzDFujIxznJbf+27BwJ8IESWvMgmEFSmFGatckTTa9w2jCmNkE+F2/tA8wuIJgppWrfZEPpHr3LptG8HqkdUUUK+5in5za9MgGtQDvhFGDhjHtLOkZZEZpKx6IQrnHJA58hmNHkpoZA05hPRgdT4ibIwvE5T2weLNeHQHt31Ow7YeQvlo4jnG5yZokTRlAZuJFn6ZPrGX5xk//WAcEvmc1XidX6xPlS99ompoOEGEwkz8iaoNur4f8RPSltvNIeKxynQMbDncqvPux0Ts91n//y8qyUot9U+LayQqHhg5KKz+X78PSrGoNfiellV3xl/Caj+0bQlWb6EORZ0EgF0aaAOamhihb5OrQB9Wk7wgd+Q3NXz2vqmZkfSrKN3j65bkDVLhiJzkrL+wD/8Ox17XsJ0Q8fMHkdymZlR389znmIgUT0jUf1
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS6PR11MB523643.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(921020)(38070700021)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003)(10067099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?K1JhRHRXQ09qK25sQkpCcXJEYkhINjRKN2gxTFdVT1NoTXRob0t2QVIrUlVB?=
+ =?utf-8?B?TEprbGhmN2Q0TXRIMVNIN1NLR0pvcy9qK2kwWW9KcUdOUGh5T0UvQ3JXZGF1?=
+ =?utf-8?B?MjhwbmcvZ1BGOXdNVFREY0F6M2dubkU1c25PQ2pZV0JOQ2ZuVmpaZTZJRlV5?=
+ =?utf-8?B?Y25hMFhyVTJUZVorcVpXcFptOWNySzZkbnlPb1F1bnZmeS93dElJK3BCMHNK?=
+ =?utf-8?B?QVVuTTFtc0JZSGgxaEw5a042c3JvV3E3RElYRG1wWjBwTnA4cERPU1p3Zjd3?=
+ =?utf-8?B?Y1dPRUdtL2tBNWxXcUtrMXRqQnREaksrQ2lzQTg1UzlDUlNqeWZuL25mR2FF?=
+ =?utf-8?B?TllGV1pXWVNRTWlvQnYzVXlNRnkzK0krbllFL1J1OXo3R1ZNbGRlcy9pVzBW?=
+ =?utf-8?B?Vk5OWHZ3YkRXMGxNMjEvWWQxTERpQVpzaVFTRFA2cTEwTFlDb1NTTzNGT2FP?=
+ =?utf-8?B?eHFVcFVKODV0WGozZjdUYVZWMVdITDRnOUxBbC91ZzFUT0g5SnNKM25KcXVV?=
+ =?utf-8?B?YVBXUFdyS2dmNk5nRnEydXZlTG11byt3WjZrSHk4S2R3eTE4S3BLRFpYT09G?=
+ =?utf-8?B?KzY2b3F2d0lDUndyc1Boc1JQdGVZKy95Uzc1M0g1ZmM3aDU3WHAwMVI3SmRC?=
+ =?utf-8?B?UGEwWnhzKy9uYm80UTdYeTI0TjlyZDNIYXN2RklTRmxRUHFYbFJVTGVRR0wv?=
+ =?utf-8?B?SGk3TXRDRjlqQWZHb3hOanRoSGpHSXhkekJSWnoxTTNBZG1VN0k0VWhyb3l1?=
+ =?utf-8?B?WCs5L2hncGtwRmpGT25LNnE4SjFERDF3bHcwL01ZaWU3SSs2MEZJRDVHNGd1?=
+ =?utf-8?B?RmhsNUVZOEFnM3lBbytubDZEU0hGa09vK2ZlQlFieGs0Nkh2bDJNZFRJNkdu?=
+ =?utf-8?B?MTRmblVlZFJYMTQ2VzNJWmJGZDVWbEI1MGJWVDJZakZ1QUxuRXlYUmRMQjl1?=
+ =?utf-8?B?RllWK0d2bXN5WUY2aGVKbGIrN0loWWxZUFFxWlFCVktPSkFnUjZwaHpuRkNF?=
+ =?utf-8?B?eWNscHEzdWVwMGlaLy9oekVrMmtUOUhrek05amRrUEdHM2pycGw1UjJQaDFC?=
+ =?utf-8?B?WDlKVHNxeUxvKzFPSGRsMmd6L1Z6WktscENBRnNIQUlCeENMOEFkVURldU5r?=
+ =?utf-8?B?djMxRzViRS9QMkJuYmgxaVRQM3VJcjZoS25IdURlTTAxVEM5b3FOVm8xMEN4?=
+ =?utf-8?B?aXhtRlhyZm9LVDJ3TE0rdlltQ1N2VHMvSkJzQlV5SktmRjZtQWptMU5IS1dO?=
+ =?utf-8?B?Z1lEeVpvZVBJbUdqcXhOR2FqV1MzRzc3cnhaSFJPODB6a2R4NlFZTExpVGIv?=
+ =?utf-8?B?S1NyZGkyVVlRUXZ2YVh3ZEZQcFFyRTRHSU9vdmxWamZ2WUNDL29SVzF6L0Iv?=
+ =?utf-8?B?MUNkTmZjR3cyQlhua0NFam5NN25EOGZ0RkVzVkFuTHhSSkcvRkQ4enpReFlS?=
+ =?utf-8?B?WUFocTRyUWhsS1VnTWFTR1FNTkVXMGlVR0swdnQvcGJnV00rSzRkUk9RVDhJ?=
+ =?utf-8?B?cG1uL2V3aHZWZU1iR3lqV2dkUHhMYThNeG1UajMwdGd1K1FQVDVNa2lrY3Fa?=
+ =?utf-8?B?amRwS3I1WDBxSSt5Y3V6eG1hNzZwMkNZc3NuQ0wxNkhIaWMyWTRTQXZaQTlk?=
+ =?utf-8?B?dnlFK2FRYkRGRkhjbGlKaTlmbkQrNzc3UkNlUkZUMVFBdzlpRVdWTEdqTTlG?=
+ =?utf-8?B?SVlTcEFpZ01ZdnBKR0dkb3lMeDVmTG9rNW9vRXlQd0xWcHFqU0F4UlBteVBi?=
+ =?utf-8?B?VEl0L0hXc3FmOHE0LzR6S1FMUjlJSFk5U3Q1Nmg5VnNySlo2eWpZZDB0R1do?=
+ =?utf-8?B?Y0luaGpvMmVXOWVHYWh1UVhmeWQ2WXc0Tjg2SEVud0NjYUowY09OdzM2dy9S?=
+ =?utf-8?B?ekphNHA2eDJ3YjgwTUxIYktoTUZKNGI3Z3pXMmxXUEdUQ0xmczJrbndzUlVn?=
+ =?utf-8?B?dDdPQWdYYUdVcEVSRktvQ2lDM1BodlRGUUlBUURhNk9uTk1YZjNPN2dlY1Qw?=
+ =?utf-8?B?d05qV25tTUNNWGtnSmZ1YUl3WTV2ZGxGYXpndE1YTmJvM3dvUHVWaXVpUFFC?=
+ =?utf-8?B?SER0dnkrd1licytSUnZ3blRYVElxOTAyZnhlYW1QY1Z0ZDJ3N1F1bm9ZY0Nw?=
+ =?utf-8?B?NlFpYXdDUDdZcDluakNRL0RwZzdUSmQ1VytLcThKc3MzWTYyd2ZlKzZ5WjZI?=
+ =?utf-8?B?MW5HbnJ3b05mUUc2Vjd4RnZhekEwbU9TZk1YaDFMMHhHMHFidEQwbElXWkRX?=
+ =?utf-8?B?bldFNkJyN2EyeGwzTGtCZyttQzRmM0lKVk5uTFVKM0xQMWY1VnNFbEpyUE1o?=
+ =?utf-8?B?VG9MK244eVFFd0lrZEFGbStEWWxadHcwaU9sL0FGMEs5SlA4Y2NkZz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <26CFEE668BE2FC40B8C569F689B87FB0@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-OriginatorOrg: microchip.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS6PR11MB523643.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72426daa-101d-4bd6-aa17-08df2aaf2817
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Oct 2026 11:26:29.0119
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: R/5lC1/jxR7FDzpxCMzj79b+BJ3bYrz2SrJtnO5NLeJFerFAMSYCsrDZtLzpyZAuyHBTDlKZgR2D3uKArWqkjoseQJTMcKep+Vfv0Fm0Gd4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB6352
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] input: pogo: Use-After-Free in async paths due to lockless TOCTOU =
-and broken synchronization
-- [Medium] serdev: data race and buffer overwrite in pogo_xfer() due to loc=
-kless completion handling
-- [Medium] serdev: unprotected link state modifications in RX thread cause =
-software/hardware state desync
-- [Low] sysfs: custom battery_level attribute bypasses power_supply subsyst=
-em UAPI
---
-
-commit f989b7094046c3834660c419541bd497ac8abe36
-Author: Yibo Wang <wyibo6109@gmail.com>
-
-Input: add OnePlus/OPPO Pad pogo-pin keyboard serdev driver
-
-This commit adds a clean-room serdev driver for the Tinno keyboard MCU
-used by the OnePlus Pad 3 Pro / Pad 4 and OPPO Pad 5 Pro smart keyboards.
-It introduces a custom protocol implementation over a half-duplex UART
-to support touch, keys, backlight, and power management.
-
-> diff --git a/drivers/input/keyboard/oneplus-pogo-kbd.c b/drivers/input/ke=
-yboard/oneplus-pogo-kbd.c
-> --- a/drivers/input/keyboard/oneplus-pogo-kbd.c
-> +++ b/drivers/input/keyboard/oneplus-pogo-kbd.c
-[ ... ]
->  		/*
->  		 * Drop any late echo/reply of the previous attempt: with
->  		 * tx_pending cleared the RX path ignores frames until the
->  		 * transfer below re-arms, so a delayed reply cannot complete
->  		 * the fresh iteration or race the resp buffer.
->  		 */
->  		WRITE_ONCE(kb->tx_pending, false);
->  		reinit_completion(&kb->echo_done);
->  		reinit_completion(&kb->resp_done);
->  		kb->tx_cmd =3D cmd;
->  		WRITE_ONCE(kb->tx_pending, true);
-
-[Severity: Medium]
-Is it possible for a delayed response from the previous timeout to trigger a
-spurious completion here?
-
-When the retry happens, the same cmd is set. If the RX thread was preempted
-just before copying the payload, could it wake up and call
-complete(&kb->resp_done) using the stale payload for this new iteration?
-Explicit lock synchronization between the timeout path and the RX thread mi=
-ght
-be needed.
-
-[ ... ]
->  static void pogo_handle_sync(struct pogo_kbd *kb, const u8 *p, unsigned =
-int len)
->  {
-[ ... ]
->  	if (!kb->connected || replug) {
->  		kb->connected =3D true;
->  		kb->hb_seen =3D false;
->  		kb->retry_ms =3D POGO_RETRY_MIN_MS;
-
-[Severity: Medium]
-Does this locklessly update the link state variables while they are also
-managed by pogo_power_off() under state_lock?
-
-If a delayed heartbeat frame is processed exactly as pogo_hb_work() determi=
-nes
-a timeout and calls pogo_power_off(), could pogo_power_off() clear the state
-just before this unsynchronized block unconditionally sets kb->connected =
-=3D true
-again?
-
->  		if (!READ_ONCE(kb->quitting))
->  			schedule_work(&kb->plug_work);
->  	}
-
-[Severity: High]
-Can this lockless check of kb->quitting lead to a use-after-free during dri=
-ver
-removal?
-
-The serdev RX path is devres-managed and can run concurrently with
-pogo_remove(). If the RX thread evaluates quitting as false just before
-pogo_remove() sets it to true, it could queue plug_work after
-cancel_work_sync(&kb->plug_work) has already finished, causing the work to =
-run
-on freed memory.
-
-[ ... ]
->  static void pogo_handle_frame(struct pogo_kbd *kb, const u8 *f, unsigned=
- int n)
->  {
-[ ... ]
->  		if (READ_ONCE(kb->tx_pending) && cmd =3D=3D kb->tx_cmd + 1) {
->  			/* reply layout for callers: cmd, len, payload */
->  			kb->resp_len =3D min_t(unsigned int, len + 2, sizeof(kb->resp));
->  			memcpy(kb->resp, &f[3], kb->resp_len);
->  			complete(&kb->resp_done);
->  		}
-
-[Severity: Medium]
-Since the check for tx_pending and tx_cmd is lockless, could the RX thread =
-be
-preempted right after this condition evaluates to true?
-
-If pogo_xfer() times out, resets tx_pending, and starts a retry with the sa=
-me
-command, the stalled RX thread could resume, overwrite kb->resp with the old
-payload, and signal completion for the new transfer.
-
-[ ... ]
->  static void pogo_wake_irq_enable(struct pogo_kbd *kb, bool enable)
->  {
->  	if (enable =3D=3D kb->wake_irq_enabled)
->  		return;
-
-[Severity: High]
-Could this optimization skip synchronizing with a running ISR?
-
-If pogo_wake_isr() sets kb->wake_irq_enabled =3D false, this check will ret=
-urn
-immediately without calling disable_irq(). During pogo_remove(), this allows
-the teardown to proceed without waiting for the ISR, which might then queue
-detect_work after it has been cancelled.
-
-[ ... ]
->  static void pogo_power_off(struct pogo_kbd *kb)
->  {
->  	bool was_connected;
-> =20
->  	mutex_lock(&kb->state_lock);
->  	was_connected =3D kb->connected;
->  	kb->connected =3D false;
->  	kb->powered =3D false;
->  	mutex_unlock(&kb->state_lock);
-
-[Severity: Medium]
-As mentioned above, if this safe transition runs concurrently with a delayed
-frame processed by pogo_handle_sync(), could the hardware state become
-desynchronized?
-
-The software might incorrectly reflect a connected device while the hardware
-is unpowered, causing subsequent sysfs accesses (like setting the backlight)
-to time out waiting for the MCU.
-
-[ ... ]
->  static ssize_t battery_level_show(struct device *dev,
->  				  struct device_attribute *attr, char *buf)
->  {
->  	struct pogo_kbd *kb =3D dev_get_drvdata(dev);
-> =20
->  	if (!kb->connected)
->  		return -ENODEV;
->  	/* only keyboards with a battery push 0x0E status frames */
->  	if (kb->battery_level < 0)
->  		return -ENODATA;
->  	return sysfs_emit(buf, "%d\n", kb->battery_level);
->  }
->  static DEVICE_ATTR_RO(battery_level);
-
-[Severity: Low]
-Does exposing battery_level as a custom sysfs attribute bypass the standard
-power_supply subsystem?
-
-Standard Linux userspace battery monitors (like UPower) only scan for devic=
-es
-registered under the standard power_supply class. Would it be better to
-register a POWER_SUPPLY_TYPE_BATTERY device using the power supply API so
-desktop environments can seamlessly read the keyboard's battery status?
-
-[ ... ]
->  static void pogo_remove(struct serdev_device *serdev)
->  {
->  	struct pogo_kbd *kb =3D serdev_device_get_drvdata(serdev);
-> =20
->  	/*
->  	 * Stop the world first: with quitting set, the RX path and the
->  	 * works stop queueing each other, so the cancels below cannot be
->  	 * undone again.  The wake IRQ is disabled (and any in-flight ISR
->  	 * finished) before detect_work is cancelled.
->  	 */
->  	WRITE_ONCE(kb->quitting, true);
->  	pogo_wake_irq_enable(kb, false);
->  	cancel_delayed_work_sync(&kb->detect_work);
->  	cancel_delayed_work_sync(&kb->hb_work);
->  	cancel_work_sync(&kb->plug_work);
-
-[Severity: High]
-Are these sequential cancellations safe against background works queuing ea=
-ch
-other?
-
-Since detect_work is cancelled before hb_work, if hb_work evaluates !quitti=
-ng
-right before it is set to true here, it could queue detect_work again after
-cancel_delayed_work_sync(&kb->detect_work) has already completed. This would
-leave a timer active on the device structure after it is freed.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015110859.2039=
-89-1-wyibo6109@gmail.com?part=3D2
+SGkgTWljaGFlbCwNCg0KT24gMTAvMTUvMjYgMjo0MiBQTSwgTWljaGFlbCBXYWxsZSB3cm90ZToN
+Cj4gT24gV2VkIE9jdCAxNCwgMjAyNiBhdCA4OjQwIEFNIENFU1QsIE1hbmlrYW5kYW4gTXVyYWxp
+ZGhhcmFuIHdyb3RlOg0KPj4gbnZtZW1fcmVnaXN0ZXIoKSBzdG9yZXMgY29uZmlnLT5vZl9ub2Rl
+IChvciBjb25maWctPmRldi0+b2Zfbm9kZSkNCj4+IGludG8gbnZtZW0tPmRldi5vZl9ub2RlIHdp
+dGhvdXQgdGFraW5nIGl0cyBvd24gcmVmZXJlbmNlLiBDYWxsZXJzDQo+PiB0aGF0IGdldCB0aGUg
+bm9kZSB2aWEgb2ZfZ2V0X2NvbXBhdGlibGVfY2hpbGQoKSBldGMuIGFuZCBkcm9wIHRoZWlyDQo+
+PiByZWZlcmVuY2UgcmlnaHQgYWZ0ZXIgcmVnaXN0ZXJpbmcgbGVhdmUgbnZtZW0tPmRldi5vZl9u
+b2RlIGJhY2tlZCBieQ0KPj4gbm8gcmVmZXJlbmNlIGF0IGFsbC4NCj4+DQo+PiBUYWtlIGFuIG9m
+X25vZGVfZ2V0KCkgd2hlbiBhc3NpZ25pbmcgbnZtZW0tPmRldi5vZl9ub2RlIGFuZCByZWxlYXNl
+DQo+PiBpdCBpbiBudm1lbV9yZWxlYXNlKCkuIEV4aXN0aW5nIGNhbGxlcnMgdGhhdCBob2xkIHRo
+ZWlyIG93biBnZXQvcHV0DQo+PiBwYWlyIGFyb3VuZCB0aGUgcmVnaXN0cmF0aW9uIGNhbGwgbmVl
+ZCBubyBjaGFuZ2VzLCBzaW5jZSBnZXQvcHV0IG9uDQo+PiBhIGRldmljZV9ub2RlIGlzIHBlci1o
+b2xkZXIgYW5kIGluZGVwZW5kZW50IG9mIGNvcmUgbm93IGFsc28gaG9sZGluZw0KPj4gb25lLg0K
+Pj4NCj4+IFN1Z2dlc3RlZC1ieTogTWljaGFlbCBXYWxsZSA8bXdhbGxlQGtlcm5lbC5vcmc+DQo+
+PiBTaWduZWQtb2ZmLWJ5OiBNYW5pa2FuZGFuIE11cmFsaWRoYXJhbiA8bWFuaWthbmRhbi5tQG1p
+Y3JvY2hpcC5jb20+DQo+IA0KPiBOaWNlIQ0KPiANCj4gRGlkIHlvdSBjaGVjayBpZiBhbnkgY2Fs
+bGVycyBhcmUgYWxzbyB0YWtpbmcgYSByZWZlcmVuY2UsIHdoaWNoDQo+IG1pZ2h0IG5vdCBiZSBu
+ZWVkZWQgYW55bW9yZSBub3cuDQo+IA0KDQpZZXMsIEkgY2hlY2tlZCDigJQgbm9uZSBvZiB0aGUg
+Y2FsbGVycyBob2xkIGEgcmVmZXJlbmNlIGJleW9uZCB0aGUgDQpyZWdpc3RyYXRpb24gY2FsbCBp
+dHNlbGYuIFRoZSBwYXR0ZXJuIEkgdmVyaWZpZWQgaW4gZWFjaCBkcml2ZXJzIGlzIA0Kc2hvcnQt
+bGl2ZWQsIHRoZSByZWZlcmVuY2UgaXMgZHJvcHBlZCByaWdodCBhZnRlciANCm52bWVtX3JlZ2lz
+dGVyKCkvZGV2bV9udm1lbV9yZWdpc3RlcigpIGNhbGwuDQoNCj4gUmV2aWV3ZWQtYnk6IE1pY2hh
+ZWwgV2FsbGUgPG13YWxsZUBrZXJuZWwub3JnPg0KPiANCj4gLW1pY2hhZWwNCj4gDQo+PiAtLS0N
+Cj4+ICAgZHJpdmVycy9udm1lbS9jb3JlLmMgfCA1ICsrKy0tDQo+PiAgIDEgZmlsZSBjaGFuZ2Vk
+LCAzIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pDQo+Pg0KPj4gZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvbnZtZW0vY29yZS5jIGIvZHJpdmVycy9udm1lbS9jb3JlLmMNCj4+IGluZGV4IDA1NTZk
+MTQwMTcwYS4uOTgxOTI1OTdiOTM1IDEwMDY0NA0KPj4gLS0tIGEvZHJpdmVycy9udm1lbS9jb3Jl
+LmMNCj4+ICsrKyBiL2RyaXZlcnMvbnZtZW0vY29yZS5jDQo+PiBAQCAtNTQxLDYgKzU0MSw3IEBA
+IHN0YXRpYyB2b2lkIG52bWVtX3JlbGVhc2Uoc3RydWN0IGRldmljZSAqZGV2KQ0KPj4gICANCj4+
+ICAgCWlkYV9mcmVlKCZudm1lbV9pZGEsIG52bWVtLT5pZCk7DQo+PiAgIAlncGlvZF9wdXQobnZt
+ZW0tPndwX2dwaW8pOw0KPj4gKwlvZl9ub2RlX3B1dChudm1lbS0+ZGV2Lm9mX25vZGUpOw0KPj4g
+ICAJa2ZyZWUobnZtZW0tPm9wcyk7DQo+PiAgIAlrZnJlZShudm1lbSk7DQo+PiAgIH0NCj4+IEBA
+IC05NTAsOSArOTUxLDkgQEAgc3RydWN0IG52bWVtX2RldmljZSAqbnZtZW1fcmVnaXN0ZXIoY29u
+c3Qgc3RydWN0IG52bWVtX2NvbmZpZyAqY29uZmlnKQ0KPj4gICAJbnZtZW0tPmtlZXBvdXQgPSBj
+b25maWctPmtlZXBvdXQ7DQo+PiAgIAludm1lbS0+bmtlZXBvdXQgPSBjb25maWctPm5rZWVwb3V0
+Ow0KPj4gICAJaWYgKGNvbmZpZy0+b2Zfbm9kZSkNCj4+IC0JCW52bWVtLT5kZXYub2Zfbm9kZSA9
+IGNvbmZpZy0+b2Zfbm9kZTsNCj4+ICsJCW52bWVtLT5kZXYub2Zfbm9kZSA9IG9mX25vZGVfZ2V0
+KGNvbmZpZy0+b2Zfbm9kZSk7DQo+PiAgIAllbHNlDQo+PiAtCQludm1lbS0+ZGV2Lm9mX25vZGUg
+PSBjb25maWctPmRldi0+b2Zfbm9kZTsNCj4+ICsJCW52bWVtLT5kZXYub2Zfbm9kZSA9IG9mX25v
+ZGVfZ2V0KGNvbmZpZy0+ZGV2LT5vZl9ub2RlKTsNCj4+ICAgDQo+PiAgIAlzd2l0Y2ggKGNvbmZp
+Zy0+aWQpIHsNCj4+ICAgCWNhc2UgTlZNRU1fREVWSURfTk9ORToNCj4gDQoNCg0KLS0gDQpUaGFu
+a3MgYW5kIFJlZ2FyZHMsDQpNYW5pa2FuZGFuIE0uDQo=
