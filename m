@@ -1,65 +1,62 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64F0052CCC2
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 15:53:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A66B3388396;
+	Thu, 15 Oct 2026 15:53:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792079614; cv=none; b=dHxBTHgCjGae1ZtFXkGBAxh8VoJrX6tKVfuX3THFO+U5roRn5y5D2KDcbbHUy6DVb/JZbyu6LdC0wePsj6z0iGrA69uM3wECwiFF0Z1r+gY79NVBY+Om7rnYjizyMwDjj+2j8WXwVPFvRK83q2vncSiC21KNmraazvyTPBI/8qg=
+	t=1792079627; cv=none; b=F8S3E1o7H7WXwq60/iSlsjXwVFmQOdqX/hvsIlmlZWh5mpDTHcOScUoBgV+VOglBs/3wRIl2k8l2drtW/aVVgWn+2HzoX9YbSP3nDZIoifX1CQFUGCIbdkaIU5StqG/h4JcihGaCZOUNWfYtm9SV13Kj7OVYxlAvrC6BgRnnwRU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792079614; c=relaxed/simple;
-	bh=66s3jvwhXqXMXCR9Ls2z2H5ucQRaoo+W9r2EZWBUsio=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gREnQyHsdXimS37fUWAsPAsKywiwsw56/TG6m69mVV6e2JUg6QlZTih0UiY3X8T7lf0tCL1cesKVHAQGVbrGGk3FM3xdcg/k4GIpI3YAdy5LxtWESeMgYMi3F1Q8IEtvpXbQX1EpY1H2QCuQwEABoD058BM0x0I7DDsoFLu34Lk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=k/SJP5mZ; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1792079627; c=relaxed/simple;
+	bh=mUKD6ZUmFq4nEn3x9W5ewN8bpJtJZe5poY+akpMs/rY=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=g9tGb5AozoJLvyW+dkXQ5WGT1Q0cfdEmaW+CdRT2i01bz0ovSSMvZrKogc39et3Ka/WKGMwedX+KoLcgKWybzGGXhiiKUJFTVN1rHlC8gLPaxv7j4yk8BF/z0ybAoHm+RLJp5QBXC+QjhKo6iIEX7B60eOQ1tmyDjdCnixv2pXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hhfw5ZBf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="k/SJP5mZ"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0CBFC5B0F43;
-	Thu, 15 Oct 2026 17:53:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1792079599; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=P8uMpuYezBqzKJmVmRZehSXeoBOm5K3zdA8eRcmME8Q=;
-	b=k/SJP5mZk4iEscs/wlZ5U0GxL9O/sHgGanrzEjZpi0KAuKcemTfNifRSSjJf+2Cj/8IzgR
-	Be/bZ3cNCGEJRLx9FG6Rv2s8E8u4PHt+wfXhnBJnHNpnUeVfkooKTdp08CFq1r39wFJGgo
-	UY/d4Uu4CVZ328PlKIJxm+luvPXAYpjxS65Hao7SnqOk328F+FMqQTE8MFa3o+0H5+H5EA
-	/yoOXjMXWc7JE2XwtWj1N4t9hOiyX0SoJAsvp6k1sNrz5R7/BnFd1f5HiP6qattRUGtJ83
-	hGtcRXeBXqEWUR3pLBXGz6eNEugkM//5zzIf5umKfSuAk20I53a8jYCV0UbIBA==
-Message-ID: <dd85a784-aa07-4b17-84b4-16a138c3e4e1@cjdns.fr>
-Date: Thu, 15 Oct 2026 17:53:17 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hhfw5ZBf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12E731F000C4;
+	Thu, 15 Oct 2026 15:53:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792079615;
+	bh=/afKk64hL56JTL0paFCLExJ+3zQc/I8Lqp6QhkvjyZo=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=hhfw5ZBfTYvNYvo1nLCg3YNQFkImd8lpE/mitlgeLlhDGUFFtfx8CwIRYM4uIpgFH
+	 KzqIIi6z7xQ1so2r4SLOnbW5YdFPcsQkhVdIygHDpGe6BJPuvTc6tk2VLSw0vF+ck0
+	 Vq6hS/DZpamNIoMhxxzcAqvokMRVACuKc4RjBFF4HRL8RYqBjMWDyRyE2oNcWf5v2p
+	 Ffyue4O/Gu+yBdxsFg8qjYOqo37weximpsCwWe03PQVlE+cxR2XODgRhpUtA+VN1vf
+	 HNyvU6bFoEG/aHN9PGyjyUTuBgfBtwzlYdc9XOEAVULZolwJoJTAMX5D3VEyL8Abv1
+	 pGvEXb38zW7zg==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org, pavel@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org, Udaya Kiran Challa <challauday369@gmail.com>
+Cc: skhan@linuxfoundation.org, me@brighamcampbell.com, 
+ linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261005184428.251868-1-challauday369@gmail.com>
+References: <20261005184428.251868-1-challauday369@gmail.com>
+Subject: Re: (subset) [PATCH v4 1/2] dt-bindings: leds: lacie,netxbig-leds:
+ Convert to DT schema
+Message-Id: <179207961281.2077374.17554666840589895790.b4-ty@b4>
+Date: Thu, 15 Oct 2026 16:53:32 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH v10 4/5] clocksource/timer-econet-en751221: Support
- EN751627 without percpu IRQ
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-References: <20261015145331.453837-1-cjd@cjdns.fr>
- <20261015145331.453837-5-cjd@cjdns.fr> <sashiko-outbox-173087@kernel.org>
-Content-Language: en-US
-From: Caleb James DeLisle <cjd@cjdns.fr>
-In-Reply-To: <sashiko-outbox-173087@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16-dev-ad80c
 
->> +		return -EINVAL;
->> +	}
->> +	if (cd->irq <= 0) {
->> +		pr_err("%s: missing IRQ for CPU %d\n", cd->name, cpu);
-> [Severity: Low]
-> Similarly, could cd->name be uninitialized here for skipped CPUs?
+On Tue, 06 Oct 2026 00:14:28 +0530, Udaya Kiran Challa wrote:
+> Convert lacie,netxbig-leds devicetree binding from legacy
+> text format to DT schema.
 
+Applied, thanks!
 
-This is an easy fix, I'll send a v11 for this.
+[1/2] dt-bindings: leds: lacie,netxbig-leds: Convert to DT schema
+      commit: 59cf91cf87abb67a49b1bb7b9d3b06486abde8cf
 
-
-Caleb
-
+--
+Lee Jones [李琼斯]
 
