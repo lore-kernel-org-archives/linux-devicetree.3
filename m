@@ -1,189 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E4C54C6531
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 08:51:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5FFE4C8C53;
+	Thu, 15 Oct 2026 08:51:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792054318; cv=none; b=PdP4Vojq6/EOxGsn0X7j9CZ87jTn7XNXAo/Is1cmv0n/h3+wFCwnjPaFKFKz05sVK3kQ7/DNrWx3fe0hYLp4jwqrubqrWye7GhUNLpdLnyWPcMdm8g5QJsNzvea8cvfgKOcWIMzs3L88zcjG2dcaN3j3bvWeje1hFTdjtiM0X1Q=
+	t=1792054322; cv=none; b=g1+bJl8p+7DKX5GpXSdMjfl5jDPSOm75HB6ABS9phvwVZ7o7tphgX+mOfBXFINJT7UWWorz6mjIDy/8iDA4d9+9kPnrvAL5ttJ4zI55Do9xop+sHJM5Jlg58gqy44j7BlDmSdsqkwoYFhcXTg2TSbQ9bEIj4DB9o4j0MoIOH4XI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792054318; c=relaxed/simple;
-	bh=Xhe12g4dSxKf6b40jd8XbuogFcTU3hR5lA457Fxwmfs=;
+	s=arc-20240116; t=1792054322; c=relaxed/simple;
+	bh=XzL5sDkQ6gBCoosWvQKyScGFZLpTRYLTxeYG/KDWQ4Q=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=GPcxtkDqf6rJvhINuh+8Ci4SeBiB9PIOWeBe+ejDtFw9y9gAhq7RY+0m06d7RpEMndL3dv3DNnSdjHDEmt6MY7FrzrLqyKlRO6uo65H+mGz3yNnGWJb6F1AqaTAuKyUx0wSbGjzaXrUZ0/sYVPK33Nxx7UBdqHOSqR3eP+F4xxg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=apKDf96n; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=tRxfm+525KTetWUtuQPch/QoyQute72zGG6XCU0ghi1UQlg0sJtwMHMzGQKFwPcRZS7h0rmb4HXRWMrh5xgPgd0vsq+Il7w3SBPPeRswXh7SwUgu3tTx22C93qecyGOmEywch1ymtKzFBE2SLVV1Opcyg8qeRSMlrmQCAxIfj+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a0JYqDde; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="apKDf96n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 727A41F000C4;
-	Thu, 15 Oct 2026 08:51:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a0JYqDde"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D6061F000C5;
+	Thu, 15 Oct 2026 08:51:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792054312;
-	bh=0r61TlrE+NIRa75CITh1VeXZ5XKqip7dVjZ3X9FLGCg=;
+	s=k20260515; t=1792054318;
+	bh=dWcQvOvf0MJoEk6VNqyDCjj1jOptNR1+bSUzeS9rWHg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=apKDf96nvzk9iJUoLcAQxJLaIG0/kx1zEEtVWZuBh0QSEpg4yKQf/sRMkAw4goVNY
-	 3iMqSWpI0tugxXXEsJ08/YyAcmD7KyjskhuutecG37gbek2v8j378U80nEpkblb1l2
-	 KDnAJETRZuj/fnOmoVRArJ3phVcFIWbmp/kwgPPwSkPCBWycpfP/jMxyis27mIYVNk
-	 i7Jy7lhvIlsYwi/zLQqwg/ZAPTPcublS7fe+h4MrnxE13hIqtXGMg11xx8bf2NSQiy
-	 W6enWnRh+OZTcFli9Azz5rpZwqyyF/5NrIk/w6TVN8pKQL0Uj9lKDeu6qzaG1iHQZ1
-	 PpwJVbc7UtF8g==
-Message-ID: <sashiko-outbox-172520@kernel.org>
+	b=a0JYqDdeV4dUJEEKDTGctJWkP6A+yCD9pB/X1h5SItjMlV9fhcQ1qjownfE8lC7IA
+	 ECFWUWKkexj8iIhe4/bSqAozOiu2gBIWNBuyZjKmPR9ZpM1KAEq2zmSa1H9ndZYHWx
+	 SRFiZU6vcnhqcuorUnszUiSl8heO86/oqmLjHiHXgQqRiA+vX3vLhbi4/6gRECAkkQ
+	 SCFB1f+iNyM3SN/94BX5D56urZuXgcE7JDgZfs3YIS4s3+/KCPQbh56vyd62XJLVyb
+	 PnUQWLfEOHGpqm15uTU6TbGdmJXizL0kEPishoIwm2qWdn+n1YlPpHfK0ZcBg+2VeZ
+	 C+q+5BnebxFzQ==
+Message-ID: <sashiko-outbox-172521@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] of: reserved_mem: allocate and map the
- reserved_mem array early
+Subject: Re: [PATCH v4 4/5] arm64: dts: qcom: add device tree for SDM845-HDK
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marek Szyprowski" <m.szyprowski@samsung.com>, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261015082315.56876-3-m.szyprowski@samsung.com>
-References: <20261015082315.56876-1-m.szyprowski@samsung.com>
- <CGME20261015082334eucas1p2a3bbf3650f279abbd39d05d63e35aba6@eucas1p2.samsung.com>
- <20261015082315.56876-3-m.szyprowski@samsung.com>
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261015-sdm845-hdk-v4-4-b532b9f4029c@oss.qualcomm.com>
+References: <20261015-sdm845-hdk-v4-0-b532b9f4029c@oss.qualcomm.com>
+ <20261015-sdm845-hdk-v4-4-b532b9f4029c@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 08:51:51 +0000
+Date: Thu, 15 Oct 2026 08:51:57 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] of: memory corruption due to initializing unreserved memory regions
-- [Medium] of: memory leak on dynamically-placed nomap region init failure
+- [Low] arm64: dts: qcom: inconsistent SDHC_2 drive strength vs comment
 --
 
-commit cc45d1ed473ae1f1390908145c8217f0d9614ac0
-Author: Marek Szyprowski <m.szyprowski@samsung.com>
+commit ad3a4fdbe0a1af267d2159b955cbbffe917a1e14
+Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-    of: reserved_mem: allocate and map the reserved_mem array early
-   =20
-    Get rid of the static, limited-size reserved_mem array and replace it
-    with array allocated by memblock_alloc_raw() and accessed directly or
-    through a temporary early_memremap() mapping.
+arm64: dts: qcom: add device tree for SDM845-HDK
 
-    Link: https://lore.kernel.org/all/asc6brs_g0ky0wOM@kernel.org/
+Add device tree for the Qualcomm / Lantronix SDM845 HDK. This adds support
+for the development platform using the modem-less (SDA845) SoC, including
+peripherals like HDMI, DSPs, and USB.
 
-> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-> index 300fb236ab59f..0fd1683cba011 100644
-> --- a/drivers/of/of_reserved_mem.c
-> +++ b/drivers/of/of_reserved_mem.c
-> @@ -381,143 +384,109 @@ static void __init __rmem_check_for_overlap(void)
+> diff --git a/arch/arm64/boot/dts/qcom/sdm845-hdk.dts b/arch/arm64/boot/dt=
+s/qcom/sdm845-hdk.dts
+> new file mode 100644
+> index 0000000000000..a2f139751ab6a
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/sdm845-hdk.dts
+
 [ ... ]
-> +	/* Second pass: initialize the static regions */
-> +	fdt_for_each_subnode(child, fdt, node) {
->  		if (!of_fdt_device_is_available(fdt, child))
->  			continue;
-> =20
-> -		uname =3D fdt_get_name(fdt, child, NULL);
-> -
-> -		err =3D __reserved_mem_reserve_reg(child, uname);
-> -		if (!err)
-> -			count++;
-> +		__reserved_mem_init_reg(child, fdt_get_name(fdt, child, NULL));
-> +	}
 
-[Severity: High]
-Does this unconditionally initialize memory regions even if they failed
-reservation in the first pass?
+> +	sdc2_default_state: sdc2-default-state {
+> +		clk-pins {
+> +			pins =3D "sdc2_clk";
+> +			bias-disable;
+> +
+> +			/*
+> +			 * It seems that mmc_test reports errors if drive
+> +			 * strength is not 16 on clk, cmd, and data pins.
+> +			 */
+> +			drive-strength =3D <16>;
+> +		};
+> +
+> +		cmd-pins {
+> +			pins =3D "sdc2_cmd";
+> +			bias-pull-up;
+> +			drive-strength =3D <10>;
+> +		};
+> +
+> +		data-pins {
+> +			pins =3D "sdc2_data";
+> +			bias-pull-up;
+> +			drive-strength =3D <10>;
+> +		};
 
-If __reserved_mem_reserve_reg() fails for a region, it sets
-reserved_mem_reserve_failed =3D true but does not exclude the node. When
-__reserved_mem_init_reg() is called here, it will invoke
-fdt_init_reserved_mem_node() for that node anyway.
+[Severity: Low]
+Is this configuration intentional? The comment in the clk-pins block just
+above explicitly warns that mmc_test reports errors if drive strength is not
+16 on clk, cmd, and data pins.=20
 
-Could this lead to blindly adding unreserved physical memory to the
-reserved_mem array, allowing drivers to silently overwrite standard memory
-that the page allocator considers free?
+However, cmd-pins and data-pins are configured with a drive strength of 10.
+Does the comment need updating, or should these pins be set to 16 to avoid
+potential mmc_test errors?
 
-Additionally, if the node initialization subsequently fails (e.g. due to a
-missing compatible match), could it execute memblock_phys_free() or
-memblock_clear_nomap() on memory it never successfully owned?
+> +	};
 
-drivers/of/of_reserved_mem.c:fdt_init_reserved_mem_node() {
-    ...
-	err =3D __reserved_mem_init_node(rmem, node);
-	if (err !=3D 0 && err !=3D -ENODEV) {
-		pr_info("node %s compatible matching fail\n", rmem->name);
-		rmem->name =3D NULL;
-
-		if (nomap)
-			memblock_clear_nomap(rmem->base, rmem->size);
-		else
-			memblock_phys_free(rmem->base, rmem->size);
-		return;
-    ...
-}
-
-> =20
-> -		/*
-> -		 * Save the nodes for the dynamically-placed regions
-> -		 * into an array which will be used for allocation right
-> -		 * after all the statically-placed regions are reserved
-> -		 * or marked as no-map. This is done to avoid dynamically
-> -		 * allocating from one of the statically-placed regions.
-> -		 */
-> -		if (err !=3D -ENOENT || !of_get_flat_dt_prop(child, "size", NULL))
-> -			continue;
-> +	/*
-> +	 * Allocate the dynamically-placed regions only after all the
-> +	 * statically-placed ones are reserved, to avoid overlapping with them.
-> +	 */
-> +	fdt_for_each_subnode(child, fdt, node) {
-> +		int len;
-> =20
-> -		if (dynamic_nodes_cnt =3D=3D MAX_RESERVED_REGIONS) {
-> -			pr_err("too many defined dynamic regions, skip '%s'\n",
-> -			       uname);
-> +		if (!of_fdt_device_is_available(fdt, child) ||
-> +		    (of_flat_dt_get_addr_size_prop(child, "reg", &len) && len))
->  			continue;
-> -		}
-> =20
-> -		dynamic_nodes[dynamic_nodes_cnt] =3D child;
-> -		dynamic_nodes_cnt++;
-> -	}
-> -	for (int i =3D 0; i < dynamic_nodes_cnt; i++) {
-> -		const char *uname;
-> -		int err;
-> -
-> -		child =3D dynamic_nodes[i];
-> -		uname =3D fdt_get_name(fdt, child, NULL);
-> -		err =3D __reserved_mem_alloc_size(child, uname);
-> -		if (!err)
-> -			count++;
-> +		__reserved_mem_alloc_size(child,
-> +					  fdt_get_name(fdt, child, NULL));
->  	}
-
-[Severity: Medium]
-If a dynamically-placed 'no-map' reserved memory region fails initialization
-here, does it permanently leak memory from memblock.reserved?
-
-When __reserved_mem_alloc_size() allocates memory via
-memblock_phys_alloc_range(), the memory is added to memblock.reserved. It
-then calls fdt_init_reserved_mem_node(), which has the following error
-handling path:
-
-drivers/of/of_reserved_mem.c:fdt_init_reserved_mem_node() {
-    ...
-	err =3D __reserved_mem_init_node(rmem, node);
-	if (err !=3D 0 && err !=3D -ENODEV) {
-		pr_info("node %s compatible matching fail\n", rmem->name);
-		rmem->name =3D NULL;
-
-		if (nomap)
-			memblock_clear_nomap(rmem->base, rmem->size);
-		else
-			memblock_phys_free(rmem->base, rmem->size);
-		return;
-    ...
-}
-
-For 'no-map' regions, this clears the nomap flag but appears to omit
-memblock_phys_free(rmem->base, rmem->size), which would leave the dynamical=
-ly
-allocated region permanently trapped in memblock.reserved.
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015082315.5687=
-6-1-m.szyprowski@samsung.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-sdm845-hdk=
+-v4-0-b532b9f4029c@oss.qualcomm.com?part=3D4
