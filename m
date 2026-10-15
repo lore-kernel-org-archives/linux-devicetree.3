@@ -1,81 +1,186 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D07623E6DF5;
-	Thu, 15 Oct 2026 16:32:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 960D4318EE7
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 16:37:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792081957; cv=none; b=EDCrPfhYuOYEcsW/nqYatLv1pRgzNUBcsOqfrN51U0Z+a/X6oKhcuyJwceytagF4jBITK+OH95Gf/q1cxCm/bMHkMjpfHdS/2nAGbM5IHj5vmwVZnA1+ZsNSnk2sAukNxPJ18aeJnxEbax2klbrA3dr1ku2rUr75cNqnrrLl9jY=
+	t=1792082261; cv=none; b=SGVT+j1SzF4W6T+PaTPGUmcD22m42u48scFrzYRYER8k/YpUW1Pg0M9VOAK6Qiiv6XfOJKGWlm/5D92bBaZQMqIHFQQTGEDWzflQscxLTF5Aj/xi0O7VcNhQ8e6c2ECWoVhB+UohMEUvwDkE0RDraFDMBrtEjwEeivoOmw3LNF8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792081957; c=relaxed/simple;
-	bh=K53bHe/qRL8PgX+fC0aZ/IKukdzfGE2CeH1J1pXxbIw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sk1JDl+xfXsu8AZ9BgdjlZNBOfuYjZQ6JQYb2xWErNPSmlsPU4sU2IMH8bW6Xk2RyRLf9umLvXADDA5mSoj60H6VHVDc819w1WZHdgV2TO68xJN4E0v52Hm0jQTSPIAwZQPyvbQssMxIz1p8wTLVj8iQJCfi9D6zwReeBOJsRY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=QvHiuvww; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792082261; c=relaxed/simple;
+	bh=ztVNH4vuSfVR3gj8fZ0vViL22IF/85VKkTRz2Wc8cYE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XMyQGU4pXG91jirrhrU2H/wdk82ESFElaoxdMSStz/R50p0x9m37IpPXTTbRNZpIC0to3h90M1f+Eze2MW6SdoWFeEZ9cHWtpgGKg5LcMfd+exAhIHC1zMJrsoh4vy82YT7ozYJGrNPc9RG8PvP3nhKF2YjrRiASPLDLcbyZdA8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RWgIntcf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XxqHlebh; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="QvHiuvww"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A328614BF;
-	Thu, 15 Oct 2026 09:32:19 -0700 (PDT)
-Received: from [10.0.138.89] (XHFQ2J9959-5.cambridge.arm.com [10.0.138.89])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E966C3F871;
-	Thu, 15 Oct 2026 09:32:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792081942; bh=K53bHe/qRL8PgX+fC0aZ/IKukdzfGE2CeH1J1pXxbIw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=QvHiuvww2XMiC1VH5lrEn7YT52tcUfUfqnhqZ6AL7/+1oS59HDeC1lXKxNrpFi1pC
-	 t0SbzJpTfupyKQqZc3bVVGYXHq188MRT6NrH01zSEEbyjpLbZx7PQxzYaj0Ht2nEy2
-	 xPD7PUul+C++YYvpS1ogXhTXImp3VMZKjPrCVxsE=
-Message-ID: <e8d97f6c-8e22-4c85-b15d-6edade16d789@arm.com>
-Date: Thu, 15 Oct 2026 17:32:18 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RWgIntcf";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XxqHlebh"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69FFDQ0k4126369
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 16:37:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=ZEBnHRPWcaOA/9dLapYt18AI
+	Vs57G9ViDn2EaeI+nYI=; b=RWgIntcfs59WN3QZtzbBmBmwUKj6VRbjd1/aj50m
+	BwVcHSlvviaL3CbhMRjymP70WkaCAyDvJgxFu9gfKAQT+yBgsdyTVxGhZhoW7lUn
+	WrwtJ/IdJs+GyKzFhHgtWTzxJnZG2KYlg4bhRZeQvVqE5KbrBigmOfZoBn34YnZ4
+	tImZalj+Cvq7NZEfEORYouxOHMO5RfGxBVLKJW8sGPQLQ9XpqTTHWdegvq+yi97P
+	oQNNi7xW9BfarxLd4sM5Ub8VGm7Edn1KZpnIIEHJmfmeRMZzXnHeaeT/K2yNF2YM
+	qedjggLhMttrn3MRABMJHL/dWThbXxva6DGxGb6Uho/USA==
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb19m0b7q-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 16:37:30 +0000 (GMT)
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-139b62317d0so20279821c88.0
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 09:37:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792082249; x=1792687049; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZEBnHRPWcaOA/9dLapYt18AIVs57G9ViDn2EaeI+nYI=;
+        b=XxqHlebhM13OviVpa8dQpaUxYQjiow+p/PVmoaO8gORM1VVbTSGH+9DE4TWzncmDEc
+         qujsATD4iO256HgjtgwvxkXPz1Dmh4+EhS+xeMzny3GUgpvpdDA3nHliJ53ZGhhe8WFP
+         vfmXipX7js3AANHZlK7yQqM1bDDr6XYP18HUcIJkfIuDk1UNZa6XKDJxbMYWVIygEBZi
+         gvNvSMd4tgdJrJp9LqlbabkvEhremXnyt36z8B7ylNGFWjWYrdpabBFmnEPbAKUyFEW6
+         ISa+KAYnnCayjNxLL7d6AaCKtrLWbpLAaHY3DX+QUJcflpM0cCI8KF7es/BZ/CgFLNVT
+         qnJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792082249; x=1792687049;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZEBnHRPWcaOA/9dLapYt18AIVs57G9ViDn2EaeI+nYI=;
+        b=UVMao7AYOrRZUeoJo8H5WI0G7VNAn1DagnprusjJHepMiPoHPeg5dp50FChKcRefdX
+         HYZjXhFSCEXityMMtx/C7b/1+NQj0pkyuXEESLG3LsMi1KlGs1ydHYuBFFyogcmh03Sx
+         zpdprxZ36Yz34y84Xuni4VQ565KeQ9bJ8WXK5VmAHpmInC164VG0bu2uCZILXEgm+C2V
+         maoM4urnYFsWg1xCgqQfUtUDHhPJLYuAfN/n4S/vOW/RhXm2OWTQQIBoFy7Jx2e8tB1Z
+         DxIR/U2CJ7egR3oUNx63QvwhL4v3b7M8/8fGy3CGpMEsabe/yMuhA4oV2Ve7Rmxoetu0
+         p1Uw==
+X-Forwarded-Encrypted: i=1; AKwUvBwm41lRTz6dH9yd6+O09jg2is8kllh/dhrdaGNQ8Tey1eh/2SN0TKCKp75lwPo41Imrnrdbj9fvPU2w@vger.kernel.org
+X-Gm-Message-State: AFq9FYIbM4U5wM8Yb0/rObL2doPFTv7glcojTOPBkrmfPHODcLFvbJlL
+	GUijcW6tuUntzgQqGXK3+3cdClSqNgPkFZvIurK/sN/KMEkJTJxf51o+j9i8JaYYRoDe0RKH+dn
+	cTAlmE5C+jfk/ChToP826/l94XNajkOsom6Lo7R5XDeYRv64Dkufs/zDBL4HlaSg0
+X-Gm-Gg: AYBFou27X9PBdOVpxVTL6iH1DXHLxrQ6xMN3b9F3b6NAGPIfHCC80z05GmR39QVD9hQ
+	tJGKxrU+TyTogr+bSofl3pyjRdlMpabgTKxp2AtbeV5YcoDdKlnol61EYRs1KHYiOur1gGGETuU
+	2uTuaP2mbpM8HJsd3ZROUbTOO3k4GG7xrL+Ok9yd4mBOj33Gsxx1Zyy4pf/UyjHPrkgpnr/WDRr
+	XFB6+IlvVGy+F+fUavb/a65i1valH4u58xdetEwswqRgwh/GY/D5a6NL2Q8tmRi3g2e3dwWK56c
+	RWFxIHeEeoPwkzQPbt7uTx7z19t8AhgaQCkvJhw2+PJN7Y9IUyPbY/FWIi6j/INsa4Ov0Udvv6Z
+	HDLGMKB0tbP/B
+X-Received: by 2002:a05:7022:3b85:b0:163:cc63:ecee with SMTP id a92af1059eb24-16a65c03d19mr29504913c88.45.1792082248839;
+        Thu, 15 Oct 2026 09:37:28 -0700 (PDT)
+X-Received: by 2002:a05:7022:3b85:b0:163:cc63:ecee with SMTP id a92af1059eb24-16a65c03d19mr29504789c88.45.1792082246332;
+        Thu, 15 Oct 2026 09:37:26 -0700 (PDT)
+Received: from oss.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-182a5a2fb99sm116946c88.5.2026.10.15.09.37.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 09:37:25 -0700 (PDT)
+Date: Thu, 15 Oct 2026 22:07:17 +0530
+From: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Alex Elder <elder@riscstar.com>,
+        Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
+        andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+        kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+        krzk+dt@kernel.org, conor+dt@kernel.org, hkallweit1@gmail.com,
+        linux@armlinux.org.uk, Daniel Thompson <daniel@riscstar.com>,
+        ansuelsmth@gmail.com, donggeunyoo.kernel@gmail.com,
+        devicetree@vger.kernel.org, netdev@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v2 2/2] net: phy: qcom: qca808x: Add regulator
+ management
+Message-ID: <atEBPbpMtlmG+Mxe@oss.qualcomm.com>
+References: <20261015143849.483339-1-elder@riscstar.com>
+ <20261015143849.483339-3-elder@riscstar.com>
+ <atDz2hJ6xpA3p5y7@lore-desk>
+ <4fc165eb-b57d-41f8-b7b9-c9fe433d866c@riscstar.com>
+ <1af4e7a8-adb9-41bd-8841-61180b284470@lunn.ch>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 02/15] misc/arm-cla: Add launch operation helpers
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
- Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jean-Philippe Brucker <jpb@kernel.org>,
- Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
-References: <20261015142552.4128028-1-ryan.roberts@arm.com>
- <20261015142552.4128028-3-ryan.roberts@arm.com>
- <2026101542-briskness-most-a8ca@gregkh>
-From: Ryan Roberts <ryan.roberts@arm.com>
-Content-Language: en-GB
-In-Reply-To: <2026101542-briskness-most-a8ca@gregkh>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1af4e7a8-adb9-41bd-8841-61180b284470@lunn.ch>
+X-Authority-Analysis: v=2.4 cv=aLdlOr9m c=1 sm=1 tr=0 ts=6ad1014a cx=c_pps
+ a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=XObs8swggq2u4OB2KFAA:9 a=CjuIK1q_8ugA:10 a=vBUdepa8ALXHeOFLBtFW:22
+X-Proofpoint-ORIG-GUID: wOTrqvOK1RHpktjTnmQ5-4m0mo50BOsX
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA2NiBTYWx0ZWRfX2FBVFsYmkrV7
+ N+A9YOqpt3Ef7DMGqPDURImaONF5IkjkOW0GzVuq1+g8o20nMiiEJwbhO/JlsAJg3HncIOZFpMq
+ 33j/+4g4RlXh+kUrxwE6RHl8Z9ikym4=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA2NiBTYWx0ZWRfX57pwTk1WefvT
+ /Hz1pQwASu8MHi8VDbQ/e5PreqDcqWqRnoKB8XZ7tjWZYetfLPw5nRCkP4gddoqZLKuWhCmqmMG
+ E+PHcqXmurTPqQQJVHg/h7S5ndBkqsO2yD4MkX90DQhCVThmizGDeG1utGY+qx1rnYdO8CX2A6W
+ DOuVkL68UzrOEu/RFdI5mpwICZgfWLtZy32ahB8vp23mtzvo6KObk7/KaVFXpOA4w3osVuJnaRl
+ G0oNhzyCiE/NvED7Fuhsy//5BY+5/M/rYdsDAyENtKmTQQ89pg7mFtwZOq7gBIGFZ2Ho2wMpKI0
+ YpKkJZTCUsHpB1dT3vdLv5TUflX6aEg2CGHN1Uz0gJTnSlfCl+hREV9Bm1oDpPQWI5nz24DC/zB
+ +KBq9rEyKJkaoLbn6kx39fz024iSG8+yjJ1akMkeM1Khie5tTN4ElOxfpJWz4+MJxrs2WooiEMN
+ AwuSRXiu0+7K9ljYXJA==
+X-Proofpoint-GUID: wOTrqvOK1RHpktjTnmQ5-4m0mo50BOsX
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 clxscore=1015 malwarescore=0 adultscore=0
+ suspectscore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150066
 
-On 15/10/2026 17:17, Greg Kroah-Hartman wrote:
-> On Thu, Oct 15, 2026 at 03:25:36PM +0100, Ryan Roberts wrote:
->> From: Jean-Philippe Brucker <jpb@kernel.org>
->>
->> CLA commands are issued by writing optional payload registers,
->> programming the LAUNCH register and polling LRESP until the hardware
->> accepts or rejects the operation.
->>
->> Add a common launch helper that performs this sequence on the CLA's
->> local CPU, waits for LRESP completion and translates launch response
->> codes into Linux errors.
->>
->> Build accelerator reset and register read and write support on top of
->> it. The register read and write helpers split larger accesses into
->> multiple launch operations when an access crosses an eight-register
->> window.
->>
->> Signed-off-by: Jean-Philippe Brucker <jpb@kernel.org>
+On Thu, Oct 15, 2026 at 06:27:01PM +0200, Andrew Lunn wrote:
+> On Thu, Oct 15, 2026 at 11:01:43AM -0500, Alex Elder wrote:
+> > On 10/15/26 10:40 AM, Lorenzo Bianconi wrote:
+> > > > +	if (count)
+> > > > +		fsleep(phydev->mdio.reset_assert_delay);
+> > > nit: should we check reset_assert_delay field is actually set?
+> > 
+> > Are you saying there should be an alternative delay used
+> > if it is not set?  Do you have a suggestion for what to
+> > use in that case?
 > 
-> You forgot to sign off on patches from others :(
+> Does the binding require the value is set?
+> 
+> What happens it if is 0? I think fsleep() is happy to delay for 0 uS,
+> but does the hardware still work? Does the datasheet say anything
+> about power on delays?
+> 
 
-Ahh sh*t, sorry about that. Hopefully given this is "just" an RFC that's not a
-big deal? Else, let me know and I'll resend.
+I was going to share a text version of the power-up diagram given in
+this PHY's datasheet. This might help.
+
+Power-Up Sequence
+
+1. DVDD asserted
+   |
+   |<-------- 10 ms -------->|   (required for external power)
+   |
+2. DVDD18 / AVDD18 asserted
+
+3. VDD1P25 asserted
+   |
+   |<-------- 0.2 ms ------->|   (required for LDO to settle)
+   |
+4. VDD_LDO asserted
+
+5. AVDD asserted
+   |
+   |<--------- 2 ms -------->|   (required for XTL to oscillate)
+   |
+6. Crystal 50 MHz starts oscillating
+
+7. PAD reset deasserted
+   |
+   |<------- 10 ms --------->|   (deglitch time)
+
+
+So, maybe just fsleep(22200) or something a bit higher?
+
+	Ayaan
+
