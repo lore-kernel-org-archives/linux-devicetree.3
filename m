@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 245613BA220
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 06:47:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C855A1A682C
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 06:47:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792133255; cv=none; b=DolhS1BhWJFG/KNH8qRaAVx/xkrnSpzhrdrumtAWcfDyGMjOtTwcJmDB32SYTCr9UgYOr0KS+IFrWQke/J8o5z9f8hk4N/Ysl0mKWazUap2NJuGe1V0sPLkPoIbozxJKgk7uuPw41+BttLjIDy5BhEjgRiYtuanCsFQFfuEhGgY=
+	t=1792133256; cv=none; b=Tsh6TWT5BDKgdwA/EhTIFrAkOCv2FnY9s7XDs1xcldoPQhdQFkTRDvZ7MA4U5ar+eVKPfBxX6ar0kWieNybsKOrM6wZ6bm0et0xfxxorjhOLgc3TZDeV2kXiRurj5VXR9HAJp0hYHgoFyVTGfJy8dM6MMjuFSi4+epwKbkwsRGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792133255; c=relaxed/simple;
-	bh=ITEkCKYbGar95rbf0v+Fv9jf9p/byrOn1nUbM7GYtGo=;
+	s=arc-20240116; t=1792133256; c=relaxed/simple;
+	bh=EiVS+p2T+GyOsQnu0/dRSpaUxiSOtXMZidUN1jtatKE=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=kztrc+rhcFKk1bXZ9uF/bXK/Y14NzvM7sd2TZB57XMVLmuw/hF/JRv+LxHGrx1N1Gl8Rqa1rKZyEQjHvvqBdPWsRGj2uU46dx7++eOipTuep7/sGL8nGCFGx/KpFsp9qwtBBxFnUXfWEd/vvBFFD0MzHTI+o5Kor4ExP+QshpDY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FHfN75sm; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=rkYZ/kgjIPs/mO8YO/NA9MIu+qtddaFdkEryu6uefdUew+5zdHWaLMNlq4OmrPUMXd7nzNoFnRfZ6YKmOvibM+8mVerOrlq4FkxgeaqhIKQWxPP9R1j8+NV4yQmz0IcRrUjFDSO/AexhGUm4eo1w5wGuGKC+bz1Njg8z1AEb0oo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KE1IItqP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FHfN75sm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 188111F000C4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KE1IItqP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF0771F000C5;
 	Fri, 16 Oct 2026 06:47:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792133247;
-	bh=rylLQBxOAFy5w76DfZB85yu3AEEzVwQIfX6QBR5pCWk=;
+	s=k20260515; t=1792133248;
+	bh=k+49Oph/Ee8NVekwYbZMg2JyvpXhNgDf6Dl9UIp6wWs=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FHfN75smQkSA5il3yKx6XxTgdDuUnVDjQ/PaiK9sQtBd6NK4F8hFeerqFdUs54fMC
-	 kMfsVIONzp/cIGJTv44NrVghHFEtkPofbd6NE50odEf0QICH8g33HW4xSnMA0iy8zq
-	 Tvvf76N4iWc/INGmtXX+SqaBdyhlXfddxNmwdegb4RfMe7IJPfmqjRSSBrUQPyxIyn
-	 mB660d7avNC8Os3NYkgDzB1nCOwRoWD5QHpLgtgKROtuoPmJOwNl8Xk/W1dKRNHz4j
-	 QTs2jpP8zpNLyRa16CzDh8i4SagGeSgBE+Ya2eZZJc/sFGeR+s6Pvc+lOxnvgNUaV4
-	 KYOLABvnlm1nQ==
-Message-ID: <sashiko-outbox-173879@kernel.org>
+	b=KE1IItqP/AzwzCuKnOUdG0kSZ0hX9X4L2upFrV4UIWtlAa/kP06lpS/VsUD4xj9ds
+	 BpKviMYFQhumGudUWNkwJV/2TmQBHa1W/PtZaGmuvRsBp5mlSHlTWjRM/3h9YSvvTl
+	 YlqWQeERZRYWiqj00riDrCU1q4/DzX9FeRq0mpIzu0FS1BzplnBAjSMvdRb4yivF+q
+	 V0y+fwf6WH3K6DiIzXc3RzwpQ71cxZ9Qx7VAlU3T/KTLSwZIRm2uW+ByHjvCULYLQD
+	 vLpF+wcEMBYwtNtdz3hitGESygzQC0SfrmWZZZf8j8I8ovdAxqm4GrAfz0jkMpEqR0
+	 BQaoWVupmgk5g==
+Message-ID: <sashiko-outbox-173881@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v3 4/6] net: ftgmac100: Require phy-mode for
- AST2700
+Subject: Re: [PATCH net-next v3 1/6] dt-bindings: net: ftgmac100: Add
+ AST2700 compatible
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Jacky Chou" <jacky_chou@aspeedtech.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261015-support_ast2700-v3-4-8d7999171ac4@aspeedtech.com>
+In-Reply-To: <20261015-support_ast2700-v3-1-8d7999171ac4@aspeedtech.com>
 References: <20261015-support_ast2700-v3-0-8d7999171ac4@aspeedtech.com>
- <20261015-support_ast2700-v3-4-8d7999171ac4@aspeedtech.com>
+ <20261015-support_ast2700-v3-1-8d7999171ac4@aspeedtech.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 16 Oct 2026 06:47:26 +0000
+Date: Fri, 16 Oct 2026 06:47:27 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,64 +47,67 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] ftgmac100: unreachable phy-mode validation logic for AST2700
+- [Medium] dt-bindings: net: unconditional phy-mode requirement conflicts w=
+ith use-ncsi
 --
 
-commit bffefbc3de357d0f18231965a919fd90ba100814
+commit 400bdacb7816aa92f8043666f3a7c205e84d2f56
 Author: Jacky Chou <jacky_chou@aspeedtech.com>
 
-net: ftgmac100: Require phy-mode for AST2700
+dt-bindings: net: ftgmac100: Add AST2700 compatible
 
-The driver currently defaults to RGMII when the "phy-mode" property is
-missing from the device tree. This patch makes "phy-mode" a required
-property for AST2700 and fails probe with an error message instead of
-defaulting to RGMII.
+This patch adds AST2700 to the FTGMAC100 compatible list and documents its
+RMII RCLK gate requirements. It mandates the phy-mode property for AST2700
+and makes the Aspeed MAC compatibles standalone by removing the generic
+fallback requirement.
 
-> diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ether=
-net/faraday/ftgmac100.c
-> index 9b7becb017262..5a578a62df673 100644
-> --- a/drivers/net/ethernet/faraday/ftgmac100.c
-> +++ b/drivers/net/ethernet/faraday/ftgmac100.c
-> @@ -1526,8 +1526,13 @@ static int ftgmac100_mii_probe(struct net_device *=
-netdev)
-> =20
->  	/* Default to RGMII. It's a gigabit part after all */
->  	err =3D of_get_phy_mode(np, &phy_intf);
-> -	if (err)
-> +	if (err) {
-> +		if (priv->mac_id =3D=3D FTGMAC100_AST2700) {
-> +			dev_err(priv->dev, "phy-mode is required for this SoC\n");
-> +			return -EINVAL;
-> +		}
->  		phy_intf =3D PHY_INTERFACE_MODE_RGMII;
-> +	}
+> diff --git a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml=
+ b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> index d14410018bcf6..0a376b849a916 100644
+> --- a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> +++ b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+[ ... ]
+> @@ -82,26 +81,35 @@ allOf:
+>            contains:
+>              enum:
+>                - aspeed,ast2600-mac
+> +              - aspeed,ast2700-mac
+>      then:
+>        properties:
+>          resets: true
+>      else:
+>        properties:
+>          resets: false
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: aspeed,ast2700-mac
+> +    then:
+> +      required:
+> +        - phy-mode
 
-[Severity: Low]
-Is this new validation logic for AST2700 reachable?
+[Severity: Medium]
+Will this unconditional requirement cause dtbs_check validation failures
+for AST2700 device trees configured with NC-SI?
 
-Looking at ftgmac100_probe(), priv->mii_bus is only initialized for
-specific SoCs:
+Looking at the driver code in drivers/net/ethernet/faraday/ftgmac100.c:
 
-	if (priv->mac_id =3D=3D FTGMAC100_FARADAY ||
-	    priv->mac_id =3D=3D FTGMAC100_AST2400 ||
-	    priv->mac_id =3D=3D FTGMAC100_AST2500) {
-		err =3D ftgmac100_setup_mdio(netdev);
-		if (err)
-			return err;
-	}
+ftgmac100_probe_dt() {
+        ...
+        if (of_get_property(np, "use-ncsi", NULL))
+                return ftgmac100_probe_ncsi(netdev, priv, pdev);
+        ...
+}
 
-For FTGMAC100_AST2700, priv->mii_bus appears to remain NULL.
+The driver explicitly bypasses PHY initialization and phy-mode validation
+when use-ncsi is present. Because of this, phy-mode is conceptually
+unnecessary for such configurations, but this binding schema will force
+those device tree nodes to include a meaningless phy-mode property.
 
-If priv->mii_bus is NULL, when ftgmac100_mii_probe() is called, would it
-always hit the early exit condition at the start of the function:
-
-	if (!priv->mii_bus) {
-		dev_err(priv->dev, "No MDIO bus available\n");
-		return -ENODEV;
-	}
-
-and return -ENODEV before it can ever reach the new phy-mode validation?
+Could this binding be updated to only require phy-mode when use-ncsi is
+not present?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-support_as=
-t2700-v3-0-8d7999171ac4@aspeedtech.com?part=3D4
+t2700-v3-0-8d7999171ac4@aspeedtech.com?part=3D1
