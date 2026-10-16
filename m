@@ -1,479 +1,187 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022109.outbound.protection.outlook.com [52.101.126.109])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8F262EB874
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 01:23:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792113792; cv=none; b=F0A6TLkcgHrGO/Y6z2tNA4wIaYsUgNCTAYbSI/FFYA3DUBAtUwnzJCMQrGjXSh1q9VrDKFv73eRoWaDU7gJgIcmMPt7ampfzFH4gJfoTsAosqRBGy5nS6+Lf/5tZruJQC7or05uT42dwEb9Qg47Mj/KzCiuhXWlnq8jzxXTQlXo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792113792; c=relaxed/simple;
-	bh=HynksUP6gRPobUEv9KLobfzclrYUJV4zl67YXmnWK6g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=W1V2abAwPSal0QkhTh/bMmJm5ACFopMUd0JbVwIBap5I4P53vNrBIriydisMx+2iumiXdbTS7iuVWQgFt/m5qnLvQo5tSXLtOfJOpaeE7OomgsZkDMXU8RirxZqvSAT/ImfRtNDHp3484G2u5vdWiCQrR3OESxm4coYUwQwvqII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=enV0TOjd; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A388E2AD0C;
+	Fri, 16 Oct 2026 01:47:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.109
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792115282; cv=fail; b=qSQHWfsixdLjbf+Rt4wjIIIAg2Sr5LW1OF3iLsnvcsHhFPfWDHblsnde9bpvwxCU6JosjamdjpDbGEJhHUoUnRZG76cg569Hk/7sOIapZ1JiuAnX1IGneG4xGVwOqE/KLqGWTklcnnMt36J5Pz3KfPno32wuTLCg4+WB3RsXGCE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792115282; c=relaxed/simple;
+	bh=qKHuQCKnu5TuBnDhFEqGdCM3anw2AHXqtzbLAQEq4M4=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=Ch11V7EkIbugpnLUYytsllAs2bBRySAZ+EedLe28sbBh78UcQax3iMXqLdWFVFU2+On3UUmzuRI+n+hJeZCa8jqsXH2zMu++H7cKgd8rXHjjCeVBFShw0MYCBd7OvIrATGHqUjhb06FRtoSJzxmcO9DlKVPu9hcJPAMhjR1PHEY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b=rZeiTsS0; arc=fail smtp.client-ip=52.101.126.109
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="enV0TOjd"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3acb11973c3so773347a91.3
-        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 18:23:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792113789; x=1792718589; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qkXIfOk0VM0UJabEZT3PofzD/aSCf4ahE7Gnqy5n6KM=;
-        b=enV0TOjd/P4NlndTRNhxc1djo8gIil2miYyo160Jx9JhX2z/Ni/rQOC8uxU7HEwJ5g
-         YZMClBQJeamgCL5CSanBOXRQVWKWfXLEC/ArsaeqYF2yhsEVppxlWDJoJCA8nIa9/tmM
-         TViQ+24w4ozLIcN5SjdqMJUAbTQdDTFsubSaGgyUpLC90fBr/2rYcLJ3NIjwGsKMFLQE
-         y6lo0i2og6eSkAlpfhJu/iwX0682Xi3mV0kuzlnLjSCbD3dHFNwMpitOSHimauAM6lKZ
-         rn5T1sobvf19vXkVkCVY9S9G+TO/s+HQZLSpMEW/+nVu5V/NyhdJBt1AtxkYeE4kn0S/
-         ETGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792113789; x=1792718589;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qkXIfOk0VM0UJabEZT3PofzD/aSCf4ahE7Gnqy5n6KM=;
-        b=0/L0TLjqWlHdAoSlCjWUVhDS0zwPK0CPG05rZK9aqGrUnAT2XZY0bpNDVJYEPlm6n8
-         klSZxM8vH4qbIsQ9Dp0NFZm0/lhyeHeEBMpJZluIY0WRKaPupO/+ELRyIf20faldzzBg
-         OkDlfPs/zCf8jAHbDMi8ghPq135R7dw0FrwDVq0r6BL4R5oWGhRAksIDfSarZlf2XFOz
-         z75nCzbwDZZRjNa0DVPZpw2EwBGrw89EC6PC7EcjmlU1eudF9qbpm5aVMCdU5jIwy7po
-         pp51Bu5fsTxapClT+aiP1ACsNo9AbxFBdIYcD5mumPwOtGxMpLdyJxZmUp5d5bPRbONO
-         ZaoA==
-X-Forwarded-Encrypted: i=1; AKwUvBzNUsrW1ZACcpRPygzQMNKMwbmUVFpjACDiv81yzf6CKe2bdfmUlNFzVJPc93iOf4wIGj2teGXJmkGK@vger.kernel.org
-X-Gm-Message-State: AFq9FYLiVvc0+98oM45uR+neQgYj9zWnvuDdh0BcIYZmbopk7Ol1xUmb
-	SiY/wpXsWAILAb7KDouNKvLYbv9xfaC2Q627ktPWBvweFeroSpwuAcF7
-X-Gm-Gg: AYBFou0jYTdHI8bU0S3ucjFkPM/062x2obQDzdzZ7f+FZ4cIvclo9q5nni86F1VCgug
-	e3cdnsPRFGn9NbcysThzabg783ppSgLQ7dXfQdoTmwjcvo396QYh+tZU3zu5y+fv5i19h1u8K/n
-	0Zi9f3sSEJ5KlhMgmZKdoBf22IethkvXrdffIPviEfYt9KsnCpIxVAcXWRm+LL3LfT7nYUqUpHc
-	lTA8Q8Fath1Bxrq1qiBGP1M0YnJlmXYdUL2Q0Ykk05ZlXvHmKQjs6C/U99fXdXwXlT0UM3ziG1W
-	tdfrhgykKZGkH6DYRg1FfkUy9R/z/3+9pq1xYigP/wItuOSRaibr72AKBrMpBz08pQjCyveR8K4
-	JYU8/ash/VvHjCepT/qtSco7KolV6Ssp4kAH3K72xHNTd1EnxugsF56t0Mp2a0W4mhbrLLJPsdk
-	xN0MvsF4NrqmaTXt3H3G4+sidxwqJfr4YmFl/8r3qfn2b+IyVq9hX3txWdaOkalAELi5mhSEkDq
-	0596bR7c0WCRzf4VBrP9XM=
-X-Received: by 2002:a17:90b:48c5:b0:3a4:b418:94cf with SMTP id 98e67ed59e1d1-3ab3a7366bfmr19118127a91.14.1792113788808;
-        Thu, 15 Oct 2026 18:23:08 -0700 (PDT)
-Received: from l (ec2-56-155-112-168.ap-northeast-3.compute.amazonaws.com. [56.155.112.168])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd05fb680sm474327a91.2.2026.10.15.18.23.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 18:23:08 -0700 (PDT)
-From: Liu Yufei <lyf98405@gmail.com>
-X-Google-Original-From: Liu Yufei <lyf98405@gmail.com
-To: Jonathan Cameron <jic23@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Liu Yufei <lyf98405@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>
-Subject: [PATCH v3 2/2] iio: proximity: Add driver for Vishay VCNL36829
-Date: Fri, 16 Oct 2026 09:22:18 +0800
-Message-ID: <20261016012218.40223-3-lyf98405@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016012218.40223-1-lyf98405@gmail.com>
-References: <20261006100943.78971-1-lyf98405@gmail.com>
- <20261016012218.40223-1-lyf98405@gmail.com>
+	dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b="rZeiTsS0"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZnQAkxEwwfkWxBpYQ3igo6e77pPGENnwlPvPJCgCO2x5iCBh5EDLg8782IilNB2ulBrjVSnA4Xz2Pom9rucv+3dP5lTbzWAj161tjVU6WOc/HYLNtn8omAuybRni6FqyV/ab3MQ5Snlrq+ycky2kbP+S6uV3sbu9BOsijkIqxwNTmYmRA54t+ScRaKks8Ar4Eo1ZBWJ1ehK84KVKD8NgOnTmN+99DMBKUiXINccDmxwNIyUOdE9/kaLUfn9eSOfkC026ROH/BuWwV+bEHYpvkCs+0+N2LQIYYhrQkLOJ6RRMzG/lY0bxFMxjv4QLyjcHaNjsnWD5jefyZRwxqzDafQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qKHuQCKnu5TuBnDhFEqGdCM3anw2AHXqtzbLAQEq4M4=;
+ b=EVAA+cEd+fLUzAO7XpZoK/yjMDDFxudHSK2jt3mByMDqaFmL0m7CgNDMLDV8zyKpsgpIVfaUAtttayOVd7bFCOrAwpFUZBzKa0rOJtxYPvBCfggvF/8ex9IY9vDbPvltxl3mnLVeF3Gplvall/gJk4cSp7yc5HmK+eSRTKkGeUcC+Tw8+GSnoyfwpVpZsJgN1DbsHrA8X5mCLETS0UZuEwJm98WBFWou/AU94DG8kd05Uh/y5JATpM+jcRsbl4WaaVZT9izM80hyG3Em4x+T8IXXlVJ2bvfcSgytnWv0u/IEPBKhGLSyoWTQ5hES6+PoBd6vmvPaRDIYlyiE8drLGA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
+ header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qKHuQCKnu5TuBnDhFEqGdCM3anw2AHXqtzbLAQEq4M4=;
+ b=rZeiTsS0WJBuV7m/6cT4cunaHE03oNukBpHM7z+EMEPoTq+padF1eSJd1/X5xsAlqJJLT7aUjg3P+TebTMFeMJkdsw5YUrPAk0hNCjIdhGFkLRvvM1LcLoe5PdFuAx33tE+lFS8Ui3G1STPDrVw3hp/GD2RJ4VRxf1x6DC4fbuZ0tyUx5itXTH3asHkiJbxybfrdNuxwMFUzpzYCZ0PbnXOtRWFt+9pCyrXRkTWGKAR1nLHVzlCaxo3upZm4WJW6wnBvdb3oa1EtAR+3q3mz3qivUh3R1xVPZPWa579zYCSphQKNCq+O0eq07gXhjxQ7kHXHE3qI/b/cAu6ptDsNwg==
+Received: from SEYPR06MB5134.apcprd06.prod.outlook.com (2603:1096:101:5a::12)
+ by SEZPR06MB6207.apcprd06.prod.outlook.com (2603:1096:101:e8::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Fri, 16 Oct
+ 2026 01:47:54 +0000
+Received: from SEYPR06MB5134.apcprd06.prod.outlook.com
+ ([fe80::f53d:547a:8c11:fc6c]) by SEYPR06MB5134.apcprd06.prod.outlook.com
+ ([fe80::f53d:547a:8c11:fc6c%3]) with mapi id 15.21.0522.012; Fri, 16 Oct 2026
+ 01:47:54 +0000
+From: Jacky Chou <jacky_chou@aspeedtech.com>
+To: Conor Dooley <conor@kernel.org>
+CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Po-Yu Chuang
+	<ratbert@faraday-tech.com>, Eric Dumazet <edumazet@kernel.org>, Heiner
+ Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject:
+ =?big5?B?pl7C0DogW1BBVENIIG5ldC1uZXh0IHYzIDEvNl0gZHQtYmluZGluZ3M6IG5ldDog?=
+ =?big5?Q?ftgmac100:_Add_AST2700_compatible?=
+Thread-Topic: [PATCH net-next v3 1/6] dt-bindings: net: ftgmac100: Add AST2700
+ compatible
+Thread-Index: AQHdXHD9n9Q7HrGikUqVTdhqbVWs7bb++zAAgABqZOA=
+Date: Fri, 16 Oct 2026 01:47:54 +0000
+Message-ID:
+ <SEYPR06MB51346CDBE8434290ED671A979D9B2@SEYPR06MB5134.apcprd06.prod.outlook.com>
+References: <20261015-support_ast2700-v3-0-8d7999171ac4@aspeedtech.com>
+ <20261015-support_ast2700-v3-1-8d7999171ac4@aspeedtech.com>
+ <20261015-anthem-kitty-d0f8794da246@spud>
+In-Reply-To: <20261015-anthem-kitty-d0f8794da246@spud>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=aspeedtech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SEYPR06MB5134:EE_|SEZPR06MB6207:EE_
+x-ms-office365-filtering-correlation-id: 360a5922-476c-4f51-ca43-08df2b277f0f
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|7416014|366016|376014|1800799024|23010399003|38070700021|56012099006|4143699003|261009223027099003|10067099003|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ XLhYe4cnBfMwN6vNi+PPpu8pDE1Vtf8tFTvk2k0IFha8E0HC4XJraM59tnizuaffzAQ9UDCCaUTldQ6YbMbnzKESlEcs7XDFHirkM8khyZXl9qLy9KMaCDIZIQX+s8hSJ2KrojzY2TkU6/IRuF365yMYsekQnH3BAXLY+ZEyLhP5jsy1iFp4Ui++VvI8hprklfYHn4711meMbiwUQiBzZpiqIc73xP6w1vHRIXBCGUttAEpsmEqjl70b8GYCPFmF2e5YzzPAGhYTmBZgNbAUm0bl5ll6nI5ScbkvL4vZWHEDqulTKpPhXd+Rfg3sAbjWU9+R4YoiRDcvEckAUCDdzwAeFo8rbZyiFpbYDag5VT21ljniTFZpHcOau8JopFfyrnTFIieGEMmuxOAk6wxzlW9En8EoQE31xw5Kjbx/ca2vJ5JxMaiWHglSzwD9ApxldAmw+NLr/up+9Z5/eS6eZ/oeGIae0jmdi8iyGmqmBbbhE+D/hzcJsVSCOtgfn+nHpl2h0BQasX/NJOyCjSkNFCjilOa6b6yrHLaJB8Al5Wwe3X6Fp+5ay4wQIAmmRaZtHoC1cfUx13P9/jPg9sx10RQZykL6C1ke9QEnQ+D1Tn9xTddCGWwCwRIVLmAWag8mGW156lhyhJ4/7BCcxKrmtVydaZ8Y8wmiCaLmTw4q/+l9Xy+VIBk35ViF7qS3hbo8JlmIOnsxab4XuglWgkau+YWTf5ZEwtoeTPLHcU9Lcsk=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:zh-tw;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SEYPR06MB5134.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(1800799024)(23010399003)(38070700021)(56012099006)(4143699003)(261009223027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?big5?B?QzRrak5sOEgveVVyOHp4clR3YUt1ZWk0bnFud3kvbmw0Uzh3eVc2TitBMVc2bkhM?=
+ =?big5?B?YkFCbHdvL1JvZWU0N2J1MzdFQzhzVmFhYkk1b1hhTVlMUmNPL1lYVWdyY1RUbDU1?=
+ =?big5?B?eWlIK0MvdFZxMUhCS1Y0TEV5bHpsUzd6TWdnM1NRM0xLZE9IMFU2TkUyVDViZ1A0?=
+ =?big5?B?eHd5dGN1bWFnZUcwQlpzWWEzZTM5T3RZeHFYRnJhVk1tV0ZrSGp1SVlJSGkyWE96?=
+ =?big5?B?dDBoem5rMEw1N2lzNXdMbklVVk4xUEpUU0dIdlNsaDFudzBQd3JmSHNSLzV2VlhI?=
+ =?big5?B?Ymw0YXRYSEl2K2NIOUhKVHpVeFpDd2VNZU1LcC9raUZmYktPb1ZQWHZ5bnlyVW1o?=
+ =?big5?B?NTdZcWk5WFY2eVc0QUFxU3pWQlNBaVBXNnQrTUcrMWp0NzlKY3JVR0U2T1hzZnZJ?=
+ =?big5?B?ZXdoY203dFYzbGpBOHhseWVvU2R3dExsMTQ3RlFCY1ppbmkwbi9mczBESFZrY1oy?=
+ =?big5?B?WG5WYXgxSjljTXJhbkw1NHVodEd0dFBlM3dLbVEzV3lmMWYvSm1OY0V4VzE2QkZ0?=
+ =?big5?B?QkVaTkFVRHRwZDZCY1ZHWXUveUtZRXlVRjBQWkIrUVdXSWdrSk0zcGZLWDRPOUto?=
+ =?big5?B?dXFiN0V0bDRRWU95b1VDK1BIdGJ5UkEzcDRteXpmamVDdGdaWUdlS0tkbTFwRG50?=
+ =?big5?B?YUlIUEZDUkcyZk1NdGNmYW5rUDA0RjFKdXJ4bWNWZTVjWXJXOVhqQWs5aTR0djNL?=
+ =?big5?B?WmlSTkFLVy9uRlNuc2gyNFFtWXdUZ0llNUZEZ2FqZGxKZ1N5R0FCbGdzYTNQMzR0?=
+ =?big5?B?MGZvNUZ2SDRFR3d4dnoxcHVOM013UXhXdW9XUGo1UStGMHExclg0VUx5V29ua1NG?=
+ =?big5?B?YVN1dTdjZGQ5bkdCSUduL01qM2tXV2ZKNGR0OGlUUjlkdVpTRVNGRS9IZktiR2hF?=
+ =?big5?B?bGx3di8vbHIveUlpaGNBVUwwL3lESTg0RTFTU2Y3cEs2WURoSDlRNjhSbHFvNkM1?=
+ =?big5?B?MFF5SUJ4WW1pZXN1Y1hVcEhaaUFtclF0cEV4RmlRR1ErOE9IcnNydVhIUjY2VGJC?=
+ =?big5?B?MUtQbzZ6M3VKQ1llTlI4Z2ZGNHdxaVV4ams1ZTNneWZQZFFna016UHpOL1F5Um8v?=
+ =?big5?B?T1RTc21aK0ppS3BxUzZ4YzVVbWVuTDFXeUVnbVNwOG90N1BLR3UwOTZCbnJoZTRa?=
+ =?big5?B?UlVZUGtyWms2enVzOGNJWERVNDJlclhZdXVBZloxNE1tbHJIdlM4SEVWOXlhbitq?=
+ =?big5?B?OVY1Z29OZXVlenJIbWhSUDY1RVp4UlBPM0cvYXBpSEZ5bmlwTnRIRmk3NnFOb1VL?=
+ =?big5?B?ZzF4QnVtN1lIMTNFSTdybzlFRC8rV0c5d1pIbVFVajdTZ2hueHhXYk1mbnBETVVK?=
+ =?big5?B?VS8vS0hZSTUrRVhNSkw1aTc0SXNuMURxb01tYnM2SWt6UW13bDJCaEhLMGZ0TlNt?=
+ =?big5?B?VlUybGlwci9TSG95YmlOTERkdDFnaUp6aHB5d0tvSnVjbEZ4Ry9Hemlvc1FCOXVk?=
+ =?big5?B?bGt6NWRlS1hQd0lET1p6VXV5ZW1KSE9JbXMwSGRtVmpsQWdta0dwNVhaQlhQSjlE?=
+ =?big5?B?TzB4aGpIekRYM2RJOGlrRit6T1BZVDB4YWloU0xWYVF1S1V4S091dUNYU0FtVnBJ?=
+ =?big5?B?Y2NKbjFoM3FEZlB6VmJEc0swZ1JCN0JjNXMra1FScG9aemRkdnBMaTF4VStzem9y?=
+ =?big5?B?c3JnWVV1TmNBME5NRU15MVBGQ3ZQelY5UlBONnBaZ2NkK2tla3ArVTJvZGNnRENR?=
+ =?big5?B?dnZjUlkzSmJjWEV4aFUzcVV3MnBWUWxPVjI0TlQvVngzZGNTdWxVVWo5c0I2Zk9Y?=
+ =?big5?B?Q2VpM1pGcmZvQ1djWW44dFZJenRTNWZRN0EvNEtkNjlIcnZ1bG8xSTlEQ1NHajly?=
+ =?big5?B?Qm80N0hLU3N2TkRIbGNEK21VT0JoZ1ZqeW43Q1d2UTU3UHVjWkZXU1dPblo1UmRa?=
+ =?big5?B?V2tNQ2JKTHhqYm51d0x5VFdqNzFVanc4aGszSnRtOVZuMlA0b0dkdlAzUi9MVTZV?=
+ =?big5?B?bGlzQVJrblRwWVlxOXNpYkRSQytUcDM4RGhpQ2pyR2tWM0R6elp6U3JqY05vWlZp?=
+ =?big5?B?TkdvQU5xZVdyNGVzV2FDSWgrT0lGTWhrbGJQSUZoaS9VYkVzNHQ2VENLYUFIeEps?=
+ =?big5?B?dkRETy9xMEhWRWhCMVV3eE1vRlh5UHdCV2gySDR1dVZxYzd2VHFydzZWSFRmZjFz?=
+ =?big5?B?UUEyeXFUR29XWVZkN1pTM2V5OGpyUytXQ243SCtLN0twekNaU0dYYTFGOTMwMTZs?=
+ =?big5?B?MkJZQWZyNk45ZFg5K1RtN2dFKzJGZz09?=
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked:
+	FzykdAjGAIH1Gd1IkRT63dGbDXsn1yifw8zP/xVbmW6aZ+X+8PmM01reo0D2wQb1qt208OdNK0DpmgWLb/IFFargU75Ze9dgzwhhnwDZ+3eFgR6C2s1GFh/4h/s2b0V2op0nqd5uCdkrf4pwVCHDES14ZWiMBqanjZ7YMpUeE8C+j9Tyk01BwKPNe2D36K333aYPPSyUXk8ZWElmznmSwiEIRHNVJd6g5Kb0Q1CYTrnU2hENC1nMpXuwV0vWmH1YBVjjrCZI6t3LHPW4xl18Aagit9iiyKZNo3c7gddeYkHxvTLFNHXz6MrR1g+mdv/NU3nfjdwyEQWiD0iIZr5QSA==
+X-OriginatorOrg: aspeedtech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SEYPR06MB5134.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 360a5922-476c-4f51-ca43-08df2b277f0f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Oct 2026 01:47:54.4942
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: wvym7tI3kLIHQoVgAny0PkQyt6/k8KcXk8BdvPENaLHnDr224zHs+tBCZxOqBODXtJUWyDFfoHIeWcS7MVT9WTYptpevk/nuxIPMV23Jtfs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB6207
 
-From: Liu Yufei <lyf98405@gmail.com>
-
-Add an IIO driver for the Vishay VCNL36829 proximity sensor with
-integrated VCSEL, connected over I2C.
-
-At probe the driver enables the vdd and vddio supplies, waits for the
-sensor to power up, checks the device ID, configures the VCSEL current
-and photodiodes, and turns the proximity engine on. The sensor is put
-back into shutdown when the device is removed.
-
-The following attributes are exposed:
-  - in_proximity0_raw
-  - in_proximity_integration_time
-  - in_proximity_integration_time_available
-
-Datasheet: https://www.vishay.com/docs/80580/vcnl36829um.pdf
-Assisted-by: LLM
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Signed-off-by: Liu Yufei <lyf98405@gmail.com>
----
-v3:
-- Use dev_info() instead of dev_warn() for an unknown device ID
-  (Joshua Crofts).
-- Wrap the write_raw() arguments on a logical boundary (Andy Shevchenko).
-v2:
-- Address review comments from Andy (see cover letter for details).
-
- MAINTAINERS                       |   1 +
- drivers/iio/proximity/Kconfig     |  11 ++
- drivers/iio/proximity/Makefile    |   1 +
- drivers/iio/proximity/vcnl36829.c | 298 ++++++++++++++++++++++++++++++
- 4 files changed, 311 insertions(+)
- create mode 100644 drivers/iio/proximity/vcnl36829.c
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e6ef84b49..5612b9371 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -28758,6 +28758,7 @@ VISHAY VCNL36829 PROXIMITY SENSOR DRIVER
- M:	Liu Yufei <lyf98405@gmail.com>
- S:	Maintained
- F:	Documentation/devicetree/bindings/iio/proximity/vishay,vcnl36829.yaml
-+F:	drivers/iio/proximity/vcnl36829.c
- 
- VISHAY VEML3235 AMBIENT LIGHT SENSOR DRIVER
- M:	Javier Carrasco <javier.carrasco.cruz@gmail.com>
-diff --git a/drivers/iio/proximity/Kconfig b/drivers/iio/proximity/Kconfig
-index bb77fad2a..f3cec799d 100644
---- a/drivers/iio/proximity/Kconfig
-+++ b/drivers/iio/proximity/Kconfig
-@@ -233,6 +233,17 @@ config VCNL3020
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called vcnl3020.
- 
-+config VCNL36829
-+	tristate "Vishay VCNL36829 proximity sensor"
-+	depends on I2C
-+	select REGMAP_I2C
-+	help
-+	  Say Y here if you want to build a driver for the Vishay VCNL36829
-+	  proximity sensor with integrated VCSEL.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called vcnl36829.
-+
- config VL53L0X_I2C
- 	tristate "STMicroelectronics VL53L0X ToF ranger sensor (I2C)"
- 	depends on I2C
-diff --git a/drivers/iio/proximity/Makefile b/drivers/iio/proximity/Makefile
-index 4352833dd..8a65e42fb 100644
---- a/drivers/iio/proximity/Makefile
-+++ b/drivers/iio/proximity/Makefile
-@@ -22,6 +22,7 @@ obj-$(CONFIG_SX9360)		+= sx9360.o
- obj-$(CONFIG_SX_COMMON) 	+= sx_common.o
- obj-$(CONFIG_SX9500)		+= sx9500.o
- obj-$(CONFIG_VCNL3020)		+= vcnl3020.o
-+obj-$(CONFIG_VCNL36829)		+= vcnl36829.o
- obj-$(CONFIG_VL53L0X_I2C)	+= vl53l0x-i2c.o
- obj-$(CONFIG_VL53L1X_I2C)	+= vl53l1x-i2c.o
- obj-$(CONFIG_AW96103)		+= aw96103.o
-diff --git a/drivers/iio/proximity/vcnl36829.c b/drivers/iio/proximity/vcnl36829.c
-new file mode 100644
-index 000000000..217a32aad
---- /dev/null
-+++ b/drivers/iio/proximity/vcnl36829.c
-@@ -0,0 +1,298 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Vishay VCNL36829 Proximity Sensor driver
-+ *
-+ * Copyright (C) 2026 Liu Yufei <lyf98405@gmail.com>
-+ */
-+#include <linux/array_size.h>
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/delay.h>
-+#include <linux/dev_printk.h>
-+#include <linux/device/devres.h>
-+#include <linux/err.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/time.h>
-+#include <linux/types.h>
-+
-+#include <linux/iio/iio.h>
-+
-+#define VCNL36829_PS_CONF1 0x00
-+#define VCNL36829_PS_ON_MSK BIT(0)
-+#define VCNL36829_PS_SD_MSK BIT(8)
-+
-+#define VCNL36829_PS_CONF2 0x01
-+#define VCNL36829_PS_IT_MSK GENMASK(11, 8)
-+
-+#define VCNL36829_PS_CONF3 0x02
-+#define VCNL36829_PS_CURRENT_EN_MSK BIT(3)
-+#define VCNL36829_PS_CURRENT_MSK GENMASK(2, 0)
-+#define VCNL36829_PD1_EN_MSK BIT(8)
-+#define VCNL36829_PD2_EN_MSK BIT(9)
-+#define VCNL36829_PD3_EN_MSK BIT(10)
-+
-+#define VCNL36829_PS_CONF5 0x08
-+
-+#define VCNL36829_DATA 0xF8
-+#define VCNL36829_DEV_ID 0xFA
-+
-+#define VCNL36829_PS_CONF5_INIT 0x00A0
-+#define VCNL36829_PS_CURRENT_18MA 0x7
-+#define VCNL36829_PS_INT_TIME_25 0x1
-+#define VCNL36829_DEV_ID_VAL 0x29
-+
-+static const int vcnl36829_it_range[] = {0, 25, 0, 25, 0, 375};
-+
-+struct vcnl36829_data {
-+	struct regmap *regmap;
-+};
-+
-+static bool vcnl36829_volatile_reg(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case VCNL36829_DATA:
-+	case VCNL36829_DEV_ID:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static const struct regmap_config vcnl36829_regmap_config = {
-+	.name = "vcnl36829_regmap",
-+	.reg_bits = 8,
-+	.val_bits = 16,
-+	.max_register = VCNL36829_DEV_ID,
-+	.val_format_endian = REGMAP_ENDIAN_LITTLE,
-+	.volatile_reg = vcnl36829_volatile_reg,
-+	.cache_type = REGCACHE_MAPLE,
-+};
-+
-+static int vcnl36829_read_raw(struct iio_dev *indio_dev,
-+			      struct iio_chan_spec const *chan,
-+			      int *val, int *val2, long mask)
-+{
-+	struct vcnl36829_data *data = iio_priv(indio_dev);
-+	struct device *dev = regmap_get_device(data->regmap);
-+	struct regmap *regmap = data->regmap;
-+	unsigned int reg;
-+	int ret;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_RAW:
-+		ret = regmap_read(regmap, chan->address, &reg);
-+		if (ret) {
-+			dev_err(dev, "Data read failed: %d\n", ret);
-+			return ret;
-+		}
-+		*val = reg;
-+		return IIO_VAL_INT;
-+
-+	case IIO_CHAN_INFO_INT_TIME:
-+		ret = regmap_read(regmap, VCNL36829_PS_CONF2, &reg);
-+		if (ret) {
-+			dev_err(dev, "Data read failed: %d\n", ret);
-+			return ret;
-+		}
-+		/*
-+		 * PS_IT field 0 would mean 12.5us, which does not fit the
-+		 * 25us step used here. The driver never programs field 0:
-+		 * probe sets 25us and write_raw rejects anything below 25us,
-+		 * so the field is always >= 1 and val2 = field * 25 holds.
-+		 */
-+		*val = 0;
-+		*val2 = FIELD_GET(VCNL36829_PS_IT_MSK, reg) * 25;
-+		return IIO_VAL_INT_PLUS_MICRO;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int vcnl36829_write_raw(struct iio_dev *indio_dev,
-+			       struct iio_chan_spec const *chan,
-+			       int val, int val2, long mask)
-+{
-+	struct vcnl36829_data *data = iio_priv(indio_dev);
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_INT_TIME: {
-+		int ival = val2 / 25;
-+		int fval = val2 % 25;
-+
-+		if (val != 0)
-+			return -EINVAL;
-+		if (ival < 1 || ival > 15)
-+			return -EINVAL;
-+		if (fval != 0)
-+			return -EINVAL;
-+		return regmap_update_bits(data->regmap,
-+					  VCNL36829_PS_CONF2,
-+					  VCNL36829_PS_IT_MSK,
-+					  FIELD_PREP(VCNL36829_PS_IT_MSK, ival));
-+	}
-+
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int vcnl36829_read_avail(struct iio_dev *indio_dev,
-+				struct iio_chan_spec const *chan,
-+				const int **vals, int *type, int *length,
-+				long mask)
-+{
-+	switch (mask) {
-+	case IIO_CHAN_INFO_INT_TIME:
-+		*length = 6;
-+		*vals = vcnl36829_it_range;
-+		*type = IIO_VAL_INT_PLUS_MICRO;
-+		return IIO_AVAIL_RANGE;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static const struct iio_info vcnl36829_info = {
-+	.read_raw = vcnl36829_read_raw,
-+	.write_raw = vcnl36829_write_raw,
-+	.read_avail = vcnl36829_read_avail,
-+};
-+
-+static const struct iio_chan_spec vcnl36829_channels[] = {
-+	{
-+		.type = IIO_PROXIMITY,
-+		.address = VCNL36829_DATA,
-+		.indexed = 1,
-+		.channel = 0,
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
-+		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_INT_TIME),
-+		.info_mask_shared_by_type_available = BIT(IIO_CHAN_INFO_INT_TIME),
-+	}
-+};
-+
-+static void vcnl36829_shutdown_action(void *data)
-+{
-+	struct vcnl36829_data *vcnl36829_data = data;
-+
-+	regmap_update_bits(vcnl36829_data->regmap,
-+			   VCNL36829_PS_CONF1,
-+			   VCNL36829_PS_ON_MSK | VCNL36829_PS_SD_MSK,
-+			   FIELD_PREP(VCNL36829_PS_ON_MSK, 0) |
-+			   FIELD_PREP(VCNL36829_PS_SD_MSK, 1));
-+}
-+
-+static int vcnl36829_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct vcnl36829_data *data;
-+	struct iio_dev *indio_dev;
-+	struct regmap *regmap;
-+	unsigned int reg;
-+	int ret;
-+
-+	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
-+	if (!indio_dev)
-+		return -ENOMEM;
-+
-+	regmap = devm_regmap_init_i2c(client, &vcnl36829_regmap_config);
-+	if (IS_ERR(regmap))
-+		return dev_err_probe(dev, PTR_ERR(regmap), "Regmap setup failed\n");
-+
-+	data = iio_priv(indio_dev);
-+	data->regmap = regmap;
-+
-+	indio_dev->name = "vcnl36829";
-+	indio_dev->info = &vcnl36829_info;
-+	indio_dev->channels = vcnl36829_channels;
-+	indio_dev->num_channels = ARRAY_SIZE(vcnl36829_channels);
-+	indio_dev->modes = INDIO_DIRECT_MODE;
-+
-+	ret = devm_regulator_get_enable(dev, "vdd");
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to enable vdd\n");
-+
-+	ret = devm_regulator_get_enable(dev, "vddio");
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to enable vddio\n");
-+
-+	/*
-+	 * The datasheet does not specify a power-up settling time.
-+	 * Wait 3 ms after enabling the supplies before accessing the
-+	 * device, as a conservative value.
-+	 */
-+	fsleep(3 * USEC_PER_MSEC);
-+
-+	ret = regmap_read(regmap, VCNL36829_DEV_ID, &reg);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to read device ID\n");
-+	if ((reg & 0xFF) != VCNL36829_DEV_ID_VAL)
-+		dev_info(dev, "Unknown device ID 0x%x\n", reg & 0xFF);
-+
-+	ret = regmap_update_bits(regmap, VCNL36829_PS_CONF2,
-+				 VCNL36829_PS_IT_MSK,
-+				 FIELD_PREP(VCNL36829_PS_IT_MSK, VCNL36829_PS_INT_TIME_25));
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Could not configure PS_IT\n");
-+
-+	ret = regmap_update_bits(regmap, VCNL36829_PS_CONF3,
-+				 VCNL36829_PS_CURRENT_EN_MSK |
-+				 VCNL36829_PS_CURRENT_MSK |
-+				 VCNL36829_PD1_EN_MSK |
-+				 VCNL36829_PD2_EN_MSK |
-+				 VCNL36829_PD3_EN_MSK,
-+				 FIELD_PREP(VCNL36829_PS_CURRENT_EN_MSK, 1) |
-+				 FIELD_PREP(VCNL36829_PS_CURRENT_MSK, VCNL36829_PS_CURRENT_18MA) |
-+				 FIELD_PREP(VCNL36829_PD1_EN_MSK, 1) |
-+				 FIELD_PREP(VCNL36829_PD2_EN_MSK, 1) |
-+				 FIELD_PREP(VCNL36829_PD3_EN_MSK, 1));
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Could not configure VCSEL/PD\n");
-+
-+	ret = regmap_write(regmap, VCNL36829_PS_CONF5, VCNL36829_PS_CONF5_INIT);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Could not set PS_CONF5\n");
-+
-+	ret = regmap_update_bits(regmap, VCNL36829_PS_CONF1,
-+				 VCNL36829_PS_ON_MSK | VCNL36829_PS_SD_MSK,
-+				 FIELD_PREP(VCNL36829_PS_ON_MSK, 1) |
-+				 FIELD_PREP(VCNL36829_PS_SD_MSK, 0));
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Could not set initial config\n");
-+
-+	ret = devm_add_action_or_reset(dev, vcnl36829_shutdown_action, data);
-+	if (ret)
-+		return ret;
-+
-+	return devm_iio_device_register(dev, indio_dev);
-+}
-+
-+static const struct i2c_device_id vcnl36829_id_table[] = {
-+	{ .name = "vcnl36829" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, vcnl36829_id_table);
-+
-+static const struct of_device_id vcnl36829_of_match[] = {
-+	{ .compatible = "vishay,vcnl36829" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, vcnl36829_of_match);
-+
-+static struct i2c_driver vcnl36829_driver = {
-+	.probe = vcnl36829_probe,
-+	.id_table = vcnl36829_id_table,
-+	.driver = {
-+		.name = "vcnl36829",
-+		.of_match_table = vcnl36829_of_match,
-+	},
-+};
-+module_i2c_driver(vcnl36829_driver);
-+
-+MODULE_DESCRIPTION("Vishay VCNL36829 proximity sensor driver");
-+MODULE_AUTHOR("Liu Yufei <lyf98405@gmail.com>");
-+MODULE_LICENSE("GPL");
--- 
-2.53.0
-
+SGkgQ29ub3IsDQoNClRoYW5rIHlvdSBmb3IgeW91ciByZXBseS4NCg0KPiA+IEFkZCBBU1QyNzAw
+IHRvIHRoZSBGVEdNQUMxMDAgY29tcGF0aWJsZSBsaXN0IGFuZCBkb2N1bWVudCB0aGF0IGl0cw0K
+PiA+IFJNSUkgUkNMSyBnYXRlIG1hdGNoZXMgdGhlIGVhcmxpZXIgQXNwZWVkIFNvQ3MuIEFsbG93
+IHRoZSByZXNldCBsaW5lDQo+ID4gZm9yDQo+ID4gQVNUMjcwMCBhcyBpdCBmb2xsb3dzIHRoZSBz
+YW1lIHJlc2V0IHJlcXVpcmVtZW50cyBhcyBBU1QyNjAwLg0KPiA+DQo+ID4gUmVxdWlyZSAicGh5
+LW1vZGUiIHRvIGJlIHByZXNlbnQgaW4gdGhlIGRldmljZSB0cmVlIHdoZW4gdGhlIEFTVDI3MDAN
+Cj4gPiBjb21wYXRpYmxlIGlzIHVzZWQsIG1hdGNoaW5nIHRoZSBkcml2ZXIncyBwcm9iZS10aW1l
+IHJlcXVpcmVtZW50Lg0KPiA+DQo+ID4gTWFrZSBhc3BlZWQsYXN0MjcwMC1tYWMgYSBzdGFuZGFs
+b25lIGNvbXBhdGlibGUgaW5zdGVhZCBvZiBwYWlyaW5nIGl0DQo+ID4gd2l0aCB0aGUgZ2VuZXJp
+YyAiZmFyYWRheSxmdGdtYWMxMDAiIGZhbGxiYWNrOiBpZiBhIG5vZGUgZXZlciBib3VuZA0KPiA+
+IHRocm91Z2ggdGhlIGdlbmVyaWMgZW50cnkgYWxvbmUsIGZ0Z21hYzEwMF9wcm9iZSgpIHdvdWxk
+IHNldA0KPiA+IHJ4ZGVzMF9lZG9ycl9tYXNrL3R4ZGVzMF9lZG90cl9tYXNrIHRvIEJJVCgxNSkg
+aW5zdGVhZCBvZiB0aGUgQXNwZWVkDQo+ID4gQklUKDMwKSwgc2tpcCBBc3BlZWQgY2xvY2sgc2V0
+dXAsIGFuZCBsZWF2ZSB0aGUgRE1BIG1hc2sgdG9vIG5hcnJvdy4NCj4gPg0KPiA+IFRoZSBleGlz
+dGluZyBhc3BlZWQsYXN0MjQwMC1tYWMsIGFzcGVlZCxhc3QyNTAwLW1hYywgYW5kDQo+ID4gYXNw
+ZWVkLGFzdDI2MDAtbWFjIGNvbXBhdGlibGVzIGhhdmUgdGhlIHNhbWUgc3RydWN0dXJhbCBwcm9i
+bGVtOiB0aGV5DQo+ID4gYXJlIGN1cnJlbnRseSBvbmx5IHZhbGlkIHdoZW4gcGFpcmVkIHdpdGgg
+ImZhcmFkYXksZnRnbWFjMTAwIiwgYW5kIGENCj4gPiBub2RlIHRoYXQgYm91bmQgdGhyb3VnaCB0
+aGUgZ2VuZXJpYyBlbnRyeSBhbG9uZSB3b3VsZCBoaXQgdGhlIHNhbWUNCj4gPiBCSVQoMTUpIHZz
+IEJJVCgzMCkgbWlzbWF0Y2guIEdpdmUgdGhlbSB0aGUgc2FtZSBzdGFuZGFsb25lIHRyZWF0bWVu
+dA0KPiA+IGFzIEFTVDI3MDAsIHNvIG5vbmUgb2YgdGhlIEFzcGVlZCBjb21wYXRpYmxlcyByZXF1
+aXJlIHRoZSBnZW5lcmljDQo+ID4gZmFsbGJhY2sgYWxvbmdzaWRlIHRoZW0uDQo+IA0KPiBUaGlz
+IG5lZWRzIHRvIGJlIHR3byBjb21taXRzLiBPbmUgZml4aW5nIHRoZSBleGlzdGluZyBkZXZpY2Vz
+IGFuZCBvbmUgYWRkaW5nDQo+IHRoZSBuZXcgb25lLg0KPiANCg0KQWdyZWVkLCBJIHdpbGwgc3Bs
+aXQgdGhlbSB0byB0d28gY29tbWl0cyBpbiBuZXh0IHZlcnNpb24uDQoNCj4gPiBmdGdtYWMxMDBf
+b2ZfbWF0Y2hbXSBoYXMgaGFkIGRlZGljYXRlZCBlbnRyaWVzIGZvciBBU1QyNDAwLCBBU1QyNTAw
+LA0KPiA+IGFuZCBBU1QyNjAwIHNpbmNlIGNvbW1pdCAwM2EyYWJhNTBiMmMgKCJuZXQ6IGZ0Z21h
+YzEwMDogTGlzdCBhbGwNCj4gPiBjb21wYXRpYmxlcyIpLCBzbyB0aGVyZSBpcyBubyBrbm93biBr
+ZXJuZWwgKyBkZXZpY2V0cmVlIGNvbWJpbmF0aW9uDQo+ID4gd2hlcmUgYSBub2RlIGhhcyBhY3R1
+YWxseSBib3VuZCB0aHJvdWdoIHRoZSBnZW5lcmljIGVudHJ5IGFuZCBnb3R0ZW4NCj4gPiB0aGUg
+d3JvbmcgRURPUlIgYml0LiBUaGlzIHBhcnQgaXMgYSBiaW5kaW5nIGNvcnJlY3RuZXNzIGZpeCwg
+bm90IGEgZml4DQo+ID4gZm9yIGFuIG9ic2VydmVkIGZhaWx1cmUuDQo+IA0KPiA+IE5vdGUgdGhh
+dCBhcmNoL2FybS9ib290L2R0cy9hc3BlZWQvYXNwZWVkLWc0LmR0c2ksIGFzcGVlZC1nNS5kdHNp
+LCBhbmQNCj4gPiBhc3BlZWQtZzYuZHRzaSBzdGlsbCBkZWNsYXJlIHRoZWlyIE1BQyBub2RlcyB3
+aXRoIHRoZSB0d28tc3RyaW5nDQo+ID4gImFzcGVlZCxhc3RYWFhYLW1hYyIsICJmYXJhZGF5LGZ0
+Z21hYzEwMCIgY29tcGF0aWJsZSwgc28gdGhpcyB3aWxsDQo+ID4gbWFrZSBkdGJzX2NoZWNrIHdh
+cm4gYWdhaW5zdCB0aG9zZSBmaWxlcyB1bnRpbCB0aGUgcmVkdW5kYW50IGZhbGxiYWNrDQo+ID4g
+Y29tcGF0aWJsZSBpcyBkcm9wcGVkIHRoZXJlIGFzIHdlbGwuIFRoYXQgLmR0c2kgY2hhbmdlIHdp
+bGwgYmUgc2VudCBhcw0KPiA+IGEgc2VwYXJhdGUgc2VyaWVzIHRocm91Z2ggdGhlIEFzcGVlZC9h
+cm0tc29jIHRyZWUsIHNpbmNlIGR0LWJpbmRpbmdzDQo+ID4gY2hhbmdlcyBkb24ndCBnbyB0aHJv
+dWdoIHRoYXQgdHJlZS4NCj4gDQo+IFRoaXMgc2hvdWxkIGJlIGJlbG93IHRoZSAtLS0gbGluZSBv
+ciBub3QgZXZlbiBpbmNsdWRlZCBpbiB0aGUgcGF0Y2guDQo+IA0KDQpJIGFsc28gdXBkYXRlIHRo
+aXMgaW4gbmV4dCB2ZXJzaW9uLg0KDQpUaGFua3MsDQpKYWNreQ0KDQo=
