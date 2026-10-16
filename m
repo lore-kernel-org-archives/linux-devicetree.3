@@ -1,73 +1,83 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB1922561A7;
-	Fri, 16 Oct 2026 14:21:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ABAE347FCD;
+	Fri, 16 Oct 2026 14:25:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792160493; cv=none; b=bH9sPWLxx+sXFaHejfTFLOoGs1osziaoMxPJr/MEda+vo+BQC5bzm0Rf0aindpfBe/tzS3uCZf5y0LaykYcOEUTw4a/maidHrUIO/nHhpGz/s96XAOhae4I9q4G9PjGwk8slsbKiZLWSkyym4sRMVhqgshOj0ZvXikVZ4VQqAKM=
+	t=1792160725; cv=none; b=AeFNjNx+6b6REd9S/MeQHfvbeBvJQcsPcpFkGV3HBeGU8PgBs3LTE6QZfv01hCJfOMRoy7sZ21DM7OlotDdKfFlW13PHw4ozPz/lI376DL2Arp+2zixcexn1jNZRNRGGi+9UBmDoGyqa09e+l7QF48VAEFiI8aQmYbZJf9DhHDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792160493; c=relaxed/simple;
-	bh=dFzBhwDkFPwOsZeLSfCKf0dx/m1DdSIIHK+HD+S+UUQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B+irWSWG/2stx7/BNbHng3220Rwaokv0xhYifAl8BFuYXzS65rvSlh8lazihlzyVhqN6fMBZbruR+4kUIo0Z9ajovkE0kLsLX2XU3TcWLkASjVYOMIWwQyiVyaS9FlwxatGmwIbUm8ghJCYwpGNjQN4rQFYogYL3XYKJvNO5HtI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EOSn+n0h; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792160725; c=relaxed/simple;
+	bh=EysSUdJPxlS8YP09my+uwmWYfTgJfrU7QBuE1ymYreo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hk8b1Nlf93SgGnK4RxNHGx+6rHYgAsB1Pg4r37d1vbW1R5QwRTY4fnT0rHSgc7M/Ef4LbFSoAJNTV+3Wt8LRcD83ppSEKmTkpVIIrW8iQMivXOGp/Tkf700PYGFEvtiNLmYi9OqrbFnOn/IVYgPMj2HcdzE0LN0Ior87HMv4f88=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fKhad+Ol; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EOSn+n0h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D45571F000C6;
-	Fri, 16 Oct 2026 14:21:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fKhad+Ol"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63AB71F000C4;
+	Fri, 16 Oct 2026 14:25:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792160491;
-	bh=dFzBhwDkFPwOsZeLSfCKf0dx/m1DdSIIHK+HD+S+UUQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EOSn+n0hToLCaX8bnSfZ3uWLYIdT4IAlXz2Qo5q957Yq5LYCfR8btLgeLMhLhOIEA
-	 KZaX+OMp6nx5+stqC3rZ+dVKK3m1UKEpJvs9KokSXZ9Kln0UN+vCJ5V4QoQh/2FrpO
-	 3xPGeNgSlJ0QaePJD4womy6BlYhaYD224akqz8j5t1cJD608Y/r0zoAAASfylt6OEy
-	 MB8B/Zu84CKdUVL7z+xpXf2xKrrsMAqeRYWTns2ntNjR8E/22Sz9Sh+jwenrCVSFjr
-	 EXYkQfI3VV9BJJAef6zdTB5t/ZaFwJrMDV2X2iGWlorUV9lvveYYcSZLUrpjouedIV
-	 a/YQ2h9Is5Iaw==
-Date: Fri, 16 Oct 2026 15:22:00 +0100
-From: Jean-Philippe Brucker <jpb@kernel.org>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	Alex Williamson <alex@shazbot.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev, kvm@vger.kernel.org,
-	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [RFC PATCH v2 15/15] misc/arm-cla: Add vfio-mdev user interface
-Message-ID: <CABCqBse_aZL-EH0us2uA5X10q6E4WP02MoHTYf+M9ezRZr26WQ@mail.gmail.com>
-References: <20261015142552.4128028-1-ryan.roberts@arm.com>
- <20261015142552.4128028-16-ryan.roberts@arm.com>
- <20261015164102.GC13920@nvidia.com>
+	s=k20260515; t=1792160724;
+	bh=plgMHerWPW7I9eXv3sbhNq9FoI1DwSKA4wzGvrzGk2s=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=fKhad+OlNs4nT68tu1Ub5/VDcj+taHCRUeDM5+z+adtKERXcJMJUIquztDHnNEek4
+	 xYEFa1rxbO+kKfaFYkCEngTY04Ok4eHVh59U7FADPr2BZkd+8WwwR1YiHHiGL0t+GE
+	 16ol6nunIDgLL7hjN8N9c2M9EZfQxxOlxBWIuavdB/BmSYErp/Yrk54TUUKeh+wIdD
+	 BcrbyGDCX8PIXaLLIi3ZwyOqxLKmTi8ji8v7yLZaaGJ8TWe9oPloIjrtRMgRN7nIyB
+	 EA5zmAOndEVRL5/enM91x0dNoZ88TQ/J9OCmOfqSxgn9b4ztT56+Pt0z+EC3D+WA/C
+	 6zQHjxOIDPz3w==
+Message-ID: <34c65b1d-a389-447b-96f4-e2a15ee37f99@kernel.org>
+Date: Fri, 16 Oct 2026 09:25:23 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015164102.GC13920@nvidia.com>
-X-TUID: CePXLswkibsA
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 3/3] arm: dts: altera: add Draeger M48 CPU Module
+Content-Language: en-US
+To: Petko Manolov <petko.manolov@konsulko.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ arnemaximilian.richter@draeger.com, martynas.grybauskas@draeger.com
+References: <20261015145804.3632839-1-petko.manolov@konsulko.com>
+ <20261015145804.3632839-4-petko.manolov@konsulko.com>
+ <62afc804-8a9f-42c0-93a5-8b0b7f3b84f0@kernel.org>
+ <20261016123346.GC15187@carbon.k.g>
+From: Dinh Nguyen <dinguyen@kernel.org>
+In-Reply-To: <20261016123346.GC15187@carbon.k.g>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, 15 Oct 2026 at 17:41, Jason Gunthorpe <jgg@nvidia.com> wrote:
-> I think I said this last time, please don't use vfio mdev for
-> anything. There is nothing mediated about this.
 
-We don't multiplex a device between guests, but the host driver must
-control part of the device registers while the remainder is assigned to
-a guest. The host configures accelerator access, stage-2 translation,
-handles CPUHP and context save/restore. So we can't bind the device to
-vfio-platform.
 
-Thanks,
-Jean
+On 10/16/26 07:33, Petko Manolov wrote:
+> On 26-10-16 06:08:53, Dinh Nguyen wrote:
+>>
+>> On 10/15/26 09:58, Petko Manolov wrote:
+>>> M48 is a heterogeneous board made by Draeger that is based on two
+>>> independent cpus, that are monitoring each other.  One of them is
+>>> imx6, the other is Altera SoCFPGA Cyclone 5.  The latter is booting
+>>> independently off qspi.
+> 
+> <snip>
+> 
+>>> +&gmac0 {
+>>> +	status = "okay";
+>>> +	phy-mode = "rgmii";
+>>> +	phy-handle = <&ethphy>;
+>>> +
+>>> +	mdio0 {
+>>> +		#address-cells = <1>;
+>>> +		#size-cells = <0>;
+>>
+>> You also need this here:  compatible = "snps,dwmac-mdio"
+> 
+> Thanks a lot.  Is there a way to send patches to Sashiko without bombing the
+> LKML and, respectively, all of you guys?
+> 
+Yes, you can run sashiko locally. The instructions are in the sashiko 
+project.
+
+Dinh
