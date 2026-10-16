@@ -1,168 +1,170 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 313FF2931D1
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 03:46:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB41D254B03;
+	Fri, 16 Oct 2026 04:02:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792122390; cv=none; b=UZ3sf/SGNrCeN0QR7b7uCq2yQ8/PUYYfqxuhZzUIP3xbb6MbfwxQGT7ueMsP4xXaC5v3BAo4QW+6o4HIOMXz85HSA6nIId9ed/mjrW8nEIz47xE1sjxdNljUJ/z5U7FChP07c5Q27/iwetQUEt+RUTR6ELX9V4XVPqNuqfV1rzo=
+	t=1792123354; cv=none; b=pulgGG4B4Y8XGrrsw3EAnQR00i9k4q79+nCtEWlS4731YuDruwBWXZ2DdJ2XcUxhxjFoU+UcRNxhgChVWBrYS7daGdW2025W7PDF2RV602LP2XZoRXhL+DJK1Wo+jwMS/eHT+gs0KYC8LN4G3GczJwSPmpO+OqMJIu3GLFaIz3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792122390; c=relaxed/simple;
-	bh=fypS5sH2ojuj3Md2hE/nHT+xEcbmXnpx18jZaGXRa4w=;
+	s=arc-20240116; t=1792123354; c=relaxed/simple;
+	bh=D/7WZn96n/4VQB8L8pTjKKxOtCun2ZxLUzSvWC0YHM8=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=m8a38Kpb43J4scFkfMBQ8JC+LJAPMGY4KKTaRDF7pxHFvqS6YAu5n8lSozwwaOyWRXFBlfWm+Rq38ZaHiebfFI+cHHN9//JUxJtWjpTF1cJgy7SU9OWJy1+yLjYDMGbo8Hc00ROJlWSxjVRrwdqaZYdIO1htI/hhqiyVdb7LLcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mgJ8nEH6; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=sqYzbpKLinrSE6LFvS/lg8dA1WMAsLcYGRf1ujXVAjtVbkBqWaTxvYkIwb7GhmzZeyNeUNt62uKWwWt/jchaNKfeQibBsh/wa4i/hYyGz8hblqR03vUOyJCakCgbbxkmoSjHAxiL7bcdDhpEDVHGaYfYnUJh0m5+ZwwikYS61ks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OedRXRla; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mgJ8nEH6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BCE81F000C8;
-	Fri, 16 Oct 2026 03:46:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OedRXRla"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 888A51F000C4;
+	Fri, 16 Oct 2026 04:02:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792122388;
-	bh=cCr8czCH7uPp/OWdcgyyLctPbucGwoumYeXkwF+2MGA=;
+	s=k20260515; t=1792123353;
+	bh=NYhYtY6NNxHVhaTXOhMMsowXI57SxMv7/T8lMzWMVN8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mgJ8nEH6Au5DeGeOj2kU2wGeNVgrc4t7eEd+mqr/ZXNFHLlkRDrJWI6foHSyt737x
-	 nanyMP7wvQFP2/FY7m5cPxqowz0ya+EU4nU7OhP1oNPPnvidz7jLeqx3ajSL+OeE21
-	 tEJk6uAw9g1JRgcCwnv/jAZ5sR97kQKJODbnFuOoXS6r/UriLQVmfZWm4p/t0lNQZA
-	 UtpWrXR+bzjYj3krNMzMJXJ4RaDH8jht8dFasKIy2FnG8TDhncieGjOSIoWX3r9ZbY
-	 M2r4Eru4fcSl/2LN2456vb108xzJNbtFnmSSiNSwnWGZSH0psMUbqjUv5IS8da8p6W
-	 BulMS7apaDArw==
-Message-ID: <sashiko-outbox-173697@kernel.org>
+	b=OedRXRlapUce4ZGThtU3JvUeqJMCsQv8lMObcrwmI61z2UHc0QWOmhzVm6DNtGp5L
+	 chuK0oubaBpriDQSOUC8YCT3+0bYTaYmJesqyIFDUFXPiVs2uJkBZRe/L+XkEwKFjT
+	 nzznNLTeqj1Oxh0o6qE/hhhJwD08qBFwFLHuiT13uZHKBqpPwX+ILWkoG3wpp6EWn+
+	 T1lCbXIkIiNszSfWuOrKJea2GE81s8ziROlv/8rt2hhCw+VWcUe66InWcMy5H7foSX
+	 B7kl+vxTppAGGpUpuiux4aQVIazKdM4oSgS83hJkmkr2AWLYmx9BA4VC1nAmp/FQwZ
+	 9zYP3GWUDPrkA==
+Message-ID: <sashiko-outbox-173724@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH ath-next v2 08/17] wifi: ath12k: Add hif operation
- support for QCN6432
+Subject: Re: [PATCH v8 17/17] mtd: rawnand: sunxi: support the Allwinner
+ randomized OOB format
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Aaradhana Sahu" <aaradhana.sahu@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261016-mpp-bringup-v2-8-f510c33bfcf5@oss.qualcomm.com>
-References: <20261016-mpp-bringup-v2-0-f510c33bfcf5@oss.qualcomm.com>
- <20261016-mpp-bringup-v2-8-f510c33bfcf5@oss.qualcomm.com>
+To: "James Hilliard" <james.hilliard1@gmail.com>, "Miquel Raynal" <miquel.raynal@bootlin.com>, "Richard
+ Weinberger" <richard@nod.at>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Sebastian
+ Andrzej Siewior" <bigeasy@linutronix.de>, "Clark Williams" <clrkwllms@kernel.org>, "Steven
+ Rostedt" <rostedt@goodmis.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>
+Cc: "Chen-Yu Tsai" <wens@kernel.org>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Samuel
+ Holland" <samuel@sholland.org>, "Maxime Ripard" <mripard@kernel.org>, "Richard
+ Genoud" <richard.genoud@bootlin.com>, "Boris Brezillon" <bbrezillon@kernel.org>, "Masahiro
+ Yamada" <yamada.masahiro@socionext.com>, "Brian Norris" <computersforpeace@gmail.com>, linux-mtd@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-rt-devel@lists.linux.dev, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261015-submit-sunxi-nand-vendor-oob-layout-v1-v8-17-8ba4881fbee8@gmail.com>
+References: <20261015-submit-sunxi-nand-vendor-oob-layout-v1-v8-0-8ba4881fbee8@gmail.com>
+ <20261015-submit-sunxi-nand-vendor-oob-layout-v1-v8-17-8ba4881fbee8@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 16 Oct 2026 03:46:28 +0000
+Date: Fri, 16 Oct 2026 04:02:32 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Critical] net: ath12k: unconfigured dynamic window in pcic read32/write3=
-2 causes out-of-bounds MMIO
-- [High] wifi: ath12k: use-after-free in timer callback ath12k_ce_rx_replen=
-ish_retry()
+- [High] mtd: rawnand: sunxi: Missing bounds check on ecc->steps against ma=
+x_ecc_steps
 --
 
-commit d724e1834e7dbd2c47e113791169e389fe945179
-Author: Sowmiya Sree Elavalagan <quic_ssreeela@quicinc.com>
-wifi: ath12k: Add hif operation support for QCN6432
+commit a2ae1cf95bb52a1850e6dc239c873b74d175805e
+Author: James Hilliard <james.hilliard1@gmail.com>
 
-This commit adds HIF operations for the QCN6432 Wi-Fi driver by reusing
-existing methods from IPQ5332 and QCN9274 where applicable. It implements
-QCN6432-specific operations in a new pcic.c file.
+    mtd: rawnand: sunxi: support the Allwinner randomized OOB format
+   =20
+    Normal hardware-ECC reads also decode protected OOB, including the
+    bad-block marker and metadata used in bad-block-table scans. Allwinner
+    firmware leaves the marker in the randomizer stream, but the existing
+    driver compensates it to keep a plain physical marker. On H6/H616,
+    firmware also packs protected user data before the first parity region
+    rather than maximizing its allocation across the page. Those mismatches
+    prevent normal ECC reads from interpreting firmware-formatted pages and
+    their markers.
 
-> diff --git a/drivers/net/wireless/ath/ath12k/pcic.c b/drivers/net/wireles=
-s/ath/ath12k/pcic.c
-> new file mode 100644
-> index 0000000000000..e3c8476af459c
-> --- /dev/null
-> +++ b/drivers/net/wireless/ath/ath12k/pcic.c
+> diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/sun=
+xi_nand.c
+> index 56594bb411933..0e2ff1c59120f 100644
+> --- a/drivers/mtd/nand/raw/sunxi_nand.c
+> +++ b/drivers/mtd/nand/raw/sunxi_nand.c
 
 [ ... ]
 
-> +void ath12k_pcic_stop(struct ath12k_base *ab)
+> @@ -2342,6 +2353,299 @@ static const struct sunxi_nfc_oob_ops sunxi_nfc_s=
+crambled_plain_bbm_oob_ops =3D {
+>  	.finish_read =3D sunxi_nfc_oob_finish_read,
+>  };
+> =20
+> +/* Allwinner randomized-OOB format, selected only by allwinner,randomize=
+d-oob. */
+> +#define SUNXI_NFC_H6_ALLWINNER_OOB_MAX_USER_DATA_SZ 16
+> +
+> +static void sunxi_nfc_randomize_buf(u16 state, u8 *buf, unsigned int len)
 > +{
-> +	ath12k_pci_ce_irq_disable_sync(ab);
-> +	timer_delete_sync(&ab->rx_replenish_retry);
-> +	ath12k_ce_cleanup_pipes(ab);
+> +	while (len--) {
+> +		*buf++ ^=3D state;
+> +		state =3D sunxi_nfc_randomizer_step(state, 8);
+> +	}
 > +}
+> +
+> +static void
+> +sunxi_nfc_allwinner_oob_record_status(struct nand_chip *nand,
+> +				      struct sunxi_nfc_allwinner_oob_status *result,
+> +				      int logical_step, int hw_step,
+> +				      struct sunxi_nfc_ecc_snapshot *snapshot)
+> +{
+> +	u32 count;
+> +
+> +	if ((snapshot->pattern_found & BIT(hw_step)) &&
+> +	    !(snapshot->pattern_id & BIT(hw_step)))
+> +		result->zero_steps |=3D BIT(logical_step);
 
 [Severity: High]
-Is there a mechanism preventing ab->rx_replenish_retry from re-arming itself
-here?
+Does this code invoke undefined behavior if logical_step exceeds the bit-wi=
+dth?
 
-If ath12k_pcic_stop() executes while the timer callback
-ath12k_ce_rx_replenish_retry() is running concurrently, timer_delete_sync()
-will wait. However, the callback invokes ath12k_ce_rx_post_buf(), which bli=
-ndly
-re-arms the timer on allocation failures (-ENOMEM):
+The number of ECC steps is derived directly from the NAND page size in
+sunxi_nand_hw_ecc_ctrl_init():
 
-drivers/net/wireless/ath/ath12k/ce.c:ath12k_ce_rx_post_buf() {
-    ...
-    ret =3D ath12k_ce_rx_post_pipe(pipe);
-    if (ret) {
-        if (ret =3D=3D -ENOSPC)
-            continue;
-        ...
-        mod_timer(&ab->rx_replenish_retry, ...);
-        return;
-    }
-}
+	nsectors =3D mtd->writesize / ecc->size;
+	ret =3D sunxi_nand->oob_ops->init_user_data(nand, nsectors);
 
-Could this cause the timer to be re-enqueued after timer_delete_sync()
-unblocks, leading to a use-after-free regression when the timer fires after=
- the
-structures are freed?
+It doesn't appear that nsectors is validated against the controller's
+max_ecc_steps limit. If a NAND flash with a large page size is used,
+ecc->steps (and thus logical_step) can exceed the hardware limit (e.g.,
+16 or 32). On 32-bit platforms, this could cause the BIT(logical_step)
+shift to overflow.
+
+Additionally, this could lead to out-of-bounds MMIO reads in
+sunxi_nfc_hw_ecc_get_prot_oob_bytes() when iterating over ecc->steps,
+as reg_index might exceed the supported hardware registers for user data.
 
 [ ... ]
 
-> +u32 ath12k_pcic_read32(struct ath12k_base *ab, u32 offset)
+> +static int sunxi_nfc_allwinner_oob_finish_read(struct nand_chip *nand,
+> +					       struct sunxi_nfc_ecc_read *read,
+> +					       int *cur_off)
 > +{
-> +	u32 window_start;
+> +	struct sunxi_nfc_allwinner_oob_status *result =3D &read->allwinner_oob;
+> +	u8 *buf =3D read->buf;
+> +	bool oob_required =3D read->oob_required;
+> +	bool dma =3D read->dma;
+> +	int page =3D read->page;
+> +	struct mtd_info *mtd =3D nand_to_mtd(nand);
+> +	struct nand_ecc_ctrl *ecc =3D &nand->ecc;
+> +	int ret;
 > +
-> +	if (offset < WINDOW_START)
-> +		return readl_relaxed(ab->mem + offset);
-> +
-> +	window_start =3D ath12k_pcic_get_window_start(ab, offset);
-> +	return readl_relaxed(ab->mem + window_start + (offset & WINDOW_RANGE_MA=
-SK));
-> +}
-
-[Severity: Critical]
-Does this read from an unconfigured dynamic window?
-
-When offset does not fall into the statically mapped UMAC or CE ranges,
-ath12k_pcic_get_window_start() returns the fallback dynamic window address
-(WINDOW_START, which is Window 1).
-
-However, unlike the cmem accessors or the PCI equivalent (ath12k_pci_read32)
-which explicitly lock and program Window 1 to the high bits of the target
-offset, this function skips configuration entirely and blindly performs the
-read.
-
-Could this result in out-of-bounds MMIO reads, directing the read to whatev=
-er
-physical memory address the dynamic window was previously configured to map?
-
-> +
-> +void ath12k_pcic_write32(struct ath12k_base *ab, u32 offset, u32 value)
-> +{
-> +	u32 window_start;
-> +
-> +	if (offset < WINDOW_START) {
-> +		writel_relaxed(value, ab->mem + offset);
-> +		return;
-> +	}
-> +
-> +	window_start =3D ath12k_pcic_get_window_start(ab, offset);
-> +	writel_relaxed(value, ab->mem + window_start + (offset & WINDOW_RANGE_M=
-ASK));
-> +}
-
-[Severity: Critical]
-Similarly, does this write to the dynamic window without first programming =
-the
-hardware register to map the target offset?
-
-Like the read path above, ath12k_pcic_write32() uses the dynamic window wit=
+> +	/*
+> +	 * Allwinner firmware treats an all-zero physical page as bad, even wit=
 hout
-calling a window selection function such as ath12k_pcic_select_static_windo=
-w().
+> +	 * ECC errors. This takes precedence over the spare-byte heuristic.
+> +	 */
+> +	if (result->zero_steps =3D=3D GENMASK(ecc->steps - 1, 0)) {
 
-Will this regression corrupt memory or hardware state by writing to a previ=
-ously
-configured but currently unrelated memory address?
+[Severity: High]
+Can GENMASK() invoke undefined behavior here if ecc->steps exceeds the
+architecture's bit-width?
+
+Similar to the BIT() shift above, since ecc->steps isn't bounded by
+max_ecc_steps, a large page size could cause this range to exceed 32 bits,
+leading to an overflow.
+
+> +		memset(buf, 0, mtd->writesize);
+> +		memset(nand->oob_poi, 0, mtd->oobsize);
+> +		mtd->ecc_stats.failed +=3D ecc->steps;
+> +		return 0;
+> +	}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016-mpp-bringu=
-p-v2-0-f510c33bfcf5@oss.qualcomm.com?part=3D8
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-submit-sun=
+xi-nand-vendor-oob-layout-v1-v8-0-8ba4881fbee8@gmail.com?part=3D17
