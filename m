@@ -1,119 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F8783A784E
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 14:39:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C21732B132;
+	Fri, 16 Oct 2026 14:40:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792161547; cv=none; b=Gg8rLXjXwbZEiBwSiAcShA/BWUS/2Peh3qPOgpxmQ64pRQTqI0WiGANdEIrTwD3RagRk81E0PoUV9t0LyydxPcSDZqYBPW/6mykU6BSK+8neakSPR4Yae9o+FIHKJf+vmNPWUULWesvlxIh/TJMn5kJ2Qtod62tgbhiJmXU6yEk=
+	t=1792161607; cv=none; b=kLpV652lE0EFtx//CRL9AytvTIHgPkvD9+G95aLbCJy1AC+E24vH/CSz2QB1UV2ZgIHkIo8Aaqu3osB1mu3yS9kQ/R7ZnPWwhVbeF2W/Swddu+14znhozeEQPxsB23xXGWJOvgDCfU/2czxODWBrK/Z08hmGh8dBDXkSJHvBZWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792161547; c=relaxed/simple;
-	bh=0xexCFQw4BJI2ZMOblzdvQ4XEIF+NxdU+/AH+gb9Eck=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=QYlRPK2LHGQRtc9hshqftGF2ul46NkSBW7ikz7fLOA9xZLrdUS4L2vqTOwu3sNr4GCWbcaLaQpNr52/nYCW+T5Mu8d460Xu9RIF1BcYvmDOYc0PXKFllD1KiB/WXGS8IGlvsY0cAVI3+Ai0GDgCdxaRXpzoYE66sIlzrmPlwVtA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o0QApaid; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792161607; c=relaxed/simple;
+	bh=5rWXlSacB3ZK6lYF8y/F6URMgitlO2bJ/xBhk7KZqnk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=aa7tKPW3As2y5EHq2XDhbj5EXVIwAnZTO8a8H4Oqjrg+Q2IJltd8KE7sLVeSnw9kNF1ff7Yt0IWUS0U9tnoCzhw4pmmIENFPOFU5p+ZHQ78Zu98JvLwmfb+MFR1DJzgQadZt2iFedDmVvqEIiADCrr1T+IA6cSQflp0hvyGptTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W3GpZBmN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o0QApaid"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E287F1F000C4;
-	Fri, 16 Oct 2026 14:39:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W3GpZBmN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B7911F000C5;
+	Fri, 16 Oct 2026 14:40:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792161546;
-	bh=rGZxtRNAatdpLgd4KzeblxZriGxV1lJw+7YEorx8mnI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=o0QApaidOvyPXT1ZCUz/iuvYlwzqwFKXpa7A8MJJHrzMpS3CRvpZwZm0vIt3nQ0So
-	 YtZnf4yQ/q6AfX+p5ov2QQuz2HI7ZVOjcADw4qPY6Kn64fY3Pz9nyrNCJ+AlItiWUD
-	 ZMLqQeOxHrS08sHSgJDyzaGWbu+RFstoajHAI8O1n2LlGqQ8sGaPq/CD6npmaIVR4F
-	 wSLApyp+laF4pz5vWyK8AK64ub+wBxOPU3w5ck23dsJCnaGEIsIn0gEtWnT33BZL1g
-	 aEX1y3PD0AUhAwjOo0otgZ7Q/lLoY7mc5ntDW+lKG9VBM5PKZqgw5CIN6IZGjna4jG
-	 OnWb82pLbw+tA==
-Message-ID: <sashiko-outbox-174466@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v2 2/2] net: phy: qcom: qca808x: Add regulator
- management
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alex Elder" <elder@riscstar.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261015143849.483339-3-elder@riscstar.com>
-References: <20261015143849.483339-1-elder@riscstar.com>
- <20261015143849.483339-3-elder@riscstar.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 16 Oct 2026 14:39:05 +0000
+	s=k20260515; t=1792161606;
+	bh=5iR/n5TxdTxz+OUopmkuWFQB0Je/YmkpDFf1jsLtlHA=;
+	h=From:Date:Subject:To:Cc;
+	b=W3GpZBmNGxqsX8cYOIrZ/SKyhdgYcw8UGd/S0hNsR2gVBY/bkKXwDchx/ljRRy70p
+	 VrYxlx9+9Vtr3tHMJXiKDGK5deP2T4RZ3F0EIeUwB1UDSIXwJilaxLSsJ+V6yvhZPB
+	 Urd0Za7Eei8jEIkjElv5uuabZVMto91Lq2WPJv7yNGCblqEXM9Np8RUOisNv/W91gR
+	 KuyQC5OogY8JVZznKkG0FXTiUjgUMMm4Cu3SufAUBFKvAEhBoameIrKwa9tVjBgbXg
+	 Gi61c+4DMaOPTiJd/bMFWkwaHx8S2gRjhwFvLFgK2U1UNWfLnwoK0ytXCZtT6G/pei
+	 nLmFnEnEgqlYQ==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Date: Fri, 16 Oct 2026 16:40:01 +0200
+Subject: [PATCH] kbuild: dtbinst: Create destination directories before
+ installing
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-topic-dtbs_install_fix-v1-1-8cf50b642cba@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrDIBCF4auEWVdQF4bmKqWEqGM6Iag4tgRC7
+ h7TLL8H79+BsRAyDN0OBX/ElGKDenTgPlOcUZBvBi21UVIZUVMmJ3y1PFLkOq3rGGgTvZP+GbQ
+ 0wVto51ywzf/w632bv3ZBV68aHMcJb0+2+noAAAA=
+X-Change-ID: 20261016-topic-dtbs_install_fix-7c0d9f206fdb
+To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Masahiro Yamada <masahiroy@kernel.org>
+Cc: linux-kbuild@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792161603; l=1700;
+ i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
+ bh=dBPuCTPAMlqIZYz7kulxNy3CUJrPvnUckNPDp4MTzrc=;
+ b=U84/ah1Tcd1c8PeUaJg+mUmoaomm7vc/JVLwoJaZKpHV5ooAAR/7J8s0a0TG6avbSU0VCG1uS
+ 9nLsGYFglLJDiiSWeXdRheFuQbhDDAIDquqcn/Exn08L7JmohpU7x4E
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] net: phy: qca808x: missing PHY reset pulse after enabling regulato=
-rs
---
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-commit e2b47da72c4cf5c697d4c2078b3f0f943b751123
-Author: Daniel Thompson <daniel@riscstar.com>
+dtbs_install installs each DTB with 'install -D', which creates the
+parent directory of the destination on demand. With a parallel build,
+two DTBs that share a not yet existing directory are installed
+concurrently and both try to create it. The loser fails, which aborts
+the whole build:
 
-net: phy: qcom: qca808x: Add regulator management
+  install: cannot create directory 'debian/linux-image-7.1.0/usr/lib/linux-image-7.1.0/arm'
+  make[6]: *** [scripts/Makefile.dtbinst:23: .../arm/foundation-v8-gicv3.dtb] Error 1
 
-This commit adds logic to power on GPIO-controlled regulators during the
-probe of the QCA8081 PHY device. It uses an always-on approach, turning on
-regulators if present and sleeping for the reset assert delay.
+The failure depends on job scheduling, so it shows up as a build that
+fails for no apparent reason and passes when re-run.
 
-> diff --git a/drivers/net/phy/qcom/qca808x.c b/drivers/net/phy/qcom/qca808=
-x.c
-> index bab26e4c61408..4aba513b9a512 100644
-> --- a/drivers/net/phy/qcom/qca808x.c
-> +++ b/drivers/net/phy/qcom/qca808x.c
+Create all destination directories up front, the same way
+scripts/Makefile.modinst does for modules, so the install rules no
+longer race.
 
-[ ... ]
+Fixes: aefd80307a05 ("kbuild: refactor Makefile.dtbinst more")
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+ scripts/Makefile.dtbinst | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-> @@ -181,15 +182,43 @@ static void qca808x_fill_possible_interfaces(struct=
- phy_device *phydev)
->  		__set_bit(PHY_INTERFACE_MODE_2500BASEX, possible);
->  }
-> =20
-> +static int qca808x_power_on(struct phy_device *phydev)
-> +{
-> +	static const char * const regulator_names[] =3D {
-> +		"avdd18", "vdd", "vdd18", "vdd125"
-> +	};
-> +	struct device *dev =3D &phydev->mdio.dev;
-> +	u32 count =3D 0;
-> +	int ret;
-> +
-> +	for (u32 i =3D 0; i < ARRAY_SIZE(regulator_names); i++) {
-> +		ret =3D devm_regulator_get_enable_optional(dev, regulator_names[i]);
-> +		if (!ret)
-> +			count++;
-> +		else if (ret !=3D -ENODEV)
-> +			return ret;
-> +	}
-> +
-> +	if (count)
-> +		fsleep(phydev->mdio.reset_assert_delay);
+diff --git a/scripts/Makefile.dtbinst b/scripts/Makefile.dtbinst
+index 9d920419a62c..a55f2a7acbc2 100644
+--- a/scripts/Makefile.dtbinst
++++ b/scripts/Makefile.dtbinst
+@@ -37,6 +37,10 @@ dtbs := $(notdir $(dtbs))
+ 
+ endif # CONFIG_ARCH_WANT_FLAT_DTB_INSTALL
+ 
++# Create destination directories up front: with parallel make, concurrent
++# 'install -D' calls race on creating the same parent directory.
++$(foreach dir, $(sort $(dir $(addprefix $(dst)/, $(dtbs)))), $(shell mkdir -p $(dir)))
++
+ __dtbs_install: $(addprefix $(dst)/, $(dtbs))
+ 	@:
+ 
 
-[Severity: High]
-Does this sequence successfully initialize the PHY hardware? The driver app=
-lies
-power here and sleeps for the reset delay, but doesn't seem to explicitly
-toggle the reset line.
+---
+base-commit: d419d682257d813f6cb7a28e42b35d0edf4ad038
+change-id: 20261016-topic-dtbs_install_fix-7c0d9f206fdb
 
-Since the MDIO core deasserts the reset line before invoking the driver's
-probe() callback, the PHY appears to power up with the reset line already
-deasserted. Could this regression result in the hardware failing to initial=
-ize
-properly and leaving a dead link?
+Best regards,
+--  
+Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Perhaps an explicit assert and deassert (e.g., via phy_device_reset()) is
-needed here to provide a valid reset pulse after the power is stable.
-
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015143849.4833=
-39-1-elder@riscstar.com?part=3D2
