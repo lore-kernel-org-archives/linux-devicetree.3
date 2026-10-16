@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D38925393E;
-	Fri, 16 Oct 2026 14:55:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C12294FDE70;
+	Fri, 16 Oct 2026 14:57:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792162552; cv=none; b=LS1WyMUmZd2WGt6z145CpJWUNJY1+kZ/m9YM2Y8cO0C/xOTrGQlE6ZORqwNAY8JXBVmrNh6veaWnRFoN9nSSGEe7ww1c7gWsqlGM8fgH8GTKshJ9xTDjZhSFqlPWw7u6J0PhyWV04SbMKJDNRkbQsimRsDsG1iTr161Vyku1y2A=
+	t=1792162625; cv=none; b=OIlRpZxrPGS2l2GgoE41BLsN4Ev73y/Imw+XpXqhXG3jflI7zZOLHpmV4frsMjFAoLJCHsW+r6MDz3yW6g9we5RrshN9/DnWAztODs8QeujIrVFJhaoVQeny49UwyC+NfK2XH32FMmZg6e04Yrsp9DGHwVRcJvwzHOYjGqMHhf0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792162552; c=relaxed/simple;
-	bh=vvW+tXxtzdN6I5geVXOl+0WL8nPhfGnE3NxJZnXr37A=;
+	s=arc-20240116; t=1792162625; c=relaxed/simple;
+	bh=zWGI6AKL7hcenj2NPxqV9k8hHTe9L5iUXEXr3viOJBc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KjtJAbHLJNBFbfLOMv7GlHpz7sEqH75u2KekCC+x/sj9tfAHM+sSdmrrchqjq+vQssaxU9R4qiPF/tGWKgKIPgqrzST4juP3s3K7pYZBVM+2bvhLSGrVk+EOjEvEVdxdHoJ/st6Dwz2RY6YqBxFbRW40+M/78E++cJdgFVvlhas=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YVVixLhG; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=DVtOhzThO4wwXGMfJ2tDMNBs3RrxKixEfRGSdcXd8btVwdlnyZZZ8Ws/dMsGg77LMAvyLntrfDPYB3qxREXjJSUuN+e/oUTfhR6hz1D2mNXa3+WXKWiKKu/liRf9zOkybiEmBh1bOr9sWiqjawOLQO+YXJvyRiu3KtL7uuW/fjk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GyPhW8AN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YVVixLhG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B45151F000C4;
-	Fri, 16 Oct 2026 14:55:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GyPhW8AN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 979DB1F000C4;
+	Fri, 16 Oct 2026 14:57:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792162550;
-	bh=HhtVeYkvsS+hUH81qeSZd9eDeA6WZokyxakf6Hvk2cM=;
+	s=k20260515; t=1792162624;
+	bh=z7RqNGwsKTmB7SoqlC1IpUBpDgOpT7wGRrrCqHbb1lQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=YVVixLhGuLB7tQYbrxE9/IwBLqmd7ds1I4b2GbC2B00J0n/L/9isaUIVuyStH1sdo
-	 TzySl893O1lblFk/ZPLe18oCCr+FbRhRsdHAYwFFFKiB0a/y7sPPIZ+J4Y8XeFpBVJ
-	 JOuLceWS/jnjC25ncV7FeHLjS3LC5WrbR/u5jEi/WX5wZ5bVIiTFS2HlbqlnHEorph
-	 ROGG9aT3nSIFcQOISx3GgvS+oOrtH3TSs2X9IPuH3cdV0gCYw2nUY1J7AaNAuP9tyP
-	 DSHWdjCj4MqNB03obH0KO7F5B5xs/JNqEGIw9vaBICx7EQNg/1zEFDd1kSbb3J2CdJ
-	 tFaDdue+993Xg==
-Message-ID: <eeac49eb-1623-4ea1-9cba-aba87bb9f11e@kernel.org>
-Date: Fri, 16 Oct 2026 16:55:45 +0200
+	b=GyPhW8ANfu9Es6E0jty4tjJXJqpbjPm3fLPuo6xXU2oMiBF7OpLU23wmXS91J7VU3
+	 htZKxrpBxVITWVuw/0N++yG7akAI3rmfZetCmNUXulNgI4Bu/o3VJIgEr7NnfWl3Bd
+	 UbCU2jyR5A4E0Pib8mxqhe35nw4E9uY8OfcgEyquZ/PO+t17NGNQ/YskI+clAZSVen
+	 1Ml41LuH65qEYrWlndhKr3QXLcDKUp9KYoYSuWC5HfaHyVwVoC8gElH0W1Hj4iBSFl
+	 mKwszfIzbPNJeUSEto6naZDGGwGeRupRPCcwnMunBEIrHbSiYVENItDbncX51zZhtT
+	 jUgEUmO3norWQ==
+Message-ID: <48ac1f6a-3de8-401b-a348-502178f7ff1c@kernel.org>
+Date: Fri, 16 Oct 2026 16:56:59 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,16 +35,17 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: crypto: qcom,inline-crypto-engine: Add
- IPQ5210, IPQ5424 and IPQ9650
-To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
- Abel Vesa <abelvesa@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261016-ice-v1-1-4098b1972f31@oss.qualcomm.com>
+Subject: Re: [PATCH 4/6] mailbox: Add AMD PL Mailbox soft IP controller
+To: tanmay.shah@amd.com, Ben Levinsky <ben.levinsky@amd.com>
+Cc: jassisinghbrar@gmail.com, andersson@kernel.org,
+ mathieu.poirier@linaro.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, michal.simek@amd.com, linux-remoteproc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261014213426.2957480-1-ben.levinsky@amd.com>
+ <20261014213426.2957480-5-ben.levinsky@amd.com>
+ <20261015-aromatic-ibex-of-opposition-dafb43@quoll>
+ <0ad96f34-97d6-4998-9cf3-4b09ab6c94a2@amd.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -90,27 +91,29 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261016-ice-v1-1-4098b1972f31@oss.qualcomm.com>
+In-Reply-To: <0ad96f34-97d6-4998-9cf3-4b09ab6c94a2@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16/10/2026 13:08, Varadarajan Narayanan wrote:
->            minItems: 2
->  
-> +  - if:
-> +      not:
-> +        properties:
-> +          compatible:
-> +            contains:
-> +              enum:
-> +                - qcom,ipq5424-inline-crypto-engine
-> +                - qcom,ipq5210-inline-crypto-engine
+On 16/10/2026 16:54, Shah, Tanmay wrote:
+>>> +static const struct of_device_id amd_pl_mbox_of_match[] = {
+>>> +	{ .compatible = "amd,zynqmp-pl-mbox-2.1" },
+>>> +	{ .compatible = "amd,versal-pl-mbox-2.1" },
+>>> +	{ .compatible = "amd,versal-net-pl-mbox-2.1" },
+>>> +	{ .compatible = "amd,versal2-pl-mbox-2.1" },
+>>
+>> So all of them are compatible? Then why do you need all this?
+>>
+> 
+> Hi Krzysztof,
+> 
+> This block will be used on 4 SoC - zynqmp, versal, versal-net & versal2.
+> IIRC we should list each SoC where the device/hw block is available.
 
-Keep the list sorted.
+No, you do not list here every compatible device. You only list
+fallbacks. Please open other drivers to see how this is done. Only hwmon
+is an exception here with its own reason.
 
-With this fixed:
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
