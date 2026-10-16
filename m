@@ -1,118 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84C5A4DC551;
-	Fri, 16 Oct 2026 16:02:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792166563; cv=none; b=VhTyLl1c4PmK1epmxRfBkqmX7pXLSbGR+OSPB9ijhbeJBgKoxByu3cpgQvAT0JPUmQpOOpWLcKp9wJHkSfgm0+U5+cJhIO3Y/G2YX16qDNXojObac0DUR1vnd/+ssCERf2t6fl2Dvzcdx87elAIeqFyCL1y3ticazjITeOXueBU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792166563; c=relaxed/simple;
-	bh=wZ/Mw37DBktyrDuunhGMF1wbbcuWpaZoNYsHXxz1nes=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=JRiZBg4OVs+T56NZpUcH8zljNa8fgv5kT23nibcGft7MPjO8R9ERF1gILqtqveQBnxz2z8VMuLtJGbbqe6+85gEOjmR/ftOk+n1p/BCnAoKE9ttdcZMr02T2Pi+FZtI+WtI0rSJ8PfIppZP2iCK9rEJm12B0GNc6Hp+pX5T+Zas=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VuHVRNGD; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 376624EFFD5
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 16:04:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792166687; cv=pass; b=DofYu6QKq4X+q2EGuNtqTvkurfQVCCYJ2g7T0AM9Wb/m2b8C++XYcVhzA4NM2K1bKVMlVKPTZlzV1Ta6Dr28KQEkKMV6fWTITC/SEo+8V9BdKbWA/XsOvR9l9VNiskFrJ6Mv+iDq1/4mGCYjrz1VIu86dmmq+0137wx7GnXRv1Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792166687; c=relaxed/simple;
+	bh=iXULWRiQelhnvcT3Ak66Mg2j8IEu0ZMQcqJtR6BRIrQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=orAYYvVlT1Vwtfc+dt5G89knXm9QU417rt6JLUQNNyUJaON1uG6ujlflsKwIwY0FpJ+tQ9FhCedaHjPpwSKWa6SFqi2OCKkeiYDE+6Fi4OEXQ6F1XxjHYFK/LKwi1w1Lcps8Jpy0drWLt8G/+OVdmLNLkF5rA3y6stlY/3qqjog=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CuOJ798b; arc=pass smtp.client-ip=74.125.224.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VuHVRNGD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09E981F000C5;
-	Fri, 16 Oct 2026 16:02:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792166562;
-	bh=vLsFS7+FVKd8K1MAbLflQbl7IvuvXawg0UFAquvnStU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VuHVRNGD35A+Z+HUqb9hWLz6hL2wlE0CIMAAEpp3fKvxZYX0nrwAjgu4d4LEXRKXP
-	 YVsCbBlKrFNeJQb/5gVLPPzBgzfbIcV+Zoqm60WQT14aoyz7tEfSJwed/aaCr5vJd9
-	 GR1yZCad/LTuPbvj/FOo3sM2Db2qcLfTbDPwyp4ehqgQDMYyJikIMIBzMwQFkTw2/L
-	 UD8QQzDghDvMV7TrxKsMo+PG1Usc1s3InGByt/dMhe1Z+00vJmBQfhDzUZUKg1v2Q2
-	 X2+ZAkm2UoXh6PL9/pXsvvxEA1hVpiwKy1Q75o+V/dECHVxbJ7U9rnb7xusvw8y7FY
-	 srtOoGqo0PHUQ==
-Message-ID: <sashiko-outbox-174595@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/8] reset: Add
- reset_control_get_from_provider_exclusive()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Geert Uytterhoeven" <geert+renesas@glider.be>
-Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <b9e68c8df1e545191e0359dba23fe53de31a4ce5.1792163045.git.geert+renesas@glider.be>
-References: <cover.1792163045.git.geert+renesas@glider.be>
- <b9e68c8df1e545191e0359dba23fe53de31a4ce5.1792163045.git.geert+renesas@glider.be>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 16 Oct 2026 16:02:41 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CuOJ798b"
+Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-6798c43a3d6so159741d50.1
+        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 09:04:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792166685; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JynEmYE4syxLqM0Zt3zogZLSTIHTVS6Wc3rh+UByymuiF9cAU3KDutz40vz8qW5wFC
+         A08FtEL9UmSdZT/CgFzI8Ex7c5WXVQTLyNesuiJYwYtGjSZOpWoc1Ytii3KaIhHM/hqY
+         0cIMS3ESCGDYAuniDQhpV09ymPNB05oo2Uxyo9HaSzFe7CsLHvb51JfbBV7iB3mdoF6a
+         wLx0g7gCv+MGOjydIYeuPU5P6yWIKCCshnf6/GKFPTcBZ0ghMvky1sCnc3Ww5axluj0T
+         S6pa84mX2b0EndLDbodUvYsaSDVj4X0blSsbL/r/FFriSB57poXoSrkDeK00LbdQY6XH
+         xwwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=iXULWRiQelhnvcT3Ak66Mg2j8IEu0ZMQcqJtR6BRIrQ=;
+        fh=a1ggpxdmCEErgRGf2Re9QTg3YLYX4BybCytgCbXYTOA=;
+        b=Y5eK8m2wBrU30HThfpDGq2UpQhltjo8tB33R6nhJFSsH/gfTC0Pttb1jsICKyJhj5I
+         XxjWY/VYHFoW0AgAW0if5mP3sU8ewt+YYrG95gtJ2fjosJMSRM1JymJ6MF4cDisivk8+
+         3rtoZbxE3DQ2Rcvrvla5lWKeEKjmpYR7x2ai3xXYxB8BsRvKddiZAuwNfbIvhY0Qad9N
+         C8eWHFz62HUcS3S0nIOoveaGYq7psDyZMMo6oINY+BPKSNEVqzsMJyxmuHXg0ggqcKl0
+         eTZywp+VzTGlagJeEWALuf/1k2LHAMxrvciIrfKJ20am7i0iZ3hL/lMMTKN4kJdVJvf1
+         qmeQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792166685; x=1792771485; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iXULWRiQelhnvcT3Ak66Mg2j8IEu0ZMQcqJtR6BRIrQ=;
+        b=CuOJ798bMYtCDpC5LWiwZJn7uw8bjiBagVxTyI6Y9WQHtVprqQYt1y47sCo21XrVNV
+         UsOmF8vDTwr5vLG1QXN92cTa+5Im2jGEIYiRKKdOqgzUUOTnYt87XsGOn5018IMq+alk
+         L7aJy/CQT1mulKcTs4zCTHTgB7D+ulX8GyNiMTZTTx8J0UwhjLxhSJpG1LHGNK5izf3Y
+         c2jU0TWODuroFYqhSPgwpTpsaCq26tN2n6wpUb4c5k5Tj1qTFSAea6HSAfpp6N0Uh0Bf
+         YY7iLlNhbSOArmXeqmWMYCYhiAV6fxBNdp+6tcTdfA02yg1vXQ4NCEjPo42auL7rK04m
+         J4KQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792166685; x=1792771485;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=iXULWRiQelhnvcT3Ak66Mg2j8IEu0ZMQcqJtR6BRIrQ=;
+        b=YTc827H9Xgniz1OXLw0WCtLhUICSiiA05xrpdlB5puts4JSM634c7knSDkQCCLPSa5
+         sq3OHkOBw5kWD0UbjfkeNhv+5N4Os2oajhXhpTJEWsMVtMAzpBM7C43PNh1RPmgdz2df
+         FnjthSxu7oBbcWqno+aDPCq3/ceRgIL0aRw3J/M+7DvGP5lVsav6jMyiP6IGx4jSsJA8
+         TICTfJglzKNXXzvkiSeFW17SyXFKAPNpdU6UsLrhS5gPs6nwsIWYsN7Y4AMZZZjlAD8U
+         ySvuJaisCnVGIX+CRgDNPcv9VUKUmSf9YH138ld9pMKlZKobZCK41d5pHYTZ/oRiJeDY
+         /OgQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy3QdM0Kl1ve1D6rW5Ofg1pQ+kfwuEAj92xKsOrfqPl3OwdI7shJONEF4Bj42IJ6uG26WgLuoMaFySh@vger.kernel.org
+X-Gm-Message-State: AFq9FYJwSAwPxHuVTf1i2pKcQnIiiI8wViPCOx+RC7iSVZIx1gD4owch
+	FEwTIDeaiE0cZq2PhvuLQrZlQJlTb5M499xGw9/buRHy2h9M9oybEIRkg3PtJdDnYnYgmL3Zm4b
+	YsjPXWwGDr47iYaFqqzc044uVWHFy4AA=
+X-Gm-Gg: AYBFou1AQORjU90QYWCqG7UAk1otIg1K5YcdtCTjvzJKm15XSBwYDI4jvO5RTY0couZ
+	0NcebHr//t5JSPX8HrPhlY2d0c+jtZM58y+HaABR6PEB2Y9wdqbxCBlT9/p17wAGZhzh8goiCVj
+	FrLtSqQSW0x//f9CV3NE4cZ5hP2tIiut4ex7yE6wU0HMQkquOQ3ZBu3a9tDm/uI2dAVoFxYt2RB
+	L2/CqOX/HxhsTg83MyeK+zS5rn56MHUzHeOdDrbqyo2fcDjIVsfurhLZj49hO2IqA4izEA8tLxY
+	A3AUJIUZpj11Au9E7pypQyLZ9ylCArbG4TmH3SkY/rpcMr4emIAgWqE=
+X-Received: by 2002:a05:690e:168d:b0:679:94b3:a257 with SMTP id
+ 956f58d0204a3-67994b3d526mr1957505d50.115.1792166684969; Fri, 16 Oct 2026
+ 09:04:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20261016090930.947830-1-wyibo6109@gmail.com> <57d28e27-459d-4d58-b6ea-78739936d152@ixit.cz>
+In-Reply-To: <57d28e27-459d-4d58-b6ea-78739936d152@ixit.cz>
+From: Yibo Wang <wyibo6109@gmail.com>
+Date: Fri, 16 Oct 2026 11:04:34 -0500
+X-Gm-Features: AclHuK8HVxQHZuZqBOsgDtltrMYxi2H1SXCcO2OimABd3Lxmh6ZoSPvRZjNaQho
+Message-ID: <CALQ9cS49UzOPA8PUh8Yf55+D5oim=9YRF9iHw0Hi0sXuZFDTVw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] dt-bindings: media: i2c: dongwoon,dw9719: Document DW9714VA
+To: David Heidelberg <david@ixit.cz>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Daniel Scally <dan.scally@ideasonboard.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] of: memory leak of device node reference on error path
---
-
-commit 6e1c5e27c808997c3ce5fe5fc257fedbfabb6954
-Author: Geert Uytterhoeven <geert+renesas@glider.be>
-
-reset: Add reset_control_get_from_provider_exclusive()
-
-This patch introduces reset_control_get_from_provider_exclusive() to allow
-looking up and obtaining an exclusive reference to a reset controller from
-a provider. It modifies the existing __reset_control_get_from_provider()
-helper to support this lookup.
-
-> diff --git a/drivers/reset/core.c b/drivers/reset/core.c
-> index 0e11f4c81c10d..421bcc4c89cc2 100644
-> --- a/drivers/reset/core.c
-> +++ b/drivers/reset/core.c
-> @@ -1153,18 +1154,30 @@ __reset_control_get_from_provider(const struct fw=
-node_reference_args *args,
->  	if (WARN_ON(args->nargs !=3D rcdev->fwnode_reset_n_cells))
->  		return ERR_PTR(-EINVAL);
-> =20
-> -	if (rcdev->of_xlate && is_of_node(consumer)) {
-> -		struct device_node *np =3D to_of_node(consumer);
-> +	if (rcdev->of_xlate && is_of_node(fwnode)) {
-> +		struct device_node *np =3D to_of_node(fwnode);
->  		struct of_phandle_args of_args;
->  		int ret;
-> =20
-> -		ret =3D of_parse_phandle_with_args(np,
-> +		if (consumer) {
-> +			ret =3D of_parse_phandle_with_args(np,
->  					 gpio_fallback ? "reset-gpios" : "resets",
->  					 gpio_fallback ? "#gpio-cells" : "#reset-cells",
->  					 gpio_fallback ? 0 : index,
->  					 &of_args);
-> -		if (ret)
-> -			return ERR_PTR(ret);
-> +			if (ret)
-> +				return ERR_PTR(ret);
-> +		} else {
-> +			of_args.np =3D of_node_get(np);
-> +			of_args.args_count =3D args->nargs;
-> +
-> +			for (unsigned int i =3D 0; i < args->nargs; i++) {
-> +				if (args->args[i] > U32_MAX)
-> +					return ERR_PTR(-EINVAL);
-
-[Severity: Medium]
-Will this leak the device node reference acquired above?
-
-When consumer is NULL in __reset_control_get_from_provider(), the code
-acquires a device node reference via of_args.np =3D of_node_get(np).
-
-If an argument exceeds U32_MAX, the function immediately returns
-ERR_PTR(-EINVAL). This early return skips the of_node_put(of_args.np) call
-at the end of the block, permanently leaking the OF node reference count.
-
-> +
-> +				of_args.args[i] =3D args->args[i];
-> +			}
-> +		}
-> =20
->  		rstc_id =3D rcdev->of_xlate(rcdev, &of_args);
->  		of_node_put(of_args.np);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1792163045.gi=
-t.geert+renesas@glider.be?part=3D4
+Thanks, sorry for the trouble caused by my insufficient checking.
+I did use an LLM to organize register tables for the binding and clean-room
+HAL user space drivers work when I find my chip acts differently. I
+focused too much on C files and neglected docs.I will treat documents
+more seriously in future patches. Since this chip is common and someone
+will inevitably do a better job, I won't send a v2. Please feel free to
+drop this series. Sorry for the noise.
