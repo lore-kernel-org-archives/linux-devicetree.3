@@ -1,169 +1,294 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A28E5472F97
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 10:56:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792148207; cv=none; b=eYUD3pgxrh3DYvxd8bHMrZdnZiNO3sxlxcypztPttXIVugw++9415qLeIqFBLh3chWQ/zoUw5PmxG+4KFqY8A9sawbUCVpyXWE50xBi6T1ITUUlqyNOxxuzp9NvuUf6IpvwtViuc+djcBYgQqNKxChfURjC2dMaK4GZWg0qrC30=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792148207; c=relaxed/simple;
-	bh=JdVdjnikGKi5Gvt+6lL8Ht9yPDN07pXQJkC104IlcQU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=K2txrVzEZU//mu/t8ILe8A7Agt3YEe5r8Gf4zIeCyx/boRHWMvk7gmxsNGYNTIKGk77UOvcfE1CXQiLFJvZfIx6wGFrRb6HIpVZeKh/oWysCfwVaW10PNAKbOXDcIu0xpq3YmWuqYeVBSVT9oHhfWt7MYFeOUkBbEwcl1DnIb5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QfUVxblh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MMFCox5K; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED5363E3D9E;
+	Fri, 16 Oct 2026 11:06:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792148818; cv=pass; b=ZEnYEV/UQEN6w5cin5sFjxwZFVzB3w1DrYY+hY9gsUkCHwKDEp0iOBYvjx18Q4I7eA6MZkXtqlLGXzXFslGGRvxSjxbfnAvwHhtDTCn86CT+vtI1f/fiWeQm0w+uNanncz+XOhFl03nWRh+TTE8DLt1VY7oKez7edk3k9fWkfKU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792148818; c=relaxed/simple;
+	bh=V+v9/WoJjCh3t5+lgvT3mGFNrt+9tDSw7DRYoex0D3Q=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=XGEPg3ptnGa7Hk0XA41u0jkttfuNeYrLbTxhx4ATQ6SiGobaSeY+CmOaY0tF5yVxnWMGCI/rnH7KCJeHdso+klkUSONOVh0c6fpONXv7uQDUXEELBdEU5gWPjRnJcl4FUluL6Oimyzojm/Fu1VeRRLCFoiJmVv9slPRQJVivNrU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=hG4we6Xd; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QfUVxblh";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MMFCox5K"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GAAGAU1983368
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 10:56:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	b7uUsi3m05Q14nZCoKuKl+bouK7Huw2yq6Mvx0jQTmM=; b=QfUVxblhl+b3cs3G
-	iSzF/bLQ9EY3kfWIITCyNWk556Eq+OeW4EvhS3RkCb8s48nBwl0965GdVJKy7QRl
-	wvarpKMMhzZOmIB3NNDzjANryhs5MEOkTjXmMEGGTIuHKMZ0cGba7fWV4L+fctjZ
-	lrpcaUHxhBJo2ol8E5JzlEQGP5siYIMY7eBM37LNpCju9cUiFlMzkbqmF+Uox7Q6
-	HlkcaVuJvv6J5g8GFSpD6G5hiV2JDAYp5E0yznW6hxPWvbWxU37Yza2EpRzVfEL9
-	GfnPA5GnnDs3bdmPn5b52NG53R/uMmUeZ35LSPkAUwN1a+RtQJuJen7R9P6qMbDG
-	Sg8QuQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb8a8a9gq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 10:56:41 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cc50fb0d2so123810585a.0
-        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 03:56:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792148201; x=1792753001; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=b7uUsi3m05Q14nZCoKuKl+bouK7Huw2yq6Mvx0jQTmM=;
-        b=MMFCox5KYukrxdB22k+9bFXeOyumaM6cDjg+QxtwOxR2ubU8TX61NoiNhrRnaj+vCQ
-         1xh/0wAAF1f01vyZtCpEJh4Z6Qc6L4JgrFc0FuLlOaXcCpFcd5p9n7QMsCgfCKgXMq5k
-         uXS9uyVDuWrIgjeinLPJJudd3FoJ1H1hEW07IPJNafQeolg1omrL/eeekVZ5iK15el/W
-         jdG8Ym/NxyZ4e2ZuvKE+NAd/JfLPdCHAG0hvY0q6UYTCDq8zOfhXM4Ru0Pl24nNq9t2k
-         mFm6bsEVUO0sw5YVDoup1eZ53/zIRvuiDSnqmWJy7qkeYN559eFl+kWZwuH4cXZBWRHw
-         oj+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792148201; x=1792753001;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=b7uUsi3m05Q14nZCoKuKl+bouK7Huw2yq6Mvx0jQTmM=;
-        b=gSA77JnOaXzfDTxx5tA3CJLX0prC2Q0aElPyU/vJstGMrLMMPw8QlxTi0T84poc1qm
-         GneLGjxahKUP3ierLmISB2995GMi+9I9c/3fQDS33hswgPDZRP1T5LB3rUuTdq8vjdUX
-         +ZxpGO/0RiAsrgXTYPoFMkZgKg5RFpT5qkKL/mbvEzN1Hj34Tl5zvUXaKnVvjhRQ39TZ
-         bZ2Y5mKWxNNczsPukddoc81DdPSjMMjldE9nzO5B7J2EcNsjNTEUuUgTlapnQDw2Gsz0
-         R0FtxzwAZwyZ77RKmgMaX350ltZEem/sXtzivLGG/GsxpYQ4aatwPd4D3C8Z1aB540PK
-         u6HA==
-X-Forwarded-Encrypted: i=1; AKwUvBxaR17gYiYw+MBb2cx+j4Xhel2fiIkuAtuXFk8Q90iJld14bscIgx3eo4uavKLQwc9iGWvHGd4iIEig@vger.kernel.org
-X-Gm-Message-State: AFq9FYKiUWr8RtJyOVTo+BdiLpBeny3Rpz0OgCpC8jjzc/vgAidf/DZ1
-	ds4ro/9S+n7dPdQgK8PQG9LaY9qBZzG52PzHPCVATAbaFIkyypZtyLbVMDtVUbYGfLwKHrcKBLH
-	lpwtr33tSgqZzmi3usxFTUsdLxNB34yks9g05lBEiX7cSOqTzpbkp1ho+OXzpj1p0
-X-Gm-Gg: AYBFou1m1zMwhTAJVtVem2O8MQVLMEomaQdDNisGSqfk1fOupi5awQFlJeDFEoQmF0B
-	6aRwmCtadmUJ2BF8swXlJkcB11XNAO1nUblz4Bg+L0hZYpP3SSPFX+Uwj5D8IO0lx+sfgs/9zqh
-	hGzA/7RJcluRa91NrS+YViOQml3arVBI4D9Yq9XI3dWDDvSRysILa4RpVdgcIcWyo7x29/KeVrV
-	0yC2rpWLIhmok85UWHOS5tr9aQavUWS76+N+5W6Gt9H16tPO6hIUUFL9dESIRLED3RzfnRlii8K
-	eJI4zmnOcdQQuqtm5oFNJVchgzFZR542pdhwRb3L5zft6E5yTBgpAYWCnIZw09vNWTcKf2jgJIw
-	3nEB2KdYmlcR0mgcZMKTjaQ==
-X-Received: by 2002:a05:620a:3186:b0:939:8bc:8826 with SMTP id af79cd13be357-93ebd10c0e2mr4141212385a.2.1792148200803;
-        Fri, 16 Oct 2026 03:56:40 -0700 (PDT)
-X-Received: by 2002:a05:620a:3186:b0:939:8bc:8826 with SMTP id af79cd13be357-93ebd10c0e2mr4141209885a.2.1792148200359;
-        Fri, 16 Oct 2026 03:56:40 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b38a1dacb6sm780437a12.28.2026.10.16.03.56.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 03:56:38 -0700 (PDT)
-Message-ID: <5fb086d1-7725-4d8b-a2c9-7627f6da7cd9@oss.qualcomm.com>
-Date: Fri, 16 Oct 2026 12:56:35 +0200
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="hG4we6Xd"
+Received: from [127.0.0.1] (unknown [IPv6:2a02:560:5ca5:d100:9ebf:dff:fe00:fdb5])
+	(Authenticated sender: sha@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id A84A2201B55;
+	Fri, 16 Oct 2026 13:06:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792148812;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4GXr3B92E2k2dyeJan3T3f83ODbQurRgLvjQKw7RXF4=;
+	b=hG4we6XdQu9JTl/ag584pbCuUCQAgSTAzcScim7ZLWnIRBQdzRx1W+ZboGh9dAdUvkvpdp
+	VdTc/Ty2JrjkO3PhhAsIEEY5Tf09TIfrqn8g+WxKtbV6Lz1Nbwwfk+o8g+doopTRgFh0sJ
+	bCAIjMQwyMTqof4kMNIO7S2E5MCNE/W3eTDMijh5/PCHwCgloXAfCLKyCCCoKveJU2lbQY
+	7M+NFOcBhF7cpjPbzhiAbJYf9KKRZ0VC/p2iMyXdPuwBEOFgfN6/bXPWl2xOO+1OgwH0n7
+	EPvDGp+OMI9jxaSfOqzprcI5OL5c7prCUPI5fPl+pTdx6VvV+zthl9QaZBHIPQ==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792148812; a=rsa-sha256;
+	cv=none;
+	b=WHifAtqK7PKjzR+Y+1LVYMVAwN153a+2D2bfg5HhnYpHLAh9ZwsP9Sb/jPnYoqow+TTMxj
+	I6GWJYDVhfubOroX0XP81ESjShxwmUyeKcoSxh1aJmZH7q3Xa2aULM1jgSnCV1gO+rBQ21
+	tAIP70oIM3oEhwz8R3mea7HZf57D/aL2tr4466o/D32phsxJOBDTv3jOqpgZtzJP5i/uOf
+	fdiVxuPovFNoDQsOyvaf7fIdm40MrefOiAQDeRYsjJHaw23UAIq55z2K6CDNAJoDlkQm5m
+	d59dk4P1pYGy1Sj9AgA82YGQWW/LMjvfG1PhxDOUzOLSEYXVnmSVUu9kxDhuFA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792148812;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4GXr3B92E2k2dyeJan3T3f83ODbQurRgLvjQKw7RXF4=;
+	b=Yxpgavx0/pIXb8NW7Ebcb7+TliQaaFxWWOTliPl7TABpiqeGzwSbUui6TO438TeMrefOLz
+	JxsFaQGDX9rfCbFQd1pI6/K7Wd4/gpazilkM/936v+GwEpqimADfSAq0I3wvohchOnuD2C
+	4XHV+/xp6YEkEq6tXuSGNv698PwLUGDi3fVJJ339ChG3uSEVY4jANI/eYMQ/kWsvYEbX51
+	uqdNEpXnY5cKEVTcbRIaPTw6WQlqqzN99q3WgecpPZraXT4SfZ5SklP4JEMgh5NUMiZTVE
+	b6LTUmOuOUOZj9sQ1PD/DcHOnybSyogaHgTxMG51TgcAqkPZEkW8DnYandMvsQ==
+Message-ID: <5b3592b1-74b4-43e6-96e8-a600b6fa991c@pengutronix.de>
+From: "Sascha Hauer" <s.hauer@pengutronix.de>
+Subject: Re: [PATCH v3 01/10] media: synopsys: hdmirx: free the driver data
+ when the last user is gone
+To: "Dmitry Osipenko" <dmitry.osipenko@collabora.com>
+Cc: "Sascha Hauer" <s.hauer@pengutronix.de>, "Mauro Carvalho Chehab" <mchehab@kernel.org>, "Hans
+ Verkuil" <hverkuil@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Dingxian
+ Wen" <shawn.wen@rock-chips.com>, "Shreeya Patel" <shreeya.patel@collabora.com>, "Gerald
+ Loacker" <gerald.loacker@wolfvision.net>, "Lucas Sinn" <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, kernel@collabora.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <647b6128-2bd1-40cb-86bb-d36e84378d93@collabora.com>
+References: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
+ <20261005-hdmirx-media-v3-1-71a11a2e3e76@pengutronix.de>
+ <647b6128-2bd1-40cb-86bb-d36e84378d93@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 16 Oct 2026 11:06:52 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] arm64: dts: qcom: sm7125-samsung: add initial device
- tree
-To: Erikas Bitovtas <xerikasxx@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>, Kees Cook <kees@kernel.org>,
-        Tony Luck <tony.luck@intel.com>,
-        "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Stefan Hansson <newbyte@postmarketos.org>,
-        ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
-        David Heidelberg <david@ixit.cz>, Abel Vesa <abelvesa@kernel.org>
-References: <20261013-sm7125-samsung-v4-1-3233901b48bb@gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261013-sm7125-samsung-v4-1-3233901b48bb@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA0MyBTYWx0ZWRfX385aodDmEzhl
- /ihVPuByzrohEHoIHMD8MaO4ioMrGpS1Plh1xnCw7sYmzr+0K+2faErszyej1QHtH+TvknT3UpZ
- 4Zma+PqqmNoe2OHTu+q1BjA5ZOPwv1k=
-X-Proofpoint-ORIG-GUID: t2oshLRX5VwUYC2n8j7fJmVlCmP63a9r
-X-Authority-Analysis: v=2.4 cv=GJadgeNK c=1 sm=1 tr=0 ts=6ad202e9 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=2OUG9Xaq2iMWKi4sypAA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA0MyBTYWx0ZWRfX0YLHsWffhg3P
- LrLsKu9eVLPqxATchE7tfJX6Bh+GV2AFuNAzBGwISGvD9vuZdIHbVEfWit29vVzV+Q5UVYGH54B
- Yyka6h0YkR3PRgX4xH4aL0h5DYzhOmPFea6vRo3zIgQTPtki0dBunIgZNhakHIRl24rFkXVegfi
- wNFBbTA9Jngmw9wgTI5V2f//cNbzrrOjvU8ycYeegNNGCGt4W1gpwsGhFC2YWpQSo4xKm0WL39t
- q7QLwAbDwIpeM5fv4qR9Pb6Jjmo8yKfQegmXqUPbDmYaMWxCDwQ+wmUtKR5G5EUeVgi5FA2rTzh
- n51dzVUgjTBgWyTqsB1mf7Tk3bYkLBpbCRbyo3dyP0+V3DRPK2e0yaDrvkY8zSywQdziIGViGRr
- e/Jl92W8+aBOslwOhCqYNws7bYU1KH7iMJj4ABD0/oa7EP4MNS4Ova9PUWUcfSjVaYoHL95je30
- e6zDyvlHa8fi9PC7yBw==
-X-Proofpoint-GUID: t2oshLRX5VwUYC2n8j7fJmVlCmP63a9r
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-16_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0
- bulkscore=0 priorityscore=1501 phishscore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160043
 
-On 10/13/26 3:58 PM, Erikas Bitovtas wrote:
-> Samsung Galaxy A52/A72 are devices released on atoll (SM7125) platform
-> in 2021. Add initial device tree for SM7125 Samsung platform with
+Hi Dmitry,
 
-[...]
+On 2026-10-07 14:20, Dmitry Osipenko wrote:
+> On 10/5/26 16:28, Sascha Hauer wrote:
+> > @@ -2792,16 +2807,13 @@ static void hdmirx_remove(struct platform_devic=
+e *pdev)
+> >  	hdmirx_disable_irq(dev);
+> > =20
+> >  	vb2_video_unregister_device(&hdmirx_dev->stream.vdev);
+> > -	v4l2_ctrl_handler_free(&hdmirx_dev->hdl);
+> >  	v4l2_device_unregister(&hdmirx_dev->v4l2_dev);
+> > =20
+> > -	/* touched by hdmirx_disable()->hdmirx_plugout() */
+> > -	hdmirx_dev->rgb_range =3D NULL;
+> > -	hdmirx_dev->content_type =3D NULL;
+> > -
+> >  	hdmirx_disable(dev);
+> > =20
+> >  	reset_control_bulk_assert(HDMIRX_NUM_RST, hdmirx_dev->resets);
+> > +
+> > +	v4l2_device_put(&hdmirx_dev->v4l2_dev);
+> >  }
+>=20
+> This is uncommon v4l driver removal pattern, I suspect it's either not
+> correct or needs to be fixed in the core code.
 
-> +&soc {
-> +	i2c_17: i2c-17 {
+The pattern looks uncommon because many drivers in the tree are affected
+by the same issue ;)
 
-This is not a MMIO device, so it doesn't belong under /soc
+Just like many other drivers the hdmirx embeds a struct v4l2_device in
+its private data struct which is allocated with devm_*, thus freed
+during driver removal. With an opened file descriptor the video_device
+outlives the driver removal, and v4l2_release(), called on
+the last file descriptors close then references the already freed memory
+via vdev->v4l2_dev
 
-Have you tried using the bus through the normal QUP driver path?
+This is a long standing problem. See [1] for example for an attempt to
+fix it in the core. It seems consencsus at that time was that it must be
+fixed in the drivers which is what this patch does for the hdmirx.
 
-> +		compatible = "i2c-gpio";
-> +		sda-gpios = <&tlmm 51 (GPIO_ACTIVE_HIGH|GPIO_OPEN_DRAIN)>;
-> +		scl-gpios = <&tlmm 52 (GPIO_ACTIVE_HIGH|GPIO_OPEN_DRAIN)>;
+[1] https://lore.kernel.org/all/20240610100530.1107771-1-sakari.ailus@linux=
+.intel.com/
 
-style nit: (foo | bar) instead of (foor|bar), please
+>=20
+> What is the user-visible or sanitizer-visible problem? How to reproduce i=
+t?
 
+It can be reproduced with Kasan on affected drivers, below on the hdmirx
+driver, but it should be reproducible like this on hantro and others as
+well.
 
-[...]
+root@RK3588 CORE:~ exec 3</dev/video10
+root@RK3588 CORE:~ echo fdee0000.hdmi_receiver > /sys/bus/platform/drivers/=
+snps_hdmirx/unbind
+root@RK3588 CORE:~ exec 3<&-
+[   93.435616] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+[   93.435627] BUG: KASAN: slab-use-after-free in v4l2_release+0x258/0x3a0
+[   93.435642] Read of size 8 at addr ffffff8106ae0428 by task sh/493
+[   93.435647]
+[   93.435652] CPU: 7 UID: 0 PID: 493 Comm: sh Tainted: G           O      =
+  7.3.0-rc7-00345-g6e644a6aabaa #3 PREEMPT
+[   93.435659] Tainted: [O]=3DOOT_MODULE
+[   93.435662] Hardware name: WolfVision RK3588 CORE (DT)
+[   93.435664] Call trace:
+[   93.435666]  show_stack+0x24/0x38 (C)
+[   93.435674]  dump_stack_lvl+0x70/0x98
+[   93.435681]  print_report+0x160/0x4b8
+[   93.435687]  kasan_report+0xb0/0x100
+[   93.435693]  __asan_report_load8_noabort+0x34/0x48
+[   93.435698]  v4l2_release+0x258/0x3a0
+[   93.435703]  __fput+0x288/0x8b0
+[   93.435709]  fput_close_sync+0xe8/0x248
+[   93.435714]  __arm64_sys_close+0x78/0xd0
+[   93.435718]  do_el0_svc+0x110/0x2e0
+[   93.435723]  el0_svc+0x2c/0xa8
+[   93.435729]  el0t_64_sync_handler+0xa0/0xe8
+[   93.435734]  el0t_64_sync+0x15c/0x160
+[   93.435738]
+[   93.435740] Freed by task 493:
+[   93.435743]  kasan_save_stack+0x40/0x68
+[   93.435748]  kasan_save_track+0x24/0x40
+[   93.435752]  kasan_save_free_info+0x58/0x90
+[   93.435756]  __kasan_slab_free+0x78/0xa0
+[   93.435760]  kfree+0x260/0x450
+[   93.435765]  dr_node_free+0x20/0x40
+[   93.435769]  release_nodes+0xf4/0x180
+[   93.435771]  devres_release_all+0x100/0x1c0
+[   93.435774]  device_unbind_cleanup+0x74/0x200
+[   93.435779]  device_release_driver_internal+0x354/0x470
+[   93.435783]  device_driver_detach+0x44/0x70
+[   93.435786]  unbind_store+0xec/0x120
+[   93.435790]  drv_attr_store+0x74/0xb8
+[   93.435793]  sysfs_kf_write+0x178/0x210
+[   93.435797]  kernfs_fop_write_iter+0x2dc/0x488
+[   93.435802]  vfs_write+0x4f8/0xa30
+[   93.435805]  ksys_write+0x100/0x1f0
+[   93.435809]  __arm64_sys_write+0x78/0xb8
+[   93.435813]  do_el0_svc+0x110/0x2e0
+[   93.435816]  el0_svc+0x2c/0xa8
+[   93.435820]  el0t_64_sync_handler+0xa0/0xe8
+[   93.435824]  el0t_64_sync+0x15c/0x160
+[   93.435827]
+[   93.435828] The buggy address belongs to the object at ffffff8106ae0000
+[   93.435828]  which belongs to the cache kmalloc-8k of size 8192
+[   93.435832] The buggy address is located 1064 bytes inside of
+[   93.435832]  freed 8192-byte region [ffffff8106ae0000, ffffff8106ae2000)
+[   93.435836]
+[   93.435838] The buggy address belongs to the physical page:
+[   93.435841] page: refcount:0 mapcount:0 mapping:0000000000000000 index:0=
+x0 pfn:0x106ae0
+[   93.435846] head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0=
+ pincount:0
+[   93.435849] flags: 0x8000000000000040(head|zone=3D2)
+[   93.435854] page_type: f5(slab)
+[   93.435859] raw: 8000000000000040 ffffff8100003180 dead000000000122 0000=
+000000000000
+[   93.435863] raw: 0000000000000000 0000000000020002 00000000f5000000 0000=
+000000000000
+[   93.435866] head: 8000000000000040 ffffff8100003180 dead000000000122 000=
+0000000000000
+[   93.435869] head: 0000000000000000 0000000000020002 00000000f5000000 000=
+0000000000000
+[   93.435872] head: 8000000000000003 fffffffec41ab801 00000000ffffffff 000=
+00000ffffffff
+[   93.435875] head: 0000000000000000 0000000000000000 00000000ffffffff 000=
+0000000000008
+[   93.435877] page dumped because: kasan: bad access detected
+[   93.435879]
+[   93.435880] Memory state around the buggy address:
+[   93.435882]  ffffff8106ae0300: fb fb fb fb fb fb fb fb fb fb fb fb fb fb=
+ fb fb
+[   93.435885]  ffffff8106ae0380: fb fb fb fb fb fb fb fb fb fb fb fb fb fb=
+ fb fb
+[   93.435887] >ffffff8106ae0400: fb fb fb fb fb fb fb fb fb fb fb fb fb fb=
+ fb fb
+[   93.435889]                                   ^
+[   93.435891]  ffffff8106ae0480: fb fb fb fb fb fb fb fb fb fb fb fb fb fb=
+ fb fb
+[   93.435893]  ffffff8106ae0500: fb fb fb fb fb fb fb fb fb fb fb fb fb fb=
+ fb fb
+[   93.435895] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+[   93.435898] Disabling lock debugging due to kernel taint
+[   93.435909] Unable to handle kernel paging request at virtual address df=
+ffffc000000001
+[   93.435913] KASAN: null-ptr-deref in range [0x0000000000000008-0x0000000=
+00000000f]
+[   93.435916] Mem abort info:
+[   93.435918]   ESR =3D 0x0000000096000004
+[   93.435920]   EC =3D 0x25: DABT (current EL), IL =3D 32 bits
+[   93.435923]   SET =3D 0, FnV =3D 0
+[   93.435926]   EA =3D 0, S1PTW =3D 0
+[   93.435928]   FSC =3D 0x04: level 0 translation fault
+[   93.435931] Data abort info:
+[   93.435933]   ISV =3D 0, ISS =3D 0x00000004, ISS2 =3D 0x00000000
+[   93.435935]   CM =3D 0, WnR =3D 0, TnD =3D 0, TagAccess =3D 0
+[   93.435938]   GCS =3D 0, Overlay =3D 0, DirtyBit =3D 0
+[   93.435940] [dfffffc000000001] address between user and kernel address r=
+anges
+[   93.435945] Internal error: Oops: 0000000096000004 [#1]  SMP
+[   93.472299] Modules linked in: aes_ce_ccm nf_log_syslog lt86102uxe(O) tp=
+s6598x phy_rockchip_samsung_dcphy lt6911gxd(O) iwlmld ath11k_pci ath11k qmi=
+_helpers btusb hantro_vpu rockchip_vdec btintel rockchip_jpegd snd_soc_hdmi=
+_codec mac80211 rk_vcodec panthor dw_mipi_csi2rx v4l2_vp9 iwlwifi v4l2_jpeg=
+ v4l2_h264 drm_gpuvm drm_exec cfg80211 fuse
+[   93.474957] CPU: 7 UID: 0 PID: 493 Comm: sh Tainted: G    B      O      =
+  7.3.0-rc7-00345-g6e644a6aabaa #3 PREEMPT
+[   93.475868] Tainted: [B]=3DBAD_PAGE, [O]=3DOOT_MODULE
+[   93.476279] Hardware name: WolfVision RK3588 CORE (DT)
+[   93.476728] pstate: 40400009 (nZcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=
+=3D--)
+[   93.477336] pc : v4l2_release+0xbc/0x3a0
+[   93.477681] lr : v4l2_release+0x258/0x3a0
+[   93.478034] sp : ffffffc088837cc0
+[   93.478325] x29: ffffffc088837cc0 x28: ffffff81150db900 x27: 1ffffff022a=
+1b728
+[   93.478952] x26: ffffff81150db940 x25: 1ffffff022a1b724 x24: ffffff81150=
+db904
+[   93.479578] x23: ffffff81011ee2d0 x22: ffffff81032a5400 x21: 00000000040=
+a0019
+[   93.480205] x20: ffffff81150db900 x19: ffffff8106ae0090 x18: ffffffc086e=
+fd038
+[   93.480831] x17: 3d3d3d3d3d3d3d3d x16: 3d3d3d3d3d3d3d3d x15: 3d3d3d3d3d3=
+d3d3d
+[   93.481458] x14: 3d3d3d3d3d3d3d3d x13: 0000000000000001 x12: 00000000000=
+00001
+[   93.482084] x11: 65756420676e6967 x10: ffffffb8108cd54d x9 : 1ffffff8108=
+cd54c
+[   93.482710] x8 : ffffffb8108cd54c x7 : dfffffc000000000 x6 : ffffffc0846=
+6aa67
+[   93.483336] x5 : 0000000000000001 x4 : ffffff8106ae0428 x3 : 1ffffff020d=
+5c085
+[   93.483962] x2 : dfffffc000000000 x1 : 0000000000000000 x0 : 00000000000=
+00008
+[   93.484588] Call trace:
+[   93.484803]  v4l2_release+0xbc/0x3a0 (P)
+[   93.485150]  __fput+0x288/0x8b0
+[   93.485429]  fput_close_sync+0xe8/0x248
+[   93.485768]  __arm64_sys_close+0x78/0xd0
+[   93.486115]  do_el0_svc+0x110/0x2e0
+[   93.486422]  el0_svc+0x2c/0xa8
+[   93.486694]  el0t_64_sync_handler+0xa0/0xe8
+[   93.487062]  el0t_64_sync+0x15c/0x160
+[   93.487388] Code: d2dff802 f2fbffe2 91002020 d343fc05 (38e268a2)
+[   93.487919] ---[ end trace 0000000000000000 ]---
 
+--
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
 
-> +&usb_1 {
-> +	qcom,select-utmi-as-pipe-clk;
-
-Is there no superspeed / DP altmode?
-
-Konrad
