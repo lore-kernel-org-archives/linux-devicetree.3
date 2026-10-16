@@ -1,109 +1,112 @@
-Received: from mta0.migadu.com (out-237.mta0.migadu.com [91.218.175.237])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C05E84446FA
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 08:04:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.237
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C98331A66
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 08:05:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792137855; cv=none; b=R3FlB/PIdPO9GMUmM3fF8EwD/QNQX7rhuS0JnqQ62CuwA95WhI3//nR/aKW/W0JQUH3SVoA2nr+ubNpNMlMbvAmEuc43iRgAuOdQdgIHk37ClojAr67McO5QmOEnM8iIefMmGRWcZe0IG1FUoxPmkHLXOoILfwMP9wYEIA2gZ9w=
+	t=1792137925; cv=none; b=l74pr0sm8+OP6cIuUAfy7GdxztzO+nL4Hc8u83SfyUcBkdp04Vng+1kaXfpDVD2iOgynRlVkBpxzvgwy3NbRkhSWJ6cEJZWdg1rMsd2y8vegDUVTJpp8E9bQZMGzJjObMV0siSeXE+WiA2QuBlR0YQNwRBNcqz99AIRLJChHixU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792137855; c=relaxed/simple;
-	bh=1gCRGv5PfhwaFq6kB+XvISu78rAz6x7n1ZUFzkCG+Uo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qC+xrIQTDsIlpkFTTiIL6Ry4SOAyUmbI/g6yeu4uz8N3p/3DBsVIzdAbQKaFw/goOWNm6VY2Dpmx7aJT3ybC7iAwaUbJz9bEqjKrZcuPet/n6Qv5IAiUHQXm8Q8hzSk8AkMewG7q2dX4Rshty6PO+JKhKHivQrgNephHlTm5m8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=KZMVZHL8; arc=none smtp.client-ip=91.218.175.237
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+	s=arc-20240116; t=1792137925; c=relaxed/simple;
+	bh=loPQ2BbMzrx/3Vj3wnmX7Yb5pmjIUW7CzIWkpI9wc5A=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=t63wNswA9lQZcQwerBwGYfz+07VVz50eNeAUqoNUpwdesRZfX2Am+srTfoFBtWOy5t6MppmwxbxG08NbaaUhZxVF/fvoXMXYKa7FCCyycqegNh5TEWoWqOx2kEQb+VAqxTg4OSJYQXFkUzRL1GePvg7oxrJe+dhNyOmAH+w5m+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CkcHjDlN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="KZMVZHL8"
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1gCRGv5PfhwaFq6kB+XvISu78rAz6x7n1ZUFzkCG+Uo=;
- c=simple/simple; d=packett.cool;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792137849; v=1; x=1792742649;
- b=KZMVZHL8R+I9y7p8jdYcPGs5hKKNm4s1Hsc6tIK55Wy+WbnVsWiz7gfj4rl4vA+IbRvf09wd
- YeOdcER63uL7O7ZG6AUl62IATh099IBkDgXPE3DX1XRo6oU6ei3CXAe4/Raw4HKi4NaqXVBq0yw
- kQrIyNcYZPQC5lP8pnEyacJWAjC18lTM4i+iJWIEWSeihFRh8T3eQO9lmXBx9JaF2Iy0EREdhAj
- +bY5jNCPxp9xZmi8YY/uLN4/xxK0p4ZcAtsCpvNRP3pUfILncgxNaYExSGDF7f7YqUWmbrOg5em
- 15zcSUh9BzuNgQGcmzg+mrc9UCGsPDsIOJhN5OaQT9Jpw==
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b65444621253ef5f;
-	Fri, 16 Oct 2026 08:04:08 +0000
-X-Mizu-Trace-ID: b65444621253ef5f
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <5f6c6962-9b05-4964-a0ed-ec7c3efc4d56@packett.cool>
-Date: Fri, 16 Oct 2026 05:04:05 -0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CkcHjDlN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 394701F000C4;
+	Fri, 16 Oct 2026 08:05:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792137924;
+	bh=k0QAOxoskb8MSgLpTFrJ3gjxKBo8ju4owqXUzXWXiLs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=CkcHjDlNlPGEp5jl+MGwHsPqmE9agkn1AibMJ0K5Ubmnz4P8YFu3jHit1+HP/fs+v
+	 g6jnanvsMaPKMllUUKbNLiYCcUmYrxd/afXfocSa5qBASBdLuDi/Ah6pfRCIrv6GgM
+	 SR7VDwl+Y35GrwyhJxgLVy7iNIKWOC9yln5WXV6zbiRo4mHe/Ccw6uvUhx/t+MOvwo
+	 SJ4D45Vcg757fYwbr3m6xs2Py1KNCBkYbLX+AHN7fMuWQ6K0c82lSajcQ8lb17V6dI
+	 Umh1+XjQ4m8NzQ4WxDqp6FqIbz6lEaXk7TmCpctjWJz42qw6KX4Ku7lnHCUunKVxvO
+	 2TgWFCoyeqCpQ==
+Message-ID: <sashiko-outbox-173990@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 1/2] media: dt-bindings: imx908: Add Sony IMX908
+ sensor
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Lachlan Michael" <lachlan.michael@sony.com>, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261016075918.19345-2-lachlan.michael@sony.com>
+References: <20261016075918.19345-1-lachlan.michael@sony.com>
+ <20261016075918.19345-2-lachlan.michael@sony.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 16 Oct 2026 08:05:23 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] arm64: dts: qcom: motorola-dubai: Add sound card with
- aw88261 speakers
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-References: <20261016073157.611956-1-val@packett.cool>
- <20261016073157.611956-6-val@packett.cool> <sashiko-outbox-173985@kernel.org>
-Content-Language: en-US
-From: Val Packett <val@packett.cool>
-In-Reply-To: <sashiko-outbox-173985@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: Top-level additionalProperties: false breaks allOf =
+references
+--
 
-On 10/16/26 5:00 AM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [Medium] dt-bindings: aw88261 audio channel assignment inverted
-> - [Low] commit-message: inaccurate description of power-domains removal
-> --
->
-> commit df15644ca6ae81e8d6c78e4e8358dd5c5c68d8f0
-> Author: Val Packett <val@packett.cool>
-> arm64: dts: qcom: motorola-dubai: Add sound card with aw88261 speakers
->
-> This commit enables the sndcard node with MultiMedia frontends, a USB offload
-> RX link, and two aw88261 speaker amplifiers. It also fixes the audiocc
-> compatible string and removes power-domains from a node.
->
->> While here, use the correct compatible for audiocc for this phone,
->> and remove references to power-domains from a 'reserved' node.
-> [Severity: Low]
-> Is this description accurate? The patch code removes the power-domains
-> property from lpass_audiocc, which is a clock controller, not a reserved
-> memory node.
->
->> diff --git a/arch/arm64/boot/dts/qcom/sm7325-motorola-dubai-common.dtsi b/arch/arm64/boot/dts/qcom/sm7325-motorola-dubai-common.dtsi
->> index 3860ab8508a09..1e1c195de1af1 100644
->> --- a/arch/arm64/boot/dts/qcom/sm7325-motorola-dubai-common.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/sm7325-motorola-dubai-common.dtsi
-> [ ... ]
->
->> @@ -699,6 +701,40 @@ &gpu_zap_shader {
->>   	firmware-name = "qcom/sm7325/motorola/dubai/a660_zap.mbn";
->>   };
->>   
->> +&i2c1 {
->> +	clock-frequency = <100000>;
->> +
->> +	status = "okay";
->> +
->> +	/* Bottom speaker */
->> +	aw88261_r: audio-codec@34 {
->> +		compatible = "awinic,aw88261";
->> +		reg = <0x34>;
->> +
->> +		dvdd-supply = <&vreg_l18b_1p8>;
->> +		sound-name-prefix = "Amplifier R";
->> +		firmware-name = "qcom/sm7325/motorola/dubai/aw88261_acf.bin";
->> +
->> +		awinic,audio-channel = <0>;
-> [Severity: Medium]
-> Does this assign the right physical speaker to the left audio channel?
-> Channel 0 is typically the left channel, which contradicts the
-> "Amplifier R" and "Bottom speaker" designation. This might result
-> in inverted stereo audio playback.
-(It actually was inverted before, and this is the correct tested 
-configuration, but I think awinic,audio-channel might just be 
-unnecessary now, yet to test that though)
+commit 4681de18fac98c8519949f316873059d73610eb4
+Author: Lachlan Michael <lachlan.michael@sony.com>
+
+media: dt-bindings: imx908: Add Sony IMX908 sensor
+
+This commit adds a new device tree binding for the Sony IMX908 CMOS image
+sensor. It defines properties for a MIPI CSI-2 interface outputting RAW10
+and RAW12 formats.
+
+> diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml=
+ b/Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
+> new file mode 100644
+> index 0000000000000..828db1175e2f5
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
+
+[ ... ]
+
+> +allOf:
+> +  - $ref: /schemas/media/video-interface-devices.yaml#
+> +
+> +properties:
+
+[ ... ]
+
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - dvdd-supply
+> +  - ovdd-supply
+> +  - avdd-supply
+> +  - port
+> +
+> +additionalProperties: false
+
+[Severity: Medium]
+Since this schema includes an allOf reference to video-interface-devices.ya=
+ml,
+should this use unevaluatedProperties: false instead of
+additionalProperties: false?
+
+Using additionalProperties only considers the properties explicitly declared
+in the local properties dictionary and ignores properties introduced via $r=
+ef
+in an allOf block. If a device tree node defines any valid inherited standa=
+rd
+property, such as rotation or orientation, schema validation will incorrect=
+ly
+reject it as an invalid additional property. Changing to
+unevaluatedProperties: false will correctly allow properties evaluated by t=
+he
+referenced schemas.
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016075918.1934=
+5-1-lachlan.michael@sony.com?part=3D1
