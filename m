@@ -1,96 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2A253B440F;
-	Fri, 16 Oct 2026 19:24:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59AC54CF474;
+	Fri, 16 Oct 2026 19:27:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792178671; cv=none; b=GTwD+yn0AhXK3G6JO5Sp9XEx1pTdhm88AZRJKRLKKeaaRsQNv++FRuE/XlBrSYZBW4d9HPF/5eqjBzJUGsk+SGc13thhTF/NoYDIk6JrSiOc6wdREPPlEP22PbrVvqZLh5xtvOJmXEKtwJHIsYAPKCQafdf4JiZRJY8hOnejXbE=
+	t=1792178830; cv=none; b=n+T+wzs3FD7uBcE7tOtejfcGnhZE9pOM51Sy1OmjF/QhrV9WPvKdGuNeHQV0SpU1ydCr2b9nTNajo6BN52kqZfuI4/YninptpISd7KQ3N6/ahs/OUD/K1Ji75nEnMLnbQotMoMI7vmgHM04kxH1kMH/mZZd63etixAVNRufRYl4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792178671; c=relaxed/simple;
-	bh=BGiuguw2nDrUMZhZt/fC2z/TQeWYzLVwuYjJIurNctM=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=LjCU8/NN9B0EBdBPN1+ET/FZb6udYJNf0X+Sp1z7VZexOT8utL9awIU9cif5s5KdkaEoEHwn2F0Nute8Fvdb6pLWQpsu0+XtyYN8BPWuYauEEFPT4HTo/NBXyd3vqKV14yh4ARecASsLeWCfQbCJaDrLOnt07BLWp++7dm27fC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QWfVY5cu; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792178830; c=relaxed/simple;
+	bh=pQ2KlFLAqS8GA73BM5u7PDPk/2wMh7phIbaGdBXCYhY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cozwv7hBni7/ov+NRkTRcQ1+6lTpi8X5tsvIntKwohoj+PQ1GX2mX2LFkT6q4ClAcps41BhPFajUP1hcTZ8Jbz0Q8KR09lCLEL3WzqL1w9sEaPaUri5PPkB9U9LdfWSSzaLMRQnMtMkZoQOnmsJuN9OagIgyBlpRKioiL4ax5eg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Eavl7/um; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QWfVY5cu"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3640EC2BCF4;
-	Fri, 16 Oct 2026 19:24:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792178671;
-	bh=BGiuguw2nDrUMZhZt/fC2z/TQeWYzLVwuYjJIurNctM=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=QWfVY5cu+eT5d2HBN16qX3TwmRCW6K+hyC8HKQpY9DY7EQ6NeQd9eMBzk6hIsuh98
-	 c4bXksEHXiEWAxcX9XgRx8NFcKKDVzBhe4am7Oo5/IAJVJTnYgzWbzoC3iv0/ALXLy
-	 yIr5H6MPpWq/hlz01BnMG43CJLNkFPZ5z1f33kPeyaI+wlmPK33NLWx5NAdAkJe6pN
-	 62ZsNnrCSipE+xupT5jI1GiT2Gji2J+FRLPtyrPn/auTEiqr5u7JihoBBdRXUkVAej
-	 3EeASfY2DDX4SH8mQr4hmRE7QTt2s2KH3OKia99qVXzKj1CECoR1JEWHHchD1em+3+
-	 TZX+9Pke4r2qg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F405CCF2C2;
-	Fri, 16 Oct 2026 19:24:31 +0000 (UTC)
-From: Bruce Tsao via B4 Relay <devnull+bruce.tsao.analog.com@kernel.org>
-Subject: [PATCH 0/2] iio: dac: add support for AD5413
-Date: Sat, 17 Oct 2026 03:23:52 +0800
-Message-Id: <20261017-ad5413-upstream-v1-0-61f40c8fef25@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Eavl7/um"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA7761F000C4;
+	Fri, 16 Oct 2026 19:27:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792178829;
+	bh=u9zVdZ+60UPJ7jM3vWMuHHt67z2QYJr3Ac8P9XHs1+M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Eavl7/umDyhp+rfXD0qTHvLLemfRf4zYdG6nBp6UbrEXrxDNAOpfUBtzXyfCAmadw
+	 4g/FLa2uilQMhD2/P46Fj3ZHyIxQBaMmPj+/4qjtaCRNSlVSFjOH6t1QpKNwWPkMBc
+	 t3uAdqfvw7q9apekFqD+85XuV5fSMDyA7YhGprwTA/zmNiiBiegVzJZwon+UEdXyj8
+	 HULUQLlrxS/RTNJazNZBPelCvOr/bReNbpgUieRbnNHAvQvw9fzP+MHILK3TVJBwB+
+	 TC+5K1yjTpIn31Ohgmrjrp/Q8uKmvN+d5gpCIYadVyVgeTcILVyZdNzj+QvGfzJ+Ub
+	 IwJDBGWIp5aDw==
+Date: Fri, 16 Oct 2026 14:27:08 -0500
+From: Rob Herring <robh@kernel.org>
+To: Marek Vasut <marex@nabladev.com>
+Cc: linux-phy@lists.infradead.org, Pankaj Dev <pankaj.dev@st.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Rahul Kumar <rahul.kumar05@st.com>,
+	Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+	=?iso-8859-1?Q?Cl=E9ment?= Le Goffic <clement.legoffic@foss.st.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Christian Bruel <christian.bruel@foss.st.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Patrice Chotard <patrice.chotard@foss.st.com>,
+	Rosen Penev <rosenp@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+	devicetree@vger.kernel.org, kernel@dh-electronics.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [PATCH v5 1/2] dt-bindings: phy: Document ST STM32MP25
+ USB2-FEMTO PHY
+Message-ID: <20261016192708.GA138068-robh@kernel.org>
+References: <20260902141312.649406-1-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQ5AMBBA0avIrDVpqRJXEYvSGWahpEUkjbtrL
- N/i/wQRA2OEvkgQ8ObIu89QZQHzav2Cgl02VLIySqpWWNdoVYvriGdAuwnqjNFEpMlNkKsjIPH
- zH4fxfT+j/ii+YQAAAA==
-X-Change-ID: 20261017-ad5413-upstream-f8664fff4fdb
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: linux-iio@vger.kernel.org, David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bruce Tsao <bruce.tsao@analog.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792178669; l=1183;
- i=bruce.tsao@analog.com; s=20261017; h=from:subject:message-id;
- bh=BGiuguw2nDrUMZhZt/fC2z/TQeWYzLVwuYjJIurNctM=;
- b=67wYDI8ghJZc/4BM1JHb87+Z0LrADI+BD0Z4dwLGt5zWYA8BRkm3upxR1HCfkIytOhgFzZ6KB
- l+gvS4+KK8RC9cYsyFbp8QvtKPHGI3AGgPXjWVqcIyAHK8iUaZko7zH
-X-Developer-Key: i=bruce.tsao@analog.com; a=ed25519;
- pk=dT7qI1i91oYvnYmY2ljmdZ0ZQoCZIzrQ8hnsyjuBedg=
-X-Endpoint-Received: by B4 Relay for bruce.tsao@analog.com/20261017 with
- auth_id=1215
-X-Original-From: Bruce Tsao <bruce.tsao@analog.com>
-Reply-To: bruce.tsao@analog.com
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260902141312.649406-1-marex@nabladev.com>
 
-This series adds support for the Analog Devices AD5413: a single-channel,
-14-bit, serial-input DAC with software-selectable voltage (+/-10.5 V) and
-current (0-24 mA) outputs. The SPI interface runs in mode 1 and carries a
-CRC-8 on every frame, which the device has enabled out of reset.
+On Wed, Sep 02, 2026 at 04:13:02PM +0200, Marek Vasut wrote:
+> From: Pankaj Dev <pankaj.dev@st.com>
+> 
+> Document USB2 PHY for STM32MP25 USB2 controllers, which includes the
+> USB2.0 host-only controller and USB 2.0 part of the DWC3 controller.
+> Two such PHYs in total are present in STM32MP25 SoC, they both are
+> slightly different, therefore they use different compatible string
+> to discern them.
+> 
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Pankaj Dev <pankaj.dev@st.com>
+> Co-developed-by: Rahul Kumar <rahul.kumar05@st.com>
+> Signed-off-by: Rahul Kumar <rahul.kumar05@st.com>
+> Co-developed-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> Co-developed-by: Clément Le Goffic <clement.legoffic@foss.st.com>
+> Signed-off-by: Clément Le Goffic <clement.legoffic@foss.st.com>
+> Co-developed-by: Marek Vasut <marex@nabladev.com>
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
+> ---
+> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Cc: Christian Bruel <christian.bruel@foss.st.com>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Manivannan Sadhasivam <mani@kernel.org>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Neil Armstrong <neil.armstrong@linaro.org>
+> Cc: Pankaj Dev <pankaj.dev@st.com>
+> Cc: Patrice Chotard <patrice.chotard@foss.st.com>
+> Cc: Rahul Kumar <rahul.kumar05@st.com>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Rosen Penev <rosenp@gmail.com>
+> Cc: Vinod Koul <vkoul@kernel.org>
+> Cc: devicetree@vger.kernel.org
+> Cc: kernel@dh-electronics.com
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-phy@lists.infradead.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> ---
+> V2: - Fix up Sob/Cdb lines
+>     - Fix up compatible string in example
+>     - Use additionalProperties: false
+>     - Expand description:
+>     - Use clock-cells = <1> to discern OSC and future PLL clock from the PHY
+> V3: - Move clock-cells next to PHY cells
+>     - Fix the bindings
+>     - Fix up Sob/Cdb lines further
+> V4: - Reorder the properties: list, put #...cells at the end, reg after compatible
+>     - Split this from series arm64: dts: phy: st: usb: Add STM32MP2 USB support
+>       https://lore.kernel.org/all/20260822074816.548662-1-marex@nabladev.com/
+> V5: Add RB from Krzysztof
+> ---
+>  .../bindings/phy/st,stm32-usb2phy.yaml        | 68 +++++++++++++++++++
+>  1 file changed, 68 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/phy/st,stm32-usb2phy.yaml
 
-Patch 1 documents the device-tree binding; patch 2 adds the IIO driver.
+Applied because the schema depending on this one is already applied.
 
-Tested on an EVAL-AD5413SDZ with a Raspberry Pi 5 and an NXP i.MX93 FRDM
-board (probe, voltage- and current-output, scale/offset, powerdown/resume).
-
-Signed-off-by: Bruce Tsao <bruce.tsao@analog.com>
----
-Bruce Tsao (2):
-      dt-bindings: iio: dac: Document Analog Devices AD5413 single-channel DAC
-      iio: dac: add AD5413 driver
-
- .../devicetree/bindings/iio/dac/adi,ad5413.yaml    | 101 ++++
- drivers/iio/dac/Kconfig                            |  11 +
- drivers/iio/dac/Makefile                           |   1 +
- drivers/iio/dac/ad5413.c                           | 666 +++++++++++++++++++++
- 4 files changed, 779 insertions(+)
----
-base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
-change-id: 20261017-ad5413-upstream-f8664fff4fdb
-
-Best regards,
--- 
-Bruce Tsao <bruce.tsao@analog.com>
-
-
+Rob
