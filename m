@@ -1,142 +1,349 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D9D34C9DFF;
-	Fri, 16 Oct 2026 13:54:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E24E03DFC7B;
+	Fri, 16 Oct 2026 13:57:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792158854; cv=none; b=aqnK8PHLXUL8Jh7/CyoJxDryt81tiEE1ynoxiDaqEErK+TomSBLl+ezhIHb9fl772O1r0azuLhuAeQttNVktTpsl7OchinPbbtmezajBQ3+DYyjiEcDysUY2FcsNTpop8Q55ThNZ9JsXivb8tNsG2o7sjV9wc6Gu3ntE5+rzssw=
+	t=1792159039; cv=none; b=THMDjjYxLH4gtPDeq1cL/12KWGCnynsqwcWSAVThA09ys+Pix0IFJ8cC2lW9TnGFM/t7+E2kAYGFnseFR3HnZIxP32fe6magW6cyuNIq8WB3fJIzrmu6p0vrkkKtt1szl4MyBuWnp3vbMQPWDn+NK9xkmshupoxnksAKtdIZE/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792158854; c=relaxed/simple;
-	bh=6kG+pF2HuQmMTYJB21gFk7rSTC3Fb6zafxp8L/YZp7Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=P0euK7U3ywsHFcEOAeUPB9VpeXoGWYocM68/t16GoMtWHMbFSvSNLCtm7sWPI0iV3VEwJFyIphIP4aJn7r+o5Kh/apS0275AgGPiQY9BgtthTosDQklSTPgJBBawMdpcYiLEXcRK9w7eUchOdLYYeMOp98QqR3g1E5052f1Z9Mw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BDvVlEj1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792159039; c=relaxed/simple;
+	bh=bWJ6GpVkJ5f0cCSpMNIzTrqipg1uURSdKwE/IVmYeIM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=C3881TbqZ0h9ZJ0f+NDKVvzxdt9mJZc61K6v4htDr4i6xXQPNjkrOI9hARGU2dpxkluO/rYdKtgPKuP2aPoLubAsXmYS+YLqTdSSjVcmRCtJ1+MTgqWSZMuQp9h7kWsJQjYe7Dr3fEi5Dpeatt6CAtBCy9QazIxU3Opl1dEGwqo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cwQp5o0S; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BDvVlEj1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CD051F000C4;
-	Fri, 16 Oct 2026 13:54:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792158853;
-	bh=UHZ/SHeI8w1oYO+zDsaR5bIADkRvUH7sd5yA2nNqtU8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BDvVlEj18Fklfc/VqD+6Eum/IA/ddvxz+BekUEvaIyeg4vLk93kPYxzBlPFKgYea5
-	 EqSexdKDxu+7fHF+Lyw1CYqMlzgBhzlMEE9i6uOZRVoKecxXGXIDuKtX1w1s8iXlVY
-	 DbL6IeqsY9MkmdpH+Kpg37t5I5RGJ98OAk90pyIgrjs0+jE5pm5M/xLfK4aHBRSXqr
-	 vNmh3UruVyOBPtXs88qxmzU9EP5j5OGctddYRtYD8kmNfBLHkueVTqaF92c23jgOyz
-	 DC2n8hnxZ0FKF1t8yNvipuQS6dPcgEYpXiu2KKlc3K98p3OIIkFXZsD2kEr482gJNF
-	 WjNJ149Cf70aw==
-Message-ID: <f052b1b3-87fe-48e6-aa02-df47517ef8d0@kernel.org>
-Date: Fri, 16 Oct 2026 15:54:07 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cwQp5o0S"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 66C7AC2BCF4;
+	Fri, 16 Oct 2026 13:57:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792159038;
+	bh=bWJ6GpVkJ5f0cCSpMNIzTrqipg1uURSdKwE/IVmYeIM=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=cwQp5o0SvOBb/GbwIyNmnK5znayb1y5jQZrn+PYfO6DFA10IdP7XhLt9iCY9np266
+	 PxwYbGzu608yKDhfgGE7mLJg9H6hL4r3nX+2iCaFYP+H8mvFfjmedpP7ADFMAnhnuZ
+	 NQJB2WcdqkhRz4jCBZFHF6ylQSDBMU5KRHsSgNUpAzcBmU1rZCw7n+/ca6bGAIHO29
+	 GmjtFGZwftLEBTo3lVif+8vi06SamB2Plixf9VDpuQOd7g6A1wjvcwajRQpRxSNFTQ
+	 UtXM3szR3SSWkdDLEgKBzNeES7RaAKtuIyQMWfQ6J0kDl2g8NkdsuuDyL9ou88Fyaq
+	 dqVW4HBaLIgBA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D6E4CCA462;
+	Fri, 16 Oct 2026 13:57:18 +0000 (UTC)
+From: Demeter Barna via B4 Relay <devnull+me.fromdisposition.org@kernel.org>
+Date: Fri, 16 Oct 2026 13:57:09 +0000
+Subject: [PATCH] arm64: dts: qcom: sm8350: Flatten USB controller nodes
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v23 1/2] dt-bindings: pwm: opencores: Update compatibles,
- examples and maintainers
-To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-Cc: Hal Feng <hal.feng@starfivetech.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor@kernel.org>,
- Emil Renner Berthing <emil.renner.berthing@canonical.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
- Albert Ou <aou@eecs.berkeley.edu>, linux-pwm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261014110429.52762-1-hal.feng@starfivetech.com>
- <20261014110429.52762-2-hal.feng@starfivetech.com>
- <9c0737d8-455d-4025-8482-950b64029f35@kernel.org>
- <atCos9UIaZoRs4N8@monoceros> <20261015-poised-modest-leech-4decf5@quoll>
- <atH4DnTWVZPkaO2C@monoceros>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <atH4DnTWVZPkaO2C@monoceros>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-sm8350-usb-flatten-v1-1-22a2ca3e642f@fromdisposition.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ6CMBBA4auQWTtJh5+KXsWwKDjAGKimU4gJ4
+ e5WWH6L9zZQDsIK92yDwKuovH0CXTLoRucHRnkmQ25yS4Ys6lwXlcFFW+wnFyN7tHVF7lpauhU
+ lpPATuJfvMX00p3VpX9zF/wn2/QfO7r2LdgAAAA==
+X-Change-ID: 20261016-sm8350-usb-flatten-6851a7461934
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Demeter Barna <me@fromdisposition.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792159042; l=8406;
+ i=me@fromdisposition.org; s=20261012; h=from:subject:message-id;
+ bh=4PeNvpz5gpApVBXDzwm7sndi++evymHPK2bxZ29Wsto=;
+ b=0njUvmb7SVmJ422XS7gYC8RsVTfO//QrL1015R5XwLDZZ3I/jscNl+TMiteV7vZPocpG71WXX
+ 1iP76AtG22yCGtWDr1XYSpYjyYjcfnl2QFSRzdMPfSdQh2ST+Iavjvf
+X-Developer-Key: i=me@fromdisposition.org; a=ed25519;
+ pk=S0QFlGq1BQEaAtPPdAH8YKEOXMeRuSkTgctXuvtU+1Y=
+X-Endpoint-Received: by B4 Relay for me@fromdisposition.org/20261012 with
+ auth_id=1163
+X-Original-From: Demeter Barna <me@fromdisposition.org>
+Reply-To: me@fromdisposition.org
 
-On 16/10/2026 14:55, Uwe Kleine-König wrote:
-> Hello Krzysztof,
-> 
-> On Thu, Oct 15, 2026 at 12:27:16PM +0200, Krzysztof Kozlowski wrote:
->> On Thu, Oct 15, 2026 at 12:20:54PM +0200, Uwe Kleine-König wrote:
->>> Hello Krzysztof,
->>>
->>> On Thu, Oct 15, 2026 at 11:01:29AM +0200, Krzysztof Kozlowski wrote:
->>>> On 14/10/2026 13:04, Hal Feng wrote:
->>>>> Remove the jh8100 compatible since the JH8100 SoC has been canceled and
->>>>> will not be released.
->>>>>
->>>>> Change the register size in examples to 0x10, since an OpenCores PTC IP
->>>>> has only 4 32-bit registers: CNTR, HRC, LRC and CTRL.
->>>>>
->>>>> I will maintain this pwm module in place of William.
->>>>>
->>>>> Tested-by: Maud Spierings <maud_spierings@hotmail.com>
->>>>
->>>> Drop, did not happen. Is it so tricky to respond to the one patch here,
->>>> where the tag would be applicable, instead of replying to cover letter?
->>>
->>> I don't know what Maud did, but if they checked that the various dt
->>> linters are still happy, that doesn't deserve a Tested-by:?
->>
->> No. Why would compilation be called testing?
-> 
-> I'd call the task of checking if anything breaks with the proposed
-> changes testing. For changes to .c files that most likely requires
-> complilation and running the resulting code on a machine. For dt binding
-> changes it means "testing" if all the existing device trees still
-> conform to the new binding because you cannot compile and run the
-> binding specifications. So in my mind this is still testing and a
-> Tested-by trailer is ok and welcome for me.
+From: Demeter Barna <me@fromdisposition.org>
 
-Running standard build process tools, like checkpatch, sparse,
-gcc/clang, dt-validate is not testing.
+The USB controllers still use the legacy two-node layout, which binds
+dwc3-qcom-legacy. That driver updates the QSCRATCH VBUS valid override
+only through extcon, so with usb-role-switch the controller does not see
+the cable being pulled and does not enumerate again when it comes back.
+
+Flatten both controllers as on SM8450, so that dwc3-qcom updates the
+override with the role, and move the board properties from &usb_N_dwc3
+to &usb_N.
+
+Signed-off-by: Demeter Barna <me@fromdisposition.org>
+---
+Tested on a Razer Edge 5G (SM8350, board not upstream yet; Type-C
+through pmic-glink): without this patch USB does not enumerate again
+after the first unplug; with it, it does on every re-plug, after deep
+sleep (5/5) and across reboots (3/3). The other boards are only
+build-tested; dtbs_check is clean for all.
+
+Prepared with an LLM coding assistant; tested on my device.
+---
+ arch/arm64/boot/dts/qcom/sm8350-hdk.dts            | 12 +--
+ .../dts/qcom/sm8350-microsoft-surface-duo2.dts     |  6 +-
+ arch/arm64/boot/dts/qcom/sm8350-mtp.dts            |  6 +-
+ .../boot/dts/qcom/sm8350-sony-xperia-sagami.dtsi   |  6 +-
+ arch/arm64/boot/dts/qcom/sm8350.dtsi               | 94 ++++++++++------------
+ 5 files changed, 51 insertions(+), 73 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm8350-hdk.dts b/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
+index 24ad073b4143..47519654640a 100644
+--- a/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
++++ b/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
+@@ -847,12 +847,10 @@ &ufs_mem_phy {
+ };
+ 
+ &usb_1 {
+-	status = "okay";
+-};
+-
+-&usb_1_dwc3 {
+ 	dr_mode = "otg";
+ 	usb-role-switch;
++
++	status = "okay";
+ };
+ 
+ &usb_1_dwc3_hs {
+@@ -879,14 +877,12 @@ &usb_1_qmpphy_out {
+ };
+ 
+ &usb_2 {
+-	status = "okay";
+-};
+-
+-&usb_2_dwc3 {
+ 	dr_mode = "host";
+ 
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&usb_hub_enabled_state>;
++
++	status = "okay";
+ };
+ 
+ &usb_2_hsphy {
+diff --git a/arch/arm64/boot/dts/qcom/sm8350-microsoft-surface-duo2.dts b/arch/arm64/boot/dts/qcom/sm8350-microsoft-surface-duo2.dts
+index 442405ba5f6a..01e39565c68f 100644
+--- a/arch/arm64/boot/dts/qcom/sm8350-microsoft-surface-duo2.dts
++++ b/arch/arm64/boot/dts/qcom/sm8350-microsoft-surface-duo2.dts
+@@ -338,11 +338,9 @@ &ufs_mem_phy {
+ };
+ 
+ &usb_1 {
+-	status = "okay";
+-};
+-
+-&usb_1_dwc3 {
+ 	dr_mode = "peripheral";
++
++	status = "okay";
+ };
+ 
+ &usb_1_hsphy {
+diff --git a/arch/arm64/boot/dts/qcom/sm8350-mtp.dts b/arch/arm64/boot/dts/qcom/sm8350-mtp.dts
+index 410bb0befeea..a282e6d2007e 100644
+--- a/arch/arm64/boot/dts/qcom/sm8350-mtp.dts
++++ b/arch/arm64/boot/dts/qcom/sm8350-mtp.dts
+@@ -336,11 +336,9 @@ &ufs_mem_phy {
+ };
+ 
+ &usb_1 {
+-	status = "okay";
+-};
+-
+-&usb_1_dwc3 {
+ 	dr_mode = "peripheral";
++
++	status = "okay";
+ };
+ 
+ &usb_1_hsphy {
+diff --git a/arch/arm64/boot/dts/qcom/sm8350-sony-xperia-sagami.dtsi b/arch/arm64/boot/dts/qcom/sm8350-sony-xperia-sagami.dtsi
+index 969c8cb31df9..6e26aa3590b5 100644
+--- a/arch/arm64/boot/dts/qcom/sm8350-sony-xperia-sagami.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8350-sony-xperia-sagami.dtsi
+@@ -909,11 +909,9 @@ &ufs_mem_phy {
+ };
+ 
+ &usb_1 {
+-	status = "okay";
+-};
+-
+-&usb_1_dwc3 {
+ 	dr_mode = "peripheral";
++
++	status = "okay";
+ };
+ 
+ &usb_1_hsphy {
+diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/qcom/sm8350.dtsi
+index 55b32050ce9c..21863ba00d17 100644
+--- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
+@@ -2615,13 +2615,10 @@ compute-cb@8 {
+ 			};
+ 		};
+ 
+-		usb_1: usb@a6f8800 {
+-			compatible = "qcom,sm8350-dwc3", "qcom,dwc3";
+-			reg = <0 0x0a6f8800 0 0x400>;
++		usb_1: usb@a600000 {
++			compatible = "qcom,sm8350-dwc3", "qcom,snps-dwc3";
++			reg = <0 0x0a600000 0 0xfc100>;
+ 			status = "disabled";
+-			#address-cells = <2>;
+-			#size-cells = <2>;
+-			ranges;
+ 
+ 			clocks = <&gcc GCC_CFG_NOC_USB3_PRIM_AXI_CLK>,
+ 				 <&gcc GCC_USB30_PRIM_MASTER_CLK>,
+@@ -2638,12 +2635,14 @@ usb_1: usb@a6f8800 {
+ 					  <&gcc GCC_USB30_PRIM_MASTER_CLK>;
+ 			assigned-clock-rates = <19200000>, <200000000>;
+ 
+-			interrupts-extended = <&intc GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>,
++			interrupts-extended = <&intc GIC_SPI 133 IRQ_TYPE_LEVEL_HIGH>,
++					      <&intc GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>,
+ 					      <&intc GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH>,
+ 					      <&pdc 14 IRQ_TYPE_EDGE_BOTH>,
+ 					      <&pdc 15 IRQ_TYPE_EDGE_BOTH>,
+ 					      <&pdc 17 IRQ_TYPE_LEVEL_HIGH>;
+-			interrupt-names = "pwr_event",
++			interrupt-names = "dwc_usb3",
++					  "pwr_event",
+ 					  "hs_phy_irq",
+ 					  "dp_hs_phy_irq",
+ 					  "dm_hs_phy_irq",
+@@ -2657,48 +2656,40 @@ usb_1: usb@a6f8800 {
+ 					<&gem_noc MASTER_APPSS_PROC 0 &config_noc SLAVE_USB3_0 0>;
+ 			interconnect-names = "usb-ddr", "apps-usb";
+ 
+-			usb_1_dwc3: usb@a600000 {
+-				compatible = "snps,dwc3";
+-				reg = <0 0x0a600000 0 0xcd00>;
+-				interrupts = <GIC_SPI 133 IRQ_TYPE_LEVEL_HIGH>;
+-				iommus = <&apps_smmu 0x0 0x0>;
+-				snps,dis_u2_susphy_quirk;
+-				snps,dis_u3_susphy_quirk;
+-				snps,dis_enblslpm_quirk;
+-				snps,dis-u1-entry-quirk;
+-				snps,dis-u2-entry-quirk;
+-				phys = <&usb_1_hsphy>, <&usb_1_qmpphy QMP_USB43DP_USB3_PHY>;
+-				phy-names = "usb2-phy", "usb3-phy";
++			iommus = <&apps_smmu 0x0 0x0>;
++			snps,dis_u2_susphy_quirk;
++			snps,dis_u3_susphy_quirk;
++			snps,dis_enblslpm_quirk;
++			snps,dis-u1-entry-quirk;
++			snps,dis-u2-entry-quirk;
++			phys = <&usb_1_hsphy>, <&usb_1_qmpphy QMP_USB43DP_USB3_PHY>;
++			phy-names = "usb2-phy", "usb3-phy";
+ 
+-				ports {
+-					#address-cells = <1>;
+-					#size-cells = <0>;
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
+ 
+-					port@0 {
+-						reg = <0>;
++				port@0 {
++					reg = <0>;
+ 
+-						usb_1_dwc3_hs: endpoint {
+-						};
++					usb_1_dwc3_hs: endpoint {
+ 					};
++				};
+ 
+-					port@1 {
+-						reg = <1>;
++				port@1 {
++					reg = <1>;
+ 
+-						usb_1_dwc3_ss: endpoint {
+-							remote-endpoint = <&usb_1_qmpphy_usb_ss_in>;
+-						};
++					usb_1_dwc3_ss: endpoint {
++						remote-endpoint = <&usb_1_qmpphy_usb_ss_in>;
+ 					};
+ 				};
+ 			};
+ 		};
+ 
+-		usb_2: usb@a8f8800 {
+-			compatible = "qcom,sm8350-dwc3", "qcom,dwc3";
+-			reg = <0 0x0a8f8800 0 0x400>;
++		usb_2: usb@a800000 {
++			compatible = "qcom,sm8350-dwc3", "qcom,snps-dwc3";
++			reg = <0 0x0a800000 0 0xfc100>;
+ 			status = "disabled";
+-			#address-cells = <2>;
+-			#size-cells = <2>;
+-			ranges;
+ 
+ 			clocks = <&gcc GCC_CFG_NOC_USB3_SEC_AXI_CLK>,
+ 				 <&gcc GCC_USB30_SEC_MASTER_CLK>,
+@@ -2717,12 +2708,14 @@ usb_2: usb@a8f8800 {
+ 					  <&gcc GCC_USB30_SEC_MASTER_CLK>;
+ 			assigned-clock-rates = <19200000>, <200000000>;
+ 
+-			interrupts-extended = <&intc GIC_SPI 135 IRQ_TYPE_LEVEL_HIGH>,
++			interrupts-extended = <&intc GIC_SPI 138 IRQ_TYPE_LEVEL_HIGH>,
++					      <&intc GIC_SPI 135 IRQ_TYPE_LEVEL_HIGH>,
+ 					      <&intc GIC_SPI 136 IRQ_TYPE_LEVEL_HIGH>,
+ 					      <&pdc 12 IRQ_TYPE_EDGE_BOTH>,
+ 					      <&pdc 13 IRQ_TYPE_EDGE_BOTH>,
+ 					      <&pdc 16 IRQ_TYPE_LEVEL_HIGH>;
+-			interrupt-names = "pwr_event",
++			interrupt-names = "dwc_usb3",
++					  "pwr_event",
+ 					  "hs_phy_irq",
+ 					  "dp_hs_phy_irq",
+ 					  "dm_hs_phy_irq",
+@@ -2736,19 +2729,14 @@ usb_2: usb@a8f8800 {
+ 					<&gem_noc MASTER_APPSS_PROC 0 &config_noc SLAVE_USB3_1 0>;
+ 			interconnect-names = "usb-ddr", "apps-usb";
+ 
+-			usb_2_dwc3: usb@a800000 {
+-				compatible = "snps,dwc3";
+-				reg = <0 0x0a800000 0 0xcd00>;
+-				interrupts = <GIC_SPI 138 IRQ_TYPE_LEVEL_HIGH>;
+-				iommus = <&apps_smmu 0x20 0x0>;
+-				snps,dis_u2_susphy_quirk;
+-				snps,dis_u3_susphy_quirk;
+-				snps,dis_enblslpm_quirk;
+-				snps,dis-u1-entry-quirk;
+-				snps,dis-u2-entry-quirk;
+-				phys = <&usb_2_hsphy>, <&usb_2_qmpphy>;
+-				phy-names = "usb2-phy", "usb3-phy";
+-			};
++			iommus = <&apps_smmu 0x20 0x0>;
++			snps,dis_u2_susphy_quirk;
++			snps,dis_u3_susphy_quirk;
++			snps,dis_enblslpm_quirk;
++			snps,dis-u1-entry-quirk;
++			snps,dis-u2-entry-quirk;
++			phys = <&usb_2_hsphy>, <&usb_2_qmpphy>;
++			phy-names = "usb2-phy", "usb3-phy";
+ 		};
+ 
+ 		iris: video-codec@aa00000 {
+
+---
+base-commit: 4eb2586bd40db27d77cc5b724ca9386ed0c71d53
+change-id: 20261016-sm8350-usb-flatten-6851a7461934
 
 Best regards,
-Krzysztof
+--  
+Demeter Barna <me@fromdisposition.org>
+
+
