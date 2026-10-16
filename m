@@ -1,163 +1,116 @@
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C10851A121
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 16:27:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792168049; cv=pass; b=IrVG61RsasyNbwTZksmL6+vPgQwxcAHoHtUh+IEWGrqzGADW30p76Rl9wH5yPzIzbieoP7jZ62zT4wKjg+2MrCqE3aCHTZmpLL4I9e+TBo9MCpHB5IHDUuGSs1N+L5JkNRF1IKznwI4/Kurhm6i5Q12GhBWKvUCWqA+sdmvbg3A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792168049; c=relaxed/simple;
-	bh=7EREj28Pt4d+3/OFjKBkGafNy9R17eDiUOr72tTJcIo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=T1YuwM23vp889Q/lSbZqywL9mlHGrhfl0V9fkOSK/bpuNmLSKU2JT1Rw3s1B+MtVDk/MQkw6L3+JT7DtJVIpND/SeM6PYbHkPRAa2z7nZH31y2rH7jAdluDAT/jO7IfuzL7PSsyYlh69qv/zg2LPa/3N+MQzJOZYTJjdB7Q6yqU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kA0p/dGu; arc=pass smtp.client-ip=74.125.82.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5AA752CCDD
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 16:29:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792168164; cv=none; b=kTRcirEWd6sC0SEWzRcFksRiO4mcu1IYErj1pqHOc1h3A8prvyS9mli+zVVya5XkXcF9wzpOIEzYztBwKeDI3u0eE8faEJOKAb2tp8sx2H4TNZAIqhzit/IBOjzMtcOMVYlHnLPbyRzMyPq08YnhhRyoNLvmr9R5nyjxJ2fv9ZY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792168164; c=relaxed/simple;
+	bh=VhR0j1HKTwNSIioD4L3f7wFrhTcLCMcVT3/oUEbt/RQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SwIc9Cw0ugXpBqld8jRTJf8cs3TZVKUg8yvM2ZuYUhIGLhZjWhlbVPzzfFgYNQI2W11AuKAZPn7VFd12H0q/NxaNJfs8+aE777y6FuqifpcHT0fmtzcKM8RPhpg929qtUo8iBwRovGuS5hDG6tcKAAf0pPl+9CbJsSM3x2dXkTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p5eqtnxs; arc=none smtp.client-ip=209.85.221.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kA0p/dGu"
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-3550c917fd3so69692eec.0
-        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 09:27:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792168044; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bdKtcR6LPHBN69y72qtsAQUV1YUXAdiSU9VVkFI3iYjTlhXzEHuKGhsStwODSgiTAW
-         tyKM2CQVh1Wc51ybxrGCgccLzbZPEhkUNxJj+9RirjQjDwnOljVwTLSnQyRry/VnV05S
-         mRT9QcBbu2WlY9FDm1dYq5Bvxr1D1azYbOohX+a9I2wnjeOp70Dt08N+HP/cL2sQt3qV
-         +J7Yw1qrUk8WFq+zK/VwlO1lmNfBgdjI7bYeh5GoSP/KOXdbhFbTGAi26VQUJdRhSSGs
-         rtJG9pfD3pKemfP9m0kkICLAAtt9DYpc87YZf3DvHnfOEMG0V//ALZd9FPnn9HSRs7vI
-         Ny2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FKkA/I1J3TnOXc1SCotCtaDkPFS5TVcFw8DzsF8Du/M=;
-        fh=DZBV1zBZ0oQ0sglpAVZzVTOruVcKQf5X1Wh0ZquUBEE=;
-        b=in3NpyULanhRe7IWOJOR1+PS26Q3vNXRjYZr3MgmBUbzpsRz7I81b5CiAm4rF4Hthi
-         xr9pq55ObMjhblgIPG7ad1R4Y5bJ0tETUBYnELMxaavukMmz2TeXQnwJHFxTA/2tF2/B
-         MiLhvePImJee8Px75+Mem272+QWV5vJ6p4FZonuf9iW/d1tOerX7axO7egQJ/Wg3gNCW
-         xKQ7wr52hYMhRzZSPaaFZyfuQkrOvFufAm/R+z5uX/EvFapvaXhw6bPRuQLWT+7RiMo4
-         eh93ycLn7QbuzEi0EVOd/BlkLDZ7gxUS/VTcnls7g/3pZxyDTPicqKYGICCXRIu0IB9H
-         zs3A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p5eqtnxs"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48c5358fc28so26981f8f.0
+        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 09:29:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792168044; x=1792772844; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FKkA/I1J3TnOXc1SCotCtaDkPFS5TVcFw8DzsF8Du/M=;
-        b=kA0p/dGunHRVQFYJZxY63SPffce00jnFtWKw6dFU1c8T+ICC30awMa4fiXZ8fEQV6p
-         HfgIC/dD3PFkzcNQcaQ0EYk88IfXgQVWM7eGmWAL/MxrY+vkkmunKb2U3d8Qv8sDBS1A
-         EFpQmv3q895Nvzo0g0Jdt50ZFVu4JdyiWv8iQotFzCHnkyEMMdQn8zV8zsWVwwL4wykn
-         lNEx+RHNCeoiS22qfZFwDSUY3QmmF3LjiKmYnmqajqHDsnTyySLBUTVoujBgCArX9N/l
-         IiInZQ5ZRG3tSwm6LJC4rO7snD4fp20OR24P0zUWrFa2Vy06kopeGhUoVIfu6iMEgonV
-         uWMA==
+        d=gmail.com; s=20251104; t=1792168158; x=1792772958; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JOC0Tt4izqijGr6CwbYBXFuZxdub0c8E+AAfI2tlm98=;
+        b=p5eqtnxsy2WWJjYnI5bNe8HKhdjapL/R314I6/DhwaAxxcff1cLEVu/zoGeV+RzA2a
+         VXkek1gTB80X66WaVdQjL7FBc0Q/QgNHhOyXtDV1pSNFmwmJmD/JtBOrzEYQncNSwpgw
+         BEms1VQH2qeW5kvARan9y1+YdEdkDxOeWTP8FyJ15Vh9zq+6qOLrgl0cSG+abUnkl/Xs
+         Z15dSnMSryDYpCtn0YHPWacLeBodfE+7tSVr/4a/3MXcbF8qr8ozTJDGnkGri0iMdntj
+         o5gMCklR+WuPjWmTw5+TOKlLKjDbqw9q61DQGhb1j9t/YynZFw76+p/U7qUAkJFQV4nH
+         e0Zw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792168044; x=1792772844;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FKkA/I1J3TnOXc1SCotCtaDkPFS5TVcFw8DzsF8Du/M=;
-        b=Boajfl4LlXKpn19pIVt83XfQ/5Cw3xWwpqS2LChvgggNd0PPtrDanUQh6lbM/Jk48M
-         zRhLIisrwCRpIQkglW8BccECNgc/8r08mPw/o30Yl9bKF2rFhvou+Ui5N0p9NH3BUGHW
-         zphxIieKgcsbXOeUimIvDe+O0eOF67lAZvIogsf+Cxc5Gb9nM9C9LkT1lJqhDIOISva4
-         GZLOAmWMySbazLB0ziYFoPzV8SOW1Q//gJcIoSqg3n6+W4GcIv5ETWFWm4gs1lFYTFBw
-         E5Hu2MS++RLz+oW/kid/3GMvTFGlsisbvW0eyA7sOP1kHT2GgeaGvutuWHQrNrcGg57w
-         RZzA==
-X-Forwarded-Encrypted: i=1; AKwUvBwDipIvS6bRL5CZIf+D54qaYdsZxNiNKbA3m3hMTA3FVLQ8PiUXGQ4ARSfOgL7mr//4FXu0AIOqPJrc@vger.kernel.org
-X-Gm-Message-State: AFq9FYIXkJAe40PP6jfAlwKyADmNSY3mjp4Hf1+BQWNcLvwbLy0ZXL9X
-	sJTXR+PhRn7M0pF4yUZVNAVrPkIZsjOh+OikUo02ZJ/b7zr7BLllDY6h1PlJlXHdOlHHjM06ZoV
-	5hAFeOwj1m/Ti7goP7mAbGAAtoqrSWhc=
-X-Gm-Gg: AYBFou3uZVH6nbe99H5PdDiFOEWNhIoqtAdRqJ5u3EJQFQ+CAeg71fSM0RfDoHOveRa
-	yOzmcBP3bU4z0KHnojDq1s6UM9qNzGB6PP5IeFT9g+Mhzehqrluvrngc3NHEnDyttE6kHlXh1WK
-	3P7ZQK8KUKuFVDMecZBL+S11dMSDuAXDZ94W8p4IoeqQlD+qENVs9pApnec5DrtONrXa9cnDp/5
-	NDC43KrjBDVForj17KNmu5m0cIIeREsE4MN4saQT6U91ZS/yLca8F5PQbqkUmC4Df3zOHUwowjZ
-	VkeGeGJIqyGNppI5kg5N8K0eyLDvDi1sBKqCVtp7X80hfxfIEiuWl+USAqx0ebO1FLzEuL6cV3K
-	IOueGQR1Nleoz
-X-Received: by 2002:a05:693c:638d:20b0:35b:cb8a:8d0e with SMTP id
- 5a478bee46e88-361a18634c7mr341911eec.16.1792168043963; Fri, 16 Oct 2026
- 09:27:23 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792168158; x=1792772958;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JOC0Tt4izqijGr6CwbYBXFuZxdub0c8E+AAfI2tlm98=;
+        b=cBHuV/X9lQfg4FWgY0OuOX68xuD7eoQZfoM4QcNrLSaWEfVXp7H2eiwrR1zoxjDnpW
+         h5aUs4MUaK5AilRuRbTkG420uu0lbBW3bAU58SCQrYF513Rn1kOLJIgyu79ES8etl97t
+         PIuju+D1DpuN++c8RYs/Os/mZ/eyESPx0SHDEhZNhCXw4OSBhTMyBbHNUVY9rWWSndjT
+         r/IceWMVSb/tv0lsB2DalBOfNMJfmCsPBxrSTlANnyU/ZX6FmiJaOQtj6e/S+0tX9syl
+         nLmMgxIBhNECWakWpSmbnb91HuE9h6kMvc5Lqd1A1+nI7WL/HLXG0BHKvKrgEAqZQJQ7
+         d4gQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxWBb0TRKW44EZqOEmNnia2xGXxl0Coi/snsQrAc3aWToZS6mZ0cnTU5KlIBKYh+8MuLbgkHw8l4kys@vger.kernel.org
+X-Gm-Message-State: AFq9FYLUtiNXTOKHmPBY1skaJuA+lyEjQpO1ddx8U7n5HJHzgIpu9V1k
+	cTVDxZLA7Y0zvUUiQQ54rHhtlw7kgdHXOctuAjDzmivTc874NL5LQFs9
+X-Gm-Gg: AYBFou0cbFQOVSZLnIpEfsF9jUKK3+/dZ5yu7QtotvszIR5MB8xS3ayC6tGdJsOfQk7
+	mh0aAJG5ls0Wy9qGwRWYk6Rb7ZLSCrQ+GbrsdBx12XItxQztDq0wSVEU8yzbn34KGUYVPcganYi
+	GqYazdB/BZbTO6/bWlL576Nrd5McGG6qVjeXYvrjbXJp1hLAH2vqfRWG21CFawVebn4iAlUfpkh
+	f+0x3p5CS1kAvHEMBEkpr+ARlwXL0REV0QiUr+FcMlZm9ExdJm8HQ2Yje0VH79lUDvG+A8yfERo
+	o7oCaCybw71uobxl62IfY7cs4dDq3RFHxxm1MP5CHbZTxNPjFeJ95+QSdFJT1yAYPP0m4wIX065
+	S5mmHlVxjTFnF2NxNvElRNGhuCwXstyb5kummsmr91c2FOfjdqXVDqfdl/u0RUVhX7i0fW/4FcS
+	SKUXhl9QV77KclL4DRUB7hEzLBJqL+mP/nZ05EAXL1pfOWZoSfyNVClEyEPwULwteHw1uorFa0G
+	kShH1AENysyjWCgILuEAfdAVvjJQCKolNdaGMeWHJ5XN2BjBrel7Et10P9ZRcfy0JR8F8isju+C
+	BKMNNpmg7Tb7
+X-Received: by 2002:a05:6000:260f:b0:48d:ee35:b3fe with SMTP id ffacd0b85a97d-48e07988925mr282504f8f.8.1792168157866;
+        Fri, 16 Oct 2026 09:29:17 -0700 (PDT)
+Received: from machine.home.arpa ([2a0d:3344:57f6::103c])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4c5942sm9404317f8f.16.2026.10.16.09.29.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 09:29:17 -0700 (PDT)
+From: Luka Panio <lukapanio@gmail.com>
+To: lee@kernel.org,
+	danielt@kernel.org,
+	jingoohan1@gmail.com,
+	pavel@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	deller@gmx.de
+Cc: dri-devel@lists.freedesktop.org,
+	linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Luka Panio <lukapanio@gmail.com>
+Subject: [PATCH 0/2] backlight: Add Awinic AW99703 driver
+Date: Fri, 16 Oct 2026 18:29:10 +0200
+Message-ID: <20261016162912.64581-1-lukapanio@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013180933.487013-1-clamor95@gmail.com> <20261013180933.487013-3-clamor95@gmail.com>
- <atJDFRXmgZ37GrCE@aspen.lan>
-In-Reply-To: <atJDFRXmgZ37GrCE@aspen.lan>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Fri, 16 Oct 2026 19:27:10 +0300
-X-Gm-Features: AclHuK965ULDwrtLzaPZLgAMgTCNPq5g0it--pZ3MwPKJFECiLPJTV2LEV8Gatw
-Message-ID: <CAPVz0n1RVDz0MsMBccanpynh=Qn4x6Ar7rXRUVitav88i-hWYA@mail.gmail.com>
-Subject: Re: [PATCH v3 2/4] mfd: aat2870: Derive brightness steps from max current
-To: Daniel Thompson <danielt@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Jingoo Han <jingoohan1@gmail.com>, linux-leds@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, mfd@lists.linux.dev, 
-	dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-=D0=BF=D1=82, 16 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 18:3=
-0 Daniel Thompson <danielt@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Tue, Oct 13, 2026 at 09:09:31PM +0300, Svyatoslav Ryhel wrote:
-> > @@ -69,10 +57,11 @@ static int aat2870_bl_update_status(struct backligh=
-t_device *bd)
-> >       dev_dbg(&bd->dev, "brightness=3D%d, power=3D%d, state=3D%d\n",
-> >                bd->props.brightness, bd->props.power, bd->props.state);
-> >
-> > -     ret =3D aat2870->write(aat2870, AAT2870_BLM,
-> > -                          (u8)aat2870_brightness(aat2870_bl, brightnes=
-s));
-> > -     if (ret < 0)
-> > -             return ret;
-> > +     if (brightness) {
-> > +             ret =3D aat2870->write(aat2870, AAT2870_BLM, (u8)brightne=
-ss - 1);
-> > +             if (ret < 0)
-> > +                     return ret;
-> > +     }
-> >
-> >       if (brightness =3D=3D 0) {
->
-> I think this could be spelled "else" ;-)
->
-> However, other than this this looks good. With that change applied:
-> Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>
->
+The Awinic AW99703 is a high-efficiency 3-channel WLED driver with an
+integrated boost converter and 11-bit brightness control over I2C,
+optionally combined with a PWM input. It is used as an LCD backlight
+driver in some mobile devices.
 
-Patch cuts part of code, this is the full context
+This series adds the devicetree binding and a driver for it.
 
-if ((brightness < 0) || (bd->props.max_brightness < brightness)) {
-        dev_err(&bd->dev, "invalid brightness, %d\n", brightness);
-        return -EINVAL;
-}
+Tested on the Nexphone by Nex Computers.
 
-if (brightness) {
-        ret =3D aat2870->write(aat2870, AAT2870_BLM, (u8)brightness - 1);
-        if (ret < 0)
-                return ret;
-}
+A board DTS using it will follow separately.
 
-if (brightness =3D=3D 0) {
-        ret =3D aat2870_bl_disable(aat2870_bl);
-        if (ret < 0)
-                return ret;
-} else if (aat2870_bl->brightness =3D=3D 0) {
-        ret =3D aat2870_bl_enable(aat2870_bl);
-        if (ret < 0)
-                return ret;
-}
+Luka Panio (2):
+  dt-bindings: leds: backlight: Add Awinic AW99703 backlight
+  backlight: Add Awinic AW99703 backlight driver
 
-aat2870 cannot read main backlight register nor channel enable
-register to check prev backlight status. Hence this logic is used. If
-new brightness > 0, update main bl register; if brightness =3D=3D 0,
-disable all active channels, if it was 0 and now is >0 enable
-supported channels.
+ .../leds/backlight/awinic,aw99703.yaml        | 131 ++++
+ MAINTAINERS                                   |   6 +
+ drivers/video/backlight/Kconfig               |  11 +
+ drivers/video/backlight/Makefile              |   1 +
+ drivers/video/backlight/aw99703.c             | 583 ++++++++++++++++++
+ 5 files changed, 732 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/leds/backlight/awinic,aw99703.yaml
+ create mode 100644 drivers/video/backlight/aw99703.c
 
->
-> Daniel
+
+base-commit: d419d682257d813f6cb7a28e42b35d0edf4ad038
+-- 
+2.55.0
+
