@@ -1,229 +1,220 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 572A23AB47A;
-	Fri, 16 Oct 2026 13:39:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792157990; cv=pass; b=XHI8a1W6LHVw7INkqoKSD65Eg5NMA/JmdCVKI8B218cHUwm6SZsoZ/5c9ESRjw4tOgZJE1qdXW5chucCTiKdEmZVSRmMHSE9unYeHGKWvNpmmTo5tabxYrcOPXiEOYWLL0Yjq8FI3IICLhgbaAIGpPVZRwLuNli9kRW5FZqSapk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792157990; c=relaxed/simple;
-	bh=RkEuwiz7CMoqd02J4J862y1UPKC937IIDmhLWBkJLi4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=anXjEt7ptS9wnlVp/2U0jalvfEBY6EwzHGGO82xNW1qVTWa5ssLzAGgBrkbyc3bGj7nclPHdRnDohYlsWGvhe7b+zUC7TtEoGRlXufF1YDt0qDmHuyztEB+GGYnwGGC+/Gt5b2Xq/B6iHEv5R5f7X4KZ2mDjxyTGjXRLIge0mM8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=L9i5wY/q; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DFD338A73C
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 13:42:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792158128; cv=none; b=IfBh28V+5eLpRqlr7JTGOf4lTzLdPD6vfBGWeGdQBcyv2GUM+o6SIDlDwYucFNn/NyKrUsiZZWOO3MOLwRiL/3Ll/hNAF/OA+qYXsVAYSLd05qny5aPml/rPieQvmvm96r4G0U1iMHddDtyd8Q66F+x3VpGV1zpBKNvNJFNdudE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792158128; c=relaxed/simple;
+	bh=RKgV5hZvafCihZFGYAAI/L2obRXJPdA1lHWrYC52Kok=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=d4eYnsuQTCPF1yxSeDcPdIRdjyXCr+McRL6OgEkDd0QfzisgQobOi4vomWIeXeV4K/UOy/1s36gakKampEkFxWh7Ea0FuotVK8g3N0uc0kkK3gYsrezGlbLm9yKEUd4/1fRh0quBwSMXrfQjmF7UdXgdATjxc6zV1wYRqUk1juA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=orKZ0Li1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RCg4LdH4; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="L9i5wY/q"
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 6A41F20281B;
-	Fri, 16 Oct 2026 15:39:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792157985;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TC4tGwyrQluzJbCsPuT7nKVmerbpNass4RgUs/pvp0g=;
-	b=L9i5wY/qqsvVkMArHGHVdiCUlPugBS/bJfiO8K7EqrTZQFRVKxSpqmibtJe4ypr4LuapM6
-	g/x37yp0qvUGFk2B1Nfk5YhbFwyQb1gvV1CDdGTbOPBEmvypCHrgblT3uWfrjXoBVDLlvU
-	I0y6GzFHe7fnP9+YoKSjM9POOVCCvfVlIM2eMe6GctYkh+VnOEySDysDPbmSA9cpMA77SW
-	mJXWffibwn4G0NnN0SX+jv/g87i5veOnpug9Tb3P8ORkYeSPMCXd/8nyW4ICi1T4yLZbwB
-	LVIOINgzzhWjhVGKKzd70IGL9Jk/V2lvAKc8DB68weH49W48s8n2jw1qhoi3Rw==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792157985; a=rsa-sha256;
-	cv=none;
-	b=TrGYnSsMjFy8I/ySJLh8GyCSTosYMUVu/3Ihv0PyD/WfCx0hYD/ZGyZdLSujxh3jAGyz1D
-	l4288v9WHtrFYxvTIcAwm/Ds4WdXnZrL7xOJIIN2UDIcgzSkML/XSedMGqG8K2DZDnCl2U
-	pGq9ZGukVAYKcy/gR2N77GnQuMdRoQWy6fVsrLDp345uLVwUDabNcCRP9iPNf/0iYoNsf3
-	ykiW3GuzNlGEiTON5TU21qoldD0ZJ+hPrpbLOG+Q1mpJtOQge5OyVwD5QEDYKro1wp1RWs
-	umRbicXQkTeB4+c+rXqRr2LlGrbMFNbzaBBot1SQ10lWeQ78S2Aeh2TmJxAZ7A==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792157985;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TC4tGwyrQluzJbCsPuT7nKVmerbpNass4RgUs/pvp0g=;
-	b=eCFs2SK1ViIEaDbacUL56jmHxIZFJkhGSNrqkCyBJzJyJqcMUdf0ZRyTr2N/92iWLag5Au
-	WUVc0bUwD+pkHsY20BHHUCe7Ih/GvwIjaqv0KgR5sY0UmnmliJ6ZjvcnGyY7LHHH6yC/qe
-	nzfe/QhgkmFHUMPZffdjEF6yTConCEe9HbZCoDe/2d5T+/5vhzBNRNpHY9YvflNUjMRxM0
-	1xPRdke3+yVKZSfocgm9DisSSiLBk2AKiAuYvygm8wzyEF2trv+FdBMsaXpFFqSxbBYGRh
-	Fhy4T4JMeCPNj2mgdreTiYd0LJEE/w7XxjKn2Vt9thjoWcypgICDaY3+mPOuKA==
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xHi9x-006C3A-13;
-	Fri, 16 Oct 2026 15:39:45 +0200
-Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id F40705C626A;
-	Fri, 16 Oct 2026 13:39:44 +0000 (UTC)
-Date: Fri, 16 Oct 2026 15:39:44 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
-Cc: mailhol@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, geert+renesas@glider.be, magnus.damm@gmail.com, 
-	biju.das.jz@bp.renesas.com, fabrizio.castro.jz@renesas.com, claudiu.beznea@tuxon.dev, 
-	linux-can@vger.kernel.org, devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Subject: Re: [PATCH v4 3/7] can: rcar_canfd: Allow the CAN FD clock to be
- sourced from fck
-Message-ID: <20261016-durable-meticulous-owl-7a9eed-mkl@pengutronix.de>
-References: <20260902141544.565763-1-claudiu.beznea+renesas@tuxon.dev>
- <20260902141544.565763-4-claudiu.beznea+renesas@tuxon.dev>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="orKZ0Li1";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RCg4LdH4"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GAAHA91793734
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 13:42:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	hXlYtj95HgLNKsldaNN7asPVeJJ5Fh4BlficT6fRyak=; b=orKZ0Li1t4druC1H
+	6hY1MMvOXVDwKuo+7DpV93/wX0dUWT5ysZNdQwDKDYzgEGkGB6nYunT4cGGJScOp
+	cUFL8cU1iLX8RakwqdJs3RP7RkbtOwGGLMqXyXURNnJ39nEcAYX4pOMXzMCmycRD
+	DMWF8iQOZyhMa/yj2jWeBcufHGq910wcBNM9Ie6tEgsyWYJsuS4ekW2t1KyQ+IJx
+	iZNpBq/D4cpIpZDBx+96U1dFshdK7X11wy2IEPdODUYPNiFeFqMeTnwX49sjwU9y
+	L77MLVyAk5uMy6HiHViVYwxy30eNXFp51jh4d7NeuslWaDO1TL4+4Pv0GSPbGYCy
+	ObVc0Q==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb3seuxpt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 13:42:05 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-917a54501a8so16567076d6.2
+        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 06:42:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792158124; x=1792762924; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hXlYtj95HgLNKsldaNN7asPVeJJ5Fh4BlficT6fRyak=;
+        b=RCg4LdH4q+LZeU/U/U3vCCcRwr1QT4Gx3xy7gbJ954dzvwRRb0ID9v1qzjrOdkTNiK
+         z7iKfPPyXnjrt/iMvxXyJFUYgNvhB3U+7OvaN+TZatzI6AGKuXCQBxZ3mQ+QVAmhLbUK
+         bg80BRHDMSNz/q3w5K6zbVtCnsZ/OmIbJoel+HSSkFRPHMToBJ1p7K+KsXyGWaTYgU4y
+         vv2X9Sp56QdBIaIJD2jspEGJnn1IQxlvmeIc5fX6QISyg1DkWQpynqvjjHiBm7W1NoxT
+         gPfs+0Jqw3pGLEvb6Yja6v0GvdbpanG+L9p3TLAwRljXRbn1u92rrCzPdxUXnLt6iJwR
+         STpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792158124; x=1792762924;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hXlYtj95HgLNKsldaNN7asPVeJJ5Fh4BlficT6fRyak=;
+        b=znf2ihKTiNuK9ejlASv+Z7+oN00wEqwLnHw6cr+UvVafDnhDaiK3QqqFSeST5NhiaA
+         y04wL5Kl4os0h/3oQUrYgQ6opK31Qa32xpBCwlNYK0NXdhMNmbu1Ndsvt0w/yDCyNMH3
+         ZtuyGnoq0lPLMozlGivcVt3R8erC7pWoLojsP4QmEG+N+PIXHdxCuhJqopEHpNknjEbL
+         +LTk+ZeY8WSIPVCt+JCy+jxAT29HgPuzdplaBARRqhKNprmBTvCnPygheIUWN8bEE5SZ
+         ndXijYojP5w0t2nwS9ec8dN1RdC5FLmlzQu1mTT1GoEYzUrDUFAVoe9VravwyJXIFcHt
+         PBJg==
+X-Forwarded-Encrypted: i=1; AKwUvBw5CIRP6SmLvF0xoiUXXSwIydk9x0wFCWAO8cFingrKAKdF0wbJ2EIVmH1ZjtcGLKuRByFxQTrI8Q1z@vger.kernel.org
+X-Gm-Message-State: AFq9FYJn8Zk8wPnCOCHMhrBxhHgkl9E9XXLsXIDzQZx3crBeaQDiAi+q
+	JJudrHIEs5JqQH9nOgMS/R0+kv2fI2eTFY2LJUwrnLEryTSy7QqmZCJKvotxA4mLj6a9kezpb7s
+	kGXUcnk8qlgggVjc798fRrJKB+gHKso/8JgRQIbhUhfWl1bhuGC4ZogXGkE8xReHS
+X-Gm-Gg: AYBFou2BDwzhSBQI0bhLtPSlIihQF1WUK8I58q57InnKf68rTOYRhT3A8X+mKu4xETX
+	nFl5/uAfOv3IEeUunp/IjwOJF7SSJQYfqANHJ9V0sDB6eMdh8UTT9ft/BUQt0PHq8d/nI4hnnmF
+	gpLsn1P9pNyKG6anNzk516GBO8Du6f+wDtl77vRaNcFSZy78xSFgGJSTOKyCNbyglOJ6UFHeBW5
+	J8IS+AyMQvGkw314Iysajav59tQQWUsznYJ08+TDDKCrt7HTK77n8Tdijj8ojRYIyzAXKbdXRwa
+	CQ0dqJqsGuAujMdAkD4h19dSnT0JjwKfaddVsp0a3tvs/p914OAF43cVkCFfmkk/f8iSDwxGWwg
+	ubx2YkG46T1x3GWgEVyEzUg==
+X-Received: by 2002:a05:620a:6506:b0:936:2f59:dfe4 with SMTP id af79cd13be357-93ebcd2b830mr3752545885a.0.1792158124360;
+        Fri, 16 Oct 2026 06:42:04 -0700 (PDT)
+X-Received: by 2002:a05:620a:6506:b0:936:2f59:dfe4 with SMTP id af79cd13be357-93ebcd2b830mr3752538885a.0.1792158123718;
+        Fri, 16 Oct 2026 06:42:03 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b38a1d8b4csm877756a12.26.2026.10.16.06.42.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 06:42:02 -0700 (PDT)
+Message-ID: <6eaf5257-8c9f-4cb3-9232-e8f9fb19de71@oss.qualcomm.com>
+Date: Fri, 16 Oct 2026 15:41:59 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="t4hrk6g2tdbfwvwo"
-Content-Disposition: inline
-In-Reply-To: <20260902141544.565763-4-claudiu.beznea+renesas@tuxon.dev>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] arm64: dts: qcom: Fix touchscreen address on Dell
+ Inspiron 7441
+To: avalon.vargas.centeno@est.una.ac.cr,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: Val Packett <val@packett.cool>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Laurentiu Tudor <laurentiu.tudor1@dell.com>
+References: <20260914-dell7441-touchscreen-v2-1-7f7224c0cce5@est.una.ac.cr>
+ <20260914-dell7441-touchscreen-v3-1-062d6b93d1ea@est.una.ac.cr>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260914-dell7441-touchscreen-v3-1-062d6b93d1ea@est.una.ac.cr>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: umhJLSMpRahLSdFE3vpsILlZJGAhLGOw
+X-Proofpoint-GUID: umhJLSMpRahLSdFE3vpsILlZJGAhLGOw
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA1NCBTYWx0ZWRfXzvW+xt96sIvg
+ 6igcWdmRTlY0I98WnzKRuxcVJ17DCQ02+qiCwA4jWHqbL8SmwxNJEr6jpZbYra8fk0RNTy3XdlQ
+ ktMeNfMCrWxiGHfDOop4KiZKQ+0Agh4=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA1NCBTYWx0ZWRfX0hrs/Ea3VjQi
+ djMuOJoohGTB1pR7vgsiGTuPThQM2z82gAwb9bZKO9X6oEkzvp4otOhmHVOs4qkCS5ZQ3WnUWbl
+ HHuTlomAUGMd9bn/4iDeV8QtDuiJlu56Wc3uvaUMZeQoiv/XT08g9DVolllp4smo1IZlL153DIG
+ AqwFC5SQhE7oajqMI0MqLOcShwOTUWJHohXN7EX3hu5yViY3RaHyU1qcWCti4fKipYYpMvJEVE4
+ 1beT+Sn+kXSpJfMIsDW6STiYRxew1LaHh6XMsLL37Mpq7zqCccDBD0RlwHjNBPfm9KYWVq9yk8S
+ ZKvIZ03K11pe5raHqnerI7j1Jog60skyp4OHqKgB/5QyV5wr3sNth94O1it93R+nOOuIPy12TiI
+ 0BGJNQ/YP0BVKQXt6akmWQRg2H2wKSJ7I39Yg1A3AWM/FFx71a05Rs+nyLmJMOLwvMDbJkRDzCs
+ FkaF06YSiievUwAJWqA==
+X-Authority-Analysis: v=2.4 cv=Se1i5fRu c=1 sm=1 tr=0 ts=6ad229ad cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=bC-a23v3AAAA:8 a=VwQbUJbxAAAA:8 a=iLNU1ar6AAAA:8 a=KKAkSRfTAAAA:8
+ a=EUspDBNiAAAA:8 a=gXMl86fzaOV-y-lz5Y0A:9 a=QEXdDO2ut3YA:10
+ a=OIgjcC2v60KrkQgK7BGD:22 a=FO4_E8m0qiDe52t0p3_H:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-16_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 adultscore=0 spamscore=0 malwarescore=0 priorityscore=1501
+ phishscore=0 bulkscore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160054
 
+On 9/15/26 12:04 AM, Avalon Vargas via B4 Relay wrote:
+> From: Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
+> 
+> The LXST2021 touchscreen on the tested Dell Inspiron 14 Plus 7441
+> responds at I2C address 0x09, while the device tree specifies 0x10.
+> Probing the latter fails with -ENXIO and no touchscreen input device
+> is registered.
+> 
+> Use address 0x09, matching the LXST2021 configuration on the related
+> Dell Latitude 7455. With this address, the controller identifies as
+> 29BD:1103 and binds to hid-multitouch.
+> 
+> Fixes: e7733b42111c ("arm64: dts: qcom: Add support for Dell Inspiron 7441 / Latitude 7455")
+> Signed-off-by: Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
+> ---
+> This replaces the earlier report-plus-diff with a patch submission.
+> Only one unit has been tested. I have no evidence of double-sourcing
+> or a working Inspiron touchscreen at 0x10; a typo remains possible.
+> 
+> touch input and suspend/resume. The native upstream patch has not yet
+> undergone a full kernel DTB build or dtbs_check.
 
---t4hrk6g2tdbfwvwo
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v4 3/7] can: rcar_canfd: Allow the CAN FD clock to be
- sourced from fck
-MIME-Version: 1.0
+This is a prerequisite for all contributions.
 
-On 02.09.2026 17:15:40, Claudiu Beznea wrote:
-> diff --git a/drivers/net/can/rcar/rcar_canfd.c b/drivers/net/can/rcar/rca=
-r_canfd.c
-> index b7c4fe3477ac..f9173774387f 100644
-> --- a/drivers/net/can/rcar/rcar_canfd.c
-> +++ b/drivers/net/can/rcar/rcar_canfd.c
+Bryan, does the touchscreen work for you without this patch? Is this simply
+double-sourcing?
 
-[...]
+Konrad
 
->
->  /* Helper functions */
-> @@ -2190,13 +2196,20 @@ static int rcar_canfd_probe(struct platform_devic=
-e *pdev)
->  	 */
->  	gpriv->can_clk =3D devm_clk_get(dev, "can_clk");
->  	if (IS_ERR(gpriv->can_clk) || (clk_get_rate(gpriv->can_clk) =3D=3D 0)) {
-            ^^^^^^^^^^^^^^^^^^^^^
-
-As sashiko.dev [1] pointed out here's no check for -EPROBE_DEFER.
-
-[1] https://lore.kernel.org/all/sashiko-outbox-173569@kernel.org/
-
-The netdev bot found more issues.
-pw-bot: cr
-
-regards,
-Marc
-
---- Patch [15]: [PATCH net-next 15/37] can: rcar_canfd: Allow the CAN FD cl=
-ock to be sourced from fck ---
-commit 4ef0042ccf34457229cdde398a008bebaab54e69
-Author: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-
-can: rcar_canfd: Allow the CAN FD clock to be sourced from fck
-
-This commit adds an fcan_pclk hardware info flag. With it set, the fCAN
-clock falls back to the peripheral clock (fck) when the external can_clk
-is unavailable, the rate is divided by info->postdiv and can_clk is set
-to NULL. All existing rcar_canfd_hw_info instances now set fcan_pclk =3D 0
-explicitly.
-
-Link: https://lore.kernel.org/all/1d9719e3-10ff-4cd8-b729-55fea93c37ce@wana=
-doo.fr
-Link: https://patch.msgid.link/20260902141544.565763-4-claudiu.beznea+renes=
-as@tuxon.dev
-
-> diff --git a/drivers/net/can/rcar/rcar_canfd.c b/drivers/net/can/rcar/rca=
-r_canfd.c
-> index b7c4fe3477ac..f9173774387f 100644
-> --- a/drivers/net/can/rcar/rcar_canfd.c
-> +++ b/drivers/net/can/rcar/rcar_canfd.c
-
-[ ... ]
-
-> @@ -2190,13 +2196,20 @@ static int rcar_canfd_probe(struct platform_devic=
-e *pdev)
->  	 */
->  	gpriv->can_clk =3D devm_clk_get(dev, "can_clk");
->  	if (IS_ERR(gpriv->can_clk) || (clk_get_rate(gpriv->can_clk) =3D=3D 0)) {
-> -		gpriv->can_clk =3D devm_clk_get(dev, "canfd");
-> -		if (IS_ERR(gpriv->can_clk))
-> -			return dev_err_probe(dev, PTR_ERR(gpriv->can_clk),
-> -					     "cannot get canfd clock\n");
-> +		if (info->fcan_pclk) {
-> +			fcan_freq =3D clk_get_rate(gpriv->clkp);
-> +			gpriv->can_clk =3D NULL;
-> +		} else {
-
-Discovered by: opus-5-5 =C2=B7 Missed by: gpt-6-astra, sashiko-gemini =C2=
-=B7 Confirmed by: gpt-6-astra
-Should the clock comments and the probe banner be updated for this new
-fck source? Several places still describe only the external and canfd
-clocks.
-
-The comment just above this block in rcar_canfd_probe() still says:
-
-	/* fCAN clock: Pick External clock. If not available fallback to
-	 * CANFD clock
-	 */
-
-With fcan_pclk set, the fallback is fck (gpriv->clkp), not the canfd
-clock.
-
-In struct rcar_canfd_global, the field comments also don't cover this
-case. Here can_clk is NULL and the fCAN source is clkp:
-
-	struct clk *can_clk;		/* fCAN clock */
-	...
-	bool extclk;			/* CANFD or Ext clock */
-
-The banner at the end of rcar_canfd_probe() wasn't changed either:
-
-	dev_info(dev, "global operational state (%s clk, %s mode)\n",
-		 gpriv->extclk ? "ext" : "canfd",
-
-On this path extclk stays false. Won't the banner then say "canfd clk"
-for a controller that has no canfd clock and runs from fck / postdiv?
-
-The later "can: rcar_canfd: Add support for Renesas RZ/G3S" patch sets
-=2Efcan_pclk =3D 1 in r9a08g045_hw_info. After that, an RZ/G3S board whose
-can_clk is missing or has a rate of 0 would print this label.
-
-Also, the new bitfield comment calls this clock pclk:
-
-	unsigned fcan_pclk:1;		/* Has fcan sourced from pclk. */
-
-The commit message and the code call it fck. Could the comment use the
-same name?
-
-[ ... ]
-
---
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---t4hrk6g2tdbfwvwo
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCatIpHgAKCRDMOmT6rpmt
-0gYWAQCwZCCXatLpvq2GXTrFVQyQcI4yInN6TKxsyZGdBvD3XwEAt/ypBmMiCjgd
-5slGEe1rcUdcjGJdBiChstBRzHUaEwg=
-=6nSw
------END PGP SIGNATURE-----
-
---t4hrk6g2tdbfwvwo--
+> 
+> Validation: Linux 7.2.4 plus the equivalent local DT overlay, physical
+> ---
+> Changes in v3:
+> - Add the Fixes tag for the commit that introduced the incorrect address.
+> - Link to v2: https://patch.msgid.link/20260914-dell7441-touchscreen-v2-1-7f7224c0cce5@est.una.ac.cr
+> 
+> Changes in v2:
+> - Drop the testing details from the commit message as requested.
+> - Link to v1: https://patch.msgid.link/20260914-dell7441-touchscreen-v1-1-d79540ca5e81@est.una.ac.cr
+> 
+> To: Bjorn Andersson <andersson@kernel.org>
+> To: Konrad Dybcio <konradybcio@kernel.org>
+> To: Rob Herring <robh@kernel.org>
+> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> To: Conor Dooley <conor+dt@kernel.org>
+> To: Laurentiu Tudor <laurentiu.tudor1@dell.com>
+> To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> To: Val Packett <val@packett.cool>
+> Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> ---
+>  arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts b/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts
+> index 75e10d97c..0cf5716cd 100644
+> --- a/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts
+> +++ b/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts
+> @@ -25,9 +25,10 @@ &gpu_zap_shader {
+>  };
+>  
+>  &i2c8 {
+> -	touchscreen@10 {
+> +	/* LXST2021 */
+> +	touchscreen@9 {
+>  		compatible = "hid-over-i2c";
+> -		reg = <0x10>;
+> +		reg = <0x09>;
+>  
+>  		hid-descr-addr = <0x1>;
+>  		interrupts-extended = <&tlmm 51 IRQ_TYPE_LEVEL_LOW>;
+> 
+> ---
+> base-commit: 704340f1cd0dcef829eb62f5b48ae95a2ce17bdf
+> change-id: 20260914-dell7441-touchscreen-6b6201348ab6
+> 
+> Best regards,
+> --  
+> Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
