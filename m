@@ -1,258 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2326F3C8C74;
-	Fri, 16 Oct 2026 21:52:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 568F136215F;
+	Fri, 16 Oct 2026 22:02:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792187548; cv=none; b=QyyHxOqpY1fJf5waALAb5ekQRFjKKZjmWNxxqeYjRIKRaraRpaq1e4/ZyXLuEVKgyZTUyKY1kmeZhbfMmBrHTc6eYwRr/FwsFq9VTh3bvFtU/1eSy98qpUjDbDRxWONyU2PBm+CeyjtcT9Nwa/D5BmJhP3lcP6qyZBIqdfYfW0M=
+	t=1792188131; cv=none; b=UfMZLtqrzq3gHC+N0+cjH9iszRmIhyjjeNIXHEi6ibDzu49aeQ7d2YeHWJN0VWIiQkxuud7m92PVn3iONU6Ak7S21sS+Bd7e6vTFbCssCzdWUoZu+27o/KuRFECCDlwrpIhAjbaiQ+hYnAaVrQoGz/yc+E2tWuHESTTW25Haiks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792187548; c=relaxed/simple;
-	bh=/X3zmd/w1MxITRY95sziVrw8/iiMEHN/vWnCVXAZW7s=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=VL9rFtUXd2wLNyYa7FGRcEjyY/a+di7o9wxwJxIGiSeHBqm3lUmvKbHJy4BgpvZgu777YeQv+l2bvif98wBu89LzsfCOAFO70m1HFAzbVfOEF2ZMmYGPisVWS5qBJdl2n/+zZLpmizPe2pCAooOVXVs6HXp1ERXf3twa2cB4AIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C+DCkd1k; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792188131; c=relaxed/simple;
+	bh=VI5dCAsatWzoRzLT1eMR8XekoLKZftli9MyIrQXdlss=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bgofnrLV47Sxb0t991yGjB5gkMXan9pmzAuwukuxTyHzT/sfQ15MhvAlM6cycTuXuDN5LsEkKa/qhUTSFk49wBP1s8Er6+BJa2viPzqjnkvWuGJMFyE1t3lXpu82Tu8qp8grTVyRNurapTzBqDJB1v4y8qHbP0w9Gj83bc/j6zY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=AME6LfYr; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C+DCkd1k"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D36B7C2BCFA;
-	Fri, 16 Oct 2026 21:52:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792187547;
-	bh=/X3zmd/w1MxITRY95sziVrw8/iiMEHN/vWnCVXAZW7s=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=C+DCkd1kyesT45QauOaLVNmIiuXFvdvMbxIYGmyoZf45bjH2TTfFxfM2dgY3mkjTt
-	 AHI93JB1kjvYILDQCL+YyOlmRQ73gakxtpdA9nUWk4HhfVOFRV3eZDEHR8tl2FkBid
-	 9MBM5ZRS4xHNwYuWZsBAMPaKTNk/oYLbE7tXBhuFZrxz5Lo1Hv25VGvfPkcMFmUz+p
-	 IQ07cE9XuVFKEcMrIMAhRBYK1PycI9Rn1k1KxjbHTUgx5fPCK7ZYTvG93IpL6ukgiM
-	 6NnGTqw3R0Fi1U/CW1Y4WbOAk+ke0UN0JfoGoiltoXshMEk6+vQ9QM/ZOttoRh3qnz
-	 0tZ5AHN5f+QPg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B47F7CCF2C4;
-	Fri, 16 Oct 2026 21:52:27 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Fri, 16 Oct 2026 23:52:21 +0200
-Subject: [PATCH v6 2/2] arm64: dts: qcom: sdm845-google: Add WCD9340 codec
- and microphone capture
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="AME6LfYr"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DEC0D106052;
+	Sat, 17 Oct 2026 00:01:57 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1792188123;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=bWnUf4jwakYkYIidTWKbDn//BfJM3tm/DiHDz5Kf5tg=;
+	b=AME6LfYri7zVQmP6TAydlVYRrZ8Fux7U5wGhInUacI/fYgIQkQwhL4qjmB4slW1ROXVMxQ
+	q2uhH5shCEljmEXA0hduc2d0rdAjPwxHbDTYM2Bictwfljrg+dU8ZiG2nwLmsCrbDSAfik
+	/jao6qBl8BXVlucf7hB1ITdIGz3T36fIp+LadazCVG9BDG0LvV2lAgJytCkMZQbLWmF1NB
+	ZdV0QrtGU0DvABR6gIi/tXgrCcoVas9EE15gZ8DktP5dN9frhtdSu08ZbLC9Bu2ayxEEx+
+	Gw/2m1d7xzLrK/n9Gq+ICLqCSPl/1ctHZz3rd2UIbj03umdr2PC7h42GEW1ShQ==
+Message-ID: <e7095176-44b8-4838-8443-2e515d34cb25@nabladev.com>
+Date: Sat, 17 Oct 2026 00:01:55 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] dt-bindings: spi: Add separate binding for
+ dh,dhcom-board
+To: Frank.Li@oss.nxp.com,
+ Christoph Niedermaier <cniedermaier@dh-electronics.com>
+Cc: imx@lists.linux.dev, Guenter Roeck <linux@roeck-us.net>,
+ Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+ Frank Li <Frank.Li@nxp.com>, Ashish Yadav <ashish.yadav@infineon.com>,
+ Colin Huang <u8813345@gmail.com>, Sanman Pradhan <psanman@juniper.net>,
+ Thorsten Blum <blum@kernel.org>, Troy Mitchell <troy.mitchell@linux.dev>,
+ Eddie James <eajames@linux.ibm.com>,
+ Rodrigo Gobbi <rodrigo.gobbi.7@gmail.com>,
+ "open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+ "open list:DH ELECTRONICS DHSOM SOM AND BOARD SUPPORT"
+ <kernel@dh-electronics.com>, open list <linux-kernel@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+References: <20261016205718.877668-1-Frank.Li@oss.nxp.com>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <20261016205718.877668-1-Frank.Li@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-pixel3-audio-v6-2-11c88448b3be@ixit.cz>
-References: <20261016-pixel3-audio-v6-0-11c88448b3be@ixit.cz>
-In-Reply-To: <20261016-pixel3-audio-v6-0-11c88448b3be@ixit.cz>
-To: Srinivas Kandagatla <srini@kernel.org>, 
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- David Rhodes <david.rhodes@cirrus.com>, 
- Richard Fitzgerald <rf@opensource.cirrus.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- David Rhodes <drhodes@opensource.cirrus.com>, 
- Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>, 
- linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com, 
- devicetree@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4188; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=fI7A/5RiukFa0xOXY64dBcvV3k0LObsxRG+TKhW69sM=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq0pya7mNGQmYwuz/Ftu263gZOuTcutmceIt0y7
- Ca5c92tywCJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCatKcmgAKCRBgAj/E00kg
- cjH9EACyuB2RE1aXYBfMTr3qEF7BRp2E8mJ5GB0LswS0VRMqlkgCwEn7wvAVgrzZkSPgOgEJw9S
- v5AnBQva/ezC0qGMkuOdcypNfLWmxtcOOs5o7LVOEEtRDAwO7bY3znJT7E5iSAzEv0F0XT87shC
- h02GjlhCMwV/DrKU16ofUoEieGYH+PwpYRyRpwvk97QdsJ720z7TjNU5dp0X4z8HYqdnXQKWPh+
- WIsZ1LDbo90Iz6jMJqnJ4Ek4BNPl7Wy1GyYttfHObWRgebnxrxolz6WdeAd2CiWQ/m7J408QoPl
- PyJBFdZpLd34N48VU+8zT46ojiFTvDKpUkLFjGqmpjhwuZiHd71BvkT8SXHv0H5gUWyXFATN8SN
- 4rno7o2XeHH1sTXC7J6k3atSbyyxahJlH/5i5T7s2c4zXtwf8DApOrL6Oss5gBdgb170mNQa4Gl
- hX4hkw8MKOFUsJmSuN8cBwRjjEyvxyvBGE79fhCgQ7boj7RVfza7sdO8tppyoorMzvJCMER2rP/
- ZMnmowkN9mo531ozlEoMOUkhQWfbfMkadQWLkKaSAR+UF9hHiMd7T/1t8wiYnm2DyghNyxEbLXE
- cMLV8DVkhmD6nMc4VL8peVNvUb2YaTtd84O1kYXGDMofvHifrDHp2XsfytyNbGdXz+aDkV8xApt
- L/lcU9VGSj2kIpQ==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: David Heidelberg <david@ixit.cz>
+On 10/16/26 10:57 PM, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
+> 
+> The dh,dhcom-board SPI device uses spi-cpha and spi-cpol properties,
+> which are not permitted by the trivial-devices schema. Move it to a
+> dedicated binding file that references spi-peripheral-props.yaml and
+> explicitly allows those SPI mode properties.
+> 
+> Fixes below CHECK_DTBS warnings:
+>    arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dtb: spidev@0 (dh,dhcom-board): 'spi-cpha', 'spi-cpol' do not match any of the regexes: '^pinctrl-[0-9]+$'
+>          from schema $id: http://devicetree.org/schemas/trivial-devices.yaml
 
-The Pixel 3 sound card so far only drove the two CS35L36 speaker
-amplifiers. Wire in the WCD9340 codec , add a SLIMbus capture link
-for it and route the three digital microphones
+How come this did not trigger until now ?
 
-Based on work done by Casey Tunturi.
+> Assisted-by: LLM
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> ---
+>   .../bindings/spi/dh,dhcom-board.yaml          | 46 +++++++++++++++++++
+>   .../devicetree/bindings/trivial-devices.yaml  |  2 -
+>   2 files changed, 46 insertions(+), 2 deletions(-)
+>   create mode 100644 Documentation/devicetree/bindings/spi/dh,dhcom-board.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/spi/dh,dhcom-board.yaml b/Documentation/devicetree/bindings/spi/dh,dhcom-board.yaml
+> new file mode 100644
+> index 0000000000000..ed213cbe9b04c
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/spi/dh,dhcom-board.yaml
+> @@ -0,0 +1,46 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/spi/dh,dhcom-board.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: DH electronics GmbH on-board CPLD trivial SPI device
 
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi | 58 ++++++++++++++++++++++
- 1 file changed, 58 insertions(+)
+This does not look quite right, since compatible this is used only on:
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-index 68d26c1a06d0c..8e303a91bfaa2 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-@@ -4,18 +4,20 @@
- 
- #include <dt-bindings/arm/qcom,ids.h>
- #include <dt-bindings/dma/qcom-gpi.h>
- #include <dt-bindings/input/linux-event-codes.h>
- #include <dt-bindings/interrupt-controller/irq.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
- #include <dt-bindings/sound/qcom,q6afe.h>
- #include <dt-bindings/sound/qcom,q6asm.h>
-+#include <dt-bindings/sound/qcom,wcd934x.h>
- 
- #include "sdm845.dtsi"
-+#include "sdm845-wcd9340.dtsi"
- #include "pm8998.dtsi"
- #include "pmi8998.dtsi"
- 
- /delete-node/ &mpss_region;
- /delete-node/ &venus_mem;
- /delete-node/ &cdsp_mem;
- /delete-node/ &mba_region;
- /delete-node/ &slpi_mem;
-@@ -512,16 +514,20 @@ dai@72 {
- 		qcom,tdm-data-align = <0>;
- 	};
- };
- 
- &q6asmdai {
- 	dai@0 {
- 		reg = <MSM_FRONTEND_DAI_MULTIMEDIA1>;
- 	};
-+
-+	dai@1 {
-+		reg = <MSM_FRONTEND_DAI_MULTIMEDIA2>;
-+	};
- };
- 
- &qupv3_id_0 {
- 	status = "okay";
- };
- 
- &qupv3_id_1 {
- 	status = "okay";
-@@ -539,40 +545,81 @@ &qup_uart9_tx {
- 
- &sound {
- 	compatible = "qcom,sdm845-sndcard";
- 	model = "Pixel 3";
- 	pinctrl-0 = <&quat_mi2s_active>, <&quat_mi2s_sd0_active>,
- 		    <&quat_mi2s_sd1_active>;
- 	pinctrl-names = "default";
- 
-+	audio-routing = "DMIC0", "MCLK", /* Top mic */
-+			"DMIC0", "MIC BIAS1",
-+			"DMIC3", "MCLK", /* Top-edge mic */
-+			"DMIC3", "MIC BIAS3",
-+			"DMIC4", "MCLK", /* Bottom mic */
-+			"DMIC4", "MIC BIAS4";
-+
- 	/* mm[0-9]-dai-link nodes must be positioned first regardless of sorting */
- 	mm1-dai-link {
- 		link-name = "MultiMedia1";
- 
- 		cpu {
- 			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA1>;
- 		};
- 	};
- 
-+	mm2-dai-link {
-+		link-name = "MultiMedia2";
-+
-+		cpu {
-+			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA2>;
-+		};
-+	};
-+
- 	cs35l36-dai-link {
- 		link-name = "Speaker Playback";
- 
- 		codec {
- 			sound-dai = <&cs35l36_bottom>, <&cs35l36_top>;
- 		};
- 
- 		cpu {
- 			sound-dai = <&q6afedai QUATERNARY_TDM_RX_0>;
- 		};
- 
- 		platform {
- 			sound-dai = <&q6routing>;
- 		};
- 	};
-+
-+	slimcap-dai-link {
-+		link-name = "SLIM Capture 1";
-+
-+		codec {
-+			sound-dai = <&wcd9340 AIF1_CAP>;
-+		};
-+
-+		cpu {
-+			sound-dai = <&q6afedai SLIMBUS_0_TX>;
-+		};
-+
-+		platform {
-+			sound-dai = <&q6routing>;
-+		};
-+	};
-+};
-+
-+&swm {
-+	/*
-+	 * Nothing hangs off the codec's SoundWire bus on this board: the
-+	 * speakers are CS35L36 amplifiers on QUAT_TDM. With an empty bus the
-+	 * controller reports port mismatches and frame-generator timeouts on
-+	 * every boot.
-+	 */
-+	status = "disabled";
- };
- 
- &tlmm {
- 	gpio-reserved-ranges = < 0 4>, /* SPI (Intel MNH Pixel Visual Core) */
- 			       <81 4>; /* SPI (most likely Fingerprint Cards FPC1075) */
- 
- 	nfc_default: nfc-default-state {
- 		enable-pins {
-@@ -718,16 +765,27 @@ &usb_1_qmpphy {
- };
- 
- &venus {
- 	firmware-name = "qcom/sdm845/Google/blueline/venus.mbn";
- 
- 	status = "okay";
- };
- 
-+&wcd9340 {
-+	/* PM8998 LN_BB_CLK2 feeds the Pixel Visual Core on this board */
-+	clocks = <&rpmhcc RPMH_LN_BB_CLK3>;
-+	reset-gpios = <&tlmm 64 GPIO_ACTIVE_HIGH>;
-+	vdd-buck-supply = <&vreg_s4a_1p8>;
-+	vdd-buck-sido-supply = <&vreg_s4a_1p8>;
-+	vdd-tx-supply = <&vreg_s4a_1p8>;
-+	vdd-rx-supply = <&vreg_s4a_1p8>;
-+	vdd-io-supply = <&vreg_s4a_1p8>;
-+};
-+
- &wifi {
- 	vdd-0.8-cx-mx-supply = <&vreg_l5a_0p8>;
- 	vdd-1.8-xo-supply = <&vreg_pmu_xo>;
- 	vdd-1.3-rfa-supply = <&vreg_pmu_rf>;
- 	vdd-3.3-ch0-supply = <&vreg_pmu_ch0>;
- 
- 	qcom,snoc-host-cap-8bit-quirk;
- 
+arch/arm/boot/dts/imx6ull-dhcor-maveo-box.dts
 
--- 
-2.55.0
+        model = "DH electronics i.MX6ULL DHCOR on maveo box";
+        compatible = "marantec,imx6ull-dhcor-maveo-box", 
+"dh,imx6ull-dhcor-som",
 
+So the whole
 
+        spidev@0 {
+                compatible = "dh,dhcom-board";
+                reg = <0>;
+                spi-cpha;
+                spi-cpol;
+                spi-max-frequency = <54000000>;
+        };
+
+Should probably use a different compatible.
+
+Christoph, what device is this on this board ?
+
+(and this change should only be applied with RB from Christoph, I do not 
+have the hardware so I cannot tell what it really is)
+
+> +maintainers:
+> +  - Marek Vasut <marex@denx.de>
+
+@nabladev.com
+
+> +  - Frank Li <Frank.Li@nxp.com>
+> +
+> +allOf:
+> +  - $ref: spi-peripheral-props.yaml
+> +
+> +properties:
+> +  compatible:
+> +    const: dh,dhcom-board
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  spi-cpha: true
+> +
+> +  spi-cpol: true
+
+Wouldn't it make more sense to allow those properties for trivial SPI 
+devices in general ?
+
+[...]
