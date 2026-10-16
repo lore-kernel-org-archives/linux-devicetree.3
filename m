@@ -1,53 +1,58 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B72734F30C1;
-	Fri, 16 Oct 2026 15:39:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC9374FDE7B;
+	Fri, 16 Oct 2026 15:40:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792165178; cv=none; b=sdVqYVQZbRmBEo6yIAgDUzR3k7n5iaxAIIG4Y+fsm93S8WGtjHJ/o21yuJ5Hdih5HEdA0pE7RDa9bIGpc7evDIZuaYX3anzsVWAX5cLNZXrEGIY9yMVhhAsZ2mMQEr8ihDYjCU1/J+umUwspZps0lBTdY5DmhaGkUCW3FJbDiFE=
+	t=1792165253; cv=none; b=tDsQ+IKf9xTiE5EW6LhDp0gd6v4WVnI951BeVFM9cWj5ppOkqY9HLVEWP/3PLYGx3JwudqAyhxu00qjsgzFjFDWVeNoHESP4Jn6SsmxzSFoDLN2FPmHQyvNBMvOTFnKqY2O4cqBCqKt7GBedqSO1/inalrqjSlgkLWTqa/Estv8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792165178; c=relaxed/simple;
-	bh=DBTfS6GgR2JOYsHytsKaQbGgGzHwHCX9MxhZZB5k5lc=;
+	s=arc-20240116; t=1792165253; c=relaxed/simple;
+	bh=PWKkcdsBBgYQxSU2/GWGHlKuFkpH4PAl87IVc32ausk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s7i94Y0JKTOj7Dfz333bsO0LjmVKEA3IMpVQ02DsV5yt0HDevCN87bfP0OXg1Zw33/ShZZ7p1jC7YZpNQZ4KAfyO7EkgkpJgX7wRE//ZXS+zq1GoFPAz+SJ4qTgLE90cSc8uyDPpUhAIXG9fCT6yr6zQpxe1r5mLrNwT0i5UrFU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Leed4Rhk; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=BZHJmcQH3uVe+vltRAKPfl7HHjmCn7nmKIB9rHgsQM6wZ9GFfkyRD4R2EEM/IKBQtjleZsp5kW1mtAqNGnYaCOoxsYi0XwSR/44jmnENLFbfgFHugHfPr6/XuN4wGRHYHspNIftKTGqBHMVsWjvMnLRHeglUs4PtYJz9T4Gkk9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=nW8dNfcx; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Leed4Rhk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64A8B1F000C4;
-	Fri, 16 Oct 2026 15:39:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792165177;
-	bh=DBTfS6GgR2JOYsHytsKaQbGgGzHwHCX9MxhZZB5k5lc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Leed4Rhk7k2sKjAKraXvVR2AHx73ZkQKT52DNG2kxy7LKkl68vAktU1dAi3yItTJI
-	 nh+mxSI0hiyrHn5YR3NMO3AmDTZRR8WIj6L2ceB6gmopVRSazoYCrwk9+g96tbsG90
-	 cttM+49YqQFKB4VFyFMTmRrFpTkJ4eD06UiNx9zuh9mj+OimuTM1vf5i5QRdRFC5vF
-	 9plv/4zCUAdQCfWMLsaCCIvNYU/YIzDMYN35PI0q2Mchkp8vqGlTElXYn6L2ECfpvH
-	 v9hmaUtaK040LzUFnMIqN1uX86al6pMC38+Ku7inB85rgJnMhCjsBlcSk/adIQp9ot
-	 OrltrQJ3x2MaA==
-Date: Fri, 16 Oct 2026 16:39:28 +0100
-From: Daniel Thompson <danielt@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
-	Helge Deller <deller@gmx.de>, Kiran Gunda <quic_kgunda@quicinc.com>,
-	Subbaraman Narayanamurthy <quic_subbaram@quicinc.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="nW8dNfcx"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=zV1tkuQVhB7asiK+J7N184oVAmpF7qz9rFGuGv/mKyw=; b=nW8dNfcxTDYiFECGGfWoIX/Ku7
+	sNm/7PDt5sXWvnWyXzhpOQ2gJNbHyuDrk9MvdSwog/lwmUtPRdYxf/cY8s5vrupvCYCd5nLhfXZkc
+	T+HCLAIsl4EYA1mG6U13D3Fg74Ln3knSk4rATAMC7bC7iRz98pywJkmpdcpg8OX3tMa0=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xHk2y-00BArn-3k; Fri, 16 Oct 2026 17:40:40 +0200
+Date: Fri, 16 Oct 2026 17:40:40 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Dmitry Baryshkov <lumag@kernel.org>, linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	mfd@lists.linux.dev
-Subject: Re: [PATCH 2/9] backlight: qcom-wled: fix string detection
- brightness on WLED5
-Message-ID: <atJFMBqrF5uzmMWM@aspen.lan>
-References: <20261015-sm8150-display-card-v1-0-5c14928cef29@oss.qualcomm.com>
- <20261015-sm8150-display-card-v1-2-5c14928cef29@oss.qualcomm.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Biao Huang <biao.huang@mediatek.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Eric Dumazet <edumazet@kernel.org>, kernel@collabora.com,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [PATCH net-next v3 2/9] dt-bindings: net: mediatek-dwmac: add
+ support for MT8189 SoC
+Message-ID: <b4950f82-0163-4482-9799-a5e3c6eb5964@lunn.ch>
+References: <20261016-dwmac-mediatek-mt8189-v3-0-25daf2bbcf35@collabora.com>
+ <20261016-dwmac-mediatek-mt8189-v3-2-25daf2bbcf35@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -56,20 +61,42 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261015-sm8150-display-card-v1-2-5c14928cef29@oss.qualcomm.com>
+In-Reply-To: <20261016-dwmac-mediatek-mt8189-v3-2-25daf2bbcf35@collabora.com>
 
-On Thu, Oct 15, 2026 at 11:58:39AM +0300, Dmitry Baryshkov wrote:
-> The string detection sets the test brightness through
-> wled4_set_brightness(). On WLED5 that writes to unrelated registers and
-> the detection runs with whatever brightness has been programmed before.
->
-> Use the per-version callback and latch the new value on WLED5.
->
-> Fixes: 62a1d3f623ac ("backlight: qcom-wled: Add support for WLED5 peripheral that is present on PM8150L PMICs")
-> Assisted-by: LLM
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Finally, update "mediatek,rx-delay-ps" and "mediatek,tx-delay-ps" property
+> description to add MT8189 RX/TX delay stage divider values, as they
+> differ from existing supported SoC.
 
-Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>
+These should be mark deprecated and the standard rx-internal-delay-ps
+and tx-internal-delay-ps used in there place for new devices.
 
+> @@ -86,8 +85,10 @@ properties:
+>        or will round down. Range 0~31*170.
+>        For MT2712 RMII/MII interface, Allowed value need to be a multiple of 550,
+>        or will round down. Range 0~31*550.
+> -      For MT8188/MT8195 RGMII/RMII/MII interface, Allowed value need to be a multiple of 290,
+> -      or will round down. Range 0~31*290.
+> +      For MT8188/MT8195 RGMII/RMII/MII interface, Allowed value need to be a
+> +      multiple of 290, or will round down. Range 0~31*290.
+> +      For MT8189 RGMII/RMII/MII interface, Allowed value need to
+> +      be a multiple of 180, or will round down. Range 0~31*180.
 
-Daniel.
+Please make this:
+
+For MT8189 RGMII/RMII/MII interface, this property is not used, the
+standard tx-internal-delay-ps should be used instead.
+
+> @@ -96,8 +97,10 @@ properties:
+>        or will round down. Range 0~31*170.
+>        For MT2712 RMII/MII interface, Allowed value need to be a multiple of 550,
+>        or will round down. Range 0~31*550.
+> -      For MT8188/MT8195 RGMII/RMII/MII interface, Allowed value need to be a multiple
+> -      of 290, or will round down. Range 0~31*290.
+> +      For MT8188/MT8195 RGMII/RMII/MII interface, Allowed value need to be a
+> +      multiple of 290, or will round down. Range 0~31*290.
+> +      For MT8189 RGMII/RMII/MII interface, Allowed value need to
+> +      be a multiple of 180, or will round down. Range 0~31*180.
+
+Same here.
+
+     Andrew
