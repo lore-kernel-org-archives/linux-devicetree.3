@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F51531F9A0
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 14:00:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9AA2360EFA
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 14:01:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792159238; cv=none; b=lPRbKzdpEAX0fBZG5DaXS0m+X4DsPoRLEC+VgEpEhGa55l7QA9NEaLybdbOefB7Dd7//LR45GnNeqAK7FN2wQ+otQrKEbnr1GpN2B4WzaZf3KdNMXRb2iJnnsfSdxpJv9veSF5i+35pt5gRs2BrBmj0PFTP2DVWIXznnKixiuMI=
+	t=1792159268; cv=none; b=UX+nzt/xE225CjqrADEVk6tQAyaPuO9f9oYGimTTGpx9zfcTtm/IQrmKs5uezigwAB6dv83Zy1JfdUOQZ5hQcktAJ6Ap9tlCPTbZG96ZbrKB3atRxZrhHtgkFjNKWctq3vXNIrEGW11mWanEyL5ApB/iBrgN0qhtjAHr0IhXFtY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792159238; c=relaxed/simple;
-	bh=Pv+4LsWwi/GL8cuiFB8ambtf0u32uMufTS2fyRsF5Mw=;
+	s=arc-20240116; t=1792159268; c=relaxed/simple;
+	bh=XDclAkInY1oSe9aX905yYQ4F5N3bmEraIwZJ5rU9EtQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RVOuyl/WeDuTPAXCa5zcbJE5kTGpYGhykQWoftSF6Sr1KFOS+hmY65t6ilz+UFfCU1vt6rk7/2+nRHRDYNQtibVDz/NGgxzfKBTDwhA0vK9THQejYr8AS3bD80cO9amLQYOdDBkLn+k31oWrxYlNv/9nIQzCyooGPdkR8Uv18DA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gKVswL7g; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=ilxw8rb+7zHuATvCTgCO2gDb0w3BhJBoHqBsW6W18NX2cPv4vew17B+GrOJUZnO3lYEMw42sED65oNkLg5cGYHd5RxX0deWotaKlj2X02jhUuhjhMcv6DkuXnkOv+cwoL/rl4k/eNYHEfkhKZCHKZkS5t3UCI7aZGjGuxUcwIO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZIEVHXpU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gKVswL7g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 165821F000C5;
-	Fri, 16 Oct 2026 14:00:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZIEVHXpU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5D011F000C4;
+	Fri, 16 Oct 2026 14:01:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792159237;
-	bh=99panwqtff1qipNpiTkmFuZABnrrWoB6PQ6JmxiG6OM=;
+	s=k20260515; t=1792159267;
+	bh=iMoA37VfYfgjy0OKDKx6ttg+8OaSl2YMWOYrw4kMjWU=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=gKVswL7g7BW9sIVtPdjRFvUZ25zHCrrOECBue3+2/aWlA2P7nWpoKrq/6/nJjpJJ+
-	 55l/XrCBzTv6paQut123x1O32GImHjI8Kf5CEw+z/IB6jB2eudD+QEbkBbRX8H2J37
-	 wOuKGvAFhcWt2WB6uulRbUGVc+jj7eJycKql8ML827oZ/Ot0vz+yKgRGIrlIXGfICA
-	 M5qgXol1VUNwZPKBoeNHmgP7+uqWwLc/0w0ybxi0/KxfhIGxsutx6bav625Bwxryu7
-	 K8TF3PtSgh397fDlZwl+vBakcaMRmrVg2z5g3aJGEmrUBberHs1DD14GybnUNaaN8d
-	 lW2Zt1vXOdaOw==
-Message-ID: <ef373b76-de10-4361-9d55-29f730f7442b@kernel.org>
-Date: Fri, 16 Oct 2026 16:00:32 +0200
+	b=ZIEVHXpUFD1dJmMQqgIVy30dLS4iPkATSnoToE6WmEmWInCv+R6tAaohKwKK4lY5U
+	 4B+PK6Ra/pvqIvgs0OTNq6JFLceUNkgFRnYicQBohx7fGqIql1JyuUHw/u6+SO4UyI
+	 HYvjio5+/P3lrJ1v/FldgKe6Ek5/JBmAkCojRiO6G/7RSrqN32ZzCN8MP/i0cbMkQ5
+	 lzdONyCziBWBIomBKUJoBGqol+VWVLqMEJyRI2UCnIVYekO7PiruzrIWAD0ib6ldOl
+	 QHnTsEBtb9Nit52xU6YcEeAD0Ki5H5HVpLzwrqD1m2f4p3zQ44VA2SlBUNFpAHGnWi
+	 qSTXYC58JFGdg==
+Message-ID: <4934162e-96da-4291-b94a-9c58f6bb9b5d@kernel.org>
+Date: Fri, 16 Oct 2026 16:01:04 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,12 +35,13 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv2 1/2] dt-bindings: arm: altera: document the Agilex27
+Subject: Re: [PATCHv2 2/2] arm64: dts: altera: Add support for the Agilex27
  platform
 To: Dinh Nguyen <dinguyen@kernel.org>, robh@kernel.org, krzk+dt@kernel.org,
  conor+dt@kernel.org
 Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 References: <20261015123700.2137706-1-dinguyen@kernel.org>
+ <20261015123700.2137706-2-dinguyen@kernel.org>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -86,28 +87,27 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261015123700.2137706-1-dinguyen@kernel.org>
+In-Reply-To: <20261015123700.2137706-2-dinguyen@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15/10/2026 14:36, Dinh Nguyen wrote:
-> The Altera SoCFGPA Agilex72 platform will be rebranded as the Agilex27.
-> 
-> Add the "altr,socfpga-agilex27" and "altr,socfpga-agilex27-socdk" bindings
-> for the SoCFPGA Agilex27 platform.
+On 15/10/2026 14:37, Dinh Nguyen wrote:
+> The Agilex72 platform is being rebranded to Agilex27. The Agilex27 is
+> exactly the same as the Agilex72. Add the base DTSI and the devkit's
+> DTS.
 > 
 > Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
 > ---
-> v2: do not deprecate the agilex72 platform
+> v2: leave the agilex72 files
 > ---
+>  arch/arm64/boot/dts/altera/Makefile           |   1 +
+>  .../boot/dts/altera/socfpga_agilex27.dtsi     | 156 ++++++++++++++++++
+>  .../dts/altera/socfpga_agilex27_socdk.dts     |  27 +++
+>  3 files changed, 184 insertions(+)
 
-Again, no. Your rebranding does not matter. We do not add compatibles
-for the same device. We do not rename them. We do not deprecate them
-because you want to rebrand something.
 
-Whatever marketing company does, it does not matter for the compatibles.
-
-NAK
+This makes no sense, you have now two SAME boards. We do not do such
+dances in Linux kernel.
 
 Best regards,
 Krzysztof
