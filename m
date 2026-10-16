@@ -1,240 +1,201 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 273A0447237;
-	Fri, 16 Oct 2026 22:53:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F254044BC97;
+	Fri, 16 Oct 2026 23:02:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792191215; cv=none; b=WTM6D3LEpu1mv7UjuTN6Vup5Y6Z9Aj7xMKLCWRS626upr8mobJoA7TXa55cA5yQ7Zy4upGwwXYM3ZICuhQB2J0srl1ik9bJxoFhXG7dcZo7U5Go0C3xcPDqbjVRyB9rHoQsAIcQ0qqLe2eXPCdx5I9RZEWvVyTcMFwzSh6Uo+w8=
+	t=1792191763; cv=none; b=ph30J4uJMFYcypVpFCBP5DD1RJMshprU7npTvN4FW+lhYCyDckVYEUa9yG7qxcstK5Fh++YOP2mh5xDezuiRjSPplnmUWj3XcyzFF/APrHbN1EHXsgje8JqA3HibL9um5KV4Li1AnyRNyxa7/hpfAR+kNVriiYYiQMAm5rmbw38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792191215; c=relaxed/simple;
-	bh=kTCOyC90Fc+7kC4idCpQyG9qIO9yKRRfXJewhV16uN0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dO7jMg0EVRKtR29yNf6X4hiqT9lgD//JTm/41CApUG/IIEzJ6gGDO5nBxeZ1qCVqf9gBIi4E/hop2i35EDGAjGsw09oj0tNwD8ASzW7BHgFuLphFbV+trIbyCcpMmRJmbxbEYynLxfGhYlgkXId6RBN/pKYPOJr3iYAkPULE+E4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dq/aFsK9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792191763; c=relaxed/simple;
+	bh=n3ty2ZyvDzwgUhYeZDEYtUwS66NH+nc/7eGrAnKN6Oo=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WrTKyFlRJ6p5AXFN8++jGpJ2ymvdmPeqAxAO6bIAGQQUFYZBarDWYn7XuOut28Cpjkew0BYyu0Q3u977zCFrAnOtCvWmJqoTZ04jV6m+I767Ezsi9jgJBS+jmjXK59oKFzjkIxNo7Mq5VXC2dmyzZ6eJowhLv2wlzA4ecWksWjw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JkhsbZVd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dq/aFsK9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 911C91F000C4;
-	Fri, 16 Oct 2026 22:53:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JkhsbZVd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08A271F000C4;
+	Fri, 16 Oct 2026 23:02:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792191213;
-	bh=N1MYrDjXbE41ZMcf/y17zpem1qYEaBPUcFdCKtBTz10=;
-	h=From:To:Cc:Subject:Date;
-	b=Dq/aFsK9bMgGyRiQ/NRIQqYr8ifsHxF+LyLXrL2Rpj16A1oksUnN/ssJdol+vLXYY
-	 /OcM5D7UslgQyBFsAZ2q8b+MKbSrStHlTKPSWYsacqpB5Tp8pjkEpuPSPC/tKuZaXk
-	 IsIJX9yt92zzBneHLG7M3QVr0GYCFT845nbu9HrdQxeqkS1ERQsrAUm/69ReuhBcJU
-	 5wJ6Ikx2negXABjZhFlhRop0odKM75k2ucV+Cw7Zj4WsMeoQa8JnWB3AX8OrmhAzen
-	 0qd7SWPYL1WIvIv6//9tO/JRGhP8Z+s5+44xbCYrqXAmyNGIwWXdB0tMD0a5RF7xF+
-	 4GWwIsCOWaF2w==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Xinliang Liu <xinliang.liu@linaro.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Yongqin Liu <yongqin.liu@linaro.org>,
-	John Stultz <jstultz@google.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Xinliang Liu <z.liuxinliang@hisilicon.com>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] dt-bindings: display: Convert hisilicon,hi6220-ade to DT schema
-Date: Fri, 16 Oct 2026 17:53:29 -0500
-Message-ID: <20261016225330.1609022-1-robh@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	s=k20260515; t=1792191761;
+	bh=gDPFJsipEFwmkLMvZylTLQTQ9ctAuVaoBrxo7YA/QQI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=JkhsbZVdvnNuIM7WsGZ0/7PEHhrq+DG1SJQiCJizHg/uQz9g5JYHV8M9lIGHU15N9
+	 XYW0hdXgiTJyiCxrgrw4ZCjTFOZB+GtYgFgUUwFhRi5m0rMaPBbi8Dz35opMMVZ5lI
+	 wdbB0XZXpOcL2WDxHBFKFcstuqd7wNRfjnqpC94PsZztqCDkz64RsQVRoq47cyGjK3
+	 GJqb30hhGnnAb+q4rBPlS6JLxAy36Dmf47cZ05F5lEHTWI6KGic7Hn8pPqm5ZV6qv+
+	 4OlO1LDsVhZAxTaKUUIXEHDsk5RpZnhMOQNzU+I5nMqgjqLloJHOoIGXdSuml9PiVn
+	 mEC8ywo+Lv2ng==
+Date: Sat, 17 Oct 2026 00:02:33 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Bruce Tsao via B4 Relay <devnull+bruce.tsao.analog.com@kernel.org>
+Cc: bruce.tsao@analog.com, linux-iio@vger.kernel.org, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: iio: dac: Document Analog Devices
+ AD5413 single-channel DAC
+Message-ID: <20261017000233.4f929ce7@jic23-hlaptop>
+In-Reply-To: <20261017-ad5413-upstream-v1-1-61f40c8fef25@analog.com>
+References: <20261017-ad5413-upstream-v1-0-61f40c8fef25@analog.com>
+	<20261017-ad5413-upstream-v1-1-61f40c8fef25@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Convert the hisilicon,hi6220-ade binding to DT schema format. Drop the
-assigned-clocks as those are implicit and should never be required.
+On Sat, 17 Oct 2026 03:23:53 +0800
+Bruce Tsao via B4 Relay <devnull+bruce.tsao.analog.com@kernel.org> wrote:
 
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
----
- .../bindings/display/hisilicon/hisi-ade.txt   | 64 -------------
- .../hisilicon/hisilicon,hi6220-ade.yaml       | 95 +++++++++++++++++++
- 2 files changed, 95 insertions(+), 64 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/display/hisilicon/hisi-ade.txt
- create mode 100644 Documentation/devicetree/bindings/display/hisilicon/hisilicon,hi6220-ade.yaml
+> From: Bruce Tsao <bruce.tsao@analog.com>
+>=20
+> Document the devicetree bindings for the Analog Devices AD5413, a
+> single-channel precision DAC controlled via SPI. The device supports
+> voltage or current output modes and programmable slew-rate control.
+>=20
+> Signed-off-by: Bruce Tsao <bruce.tsao@analog.com>
+Hi Bruce,
 
-diff --git a/Documentation/devicetree/bindings/display/hisilicon/hisi-ade.txt b/Documentation/devicetree/bindings/display/hisilicon/hisi-ade.txt
-deleted file mode 100644
-index 305a0e72a900..000000000000
---- a/Documentation/devicetree/bindings/display/hisilicon/hisi-ade.txt
-+++ /dev/null
-@@ -1,64 +0,0 @@
--Device-Tree bindings for hisilicon ADE display controller driver
--
--ADE (Advanced Display Engine) is the display controller which grab image
--data from memory, do composition, do post image processing, generate RGB
--timing stream and transfer to DSI.
--
--Required properties:
--- compatible: value should be "hisilicon,hi6220-ade".
--- reg: physical base address and length of the ADE controller's registers.
--- hisilicon,noc-syscon: ADE NOC QoS syscon.
--- resets: The ADE reset controller node.
--- interrupt: the ldi vblank interrupt number used.
--- clocks: a list of phandle + clock-specifier pairs, one for each entry
--  in clock-names.
--- clock-names: should contain:
--  "clk_ade_core" for the ADE core clock.
--  "clk_codec_jpeg" for the media NOC QoS clock, which use the same clock with
--  jpeg codec.
--  "clk_ade_pix" for the ADE pixel clock.
--- assigned-clocks: Should contain "clk_ade_core" and "clk_codec_jpeg" clocks'
--  phandle + clock-specifier pairs.
--- assigned-clock-rates: clock rates, one for each entry in assigned-clocks.
--  The rate of "clk_ade_core" could be "360000000" or "180000000";
--  The rate of "clk_codec_jpeg" could be or less than "1440000000".
--  These rate values could be configured according to performance and power
--  consumption.
--- port: the output port. This contains one endpoint subnode, with its
--  remote-endpoint set to the phandle of the connected DSI input endpoint.
--  See Documentation/devicetree/bindings/graph.txt for more device graph info.
--
--Optional properties:
--- dma-coherent: Present if dma operations are coherent.
--
--
--A example of HiKey board hi6220 SoC specific DT entry:
--Example:
--
--	ade: ade@f4100000 {
--		compatible = "hisilicon,hi6220-ade";
--		reg = <0x0 0xf4100000 0x0 0x7800>;
--		reg-names = "ade_base";
--		hisilicon,noc-syscon = <&medianoc_ade>;
--		resets = <&media_ctrl MEDIA_ADE>;
--		interrupts = <0 115 4>; /* ldi interrupt */
--
--		clocks = <&media_ctrl HI6220_ADE_CORE>,
--			 <&media_ctrl HI6220_CODEC_JPEG>,
--			 <&media_ctrl HI6220_ADE_PIX_SRC>;
--		/*clock name*/
--		clock-names  = "clk_ade_core",
--			       "clk_codec_jpeg",
--			       "clk_ade_pix";
--
--		assigned-clocks = <&media_ctrl HI6220_ADE_CORE>,
--			<&media_ctrl HI6220_CODEC_JPEG>;
--		assigned-clock-rates = <360000000>, <288000000>;
--		dma-coherent;
--
--		port {
--			ade_out: endpoint {
--				remote-endpoint = <&dsi_in>;
--			};
--		};
--	};
-diff --git a/Documentation/devicetree/bindings/display/hisilicon/hisilicon,hi6220-ade.yaml b/Documentation/devicetree/bindings/display/hisilicon/hisilicon,hi6220-ade.yaml
-new file mode 100644
-index 000000000000..ec3d4b775a88
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/hisilicon/hisilicon,hi6220-ade.yaml
-@@ -0,0 +1,95 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/hisilicon/hisilicon,hi6220-ade.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Hisilicon ADE Display Controller
-+
-+maintainers:
-+  - Xinliang Liu <z.liuxinliang@hisilicon.com>
-+
-+description:
-+  ADE (Advanced Display Engine) is the display controller which grab image
-+  data from memory, do composition, do post image processing, generate RGB
-+  timing stream and transfer to DSI.
-+
-+properties:
-+  compatible:
-+    const: hisilicon,hi6220-ade
-+
-+  reg:
-+    maxItems: 1
-+
-+  reg-names:
-+    items:
-+      - const: ade_base
-+
-+  clocks:
-+    maxItems: 3
-+
-+  clock-names:
-+    items:
-+      - const: clk_ade_core
-+      - const: clk_codec_jpeg
-+      - const: clk_ade_pix
-+
-+  dma-coherent: true
-+
-+  interrupts:
-+    items:
-+      - description: LDI vblank interrupt specifier.
-+
-+  resets:
-+    maxItems: 1
-+
-+  hisilicon,noc-syscon:
-+    description: ADE NOC QoS syscon.
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+
-+  port:
-+    $ref: /schemas/graph.yaml#/properties/port
-+    description: Output port containing an endpoint subnode.
-+
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - clocks
-+  - clock-names
-+  - interrupts
-+  - resets
-+  - hisilicon,noc-syscon
-+  - port
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/hi6220-clock.h>
-+    #include <dt-bindings/reset/hisi,hi6220-resets.h>
-+
-+    bus {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+
-+        ade@f4100000 {
-+            compatible = "hisilicon,hi6220-ade";
-+            reg = <0x0 0xf4100000 0x0 0x7800>;
-+            reg-names = "ade_base";
-+            clocks = <&media_ctrl HI6220_ADE_CORE>,
-+                     <&media_ctrl HI6220_CODEC_JPEG>,
-+                     <&media_ctrl HI6220_ADE_PIX_SRC>;
-+            clock-names = "clk_ade_core", "clk_codec_jpeg", "clk_ade_pix";
-+            dma-coherent;
-+            interrupts = <0 115 4>;
-+            resets = <&media_ctrl MEDIA_ADE>;
-+            hisilicon,noc-syscon = <&medianoc_ade>;
-+
-+            port {
-+                endpoint {
-+                    remote-endpoint = <&dsi_in>;
-+                };
-+            };
-+        };
-+    };
--- 
-2.53.0
+Welcome to IIO.
+
+> ---
+>  .../devicetree/bindings/iio/dac/adi,ad5413.yaml    | 101 +++++++++++++++=
+++++++
+>  1 file changed, 101 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5413.yaml b/=
+Documentation/devicetree/bindings/iio/dac/adi,ad5413.yaml
+> new file mode 100644
+> index 000000000000..74e869304aab
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5413.yaml
+> @@ -0,0 +1,101 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/dac/adi,ad5413.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Analog Devices AD5413 DAC
+> +
+> +description:
+> +  Analog Devices AD5413 is a single-channel precision DAC supporting vol=
+tage
+> +  or current output modes with programmable slew-rate control.
+> +  The output mode is selected via the adi,chan-current-mode property.
+> +  Optional reset GPIO may be provided.
+
+New line per sentence isn't really adding anything. I'd reflow this
+a a paragraph.
+
+> +
+> +maintainers:
+> +  - bruce.tsao@analog.com
+> +
+> +properties:
+> +  compatible:
+> +    const: adi,ad5413
+> +
+> +  spi-max-frequency:
+> +    maximum: 50000000
+> +
+> +  spi-cpha: true
+> +
+> +  spi-cpol: false
+> +
+> +  reset-gpios:
+> +    maxItems: 1
+> +    description: Optional reset GPIO (active low).
+=46rom a quick glance looks like we also have LDAC SYNC and FAULT.
++ a reference out that probably wants to be modeled as a supply.
+
+Upshot is this looks like an incomplete binding and generally=20
+we try to make them as complete as possible from the start, even
+if the driver doesn't yet use everything.
+
+> +
+> +  avdd-supply:
+> +    description: Analog positive supply (AVDD)
+> +
+> +  dvdd-supply:
+> +    description: Digital positive supply (DVDD)
+> +
+> +  avss-supply:
+> +    description: Analog negative supply (AVSS)
+> +
+> +  adi,chan-current-mode:
+> +    type: boolean
+> +    description: Select current output mode. If absent, voltage mode is =
+used.
+
+We have some existing dt bindings for multi mode channels on adi
+parts. See adi,ch-func in various other bindings.
+Whilst we've had various discussions about generalizing that to
+a generic dac binding so far we haven't done so. Maybe now is the time...
+
+
+> +
+> +  adi,slew-time-us:
+> +    description: Output digital slew control time in microseconds
+> +    minimum: 0
+> +    maximum: 1000000
+> +    default: 0
+> +
+> +required:
+> +  - compatible
+> +  - spi-cpha
+> +  - avdd-supply
+> +  - dvdd-supply
+> +  - avss-supply
+> +
+> +allOf:
+> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    spi {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        dac@0 {
+> +            compatible =3D "adi,ad5413";
+> +            reg =3D <0>;
+> +            spi-max-frequency =3D <1000000>;
+> +            spi-cpha;
+> +            reset-gpios =3D <&gpio 0 GPIO_ACTIVE_LOW>;
+> +            avdd-supply =3D <&avdd>;
+> +            dvdd-supply =3D <&dvdd>;
+> +            avss-supply =3D <&avss>;
+> +            adi,slew-time-us =3D <125>;
+> +        };
+> +    };
+> +
+> +  - |
+> +    spi {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        dac@0 {
+> +            compatible =3D "adi,ad5413";
+> +            reg =3D <0>;
+> +            spi-max-frequency =3D <1000000>;
+> +            spi-cpha;
+> +            avdd-supply =3D <&avdd>;
+> +            dvdd-supply =3D <&dvdd>;
+> +            avss-supply =3D <&avss>;
+> +
+> +            adi,chan-current-mode;
+> +        };
+> +    };
+>=20
 
