@@ -1,288 +1,263 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B92D5487CE3;
-	Fri, 16 Oct 2026 18:04:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E23DD494269
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 18:07:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792173863; cv=none; b=R4vlYyT7PZa1NsWT6eCsLJSsiGPGogxaxS7GNm+Ziv7rqAImPyLbRaNbF0X4PwcXKEP5hHcUFg507LWH+KVXFNVMeMO87PF78YrcAhIjuTtlapNCTrl5ddQlanHlaCPBN23d6gydqy2UbIbqxlzuUZZwOhm76YAbiN51k/AKE94=
+	t=1792174033; cv=none; b=gYXul3YQZ8i2kjR81P5ZymZ3AfEWY+dtUvzf6y2eAMMByW0f5LN6b0v8bYIzIbFjP0ypsEJIzens7MvP5gXOy2UJdnwuSq0wF+UJgWyEgWiMnRITcKCnoHGpDKxyo0zgRDMQXww3VSfNOJeeZCVD+dD5sh90ozHya9ZtR6yqZqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792173863; c=relaxed/simple;
-	bh=fVQMgeTLx8KcVX1xPfKLjt+HrX6nxP5c9F51tQGpjbc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gMSmZFK3YigIUq5T4NaOixiS600Jka1xZBf7BcJqR0K2f4fDg+cNWWzKr7AFf/gpCNUHnHfiFNwSFzGhSUsu9VxOrCamJBNsQU/l0ZFmcYBBuD6IJQUmEGH4dsjplnoQ0F7z175NjCqCOjPfpvTf9BJpzzntOk5/sv7q067UbIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=FiRoiyL6; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1792174033; c=relaxed/simple;
+	bh=eiUiQoopFUDmGr3UYzTNNVOWWiP061mHHX8TFI39C1E=;
+	h=From:Message-ID:Date:MIME-Version:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=FD0izeqHUiXx7c9xf7OAe9hbjl6Jc2SpBNAtNGq0ZGZ+c8q0UHkMpxqHG2OQKlTcRpyLkAssQcMr5wmHz0w2YaceCF9Yr5pmdjZAG2wz5/qRMrBTNO7lKuqZE25oDCgbykAUpSU7kCn882hyC1PpG5t8K6zeUPiSVX+ttuxrE9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev; spf=pass smtp.mailfrom=tuxon.dev; dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b=n9W2csVA; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxon.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="FiRoiyL6"
-Received: from mail01.layka.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id DC0F582A86;
-	Fri, 16 Oct 2026 20:04:12 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id W1HyXAKEemNH; Fri, 16 Oct 2026 20:04:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1792173831; bh=fVQMgeTLx8KcVX1xPfKLjt+HrX6nxP5c9F51tQGpjbc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FiRoiyL6L3PIgTQgqKhNfF6boW/hVKO0pCkT3RCsXfPuop9bMncJKq6tmUIH/o7GF
-	 RRB7r//yPQaPLh50cTZU+Ip5vXlPxVNPj2TrUhTD9GqAjnJJ1s6b9yfdGL2dyx9tHM
-	 lQVWJxs42KquwneZsOAR1j2jEwdyB1AvYnahqv5vKdJq9XeuOGnpS4Yy/rPf9kBSVO
-	 e/SspxCXdNvA5YUxdhcAMK4WCNJyK1TqO1Y9TeB9OA8yLqaP405gwA2vI6lC2Jpvs0
-	 4MC+KMxtOvL+oqam/V84p2cfBKHcQxezjh6fXgO3Q5WUZPjK+/cTNPAaIqZByC+Oq7
-	 rl4VJfAwPV9jg==
-From: Rustam Adilov <adilov@disroot.org>
-To: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Stanley Chang <stanley_chang@realtek.com>,
-	linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Rustam Adilov <adilov@disroot.org>,
-	Michael Zavertkin <misha.zavertkin@mail.ru>
-Subject: [PATCH v9 1/6] phy: realtek: usb2: introduce phy_reg_desc struct to the driver
-Date: Fri, 16 Oct 2026 23:03:09 +0500
-Message-ID: <20261016180314.31760-2-adilov@disroot.org>
-In-Reply-To: <20261016180314.31760-1-adilov@disroot.org>
-References: <20261016180314.31760-1-adilov@disroot.org>
+	dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b="n9W2csVA"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a1d484b4a9so3161835e9.0
+        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 11:07:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=tuxon.dev; s=google; t=1792174030; x=1792778830; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kwqs7mz873M28LjIKl95AhngO7J7OiavOqidLa4FRNc=;
+        b=n9W2csVAyuaKikh+vFpNLESUTmENQTssuKfmrIM+YSorZ1ZkkF5CMXJA8WDhb/T5MW
+         fxCUR5v3YRDv0gExwQijst1t38gDNULmLv9drqfSoyC8+ezQ+3klEGLnlVd65Mkfz1+W
+         Dj5QgGAj4UgRTVRdnVsWj/6GyuSO2MSIa/uaunLvqG0mSmTo6JpEkPtwA22CY3LD0iIj
+         3vg7L0qFpoLviFWL7Sm9bUILhSkcXsKRptFhlEFG862xfNHn1mbb+rnF+zYKDVOT5n9h
+         jp9HxbAocXwILVeAdA2rUpD4MEZSmTDIOU1d0zKWfkvtpgoY1xySyluU8/NzdWf6vK1U
+         BWdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792174030; x=1792778830;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=kwqs7mz873M28LjIKl95AhngO7J7OiavOqidLa4FRNc=;
+        b=iylg9c5tUdAE2EJzN8uxlHD+tceVDNOJiBOzEAEKD+cBf77snN+RRF9+ySquByfG3I
+         g4qnQlGzyv/Vy+fvid2GXQW2LxFjnQJfztb7B7MsyWHbw2ar+lSIkGajrjsenLYzwiqd
+         1gCkjqXcL9LMHuK4hG9nSNOemE4pq9YQnqvR3kyk5KoQT1May1R/h6RIEzBepqU4Hg3N
+         ub4cieytos2jIKiLEFqcN/hRuZDwAqUpX6dH+Ldl7+GxhXt1k9I/E3mRXsX7V+jusmZ2
+         hNkwabVRQwKMhd0/sp7ae3RCn2TXiRBbnUnAHIPbvb1gFwWc3xIMirGYQtrouyMPCdJ7
+         PphQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx+NrcrmkFMr0pgOgrObREp+Nk5DSidKvnxRSf9BNGTwf1Cr+9Yb9lBXeSGGXURq7mryPKUfJ+ZhW4o@vger.kernel.org
+X-Gm-Message-State: AFq9FYKW8zqfDnSUM+aiMOzts+Y4E0El0fg6JXNx7HwYpIYVvac21A5f
+	txQIoacW1u9HPEuQhO8XJEV0igJKlm4+j5/agPtLkz9cu30GUr+aDa4U9YDl/ohj+FA=
+X-Gm-Gg: AYBFou10WE9uUnezK5lrQSM9NfmuNO/aoEtML95GwJzOIquEzZ34OPtMugmrTkEVX+a
+	raSfyJeKCbG8wSAdKHgMeyEt6zVGiEal1L5iSFUuHKsq9iQQJE0Fh1LnCgJX3yNXx8Z/WUGUxg4
+	xDfPqksyZMkkRhb+gTfOZ7kvt5KGV2+wZ8WKqWzTtsSYE9N7x6izDVjlMy0fviTUfOo5cDmvD4k
+	3IVGWp7SUm1CtHVAxbNFXv8FHIwYzXeQw5Dce6P8gStkP9B7PD3/xzlN4ft38lPclT3PcwInLIQ
+	Pp9EIcsHPvwuZTLdblgMXSadwKLd2UtzybuXbzSO7oMIP6oSWWIrUOqREhdLsu73Y6hmNigOEw/
+	CMJhicYNHicxFvs6z+0D1oCqPyxY2Us2t+h8qfS7Ilo8QkU2VN4VBkY6fvKYL8VISfrRdorXElF
+	k6rm5v+QjIJO21Z6VA5ljLv+d7L/vHHCY7k6Ks9JnsYDs7VfwsSGJRQrdPBJAvS0ceqsTHCaj6v
+	SCREPtwbC4l2Gx2mg==
+X-Received: by 2002:a05:600c:6215:b0:4a1:d41b:5060 with SMTP id 5b1f17b1804b1-4a1d762b705mr10663215e9.22.1792174029743;
+        Fri, 16 Oct 2026 11:07:09 -0700 (PDT)
+Received: from [192.168.50.4] ([82.78.167.221])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1d3e2e602sm40486255e9.5.2026.10.16.11.07.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 11:07:09 -0700 (PDT)
+From: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+X-Google-Original-From: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
+Message-ID: <69826962-0c21-4616-9cd8-6eb0478a422b@tuxon.dev>
+Date: Fri, 16 Oct 2026 21:07:07 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 3/7] can: rcar_canfd: Allow the CAN FD clock to be
+ sourced from fck
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: mailhol@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, geert+renesas@glider.be, magnus.damm@gmail.com,
+ biju.das.jz@bp.renesas.com, fabrizio.castro.jz@renesas.com,
+ claudiu.beznea@tuxon.dev, linux-can@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+References: <20260902141544.565763-1-claudiu.beznea+renesas@tuxon.dev>
+ <20260902141544.565763-4-claudiu.beznea+renesas@tuxon.dev>
+ <20261016-durable-meticulous-owl-7a9eed-mkl@pengutronix.de>
+Content-Language: en-US
+In-Reply-To: <20261016-durable-meticulous-owl-7a9eed-mkl@pengutronix.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-In RTL9607C SoC, there are a few differences in usb2 phy compared
-to existing RTD SoCs, like vstatus register is at certain offset
-from the base, busy bit and new_reg_req bit are at different bits
-of the register.
 
-To avoid duplicating these variables across phy cfg and driver data,
-create a per-SoC struct that would hold them and with that add the
-default rtd_phy_reg_desc to which all RTD SoCs driver data will
-point towards.
 
-Co-developed-by: Michael Zavertkin <misha.zavertkin@mail.ru>
-Signed-off-by: Michael Zavertkin <misha.zavertkin@mail.ru>
-Signed-off-by: Rustam Adilov <adilov@disroot.org>
----
- drivers/phy/realtek/phy-rtk-usb2.c | 59 ++++++++++++++++++++++--------
- 1 file changed, 44 insertions(+), 15 deletions(-)
+On 10/16/26 16:39, Marc Kleine-Budde wrote:
+> On 02.09.2026 17:15:40, Claudiu Beznea wrote:
+>> diff --git a/drivers/net/can/rcar/rcar_canfd.c b/drivers/net/can/rcar/rcar_canfd.c
+>> index b7c4fe3477ac..f9173774387f 100644
+>> --- a/drivers/net/can/rcar/rcar_canfd.c
+>> +++ b/drivers/net/can/rcar/rcar_canfd.c
+> 
+> [...]
+> 
+>>
+>>   /* Helper functions */
+>> @@ -2190,13 +2196,20 @@ static int rcar_canfd_probe(struct platform_device *pdev)
+>>   	 */
+>>   	gpriv->can_clk = devm_clk_get(dev, "can_clk");
+>>   	if (IS_ERR(gpriv->can_clk) || (clk_get_rate(gpriv->can_clk) == 0)) {
+>              ^^^^^^^^^^^^^^^^^^^^^
+> 
+> As sashiko.dev [1] pointed out here's no check for -EPROBE_DEFER.
 
-diff --git a/drivers/phy/realtek/phy-rtk-usb2.c b/drivers/phy/realtek/phy-rtk-usb2.c
-index 248550ef98ca..e8d0f0119ec0 100644
---- a/drivers/phy/realtek/phy-rtk-usb2.c
-+++ b/drivers/phy/realtek/phy-rtk-usb2.c
-@@ -60,10 +60,17 @@
- #define DEFAULT_DC_DISCONNECTION_VALUE (0x6)
- #define HS_CLK_SELECT BIT(6)
- 
-+struct phy_reg_desc {
-+	int vstatus_offset;
-+	u32 vstatus_busy;
-+	u32 new_reg_req;
-+};
-+
- struct phy_reg {
- 	void __iomem *reg_wrap_vstatus;
- 	void __iomem *reg_gusb2phyacc0;
- 	int vstatus_index;
-+	const struct phy_reg_desc *desc;
- };
- 
- struct phy_data {
-@@ -96,6 +103,7 @@ struct phy_cfg {
- 	bool do_toggle_driving;
- 	bool use_default_parameter;
- 	bool is_double_sensitivity_mode;
-+	const struct phy_reg_desc *reg_desc;
- };
- 
- struct phy_parameter {
-@@ -156,27 +164,28 @@ static inline int utmi_wait_register(void __iomem *reg, u32 mask, u32 result)
- static char rtk_phy_read(struct phy_reg *phy_reg, char addr)
- {
- 	void __iomem *reg_gusb2phyacc0 = phy_reg->reg_gusb2phyacc0;
-+	const struct phy_reg_desc *reg_desc = phy_reg->desc;
- 	unsigned int val;
- 	int ret = 0;
- 
- 	addr -= OFFEST_PHY_READ;
- 
- 	/* polling until VBusy == 0 */
--	ret = utmi_wait_register(reg_gusb2phyacc0, PHY_VSTS_BUSY, 0);
-+	ret = utmi_wait_register(reg_gusb2phyacc0, reg_desc->vstatus_busy, 0);
- 	if (ret)
- 		return (char)ret;
- 
--	/* VCtrl = low nibble of addr, and set PHY_NEW_REG_REQ */
--	val = PHY_NEW_REG_REQ | (GET_LOW_NIBBLE(addr) << PHY_VCTRL_SHIFT);
-+	/* VCtrl = low nibble of addr, and set reg_desc->new_reg_req */
-+	val = reg_desc->new_reg_req | (GET_LOW_NIBBLE(addr) << PHY_VCTRL_SHIFT);
- 	writel(val, reg_gusb2phyacc0);
--	ret = utmi_wait_register(reg_gusb2phyacc0, PHY_VSTS_BUSY, 0);
-+	ret = utmi_wait_register(reg_gusb2phyacc0, reg_desc->vstatus_busy, 0);
- 	if (ret)
- 		return (char)ret;
- 
--	/* VCtrl = high nibble of addr, and set PHY_NEW_REG_REQ */
--	val = PHY_NEW_REG_REQ | (GET_HIGH_NIBBLE(addr) << PHY_VCTRL_SHIFT);
-+	/* VCtrl = high nibble of addr, and set reg_desc->new_reg_req */
-+	val = reg_desc->new_reg_req | (GET_HIGH_NIBBLE(addr) << PHY_VCTRL_SHIFT);
- 	writel(val, reg_gusb2phyacc0);
--	ret = utmi_wait_register(reg_gusb2phyacc0, PHY_VSTS_BUSY, 0);
-+	ret = utmi_wait_register(reg_gusb2phyacc0, reg_desc->vstatus_busy, 0);
- 	if (ret)
- 		return (char)ret;
- 
-@@ -190,29 +199,31 @@ static int rtk_phy_write(struct phy_reg *phy_reg, char addr, char data)
- 	unsigned int val;
- 	void __iomem *reg_wrap_vstatus = phy_reg->reg_wrap_vstatus;
- 	void __iomem *reg_gusb2phyacc0 = phy_reg->reg_gusb2phyacc0;
-+	const struct phy_reg_desc *reg_desc = phy_reg->desc;
- 	int shift_bits = phy_reg->vstatus_index * 8;
- 	int ret = 0;
- 
- 	/* write data to VStatusOut2 (data output to phy) */
--	writel((u32)data << shift_bits, reg_wrap_vstatus);
-+	writel((u32)data << shift_bits,
-+	       reg_wrap_vstatus + reg_desc->vstatus_offset);
- 
--	ret = utmi_wait_register(reg_gusb2phyacc0, PHY_VSTS_BUSY, 0);
-+	ret = utmi_wait_register(reg_gusb2phyacc0, reg_desc->vstatus_busy, 0);
- 	if (ret)
- 		return ret;
- 
--	/* VCtrl = low nibble of addr, set PHY_NEW_REG_REQ */
--	val = PHY_NEW_REG_REQ | (GET_LOW_NIBBLE(addr) << PHY_VCTRL_SHIFT);
-+	/* VCtrl = low nibble of addr, set reg_desc->new_reg_req */
-+	val = reg_desc->new_reg_req | (GET_LOW_NIBBLE(addr) << PHY_VCTRL_SHIFT);
- 
- 	writel(val, reg_gusb2phyacc0);
--	ret = utmi_wait_register(reg_gusb2phyacc0, PHY_VSTS_BUSY, 0);
-+	ret = utmi_wait_register(reg_gusb2phyacc0, reg_desc->vstatus_busy, 0);
- 	if (ret)
- 		return ret;
- 
--	/* VCtrl = high nibble of addr, set PHY_NEW_REG_REQ */
--	val = PHY_NEW_REG_REQ | (GET_HIGH_NIBBLE(addr) << PHY_VCTRL_SHIFT);
-+	/* VCtrl = high nibble of addr, set reg_desc->new_reg_req */
-+	val = reg_desc->new_reg_req | (GET_HIGH_NIBBLE(addr) << PHY_VCTRL_SHIFT);
- 
- 	writel(val, reg_gusb2phyacc0);
--	ret = utmi_wait_register(reg_gusb2phyacc0, PHY_VSTS_BUSY, 0);
-+	ret = utmi_wait_register(reg_gusb2phyacc0, reg_desc->vstatus_busy, 0);
- 	if (ret)
- 		return ret;
- 
-@@ -957,6 +968,7 @@ static int get_phy_data_by_efuse(struct rtk_phy *rtk_phy,
- 
- static int parse_phy_data(struct rtk_phy *rtk_phy)
- {
-+	struct phy_cfg *phy_cfg = rtk_phy->phy_cfg;
- 	struct device *dev = rtk_phy->dev;
- 	struct device_node *np = dev->of_node;
- 	struct phy_parameter *phy_parameter;
-@@ -974,6 +986,8 @@ static int parse_phy_data(struct rtk_phy *rtk_phy)
- 		phy_parameter->phy_reg.reg_wrap_vstatus = of_iomap(np, 0);
- 		phy_parameter->phy_reg.reg_gusb2phyacc0 = of_iomap(np, 1) + index;
- 		phy_parameter->phy_reg.vstatus_index = index;
-+		phy_parameter->phy_reg.desc = phy_cfg->reg_desc;
-+
- 
- 		if (of_property_read_bool(np, "realtek,inverse-hstx-sync-clock"))
- 			phy_parameter->inverse_hstx_sync_clock = true;
-@@ -1060,6 +1074,12 @@ static void rtk_usb2phy_remove(struct platform_device *pdev)
- 	remove_debug_files(rtk_phy);
- }
- 
-+static const struct phy_reg_desc rtd_phy_reg_desc = {
-+	.vstatus_offset = 0,
-+	.vstatus_busy = PHY_VSTS_BUSY,
-+	.new_reg_req = PHY_NEW_REG_REQ,
-+};
-+
- static const struct phy_cfg rtd1295_phy_cfg = {
- 	.page0_size = MAX_USB_PHY_PAGE0_DATA_SIZE,
- 	.page0 = { [0] = {0xe0, 0x90},
-@@ -1085,6 +1105,7 @@ static const struct phy_cfg rtd1295_phy_cfg = {
- 	.driving_updated_for_dev_dis = 0xf,
- 	.use_default_parameter = false,
- 	.is_double_sensitivity_mode = false,
-+	.reg_desc = &rtd_phy_reg_desc,
- };
- 
- static const struct phy_cfg rtd1395_phy_cfg = {
-@@ -1109,6 +1130,7 @@ static const struct phy_cfg rtd1395_phy_cfg = {
- 	.driving_updated_for_dev_dis = 0xf,
- 	.use_default_parameter = false,
- 	.is_double_sensitivity_mode = false,
-+	.reg_desc = &rtd_phy_reg_desc,
- };
- 
- static const struct phy_cfg rtd1395_phy_cfg_2port = {
-@@ -1133,6 +1155,7 @@ static const struct phy_cfg rtd1395_phy_cfg_2port = {
- 	.driving_updated_for_dev_dis = 0xf,
- 	.use_default_parameter = false,
- 	.is_double_sensitivity_mode = false,
-+	.reg_desc = &rtd_phy_reg_desc,
- };
- 
- static const struct phy_cfg rtd1619_phy_cfg = {
-@@ -1155,6 +1178,7 @@ static const struct phy_cfg rtd1619_phy_cfg = {
- 	.driving_updated_for_dev_dis = 0xf,
- 	.use_default_parameter = false,
- 	.is_double_sensitivity_mode = false,
-+	.reg_desc = &rtd_phy_reg_desc,
- };
- 
- static const struct phy_cfg rtd1319_phy_cfg = {
-@@ -1181,6 +1205,7 @@ static const struct phy_cfg rtd1319_phy_cfg = {
- 	.driving_updated_for_dev_dis = 0xf,
- 	.use_default_parameter = false,
- 	.is_double_sensitivity_mode = true,
-+	.reg_desc = &rtd_phy_reg_desc,
- };
- 
- static const struct phy_cfg rtd1312c_phy_cfg = {
-@@ -1206,6 +1231,7 @@ static const struct phy_cfg rtd1312c_phy_cfg = {
- 	.driving_updated_for_dev_dis = 0xf,
- 	.use_default_parameter = false,
- 	.is_double_sensitivity_mode = true,
-+	.reg_desc = &rtd_phy_reg_desc,
- };
- 
- static const struct phy_cfg rtd1619b_phy_cfg = {
-@@ -1231,6 +1257,7 @@ static const struct phy_cfg rtd1619b_phy_cfg = {
- 	.driving_updated_for_dev_dis = 0x8,
- 	.use_default_parameter = false,
- 	.is_double_sensitivity_mode = true,
-+	.reg_desc = &rtd_phy_reg_desc,
- };
- 
- static const struct phy_cfg rtd1319d_phy_cfg = {
-@@ -1256,6 +1283,7 @@ static const struct phy_cfg rtd1319d_phy_cfg = {
- 	.driving_updated_for_dev_dis = 0x8,
- 	.use_default_parameter = false,
- 	.is_double_sensitivity_mode = true,
-+	.reg_desc = &rtd_phy_reg_desc,
- };
- 
- static const struct phy_cfg rtd1315e_phy_cfg = {
-@@ -1282,6 +1310,7 @@ static const struct phy_cfg rtd1315e_phy_cfg = {
- 	.driving_updated_for_dev_dis = 0x8,
- 	.use_default_parameter = false,
- 	.is_double_sensitivity_mode = true,
-+	.reg_desc = &rtd_phy_reg_desc,
- };
- 
- static const struct of_device_id usbphy_rtk_dt_match[] = {
--- 
-2.56.0
+This looks to me a pre-existing issue.
+
+The newly added support does:
+
+fcan_freq = clk_get_rate(gpriv->clkp);
+
+At the time this is executed the clkp was already checked against any errors 
+(above) including -EPROBE_DEFER.
+
+Please let me know what is the procedure now. Should I re-send the series and 
+address the fixes? Should I send follow up patches?
+
+> 
+> [1] https://lore.kernel.org/all/sashiko-outbox-173569@kernel.org/
+> 
+> The netdev bot found more issues.
+> pw-bot: cr
+> 
+> regards,
+> Marc
+> 
+> --- Patch [15]: [PATCH net-next 15/37] can: rcar_canfd: Allow the CAN FD clock to be sourced from fck ---
+> commit 4ef0042ccf34457229cdde398a008bebaab54e69
+> Author: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+> 
+> can: rcar_canfd: Allow the CAN FD clock to be sourced from fck
+> 
+> This commit adds an fcan_pclk hardware info flag. With it set, the fCAN
+> clock falls back to the peripheral clock (fck) when the external can_clk
+> is unavailable, the rate is divided by info->postdiv and can_clk is set
+> to NULL. All existing rcar_canfd_hw_info instances now set fcan_pclk = 0
+> explicitly.
+> 
+> Link: https://lore.kernel.org/all/1d9719e3-10ff-4cd8-b729-55fea93c37ce@wanadoo.fr
+> Link: https://patch.msgid.link/20260902141544.565763-4-claudiu.beznea+renesas@tuxon.dev
+> 
+>> diff --git a/drivers/net/can/rcar/rcar_canfd.c b/drivers/net/can/rcar/rcar_canfd.c
+>> index b7c4fe3477ac..f9173774387f 100644
+>> --- a/drivers/net/can/rcar/rcar_canfd.c
+>> +++ b/drivers/net/can/rcar/rcar_canfd.c
+> 
+> [ ... ]
+> 
+>> @@ -2190,13 +2196,20 @@ static int rcar_canfd_probe(struct platform_device *pdev)
+>>   	 */
+>>   	gpriv->can_clk = devm_clk_get(dev, "can_clk");
+>>   	if (IS_ERR(gpriv->can_clk) || (clk_get_rate(gpriv->can_clk) == 0)) {
+>> -		gpriv->can_clk = devm_clk_get(dev, "canfd");
+>> -		if (IS_ERR(gpriv->can_clk))
+>> -			return dev_err_probe(dev, PTR_ERR(gpriv->can_clk),
+>> -					     "cannot get canfd clock\n");
+>> +		if (info->fcan_pclk) {
+>> +			fcan_freq = clk_get_rate(gpriv->clkp);
+>> +			gpriv->can_clk = NULL;
+>> +		} else {
+> 
+> Discovered by: opus-5-5 · Missed by: gpt-6-astra, sashiko-gemini · Confirmed by: gpt-6-astra
+> Should the clock comments and the probe banner be updated for this new
+> fck source? 
+> Several places still describe only the external and canfd
+> clocks.
+> 
+> The comment just above this block in rcar_canfd_probe() still says:
+> 
+> 	/* fCAN clock: Pick External clock. If not available fallback to
+> 	 * CANFD clock
+> 	 */
+> 
+> With fcan_pclk set, the fallback is fck (gpriv->clkp), not the canfd
+> clock.
+
+We can update the comment as follows to comply with the clock name in the driver:
+
+/* fCAN clock: Pick External clock. If not available fallback to
+  * CANFD clock or peripheral clock in case fcan_pclk = 1
+  */
+
+or, to comply with the clock name in the bindings:
+
+/* fCAN clock: Pick External clock. If not available fallback to
+  * CANFD clock or fck in case fcan_pclk = 1
+  */
+
+Please let me know what is prefered.
+
+
+> 
+> In struct rcar_canfd_global, the field comments also don't cover this
+> case. Here can_clk is NULL and the fCAN source is clkp:
+> 
+> 	struct clk *can_clk;		/* fCAN clock */
+> 	...
+> 	bool extclk;			/* CANFD or Ext clock */
+
+There is already a pointer covering the clkp:
+
+         struct clk *clkp;		/* Peripheral clock */
+
+> 
+> The banner at the end of rcar_canfd_probe() wasn't changed either:
+> 
+> 	dev_info(dev, "global operational state (%s clk, %s mode)\n",
+> 		 gpriv->extclk ? "ext" : "canfd",
+> 
+> On this path extclk stays false. Won't the banner then say "canfd clk"
+> for a controller that has no canfd clock and runs from fck / postdiv?
+
+That could be updated with "clkp" to comply with the driver name or "fck" to 
+comply with the bindings or with "peripheral". Please let me know what is 
+preferred.
+
+> 
+> The later "can: rcar_canfd: Add support for Renesas RZ/G3S" patch sets
+> .fcan_pclk = 1 in r9a08g045_hw_info. After that, an RZ/G3S board whose
+> can_clk is missing or has a rate of 0 would print this label.
+> 
+> Also, the new bitfield comment calls this clock pclk:
+> 
+> 	unsigned fcan_pclk:1;		/* Has fcan sourced from pclk. */
+> 
+> The commit message and the code call it fck. 
+
+The commit message mentions: ...the CAN FD clock can be sourced either from fck
+(the peripheral clock) or from an external clock (can_clk).
+
+The driver uses clkp (peripheral clock) to refer to the fck.
+
+fck is the clock name used in the bindings. In bindings I kept the same clock 
+name and provided the proper phandle in the device tree. I don't consider we 
+should change the driver and the bindings for this thing. Please let me know 
+otherwise.
+
+The clock diagram is something like:
+
+                         +----+
+pclk (fck) -> 1/2 div ->|    |
+                         | mux|---> fcan
+ext  (can_clk)--------->|    |
+                         ++++++
+
+b/w () are the clock names in bindings.
+
+The full HW block with the clocks involved can be found at 
+https://github.com/claudiubeznea/logs/blob/master/canfd-clk.png
+
+Please let me know what is the procedure for this. Should I re-spin the series? 
+Should I send follow up patches?
+
+Thank you,
+Claudiu
 
