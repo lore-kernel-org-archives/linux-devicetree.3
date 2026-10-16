@@ -1,174 +1,192 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7DA7175A9D;
-	Fri, 16 Oct 2026 00:03:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8B352030A;
+	Fri, 16 Oct 2026 00:06:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792109034; cv=none; b=GcEUZbON0Sl7GBhm3Re/lHAxTmhPCRfMEXgo7FTIrzMNjEKdMtdtapWDgLq9Lrw3bLqDYLaaJp9keEkrU8qaHLavRwnM3CAWEj1yxjBy0q9F0C627LQHDpr3Xa7OOtiZC6tVcrDdB8hhPAPkeHife+luiEzYOTgbxcLj3iNRdPM=
+	t=1792109187; cv=none; b=HrstzWFfYZSR4400t3cj+LA65k0RT4wiOU79CaURfBhoNAQvS2+B/5EjFM3DwFrFT4bMV2m0qszFJrSSx/qEU2hSBfW1m75WnTdrJJVkRAocblzzv0KGKZMTWAwGLFEUY4/FqSiX5kQtMyeunZfK+tNW4ZdNli9qr6aPNLAtneM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792109034; c=relaxed/simple;
-	bh=/J9vkQnHyxosFoJr9W9QBtjq0YYxgnpGBT61RpVtPOM=;
-	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=FDoTwb61XxwCZbfcXsMHOIWKCUXgcscMEil4TFAWQppXdq4oFCB8FjxtcovcS9Sqm0NEgCdPVdxlPOFY3wy2aGLXyjEobPl38ss7JT3ijJg9JOoo7NUgRph5/Xu7eaLmrzoz3QTOL0D2tQP9c6TnwwfeOz4fjjj5asspvndjurg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=T8JmhcId; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1792109187; c=relaxed/simple;
+	bh=JQNlIBOrQQ4CZzFwrfBRyxU2RHdddOs451H/qbf3jVQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Qf2Xye0uyfE1BTGBcS4jQXx1pqpbbb8XdC1xqvlPKwssIX6s9tkmBcU2KreeY73qeuwvtKoxF1/R4Ztx8RpYnUQlBrYwdgkhrLqJk9mteVbP3aOQB36PBuDTGFjIqHtfYtOrQ3aIriIU8iAHvmcS7jOeX0TXAiEAncTc1W7qIR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oOHnLwpw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="T8JmhcId"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69FJSN6v437488;
-	Fri, 16 Oct 2026 00:02:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=/J9vkQ
-	nHyxosFoJr9W9QBtjq0YYxgnpGBT61RpVtPOM=; b=T8JmhcIdM+IZlDu1hLe31J
-	m6mbjwcWL7wzOhkhG48GMAQlsaYPR+qFspy9MtxmiqJAc7tEhHppbNKH9Ly6ZtZV
-	VqxL0sG8s2UwXNLFqIJ/BYZUI5pdL3Q7nroUwRsfUZ8NnojGqzqlf4TRT4AYhP4L
-	6FIDNuGbJCz0GmEFk/Hg39Qj1dTW+wDF8Je9F6lhuDnTz0Ez1O9eo34NkYGd3QWl
-	cZT5GXWip3BeiaEHOopn1erdpxY1LeO4vtBHH3q98w6K3sLk76T90ISRopD52k3Y
-	zDVC5jr2MvAZIMwg+xjEXbsZPTVrL2CYSC8Mm8BnPyO6Np9NnZwnVMHA81Yvggnw
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dwjc4bu-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 16 Oct 2026 00:02:55 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69FN3x9q1927457;
-	Fri, 16 Oct 2026 00:02:54 GMT
-Received: from smtprelay01.wdc07v.mail.ibm.com ([172.16.1.68])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h9ypq94xa-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 16 Oct 2026 00:02:54 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com [10.39.53.229])
-	by smtprelay01.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69G02sUl44827056
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 16 Oct 2026 00:02:54 GMT
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 18558580DF;
-	Fri, 16 Oct 2026 00:02:54 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 36309580E3;
-	Fri, 16 Oct 2026 00:02:51 +0000 (GMT)
-Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com (unknown [9.61.159.15])
-	by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 16 Oct 2026 00:02:51 +0000 (GMT)
-Message-ID: <2dd935d171066eb4f1c251184eee871ad91f46b4.camel@linux.ibm.com>
-Subject: Re: [PATCH] kexec: Select ima_get/free_kexec_buffer() with
- CONFIG_HAVE_IMA_KEXEC(_OF)
-From: Mimi Zohar <zohar@linux.ibm.com>
-To: Roberto Sassu <roberto.sassu@huaweicloud.com>, catalin.marinas@arm.com,
-        will@kernel.org, mark.rutland@arm.com, chenhuacai@kernel.org,
-        kernel@xen0n.name, maddy@linux.ibm.com, mpe@ellerman.id.au,
-        npiggin@gmail.com, chleroy@kernel.org, pjw@kernel.org,
-        palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
-        tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
-        dave.hansen@linux.intel.com, hpa@zytor.com, robh@kernel.org,
-        saravanak@kernel.org
-Cc: x86@kernel.org, linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
-        linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
-        devicetree@vger.kernel.org, noodles@fb.com,
-        linux-integrity@vger.kernel.org, linux-security-module@vger.kernel.org,
-        Roberto Sassu
- <roberto.sassu@huawei.com>
-In-Reply-To: <20261014150005.138309-1-roberto.sassu@huaweicloud.com>
-References: <20261014150005.138309-1-roberto.sassu@huaweicloud.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 20:04:39 -0400
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oOHnLwpw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CB1C1F000C4;
+	Fri, 16 Oct 2026 00:06:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792109186;
+	bh=lj0QXNDYWzykhho+9TgSGkXQQEpotIYDIIMXMua7eT8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oOHnLwpwzXtkpHlf/6U6iF7vR87WzvWbEDkOSs+3dp8FKUwEDtOEWfd+6JMd2ssjz
+	 GksAiaUpsIWqUo0dFVk155pkKrt/uQGX1NYw1QEdERp+A1Nt6fjyyEr0VjxDe3MTLn
+	 y3tG+1pIiDhw0uPafqBUYvc9Ob3kIiwceYOBmf8l7m9JtxTkieKn+UDxCnUf+6eCLS
+	 OeTrKt80VAXQzJyVsPTmXXwbritv3DMzHM+pKHlhVzZH8TactA4tSM7tc2hImMGgUV
+	 ren66sBe8znD4ykW994KGmIo/iQIXn+69G6S9pkjIAYVzlA6PWgkL1vtq3LBsyYzxv
+	 dfLtdDCrcOvRw==
+Date: Thu, 15 Oct 2026 17:06:24 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: Sunil V L <sunilvl@oss.qualcomm.com>
+Cc: Adrien Ricciardi <aricciardi@baylibre.com>,
+	Alexandre Ghiti <alex@ghiti.fr>, Albert Ou <aou@eecs.berkeley.edu>,
+	Atish Patra <atish.patra@linux.dev>,
+	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>,
+	Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>,
+	Gong Shuai <gong.shuai@sanechips.com.cn>,
+	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
+	James Morse <james.morse@arm.com>,
+	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
+	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
+	Peter Newman <peternewman@google.com>,
+	Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	Rob Herring <robh@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Tony Luck <tony.luck@intel.com>,
+	Vasudevan Srinivasan <vasu@rivosinc.com>,
+	Ved Shanbhogue <ved@rivosinc.com>, Weiwei Li <liwei1518@gmail.com>,
+	yunhui cui <cuiyunhui@bytedance.com>,
+	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	x86@kernel.org, devicetree@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v9 1/5] riscv_cbqri: Add capacity controller probe and
+ allocation device ops
+Message-ID: <atFqgJc4Vg2XPGl0@thelio>
+References: <20261003-dfustini-atl-sc-cbqri-dt-v9-0-52fd8be98dcf@kernel.org>
+ <20261003-dfustini-atl-sc-cbqri-dt-v9-1-52fd8be98dcf@kernel.org>
+ <CAB19ukHJ-TxXu+vMGGNqHz2sJj35Cg0X1RbcdfXzwDYpci1jQw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA5NCBTYWx0ZWRfX2HSmi+79F5sk
- F6cJ7NPejHB+7WHifxwy2jTNeN+1trz8LY4O/c9Nrxfke0WNdl7j1Q+67s4DKMWPR6esIHz8ktI
- K0tq6WDkqAuHdd5alAeGCbELszv+Iy4JZ0+fqSO/L13P8KVSgc+hLSs0BUMcp1abGeEddTWuQ0x
- DgckQmdPn28cVLNyaRpJNpQgHrkPzvNhtB4BrwiL11DqWhTQ4iKZBnJ6O6YMYp3wIbPkHlbPNTu
- yuFjLtwZNiUnx0o6/TBRUj7JJDZnA2Psv+zNVmANtyZBcqWuyk14cfQgW2Kd9p6jpMvxEPS0i4P
- 9izNnrleHEY+3qJ5vxEC5owm2SmqeBCu4OE58PHvT8msLi1bqUTwEmcDI3uhC1lcyvBSJ8AI2/Z
- P4yU5XoeV0+kwIer2DSUzTnv5W4e9/IuU49Yz1D77lWvgRbiAXpcAuzu2CM8QtMFWDh3J7Pn/95
- F6Hddu++a3Zm8l5+F0g==
-X-Proofpoint-GUID: NTtm2mgFbtZvv4BT6wKycrFWT1K8ZNoK
-X-Proofpoint-ORIG-GUID: tiREeBn2CptRBXexEe4TPGoQAtBFlstP
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA5NCBTYWx0ZWRfX/DAorNGlPVs4
- yv5/RElxR2BVrhNGnK8pZHiy6neDZgmPdHp2jFgKzGeIaabQ9Lw8/ORsLJZrcqeRQhQk4Obp43l
- W/UyHe4tHhV1wBc+cnuG7GIYhmkZQRE=
-X-Authority-Analysis: v=2.4 cv=btHZl0ai c=1 sm=1 tr=0 ts=6ad169af cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=i0EeH86SAAAA:8
- a=oj6d6ukrGZa-rDQ9-ikA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 phishscore=0 impostorscore=0 adultscore=0
- lowpriorityscore=0 priorityscore=1501 clxscore=1011 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610150094
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAB19ukHJ-TxXu+vMGGNqHz2sJj35Cg0X1RbcdfXzwDYpci1jQw@mail.gmail.com>
 
-Hi Roberto,
+On Mon, Oct 12, 2026 at 09:42:59PM +0530, Sunil V L wrote:
+> Hi Drew!
 
-On Wed, 2026-10-14 at 17:00 +0200, Roberto Sassu wrote:
-> From: Roberto Sassu <roberto.sassu@huawei.com>
+Hi Sunil, thanks for reviewing!
 
-The first paragraph should explain the problem from a high level: the user-
-visible impact and cause. For example, something like:
+> On Sat, Oct 3, 2026 at 12:45 PM Drew Fustini <fustini@kernel.org> wrote:
+> >
+> > Add support for the RISC-V CBQRI capacity controller. A platform driver
+> > passes a cbqri_controller_info descriptor together with the cache level
+> > to riscv_cbqri_register_cc_dt(), which probes the controller and adds it
+> > to the controller list.
+> >
+> > Assisted-by: LLM
+> > Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
+> > Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
+> > Signed-off-by: Drew Fustini <fustini@kernel.org>
+> > ---
+> >  MAINTAINERS                      |   3 +
+> >  drivers/resctrl/Kconfig          |   9 +
+> >  drivers/resctrl/Makefile         |   3 +
+> >  drivers/resctrl/cbqri_devices.c  | 574 +++++++++++++++++++++++++++++++++++++++
+> >  drivers/resctrl/cbqri_internal.h | 122 +++++++++
+> >  include/linux/riscv_cbqri.h      |  45 +++
+> >  6 files changed, 756 insertions(+)
+[..]
+> > diff --git a/drivers/resctrl/cbqri_devices.c b/drivers/resctrl/cbqri_devices.c
+> > new file mode 100644
+> > index 000000000000..87d4ecf8f141
+> > --- /dev/null
+> > +++ b/drivers/resctrl/cbqri_devices.c
+[..]
+> > +static int cbqri_probe_controller(struct cbqri_controller *ctrl)
+> > +{
+[..]
+> > +
+> > +       if (!request_mem_region(ctrl->addr, ctrl->size, "cbqri_controller")) {
+> > +               pr_err("request_mem_region failed for %pa\n", &ctrl->addr);
+> > +               return -EBUSY;
+> > +       }
+> > +
+> Apologies for jumping on this late. But why not simply use
+> devm_platform_ioremap_resource() ?
 
-=E2=80=9COn x86, if CONFIG_OF_FLATTREE is enabled, the kernel uses the devi=
-ce tree
-implementation of ima_get/free_kexec_buffer(). However, x86 doesn=E2=80=99t=
- pass the IMA
-buffer through the device tree, so the buffer is never found and the IMA
-measurement log is not carried over across kexec.=E2=80=9D
+This is an artifact of my fuller RFC series which implemented RQSC as
+well. For ACPI, it registers controllers directly from the RQSC table
+without a platform device.
 
-Then continue with the fix: defining CONFIG_HAVE_IMA_KEXEC_OF and selecting=
- it
-only on the architectures that use the device tree implementation.
+But you make a good point and this is what MPAM does as well. I will
+switch to devm_platform_get_and_ioremap_resource() and add a base field
+to cbqri_controller_info.
 
-thanks,
+> > +/**
+> > + * riscv_cbqri_register_cc_dt() - register a DT-described capacity controller
+> > + * @info:        registration descriptor. info->cache_id is used as the
+> > + *               resctrl domain id. info->type must be CAPACITY.
+> > + * @cache_level: cache level (2 or 3) the controller backs, mapped to the
+> > + *               resctrl L2/L3 resource by the resctrl glue.
+> > + *
+> > + * The cache level and id (info->cache_id) are supplied directly by the
+> > + * caller, which resolves them from cacheinfo. Domain membership is resolved
+> > + * per CPU at hotplug, so no cpu mask is stored. There is no firmware table
+> > + * to resolve any of this from.
+> > + *
+> > + * Return: 0 on success, -EEXIST when a controller for the same cache level
+> > + * and id is already registered, or another negative errno on failure.
+> > + */
+> > +int riscv_cbqri_register_cc_dt(const struct cbqri_controller_info *info,
+> > +                              u32 cache_level)
+> >
+> What is DT specific code in this function? IMO, it is better to gather
+> all information in the main
+> driver itself into a generic "info" structure. That way, all ACPI vs
+> DT differences will be handled in
+> one place and everything further will be generic.
 
-Mimi
+There is nothing that is DT specific beyond needing to pass the cache
+level whereas ACPI can determine it from PPTT.
 
->=20
-> The ima_get/free_kexec_buffer() device tree implementation relies on the
-> arch code calling of_kexec_alloc_and_setup_fdt() to pass the information
-> about where the IMA kexec buffer is located. Only the arm64, powerpc and
-> riscv architectures support that. LoongArch implicitly assumes that the
-> device tree implementation is used, but it does not call that function.
+But I think it would make sense to be more generic. I will move
+cache_level into cbqri_controller_info and drop the _dt suffix.
 
->=20
-> The ima_get/free_kexec_buffer() x86 implementation instead still relies o=
-n
-> the setup data to pass the kexec buffer information, and is built only if
-> CONFIG_OF_FLATTREE is not defined.
->=20
-> However, if CONFIG_OF_FLATTREE is selected in x86, x86 attempts to use th=
-e
-> device tree implementations of ima_get/free_kexec_buffer(), which are nev=
-er
-> going to succeed because of_kexec_alloc_and_setup_fdt() is not called for
-> that architecture.
->=20
-> Instead, define CONFIG_HAVE_IMA_KEXEC_OF (automatically selects
-> HAVE_IMA_KEXEC), select it for the architectures that should use the
-> ima_get/free_kexec_buffer() device tree implementation, and enable these
-> functions if the new config option is enabled. Set it also on LoongArch, =
-to
-> preserve the current behavior and avoid a link failure. LoongArch does no=
-t
-> pass the buffer location to the next kernel yet; this will be addressed
-> separately.
->=20
-> Finally, don't select it for x86, and use x86's own setup_data-based
-> implementation regardless of CONFIG_OF_FLATTREE.
->=20
-> Fixes: b69a2afd5afc ("x86/kexec: Carry forward IMA measurement log on kex=
-ec")
-> Signed-off-by: Roberto Sassu <roberto.sassu@huawei.com>
+[..]
+> > +       /*
+> > +        * SRMCFG encodes RCID in 12 bits. Reject an out-of-range count rather
+> > +        * than silently truncating in every FIELD_PREP(SRMCFG_RCID_MASK, closid)
+> > +        * on the schedule-in fast path.
+> > +        */
+> > +       if (ctrl->rcid_count > FIELD_MAX(SRMCFG_RCID_MASK) + 1) {
+> > +               pr_warn("CC at %pa has RCID count %u beyond the 12-bit SRMCFG field, skipping\n",
+> > +                       &ctrl->addr, ctrl->rcid_count);
+> > +               cbqri_controller_destroy(ctrl);
+> >
+> Any reason to have explicit cleanups ?
+
+No. I will move the info->rcid_count check before allocation and use
+__free() for the controller.
+
+[..]
+> > diff --git a/drivers/resctrl/cbqri_internal.h b/drivers/resctrl/cbqri_internal.h
+[..]
+> > +extern struct list_head cbqri_controllers;
+> > +extern struct mutex cbqri_controllers_lock;
+> > +
+> >
+> Can these be made static in cbqri_devices.c and provide API for cbqri_resctrl.c?
+
+Yes, the only use outside of cbqri_devices.c is
+cbqri_resctrl_pick_caches(). I will make both static and add a helper
+that returns the registered controllers.
+
+Thanks,
+Drew
