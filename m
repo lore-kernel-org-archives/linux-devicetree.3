@@ -1,147 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C3AC3A9619
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 05:46:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1A105223336
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 05:46:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792129574; cv=none; b=aMake3U6H45j8V9yCgwZNxZFmxBGsRRTCZ6RluS65czrWBlO00x7VlfO+2dQjC0WVPxndmpWrYWwY38hi8IEikrzosVe8s50cVmdMqbJmzQpVyf3Lq9K3lJZ27knGdiTLm9KbTz3AGQhSCtz222FrHYW+1qwcHhrnHMwfs/VAZc=
+	t=1792129598; cv=none; b=nc852fKrJ0rBfLTOgF2+5zHJBDqUvhCtmcYzJZap6Sf4o3V9HWm5IuSlRbmoqJ8jl6utADhUZZoNvWBPK2++whj6eVCHWXUee6644YlBINgTkoSiTzCFcY/SsZrKgEdPoE2n1+YWT9GH0SXpmMAryIP1DwZKj8nu5zGEc9nvscw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792129574; c=relaxed/simple;
-	bh=6ymS+b/OLR/rl7wKcQ+VUBVwLwrZQuAjaXbNO9gOQXc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aSIE7IUKqurbMV83mLUzts3vc+7btenPfEGltUp+sSVsNBLj5thyQuAwRYERRFym293wPy+CgsjZrK+rW07NlktkXwLhLKet3o/HvmK0ucWJKw0Tr0qe4UfEe7AyUMIpG6tVw2bhzvxX4uSwZ5P4qwpMxWVdt11W691fdoUs9RE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JWyV6FqO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792129598; c=relaxed/simple;
+	bh=H/wLC77nyWi4TKzai2xbbOaPR7KYDq5gbSIw52DfucI=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=NNZJnpr3hFIlL6kRJXoTE49Q3w6fqU/Yzs8x4u0WT4rFtyZDvTqUvILxEOm0aGVZNAhjkNISmjJq2PhROe3urPzJNxKim0jpdLR0lQvuxeULg2KHNVhsU7OtVtl8D5W5RrbpxwdpN8lY9xk/f74ZcnBUHT3PKXtS0KiY5ga586A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=AOu8G//r; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JWyV6FqO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40E901F000C8
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 05:46:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792129567;
-	bh=LoKtrw7hyNRnwwtzfdOXkXTi9AGhOrp6JERxAlqfWSs=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=JWyV6FqOv9QQWa1oVzJgkTyXA0h1PgnXMa5/dRfAxiA9L9E/+kQI1uUr6tkciK5KX
-	 4Ti73fLs44mN99sMYAWSNNVM3JnWOWl5LeudwYgQUdn4jCg+oGTGVZDMcAliLFRsGN
-	 49u0h71/rNIcINv6KH4Hq0qOxoX7HN0D8P3loAaP0vtJp65rJ1FKa72xPOqoFLoMS5
-	 nmMzFPMs1r2EB7QA9SLXH9AYz+SdN54asOWpwyE7vKsfp0CZCSqnRr68hXpXnqJCGf
-	 3XQJk5kKMXgIYSuNZrVdBY/LsWN1P0he7gqlmhyJ2BqD1aDQGx9x+KvnJIzF8gi2iJ
-	 +y0oEn6bx3yEw==
-Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3a98fc80925so10132761fa.0
-        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 22:46:07 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByJ9UBcQMRYq9rRwkGGo8ii+mrjwmeDuaw7jBjEOJPg0gf6KXjNqnQ/ZkGuEhGzBVbpWhH5k9/D2Qti@vger.kernel.org
-X-Gm-Message-State: AFq9FYLYEsEZaVDwzqZrzDelx+8jdSYwK0oJ1JWiSQBXEQJer+1tzcbu
-	fPboBTs86Qqc6q0Is3Bo6ZGArxWeg7KX+aW6MQB46K2Lc54xoASByt/JMJOrrgH8J3WN04FFnY+
-	jNJUXHn3Sxc2+4UoWoJJfFFH8PaZ75WQ=
-X-Received: by 2002:a05:651c:211e:b0:3a9:8450:813e with SMTP id
- 38308e7fff4ca-3a9c56df14cmr54234641fa.20.1792129565639; Thu, 15 Oct 2026
- 22:46:05 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="AOu8G//r"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	References:Date:Message-Id; bh=au/In2S6Zw9QAy1t6b5ulyOfJEmxfJagH
+	+pXKcr29cE=; b=AOu8G//r+cz1NzGdXe/GViFvzW9kWYbWd+NGxY+aXGImKkgF6
+	65QJXNfJszHKRTUSMSxL4BahB4kdHFb18mI4FkePzLvVw36BWq74F67ZDxjJD8ZR
+	G9Tr6w5TkyevGApdezXQldwGUtbyAhwVCqpay0sRwYGJedMKDpk6C56Img=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwD3vwYqutFqSzECAA--.1058S2;
+	Fri, 16 Oct 2026 13:46:28 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261016-helios64-power-tree-v1-0-31d6c8dc5092@iav.lv> <20261016-helios64-power-tree-v1-2-31d6c8dc5092@iav.lv>
-In-Reply-To: <20261016-helios64-power-tree-v1-2-31d6c8dc5092@iav.lv>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Fri, 16 Oct 2026 14:45:51 +0900
-X-Gmail-Original-Message-ID: <CAGb2v64pcvwak2kC7rPwiZm4=BCnb+Kh3WUps3J-19=DC6pkzw@mail.gmail.com>
-X-Gm-Features: AclHuK8uVlitNY7i2NB9uFdKYW8oiH_IPPYtbAi4f1OZkEfiAEY-pnEtxZkD2cM
-Message-ID: <CAGb2v64pcvwak2kC7rPwiZm4=BCnb+Kh3WUps3J-19=DC6pkzw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] arm64: dts: rockchip: Describe the unused RK808
- outputs on Kobol Helios64
-To: iav@iav.lv
-Cc: Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3 5/7] riscv: dts: ultrarisc: Add initial device tree
+ for UltraRISC DP1000
+From: Xincheng Ji <jixincheng@ultrarisc.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: sashiko-reviews@lists.linux.dev, Xincheng Ji <jixincheng@ultrarisc.com>, 
+ devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261014-ramp-dioxide-63e1d5e0499f@spud>
+References: <20261013-ultrarisc-dts-v3-0-5ff3ebb2a90d@ultrarisc.com>
+ <20261013-ultrarisc-dts-v3-5-5ff3ebb2a90d@ultrarisc.com>
+ <sashiko-outbox-169523@kernel.org>
+ <20261014-ramp-dioxide-63e1d5e0499f@spud>
+Date: Fri, 16 Oct 2026 13:46:17 +0800
+Message-Id: <179212957763.1275455.3064080898743829943.b4-reply@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792129577; l=1889;
+ i=jixincheng@ultrarisc.com; s=20260922; h=from:subject:message-id;
+ bh=H/wLC77nyWi4TKzai2xbbOaPR7KYDq5gbSIw52DfucI=;
+ b=G/dseTYRalYRLNbQPqcmVRTWZCsy+AkMe9cOm4ArIZyIMkcE0sLk+D9xKHIbqkD8euyBJQK3P
+ l06EfeNFhB6BLDH1dOKhT6pd5HxFDm/73W8QfKIJK9+2uReH2ifb8NR
+X-Developer-Key: i=jixincheng@ultrarisc.com; a=ed25519;
+ pk=n848dcS5D6g0vLad/rjp4Gf/1eedTe1a3pYUrkt2260=
+X-CM-TRANSID:AQAAfwD3vwYqutFqSzECAA--.1058S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7tr45KFykWryfZrWxJFykAFb_yoW8WF4xpw
+	s7Ka4UtF4kZr1xCwn2vF1Uu3WIvas7GF4Yqwn5Ww48AryY9r17JFWrKw15ZFy5WryxCr42
+	vF4Fv3yIgws8GaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvI14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r1j
+	6r4UM28EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
+	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
+	AVWUtwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2
+	IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v2
+	6r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2
+	IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv
+	67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf
+	9x0JUSNtxUUUUU=
+X-CM-SenderInfo: pml0x0xfkh0wg6xo325dul2uoofrz/1tbiAQAJDmq-VKkAAgAtsB
 
-On Fri, Oct 16, 2026 at 2:34=E2=80=AFPM Igor Velkov via B4 Relay
-<devnull+iav.iav.lv@kernel.org> wrote:
->
-> From: Igor Velkov <iav@iav.lv>
->
-> The Helios64 schematic lists RK808 LDO_REG1, LDO_REG2, LDO_REG5,
-> LDO_REG7 and SWITCH_REG2 as unused (sheet 2). Each output has only a
-> 0.1 uF capacitor and goes nowhere else (sheet 6).
->
-> Describe them with the names from the schematic and no constraints, so
-> the regulator core switches them off as unused.
+Hi Niklas,
 
-To be honest this seems a bit odd. If something is unused you should
-not need to describe it.
+On 2026-10-14 17:53 +0100, Conor Dooley wrote:
+> > > + cpus {
+> > > +         #address-cells = <1>;
+> > > +         #size-cells = <0>;
+> > > +         timebase-frequency = <10000000>;
+> > > +
+> > > +         cpu0: cpu@0 {
+> > > +                 compatible = "ultrarisc,cp100", "riscv";
+> > [ ... ]
+> > > +                 cpu0_intc: interrupt-controller {
+> > > +                         compatible = "riscv,cpu-intc";
+> > > +                         interrupt-controller;
+> > > +                         #interrupt-cells = <1>;
+> > > +                 };
+> > > +
+> > > +                 l2_cache0: l2-cache {
+> >
+> > [Severity: Medium]
+> > Does this incorrectly nest the L2 cache nodes as children of the cpu nodes?
+> >
+> > Standard Devicetree topologies for CPU schemas require cache nodes to be
+> > defined as siblings under the /cpus node or globally, rather than as direct
+> > children of the cpu nodes. Instantiating l2-cache here can cause
+> > dt_binding_check validation failures and break generic kernel cache topology
+> > parsers that expect the cache nodes at the root of /cpus and referenced via
+> > the next-level-cache phandle.
+> >
+> > Should these cache nodes be moved outside of the cpu@0 node?
+>
+> This seems like a fairly reasonable comment from Sashiko. Does keeping it
+> here lead to hwloc incorrectly displaying your topology?
 
-ChenYu
+Thank you for pointing this out. You are right: after reviewing the
+relevant Devicetree bindings and implementations from other vendors,
+we found that the current L2 cache node placement is not compliant 
+with the standard topology.
 
+The L2 cache nodes should be defined as siblings under /cpus (or globally) 
+and referenced via next-level-cache, rather than being children of the CPU 
+nodes. We will fix this in v4.
 
-> Link: https://wiki.kobol.io/helios64/files/schematics/Helios64_Schematics=
-_Rev1.2.pdf
-> Assisted-by: LLM
-> Signed-off-by: Igor Velkov <iav@iav.lv>
-> ---
->  .../boot/dts/rockchip/rk3399-kobol-helios64.dts      | 20 ++++++++++++++=
-++++++
->  1 file changed, 20 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts b/arc=
-h/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-> index cf247d6c6212..35e92e1c8ff8 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-> @@ -436,6 +436,14 @@ regulator-state-mem {
->                                 };
->                         };
->
-> +                       vcc1v8_dvp: LDO_REG1 {
-> +                               regulator-name =3D "vcc1v8_dvp";
-> +                       };
-> +
-> +                       vcc3v0_touch: LDO_REG2 {
-> +                               regulator-name =3D "vcc3v0_touch";
-> +                       };
-> +
->                         vcc1v8_s3: LDO_REG3 {
->                                 regulator-name =3D "vcc1v8_s3";
->                                 regulator-always-on;
-> @@ -462,6 +470,10 @@ regulator-state-mem {
->                                 };
->                         };
->
-> +                       vcca3v0_codec: LDO_REG5 {
-> +                               regulator-name =3D "vcca3v0_codec";
-> +                       };
-> +
->                         vcc1v5_s3: LDO_REG6 {
->                                 regulator-name =3D "vcc1v5_s3";
->                                 regulator-always-on;
-> @@ -475,6 +487,10 @@ regulator-state-mem {
->                                 };
->                         };
->
-> +                       vcca1v8_codec: LDO_REG7 {
-> +                               regulator-name =3D "vcca1v8_codec";
-> +                       };
-> +
->                         vcc3v0_s3: LDO_REG8 {
->                                 regulator-name =3D "vcc3v0_s3";
->                                 regulator-always-on;
-> @@ -497,6 +513,10 @@ regulator-state-mem {
->                                         regulator-off-in-suspend;
->                                 };
->                         };
-> +
-> +                       vcc3v3_s0: SWITCH_REG2 {
-> +                               regulator-name =3D "vcc3v3_s0";
-> +                       };
->                 };
->         };
->
->
-> --
-> 2.43.0
->
->
->
+Thanks,
+Xincheng
+
+-- 
+Xincheng Ji <jixincheng@ultrarisc.com>
+
