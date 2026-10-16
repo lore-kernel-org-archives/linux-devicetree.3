@@ -1,174 +1,210 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013002.outbound.protection.outlook.com [40.107.162.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37398364052;
-	Fri, 16 Oct 2026 07:41:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.2
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792136484; cv=fail; b=bko2zKAn6gIAthkaq91ysRY+vh3Q43u7hUTwkJZPCxsc4F9LoCHQYfDR3ZbvINiH4E6jGbBjfdm4YkexqS2tVxMtBcezr7/8vJASifkoZ9O8WXWT7d302xpoHxoKnOMrhM7DKZ10KWG0wqY1uXn5PIOT8DymY9HF9AIL8uch5rU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792136484; c=relaxed/simple;
-	bh=IA9a4+EjF4kDB7uTnmBirAW78pVCQ4wJFVZH/JnuUIk=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=aTW15sSQGi+n0FtAbXhINHFslruLfTR9xYfgv/2jT0NuwLDoqbsMbCd8paGWk0MTCmxmvu8kTwrU7pQfYd03Mfw/eYKqL/w1ok34awEk/rqeik/0+N/U6uG6VYFs/ydOBmy3t4q8xk2TQmKrKhdxlO1ynQns07hQsNhXVg/lFeE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=AkCFxIIE; arc=fail smtp.client-ip=40.107.162.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE40242E8FA;
+	Fri, 16 Oct 2026 07:43:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792136603; cv=none; b=Nbyt88eCpQUnqAPcuyzedJEoe2CK6FthhtMkuwaVgohdJdY13Gw4DOiFJ+uGhl6xHtQ8GhSia21f3GCLgbvBno9QUQ82X3EV9N2vTzeMBsfCKuBgTjoqLdf9h5zZ3kT2gytLOIF0zBVDcsvyuQEZ7/U3jW06zCx6Yq3DraYVq/Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792136603; c=relaxed/simple;
+	bh=q8QMU2g/5rxzERHN7LI3nwwsBxoze8z/SfHcGmxNnh0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=s2TmOoBEBLoZ6YGulIC/2kUBtIWSW+FESkZACQGAbYGqiyXvG3CPULsjwSu5trNvS0APTkofoQZN9BTmSZFAmoiT3E+qlkJjwR2FsJOhjEqxyMIFb74vBini7osvBb78hfVWZZAZPVclk0ElsH06j6eA7lD52WuUGTrnygHrlWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rEs2Uoe4; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="AkCFxIIE"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jPxxGza1gjV6y5D4CdFxd0i0fVcWpBNM66O+uBV1zaZhALsSDuae9Xuc7NIC9ou02uqeKcCtYr8mKIU7tcnfn57I49jRDisDXbszPjnoXzXo6Ww/lRvNlCgtVYDTuBYfSDV4T7EizKLW3mLTxwHJMu/I69ZKLoK9uZbYe5PbCUX+HcjumP1+lg9imh0fm5uefVY0rRKh1YVKG8lJZL+TZaFiy22JRRbCxSJQ4uo1OR8mpgYAx+L8c8e0GvmQ3ZYjbBZsLQqwOr1MvKYio526YRq8n7Fk7FBSHOyiZ4Yd+6CNeMQwQNcIUooJlya9SkeZinHVx/eRm3FMVvya/wkqug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dltc9RZsbtEym76LXISFCmx5CHXnHKsrh6hrIgb3ao0=;
- b=QKd2GiqHDYQUeBGgFta9n5pjvU8stNKS0pG5/qCg+7khXPYCGYa3mXvN+uV03BOaBZVV3Rv2ocxq5JMAPypGWKrjl/V3ZRzfSMEuhvk/1AYwCpcoejSzcG9r3vtaByoZqHQdVhiaL1chouqu9its+WMWwr8zFwHXDSTe8WSt3pxNhgfNX4BSiXsTOTYsH5qdBdNI+SZfa1yKGf10/3hn52SXOsH+QxIk02F0f3pP7nJZljvDlRv4B3zIifZQ56A257opkz73jd1cHz4rp4fgipxU/fmlR95LZvP/We6mEbR/OJ1k1obT8dT4GiODB5hn44wzxscjYaBCTYS1cHPseA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=axis.com; dmarc=pass action=none header.from=axis.com;
- dkim=pass header.d=axis.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dltc9RZsbtEym76LXISFCmx5CHXnHKsrh6hrIgb3ao0=;
- b=AkCFxIIEouZoTjlZQlCt/ttfubq+iNv48+vx8an1SO+hnacmusEmxwggirAtgh7cLUUe4IUbd71gY09kfj5oQ8EcuFRidRY01v927eKxYeBOnK/I7QSwN7YkYuKhq3k/A+uQaZLjgLreu3yO6aqCusrNTWrq4Pibba4jYbyxxCg=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axis.com;
-Received: from PAXPR02MB7344.eurprd02.prod.outlook.com (2603:10a6:102:1c7::8)
- by GV2PR02MB9590.eurprd02.prod.outlook.com (2603:10a6:150:da::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.24; Fri, 16 Oct
- 2026 07:41:17 +0000
-Received: from PAXPR02MB7344.eurprd02.prod.outlook.com
- ([fe80::f0f2:8c3c:c869:c51d]) by PAXPR02MB7344.eurprd02.prod.outlook.com
- ([fe80::f0f2:8c3c:c869:c51d%6]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
- 07:41:16 +0000
-Message-ID: <f3fd611b-920f-4539-8edb-ecb173f715b0@axis.com>
-Date: Fri, 16 Oct 2026 09:41:14 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] rtc: ds1307: Add driver for Epson RX8901CE
-To: Fredrik M Olsson <fredrik.m.olsson@axis.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>
-Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel@axis.com
-References: <20260629-ds1307-rx8901-add-v3-1-302dc3cbb71e@axis.com>
-Content-Language: en-US
-From: Fredrik M Olsson <fredriol@axis.com>
-In-Reply-To: <20260629-ds1307-rx8901-add-v3-1-302dc3cbb71e@axis.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MM0P280CA0063.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:190:8::27) To PAXPR02MB7344.eurprd02.prod.outlook.com
- (2603:10a6:102:1c7::8)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rEs2Uoe4"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6C8BBC2BCF4;
+	Fri, 16 Oct 2026 07:43:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792136602;
+	bh=q8QMU2g/5rxzERHN7LI3nwwsBxoze8z/SfHcGmxNnh0=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=rEs2Uoe4LIYA1xAIfnDcNGymY71RX5okyxRWmQwx3g7KD65ve7kDOfhebnJcNl1FU
+	 0juE32ehlgRFM1njeVtheUTVn7hKzfiqPxp/effvSQS23NbaelYfTuZpmztkNKxKU+
+	 0iu5eBcMXZ4HATG9UJJM8zoJg2a6XJv2JjK5rKk44k60KaNKXJH//VlBSZnTm21O3n
+	 T9gcUkJBAHfkrb4hLc0My7tFHcMw+CXO4+RDJZ2LylgwvJ3qorlIL76TJA/JYRox8z
+	 pbvw2gsHVoZyiljief91wcv9PapO1CggzOi2EaqNXFofzMNnVPfmRoGop/N7vJGcMP
+	 HZXTl316POr0w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 45FA9CCA464;
+	Fri, 16 Oct 2026 07:43:22 +0000 (UTC)
+From: Haoning CHENG via B4 Relay <devnull+Haoning.CHENG.cn.bosch.com@kernel.org>
+Subject: [PATCH RESEND v11 0/3] thermal: imx: Add calibration offset
+ support
+Date: Fri, 16 Oct 2026 15:43:17 +0800
+Message-Id: <20261016-b4-symana21-11221-imx-thermal-support-upstream-6-18-v11-0-b80952ad27d6@cn.bosch.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR02MB7344:EE_|GV2PR02MB9590:EE_
-X-MS-Office365-Filtering-Correlation-Id: f046ee3c-62c8-4dd9-b200-08df2b58dbd4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|10067099003|22082099003|18002099003|3023799007|11063799006|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	ygO5a2a51IhXeX3diXULS49iLX1fuiQkpzVY3nNL4i83jiUv+X0pRVy0fPbdcvrjAGPni/ShWQw/N1KN2f0RVhTt7y+jeH76Z46j7XFEowj8cwhRs7RDczesU/yJRceIRAVsmM4JAVNKWiBkCQtyal/f36UPRnjWEfvU/PXM/ft0gjDxUlCgzQFzKDJ93eW0O9okvuPOLTUyYBEd4Rti9wHexUH8vysnhDsqITvh7/kpjuYh7aW5V+hY3NqEPIdKsTMOlVPSdxIsXRzelGJk+qv7AqTAUGEZvo2y2GhWENJdFRsp+zBocS/UGPIKDjL3OUQGDSoNBoXSiNYLeiMe24rGMN4Oxn4eYDiA413h4LHTWMSamuZ8XzwsLmeC3lU6IwrHFeEBWYT7EY/ohoH8P3J87rlZxiBvOgpNJ913LAAfbOwfgw45aCW84R10r6NhlIXRzzGo2mj4FYpO0Sc7l2vjtydl7nZzuTxIpphz//M/dRxQJqo18FbQgn3K1crDzeVDEyaTVRRZdnzF5n/Z8xYqQI5pOUm4MRXuFy80NYacsOoR+UZmPqJqkW4C9V/uM/lr2tknH2jPmNHBG4M/PkpHhkrpslZZkIl0eDWBKOxjOjo8OZJLyUd8A8zJBUht
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR02MB7344.eurprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(10067099003)(22082099003)(18002099003)(3023799007)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?b0ZnSml6UnZTREpEU0prTE9hN1ZFOWxRYytyYUcyeldLVDVqV3BacGhOYW1n?=
- =?utf-8?B?My9wSVl1QkJ6OVMyeHNZTVJuQWorR205U2N0NmJhZjh5VUt3bURYbEN2N3p5?=
- =?utf-8?B?MkZsUkphMjB4akhzV0lmblNqRnNzeXMvZmwrdFpKQ3VOcHdPSnRyL0d5L0R6?=
- =?utf-8?B?UTRtbzJqdExQSW4xUGVHMC9BZEplR2k0ZnZlV3ltZXJsZE1wLys3ejhyWkc0?=
- =?utf-8?B?RkdWMFd3SWRWdGFpZlZUWktGMVk5aWhXcGxEcEJqN3dXWnFwdWJUbmdpTFZF?=
- =?utf-8?B?OEtCRzlucHhvRklDSXVFREY4bzNBcG8rVG5oWi8vZXFWVmFiUGFIZ3libmht?=
- =?utf-8?B?bHNjRUdxVzVySWZVdkZHSlJCRU9mbytYSXVBQkFpWDFISjJPaTdIQXpwenR3?=
- =?utf-8?B?aHJaWDdYVHFCK1hQWmFhanFSM0lQWVFwQlFUUXVFNVpZL0VZUGpKSFZmTUVy?=
- =?utf-8?B?ZVRMMXlSSnNpc0xUczRuVDl6VTdnTjBqZDJCQm1hL1pNdENxRWJySkM4eEhN?=
- =?utf-8?B?M2g5UlNoN3Y2K0hybjVTZlh3V3FGbDJkUmVkWVAyZCtBMHZ2UzBVVWlhRWlY?=
- =?utf-8?B?aUpTMlorWk9saHhRRTJDZ0hremJScFVVR3BxMkdwTmd4cXh1cXI0Y3dyWDJq?=
- =?utf-8?B?ck9QaEhZSjNmeXU1dDdLNnQ4bVBCcjArbTZCaXVoYk5ZS1kyTnNqMllWUGxE?=
- =?utf-8?B?L0FXQ1QyMHJzbVVKOXlLK0p2SHYraVFaZnFMQ0V3OUczbmt5MFp4Z3VlRmhk?=
- =?utf-8?B?b1BZU3NEcEtDZmNuR0tFV1MzZXIvMU5kRXFsamsyMFhONjNxWDRkWjZqNm5B?=
- =?utf-8?B?RDJTcWU1MEhhUExUR2hUWVVUL29oV081OGI3NVNvR3RuMFA0ZUdmTUFicVNE?=
- =?utf-8?B?V0Jlc2pLUS9CeFdwd0EwcmszRFl0WTZhNGpNZ2JCaS8xUDg4YjFNUjJxV3dy?=
- =?utf-8?B?STFYd2xRVWFyWWVMejdUUG4rcHVJZGNxRTFXakpyYm5saDU4TkhhbTBxRG1a?=
- =?utf-8?B?ZzAxcENaQ2JJNzVxWXY0WEdVV0EwVDFYQkV6Uis5QUhQMXBJQzFSRlg4dHNU?=
- =?utf-8?B?M2dWM2tGT1BmYmtxME5ZNXEyZ1RhQnBxQ1JFR25PYXNwM3NtMExhUE9jQUkz?=
- =?utf-8?B?SG9OWlQ5WWhCNmQwWGJnT0FIZmdWWis5SU1VWktoTHNZREN6Zk5MM21Nb0tM?=
- =?utf-8?B?VU5kL0lXWGJoRE1nV3lLRk9LZ1BnZ0Q3VDlidmRuRzEvRmxuRWxhTmhPN1I2?=
- =?utf-8?B?WFRIUnFGSGVkcTRjUnhBU0pmK2pBS2dJYU9wWVJzbVpWRzNOSis3enlXall6?=
- =?utf-8?B?YU4vekxjR0toVWc3SndLTlJTZ0svRkQ4bkgrUGl2ZW90ZjRlbTNCUVVjeTNi?=
- =?utf-8?B?N0VsZC9RVm92dys1UVBOYzZSLytVK3ZFQmxYZy9ydVhpUzFUWXV4UXpmT2VE?=
- =?utf-8?B?aEFZYVVPUVRxbmlJUjRmb1AvY3Q1NDNnSDF6SHZ3a2FKU1RIeGxQOEJ0Vkhn?=
- =?utf-8?B?ejJ1L2p2YjcxeGNoVkFaNWNhcWorODcvZUk2SjdZMERtMmN5SHJ1V0NtZm03?=
- =?utf-8?B?OVdWWXhpYXNJNW9aL2pvSlJOaHZxRmlXWG1jRXFKUTQ2NExWSEt3c281YWJN?=
- =?utf-8?B?QkRyZm9zdjZsYi9JVEo0UGdRQzBuK1d4clQ4dk1oTVhSOVZleGJ0QlpXa1k5?=
- =?utf-8?B?cFhpR05UamQ0YStjVFZrUTdSQ01TTUhVNGRzVVJSS3lNRzdwZjRaVW5SMDdn?=
- =?utf-8?B?amVwQ3ErUkFoUXU5R1dHdEF4b2RSZ2JBVmx5WEs3bUlwbkpabTErUk1sWXBL?=
- =?utf-8?B?aGRFcmRNd2RoQkVLQkRuc1lHOEJzTUp0Z1hVMTRmTTZIRjAzbUg0TGxxVmg4?=
- =?utf-8?B?azFPQzYrL3VCZE83VnBXaENmMkFIMnV5bmZGU1RpOTVjYk56d3RPNlpRMTdp?=
- =?utf-8?B?NjZEVmVrSCtqTHExOFk1alo3cnI1MFp1U0MzTFc2ZVdYdnNzWnhJSzBZMFZO?=
- =?utf-8?B?K3JjckM2bXBzL0d4SXhiMVN2QXRsSFJPSWc3Q1MwelMyeWNKVUc5RDF5bXVE?=
- =?utf-8?B?TGNleXl0aXBMaGVIUUU0dlovZjBxT2E0UmFKM3dnUGhicGdZbWkxRzBpUGlP?=
- =?utf-8?B?U2FQdVFTaXlOTjVoeUp6Qkp1aHBJVi9hS05KVTIyV0p0NEJjTWo0UEQ1NVVL?=
- =?utf-8?B?UmJJZU9aL1k2WHpTZks1M0ozMU5MbjYyMmgzaGoxUHVNNHk4dW1MZ29qdkZY?=
- =?utf-8?B?bG9sRXA1Z1A2OUsrM0NGeSs3RGRnVGVsWWRRdG00WXIzaE5UOHovd0lSdmFn?=
- =?utf-8?Q?1G8jYcafsVd3VMEXLH?=
-X-OriginatorOrg: axis.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f046ee3c-62c8-4dd9-b200-08df2b58dbd4
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR02MB7344.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 07:41:16.1342
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: frVHtk5jAap8uwrVsk8nR45u3RtDKj37UeMtgcSLsTgn64B+2sqH3jjsgN5T7benKT888nD4Ze0nRc+Z8AC/iw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR02MB9590
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+To: "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@linaro.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Haoning CHENG <Haoning.CHENG@cn.bosch.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Frank Li <Frank.Li@nxp.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792136598; l=7208;
+ i=Haoning.CHENG@cn.bosch.com; s=20260709; h=from:subject:message-id;
+ bh=q8QMU2g/5rxzERHN7LI3nwwsBxoze8z/SfHcGmxNnh0=;
+ b=f8P8IxutGqzvXkCQeSo8Aw7wZw9ob5Wj1VTpJ55ru1Q0rqQjav8jiufy/YhFfGs3JZmj8S1WX
+ QvRJ/QoInmwDjEHlPR0wrce3G1GLWcSoN2AFy1axDLlqaiE4r+sozhA
+X-Developer-Key: i=Haoning.CHENG@cn.bosch.com; a=ed25519;
+ pk=glQGwad/fosRS5gZUJYbLDPPLGe7rFTrTV2VxY/ySdc=
+X-Endpoint-Received: by B4 Relay for Haoning.CHENG@cn.bosch.com/20260709
+ with auth_id=860
+X-Original-From: Haoning CHENG <Haoning.CHENG@cn.bosch.com>
+Reply-To: Haoning.CHENG@cn.bosch.com
 
-On 6/29/26 17:13, Fredrik M Olsson wrote:
-> Adds support for:
-> - Reading and writing time to/from the RTC.
-> - Changing Backup Switch Mode (BSM) to DISABLED/DIRECT/LEVEL using the
->    RTC_PARAM_SET ioctl.
-> - Optionally enabling battery charging.
-> - Reading the battery voltage low status using the RTC_VL_READ ioctl
->    (only supported in LEVEL BSM), which also reports invalid time
->    information if the VLF flag is set.
-> 
-> Signed-off-by: Fredrik M Olsson<fredrik.m.olsson@axis.com>
-> ---
-> Add basic support for the Epson RX8901CE RTC.
-> Datasheet:https://download.epsondevice.com/td/pdf/app/RX8901CE_en.pdf
-> 
-> Also includes a bug fix for an issue with reading the weekday from the
-> RTC which affects both the existing rx8130 and this rx8901 driver.
-> ---
-> Changes in v3:
-> - Clear CHGEN when trickle battery charging is disabled.
-> - Link to v2:https://lore.kernel.org/r/20260520-ds1307-rx8901-add-v2-0- 
-> e069ea32e1db@axis.com
-> 
-> Changes in v2:
-> - Squashed the Voltage Low status patch into the driver patch
-> - Switch from dev_err to dev_dbg
-> - Implement Backup Switch Mode (BSM) ioctl instead of hard coding
->    switching mode.
-> - Change the prototype for the do_trickle_setup function pointer in
->    order to make it possible to propagate error codes from the added
->    PWSW_CFG register read operation. This read operation is added so not
->    to override previously set register fields.
-> - Link to v1:https://lore.kernel.org/r/20251219-ds1307-rx8901-add-v1-0- 
-> b13f346ebe93@axis.com
+The TEMPMON sensor reading may deviate from the theoretical SoC
+junction temperature. This series adds an optional DT property to
+specify a calibration offset and implements the corresponding
+support in the imx_thermal driver.
 
-[...]
+Patch 1 documents the new fsl,temp-calibration-offset-millicelsius
+property in the i.MX thermal DT binding. The offset is determined
+through thermal characterization by comparing the sensor output
+against the calculated junction temperature, and is limited to
+±20 °C.
 
-Friendly ping.
+Patch 2 fixes the i.MX7D alarm temperature conversion to use
+ceiling division (DIV_ROUND_UP() for non-negative, plain /
+for negative) and clamp() to stay within the 9-bit register range.
 
+Patch 3 reads this property in the imx_thermal driver and applies
+the offset symmetrically: it is added when reporting temperature to
+the thermal framework and subtracted when programming hardware alarm
+thresholds (to keep trip point semantics consistent). Out-of-range
+values are rejected with -EINVAL at probe time. When the property
+is absent, the default offset is 0.
+
+Signed-off-by: Haoning CHENG <Haoning.CHENG@cn.bosch.com>
+---
+Changes in v11:
+- Cover letter and patch 3: removed the claim that the TEMPMON sensor
+  deviation exists "at the die level without board influence". The
+  commit messages now describe what the offset does without speculating
+  on the origin of the residual error.
+- No code or binding changes.
+- Link to v10: https://patch.msgid.link/20260720-b4-symana21-11221-imx-thermal-support-upstream-6-18-v10-0-f8c3dcd9a57e@cn.bosch.com
+
+Changes in v10:
+- Rephrase the series to describe the offset as sensor calibration
+  toward the theoretical junction temperature, reverting the v9
+  terminology that characterized it as a board-specific die-to-package-
+  surface conversion. Hardware characterization confirmed the deviation
+  exists at the die level, independent of board influence.
+- dt-bindings: update the property description to state the offset
+  corrects the TEMPMON sensor reading toward the theoretical junction
+  temperature
+- driver commit message: replace package-surface estimate wording with
+  calibrated correction toward junction temperature
+- Link to v9: https://patch.msgid.link/20260717-b4-symana21-11221-imx-thermal-support-upstream-6-18-v9-0-75f4af8974f4@cn.bosch.com
+
+Changes in v9:
+- Rephrase the series to clarify that the offset converts the internal
+  TEMPMON reading to a package-surface temperature estimate, rather than
+  calibrating the sensor for better die temperature accuracy (Frieder)
+- dt-bindings: update the property description to explicitly state it is
+  a board-specific conversion offset, not a sensor calibration
+- driver commit message: distinguish die temperature from package-surface
+  temperature in the symmetric offset mechanism explanation
+- Pick up Reviewed-by tags from Frank Li (patches 2,3) and Lukasz Luba
+  (patches 1,2,3)
+- Link to v8: https://patch.msgid.link/20260714-b4-symana21-11221-imx-thermal-support-upstream-6-18-v8-0-d54d8690e16e@cn.bosch.com
+
+Changes in v8:
+- binding: s/behaviour/behavior/ (Lukasz)
+- New prep patch: use ceiling division (DIV_ROUND_UP() for non-negative, plain /
+  for negative) and clamp() for i.MX7D, extracted into a separate patch (Frank)
+- driver commit message: add offset mechanism explanation with a +3000 m°C calculation example (Lukasz)
+- probe: reject out-of-range offset with -EINVAL instead of silently clamping (Lukasz)
+- prep patch: handle negative alarm_temp with plain division (C rounds toward zero)
+- Link to v7: https://patch.msgid.link/20260713-b4-symana21-11221-imx-thermal-support-upstream-6-18-v7-0-09b6b7669be1@cn.bosch.com
+
+Changes in v7:
+- Align the author name with the Signed-off-by trailer.
+- Link to v6: https://patch.msgid.link/20260713-b4-symana21-11221-imx-thermal-support-upstream-6-18-v6-0-88a378faeca5@cn.bosch.com
+
+Changes in v6:
+- Align the author name with the Signed-off-by trailer.
+- Link to v5: https://patch.msgid.link/20260713-b4-symana21-11221-imx-thermal-support-upstream-6-18-v5-0-69405c306c6b@cn.bosch.com
+
+Changes in v5:
+- Move calibration offset application out of c2 initialization, instead
+  apply it in imx_get_temp(), imx_set_alarm_temp() and imx_set_panic_temp()
+  for consistent style across i.MX6 and i.MX7D
+- Subtract calibration offset from alarm_temp before the if-else block in
+  imx_set_alarm_temp(), simplifying both SoC branches (Frank's suggestion)
+- Link to v4: https://patch.msgid.link/20260710-b4-symana21-11221-imx-thermal-support-upstream-6-18-v4-0-1fef97d1c750@cn.bosch.com
+
+Changes in v4:
+- dt-bindings: drop maxItems to allow minimum/maximum constraints for
+  temp-calibration-offset-millicelsius
+- Link to v3: https://patch.msgid.link/20260710-b4-symana21-11221-imx-thermal-support-upstream-6-18-v3-0-db9fc2947c55@cn.bosch.com
+
+Changes in v3:
+- dt-bindings: add minimum/maximum (-28580/+28580) for
+  temp-calibration-offset-millicelsius, as suggested by Conor Dooley
+- Link to v2: https://patch.msgid.link/20260709-b4-symana21-11221-imx-thermal-support-upstream-6-18-v2-0-00ff72495e24@cn.bosch.com
+
+Changes in v2:
+- dt-bindings: Removed explicit `$ref: /schemas/types.yaml#/definitions/int32`
+  for fsl,temp-calibration-offset-millicelsius; the `-millicelsius` suffix
+  already resolves to int32-array via property-units.yaml (Rob).
+- dt-bindings: Fixed example indentation.
+- driver: Replaced C integer division (/) with DIV_ROUND_CLOSEST() in
+  imx_set_alarm_temp() to prevent off-by-one alarm threshold mismatch that
+  could cause IRQ storms on i.MX7D.
+- driver: Added clamp() bounds check for alarm_value [0, 0x1ff] to avoid
+  corrupting adjacent register fields (PANIC_ALARM).
+- Link to v1: https://patch.msgid.link/20260709-b4-symana21-11221-imx-thermal-support-upstream-6-18-v1-0-00f88f42930b@cn.bosch.com
+
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+To: Daniel Lezcano <daniel.lezcano@linaro.org>
+To: Zhang Rui <rui.zhang@intel.com>
+To: Lukasz Luba <lukasz.luba@arm.com>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Shawn Guo <shawnguo@kernel.org>
+To: Sascha Hauer <s.hauer@pengutronix.de>
+To: Pengutronix Kernel Team <kernel@pengutronix.de>
+To: Fabio Estevam <festevam@gmail.com>
+Cc: linux-pm@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: imx@lists.linux.dev
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Haoning CHENG (3):
+      dt-bindings: thermal: imx: Document calibration offset property
+      thermal/drivers/imx: Fix rounding and clamp for i.MX7D alarm
+      thermal/drivers/imx: Add calibration offset support
+
+ .../devicetree/bindings/thermal/imx-thermal.yaml   | 12 +++++++
+ drivers/thermal/imx_thermal.c                      | 39 ++++++++++++++++++++--
+ 2 files changed, 48 insertions(+), 3 deletions(-)
+---
+base-commit: c50a940dcde35c647e097e89a9150003abd48329
+change-id: 20260709-b4-symana21-11221-imx-thermal-support-upstream-6-18-a084984deb76
+
+Best regards,
+--
+Haoning Cheng <Haoning.CHENG@cn.bosch.com>
 -- 
-/Fredrik
+Haoning Cheng <Haoning.CHENG@cn.bosch.com>
+
+
