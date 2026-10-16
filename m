@@ -1,236 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5A6035E1AA
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 19:36:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CA873B95E9;
+	Fri, 16 Oct 2026 19:37:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792179395; cv=none; b=qcgq0mm9YXj8t654kAdaSzmBm5AXSQ2oI7rul8gyg499pLfqUC93Q/PTIeCExpI05VTanepNMt77/bkWxdloq8QgM4KBFr+PQp0XOgIvb5L0u/x3pJdXe+GKLQm17ZMAQOf9Tx/L7RUBBbZ/Y5LLFNf9B8wJG7WYd3HB/Jz/6Q8=
+	t=1792179462; cv=none; b=nL7nyqGxcGs8b5/i3zFcMoCLy1QOfqO8oreg4wc8DFx74mSbjb1Mfpq4XXo5QxzunuQahsW9V6LNqbv4YHq/6nxONb0xPYgElEfIFoqvE2dKOGscEPRHxAyl18y2OxV7bf2vozDeT5DowhMUWyLH420fBeMGIPABWS/GjoCxOyY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792179395; c=relaxed/simple;
-	bh=Y+kxM+00FqHjRicplo65txQEt1JX0latt3e05mMcUgQ=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=bgWAzztg0D5DMdOhnX1zUcrmFjUxp0zw/D6Mx6DPUGAsJwjsrngHzWDlywosLd5XHsDm0YH9KUaoSjjRxMs8EzzW770HCS92Bv52gtdXaFtzMZLw2zLbhL7+ZdhxF6QnrKNS+ujXaCYqOtmBJOKvepssP8xxvix5YDF7UrdzF3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VUODYzAC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792179462; c=relaxed/simple;
+	bh=RAFhKdwU/ZLZZ4wlCCnNdhreSddlf7qDekDinE6g4aA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=CifQcELTtTHjFvF7koNoR1lXum7XnToofip+4ORfrK8swEqKdyj0LzVmOJImBBbC9xQ5MRmBfDQHWN5zaimWREXuJROGv0Kw+B+GEoTmX3Qcd6rgF4jRZwL3zImd8GjRC7U4i/u3zdO+6hCC9lug1d4jwepZi8LZCnlZEGOipe8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LX267mri; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VUODYzAC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C6681F000C4;
-	Fri, 16 Oct 2026 19:36:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792179393;
-	bh=sIrihEv3ef1cG4fKUIRf7goYvM2RasctN99iHELqOvc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VUODYzAC6z0FZt5dNU6b6eXziTMrExyU2OIC9Y1JSeeicXSHdZ5bXoO0JREpFeBRd
-	 vKG2BV/CenxubQbTtBAuY9IpWJ0UNHweZXTjTwpoxzEwkaMYWpKdYHILWLoEAThP8f
-	 z0XrTHQoAAi6WUjD////DCQ9vT1rxQLJ6W+oeMXNnYitouw6PM6KaksYJDtNMlIJ3b
-	 U5TnNpniG4qeIcJD7ckmsfwVLsXE9ZxTggS9wh4GQh7cp/2WUfqRRnY+3gERdAwfL3
-	 Mm7ei1xW6sPedMxthIESFH39JdKPAF5MT6Zef0xmS7A5AqZmTLX1RInqJ0PzH+VW1Q
-	 VjckI8IE08TNA==
-Message-ID: <sashiko-outbox-174864@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: iio: dac: Document Analog Devices
- AD5413 single-channel DAC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Bruce Tsao" <bruce.tsao@analog.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261017-ad5413-upstream-v1-1-61f40c8fef25@analog.com>
-References: <20261017-ad5413-upstream-v1-0-61f40c8fef25@analog.com>
- <20261017-ad5413-upstream-v1-1-61f40c8fef25@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 16 Oct 2026 19:36:32 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LX267mri"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E0012C2BCF5;
+	Fri, 16 Oct 2026 19:37:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792179462;
+	bh=RAFhKdwU/ZLZZ4wlCCnNdhreSddlf7qDekDinE6g4aA=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=LX267mriyyLVVedgpNqnkUXj7lZS7YLLGVpCKGtC9ligGMgIBKfU+9dUCxXvE2tIf
+	 ryiPCnhavYcRwPs4ggrAml9aRfkUrFd7ISbeWzeo74RgYMv53rQflYy4544ObGa8iB
+	 +4h7gIDrpQo9E7wLAQLpQmtgCCmayMNAOtaM3UUYLO4GaqWbZ30fCqSTQywpH7vs3D
+	 luI8511448wWgpyjiEMeV398gx2jWkiFSbGwdTjSEW2CVGMQLjPTQ2rJV6vHlcvf1i
+	 FTiATz+d/MzwsqZvDpm4s2B0gI0Kog0ShIec1UdNIhqLge7WPdEFhiUM32XruL39JZ
+	 KCiVqzJzBkiYQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CA739CCF2C4;
+	Fri, 16 Oct 2026 19:37:41 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Fri, 16 Oct 2026 21:37:39 +0200
+Subject: [PATCH] arm64: dts: qcom: sdm845-google: Configure qup_i2c2 pins
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-pixel3-i2c2-fix-v1-1-6a527d52c865@ixit.cz>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBCF4auEWTuQmUDQXqV0UeOoIyUNSVsE8
+ e7GuvwevH+DIlmlwM1skOWnRd+xghoDYX7GSVCHamDLnix5TLrKy6FyYBx1RWc7ZqG2Jd9DfaU
+ sdf4X74/L5dsvEj5nBvb9ABWz7ENzAAAA
+X-Change-ID: 20261016-pixel3-i2c2-fix-30922e18816b
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Joel Selvaraj <foss@joelselvaraj.com>, 
+ Vinod Koul <vkoul@kernel.org>, Amit Pundir <amit.pundir@linaro.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, Marco Mattiolo <marco.mattiolo@hotmail.it>, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1863; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=8F2FDAtyMGjBlCfXnVch0dchQePJ+YFwNeu8d37XgO0=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq0n0Ejd6G2KZGoA5pQ/H8YhwgaKY6lt5YR78vk
+ 35DF/EHVAqJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCatJ9BAAKCRBgAj/E00kg
+ cn8OEACZ5vPBQ90lPLqneAwW0b9lvU/3btUX4VBUkbHDBDHSCoJMZ4yMiTPq9/6EiPT17yg95je
+ VrEkfFZWpmC7s8YUd5uTEgVzFivHDhHGlm/gxhIFKrX1dlEUTsPRGn13m4kztbv6FDrVW5yFge/
+ 9B6iH6WD9+MKCeXZCaAs0acqp5pdyizySj14BA2KGtZyCfdEXdqOAXYDT8RqAbefTBuTc6nXKQZ
+ iU2fpPDBV4G3Rq9QiKS8I3LrNku155wRgWwhBwS5w6neAgm2JqF4UN7egPUA9VrOdkt7zMKnmS1
+ 8zggGXujDwrVf0GzYNyciMO0Nr62aJ4zZbCAg4pEQpwNY0AZUm7bkoKraLLg5rOF/XVtq4CHDvv
+ 5F8SCL8FobVN5yobyE4xJS2CjGMI0QPswjc1AhyyRJ4cMIKP//hh4EmqjLHkXDjHTuhJLwqAS95
+ 9HjlwHfk7LHoQUgpDeAVHlQ/XCAn9WWkFMZ6l8d32mJcsS+skvqCf6OXh5b8VwfTB+Bd3TGcqMX
+ wbk7kqw365OJ0dGvaMJdOz7IOmqQ1waexhAOpT2BcOPw3dHHWq75vinpjEDmi/+l8gGE81kGR8Q
+ VQs+Cu/+hShwwgxUtXv3Z7o12tQIX9TaQ9/x6zHrwVMTeTWrNMRgmhqyKc8u8v+LquHaC0Rc4F2
+ 8h+cKqpenjnJkrg==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: iio: dac: adi,ad5413: missing reg property and requ=
-irement
-- [Medium] dt-bindings: iio: dac: adi,ad5413: invalid maintainers and spi-c=
-pol schema
-- [Medium] dt-bindings: iio: dac: adi,ad5413: custom boolean mode property =
-duplicates standard range bindings
---
+From: Marco Mattiolo <marco.mattiolo@hotmail.it>
 
-commit b9fdb51ef057c689f916309a04134bf25c49ed72
-Author: Bruce Tsao <bruce.tsao@analog.com>
+Set drive strength and disable the pull on the touchscreen i2c pins by
+amending the qup_i2c2_default state from sdm845.dtsi, as the other QUP
+users on this board do, and drop the unused touchscreen_i2c_pins state
+that duplicated the pins with the gpio function.
 
-dt-bindings: iio: dac: Document Analog Devices AD5413 single-channel DAC
+Fixes: a678adbf2d22 ("arm64: dts: qcom: Add support for Pixel 3 and Pixel 3 XL")
+Suggested-by: David Heidelberg <david@ixit.cz>
+Signed-off-by: Marco Mattiolo <marco.mattiolo@hotmail.it>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
 
-This commit documents the devicetree bindings for the Analog Devices AD5413
-single-channel SPI DAC, including power supplies, reset GPIO, output mode,
-and slew-rate control.
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+index f1379857e2742..b019b57502a1a 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+@@ -459,16 +459,21 @@ &pmi8998_charger {
+ &qupv3_id_0 {
+ 	status = "okay";
+ };
+ 
+ &qupv3_id_1 {
+ 	status = "okay";
+ };
+ 
++&qup_i2c2_default {
++	drive-strength = <2>;
++	bias-disable;
++};
++
+ &qup_uart9_rx {
+ 	drive-strength = <2>;
+ 	bias-pull-up;
+ };
+ 
+ &qup_uart9_tx {
+ 	drive-strength = <2>;
+ 	bias-disable;
+@@ -510,23 +515,16 @@ touchscreen_reset: ts-reset-state {
+ 	};
+ 
+ 	touchscreen_pins: ts-pins-gpio-state {
+ 		pins = "gpio125";
+ 		function = "gpio";
+ 		drive-strength = <2>;
+ 		bias-disable;
+ 	};
+-
+-	touchscreen_i2c_pins: qup-i2c2-gpio-state {
+-		pins = "gpio27", "gpio28";
+-		function = "gpio";
+-		drive-strength = <2>;
+-		bias-disable;
+-	};
+ };
+ 
+ &uart6 {
+ 	pinctrl-0 = <&qup_uart6_4pin>;
+ 
+ 	status = "okay";
+ 
+ 	bluetooth {
 
-> diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5413.yaml b/=
-Documentation/devicetree/bindings/iio/dac/adi,ad5413.yaml
-> new file mode 100644
-> index 0000000000000..74e869304aab9
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5413.yaml
-> @@ -0,0 +1,101 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/dac/adi,ad5413.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Analog Devices AD5413 DAC
-> +
-> +description:
-> +  Analog Devices AD5413 is a single-channel precision DAC supporting vol=
-tage
-> +  or current output modes with programmable slew-rate control.
-> +  The output mode is selected via the adi,chan-current-mode property.
-> +  Optional reset GPIO may be provided.
-> +
-> +maintainers:
-> +  - bruce.tsao@analog.com
-> +
-> +properties:
-> +  compatible:
-> +    const: adi,ad5413
-> +
-> +  spi-max-frequency:
-> +    maximum: 50000000
-> +
-> +  spi-cpha: true
-> +
-> +  spi-cpol: false
+---
+base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
+change-id: 20261016-pixel3-i2c2-fix-30922e18816b
 
-[Severity: Medium]
-Will this schema pass make dt_binding_check?
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
 
-In the maintainers block, the entry uses a bare email address rather than
-the required Full Name <email@domain> format:
 
-  maintainers:
-    - Bruce Tsao <bruce.tsao@analog.com>
-
-Also, in the top-level properties block, spi-cpol is set to false. In DT
-schema, boolean false property schemas are only valid inside conditional
-if/then/else blocks to disallow a property defined at the top level. Since
-spi-cpol is not defined in spi-peripheral-props.yaml and this binding sets
-unevaluatedProperties: false, should spi-cpol: false simply be omitted?
-
-> +
-> +  reset-gpios:
-> +    maxItems: 1
-> +    description: Optional reset GPIO (active low).
-> +
-> +  avdd-supply:
-> +    description: Analog positive supply (AVDD)
-> +
-> +  dvdd-supply:
-> +    description: Digital positive supply (DVDD)
-> +
-> +  avss-supply:
-> +    description: Analog negative supply (AVSS)
-> +
-> +  adi,chan-current-mode:
-> +    type: boolean
-> +    description: Select current output mode. If absent, voltage mode is =
-used.
-
-[Severity: Medium]
-Should the output mode and range be described using standard IIO DAC range
-properties rather than a custom adi,chan-current-mode boolean?
-
-In drivers/iio/dac/ad5413.c, the hardware supports a 4-bit range configurat=
-ion
-field (AD5413_REG_DAC_CONFIG_RANGE_MSK =3D GENMASK(3, 0)) with multiple vol=
-tage
-and current ranges, while the driver currently hardcodes only two of them
-(AD5413_RANGE_PLUSMINUS_10_5V =3D 0x3 and AD5413_RANGE_0MA_24MA =3D 0x9) ba=
-sed on
-this boolean.
-
-Could this use output-range-microvolt and output-range-microamp from
-Documentation/devicetree/bindings/iio/dac/dac.yaml (or adi,range-microvolt =
-and
-adi,range-microamp as in Documentation/devicetree/bindings/iio/dac/adi,ad57=
-58.yaml)
-so the binding describes the hardware capabilities rather than the current
-driver limitation?
-
-> +
-> +  adi,slew-time-us:
-> +    description: Output digital slew control time in microseconds
-> +    minimum: 0
-> +    maximum: 1000000
-> +    default: 0
-> +
-> +required:
-> +  - compatible
-> +  - spi-cpha
-> +  - avdd-supply
-> +  - dvdd-supply
-> +  - avss-supply
-
-[Severity: Medium]
-Should reg be defined with maxItems: 1 under properties and listed in
-required?
-
-The binding references /schemas/spi/spi-peripheral-props.yaml# under allOf,
-which defines reg with minItems: 1 and maxItems: 256 and does not mark reg
-as required. Because AD5413 is a single-chip-select SPI device and both
-examples specify reg =3D <0>, omitting reg from properties and required lea=
-ves
-the chip-select count unconstrained and optional during DT validation.
-
-> +
-> +allOf:
-> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    spi {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        dac@0 {
-> +            compatible =3D "adi,ad5413";
-> +            reg =3D <0>;
-> +            spi-max-frequency =3D <1000000>;
-> +            spi-cpha;
-> +            reset-gpios =3D <&gpio 0 GPIO_ACTIVE_LOW>;
-> +            avdd-supply =3D <&avdd>;
-> +            dvdd-supply =3D <&dvdd>;
-> +            avss-supply =3D <&avss>;
-> +            adi,slew-time-us =3D <125>;
-> +        };
-> +    };
-> +
-> +  - |
-> +    spi {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        dac@0 {
-> +            compatible =3D "adi,ad5413";
-> +            reg =3D <0>;
-> +            spi-max-frequency =3D <1000000>;
-> +            spi-cpha;
-> +            avdd-supply =3D <&avdd>;
-> +            dvdd-supply =3D <&dvdd>;
-> +            avss-supply =3D <&avss>;
-> +
-> +            adi,chan-current-mode;
-> +        };
-> +    };
-
-In both examples above, could the standard properties (avdd-supply,
-avss-supply, dvdd-supply, reset-gpios, spi-cpha, spi-max-frequency) be plac=
-ed
-in canonical natural-sort order after reg per
-Documentation/devicetree/bindings/dts-coding-style.rst?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261017-ad5413-ups=
-tream-v1-0-61f40c8fef25@analog.com?part=3D1
