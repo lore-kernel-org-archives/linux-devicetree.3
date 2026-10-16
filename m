@@ -1,162 +1,103 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5D43B5AA671;
-	Fri, 16 Oct 2026 18:13:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9748748DB2B
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 18:15:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792174424; cv=none; b=e8CpUBumAafahodFXN3uJItSiz0biIzE2+9ElXt7MGSVsnB/lDfJ1qCpnrIt91utd4ZFxUmaZ1dIPzU9Sjf2bCTGe5TOcweucq0q+BDZj45JUDcCCfgeyN7zwvSkO04TgjIqzmtJcZNjOhlkxP+X9HAexdo6FSCKsnVW0p+vNW8=
+	t=1792174529; cv=none; b=S69ufGRJCFvOlW0XxcgchTekENsBoNHrJ7mIri0wewDcR91LXt/XV0RHMNYODLQxUutVhj8fYSV+zLgGx3f+YLO27a9dWhB/kNnLbN+Zr7JKur+y6wiRHnVpKJn+Ts1+V6YP1THN0Fvxg36je5TX66XoxC7jNaiVd6bIrG30ylc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792174424; c=relaxed/simple;
-	bh=U7yEG8UPjnbkYVj7PAK2SWUfhEahVqNNM5HNCuTOawo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i68nHXrNUJuWYj6AzPcN8E6RVX2JFyFSpTC2JvQhADlHMMpt9NN3oh8JmxjgBFYn3U20jDtQIscKKZ6zwnBedYYW6/aMiBLzZYJY1ljNnO6z57IzxCxhkyTCD35HFLHUb85cYdKIoXhCjPDYrROr5Se3+18aoaVEiy+Pe8jmHgU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FMjzzyfk; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792174529; c=relaxed/simple;
+	bh=r9PYC4eGZXOzbLHba1oVWYHNXObQyKtj0RaLdgYSnlY=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=J+GAGzisLIFkHfK9o/OVx50iHE3Bq3qmBa9SmA+9rkNi0NiS/ktVCcpUeVBtpmdHhS07xWq27LNkqq6Ai6Yq1dE8ICL+aAXZ3lRCGTDGo5L13cYQJwA7PVJNDS0sAN1sOJzl4Mh0bPuvWDj7wDZOqMTmrqIXrxOdfZqDiiMaAIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nA6JeHP2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FMjzzyfk"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1E16F14BF;
-	Fri, 16 Oct 2026 11:13:37 -0700 (PDT)
-Received: from J2N7QTR9R3.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E59213F7B4;
-	Fri, 16 Oct 2026 11:13:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792174420; bh=U7yEG8UPjnbkYVj7PAK2SWUfhEahVqNNM5HNCuTOawo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FMjzzyfk8F/+tjNxuUgszUujlARXNNzXOvPi9KToA/YXsqvsvqaX2SAuL7maUJNw8
-	 PziVrP5emG/KFg1A8AY0YgivxX6KBkzDVrM4tv8dYITcXIZN7rB/s7j53wQUt2wDiH
-	 I/1M2XXnAXbs3BQAVawj7/iiSM+6zr0Y+CPMZsiQ=
-Date: Fri, 16 Oct 2026 19:13:28 +0100
-From: Mark Rutland <mark.rutland@arm.com>
-To: Andre Przywara <andre.przywara@arm.com>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Salman Nabi <salman.nabi@arm.com>,
-	Vedashree Vidwans <vvidwans@nvidia.com>,
-	Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
-	Nirmoy Das <nirmoyd@nvidia.com>, vsethi@nvidia.com,
-	Varun Wadekar <vwadekar@nvidia.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH v4 2/8] firmware: smccc: Add support for Live Firmware
- Activation (LFA)
-Message-ID: <atJpPoYAsUECh7p0@J2N7QTR9R3.cambridge.arm.com>
-References: <20260918141112.2115555-1-andre.przywara@arm.com>
- <20260918141112.2115555-3-andre.przywara@arm.com>
- <aq1XmaBemuGybxp2@J2N7QTR9R3>
- <0c2c5cec-3e16-49a4-b304-ddd75de4cb19@arm.com>
- <as5EvNM9IUkGe6Lk@J2N7QTR9R3.cambridge.arm.com>
- <cf0ccb1c-42fd-409e-ba77-3837d5c905d4@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nA6JeHP2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2376F1F000C4;
+	Fri, 16 Oct 2026 18:15:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792174528;
+	bh=g3838epcQ90A4CFP6/f2+EZAMF2xkCMDkMhALJrr/mY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nA6JeHP2oyu00Kgv3l2gEHiC57jXJgUCN207hcuAtjMVRMBbXRHHiKR0y2hV/n45H
+	 H7HixgdCxFd7A8RCeJF5uYuc3mevFzTvHfgYEr3GhDHNMGqYoe0MZLtgWnrnrV/Gdt
+	 El/qmczI/Mm66XaBsNnZwBr68KbvBpeTYjUiKogiXkHw6tWK9pOwGeWXPBLvENW31s
+	 wbYj0NndaXnw+KZMwDdf1RPiIU59zxigT1FfNBhMVIFk5w51dOC3nUHOC4vqTw9/Qo
+	 XwzIaRvMlvUHZO92YId7aPBDJTmibLoefonZzUIR77OthdObq2N318iipYtZV+mQz+
+	 Gu96m2raPY21A==
+Message-ID: <sashiko-outbox-174758@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 2/6] phy: realtek: usb2: introduce read and write
+ functions to phy_reg_desc struct
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Rustam Adilov" <adilov@disroot.org>, linux-phy@lists.infradead.org, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <20261016180314.31760-3-adilov@disroot.org>
+References: <20261016180314.31760-1-adilov@disroot.org>
+ <20261016180314.31760-3-adilov@disroot.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 16 Oct 2026 18:15:26 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cf0ccb1c-42fd-409e-ba77-3837d5c905d4@arm.com>
 
-On Fri, Oct 16, 2026 at 06:42:52PM +0100, Andre Przywara wrote:
-> On 10/13/26 16:48, Mark Rutland wrote:
-> > On Mon, Sep 21, 2026 at 05:25:25PM +0200, Andre Przywara wrote:
-> > > On 9/18/26 17:24, Mark Rutland wrote:
-> > > > On Fri, Sep 18, 2026 at 04:11:05PM +0200, Andre Przywara wrote:
-> > > > > From: Salman Nabi <salman.nabi@arm.com>
-> > > > > 
-> > > > > The Arm Live Firmware Activation (LFA) is a specification [1] to describe
-> > > > > activating firmware components without a reboot. Those components
-> > > > > (like TF-A's BL31, EDK-II, TF-RMM, secure paylods) would be updated the
-> > > > > usual way: via fwupd, FF-A or other secure storage methods, or via some
-> > > > > IMPDEF Out-Of-Bound method. The user can then activate this new firmware,
-> > > > > at system runtime, without requiring a reboot.
-> > > > > The specification covers the SMCCC interface to list and query available
-> > > > > components and eventually trigger the activation.
-> > > > 
-> > > > It'd be helpful to have a few basic concepts covered here or in the
-> > > > code. For example, I have no idea what a "rendezvous" is, and it's not
-> > > > at all obvious from the code.
-> > > 
-> > > OK, I can give a brief summary of the concepts, but I guess doing this a top
-> > > comment in the source file is more useful than here in the commit message?
-> > 
-> >  From my PoV, even placing that in the cover letter would be fine. The
-> > key thing is just to get enough context to be able to review this
-> > without having to ingest the entire LFA spec.
-> > 
-> > In particular with "rendezvous", I have no idea why the admin should
-> > have any choice at all, and without some context I can't tell if there's
-> > some sensible use-case I'm missing.
-> 
-> The admin should indeed not have a say, and if the firmware component
-> requires rendezvous, it will always be used.
-> But for firmware that claims to not need any rendezvous, we default to using
-> it anyway, because it's the safest way to guarantee continuity for the
-> kernel. We don't know which firmware services might be affected, and if they
-> respond with something like -EAGAIN or just block for a longer period during
-> the activation. The kernel seems to rely on the firmware services (TRNG,
-> SoC-ID, SCMI, ...) replying, once they have been initialised, so them
-> suddenly returning an (even transient) error will probably confuse the
-> drivers.
-> So the safe way to do this is to send all cores into the firmware
-> regardless, there they cannot do any harm.
-> 
-> Now as users asked for it on the list, if the admin knows exactly that this
-> firmware component does not provide any services to the kernel (say some fan
-> controller), they can override this policy and allow a single CPU to trigger
-> the activation. This was meant as a compromise to keep the kernel side sane,
-> but still allow less disruptive updates. The idea would be that some user
-> space component sets this attribute at boot time, if it matches some UUID
-> that is known to be safe.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] phy: missing NULL check for of_iomap() in parse_phy_data()
+--
 
-I don't think it's a good idea to leave this up to the admin. The admin
-has no idea what the kernel will depend upon (especially as this can
-change over time), and if they get it wrong, everything is broken.
+commit a9528213c2ade387d2252d526e2e1e2c2162eeba
+Author: Rustam Adilov <adilov@disroot.org>
 
-If LFA permits arbitrary firmware components to enter a transiently
-broken state, then the LFA design sounds broken.
+phy: realtek: usb2: introduce read and write functions to phy_reg_desc stru=
+ct
 
-You said someone asked for this on the list; can you shre a link?
+RTL9607C is a big endian SoC with little endian USB host controller but
+vstatus register is from big endian memory region and thus existing
+writel doesn't work. It needs either __raw_writel or iowrite32be
+instead.
 
-[...]
+To handle this situation, introduce read and write function to the
+phy_reg_desc struct and add a default variation that is going to be
+ponted by the existing rtd_phy_reg_desc.
 
-> > > > > +static const char *get_image_name(const struct fw_image *image)
-> > > > > +{
-> > > > > +	if (image->image_name && image->image_name[0] != '\0')
-> > > > > +		return image->image_name;
-> > > > > +
-> > > > > +	return kobject_name(&image->kobj);
-> > > > > +}
-> > > > 
-> > > > As before, please just use the UUID.
-> > > > 
-> > > > I *assume* that we cannot have more than one image for a given
-> > > > component, and hence we cannot have two entries for the same UUID? Is
-> > > > that mandated by the LFA spec?
-> > > 
-> > > The LFA spec speaks about "firmware components" as its area of interest, by
-> > > design all the real firmware *image* related parts, for instance how the
-> > > firmware update image lands on the system, is left implementation defined.
-> > > So yes, each firmware component, identified by its UUID, appears only once
-> > > in the system, by design.
-> > 
-> > Ok; does the spec *clearly* mandate that?
-> 
-> Well, there is only one logical bit (somewhat confusingly named "activation
-> pending") to say whether an update image has been provided for a specific
-> component or not. If someone pushes another image, it would replace the
-> already "pending" one (depending on firmware policy).
+> diff --git a/drivers/phy/realtek/phy-rtk-usb2.c b/drivers/phy/realtek/phy=
+-rtk-usb2.c
+> index e8d0f0119ec0a..5e483c853f02f 100644
+> --- a/drivers/phy/realtek/phy-rtk-usb2.c
+> +++ b/drivers/phy/realtek/phy-rtk-usb2.c
+[ ... ]
+> @@ -204,8 +216,8 @@ static int rtk_phy_write(struct phy_reg *phy_reg, cha=
+r addr, char data)
+>  	int ret =3D 0;
+> =20
+>  	/* write data to VStatusOut2 (data output to phy) */
+> -	writel((u32)data << shift_bits,
+> -	       reg_wrap_vstatus + reg_desc->vstatus_offset);
+> +	reg_desc->write((u32)data << shift_bits,
+> +		       reg_wrap_vstatus + reg_desc->vstatus_offset);
 
-My concern here was more that each UUID appears only once. Where I said
-"image" above, please read that as "component".
+[Severity: High]
+Does this code risk dereferencing a NULL pointer if of_iomap() fails?
 
-Does the spec clearly mandate that each component UUID shows up at most
-once?
+In parse_phy_data(), the results of of_iomap() are assigned to both
+reg_wrap_vstatus and reg_gusb2phyacc0 without being checked for NULL:
 
-I know it's "obvious", but people WILL get this sort of thing wrong
-unless it's in black-and-white in the spec.
+parse_phy_data() {
+    ...
+    phy_parameter->phy_reg.reg_wrap_vstatus =3D of_iomap(np, 0);
+    phy_parameter->phy_reg.reg_gusb2phyacc0 =3D of_iomap(np, 1) + index;
+    ...
+}
 
-Mark.
+Later, in rtk_phy_write(), the reg_wrap_vstatus pointer is dereferenced here
+when writing to the register. Should we verify that the device tree memory
+mappings were successful before they are used?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016180314.3176=
+0-1-adilov@disroot.org?part=3D2
