@@ -1,113 +1,290 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com [209.85.210.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B626712B94
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 03:41:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69AE5253B73
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 03:45:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792122110; cv=none; b=UbsAHpfSj5rxYfRo6ns3KRS+1NUNS5quvkw93ArIvvUjhpZ2NgLDykXnXhGq8fsRsH+92O4JljfKbLizIpNWDG3pGKFKLD2Nw3bUmCHg3b7YHPxA0KGFwq1Gq75f+NtQKA2B/9SIS9o7gn3pntVAhtbHGkXqfRFooB7vcGTFHCc=
+	t=1792122328; cv=none; b=BPB+aOTAfB2SVFhLK607vvJDwuTMbBsZVM2oYgkMEIlL6fR10qKP/U2+KbsKGDnJ823TLaVKLKhwcLNjB/v+/UJVSBxHcV5E70B77UX5Ba4EMnjHoCjKZvNK7Hqwi+CSXnn65eMdOmW36K1sIhXzPgIgKwGmU3oG4AMCoZQcKqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792122110; c=relaxed/simple;
-	bh=Xz1lLz3FcboExwP4ukfou8RbTpGpdImVzWU0oQ9cOGo=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=F242iSn0eydnng5ijMJB9Zza14uF16aEMfoQwEGmqeSKYjeynV/BjfXGmpAkqVaIkaC2C2tsy7fb7vfWzRL4QF6qKJgFvH3hMAT0xdo8oVnVPeeRIOqRpZP1fimZeEIVCwWU4Rkbof1cuCa/7TGvc8JMabSiWCjj1rhD52X05ck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=akdpy+Pa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792122328; c=relaxed/simple;
+	bh=xCmbTsZb4Fr2E5HEOEdB9T2jPj/jl9i7Ws1KCLXxJDw=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=iccQHj+wR1i42RnEiMwBgioRSZgnkqOgWIkcczpkg9T3ODF/4BuE4SLb6iQPC7Or64kSjX+5FHM0JJTqaMxGMgZ+URLlx9lNhZZ/Vx4slOqR7AplFJl6peDTe92D2ArEXm9/KUgfvdonOPHMBSoUA529o+fu0o2gj7SuO6D7rI0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ioL4ndqs; arc=none smtp.client-ip=209.85.210.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="akdpy+Pa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25AEA1F000C4;
-	Fri, 16 Oct 2026 03:41:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792122109;
-	bh=wwM15vMuWgSsKyABxVf9XVS0gdijDzYBtlPX0Ap3tew=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=akdpy+PasDwGpUYQtvErERmXgkgAWX4ptgDwFiZQrWOUh+IvKtWkL+6f8WW1QAmBW
-	 va1kM2IXQQtsn3XWwuaSvrfrWCzKc/c3Vg2kJ/cdK+jjCpNzPRPr0Y4SrhZpQKQG7o
-	 QKrviMJ+ym8acAL2oVJaAOKTmTiL++98yoSwTVXMX9JfRUHF9RQiWvixXS1H4jp8lX
-	 Uf24ivI7HgWss7D2Jq5YJomXoxWNjmiODv10RQIqm8gjRu+LulbQkDqWzOJTnSu9N1
-	 fpqpootJZt78cK9KgCEF4HRxcxcglAUrJfW453z4JyKtKP9BGWSRy8ir6ODdQ33hPN
-	 /rV6gNDZhU4ZQ==
-Message-ID: <sashiko-outbox-173693@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH ath-next v2 03/17] wifi: ath12k: Add hardware parameter
- for QCN6432
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Aaradhana Sahu" <aaradhana.sahu@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261016-mpp-bringup-v2-3-f510c33bfcf5@oss.qualcomm.com>
-References: <20261016-mpp-bringup-v2-0-f510c33bfcf5@oss.qualcomm.com>
- <20261016-mpp-bringup-v2-3-f510c33bfcf5@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 16 Oct 2026 03:41:48 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ioL4ndqs"
+Received: by mail-ot1-f42.google.com with SMTP id 46e09a7af769-833e671ee9fso4328468a34.0
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 20:45:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792122325; x=1792727125; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=4WHEpxc2DD2ytlbPtn5avsBXgnpM96h97oyzf0HJ4eg=;
+        b=ioL4ndqszLvafs1ti2gbR+EKET9XJwa8vj7NG7Rek+Im6AhwwmV20cvHg9dhC/P+Tf
+         otjVVtJS4zpcFyKx+zBHGGZ1D87fjrfdPiZyDfnQjx77W7sFmUCnzxaJQMnOwwZZuOeW
+         1WNNm5+ta67Io11KzhZO8efESsQJveKFYwe20wgf6VWz+FiLtlz/XpRT/ZZFuQ+PkxQc
+         Y2c550pYTXlcSX0AX5h5toi5rxR/Rcz7yLD3GC+tUIlAuU0JxMtSnc7FjKjB+ZMoEyQS
+         FTTIYpdM16YKVqPdXzisBvDl3rI8dEEi0zt94CkTLeofCIYomJfoycb4RU+/a6kHmIfX
+         lKrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792122325; x=1792727125;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4WHEpxc2DD2ytlbPtn5avsBXgnpM96h97oyzf0HJ4eg=;
+        b=2OWwIIp6gjWwBj6o4yqyETAnbEMVDArObKha8O30l8g/RA/OFvseRrdmLfm5Nb1IBo
+         D54eEUkno94GZlYeJLV/npFue7skkKzKcv3j7yatLgNCbddARtgKZcLwQg+0E6ogSWZ7
+         Katx/cnnZGhE+3tPhP8xYanuY8oQ+R4cC2/0CwhkXUEQMvKGAZdnegf0VWCIFbCZUBIU
+         V3Eqwio3JffajHF9ZijEglO9dSs4b3eQDTVNZBKB7v+v/mH8NdOpfBHdxaC/O0huXYF4
+         nYEbeIt5RafbvYkrJdOOR/hhwWef8x9RepJ+cpeOAcDYBMKG5Yz7kaup+C0rDf1EsTAh
+         Nf+A==
+X-Forwarded-Encrypted: i=1; AKwUvBw8tY4ERk7bIAJzmT6iunGRyTuSbRZrV0qShuYw44Pu9f1ptrez/DF7dIDmEbddqvUebzws5JmiJOEh@vger.kernel.org
+X-Gm-Message-State: AFq9FYKTMzgRJsdh26sfv+qN3BvHd7tR1omPYQyt8pSIETzHv/wQEtyp
+	KoIS5VAxBmpbVKvvN/XPlieDjYhv4TzqcJcTvo6dnajMSvcXS6GBc1E2
+X-Gm-Gg: AYBFou3MS1li326OTPJLPtdQh6BWVtaFGl/lcfNLVs4xKTHR5ASWIjj/PCaeoKChX0U
+	/y+Lu37tgDlUYuqkkUoBpT4OKBS6/Wwun/MkdOKu+PzEnNTa//0PeRbi/CtNELpFJOaK1+WjDBx
+	wJ4r3dEYFTO6A+ACSL9uW96zXUMRSaM40K6YrSErUxgy05CRmfSZWa9LODQlE3I2rPj6yn33Dox
+	JtKNvykhhWkiydUT91lxtGM7W52/9I693VFLrATESQbHbC5VFRTxGQvLFj1ohYkpcaU9cWqBUi4
+	WPWO33w5PFfVQihAWxFMGAy/nvS7wgrqvTTUqfhwTqxA+DfB4rhbOdKoHvEazmlMkTJIkBfRggx
+	ic5cNHGvxo0k+Ci8uWPkdFxo/g1cQ4R/2QYOMjGCpW3DSqX4H1j8bVjNNNHwo8T0v8uE1st6ODm
+	X7GdNsmN0Kw03aUznN6SJXtBUN7ggwguvil3ZqHtEHnN8hlYORlRkqUZWFDO+xZwj3yoeu4eSM/
+	Wi4uXuG3w4pS5pKE8NVwkUJ1B1sUZVGIuo1F5/i4wsTqQa3Aphnj7mCAuEtsJCkV7Gs6uMZVTFg
+	rIzAmXVXIG0LaLjAJZLefHH3lSMoz3oZm/SETjwrwIZ7TyIlv6sn5HUol3SZhL7OdtdORA7pzIF
+	HiMhA1LARNXHoZ8OcRt3IoA==
+X-Received: by 2002:a05:6830:6d11:b0:81d:54f9:d6a3 with SMTP id 46e09a7af769-83090c28e88mr19746730a34.4.1792122325170;
+        Thu, 15 Oct 2026 20:45:25 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8429b57870fsm834402a34.0.2026.10.15.20.45.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 20:45:24 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Subject: [PATCH v8 00/17] mtd: rawnand: sunxi: fix transfers and support
+ randomized OOB
+Date: Thu, 15 Oct 2026 21:45:15 -0600
+Message-Id: <20261015-submit-sunxi-nand-vendor-oob-layout-v1-v8-0-8ba4881fbee8@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5XQTWrDMBAF4KsErauikWRJzqr3KF2M/hKV2Cq2Y
+ xKC7145hdaNNw4IxIPhm+HdSB+6FHqy391IF8bUp9yWYF52xB2xPQSafMmEM66YAUb7s23SUL7
+ 2kmiLradjaH3uaM6WnvCazwMdgQYBID0w52pHCvbVhZgu90XvHz+5SJ/BDbM+TxxTP+Tuer9kh
+ Hnu6aXlMSqVMJVAkOjrt0OD6fTqckPmpSP/Y2smN7O8sBY40zJKdKgfWbFk682sKKwRxllmESq
+ 5YuWCBb6ZlXMJqKQNvpacr0qolqzYzFaF1V4DMK1QxdW1aslu71YVlkfLjIyB6QoeWf3LAnuC1
+ YWtvIhOoece/7HTNH0Dt/OVCvgCAAA=
+X-Change-ID: 20260810-submit-sunxi-nand-vendor-oob-layout-v1-e3114d10cc9c
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, 
+ Richard Genoud <richard.genoud@bootlin.com>, 
+ Boris Brezillon <bbrezillon@kernel.org>, 
+ Masahiro Yamada <yamada.masahiro@socionext.com>, 
+ Brian Norris <computersforpeace@gmail.com>, linux-mtd@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
+ devicetree@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>, 
+ Sashiko <sashiko-bot@kernel.org>, Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.15.2
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] wifi: ath12k: missing qmi_max_chunk_size for QCN6432 breaks memo=
-ry allocation fallback
---
+Patches 1-15 address the existing driver independently of the Allwinner
+randomized-OOB format in patches 16-17. Please review and apply that prefix
+regardless of whether the format extension is accepted. It preserves the
+existing on-flash ECC geometry, bad-block-marker representation and raw
+callbacks.
 
-commit 417c2f74682574a9e982b5753b7747e20b63cda7
-Author: Sowmiya Sree Elavalagan <quic_ssreeela@quicinc.com>
+Patch 1 centralizes OOB handling without changing behavior. Patches 2-11
+fix logical-step lengths, read and write error handling, completion reuse,
+pattern handling, duplicate program confirms, small-page read commands
+and the H6/H616 user-data register limit. Patches 12-15 then reduce repeated
+status reads, column changes, chip setup and length-register accesses.
+The pattern fixes precede status caching so correctness can be reviewed
+before the register-access optimization.
 
-wifi: ath12k: Add hardware parameter for QCN6432
+Here, "user data" means ECC-protected metadata in OOB, not the page's main
+data. PIO reuses hardware slot zero for each logical ECC step; DMA can
+transfer several steps at once. The patches distinguish logical steps,
+hardware slots and packed register offsets, and explain their triggering
+conditions independently of the format work that prompted the review.
 
-This commit adds hardware parameters for the QCN6432 WiFi device in the ath=
-12k
-driver. It introduces a new hardware revision definition and configures the
-ath12k_hw_params structure for QCN6432 by reusing parameters from IPQ5332 a=
-nd
-QCN9274.
+The IRQ fix retains timeout-only disable_irq() and explains both the
+forced-threaded PREEMPT_RT race and the unbounded cleanup/no-priority-
+inheritance tradeoff. The small-page fix is limited to read-side
+repositioning within existing geometry restrictions. DMA batching preserves
+the installed OOB layout rather than capping its allocation.
 
-> diff --git a/drivers/net/wireless/ath/ath12k/wifi7/hw.c b/drivers/net/wir=
-eless/ath/ath12k/wifi7/hw.c
-> index b1c17cc197dfd..494c7b3ae1acf 100644
-> --- a/drivers/net/wireless/ath/ath12k/wifi7/hw.c
-> +++ b/drivers/net/wireless/ath/ath12k/wifi7/hw.c
-> @@ -906,6 +906,91 @@ static const struct ath12k_hw_params ath12k_wifi7_hw=
-_params[] =3D {
+For devices provisioned with the Allwinner normal-page format, support is
+required compatibility with existing flash contents, not a preference for
+another layout. Its bad-block marker is randomized: applying the existing
+plain-marker compensation can make normal OOB reads and bad-block scans
+interpret good blocks as bad. Switching formats is not a transparent
+kernel upgrade.
 
-[ ... ]
+Patch 16 documents the opt-in binding; patch 17 implements the format
+through separate OOB callbacks and an attach helper. Its geometry,
+page-wide classification and contiguous parity reads stay together.
+Without the property, existing format selection and callbacks are unchanged.
 
->  	},
-> +	{
-> +		.name =3D "qcn6432 hw1.0",
-> +		.hw_rev =3D ATH12K_HW_QCN6432_HW10,
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 
-[Severity: Medium]
-Does this struct initialization need to include .qmi_max_chunk_size?
+Changes in v8:
+- Add a separate fix for the pre-existing zero-pattern overwrite reported
+  by Sashiko. Preserve synthesized data and OOB in the existing-format
+  read path without treating zero chunks as erased.
+- Place the fix after pattern-ID selection and update the later status
+  caching conversion to use the same pattern check. Keep the initial
+  refactor behavior-preserving and the Allwinner format callbacks unchanged.
+- Recheck the remaining command/DMA events after draining a timed-out
+  handler, as suggested by Sebastian Andrzej Siewior. Accept completion
+  during cleanup and balance IRQ disabling even when the recheck succeeds.
+- Link to v7: https://patch.msgid.link/20261014-submit-sunxi-nand-vendor-oob-layout-v1-v7-0-5d3fc6ad2da1@gmail.com
 
-If .qmi_max_chunk_size is not initialized, it will default to 0. During
-firmware memory allocation in ath12k_qmi_alloc_chunk(), if
-dma_alloc_coherent() fails, the driver falls back based on this threshold:
+Changes in v7:
+- Put a behavior-preserving OOB refactor first, the correctness fixes next,
+  register-access optimizations after them, and the binding and Allwinner
+  format last. Keep 16 patches with no external prerequisites.
+- Keep logical-step length, read recovery, IRQ lifetime, write failures,
+  pattern IDs and DMA limits independently reviewable. Correct pattern-ID
+  selection before introducing per-transfer status caching.
+- Update both DMA callers with the protected-OOB helper contract in the
+  logical-step length fix, before the later batching change.
+- Isolate format policy behind its own callbacks and one opt-in attach
+  path. Fold packed H6/H616 geometry and contiguous parity reads into the
+  final patch, leaving existing format callbacks unchanged.
+- Use scrambled_plain_bbm_oob for the existing scrambled profile and
+  allwinner_oob for the firmware profile. Keep shared randomizer helpers
+  generic and name the H6-generation spare predicate after H6.
+- Clarify protected-OOB terminology, logical/hardware indices, transfer
+  failures and the limited small-page read scope. Explain the RT timeout
+  mechanism and disable_irq() tradeoff discussed with Miquel Raynal.
+- Explain installed-format compatibility and that the spare check re-encodes
+  ECC-decoded protected OOB rather than rereading physical bytes.
+- Drop the standalone OOB-helper renaming cleanup and explicit stable Cc
+  trailers; retain Fixes tags and Conor Dooley's binding Acked-by.
+- Rebase onto current MTD nand/next.
+- Link to v6: https://patch.msgid.link/20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-0-2fb084fe0751@gmail.com
 
-	if (!vaddr) {
-		if (chunk->size > ab->hw_params->qmi_max_chunk_size) {
-			ab->qmi.target_mem_delayed =3D true;
-			...
-			ath12k_qmi_free_target_mem_chunk(ab);
-			return -EAGAIN;
-		}
-		...
-		return -ENOMEM;
-	}
+Changes in v6:
+- retain the bank-sized first DMA batch, but transfer later logical steps
+  individually to avoid PAGE_OP's absolute internally generated main columns
+- keep ECC exception mode enabled for randomized reads on all supported
+  controllers, using the shared physical-pattern classifier
+- classify uniform-pattern steps even when hardware suppresses their ECC
+  errors; skip their correction counters and preserve decoded buffers unless
+  the page-wide zero override or vendor spare predicate accepts the page
+- Link to v5: https://patch.msgid.link/20260913-submit-sunxi-nand-vendor-oob-layout-v1-v5-0-7d711076a6f7@gmail.com
 
-Because qmi_max_chunk_size is 0, any failed chunk size will be strictly
-greater than 0. Will this cause the driver to indefinitely return -EAGAIN,
-asking the firmware to supply progressively smaller chunk requests, rather
-than correctly terminating the failing QMI negotiation with -ENOMEM?
+Changes in v5:
+- add a separate small-page command-handling fix: use READ0/READ1/READOOB
+  with the page address for rereads and normal OOB access, and select PIO
+  instead of the large-page DMA sequencer
+- keep physical reread errors visible, preserve the OOB cursor and retain
+  the existing ECC geometry requirements, including rejection of 512+16
+  with controller ECC
+- group the small-page fix and the DMA register-bank fix with the opening
+  fixes, ahead of cleanups, bindings, format support and optimizations
+- make the DMA register-bank fix independent of randomized-OOB support
+  and the later register-access optimizations
+- Link to v4: https://patch.msgid.link/20260912-submit-sunxi-nand-vendor-oob-layout-v1-v4-0-4a64bed94229@gmail.com
 
-> +		.fw =3D {
-> +			.dir =3D "QCN6432/hw1.0",
-> +			.board_size =3D 256 * 1024,
-> +			.cal_offset =3D 128 * 1024,
+Changes in v4:
+- prepend an independent fix for completion reuse and IRQ timeout races:
+  initialize the completion once, finish IRQ register updates before
+  signalling success, and drain timed-out handlers before clearing their
+  interrupt state
+- add a separate fix for aggregate protected-user-data register overflow
+  by splitting DMA transfers into bounded batches, retaining the existing
+  OOB layout, ECC offsets and DMA support
+- distinguish logical page steps from batch-local hardware slots, retain
+  page-wide ECC accounting and avoid retrying partially transferred writes
+- Link to v3: https://patch.msgid.link/20260909-submit-sunxi-nand-vendor-oob-layout-v1-v3-0-838cb0ba1547@gmail.com
 
-[ ... ]
+Changes in v3:
+- add a prerequisite fix for the logical OOB length used by PIO transfers
+- clarify logical ECC steps versus hardware slots and share protected-OOB
+  register indexing
+- select the controller-specific vendor spare-byte erased-page check from
+  the SoC capabilities, only in randomized-OOB mode and without rereading
+  the main data
+- retain hardware-decoded data and protected OOB on other ECC failures
+  for bad-block and BBT pattern scans (reported by Miquel Raynal)
+- retain a bad marker and ECC failure for all-zero physical pages, and
+  disable the ECC exception for the vendor format
+- share page classification between PIO and DMA, reading complete pages
+  for randomized-format subpage requests
+- propagate OOB read errors and defer randomized-format ECC accounting
+  until those reads have succeeded
+- propagate read/program setup, column-change and buffer-transfer errors,
+  including extra OOB; stop failed writes and disable ECC and randomization
+- discard partial DMA ECC statistics before retrying in PIO, and keep
+  correction counts separate from successful OOB-transfer status
+- select the current hardware step's pattern ID instead of slot zero
+- avoid a second program confirm after an OOB-only write
+- avoid redundant column changes before writing extra OOB bytes
+- reject oversized ECC steps in randomized-OOB mode before the core can
+  fall back to software ECC
+- combine adjacent parity and trailing OOB reads in randomized-OOB mode
+- remove duplicate chip setup immediately before core page commands
+- program each packed DMA user-data length register once per operation,
+  and write PIO slot zero directly without read-modify-write
+- reuse pattern IDs and packed error counters within a DMA read, while
+  refreshing the snapshot after every PIO ECC operation
+- Link to v2: https://patch.msgid.link/20260904-submit-sunxi-nand-vendor-oob-layout-v1-v2-0-b12074f4aca7@gmail.com
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016-mpp-bringu=
-p-v2-0-f510c33bfcf5@oss.qualcomm.com?part=3D3
+Changes in v2:
+- rebase on the current MTD nand/next branch
+- retain the merged protected-OOB allocation, BBM reservation and
+  stack-buffer fixes
+- clarify that randomization is part of the normal hardware-ECC page
+  format while MTD_OPS_RAW continues to expose physical bytes
+- explain why a BSP-compatible BBM remains randomized in physical raw data
+- document the decoded bad-block and flash-BBT access paths
+- reject the firmware OOB format with software or disabled ECC
+- document the BSP page-format compatibility contract and the
+  older-controller format audit
+- Link to v1: https://patch.msgid.link/20260810-submit-sunxi-nand-vendor-oob-layout-v1-v1-0-463853a14ad9@gmail.com
+
+---
+James Hilliard (17):
+      mtd: rawnand: sunxi: centralize OOB handling
+      mtd: rawnand: sunxi: use the logical step's OOB length in PIO
+      mtd: rawnand: sunxi: propagate page-setup and erased-check errors
+      mtd: rawnand: sunxi: drain interrupts before reusing the completion
+      mtd: rawnand: sunxi: stop failed program operations and disable ECC
+      mtd: rawnand: sunxi: select the pattern ID for the current ECC step
+      mtd: rawnand: sunxi: preserve synthesized zero-pattern data and OOB
+      mtd: rawnand: sunxi: propagate buffer and column transfer errors
+      mtd: rawnand: sunxi: avoid a second program confirm for OOB writes
+      mtd: rawnand: sunxi: use page reads to reposition small-page NAND
+      mtd: rawnand: sunxi: bound DMA batches by the user-data register bank
+      mtd: rawnand: sunxi: reuse ECC status within each transfer
+      mtd: rawnand: sunxi: avoid redundant column changes for extra OOB
+      mtd: rawnand: sunxi: avoid duplicate chip setup before page commands
+      mtd: rawnand: sunxi: reduce user-data length register accesses
+      dt-bindings: mtd: sunxi: Add randomized OOB flag
+      mtd: rawnand: sunxi: support the Allwinner randomized OOB format
+
+ .../bindings/mtd/allwinner,sun4i-a10-nand.yaml     |   10 +
+ drivers/mtd/nand/raw/sunxi_nand.c                  | 1547 ++++++++++++++------
+ 2 files changed, 1074 insertions(+), 483 deletions(-)
+---
+base-commit: 30daaf3e7897b4a8d9b72e5b0c86dd6e2a4d7d85
+change-id: 20260810-submit-sunxi-nand-vendor-oob-layout-v1-e3114d10cc9c
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
+
