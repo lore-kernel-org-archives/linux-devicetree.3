@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F352565110;
-	Fri, 16 Oct 2026 17:22:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C2DE562601
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 17:25:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792171351; cv=none; b=PZP66cBHoXVeTM69I5/f1YXtrOpxAu+pCbc3A9ElREkUG4ZgyNnmle+jNBAJHf8d5+zqEMbi/R5pNoFjz7jKrcwIxxUpS5E72RrHL9mi2KvHZiKU8k4TPi2LkGHa1jatxdLRUMfW7+nZleNVSnMY7g+SvSX4EO9ijtUkfFps3mE=
+	t=1792171532; cv=none; b=kHzLsL1S8a1aUPvg/2IgFmER3D82TtmJloo57W5EuhuMjcjwCr53h7Q8O3jWwEAJzCfwbwNiJy0uVw25kxdEtv/YtsUnPcc0r8K0WF85XrAQhLPrYLVPCFuOjWHq+iTw8gII2EdKq/egyN0r9IAdTRJocoRqo3HN+mmRqnu7Mno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792171351; c=relaxed/simple;
-	bh=ow7WTfAVksuVLAecIlyCWegUz6MklnUTnyuaTQljL+E=;
+	s=arc-20240116; t=1792171532; c=relaxed/simple;
+	bh=gLFnZY24OChNZmCR7dRT2viWx8x+IrZjFpn6dzb1G1o=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=MH4D1JC+Ws0HJqTTpLuDpEFFUbT5tVfIo/wmwroVzeK69s19ph7ycOESgGRUHMi8iVtWXyIMEZERuh0LxN3Gd8f4ni/EWsZ75xicdwVblUIruLK+/twMzwbU3r9T4m/ux9t1iIypMFJx6oKX78uoaOsl8UrZcmCfksTxlug5vx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y9ALJ6OL; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=FKkmDohACFWSfS1tuGuB1EH28CKnipMKkH3d70Q20e2Y8FYw0Jw86D9Gz1hYJH08x0f8nNzzEn+Dn5y08NxIrksDRLq39Ev9U1CUZV2hlsDKuh2bkoMs22uSsZlqGIa9ZGPEOLYQtQAqudT/8CIoFfHZkB7LJrKEfuE1lixBGMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bH9fDJY/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y9ALJ6OL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD22C1F000C7;
-	Fri, 16 Oct 2026 17:22:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bH9fDJY/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2915E1F000C5;
+	Fri, 16 Oct 2026 17:25:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792171349;
-	bh=uuqtsfFc++j/vledyiZTdQ1mK8z1d8kouTyN96/Gd1E=;
+	s=k20260515; t=1792171531;
+	bh=xWmWtBL11uG8RdMGj63LcIL25V809PeoKDp2Mw+6/18=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Y9ALJ6OLxRvBq/gucRGvdN7Y8DSAQ8ZT0/xon1C1CwiTcJ9gkk4lgJoz8D3CW3VmS
-	 6/FsTmRPJ9OaeM/9oEL6dGlTdMcm1Zpyem51PXrsdLAjWIztXJvcRCB4ZtvyJwMMnK
-	 b2q/V8BWw4BCO0in58SIkRGQse5bX/7wni51wsNXkKpfpQhEXH35p3y1xj+xhFc7zr
-	 zXAEyuuAJ5jVu7BpsTBU+qeCsJmwt4jlSG5styoxhSjfeRdLh8NzqnAR9ZkTpAOOzR
-	 FFJ7lp9gK8aTr6aVTYQfAKPkLBvVjEnQZ2Xq/sB4BVtcsYo1ftM832cjwuFpridxoM
-	 Le703PC8M4moA==
-Message-ID: <sashiko-outbox-174719@kernel.org>
+	b=bH9fDJY/2yT9f04u8D8RVzOYKWUIFibLFAaeeYqYFslaO+fhJeSiTYoUlK5F6b3RV
+	 XQx63qUHlqWo8wJKnuyT7LV6CK2qE/lfuFcxVEZ7g3LTnU37HYiRIVcPip7WjdVdzw
+	 2m/k5dvm1z1K8fr/bthKHPKrt6l1wzYgWYce7U8KQ5kKgU2IBZTpG8766Hjd7EwZU2
+	 Tm+NxLu2CVg+1rZiyCipHwzFNQw7Fx3Wgft8mMll7/ySf9oMA/T8E+C6wMRoc77IkE
+	 CdfXn4kW7uRn1AGXgVIgD6Rzxr5jTDMeHTds0t6S8oDULBOFJQg1wTh35Q2vW4gFpZ
+	 aT2C7lHN0JHYA==
+Message-ID: <sashiko-outbox-174722@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/3] clk: qcom: camcc-sm8250: use icc-clk for camera
- NoC AXI clock
+Subject: Re: [PATCH v7 2/4] arm64: dts: amlogic: t7: Add thermal sensor
+ nodes
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Atanas Filipov" <atanas.filipov@oss.qualcomm.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261016170701.1504338-3-atanas.filipov@oss.qualcomm.com>
-References: <20261016170701.1504338-1-atanas.filipov@oss.qualcomm.com>
- <20261016170701.1504338-3-atanas.filipov@oss.qualcomm.com>
+To: "Ronald Claveau" <linux-kernel-dev@aliel.fr>
+Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20261016-add-thermal-t7-vim4-v7-2-6eede5450fd4@aliel.fr>
+References: <20261016-add-thermal-t7-vim4-v7-0-6eede5450fd4@aliel.fr>
+ <20261016-add-thermal-t7-vim4-v7-2-6eede5450fd4@aliel.fr>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 16 Oct 2026 17:22:28 +0000
+Date: Fri, 16 Oct 2026 17:25:30 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,83 +47,59 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] clk: camcc-sm8250: premature icc_sync_state on old DT causes syste=
-m hang
+- [High] thermal: amlogic: system hang due to MMIO access before clock enab=
+le
 --
 
-commit efec91c2d7f6b65bf67f582b282617ccb26d996e
-Author: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+commit d943dedd550441fdf5ee6b1eb6eb97f02aac1ef7
+Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-clk: qcom: camcc-sm8250: use icc-clk for camera NoC AXI clock
+arm64: dts: amlogic: t7: Add thermal sensor nodes
 
-CAM_CC_CAMNOC_AXI_CLK is shared by several camera blocks. Setting its
-rate directly from each consumer means the last writer wins.
+This commit adds six temperature sensor nodes to the device tree using
+the amlogic,t7-thermal compatible. The nodes include references to their
+required clocks and calibration data from the secure monitor.
 
-Register the clock as an icc-clk path through the common icc_hws
-support, as gcc-ipq9574 does. The interconnect core aggregates all
-requests and the clock runs at the highest requested rate.
+> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi b/arch/arm64/boo=
+t/dts/amlogic/amlogic-t7.dtsi
+> index 8aa85aab30469..c81632d3984e8 100644
+> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+> @@ -696,6 +696,26 @@ sec_ao: ao-secure@10220 {
+>  				amlogic,has-chip-id;
+>  			};
+> =20
+> +			a73_tsensor: temperature-sensor@20000 {
+> +				compatible =3D "amlogic,t7-thermal";
+> +				reg =3D <0x0 0x20000 0x0 0x50>;
+> +				interrupts =3D <GIC_SPI 31 IRQ_TYPE_LEVEL_HIGH>;
+> +				clocks =3D <&clkc_periphs CLKID_SYS_TS_A73>, <&clkc_periphs CLKID_TS=
+>;
 
-Use the RCG rather than the branch: icc-clk enables the clock at
-registration, when TITAN_TOP_GDSC is still off. Consumers enable the
-branch themselves.
+[Severity: High]
+Does adding this thermal sensor node expose an initialization order bug
+in the driver that causes a system hang?
 
-Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+In drivers/thermal/amlogic_thermal.c:amlogic_thermal_probe(), the thermal
+zone is registered before the hardware clocks are enabled:
 
-> diff --git a/drivers/clk/qcom/camcc-sm8250.c b/drivers/clk/qcom/camcc-sm8=
-250.c
-> index 21e9423676216..84a91103e5bef 100644
-> --- a/drivers/clk/qcom/camcc-sm8250.c
-> +++ b/drivers/clk/qcom/camcc-sm8250.c
+	pdata->tzd =3D devm_thermal_of_zone_register(&pdev->dev,
+						   0,
+						   pdata,
+						   &amlogic_thermal_ops);
+	...
+	ret =3D amlogic_thermal_enable(pdata);
+
+During registration, the thermal core synchronously queries the temperature
+via the driver's .get_temp callback (amlogic_thermal_get_temp()), which
+performs an MMIO read via regmap_read() on TSENSOR_STAT0.
+
+Since the driver enables the required peripheral clocks after the thermal
+zone is registered, executing this MMIO read before the necessary bus clocks
+are enabled will stall the AMBA bus and hang or reboot the system.
 
 [ ... ]
 
-> @@ -2443,6 +2454,7 @@ static struct platform_driver cam_cc_sm8250_driver =
-=3D {
->  	.driver =3D {
->  		.name =3D "cam_cc-sm8250",
->  		.of_match_table =3D cam_cc_sm8250_match_table,
-> +		.sync_state =3D icc_sync_state,
-
-[Severity: High]
-Could this cause premature state synchronization when booting with an older
-Device Tree?
-
-On older DTs where the camcc node lacks the #interconnect-cells property,
-the interconnect core skips counting it during initialization:
-
-drivers/interconnect/core.c:of_count_icc_providers() {
-	...
-	if (of_property_present(child, "#interconnect-cells") &&
-	    likely(!of_match_node(ignore_list, child)))
-		count++;
-	...
-}
-
-Because of this, providers_count only reflects the other interconnect
-providers. However, since the driver unconditionally registers
-icc_sync_state, the driver core will still execute it once the device
-probes.
-
-When this executes, the extra call increments the static count in
-icc_sync_state without a corresponding +1 in providers_count:
-
-drivers/interconnect/core.c:icc_sync_state() {
-	...
-	count++;
-
-	if (count < providers_count)
-		return;
-	...
-}
-
-Will this cause the interconnect core to reach providers_count prematurely,
-forcing synced_state to true and dropping bandwidth requests on all other
-system interconnects before their consumers have probed?
-
->  	},
->  };
->
-
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016170701.1504=
-338-1-atanas.filipov@oss.qualcomm.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016-add-therma=
+l-t7-vim4-v7-0-6eede5450fd4@aliel.fr?part=3D2
