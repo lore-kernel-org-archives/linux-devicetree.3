@@ -1,46 +1,46 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011041.outbound.protection.outlook.com [52.101.65.41])
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013057.outbound.protection.outlook.com [52.101.72.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6262837A4AB;
-	Fri, 16 Oct 2026 14:15:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C295F380FF5;
+	Fri, 16 Oct 2026 14:15:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.57
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792160134; cv=fail; b=LuJjMFKlajGypR2+NE/0GTNdQafMdrX7mUcixTHbFkf0VlG/zXmxsivqyohDkuMvv0f1yrQqpYzFt6whaAG9hc4KlxhLxu/Zete5W3TPi/IpPqD0fx+37ToawRyIgMGI0tIciyV6r88YudbsLfQ1MflFjSu9Z0mS5NIPOc+mtv8=
+	t=1792160153; cv=fail; b=VEkAv/F0bpA4bUXa6xc5cALASXHpGiu2xOMQR12OOzlPO5lUN76G37WzDlUjrS8AiQHfBuH+D0t5zY2XHeCqftB6LS3M2Li1a8CzuObk2/T0XWY1sNv5iZIvqmu6uUvcsmkc1zgCeJpkrun7m5L0LBYBGaP05QW71itB0Z59Gic=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792160134; c=relaxed/simple;
-	bh=VnQ0cw6QFA3M2SWY46KMLHjWlg0pRcg5bvt08TLGP/c=;
+	s=arc-20240116; t=1792160153; c=relaxed/simple;
+	bh=ti8BSw6T4M7iFRrDn3ziql4ZhmZiXVLvgolvpIXRIaA=;
 	h=From:To:CC:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Xli/B5o3Z2Mbr8IVowv0WrrhACkLQDF7RTW6YdC8X5WagQpBvMD3aRUlCfOJ/PlRTOV7ENlmyc/SXhZAnCsfTI1KdHSt+aEyfTCw8J6law2iAeXB3o5b19e5MTGQmL1Uvho6pSaemcd6yfP5Mmh+GG5Sl6hjNf6PpXx25TF9yac=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=ECt6Lknw; arc=fail smtp.client-ip=52.101.65.41
+	 MIME-Version:Content-Type; b=UDCmCgmn5/1N7dbV48iw4TPCGCQ/88/M83JGSk9i9ZOoDh5sSbD3YoY1fSRQnAPo970P1MBUpG4YNHN0R/tUiS2/j40WWswe+DC6Z5KslWeGOsN1Q2+7H6N1suDInKXTyGVUsw2Qov0zoySKSiGFn26U4+djwLSFrANunifE+OU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=XRNpIDHz; arc=fail smtp.client-ip=52.101.72.57
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="ECt6Lknw"
+	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="XRNpIDHz"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lCq5FY39otnl5NFJNMj+7TcXDFy9xISn767yDU0P1u2b6kwQcqX4+CYj/BtDqhWZSdPxUKGjbUtwnH7swJu6aRom6jkAKqjmNOxOSy/z4cgxb61SdVBmI/NsuP9yy8wexdIvbA64v2k4Y3NwVHz9K2i+ZVjQhKyaKnemQtnAdcB7FQctBjUPZxy889CAy4cr1++2Txg7PeWK2pI001BBCs8xqrWyxMzvJPegcFafNyU7pLYFTDIoQ2YJwlOGHocVFcNRHzjLifzkT5nJn5+I3t1IVM4BhLvV1uyGr8MaGwb7r8Z/blYKsU6nUKzMzgrZDh132gIJ7qMFCZOyL2Oenw==
+ b=FrwAgoDjTo9XAZeqq9q1ljNcTOZODZEbOyu2wjzg7rBkWDDAQISX5ffKlHDadHISVykdI3b93EnMqs5e6zEcglbwIG2apFO1p1Qdu34TdgX7ue5X7gFMqY4G5BP6aN/eqexpzI0yFlZZiubXZBnGnAjv9zCeHkHma2kWZ9hFdeCXJ/yy2K2UwYCw6wCayIktQ5OjzODg5fkPi65SZA2MJLTQ5chzkVmAHVqmt3F02gLkUqUQqoII/QGqAPQqHmL/qK0nguJ+nsdjh5gQJYGh0tCgRpq3Na4a+2Y1ttJO9xTj3xahMJu47MLLdBgZrQL4V7lmKm+je+KO/5dFrT8Ihw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bG5MmeCR1Ted/DAVvietmgKqOvHrX86J6/nnzH+j7x0=;
- b=tNEeqaEzFIzBqlDdeyfrD5diBNvleM++id3eGXgHOtmBvZ/rFkddXvfm7xIHBsuVGnmyvaPniB2YAzuWPUZ+p135+zsCxYRETIMAFEkJqZF3hqmrcRYJDnrVoF914FEAX/fW+ZeU6TBgsb5k93HF7lV3y2CSGandaqVyDQKZRJ0Zjgy/ICu7ZJM/A+gxEpZRXgHY79SxLwhotV1o4yrK+X2BzgLzUE1HcCbefNCfWnJKRlL/YcWhbXptsj5iLNR3935FH3ltfh7rNxjncoubFhVPsIzkK1pbGRcdnIg0RYARyFaxkcEIomGNyzE33qEFmh6wup0zKXHn+qOXinlltg==
+ bh=/8xIc+qKp56xYBeY8siKW1xSxYL0hbsWMVn9/A5mI38=;
+ b=UeKxKLHwxJIgDpaddnwm7msDBxOll8Z/MgQNy34QKJ/iUi7XFLr6MhjG+F1SJ8FiwDN3BkjlM5bM01Fc5VmWsSwwdC38QBta/95XceCe0NMBoq/cmnz2zGGfEBk7LZVwKHSCebYGpRQ3LuQaiP6QvjPMgDYuatQv//IVAkr05lXIeK2Do/wTsGs3qQd4n1xoEAJ4Vb1vvSsj3pKEWdPByfyypIR/GHhkqNGDVGhAVKyd4mGEM3TzF+l4CteHR+pmoIFX45KmcZYJqzHDMa9CTXoUyHZtYHJN8pljRNOMiSkovqBOGqjZwWyI5A+/rJGBmmCGhl9ljo+GwGFN1JBriw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  195.60.68.100) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=axis.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=axis.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bG5MmeCR1Ted/DAVvietmgKqOvHrX86J6/nnzH+j7x0=;
- b=ECt6LknwelTetxJzzdB3XBAFQEdaZyIZ68VSDS4EZx0mFbVr+CvHHEppYB+O4TwfQvQYY5xLaRWgeWA3Po3um6dtEd4heLiUorJKYYVcV40mvgoBPL826QxdKMFn6TmDEKsqgNHPHH1QTaN2wy2zyQAxU6l6TYcHieNNrFFh5L0=
-Received: from PAZP264CA0106.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:1fb::15)
- by DBBPR02MB10841.eurprd02.prod.outlook.com (2603:10a6:10:53d::11) with
+ bh=/8xIc+qKp56xYBeY8siKW1xSxYL0hbsWMVn9/A5mI38=;
+ b=XRNpIDHzDIh22C+k/RSscWknBNdpMhyTZfuB4/YyxemaBlaWKmurNQDdt+H9RVS0pRM8XoA0Z0YsXGBg72Ue2IpOgv91P91UTM1ikFy5q6gbewXcBU8SSo+Z02OtuPxFhxG1Kr9xe5cjWOLIe0u56gfEbUFspj6fFcWeJHWfmLg=
+Received: from PA7P264CA0134.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:36e::16)
+ by DU0PR02MB8620.eurprd02.prod.outlook.com (2603:10a6:10:3ec::17) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Fri, 16 Oct
- 2026 14:15:27 +0000
-Received: from MI3PEPF00008492.eurprd03.prod.outlook.com
- (2603:10a6:102:1fb:cafe::7) by PAZP264CA0106.outlook.office365.com
- (2603:10a6:102:1fb::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Fri, 16 Oct
+ 2026 14:15:39 +0000
+Received: from MI3PEPF0000848F.eurprd03.prod.outlook.com
+ (2603:10a6:102:36e:cafe::1e) by PA7P264CA0134.outlook.office365.com
+ (2603:10a6:102:36e::16) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Fri, 16
- Oct 2026 14:15:27 +0000
+ Oct 2026 14:15:39 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 195.60.68.100) smtp.mailfrom=axis.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=axis.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
  195.60.68.100 as permitted sender) receiver=protection.outlook.com;
  client-ip=195.60.68.100; helo=mail.axis.com; pr=C
 Received: from mail.axis.com (195.60.68.100) by
- MI3PEPF00008492.mail.protection.outlook.com (10.167.240.153) with Microsoft
+ MI3PEPF0000848F.mail.protection.outlook.com (10.167.240.150) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 14:15:27 +0000
+ 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 14:15:39 +0000
 Received: from pc67007-2609 (10.4.0.13) by se-mail10w.axis.com (10.20.40.10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Fri, 16 Oct
- 2026 16:15:24 +0200
+ 2026 16:15:38 +0200
 From: Waqar Hameed <waqar.hameed@axis.com>
 To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 CC: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
@@ -62,14 +62,14 @@ CC: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
 	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
 	<conor+dt@kernel.org>, <kernel@axis.com>, <linux-arm-msm@vger.kernel.org>,
 	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 22/38] arm: dts: qcom: ipq8064: Break long property
- array data
-In-Reply-To: <4451c072-3a11-4819-aff4-e7de100cab8b@oss.qualcomm.com>
+Subject: Re: [PATCH 26/38] arm: dts: qcom: msm8226: Align multiple property
+ data
+In-Reply-To: <526230fa-d8cb-4e33-936b-a3b99d271026@oss.qualcomm.com>
 References: <cover.1790892852.git.waqar.hameed@axis.com>
-	<3eb4fba92d67e7ff3486e8dea17233369f62545d.1790892852.git.waqar.hameed@axis.com>
-	<4451c072-3a11-4819-aff4-e7de100cab8b@oss.qualcomm.com>
-Date: Fri, 16 Oct 2026 16:15:24 +0200
-Message-ID: <pndfqy5n343.a.out@axis.com>
+	<d9bcb8ae23ce2143e598d1dc68b1050684b22246.1790892852.git.waqar.hameed@axis.com>
+	<526230fa-d8cb-4e33-936b-a3b99d271026@oss.qualcomm.com>
+Date: Fri, 16 Oct 2026 16:15:38 +0200
+Message-ID: <pndbj8tn33p.a.out@axis.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -81,110 +81,64 @@ X-ClientProxiedBy: se-mail10w.axis.com (10.20.40.10) To se-mail10w.axis.com
  (10.20.40.10)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PEPF00008492:EE_|DBBPR02MB10841:EE_
-X-MS-Office365-Filtering-Correlation-Id: 975f9a80-27c8-47f5-7ea8-08df2b8fed86
+X-MS-TrafficTypeDiagnostic: MI3PEPF0000848F:EE_|DU0PR02MB8620:EE_
+X-MS-Office365-Filtering-Correlation-Id: 22527333-68b8-4e02-73af-08df2b8ff493
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|36860700016|82310400026|1800799024|10067099003|18002099003|22082099003|11063799006|261009223027099003|4143699003|56012099006;
+	BCL:0;ARA:13230040|36860700016|82310400026|7416014|23010399003|376014|1800799024|18002099003|22082099003|10067099003|11063799006|4143699003|261009223027099003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	yc0lfKDE2xr/YhHwEXQZrJO2uFDdEBtjn9sIDVVAARUy2OFUzTXX7DAzRdKemLW3F16uvnvwjcuB8d59BBpvG6gLrYZbjKzJZBZMZ7Dmiyu20/kcyqTsFEPTas7sZBo9pFe+hS3D/lZ1Azuv75QnrofxY+Pa3v7JmitQqXq1t8OrMLbHxaD9erh0xLRirHcYA8F7OUiJm81uVX89AgLIrgholXcgFo+P19axAatKsE5Fq5L439cxKqYvNY3AkhQ0+bryIKhRHbGIacOA3R425cGSI7JInxG4nh4oz2eWMlCSlfmrM60hs7nTa+8V+owqki4uoEhNJ9tKIilz7km1NWAZQv2AsnTCx0kFKQn2ISoK8o2PluIUZlj6S4taVFKopIae+aRLv404J1/eYmg61ZdVU7Ayg3eeaWqccaRtjZ7q0c0ngR7olvmbPticTEIoU2fY6jRUyVeurX6RdnwSsd1iK7x9F4h20uzIWTpzv/OYRklawTd41mMr3gtzWva/GCb8LGui1uayx3AfDU0fg9DbiuPu0IaDgg225LAjSBmmMpTPumX3hK8kVnk18P53Dd+G/MZGMT4s17lgzdz3467o2TXrf1MsOSdO4xw2T5sDtYaKprhMcygqb8iR8aL7viAefwTmyzuor18SsQw9iCW2wRJEcnNmbeHfryo2llISw4K5QpAxZNt/BWVOQ6eFzfq1sjou4hTLGKly72dSYQ==
+	7546QTAGU98hG96SCghv2SoGYqT9i2dmDiUvg0ZyPbuwbUQDFcAafyQBD3bjzHDCa2/2J3F/IxP4q1bBTwwoIGWj9OLuN6RgdUw/Gp/E6n1kyU4+l/Pe+6D/1aBv4OezoTlz++nH8Idfi+k2ZedkX/qdUd/26KL6pdNlz1XsQwnQ82SVJ0ZwBw0HwskL7nSrhXXfaynwShgSvGrTZmSySmhHjGopwupMtNcvG0HGI23cGyHhh/HvAp0O0eLrhDZnB0Ndopjszv9h4RhjgnekJnbptHTdAOBB/FDWEQmCSFjpn+jKMt6JaCA53hqpUcWtKzH5GVuLbYEjV0rEjRwtIoIVjZ3hLqSBNx32fWU+vEVNE6wrdcV7v5V+RkMEibJEc0PdWFSUF7sUb6Ef74kc/d5zAZ4zhJ/4PUSLlG9aMpyDaRfT4brRYAATwQcOTA3kYH50923tsxQ9a1kPkVPLZgsYFMJgr+tZ5ZofXRgeyAm2/eODPs4jtYaFlvp8s4nGOVHFuCSEy5pkIXU9gB2gWn5A9gWMc/V8GLWYxPOLcjBqnqhi3cTqzdbVt8uVBdyi8ONp8iONAN0129i3ps341Kn3PonMvryBSxOactLVNlFLrPgrLtLTwyp4YAXNoT0jt6J+1ifPs1L5+ZWwvFh3/h0v1A69JGwD7HtAwFmLuyFhiFAPCZf+kaPYMxhuil0wsFd/Y5+zZ9EOk5XuZkJqkg==
 X-Forefront-Antispam-Report:
-	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(36860700016)(82310400026)(1800799024)(10067099003)(18002099003)(22082099003)(11063799006)(261009223027099003)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(7416014)(23010399003)(376014)(1800799024)(18002099003)(22082099003)(10067099003)(11063799006)(4143699003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	/5ybsaZ9p6nEcLUUB/KgnDQdzQA/6pDX5iZ4XAc7/ugXltIVvOEbMtvEVtU88V1JDWkbOQwc6N9RVr/IWvCpsthQgFLScguKAS8NkAmaarU36WJ9BT37wYExKBBvsJQ9FF0cm/mwBDB+ig7pV59Ujxb12zmU86/hgRR6LRTLYvSsbwulRIJsA6xgbQe44+Qt6fIlVKYRgk3R9qeeKDc06IVYgfHH+ZQkYmJWY0OokJXTyZmWAvDs4A+sEGeVbiC884QLMdsD9/2Z7GaV846h/cayTeSKDGEa+IV+RyshBnC6R4sOy6wmkupgbCVUVgbbCg4XofCCHZqZC8sGegZNDxqr4C2Da1qSLLQ0D0oyJ6xCLxz5ZXHcB+VhctdgbK1WIw3EomW/sW/vezJ9GIxEEWbBio/x3z8yEV0xjQCalXMKkZNvZwAh7GB4p+IIW9lb
+	0A2RrhERy4m0wqnhv+yzr75KOoszyNh2GvOlD1W08MjHu26KcRhi3xj/E2oo5UQiwlFpe/aobF2ghyxzk8E25hljsRmm95ZryEJk4EyFXH7iG+EmErigJlTzFYBQYm0DTnvhkWhdVmHDet/cUe8e5fhit4DtEI0wPCVmPofqXk993ETFNPYDKXTZACmaIP44PyVenLNurTjsjsFWPLDUb00tZZ0edYLatEKO90povVycqJvD4oHjz58/f9qMJcUVpWqyITlvXX+aebLj3PZfGqqUXF0ZL0wB0hcUSsZgHj4ebXwDy6oUl5mjw+k3XK1BOIRzh1LmacBj+AdP3hYW06JhRbbHL5WrVUIeuksUCrdT0bquXDKGo8VoOX8whpJusO3rRVoRa8OnbnGTLpZkhj4DtfKG3V0UiEgMnwVDcaQYgcCK6dHWkRDICaebTRoN
 X-OriginatorOrg: axis.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 14:15:27.4585
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 14:15:39.2940
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 975f9a80-27c8-47f5-7ea8-08df2b8fed86
+X-MS-Exchange-CrossTenant-Network-Message-Id: 22527333-68b8-4e02-73af-08df2b8ff493
 X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af;Ip=[195.60.68.100];Helo=[mail.axis.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MI3PEPF00008492.eurprd03.prod.outlook.com
+	MI3PEPF0000848F.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR02MB10841
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR02MB8620
 
 On Mon, Oct 12, 2026 at 17:31 +0200 Konrad Dybcio <konrad.dybcio@oss.qualcomm.com> wrote:
 
 > On 10/2/26 12:36 AM, Waqar Hameed wrote:
->> There is an awkward line break at the last elements expression. Put all
->> elements on a newline instead. Found/fixed with dtfmt (Devicetree Source
->> formatter).
+>> Multiple property data on a newline should be aligned with the first
+>> one. Found/fixed with dtfmt (Devicetree Source formatter).
 >> 
 >> Signed-off-by: Waqar Hameed <waqar.hameed@axis.com>
 >> ---
->>  arch/arm/boot/dts/qcom/qcom-ipq8064.dtsi | 5 +++--
->>  1 file changed, 3 insertions(+), 2 deletions(-)
+>>  arch/arm/boot/dts/qcom/qcom-msm8226.dtsi | 8 ++++----
+>>  1 file changed, 4 insertions(+), 4 deletions(-)
 >> 
->> diff --git a/arch/arm/boot/dts/qcom/qcom-ipq8064.dtsi b/arch/arm/boot/dts/qcom/qcom-ipq8064.dtsi
->> index 24632af28d52e..d2b576a37c47d 100644
->> --- a/arch/arm/boot/dts/qcom/qcom-ipq8064.dtsi
->> +++ b/arch/arm/boot/dts/qcom/qcom-ipq8064.dtsi
->> @@ -278,8 +278,9 @@ memory {
->>  
->>  	cpu-pmu {
->>  		compatible = "qcom,krait-pmu";
->> -		interrupts = <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(2) |
->> -					  IRQ_TYPE_LEVEL_HIGH)>;
->> +		interrupts = <
->> +			GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_HIGH)
->> +		>;
+>> diff --git a/arch/arm/boot/dts/qcom/qcom-msm8226.dtsi b/arch/arm/boot/dts/qcom/qcom-msm8226.dtsi
+>> index 346aef4a1d9f5..ac18744b50924 100644
+>> --- a/arch/arm/boot/dts/qcom/qcom-msm8226.dtsi
+>> +++ b/arch/arm/boot/dts/qcom/qcom-msm8226.dtsi
+>> @@ -1483,12 +1483,12 @@ cpu_crit1: trip1 {
+>>  	timer {
+>>  		compatible = "arm,armv7-timer";
+>>  		interrupts = <GIC_PPI 2
+>> -				(GIC_CPU_MASK_RAW(15) | IRQ_TYPE_LEVEL_LOW)>,
+>> +			      (GIC_CPU_MASK_RAW(15) | IRQ_TYPE_LEVEL_LOW)>,
+>>  			     <GIC_PPI 3
+>> -				(GIC_CPU_MASK_RAW(15) | IRQ_TYPE_LEVEL_LOW)>,
+>> +			      (GIC_CPU_MASK_RAW(15) | IRQ_TYPE_LEVEL_LOW)>,
+>>  			     <GIC_PPI 4
+>> -				(GIC_CPU_MASK_RAW(15) | IRQ_TYPE_LEVEL_LOW)>,
+>> +			      (GIC_CPU_MASK_RAW(15) | IRQ_TYPE_LEVEL_LOW)>,
+>>  			     <GIC_PPI 1
+>> -				(GIC_CPU_MASK_RAW(15) | IRQ_TYPE_LEVEL_LOW)>;
+>> +			      (GIC_CPU_MASK_RAW(15) | IRQ_TYPE_LEVEL_LOW)>;
+>>  	};
 >
-> Let's wrap it at 100 chars. For lines that overflow, I think we may
-> need some brainstorming from the wider audience.
+> Likewise, these fit into 100c
 
-Yeah, as I responded in patch 19, this is hard and needs some
-discussions. Having the braces on separate lines like this is one way to
-do it, and in fact that's how `black` for Python does it. `rustfmt` also
-chooses this but first tries to fit it on one line with a newline after
-the assignment:
-
-		interrupts =
-			<GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_HIGH)>;
-
-If it still doesn't fit 100 chars (like here), it then formats long
-arrays as
-
-		interrupts = <
-			GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_HIGH)
-		>;
-
-This still doesn't fit 100 chars. Maybe we could then wrap the
-individual items like:
-
-		interrupts = <
-			GIC_PPI 10
-			(GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_HIGH)
-		>;
-
-I think that's a reasonable algorithm to have in dtfmt for wrapping
-arrays, or?
-
->
-> For reference, we have a couple of very long lines in the Qualcomm
-> soundwire nodes (qcom,soundwire-vXXX), and we just kinda let them
-> overflow for the time being
-
-I think the above approach would format them quite nicely, for example
-
-		swr3: soundwire@6ab0000 {
-			compatible = "qcom,soundwire-v2.2.0", "qcom,soundwire-v2.0.0";
-
-			...
-
-			qcom,ports-sinterval = /bits/ 16 <
-				0x07 0x1f 0x3f 0x07 0x1f 0x3f 0x18f 0xff 0xff 0x0f 0x0f 0xff 0x31f
-			>;
-			qcom,ports-offset1 = /bits/ 8 <
-				0x01 0x03 0x05 0x02 0x04 0x15 0x00 0xff 0xff 0x06 0x0d 0xff 0x00
-			>;
-			qcom,ports-offset2 = /bits/ 8 <
-				0xff 0x07 0x1f 0xff 0x07 0x1f 0xff 0xff 0xff 0xff 0xff 0xff 0xff
-			>;
-
-			...
-		};
-
-in `arch/arm64/boot/dts/qcom/kaanapali.dtsi`. What do you think?
+Yup, will change if we come to a conclusion (c.f. response in patch 19
+and 22).
