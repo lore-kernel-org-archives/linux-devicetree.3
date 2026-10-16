@@ -1,300 +1,129 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA8B947DFB0
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 10:34:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0354246784
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 10:38:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792146873; cv=none; b=UTO+iSuHasm1TtwA4jXAdkyHTdNbZUd6CYJxVzFbin8asxhg9KLtsKznaWRNYRpurgr4GzXQUG9qxElPAvIv0YLjj0BvBWG5eQK+69LZIkP/1Hl6Xm6rmFGcs6dNFSudRVyTL7BNPu5+4+f4HMPjELboUyv+iS01gxju3k45/60=
+	t=1792147092; cv=none; b=NtkaqNEak30/l2HKh+odmhipqb9c2CqoImZCspxHX0c1HcXi5cy4grcd99xFG8aZAx8dutHc/LEWqfOa1LmY6sXvvWigdNEseQdmBnjLri1YEpzqpTVF+xLicT3iEvKuKnM8805iAZIoKMZbuRQQA8+G3LKKjkRVIJOrFjGHwnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792146873; c=relaxed/simple;
-	bh=Zib/Tn/9dUZvXjtweZFxNuM8aRPoTdWFV7BmIZDwigk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=UN7D+6gn63aiaDadUVuNBJ5DhcznXrdjrAm1qo0ZqrOSBYr+aW9CmsNxi2rfCdeaFFAdqfec2/I8aHdzAnAts2Z1uJIlgSV9evuAvjFt7nrncJo6hRuCtRpqqbFFHn7cxekFziW3qqReDE2sI6MHYUc+oNcMtmO75HFNinKq9rY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=nyftLFnq; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+	s=arc-20240116; t=1792147092; c=relaxed/simple;
+	bh=K9mC195kTGkDqe576lBOFyGmxBtljNyscPxIuA9C7CY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VBV1D/nsTehQ7C9DR9GTpv5K8NqhaQkcdEHAKqtjXanUcVD9FsrFfXhuJ/forgQg5wdGJPEOfrPREBvZ6Vo1o+Xl4/Sm2aJCXaYBOpEJwU0HUTlIN1e7nVKCH9Yu/abrIyHT0DjaDowElU+z63CT1N/U6oTxbEzciInk05gRV2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=SQj4jr0b; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="nyftLFnq"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49fbb2acc90so53951555e9.2
-        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 03:34:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="SQj4jr0b"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1d293b293so1551325e9.2
+        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 03:38:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1792146863; x=1792751663; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=N4mHzpuyPPiZCfg7+PuclKsw29LzPIuraVJuXhPzW54=;
-        b=nyftLFnqV7A/NgoezDU6Cs29l8XlLWS7Nr7+HJeI3MB/llAYLcnl6wFeQ/RhKoRP2e
-         PV4OitlsmOa4KLEkSNMjJJe0sIgzCcdJ9jUVHhuY7P+NkaGSHnhcfSQSF4XSnUltpafU
-         K5QnkpKHuXB/16vIioXKy52sxyZBvY1nn0ZJk=
+        d=linaro.org; s=google; t=1792147089; x=1792751889; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6nGmaW43TFsY8203dyOJ+Nrc5EUvdzx8Ca6xsjCPHmQ=;
+        b=SQj4jr0b+A613FC6vNIBdD0mqbr7aBlY8+Ytl512zUnY5muA/Vh8R7ppco/GQxcUbt
+         ZuwJx88IbqEQlmNQ4zZrLCYjTRbj3eaQQev9OZjuyweiCdfM6MHSNg8GV3kjLKiPRLMJ
+         I/EmeIgUq6IgnmGJFCKAZEnx5nsipyxSBLhx4wHr6hC+vWhi0E2rdM+ZNSC4wrZWN+g+
+         mi0uzhP4WmJ0qj9h4adeWtG8VQvjGn+mHvQBcPnc4KBVW2Mf0o2SzPuzc+6h/9r4GaAc
+         2bC2ewGTOpQEFTCdFU7Pz2ci12qoa0f2T5kigAp9DL2AxTDg77MsbtMAs6a1kuk0/efy
+         DEAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792146863; x=1792751663;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=N4mHzpuyPPiZCfg7+PuclKsw29LzPIuraVJuXhPzW54=;
-        b=wMGFY4agEhnQFIjaD7359mY3Rzx8dVoPl72Lhwb1a9PzB0ltNvP+HLtVp74PEq/wO9
-         u/TSi6iWn6r8H1hgGHNBCkgoxll9S3YOpCakt64q6axXq86rkOX8Shunl86YtkE7cXaK
-         brt4I11Jn0UAZY/K5Tgt/3jOEqfUxktGtZgpXtHllBCQSpQupffHw0FbsVDv8ON605YO
-         hJGFXibvFo60fgPPy8W9JvBvd2EsUlzMe89SFWCHDaUX69Yzl+MCAojO5HhXoMYDt5SZ
-         4k9s05KN0x8MNVse1tSkGYXmBmtKjRUsG36JCKferlnVTdqSUS83/573tInGF1ZzpK8Z
-         VazA==
-X-Forwarded-Encrypted: i=1; AKwUvByLFFb4vSQveNlr9v144+MrfmjwWQu/9l4wshpFPYulFZ+oDEj+st4rDVEIUEA1VRBbJCi1tfbralx3@vger.kernel.org
-X-Gm-Message-State: AFq9FYJQlD+ro/3TXkI2Vhw7fUCdDReJdNvrvy3vmYxDCew8k219kE1w
-	jdX850/xLv332lbkjDcTISbS4KZ2Uk7nkhl9o+xJd75WUqAfckGRXgs6i5lowKJeA+w=
-X-Gm-Gg: AYBFou2NjKNVuR3nHaBueuSgRKax/AcTjSCOaQxhrZAVgZP6AvHs0fjCuOW39rbAPSZ
-	SZfM+z8FcFnvqW/L9X+k5cP0FFoVlowFkIKIqHRUV+/B+D610tghfD/V9fM+e9Q5gSPK2QkTvqs
-	tPytc+gsPNcqtptwFWPYokA8fUVf8q8Wf95UfSH5zYFqMSHtR+l6sP35ZQHpSNLgBBORfKycuxS
-	E2RG0kjEVuuuiC+DBs1T8O8obiIS18E8p4YrKsJsc4TahMUNQ1L7zkHVg5P6kZt/LX5tsG8RXYx
-	9IYWAaRzKwOTw2CVxORs2hDsEhIv4IhgUrKRD3HMoxoXPOsg5zgOUSeNA5asn45CeULT2zlTLlL
-	GoQ+TCLH0WoLIvzGj0dTvTQyVm9zKhtXvJ50ZOiS9q9P5t0nJVib7hJxDYoQmBIgqj50so9zivw
-	CP8ESukKxdGYDGebOYTQR3EHY7E14cXFqZ86jRIN2ZZaO5IAHy1VNPv0+QXBSOAELiEXThAECcx
-	pdK9Az3WEHbrjyLwEojVBy9/Cw7bEIz+dMHQ4CF3XE5yIOfgoGPwNA=
-X-Received: by 2002:a05:600c:350b:b0:4a1:ad01:f8dc with SMTP id 5b1f17b1804b1-4a1ad01f924mr232327175e9.21.1792146860670;
-        Fri, 16 Oct 2026 03:34:20 -0700 (PDT)
-Received: from localhost (dynamic-2a00-1028-8382-0206-0000-0000-0000-0bc0.ipv6.o2.cz. [2a00:1028:8382:206::bc0])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd9b35a6sm132651465e9.6.2026.10.16.03.34.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 03:34:20 -0700 (PDT)
-From: =?utf-8?q?Roman_Smr=C5=BE?= <roman@amarulasolutions.com>
-Date: Fri, 16 Oct 2026 12:33:58 +0200
-Subject: [PATCH v2 5/5] ASoC: pcm179x: Add support for pcm1975
+        d=1e100.net; s=20260707; t=1792147089; x=1792751889;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6nGmaW43TFsY8203dyOJ+Nrc5EUvdzx8Ca6xsjCPHmQ=;
+        b=CRoArvN+OSIgf1AN1JlWSwPZnRTf3yjCECGohoyglw75Y5/gqQP4cRZiFgJVKdLdfs
+         Msy2HWQJoSQovAp7kytxdEKSgEdtG9rGd9R2GzLrUuBvGXwJPdFY1QNap4RD6kItYXtA
+         de3eZlJv5be/pcBS+TkoDKP0qL4/XFKeX/GYIojVioyvGMaNh2k39rkmAVrZaUIAJcnz
+         nwiMI1vPRY/F2lT9SAbHbVg5sSnbc1RW5K/KVM+nicblCkONztShmg7O7XBUr7aJsRiO
+         qal18EvVugiSPUrT7t+FxGx2BaVr0HjdW5Ng1Bt9iaw8L3o11hd/Mu93rwk2FuTELxyu
+         szZw==
+X-Forwarded-Encrypted: i=1; AKwUvBzb4Lj+OWS03LUtyprDIyxl4sy6Ln/0+Jx/MSYRpsQwF4VIe5T34KwMWC41MLdNyA9pKOBNkxjdnEh1@vger.kernel.org
+X-Gm-Message-State: AFq9FYKCoifuhjb5dQjMNbeGlvetgjhLLQsbkEWrWbRNOx3gJBqhChSu
+	+S3ga2hjwZDpS6I2Ot2Z1P9KSWGojS8oEUOfEGUl7YVqqDyey5si/kyXCE+DfGgTMqs=
+X-Gm-Gg: AYBFou1jBimrQAkizCxdxpVu+3N1RXEuMV3vWMTvlyUdMPCsz6io97xpnrwOw0fU9T5
+	Hzs/oQ3dcjK2GR8cSfjmU5dJcxuvQgZFMdpoFIrn8QmM/pQsuUrlYKsM40ZgvqRfzthiswq9Pm6
+	P8EcrNhIgAYtaX82hjlLX+oJ2CoY3jLT6Mn3bD9Da2Wgojv94qmtMIVLoXEr+/FK+THX75yUQUE
+	YLayeoW1Z9yWz3ELfyVgutSPXAEumRDvbTuZdmn20+SuD79iIg4vssIPETZCbu16WFS//AXS9q8
+	ZQPwBiTwXYeeGS7al71uF5k037zLL7PbwZqkahMES5zB2ia7CR75/6dBxtElr0cNcBublPoGTZ2
+	QjxR5fo3z0wL0sCipLGOVQbesA1EJWobjwc5fL79iXNp2G5ARfUA4eav46wURbkmVlLlvJ33mLp
+	wnu/yNFWzuESmWCtusbG9+RaRQBdaFWwbrwBY9C8Y2+/lZQCjFHRYedAvOnnrRKs+jvMZPrqeMd
+	9ZiCBHGows=
+X-Received: by 2002:a05:600c:1c23:b0:4a1:cef3:fb3a with SMTP id 5b1f17b1804b1-4a1cef3fd00mr28299025e9.9.1792147089174;
+        Fri, 16 Oct 2026 03:38:09 -0700 (PDT)
+Received: from [192.168.0.167] ([109.78.92.136])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1ce02d619sm26430935e9.3.2026.10.16.03.38.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 03:38:08 -0700 (PDT)
+Message-ID: <b4a76677-0929-44bb-9c94-7ceb09952168@linaro.org>
+Date: Fri, 16 Oct 2026 11:38:06 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261016-work-v2-5-9340b9555fbb@amarulasolutions.com>
-References: <20261016-work-v2-0-9340b9555fbb@amarulasolutions.com>
-In-Reply-To: <20261016-work-v2-0-9340b9555fbb@amarulasolutions.com>
-To: Peter Rosin <peda@lysator.liu.se>, 
- =?utf-8?q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>, 
- Lars-Peter Clausen <lars@metafoo.de>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Shenghao Ding <shenghao-ding@ti.com>, 
- Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>, 
- Sen Wang <sen@ti.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>
-Cc: asahi@lists.linux.dev, linux-sound@vger.kernel.org, 
- patches@opensource.cirrus.com, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-amarula@amarulasolutions.com, 
- Michael Trimarchi <michael@amarulasolutions.com>, 
- =?utf-8?q?Roman_Smr=C5=BE?= <roman@amarulasolutions.com>
-X-Mailer: b4 0.16.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/8] dt-bindings: phy: Add PHY_DIRECTION_TX/RX
+ definitions
+To: Jason Yang <jason98166@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Guochun Huang <hero.huang@rock-chips.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Michael Riesch <michael.riesch@collabora.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
+ <20261016-dcphy-rx-v1-v5-1-e63b49eabe2d@gmail.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261016-dcphy-rx-v1-v5-1-e63b49eabe2d@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Michael Trimarchi <michael@amarulasolutions.com>
+On 16/10/2026 09:56, Jason Yang wrote:
+> A MIPI D-PHY or C-PHY can be a transmitter or a receiver. Some PHY
+> blocks have one of each and can use them at the same time, so one PHY
+> node offers two PHYs. The existing cell, PHY_TYPE_DPHY or
+> PHY_TYPE_CPHY, selects the mode of the whole block, not one of the two
+> PHYs.
+> 
+> Add PHY_DIRECTION_TX and PHY_DIRECTION_RX for a cell that selects the
+> transmitter or the receiver. The first user is the Rockchip RK3588 MIPI
+> DC-PHY, where the transmitter serves a DSI host and the receiver a CSI-2
+> host.
+> 
+> Suggested-by: Michael Riesch <michael.riesch@collabora.com>
+> Link: https://lore.kernel.org/r/7425ac83-f6d8-4443-a26e-a47f9306aa24@collabora.com
+> Signed-off-by: Jason Yang <jason98166@gmail.com>
+> ---
+>   include/dt-bindings/phy/phy.h | 3 +++
+>   1 file changed, 3 insertions(+)
+> 
+> diff --git a/include/dt-bindings/phy/phy.h b/include/dt-bindings/phy/phy.h
+> index 979b5dfd8353..9ead74d9a172 100644
+> --- a/include/dt-bindings/phy/phy.h
+> +++ b/include/dt-bindings/phy/phy.h
+> @@ -29,4 +29,7 @@
+>   #define PHY_POL_INVERT		1
+>   #define PHY_POL_AUTO		2
+>   
+> +#define PHY_DIRECTION_TX	0
+> +#define PHY_DIRECTION_RX	1
+> +
+>   #endif /* _DT_BINDINGS_PHY */
+> 
 
-The PCM1795 is register compatible with the PCM1792A, but it encodes two
-of the register 18 FMT[2:0] values differently: code 001 selects 32-bit
-standard data instead of 20-bit, and code 100 selects 32-bit I2S instead
-of 16-bit I2S. It has no 20-bit format at all. The PCM1796 shares the
-PCM1792A encoding.
+This looks like a neat solution to your problem.
 
-The model is read with device_get_match_data(), so each bus driver
-carries the model in its own of_device_id table. The tables cannot move
-to the common file: MODULE_DEVICE_TABLE() aliases a table that has to be
-defined in the same translation unit.
-
-Signed-off-by: Michael Trimarchi <michael@amarulasolutions.com>
-Signed-off-by: Roman Smrž <roman@amarulasolutions.com>
-
----
-Changes in v2:
-- Added missing entry to spi_ids.
----
- sound/soc/codecs/pcm179x-i2c.c |  3 +-
- sound/soc/codecs/pcm179x-spi.c |  4 ++-
- sound/soc/codecs/pcm179x.c     | 62 ++++++++++++++++++++++++++++++++++++++----
- sound/soc/codecs/pcm179x.h     | 12 ++++++--
- 4 files changed, 72 insertions(+), 9 deletions(-)
-
-diff --git a/sound/soc/codecs/pcm179x-i2c.c b/sound/soc/codecs/pcm179x-i2c.c
-index e81e20fadadf..751f4b74647a 100644
---- a/sound/soc/codecs/pcm179x-i2c.c
-+++ b/sound/soc/codecs/pcm179x-i2c.c
-@@ -32,7 +32,8 @@ static int pcm179x_i2c_probe(struct i2c_client *client)
- #ifdef CONFIG_OF
- static const struct of_device_id pcm179x_of_match[] = {
- 	{ .compatible = "ti,pcm1792a", },
--	{ .compatible = "ti,pcm1796", },
-+	{ .compatible = "ti,pcm1795", .data = (void *)PCM1795, },
-+	{ .compatible = "ti,pcm1796", .data = (void *)PCM1796, },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, pcm179x_of_match);
-diff --git a/sound/soc/codecs/pcm179x-spi.c b/sound/soc/codecs/pcm179x-spi.c
-index 4b873f2986c7..a6c6ac1eb97b 100644
---- a/sound/soc/codecs/pcm179x-spi.c
-+++ b/sound/soc/codecs/pcm179x-spi.c
-@@ -31,13 +31,15 @@ static int pcm179x_spi_probe(struct spi_device *spi)
- 
- static const struct of_device_id pcm179x_of_match[] __maybe_unused = {
- 	{ .compatible = "ti,pcm1792a", },
--	{ .compatible = "ti,pcm1796" },
-+	{ .compatible = "ti,pcm1795", .data = (void *)PCM1795, },
-+	{ .compatible = "ti,pcm1796", .data = (void *)PCM1796, },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, pcm179x_of_match);
- 
- static const struct spi_device_id pcm179x_spi_ids[] = {
- 	{ "pcm1792a", 0 },
-+	{ "pcm1795", 0 },
- 	{ "pcm1796", 0 },
- 	{ "pcm179x", 0 },
- 	{ },
-diff --git a/sound/soc/codecs/pcm179x.c b/sound/soc/codecs/pcm179x.c
-index fae5de318b6e..8e9b9e98c8df 100644
---- a/sound/soc/codecs/pcm179x.c
-+++ b/sound/soc/codecs/pcm179x.c
-@@ -19,6 +19,7 @@
- #include <sound/soc.h>
- #include <sound/tlv.h>
- #include <linux/of.h>
-+#include <linux/property.h>
- 
- #include "pcm179x.h"
- 
-@@ -63,6 +64,7 @@ struct pcm179x_private {
- 	struct regmap *regmap;
- 	unsigned int format;
- 	unsigned int rate;
-+	enum pcm179x_type codec_model;
- };
- 
- struct pcm179x_fmt_table {
-@@ -71,7 +73,17 @@ struct pcm179x_fmt_table {
- 	unsigned int value;	/* FMT[2:0] */
- };
- 
--static const struct pcm179x_fmt_table pcm1792a_fmt[] = {
-+/*
-+ * Register 18 FMT[2:0] is not encoded the same way by every model: value 001
-+ * and value 100 are 20-bit and 16-bit I2S on the PCM1792A/PCM1796 but 32-bit
-+ * and 32-bit I2S on the PCM1795, and neither model has a 32-bit
-+ * left-justified mode.
-+ *
-+ * The PCM1792A/PCM1796 have no 32-bit format at all, so a 32-bit container
-+ * keeps the 24-bit value and is clocked out as 24-bit data, as this driver has
-+ * always done. Only the PCM1795 has real 32-bit formats.
-+ */
-+static const struct pcm179x_fmt_table pcm179x_fmt[] = {
- 	{ SND_SOC_DAIFMT_RIGHT_J, 16, 0 },
- 	{ SND_SOC_DAIFMT_RIGHT_J, 24, 2 },
- 	{ SND_SOC_DAIFMT_RIGHT_J, 32, 2 },
-@@ -82,16 +94,53 @@ static const struct pcm179x_fmt_table pcm1792a_fmt[] = {
- 	{ SND_SOC_DAIFMT_I2S,     32, 5 },
- };
- 
-+static const struct pcm179x_fmt_table pcm1795_fmt[] = {
-+	{ SND_SOC_DAIFMT_RIGHT_J, 16, 0 },
-+	{ SND_SOC_DAIFMT_RIGHT_J, 24, 2 },
-+	{ SND_SOC_DAIFMT_RIGHT_J, 32, 1 },
-+	{ SND_SOC_DAIFMT_LEFT_J,  24, 3 },
-+	{ SND_SOC_DAIFMT_I2S,     24, 5 },
-+	{ SND_SOC_DAIFMT_I2S,     32, 4 },
-+};
-+
-+struct pcm179x_model {
-+	u64 formats;
-+	const struct pcm179x_fmt_table *fmt;
-+	unsigned int num_fmt;
-+};
-+
-+static const struct pcm179x_model pcm179x_models[] = {
-+	[PCM1792A] = { PCM179X_FORMATS, pcm179x_fmt, ARRAY_SIZE(pcm179x_fmt) },
-+	[PCM1795] = { PCM1795_FORMATS, pcm1795_fmt, ARRAY_SIZE(pcm1795_fmt) },
-+	[PCM1796] = { PCM179X_FORMATS, pcm179x_fmt, ARRAY_SIZE(pcm179x_fmt) },
-+};
-+
- static int pcm179x_fmt_value(struct pcm179x_private *priv, unsigned int fmt,
- 			     unsigned int width)
- {
--	for (unsigned int i = 0; i < ARRAY_SIZE(pcm1792a_fmt); i++)
--		if (pcm1792a_fmt[i].fmt == fmt && pcm1792a_fmt[i].width == width)
--			return pcm1792a_fmt[i].value;
-+	const struct pcm179x_model *model = &pcm179x_models[priv->codec_model];
-+	const struct pcm179x_fmt_table *fmt_tbl = model->fmt;
-+
-+	for (unsigned int i = 0; i < model->num_fmt; i++)
-+		if (fmt_tbl[i].fmt == fmt && fmt_tbl[i].width == width)
-+			return fmt_tbl[i].value;
- 
- 	return -EINVAL;
- }
- 
-+static int pcm179x_startup(struct snd_pcm_substream *substream,
-+			   struct snd_soc_dai *dai)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct pcm179x_private *priv = snd_soc_component_get_drvdata(component);
-+	u64 formats = pcm179x_models[priv->codec_model].formats;
-+
-+	snd_pcm_hw_constraint_mask64(substream->runtime,
-+				     SNDRV_PCM_HW_PARAM_FORMAT, formats);
-+
-+	return 0;
-+}
-+
- static int pcm179x_set_dai_fmt(struct snd_soc_dai *codec_dai,
-                              unsigned int format)
- {
-@@ -150,6 +199,7 @@ static const u64 pcm179x_selectable_formats =
- 	SND_SOC_POSSIBLE_DAIFMT_RIGHT_J;
- 
- static const struct snd_soc_dai_ops pcm179x_dai_ops = {
-+	.startup	= pcm179x_startup,
- 	.set_fmt	= pcm179x_set_dai_fmt,
- 	.hw_params	= pcm179x_hw_params,
- 	.mute_stream	= pcm179x_mute,
-@@ -191,7 +241,7 @@ static struct snd_soc_dai_driver pcm179x_dai = {
- 		.rates = SNDRV_PCM_RATE_CONTINUOUS,
- 		.rate_min = 10000,
- 		.rate_max = 200000,
--		.formats = PCM1792A_FORMATS, },
-+		.formats = PCM179X_FORMATS, },
- 	.ops = &pcm179x_dai_ops,
- };
- 
-@@ -227,6 +277,8 @@ int pcm179x_common_init(struct device *dev, struct regmap *regmap)
- 	if (!pcm179x)
- 		return -ENOMEM;
- 
-+	pcm179x->codec_model =
-+		(enum pcm179x_type)(uintptr_t)device_get_match_data(dev);
- 	pcm179x->regmap = regmap;
- 	dev_set_drvdata(dev, pcm179x);
- 
-diff --git a/sound/soc/codecs/pcm179x.h b/sound/soc/codecs/pcm179x.h
-index 0039ca8ee742..33971fa93546 100644
---- a/sound/soc/codecs/pcm179x.h
-+++ b/sound/soc/codecs/pcm179x.h
-@@ -8,8 +8,16 @@
- #ifndef __PCM179X_H__
- #define __PCM179X_H__
- 
--#define PCM1792A_FORMATS (SNDRV_PCM_FMTBIT_S32_LE | SNDRV_PCM_FMTBIT_S24_LE | \
--			  SNDRV_PCM_FMTBIT_S16_LE)
-+enum pcm179x_type {
-+	PCM1792A,
-+	PCM1795,
-+	PCM1796,
-+};
-+
-+#define PCM179X_FORMATS (SNDRV_PCM_FMTBIT_S32_LE | SNDRV_PCM_FMTBIT_S24_LE | \
-+			 SNDRV_PCM_FMTBIT_S16_LE)
-+
-+#define PCM1795_FORMATS (SNDRV_PCM_FMTBIT_S32_LE | SNDRV_PCM_FMTBIT_S24_LE)
- 
- extern const struct regmap_config pcm179x_regmap_config;
- 
-
--- 
-2.55.0
-
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
