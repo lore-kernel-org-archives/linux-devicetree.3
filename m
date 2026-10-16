@@ -1,188 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EECC4525A69;
-	Fri, 16 Oct 2026 16:49:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89A6B5349CA
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 17:03:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792169402; cv=none; b=QmY1rroi9vNEuZMaBfCTnAHV0wTMBEnGE9YIrO/3W+kse68T1qMmQEmZb3ymkgT5MBSTRy+VmzTCASBDlUFZ1FbALzDW0zxoklJAoV57GFBr2KeTC9spNtuRBQjoDDrql1vhFLnIBSfnLuC2dKKJKAakv8+HnkJlqZze9DpsoyE=
+	t=1792170230; cv=none; b=WlNAL8O43xdg1IgSM0I2tdRcSre/aASCcvgAURXL+sjCTdtXUzevZofzGopvWMDbItsP9nW+21ntiL6VyoDxVb4kzX8LcfUDnleJMWs4lSW0HXckBa6l9BtTCCDDfPO6IxfyRCHQdHMiZOVG8yH9EK6v325LS7C6m3KV3YcOBSY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792169402; c=relaxed/simple;
-	bh=UImA8cYpBLvNiZlZAZgCL2GsX+CMC3XG8WnHT0qvxzU=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=dvcdnaWdIfZ81Lp6g3Kk/a3YmnXi757bZmpyuKYiD3aB8wNL2owHP+HQzSPnV5E23Q7Xl22iOyovXI6UG/8yUPXAFgRpkmUngNOCkQzhusCIr47ReMwv5TaxvnBbkbRNjInvRVJ0Tvs/a0pOsoROU97tUPt/WuN6//I5t8/OMqA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bd24Oa3x; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792170230; c=relaxed/simple;
+	bh=EFCs/t5NZCKL85wyMYHIYg1c+baJsqxbMSrz9KygYjE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qDQNRzs4RmstfGeA6Zo8TKv6g7q41ViMSe9rmbMxCuRunxIm1Bawj5QKsLvq+fPlymHZ0UE/JZ5fwTzXynoIrX/vJ/fUnNJiHjaUWbLwIbAuxJZ9JyBFmpvx+V+kqPpSzObV2ZffcU9gLI2BsvBQWdvhsn2yuVQCqTliZ5w5eDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GXQKRn7m; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bd24Oa3x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CDFB1F000C8;
-	Fri, 16 Oct 2026 16:49:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792169399;
-	bh=esfa2CJ+kq/M1Ei3Ia0U0h1TOpo9U/op3o7pm8PndAg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Bd24Oa3x0AfpwQkItbVvmWmO53ozQ81BZIt5CYEwNSzc40YhLZMF3jgLksyXyvdlM
-	 zAvFtPc5c+FElkZGhyI7T+UUmI/JvCq35dFlSWQd4NDKsWUIUIxRgBY64CVzFXbMYp
-	 GlP38NIFJrqriFphdT+ljghd2Wr3Qvzt9JCAFrgx3UfjlOeS8k/08nrrZ+oHJs3KvX
-	 4NRGNG0jCP+OS56xXNEObXcqR+xjTeMirHftT2riFCvFOMX2hd0VCRPRFwaH5O4mmv
-	 LKu2U5jnvZzz9bk+ekT+1Lm4xJ48UM+Xv8u//G5HYBQmopuA6nkjt6IPmRheTRzVMu
-	 LjGF3GduAcdng==
-Message-ID: <sashiko-outbox-174666@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/2] Input: add OnePlus/OPPO Pad pogo-pin keyboard
- serdev driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: wyibo6109@gmail.com, linux-input@vger.kernel.org
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20261016163859.1070138-3-wyibo6109@gmail.com>
-References: <20261016163859.1070138-1-wyibo6109@gmail.com>
- <20261016163859.1070138-3-wyibo6109@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 16 Oct 2026 16:49:58 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GXQKRn7m"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a1682bff3cso930295e9.1
+        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 10:03:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792170225; x=1792775025; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ARaK25Q0RvNaVHGLi0NUl1nvj8h/slmPHHRftuSOT6c=;
+        b=GXQKRn7mk/+sRKiJm4MLPZY4jflJ5VVE9tCA8pdF77HIg68iYxmO7X+hO2O2SLoBI/
+         zC5K1YNSrOr8r3/NK1uEdqTeQfM1qmKbpY47e083AcnBoHX4jUTt3skZxuLI80hc1UDP
+         LW8T9NcAirgRRoUbMujwjsAgkdIfQTImIEKWoYfAjZjDQ/dVfZAizAgAbEhS2TsLzyfr
+         eVKBJfLtL+h6h/GYmBbobDLaxOCS1qERkFPJIUxvIXd6URpWH1dSAsiCV2uwD6HqcBrF
+         SW6R/GCcuaZ+FvFOI/z/QZBaVEt2/a2BXTl5pOD6YaF0QBTyqP1helMdBwd9S5206HHv
+         nrMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792170225; x=1792775025;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ARaK25Q0RvNaVHGLi0NUl1nvj8h/slmPHHRftuSOT6c=;
+        b=DbFQT+CPvTYpZVR5cedPTeKn4RJuetw8as1B43+RLan73QAWKFzw1HYNb4ibCxY2y3
+         hAwp7phXRH8R8KZvmSF3KzcMMYSFmFGw96jCVch6XmIp5ycsTqj4hhsJP0M9BwxcZZYb
+         dER2epWVxo7W7nRPr8Vo+FX+qmQAbdTnideIUWkwSLYh7HFDKOK+2eYp4MR75FNIivUf
+         yYqZucXveOzLxuT/1Eb0jSxi1JBHBnWfGtpMU6OjdxDThhSy8PyMn0HCsR2L+rRwRIe2
+         VEcqVXVYf0OyMCtnNejaIf+znJGBfiez9CJ9fEN6fPnsDS3+vwxn7PmMKgtIX655nh8J
+         5ppg==
+X-Forwarded-Encrypted: i=1; AKwUvBzSmuE1zwU4mmQQTvsBPxpuVAf/W2a22/IVwNecYaPCSOKtfa+FnqYsytgOtoeknhoAkc0WGzRlSH1j@vger.kernel.org
+X-Gm-Message-State: AFq9FYJNXPSxQXo47n3FszXrfaEqDr/3BkEl4N/It/LseEJx+ODfXZaf
+	44pQ7K3X4j7/F+peceqHAs1eX8hxxFSz1gM4hjNztsR+wZuPMu/WoLfxFq1vzQ==
+X-Gm-Gg: AYBFou1EQ8PlQqKKRyRPM5SYZ/CzhiwDVIFBjY2k5iB4nVW08qJF3H5s93NInBjPWxI
+	So6qKg03GqhsY2ZflTOOedNgEd8zA1YvORjfHJBEwdimcL8wT5q+sZ31RMJ9+bnev1UonwKal9r
+	0akIr63G+NZpPXZ4Mgy81/W+5XBY+zFuTKI4mRQgC0T35qbY1sPjtEWSj+g8494NsTwvy0fK6BO
+	8zLyXHf+Q2x3BbVOiGUvHGTUTrY9fthL+AnBsdpzo80eVB90rNdLCxkBpZqcoSeEd05Oi1f+fg8
+	ZW3NRWaaAQ3ZHY0COejmv9CUU0EGONpXm11ng9DujXWimWS+lmQcGluFhA+nWW9jXKqzV2sRGRz
+	kYNs6DuzmG/z+P4GkMr56yvOVTf7eynuenzfHoSRMVIXaZqgLMdTnSXGvjQ8EJTYznayT8uDxFJ
+	J3dfehZpXyceGpHW4nglaOciOyw+TcVEVuWJDgCaWDlbx+nN7D3GlskEdYNypIfQUdKtgAi8ut7
+	CHr/FTNpVFbxLsmn93l59Kf1R23O2LQVBQ5tIn7uoPpNcgFXxVH132CMykbVSvPilS2lDPX3Xuo
+	t6LUziYkFojU3VyutpTLApMBRuKbrg==
+X-Received: by 2002:a05:600c:4e14:b0:4a1:d307:b526 with SMTP id 5b1f17b1804b1-4a1d7464034mr10105175e9.0.1792170220437;
+        Fri, 16 Oct 2026 10:03:40 -0700 (PDT)
+Received: from Lord-Beerus.station ([93.66.71.207])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd9b8ebdsm186598225e9.10.2026.10.16.10.03.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 10:03:39 -0700 (PDT)
+Date: Fri, 16 Oct 2026 19:03:36 +0200
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Subject: Re: [PATCH v1 1/1] arm64: dts: imx8mm-var-dart-sonata: Add OV5640
+ camera support
+Message-ID: <atJY6DzjmAeq7U8q@Lord-Beerus.station>
+References: <20261015162301.63838-1-stefano.r@variscite.com>
+ <atEci_KwxUdvAekv@SMW015318>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atEci_KwxUdvAekv@SMW015318>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] input: use-after-free in work queues due to lockless removal races
-- [Medium] input: silent truncation of maximum-length responses in kb->resp
-- [Medium] input: oneplus-pogo: data race on kb->resp buffer in pogo_xfer
-- [Medium] input: oneplus-pogo-kbd: Data race on kb->connected state variab=
-les
---
+On Thu, Oct 15, 2026 at 01:33:47PM -0500, Frank Li wrote:
+> On Thu, Oct 15, 2026 at 06:23:01PM +0200, Stefano Radaelli wrote:
+> > From: Stefano Radaelli <stefano.r@variscite.com>
+> >
+> > Add support for the OV5640 camera connected to the Sonata carrier
+> > board's first MIPI CSI port.
+> 
+> Does this board only support ov5640 camera? Suppose ov5640 module also use
+> for other boards.
+> 
+> Can you refer https://lore.kernel.org/imx/20261011-expulsion-frivolous-690de090cf9d@spud/
+> to define connectors?
+> 
+> Frank
+> 
 
-commit 55459b7da977a6dfb82c08f24907cc60a6e32cd0
-Author: Yibo Wang <wyibo6109@gmail.com>
+Hi Frank,
 
-Input: add OnePlus/OPPO Pad pogo-pin keyboard serdev driver
+Thanks for your feedback! I looked at the Toradex approach you linked.
 
-Clean-room serdev driver for the Tinno keyboard MCU used by the OnePlus
-Pad 3 Pro / Pad 4 and OPPO Pad 5 Pro smart keyboards, replacing the
-vendor platform driver that depends on a downstream msm_geni_serial
-callback and a user-space held tty fd.
+In our case, the same connector can also accommodate Basler cameras and
+potentially other camera modules in the future, while some of our other
+carrier boards use different connectors.
 
-> diff --git a/drivers/input/keyboard/oneplus-pogo-kbd.c b/drivers/input/ke=
-yboard/oneplus-pogo-kbd.c
-> new file mode 100644
-> index 0000000000000..afe87d9616174
-> --- /dev/null
-> +++ b/drivers/input/keyboard/oneplus-pogo-kbd.c
-[ ... ]
-> +static int pogo_xfer(struct pogo_kbd *kb, u8 cmd, const u8 *payload, u8 =
-len,
-> +		     u8 *resp, unsigned int resp_size)
-> +{
-[ ... ]
-> +		if (!resp) {
-> +			ret =3D 0;
-> +			break;
-> +		}
-> +		if (wait_for_completion_timeout(&kb->resp_done,
-> +				msecs_to_jiffies(POGO_RESP_TIMEOUT_MS))) {
-> +			unsigned int n =3D min(kb->resp_len, resp_size);
-> +
-> +			/* stop the RX path before copying the reply out */
-> +			WRITE_ONCE(kb->tx_pending, false);
-> +			memcpy(resp, kb->resp, n);
+Given these differences, I would prefer to keep the classic approach proposed
+in this patch, describing the camera directly in the carrier board DTS.
+Do you think we should still use connector bindings in our case?
+If so, how would you suggest handling these differences?
 
-[Severity: Medium]
-Can this lead to a data race on the kb->resp buffer?
-
-If a delayed reply from a previous attempt completes kb->resp_done early,
-pogo_xfer() wakes up, sets tx_pending to false, and starts reading
-kb->resp. Concurrently, the RX thread in pogo_handle_frame() may receive
-the reply for the current attempt, evaluate tx_pending as true, and
-overwrite kb->resp via memcpy() while pogo_xfer() is reading it.
-
-This torn read could cause spurious -EPROTO initialization failures.
-
-[ ... ]
-> +static void pogo_handle_sync(struct pogo_kbd *kb, const u8 *p, unsigned =
-int len)
-> +{
-> +	bool replug =3D false;
-[ ... ]
-> +	if (!kb->connected || replug) {
-> +		kb->connected =3D true;
-> +		kb->hb_seen =3D false;
-> +		kb->retry_ms =3D POGO_RETRY_MIN_MS;
-> +		if (!READ_ONCE(kb->quitting))
-> +			schedule_work(&kb->plug_work);
-> +	}
-
-[Severity: Medium]
-Is it safe to modify kb->connected here without holding kb->state_lock?
-
-In pogo_power_off(), kb->connected and kb->powered are cleared under
-kb->state_lock. If pogo_power_off() races with this RX path, this lockless
-modification can leave the driver permanently desynchronized.
-
-If pogo_power_off() sets powered =3D false and connected =3D false, and a d=
-elayed
-UART sync frame is processed here concurrently, this path will locklessly s=
-et
-connected =3D true. The subsequent schedule_work(&kb->plug_work) will exit
-early because powered is false, leaving connected =3D true while powered is=
- false.
-
-[ ... ]
-> +static void pogo_handle_frame(struct pogo_kbd *kb, const u8 *f, unsigned=
- int n)
-> +{
-[ ... ]
-> +		if (READ_ONCE(kb->tx_pending) && cmd =3D=3D kb->tx_cmd + 1) {
-> +			/* reply layout for callers: cmd, len, payload */
-> +			kb->resp_len =3D min_t(unsigned int, len + 2, sizeof(kb->resp));
-> +			memcpy(kb->resp, &f[3], kb->resp_len);
-
-[Severity: Medium]
-Does this truncate maximum-length responses?
-
-The kb->resp buffer is sized to OWB_MAX_PAYLOAD (128 bytes). By adding 2 to
-len (for cmd and len), a maximum payload of 128 bytes yields len + 2 =3D 13=
-0.
-The min_t() will cap this at sizeof(kb->resp) (128), which silently truncat=
-es
-the last 2 bytes of the payload.
-
-[ ... ]
-> +static void pogo_remove(struct serdev_device *serdev)
-> +{
-> +	struct pogo_kbd *kb =3D serdev_device_get_drvdata(serdev);
-> +
-> +	/*
-> +	 * Stop the world first: with quitting set, the RX path and the
-> +	 * works stop queueing each other, so the cancels below cannot be
-> +	 * undone again.  The wake IRQ is disabled (and any in-flight ISR
-> +	 * finished) before detect_work is cancelled.
-> +	 */
-> +	WRITE_ONCE(kb->quitting, true);
-> +	pogo_wake_irq_enable(kb, false);
-> +	cancel_delayed_work_sync(&kb->detect_work);
-> +	cancel_delayed_work_sync(&kb->hb_work);
-> +	cancel_work_sync(&kb->plug_work);
-
-[Severity: High]
-Can this teardown sequence lead to a use-after-free of the work queues?
-
-If pogo_wake_isr() is currently executing and has already called
-disable_irq_nosync(), kb->wake_irq_enabled will be false.
-
-When pogo_remove() calls pogo_wake_irq_enable(kb, false), it will hit
-the early return:
-
-    if (enable =3D=3D kb->wake_irq_enabled)
-        return;
-
-This bypasses the disable_irq() synchronization barrier. Because
-pogo_wake_isr() checks kb->quitting without a lock, the ISR could observe
-quitting =3D=3D false before pogo_remove() sets it, but queue the delayed
-work after pogo_remove() has already completed the cancellations, resulting
-in a use-after-free.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016163859.1070=
-138-1-wyibo6109@gmail.com?part=3D2
+Thanks,
+Best Regards,
+Stefano
