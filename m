@@ -1,65 +1,65 @@
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F3947D471
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 11:20:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D978247884F
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 11:20:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792149655; cv=none; b=gbkjVBywcDIPRa34nZkv6gLZWJPdSx3IRVhPqX57VpCvUgp5ts+heaF9HTpDHiFtdIzyxtnEkvYutxXT8xqxHMM9pyH4kBxdaBWfU8v5ABPrGSVrkpyLQTNLzCc7XVm5XdLWCHVnmJfA2fSHVziGqsbZn3EjfwBByumnAVR2JQI=
+	t=1792149655; cv=none; b=at7pvBLeTIdCj3MmB9soN+udS+N6fMTyNJ91rD2AYqRIgpkq+31+RL5cZ/2AdZCCpJ/Ksz5JeUMvsqW/pAfAlCsCJMhekWnxLDK0iQfA6s7J8k+UKaPD/MpZJ435uFO0e0PAHTMrHrp4JnUdVsVgLUQYXa0CizgmbOVrDBu6jKo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792149655; c=relaxed/simple;
-	bh=TwsVE1aW6IYLHbieh7/8b/SGuVK/PYEkGTgqLNdREec=;
+	bh=NSjps/+qrZ2pxo/mOyPI/slP/UQ7vd/FSOG9Do4T2aI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PWgrVgqLs44Q+jti6DushR1pstCTxS2nXshHf+a6pk3DSciL/2jJ9D+QKvQZRuUWAFtq1dqxNpKVK180pmT5XuPB5z3cTfNFh0e/vXZWLD5nz/z8UQTuN8jZk5dmdBhj2OqpGtCHjzHi1Q4hKG4w55oRgmeOUgR+50xytA8nkdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=LkHPf6Bw; arc=none smtp.client-ip=209.85.218.42
+	 MIME-Version; b=Mm6sNA/+26zF9wlmOXt0mgDWBnr9lJ6Hl6dddy1VxWJpK4LOtMrsinZOKcorfBGGVUP0JVGJOPWwSNTrG5S3qH6Mxj8anwDTVwVFMEF385zbAmIOZYqm+GFoTAGUt+vHyZRg4F7QycxRrsTChMERwMzaiAFV5VJWmhUm4cCBW4c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=I6mrVv97; arc=none smtp.client-ip=209.85.208.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="LkHPf6Bw"
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c40f29667e6so54510366b.0
-        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 04:20:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="I6mrVv97"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6a0a4aa99bdso8107236a12.1
+        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 04:20:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sartura.hr; s=sartura; t=1792149648; x=1792754448; darn=vger.kernel.org;
+        d=sartura.hr; s=sartura; t=1792149650; x=1792754450; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/TeYqrIujJ95SPFhaCqHpArM7/zgqye+YpqAutM7XFY=;
-        b=LkHPf6BwJ+QPoAOObQeQAhxNFfcssKfqoAXdDO6qzJvvpoM5wd1j9VjtwBHu6VrofH
-         ++R20/g3qRprnKvldoWzki71BDLQOo4+/0hMl/TowixAWRJlG5J5iWzT88FhblIahUBk
-         4/LcXToUjyNCIJZKqGXQXp5tFZNhJc9Fe2pHbsgtH1WagKVLVzeYKgooQM1sL7+3QoMN
-         SMO0mVKvNj7lYcZfTvNsCKZ0UlODO84KwviD3N3vXOyxLZmJNwtZ9GuxZeeiiXKfqwxs
-         4evND8oRDm1Q2UzP0Qp4sBlQWDhXf9w4YUVt9WSceG6faCxhjHvgvRXl0SO8yh88eISr
-         jpfA==
+        bh=+cdNkb22thSf49fSjLJsH03nlYp9anRuLr9xPLztstQ=;
+        b=I6mrVv97wIFdMEOngcPlPEqW/crO/4iThaWsz/ZfKqlUrywVda22JI9ddgpLcZ4gYc
+         sIP5ZZayq0tPqyloVAYWmlsG2TzCEGA18JRfpFQcNSZ4Y0ZwXKAw+9qTseGJ+CPH+bbF
+         qTNOiP4RkNxUJ+3Ih1Jxz823+qYRkCTyXtzW+ziELTz+MPJw4Dg9pB4Sk16OmldLL+1e
+         mCC8C7HGSKD/dFZIYbbFWMr0PspfOzivsgeV0bUzkDC5NggV7ifA9PDduP6Jq5ixnMdL
+         y8CtC3W/NRtavyjLf8hs58Icp/7/KJ9meRW2VpQPnIm6hq3rGSxbL2Lme+q37VKrUaBq
+         J/aA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792149648; x=1792754448;
+        d=1e100.net; s=20260707; t=1792149650; x=1792754450;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/TeYqrIujJ95SPFhaCqHpArM7/zgqye+YpqAutM7XFY=;
-        b=DFmr6MKvAcNcwzRhrw/GuSqKiuATT3Phuy8zHhDGZ22HimEYJTtjo8Kd4dchvXeZ1o
-         XTVgmlvWiWHeWuQM/LI6Ti4fr2FC6aC89lCfrkOocXooHb6xoyYWNgBfXMQyIZ+Si3vZ
-         CJ6Lzbm2BRuOmbREyT9bj1GerJbnPf1TeBKjAlyM8yi4JikG3gptjwYy7mIsDvuPv0gO
-         G4lEOawp6mjImmi9azbakWMIb3Mex2j4bJFrT1rjSTdp5SJe/d5JKc4XHo7ylj8B9nCQ
-         bJfkdPgI1WgUQorwfRtjM8EWo1ATvSdQE6cz+9CvBdEhPgOd1qTjabWCz4wKFEJ/ZFKj
-         zO2w==
-X-Forwarded-Encrypted: i=1; AKwUvBy1aZDFZHS6lsLmLyT0HhnJmHXbpvDD110n6o59pgUFDw4FSjx4++Os5miFNJ8elsVy8vJClsEI9v9Z@vger.kernel.org
-X-Gm-Message-State: AFq9FYKt4h9juqPYBOT5N25ttbBNspLj91OBhWp/+mUHqP3J9Ne1Xk1c
-	G0m4OrkggldUEqd390mzNfpFGYL32749I2gdIv7pOX4cuHu4JQBU5XwpOK0GBa8il1c=
-X-Gm-Gg: AYBFou1gPLCcM32kjJNfLXXpmfsOXXgiAU3TiWStHc3J/T00IKZd2dhon/rf1Fy+gpc
-	mcUZavGz6OR4oO+rmB6G4R710bFlWG78hYRwsGinvfDmOHJDx0W8/oeijtR1UL6+DhE0ufZ0Hp1
-	Iz/sPBh5IE1YUcCwuPFiwVJubMe3kLyEDir9dkB+hNdRw+1ehOn7gtuScgkrjZat6154wBl2kI6
-	2TnTVmbk0lr55viviOubV11ZC/11oIm2VW1n4FqCv1IfhsYk0PLwgfyU+CDx8BEhtpQ5JiJwz/t
-	5+ZJZpCKJELhRvu4nTj37/n60daxUV2N6hLHiPutZEChVGIjd5Cw7Bc/v5lGnX5kVVYNfRzq85Z
-	QmLANRlmieDFB+NGQcyGw3715Batv6z0QDFsCORg8cg5SGoPOGgfz+7Nu3gRBsUfFFcUjCIvc6d
-	ph4SIUjKug0Oc08RzE9ppS2YopJl03exDGJ2SYqekXj5/nUHJWBbQFq2COy56LWtgW8HvYlcI2U
-	fTaQEvf2bsHCOJ679Gm62nfc1SZMkADQIPWHnGRwLoQbQibExQipZFrWRhxzGIpXwOHN/mqyRj1
-	ARNbwFny87sfC00/6wnmRuYseuD1
-X-Received: by 2002:a17:907:3e8d:b0:c26:36c4:858e with SMTP id a640c23a62f3a-c31aa018731mr1977506066b.25.1792149647314;
-        Fri, 16 Oct 2026 04:20:47 -0700 (PDT)
+        bh=+cdNkb22thSf49fSjLJsH03nlYp9anRuLr9xPLztstQ=;
+        b=2N2cio6tZmp/uagOXGajD4XeuXir1Eiwghq6N2nwJcmTssPq6cM5lH7FpvUmd19GCQ
+         LSXGU9eSJDp8CuyG2lN4ybwEqUOGp8yEz6Y/XyYBUuVC5GWD8YlsZ/Jq3gnON5UuOYx2
+         Dd7b9yCOE4zuefpIA2zLvkZ3RYYXN00B0XyjDdnltTKopJQHP+rEpMn9HMSO4YNMJewU
+         vtVTU/c3CUodU1BVziGU2CNl1JNYFvp7E7SvgrA89kQdgffcYbvG0c3xL8J/jFLf2+zB
+         57RYJFLdw9PWoY1L41DE+8lgELaCZ2RrqYl/ABa/ocGcbw0i9KLHSVOBZh0gPjRxdB0W
+         afrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxmvGbTg7owbcQaG7ixPI/EUNV2yHopUewxNAV8BdonRXacdtDLykK+dKaff58ae3XEredh/jbyRywH@vger.kernel.org
+X-Gm-Message-State: AFq9FYLm/hf3pE6ROgZ5HGcGHaXUiAsw0V6FfayTpjAqVpdtRuAu2KT/
+	R5kvOwX/PA7qnzLlAKwqF3WPe2ryGd6YOl7Vqs9AUAvwdXwiikHTQAamImlB+NYltWQ=
+X-Gm-Gg: AYBFou2OwxQa2HDu2FZVVJx954K9IUITgn8d20YqR0AB0cbvPIAOzdAkKv7wBMJVwoy
+	teGToIppuenKJDJPcjNdnQaR8U3SJzoaH/37s3XOVWINSWY4EWSVoV/QaeH+hOG60oA9xYY1Vtt
+	o66GVoNT08YAZIclzyizQDNmveq9Fd+36tqHlda/hks3k0xbWsZKMNZGAaNttX7OhpUnvhRkj/l
+	PWSGCUzm8wVf3WJJDv0hGooXvyoVXImtc1FTSpk4kX4tRXu/UWpydceyfeO8pXuAIkKFUvCD77E
+	dTXNszmSSmFjLQsWk5SYIXoaiIj8h4TwaWikp+4XdJK2TF/ddtjeaJ8MNWgmNLQnjx47lNa6AJG
+	DDczUn7GyssBDxqVifH1RC1uGirinYGVPx5ACjrTDW5H55KPKVs/FNgQS/QsDWCAD8R0wUj+jaZ
+	U0mMGdFyvthFtPaGdTsW8d8kzdj7blM5+T9wJfQ9oYBZO5gL+Q/JXAfZHO6i3vBPOGWjczSyn+O
+	UL/MA2VcK9JhxSMIOnGqrb+yYAsQuklbZHer2djwISdNW2B63PBdELmg5vUyeSLa7H02SI+8ynz
+	R5Aom+vCpdojnE/LtKV/JUfcU5Qb
+X-Received: by 2002:a17:907:3fa9:b0:c26:1649:47af with SMTP id a640c23a62f3a-c31a9fb6451mr2004138466b.37.1792149649982;
+        Fri, 16 Oct 2026 04:20:49 -0700 (PDT)
 Received: from threadripper-fedora-workstation (dh207-15-194.xnet.hr. [88.207.15.194])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c408e32c075sm63947666b.11.2026.10.16.04.20.45
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c408e32c075sm63947666b.11.2026.10.16.04.20.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 04:20:46 -0700 (PDT)
+        Fri, 16 Oct 2026 04:20:49 -0700 (PDT)
 From: Robert Marko <robert.marko@sartura.hr>
 To: andrew+netdev@lunn.ch,
 	davem@davemloft.net,
@@ -79,9 +79,9 @@ To: andrew+netdev@lunn.ch,
 Cc: lrosu@maxlinear.com,
 	luka.perkov@sartura.hr,
 	Robert Marko <robert.marko@sartura.hr>
-Subject: [PATCH net-next v2 3/5] net: phy: mxl-gpy: release MxL86211C Super Isolate
-Date: Fri, 16 Oct 2026 13:19:34 +0200
-Message-ID: <20261016112033.949026-3-robert.marko@sartura.hr>
+Subject: [PATCH net-next v2 5/5] net: phy: mxl-gpy: support MxL86211C lane mapping
+Date: Fri, 16 Oct 2026 13:19:36 +0200
+Message-ID: <20261016112033.949026-5-robert.marko@sartura.hr>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261016112033.949026-1-robert.marko@sartura.hr>
 References: <20261016112033.949026-1-robert.marko@sartura.hr>
@@ -93,66 +93,92 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The MxL86211C can be strapped into Super Isolate mode, leaving the PHY
-halted after reset until software releases it.
+Configure the MxL86211C mapping from physical TPI lanes to analog
+front ends (ASPs) when specified in DTS.
 
-Reapply the MDIO pad voltage and release Super Isolate in config_init,
-so both settings are restored after each hardware reset.
+Leave the hardware reset mapping untouched when the optional property
+is absent.
 
 Signed-off-by: Robert Marko <robert.marko@sartura.hr>
 ---
 Changes in v2:
-- Move Super Isolate release from probe to config_init for resets.
-- Reapply the MDIO pad voltage before releasing Super Isolate.
+- Preserve unrelated register bits when updating the lane map.
 
- drivers/net/phy/mxl-gpy.c | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
+ drivers/net/phy/mxl-gpy.c | 47 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 47 insertions(+)
 
 diff --git a/drivers/net/phy/mxl-gpy.c b/drivers/net/phy/mxl-gpy.c
-index fbac7c49b4759..8bc119655f104 100644
+index 8bc119655f104..acd5ad01a285d 100644
 --- a/drivers/net/phy/mxl-gpy.c
 +++ b/drivers/net/phy/mxl-gpy.c
-@@ -114,6 +114,7 @@
- /* Packet Manager Control */
- #define VSPEC1_PM_CTRL		0x0c
+@@ -116,6 +116,13 @@
  #define VSPEC1_PM_CTRL_MDIO_VOL	BIT(14)
-+#define VSPEC1_PM_CTRL_SI	BIT(12)		/* Super Isolate */
+ #define VSPEC1_PM_CTRL_SI	BIT(12)		/* Super Isolate */
  
++/* TPI lane to ASP map */
++#define VSPEC1_LANE_ASP_MAP	0x14
++#define VSPEC1_LANE_ASP_MAP_A	GENMASK(1, 0)
++#define VSPEC1_LANE_ASP_MAP_B	GENMASK(3, 2)
++#define VSPEC1_LANE_ASP_MAP_C	GENMASK(5, 4)
++#define VSPEC1_LANE_ASP_MAP_D	GENMASK(7, 6)
++
  /* Temperature sensor */
  #define VSPEC1_TEMP_STA	0x0E
-@@ -422,6 +423,23 @@ static int mxl86211c_configure_mdio_voltage(struct phy_device *phydev,
+ #define VSPEC1_TEMP_STA_DATA	GENMASK(9, 0)
+@@ -423,6 +430,42 @@ static int mxl86211c_configure_mdio_voltage(struct phy_device *phydev,
  			      VSPEC1_PM_CTRL_MDIO_VOL, val);
  }
  
-+static int mxl86211c_config_init(struct phy_device *phydev)
++static int mxl86211c_configure_lane_asp_map(struct phy_device *phydev)
 +{
-+	struct gpy_priv *priv = phydev->priv;
-+	int ret;
++	struct device *dev = &phydev->mdio.dev;
++	u32 lane_asp_map[4];
++	u16 val;
++	unsigned int seen = 0;
++	int i, ret;
 +
-+	ret = mxl86211c_configure_mdio_voltage(phydev, priv->vddp);
++	if (!device_property_present(dev, "maxlinear,lane-asp-map"))
++		return 0;
++
++	ret = device_property_read_u32_array(dev, "maxlinear,lane-asp-map",
++					     lane_asp_map,
++					     ARRAY_SIZE(lane_asp_map));
 +	if (ret)
 +		return ret;
 +
-+	ret = phy_modify_mmd(phydev, MDIO_MMD_VEND1, VSPEC1_PM_CTRL,
-+			     VSPEC1_PM_CTRL_SI, 0);
-+	if (ret)
-+		return ret;
++	for (i = 0; i < ARRAY_SIZE(lane_asp_map); i++) {
++		if (lane_asp_map[i] > 3 || seen & BIT(lane_asp_map[i]))
++			return -EINVAL;
 +
-+	return gpy21x_config_init(phydev);
++		seen |= BIT(lane_asp_map[i]);
++	}
++
++	val = FIELD_PREP(VSPEC1_LANE_ASP_MAP_A, lane_asp_map[0]) |
++	      FIELD_PREP(VSPEC1_LANE_ASP_MAP_B, lane_asp_map[1]) |
++	      FIELD_PREP(VSPEC1_LANE_ASP_MAP_C, lane_asp_map[2]) |
++	      FIELD_PREP(VSPEC1_LANE_ASP_MAP_D, lane_asp_map[3]);
++
++	return phy_modify_mmd(phydev, MDIO_MMD_VEND1, VSPEC1_LANE_ASP_MAP,
++			      VSPEC1_LANE_ASP_MAP_A |
++			      VSPEC1_LANE_ASP_MAP_B |
++			      VSPEC1_LANE_ASP_MAP_C |
++			      VSPEC1_LANE_ASP_MAP_D, val);
 +}
 +
- static int mxl86211c_probe(struct phy_device *phydev)
+ static int mxl86211c_config_init(struct phy_device *phydev)
  {
- 	struct device *dev = &phydev->mdio.dev;
-@@ -1466,7 +1484,7 @@ static struct phy_driver gpy_drivers[] = {
- 		PHY_ID_MATCH_MODEL(PHY_ID_MXL86211C),
- 		.name		= "Maxlinear Ethernet MxL86211C",
- 		.get_features	= genphy_c45_pma_read_abilities,
--		.config_init	= gpy21x_config_init,
-+		.config_init	= mxl86211c_config_init,
- 		.probe		= mxl86211c_probe,
- 		.inband_caps	= gpy_inband_caps,
- 		.config_inband	= gpy_config_inband,
+ 	struct gpy_priv *priv = phydev->priv;
+@@ -432,6 +475,10 @@ static int mxl86211c_config_init(struct phy_device *phydev)
+ 	if (ret)
+ 		return ret;
+ 
++	ret = mxl86211c_configure_lane_asp_map(phydev);
++	if (ret)
++		return ret;
++
+ 	ret = phy_modify_mmd(phydev, MDIO_MMD_VEND1, VSPEC1_PM_CTRL,
+ 			     VSPEC1_PM_CTRL_SI, 0);
+ 	if (ret)
 -- 
 2.56.0
 
