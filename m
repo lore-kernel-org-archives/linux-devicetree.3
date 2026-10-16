@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EAB9442FDF;
-	Fri, 16 Oct 2026 09:50:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C75352F7EE1;
+	Fri, 16 Oct 2026 09:52:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792144218; cv=none; b=EVhsMj4rtGnWMlAaO7yUJ+2v1EzhdhZGswZk+rgeuW3SwjO09eevTH8q5qtsMiPf7pWfZF9n16M56vVxKTDjtb7V0Hy5izoRNq3yMxCSjQupn/IkoCRmRwMnPDVx5lAwUSfRKIrOkj5siVZ2w130PlkTMiK/Vue8VVyZw9ryhpE=
+	t=1792144368; cv=none; b=DwSHFmZwzsyRk15A0iD3PIT06z1w7NLVUOC8QymPHOc5zgqi8AEJKIUn7rhuvLlakP5TaqxBWDXhvoGqhonCtl7lmZSf3SmM/ZPIuYL9ca50cuqau6Ch7H5B1VMygY2MLTf9zmAVn6mvUXxSnPpns5pRy1AxOQPNDXgb/yHlDDQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792144218; c=relaxed/simple;
-	bh=osl3ghB4d8zY2HK8xDSaBVFAhMO5e2+7C6eOp4TldX8=;
+	s=arc-20240116; t=1792144368; c=relaxed/simple;
+	bh=4m0G5Fxd7cEt9q2bJP/piomErw6XTud4jUu6ChyyiHc=;
 	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=rGbm8PWno0inUbUfIrpxWDCCaNog67weFal+2R0yRswB9HSMYtAD4eBHro0MAjx4UAdJ+pLHqOLdarloKbPzdqeoV7sag3TjQXpAiwmM23VS1Mf9Tau9an2hcHb+rHrwaTqcKcFdb9/TXN++wPMckcV1H/JFjsPebAgHVlZ6fgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BygICGC2; arc=none smtp.client-ip=100.103.45.18
+	 References:Date:Message-Id; b=sQS+HVM7CAFXDtgC1SIry+3EpkqEugTysWMb5NCna2hJDWL4sprkRKsGqAnYt41SYUT4+GkLgrnCtwC316eRQrahfGAleSdCxwWn6jXyT5yMWuvuqOAW6t+Fb85VVsZxy6qh1DPyilJdLY1XupyYWHgE2p7/Jw/dblh/dwHZXeU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=leqoxnEs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BygICGC2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 987FC1F000C4;
-	Fri, 16 Oct 2026 09:50:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="leqoxnEs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11A011F000C4;
+	Fri, 16 Oct 2026 09:52:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792144217;
-	bh=V6aTJ8QIFgvcB3e/79zrOO7eJ2u1s961DY47qK0V8iE=;
+	s=k20260515; t=1792144367;
+	bh=S9qutPbcIRsUxmCjo4h9+V8s4IY3P9RUmUbWSOzj7zA=;
 	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=BygICGC2Z67hiTzpm/pdMXvMIgXGFGEP06d6qCZ9ylcnCJmz6GMcRLy0FnDLCGfEk
-	 LfwAg8RuTYYHwXoAlxvscKskg1Or7i3Q5mX97hlvkhGT5m6EZo2fQfjjvglb5hqyxa
-	 qG27EfiPawZvVRburGz8t/J2Lwd7JiYiQHEqUzlLs0wLvzaTzXC2n9EIEdWAipNbI5
-	 objOUVaH3wtr5aoqHQtE3C/8VkD80hEphbX/PVhvg9JYXTQu0V5zJowVqMHqkXx24u
-	 onAiqsXH4n1MCH8RIbnKwQPgSKLnQUfEQf2F5Kw2497zooQ5CLei3VCN+32lN4Yg/q
-	 CBh1is2IJdCTw==
+	b=leqoxnEsn3QjFcjdO0gJ0pMZw1iU/iU5g+o1bqhkg788IHUpXjr1pGD/hhUoLgtNC
+	 SB3EX13bmMngPwVi+7WcQvvckj3V04vFUFnmh6/FDjr6REr6wd5gKljlpXaVkLvQj6
+	 NFX3g5Nd9Rxh8rVAQKwhsNoPmLzYpddljp72bDUCRbVUOBhcJLYZIYLmYNEirc7ewi
+	 FHG+uvyGitTRqBHO3QRIbF2SWFR4+IDbUzqvQYqa6MFfpEbUz1/LEMfYRaAv44Ws9c
+	 w+OIXOZnVi3Op/kZ5lrWM3asUvZhDzNaBAx+PzcfeM9WkXvSIJ2ZcDsAWr6jF8Rz70
+	 nDgQlWDjktdPg==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -34,68 +34,57 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v3 2/2] phy: qcom-snps-femto-v2: Add support for
- SA8255P
+Subject: Re: [PATCH v4 5/5] phy: qcom-qmp-ufs: Add Glymur support
 From: Manivannan Sadhasivam <mani@kernel.org>
-To: Mattijs Korpershoek <mkorpershoek@kernel.org>
+To: Pradeep P V K <pradeep.pragallapati@oss.qualcomm.com>
 Cc: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Conor Dooley <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+ Avri Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ gopikrishna.garmidi@oss.qualcomm.com, jagadeesh.kona@oss.qualcomm.com, 
+ Abel Vesa <abel.vesa@oss.qualcomm.com>, Abel Vesa <abelvesa@kernel.org>, 
  linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Sriram Dash <quic_sriramd@quicinc.com>
-In-Reply-To: <20261002-phy-qcom-snps-femto-v2-8255-v3-2-342542bd9bc6@kernel.org>
-References: <20261002-phy-qcom-snps-femto-v2-8255-v3-0-342542bd9bc6@kernel.org>
- <20261002-phy-qcom-snps-femto-v2-8255-v3-2-342542bd9bc6@kernel.org>
-Date: Fri, 16 Oct 2026 15:20:01 +0530
-Message-Id: <179214420138.106618.10672928212252943043.b4-reply@b4>
+ linux-scsi@vger.kernel.org, nitin.rawat@oss.qualcomm.com, 
+ sibi.sankar@oss.qualcomm.com, Taniya Das <taniya.das@oss.qualcomm.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261009-glymur_ufs_qcb_enablement-v4-5-9a6ce83195b7@oss.qualcomm.com>
+References: <20261009-glymur_ufs_qcb_enablement-v4-0-9a6ce83195b7@oss.qualcomm.com>
+ <20261009-glymur_ufs_qcb_enablement-v4-5-9a6ce83195b7@oss.qualcomm.com>
+Date: Fri, 16 Oct 2026 15:22:33 +0530
+Message-Id: <179214435398.106618.10901078741061119278.b4-reply@b4>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1631; i=mani@kernel.org;
- h=from:subject:message-id; bh=osl3ghB4d8zY2HK8xDSaBVFAhMO5e2+7C6eOp4TldX8=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq0fNNaIWVmPyjpH/CFyBRgLTGNqRvrMEh5A6BY
- u8Sbl9XdYmJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCatHzTQAKCRBVnxHm/pHO
- 9XaQB/9bZL4RsdsQ99uYzlA7jwW0SRXqnqYP7n3MATI6/rXxBKrAmGnamqm5VdRW/kVOqaOJnld
- 7YJRGoJfkQmMLvmvMmzOnwP/ZcgDFtyFWaG3awnXpreGJ2Gcs6511crrYFbRbD0SgCr8Kd1p5kL
- 0UHSmlIBdPn2DAE4CeE2xCSaLtQUW9s+48UcjIaFwyQMVV1RJvjjvHK+yErLEnG7d+EDNvVFMwF
- AU/qIceCsWar/6CE1820n8XF1c/bKGl/Pr/ItvaF5+PCzyQrjeBomkpuhFx1Ijlu3h6leHANj3W
- 17Almgf9kTuu8wOhqd2P7jmJGOu/nkpXRa+gCV3e/AxGc/Oh
+X-Developer-Signature: v=1; a=openpgp-sha256; l=653; i=mani@kernel.org;
+ h=from:subject:message-id; bh=4m0G5Fxd7cEt9q2bJP/piomErw6XTud4jUu6ChyyiHc=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq0fPlItkYKusz+VRokfHGafUEG5kcst8lxkBry
+ 2INrDXc+MeJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCatHz5QAKCRBVnxHm/pHO
+ 9UlsB/93uTUB7pO9AQnLoeG9/we3xioUjw8aHx1Erb9VJTwehBSjCApaHinNikT4NqtncxFeqwz
+ N9Mz7HST615kmLPHuvN5/1QYRFN3QmzXPWR/KOe4B/ysV4siNDmL+LUs0rPmscpYnEh5fibt5C3
+ 3OQSvD4ND+oEMoMxhhfuxcyPXVnGod9WS8lfSI+ofwsGnrug0E26/5Zqw2Jj1iQZKW/35GxRvy6
+ grzKdo/E9uX2g0QJKREdZdlv0MBHL5dh7oWvwG5fhweIaWnEBJTc/hhVgz476KXaw8u7lEgRhVc
+ kVLQC6fEfDHBciykF7POskcp8U4SpStbQWprFITTNm/fc0Jp
 X-Developer-Key: i=mani@kernel.org; a=openpgp;
  fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-On 2026-10-02 11:41 +0200, Mattijs Korpershoek wrote:
-> From: Sriram Dash <quic_sriramd@quicinc.com>
+On 2026-10-09 16:05 +0530, Pradeep P V K wrote:
+> Add the init sequence tables and config for the UFS QMP phy found in
+> the Glymur SoC.
 > 
-> The Qualcomm automotive SA8255p SoC relies on firmware to configure
-> platform resources, including clocks, interconnects and TLMM.
-> The driver requests resources operations over SCMI using power protocols.
+> Similar to SM8750, the QSERDES RX and TX register offsets for
+> glymur SoC follow the v7 register layout, while the remaining
+> (PCS, MPHY base) register offsets follow v6 layout. Update the
+> register layouts accordingly.
 > 
-> The SCMI power protocol enables or disables resources like clocks,
-> interconnect paths, and TLMM (GPIOs) using runtime PM framework APIs,
-> such as resume/suspend, to control power on/off.
-> 
-> Power domain "core" controls the GDSC, resets, and TLMM (GPIOs)
-> whereas power domain "transfer" controls clocks and interconnects.
-> 
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Pradeep P V K <pradeep.pragallapati@oss.qualcomm.com>
 
-This is not consistent with other SCMI based drivers. Most of them are using
-'power' and 'perf' power domains, not 'core', 'transfer'.
-
-Why are these discrete powers domains be required? In my point of view, the PHY
-should have only one power domain for controlling power and be done with it. If
-you start having these fine grain controls over the resources from SCMI clients,
-then it defeats the purpose of the SCMI based firmware abstraction design.
-
-> In this variant, two disjoint sets of resources are modeled against
-> the power domain suppliers which can be turned on/off to achieve modeled
-> device states. Two modeled low power states d1 and d3 are supported.
-> 
-> transition: d0 <--> d3  :: both core and transfer suppliers
-> transition: d0 <--> d1  :: only transfer supplier
-> 
-
-What are these transition levels and who defines these? We cannot have different
-SCMI drivers inventing these kind of independent low power modes.
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
 - Mani
 
