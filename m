@@ -1,202 +1,126 @@
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1C6E3C8705
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 08:57:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 808EB457E69
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 08:58:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792141044; cv=none; b=HVlu4H+ppfns7pnGdqLkoGkxorbFESQhIuCg1zrD1PzWIM6cCa+rCiWBDIPs+vh+FtGxs9AKab5v4WSxvHRXecxGtyeKL1jk28yqBjUHZfGNI92+x1631sf5HyCwXJGBmd1L/6m44ZCJg+QkriCssxV5PAYaWhYheM/KHsxe57Q=
+	t=1792141086; cv=none; b=hhsqOX1RqkLE4ddGAkciEYxnObrJZw1H3YqGGSASes9h9ZrSjEPLIuzdS881jO4y47+qsSZNJtwD8dh0J1tJ42h2tztJ9YTvpboL+NGq/9BhdXuNtCEgLx4rUSG4qral7iFbk7fg9SFvXi8l3PO1cUAz15Nhsft+vQZITkKwu+k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792141044; c=relaxed/simple;
-	bh=45Vrf2/gUP59T6NzCoulPq5BhPIFCtcRAs06OTbCzKM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=uGoDsIJT16m3S5BHoNI5rK/Ww+JXq2LGA8mMz9YlTjQRZiapv2DBgKfyqy3Zs0LtXA9NG3CT1+ASXjW74FE/bKxDJkD5DfI1+nGbZjIxggk+WyAhAExs3KKxTGlpn1MNsk7PcWQVHdM3d1jc+3cAYNzBGr3KnW0Ww+HqyKn7lAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AXvq8ry3; arc=none smtp.client-ip=209.85.215.177
+	s=arc-20240116; t=1792141086; c=relaxed/simple;
+	bh=ddwXXS94V1hYrv1+iJwdR5Vr6S9+vc+haoqBYE6HjBY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ES7fPOumjbVBo9JcyFA384J2f8dVkpV+x4E9hY0zUy1FERVw7jIFYmci2gNwSP7NU8QoijX7ckM/sptNEPenstHf+o5YVQNuaq22RyY7NpbPd3k134y0V0/jIuQIe70jHN8vYHP2it0CbuNZ8vWB2skeXL5krkrEM4PKtbcCIj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UZthUQMF; arc=none smtp.client-ip=209.85.128.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AXvq8ry3"
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cc785ed8aacso343486a12.2
-        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 01:57:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UZthUQMF"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso24008765e9.3
+        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 01:58:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792141041; x=1792745841; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VuOlYqld5kQKP6/uNDvi8w+JMtWorT85t5I6G7jNhHs=;
-        b=AXvq8ry32IOv9VrXyqZy6y/xR21asuKwPHGlO/Rs5LPGBNscHU720SuzBPtWh0X4HH
-         qIWM02QxO9Bv/cK2duGvk8kCTB8q/lrFObWmsZBd9l/Qa8wp1RSsCykSRl77INIe9pq7
-         KxjX1gyn0YpzYsXmb7+qOisa20t9pyklz72NoKIiPQ+ocPYb/49yimpqf3lg+vurtmFm
-         jmLTeCUJBFNYxliB953LQglHmze0PqJwhdXIBCXEA+QHeekh7KfBuQf9z9LJWj4yu4yP
-         QhIfBkq61LdN61a1S0H0X69rE4HS8AVrt4/dZKUJvTd8l0LI1V9beTJm1kv4YA4aLA/U
-         xxoA==
+        d=gmail.com; s=20251104; t=1792141083; x=1792745883; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1iCpWI4gds7IUpWviVdywbLiMJoOXNKnvhlY7AZVvYE=;
+        b=UZthUQMF46qAZPWGHp7giao7sC/7MuSNeLnEzUoLHZ37B6ZQ0IxB40H6NzlCZCuB5N
+         17JzEYHq0h62IjnQXuYBux+GD54+fS0binMLRllGXnnURr7cV9X1Zb95xNAwYVOJnY6c
+         mzq7PwVKgQsxCmE0/RQ/WLof4gqPU5gwJXo8/S49pPTO2zagSBOynnT2SL8ddi4QEXp8
+         w34FdHrG6VYd4dLL4fJEWgQi/hocDgryR2pXWC9wBZLNYOERBvUlOfIz9xvHWGkn003i
+         QV4sMRB7plxB0JYlKZ+q/6FmsZwVp8ZySMXxlaP/XmDhVrtD0DdVa/kitRLKe9QATf7k
+         JMLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792141041; x=1792745841;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VuOlYqld5kQKP6/uNDvi8w+JMtWorT85t5I6G7jNhHs=;
-        b=2LSTHXpzGUooeeBK1B4nhIgSp3GXPU8DpBHHCwSFRv+OsjAGO2NPhipxx13wIxA7JQ
-         SPrkDOQb0oda+YLYjOv/DtBO6DYi7VyVVgGTqcSSH20u2eqg36oiq7LBBrU+JbK1krsq
-         rE2Hl5pObQ8kx4fmCZiS8RLXsMdPPg4bHXZw2oEfV2X6i8XruzVPYgr5YU2ku5ImaacV
-         2eAyt5Hz+uXaFIHqsclm6Rq7/iiOYySWlhlM1rW6F509joFUg8wu5oxirqLKZGtcfo5z
-         rGPTGwiS1+XQKuNAHdwLgovOiW2Ug2rm07NQK0qDDpo8s/z5pW/i8UWS749qIpZHpnp0
-         VoCg==
-X-Forwarded-Encrypted: i=1; AKwUvBzp4batLoNE7jhcC6idWUIByDjmFDm3q5UslYZeavrU0Tlz07vUBWWuQicsf2L/5Zob0t8lVQnt4O67@vger.kernel.org
-X-Gm-Message-State: AFq9FYI5e30Mwg1qHJbSYLlmwqtJQYGIBS7b63QaGUEw3IV3AWVrXteQ
-	MLv0NcD4e1CDwPYqOBLnZWuWd2FkXZEcLjY0fz+3uG3dz00A+au+zldt
-X-Gm-Gg: AYBFou2Rxhm2FVZUPnEj9uEk/ebHtj+2c5p87Jwo6VHdr1X98Q0YEWTl+7JvJWtU2x/
-	7Wt1pwj5FHz+KOGHRX8LyXbv29yCcDzZwk24pOGt/WGeNrWYVrNSyC09DZ9dZrxH7GAw8nM3/gC
-	aNNxDqipboFqNLX6qtfFfyRCfwaFVJe3mpdVqC+ykk0wyVO9ZsZUfh4tYIgQVvEIHu1VypiynWr
-	uUmrUhYCmnDrALFEMhuWdXfk8vz+lsLVzEgdHX3nhMD2du0lN2/gU0JD4eqwCo+pRyHjzA1qhI9
-	A9yJrAHlux0hDa5b5Er4z2Tpd2bKBGq+DBzJKv19LUeo8esFW6+bQLcQvLC2PCHQ1fk+hOPRnW4
-	Sm+7QgGFEGd8JZ6IIRj07WaFmnZy4xtqXrUoxdasyPySak9LZqitWPR7FwuDCnXaOXnIIZ38lmU
-	qfd0+Y+1E/hBycZcnGj4qgHRLD1hmuaqfmf3y0u+dE4Bc9Rjzz9hgB1akiSncfkWORjTiLgSWLr
-	DEk9Tw1GpRj51f7iSL4BhVZASvIOw==
-X-Received: by 2002:a17:903:2b0b:b0:2e9:65bd:62c7 with SMTP id d9443c01a7336-2e965bd66e8mr71321655ad.0.1792141040552;
-        Fri, 16 Oct 2026 01:57:20 -0700 (PDT)
-Received: from [127.0.1.1] (211-23-39-77.hinet-ip.hinet.net. [211.23.39.77])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e882a20sm6971025ad.62.2026.10.16.01.57.16
+        d=1e100.net; s=20260707; t=1792141083; x=1792745883;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=1iCpWI4gds7IUpWviVdywbLiMJoOXNKnvhlY7AZVvYE=;
+        b=CS4ZsrN/8hphyvj9iw12Es4TecYLuOq3F9yo8jX62ZwdSfQc6LPqv9DBaTuAlfSB1n
+         iRNeiBYCxOEmnfYqAze1G9ETovL5TFNlI8L6B/oxszVjIAOsrnAkcBOXm6/dDbRUxATZ
+         O93qaXWkc8ZFFvPC1jkjsmXUfoxBb4mMUwzboQOVdB3w5T/mQHrz+7lGOrb9LOZCxvR/
+         aUHtY+7/SQBF0UxV7YfBob9CyHWNy5dUtAkJVV/boo7VQPq7yxykjPgp6IUOh+2naQrq
+         zZhpcwe4PzI3A+UnlROCm5Nb6oV1HlsFpwFoG1AxBMOrdqmk7JPGBids36FU6Yy845wW
+         fkdg==
+X-Gm-Message-State: AFq9FYIm9PHpj2mJUZFjqHoPw3hZfEMxqL4W42aqWhCyEQGTcxBvKWSe
+	DAV3z/cPo96lfP3QMmBzdHp8rZrHH+yeKdhnaaSj3l80tiwVEa03TLKY
+X-Gm-Gg: AYBFou2S4Iz/2WnSiZgqAlt/THwMDBa7eHZ3P/imSXpa1biIAAoS1Sr5E+thIMtMDuN
+	oP+CWDaH9NeVmXYLIefhaZBjeEb3rMwiGySfOUhO07iY2awx0PlXe5040B21zfb8/5VXSiVPnqo
+	MpzOr0nHUMKeT95EnQ790sCYnkDVNKWWiDzUJEdyiOUbFKNoZDH6vZaV/surUP7415V5Q05vhQc
+	AQt7undvAJYrqRDaVLgy/lFRFPK7S80gWBD919MRpv0Jyn1RgiMLzRPAGw7VXdsSGXBf8D2/4Gr
+	d3lweNyP4WRtQ++/uAxd2r8wA8g7xL0fUtyngjINcMv6NF666ELjXO9FEGNyzjaLbLQS0yDeV0i
+	llhRFms00CFEE6LIvgSCS1er6oLI1bNS9oqO54h9SHxbVwAXc+xlNglwhRMtEhwZ+hxzDP/Glgz
+	b2tFcYeiHhxnGl8p4szoLp3PHVv0O1YM1PVXjA3tUk9cxplQtiGUw7cr2EhKfl9JwWf2euznA76
+	RhJ4tTJGdBFdx+BdLj+zx/ki3d5vKpB0UMcyczxF7KpgvLIFQ5gi4SbX6V3593bhbOLBKcK+8SR
+	yNMzltHpSdxLgmpNeqtm44rGl3E3
+X-Received: by 2002:a05:600c:a01:b0:49f:ce72:e931 with SMTP id 5b1f17b1804b1-4a18e4fe3e1mr454263055e9.35.1792141082627;
+        Fri, 16 Oct 2026 01:58:02 -0700 (PDT)
+Received: from Lord-Beerus.station ([93.66.71.207])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1c8ce32absm27971455e9.1.2026.10.16.01.58.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 01:57:20 -0700 (PDT)
-From: Jason Yang <jason98166@gmail.com>
-Date: Fri, 16 Oct 2026 16:56:42 +0800
-Subject: [PATCH v5 8/8] arm64: dts: rockchip: add mipi csi-2 receiver nodes
- for the dcphys on rk3588
+        Fri, 16 Oct 2026 01:58:02 -0700 (PDT)
+Date: Fri, 16 Oct 2026 10:57:58 +0200
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org,
+	conor+dt@kernel.org, Frank.Li@kernel.org
+Subject: Re: [PATCH v1 1/2] arm64: dts: imx8mm-var-dart: Enable WM8904 DMIC
+ input
+Message-ID: <atHnFpMVpoumQ4UX@Lord-Beerus.station>
+References: <cover.1792139809.git.stefano.r@variscite.com>
+ <5309337578f99886c804c8e4ee82643574f1c19c.1792139809.git.stefano.r@variscite.com>
+ <sashiko-outbox-174034@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-dcphy-rx-v1-v5-8-e63b49eabe2d@gmail.com>
-References: <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
-In-Reply-To: <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
-To: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Guochun Huang <hero.huang@rock-chips.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Michael Riesch <michael.riesch@collabora.com>, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Jason Yang <jason98166@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792141002; l=2717;
- i=jason98166@gmail.com; s=20260721; h=from:subject:message-id;
- bh=45Vrf2/gUP59T6NzCoulPq5BhPIFCtcRAs06OTbCzKM=;
- b=eV5j0Ku70J/SwIYITZNqaBAM4+oArZCW1gHMYmzwcCjICMvYtJVzPGrN4pNjb2YAnqgdR1JmW
- QRDZGk+6fb0AGvQEIOdD40NiINRZQcSPgvqp/0vE9+XFZSQzix1cCh3
-X-Developer-Key: i=jason98166@gmail.com; a=ed25519;
- pk=xQmD001Q/ooHl39PxyQtusbUQmgbOsSfpFryRVWZ/k4=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <sashiko-outbox-174034@kernel.org>
 
-The MIPI0 and MIPI1 receiver units are connected to MIPI DCPHY0 and
-MIPI DCPHY1, whose receiver side is now supported. Add the two nodes and
-wire them to the VICAP ports.
+On Fri, Oct 16, 2026 at 08:49:52AM +0000, sashiko-bot@kernel.org wrote:
+> 
+> [Severity: Medium]
+> Does this patch also need to update the simple-audio-card,routing array in
+> the sound-wm8904 node?
+> 
+> Currently, the routing in arch/arm64/boot/dts/freescale/imx8mm-var-dart.dtsi
+> still maps IN1L to "Microphone Jack":
+> 
+> 	sound-wm8904 {
+> 		...
+> 		simple-audio-card,routing =
+> 			...
+> 			"IN1L", "Microphone Jack",
+> 			"IN1R", "Microphone Jack";
+> 		...
+> 	}
+> 
+> Exposing an onboard digital microphone (DMIC) as a "Microphone Jack" causes
+> semantic confusion in ALSA userspace. Audio routing daemons like PulseAudio
+> and PipeWire use widget names to distinguish between built-in microphones and
+> external pluggable headsets.
+> 
+> Leaving the newly configured digital IN1L input tied to an external analog
+> jack breaks userspace jack detection logic and presents incorrect routing
+> options.
+> 
 
-Signed-off-by: Jason Yang <jason98166@gmail.com>
----
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 68 +++++++++++++++++++++++++++
- 1 file changed, 68 insertions(+)
+“Microphone Jack” is the existing DAPM widget name; it does not select
+analog operation or enable jack detection.
+This board does not configure microphone jack detection through
+simple-audio-card, so I do not see how retaining this name would cause
+the reported userspace jack detection failure.
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-index 94d68fd89753..30bc69a09102 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-@@ -1516,10 +1516,18 @@ vicap_dvp: port@0 {
- 
- 			vicap_mipi0: port@1 {
- 				reg = <0x1>;
-+
-+				vicap_mipi0_input: endpoint {
-+					remote-endpoint = <&csi0_output>;
-+				};
- 			};
- 
- 			vicap_mipi1: port@2 {
- 				reg = <0x2>;
-+
-+				vicap_mipi1_input: endpoint {
-+					remote-endpoint = <&csi1_output>;
-+				};
- 			};
- 
- 			vicap_mipi2: port@3 {
-@@ -1568,6 +1576,66 @@ vicap_mmu: iommu@fdce0800 {
- 		status = "disabled";
- 	};
- 
-+	csi0: csi@fdd10000 {
-+		compatible = "rockchip,rk3588-mipi-csi2", "rockchip,rk3568-mipi-csi2";
-+		reg = <0x0 0xfdd10000 0x0 0x10000>;
-+		interrupts = <GIC_SPI 143 IRQ_TYPE_LEVEL_HIGH 0>,
-+			     <GIC_SPI 144 IRQ_TYPE_LEVEL_HIGH 0>;
-+		interrupt-names = "err1", "err2";
-+		clocks = <&cru PCLK_CSI_HOST_0>;
-+		phys = <&mipidcphy0 PHY_TYPE_DPHY PHY_DIRECTION_RX>;
-+		power-domains = <&power RK3588_PD_VI>;
-+		resets = <&cru SRST_P_CSI_HOST_0>;
-+		status = "disabled";
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			csi0_in: port@0 {
-+				reg = <0>;
-+			};
-+
-+			csi0_out: port@1 {
-+				reg = <1>;
-+
-+				csi0_output: endpoint {
-+					remote-endpoint = <&vicap_mipi0_input>;
-+				};
-+			};
-+		};
-+	};
-+
-+	csi1: csi@fdd20000 {
-+		compatible = "rockchip,rk3588-mipi-csi2", "rockchip,rk3568-mipi-csi2";
-+		reg = <0x0 0xfdd20000 0x0 0x10000>;
-+		interrupts = <GIC_SPI 145 IRQ_TYPE_LEVEL_HIGH 0>,
-+			     <GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH 0>;
-+		interrupt-names = "err1", "err2";
-+		clocks = <&cru PCLK_CSI_HOST_1>;
-+		phys = <&mipidcphy1 PHY_TYPE_DPHY PHY_DIRECTION_RX>;
-+		power-domains = <&power RK3588_PD_VI>;
-+		resets = <&cru SRST_P_CSI_HOST_1>;
-+		status = "disabled";
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			csi1_in: port@0 {
-+				reg = <0>;
-+			};
-+
-+			csi1_out: port@1 {
-+				reg = <1>;
-+
-+				csi1_output: endpoint {
-+					remote-endpoint = <&vicap_mipi1_input>;
-+				};
-+			};
-+		};
-+	};
-+
- 	csi2: csi@fdd30000 {
- 		compatible = "rockchip,rk3588-mipi-csi2", "rockchip,rk3568-mipi-csi2";
- 		reg = <0x0 0xfdd30000 0x0 0x10000>;
+This patch adds the missing IN1L DMIC configuration.
+The same configuration, including the existing widget name and routing,
+is also used on the Variscite DART-MX91, DART-MX93 and DART-MX95.
 
--- 
-2.43.0
+A more descriptive widget name could be considered separately.
+I would prefer to keep this patch focused on the missing DMIC property.
 
+Stefano
