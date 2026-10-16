@@ -1,430 +1,184 @@
-Received: from smtp9.goneo.de (smtp9.goneo.de [85.220.189.104])
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazhn15012012.outbound.protection.outlook.com [52.102.160.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2618D12F585;
-	Fri, 16 Oct 2026 15:25:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.220.189.104
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792164319; cv=none; b=sbiCgAD0t+nBLY1Pr6t5zZbPMNH9sK1GufDudUorf73Bo5HVrisF0BF98ROLGpoAI6LyzWiVwHPjMObVUVpU62s1Z8NOhQvH+FGtjJt0uaFwtKnA4tQzP8GaRiwNhgBRBj9VOkekLoM67EZRiAHwnSbipylEqYuayRTaFHaYsy4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792164319; c=relaxed/simple;
-	bh=YD9ankNAEnj4wRaE2EaUaaAkEgxZDgEeaYRKdPcFMiQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GK8NdPFoH+RRd1TQ9YNtovwfoTl5JURpHv/0yXDNrZoxHw8l3YYicKayIY/G+LkE6nD0QsOp6bT1EvPu7Kddl3MlZlpbeLYH1rARIMp97xAOJw3NBH5Oy/1u9j7R8jPYumjV5UkARmJfif8ztz1SxqtMIg7XTDbl3rQ5oiQtKAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tk154.de; spf=pass smtp.mailfrom=tk154.de; dkim=pass (2048-bit key) header.d=tk154.de header.i=@tk154.de header.b=SY5nI6mu; arc=none smtp.client-ip=85.220.189.104
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tk154.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tk154.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A26514DE719;
+	Fri, 16 Oct 2026 15:26:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.102.160.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792164379; cv=fail; b=bwiYWUJWSrimAqUTauUB02nIi3RJuDr7yYLv2EEzHYpJYhUSa10yhl5DKs+WZUC4OQChE8rlfELhJS/U0EbXyqVCF9HGa6fEme4paHRIm4Wbee2yabqZCjKfCkTDWEHpni770mXrAnC7QPMgT9HnpNSCJhRBqmBaSTHu+zqG1mk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792164379; c=relaxed/simple;
+	bh=10UrBELQnKNr0jWf2+WZpeKPSI+gDTKhnYQTRKnVFqo=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=Q3rCmODusVZF3DWiNMmaNx7HetcV9X0rYTuDt5mU7K0XhbGGsGHr1ymuqnS1GdmTNbrtUfvau2Yzjrdn588F/unJjmmd9UUzHMXywYyTmrtDHHTatlpqFYm6gvX9HNTYH3K3o0XLN89VEJMaGZPA3otOmzizWr3YQj8MfhK8vKU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=CRkvSHGk; arc=fail smtp.client-ip=52.102.160.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tk154.de header.i=@tk154.de header.b="SY5nI6mu"
-Received: from hub1.goneo.de (hub1.goneo.de [85.220.129.52])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by smtp9.goneo.de (Postfix) with ESMTPS id 0D34E2402EF;
-	Fri, 16 Oct 2026 17:25:12 +0200 (CEST)
-Received: from hub1.goneo.de (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by hub1.goneo.de (Postfix) with ESMTPS id C9B08240453;
-	Fri, 16 Oct 2026 17:25:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tk154.de; s=DKIM001;
-	t=1792164309;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FzJ4GTCSHxdL8fO+8bkHTYOQz+yAtL30WnrwK2mAyZU=;
-	b=SY5nI6mudFzEX2M7eGxwEeDVP6hPIxP2mJKeDLSq2T3aZ9SEsR01afC23LTazD9+iqj+dd
-	xVWqERHTLlpHDeKcBjzGQk5CFmvXovvGlqvrMgQm4waEwmF2lFP7J2K7oK4HE+zOmf4pMm
-	3xXHgaMjvKfzbcU07/w6C33Evhj5DQNgJegtHJ+y1WDSuKEKZWSZ8kddFEnxFoYXAO10L6
-	OCrSMVL9uz9FQmpA6UadV3Rs3wVkNxlXJrA+cqn7ICrnBLTLTd3JgfJvbntFfUY25+D/4q
-	hmTokbqEowdhYMOnHI7BT2ZzWorq7zRx9FcrW0fM/583WZhAh3eKxOyPqZF+Jw==
-Received: from CASE (unknown [195.37.88.189])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by hub1.goneo.de (Postfix) with ESMTPSA id 48EAD2403AE;
-	Fri, 16 Oct 2026 17:25:07 +0200 (CEST)
-From: Til Kaiser <mail@tk154.de>
-To: netdev@vger.kernel.org
-Cc: jie.luo@oss.qualcomm.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-kernel@vger.kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	quic_leiwei@quicinc.com,
-	quic_suruchia@quicinc.com,
-	quic_pavir@quicinc.com,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	horms@kernel.org,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org
-Subject: [PATCH net-next v2 3/3] net: ethernet: qualcomm: ppe: Add IPQ5332 support
-Date: Fri, 16 Oct 2026 17:24:49 +0200
-Message-ID: <20261016152449.934312-4-mail@tk154.de>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261016152449.934312-1-mail@tk154.de>
-References: <20261016152449.934312-1-mail@tk154.de>
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="CRkvSHGk"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=X3qjUoF4W7LnbuEu1U94DM6TqRsfX6FLVX7ykkqXlmL2h0md+AsNaY4qzHUpMDCoymPLmUVn4zEmyzkabNzwtzhxFKei1qUvcEdcdNgLYv447EL136+6m4nIzsJPIe2IyUF//MdtaYeU58AE58pn3iTvL3D+Kr+MCyGtj0QRTeykCoaqhrLhakDluMeW0WCpw7LMHZr8P+nWPkJbodYCECM1ZyObSINzT4N4QjxAdmWktVSf8Gj4RpRyin/Dq7rckAcsi/6E2ihE1kIBQoS8rqhiohOQp/F4NnDm9INkCglrxtKfooHTHP48ykvLUwOqZcOLOOzKFLTl2AC3NfM/Fw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=V+yZrW9Gw6gxRT+9zf5caC/jZu4x0gXayHDZKmozMko=;
+ b=OULChh/jno6MHl8/ofOX1rwI+/wauHgd3ExpyKMMOJlbP0yNYRiX61hd6qldzmrFDTAuz7bdGec2fBnAM6we/EnvOUQXCjrm7OsiPvoSuUDRUyKA3IIHUfhbr9rMq4wihOUzP2ccleK9Quc6OdfjlVq70UxNG0rsgKz1ohEj0vEmIX8nEnNEZCXxZSFRxcz7txX1IzbFOjAJW5BcDmAfjNfHIfrHCKp8wLVPk8s3KZ7S6WJLoqkfX7v1/OqJKSHzTBekqnCBkyZZ0ZC8cNtwIK8Zl6amr/jTwJC6YsnlcZreK52Rqb6bFNiri/sVlGAmP1OP1z6gmCC8z/Wio/ic3A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=st-md-mailman.stormreply.com
+ smtp.mailfrom=foss.st.com; dmarc=fail (p=none sp=none pct=100) action=none
+ header.from=foss.st.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=V+yZrW9Gw6gxRT+9zf5caC/jZu4x0gXayHDZKmozMko=;
+ b=CRkvSHGkpE+biWJrbuJCr2f31fRWpPQmhJUmuly3XyEgjrMpzWNeUrnhG9DpAMspZLJA+8yg9V9XlO+qGrT68cUiVMJ/qlZn7UZ/5GiQ0ow0LM/rvDwNsOnVZi4hwqmafwEaRlaVptI6AJpyCCIMVmdVwOMMM51rzqsya8ZmqK5AhANaLdVTjKoAXoy0qqR406kNykwIdi+XwCJ8uXHi0I6wu0nscfRZnkYDv6fVwKiKr7Rl3lWn2xU4ICfSRKn7/zPN/uG9nKw3H5csHBXHLa53hibhzqFfmfdx1nhZnXEfzCnaPBLFGz/N3BmmJorkTWHuOgVihpPpkmxpl/my1A==
+Received: from AS9PR0301CA0034.eurprd03.prod.outlook.com
+ (2603:10a6:20b:469::23) by AS2PR10MB6823.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5f6::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Fri, 16 Oct
+ 2026 15:26:13 +0000
+Received: from AM2PEPF00070CF7.eurprd02.prod.outlook.com
+ (2603:10a6:20b:469:cafe::2b) by AS9PR0301CA0034.outlook.office365.com
+ (2603:10a6:20b:469::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Fri, 16
+ Oct 2026 15:26:11 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ AM2PEPF00070CF7.mail.protection.outlook.com (10.167.242.9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 15:26:11 +0000
+Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 16 Oct
+ 2026 17:26:39 +0200
+Received: from localhost (10.48.87.93) by STKDAG1NODE1.st.com (10.75.128.132)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 16 Oct
+ 2026 17:26:10 +0200
+From: Patrice Chotard <patrice.chotard@foss.st.com>
+Subject: [PATCH v3 0/3] Add STM32 TAMP nvram driver support
+Date: Fri, 16 Oct 2026 17:26:02 +0200
+Message-ID: <20261016-upstream_nvram_reworked-v3-0-f65908490cf7@foss.st.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-UID: c9502c
-X-Rspamd-UID: b900d0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAApC0moC/32NzQ6CMBAGX8X0bElbfgqefA9jDJStVAMlXagaw
+ rtb0IMe9LLJJN/OTATBGUCy20zEgTdobBcg3m6IasruDNTUgYlgImMFK+jY4+CgbE+dd+E6uFl
+ 3hZrqPCmTKpY5l4qE796BNvfVfDi+GMfqAmpYdMuiMThY91jTni+7d4WznxXPKaOp4IpnXKYK9
+ F5bxAiHSNmWLB0vPkzxH5MIJqXrUiYFAKvkt2me5yfE1zk5HAEAAA==
+X-Change-ID: 20260909-upstream_nvram_reworked-f84a4b37817c
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
+	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Christophe Roullier <christophe.roullier@foss.st.com>, Srinivas Kandagatla
+	<srini@kernel.org>
+CC: Simeon Marijon <simeon.marijon@foss.st.com>,
+	<linux-stm32@st-md-mailman.stormreply.com>, <devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	Patrice Chotard <patrice.chotard@foss.st.com>, Gatien Chevallier
+	<gatien.chevallier@foss.st.com>
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE1.st.com
+ (10.75.128.132)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM2PEPF00070CF7:EE_|AS2PR10MB6823:EE_
+X-MS-Office365-Filtering-Correlation-Id: d81ef669-84ed-40d6-f3ea-08df2b99cf0f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|82310400026|36860700016|34020700016|1800799024|6133799003|10067099003|18002099003|11063799006|261009223027099003|56012099006|12100799066;
+X-Microsoft-Antispam-Message-Info:
+	PtcyJhS8OI/dWaGkMGOiJ4rjAtM4blrfGxH3g36tdaWFFT+bRVj968uxgByV/rQiwbbvx6k0mKhcu6P18J0iP7ky0DcJIEfkrqZm5k1aoNsVpUqP8+Wd2EnNLNpdP6vhhgHI/aS1nbmb7auyltSiBsWhrhwdBlpUFUw5sLBy9i59PvrPNzgCJaWGvdAm63NT0l0fgPYRyIBEuA5wvO59ZYeczXag7CSDNjNLrxmE8JBXQXno6RpapLepXcnChj+PtKp/cWonj/P8+EHghBSzWKxvS4/ug2xfePUT5eJ3SZZjXdXNkJuYa4pVz1EPb58k63paym6KQ2tZKeOM4tBYK+QbJs2BMbLnB3w5YsdrCyHH8pKCKbVwH4JzoQjXviTXmCjasMLovzOKiJY9dEI9COmvWyvhT4LapWEwqEUbSMXXSqyNjb07Vx6RScBuFOXzOoSLFSOa3L9atwRumL6DFg9wSEnxGzLP1y6ktiZEv3oI2hCke9Mbdk5xJsdBb/Qvnq1uSzWE759B3xvMRGAkq1bj6Y9/3Oi/4uDo2eeZn/EyXtU35iIcuKx58yVu8Jyqs/kSg5wh0IpJQbFQU/yo+PDHpOW0oXkYx8rbK6dmQchtlYGWIZPWysQAuAUI/vWArOmaSnCz7fFiCjsCo8HdOg==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(82310400026)(36860700016)(34020700016)(1800799024)(6133799003)(10067099003)(18002099003)(11063799006)(261009223027099003)(56012099006)(12100799066);DIR:OUT;SFP:1501;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	BgshUx7pxiTdMtXN9M3qAIBrQc5yRB5N4f/4UpZ5t+Q3lRpps0h/ivHNxV7/bXMlF+clRd1kokWPbHplBoDl0ACQJiiEVmUKIl1mhkkX6YWS3V8AS7WEaZnXNUXaS+e+66Vvnt5vQQs2RdvCOsQz+RS6Or7v0wl/EGK7GAlkMZPtrRBVajA+HMfb/ie/s7heSlGFvjgPbwrAEuQSay8RZufqyWCBGzorNuveCOvizEJHYRh4qudVpUEp9TingCsApWe0H9CwGsWz6eC7NGhNdDvN1g/dZj7TCzOyGPf6I72FhFIn69tQC6SC7Yb23Awo6Sx8ogmuuWodApUS/7+pBeVAck0d9V3sfug9rGZ2tLpELM3GBknKvZ4g9HmM3SGvuaaNLF7eiuRaw6Vimwo3j9m+tBVF7Is/OGMJ2s52u6XKnLipuKgmlANlmJVGbczH
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 15:26:11.2921
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d81ef669-84ed-40d6-f3ea-08df2b99cf0f
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM2PEPF00070CF7.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR10MB6823
 
-IPQ5332 shares the IPQ9574 PPE architecture, but has only two front
-panel ports and uses a different clock rate, interconnect paths, buffer
-limits and scheduler arbitration.
+Propose bindings and driver to enable TAMP nvram driver
+support for STM32MP SoC's family.
+It allows to expose TAMP backup registers as nvmem cells.
 
-Add match data for qcom,ipq5332-ppe: a 200 MHz PPE clock, four
-interconnect paths and three PPE ports (the CPU port and two front panel
-ports), together with its BM and QM limits and thresholds and its
-scheduler arbitration tables. The values come from Qualcomm's QSDK
-14.0.1595.1665 qca-ssdk revision 48484d531927b070b996685f1570aff3bccb9c32:
-src/init/ssdk_hppe.c and ssdk_appe.c, and src/adpt/hppe/adpt_hppe_qm.c.
-
-Reuse the IPQ9574 scheduler resources for ports 0 (CPU), 1 and 2.
-The queue, flow and DRR node ranges for ports 1 and 2 match the
-IPQ5332 port_scheduler_resource definitions in QSDK ipq5332.dtsi.
-The CPU flow and DRR node ranges also match; retain the IPQ9574 CPU
-and reserved queue partition. QSDK assigns CPU unicast queues 0-95
-and multicast queues 256-263, while this driver uses 0-63 and 256-271.
-The reserved pool is selected from the final resource-table entry
-using port ID 3 on IPQ5332.
-
-QSDK uses the same block base addresses and HPPE register offsets
-for the common PPE blocks on IPQ5332 and IPQ9574, so retain the
-existing regmap ranges and offsets for those blocks.
-
-Clarify that the shared parent and rate apply to the NSSCC PPE clocks;
-the optional GCC sleep clock has a separate parent. Document the IPQ5332
-port and UNIPHY counts and add it to the list of supported SoCs.
-
-Signed-off-by: Til Kaiser <mail@tk154.de>
+Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
 ---
- .../ethernet/qualcomm/ppe/ppe.rst             |   9 +-
- drivers/net/ethernet/qualcomm/ppe/ppe.c       |  39 +++++-
- .../net/ethernet/qualcomm/ppe/ppe_config.c    | 127 ++++++++++++++++++
- .../net/ethernet/qualcomm/ppe/ppe_config.h    |   1 +
- 4 files changed, 172 insertions(+), 4 deletions(-)
+Changes in v3:
+- Fix issue found by sashiko-bot:
+  - rely on the already resolved priv->data->nb_zones instead of 
+    of_device_is_compatible() to set priv->bkpreg_access
+  - Fix max_register of stm32mp1_tamp_nvram_regmap_cfg and 
+    stm32mp2_tamp_nvram_regmap_cfg
+  - Update zones_end type to int*
+  - Replace both memcpy by put_unaligned_le32 and get_unaligned_le32
+  - Link to v2: https://patch.msgid.link/20260930-upstream_nvram_reworked-v2-0-cfda749ee0b7@foss.st.com
 
-diff --git a/Documentation/networking/device_drivers/ethernet/qualcomm/ppe/ppe.rst b/Documentation/networking/device_drivers/ethernet/qualcomm/ppe/ppe.rst
-index 4ab299a28969..caf8ab1431de 100644
---- a/Documentation/networking/device_drivers/ethernet/qualcomm/ppe/ppe.rst
-+++ b/Documentation/networking/device_drivers/ethernet/qualcomm/ppe/ppe.rst
-@@ -96,6 +96,10 @@ The port wrapper provides connections from the 6 GMAC/XGMACS to UNIPHY (PCS) sup
- various modes such as SGMII/QSGMII/PSGMII/USXGMII/10G-BASER. There are 3 UNIPHY (PCS)
- instances supported on the IPQ9574.
- 
-+IPQ5332 uses the same PPE architecture with two front panel ports and two UNIPHY
-+(PCS) instances. Its Ethernet datapath has a CPU port (port0) and two GMAC/XGMAC
-+ports (port1 and port2).
-+
- Ethernet DMA is used to transmit and receive packets between the Ethernet subsystem
- and ARM host CPU.
- 
-@@ -118,6 +122,8 @@ PPE driver:
-     through the UNIPHY PCS block. Each MAC block includes the GMAC and XGMAC blocks and
-     the switch port can select to use GMAC or XMAC through a MUX selection according to
-     the external PHY's capability.
-+    IPQ5332 has two MACs (MAC0 and MAC1), connected to switch ports port1 and
-+    port2 through two UNIPHY instances.
- - EDMA (Ethernet DMA)
-     The Ethernet DMA is used to transmit and receive Ethernet packets between the PPE
-     ports and the ARM cores.
-@@ -164,8 +170,9 @@ CPU code counters and queue counters.
- PPE Driver Supported SoCs
- =========================
- 
--The PPE driver supports the following IPQ SoC:
-+The PPE driver supports the following IPQ SoCs:
- 
-+- IPQ5332
- - IPQ9574
- 
- 
-diff --git a/drivers/net/ethernet/qualcomm/ppe/ppe.c b/drivers/net/ethernet/qualcomm/ppe/ppe.c
-index 0ef72c20364b..182c4ad83ffc 100644
---- a/drivers/net/ethernet/qualcomm/ppe/ppe.c
-+++ b/drivers/net/ethernet/qualcomm/ppe/ppe.c
-@@ -26,6 +26,30 @@ struct ppe_plat_data {
- 	unsigned int num_icc, num_ports;
- };
- 
-+/* IPQ5332 interconnect paths. Zero bandwidths use the PPE clock rate. */
-+static const struct icc_bulk_data ipq5332_icc_data[] = {
-+	{
-+		.name = "ppe",
-+		.avg_bw = 0,
-+		.peak_bw = 0,
-+	},
-+	{
-+		.name = "ppe_cfg",
-+		.avg_bw = 0,
-+		.peak_bw = 0,
-+	},
-+	{
-+		.name = "qos_gen",
-+		.avg_bw = 6000,
-+		.peak_bw = 6000,
-+	},
-+	{
-+		.name = "timeout_ref",
-+		.avg_bw = 6000,
-+		.peak_bw = 6000,
-+	},
-+};
-+
- /* IPQ9574 interconnect paths. Zero bandwidths use the PPE clock rate. */
- static const struct icc_bulk_data ipq9574_icc_data[] = {
- 	{
-@@ -65,6 +89,14 @@ static const struct icc_bulk_data ipq9574_icc_data[] = {
- 	},
- };
- 
-+static const struct ppe_plat_data ipq5332_ppe_data = {
-+	.soc_cfg = &ipq5332_soc_config,
-+	.icc_data = ipq5332_icc_data,
-+	.ppe_clk_rate = 200000000,
-+	.num_icc = ARRAY_SIZE(ipq5332_icc_data),
-+	.num_ports = 3,
-+};
-+
- static const struct ppe_plat_data ipq9574_ppe_data = {
- 	.soc_cfg = &ipq9574_soc_config,
- 	.icc_data = ipq9574_icc_data,
-@@ -152,9 +184,9 @@ static int ppe_clock_init_and_reset(struct ppe_device *ppe_dev,
- 	if (ret)
- 		return ret;
- 
--	/* The PPE clocks have a common parent clock. Setting the clock
--	 * rate of "ppe" ensures the clock rate of all PPE clocks is
--	 * configured to the same rate.
-+	/* The NSSCC PPE clocks (ppe, apb, ipe and btq) share a parent.
-+	 * Setting the "ppe" rate also sets the rate of the other NSSCC
-+	 * PPE clocks. The optional GCC sleep clock has a separate parent.
- 	 */
- 	clk = devm_clk_get(dev, "ppe");
- 	if (IS_ERR(clk))
-@@ -237,6 +269,7 @@ static void qcom_ppe_remove(struct platform_device *pdev)
- }
- 
- static const struct of_device_id qcom_ppe_of_match[] = {
-+	{ .compatible = "qcom,ipq5332-ppe", .data = &ipq5332_ppe_data },
- 	{ .compatible = "qcom,ipq9574-ppe", .data = &ipq9574_ppe_data },
- 	{}
- };
-diff --git a/drivers/net/ethernet/qualcomm/ppe/ppe_config.c b/drivers/net/ethernet/qualcomm/ppe/ppe_config.c
-index 65ac6c0841d5..91e6ee9524a6 100644
---- a/drivers/net/ethernet/qualcomm/ppe/ppe_config.c
-+++ b/drivers/net/ethernet/qualcomm/ppe/ppe_config.c
-@@ -174,6 +174,9 @@ struct ppe_port_schedule_resource {
-  */
- static const int ipq9574_ppe_bm_group_config = 1550;
- 
-+/* IPQ5332 BM group0 shared buffer limit. */
-+static const int ipq5332_ppe_bm_group_config = 360;
-+
- /* The buffer configurations per PPE port. There are 15 BM ports and
-  * 4 BM groups supported by PPE. BM port (0-7) is for EDMA port 0,
-  * BM port (8-13) is for PPE physical port 1-6 and BM port 14 is for
-@@ -230,6 +233,34 @@ static const struct ppe_bm_port_config ipq9574_ppe_bm_port_config[] = {
- 	},
- };
- 
-+/* IPQ5332: BM ports 0-7 serve EDMA, ports 8-9 serve ports 1-2. */
-+static const struct ppe_bm_port_config ipq5332_ppe_bm_port_config[] = {
-+	{
-+		/* Buffer configuration for the BM port ID 0-7 of EDMA. */
-+		.port_id_start	= 0,
-+		.port_id_end	= 7,
-+		.pre_alloc	= 12,
-+		.in_fly_buf	= 40,
-+		.ceil		= 30,
-+		.weight		= 7,
-+		.resume_offset	= 5,
-+		.resume_ceil	= 20,
-+		.dynamic	= true,
-+	},
-+	{
-+		/* Buffer configuration for the BM port ID 8-9 of PPE ports. */
-+		.port_id_start	= 8,
-+		.port_id_end	= 9,
-+		.pre_alloc	= 12,
-+		.in_fly_buf	= 128,
-+		.ceil		= 48,
-+		.weight		= 7,
-+		.resume_offset	= 5,
-+		.resume_ceil	= 20,
-+		.dynamic	= true,
-+	},
-+};
-+
- /* QM fetches the packet from PPE buffer management for transmitting the
-  * packet out. The QM group configuration limits the total number of buffers
-  * enqueued by all PPE hardware queues.
-@@ -240,6 +271,9 @@ static const struct ppe_bm_port_config ipq9574_ppe_bm_port_config[] = {
-  */
- static const int ipq9574_ppe_qm_group_config = 2000;
- 
-+/* IPQ5332 QM group0 buffer limit. */
-+static const int ipq5332_ppe_qm_group_config = 500;
-+
- /* Default QM settings for unicast and multicast queues for IPQ9754. */
- static const struct ppe_qm_queue_config ipq9574_ppe_qm_queue_config[] = {
- 	{
-@@ -264,6 +298,30 @@ static const struct ppe_qm_queue_config ipq9574_ppe_qm_queue_config[] = {
- 	},
- };
- 
-+/* IPQ5332 unicast and multicast queue thresholds. */
-+static const struct ppe_qm_queue_config ipq5332_ppe_qm_queue_config[] = {
-+	{
-+		/* QM settings for unicast queues 0 to 255. */
-+		.queue_start	= 0,
-+		.queue_end	= 255,
-+		.prealloc_buf	= 0,
-+		.ceil		= 300,
-+		.weight		= 7,
-+		.resume_offset	= 18,
-+		.dynamic	= true,
-+	},
-+	{
-+		/* QM settings for multicast queues 256 to 299. */
-+		.queue_start	= 256,
-+		.queue_end	= 299,
-+		.prealloc_buf	= 0,
-+		.ceil		= 50,
-+		.weight		= 0,
-+		.resume_offset	= 18,
-+		.dynamic	= false,
-+	},
-+};
-+
- /* PPE scheduler configuration for BM includes multiple entries. Each entry
-  * indicates the primary port to be assigned the buffers for the ingress or
-  * to release the buffers for the egress. Backup port ID will be used when
-@@ -372,6 +430,44 @@ static const struct ppe_scheduler_bm_config ipq9574_ppe_sch_bm_config[] = {
- 	{true, PPE_SCH_EGRESS,  7, false, 0},
- };
- 
-+/* IPQ5332 BM arbitration. The invalid final slot is included in the
-+ * 32-slot scheduler depth.
-+ */
-+static const struct ppe_scheduler_bm_config ipq5332_ppe_sch_bm_config[] = {
-+	{true,  PPE_SCH_INGRESS, 2, false, 0},
-+	{true,  PPE_SCH_EGRESS,  0, false, 0},
-+	{true,  PPE_SCH_INGRESS, 1, false, 0},
-+	{true,  PPE_SCH_EGRESS,  1, false, 0},
-+	{true,  PPE_SCH_INGRESS, 2, false, 0},
-+	{true,  PPE_SCH_EGRESS,  2, false, 0},
-+	{true,  PPE_SCH_INGRESS, 0, false, 0},
-+	{true,  PPE_SCH_EGRESS,  0, false, 0},
-+	{true,  PPE_SCH_INGRESS, 2, false, 0},
-+	{true,  PPE_SCH_EGRESS,  1, false, 0},
-+	{true,  PPE_SCH_INGRESS, 1, false, 0},
-+	{true,  PPE_SCH_EGRESS,  2, false, 0},
-+	{true,  PPE_SCH_INGRESS, 0, false, 0},
-+	{true,  PPE_SCH_EGRESS,  0, false, 0},
-+	{true,  PPE_SCH_INGRESS, 1, false, 0},
-+	{true,  PPE_SCH_EGRESS,  1, false, 0},
-+	{true,  PPE_SCH_INGRESS, 2, false, 0},
-+	{true,  PPE_SCH_EGRESS,  2, false, 0},
-+	{true,  PPE_SCH_INGRESS, 1, false, 0},
-+	{true,  PPE_SCH_EGRESS,  0, false, 0},
-+	{true,  PPE_SCH_INGRESS, 2, false, 0},
-+	{true,  PPE_SCH_EGRESS,  1, false, 0},
-+	{true,  PPE_SCH_INGRESS, 0, false, 0},
-+	{true,  PPE_SCH_EGRESS,  2, false, 0},
-+	{true,  PPE_SCH_INGRESS, 2, false, 0},
-+	{true,  PPE_SCH_EGRESS,  0, false, 0},
-+	{true,  PPE_SCH_INGRESS, 1, false, 0},
-+	{true,  PPE_SCH_EGRESS,  1, false, 0},
-+	{true,  PPE_SCH_INGRESS, 0, false, 0},
-+	{true,  PPE_SCH_EGRESS,  2, false, 0},
-+	{true,  PPE_SCH_INGRESS, 1, false, 0},
-+	{false, PPE_SCH_INGRESS, 0, false, 0},
-+};
-+
- /* PPE scheduler configuration for QM includes multiple entries. Each entry
-  * contains ports to be dispatched for enqueueing and dequeueing. The backup
-  * port for dequeueing is supported to be used when the primary port for
-@@ -439,6 +535,22 @@ static const struct ppe_scheduler_qm_config ipq9574_ppe_sch_qm_config[] = {
- 	{0x98, 6, 5, true, 2},
- };
- 
-+/* IPQ5332 QM arbitration. The enqueue bitmap is zero in every slot;
-+ * ensch_port identifies the enqueue port. Backup dequeue ports are disabled.
-+ */
-+static const struct ppe_scheduler_qm_config ipq5332_ppe_sch_qm_config[] = {
-+	{0x0, 0x2, 0, false, 0x0},
-+	{0x0, 0x1, 2, false, 0x0},
-+	{0x0, 0x0, 1, false, 0x0},
-+	{0x0, 0x0, 2, false, 0x0},
-+	{0x0, 0x1, 0, false, 0x0},
-+	{0x0, 0x2, 1, false, 0x0},
-+	{0x0, 0x0, 2, false, 0x0},
-+	{0x0, 0x0, 1, false, 0x0},
-+	{0x0, 0x0, 2, false, 0x0},
-+	{0x0, 0x0, 1, false, 0x0},
-+};
-+
- static const struct ppe_scheduler_port_config ppe_port_sch_config[] = {
- 	{
- 		.port		= 0,
-@@ -732,6 +844,8 @@ static const struct ppe_scheduler_port_config ppe_port_sch_config[] = {
- 
- /* The scheduler resource is applied to each PPE port, The resource
-  * includes the unicast & multicast queues, flow nodes and DRR nodes.
-+ * Entries 1 and 2 serve ports 1 and 2 on both IPQ5332 and IPQ9574.
-+ * The reserved pool is the last entry.
-  */
- static const struct ppe_port_schedule_resource ppe_scheduler_res[] = {
- 	{	.ucastq_start	= 0,
-@@ -835,6 +949,19 @@ static const struct ppe_port_schedule_resource ppe_scheduler_res[] = {
- 	},
- };
- 
-+const struct ppe_soc_config ipq5332_soc_config = {
-+	.bm_group_config = ipq5332_ppe_bm_group_config,
-+	.bm_port_config = ipq5332_ppe_bm_port_config,
-+	.bm_port_config_cnt = ARRAY_SIZE(ipq5332_ppe_bm_port_config),
-+	.qm_group_config = ipq5332_ppe_qm_group_config,
-+	.qm_queue_config = ipq5332_ppe_qm_queue_config,
-+	.qm_queue_config_cnt = ARRAY_SIZE(ipq5332_ppe_qm_queue_config),
-+	.sch_bm_config = ipq5332_ppe_sch_bm_config,
-+	.sch_bm_config_cnt = ARRAY_SIZE(ipq5332_ppe_sch_bm_config),
-+	.sch_qm_config = ipq5332_ppe_sch_qm_config,
-+	.sch_qm_config_cnt = ARRAY_SIZE(ipq5332_ppe_sch_qm_config),
-+};
-+
- const struct ppe_soc_config ipq9574_soc_config = {
- 	.bm_group_config = ipq9574_ppe_bm_group_config,
- 	.bm_port_config = ipq9574_ppe_bm_port_config,
-diff --git a/drivers/net/ethernet/qualcomm/ppe/ppe_config.h b/drivers/net/ethernet/qualcomm/ppe/ppe_config.h
-index 0dafab264743..b42731aa3e7e 100644
---- a/drivers/net/ethernet/qualcomm/ppe/ppe_config.h
-+++ b/drivers/net/ethernet/qualcomm/ppe/ppe_config.h
-@@ -316,6 +316,7 @@ struct ppe_soc_config {
- 	unsigned int sch_qm_config_cnt;
- };
- 
-+extern const struct ppe_soc_config ipq5332_soc_config;
- extern const struct ppe_soc_config ipq9574_soc_config;
- 
- int ppe_hw_config(struct ppe_device *ppe_dev,
--- 
-2.56.0
+Changes in v2:
+- Update commit title of nvmem dt-bindings's patch.
+- Add required compatible for patternProperties in stm32/st,stm32-syscon.yaml.
+- Fix issue found by sashiko-bot:
+  - Add freeing compartment_owner.
+  - Replace regmap_read/regmap_write by regmap_update_bits in stm32_tamp_nvram_write_byte().
+  - Update error return in stm32_tamp_nvram_read_byte(), stm32_tamp_nvram_write_byte(),
+    stm32_tamp_nvram_read() and stm32_tamp_nvram_write() to return the actual regmap_read() /
+    regmap_write() error instead of -EIO.
+ - Add freeing field and update error return values for stm32_tamp_nvram_get_backup_zones().
+ - Update error return for stm32_tamp_nvram_probe().
+- Link to v1: https://patch.msgid.link/20260910-upstream_nvram_reworked-v1-0-521c16175cef@foss.st.com
+
+To: Simeon Marijon <simeon.marijon@foss.st.com>
+To: Patrice Chotard <patrice.chotard@foss.st.com>
+To: Srinivas Kandagatla <srini@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>
+To: Christophe Roullier <christophe.roullier@foss.st.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: devicetree@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Patrice Chotard (1):
+      dt-bindings: arm: stm32: allow TAMP nvram child node for syscon
+
+Simeon Marijon (2):
+      dt-bindings: nvmem: add STM32MPX TAMP backup registers
+      nvmem: stm32: add TAMP nvmem driver
+
+ .../bindings/arm/stm32/st,stm32-syscon.yaml        |  30 +
+ .../bindings/nvmem/st,stm32-tamp-nvram.yaml        |  57 ++
+ MAINTAINERS                                        |   8 +
+ drivers/nvmem/Kconfig                              |  10 +
+ drivers/nvmem/Makefile                             |   2 +
+ drivers/nvmem/stm32-tamp-nvram.c                   | 741 +++++++++++++++++++++
+ 6 files changed, 848 insertions(+)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260909-upstream_nvram_reworked-f84a4b37817c
+
+Best regards,
+--  
+Patrice Chotard <patrice.chotard@foss.st.com>
 
