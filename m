@@ -1,104 +1,132 @@
-Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 376624EFFD5
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 16:04:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792166687; cv=pass; b=DofYu6QKq4X+q2EGuNtqTvkurfQVCCYJ2g7T0AM9Wb/m2b8C++XYcVhzA4NM2K1bKVMlVKPTZlzV1Ta6Dr28KQEkKMV6fWTITC/SEo+8V9BdKbWA/XsOvR9l9VNiskFrJ6Mv+iDq1/4mGCYjrz1VIu86dmmq+0137wx7GnXRv1Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792166687; c=relaxed/simple;
-	bh=iXULWRiQelhnvcT3Ak66Mg2j8IEu0ZMQcqJtR6BRIrQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=orAYYvVlT1Vwtfc+dt5G89knXm9QU417rt6JLUQNNyUJaON1uG6ujlflsKwIwY0FpJ+tQ9FhCedaHjPpwSKWa6SFqi2OCKkeiYDE+6Fi4OEXQ6F1XxjHYFK/LKwi1w1Lcps8Jpy0drWLt8G/+OVdmLNLkF5rA3y6stlY/3qqjog=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CuOJ798b; arc=pass smtp.client-ip=74.125.224.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50B624EF152;
+	Fri, 16 Oct 2026 16:06:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792166791; cv=none; b=TpQ16YTEIVBuaUMjG0SW4okK+n8W/83n615fKkpV1v32NOJTyPPablIDS2DxKoRPkpqtMO6nnGe0uo0sl9GNC21Oqc21h6bnIDaqT5gdNC5lw/6r03xB+iPLVqxSb/xVOGxOg6mbekoZmKD8yVAwDti86HuOzytDRXMUiyXv03A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792166791; c=relaxed/simple;
+	bh=xGAH/cBFGhXa7Lo7BHAcXeIsp2PMt608yLehmEm2dVg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=J1+CqmZxqxqwBOyIQ6j1RrMZevZgvzp+9i70RYnAzAjWU7qUZn05d1Ei4D1E7i4+5dImvnFfd8562WehGKvA4qXNpi/utN/E3VsTMqssGhOgiBS///4xusvZ2whelPkTPsmVFGjlDap2jXv2rVWRpb6cB+7ZG3DaPjGspyJYMXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f+2IcMch; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CuOJ798b"
-Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-6798c43a3d6so159741d50.1
-        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 09:04:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792166685; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JynEmYE4syxLqM0Zt3zogZLSTIHTVS6Wc3rh+UByymuiF9cAU3KDutz40vz8qW5wFC
-         A08FtEL9UmSdZT/CgFzI8Ex7c5WXVQTLyNesuiJYwYtGjSZOpWoc1Ytii3KaIhHM/hqY
-         0cIMS3ESCGDYAuniDQhpV09ymPNB05oo2Uxyo9HaSzFe7CsLHvb51JfbBV7iB3mdoF6a
-         wLx0g7gCv+MGOjydIYeuPU5P6yWIKCCshnf6/GKFPTcBZ0ghMvky1sCnc3Ww5axluj0T
-         S6pa84mX2b0EndLDbodUvYsaSDVj4X0blSsbL/r/FFriSB57poXoSrkDeK00LbdQY6XH
-         xwwQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=iXULWRiQelhnvcT3Ak66Mg2j8IEu0ZMQcqJtR6BRIrQ=;
-        fh=a1ggpxdmCEErgRGf2Re9QTg3YLYX4BybCytgCbXYTOA=;
-        b=Y5eK8m2wBrU30HThfpDGq2UpQhltjo8tB33R6nhJFSsH/gfTC0Pttb1jsICKyJhj5I
-         XxjWY/VYHFoW0AgAW0if5mP3sU8ewt+YYrG95gtJ2fjosJMSRM1JymJ6MF4cDisivk8+
-         3rtoZbxE3DQ2Rcvrvla5lWKeEKjmpYR7x2ai3xXYxB8BsRvKddiZAuwNfbIvhY0Qad9N
-         C8eWHFz62HUcS3S0nIOoveaGYq7psDyZMMo6oINY+BPKSNEVqzsMJyxmuHXg0ggqcKl0
-         eTZywp+VzTGlagJeEWALuf/1k2LHAMxrvciIrfKJ20am7i0iZ3hL/lMMTKN4kJdVJvf1
-         qmeQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792166685; x=1792771485; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iXULWRiQelhnvcT3Ak66Mg2j8IEu0ZMQcqJtR6BRIrQ=;
-        b=CuOJ798bMYtCDpC5LWiwZJn7uw8bjiBagVxTyI6Y9WQHtVprqQYt1y47sCo21XrVNV
-         UsOmF8vDTwr5vLG1QXN92cTa+5Im2jGEIYiRKKdOqgzUUOTnYt87XsGOn5018IMq+alk
-         L7aJy/CQT1mulKcTs4zCTHTgB7D+ulX8GyNiMTZTTx8J0UwhjLxhSJpG1LHGNK5izf3Y
-         c2jU0TWODuroFYqhSPgwpTpsaCq26tN2n6wpUb4c5k5Tj1qTFSAea6HSAfpp6N0Uh0Bf
-         YY7iLlNhbSOArmXeqmWMYCYhiAV6fxBNdp+6tcTdfA02yg1vXQ4NCEjPo42auL7rK04m
-         J4KQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792166685; x=1792771485;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=iXULWRiQelhnvcT3Ak66Mg2j8IEu0ZMQcqJtR6BRIrQ=;
-        b=YTc827H9Xgniz1OXLw0WCtLhUICSiiA05xrpdlB5puts4JSM634c7knSDkQCCLPSa5
-         sq3OHkOBw5kWD0UbjfkeNhv+5N4Os2oajhXhpTJEWsMVtMAzpBM7C43PNh1RPmgdz2df
-         FnjthSxu7oBbcWqno+aDPCq3/ceRgIL0aRw3J/M+7DvGP5lVsav6jMyiP6IGx4jSsJA8
-         TICTfJglzKNXXzvkiSeFW17SyXFKAPNpdU6UsLrhS5gPs6nwsIWYsN7Y4AMZZZjlAD8U
-         ySvuJaisCnVGIX+CRgDNPcv9VUKUmSf9YH138ld9pMKlZKobZCK41d5pHYTZ/oRiJeDY
-         /OgQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy3QdM0Kl1ve1D6rW5Ofg1pQ+kfwuEAj92xKsOrfqPl3OwdI7shJONEF4Bj42IJ6uG26WgLuoMaFySh@vger.kernel.org
-X-Gm-Message-State: AFq9FYJwSAwPxHuVTf1i2pKcQnIiiI8wViPCOx+RC7iSVZIx1gD4owch
-	FEwTIDeaiE0cZq2PhvuLQrZlQJlTb5M499xGw9/buRHy2h9M9oybEIRkg3PtJdDnYnYgmL3Zm4b
-	YsjPXWwGDr47iYaFqqzc044uVWHFy4AA=
-X-Gm-Gg: AYBFou1AQORjU90QYWCqG7UAk1otIg1K5YcdtCTjvzJKm15XSBwYDI4jvO5RTY0couZ
-	0NcebHr//t5JSPX8HrPhlY2d0c+jtZM58y+HaABR6PEB2Y9wdqbxCBlT9/p17wAGZhzh8goiCVj
-	FrLtSqQSW0x//f9CV3NE4cZ5hP2tIiut4ex7yE6wU0HMQkquOQ3ZBu3a9tDm/uI2dAVoFxYt2RB
-	L2/CqOX/HxhsTg83MyeK+zS5rn56MHUzHeOdDrbqyo2fcDjIVsfurhLZj49hO2IqA4izEA8tLxY
-	A3AUJIUZpj11Au9E7pypQyLZ9ylCArbG4TmH3SkY/rpcMr4emIAgWqE=
-X-Received: by 2002:a05:690e:168d:b0:679:94b3:a257 with SMTP id
- 956f58d0204a3-67994b3d526mr1957505d50.115.1792166684969; Fri, 16 Oct 2026
- 09:04:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f+2IcMch"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A9A61F000C4;
+	Fri, 16 Oct 2026 16:06:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792166787;
+	bh=eV5kQsVdLEe1z5kkE8u0zgGSCke4UboN4QIxLDplCdQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=f+2IcMchxGrh7hS3ThU9LLLZ9FZrSPqq/uCsdJM/HfJZu582ZheF4CosqLgJVuwpw
+	 5IEorjD4p74ztBkk7Aaq9AIb6lMTuyTyCIwp0GUTSVr42npOf6IeEkfeYuwzdcN3Zx
+	 ypLkcv1u4+UcHJylPNKpdRmzSHFYLSU9iPOrLg48WcCvXubK+aqP/6iD2rkKV/i9B4
+	 EVZzwp+2Su2BBOLwmbF0zJ6/OaOhouOgDC9/w6ewG2uiHTfF4djn/SSkgUv3JD39OM
+	 4wd5KqAbcvJcZhoCHkuWcmUFt5H5+FuIZD0iO/RvdDvSAtQrmWzZn/kMQSwLuWIwCK
+	 4nEoVV72ecmTg==
+Message-ID: <19662dcc-4a25-4d18-a3bc-6b277bd676a6@kernel.org>
+Date: Fri, 16 Oct 2026 17:06:23 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261016090930.947830-1-wyibo6109@gmail.com> <57d28e27-459d-4d58-b6ea-78739936d152@ixit.cz>
-In-Reply-To: <57d28e27-459d-4d58-b6ea-78739936d152@ixit.cz>
-From: Yibo Wang <wyibo6109@gmail.com>
-Date: Fri, 16 Oct 2026 11:04:34 -0500
-X-Gm-Features: AclHuK8HVxQHZuZqBOsgDtltrMYxi2H1SXCcO2OimABd3Lxmh6ZoSPvRZjNaQho
-Message-ID: <CALQ9cS49UzOPA8PUh8Yf55+D5oim=9YRF9iHw0Hi0sXuZFDTVw@mail.gmail.com>
-Subject: Re: [PATCH 1/2] dt-bindings: media: i2c: dongwoon,dw9719: Document DW9714VA
-To: David Heidelberg <david@ixit.cz>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Daniel Scally <dan.scally@ideasonboard.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] media: i2c: ov13858: Add device tree support
+To: geocausa@gmail.com, Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Sergey Lebedev <lsa.uz@pm.me>,
+ German Pablo Lindo <germanpapulindez@gmail.com>,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261015-ov13858-x1e-v1-0-acdd918f4fb6@gmail.com>
+ <H_YflrQ_O6i59HAUsnzTG5J8wp_NNMC_tndzgzlbVRUtakJahIzRBeAoMDmm5Uunqwb63UcX4TgUrnSN-rMJOg==@protonmail.internalid>
+ <20261015-ov13858-x1e-v1-2-acdd918f4fb6@gmail.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261015-ov13858-x1e-v1-2-acdd918f4fb6@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thanks, sorry for the trouble caused by my insufficient checking.
-I did use an LLM to organize register tables for the binding and clean-room
-HAL user space drivers work when I find my chip acts differently. I
-focused too much on C files and neglected docs.I will treat documents
-more seriously in future patches. Since this chip is common and someone
-will inevitably do a better job, I won't send a v2. Please feel free to
-drop this series. Sorry for the noise.
+On 15/10/2026 22:48, George Neacsu via B4 Relay wrote:
+> From: George Neacsu <geocausa@gmail.com>
+> 
+> The rear camera of the Surface Pro 11 with a Snapdragon X Elite is an
+> OV13858 on a four-lane D-PHY link, described in the device tree. Add an
+> OF match table.
+> 
+> Parse the endpoint as other sensor drivers that serve both ACPI and DT
+> do. Wait for the endpoint if a bridge driver has not created it yet,
+> require four data lanes, and require both link frequencies, since the
+> modes switch between 540 and 270 MHz. The IPU bridge entry for OVTID858
+> lists both, so an ACPI machine with that entry probes as before. Without
+> the entry the sensor now waits for the bridge instead of probing into an
+> empty graph.
+> 
+> Tested on the Surface Pro 11 (X1E80100), with an out-of-tree CAMSS
+> capturing raw frames over CSIPHY1, CSID0 and an RDI interface:
+> 4224x3136 at 29.95 fps at 540 MHz, the colour-bar test pattern intact,
+> and a scene captures.
+> 
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: George Neacsu <geocausa@gmail.com>
+This is a weird change.
+
+You describe regulators, clocks and resets in the yaml file which then 
+don't appear to be supported in this result code ?
+
+- regulator_bulk_;
+- clock_bulk_
+- reset gpio optional
+
+I don't think this driver would survive suspend/resume.
+
+---
+bod
