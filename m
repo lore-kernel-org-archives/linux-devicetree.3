@@ -1,121 +1,112 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 551BA3CF20A
-	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 17:00:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C65943F4DDB;
+	Sun, 18 Oct 2026 17:44:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792342818; cv=none; b=PYreKBqE0fBsoSRe4+iZwEP5iilc6cbKC0Dc9ZWGLglBWHJcMjV0NswMOj0UEyIAaJPQvIvT0A5P/SBpjV2oSJm/GAKM2rubYQvxOxp4aVemDbQnrbXKDdcbGVB7b4LnIqs1OWPVk7YEzAp0vXai9zmK0ucuTiXbRv4DzveBGbU=
+	t=1792345456; cv=none; b=UdBay+TlS7QKTVLeZQWTh5UsxVx1ddYGjvvRr1akQTmAmQLbpdACY10rIoUSne6I/5b+Lb48xsbTmA/ue+dhhXz+9ocA+7UEqx5bVrGF1B134JMaV0/RHabAdlvcJl3Ge1npvGasI/Kwt8NJQki+z3XtYGk/EONAZaowbFj/LG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792342818; c=relaxed/simple;
-	bh=j6QwPSkInJeEhrzmgYZqfRvcEPRt7b6y26e5smlmvys=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=skbnLZ/BukNgn2DKhfNCcGlZEzmEx7wmCAWKtkDdX/sJ8eFJ+tijY/dBgHf0ouw+jlx4BAv+nJW2EKnb3pv/4bPBQa42rFWjmOEpU84Dnd5IMwPtw4oh3tSITteFteoaAAXMdpWkL+HhwdnA8Cpem7kYKz0TC5QpK1tX2EP6jpE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CXrVonlm; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792345456; c=relaxed/simple;
+	bh=HTgBam/57cwFDyFC9raY1HwslZ/Y36gSS6pch6RineI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=KYI5PlrGwXDFkkcot+uEYWps3qeq6Mus5nTVEHiSusKGrbAPSdfB8OoKv+CcN8S52mO1lMW2unnahA822g6kQQN0VGQfDAY7mvvpwMCCmj8U6HYaNQD7RMkRX23DNVIAX58svRW8EOYwHySZIgw6DBmhWafRsVxZH5e+nIbF9IU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SIA+fjgY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CXrVonlm"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48dee593f18so929586f8f.3
-        for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 10:00:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792342814; x=1792947614; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UqQp0/X3a9cfP9CawrgORU5i80U6c5G1RMObrYCGUFU=;
-        b=CXrVonlmDqUhebkpmralhJWlPrtut9hsjF+Tw9UDzJU24bJ4YTwBGJAvKxWkW075Re
-         4TLxIyhPLQGMS+H4ZtwF40pKK6ZmTaQbe6X++b2GZ2XFHPf7NSBSnOTRJ9NY4DeNU+y9
-         abVWKfk4YDtjP67ZxONfFfP7+gjxApnS0A7AcfmKFgdfrDlfAgbQA/E3AufbX5gA2sXP
-         w3sl/zQmcQa2ik2DRwB6r8mXN9JfZdSj5QQ44IITfvNLJ1M4MVqk07i3uWvCTov1dp1D
-         AzdyaPBpOiiPKnRZHK8CxMVtG7CKZ0jI7q8OSF7QhZRYP5bPmueUj5CkngbZBNaMpN6C
-         ayaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792342814; x=1792947614;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UqQp0/X3a9cfP9CawrgORU5i80U6c5G1RMObrYCGUFU=;
-        b=yvy/PGIgsTycULtbHnoXM1NYb6S8UTSpSKdkWigZmuvH3fdpgAu1Zr6CHpvaXrHkWZ
-         TIEe7ClRUjh9S7xBMuYAjaVFjrmdVW8XKzaAbwp89L0B4K64doGVLTDJVB8an8h3V2zx
-         TxOIzYfqv2pq0BsZUJrOGog4e57eYEVKjT4kR3Qg9dqsKTLYwvc3zjhQuwLf8/egcRG+
-         MwhDGcee9RkQqQL6efdNxoHZ6RKNjVQxlmvX0Mxtlun+lAwa/2/prPMO6e0cIfR67y93
-         /PtW5bAAPEvEZoszxAY8CWyFDQjvdr4K1dNE/+CUeCXzAPZy4ZBcpNytW5A+c1Yk9EGB
-         5kqw==
-X-Forwarded-Encrypted: i=1; AKwUvBxBEEvhzrJsYr8+Qfd4qeQXPWbVg/Xd6a0UhtxAonHgzkfwgpnl2sReiRYg3zpq8TRTQP7LTzShkVrP@vger.kernel.org
-X-Gm-Message-State: AFq9FYIwYK4+zUtleuw1e1uUywjTEktqNH2IHl4CJ1FcxTxJdSUtty9S
-	udpVvaKcp3gSnFMWkVvM4CtLaQrLQApbFG2NxBIRXtvmGnpz+19tLWwHDhIkFA==
-X-Gm-Gg: AYBFou2W7NfKkOgo/i9qbBNTiWIN1A42s58KFvO9UmfNt6bhF2QodlWuNRDIANdnNGy
-	oiycqDPDopMyhPyT/ZTh83jrfG8vZsi7M4wtc8POKpVrXSf7pLcmst6cXMOk+a5nt3UHjUW5Wnc
-	TQr7SoESQTb9Q4exHEQfhCiql6mrxxAL+5VK7O3fPJA9ePVCIz/oyWXOL07vaL9Y4WH3B/cSAVk
-	Ig0q3MDF0lizeNwDrCeloecyBOtkscmlGLtVE1CW7vh1pNMo5t/EhYFpyqFylxllxrzw3Xp57Qk
-	7NKQMPsrTVKNaCzhQ2Mg/lRg+q9akJ2tk5fMPeZpghgXyt2pELSZewSTKWv1+2AnIMiMrjaKT4Y
-	wpfoF85grdaUFLQcliLs9AlkcD+rusxvStCdTnNsIYZzVyeGnjnHymY4I8WdmV0+ePO1Ch+vcOB
-	pu/gucVBWt++9/fy5yUfxRJ7D10Oc0MKQvsgzBkw5DrdYk61U7BNqiSs35YdIJ3ELa6PRqrhyYl
-	wjR1BkOoPsbJIz28OQnqZnhyRvQs90o8ep1jhmWORD36utQcibQER8GoGxTE3nTF/XjUy6onnWK
-	wL91vrCGrq7xaYLDjdrN5Mc=
-X-Received: by 2002:a5d:4390:0:b0:48d:f025:110d with SMTP id ffacd0b85a97d-48e07fa9d49mr7744225f8f.43.1792342813663;
-        Sun, 18 Oct 2026 10:00:13 -0700 (PDT)
-Received: from Lord-Beerus.station ([93.66.71.207])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4ecac3sm19744454f8f.27.2026.10.18.10.00.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 10:00:12 -0700 (PDT)
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
-To: Frank Li <Frank.Li@nxp.com>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Luan Rafael Carneiro <luan.r@variscite.com>
-Subject: [PATCH v1 1/1] arm64: dts: imx8mm-var-som: fix touchscreen IRQ trigger
-Date: Sun, 18 Oct 2026 19:00:07 +0200
-Message-ID: <20261018170007.38381-1-stefano.r@variscite.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SIA+fjgY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 575CF1F000C4;
+	Sun, 18 Oct 2026 17:43:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792345454;
+	bh=4gfnIScozc18XM8zitveza+3VRuR3POnpsiN1zhL9F4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=SIA+fjgYvDk1MgBwz9nOjF9y0h174BUSLCt3E85aH9M9nEAFM3MMZH0Q+i3p88RKD
+	 SR1TzNlX7G8S/kSKs6zngO1dBrmeM6odtVFjyxk2lopGmdtOtAHBkz8AFZqMiE/14M
+	 VpA0A1u1kWAlkLuJh+dqb3iT2CS9P86A9bA6KgLJBpwGfU4ha4Lcy+d8FHSTw8Vn/y
+	 VOoOHTa5HnMvJhd4Z9V4oknHUWuFaSx2gzcuKSRihXeIlpbcqHkod3W0mIqQ4BJ8SW
+	 UJXJzHf7MZW5xbelE93ORwVzUpK6lK1pO5O/5hGrDZUJSTF1COM5jORXQDGis575F/
+	 NtmDWiVZ3Coig==
+From: Mark Brown <broonie@kernel.org>
+To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, 
+ Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Srinivas Kandagatla <srini@kernel.org>, 
+ Shawn Guo <shengchao.guo@oss.qualcomm.com>, 
+ Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+In-Reply-To: <20261009-nord-asoc-driver-support-v3-v3-0-0c1897f21ccf@oss.qualcomm.com>
+References: <20261009-nord-asoc-driver-support-v3-v3-0-0c1897f21ccf@oss.qualcomm.com>
+Subject: Re: [PATCH v3 0/7] ASoC: qcom: Add Nord audio support
+Message-Id: <179218547477.3162228.13366578492097805160.b4-ty@b4>
+Date: Fri, 16 Oct 2026 22:17:54 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2091; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=HTgBam/57cwFDyFC9raY1HwslZ/Y36gSS6pch6RineI=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLKusrq/E0qTYX7oyeK+3+pa4NIL784mhohEVAiov8iZr
+ uHy4FFiRykLgxgXg6yYIktcFvfL+pLXa/gOLmyDmcPKBDKEgYtTACYi3crIcEFygWPVaUfXl7bc
+ kr63m+W7Ws+5pHCsXXK2d6tmndmBpwz/nWY+WXJNx+qIyGYHTqdFyc9fHmdVFTLaf/WBZ8tFvth
+ L/AA=
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-From: Stefano Radaelli <stefano.r@variscite.com>
+On Fri, 09 Oct 2026 18:42:46 +0530, Mohammad Rafi Shaik wrote:
+> ASoC: qcom: Add Nord audio support
+> 
+> This series adds audio support for the Qualcomm Nord Ride and
+> RRD boards and includes the required machine driver, device tree
+> binding updates, and codec improvements needed for the board's
+> external audio codec configuration.
+> 
+> [...]
 
-The touchscreen interrupt is configured as level-high, causing a
-pending wakeup that prevents Symphony from entering suspend.
+Applied to
 
-Change the interrupt to falling-edge so the board can suspend
-with touchscreen wakeup enabled.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
 
-Fixes: 5f67317bd967 ("arm64: dts: imx8mm: correct interrupt flags")
-Co-developed-by: Luan Rafael Carneiro <luan.r@variscite.com>
-Signed-off-by: Luan Rafael Carneiro <luan.r@variscite.com>
-Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
----
- arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Thanks!
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony.dts b/arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony.dts
-index fd0a1862ce90..5a60430eb96a 100644
---- a/arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony.dts
-@@ -192,7 +192,7 @@ ft5x06_ts: touchscreen@38 {
- 		pinctrl-names = "default";
- 		pinctrl-0 = <&pinctrl_captouch>;
- 		interrupt-parent = <&gpio5>;
--		interrupts = <4 IRQ_TYPE_LEVEL_HIGH>;
-+		interrupts = <4 IRQ_TYPE_EDGE_FALLING>;
- 
- 		touchscreen-size-x = <800>;
- 		touchscreen-size-y = <480>;
--- 
-2.47.3
+[1/7] ASoC: dt-bindings: ti,pcm1681: Document the optional SCK clock
+      https://git.kernel.org/broonie/sound/c/8855a9319c18
+[2/7] ASoC: codec: pcm1681: Add optional SCK clock and runtime PM support
+      https://git.kernel.org/broonie/sound/c/8987e9a24f45
+[3/7] ASoC: codec: pcm1681: Add TDM support
+      https://git.kernel.org/broonie/sound/c/a93f77e4187f
+[4/7] ASoC: dt-bindings: ti,pcm1681: Document the PCM1681 supplies
+      https://git.kernel.org/broonie/sound/c/f5f5bfcecf65
+[5/7] ASoC: codec: pcm1681: Enable the PCM1681 supplies
+      https://git.kernel.org/broonie/sound/c/3b953d0e72a1
+[6/7] ASoC: dt-bindings: qcom,sm8250: Add Nord sound card
+      https://git.kernel.org/broonie/sound/c/22a72cf1d60c
+[7/7] ASoC: qcom: sc8280xp: Add Nord sound card support
+      https://git.kernel.org/broonie/sound/c/6e539c02b04b
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
