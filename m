@@ -1,114 +1,174 @@
-Received: from mta0.migadu.com (out-182.mta0.migadu.com [91.218.175.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E32AD449B17
-	for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 23:53:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7DA7175A9D;
+	Fri, 16 Oct 2026 00:03:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792108408; cv=none; b=KBG923Wpxywy9CAFOU8Mz8wsTKHngOZJERauYGDNK1TIiSMVr16mndzUW6dmLa7EpBx7p5YM6GbOuonAUOHmM5EFlKj3VzLKwx8vdu0zSzzfJhI8whSrGp7QhG/WCM2DpIB/6sbSfSHTj6FGWdByP7eHPFz2ec3sHs0YBXkvO48=
+	t=1792109034; cv=none; b=GcEUZbON0Sl7GBhm3Re/lHAxTmhPCRfMEXgo7FTIrzMNjEKdMtdtapWDgLq9Lrw3bLqDYLaaJp9keEkrU8qaHLavRwnM3CAWEj1yxjBy0q9F0C627LQHDpr3Xa7OOtiZC6tVcrDdB8hhPAPkeHife+luiEzYOTgbxcLj3iNRdPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792108408; c=relaxed/simple;
-	bh=FUpPXYfowSCUWW1Ifzz/TsytpfqsjiAGpIISXAFBqd8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ihvb8s05vc/AClU4LcWuwtU51q5qynUVoP+Dz3oM5llM25yg2Rbifynt79G/0nDKJaboL1gZjGQaTR8lNMDAQvmf2H2CdBLT8a4gjI6dQFEh+GW+PRmPO6KHRXcDfnxRxWa5kIn/pY5gQVuDCTYZgaDlXDTrQ/YYSdsNXKELIL8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=m0opDYTn; arc=none smtp.client-ip=91.218.175.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792109034; c=relaxed/simple;
+	bh=/J9vkQnHyxosFoJr9W9QBtjq0YYxgnpGBT61RpVtPOM=;
+	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
+	 Date:MIME-Version; b=FDoTwb61XxwCZbfcXsMHOIWKCUXgcscMEil4TFAWQppXdq4oFCB8FjxtcovcS9Sqm0NEgCdPVdxlPOFY3wy2aGLXyjEobPl38ss7JT3ijJg9JOoo7NUgRph5/Xu7eaLmrzoz3QTOL0D2tQP9c6TnwwfeOz4fjjj5asspvndjurg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=T8JmhcId; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="m0opDYTn"
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=FUpPXYfowSCUWW1Ifzz/TsytpfqsjiAGpIISXAFBqd8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792108404; v=1; x=1792713204;
- b=m0opDYTnqBJ9MFsVUPfK4U7gZDDrCZWKz1DTTfcnHBCwCByMolybO5hRl2+oYIHAoeLX6p32
- F9IXfBwenRcGBRu0zF7B1mMkT0TtMWq6PvvrXb1LpQ54MzKmcGpTkOjOZow9PO+9cugJis1moIb
- QNIe8D2XgSdFScvtDYmR8Th8=
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ba4637d7c08d0e1a;
-	Thu, 15 Oct 2026 23:53:24 +0000
-X-Mizu-Trace-ID: ba4637d7c08d0e1a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <7033a6bb-333f-4734-a3be-42b3f943d31a@linux.dev>
-Date: Fri, 16 Oct 2026 07:53:15 +0800
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="T8JmhcId"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69FJSN6v437488;
+	Fri, 16 Oct 2026 00:02:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=/J9vkQ
+	nHyxosFoJr9W9QBtjq0YYxgnpGBT61RpVtPOM=; b=T8JmhcIdM+IZlDu1hLe31J
+	m6mbjwcWL7wzOhkhG48GMAQlsaYPR+qFspy9MtxmiqJAc7tEhHppbNKH9Ly6ZtZV
+	VqxL0sG8s2UwXNLFqIJ/BYZUI5pdL3Q7nroUwRsfUZ8NnojGqzqlf4TRT4AYhP4L
+	6FIDNuGbJCz0GmEFk/Hg39Qj1dTW+wDF8Je9F6lhuDnTz0Ez1O9eo34NkYGd3QWl
+	cZT5GXWip3BeiaEHOopn1erdpxY1LeO4vtBHH3q98w6K3sLk76T90ISRopD52k3Y
+	zDVC5jr2MvAZIMwg+xjEXbsZPTVrL2CYSC8Mm8BnPyO6Np9NnZwnVMHA81Yvggnw
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dwjc4bu-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 16 Oct 2026 00:02:55 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69FN3x9q1927457;
+	Fri, 16 Oct 2026 00:02:54 GMT
+Received: from smtprelay01.wdc07v.mail.ibm.com ([172.16.1.68])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h9ypq94xa-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 16 Oct 2026 00:02:54 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com [10.39.53.229])
+	by smtprelay01.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69G02sUl44827056
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 16 Oct 2026 00:02:54 GMT
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 18558580DF;
+	Fri, 16 Oct 2026 00:02:54 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 36309580E3;
+	Fri, 16 Oct 2026 00:02:51 +0000 (GMT)
+Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com (unknown [9.61.159.15])
+	by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Fri, 16 Oct 2026 00:02:51 +0000 (GMT)
+Message-ID: <2dd935d171066eb4f1c251184eee871ad91f46b4.camel@linux.ibm.com>
+Subject: Re: [PATCH] kexec: Select ima_get/free_kexec_buffer() with
+ CONFIG_HAVE_IMA_KEXEC(_OF)
+From: Mimi Zohar <zohar@linux.ibm.com>
+To: Roberto Sassu <roberto.sassu@huaweicloud.com>, catalin.marinas@arm.com,
+        will@kernel.org, mark.rutland@arm.com, chenhuacai@kernel.org,
+        kernel@xen0n.name, maddy@linux.ibm.com, mpe@ellerman.id.au,
+        npiggin@gmail.com, chleroy@kernel.org, pjw@kernel.org,
+        palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
+        tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+        dave.hansen@linux.intel.com, hpa@zytor.com, robh@kernel.org,
+        saravanak@kernel.org
+Cc: x86@kernel.org, linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
+        linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
+        devicetree@vger.kernel.org, noodles@fb.com,
+        linux-integrity@vger.kernel.org, linux-security-module@vger.kernel.org,
+        Roberto Sassu
+ <roberto.sassu@huawei.com>
+In-Reply-To: <20261014150005.138309-1-roberto.sassu@huaweicloud.com>
+References: <20261014150005.138309-1-roberto.sassu@huaweicloud.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 15 Oct 2026 20:04:39 -0400
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] nvmem: Add Sophgo SG2044 eFuse driver
-To: Inochi Amaoto <inochiama@gmail.com>,
- Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: devicetree@vger.kernel.org, sophgo@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
-References: <20261014074516.240247-1-inochiama@gmail.com>
- <20261014074516.240247-3-inochiama@gmail.com>
- <fa4253c7-3b17-4b20-97b9-eb37f218a4c8@linux.dev>
- <atCV8NsJc5Oatoo0@inochi.infowork>
-From: Chen Wang <chen.wang@linux.dev>
-In-Reply-To: <atCV8NsJc5Oatoo0@inochi.infowork>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA5NCBTYWx0ZWRfX2HSmi+79F5sk
+ F6cJ7NPejHB+7WHifxwy2jTNeN+1trz8LY4O/c9Nrxfke0WNdl7j1Q+67s4DKMWPR6esIHz8ktI
+ K0tq6WDkqAuHdd5alAeGCbELszv+Iy4JZ0+fqSO/L13P8KVSgc+hLSs0BUMcp1abGeEddTWuQ0x
+ DgckQmdPn28cVLNyaRpJNpQgHrkPzvNhtB4BrwiL11DqWhTQ4iKZBnJ6O6YMYp3wIbPkHlbPNTu
+ yuFjLtwZNiUnx0o6/TBRUj7JJDZnA2Psv+zNVmANtyZBcqWuyk14cfQgW2Kd9p6jpMvxEPS0i4P
+ 9izNnrleHEY+3qJ5vxEC5owm2SmqeBCu4OE58PHvT8msLi1bqUTwEmcDI3uhC1lcyvBSJ8AI2/Z
+ P4yU5XoeV0+kwIer2DSUzTnv5W4e9/IuU49Yz1D77lWvgRbiAXpcAuzu2CM8QtMFWDh3J7Pn/95
+ F6Hddu++a3Zm8l5+F0g==
+X-Proofpoint-GUID: NTtm2mgFbtZvv4BT6wKycrFWT1K8ZNoK
+X-Proofpoint-ORIG-GUID: tiREeBn2CptRBXexEe4TPGoQAtBFlstP
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA5NCBTYWx0ZWRfX/DAorNGlPVs4
+ yv5/RElxR2BVrhNGnK8pZHiy6neDZgmPdHp2jFgKzGeIaabQ9Lw8/ORsLJZrcqeRQhQk4Obp43l
+ W/UyHe4tHhV1wBc+cnuG7GIYhmkZQRE=
+X-Authority-Analysis: v=2.4 cv=btHZl0ai c=1 sm=1 tr=0 ts=6ad169af cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=i0EeH86SAAAA:8
+ a=oj6d6ukrGZa-rDQ9-ikA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 phishscore=0 impostorscore=0 adultscore=0
+ lowpriorityscore=0 priorityscore=1501 clxscore=1011 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610150094
 
+Hi Roberto,
 
-On 10/15/2026 5:03 PM, Inochi Amaoto wrote:
-> On Thu, Oct 15, 2026 at 02:43:40PM +0800, Chen Wang wrote:
->> Hello,
->>
->> On 10/14/2026 3:45 PM, Inochi Amaoto wrote:
->>> Sophgo SoCs such as SG2044 contain eFuses used to store
->>> factory-programmed data.
->>>
->>> As for SG2044, HW automatically loads the eFuse content
->>> into shadow registers which are organized as 32bit values
->>> exposed as MMIO.
->>>
->>> Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
->>> ---
->>>    drivers/nvmem/Kconfig        |  12 +++
->>>    drivers/nvmem/Makefile       |   2 +
->>>    drivers/nvmem/sophgo-efuse.c | 176 +++++++++++++++++++++++++++++++++++
->>>    3 files changed, 190 insertions(+)
->>>    create mode 100644 drivers/nvmem/sophgo-efuse.c
->>>
->>> diff --git a/drivers/nvmem/Kconfig b/drivers/nvmem/Kconfig
->>> index c36c2a4c2a0b..a7936dd65bdd 100644
->>> --- a/drivers/nvmem/Kconfig
->>> +++ b/drivers/nvmem/Kconfig
->>> @@ -465,6 +465,18 @@ config NVMEM_SNVS_LPGPR
->>>    	  This driver can also be built as a module. If so, the module
->>>    	  will be called nvmem-snvs-lpgpr.
->>> +config NVMEM_SOPHGO_EFUSE
->>> +	tristate "Sophgo eFuse support"
->>> +	depends on ARCH_SOPHGO || COMPILE_TEST
->>> +	default ARCH_SOPHGO
->>> +	help
->>> +	  Say y here to enable support for reading eFuses on Sophgo SoCs
->>> +	  such as the CV1800B. These are e.g. used to store factory programmed
->> Why is "CV1800B"?
->>
-> This is an old mistake, this patch follows Jishengs's patch in the first
-> design. But then almost everything changed and only thing for SG2044 left.
-> This is the thing that is left to change.
->
-> I am not sure whether it should keep this generic name as I see it should
-> be compatible for most sophgo SoCs (at least it should be for CV1800X,
-> by just change offset). Feel free to give if you have some suggestion for
-> a better name
+On Wed, 2026-10-14 at 17:00 +0200, Roberto Sassu wrote:
+> From: Roberto Sassu <roberto.sassu@huawei.com>
 
-I raise this point because the subject of your patch indicates it is 
-intended for the SG2044.
+The first paragraph should explain the problem from a high level: the user-
+visible impact and cause. For example, something like:
 
-If you are simply using it as an example （"such as ..."）, then 
-specifying "SG2044" is sufficient, even though, based on your current 
-explanation, it would also apply to other Sophgo chips, such as the CV1800X.
+=E2=80=9COn x86, if CONFIG_OF_FLATTREE is enabled, the kernel uses the devi=
+ce tree
+implementation of ima_get/free_kexec_buffer(). However, x86 doesn=E2=80=99t=
+ pass the IMA
+buffer through the device tree, so the buffer is never found and the IMA
+measurement log is not carried over across kexec.=E2=80=9D
 
->
-> Regards,
-> Inochi
+Then continue with the fix: defining CONFIG_HAVE_IMA_KEXEC_OF and selecting=
+ it
+only on the architectures that use the device tree implementation.
+
+thanks,
+
+Mimi
+
+>=20
+> The ima_get/free_kexec_buffer() device tree implementation relies on the
+> arch code calling of_kexec_alloc_and_setup_fdt() to pass the information
+> about where the IMA kexec buffer is located. Only the arm64, powerpc and
+> riscv architectures support that. LoongArch implicitly assumes that the
+> device tree implementation is used, but it does not call that function.
+
+>=20
+> The ima_get/free_kexec_buffer() x86 implementation instead still relies o=
+n
+> the setup data to pass the kexec buffer information, and is built only if
+> CONFIG_OF_FLATTREE is not defined.
+>=20
+> However, if CONFIG_OF_FLATTREE is selected in x86, x86 attempts to use th=
+e
+> device tree implementations of ima_get/free_kexec_buffer(), which are nev=
+er
+> going to succeed because of_kexec_alloc_and_setup_fdt() is not called for
+> that architecture.
+>=20
+> Instead, define CONFIG_HAVE_IMA_KEXEC_OF (automatically selects
+> HAVE_IMA_KEXEC), select it for the architectures that should use the
+> ima_get/free_kexec_buffer() device tree implementation, and enable these
+> functions if the new config option is enabled. Set it also on LoongArch, =
+to
+> preserve the current behavior and avoid a link failure. LoongArch does no=
+t
+> pass the buffer location to the next kernel yet; this will be addressed
+> separately.
+>=20
+> Finally, don't select it for x86, and use x86's own setup_data-based
+> implementation regardless of CONFIG_OF_FLATTREE.
+>=20
+> Fixes: b69a2afd5afc ("x86/kexec: Carry forward IMA measurement log on kex=
+ec")
+> Signed-off-by: Roberto Sassu <roberto.sassu@huawei.com>
