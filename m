@@ -1,106 +1,116 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46C063B71A9
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 14:55:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D38925393E;
+	Fri, 16 Oct 2026 14:55:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792162543; cv=none; b=IZr5LdB5X4qqkXHjMFLcB01iyd6u2Mbt6aN1pvtPxIGKNGafgfwGJTaUdpsTPMZjmd5wfssIyVBet49RkVdKFh0c7Mr8+iejlTxeWatMoGgflCmLKrtJfnzGJxxPV3umbfm8kQkuTzFNpW6zlARNKR+qGm5kVIwo0zUiv6F6JJY=
+	t=1792162552; cv=none; b=LS1WyMUmZd2WGt6z145CpJWUNJY1+kZ/m9YM2Y8cO0C/xOTrGQlE6ZORqwNAY8JXBVmrNh6veaWnRFoN9nSSGEe7ww1c7gWsqlGM8fgH8GTKshJ9xTDjZhSFqlPWw7u6J0PhyWV04SbMKJDNRkbQsimRsDsG1iTr161Vyku1y2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792162543; c=relaxed/simple;
-	bh=XK7vv/04wyL0TWzlH7GP/CnUNFZcElOqGx+KF54CsWs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UTxE1G78VeRcyheZw9592sZ7bcAEcwlR8qA1BUb+z0fSFIH6MMcFWGmYIajS9dl+Md9Y67uollb2ozLeET6uYWhNaBvuLUHjIcbhXCXexQmYlOqGH2imTLIhpvXPfi3o1VIS9bI8ziyOPb+WXpY8jDg1xaRONq8rRj2tg9sYeu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wu1myAz6; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792162552; c=relaxed/simple;
+	bh=vvW+tXxtzdN6I5geVXOl+0WL8nPhfGnE3NxJZnXr37A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KjtJAbHLJNBFbfLOMv7GlHpz7sEqH75u2KekCC+x/sj9tfAHM+sSdmrrchqjq+vQssaxU9R4qiPF/tGWKgKIPgqrzST4juP3s3K7pYZBVM+2bvhLSGrVk+EOjEvEVdxdHoJ/st6Dwz2RY6YqBxFbRW40+M/78E++cJdgFVvlhas=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YVVixLhG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wu1myAz6"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a1af482519so571265e9.1
-        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 07:55:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792162540; x=1792767340; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XK7vv/04wyL0TWzlH7GP/CnUNFZcElOqGx+KF54CsWs=;
-        b=Wu1myAz6QJi4oUMo44ab12nQprIAITpLsiWvKBDPgzLsgsLlwYPyvWZE7SW0+qEGe/
-         KNwtNSSWJwXDc/vqVQB9PL+gmzTC/e0imDS6McI4/TR2MdgpyO2izJP5ehxqkULfSyd8
-         NodQ8U9oumLNTcf/a5QjPWqOQb/Oq5OHvwtHOhrCto5L6Qr17xdMdsT85Z9Ktj40CrRB
-         Mz6qeJ0nLMnXtf/5sSJyZyjqFZ56C3/HUc9OMGnDXFXKDc0MJu+YdPy3Cp86t6xX+x/U
-         iWCHYottR73mSvzKSDLaKrUf/p8+YlmERmQbDPi6xBqEqzlAqlHJghfaRztB1q3U2wXt
-         D5og==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792162540; x=1792767340;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XK7vv/04wyL0TWzlH7GP/CnUNFZcElOqGx+KF54CsWs=;
-        b=KoYRwYkfRIhjbjDa8pgabCpct8vlEkLZJFxwqmciMygN9mau9f3w3j3n4Y6Oip6Foy
-         bCuZQpngYOd+xGiRYkfozqQFROtYKL0iRNiLUXwSn/lQ/RPZgNcL6cmXirKZ8HfKrD1T
-         NfL7FZRzh35KTCzUS/ogkYm9K1qbLEoqghoV2WiFGDu94sfDPG0BvO2a9p0gNtTVve5G
-         BUwcJvJ2nw24e9OQbrx/exD8vh1SP8Yoh+srxql/UxPJ0Lr8qrQ7GdbhBM6UY1KycX1W
-         r7GfK9MwJSWw3uFGA2EoSkNRiZztlUZGNCQans/czexz16BboS3GpTMWF4Cw09uh2UHE
-         gaUw==
-X-Forwarded-Encrypted: i=1; AKwUvBzb/XmCTHPtM+2ijYYiXi2XJo6e4DH26sOyvx2dWkBdoFGTT2Lxd8Jk2r8X006ebd0E4XsYA5v/AuAH@vger.kernel.org
-X-Gm-Message-State: AFq9FYIycXdivoIu/x/hb4TxR5dunxqjpR0yY/EHrrmDYOela9bEa4y2
-	iubmrjfZxRPCLkaMvLQ7A8bYhq104S6R4iPo5UKkkByDbs8h5nHA4mT+
-X-Gm-Gg: AYBFou3tQS0YIW5Y7fDTxlITw5uMsCkvlmg8t1cMWm6lwOmcEbYBvUBey+p1/Nlgz1Z
-	H90/nmc6H8l1Bs8fjKe4iD9r+lAD/G0NguY2gOrDuYflzaW5noTJpy46WLxy7kiuRDc3LN0zQ+Q
-	OxZtwwiFDt6BU5AsaE5HzrTvf1nEab/GyGbFVw5LLjvB6rxE8sDKZ8WOMTX26AjiI3xnPJmiwvk
-	8Iffk2SLpkNmVOcaivz76w7ts7qvW6IifTI22d5K48Cv6RZ3qGzrqdK8Clz6Xq3miSZZpW6E+iD
-	sA6fRd9O7qSIQOhB9ZCs4ZMnU5ii84Suvli2XgZFwhkzwBM0Zx3unwvEZ5bIo48zZ+5AX+4wLXe
-	woc9zfDwSMFm32I62irgC2RoilbEBH2ddTyVa71N19dYkErobjS7GHcbA7KmNjK6xWazwexs5Lc
-	3jJE3NFNVV2Z/3yAVCGB+pXnR3LQ+DwB0mV0wmh91quxy+RwQRmDBq/4ItmUhC33LRN/kV2oOg5
-	U1Ciz8acjUgWzOdUqO7LV8gFCI63f0Ozge3csKlERNGVeLBK6jsF9SR+uILGpekAjKlV9oy
-X-Received: by 2002:a05:600c:468e:b0:49f:ffa2:1c72 with SMTP id 5b1f17b1804b1-4a1d7605110mr875865e9.11.1792162540534;
-        Fri, 16 Oct 2026 07:55:40 -0700 (PDT)
-Received: from SP11X1e.cable.virginm.net (cpc99340-croy26-2-0-cust244.19-2.cable.virginm.net. [80.193.62.245])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1c8ad6252sm90481395e9.5.2026.10.16.07.55.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 07:55:40 -0700 (PDT)
-From: George Neacsu <geocausa@gmail.com>
-To: Sergey Lebedev <lsa.uz@pm.me>,
-	Andre Gilerson <andre.gilerson@gmail.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	German Pablo Lindo <germanpapulindez@gmail.com>,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 0/2] media: imx681: C-PHY for the Surface Pro 11 (Snapdragon)
-Date: Fri, 16 Oct 2026 15:55:38 +0100
-Message-ID: <20261016145538.37162-1-geocausa@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016065952.11638-1-lsa.uz@pm.me>
-References: <20261015-imx681-x1e-v1-0-fd22f5f3b0c5@gmail.com> <20261016065952.11638-1-lsa.uz@pm.me>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YVVixLhG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B45151F000C4;
+	Fri, 16 Oct 2026 14:55:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792162550;
+	bh=HhtVeYkvsS+hUH81qeSZd9eDeA6WZokyxakf6Hvk2cM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=YVVixLhGuLB7tQYbrxE9/IwBLqmd7ds1I4b2GbC2B00J0n/L/9isaUIVuyStH1sdo
+	 TzySl893O1lblFk/ZPLe18oCCr+FbRhRsdHAYwFFFKiB0a/y7sPPIZ+J4Y8XeFpBVJ
+	 JOuLceWS/jnjC25ncV7FeHLjS3LC5WrbR/u5jEi/WX5wZ5bVIiTFS2HlbqlnHEorph
+	 ROGG9aT3nSIFcQOISx3GgvS+oOrtH3TSs2X9IPuH3cdV0gCYw2nUY1J7AaNAuP9tyP
+	 DSHWdjCj4MqNB03obH0KO7F5B5xs/JNqEGIw9vaBICx7EQNg/1zEFDd1kSbb3J2CdJ
+	 tFaDdue+993Xg==
+Message-ID: <eeac49eb-1623-4ea1-9cba-aba87bb9f11e@kernel.org>
+Date: Fri, 16 Oct 2026 16:55:45 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: crypto: qcom,inline-crypto-engine: Add
+ IPQ5210, IPQ5424 and IPQ9650
+To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
+ Abel Vesa <abelvesa@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261016-ice-v1-1-4098b1972f31@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <20261016-ice-v1-1-4098b1972f31@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Sergey,
+On 16/10/2026 13:08, Varadarajan Narayanan wrote:
+>            minItems: 2
+>  
+> +  - if:
+> +      not:
+> +        properties:
+> +          compatible:
+> +            contains:
+> +              enum:
+> +                - qcom,ipq5424-inline-crypto-engine
+> +                - qcom,ipq5210-inline-crypto-engine
 
-Thank you for testing 2/2 on the Intel model, and for the register
-readbacks.
+Keep the list sorted.
 
-On 16/10/2026 08:00, Sergey Lebedev wrote:
-> As for how to take them, I would keep v8 as it is, since it has Andre's
-> Ack and Krzysztof's review, and have yours follow once it is merged.
+With this fixed:
 
-Agreed. I will resend these two on top of v8 once it is merged.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-On CSI_LANE_MODE: since it reads 0x01 on your machine without the
-write, I will check whether C-PHY on the Snapdragon model streams
-without it as well, and drop the write from 2/2 if it does.
-
-Thanks,
-George
+Best regards,
+Krzysztof
