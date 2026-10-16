@@ -1,158 +1,87 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AEDF4F5DF0;
-	Fri, 16 Oct 2026 16:39:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EE124FD27E;
+	Fri, 16 Oct 2026 16:45:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792168779; cv=none; b=GUSGO0UYwS5VU62BVWrAavmIqUY4fOwlSHRlbFv9vwoGAeGjMtNSd//oMqZr8Yw68U8RkLfrGyUJXJH/lOWZRPhJoyg9PaUVjduoNOOquOyuQZeByaS6cmdr8RsWPega06p7wFvgYKybAPmm+NAoeXxRqUCZv+Wr5M0DIihiBJ4=
+	t=1792169106; cv=none; b=dEJpCj3zGNpTvtbXIdK6JmJ9SuNrwhmlQC9KCOWqzJBApGRkWe64TiJHLzGa8LuJ4kSHSprBFoWiaszXRuTDvQL4TuMNvXMdu0cHKXRt8fU0WcSQue8v9fVlVWtw0z8cOeJjzq1tQ+IhMoooOnvGXjV3oO9CON3ybCtYKishzZ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792168779; c=relaxed/simple;
-	bh=dHATyNE/FfGScpjzpErBx+zJ3QcicVAAVnH4mLN2T/M=;
+	s=arc-20240116; t=1792169106; c=relaxed/simple;
+	bh=/OiVgVxpwbpXkfCrpnpYx3Ihy+io2EfVJwfNkA8DxxI=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=AF7UeLiH83VLyaCKHnJherO0PQdEPHSKpXr/ErBpwYtgz9AOtxuZvNCsd4FdsETiHoNYQ0MnImZ3QdPOctEBpSPVUlPqQsKTBhCPuywGIBtGfHdTec4T+bkbbYdZXTDv1qBdp87Twe6WnxzbGDMWVzTNi3t7fa2NIfBA7eiQjp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TZp0Nc47; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=Ft7QheBOMcUSv3+VUghuKpF8KO6xVRXBBuQERn3cGnELTLrBftFwqc8iZC3x/1mX/mSXUn3i2LijTrRRPCF0aRFhslzQw0pNUmPFF1EhI6wPUDhF441JdIv2/wnLih/GpUGuCz0tWcObHBEJiK286JI/5c6t/04Aat6wTuP+vQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lDsKW4nu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TZp0Nc47"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7491E1F000C4;
-	Fri, 16 Oct 2026 16:39:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lDsKW4nu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F7661F000C4;
+	Fri, 16 Oct 2026 16:45:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792168777;
-	bh=mu5Or24tAvvN5+fThhSll8YuACjLcuqS/05wCRz8M40=;
+	s=k20260515; t=1792169104;
+	bh=5mx/1ybJsIQg9P8lIAdRtJ/VMzCkdNmAYluRg7lvk/A=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TZp0Nc475kkzdpWZEJMAFQF5eNY6VLidiNVrAvZ2AdGDQnN1o9EsEVUpReJC434KS
-	 Vt1Slo0dCvBLK427Qp7K87COm9qoHZ71DL0dyCqTjiyZmkKFVZse/+Kv6K9XRKlvoR
-	 hfLRBnJL6g8i8xlfYas9mugeksUFFQAErBYSHUkVXlHXhvBkop4LcLEOLljI/puIWc
-	 tidV4lxlb0nVkket5HQcjg/bvWul697W1KUhM1oDl3mECn5Ibv3j4ZnQ6PyeJJzvth
-	 foXfyGapn/e+4HyUCoyanmN99aCPjm2TUqHmFfU1elxYjhhIYXRuuNvhZYYdRYAbWG
-	 fgKaTtKA9aRBg==
-Message-ID: <sashiko-outbox-174655@kernel.org>
+	b=lDsKW4nuaQkyoNff2IyRxKwFLloxJVm3MB4U4BcHiWB0sja2U5dtaPtd+zPsJMVui
+	 2snW6tSfwm4wkapNm3Pb709qRe7jE6SuQh3Goe/zrMs2fLfhrwlqcdxJTwsVZBGfDC
+	 adtGdLqh1JVpY4h8W7zfydzj/mqmbdEyDUFzmeLIS3Fttiurntw/mYHdOIduFn84+x
+	 g04CvYKO7Pq/uLx/6GH+WVvfok8yF7CgYQwnQw82dMTq/CWhYBSNjFytkcfYacz8N2
+	 2ttpsKKw40zXYIqYGLQI7PoZ+SvrblKGEzo2N0gt/X2e+OlLiL/GetCiLxJcqop0wD
+	 zhXfLbLrTkRNA==
+Message-ID: <sashiko-outbox-174660@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] backlight: Add Awinic AW99703 backlight driver
+Subject: Re: [PATCH v6 1/2] dt-bindings: input: add OnePlus pogo-pin
+ keyboard
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Luka Panio" <lukapanio@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
-In-Reply-To: <20261016162912.64581-3-lukapanio@gmail.com>
-References: <20261016162912.64581-1-lukapanio@gmail.com>
- <20261016162912.64581-3-lukapanio@gmail.com>
+To: wyibo6109@gmail.com, linux-input@vger.kernel.org
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
+In-Reply-To: <20261016163859.1070138-2-wyibo6109@gmail.com>
+References: <20261016163859.1070138-1-wyibo6109@gmail.com>
+ <20261016163859.1070138-2-wyibo6109@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 16 Oct 2026 16:39:36 +0000
+Date: Fri, 16 Oct 2026 16:45:03 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] build: Incompatible pointer type passed to device_property_read_u3=
-2()
-- [Medium] gpio: Hardware left powered on upon early probe failure
-- [Low] backlight: TOCTOU race in aw99703_shutdown() missing update_lock
+- [Low] MAINTAINERS: new ONEPLUS entry is inserted out of alphabetical order
 --
 
-commit b010e2c6526192785d6b65bcadf761f3928c7acd
-Author: Luka Panio <lukapanio@gmail.com>
+commit a3b7a3bdc211b0789ad103d539fa35e6dcf0f689
+Author: Yibo Wang <wyibo6109@gmail.com>
 
-backlight: Add Awinic AW99703 backlight driver
+dt-bindings: input: add OnePlus pogo-pin keyboard
 
-Add a driver for the Awinic AW99703 3-string WLED backlight controller.
+This commit adds device tree bindings for the OnePlus Pad and OPPO Pad
+pogo-pin smart keyboards. It defines the required properties for the keyboa=
+rd
+MCU attached via UART, and adds the corresponding maintainer entry.
 
-> diff --git a/drivers/video/backlight/aw99703.c b/drivers/video/backlight/=
-aw99703.c
-> new file mode 100644
-> index 0000000000000..b0a46753d1765
-> --- /dev/null
-> +++ b/drivers/video/backlight/aw99703.c
-[ ... ]
-> +static void aw99703_dt_parse(struct aw99703_device *aw,
-> +			     struct backlight_properties *props)
-> +{
-[ ... ]
-> +	props->max_brightness =3D AW99703_MAX_BRT_LVL;
-> +	device_property_read_u32(aw->dev, "max-brightness",
-> +				 &props->max_brightness);
-
-[Severity: High]
-Does this code trigger a -Wincompatible-pointer-types build failure?
-
-device_property_read_u32() expects a u32 * as its third argument, but
-&props->max_brightness is a pointer to int. In recent kernel builds, this
-warning is promoted to a fatal error.
-
-> +	if (props->max_brightness > AW99703_MAX_BRT_LVL)
-> +		props->max_brightness =3D AW99703_MAX_BRT_LVL;
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index b8c4e1080af94..d81e400059ced 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -20154,6 +20154,12 @@ S:	Maintained
+>  F:	Documentation/ABI/testing/sysfs-bus-platform-onboard-usb-dev
+>  F:	drivers/usb/misc/onboard_usb_dev.c
+> =20
+> +ONEPLUS POGO-PIN KEYBOARD DRIVER
+> +M:	Yibo Wang <wyibo6109@gmail.com>
+> +L:	linux-input@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
 > +
-> +	props->brightness =3D props->max_brightness >> 1;
-> +	device_property_read_u32(aw->dev, "default-brightness",
-> +				 &props->brightness);
-
-[Severity: High]
-Similarly, &props->brightness is also a pointer to int.
-
-[ ... ]
-> +static void aw99703_power_off(void *data)
-> +{
-> +	struct aw99703_device *aw =3D data;
-> +
-> +	aw99703_update_brightness(aw, 0);
-> +	gpiod_set_value_cansleep(aw->hwen_gpio, 0);
-> +}
-> +
-> +static int aw99703_probe(struct i2c_client *client)
-> +{
-[ ... ]
-> +	if (aw->hwen_gpio) {
-> +		ret =3D gpiod_direction_output(aw->hwen_gpio, 1);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "failed to drive enable gpio\n");
-> +		fsleep(AW99703_HWEN_ON_DELAY_US);
-> +	}
-> +
-> +	ret =3D aw99703_chip_id_read(aw);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "chip id check failed\n");
-
-[Severity: Medium]
-If the chip ID read fails, does this return without de-asserting the GPIO?
-
-The probe function sets the hwen_gpio output to 1 to power on the chip,
-but if aw99703_chip_id_read() or aw99703_hw_init() fail, it returns an
-error code immediately. Since the devm_add_action_or_reset() for
-aw99703_power_off is registered later in the function, the cleanup
-action won't execute on early probe failure, leaving the hardware
-permanently enabled.
-
-> +
-> +	props.type =3D BACKLIGHT_RAW;
-> +	aw99703_dt_parse(aw, &props);
-> +	aw99703_read_boot_brightness(aw, &props);
-> +
-> +	ret =3D aw99703_hw_init(aw);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to initialize chip\n");
-> +
-> +	ret =3D devm_add_action_or_reset(dev, aw99703_power_off, aw);
-[ ... ]
-> +static void aw99703_shutdown(struct i2c_client *client)
-> +{
-> +	aw99703_power_off(i2c_get_clientdata(client));
-> +}
+>  ONENAND FLASH DRIVER
 
 [Severity: Low]
-Is there a data race between this shutdown callback and concurrent sysfs
-writes to the brightness attribute?
-
-aw99703_shutdown() invokes aw99703_power_off(), which modifies the
-aw->bl_enable flag and writes to I2C registers via aw99703_update_brightnes=
-s()
-without acquiring the backlight bd->update_lock mutex. Since userspace tasks
-are not frozen during system shutdown, a concurrent sysfs operation could
-attempt to communicate with the chip while its registers are being written
-or after the power pin is de-asserted.
+This isn't a bug, but should this new maintainer entry be placed further
+down to preserve alphabetical sorting? Since P in ONEPLUS comes after N in
+ONENAND, inserting it here places it out of alphabetical order, which might
+trigger warnings from automated sorting checks or checkpatch.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016162912.6458=
-1-1-lukapanio@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016163859.1070=
+138-1-wyibo6109@gmail.com?part=3D1
