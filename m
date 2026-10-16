@@ -1,69 +1,69 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A18F45040F
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 08:56:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5939545199D
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 08:56:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792141014; cv=none; b=H7lYFitR1xXnF1BVV+r+mStq6UoCJh4V8nOPGySXYXnnj+DAFv8BpP0KHcQdzJEqmh5yUt1/9+UL44Em2p5R178fsUTuHF4RweYRq+BA+JHSO6N7IjWBHXB62enMEnEhIFB1hUiJoALwMdQ23yD1pvpmBM0UU3Ic+G4Yuwms89w=
+	t=1792141023; cv=none; b=gTWA91kpFsBid1G1xHKm1W7RGZkTUeTBmZ5rDzgIXhKRXXXD73iaFFz2NFP2q9I001PO82UglfvBg3dXyzux3Gm8Ipvn8ceqmWSeFn0DFHDf5rHN1kLvSSFra/ByCbLzItpJl/9U2uWJPMVdrpyBQgrFHzHxmlrUXjeXMpL54/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792141014; c=relaxed/simple;
-	bh=YkXszimtwNYxX/s0QEul4OMgnFGKSMEKdd1MDqGTukk=;
+	s=arc-20240116; t=1792141023; c=relaxed/simple;
+	bh=ce8JdNOJs5zvcQeCguszU9j59LCLfLXe7OkJrHqM/YE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eSt7Du4b/HkjS07/YvC+/ZPbW9TrOC9RDTsWy56tmyMowXXl7e0WIdzmPbj3DSX+UO1pW233jJtptw0KlmiBDRHUiJhx7QFbSj6OmN5bd5j0EvsM0KZXc+YVs6WJpZRtvn34/Y8v8tDE9Z4gGBmBR0OgB1dCA5olf7C2koaUGac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kDa0cDIZ; arc=none smtp.client-ip=209.85.215.169
+	 In-Reply-To:To:Cc; b=Lhmm0bxFTXKpdmz7xVl5o1Cza0x9bqpTlAbnApC7B+M5c8XukysU7a3hoqqZQ0asB22/c3lNpwOTxWc2XrdjOkiQk4P5BhS5PodNKfGIKUEh6ehj8AXE3n2MmhyB4i5wNIIFoAqqOFa+h6K1AVdq/VVf2wllPur7ooORyBbOgeo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BSqy1MPw; arc=none smtp.client-ip=209.85.214.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kDa0cDIZ"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-ccb5faf0678so418342a12.3
-        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 01:56:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BSqy1MPw"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2db3728f0c4so5183315ad.0
+        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 01:56:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792141011; x=1792745811; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792141015; x=1792745815; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4t98YFhToVmXSdqpvYlx+jh33cXkNHD7dPs1AUtblco=;
-        b=kDa0cDIZn7saGLH+mUmFYZZPGPuj6l14N9qS7GHtuWxiuJ0V1St84dOkhoyq7UB3Ti
-         ACn2po+qbNonpbf8n1/56RImUcSHoMAzhq/U1etcyaWStOtKkWcjIkFkNNWAYzGv9I9k
-         rNjanC1fmLGG3VheuvwpfKWKinSAUfnzRHwybcWXpM5yg3Omz4Rke9Q2T1MNHUegcC1R
-         LCsoJrDJ+qTZyZ7TbVKj8oaKpw9N2Zr5rhMtYq82CvqIO7/xaSIdoFzdGkpKbIBtdoMv
-         a87Y8fh5S64BbS/TTAqm+zEqAwIVJFb0FOYJDRO/U5Mrjtq+s7iXP6ju8nOWuEzzyjN9
-         6HLA==
+        bh=VtLGyN+PdzUpUTcE98Aumqo/hwiyHlck/gS/TT4kqGo=;
+        b=BSqy1MPwa4RaYyL+SyGyVe0CXoIXk+ad5qtV/seW+o7mxvy/4/+tcZl7tIQvmnC1Gg
+         Wr95on/WLC6pK9itHJh+0ppVk4LJ6/x0ihESuILlBXH/hTlApz0jvOi+LDMC/m8WP5Eu
+         KKNvg2itCRuh1W1UpWAN7pX8L/8DE4M64F750DzpPP2QaFEv9sROQG1g1MjSXhTUUyMs
+         Ok355RO1COGBihoSW8DmHyzasGxhLFSBIZPloRm8qEVOiKR4WwV67f3kUVIigwrPC9I9
+         tyNXIsua1m22UW44baPGyRLB3oskzZh2LzVHpJvR3UYzE2V2qpSQo0jECT5KITuQec0+
+         kaKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792141011; x=1792745811;
+        d=1e100.net; s=20260707; t=1792141015; x=1792745815;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4t98YFhToVmXSdqpvYlx+jh33cXkNHD7dPs1AUtblco=;
-        b=omftGh39qNOPykYVaq54S5yW+VRHFgvEMasgI8B64fbVZBjEMmuC7asxnXjaVg10D8
-         MKk0biouwW84EBkM54JXyR14NeKLPBlMya/surkahf3zhOIFuPIr1swsCJNeDp2NKSxN
-         rouVN12dHE3eBWe+eXwo1u9AU14tjGu5+FYZIxYqeHAA8IqiogYhMRZ4aD12EFhet+M/
-         cjH4wOEukhDDyEANzT2kDOJvKynYezgww2grXEWST+5VdxmPme2eJq5L1gfs3ROQ+KRs
-         gHzN8LXEA80ja099C534O0Q46geGCxFG1lq/ReEsuOpqHu1oGg6o/6sJfmi330ks45iR
-         gIhQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzXcYzZb4n5epS5Yp3tDfuBK5EJBYANPa72kVw2yPmWrk8TYilWgrD1MLDmbiQNBKe19yEhASeSgDTl@vger.kernel.org
-X-Gm-Message-State: AFq9FYJiSdb04SsweEfko4LgK5ApExbThBgRI3RY+0AswGkZupUFvdL5
-	5Pm7J5N6VQfFjPcoaggxQ6PQMeUq36pyAuo28K1FAkdLxJ3942fxGhZR
-X-Gm-Gg: AYBFou0Ak47eCVjXVilAVPjEWl+NYMaLWJuzH+4qFuAMq6+zRUyxismQniV1LUK3Wu4
-	JDFDhMtlhBI7yJvMMLnD5xKPz0qfd8dlY7AzNUQHD8+iyhr6ssDuoPNLTaW9UGM+X7fizhJLDeX
-	zfjk7ggprbNAc74Q92TPhYoP5rJE0LbkMAkUowezOxLEdqvJl30uV+VwwdgR1aMrv43HMCRW+SR
-	2p1Yg3xivAuiH504e+OrTPcpqyEuWlaHMDpeMYpEUzae5dK9+glCm0UWy1SgA28KD1Quu989Xll
-	H3mU/AgHKk6YD+0ee3Py+X+NWANQviTfKm4muw1TjL6ZHJmCtlyGY7PfxgSEIthgVkSDEfBJWKK
-	IrVvUsgrkIX7HXIoewgksoudB8OzS9oVqwcaOlP5pDR8OWjDPIomGyPEIIz3//KosP5yPfkfrJC
-	x/Fxvk+K+k8Wtvecyoiz+yCh7ZsTr5jSw66H094iCia6s2N+b0lVLx3kLcnmrGv/McdkdaARwk4
-	6CAePHTDoJOHYdVqiPk+3zPU/1cVQ==
-X-Received: by 2002:a17:902:dac2:b0:2dd:b95a:e1db with SMTP id d9443c01a7336-2e8429a9f89mr307105675ad.3.1792141010736;
-        Fri, 16 Oct 2026 01:56:50 -0700 (PDT)
+        bh=VtLGyN+PdzUpUTcE98Aumqo/hwiyHlck/gS/TT4kqGo=;
+        b=GD9LlVvPUHKbvYZ3/0H7u6aIUFHxMpxyE0TTgL7QzBmW8rr3yARrlOyuLVIsx7Fwkv
+         7k/XH6J12g1opY2u99NZhFVTx24xQeplV40N371rP1P0aPKqDMSYllUVTWsnULGM0r7+
+         hZXqSeglLosczVrgin6OcjSiZHABV+i9Gy9RjVT0mqcjGayJSCur3rwrHiwPq2YtZfMG
+         rSfay0g3Yd0gw1PghicfvFvXei3aJ4zB6XvCJWjSJGwhVaYwx6+YlUW1ljgUjUHpKrmM
+         Vvbur/TH/MJ1kYu3mpVZklYnEtDB/jRSUEDDN6+hHisGnxSu70OZYHi3EkgPnrJJiojs
+         sfsw==
+X-Forwarded-Encrypted: i=1; AKwUvBypmegREoZq4IJgigMlRdcjQ1vhMdFeOl4sMzwhLtgtaJsWT0I03ls0QCMUcLktvB0//kaNwuUE859w@vger.kernel.org
+X-Gm-Message-State: AFq9FYKoHvY5HocuqC/iY8jvdqm4qsyoXihjLbmocLJrZbyFkKcUjYLz
+	lFAA1fStrIqCtkms07+xaLCBMkzoiI9kNR024n4lzkkohUTN+WCXN20m
+X-Gm-Gg: AYBFou3UDDmqUZLbe1DmbVmQtqUrlE39liyAz3SOCCd/za34DTciZxy2KgwbXLbFs10
+	B/n8nZwn5sQ+bTr364U4qbv7Ng0fjtQzOkQOXp5FUByKH8YsO81Sskqjt4eO3Ir3srZnIjCcOw+
+	7tu+VPDLuptCIbVI9wxb/mC71Nv1038RU5sELzx/b0RA7KLN9NtW2RPGDcoHW5co22lBs/vCGtX
+	3PmBkkujLLoZw//MV2pEdJCkGiL98bwoRlQQz9NpGONcqV7hMgldkckdlHCIF48nOyw7BnlsHEv
+	fve97kmDVapCItvnxUWksUvLH8DIrMp0+81kFjzszcm7H33chOEu571R8Fy7EONivXf3PGR7AfG
+	3MeVcVqIItHMxtG9GifIRN1xH6uU+inQKNK4Ih/+iZY1KeFsVqiVK5BbEqc5/+jMyzibQHR1a1P
+	jeDsPD2tZBZwuekYJnkuP2Wdvzvb2dpPWDMrJYiBjbnbA16b1EpKHgQPqOfYOt9hqC1XG/zCZOf
+	RLdUzBWelycW3AR4kqSFKBG7hrQig0=
+X-Received: by 2002:a17:902:cf0b:b0:2e9:6788:937d with SMTP id d9443c01a7336-2e967889666mr61137945ad.4.1792141014917;
+        Fri, 16 Oct 2026 01:56:54 -0700 (PDT)
 Received: from [127.0.1.1] (211-23-39-77.hinet-ip.hinet.net. [211.23.39.77])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e882a20sm6971025ad.62.2026.10.16.01.56.46
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e882a20sm6971025ad.62.2026.10.16.01.56.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 01:56:50 -0700 (PDT)
+        Fri, 16 Oct 2026 01:56:54 -0700 (PDT)
 From: Jason Yang <jason98166@gmail.com>
-Date: Fri, 16 Oct 2026 16:56:35 +0800
-Subject: [PATCH v5 1/8] dt-bindings: phy: Add PHY_DIRECTION_TX/RX
- definitions
+Date: Fri, 16 Oct 2026 16:56:36 +0800
+Subject: [PATCH v5 2/8] dt-bindings: phy: rockchip,rk3588-mipi-dcphy: Add a
+ cell to select TX or RX
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-dcphy-rx-v1-v5-1-e63b49eabe2d@gmail.com>
+Message-Id: <20261016-dcphy-rx-v1-v5-2-e63b49eabe2d@gmail.com>
 References: <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
 In-Reply-To: <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
 To: Vinod Koul <vkoul@kernel.org>, 
@@ -89,44 +89,87 @@ Cc: Michael Riesch <michael.riesch@collabora.com>,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  linux-kernel@vger.kernel.org, Jason Yang <jason98166@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792141002; l=1157;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792141002; l=2767;
  i=jason98166@gmail.com; s=20260721; h=from:subject:message-id;
- bh=YkXszimtwNYxX/s0QEul4OMgnFGKSMEKdd1MDqGTukk=;
- b=LEId1ZHxKIWdktOliHM+CAcf07+0pEcd9I8lHvqF1BdgteiRACfEYBQ+XTP3tpx89PFHzEumx
- aaGdm4smqtiD2t/AMT7acnwO3RJ+9CO4aUpskESVMlXGNjLOdrzRAUn
+ bh=ce8JdNOJs5zvcQeCguszU9j59LCLfLXe7OkJrHqM/YE=;
+ b=xGmXf0uJmuCFnGX4LXl2EMMZ1WvsxT2sntwv+hZwzx8NB5XgYmF4wB3TO71KHkIhWamdIBqA9
+ 3a8QSp0sv7LDJnLqs4+VROT8Z2H8vmMinUmvM0gz379mPKwncWtik5A
 X-Developer-Key: i=jason98166@gmail.com; a=ed25519;
  pk=xQmD001Q/ooHl39PxyQtusbUQmgbOsSfpFryRVWZ/k4=
 
-A MIPI D-PHY or C-PHY can be a transmitter or a receiver. Some PHY
-blocks have one of each and can use them at the same time, so one PHY
-node offers two PHYs. The existing cell, PHY_TYPE_DPHY or
-PHY_TYPE_CPHY, selects the mode of the whole block, not one of the two
-PHYs.
+The Samsung MIPI D-/C-PHY block on RK3588 and RK3576 has a transmitter
+for DSI and a receiver for CSI-2, and two consumers can use them at the
+same time. The single cell of this binding selects the mode and refers
+to the transmitter, so the receiver cannot be described.
 
-Add PHY_DIRECTION_TX and PHY_DIRECTION_RX for a cell that selects the
-transmitter or the receiver. The first user is the Rockchip RK3588 MIPI
-DC-PHY, where the transmitter serves a DSI host and the receiver a CSI-2
-host.
+Allow a second cell that selects the transmitter or the receiver. With
+D-PHY:
 
-Suggested-by: Michael Riesch <michael.riesch@collabora.com>
-Link: https://lore.kernel.org/r/7425ac83-f6d8-4443-a26e-a47f9306aa24@collabora.com
+	/* the MIPI DSI host, driving the transmitter */
+	phys = <&mipidcphy0 PHY_TYPE_DPHY PHY_DIRECTION_TX>;
+
+	/* the MIPI CSI-2 host, driving the receiver */
+	phys = <&mipidcphy0 PHY_TYPE_DPHY PHY_DIRECTION_RX>;
+
+and with C-PHY:
+
+	phys = <&mipidcphy0 PHY_TYPE_CPHY PHY_DIRECTION_TX>;
+	phys = <&mipidcphy0 PHY_TYPE_CPHY PHY_DIRECTION_RX>;
+
+The transmitter and the receiver cannot operate in different modes [1],
+so the first cell must match in both consumers.
+
+Two cells describe the receiver as well. A single cell keeps referring
+to the transmitter, so existing device trees are unaffected.
+
+[1] RK3588 TRM: section 22.1 (overview): "The TX and RX only support
+    operate in the same PHY mode."
+
 Signed-off-by: Jason Yang <jason98166@gmail.com>
 ---
- include/dt-bindings/phy/phy.h | 3 +++
- 1 file changed, 3 insertions(+)
+ .../bindings/phy/rockchip,rk3588-mipi-dcphy.yaml     | 20 +++++++++++++++++---
+ 1 file changed, 17 insertions(+), 3 deletions(-)
 
-diff --git a/include/dt-bindings/phy/phy.h b/include/dt-bindings/phy/phy.h
-index 979b5dfd8353..9ead74d9a172 100644
---- a/include/dt-bindings/phy/phy.h
-+++ b/include/dt-bindings/phy/phy.h
-@@ -29,4 +29,7 @@
- #define PHY_POL_INVERT		1
- #define PHY_POL_AUTO		2
+diff --git a/Documentation/devicetree/bindings/phy/rockchip,rk3588-mipi-dcphy.yaml b/Documentation/devicetree/bindings/phy/rockchip,rk3588-mipi-dcphy.yaml
+index c8ff5ba22a86..6e8cc56e4986 100644
+--- a/Documentation/devicetree/bindings/phy/rockchip,rk3588-mipi-dcphy.yaml
++++ b/Documentation/devicetree/bindings/phy/rockchip,rk3588-mipi-dcphy.yaml
+@@ -20,11 +20,25 @@ properties:
+     maxItems: 1
  
-+#define PHY_DIRECTION_TX	0
-+#define PHY_DIRECTION_RX	1
+   "#phy-cells":
+-    const: 1
++    enum: [1, 2]
+     description: |
+-      Argument is mode to operate in. Supported modes are:
++      The first cell selects the mode to operate in:
+         - PHY_TYPE_DPHY
+         - PHY_TYPE_CPHY
 +
- #endif /* _DT_BINDINGS_PHY */
++      A single cell refers to the transmitter and is kept for existing
++      device trees.
++
++      The second cell selects the transmitter or the receiver, so that a
++      MIPI DSI host and a MIPI CSI-2 host can be described as independent
++      consumers of the same PHY node:
++        - PHY_DIRECTION_TX
++        - PHY_DIRECTION_RX
++
++      The transmitter and the receiver cannot operate in different modes,
++      so when both are described, the first cell must match in both
++      consumers.
++
+       See include/dt-bindings/phy/phy.h for constants.
+ 
+   clocks:
+@@ -82,6 +96,6 @@ examples:
+                  <&cru SRST_S_MIPI_DCPHY0>;
+         reset-names = "m_phy", "apb", "grf", "s_phy";
+         rockchip,grf = <&mipidcphy0_grf>;
+-        #phy-cells = <1>;
++        #phy-cells = <2>;
+       };
+     };
 
 -- 
 2.43.0
