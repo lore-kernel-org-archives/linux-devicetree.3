@@ -1,158 +1,73 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1F5B4D17BB
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 15:07:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00FA64C9E0C;
+	Fri, 16 Oct 2026 15:09:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792163259; cv=none; b=Bc9AFIuSis6/biE/BxL0CiYywel/CqmDtSUg+UE/vx+BFY+SDylBKUunmEe8mBXWgS8r+aUFemx1tbwVYcb9n8V0Us7qbPLa/taAlKgVx4sjZI4N41sp/YjQkbTPmECfx7+N0vzx81yZ6MCTn9zQqfd2qelyGaebdhqkmVAwxqo=
+	t=1792163369; cv=none; b=WcAkeu6Ez/0Df/uUDPXBQezBQuu1G/bjh5lqLEh57bhpNXtKsXgS0telbb4UmddEUlHj3qKg8pM8cOSZbWQM9EzS/d/N4qo7KBJtyeDANv1bTzf9+mRL1WGPk3My0kFmbBoZ3d7ijvOSMR6k+jpCLab4AVF4n7HxwpjRVL2qglQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792163259; c=relaxed/simple;
-	bh=7RGIO54fyE/iVl2rO+u+MlOK+PQfzNFmJNUDEqLEwwo=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=b3MQLdirGxcuURCAeXJaN1bRE5xsol+27UeDAtM3KcUyrCLJxEvHBVSa3j3ondiNHzHrRZhOUg4UIJNrkEk2Dyjfiwc4HsuzXFgFVUyxLu4kisRB0NUwHIjCcdLpeu0MZdgTHteEwLwidYJ2lX4wn4ptR/ekWnFYedatUCKpCXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=yndv2wP7; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1792163369; c=relaxed/simple;
+	bh=zvpmhm+BAUlfIVJ/6Kp9ShG7pA3G2q65FWBMzuTisWM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=JrqFOc8XrF40nOFUKVIn1UaaowdXGruDKJ9FSY8u1tpqmX4nUmjld31xOraxyCsVn58IS1t6GqpBbhjMIT+Rxv0cOHZJf6wTBE3lx5ZbR4DXrUpOifWbRCoDELEA6Q7fIIx3knUZa2+vqfhrHyTfcusNd1r8Rc5q/bDBZ+FEX2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m+dr46nS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="yndv2wP7"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a1cef0439aso786645e9.0
-        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 08:07:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792163256; x=1792768056; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=VQBXFtSQf7WJJHzyT6nR2Bw3zqoZgRsxsOc7UBU3Xv4=;
-        b=yndv2wP7MWTiybgyyrOBReyhGNHx49iRnEb+3zNzGIHs07eYYbaYRhdrvWOiPRT/TM
-         KcEhzRNuTy7NkEy9IVcdEslLC8FL1BBIYctMxB9YXrwVTGP8+ZIZeQd38MNqXa7NXf7C
-         gEkzNQLiFMKOJg44Isl+q/hRNPWXHG2uRi+eybMAXJYPIQX8NksosrXBy8rTK5QOavuh
-         ylT3LlP1PEXJuuz0fhN11p6igTB8mGEVVIDezhrHXNVU4ClSfrdBx1FsitX9/Bw/kW5r
-         EGss6n/KewYKM+IFJWMSKgLWmb/K4lIU/G5cFbLl9pBZondtkkRyjuO93Q3pkRROoh3u
-         l+tQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792163256; x=1792768056;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VQBXFtSQf7WJJHzyT6nR2Bw3zqoZgRsxsOc7UBU3Xv4=;
-        b=eI5qSeJwJvTbD6cj18Xlo/EK1I3HOdIBtndlYj4su7NKoGze89+DxPNRWbZvPZlq/n
-         lcan7CIU511f3cQBFKH+rRAzMYi5l1boHRcm3YM+12RYUvbMnwH2xctmircxeRHTt2Rx
-         q/4y1gQ16RGsGib0uJFLPRmNKcaTVLZec1U4xhH4CeyOaKTqt+ZmWEbgfWAWX0npyMlF
-         ET1dccxRcPDzx14Zl2PTunX9Je8R34VEFFR3FJLIYu41LP/GFvwx+EJaxtM4/ot5YXvy
-         RpsbDOX+oxfetblugL8qtTxaG3p7TjWzEwWvY2bWUgWG+/InSxcHUG0mTDoR7W3PiQJS
-         ouAw==
-X-Forwarded-Encrypted: i=1; AKwUvBzbO3oEBBy6anIdVkPIG4NYOzdbZ83ZvEVXmREq790/lhvRHepWW2i/XELN29Y1XSGO0cTbmzbftjuK@vger.kernel.org
-X-Gm-Message-State: AFq9FYJllshgW8rmgQ0sQ1g5ZJYA6+UEvtcCZu7QRxUptefjx3NzDumF
-	yR4KQnopSZIhVoxSM0VQEUOC8wjJ5mf37aOTOijyGds7xrEA9wrClA/p1h37GDKFG3I=
-X-Gm-Gg: AYBFou10cH4DazvVF2WZdWAQcsm9AU5slGyIj2CizKaOxmqRS3VraoGFlXcysmczNnU
-	nJG3HIYi1WEfliSHpijZOSOBcHg5h6FGnP5cJU1YUStxWOAceqNp+q7eun/Z1lymYj/g06LzjfI
-	UxuGCpGd7Um30mfuiVYDjR6prDA07Wm0PS0/4LMt/q1BdNh6/qNQ+ALSFlr3VQn0e8JIpwV9brK
-	uV7XfFdarQ6ueDI6PYeN7C0T342smwn35EZ5fj587z9Nb5ftV/TrLwl8z1Ood/Lfujg7zBM2EwT
-	OsF5Vr01abBlh1vBx6Vq5FE5buI5AsdX4/vQCQeRiPAzb9wGe/YgKqO1j80QBBvdHhp/t3c3SDn
-	9Uq44Sk/SZXG0NmImfS6BoxvPnaTLSJdZce9qXuhYbMTUazGiYwFOWPFLza0qT8w62Usjxz8lhk
-	wT+OC1RMLpBdzh6mYQE5djyvfrg6N0Me2h9uKOMtaqgSAadWRdJjeBp25LazkKPUzpvjV65odoG
-	8xXFr5cEj2smW9jLeMkktpc7yEHMXIg91dt6ssaXzgXbE9+AenWtu+kAFtdUC9N
-X-Received: by 2002:a05:600d:644f:20b0:4a1:d307:d56f with SMTP id 5b1f17b1804b1-4a1d75fa37fmr1458705e9.15.1792163255733;
-        Fri, 16 Oct 2026 08:07:35 -0700 (PDT)
-Received: from localhost ([151.41.28.233])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd510ba3sm5544284f8f.56.2026.10.16.08.07.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 08:07:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m+dr46nS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A86041F000C4;
+	Fri, 16 Oct 2026 15:09:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792163368;
+	bh=R4WIaVmgxMJzlsaERAlBqwLuDwVcuzfSzsQMDWtKV3E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=m+dr46nSdP2qlLIB2fmp3Kbk/BFMqVufNzirPvqKWC8uNsGwg7lgxsd7gXxlToQ0X
+	 1YhneGxZX9TZZTKLenN6dG1Kh/Qf2vuGZRdZJk/m438Lt3YNdyB9vdiwow476kpzsd
+	 Zt5sHxLOxok3rthvI+zVfV4IILi1hp0kGpFr5ZMTGuQP5hHWMM23cNl+fB+IC7NUlB
+	 vXtm2wmlsA0NstoHv2GXKsz6Ni8ys9lHM+IXbxQFXkyUZa8LK6JJQ5Gpurib4UGtci
+	 SmQ4HJSMrxN9J5zR3/KEMm5vpIzrBMBTEREWsGpG1GHduNB/r2yswnbUgT87N80/G7
+	 TzMDrQoKgvmpQ==
+From: netdev-bot+sinfo@kernel.org
+To: Til Kaiser <mail@tk154.de>
+Cc: netdev@vger.kernel.org, jie.luo@oss.qualcomm.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, quic_leiwei@quicinc.com, quic_suruchia@quicinc.com,
+ quic_pavir@quicinc.com, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org
+Subject: Re: [PATCH net 0/2] net: ethernet: qualcomm: ppe: Fix queue access
+ and port validation
+Date: Fri, 16 Oct 2026 15:09:27 +0000
+Message-ID: <179216336717.408196.3512649985663407159@kernel.org>
+In-Reply-To: <20261016150140.929729-1-mail@tk154.de>
+References: <20261016150140.929729-1-mail@tk154.de>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 16 Oct 2026 17:07:34 +0200
-Message-Id: <DM6CUP7TSOMH.31T789KQ3Q6OB@linaro.org>
-Subject: Re: [PATCH 02/10] dt-bindings: pinctrl: Add devicetree bindings for
- DM816x SoC Pinctrl
-From: "Ettore Chimenti" <ettore.chimenti@linaro.org>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Ettore Chimenti"
- <ettore.chimenti@linaro.org>, "Paul Walmsley" <paul@pwsan.com>, "Aaro
- Koskinen" <aaro.koskinen@iki.fi>, "Andreas Kemnade" <andreas@kemnade.info>,
- "Kevin Hilman" <khilman@baylibre.com>, "Roger Quadros" <rogerq@kernel.org>,
- "Tony Lindgren" <tony@atomide.com>, "Russell King" <linux@armlinux.org.uk>,
- "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Christopher
- Obbard" <chris.obbard@oss.qualcomm.com>, "Andrew Goodbody"
- <andrew.goodbody@linaro.org>, "Linus Walleij" <linusw@kernel.org>, "Rouven
- Czerwinski" <rouven.czerwinski@linaro.org>
-Cc: <linux-omap@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-gpio@vger.kernel.org>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261016-patch-ektor5-dm8168-dts-v1-0-b4ce30217028@linaro.org>
- <20261016-patch-ektor5-dm8168-dts-v1-2-b4ce30217028@linaro.org>
- <ec27fd26-1862-43cf-803a-428846d66663@kernel.org>
-In-Reply-To: <ec27fd26-1862-43cf-803a-428846d66663@kernel.org>
+MIME-Version: 1.0
 
-Hi Krzyszrof,
+Hi!
 
-On Fri Oct 16, 2026 at 4:51 PM CEST, Krzysztof Kozlowski wrote:
-> On 16/10/2026 16:41, Ettore Chimenti wrote:
->> Add devicetree bindings for TI DM816x SoC pinctrl configuration.
->> Using same definition as OMAP2/3 except pullup/down enable macros, which
->> are inverted in this SoC.
->>=20
->> Signed-off-by: Ettore Chimenti <ettore.chimenti@linaro.org>
->> ---
->>  include/dt-bindings/pinctrl/dm816x.h | 20 ++++++++++++++++++++
->>  1 file changed, 20 insertions(+)
->>=20
->> diff --git a/include/dt-bindings/pinctrl/dm816x.h b/include/dt-bindings/=
-pinctrl/dm816x.h
->> new file mode 100644
->> index 000000000000..15aa15bca9bd
->> --- /dev/null
->> +++ b/include/dt-bindings/pinctrl/dm816x.h
->> @@ -0,0 +1,20 @@
->> +/* SPDX-License-Identifier: GPL-2.0-only */
->> +/*
->> + * This header provides constants specific to DM816X pinctrl bindings.
->> + */
->> +
->> +#ifndef _DT_BINDINGS_PINCTRL_DM816X_H
->> +#define _DT_BINDINGS_PINCTRL_DM816X_H
->> +
->> +#include <dt-bindings/pinctrl/omap.h>
->
-> I do not see this being used here, IWYU.
->
->> +
->> +#undef PULL_UP
->> +#undef PULL_ENA
->
-> Why are you undefining other macros? That's not a easy to follow code.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Do you prefer to duplicate `omap.h` defines? Only the defines above do not
-apply to DM816x.
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
->
->
->> +
->> +/* DM81xx mux bit defines */
->> +#define PULL_ENA		(0 << 3)  /* Pullup enabled  =3D> 0 */
->> +#define PULL_DIS		(1 << 3)  /* Pullup disabled =3D> 1 */
->> +#define PULL_DN			(0 << 4)
->> +#define PULL_UP			(1 << 4)
->
-> I do not see this used by drivers, so why do we need one more header?
-> What part of SW are you binding here?
->
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
 
-I added those (DN/UP) because they are not defined in `omap.h`. It may be
-convenient for future board upstreaming. I can drop those if undesired.
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
->
-> Best regards,
-> Krzysztof
-
-Best regards,
-Ettore
-
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
