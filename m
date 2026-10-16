@@ -1,220 +1,166 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90E2645C709
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 09:09:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85AF8421A17
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 09:10:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792141790; cv=none; b=ee2IIOQIWNSOkEnCQnaZ69SiM6aGZDRiyQoCmDOWJktdISO3FVIg9uwWjptc6k/W66hCAYGhK+uC2r2tKpEoypW2YggRNKF/t18M3w+ao7BUb8YpL3qGmQpM/mKD9VLaDY+COjMXkrgLm9n9Hh5t3RmDuIu0DmSNu6PiDhXgSBQ=
+	t=1792141830; cv=none; b=IvO0dnGHSzsWT0LqlBN+ADRnMT1b22b79iWHf3bEpfUxsRLEQrQBNdI3GQl1m+Vh0kiNdwIA9oRmt2iiWQeTiCLCIGrIK09k3g5YlgzdAGRLkcG2713URNMvaq9FyeHbFvdyet0m189XLJy4XwjwgwAubm7ApaUyYo0O5cxdUPQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792141790; c=relaxed/simple;
-	bh=ZrmwossZjTd29Ih+lCgZKFXmIOi4LDpBYUvzQdJYM1w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Xrred0NuRqsu6YkvnG4whuMgoaz3rymxttyDG3S59/opfnqJeAijCrvNWSN0dM4Dp0zV0caNs4YiSqoFqSHDDZO8K99qSBHio6rA5yYQFKtw8AjkakstaN2ktuFj435r1PhxXnD3dHZwgAbWRJrnF9pAFwHPiNDWBOMSOrhOB1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S2wXoia2; arc=none smtp.client-ip=209.85.216.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792141830; c=relaxed/simple;
+	bh=FknUXR2V50SRgDJQCdH6IzolRKWGlrnF1TNNVowTK5M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=coRWH2SeA/VZeISX6Z+95cQRskXda4+C/bxfeUO5QerUNIQKAp6KiAAQoQWS8Y+sTVJXjNDUP7BkvCasAmrMpbN33J1IjT2Eodz6UrDXEyvNcIN5F7YkeqLL3SLAWwQQGEF5GBLd+5xlF/le7Z2AgnKbxITszKB3Z7Pv+Ic5u8s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mRoFUeIg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=S4POjRTn; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S2wXoia2"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ab60ff4273so5115142a91.0
-        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 02:09:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mRoFUeIg";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="S4POjRTn"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69G8m0Rs2219270
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 09:10:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Qdw1IMSJPlaVw9V5/5RUUe24WWrftggVUgg+EtKpg0A=; b=mRoFUeIghvPRrNcW
+	M1dseKIVbsc6Zw7kDzvhwk/T6GanfkjAQPcFxTlvBmyc3lXlUWl9DFyn/OwIVrdI
+	t0xvlXFxbO0f0Wr8+YQsf2C3miZXKmQvUYPEpEuDX6nEGuLnJcEwmQ4l6bMzvHVO
+	VoSY6UUOKqQK99xlofpB9GUFgnIGSMg3RyXWw1QSR6qnI8A8zcADcHmiLLc3wqyo
+	QKy5o4RGcKWBwN4h72+sm1xxIiK7b+g77n0O5ZFkKzGHiFTjGg10LuCwDH/6VNlG
+	K0nAoUIxzhalXSvBCbZUG/SFZddQGeYs11p/g0NE1ccSIfuDitTw30F3hoYJ+xPw
+	mOzvEg==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb19m3pk4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 09:10:27 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-53389750985so13038001cf.3
+        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 02:10:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792141787; x=1792746587; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W0DxMtdmaykVRK9lF7eAJZ0u00iNP9YbBzASFb6ienQ=;
-        b=S2wXoia2lrImRlDKixjLGE1Dc2iKverQBNUM1G6ld3fRQlIRdXbm6HcIUDI3pL1qTJ
-         IsYY/xR8fghawJsJZ0xXLnGxudhxUa+BUL3ayKrlfXMYSAsLDb0eO799VBUEda6efx/8
-         u0KKOL6gG56QkXSdcwQX+yu/wbvSYTUAtrj+SIDFgoUykAzPg46LNoUx/rAEW+7hVzNs
-         qdziKgfn6B2jKwHdw7Hhco/7HljTZka6n9NqPtgYieJzAJLnc8nAEhY9I9z0hjFz+OvJ
-         wSU8Os4/2SWQwQL/jBdTM111Ym7nZiBC+Jykn3+8CRIhG9hOlGUH69k1lXVC7K1aGrdk
-         RPjg==
+        d=oss.qualcomm.com; s=google; t=1792141827; x=1792746627; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Qdw1IMSJPlaVw9V5/5RUUe24WWrftggVUgg+EtKpg0A=;
+        b=S4POjRTnt0uFhrPPAzKgqqjhBSQY3w3Cp2+R7fkjllzwqyvfkkt/hSlyyHZ9irJEQh
+         NtJIrpfcwl12tgasI6d9i9zHqEx+hGRUMf1la56FFDDBPXDIUvQrRXlmQPqZbpWyXgwo
+         GXlgbJxSJgnrJcEAE9nuURiJr82wFdp0BqbnpEELWsAAz7Z5rBF6+qTfMyR1wm1P0Unk
+         eAGyucQ+D2jg6RztU4muTPKaKu9byaINbIS2G9foVX30AEHudMwBlaJYQQ6KRnVM7Nkm
+         zkUqg4cwXBzFwrhkzsxLiDq1FSV14demsvaT+lswkuEgg58fBiKbQAqFF6JxFkJpmNkW
+         olSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792141787; x=1792746587;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W0DxMtdmaykVRK9lF7eAJZ0u00iNP9YbBzASFb6ienQ=;
-        b=FO8hq/Pd9UeFWWps0XYmv2lheiQ2LtLRYXoAcEvcLOvFvZ71UoZ1uoviZXT4Jv4YV9
-         kEF74WGosUz+n93/FiNjBTQ5MCliuMI9ocTGnT7819hy89OtDcMAxP2VhJ/PJLHy7UWQ
-         7dn5bUloO8CkDMht5g6evEWcpMsSWk6IS2rk8Yivdo6kvKjj7o7r3+vqyR25vNNS0O6I
-         fOCf8ISRjSoe1CbTltUKyAqoNU3AzVakn4ZWHo+ImT/rBuh4RyAGUKst+b7nd+jj2pd0
-         lsfHwUizOexsGmy05b2+O3/k+U1AShIdr0nitxWyABvLF+VbwlxDIckmPze4y+PqrT4T
-         3S4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBx5CRVa26EQn8drXEMs8jSTMP4U+Jpob3p7rsCWmqhff3L4gceZMkpF5PKsdWYnUeWtiqik94L9wITb@vger.kernel.org
-X-Gm-Message-State: AFq9FYIRZeInaftqsZfPZqrB53NuMqMcTW1OIBkukibVcOdJ1jtY9RgO
-	xTdgREoryt1HvQ9lcRWIcnB7yoledXse9t8rWSgOWl6p5Mki7VkXDtKQ
-X-Gm-Gg: AYBFou3hqSeDxGSCaat2oXc0iKS0LJcEJyUpiYGKm1LezMD0oNmEAN31h0TT1uBDkuk
-	6R+CpdEDa+3oqO6nz+7DemaG/AAgeeVmBxAvxspwKUQC2DXemlfTjKhW6188v3fgABdH3ta1QYx
-	VNe1tmKYSEsRIXGKPAtjitZPkc4e0r7e2EkEYU/3BGWPLT+8NqIrXnGg5hRaF1anFOiS2r2V6EV
-	RgA6ve0RN+++maOehVQPyVwR5KyZhThFVfVbUVnIQb73ZFydxR1sN8oyxSYDdd7nD9CHgUEB/pv
-	/yqonIMGn1LXik2SlJW8+ALHesWC+UczUhjzJIOVGwqPdWpoL0E30UxSX2nMV6Yq7hEyKdTiicM
-	ChIOsB/e9OmfrSyq4zaOjcr0IGyPOtHw/j1ePPyVugwnzzsBf48N1SiA7slzYC0NU5OSOMFHjun
-	HHA14u6x7a13Oc3cMHsfXyCf9yvIYK7tnNFOcyCMx+Mf2kvcaz7g/JsuUH50oRB5RcUeA=
-X-Received: by 2002:a17:90b:3c4b:b0:3ac:ba49:2fed with SMTP id 98e67ed59e1d1-3acba4932b4mr2594734a91.58.1792141786759;
-        Fri, 16 Oct 2026 02:09:46 -0700 (PDT)
-Received: from wyb-ms7e59 ([38.55.195.146])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc43a1981sm3269097a91.2.2026.10.16.02.09.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 02:09:46 -0700 (PDT)
-From: wyibo6109@gmail.com
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yibo Wang <wyibo6109@gmail.com>,
-	David Heidelberg <david@ixit.cz>
-Subject: [PATCH 2/2] media: i2c: dw9719: Add DW9714VA support
-Date: Fri, 16 Oct 2026 04:09:30 -0500
-Message-ID: <20261016090930.947830-2-wyibo6109@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016090930.947830-1-wyibo6109@gmail.com>
-References: <20261016090930.947830-1-wyibo6109@gmail.com>
+        d=1e100.net; s=20260707; t=1792141827; x=1792746627;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Qdw1IMSJPlaVw9V5/5RUUe24WWrftggVUgg+EtKpg0A=;
+        b=r/eNT6xv3966uzipX+dFUiUHMMSOpH2eUK44C48Y8oZT3v/4X35UzJIS4nE3VGcBSh
+         Ler2SKHzeqpQjRJkZZh01AQnRfF4Lty3/CputwqZKPZ/fPfGKsAMaLUq1+6UaRlMk5fX
+         yU0pQp5GEKJwJP2GxRR8YrEoHzohS6qyUrOK7LojN5D8xGXCaQ2eIrnvjvjVQQiGkIzH
+         +ZC3Twit1cym3fluF7rXpcgLsidoFIvw5qxrB9WrFhCYUXOMpx0Z0Vm4358yt4QSqgpF
+         KdgiJghgcbhVvSheqiWZirxc/ruxHDzWTOIoez4xWgsoOMv+9lzkEOGMrJ6/FubhoERJ
+         QSHQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzjj9n2lJz5bO2U2dyMhS26lV080t7yJJj4zWH7tu9RP4kmapE07q8dYr1+toBcF265KXuO/PTEip+c@vger.kernel.org
+X-Gm-Message-State: AFq9FYJOSzD3OluMpc86tsz30io5PtULMIH/GFIC5G1V8v3iqypS+NFB
+	Y+a7IStUhHahVHTeDTvqBek7vOmHVD4CEHlFM4UOsIYgfENNxOFzZZKhseWuNTDElOtxfWaZNsh
+	rPjmGGhaHpHzGQu8YgzScFLUXT7+UjcFJDdSEeukqsh+0E1nrLkStILxo9xhFtFlS
+X-Gm-Gg: AYBFou3I1UEQHdUqSMbS9Q9fiQR2s9eyXBezf3Bg67GKT2aXDyGaeihilWWA9nNY7Iv
+	NFOQ1i88xdLNrIOzcRedymGIQB379pOOjQf5SaSOxFordplWpBMq/ijos6W5BWrTxtIS8+XnPND
+	3vGZqKqyALeuL0MZszf7z8xZTTWthT3KvmWo8FbORSDG54oUHKnhuipN52/+8v1THsL0E94tAvs
+	cBLOge3ButDnZOVQnDBsskTP+Eo+sFmMnvvLHrp6Ms5HT4cNZ4x27QytndIrfxq3f0Uw02+67ns
+	6tCoFZsp9WSjTeabgzKE+L2fschHEM2TaSVlawMu1IOrKn/I5ZIv+6OVmxpseSewctZ9pe0rjvH
+	71XOwtqHK0u+bxd/OQNeuHg==
+X-Received: by 2002:a05:620a:a43:b0:93f:211f:7ba4 with SMTP id af79cd13be357-93f211f7e97mr73037685a.5.1792141826681;
+        Fri, 16 Oct 2026 02:10:26 -0700 (PDT)
+X-Received: by 2002:a05:620a:a43:b0:93f:211f:7ba4 with SMTP id af79cd13be357-93f211f7e97mr73032885a.5.1792141826093;
+        Fri, 16 Oct 2026 02:10:26 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c409239b3a1sm52586266b.85.2026.10.16.02.10.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 02:10:25 -0700 (PDT)
+Message-ID: <3866c346-ddeb-4c9d-9f4d-3e09e3854bbb@oss.qualcomm.com>
+Date: Fri, 16 Oct 2026 11:10:21 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/5] arm64: dts: qcom: kaanapali-mtp: Enable USB
+ headset and Type-C accessory mode
+To: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov
+ <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Kuogee Hsieh <quic_khsieh@quicinc.com>,
+        Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+        Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Mahadevan P <mahadevan.p@oss.qualcomm.com>,
+        Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261015-kaanapali_dp-v2-0-c15cb83d9140@oss.qualcomm.com>
+ <20261015-kaanapali_dp-v2-4-c15cb83d9140@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261015-kaanapali_dp-v2-4-c15cb83d9140@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=aLdlOr9m c=1 sm=1 tr=0 ts=6ad1ea03 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=ENyogFyUuOtWwiBkGF8A:9 a=QEXdDO2ut3YA:10
+ a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-ORIG-GUID: b0LqoGvFyeGUQN69lz1ILzC7ZYkt-ASX
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAzNiBTYWx0ZWRfX8Kfg9QjW6spd
+ JLinLyrewRtmIQjI7FvoyQZ+g/8VHytdqUm/IiVtaXBH0SIX1scxb73X9OrdszxDEuCsWv+bk3Z
+ txEjFzabM5penuTkFHOBXmtwAeaoK/A=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAzNiBTYWx0ZWRfX9TO/8P7+gk24
+ f5w9jH5Mc0BC57PGOeN8h2+QXsUISafKjZ6pNSazVDHW21moHMV/3DPCnIK943NleO7k4gATQ1M
+ 4qJ43q9S2gf2sBCwZSPCb+O8LvpjbDePRUTfylhtu9F1Y7MMXODipBHIW5B9bhPtoWxkmotf/y2
+ I/YoiyGBw5id4LpOAva8PMHjggJachXaBzPQE+FdAP3JSm+z1FUS5GB9cK+CUH4n/tta6lDOz6p
+ 5r55AS4tBu0urrzODUfk9F1iq9SasZlBFfmo5HdHjryW0GXDuhJyj48piCYr1xZ+pMQZJlJ2C4+
+ 3UPglu2DQYkdReCFiRJI1gMNdOgdxYKKAt4oLMp5GdiKQlU+CmnNmtXmw0w/Y4XZaWaz3kYJ8zn
+ 2ASZE+RkjK8qAjXD8+AoIRWV+kORiA24CeBA4eIvNnGLi8NelXmbNxanIg7dJOM9QTdmdHdGF6Q
+ Lw7bT/lHXMSSAlSDE8g==
+X-Proofpoint-GUID: b0LqoGvFyeGUQN69lz1ILzC7ZYkt-ASX
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 clxscore=1015 malwarescore=0 adultscore=0
+ suspectscore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160036
 
-From: Yibo Wang <wyibo6109@gmail.com>
+On 10/15/26 11:54 AM, Balaji Kalkonda wrote:
+> MTP does not have audio jack connected and relies on USB mux (WCD9395).
+> Add necessary nodes for proper audio headset support along with USB
+> Type-C accessory mode and orientation.
+> 
+> Set the I2C bus clock frequency to 100 kHz for the WCD9395 USBSS mux.
+> 
+> Signed-off-by: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
+> ---
 
-The dongwoon,dw9714va compatible names the DW9714V revision found on
-the OnePlus Pad 4 ("iceland") rear camera module.  DW9714VA is a
-coined name, not an official part number; the revision shares its
-IC INFO id (0xFE) with the other DW9714V revisions.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-The part answers the DW9719 register interface in its register-mapped
-("advanced") mode: the chip responds to register-addressed transfers,
-IC INFO returns manufacturer 0xF / model 0xE (0xFE), and the reset
-value of the VCM_FREQ register (0x60) matches the DW9719/DW9800
-prescaler-in-[7:6] / SACT-in-[5:0] layout.  The SAC mode field in
-MODE is shifted by 6, like on the DW9800K.
-
-Both the register layout and the power-on behaviour differ from the
-currently available DW9714V datasheet (Rev. 0.03G).  The datasheet
-documents an advanced mode with SAC_MODE in [3:0] of SAC_CFG and
-separate PRESC (0x07, [1:0], reset 0x03) and SACT (0x08, [6:0],
-reset 0x7F) registers, and a power-on into the normal (direct DAC)
-mode that enters the advanced mode only through an explicit
-0xED 0xAB command sequence.  The observed part follows the DW9719
-layout instead and is in the advanced mode at the first host
-access; given the revision variance it gets its own coined
-compatible, dongwoon,dw9714va.
-
-Operation was verified on the device by sweeping the focus position
-across the full range while observing the lens: the motion is
-smooth with no ringing noise, so SAC works through the DW9800K
-write path.
-
-Detect the chip through INFO and drive it through the DW9800K write
-path.
-
-The SAC parameters are module-specific: they have to match the
-mechanical resonance (tVIB) of the lens module. For the iceland rear
-module they were recovered from the vendor module firmware
-(com.qti.sensormodule.icelandmain.bin, which embeds the actuator init
-on this CamX generation): MODE 0x80 (SAC mode field 2) and FREQ 0x79
-(prescaler 1, SACT 0x39). They were verified on hardware by register
-readback (CONTROL 0x02, MODE 0x80, FREQ 0x79) and a three-frame
-capture at focus position 450 with no I2C errors. No such data
-exists for any other module with this part, so the driver carries no
-DW9714VA-specific defaults: it starts from the family defaults and
-boards are expected to provide the tuning through the existing
-dongwoon,sac-mode and dongwoon,vcm-prescale DT properties.
-
-The datasheet-conformant DW9714V and DW9714A in normal (direct DAC)
-mode are covered by the dw9714 driver; a series documenting them in
-the dongwoon,dw9714 binding by David Heidelberg is in flight:
-
-https://lore.kernel.org/linux-media/20260729-dw9714v-v1-0-3c479b3cf8c0@ixit.cz/
-
-Tested on the OnePlus Pad 4 (iceland) rear camera module on a
-v7.2-based downstream tree.
-
-Tested-by: Yibo Wang <wyibo6109@gmail.com>
-Cc: David Heidelberg <david@ixit.cz>
-Signed-off-by: Yibo Wang <wyibo6109@gmail.com>
----
- drivers/media/i2c/dw9719.c | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
-
-diff --git a/drivers/media/i2c/dw9719.c b/drivers/media/i2c/dw9719.c
-index 3b7ba88fd..2afe37361 100644
---- a/drivers/media/i2c/dw9719.c
-+++ b/drivers/media/i2c/dw9719.c
-@@ -45,6 +45,15 @@
- #define DW9719_INFO			CCI_REG8(0)
- #define DW9719_ID			0xF1
- #define DW9761_ID			0xF4
-+/*
-+ * DW9714V family id, shared by the revisions.  The DW9714VA model
-+ * names the revision found on the OnePlus Pad 4 (iceland) camera
-+ * modules, always in its register-mapped ("advanced") mode: IC INFO
-+ * reads manufacturer 0xF / model 0xE and the CONTROL/VCM/STATUS/MODE/
-+ * FREQ registers follow the DW9719 layout, not the layout the DW9714V
-+ * datasheet documents for its advanced mode.
-+ */
-+#define DW9714V_ID			0xFE
- 
- #define DW9719_CONTROL			CCI_REG8(2)
- #define DW9719_STANDBY			0x00
-@@ -75,6 +84,7 @@
- #define to_dw9719_device(x) container_of(x, struct dw9719_device, sd)
- 
- enum dw9719_model {
-+	DW9714VA,
- 	DW9718S,
- 	DW9719,
- 	DW9761,
-@@ -153,6 +163,16 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
- 			return ret;
- 
- 		switch (val) {
-+		case DW9714V_ID:
-+			dw9719->model = DW9714VA;
-+			/*
-+			 * No SAC tuning data exists for DW9714VA modules in
-+			 * general; start from the family defaults and let DT
-+			 * provide the module-specific values.
-+			 */
-+			dw9719->sac_mode = DW9719_DEFAULT_SAC;
-+			dw9719->vcm_freq = DW9719_DEFAULT_VCM_FREQ;
-+			break;
- 		case DW9719_ID:
- 			dw9719->model = DW9719;
- 			dw9719->mode_low_bits = 0x00;
-@@ -188,6 +208,7 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
- 	}
- 
- 	switch (dw9719->model) {
-+	case DW9714VA:
- 	case DW9800K:
- 		cci_write(dw9719->regmap, DW9719_CONTROL, DW9719_ENABLE_RINGING, &ret);
- 		cci_write(dw9719->regmap, DW9719_MODE,
-@@ -440,6 +461,7 @@ static void dw9719_remove(struct i2c_client *client)
- }
- 
- static const struct i2c_device_id dw9719_id_table[] = {
-+	{ .name = "dw9714va", .driver_data = (kernel_ulong_t)DW9714VA },
- 	{ .name = "dw9718s", .driver_data = (kernel_ulong_t)DW9718S },
- 	{ .name = "dw9719", .driver_data = (kernel_ulong_t)DW9719 },
- 	{ .name = "dw9761", .driver_data = (kernel_ulong_t)DW9761 },
-@@ -449,6 +471,7 @@ static const struct i2c_device_id dw9719_id_table[] = {
- MODULE_DEVICE_TABLE(i2c, dw9719_id_table);
- 
- static const struct of_device_id dw9719_of_table[] = {
-+	{ .compatible = "dongwoon,dw9714va", .data = (const void *)DW9714VA },
- 	{ .compatible = "dongwoon,dw9718s", .data = (const void *)DW9718S },
- 	{ .compatible = "dongwoon,dw9719", .data = (const void *)DW9719 },
- 	{ .compatible = "dongwoon,dw9761", .data = (const void *)DW9761 },
--- 
-2.53.0
-
+Konrad
