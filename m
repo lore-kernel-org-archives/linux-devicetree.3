@@ -1,103 +1,156 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9748748DB2B
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 18:15:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D00B48DB3D
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 18:15:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792174529; cv=none; b=S69ufGRJCFvOlW0XxcgchTekENsBoNHrJ7mIri0wewDcR91LXt/XV0RHMNYODLQxUutVhj8fYSV+zLgGx3f+YLO27a9dWhB/kNnLbN+Zr7JKur+y6wiRHnVpKJn+Ts1+V6YP1THN0Fvxg36je5TX66XoxC7jNaiVd6bIrG30ylc=
+	t=1792174536; cv=none; b=Tb7ZYJewymwNm2YC6jka3Pq/MYnOqk8qW5Atnc6V/8wk3v2FcSYnb0iF3UaKZgl4BaZt82TXhZuPLXqXSdcrmen1ef/udTr+cwo2A0VytnwOeCTdZ3iostN2a7W5+tI26R7o7Diznfp0iWW6a5WL9woUnLY96zqng3dQKVf+dfs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792174529; c=relaxed/simple;
-	bh=r9PYC4eGZXOzbLHba1oVWYHNXObQyKtj0RaLdgYSnlY=;
+	s=arc-20240116; t=1792174536; c=relaxed/simple;
+	bh=5Q54jteAwCvHiucElrzY9KufR7ch/oFHlTrYRr86Gs8=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=J+GAGzisLIFkHfK9o/OVx50iHE3Bq3qmBa9SmA+9rkNi0NiS/ktVCcpUeVBtpmdHhS07xWq27LNkqq6Ai6Yq1dE8ICL+aAXZ3lRCGTDGo5L13cYQJwA7PVJNDS0sAN1sOJzl4Mh0bPuvWDj7wDZOqMTmrqIXrxOdfZqDiiMaAIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nA6JeHP2; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=DEnZ6Plmozm68Oyv+63eanb9rCIqitxd1wEpfRkSxbyZcYkKR+jgsUwe94ynIFHYoqh7pBHcRgoak52n3Zf+UPnsYs5PycCTeJR3rCxHf89shCsMw+50pUgioxAjo785mHQTkArQu/yQhPHH2JsdQ9+H9NZ6qqFb1BfvkHZkCd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bK6NpToi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nA6JeHP2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2376F1F000C4;
-	Fri, 16 Oct 2026 18:15:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bK6NpToi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A5911F000C4;
+	Fri, 16 Oct 2026 18:15:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792174528;
-	bh=g3838epcQ90A4CFP6/f2+EZAMF2xkCMDkMhALJrr/mY=;
+	s=k20260515; t=1792174534;
+	bh=gyMXMDKw4Mopj2XMcIZdSqjNF06tbYKm7cls/nNEAlM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nA6JeHP2oyu00Kgv3l2gEHiC57jXJgUCN207hcuAtjMVRMBbXRHHiKR0y2hV/n45H
-	 H7HixgdCxFd7A8RCeJF5uYuc3mevFzTvHfgYEr3GhDHNMGqYoe0MZLtgWnrnrV/Gdt
-	 El/qmczI/Mm66XaBsNnZwBr68KbvBpeTYjUiKogiXkHw6tWK9pOwGeWXPBLvENW31s
-	 wbYj0NndaXnw+KZMwDdf1RPiIU59zxigT1FfNBhMVIFk5w51dOC3nUHOC4vqTw9/Qo
-	 XwzIaRvMlvUHZO92YId7aPBDJTmibLoefonZzUIR77OthdObq2N318iipYtZV+mQz+
-	 Gu96m2raPY21A==
-Message-ID: <sashiko-outbox-174758@kernel.org>
+	b=bK6NpToi1+x/FL5U/M0/Lma/xE8YH+EEHrqyt+w67dUN71SEryY8Zi+naEDJsxcN6
+	 gf72lkqlCf66gJoKRQykRepMuSx/6b/g2eY9w7eaAoTcpKwsX1T2sy3CFilsWJIUtY
+	 5IhW6JOGDYZ6/QFW26o/qVb85Dr//4IUOcMs2g0T97zGVxpU0Vpd//dpvHc0zdZYnS
+	 JD9CZvjg94HByzTqIM1Hz2j2kN0u2l/zAPDXwZjHHAPiP8ABhqjj7lDuz9XXlcQod6
+	 dtzne1ljdbpTHWY4AptsjG/RnTl9Xly6fjPqT2LvNut0xmwAHeASQqFjb6VEFsL+hz
+	 9eNbaisdraecA==
+Message-ID: <sashiko-outbox-174759@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 2/6] phy: realtek: usb2: introduce read and write
- functions to phy_reg_desc struct
+Subject: Re: [PATCH v9 4/6] phy: realtek: usb2: introduce reset controller
+ struct
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Rustam Adilov" <adilov@disroot.org>, linux-phy@lists.infradead.org, devicetree@vger.kernel.org
 Cc: robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261016180314.31760-3-adilov@disroot.org>
+In-Reply-To: <20261016180314.31760-5-adilov@disroot.org>
 References: <20261016180314.31760-1-adilov@disroot.org>
- <20261016180314.31760-3-adilov@disroot.org>
+ <20261016180314.31760-5-adilov@disroot.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 16 Oct 2026 18:15:26 +0000
+Date: Fri, 16 Oct 2026 18:15:33 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] phy: missing NULL check for of_iomap() in parse_phy_data()
+- [High] phy: realtek: register access before reset deassertion causes hang=
+/timeout
+- [Medium] phy: missing reset_control_assert in rtk_phy_exit and error paths
 --
 
-commit a9528213c2ade387d2252d526e2e1e2c2162eeba
+commit ae1074cfd8fee3a5506c0c9db06f187c80793713
 Author: Rustam Adilov <adilov@disroot.org>
 
-phy: realtek: usb2: introduce read and write functions to phy_reg_desc stru=
-ct
+phy: realtek: usb2: introduce reset controller struct
 
-RTL9607C is a big endian SoC with little endian USB host controller but
-vstatus register is from big endian memory region and thus existing
-writel doesn't work. It needs either __raw_writel or iowrite32be
-instead.
+In RTL9607C, there is so called "IP Enable Controller" which resemble
+reset controller with reset lines and is used for various things like
+USB, PCIE, GMAC and such.
 
-To handle this situation, introduce read and write function to the
-phy_reg_desc struct and add a default variation that is going to be
-ponted by the existing rtd_phy_reg_desc.
+> phy: realtek: usb2: introduce reset controller struct
+>=20
+> In RTL9607C, there is so called "IP Enable Controller" which resemble
+> reset controller with reset lines and is used for various things like
+> USB, PCIE, GMAC and such.
+>=20
+> Introduce the reset_control struct to this driver to handle deasserting
+> usb2 phy reset line.
+>=20
+> Make use of the function devm_reset_control_get_optional_exclusive()
+> function to get the reset controller and since existing RTD SoCs don't
+> specify the resets we can have a cleaner code.
+>=20
+> Since the vendor usb driver developed by Realtek doesn't assert the reset
+> line (or in their case clear the register bit), we can reasonably assume
+> reset_control_assert is not needed here.
+
+[Severity: Medium]
+Since this is an exclusive reset control, does it need to be asserted on
+teardown even if the vendor driver doesn't do it?
+
+If the reset line is never asserted during module removal or driver unbind
+(such as in an rtk_phy_exit() function), could this lead to power leakage
+or unexpected initial states during subsequent driver reloads?
 
 > diff --git a/drivers/phy/realtek/phy-rtk-usb2.c b/drivers/phy/realtek/phy=
 -rtk-usb2.c
-> index e8d0f0119ec0a..5e483c853f02f 100644
+> index 5e483c853f02f..2ddad7be73534 100644
 > --- a/drivers/phy/realtek/phy-rtk-usb2.c
 > +++ b/drivers/phy/realtek/phy-rtk-usb2.c
 [ ... ]
-> @@ -204,8 +216,8 @@ static int rtk_phy_write(struct phy_reg *phy_reg, cha=
-r addr, char data)
->  	int ret =3D 0;
+> @@ -676,6 +678,15 @@ static int rtk_phy_init(struct phy *phy)
+>  	if (!rtk_phy)
+>  		return -EINVAL;
 > =20
->  	/* write data to VStatusOut2 (data output to phy) */
-> -	writel((u32)data << shift_bits,
-> -	       reg_wrap_vstatus + reg_desc->vstatus_offset);
-> +	reg_desc->write((u32)data << shift_bits,
-> +		       reg_wrap_vstatus + reg_desc->vstatus_offset);
+> +	if (rtk_phy->phy_rst) {
+> +		ret =3D reset_control_deassert(rtk_phy->phy_rst);
+> +
+> +		if (ret)
+> +			return ret;
+> +
+> +		usleep_range(5000, 6000);
+> +	}
+> +
+>  	for (i =3D 0; i < rtk_phy->num_phy; i++)
+>  		ret =3D do_rtk_phy_init(rtk_phy, i);
+
+[Severity: Medium]
+If do_rtk_phy_init() fails, the reset line remains deasserted on the error
+path. Should the reset line be asserted before returning the error?
+
+[ ... ]
+> @@ -1055,6 +1066,11 @@ static int rtk_usb2phy_probe(struct platform_devic=
+e *pdev)
+> =20
+>  	rtk_phy->num_phy =3D phy_cfg->num_phy;
+> =20
+> +	rtk_phy->phy_rst =3D devm_reset_control_get_optional_exclusive(dev, NUL=
+L);
+> +	if (IS_ERR(rtk_phy->phy_rst))
+> +		return dev_err_probe(dev, PTR_ERR(rtk_phy->phy_rst),
+> +				     "usb2 phy reset is not working\n");
+> +
+>  	ret =3D parse_phy_data(rtk_phy);
 
 [Severity: High]
-Does this code risk dereferencing a NULL pointer if of_iomap() fails?
+Can calling parse_phy_data() here before deasserting the reset control cause
+a hardware hang or timeout?
 
-In parse_phy_data(), the results of of_iomap() are assigned to both
-reg_wrap_vstatus and reg_gusb2phyacc0 without being checked for NULL:
+Inside parse_phy_data(), if the SoC configuration lacks a pre-populated
+default value for certain registers, functions like update_hs_clk_select()
+and update_dc_driving_level() will attempt to read from the PHY registers:
 
-parse_phy_data() {
-    ...
-    phy_parameter->phy_reg.reg_wrap_vstatus =3D of_iomap(np, 0);
-    phy_parameter->phy_reg.reg_gusb2phyacc0 =3D of_iomap(np, 1) + index;
-    ...
+drivers/phy/realtek/phy-rtk-usb2.c:update_hs_clk_select() {
+	if (phy_parameter->inverse_hstx_sync_clock) {
+		if (!phy_cfg->page0[6].addr) {
+			rtk_phy_set_page(phy_reg, 0);
+			phy_cfg->page0[6].addr =3D PAGE0_0XE6;
+			phy_cfg->page0[6].data =3D rtk_phy_read(phy_reg, PAGE0_0XE6);
+		}
+	}
 }
 
-Later, in rtk_phy_write(), the reg_wrap_vstatus pointer is dereferenced here
-when writing to the register. Should we verify that the device tree memory
-mappings were successful before they are used?
+If the realtek,inverse-hstx-sync-clock DT property is set, it will read
+from the unclocked or reset IP block, which could lock up the system bus
+on many SoCs.
+
+Would it be safer to defer these register reads until after the reset is
+deasserted in rtk_phy_init()?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016180314.3176=
-0-1-adilov@disroot.org?part=3D2
+0-1-adilov@disroot.org?part=3D4
