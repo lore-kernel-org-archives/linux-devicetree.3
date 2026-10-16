@@ -1,69 +1,69 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF9AD443AAB
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 08:57:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A432A3BFE5C
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 08:57:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792141041; cv=none; b=BjiB8Tk9MfCEFsRVg856z1WIcK+uBfevYD5isp95bS7jM5d60eRB1uRJCoFMPm+Ejj6KA4pPx+sr8gRq70mOX0FTziVdoZ9/N75mYHY2VMq1DDZS0cgs4+sc91ZKN/yjbqBz4OdI8vhXzGFbwQjthoq80ZFWb/ttzUiuez3h+7A=
+	t=1792141042; cv=none; b=fEI3WZqZklVVRoj+aSAH5XN9do067kFcd0FOdCWw+VqLIQG34TjaUuuExZcnLH3RV4+LB6GtptcLghQIjn83abCRXxpjLdQUVEQYNz5lNwbd5/+2znHlgyxG2MWFl5iov34K5+Ez3dXKp7rnEd/CebawvwmCNdgKfluKdiC2FqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792141041; c=relaxed/simple;
-	bh=IPjSkt3PCF0vtQrr5Dtr9Zztzvn/FEISEEiFCwtJgTg=;
+	s=arc-20240116; t=1792141042; c=relaxed/simple;
+	bh=4OavUBeyGqaDIQHOgA/IhtahRkKYw5WBMKHlgGZGkLg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ueTg6264eK1kH7pnKhE4fpKaO0MF9+7Wlb2FEwbl0KaPZlTHzdlyTG+wFkStmjeaVDFhxJsg62G5Z7fuo7mpYltbeJTWb+il7dwjwqmMRzWWhBFrf3pAIvF8zCJUfrxV8Ag8EQitczqQXCs2qcl2/FUTkzlWs/zDwcnGuPXe42Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=anZVVHEt; arc=none smtp.client-ip=209.85.214.172
+	 In-Reply-To:To:Cc; b=dqJoXKsjysfll1h/UlZ8fRC3jlGMNPlk9KaPYZia+UJFJ0oSgCsMnlniOKVqnOv5hjPKLOGPaiCu92RGAOW9PUioqG7FtyZ+C2UciEp9Gqg+PxieLo+LfcDTRripVB4b5kitXgqNgSu/XRZeV2GOeN4ho2mABOMzhLM7y5bXHzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FjoNAwOB; arc=none smtp.client-ip=209.85.214.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="anZVVHEt"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e74a32a07fso6654675ad.1
-        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 01:57:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FjoNAwOB"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e8ad5b2f61so4019505ad.2
+        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 01:57:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792141033; x=1792745833; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792141037; x=1792745837; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gNyA/z7td/ZZEWzKBQtafTkI4NohfegPcynGQCsoHnk=;
-        b=anZVVHEtg9jOVifTpuAavFFiWwTGna8ak5zThdP3gfmVMq3B8DZv4q6oMvwpIpUuzI
-         /xkx2N76cI/IL4LbweZgOAeWacdCqApVR/cwd1MWjQyesi1T/oHuts/cessg905Y2vg5
-         RBL9O1uzN536F48PIa1XfXrj7+ZLO2TnHNDhjlgvmYQ5bGnBp5VSokfJpUe6YS5FY3+6
-         d6DkyrMeVgWRZHJAoUFLR56BInEPS4wogMtl7qmNEvsVGHZQk+PCLDef46gUathnG89T
-         NXWDa/fhPHkafN4QGe5FxKlprTeAoDwvf+WRay294uTvGNxPtBfNILx71v4vb+fDyiMt
-         uZwQ==
+        bh=soC3oS7a5a03KgF4DpWOLsJcd+T0181emvr4pS+/rCo=;
+        b=FjoNAwOB7lPUcHG6vLkHgkswEQawzgQ5YdIjnPfDFSud8SqMtUuyhboxFmR5m6AWd1
+         DV0mYvt9Rk/Ym0DvfhU/k7sVN4V0LIYTctRjh5Z2MoIyY9nCMsIxwo1IXcpStcZDkceQ
+         eVLznCKc1RMWtIrKAryyMqew4tO6YNCEWPVBEqwF3R8jqMIMbcgJtNSdIXX/wc3ksPeV
+         OjbKQhDk6zZdkUhCC+RsXMZnXFZnFdBn9K0r6ZtShQqXaNkSDLBi0Wxji6mKVU7FX26y
+         XUzNRxPvex7TOky/ZV3IKRbUf1HKgDudsIxhv9Ak2WQyeO7UqWYXVtjSEWyV5oJmncjg
+         7R2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792141033; x=1792745833;
+        d=1e100.net; s=20260707; t=1792141037; x=1792745837;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gNyA/z7td/ZZEWzKBQtafTkI4NohfegPcynGQCsoHnk=;
-        b=oZB5aiwjhCerpUoAV6bsNkuIGG+prQzivBpxdV0UMLml9uMMlUKX1aPD6aWS2TY13p
-         Qm3WF8181bcUcWqZugjNSX1TmhsPmzQHTMownGY9zepdtjqfJ57+eRCucVOIFWx5xHbA
-         WbPiHCx7Xcb8G+Qv3T9z5HL00mlhoEYUeJUjacz07SGZZhZ+HDahyewzeCvhCLeZCmCE
-         WXPb6hlSAfpJwWgw9qVu2QMcmEY8AME3duKM4qe4R2NOOwDQWzHH7tTdpuK2Q7r+G2f2
-         Y11Je1U94x9Q1+hyCxa0pZBMM5LtsKrr2fk3xtqmKvtUBhxyxFN7bkilqN3pVotAQEf6
-         qcew==
-X-Forwarded-Encrypted: i=1; AKwUvBwtCe+T3Ra0P2y3FvHPoCp2e/Dm4DFB+uKadsTdbmVPGLA1ZmzNdOTdDtS6EJMJ3n7CRx0/zkAv3XNf@vger.kernel.org
-X-Gm-Message-State: AFq9FYKHhP/+Xp/D3pmx7v+lmRJepGQQGne/3+XfzWIdeK3+bf17Bp64
-	/s+DHyZE9rku/WXNyahrYq+7/92ONGyLdkoxhBNiq4KP1dXE66y3zFj0OvLEva8c
-X-Gm-Gg: AYBFou0SLIwTR/z/AfryY4xrvYWHg3MHyDIp+xp8v1oex7RvLlTbqhSsSKpUtcvactm
-	X+zGEz67JBYnyTPzyv6lx/WqpSYHvx4rZI+L09DaUh9NaYEpU0c4kYnMkzBNf1oJS845XpzhIlE
-	H9sq16gAyhkDPzovCXnXUG3JLc85y13RIbwsXdiW06GXi1h4gF6nC4G7AAeMmKqrBORb9rLf7DI
-	YDN/su1OkatchOdwF6hwH+jmL3vKRtaFf55WRfrLpojFeTDIwSkaiv7d1yvMUKZiqdGExz03kHq
-	HtK6k3UiJmdM2DXZzYqCJc6mfHnsixI/X4saL4YbTVYmfS5pmSxQvI9ukE+QBuiuU4+O5mhm8kl
-	dA//1xBJCLRNRSXZlyJUZj3k5ENjAJY8iqJg5PPM+he5tzJQF9govYsMh8XAEjwn0IhyPLWxxJ9
-	hOK3qq9YUzGn6cz2tv5mRpmE3qAzGLAN6OqzrOWul+e8SxhB3xffpeWZKBIPl9WcoBMCBxcldVS
-	dE8kMw0yYZb3xsxIaAOn1BvdE05VtQqO2Hyc0fI
-X-Received: by 2002:a17:903:38c8:b0:2e9:5c29:9955 with SMTP id d9443c01a7336-2e95c299af1mr72899235ad.4.1792141032260;
-        Fri, 16 Oct 2026 01:57:12 -0700 (PDT)
+        bh=soC3oS7a5a03KgF4DpWOLsJcd+T0181emvr4pS+/rCo=;
+        b=HF+WdZ5yxNuwDW/2EVfwX2L4Re8HJO0rfBKXqPqcsz3vBi+8xAm+SDUMOK2aA6QcKo
+         gDEArvvB/LbLiUGVwjMHDp7PJyZXxqjtSZ+yb7Ca2C5F2yWLWMMkWgU87wnUbbJL9HEU
+         sllvKpIGKwCUE9bluUsSsW2b2sFqLuZJ8hhDIDH/CEFP5D7Bi+4rg536TBTx4kwcjVj+
+         aTjWqUEdPGiwaKgkNsDgoHNhDNF82wy2QQ6qwytld8cILmQvGURnkw9jYkc+Y3m9tc05
+         eiholwma8Y9aJUMViKrGW/wYlygBfHoYEaNNLEDmTuALHeNGM6oX+sHx84s4G0dAshYD
+         UeSg==
+X-Forwarded-Encrypted: i=1; AKwUvBxO/W5/D2q5mPImKGmWspAx6GV++3jso0x5vWLDTrH1XRipL2S+pMeTEAF2XAIcaAxrQKOWiXKN6Men@vger.kernel.org
+X-Gm-Message-State: AFq9FYIWbDqL68qijyIBWUNeBFbdX/cuqIkCpfl3F5eXqH2G88LGmypz
+	QOdNLSG9BbQ5rk+7HdavcsYdDgOKCnnLZ94tFbFMttJtGNbNNQE2btau
+X-Gm-Gg: AYBFou0pPPyyAgmEQRZKk5vnt/q61PzuHLDoU5E57AldCYtqj7GjYRsIFmiBVwyWHSy
+	oGyTrH5B5LND3sXKMih/HJITwOakBUYyvrBjBdID1kh5ZUSgJoYlqquJaN+49iOGfXYmeTlS6mg
+	N/yA2WKsKPgvN8wsZ6s2dif1ngI8SJ37uZ39xHZuPbBhpva8yB+z62ePADknGjdBofvo7zIBt5a
+	eN7AEivaDl0EPRnZGwe4CP6X0kmLL3J3yhXGlsOT1pCHAYUvVLjPstTm7QI0pW2uX9eh2Fwsnb0
+	Zc6JncjPT/WeIm/jpqijsNgfTVUUionnNG44BvP34dd9p4MyjZM2Kzxy6QVFG6/rU0bGozKMM+w
+	jkYH6cBmMDKDE+Y88H6pJAWqUQ2RBGUzzACIYQC7CbNOwFAIvSzXRy042ROxU7KzItGa4kAyaSC
+	tWoheZY7PHzjzbXQvJjwRtCVEcS4JDb7tlMqCzm8FqrNDD3hIF3bwp97QglOGtTPSlNsbxGkJ0q
+	TesbiyfpMTr0nsYxn8vurgl2owwwQ==
+X-Received: by 2002:a17:903:2407:b0:2e9:53b1:a3c8 with SMTP id d9443c01a7336-2e953b1a559mr91141175ad.0.1792141036442;
+        Fri, 16 Oct 2026 01:57:16 -0700 (PDT)
 Received: from [127.0.1.1] (211-23-39-77.hinet-ip.hinet.net. [211.23.39.77])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e882a20sm6971025ad.62.2026.10.16.01.57.08
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e882a20sm6971025ad.62.2026.10.16.01.57.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 01:57:11 -0700 (PDT)
+        Fri, 16 Oct 2026 01:57:15 -0700 (PDT)
 From: Jason Yang <jason98166@gmail.com>
-Date: Fri, 16 Oct 2026 16:56:40 +0800
-Subject: [PATCH v5 6/8] phy: rockchip-samsung-dcphy: Add MIPI D-PHY
- receiver support
+Date: Fri, 16 Oct 2026 16:56:41 +0800
+Subject: [PATCH v5 7/8] arm64: dts: rockchip: use two phy cells for the
+ rk3588 mipi dcphys
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-dcphy-rx-v1-v5-6-e63b49eabe2d@gmail.com>
+Message-Id: <20261016-dcphy-rx-v1-v5-7-e63b49eabe2d@gmail.com>
 References: <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
 In-Reply-To: <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
 To: Vinod Koul <vkoul@kernel.org>, 
@@ -89,472 +89,63 @@ Cc: Michael Riesch <michael.riesch@collabora.com>,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  linux-kernel@vger.kernel.org, Jason Yang <jason98166@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792141002; l=16449;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792141002; l=1777;
  i=jason98166@gmail.com; s=20260721; h=from:subject:message-id;
- bh=IPjSkt3PCF0vtQrr5Dtr9Zztzvn/FEISEEiFCwtJgTg=;
- b=gdw4pLjN5y70FSvMahC5Vce4W18XOCe8Gc0dj+irW8177PIq9Kwi0b7Ly4515GRaLsql/conU
- mADkcnud5L8Aca3hRUK6tLj/6kNDuEWHm6Iix9pvV/lvaIi4mYP0QiI
+ bh=4OavUBeyGqaDIQHOgA/IhtahRkKYw5WBMKHlgGZGkLg=;
+ b=v4sInDUQ/7XkIMzK26fj1mNhWedwz2y1jAeJhVW/owd/Y+g6H8l/hQlvpgno7POd/zFYYL10J
+ lVky0MG/7a6BXkIlwekLASsH7MOoF5G3njxjIvRURKOz+XEH0L9NH+L
 X-Developer-Key: i=jason98166@gmail.com; a=ed25519;
  pk=xQmD001Q/ooHl39PxyQtusbUQmgbOsSfpFryRVWZ/k4=
 
-Add the receiver half of the block, so a MIPI CSI-2 camera can use the
-same PHY that already drives a MIPI DSI output on RK3588. It follows the
-receiver start-up sequence in the RK3588 TRM [1]. The HS-RX settle values
-come from the RK3588 vendor kernel.
+The MIPI DC-PHY binding takes a second cell that selects the transmitter
+or the receiver. Switch mipidcphy0 and mipidcphy1 to two cells and let
+dsi0 and dsi1 select the transmitter.
 
-The initial deskew calibration that the D-PHY specification asks for
-above 1.5 Gbps is not implemented; the vendor kernel programs it from
-RK3576 onwards only.
-
-Tested on RK3588 with an IMX219 on the receiver and a DSI panel on the
-transmitter of the same PHY.
-
-[1] RK3588 TRM: sections 22.6.3 (receiver start-up) and 22.6.4.3
-    (worked receiver example)
-
-Assisted-by: LLM
 Signed-off-by: Jason Yang <jason98166@gmail.com>
 ---
- drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c | 390 +++++++++++++++++++++-
- 1 file changed, 387 insertions(+), 3 deletions(-)
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-index 316d4c4d49c1..54a7af610282 100644
---- a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-+++ b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-@@ -244,6 +244,63 @@
- #define T_TA_GET(x)		FIELD_PREP(GENMASK(7, 4), x)
- #define T_TA_GO(x)		FIELD_PREP(GENMASK(3, 0), x)
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+index 376ad04e0786..94d68fd89753 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+@@ -1788,7 +1788,7 @@ dsi0: dsi@fde20000 {
+ 		resets = <&cru SRST_P_DSIHOST0>;
+ 		reset-names = "apb";
+ 		power-domains = <&power RK3588_PD_VOP>;
+-		phys = <&mipidcphy0 PHY_TYPE_DPHY>;
++		phys = <&mipidcphy0 PHY_TYPE_DPHY PHY_DIRECTION_TX>;
+ 		phy-names = "dcphy";
+ 		rockchip,grf = <&vop_grf>;
+ 		status = "disabled";
+@@ -1816,7 +1816,7 @@ dsi1: dsi@fde30000 {
+ 		resets = <&cru SRST_P_DSIHOST1>;
+ 		reset-names = "apb";
+ 		power-domains = <&power RK3588_PD_VOP>;
+-		phys = <&mipidcphy1 PHY_TYPE_DPHY>;
++		phys = <&mipidcphy1 PHY_TYPE_DPHY PHY_DIRECTION_TX>;
+ 		phy-names = "dcphy";
+ 		rockchip,grf = <&vop_grf>;
+ 		status = "disabled";
+@@ -3429,7 +3429,7 @@ mipidcphy0: phy@feda0000 {
+ 			 <&cru SRST_P_MIPI_DCPHY0_GRF>,
+ 			 <&cru SRST_S_MIPI_DCPHY0>;
+ 		reset-names = "m_phy", "apb", "grf", "s_phy";
+-		#phy-cells = <1>;
++		#phy-cells = <2>;
+ 		status = "disabled";
+ 	};
  
-+/* D-PHY receiver registers (clock lane + four data lanes) */
-+#define DPHY_SC_GNR_CON0	0x0b00
-+#define DPHY_SC_GNR_CON1	0x0b04
-+#define DPHY_SC_ANA_CON1	0x0b0c
-+#define HS_RX_BIAS_CON(x)	FIELD_PREP(GENMASK(15, 11), x)
-+#define DPHY_SC_ANA_CON2	0x0b10
-+#define HS_TERM_SW(x)		FIELD_PREP(GENMASK(2, 0), x)
-+#define DPHY_SC_ANA_CON3	0x0b14
-+#define ULPS_HYS_SW_DPHY(x)	FIELD_PREP(GENMASK(10, 8), x)
-+#define DPHY_SC_TIME_CON0	0x0b30
-+#define T_CLK_SETTLE(x)		FIELD_PREP(GENMASK(7, 0), x)
-+#define T_CLK_MISS(x)		FIELD_PREP(GENMASK(11, 8), x)
-+#define COMBO_SD0_GNR_CON0	0x0c00
-+#define COMBO_SD0_GNR_CON1	0x0c04
-+#define COMBO_SD0_ANA_CON1	0x0c0c
-+#define COMBO_SD0_ANA_CON2	0x0c10
-+#define SKEW_DLYSEL(x)		FIELD_PREP(GENMASK(9, 8), x)
-+#define RX_TERM_SW(x)		FIELD_PREP(GENMASK(2, 0), x)
-+#define COMBO_SD0_ANA_CON3	0x0c14
-+#define SEL_ESCPOL		BIT(11)
-+#define LP_HYS_SW(x)		FIELD_PREP(GENMASK(5, 4), x)
-+#define COMBO_SD0_ANA_CON7	0x0c24
-+#define CLK_DBL_CTRL(x)		FIELD_PREP(GENMASK(7, 6), x)
-+#define COMBO_SD0_TIME_CON0	0x0c30
-+#define T_HS_SETTLE(x)		FIELD_PREP(GENMASK(7, 0), x)
-+#define SETTLE_CLK_SEL		BIT(8)
-+#define COMBO_SD0_TIME_CON1	0x0c34
-+#define T_ERR_SOT_SYNC(x)	FIELD_PREP(GENMASK(7, 0), x)
-+#define COMBO_SD0_DESKEW_CON2	0x0c48
-+#define SKEW_CAL_CLK_COARSE_SET(x) FIELD_PREP(GENMASK(4, 0), x)
-+#define COMBO_SD1_GNR_CON0	0x0d00
-+#define COMBO_SD1_GNR_CON1	0x0d04
-+#define COMBO_SD1_ANA_CON1	0x0d0c
-+#define COMBO_SD1_ANA_CON2	0x0d10
-+#define COMBO_SD1_ANA_CON3	0x0d14
-+#define COMBO_SD1_ANA_CON7	0x0d24
-+#define COMBO_SD1_TIME_CON0	0x0d30
-+#define COMBO_SD1_TIME_CON1	0x0d34
-+#define COMBO_SD1_DESKEW_CON2	0x0d48
-+#define COMBO_SD2_GNR_CON0	0x0e00
-+#define COMBO_SD2_GNR_CON1	0x0e04
-+#define COMBO_SD2_ANA_CON1	0x0e0c
-+#define COMBO_SD2_ANA_CON2	0x0e10
-+#define COMBO_SD2_ANA_CON3	0x0e14
-+#define COMBO_SD2_ANA_CON7	0x0e24
-+#define COMBO_SD2_TIME_CON0	0x0e30
-+#define COMBO_SD2_TIME_CON1	0x0e34
-+#define COMBO_SD2_DESKEW_CON2	0x0e48
-+#define DPHY_SD3_GNR_CON0	0x0f00
-+#define DPHY_SD3_GNR_CON1	0x0f04
-+#define DPHY_SD3_ANA_CON1	0x0f0c
-+#define DPHY_SD3_ANA_CON2	0x0f10
-+#define DPHY_SD3_ANA_CON3	0x0f14
-+#define DPHY_SD3_TIME_CON0	0x0f30
-+#define DPHY_SD3_TIME_CON1	0x0f34
-+#define DPHY_SD3_DESKEW_CON2	0x0f48
-+
- /* MIPI_CDPHY_GRF registers */
- #define MIPI_DCPHY_GRF_CON0		0x0000
- #define S_CPHY_MODE			FIELD_PREP_WM16(BIT(3), 1)
-@@ -283,6 +340,7 @@ struct samsung_mipi_dcphy_plat_data {
- struct samsung_mipi_phy {
- 	struct phy *phy;
- 	unsigned int lanes;
-+	unsigned long long hs_clk_rate;
- };
+@@ -3445,7 +3445,7 @@ mipidcphy1: phy@fedb0000 {
+ 			 <&cru SRST_P_MIPI_DCPHY1_GRF>,
+ 			 <&cru SRST_S_MIPI_DCPHY1>;
+ 		reset-names = "m_phy", "apb", "grf", "s_phy";
+-		#phy-cells = <1>;
++		#phy-cells = <2>;
+ 		status = "disabled";
+ 	};
  
- struct samsung_mipi_dcphy {
-@@ -979,6 +1037,260 @@ struct samsung_mipi_dphy_timing samsung_mipi_dphy_timing_table[] = {
- 	{  80,  2,   0,  0, 28,  5,  0, 22,  2,  0,  5},
- };
- 
-+/* D-PHY receiver HS-RX configuration lookup */
-+struct samsung_mipi_dphy_rx_hsfreq_range {
-+	u32 range_h_mbps;
-+	u16 cfg_bit;
-+};
-+
-+/*
-+ * HS RX settle values taken verbatim from the rk3588 vendor kernel.
-+ * The TRM defines these fields but defers the per-data-rate table to a
-+ * timing supplement. Each cfg_bit is a pre-combined SETTLE_CLK_SEL |
-+ * T_HS_SETTLE value for the data-lane TIME_CON0: bit 8 selects the
-+ * divide-by-2 settle clock below 1500 Mbps per the TRM (the vendor
-+ * table switches one bucket early, at 1490 Mbps, and is kept
-+ * unchanged). The TRM marks bit 8 read-only, but the vendor kernel has
-+ * always programmed it. Sorted by .range_h_mbps ascending.
-+ */
-+static const struct samsung_mipi_dphy_rx_hsfreq_range samsung_mipi_dphy_rx_hsfreq_ranges[] = {
-+	{   80, 0x105 }, {  100, 0x106 }, {  120, 0x107 }, {  140, 0x108 },
-+	{  160, 0x109 }, {  180, 0x10a }, {  200, 0x10b }, {  220, 0x10c },
-+	{  240, 0x10d }, {  270, 0x10e }, {  290, 0x10f }, {  310, 0x110 },
-+	{  330, 0x111 }, {  350, 0x112 }, {  370, 0x113 }, {  390, 0x114 },
-+	{  410, 0x115 }, {  430, 0x116 }, {  450, 0x117 }, {  470, 0x118 },
-+	{  490, 0x119 }, {  510, 0x11a }, {  540, 0x11b }, {  560, 0x11c },
-+	{  580, 0x11d }, {  600, 0x11e }, {  620, 0x11f }, {  640, 0x120 },
-+	{  660, 0x121 }, {  680, 0x122 }, {  700, 0x123 }, {  720, 0x124 },
-+	{  740, 0x125 }, {  760, 0x126 }, {  790, 0x127 }, {  810, 0x128 },
-+	{  830, 0x129 }, {  850, 0x12a }, {  870, 0x12b }, {  890, 0x12c },
-+	{  910, 0x12d }, {  930, 0x12e }, {  950, 0x12f }, {  970, 0x130 },
-+	{  990, 0x131 }, { 1010, 0x132 }, { 1030, 0x133 }, { 1060, 0x134 },
-+	{ 1080, 0x135 }, { 1100, 0x136 }, { 1120, 0x137 }, { 1140, 0x138 },
-+	{ 1160, 0x139 }, { 1180, 0x13a }, { 1200, 0x13b }, { 1220, 0x13c },
-+	{ 1240, 0x13d }, { 1260, 0x13e }, { 1280, 0x13f }, { 1310, 0x140 },
-+	{ 1330, 0x141 }, { 1350, 0x142 }, { 1370, 0x143 }, { 1390, 0x144 },
-+	{ 1410, 0x145 }, { 1430, 0x146 }, { 1450, 0x147 }, { 1470, 0x148 },
-+	{ 1490, 0x149 }, { 1580, 0x007 }, { 1740, 0x008 }, { 1910, 0x009 },
-+	{ 2070, 0x00a }, { 2240, 0x00b }, { 2410, 0x00c }, { 2570, 0x00d },
-+	{ 2740, 0x00e }, { 2910, 0x00f }, { 3070, 0x010 }, { 3240, 0x011 },
-+	{ 3410, 0x012 }, { 3570, 0x013 }, { 3740, 0x014 }, { 3890, 0x015 },
-+	{ 4070, 0x016 }, { 4240, 0x017 }, { 4400, 0x018 }, { 4500, 0x019 },
-+};
-+
-+static int samsung_mipi_dphy_rx_lookup_hsfreq(u32 lane_mbps, u16 *cfg_bit)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(samsung_mipi_dphy_rx_hsfreq_ranges); i++) {
-+		if (lane_mbps <= samsung_mipi_dphy_rx_hsfreq_ranges[i].range_h_mbps) {
-+			*cfg_bit = samsung_mipi_dphy_rx_hsfreq_ranges[i].cfg_bit;
-+			return 0;
-+		}
-+	}
-+
-+	return -ERANGE;
-+}
-+
-+/* SKEW_DLYSEL per data rate, from the RK3588 TRM ANA_CON2 description */
-+static u32 samsung_mipi_dphy_rx_data_lane_dlysel(u32 lane_mbps)
-+{
-+	if (lane_mbps < 1500)
-+		return 0;
-+	if (lane_mbps < 2000)
-+		return SKEW_DLYSEL(3);
-+	if (lane_mbps < 3000)
-+		return SKEW_DLYSEL(2);
-+	if (lane_mbps < 4000)
-+		return SKEW_DLYSEL(1);
-+	return 0;
-+}
-+
-+/*
-+ * Per-data-lane register bases, indexed by lane number. The clock lane
-+ * shares the same block spacing but is programmed separately: its
-+ * TIME_CON0 holds T_CLK_SETTLE/T_CLK_MISS rather than the per-rate
-+ * T_HS_SETTLE/SETTLE_CLK_SEL, and it has no deskew configuration.
-+ */
-+static const u32 rx_data_lane_gnr_con0[] = {
-+	COMBO_SD0_GNR_CON0, COMBO_SD1_GNR_CON0,
-+	COMBO_SD2_GNR_CON0, DPHY_SD3_GNR_CON0,
-+};
-+
-+static const u32 rx_data_lane_gnr_con1[] = {
-+	COMBO_SD0_GNR_CON1, COMBO_SD1_GNR_CON1,
-+	COMBO_SD2_GNR_CON1, DPHY_SD3_GNR_CON1,
-+};
-+
-+static const u32 rx_lane_time_con0[] = {
-+	COMBO_SD0_TIME_CON0, COMBO_SD1_TIME_CON0,
-+	COMBO_SD2_TIME_CON0, DPHY_SD3_TIME_CON0,
-+};
-+
-+static const u32 rx_lane_time_con1[] = {
-+	COMBO_SD0_TIME_CON1, COMBO_SD1_TIME_CON1,
-+	COMBO_SD2_TIME_CON1, DPHY_SD3_TIME_CON1,
-+};
-+
-+/*
-+ * These RX analog tuning values come from the vendor kernel. The
-+ * termination (RX_TERM_SW/HS_TERM_SW = 2) is the 96.6 ohm setting the
-+ * TRM ANA_CON2 value list annotates as the default, although the
-+ * register itself resets to 102 ohm. Data lane 0 differs on purpose:
-+ * the vendor's default receive profile applies the LP hysteresis and
-+ * the swapped escape clock polarity to lane 0 only, and no manual
-+ * skew-calibration delay there against three 30 ps steps on the other
-+ * lanes. Data lane 3 is a plain D-PHY lane with no ANA_CON7, so it
-+ * gets no CLK_DBL_CTRL write.
-+ */
-+static void samsung_mipi_dphy_rx_config_common(struct samsung_mipi_dcphy *samsung)
-+{
-+	struct samsung_mipi_phy *rx = &samsung->rx;
-+	u32 dlysel = samsung_mipi_dphy_rx_data_lane_dlysel(div_u64(rx->hs_clk_rate,
-+								   1000000));
-+	u32 ana_con2_common = dlysel | RX_TERM_SW(2);
-+
-+	/* Clock lane */
-+	regmap_write(samsung->regmap, DPHY_SC_ANA_CON1, HS_RX_BIAS_CON(0x10));
-+	regmap_write(samsung->regmap, DPHY_SC_ANA_CON2, HS_TERM_SW(2));
-+	regmap_write(samsung->regmap, DPHY_SC_ANA_CON3, ULPS_HYS_SW_DPHY(6));
-+
-+	/* Data lane 0; a zero lane count is rejected at power-on */
-+	regmap_write(samsung->regmap, COMBO_SD0_ANA_CON1, HS_RX_BIAS_CON(0x10));
-+	regmap_write(samsung->regmap, COMBO_SD0_ANA_CON2, ana_con2_common);
-+	regmap_write(samsung->regmap, COMBO_SD0_ANA_CON3,
-+		     ULPS_HYS_SW_DPHY(6) | LP_HYS_SW(3) | SEL_ESCPOL);
-+	regmap_write(samsung->regmap, COMBO_SD0_ANA_CON7, CLK_DBL_CTRL(1));
-+	regmap_write(samsung->regmap, COMBO_SD0_DESKEW_CON2,
-+		     SKEW_CAL_CLK_COARSE_SET(0));
-+
-+	/* Data lane 1 */
-+	if (rx->lanes > 1) {
-+		regmap_write(samsung->regmap, COMBO_SD1_ANA_CON1,
-+			     HS_RX_BIAS_CON(0x10));
-+		regmap_write(samsung->regmap, COMBO_SD1_ANA_CON2,
-+			     ana_con2_common);
-+		regmap_write(samsung->regmap, COMBO_SD1_ANA_CON3,
-+			     ULPS_HYS_SW_DPHY(6));
-+		regmap_write(samsung->regmap, COMBO_SD1_ANA_CON7,
-+			     CLK_DBL_CTRL(1));
-+		regmap_write(samsung->regmap, COMBO_SD1_DESKEW_CON2,
-+			     SKEW_CAL_CLK_COARSE_SET(3));
-+	}
-+
-+	/* Data lane 2 */
-+	if (rx->lanes > 2) {
-+		regmap_write(samsung->regmap, COMBO_SD2_ANA_CON1,
-+			     HS_RX_BIAS_CON(0x10));
-+		regmap_write(samsung->regmap, COMBO_SD2_ANA_CON2,
-+			     ana_con2_common);
-+		regmap_write(samsung->regmap, COMBO_SD2_ANA_CON3,
-+			     ULPS_HYS_SW_DPHY(6));
-+		regmap_write(samsung->regmap, COMBO_SD2_ANA_CON7,
-+			     CLK_DBL_CTRL(1));
-+		regmap_write(samsung->regmap, COMBO_SD2_DESKEW_CON2,
-+			     SKEW_CAL_CLK_COARSE_SET(3));
-+	}
-+
-+	/* Data lane 3 */
-+	if (rx->lanes > 3) {
-+		regmap_write(samsung->regmap, DPHY_SD3_ANA_CON1,
-+			     HS_RX_BIAS_CON(0x10));
-+		regmap_write(samsung->regmap, DPHY_SD3_ANA_CON2,
-+			     ana_con2_common);
-+		regmap_write(samsung->regmap, DPHY_SD3_ANA_CON3,
-+			     ULPS_HYS_SW_DPHY(6));
-+		regmap_write(samsung->regmap, DPHY_SD3_DESKEW_CON2,
-+			     SKEW_CAL_CLK_COARSE_SET(3));
-+	}
-+}
-+
-+static int samsung_mipi_dphy_rx_config_settle(struct samsung_mipi_dcphy *samsung)
-+{
-+	struct samsung_mipi_phy *rx = &samsung->rx;
-+	u32 lane_mbps = div_u64(rx->hs_clk_rate, 1000000);
-+	unsigned int i;
-+	u16 cfg_bit;
-+	int ret;
-+
-+	ret = samsung_mipi_dphy_rx_lookup_hsfreq(lane_mbps, &cfg_bit);
-+	if (ret) {
-+		dev_err(samsung->dev, "no RX hsfreq cfg for %u Mbps\n",
-+			lane_mbps);
-+		return ret;
-+	}
-+
-+	/*
-+	 * Clock-lane settle uses the fixed value from the TRM RX bring-up
-+	 * example, unlike the per-rate data-lane settle below.
-+	 */
-+	regmap_write(samsung->regmap, DPHY_SC_TIME_CON0,
-+		     T_CLK_SETTLE(0x01) | T_CLK_MISS(0x03));
-+
-+	for (i = 0; i < rx->lanes; i++) {
-+		regmap_update_bits(samsung->regmap, rx_lane_time_con0[i],
-+				   T_HS_SETTLE(0xff) | SETTLE_CLK_SEL, cfg_bit);
-+		regmap_update_bits(samsung->regmap, rx_lane_time_con1[i],
-+				   T_ERR_SOT_SYNC(0xff), T_ERR_SOT_SYNC(0x03));
-+	}
-+
-+	return 0;
-+}
-+
-+static void samsung_mipi_dphy_rx_lane_disable(struct samsung_mipi_dcphy *samsung)
-+{
-+	struct samsung_mipi_phy *rx = &samsung->rx;
-+	unsigned int i;
-+
-+	regmap_update_bits(samsung->regmap, DPHY_SC_GNR_CON0, PHY_ENABLE, 0);
-+	for (i = 0; i < rx->lanes; i++)
-+		regmap_update_bits(samsung->regmap, rx_data_lane_gnr_con0[i],
-+				   PHY_ENABLE, 0);
-+}
-+
-+static int samsung_mipi_dphy_rx_lane_enable(struct samsung_mipi_dcphy *samsung)
-+{
-+	struct samsung_mipi_phy *rx = &samsung->rx;
-+	unsigned int i;
-+	u32 sts;
-+	int ret;
-+
-+	regmap_write(samsung->regmap, DPHY_SC_GNR_CON1, T_PHY_READY(0x1450));
-+	regmap_update_bits(samsung->regmap, DPHY_SC_GNR_CON0,
-+			   PHY_ENABLE, PHY_ENABLE);
-+
-+	for (i = 0; i < rx->lanes; i++) {
-+		regmap_write(samsung->regmap, rx_data_lane_gnr_con1[i],
-+			     T_PHY_READY(0x1450));
-+		regmap_update_bits(samsung->regmap, rx_data_lane_gnr_con0[i],
-+				   PHY_ENABLE, PHY_ENABLE);
-+	}
-+
-+	ret = regmap_read_poll_timeout(samsung->regmap, DPHY_SC_GNR_CON0,
-+				       sts, sts & PHY_READY, 200, 4000);
-+	if (ret) {
-+		dev_err(samsung->dev, "RX clock lane not ready\n");
-+		goto err_lane_disable;
-+	}
-+
-+	for (i = 0; i < rx->lanes; i++) {
-+		ret = regmap_read_poll_timeout(samsung->regmap,
-+					       rx_data_lane_gnr_con0[i],
-+					       sts, sts & PHY_READY,
-+					       200, 2000);
-+		if (ret) {
-+			dev_err(samsung->dev, "RX data lane %u not ready\n", i);
-+			goto err_lane_disable;
-+		}
-+	}
-+
-+	return 0;
-+
-+err_lane_disable:
-+	samsung_mipi_dphy_rx_lane_disable(samsung);
-+	return ret;
-+}
-+
- static void samsung_mipi_dcphy_bias_block_enable(struct samsung_mipi_dcphy *samsung)
- {
- 	regmap_write(samsung->regmap, BIAS_CON0, I_DEV_DIV_6 | I_RES_100_2UA);
-@@ -988,6 +1300,55 @@ static void samsung_mipi_dcphy_bias_block_enable(struct samsung_mipi_dcphy *sams
- 						 REG_400M_400MV | REG_645M_645MV);
- }
- 
-+static int samsung_mipi_dphy_rx_power_on(struct samsung_mipi_dcphy *samsung)
-+{
-+	struct samsung_mipi_phy *rx = &samsung->rx;
-+	int ret;
-+
-+	if (!rx->hs_clk_rate || !rx->lanes)
-+		return -EINVAL;
-+
-+	reset_control_assert(samsung->s_phy_rst);
-+
-+	/* default output voltage select:
-+	 * dphy: 400mv
-+	 * cphy: 530mv
-+	 */
-+	regmap_update_bits(samsung->regmap, BIAS_CON4,
-+			   I_MUX_SEL_MASK, I_MUX_400MV);
-+
-+	samsung_mipi_dphy_rx_config_common(samsung);
-+
-+	ret = samsung_mipi_dphy_rx_config_settle(samsung);
-+	if (ret)
-+		goto out_deassert;
-+
-+	ret = samsung_mipi_dphy_rx_lane_enable(samsung);
-+
-+out_deassert:
-+	reset_control_deassert(samsung->s_phy_rst);
-+
-+	return ret;
-+}
-+
-+static int samsung_mipi_dphy_rx_power_off(struct samsung_mipi_dcphy *samsung)
-+{
-+	reset_control_assert(samsung->s_phy_rst);
-+
-+	samsung_mipi_dphy_rx_lane_disable(samsung);
-+
-+	reset_control_deassert(samsung->s_phy_rst);
-+
-+	/*
-+	 * Let the lanes settle out of reset before the receiver may be
-+	 * brought up again. The delay follows the vendor driver; the TRM
-+	 * does not document a teardown sequence.
-+	 */
-+	usleep_range(500, 1000);
-+
-+	return 0;
-+}
-+
- static void samsung_mipi_dphy_tx_lane_enable(struct samsung_mipi_dcphy *samsung)
- {
- 	regmap_write(samsung->regmap, DPHY_MC_GNR_CON1, T_PHY_READY(0x2000));
-@@ -1516,17 +1877,40 @@ static int samsung_mipi_dcphy_exit(struct phy *phy)
- static int samsung_mipi_dcphy_rx_configure(struct phy *phy,
- 					   union phy_configure_opts *opts)
- {
--	return -EOPNOTSUPP;
-+	struct samsung_mipi_dcphy *samsung = phy_get_drvdata(phy);
-+
-+	samsung->rx.lanes = opts->mipi_dphy.lanes > 4 ? 4 : opts->mipi_dphy.lanes;
-+
-+	/* The sensor supplies the link clock, so the PLL stays off. */
-+	samsung->rx.hs_clk_rate = opts->mipi_dphy.hs_clk_rate;
-+
-+	return 0;
- }
- 
- static int samsung_mipi_dcphy_rx_power_on(struct phy *phy)
- {
--	return -EOPNOTSUPP;
-+	struct samsung_mipi_dcphy *samsung = phy_get_drvdata(phy);
-+
-+	switch (samsung->type) {
-+	case PHY_TYPE_DPHY:
-+		return samsung_mipi_dphy_rx_power_on(samsung);
-+	default:
-+		/* CPHY part to be implemented later */
-+		return -EOPNOTSUPP;
-+	}
- }
- 
- static int samsung_mipi_dcphy_rx_power_off(struct phy *phy)
- {
--	return -EOPNOTSUPP;
-+	struct samsung_mipi_dcphy *samsung = phy_get_drvdata(phy);
-+
-+	switch (samsung->type) {
-+	case PHY_TYPE_DPHY:
-+		return samsung_mipi_dphy_rx_power_off(samsung);
-+	default:
-+		/* CPHY part to be implemented later */
-+		return -EOPNOTSUPP;
-+	}
- }
- 
- static const struct phy_ops samsung_mipi_dcphy_tx_ops = {
 
 -- 
 2.43.0
