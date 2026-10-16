@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1CC037D123
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 14:49:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3948734EF05
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 14:51:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792162167; cv=none; b=OEuxIYocGTxrTFAlmHZEQlC/91sZt5SdD1RDVHFYH/FxMJQLmyO5PkHdE5BuJ0F+E46MuJwURNE1BErxVZW7gc3EuUfazLSjg/NZQB58N+5N5LW/QtFdkAJ7CW9WmGy9FgSErrFHek79SSht49MpL8GAn7/Yy8/LyL0OYqLOcmE=
+	t=1792162266; cv=none; b=TTXUX/baN8T9Ygr6zifsx/OTYIrN22s5ngHeAYWosa7iyikIkSPfPdqA/KOqyKo5shRwawiAtSQ1oGvWus2zrzL2a5WqdHungrSyO1le4PpU2bOhtBLDkTYEjng/SAX5Pzytb0G+99OAC6jVIgAwRafbAb8k98EV0z8YAEeHObQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792162167; c=relaxed/simple;
-	bh=01wV+ZOrkXLuqYIGKRB7P7P3TN7kx6JicH/NY8Ox3ds=;
+	s=arc-20240116; t=1792162266; c=relaxed/simple;
+	bh=2stUvZaj9JjSJYdtwCzcq9r9qIRF7jrhu8qSa2ya9dA=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=eFqA+kbD0Jy8SJ0YdNF43MTcwn9yyUYYSkj27FO4W9ZF4GAj5GNdabsuqZLnLITdmyGX8hReZO1mEYW3Ptx0B827pmoLBmeILsefvTrkkw8w/D+9zk/clnmeq6EW9g0FSrj+BO8J77zcdXeU4goLFHULL5Q/0zJmb/01mDhTl7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EUE0P6vs; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=oNKEwm4AjlVTUOBA2IqGxI5uCJaMuI8TBkWBzjOOtg5/8/h/JHENW6JwXRldEX+35moYjwx/1AWwzmu8lQ2dXRDxqAyRnwn4Szi9RtfwUXR8rxDkqvhIAPQVjbe4B1mqa1UHNKkPjAZq5xO0nHb/N1FD/hnJ75T+TffZ+0VA8es=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hZM1R4zA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EUE0P6vs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F27191F000C4;
-	Fri, 16 Oct 2026 14:49:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hZM1R4zA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9552C1F000C4;
+	Fri, 16 Oct 2026 14:51:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792162166;
-	bh=+O0kuj1YjKx+IYu4WBLRJEl7zzNkKpnl1/vJIfjcYYE=;
+	s=k20260515; t=1792162264;
+	bh=SWtjbnVVxlnrnY85L5TTQmMo0zbgPktk4VxQDoR3thE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EUE0P6vsa5SH3SuYYFRwS51O92Si9kIbK/Eq8kTzqL3fSmpnYcKwZq5Fpzsi36bte
-	 v0MP692sN0P6vs1mVt2ewWU0xOktSOv+q+qVP/WfNNw3qCoYypX4YWM1jweYlFt2C6
-	 wHWHPstLD00lLE0PFPmEWTTe3zI02hk9j2jAplk49Xq1eQYtmpMuwqK7DjlMq+uQ91
-	 Cd4avQvz1Zuh0q8qKv916yY11BBsTF8rDYpT5iD2k7GSmwG9xmLWVz6celHws+3sXN
-	 Gad2A/vVVI/I/g9FmtVd2RaJbfgbHpJir5FqQCzqIemaInE7CVLH0JMUPLlHdgJGL5
-	 ZD4sRAMqTHB6A==
-Message-ID: <sashiko-outbox-174490@kernel.org>
+	b=hZM1R4zAgbzmFngifjYFIH3hy7zI/C2Q3Ix+ANqVD4pEzCswDEYPeZKyw4gj1j/yN
+	 K2Cvnl77w+Up9f3+P9RljjcTk+LF1c88zf2AmnHITe6UqiTItjO3z9ZEzOuOgPrg8n
+	 9TpLJEVY9WJiyiYUU4Iz/ImEu5vMJlMjqea98cNZQh/jGBsRE8DgrozKBkkWU+b4US
+	 E6ODBHEEDinPWVbldh+d4FlrdI911x6UtNleXGaqPC7NdLWRZpPPW/5YHluhsnDtBs
+	 sKHwIXwFHd+x7lBtKCiHTS8QVCpqjh9z+3fLbqmLgi8g4KTIAPzLeV/Ixk82m6EK8F
+	 q5e4/ccchEvsA==
+Message-ID: <sashiko-outbox-174495@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] iio: light: Update DT bindings for GP2AP002
+Subject: Re: [PATCH net-next v25 2/3] net: phy: Add support for Template
+ Control register for PMA
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christoph Rudorff" <chris@rudorff.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261016-iio-light-gp2ap002-v1-2-7c93312fa8d5@rudorff.com>
-References: <20261016-iio-light-gp2ap002-v1-0-7c93312fa8d5@rudorff.com>
- <20261016-iio-light-gp2ap002-v1-2-7c93312fa8d5@rudorff.com>
+To: "Kyle Switch" <kyle.switch@motor-comm.com>, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261015145021.2216003-3-kyle.switch@motor-comm.com>
+References: <20261015145021.2216003-1-kyle.switch@motor-comm.com>
+ <20261015145021.2216003-3-kyle.switch@motor-comm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 16 Oct 2026 14:49:25 +0000
+Date: Fri, 16 Oct 2026 14:51:04 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,97 +47,46 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] iio: gp2ap002: vled regulator leak in error paths
+- [Medium] uapi: internal GENMASK() macro in exported header breaks userspa=
+ce builds
 --
 
-commit 999604192c18f52748ad72ac0d26233473334acf
-Author: Christoph Rudorff <chris@rudorff.com>
+commit b7a3d7bbc3ea78c17c69740f5d19e179c57d12cd
+Author: Kyle Switch <kyle.switch@motor-comm.com>
 
-iio: light: Update DT bindings for GP2AP002
+net: phy: Add support for Template Control register for PMA
 
-This commit adds the missing vled-supply regulator to the device tree
-bindings for the Sharp GP2AP002 sensor.
+This commit adds support for the 10GBASE-T PMA Template Test Mode register
+field. It allows selecting one of eight test modes used for PHY validation.
 
-> diff --git a/Documentation/devicetree/bindings/iio/light/sharp,gp2ap002.y=
-aml b/Documentation/devicetree/bindings/iio/light/sharp,gp2ap002.yaml
-> index 99bddf31cbed2..2b5025043168a 100644
-> --- a/Documentation/devicetree/bindings/iio/light/sharp,gp2ap002.yaml
-> +++ b/Documentation/devicetree/bindings/iio/light/sharp,gp2ap002.yaml
-> @@ -33,6 +33,9 @@ properties:
->    vio-supply:
->      description: VIO power supply a phandle to a regulator
+> diff --git a/include/uapi/linux/mdio.h b/include/uapi/linux/mdio.h
+> index 06f4bc3c20c71..353ca13c64fca 100644
+> --- a/include/uapi/linux/mdio.h
+> +++ b/include/uapi/linux/mdio.h
+
+[ ... ]
+
+> @@ -320,6 +321,17 @@
+>  /* PMA 10GBASE-R Fast Retrain status and control register. */
+>  #define MDIO_PMA_10GBR_FSRT_ENABLE	0x0001	/* Fast retrain enable */
 > =20
-> +  vled-supply:
-> +    description: LED power supply a phandle to a regulator
-> +
->    io-channels:
->      maxItems: 1
->      description: ALSOUT ADC channel to read the ambient light
-
-While reviewing this binding addition, I noticed the corresponding driver
-code might be missing cleanup for this regulator.
-
-drivers/iio/light/gp2ap002.c:gp2ap002_probe() {
-...
-	ret =3D regulator_enable(gp2ap002->vled);
-	if (ret) {
-		dev_err(dev, "failed to enable VLED regulator\n");
-		goto out_disable_vio;
-	}
-
-	msleep(20);
-
-	/*
-	 * Initialize the device and signal to runtime PM that now we are
-	 * definitely up and using power.
-	 */
-	ret =3D gp2ap002_init(gp2ap002);
-	if (ret) {
-		dev_err(dev, "initialization failed\n");
-		goto out_disable_vio;
-	}
-...
-out_disable_vio:
-	regulator_disable(gp2ap002->vio);
-out_disable_vdd:
-	regulator_disable(gp2ap002->vdd);
-	return ret;
-}
+> +/* PMA 10GBASE-T Template Test Mode Register*/
+> +#define MDIO_PMA_10GBT_TESTMODE_MASK GENMASK(15, 13) /* Template test mo=
+de */
 
 [Severity: Medium]
-Does this code leak the vled regulator? If initialization fails, the error =
-path
-jumps to out_disable_vio, completely skipping the disablement of vled and
-leaving it indefinitely enabled.
+Will this break userspace builds? The GENMASK() macro is an internal kernel
+macro defined in <linux/bits.h> and is not exported to userspace.
 
-The same sequence appears during runtime resume:
+If an external program includes <linux/mdio.h> and attempts to use
+MDIO_PMA_10GBT_TESTMODE_MASK, won't it encounter compilation failures due to
+the undefined macro? Should this be defined using an explicit hexadecimal
+literal (like 0xE000) or the __GENMASK() macro instead to keep the exported
+UAPI header functional for userspace applications?
 
-drivers/iio/light/gp2ap002.c:gp2ap002_runtime_resume() {
-...
-	ret =3D regulator_enable(gp2ap002->vled);
-	if (ret) {
-		dev_err(dev, "failed to enable VLED regulator in resume path\n");
-		goto out_disable_vio;
-	}
-
-	msleep(20);
-
-	ret =3D gp2ap002_init(gp2ap002);
-	if (ret) {
-		dev_err(dev, "re-initialization failed\n");
-		goto out_disable_vio;
-	}
-...
-out_disable_vio:
-	regulator_disable(gp2ap002->vio);
-out_disable_vdd:
-	regulator_disable(gp2ap002->vdd);
-	return ret;
-}
-
-[Severity: Medium]
-Does this code similarly leak the vled regulator during a resume failure?
+> +#define MDIO_PMA_10GBT_TESTMODE_NORMAL 0x0 /* Template Normal */
+> +#define MDIO_PMA_10GBT_TESTMODE_1 0x1 /* Template TestMode1 */
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016-iio-light-=
-gp2ap002-v1-0-7c93312fa8d5@rudorff.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015145021.2216=
+003-1-kyle.switch@motor-comm.com?part=3D2
