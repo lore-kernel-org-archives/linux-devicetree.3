@@ -1,170 +1,217 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB41D254B03;
-	Fri, 16 Oct 2026 04:02:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D402433122D
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 04:27:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792123354; cv=none; b=pulgGG4B4Y8XGrrsw3EAnQR00i9k4q79+nCtEWlS4731YuDruwBWXZ2DdJ2XcUxhxjFoU+UcRNxhgChVWBrYS7daGdW2025W7PDF2RV602LP2XZoRXhL+DJK1Wo+jwMS/eHT+gs0KYC8LN4G3GczJwSPmpO+OqMJIu3GLFaIz3E=
+	t=1792124838; cv=none; b=dbFH9yLNWBm7gIqSFGPKBkUVLGPSc5TO7qK2XX/r4NibOwwIR+XCizLVHEUsqUSpDuktcIF0MWdgXqGsUKxrG45pUrGMQdKTiBi8CvVJe5jdw3aRaHW90xgPxBCbap4FtsiD3OcWkWVsOpaBiSV7tNqChkc8DH/1vGd/P6U7jbQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792123354; c=relaxed/simple;
-	bh=D/7WZn96n/4VQB8L8pTjKKxOtCun2ZxLUzSvWC0YHM8=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=sqYzbpKLinrSE6LFvS/lg8dA1WMAsLcYGRf1ujXVAjtVbkBqWaTxvYkIwb7GhmzZeyNeUNt62uKWwWt/jchaNKfeQibBsh/wa4i/hYyGz8hblqR03vUOyJCakCgbbxkmoSjHAxiL7bcdDhpEDVHGaYfYnUJh0m5+ZwwikYS61ks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OedRXRla; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792124838; c=relaxed/simple;
+	bh=NPselX8jhTM98gzV932AP1M18hySEO6deIgAQViShos=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kIDLgSo++Jyc9APHSlISpSj+UftjyqUAxioPDyB532e9H/wir/GSOwR0h6uOAVj6w+zM0YJ+xbhj9ZEYW6dj9vjDofKDC74lVXf/csswAg8Xm6LlDi6sH8Lv73Cw11iKuJ3g+2fLVmdVjx7lx6/Y01Hk8zJ1sAZpLFYRVA1uXCE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qr/PPGXy; arc=none smtp.client-ip=74.125.82.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OedRXRla"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 888A51F000C4;
-	Fri, 16 Oct 2026 04:02:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792123353;
-	bh=NYhYtY6NNxHVhaTXOhMMsowXI57SxMv7/T8lMzWMVN8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OedRXRlapUce4ZGThtU3JvUeqJMCsQv8lMObcrwmI61z2UHc0QWOmhzVm6DNtGp5L
-	 chuK0oubaBpriDQSOUC8YCT3+0bYTaYmJesqyIFDUFXPiVs2uJkBZRe/L+XkEwKFjT
-	 nzznNLTeqj1Oxh0o6qE/hhhJwD08qBFwFLHuiT13uZHKBqpPwX+ILWkoG3wpp6EWn+
-	 T1lCbXIkIiNszSfWuOrKJea2GE81s8ziROlv/8rt2hhCw+VWcUe66InWcMy5H7foSX
-	 B7kl+vxTppAGGpUpuiux4aQVIazKdM4oSgS83hJkmkr2AWLYmx9BA4VC1nAmp/FQwZ
-	 9zYP3GWUDPrkA==
-Message-ID: <sashiko-outbox-173724@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 17/17] mtd: rawnand: sunxi: support the Allwinner
- randomized OOB format
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "James Hilliard" <james.hilliard1@gmail.com>, "Miquel Raynal" <miquel.raynal@bootlin.com>, "Richard
- Weinberger" <richard@nod.at>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Sebastian
- Andrzej Siewior" <bigeasy@linutronix.de>, "Clark Williams" <clrkwllms@kernel.org>, "Steven
- Rostedt" <rostedt@goodmis.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>
-Cc: "Chen-Yu Tsai" <wens@kernel.org>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Samuel
- Holland" <samuel@sholland.org>, "Maxime Ripard" <mripard@kernel.org>, "Richard
- Genoud" <richard.genoud@bootlin.com>, "Boris Brezillon" <bbrezillon@kernel.org>, "Masahiro
- Yamada" <yamada.masahiro@socionext.com>, "Brian Norris" <computersforpeace@gmail.com>, linux-mtd@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-rt-devel@lists.linux.dev, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261015-submit-sunxi-nand-vendor-oob-layout-v1-v8-17-8ba4881fbee8@gmail.com>
-References: <20261015-submit-sunxi-nand-vendor-oob-layout-v1-v8-0-8ba4881fbee8@gmail.com>
- <20261015-submit-sunxi-nand-vendor-oob-layout-v1-v8-17-8ba4881fbee8@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 16 Oct 2026 04:02:32 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qr/PPGXy"
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1517bda04a0so4359997c88.0
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 21:27:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792124836; x=1792729636; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mntqcOgaEVA2dJqWvU6cdKK600RbvIE/Xn15gv5EFmo=;
+        b=Qr/PPGXyGdsY4ei1n1QH9xOaY5j9sCBORfFnJp78jRw1Al9Be74YM8KSLX+Xq/HlF1
+         J5XAiR545tYh2y7ZVTZeR+Zvqx5neJAdrX8kyrFcQno7HGrwTvRFLr0AgVE7M2LZYq2E
+         0cZyCLN+gJ5mrvwqhPbtIIGthG/NYqAn2C8iEe5BZdLUd+9NUhXOSvS0AmdUygTTrvkL
+         RhFbiPjJBY2IEQ9UWu1NKv9KmbwLu9Dm3Z2jSKLr3ZaEsIFvIUfhhPVX/Q8JmLWhCt1m
+         svVWXuiNiC8sD2fLeftSnrM9htYxO0iLvc+OS1Io+JfMRBABJGEw1jbjdpini6oVocQF
+         1Z8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792124836; x=1792729636;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mntqcOgaEVA2dJqWvU6cdKK600RbvIE/Xn15gv5EFmo=;
+        b=NTmE2sdKoUgil3fYtkLjF4pi8PJxYquFman3HN6ajXYGG8lQWskAJkM9W54Ya4upU5
+         3GZSjPd+gKQ/WFtXWbksC1ZEwfn3Y0Eq6bvuzGUuosy6/GsXE0gtZnOE7l4dicEpQSfJ
+         ADg9se7VGLjor8FcCO16lxmMSRThtJL5wEPl9Cfd7Yqln6BEZ/mK4jJeT26HSgfl+cNZ
+         BAr7TwcoiTjaeaVRIQA0IccTvOCbaen8CzdEgX02nvCNoKoBIAA7wLt18VVGvu8SE0mK
+         bwQJ278OAqULmOpokKwKEathTu1k9ruGY2wakfWW2f32UW0rU+omNZbi2dZ1WWedIwEp
+         Y2Gw==
+X-Forwarded-Encrypted: i=1; AKwUvBwDqRROzCAf6Ono1NLiJEdSGJw/mJapEKb8T1sCu08gMe1XxJmapOK0K/xkJCpo5Z4HaI2CDxtRy1Up@vger.kernel.org
+X-Gm-Message-State: AFq9FYIP4GRTc/s4Bchp9+cmdcKNmoB/asWqQWccsaATOmbA87w0bYP2
+	8cm0M5+pHGt76odS6DQbxfnM57LIzO69CKFU3pR0P9cdkRGyF5cVYBfP
+X-Gm-Gg: AYBFou0eRCaxb8jod47xkQIC+sr695bAquAbqqMLucSdXgc1jMzPUDZODgC5tTS/1eR
+	TvyZbNPA79BwEA+wvL436SS33zUihaJUCeRmgpSbzDP4vP2WCfVGIUMY6OhqlTDBaHup7Pod41t
+	9syE8lEetGEjXhdEqGmRTUJSi0HtYowdOVcbiX6gjUE7RtllbdK80/9DEwKeyPOFZ2an0PVjC/j
+	78soIQWlOrXvFT54ZByVmb7516ZiDKH2RLG8GiUFWLmSvwoZNxd779AjhEp4ARcxjlMT+qCqQPP
+	JDIj2RhpxzAedqB0GMKAKqYju9JpQAAcQbN92qljy5MXYNlkYu27VVDPi9pWZ23bofIdWlr8+9u
+	7aVQqPWYxS/emp0Z/pBR4khQzQbMZ0578J7U0OiDaKJFlAEH9m9t6rJsnXKPRWnm7mxyeKunW9O
+	iuhjuix+8n+MVHWYDC1rTNmNxzlRnQTl+sSt9xnsBQRDr7dC8KgTCjG6WZdL4ZJAbZlCx8e8iMR
+	bfoydfTGJr9sbzLtToi3cP86XcoS7Wa3PLSAP3CsHQSEQasUU2wMVCDC7xQZ2J2
+X-Received: by 2002:a05:701b:4508:10b0:154:fa0b:6df1 with SMTP id a92af1059eb24-16a5e49d6c9mr25908560c88.37.1792124835685;
+        Thu, 15 Oct 2026 21:27:15 -0700 (PDT)
+Received: from localhost.localdomain ([152.58.201.32])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831b75be5esm2644712c88.16.2026.10.15.21.27.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 21:27:15 -0700 (PDT)
+From: Sreeshankar K <sreeshankar0910@gmail.com>
+To: andersson@kernel.org,
+	sboyd@kernel.org,
+	bmasney+clk@redhat.com,
+	jbrunet+clk@baylibre.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	rafael@kernel.org,
+	viresh.kumar@linaro.org,
+	konradybcio@kernel.org
+Cc: danila@mainlining.org,
+	davidwronek@gmail.com,
+	mani@kernel.org,
+	robimarko@gmail.com,
+	linux@gurudas.dev,
+	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	Sreeshankar K <sreeshankar0910@gmail.com>
+Subject: [PATCH v11 0/5] Add initial support for Qualcomm SM7250 SoC
+Date: Fri, 16 Oct 2026 04:24:27 +0000
+Message-ID: <20261016042432.824-1-sreeshankar0910@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] mtd: rawnand: sunxi: Missing bounds check on ecc->steps against ma=
-x_ecc_steps
---
+This patchset introduces foundational upstream support for the Qualcomm SM7250
+SoC (internally codenamed Lito).
 
-commit a2ae1cf95bb52a1850e6dc239c873b74d175805e
-Author: James Hilliard <james.hilliard1@gmail.com>
+SM7250 is an ARMv8.2-A platform manufactured on a 7nm process, featuring an
+octa-core Kryo 475 CPU configuration (1x Prime Cortex-A76, 1x Gold Cortex-A76,
+and 6x Silver Cortex-A55) and Adreno 620 GPU.
 
-    mtd: rawnand: sunxi: support the Allwinner randomized OOB format
-   =20
-    Normal hardware-ECC reads also decode protected OOB, including the
-    bad-block marker and metadata used in bad-block-table scans. Allwinner
-    firmware leaves the marker in the randomizer stream, but the existing
-    driver compensates it to keep a plain physical marker. On H6/H616,
-    firmware also packs protected user data before the first parity region
-    rather than maximizing its allocation across the page. Those mismatches
-    prevent normal ECC reads from interpreting firmware-formatted pages and
-    their markers.
+This patchset is organized as follows:
+> Document relevant device tree bindings (SoC ID, Kryo 475 CPUs, SCM, PDC,
+RPMh clocks/power domains, GCC and cpufreq hardware).
+> Add driver support for SM7250 in socinfo, rpmh-clk, rpmhpd, and GCC.
+> Add the base SoC DTSI (sm7250.dtsi) defining the cpus, PSCI,
+interrupt controllers, clock providers, power domains, and reserved memory.
 
-> diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/sun=
-xi_nand.c
-> index 56594bb411933..0e2ff1c59120f 100644
-> --- a/drivers/mtd/nand/raw/sunxi_nand.c
-> +++ b/drivers/mtd/nand/raw/sunxi_nand.c
+>-----------------------------------------------------------------------------<
+Merged patches:
+dt-bindings: arm: qcom,ids: Add SoC ID for SM7250
+soc: qcom: socinfo: Add SM7250 SoC ID
+dt-bindings: clock: qcom,rpmhcc: Document RPMHCC compatible
+clk: qcom: rpmh: Add SM7250 rpmh clocks
+dt-bindings: power: qcom,rpmhpd: Document RPMh power domain for SM7250
+pmdomain: qcom: rpmhpd: Add RPMh power domains
+dt-bindings: arm: cpus: Document Kryo 475 CPUs
+dt-bindings: interrupt-controller: qcom,pdc: Document SM7250 PDC
 
-[ ... ]
+Pending patches:
+dt-bindings: clock: Add SM7250 global clock controller
+clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
+dt-bindings: firmware: qcom,scm: Document SM7250 SCM
+dt-bindings: cpufreq: qcom-hw: Document SM7250 cpufreq hardware
+arm64: dts: qcom: Add SM7250 devicetree file
+>------------------------------------------------------------------------------<
 
-> @@ -2342,6 +2353,299 @@ static const struct sunxi_nfc_oob_ops sunxi_nfc_s=
-crambled_plain_bbm_oob_ops =3D {
->  	.finish_read =3D sunxi_nfc_oob_finish_read,
->  };
-> =20
-> +/* Allwinner randomized-OOB format, selected only by allwinner,randomize=
-d-oob. */
-> +#define SUNXI_NFC_H6_ALLWINNER_OOB_MAX_USER_DATA_SZ 16
-> +
-> +static void sunxi_nfc_randomize_buf(u16 state, u8 *buf, unsigned int len)
-> +{
-> +	while (len--) {
-> +		*buf++ ^=3D state;
-> +		state =3D sunxi_nfc_randomizer_step(state, 8);
-> +	}
-> +}
-> +
-> +static void
-> +sunxi_nfc_allwinner_oob_record_status(struct nand_chip *nand,
-> +				      struct sunxi_nfc_allwinner_oob_status *result,
-> +				      int logical_step, int hw_step,
-> +				      struct sunxi_nfc_ecc_snapshot *snapshot)
-> +{
-> +	u32 count;
-> +
-> +	if ((snapshot->pattern_found & BIT(hw_step)) &&
-> +	    !(snapshot->pattern_id & BIT(hw_step)))
-> +		result->zero_steps |=3D BIT(logical_step);
+Changelog [v11]:
+[PATCH v11 2/5] clk: qcom: Add Global Clock Controller (GCC) driver
+> Drop hw_ctl clock branches
+> Populate default values for GDSCs
 
-[Severity: High]
-Does this code invoke undefined behavior if logical_step exceeds the bit-wi=
-dth?
+Link [v10]: https://lore.kernel.org/linux-arm-msm/20261015051926.13752-1-sreeshankar0910@gmail.com/T/#t
+Changelog [v10]:
+[PATCH v10 2/6] clk: qcom: Add Global Clock Controller (GCC) driver
+> Update .halt_check and .ops are per the review.
 
-The number of ECC steps is derived directly from the NAND page size in
-sunxi_nand_hw_ecc_ctrl_init():
+Link [v9]: https://lore.kernel.org/linux-arm-msm/20260901092447.3028-1-sreeshankar0910@gmail.com/T/#t
+Changelog [v9]:
+[PATCH v9 04/13]: clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
+> Make all clk_init_data instances const across the driver.
 
-	nsectors =3D mtd->writesize / ecc->size;
-	ret =3D sunxi_nand->oob_ops->init_user_data(nand, nsectors);
+Link [v8]: https://lore.kernel.org/linux-arm-msm/20260901070717.20513-1-sreeshankar0910@gmail.com/T/#t
+Changelog [v8]:
+Same as v7. Resending the full patchset as v8 due to a transmission interruption during v7.
 
-It doesn't appear that nsectors is validated against the controller's
-max_ecc_steps limit. If a NAND flash with a large page size is used,
-ecc->steps (and thus logical_step) can exceed the hardware limit (e.g.,
-16 or 32). On 32-bit platforms, this could cause the BIT(logical_step)
-shift to overflow.
+Link [v7]: https://lore.kernel.org/linux-arm-msm/20260901064357.20055-1-sreeshankar0910@gmail.com/T/#t
+Changelog [v7]:
+[PATCH v7 04/13]: clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
+> Fixed missing (struct device *dev) in gcc_sm7250_clk_regs_configure
 
-Additionally, this could lead to out-of-bounds MMIO reads in
-sunxi_nfc_hw_ecc_get_prot_oob_bytes() when iterating over ecc->steps,
-as reg_index might exceed the supported hardware registers for user data.
+Link [v6]: https://lore.kernel.org/linux-arm-msm/20260824150156.1310-1-sreeshankar0910@gmail.com/T/#t
+Changelog [v6]:
+[PATCH v6 04/13]: clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
+> Make all clk_init_data instances const across the driver.
 
-[ ... ]
+Link [v5]: https://lore.kernel.org/linux-arm-msm/20260824130437.2771-1-sreeshankar0910@gmail.com/T/#t
+Changelog [v5]:
+[PATCH v5 13/13]: arm64: dts: qcom: Add SM7250 devicetree file
+> Reformat multi-entry phandle lists (domain-idle-states) to '<&a>, <&b>'.
+> Reformat multi-entry tuples and string lists (qcom,pdc-ranges, qcom,tcs-config, reg-names)
+  to one item per line.
+> Enable QUPv3 wrapper globally by dropping 'status = "disabled"'.
+> Move compatible property to first.
+> Remove clock-frequency property for timer.
 
-> +static int sunxi_nfc_allwinner_oob_finish_read(struct nand_chip *nand,
-> +					       struct sunxi_nfc_ecc_read *read,
-> +					       int *cur_off)
-> +{
-> +	struct sunxi_nfc_allwinner_oob_status *result =3D &read->allwinner_oob;
-> +	u8 *buf =3D read->buf;
-> +	bool oob_required =3D read->oob_required;
-> +	bool dma =3D read->dma;
-> +	int page =3D read->page;
-> +	struct mtd_info *mtd =3D nand_to_mtd(nand);
-> +	struct nand_ecc_ctrl *ecc =3D &nand->ecc;
-> +	int ret;
-> +
-> +	/*
-> +	 * Allwinner firmware treats an all-zero physical page as bad, even wit=
-hout
-> +	 * ECC errors. This takes precedence over the spare-byte heuristic.
-> +	 */
-> +	if (result->zero_steps =3D=3D GENMASK(ecc->steps - 1, 0)) {
+Link [v4]: https://lore.kernel.org/linux-arm-msm/20260821154030.2514-1-sreeshankar0910@gmail.com/T/#t
+Changelog [v4]:
+[PATCH v4 04/13] clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
+> Update .fw_name with .index
+[PATCH v4 13/13] arm64: dts: qcom: Add SM7250 devicetree file
+> Added missing capacity-dmips-mhz and dynamic-power-coefficient for cpu@300
+> Added power-domains for cpus and apps_rsc
 
-[Severity: High]
-Can GENMASK() invoke undefined behavior here if ecc->steps exceeds the
-architecture's bit-width?
+Link [v3]: https://lore.kernel.org/linux-arm-msm/20260821081125.4522-1-sreeshankar0910@gmail.com/T/#t
+Changelog [v3]:
+[PATCH v3 04/13] clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
+> Updated the way of registering critical clocks.
+> Made some more clock critical.
+        GCC_VIDEO_XO_CLK
+        GCC_CAMERA_XO_CLK
+        GCC_DISP_XO_CLK
+        GCC_NPU_CFG_AHB_CLK
+        GCC_CPUSS_AHB_CLK
+        GCC_NPU_BWMON_CFG_AHB_CLK
+  These clocks are flagged as critical in gcc-lito.c
 
-Similar to the BIT() shift above, since ecc->steps isn't bounded by
-max_ecc_steps, a large page size could cause this range to exceed 32 bits,
-leading to an overflow.
+Link [v2]: https://lore.kernel.org/linux-arm-msm/20260819152545.3934-1-sreeshankar0910@gmail.com/T/#t
+Changelog [v2]:
+[PATCH v2 12/13] dt-bindings: cpufreq: qcom-hw: Document SM7250 cpufreq hardware
+[PATCH v2 13/13] arm64: dts: qcom: Add SM7250 devicetree file
+> Added SM7250 cpufreq hardware
 
-> +		memset(buf, 0, mtd->writesize);
-> +		memset(nand->oob_poi, 0, mtd->oobsize);
-> +		mtd->ecc_stats.failed +=3D ecc->steps;
-> +		return 0;
-> +	}
+Link [v1]: https://lore.kernel.org/linux-arm-msm/20260818080754.4362-1-sreeshankar0910@gmail.com/T/#t
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-submit-sun=
-xi-nand-vendor-oob-layout-v1-v8-0-8ba4881fbee8@gmail.com?part=3D17
+Sreeshankar K (5):
+  dt-bindings: clock: Add SM7250 global clock controller
+  clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
+  dt-bindings: firmware: qcom,scm: Document SM7250 SCM
+  dt-bindings: cpufreq: qcom-hw: Document SM7250 cpufreq hardware
+  arm64: dts: qcom: Add SM7250 devicetree file
+
+ .../bindings/clock/qcom,sm6375-gcc.yaml       |    4 +-
+ .../bindings/cpufreq/cpufreq-qcom-hw.yaml     |    1 +
+ .../bindings/firmware/qcom,scm.yaml           |    1 +
+ arch/arm64/boot/dts/qcom/sm7250.dtsi          |  771 ++++++
+ drivers/clk/qcom/Kconfig                      |   10 +
+ drivers/clk/qcom/Makefile                     |    1 +
+ drivers/clk/qcom/gcc-sm7250.c                 | 2286 +++++++++++++++++
+ include/dt-bindings/clock/qcom,sm7250-gcc.h   |  163 ++
+ 8 files changed, 3236 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm64/boot/dts/qcom/sm7250.dtsi
+ create mode 100644 drivers/clk/qcom/gcc-sm7250.c
+ create mode 100644 include/dt-bindings/clock/qcom,sm7250-gcc.h
+
+-- 
+2.43.0
+
