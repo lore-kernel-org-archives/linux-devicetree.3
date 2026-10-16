@@ -1,192 +1,325 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8B352030A;
-	Fri, 16 Oct 2026 00:06:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45D372F532F
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 00:54:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792109187; cv=none; b=HrstzWFfYZSR4400t3cj+LA65k0RT4wiOU79CaURfBhoNAQvS2+B/5EjFM3DwFrFT4bMV2m0qszFJrSSx/qEU2hSBfW1m75WnTdrJJVkRAocblzzv0KGKZMTWAwGLFEUY4/FqSiX5kQtMyeunZfK+tNW4ZdNli9qr6aPNLAtneM=
+	t=1792112058; cv=none; b=SxZWhp7jluGOLnhnS4UfMgGeZzkN6sq6bWjFs5NM3RYxIe6R89cxQUPg2J0UFGNsg9p0mzoU6wRxFWvECvKbbI+/bZbRpcOIRhmsZ/rwga8mSyRy/h4+I/A8iaobzorXnXSxd1QVGvnESyyew8ggguNtnufdnVCv2DFmedFqjTQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792109187; c=relaxed/simple;
-	bh=JQNlIBOrQQ4CZzFwrfBRyxU2RHdddOs451H/qbf3jVQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Qf2Xye0uyfE1BTGBcS4jQXx1pqpbbb8XdC1xqvlPKwssIX6s9tkmBcU2KreeY73qeuwvtKoxF1/R4Ztx8RpYnUQlBrYwdgkhrLqJk9mteVbP3aOQB36PBuDTGFjIqHtfYtOrQ3aIriIU8iAHvmcS7jOeX0TXAiEAncTc1W7qIR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oOHnLwpw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792112058; c=relaxed/simple;
+	bh=y2S2p85XrYRMEFaB+AUkeq3zgnM1R+m3ZgZ/S2NwUWk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eUbtgQhOZB9/pZFE2c8NltJxSPDcS4tg5DqprkmHcY1mLkbZSL6VXR/R+iLD+pFAjqmwls2l4rBL51p/TZ4IN1MZB0arBsqHvf8n5Id+RNDBTFiE1xAypriZwimMkRyS3n0kc36T3Qz+TgCHNLifpFz705u0wUL/IAQNdSwuowc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NF+hyP29; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oOHnLwpw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CB1C1F000C4;
-	Fri, 16 Oct 2026 00:06:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792109186;
-	bh=lj0QXNDYWzykhho+9TgSGkXQQEpotIYDIIMXMua7eT8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oOHnLwpwzXtkpHlf/6U6iF7vR87WzvWbEDkOSs+3dp8FKUwEDtOEWfd+6JMd2ssjz
-	 GksAiaUpsIWqUo0dFVk155pkKrt/uQGX1NYw1QEdERp+A1Nt6fjyyEr0VjxDe3MTLn
-	 y3tG+1pIiDhw0uPafqBUYvc9Ob3kIiwceYOBmf8l7m9JtxTkieKn+UDxCnUf+6eCLS
-	 OeTrKt80VAXQzJyVsPTmXXwbritv3DMzHM+pKHlhVzZH8TactA4tSM7tc2hImMGgUV
-	 ren66sBe8znD4ykW994KGmIo/iQIXn+69G6S9pkjIAYVzlA6PWgkL1vtq3LBsyYzxv
-	 dfLtdDCrcOvRw==
-Date: Thu, 15 Oct 2026 17:06:24 -0700
-From: Drew Fustini <fustini@kernel.org>
-To: Sunil V L <sunilvl@oss.qualcomm.com>
-Cc: Adrien Ricciardi <aricciardi@baylibre.com>,
-	Alexandre Ghiti <alex@ghiti.fr>, Albert Ou <aou@eecs.berkeley.edu>,
-	Atish Patra <atish.patra@linux.dev>,
-	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>,
-	Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>,
-	Gong Shuai <gong.shuai@sanechips.com.cn>,
-	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
-	James Morse <james.morse@arm.com>,
-	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-	Peter Newman <peternewman@google.com>,
-	Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Tony Luck <tony.luck@intel.com>,
-	Vasudevan Srinivasan <vasu@rivosinc.com>,
-	Ved Shanbhogue <ved@rivosinc.com>, Weiwei Li <liwei1518@gmail.com>,
-	yunhui cui <cuiyunhui@bytedance.com>,
-	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	x86@kernel.org, devicetree@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v9 1/5] riscv_cbqri: Add capacity controller probe and
- allocation device ops
-Message-ID: <atFqgJc4Vg2XPGl0@thelio>
-References: <20261003-dfustini-atl-sc-cbqri-dt-v9-0-52fd8be98dcf@kernel.org>
- <20261003-dfustini-atl-sc-cbqri-dt-v9-1-52fd8be98dcf@kernel.org>
- <CAB19ukHJ-TxXu+vMGGNqHz2sJj35Cg0X1RbcdfXzwDYpci1jQw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NF+hyP29"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e8fe8e343fso25181565ad.2
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 17:54:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792112056; x=1792716856; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=En6nr/29qMF2MF48NebNTT+fHkP95F8yYos87+u+ZFA=;
+        b=NF+hyP29H7rfN6MZykQKAMsG9k7aqKWmdWd99w8NHkwC1aDldMvj8cVuX0MaNq6DVy
+         Qdi2JlIz8YvY8IO3Dps04JfmfaN5iY2gCeKj2Bv94Z19qXCMFbV/rdoQBHcHg4YTzpbw
+         J7ar2YKBnkkcnvC+FSuU7IXRUh53OozsHzLjYeqRyFel5vythz0noY1Vz/2+HUoeJDrS
+         +gUm1v/IrwQpXzHXi7PQcipNYMDhM64lauv1ymbK/igREM+ZJLbDo3rH2d10XHZfucAZ
+         C06bV4B73X/12DkIWCBewcUF9pRqVkenAUky4+/UQltvoAEglyk9RxLYQo0KS5RhvRSl
+         Hj2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792112056; x=1792716856;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=En6nr/29qMF2MF48NebNTT+fHkP95F8yYos87+u+ZFA=;
+        b=IbVMrmMz4miuAli/tuKmfsTaZXVnyTtkF2iEeIzQcHxajp3e8skJu98HSgKl5FOtW/
+         BdO83iPH7tsMSE/dyWeUE+kx7FAJNozIysKzU0mxmu4mlqIUTu2qblNVOkNsnjqrJiUY
+         kl98xwkTpby+69P7NjXtTzPSsReC/5s4r5MJUDFRKE8ABuIrXtpNrlDgpjKK+8YqlfLY
+         SGnw67KEQwPLuGFJQsLlF9s3vAANiUa9BURDv+9Xz19I/DrThFd1Oy6k2dQoM6Cm420V
+         4XyRVuf9egJX0jzwCKPtj10mtLxdc7cNr4jYVe2Z+T/EKJEQQhhAVqM0jwg0ZN2k0JST
+         MaeA==
+X-Forwarded-Encrypted: i=1; AKwUvBxh5+6+tg0acps/12QBxS+qrEwOfUbhekXTXyvK23cd4V6yFHGCUZyDVHLumLbKkZmawIQpRLuC5Tz4@vger.kernel.org
+X-Gm-Message-State: AFq9FYLMI1/8gWewv+BMJizd4dZFkRBJD8b1Ma1ZmU/W2FY5xJd554Rt
+	kfGY8C1OntjivUPRPol2jKyrrnLXEaDMSFLAwonYU8UyHy0fThkaFsMw2Lgayg==
+X-Gm-Gg: AYBFou1bgVGRbEqORjFh9shIP19VVWRuUjLhvTE3xiwUNpNvdgltUlKXr0rHsEKJDT8
+	ZssL0ej+qlpKQ234MUQE1GjxFnTV633eiPXFTETlGWgMoEwo5C5pkfykQLYgEi1O9eccVn+chiE
+	pCkwoXg/C+FKY9bgISSdthLVquRjITDq8l3mLlBx3KkeJyEiVPfbyvgM89dyWmaC13grbTQqvcG
+	yRk4JVlIxJz++qfhOIwHsW9JTpMPTE2Vj3jeGAltG0NCuxoMP0B9XShVTOn5Py7Y3JvviykHnEf
+	LISmoiKSU3fSq/sDGXFyRZX5Qfnpai9taxu6YW8O+5rhsVpxFbwvvZYlthLfIxEHgjDj17ftMVm
+	qaN6vHZKHpFxgNvqWoxnUQp3dOMArbzd8050Q89HnDlbo2S1KDBiyNGDRhkq9xvYbLrmDt1n5+N
+	94QbsbcKsCcmY+aWpB9UHklT+WIa4Vzp/ZrgfqWLpkHei92InM9R/S4tl0VMFcb1aNyCK47dYVL
+	1gSquivwECY/fiIQLdLkUYsIJgEij2W37i94qVW8u4dkQ==
+X-Received: by 2002:a17:90b:35d0:b0:3ac:450a:fa46 with SMTP id 98e67ed59e1d1-3ac450b7738mr8255081a91.10.1792112056369;
+        Thu, 15 Oct 2026 17:54:16 -0700 (PDT)
+Received: from [172.19.1.48] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc9d266d6sm483645a91.1.2026.10.15.17.54.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 15 Oct 2026 17:54:13 -0700 (PDT)
+Message-ID: <c91448a3-fbb6-45ba-b12e-71a66d4672b1@gmail.com>
+Date: Fri, 16 Oct 2026 08:54:08 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 2/3] i2c: ma35d1: Add Nuvoton MA35D1 I2C driver
+ support
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+References: <20261001075101.489660-1-zychennvt@gmail.com>
+ <20261001075101.489660-3-zychennvt@gmail.com>
+ <20261001080813.9183C1F000FF@smtp.kernel.org>
+Content-Language: en-US
+From: zychen <zychennvt@gmail.com>
+In-Reply-To: <20261001080813.9183C1F000FF@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAB19ukHJ-TxXu+vMGGNqHz2sJj35Cg0X1RbcdfXzwDYpci1jQw@mail.gmail.com>
 
-On Mon, Oct 12, 2026 at 09:42:59PM +0530, Sunil V L wrote:
-> Hi Drew!
 
-Hi Sunil, thanks for reviewing!
 
-> On Sat, Oct 3, 2026 at 12:45 PM Drew Fustini <fustini@kernel.org> wrote:
-> >
-> > Add support for the RISC-V CBQRI capacity controller. A platform driver
-> > passes a cbqri_controller_info descriptor together with the cache level
-> > to riscv_cbqri_register_cc_dt(), which probes the controller and adds it
-> > to the controller list.
-> >
-> > Assisted-by: LLM
-> > Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> > Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> > Signed-off-by: Drew Fustini <fustini@kernel.org>
-> > ---
-> >  MAINTAINERS                      |   3 +
-> >  drivers/resctrl/Kconfig          |   9 +
-> >  drivers/resctrl/Makefile         |   3 +
-> >  drivers/resctrl/cbqri_devices.c  | 574 +++++++++++++++++++++++++++++++++++++++
-> >  drivers/resctrl/cbqri_internal.h | 122 +++++++++
-> >  include/linux/riscv_cbqri.h      |  45 +++
-> >  6 files changed, 756 insertions(+)
-[..]
-> > diff --git a/drivers/resctrl/cbqri_devices.c b/drivers/resctrl/cbqri_devices.c
-> > new file mode 100644
-> > index 000000000000..87d4ecf8f141
-> > --- /dev/null
-> > +++ b/drivers/resctrl/cbqri_devices.c
-[..]
-> > +static int cbqri_probe_controller(struct cbqri_controller *ctrl)
-> > +{
-[..]
-> > +
-> > +       if (!request_mem_region(ctrl->addr, ctrl->size, "cbqri_controller")) {
-> > +               pr_err("request_mem_region failed for %pa\n", &ctrl->addr);
-> > +               return -EBUSY;
-> > +       }
-> > +
-> Apologies for jumping on this late. But why not simply use
-> devm_platform_ioremap_resource() ?
+sashiko-bot@kernel.org 於 2026/10/1 下午 04:08 寫道:
+> Thank you for your contribution! Sashiko AI review found 6 potential issue(s) to consider:
+> - [High] i2c: ma35d1: data race in transfer initialization corrupts state machine
+> - [High] i2c: ma35d1: TOCTOU race in target registration leads to NULL pointer dereference
+> - [Medium] i2c: ma35d1: ignored return value in target receive allows buffer overrun
+> - [Medium] i2c: ma35d1: inconsistent IO accessors for MA35_DAT register
+> - [Medium] i2c: ma35d1: resource leak on suspend error path leaves wake-up enabled
+> - [Medium] i2c: ma35d1: multi-master target mode broken due to unconditional AA bit clear
+> --
+> 
+> commit deb266e66e11836eee266a00ecd16f32efa64cf8
+> Author: Zi-Yu Chen <zychennvt@gmail.com>
+> 
+> i2c: ma35d1: Add Nuvoton MA35D1 I2C driver support
+>     
+> Add I2C support for Nuvoton MA35D1 SoC.
+> The controller supports standard, fast and fast-plus modes,
+> and provides controller/target functionality.
+> 
+>> diff --git a/drivers/i2c/busses/i2c-ma35d1.c b/drivers/i2c/busses/i2c-ma35d1.c
+>> new file mode 100644
+>> index 0000000000000..2a4985dc22c6e
+>> --- /dev/null
+>> +++ b/drivers/i2c/busses/i2c-ma35d1.c
+> [ ... ]
+>> +static void ma35d1_i2c_write_ctl(struct ma35d1_i2c *i2c, unsigned int ctl)
+>> +{
+>> +	unsigned int val;
+>> +
+>> +	guard(spinlock_irqsave)(&i2c->lock);
+>> +	val = readl(i2c->regs + MA35_CTL0);
+>> +	val &= ~(MA35_CTL_SI_AA);
+>> +	val |= ctl;
+>> +	writel(val, i2c->regs + MA35_CTL0);
+>> +}
+> 
+> [Severity: Medium]
+> Will this unconditionally clear the Assert Acknowledge (AA) bit during
+> controller transfers?
+> 
+> When ma35d1_i2c_doxfer() calls this with just MA35_CTL_STA, the AA bit is
+> omitted and stripped from the register. In a multi-master environment, if
+> arbitration is lost and another controller addresses this device as a
+> target, won't it fail to ACK its target address and break the multi-master
+> target fallback mechanism?
+> 
+Clearing AA is intentional, not an unintended behavior of controller/target coexistence.
+MA35D1 prioritizes controller transactions, and `ma35d1_i2c_write_ctl()` clears AA when
+starting a controller transfer. Therefore, target requests received during a controller
+transaction are expected to be NACKed. Once the controller transaction completes, the
+driver re-enables AA if a target is registered. This is the intended controller-priority
+policy and does not require changes.
 
-This is an artifact of my fuller RFC series which implemented RQSC as
-well. For ACPI, it registers controllers directly from the RQSC table
-without a platform device.
+> [ ... ]
+>> +static irqreturn_t ma35d1_i2c_irq_target_trx(struct ma35d1_i2c *i2c,
+>> +					     unsigned long i2c_status)
+>> +{
+>> +	unsigned char byte = 0;
+>> +	int ret;
+>> +
+>> +	switch (i2c_status) {
+> [ ... ]
+>> +	case MA35_S_RECE_DATA_ACK:
+>> +		/*
+>> +		 * Previously address with own SLA address Data has been received;
+>> +		 * ACK has been returned
+>> +		 */
+>> +		byte = readb(i2c->regs + MA35_DAT);
+>> +		i2c_slave_event(i2c->target, I2C_SLAVE_WRITE_RECEIVED, &byte);
+>> +		break;
+> 
+> [Severity: Medium]
+> Is it possible for i2c_slave_event() to return an error here when the backend
+> buffer is full? 
+> 
+> By ignoring the return value, target_reject remains false, causing the
+> controller to blindly ACK subsequent bytes and potentially overrun the backend
+> buffer instead of NACKing the next byte.
+> 
+When MA35D1 reports `MA35_S_RECE_DATA_ACK`, the byte has already been received and ACKed,
+so the driver can no longer NACK it. Propagating the callback error to the next byte is also
+incorrect, as `I2C_SLAVE_WRITE_RECEIVED` applies only to the current byte.
 
-But you make a good point and this is what MPAM does as well. I will
-switch to devm_platform_get_and_ioremap_resource() and add a base field
-to cbqri_controller_info.
+> [ ... ]
+>> +static irqreturn_t ma35d1_i2c_irq_controller_trx(struct ma35d1_i2c *i2c,
+>> +						 unsigned long i2c_status)
+>> +{
+>> +	unsigned char byte;
+> [ ... ]
+>> +	case MA35_M_TRAN_ADDR_ACK:
+>> +	case MA35_M_TRAN_DATA_ACK:
+>> +		/* SLA+W has been transmitted and ACK has been received */
+>> +		if (i2c_status == MA35_M_TRAN_ADDR_ACK) {
+>> +			if (is_last_msg(i2c) && i2c->msg->len == 0) {
+>> +				ma35d1_i2c_stop(i2c, 0);
+>> +				return IRQ_HANDLED;
+>> +			}
+>> +		}
+>> +
+>> +		if (!is_msgend(i2c)) {
+>> +			byte = i2c->msg->buf[i2c->msg_ptr++];
+>> +			writel(byte, i2c->regs + MA35_DAT);
+>> +			ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI);
+>> +		} else if (!is_last_msg(i2c)) {
+> 
+> [Severity: Medium]
+> Why is 32-bit writel() used to write data but 8-bit readb() used to read
+> from the exact same MA35_DAT register below? 
+> 
+> If the ARM SoC's peripheral bus dictates 32-bit aligned accesses, could
+> readb() trigger a bus fault or return invalid data? Both paths should use
+> consistent accessor sizes (e.g. readl(reg) & 0xff).
+> 
+The peripheral bus supports byte accesses, and only bits [7:0] of `I2C_DAT`
+contain data. Therefore, using `writel()` to transmit and `readb()` to receive
+is valid on this hardware.
 
-> > +/**
-> > + * riscv_cbqri_register_cc_dt() - register a DT-described capacity controller
-> > + * @info:        registration descriptor. info->cache_id is used as the
-> > + *               resctrl domain id. info->type must be CAPACITY.
-> > + * @cache_level: cache level (2 or 3) the controller backs, mapped to the
-> > + *               resctrl L2/L3 resource by the resctrl glue.
-> > + *
-> > + * The cache level and id (info->cache_id) are supplied directly by the
-> > + * caller, which resolves them from cacheinfo. Domain membership is resolved
-> > + * per CPU at hotplug, so no cpu mask is stored. There is no firmware table
-> > + * to resolve any of this from.
-> > + *
-> > + * Return: 0 on success, -EEXIST when a controller for the same cache level
-> > + * and id is already registered, or another negative errno on failure.
-> > + */
-> > +int riscv_cbqri_register_cc_dt(const struct cbqri_controller_info *info,
-> > +                              u32 cache_level)
-> >
-> What is DT specific code in this function? IMO, it is better to gather
-> all information in the main
-> driver itself into a generic "info" structure. That way, all ACPI vs
-> DT differences will be handled in
-> one place and everything further will be generic.
+> [ ... ]
+>> +	case MA35_M_RECE_DATA_ACK:
+>> +	case MA35_M_RECE_DATA_NACK:
+>> +		/* DATA has been received and ACK/NACK has been received */
+>> +		byte = readb(i2c->regs + MA35_DAT);
+>> +		i2c->msg->buf[i2c->msg_ptr++] = byte;
+> [ ... ]
+>> +static int ma35d1_i2c_doxfer(struct ma35d1_i2c *i2c, struct i2c_msg *msgs,
+>> +			     int num)
+>> +{
+>> +	unsigned long timeout;
+>> +	unsigned int val;
+>> +	int ret, err;
+>> +
+>> +	i2c->msg = msgs;
+>> +	i2c->msg_num = num;
+>> +	i2c->msg_ptr = 0;
+>> +	i2c->msg_idx = 0;
+>> +	i2c->err = 0;
+>> +
+>> +	ma35d1_i2c_write_ctl(i2c, MA35_CTL_STA);
+> 
+> [Severity: High]
+> Does this expose the transfer state to the active interrupt handler before
+> setup is fully complete and protected? 
+> 
+> If a spurious interrupt or bus error fires during this window, the ISR
+> could concurrently modify these fields. The ISR might set msg_num=0 and
+> err=-EIO, which the process context then overwrites with err=0 before
+> sending a START, potentially leaving the hardware hanging.
+> 
+The IRQ is dedicated to this I2C controller and is not shared with other devices.
+Disabling the IRQ while initializing the transfer state prevents the interrupt
+handler from accessing partially initialized transfer data. The IRQ is re-enabled
+after the transfer has been started.
 
-There is nothing that is DT specific beyond needing to pass the cache
-level whereas ACPI can determine it from PPTT.
+> [ ... ]
+>> +static int ma35d1_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
+>> +			   int num)
+>> +{
+>> +	struct ma35d1_i2c *i2c = i2c_get_adapdata(adap);
+>> +	int ret;
+>> +
+>> +	ret = pm_runtime_resume_and_get(i2c->dev);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	ret = ma35d1_i2c_doxfer(i2c, msgs, num);
+>> +
+>> +	if (i2c->target)
+>> +		ma35d1_i2c_write_ctl(i2c, MA35_CTL_AA);
+>> +	pm_runtime_put_autosuspend(i2c->dev);
+>> +
+>> +	return ret;
+>> +}
+> 
+> [Severity: High]
+> Is there a TOCTOU race condition here?
+> 
+> If ma35d1_unreg_target() clears i2c->target and calls synchronize_irq()
+> right after ma35d1_i2c_xfer() checks it but before it sets the AA bit, this
+> could enable target mode interrupts while i2c->target is NULL. A subsequent
+> target transaction would then fire the ISR and dereference the NULL pointer.
+> 
+The I2C core serializes target registration and removal with controller transfers,
+so unreg_target() should not run concurrently with master_xfer(). 
 
-But I think it would make sense to be more generic. I will move
-cache_level into cbqri_controller_info and drop the _dt suffix.
+> [ ... ]
+>> +static int ma35d1_unreg_target(struct i2c_client *target)
+>> +{
+>> +	struct ma35d1_i2c *i2c = i2c_get_adapdata(target->adapter);
+>> +	int ret;
+>> +
+>> +	if (!i2c->target)
+>> +		return -EINVAL;
+>> +
+>> +	writel(0, i2c->regs + MA35_ADDR0);
+>> +	/* Clear AA bit */
+>> +	ma35d1_i2c_write_ctl(i2c, 0);
+>> +
+>> +	synchronize_irq(i2c->irq);
+>> +	i2c->target = NULL;
+> [ ... ]
+>> +static int ma35d1_i2c_suspend(struct device *dev)
+>> +{
+>> +	struct ma35d1_i2c *i2c = dev_get_drvdata(dev);
+>> +	unsigned int val;
+>> +	int ret;
+>> +
+>> +	/* Prepare for wake-up from I2C events if target mode is active */
+>> +	if (i2c->target) {
+>> +		ma35d1_i2c_write_ctl(i2c, MA35_CTL_AA);
+>> +
+>> +		/* Setup wake-up control */
+>> +		writel(0x1, i2c->regs + MA35_WKCTL);
+>> +
+>> +		/* Clear pending wake-up flags */
+>> +		val = readl(i2c->regs + MA35_WKSTS);
+>> +		writel(val, i2c->regs + MA35_WKSTS);
+>> +
+>> +		ret = enable_irq_wake(i2c->irq);
+>> +		if (ret)
+>> +			return ret;
+>> +		return 0;
+>> +	}
+>> +	return pm_runtime_force_suspend(dev);
+>> +}
+> 
+> [Severity: Medium]
+> If enable_irq_wake() fails, this returns early without clearing MA35_WKCTL. 
+> 
+> Will this leave the hardware wake-up control active during normal runtime,
+> potentially causing spurious wakeups or interrupt storms?
+> 
+Clear the wake-up control register if enabling IRQ wakeup fails, so the hardware
+state is rolled back when the suspend operation cannot proceed.
 
-[..]
-> > +       /*
-> > +        * SRMCFG encodes RCID in 12 bits. Reject an out-of-range count rather
-> > +        * than silently truncating in every FIELD_PREP(SRMCFG_RCID_MASK, closid)
-> > +        * on the schedule-in fast path.
-> > +        */
-> > +       if (ctrl->rcid_count > FIELD_MAX(SRMCFG_RCID_MASK) + 1) {
-> > +               pr_warn("CC at %pa has RCID count %u beyond the 12-bit SRMCFG field, skipping\n",
-> > +                       &ctrl->addr, ctrl->rcid_count);
-> > +               cbqri_controller_destroy(ctrl);
-> >
-> Any reason to have explicit cleanups ?
 
-No. I will move the info->rcid_count check before allocation and use
-__free() for the controller.
 
-[..]
-> > diff --git a/drivers/resctrl/cbqri_internal.h b/drivers/resctrl/cbqri_internal.h
-[..]
-> > +extern struct list_head cbqri_controllers;
-> > +extern struct mutex cbqri_controllers_lock;
-> > +
-> >
-> Can these be made static in cbqri_devices.c and provide API for cbqri_resctrl.c?
-
-Yes, the only use outside of cbqri_devices.c is
-cbqri_resctrl_pick_caches(). I will make both static and add a helper
-that returns the registered controllers.
-
-Thanks,
-Drew
+Regards,
+Zi-Yu Chen
