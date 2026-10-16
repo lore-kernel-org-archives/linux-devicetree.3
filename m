@@ -1,206 +1,193 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A958131ED68
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 01:17:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E81525A645
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 01:19:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792113429; cv=none; b=Q/cQSgq6oF2sO0we795hERXmOfw+eIBPm5/LX+LDDcg2Jjm3KMWzM0Ub2FyQmn+tgo8yCjs7pJaFgkIFY3yyQvZs3NIGcgefi/KlllR9dNxOLY4JwwLXVJRH599bIuf64BIstdtwQG7gXwiW7bCVnZQJ0HR3uyq2VYuW1/JjdBs=
+	t=1792113550; cv=none; b=ex5nEDMvsN5JpYCysngW65K4LuDdqUmeq0KwH1FF9joB6dF2wCwxw5xpWQYBT7Sb800Eole7EwFszR23N8NtLHQWLJ4XjeOhw2WVd0jICrffK2PWNYLBgGdClJ19VzRdOg36eLXgwf8Xk4wEdaz68cBByS9xatf6WvL8NOSDKyc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792113429; c=relaxed/simple;
-	bh=ZbTq2irhqSeicfiYQrdj9hGwvX1e4BlYcQMTjzHstM0=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=W3VUyN4Xxk+eZdn/2NnTpj7StPyj87JlLgB3CuB0WKhIZTFENEcQ7M4x5aweeVG2/tEDQacuXat0cW/5gHGuyc0tEmjNNHdc0iXDcxWknQyTwqcO0ta9Cpko+ro/JYuqenLOX9U/mVZDHotTcJrdWAsL54Fqa+VleUNU9D7aAKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L8u8pCUK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792113550; c=relaxed/simple;
+	bh=xb5jl4XGZsuZVOQ/+x9BoePJWqpOPRJTjGcc5aZr84E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uE79zsTc6c49GzoEdQx7MgeXg076UZYSX8OX0SafQfrhnY8SbZVZparvb8JR2weqnuliO6mKjHs/Bhdy5duT33RMhEYrRBMs20sHuK0Ca03GTADwkcP7nPl2M1MigaeQGXu7R7ctF7jmE6Vh8Xdst/8MUQvgoMDVZ4J6AP4PALY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=R5h2D3+x; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KrOhqxn9; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L8u8pCUK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C32C1F000C4;
-	Fri, 16 Oct 2026 01:17:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792113428;
-	bh=nw7ZcXszwb3R1vQyqxSj57i4DckjA9PQk5BNKBe9F4s=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=L8u8pCUKR/rKkv5cBvtaiqvkptabsU/ht0pob7ibQJi9otwRv8mUFRPO4EgO54/aD
-	 udwYeSwSQ6wchEFOkuN97NYp5k66m3COeF5eDf4xpm3AvVoRA4wqexJlGkqU6nsoQ6
-	 IBKFlS0oEbr8+IXPLWPiJk/i35NYavE3EKYgXV37UANAZDGFKaj/DZYHnNs979U2Qh
-	 O1964vG4/OFvxpAApLm5D8BG92zgLfV08FTHqscApWnWHaY3fMe9U6WR/4v4BzccmU
-	 0jVCY9eVECkHaxYVeeuBDcv2Ql0kV3BrbCHStiUY3nDyAgvtEHefWFfnzlasWS4Tqt
-	 Vu4FAfnh/Pc1w==
-Message-ID: <sashiko-outbox-173541@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 2/3] i2c: ma35d1: Add Nuvoton MA35D1 I2C driver
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Zi-Yu Chen" <zychennvt@gmail.com>, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261016010448.324856-3-zychennvt@gmail.com>
-References: <20261016010448.324856-1-zychennvt@gmail.com>
- <20261016010448.324856-3-zychennvt@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 16 Oct 2026 01:17:07 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="R5h2D3+x";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KrOhqxn9"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69FNbK9E1596377
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 01:19:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	sNbdh1Cn+rHMPkzU/IBZz+cXpbpGoCqAOoiJ7+4f/Kg=; b=R5h2D3+xv80DyBRl
+	iLpDTI2AVv5CWZVWpvcInkkAsZdxSEfWPMnQ7wIPQhcPHhAH2eoMWAQSBift7jCO
+	OSek2R+0SEuDzNLHNN4Re0aHq8EE84wD499vSQGBxm7An07U6dTleFtTb9AhzT9F
+	rqylxBV1qyK5gJnjHR5OAH8Rbg/yqpiqlDazGZwO8F7M/d9WOzA4JgVRDNpsm6mi
+	zoOiFQUT4I1ZN/4ZU2/KLdRgCsuNOZ4ZgLv3yQnUEFhobML23EEoFZliPlywle27
+	CAZw8nLmuKMjIRg1B3jQpKQbuf3DTDJjm4hJm6OV9aZFDd+/AVBAvj9gJKVaxMgR
+	P5tq9g==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4haw2vb6ru-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 01:19:08 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-88b9d8c9e55so515248b3a.1
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 18:19:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792113548; x=1792718348; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sNbdh1Cn+rHMPkzU/IBZz+cXpbpGoCqAOoiJ7+4f/Kg=;
+        b=KrOhqxn9yV7b5/t+tUJ+wj96Vm2p6IlphZCgf38zlLUck6aJUg/3ZuqUWBqc7+RuIL
+         CL7YFtU/LV65N4KakvfRSmQYXa0xBpmQWnfznN1NmalFXTOSp3ob7GtkyMhv5P+Y12jW
+         L1e8xYmWdKyWYVFBP3V2GH80CavB5Evk8Q37JRxqfq473F7wAoGUv5i+y0wcdU40ZWs+
+         9A325fv7/HYoVv0k83nOvHkZfV65MGUn+/ZmhIW/Wd/rFhnjLr9KJh4B9fPa6Qfag5G6
+         HlVVr/ou4Ns/gQnfu1di8Cf7/FwlwNFFpX9m17RNP2vlnhhhMPUmRJNHtyciabysOKut
+         PHBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792113548; x=1792718348;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sNbdh1Cn+rHMPkzU/IBZz+cXpbpGoCqAOoiJ7+4f/Kg=;
+        b=2RJOBz3D2+ZQpBueyNB7ldkv+VTo6i0mdreeJ3fj45A+xbOTyr0CaXgAvHXOt9vKZQ
+         k6jHbJxIjOnPhvFEoQOSMnSe+QdPcKRCfFgdB/iiSBo4JMVOPNhWpqpUjjFQUgtnTjL4
+         a8Njr5Mka/osaFuGK9GAhRHjDy2HvmjP7tbDUmUPHZdV6VaSyRvbaHclzAJDMKQCT8sl
+         6M/4rfOS8ODPl41UaXox9HhVVJDl2f4SH1GAnNHUKA6KfNGt8bVSpNaGzUSYQuXMVrku
+         hs4wjWlrBSmOjYF6v78oZExDAWXQ4V24dUntlYd2zaoFyGzdnfFCScnCZp30u5dCANEB
+         6DvA==
+X-Forwarded-Encrypted: i=1; AKwUvBwr9X2InTEiEjGk2ZwHoEdbfQYIMpRp1vWzCArzi4AuifuqPjejvWy4kepoFOF+ia2nQltl69Mym1AT@vger.kernel.org
+X-Gm-Message-State: AFq9FYK2KxV1h0LfeEtR7vXMa+FUYBkQ5s0swcXponaEX1Qu55KOdaW1
+	9Rpoi9xRoJlSGchCHkmWVkjXM2ZmTl1+YcnWasU/zn33gk336e/jPyr1+9auCqx9WKfLp/QqNCZ
+	FzZD2bsEBT35ZL6QLu4M7Dh7AmioeJ2BASeVDEyWyrcWlLjGG1If5Wbt3L7B8iRVX
+X-Gm-Gg: AYBFou3S2L4XW+Qqa1XqS9s7oeiDB3U497SFFxS04SlnDDFSbsT7rMt/iFPJIJSJ85I
+	yOoRFhj16g+HPkGcD1Hw0orcxzymCRDJ5W8rwKnOQYh9g/ub9nwESRFZRxRGP4yd7j0vOL5qGHN
+	mMRL445oQSb6rTLVY06tz/+EbYGm55k0E2iFabQo3hKkDkwhcjILF93popMAqWiSaOD8nvXHaHM
+	78st1cC/1nQ5mgYXsqdRrxFwAfTIUYxwPnX3P74zNzpNO96GsF5h8Bz1gsA+y1QsumqRu1NL9EI
+	CZAnhYTnzbzOuj8wWC95rtHvTfhQ0PN2F07OQMSSCHLi+UYV3c0uLoK6gh4T5HQRkBztoXjbfA4
+	Y8xJpkH+giRYFqQAr37f7EgWqlj1r7f/VXXEQAskEGt4Dy7qjrIklxneTXp/QRCU+
+X-Received: by 2002:a05:6a00:3d01:b0:886:4ca4:a3e8 with SMTP id d2e1a72fcca58-89f1e7ac519mr1088847b3a.5.1792113547926;
+        Thu, 15 Oct 2026 18:19:07 -0700 (PDT)
+X-Received: by 2002:a05:6a00:3d01:b0:886:4ca4:a3e8 with SMTP id d2e1a72fcca58-89f1e7ac519mr1088831b3a.5.1792113547456;
+        Thu, 15 Oct 2026 18:19:07 -0700 (PDT)
+Received: from [10.133.33.148] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f580173efsm309841b3a.50.2026.10.15.18.18.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 15 Oct 2026 18:19:04 -0700 (PDT)
+Message-ID: <324a3513-11cd-4e22-9b51-0aaa46354d26@oss.qualcomm.com>
+Date: Fri, 16 Oct 2026 09:18:55 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: nord: add CoreSight debug nodes
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260922100850.527109-1-shengchao.guo@oss.qualcomm.com>
+ <20260922100850.527109-3-shengchao.guo@oss.qualcomm.com>
+ <25956f40-e7e1-4815-94a2-54ee8b1a50e7@oss.qualcomm.com>
+Content-Language: en-US
+From: Jie Gan <jie.gan@oss.qualcomm.com>
+In-Reply-To: <25956f40-e7e1-4815-94a2-54ee8b1a50e7@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAwNCBTYWx0ZWRfX5W9+oMVgQjxp
+ 0bpdVan6gP31AwyrTVYbrqRJR+ZoCuAQKJxgi9brDeAOqkVSPZipYJZ3t5715oaDdQiYS5sOWJH
+ S8nf0x7i2NXi8GPsutdyiTn/WXu57s1F7pEB9gb3FzQxdJzlWbnPT4j3uDNHsjUZZLn75UdhtQS
+ GEkp32SOxVjY12lgnkBy5IKI1EC/yT+tANP1TL9bVoqwYGBePDYoGQd0GmPUA6yIPXOpbzpZtKF
+ XArfqRfcIISyRheQBGN2yzOWP8Wu12yjhZAsnovGypEAvnIcxSR/723XRvaBj1jVbaImz1jpHj9
+ 10iCiRHY+JcVtVTn7TFJskJxF9mGhwjYgshJaPcWaAFjya+JHwWH0T45DKe524CuCGPc13vIxnl
+ xmE5LaEylsZI1yD/uwQB5UjgKsyYZt/MeqdNdk9hYqYQOKUzfZZEw+FRm/s5CLO0FVTGLxK34XJ
+ 0qV2owJWTzfwHDYNdZg==
+X-Proofpoint-ORIG-GUID: UKfKMLwvVs_M07ShImZ7kmg_v_zHBHk4
+X-Proofpoint-GUID: UKfKMLwvVs_M07ShImZ7kmg_v_zHBHk4
+X-Authority-Analysis: v=2.4 cv=G/CJgNk5 c=1 sm=1 tr=0 ts=6ad17b8c cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=xuU9YvB76CLXlpF1iJ4A:9 a=QEXdDO2ut3YA:10
+ a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAwNCBTYWx0ZWRfX05UnFqHoUrGl
+ 798IYc58vGf0xd4r34h5QVDJ+WqICZUjCrzb5EnqmVnBB/8YJH/kQTha/J8k2DDPZUtqMBJCu8l
+ Bhp2lq7Zh0lVOxbE99n1iGd9xu4fmHM=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 spamscore=0 clxscore=1015 bulkscore=0
+ impostorscore=0 suspectscore=0 adultscore=0 phishscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160004
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] i2c: ignored return value of I2C_SLAVE_WRITE_RECEIVED breaks flow =
-control
-- [High] i2c: zero-message transfers bypass wait logic causing OOB reads or=
- bus lockups
-- [Medium] i2c: ma35d1: multi-master target arbitration broken by clearing =
-AA bit
---
 
-commit cb2d83f6d803405066915dfcc01410b98bdff1a8
-Author: Zi-Yu Chen <zychennvt@gmail.com>
 
-i2c: ma35d1: Add Nuvoton MA35D1 I2C driver support
+On 10/15/2026 10:18 PM, Konrad Dybcio wrote:
+> On 9/22/26 12:08 PM, Shawn Guo wrote:
+>> From: Jie Gan <jie.gan@oss.qualcomm.com>
+>>
+>> Add the CoreSight trace topology for the Qualcomm Nord SoC: CTCU, STM,
+>> TPDM/TPDA sources and aggregators, funnels, replicators, TMC ETR/ETF
+>> sinks, TNoC/ITNoC nodes and per-subsystem CTIs. This wires up trace
+>> sources for SOCCP, BCV/IMH/DPM, GCC, QM, DL_NOC, the CDSP NSP0-3
+>> clusters, DLMM, EVA, MDSS0/1, LPASS and the AOSS SWAO priority TPDMs,
+>> plus the DDR0-3 channel and LLCC TPDMs, all funneled through the
+>> tn_ag aggregator into the main CoreSight funnel and out to the AOSS
+>> sink.
+> 
+> [...]
+> 
+> 
+>> +		tpdm@12410000 {
+>> +			compatible = "qcom,coresight-tpdm", "arm,primecell";
+>> +			reg = <0x0 0x12410000 0x0 0x1000>;
+>> +
+>> +			clocks = <&aoss_qmp>;
+>> +			clock-names = "apb_pclk";
+>> +			label = "tpdm_ddr3_llcc_2";
+>> +
+>> +			qcom,cmb-element-bits = <32>;
+>> +			qcom,cmb-msrs-num = <32>;
+>> +
+>> +			out-ports {
+>> +				port {
+>> +					ddr2_tpdm2_out: endpoint {
+>> +						remote-endpoint = <&ddr2_tn_in9>;
+>> +					};
+>> +				};
+>> +			};
+>> +		};
+>> +
+>> +		tpdm@12411000 {
+>> +			compatible = "qcom,coresight-tpdm", "arm,primecell";
+>> +			reg = <0x0 0x12411000 0x0 0x1000>;
+>> +
+>> +			clocks = <&aoss_qmp>;
+>> +			clock-names = "apb_pclk";
+>> +			label = "tpdm_ddr3_llcc_3";
+> 
+> GPT points out the labels should be ddr2_, not ddr3_ on these nodes
 
-This commit adds I2C support for the Nuvoton MA35D1 SoC, including standard,
-fast, and fast-plus modes, and provides controller and target functionality.
+Confirmed should be ddr2_ .
 
-> diff --git a/drivers/i2c/busses/i2c-ma35d1.c b/drivers/i2c/busses/i2c-ma3=
-5d1.c
-> new file mode 100644
-> index 0000000000000..29bed9eb28f67
-> --- /dev/null
-> +++ b/drivers/i2c/busses/i2c-ma35d1.c
-[ ... ]
-> @@ -125,12 +125,12 @@ static inline bool ma35d1_is_controller_status(unsi=
-gned int status)
->  /*
->   * ma35d1_i2c_write_ctl - Update the I2C control register
->   * @i2c: Pointer to the ma35d1 i2c instance
->   * @ctl: Control bits to set (e.g., MA35_CTL_STA, SI, AA)
->   *
->   * Read-modify-write the CTL0 register while preserving unrelated bits.
->   */
->  static void ma35d1_i2c_write_ctl(struct ma35d1_i2c *i2c, unsigned int ct=
-l)
->  {
->  	unsigned int val;
-> =20
->  	guard(spinlock_irqsave)(&i2c->lock);
->  	val =3D readl(i2c->regs + MA35_CTL0);
->  	val &=3D ~(MA35_CTL_SI_AA);
->  	val |=3D ctl;
+Thanks,
+Jie
 
-[Severity: Medium]
-Does this unconditionally clear the Assert Acknowledge (MA35_CTL_AA) bit
-unless it is explicitly passed in the ctl argument?
+> 
+> Konrad
 
-If arbitration is lost during the START or address phase of a transfer, the
-controller will read AA as 0 and NACK its own target address, causing the
-winning master's transfer to fail.
-
->  	writel(val, i2c->regs + MA35_CTL0);
->  }
-[ ... ]
-> @@ -262,17 +262,17 @@ static irqreturn_t ma35d1_i2c_irq_target_trx(struct=
- ma35d1_i2c *i2c,
->  	case MA35_S_TRAN_DATA_NACK:
->  	case MA35_S_RECE_DATA_NACK:
->  		/*
->  		 * Data byte or last data in I2CDAT has been transmitted and NACK rece=
-ived,
->  		 * or previously addressed with own SLA address and NACK returned.
->  		 */
->  		i2c->target_reject =3D false;
->  		break;
-> =20
->  	case MA35_S_RECE_DATA_ACK:
->  		/*
->  		 * Previously address with own SLA address Data has been received;
->  		 * ACK has been returned
->  		 */
->  		byte =3D readb(i2c->regs + MA35_DAT);
->  		i2c_slave_event(i2c->target, I2C_SLAVE_WRITE_RECEIVED, &byte);
-
-[Severity: High]
-Does this code ignore the return value of i2c_slave_event in
-ma35d1_i2c_irq_target_trx?
-
-If the backend cannot accept more data, for example when the backend buffer
-is full, it returns a non-zero value. Because this is ignored, the driver
-unconditionally writes MA35_CTL_SI_AA at the end of the ISR to ACK the
-byte, which breaks flow control and allows an external I2C master to
-overrun the backend buffer.
-
-Should the return value be checked and i2c->target_reject set to true to
-properly NACK the next incoming byte on error?
-
->  		break;
-> =20
->  	case MA35_ADDR_TRAN_ARB_LOST:
-[ ... ]
-> @@ -333,13 +333,13 @@ static irqreturn_t ma35d1_i2c_irq_controller_trx(st=
-ruct ma35d1_i2c *i2c,
->  	if (unlikely(!i2c->msg)) {
->  		dev_err(i2c->dev, "Spurious controller interrupt (status: 0x%02lx)\n",=
- i2c_status);
->  		ma35d1_i2c_restore_idle(i2c);
->  		return IRQ_HANDLED;
->  	}
-> =20
->  	switch (i2c_status) {
->  	case MA35_M_START:
->  	case MA35_M_REPEAT_START:
->  		ma35d1_i2c_set_addr(i2c);
->  		ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI);
-
-[Severity: Medium]
-Since MA35_CTL_AA is omitted here in ma35d1_i2c_irq_controller_trx, the AA
-bit is cleared during address transmission. If arbitration is lost during
-SLA+R/W, will the target fallback fail to ACK its own address?
-
->  		break;
-> =20
->  	case MA35_M_TRAN_ADDR_ACK:
-[ ... ]
-> @@ -438,15 +438,15 @@ static int ma35d1_i2c_doxfer(struct ma35d1_i2c *i2c=
-, struct i2c_msg *msgs,
->  			     int num)
->  {
->  	unsigned long timeout;
->  	unsigned int val;
->  	int ret, err;
-> =20
->  	disable_irq(i2c->irq);
->  	i2c->msg =3D msgs;
->  	i2c->msg_num =3D num;
->  	i2c->msg_ptr =3D 0;
->  	i2c->msg_idx =3D 0;
->  	i2c->err =3D 0;
-> =20
->  	ma35d1_i2c_write_ctl(i2c, MA35_CTL_STA);
-
-[Severity: Medium]
-Will this omit the AA bit and thus clear it when initiating a master
-transfer in ma35d1_i2c_doxfer?
-
->  	enable_irq(i2c->irq);
-> =20
->  	timeout =3D wait_event_timeout(i2c->wait, i2c->msg_num =3D=3D 0, HZ * 5=
-);
-
-[Severity: High]
-If a caller invokes i2c_transfer with num =3D 0 to probe the bus, does this
-wait evaluate to true immediately?
-
-When num =3D 0, i2c->msg_num is set to 0. This causes wait_event_timeout to
-complete instantly while the hardware is still initiating the START. If msgs
-is a zero-length array pointer or NULL, the subsequent interrupt could
-either read out-of-bounds from i2c->msg or fail to assert a STOP condition,
-leaving the bus permanently locked up in a START state.
-
->  	ret =3D i2c->msg_idx;
-> =20
->  	if (timeout =3D=3D 0) {
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016010448.3248=
-56-2-zychennvt@gmail.com?part=3D2
