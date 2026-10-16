@@ -1,165 +1,160 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EE90471408;
-	Fri, 16 Oct 2026 10:50:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A48FC3E763E
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 10:52:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792147834; cv=none; b=tlvmIU5Eu/PTo7XbReoCXXGW5W9goL1Ukvm7t/RKNrR5xmFQsNTne6faKNKaDCUYadjG99hg6aQhaBqBi4KTwO5r5FlpitUzdPJX6Sb7/wpROVVdRuf2gG3VPhnvuRle9NCkRZCS9ZyV51BwJ5cKXlE+G3vMjJmzXw7cofS7JkY=
+	t=1792147954; cv=none; b=G/C23VxnReKuxGV8kkih6FltzMFEZjVolNTSucshL/8hZC2J+iG1SwyvbRI2HwQR1gV7Ci5/j37e5QdwGK1f4+0Iy/wC4WRplkjQ4zuwjdJPFUFnQMrgi7wE5btw2xQbf7vyl873AHnQeMILiG0PTPfCfv+X2rP7rX66ypX+gRU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792147834; c=relaxed/simple;
-	bh=QuTUpXOUCaUuBOC1UbPUqse6N0EFcQRqSPKqz3NAqFs=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=o9UF5AM4TQ70PEN7VLkhdw5E2Rt+7CHpiZiKSZVQUDCvu2+w5RsM08srpkKhDCwy7ll7wf+Y7/TxvJG6/8MNfIc/ACNSbZLQKvGsw3KH3+ri76T16VLxqKQgxpT8LpFr31p1Ch83HJRS5oPa0oN2qz5bv7SHOGrTtiPYBZXH6QA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Se2sqRSe; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1792147954; c=relaxed/simple;
+	bh=u6ZrXfLqoiTrwuo/UQd6iOAlo2BujInW8Y1HBjcID1I=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=QZKQOjwEyHmfnfnK25EIoagYvOdsOBjSvJpJXgkZl81tG3PTohVRdOYoSnZjyp3yXcZ3Rrq9avfzvXJzqF4O3Qj6+fpbXPmB4S8AonrWmHElpkxHfEYfGmXDnxJ0NcUJ7Bo9QfNUgrat9ypPEnXnAfQ79nit6uFKOkPPlOUTeXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YhhTKOMI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Se2sqRSe"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792147832; x=1823683832;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=QuTUpXOUCaUuBOC1UbPUqse6N0EFcQRqSPKqz3NAqFs=;
-  b=Se2sqRSeb2FgWNQgLKfCR6Q1N2Zv2ZBvezWG1F3VD7YpQrVzNOzXtD0b
-   xsHK0wwXxVX3mzlre/W0WREwRhoDvDMau1OMdwb8tuJtHSuwXzoffzazP
-   0QoOnqSIiZK6wLMz8sf0i7FxiYeJPM8+3sqvNEaktF5FvvAHCcSUbBBUw
-   2g18eSwv21wIxG1b5Z4buOvArsIVFyp2akKwARqi4h965lDGphZEPsSVZ
-   N6UMfw25cnqXgXe5UW+idQz1oWa35E+Vk/tXzZpaouHfMdRjFtc2DAbDW
-   lUzWL7DJ9gR4BA19c0HdIENCt1gCG+oiebiPBkNpkz7GjW0YPe2B/q4I9
-   w==;
-X-CSE-ConnectionGUID: frXJgo58RfqbbVGv8D4peg==
-X-CSE-MsgGUID: HdbjNfjcQU+Ml49qUCZ1MA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="813144"
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="813144"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 03:50:30 -0700
-X-CSE-ConnectionGUID: tS1l6KnoTtyw9/CX2dJCKg==
-X-CSE-MsgGUID: Okq7koC+Ti6Lzl5JCFYy8g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="1991378"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.34])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 03:50:26 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Fri, 16 Oct 2026 13:50:21 +0300 (EEST)
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-    Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
-    Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
-    Guenter Roeck <linux@roeck-us.net>, Bjorn Andersson <andersson@kernel.org>, 
-    Abel Vesa <abelvesa@kernel.org>, devicetree@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org, 
-    linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v4 2/4] platform: arm64: Add a driver for the EC found
- on ASUS Glymur machines
-In-Reply-To: <e4cec04d-2c66-4900-940c-d7d3d245cc64@oss.qualcomm.com>
-Message-ID: <f97000c4-496d-0ce1-318a-1df5c0de804b@linux.intel.com>
-References: <20261015-topic-asus_ec-v4-0-af6305ffcb10@oss.qualcomm.com> <20261015-topic-asus_ec-v4-2-af6305ffcb10@oss.qualcomm.com> <ba7830c7-9ad8-6695-f543-c4c419aa9133@linux.intel.com> <e4cec04d-2c66-4900-940c-d7d3d245cc64@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YhhTKOMI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2B771F000C4;
+	Fri, 16 Oct 2026 10:52:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792147953;
+	bh=f4yq0wS9dkLlqEgzuG09kMazUrnRKayn74sfIwAEUw4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=YhhTKOMIB8rS5UYaEeJOTIPICHoHLVB1A+laeFbdyk6d9aBSzW4eiA3dpB/r+JxDH
+	 5uGnZ9RjBvVs1SQSSYejnIP5nryQIFYQqXw2nvf2/fDZ8t3/ddKDSkZIhr8A9DjHV2
+	 JUnTQYXdKbG0Z1TsFeaC2MK4akJwoDTHVW4TvyPcauo5y8WgFsDLK4l4iUgDUDwqJI
+	 Y+GdeL3FItxhbncidr5brT7Ujth2cVu3iaVAEII1vQPc8udLWr5gaZ9DItamOXQjaf
+	 vFIljPY6uUx8wIIMBxMwl4NBlTGxCgmEZwD97WZWnCih49t8wFYHwIAQ73QRY/CNis
+	 Ryex4mxbOfYkA==
+Message-ID: <sashiko-outbox-174207@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 5/5] ASoC: pcm179x: Add support for pcm1975
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?Um9tYW4gU21yxb4=?= <roman@amarulasolutions.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261016-work-v2-5-9340b9555fbb@amarulasolutions.com>
+References: <20261016-work-v2-0-9340b9555fbb@amarulasolutions.com>
+ <20261016-work-v2-5-9340b9555fbb@amarulasolutions.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 16 Oct 2026 10:52:32 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-1896846893-1792147821=:1180"
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] sound: pcm1795 misidentified as pcm1792a on spi/i2c due to missi=
+ng driver_data
+- [Medium] ASoC: pcm179x: 16-bit format missing for PCM1795
+- [Medium] ASoC: pcm1795: hw_params fails with -EINVAL for 32-bit LEFT_J st=
+reams
+--
 
---8323328-1896846893-1792147821=:1180
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+commit 82f31b72b82184d1d5d7c469d77cb1c8fab51b6d
+Author: Michael Trimarchi <michael@amarulasolutions.com>
+Subject: ASoC: pcm179x: Add support for pcm1975
 
-On Thu, 15 Oct 2026, Konrad Dybcio wrote:
+The commit adds support for the PCM1795 audio codec, introducing a new codec
+model differentiation based on device match data. It adds device match tabl=
+es
+for OF along with SPI ID tables, and separate format handling tables and
+startup constraints for the new model.
 
-> On 10/15/26 4:24 PM, Ilpo J=C3=A4rvinen wrote:
-> > On Thu, 15 Oct 2026, Konrad Dybcio wrote:
-> >=20
-> >> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> >>
-> >> Some Qualcomm Snapdragon X2 Elite (Extreme)-based ASUS laptops (at
-> >> least the Zenbook A14 and A16) expose a custom, somewhat
-> >> Qualcomm reference-derived EC interface. Introduce a driver to
-> >> communicate with said EC, allowing for fan speed reporting, keyboard
-> >> backlight setting and receiving of a number of miscellaneous sideband
-> >> events.
->=20
-> [...]
->=20
-> >> +/* RAM addresses are sent MSB first, while returned data is LSB first=
-=2E */
-> >> +struct asus_qcom_ec_ram_request {
-> >> +=09__be16 addr;
-> >> +=09u8 count;
-> >> +=09u8 reserved[2];
-> >> +} __packed;
-> >> +
-> >> +struct asus_qcom_ec_ram_response {
-> >> +=09__le16 data;
-> >> +=09u8 unused[3];
-> >> +} __packed;
-> >=20
-> > Endianness stuff looks sane now but __packed also needs an include.
->=20
-> Some fun statistics:
->=20
-> $ rg compiler_attributes.h drivers -l | wc -l
-> 30
+> diff --git a/sound/soc/codecs/pcm179x-spi.c b/sound/soc/codecs/pcm179x-sp=
+i.c
+> index 4b873f2986c77..a6c6ac1eb97b2 100644
+> --- a/sound/soc/codecs/pcm179x-spi.c
+> +++ b/sound/soc/codecs/pcm179x-spi.c
+[ ... ]
+> @@ -31,13 +31,15 @@ static int pcm179x_spi_probe(struct spi_device *spi)
+[ ... ]
+>  static const struct spi_device_id pcm179x_spi_ids[] =3D {
+>  	{ "pcm1792a", 0 },
+> +	{ "pcm1795", 0 },
+>  	{ "pcm1796", 0 },
+>  	{ "pcm179x", 0 },
+>  	{ },
 
-You didn't consider compiler.h -> compiler_types.h ->=20
-compiler_attributes.h that seems a guaranteed include path to me. The=20
-numbers would be slightly better with that.
+[Severity: Medium]
+Since the driver differentiates models using enum pcm179x_type where
+PCM1795 is 1, will leaving the driver_data as 0 cause non-OF setups to
+misidentify the PCM1795 as a PCM1792A?
 
-> $ rg __packed drivers -l | wc -l
-> 1228
->=20
-> [...]
+When device_get_match_data() is called in pcm179x_common_init(), it will
+resolve to 0 for these legacy boards. This could break audio playback
+for formats encoded differently between models, such as 32-bit I2S.
 
-So lets not add another mine to what is already a scary minefield. :-)
+Additionally, should the new models be added to the I2C ID table in
+pcm179x-i2c.c for the same reason?
 
-The indirect include paths are a minefield if somebody ever wants to=20
-refactor a header. I know some maintainers may be more lax on this but=20
-here we try to follow include-what-you-use principle to extent that is=20
-reasonable (when the include path is guaranteed such as=20
-platform_device.h -> device.h or linux/x.h -> asm.h you can only include=20
-the former ones).
+> diff --git a/sound/soc/codecs/pcm179x.c b/sound/soc/codecs/pcm179x.c
+> index fae5de318b6ea..8e9b9e98c8dff 100644
+> --- a/sound/soc/codecs/pcm179x.c
+> +++ b/sound/soc/codecs/pcm179x.c
+[ ... ]
+> @@ -82,16 +94,53 @@ static const struct pcm179x_fmt_table pcm1792a_fmt[] =
+=3D {
+>  	{ SND_SOC_DAIFMT_I2S,     32, 5 },
+>  };
+> =20
+> +static const struct pcm179x_fmt_table pcm1795_fmt[] =3D {
+> +	{ SND_SOC_DAIFMT_RIGHT_J, 16, 0 },
+> +	{ SND_SOC_DAIFMT_RIGHT_J, 24, 2 },
+> +	{ SND_SOC_DAIFMT_RIGHT_J, 32, 1 },
+> +	{ SND_SOC_DAIFMT_LEFT_J,  24, 3 },
+> +	{ SND_SOC_DAIFMT_I2S,     24, 5 },
+> +	{ SND_SOC_DAIFMT_I2S,     32, 4 },
+> +};
 
-> >> +static int asus_qcom_ec_read_ram(struct asus_ec *ec, u16 addr, u8 cou=
-nt, u16 *out)
-> >> +{
-> >> +=09struct asus_qcom_ec_ram_request req =3D {
-> >> +=09=09.addr =3D cpu_to_be16(addr),
-> >> +=09=09.count =3D count,
-> >> +=09=09.reserved =3D { 0 },
-> >=20
-> > 0 is the default init value so generally =3D {} should be enough but I =
-think=20
-> > it's not necessary to add the reserved member at all because the entire=
-=20
-> > struct should be initialized anyway by the surrounding construct.
-> >=20
-> > With these fixed,
-> >=20
-> > Reviewed-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
->=20
-> Yeah I know. I still left it in deliberately so that in case anyone
-> wants to audit the format here and compare it to the DSDT it's more
-> obvious that this wasn't an oversight. Do you still prefer I resend
-> (or maybe you'd like to fix that up while applying, which I don't
-> mind either)?
+[Severity: Medium]
+Is there a missing entry here for { SND_SOC_DAIFMT_LEFT_J, 32, 3 }?
 
-We can keep the member there but I'll change it to {}.
+Because PCM1795_FORMATS includes SNDRV_PCM_FMTBIT_S32_LE and the ASoC core
+allows LEFT_J for all models, userspace can request 32-bit LEFT_J streams.
 
-I can try to remember to fix these while applying (I'm good in=20
-forgetting though :-)). But I at least try to check all the comments made=
-=20
-to the last version.
+Without an entry in this table, pcm179x_fmt_value() will fail and return
+-EINVAL during pcm179x_hw_params(), causing playback to fail at runtime.
+
+> diff --git a/sound/soc/codecs/pcm179x.h b/sound/soc/codecs/pcm179x.h
+> index 0039ca8ee7420..33971fa935469 100644
+> --- a/sound/soc/codecs/pcm179x.h
+> +++ b/sound/soc/codecs/pcm179x.h
+[ ... ]
+> @@ -8,8 +8,16 @@
+>  #ifndef __PCM179X_H__
+>  #define __PCM179X_H__
+> =20
+> -#define PCM1792A_FORMATS (SNDRV_PCM_FMTBIT_S32_LE | SNDRV_PCM_FMTBIT_S24=
+_LE | \
+> -			  SNDRV_PCM_FMTBIT_S16_LE)
+> +enum pcm179x_type {
+> +	PCM1792A,
+> +	PCM1795,
+> +	PCM1796,
+> +};
+> +
+> +#define PCM179X_FORMATS (SNDRV_PCM_FMTBIT_S32_LE | SNDRV_PCM_FMTBIT_S24_=
+LE | \
+> +			 SNDRV_PCM_FMTBIT_S16_LE)
+> +
+> +#define PCM1795_FORMATS (SNDRV_PCM_FMTBIT_S32_LE | SNDRV_PCM_FMTBIT_S24_=
+LE)
+
+[Severity: Medium]
+Does the PCM1795 support 16-bit audio streams?
+
+The pcm1795_fmt table in pcm179x.c contains an entry for 16-bit Right-J:
+
+        { SND_SOC_DAIFMT_RIGHT_J, 16, 0 },
+
+By excluding SNDRV_PCM_FMTBIT_S16_LE from PCM1795_FORMATS, the ALSA core
+unconditionally rejects all 16-bit streams at open time. This forces
+userspace to upsample or pad streams, and makes the 16-bit Right-J
+table entry unreachable dead code.
 
 --=20
- i.
-
---8323328-1896846893-1792147821=:1180--
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016-work-v2-0-=
+9340b9555fbb@amarulasolutions.com?part=3D5
