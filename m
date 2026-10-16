@@ -1,87 +1,67 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8418352F95
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 03:15:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAFF62C0298
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 03:21:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792120529; cv=none; b=jAHhML1izWzXCLrwO/lGwoqGTq9v1dMKwrZKevTDv/fmzcYbt5G+LtqWvk/inHoJVZK/60txUayM02O4C7jpZ9xF+B6DhqxBW9uohIx/4j4Rlxun+2J9jz8ofd7yYinLnNJsgBybuSbiVxiDyJSsRxXtt0iWtKAllCvkgB0L2rY=
+	t=1792120867; cv=none; b=DBjcaw44tE/0M1s4chUrq6vJ2Buz/uIfJNQabELPjHbrf57dyi1NumnGf71EE6dudXgom9l1llSDGiVPW/uQi/z5811mjQ/SRWRHjzPBPh0ogSURGY67mECr1FG1cVGlSLnYzyp4PWlA1yxEspfX4anMNy5m/R5k2taE+ZNRYw4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792120529; c=relaxed/simple;
-	bh=ICHWJpAlkm6n6QwJfFmZ5UtiesPfPoqH/DXRRLMS9Og=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oH9NwU5VxF2QnzdJJORyaU0m+P5/69PwaIwkXXXad2ZW3eDJ8EUoR5asY04HJw5XN/MNI3/3jc5FMkzr2JWh+BJ95PGw/iL0sbD0/Wrn8USLf8BdAoCAiA3DQI6Al7aVXQxJvPsvlMsVqredTqLGPE2bIPoylut1VLYbgpQG8gg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eFQxgu5e; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Xv4asWoZ; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792120867; c=relaxed/simple;
+	bh=T1hXkWwf1Ky3PIGLKl38skTFM/Wejn1S9poV/mkIkiY=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=h7Hcc4yAEnTwWLoOMpp2FnGiomUAqfysp21PcbCEVcDe0b6LlH7SMLYsbZf44D6k6K9vOYqZW/kcClMjcZz2sAspoQbnMRPplsRKGtnvQJ5UhlX3sXL47kL07Dd4bfR6VDuOmBkMTs4oZBtq+oKXP94vyDJcBSZ4wPYdxpJlY1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ods74m3i; arc=none smtp.client-ip=74.125.227.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eFQxgu5e";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Xv4asWoZ"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69G29u4D3902249
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 03:15:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	E9EZlze25ChU5gV3GfJ6FNyucDYA2Rt1XM4XFJ5+ogA=; b=eFQxgu5eKHJPVOjQ
-	OTdVTDcoYpY1iQE9eG6RGkXq9ygwUTYcfnhaqGDFt7APCKm5J6vf87x1q6FolvRn
-	mdB1X2PpojBuV/san0MtGjqTwD9rkUX3WQFeIZZGkDVsPEqT2A4K9/EANyYLIxOi
-	RHdLVx/yHUApYhR5F/JSguWpLf1o+avcsQTvjVb0Hp5EMrB4k2V6UhZ2xjIliJUA
-	M6beGFAMg3JGzxD0qQsYgyMd3hc8eBnodK/n12SAER+odaU/grxZuc4uSoG4KyBF
-	SpRBbHvxh8uCBPEX5Tbpd1gIxjP9gumVjBq4X6AMJejjynKGd0k5yj+6dPQqKVsH
-	/itPgA==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb3sesrp4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 03:15:26 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso12153068eec.1
-        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 20:15:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ods74m3i"
+Received: by mail-pj2-f10.google.com with SMTP id 98e67ed59e1d1-3abe4fb64d2so2660325a91.1
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 20:21:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792120525; x=1792725325; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=E9EZlze25ChU5gV3GfJ6FNyucDYA2Rt1XM4XFJ5+ogA=;
-        b=Xv4asWoZbOFpJA2D8M3nXvy7ra7t/tua9GALgDXAYwAsWDsNDnklF7jFXv+CcP339l
-         Jr79FiCO8RSiKY88K8tkrYelsn+gzSXldJfijljcL2JMFMWjYLpvTatjlp2AkufBD5fK
-         qNequTeG2YNxp4SZv6+FfAQPfcQ4UNyvangP8dEM90/KJS4vXMbzMl4JD2BpR63ou3LY
-         UVWzhZCikFS4MChQ9ULh3o3U7YzZkyQz8vKdNwILOTrlJXzbjMQlfa9rt+I9MurlRGFe
-         kEmM36QsH7Jv5JZNMqFpT3ES7rKJMF5FPtFL5MSIl/azbVszracWfqBAu46H4OYT/rRH
-         bkkA==
+        d=gmail.com; s=20251104; t=1792120865; x=1792725665; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BLv1jdYPShZUl6WRXA2OAAq/MQ9I53lb2Im743pbZNE=;
+        b=ods74m3iyJWkWu4lNHGKxbdhBEw18YNmlcdHGHrV1AfcHNdOGNzwP65X7waztvCeaZ
+         82McoEAeynVifup5M2Lp8qZDWNmvuIRu9AUJcndk9oX5lBNYDgY+gXDsCPj8XogR5xx/
+         CmuccwRRAdYQqKGpWjtIDm6ParoGEWiVew+BfW7kFcU4ysqQJFPmtItfCIPjjoh/vE6/
+         TpuxBCZf/RUC6z618x1k8+1dNtcirVxE+hFJdS7UYX3sPNakmXGvyANf9M8ZoVjG8pgr
+         Ub4A/LvIHq4BgFbfRqQg56Sfe0TdIvV2PLYuYVvZozNsv/et1Ky5edJhhPpe+dK4q1R5
+         vwDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792120525; x=1792725325;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792120865; x=1792725665;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=E9EZlze25ChU5gV3GfJ6FNyucDYA2Rt1XM4XFJ5+ogA=;
-        b=YFzmDTkwA5ym76zf8e8fECDEUV/qhiLilcqcmdMqayK1/Hj/5TDoDK03S9vN41jTfj
-         UBCqpL0H0KcrPU826lBEgNvquDU55Xa2gDk5rou7Q7Mr7nCemB2sRh7/8TDIS1iQuShK
-         zGPqsp7QXalLKgVKCGxm/Z732DYrtm/KctGQ9ZmMpwwfMNVWxdLvJtDODjUr3U3wpreI
-         Q0h5t295AkHPLeQIM6jgGvE8rybePgfELYd2GHzC+IPAg5taBlUKb+QyMfOkG/Cei8dJ
-         uD8YQIIwkx4xAXLvnrD6CIxKoJpzOysmJ9VOFk5DMIPr4EoQ8JEyzJdLht7QO+b2RFU0
-         zybQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzs85fq3QOa923NHqEhpNNc/OAznHWaeGywkHd5aBLpd/FoRhULRQ9I5dd28obiLXXS8KcvD/xqYQTt@vger.kernel.org
-X-Gm-Message-State: AFq9FYLTT5/VNlWmAJhrPJZxBgmModHQ03i66QK0f45VwYrXNmXfz0oV
-	0bV+uJu54FQk445ozMQFQ1D3+WPBB/DYrjqRbTTlAbN/dZb/l1Vxs9VC/+y0LmhpBN/cKLgmYDR
-	LSye8emgvAX9nY+3iECxpeAsSY+KfwIgM+Iztb5xazFkEiC0lgDoBDocMMaTzDxK9
-X-Gm-Gg: AYBFou3pHtruQIgCReSaY8OnCUAr1TUz7IlmuYYEVZIzRZ2Gi2LNhoMZWqZLf8vEOE1
-	NBf6VGNshRgCbOx9HqAotK2BHnjk5ZGlK0h/4ewrhA5Rzy9uA8rk9iZjisO4s8xniH7AFm84beB
-	t2vmBoYC7ZZO8HnRAuWkwIKNvmiPcyESqheB3r3TQhM6/knaG+0LrkQ7RbK/n6oiHv+Yr3hl6QO
-	kP0zpZBBmetXBo+cuZj7cU+1iDeASrpdiuU6ZLbV2j5CeFUC44w3D1saBtRQlebM1+F6bRyusqQ
-	mckj55r8qzN2mbyP8KuV07AyBwHFQvMrjxWpCAP5AnAOFzf6Lp36jRsZxBQqUJlUdz356x8ctjH
-	xxUhGVrCHhv2C6uUTDZFpgIz0pRfY1w==
-X-Received: by 2002:a05:693c:88d5:10b0:35e:5ca:e0df with SMTP id 5a478bee46e88-35e05cae713mr9104380eec.35.1792120525278;
-        Thu, 15 Oct 2026 20:15:25 -0700 (PDT)
-X-Received: by 2002:a05:693c:88d5:10b0:35e:5ca:e0df with SMTP id 5a478bee46e88-35e05cae713mr9104323eec.35.1792120524210;
-        Thu, 15 Oct 2026 20:15:24 -0700 (PDT)
-Received: from [192.168.50.84] ([76.176.60.246])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3608297f4f7sm2228750eec.23.2026.10.15.20.15.22
+        bh=BLv1jdYPShZUl6WRXA2OAAq/MQ9I53lb2Im743pbZNE=;
+        b=pKpdkgzjBKV1zqcG/3z49rRPO/8Qk558MaJESxdzTrseBhBd/awP2Nx4n1ZLjy62PS
+         RUpCItAXRDoepdW48XkJPC7EfgPlIyhkFUNjEAJnoP72OEIkJdCURBsMgh+HK6YHqHSh
+         TJz+vmbvy+4NS9OJ+8nzQpYN6yf9d0jEmAeSzbFA50d8apZXYNrdL+M4UuQRdXDa0NLT
+         uQOeILBFxzzJKS3Go0SYaXsjGeJSXpDwAcYD8+1FOzy16ihbP1XlggpCrdSkNSpcLwjV
+         LhitnrMnfJnK1apArL6o3/4nYyEJL6ndSGNb61QnqfOl2qkRJsrH/pPpCsd1EgNYRafA
+         ZWSQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxuuOYiB56UA3TIlsS38ZYuqh768SC262urdaqJmGXQraVxxhvJK9gA9LQVul8CRrKO13igIutlGwCR@vger.kernel.org
+X-Gm-Message-State: AFq9FYKcITuxOeCaaFjTh7loVKsoQugIeqQy+/cy39B1eOhPROzettQ5
+	JNf/PLecvGhEyKuB6+ofLSaSB8f01I6Y52BwF5WfCZoDbZyuLJYhk7Ta
+X-Gm-Gg: AYBFou0KOyDgJSb/ZuKAQyjFtnWq6Y53PuRjaIwkMJKhPuxUOfP9Kme284oIkypOdSU
+	AQ2SL4QwHb9ecmTXnv6g0UZcxaMBtCGAU0TqCgUGbLYcm3hcy4pvkx/8ZSMJTM8ZH/6RkNHuZTP
+	DMk8gJoDwRVU7Z7Z3+OM3AM83hC5eolQWB8gxuSnGWm8eGAdOWq+0QquiiHqaR7YoMwHiQ0kFng
+	dLV0sfrf/j9TeqxNdo6zBh7MrXrLRRpqUfPQo9y5OovPDjX/7XEMIZXBBLPaO9lZ7fMlLl1EZiS
+	x4eKb7aXFYLcImmfhnsLV98O91BfyCFB329xdyH4Z6sY9UmdymNUl+sctfRcC1a9qvrPeylsoVz
+	42NJQ/CLsZWZZpxxRo+1Qw5xgznvuMzzK6X1vdnztyEDv1LuF6EaUfG0B35iRMNBgVmslLDSDgP
+	gJTjs9zou8mZhM/aGvqbS9hZMRb5/tYX3Sk8IvmgWqm+l+1TBtYaPBgJC88sTLp78q60clZUpC4
+	Z14sQ==
+X-Received: by 2002:a17:90b:1801:b0:3ac:a11a:7c79 with SMTP id 98e67ed59e1d1-3aca11a7d89mr3638559a91.16.1792120865028;
+        Thu, 15 Oct 2026 20:21:05 -0700 (PDT)
+Received: from [10.125.112.22] ([122.11.210.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac9474b52fsm7959974a91.9.2026.10.15.20.20.48
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 20:15:23 -0700 (PDT)
-Message-ID: <46432502-b2a1-4e7e-b3d9-447a3e239fd5@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 20:15:21 -0700
+        Thu, 15 Oct 2026 20:21:03 -0700 (PDT)
+Message-ID: <643bbd4c-1041-43b9-9362-17c5330fc06a@gmail.com>
+Date: Fri, 16 Oct 2026 11:20:45 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,205 +69,169 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/7] arm64: dts: qcom: Add device tree for Lemans
- GearVM variant
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Shazad Hussain <shazad.hussain@oss.qualcomm.com>,
-        Nikunj Kela <quic_nkela@quicinc.com>
-References: <20261015023711.721837-1-shengchao.guo@oss.qualcomm.com>
- <20261015023711.721837-6-shengchao.guo@oss.qualcomm.com>
+Subject: Re: [PATCH v8 0/8] kdump: reduce vmcore size and capture time
+From: Wandun <chenwandun1@gmail.com>
+To: robh@kernel.org, baoquan.he@linux.dev, rppt@kernel.org,
+ m.szyprowski@samsung.com
+Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com,
+ chenhuacai@kernel.org, kernel@xen0n.name, pjw@kernel.org,
+ palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, tglx@kernel.org,
+ mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org,
+ hpa@zytor.com, saravanak@kernel.org, akpm@linux-foundation.org,
+ pasha.tatashin@soleen.com, pratyush@kernel.org, ruirui.yang@linux.dev,
+ robin.murphy@arm.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
+ linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
+ kexec@lists.infradead.org, linux-mm@kvack.org, iommu@lists.linux.dev
+References: <20261016030855.4062882-1-chenwandun1@gmail.com>
 Content-Language: en-US
-From: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
-In-Reply-To: <20261015023711.721837-6-shengchao.guo@oss.qualcomm.com>
+In-Reply-To: <20261016030855.4062882-1-chenwandun1@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: N9-FhJ4mjI9dle96phjUpPd9pscu1UPo
-X-Proofpoint-GUID: N9-FhJ4mjI9dle96phjUpPd9pscu1UPo
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAxMiBTYWx0ZWRfX903sQ99Jn0Ty
- s9ScaEUYrxoMsMFnY5fKokyWlBPB20yTTVf8AJpqeacmevnje5Ive970y2qrjOi/3IbPmeoUu7C
- Gbts/5XqEFeMMN+CCK7Yt9SDLjEfh2k=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAxMiBTYWx0ZWRfX2sMHJe+AHzVh
- 2QCh4YdUpbuVTQYADSYS343oou2wjhT2Nn9iKjlgyWDgK2INynLRRWAvOMO2SKLBcMMAen2fZi+
- Pkt4MM7cpKjUvdbJTMzgmb83dC0TdUQxOZwk+Qrp8hc0HLv+PbNLGIgeE1pWSqDF0XE8qE1spc4
- 0es//kTHiSqTCM+wqwc2lBqso1AkSlDYWBu0q7JDXQ29gC3/C0RFFJIahoqf1v8w4bf+URT1a94
- VtIaYw76F2CltyJzRzKWPMSBVxJfSvqgJwMB6ZRZf0rfzLOtgVpR7I6SKkjDT/3AMjYKyjsk5zb
- Qbi/0CRDAl0Id/4RohtenHELXf1o64C+tvCFC0i6OKXWJGfh4K7PBdBt1XVQ/dHGPHULPDJcsy3
- 8zrLI9mpfYEgy0G26sBcyU9XC62NAmusaVuDYPakanOvhW0KAN4ERGbi2NCULr7WlKXB5hAMn9v
- Qcv/QiVeJSC0DaQMVmg==
-X-Authority-Analysis: v=2.4 cv=Se1i5fRu c=1 sm=1 tr=0 ts=6ad196ce cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=0ISbvMpsx/t7i6H15JfNAA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8 a=viPkIkau9hFIgBHGpf8A:9
- a=QEXdDO2ut3YA:10 a=scEy_gLbYbu1JhEsrz4S:22 a=cvBusfyB2V15izCimMoJ:22
- a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 adultscore=0 spamscore=0 malwarescore=0 priorityscore=1501
- phishscore=0 bulkscore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160012
+
+
+Hi all,
+
+My SMTP server hit a temporary error (4.3.0) partway through sending
+this series, so some patches did not make it to the list. I will resend
+the whole series later. Please ignore the current incomplete set.
+
+Sorry for the noise.
+
+
+Best regards,
+Wandun
 
 
 
-On 10/14/2026 7:37 PM, Shawn Guo wrote:
-> Add lemans-gearvm.dtsi for Lemans GearVM variant (SA8255P) that utilizes
-> firmware to configure platform resources such as clocks, interconnects
-> and TLMM.
-> Device drivers request these resources through the SCMI power, reset and
-> performance protocols.  Assign each device driver a dedicated SCMI
-> channel and Tx/Rx doorbells to support parallel resource requests and
-> aggregation in the SCMI platform server.  Operate the SCMI server stack
-> in an SMP-enabled VM using the Qualcomm SMC/HVC transport driver for
-> communication.
+On 10/16/26 11:08, Wandun Chen wrote:
+> From: Wandun Chen <chenwandun@lixiang.com>
 > 
-> Group resource operations to improve abstraction and reduce the number of
-> SCMI requests.  Follow the SCMI-based resource management approach
-> demonstrated by Qualcomm at Linaro Connect 2024 [1].
+> On SoCs that carve out large firmware-owned reserved memory (GPU,
+> camera ISP, ...), kdump currently dumps those carveouts as part of
+> system RAM even though their contents are firmware state that is not
+> useful for kernel crash analysis.
 > 
-> [1] https://resources.linaro.org/en/resource/wfnfEwBhRjLV1PEAJoDDte
+> ACPI systems already filter reserved memory out of the vmcore through
+> their existing path: firmware reports those carveouts as unusable in
+> the EFI memory map, they get MEMBLOCK_NOMAP set in memblock.memory
+> (is_usable_memory(), efi-init.c), and the ELF header builder has
+> always skipped nomap regions; only DT-based systems currently fail
+> to filter these regions, which is what this series addresses.
 > 
-> Co-developed-by: Shazad Hussain <shazad.hussain@oss.qualcomm.com>
-> Signed-off-by: Shazad Hussain <shazad.hussain@oss.qualcomm.com>
-> Signed-off-by: Nikunj Kela <quic_nkela@quicinc.com>
-> Co-developed-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
-> Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi | 3232 +++++++++++++++++++
->  1 file changed, 3232 insertions(+)
->  create mode 100644 arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi
+> This series introduces a MEMBLOCK_NODUMP flag (suggested by Rob) in
+> memblock to filter reserved memory on DT-based architectures. A new
+> flag is needed because MEMBLOCK_NOMAP can only express regions without
+> a linear mapping, while MEMBLOCK_NODUMP can filter regions that are
+> linearly mapped. Reserved regions are marked MEMBLOCK_NODUMP by default
+> so kdump omits them; reusable CMA regions are different because their
+> pages are handed back to the buddy allocator and may carry crash-relevant
+> data.
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi b/arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi
-> new file mode 100644
-> index 000000000000..4c155cbc7975
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi
-> @@ -0,0 +1,3232 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +#include "lemans.dtsi"
-> +
-> +/delete-node/ &xbl_boot_mem;
-> +/delete-node/ &pil_adsp_mem;
-> +/delete-node/ &q6_adsp_dtb_mem;
-> +/delete-node/ &q6_gdsp0_dtb_mem;
-> +/delete-node/ &pil_gdsp0_mem;
-> +/delete-node/ &pil_gdsp1_mem;
-> +/delete-node/ &q6_gdsp1_dtb_mem;
-> +/delete-node/ &q6_cdsp0_dtb_mem;
-> +/delete-node/ &pil_cdsp0_mem;
-> +/delete-node/ &pil_gpu_mem;
-> +/delete-node/ &q6_cdsp1_dtb_mem;
-> +/delete-node/ &pil_cdsp1_mem;
-> +/delete-node/ &pil_cvp_mem;
-> +/delete-node/ &pil_video_mem;
-> +/delete-node/ &scmi_mem;
-> +/delete-node/ &firmware_reserved_mem;
-> +
-> +/ {
-> +	clocks {
-> +		bi_tcxo_div2: bi-tcxo-div2-clk {
-> +			compatible = "fixed-factor-clock";
-> +			clocks = <&xo_board_clk>;
-> +			clock-mult = <1>;
-> +			clock-div = <2>;
-> +			#clock-cells = <0>;
-> +		};
-> +
-> +		gpll0_board_clk: gpll0-board-clk {
-> +			compatible = "fixed-clock";
-> +			#clock-cells = <0>;
-> +		};
-> +
-> +		sleep_clk: sleep-clk {
-> +			compatible = "fixed-clock";
-> +			#clock-cells = <0>;
-> +		};
-> +
-> +		xo_board_clk: xo-board-clk {
-> +			compatible = "fixed-clock";
-> +			#clock-cells = <0>;
-> +		};
-> +	};
-> +};
-> +
-> +&adreno_smmu {
-> +	power-domains = <&scmi15_pd 0>;
-> +};
-> +
-> +&cpufreq_hw {
-> +	clocks = <&bi_tcxo_div2>, <&gpll0_board_clk>;
-> +	clock-names = "xo", "alternate";
-> +};
-> +
-> +&firmware {
-> +	scm {
-> +		memory-region = <&tz_ffi_mem>;
-> +	};
-> +
-> +	scmi0: scmi-0 {
-> +		compatible = "qcom,scmi-smc";
-> +		arm,smc-id = <0xc6008012>;
-> +		shmem = <&shmem0>;
-> +
-
-As bootloader updates the irq, we can add a comment here.
-
-> +		interrupts = <GIC_SPI 963 IRQ_TYPE_EDGE_RISING>;
-> +		interrupt-names = "a2p";
-> +
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +
-> +		arm,max-msg = <10>;
-> +		arm,max-msg-size = <256>;
-> +		arm,max-rx-timeout-ms = <3000>;
-> +
-> +		status = "disabled";
-> +
-> +		scmi0_pd: protocol@11 {
-> +			reg = <0x11>;
-> +			#power-domain-cells = <1>;
-> +		};
-> +
-> +		scmi0_dvfs: protocol@13 {
-> +			reg = <0x13>;
-> +			#power-domain-cells = <1>;
-> +		};
-> +
-> +		scmi0_rst: protocol@16 {
-> +			reg = <0x16>;
-> +			#reset-cells = <1>;
-> +		};
-> +	};
-> +
-> +	scmi1: scmi-1 {
-> +		compatible = "qcom,scmi-smc";
-> +		arm,smc-id = <0xc6008012>;
-> +		shmem = <&shmem1>;
-> +
-> +		interrupts = <GIC_SPI 964 IRQ_TYPE_EDGE_RISING>;
-> +		interrupt-names = "a2p";
-> +
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +
-> +		arm,max-msg = <10>;
-> +		arm,max-msg-size = <256>;
-> +		arm,max-rx-timeout-ms = <3000>;
-
-Thanks,
-Deepti
+> Since the reserved memory regions are filtered out, the vmcore is
+> smaller in size and faster to produce.
+> 
+> The series is based on linux-next and is organized as follows:
+> 
+> Patches 1-3: Preparation and bugfixes: switch riscv crash_mem to
+>              memblock, fold the duplicated per-arch memblock walks
+>              into the weak defaults, and serialize crash header
+>              preparation against memory hotplug.
+> Patches 4-7: NODUMP infrastructure: switch crash_core to
+>              for_each_mem_region(), introduce the MEMBLOCK_NODUMP
+>              flag, add a dumpable flag to struct reserved_mem, and
+>              mark /reserved-memory entries with MEMBLOCK_NODUMP.
+> Patch 8:     Skip MEMBLOCK_NODUMP regions when building the vmcore
+>              ELF header.
+> 
+> v6 --> v8 (v7 mainly tried to fix the initrd issue on release in v6,
+> that approach is superseded here):
+> 
+> 1. Stop marking /memreserve/ regions with NODUMP. v6 marked
+>    /memreserve/ regions with NODUMP. But a bootloader may specify
+>    a /memreserve/ entry for memory that the kernel later frees
+>    (e.g. the initrd), and those pages would then be wrongly
+>    filtered out of the vmcore after being reused as normal memory.
+>    The v7 fix (clearing the flag in free_reserved_area()) caused
+>    a lockless runtime mutation of memblock.memory [1]. Better solutions
+>    exist but need extra preparation, so they are left out to keep
+>    this series simple in v8.
+> 
+> 2. Fix a build failure in patch 2 with both ARCH_KEEP_MEMBLOCK and
+>    MEMORY_HOTPLUG are unset. There the memblock arrays live in
+>    .init.data, and the weak defaults referencing them create section
+>    mismatches, which turn into build errors when SECTION_MISMATCH_WARN_ONLY
+>    is also unset.
+> 
+> 3. RISCV recently gained crash hotplug support, so adapt its handler
+>    like x86 in patch 3: use __crash_prepare_headers() instead of
+>    crash_prepare_headers() to avoid self-deadlock.
+> 
+> 4. Update the cover letter per review feedback: describe how ACPI
+>    systems filter reserved memory and why a new flag is needed
+>    instead of reusing NOMAP.
+> 
+> Every patch in this series now carries an Acked-by or Reviewed-by tag.
+> Patches 2 and 3 have changed since v6, but the changes (a build fix and
+> a riscv hotplug adaptation) do not alter the logic the tags were given
+> for, so their tags are kept. If any tag should not be carried, please
+> let me know and I will drop it.
+> 
+> 
+> v6 --> v7:
+> 1. Fix a stale MEMBLOCK_NODUMP flag issue [2]. Memory reserved and
+>    marked as NODUMP may later be freed (the initrd, for example),
+>    so the NODUMP flag must be cleared accordingly. Since the fix is
+>    part of the NODUMP infrastructure introduced by patch 5, it has
+>    been folded into that patch.
+> 2. Drop the "generic" related description in the cover letter.
+> 3. Collect the Acked-by and Reviewed-by tags received during the v6
+>    review (thanks to Baoquan, Mike, Rob and Marek). Patch 5 is the
+>    only one without a tag, as its Reviewed-by was dropped when the
+>    fix was folded in.
+> 4. Drop patch 1 of v6, which has been merged separately.
+> 
+> 
+> v5 --> v6:
+> 1. Serialize crash header preparation against memory hotplug to avoid
+>    out-of-bounds or use-after-free issues.
+> 2. MEMBLOCK_NODUMP marking is now done after memblock allows resizing,
+>    avoiding a panic from too few regions before resize is permitted.
+> 3. Reordered the patches, put pre-existing bugfixes earlier in the series.
+> 
+> [1] https://lore.kernel.org/lkml/20260922090252.B01541F000FF@smtp.kernel.org/
+> [2] https://sashiko.dev/#/message/20260917220750.GA4013814-robh%40kernel.org
+> 
+> v5: https://lore.kernel.org/lkml/20260806093519.2907771-1-chenwandun1@gmail.com/
+> v4: https://lore.kernel.org/lkml/20260630074715.4126796-1-chenwandun1@gmail.com/
+> 
+> 
+> Wandun Chen (8):
+>   riscv: build crash_mem ranges from memblock instead of resource tree
+>   crash_core: fold duplicated memblock arch hooks into the weak default
+>   crash_core: serialize crash header preparation against hotplug
+>   crash_core: replace for_each_mem_range() with for_each_mem_region()
+>   memblock: introduce MEMBLOCK_NODUMP flag
+>   of: reserved_mem: add dumpable flag to opt-in vmcore
+>   of: reserved_mem: mark /reserved-memory entries with MEMBLOCK_NODUMP
+>   crash_core: skip MEMBLOCK_NODUMP regions when building vmcore ELF
+>     header
+> 
+>  arch/arm64/kernel/machine_kexec_file.c     | 29 ------------
+>  arch/loongarch/kernel/machine_kexec_file.c | 27 -----------
+>  arch/riscv/Kconfig                         |  2 +-
+>  arch/riscv/kernel/crash.c                  |  2 +-
+>  arch/riscv/kernel/machine_kexec_file.c     | 33 --------------
+>  arch/x86/kernel/crash.c                    |  2 +-
+>  drivers/of/fdt.c                           |  1 +
+>  drivers/of/of_private.h                    |  1 +
+>  drivers/of/of_reserved_mem.c               | 15 ++++++
+>  include/linux/crash_core.h                 |  2 +
+>  include/linux/memblock.h                   |  9 ++++
+>  include/linux/of_reserved_mem.h            |  1 +
+>  kernel/crash_core.c                        | 53 +++++++++++++++++++++-
+>  kernel/dma/contiguous.c                    |  1 +
+>  mm/memblock.c                              | 16 +++++++
+>  15 files changed, 100 insertions(+), 94 deletions(-)
+> 
 
