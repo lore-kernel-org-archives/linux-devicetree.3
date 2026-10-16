@@ -1,123 +1,129 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABA2E5304C1;
-	Fri, 16 Oct 2026 17:20:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F352565110;
+	Fri, 16 Oct 2026 17:22:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792171221; cv=none; b=UTJPenKl+49W6bNNEElRq7LEulY5aZEor5vNCD89NQbRs2YxVY/amz36WH2WSuo/Tgj4ltu8+ACDTiGrMlJv7+VEFEe9Sdzh4hfO8zKJW7ZCh2etLgH/0YvjOeaeR87pHmuAKSepo3Xi4z1PAJMwWWmlokH7ZyVFSvX2ludqAcQ=
+	t=1792171351; cv=none; b=PZP66cBHoXVeTM69I5/f1YXtrOpxAu+pCbc3A9ElREkUG4ZgyNnmle+jNBAJHf8d5+zqEMbi/R5pNoFjz7jKrcwIxxUpS5E72RrHL9mi2KvHZiKU8k4TPi2LkGHa1jatxdLRUMfW7+nZleNVSnMY7g+SvSX4EO9ijtUkfFps3mE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792171221; c=relaxed/simple;
-	bh=1qLqgUK3O0JJhHLhaf7ZLoaVvBVeWeJEIM055yE2WPk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KATsVPDbOUR+cRePWYlXXgMQIgnapdrubKmhxkIsm3R5DqstAyspNdLFtXavUgzp/x3zxLvaqNaNtfDULr6mtGpW3maCRO1ONFLaOwztIUrTnO0vVPOTTzmYol+vyu7bne83cqyN2LrpzEO7GjB70rzhYiAHa4WPULHSZIDtYRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I7ALYj3F; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792171351; c=relaxed/simple;
+	bh=ow7WTfAVksuVLAecIlyCWegUz6MklnUTnyuaTQljL+E=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=MH4D1JC+Ws0HJqTTpLuDpEFFUbT5tVfIo/wmwroVzeK69s19ph7ycOESgGRUHMi8iVtWXyIMEZERuh0LxN3Gd8f4ni/EWsZ75xicdwVblUIruLK+/twMzwbU3r9T4m/ux9t1iIypMFJx6oKX78uoaOsl8UrZcmCfksTxlug5vx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y9ALJ6OL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I7ALYj3F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3280E1F000C6;
-	Fri, 16 Oct 2026 17:20:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y9ALJ6OL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD22C1F000C7;
+	Fri, 16 Oct 2026 17:22:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792171220;
-	bh=xD3yRsvoIFwL/JZOKynIA6QUqNyu8SGGZTONrw/z9U8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=I7ALYj3Fi/lEtMpo8+EeCt4CJ84OF0OUGVAAszi/qL9LDCsN59Sro0hqbPrUY2nB+
-	 Xk3sKpfAuQofcEExNilFlFX7NUYwfJ/tQn27vKQ3NIOOJ6HF6IOmENAYgHrDLSa5qM
-	 tnnS0scAKEKhMXDyF8T0ZFiAjGNb2YtxWZix4gEhU6ysTduzeoJsSj3rM3hzqayyYi
-	 vctMZs5IIDkfHuM8GS1IMXgRW65eV66UhjmhmlLRTIJqulH/d9UgsQbtzJar1oWXIW
-	 T0rig6mzNB+3Mykwuxw29Hm5t3RSyZO7nZW6ME+f4OJpQ6DZAbuvCPEDv7OxYSU1w7
-	 bnCHK+iP+Z+ig==
-Date: Fri, 16 Oct 2026 18:20:14 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Faiyaz Mohammed <faiyaz.mohammed@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
- <konradybcio@kernel.org>, Conor Dooley <conor@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Manivannan
- Sadhasivam <mani@kernel.org>, Borislav Petkov <bp@alien8.de>, Tony Luck
- <tony.luck@intel.com>, Conor Dooley <conor+dt@kernel.org>, Abel Vesa
- <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-edac@vger.kernel.org
-Subject: Re: [PATCH 2/4] soc: qcom: llcc: add LCP/SRP DDR DRAM ECC register
- offsets
-Message-ID: <20261016182014.7d2d8bbe@jic23-hlaptop>
-In-Reply-To: <20261014-master-v1-2-aba3cfcfbac9@oss.qualcomm.com>
-References: <20261014-master-v1-0-aba3cfcfbac9@oss.qualcomm.com>
-	<20261014-master-v1-2-aba3cfcfbac9@oss.qualcomm.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1792171349;
+	bh=uuqtsfFc++j/vledyiZTdQ1mK8z1d8kouTyN96/Gd1E=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Y9ALJ6OLxRvBq/gucRGvdN7Y8DSAQ8ZT0/xon1C1CwiTcJ9gkk4lgJoz8D3CW3VmS
+	 6/FsTmRPJ9OaeM/9oEL6dGlTdMcm1Zpyem51PXrsdLAjWIztXJvcRCB4ZtvyJwMMnK
+	 b2q/V8BWw4BCO0in58SIkRGQse5bX/7wni51wsNXkKpfpQhEXH35p3y1xj+xhFc7zr
+	 zXAEyuuAJ5jVu7BpsTBU+qeCsJmwt4jlSG5styoxhSjfeRdLh8NzqnAR9ZkTpAOOzR
+	 FFJ7lp9gK8aTr6aVTYQfAKPkLBvVjEnQZ2Xq/sB4BVtcsYo1ftM832cjwuFpridxoM
+	 Le703PC8M4moA==
+Message-ID: <sashiko-outbox-174719@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/3] clk: qcom: camcc-sm8250: use icc-clk for camera
+ NoC AXI clock
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Atanas Filipov" <atanas.filipov@oss.qualcomm.com>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261016170701.1504338-3-atanas.filipov@oss.qualcomm.com>
+References: <20261016170701.1504338-1-atanas.filipov@oss.qualcomm.com>
+ <20261016170701.1504338-3-atanas.filipov@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 16 Oct 2026 17:22:28 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Wed, 14 Oct 2026 21:26:17 +0530
-Faiyaz Mohammed <faiyaz.mohammed@oss.qualcomm.com> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] clk: camcc-sm8250: premature icc_sync_state on old DT causes syste=
+m hang
+--
 
-> Add LCP/SRP ECC register offsets to struct llcc_edac_reg_offset and
-> create llcc_lcp_srp_edac_reg_offset for QCM2390, leaving the shared
-> llcc_v2_1_edac_reg_offset table unchanged. Switch shikra_cfg to the
-> new table so other platforms with the same block can reuse it.
-> 
-> Add lcp_irq to struct llcc_drv_data and retrieve the optional second
-> interrupt in qcom_llcc_probe(), propagating non-absence errors so the
-> driver defers correctly.
-> 
-> Signed-off-by: Faiyaz Mohammed <faiyaz.mohammed@oss.qualcomm.com>
-Hi Faiyaz,
+commit efec91c2d7f6b65bf67f582b282617ccb26d996e
+Author: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 
-One comment on existing code + a suggestion to tidy the new stuff
-up a little.
+clk: qcom: camcc-sm8250: use icc-clk for camera NoC AXI clock
 
-That global for drv_data is less than ideal, but given you are touching
-the driver please tidy up initial assignment to use INIT_ERR_PTR()
+CAM_CC_CAMNOC_AXI_CLK is shared by several camera blocks. Setting its
+rate directly from each consumer means the last writer wins.
 
+Register the clock as an icc-clk path through the common icc_hws
+support, as gcc-ipq9574 does. The interconnect core aggregates all
+requests and the clock runs at the highest requested rate.
 
->  static const struct llcc_edac_reg_offset llcc_v6_edac_reg_offset = {
->  	.trp_ecc_error_status0 = 0x47448,
->  	.trp_ecc_error_status1 = 0x47450,
-> @@ -4767,7 +4802,7 @@ static const struct qcom_llcc_config shikra_cfg[] = {
->  		.sct_data	= shikra_data,
->  		.size		= ARRAY_SIZE(shikra_data),
->  		.reg_offset	= llcc_v2_1_reg_offset,
-> -		.edac_reg_offset = &llcc_v2_1_edac_reg_offset,
-> +		.edac_reg_offset = &llcc_lcp_srp_edac_reg_offset,
->  		.irq_configured = true,
+Use the RCG rather than the branch: icc-clk enables the clock at
+registration, when TITAN_TOP_GDSC is still off. Consumers enable the
+branch themselves.
+
+Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+
+> diff --git a/drivers/clk/qcom/camcc-sm8250.c b/drivers/clk/qcom/camcc-sm8=
+250.c
+> index 21e9423676216..84a91103e5bef 100644
+> --- a/drivers/clk/qcom/camcc-sm8250.c
+> +++ b/drivers/clk/qcom/camcc-sm8250.c
+
+[ ... ]
+
+> @@ -2443,6 +2454,7 @@ static struct platform_driver cam_cc_sm8250_driver =
+=3D {
+>  	.driver =3D {
+>  		.name =3D "cam_cc-sm8250",
+>  		.of_match_table =3D cam_cc_sm8250_match_table,
+> +		.sync_state =3D icc_sync_state,
+
+[Severity: High]
+Could this cause premature state synchronization when booting with an older
+Device Tree?
+
+On older DTs where the camcc node lacks the #interconnect-cells property,
+the interconnect core skips counting it during initialization:
+
+drivers/interconnect/core.c:of_count_icc_providers() {
+	...
+	if (of_property_present(child, "#interconnect-cells") &&
+	    likely(!of_match_node(ignore_list, child)))
+		count++;
+	...
+}
+
+Because of this, providers_count only reflects the other interconnect
+providers. However, since the driver unconditionally registers
+icc_sync_state, the driver core will still execute it once the device
+probes.
+
+When this executes, the extra call increments the static count in
+icc_sync_state without a corresponding +1 in providers_count:
+
+drivers/interconnect/core.c:icc_sync_state() {
+	...
+	count++;
+
+	if (count < providers_count)
+		return;
+	...
+}
+
+Will this cause the interconnect core to reach providers_count prematurely,
+forcing synced_state to true and dropping bandwidth requests on all other
+system interconnects before their consumers have probed?
+
 >  	},
 >  };
-> @@ -5798,7 +5833,13 @@ static int qcom_llcc_probe(struct platform_device *pdev)
->  	if (drv_data->ecc_irq < 0 && drv_data->ecc_irq != -ENXIO)
->  		return dev_err_probe(&pdev->dev, drv_data->ecc_irq,
->  				     "failed to get IRQ resource\n");
+>
 
-Unrelated to your patch, but why don't we need that tiny bit of error cleanup under
-goto err for this path?  That use of a global is not the best anyway, but none
-the less I'd expect either some consistency or a comment on why not in the above
-path.
-
-> -
-> +	if (cfg->edac_reg_offset && cfg->edac_reg_offset->lcp_srp_interrupt_enable) {
-> +		drv_data->lcp_irq = platform_get_irq_optional(pdev, 1);
-> +		if (drv_data->lcp_irq < 0 && drv_data->lcp_irq != -ENXIO) {
-> +			ret = drv_data->lcp_irq;
-> +			goto err;
-> +		}
-
-Maybe it's local style, but generally I'd put the value in ret until you've checked validty
-then copy it to the good location.
-
-		ret = platform_get_irq_optional(pdev, 1);
-		if (ret < 0 && ret != -ENXIO)
-			goto err;
-		drv_data->lcp_irq = ret;
-Both more compact and obvious when we trust the value to be good.
-
-		
-> +	}
->  	drv_data->edac_reg_offset = cfg->edac_reg_offset;
->  	drv_data->ecc_irq_configured = cfg->irq_configured;
->  	drv_data->dev = dev;
-
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016170701.1504=
+338-1-atanas.filipov@oss.qualcomm.com?part=3D2
