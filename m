@@ -1,326 +1,236 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FFC43CA4A3;
-	Fri, 16 Oct 2026 19:34:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5A6035E1AA
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 19:36:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792179250; cv=none; b=U/fkjkU1UhIltVsSa6lraAipT+VLmNoRgP/gNKNF8p6XHJbiB5d0rIs3M0o7U07k2o25SXXzOy0g/bXlsL/FBT6k21q5BdY8X7sJVtSgX08+rzTige8xkypINrtOhHoUZMg/CMQCHKkv+gHFF8I8xS9r2FSpH8Ki8+B5rewBQL0=
+	t=1792179395; cv=none; b=qcgq0mm9YXj8t654kAdaSzmBm5AXSQ2oI7rul8gyg499pLfqUC93Q/PTIeCExpI05VTanepNMt77/bkWxdloq8QgM4KBFr+PQp0XOgIvb5L0u/x3pJdXe+GKLQm17ZMAQOf9Tx/L7RUBBbZ/Y5LLFNf9B8wJG7WYd3HB/Jz/6Q8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792179250; c=relaxed/simple;
-	bh=RKEfa/yQA/alYx7sDLLx2UA0YsmtHuCwqdbB0a9bqiE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mNC/imlB1Q/+ABwIghN6otyYSZ8Bxl+VISljT0ZvsoV0eEcq6cc9FlTEvV+v3Oy66oCt9E0nVFVcwDMqaMymj3v5E5S3AW/kqE3xZcOX3oSQK4ARlXpx9xHB3jk2W7V5I0aYqRWve/oskp0MOShgN4x376owj7LdZwoj9XrLWKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=CKdELMX1; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1792179395; c=relaxed/simple;
+	bh=Y+kxM+00FqHjRicplo65txQEt1JX0latt3e05mMcUgQ=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=bgWAzztg0D5DMdOhnX1zUcrmFjUxp0zw/D6Mx6DPUGAsJwjsrngHzWDlywosLd5XHsDm0YH9KUaoSjjRxMs8EzzW770HCS92Bv52gtdXaFtzMZLw2zLbhL7+ZdhxF6QnrKNS+ujXaCYqOtmBJOKvepssP8xxvix5YDF7UrdzF3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VUODYzAC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="CKdELMX1"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7C506109A06;
-	Fri, 16 Oct 2026 21:33:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1792179236; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=FZL8PfkThKX2iAppqn/43ztzq+aJ7s8ZsROCzA6oW9I=;
-	b=CKdELMX1Ka+hgZceWrxbziJUGxXJLD1NH7LslvieXtRG38CvVFUHQ0v6FKg5oFgB9qybbL
-	S8rArappOpt7gvdGhhBEXhV/rk44WloddUG+nv1Ujw4Ak4ocCCK9jdvDxME9vqvCi9KA6L
-	u9Mkoukrpd7mOSMyP8iwXdsUgshQdlfXHZ8ZaaWYkJgvC8F6EHILEB5nGqqwN/fjSNT10D
-	v1SS14O8ldYPfw612YWryLyCVtn63NoIwxWMOkfI7aV6OiRj/VLVpJpKgT7R7RE91pNsYY
-	oZb+zaB0Jnmgj3PHw8RHNd/YZdn0iS0u8DgGFCPKPpMDgFuo7aTs4M1YYalfiA==
-From: Marek Vasut <marex@nabladev.com>
-To: netdev@vger.kernel.org
-Cc: Marek Vasut <marex@nabladev.com>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Clark Wang <xiaoning.wang@nxp.com>,
-	Claudiu Manoil <claudiu.manoil@nxp.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	UNGLinuxDriver@microchip.com,
-	Wei Fang <wei.fang@nxp.com>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org
-Subject: [net-next,PATCH 2/2] enetc: Make eMDIO MDC rate configurable from DT
-Date: Fri, 16 Oct 2026 21:32:01 +0200
-Message-ID: <20261016193344.115518-2-marex@nabladev.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016193344.115518-1-marex@nabladev.com>
-References: <20261016193344.115518-1-marex@nabladev.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VUODYzAC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C6681F000C4;
+	Fri, 16 Oct 2026 19:36:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792179393;
+	bh=sIrihEv3ef1cG4fKUIRf7goYvM2RasctN99iHELqOvc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VUODYzAC6z0FZt5dNU6b6eXziTMrExyU2OIC9Y1JSeeicXSHdZ5bXoO0JREpFeBRd
+	 vKG2BV/CenxubQbTtBAuY9IpWJ0UNHweZXTjTwpoxzEwkaMYWpKdYHILWLoEAThP8f
+	 z0XrTHQoAAi6WUjD////DCQ9vT1rxQLJ6W+oeMXNnYitouw6PM6KaksYJDtNMlIJ3b
+	 U5TnNpniG4qeIcJD7ckmsfwVLsXE9ZxTggS9wh4GQh7cp/2WUfqRRnY+3gERdAwfL3
+	 Mm7ei1xW6sPedMxthIESFH39JdKPAF5MT6Zef0xmS7A5AqZmTLX1RInqJ0PzH+VW1Q
+	 VjckI8IE08TNA==
+Message-ID: <sashiko-outbox-174864@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: iio: dac: Document Analog Devices
+ AD5413 single-channel DAC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Bruce Tsao" <bruce.tsao@analog.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261017-ad5413-upstream-v1-1-61f40c8fef25@analog.com>
+References: <20261017-ad5413-upstream-v1-0-61f40c8fef25@analog.com>
+ <20261017-ad5413-upstream-v1-1-61f40c8fef25@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 16 Oct 2026 19:36:32 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-The current eMDIO MDC rate is hard-coded in the drivers which use the
-eMDIO MDC, this is not flexible for various deployments of SoCs which
-use the eMDIO interface, for example i.MX95 B0 MDC clock is currently
-set to 644 kHz.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: iio: dac: adi,ad5413: missing reg property and requ=
+irement
+- [Medium] dt-bindings: iio: dac: adi,ad5413: invalid maintainers and spi-c=
+pol schema
+- [Medium] dt-bindings: iio: dac: adi,ad5413: custom boolean mode property =
+duplicates standard range bindings
+--
 
-Introduce enetc_mdio_priv .mdc_div field which contains the divider
-used for MDC clock and pass it around, including into functions which
-configure the MDC clock. This way, drivers which use the eMDIO can set
-the divider as needed. Introduce enetc_mdio_update_mdc_div() function
-which calculates the divider from upstream clock and clock-frequency
-DT property, both of which are optional to retain compatibility with
-older DTs. This is modeled according to xgmac_mdio_set_mdc_freq().
+commit b9fdb51ef057c689f916309a04134bf25c49ed72
+Author: Bruce Tsao <bruce.tsao@analog.com>
 
-Suggested-by: Vladimir Oltean <vladimir.oltean@nxp.com>
-Signed-off-by: Marek Vasut <marex@nabladev.com>
----
-Cc: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>
-Cc: Clark Wang <xiaoning.wang@nxp.com>
-Cc: Claudiu Manoil <claudiu.manoil@nxp.com>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Eric Dumazet <edumazet@kernel.org>
-Cc: Frank Li <Frank.Li@nxp.com>
-Cc: Jakub Kicinski <kuba@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Paolo Abeni <pabeni@redhat.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: UNGLinuxDriver@microchip.com
-Cc: Vladimir Oltean <vladimir.oltean@nxp.com>
-Cc: Wei Fang <wei.fang@nxp.com>
-Cc: devicetree@vger.kernel.org
-Cc: imx@lists.linux.dev
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linuxppc-dev@lists.ozlabs.org
-Cc: netdev@vger.kernel.org
----
-NOTE: I could only test i.MX95 , I could not test LS or Felix
----
- drivers/net/dsa/ocelot/felix_vsc9959.c        |  5 +++
- .../net/ethernet/freescale/enetc/enetc_mdio.c | 39 ++++++++++++++++---
- .../ethernet/freescale/enetc/enetc_pci_mdio.c |  5 +++
- .../freescale/enetc/enetc_pf_common.c         | 10 +++++
- include/linux/fsl/enetc_mdio.h                |  6 +++
- 5 files changed, 59 insertions(+), 6 deletions(-)
+dt-bindings: iio: dac: Document Analog Devices AD5413 single-channel DAC
 
-diff --git a/drivers/net/dsa/ocelot/felix_vsc9959.c b/drivers/net/dsa/ocelot/felix_vsc9959.c
-index 8387dd208adb9..dbeec1b229325 100644
---- a/drivers/net/dsa/ocelot/felix_vsc9959.c
-+++ b/drivers/net/dsa/ocelot/felix_vsc9959.c
-@@ -1008,8 +1008,13 @@ static int vsc9959_mdio_bus_alloc(struct ocelot *ocelot)
- 	 * starting with the proper offset.
- 	 */
- 	mdio_priv->mdio_base = 0;
-+	mdio_priv->mdc_div = ENETC_MDIO_DEFAULT_DIVIDER;
- 	snprintf(bus->id, MII_BUS_ID_SIZE, "%s-imdio", dev_name(dev));
- 
-+	rc = enetc_mdio_update_mdc_div(bus);
-+	if (rc)
-+		return rc;
-+
- 	/* Needed in order to initialize the bus mutex lock */
- 	rc = mdiobus_register(bus);
- 	if (rc < 0) {
-diff --git a/drivers/net/ethernet/freescale/enetc/enetc_mdio.c b/drivers/net/ethernet/freescale/enetc/enetc_mdio.c
-index 998aaa394e9c4..93d61c2f1464f 100644
---- a/drivers/net/ethernet/freescale/enetc/enetc_mdio.c
-+++ b/drivers/net/ethernet/freescale/enetc/enetc_mdio.c
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
- /* Copyright 2019 NXP */
- 
-+#include <linux/clk.h>
- #include <linux/fsl/enetc_mdio.h>
- #include <linux/mdio.h>
- #include <linux/of_mdio.h>
-@@ -22,9 +23,9 @@
-  /* external MDIO only - driven on neg MDC edge */
- #define MDIO_CFG_NEG		BIT(23)
- 
--#define ENETC_EMDIO_CFG \
-+#define ENETC_EMDIO_CFG(mdc_div) \
- 	(MDIO_CFG_HOLD(2) | \
--	 MDIO_CFG_CLKDIV(258) | \
-+	 MDIO_CFG_CLKDIV(mdc_div) | \
- 	 MDIO_CFG_NEG)
- 
- #define MDIO_CTL_DEV_ADDR(x)	((x) & 0x1f)
-@@ -63,7 +64,7 @@ int enetc_mdio_write_c22(struct mii_bus *bus, int phy_id, int regnum,
- 	u16 dev_addr;
- 	int ret;
- 
--	mdio_cfg = ENETC_EMDIO_CFG;
-+	mdio_cfg = ENETC_EMDIO_CFG(mdio_priv->mdc_div);
- 	dev_addr = regnum & 0x1f;
- 	mdio_cfg &= ~MDIO_CFG_ENC45;
- 
-@@ -95,7 +96,7 @@ int enetc_mdio_write_c45(struct mii_bus *bus, int phy_id, int dev_addr,
- 	u32 mdio_ctl, mdio_cfg;
- 	int ret;
- 
--	mdio_cfg = ENETC_EMDIO_CFG;
-+	mdio_cfg = ENETC_EMDIO_CFG(mdio_priv->mdc_div);
- 	mdio_cfg |= MDIO_CFG_ENC45;
- 
- 	enetc_mdio_wr(mdio_priv, ENETC_MDIO_CFG, mdio_cfg);
-@@ -133,7 +134,7 @@ int enetc_mdio_read_c22(struct mii_bus *bus, int phy_id, int regnum)
- 	u16 dev_addr, value;
- 	int ret;
- 
--	mdio_cfg = ENETC_EMDIO_CFG;
-+	mdio_cfg = ENETC_EMDIO_CFG(mdio_priv->mdc_div);
- 	dev_addr = regnum & 0x1f;
- 	mdio_cfg &= ~MDIO_CFG_ENC45;
- 
-@@ -176,7 +177,7 @@ int enetc_mdio_read_c45(struct mii_bus *bus, int phy_id, int dev_addr,
- 	u16 value;
- 	int ret;
- 
--	mdio_cfg = ENETC_EMDIO_CFG;
-+	mdio_cfg = ENETC_EMDIO_CFG(mdio_priv->mdc_div);
- 	mdio_cfg |= MDIO_CFG_ENC45;
- 
- 	enetc_mdio_wr(mdio_priv, ENETC_MDIO_CFG, mdio_cfg);
-@@ -231,6 +232,32 @@ struct enetc_hw *enetc_hw_alloc(struct device *dev, void __iomem *port_regs)
- }
- EXPORT_SYMBOL_GPL(enetc_hw_alloc);
- 
-+int enetc_mdio_update_mdc_div(struct mii_bus *bus)
-+{
-+	struct enetc_mdio_priv *mdio_priv = bus->priv;
-+	struct device *dev = bus->parent;
-+	struct clk *enet_clk;
-+	u32 div, mdc_freq;
-+
-+	if (device_property_read_u32(dev, "clock-frequency", &mdc_freq))
-+		return 0;
-+
-+	enet_clk = devm_clk_get(dev, NULL);
-+	if (IS_ERR(enet_clk))
-+		return dev_err_probe(dev, PTR_ERR(enet_clk),
-+				     "Input clock unknown, not changing MDC frequency\n");
-+
-+	div = ((clk_get_rate(enet_clk) / mdc_freq) - 1) / 4;
-+	if (div < 5 || div > 0x1ff)
-+		return dev_err_probe(dev, -EINVAL,
-+				     "Requested MDC frequency is out of range, ignoring\n");
-+
-+	mdio_priv->mdc_div = div;
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(enetc_mdio_update_mdc_div);
-+
- /* Lock for MDIO access errata on LS1028A */
- DEFINE_RWLOCK(enetc_mdio_lock);
- EXPORT_SYMBOL_GPL(enetc_mdio_lock);
-diff --git a/drivers/net/ethernet/freescale/enetc/enetc_pci_mdio.c b/drivers/net/ethernet/freescale/enetc/enetc_pci_mdio.c
-index e108cac8288d3..4ff182d7d21ec 100644
---- a/drivers/net/ethernet/freescale/enetc/enetc_pci_mdio.c
-+++ b/drivers/net/ethernet/freescale/enetc/enetc_pci_mdio.c
-@@ -71,8 +71,13 @@ static int enetc_pci_mdio_probe(struct pci_dev *pdev,
- 	mdio_priv = bus->priv;
- 	mdio_priv->hw = hw;
- 	mdio_priv->mdio_base = ENETC_EMDIO_BASE;
-+	mdio_priv->mdc_div = ENETC_MDIO_DEFAULT_DIVIDER;
- 	snprintf(bus->id, MII_BUS_ID_SIZE, "%s", dev_name(dev));
- 
-+	err = enetc_mdio_update_mdc_div(bus);
-+	if (err)
-+		return err;
-+
- 	pcie_flr(pdev);
- 	err = pci_enable_device_mem(pdev);
- 	if (err) {
-diff --git a/drivers/net/ethernet/freescale/enetc/enetc_pf_common.c b/drivers/net/ethernet/freescale/enetc/enetc_pf_common.c
-index 8206884294a47..adba3fdea32dc 100644
---- a/drivers/net/ethernet/freescale/enetc/enetc_pf_common.c
-+++ b/drivers/net/ethernet/freescale/enetc/enetc_pf_common.c
-@@ -300,6 +300,7 @@ static int enetc_mdio_probe(struct enetc_pf *pf, struct device_node *np)
- 	bus->parent = dev;
- 	mdio_priv = bus->priv;
- 	mdio_priv->hw = &pf->si->hw;
-+	mdio_priv->mdc_div = ENETC_MDIO_DEFAULT_DIVIDER;
- 
- 	if (is_enetc_rev1(pf->si))
- 		mdio_priv->mdio_base = ENETC_EMDIO_BASE;
-@@ -308,6 +309,10 @@ static int enetc_mdio_probe(struct enetc_pf *pf, struct device_node *np)
- 
- 	snprintf(bus->id, MII_BUS_ID_SIZE, "%s", dev_name(dev));
- 
-+	err = enetc_mdio_update_mdc_div(bus);
-+	if (err)
-+		return err;
-+
- 	err = of_mdiobus_register(bus, np);
- 	if (err)
- 		return dev_err_probe(dev, err, "cannot register MDIO bus\n");
-@@ -350,6 +355,7 @@ static int enetc_imdio_create(struct enetc_pf *pf)
- 	bus->phy_mask = ~0;
- 	mdio_priv = bus->priv;
- 	mdio_priv->hw = &pf->si->hw;
-+	mdio_priv->mdc_div = ENETC_MDIO_DEFAULT_DIVIDER;
- 
- 	if (is_enetc_rev1(pf->si))
- 		mdio_priv->mdio_base = ENETC_PM_IMDIO_BASE;
-@@ -358,6 +364,10 @@ static int enetc_imdio_create(struct enetc_pf *pf)
- 
- 	snprintf(bus->id, MII_BUS_ID_SIZE, "%s-imdio", dev_name(dev));
- 
-+	err = enetc_mdio_update_mdc_div(bus);
-+	if (err)
-+		return err;
-+
- 	err = mdiobus_register(bus);
- 	if (err) {
- 		dev_err(dev, "cannot register internal MDIO bus (%d)\n", err);
-diff --git a/include/linux/fsl/enetc_mdio.h b/include/linux/fsl/enetc_mdio.h
-index 623ccfcbf39c3..13eb6939efe29 100644
---- a/include/linux/fsl/enetc_mdio.h
-+++ b/include/linux/fsl/enetc_mdio.h
-@@ -6,6 +6,8 @@
- 
- #include <linux/phy.h>
- 
-+#define ENETC_MDIO_DEFAULT_DIVIDER		258
-+
- /* PCS registers */
- #define ENETC_PCS_LINK_TIMER1			0x12
- #define ENETC_PCS_LINK_TIMER1_VAL		0x06a0
-@@ -33,6 +35,7 @@ struct enetc_hw;
- struct enetc_mdio_priv {
- 	struct enetc_hw *hw;
- 	int mdio_base;
-+	int mdc_div;
- };
- 
- #if IS_REACHABLE(CONFIG_FSL_ENETC_MDIO)
-@@ -44,6 +47,7 @@ int enetc_mdio_read_c45(struct mii_bus *bus, int phy_id, int devad, int regnum);
- int enetc_mdio_write_c45(struct mii_bus *bus, int phy_id, int devad, int regnum,
- 			 u16 value);
- struct enetc_hw *enetc_hw_alloc(struct device *dev, void __iomem *port_regs);
-+int enetc_mdio_update_mdc_div(struct mii_bus *bus);
- 
- #else
- 
-@@ -62,6 +66,8 @@ static inline int enetc_mdio_write_c45(struct mii_bus *bus, int phy_id,
- static inline struct enetc_hw *enetc_hw_alloc(struct device *dev,
- 					      void __iomem *port_regs)
- { return ERR_PTR(-EINVAL); }
-+static inline int enetc_mdio_update_mdc_div(struct mii_bus *bus)
-+{ return -EINVAL; }
- 
- #endif
- 
--- 
-2.53.0
+This commit documents the devicetree bindings for the Analog Devices AD5413
+single-channel SPI DAC, including power supplies, reset GPIO, output mode,
+and slew-rate control.
 
+> diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5413.yaml b/=
+Documentation/devicetree/bindings/iio/dac/adi,ad5413.yaml
+> new file mode 100644
+> index 0000000000000..74e869304aab9
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5413.yaml
+> @@ -0,0 +1,101 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/dac/adi,ad5413.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Analog Devices AD5413 DAC
+> +
+> +description:
+> +  Analog Devices AD5413 is a single-channel precision DAC supporting vol=
+tage
+> +  or current output modes with programmable slew-rate control.
+> +  The output mode is selected via the adi,chan-current-mode property.
+> +  Optional reset GPIO may be provided.
+> +
+> +maintainers:
+> +  - bruce.tsao@analog.com
+> +
+> +properties:
+> +  compatible:
+> +    const: adi,ad5413
+> +
+> +  spi-max-frequency:
+> +    maximum: 50000000
+> +
+> +  spi-cpha: true
+> +
+> +  spi-cpol: false
+
+[Severity: Medium]
+Will this schema pass make dt_binding_check?
+
+In the maintainers block, the entry uses a bare email address rather than
+the required Full Name <email@domain> format:
+
+  maintainers:
+    - Bruce Tsao <bruce.tsao@analog.com>
+
+Also, in the top-level properties block, spi-cpol is set to false. In DT
+schema, boolean false property schemas are only valid inside conditional
+if/then/else blocks to disallow a property defined at the top level. Since
+spi-cpol is not defined in spi-peripheral-props.yaml and this binding sets
+unevaluatedProperties: false, should spi-cpol: false simply be omitted?
+
+> +
+> +  reset-gpios:
+> +    maxItems: 1
+> +    description: Optional reset GPIO (active low).
+> +
+> +  avdd-supply:
+> +    description: Analog positive supply (AVDD)
+> +
+> +  dvdd-supply:
+> +    description: Digital positive supply (DVDD)
+> +
+> +  avss-supply:
+> +    description: Analog negative supply (AVSS)
+> +
+> +  adi,chan-current-mode:
+> +    type: boolean
+> +    description: Select current output mode. If absent, voltage mode is =
+used.
+
+[Severity: Medium]
+Should the output mode and range be described using standard IIO DAC range
+properties rather than a custom adi,chan-current-mode boolean?
+
+In drivers/iio/dac/ad5413.c, the hardware supports a 4-bit range configurat=
+ion
+field (AD5413_REG_DAC_CONFIG_RANGE_MSK =3D GENMASK(3, 0)) with multiple vol=
+tage
+and current ranges, while the driver currently hardcodes only two of them
+(AD5413_RANGE_PLUSMINUS_10_5V =3D 0x3 and AD5413_RANGE_0MA_24MA =3D 0x9) ba=
+sed on
+this boolean.
+
+Could this use output-range-microvolt and output-range-microamp from
+Documentation/devicetree/bindings/iio/dac/dac.yaml (or adi,range-microvolt =
+and
+adi,range-microamp as in Documentation/devicetree/bindings/iio/dac/adi,ad57=
+58.yaml)
+so the binding describes the hardware capabilities rather than the current
+driver limitation?
+
+> +
+> +  adi,slew-time-us:
+> +    description: Output digital slew control time in microseconds
+> +    minimum: 0
+> +    maximum: 1000000
+> +    default: 0
+> +
+> +required:
+> +  - compatible
+> +  - spi-cpha
+> +  - avdd-supply
+> +  - dvdd-supply
+> +  - avss-supply
+
+[Severity: Medium]
+Should reg be defined with maxItems: 1 under properties and listed in
+required?
+
+The binding references /schemas/spi/spi-peripheral-props.yaml# under allOf,
+which defines reg with minItems: 1 and maxItems: 256 and does not mark reg
+as required. Because AD5413 is a single-chip-select SPI device and both
+examples specify reg =3D <0>, omitting reg from properties and required lea=
+ves
+the chip-select count unconstrained and optional during DT validation.
+
+> +
+> +allOf:
+> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    spi {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        dac@0 {
+> +            compatible =3D "adi,ad5413";
+> +            reg =3D <0>;
+> +            spi-max-frequency =3D <1000000>;
+> +            spi-cpha;
+> +            reset-gpios =3D <&gpio 0 GPIO_ACTIVE_LOW>;
+> +            avdd-supply =3D <&avdd>;
+> +            dvdd-supply =3D <&dvdd>;
+> +            avss-supply =3D <&avss>;
+> +            adi,slew-time-us =3D <125>;
+> +        };
+> +    };
+> +
+> +  - |
+> +    spi {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        dac@0 {
+> +            compatible =3D "adi,ad5413";
+> +            reg =3D <0>;
+> +            spi-max-frequency =3D <1000000>;
+> +            spi-cpha;
+> +            avdd-supply =3D <&avdd>;
+> +            dvdd-supply =3D <&dvdd>;
+> +            avss-supply =3D <&avss>;
+> +
+> +            adi,chan-current-mode;
+> +        };
+> +    };
+
+In both examples above, could the standard properties (avdd-supply,
+avss-supply, dvdd-supply, reset-gpios, spi-cpha, spi-max-frequency) be plac=
+ed
+in canonical natural-sort order after reg per
+Documentation/devicetree/bindings/dts-coding-style.rst?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261017-ad5413-ups=
+tream-v1-0-61f40c8fef25@analog.com?part=3D1
