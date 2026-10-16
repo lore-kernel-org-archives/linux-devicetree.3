@@ -1,69 +1,69 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE5674B1293
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 14:41:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 600CC4D7D4D
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 14:41:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792161691; cv=none; b=MTkowQasZirm++x70jJSMJKWRWqxjhytiH8IfS9Xs3gU0mp1NaL4cdx9ZnZrhhZiC7FLR2Ww2/kM5fN/McPDmz9MsStDK1ZJMtajUCi1vqsybHoKsYACdO7NbVkbPh9KHY2AeqKhF9KufvhcNgwoc5LfIUxa3C70gdhg0sORCMs=
+	t=1792161693; cv=none; b=vAo+fxIYBWK2DWSHt2BIy7WDQCV8kLicxCe+mjI+PNS4POk035WjhMem0aFdGCXw/1UUjKFhpc0ysOdRs50zj5hY1P1hCwcDjTWL3uWkB5yFbPV00/g7CrIxd61umecQaUSCKcVsewQJrDGv9dcYD6ByflZ1GHR7QVSEgdweed8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792161691; c=relaxed/simple;
-	bh=Ypdv4ck2LmDWhfMcxtTVZOnd/mxsjho3hvj/YRy/7wE=;
+	s=arc-20240116; t=1792161693; c=relaxed/simple;
+	bh=pDlen/zLNF5pSkc+7mpw0u61XUlwNOOWig4yKnoWWnY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RBeeNg33AryyDmFKbbKypfVRdHTud3AJqIA21PXHhVECIr++/QM4wa6hJWIORY39Q2KwyVyB0PNhUIVMoTnq7afn2j7fst7QHDk8lVKa9pYke69R3AivzngUY66qNBVxp11HQi/d2j/qqJ0pUQMF1Vt2MvlC9KLAUpR3R9B0g7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=NC7w2ZHY; arc=none smtp.client-ip=209.85.221.43
+	 In-Reply-To:To:Cc; b=lof0GS3SWADF0/IS91zfBQY1T3LojlXzcJUHssw3EcHMxReBfwtTiydAeYeS+CfNKJHJWJU31MnQ/Ij8knA8vq42JhfHT/GjdusfkDCzStGv9B7uUb9bZp7ZWyk323CM5bfX3lyYHWn3dNbXLLu+Wr6qgT9xQepMYVWtodwmK4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=u4EZn/3T; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="NC7w2ZHY"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48df4f540ebso1188373f8f.3
-        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 07:41:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="u4EZn/3T"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a01933b584so352145e9.0
+        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 07:41:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792161688; x=1792766488; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1792161689; x=1792766489; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=I93wz8CKpgQy+526q8lOXNd9GCplSJUpEI+oY95QMxs=;
-        b=NC7w2ZHYxpUJBoMToD6mmI4Y5siGW2K4mbOcrHt+wA4NzC3oH7XxKmmJr/VwE4f+PX
-         2cePwVBq/IKtu7E58glwRdVB1aGI5a9m5Z99cCPXbFzNi3E0jf0sKqHbE6nYH7UkgGLX
-         PcEbf8NWiD5hN/EFJzvldahtNVws+NFMmllCliv3wh5RhpgwBP8mP1IffO680vKVZJgY
-         gNlgpNHGJU6xocJPD4q9K9y4n5ynbeY8uTP5VQMwuNowosDT5dJeDnbNw5N+08MG6SRA
-         QMXX7o7UBBrG15Y//z7/FWbfOGqrvXLTbO72glf+PIZRoBPKgwVvUh8tZmPFFn2YsiuZ
-         UksA==
+        bh=oTWugQ07RJZxi4zUckj+Gcw87y2zOdheX+TP0+T7qDM=;
+        b=u4EZn/3T+UlQiiCm/lEbwiBMzJvK8oUXt6fBCy8fdc2M/fEQ9wESjhRf71Wm5NLtCc
+         CYyriEqJFoGdoCvlFCmbcXCtDdg9X65/k4ex9UfFdGc4GwWu/U3tosXBDA48tdrXu80d
+         vpU+5lrxRM0I+pIhpICx3oAygsVQFI27Ez+yF7zaOWSixY1NzZhb2ObvIFeNkDPuZnsI
+         zDE5QOYN4risy2FaXDLLD1TBfYr16t/dCCMT+06CTL5HbgenlZrdCk7IMqYFQhzCoa+p
+         UD2VCUkCXUR88Xh/WKjG7RQ9bKz0LUicFvtHlGwlWSV6ECWciSHYU4WFz6FluJl6oSzn
+         rGkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792161688; x=1792766488;
+        d=1e100.net; s=20260707; t=1792161689; x=1792766489;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=I93wz8CKpgQy+526q8lOXNd9GCplSJUpEI+oY95QMxs=;
-        b=eoOB5v+8RKTmPcc0AFHGorQ0qvymP31SBhYryT2nn6BVv5MfgmvEZEZpl4XwHTwfuG
-         2hx/mkvMzrCVkJ9pWmen5VzkWui18AE/InOadFjYRwnroDQktrGPikqdDC/Bm7F+3KxY
-         DVdg6ozc66dztTu/J1hzUXXaCkwtzDTKDtq2cgDZvr3R3/lJHJ8A6bEaHnzzYvj0tdue
-         vVYlAmKcxydcMmJKJF9JwBVI0sx0Rf6L/BpIhkN4sR9VXC+24+KH0DatiF3RqM47bMHd
-         9ZSJpuRzbNACym9cklq283Dgw6Oq6u/kfigbglpBXUIH6871fHkktFFCqXTjeRqDkvPt
-         X/fA==
-X-Forwarded-Encrypted: i=1; AKwUvBwiHL9i/4vSgYr5nhqsqqK6avJB0VmNr3mdOV8qfB1NzxDlGMq9zAqroIwkCvbm/u26ai4CGR1ZdGRO@vger.kernel.org
-X-Gm-Message-State: AFq9FYIvaK4YmzAcYmUPz1d78uU/bNq4fSRvZvAaDGPazE85jmTQ92eY
-	KAaFnFD/Nozr6yGgrUG2wGWCyBmGKGxp9aM33VOvcC+8uGCQEoc0ggirXRrJ8v3IR64=
-X-Gm-Gg: AYBFou3FFgbODQf3rpAQC8EBLAA8CFT+pN72cpwu7YiysVy08WxZnEr+MJtCo7F4yyB
-	Mxre0jnjOzH2ji1SymWQnt54+0Uu9SZc6hfGBaWEZauzqfIhiWsBvaYp11eMm6vBN4Z47T0n7A5
-	28YCIx1KI1g6dRWRuv8y/32lar3acxy35/qHaZHL4BznXzhePNPJYAC8yYJxMt8+JqDzTgOSAlM
-	MY+bxf0O4xPl/PUUSb/Cj+muLvAWlXfus1g0lNQ3/XaUVV9UnXigxZa3YlHJp0QYUWaSEg1oT22
-	+ONlDfbiXeWWHoTLc3kUNT65D40M71BsmdjMZ0aapbhHiKoisVzPVZRDVXpFlp6ZtRywqQDkuYC
-	utsamF/OPDlPx9Cufw91X4Bnn1jcWldytmE/sJYBWwz49JSmUdLSaTS26JzdAqRlGRpCeceELDP
-	q+avlVay4nN6luGWD6+x/DUqVVJNMr7lZ2UrxkpuAJMaSbETpq2eCfafi54fUs46dkBvb8Z2gcI
-	H2vEYN0xPFsI3K5dTkJWywAGKWrNhq41G39SNr8hKtXpwqe6G0Cv3M6AX7erhbrJoGlbJny/+9U
-	qa/K
-X-Received: by 2002:a05:6000:400d:b0:48b:10c8:2183 with SMTP id ffacd0b85a97d-48dbacdd2afmr41397725f8f.32.1792161687267;
-        Fri, 16 Oct 2026 07:41:27 -0700 (PDT)
+        bh=oTWugQ07RJZxi4zUckj+Gcw87y2zOdheX+TP0+T7qDM=;
+        b=cNbedyT9CT9XougaoiqIjTVtMi3LVK+IxJbggFIOfown6Pohp/7pyf+bviWXE+wyOl
+         TQuhyFSUSDSaLk8hEhMrkvl516POtI+scg1r40GG09YGd8sdtq9CybLZWBiM0dvTeGZK
+         3RwGkck6zdyOflzbAdFNPmDQU/ylcQRIjvnP7tcMXkOFJWS8ZOwrTe7lmDroF37enPU/
+         xMMs6Sx+auf75wr+mNnMBkmOCUpqF00KXf6728sDYhH0liSDElJ7UdUcM0ff6lAJ2WW6
+         sE/JEt8qgkV37KNyfMRNk4flhhMg68nAB17h/87YIAZdW3O9jin0JRZXutmCaU6ufxxt
+         lzEQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwVlD+K6U1XmAbvTP+YgW0wFpyK4Eve7mhgrgX6ycd9siX7vXk/N3JnPbrKiP0rVALdnpsCZgkvpykQ@vger.kernel.org
+X-Gm-Message-State: AFq9FYJNoQMpVotnt+WP3Fjbh3N3fPZbv8Zi8c2cdfMun/FODp7EL5Dd
+	uafmVjOgb+vDbflfRkjLe8rdenHFDxerDC9c4PtrwibOXQVp7DL5XCwNY7KMMkaow6E=
+X-Gm-Gg: AYBFou2zxr4WFrfeAFLnYVkKXBHYORHlS53A1+JJuTik5guzOafInleUnxjVfLnjxds
+	JCBPDbb+HJxihCKF26VUpzuLgZ/wjqeiVYNfPnPtBPtRIMwlp+AVqpYCwXRzS4I5e/N6LH4klIH
+	zd0DTBWRDkRoKGMImB38BY1ogoH8Qg2P4xznMoNzZjuKoB71EWHuavL0pUOwVNG9NTF6uuH9YoR
+	4/5OmpCS3cpUcz+8Gvd3KqtYZLdwGQlRkY8RJ16s33ttzFlf+8DmIHYR2zNrycpsiCjfFLPT6kH
+	BJ8L6JUYwkUpd2Rnn43nEVQ/GCkN67ZCYIHvn5C8qhQTx9KgHqTVujBecZWDdYHKYly8oS/vuJi
+	7knGqrATL5IQPOgFjur2W0eq8ZLk4iIzDpMuHLnltnYcFBYc5Ftl6bTLTMoAWbU+BTmQKk5RaKM
+	JNRJY+J9iEzq7R71XABrK1Kjm0BLj0X5+1CxHLHi3BHm3KBH4xTvKU0qfaHo1mJhH51DaWeA1Oz
+	jwARYqqLAJ9+wCyFwUlW4BokHVMlF1G/kpXOlINGJqCf2gWahq/HBFwoJdC08Jja2jr3tX/H2hn
+	vogI
+X-Received: by 2002:a05:600c:3f06:b0:49f:ce78:356f with SMTP id 5b1f17b1804b1-4a18e4ca2acmr446522045e9.32.1792161689564;
+        Fri, 16 Oct 2026 07:41:29 -0700 (PDT)
 Received: from z13-ek5.local ([151.41.28.233])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4ecac3sm5949648f8f.27.2026.10.16.07.41.26
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4ecac3sm5949648f8f.27.2026.10.16.07.41.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 07:41:27 -0700 (PDT)
+        Fri, 16 Oct 2026 07:41:29 -0700 (PDT)
 From: Ettore Chimenti <ettore.chimenti@linaro.org>
-Date: Fri, 16 Oct 2026 16:41:20 +0200
-Subject: [PATCH 05/10] ARM: dts: omap: dm816x: refactor and align MMC node
+Date: Fri, 16 Oct 2026 16:41:21 +0200
+Subject: [PATCH 06/10] ARM: dts: omap: dm816x: Update USB node
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-patch-ektor5-dm8168-dts-v1-5-b4ce30217028@linaro.org>
+Message-Id: <20261016-patch-ektor5-dm8168-dts-v1-6-b4ce30217028@linaro.org>
 References: <20261016-patch-ektor5-dm8168-dts-v1-0-b4ce30217028@linaro.org>
 In-Reply-To: <20261016-patch-ektor5-dm8168-dts-v1-0-b4ce30217028@linaro.org>
 To: Paul Walmsley <paul@pwsan.com>, Aaro Koskinen <aaro.koskinen@iki.fi>, 
@@ -89,72 +89,98 @@ Cc: linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-gpio@vger.kernel.org, Ettore Chimenti <ettore.chimenti@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792161680; l=1896;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792161680; l=2792;
  i=ettore.chimenti@linaro.org; s=20261014; h=from:subject:message-id;
- bh=bQlaSmVrxWRh3eFexaKgbJh5U7ftQwzZnbqVJPILtpg=;
- b=GdQ58uqjcnmGPDtcijnfZlLk3LVb6f9YJJVOwK6BFvPD1G8Wv2rOQyByMakkeuOpx0A87+uRk
- rR2R/Cr5fBcA9PSdu0Th6HGErC8ZzGFOUPpHQrBKzemmH4cIfOEq2mP
+ bh=yeoQMJZLdXTsEHqsBY6ksgO6GV/Huaox9D+QkSIjjJY=;
+ b=hUsC6e73gt93LP3x/KbW6rl4RE1LBMRpaoGxAroE+S6HI6fgnl9crEsTbyV+xHq8m7uXraUxO
+ l/v11BMwtZwCUNC481i6cYxwKSFdFrUcMGh2iu44yYm72A4iIqYpC2T
 X-Developer-Key: i=ettore.chimenti@linaro.org; a=ed25519;
  pk=wCaUblFVaqhuBTQt/hAtysafsAaEsqj/yOD9SPlz6NM=
 
 From: Andrew Goodbody <andrew.goodbody@linaro.org>
 
-Update the MMC node in the TI Sitara DM816x device tree to align with
-the structure used in other similar SoCs. The changes include
-refactoring the node to better describe the target module and its
-sub-nodes.
+USB node was not working correctly with DMA enabled as the supporting
+code had been updated without updating this SoC's device tree. Bring the
+device tree more up to date so that it works with DMA enabled.
 
 Signed-off-by: Andrew Goodbody <andrew.goodbody@linaro.org>
 Signed-off-by: Ettore Chimenti <ettore.chimenti@linaro.org>
 ---
- arch/arm/boot/dts/ti/omap/dm816x.dtsi | 33 +++++++++++++++++++++++++++------
- 1 file changed, 27 insertions(+), 6 deletions(-)
+ arch/arm/boot/dts/ti/omap/dm816x.dtsi | 41 +++++++++++++++++++++--------------
+ 1 file changed, 25 insertions(+), 16 deletions(-)
 
 diff --git a/arch/arm/boot/dts/ti/omap/dm816x.dtsi b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
-index 9c9d5e296e90..7f3ef3a00ab8 100644
+index 7f3ef3a00ab8..5be9efc60785 100644
 --- a/arch/arm/boot/dts/ti/omap/dm816x.dtsi
 +++ b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
-@@ -423,13 +423,34 @@ &edma 20 0 &edma 21 0
- 				    "tx2", "rx2", "tx3", "rx3";
+@@ -574,18 +574,27 @@ uart3: serial@48024000 {
  		};
  
--		mmc1: mmc@48060000 {
--			compatible = "ti,omap4-hsmmc";
--			reg = <0x48060000 0x11000>;
-+		mmc1_target: target-module@48060000 {
-+			compatible = "ti,sysc-omap2", "ti,sysc";
- 			ti,hwmods = "mmc1";
--			interrupts = <64>;
--			dmas = <&edma 24 0 &edma 25 0>;
--			dma-names = "tx", "rx";
-+			reg = <0x48060000 0x4>,
-+			      <0x48060110 0x4>,
-+			      <0x48060114 0x4>;
-+			reg-names = "rev", "sysc", "syss";
-+			ti,sysc-mask = <(SYSC_OMAP2_CLOCKACTIVITY |
-+					 SYSC_OMAP2_ENAWAKEUP |
-+					 SYSC_OMAP2_SOFTRESET |
-+					 SYSC_OMAP2_AUTOIDLE)>;
-+			ti,sysc-sidle = <SYSC_IDLE_FORCE>,
-+					<SYSC_IDLE_NO>,
+ 		/* NOTE: USB needs a transceiver driver for phys to work */
+-		usb: usb_otg_hs@47401000 {
+-			compatible = "ti,am33xx-usb";
+-			reg = <0x47401000 0x400000>;
+-			ranges;
++		usb: target-module@47400000 {
++			compatible = "ti,sysc-omap4", "ti,sysc";
++			ti,hwmods = "usb_otg_hs";
++			reg = <0x47400000 0x4>,
++			      <0x47400010 0x4>;
++			reg-names = "rev", "sysc";
++			ti,sysc-mask = <SYSC_OMAP4_SOFTRESET>;
++			ti,sysc-midle = <SYSC_IDLE_FORCE>,
 +					<SYSC_IDLE_SMART>;
-+			ti,syss-mask = <1>;
-+			clocks = <&alwon_clkctrl DM816_MMC1_CLKCTRL 0>;
++			ti,sysc-sidle = <SYSC_IDLE_SMART>;
++			ti,sysc-delay-us = <2>;
++			clocks = <&default_clkctrl DM816_USB_OTG_HS_CLKCTRL 0>;
 +			clock-names = "fck";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+			ranges = <0x0 0x48060000 0x11000>;
-+
-+			mmc1: mmc@0 {
-+				compatible = "ti,omap4-hsmmc";
-+				reg = <0x0 0x11000>;
-+				interrupts = <64>;
-+				dmas = <&edma 24 0 &edma 25 0>;
-+				dma-names = "tx", "rx";
-+			};
- 		};
+ 			#address-cells = <1>;
+ 			#size-cells = <1>;
+-			ti,hwmods = "usb_otg_hs";
++			ranges = <0x0 0x47400000 0x8000>;
  
- 		timer1_target: target-module@4802e000 {
+-			usb0: usb@47401000 {
++			usb0: usb@1000 {
+ 				compatible = "ti,musb-dm816";
+-				reg = <0x47401400 0x400
+-				       0x47401000 0x200>;
++				reg = <0x1400 0x400>,
++				      <0x1000 0x200>;
+ 				reg-names = "mc", "control";
+ 				interrupts = <18>;
+ 				interrupt-names = "mc";
+@@ -622,10 +631,10 @@ &cppi41dma 11 1 &cppi41dma 12 1
+ 					"tx14", "tx15";
+ 			};
+ 
+-			usb1: usb@47401800 {
++			usb1: usb@1800 {
+ 				compatible = "ti,musb-dm816";
+-				reg = <0x47401c00 0x400
+-				       0x47401800 0x200>;
++				reg = <0x1c00 0x400>,
++				      <0x1800 0x200>;
+ 				reg-names = "mc", "control";
+ 				interrupts = <19>;
+ 				interrupt-names = "mc";
+@@ -662,12 +671,12 @@ &cppi41dma 26 1 &cppi41dma 27 1
+ 					"tx14", "tx15";
+ 			};
+ 
+-			cppi41dma: dma-controller@47402000 {
++			cppi41dma: dma-controller@2000 {
+ 				compatible = "ti,am3359-cppi41";
+-				reg = <0x47400000 0x1000>,
+-				      <0x47402000 0x1000>,
+-				      <0x47403000 0x1000>,
+-				      <0x47404000 0x4000>;
++				reg =  <0x0000 0x1000>,
++				       <0x2000 0x1000>,
++				       <0x3000 0x1000>,
++				       <0x4000 0x4000>;
+ 				reg-names = "glue", "controller", "scheduler", "queuemgr";
+ 				interrupts = <17>;
+ 				interrupt-names = "glue";
 
 -- 
 2.56.0
