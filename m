@@ -1,131 +1,144 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCFC64E0211
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 16:16:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FFA74F85D0
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 16:17:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792167389; cv=none; b=kIbZEZk4sUgKsQ0mtKAs8zCnAZJVzciBQW+JEn+rSAZ40kgZdQE3cXVTkSLmOMd2ItzZ4Pyvwq5rg7d7K1qhDkRa7CI7zLTloP+ZGt9/OSbjodzyiYD2TSZM3AfXlEnxzTy57gGgt3ou5km/Eqhq8E/L2lcDETNtpWT3zvl9tts=
+	t=1792167483; cv=none; b=J+h/OHCr4C4BQXR/TzaHcnyuvySrpgaZKgcornYCbuRGCh2euK8u5XRLKu6Jairu3XACIVNvZy99CE04S8JAf8BeaGqC8C6rtMWiaQT1dnlDcVI8x+d4DbjvBg0eSHxU266OrEU51+zdoIDuekFKQjjFmo/4QqX8gq8P2gLejwM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792167389; c=relaxed/simple;
-	bh=7DHGCZatwX7FLNpiqx6l6zSz1iIXAE0Gsx9JKxioU1k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pBQnHP84Z+8VuQVBGdmM9LGsxVFsiO0rzrZNdMPPOwUBivRV38ki3KmrBGfPwGSfk4Wa+aNsIS43/uAWXvySQgT66VLlVjCQ5g0/+NYbIrA9EzCO95Fpx7tFxwBopNZ3Yilk29Tq2x8lwxVP/UvSyILa7KeVsCrFQDpExz6/7I4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ceTiwjUX; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1792167483; c=relaxed/simple;
+	bh=xSr2ExXRN9R0UBBPp938gkkIvwZwXGmsDTqtVSQe06o=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DHwv5DJdl93B2804ihD1O1tuxKz3v7x7XhmpACwjpyPhXw6TWRfBFwpUL/WgiDqgXFzJkFbweYZQZrBqGe20y0rEZfHhnXqRFTgigSJEVHKzyzelKmQt4AW4lD9+Irim+4FIZmqo3SkF3C/xd9lz6J56sTLQ+gkOjuru2dwqCvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ceTiwjUX"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1d484b4a9so1787105e9.0
-        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 09:16:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792167381; x=1792772181; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7DHGCZatwX7FLNpiqx6l6zSz1iIXAE0Gsx9JKxioU1k=;
-        b=ceTiwjUXQ8TOjcRuS1jy7GEudy2wieSR+3fN8U5c4uDIeK/skbgVstU1CHOSoeoGh3
-         Y9Q72hY3UtxRukdGjUlFbJSPZqciwPFSfZxmUEXm5umscXZX0vNN+2Q/uz2aQ57WmzUv
-         OlKZvzdzytjNZhtOncAmZeoPeOtXmm/QhO+dpEryUmgefRQ8SSLrupe0uGFSDXZErQTd
-         CP1jaHNQ2iHz6CNSq5rLgb5akpDSYxvF+HPH/o8hStyq2j87ghOf0HTc3hF6JeDivAPV
-         NQK/AuD+Vqy8soXfzt6MFA9C54JVdVXD7U0RYDxM5loBnsAE+nEOFTYc7zq0Xg+ViyYx
-         XhAQ==
+Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5ea9a2c3936so39285e0c.2
+        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 09:17:59 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792167381; x=1792772181;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7DHGCZatwX7FLNpiqx6l6zSz1iIXAE0Gsx9JKxioU1k=;
-        b=rs5ws0RdFkdjLXgQe+cHpON6cnHJoBjDJIAJldB2zZde0SQ0LrPtxZSTpQuCSZXwGj
-         NVgGbsRi1IvcSXPP8yEnDnuYXiKLZ8BEVwRb19l5CEsC2kWhW85JnJLUp+0NPlJ0AceN
-         d6XEm1p9zDpTa31kqaw+UN7Fj/PNudL2qzgdQau8aRhkGXEsgUYangig+48svOoksG0o
-         K2MBweUs2Ny3sfoJe9q9J9xhOy9O3pHgd+YV+5xtojU1pn4OikjXJWHPzqdtNSPexFP8
-         zpmtugTWpJiQ8MU/LZxNgCofz6I72PNlWQLO0/L0WP42fqRlXACDVnuNa9kCma+4CRRU
-         x54g==
-X-Forwarded-Encrypted: i=1; AKwUvByWRrFjTMDi5QHU8bfBdz1OCHJ+YX7XyvTZQwIPEhqm55fvM3tLoZWf7Crx08YlI9LlIukqhYSpkOJJ@vger.kernel.org
-X-Gm-Message-State: AFq9FYIZ8f3D3rUgYusBGYeayCbcpUHEaoBLRR89LmFJYy0QO4gt9Pot
-	AnKKhazeiG/QDcR8CK4c2kDOsOTVPVC7blVIo/YHjmBuw+tB2f5FRx/g
-X-Gm-Gg: AYBFou3AHTmN4Y00M6R7QuSYVvx78EYyUDpfV5XtrAgtvjSDnBeXYG2uuGKxc/XpJId
-	e6pi+yOLp4VpW0u63e+gceNiARdEI7ggPrtIB64AsdDaRgMrd+P4aHoHqn+a/s/YGexCCNkLp0/
-	gxSaTuzkq1J9nF4S4RFEMMngjPVaAP4ol9l82fwdNjqkeiaxJxyhWWGmJnOjTxXQQWkFywsoZpk
-	IT5erwxxyRJ54+gXLXCrp7wSApGYLhULiMJDp9bv9hNYvcPMssN6ICP7z4eBFPVn4aGYyRo7EVl
-	ioYW1y1XchEA55RaiTWEiceABepNH+TBnYIjHZrXii5RlCGhTtsLNk1lhOSTfIyKjRJfvYbnuFE
-	aubUcDfZSdyEft0QMROZizpTb/t5ZkeB65n/jChEYBHd3YFDkUTGp1wj2idm+g1g0Ntk3/aVxkK
-	1jiCXDmrX3144zGUAy2oD3voQ2gxLVioj6c0zpgPaHYCDTqgnE8dgQsEoSaCM5zWE8+kjgoUj0r
-	EiPD0XUebjrp2k5i2NXvpI0l9GB37Y2CgdZs9OQlxh+ZmQJCJYw19QccQTWt/sB7XIRdQF7
-X-Received: by 2002:a05:600c:1c07:b0:4a1:8d46:6228 with SMTP id 5b1f17b1804b1-4a1d7613a0emr6883345e9.14.1792167380631;
-        Fri, 16 Oct 2026 09:16:20 -0700 (PDT)
-Received: from SP11X1e.cable.virginm.net (cpc99340-croy26-2-0-cust244.19-2.cable.virginm.net. [80.193.62.245])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1d3e2e602sm32622125e9.5.2026.10.16.09.16.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 09:16:20 -0700 (PDT)
-From: George Neacsu <geocausa@gmail.com>
-To: Bryan O'Donoghue <bod@kernel.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Sergey Lebedev <lsa.uz@pm.me>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	German Pablo Lindo <germanpapulindez@gmail.com>,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] media: i2c: ov13858: Add device tree support
-Date: Fri, 16 Oct 2026 17:16:18 +0100
-Message-ID: <20261016161618.209290-1-geocausa@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <19662dcc-4a25-4d18-a3bc-6b277bd676a6@kernel.org>
-References: <20261015-ov13858-x1e-v1-0-acdd918f4fb6@gmail.com> <20261015-ov13858-x1e-v1-2-acdd918f4fb6@gmail.com> <19662dcc-4a25-4d18-a3bc-6b277bd676a6@kernel.org>
+        d=1e100.net; s=20260707; t=1792167478; x=1792772278;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=AunDP67smfuPeJ58K112HEYEzg+svez7qfjrmc8SNz4=;
+        b=J35NRWfOgYSqi8P0BJeqD2JlOKOaVtHj2UUvwuIacbzd1IhAX3f0Vir/FE6v7wSXhl
+         wRORzYIo6zaxjB12bsbjZCQdkIggVki3o8SSz/UyMPcWJO6skD0rKUbziAyreB8eRj5h
+         suGnyG9vaXHgjW90EqobkcLY9KZTNErrX3uG1WHrWhaC5Y7mKlCCe7b9VNY4SpQtN4nI
+         8NfMLZJpfhzNJHFX1oEfHGQ5eaqE171wOvgj+JLHSr6xXJL9Wu2cKLQgbs/W15dnQkWG
+         jjkyXF/Rc50ny2qvddkuIoPYuq/WR5CSODduS5AB42svQlPlDVnAwJZSwouXYiuLW9tq
+         BmRQ==
+X-Gm-Message-State: AFq9FYLW02gz0kmE0kenSu6EjcnkupLCjrbVwS3eJAhPLWDE5KNj5LEB
+	+tJF9oUEqSXGAZabs671pN6owh9dQofHIadPoyrRONu6Twcux/Dc8zWJWqApEN78
+X-Gm-Gg: AYBFou0Ml3m4g9MB3h5WIh8wisYO/PzEaS7OK8MTQJZSbxFZsrUt4Oghl3W4luPm0C6
+	85BZhh6r+UkGtNb9tEourmGjIYl3zV5y0MU6emOHNsgNoGxd387spICPfEyLHqpa+QxttQCDNNp
+	Dwa25zkFuC3s+TuxCFJByikWDzaLIEnXxIzEpOkDBKV5XytBFeIr/+6FL3jCxuwQ+4lSxZ9FXHV
+	j46wuLe+1SzbSUD4a9ICjgPrQVHJUahX6mjxlTQ8TCLRzGDvWFfhc+nra/2rYhrH96rhJy/j9bK
+	W2Y8tahN15QivZmrpcsSgddRY3LF5qxE/nXaAZz0hql8qVPUiZjWqg3qvMg1MUwjehJPu3cS8jj
+	5kuWdxFkr0LswZSZu4imbSPNS0hqPlj/LlSgCr2TujUEMw8QkJMt7MuM2xHc9NJFfUQ/OActuf3
+	GXn0B4ujHWPTcu66S/4MWLTCJrq68fRyuK5Xm2HDhQzPYjDzuXyuYjflwKVKx0P8uMPlCHNzJx3
+	Nvsq1DeIAvB56TJB2s2SYZlJqi+Twk71hBU
+X-Received: by 2002:a05:6122:6801:20b0:5e7:fc09:890a with SMTP id 71dfb90a1353d-5eaaa51dac2mr224666e0c.11.1792167478049;
+        Fri, 16 Oct 2026 09:17:58 -0700 (PDT)
+Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com. [209.85.217.48])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ea9b4ae2e2sm1931728e0c.7.2026.10.16.09.17.57
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 09:17:57 -0700 (PDT)
+Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-7c2f48f3a96so11055137.1
+        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 09:17:57 -0700 (PDT)
+X-Received: by 2002:a05:6102:91d:b0:7cc:25bc:3b20 with SMTP id
+ ada2fe7eead31-7cc3697a80cmr4964137.7.1792167476872; Fri, 16 Oct 2026 09:17:56
+ -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <cover.1792163045.git.geert+renesas@glider.be> <c38d744c09dffff550a9b882051c211b572b8daf.1792163045.git.geert+renesas@glider.be>
+ <sashiko-outbox-174611@kernel.org>
+In-Reply-To: <sashiko-outbox-174611@kernel.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 16 Oct 2026 18:17:44 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWG50U8V9wXBK_5-74o2bseEUbQMy1ZNn-E3aDukwXPKQ@mail.gmail.com>
+X-Gm-Features: AclHuK9fqn3MalAwQj8tdGTinUXqmFBnbO7uqU1e8oT10jns_G1thPssa7yAsT4
+Message-ID: <CAMuHMdWG50U8V9wXBK_5-74o2bseEUbQMy1ZNn-E3aDukwXPKQ@mail.gmail.com>
+Subject: Re: [PATCH v4 2/8] clk: renesas: r8a78000: Add SCMI remapping support
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, robh@kernel.org, 
+	conor+dt@kernel.org, wsa+renesas@sang-engineering.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Bryan,
-
-On 16/10/2026 17:06, Bryan O'Donoghue wrote:
-> You describe regulators, clocks and resets in the yaml file which then
-> don't appear to be supported in this result code ?
+On Fri, 16 Oct 2026 at 18:13, <sashiko-bot@kernel.org> wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+> - [High] clk: memory leak of struct clk and module refcount on success and probe deferral
+> - [High] clk: renesas: UAF on provider unbind and struct clk memory leak
+> - [Medium] clk: memory and module refcount leak in fill_clk_map()
+> --
 >
-> - regulator_bulk_;
-> - clock_bulk_
-> - reset gpio optional
+> commit a959fac1d9976d318a861219d6e13c9fef99da15
+> Author: Geert Uytterhoeven <geert+renesas@glider.be>
 >
-> I don't think this driver would survive suspend/resume.
+> clk: renesas: r8a78000: Add SCMI remapping support
+>
+> This commit extends the Clock Pulse Generator driver for R-Car X5H with SCMI
+> support. It maps DT clock IDs to abstractions offered by the SCMI firmware,
+> falling back to fixed-rate clocks if unavailable.
+>
+> > diff --git a/drivers/clk/renesas/r8a78000-cpg.c b/drivers/clk/renesas/r8a78000-cpg.c
+> > index 5ffd7b89cb48e..758cfe78ae58e 100644
+> > --- a/drivers/clk/renesas/r8a78000-cpg.c
+> > +++ b/drivers/clk/renesas/r8a78000-cpg.c
+> [ ... ]
+> > @@ -145,7 +184,46 @@ static const struct clk_map *fill_clk_map(struct r8a78000_cpg_priv *priv,
+> >                       break;
+> >
+> >               map[i].fw_id = map_in[i].fw_id;
+> > -             map[i].hw = fixed_hws[map[i].fw_id];
+> > +             if (map[i].fw_id >= FIXED_CLK_OFFSET) {
+> > +                     enum fixed_clk idx = map[i].fw_id - FIXED_CLK_OFFSET;
+> > +
+> > +                     map[i].hw = fixed_hws[idx];
+> > +                     continue;
+> > +             }
+> > +
+> > +             scmi_spec.np = scmi_clk_np;
+> > +             scmi_spec.args_count = 1;
+> > +             scmi_spec.args[0] = map[i].fw_id;
+> > +
+> > +             clk = of_clk_get_from_provider(&scmi_spec);
+> > +             if (IS_ERR(clk))
+> > +                     return dev_err_cast_probe(dev, clk,
+> > +                             "Failed to get SCMI clock %u\n", map[i].fw_id);
+> > +
+> > +             hw = __clk_get_hw(clk);
+>
+> [Severity: High]
+> Does this code leak the dynamically allocated struct clk and its module
+> reference?
+>
+> of_clk_get_from_provider() returns a new struct clk and increments the
+> provider's module refcount. The clk pointer is discarded after extracting
+> the raw clk_hw pointer, so it is never passed to clk_put(). This causes a
+> memory leak of struct clk objects and a module refcount leak for the SCMI
+> provider.
+>
+> If a subsequent clock lookup in the loop fails and returns -EPROBE_DEFER,
+> the function immediately aborts, and the previously allocated clk handles
+> from earlier loop iterations are not cleaned up.
 
-The power handling comes from a prerequisite: this series applies on
-top of Sergey's "media: i2c: ov13858: add regulator, clock and reset
-GPIO handling" v3, as the cover letter says, but that is easy to miss
-from 2/2 alone:
-https://lore.kernel.org/all/20260831130312.26296-1-lsa.uz@pm.me/
+This cannot happen, as all of_clk_get_from_provider() calls use the
+same clock provider: either the first call returns -EPROBE_DEFER,
+or all calls do not return -EPROBE_DEFER.
 
-With it, the driver gets the three supplies with
-devm_regulator_bulk_get(), enables and disables the clock it already
-takes with devm_v4l2_sensor_clk_get(), and takes an optional reset
-GPIO. Power on and power off are the runtime PM callbacks through
-DEFINE_RUNTIME_DEV_PM_OPS(), which also routes system sleep through
-pm_runtime_force_suspend() and pm_runtime_force_resume(). So the binding
-describes what the driver handles once both are applied. On its own,
-2/2 only adds the OF match and the endpoint checks.
+Gr{oetje,eeting}s,
 
-I cannot claim it survives system suspend on the Snapdragon model,
-though. System suspend is still an open problem on the Surface Pro 11
-under Linux and has not been validated, so I cannot exercise that path
-here yet. What I can test is the
-runtime PM path, which is where the supplies, clock and reset are
-switched: the sensor powering off between sessions and back on for the
-next stream. I will run repeated open, stream, close cycles and report
-the result. Sergey, if suspend works on the Intel model, a suspend and
-resume test there would cover the rest.
+                        Geert
 
-To make the dependency visible, I can carry Sergey's patch as 1/3 of
-the next version, with his authorship. Sergey, would that be all right
-with you, or would you rather post v4 yourself?
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-Thanks,
-George
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
