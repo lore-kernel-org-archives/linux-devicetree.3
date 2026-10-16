@@ -1,88 +1,65 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch [109.224.244.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92B58348C6B;
-	Fri, 16 Oct 2026 21:12:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC8263ED5BB;
+	Fri, 16 Oct 2026 21:15:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792185170; cv=none; b=URquqrl97N0ZrUyromNlu9YH1wp8A8J4UOrGfchhwJfHzSSlTVujIxcJ7rhdi/5CUpyVBaNbH4lAOLEhy9ZnQVn0psT6OoEH+EVh17otD4We3z2Plx2iSiwnxnmF7SBRgWxYOpLAGh+AUjQ86QHJ6ocCPPpJn9EFDh/j3WqfzXU=
+	t=1792185315; cv=none; b=RcV1ZtOph4rqj6v1dCLshWXL3u+HFDaBPP+EfnK/HzHrgw/JDOeqBP1gPK3EH0oqCl3dtOBNABhQ1vcP76NcnOQycoHQ5MjkoEm6yJiJZ5YTL8xD66YflYI0oJBhIefmw/j1gqEogJnrem+NyBqfFI8AXUdkYRBkZ0VXrPy6wHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792185170; c=relaxed/simple;
-	bh=xEDBDZLnCA1TaZqZJKoAlK6nDOVbDceU/MIop2KkYeg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JlIvzluUU8shsUA4e8qhZbZElIUcwxy5890MJOATIWDLJvxCxBl1mBdZ/tM7TrhwMwfNMLMIsWaePf6aVr+akdX2s4PRT8ovJSpBv2hi4PQo2G+Pwe09eRE9ET281kdIeLKp6wCbG8pQ/O6OV7YFBzR+qt+IfClxk9X15cJKiJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=olJw8sxb; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1792185315; c=relaxed/simple;
+	bh=yriD6uTUC4utVl0VQfR0kaNvh3CTGmhVvw9IdhjcU9U=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=AxVm9zrAfJHV5ZiJZKoH7K5sKnIcAJkaaMLWtThu4s6TaF31A/1wYONXMW+LoYn+bKyNJaNwjMxQWP9G1Kvp0M/WZxxzsRRZDTqSS9OFcln0RxNFl59Sn6ESoYt19Z59Nq8AWDwgzZjyGX2kKiTBlQdTbJJebXo+y0vR7atUckw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=ka542Eie; arc=none smtp.client-ip=109.224.244.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="olJw8sxb"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=xzkj/ZBHK+z7M4G04Cm+Pn9IBQkeIvv/Jc//KeKDVZk=; b=olJw8sxbieC1HTdPa0kHf0eGnc
-	HTqN7iFZDlQEOx08ZBDM0oe2CHW/6z0gnYl83w9N4VZPHZxD20KrFM6VhuVNcXXKaZ7lrQItC9saC
-	Petg2DVXdZWVonrEqF1jGKlNztXv9Wycn7IiNH+NmATARJFRVWiJrbkrFIbddbIdpV5s=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xHpEF-00BE90-HA; Fri, 16 Oct 2026 23:12:39 +0200
-Date: Fri, 16 Oct 2026 23:12:39 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Robert Marko <robert.marko@sartura.hr>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
-	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, lxu@maxlinear.com,
-	hkallweit1@gmail.com, linux@armlinux.org.uk, michael@walle.cc,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, lrosu@maxlinear.com,
-	luka.perkov@sartura.hr
-Subject: Re: [PATCH net-next v2 2/5] net: phy: mxl-gpy: add MxL86211C VDDP
- supply
-Message-ID: <5d2c866f-9c01-4f9b-b50f-ec95696fa2ef@lunn.ch>
-References: <20261016112033.949026-1-robert.marko@sartura.hr>
- <20261016112033.949026-2-robert.marko@sartura.hr>
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="ka542Eie"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1792185305; x=1792444505;
+	bh=yriD6uTUC4utVl0VQfR0kaNvh3CTGmhVvw9IdhjcU9U=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=ka542EieI1HlnKcdLNL5Kb8J/GV7sNF9S/D9bPxc2PYgNpB7HkVAmckd9Ene/fA64
+	 38M/Xpt6rX3wxU/ObwQa7XYdFcZ4bjAPhbJVe8w11NdOoQ98/BAkoPwiT/a+E6G+Fx
+	 QBTCvBRNSkgLrDA0VCjj6A2L7YRSXRZVFaYYI7KSZYQS+ZlKKVqRfd4x5FwsYfr5J/
+	 bRU7JmIyTqx3TalLOC8QogqdE4MecepVvrnRcr8XLvTf6J1C0jeFHADurDPPogdr+p
+	 PUf/yR1aEHY2SZYJMP5yBQKt07oI23TfnEsj7ssx+elVu3xQYWXkrlZ9MQQ1zSP0zh
+	 rBUpbqDIULxlw==
+Date: Fri, 16 Oct 2026 21:14:58 +0000
+To: George Neacsu <geocausa@gmail.com>, Bryan O'Donoghue <bod@kernel.org>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Andre Gilerson <andre.gilerson@gmail.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 2/2] media: i2c: imx681: Add C-PHY support
+Message-ID: <20261016211450.62994-1-lsa.uz@pm.me>
+In-Reply-To: <20261016160853.193378-1-geocausa@gmail.com>
+References: <20261015-imx681-x1e-v1-0-fd22f5f3b0c5@gmail.com> <20261015-imx681-x1e-v1-2-fd22f5f3b0c5@gmail.com> <11f1a19d-7d57-497f-826e-901f9f88b99b@kernel.org> <20261016160853.193378-1-geocausa@gmail.com>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: f8ff3cfe9572acb7d8752375a1bfad56a4c2b617
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016112033.949026-2-robert.marko@sartura.hr>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-> +static int mxl86211c_probe(struct phy_device *phydev)
-> +{
-> +	struct device *dev = &phydev->mdio.dev;
-> +	struct gpy_priv *priv;
-> +	struct regulator *vddp;
-> +	int ret;
-> +
-> +	vddp = devm_regulator_get(dev, "vddp");
-> +	if (IS_ERR(vddp))
-> +		return dev_err_probe(dev, PTR_ERR(vddp),
-> +				     "failed to get VDDP supply\n");
-> +	if (!vddp)
-> +		return dev_err_probe(dev, -EOPNOTSUPP,
-> +				     "VDDP supply requires regulator support\n");
-> +
+Hi George,
 
->  static bool gpy_sgmii_need_reaneg(struct phy_device *phydev)
->  {
->  	struct gpy_priv *priv = phydev->priv;
-> @@ -1406,7 +1467,7 @@ static struct phy_driver gpy_drivers[] = {
->  		.name		= "Maxlinear Ethernet MxL86211C",
->  		.get_features	= genphy_c45_pma_read_abilities,
->  		.config_init	= gpy21x_config_init,
-> -		.probe		= gpy_probe,
-> +		.probe		= mxl86211c_probe,
+On 16/10/2026 17:08, George Neacsu wrote:
+> I will also read the CCS capability register 0x1602 (bit 3 =3D
+> C-PHY) here, and Sergey may be able to read it on the Intel model.
 
-This is an existing device. You cannot add required new DT parameters,
-that would break backwards compatibility. Anything you add news to be
-optional.
+Read on the Intel model while the sensor streams on two D-PHY lanes
+(model 0x0681): CSI_SIGNALING_MODE_CAPABILITY, 0x1602, is 0x04, so bit 2
+(D-PHY) is set and bit 3 (C-PHY) is not. PHY_CTRL_CAPABILITY, 0x1600,
+reads 0xff, every bit set, which is also what an unimplemented register
+can return, so I would not lean on this block alone. Either way it does
+not show C-PHY here; your reading on the Snapdragon model will tell
+whether the two differ.
 
-    Andrew
+Sergey
 
----
-pw-bot: cr
