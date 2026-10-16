@@ -1,65 +1,65 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 971FB448BB7
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 11:20:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F3947D471
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 11:20:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792149650; cv=none; b=q+JjeI44d/wvalUZlljVsxEDkIL+EV9ZzIiHgSkyVnsExQL5zuEmvbWfg4a6jcGefdakRH70akzsZe/NXDLL886LwdCuXVA/JwmVrK82piZZu+6ZdlyIAUuYFLifnIHuwUXzVGF01gn/flpdaBJePp3v9dTqUXwydM2T5HfhWv4=
+	t=1792149655; cv=none; b=gbkjVBywcDIPRa34nZkv6gLZWJPdSx3IRVhPqX57VpCvUgp5ts+heaF9HTpDHiFtdIzyxtnEkvYutxXT8xqxHMM9pyH4kBxdaBWfU8v5ABPrGSVrkpyLQTNLzCc7XVm5XdLWCHVnmJfA2fSHVziGqsbZn3EjfwBByumnAVR2JQI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792149650; c=relaxed/simple;
-	bh=tmWFUe4O5IyO+8CbBVqEmkvkD5jfEE2Ew7bX38+bRZs=;
+	s=arc-20240116; t=1792149655; c=relaxed/simple;
+	bh=TwsVE1aW6IYLHbieh7/8b/SGuVK/PYEkGTgqLNdREec=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LJSTIke/A1NM8vEifLDaegmEw/UCzT5aLnY0/bDw67Kul79n7ay5Do2MQBMIGyqeFjcKs2SFzmaMuidezlhC7c4imAXJgvZFep31Q2Km2lZhx63d+/4HRBax0v3s9F5zufCXzlM8Dz4B7zo0ckOup9729KFdmChp04oe4P+TTuQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=lUCuhSfi; arc=none smtp.client-ip=209.85.218.53
+	 MIME-Version; b=PWgrVgqLs44Q+jti6DushR1pstCTxS2nXshHf+a6pk3DSciL/2jJ9D+QKvQZRuUWAFtq1dqxNpKVK180pmT5XuPB5z3cTfNFh0e/vXZWLD5nz/z8UQTuN8jZk5dmdBhj2OqpGtCHjzHi1Q4hKG4w55oRgmeOUgR+50xytA8nkdY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=LkHPf6Bw; arc=none smtp.client-ip=209.85.218.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="lUCuhSfi"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c2e8c710847so790588066b.0
-        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 04:20:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="LkHPf6Bw"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c40f29667e6so54510366b.0
+        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 04:20:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sartura.hr; s=sartura; t=1792149646; x=1792754446; darn=vger.kernel.org;
+        d=sartura.hr; s=sartura; t=1792149648; x=1792754448; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vzZ+drt3dgf4DTiJO8FECQLY/kCD4mxzJHRqbEltdUk=;
-        b=lUCuhSfietg2C8LyHurFBaVzhMwIbAYzKaSOx2g6NH0Yy2Tj+BBfsKT+jatlkONlhl
-         /ieXeipWVY7GM/xQ3GJW/q6ZbQmAZOdY843Dek4dXJU+Zowb3ecANaT/NYNQo1HBO9eg
-         rgXnfIlFE/mqi8zagoeEdiVj34uXLGT2Fi8ql4JdB7e0wGo5O61ASBBvjXRJ5E7vjRxT
-         2/MsmBAI3x2mlaBACDVOaCXVIVD384gmIWWgyc9ZcUtg5KYRCsjkTBC8JxD7MmENRc6i
-         YH1mTK0ia8TpYj91BAxJbwevjQIHbnTG6k2HSUf3bHvzyHweTrAeubaIgJ8bkDC7yDid
-         7cog==
+        bh=/TeYqrIujJ95SPFhaCqHpArM7/zgqye+YpqAutM7XFY=;
+        b=LkHPf6BwJ+QPoAOObQeQAhxNFfcssKfqoAXdDO6qzJvvpoM5wd1j9VjtwBHu6VrofH
+         ++R20/g3qRprnKvldoWzki71BDLQOo4+/0hMl/TowixAWRJlG5J5iWzT88FhblIahUBk
+         4/LcXToUjyNCIJZKqGXQXp5tFZNhJc9Fe2pHbsgtH1WagKVLVzeYKgooQM1sL7+3QoMN
+         SMO0mVKvNj7lYcZfTvNsCKZ0UlODO84KwviD3N3vXOyxLZmJNwtZ9GuxZeeiiXKfqwxs
+         4evND8oRDm1Q2UzP0Qp4sBlQWDhXf9w4YUVt9WSceG6faCxhjHvgvRXl0SO8yh88eISr
+         jpfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792149646; x=1792754446;
+        d=1e100.net; s=20260707; t=1792149648; x=1792754448;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vzZ+drt3dgf4DTiJO8FECQLY/kCD4mxzJHRqbEltdUk=;
-        b=vZSt2FmYviqWtzEPnbeSLiBIOcelwdvvspuOXi30h5H+u9IetzEvdrReidt0IHNWrd
-         J4Hb4NThirsBzKO5+DNold6LRmQJRuDPKFCY/vR07BnrLCAS4uPuObWdNZsaQcQHYyqy
-         DksOzTwODNsaA26Gi32P1v6iFWFoGQGnqM2Sg9pfmrLbb2jKrMOKXE6Hu3nBzWkQKpzQ
-         rKp1SxPx3JMQ1MvwrW2jMdohGl3eStGKrBshWQmKXgVpCyL+KufpZmdNK6bnO5nvFEFl
-         k8s9FlV8KD3ja2rqyONDX/pm1WWMQuHsLT9s5PVDixX7PAdl3jJ4iQpRMHV6LoFi3GNo
-         7smw==
-X-Forwarded-Encrypted: i=1; AKwUvBwBCopHa2/sm/PqDqaAGliNddH+x5I/3n0y7pRu0VeM3IjCCh4+97Wwi+q55wR+2yvEsY3dI5TKZCFa@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ9dpz7WxKNY48tdM0GJ3PWnq9k+0u26e8ntQlIhTj0IGKwO2yF
-	f6FZT1fFe1l268cfSUfHVUUMS+J2Udcs3kK7cJIPTC/ELQke1I2Fo1qZcK+qLhwGOuI=
-X-Gm-Gg: AYBFou0ZvytGAqv2TIQFJ295zb6Ee1daaqvDU76edxZlxBMy4BiwUEeVhZE0D8oIK+V
-	FDJnshD+yyIPWnnKTMwajlSe9Xoo4nZl0CJ58GrucNvIN1ig/0X8Nrl0KVMaXYINTvObCH1zkh9
-	fmARPIZjimR8NqxoSA006slrkH0bYGFekmR5KGNsQ3GYXSRmPXkvkyJUSyYJGP3fn2AXUKmA544
-	Id1dT7iIt+bRNOxtz2tbBexD17BSuaU5CuXOZ74BvdXEeyRn95cWIq9qx1K1w4YApUjPhvRNVaw
-	80PY/dNdn0DIZiAM27Ncr/gJPhvJG+KcOF6fEwA2A/qH0gaM1zoPKebiYkkR/847PHF0OgngNw8
-	PWwb3HQQNdbrBJXlhy/30EiFw+HGUogpciLGcqvpGDd9R/tzF0aaY3bJl9iovahWyk1huajMIi6
-	DJgmoflPYmBF12In9GJ2ddD3MbHZDqr1EKacmigPSl0N2+vfrYmQxbpOV6mPIr0Rcxa4Wxhz0CC
-	bBAF1g095bAmerzAv1gnvAqXEQ27fmsPL7bUOp9KTorJRRHF31snYI9podBSDLBJW7uO0mj2Bzi
-	pB3NXJGeXG9LUsQn03MXUaCTnqc7
-X-Received: by 2002:a17:907:3ea0:b0:c3f:98d4:dfd0 with SMTP id a640c23a62f3a-c3f98d4e648mr377283866b.45.1792149645861;
-        Fri, 16 Oct 2026 04:20:45 -0700 (PDT)
+        bh=/TeYqrIujJ95SPFhaCqHpArM7/zgqye+YpqAutM7XFY=;
+        b=DFmr6MKvAcNcwzRhrw/GuSqKiuATT3Phuy8zHhDGZ22HimEYJTtjo8Kd4dchvXeZ1o
+         XTVgmlvWiWHeWuQM/LI6Ti4fr2FC6aC89lCfrkOocXooHb6xoyYWNgBfXMQyIZ+Si3vZ
+         CJ6Lzbm2BRuOmbREyT9bj1GerJbnPf1TeBKjAlyM8yi4JikG3gptjwYy7mIsDvuPv0gO
+         G4lEOawp6mjImmi9azbakWMIb3Mex2j4bJFrT1rjSTdp5SJe/d5JKc4XHo7ylj8B9nCQ
+         bJfkdPgI1WgUQorwfRtjM8EWo1ATvSdQE6cz+9CvBdEhPgOd1qTjabWCz4wKFEJ/ZFKj
+         zO2w==
+X-Forwarded-Encrypted: i=1; AKwUvBy1aZDFZHS6lsLmLyT0HhnJmHXbpvDD110n6o59pgUFDw4FSjx4++Os5miFNJ8elsVy8vJClsEI9v9Z@vger.kernel.org
+X-Gm-Message-State: AFq9FYKt4h9juqPYBOT5N25ttbBNspLj91OBhWp/+mUHqP3J9Ne1Xk1c
+	G0m4OrkggldUEqd390mzNfpFGYL32749I2gdIv7pOX4cuHu4JQBU5XwpOK0GBa8il1c=
+X-Gm-Gg: AYBFou1gPLCcM32kjJNfLXXpmfsOXXgiAU3TiWStHc3J/T00IKZd2dhon/rf1Fy+gpc
+	mcUZavGz6OR4oO+rmB6G4R710bFlWG78hYRwsGinvfDmOHJDx0W8/oeijtR1UL6+DhE0ufZ0Hp1
+	Iz/sPBh5IE1YUcCwuPFiwVJubMe3kLyEDir9dkB+hNdRw+1ehOn7gtuScgkrjZat6154wBl2kI6
+	2TnTVmbk0lr55viviOubV11ZC/11oIm2VW1n4FqCv1IfhsYk0PLwgfyU+CDx8BEhtpQ5JiJwz/t
+	5+ZJZpCKJELhRvu4nTj37/n60daxUV2N6hLHiPutZEChVGIjd5Cw7Bc/v5lGnX5kVVYNfRzq85Z
+	QmLANRlmieDFB+NGQcyGw3715Batv6z0QDFsCORg8cg5SGoPOGgfz+7Nu3gRBsUfFFcUjCIvc6d
+	ph4SIUjKug0Oc08RzE9ppS2YopJl03exDGJ2SYqekXj5/nUHJWBbQFq2COy56LWtgW8HvYlcI2U
+	fTaQEvf2bsHCOJ679Gm62nfc1SZMkADQIPWHnGRwLoQbQibExQipZFrWRhxzGIpXwOHN/mqyRj1
+	ARNbwFny87sfC00/6wnmRuYseuD1
+X-Received: by 2002:a17:907:3e8d:b0:c26:36c4:858e with SMTP id a640c23a62f3a-c31aa018731mr1977506066b.25.1792149647314;
+        Fri, 16 Oct 2026 04:20:47 -0700 (PDT)
 Received: from threadripper-fedora-workstation (dh207-15-194.xnet.hr. [88.207.15.194])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c408e32c075sm63947666b.11.2026.10.16.04.20.44
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c408e32c075sm63947666b.11.2026.10.16.04.20.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 04:20:45 -0700 (PDT)
+        Fri, 16 Oct 2026 04:20:46 -0700 (PDT)
 From: Robert Marko <robert.marko@sartura.hr>
 To: andrew+netdev@lunn.ch,
 	davem@davemloft.net,
@@ -79,9 +79,9 @@ To: andrew+netdev@lunn.ch,
 Cc: lrosu@maxlinear.com,
 	luka.perkov@sartura.hr,
 	Robert Marko <robert.marko@sartura.hr>
-Subject: [PATCH net-next v2 2/5] net: phy: mxl-gpy: add MxL86211C VDDP supply
-Date: Fri, 16 Oct 2026 13:19:33 +0200
-Message-ID: <20261016112033.949026-2-robert.marko@sartura.hr>
+Subject: [PATCH net-next v2 3/5] net: phy: mxl-gpy: release MxL86211C Super Isolate
+Date: Fri, 16 Oct 2026 13:19:34 +0200
+Message-ID: <20261016112033.949026-3-robert.marko@sartura.hr>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261016112033.949026-1-robert.marko@sartura.hr>
 References: <20261016112033.949026-1-robert.marko@sartura.hr>
@@ -93,124 +93,66 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Read the VDDP supply voltage and configure the MxL86211C MDIO, MDC,
-and MDINT pads for the matching 1.8 V or 3.3 V level.
+The MxL86211C can be strapped into Super Isolate mode, leaving the PHY
+halted after reset until software releases it.
 
-Keep the shared GPY driver buildable without regulator support; only
-the MxL86211C probe requires the supply.
+Reapply the MDIO pad voltage and release Super Isolate in config_init,
+so both settings are restored after each hardware reset.
 
 Signed-off-by: Robert Marko <robert.marko@sartura.hr>
 ---
 Changes in v2:
-- Replace the MDIO regulator provider with a VDDP supply consumer.
-- Set the pad voltage from the supply's reported voltage.
-- Keep the shared driver buildable with CONFIG_REGULATOR=n.
+- Move Super Isolate release from probe to config_init for resets.
+- Reapply the MDIO pad voltage before releasing Super Isolate.
 
- drivers/net/phy/mxl-gpy.c | 63 ++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 62 insertions(+), 1 deletion(-)
+ drivers/net/phy/mxl-gpy.c | 20 +++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/net/phy/mxl-gpy.c b/drivers/net/phy/mxl-gpy.c
-index 089a1a9e5bc61..fbac7c49b4759 100644
+index fbac7c49b4759..8bc119655f104 100644
 --- a/drivers/net/phy/mxl-gpy.c
 +++ b/drivers/net/phy/mxl-gpy.c
-@@ -14,6 +14,7 @@
- #include <linux/polynomial.h>
- #include <linux/property.h>
- #include <linux/netdevice.h>
-+#include <linux/regulator/consumer.h>
+@@ -114,6 +114,7 @@
+ /* Packet Manager Control */
+ #define VSPEC1_PM_CTRL		0x0c
+ #define VSPEC1_PM_CTRL_MDIO_VOL	BIT(14)
++#define VSPEC1_PM_CTRL_SI	BIT(12)		/* Super Isolate */
  
- /* PHY ID */
- #define PHY_ID_GPYx15B_MASK	0xFFFFFFFC
-@@ -110,6 +111,10 @@
- #define VSPEC1_SGMII_ANEN_ANRS	(VSPEC1_SGMII_CTRL_ANEN | \
- 				 VSPEC1_SGMII_CTRL_ANRS)
- 
-+/* Packet Manager Control */
-+#define VSPEC1_PM_CTRL		0x0c
-+#define VSPEC1_PM_CTRL_MDIO_VOL	BIT(14)
-+
  /* Temperature sensor */
  #define VSPEC1_TEMP_STA	0x0E
- #define VSPEC1_TEMP_STA_DATA	GENMASK(9, 0)
-@@ -140,6 +145,7 @@ struct gpy_priv {
- 	u8 fw_minor;
- 	u32 wolopts;
- 	u64 rx_errors;
-+	struct regulator *vddp;
- 
- 	/* It takes 3 seconds to fully switch out of loopback mode before
- 	 * it can safely re-enter loopback mode. Record the time when
-@@ -390,6 +396,61 @@ static int gpy_probe(struct phy_device *phydev)
- 	return 0;
+@@ -422,6 +423,23 @@ static int mxl86211c_configure_mdio_voltage(struct phy_device *phydev,
+ 			      VSPEC1_PM_CTRL_MDIO_VOL, val);
  }
  
-+static int mxl86211c_configure_mdio_voltage(struct phy_device *phydev,
-+					    struct regulator *vddp)
++static int mxl86211c_config_init(struct phy_device *phydev)
 +{
-+	int voltage;
-+	int val;
-+
-+	voltage = regulator_get_voltage(vddp);
-+	if (voltage < 0)
-+		return voltage;
-+
-+	switch (voltage) {
-+	case 1800000:
-+		val = VSPEC1_PM_CTRL_MDIO_VOL;
-+		break;
-+	case 3300000:
-+		val = 0;
-+		break;
-+	default:
-+		phydev_err(phydev, "unsupported VDDP voltage: %d\n", voltage);
-+		return -EINVAL;
-+	}
-+
-+	return phy_modify_mmd(phydev, MDIO_MMD_VEND1, VSPEC1_PM_CTRL,
-+			      VSPEC1_PM_CTRL_MDIO_VOL, val);
-+}
-+
-+static int mxl86211c_probe(struct phy_device *phydev)
-+{
-+	struct device *dev = &phydev->mdio.dev;
-+	struct gpy_priv *priv;
-+	struct regulator *vddp;
++	struct gpy_priv *priv = phydev->priv;
 +	int ret;
 +
-+	vddp = devm_regulator_get(dev, "vddp");
-+	if (IS_ERR(vddp))
-+		return dev_err_probe(dev, PTR_ERR(vddp),
-+				     "failed to get VDDP supply\n");
-+	if (!vddp)
-+		return dev_err_probe(dev, -EOPNOTSUPP,
-+				     "VDDP supply requires regulator support\n");
-+
-+	ret = mxl86211c_configure_mdio_voltage(phydev, vddp);
++	ret = mxl86211c_configure_mdio_voltage(phydev, priv->vddp);
 +	if (ret)
 +		return ret;
 +
-+	ret = gpy_probe(phydev);
++	ret = phy_modify_mmd(phydev, MDIO_MMD_VEND1, VSPEC1_PM_CTRL,
++			     VSPEC1_PM_CTRL_SI, 0);
 +	if (ret)
 +		return ret;
 +
-+	priv = phydev->priv;
-+	priv->vddp = vddp;
-+
-+	return 0;
++	return gpy21x_config_init(phydev);
 +}
 +
- static bool gpy_sgmii_need_reaneg(struct phy_device *phydev)
+ static int mxl86211c_probe(struct phy_device *phydev)
  {
- 	struct gpy_priv *priv = phydev->priv;
-@@ -1406,7 +1467,7 @@ static struct phy_driver gpy_drivers[] = {
+ 	struct device *dev = &phydev->mdio.dev;
+@@ -1466,7 +1484,7 @@ static struct phy_driver gpy_drivers[] = {
+ 		PHY_ID_MATCH_MODEL(PHY_ID_MXL86211C),
  		.name		= "Maxlinear Ethernet MxL86211C",
  		.get_features	= genphy_c45_pma_read_abilities,
- 		.config_init	= gpy21x_config_init,
--		.probe		= gpy_probe,
-+		.probe		= mxl86211c_probe,
+-		.config_init	= gpy21x_config_init,
++		.config_init	= mxl86211c_config_init,
+ 		.probe		= mxl86211c_probe,
  		.inband_caps	= gpy_inband_caps,
  		.config_inband	= gpy_config_inband,
- 		.suspend	= genphy_suspend,
 -- 
 2.56.0
 
