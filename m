@@ -1,181 +1,161 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A520249BB44;
-	Fri, 16 Oct 2026 18:27:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3136958E2B8
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 18:31:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792175270; cv=none; b=cuGinxC4jPnUcHpqjzE0FU8IWtdCcBgOAkcbGMhE8j6c8FCZlNlipGq7A9rlOuFxjPCFFFPU19ssJbCtUBBsRxLK1jUlB5EL2U2WJHbzF/mTZjjKYeUgWqEkhImeADhCnCGELzD6bD+3WRFLC34l7X6Lg7BtB13nmbV7gCKl/Co=
+	t=1792175507; cv=none; b=uoGXzp6sASlDuQT0mof3eFllkDgK8lAPaxyIMAYWZlSgIjRl2DFj2H05tujxeIEpL2PHkg8rhFzlWTXJ12ZOmPtm0KsP6GZDOY57eXcVu1tjcju2UpxcXQz24gPW9IowtTQ0b9d58F1Pen+BpJrSoqQe0Gzb4/1C8uk0XfrVTMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792175270; c=relaxed/simple;
-	bh=eXLo4l00IuxcldPkqFxylRH7Wps8yF41ZAkJADgaRHA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IQvDpRqi4makpq4NinMJSMgQlrfImkmCAbQ5k8nfN0nS/LgLR/ZpH+0tTOTuFS6Q78aBLybpun30lJgUJvioJPjdL1bgsVj5avcdby6gRFHaQRUre2cob6xsYUu6jCSy7lNu7hqDnSQnUMdv+kcZXH0+mupNeaP34rZNkYvu/Bs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=U9oPvj8X; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792175507; c=relaxed/simple;
+	bh=04sQwonfurbo4BOea32Zt9xLoudiO0LSI0mstw4NKL8=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=RamV+JU58woKN/5wi3JrAHRs8xJrP7Z8vXiaPAYeOOx/aoI/JribB7f3mAB5AESqJhlSq+NA/cbUkumsMQotjzFiQRtHb4+ZcHR2QzZTrKC+CyaFr6o5fzpXDNkz31YiIAONJvEVL4KaqDR6ocWg0xU9aGfhFz/h/nhD4IS/ZRs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=ZrhSzoyA; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="U9oPvj8X"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A92031516;
-	Fri, 16 Oct 2026 11:27:43 -0700 (PDT)
-Received: from e142021.manchester.arm.com (e142021.arm.com [10.33.8.90])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3B68B3F7B4;
-	Fri, 16 Oct 2026 11:27:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792175266; bh=eXLo4l00IuxcldPkqFxylRH7Wps8yF41ZAkJADgaRHA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=U9oPvj8XoObuD+WeGmW/awIze3MNcps1VBQP7WKlpK3oui9Isgen1bES+kKFi2okS
-	 iwtfuedTFUCfHN9qMuctoHYlAqfEGgk7N7vt5x/pOsY1mBa589VpGoTY95QdDTqH5R
-	 v4EUHkpwPfOKfn0uu1fmck+5VBGUkVMcceYAy6FM=
-From: Andre Przywara <andre.przywara@arm.com>
-To: Mark Rutland <mark.rutland@arm.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>
-Cc: Salman Nabi <salman.nabi@arm.com>,
-	Vedashree Vidwans <vvidwans@nvidia.com>,
-	Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
-	Nirmoy Das <nirmoyd@nvidia.com>,
-	vsethi@nvidia.com,
-	Varun Wadekar <vwadekar@nvidia.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org
-Subject: [PATCH v5 8/8] firmware: smccc: lfa: add sysfs ABI documentation
-Date: Fri, 16 Oct 2026 19:27:12 +0100
-Message-ID: <20261016182714.1835813-9-andre.przywara@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261016182714.1835813-1-andre.przywara@arm.com>
-References: <20261016182714.1835813-1-andre.przywara@arm.com>
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="ZrhSzoyA"
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id AC38482A7F;
+	Fri, 16 Oct 2026 20:31:44 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id nQzl9y60FTqC; Fri, 16 Oct 2026 20:31:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1792175503; bh=04sQwonfurbo4BOea32Zt9xLoudiO0LSI0mstw4NKL8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ZrhSzoyAKpDYe4+YPMKwxs0900t3u8XQ2ttWPi8bbpaeUqsblbmzpSnctT2nFnn7Z
+	 J4onYGK1qdrEJpcXajb/HhIU+ofGuCPj+VqqCg8Q2YEUsmwm4ZH4npfP+oRpfGB3in
+	 evSFPE72WkO46livCtdIfKvOpmInsmV/8VWEkKeHhlKZ7ljgBTrCtktdnsAakuNYRc
+	 9ik5E9k4osR6VlQynoGoQpVHOwq7sOTXue/TWj+EzTfuvIv5q8mSrl4G3WMmoHJXgo
+	 DUWPhwlzXjByqBUl2Zjvzflf0AaR+pCFgSfxclDcJKcAvOODjMQ4GZAlelvW+F2lif
+	 N0a+KeHvGS/IQ==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Fri, 16 Oct 2026 18:31:42 +0000
+From: Rustam Adilov <adilov@disroot.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org,
+ neil.armstrong@linaro.org, olteanv@gmail.com
+Subject: Re: [PATCH v9 4/6] phy: realtek: usb2: introduce reset controller
+ struct
+In-Reply-To: <sashiko-outbox-174759@kernel.org>
+References: <20261016180314.31760-1-adilov@disroot.org>
+ <20261016180314.31760-5-adilov@disroot.org>
+ <sashiko-outbox-174759@kernel.org>
+Message-ID: <742854ba3f87aee86ea78e3f39f9682d@disroot.org>
+X-Sender: adilov@disroot.org
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Document the sysfs attribute files as exported by the LFA driver.
+On 2026-10-16 18:15, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [High] phy: realtek: register access before reset deassertion causes hang/timeout
+> - [Medium] phy: missing reset_control_assert in rtk_phy_exit and error paths
+> --
+> 
+> commit ae1074cfd8fee3a5506c0c9db06f187c80793713
+> Author: Rustam Adilov <adilov@disroot.org>
+> 
+> phy: realtek: usb2: introduce reset controller struct
+> 
+> In RTL9607C, there is so called "IP Enable Controller" which resemble
+> reset controller with reset lines and is used for various things like
+> USB, PCIE, GMAC and such.
+> 
+>> phy: realtek: usb2: introduce reset controller struct
+>> 
+>> In RTL9607C, there is so called "IP Enable Controller" which resemble
+>> reset controller with reset lines and is used for various things like
+>> USB, PCIE, GMAC and such.
+>> 
+>> Introduce the reset_control struct to this driver to handle deasserting
+>> usb2 phy reset line.
+>> 
+>> Make use of the function devm_reset_control_get_optional_exclusive()
+>> function to get the reset controller and since existing RTD SoCs don't
+>> specify the resets we can have a cleaner code.
+>> 
+>> Since the vendor usb driver developed by Realtek doesn't assert the reset
+>> line (or in their case clear the register bit), we can reasonably assume
+>> reset_control_assert is not needed here.
+> 
+> [Severity: Medium]
+> Since this is an exclusive reset control, does it need to be asserted on
+> teardown even if the vendor driver doesn't do it?
+> 
+> If the reset line is never asserted during module removal or driver unbind
+> (such as in an rtk_phy_exit() function), could this lead to power leakage
+> or unexpected initial states during subsequent driver reloads?
 
-Signed-off-by: Andre Przywara <andre.przywara@arm.com>
----
- Documentation/ABI/testing/sysfs-firmware-lfa | 106 +++++++++++++++++++
- 1 file changed, 106 insertions(+)
- create mode 100644 Documentation/ABI/testing/sysfs-firmware-lfa
+There is still a lot unknown about the IP enable controller and what it really
+does, the reset controller is just my best guess. I would ideally not deviate
+from what the vendor usb driver did.
 
-diff --git a/Documentation/ABI/testing/sysfs-firmware-lfa b/Documentation/ABI/testing/sysfs-firmware-lfa
-new file mode 100644
-index 0000000000000..4e93a1aea91f7
---- /dev/null
-+++ b/Documentation/ABI/testing/sysfs-firmware-lfa
-@@ -0,0 +1,106 @@
-+What:		/sys/firmware/lfa
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		The Arm Live Firmware Activation (LFA) spec describes an
-+		interface between platform firmware (an agent) and any user
-+		on the non-secure side (like the Linux kernel) to activate
-+		pending firmware updates at runtime. The actual firmware
-+		update would be provided independently (out-of-band, or
-+		via any existing explicit firmware update mechanism), then,
-+		if supported, can be activated immediately, without rebooting
-+		the system.
-+		This directory contains one subdirectory for each of the LFA
-+		capable firmware components supported by the agent, identified
-+		by its UUID. Within each directory, the same set of sysfs files
-+		provides access to the properties and actions for this
-+		particular firmware component.
-+
-+What:		/sys/firmware/lfa/<UUID>/activate
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		(WO) Write a boolean 'true' value to trigger the
-+		activation of that firmware component. An update must be
-+		pending for this to be successful.
-+
-+What:		/sys/firmware/lfa/<UUID>/activation_capable
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		(RO) A boolean value to show whether this firmware component is
-+		capable of being activated.
-+
-+What:		/sys/firmware/lfa/<UUID>/activation_pending
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		(RO) A boolean value to show whether this firmware component
-+		has an updated image ready to be activated.
-+
-+What:		/sys/firmware/lfa/<UUID>/auto_activate
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		(RW) Write a boolean 'true' value to allow this firmware
-+		component to be automatically activated once a new firmware
-+		update becomes available ("pending"). This depends on a working
-+		notification scheme, for instance via an ACPI notification
-+		or an interrupt to notify the kernel.
-+
-+What:		/sys/firmware/lfa/<UUID>/cancel
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		(WO) Write a boolean 'true' value to cancel a recently
-+		triggered activation, if that has not finished yet.
-+
-+What:		/sys/firmware/lfa/<UUID>/cpu_rendezvous
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		(RO) A boolean value to show whether this component requires
-+		a CPU rendezvous in firmware to be activated. If true, this
-+		means all CPUs will enter the firmware during the activation
-+		process, so will not be able to execute kernel code or
-+		handle interrupts for a brief moment.
-+
-+What:		/sys/firmware/lfa/<UUID>/current_version
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		(RO) Shows the currently running version of that firmware
-+		component, as reported by the agent (if supported).
-+
-+What:		/sys/firmware/lfa/<UUID>/force_cpu_rendezvous
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		(RW) Write a boolean 'true' value to force whether the kernel
-+		will perform a CPU rendezvous during activation. This has no
-+		effect if the firmware already *requires* a CPU rendezvous.
-+		Firmware components might provide services to the kernel, at
-+		which point is might be unsafe to continue running the kernel
-+		while the activation is performed. Sending all CPUs into
-+		firmware provides the safest option for the kernel. If you know
-+		for certain that there are no services provides by that
-+		component or the firmware component can handle requests during
-+		the activation, you can write a 0 in here to avoid the brief
-+		kernel downtime.
-+
-+What:		/sys/firmware/lfa/<UUID>/may_reset_cpu
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		(RO) A boolean value to show whether this firmware component
-+		requires a CPU reset during the activation.
-+		Currently this type of firmware component is not supported by
-+		the kernel driver, as we cannot handle a CPU reset.
-+
-+What:		/sys/firmware/lfa/<UUID>/pending_version
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		(RO) Shows the version number of a pending firmware update
-+		image, as reported by the LFA agent (if supported).
-+		If not update image is provided, this returns zero bytes.
--- 
-2.43.0
+>> diff --git a/drivers/phy/realtek/phy-rtk-usb2.c b/drivers/phy/realtek/phy-rtk-usb2.c
+>> index 5e483c853f02f..2ddad7be73534 100644
+>> --- a/drivers/phy/realtek/phy-rtk-usb2.c
+>> +++ b/drivers/phy/realtek/phy-rtk-usb2.c
+> [ ... ]
+>> @@ -676,6 +678,15 @@ static int rtk_phy_init(struct phy *phy)
+>>  	if (!rtk_phy)
+>>  		return -EINVAL;
+>>  
+>> +	if (rtk_phy->phy_rst) {
+>> +		ret = reset_control_deassert(rtk_phy->phy_rst);
+>> +
+>> +		if (ret)
+>> +			return ret;
+>> +
+>> +		usleep_range(5000, 6000);
+>> +	}
+>> +
+>>  	for (i = 0; i < rtk_phy->num_phy; i++)
+>>  		ret = do_rtk_phy_init(rtk_phy, i);
+> 
+> [Severity: Medium]
+> If do_rtk_phy_init() fails, the reset line remains deasserted on the error
+> path. Should the reset line be asserted before returning the error?
+> 
+> [ ... ]
+>> @@ -1055,6 +1066,11 @@ static int rtk_usb2phy_probe(struct platform_device *pdev)
+>>  
+>>  	rtk_phy->num_phy = phy_cfg->num_phy;
+>>  
+>> +	rtk_phy->phy_rst = devm_reset_control_get_optional_exclusive(dev, NULL);
+>> +	if (IS_ERR(rtk_phy->phy_rst))
+>> +		return dev_err_probe(dev, PTR_ERR(rtk_phy->phy_rst),
+>> +				     "usb2 phy reset is not working\n");
+>> +
+>>  	ret = parse_phy_data(rtk_phy);
+> 
+> [Severity: High]
+> Can calling parse_phy_data() here before deasserting the reset control cause
+> a hardware hang or timeout?
+> 
+> Inside parse_phy_data(), if the SoC configuration lacks a pre-populated
+> default value for certain registers, functions like update_hs_clk_select()
+> and update_dc_driving_level() will attempt to read from the PHY registers:
+> 
+> drivers/phy/realtek/phy-rtk-usb2.c:update_hs_clk_select() {
+> 	if (phy_parameter->inverse_hstx_sync_clock) {
+> 		if (!phy_cfg->page0[6].addr) {
+> 			rtk_phy_set_page(phy_reg, 0);
+> 			phy_cfg->page0[6].addr = PAGE0_0XE6;
+> 			phy_cfg->page0[6].data = rtk_phy_read(phy_reg, PAGE0_0XE6);
+> 		}
+> 	}
+> }
+> 
+> If the realtek,inverse-hstx-sync-clock DT property is set, it will read
+> from the unclocked or reset IP block, which could lock up the system bus
+> on many SoCs.
 
+realtek,inverse-hstx-sync-clock property is irrelevant to rtl9607c.
