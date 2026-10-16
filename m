@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C472E481247;
-	Fri, 16 Oct 2026 13:59:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F51531F9A0
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 14:00:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792159157; cv=none; b=uEJ5LxUcLIyrQMapsoMf3IXwI1g49WjjtsvjtYO55pottinxO0QYfKgqIGsCDnr1zUP938UWoKVmWZrXoDbSkz1IExJwS5AU/uYnflp58ICAuqAWwpmcm7jFO3izEAIY0ltF7JU8j/EuzaKEsSt9MkFPvbgCVR1gVKMspZLCnOo=
+	t=1792159238; cv=none; b=lPRbKzdpEAX0fBZG5DaXS0m+X4DsPoRLEC+VgEpEhGa55l7QA9NEaLybdbOefB7Dd7//LR45GnNeqAK7FN2wQ+otQrKEbnr1GpN2B4WzaZf3KdNMXRb2iJnnsfSdxpJv9veSF5i+35pt5gRs2BrBmj0PFTP2DVWIXznnKixiuMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792159157; c=relaxed/simple;
-	bh=eZPqeJfpi3ovuHOluOXJ5mxMfpcbJmMz0/xRVbNrIxw=;
+	s=arc-20240116; t=1792159238; c=relaxed/simple;
+	bh=Pv+4LsWwi/GL8cuiFB8ambtf0u32uMufTS2fyRsF5Mw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ArcMc71jKcpip762vtVvZAs8oGybVL00f/VbyGGF1TJ8CgDvI8ABrhX9bzYhy4yO7nKc/pWiLxMBsO9es5860hqlHwmBF+kBduv9SeWbTUaSsfS6Yc5yM1JHWa+jlgXSSfH64r8plh9UMbm1QITJswzUMFiMPLMe1drR7aA12PE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W1WXb2fT; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=RVOuyl/WeDuTPAXCa5zcbJE5kTGpYGhykQWoftSF6Sr1KFOS+hmY65t6ilz+UFfCU1vt6rk7/2+nRHRDYNQtibVDz/NGgxzfKBTDwhA0vK9THQejYr8AS3bD80cO9amLQYOdDBkLn+k31oWrxYlNv/9nIQzCyooGPdkR8Uv18DA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gKVswL7g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W1WXb2fT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AED81F000C4;
-	Fri, 16 Oct 2026 13:59:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gKVswL7g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 165821F000C5;
+	Fri, 16 Oct 2026 14:00:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792159156;
-	bh=XudIlMQarFNL2FAQqpi5gXL30E9A2qim7k2VgfG8EnQ=;
+	s=k20260515; t=1792159237;
+	bh=99panwqtff1qipNpiTkmFuZABnrrWoB6PQ6JmxiG6OM=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=W1WXb2fTmVR3zVJNx7GxIYboMlWYP5bbxA91PRZU+92wg4hu56LPpwe0hOQzDpRqP
-	 Z0YTuzWo0zcambD7i3qrpKjR6CnD7cl//UVJpS6AxdMeENA+gKVizlM3uBEQAt2k4H
-	 6ZFn9Rk+fLZO+5ABk7UjrYof+iYkc8ktGOs+5jpzyDq5E35wrn6QUnDJ5ltLczVqFD
-	 W3VDzv+lMCavA/Ek9bz09RbW9GLb45pIzyuNEVa17OBnVAp36fHcjS9pq8Qx5sTlqD
-	 Z/KypTUG3LzjTMwRjXr9XyTW1GcWZ3U/LNchdm0QV45DEPpV2aOUBO4SImm5xFJ8aA
-	 zFrvFhG45SWvw==
-Message-ID: <cbd2e370-c8f1-46c1-87a8-fa25fdf6ea97@kernel.org>
-Date: Fri, 16 Oct 2026 15:59:10 +0200
+	b=gKVswL7g7BW9sIVtPdjRFvUZ25zHCrrOECBue3+2/aWlA2P7nWpoKrq/6/nJjpJJ+
+	 55l/XrCBzTv6paQut123x1O32GImHjI8Kf5CEw+z/IB6jB2eudD+QEbkBbRX8H2J37
+	 wOuKGvAFhcWt2WB6uulRbUGVc+jj7eJycKql8ML827oZ/Ot0vz+yKgRGIrlIXGfICA
+	 M5qgXol1VUNwZPKBoeNHmgP7+uqWwLc/0w0ybxi0/KxfhIGxsutx6bav625Bwxryu7
+	 K8TF3PtSgh397fDlZwl+vBakcaMRmrVg2z5g3aJGEmrUBberHs1DD14GybnUNaaN8d
+	 lW2Zt1vXOdaOw==
+Message-ID: <ef373b76-de10-4361-9d55-29f730f7442b@kernel.org>
+Date: Fri, 16 Oct 2026 16:00:32 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,26 +35,12 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/6] dt-bindings: mailbox: Add AMD PL Mailbox IP
-To: tanmay.shah@amd.com, Ben Levinsky <blevinsk@amd.com>
-Cc: "jassisinghbrar@gmail.com" <jassisinghbrar@gmail.com>,
- "andersson@kernel.org" <andersson@kernel.org>,
- "mathieu.poirier@linaro.org" <mathieu.poirier@linaro.org>,
- "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
- <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "Simek, Michal" <michal.simek@amd.com>,
- "linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "Levinsky, Ben" <ben.levinsky@amd.com>
-References: <20261014213426.2957480-1-ben.levinsky@amd.com>
- <20261014213426.2957480-4-ben.levinsky@amd.com>
- <20261015-humble-eager-mushroom-9db4aa@quoll>
- <DM4PR12MB644859F1CA3A936684A3338B839C2@DM4PR12MB6448.namprd12.prod.outlook.com>
- <7067e343-24b9-4e3e-8e5e-42c98239ccae@amd.com>
- <0df4bfd4-2bcc-42fd-a22d-e704e4b41d5f@amd.com>
+Subject: Re: [PATCHv2 1/2] dt-bindings: arm: altera: document the Agilex27
+ platform
+To: Dinh Nguyen <dinguyen@kernel.org>, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+References: <20261015123700.2137706-1-dinguyen@kernel.org>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -100,28 +86,28 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <0df4bfd4-2bcc-42fd-a22d-e704e4b41d5f@amd.com>
+In-Reply-To: <20261015123700.2137706-1-dinguyen@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15/10/2026 17:31, Shah, Tanmay wrote:
-> We use 'amd' vendor prefix for all new drivers & bindings. Also, there
-> is dedicated IPI hardware which can be used as mailbox too, and we
-> should distinguish it with this PL mailbox. So I that is included in the
-> compatible string. (pl-mbox).
+On 15/10/2026 14:36, Dinh Nguyen wrote:
+> The Altera SoCFGPA Agilex72 platform will be rebranded as the Agilex27.
 > 
-> If we are also to include SOC name as well (per compatible property
-> guideline), then we should include one of the SOC name as well:
+> Add the "altr,socfpga-agilex27" and "altr,socfpga-agilex27-socdk" bindings
+> for the SoCFPGA Agilex27 platform.
 > 
-> So, I think 'amd,zynqmp-pl-mbox-2.1' is good.
-> 
-> Krzysztof, are you okay with above name? The 2.1 is FPGA IP design
-> version number and not the SOC version number. So in future let's say
-> that FPGA IP design is improved then the name (pl-mbox) will remain
-> same, but only version number will be updated i.e. (from 2.1 to 3.0). Is
-> it okay if we explicitly mention this in the binding description?
+> Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
+> ---
+> v2: do not deprecate the agilex72 platform
+> ---
 
-So you will release the same SoC with different versions of the block?
+Again, no. Your rebranding does not matter. We do not add compatibles
+for the same device. We do not rename them. We do not deprecate them
+because you want to rebrand something.
+
+Whatever marketing company does, it does not matter for the compatibles.
+
+NAK
 
 Best regards,
 Krzysztof
