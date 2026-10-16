@@ -1,271 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B859E4EF15E;
-	Fri, 16 Oct 2026 16:15:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCFC64E0211
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 16:16:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792167305; cv=none; b=FZhUTxzfke2aHhZ/2qMoTlhilWkAvBpJqOyRfyX+NibxWFPXylEnjV1PMbJHAXUHDf3wQxcRsCcWO+Cq8Zn3JZOuj6y0Z3z40VM0T35UUTURXJvwWofoB27QoSI0vRT45tX2P4VM+vYzd089tmx9jjS7LibWl2OYlH99t/AeERs=
+	t=1792167389; cv=none; b=kIbZEZk4sUgKsQ0mtKAs8zCnAZJVzciBQW+JEn+rSAZ40kgZdQE3cXVTkSLmOMd2ItzZ4Pyvwq5rg7d7K1qhDkRa7CI7zLTloP+ZGt9/OSbjodzyiYD2TSZM3AfXlEnxzTy57gGgt3ou5km/Eqhq8E/L2lcDETNtpWT3zvl9tts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792167305; c=relaxed/simple;
-	bh=lP6gFdVF06YpTjuUyzmNhvig3F87WmoxfTQOfI6QTkc=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=QhSlCwnVhd4O7qKz+rt3B/JHFN4xrnrTga8kMQVkfumEPbMJuYtCDozU7nh484UhC359sl68AeXYkcuyo0W7Bw1IZRGBZ+Xmc5eYkaG3v1d0604AwN7gW3qGW76mwG+/oZNL4eCR63p6nK4uV+GwyHTjNcKGfat5jWYVE0ve2lI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hJ8HVPOv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792167389; c=relaxed/simple;
+	bh=7DHGCZatwX7FLNpiqx6l6zSz1iIXAE0Gsx9JKxioU1k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pBQnHP84Z+8VuQVBGdmM9LGsxVFsiO0rzrZNdMPPOwUBivRV38ki3KmrBGfPwGSfk4Wa+aNsIS43/uAWXvySQgT66VLlVjCQ5g0/+NYbIrA9EzCO95Fpx7tFxwBopNZ3Yilk29Tq2x8lwxVP/UvSyILa7KeVsCrFQDpExz6/7I4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ceTiwjUX; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hJ8HVPOv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C6DC1F000C4;
-	Fri, 16 Oct 2026 16:15:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792167302;
-	bh=JtCmWeDa3J0zF/8ydCf9VzVP9ypkQLPdU5AobI8s4r0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hJ8HVPOvQ6Bw4KRcbdnYDbsgEwkCQQM9Ks8s1uzZeOJuiFsrlX72S0OCYyVplMIH/
-	 q+8ITBc0Qdu2reBiE/CA06MU7UhPG5L60KHwkuLAlpBSdfmtqOanRL2enqbKU2mVY5
-	 3ZTLhX23qS4rkFf30TxSDvMuHs/7+gumFj4iu7m+7aUSxK/AGlrbV4ot2er/cFAngj
-	 if56A6QSFivoMm9gidtxWley3jLn0ToyaECTd/jQYgzJ8odBLLbuS8Cxa7hP1WVKG5
-	 Q3sR0xoGtqLiBNUPhjtELYav79oHUInSSKE7dv9iBuCvZr+MV16O5c5PUOLMX9c25m
-	 COKUPFJBI2JGg==
-Message-ID: <sashiko-outbox-174618@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 7/8] pmdomain: renesas: r8a78000: Add SCMI remapping
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Geert Uytterhoeven" <geert+renesas@glider.be>
-Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <2895c8f3cbe718dc597ad25e16c2461f0d681ab6.1792163045.git.geert+renesas@glider.be>
-References: <cover.1792163045.git.geert+renesas@glider.be>
- <2895c8f3cbe718dc597ad25e16c2461f0d681ab6.1792163045.git.geert+renesas@glider.be>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 16 Oct 2026 16:15:01 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ceTiwjUX"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1d484b4a9so1787105e9.0
+        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 09:16:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792167381; x=1792772181; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7DHGCZatwX7FLNpiqx6l6zSz1iIXAE0Gsx9JKxioU1k=;
+        b=ceTiwjUXQ8TOjcRuS1jy7GEudy2wieSR+3fN8U5c4uDIeK/skbgVstU1CHOSoeoGh3
+         Y9Q72hY3UtxRukdGjUlFbJSPZqciwPFSfZxmUEXm5umscXZX0vNN+2Q/uz2aQ57WmzUv
+         OlKZvzdzytjNZhtOncAmZeoPeOtXmm/QhO+dpEryUmgefRQ8SSLrupe0uGFSDXZErQTd
+         CP1jaHNQ2iHz6CNSq5rLgb5akpDSYxvF+HPH/o8hStyq2j87ghOf0HTc3hF6JeDivAPV
+         NQK/AuD+Vqy8soXfzt6MFA9C54JVdVXD7U0RYDxM5loBnsAE+nEOFTYc7zq0Xg+ViyYx
+         XhAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792167381; x=1792772181;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7DHGCZatwX7FLNpiqx6l6zSz1iIXAE0Gsx9JKxioU1k=;
+        b=rs5ws0RdFkdjLXgQe+cHpON6cnHJoBjDJIAJldB2zZde0SQ0LrPtxZSTpQuCSZXwGj
+         NVgGbsRi1IvcSXPP8yEnDnuYXiKLZ8BEVwRb19l5CEsC2kWhW85JnJLUp+0NPlJ0AceN
+         d6XEm1p9zDpTa31kqaw+UN7Fj/PNudL2qzgdQau8aRhkGXEsgUYangig+48svOoksG0o
+         K2MBweUs2Ny3sfoJe9q9J9xhOy9O3pHgd+YV+5xtojU1pn4OikjXJWHPzqdtNSPexFP8
+         zpmtugTWpJiQ8MU/LZxNgCofz6I72PNlWQLO0/L0WP42fqRlXACDVnuNa9kCma+4CRRU
+         x54g==
+X-Forwarded-Encrypted: i=1; AKwUvByWRrFjTMDi5QHU8bfBdz1OCHJ+YX7XyvTZQwIPEhqm55fvM3tLoZWf7Crx08YlI9LlIukqhYSpkOJJ@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZ8f3D3rUgYusBGYeayCbcpUHEaoBLRR89LmFJYy0QO4gt9Pot
+	AnKKhazeiG/QDcR8CK4c2kDOsOTVPVC7blVIo/YHjmBuw+tB2f5FRx/g
+X-Gm-Gg: AYBFou3AHTmN4Y00M6R7QuSYVvx78EYyUDpfV5XtrAgtvjSDnBeXYG2uuGKxc/XpJId
+	e6pi+yOLp4VpW0u63e+gceNiARdEI7ggPrtIB64AsdDaRgMrd+P4aHoHqn+a/s/YGexCCNkLp0/
+	gxSaTuzkq1J9nF4S4RFEMMngjPVaAP4ol9l82fwdNjqkeiaxJxyhWWGmJnOjTxXQQWkFywsoZpk
+	IT5erwxxyRJ54+gXLXCrp7wSApGYLhULiMJDp9bv9hNYvcPMssN6ICP7z4eBFPVn4aGYyRo7EVl
+	ioYW1y1XchEA55RaiTWEiceABepNH+TBnYIjHZrXii5RlCGhTtsLNk1lhOSTfIyKjRJfvYbnuFE
+	aubUcDfZSdyEft0QMROZizpTb/t5ZkeB65n/jChEYBHd3YFDkUTGp1wj2idm+g1g0Ntk3/aVxkK
+	1jiCXDmrX3144zGUAy2oD3voQ2gxLVioj6c0zpgPaHYCDTqgnE8dgQsEoSaCM5zWE8+kjgoUj0r
+	EiPD0XUebjrp2k5i2NXvpI0l9GB37Y2CgdZs9OQlxh+ZmQJCJYw19QccQTWt/sB7XIRdQF7
+X-Received: by 2002:a05:600c:1c07:b0:4a1:8d46:6228 with SMTP id 5b1f17b1804b1-4a1d7613a0emr6883345e9.14.1792167380631;
+        Fri, 16 Oct 2026 09:16:20 -0700 (PDT)
+Received: from SP11X1e.cable.virginm.net (cpc99340-croy26-2-0-cust244.19-2.cable.virginm.net. [80.193.62.245])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1d3e2e602sm32622125e9.5.2026.10.16.09.16.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 09:16:20 -0700 (PDT)
+From: George Neacsu <geocausa@gmail.com>
+To: Bryan O'Donoghue <bod@kernel.org>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Sergey Lebedev <lsa.uz@pm.me>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	German Pablo Lindo <germanpapulindez@gmail.com>,
+	linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] media: i2c: ov13858: Add device tree support
+Date: Fri, 16 Oct 2026 17:16:18 +0100
+Message-ID: <20261016161618.209290-1-geocausa@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <19662dcc-4a25-4d18-a3bc-6b277bd676a6@kernel.org>
+References: <20261015-ov13858-x1e-v1-0-acdd918f4fb6@gmail.com> <20261015-ov13858-x1e-v1-2-acdd918f4fb6@gmail.com> <19662dcc-4a25-4d18-a3bc-6b277bd676a6@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] clk: double free of parent clock reference in error path
-- [High] pmdomain: renesas: mutation of SCMI genpd and hardcoded index 0 in=
- attach_dev
-- [Medium] of: memory leak of scmi_clk_np reference
-- [Medium] reset: memory leak of exclusive reset controls on error and unbi=
-nd
-- [Medium] pmdomain: renesas: out-of-bounds stack read in r8a78000_mdlc_att=
-ach_dev()
-- [Low] cleanup: mixed goto and scope-based cleanups in attach_dev
---
+Hi Bryan,
 
-commit a125fd15fada610e74f2b15cf0cafd68482a5100
-Author: Geert Uytterhoeven <geert+renesas@glider.be>
+On 16/10/2026 17:06, Bryan O'Donoghue wrote:
+> You describe regulators, clocks and resets in the yaml file which then
+> don't appear to be supported in this result code ?
+>
+> - regulator_bulk_;
+> - clock_bulk_
+> - reset gpio optional
+>
+> I don't think this driver would survive suspend/resume.
 
-pmdomain: renesas: r8a78000: Add SCMI remapping support
+The power handling comes from a prerequisite: this series applies on
+top of Sergey's "media: i2c: ov13858: add regulator, clock and reset
+GPIO handling" v3, as the cover letter says, but that is easy to miss
+from 2/2 alone:
+https://lore.kernel.org/all/20260831130312.26296-1-lsa.uz@pm.me/
 
-Extend the Module Controller driver for R-Car X5H with SCMI support, to
-remap hardware power domain, module, and reset IDs to abstractions
-offered by the SCMI firmware. This avoids putting SCMI IDs in DT and
-supports fallback to non-SCMI defaults when needed.
+With it, the driver gets the three supplies with
+devm_regulator_bulk_get(), enables and disables the clock it already
+takes with devm_v4l2_sensor_clk_get(), and takes an optional reset
+GPIO. Power on and power off are the runtime PM callbacks through
+DEFINE_RUNTIME_DEV_PM_OPS(), which also routes system sleep through
+pm_runtime_force_suspend() and pm_runtime_force_resume(). So the binding
+describes what the driver handles once both are applied. On its own,
+2/2 only adds the OF match and the endpoint checks.
 
-> --- a/drivers/pmdomain/renesas/r8a78000-mdlc.c
-> +++ b/drivers/pmdomain/renesas/r8a78000-mdlc.c
-[ ... ]
-> +static int r8a78000_mdlc_attach_dev(struct generic_pm_domain *domain,
-> +				    struct device *dev)
-> +{
-> +	struct device_node *np =3D dev->of_node;
-> +	struct r8a78000_mdlc_priv *priv;
-> +	struct clk *clk, *parent =3D NULL;
-> +	struct of_phandle_args pd_spec;
+I cannot claim it survives system suspend on the Snapdragon model,
+though. System suspend is still an open problem on the Surface Pro 11
+under Linux and has not been validated, so I cannot exercise that path
+here yet. What I can test is the
+runtime PM path, which is where the supplies, clock and reset are
+switched: the sensor powering off between sessions and back on for the
+next stream. I will run repeated open, stream, close cycles and report
+the result. Sergey, if suspend works on the Intel model, a suspend and
+resume test there would cover the rest.
 
-[Severity: Medium]
-Is pd_spec guaranteed to be fully initialized?
+To make the dependency visible, I can carry Sergey's patch as 1/3 of
+the next version, with his authorship. Sergey, would that be all right
+with you, or would you rather post v4 yourself?
 
-If the device tree node has a malformed #power-domain-cells < 2, could we
-end up with uninitialized stack memory in pd_spec.args[1] that is later
-used as a module ID?
-
-> +	const struct mod_map *map;
-> +	unsigned int id;
-> +	int ret;
-> +
-> +	ret =3D of_parse_phandle_with_args(np, "power-domains",
-> +					 "#power-domain-cells", 0, &pd_spec);
-
-[Severity: High]
-Is it intended to unconditionally parse index 0 here, even if the domain
-being attached is at a higher index?
-
-If a non-MDLC device uses multiple domains and the MDLC domain is not at
-index 0, could this look up the wrong provider or silently fail to attach
-the correct clocks?
-
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	scoped_guard(mutex, &r8a78000_mdlc_lock) {
-
-[Severity: Low]
-Does this mix of scope-based cleanup and goto violate the cleanup subsystem
-guidelines?
-
-This function uses scoped_guard() here, but also manually manages cleanup
-using goto-based error handling labels later in the function (e.g.,
-goto fail_put_parent). The guidelines suggest converting either all or none
-of the resources in a given routine to avoid LIFO ordering bugs.
-
-> +		hlist_for_each_entry(priv, &r8a78000_mdlc_list, link) {
-> +			if (priv->np =3D=3D pd_spec.np)
-> +				break;
-> +		}
-> +	}
-[ ... ]
-> +	if (parent)
-> +		ret =3D pm_clk_add_clk(dev, parent);
-> +	if (!ret)
-> +		ret =3D pm_clk_add_clk(dev, clk);
-> +	if (ret)
-> +		goto fail_destroy;
-> +
-> +	return 0;
-> +
-> +fail_destroy:
-> +	pm_clk_destroy(dev);
-> +fail_put_parent:
-> +	clk_put(parent);
-
-[Severity: High]
-Will this result in a double free of the parent clock?
-
-pm_clk_destroy() destroys all clocks attached to the device, which includes
-cleanly removing the successfully added parent clock (and internally calling
-clk_put() on it). Falling through to fail_put_parent seems to call
-clk_put(parent) a second time.
-
-> +fail_put_clk:
-> +	clk_put(clk);
-> +	return ret;
-> +}
-[ ... ]
-> +static const struct power_map *fill_power_map(struct r8a78000_mdlc_priv =
-*priv,
-> +					      const struct power_map_in *map_in,
-> +					      struct device_node *scmi_power_np)
-> +{
-[ ... ]
-> +		genpd =3D of_genpd_get_from_provider(&scmi_spec);
-> +		if (IS_ERR(genpd))
-> +			return dev_err_cast_probe(dev, genpd,
-> +					"Failed to get SCMI power domain %u\n",
-> +					map[i].fw_id);
-> +
-> +		dev_dbg(dev, "SCMI power domain %u is %s\n", map[i].fw_id,
-> +			genpd->name);
-> +
-> +		map[i].genpd =3D genpd;
-> +
-> +		/* Hook up clock domain support */
-> +		genpd->attach_dev =3D r8a78000_mdlc_attach_dev;
-> +		genpd->detach_dev =3D r8a78000_mdlc_detach_dev;
-> +		/* Setting flags this late has no impact, but does not hurt */
-> +		genpd->flags |=3D GENPD_FLAG_PM_CLK;
-> +		genpd->dev_ops.stop =3D pm_clk_suspend;
-> +		genpd->dev_ops.start =3D pm_clk_resume;
-
-[Severity: High]
-Is it safe to mutate the genpd struct of the SCMI provider directly?
-
-Modifying genpd->attach_dev and genpd->dev_ops here changes the behavior
-for all consumers of the shared SCMI domain. Could this cause
-cross-subsystem state corruption or spurious warnings when non-MDLC devices
-use this SCMI domain?
-
-> +	}
-> +
-> +	return map;
-> +}
-> +
-> +static const struct mod_map *fill_mod_map(struct r8a78000_mdlc_priv *pri=
-v,
-> +					  const struct mod_map_in *map_in,
-> +					  struct fwnode_handle *scmi_reset_fwnode)
-> +{
-[ ... ]
-> +		scmi_spec.args[0] =3D map[i].fw_id;
-> +
-> +		rstc =3D reset_control_get_from_provider_exclusive(&scmi_spec);
-> +		if (IS_ERR(rstc))
-> +			return dev_err_cast_probe(dev, rstc,
-> +					"Failed to get SCMI reset %u\n",
-> +					map[i].fw_id);
-> +
-> +		map[i].rstc =3D rstc;
-
-[Severity: Medium]
-Does this error path leak the previously acquired exclusive reset controls?
-
-If an allocation fails mid-loop, IS_ERR(rstc) evaluates to true and the
-function immediately returns an error pointer, leaving no mechanism to free
-map entries from earlier iterations.
-
-Furthermore, the driver does not appear to iterate through this map and
-release these controls during driver unbind or teardown.
-
-> +	}
-> +
-> +	return map;
->  }
-> =20
->  static void r8a78000_mdlc_unlink(void *data)
->  {
->  	struct r8a78000_mdlc_priv *priv =3D data;
-> =20
->  	scoped_guard(mutex, &r8a78000_mdlc_lock) {
->  		hlist_del(&priv->link);
->  	}
->  }
-
-[Severity: Medium]
-Does this teardown sequence leak the priv->scmi_clk_np reference?
-
-The reference was previously acquired using scmi_find_proto() with
-SCMI_PROTOCOL_CLOCK, which returns an incremented reference count, but
-of_node_put() does not appear to be called during unbind.
-
-[ ... ]
->  static int r8a78000_mdlc_probe(struct platform_device *pdev)
->  {
-> +	struct device_node *scmi_reset_np __free(device_node) =3D NULL;
-> +	struct device_node *scmi_power_np __free(device_node) =3D NULL;
-> +	struct device_node *scmi __free(device_node) =3D NULL;
-[ ... ]
-> +	scmi_clk_np =3D scmi_find_proto(scmi, SCMI_PROTOCOL_CLOCK);
-> +	if (!scmi_clk_np) {
-> +		dev_dbg(dev, "Cannot find SCMI clock management protocol\n");
-> +		goto fallback;
-> +	}
-> +
-> +	scmi_reset_np =3D scmi_find_proto(scmi, SCMI_PROTOCOL_RESET);
-> +	if (!scmi_reset_np) {
-> +		dev_dbg(dev, "Cannot find SCMI reset management protocol\n");
-> +		goto fallback;
-> +	}
-> +
-> +	priv->scmi_clk_np =3D scmi_clk_np;
-> +	info =3D mdlc_data->fw_info;
-> +
-> +fallback:
-
-[Severity: Medium]
-If the jump to the fallback label occurs after successfully assigning
-scmi_clk_np (e.g., when scmi_reset_np is missing), does this leak the
-scmi_clk_np reference?
-
-Since scmi_clk_np is not annotated with __free(device_node) like
-scmi_power_np and scmi_reset_np, it requires explicit cleanup on error
-paths.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1792163045.gi=
-t.geert+renesas@glider.be?part=3D7
+Thanks,
+George
