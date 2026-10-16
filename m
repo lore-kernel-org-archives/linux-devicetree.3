@@ -1,68 +1,41 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B5C948382F
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 10:30:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27D692C15BB;
+	Fri, 16 Oct 2026 10:31:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792146650; cv=none; b=tYp+1G/o/2Nf5QtDw6ELsI/OtLtJnO6ZW1ja/Jdx5qpkX85PmOVWqdm2db5TBauv+xj4IEAp7N+7Y1YQIXBEO+xd/s0oCvBsQ4M7vNwwcrMZnSdJF0DaKGGN3XHR3wYEPfFmOIIXAdf3hs2WlvnXj17hQnAhbNNdiLtk9A+GN3k=
+	t=1792146720; cv=none; b=TjB5sIBtcFP1DV4kWLiV6gOAuoJ6haUy+2UdCrzRfRwrCJwbvT6QhVCBYBxc43VPwvEGWXbSe7khaaUCfJqhZ/5UdA51qvZiM6P2H8BBU5NugAPbo3dCQuRj4OibXrDs8oULLdFdzM+F+ZrAG5daBiEsRWuMLjka4F7NhkWIobQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792146650; c=relaxed/simple;
-	bh=BU4GHjU/addW49Fi5owY8SmKZGnqIixi6vq82uwwdHk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=O531VPb3Gb1UDoVpeG2jLzMraAJJfPMQGdij1CZhzBdZmekmxu34A2ZsFA8R9a0HY9zT4QKvHVcb4uVyyIvIk8ET7EvQXPlHEdomtKxlQ+NTtyyqVDiIUQkc8ZMEh7zHRvfp+sldG5WQE1llUH+RL8XMMPgXF47uj6bShh4hnME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S7BFCT/E; arc=none smtp.client-ip=209.85.208.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792146720; c=relaxed/simple;
+	bh=zumrvlMufacpBL+t1/9JMnrcup7QYswF3CVBRJj8Blo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=iDYJi6MEbojDRN1NMCHVKZ1abYP/M7EEDBy1N/+45WAxrAe7KxARVpQwlwWodbjHhMNgPa/vpcAgKXig4LbWk/juzawh9EpAdQz3WlQ5ybQgHAZmLjeQcnPHvnt3CZekZCiKy3rdJ+UZY9ORwCzCtL0Uiwzuh1V8gHppfVvBLI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=mXcJfPoW; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S7BFCT/E"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b1a86c0316so281019a12.0
-        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 03:30:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792146647; x=1792751447; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5k/Nx254skplKaHZfy+hhUKCjKjMi13IPnfogdi4XtM=;
-        b=S7BFCT/EMivHs3GpxR8g2OGgep6n7aljN6TgWLs4Dkcw063iO/HCfXTfx+SbQJfv6h
-         VONgebflpBCSV+6JvBMvwSEQOt9PqWNOYQue1ZYUAah7pF6eK48nb+qTfTbIaLtK7wCQ
-         6KiuACMDYnGEvOs1eDqgoIwsb3yur7GCeau/zbSId599Jb5dejMKtr54BigTL0ND0T2P
-         ifwIheMZecu00LspxeNEy4HD0/yDnVRFa5rBnVIwDKBuQz9iubwDLzhutgMfN2KLUyxl
-         3Jn7GTptQtVEaNy8u5PnS+HeqcMyGK0ZIqvk8jVrncOAqoCPOuLqjsqTCdRm31e+ND6l
-         OMdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792146647; x=1792751447;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5k/Nx254skplKaHZfy+hhUKCjKjMi13IPnfogdi4XtM=;
-        b=EQTisfvvhHsRUQeFqI/FNogaAPbkM+70tpqAkKu7GBG0PAt2uyCLBRsvHPTQtSS30m
-         GnGdfVi01DVH03TG4O8kYg2HrhZiYNYym0fXDDub8z7yAiWMrFIjrOTK5245FxvQ2qfE
-         G/SSH80oDXmQWGONCmV4Q/2JmLBcpcf1dfwO3YlQn3NAeWXWoU7SVQhU+ZK54QVjw2Yl
-         EmlUd3bEG9YdS8DcUy/Hv7c6Vz8k2hu0aCJWc0BOJAUsAVDc71EP16M+wxE7GwkFhYIA
-         IeLn0kORErUQnyTX5wCuIpjCTutOCgqZ+KlNOZThnUMkIHCVIZAwPLuGAg1YGt/UylyU
-         PX3A==
-X-Forwarded-Encrypted: i=1; AKwUvBwNGN9J/M4u6ZK7o4IyJ6TyiMKsgbHFHwaLGp5vjO78ncXfQwfAIrUTBjMlC9TPuQHT/O7/aZUe/yac@vger.kernel.org
-X-Gm-Message-State: AFq9FYInZOo7lhSXO2/gikW+eQdynW1AOzUqrhbEmbhTvwt9e7xqM+26
-	EdYvgAdDq5rflgk5QQn8/zp0Z2bWz7nZkcihZVkQpHo5mC6cYDWszuRB
-X-Gm-Gg: AYBFou3qKSiN/FsvVXSNSCz5DIn6K2zQKsrnIvYNIUaZD/eFUC7asJvaI2Cqxc6oDNj
-	P9B4DqnCkxv9DZUGWldAvkDqtaM5Vz+2IzXjjxPC3HQfJC6GYdiyo32++EEDkjGchpdSL9tm4KZ
-	qkGiqHKfM8j5cZVaS5/arrNp+n5XuTBg53lkTu7TnD9jzZ4ji+sPpGzLbRrBObr5a1xEje/32J2
-	Mt0zug6Gph7mX/xqmkzVAUWgQegmlHDsSDBlFXW/W0V+MnK5MKLkBNFWKFzjyZHoGQCDKoYkhNO
-	t0yWNFYKGz99qXSlDykYmlkSN1VNUrsTtOL3a+vvd0ucOrzJAKyn0X2ZZMnUYkpZjlFxVnhwvjU
-	C3JcOG5HBZIaKImYSdkXNQo8dFeyVzfH509L5PxvWEOOtentOYS6MSrN8pvA7vXO2sI+Upg1PfB
-	rWbm3jYJRlHOPUz80DX2mlF+ws8n+tmXhGB/bU5lUz/BO5TGYShHpHYKIc/YN2ABDwW3wxGt585
-	QSUBrh/9Lg7
-X-Received: by 2002:a17:907:d1b:b0:c29:4a1f:76be with SMTP id a640c23a62f3a-c31aa013b5bmr2062189666b.20.1792146647503;
-        Fri, 16 Oct 2026 03:30:47 -0700 (PDT)
-Received: from localhost.localdomain ([193.107.16.241])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40912ce133sm60613866b.31.2026.10.16.03.30.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 03:30:47 -0700 (PDT)
-From: Dmitry Yashin <dmt.yashin@gmail.com>
-Date: Fri, 16 Oct 2026 15:29:37 +0500
-Subject: [PATCH v2 5/5] arm64: dts: rockchip: add FIT-PCIE-SATA overlay
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="mXcJfPoW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1792146717;
+	bh=zumrvlMufacpBL+t1/9JMnrcup7QYswF3CVBRJj8Blo=;
+	h=From:Subject:Date:To:Cc:From;
+	b=mXcJfPoWjuLxgUML8sEXUtkuI63lxTyOjoPC8fmsbkeNq6vYfOZv1fg0VLahpRtd2
+	 WJ6Yh6wdKAGbV2rsvR4oRywj4yKktTm2EjxV1Bm/vqriOhL9hEPnLecBYW83MDe78S
+	 u/Lcasl1ZY3IYI7Nl/NOfmZZt8/V5K8wMzvWERAqnh+bsvtP1M8AylfPvrm8QiIjSK
+	 Seicc/2mvDPPNtGEVqM5BGCGc9kEJl+XY7DtJzrjRnmFGJdBfok3p5prVBw5jGm3fe
+	 5Tr5rEg/KMiBw25hKTadqRUdH7ZRnFKvjMTYmTHOjtG4KBPwaGa6oeDBQkZpqXMuf8
+	 RIwSbAYgty1Ww==
+Received: from yukiji.home (unknown [100.64.0.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: laeyraud)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5E30A17E04E5;
+	Fri, 16 Oct 2026 12:31:56 +0200 (CEST)
+From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Subject: [PATCH net-next v3 0/9] net/stmmac: Add Mediatek MT8189 support
+Date: Fri, 16 Oct 2026 12:31:04 +0200
+Message-Id: <20261016-dwmac-mediatek-mt8189-v3-0-25daf2bbcf35@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,85 +44,122 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-ok3568-c-v2-5-068d68430e6d@gmail.com>
-References: <20261016-ok3568-c-v2-0-068d68430e6d@gmail.com>
-In-Reply-To: <20261016-ok3568-c-v2-0-068d68430e6d@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WOzU7DMBCEXyXymUX+Sx33xHsgDht7Qy3qGGwTi
+ qq8O5aphITU42hmvpkrK5QDFXYcrizTFkpIaxPqYWDuhOsrQfBNM8nlgRuuwH9FdBDJB6z0BrF
+ OYrJgPS6k7KTtKFjrvmdawqVzn9lKFVa6VPby62T6+GxD9WbPWAhcijHU43CYFRlljJ7E2POnU
+ GrK3/3gJnrh9sXc+bIJ4CDMovRIiA7Vk0vnM84p42Ob6dRN/pGs1PdIspG04rM32o+02P+kfd9
+ /AKHcoj9CAQAA
+X-Change-ID: 20260703-dwmac-mediatek-mt8189-9dafe3984951
 To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
- Johannes Berg <johannes@sipsolutions.net>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Heiko Stuebner <heiko@sntech.de>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, Dmitry Yashin <dmt.yashin@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792146625; l=2276;
- i=dmt.yashin@gmail.com; s=20260930; h=from:subject:message-id;
- bh=BU4GHjU/addW49Fi5owY8SmKZGnqIixi6vq82uwwdHk=;
- b=L6u76hvhoFC1VxSmQLMBau5CcR67ge6OIBk/TdlLnbx3Gjxy2lnT5flh1/HFTDlutOvBF0orb
- uvcNsyj5RxQDcjFvDJgMbKc0qpdj8XXPdVnnu+FBW8dVEo/93Pokamp
-X-Developer-Key: i=dmt.yashin@gmail.com; a=ed25519;
- pk=vBe9jaaOEH5bQEvfzb1tWOlz3AMIcXCu/GL/CdlwJco=
+ Richard Cochran <richardcochran@gmail.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Biao Huang <biao.huang@mediatek.com>, 
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Eric Dumazet <edumazet@kernel.org>, Eric Dumazet <edumazet@kernel.org>
+Cc: kernel@collabora.com, netdev@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ linux-stm32@st-md-mailman.stormreply.com, 
+ Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792146716; l=4158;
+ i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
+ bh=zumrvlMufacpBL+t1/9JMnrcup7QYswF3CVBRJj8Blo=;
+ b=ZQhCbUkZrEMjGd5BTitKBa9L/WRb+azHxAgOBy1ypPWUVvAv8RLzQ+ff8CzGXHjgK6iYoonLZ
+ 7a+Ng6mQJNbCiCBInbB0xos2dly3W5500CM/PknLi9EYtAJmpj+hR17
+X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
+ pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
 
-FIT-PCIE-SATA V1.0 is an adapter that included with OK3568-C board
-and allows to connect SATA drives to the device.
+This series adds the Ethernet support for Mediatek MT8189 SoC and its
+variants (MT8371, MT8391). These SoC integrate a Gigabit Ethernet MAC
+with RGMII/RMII/MII interface, with a similar design than previous SoCs
+such MT8188 or MT8195.
 
-Add overlay to use combphy2 in SATA mode.
+This series is based on net-next tree (sha1: 6b3e73774815).
+It has been tested on Mediatek Genio 520-EVK (MT8371) and 720-EVK
+(MT8391) boards, which both integrate an Airoha AN8801R Ethernet
+PHY, with hardware enablement series ([1]).
+It has been also tested on Mediatek Genio 510-EVK (MT8370, variant of
+MT8188) and 1200-EVK (MT8395, variant of MT8195).
 
-Signed-off-by: Dmitry Yashin <dmt.yashin@gmail.com>
+[1]: https://lore.kernel.org/linux-mediatek/20260924-add-mediatek-genio-520-720-evk-v3-0-2ec5c80677d4@collabora.com/
+
 ---
- arch/arm64/boot/dts/rockchip/Makefile                    |  5 +++++
- .../boot/dts/rockchip/rk3568-ok3568-c-fit-pcie-sata.dtso | 16 ++++++++++++++++
- 2 files changed, 21 insertions(+)
+Changes in v3:
+- Rebased on net-next (sha1: 6b3e73774815)
+- Added Reviewed-By trailers in patch 3 and 5
+- Added patch 1 to fix unit in rx/tx delay property description
+  (Sashiko)
+- Patch 2:
+  - Reworded patch description to add clock list details
+  - Removed the specific MT8189 clocks list so the axi and apb clocks
+    are also described for this compatible too and reworked the clock
+    list and number check
+  - Added mediatek,rmii-clk-from-mac as not allowed for MT8189 (Sashiko)
+- Added patch 4 to simplify TX/RX delay handling in mt2712_set_delay,
+  as suggested by M. Chevallier and modified following patches
+  accordingly
+- Fixed in patch 7 tx_rgmii_delay_stage_div null case and register value
+  in mt8195_fix_mac_speed (Sashiko)
+- Added in patch 9 the axi and apb clocks to MT8189 clock lists 
+- Link to v2: https://lore.kernel.org/r/20260924-dwmac-mediatek-mt8189-v2-0-430bd74d5ef9@collabora.com
 
-diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
-index 48c83f79f83b..45e94a44107e 100644
---- a/arch/arm64/boot/dts/rockchip/Makefile
-+++ b/arch/arm64/boot/dts/rockchip/Makefile
-@@ -155,6 +155,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-mecsbc.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-nanopi-r5c.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-nanopi-r5s.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-odroid-m1.dtb
-+dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-ok3568-c-fit-pcie-sata.dtbo
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-ok3568-c.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-photonicat.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-qnap-ts233.dtb
-@@ -275,6 +276,10 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3368-lion-haikou-haikou-video-demo.dtb
- rk3368-lion-haikou-haikou-video-demo-dtbs := rk3368-lion-haikou.dtb \
- 	rk3368-lion-haikou-video-demo.dtbo
- 
-+dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-ok3568-c-fit-pcie-sata.dtb
-+rk3568-ok3568-c-fit-pcie-sata-dtbs := rk3568-ok3568-c.dtb \
-+	rk3568-ok3568-c-fit-pcie-sata.dtbo
-+
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3399-puma-haikou-haikou-video-demo.dtb
- rk3399-puma-haikou-haikou-video-demo-dtbs := rk3399-puma-haikou.dtb \
- 	rk3399-puma-haikou-video-demo.dtbo
-diff --git a/arch/arm64/boot/dts/rockchip/rk3568-ok3568-c-fit-pcie-sata.dtso b/arch/arm64/boot/dts/rockchip/rk3568-ok3568-c-fit-pcie-sata.dtso
-new file mode 100644
-index 000000000000..474488ea994b
---- /dev/null
-+++ b/arch/arm64/boot/dts/rockchip/rk3568-ok3568-c-fit-pcie-sata.dtso
-@@ -0,0 +1,16 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * FIT-PCIE-SATA V1.0 is an adapter that included with OK3568-C
-+ * board and allows to connect SATA drives to the device.
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+&pcie2x1 {
-+	status = "disabled";
-+};
-+
-+&sata2 {
-+	status = "okay";
-+};
+Changes in v2:
+- Rebased on net-next (sha1: 528de6832b21)
+- Dropped "net: stmmac: mediatek: rename MT2712 and MT8195 variant
+  methods" and "net: stmmac: mediatek: add support for TX deallocation
+   adjustment feature" patches, present in v1 (M. Chevallier)
+- Patch 1:
+  - Removed rmii_internal clock from required clock list (A. Lunn)
+  - Added MT8189 stage delay divider values in "mediatek,rx-delay-ps" and
+    "mediatek,rx-delay-ps" property description (Sashiko)
+  - Updated commit description
+- Added patch 2 to simplify TX/RX delay handling in mt8195_set_delay
+- Added patch 3 to add RX/TX delay stage divider in platform data
+- Patch 4:
+  - Replace MT8195_PERI_ETH_CTRL_BASE by MT8195_PERI_ETH_CTRL_OFFSET to
+    harmonize the variable and definition naming (A. Lunn)
+  - Added Reviewed-By tag
+- Added patch 5 to add the TX Clock phase shift use in
+  RGMII and in 1G speed
+- Patch 6:
+  - Reworded flag and define names to explicit a bit more what the
+    feature does
+  - Updated commit description
+- Patch 7:
+  - Added the new definitions and needed fields in platform data
+  - Updated commit description to add the info about MT8189 RX/TX delay
+    stage divider and maximum values, and remove reference about 
+    stage fine feature 
+- Link to v1: https://lore.kernel.org/r/20260707-dwmac-mediatek-mt8189-v1-0-17f345eaaca3@collabora.com
 
+---
+Louis-Alexis Eyraud (9):
+      dt-bindings: net: mediatek-dwmac: fix unit in rx/tx delay property description
+      dt-bindings: net: mediatek-dwmac: add support for MT8189 SoC
+      net: stmmac: mediatek: simplify TX/RX delay handling in mt8195_set_delay
+      net: stmmac: mediatek: simplify TX/RX delay handling in mt2712_set_delay
+      net: stmmac: mediatek: add RX/TX delay stage divider in platform data
+      net: stmmac: mediatek: add PERI_ETH_CTRLx register offset in platform data
+      net: stmmac: mediatek: use TX clock phase shift in RGMII mode with 1Gbps speed
+      net: stmmac: mediatek: add support for TX clock output enable feature
+      net: stmmac: mediatek: add support for MT8189 SoC
+
+ .../devicetree/bindings/net/mediatek-dwmac.yaml    |  58 +++-
+ .../net/ethernet/stmicro/stmmac/dwmac-mediatek.c   | 363 ++++++++++++++-------
+ 2 files changed, 287 insertions(+), 134 deletions(-)
+---
+base-commit: 6b3e73774815910a39d8ca75b9ad7df963f61d50
+change-id: 20260703-dwmac-mediatek-mt8189-9dafe3984951
+
+Best regards,
 -- 
-2.56.0
+Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 
