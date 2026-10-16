@@ -1,159 +1,170 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D255519AA
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 17:07:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20ED255C322;
+	Fri, 16 Oct 2026 17:16:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792170449; cv=none; b=Ri0D3P+ZwxAeVTuwSm/3tGpAc10hYrnZ2r0539K4Ev6zpyfwtpxGrFiitF5BtDhhg4xd9jmV2cNIqGFCehwOqdx5cuFxCfvGHeSm6yI9pkwnJwRPga0jjJhOQqMhPAqI40r8nWzHn/4lr4rH7rGCfrfKDSAL6EnwEcjtiY7jn+0=
+	t=1792171014; cv=none; b=r1GPjlICQ8MrAE2m/dEpc+ob12LMry2EADQkjVPo8pTNhI297B8cwBIze2hew7Zo5kBArZf378C/x1ZOgY4h/9IxHIj9Mh9/+viS6hIUCvmvpC+cnhp4idsFjztxC611i0G8Dv5cT6PaNhgZCjQ9GtFFNBuTW4VFyTYBvfPF3j8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792170449; c=relaxed/simple;
-	bh=0KwjSoWukgYqAq90gzgdo8eC+3oMOgU4b4WGUOqDh40=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=jc3FuX8FF+Z1bjhWRghg1WrW0/fyQnO8/k2jc2qhMlVTtaSnRPUAjyPgs8chfVT9QrA6GcD5F1tkBL5jUDKRmLYxLaN9BxupJ5NvyCoCYBdDjSLdLdT1AI7Io/IEuFNVd33l/yc0dNfq7PPW28FoLWpakLYa2XVGw65G28LA/oQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NWvzoSh1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jVwyF8Hu; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792171014; c=relaxed/simple;
+	bh=N8NEwzojQLQla3jklAl3N85hxfcgpsBNXfZR/hJZlhM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=RbUZqB4BBmFYHe6upqL2oIjcNnzdnMuD+8oCQ/EVU8fQWQUSwlh6m8S20NUx3rqemAXGfH8hu77Ye3FBL9Bu7buXrP2wHKuoDpphmsXeTGOaASOen0U2O0zt1k73Z2JZ3lsg2hZ2m5Pi3aOJLhQl2muLac6qxsPtdsNsA7mrg6M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WZNy3kvd; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NWvzoSh1";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jVwyF8Hu"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GE5i5c996806
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 17:07:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=ImWkS2heDc2
-	Mx/x5aRQGs9bDAjmLZqH7xoOSJfYrzZo=; b=NWvzoSh1p62XSEgmMB/HEKXEtO6
-	sAe/MuUxPyfdVmDwHf2dzxakqobVi0zjc7rvkIqR3Jn7LyFEwCrLARGRqGvyj5uN
-	mSpdGzrpf69drK4dTgN3eFcFQ6WtrHqBjjLbt2Gd4CCDAEti/4iQxc+cGePfqILP
-	DC4No4Zj85+aCgJo4n9ipVj6Ri4bThQRCPJPZk6KcNoggudGkSr3UuVN8Z9YVyAb
-	tXQ+DhDPbdG6JFY9bGhVjOE/ExIxI8CgOkrdrHbv/2D/0P7kWcAfxNm5LQ8TaqHe
-	OPXOmZ5G+o+dkj4dpyTWEFeexsMSPcokf9O9RpT2lF44rhKt5B8P7Ff5kkQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hbcjtax2y-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 17:07:25 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93cb98809caso23098285a.1
-        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 10:07:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792170444; x=1792775244; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ImWkS2heDc2Mx/x5aRQGs9bDAjmLZqH7xoOSJfYrzZo=;
-        b=jVwyF8HuYFFwSpvDUQ9MHOqWYqZzt7CI2rlFuiOPpuThK51SmNu2AToEW9qoAdjBOY
-         q+PN4SMYspTxia7MgtcKjjuHAujgsEeoK5VAaDgU/UHYhShLoT4FSLxeniSvr/t30PUb
-         PiXQjVvtwwh4pzqOV3sWcJEXpu/ak8Od+8DXncy/oOW93zALDYQ1YztIC+jD9fALHczB
-         OCsodbavBB41rDkTRlgXW45OraY/+FJnmm23xSD0dyZSE2Wyh2MKwIVhXffUMNNxcNW4
-         2YW3gyu5NEUsdqVVgnYxNzdrePqAFRqwwTvPXmNvZo1qK/6rWF+QTKx6pM4yXdyWw7gG
-         AqUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792170444; x=1792775244;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ImWkS2heDc2Mx/x5aRQGs9bDAjmLZqH7xoOSJfYrzZo=;
-        b=fUP3G+RQE/VKRs0go7oESJLdNo5Bd2W3NzWhqdmJVS4E2OjNQyjSNUUZ0j7LnGtOHO
-         8OUl6EF7t1blo8ZNrS2xzfqJ04XRo5rwYIyWYfy4MdlhpGXE6Z4jVUQEHVrDXAX0TLwT
-         8vj66QYHwoqnqo6BY8pAy2c09UMQwCKPomdu01mXIwOTRgBTcQbcET6Dm5Zyb3pK1c2Q
-         U2p1pUScUoztDdfdIfqUZ4gpigwWB87qD9r5ySyXpSHtxZ/0I/iNVbTfrth/OlhJ6zWt
-         rCofba0tIgnU0ZCqqknvco+BMELJtZDQ9D0YE97d/ERGSGrOj7hbZ2cGGzMj3QTcPrrR
-         yM8w==
-X-Forwarded-Encrypted: i=1; AKwUvBy4bx8Hiqey+vXFdWdQI7X96GJxSzTo2h+AS0oTrKiaINHytrt139kWpgDz8xjbu2bCrnuR+u6gyb2t@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ4IBDl4EgRHc8EnYtjwO1ANGJGClY3F111e2PDAKVGmbySCFuS
-	ryzQLzVDyPE87lvKVhZ4HbLc8vUZCIRPK+plxEyrt/WQLPpxggCGViqHaiXkO5wj/bhqTQEDKRp
-	rsEgpM5ZnaeSgvzIQvtaobcOdl9J8h9UXeJiZhF51HkZCVFiDbX+WB/1r7f8Kf+Ey
-X-Gm-Gg: AYBFou3NLQBetCd7PP5sZ1PFJaj840WVdtSHsH+0eucWIufP+v8B1EJRZbJRIreOF6z
-	mbCW7hR4scHAIRgxeRSQxCZxLHpL3KMfGjvIFmA3BkxUMSfJeHaDdwdb6sykFJh9xd+e/f/5NVd
-	EDVACoV6D+G4ddCwypUqEWoPe7HWx61S+c6WR2jRRpdjcFxCWMMxgF82w+eGVvQmrca7KeqWo9f
-	r+/ztBqI1QdX79heN8V15Nm+ViYdyegWAJ7NLGE9luN7VUcwMBN5VpwQ0dU1eFAzB7/b8O9T4xq
-	W71BVtmlro/UMfX+zOtLUMdgEDKYB9BqDONpALm6E+v7H08GGjTxTuaio6aYr/qXXs0zY2MDZNk
-	NGVYX00zsbEBtPDBUv6re6ZEU
-X-Received: by 2002:a05:620a:8811:b0:93e:6ee0:c074 with SMTP id af79cd13be357-93f29ce767bmr84847585a.38.1792170444199;
-        Fri, 16 Oct 2026 10:07:24 -0700 (PDT)
-X-Received: by 2002:a05:620a:8811:b0:93e:6ee0:c074 with SMTP id af79cd13be357-93f29ce767bmr84841885a.38.1792170443651;
-        Fri, 16 Oct 2026 10:07:23 -0700 (PDT)
-Received: from lin-0772.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f5b2dsm6630571f8f.31.2026.10.16.10.07.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 10:07:20 -0700 (PDT)
-From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Georgi Djakov <djakov@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Jonathan Marek <jonathan@marek.ca>, Bryan O'Donoghue <bod@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, atanas.filipov@oss.qualcomm.com
-Subject: [PATCH v3 3/3] arm64: dts: qcom: sm8250: add camcc interconnect cells
-Date: Fri, 16 Oct 2026 20:07:01 +0300
-Message-Id: <20261016170701.1504338-4-atanas.filipov@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261016170701.1504338-1-atanas.filipov@oss.qualcomm.com>
-References: <20261016170701.1504338-1-atanas.filipov@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WZNy3kvd"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E0593C2BCFB;
+	Fri, 16 Oct 2026 17:16:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792171013;
+	bh=N8NEwzojQLQla3jklAl3N85hxfcgpsBNXfZR/hJZlhM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=WZNy3kvdk9rjaubTdFjrB3M+jaV03tomFfvC/t3Jb/uVwh6aoKwTeGskC/Mvs8o4H
+	 LPRCX+o5EqaxKq+X0RwTITSB/iJG2683GpGWFyWakLn41LEdVjswHJeW6xw4xJAJXQ
+	 4FVyysetUBhbuTGb2DJLyX7eH9M+m1/JF6iAgyVs6RPEae8NKlkmulb9VUurwvi5OY
+	 LaAg3QAntgbmwa0Q2/gCsScsmb2P9ZJC//OXmSrJDQ6efcVvF8+SXjuf3Wbz7xc3p1
+	 Qf2NCvxBd4hAOGIGtMcN8mxqFkNS9J8BhAms9rgA1ovW20tUBTnTkeb1SGK4G5Mnmt
+	 KAcsfNOjKzYrA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BF8D9CCA462;
+	Fri, 16 Oct 2026 17:16:53 +0000 (UTC)
+From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
+Date: Fri, 16 Oct 2026 19:16:08 +0200
+Subject: [PATCH v7 2/4] arm64: dts: amlogic: t7: Add thermal sensor nodes
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA2OCBTYWx0ZWRfXzWlj7Z4cLIQb
- w83PZsDlk1CGeWg5ShcKrlt6s/Fn39EumeOIC4zXdlj33ncjT/aqQkXVpgSDihkSl0hCrU2HkuY
- EN1QOKe1WZCqAvC4Rj74eiB9bxMepAWr2l8k3jCus+2AUHornDWnxHFKZG/EtlqS2T0RuKjJiCp
- ZoDwft57Hq2lQHkcKLACRLGE92LPqxgBER3IaNBMBK+7VvRIMViRN6el8UYXRcpokqBA9OQp0h0
- S5xA8Gmhd8KPm4wiiUlHlfZW4qpjbzBVPeR+2plHX3Y7zCL3du55UUpkqkAj9SSKkNO/4SClhDZ
- bhT4VPV6Q2Z+pZOWuI/ylJY495zLYsgYPVOfr2ufzj932JzUMREbjlm77ruHLCaaFI1czzwj3hG
- s7IL4pJP4TNqz/DW8/tMipg5CmUh4vYhXFLfH1GayqZvwZbswCA0mYzRp8K5lAA7ZVcyfJks9ZU
- he1dMGKDq8UNivyzpPg==
-X-Proofpoint-ORIG-GUID: 2tjuxTIikSpIkLMfN3xz9ohcTVWz1ESR
-X-Proofpoint-GUID: 2tjuxTIikSpIkLMfN3xz9ohcTVWz1ESR
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA2OCBTYWx0ZWRfX/DSljZv4tfBb
- hZvkZ439HSAPQQBn/4aTbgbUJNdcDAqWq1OGuhA3oaLTCwxAL0ki0OKgFNOqBK13G+fcvIxfQM3
- yRlfDaKO3h1tRCZT+s4HFxHQgYw6Qow=
-X-Authority-Analysis: v=2.4 cv=VpS2kO2n c=1 sm=1 tr=0 ts=6ad259cd cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=UCxR3cWr3m5Lf22CgesA:9 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-16_02,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 adultscore=0 phishscore=0 clxscore=1015
- malwarescore=0 lowpriorityscore=0 priorityscore=1501 impostorscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610160068
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-add-thermal-t7-vim4-v7-2-6eede5450fd4@aliel.fr>
+References: <20261016-add-thermal-t7-vim4-v7-0-6eede5450fd4@aliel.fr>
+In-Reply-To: <20261016-add-thermal-t7-vim4-v7-0-6eede5450fd4@aliel.fr>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ronald Claveau <linux-kernel-dev@aliel.fr>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3560;
+ i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
+ bh=rtWuGUHxUnyMFKCauIYV7dFBkIsewyYeUUnSeGS6n8c=;
+ b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ9al6L9xesu5MirzSo6qR09S27CcNdhW2ED5m/SB+z+3u
+ R/ZOcOvo5SFQYyLQVZMkaV/ruWJd5ePnvm6Rz0FZg4rE8gQBi5OAZhIOwfDf8+XkrzCQQn/m49f
+ XtS+bvnupQ3r5TY9+p31ZrLP06ZbyVyMDOu3+ThrVf197at6tUjRYsE5/4YTO1deTLGViJrbzyC
+ wlxsA
+X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
+ fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
+X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
+ auth_id=744
+X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Reply-To: linux-kernel-dev@aliel.fr
 
-Add #interconnect-cells to the camera clock controller so camera
-consumers can request camera NoC AXI bandwidth through the
-interconnect framework.
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+Add six temperature sensor nodes using the amlogic,t7-thermal compatible:
+a73, a53, gpu, nna, vpu, and hevc. Each sensor retrieves its calibration
+data from the secure monitor via the amlogic,secure-monitor phandle with
+the corresponding tsensor_id argument.
+
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
 ---
- arch/arm64/boot/dts/qcom/sm8250.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi | 66 +++++++++++++++++++++++++++++
+ 1 file changed, 66 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
-index f975c2183269a..e923c74dc1435 100644
---- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
-@@ -4675,6 +4675,7 @@ camcc: clock-controller@ad00000 {
- 			#clock-cells = <1>;
- 			#reset-cells = <1>;
- 			#power-domain-cells = <1>;
-+			#interconnect-cells = <1>;
+diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+index 8aa85aab30469..c81632d3984e8 100644
+--- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
++++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+@@ -696,6 +696,26 @@ sec_ao: ao-secure@10220 {
+ 				amlogic,has-chip-id;
+ 			};
+ 
++			a73_tsensor: temperature-sensor@20000 {
++				compatible = "amlogic,t7-thermal";
++				reg = <0x0 0x20000 0x0 0x50>;
++				interrupts = <GIC_SPI 31 IRQ_TYPE_LEVEL_HIGH>;
++				clocks = <&clkc_periphs CLKID_SYS_TS_A73>, <&clkc_periphs CLKID_TS>;
++				clock-names = "bus", "core";
++				#thermal-sensor-cells = <0>;
++				amlogic,secure-monitor = <&sm 1>;
++			};
++
++			a53_tsensor: temperature-sensor@22000 {
++				compatible = "amlogic,t7-thermal";
++				reg = <0x0 0x22000 0x0 0x50>;
++				interrupts = <GIC_SPI 30 IRQ_TYPE_LEVEL_HIGH>;
++				clocks = <&clkc_periphs CLKID_SYS_TS_A53>, <&clkc_periphs CLKID_TS>;
++				clock-names = "bus", "core";
++				#thermal-sensor-cells = <0>;
++				amlogic,secure-monitor = <&sm 2>;
++			};
++
+ 			pwm_ao_ef: pwm@30000 {
+ 				compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
+ 				reg = <0x0 0x30000 0x0 0x24>;
+@@ -818,6 +838,52 @@ sd_emmc_c: mmc@8c000 {
+ 				assigned-clock-parents = <&xtal>;
+ 				status = "disabled";
+ 			};
++
++			gpu_tsensor: temperature-sensor@94000 {
++				compatible = "amlogic,t7-thermal";
++				reg = <0x0 0x94000 0x0 0x50>;
++				interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
++				clocks = <&clkc_periphs CLKID_SYS_TS_GPU>, <&clkc_periphs CLKID_TS>;
++				clock-names = "bus", "core";
++				power-domains = <&pwrc PWRC_T7_MALI_TOP_ID>;
++				#thermal-sensor-cells = <0>;
++				amlogic,secure-monitor = <&sm 3>;
++			};
++
++			nna_tsensor: temperature-sensor@96000 {
++				compatible = "amlogic,t7-thermal";
++				reg = <0x0 0x96000 0x0 0x50>;
++				interrupts = <GIC_SPI 84 IRQ_TYPE_LEVEL_HIGH>;
++				clocks = <&clkc_periphs CLKID_SYS_TS_NNA>, <&clkc_periphs CLKID_TS>;
++				clock-names = "bus", "core";
++				power-domains = <&pwrc PWRC_T7_NNA_TOP_ID>;
++				#thermal-sensor-cells = <0>;
++				amlogic,secure-monitor = <&sm 4>;
++			};
++
++			vpu_tsensor: temperature-sensor@98000 {
++				compatible = "amlogic,t7-thermal";
++				reg = <0x0 0x98000 0x0 0x50>;
++				interrupts = <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>;
++				clocks = <&clkc_periphs CLKID_SYS_TS_VPU>, <&clkc_periphs CLKID_TS>;
++				clock-names = "bus", "core";
++				power-domains = <&pwrc PWRC_T7_VPU_HDMI_ID>;
++				#thermal-sensor-cells = <0>;
++				amlogic,secure-monitor = <&sm 6>;
++			};
++
++			hevc_tsensor: temperature-sensor@9a000 {
++				compatible = "amlogic,t7-thermal";
++				reg = <0x0 0x9a000 0x0 0x50>;
++				interrupts = <GIC_SPI 86 IRQ_TYPE_LEVEL_HIGH>;
++				clocks =
++					<&clkc_periphs CLKID_SYS_TS_HEVC>,
++					<&clkc_periphs CLKID_TS>;
++				clock-names = "bus", "core";
++				power-domains = <&pwrc PWRC_T7_DOS_HEVC_ID>;
++				#thermal-sensor-cells = <0>;
++				amlogic,secure-monitor = <&sm 5>;
++			};
  		};
  
- 		mdss: display-subsystem@ae00000 {
+ 	};
+
 -- 
-2.34.1
+2.49.0
+
 
