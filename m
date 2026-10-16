@@ -1,65 +1,65 @@
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D978247884F
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 11:20:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A029146D2DD
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 11:20:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792149655; cv=none; b=at7pvBLeTIdCj3MmB9soN+udS+N6fMTyNJ91rD2AYqRIgpkq+31+RL5cZ/2AdZCCpJ/Ksz5JeUMvsqW/pAfAlCsCJMhekWnxLDK0iQfA6s7J8k+UKaPD/MpZJ435uFO0e0PAHTMrHrp4JnUdVsVgLUQYXa0CizgmbOVrDBu6jKo=
+	t=1792149658; cv=none; b=EDF6hyC8xA3Vq6BX/ak2ULlV3+bSQro5t5iCQ+vZmTrEDJLcpiIU84PaKhxDLhCcDhtTIYScOo5Byzn/oX0wYmTQSKAsNU1EzzJAaLn4bPvqgdc0jZ0VqHIUHnhKdzVr6I4Dfnm4fHVgJTAfELknTcZyZ3hA4DldT59rcx5H+04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792149655; c=relaxed/simple;
-	bh=NSjps/+qrZ2pxo/mOyPI/slP/UQ7vd/FSOG9Do4T2aI=;
+	s=arc-20240116; t=1792149658; c=relaxed/simple;
+	bh=K3HFfRXhY985XKq73bUHsf8IzVEDhqNJgoVBj3Mi1vk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Mm6sNA/+26zF9wlmOXt0mgDWBnr9lJ6Hl6dddy1VxWJpK4LOtMrsinZOKcorfBGGVUP0JVGJOPWwSNTrG5S3qH6Mxj8anwDTVwVFMEF385zbAmIOZYqm+GFoTAGUt+vHyZRg4F7QycxRrsTChMERwMzaiAFV5VJWmhUm4cCBW4c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=I6mrVv97; arc=none smtp.client-ip=209.85.208.54
+	 MIME-Version; b=HBPNSEIxTlG5+9HAE5NiJ7nGnE/6Tzz9R9pBMXDrRK4R2hdblDZCVEYzV95qHJ5Hf37LcsrCiELayrn+MTC8WRSaYzWUbACFsXT/dbcWirAU8lH4eIi3YBdfTG3jxiak5/wqQrfzTkw4lkxAwT1idAFiYKxBYrXkxxcHer/sOwM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=FC+OWePP; arc=none smtp.client-ip=209.85.218.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="I6mrVv97"
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6a0a4aa99bdso8107236a12.1
-        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 04:20:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="FC+OWePP"
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c247f6687dcso63674666b.2
+        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 04:20:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sartura.hr; s=sartura; t=1792149650; x=1792754450; darn=vger.kernel.org;
+        d=sartura.hr; s=sartura; t=1792149648; x=1792754448; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+cdNkb22thSf49fSjLJsH03nlYp9anRuLr9xPLztstQ=;
-        b=I6mrVv97wIFdMEOngcPlPEqW/crO/4iThaWsz/ZfKqlUrywVda22JI9ddgpLcZ4gYc
-         sIP5ZZayq0tPqyloVAYWmlsG2TzCEGA18JRfpFQcNSZ4Y0ZwXKAw+9qTseGJ+CPH+bbF
-         qTNOiP4RkNxUJ+3Ih1Jxz823+qYRkCTyXtzW+ziELTz+MPJw4Dg9pB4Sk16OmldLL+1e
-         mCC8C7HGSKD/dFZIYbbFWMr0PspfOzivsgeV0bUzkDC5NggV7ifA9PDduP6Jq5ixnMdL
-         y8CtC3W/NRtavyjLf8hs58Icp/7/KJ9meRW2VpQPnIm6hq3rGSxbL2Lme+q37VKrUaBq
-         J/aA==
+        bh=RP6t59lytBlT9EpuEl094ip5/Z9ytw4aKa//LaCI6yc=;
+        b=FC+OWePPP9UlnSw6nwfJIstHxvVUaOAgxrOH+GxV07P4pOfcNWd/FpojR6NP5Djgew
+         fnevroSh+3r4d8lwpxOPSqbe3gHflKi04HGBukfqpm1HvPh22cAJxc4gNMfpvHpWfMXU
+         jbQM4zUEGDnQnsx/QX62K+BeMRwfcAQk0JMwnx6ygV80eZndNIcy8b/omcQvAI5wBGpL
+         SaD1TeHN/41H5cW18B3+6+H9LvsW59lPhMdlVAQKWiWLXZAyTwoCEbhm883f8K/0U3HJ
+         dX21USz6OzZX/U/AqEYmIzRFPTVkZcnfadis1jAhVbXKGFxYm39iVJ/UKl/h7mVpB5Qi
+         tH1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792149650; x=1792754450;
+        d=1e100.net; s=20260707; t=1792149648; x=1792754448;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+cdNkb22thSf49fSjLJsH03nlYp9anRuLr9xPLztstQ=;
-        b=2N2cio6tZmp/uagOXGajD4XeuXir1Eiwghq6N2nwJcmTssPq6cM5lH7FpvUmd19GCQ
-         LSXGU9eSJDp8CuyG2lN4ybwEqUOGp8yEz6Y/XyYBUuVC5GWD8YlsZ/Jq3gnON5UuOYx2
-         Dd7b9yCOE4zuefpIA2zLvkZ3RYYXN00B0XyjDdnltTKopJQHP+rEpMn9HMSO4YNMJewU
-         vtVTU/c3CUodU1BVziGU2CNl1JNYFvp7E7SvgrA89kQdgffcYbvG0c3xL8J/jFLf2+zB
-         57RYJFLdw9PWoY1L41DE+8lgELaCZ2RrqYl/ABa/ocGcbw0i9KLHSVOBZh0gPjRxdB0W
-         afrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxmvGbTg7owbcQaG7ixPI/EUNV2yHopUewxNAV8BdonRXacdtDLykK+dKaff58ae3XEredh/jbyRywH@vger.kernel.org
-X-Gm-Message-State: AFq9FYLm/hf3pE6ROgZ5HGcGHaXUiAsw0V6FfayTpjAqVpdtRuAu2KT/
-	R5kvOwX/PA7qnzLlAKwqF3WPe2ryGd6YOl7Vqs9AUAvwdXwiikHTQAamImlB+NYltWQ=
-X-Gm-Gg: AYBFou2OwxQa2HDu2FZVVJx954K9IUITgn8d20YqR0AB0cbvPIAOzdAkKv7wBMJVwoy
-	teGToIppuenKJDJPcjNdnQaR8U3SJzoaH/37s3XOVWINSWY4EWSVoV/QaeH+hOG60oA9xYY1Vtt
-	o66GVoNT08YAZIclzyizQDNmveq9Fd+36tqHlda/hks3k0xbWsZKMNZGAaNttX7OhpUnvhRkj/l
-	PWSGCUzm8wVf3WJJDv0hGooXvyoVXImtc1FTSpk4kX4tRXu/UWpydceyfeO8pXuAIkKFUvCD77E
-	dTXNszmSSmFjLQsWk5SYIXoaiIj8h4TwaWikp+4XdJK2TF/ddtjeaJ8MNWgmNLQnjx47lNa6AJG
-	DDczUn7GyssBDxqVifH1RC1uGirinYGVPx5ACjrTDW5H55KPKVs/FNgQS/QsDWCAD8R0wUj+jaZ
-	U0mMGdFyvthFtPaGdTsW8d8kzdj7blM5+T9wJfQ9oYBZO5gL+Q/JXAfZHO6i3vBPOGWjczSyn+O
-	UL/MA2VcK9JhxSMIOnGqrb+yYAsQuklbZHer2djwISdNW2B63PBdELmg5vUyeSLa7H02SI+8ynz
-	R5Aom+vCpdojnE/LtKV/JUfcU5Qb
-X-Received: by 2002:a17:907:3fa9:b0:c26:1649:47af with SMTP id a640c23a62f3a-c31a9fb6451mr2004138466b.37.1792149649982;
-        Fri, 16 Oct 2026 04:20:49 -0700 (PDT)
+        bh=RP6t59lytBlT9EpuEl094ip5/Z9ytw4aKa//LaCI6yc=;
+        b=lXFC1O0HqbR0XTzlV5ySGmfJITGgMFLad9N3tl80DqIn5QRh1LUdmrOQydpjf9tAwd
+         Qxs7GOoMHOyv2sQTBsRBReWMmiUNEFkE0ffbl52llbnADQaEQAlLY/Y1ZAdzlfBXbUok
+         EMFmAvCd6be3jT9noYVYoLbej+XVUacmYfu42ggq2Vlvclh5fwzZdXOjvYwQlY9FjVOW
+         0ln62x5QV7JUDZK8aTGXs9CJYSuDys8edJ9tYhWQuQ69wO3sMgiKanGbp37jLuPeOCqF
+         RiJH+tlLyrO7KSouPnqhIzdrQQcsSB6a1IOj6V6mVA/pLAHey4BHXJNRzS1/XudMW3+6
+         vlUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwmnXn+zokx7FpIZdN+CRaH8+Cgy7DTsHIRxfVQ+d/6FXkdN60ehf2xbCMrZgj9HUYbzSqnMfMLp24P@vger.kernel.org
+X-Gm-Message-State: AFq9FYLyCAPNUgNuCoB15KKXtbYyMNOCG4keen5lvpalYkwts9ur5x9R
+	R/++fH19w+uBBsdLPFJRZOWnsTMAtSBJZKO/e9D7yuU2dkwOUT26xIQFzVJlWMQCfxA=
+X-Gm-Gg: AYBFou07PFwW9nDjwppCSF0fQmDV2K4fQhqIrMxjgQkDvCuGmZjDLcWS2oNBqD6CZrc
+	IrQnVXH3SajmC3Z7P4lkqRtevlFYLqbJT5d2x+CNCGmAQ2YMbvga39q7HcrktZDPJt8N5JWVbRs
+	sTXnxpHrY1u+1Ax/IWQA6avEl4ff2mL9de0BPejagWS4Wp6yLNSBitf6PcE/T+ioOJxF2Y5C5tZ
+	/IMeQ5qzYDrqAn6glaV0Viy8O9NeY/ch5/c4NzHR7RhOz8wY+xAheboIbGLgGjRsaohNsEVGIHA
+	KeZxpyHAnsyHIjAjZ8ITEDqX0u/2+R7YIKgorgF8QTW96VBsjjOy4Vz/+cLihAfTo+ER/+IQ4Pw
+	0e2lH/UGzBy46o3jLCzEMZzKJ5PcOVcnctNDf4/hyl61SN9bevAQuvnWh48A9o57/kIG2sf2FcG
+	nkByB/OALHamQJ7ffDp11NG6b99XR0ULFCyv+6FNsYXJnuNb0i7VuJnJnwFs+SOf39TIIdGOrzk
+	dcmMsMM6I1D65gQAj5c2wgixBmivA7k+rq8hTT79Yhid0OABRJJT6lAkwNJECMzU1c3U2jT1k8J
+	+mtrlWDScImKSTMPftR2qkCq8adL
+X-Received: by 2002:a17:907:7212:b0:c2d:bd95:874a with SMTP id a640c23a62f3a-c31a9fd3559mr1982434066b.17.1792149648629;
+        Fri, 16 Oct 2026 04:20:48 -0700 (PDT)
 Received: from threadripper-fedora-workstation (dh207-15-194.xnet.hr. [88.207.15.194])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c408e32c075sm63947666b.11.2026.10.16.04.20.48
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c408e32c075sm63947666b.11.2026.10.16.04.20.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 04:20:49 -0700 (PDT)
+        Fri, 16 Oct 2026 04:20:48 -0700 (PDT)
 From: Robert Marko <robert.marko@sartura.hr>
 To: andrew+netdev@lunn.ch,
 	davem@davemloft.net,
@@ -79,9 +79,9 @@ To: andrew+netdev@lunn.ch,
 Cc: lrosu@maxlinear.com,
 	luka.perkov@sartura.hr,
 	Robert Marko <robert.marko@sartura.hr>
-Subject: [PATCH net-next v2 5/5] net: phy: mxl-gpy: support MxL86211C lane mapping
-Date: Fri, 16 Oct 2026 13:19:36 +0200
-Message-ID: <20261016112033.949026-5-robert.marko@sartura.hr>
+Subject: [PATCH net-next v2 4/5] dt-bindings: net: maxlinear: add MxL86211C lane mapping support
+Date: Fri, 16 Oct 2026 13:19:35 +0200
+Message-ID: <20261016112033.949026-4-robert.marko@sartura.hr>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261016112033.949026-1-robert.marko@sartura.hr>
 References: <20261016112033.949026-1-robert.marko@sartura.hr>
@@ -93,92 +93,63 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Configure the MxL86211C mapping from physical TPI lanes to analog
-front ends (ASPs) when specified in DTS.
-
-Leave the hardware reset mapping untouched when the optional property
-is absent.
+Describe the optional board-level mapping from physical TPI lanes to the
+MxL86211C analog front ends (ASPs). This allows DTS to describe wiring
+that differs from the hardware reset mapping.
 
 Signed-off-by: Robert Marko <robert.marko@sartura.hr>
 ---
 Changes in v2:
-- Preserve unrelated register bits when updating the lane map.
+- Define the lane-map property at the top level for type checking.
+- Describe ASPs as analog front ends.
 
- drivers/net/phy/mxl-gpy.c | 47 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 47 insertions(+)
+ .../bindings/net/maxlinear,gpy2xx.yaml        | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-diff --git a/drivers/net/phy/mxl-gpy.c b/drivers/net/phy/mxl-gpy.c
-index 8bc119655f104..acd5ad01a285d 100644
---- a/drivers/net/phy/mxl-gpy.c
-+++ b/drivers/net/phy/mxl-gpy.c
-@@ -116,6 +116,13 @@
- #define VSPEC1_PM_CTRL_MDIO_VOL	BIT(14)
- #define VSPEC1_PM_CTRL_SI	BIT(12)		/* Super Isolate */
+diff --git a/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml b/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
+index a0dfb6192d81b..4323be300c721 100644
+--- a/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
++++ b/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
+@@ -35,6 +35,7 @@ allOf:
+     else:
+       properties:
+         vddp-supply: false
++        maxlinear,lane-asp-map: false
  
-+/* TPI lane to ASP map */
-+#define VSPEC1_LANE_ASP_MAP	0x14
-+#define VSPEC1_LANE_ASP_MAP_A	GENMASK(1, 0)
-+#define VSPEC1_LANE_ASP_MAP_B	GENMASK(3, 2)
-+#define VSPEC1_LANE_ASP_MAP_C	GENMASK(5, 4)
-+#define VSPEC1_LANE_ASP_MAP_D	GENMASK(7, 6)
-+
- /* Temperature sensor */
- #define VSPEC1_TEMP_STA	0x0E
- #define VSPEC1_TEMP_STA_DATA	GENMASK(9, 0)
-@@ -423,6 +430,42 @@ static int mxl86211c_configure_mdio_voltage(struct phy_device *phydev,
- 			      VSPEC1_PM_CTRL_MDIO_VOL, val);
- }
+ properties:
+   vddp-supply:
+@@ -42,6 +43,21 @@ properties:
+       Regulator supplying the VDDP pin. Its voltage configures the MDIO,
+       MDC, and MDINT pad voltage and must be either 1.8 V or 3.3 V.
  
-+static int mxl86211c_configure_lane_asp_map(struct phy_device *phydev)
-+{
-+	struct device *dev = &phydev->mdio.dev;
-+	u32 lane_asp_map[4];
-+	u16 val;
-+	unsigned int seen = 0;
-+	int i, ret;
++  maxlinear,lane-asp-map:
++    description: |
++      Mapping of physical TPI lanes A through D to analog front ends (ASPs)
++      A through D. The array index identifies the physical TPI lane, while
++      its value identifies the analog front end, encoded as 0 through 3.
++      Each analog front end must be mapped exactly once. Omit the property to
++      retain the hardware reset mapping.
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    minItems: 4
++    maxItems: 4
++    uniqueItems: true
++    items:
++      minimum: 0
++      maximum: 3
 +
-+	if (!device_property_present(dev, "maxlinear,lane-asp-map"))
-+		return 0;
-+
-+	ret = device_property_read_u32_array(dev, "maxlinear,lane-asp-map",
-+					     lane_asp_map,
-+					     ARRAY_SIZE(lane_asp_map));
-+	if (ret)
-+		return ret;
-+
-+	for (i = 0; i < ARRAY_SIZE(lane_asp_map); i++) {
-+		if (lane_asp_map[i] > 3 || seen & BIT(lane_asp_map[i]))
-+			return -EINVAL;
-+
-+		seen |= BIT(lane_asp_map[i]);
-+	}
-+
-+	val = FIELD_PREP(VSPEC1_LANE_ASP_MAP_A, lane_asp_map[0]) |
-+	      FIELD_PREP(VSPEC1_LANE_ASP_MAP_B, lane_asp_map[1]) |
-+	      FIELD_PREP(VSPEC1_LANE_ASP_MAP_C, lane_asp_map[2]) |
-+	      FIELD_PREP(VSPEC1_LANE_ASP_MAP_D, lane_asp_map[3]);
-+
-+	return phy_modify_mmd(phydev, MDIO_MMD_VEND1, VSPEC1_LANE_ASP_MAP,
-+			      VSPEC1_LANE_ASP_MAP_A |
-+			      VSPEC1_LANE_ASP_MAP_B |
-+			      VSPEC1_LANE_ASP_MAP_C |
-+			      VSPEC1_LANE_ASP_MAP_D, val);
-+}
-+
- static int mxl86211c_config_init(struct phy_device *phydev)
- {
- 	struct gpy_priv *priv = phydev->priv;
-@@ -432,6 +475,10 @@ static int mxl86211c_config_init(struct phy_device *phydev)
- 	if (ret)
- 		return ret;
+   maxlinear,use-broken-interrupts:
+     description: |
+       Interrupts are broken on some GPY2xx PHYs in that they keep the
+@@ -91,6 +107,9 @@ examples:
+             reg = <0>;
+             vddp-supply = <&vddp>;
  
-+	ret = mxl86211c_configure_lane_asp_map(phydev);
-+	if (ret)
-+		return ret;
++            /* Swap physical TPI lanes C and D. */
++            maxlinear,lane-asp-map = <0 1 3 2>;
 +
- 	ret = phy_modify_mmd(phydev, MDIO_MMD_VEND1, VSPEC1_PM_CTRL,
- 			     VSPEC1_PM_CTRL_SI, 0);
- 	if (ret)
+         };
+     };
+ 
 -- 
 2.56.0
 
