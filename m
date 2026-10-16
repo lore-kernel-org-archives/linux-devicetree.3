@@ -1,92 +1,84 @@
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D2B43DB311
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 22:16:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A602241DE0A
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 22:25:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792188995; cv=none; b=toMes6Ek+0RGITz5P/LsNHTC66heugfqj5NJU7xeK68yP55BZdvIqT5hwLMUqrN6r+tiBmm/2taGXdqX1X3sNgDpNylRU1Wnphxjy4ZBW6VJ2mfnCAdlU5aYp6qqA5G3H56FRaXXbkvhpSmLayL/I+6hrFl4yksfoPc7ejTiXBc=
+	t=1792189521; cv=none; b=Fo/7hUNCz3v8uUMHAXJ/2oF4EXDTm2ZXuCCbjxSV/OOe7SbEh3uW5lchT2vDCmqQfGcAWl/lmFXQodxGiWFjrCLJQqnl4JfJhw0Ez7+xuETP5lePQgh/cwcGzolrMAg78ylrqGVLDA0k72DwcT9oFJBt779TTt05xLj7FX4kqgo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792188995; c=relaxed/simple;
-	bh=Ihax8ouPm6jYDszAWDnb4X7VuBDRzd+0uEin8+gse3c=;
+	s=arc-20240116; t=1792189521; c=relaxed/simple;
+	bh=wr8nKQRVMvFmNlpalpzhVjt9cczrfUGnQQrpEM2oFRo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=E5Eq96bCoyPV2nOBrS8igSgggyKYky7fonJ9JFEc9anQ6R/Ui1SSMvO0I44OWWfyn2+mCm02LVbDzeKuDGiXloQZ2AvED3lGLqdaFaBY4WWHzG0bOysRPr9kszKZUnlE4idjOjP0R6toB64wbOM9+pVvaCXQxR0Aci37QXMLx9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cMEu8q7b; arc=none smtp.client-ip=74.125.82.176
+	 MIME-Version; b=gSrmsjuA1gOocAERW9yZU7ISsbszKlEUs5dXYe9c7y7WEoMDgPfUPF/Nc2h3u7Kvu/3hC5TWMlzSw/RPVVOPamDK1zvcacnBexaf35UEYqCTdewtKzRvUenrk0b1lJkNepj6ID35ePIDvPJGjq+tFEbVuEPvpj0XowL4+RGTqRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qr2hZr1W; arc=none smtp.client-ip=209.85.128.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cMEu8q7b"
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-30b6dad2382so1104343eec.0
-        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 15:16:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qr2hZr1W"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a16aaf2067so5181635e9.0
+        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 15:25:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792188992; x=1792793792; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792189518; x=1792794318; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9PlKRPHckVEX+8lY9jy8A17B4anyFnGx3e97aiFPbmw=;
-        b=cMEu8q7bfstO8I8aYBDSUINcxIvRQPXE7auSaVDIaTfBZFo2sVY4UWCUDYnSBphTq/
-         XAXmdNg7A6msxD4ZXSAiLQXyVbWbGbpY0Rm3dzeHd4D7KlPQHHnDNkTPo5qog+SWb/zw
-         v6O7NZVrGwXyD/ux4ERzOBDl7VQLmV/ijOkRzAjmxB6iRr8cbRXGlNZzI7UwRNhl/yz8
-         m+W5MimWI0OrppjhyCnKK6SKzsAAeCNISjzNplQvOx3drmcTcD2HjKaNbkV60UJVJbmY
-         AJXGx+w6o/w0HE34rDsPOCOu8X/njnisNINU/7X7nKoIVoK3eC4Wjlbk8rX7vmD6f/tw
-         UpSg==
+        bh=H0gV+4463GGhxnl9k0VDkO8zdfsUzpizNELkAcN9qFo=;
+        b=qr2hZr1WF/DP6wPL+hw+wF0r2KgciwrvMX7JpoPPRXhlBza/77KO0U0AIrQ2chLOzb
+         3/H/vTbhphBptrxbdoPTCjNWJeeC+7u/bYIzk/2UvpRr4gXvFBgxhxqQ2gRI+jY2WW1A
+         QN9VstdCGxjKclFme4TEqoCpskxWZprwcR9Vh0BZF3WH+65w8Wyd2py3EWqWyPYtNGWg
+         a1IjF4D5qj4XNjwsB/SKv5eqa1HN5j2BIyEz+zrEclGwxH220N8R9V4BGvbWedkjY1JB
+         LZ8wITZ9FjYNgp8McKJyuhWJz2ep3xSr0BFmXGVn4B5nR3cOoUvqJEOs3scFS/WJBqIx
+         ePWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792188992; x=1792793792;
+        d=1e100.net; s=20260707; t=1792189518; x=1792794318;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9PlKRPHckVEX+8lY9jy8A17B4anyFnGx3e97aiFPbmw=;
-        b=ce2MindiCNK+WFJo/74Ms1OQoEn5+aeeH2QEgh+tAJHx64tROsresP5Z5N8AStB5Ad
-         jp0RAgBxgZ4yvig6aYA0G79w2k3sD2B52ojav8M/rJFBbkq8NHfmKsA1wC1YeRVxkf+m
-         eIXmfbQDDFCY6UZaHeEOwshX0qy/kpEr6cp/MxX4Q4oWjxXUHYXSLJRA4/Gd/2VL/pT1
-         tDAjySS2ZdTBpeq/aWb+ORPItjg68fHTS5Ul2oZEW+xLzFxB7BcWWxFEAJ1zIHNqK6R8
-         aUWarlOiHKIB9Xu+ACPhN/tmlX2LS2GWQkUrzlLxBBkJJUdvAXHuXq41HVuxezcX3g0y
-         +m3Q==
-X-Forwarded-Encrypted: i=1; AKwUvByb9Jr3wGE0LKYOFODUnUIqfyvexxVIY29f7BvZOY7RmCziRIdaeGYAHd06puGzZ7olg/W44dt1ihQy@vger.kernel.org
-X-Gm-Message-State: AFq9FYITmbUL9Boud1+hHhrUdZg1d5BD3vujWglj/qrF8UsiT5+GWSI9
-	k53VkyNESQuZSbi1NAA65VqdLMZlQOwm58ySpWBzp6WDM5IDDtCq0MWi
-X-Gm-Gg: AYBFou17CzNQwC2BeK1HP/XwIgqwJwIy3F1FikpW6SpqsDnCM2P2k2yZ9snRRKOpW2H
-	aR3NycIMzcFAp7/UIxBfi2QQxI98+sxsZSqcWCwCdGXoUEfhegPjmaff3Y7unqJQIlinhJBiLSA
-	/VfPNi6vxDrGhPgDTIoKSWDu98lURNt+5+wniqBexa1UFFIDpsK5c6CBLsT9Y+kn+ErhV97wiSk
-	B008cudVweuM5+WcqjzIvgS1QE4lde7sXslKa5wp9Z7iYeSJguj0/AmrB0K4sEb8M9SkcaXZuos
-	Ng/KuredXPSp0+lyjvLgMfyOwTqQsHiRA/79mQpTrQajNfrXG8kYVK/jgxRNKM8yp/3lVvPlGfL
-	wJf1rsAuRgZrHbN/McaTu/ieeu5nqs7d+KwRngwDIEPHnipltubDy2W59z2/YtMJgJmeo8mOWZe
-	gQpJeluQQwkZZBqbe9W6fYGTd+VnKHEEr4iTm/DySD23bINtsZx+4qU+gFcWIk5QyDhXzNtuK4l
-	bvh7sts
-X-Received: by 2002:a05:7022:fe0c:b0:14b:1e78:a19f with SMTP id a92af1059eb24-1850c223833mr1912662c88.6.1792188992196;
-        Fri, 16 Oct 2026 15:16:32 -0700 (PDT)
-Received: from eldorado ([2600:8802:b00:1f84:d294:66ff:fe95:a98e])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831919fc14sm10480863c88.6.2026.10.16.15.16.29
+        bh=H0gV+4463GGhxnl9k0VDkO8zdfsUzpizNELkAcN9qFo=;
+        b=HUSiRh486jGamsCvAWIZ0IIX7C4Ef3mvkzsNmQMBhB+12klF/Jo2YfGPSuNFHHsGzg
+         Qqqc6+LndXeac/BVIW4Kqm1a+q048zHpa8D2pIWPSYEbqXKom12HDPlXSYfDIarToc8v
+         s4cDU4wFSij7QD/UXf1i1rUUIBi09Y/4p39ENSpCzTM2xQC4QtmZgv2066OOJyzvZKRa
+         rhdm7q+ogFaUI/S9x3Ysd/R9eLIT1LHlLxDs/aP6MtdQ7+wE//Yuj0nr21RjKu5SmSHb
+         d2bpIAm2r76MVrIygrT+vWk8AQVwC9MULW28qwm3+frT9919RI9XFUfyinKJLk8seGVZ
+         54pQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxETR01ZbkAhNYLnNDowoQfdXZDDTNS1KRLwHM5ZplwbZLBA96R49iTbpgxN4XAum/mIJbbyuDVEvFt@vger.kernel.org
+X-Gm-Message-State: AFq9FYIylOsg7G3oStpdMqRw0ZUdgEy1OzumgzQnGWLixK6y+lFw6Egk
+	u9HJDLR18XEm42UFmj61BoU9KJKbn1VyKxlG/5aznmrwvviXzO8ymHVV
+X-Gm-Gg: AYBFou39apsHtcyzwOAIeKoR+oY2IoDI4EQgRNPrJXN4CceizdY8VUhmiuHK+GZdUjZ
+	u+jBAjvhgKxrXSJsIscHImxKgd+cQeLJbQJrRAhhWLoQJuxkE1nn978YsyKhkao7YTIorc5IAuC
+	eympziApqJLmX9VYGH/UuPF3pA5Df5W8FktbIM29jX9D/3Vxs7RJ99IcI4np1MXE27RbKEQJ/5P
+	eB69TtY8OJTHzq5k8IcpOLTER4LQrYR0mOphiNhSUTspa88TISEp2CP5UYy5o99o5QW0TD5l1hH
+	sQA9DZpfoZlna/qN+DR6GlaF6YTUCpffgHIAhmCxieUTtwtnf2j9jYp6lbfrOid8hnWHSucmb+0
+	puhwtN99OMeO2SMQQ5Lk0SMBBXtPbf4DjTF+AMFI9q3ykieplwsvdNlKfakxB6DwlcZGgznb6uj
+	vjJ9xdK0EoF9Vm2NN7bnl/SPyFvV4em/fJhJ8D2DAXyIGfwbRxcK8YeKrs/XeL1bDzr5+czqfhs
+	E2WZLFzsrw4HiuCWQQnpcRC+sgxQHHHz1yVusC/vIKH5rGVpZZuFnSNO1U4MuJHmSXSXcqW
+X-Received: by 2002:a05:600c:e54a:10b0:4a1:a475:d885 with SMTP id 5b1f17b1804b1-4a1d7634d26mr15613985e9.34.1792189517741;
+        Fri, 16 Oct 2026 15:25:17 -0700 (PDT)
+Received: from SP11X1e.cable.virginm.net (cpc99340-croy26-2-0-cust244.19-2.cable.virginm.net. [80.193.62.245])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4feb6bsm8149752f8f.41.2026.10.16.15.25.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 15:16:30 -0700 (PDT)
-From: Florian Fainelli <f.fainelli@gmail.com>
-To: linux-mips@vger.kernel.org
-Cc: Florian Fainelli <f.fainelli@gmail.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>,
+        Fri, 16 Oct 2026 15:25:16 -0700 (PDT)
+From: George Neacsu <geocausa@gmail.com>
+To: Sergey Lebedev <lsa.uz@pm.me>,
+	Bryan O'Donoghue <bod@kernel.org>
+Cc: Andre Gilerson <andre.gilerson@gmail.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
-	Eric Biggers <ebiggers@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Mingyu Wang <25181214217@stu.xidian.edu.cn>,
-	Robert Marko <robert.marko@sartura.hr>,
-	linux-watchdog@vger.kernel.org (open list:WATCHDOG DEVICE DRIVERS),
-	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
-	linux-kernel@vger.kernel.org (open list),
-	manuel.lauss@gmail.com
-Subject: [PATCH 5/5] watchdog: Remove the MTX-1 watchdog driver
-Date: Fri, 16 Oct 2026 15:16:17 -0700
-Message-ID: <20261016221617.2223004-6-f.fainelli@gmail.com>
+	German Pablo Lindo <germanpapulindez@gmail.com>,
+	linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 2/2] media: i2c: imx681: Add C-PHY support
+Date: Fri, 16 Oct 2026 23:25:13 +0100
+Message-ID: <20261016222513.23355-1-geocausa@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016221617.2223004-1-f.fainelli@gmail.com>
-References: <20261016221617.2223004-1-f.fainelli@gmail.com>
+In-Reply-To: <20261016211450.62994-1-lsa.uz@pm.me>
+References: <20261015-imx681-x1e-v1-0-fd22f5f3b0c5@gmail.com> <20261015-imx681-x1e-v1-2-fd22f5f3b0c5@gmail.com> <11f1a19d-7d57-497f-826e-901f9f88b99b@kernel.org> <20261016160853.193378-1-geocausa@gmail.com> <20261016211450.62994-1-lsa.uz@pm.me>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -95,302 +87,26 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-MTX-1 now uses the generic GPIO watchdog driver with board properties
-describing its GPIO and heartbeat constraints. Remove the unused custom
-driver and its Kconfig and Makefile entries.
+Hi Sergey,
 
-The watchdog core now supplies the character device, keepalive scheduling,
-timeout handling and close semantics previously implemented by this driver.
+On 16/10/2026 22:14, Sergey Lebedev wrote:
+> Either way it does not show C-PHY here; your reading on the Snapdragon
+> model will tell whether the two differ.
 
-Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
----
- drivers/watchdog/Kconfig     |   7 -
- drivers/watchdog/Makefile    |   1 -
- drivers/watchdog/mtx-1_wdt.c | 245 -----------------------------------
- 3 files changed, 253 deletions(-)
- delete mode 100644 drivers/watchdog/mtx-1_wdt.c
+They do not. Read on the Snapdragon model while the sensor streamed
+3844x2640 at 30 fps over one C-PHY trio (linux-next with the PHY
+series):
 
-diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
-index f50709c635e5..c884f86be4e3 100644
---- a/drivers/watchdog/Kconfig
-+++ b/drivers/watchdog/Kconfig
-@@ -1865,13 +1865,6 @@ config JZ4740_WDT
- 	help
- 	  Hardware driver for the built-in watchdog timer on Ingenic jz4740 SoCs.
- 
--config WDT_MTX1
--	tristate "MTX-1 Hardware Watchdog"
--	depends on MIPS_MTX1 || (MIPS && COMPILE_TEST)
--	help
--	  Hardware driver for the MTX-1 boards. This is a watchdog timer that
--	  will reboot the machine after a 100 seconds timer expired.
--
- config SIBYTE_WDOG
- 	tristate "Sibyte SoC hardware watchdog"
- 	depends on CPU_SB1
-diff --git a/drivers/watchdog/Makefile b/drivers/watchdog/Makefile
-index 9ac406677aba..19cb25f51624 100644
---- a/drivers/watchdog/Makefile
-+++ b/drivers/watchdog/Makefile
-@@ -172,7 +172,6 @@ obj-$(CONFIG_BCM47XX_WDT) += bcm47xx_wdt.o
- obj-$(CONFIG_RC32434_WDT) += rc32434_wdt.o
- obj-$(CONFIG_INDYDOG) += indydog.o
- obj-$(CONFIG_JZ4740_WDT) += jz4740_wdt.o
--obj-$(CONFIG_WDT_MTX1) += mtx-1_wdt.o
- obj-$(CONFIG_SIBYTE_WDOG) += sb_wdog.o
- obj-$(CONFIG_TXX9_WDT) += txx9wdt.o
- obj-$(CONFIG_OCTEON_WDT) += octeon-wdt.o
-diff --git a/drivers/watchdog/mtx-1_wdt.c b/drivers/watchdog/mtx-1_wdt.c
-deleted file mode 100644
-index f75426cfa425..000000000000
---- a/drivers/watchdog/mtx-1_wdt.c
-+++ /dev/null
-@@ -1,245 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0+
--/*
-- *      Driver for the MTX-1 Watchdog.
-- *
-- *      (C) Copyright 2005 4G Systems <info@4g-systems.biz>,
-- *							All Rights Reserved.
-- *                              http://www.4g-systems.biz
-- *
-- *	(C) Copyright 2007 OpenWrt.org, Florian Fainelli <florian@openwrt.org>
-- *      (c) Copyright 2005    4G Systems <info@4g-systems.biz>
-- *
-- *      Release 0.01.
-- *      Author: Michael Stickel  michael.stickel@4g-systems.biz
-- *
-- *      Release 0.02.
-- *	Author: Florian Fainelli florian@openwrt.org
-- *		use the Linux watchdog/timer APIs
-- *
-- *      The Watchdog is configured to reset the MTX-1
-- *      if it is not triggered for 100 seconds.
-- *      It should not be triggered more often than 1.6 seconds.
-- *
-- *      A timer triggers the watchdog every 5 seconds, until
-- *      it is opened for the first time. After the first open
-- *      it MUST be triggered every 2..95 seconds.
-- */
--
--#include <linux/module.h>
--#include <linux/moduleparam.h>
--#include <linux/types.h>
--#include <linux/errno.h>
--#include <linux/miscdevice.h>
--#include <linux/fs.h>
--#include <linux/ioport.h>
--#include <linux/timer.h>
--#include <linux/completion.h>
--#include <linux/jiffies.h>
--#include <linux/watchdog.h>
--#include <linux/platform_device.h>
--#include <linux/io.h>
--#include <linux/uaccess.h>
--#include <linux/gpio/consumer.h>
--
--#define MTX1_WDT_INTERVAL	(5 * HZ)
--
--static int ticks = 100 * HZ;
--
--static struct {
--	struct completion stop;
--	spinlock_t lock;
--	int running;
--	struct timer_list timer;
--	int queue;
--	int default_ticks;
--	unsigned long inuse;
--	struct gpio_desc *gpiod;
--	unsigned int gstate;
--} mtx1_wdt_device;
--
--static void mtx1_wdt_trigger(struct timer_list *unused)
--{
--	spin_lock(&mtx1_wdt_device.lock);
--	if (mtx1_wdt_device.running)
--		ticks--;
--
--	/* toggle wdt gpio */
--	mtx1_wdt_device.gstate = !mtx1_wdt_device.gstate;
--	gpiod_set_value(mtx1_wdt_device.gpiod, mtx1_wdt_device.gstate);
--
--	if (mtx1_wdt_device.queue && ticks)
--		mod_timer(&mtx1_wdt_device.timer, jiffies + MTX1_WDT_INTERVAL);
--	else
--		complete(&mtx1_wdt_device.stop);
--	spin_unlock(&mtx1_wdt_device.lock);
--}
--
--static void mtx1_wdt_reset(void)
--{
--	ticks = mtx1_wdt_device.default_ticks;
--}
--
--
--static void mtx1_wdt_start(void)
--{
--	unsigned long flags;
--
--	spin_lock_irqsave(&mtx1_wdt_device.lock, flags);
--	if (!mtx1_wdt_device.queue) {
--		mtx1_wdt_device.queue = 1;
--		mtx1_wdt_device.gstate = 1;
--		gpiod_set_value(mtx1_wdt_device.gpiod, 1);
--		mod_timer(&mtx1_wdt_device.timer, jiffies + MTX1_WDT_INTERVAL);
--	}
--	mtx1_wdt_device.running++;
--	spin_unlock_irqrestore(&mtx1_wdt_device.lock, flags);
--}
--
--static int mtx1_wdt_stop(void)
--{
--	unsigned long flags;
--
--	spin_lock_irqsave(&mtx1_wdt_device.lock, flags);
--	if (mtx1_wdt_device.queue) {
--		mtx1_wdt_device.queue = 0;
--		mtx1_wdt_device.gstate = 0;
--		gpiod_set_value(mtx1_wdt_device.gpiod, 0);
--	}
--	ticks = mtx1_wdt_device.default_ticks;
--	spin_unlock_irqrestore(&mtx1_wdt_device.lock, flags);
--	return 0;
--}
--
--/* Filesystem functions */
--
--static int mtx1_wdt_open(struct inode *inode, struct file *file)
--{
--	if (test_and_set_bit(0, &mtx1_wdt_device.inuse))
--		return -EBUSY;
--	return stream_open(inode, file);
--}
--
--
--static int mtx1_wdt_release(struct inode *inode, struct file *file)
--{
--	clear_bit(0, &mtx1_wdt_device.inuse);
--	return 0;
--}
--
--static long mtx1_wdt_ioctl(struct file *file, unsigned int cmd,
--							unsigned long arg)
--{
--	void __user *argp = (void __user *)arg;
--	int __user *p = (int __user *)argp;
--	unsigned int value;
--	static const struct watchdog_info ident = {
--		.options = WDIOF_CARDRESET,
--		.identity = "MTX-1 WDT",
--	};
--
--	switch (cmd) {
--	case WDIOC_GETSUPPORT:
--		if (copy_to_user(argp, &ident, sizeof(ident)))
--			return -EFAULT;
--		break;
--	case WDIOC_GETSTATUS:
--	case WDIOC_GETBOOTSTATUS:
--		put_user(0, p);
--		break;
--	case WDIOC_SETOPTIONS:
--		if (get_user(value, p))
--			return -EFAULT;
--		if (value & WDIOS_ENABLECARD)
--			mtx1_wdt_start();
--		else if (value & WDIOS_DISABLECARD)
--			mtx1_wdt_stop();
--		else
--			return -EINVAL;
--		return 0;
--	case WDIOC_KEEPALIVE:
--		mtx1_wdt_reset();
--		break;
--	default:
--		return -ENOTTY;
--	}
--	return 0;
--}
--
--
--static ssize_t mtx1_wdt_write(struct file *file, const char *buf,
--						size_t count, loff_t *ppos)
--{
--	if (!count)
--		return -EIO;
--	mtx1_wdt_reset();
--	return count;
--}
--
--static const struct file_operations mtx1_wdt_fops = {
--	.owner		= THIS_MODULE,
--	.unlocked_ioctl	= mtx1_wdt_ioctl,
--	.compat_ioctl	= compat_ptr_ioctl,
--	.open		= mtx1_wdt_open,
--	.write		= mtx1_wdt_write,
--	.release	= mtx1_wdt_release,
--};
--
--
--static struct miscdevice mtx1_wdt_misc = {
--	.minor	= WATCHDOG_MINOR,
--	.name	= "watchdog",
--	.fops	= &mtx1_wdt_fops,
--};
--
--
--static int mtx1_wdt_probe(struct platform_device *pdev)
--{
--	int ret;
--
--	mtx1_wdt_device.gpiod = devm_gpiod_get(&pdev->dev,
--					       NULL, GPIOD_OUT_HIGH);
--	if (IS_ERR(mtx1_wdt_device.gpiod)) {
--		dev_err(&pdev->dev, "failed to request gpio");
--		return PTR_ERR(mtx1_wdt_device.gpiod);
--	}
--
--	spin_lock_init(&mtx1_wdt_device.lock);
--	init_completion(&mtx1_wdt_device.stop);
--	mtx1_wdt_device.queue = 0;
--	clear_bit(0, &mtx1_wdt_device.inuse);
--	timer_setup(&mtx1_wdt_device.timer, mtx1_wdt_trigger, 0);
--	mtx1_wdt_device.default_ticks = ticks;
--
--	ret = misc_register(&mtx1_wdt_misc);
--	if (ret < 0) {
--		dev_err(&pdev->dev, "failed to register\n");
--		return ret;
--	}
--	mtx1_wdt_start();
--	dev_info(&pdev->dev, "MTX-1 Watchdog driver\n");
--	return 0;
--}
--
--static void mtx1_wdt_remove(struct platform_device *pdev)
--{
--	/* FIXME: do we need to lock this test ? */
--	if (mtx1_wdt_device.queue) {
--		mtx1_wdt_device.queue = 0;
--		wait_for_completion(&mtx1_wdt_device.stop);
--	}
--
--	misc_deregister(&mtx1_wdt_misc);
--}
--
--static struct platform_driver mtx1_wdt_driver = {
--	.probe = mtx1_wdt_probe,
--	.remove = mtx1_wdt_remove,
--	.driver.name = "mtx1-wdt",
--};
--
--module_platform_driver(mtx1_wdt_driver);
--
--MODULE_AUTHOR("Michael Stickel, Florian Fainelli");
--MODULE_DESCRIPTION("Driver for the MTX-1 watchdog");
--MODULE_LICENSE("GPL");
--MODULE_ALIAS("platform:mtx1-wdt");
--- 
-2.53.0
+  0x0016/0x0017 = 0x06 0x81 (model 0x0681)
+  0x0111 = 0x03   (CSI_SIGNALING_MODE, as written)
+  0x0114 = 0x00   (CSI_LANE_MODE, as written)
+  0x1600 = 0xff, 0x1601 = 0x03, 0x1602 = 0x04, 0x1603 = 0x01
 
+So 0x1602 reports D-PHY only even while the part is transmitting C-PHY,
+the same values as on the Intel model. The capability block cannot
+confirm the mode on this sensor either way, so I will leave it out of
+the evidence in the commit message and say why.
+
+Thanks for reading it on your side.
+
+George
