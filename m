@@ -1,66 +1,89 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C945A3B9618;
-	Fri, 16 Oct 2026 21:15:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE1473E3C4F;
+	Fri, 16 Oct 2026 21:47:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792185325; cv=none; b=SzJO0khOvUsuXU++B1mt+u+LbGz38NvPkITlIJiGfmn2184+EmX6+RNkxRH76APuuvPKINaEyARRHNzDF8pu+eYs0tcRnKIUfmToZNyBvUeu/To+etzpd/hpyh/kg+iqaPQieXbLcBNfg9jQjVj/LYJx9w6L/zXvxYFsbRf838U=
+	t=1792187227; cv=none; b=ZEk7mediZVBLbMpn1mS25tjub/ccuEx3ua1L90LprVoCWgOhg3G19Q/W66kD79Pv8CPjOILwZM0+QccAq+JQJ/mirdTqS41PMcCFVoYzTy7npJDxkx4T3453SN/BhNOKIkarlUZG6hGc4FMOL/LGSgo4O13i2C/q1EalZ2Np//4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792185325; c=relaxed/simple;
-	bh=uvOCeyTWk32Oc8I9oURGHXBD8dLhY+Awni9PyG6hjQw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VkR6Z2b1UluYsaJWC+GVMJCpLgZkolnDg6hytdOxogXNlR0okzekWqMI5EckTIfgY7T7S+JzjNwwmZKnfFR/4MBsi1NwteGWXTvHDpRyttd2gMjaXhTCBpOy5h4F2+FRATA5AUlvzPXKdsyCl8jKlRSD2Cu5KGHe8OFCA3y/x5M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=LuBokLXw; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1792187227; c=relaxed/simple;
+	bh=4nEnf66h6FKzoA+DQqMH+xfAoOybR1g0YLk3xiZwS/A=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=OckAYacPKK96MFv/bUtr4dIyHWev4JHdCowDiWrWcoed7U474a1GkzJi2Vf6IZPyFfVoNqj7/koYMoh7AWUuty6gmmJPX1fEASkV1lvFJHLiMqA69Sbqa0iC4J10jXzzpCTvb482XfVAwR2cCJu33Ye5Qkifn9RtPEJXu4SQr2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e4aVe74H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="LuBokLXw"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=ivDw6bJhoWzzKstC5AO/as3JqfLON/2q0Bd7LFscufs=; b=LuBokLXwYer51MILgIjAoeX9Tm
-	uyOPlz0ng01ZNyty1Dq0OKzVMVErhIVNOsdOb2iXOWe7DuZSWfyrNjZPz6XJbJnsVozptFJj+Wrzu
-	Jvp+nfZnI7/1KuduKcSwDCPXs9q2Afx+n9le8SOABISZVlROHqMrAZ9JxSvDfvbGVvjo=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xHpGn-00BEDd-2K; Fri, 16 Oct 2026 23:15:17 +0200
-Date: Fri, 16 Oct 2026 23:15:17 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Robert Marko <robert.marko@sartura.hr>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
-	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, lxu@maxlinear.com,
-	hkallweit1@gmail.com, linux@armlinux.org.uk, michael@walle.cc,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, lrosu@maxlinear.com,
-	luka.perkov@sartura.hr
-Subject: Re: [PATCH net-next v2 5/5] net: phy: mxl-gpy: support MxL86211C
- lane mapping
-Message-ID: <3840f9a8-ef21-4f15-b5f6-3d32251775d4@lunn.ch>
-References: <20261016112033.949026-1-robert.marko@sartura.hr>
- <20261016112033.949026-5-robert.marko@sartura.hr>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e4aVe74H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE54D1F000C4;
+	Fri, 16 Oct 2026 21:47:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792187224;
+	bh=U4IOThkWmNkipJIf55NBfSbBXN+Gk6WkefKa3VNLNfU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=e4aVe74HL2/NyjqNi+YNXkXuhMoKwPaGrISTNrzypjnMNTqhNaTlbWQQ1oLlfz+7Q
+	 nJ3MCQ/pIgBxkGHjKSnUix5YFv9ZFCel6dZYxzkd7/0u/zz9QRCe+VAiqujx3V+G34
+	 SKdmrlkEVYx5x+q+65aGIu4RYIo7T38EN+S2c0I4ewzqN5zUsRxEXR/IoZVA3nZDcA
+	 OfFLn8mjzitzDjCOQ4gKuc6VGRXIgFmlYcv/tmB68wtPKvfy3M+SYzSLY1E0+kpyJo
+	 DuY++NRBFJkJ067Dm2TPpRW0E2IaxK9WiYFVexPH8XCgL9WrwmMXXf5dUexWhhNPTW
+	 xuzboLZysrSjQ==
+From: Mark Brown <broonie@kernel.org>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, sadre Alam <quic_mdalam@quicinc.com>, 
+ Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261016-ipq9650_spi_nand-v1-1-d341a76559b1@oss.qualcomm.com>
+References: <20261016-ipq9650_spi_nand-v1-1-d341a76559b1@oss.qualcomm.com>
+Subject: Re: [PATCH] spi: dt-bindings: spi-qpic-snand: Add IPQ9650
+ compatible
+Message-Id: <179217927349.3162228.2988082099851102104.b4-ty@b4>
+Date: Fri, 16 Oct 2026 20:34:33 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016112033.949026-5-robert.marko@sartura.hr>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1137; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=4nEnf66h6FKzoA+DQqMH+xfAoOybR1g0YLk3xiZwS/A=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIuzQ6qfLgn7WJz+HEBg8yVQguXHZh1KsdM7KdeFo/Vs
+ ipWccH6jlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAExkpxLDX4EZj5hiGmt0GbIr
+ fk1Zf1doQ6rbomdZ8Ucbl8QKCDR942H4X2Rc1Sqkcasyskf/1Ald8/6LJqV/5se22tTpKeh3lx9
+ kBgA=
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Fri, Oct 16, 2026 at 01:19:36PM +0200, Robert Marko wrote:
-> Configure the MxL86211C mapping from physical TPI lanes to analog
-> front ends (ASPs) when specified in DTS.
-> 
-> Leave the hardware reset mapping untouched when the optional property
-> is absent.
-> 
-> Signed-off-by: Robert Marko <robert.marko@sartura.hr>
+On Fri, 16 Oct 2026 12:53:04 +0530, Kathiravan Thirumoorthy wrote:
+> spi: dt-bindings: spi-qpic-snand: Add IPQ9650 compatible
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Applied to
 
-    Andrew
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
+
+Thanks!
+
+[1/1] spi: dt-bindings: spi-qpic-snand: Add IPQ9650 compatible
+      https://git.kernel.org/broonie/spi/c/6c59290d62e7
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
