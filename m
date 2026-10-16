@@ -1,263 +1,162 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E23DD494269
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 18:07:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5D43B5AA671;
+	Fri, 16 Oct 2026 18:13:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792174033; cv=none; b=gYXul3YQZ8i2kjR81P5ZymZ3AfEWY+dtUvzf6y2eAMMByW0f5LN6b0v8bYIzIbFjP0ypsEJIzens7MvP5gXOy2UJdnwuSq0wF+UJgWyEgWiMnRITcKCnoHGpDKxyo0zgRDMQXww3VSfNOJeeZCVD+dD5sh90ozHya9ZtR6yqZqs=
+	t=1792174424; cv=none; b=e8CpUBumAafahodFXN3uJItSiz0biIzE2+9ElXt7MGSVsnB/lDfJ1qCpnrIt91utd4ZFxUmaZ1dIPzU9Sjf2bCTGe5TOcweucq0q+BDZj45JUDcCCfgeyN7zwvSkO04TgjIqzmtJcZNjOhlkxP+X9HAexdo6FSCKsnVW0p+vNW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792174033; c=relaxed/simple;
-	bh=eiUiQoopFUDmGr3UYzTNNVOWWiP061mHHX8TFI39C1E=;
-	h=From:Message-ID:Date:MIME-Version:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=FD0izeqHUiXx7c9xf7OAe9hbjl6Jc2SpBNAtNGq0ZGZ+c8q0UHkMpxqHG2OQKlTcRpyLkAssQcMr5wmHz0w2YaceCF9Yr5pmdjZAG2wz5/qRMrBTNO7lKuqZE25oDCgbykAUpSU7kCn882hyC1PpG5t8K6zeUPiSVX+ttuxrE9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev; spf=pass smtp.mailfrom=tuxon.dev; dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b=n9W2csVA; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxon.dev
+	s=arc-20240116; t=1792174424; c=relaxed/simple;
+	bh=U7yEG8UPjnbkYVj7PAK2SWUfhEahVqNNM5HNCuTOawo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=i68nHXrNUJuWYj6AzPcN8E6RVX2JFyFSpTC2JvQhADlHMMpt9NN3oh8JmxjgBFYn3U20jDtQIscKKZ6zwnBedYYW6/aMiBLzZYJY1ljNnO6z57IzxCxhkyTCD35HFLHUb85cYdKIoXhCjPDYrROr5Se3+18aoaVEiy+Pe8jmHgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FMjzzyfk; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b="n9W2csVA"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a1d484b4a9so3161835e9.0
-        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 11:07:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tuxon.dev; s=google; t=1792174030; x=1792778830; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kwqs7mz873M28LjIKl95AhngO7J7OiavOqidLa4FRNc=;
-        b=n9W2csVAyuaKikh+vFpNLESUTmENQTssuKfmrIM+YSorZ1ZkkF5CMXJA8WDhb/T5MW
-         fxCUR5v3YRDv0gExwQijst1t38gDNULmLv9drqfSoyC8+ezQ+3klEGLnlVd65Mkfz1+W
-         Dj5QgGAj4UgRTVRdnVsWj/6GyuSO2MSIa/uaunLvqG0mSmTo6JpEkPtwA22CY3LD0iIj
-         3vg7L0qFpoLviFWL7Sm9bUILhSkcXsKRptFhlEFG862xfNHn1mbb+rnF+zYKDVOT5n9h
-         jp9HxbAocXwILVeAdA2rUpD4MEZSmTDIOU1d0zKWfkvtpgoY1xySyluU8/NzdWf6vK1U
-         BWdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792174030; x=1792778830;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=kwqs7mz873M28LjIKl95AhngO7J7OiavOqidLa4FRNc=;
-        b=iylg9c5tUdAE2EJzN8uxlHD+tceVDNOJiBOzEAEKD+cBf77snN+RRF9+ySquByfG3I
-         g4qnQlGzyv/Vy+fvid2GXQW2LxFjnQJfztb7B7MsyWHbw2ar+lSIkGajrjsenLYzwiqd
-         1gCkjqXcL9LMHuK4hG9nSNOemE4pq9YQnqvR3kyk5KoQT1May1R/h6RIEzBepqU4Hg3N
-         ub4cieytos2jIKiLEFqcN/hRuZDwAqUpX6dH+Ldl7+GxhXt1k9I/E3mRXsX7V+jusmZ2
-         hNkwabVRQwKMhd0/sp7ae3RCn2TXiRBbnUnAHIPbvb1gFwWc3xIMirGYQtrouyMPCdJ7
-         PphQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx+NrcrmkFMr0pgOgrObREp+Nk5DSidKvnxRSf9BNGTwf1Cr+9Yb9lBXeSGGXURq7mryPKUfJ+ZhW4o@vger.kernel.org
-X-Gm-Message-State: AFq9FYKW8zqfDnSUM+aiMOzts+Y4E0El0fg6JXNx7HwYpIYVvac21A5f
-	txQIoacW1u9HPEuQhO8XJEV0igJKlm4+j5/agPtLkz9cu30GUr+aDa4U9YDl/ohj+FA=
-X-Gm-Gg: AYBFou10WE9uUnezK5lrQSM9NfmuNO/aoEtML95GwJzOIquEzZ34OPtMugmrTkEVX+a
-	raSfyJeKCbG8wSAdKHgMeyEt6zVGiEal1L5iSFUuHKsq9iQQJE0Fh1LnCgJX3yNXx8Z/WUGUxg4
-	xDfPqksyZMkkRhb+gTfOZ7kvt5KGV2+wZ8WKqWzTtsSYE9N7x6izDVjlMy0fviTUfOo5cDmvD4k
-	3IVGWp7SUm1CtHVAxbNFXv8FHIwYzXeQw5Dce6P8gStkP9B7PD3/xzlN4ft38lPclT3PcwInLIQ
-	Pp9EIcsHPvwuZTLdblgMXSadwKLd2UtzybuXbzSO7oMIP6oSWWIrUOqREhdLsu73Y6hmNigOEw/
-	CMJhicYNHicxFvs6z+0D1oCqPyxY2Us2t+h8qfS7Ilo8QkU2VN4VBkY6fvKYL8VISfrRdorXElF
-	k6rm5v+QjIJO21Z6VA5ljLv+d7L/vHHCY7k6Ks9JnsYDs7VfwsSGJRQrdPBJAvS0ceqsTHCaj6v
-	SCREPtwbC4l2Gx2mg==
-X-Received: by 2002:a05:600c:6215:b0:4a1:d41b:5060 with SMTP id 5b1f17b1804b1-4a1d762b705mr10663215e9.22.1792174029743;
-        Fri, 16 Oct 2026 11:07:09 -0700 (PDT)
-Received: from [192.168.50.4] ([82.78.167.221])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1d3e2e602sm40486255e9.5.2026.10.16.11.07.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 11:07:09 -0700 (PDT)
-From: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-X-Google-Original-From: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
-Message-ID: <69826962-0c21-4616-9cd8-6eb0478a422b@tuxon.dev>
-Date: Fri, 16 Oct 2026 21:07:07 +0300
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FMjzzyfk"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1E16F14BF;
+	Fri, 16 Oct 2026 11:13:37 -0700 (PDT)
+Received: from J2N7QTR9R3.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E59213F7B4;
+	Fri, 16 Oct 2026 11:13:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792174420; bh=U7yEG8UPjnbkYVj7PAK2SWUfhEahVqNNM5HNCuTOawo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=FMjzzyfk8F/+tjNxuUgszUujlARXNNzXOvPi9KToA/YXsqvsvqaX2SAuL7maUJNw8
+	 PziVrP5emG/KFg1A8AY0YgivxX6KBkzDVrM4tv8dYITcXIZN7rB/s7j53wQUt2wDiH
+	 I/1M2XXnAXbs3BQAVawj7/iiSM+6zr0Y+CPMZsiQ=
+Date: Fri, 16 Oct 2026 19:13:28 +0100
+From: Mark Rutland <mark.rutland@arm.com>
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Salman Nabi <salman.nabi@arm.com>,
+	Vedashree Vidwans <vvidwans@nvidia.com>,
+	Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
+	Nirmoy Das <nirmoyd@nvidia.com>, vsethi@nvidia.com,
+	Varun Wadekar <vwadekar@nvidia.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH v4 2/8] firmware: smccc: Add support for Live Firmware
+ Activation (LFA)
+Message-ID: <atJpPoYAsUECh7p0@J2N7QTR9R3.cambridge.arm.com>
+References: <20260918141112.2115555-1-andre.przywara@arm.com>
+ <20260918141112.2115555-3-andre.przywara@arm.com>
+ <aq1XmaBemuGybxp2@J2N7QTR9R3>
+ <0c2c5cec-3e16-49a4-b304-ddd75de4cb19@arm.com>
+ <as5EvNM9IUkGe6Lk@J2N7QTR9R3.cambridge.arm.com>
+ <cf0ccb1c-42fd-409e-ba77-3837d5c905d4@arm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/7] can: rcar_canfd: Allow the CAN FD clock to be
- sourced from fck
-To: Marc Kleine-Budde <mkl@pengutronix.de>
-Cc: mailhol@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, geert+renesas@glider.be, magnus.damm@gmail.com,
- biju.das.jz@bp.renesas.com, fabrizio.castro.jz@renesas.com,
- claudiu.beznea@tuxon.dev, linux-can@vger.kernel.org,
- devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-References: <20260902141544.565763-1-claudiu.beznea+renesas@tuxon.dev>
- <20260902141544.565763-4-claudiu.beznea+renesas@tuxon.dev>
- <20261016-durable-meticulous-owl-7a9eed-mkl@pengutronix.de>
-Content-Language: en-US
-In-Reply-To: <20261016-durable-meticulous-owl-7a9eed-mkl@pengutronix.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cf0ccb1c-42fd-409e-ba77-3837d5c905d4@arm.com>
 
-
-
-On 10/16/26 16:39, Marc Kleine-Budde wrote:
-> On 02.09.2026 17:15:40, Claudiu Beznea wrote:
->> diff --git a/drivers/net/can/rcar/rcar_canfd.c b/drivers/net/can/rcar/rcar_canfd.c
->> index b7c4fe3477ac..f9173774387f 100644
->> --- a/drivers/net/can/rcar/rcar_canfd.c
->> +++ b/drivers/net/can/rcar/rcar_canfd.c
+On Fri, Oct 16, 2026 at 06:42:52PM +0100, Andre Przywara wrote:
+> On 10/13/26 16:48, Mark Rutland wrote:
+> > On Mon, Sep 21, 2026 at 05:25:25PM +0200, Andre Przywara wrote:
+> > > On 9/18/26 17:24, Mark Rutland wrote:
+> > > > On Fri, Sep 18, 2026 at 04:11:05PM +0200, Andre Przywara wrote:
+> > > > > From: Salman Nabi <salman.nabi@arm.com>
+> > > > > 
+> > > > > The Arm Live Firmware Activation (LFA) is a specification [1] to describe
+> > > > > activating firmware components without a reboot. Those components
+> > > > > (like TF-A's BL31, EDK-II, TF-RMM, secure paylods) would be updated the
+> > > > > usual way: via fwupd, FF-A or other secure storage methods, or via some
+> > > > > IMPDEF Out-Of-Bound method. The user can then activate this new firmware,
+> > > > > at system runtime, without requiring a reboot.
+> > > > > The specification covers the SMCCC interface to list and query available
+> > > > > components and eventually trigger the activation.
+> > > > 
+> > > > It'd be helpful to have a few basic concepts covered here or in the
+> > > > code. For example, I have no idea what a "rendezvous" is, and it's not
+> > > > at all obvious from the code.
+> > > 
+> > > OK, I can give a brief summary of the concepts, but I guess doing this a top
+> > > comment in the source file is more useful than here in the commit message?
+> > 
+> >  From my PoV, even placing that in the cover letter would be fine. The
+> > key thing is just to get enough context to be able to review this
+> > without having to ingest the entire LFA spec.
+> > 
+> > In particular with "rendezvous", I have no idea why the admin should
+> > have any choice at all, and without some context I can't tell if there's
+> > some sensible use-case I'm missing.
 > 
-> [...]
+> The admin should indeed not have a say, and if the firmware component
+> requires rendezvous, it will always be used.
+> But for firmware that claims to not need any rendezvous, we default to using
+> it anyway, because it's the safest way to guarantee continuity for the
+> kernel. We don't know which firmware services might be affected, and if they
+> respond with something like -EAGAIN or just block for a longer period during
+> the activation. The kernel seems to rely on the firmware services (TRNG,
+> SoC-ID, SCMI, ...) replying, once they have been initialised, so them
+> suddenly returning an (even transient) error will probably confuse the
+> drivers.
+> So the safe way to do this is to send all cores into the firmware
+> regardless, there they cannot do any harm.
 > 
->>
->>   /* Helper functions */
->> @@ -2190,13 +2196,20 @@ static int rcar_canfd_probe(struct platform_device *pdev)
->>   	 */
->>   	gpriv->can_clk = devm_clk_get(dev, "can_clk");
->>   	if (IS_ERR(gpriv->can_clk) || (clk_get_rate(gpriv->can_clk) == 0)) {
->              ^^^^^^^^^^^^^^^^^^^^^
+> Now as users asked for it on the list, if the admin knows exactly that this
+> firmware component does not provide any services to the kernel (say some fan
+> controller), they can override this policy and allow a single CPU to trigger
+> the activation. This was meant as a compromise to keep the kernel side sane,
+> but still allow less disruptive updates. The idea would be that some user
+> space component sets this attribute at boot time, if it matches some UUID
+> that is known to be safe.
+
+I don't think it's a good idea to leave this up to the admin. The admin
+has no idea what the kernel will depend upon (especially as this can
+change over time), and if they get it wrong, everything is broken.
+
+If LFA permits arbitrary firmware components to enter a transiently
+broken state, then the LFA design sounds broken.
+
+You said someone asked for this on the list; can you shre a link?
+
+[...]
+
+> > > > > +static const char *get_image_name(const struct fw_image *image)
+> > > > > +{
+> > > > > +	if (image->image_name && image->image_name[0] != '\0')
+> > > > > +		return image->image_name;
+> > > > > +
+> > > > > +	return kobject_name(&image->kobj);
+> > > > > +}
+> > > > 
+> > > > As before, please just use the UUID.
+> > > > 
+> > > > I *assume* that we cannot have more than one image for a given
+> > > > component, and hence we cannot have two entries for the same UUID? Is
+> > > > that mandated by the LFA spec?
+> > > 
+> > > The LFA spec speaks about "firmware components" as its area of interest, by
+> > > design all the real firmware *image* related parts, for instance how the
+> > > firmware update image lands on the system, is left implementation defined.
+> > > So yes, each firmware component, identified by its UUID, appears only once
+> > > in the system, by design.
+> > 
+> > Ok; does the spec *clearly* mandate that?
 > 
-> As sashiko.dev [1] pointed out here's no check for -EPROBE_DEFER.
+> Well, there is only one logical bit (somewhat confusingly named "activation
+> pending") to say whether an update image has been provided for a specific
+> component or not. If someone pushes another image, it would replace the
+> already "pending" one (depending on firmware policy).
 
-This looks to me a pre-existing issue.
+My concern here was more that each UUID appears only once. Where I said
+"image" above, please read that as "component".
 
-The newly added support does:
+Does the spec clearly mandate that each component UUID shows up at most
+once?
 
-fcan_freq = clk_get_rate(gpriv->clkp);
+I know it's "obvious", but people WILL get this sort of thing wrong
+unless it's in black-and-white in the spec.
 
-At the time this is executed the clkp was already checked against any errors 
-(above) including -EPROBE_DEFER.
-
-Please let me know what is the procedure now. Should I re-send the series and 
-address the fixes? Should I send follow up patches?
-
-> 
-> [1] https://lore.kernel.org/all/sashiko-outbox-173569@kernel.org/
-> 
-> The netdev bot found more issues.
-> pw-bot: cr
-> 
-> regards,
-> Marc
-> 
-> --- Patch [15]: [PATCH net-next 15/37] can: rcar_canfd: Allow the CAN FD clock to be sourced from fck ---
-> commit 4ef0042ccf34457229cdde398a008bebaab54e69
-> Author: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-> 
-> can: rcar_canfd: Allow the CAN FD clock to be sourced from fck
-> 
-> This commit adds an fcan_pclk hardware info flag. With it set, the fCAN
-> clock falls back to the peripheral clock (fck) when the external can_clk
-> is unavailable, the rate is divided by info->postdiv and can_clk is set
-> to NULL. All existing rcar_canfd_hw_info instances now set fcan_pclk = 0
-> explicitly.
-> 
-> Link: https://lore.kernel.org/all/1d9719e3-10ff-4cd8-b729-55fea93c37ce@wanadoo.fr
-> Link: https://patch.msgid.link/20260902141544.565763-4-claudiu.beznea+renesas@tuxon.dev
-> 
->> diff --git a/drivers/net/can/rcar/rcar_canfd.c b/drivers/net/can/rcar/rcar_canfd.c
->> index b7c4fe3477ac..f9173774387f 100644
->> --- a/drivers/net/can/rcar/rcar_canfd.c
->> +++ b/drivers/net/can/rcar/rcar_canfd.c
-> 
-> [ ... ]
-> 
->> @@ -2190,13 +2196,20 @@ static int rcar_canfd_probe(struct platform_device *pdev)
->>   	 */
->>   	gpriv->can_clk = devm_clk_get(dev, "can_clk");
->>   	if (IS_ERR(gpriv->can_clk) || (clk_get_rate(gpriv->can_clk) == 0)) {
->> -		gpriv->can_clk = devm_clk_get(dev, "canfd");
->> -		if (IS_ERR(gpriv->can_clk))
->> -			return dev_err_probe(dev, PTR_ERR(gpriv->can_clk),
->> -					     "cannot get canfd clock\n");
->> +		if (info->fcan_pclk) {
->> +			fcan_freq = clk_get_rate(gpriv->clkp);
->> +			gpriv->can_clk = NULL;
->> +		} else {
-> 
-> Discovered by: opus-5-5 · Missed by: gpt-6-astra, sashiko-gemini · Confirmed by: gpt-6-astra
-> Should the clock comments and the probe banner be updated for this new
-> fck source? 
-> Several places still describe only the external and canfd
-> clocks.
-> 
-> The comment just above this block in rcar_canfd_probe() still says:
-> 
-> 	/* fCAN clock: Pick External clock. If not available fallback to
-> 	 * CANFD clock
-> 	 */
-> 
-> With fcan_pclk set, the fallback is fck (gpriv->clkp), not the canfd
-> clock.
-
-We can update the comment as follows to comply with the clock name in the driver:
-
-/* fCAN clock: Pick External clock. If not available fallback to
-  * CANFD clock or peripheral clock in case fcan_pclk = 1
-  */
-
-or, to comply with the clock name in the bindings:
-
-/* fCAN clock: Pick External clock. If not available fallback to
-  * CANFD clock or fck in case fcan_pclk = 1
-  */
-
-Please let me know what is prefered.
-
-
-> 
-> In struct rcar_canfd_global, the field comments also don't cover this
-> case. Here can_clk is NULL and the fCAN source is clkp:
-> 
-> 	struct clk *can_clk;		/* fCAN clock */
-> 	...
-> 	bool extclk;			/* CANFD or Ext clock */
-
-There is already a pointer covering the clkp:
-
-         struct clk *clkp;		/* Peripheral clock */
-
-> 
-> The banner at the end of rcar_canfd_probe() wasn't changed either:
-> 
-> 	dev_info(dev, "global operational state (%s clk, %s mode)\n",
-> 		 gpriv->extclk ? "ext" : "canfd",
-> 
-> On this path extclk stays false. Won't the banner then say "canfd clk"
-> for a controller that has no canfd clock and runs from fck / postdiv?
-
-That could be updated with "clkp" to comply with the driver name or "fck" to 
-comply with the bindings or with "peripheral". Please let me know what is 
-preferred.
-
-> 
-> The later "can: rcar_canfd: Add support for Renesas RZ/G3S" patch sets
-> .fcan_pclk = 1 in r9a08g045_hw_info. After that, an RZ/G3S board whose
-> can_clk is missing or has a rate of 0 would print this label.
-> 
-> Also, the new bitfield comment calls this clock pclk:
-> 
-> 	unsigned fcan_pclk:1;		/* Has fcan sourced from pclk. */
-> 
-> The commit message and the code call it fck. 
-
-The commit message mentions: ...the CAN FD clock can be sourced either from fck
-(the peripheral clock) or from an external clock (can_clk).
-
-The driver uses clkp (peripheral clock) to refer to the fck.
-
-fck is the clock name used in the bindings. In bindings I kept the same clock 
-name and provided the proper phandle in the device tree. I don't consider we 
-should change the driver and the bindings for this thing. Please let me know 
-otherwise.
-
-The clock diagram is something like:
-
-                         +----+
-pclk (fck) -> 1/2 div ->|    |
-                         | mux|---> fcan
-ext  (can_clk)--------->|    |
-                         ++++++
-
-b/w () are the clock names in bindings.
-
-The full HW block with the clocks involved can be found at 
-https://github.com/claudiubeznea/logs/blob/master/canfd-clk.png
-
-Please let me know what is the procedure for this. Should I re-spin the series? 
-Should I send follow up patches?
-
-Thank you,
-Claudiu
-
+Mark.
