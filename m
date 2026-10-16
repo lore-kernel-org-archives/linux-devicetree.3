@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A310377EA9;
-	Fri, 16 Oct 2026 15:43:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B5532F260F;
+	Fri, 16 Oct 2026 15:44:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792165417; cv=none; b=mrj3+LVJI43aqSCCGopnmXWrPhWCRVyXv2sK0L7J+HfR8FOAGPrmTF+aLwOMBD3ySl2V7QM+vlrorDWG+5HNYIiOjnlrIfUHPtNRaWynd7EhWuidArML+Ean6EA5Okp5OAGEpXX+xpjMMgmHVz3zE8nb/Ws+sU408+USlLEdyRQ=
+	t=1792165501; cv=none; b=GK08FY8rKukWpfVmDUPXe36rFlsRKg60eeqw1WJI9AH22McnhHMZNNqfhNWo3TW5CVXE/ni0C8e0RSWWCzZNa9XYG/L2e528xmxvwd8XdJ/rJ+Ao5Gv8W0Uxo+8xf2maUeYwiL/VX9UlEtooi1KWjgSsw28cCDkyRX/XdlYnvmw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792165417; c=relaxed/simple;
-	bh=WIrF0B1YcztghQ25TC0rMR7M8vujKFqXcuC4yly5xsA=;
+	s=arc-20240116; t=1792165501; c=relaxed/simple;
+	bh=9bXbLDYSonTKhdmt5hDhi+Ax8Sq8b8bafY5sQF5NToY=;
 	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=e6aNSpkb3oxj/a8TCim1bcjb2/7i/bZE+oU3W7o2b39z/kXP+FJzMWl2TH0N+QJa3ppRz9m3P7g+qpaTT9zGymOQG2s973RtfW9F/0z2vmvzdPeM4mEFyBPmJZf7BpWHErPXasOC6eqlBfN+DUYxH+q+JdBOhJwUZmQ8T9ZBkeo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jYXcu7dc; arc=none smtp.client-ip=100.103.45.18
+	 References:Date:Message-Id; b=smOXLi2Y9R6NseVCo1kK55k3hLHsyTHY3KxL7mu/b8/XH9BmVCKzCCAtV4fJVLqoWTGNKKYsFKiSM4nfdcU7bL8gmN8phA2ZHkwgX44OruOxmFlHdsyGPVQ+NJAcOeaycT6U0vXPwJPXq/FtbRNtZ0Cm/VLxyWHb2SsEWunJ96k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fqfukrxb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jYXcu7dc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC5881F000C4;
-	Fri, 16 Oct 2026 15:43:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fqfukrxb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57AB61F000C5;
+	Fri, 16 Oct 2026 15:44:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792165416;
-	bh=LcSEFLNlLRj6r7I/tqUMRAsQ8iaPLr97Duj+1ronOes=;
+	s=k20260515; t=1792165499;
+	bh=Z81ZX3c8VwRbo1qhQKnMhcFi9A73xlefHXLKdBssqvE=;
 	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=jYXcu7dcBUFWun40DfLY6RsxA5hUACj9JjHpW5yarRCwg4LSmi+PZXKCDlIiYOtql
-	 /1JpBI2YGK21oxsNaaXZ39Mk4bXJJFVzJE2S20W3hlO2uOfOYlBzgCIiTk5IPfGHu/
-	 3uT4M5vMTJDbxnN50BZUm0ckq0E0ud9xjt7h9eykIZE8KwEbUCVfvdCvD/NROWQP+E
-	 47hpt4i7T4+ciVxEXJh+RgBJt03+6y14DQlLYtGJpYieTrhm2SPMfIY8YZ0NHwMXrI
-	 4lLWSilvcAhypd8ugnEJXyCC5hrsCIP+M96k5qvuKWjox91wcmyRGeEcxqjNON7AYq
-	 5X9zAIPckVrgg==
+	b=FqfukrxbmKr0vrx3QTj6h7JVFSmaUwVvc0uw+IM9V79h4ssnZE7WtF+E3zZq/inOT
+	 SAhSwAaIudAmFZ3JnFKjgVo/69gh87SEQ0c7Y7rYW5jyc1HyI+rJifnSjz/J9bho9q
+	 HX5AE7OQLd3jO+7dwL5B5G/ZUmQXHKL4v6QsSVfHwgEvfoLx54q+ztIdysXXLRywsf
+	 9gPp3gz8Pu++QW1mPJqckJrsnpD0vCniJnSYlfhScX9/nA5Hc/MjqnREjRGsWzYxuB
+	 mhIQj1zVLKhiKY9YB/FTavIxi7hUDkicIcy/qCFYx1eWySjc8dk1JrMcJudnsf8HsW
+	 HKbXJHxLQMcMw==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -38,151 +38,211 @@ Subject: Re: [PATCH v3 2/2] phy: qcom-snps-femto-v2: Add support for
  SA8255P
 From: Manivannan Sadhasivam <mani@kernel.org>
 To: Mattijs Korpershoek <mkorpershoek@kernel.org>
-Cc: Manivannan Sadhasivam <mani@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+Cc: Vinod Koul <vkoul@kernel.org>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
  linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Sriram Dash <quic_sriramd@quicinc.com>
-In-Reply-To: <xhkdbqzhp6b45.fsf@mkorpers-koolstof.csb>
+In-Reply-To: <20261002-phy-qcom-snps-femto-v2-8255-v3-2-342542bd9bc6@kernel.org>
 References: <20261002-phy-qcom-snps-femto-v2-8255-v3-0-342542bd9bc6@kernel.org>
  <20261002-phy-qcom-snps-femto-v2-8255-v3-2-342542bd9bc6@kernel.org>
- <179214420138.106618.10672928212252943043.b4-reply@b4>
- <xhkdbqzhp6b45.fsf@mkorpers-koolstof.csb>
-Date: Fri, 16 Oct 2026 21:13:19 +0530
-Message-Id: <179216539953.106618.14570496753417806206.b4-reply@b4>
+Date: Fri, 16 Oct 2026 21:14:49 +0530
+Message-Id: <179216548965.106618.12539639688235621089.b4-reply@b4>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4836; i=mani@kernel.org;
- h=from:subject:message-id; bh=WIrF0B1YcztghQ25TC0rMR7M8vujKFqXcuC4yly5xsA=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq0kYaMcYoOYuEt8LHmnk2kJpo7tZ5h8+CyFxEy
- 0LT1W0lUy+JATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCatJGGgAKCRBVnxHm/pHO
- 9aW+CACqgV6a7bkqUFziapH9V9EPveDtCHgmoGwzC23kkS5kBt4kyD5hGZN3OqaOb1gtJhfcdfi
- 31SqcfzfKwYlfmKXtA+Gw7tVYIefPk/QAH0ZYlGo+qlvpDpeWuSnjC/EBZvriVYsO9hcaABUHon
- rfJ6a6fl+ffpzokn7tBTrS+/HhMFfhXBKevolYcyUttbFE1NjLEhVje84g9yYr8fhtZDy5gFdlx
- V6UEL9by+pR5gyd+Hhj02Ok0CvFpOxU9la2BWrD5DefOgDuXG+aZkiupbh7uJcDMs89cVwUasS7
- mKBsBexyHFjAjqn9Uq+cxzcjhMU6YxdsMxSzQaRiP1yMBLyw
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5975; i=mani@kernel.org;
+ h=from:subject:message-id; bh=9bXbLDYSonTKhdmt5hDhi+Ax8Sq8b8bafY5sQF5NToY=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq0kZ1AeIG0PTbo2Axh48qwE8Lo5iQEODWtAb+3
+ Cb80s22w8CJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCatJGdQAKCRBVnxHm/pHO
+ 9aIkB/4wSjPewk5Yrc11RaVVVMpqif2lk5SbR/kfEBN4O77rblXnIBnNXEjunoMzfHZzHuNsKlo
+ n7QAPKS+T7dc5YYAaGWMBLBs8aQJcTrvZcBTyR1cr55smbYu/xZoDHA20igTvNhk/F2mxuYzUp6
+ dqQALzjZG/wSrPcXCh529umbEnZiGmaeqeEjTbvUfzh5n/vNbeM8Uj2Nj6kxNmyoL67a6bQO464
+ 7C5zH+yZJxLPhKUf9HMrUmpQLxWh70MOYvHaTtnxCarCqBgXk5Ax0z7Zjf6CY6ejtMV6vA0lj+S
+ SRphWo1OOEeC8WzKkhKbJD1fvZRDyX0T3BqCKh2LSui57z/W
 X-Developer-Key: i=mani@kernel.org; a=openpgp;
  fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-On 2026-10-16 15:14 +0200, Mattijs Korpershoek wrote:
-> Hi Mani,
+On 2026-10-02 11:41 +0200, Mattijs Korpershoek wrote:
+> From: Sriram Dash <quic_sriramd@quicinc.com>
 > 
-> On Fri, Oct 16, 2026 at 15:20, Manivannan Sadhasivam <mani@kernel.org> wrote:
+> The Qualcomm automotive SA8255p SoC relies on firmware to configure
+> platform resources, including clocks, interconnects and TLMM.
+> The driver requests resources operations over SCMI using power protocols.
 > 
-> > On 2026-10-02 11:41 +0200, Mattijs Korpershoek wrote:
-> >> From: Sriram Dash <quic_sriramd@quicinc.com>
-> >> 
-> >> The Qualcomm automotive SA8255p SoC relies on firmware to configure
-> >> platform resources, including clocks, interconnects and TLMM.
-> >> The driver requests resources operations over SCMI using power protocols.
-> >> 
-> >> The SCMI power protocol enables or disables resources like clocks,
-> >> interconnect paths, and TLMM (GPIOs) using runtime PM framework APIs,
-> >> such as resume/suspend, to control power on/off.
-> >> 
-> >> Power domain "core" controls the GDSC, resets, and TLMM (GPIOs)
-> >> whereas power domain "transfer" controls clocks and interconnects.
-> >> 
-> >
-> > This is not consistent with other SCMI based drivers. Most of them are using
-> > 'power' and 'perf' power domains, not 'core', 'transfer'.
+> The SCMI power protocol enables or disables resources like clocks,
+> interconnect paths, and TLMM (GPIOs) using runtime PM framework APIs,
+> such as resume/suspend, to control power on/off.
 > 
-> That's correct. Krzysztof had the same concerns [1] in the binding
-> reviews. To sum up from that thread:
+> Power domain "core" controls the GDSC, resets, and TLMM (GPIOs)
+> whereas power domain "transfer" controls clocks and interconnects.
 > 
-> For usb PHY, 2 SCMI protocols are exposed by the firmware:
-> * power domain management protocol (protocol_id=0x11)
-> * performance domain management protocol (protocol_id=0x13)
+> In this variant, two disjoint sets of resources are modeled against
+> the power domain suppliers which can be turned on/off to achieve modeled
+> device states. Two modeled low power states d1 and d3 are supported.
 > 
-> The power domain has 2 indices: 'core' and 'transfer'.
-> * core controls the regulators, the clocks and the reset
-> * transfer only controls the clocks
+> transition: d0 <--> d3  :: both core and transfer suppliers
+> transition: d0 <--> d1  :: only transfer supplier
 > 
+> Signed-off-by: Sriram Dash <quic_sriramd@quicinc.com>
+> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+> Signed-off-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
+> ---
+>  drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c | 127 ++++++++++++++++++++++++--
+>  1 file changed, 118 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c b/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
+> index 980ad1fb1e2e..9fdf7ae681b6 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
+> @@ -12,6 +12,7 @@
+>  #include <linux/of.h>
+>  #include <linux/phy/phy.h>
+>  #include <linux/platform_device.h>
+> +#include <linux/pm_domain.h>
+>  #include <linux/regmap.h>
+>  #include <linux/regulator/consumer.h>
+>  #include <linux/reset.h>
+> @@ -95,6 +96,7 @@ struct override_param_map {
+>  	u8 table_size;
+>  	u8 reg_offset;
+>  	u8 param_mask;
+> +	bool fw_managed;
+>  };
+>  
+>  struct phy_override_seq {
+> @@ -121,6 +123,7 @@ struct phy_override_seq {
+>   * @phy_initialized: if PHY has been initialized correctly
+>   * @mode: contains the current mode the PHY is in
+>   * @update_seq_cfg: tuning parameters for phy init
+> + * @pd_list: list of power domains associated with the device
+>   */
+>  struct qcom_snps_hsphy {
+>  	struct device *dev;
+> @@ -136,8 +139,81 @@ struct qcom_snps_hsphy {
+>  	bool phy_initialized;
+>  	enum phy_mode mode;
+>  	struct phy_override_seq update_seq_cfg[NUM_HSPHY_TUNING_PARAMS];
+> +
+> +	struct dev_pm_domain_list *pd_list;
+>  };
+>  
+> +static void qcom_snps_domain_detach(void *data)
+> +{
+> +	struct qcom_snps_hsphy *hsphy = data;
+> +
+> +	dev_pm_domain_detach_list(hsphy->pd_list);
+> +}
+> +
+> +static int qcom_snps_domain_attach(struct qcom_snps_hsphy *hsphy)
+> +{
+> +	struct dev_pm_domain_attach_data pd_data = {
+> +		.pd_flags       = PD_FLAG_NO_DEV_LINK,
+> +		.pd_names       = (const char*[]) { "core", "transfer" },
+> +		.num_pd_names   = 2,
+> +	};
+> +	struct device *dev = hsphy->dev;
+> +	int ret;
+> +
+> +	ret = dev_pm_domain_attach_list(dev, &pd_data, &hsphy->pd_list);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "domain attach failed\n");
+> +
+> +	return 0;
+> +}
+> +
+> +/* d3_to_d0 transition by turning on all the suppliers */
+> +static int qcom_snps_d3_to_d0(struct qcom_snps_hsphy *hsphy)
+> +{
+> +	int ret;
+> +
+> +	if (!hsphy->pd_list)
+> +		return 0;
+> +
+> +	ret = pm_runtime_resume_and_get(hsphy->pd_list->pd_devs[0]);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = pm_runtime_resume_and_get(hsphy->pd_list->pd_devs[1]);
+> +	if (ret)
+> +		pm_runtime_put_sync(hsphy->pd_list->pd_devs[0]);
+> +
+> +	return ret;
+> +}
+> +
+> +/* d0_to_d3 transition by turning off all the suppliers */
+> +static void qcom_snps_d0_to_d3(struct qcom_snps_hsphy *hsphy)
+> +{
+> +	if (!hsphy->pd_list)
+> +		return;
+> +
+> +	pm_runtime_put_sync(hsphy->pd_list->pd_devs[1]);
+> +	pm_runtime_put_sync(hsphy->pd_list->pd_devs[0]);
+> +}
+> +
+> +/* d1_to_d0 transition by turning on the 'transfer' supplier */
+> +static int qcom_snps_d1_to_d0(struct qcom_snps_hsphy *hsphy)
+> +{
+> +	if (!hsphy->pd_list)
+> +		return 0;
+> +
+> +	return pm_runtime_resume_and_get(hsphy->pd_list->pd_devs[1]);
+> +}
+> +
+> +/* d0_to_d1 transition by turning off the 'transfer' supplier */
+> +static void qcom_snps_d0_to_d1(struct qcom_snps_hsphy *hsphy)
+> +{
+> +	if (!hsphy->pd_list)
+> +		return;
+> +
+> +	pm_runtime_put_sync(hsphy->pd_list->pd_devs[1]);
+> +}
+> +
+>  static int qcom_snps_hsphy_clk_init(struct qcom_snps_hsphy *hsphy)
+>  {
+>  	struct device *dev = hsphy->dev;
+> @@ -196,6 +272,8 @@ static int qcom_snps_hsphy_suspend(struct qcom_snps_hsphy *hsphy)
+>  					   0, USB2_AUTO_RESUME);
+>  	}
+>  
+> +	qcom_snps_d0_to_d1(hsphy);
+> +
+>  	return 0;
+>  }
+>  
+> @@ -203,7 +281,7 @@ static int qcom_snps_hsphy_resume(struct qcom_snps_hsphy *hsphy)
+>  {
+>  	dev_dbg(&hsphy->phy->dev, "Resume QCOM SNPS PHY, mode\n");
+>  
+> -	return 0;
+> +	return qcom_snps_d1_to_d0(hsphy);
+>  }
+>  
+>  static int __maybe_unused qcom_snps_hsphy_runtime_suspend(struct device *dev)
+> @@ -316,6 +394,10 @@ static const struct override_param ls_fs_output_impedance_sc7280[] = {
+>  	{ 1310, 0 },
+>  };
+>  
+> +static const struct override_param_map sa8255p_snps_hs_phy = {
+> +	.fw_managed = true,
+> +};
+> +
+>  static const struct override_param_map sc7280_snps_7nm_phy[] = {
+>  	{
+>  		"qcom,hs-disconnect-bp",
+> @@ -390,9 +472,15 @@ static int qcom_snps_hsphy_init(struct phy *phy)
+>  
+>  	dev_vdbg(&phy->dev, "%s(): Initializing SNPS HS phy\n", __func__);
+>  
+> +	ret = qcom_snps_d3_to_d0(hsphy);
+> +	if (ret < 0) {
+> +		dev_err(hsphy->dev, "Failed to transition to d0 state\n");
+> +		return ret;
+> +	}
+> +
+>  	ret = regulator_bulk_enable(ARRAY_SIZE(hsphy->vregs), hsphy->vregs);
 
-But this contradicts with your commit message:
-
-"Power domain "core" controls the GDSC, resets, and TLMM (GPIOs)
-whereas power domain "transfer" controls clocks and interconnects."
-
-> The performance domain (0x13) exposes opaques values (0xa to 0x11)
-> for which we don't have any information.
-> 
-
-It is a shame that it is being defined as opaque values, but as long as you
-don't define it in the binding and not use it in the driver, I'm OK with it.
-
-> >
-> > Why are these discrete powers domains be required? In my point of view, the PHY
-> > should have only one power domain for controlling power and be done with it. If
-> > you start having these fine grain controls over the resources from SCMI clients,
-> > then it defeats the purpose of the SCMI based firmware abstraction design.
-> 
-> From what I understand, thse fine-grain controls are useful for runtime
-> suspend/resume (on the Linux side).
-> For example:
-> 1. Enable 'core' power domain to enable the PHY
-> 2. Disable 'transfer' to turn of the clocks. PHY is still powered but is
-> "idle"
-> 
-> If we look at the patch, we can see that this is what's done in
-> qcom_snps_hsphy_suspend().
-> 
-> Does that clarify things?
-> 
-
-Even though the SCMI spec allows defining multiple sub-domains inside a
-protocol, I'd argue that there should only be one power domain 'power'
-controlling all resources such as clock, icc, resets etc... But in this case,
-that ship has already sailed.
-
-> This is also explained in the binding [2]
-> Should I rephrase the commit message here to include that?
-> 
-
-Yes, please. Driver commit message should be independent.
-
-> >
-> >> In this variant, two disjoint sets of resources are modeled against
-> >> the power domain suppliers which can be turned on/off to achieve modeled
-> >> device states. Two modeled low power states d1 and d3 are supported.
-> >> 
-> >> transition: d0 <--> d3  :: both core and transfer suppliers
-> >> transition: d0 <--> d1  :: only transfer supplier
-> >> 
-> >
-> > What are these transition levels and who defines these? We cannot have different
-> > SCMI drivers inventing these kind of independent low power modes.
-> >
-> 
-> Maybe the naming is not as good as it should be.
-> I took this originally from a downstream qcom patch and did not change
-> it.
-> 
-> I interpret this as:
-> * d3: phy is powered off, before probe (no regulators, no clocks and in reset mode)
-> * d1: phy is in lower power mode (regulator on, no clocks, no reset)
-> * d0: phy is powered on an operational (after probe)
-> 
-
-These looks like ACPI D-states, which are neither defined in the SCMI spec, nor
-used by any other Qcom SCMI drivers. So this driver cannot just invent these
-states on its own. Just use plain wording for the function names based on the
-indices.
-
-> I see that drivers/tty/serial/qcom_geni_serial.c uses a similar
-> mechanism. Should I try to follow that naming convention?
-> 
-> If you have other suggestions, I'm happy to get them.
-> 
-> Note that I can't change the power domains ('core' and 'transfer' since
-> those are enforced by the SCMI firmware)
-> 
-
-SCMI firmware don't define the power domain names, isn't it? They just define
-indices and it is up to the OS to name it however it wants.
-
-But if it is defined in any of the internal doc, then it is fine.
+Why do you still control regulator natively in the SCMI path?
 
 - Mani
 
