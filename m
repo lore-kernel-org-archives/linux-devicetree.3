@@ -1,89 +1,89 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 468513B5302
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 03:23:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20F0A3890F8
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 03:23:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792120981; cv=none; b=IoSbq984hyilXpb7GIikv+l7cEQqPPgblmLoYfoZfj4ZTnEZCS3cdfqOKGfPNblx8OtRYC5a8VJKDTGWN0r7eotqmiUrtt1TCWwFBITJ2iEGbmVUCJoDt+amUT33Xpw46tVIHOXwkEjNoXuqz/1dKlvaSL2JxSUxuU98O/5Byag=
+	t=1792120985; cv=none; b=bNiiEjTEYRSWtrSnl3Qzg2kLFt1tYSmlsZlYpvrWZfpXQEI3zacny4pUV1OQifSBLWmsJ5YJg0EO8hoN3cFblzkv0RZEcSUGUuEHi0GjjKwav73nd0nyJOFtJ1/lWSa+zko8+CTNF4slxKvq8X8HqcpPtJ5QZYx4GLuvL5GcMWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792120981; c=relaxed/simple;
-	bh=0rgxn5r9GoXYq8qPP3L6F2nxV6da5rGl6uSIyp2qv2s=;
+	s=arc-20240116; t=1792120985; c=relaxed/simple;
+	bh=RsOQhBYGNatwQvsh2PMvNMWcbp4BrFTghX6Yuoweomw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=vEpWN9or/kbVDGjS+MLhKOcddmaiNTrYwqMKhxgp5UREXBned/50l4o6/w9j+sxpuPAR6kTWxbE22pXn/y1RDzlwk0ntgoDTNjFsByrSdtszCGxlbnflq/N0IKePY/4WFPPvW4JdX+qI04fhdzu1UPVXKaqn50hZw47GY/Yv/jc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=V9cQwHtG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=F99oRpCq; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=K1hgjGekzQmA1kUx3VEYJ6x/Rd4uU5MsvAjgXDDJWFl2xmagVIXyyCjwKKI6/qM9FDm5RgOt13pQNxBXXzXn9bjY6zEl/nDCPmOFZ+4pi5susdK1IzZRQqmsFdNP8744uOI+eaAfYJId9pGOttV/Q/IsEFrT8nJStox2ASx2Lhk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GSEBLOf5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=APL1Wwly; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="V9cQwHtG";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="F99oRpCq"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69FKKLAU3800192
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 03:22:59 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GSEBLOf5";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="APL1Wwly"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69G06To61596370
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 03:23:03 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	alOZNhc/hBycopSj6aablVmFXgtwQwPhX17D8dTQR5Y=; b=V9cQwHtG7H4kmGlb
-	MMG+3KoQmqVOJgthF2mfGHDSw/qVwyXK/RjAsNZuq6QJQLvb2XeZ/NJfYycdG3KT
-	wa3h0C3z3wIIHm6KNBpnvYx5pCK0pBPmTDhW5d5d3kgdiHVPKtloyhJvsukefiMK
-	RqMcS86F0burvx/9qDvI3zOU89h01PIfganbNMIci4fRj7Nk4IoEU6RQtt1xgQcD
-	pVczQGkdsNEzqopEt7iD4bavGk/HE4DkE0Ft61sI7iPZK4DUbGQjuTjUTeZnoQG9
-	LQMZ5FDb06LeAxBAGtBPrj/4ObfSh63CLmavXDn+YiEWr+NzUpPSEW1hKEsK70mF
-	IQnlSA==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb5se99sv-1
+	6aNW9dnDX6TbyEdH720nm0hjQAKn0nJnCofDm4yX0So=; b=GSEBLOf5hxVD7pUD
+	wdKA6JG1oQ3LCTjdGEFgFpKJ/hYsgZuaO2OfhgeAdEzDMLmKmAyQSDp4kQCBxe4q
+	nx9XiYVmkDHoVjQnKvbUeSohHDcg42eh+XLj32c4/PISuCIIkj3sWmVwzlWL5Q4q
+	TnH4kKr1cWgRPKdYIcb+vXxt04LSm8qoMjdRr9k+lACfirQp7R1/9rIiKgbZRWUX
+	8fCotgLkV9MDf9Mah8Fe0AQ4MFZ2rjycZf/JEZyiq36+H3/9wmgeYjXhPaehuKOt
+	QKgzq+wfwh3NTMqCFhn6JwTXa6RMAaF510CuiL32AY/BJ/viwOrIDBovkyhQNAO8
+	0SNKSw==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4haw2vbjr1-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 03:22:59 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-35cbea41088so4049681eec.1
-        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 20:22:59 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 03:23:03 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-35fb6be0f9fso2608572eec.0
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 20:23:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792120979; x=1792725779; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1792120983; x=1792725783; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=alOZNhc/hBycopSj6aablVmFXgtwQwPhX17D8dTQR5Y=;
-        b=F99oRpCq3rxvo/WRpnbYT9nmfxd/Ya3yqKDgFNzdGigTvilJ2XdCQB+A6IlsVEYgcZ
-         RdcapktwmnARMMqoezyYDd7vIAVE2LCh0RSC2GGkAD2RZ1Ia8ZE+CdEEVFcUxgY7FDdR
-         dl2GdtXEtvkpLILSl1GfPXe2nkwhkqqGOUaOwTsNPd3+oPSNqTu4z2pWhdepI3Ys32VR
-         pDwkg56wAvqzzzOkOJpfhAkiGsMsCJbKbF+WEGrEGVpBcVLqh5IwsO2zw5gXTrcDNeAZ
-         fjifR1pEihj6hPkR6EEU2XjhVSXDC6nj3wyFW6409+NXrZEN8cts7XvMo6UO1Z4AfAkW
-         EDPg==
+        bh=6aNW9dnDX6TbyEdH720nm0hjQAKn0nJnCofDm4yX0So=;
+        b=APL1WwlyBesiFFWO8i2NFfE6wzg+EFi7HjSZ1TcYJYuWdt21efIrZnrvCONHNIwbTo
+         eptBmZpBjWdudBOGeKBUHRIIbVKZf8UtaoW4wBde/eS2f2mYx62JBrrNbr2z0JY+oeyY
+         NeyTezz+HHJnwTSNIEUUZEab1yhb7tS4dRoQP1zL9R5YCZNLynI4Nbn2dJ/bMT00T8SI
+         2Lo3iafSFur7yhecoLRfw6oPg93vFew5+M/vTYmMijj4Nz9G9D3v2icfg5CkbNa2qNGK
+         n5AumiJTWdBgSrn54r02Y4oGxB2s22VYo4vpbuDCINRdC2XmUR+vIXKZJVrjUB+99CfU
+         f8MA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792120979; x=1792725779;
+        d=1e100.net; s=20260707; t=1792120983; x=1792725783;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=alOZNhc/hBycopSj6aablVmFXgtwQwPhX17D8dTQR5Y=;
-        b=X/geMvFkwAYUDsf9Kp6Uz1NUJwXfan1OrnQQZebDW2+1uMz11Hqmv0Ged+Ogl33aQo
-         WKnreYdpDwPUn0P3XutnG/SqAubf9qqE+SmFTw4QCt3d+o1k0VqUQBY4eF/nREoeSF5X
-         GXNjKaNeVR73Uj0SeMkP9EdApoC4bnlD5kGiVUx/il16sjDhn4vewSctJ2t045tQ3D/O
-         UEGE5tQhy8Lwx8TwrUaQO1wSxeNeG1BEXR2RGHyQ9e6grunVc5HAOeNWzGmOtTyOtabw
-         +Psj1m+TxWFT1+ihomuDvyA/hJwvIGBQQCfXgYKwBpvXrognw62JSc1s2zJjn4pmd8aT
-         OJcg==
-X-Forwarded-Encrypted: i=1; AKwUvBy5Fz2KR8G2+HuIeRMXolbqmTuv6vC/b9n2JizlzTqKseE3OGjpewi3svWbJg04JHkezHI1Ria02KMS@vger.kernel.org
-X-Gm-Message-State: AFq9FYLUkepagzrF5w3YcdUYrRdtoo1pqoz+uoRHu5D8mxd9ARiMPaLq
-	OZaeXX7c7d4XuV7lCdSc0tPRkH6hFA514FdR+EgSd6ZkEclrF9u+xicVb8H7kT7AU9GZvQyJ3Zi
-	3lfmlcCwHw4kchl5rNSWXA0+iIrh2bmSIzAivDqVwr2XZV1FkRYUOnGCB+ZUpc184
-X-Gm-Gg: AYBFou39pwfVBk6BrffaqlJwxIr4l6h+gcz+VoNHQhkNxYrxPnxuAmWt1bne8xSBA5m
-	XNHn0kJPTwo7wKBFCVpvUkEbg34cV1s/dekd66TP3X7mIqvnLlNIvaK3LsXv9T3yH4c6iMKoTMt
-	KRqCrBccflUrA2XUShj0AsED+2H35ca+5xvO+CME03mEzpRvoAiDaDyTc72F2Y8QyK0VD6abR5U
-	Fg/r8jhQFhSwLdEpfP55TJKLK5+rfL1RnbleRQgHxJxxyf3T4r/MztrGlzv9jqDFf4l2lIltq7g
-	hXSyFL15uhO2KytxiR8z1Y3tLRrSp1y+7VnimjKdOLjFbrH2lKHegWHKELnZn5FFeThQHLvpYF3
-	xC6lpvLG2KLOJ1CZPpluHne0yO1b5NNjd88HqTqCa3Llickehv6q74KuwQ7GeIMQKTA5UkxkLLs
-	/g2e2ed4eT7YHOLPCHcVpGFg==
-X-Received: by 2002:a05:693c:20d1:20b0:35c:e696:2d4a with SMTP id 5a478bee46e88-35ce69632e9mr11810181eec.24.1792120978693;
-        Thu, 15 Oct 2026 20:22:58 -0700 (PDT)
-X-Received: by 2002:a05:693c:20d1:20b0:35c:e696:2d4a with SMTP id 5a478bee46e88-35ce69632e9mr11810126eec.24.1792120977713;
-        Thu, 15 Oct 2026 20:22:57 -0700 (PDT)
+        bh=6aNW9dnDX6TbyEdH720nm0hjQAKn0nJnCofDm4yX0So=;
+        b=DdHWON1nOylffH5kezwUbXCzokeYthWheiTMfQxiuQcg512BnAO2EAdfPX92+h6seE
+         /B5tfYyUvRAkLt/LEAh9CSDVgvweoY9o5jJQ7JWSL1eEpP15rMhZUEUnQkWSNZjyQlEN
+         BFh3iLVov2rLi97mLgCBlUtetTuRO1PQ/5tEB3vKwuvI8WvkrUuiipKa4wKuNt0V+iu0
+         NyqcW6r+UT7gXNNEt5o7tcdVhA1qNhLgHkE12YnAslFt145MfOq3j15XSzmr0AuA0Oda
+         y+xzxWM8fBd30qv0clP01S/ZFIqbmu2LflA4/j8lm/oOgZc9A4vwuop4NOHVckk1OYpb
+         VLGA==
+X-Forwarded-Encrypted: i=1; AKwUvBwB2hHgDmcGn0pInfmdxyzIGYgOvo7byf7/+wNwZr9MftUceCxA53J5f1G7sJW2uwaoKLZPfJ8AAAt8@vger.kernel.org
+X-Gm-Message-State: AFq9FYIpMKG5WcXPyYbwqXtaXfmkQwlfZFB4160rfciYCRC4qv7KSkOB
+	cbKcQHG/YEHQeOp7UmJb/9OMDjCGit5VS4va9MvqJN5Oeu3i137lPoF3NH2gfocLZZg9VAFioW8
+	lYow0VqSqo8/zQWYbNtniSrhyJqCGnXeLtK0d7NpPaHvk4Q1Z+vPUcKNy8+zNneA/
+X-Gm-Gg: AYBFou3n4M2l0JKWpzPf7q4TxO6BvWxXM/GkSNRAWG7ChKEhvtb30xkqy7fJZxLepzf
+	dRwnmVCu9rhM2B7A4hYvYu2efZ4zAzWiBP5GBULjVLMTBB6IlzzpiPcv+GWON5BbbvUdaJwyGf8
+	JeQrdud5AoEMlAn3pxwrm6GvKs6/3XrMNVypqA/yc0U9KQYRS0TWU+rKZlxfE75mqC9Y+D1wktD
+	UibtclgI+KN8j7+lkyz92hWDaSk/AF5CwMF7gt3YAfE+kZlb4NoQ3Qgl3HWBRshSJIrmxZkOTsg
+	iX552h7rIOOKQicZbZZ5Tvgsx5esRTR5NQapt0DayJIB1/cbesv1hVYZBrZpmL3mntDCGhaf0JV
+	Xb7zTDQcNjUIqfLdup6oZD0ehc4CHbQQz+AM0fh5c7RT9nfSJcPjDbeixag3bSVSoBS/qEO5XMA
+	mH+Gcvwgn0pGd1nKsta5rBoA==
+X-Received: by 2002:a05:693c:2289:b0:34b:5ab2:e200 with SMTP id 5a478bee46e88-3537e0788bemr39108228eec.14.1792120982716;
+        Thu, 15 Oct 2026 20:23:02 -0700 (PDT)
+X-Received: by 2002:a05:693c:2289:b0:34b:5ab2:e200 with SMTP id 5a478bee46e88-3537e0788bemr39108183eec.14.1792120982148;
+        Thu, 15 Oct 2026 20:23:02 -0700 (PDT)
 Received: from hu-aarasahu-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360819be413sm2256698eec.13.2026.10.15.20.22.53
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360819be413sm2256698eec.13.2026.10.15.20.22.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 20:22:57 -0700 (PDT)
+        Thu, 15 Oct 2026 20:23:01 -0700 (PDT)
 From: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
-Date: Fri, 16 Oct 2026 08:51:52 +0530
-Subject: [PATCH ath-next v2 15/17] wifi: ath12k: Derive QMI service
- instance ID per protection domain
+Date: Fri, 16 Oct 2026 08:51:53 +0530
+Subject: [PATCH ath-next v2 16/17] wifi: ath12k: Resolve userPD ID per
+ device
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -92,7 +92,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-mpp-bringup-v2-15-f510c33bfcf5@oss.qualcomm.com>
+Message-Id: <20261016-mpp-bringup-v2-16-f510c33bfcf5@oss.qualcomm.com>
 References: <20261016-mpp-bringup-v2-0-f510c33bfcf5@oss.qualcomm.com>
 In-Reply-To: <20261016-mpp-bringup-v2-0-f510c33bfcf5@oss.qualcomm.com>
 To: Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>,
@@ -100,82 +100,107 @@ To: Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>,
         Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>
 Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org, ath12k@lists.infradead.org,
-        Sowmiya Sree Elavalagan <quic_ssreeela@quicinc.com>,
         Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAxMiBTYWx0ZWRfX0FSyigslAT1z
- zUO6EPkWkZm9et/1xSnn9M4/y4wW39F+8HeeXo5TguwW1ysOdJyVn5+tGu70L5Scmuw+NBPywrW
- U49rT626Ucyr99h7+xZ2brEHF6l7OFs=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAxMiBTYWx0ZWRfX5T+Ld4LH8wrV
- hZr0cYgzx0Q9GBmHXIiabCZlCIGoC3uPSnCOqVyL3hsfNKg5jcoKpn3Rr/zZhZUdCzxdGldRWtJ
- GGxHbWaviwe2wdIWb1/E4wexpwAbVddn7WdXO5zZzy1ZaRzry0hSS0+vUqLKV3eltpiU1HWFKP0
- rpGUkJ+1ZdqfA4yNrstalUeLJ/P3G3bTZO0WQOlBJeMBAyxnNLRXtrl54koEb9Hm6f5xkkdsVwd
- Qrirf+0ztOpE0Ud6dvlihZpceP97srRAYOGKxFIqZSNkFjxPStvTImWFDqrKxEswKId2G1fn9LZ
- ZQ47qmcUcXkolqFFr9Vu+d9Q2rrWbNcboHKflo8cHpNWYbEdpwlmeQRi8bEnjXCh0owLTftJRiq
- qoi1UvkYy/Hlr1zDjPfT66gqn/pBuzDRZiam0yVSNlgHOeGW5qi51pRIHcxWldO5F/2cZ1qHUov
- nrGRr0aOwZs7frs9zcw==
-X-Authority-Analysis: v=2.4 cv=P4yvFSAu c=1 sm=1 tr=0 ts=6ad19893 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAxMiBTYWx0ZWRfX2Dwa/mtg3oWU
+ A2yN9T1AFcDc0WF9BoN+ZD+MNTMVxqi5Tbiu/fEbh9iuD1apAafWrPmpZGdj++PCX1aUzy5sFV8
+ 3BU7aosSyCqAjm219a3+ILJyLEvfzsUFNYVprV+G6/p0LucFFT+x/T3GdgtcHum0R8Dcb3C/LyG
+ Qa3GwAWdQ7bNK55DIKXEq4Hit0P9gV0WgANPYuHsyFneOC3Twj4REGwFAkFpH3SprdZDtdQe27c
+ LFcaI6G0fXNoUkV8BF51gcD/K1WRXFPeHBK+uXzsrRIuvr7J8W4vfckqItYWlv2QM51ZRio3hpw
+ uOcMHTsqzVZkRHElUO9g25r6mpe45tXTM6qCUKqu3ZkpLX71OEqBE6z4xSUPPNp+PnJmYkvqHxt
+ qDvcEh8bFSyAMkD2JBMGoINP3kTdhkx6FkM6L93c5fROEwIeDxZZZVvuRuGOZLJgCNKqwBQb0Du
+ x9KxIsGrb6p4pTFxQ+A==
+X-Proofpoint-ORIG-GUID: H6ZCyrvVOcHooIMT3QvbUG5jOOuih1sT
+X-Proofpoint-GUID: H6ZCyrvVOcHooIMT3QvbUG5jOOuih1sT
+X-Authority-Analysis: v=2.4 cv=G/CJgNk5 c=1 sm=1 tr=0 ts=6ad19897 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=1lU9L7Y0PnsvXye6yGIA:9 a=QEXdDO2ut3YA:10
- a=bBxd6f-gb0O0v-kibOvt:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: 06CR1zQW23Kqy60tDrD1wC27wGN4QqbK
-X-Proofpoint-GUID: 06CR1zQW23Kqy60tDrD1wC27wGN4QqbK
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=OMOyA7uMCkrHFcBVPHAA:9 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAxMiBTYWx0ZWRfXwJhIJmVtKObo
+ wro/2ZkbwghvL5NiJWf4keyv8M1Ip1KTkdrmM3l6ohEfBRaFMb//7JzskUQneaLlTwUSzsAmFLO
+ iJupCz+rl2fHNWZi1S/W+X6nuudQQHc=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0 clxscore=1015
- malwarescore=0 impostorscore=0 bulkscore=0 priorityscore=1501 phishscore=0
+ malwarescore=0 lowpriorityscore=0 spamscore=0 clxscore=1015 bulkscore=0
+ impostorscore=0 suspectscore=0 adultscore=0 phishscore=0 priorityscore=1501
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160012
 
-From: Sowmiya Sree Elavalagan <quic_ssreeela@quicinc.com>
+Currently, the userPD ID is hard-coded during AHB probe. This does not
+work for multi-PD platforms where different devices can have different
+userPD IDs even when they use the same compatible string.
 
-IPQ5332 platform variants are supporting multiple Protection Domains
-(PDs), each PD exposes its own instance of QMI services. The current
-implementation uses a fixed qmi_service_ins_id from hw_params, which
-results in multiple PDs sharing the same service instance ID.
+Resolve the userPD ID based on the device address so that the correct ID
+is assigned to each device. The userPD ID is used to determine the
+firmware name and PAS ID for firmware authentication.
 
-Update ath12k_ahb_init_qmi_ce_config() to derive the QMI service
-instance ID based on the user PD identifier. Offset the base
-qmi_service_ins_id with (userpd_id - 1) to ensure each PD gets a
-unique service instance.
-
-This avoids QMI service instance conflicts and enables correct
-operation on multi-PD targets.
+Also set the multi-PD support based on the AHB device descriptor.
 
 Tested-on: QCN9274 hw2.0 PCI WLAN.WBE.1.6-01243-QCAHKSWPL_SILICONZ-1
 Tested-on: IPQ5332 hw1.0 AHB WLAN.WBE.1.6-01322-QCAHKSWPL_SILICONZ-1
 Tested-on: QCN6432 hw1.0 AHB WLAN.WBE.1.6-01322-QCAHKSWPL_SILICONZ-1
 
-Signed-off-by: Sowmiya Sree Elavalagan <quic_ssreeela@quicinc.com>
 Signed-off-by: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
 ---
- drivers/net/wireless/ath/ath12k/ahb.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/net/wireless/ath/ath12k/wifi7/ahb.c | 27 ++++++++++++++++++++++++++-
+ 1 file changed, 26 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/ath/ath12k/ahb.c b/drivers/net/wireless/ath/ath12k/ahb.c
-index b9ec14e86def..cecafc12e8a8 100644
---- a/drivers/net/wireless/ath/ath12k/ahb.c
-+++ b/drivers/net/wireless/ath/ath12k/ahb.c
-@@ -567,12 +567,14 @@ static void ath12k_ahb_power_down(struct ath12k_base *ab, bool is_suspend)
- static void ath12k_ahb_init_qmi_ce_config(struct ath12k_base *ab)
+diff --git a/drivers/net/wireless/ath/ath12k/wifi7/ahb.c b/drivers/net/wireless/ath/ath12k/wifi7/ahb.c
+index bff48b2fe124..889361e637af 100644
+--- a/drivers/net/wireless/ath/ath12k/wifi7/ahb.c
++++ b/drivers/net/wireless/ath/ath12k/wifi7/ahb.c
+@@ -16,6 +16,10 @@
+ #include "core.h"
+ #include "hal.h"
+ 
++static const struct ath12k_ahb_userpd_map ath12k_wifi7_ahb_userpd_map[] = {
++	{ .io_start = 0x0c000000, .upd_id = ATH12K_AHB_USERPD_ID_0 },
++};
++
+ static const struct ath12k_ahb_desc ath12k_wifi7_ahb_desc[] = {
+ 	[ATH12K_HW_IPQ5332_HW10] = {
+ 		.hw_rev = ATH12K_HW_IPQ5332_HW10,
+@@ -43,6 +47,26 @@ static const struct of_device_id ath12k_wifi7_ahb_of_match[] = {
+ 
+ MODULE_DEVICE_TABLE(of, ath12k_wifi7_ahb_of_match);
+ 
++static u32 ath12k_wifi7_ahb_get_userpd_id(struct ath12k_base *ab)
++{
++	const struct ath12k_ahb_userpd_map *map;
++	struct resource *res;
++	size_t i;
++
++	res = platform_get_resource(ab->pdev, IORESOURCE_MEM, 0);
++	if (!res)
++		return 0;
++
++	for (i = 0; i < ARRAY_SIZE(ath12k_wifi7_ahb_userpd_map); i++) {
++		map = &ath12k_wifi7_ahb_userpd_map[i];
++
++		if (map->io_start == res->start)
++			return map->upd_id;
++	}
++
++	return 0;
++}
++
+ static int ath12k_wifi7_ahb_probe(struct platform_device *pdev)
  {
- 	struct ath12k_qmi_ce_cfg *cfg = &ab->qmi.ce_cfg;
-+	struct ath12k_ahb *ab_ahb = ath12k_ab_to_ahb(ab);
+ 	const struct ath12k_ahb_desc *desc;
+@@ -60,7 +84,8 @@ static int ath12k_wifi7_ahb_probe(struct platform_device *pdev)
+ 	ab->hw_rev = desc->hw_rev;
+ 	ab->hif.ops = desc->ops;
+ 	ab_ahb->scm_auth_enabled = desc->auth_enabled;
+-	ab_ahb->userpd_id = ATH12K_AHB_USERPD_ID_0;
++	ab_ahb->supports_multipd = desc->supports_multipd;
++	ab_ahb->userpd_id = ath12k_wifi7_ahb_get_userpd_id(ab);
+ 	if (!ab_ahb->userpd_id)
+ 		return -EOPNOTSUPP;
  
- 	cfg->tgt_ce_len = ab->hw_params->target_ce_count;
- 	cfg->tgt_ce = ab->hw_params->target_ce_config;
- 	cfg->svc_to_ce_map_len = ab->hw_params->svc_to_ce_map_len;
- 	cfg->svc_to_ce_map = ab->hw_params->svc_to_ce_map;
--	ab->qmi.service_ins_id = ab->hw_params->qmi_service_ins_id;
-+	ab->qmi.service_ins_id = ab->hw_params->qmi_service_ins_id +
-+				 (ab_ahb->userpd_id - ATH12K_AHB_USERPD_ID_0);
- }
- 
- static void ath12k_ahb_ce_workqueue(struct work_struct *work)
 
 -- 
 2.34.1
