@@ -1,251 +1,237 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+Received: from mail-pj2-f9.google.com (mail-pj2-f9.google.com [74.125.227.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06A413A0E99
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 02:42:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BFEA352036
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 03:09:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792118525; cv=none; b=Wigu5RbD/7g0uNs3tyHJdeOXpJK4JaG3swkV8/nU+YcddNWuKLfEHXpsRQewSV9UrVmQJ+Rk/3orJV0QaT3vNIzWb+Hzr8gQj6052jPWWOZoVQse85pUtScTqtzOWqutsnG+NeK5Wpnhm2iLu4eFV4o+Jf+gnUbxA64SEdRYfWI=
+	t=1792120154; cv=none; b=gG574McIi9TwjoyhCjZVrAQRwuAwbv0RgacY+x+O88eEPYyr+A1sV3XtfxKj80OBfPjIPEU4beLiV6UrmAHOl/fj/MrCxhxSCpZ1nz/0PYhzP8wGQ37COa7ysU2XeLSGOdDnt2rkE6ANSwXF3YAzpdmx+nW83Len5eQqRVIsGro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792118525; c=relaxed/simple;
-	bh=R5QvKRD1kd1ywG8Xt9XPMUzDzXmbazFihpojrIpvY00=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dVr1c9BTqqWaAOWzSrKZ73fJVbfs1qYKLgE/pmOcqC47gin/Bu6agYvyUpDvW4uBnG4//o4d67/LuJUXNiVEOClpXEWI6mS3ibD0MCryOBXcKjM4ex/2khOl5TmYaO18j3z1Rij6A0QOZZkGxv0Hw5mVDlMGQSxAL0eRQojAoyQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jACB082j; arc=none smtp.client-ip=209.85.216.48
+	s=arc-20240116; t=1792120154; c=relaxed/simple;
+	bh=PpYg3/Cmk2CzPlG98OVhEDOXoUWD9dGaoWaQvMSxYs8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jeyUicS98mEuCafaOIvVmn94L9DFq2LmnPqnxCZA+2FS8LYgvIuXFMQNetT/+YcKl2oJqbp7jXzx7Gc5BKHHbr3/TnxDtv9R9odW9BCn6AyygZtR7pGclu88fCRPBQMNpmHyG2eNxH6fRC4OX+Odufe/YrC/eN60CBkoHvsBX70=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FJkczYb2; arc=none smtp.client-ip=74.125.227.137
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jACB082j"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso1482622a91.3
-        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 19:42:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FJkczYb2"
+Received: by mail-pj2-f9.google.com with SMTP id 98e67ed59e1d1-3a51696a650so3488633a91.1
+        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 20:09:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792118523; x=1792723323; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jivYaZtVc5VWvcmUEsRCDj9BC+T6NVyJryDJSgOOOto=;
-        b=jACB082jNqCoQB6rcGxfDIiPz1CPtDpNQJfLj2tE2bcligTe7innYgFOORBHGV6AmW
-         V/Rxl4pWcIcsIZSttg/niIUPL5SVLMS7/BY4b+kNj1IIT4TeZfMgZ+gVx4NiC8YMRBIo
-         72bvn1No/f6JIVXhTeoX3QAn3ukdzpKhn6nO7N4cSQVYNzXTOMvVZEtZnkjuh1NgoAdA
-         NrYcf/0r/U9MACuqf12q2dzsQ8P60ZJHMRuUYBs6lWMJSWIYoel4FsaEF/a9rmW9e2fp
-         oEnRRm9pm7OoN0X+Gtga7QdR5Tm8iw+S6YkOgR4WjLHQMNxgzLbdp3Sjk/tli7rwD9aI
-         Gofw==
+        d=gmail.com; s=20251104; t=1792120153; x=1792724953; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ed5L209SneTzZcWvCiPDVyFxWV1jqEY6cKUsalB6bvY=;
+        b=FJkczYb2l4oDt5Ywi8qBhH/vBRnESY9aK+yO+bpX10HxvuifgI7XSnJI8HvqrWSACp
+         jFJxlLKihjOMxrguziXrNEOFyTQpzgPC4pcVW8aQLa5EwwebzV42pyWeoAJQaD7K/EHG
+         HbVnQUwNRihZYK9/C6jG7kIMaACDpOPYamWGKbbtl2NqB7zkm8oZGfzOPpen8duICDf4
+         Mqp4zWAcmZTSp6yxuy7wPfSUaUTrE+Dxht2iS/SW8KGafiib+Fr0jq/ysG10Ojr8fwjP
+         ei536N9GzJjWFOc+XzYEq5zquXaiy8s6MJJb3UTnMzbv1RJY4DWf/TAJPszlSc3xlQzh
+         ZH8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792118523; x=1792723323;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792120153; x=1792724953;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jivYaZtVc5VWvcmUEsRCDj9BC+T6NVyJryDJSgOOOto=;
-        b=y8PWMNjGXgunQzNkTuPlyMHb643KmtuIXfMCZ/KgGyvqw9WBKC2xHCvd3NmbiZQ8q8
-         pb1JNBiKPvd4RBF2OEC7Ibb621M52Qn3GJKYK49KFsanZTl7Tcyj9DIeTsfKCIi050x4
-         P0KMMUM0rCWwCu8ZWoVnlfNeg2txgcdjortSjcMfT46cv+2rodeI5N1teETawCghTw8q
-         al2tWjWmsw8V3sdDtzBnLTR6EoYrCtplDLrBgghqLboh5x9HICW5VJzBMLqSti7ZICpl
-         kdW0OfVlH5xg4tXzsrQ9LqfE/Zk3IpDC4hHuJ/YbUMg4z6UDOzAopvFeZs02G7Vb8FOP
-         xokQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwYjI/FpvX0WZ3eE++InP9N3sZoUUfGipKzD0PeDOm39h1T6zGmZoIAExRHemVYL7XliOJcRoiadzZo@vger.kernel.org
-X-Gm-Message-State: AFq9FYJGgPKxXi4+0yz9WEn3QKirjQYK962aRTJ89YtWBomrqcAtz5Q5
-	VUaZclZsQyCB5omZYbR7zAwb4stPSsL2TZweumNk8vjvf1WPSZPvROG6
-X-Gm-Gg: AYBFou3ggjZPZ+C3mZNoYO92re0DhAL9Q66Z8eenve/tvoiGdFoObGPoibmWVdCh2dU
-	5IOezbAdG0gw9bNF/jD8u4wSGs4o7T/jLwlFMelpKYiapW1LXkbkS82JOfaTXKMLDk1F7z4kNei
-	C7jVi+EuRdRvY5XDYGXy49sSLIBMA1SnLFAzRTIDk/on98eRbDVyAWLtE8OIPGHaz9qWLCzfAl9
-	1dOpUptqef/xElPbiwkPFhOO7iUMdvcoHq53c2HD1wRoGYgTKe/srDk3B83q1nl238/CtuOG/T2
-	E3JCd1U9c7yUoNUk0E8+xEZI+2/CIrkeg8taizWl+QZ+z04ChNaSbBgV1a5cado6l1iBYUCZkCk
-	Yz6Ee6GK9EdeaDAZv7zrudAqYynYqZKWU73P75pdHY2+SFMUonQZYHYRQeZixP1Q96qj/mHCClX
-	Dcn6eLfl9ptN+8M100r3FQZ1URSzC2BoYVVcHDh9RrcguGx7Z8CjM46yNxCJI+J7DQ7235pCu8T
-	Qwj4xnRBhL02FTZMSRQKCwXYy6uSoclN9pfAH5lDqCzcA==
-X-Received: by 2002:a17:90b:1d4f:b0:3ab:3384:1a44 with SMTP id 98e67ed59e1d1-3ab3a955e0amr18281855a91.12.1792118523062;
-        Thu, 15 Oct 2026 19:42:03 -0700 (PDT)
-Received: from [172.19.1.48] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac945e7320sm6716943a91.6.2026.10.15.19.42.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 19:42:02 -0700 (PDT)
-Message-ID: <06b3e996-2eb1-4bc3-9ee7-6780b2d62dd6@gmail.com>
-Date: Fri, 16 Oct 2026 10:41:59 +0800
+        bh=Ed5L209SneTzZcWvCiPDVyFxWV1jqEY6cKUsalB6bvY=;
+        b=RYZ/KMW8YyarWhnySSSbvapVyxjxAgLv0QtsVxniPySYqX0FtCeH62I+8Te5KOmyc+
+         VMwukKGJcDEVMtsF/YYTHygHrTTWAlqcCjdCpLazg4g+94puUAvlKTu4neVHqbn0Vl9x
+         rYPCbaLEOsaTfppnONm8FSzmdYll2w5tvVNzrmTslyrIWLDOvascAykP2GSxrL99ECsH
+         wMsZigp8s8VKNfpm0K1Yf8yP4HNbuucjGh8SCq/Mcjg7SZWc19FpKEjel1dtge3/wvzr
+         ShST+fBkSR5Z5tL5XoK+HrfVDbng17evllTfkgTGK+Onob0P/JszIc0YDMV3Bhe0E36X
+         GVLA==
+X-Forwarded-Encrypted: i=1; AKwUvBy/OiZCs4t0Wpwpznz/kK1XamVFOcHhYdlqudqgdHvEVPbX3hhVU8m6Uk6HXC9soe4nkeJxcUktQGDT@vger.kernel.org
+X-Gm-Message-State: AFq9FYLEpNhGC7rX66OhSZr4NIC1TupIxxMdncDcZetEayCz+d+F/0Wo
+	8lSKJWHAjmwiI3hFdXE67shp/6G2x+hs3n1ynx7xS24d53lmRAYuj3BNKledQUtu
+X-Gm-Gg: AYBFou2y5Ay+jD7LkAIl2tOKh2e5UjnSNfOgx2H0E0/oUYSygtQfion8duomII9BLNS
+	G/x8G/C9jZ5kb6VK25T5Hafo5WG42qozS6ee/SDqv7cCcZQmpLG4sUNtCXv3m21/5gTTEW/Qbci
+	ZrotFaRgcaSFYvlBGSqAuZ7TaF9uRkVklm2IjKeNseEdHtonpCv4K7OCC8VfM+TyE0arkSMjDO9
+	5zzTZEoeP3lgXOEKs8Xo1uubiNv4QZrrCxlP9c/O6CwWfzwjd43Ks4dT82crtYwuEi9AbiypwpU
+	wYSdLhoKAgKqa/j6PBXibyuO0DXX3LX0hTP9rdhqbutzRMpVGnq9NOIKulcNAH7d2SYcziMsAUe
+	ZeHhHnKNrtnAzGSZDMdg2az2+uGpO4Tpk/f6mtaSJ0gwpE8DT0jrYIf/+22ButkviYqCgTnNM5a
+	kQBo6zTMmMx59POjlROxcaEHChoMRV6FKabBhzE6x5BIIkoRnt53I43RpqtPTjiBcclASyRwXWF
+	WsxM0jLNa89DjLq4wvFvw==
+X-Received: by 2002:a17:90a:d44d:b0:3a4:b0f3:6597 with SMTP id 98e67ed59e1d1-3ab39fea5c6mr19481452a91.0.1792120152572;
+        Thu, 15 Oct 2026 20:09:12 -0700 (PDT)
+Received: from intel.company.local ([122.11.210.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd3cc73c7sm370085a91.4.2026.10.15.20.08.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 20:09:11 -0700 (PDT)
+From: Wandun Chen <chenwandun1@gmail.com>
+To: robh@kernel.org,
+	baoquan.he@linux.dev,
+	rppt@kernel.org,
+	m.szyprowski@samsung.com
+Cc: catalin.marinas@arm.com,
+	will@kernel.org,
+	mark.rutland@arm.com,
+	chenhuacai@kernel.org,
+	kernel@xen0n.name,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	x86@kernel.org,
+	hpa@zytor.com,
+	saravanak@kernel.org,
+	akpm@linux-foundation.org,
+	pasha.tatashin@soleen.com,
+	pratyush@kernel.org,
+	ruirui.yang@linux.dev,
+	robin.murphy@arm.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	kexec@lists.infradead.org,
+	linux-mm@kvack.org,
+	iommu@lists.linux.dev
+Subject: [PATCH v8 0/8] kdump: reduce vmcore size and capture time
+Date: Fri, 16 Oct 2026 11:08:47 +0800
+Message-ID: <20261016030855.4062882-1-chenwandun1@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 2/3] i2c: ma35d1: Add Nuvoton MA35D1 I2C driver
- support
-To: sashiko-reviews@lists.linux.dev, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org
-References: <20261016010448.324856-1-zychennvt@gmail.com>
- <20261016010448.324856-3-zychennvt@gmail.com>
- <sashiko-outbox-173541@kernel.org>
-Content-Language: en-US
-From: zychen <zychennvt@gmail.com>
-In-Reply-To: <sashiko-outbox-173541@kernel.org>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+From: Wandun Chen <chenwandun@lixiang.com>
+
+On SoCs that carve out large firmware-owned reserved memory (GPU,
+camera ISP, ...), kdump currently dumps those carveouts as part of
+system RAM even though their contents are firmware state that is not
+useful for kernel crash analysis.
+
+ACPI systems already filter reserved memory out of the vmcore through
+their existing path: firmware reports those carveouts as unusable in
+the EFI memory map, they get MEMBLOCK_NOMAP set in memblock.memory
+(is_usable_memory(), efi-init.c), and the ELF header builder has
+always skipped nomap regions; only DT-based systems currently fail
+to filter these regions, which is what this series addresses.
+
+This series introduces a MEMBLOCK_NODUMP flag (suggested by Rob) in
+memblock to filter reserved memory on DT-based architectures. A new
+flag is needed because MEMBLOCK_NOMAP can only express regions without
+a linear mapping, while MEMBLOCK_NODUMP can filter regions that are
+linearly mapped. Reserved regions are marked MEMBLOCK_NODUMP by default
+so kdump omits them; reusable CMA regions are different because their
+pages are handed back to the buddy allocator and may carry crash-relevant
+data.
+
+Since the reserved memory regions are filtered out, the vmcore is
+smaller in size and faster to produce.
+
+The series is based on linux-next and is organized as follows:
+
+Patches 1-3: Preparation and bugfixes: switch riscv crash_mem to
+             memblock, fold the duplicated per-arch memblock walks
+             into the weak defaults, and serialize crash header
+             preparation against memory hotplug.
+Patches 4-7: NODUMP infrastructure: switch crash_core to
+             for_each_mem_region(), introduce the MEMBLOCK_NODUMP
+             flag, add a dumpable flag to struct reserved_mem, and
+             mark /reserved-memory entries with MEMBLOCK_NODUMP.
+Patch 8:     Skip MEMBLOCK_NODUMP regions when building the vmcore
+             ELF header.
+
+v6 --> v8 (v7 mainly tried to fix the initrd issue on release in v6,
+that approach is superseded here):
+
+1. Stop marking /memreserve/ regions with NODUMP. v6 marked
+   /memreserve/ regions with NODUMP. But a bootloader may specify
+   a /memreserve/ entry for memory that the kernel later frees
+   (e.g. the initrd), and those pages would then be wrongly
+   filtered out of the vmcore after being reused as normal memory.
+   The v7 fix (clearing the flag in free_reserved_area()) caused
+   a lockless runtime mutation of memblock.memory [1]. Better solutions
+   exist but need extra preparation, so they are left out to keep
+   this series simple in v8.
+
+2. Fix a build failure in patch 2 with both ARCH_KEEP_MEMBLOCK and
+   MEMORY_HOTPLUG are unset. There the memblock arrays live in
+   .init.data, and the weak defaults referencing them create section
+   mismatches, which turn into build errors when SECTION_MISMATCH_WARN_ONLY
+   is also unset.
+
+3. RISCV recently gained crash hotplug support, so adapt its handler
+   like x86 in patch 3: use __crash_prepare_headers() instead of
+   crash_prepare_headers() to avoid self-deadlock.
+
+4. Update the cover letter per review feedback: describe how ACPI
+   systems filter reserved memory and why a new flag is needed
+   instead of reusing NOMAP.
+
+Every patch in this series now carries an Acked-by or Reviewed-by tag.
+Patches 2 and 3 have changed since v6, but the changes (a build fix and
+a riscv hotplug adaptation) do not alter the logic the tags were given
+for, so their tags are kept. If any tag should not be carried, please
+let me know and I will drop it.
 
 
-sashiko-bot@kernel.org 於 2026/10/16 上午 09:17 寫道:
-> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-> - [High] i2c: ignored return value of I2C_SLAVE_WRITE_RECEIVED breaks flow control
+v6 --> v7:
+1. Fix a stale MEMBLOCK_NODUMP flag issue [2]. Memory reserved and
+   marked as NODUMP may later be freed (the initrd, for example),
+   so the NODUMP flag must be cleared accordingly. Since the fix is
+   part of the NODUMP infrastructure introduced by patch 5, it has
+   been folded into that patch.
+2. Drop the "generic" related description in the cover letter.
+3. Collect the Acked-by and Reviewed-by tags received during the v6
+   review (thanks to Baoquan, Mike, Rob and Marek). Patch 5 is the
+   only one without a tag, as its Reviewed-by was dropped when the
+   fix was folded in.
+4. Drop patch 1 of v6, which has been merged separately.
 
-As in the previous reply.
-When MA35D1 reports `MA35_S_RECE_DATA_ACK`, the byte has already been received and ACKed,
-so the driver can no longer NACK it. Propagating the callback error to the next byte is also
-incorrect, as `I2C_SLAVE_WRITE_RECEIVED` applies only to the current byte.
 
-> - [High] i2c: zero-message transfers bypass wait logic causing OOB reads or bus lockups
+v5 --> v6:
+1. Serialize crash header preparation against memory hotplug to avoid
+   out-of-bounds or use-after-free issues.
+2. MEMBLOCK_NODUMP marking is now done after memblock allows resizing,
+   avoiding a panic from too few regions before resize is permitted.
+3. Reordered the patches, put pre-existing bugfixes earlier in the series.
 
-core rejects transfers with `num < 1` in `__i2c_transfer()` and returns `-EINVAL`
-before calling the adapter's `master_xfer()` callback. 
+[1] https://lore.kernel.org/lkml/20260922090252.B01541F000FF@smtp.kernel.org/
+[2] https://sashiko.dev/#/message/20260917220750.GA4013814-robh%40kernel.org
 
-> - [Medium] i2c: ma35d1: multi-master target arbitration broken by clearing AA bit
+v5: https://lore.kernel.org/lkml/20260806093519.2907771-1-chenwandun1@gmail.com/
+v4: https://lore.kernel.org/lkml/20260630074715.4126796-1-chenwandun1@gmail.com/
 
-The MA35D1 hardware supports both controller and target modes. When a target
-is registered, this driver intentionally clears AA while initiating a controller
-transfer, so it does not accept transactions addressed to its target address
-during that period. Preserving AA would change the current coexistence behavior
-and require validation of the arbitration and target state transitions. We would
-prefer to address that as a separate multi-master enhancement in a follow-up patch.
-> --
-> 
-> commit cb2d83f6d803405066915dfcc01410b98bdff1a8
-> Author: Zi-Yu Chen <zychennvt@gmail.com>
-> 
-> i2c: ma35d1: Add Nuvoton MA35D1 I2C driver support
-> 
-> This commit adds I2C support for the Nuvoton MA35D1 SoC, including standard,
-> fast, and fast-plus modes, and provides controller and target functionality.
-> 
->> diff --git a/drivers/i2c/busses/i2c-ma35d1.c b/drivers/i2c/busses/i2c-ma35d1.c
->> new file mode 100644
->> index 0000000000000..29bed9eb28f67
->> --- /dev/null
->> +++ b/drivers/i2c/busses/i2c-ma35d1.c
-> [ ... ]
->> @@ -125,12 +125,12 @@ static inline bool ma35d1_is_controller_status(unsigned int status)
->>  /*
->>   * ma35d1_i2c_write_ctl - Update the I2C control register
->>   * @i2c: Pointer to the ma35d1 i2c instance
->>   * @ctl: Control bits to set (e.g., MA35_CTL_STA, SI, AA)
->>   *
->>   * Read-modify-write the CTL0 register while preserving unrelated bits.
->>   */
->>  static void ma35d1_i2c_write_ctl(struct ma35d1_i2c *i2c, unsigned int ctl)
->>  {
->>  	unsigned int val;
->>  
->>  	guard(spinlock_irqsave)(&i2c->lock);
->>  	val = readl(i2c->regs + MA35_CTL0);
->>  	val &= ~(MA35_CTL_SI_AA);
->>  	val |= ctl;
-> 
-> [Severity: Medium]
-> Does this unconditionally clear the Assert Acknowledge (MA35_CTL_AA) bit
-> unless it is explicitly passed in the ctl argument?
-> 
-> If arbitration is lost during the START or address phase of a transfer, the
-> controller will read AA as 0 and NACK its own target address, causing the
-> winning master's transfer to fail.
-> 
->>  	writel(val, i2c->regs + MA35_CTL0);
->>  }
-> [ ... ]
->> @@ -262,17 +262,17 @@ static irqreturn_t ma35d1_i2c_irq_target_trx(struct ma35d1_i2c *i2c,
->>  	case MA35_S_TRAN_DATA_NACK:
->>  	case MA35_S_RECE_DATA_NACK:
->>  		/*
->>  		 * Data byte or last data in I2CDAT has been transmitted and NACK received,
->>  		 * or previously addressed with own SLA address and NACK returned.
->>  		 */
->>  		i2c->target_reject = false;
->>  		break;
->>  
->>  	case MA35_S_RECE_DATA_ACK:
->>  		/*
->>  		 * Previously address with own SLA address Data has been received;
->>  		 * ACK has been returned
->>  		 */
->>  		byte = readb(i2c->regs + MA35_DAT);
->>  		i2c_slave_event(i2c->target, I2C_SLAVE_WRITE_RECEIVED, &byte);
-> 
-> [Severity: High]
-> Does this code ignore the return value of i2c_slave_event in
-> ma35d1_i2c_irq_target_trx?
-> 
-> If the backend cannot accept more data, for example when the backend buffer
-> is full, it returns a non-zero value. Because this is ignored, the driver
-> unconditionally writes MA35_CTL_SI_AA at the end of the ISR to ACK the
-> byte, which breaks flow control and allows an external I2C master to
-> overrun the backend buffer.
-> 
-> Should the return value be checked and i2c->target_reject set to true to
-> properly NACK the next incoming byte on error?
-> 
->>  		break;
->>  
->>  	case MA35_ADDR_TRAN_ARB_LOST:
-> [ ... ]
->> @@ -333,13 +333,13 @@ static irqreturn_t ma35d1_i2c_irq_controller_trx(struct ma35d1_i2c *i2c,
->>  	if (unlikely(!i2c->msg)) {
->>  		dev_err(i2c->dev, "Spurious controller interrupt (status: 0x%02lx)\n", i2c_status);
->>  		ma35d1_i2c_restore_idle(i2c);
->>  		return IRQ_HANDLED;
->>  	}
->>  
->>  	switch (i2c_status) {
->>  	case MA35_M_START:
->>  	case MA35_M_REPEAT_START:
->>  		ma35d1_i2c_set_addr(i2c);
->>  		ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI);
-> 
-> [Severity: Medium]
-> Since MA35_CTL_AA is omitted here in ma35d1_i2c_irq_controller_trx, the AA
-> bit is cleared during address transmission. If arbitration is lost during
-> SLA+R/W, will the target fallback fail to ACK its own address?
-> 
->>  		break;
->>  
->>  	case MA35_M_TRAN_ADDR_ACK:
-> [ ... ]
->> @@ -438,15 +438,15 @@ static int ma35d1_i2c_doxfer(struct ma35d1_i2c *i2c, struct i2c_msg *msgs,
->>  			     int num)
->>  {
->>  	unsigned long timeout;
->>  	unsigned int val;
->>  	int ret, err;
->>  
->>  	disable_irq(i2c->irq);
->>  	i2c->msg = msgs;
->>  	i2c->msg_num = num;
->>  	i2c->msg_ptr = 0;
->>  	i2c->msg_idx = 0;
->>  	i2c->err = 0;
->>  
->>  	ma35d1_i2c_write_ctl(i2c, MA35_CTL_STA);
-> 
-> [Severity: Medium]
-> Will this omit the AA bit and thus clear it when initiating a master
-> transfer in ma35d1_i2c_doxfer?
-> 
->>  	enable_irq(i2c->irq);
->>  
->>  	timeout = wait_event_timeout(i2c->wait, i2c->msg_num == 0, HZ * 5);
-> 
-> [Severity: High]
-> If a caller invokes i2c_transfer with num = 0 to probe the bus, does this
-> wait evaluate to true immediately?
-> 
-> When num = 0, i2c->msg_num is set to 0. This causes wait_event_timeout to
-> complete instantly while the hardware is still initiating the START. If msgs
-> is a zero-length array pointer or NULL, the subsequent interrupt could
-> either read out-of-bounds from i2c->msg or fail to assert a STOP condition,
-> leaving the bus permanently locked up in a START state.
-> 
->>  	ret = i2c->msg_idx;
->>  
->>  	if (timeout == 0) {
-> 
 
-Best regards,
-Zi-Yu
+Wandun Chen (8):
+  riscv: build crash_mem ranges from memblock instead of resource tree
+  crash_core: fold duplicated memblock arch hooks into the weak default
+  crash_core: serialize crash header preparation against hotplug
+  crash_core: replace for_each_mem_range() with for_each_mem_region()
+  memblock: introduce MEMBLOCK_NODUMP flag
+  of: reserved_mem: add dumpable flag to opt-in vmcore
+  of: reserved_mem: mark /reserved-memory entries with MEMBLOCK_NODUMP
+  crash_core: skip MEMBLOCK_NODUMP regions when building vmcore ELF
+    header
+
+ arch/arm64/kernel/machine_kexec_file.c     | 29 ------------
+ arch/loongarch/kernel/machine_kexec_file.c | 27 -----------
+ arch/riscv/Kconfig                         |  2 +-
+ arch/riscv/kernel/crash.c                  |  2 +-
+ arch/riscv/kernel/machine_kexec_file.c     | 33 --------------
+ arch/x86/kernel/crash.c                    |  2 +-
+ drivers/of/fdt.c                           |  1 +
+ drivers/of/of_private.h                    |  1 +
+ drivers/of/of_reserved_mem.c               | 15 ++++++
+ include/linux/crash_core.h                 |  2 +
+ include/linux/memblock.h                   |  9 ++++
+ include/linux/of_reserved_mem.h            |  1 +
+ kernel/crash_core.c                        | 53 +++++++++++++++++++++-
+ kernel/dma/contiguous.c                    |  1 +
+ mm/memblock.c                              | 16 +++++++
+ 15 files changed, 100 insertions(+), 94 deletions(-)
+
+-- 
+2.43.0
+
