@@ -1,68 +1,69 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0C783F4101
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 14:41:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16293396B76
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 14:41:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792161688; cv=none; b=cfqkbxcxPkml6a3heua42qqTwsUtzTikv7yeGpfJEkcz6H1dqnrRz2eG/rv4zCLOXMpmIUE8a3WpWXjRWgTXUeyM0NRqc24CBm7aiTuWf/zFwoyVlkUC0ACl4hGCV+FM/WzgVsjVJjPsxuxPZAZ541+y1k2BY7wqSj4mLCcRkkI=
+	t=1792161690; cv=none; b=MRoDs55M11OLHG5ui3+8tCP8cAZCaZ4hzhmp+TFbX6l/U5mKDR7WjOeaki27FyYoZhAmaCyk62UVDPJiwrwbLCg/HPJUcIbhjHbEpq4cvOBY9AshM/YSB986hmJUnQgbrDBXow3zCb7FP+ybiFwZ0NmQeJ6R6yLXfzlMK1MHTFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792161688; c=relaxed/simple;
-	bh=rQYMzDtVh44VYgzn8ZF81rVqoyDsHoJv3ovI5wxNPaA=;
+	s=arc-20240116; t=1792161690; c=relaxed/simple;
+	bh=nesVO5b+FMOoHD3j2mKVeLRcR1Mo8Kg9GRD2c+fFh+M=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lXuF2zbL3K/ZtBhjK570M/YzhXF7V0r+9zN3pVoBsfKNrXsNoV8m4Iil6yYC2JVveUf7V2bjbieclrbYbQ1TTXfpJsjzPDgmrGxWYYbNOUm0KoEaTazB8g6lMMmSdeC3h01e02rkXgxIfXozIV8zatXke1aOz/lTjRiOnsOHnIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ULH+ggqs; arc=none smtp.client-ip=209.85.128.47
+	 In-Reply-To:To:Cc; b=IjlY7Ud7ApBuh5uq6VPjAhVkYGG020Y2RvEHns3PD1+/dhkYNPduroTTlZ6NPXLl7g5lGMhKRh97Hi/feTgybjlEMwfWsoa4VUlm4TyGu8jW3OUHiIB5qJKsZdHFfyrKsZ2Zqil2RaqR0aMezlawJuskZup+fU4Fc6MTPzAF914=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=F5kGl67a; arc=none smtp.client-ip=209.85.221.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ULH+ggqs"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a1d665a5efso264015e9.3
-        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 07:41:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="F5kGl67a"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48e00eee27dso403897f8f.0
+        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 07:41:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792161685; x=1792766485; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1792161686; x=1792766486; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Pte3u3WxOgw3Qgy52tQrveaoQhV4YTR7h3cZS1HtB1I=;
-        b=ULH+ggqsHjUAOiZdLsxQxRGfbE7CedKqmY0pprZ9bw+KNwL/ajYt3B1CiGPSvzlE80
-         vvXIIh7Rlo+lowlX+oFWptW6aGwiMEDJ9pQLNplMqCF2vsEW+9WRjAWHSRSldB+OuWqF
-         /CsfJVzUUlTLRdmUzPNl8j2+N8PfQWj+fzu3Yk6m5/Zt9QuWRZzEzmcYUfhBEbEc6qqR
-         jhet7+jBjwQZi+X3jAk78ikLIroOL33chgIFHqXJ6XCG+Dl05UowFKiWxrDtOCus/xw6
-         2ivxDfS7AJx+zrp4iwhoRXgLxn3BUMgwUcwBnLTTTXEsIWpGY/JZafApO5oj/h8N06u9
-         xNOA==
+        bh=9nKpbbRcagz/95Xy3I3HJP6MXZuF969V/i+8+al+dGw=;
+        b=F5kGl67aJmD7/MqgHhft717hHD37i86ozhU0uhpHHy59Np+sp7Ll2jsO/09OZnRg2p
+         qn3u8fH51Kd8kz1XPEfsVvWaYPaoD2RMrMrdlR45HDvlp0eylnzzQmVQW/E+be8zqtzB
+         b/M6f4jWrOSS1RCfjbQqbdHC8XMEy1nXDkR27BlvdcDg4YgiwODQGOmG6OLVE+9U6cV7
+         TtNB601/CWbBbFq5ul/SaMDCNQ0Hy6z6q5K9jEX05TQZLk1xP22Jcmnz8mQWykyusROE
+         bcsIfnyCyb45q/ZJKekQXZrGZMdtkB/XdzKrpwmxDmQXQE1GK9HS/Uud9yB7DI+sBT2q
+         KoQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792161685; x=1792766485;
+        d=1e100.net; s=20260707; t=1792161686; x=1792766486;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Pte3u3WxOgw3Qgy52tQrveaoQhV4YTR7h3cZS1HtB1I=;
-        b=zCf/J9bBdEp4JIY96Q8JIbr7NUDcBPjm96p9TQtTpfb+/9MpQWT6IXsbcNWs0eZxVP
-         llvz0O9+DwSAT3qz9mwSaChEKuEOtmaZWU0h9AY9rWAf0VUzfUBdI2te76tFAL2bM/n5
-         /y+gIPrYS1aNx5gn9f4uxlplKp22ZxNRiH392xqIK5183xGMKtZoZCXusLtVZNtbECy+
-         Sxd51JGSTiJHF7tn4LindLYxiU11FhkvDv9a2zE91juoUpa9qrRp+SnUQtZfzsawfhjG
-         4ixFKYoInMXmQWBLgE7ddJYKZaJt3KkLkXH8kQkTBb6lIpUZVMWpUPx9ssiSJ10DC62Q
-         gjWA==
-X-Forwarded-Encrypted: i=1; AKwUvBwEGqsrTzNf2BQB3TU9J1vZIZlyMKaQtWrWK/1TQZ4YLJMQ4BWhVmtucJF0BPHyAr2McOfl5KEbh8RS@vger.kernel.org
-X-Gm-Message-State: AFq9FYIILRXtwgTbFuo1crtMMvKIcVE8waqIhC/wNO70HV4FAidO53+i
-	Ce+/PXxTatiW65xbdyCm5L7PJYRNXigl+SLb4Scu9ql1muM8gB5NAj1Ldj0O9PmbexI=
-X-Gm-Gg: AYBFou2B1vV+Yp/ywf/ocn1qzD4mN5EXBY2IfTNcJ486gOcpRpjqaB0Mrycox56VHcQ
-	dfdPTcCOiIwkBMS7I5HxVSlSNTjnRyhbzZwSWuX/M1o23RCXYP4JH5lsqLaPPgvK7l+yPUCnZcG
-	Um448EnMB4d83GZGr42DlJJI+1upfTs2NcGuxY7cPFvFlnmLlewUc5Cczpqc5BKiqUDCuxgJ7y/
-	x4qmiYI+sizKCFCb9h6wcZKcRBFvf8e1ViU0MaQ+TcwhY5DMNhQtfTB4FxTObmQiL29JfNkBuKU
-	iSVIw/D25WHafjOSaEh4fDZXo3smmrY+gEVlEhuunhq4V+ESFfVGgWVD7ykH1CfClneLfLuNu8t
-	DLBzmczMZrQByU/XpIKjH2MNPx/enc6zILIo94K/wUEAzIF0HuFoI6omulpedjA54YcyAMcYERa
-	n3Jr8b4/tMlA4jTkI1bPStqqU1C5JJK92eApoRUmgcHQQaNkuQ72PRirFqtyBmRYfIWVpbGjY02
-	wQb2iFLOekwjEjPSZlMqCJHK68IyfCqGLwt99VAH7DmIZ6Am7B7ClEaBOBC3fDeA2UIUA==
-X-Received: by 2002:a05:600c:1394:b0:4a1:d492:1604 with SMTP id 5b1f17b1804b1-4a1d75f2524mr381415e9.11.1792161685121;
-        Fri, 16 Oct 2026 07:41:25 -0700 (PDT)
+        bh=9nKpbbRcagz/95Xy3I3HJP6MXZuF969V/i+8+al+dGw=;
+        b=Y4XB78kURLQJ4eblW2SLmhKUUWSUOHkIYg6/UEQRbr4lBfKWneJeDemiyg0zTUEheL
+         kB78WD7ddcMXcrMCr6VJ3hvkfpH64jZaMovD1NRzT5K+gJDWXzvDvQD47+o7EdyiK/NI
+         bZEpHYgViTmY/iC4ULGXfEIqbMH61467EEjrZLMZQCflNrlPTLpdLHS8sW6M0oMaZU1W
+         QOTBVrXTtU4BEReedDmI6R2zCFqH7g4mkOYAcTRsmXq8hnQpbl2bN1/6PTcsaKYwczmb
+         Hu0GG0r0flvteWJpW7Bcsiqbwsx9ZhjCoCAMeM3BvAxcLeYD85K4hzPR+yZTp7P4iXu2
+         IzYg==
+X-Forwarded-Encrypted: i=1; AKwUvBzzKop15IDvzcoo8a/lvBAEp6PRs5HHRxmDKKigx6tdZ88CTKm2A/F5eOTWDKy2zqYIAlKQIaNfsPyI@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/jhqQp6+4vQZPnsy1fTGDlXvtTDbteWZo0/ftzpICJMVD2iVT
+	P93IkrI0MdNk5EB019eeUxsFA8IIEJLBsgCmtpFeYcaOTutGF1Eu8XgnaLB7xeGBYdo=
+X-Gm-Gg: AYBFou2kHrFUsEUJY2RlBNVYYG4uSeVIHr7y+W235c8xebpp0R5EUupashLMp4SzEKX
+	ffpUddXUpwNJuPFpBDt3CwdjVuij3BQp40q9Jva32VTtzVFWhaxdcv2qoK1Pxi9BWRItk15y7t2
+	W9tMED4Cjfy1UABbtuUni2NoLrBXHRPPCQbT5mhOvGNkeLIQa6f6HEQi9omDtxmNJ8vd7CvZzjD
+	8UIyTHwvexk9LaUA9+a8Es4gSpnEMRq335D+tOF8dK0CBC2dvmGTTArrYPMiwFDBsOlp5mdmh2A
+	xZS6GWBjbXc0tgE5vKRnisQFPgx5IYsmVcu942Kt6SIk+muCX18isBAJMhD37SBJzIiMLo9uJxT
+	7WnFj6mvJiVruJ+pom3TlL8iV5iOVeqAnGXU1uwFIShq6PdGb+Q3ih4e90dSwqt+SLHKCeyrctI
+	81q3wQzxdWhgZexaorm5+jL+kBcgWMEatSCqsVKFwytm5ctDnqfag6a4poG8CqQHmOwvbiUgUQS
+	7f6rmpYRjRc87qw570Dr0j9ZHntiTCGIZ56iCmtZL78aJt8vrX4anF2VHk9bDLPPInFV0lTazmo
+	bjhi
+X-Received: by 2002:a05:6000:4310:b0:48d:ef7a:e59f with SMTP id ffacd0b85a97d-48def7ae6d3mr16320685f8f.17.1792161686279;
+        Fri, 16 Oct 2026 07:41:26 -0700 (PDT)
 Received: from z13-ek5.local ([151.41.28.233])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4ecac3sm5949648f8f.27.2026.10.16.07.41.24
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4ecac3sm5949648f8f.27.2026.10.16.07.41.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 07:41:24 -0700 (PDT)
+        Fri, 16 Oct 2026 07:41:25 -0700 (PDT)
 From: Ettore Chimenti <ettore.chimenti@linaro.org>
-Date: Fri, 16 Oct 2026 16:41:18 +0200
-Subject: [PATCH 03/10] ARM: dts: omap: dm816x: use dedicated SoC pinctrl
+Date: Fri, 16 Oct 2026 16:41:19 +0200
+Subject: [PATCH 04/10] ARM: dts: omap: dm816x: Fix pinctrl range
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,7 +72,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-patch-ektor5-dm8168-dts-v1-3-b4ce30217028@linaro.org>
+Message-Id: <20261016-patch-ektor5-dm8168-dts-v1-4-b4ce30217028@linaro.org>
 References: <20261016-patch-ektor5-dm8168-dts-v1-0-b4ce30217028@linaro.org>
 In-Reply-To: <20261016-patch-ektor5-dm8168-dts-v1-0-b4ce30217028@linaro.org>
 To: Paul Walmsley <paul@pwsan.com>, Aaro Koskinen <aaro.koskinen@iki.fi>, 
@@ -86,40 +87,48 @@ To: Paul Walmsley <paul@pwsan.com>, Aaro Koskinen <aaro.koskinen@iki.fi>,
  Rouven Czerwinski <rouven.czerwinski@linaro.org>
 Cc: linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-gpio@vger.kernel.org, Ettore Chimenti <ettore.chimenti@linaro.org>
+ linux-gpio@vger.kernel.org, Ettore Chimenti <ettore.chimenti@linaro.org>, 
+ Christopher Obbard <chris.obbard@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792161680; l=991;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792161680; l=1218;
  i=ettore.chimenti@linaro.org; s=20261014; h=from:subject:message-id;
- bh=rQYMzDtVh44VYgzn8ZF81rVqoyDsHoJv3ovI5wxNPaA=;
- b=3S50pMz7zQmvtFmL+2YZ1KgPdiCvRypjaxgUOOH+3aWGkFuLX2ipy1EzPmzd3M2yImYr6voQo
- syqhbr54WckBewNboAWAqmAJKY/GJNXAurDQYOCbAHJZBNcilzj5MjP
+ bh=v9YLfutCH496XMWZUUrGKakURi5WnlthJdHwA43Dlyc=;
+ b=KmXjd5n+++ZyEda3KXujKTa1Z83U7uC/nkp9jH+tQZUgpwg9nc1vAtNIf1S5HgiRFvr4E1LHP
+ r93ByMs+fqZAzTXD5QsHto+lcEIDxIip0Y7/KMFlxK6N+53Zi7rMIRQ
 X-Developer-Key: i=ettore.chimenti@linaro.org; a=ed25519;
  pk=wCaUblFVaqhuBTQt/hAtysafsAaEsqj/yOD9SPlz6NM=
 
-In the TI Sitara DM816x SoCs, the pinctrl configuration macros are not
-identical to OMAP2/3. They are actually inverted between Pullup/down
-enabled and disabled (third bit in pinctrl registers). Using dedicated
-DM816x pinctrl header to differentiate between the SoC families.
+From: Andrew Goodbody <andrew.goodbody@linaro.org>
 
-Tested-by: Andrew Goodbody <andrew.goodbody@linaro.org>
+The range of addresses accessed for the pinctrl module needs to be
+extended to take account of the fixing of the size of the pinctrl
+register to be 32 bits instead of 16 bits. So in order to allow the
+final pin control register the address range must end on a 32 bit
+boundary, not a 16 bit one.
+
+Fixes: 86800ffe84055 ("ARM: dts: omap: dm816x: Correct pinctrl register")
+
+Signed-off-by: Andrew Goodbody <andrew.goodbody@linaro.org>
+Reviewed-by: Christopher Obbard <christopher.obbard@linaro.org>
+Tested-by: Christopher Obbard <christopher.obbard@linaro.org>
 Signed-off-by: Ettore Chimenti <ettore.chimenti@linaro.org>
 ---
  arch/arm/boot/dts/ti/omap/dm816x.dtsi | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/arch/arm/boot/dts/ti/omap/dm816x.dtsi b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
-index ee0090f7aa64..de4d48babf77 100644
+index de4d48babf77..9c9d5e296e90 100644
 --- a/arch/arm/boot/dts/ti/omap/dm816x.dtsi
 +++ b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
-@@ -3,7 +3,7 @@
- #include <dt-bindings/bus/ti-sysc.h>
- #include <dt-bindings/clock/dm816.h>
- #include <dt-bindings/gpio/gpio.h>
--#include <dt-bindings/pinctrl/omap.h>
-+#include <dt-bindings/pinctrl/dm816x.h>
+@@ -90,7 +90,7 @@ scrm: scrm@48140000 {
  
- / {
- 	compatible = "ti,dm816";
+ 			dm816x_pinmux: pinmux@800 {
+ 				compatible = "pinctrl-single";
+-				reg = <0x800 0x50a>;
++				reg = <0x800 0x50c>;
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+ 				#pinctrl-cells = <1>;
 
 -- 
 2.56.0
