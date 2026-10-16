@@ -1,462 +1,188 @@
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 289EE51A121;
-	Fri, 16 Oct 2026 16:47:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EECC4525A69;
+	Fri, 16 Oct 2026 16:49:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792169233; cv=none; b=Vl1PiOna7sBDZQiNAGFtdjx43H9xWleOe/M5ODs2oyR6BOmfndlHvNY872dkG4YsrDrW0fFp+TxuLjn2jqzDESwMdfIZYYz7qY0/POKKDrvYCPWsi9SKrzBnFrgfLWC1oH3aMLb3kKmjGDOnE9QKILI6Gca4elB2E1vnP4Sbh8E=
+	t=1792169402; cv=none; b=QmY1rroi9vNEuZMaBfCTnAHV0wTMBEnGE9YIrO/3W+kse68T1qMmQEmZb3ymkgT5MBSTRy+VmzTCASBDlUFZ1FbALzDW0zxoklJAoV57GFBr2KeTC9spNtuRBQjoDDrql1vhFLnIBSfnLuC2dKKJKAakv8+HnkJlqZze9DpsoyE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792169233; c=relaxed/simple;
-	bh=hMqCuNT5hi1yNzF/4WkvZQTgcbSFbM9pCZj2tJedtvY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=ntqd+Ig9DASlcr1bp4c4ib2X2Qa9pPTo9hbbvgyonqcQLmSHRPv8riZ9JSbalwAzluV/SP8rEGue1bsvkOc5+0no1+f4u/qOWPnUO3IC3kUX+Wn+bkEw0DNXH5SkJa34sl4kCd2tZ8XUyIVm5augK7SjzS+IXyYe7xW4+e85zD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
-Received: from inva020.nxp.com (localhost [127.0.0.1])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 466AE1A0225;
-	Fri, 16 Oct 2026 18:47:04 +0200 (CEST)
-Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id A53731A0223;
-	Fri, 16 Oct 2026 18:47:03 +0200 (CEST)
-Received: from lsv03900.swis.in-blr01.nxp.com (lsv03900.swis.in-blr01.nxp.com [10.12.177.15])
-	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id D786C1800068;
-	Sat, 17 Oct 2026 00:46:59 +0800 (+08)
-From: Lakshay Piplani <lakshay.piplani@nxp.com>
-To: linux-kernel@vger.kernel.org,
-	linux-i3c@lists.infradead.org,
-	alexandre.belloni@bootlin.com,
-	krzk+dt@kernel.org,
-	robh@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	broonie@kernel.org,
-	mfd@lists.linux.dev,
-	lee@kernel.org,
-	Frank.Li@nxp.com,
-	lgirdwood@gmail.com,
-	linux-gpio@vger.kernel.org,
-	linusw@kernel.org,
-	brgl@kernel.org
-Cc: vikash.bansal@nxp.com,
-	priyanka.jain@nxp.com,
-	aman.kumarpandey@nxp.com,
-	Lakshay Piplani <lakshay.piplani@nxp.com>
-Subject: [RFC PATCH 7/7] gpio: p3h2x4x: add GPIO expander for the NXP P3H2x4x I3C hub
-Date: Fri, 16 Oct 2026 22:16:25 +0530
-Message-Id: <20261016164625.3166779-8-lakshay.piplani@nxp.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261016164625.3166779-1-lakshay.piplani@nxp.com>
-References: <20261016164625.3166779-1-lakshay.piplani@nxp.com>
+	s=arc-20240116; t=1792169402; c=relaxed/simple;
+	bh=UImA8cYpBLvNiZlZAZgCL2GsX+CMC3XG8WnHT0qvxzU=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=dvcdnaWdIfZ81Lp6g3Kk/a3YmnXi757bZmpyuKYiD3aB8wNL2owHP+HQzSPnV5E23Q7Xl22iOyovXI6UG/8yUPXAFgRpkmUngNOCkQzhusCIr47ReMwv5TaxvnBbkbRNjInvRVJ0Tvs/a0pOsoROU97tUPt/WuN6//I5t8/OMqA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bd24Oa3x; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bd24Oa3x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CDFB1F000C8;
+	Fri, 16 Oct 2026 16:49:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792169399;
+	bh=esfa2CJ+kq/M1Ei3Ia0U0h1TOpo9U/op3o7pm8PndAg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Bd24Oa3x0AfpwQkItbVvmWmO53ozQ81BZIt5CYEwNSzc40YhLZMF3jgLksyXyvdlM
+	 zAvFtPc5c+FElkZGhyI7T+UUmI/JvCq35dFlSWQd4NDKsWUIUIxRgBY64CVzFXbMYp
+	 GlP38NIFJrqriFphdT+ljghd2Wr3Qvzt9JCAFrgx3UfjlOeS8k/08nrrZ+oHJs3KvX
+	 4NRGNG0jCP+OS56xXNEObXcqR+xjTeMirHftT2riFCvFOMX2hd0VCRPRFwaH5O4mmv
+	 LKu2U5jnvZzz9bk+ekT+1Lm4xJ48UM+Xv8u//G5HYBQmopuA6nkjt6IPmRheTRzVMu
+	 LjGF3GduAcdng==
+Message-ID: <sashiko-outbox-174666@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 2/2] Input: add OnePlus/OPPO Pad pogo-pin keyboard
+ serdev driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: wyibo6109@gmail.com, linux-input@vger.kernel.org
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
+In-Reply-To: <20261016163859.1070138-3-wyibo6109@gmail.com>
+References: <20261016163859.1070138-1-wyibo6109@gmail.com>
+ <20261016163859.1070138-3-wyibo6109@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 16 Oct 2026 16:49:58 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: ClamAV using ClamSMTP
 
-Expose the pins of the target ports placed in GPIO mode as a gpio_chip, so
-the hub can be used as an IO expander.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] input: use-after-free in work queues due to lockless removal races
+- [Medium] input: silent truncation of maximum-length responses in kb->resp
+- [Medium] input: oneplus-pogo: data race on kb->resp buffer in pogo_xfer
+- [Medium] input: oneplus-pogo-kbd: Data race on kb->connected state variab=
+les
+--
 
-Each port contributes two lines, the SCL pin first, so target port N owns
-the lines 2 * N and 2 * N + 1, and the line number is also the port bit
-position in the direction and level registers. Ports that carry bus traffic
-are masked out through init_valid_mask. The port function is taken from the
-device tree rather than from the GPIO mode register, because the hub child
-that programs that register and this child are independent MFD devices with
-no probe ordering guarantee.
+commit 55459b7da977a6dfb82c08f24907cc60a6e32cd0
+Author: Yibo Wang <wyibo6109@gmail.com>
 
-Direction is the output enable: clearing it leaves the pin in Hi-Z. An
-output drives the level before the buffer is enabled to avoid a glitch, and
-the input level register is used for reads in both directions. These
-registers are not protected, so the callbacks do not take the shared
-register lock. Implement get_multiple and set_multiple so an access to all
-lines of the hub costs two register accesses instead of one per line.
+Input: add OnePlus/OPPO Pad pogo-pin keyboard serdev driver
 
-Interrupts on input level changes are not supported yet: they arrive as an
-I3C in-band interrupt and the edge detection configuration is shared by
-groups of four ports.
+Clean-room serdev driver for the Tinno keyboard MCU used by the OnePlus
+Pad 3 Pro / Pad 4 and OPPO Pad 5 Pro smart keyboards, replacing the
+vendor platform driver that depends on a downstream msm_geni_serial
+callback and a user-space held tty fd.
 
-Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
-Signed-off-by: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
-Signed-off-by: Vikash Bansal <vikash.bansal@nxp.com>
----
- MAINTAINERS                 |   1 +
- drivers/gpio/Kconfig        |  11 ++
- drivers/gpio/Makefile       |   1 +
- drivers/gpio/gpio-p3h2x4x.c | 294 ++++++++++++++++++++++++++++++++++++
- drivers/mfd/p3h2840.c       |   5 +
- 5 files changed, 312 insertions(+)
- create mode 100644 drivers/gpio/gpio-p3h2x4x.c
+> diff --git a/drivers/input/keyboard/oneplus-pogo-kbd.c b/drivers/input/ke=
+yboard/oneplus-pogo-kbd.c
+> new file mode 100644
+> index 0000000000000..afe87d9616174
+> --- /dev/null
+> +++ b/drivers/input/keyboard/oneplus-pogo-kbd.c
+[ ... ]
+> +static int pogo_xfer(struct pogo_kbd *kb, u8 cmd, const u8 *payload, u8 =
+len,
+> +		     u8 *resp, unsigned int resp_size)
+> +{
+[ ... ]
+> +		if (!resp) {
+> +			ret =3D 0;
+> +			break;
+> +		}
+> +		if (wait_for_completion_timeout(&kb->resp_done,
+> +				msecs_to_jiffies(POGO_RESP_TIMEOUT_MS))) {
+> +			unsigned int n =3D min(kb->resp_len, resp_size);
+> +
+> +			/* stop the RX path before copying the reply out */
+> +			WRITE_ONCE(kb->tx_pending, false);
+> +			memcpy(resp, kb->resp, n);
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 33d6e5178955..2578dadaa021 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -19766,6 +19766,7 @@ L:	linux-kernel@vger.kernel.org
- L:	linux-i3c@lists.infradead.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
-+F:	drivers/gpio/gpio-p3h2x4x.c
- F:	drivers/i3c/hub.c
- F:	drivers/i3c/hub/*
- F:	drivers/mfd/p3h2840.c
-diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
-index a48586bb8edb..996555c61a53 100644
---- a/drivers/gpio/Kconfig
-+++ b/drivers/gpio/Kconfig
-@@ -1624,6 +1624,17 @@ config GPIO_PALMAS
- 	  Select this option to enable GPIO driver for the TI PALMAS
- 	  series chip family.
- 
-+config GPIO_P3H2X4X
-+	tristate "NXP P3H2X4X I3C HUB GPIO support"
-+	depends on MFD_P3H2X4X
-+	help
-+	  Select this option to enable the GPIO driver for the NXP
-+	  P3H244x/P3H284x I3C hub. Target ports placed in GPIO mode expose
-+	  their SCL and SDA pins as two general purpose IOs each.
-+
-+	  This driver can also be built as a module. If so, the module will
-+	  be called gpio-p3h2x4x.
-+
- config GPIO_PMIC_EIC_SPRD
- 	tristate "Spreadtrum PMIC EIC support"
- 	depends on MFD_SC27XX_PMIC || COMPILE_TEST
-diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
-index dc9e6d643b5b..ee6d764310d8 100644
---- a/drivers/gpio/Makefile
-+++ b/drivers/gpio/Makefile
-@@ -138,6 +138,7 @@ obj-$(CONFIG_GPIO_NOVALAKE)		+= gpio-novalake-events.o
- obj-$(CONFIG_GPIO_NPCM_SGPIO)		+= gpio-npcm-sgpio.o
- obj-$(CONFIG_GPIO_OCTEON)		+= gpio-octeon.o
- obj-$(CONFIG_GPIO_OMAP)			+= gpio-omap.o
-+obj-$(CONFIG_GPIO_P3H2X4X)		+= gpio-p3h2x4x.o
- obj-$(CONFIG_GPIO_PALMAS)		+= gpio-palmas.o
- obj-$(CONFIG_GPIO_PCA953X)		+= gpio-pca953x.o
- obj-$(CONFIG_GPIO_PCA9570)		+= gpio-pca9570.o
-diff --git a/drivers/gpio/gpio-p3h2x4x.c b/drivers/gpio/gpio-p3h2x4x.c
-new file mode 100644
-index 000000000000..5e944965487d
---- /dev/null
-+++ b/drivers/gpio/gpio-p3h2x4x.c
-@@ -0,0 +1,294 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright 2026 NXP
-+ *
-+ * GPIO expander driver for the NXP P3H2x4x I3C hub.
-+ *
-+ * Each target port that is put in GPIO mode contributes its two bus pins as
-+ * generic IOs: SCL becomes GPIOn0 and SDA becomes GPIOn1 (datasheet 8.8.5).
-+ * Ports are placed in GPIO mode by the hub driver, which owns the protected
-+ * port mode register; this driver only drives the direction and level
-+ * registers, which are not protected.
-+ */
-+#include <linux/bitops.h>
-+#include <linux/gpio/driver.h>
-+#include <linux/mfd/p3h2840.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+
-+/*
-+ * Two GPIOs per target port. The SCL pin is the even line and the SDA pin the
-+ * odd one, matching the GPIOn0 and GPIOn1 names used by the datasheet.
-+ */
-+#define P3H2X4X_GPIO_PER_PORT			2
-+#define P3H2X4X_GPIO_PIN_SCL			0
-+
-+/*
-+ * Target port direction and level registers, one bit per target port. These are
-+ * not protected, so unlike the GPIO mode enable in the shared MFD header they
-+ * are private to this driver. The output enable doubles as the direction: with
-+ * it cleared the pin stays in Hi-Z, and the input level register reads back the
-+ * pin in both directions.
-+ */
-+#define P3H2X4X_TP_SCL_OUT_EN			0x54
-+#define P3H2X4X_TP_SDA_OUT_EN			0x55
-+#define P3H2X4X_TP_SCL_OUT_LEVEL		0x56
-+#define P3H2X4X_TP_SDA_OUT_LEVEL		0x57
-+#define P3H2X4X_TP_SCL_IN_LEVEL_STS		0x60
-+#define P3H2X4X_TP_SDA_IN_LEVEL_STS		0x61
-+
-+struct p3h2x4x_gpio {
-+	struct gpio_chip chip;
-+	struct regmap *regmap;
-+};
-+
-+static unsigned int p3h2x4x_gpio_port(unsigned int offset)
-+{
-+	return offset / P3H2X4X_GPIO_PER_PORT;
-+}
-+
-+static bool p3h2x4x_gpio_is_scl(unsigned int offset)
-+{
-+	return (offset % P3H2X4X_GPIO_PER_PORT) == P3H2X4X_GPIO_PIN_SCL;
-+}
-+
-+static unsigned int p3h2x4x_gpio_out_en_reg(unsigned int offset)
-+{
-+	return p3h2x4x_gpio_is_scl(offset) ? P3H2X4X_TP_SCL_OUT_EN :
-+					     P3H2X4X_TP_SDA_OUT_EN;
-+}
-+
-+static unsigned int p3h2x4x_gpio_out_level_reg(unsigned int offset)
-+{
-+	return p3h2x4x_gpio_is_scl(offset) ? P3H2X4X_TP_SCL_OUT_LEVEL :
-+					     P3H2X4X_TP_SDA_OUT_LEVEL;
-+}
-+
-+static unsigned int p3h2x4x_gpio_in_level_reg(unsigned int offset)
-+{
-+	return p3h2x4x_gpio_is_scl(offset) ? P3H2X4X_TP_SCL_IN_LEVEL_STS :
-+					     P3H2X4X_TP_SDA_IN_LEVEL_STS;
-+}
-+
-+static int p3h2x4x_gpio_get_direction(struct gpio_chip *chip,
-+				      unsigned int offset)
-+{
-+	struct p3h2x4x_gpio *gpio = gpiochip_get_data(chip);
-+	unsigned int val;
-+	int ret;
-+
-+	ret = regmap_read(gpio->regmap, p3h2x4x_gpio_out_en_reg(offset), &val);
-+	if (ret)
-+		return ret;
-+
-+	return (val & BIT(p3h2x4x_gpio_port(offset))) ? GPIO_LINE_DIRECTION_OUT :
-+							GPIO_LINE_DIRECTION_IN;
-+}
-+
-+static int p3h2x4x_gpio_direction_input(struct gpio_chip *chip,
-+					unsigned int offset)
-+{
-+	struct p3h2x4x_gpio *gpio = gpiochip_get_data(chip);
-+
-+	/* Clearing the output enable puts the pin in Hi-Z. */
-+	return regmap_clear_bits(gpio->regmap, p3h2x4x_gpio_out_en_reg(offset),
-+				 BIT(p3h2x4x_gpio_port(offset)));
-+}
-+
-+static int p3h2x4x_gpio_set(struct gpio_chip *chip, unsigned int offset,
-+			    int value)
-+{
-+	struct p3h2x4x_gpio *gpio = gpiochip_get_data(chip);
-+
-+	return regmap_update_bits(gpio->regmap,
-+				  p3h2x4x_gpio_out_level_reg(offset),
-+				  BIT(p3h2x4x_gpio_port(offset)),
-+				  value ? BIT(p3h2x4x_gpio_port(offset)) : 0);
-+}
-+
-+static int p3h2x4x_gpio_direction_output(struct gpio_chip *chip,
-+					 unsigned int offset, int value)
-+{
-+	struct p3h2x4x_gpio *gpio = gpiochip_get_data(chip);
-+	int ret;
-+
-+	/* Drive the requested level before enabling the output buffer. */
-+	ret = p3h2x4x_gpio_set(chip, offset, value);
-+	if (ret)
-+		return ret;
-+
-+	return regmap_set_bits(gpio->regmap, p3h2x4x_gpio_out_en_reg(offset),
-+			       BIT(p3h2x4x_gpio_port(offset)));
-+}
-+
-+static int p3h2x4x_gpio_get(struct gpio_chip *chip, unsigned int offset)
-+{
-+	struct p3h2x4x_gpio *gpio = gpiochip_get_data(chip);
-+	unsigned int val;
-+	int ret;
-+
-+	/*
-+	 * The input level status register reflects the pin level in both
-+	 * directions, so it also reads back what an output is driving.
-+	 */
-+	ret = regmap_read(gpio->regmap, p3h2x4x_gpio_in_level_reg(offset), &val);
-+	if (ret)
-+		return ret;
-+
-+	return !!(val & BIT(p3h2x4x_gpio_port(offset)));
-+}
-+
-+static int p3h2x4x_gpio_get_multiple(struct gpio_chip *chip,
-+				     unsigned long *mask, unsigned long *bits)
-+{
-+	struct p3h2x4x_gpio *gpio = gpiochip_get_data(chip);
-+	unsigned int scl, sda, off;
-+	int ret;
-+
-+	/* One register per pin type covers every port, so two reads suffice. */
-+	ret = regmap_read(gpio->regmap, P3H2X4X_TP_SCL_IN_LEVEL_STS, &scl);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_read(gpio->regmap, P3H2X4X_TP_SDA_IN_LEVEL_STS, &sda);
-+	if (ret)
-+		return ret;
-+
-+	for_each_set_bit(off, mask, chip->ngpio) {
-+		unsigned int val = p3h2x4x_gpio_is_scl(off) ? scl : sda;
-+
-+		__assign_bit(off, bits, val & BIT(p3h2x4x_gpio_port(off)));
-+	}
-+
-+	return 0;
-+}
-+
-+static int p3h2x4x_gpio_set_multiple(struct gpio_chip *chip,
-+				     unsigned long *mask, unsigned long *bits)
-+{
-+	struct p3h2x4x_gpio *gpio = gpiochip_get_data(chip);
-+	unsigned int scl_mask = 0, scl_val = 0;
-+	unsigned int sda_mask = 0, sda_val = 0;
-+	unsigned int off;
-+	int ret;
-+
-+	/* Coalesce the requested lines into one write per pin type. */
-+	for_each_set_bit(off, mask, chip->ngpio) {
-+		unsigned int bit = BIT(p3h2x4x_gpio_port(off));
-+
-+		if (p3h2x4x_gpio_is_scl(off)) {
-+			scl_mask |= bit;
-+			if (test_bit(off, bits))
-+				scl_val |= bit;
-+		} else {
-+			sda_mask |= bit;
-+			if (test_bit(off, bits))
-+				sda_val |= bit;
-+		}
-+	}
-+
-+	if (scl_mask) {
-+		ret = regmap_update_bits(gpio->regmap,
-+					 P3H2X4X_TP_SCL_OUT_LEVEL,
-+					 scl_mask, scl_val);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	if (sda_mask)
-+		return regmap_update_bits(gpio->regmap,
-+					  P3H2X4X_TP_SDA_OUT_LEVEL,
-+					  sda_mask, sda_val);
-+
-+	return 0;
-+}
-+
-+/*
-+ * Only the ports the device tree describes as "gpio" are usable as GPIOs. The
-+ * remaining lines belong to ports running I2C, I3C or SMBus traffic and must
-+ * not be handed out to consumers.
-+ *
-+ * The port function is derived from the device tree rather than from
-+ * P3H2X4X_TP_GPIO_MODE_EN, because the hub child that programs that register
-+ * and this child are independent MFD devices with no probe ordering
-+ * guarantee. Reading the register here could therefore observe its reset
-+ * value and mask off every line.
-+ */
-+static int p3h2x4x_gpio_init_valid_mask(struct gpio_chip *chip,
-+					unsigned long *valid_mask,
-+					unsigned int ngpios)
-+{
-+	unsigned int num_ports = ngpios / P3H2X4X_GPIO_PER_PORT;
-+	struct device_node *np = dev_of_node(chip->parent);
-+
-+	bitmap_zero(valid_mask, ngpios);
-+
-+	for_each_available_child_of_node_scoped(np, child) {
-+		u32 tp;
-+
-+		if (!of_node_name_eq(child, "gpio"))
-+			continue;
-+
-+		if (of_property_read_u32(child, "reg", &tp) || tp >= num_ports)
-+			continue;
-+
-+		bitmap_set(valid_mask, tp * P3H2X4X_GPIO_PER_PORT,
-+			   P3H2X4X_GPIO_PER_PORT);
-+	}
-+
-+	return 0;
-+}
-+
-+static int p3h2x4x_gpio_probe(struct platform_device *pdev)
-+{
-+	struct p3h2x4x *p3h2x4x = dev_get_drvdata(pdev->dev.parent);
-+	struct device *dev = &pdev->dev;
-+	struct p3h2x4x_gpio *gpio;
-+
-+	gpio = devm_kzalloc(dev, sizeof(*gpio), GFP_KERNEL);
-+	if (!gpio)
-+		return -ENOMEM;
-+
-+	gpio->regmap = p3h2x4x->regmap;
-+
-+	device_set_of_node_from_dev(dev, dev->parent);
-+
-+	gpio->chip.label = dev_name(dev);
-+	gpio->chip.parent = dev;
-+	gpio->chip.owner = THIS_MODULE;
-+	gpio->chip.base = -1;
-+	gpio->chip.ngpio = p3h2x4x->num_target_ports * P3H2X4X_GPIO_PER_PORT;
-+	gpio->chip.can_sleep = true;
-+	gpio->chip.get_direction = p3h2x4x_gpio_get_direction;
-+	gpio->chip.direction_input = p3h2x4x_gpio_direction_input;
-+	gpio->chip.direction_output = p3h2x4x_gpio_direction_output;
-+	gpio->chip.get = p3h2x4x_gpio_get;
-+	gpio->chip.get_multiple = p3h2x4x_gpio_get_multiple;
-+	gpio->chip.set = p3h2x4x_gpio_set;
-+	gpio->chip.set_multiple = p3h2x4x_gpio_set_multiple;
-+	gpio->chip.init_valid_mask = p3h2x4x_gpio_init_valid_mask;
-+
-+	return devm_gpiochip_add_data(dev, &gpio->chip, gpio);
-+}
-+
-+static const struct platform_device_id p3h2x4x_gpio_id[] = {
-+	{ .name = "p3h2x4x-gpio" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(platform, p3h2x4x_gpio_id);
-+
-+static struct platform_driver p3h2x4x_gpio_driver = {
-+	.driver = {
-+		.name = "p3h2x4x-gpio",
-+		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
-+	},
-+	.probe = p3h2x4x_gpio_probe,
-+	.id_table = p3h2x4x_gpio_id,
-+};
-+module_platform_driver(p3h2x4x_gpio_driver);
-+
-+MODULE_AUTHOR("Lakshay Piplani <lakshay.piplani@nxp.com>");
-+MODULE_DESCRIPTION("NXP P3H2X4X I3C HUB GPIO driver");
-+MODULE_LICENSE("GPL");
-diff --git a/drivers/mfd/p3h2840.c b/drivers/mfd/p3h2840.c
-index c48984482148..87c0329e6272 100644
---- a/drivers/mfd/p3h2840.c
-+++ b/drivers/mfd/p3h2840.c
-@@ -15,9 +15,14 @@
- #include <linux/mfd/p3h2840.h>
- #include <linux/regmap.h>
- 
-+/*
-+ * The hub cell owns the protected target port mode registers, including the
-+ * GPIO mode enable, so it is listed before the GPIO cell.
-+ */
- static const struct mfd_cell p3h2x4x_devs[] = {
- 	MFD_CELL_NAME("p3h2x4x-regulator"),
- 	MFD_CELL_NAME("p3h2x4x-i3c-hub"),
-+	MFD_CELL_NAME("p3h2x4x-gpio"),
- };
- 
- static const struct regmap_config p3h2x4x_regmap_config = {
--- 
-2.25.1
+[Severity: Medium]
+Can this lead to a data race on the kb->resp buffer?
 
+If a delayed reply from a previous attempt completes kb->resp_done early,
+pogo_xfer() wakes up, sets tx_pending to false, and starts reading
+kb->resp. Concurrently, the RX thread in pogo_handle_frame() may receive
+the reply for the current attempt, evaluate tx_pending as true, and
+overwrite kb->resp via memcpy() while pogo_xfer() is reading it.
+
+This torn read could cause spurious -EPROTO initialization failures.
+
+[ ... ]
+> +static void pogo_handle_sync(struct pogo_kbd *kb, const u8 *p, unsigned =
+int len)
+> +{
+> +	bool replug =3D false;
+[ ... ]
+> +	if (!kb->connected || replug) {
+> +		kb->connected =3D true;
+> +		kb->hb_seen =3D false;
+> +		kb->retry_ms =3D POGO_RETRY_MIN_MS;
+> +		if (!READ_ONCE(kb->quitting))
+> +			schedule_work(&kb->plug_work);
+> +	}
+
+[Severity: Medium]
+Is it safe to modify kb->connected here without holding kb->state_lock?
+
+In pogo_power_off(), kb->connected and kb->powered are cleared under
+kb->state_lock. If pogo_power_off() races with this RX path, this lockless
+modification can leave the driver permanently desynchronized.
+
+If pogo_power_off() sets powered =3D false and connected =3D false, and a d=
+elayed
+UART sync frame is processed here concurrently, this path will locklessly s=
+et
+connected =3D true. The subsequent schedule_work(&kb->plug_work) will exit
+early because powered is false, leaving connected =3D true while powered is=
+ false.
+
+[ ... ]
+> +static void pogo_handle_frame(struct pogo_kbd *kb, const u8 *f, unsigned=
+ int n)
+> +{
+[ ... ]
+> +		if (READ_ONCE(kb->tx_pending) && cmd =3D=3D kb->tx_cmd + 1) {
+> +			/* reply layout for callers: cmd, len, payload */
+> +			kb->resp_len =3D min_t(unsigned int, len + 2, sizeof(kb->resp));
+> +			memcpy(kb->resp, &f[3], kb->resp_len);
+
+[Severity: Medium]
+Does this truncate maximum-length responses?
+
+The kb->resp buffer is sized to OWB_MAX_PAYLOAD (128 bytes). By adding 2 to
+len (for cmd and len), a maximum payload of 128 bytes yields len + 2 =3D 13=
+0.
+The min_t() will cap this at sizeof(kb->resp) (128), which silently truncat=
+es
+the last 2 bytes of the payload.
+
+[ ... ]
+> +static void pogo_remove(struct serdev_device *serdev)
+> +{
+> +	struct pogo_kbd *kb =3D serdev_device_get_drvdata(serdev);
+> +
+> +	/*
+> +	 * Stop the world first: with quitting set, the RX path and the
+> +	 * works stop queueing each other, so the cancels below cannot be
+> +	 * undone again.  The wake IRQ is disabled (and any in-flight ISR
+> +	 * finished) before detect_work is cancelled.
+> +	 */
+> +	WRITE_ONCE(kb->quitting, true);
+> +	pogo_wake_irq_enable(kb, false);
+> +	cancel_delayed_work_sync(&kb->detect_work);
+> +	cancel_delayed_work_sync(&kb->hb_work);
+> +	cancel_work_sync(&kb->plug_work);
+
+[Severity: High]
+Can this teardown sequence lead to a use-after-free of the work queues?
+
+If pogo_wake_isr() is currently executing and has already called
+disable_irq_nosync(), kb->wake_irq_enabled will be false.
+
+When pogo_remove() calls pogo_wake_irq_enable(kb, false), it will hit
+the early return:
+
+    if (enable =3D=3D kb->wake_irq_enabled)
+        return;
+
+This bypasses the disable_irq() synchronization barrier. Because
+pogo_wake_isr() checks kb->quitting without a lock, the ISR could observe
+quitting =3D=3D false before pogo_remove() sets it, but queue the delayed
+work after pogo_remove() has already completed the cancellations, resulting
+in a use-after-free.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016163859.1070=
+138-1-wyibo6109@gmail.com?part=3D2
