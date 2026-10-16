@@ -1,160 +1,116 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE51144236A
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 14:48:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA87E34EF05;
+	Fri, 16 Oct 2026 14:49:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792162106; cv=none; b=RMrSHM4dRNSEJOvFPoeuTmi1hIocdPVH5vwNedrgdHrqXK5vOvFfv6iX0uKKHNdX6lEpJ3RMz9sXBjmcsT3IJElVuSrM51+xHR7XmzvblBicV1Y7XHgVMIxqXNaFDavT4tFoNKS41efRmhHs/PR1uCa1WHwtPfFWCJpsN++0O+c=
+	t=1792162146; cv=none; b=YRZJWRr3KP5aru1q92gftEkRbtBiO6EinZN6LOgX9vV/1zrzlNb2v8d/bjaVcSVVb1qvdTVqSVDffGgASNuUfCuW8UO9W9eqsiOMPPDgbG+aa6VrE+Q8tWqcXpkN42cXYNwqEFmFDq4+/T247IsfJGdlDdmHY9wg/fBJl3SOSD8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792162106; c=relaxed/simple;
-	bh=nWSjMo+YKZolxlS7HJD3Wdvca8vbIyzP8It5wB9l74U=;
+	s=arc-20240116; t=1792162146; c=relaxed/simple;
+	bh=ISUrIXIirbsXlKjdYejyZY4Th/OcH7C6LuywOyGI9kQ=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=XM/O93Ww1DCKI5oj5OycEm3mpagAwnaQSeAYL44nY+2nyroP8mod7CsEPoXOTpFhvbZ4xUKXsvta6KSDxGNGfaGFic1Clb5DiP6jd6QUdqUMwGCwzVD9X8ppt3Obgixz0pXA3y3ttM/VmcPSbbQt+cASCFC+g3X/SXWmSG/0Utg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T2UDl194; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=u2g3QBf9bFFl3ePLmJZXAKyp0781g/rx0tY8rpij/mYXakTZ+q81MPWZjhKPe4kIqxGQ2RKAAg2DPXFeRZfbnoyjOoTyxFnlmEWJkGvOegy1SmX/nncPeeUnMVVXlead6WinTXozaH3DQiX/2iCMRf49eGLzvz2swgYxikAKwRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UCKAM1uy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T2UDl194"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F0941F000C5;
-	Fri, 16 Oct 2026 14:48:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UCKAM1uy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 263731F000C4;
+	Fri, 16 Oct 2026 14:49:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792162104;
-	bh=qvPVpdxs7gx4zX9RZ8b+mOezUHTztei8CM1Ax5WPFnA=;
+	s=k20260515; t=1792162145;
+	bh=Z686EOQZ3a6HMTVPVej/OuMtWjj0vl6ySbGyQjIf7Rw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=T2UDl194R0mRsERU4aR6KqFDN3q+OcqjdqVW1suA8GxRfV5TZDZ4FeThPTWFoA4bC
-	 S0vpZH3/dXizJa8hIizO/ATUgmO4SGhoCHMcjkRhYgDazMet6m5icG5byvWFgDXlxf
-	 aJc02hS6YX0hWPjRbcI/Ft3pJR6eoNIq+xMlOq5P4zHGR2U5ZbWRuy8keEqlmV6hl2
-	 5nwrPMoI4XnXPc6kPQjPYIBtvo0vQUusOyOnyWQoZ7gf81XiCDSzifpQPlbhGVLx1B
-	 cbeL5Tx2yV2fc97Qs5+dSZ88oldFnyap52FDkTiDde+qDDrNNL47V9cud7Dek2hOTD
-	 QJuoW6l/EwdzQ==
-Message-ID: <sashiko-outbox-174487@kernel.org>
+	b=UCKAM1uyxX5KGVqwfmo74WhfbR+Nvc6htCHQFbktjOMyWm4qlm1Xch3byUQm664Bo
+	 Cg1Tl3+WcK7U4VwtzVMw6/+dehSl/2t4wVKJFUlN4HhvPNxoNx2/s4G0QCo+ZCUvQo
+	 kXNT7WVjctNkuZEAj8JbL3K2yieOT4TCuIQsLE0Flv1AFQ3t34A66hjrb+tWwkndwR
+	 5TYwsH5PlzEpQDHF9FVItMk+/UZuXmc/sppdmNC1qX6Sa/VJqZ4Ci+LNhq86/Mv/XQ
+	 S3a9gpyhQj/oI/IwmZycqhCjLs3NcHUHxlx6mSBHdje8wP9v6BbfdPkPpfKK9Wclle
+	 Ux0BfhdwuglVQ==
+Message-ID: <sashiko-outbox-174489@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] iio: light: gp2ap002: add led power supply
+Subject: Re: [PATCH 03/10] ARM: dts: omap: dm816x: use dedicated SoC pinctrl
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christoph Rudorff" <chris@rudorff.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261016-iio-light-gp2ap002-v1-1-7c93312fa8d5@rudorff.com>
-References: <20261016-iio-light-gp2ap002-v1-0-7c93312fa8d5@rudorff.com>
- <20261016-iio-light-gp2ap002-v1-1-7c93312fa8d5@rudorff.com>
+To: "Ettore Chimenti" <ettore.chimenti@linaro.org>
+Cc: devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261016-patch-ektor5-dm8168-dts-v1-3-b4ce30217028@linaro.org>
+References: <20261016-patch-ektor5-dm8168-dts-v1-0-b4ce30217028@linaro.org>
+ <20261016-patch-ektor5-dm8168-dts-v1-3-b4ce30217028@linaro.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 16 Oct 2026 14:48:23 +0000
+Date: Fri, 16 Oct 2026 14:49:04 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] iio: light: gp2ap002: memory/resource leak of vled regulator in =
-error paths
-- [Medium] iio: light: gp2ap002: incorrect regulator disable order violates=
- hardware teardown sequencing
+- [Medium] pinctrl: dm816x API provides broken PIN_INPUT/PIN_OUTPUT macros =
+and omits DT fixes
 --
 
-commit 377213d2096a5527d0fa1ddbd0a74bf96e0940f2
-Author: Christoph Rudorff <chris@rudorff.com>
+commit 8bc3ab0228d1fbf7757bd0740351d9face4c0e7c
+Author: Ettore Chimenti <ettore.chimenti@linaro.org>
 
-iio: light: gp2ap002: add led power supply
+ARM: dts: omap: dm816x: use dedicated SoC pinctrl
 
-This commit adds a missing VLED power supply to the gp2ap002 driver.
-It initializes the vled regulator and handles its enable and disable paths
-in the probe, remove, suspend, and resume functions.
+In the TI Sitara DM816x SoCs, the pinctrl configuration macros are not
+identical to OMAP2/3. They are actually inverted between Pullup/down
+enabled and disabled (third bit in pinctrl registers). Using dedicated
+DM816x pinctrl header to differentiate between the SoC families.
 
-> diff --git a/drivers/iio/light/gp2ap002.c b/drivers/iio/light/gp2ap002.c
-> index de29081fd3b20..c03eb0f1988bc 100644
-> --- a/drivers/iio/light/gp2ap002.c
-> +++ b/drivers/iio/light/gp2ap002.c
-[ ... ]
-> @@ -560,6 +570,11 @@ static int gp2ap002_probe(struct i2c_client *client)
->  		dev_err(dev, "failed to enable VIO regulator\n");
->  		goto out_disable_vdd;
->  	}
-> +	ret =3D regulator_enable(gp2ap002->vled);
-> +	if (ret) {
-> +		dev_err(dev, "failed to enable VLED regulator\n");
-> +		goto out_disable_vio;
-> +	}
-> =20
->  	msleep(20);
+> diff --git a/arch/arm/boot/dts/ti/omap/dm816x.dtsi b/arch/arm/boot/dts/ti=
+/omap/dm816x.dtsi
+> index ee0090f7aa64e..de4d48babf778 100644
+> --- a/arch/arm/boot/dts/ti/omap/dm816x.dtsi
+> +++ b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
+> @@ -3,7 +3,7 @@
+>  #include <dt-bindings/bus/ti-sysc.h>
+>  #include <dt-bindings/clock/dm816.h>
+>  #include <dt-bindings/gpio/gpio.h>
+> -#include <dt-bindings/pinctrl/omap.h>
+> +#include <dt-bindings/pinctrl/dm816x.h>
 
 [Severity: Medium]
-When gp2ap002_init() or devm_request_threaded_irq() fail further down in
-gp2ap002_probe(), the code jumps to out_disable_vio or out_put_pm. However,
-the error handling block only disables the vio and vdd regulators.
+Since dm816x.h inherits macros from omap.h, will using PIN_INPUT or
+PIN_OUTPUT unintentionally enable an active pull-down on DM816x?
 
-For example, when initialization fails:
+include/dt-bindings/pinctrl/omap.h defines:
+#define PIN_INPUT        INPUT_EN
+#define PIN_OUTPUT       0
 
-	ret =3D gp2ap002_init(gp2ap002);
-	if (ret) {
-		dev_err(dev, "initialization failed\n");
-		goto out_disable_vio;
-	}
+Because neither includes bit 3 (so it remains 0), and DM816x has inverted
+logic where bit 3=3D0 enables the pull resistor, these macros now actively =
+turn
+on pull-downs. Should dm816x.h #undef and redefine PIN_INPUT and PIN_OUTPUT
+to include PULL_DIS?
 
-Does this regression leave the newly added vled regulator permanently enabl=
-ed,
-leaking its enable count? Should we add an out_disable_vled label that
-disables the vled regulator?
+Similarly, does this inclusion leak inapplicable off-mode macros like
+PIN_OFF_OUTPUT_HIGH into the DM816x namespace, where they might write garba=
+ge
+to inapplicable padconf bits if used?
 
-[ ... ]
-> @@ -635,6 +650,7 @@ static void gp2ap002_remove(struct i2c_client *client)
->  	iio_device_unregister(indio_dev);
->  	regulator_disable(gp2ap002->vio);
->  	regulator_disable(gp2ap002->vdd);
-> +	regulator_disable(gp2ap002->vled);
+Additionally, while this commit changes the header to allow fixing the pull
+logic, does this leave pins in arch/arm/boot/dts/ti/omap/dm8168-evm.dts with
+unintended pull-downs?
 
-[Severity: Medium]
-In gp2ap002_probe(), the regulators are enabled in the order: vdd -> vio ->
-vled. To prevent powering peripherals while the core logic is unpowered
-(which could lead to backpowering or leakage currents), should the teardown
-occur in the exact reverse order?
+For example, SPI_SCLK is defined without a pull flag:
 
-Disabling them here as vio -> vdd -> vled seems to violate that sequence.
+arch/arm/boot/dts/ti/omap/dm8168-evm.dts:mcspi1_pins() {
+    ...
+    DM816X_IOPAD(0x0a94, MUX_MODE0)    /* SPI_SCLK */
+    ...
+}
 
->  }
-> =20
->  static int gp2ap002_runtime_suspend(struct device *dev)
-> @@ -659,6 +675,7 @@ static int gp2ap002_runtime_suspend(struct device *de=
-v)
->  	 */
->  	regulator_disable(gp2ap002->vio);
->  	regulator_disable(gp2ap002->vdd);
-> +	regulator_disable(gp2ap002->vled);
+Under the old OMAP rules, omitting PULL_ENA disabled the pull. But with the
+new DM816x rules, omitting PULL_DIS leaves bit 3=3D0, which enables the pul=
+l.
 
-[Severity: Medium]
-As noted above in gp2ap002_remove(), does this disable sequence regression
-also violate the hardware teardown ordering by disabling vled last instead
-of first?
-
-> =20
->  	return 0;
->  }
-> @@ -679,6 +696,11 @@ static int gp2ap002_runtime_resume(struct device *de=
-v)
->  		dev_err(dev, "failed to enable VIO regulator in resume path\n");
->  		goto out_disable_vdd;
->  	}
-> +	ret =3D regulator_enable(gp2ap002->vled);
-> +	if (ret) {
-> +		dev_err(dev, "failed to enable VLED regulator in resume path\n");
-> +		goto out_disable_vio;
-> +	}
-> =20
->  	msleep(20);
-
-[Severity: Medium]
-If gp2ap002_init() fails later in gp2ap002_runtime_resume(), the code jumps
-to out_disable_vio:
-
-	ret =3D gp2ap002_init(gp2ap002);
-	if (ret) {
-		dev_err(dev, "re-initialization failed\n");
-		goto out_disable_vio;
-	}
-
-Similar to the probe function, does this regression leak the enable count
-for the vled regulator, since it is not disabled in the error path?
+While follow-up patches in the series fix the SD card pins, do other pins
+like SPI_SCLK and SPI_SCS0 need to be updated to explicitly include PULL_DI=
+S?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016-iio-light-=
-gp2ap002-v1-0-7c93312fa8d5@rudorff.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016-patch-ekto=
+r5-dm8168-dts-v1-0-b4ce30217028@linaro.org?part=3D3
