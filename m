@@ -1,64 +1,110 @@
-Received: from 4do.net (4do.net [51.68.154.128])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE081FE451;
-	Fri, 16 Oct 2026 06:46:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.68.154.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 245613BA220
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 06:47:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792133170; cv=none; b=XkuI0cCDz/nkrdiGsg7uzbuSSHte6kiwk5Rz804MCoW1yjTDyW0RDul2h1QZ2BroUaZm7gnXXOMwkhwARmY6NeQDplRuXv5L9QaC+A1StfCYIbWdcQzwJXh6M7faZGdkLpjq8k1c44YPW+qqZUmv7+odm+TIhlzrZzv/pFkAhbc=
+	t=1792133255; cv=none; b=DolhS1BhWJFG/KNH8qRaAVx/xkrnSpzhrdrumtAWcfDyGMjOtTwcJmDB32SYTCr9UgYOr0KS+IFrWQke/J8o5z9f8hk4N/Ysl0mKWazUap2NJuGe1V0sPLkPoIbozxJKgk7uuPw41+BttLjIDy5BhEjgRiYtuanCsFQFfuEhGgY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792133170; c=relaxed/simple;
-	bh=TgDyxgu8IDR41V90BIj5qe9X5y5frV/UovMkQLzWCYY=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=AtmGP9QGUel17skJNCQa067+tUv1Q8zocWsVdJAi4vndu8xRwB5xjzfXb+DlZawiRGebXssXB1XdOS9j0CrUEWFmueIj2ghD6q9nmb9BqDZf/oN7Ka4Z+Bju0FZv4Neh0s/u7+xU27IS4yY6uWDfL1Z3AOVkA8PmDpYR71CGFEk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fromdisposition.org; spf=pass smtp.mailfrom=fromdisposition.org; arc=none smtp.client-ip=51.68.154.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fromdisposition.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fromdisposition.org
+	s=arc-20240116; t=1792133255; c=relaxed/simple;
+	bh=ITEkCKYbGar95rbf0v+Fv9jf9p/byrOn1nUbM7GYtGo=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=kztrc+rhcFKk1bXZ9uF/bXK/Y14NzvM7sd2TZB57XMVLmuw/hF/JRv+LxHGrx1N1Gl8Rqa1rKZyEQjHvvqBdPWsRGj2uU46dx7++eOipTuep7/sGL8nGCFGx/KpFsp9qwtBBxFnUXfWEd/vvBFFD0MzHTI+o5Kor4ExP+QshpDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FHfN75sm; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FHfN75sm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 188111F000C4;
+	Fri, 16 Oct 2026 06:47:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792133247;
+	bh=rylLQBxOAFy5w76DfZB85yu3AEEzVwQIfX6QBR5pCWk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=FHfN75smQkSA5il3yKx6XxTgdDuUnVDjQ/PaiK9sQtBd6NK4F8hFeerqFdUs54fMC
+	 kMfsVIONzp/cIGJTv44NrVghHFEtkPofbd6NE50odEf0QICH8g33HW4xSnMA0iy8zq
+	 Tvvf76N4iWc/INGmtXX+SqaBdyhlXfddxNmwdegb4RfMe7IJPfmqjRSSBrUQPyxIyn
+	 mB660d7avNC8Os3NYkgDzB1nCOwRoWD5QHpLgtgKROtuoPmJOwNl8Xk/W1dKRNHz4j
+	 QTs2jpP8zpNLyRa16CzDh8i4SagGeSgBE+Ya2eZZJc/sFGeR+s6Pvc+lOxnvgNUaV4
+	 KYOLABvnlm1nQ==
+Message-ID: <sashiko-outbox-173879@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v3 4/6] net: ftgmac100: Require phy-mode for
+ AST2700
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jacky Chou" <jacky_chou@aspeedtech.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261015-support_ast2700-v3-4-8d7999171ac4@aspeedtech.com>
+References: <20261015-support_ast2700-v3-0-8d7999171ac4@aspeedtech.com>
+ <20261015-support_ast2700-v3-4-8d7999171ac4@aspeedtech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 16 Oct 2026 06:47:26 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Date: Fri, 16 Oct 2026 06:39:31 +0000
-From: Demeter Barna <me@fromdisposition.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>, Lorenzo Pieralisi
- <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, Rob Herring <robh@kernel.org>, Bjorn Helgaas
- <bhelgaas@google.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Qiang
- Yu <qiang.yu@oss.qualcomm.com>, Jeff Johnson <jjohnson@kernel.org>, Liam
- Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bartosz
- Golaszewski <brgl@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, Luiz
- Augusto von Dentz <luiz.dentz@gmail.com>, Balakrishna Godavarthi
- <quic_bgodavar@quicinc.com>, Rocky Liao <quic_rjliao@quicinc.com>, Bjorn
- Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org,
- ath11k@lists.infradead.org, devicetree@vger.kernel.org, Bartosz Golaszewski
- <brgl@bgdev.pl>, linux-bluetooth@vger.kernel.org, Bartosz Golaszewski
- <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v2 2/7] wifi: ath11k: enable support for WCN6851
-In-Reply-To: <fiuuh6rwohtlmwdiy7cwqee62e7jrtdgii7fklfy7jkgh25yul@mzlefhqgzo55>
-References: <20260608-sm8350-wifi-v2-0-efb68f1ff04c@oss.qualcomm.com>
- <20260608-sm8350-wifi-v2-2-efb68f1ff04c@oss.qualcomm.com>
- <fiuuh6rwohtlmwdiy7cwqee62e7jrtdgii7fklfy7jkgh25yul@mzlefhqgzo55>
-Message-ID: <850ada71460dc62152218e42e78079c6@fromdisposition.org>
-X-Sender: me@fromdisposition.org
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 2026-06-11 20:05, Dmitry Baryshkov wrote:
-> This crashes with the firmware that came with the board,
-> WLAN.HSP.1.1.c3-00200-QCAHSPSWPL_V1_V2_SILICONZ. I will revert to 3
-> vdevs for v3.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] ftgmac100: unreachable phy-mode validation logic for AST2700
+--
 
-Same here with a newer firmware, WLAN.HSP.1.1-02922 (2021-11-04),
-on a Razer Edge 5G (SM8350, WCN6855 hw1.1; next-20261012 plus a
-board DTS that is not upstream yet). With 4 vdevs the firmware
-crashes (MHI_CB_EE_RDDM, no WMI ready event). With 2 + 1, as in
-v1, Wi-Fi works.
+commit bffefbc3de357d0f18231965a919fd90ba100814
+Author: Jacky Chou <jacky_chou@aspeedtech.com>
 
-Happy to test v3.
+net: ftgmac100: Require phy-mode for AST2700
+
+The driver currently defaults to RGMII when the "phy-mode" property is
+missing from the device tree. This patch makes "phy-mode" a required
+property for AST2700 and fails probe with an error message instead of
+defaulting to RGMII.
+
+> diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ether=
+net/faraday/ftgmac100.c
+> index 9b7becb017262..5a578a62df673 100644
+> --- a/drivers/net/ethernet/faraday/ftgmac100.c
+> +++ b/drivers/net/ethernet/faraday/ftgmac100.c
+> @@ -1526,8 +1526,13 @@ static int ftgmac100_mii_probe(struct net_device *=
+netdev)
+> =20
+>  	/* Default to RGMII. It's a gigabit part after all */
+>  	err =3D of_get_phy_mode(np, &phy_intf);
+> -	if (err)
+> +	if (err) {
+> +		if (priv->mac_id =3D=3D FTGMAC100_AST2700) {
+> +			dev_err(priv->dev, "phy-mode is required for this SoC\n");
+> +			return -EINVAL;
+> +		}
+>  		phy_intf =3D PHY_INTERFACE_MODE_RGMII;
+> +	}
+
+[Severity: Low]
+Is this new validation logic for AST2700 reachable?
+
+Looking at ftgmac100_probe(), priv->mii_bus is only initialized for
+specific SoCs:
+
+	if (priv->mac_id =3D=3D FTGMAC100_FARADAY ||
+	    priv->mac_id =3D=3D FTGMAC100_AST2400 ||
+	    priv->mac_id =3D=3D FTGMAC100_AST2500) {
+		err =3D ftgmac100_setup_mdio(netdev);
+		if (err)
+			return err;
+	}
+
+For FTGMAC100_AST2700, priv->mii_bus appears to remain NULL.
+
+If priv->mii_bus is NULL, when ftgmac100_mii_probe() is called, would it
+always hit the early exit condition at the start of the function:
+
+	if (!priv->mii_bus) {
+		dev_err(priv->dev, "No MDIO bus available\n");
+		return -ENODEV;
+	}
+
+and return -ENODEV before it can ever reach the new phy-mode validation?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015-support_as=
+t2700-v3-0-8d7999171ac4@aspeedtech.com?part=3D4
