@@ -1,41 +1,40 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DD7D3BC69E;
-	Fri, 16 Oct 2026 11:27:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB07F1E260C;
+	Fri, 16 Oct 2026 11:37:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792150057; cv=none; b=s9kCRyzM/hUf3bUNNqEY2SIggGEm0PH85rmsirx48RaDNhfCsuFvNg8ENVAPdj+kytVaL32+uJFa5+2hU/tawrFHgey7nIQ8vtgpQ6Nc6cTUQm+/eSgPcv42kEhnU4EVdc6W0XO5Orq0N936Ak9G7hDNzmuJWkoCBYO1CD+xT4o=
+	t=1792150680; cv=none; b=PdQpGLS6kAZ2Y21wDZPAtqFsQoFqffD386q60p2s/mzhf9xUd61DEpNvqmGV4a7MxRfRPV46z0iMOlXXXobvAuNFKwy/buPgfbDwdui63VZVq+6nH/O8xaJqHiFQVYiAnks3+iBSkKoDWsDEzs/IYgh4a4EokBIevSsFzCjk+ng=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792150057; c=relaxed/simple;
-	bh=GhyQN17VWd7SoAjtlip9xuFKJIo9rp2AytN0LvK4U9k=;
+	s=arc-20240116; t=1792150680; c=relaxed/simple;
+	bh=hURAYmRiGjFW3uRx49r6YrGzPgKt06TgM9IXY6vfPsk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mXbwMfLXO7wzWoAwX+gzrRQrkUYrgu58FLMe8huVnrc5LK1909ccsZaAIDYId7OIVsp9W+qMaSG/BrlshrN25jPuCVO9szy6xDmwJ7FfX8LS+pdTG2maomQrusHCU0s0u2Io9pgMtnS2v2dF4eOBWJPw4CbcEisRqZPAP54AWP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=ru6SnttG; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	 In-Reply-To:Content-Type; b=kDNS7X9uEzeeKhCpK97G9Y60X0x3Pu40Ycd4zlqD+B9QC7U6DvcMNO+zip8vjRSPWQrJYvjeo/DDRfLQIecnvQvnNXg7re/oXqhQp9ZpTQSh9D+yBteu7oxHkIWmVhY8M/52s2z9tyZhR1CWkai5vvStWa6KKVLIv+Xd3W+eWtE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=DOVSw9oI; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="ru6SnttG"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4j5jMz0Gj6z8tyR;
-	Fri, 16 Oct 2026 13:27:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1792150047;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zmG3vMARJIZwqxyiykSt3n/8NHm7T43hsxGEbT9x4MM=;
-	b=ru6SnttGuBZforc1QjhHsCRqyZt3SATyEzV2jvy4Li3rBk/ou4I3Z4E3CON2jGH7ZbALOA
-	12K/tY51uQvp0ENPgY18LI31RgLcS/VxEguWlQmUq1s6yHjS/0yILRe5NmNPv43wSGXTmJ
-	TpJq6DjV/prHE7MLV0torsxtrahYXjfVm4cIKSYUCuUKnumVnIkoznqMGfrrP1TXd2waon
-	Mg6yWk/Fzlhjr1tgUMQjps6jSfavieBw+IXgOeL2ANs7K8c6cu5J0N2U+Ok+VEMFvTRbjw
-	yowif3EjUbmWQWf7uJ1v1dFzaZfIf+hmIiZ52N+2S3KNnTAA4VGC3hpcHJs3MQ==
-Message-ID: <a5cbdf4e-ad1d-4e54-84b7-15f7841c414c@mailbox.org>
-Date: Fri, 16 Oct 2026 12:54:55 +0200
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="DOVSw9oI"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 239F54E4124D;
+	Fri, 16 Oct 2026 11:37:55 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id DD40E6075D;
+	Fri, 16 Oct 2026 11:37:54 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 38F5610328153;
+	Fri, 16 Oct 2026 13:37:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792150669; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=9GRmkk0d7/PC2JYZ6s87MIdsq4qp1zD1dJ0+v2vwEqA=;
+	b=DOVSw9oI99DtbYEp6j/IMxmzCvhQrVrV9IRzEyczUgqy6HHPbxXruaeiDSNanNAfldxFfj
+	QBmgYZpLAo5JLMjFMRsN65bzPuPjoadxWuVMjgEBsuc7gtos1IvD9hrJoyUjtVpc+kgvgt
+	ojQ0upsve+H0brWS+pQEPLnkB6VmNkoUU2VfkryWBniwZnaLTRjB6UNY7Mp4QuPZiilxWd
+	e7QnoyiDYek5sVmIs/gOKJrB3YxCnIsaJfRQRJgJbogTl2FoAKkpuqoOOY2ia5MvI2aoZD
+	pIfHxwpdC0CsLbBbaKR1KWFR1j+JBjqgZF/zoYR8P3rco2vIudsLUJo8Tg4nXg==
+Message-ID: <34608ab8-18f3-4680-8276-cd8611c05cb1@bootlin.com>
+Date: Fri, 16 Oct 2026 13:37:37 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -43,77 +42,81 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] PCI: rcar-gen4: Add missing PM ops
-To: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
- sashiko-reviews@lists.linux.dev
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
- wsa+renesas@sang-engineering.com, linux-pci@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-References: <20261004011851.866833-1-marek.vasut+renesas@mailbox.org>
- <20261004013131.0C7D81F0089B@smtp.kernel.org>
- <179214090624.63727.1877053108500595755.b4-reply@b4>
+Subject: Re: [PATCH net-next v3 5/9] net: stmmac: mediatek: add RX/TX delay
+ stage divider in platform data
+To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Richard Cochran <richardcochran@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Biao Huang <biao.huang@mediatek.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Eric Dumazet <edumazet@kernel.org>
+Cc: kernel@collabora.com, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+References: <20261016-dwmac-mediatek-mt8189-v3-0-25daf2bbcf35@collabora.com>
+ <20261016-dwmac-mediatek-mt8189-v3-5-25daf2bbcf35@collabora.com>
 Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <179214090624.63727.1877053108500595755.b4-reply@b4>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20261016-dwmac-mediatek-mt8189-v3-5-25daf2bbcf35@collabora.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: sjspt4g83kpztx5uz3hy416u9cgcio6w
-X-MBO-RS-ID: 8acdd262cc24994b0e6
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 10/16/26 10:55 AM, Manivannan Sadhasivam wrote:
-> On 2026-10-04 01:31 +0000, sashiko-bot@kernel.org wrote:
->> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
->> - [High] pcie: deadlocks due to ioremap and request_firmware in NOIRQ PM phase
->> --
->>
->> commit e6c055f1eedf6bd5c13e231da24f0c6a76a24ba2
->> Author: Marek Vasut <marek.vasut+renesas@mailbox.org>
->>
->> PCI: rcar-gen4: Add missing PM ops
->>
->> The R-Car Gen4 PCIe controller needs to gracefully suspend and resume its
->> link across system suspend/resume cycles to support power domains shutting
->> down. This patch adds suspend_noirq and resume_noirq PM operations to tear
->> down the link on suspend and restart it on resume.
->>
->>> diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
->>> index 2e7a8d85c0060..fceecbd16355c 100644
->>> --- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
->>> +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
->>
->> [ ... ]
->>
->>> @@ -1062,6 +1064,26 @@ static int rcar_gen4_pcie_ltssm_control(struct rcar_gen4_pcie *rcar, bool enable
->>>   	return 0;
->>>   }
->>>   
->>> +static int rcar_gen4_pcie_suspend_noirq(struct device *dev)
->>> +{
->>> +	struct rcar_gen4_pcie *rcar = dev_get_drvdata(dev);
->>> +
->>> +	if (rcar->drvdata->mode != DW_PCIE_RC_TYPE)
->>> +		return 0;
->>> +
->>> +	return dw_pcie_suspend_noirq(&rcar->dw);
->>                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->>
->> [Severity: High]
->> Does this code trigger a deadlock or kernel panic during the NOIRQ PM phase?
->>
->> Setting pp->use_atu_msg to true causes dw_pcie_suspend_noirq() to eventually
->> call ioremap():
->>
->> dw_pcie_suspend_noirq()
->>    dw_pcie_pme_turn_off()
->>      ioremap()
->>
->> Since this runs during the suspend_noirq phase with local interrupts disabled
->> and the system frozen, ioremap() allocates memory with GFP_KERNEL and may
->> sleep, which is strictly prohibited in NOIRQ context.
->>
+Hi Louis-Alexis,
+
+On 10/16/26 12:31, Louis-Alexis Eyraud wrote:
+> In preparation of newer SoC support, that have like MT8189 SoC
+> different RX and TX internal delay stage steps than MT8188/MT8195, add
+> the RX and TX delay stage divider values in the variant platform data
+> and replace the hardcoded value uses in mt2712_set_delay and
+> mt8195_set_delay.
 > 
-> What? Local CPU interrupts won't be disbled in the noirq phase, only the device
-> interrupts will be. So this concern is utterly baseless.
-Do you think we could get this patch into 7.4 since this is a bugfix ?
+> Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+> Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+> ---
+>  .../net/ethernet/stmicro/stmmac/dwmac-mediatek.c   | 46 ++++++++++++++++++----
+>  1 file changed, 38 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> index 596411d4a5b2..cb5bda53edb9 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> @@ -108,6 +108,10 @@ struct mediatek_dwmac_variant {
+>  
+>  	u32 rx_delay_max;
+>  	u32 tx_delay_max;
+> +	u16 rx_rmii_delay_stage_div;
+> +	u16 tx_rmii_delay_stage_div;
+> +	u16 rx_rgmii_delay_stage_div;
+> +	u16 tx_rgmii_delay_stage_div;
+>  	u8 dma_bit_mask;
+>  };
+>  
+> @@ -146,14 +150,22 @@ static int mt2712_set_delay(struct mediatek_dwmac_plat_data *plat)
+>  	u32 fine_val = 0;
+>  
+>  	if (phy_interface_mode_is_rgmii(plat->phy_mode)) {
+> -		rx_delay_stage_div = MT2712_RGMII_DLY_RXC_STAGE_DIV;
+> -		tx_delay_stage_div = MT2712_RGMII_DLY_TXC_STAGE_DIV;
+> +		rx_delay_stage_div = plat->variant->rx_rgmii_delay_stage_div;
+> +		tx_delay_stage_div = plat->variant->tx_rgmii_delay_stage_div;
+>  	} else {
+> -		rx_delay_stage_div = MT2712_RMII_DLY_RXC_STAGE_DIV;
+> -		tx_delay_stage_div = MT2712_RMII_DLY_TXC_STAGE_DIV;
+> +		rx_delay_stage_div = plat->variant->rx_rmii_delay_stage_div;
+> +		tx_delay_stage_div = plat->variant->tx_rmii_delay_stage_div;
 
-Thank you !
+Looking closer at this, what's RMII delay ? There's no delays in RMII, and
+it's a single clock not a RX and TX clock like RGMII, there's no RMII TXC/RXC.
+
+I think it's the same as on allwinner, the delay handling has been mixed-up between
+RMII and RGMII in the glue, you should be able to simplify this even more by
+ditching the RMII case.
+
+Maxime
