@@ -1,319 +1,218 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8AAC3F888A
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 12:48:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792154899; cv=pass; b=ZFhjjPU3tTvy4y/3QBf0lyZca5J5Bz7iitwxmIg75Hj9DiinsK8krUDP+UOCsLFsTfVuUU0wBT7J+3OJN0Tyhksr6VNNrUvj+Zb4VQDKPBM67hhK3w0GMsMIVvq/rmbgMWSdOg0iUtE3xg9P31o7JDM3Gxp8Zy85Yw8fHhu5QPw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792154899; c=relaxed/simple;
-	bh=of8ZV/kCyQQV+q31+bi/0MLLfWXyjaVnFi/w7NTjqrQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EPZDoUZCcGFboxlGHH0wuHypafhv2KkmvR0Tz7zxNCDINxn8TNkZOFg+B5H3kCDa2NmVUZ4B9hY71Ul06ed5RegmlEwYv/Uevu+LpdJkO+aZ0H/4Kz6CmtTkeT2lthCDlOpIFHOzwrmdi+xGRU1a4n/Vga2Y5Ta9ktp3Uf+apCM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K0zDBoyr; arc=pass smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4F3442255C;
+	Fri, 16 Oct 2026 12:48:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792154904; cv=none; b=bn7eKESaE/dhDDVjKXjiUjmE0w+fOKmkxzJr8dfupWJhj+mfGKdYuy6PaeZnb/dTSCppCcHxeUe6n6kboQE6V0UNf6lTOz80sh179cpMhb/d+/a5e5JozKsY3JtjQsT7j1PQuEdpmufvJmMDbX7EZ6mRE6TLHZphxPCegEcBYns=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792154904; c=relaxed/simple;
+	bh=qU12tj8p7u7skpU5hRNEVT39qvwiNkjHDUcgx7zoMgg=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=uoP57Y4WSt9NOKP9F5qK2mImRa85hfMcxB2u1Yr4BMCTLqOef5w01H0zQL2ORuVABqxs0KPjWnG2L/COt1fHsVwHAMmSJgQjmWcqINsZzjOQzgON+ApSLHjHl+FS+jfLBlr3CtC2lQXWPmeLoV/wHkkycC+3DlVQmriay7eCQD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cJhTBoWh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K0zDBoyr"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a16bc2278aso46385075e9.1
-        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 05:48:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792154896; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JnPTh0HXM9EU+pJDM2Par73iJqa7EvJof/S3bxxiJA9Z2mRkI3PN3AyoEhygnTYImY
-         2jhrLa14sLe2eQQUtFyyL7tldQzUDf84Fl0JFXtMXdf+44SObRyeANk3Z4aoZy9q5RDf
-         CLo3EP+8Ue/fBEq5reu1iwUL7aT0MfoWVML3ze8CtiWPbkpQXi8BCkCrSMre83S6/nJF
-         kHqG3U62aJjMVca+n5R2R1vN/sgrHw25hsbtuOqrFsYMS8qRmxhASTQE+o5R7e2x9kSo
-         S3dTtIsmPh0rZzWJrH9w+guBwIj2zqPGinZlIM9Cvdp7TdYpeBav4HSdfLn8GF3rUOGY
-         4nMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=4OlgrAJhI4dBHdDb8YFJyI1V/AAzFncQtNS2z/ZSh9A=;
-        fh=OlhOVXWk0MUHWarzASDZBMboYCHl1kDewAu9F8uuKrM=;
-        b=TTbUwzhiEIcM3+e03hs3uv5SC/JWcLT4cyxdOz8+AHZeFn8ppwaBLe0cnKKu5sSC2P
-         9/8rcAGo7e/sl000KdNeBghV9/XDx/JLx4obU+vz9adYhJjWQly8p75QjJumylwdbxG7
-         ZX2gx/WwowkCA0iyEVjEPezyB7EvvSk2Ti7apxUZFHSlsXSOXmTXDhUsNxy6r6K5Ve7S
-         OVpmpX6HXtQCDakrOjqF5bsitKgG4ghrqRazJS2IBQrJgMGX+llG5ubl01llKESTOOgU
-         kPQzI+BbidJFuH08AU2JbeZpvDLglV8Nq01nx5fdOEAsDVT0eVh4072f4hPqdPBx2/JM
-         mhQg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792154896; x=1792759696; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4OlgrAJhI4dBHdDb8YFJyI1V/AAzFncQtNS2z/ZSh9A=;
-        b=K0zDBoyrzl/q1EAk3uVtoc1ebVFR3/THUnMTEI9b6vlCL5yjmjGyhYSLlrkaG5YfSf
-         gBgs/NHeyBedyPzeF9owAhfYRkpPc1SRUKb3Y/MjmKyrosRWPotac/HpJt8qJ/iesLkm
-         ou+Pi1etlHnEm4YTWLzHXZNaxGdWgzMJzELFQANSqkN9k04Wn2pYUTupHN8+3phRPovn
-         9TVk5Rqn8mMo4Rt7SRCNzeal5WSe74UKiLIPVJqsUojx9Wp1GJPvEzqPbUUJy2+YaC0Q
-         YeknZmNGIy+7Xu9b3OX1I5IxPxgG+vDmKhiZSgMnyYNPLeeqpXE0c3KCLN0wIicJKJN+
-         njyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792154896; x=1792759696;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4OlgrAJhI4dBHdDb8YFJyI1V/AAzFncQtNS2z/ZSh9A=;
-        b=Bc82FbTLR3SXP6/+KrPLay65MlX8e+HD6hlqs1Yws6NpCjyuKg5sRTlkMOYSKR5yVH
-         Xz+JLI12gzy/ir2L0yB8JhrqMFHRY2ga41/sqGwkFcVpLDrAQzDkZxhodhAnRdwgQbG8
-         E32CWCXiWAZv6Z6vReYOxSltLH9AvEaq5zqBxY0A0tGd2mgvIGqAiQq3FDu6hRmtbEay
-         RSxYrH5dq3M/wNUiyRzOW7DZkOervd84b4yNMg6mDFAWCy686qvRLNAdXUCUL1KoGTzI
-         gduTF41Fdl693kh3AwrJnk3To4vcjol2TRdPlGQilsjW7MBDm0TYyB8tblaoF50KCdYf
-         l+6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzp76zG5SVQ+YKP6YXRE6ouU/9EvTTt2iNp+fz26iIMVruU0fbwGT8E504+njQTdulPUTCN42oUP9vF@vger.kernel.org
-X-Gm-Message-State: AFq9FYJYUO9LLg1HWokrFFfxjCWdHcqptK+gvCC2E3M80jBWIWC1rbpQ
-	0TGOYzoJkHYDfwKiKumoVHFam36fHj/B3kKZ42PjmCzCb5fMY7NT1i75FdZJq3krbPA9t8Sg/hS
-	M3f5HV9U4mVfUEYyxH55AKi7FfbBNmHo=
-X-Gm-Gg: AYBFou08PAUUsYKkne+KIelexC/NFvttmLav6L5vrdrn4zBKA6P1oZ/SrDmZQGLtLUn
-	YKiBneuhNaqGBobi7PIO86F1gyZtI+rL43jRCml6iPFKi7ewU2b3orlDldHlmyeY6Fp9clxYIZl
-	6SgUiOqYH1iECvSVGNdBbLHbpxPjPzFyQvX0vK5dovzcPBRuYXzfDzU7q/YFYiDQkcNF5oGgIZF
-	qWv+K+OVlTpP/k3xGRdvTHpZQRteQa6VVxVIECmFZDjB9reAecLl+Pg5fp+LsahUoQprxvJ7wte
-	93vxBAg1Q6karBPplt3TVfViwDFNI8a6H04b/m2i0cRsAcgQIKhRV4zzbTSOM4Bu90+315uFMPS
-	G9b633tt+OOkmUEsTjBARbo5GXbtGOxZ7/UkykmpOuhIyxluGcMG9TyMhfDDXzU5Fx2WGxxEjbZ
-	o=
-X-Received: by 2002:a05:600c:8b30:b0:4a1:d492:1604 with SMTP id
- 5b1f17b1804b1-4a1d49217abmr8476215e9.11.1792154895917; Fri, 16 Oct 2026
- 05:48:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cJhTBoWh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35AD21F000C4;
+	Fri, 16 Oct 2026 12:48:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792154902;
+	bh=Kw6xhQRZUlb6mIq2a8+bPsVtYGPmFMZQpbR1ZD2B79o=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cJhTBoWhMqLCTDZNC1+hrUKRiYBxlIU6ImQcn5CngJEu7Dh3DOA/YF8+QsPTdBdmw
+	 Q5R7DdRt3bUJEC4Oo6hddAZ09ySJOmQ1euqV9+P2BNOw6Ofvt8fq8ng3tVmlBBd0RR
+	 A/Xk+JgS50l4X83ojRH5tfR8634zuQWGRTKS+t0ZNnbILi5GI0jUuLyW4uKLFFVdhQ
+	 k9jxpai8bOxunk2uf4q0dVlZnWzrOk0KDuLs2gKytzVT7Rf1orGeCEFYtAp7tSc7V8
+	 wuwosqdZ714NLKBTcNgvac0abYpNEqEXgXkFvHzk2jccyKW2vhtrZzawiAxrNrxe2c
+	 pjm8OV+WQrRww==
+Message-ID: <sashiko-outbox-174334@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/2] Input: add OnePlus/OPPO Pad pogo-pin keyboard
+ serdev driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: wyibo6109@gmail.com, linux-input@vger.kernel.org
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
+In-Reply-To: <20261016123334.1019257-3-wyibo6109@gmail.com>
+References: <20261015110859.203989-1-wyibo6109@gmail.com>
+ <20261016123334.1019257-1-wyibo6109@gmail.com>
+ <20261016123334.1019257-3-wyibo6109@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 16 Oct 2026 12:48:21 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261015194142.3488169-1-Frank.Li@oss.nxp.com>
-In-Reply-To: <20261015194142.3488169-1-Frank.Li@oss.nxp.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Fri, 16 Oct 2026 13:47:48 +0100
-X-Gm-Features: AclHuK8lvl444VKeNoxNELwm6dJ26rZofEbdCjP1xmIlQpJFpVbMZ5iIywezxjA
-Message-ID: <CA+V-a8vFf-4e3k1wUeDTjHMx1rb27WMrnsVn6OuijHA0ACzpHA@mail.gmail.com>
-Subject: Re: [PATCH v4 1/1] media: dt-bindings: convert ovti,ov2659.txt to
- yaml format
-To: Frank.Li@oss.nxp.com
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	"open list:MEDIA INPUT INFRASTRUCTURE (V4L/DVB)" <linux-media@vger.kernel.org>, 
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, 
-	imx@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 15, 2026 at 8:41=E2=80=AFPM <Frank.Li@oss.nxp.com> wrote:
->
-> From: Frank Li <Frank.Li@nxp.com>
->
-> Convert the OmniVision OV2659 camera sensor binding from plain text to
-> YAML schema format.
->
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> ---
-> Chagne in v4
-> - update MAINTAINER files
->
-> change in v3
-> - update subject.
->
-> change in v2
-> - drop rob's review by because use new file
-> - use new file ovti,2659 according to sakari's feedback
-> - v1 (2025) https://lore.kernel.org/imx/aPdHqCWNdmVkch7S@valkosipuli.reti=
-isi.eu/
-> ---
->  .../bindings/media/i2c/ovti,ov2659.txt        | 47 ---------
->  .../bindings/media/i2c/ovti,ov2659.yaml       | 95 +++++++++++++++++++
->  MAINTAINERS                                   |  2 +-
->  3 files changed, 96 insertions(+), 48 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/media/i2c/ovti,ov26=
-59.txt
->  create mode 100644 Documentation/devicetree/bindings/media/i2c/ovti,ov26=
-59.yaml
->
-Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] input: missing irq synchronization in teardown causes UAF
+- [High] input: TOCTOU race in work scheduling during remove causes UAF
+- [Medium] input: data race on rx response buffer during concurrent replies
+- [Medium] input: missing select TOUCHSCREEN_PROPERTIES in Kconfig
+- [Medium] input: data race on link state variables between rx and workqueue
+--
 
-Cheers,
-Prabhakar
+commit cfd6c4eb0ba7d1e7dd71a926b7629e2bc8db3a2e
+Author: Yibo Wang <wyibo6109@gmail.com>
+Subject: Input: add OnePlus/OPPO Pad pogo-pin keyboard serdev driver
 
-> diff --git a/Documentation/devicetree/bindings/media/i2c/ovti,ov2659.txt =
-b/Documentation/devicetree/bindings/media/i2c/ovti,ov2659.txt
-> deleted file mode 100644
-> index 92989a619f292..0000000000000
-> --- a/Documentation/devicetree/bindings/media/i2c/ovti,ov2659.txt
-> +++ /dev/null
-> @@ -1,47 +0,0 @@
-> -* OV2659 1/5-Inch 2Mp SOC Camera
-> -
-> -The Omnivision OV2659 is a 1/5-inch SOC camera, with an active array siz=
-e of
-> -1632H x 1212V. It is programmable through a SCCB. The OV2659 sensor supp=
-orts
-> -multiple resolutions output, such as UXGA, SVGA, 720p. It also can suppo=
-rt
-> -YUV422, RGB565/555 or raw RGB output formats.
-> -
-> -Required Properties:
-> -- compatible: Must be "ovti,ov2659"
-> -- reg: I2C slave address
-> -- clocks: reference to the xvclk input clock.
-> -- clock-names: should be "xvclk".
-> -- link-frequencies: target pixel clock frequency.
-> -
-> -Optional Properties:
-> -- powerdown-gpios: reference to the GPIO connected to the pwdn pin, if a=
-ny.
-> -  Active high with internal pull down resistor.
-> -- reset-gpios: reference to the GPIO connected to the resetb pin, if any=
-.
-> -  Active low with internal pull up resistor.
-> -
-> -For further reading on port node refer to
-> -Documentation/devicetree/bindings/media/video-interfaces.txt.
-> -
-> -Example:
-> -
-> -       i2c0@1c22000 {
-> -               ...
-> -               ...
-> -                ov2659@30 {
-> -                       compatible =3D "ovti,ov2659";
-> -                       reg =3D <0x30>;
-> -
-> -                       clocks =3D <&clk_ov2659 0>;
-> -                       clock-names =3D "xvclk";
-> -
-> -                       powerdown-gpios =3D <&gpio6 14 GPIO_ACTIVE_HIGH>;
-> -                       reset-gpios =3D <&gpio6 15 GPIO_ACTIVE_LOW>;
-> -
-> -                       port {
-> -                               ov2659_0: endpoint {
-> -                                       remote-endpoint =3D <&vpfe_ep>;
-> -                                       link-frequencies =3D /bits/ 64 <7=
-0000000>;
-> -                               };
-> -                       };
-> -               };
-> -               ...
-> -       };
-> diff --git a/Documentation/devicetree/bindings/media/i2c/ovti,ov2659.yaml=
- b/Documentation/devicetree/bindings/media/i2c/ovti,ov2659.yaml
+This patch introduces a clean-room serdev driver for the Tinno keyboard
+MCU used by OnePlus and OPPO smart keyboards. The driver communicates via a
+framed one-wire bus protocol over a half-duplex UART and exposes standard
+input and LED interfaces.
+
+> diff --git a/drivers/input/keyboard/Kconfig b/drivers/input/keyboard/Kcon=
+fig
+> index d8c64f333462c..f3931b7fbe748 100644
+> --- a/drivers/input/keyboard/Kconfig
+> +++ b/drivers/input/keyboard/Kconfig
+> @@ -768,4 +768,17 @@ config KEYBOARD_CYPRESS_SF
+>  	  To compile this driver as a module, choose M here: the
+>  	  module will be called cypress-sf.
+> =20
+> +config KEYBOARD_ONEPLUS_POGO
+> +	tristate "OnePlus/OPPO Pad pogo-pin keyboard"
+> +	depends on SERIAL_DEV_BUS && GPIOLIB
+> +	depends on LEDS_CLASS
+> +	select INPUT_MT
+
+[Severity: Medium]
+Is a select TOUCHSCREEN_PROPERTIES dependency missing here?
+
+The driver relies on touchscreen_parse_properties() to parse standard
+Device Tree touchscreen overrides. Without this select statement, if the
+config is not enabled elsewhere in the kernel build, the stub version from
+the header is compiled instead. This silently ignores the DT properties
+intended for the touchpad.
+
+[ ... ]
+
+> diff --git a/drivers/input/keyboard/oneplus-pogo-kbd.c b/drivers/input/ke=
+yboard/oneplus-pogo-kbd.c
 > new file mode 100644
-> index 0000000000000..926e5cd966b8d
+> index 0000000000000..afe87d9616174
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/i2c/ovti,ov2659.yaml
-> @@ -0,0 +1,95 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/i2c/ovti,ov2659.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: OmniVision OV2659 1/5-Inch 2Mp SOC Camera
-> +
-> +maintainers:
-> +  - Frank Li <Frank.Li@kernel.org>
-> +
-> +description:
-> +  The Omnivision OV2659 is a 1/5-inch SOC camera, with an active array s=
-ize of
-> +  1632H x 1212V. It is programmable through a SCCB. The OV2659 sensor su=
-pports
-> +  multiple resolutions output, such as UXGA, SVGA, 720p. It also can sup=
-port
-> +  YUV422, RGB565/555 or raw RGB output formats.
-> +
-> +properties:
-> +  compatible:
-> +    const: ovti,ov2659
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  clock-names:
-> +    items:
-> +      - const: xvclk
-> +
-> +  powerdown-gpios:
-> +    description:
-> +      Reference to the GPIO connected to the pwdn pin, if any.
-> +      Active high with internal pull down resistor.
-> +    maxItems: 1
-> +
-> +  reset-gpios:
-> +    description:
-> +      Reference to the GPIO connected to the resetb pin, if any.
-> +      Active low with internal pull up resistor.
-> +    maxItems: 1
-> +
-> +  port:
-> +    $ref: /schemas/graph.yaml#/$defs/port-base
-> +    unevaluatedProperties: false
-> +
-> +    properties:
-> +      endpoint:
-> +        $ref: /schemas/media/video-interfaces.yaml#
-> +        unevaluatedProperties: false
-> +
-> +        properties:
-> +          link-frequencies:
-> +            description: Target pixel clock frequency.
-> +            maxItems: 1
-> +
-> +        required:
-> +          - link-frequencies
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - clock-names
-> +  - port
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    i2c {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        camera@30 {
-> +            compatible =3D "ovti,ov2659";
-> +            reg =3D <0x30>;
-> +
-> +            clocks =3D <&clk_ov2659 0>;
-> +            clock-names =3D "xvclk";
-> +
-> +            powerdown-gpios =3D <&gpio6 14 GPIO_ACTIVE_HIGH>;
-> +            reset-gpios =3D <&gpio6 15 GPIO_ACTIVE_LOW>;
-> +
-> +            port {
-> +                endpoint {
-> +                    remote-endpoint =3D <&vpfe_ep>;
-> +                    link-frequencies =3D /bits/ 64 <70000000>;
-> +                };
-> +            };
-> +        };
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index fe10d29b7657b..585bd3344a9e2 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -20591,7 +20591,7 @@ S:      Maintained
->  W:     https://linuxtv.org
->  Q:     http://patchwork.linuxtv.org/project/linux-media/list/
->  T:     git git://linuxtv.org/mhadli/v4l-dvb-davinci_devices.git
-> -F:     Documentation/devicetree/bindings/media/i2c/ovti,ov2659.txt
-> +F:     Documentation/devicetree/bindings/media/i2c/ovti,ov2659.yaml
->  F:     drivers/media/i2c/ov2659.c
->  F:     include/media/i2c/ov2659.h
->
-> --
-> 2.43.0
->
+> +++ b/drivers/input/keyboard/oneplus-pogo-kbd.c
+> @@ -382,10 +382,10 @@ static int pogo_xfer(struct pogo_kbd *kb, u8 cmd, c=
+onst u8 *payload, u8 len,
+>  		if (wait_for_completion_timeout(&kb->resp_done,
+>  				msecs_to_jiffies(POGO_RESP_TIMEOUT_MS))) {
+>  			unsigned int n =3D min(kb->resp_len, resp_size);
+> =20
+>  			/* stop the RX path before copying the reply out */
+>  			WRITE_ONCE(kb->tx_pending, false);
+>  			memcpy(resp, kb->resp, n);
+>  			ret =3D n;
+>  			break;
+>  		}
+
+[Severity: Medium]
+Could this cause a data race on the kb->resp buffer during concurrent
+replies?
+
+Because kb->tx_pending is cleared after wait_for_completion_timeout()
+returns, if the MCU sends a duplicate reply frame or if the TX thread wakes
+up due to a timeout just as a delayed frame is received, the serdev RX thre=
+ad
+will enter pogo_handle_frame().
+
+The RX thread would evaluate kb->tx_pending as true, since the TX thread
+hasn't cleared it yet, and start copying data into kb->resp. If the TX
+thread executes memcpy(resp, kb->resp, n) concurrently, it will read
+corrupted data.
+
+Should kb->tx_pending be cleared atomically inside the RX handler when the
+first valid reply is consumed instead?
+
+[ ... ]
+
+> @@ -714,10 +714,10 @@ static void pogo_handle_sync(struct pogo_kbd *kb, c=
+onst u8 *p, unsigned int len)
+>  		kb->brand =3D p[3];
+>  		memcpy(kb->mac, &p[4], POGO_MAC_LEN);
+>  		kb->hb_seen =3D true;
+>  	}
+> =20
+>  	if (!kb->connected || replug) {
+>  		kb->connected =3D true;
+>  		kb->hb_seen =3D false;
+>  		kb->retry_ms =3D POGO_RETRY_MIN_MS;
+
+[Severity: Medium]
+Does this mutate the link state variables without holding kb->state_lock?
+
+pogo_power_off() and pogo_power_on() safely modify kb->connected and
+kb->powered while holding the mutex. However, the RX path here modifies
+these variables directly. If this runs simultaneously with pogo_power_off(),
+a race condition occurs. This can leave the driver state machine inconsiste=
+nt
+(for example, kb->connected is true while kb->powered is false).
+
+>  		if (!READ_ONCE(kb->quitting))
+>  			schedule_work(&kb->plug_work);
+>  	}
+>  }
+
+[Severity: High]
+Can this lockless check lead to a use-after-free during device removal?
+
+The serdev port remains open until devres cleanup, which happens after
+pogo_remove() returns. An active RX thread could evaluate
+!READ_ONCE(kb->quitting) as true, and then stall or get preempted before
+actually calling schedule_work().
+
+Concurrently, pogo_remove() would set kb->quitting to true and run
+cancel_work_sync(&kb->plug_work). Because the work isn't queued yet, the
+cancellation returns immediately. When the preempted RX thread resumes, it
+queues the work. Devres then frees the kb struct, leaving the queued work
+item to execute on freed memory.
+
+[ ... ]
+
+> @@ -861,7 +861,7 @@ static void pogo_wake_irq_enable(struct pogo_kbd *kb,=
+ bool enable)
+>  {
+>  	if (enable =3D=3D kb->wake_irq_enabled)
+>  		return;
+
+[Severity: High]
+Does this optimization incorrectly bypass the disable_irq() synchronization
+barrier during teardown?
+
+If the hardware IRQ fires concurrently, pogo_wake_isr() immediately calls
+disable_irq_nosync() and sets kb->wake_irq_enabled to false. When
+pogo_remove() subsequently calls pogo_wake_irq_enable(kb, false), it
+sees the flag is already false and returns early.
+
+This completely bypasses the standard disable_irq() call that would
+otherwise wait for the executing ISR to finish. pogo_remove() will
+proceed to cancel the delayed works, but the still-running ISR can
+afterward queue detect_work using its own bypassed lockless checks,
+leading to a use-after-free once devres cleans up the kb struct.
+
+[ ... ]
+
+> @@ -1181,9 +1181,9 @@ static void pogo_remove(struct serdev_device *serde=
+v)
+>  	/*
+>  	 * Stop the world first: with quitting set, the RX path and the
+>  	 * works stop queueing each other, so the cancels below cannot be
+>  	 * undone again.  The wake IRQ is disabled (and any in-flight ISR
+>  	 * finished) before detect_work is cancelled.
+>  	 */
+>  	WRITE_ONCE(kb->quitting, true);
+>  	pogo_wake_irq_enable(kb, false);
+>  	cancel_delayed_work_sync(&kb->detect_work);
+>  	cancel_delayed_work_sync(&kb->hb_work);
+>  	cancel_work_sync(&kb->plug_work);
+
+(The teardown code above is the other side of the high-severity races
+identified in pogo_wake_irq_enable() and pogo_handle_sync() where background
+threads queue work on freed memory).
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016123334.1019=
+257-1-wyibo6109@gmail.com?part=3D2
