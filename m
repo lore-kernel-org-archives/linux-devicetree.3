@@ -1,108 +1,165 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5719A4749D6
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 10:46:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EE90471408;
+	Fri, 16 Oct 2026 10:50:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792147605; cv=none; b=OGP9z91vo0PZ0ZBCVgY3OJaHdfB/w8giz05tVOH2fDiNANz4a2UK2XCIlLL+lNfuM0XdSlelVyn6SNrJoTbdux41y92sgsxSw+U5th36mlVVIiXm2lceaw/R9aT/9qg0uOou048Bx7wtZYbLOQScnawf44oJDxECsUA0VQIoLxQ=
+	t=1792147834; cv=none; b=tlvmIU5Eu/PTo7XbReoCXXGW5W9goL1Ukvm7t/RKNrR5xmFQsNTne6faKNKaDCUYadjG99hg6aQhaBqBi4KTwO5r5FlpitUzdPJX6Sb7/wpROVVdRuf2gG3VPhnvuRle9NCkRZCS9ZyV51BwJ5cKXlE+G3vMjJmzXw7cofS7JkY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792147605; c=relaxed/simple;
-	bh=/KqwPLKqhjS5ksKQbg9EFLFGKtyMa1K2ayC0pzJv7bo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=J1EAS1DDJ8zzdPc5cJKawto6fHoTg7b6YU0phvpmvFWm5QTYZtaj2Rr966MClZIsmQS3h4h0y6jHdRA8r+q2ThWILmYCwukNKAbeqWb2p9+t5q6ZTP4r3nmloOPavqn+UO8MoB5LG3kzxY4W/o3rBv8r/2CjSdJT2RSpuxGfWQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ueDNb91o; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1792147834; c=relaxed/simple;
+	bh=QuTUpXOUCaUuBOC1UbPUqse6N0EFcQRqSPKqz3NAqFs=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=o9UF5AM4TQ70PEN7VLkhdw5E2Rt+7CHpiZiKSZVQUDCvu2+w5RsM08srpkKhDCwy7ll7wf+Y7/TxvJG6/8MNfIc/ACNSbZLQKvGsw3KH3+ri76T16VLxqKQgxpT8LpFr31p1Ch83HJRS5oPa0oN2qz5bv7SHOGrTtiPYBZXH6QA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Se2sqRSe; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ueDNb91o"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48b001cd92bso851255f8f.2
-        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 03:46:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792147601; x=1792752401; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GfgvK0qoJ/yilK5+D1Thedz4qLh3Dst8vs6/FyRnv2g=;
-        b=ueDNb91oukjMIV3LklDFpiIwFVxo0Mfadrn2og0SSe9GFhbWARaTID/Af+DnXGA30d
-         Y7NsMr+LwrMrIiSNRVixha9PmVpe49PxMkIwNmdj1aipazJw8DlQY2sUcdFpl1KoG4GP
-         BD400B9UyLUTRDdl6soNv4PaE9IQuUNlwMR4znDHYEbCG1fBNNrnwWImNJBGk+wZEfqP
-         suP8I2c15evuq4g9jfmVd/CSrjcLeYwUtg5myjDMxpQS7IDSxQM1A37FbC5QPaZy/cj/
-         0B+8mDEDhUkRF3m6v7E75Um5lCiw/2vue3+MQrez9Qm01abyj68QBHjuUWL3hM1mo8rT
-         IaNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792147601; x=1792752401;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GfgvK0qoJ/yilK5+D1Thedz4qLh3Dst8vs6/FyRnv2g=;
-        b=H1O8q/2ZOJVpyug13sJkX7VJ8+R516xIl58cUGqUp/wb0EjFf1OYkl3EXdSVYOIYjT
-         /D47ZotWncUcQNgjDqEKLhML22077iThIjAcvXWfcuVUDleYNLWiQoGchQgVtmBedgGg
-         SxddrIeKYC5nHCQlrPFZYNNdYr3w11Xunrr0TmABX9HCohWlndn2SzrNHn7QYumrIIOu
-         MRo1EmqiCf0dhff7MyMaFEPRQe7f39+Wws45BzWQund5DMnNHgi47q88d/MxlMlYfxYD
-         e84JCy+kKI7wGEUq0XN9pGotqWg3XVZILuW55BFIdArFUPZW7cBWMizKN/IVDXLKXQ9c
-         FxJg==
-X-Forwarded-Encrypted: i=1; AKwUvBwRuf1EwrHOKE99s9bM68eg2Fy9GW63P7aaQM0f/dJ2L51xkEoSfdFH1mJ456hi8yIJSQmj1cINYock@vger.kernel.org
-X-Gm-Message-State: AFq9FYKE3EzOySwV99Ih3ImqxW8YRzCJO3dNs64G42ipYHrz6VHj+N8d
-	HQBoPNjOYT6B9RDCPiRVaDSDI0ltkiSnhZEhedcO5GCg1PNeNvpxK7GuGAmVeCWAKlU=
-X-Gm-Gg: AYBFou2EyODtGDHkQu6d/9eeLpR80yyyWJPVIXyZWsGaRLhwjANELxYQyU9m84wAdk6
-	gscR0BIjPEuqudQZ/QnVISshSOrhJ/kp0brewVhVyU8sZW9+rXpTGNYormv3JWDMQv3Ju3mMS2C
-	upwWdydZENGYqh4FKL9jCOL0bZgAnLiFIMTxK3L+ipNKJPuLaghTiRW4b2p2EFbDaUiIOWsmNs/
-	LepXu7Y+B46SuwbyX7TW0mvZjuGYRQiTREsPXioNbtyKC1BXVZ+Tac2rOcBZm3X8BzYpQLJqtj6
-	3XfELRNc04HjFnZXUcnOTh4MugW79GYk5N2JpwZEYoddpWax4sHVS2KlslAZtxrpAMKpmvKtj0W
-	0M1B0kUOCHesIfBHJXPfSBzIDuz8rxr44HuwwYxTzwfl2iJvbGQaB9lumLHnOcw3KBhB4ok+Z2D
-	wFyA4sFYovoth6cdmKbn8z7mJgf7jwfRlCgWFS42+iLgqrYhNnuUubY5jLLkUF+eVkJRHB9zJD9
-	T6jKSjMy+rbNrpffCXfGA==
-X-Received: by 2002:a05:6000:46da:b0:48b:68:594a with SMTP id ffacd0b85a97d-48dbaadc11amr31443485f8f.12.1792147601426;
-        Fri, 16 Oct 2026 03:46:41 -0700 (PDT)
-Received: from [192.168.0.167] ([109.78.92.136])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd5035bbsm4285475f8f.44.2026.10.16.03.46.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 03:46:40 -0700 (PDT)
-Message-ID: <f9b60989-e58b-4ac1-81ca-f0d37d4143b4@linaro.org>
-Date: Fri, 16 Oct 2026 11:46:39 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Se2sqRSe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792147832; x=1823683832;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=QuTUpXOUCaUuBOC1UbPUqse6N0EFcQRqSPKqz3NAqFs=;
+  b=Se2sqRSeb2FgWNQgLKfCR6Q1N2Zv2ZBvezWG1F3VD7YpQrVzNOzXtD0b
+   xsHK0wwXxVX3mzlre/W0WREwRhoDvDMau1OMdwb8tuJtHSuwXzoffzazP
+   0QoOnqSIiZK6wLMz8sf0i7FxiYeJPM8+3sqvNEaktF5FvvAHCcSUbBBUw
+   2g18eSwv21wIxG1b5Z4buOvArsIVFyp2akKwARqi4h965lDGphZEPsSVZ
+   N6UMfw25cnqXgXe5UW+idQz1oWa35E+Vk/tXzZpaouHfMdRjFtc2DAbDW
+   lUzWL7DJ9gR4BA19c0HdIENCt1gCG+oiebiPBkNpkz7GjW0YPe2B/q4I9
+   w==;
+X-CSE-ConnectionGUID: frXJgo58RfqbbVGv8D4peg==
+X-CSE-MsgGUID: HdbjNfjcQU+Ml49qUCZ1MA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="813144"
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="813144"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 03:50:30 -0700
+X-CSE-ConnectionGUID: tS1l6KnoTtyw9/CX2dJCKg==
+X-CSE-MsgGUID: Okq7koC+Ti6Lzl5JCFYy8g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="1991378"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.34])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 03:50:26 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Fri, 16 Oct 2026 13:50:21 +0300 (EEST)
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+    Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+    Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+    Guenter Roeck <linux@roeck-us.net>, Bjorn Andersson <andersson@kernel.org>, 
+    Abel Vesa <abelvesa@kernel.org>, devicetree@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org, 
+    linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v4 2/4] platform: arm64: Add a driver for the EC found
+ on ASUS Glymur machines
+In-Reply-To: <e4cec04d-2c66-4900-940c-d7d3d245cc64@oss.qualcomm.com>
+Message-ID: <f97000c4-496d-0ce1-318a-1df5c0de804b@linux.intel.com>
+References: <20261015-topic-asus_ec-v4-0-af6305ffcb10@oss.qualcomm.com> <20261015-topic-asus_ec-v4-2-af6305ffcb10@oss.qualcomm.com> <ba7830c7-9ad8-6695-f543-c4c419aa9133@linux.intel.com> <e4cec04d-2c66-4900-940c-d7d3d245cc64@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/8] phy: rockchip-samsung-dcphy: Move block-level
- setup to runtime resume
-To: Jason Yang <jason98166@gmail.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Guochun Huang <hero.huang@rock-chips.com>,
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Michael Riesch <michael.riesch@collabora.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
- <20261016-dcphy-rx-v1-v5-3-e63b49eabe2d@gmail.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20261016-dcphy-rx-v1-v5-3-e63b49eabe2d@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="8323328-1896846893-1792147821=:1180"
 
-On 16/10/2026 09:56, Jason Yang wrote:
-> Program them from runtime resume instead, where whichever of the two
-> comes up first brings the block up and a second one no longer resets it.
-> This puts the BIAS writes ahead of the per-PHY reset assert, where the
-> TRM's worked example has them after [1]. That is safe: neither M_RESETN
-> nor S_RESETN covers the BIAS registers, and the values written are those
-> registers' reset defaults.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Would you not be better off scheduling a work job when you know both 
-blocks are out of suspend ?
+--8323328-1896846893-1792147821=:1180
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-That way you always have a known sequence out of reset ?
+On Thu, 15 Oct 2026, Konrad Dybcio wrote:
 
----
-bod
+> On 10/15/26 4:24 PM, Ilpo J=C3=A4rvinen wrote:
+> > On Thu, 15 Oct 2026, Konrad Dybcio wrote:
+> >=20
+> >> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> >>
+> >> Some Qualcomm Snapdragon X2 Elite (Extreme)-based ASUS laptops (at
+> >> least the Zenbook A14 and A16) expose a custom, somewhat
+> >> Qualcomm reference-derived EC interface. Introduce a driver to
+> >> communicate with said EC, allowing for fan speed reporting, keyboard
+> >> backlight setting and receiving of a number of miscellaneous sideband
+> >> events.
+>=20
+> [...]
+>=20
+> >> +/* RAM addresses are sent MSB first, while returned data is LSB first=
+=2E */
+> >> +struct asus_qcom_ec_ram_request {
+> >> +=09__be16 addr;
+> >> +=09u8 count;
+> >> +=09u8 reserved[2];
+> >> +} __packed;
+> >> +
+> >> +struct asus_qcom_ec_ram_response {
+> >> +=09__le16 data;
+> >> +=09u8 unused[3];
+> >> +} __packed;
+> >=20
+> > Endianness stuff looks sane now but __packed also needs an include.
+>=20
+> Some fun statistics:
+>=20
+> $ rg compiler_attributes.h drivers -l | wc -l
+> 30
+
+You didn't consider compiler.h -> compiler_types.h ->=20
+compiler_attributes.h that seems a guaranteed include path to me. The=20
+numbers would be slightly better with that.
+
+> $ rg __packed drivers -l | wc -l
+> 1228
+>=20
+> [...]
+
+So lets not add another mine to what is already a scary minefield. :-)
+
+The indirect include paths are a minefield if somebody ever wants to=20
+refactor a header. I know some maintainers may be more lax on this but=20
+here we try to follow include-what-you-use principle to extent that is=20
+reasonable (when the include path is guaranteed such as=20
+platform_device.h -> device.h or linux/x.h -> asm.h you can only include=20
+the former ones).
+
+> >> +static int asus_qcom_ec_read_ram(struct asus_ec *ec, u16 addr, u8 cou=
+nt, u16 *out)
+> >> +{
+> >> +=09struct asus_qcom_ec_ram_request req =3D {
+> >> +=09=09.addr =3D cpu_to_be16(addr),
+> >> +=09=09.count =3D count,
+> >> +=09=09.reserved =3D { 0 },
+> >=20
+> > 0 is the default init value so generally =3D {} should be enough but I =
+think=20
+> > it's not necessary to add the reserved member at all because the entire=
+=20
+> > struct should be initialized anyway by the surrounding construct.
+> >=20
+> > With these fixed,
+> >=20
+> > Reviewed-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+>=20
+> Yeah I know. I still left it in deliberately so that in case anyone
+> wants to audit the format here and compare it to the DSDT it's more
+> obvious that this wasn't an oversight. Do you still prefer I resend
+> (or maybe you'd like to fix that up while applying, which I don't
+> mind either)?
+
+We can keep the member there but I'll change it to {}.
+
+I can try to remember to fix these while applying (I'm good in=20
+forgetting though :-)). But I at least try to check all the comments made=
+=20
+to the last version.
+
+--=20
+ i.
+
+--8323328-1896846893-1792147821=:1180--
