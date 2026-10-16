@@ -1,47 +1,47 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8036312815;
-	Fri, 16 Oct 2026 15:18:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C0B04D9F83;
+	Fri, 16 Oct 2026 15:23:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792163900; cv=none; b=k2EaHHSJLTek4xOzKXNEN/NUanjKmxQ9TX13z9WwbtWeq+QFTnI38j4FDpMBmVtT8EiD2mNdZoiqf3+tsIzWjxTqKB1Jy827K6U+FSgadwGI9zc8LCzb743+013A54RV17fJkQKg1925ChLp7rtntcF61+L0qggH4CBs1Z8AwXY=
+	t=1792164222; cv=none; b=rqdQYaa48e8UJc0cB9t4yZfUdHsqfCh255IVfXta3McjPAa+czS5z/a5HNfL62fx+42gRtD/3WkXLUcP/OiMQq6LwEzVf2NbKrj2uKLPqsUCthrOHbqgR3Ge+ckk/yCaAufcFS/65utA8lQyQ4TJzwVbp+d/HQztzQvexjDYcOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792163900; c=relaxed/simple;
-	bh=7hXisu0buXn1ocaN/QSBIXUdN6th/11AfAFa14tgl80=;
+	s=arc-20240116; t=1792164222; c=relaxed/simple;
+	bh=LzyfTfIddXTn2NFuv/gPTyuWRXFNmc0OZFCdBmjP2dU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sUzDa3atMFOqUlIVcTz5WyKcNq3JsYUKm6Z7dU2wzW9/XMzYyeoVQbjbxw+rLI7JdXZ345GqkPVWThrrWFGiOC5/TiB8Ys2hSzkkVc6rFwPbL0oXwlfjdCoLZAIdTdUucDr/TtZttBkhkEC2tj3oXIgNqcm5WlrgPWuc41xctFs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=kBQUxyZ2; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=hwxQSraJ7g/YK16maxXfHmQbaodINEdHATg0F5WAihDjob8RqAQMTjrv/a9K1gTNCKjxVH1+SlM1Et1NWzqiy6hk8SGTEGK7pxHx3YT4DhmxuulrycDrvdNM5orkZ2E1zaKwOq+hUFdewvfMDwisYNi2eQyMuKHNu9xh2Y4gpl0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gZtKhpDC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="kBQUxyZ2"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=bAeJYFRqPlmLLhZ5DHrTj1KzskJiPmPQV7ulkxgT2/s=; b=kBQUxyZ2Gvu/cIdI/fqVcAU5VZ
-	Jzxrk4l8KSbo8MjO4C/lCE+fRYKvCQ9Lf1RjjPWVsi+bUn9cRzXcuq8NdztEiCoIz/YrGa1cFsEtd
-	oO2X0Wa0SLvlNdsMcczWCn49SOkbu61Lf2IFW+lE4j8qz0Uf3EKy1wFSyiRBYQ+dC/ns=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xHjhC-00BAYF-7u; Fri, 16 Oct 2026 17:18:10 +0200
-Date: Fri, 16 Oct 2026 17:18:10 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Kyle Switch <kyle.switch@motor-comm.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, hkallweit1@gmail.com,
-	linux@armlinux.org.uk, Frank.Sae@motor-comm.com,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, ming.xu@motor-comm.com,
-	xiaolin.xu@motor-comm.com, jianmin.wang@motor-comm.com
-Subject: Re: [PATCH net-next v25 3/3] net: phy: Add driver for Motorcomm Quad
- 2.5GbE phy
-Message-ID: <a1895927-77e4-4e71-a238-d2d9a50856dc@lunn.ch>
-References: <20261015145021.2216003-1-kyle.switch@motor-comm.com>
- <20261015145021.2216003-4-kyle.switch@motor-comm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gZtKhpDC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BC3B1F000C4;
+	Fri, 16 Oct 2026 15:23:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792164218;
+	bh=LzyfTfIddXTn2NFuv/gPTyuWRXFNmc0OZFCdBmjP2dU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gZtKhpDCZ2Fi9hIsiQX27oP5QUKUT4JkTvVlj4N2NmBLVs0mBENKZoGwTlsnVKgFn
+	 8RU5cEsv19+b4MS/PwxvyvbmxdX8yGY6meGJFWevYu1XB04vQV2qlKjDAlxFJ84kcO
+	 V3IFGDy6oOmcnRMg3YllGVSG8w/TOxTtSLl004dtvqwfiyrgZR8VeYyBq8SZOsKgkG
+	 b567GHYYHOjJNoYW2ghhgGne/YrN7CmkSGqhG5uJndXR0qtg8LUHErdMg88gWnjvt0
+	 mJjxm8rTtUxnYg8UF6haJA5Wr+cgIbSxcvZp7DFy3uns/gc91uPrdX56YRAEYFjbct
+	 0O5XoJ+1kBYig==
+Date: Fri, 16 Oct 2026 16:23:31 +0100
+From: Daniel Thompson <danielt@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
+	dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v3 1/4] dt-bindings: mfd: Document Skyworks AAT2870
+Message-ID: <atJBc2Bx_UkQl5Oh@aspen.lan>
+References: <20261013180933.487013-1-clamor95@gmail.com>
+ <20261013180933.487013-2-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,15 +50,17 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261015145021.2216003-4-kyle.switch@motor-comm.com>
+In-Reply-To: <20261013180933.487013-2-clamor95@gmail.com>
 
-On Thu, Oct 15, 2026 at 10:50:21PM +0800, Kyle Switch wrote:
-> Add support for Motorcomm YT8824 quad-port 2.5G PHY to the existing
-> motorcomm driver, using the phy_package helpers for the shared top
-> extended register space.
-> 
-> Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
+On Tue, Oct 13, 2026 at 09:09:30PM +0300, Svyatoslav Ryhel wrote:
+> Document Skyworks AAT2870 LED Backlight Driver and Multiple LDO Lighting
+> Management Unit.
+>
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-    Andrew
+For backlight:
+Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>
+
+
+Daniel.
