@@ -1,151 +1,119 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 568F136215F;
-	Fri, 16 Oct 2026 22:02:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD82B36F908
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 22:16:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792188131; cv=none; b=UfMZLtqrzq3gHC+N0+cjH9iszRmIhyjjeNIXHEi6ibDzu49aeQ7d2YeHWJN0VWIiQkxuud7m92PVn3iONU6Ak7S21sS+Bd7e6vTFbCssCzdWUoZu+27o/KuRFECCDlwrpIhAjbaiQ+hYnAaVrQoGz/yc+E2tWuHESTTW25Haiks=
+	t=1792188983; cv=none; b=OOnP4dm8v+IRP4i/DFS5V3GMxAiQZnkPy5BhI+WlxMLPTaj1CIqI25Nw9p87+iBa4OY+fXV589KCzXXBWAwENmzflPuwL4P3fB+VimSUzeaTYkV/KP6LTIoih0+rSagkJ6DK0jmgbU6jQSpcxN2nQpUqWHHjlyinD5ucopMB5Vw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792188131; c=relaxed/simple;
-	bh=VI5dCAsatWzoRzLT1eMR8XekoLKZftli9MyIrQXdlss=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bgofnrLV47Sxb0t991yGjB5gkMXan9pmzAuwukuxTyHzT/sfQ15MhvAlM6cycTuXuDN5LsEkKa/qhUTSFk49wBP1s8Er6+BJa2viPzqjnkvWuGJMFyE1t3lXpu82Tu8qp8grTVyRNurapTzBqDJB1v4y8qHbP0w9Gj83bc/j6zY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=AME6LfYr; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1792188983; c=relaxed/simple;
+	bh=XJsty+XVq3BgRuwoN2PV39ABqsBfB0LokyWIO3aDiLA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=A+A7l41s0+UMq+tV6jktz1WzrLrKRqY6X43d2thAy129uZdk/gqvMAzNjkqgFxceMzTLJvZmf8LIEilDyRytggN+wVJaYEk21VoWsBXQQmgmsSHFfyLJ41PmXmODvkjLS06G+M68eZwiUvEdlzOsEibCH15DgC8ROybS3C0WOx4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZbG634vI; arc=none smtp.client-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="AME6LfYr"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DEC0D106052;
-	Sat, 17 Oct 2026 00:01:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1792188123;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=bWnUf4jwakYkYIidTWKbDn//BfJM3tm/DiHDz5Kf5tg=;
-	b=AME6LfYri7zVQmP6TAydlVYRrZ8Fux7U5wGhInUacI/fYgIQkQwhL4qjmB4slW1ROXVMxQ
-	q2uhH5shCEljmEXA0hduc2d0rdAjPwxHbDTYM2Bictwfljrg+dU8ZiG2nwLmsCrbDSAfik
-	/jao6qBl8BXVlucf7hB1ITdIGz3T36fIp+LadazCVG9BDG0LvV2lAgJytCkMZQbLWmF1NB
-	ZdV0QrtGU0DvABR6gIi/tXgrCcoVas9EE15gZ8DktP5dN9frhtdSu08ZbLC9Bu2ayxEEx+
-	Gw/2m1d7xzLrK/n9Gq+ICLqCSPl/1ctHZz3rd2UIbj03umdr2PC7h42GEW1ShQ==
-Message-ID: <e7095176-44b8-4838-8443-2e515d34cb25@nabladev.com>
-Date: Sat, 17 Oct 2026 00:01:55 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZbG634vI"
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-16ad92569b5so375460c88.1
+        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 15:16:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792188981; x=1792793781; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bsRKo08wZU2d222RmzKutSRcq0g6gJCTiEkblWEA6+U=;
+        b=ZbG634vIPC+kuAzhAbUYFxgmlxlQ6ybF9uI/bvrzn+X3X5YMCdOfRk5Cz2fKwr36Ov
+         25odjBoN4/m4wZFwKHPGG7fWShsJ8OcaQoI25HsBXBasmhgy3KoGIqFmUf0V+Xzlsbcz
+         5kgz80MkzRjF73+xLKPQL2O9OmINQziqn2XNykKrDK0OYRwkSFE52541+zHDoDeLRdT+
+         mTpIO8phRt6dez3RgwoqqEaJh5xnj+r9YEfynDg1UEOK1B5rfF0qdBVjYDKYPHBD5MIE
+         QJYZYVElbkaR3K/pxC7h5fpl01+9Rt9agD8H06zyVG5Eo3IK9vyar0kORxRt/nvti8nv
+         WB8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792188981; x=1792793781;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bsRKo08wZU2d222RmzKutSRcq0g6gJCTiEkblWEA6+U=;
+        b=HtAr8DgjgBFtsMufTBw660BZgUecidMRYvwQ/o1b4nBorxj8cdN5Uzaya332u/SKfD
+         Np9CD7c/JhHY94ORFpdxjuerXNGt1Ago4HQTVQ8SqcAy3ROS3FVuiGa/SyQ/YQa3Nh2e
+         EJ2IH+aAjT3dFjuBXGwmOsH1f9RV7UvaZjKqT0dCUmvpwexw8Xg2e4D04MpdL3pz29qw
+         8cW/UYKo82HM9VdGqZZtFkfr9sfRdyWDWtRlTPhUCRJcGdi4PCLFNrFy7VrBPpVCiE+p
+         DdDvRiAHGj4m3zgCT5SPdGZrBbNqhcFX3i8pHYl+JoWWUBAIWhY4QaETaSNU4QpVQ4b2
+         /SQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwsjTRDxSDQXdsxmY3ngaPaMmszJp42uU4CtiT91WY7m0wfkeOjO9vL40l1ajgvXLuQYFYoM8r5ROsH@vger.kernel.org
+X-Gm-Message-State: AFq9FYImGh1O44/zitK+fQ0M93pCbk/QzURvc4gexzBpydkytFGR+SWD
+	xNFFTxoJ2gV3tvWMxAXOlQswwIDARtKgLheGiSa3xziEHR1xVGNbYTE6ruj2qg==
+X-Gm-Gg: AYBFou0t1iq5Zw/S7reUz7XUJri5LFzy/joE/VpC3bnD+QhEYzJ+S+r8FMafFy/cgo9
+	FCekX3eiV1gtSRYkXo+vD3TBYrO4kpA2FVPet7UeS+wq/QdWtBghCFweB4FNtH4bHFNQ5mSsV01
+	78wkAKNWgPBtfVHXz4p2A3EhZ7FE8bUB6KPpKUEzUAwTH4Dd9Y/HozeeCK/PZg2lkz7vZh8Trb7
+	H5tLX+yQscX+7Mus9lGVlHYySea58F5BqMTFA4YsP9KnzLf0vmP3UbSgSyVAEmqwM6ND3yNW3p5
+	fxWB9vGwx90SSnJWYIyzcR+m0o5WysiqPfe9NmTFBEEZyhnpVlenuMYopVBI5h2KaoQuyF48RE6
+	VnExo6n3q2QGbUNhnTh9UEzyqHnEUs3bWBnK82JQgtKRuREXaDl4QdHuUQYKrGJVih8iPReg0gP
+	2zAT2xVSAVJ4tQZZHX11XXOKlFBptjeGcVWZ2UzcF/07b+8n9WzoDLfH2knxpNm4BYm9vZsw==
+X-Received: by 2002:a05:701b:208a:b0:168:fe32:35a with SMTP id a92af1059eb24-18512296a20mr1365274c88.20.1792188980748;
+        Fri, 16 Oct 2026 15:16:20 -0700 (PDT)
+Received: from eldorado ([2600:8802:b00:1f84:d294:66ff:fe95:a98e])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831919fc14sm10480863c88.6.2026.10.16.15.16.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 15:16:20 -0700 (PDT)
+From: Florian Fainelli <f.fainelli@gmail.com>
+To: linux-mips@vger.kernel.org
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Mingyu Wang <25181214217@stu.xidian.edu.cn>,
+	Robert Marko <robert.marko@sartura.hr>,
+	linux-watchdog@vger.kernel.org (open list:WATCHDOG DEVICE DRIVERS),
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	linux-kernel@vger.kernel.org (open list),
+	manuel.lauss@gmail.com
+Subject: [PATCH 0/5] MTX-1 watchdog driver removal
+Date: Fri, 16 Oct 2026 15:16:12 -0700
+Message-ID: <20261016221617.2223004-1-f.fainelli@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] dt-bindings: spi: Add separate binding for
- dh,dhcom-board
-To: Frank.Li@oss.nxp.com,
- Christoph Niedermaier <cniedermaier@dh-electronics.com>
-Cc: imx@lists.linux.dev, Guenter Roeck <linux@roeck-us.net>,
- Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
- Frank Li <Frank.Li@nxp.com>, Ashish Yadav <ashish.yadav@infineon.com>,
- Colin Huang <u8813345@gmail.com>, Sanman Pradhan <psanman@juniper.net>,
- Thorsten Blum <blum@kernel.org>, Troy Mitchell <troy.mitchell@linux.dev>,
- Eddie James <eajames@linux.ibm.com>,
- Rodrigo Gobbi <rodrigo.gobbi.7@gmail.com>,
- "open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>,
- "open list:DH ELECTRONICS DHSOM SOM AND BOARD SUPPORT"
- <kernel@dh-electronics.com>, open list <linux-kernel@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-References: <20261016205718.877668-1-Frank.Li@oss.nxp.com>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <20261016205718.877668-1-Frank.Li@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-On 10/16/26 10:57 PM, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
-> 
-> The dh,dhcom-board SPI device uses spi-cpha and spi-cpol properties,
-> which are not permitted by the trivial-devices schema. Move it to a
-> dedicated binding file that references spi-peripheral-props.yaml and
-> explicitly allows those SPI mode properties.
-> 
-> Fixes below CHECK_DTBS warnings:
->    arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dtb: spidev@0 (dh,dhcom-board): 'spi-cpha', 'spi-cpol' do not match any of the regexes: '^pinctrl-[0-9]+$'
->          from schema $id: http://devicetree.org/schemas/trivial-devices.yaml
+This patch series removes the bespoke mtx-1_wdt driver and migrates it
+to the generic gpio_wdt driver which it should have done ever since
+gpio_wdt existed.
 
-How come this did not trigger until now ?
+Assuming the patches are satisfactory, I suppose it would be easier to
+merge those via the watchdog tree than the MIPS tree?
 
-> Assisted-by: LLM
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> ---
->   .../bindings/spi/dh,dhcom-board.yaml          | 46 +++++++++++++++++++
->   .../devicetree/bindings/trivial-devices.yaml  |  2 -
->   2 files changed, 46 insertions(+), 2 deletions(-)
->   create mode 100644 Documentation/devicetree/bindings/spi/dh,dhcom-board.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/spi/dh,dhcom-board.yaml b/Documentation/devicetree/bindings/spi/dh,dhcom-board.yaml
-> new file mode 100644
-> index 0000000000000..ed213cbe9b04c
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/spi/dh,dhcom-board.yaml
-> @@ -0,0 +1,46 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/spi/dh,dhcom-board.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: DH electronics GmbH on-board CPLD trivial SPI device
+Florian Fainelli (5):
+  watchdog: gpio: Allow devices described by software nodes
+  dt-bindings: watchdog: gpio: Describe minimum heartbeat intervals
+  watchdog: gpio: Support watchdogs with a minimum heartbeat interval
+  MIPS: Alchemy: Use the GPIO watchdog driver on MTX-1
+  watchdog: Remove the MTX-1 watchdog driver
 
-This does not look quite right, since compatible this is used only on:
+ .../bindings/watchdog/linux,wdt-gpio.yaml     |  11 +-
+ arch/mips/alchemy/board-mtx1.c                |   8 +-
+ arch/mips/configs/mtx1_defconfig              |   2 +-
+ drivers/watchdog/Kconfig                      |   9 +-
+ drivers/watchdog/Makefile                     |   1 -
+ drivers/watchdog/gpio_wdt.c                   |  15 +-
+ drivers/watchdog/mtx-1_wdt.c                  | 245 ------------------
+ 7 files changed, 31 insertions(+), 260 deletions(-)
+ delete mode 100644 drivers/watchdog/mtx-1_wdt.c
 
-arch/arm/boot/dts/imx6ull-dhcor-maveo-box.dts
+-- 
+2.53.0
 
-        model = "DH electronics i.MX6ULL DHCOR on maveo box";
-        compatible = "marantec,imx6ull-dhcor-maveo-box", 
-"dh,imx6ull-dhcor-som",
-
-So the whole
-
-        spidev@0 {
-                compatible = "dh,dhcom-board";
-                reg = <0>;
-                spi-cpha;
-                spi-cpol;
-                spi-max-frequency = <54000000>;
-        };
-
-Should probably use a different compatible.
-
-Christoph, what device is this on this board ?
-
-(and this change should only be applied with RB from Christoph, I do not 
-have the hardware so I cannot tell what it really is)
-
-> +maintainers:
-> +  - Marek Vasut <marex@denx.de>
-
-@nabladev.com
-
-> +  - Frank Li <Frank.Li@nxp.com>
-> +
-> +allOf:
-> +  - $ref: spi-peripheral-props.yaml
-> +
-> +properties:
-> +  compatible:
-> +    const: dh,dhcom-board
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  spi-cpha: true
-> +
-> +  spi-cpol: true
-
-Wouldn't it make more sense to allow those properties for trivial SPI 
-devices in general ?
-
-[...]
