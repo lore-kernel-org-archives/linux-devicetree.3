@@ -1,77 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 485724A92D0;
-	Fri, 16 Oct 2026 13:09:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F24D84772BE;
+	Fri, 16 Oct 2026 13:11:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792156195; cv=none; b=A8hSIxA4CN5ppKSW7Zyz/rIdgduCRuqBMFD2kKOwj0NsKEUNgwAIiAvJPUuko86asZgrdugS+EcM6ol9tpHEfEfFoFAoo6lrirKzDwMiypvKmTtfAtMdCWp34S9weD2oKuJ2LNiW3pLBw7otnL4agNArUwSKeML0yRGr/PMY/8o=
+	t=1792156318; cv=none; b=lgRtnkjzUyvXpv/WqcilEpVow5jGmBZ7Ivs10Jo7yVTV9pom7UW3dHTbYALOZKDbDGLtloFtcMYDjD+GlGdVs6r7m2thlJUQpoLMO8jg9BOXjqxVcj2e718rJykcWP5CMDAEhqcXQIjjpTXeZ8iKDlYKNTQWCw54elJLJ12z0ps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792156195; c=relaxed/simple;
-	bh=JXL7Bs6q4E3tW/QjIVi42cXpS7D9h7gFUF/Tt1hCfuk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aHu3Q/QwLh1y6o4mEPITnCx3pFknDWk7/atXS98dvEjwcugBQ2QzEaM01rRhqATQoFV7F+hUCEfNSqHqbmpYycZd3x1BMzTqx09kE7x+VTtVX5TSwyE/Y/+nEsM9r9fV0GBJ1wRYaWX+zNDC8Ip3YUun6KxcPLig700V9irIMIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IMeVNG6W; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792156318; c=relaxed/simple;
+	bh=CjQhMxVRHWQtfmYFu2e+NDY5eXc6HoiuGCnsVXmLjoA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lXiWoZHAhckoJSQMt9EoO1eRzeLYAmfSeRuKG78xq0sAdcQzCjS+qnwltOFBEiq5O7YeO/bVQ9Ay0tqRUsoiaD8e6QGOX2T3enzEAvnVabaRedl0gZVF4eIolvOz2wcc5nQoTKQNyVCVyHaVE8UDs2cKDKWoAciRHlcwpGchO80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=SXshxiZd; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IMeVNG6W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F05F41F000C4;
-	Fri, 16 Oct 2026 13:09:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792156192;
-	bh=oV7RE7gBy1YR8d4bae7LhBJpg2oaoF1LnwBKnDrZvWA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IMeVNG6WEydmXm8gp1RyqVWE2bsVZbe5i2v1iqyKjwU1rYfDPbAMdK3fNrL/EoQjM
-	 72tmAyztVJXlzqZ53v+vGAON064sCmZPQp6XHbpTzDlgZGwcb5lU6d0+tX/BDE574A
-	 +P27HEemzmBOZ5uzz3nJRx+c61g7CC5+gCadlkgrrJhytnGEhileoJQPPbof4kFj5g
-	 lpcg7GCvUVO7AKe8pzdc4I9P7Sp0nYWCeXOTx3T7j44Lm96u98erkhWJNMjfzMCC1R
-	 89p2riK9j+WcY+mqP2wdSnYcO3Euko4E3uFmA2toLLRtDqv8kMgqSTDnREOYPm498j
-	 L2NBeBHlSvWdA==
-Date: Fri, 16 Oct 2026 08:09:50 -0500
-From: Rob Herring <robh@kernel.org>
-To: Marc Kleine-Budde <mkl@pengutronix.de>
-Cc: Quchaosheng <quchaosheng000406@163.com>,
-	Vincent Mailhol <mailhol@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-can@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v8 2/3] dt-bindings: net: can: holt,hi311x: Convert to DT
- schema
-Message-ID: <20261016130950.GF5059-robh@kernel.org>
-References: <179008111842.3145564.13410709686921168865.robh@kernel.org>
- <20260923013812.256689-1-quchaosheng000406@163.com>
- <179209645876.1181445.17999194781071685440.b4-reply@b4>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="SXshxiZd"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 3E3C0534020A;
+	Fri, 16 Oct 2026 15:11:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1792156312;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=40OzVSQCoDqeanO72RAAhN6RdEUZvRzWbHpffXcwgmI=;
+	b=SXshxiZd0sKdRO8s3BdvQDm5+DKc/JItErtxNZ7bv0irRNXs25lidcbIPuuIGqPHSzREFO
+	mHSUBUbn/A4TTt833wniWhOd4E+cd7TC5GHqXHg+KfKA4ZOp6W/POP2GS4jY73KWz5HCg8
+	wjJt63U/tGJ+iKgWvaHtw6jcn09hwr8=
+Message-ID: <57d28e27-459d-4d58-b6ea-78739936d152@ixit.cz>
+Date: Fri, 16 Oct 2026 15:11:51 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179209645876.1181445.17999194781071685440.b4-reply@b4>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: media: i2c: dongwoon,dw9719: Document
+ DW9714VA
+To: wyibo6109@gmail.com, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-media@vger.kernel.org
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Daniel Scally <dan.scally@ideasonboard.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261016090930.947830-1-wyibo6109@gmail.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20261016090930.947830-1-wyibo6109@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 15, 2026 at 10:34:18PM +0200, Marc Kleine-Budde wrote:
-> Hello Rob,
+On 16/10/2026 11:09, wyibo6109@gmail.com wrote:
+> From: Yibo Wang <wyibo6109@gmail.com>
 > 
-> Quchaosheng says the error that your bot finds comes from the latest
-> dt-schema git.
+> The dongwoon,dw9714va compatible names the DW9714V silicon revision
+> found on the OnePlus Pad 4 (iceland) camera modules.  DW9714VA is not
+> an official part number: it is coined to distinguish this revision,
+> which shares its IC INFO id (0xFE) with the other DW9714V revisions.
 > 
-> On 2026-09-23 09:38:12+08:00, Quchaosheng wrote:
-> > Reproduced. The errors come from a dt-schema change in git, not from the
-> > patch.
-> >
-> > They are all in reserved-memory and the IPs that embed it:
-> [...]
-> > That commit is not in a release yet. Confirmed on the same tree with no
-> > patches applied:
-> >
-> >   dt-schema 2026.6 (PyPI)  -> clean
-> >   dt-schema 2026.9 (tag)   -> clean
-> >   dt-schema git 840a01d    -> reproduces the errors above
+> In its register-mapped ("advanced") mode it exposes the DW9719
+> register interface, with the SAC mode field in MODE shifted by 6 like
+> on the DW9800K.  This differs from the advanced-mode layout of the
+> currently available DW9714V datasheet (Rev. 0.03G), which puts
+> SAC_MODE in [3:0] of SAC_CFG and splits the prescaler and SACT into
+> separate registers.
 > 
-> Can you re-trigger the bot or should Quchaosheng re-spin
-> the series?
+> The datasheet-conformant DW9714V and DW9714A, used in their normal
+> (direct DAC) mode, are covered by the dongwoon,dw9714 binding
+> instead; see the in-flight series by David Heidelberg documenting
+> them:
+> 
+> https://lore.kernel.org/linux-media/20260729-dw9714v-v1-0-3c479b3cf8c0@ixit.cz/
+> 
+> The module-specific SAC tuning is carried by the already-documented
+> dongwoon,sac-mode and dongwoon,vcm-prescale properties.
+> 
+> Cc: David Heidelberg <david@ixit.cz>
+> Signed-off-by: Yibo Wang <wyibo6109@gmail.com>
+> ---
+>   .../devicetree/bindings/media/i2c/dongwoon,dw9719.yaml     | 7 +++++++
+>   1 file changed, 7 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
+> index 8e8d62436..f415f2369 100644
+> --- a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
+> +++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
+> @@ -14,10 +14,17 @@ description:
+>     with 100 mA output current sink capability, designed for linear control of
+>     voice coil motors (VCM) in camera lenses. This chip provides a Smart Actuator
+>     Control (SAC) mode intended for driving voice coil lenses in camera modules.
+> +  The DW9714V revision found on the OnePlus Pad 4 (iceland) camera
+> +  modules exposes this register interface in its register-mapped
+> +  ("advanced") mode, with a register layout following the DW9719
+> +  rather than the DW9714V datasheet.  dongwoon,dw9714va is not an
+> +  official part number: it is coined to name this revision, which
+> +  shares its IC INFO id with the other DW9714V revisions.
 
-You can ignore those errors. The main branch is now fixed.
+Hello Yibo,
 
-Rob
+few things to improve.
+
+1. you should disclose usage of LLM (e.g. Assisted-by: tag) - I assume you used it
+2. No need to describe which device contains this piece of HW.
+The binding doesn't care where it's used, only describes the actual HW.
+
+You may mention the device using it in the series description, but doesn't make 
+sense to do it in the binding/driver.
+
+David
+
+[...]
