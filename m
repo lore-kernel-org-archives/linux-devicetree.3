@@ -1,112 +1,220 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8DAE45C70A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90E2645C709
 	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 09:09:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792141789; cv=none; b=gPYn0Ktc/8rYKhB4lx3GJCz8SJz+cNqJeBGBWfM139du5TCWdPrQwniOa8qQPdRq8W96JYD8V2YdbTPJAu5xS0CXPfswZKTg7GNlK7duPMhEp4z2t2NLwm1dpKFV+h13WTcWXCT3F7zvEdv6E13pGI5QZm5wgCUcuAPLGa/CaWs=
+	t=1792141790; cv=none; b=ee2IIOQIWNSOkEnCQnaZ69SiM6aGZDRiyQoCmDOWJktdISO3FVIg9uwWjptc6k/W66hCAYGhK+uC2r2tKpEoypW2YggRNKF/t18M3w+ao7BUb8YpL3qGmQpM/mKD9VLaDY+COjMXkrgLm9n9Hh5t3RmDuIu0DmSNu6PiDhXgSBQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792141789; c=relaxed/simple;
-	bh=okaqFpl6hflwl3tgUEbSCH/7wwTcyVLb87qs7QWILTA=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=CxyA4KZAigT9KglhRPII+Sk3lMwqhyKYXZv1rmlCdKSce8hr88Yznxmnnt9G2zv6igajEL06HKFCOJDhb2tXadNYmMR54v0LDOVArDOj8VW5IqzSfX6jEGDNWmgUcTlcyA5k+FdsH4R+LJa8kDkTpEo0aQrWnlRXZgRqRiPFZ3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mK4P8GvT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792141790; c=relaxed/simple;
+	bh=ZrmwossZjTd29Ih+lCgZKFXmIOi4LDpBYUvzQdJYM1w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Xrred0NuRqsu6YkvnG4whuMgoaz3rymxttyDG3S59/opfnqJeAijCrvNWSN0dM4Dp0zV0caNs4YiSqoFqSHDDZO8K99qSBHio6rA5yYQFKtw8AjkakstaN2ktuFj435r1PhxXnD3dHZwgAbWRJrnF9pAFwHPiNDWBOMSOrhOB1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S2wXoia2; arc=none smtp.client-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mK4P8GvT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0AA11F000C5;
-	Fri, 16 Oct 2026 09:09:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792141787;
-	bh=au5NZ+uww3QWwRsPTibFWYI4OmwUlU9DRbnVjOMpM94=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mK4P8GvTaB9JQANCXJvbCOgytSroeCfQBVFJiKMamobKbpzqSsUAEq+z6v6/uW88d
-	 5l/D3oi6bnTb7yGyPIsWk7I1mR22YcEqDpvIWodIJq74G6FGPgzNccP+yVZoEvOf8N
-	 v9K4X+GCqelXKaz7UNjy6ZHNAm06uUUenISpmuQXs6pThlyBL2kKI4cAZIWr9lans+
-	 NNVDsHuhMxznG8ltVn67NqwgZYrFTxYRP0t9WSnc5/siX5qUUoS6zNwDoMHttRH7gq
-	 Ac1Imyr6/TVW0515oh/5Ftqyl+1UwJX3zE4okg8TR0CJ0kp1AnH1NOCWuENNoDgaQT
-	 jB0XYbn8hiuVA==
-Message-ID: <sashiko-outbox-174059@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/8] phy: rockchip-samsung-dcphy: Move block-level
- setup to runtime resume
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jason Yang" <jason98166@gmail.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261016-dcphy-rx-v1-v5-3-e63b49eabe2d@gmail.com>
-References: <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
- <20261016-dcphy-rx-v1-v5-3-e63b49eabe2d@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 16 Oct 2026 09:09:46 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S2wXoia2"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ab60ff4273so5115142a91.0
+        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 02:09:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792141787; x=1792746587; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=W0DxMtdmaykVRK9lF7eAJZ0u00iNP9YbBzASFb6ienQ=;
+        b=S2wXoia2lrImRlDKixjLGE1Dc2iKverQBNUM1G6ld3fRQlIRdXbm6HcIUDI3pL1qTJ
+         IsYY/xR8fghawJsJZ0xXLnGxudhxUa+BUL3ayKrlfXMYSAsLDb0eO799VBUEda6efx/8
+         u0KKOL6gG56QkXSdcwQX+yu/wbvSYTUAtrj+SIDFgoUykAzPg46LNoUx/rAEW+7hVzNs
+         qdziKgfn6B2jKwHdw7Hhco/7HljTZka6n9NqPtgYieJzAJLnc8nAEhY9I9z0hjFz+OvJ
+         wSU8Os4/2SWQwQL/jBdTM111Ym7nZiBC+Jykn3+8CRIhG9hOlGUH69k1lXVC7K1aGrdk
+         RPjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792141787; x=1792746587;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=W0DxMtdmaykVRK9lF7eAJZ0u00iNP9YbBzASFb6ienQ=;
+        b=FO8hq/Pd9UeFWWps0XYmv2lheiQ2LtLRYXoAcEvcLOvFvZ71UoZ1uoviZXT4Jv4YV9
+         kEF74WGosUz+n93/FiNjBTQ5MCliuMI9ocTGnT7819hy89OtDcMAxP2VhJ/PJLHy7UWQ
+         7dn5bUloO8CkDMht5g6evEWcpMsSWk6IS2rk8Yivdo6kvKjj7o7r3+vqyR25vNNS0O6I
+         fOCf8ISRjSoe1CbTltUKyAqoNU3AzVakn4ZWHo+ImT/rBuh4RyAGUKst+b7nd+jj2pd0
+         lsfHwUizOexsGmy05b2+O3/k+U1AShIdr0nitxWyABvLF+VbwlxDIckmPze4y+PqrT4T
+         3S4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx5CRVa26EQn8drXEMs8jSTMP4U+Jpob3p7rsCWmqhff3L4gceZMkpF5PKsdWYnUeWtiqik94L9wITb@vger.kernel.org
+X-Gm-Message-State: AFq9FYIRZeInaftqsZfPZqrB53NuMqMcTW1OIBkukibVcOdJ1jtY9RgO
+	xTdgREoryt1HvQ9lcRWIcnB7yoledXse9t8rWSgOWl6p5Mki7VkXDtKQ
+X-Gm-Gg: AYBFou3hqSeDxGSCaat2oXc0iKS0LJcEJyUpiYGKm1LezMD0oNmEAN31h0TT1uBDkuk
+	6R+CpdEDa+3oqO6nz+7DemaG/AAgeeVmBxAvxspwKUQC2DXemlfTjKhW6188v3fgABdH3ta1QYx
+	VNe1tmKYSEsRIXGKPAtjitZPkc4e0r7e2EkEYU/3BGWPLT+8NqIrXnGg5hRaF1anFOiS2r2V6EV
+	RgA6ve0RN+++maOehVQPyVwR5KyZhThFVfVbUVnIQb73ZFydxR1sN8oyxSYDdd7nD9CHgUEB/pv
+	/yqonIMGn1LXik2SlJW8+ALHesWC+UczUhjzJIOVGwqPdWpoL0E30UxSX2nMV6Yq7hEyKdTiicM
+	ChIOsB/e9OmfrSyq4zaOjcr0IGyPOtHw/j1ePPyVugwnzzsBf48N1SiA7slzYC0NU5OSOMFHjun
+	HHA14u6x7a13Oc3cMHsfXyCf9yvIYK7tnNFOcyCMx+Mf2kvcaz7g/JsuUH50oRB5RcUeA=
+X-Received: by 2002:a17:90b:3c4b:b0:3ac:ba49:2fed with SMTP id 98e67ed59e1d1-3acba4932b4mr2594734a91.58.1792141786759;
+        Fri, 16 Oct 2026 02:09:46 -0700 (PDT)
+Received: from wyb-ms7e59 ([38.55.195.146])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc43a1981sm3269097a91.2.2026.10.16.02.09.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 02:09:46 -0700 (PDT)
+From: wyibo6109@gmail.com
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yibo Wang <wyibo6109@gmail.com>,
+	David Heidelberg <david@ixit.cz>
+Subject: [PATCH 2/2] media: i2c: dw9719: Add DW9714VA support
+Date: Fri, 16 Oct 2026 04:09:30 -0500
+Message-ID: <20261016090930.947830-2-wyibo6109@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261016090930.947830-1-wyibo6109@gmail.com>
+References: <20261016090930.947830-1-wyibo6109@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] phy: dcphy: PLL left enabled on lock failure, preventing recovery
---
+From: Yibo Wang <wyibo6109@gmail.com>
 
-commit 0436bfe5522a31ef65724b71dd2f683f01ebeaa1
-Author: Jason Yang <jason98166@gmail.com>
+The dongwoon,dw9714va compatible names the DW9714V revision found on
+the OnePlus Pad 4 ("iceland") rear camera module.  DW9714VA is a
+coined name, not an official part number; the revision shares its
+IC INFO id (0xFE) with the other DW9714V revisions.
 
-phy: rockchip-samsung-dcphy: Move block-level setup to runtime resume
+The part answers the DW9719 register interface in its register-mapped
+("advanced") mode: the chip responds to register-addressed transfers,
+IC INFO returns manufacturer 0xF / model 0xE (0xFE), and the reset
+value of the VCM_FREQ register (0x60) matches the DW9719/DW9800
+prescaler-in-[7:6] / SACT-in-[5:0] layout.  The SAC mode field in
+MODE is shifted by 6, like on the DW9800K.
 
-This commit moves the block-level APB reset and BIAS configuration
-from the power-on path to runtime resume. This prevents resetting
-the block underneath a PHY that is already running when multiple
-consumers are present.
+Both the register layout and the power-on behaviour differ from the
+currently available DW9714V datasheet (Rev. 0.03G).  The datasheet
+documents an advanced mode with SAC_MODE in [3:0] of SAC_CFG and
+separate PRESC (0x07, [1:0], reset 0x03) and SACT (0x08, [6:0],
+reset 0x7F) registers, and a power-on into the normal (direct DAC)
+mode that enters the advanced mode only through an explicit
+0xED 0xAB command sequence.  The observed part follows the DW9719
+layout instead and is in the advanced mode at the first host
+access; given the revision variance it gets its own coined
+compatible, dongwoon,dw9714va.
 
-> diff --git a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c b/drivers/=
-phy/rockchip/phy-rockchip-samsung-dcphy.c
-> index 7382043e1f319..1471a1563d2a1 100644
-> --- a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
+Operation was verified on the device by sweeping the focus position
+across the full range while observing the lens: the motion is
+smooth with no ringing noise, so SAC works through the DW9800K
+write path.
 
-[ ... ]
+Detect the chip through INFO and drive it through the DW9800K write
+path.
 
-> @@ -1362,10 +1361,6 @@ static int samsung_mipi_dcphy_power_on(struct phy =
-*phy)
->  {
->  	struct samsung_mipi_dcphy *samsung =3D phy_get_drvdata(phy);
-> =20
-> -	reset_control_assert(samsung->apb_rst);
-> -	udelay(1);
-> -	reset_control_deassert(samsung->apb_rst);
-> -
+The SAC parameters are module-specific: they have to match the
+mechanical resonance (tVIB) of the lens module. For the iceland rear
+module they were recovered from the vendor module firmware
+(com.qti.sensormodule.icelandmain.bin, which embeds the actuator init
+on this CamX generation): MODE 0x80 (SAC mode field 2) and FREQ 0x79
+(prescaler 1, SACT 0x39). They were verified on hardware by register
+readback (CONTROL 0x02, MODE 0x80, FREQ 0x79) and a three-frame
+capture at focus position 450 with no I2C errors. No such data
+exists for any other module with this part, so the driver carries no
+DW9714VA-specific defaults: it starts from the family defaults and
+boards are expected to provide the tuning through the existing
+dongwoon,sac-mode and dongwoon,vcm-prescale DT properties.
 
-[Severity: Medium]
-If samsung_mipi_dcphy_pll_enable() fails to lock, it returns without cleari=
-ng
-the PLL_EN bit in PLL_CON0:
+The datasheet-conformant DW9714V and DW9714A in normal (direct DAC)
+mode are covered by the dw9714 driver; a series documenting them in
+the dongwoon,dw9714 binding by David Heidelberg is in flight:
 
-drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c:samsung_mipi_dcphy_pll_en=
-able() {
-	regmap_update_bits(samsung->regmap, PLL_CON0, PLL_EN, PLL_EN);
+https://lore.kernel.org/linux-media/20260729-dw9714v-v1-0-3c479b3cf8c0@ixit.cz/
 
-	ret =3D regmap_read_poll_timeout(samsung->regmap, PLL_STAT0,
-				       sts, (sts & PLL_LOCK), 1000, 20000);
-	if (ret < 0)
-		dev_err(samsung->dev, "DC-PHY pll failed to lock\n");
+Tested on the OnePlus Pad 4 (iceland) rear camera module on a
+v7.2-based downstream tree.
 
-	return ret;
-}
+Tested-by: Yibo Wang <wyibo6109@gmail.com>
+Cc: David Heidelberg <david@ixit.cz>
+Signed-off-by: Yibo Wang <wyibo6109@gmail.com>
+---
+ drivers/media/i2c/dw9719.c | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
-Because this patch removes the apb_rst sequence from the power_on path, the
-stale PLL_EN bit is no longer cleared by the hardware reset on subsequent
-retries.
+diff --git a/drivers/media/i2c/dw9719.c b/drivers/media/i2c/dw9719.c
+index 3b7ba88fd..2afe37361 100644
+--- a/drivers/media/i2c/dw9719.c
++++ b/drivers/media/i2c/dw9719.c
+@@ -45,6 +45,15 @@
+ #define DW9719_INFO			CCI_REG8(0)
+ #define DW9719_ID			0xF1
+ #define DW9761_ID			0xF4
++/*
++ * DW9714V family id, shared by the revisions.  The DW9714VA model
++ * names the revision found on the OnePlus Pad 4 (iceland) camera
++ * modules, always in its register-mapped ("advanced") mode: IC INFO
++ * reads manufacturer 0xF / model 0xE and the CONTROL/VCM/STATUS/MODE/
++ * FREQ registers follow the DW9719 layout, not the layout the DW9714V
++ * datasheet documents for its advanced mode.
++ */
++#define DW9714V_ID			0xFE
+ 
+ #define DW9719_CONTROL			CCI_REG8(2)
+ #define DW9719_STANDBY			0x00
+@@ -75,6 +84,7 @@
+ #define to_dw9719_device(x) container_of(x, struct dw9719_device, sd)
+ 
+ enum dw9719_model {
++	DW9714VA,
+ 	DW9718S,
+ 	DW9719,
+ 	DW9761,
+@@ -153,6 +163,16 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
+ 			return ret;
+ 
+ 		switch (val) {
++		case DW9714V_ID:
++			dw9719->model = DW9714VA;
++			/*
++			 * No SAC tuning data exists for DW9714VA modules in
++			 * general; start from the family defaults and let DT
++			 * provide the module-specific values.
++			 */
++			dw9719->sac_mode = DW9719_DEFAULT_SAC;
++			dw9719->vcm_freq = DW9719_DEFAULT_VCM_FREQ;
++			break;
+ 		case DW9719_ID:
+ 			dw9719->model = DW9719;
+ 			dw9719->mode_low_bits = 0x00;
+@@ -188,6 +208,7 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
+ 	}
+ 
+ 	switch (dw9719->model) {
++	case DW9714VA:
+ 	case DW9800K:
+ 		cci_write(dw9719->regmap, DW9719_CONTROL, DW9719_ENABLE_RINGING, &ret);
+ 		cci_write(dw9719->regmap, DW9719_MODE,
+@@ -440,6 +461,7 @@ static void dw9719_remove(struct i2c_client *client)
+ }
+ 
+ static const struct i2c_device_id dw9719_id_table[] = {
++	{ .name = "dw9714va", .driver_data = (kernel_ulong_t)DW9714VA },
+ 	{ .name = "dw9718s", .driver_data = (kernel_ulong_t)DW9718S },
+ 	{ .name = "dw9719", .driver_data = (kernel_ulong_t)DW9719 },
+ 	{ .name = "dw9761", .driver_data = (kernel_ulong_t)DW9761 },
+@@ -449,6 +471,7 @@ static const struct i2c_device_id dw9719_id_table[] = {
+ MODULE_DEVICE_TABLE(i2c, dw9719_id_table);
+ 
+ static const struct of_device_id dw9719_of_table[] = {
++	{ .compatible = "dongwoon,dw9714va", .data = (const void *)DW9714VA },
+ 	{ .compatible = "dongwoon,dw9718s", .data = (const void *)DW9718S },
+ 	{ .compatible = "dongwoon,dw9719", .data = (const void *)DW9719 },
+ 	{ .compatible = "dongwoon,dw9761", .data = (const void *)DW9761 },
+-- 
+2.53.0
 
-Does this leave the hardware in an active but failed state, potentially
-causing undefined behavior or preventing the PLL from locking during the
-next power_on attempt?
-
->  	switch (samsung->type) {
->  	case PHY_TYPE_DPHY:
->  		return samsung_mipi_dphy_power_on(samsung);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016-dcphy-rx-v=
-1-v5-0-e63b49eabe2d@gmail.com?part=3D3
