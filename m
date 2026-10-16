@@ -1,116 +1,205 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx07-001d1705.pphosted.com (mx07-001d1705.pphosted.com [185.132.183.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ABCE397B02
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 07:47:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C014426EB7;
+	Fri, 16 Oct 2026 07:59:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.132.183.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792136854; cv=none; b=e/g70m85MQQJurkLjASy0p/RFF3pxEpkqYNLawJihNH4IIAAfmp5bXSQa94fKmUGvalQeGiJSPP0CO+OSFrlKP9ZKyTmQbFmhFrtJqdC+tjl0SwseYp7UNGMcBvrSYLzxgG9QyMU/cMM7DQlsfacIs5ll6O049DDEj5MHnOpwhY=
+	t=1792137595; cv=none; b=rjakalx5WiKgnj0FL3IVEPpSfl0wW4tLRP2/fAuC3k+bE+VKRFcT0kxuX+hctNa9r2oJyeCX8oBSv0K7AwGvBMznLvc2haJO9CHMrtbClhNT9cGSyedeWkqBgEJG9xabxgHHB3hPieMBkUYCG/nkS+c7ePPpDeNa3qbDqR1NXio=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792136854; c=relaxed/simple;
-	bh=d50UurfbUFhlSjGJ7fHRpspk+E1qBRZ/x4LkRK+1wVc=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=DIXPkSpaGf4HcmrrqoxU/V39sV/107lJpJ2o0TQGkay9AcXTWubrSqF+SqVwTKJhMofTqCqHElEBtvfUBO55tctHt1wxoovrUn+mbX6PfRgWoRwAV+HNFSV0Xz2E0UbFmieln9N341ZwbMUmAAZMrKBAOs3jX3Yb+M+i5p3g7NQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e/RyRtoV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792137595; c=relaxed/simple;
+	bh=yqC0nuU5G3gZIraKqaUfZ98fsiMiDWsX9/sai81SUic=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=T4tePFlCswo/MvjoUybZWnRGVOp6+ovITcvf3Z1un0/rj+H7hOxYhPMuermTY7DDscgs99RAp+YSzFKCOhdffeKS2bOib+mnM2wp3PugPhLJCMb8ThmlXCZlkklyPhdrXbQ+n8P+0dR698xlEricl2xyYqfb5iGlB5rB9XU2sYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com; spf=pass smtp.mailfrom=sony.com; dkim=pass (2048-bit key) header.d=sony.com header.i=@sony.com header.b=WUomkK6P; arc=none smtp.client-ip=185.132.183.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sony.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e/RyRtoV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E6491F000C4;
-	Fri, 16 Oct 2026 07:47:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792136852;
-	bh=yl7+hzJ3TD4TcyIfp8JWSTvd68mZUFZOVzrjubcRW+s=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=e/RyRtoV07O6WVQ9LolitzAC5TMiFotE8mB/Hz0zgvLJKzNjsewJML8FB4yiemeI+
-	 pgFIqfZpngzCmcrQeqQqcOA2T7KtOte8xebvfbtYdxZ3ZihvzNDpiMatVJdE5P6pQ+
-	 kxne/nQBMFjHPhhgW/NmNd+65s91W92vLlK4qd3tc1ET1gOwZKOBjzJSLF7PYpEFnX
-	 6pu6hs0x1oA/rAH1gIttZqO00uWDwJmE+Ceth833svmhEJ42qTuKpa7Jg29umAnwEM
-	 ddVh6IAvPy+Ex0qZMUOrlO9hS4e1uq/q8wvavAy8zaCQpjwlL35zb6XqLoxV1rbsNS
-	 xpg8zQwO0HUbQ==
-Message-ID: <sashiko-outbox-173961@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/5] ASoC: qcom: sm8250: add Senary MI2S RX support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Val Packett" <val@packett.cool>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261016073157.611956-3-val@packett.cool>
-References: <20261016073157.611956-1-val@packett.cool>
- <20261016073157.611956-3-val@packett.cool>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 16 Oct 2026 07:47:32 +0000
+	dkim=pass (2048-bit key) header.d=sony.com header.i=@sony.com header.b="WUomkK6P"
+Received: from pps.filterd (m0209327.ppops.net [127.0.0.1])
+	by mx08-001d1705.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69G7YkHO3156091;
+	Fri, 16 Oct 2026 07:59:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sony.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=p1; bh=hVyusgmqw8+Uyo1IbUosqRXAAP3uVv5KpKsUxoF+m3
+	k=; b=WUomkK6PnE6VUAbMbhYiSNkkMKSAl8FMCecFaAiGuiM/Av2/NcIuAZxuYM
+	gtUuOtZHFxN+KorZHoZ5q4yJUsbnx4h/xzk8Pq2GpX/jqGxwtKI/Vefuz2+t773v
+	EAr6t4+24/QEQ+eEiQuqEDkuxf36z+7L1ZTAdjz+QDfBT212zQ1GbhTzF7Svegwj
+	1IQPL/XO+nwr4PSlaw3Vtniy6r4oTDjkYFZgDnA3iunQmaESEFDc563PuwZ2D/V8
+	uEn4fKLdGJLv+4MF+C45OybWIzNy5bod8Uhvswv+nG4KHVZk2yjHG1Uda+SVVNtz
+	RtVesOAnYsYN6ITPA0e+lQ9OA7ZA==
+Received: from sgppsea02v.sg.gdce.sony.com.sg ([121.100.43.226])
+	by mx08-001d1705.pphosted.com (PPS) with ESMTPS id 4h7da87eh0-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+	Fri, 16 Oct 2026 07:59:41 +0000 (GMT)
+Received: from pps.filterd (SGPPSEA02v.sg.gdce.sony.com.sg [127.0.0.1])
+	by SGPPSEA02v.sg.gdce.sony.com.sg (8.18.1.11/8.18.1.11) with ESMTP id 69G7fol81453289;
+	Fri, 16 Oct 2026 07:59:39 GMT
+Received: from sgppsba02v.s.gdce.sony.com.sg ([146.215.113.219])
+	by SGPPSEA02v.sg.gdce.sony.com.sg (PPS) with ESMTPS id 4h7eejcc0f-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 16 Oct 2026 07:59:39 +0000 (GMT)
+Received: from pps.filterd (SGPPSBA02v.s.gdce.sony.com.sg [127.0.0.1])
+	by SGPPSBA02v.s.gdce.sony.com.sg (8.18.1.11/8.18.1.11) with ESMTP id 69G7U5Ke2896468;
+	Fri, 16 Oct 2026 07:59:39 GMT
+Received: from localhost.localdomain ([146.215.113.251])
+	by SGPPSBA02v.s.gdce.sony.com.sg (PPS) with ESMTP id 4h7eejxknj-1;
+	Fri, 16 Oct 2026 07:59:39 +0000 (GMT)
+From: Lachlan Michael <lachlan.michael@sony.com>
+To: mchehab@kernel.org, sakari.ailus@linux.intel.com,
+        hverkuil+cisco@kernel.org, laurent.pinchart@ideasonboard.com,
+        linux-media@vger.kernel.org, devicetree@vger.kernel.org
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        kieran.bingham@ideasonboard.com, jai.luthra@ideasonboard.com,
+        Ryuichi.Tadano@sony.com, Kengo.Hayasaka@sony.com, Tim.Bird2@sony.com,
+        Kazumi.A.Sato@sony.com, Yuji.John.Takahashi@sony.com,
+        linux-kernel@vger.kernel.org,
+        Lachlan Michael <lachlan.michael@sony.com>
+Subject: [PATCH v4 0/2] Add bindings and driver for Sony IMX908
+Date: Fri, 16 Oct 2026 16:59:16 +0900
+Message-ID: <20261016075918.19345-1-lachlan.michael@sony.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Sony-BusinessRelay-GUID: MLPSw_A4Fd_7vOtYFmZt8slkmfZ2FZWI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Sony-EdgeRelay-GUID: WaUQ-90Tk2XrdlVXbchhwtqCKv3_YzxU
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Authority-Analysis: v=2.4 cv=AeUkjHXG c=1 sm=1 tr=0 ts=6ad1d96d cx=c_pps
+ a=6mgWUpd4vGE96FGw1JXD8A==:117 a=6mgWUpd4vGE96FGw1JXD8A==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=KAb5x4SsHD3PzxGk7EmX:22
+ a=b20fedWF67CaGdYoUt4Y:22 a=VwQbUJbxAAAA:8 a=z6gsHLkEAAAA:8
+ a=S-K4s3RCtQN59Zfzh3IA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAzMSBTYWx0ZWRfXwAny2qzqlYM7
+ ktzvxjl/roYTPpSFPRiyUXvYBI3bGNNEsq25uIgPi6gaIhd8L2dgbvhUgXmwEHb1fPugWC502Me
+ W8sC3q90ET63yl+oqNz01Zog/JQwxVW827JpcacHpqijvaEC8vXGaMaHVh/8iVSkEVvamygmRf6
+ 94yq2LQDTdb6OB9rihCA9fCZhiKS+3VIJShHUctPqcZTUY7ETJ9LU+0A91fcUMt167V91BBl+n+
+ 7PKzUZvkQF14hBTVpuHaqDmxlG5PnOD3TS6StOP+ToWy690VVqgSOJ3wZyDBN8Jr9Wa1vV1QtS6
+ gbd84H5sd3Tvf6o8MfPVSPYfWgFXGyHpO6HGIAoiyJk27LSNVsDrLhsvi3jo6VUbfE++pMOCfrb
+ iyeLPI8pQxsPU6rHbGwv8Mh6zdkXaqUGz6N4fI7Vih2dDUn2rXA15RNAtvVnqF3bhHHFM8henMI
+ qfrIzb11LqRPUsSVT1Q==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAzMSBTYWx0ZWRfX2uAdTe/wjTuu
+ 0Yi/BIbsqzSxOkITTcQwPqPFdbASrpWzmN66N5Z1VjWggf5+0Wbh6V29bFAeZMyi0JEtvuQqZhF
+ UXhFmGJgzYS6A2+VofjlD4iUf2eVXJ7Sj3poKPM0dlxYOhm3YoXh
+X-Proofpoint-GUID: y7WR89AqUTqMGUUVIHgZahFQZ6-ctSI2
+X-Proofpoint-ORIG-GUID: y7WR89AqUTqMGUUVIHgZahFQZ6-ctSI2
+X-Sony-Outbound-GUID: y7WR89AqUTqMGUUVIHgZahFQZ6-ctSI2
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] sound: missing audio format configuration for secondary codec DAIs
-- [Medium] sound: unhandled return values from DAI hardware configuration f=
-unctions
---
+This series adds device tree bindings and a V4L2 sub-device driver for
+the Sony IMX908 image sensor.
 
-commit a955f60b4e954bf749d62fe6837b52a492472249
-Author: Val Packett <val@packett.cool>
-ASoC: qcom: sm8250: add Senary MI2S RX support
+The IMX908 is an 8.39 MP (3856x2176) CMOS image sensor with a MIPI CSI-2
+output interface. The driver supports RAW10 and RAW12 output formats,
+exposure and analogue gain controls, image flipping, blanking controls
+and test pattern generation.
 
-This patch adds support for the SENARY_MI2S_RX DAI to allow sending audio
-data to speaker amplifiers on some devices.
+HDR modes and RAW16 output are not currently supported.
 
-> diff --git a/sound/soc/qcom/sm8250.c b/sound/soc/qcom/sm8250.c
-> index 76dc3a3f4a312..2d49b04cb1f69 100644
-> --- a/sound/soc/qcom/sm8250.c
-> +++ b/sound/soc/qcom/sm8250.c
-> @@ -112,6 +112,14 @@ static int sm8250_snd_startup(struct snd_pcm_substre=
-am *substream)
->  		snd_soc_dai_set_fmt(cpu_dai, fmt);
->  		snd_soc_dai_set_fmt(codec_dai, codec_dai_fmt);
->  		break;
-> +	case SENARY_MI2S_RX:
-> +		codec_dai_fmt |=3D SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_I2S;
-> +		snd_soc_dai_set_sysclk(cpu_dai,
-> +			Q6AFE_LPASS_CLK_ID_SEN_MI2S_IBIT,
-> +			MI2S_BCLK_RATE, SNDRV_PCM_STREAM_PLAYBACK);
+The driver has been tested with libcamera on Raspberry Pi 5 based
+hardware.
 
-[Severity: Medium]
-Can these hardware configuration functions fail silently?
+Signed-off-by: Lachlan Michael <lachlan.michael@sony.com>
+---
+Changes in v4:
+PATCH 1:
+- No changes from v3
 
-The newly added code calls snd_soc_dai_set_sysclk() and snd_soc_dai_set_fmt=
-()
-for both the CPU and codec DAIs, but it does not check or propagate their
-return values.
+PATCH 2:
+- Refined sensor initialization for the updated settings, including
+  register-address/value corrections and bit-depth-specific programming
+- Removed crop support; the driver now reports the fixed 3856x2176
+  active-area format and no longer programs crop registers.
+- Updated HBLANK and exposure control limits for fixed geometry,
+  including exposure adjustment when VBLANK changes.
+- Improved stream start/stop error handling and ensured failures during
+  setup release the runtime-PM reference.
+- Consolidated power-on/off into runtime-PM callbacks, corrected probe/
+  remove power sequencing, and added builds without CONFIG_PM.
+- Cleanups and bugfixes from the v3 review comments (thanks to Sakari
+  and Laurent).
 
-If these operations return an error like -EINVAL or -ENOTSUPP, the
-initialization sequence will silently continue, potentially leaving the
-hardware in a misconfigured state and causing difficult-to-debug audio
-failures later.
+Link to v3: https://lore.kernel.org/all/20260828064843.65047-1-lachlan.michael@sony.com/
 
-> +		snd_soc_dai_set_fmt(cpu_dai, fmt);
-> +		snd_soc_dai_set_fmt(codec_dai, codec_dai_fmt);
+Changes in v3:
+PATCH 1:
+-  Adjust the binding description to match the actual hardware: the I2C
+   target address is selected by the SLAMODE pins, not fixed to 0x1A.
+-  Add the standard video-interface schema reference so the endpoint and
+   remote-endpoint validation match the media DT conventions.
 
-[Severity: High]
-Does this code miss configuring the audio format for secondary codec DAIs?
+PATCH 2:
+- Correct link-frequency indexing mapping to match the sensor
+  DATARATE_SEL values and the frequency ordering
+- Changed the pixel_rate to 16-pixel-per-clocks based on datasheet
+  mode values
+- Clean up the constant names, register definitions and comments in
+  response to review feedback.
+- Remove various (uneeded) checks in code based on feedback
+- Remove cached vmax/hmax and recalculated where necessary
+- Drop pixel_rate and test_pattern pointers from struct
+- Remove read-only controls set_ctrl switch
+- Remove event handlers
+- Remove uneeded delays at startup 
+- Simplify runtime_resume/suspend functions
+- Remove the 4k recording-area in favour of larger active area
+- Use the same constraints for VMAX for crop and all pixel mode to
+  simplify the driver logic by removing branching
+- Rework HMAX based on the fact that the whole line is always read
+  even in crop mode. HMAX varies in all modes now, but not with 
+  horizontal crop.
+- Minor edits and bugfixes 
 
-In sm8250_snd_startup(), codec_dai is retrieved earlier in the function
-using:
+Link to v2: https://lore.kernel.org/r/20260806070934.21764-1-lachlan.michael@sony.com/
 
-	struct snd_soc_dai *codec_dai =3D snd_soc_rtd_to_codec(rtd, 0);
+Changes in v2:
+PATCH 1:
+- Reword subject to drop the redundant "bindings" suffix.
+- Reference video-interfaces.yaml for the endpoint and switch to
+  unevaluatedProperties, fixing the remote-endpoint check.
+- Drop "link-frequencies: true".
+- MAINTAINERS: drop the L: line.
+- MAINTAINERS: move the driver F: line to patch 2.
 
-This only fetches the first codec on the runtime link. Since the
-SENARY_MI2S_RX link is intended for speaker amplifiers, there may be
-multiple speaker codecs (such as left and right channels) on this link.
+PATCH 2:
+- Treat the pixel rate as a fixed sensor property (594 MHz, 8 px/clock),
+  read-only.
+- Compute HMAX from both the array and MIPI link floors.
+- Express HBLANK in pixels with a step of 8; keep HMAX fixed in crop
+  mode.
+- Drop struct imx908_mode; cache hmax/vmax directly.
+- Change the link-frequency table to s64.
+- Fix the probe error-unwind ordering.
+- Be silent on success (chip ID print is now dev_dbg).
+- Drop redundant comments.
+- Kconfig: fix a "module will be called" typo.
 
-Because the driver applies the I2S format only to this single codec_dai, any
-additional amplifiers will not receive the required format configuration.
-Could this result in silent playback on one channel? Would it be better to
-iterate over all codec DAIs using for_each_rtd_codec_dais() instead?
+Link to v1: https://lore.kernel.org/r/20260730021525.166811-1-lachlan.michael@sony.com
 
-> +		break;
->  	case LPI_MI2S_RX_0:
->  		codec_dai_fmt |=3D SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_I2S;
->  		snd_soc_dai_set_sysclk(cpu_dai,
+Lachlan Michael (2):
+  media: dt-bindings: imx908: Add Sony IMX908 sensor
+  media: i2c: Add Sony IMX908 image sensor driver
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016073157.6119=
-56-1-val@packett.cool?part=3D2
+ .../bindings/media/i2c/sony,imx908.yaml       |  108 ++
+ MAINTAINERS                                   |    5 +
+ drivers/media/i2c/Kconfig                     |   11 +
+ drivers/media/i2c/Makefile                    |    1 +
+ drivers/media/i2c/imx908.c                    | 1168 +++++++++++++++++
+ 5 files changed, 1293 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
+ create mode 100644 drivers/media/i2c/imx908.c
+
+-- 
+2.47.3
+
