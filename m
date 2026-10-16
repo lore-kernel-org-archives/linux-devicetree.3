@@ -1,64 +1,122 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B42A4F7CAF
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 18:35:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7377057F726;
+	Fri, 16 Oct 2026 18:38:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792175728; cv=none; b=AFGwcC8ILyaCIxJViYFmGxC5cx4njk1NXS5GVQGeRcPmOQ6DaO1bGy2d5VrrNNbZH/uNan1T2vJP+IGUJQDpXD+tYpTTs8LnZyromICzoZ4PfWIEcykw7pQiI6KrEcIJNMrCSXEu23j2Rse3nIHHIYA4dNiOr/Ss/k/LqHygffA=
+	t=1792175898; cv=none; b=pxKqqgIrd93rna0Hf2wk6AE6Wf5ubSUWmvgZ/ARpr2dZl3a6c3tIaJGchbjcGX5KkT6UyblsoCbVbfcOuy4HRVKpjj4KhITD25YT/gmJhfr6b1zuK2QsyI0lHeC84Wm4bE2w/RRGcy7T1Rwpc3Hy5KkjUUotAnfTJjITiRQSc7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792175728; c=relaxed/simple;
-	bh=bUvBHARR3tUXwrjb2u7dJFs8iX6um6IbEtjYMTQjxQs=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=e5WWxcxythmOfDLJ2gzBhRv7yJcOltGkxpxRVL2X0lXbxqQV2BYyau/7iumt9h5qAKtSoPyW/6jWw+wJ73KrtXK/ecWPZdEB+cydKhj0npIf9iacQB+tROfH1idCdrvFaErp04Ac0CVDplRjR3rg0C4GBxoQrkcJsmJc+EwjBRE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=HrqKyXwF; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1792175898; c=relaxed/simple;
+	bh=8jLj3MjalKPCPoO+nVLLlIVoLjQ01kBztc/rv/ngHOs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=MVPlOFLmt5P79DI+yFeR687CBIBa16HUsd6S5SKJNfsL+W4xo9D5fW2iVwzrZb4vz576N7BodZVNb8DPFW5tFow4MCYfBcrZHtvxRp2HcLpu/ciu8TwY7hPKOr19uk+OpY5bii8y0/rn1X3/dc71bw0yyC+vTN4ANbOGYvNe+RI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G8cGYYMR; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="HrqKyXwF"
-Received: from mail01.layka.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 15C6180851;
-	Fri, 16 Oct 2026 20:35:26 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id 7NMZTfgfXi-X; Fri, 16 Oct 2026 20:35:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1792175725; bh=bUvBHARR3tUXwrjb2u7dJFs8iX6um6IbEtjYMTQjxQs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=HrqKyXwFDRON44Fw344vyMMs+47EWgv1zZLNgaEVlHQCPu3PDNL8Kk51EA5Ycyu8t
-	 O5z/eptsIkpM6rLfk4ySZlKH65yNCMTK8r8TOK2OwDEAqOaMHd8LO3qrIpaLqEITWG
-	 wgirYD7i3Qu8iegij8Hi0nz7uyDFsbShL8NgwlSy1GbUAhFEG3FfQilAydF48TLA4W
-	 ogeMabY0h9qGqS5Fe6wJF2IC+S1+AJUI9pGKo+3IUGoEZ3cu2lUPpcLKJMkP/0KJft
-	 eJW+c5xO/1HHCJ7JKlMCXzH7LLofKcIFFYFRokiraWvZ1w2n3UHgiHccZ0njBR7gkY
-	 IWxVFuwV9sWfQ==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G8cGYYMR"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DC25CC2BCF4;
+	Fri, 16 Oct 2026 18:38:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792175897;
+	bh=8jLj3MjalKPCPoO+nVLLlIVoLjQ01kBztc/rv/ngHOs=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=G8cGYYMRA4Zquo+LjLMrt9hEkK8wZCTP7nJY5KeJVCGNXll6/k8WzSBG7Asf0645r
+	 zZBX7uO6Fmm1JuKJyuxpEDj9s8D1DKVr+2yITACea2UZjZayWO21EQrlxVEuqiITH5
+	 BSodY7uHR2DTgRLVXyB0mx0Z5GIeoTCSiXmNn/QB8SNVIS49SYDK3umyD2rJqUkEft
+	 DUx21qT6GyjOae6JTtkhtIjwVcMu4jWkjkfXS8JX9Aig+BcedIUhhxISFPJmaebWiZ
+	 4bO2jq0WRopeeQizrOz0g4OCAbMVqBuJwvjeEw+QvNDx0X+rQdqdogVQahDJpvaAJR
+	 md9kGvVyBkzEA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B9955CCF2C3;
+	Fri, 16 Oct 2026 18:38:17 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Fri, 16 Oct 2026 20:38:16 +0200
+Subject: [PATCH] arm64: dts: qcom: sdm845-xiaomi-beryllium: Enable gpi_dma0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 16 Oct 2026 18:35:25 +0000
-From: Rustam Adilov <adilov@disroot.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org,
- neil.armstrong@linaro.org, olteanv@gmail.com
-Subject: Re: [PATCH v9 1/6] phy: realtek: usb2: introduce phy_reg_desc struct
- to the driver
-In-Reply-To: <sashiko-outbox-174760@kernel.org>
-References: <20261016180314.31760-1-adilov@disroot.org>
- <20261016180314.31760-2-adilov@disroot.org>
- <sashiko-outbox-174760@kernel.org>
-Message-ID: <7c12179c8a88e2102e7d0c8ac7a66790@disroot.org>
-X-Sender: adilov@disroot.org
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-beryllium-gpi-dma-v1-1-76ade615c571@ixit.cz>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMSwqDMBRG4a3IHfdCIhjbbkU6SOKvvcUXSS2Ku
+ HejHX6DczaKCIJIz2yjgJ9EGYcEfcvIv+3QgqVOplzlRitt2CGsXSdzz+0kXPeWH7YovcHdKQ1
+ K3RTQyHI9q9ffcXYf+O85on0/AF7rWE51AAAA
+X-Change-ID: 20261016-beryllium-gpi-dma-9a57c6e8b01e
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1201; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=HwH4YI5IKv6HnqqoFZ+3iahgGI8sqyxwXnRYzgF5iiY=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq0m8Yqwi4x9Ve+naf3Pt1RbroBqr8zonoesFqM
+ odcYr4RzyeJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCatJvGAAKCRBgAj/E00kg
+ ckbaD/4z/PP20vvbcLvEyVP2FPG2WKBaFADCf5oHxa1AKfASVIQiF5cJOetGhJ3ZLI2AdOwLi0N
+ Cy/fQAR6Zh9taCPsKNNYqjsav4Qyhd+/pjdBE9wP3lbejTAmdRYofrXW9u839FmfOsQcgK1pvLo
+ UTSQPxPNYSa+eY8nnj32WjLdw8qkw2msNTpmtLP+C661zU7cEoe1kbd0AhOeHziJBkDzkzCNTtt
+ udtVe70OVJBYpwXB7d7YCewVQkCTKMClIcC8EhNuzYSSN64+AgT26uyyxT+hEAkeBfns6Ami//r
+ EH1q0XLdA76RdbvbWOWEiwTSUH+jNecnR5dlktwKQAtGbLokFywuJG5lc8XuYhlrFB2IALhcoYX
+ GYwNuH1rnBrp+RPfA2vQQtvsF+wd8yQbD+x79x+2MOt1Q+o+PpcNs2dSGPmlFspMugrSbxhMBM/
+ 4DIUoVGVa+N3GvaVnsDsNGuCm1dCkQ2tzyRBWwcgYZNH855EQn62mFvxa1zmOGnNoUzGrueH3OP
+ IKytaLOq/yy6kPjLjFs/YJZYAN9mXxg8gWv+O8Du6dTV3aA13u/34XYC80N0uWfLDFaNekGfgeH
+ rmqv1UbOLiXa2yIHhkN+jk4g0wQmEsdh8NNwSBnCLNwjFk+kQVfFay3uYQoPgXim9clghNUj6bk
+ /3gw0jPmqjH9Hxg==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-On 2026-10-16 18:15, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-> - [High] usb: phy: unaligned IO pointer arithmetic on void __iomem *
-> - [High] phy: realtek: missing NULL check and iounmap() for of_iomap()
-> - [High] phy: realtek: off-by-one array bounds check allows out-of-bounds access
+From: David Heidelberg <david@ixit.cz>
 
-Pre-existing issues in disguise, not relevant to this patch series at all.
+Used by not yet introduced tas2559 codec connected to the i2c5.
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+We don't have upstream tas2559 driver which would use it yet,
+but the gpi_dma0 is confirmed to be used, thus let's enable it.
+---
+ arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
+index 35babe8c5f757..d57851b0b9419 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
+@@ -264,16 +264,20 @@ &cdsp_pas {
+ &gcc {
+ 	protected-clocks = <GCC_QSPI_CORE_CLK>,
+ 			   <GCC_QSPI_CORE_CLK_SRC>,
+ 			   <GCC_QSPI_CNOC_PERIPH_AHB_CLK>,
+ 			   <GCC_LPASS_Q6_AXI_CLK>,
+ 			   <GCC_LPASS_SWAY_CLK>;
+ };
+ 
++&gpi_dma0 {
++	status = "okay";
++};
++
+ &gpi_dma1 {
+ 	status = "okay";
+ };
+ 
+ &gpu {
+ 	status = "okay";
+ };
+ 
+
+---
+base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
+change-id: 20261016-beryllium-gpi-dma-9a57c6e8b01e
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
+
+
