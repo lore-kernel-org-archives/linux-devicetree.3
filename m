@@ -1,141 +1,106 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7E254973AE;
-	Fri, 16 Oct 2026 12:33:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91095499F20
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 12:33:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792154030; cv=none; b=SfXDxFhrOmFI5D41bcwWAAmhIkXzNK/0ft4YPOAksc48rYVHSdrWpI7DJ5v4v3vfoe+qjS1FCCi3AjXsDDq1NbgCc8mY61h85JktK6NoP3LRWC658EPioR0KjF3OxyKzUyt9dj3TiHTVpvP3MlGgTjnOFs42uq9JGo05jaK/VJM=
+	t=1792154031; cv=none; b=FVVayuJK3qRS/tecPHNpwpMVLHl5SyBVqnRNt7F+kU2PbUKntELd5Amk67tNKgWmM9sxm8reSlL5oI0KJNlki8VXqVulqEt1ReI/rRuFFyev1GVoPHHi0kx6P5mI8KmZg1dNpEy3K09AzI1mFIbrGHO4AoJhpTKHgxyH5a3PFM0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792154030; c=relaxed/simple;
-	bh=mUx/eqhBbS3ZWeGbki32wgj3Da1ja1JDeEvy1gkVPRQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hnYkq/b+FfHX3r1jE17P2inkE9fNsI+Z3jOGP5ZnMF7qQeMU+QdKybjNX7UP/v6auH594kbf6xrmygRlnAAOWTzp1R5xqDjq2DNgn//xtzF0fOxI9psv8Wx9GeJs7mzP8zZbawJ7MoDOA7hMXKkCULsVuJwrrIi9FCSSeLLG0YY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Jfh3FjeM; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1792154031; c=relaxed/simple;
+	bh=JfDefijwbtezDgijQgyKJbzKl0+gWmC5y7+nqbaenDc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RoEj3tCsBm5Y7TRKvi/f1qHH/tFvzCMN0tLiT6uKvEutptRuOMEZaXtPYdQ9JcD07U3QJtme+PToN54qDT1dPw3QcuIGqU04mNEXFsLFlj514WnSUSu12T64XHBMYd9L+OLzhrEEff6nUERiKZMiyScv3+j28FDjhHnK4/LEp44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=lHNW62Ew; arc=none smtp.client-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Jfh3FjeM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1792154027;
-	bh=mUx/eqhBbS3ZWeGbki32wgj3Da1ja1JDeEvy1gkVPRQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Jfh3FjeMiw++OPa5JDbMIoswR8AqHEN8TxIz77hdXGHXFnltDhdwvDFomrGo3Wzzk
-	 OyYkMU2rbpfv1UhA5wgrDVDfCWVQLrCiCIqz4WT1iIDlpfPFSEA6fSNGRZO30tq93l
-	 ThR9QTvFooKelSpPMEEAEFwy2i9RmZuOHy9nVzEXG7tlwf9cz0c8jcjD1/Lans3c8C
-	 0vGSTApsch8JnlECSkSNfmyo7C7Q3u043KWd+VwSXz1WhskDgsWpXJjTml8UpT3UPL
-	 Rhgo2w/iofg9BLKw85UkRzfTpWjjmTh/zpuiI9rIaJkR2F9BrFMNtAJLasWLIDbaj0
-	 VaUaaIP/DSHMg==
-Received: from yukiji.home (unknown [100.64.0.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: laeyraud)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5814217E377E;
-	Fri, 16 Oct 2026 14:33:46 +0200 (CEST)
-From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Date: Fri, 16 Oct 2026 14:33:07 +0200
-Subject: [PATCH v14 15/23] scsi: ufs: mediatek: Remove
- mediatek,ufs-broken-rtc property
+	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="lHNW62Ew"
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c40e30c26a4so70274366b.0
+        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 05:33:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=konsulko.com; s=google; t=1792154028; x=1792758828; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KjxNdKF35KA5nRKq/qBO1VDFTjnQTP1XeouQ0eeALwY=;
+        b=lHNW62Ewd0eGVls3qGF7+sNuukjdC5PFmAbaFCo79fpbHt/wV4IyIcucNHrw3HbS1u
+         O5WUNhtDzh4Xa6iPg5tzdFM75OfRw2kFjY5nyD+0uzvVKQNlKuT/4SIKIP1lWilG6K1I
+         y/JjxGJZxyoFVkhX4dlPvfd6+cEDt/Dvjt2b8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792154028; x=1792758828;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KjxNdKF35KA5nRKq/qBO1VDFTjnQTP1XeouQ0eeALwY=;
+        b=d2x6BYXPnyn3HcmK6VwKxJjhaVnG/dv7U+TQ799Kb/1dYTGQYcEGb5RgsNixP9Dzvr
+         OOE+Jffmov5hGUagmcaR81wty7oOFjAhBEf1xbAbo7wwlk6XRT4EEzldZ44UVZdZ9k1G
+         wvKDlnqOpgGz0oshM/q4u4bHEzMb0Y8OzACY6nvhgeUKVdGaC5Y8rxPVKO31W6tB3tNe
+         u4Ax4Tq3MfH3tGxFVTlMDC37EZflRGkjl+uQw7pjveQMjn4k9kZCcvVp9LHSFGy3Lxd3
+         46rbSD6nLajdK9zrliXTRS2hUJhN/j8DdamxF2s+/1/HENpPUri1Cf/oTUKOO8SasFP/
+         gL2w==
+X-Forwarded-Encrypted: i=1; AKwUvByrfuFQJj5oBYSG24/S60rWgvOgykSth32Cn/qx+ZUnqMeD3nnhj1T+zkZotu5T4KqmjbAPRQb7y2BP@vger.kernel.org
+X-Gm-Message-State: AFq9FYLbfGANlyYSEhouh7BgPxtHNjHiTfVdIe1Im1rraRxHWB3kHn/g
+	wnkM/isfKZfWzBLUF9dUnqWjy99FlCATlM0f3e/Qc5y7N2fa7pFjiEip4dp1E7E7Jck=
+X-Gm-Gg: AYBFou1ks9Cgt0bmjAX/TcXUvZANrmvauUw0eS9jT27zxcW7wIwPTfNaVSccLlGTdfB
+	bhkVrRGIxxeOmk6g8R+XJnoAEGKGgfw6wiQI7MsVQwwJQ7Sc7dbLMXIhOoWFc/gMN41nDe0c6Kp
+	Aebxn0D2j9q43OkWjwX3TVU3dkFOfIgP56cfDGDnMuP4Drde7rj/x6ZHq5LvMKn1DjhrL+douCA
+	ordrEtVWarTkvL+Mc2GCfv4Pt1oNLUvwRhgO09F19JwU8Y1mAcw0AZbPwfhJsgRWyhHeE1k3CYj
+	18tkMOkOMVpXpSwRUZzzUAR8LOakT/9eqEfnnLG4BkTWDnmLvIPLPxdB10Cvgu4t6lCqXf/ebKL
+	jIVe6fNTOxE0tlkDg/SEQLs259vvbmACMPGGGytdw/fjyBsbv6R9f9n5cSikx57/Azq12nRMesU
+	rBbyFPHKf6TMDfktzVVjrZS3sBFAnfFQgGgVr8+5E6GhpS0t5Ii4pRqQ788KZ2WmJWFLEJOFxiB
+	YB1HqrLXdQ7uGXFqVCDs3BbiIIOVqqT
+X-Received: by 2002:a17:907:2d11:b0:c29:519b:3aee with SMTP id a640c23a62f3a-c402349d091mr280091066b.33.1792154027651;
+        Fri, 16 Oct 2026 05:33:47 -0700 (PDT)
+Received: from carbon.k.g (87-243-94-255.ip.btc-net.bg. [87.243.94.255])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40912ca52esm69793266b.38.2026.10.16.05.33.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 05:33:47 -0700 (PDT)
+Date: Fri, 16 Oct 2026 15:33:46 +0300
+From: Petko Manolov <petko.manolov@konsulko.com>
+To: Dinh Nguyen <dinguyen@kernel.org>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	arnemaximilian.richter@draeger.com, martynas.grybauskas@draeger.com
+Subject: Re: [PATCH v11 3/3] arm: dts: altera: add Draeger M48 CPU Module
+Message-ID: <20261016123346.GC15187@carbon.k.g>
+References: <20261015145804.3632839-1-petko.manolov@konsulko.com>
+ <20261015145804.3632839-4-petko.manolov@konsulko.com>
+ <62afc804-8a9f-42c0-93a5-8b0b7f3b84f0@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-mt8196-ufs-v14-15-e8d565e0cd45@collabora.com>
-References: <20261016-mt8196-ufs-v14-0-e8d565e0cd45@collabora.com>
-In-Reply-To: <20261016-mt8196-ufs-v14-0-e8d565e0cd45@collabora.com>
-To: Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Peter Wang <peter.wang@mediatek.com>, 
- Chaotian Jing <chaotian.jing@mediatek.com>, 
- Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>, 
- Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>, 
- Stanley Jhu <chu.stanley@gmail.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>
-Cc: kernel@collabora.com, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-scsi@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792154009; l=2134;
- i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
- bh=scxCpVLtfp4Tto+BcuHpIAru+gsvEa5xQ+joNcVj0xg=;
- b=snsL0RSQTjAJZ/3TQaexjZJsyofCJCysiLGLUQqMMORzEjHaGMmJjDATqq5D8qiuQHZCe6auR
- 56sooG/Co//DDSeCgd89YM1eCGlsSoSEYDWTczGWIacSVQJlhI7Ue1A
-X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
- pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <62afc804-8a9f-42c0-93a5-8b0b7f3b84f0@kernel.org>
 
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+On 26-10-16 06:08:53, Dinh Nguyen wrote:
+> 
+> On 10/15/26 09:58, Petko Manolov wrote:
+> > M48 is a heterogeneous board made by Draeger that is based on two
+> > independent cpus, that are monitoring each other.  One of them is
+> > imx6, the other is Altera SoCFPGA Cyclone 5.  The latter is booting
+> > independently off qspi.
 
-This flag property was never described in the binding, and its
-capability wrapper seems pointless.
+<snip>
 
-If one of the MediaTek SoCs needs the ufshcd quirk applied, then this
-can be done per-compatible, without needing to give the device tree
-author the option to forget to set it.
+> > +&gmac0 {
+> > +	status = "okay";
+> > +	phy-mode = "rgmii";
+> > +	phy-handle = <&ethphy>;
+> > +
+> > +	mdio0 {
+> > +		#address-cells = <1>;
+> > +		#size-cells = <0>;
+> 
+> You also need this here:  compatible = "snps,dwmac-mdio"
 
-Remove it and the associated capability flag wrapping code.
+Thanks a lot.  Is there a way to send patches to Sashiko without bombing the
+LKML and, respectively, all of you guys?
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Reviewed-by: Peter Wang <peter.wang@mediatek.com>
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
----
- drivers/ufs/host/ufs-mediatek.c | 5 -----
- drivers/ufs/host/ufs-mediatek.h | 2 --
- 2 files changed, 7 deletions(-)
 
-diff --git a/drivers/ufs/host/ufs-mediatek.c b/drivers/ufs/host/ufs-mediatek.c
-index 808365b880fd..b8812005b6c4 100644
---- a/drivers/ufs/host/ufs-mediatek.c
-+++ b/drivers/ufs/host/ufs-mediatek.c
-@@ -704,9 +704,6 @@ static void ufs_mtk_init_host_caps(struct ufs_hba *hba)
- 	if (of_property_read_bool(np, "mediatek,ufs-rtff-mtcmos"))
- 		host->caps |= UFS_MTK_CAP_RTFF_MTCMOS;
- 
--	if (of_property_read_bool(np, "mediatek,ufs-broken-rtc"))
--		host->caps |= UFS_MTK_CAP_MCQ_BROKEN_RTC;
--
- 	dev_info(hba->dev, "caps: 0x%x", host->caps);
- }
- 
-@@ -1247,8 +1244,6 @@ static int ufs_mtk_init(struct ufs_hba *hba)
- 	hba->quirks |= UFSHCI_QUIRK_SKIP_MANUAL_WB_FLUSH_CTRL;
- 
- 	hba->quirks |= UFSHCD_QUIRK_MCQ_BROKEN_INTR;
--	if (host->caps & UFS_MTK_CAP_MCQ_BROKEN_RTC)
--		hba->quirks |= UFSHCD_QUIRK_MCQ_BROKEN_RTC;
- 
- 	hba->vps->wb_flush_threshold = UFS_WB_BUF_REMAIN_PERCENT(80);
- 
-diff --git a/drivers/ufs/host/ufs-mediatek.h b/drivers/ufs/host/ufs-mediatek.h
-index bde2b53f5798..d97951ee1f4e 100644
---- a/drivers/ufs/host/ufs-mediatek.h
-+++ b/drivers/ufs/host/ufs-mediatek.h
-@@ -138,8 +138,6 @@ enum ufs_mtk_host_caps {
- 	UFS_MTK_CAP_DISABLE_MCQ                = 1 << 8,
- 	/* Control MTCMOS with RTFF */
- 	UFS_MTK_CAP_RTFF_MTCMOS                = 1 << 9,
--
--	UFS_MTK_CAP_MCQ_BROKEN_RTC             = 1 << 10,
- };
- 
- struct ufs_mtk_crypt_cfg {
-
--- 
-2.56.0
-
+		Petko
