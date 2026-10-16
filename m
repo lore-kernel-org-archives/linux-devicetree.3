@@ -1,125 +1,151 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93E1369D55
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 14:51:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E578434EF05;
+	Fri, 16 Oct 2026 14:51:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792162266; cv=none; b=hj69oZ9adP70FUnwN9njrsqpIjPZudbuWDJKs6SpgCTS7I+CQYsVVskH82T8djpCFDLkSJk5WqnmvHGZQsrj8nvDRe/N9kG/Db78WF1oaJFU7++aeQMVxpWZeqDEUrvCtQcxNxAX1+lSEyKMU1UW2y53K+TaresYm/sI9InXLHI=
+	t=1792162302; cv=none; b=H0/Qx1ibHUvHUAWhYsza+/n6ZGOXt6OUi35rjrxLcyOMw0TZptQYr580r9TO8KXnJHG7mu1oR7pY8/a/GSxUo3tvyFlcEK3YgxRrA3JJ8WpBb6QmVZ1mWeTbcmZhohlsMXYUSGokv4MSsfjRqc+Fiwi0nCXk62dsvtiU8YaODmc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792162266; c=relaxed/simple;
-	bh=Jhyci0/ODAPh33oVcCUz3HGGq4+oIpLszH9UxLFtj1w=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=TNW5N8KjGa9JywSEDf5EVTapeL0v/+kibERwD4UjyrruU8UDNRhp9QEej5d/Gw1SKt6F58FageY7MQFwE3wYWImxRZHd1+b9lkwC6U/LxPko5uEkB6DVt5kZs81mBykuL+mPH/rBOTil5kzCoo19VZx61QQ7em9MpMmjJtcPN/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HvD7bKNw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792162302; c=relaxed/simple;
+	bh=XAqiXLlhgf+/F9hDAmXS+sPEb4Sjw+LYKzpQOJi9kAM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Nkw9ztUXU5GvPiJmJndFpJyydxiDQoIFo6C5WwVs2+WWERPOXJIuIwO8rNrz57An0koepGBKaW0Kau2591RXNcLhQZRJj+lqdKFnVKrIlZF7dyRZfEAeAKSvA5yZ81hxl/b40k1zbdPit5+8rvJ4JLIb/QidHm0R2GwlEOYkD8s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gl2/odbW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HvD7bKNw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A23F1F000C5;
-	Fri, 16 Oct 2026 14:51:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gl2/odbW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2C8B1F000C5;
+	Fri, 16 Oct 2026 14:51:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792162265;
-	bh=++4/7c4G0P+hAD4DbNV8k+tpu5WFo/PcRs9uW71hr+k=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HvD7bKNw+rmjw3A3smwya1ZJUNyGg55ceRmq/O+0/DVBgfKf6fCCZpNYB76bcn9N4
-	 vBG556VQanDisirhs6owG/WdKLBBViUGY1l31SKtL+U62AGzdC6kLTKAVsGvLdIG8g
-	 9etYX9UaT6mU5yJRsXgHRLyGWXs9rYSgMA+yi/oDEpJKgUJNyZw+kyL/B3pLzIqUuO
-	 uMso78D7JU2TlJdzqeytg12FNt/KkoTSielHtRMfvuzifwHlk5GE//dpwixB9gkCpx
-	 xBQ1xG2l93izmMT1HIfP13JYFYdHSYijERjIpBvFPTkcENxd9GKf0XcR2XKjXjm3UQ
-	 3xFfyN1+3hihA==
-Message-ID: <sashiko-outbox-174496@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v25 3/3] net: phy: Add driver for Motorcomm
- Quad 2.5GbE phy
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kyle Switch" <kyle.switch@motor-comm.com>, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261015145021.2216003-4-kyle.switch@motor-comm.com>
-References: <20261015145021.2216003-1-kyle.switch@motor-comm.com>
- <20261015145021.2216003-4-kyle.switch@motor-comm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 16 Oct 2026 14:51:04 +0000
+	s=k20260515; t=1792162301;
+	bh=FS4akPMmTKn/XxnyNATR0rYZuSEvn1Rz3NANKinyLK8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=gl2/odbWolkTtsI8DbH/fRUIGtRdbBf5mzbeQrIdAcoJ8kMHhYbh8fgY/b7d0baTm
+	 JNiochyMaCS/hBbtJdjoopVjJ6PP3wKR6fKAtWEU0bDniHx030vR/wjHPygwUAb+oH
+	 F8W8vXWxOvzfNXMDhMAPUhmMf953Bm9aReNRsA9Nq/XD9GrhrPdZogClQUL24phpsn
+	 N0Ib/K7TtcySCh0i8wLImPmLzr+wNCCoCP/ZborLM+k5l25Z5R/rte+skwiGAZ5Tgt
+	 c7VvJSEBxPBwgeWfeIsmj9FJVFdGR4AGqTzc4mugU6hIVj8GQFsPTf/vY4AbJqJ30x
+	 ISwvJ9JSGfpTA==
+Message-ID: <ec27fd26-1862-43cf-803a-428846d66663@kernel.org>
+Date: Fri, 16 Oct 2026 16:51:34 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 02/10] dt-bindings: pinctrl: Add devicetree bindings for
+ DM816x SoC Pinctrl
+To: Ettore Chimenti <ettore.chimenti@linaro.org>,
+ Paul Walmsley <paul@pwsan.com>, Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>,
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+ Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Christopher Obbard <chris.obbard@oss.qualcomm.com>,
+ Andrew Goodbody <andrew.goodbody@linaro.org>,
+ Linus Walleij <linusw@kernel.org>,
+ Rouven Czerwinski <rouven.czerwinski@linaro.org>
+Cc: linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-gpio@vger.kernel.org
+References: <20261016-patch-ektor5-dm8168-dts-v1-0-b4ce30217028@linaro.org>
+ <20261016-patch-ektor5-dm8168-dts-v1-2-b4ce30217028@linaro.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <20261016-patch-ektor5-dm8168-dts-v1-2-b4ce30217028@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] net: phy: motorcomm: concurrent probes bypass DT validation erro=
-rs
---
-
-commit 3e7bb92256550d445ce01db4ee78cd8ee5a8b2f1
-Author: Kyle Switch <kyle.switch@motor-comm.com>
-Date:   Thu Oct 15 14:50:21 2026 +0000
-
-    net: phy: Add driver for Motorcomm Quad 2.5GbE phy
-   =20
-    Add support for Motorcomm YT8824 quad-port 2.5G PHY to the existing
-    motorcomm driver, using the phy_package helpers for the shared top
-    extended register space.
-
-> diff --git a/drivers/net/phy/motorcomm.c b/drivers/net/phy/motorcomm.c
-> --- a/drivers/net/phy/motorcomm.c
-> +++ b/drivers/net/phy/motorcomm.c
-> @@ ... @@
-> +static int yt8824_probe(struct phy_device *phydev)
-> +{
-> +	struct device *dev =3D &phydev->mdio.dev;
-> +	struct yt8824_shared_priv *shared_priv;
-> +	int ret;
+On 16/10/2026 16:41, Ettore Chimenti wrote:
+> Add devicetree bindings for TI DM816x SoC pinctrl configuration.
+> Using same definition as OMAP2/3 except pullup/down enable macros, which
+> are inverted in this SoC.
+> 
+> Signed-off-by: Ettore Chimenti <ettore.chimenti@linaro.org>
+> ---
+>  include/dt-bindings/pinctrl/dm816x.h | 20 ++++++++++++++++++++
+>  1 file changed, 20 insertions(+)
+> 
+> diff --git a/include/dt-bindings/pinctrl/dm816x.h b/include/dt-bindings/pinctrl/dm816x.h
+> new file mode 100644
+> index 000000000000..15aa15bca9bd
+> --- /dev/null
+> +++ b/include/dt-bindings/pinctrl/dm816x.h
+> @@ -0,0 +1,20 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * This header provides constants specific to DM816X pinctrl bindings.
+> + */
 > +
-> +	ret =3D devm_of_phy_package_join(dev, phydev, sizeof(*shared_priv));
-> +	if (ret)
-> +		return ret;
+> +#ifndef _DT_BINDINGS_PINCTRL_DM816X_H
+> +#define _DT_BINDINGS_PINCTRL_DM816X_H
 > +
-> +	/* Ensure other PHY probes wait for shared mutex initialization. */
-> +	phy_package_lock(phydev);
-> +	if (phy_package_probe_once(phydev)) {
-> +		ret =3D yt8824_phy_package_probe_once(phydev);
-> +		if (ret) {
-> +			phy_package_unlock(phydev);
-> +			return ret;
-> +		}
+> +#include <dt-bindings/pinctrl/omap.h>
 
-[Severity: Medium]
-Can concurrent PHY probes bypass device tree validation errors here?
+I do not see this being used here, IWYU.
 
-If yt8824_phy_package_probe_once() fails (for example, if the
-"motorcomm,package-mode" property is missing or invalid), it returns an
-error and the current PHY fails to probe.
-
-However, the phylib helper phy_package_probe_once() has already set the
-'once' initialization flag. If another PHY on the same shared package is
-probing concurrently, it will wait for the package lock, observe the flag
-as set, and skip the package initialization block.
-
-Because yt8824_phy_package_probe_once() initializes the shared state
-defaults before validating the device tree:
-
-yt8824_phy_package_probe_once() {
-    ...
-    /* Initialise shared lock for YT8824 */
-    mutex_init(&priv->shared_lock);
-    priv->sds_initialized =3D false;
-    priv->package_mode =3D PHY_INTERFACE_MODE_INTERNAL;
-    ...
-}
-
-wouldn't the concurrent PHY successfully return 0 from yt8824_probe(),
-bypassing the explicit DT validation and operating inconsistently with
-the fallback state (PHY_INTERFACE_MODE_INTERNAL)? Should the driver
-record the initialization failure in the shared private data or clear
-the flag to prevent this split state?
-
-> +	}
-> +	phy_package_unlock(phydev);
 > +
-> +	return 0;
-> +}
+> +#undef PULL_UP
+> +#undef PULL_ENA
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261015145021.2216=
-003-1-kyle.switch@motor-comm.com?part=3D3
+Why are you undefining other macros? That's not a easy to follow code.
+
+
+> +
+> +/* DM81xx mux bit defines */
+> +#define PULL_ENA		(0 << 3)  /* Pullup enabled  => 0 */
+> +#define PULL_DIS		(1 << 3)  /* Pullup disabled => 1 */
+> +#define PULL_DN			(0 << 4)
+> +#define PULL_UP			(1 << 4)
+
+I do not see this used by drivers, so why do we need one more header?
+What part of SW are you binding here?
+
+
+Best regards,
+Krzysztof
