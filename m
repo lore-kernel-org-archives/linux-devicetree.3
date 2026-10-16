@@ -1,170 +1,190 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F3F6658E2AC;
-	Fri, 16 Oct 2026 17:43:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2AEE5AA69E;
+	Fri, 16 Oct 2026 18:03:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792172633; cv=none; b=VadxohE0jXR94CKGFRVl5A0vK8ueN4GYOdtOU8Z9rL+Sw1YdyE7semxY2FQpOkW/kvouClE/8WOAu0pAR07uq0HB8oI4A0RhtSkHgxDOGlO118FttsXd9Y0TQBfSf7v9NOoQsD/wl9aNoJH3XvvVDZxTkL+QQ2XD99tWFIQBHPk=
+	t=1792173833; cv=none; b=b7oVLeGKiDFAXxKNS6WV8BvmOPJAfAI3e78dt5xwK3SGdIekplBTkfue5ioU51Ls5vZEeDyrP65IMWjhfP3NlQsQu4/qEVjcBENTobCcKCfqwP3v1+eNUWe5Sull9RfboA0HbdXq94fUHlZhrejtPJJsQJ0wq9KnyG/Ufd7zatY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792172633; c=relaxed/simple;
-	bh=iLl+pZEoD2Vsymgc38jkD3tbsIaYo6YNMK9eLraqZMg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WYtdx9NelTUnkaFOKwHomBj6T5jeXLKWO17Bn5hMHhrU981kCll9zYDKNb5x0roHqVdjlB2ipmDaybUiR9UhJxmkM9TK5EQCjHl4fNhUVKSWnKODZoPg8lW0ViRURTyuI71gB6mehLA8y6cAJFpYa8H69/sB4EbO+PH8zVOEXuU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=jA7KvQmo; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792173833; c=relaxed/simple;
+	bh=QBYLfLJsLNk2FtJsexPJnPF0b30/u+TamAKMN3lJkIM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e5Ante550qqCUY33iI4cTUzjA1AGDYzAlAgmJoSHvdDBR2asn9Dgn/T3UboA3vcHMm7I8eX3Azy83HFycQxn/UjMU0RYGjgX15fiIk6hQeOvCf4JfzDsTIGoQfJYJOiaixi3CJouUkJKaZ8wAFh3sxjLzSXCRb8JARN5hqLKMmo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=O7mCONx+; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="jA7KvQmo"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 169781477;
-	Fri, 16 Oct 2026 10:43:48 -0700 (PDT)
-Received: from [10.33.8.90] (e142021.arm.com [10.33.8.90])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1E85B3F673;
-	Fri, 16 Oct 2026 10:43:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792172631; bh=iLl+pZEoD2Vsymgc38jkD3tbsIaYo6YNMK9eLraqZMg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=jA7KvQmo55cG34trJ2QczQIf6ukIMrcQfZT+hQotxxN3MDeoUVoNziIwKQKL5/1OY
-	 HbubVGGQn3wsxR9EB9HIQYoSTzc0z1Syi/nD/LsezMHuafcly2dQ7eKPzdZURbYnPP
-	 D9YkjaC6a118pHx3GmiQdKlITd/xKeIs4RZl/oXY=
-Message-ID: <b5f4bdca-28e8-4b66-853d-7a3dbbbdca07@arm.com>
-Date: Fri, 16 Oct 2026 18:43:46 +0100
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="O7mCONx+"
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id BACC982B68;
+	Fri, 16 Oct 2026 20:03:46 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id UwRSPM_91TBd; Fri, 16 Oct 2026 20:03:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1792173825; bh=QBYLfLJsLNk2FtJsexPJnPF0b30/u+TamAKMN3lJkIM=;
+	h=From:To:Cc:Subject:Date;
+	b=O7mCONx+YjYRaHLECXO56xmuguePcul6GS5Tk5WogRuKl/bJufJx9OamOkAg7/VX4
+	 zD0ykyxSCY4N2Ii8f/8wgKuBe24ig2mex4xhyzdjZdzek5aeKJkUPPE88P4OnVT2gb
+	 SMsZ3V8PLTrKoTYRr8gWnrYDMpiGdUr8csOEDi+5YLhkmhljTMLpIeJGYHPCcs6XGz
+	 qKBECCrPppul6qnxVrFTug9rPVyiJLRx6evL1fFjhzYLkLnSPuNUr53VhrSU3T64gh
+	 9SJYUaeyRQs9Ek0s/2e6Z1L1vm0p/HKkS4CplsQeZB7iLg/vsMcIedQb/JQUi0PHHc
+	 P/fhaWKzDEFWg==
+From: Rustam Adilov <adilov@disroot.org>
+To: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Stanley Chang <stanley_chang@realtek.com>,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Rustam Adilov <adilov@disroot.org>
+Subject: [PATCH v9 0/6] phy: realtek: usb2: support for RTL9607C USB2 PHY
+Date: Fri, 16 Oct 2026 23:03:08 +0500
+Message-ID: <20261016180314.31760-1-adilov@disroot.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 6/8] firmware: smccc: lfa: Register DT interrupt
-To: Sudeep Holla <sudeep.holla@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Salman Nabi
- <salman.nabi@arm.com>, Vedashree Vidwans <vvidwans@nvidia.com>,
- Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
- Nirmoy Das <nirmoyd@nvidia.com>, vsethi@nvidia.com,
- Varun Wadekar <vwadekar@nvidia.com>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, devicetree@vger.kernel.org
-References: <20260918141112.2115555-1-andre.przywara@arm.com>
- <20260918141112.2115555-7-andre.przywara@arm.com>
- <20260921-aloof-sympathetic-python-54aa7d@sudeepholla>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20260921-aloof-sympathetic-python-54aa7d@sudeepholla>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi,
+This patch series for Realtek USB2 PHY driver adds support for RTL9607C
+USB2 PHY.
 
-(sorry, forgot to send the reply earlier, that goes together with the 
-ACPI reply)
+RTL9607C is a big endian MIPS CPU which is quite far from RTD series SoCs
+supported by realtek usb2 phy driver, but the phy initilization is found
+to be very indentical in most areas.
 
-On 9/21/26 18:09, Sudeep Holla wrote:
-> On Fri, Sep 18, 2026 at 04:11:09PM +0200, Andre Przywara wrote:
->> The Arm Live Firmware Activation spec describes an asynchronous
->> notification mechanism, where the platform can notify the host OS about
->> newly pending image updates.
->> In the absence of the ACPI notification mechanism also a simple
->> devicetree node can describe an interrupt.
->>
->> Add code to find the respective DT node and register the specified
->> interrupt, to trigger the activation if needed.
->>
->> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
->> ---
->>   drivers/firmware/smccc/lfa_fw.c | 39 +++++++++++++++++++++++++++++++++
->>   1 file changed, 39 insertions(+)
->>
->> diff --git a/drivers/firmware/smccc/lfa_fw.c b/drivers/firmware/smccc/lfa_fw.c
->> index 7a55b4a6785d8..a23df331ffde9 100644
->> --- a/drivers/firmware/smccc/lfa_fw.c
->> +++ b/drivers/firmware/smccc/lfa_fw.c
->> @@ -16,6 +16,8 @@
->>   #include <linux/list.h>
->>   #include <linux/module.h>
->>   #include <linux/nmi.h>
->> +#include <linux/of.h>
->> +#include <linux/of_irq.h>
->>   #include <linux/psci.h>
->>   #include <linux/stop_machine.h>
->>   #include <linux/string.h>
->> @@ -871,6 +873,37 @@ static void lfa_remove_acpi(struct device *dev)
->>   }
->>   #endif
->>   
->> +static irqreturn_t lfa_irq_handler_thread(int irq, void *dev_id)
->> +{
->> +	int ret;
->> +
->> +	while (!(ret = activate_pending_image()))
->> +		;
-> 
-> Yet again trusting firmware too much!
+Most of the code was based on the Realtek's usb driver from the GPL tarball
+in [1] and adjusted to fit into the realtek usb2 phy driver code format.
 
-Yes, same problem as with the ACPI patch, and will be fixed by the same 
-new code.
->> +
->> +	if (ret != -ENOENT)
->> +		pr_warn("notified image activation failed: %d\n", ret);
->> +
->> +	return IRQ_HANDLED;
->> +}
->> +
->> +static int lfa_register_dt(struct device *dev)
->> +{
->> +	struct device_node *np;
->> +	unsigned int irq;
->> +
->> +	np = of_find_compatible_node(NULL, NULL, "arm,lfa");
->> +	if (!np)
->> +		return -ENODEV;
->> +
->> +	irq = irq_of_parse_and_map(np, 0);
->> +	of_node_put(np);
->> +	if (!irq)
->> +		return -ENODEV;
->> +
->> +	return devm_request_threaded_irq(dev, irq, NULL, lfa_irq_handler_thread,
->> +					 IRQF_COND_ONESHOT, NULL, NULL);
-> 
-> And where can I find free_irq() ? Yes devm_() can do that for you but how
-> does that work with races around removal of device for example. I prefer
-> to have free_irq() at the very beginning of lfa_remove().
+The patch series was split into smaller patches that add/change something
+in the driver that are not exactly related to RTL9607C and that also
+helps for easier review. That also means, patch 5 depends on all the prior
+patches that come before it.
 
-OK, added that.
+USB2 PHY on RTL9607C is primarly used for its internal OHCI/EHCI controllers.
 
-> 
->> +}
->> +
->>   static int lfa_smccc_probe(struct arm_smccc_device *sdev)
->>   {
->>   	struct arm_smccc_1_2_regs reg = { 0 };
->> @@ -913,6 +946,12 @@ static int lfa_smccc_probe(struct arm_smccc_device *sdev)
->>   			pr_info("registered LFA ACPI notification\n");
->>   		if (err != -ENODEV)
->>   			return err;
->> +	} else {
->> +		err = lfa_register_dt(&sdev->dev);
->> +		if (!err)
->> +			pr_info("registered LFA DT notification interrupt\n");
->> +		if (err != -ENODEV)
->> +			return err;
-> 
-> More code addition with absolutely no error handling 🙁.
+Tested on my RTL9607C based machine as a backport to 6.18 linux in OpenWrt.
 
-Right, but fixed now by the same code that fixed the ACPI part.
+[1] - https://github.com/jameywine/GPL-for-GP3000/blob/main/linux-5.10.x/arch/mips/rtl9607c/usb.c
 
-Cheers,
-Andre
+---
+Changelog in v9:
+- Patch 3:
+ - removed yaml prefix from the commit subject.
+- Link to v8: https://lore.kernel.org/linux-phy/20261012173739.36377-1-adilov@disroot.org/
 
-> 
-> 
->>   	}
->>   
->>   	return 0;
->> -- 
->> 2.43.0
->>
-> 
+Changelog in v8:
+- Patch 5
+ - changed 0xf3 mapping to index 11 (sashiko)
+- Link to v7: https://lore.kernel.org/linux-phy/20260815091340.26910-1-adilov@disroot.org/
+
+Changelog in v7:
+- Patch 1
+ - created a phy_reg_desc struct to get rid of duplicated fields across phy_cfg and phy_reg.
+ - added a default rtd_phy_reg_desc for all existing SoC phy configs.
+- Patch 2
+ - moved the read/write to a newly added phy_reg_desc struct.
+- Patch 3
+ - added an Acked-by tag from Manivannan Sadhasivam.
+- Patch 4
+ - replaced devm_reset_control_array_get*() with devm_reset_control_get*()
+- Patch 5
+ - added the read operation after write to FORCE_DISCONNECT_REG.
+- Patch 6
+ - added a Reviewed-by tag from Manivannan Sadhasivam.
+- Link to v6: https://lore.kernel.org/linux-phy/20260520175728.720877-1-adilov@disroot.org/
+
+Changelog in v6:
+Driver has been refactored with enabled SWAP_IO_SPACE config in mind.
+- Patch 1
+ - fixed one line exceeding 80 columns.
+- Patch 2
+ - changed to use the introduced read/write functions for reg_wrap_vstatus
+   instead of reg_gusb2phyacc0.
+- Patch 3
+ - properly added the review tag from v4 of patch series.
+- Patch 5
+ - fixed the lines exceeding 80 columns.
+ - changed msleep(10) to usleep_range(10000, 11000).
+ - changed the read and write functions to use ioread32be instead of __le32 
+   now that we are using them for reg_wrap_vstatus.
+- Link to v5: https://lore.kernel.org/linux-phy/20260420191941.81834-1-adilov@disroot.org/
+
+Changelog in v5:
+Mostly addressing LLM review
+- Patch 1
+ - changed int to u32 type for new_reg_req and vstatus_busy data fields.
+ - changed comments in rtk_phy_read/write from PHY_NEW_REG_REQ to phy_reg->new_reg_req.
+- Patch 2
+ - explained readl/writel native endianess issue in more detail.
+ - explained why vstatus register doesn't need byte swapping.
+- Patch 4
+ - moved reset_control_deassert to rtk_phy_init function to keep it outside of for loop.
+ - changed msleep(5) to usleep_range(5000, 6000).
+ - explained why reset_control_assert is not needed.
+- Patch 5
+ - explained readl/writel native endianess issue here as well.
+ - explained why FORCE_DISCONNECT_REG doesn't need byte swapping.
+- Link to v4: https://lore.kernel.org/linux-phy/20260406181228.25892-1-adilov@disroot.org/
+
+Changelog in v4:
+- Patch 2
+ - moved the le variations of read/write functions to Patch 5 where it is actually used because
+   otherwise, it results in unused errors when only Patch 2 is applied.
+ - updated the commit message to to point the reason for le32 wrappers around readl/writel.
+- Patch 3
+ - added "Reviewed by Krzysztof Kozlowski"
+- Patch 5
+ - updated the commit message to include the addition of little endian read/write functions from
+   Patch 2.
+- Link to v3: https://lore.kernel.org/linux-phy/20260402154414.196012-1-adilov@disroot.org/
+
+Changelog in v3:
+- Patch 2
+ - renamed phy read and functions to "rtk_usb2phy" to not collide with networking API functions
+ - fixed the sparse warnings by creating intermidiate "tmp" variable and then pass it to writel
+ - sligtly adjusted commit message to instead use "default read" not "default phy_read"
+- Patch 4
+ - added the check for reset_control_deassert() just in case
+ - changed mdelay(5) to msleep(5)
+ - changed dev_err and return combo with one dev_err_probe for phy_rst
+- Patch 5
+ - changed mdelay(10) under force_host_disconnect to msleep(10)
+ - removed struct fields with false like force_host_disconnect and more in rtl9607_phy_cfg
+- Patch 6
+ - updated the #endif commend to now include MACH_REALTEK_RTL to reflect if on top
+- Link to v2: https://lore.kernel.org/linux-phy/20260327160638.15134-1-adilov@disroot.org/
+
+Changelog in v2:
+- Patch 3
+ - removed the line about OHCI/EHCI controllers from description.
+ - set the resets to false for RTD SoC devices and changed the
+   commit message to reflect that.
+- Link to v1: https://lore.kernel.org/linux-phy/20260326193419.48419-1-adilov@disroot.org/
+
+Rustam Adilov (6):
+  phy: realtek: usb2: introduce phy_reg_desc struct to the driver
+  phy: realtek: usb2: introduce read and write functions to phy_reg_desc
+    struct
+  dt-bindings: phy: realtek,usb2phy: extend for resets and RTL9607C
+    support
+  phy: realtek: usb2: introduce reset controller struct
+  phy: realtek: usb2: add support for RTL9607C USB2 PHY
+  phy: realtek: Make configs available for MACH_REALTEK_RTL
+
+ .../bindings/phy/realtek,usb2phy.yaml         |  25 ++-
+ drivers/phy/realtek/Kconfig                   |   4 +-
+ drivers/phy/realtek/phy-rtk-usb2.c            | 154 ++++++++++++++++--
+ 3 files changed, 165 insertions(+), 18 deletions(-)
+
+-- 
+2.56.0
 
