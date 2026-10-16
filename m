@@ -1,177 +1,147 @@
-Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com [209.85.222.43])
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7F4B4EFFCC
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 16:08:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 411214FD78B
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 16:08:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792166916; cv=none; b=dIr0jrAGM57JHahDNCLJ3PXfo34OTTOzWHYO/xQQPg4fKNAcBBKZWtsMlKTfp8sJVAQGGJjBnAiqxHWuiGzXaX5oAsn5sfLmaeUX2SmGUeGYQ0pMLj/sWdf/LS67523G5nVxxM4oUSSUuMgNPijGKYlWvUm1Dj4l3iV058xv0SU=
+	t=1792166938; cv=none; b=i8sT0YqntHticeZPWScl+/OZEAEDJuw+yByxurUYjNjJUMbROqF142YgXFFEVWe1fLVrnFubhMoM9ZB2pipgRSNtYr+XtJPq1vyfvw19F4VJ7wp7p+rJiOrE6J6+HoyiXs6fGBY4tjqg8whOMZbOYhhczqQa9Yuvly2ckmXaAtI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792166916; c=relaxed/simple;
-	bh=8A1d+qHHMFQaSJTrPG2tv/uY9JQA2ctyWGVH/vz47R4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=i35J9tKTGBxsI4GpJSal6yNj2JJCgJdE5uWbsGtexuZBgvnOTG+DusPFPIuuybJXkZLs4/ORt/d0wK8EeTEBydXZfD7LiLbQexTul6GMK7gctDiDcu/1Hbjy9orbieTWBAh165/ETHpWT/nn0E5mVs2ulStpwuYUFu/Iv0hstPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+	s=arc-20240116; t=1792166938; c=relaxed/simple;
+	bh=n1Dj36+CCyvzyVqupK5U7F0BlEQjzHPDpXfS7N5ssjs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uTKEA5tGvDpyd8wXheHQ2Omspq7wASe/OcXFhjDHuvyHeSu5E/RtMpp9HweLZe1WAUOviOiPZI+INAFYTJEy1SUGqtjFztHfWR15sDM00Nzp/am+tSJcSUXamxQtY6OzL0qTeB4SYsd3ywvdoK0CGZlCFrosJs2LLHlIa3dgNVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=plBJ3L2c; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f43.google.com with SMTP id a1e0cc1a2514c-9908c849564so46305241.3
-        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 09:08:34 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="plBJ3L2c"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48e011d370dso12900f8f.0
+        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 09:08:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792166935; x=1792771735; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Y3yD2VSIymN6B+DlBxpDWOb8du1EZz/KqBX+LpXERvI=;
+        b=plBJ3L2cKz9ck7x8jQY/AJnAoCNaJpqUeraxps9+iq8TyggaQSor+T41+rIo2UpUbl
+         LFzrQ4OwkVQ9X+mAVjoQahekWOgSAHpElKluF9sEiB0Qk4Cr0l6eifAgaSLjRpLsDuYs
+         alPjoHIIC2dEpRPfm3fNtPpXL50C9Jn/xrZj6A7HqsrZEszNd7UvPifLaoB7JlQj4eMz
+         FcNYmQK2hphreYd5h4ecCojoxYF6ScjWYHEFzXuLj2a4M2vUlXB4uLkEI/gya7NF4ugw
+         Oif8oM1Efal/FbnD/SMmEs1UaX2s1Kj+lSgViTuZVM546ORqVIITcjuSPRbuLFmvcTx1
+         WTpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792166914; x=1792771714;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+EBoejTYsbTcBCosEo6zoo5hOecy+fLbrjfkaXbBdKs=;
-        b=MP2/NFt/Pc+PBz1j+ppdGejwTwFkooEjAxVvxvpKlNEmpi14em+SzcXYlanI1pKr5c
-         wFJkvCUql9OaQdufInLkE8duJhicmNDNnsrNUSnWePK0k8IejYdSE8M0oEEXUVGsEXMU
-         +3Sx4sXDgmsOpwX+F3Y+b577etIqABFUdPJ8V3TEDn7iq3SttPX0UhniEEqJ3tDr3Eyx
-         il8JvewjYrDY5ExXCE5pE8RFZpCsexXsRjzBYb6xc5OZGO51llSpp5GRca6GaB0o0IQs
-         Qck3qLJX5D6X77trXk3oTnlL+8gvdt8tLyKPpk9K2Spmmo8KgGGu0OoCg12QyLB50cYI
-         eyjQ==
-X-Gm-Message-State: AFq9FYLfTasrrupq02KGI/dl/rTaffN0YU0bKeEtuqwyZ8Bj6sj+yMsH
-	BIjXHsuVbEyRq9dtrCwMzSOKEc/ipT4J3oWVQZ3U+2b2ZDVljj35Nv+FnGhKBxrW
-X-Gm-Gg: AYBFou23nJ0rQiN7jhrEXQzZhLFLBdwq48fHeC/ukAVq5SkC3RGNzfhXLj/CIjPrZjO
-	01VBqexwYeKqcjdM7U8DUtO6DLVmWWBu2vOl6ZtSWZRpRElVeTEpxPb8HQ3wK53Y2dDMJaVVKAP
-	Ds6czQVm8lD0Cr+MA1afqJhsZ15/BepXx6BZE4OHocvfPQyiYIyT/+fCIpIb3smVGOV2i8X2/vD
-	UV3Z5E6cx1tyhtqJjGbz5BdO2UaQRZaGo0iXvNaOCv4j7LgaNygLo2uwMV1kJsXJts8C9IIb4M+
-	g29JMI8r8T+68R2bbUcRo39dtUeGx3NlSEsQAqUVzVBItREWAPSN+9vsP8mfmAhnpb3iunBTMMC
-	b5ltCIwYeAdQqteB6dUfK9Wm1rVWQZTrFhhryh7Dm36AVHTAliIJlRztnC94UcqC7v1gJk2vLwD
-	q5h0b/viAwIImvhOqJDbf7Fq0J0HwzNujON08fb8E2RIlmK7vFnjzEPWiICk9eVB0JwEdx3epJW
-	uwCczg3zpx9s3DBiBDTj+56fhB9fCzOhuzXWGSf7et5ikU=
-X-Received: by 2002:a05:6102:a47:b0:7a6:a24e:8140 with SMTP id ada2fe7eead31-7cc18c28d51mr1227524137.14.1792166913650;
-        Fri, 16 Oct 2026 09:08:33 -0700 (PDT)
-Received: from mail-vs1-f44.google.com (mail-vs1-f44.google.com. [209.85.217.44])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cc197e7362sm2463901137.4.2026.10.16.09.08.32
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 09:08:33 -0700 (PDT)
-Received: by mail-vs1-f44.google.com with SMTP id ada2fe7eead31-7907f01e487so3831137.2
-        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 09:08:32 -0700 (PDT)
-X-Received: by 2002:a05:6102:5ccb:b0:7a1:fa0f:1106 with SMTP id
- ada2fe7eead31-7cb3a1baeabmr5620835137.36.1792166912166; Fri, 16 Oct 2026
- 09:08:32 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792166935; x=1792771735;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Y3yD2VSIymN6B+DlBxpDWOb8du1EZz/KqBX+LpXERvI=;
+        b=vzsGR1ZNbrwzvuLBbkGBT1fj3stKs8n5GWF9dT1I0IJ9NwkvZapFCjJg6PQ17PxXLB
+         qg/VnJEJGpxgqsfqBIZA5vyhVbGP8MESjlbcZc9ToD+idpF6GVSXc9dVJBfaO0aK20sa
+         COua9ANWkcvh6zl7HRgomNYt/7aznfrNhHS93sZdJNeb44mNroxgQ5rcbV1ZloFT+CoT
+         4nAp30S94mr4ZYkZbgKZVMUTAbnsg1imL939UCHdUoU/W34PKh6zsIWLoG1us/lK4jFN
+         9KfD7Soe+/pRBjRf1KIkPwy4tAm22QRylGVz9eeTmFgNYZ9CJHcozrtxVN9cuZu1Vf/3
+         nFaA==
+X-Forwarded-Encrypted: i=1; AKwUvBw/Y68+wQ/C8EssySig26GLvpZgi6Qg8rte7qwrEAraiTgPZuQD3AWu+VwQy//8HQEnNAk/rVQJ5adO@vger.kernel.org
+X-Gm-Message-State: AFq9FYJZzrqtLYHefi87gm8OICol/6ey9VTlp7aZo858jzTd/2nR8AMw
+	JbBY+GZPizMvpRfpyehEd9yyVBujexuXf+GWERUQgJ2Cujflzz4iFffV
+X-Gm-Gg: AYBFou3RFW/e1M/V7kW6i+3oFxJqEySKxtOHx886bnMI+p1cljq6Sr2FKC0U5IXM2f2
+	PLei55ZyA/Tnoisf66laIeb2/p30hlWHP2F+Bk7jEazL1q8Ya3ektO3yUqmpFeJ7lDTRrG3LW3W
+	f8s/Vd+M5HVFts7J0apX1GKPxG6YihKxXSJPyy+8AnY76dAjO/669yw00DLNl1wuHf1kd78vA/L
+	bsXuE4yYelnyKqmnoVdIWTgG8fpIc8eBRIgUie46Bof4CqnPGVVL7ZkmAWoXTcpYOwBa44TlYUq
+	Mw/Ey4PFnKwuSilCho4DaYZRXZgvPTMoDUTQXOLdep+RS/6lNKgifdSVXlLGHBzSZSE8URfZ9Ip
+	h/1VloPOTG2MT1dxqG+PSYaQ5zCQu5yYc7OqlE/GK2Z2ZA2/cTNzaelRz3n6eyyDIALFQYrc8UJ
+	J2HiMN1v+8X532zAMJAkxITcehpou6FGotE1bAnjd8tuq0QEyczIATja07nrcj8mSroH/GChLJQ
+	CaZ2wqIGwAMdZflEdK1weE/h6cD7T513VkcuWbQlsKGghhWxpVFfEIwg2Hrb18JwewE6XQQwVAt
+	3ShZie8=
+X-Received: by 2002:adf:f491:0:b0:488:7d08:edbc with SMTP id ffacd0b85a97d-48e07bc120cmr65033f8f.24.1792166935169;
+        Fri, 16 Oct 2026 09:08:55 -0700 (PDT)
+Received: from SP11X1e.cable.virginm.net (cpc99340-croy26-2-0-cust244.19-2.cable.virginm.net. [80.193.62.245])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd471b06sm6766200f8f.5.2026.10.16.09.08.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 09:08:54 -0700 (PDT)
+From: George Neacsu <geocausa@gmail.com>
+To: Bryan O'Donoghue <bod@kernel.org>
+Cc: Sergey Lebedev <lsa.uz@pm.me>,
+	Andre Gilerson <andre.gilerson@gmail.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	German Pablo Lindo <germanpapulindez@gmail.com>,
+	linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 2/2] media: i2c: imx681: Add C-PHY support
+Date: Fri, 16 Oct 2026 17:08:53 +0100
+Message-ID: <20261016160853.193378-1-geocausa@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <11f1a19d-7d57-497f-826e-901f9f88b99b@kernel.org>
+References: <20261015-imx681-x1e-v1-0-fd22f5f3b0c5@gmail.com> <20261015-imx681-x1e-v1-2-fd22f5f3b0c5@gmail.com> <11f1a19d-7d57-497f-826e-901f9f88b99b@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1792163045.git.geert+renesas@glider.be> <b9e68c8df1e545191e0359dba23fe53de31a4ce5.1792163045.git.geert+renesas@glider.be>
- <sashiko-outbox-174595@kernel.org>
-In-Reply-To: <sashiko-outbox-174595@kernel.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 16 Oct 2026 18:08:20 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWyr7MN3Q_p2xYWukmbwdSPCmR90++AJWohsS7TWqxp-g@mail.gmail.com>
-X-Gm-Features: AclHuK94_MM_qmX3UtowEDModV_nQO7Yoe2DHkKw0PQAKUP0rJtGNhubnONEYfQ
-Message-ID: <CAMuHMdWyr7MN3Q_p2xYWukmbwdSPCmR90++AJWohsS7TWqxp-g@mail.gmail.com>
-Subject: Re: [PATCH v4 4/8] reset: Add reset_control_get_from_provider_exclusive()
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, robh@kernel.org, 
-	conor+dt@kernel.org, wsa+renesas@sang-engineering.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Sashiko,
+Hi Bryan,
 
-On Fri, 16 Oct 2026 at 18:02, <sashiko-bot@kernel.org> wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [Medium] of: memory leak of device node reference on error path
-> --
->
-> commit 6e1c5e27c808997c3ce5fe5fc257fedbfabb6954
-> Author: Geert Uytterhoeven <geert+renesas@glider.be>
->
-> reset: Add reset_control_get_from_provider_exclusive()
->
-> This patch introduces reset_control_get_from_provider_exclusive() to allo=
-w
-> looking up and obtaining an exclusive reference to a reset controller fro=
-m
-> a provider. It modifies the existing __reset_control_get_from_provider()
-> helper to support this lookup.
->
-> > diff --git a/drivers/reset/core.c b/drivers/reset/core.c
-> > index 0e11f4c81c10d..421bcc4c89cc2 100644
-> > --- a/drivers/reset/core.c
-> > +++ b/drivers/reset/core.c
-> > @@ -1153,18 +1154,30 @@ __reset_control_get_from_provider(const struct =
-fwnode_reference_args *args,
-> >       if (WARN_ON(args->nargs !=3D rcdev->fwnode_reset_n_cells))
-> >               return ERR_PTR(-EINVAL);
-> >
-> > -     if (rcdev->of_xlate && is_of_node(consumer)) {
-> > -             struct device_node *np =3D to_of_node(consumer);
-> > +     if (rcdev->of_xlate && is_of_node(fwnode)) {
-> > +             struct device_node *np =3D to_of_node(fwnode);
-> >               struct of_phandle_args of_args;
-> >               int ret;
-> >
-> > -             ret =3D of_parse_phandle_with_args(np,
-> > +             if (consumer) {
-> > +                     ret =3D of_parse_phandle_with_args(np,
-> >                                        gpio_fallback ? "reset-gpios" : =
-"resets",
-> >                                        gpio_fallback ? "#gpio-cells" : =
-"#reset-cells",
-> >                                        gpio_fallback ? 0 : index,
-> >                                        &of_args);
-> > -             if (ret)
-> > -                     return ERR_PTR(ret);
-> > +                     if (ret)
-> > +                             return ERR_PTR(ret);
-> > +             } else {
-> > +                     of_args.np =3D of_node_get(np);
-> > +                     of_args.args_count =3D args->nargs;
-> > +
-> > +                     for (unsigned int i =3D 0; i < args->nargs; i++) =
-{
-> > +                             if (args->args[i] > U32_MAX)
-> > +                                     return ERR_PTR(-EINVAL);
->
-> [Severity: Medium]
-> Will this leak the device node reference acquired above?
->
-> When consumer is NULL in __reset_control_get_from_provider(), the code
-> acquires a device node reference via of_args.np =3D of_node_get(np).
->
-> If an argument exceeds U32_MAX, the function immediately returns
-> ERR_PTR(-EINVAL). This early return skips the of_node_put(of_args.np) cal=
-l
-> at the end of the block, permanently leaking the OF node reference count.
+The values come from two places on this machine: the Windows sensor
+file, and a kernel debugger attached to Windows while it streamed. They
+were then checked against the CCS definitions and on Linux. In detail:
 
-Yes it will!
+1. The Windows sensor file. The Windows install on this Surface Pro 11
+   has a Qualcomm sensor module file for the IMX681 (SONY0681). A script
+   here parses its register tables: an init table of 364 writes and six
+   per-mode tables of 68 writes. Nothing from the file is
+   redistributed; only register values are used.
 
-This can easily be fixed by moving the for-loop to the top of the
-branch, i.e. before the of_node_get().
+2. Windows observed live. With a second machine as kernel debugger, I
+   set a breakpoint in the Windows front sensor driver just before it
+   applies the mode table, started the stock Windows Camera app, and
+   dumped the 68 writes it sent. They match the file's 3840x2160 30 fps
+   mode exactly. That live table includes
 
-BTW, perhaps the time is ripe for helper functions to convert between
-fwnode_reference_args and of_phandle_args?
+     0x0114 = 0x00 (CSI_LANE_MODE),
+     0x0306/0x0307 = 225, 0x030d = 3, 0x030e/0x030f = 375,
+     line length 6752, frame length 3554.
 
->
-> > +
-> > +                             of_args.args[i] =3D args->args[i];
-> > +                     }
-> > +             }
-> >
-> >               rstc_id =3D rcdev->of_xlate(rcdev, &of_args);
-> >               of_node_put(of_args.np);
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1792163045.=
-git.geert+renesas@glider.be?part=3D4
+   In separate debugger sessions I read the CSIPHY2 registers while
+   Windows streamed. The receiver was in C-PHY mode, and its settings
+   match Qualcomm's GPL 2.5 Gsps C-PHY table (121 registers, compared
+   from two snapshots).
 
-Gr{oetje,eeting}s,
+   CSI_SIGNALING_MODE = 0x03 is in the init table. I have it from the
+   file, but I did not catch Windows writing it live.
 
-                        Geert
+3. Why 0x03 means C-PHY. 0x0111 is CSI_SIGNALING_MODE and 0x0114
+   CSI_LANE_MODE in the MIPI CCS register map, as in
+   drivers/media/i2c/ccs/ccs-regs.h: 2 is CSI-2 D-PHY, 3 is CSI-2 C-PHY
+   (0 and 1 are the old CCP2 modes), and the lane mode is the lane or
+   trio count minus one. This agrees with the hardware: Sergey reads
+   back 0x02 and 0x01 on the Intel model while streaming two D-PHY
+   lanes; the Windows receiver here runs C-PHY on one trio; and under
+   Linux, with 0x03 and 0x00, the sensor streams into the PHY in C-PHY
+   mode.
 
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
+4. The 2.4 Gsym/s is calculated, not measured: 19.2 MHz / 3 * 375 from
+   the OP PLL values Windows writes. The receiver does not report the
+   rate, and it locks over a wide range of settle counts, so a working
+   capture does not prove the exact value. It does fall in the 2.5 Gsps
+   bin that Windows programs into the receiver. Likewise,
+   6752 * 3554 * 30 = 719.9 MHz matches v8's pixel rate, and the pixel
+   PLL (225) is the one v8 already writes.
 
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+In the next version the commit message will say which values come from
+the live Windows capture, which come only from the sensor file, which
+are calculated, and what was checked on Linux. The extraction and
+capture process will also be written up in the project repository and
+linked. I will also read the CCS capability register 0x1602 (bit 3 =
+C-PHY) here, and Sergey may be able to read it on the Intel model.
+
+Thanks,
+George
