@@ -1,122 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7377057F726;
-	Fri, 16 Oct 2026 18:38:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6A7F48DB27;
+	Fri, 16 Oct 2026 18:40:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792175898; cv=none; b=pxKqqgIrd93rna0Hf2wk6AE6Wf5ubSUWmvgZ/ARpr2dZl3a6c3tIaJGchbjcGX5KkT6UyblsoCbVbfcOuy4HRVKpjj4KhITD25YT/gmJhfr6b1zuK2QsyI0lHeC84Wm4bE2w/RRGcy7T1Rwpc3Hy5KkjUUotAnfTJjITiRQSc7Y=
+	t=1792176040; cv=none; b=BZiL+B1mgQNlGoVB/v5fBT1n/s4YZ5JfyRk1VwCYOmD16+nZPDjhlvPth03RpjuO6nyTvWjt2lpYEEcOLn8ZVLQ1izPYxaQDc2YYsR3ez7lP0ReldI+3cCKqdIYHXG6TsOBZ7aH94+JQPZvTSZsKjcz2Z4ykppPSMJA2ueJHqsU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792175898; c=relaxed/simple;
-	bh=8jLj3MjalKPCPoO+nVLLlIVoLjQ01kBztc/rv/ngHOs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=MVPlOFLmt5P79DI+yFeR687CBIBa16HUsd6S5SKJNfsL+W4xo9D5fW2iVwzrZb4vz576N7BodZVNb8DPFW5tFow4MCYfBcrZHtvxRp2HcLpu/ciu8TwY7hPKOr19uk+OpY5bii8y0/rn1X3/dc71bw0yyC+vTN4ANbOGYvNe+RI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G8cGYYMR; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792176040; c=relaxed/simple;
+	bh=9Eg42LDh4v3hlVQ0F8U/iaYgrtW9tdlZ6EPheDImvjg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LMfi2Az+/wWW24qePddhknBrTh3d4upZeS1ObTIlFfNG21qiClNUqzs8IvjTHrL5QRm/rQNas+C9vor517HeDVCduhGINPxklvZrosj4Ja8eFGCDBfHnmB0TGZmJ64ZLAAYXmBM0iQOz4tF1mwWwEX7FWc2a7G9gru0FXwWAbWM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=w2ppnyJF; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G8cGYYMR"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DC25CC2BCF4;
-	Fri, 16 Oct 2026 18:38:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792175897;
-	bh=8jLj3MjalKPCPoO+nVLLlIVoLjQ01kBztc/rv/ngHOs=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=G8cGYYMRA4Zquo+LjLMrt9hEkK8wZCTP7nJY5KeJVCGNXll6/k8WzSBG7Asf0645r
-	 zZBX7uO6Fmm1JuKJyuxpEDj9s8D1DKVr+2yITACea2UZjZayWO21EQrlxVEuqiITH5
-	 BSodY7uHR2DTgRLVXyB0mx0Z5GIeoTCSiXmNn/QB8SNVIS49SYDK3umyD2rJqUkEft
-	 DUx21qT6GyjOae6JTtkhtIjwVcMu4jWkjkfXS8JX9Aig+BcedIUhhxISFPJmaebWiZ
-	 4bO2jq0WRopeeQizrOz0g4OCAbMVqBuJwvjeEw+QvNDx0X+rQdqdogVQahDJpvaAJR
-	 md9kGvVyBkzEA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B9955CCF2C3;
-	Fri, 16 Oct 2026 18:38:17 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Fri, 16 Oct 2026 20:38:16 +0200
-Subject: [PATCH] arm64: dts: qcom: sdm845-xiaomi-beryllium: Enable gpi_dma0
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="w2ppnyJF"
+Received: from francesco-nb.. (93-33-119-6.ip44.fastwebnet.it [93.33.119.6])
+	by mail11.truemail.it (Postfix) with ESMTPA id 993AD1F81F;
+	Fri, 16 Oct 2026 20:40:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1792176028;
+	bh=dhz5odU/pdgYQBlgWm1u3nk3BZVZRJKLgTbbju+m8rg=; h=From:To:Subject;
+	b=w2ppnyJFFmMCnalDgb3D0VJPrZbpvkFuJS3v0ZqeyNgaLPmbWNrgN2u38AmxEnKxs
+	 xSlFM0002JM7M6VAIQKyuLH2/s+fzT6cQcNw9ZMHlb8+PsHjgZLqaUvfZM40KYAQ1F
+	 x+YxXfz2e13QrMlc2YMXt17wKGwt31pJAZW5jYhbBU6cJGIFJqtL3Q2Ksn+5DKqKdc
+	 yaVpknB7bwl3703D1yDUEvxM5uX8fAPvjUyZfB6QZnBUCsMmpCJ+ku++WpnQV38B04
+	 qogJ8KzxiBbGgSuFSHS0lu12J2mtehrYqVwTQtnbJdBULbSPIAMRpLHVNoo/Omcfgg
+	 4K96AlnWaXIwg==
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] arm64: dts: freescale: Remove Toradex OSM Development Board ETH_A PHY interrupt
+Date: Fri, 16 Oct 2026 20:40:17 +0200
+Message-ID: <20261016184020.46763-1-francesco@dolcini.it>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-beryllium-gpi-dma-v1-1-76ade615c571@ixit.cz>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMSwqDMBRG4a3IHfdCIhjbbkU6SOKvvcUXSS2Ku
- HejHX6DczaKCIJIz2yjgJ9EGYcEfcvIv+3QgqVOplzlRitt2CGsXSdzz+0kXPeWH7YovcHdKQ1
- K3RTQyHI9q9ffcXYf+O85on0/AF7rWE51AAAA
-X-Change-ID: 20261016-beryllium-gpi-dma-9a57c6e8b01e
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1201; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=HwH4YI5IKv6HnqqoFZ+3iahgGI8sqyxwXnRYzgF5iiY=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq0m8Yqwi4x9Ve+naf3Pt1RbroBqr8zonoesFqM
- odcYr4RzyeJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCatJvGAAKCRBgAj/E00kg
- ckbaD/4z/PP20vvbcLvEyVP2FPG2WKBaFADCf5oHxa1AKfASVIQiF5cJOetGhJ3ZLI2AdOwLi0N
- Cy/fQAR6Zh9taCPsKNNYqjsav4Qyhd+/pjdBE9wP3lbejTAmdRYofrXW9u839FmfOsQcgK1pvLo
- UTSQPxPNYSa+eY8nnj32WjLdw8qkw2msNTpmtLP+C661zU7cEoe1kbd0AhOeHziJBkDzkzCNTtt
- udtVe70OVJBYpwXB7d7YCewVQkCTKMClIcC8EhNuzYSSN64+AgT26uyyxT+hEAkeBfns6Ami//r
- EH1q0XLdA76RdbvbWOWEiwTSUH+jNecnR5dlktwKQAtGbLokFywuJG5lc8XuYhlrFB2IALhcoYX
- GYwNuH1rnBrp+RPfA2vQQtvsF+wd8yQbD+x79x+2MOt1Q+o+PpcNs2dSGPmlFspMugrSbxhMBM/
- 4DIUoVGVa+N3GvaVnsDsNGuCm1dCkQ2tzyRBWwcgYZNH855EQn62mFvxa1zmOGnNoUzGrueH3OP
- IKytaLOq/yy6kPjLjFs/YJZYAN9mXxg8gWv+O8Du6dTV3aA13u/34XYC80N0uWfLDFaNekGfgeH
- rmqv1UbOLiXa2yIHhkN+jk4g0wQmEsdh8NNwSBnCLNwjFk+kQVfFay3uYQoPgXim9clghNUj6bk
- /3gw0jPmqjH9Hxg==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+Content-Transfer-Encoding: 8bit
 
-From: David Heidelberg <david@ixit.cz>
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-Used by not yet introduced tas2559 codec connected to the i2c5.
+GPIO_A7 is a boot strap on the OSM iMX95 module. The pull-up on the OSM
+Development Board Ethernet PHY interrupt line causes the module to enter USB
+loader mode instead of booting normally when the reset button is held for more
+than 0.5 seconds.
 
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
-We don't have upstream tas2559 driver which would use it yet,
-but the gpi_dma0 is confirmed to be used, thus let's enable it.
----
- arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi | 4 ++++
- 1 file changed, 4 insertions(+)
+On the OSM Development Board the PHY interrupt line reaches GPIO_A7 through a
+jumper. Boards are shipped with this jumper removed to avoid the strap
+conflict, with no change to the board revision, and GPIO_A7 is available in
+the jumper area for general-purpose use. A future board revision might drop
+the PHY interrupt connection from the schematics altogether.
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
-index 35babe8c5f757..d57851b0b9419 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
-@@ -264,16 +264,20 @@ &cdsp_pas {
- &gcc {
- 	protected-clocks = <GCC_QSPI_CORE_CLK>,
- 			   <GCC_QSPI_CORE_CLK_SRC>,
- 			   <GCC_QSPI_CNOC_PERIPH_AHB_CLK>,
- 			   <GCC_LPASS_Q6_AXI_CLK>,
- 			   <GCC_LPASS_SWAY_CLK>;
- };
- 
-+&gpi_dma0 {
-+	status = "okay";
-+};
-+
- &gpi_dma1 {
- 	status = "okay";
- };
- 
- &gpu {
- 	status = "okay";
- };
- 
+Since the OSM Development Board is shared across OSM modules, switch the
+Ethernet PHY to polling on OSM iMX95, iMX93 and iMX91. Polling works
+regardless of whether the jumper is fitted, so this is transparent across
+existing and future board revisions.
 
----
-base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
-change-id: 20261016-beryllium-gpi-dma-9a57c6e8b01e
+v2:
+ - explain the jumper and board revision situation in the commit messages
 
-Best regards,
---  
-David Heidelberg <david@ixit.cz>
+v1: https://lore.kernel.org/all/20261014075812.29154-1-francesco@dolcini.it/
 
+Francesco Dolcini (2):
+  arm64: dts: freescale: imx95-toradex-osm-dev: Remove ETH_A PHY
+    interrupt
+  arm64: dts: freescale: imx93-imx91-toradex-osm-dev: Remove ETH_A PHY
+    interrupt
+
+ .../freescale/imx93-imx91-toradex-osm-dev-common.dtsi    | 6 +-----
+ arch/arm64/boot/dts/freescale/imx95-toradex-osm-dev.dts  | 9 +++++----
+ 2 files changed, 6 insertions(+), 9 deletions(-)
+
+-- 
+2.47.3
 
