@@ -1,220 +1,141 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C08113B95E4
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 03:23:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E7D1331A66
+	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 03:35:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792120990; cv=none; b=IXPUWjglZN5+HXVnH68KS9Jbbsa5qVVwg1KXsol+zVwC+TYBrf2lpDAUAWpk3CzQiG0HDFkOm0Iv5Z6a4S35PTqUpp2SQp/TMPJp2l3W9OTvkN4uinqEw3T1zorx/j3kdFyV2evLYG1JpATQP8TUV1xgdU1TCbTsmEZKfAkF9AA=
+	t=1792121750; cv=none; b=t8D2JUEwgQnEUHq6FwkhxXTAItGhUhnc9KRIT6kec84AA2xL/gKxC5JjRz7CKcyoDSsQxBFvnv7mCQyZl1alzZ8pBfDcsC/yU5jq0eQT9DEx/IwlsPTboGrQtBWMZ1kZJ6lvA/+uUTLcsGkD+ThnqWOss3uCARSeSTMw6DGSrz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792120990; c=relaxed/simple;
-	bh=oSOCS0VBj3DNzjAR+TkGA03Y0EsosNVo9a1JHQfcHLQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=p2rpkMv3vmY0kXkwD4U98eVqw7isEIU0XcijQpIzWBZOYSdhlk0UJfUH7jnBrKd1ngWGBtVMaua724xJkHB2mONozbvV6ZJoqzFV0ZDsrFqiGDOEIc0p7wpOJqH+uQpxcQFU/Uu5DD5YrCuKaR8YKjT9074HPmFtrwxlQrzz2+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JWE75Mf3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AdTUNc9N; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792121750; c=relaxed/simple;
+	bh=p2bf+uKbnLz2859XZOFpg6upTjRL/4qhyCqpdIx63tI=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=EQq+2XXDZR1wefDbwgj2hrSY0z90fR0XDzXo/2koM6/jwSylknOrxsEpbtEMcFsUrCmHWZfnc00qCJzHgGo1OdhMytQU1qVfeolXZlemD70Dad+nIPC4/ofFX5XXvIC8TArTRFGTYSS5kJA4vz+bBwIl+5yGcwNgzE8MBtRbgZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cuU0nGU6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JWE75Mf3";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AdTUNc9N"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69FKKCca3800036
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 03:23:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	LlYuG6WB38gIzmIC/YDa25c8nS2xNNSGEFoJZF8X6UA=; b=JWE75Mf3H5ggkTcH
-	KL6JvNmkPzi5ayxxi8n675rcfS3aX3hLGdEo4WffSfbXiqA6q859/N0xixZYx3sM
-	jPpPevJpqO9HglFL44Z+dcb3bDLK+q8z/6d2HbP3mCGRklU4ixQR5NtypDcmq3H2
-	M1vW4bn9A4HADRXwrknJt4ydJ77L+aj/BGawS847xUPdk07ub/qjmKS5cP+V6XoR
-	eWbwrJumyuopgyZpeCSmnFX/y6lCngfcVV0XXM8oRdCYX8mhU0Rpa8irBb3Hpaxu
-	+ivcmQIp3WC6QRStiKbvffz74US5gUEoGl3Wv2RTneRyv69iQLZPkNidJ86sdqD0
-	v/8hfQ==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb5se99tg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 03:23:08 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso12164301eec.1
-        for <devicetree@vger.kernel.org>; Thu, 15 Oct 2026 20:23:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792120987; x=1792725787; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LlYuG6WB38gIzmIC/YDa25c8nS2xNNSGEFoJZF8X6UA=;
-        b=AdTUNc9NTUli/+e2DWGMRPagpYoUflhOm84GFz8WXNtl3cHXJ2Cdqu1szoFTYIKX6n
-         RHB14HnN0o0Slj1NFERq2sKkFoRneG2LP04jz29sIOX4k/tmqWcW0vWRvreu0lfCKdax
-         I1UlE7c/VtHeIFnEIuAHiFu72F3uk/LHWLOTZ/+EaQfE7AjtUzbtj+D9ms0XVHKWhcRR
-         ygVPwpFOuZqe1L3uAO1bbSw+lP1x1tNZGU0stn8G7jaov12N3Z8AnwhApMjnLzKylzpC
-         9F3Ca/7UzhUOo0+IbBnL/F/uZerVWxeCsOFiD3ytwnvtTJAMW3T84txEuByrlD+XEeJy
-         dylw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792120987; x=1792725787;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LlYuG6WB38gIzmIC/YDa25c8nS2xNNSGEFoJZF8X6UA=;
-        b=IHcFVe1Ez+/q4nO/l8VuBxohyb7DrRMZXeGSpZ+fEGSTY4ihYwK4OLkLFRqaMii4YP
-         7J9FrwBi8MGVrXWUqjd1uWP+aN7jpptumE1Yw5YBUhAc+njTA+hcwfVe6hUHsnkdLEZF
-         wSNhlPxPdQ9YdqsahX9mePE6NO8uAidQlibmnbmz4anYPfRWZrUkWwsprQIVlvFr1p8L
-         XMtlyKNGPb/d1DPwqx4S2Vh1cNK0/t62gdk2COzoPuS2PYMpNKx6/tQN6iFHNdoYRPVK
-         YXmP27hxUsdfm/VEYdT21xwp/0twTE1OrcBN3UM1JnV16YRTyvOs17cxTnFQtyPMaRLK
-         Sn+w==
-X-Forwarded-Encrypted: i=1; AKwUvBz01v1fLLfxykMQuvPDQ5+LslHGkSqIz3cXGMZ98rVQIWiGGHak0NiV8UNpvvnI6mtQy4AqaVu6IUQY@vger.kernel.org
-X-Gm-Message-State: AFq9FYIfhjp6Kh59oYWJZKvImokmXOOh5SDsOgUm1ImmZOruwGk9KEMe
-	s/dhTTTl7rTsZYEAHISJJsT7V0CL9RpaW/VDbhZkYZqvPosn7uzxUbtLQ5tZ7MQ9chBgRX24tuv
-	IyaMMfh1YQw4BZdu/x34Ys+4G3zXrc4w0HUwe2uKrfZxCKlbbGfPVOBSrDJ7ucZzy
-X-Gm-Gg: AYBFou3zeCMGtYLnmTcTHNCgLuH00QA/OoKhvTS2aMP00k51AhxjjstHP3OjBAfQQ9C
-	t3fMYe3XP4qcvaDZEkXhyyW+eFC5oOG6jXpZMv3u6jmuzOIw9HRtsafP9RzehPgY0Xy4/jHNjOh
-	JYOGifhswo/oIfhYWi7x+4ckDwUKopUuAcFMBqButr54nNMvhScrp7rm60nkd5pxMHxcJbLYXeJ
-	CVpEs2YiZE4MgbvJNIeO/fzDLRZbdoWo7+ZH+EidLkPJRFS8uNbDt+9C6H6WTftppbLhJSPFrjv
-	7b9fSX5EcGZKJq/cKIeqXj/Zxiu5WnjkIYnjrZXdRbJueBHOxZG/Ulh2iosqbMG/hm0fX4ynH/d
-	zI7o+yMm8Ze5PSMrTmSdEW57l/VU9gASglOlnJ/hOZ1T2qdyd8aGCHyW/SIag/iRcMk+rNnmsAz
-	4d7ps8CeCHxXQtt+CixjJzjg==
-X-Received: by 2002:a05:7300:e9dc:10b0:35e:9c54:d41b with SMTP id 5a478bee46e88-35e9c54d579mr8417802eec.21.1792120987269;
-        Thu, 15 Oct 2026 20:23:07 -0700 (PDT)
-X-Received: by 2002:a05:7300:e9dc:10b0:35e:9c54:d41b with SMTP id 5a478bee46e88-35e9c54d579mr8417767eec.21.1792120986630;
-        Thu, 15 Oct 2026 20:23:06 -0700 (PDT)
-Received: from hu-aarasahu-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360819be413sm2256698eec.13.2026.10.15.20.23.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 20:23:06 -0700 (PDT)
-From: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
-Date: Fri, 16 Oct 2026 08:51:54 +0530
-Subject: [PATCH ath-next v2 17/17] wifi: ath12k: Add QCN6432 AHB support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cuU0nGU6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E84E81F000C4;
+	Fri, 16 Oct 2026 03:35:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792121749;
+	bh=2VVjx96MBJa+fOXRju1dumzIcwcEoEFjxUUJ5U6yucc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cuU0nGU6DIGvATzFa7BSEIJXD5mRfeOpFHDfsYjg0/YKhDKXWPoqrfzH4ajc769Wt
+	 SfWdeDuI4lGUIEkfYBLC/VOum+GyboQryI4vRmrNhIN1UASfQ+fxM0myQ1fMq45cEL
+	 gn2acNwDYSHjcpetsmOiMWY3OkgoSayi98osyfIBKS5/vKPyaEpsV8wZZD+jOFFCMl
+	 LZaSm1g6gFht5UMLNTzr75rww11XPBF6zOjBUgG2tgD42WqRhsubYngzQEEbf1VcUj
+	 URGFf/fvpMi0dXNeJ2392VGcv39EwGy64atLb+e9d+A88LPTHC7U1hV0EV14fbjwgt
+	 kTUkeqN7+vufw==
+Message-ID: <sashiko-outbox-173678@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH ath-next v2 09/17] wifi: ath12k: add support for unified
+ data-region memory allocation
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Aaradhana Sahu" <aaradhana.sahu@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261016-mpp-bringup-v2-9-f510c33bfcf5@oss.qualcomm.com>
+References: <20261016-mpp-bringup-v2-0-f510c33bfcf5@oss.qualcomm.com>
+ <20261016-mpp-bringup-v2-9-f510c33bfcf5@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 16 Oct 2026 03:35:48 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-mpp-bringup-v2-17-f510c33bfcf5@oss.qualcomm.com>
-References: <20261016-mpp-bringup-v2-0-f510c33bfcf5@oss.qualcomm.com>
-In-Reply-To: <20261016-mpp-bringup-v2-0-f510c33bfcf5@oss.qualcomm.com>
-To: Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>
-Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, ath12k@lists.infradead.org,
-        Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAxMiBTYWx0ZWRfX02ErkNdKaohw
- CDaWYcQcWovPkBm3uVQLBBX6rQ6IGsTe0qJEXnBczwGUyjnJEUrUHxDJLqRpLwAdIGT4epLS2pG
- cWyW+ZcRifMsnfT+JxOnl9oTHx2rh7I=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAxMiBTYWx0ZWRfXxiCPTnBtD9JL
- BnG6h12gCZMhuD2wNK6m3pfJcStp4gHbeei5JxIT0HVlx24MzJQBNjLDZVD75aI6pq9dBWnM2wS
- wl9r58C7W51jOG9YiMxn6TIqBRpRNg1T6yBIlueWgQ/OJxKOuLDzNRDOIosjDt37IVXF6LXA55P
- M/i3lbr+biaxx0Y3dYOH999VysgGT4jEcsSw6lX0Cwi0k3TfyQPgqjemu6XFDvA9zSmW+tsuGNE
- t8aHfJdDz9Ui4NBlpZVZWyDAL3rJzTmMaASKiT/4wUI2foAPrMPjx6MCwP7o21fzhCLiRcgcWn8
- qxcJTKSLriBcziz+ZDByDMTvLsIXdbLJaH28ShRg4rTVlUQaOzC46gtZZyQxNemjxia5lmKfsvi
- zpjBpVJat6gdQJNb+aagSBJcOQ4T3JhQve/a6lJ7YAYXLqSPKwQOJcGZs0UweqOX2tIi5M+fEin
- 5mvlzA3Jd234Pq0bqOw==
-X-Authority-Analysis: v=2.4 cv=P4yvFSAu c=1 sm=1 tr=0 ts=6ad1989c cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=R6GObu012cZLLkk_EdgA:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-ORIG-GUID: g7JAndhKesQ5QKw0cQgZq2KwSZW_ubRi
-X-Proofpoint-GUID: g7JAndhKesQ5QKw0cQgZq2KwSZW_ubRi
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0 clxscore=1015
- malwarescore=0 impostorscore=0 bulkscore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160012
 
-Add AHB support for QCN6432 by adding its hardware descriptor and
-device-tree compatible entry.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] ath12k: data-region loop incorrectly intercepts all memory chunk t=
+ypes
+--
 
-QCN6432 uses a hybrid bus where the CE memory is handled through the
-PCI interface. Skip the CE remapping and cleanup in the AHB resource
-initialization and deinitialization for hybrid bus devices.
+commit 1f2202b158e5c8168f0cae90faae57bce35a9612
+Author: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
+wifi: ath12k: add support for unified data-region memory allocation
 
-Also add the UserPD mappings required for the QCN6432 devices.
+This commit adds support for devices that provide M3 and calibration
+memory through a unified data-region reserved-memory node. If the
+data-region lookup fails, it falls back to the existing per-memory-type
+allocation scheme.
 
-Tested-on: QCN9274 hw2.0 PCI WLAN.WBE.1.6-01243-QCAHKSWPL_SILICONZ-1
-Tested-on: IPQ5332 hw1.0 AHB WLAN.WBE.1.6-01322-QCAHKSWPL_SILICONZ-1
-Tested-on: QCN6432 hw1.0 AHB WLAN.WBE.1.6-01322-QCAHKSWPL_SILICONZ-1
+> diff --git a/drivers/net/wireless/ath/ath12k/qmi.c b/drivers/net/wireless=
+/ath/ath12k/qmi.c
+> --- a/drivers/net/wireless/ath/ath12k/qmi.c
+> +++ b/drivers/net/wireless/ath/ath12k/qmi.c
+[ ... ]
+> @@ -2851,6 +2871,48 @@ static int ath12k_qmi_assign_target_mem_chunk(stru=
+ct ath12k_base *ab)
+>  	const char *rname;
+>  	int i, idx, ret;
+> =20
+> +	ret =3D of_reserved_mem_region_to_resource_byname(np, "data-region", &r=
+es);
+> +	if (ret && ret !=3D -ENODATA)
+> +		return ret;
+> +
+> +	if (!ret) {
+> +		avail_rmem_size =3D resource_size(&res);
+> +		for (i =3D 0, idx =3D 0; i < ab->qmi.mem_seg_count; i++) {
+> +			chunk =3D &ab->qmi.target_mem[i];
+> +
+> +			if (chunk->type =3D=3D CALDB_MEM_REGION_TYPE) {
+> +				ret =3D ath12k_qmi_map_target_mem(ab, idx, 0, chunk->size,
+> +								chunk->type);
+> +				if (ret)
+> +					goto out;
+> +
+> +				idx++;
+> +				continue;
+> +			}
+> +
+> +			if (offset > avail_rmem_size ||
+> +			    avail_rmem_size - offset < chunk->size) {
+> +				ath12k_err(ab, "failed to assign mem type %u req size %u avail size =
+%zu\n",
+> +					   chunk->type, chunk->size,
+> +					   offset > avail_rmem_size ? 0 :
+> +					   avail_rmem_size - offset);
+> +				ret =3D -EINVAL;
+> +				goto out;
+> +			}
+> +
+> +			ret =3D ath12k_qmi_map_target_mem(ab, idx, res.start + offset,
+> +							chunk->size, chunk->type);
 
-Signed-off-by: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
----
- drivers/net/wireless/ath/ath12k/ahb.c       |  9 ++++++++-
- drivers/net/wireless/ath/ath12k/wifi7/ahb.c | 11 +++++++++++
- 2 files changed, 19 insertions(+), 1 deletion(-)
+[Severity: High]
+The commit message states that only M3 and calibration memory should be
+allocated from the unified data-region, while other segments continue to use
+separate regions.
 
-diff --git a/drivers/net/wireless/ath/ath12k/ahb.c b/drivers/net/wireless/ath/ath12k/ahb.c
-index cecafc12e8a8..b55590c64a2c 100644
---- a/drivers/net/wireless/ath/ath12k/ahb.c
-+++ b/drivers/net/wireless/ath/ath12k/ahb.c
-@@ -1233,6 +1233,9 @@ static int ath12k_ahb_resource_init(struct ath12k_base *ab)
- 
- 	ab->mem_len = resource_size(mem_res);
- 
-+	if (ab->hw_params->hybrid_bus_type)
-+		return 0;
-+
- 	if (ab->hw_params->ce_remap) {
- 		const struct ce_remap *ce_remap = ab->hw_params->ce_remap;
- 		/* CE register space is moved out of WCSS and the space is not
-@@ -1289,10 +1292,14 @@ static void ath12k_ahb_resource_deinit(struct ath12k_base *ab)
- 	if (ab->mem)
- 		devm_iounmap(ab->dev, ab->mem);
- 
-+	ab->mem = NULL;
-+
-+	if (ab->hw_params->hybrid_bus_type)
-+		return;
-+
- 	if (ab->mem_ce)
- 		iounmap(ab->mem_ce);
- 
--	ab->mem = NULL;
- 	ab->mem_ce = NULL;
- 
- 	clk_disable_unprepare(ab_ahb->xo_clk);
-diff --git a/drivers/net/wireless/ath/ath12k/wifi7/ahb.c b/drivers/net/wireless/ath/ath12k/wifi7/ahb.c
-index 889361e637af..ae5380eb6f8f 100644
---- a/drivers/net/wireless/ath/ath12k/wifi7/ahb.c
-+++ b/drivers/net/wireless/ath/ath12k/wifi7/ahb.c
-@@ -18,6 +18,8 @@
- 
- static const struct ath12k_ahb_userpd_map ath12k_wifi7_ahb_userpd_map[] = {
- 	{ .io_start = 0x0c000000, .upd_id = ATH12K_AHB_USERPD_ID_0 },
-+	{ .io_start = 0x21e00000, .upd_id = ATH12K_AHB_USERPD_ID_1 },
-+	{ .io_start = 0x19e00000, .upd_id = ATH12K_AHB_USERPD_ID_2 },
- };
- 
- static const struct ath12k_ahb_desc ath12k_wifi7_ahb_desc[] = {
-@@ -33,6 +35,12 @@ static const struct ath12k_ahb_desc ath12k_wifi7_ahb_desc[] = {
- 		.ops = &ath12k_ahb_hif_ops,
- 		.supports_multipd = false,
- 	},
-+	[ATH12K_HW_QCN6432_HW10] = {
-+		.hw_rev = ATH12K_HW_QCN6432_HW10,
-+		.auth_enabled = true,
-+		.ops = &ath12k_ahb_hif_ops_qcn6432,
-+		.supports_multipd = true,
-+	},
- };
- 
- static const struct of_device_id ath12k_wifi7_ahb_of_match[] = {
-@@ -42,6 +50,9 @@ static const struct of_device_id ath12k_wifi7_ahb_of_match[] = {
- 	{ .compatible = "qcom,ipq5424-wifi",
- 	  .data = (void *)&ath12k_wifi7_ahb_desc[ATH12K_HW_IPQ5424_HW10],
- 	},
-+	{ .compatible = "qcom,qcn6432",
-+	  .data = (void *)&ath12k_wifi7_ahb_desc[ATH12K_HW_QCN6432_HW10],
-+	},
- 	{ }
- };
- 
+Since there is no check for the chunk type here, won't this unconditionally
+map all memory segments (including HOST_DDR_REGION_TYPE, BDF_MEM_REGION_TYP=
+E,
+and MLO_GLOBAL_MEM_REGION_TYPE) sequentially from the data-region?
 
--- 
-2.34.1
+> +			if (ret)
+> +				goto out;
+> +
+> +			offset +=3D chunk->size;
+> +			idx++;
+> +		}
+> +
+> +		ab->qmi.mem_seg_count =3D idx;
+> +		return 0;
+> +	}
 
+[Severity: High]
+Because the function returns 0 here after iterating all requested memory
+segments, does this entirely bypass the fallback code below that maps the
+dedicated q6-region and mlo-global-mem regions?
+
+Could this lead to device initialization failure if the data-region is
+exhausted, or place hardware-specific memory segments at incorrect physical
+addresses?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016-mpp-bringu=
+p-v2-0-f510c33bfcf5@oss.qualcomm.com?part=3D9
