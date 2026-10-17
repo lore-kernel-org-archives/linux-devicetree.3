@@ -1,304 +1,171 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010043.outbound.protection.outlook.com [52.101.84.43])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02E9D3148D8;
-	Sat, 17 Oct 2026 02:24:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792203900; cv=fail; b=gSgyyK/v1YQ9gLHn3Z4bfmef+Z2Bc4sNU2KzaqN+k3uGc73xmYGFm0xodeegogtSdaI3QL9FZ2wdQnkXshtxHde0Xm4Zqv/WnDdmY0B+wfP+lWWn02XQaxlp3fjSGSdfyI2M/3tvunj6XvwA8T2y9YS2udbreJwNmyiVqIcFHug=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792203900; c=relaxed/simple;
-	bh=8nR67DFS0URoHs2xymz87UyZbXOHmjfLN4EY2zi3bSE=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=tPLhIGLaabW9VsvjDPId+LfMg6moSsQAlAALO3RJqmMRZHfsXr6ZFeCIBZCzgBGWHG+xjHWccRhRi4V7ASDrcELtwie8pr5qUUZdIHqVStQCW9q6qM7eHSgL4/01UIuAZARI6SfxFzjpGw3jv6TZCPnH14G1zcjOmx0FUrBrq68=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=jSMcoIF7; arc=fail smtp.client-ip=52.101.84.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CD6133F36D
+	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 03:52:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792209147; cv=none; b=pEMiVkGqCJWW87ZPDLuLFFlH9F8W1yxXL8xEilZXkww4QOsfj6K6yKxb7d7tOzJAlc/vxYrP9kgalxQX0TA0EZCYLZ+lEBE2iwEYfEmDfo+Mq7oo3q4GWDd/sqWIM2/LjXTmXq4wGklrcEDOzFhikh2tZzTAbCvCKq9eAfzbXuw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792209147; c=relaxed/simple;
+	bh=sO1KrEv86EVrexKpLzli8BENnpzHRBMlT5dgGwO99zM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=kAL6Erk6rrA0af1YLYZJAaV5nfRIWxulO8GHIihXwXdczVVC0zC8jCWHoOg2YGig78f1VB967k2bSeKeIA9YoIVj4gm0qwjMVJjYSw6W0kmcuCY3oxwnN43C3rR0yNvXIokb/iQWrpr1UUY+BMBTQAYffOL78bjfUTNCbygO5l0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ojNTjD1l; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NisK2WHl; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="jSMcoIF7"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fGRSqtPrGB1UWsIMBLXKAIEibVODe0iFB2TSq3/iRpqLPjDZeA46wmE6FnzE3PFr0Wlwqbz8mAZXogsvLSkIod5k4aMrcg1/QKfheqwWY8aKSbx7Hu3difETiVrfwQCWY6L4l4TSjjvF86gpN/m90GVCFdSsVWvYaihk9yFqTW4dkg9bKb4FSzlJJLobXI3Y932Vi5gi33ifZAvuCwHqKgb+4Gjbz9/ip1zEYICKCMbZ1lHHvgGZzQx/8P43Y11O/58+m+y6pzKbN8QAFaeaE0+69JeZ24ymQet3PaN+g6Pq4CI+5SQoT486vOaX4syoblp56hPBWLKY1rcCf0XwIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RlmdC/ZrC2wE8s5bUwcx60nsjLZEKFAjdQUiwuhb7TU=;
- b=EnnTZ7efK97Oa86yOnDGb5DG5W9SRY1gv5xlsJgA8mcqhw+HJXs26zGQce9vT+9X60SGAdl8GPYzwtT8LEZ6g3GX2FDoP4uvSPqrCuPqOZnlpwSmoRMBK1lDuLV22Y3vw+mrbREfX7ga6SLSLEhaO1jZA2WHXBVawIaJGe4uBea62fv7L9m/bJhvUBiGkizw15Y+l7zpGmUAFKbsfVK3lmsgJYOXnPMAsp2U+oRlvb0oeaJ82oNrmTu57Z3ASlsiGXajGUTgjuCjboeKEbfziYIQjYoUUSqT9xmNqcfT4WGZvlgZ/oPpaYfsdBZGd7bCZRPDUFvddPpjr20tTsb/XA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RlmdC/ZrC2wE8s5bUwcx60nsjLZEKFAjdQUiwuhb7TU=;
- b=jSMcoIF7eu67kLk7m2ZS/jG5rrVVp45RenXa+oaKDmpAWZP3g+nb5vT3UImcPB6xHorkDGedLnHZrpsrLM8afg0N8v/IeAxVOLWf8TJasj0UMwPEcTzOqcHoOHmKaC3gwP+M1hIK0dxtu4wT28I9L1uZpfPV8fsrykgC/7MQlWjHxEfZjbJ44cclBy9fdwBQMi3qeJDQ4SFaRXtnHRfHk/098FWwpB7qxRbNBJmYWVxghc2TVmhwgLlw5XkHJKmoc5HWOwrIrBQq+7QTsIEwizLn1REMl3cV8VFp4SZyPmH3LUEi5i9wqMnO6XyrihV3L//YttyAwR1D12wGtd4MBg==
-Received: from DB9PR04MB9332.eurprd04.prod.outlook.com (2603:10a6:10:36c::6)
- by GVXPR04MB10754.eurprd04.prod.outlook.com (2603:10a6:150:225::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Sat, 17 Oct
- 2026 02:24:50 +0000
-Received: from DB9PR04MB9332.eurprd04.prod.outlook.com
- ([fe80::75d8:3bd9:28df:cfdb]) by DB9PR04MB9332.eurprd04.prod.outlook.com
- ([fe80::75d8:3bd9:28df:cfdb%2]) with mapi id 15.21.0522.013; Sat, 17 Oct 2026
- 02:24:50 +0000
-From: Wei Fang <wei.fang@nxp.com>
-To: "Frank Li (OSS)" <frank.li@oss.nxp.com>, Marek Vasut <marex@nabladev.com>
-CC: "netdev@vger.kernel.org" <netdev@vger.kernel.org>, Vladimir Oltean
-	<vladimir.oltean@nxp.com>, "Christophe Leroy (CS GROUP)"
-	<chleroy@kernel.org>, "David S. Miller" <davem@davemloft.net>, Andrew Lunn
-	<andrew+netdev@lunn.ch>, Clark Wang <xiaoning.wang@nxp.com>, Claudiu Manoil
-	<claudiu.manoil@nxp.com>, Conor Dooley <conor+dt@kernel.org>, Eric Dumazet
-	<edumazet@kernel.org>, Frank Li <frank.li@nxp.com>, Jakub Kicinski
-	<kuba@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
-	"UNGLinuxDriver@microchip.com" <UNGLinuxDriver@microchip.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linuxppc-dev@lists.ozlabs.org"
-	<linuxppc-dev@lists.ozlabs.org>
-Subject: RE: [net-next,PATCH 2/2] enetc: Make eMDIO MDC rate configurable from
- DT
-Thread-Topic: [net-next,PATCH 2/2] enetc: Make eMDIO MDC rate configurable
- from DT
-Thread-Index: AQHdXaVPTB8CJdKLoUewahs8NUD/ZLcAl7OAgABoBfA=
-Date: Sat, 17 Oct 2026 02:24:50 +0000
-Message-ID:
- <DB9PR04MB933217F7ADCB6223A44DACA7889A2@DB9PR04MB9332.eurprd04.prod.outlook.com>
-References: <20261016193344.115518-1-marex@nabladev.com>
- <20261016193344.115518-2-marex@nabladev.com> <atKDNdxl0w65s8yQ@SMW015318>
-In-Reply-To: <atKDNdxl0w65s8yQ@SMW015318>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DB9PR04MB9332:EE_|GVXPR04MB10754:EE_
-x-ms-office365-filtering-correlation-id: 886d8eae-da9c-4722-6146-08df2bf5d273
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|19092799006|23010399003|376014|1800799024|7416014|366016|261009223027099003|6133799003|18002099003|10067099003|22082099003|4143699003|11063799006|38070700021|56012099006;
-x-microsoft-antispam-message-info:
- giYjXPglTBeQWDBLuEXOHODYW3VeC/AddZnYh2zykdTi3fxSKePv3mMOyUJCVq5onkFATkW4Gs79DDYPVOBL2FSZQqa7MnB9aCKf7ss8CNlmUZxExm/UouCGxRhTNDXXniGsRhHsSE5Kt9KK4UPvaSR+pjwEW6R66MAxgiKGm0bLHRyYMWQBJk+o43Zr5NJIvxb+tyoj8Kcg1C4GgeslSAE5uw+GMJjD0Bet03EGUcpEecz/KrivWkOIBqwHS4EC6Hm/74C8OenK10f8O5P9HijiPOka8AVrUDAhic2Ddhcc90kUHzlNfeBM4FJFXcPlxF1SVpbTwMvPHeybx+e5S679HSj8xRsAAZJO197OwxySixUbqqMdI37s/5afipTlAUVC8I5m5YIC2gHXF2C/UK5Dy3jejIvF+l7Toa9d30Fm9kM+rnvvxCwbMbNs61rZBTAzXKvUG/tGjQLVl7hMJ9Ut/HO5We1rNBSKoL/5mAoK+BXfJSgnKkA2+g/XwO3LwWZV4BH0i4tKzvSIT3WWWi5A1dNgAVL63aha7Dw0YIpoou89MTwfvhZMOJ5Hr2GlYfKMXO69RlBAAXVM8/LMMDAWVY3OJPAiOLpevdmTqmYVkGONX3gnH3vnRJ04ffmo+w+DOEaF55iaMEx5pMh//enOasg9W6ERI4dOaRJ/M8bpXCeQ+LPlSjMpfhiRimXJ6kH0gBrgHq65ZWwWcQL78w9siplbhWw+mfBq4gDRmiQ=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR04MB9332.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(376014)(1800799024)(7416014)(366016)(261009223027099003)(6133799003)(18002099003)(10067099003)(22082099003)(4143699003)(11063799006)(38070700021)(56012099006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?TXoMRRWqcoF2V1IhUfs6nIOWYB5jWNG3KyaQjCVanuqwItF2ZeP5wFsTWTUc?=
- =?us-ascii?Q?52OxOxyx7RzCJeiHre4PqgpaUByfFmvq+hwi1o3gPdu7UsaoyoDbXFJGUQuo?=
- =?us-ascii?Q?JxXyondc5H3yDc4lZ9y7SMnuPQdksxpZVfrMlyfffoSedK4KtiM3VjDifiuJ?=
- =?us-ascii?Q?XPdPMRSkpGN+vRx0vtb+VtjyhJM5/AgNHEoEQzrV1+Un3F0B0IEBlAJ1mks3?=
- =?us-ascii?Q?bDLDlVKrHNTJEF0BJ+dpcXdIT8jluRhZqSn/uGqw7vh1MkOPiIkrA2nDfIOo?=
- =?us-ascii?Q?5WGWE5Sx5W0A5OQxcFBcXG6rC2sWb27N+6W3SI/0QMtogF3psCq4qniDJj4H?=
- =?us-ascii?Q?Ze+vBB9GZn5kORTPuGlYJL5WXW1+0R/qaj4731SLjg7s0oodQEDZuCRdM7Z8?=
- =?us-ascii?Q?EzUpExAp577SLvEvG+iYrShLJ7IVdT5W33Tx8GuzVEUhWqnz2J/c7qrKraVO?=
- =?us-ascii?Q?R20mNkMpCyUnoXnc4G0PGda0oyfUGKyou5rk+JyjaawHvLQZMPQYZzUL/kY7?=
- =?us-ascii?Q?Ay9BMraypVRIt7PMGNSj639h4kzHOiFn34+JuL74H+5wmjyofE203fvpdq2M?=
- =?us-ascii?Q?tiviGpwT9HVDwv7SEdRboNTREBopkROWPMjGgypn+TZsvPuA27kZyLcLL/li?=
- =?us-ascii?Q?whbPCn5rjV+RZM0sVsVeB+vFNu+ccvencAOXKc+3nVPPuVOuHPfFmOiCdO9a?=
- =?us-ascii?Q?KveOujJZ//LGsBVmrYRqFW0nBdwsQvJTuqubS8zZVeaiUzlIufz++a2rgYSG?=
- =?us-ascii?Q?pI9/QTSV7a9g9xFC+eJbVue/JCCT4UmLQpBfG/LXKVHFDov6GZ8mi70vlf4n?=
- =?us-ascii?Q?pM152kYMJfMr/Lz273GDSddJK3UsjIr/3mpH9TdACaVfl17HW7EFFwp/wmEg?=
- =?us-ascii?Q?H2KMPcheE0/lZFOFNfrD7Ny7sW0WPoHFPrCOXcZiRgVBlHrqBeFc+A/m7ZVy?=
- =?us-ascii?Q?QDZ9kpRPPJgrcI5YAOt87i5+A1/OEAgzFoisQoBRhFPzbdzuh0AxnO5/Pyx+?=
- =?us-ascii?Q?a9atvfLp3v0zxF5y2iBWcac1y5J+vtz9+a+x8/pLx+iNPUKhnMs/sDOu2vRm?=
- =?us-ascii?Q?aARCkEV8eQCMxg5tGE1CpAYfWIQI4fSmO1untf0Apua0ulfEWVVSLPa1B8lZ?=
- =?us-ascii?Q?JV8LxrR1tbV9tAZNCxFPLQNvNZ7cPZD5UIslrn4/2cElxdqfPnexRadAMkoY?=
- =?us-ascii?Q?DvO4vPyeIFWl64N5ONzN+oVI2XAF4ArRnrf4vnyQLMdM8YquYyfVRUb96UNO?=
- =?us-ascii?Q?415xX/yIPXX8y8XKtOzPQ8x6GOF3pQ+yTcWkps5jK9LHkcvYYVMBU2cGZBZN?=
- =?us-ascii?Q?+J+J0/SC0xN+TqKnEC9dLPkStE1Xy1jshNgKhMtDAMlltIc4H5ZI/1rImAUE?=
- =?us-ascii?Q?6IZRhrwKV8r2RTW2na8Ainth1J/V4ZTt8FGF8bliXMrY2ohia1PsMUNVBJ1/?=
- =?us-ascii?Q?iOaS1T79dX2bM2u0YpKHL4Bu+JM/4jZMYQFqZMo9PJvzoDoH4SQBebtLScor?=
- =?us-ascii?Q?PvGVBGOn++6UvEsHK2iVhVBHD6Py9hneWPBsBBdUJswPOADc9xqACboEPaoQ?=
- =?us-ascii?Q?G8sSe9uZiDAKus/GtIbbb7UAyWx8vlQ+FtXQnhZqMKuageU0FvA7CDgBJFCW?=
- =?us-ascii?Q?zHf83kj6Np4TYsZAjNwL4soqroybt8IP/q3Z7SSa6jPLfALLdzTCpDdjd3qO?=
- =?us-ascii?Q?HJZ+vw4Nq+ZXQWqinSKliXlW6k4WEjWAX3Yc3YDQNBg8h6dF?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ojNTjD1l";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NisK2WHl"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69H30XMJ440306
+	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 03:52:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=ouMhjJ2W5x2xNX05HwynhCEBAhDpgm0AIux
+	Z8xIIUp8=; b=ojNTjD1lWAhwpNYmTK3sIScjHNZQ+nvdvpJ4lUy78oG5qzz47Xa
+	Vfxb1oaxZX28Yk/Kw8IEeN/e3cg4OCweUYV+HpDhB1jLq8gN9LfifFjheC8uP+RR
+	FJFDwOmNMdGXhyT22dvjXP8g9OrGHFsyeiH2lxBYs1vM+waYgt8Nl35Gsk9m2MMW
+	CYAPckIeuav+j29fgFY0LY9ra3J6CnbuUS+5H5Qv8zL0v5UJMOxT/cArl0WpQrR5
+	ED/aV3gjlc0skQ3rBZHqArsBLl9rCgThcbbUWblaizP3wyyktQtJ7YmZxbmD+EDq
+	0lrx2bNOsvYg45QisMMyoomXvpsQv2u0apw==
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hc0kxg35u-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 03:52:25 +0000 (GMT)
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1383723dfddso1126297c88.0
+        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 20:52:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792209144; x=1792813944; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ouMhjJ2W5x2xNX05HwynhCEBAhDpgm0AIuxZ8xIIUp8=;
+        b=NisK2WHl1W5axzkvlMEyCfIq+P81D+O93lR6myKTNectMTdxoplsA7QJGQVY7A4WA9
+         6cic19y3iB9OLClHl5R8eO8uaDH57c7xDZK4lkrsV8QArW3V5ttYbKRNOQ1y9IHRBnfp
+         u53a+cqlyzGEeeFGcUea5qBcgI82vX24LIKvR465K/8lePKnChyX+7ZOFZ6LFWpB3OQA
+         +Ayg1urDcTDXoCaeNIeXY7xbVO9GA9jEf+24CdGnZjVggE4GtgmgdSEQNRwBK80i9H6L
+         t9tDgFFyjWrDeaNEb6fMUB9QUOe6RA1BIr+JItanB1GeAshqQQlfVE9SfwxBQx0Q32sm
+         rbIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792209144; x=1792813944;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ouMhjJ2W5x2xNX05HwynhCEBAhDpgm0AIuxZ8xIIUp8=;
+        b=bXobyXOg6QcXnTmijiTsVB+zUfPBgavZyEaBKYEvBDJ29rp2uokVkrHjoBf0K4E48J
+         agdrDsV5FLwNon2YZ5YycpEnELFJIWPc695jBiUo9WjwPR5Aahr3sJmb0apbAmLUZpTK
+         mKVQbJvSK1C42BzN2EhtyhBnjLBVZFVCRYo0cIeGT49Vip6g4qIEr5OHqzOEC9FZlC8P
+         TnC6MBWmF/O3xUwU0jU8xrRQqg77Gf0Gx6XEKM7uoNDbY85Al7TOJtAQt/L37+FK2/K/
+         Q0BlefD5ohOl+ZPXHPA4MOKOtIFFSLH/kNNzSfHk3pU5ksNjtF8SFI9RNR3nxWOt9ndx
+         lVrA==
+X-Forwarded-Encrypted: i=1; AKwUvByCuQBIZd2oICf0z1r+yBSkEUE+eIxJfsBQlozd16+GgWoSl69m2ZVFg3ZChpRchm4jJi5Gocloh+Hl@vger.kernel.org
+X-Gm-Message-State: AFq9FYJdKtRRHGb0pm4vQta7DsAE/i+/gDgxhgB5JY3KK2QIMbMoaqGz
+	TCNLgq0xVqyUsQHUPiloRQo53utdScpv2AqQ3/INnhYvSV3V5I4M69S1DT7O0roKaIFllKQl2n7
+	h1z6D40VXiRSmcokn0cRfX/cJD3c97dIyYnOVY0X2EQqDVMOU1lGAIQUPA6adspxf
+X-Gm-Gg: AYBFou3MSlyPdKEHdAwRZf0jQCEWEmImH9+pyQPRUJWreC2dWFqfmquUzGY+qFL0+I1
+	/FcbSRWfnJFokyh98Y9OvvDplN55zjcuAbFl1hZtYKg42r8F4szgcenQWALkvRdFL8plQ8iTZwj
+	nyIRq3TLH+/Kf6ntE2VVnV7o8M4ZPi3KGksOlI0Vvle4cLgr8bXjF2QBKnzMn5uWHT5o5uPWVhJ
+	GEIOAO3z4EQZG7rWKO0alJXkV4oFRxUM/zh9muRpLtSLOIGX3OIVJeXWDzzaYK7zl42Aqkm5AMZ
+	vTH4z8Ycrr4di+HeclUzat5jqMWXxixN9+O+jUx2TH5U9mQurB6ifv4qMnNXn/A5TKGJJ9YJngS
+	h1MZhlnKV+MpZBY+uvRl/4YKrwCOa8iv2ZLafB+63QtE36Llzg8bX3Q==
+X-Received: by 2002:a05:7023:a4b:20b0:151:6e80:ba7e with SMTP id a92af1059eb24-1850ce9f56fmr2609863c88.4.1792209144055;
+        Fri, 16 Oct 2026 20:52:24 -0700 (PDT)
+X-Received: by 2002:a05:7023:a4b:20b0:151:6e80:ba7e with SMTP id a92af1059eb24-1850ce9f56fmr2609810c88.4.1792209143415;
+        Fri, 16 Oct 2026 20:52:23 -0700 (PDT)
+Received: from hu-aarunnan-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831b75ac0fsm9723006c88.15.2026.10.16.20.52.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 20:52:22 -0700 (PDT)
+From: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
+To: david@ixit.cz, andersson@kernel.org, konradybcio@kernel.org,
+        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        bod@kernel.org, vladimir.zapolskiy@linaro.org,
+        loic.poulain@oss.qualcomm.com, mchehab@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, gjorgji.rosikopulos@oss.qualcomm.com,
+        jigarkumar.zala@oss.qualcomm.com,
+        hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
+        bryan.odonoghue@linaro.org, linux-media@vger.kernel.org,
+        krzysztof.kozlowski@oss.qualcomm.com, daniel@quora.org,
+        konrad.dybcio@oss.qualcomm.com, christopher.obbard@linaro.org,
+        alex.vinarskis@gmail.com
+Subject: [PATCH 0/2] media: qcom: camss: track PHY type and scale link frequency for C-PHY
+Date: Fri, 16 Oct 2026 20:52:19 -0700
+Message-Id: <20261017035221.3816464-1-anusha.nandi@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR04MB9332.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 886d8eae-da9c-4722-6146-08df2bf5d273
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Oct 2026 02:24:50.7335
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: MXpGZIatfbKKxUfTK3B59AUPDBD0FwoN+GRKqtDpf2qrirz8/lF6UOhxjFDOevHjG71kBL/Oq32ps08iehIp7w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10754
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE3MDAxNSBTYWx0ZWRfXwHIeFkqCcOXE
+ VkRIOcEkRw32UAl5F6BQIY4k4Z30XdD9K5mWWcDgSjovLDbfu17uKZwGzLHTBdTw3GP8nsrGeri
+ xut3uFmiNam9M6PdCVXHVrm1mFEphB0=
+X-Authority-Analysis: v=2.4 cv=JpZkP84C c=1 sm=1 tr=0 ts=6ad2f0f9 cx=c_pps
+ a=SvEPeNj+VMjHSW//kvnxuw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=FUmL66orSvod6niQ26UA:9 a=Kq8ClHjjuc5pcCNDwlU0:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE3MDAxNSBTYWx0ZWRfX2WHqR2YJ84Yd
+ NFyx4mjtRbd6ra72OUfgadnlZDI/OwryCAOIPxoFIn69qASC6V3WFdgUMMwbqca+fmn14luqv4w
+ shbxtjiXO+zJv9vH+jmijuFw+qWNeePFWfW5DflgPWr49G+HH0bKB/Ut8FFNV9SBvzvlsid74jS
+ 5PSWvBw1Mhof9X/ZJJKBC0vqccn2eC8rgn2A8SNcDknbGbOzKk7XVuociaN60CuDRiJUPBPl0qL
+ yu3M4TvJRR7nZIH/aui6VxSp82Pp2cPPv6MUcnyZtZqLf/S570jV9qNFyQQHXzJJgs6H4a6yp55
+ KAxHqlo8JP1T95G4beHOfgWnKNXEh9QjGkis8EfWumj7hfab0NlhLWlQ534a1pGSAVG/EqUOtQL
+ DoIPGiArY0OZiL5zl4vygaTHQN+Onp7bS/OaAFFsfz0WD0Af8etuhdEtAbV7byBqwLRT84tbXxx
+ k0Kvsqi+K/ggrinhEKw==
+X-Proofpoint-ORIG-GUID: Fl1r9b9idldCt7ekQeQGTFwKZzEHMG01
+X-Proofpoint-GUID: Fl1r9b9idldCt7ekQeQGTFwKZzEHMG01
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-17_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 spamscore=0 phishscore=0 suspectscore=0 malwarescore=0
+ clxscore=1015 impostorscore=0 lowpriorityscore=0 bulkscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610170015
 
-> On Fri, Oct 16, 2026 at 09:32:01PM +0200, Marek Vasut wrote:
-> > The current eMDIO MDC rate is hard-coded in the drivers which use the
-> > eMDIO MDC, this is not flexible for various deployments of SoCs which
-> > use the eMDIO interface, for example i.MX95 B0 MDC clock is currently
-> > set to 644 kHz.
-> >
-> > Introduce enetc_mdio_priv .mdc_div field which contains the divider
-> > used for MDC clock and pass it around, including into functions which
-> > configure the MDC clock. This way, drivers which use the eMDIO can set
-> > the divider as needed. Introduce enetc_mdio_update_mdc_div() function
-> > which calculates the divider from upstream clock and clock-frequency
-> > DT property, both of which are optional to retain compatibility with
-> > older DTs. This is modeled according to xgmac_mdio_set_mdc_freq().
-> >
-> > Suggested-by: Vladimir Oltean <vladimir.oltean@nxp.com>
-> > Signed-off-by: Marek Vasut <marex@nabladev.com>
-> > ---
-> > Cc: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-> > Cc: "David S. Miller" <davem@davemloft.net>
-> > Cc: Andrew Lunn <andrew+netdev@lunn.ch>
-> > Cc: Clark Wang <xiaoning.wang@nxp.com>
-> > Cc: Claudiu Manoil <claudiu.manoil@nxp.com>
-> > Cc: Conor Dooley <conor+dt@kernel.org>
-> > Cc: Eric Dumazet <edumazet@kernel.org>
-> > Cc: Frank Li <Frank.Li@nxp.com>
-> > Cc: Jakub Kicinski <kuba@kernel.org>
-> > Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> > Cc: Paolo Abeni <pabeni@redhat.com>
-> > Cc: Rob Herring <robh@kernel.org>
-> > Cc: UNGLinuxDriver@microchip.com
-> > Cc: Vladimir Oltean <vladimir.oltean@nxp.com>
-> > Cc: Wei Fang <wei.fang@nxp.com>
-> > Cc: devicetree@vger.kernel.org
-> > Cc: imx@lists.linux.dev
-> > Cc: linux-arm-kernel@lists.infradead.org
-> > Cc: linux-kernel@vger.kernel.org
-> > Cc: linuxppc-dev@lists.ozlabs.org
-> > Cc: netdev@vger.kernel.org
-> > ---
-> > NOTE: I could only test i.MX95 , I could not test LS or Felix
-> > ---
-> >  drivers/net/dsa/ocelot/felix_vsc9959.c        |  5 +++
-> >  .../net/ethernet/freescale/enetc/enetc_mdio.c | 39 ++++++++++++++++---
-> >  .../ethernet/freescale/enetc/enetc_pci_mdio.c |  5 +++
-> >  .../freescale/enetc/enetc_pf_common.c         | 10 +++++
-> >  include/linux/fsl/enetc_mdio.h                |  6 +++
-> >  5 files changed, 59 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/drivers/net/dsa/ocelot/felix_vsc9959.c
-> b/drivers/net/dsa/ocelot/felix_vsc9959.c
-> > index 8387dd208adb9..dbeec1b229325 100644
-> > --- a/drivers/net/dsa/ocelot/felix_vsc9959.c
-> > +++ b/drivers/net/dsa/ocelot/felix_vsc9959.c
-> > @@ -1008,8 +1008,13 @@ static int vsc9959_mdio_bus_alloc(struct ocelot
-> *ocelot)
-> >  	 * starting with the proper offset.
-> >  	 */
-> >  	mdio_priv->mdio_base =3D 0;
-> > +	mdio_priv->mdc_div =3D ENETC_MDIO_DEFAULT_DIVIDER;
-> >  	snprintf(bus->id, MII_BUS_ID_SIZE, "%s-imdio", dev_name(dev));
-> >
-> > +	rc =3D enetc_mdio_update_mdc_div(bus);
-> > +	if (rc)
-> > +		return rc;
-> > +
-> >  	/* Needed in order to initialize the bus mutex lock */
-> >  	rc =3D mdiobus_register(bus);
-> >  	if (rc < 0) {
-> > diff --git a/drivers/net/ethernet/freescale/enetc/enetc_mdio.c
-> b/drivers/net/ethernet/freescale/enetc/enetc_mdio.c
-> > index 998aaa394e9c4..93d61c2f1464f 100644
-> > --- a/drivers/net/ethernet/freescale/enetc/enetc_mdio.c
-> > +++ b/drivers/net/ethernet/freescale/enetc/enetc_mdio.c
-> > @@ -1,6 +1,7 @@
-> >  // SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-> >  /* Copyright 2019 NXP */
-> >
-> > +#include <linux/clk.h>
-> >  #include <linux/fsl/enetc_mdio.h>
-> >  #include <linux/mdio.h>
-> >  #include <linux/of_mdio.h>
-> > @@ -22,9 +23,9 @@
-> >   /* external MDIO only - driven on neg MDC edge */
-> >  #define MDIO_CFG_NEG		BIT(23)
-> >
-> > -#define ENETC_EMDIO_CFG \
-> > +#define ENETC_EMDIO_CFG(mdc_div) \
-> >  	(MDIO_CFG_HOLD(2) | \
-> > -	 MDIO_CFG_CLKDIV(258) | \
-> > +	 MDIO_CFG_CLKDIV(mdc_div) | \
-> >  	 MDIO_CFG_NEG)
-> >
-> >  #define MDIO_CTL_DEV_ADDR(x)	((x) & 0x1f)
-> > @@ -63,7 +64,7 @@ int enetc_mdio_write_c22(struct mii_bus *bus, int
-> phy_id, int regnum,
-> >  	u16 dev_addr;
-> >  	int ret;
-> >
-> > -	mdio_cfg =3D ENETC_EMDIO_CFG;
-> > +	mdio_cfg =3D ENETC_EMDIO_CFG(mdio_priv->mdc_div);
-> >  	dev_addr =3D regnum & 0x1f;
-> >  	mdio_cfg &=3D ~MDIO_CFG_ENC45;
-> >
-> > @@ -95,7 +96,7 @@ int enetc_mdio_write_c45(struct mii_bus *bus, int
-> phy_id, int dev_addr,
-> >  	u32 mdio_ctl, mdio_cfg;
-> >  	int ret;
-> >
-> > -	mdio_cfg =3D ENETC_EMDIO_CFG;
-> > +	mdio_cfg =3D ENETC_EMDIO_CFG(mdio_priv->mdc_div);
-> >  	mdio_cfg |=3D MDIO_CFG_ENC45;
-> >
-> >  	enetc_mdio_wr(mdio_priv, ENETC_MDIO_CFG, mdio_cfg);
-> > @@ -133,7 +134,7 @@ int enetc_mdio_read_c22(struct mii_bus *bus, int
-> phy_id, int regnum)
-> >  	u16 dev_addr, value;
-> >  	int ret;
-> >
-> > -	mdio_cfg =3D ENETC_EMDIO_CFG;
-> > +	mdio_cfg =3D ENETC_EMDIO_CFG(mdio_priv->mdc_div);
-> >  	dev_addr =3D regnum & 0x1f;
-> >  	mdio_cfg &=3D ~MDIO_CFG_ENC45;
-> >
-> > @@ -176,7 +177,7 @@ int enetc_mdio_read_c45(struct mii_bus *bus, int
-> phy_id, int dev_addr,
-> >  	u16 value;
-> >  	int ret;
-> >
-> > -	mdio_cfg =3D ENETC_EMDIO_CFG;
-> > +	mdio_cfg =3D ENETC_EMDIO_CFG(mdio_priv->mdc_div);
-> >  	mdio_cfg |=3D MDIO_CFG_ENC45;
-> >
-> >  	enetc_mdio_wr(mdio_priv, ENETC_MDIO_CFG, mdio_cfg);
-> > @@ -231,6 +232,32 @@ struct enetc_hw *enetc_hw_alloc(struct device
-> *dev, void __iomem *port_regs)
-> >  }
-> >  EXPORT_SYMBOL_GPL(enetc_hw_alloc);
-> >
-> > +int enetc_mdio_update_mdc_div(struct mii_bus *bus)
-> > +{
-> > +	struct enetc_mdio_priv *mdio_priv =3D bus->priv;
-> > +	struct device *dev =3D bus->parent;
-> > +	struct clk *enet_clk;
-> > +	u32 div, mdc_freq;
-> > +
-> > +	if (device_property_read_u32(dev, "clock-frequency", &mdc_freq))
-> > +		return 0;
-> > +
-> > +	enet_clk =3D devm_clk_get(dev, NULL);
-> > +	if (IS_ERR(enet_clk))
-> > +		return dev_err_probe(dev, PTR_ERR(enet_clk),
-> > +				     "Input clock unknown, not changing MDC
-> frequency\n");
->=20
-> binding said clock is optional. If return failure here, it will block
-> existing dts, which have not clock property.
->=20
+This series lays the CAMSS-side groundwork for MIPI C-PHY sensors.
 
-For EMDIO device, the clocks property is not added to
-fsl,enetc-mdio.yaml, I suppose this property should be added to the
-dt-binding doc if the clock is really needed here.
+Patch 1 records whether a CSIPHY endpoint is D-PHY or C-PHY from its
+device-tree bus-type property (instead of rejecting anything that
+isn't D-PHY), storing it in struct csiphy_lanes_cfg.
 
-For ENETC device, we already have a 'ref' clock in the enetc node,
-so devm_clk_get(dev, NULL) may get the 'ref' clock rather than the
-system clock of NETC.
+Patch 2 threads that PHY type through to link-frequency calculation:
+camss_get_link_freq() gains a cphy parameter and scales its per-lane
+divisor to match C-PHY's 16-bits-per-7-symbols encoding (vs. D-PHY's
+1 bit/symbol), and the CSID gen3 RX front-end's CSI2_RX_CFG0 register
+is programmed with the matching PHY_TYPE_SEL bit so C-PHY streams are
+actually decoded as C-PHY instead of silently defaulting to D-PHY.
+
+Referenced using David's C-PHY support(v9)
+Link: https://lore.kernel.org/all/20260617-qcom-cphy-v9-0-83da8a8e4e44@ixit.cz/
+Depends-on: https://lore.kernel.org/all/20261017001116.2318647-1-anusha.nandi@oss.qualcomm.com/
+Depends-on: https://lore.kernel.org/all/20261016235502.2274268-1-anusha.nandi@oss.qualcomm.com/
+
+David Heidelberg (2):
+  media: qcom: camss: csiphy: record PHY type from device-tree bus-type
+  media: qcom: camss: account for C-PHY when calculating link frequency
+  
+Anusha Arun Nandi (2):
+  media: qcom: camss: csiphy: record PHY type from device-tree bus-type
+  media: qcom: camss: account for C-PHY when calculating link frequency
+
+ .../platform/qcom/camss/camss-csid-gen3.c     |  2 ++
+ .../media/platform/qcom/camss/camss-csid.c    |  4 ++-
+ .../media/platform/qcom/camss/camss-csid.h    |  1 +
+ .../media/platform/qcom/camss/camss-csiphy.c  |  8 +++---
+ .../media/platform/qcom/camss/camss-csiphy.h  |  2 ++
+ drivers/media/platform/qcom/camss/camss.c     | 25 +++++++++++++++----
+ drivers/media/platform/qcom/camss/camss.h     |  2 +-
+ 7 files changed, 34 insertions(+), 10 deletions(-)
+
+
+Best regards,
+-- 
+Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
+-- 
+2.34.1
 
