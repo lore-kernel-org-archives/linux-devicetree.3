@@ -1,189 +1,384 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AD035B5AB
-	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 01:16:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B76A21254B;
+	Sat, 17 Oct 2026 01:24:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792199768; cv=none; b=JzvMI2Jk7noICeoUK85i5tbuZ32SDyYKFYXk/OTnAoKSiFBFJZ7Vi31auWlS6bkEVBnQi/95pfpncYiLzi6T75p/eF4YGpaN3bXaZptzMETv7FozM90LT/YtReu9s2ONk7LPfOFHdma3/qyvLDdoJyGyWUXkkxFrHnnliCu6SS4=
+	t=1792200274; cv=none; b=GYWZ6hhP9bAi4o2ySIFwrm/z3PQjzu+5IaWq7jk0afi0RLwVPZiXiNRb1QGEgCq1CwQKfe9VgMkCs/CfDPLPkn3T7r9bZjNTaxWsDEzr6jPyxsRMyvzi2gbrGMw7YlNBg7jcFjS3ZvIJS650pSKQMtd1RVUxKii4ye6rXPyfki0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792199768; c=relaxed/simple;
-	bh=N1UX1ePJTEvGDwKfCxkM5pQz3wXgY0ArFM7AyF8x7EQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=U8fFxsMuJ3e4FOvQN0FnNQ6dy9bmAxVT1U0TI8ctDuogfZkrSJ2zGX2ajxphdobTZIvWYjOloGNdG6Kc37gDiIBkyJ8tlO44jfb7OKkGGTl3DqTHlGziDf8ZcMVzLOxJvXXVXblXMk9M2isBRvDGy9jPXsdD/MtZY/1P/2vas0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AHFrDeCM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gIzcYpfr; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792200274; c=relaxed/simple;
+	bh=37FpM2Nt65+XXSaFhTAg/fvAiGovMowzdIvnnJdKPdU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=sUtcUTyrDZl92V1AIDfEkusWAlvfOwytqnqoEBg/p3MEsALUtkQKDy9BPtR1Czh8Me5hvoH+GjANWuCx9cxwF3VBrsxUygq+ViSLtMRCtpaOJf26E5XrPBd96XucoX+fyYCNH6lYkr+fQZU/hLD37DsEcmgei20YsoqptrnSK8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gXeSVGRa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AHFrDeCM";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gIzcYpfr"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69H0JqeE3611112
-	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 01:16:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	8xvye0Zrnm846Ik+htO0ysSMRj9rXqFFc9N95iZlEh4=; b=AHFrDeCMOkINo1kC
-	/0JQUdQs7UnjSYAc7H2oufk8bzQUzPq8rNnFcymWR2LRp+4MfDb3lnwT8NeQNV6B
-	NoMql0m20iygtC/kjWNGO4Am6F8uKBw+TQhGnldWSHBYQ6v08DeZulCVGy33UUce
-	ZXR+5QCLhhwHPFwcQ5s7sbAadAZDIhoyZB+HN4+QH5dPZMX0x8BfdXSIICCukCSr
-	RG0v+0MtLOPzDAG+lo42l3N/piOUNNUW6fi9GB5cudhLBQZdEUNuk9f/KS9olaPU
-	xj4B3p9kAoyw/tQ2rTDc+4SSesky/Nu1g8OjGt8YzH2pIhve0XEEMTDhIP715Q7v
-	vXzlCA==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hbxcnr3fw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 01:16:06 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3510d0baf63so1105052eec.1
-        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 18:16:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792199765; x=1792804565; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8xvye0Zrnm846Ik+htO0ysSMRj9rXqFFc9N95iZlEh4=;
-        b=gIzcYpfrX8ROvWcjHZ4kA9r1sIMlekqnCOHhijxs1s1mXbalErW7jGahp0PwL9PNKg
-         JxIcnTjsn7eEeDk+RTgXRthk1/Oxr+Pchs798Awsq4fTX69q2cbolBh/AtIeH7c0sWMa
-         QwQF3F/OmN7KvUmRK1Inh2sjVesXXrsWMBO5JFQsenLqisXolK8ELxzbaGMcCngknLkp
-         1qVYdTsolPaKLO9VEgTyf65Kex98Cs1TwfD3uaLzOVN97ttJyQuzJq0cmJBCPpzt78hH
-         Sd3LpQmOYrGZZcXoz8HfaOPOAUeH/Vn3RpvQGN9ZsUWsx/gKdBVXjS5BC81YXR/IJWbA
-         +qhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792199765; x=1792804565;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8xvye0Zrnm846Ik+htO0ysSMRj9rXqFFc9N95iZlEh4=;
-        b=n3nulBqAbV3FDZlhPOhsvNsGx8znXgxwvGzoEbOQGMem/ZND+MGAVMPiblrHXVJbQL
-         wMBBgM7SLRhAB5TOqQh6iZX4Hj36FK/Z8xtt3+tEaIYt4TMIOK3l5GFejCiR7jbA/Sjl
-         ExricNefrxOHjGtg9d3rc9T665VUQOz7phrpXrBsRzLMSoq1yoLqZzlE6J7DOTmq9Pny
-         pxDQBRCppaK/iwqfEbMJDp7uxzpyokYNLyDRLFTmEuMCVAolXNtEe4NgSW1Rgn5txdMw
-         CmfxafHe0c/0MhcI5CCLwyKFFwXEDRJI6VPoGIIORA6i8su+3hG1wWdCzTqdf7xsQcAD
-         6FzQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzVPXBphvgoJopW74b6Wb3ygR6Lrfsvcv0ARkVCFGNCGPeUYTeyIN5spFHEUTFaRi715IdPvogK0SF8@vger.kernel.org
-X-Gm-Message-State: AFq9FYK7fPDRkUk7mCVVP5Y+8k4HeZbKkKNLFrP582SeESKhsLBUPXAu
-	GCY71XIz/ZuKWUixhBzv421XePZtSJNlOHqoNc4VFgVqU44KLCuKXxvslivI0tn7mL7fgEDnbaq
-	jmxeoFYrUab+So6Dc4IDFWmOlWtBY4MEfDsMQsfPPA2MrwC6uuvOYitCkD+Bcc0ka
-X-Gm-Gg: AYBFou1XFjQ4n34HSjrhQ58YtEqxiqFX9UGL7gsIuxILDC4iuMH3voWCTCsYCFwRvWs
-	4rhZxKzu9R77iqQkOJWzNgYnEMfr+NE1leNT+b34nRtVDIeSVC62eqeKwYti1EMM9P+EvDEXs/N
-	fhQkRYT4wPEH2rlRO559jFEoE688yG1wl2MnTbVAv1FffyjZpbl9xlvdbbx7weSM4ohpT0SzzIj
-	IFsFBnwj3CnZ7enwAGkHJB07jOCYs27mkhCjpSq5xRCJQPQpqEfkGCC8aDhtzfEvo5vVhBjqr/T
-	K0d505+vgC/WCbSe61CzEEgdHqjZcsWvT88U5gZt3pFJDIpf3T9GeY2xIEZDVIL9KUrxZraa+dP
-	0TbX8ATOIMSWRdWCTy1mcJVALZexe4g==
-X-Received: by 2002:a05:701a:c90a:b0:167:4198:2cb3 with SMTP id a92af1059eb24-18512c384cemr2002761c88.18.1792199764888;
-        Fri, 16 Oct 2026 18:16:04 -0700 (PDT)
-X-Received: by 2002:a05:701a:c90a:b0:167:4198:2cb3 with SMTP id a92af1059eb24-18512c384cemr2002728c88.18.1792199764314;
-        Fri, 16 Oct 2026 18:16:04 -0700 (PDT)
-Received: from [192.168.1.133] ([172.88.17.160])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831ca95700sm8902773c88.23.2026.10.16.18.16.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 18:16:03 -0700 (PDT)
-Message-ID: <c28fe0db-6ce2-494b-b3d7-9261e3045b41@oss.qualcomm.com>
-Date: Fri, 16 Oct 2026 18:16:02 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gXeSVGRa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8DCB1F000C4;
+	Sat, 17 Oct 2026 01:24:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792200273;
+	bh=9/24KwX5C8gEK3BKOkJcboRt9kt0gDPQAHIWOfX6QPg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=gXeSVGRa5pB6NWcigG+FlIHDTWJNtZIh+KlDbL6+czH1B5myn+ni9OHxv7QRX6ojI
+	 32NqeGKaSXkHiaP8FCpZpPs4y8ilYIAOR9IZb1oqtwAU9LEPCX5pocHancNG77FXLr
+	 ZNB2T92787rSWPWzwKuaUbS3UBlQL0hMDnG7yDsR7nzF4s0hvmdQ+ArlU41c3dzHWh
+	 S5JwkrT+3KFYvkGx5XyPPpH6WUFWQaXzF+SqQjHnRxQOoaxR0RG3WeFU6ph2eD5kNo
+	 gCDVAmsaTkJ+Yi2jU/M5QKKbSpUNr3xP8DG7Wl96kSRSjDsBMxuEVqmnfw3NvF5rjO
+	 c/Mm9vcliD4Xg==
+Date: Sat, 17 Oct 2026 02:24:24 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
+Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
+ Hennerich <Michael.Hennerich@analog.com>, Nuno Sa <nuno.sa@analog.com>,
+ David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ Alexandru Ardelean <alexandru.ardelean@analog.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 3/6] iio: imu: Add driver for the ADI ADIS16607
+Message-ID: <20261017022424.2788cb70@jic23-hlaptop>
+In-Reply-To: <20261015-adis16607-v3-3-f972d4efee85@analog.com>
+References: <20261015-adis16607-v3-0-f972d4efee85@analog.com>
+	<20261015-adis16607-v3-3-f972d4efee85@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 4/8] usb: misc: qcom_eud: add per-path role switch
- support
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Rob Herring <robh@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Peter Chen <peter.chen@kernel.org>
-References: <20260929213513.2401005-1-elson.serrao@oss.qualcomm.com>
- <20260929213513.2401005-5-elson.serrao@oss.qualcomm.com>
- <d4907952-60e6-48d9-ad81-1a0401f3207d@oss.qualcomm.com>
-Content-Language: en-US
-From: Elson Serrao <elson.serrao@oss.qualcomm.com>
-In-Reply-To: <d4907952-60e6-48d9-ad81-1a0401f3207d@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=BNUmP1QG c=1 sm=1 tr=0 ts=6ad2cc56 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=p3NwzfejtmCMKWTc25r7/Q==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=nSKOGGwR5b_Qa3AChTEA:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-GUID: mXF_GVOlIL3UhSXDL8zHWk_jmLv7qZHK
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE3MDAwNCBTYWx0ZWRfXyyC4UeFZWFaW
- RKdnAuvYufn6RUbauz0496nT+18EJXyluxQ0YANTGDCLH6l/6mXAcDRLvQFOtxpU09jlT18cY2Z
- jaUF5jM9qIZlqwuR+gtCI46u/u8YNBg=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE3MDAwNCBTYWx0ZWRfX5iaV9wx1XT2j
- 0LWY5wGKJLBMr8PtwhojdFv/D8afqZcXUtsEVje9SSBLg7XgMN1lrNlsrbDpPhFX7PL+C9aBf+j
- QLJwaKUJqXhqKn6175kpprgbWJMXd47b4JEtcPunERApBqH0QIZGAB85HjBNv826eWYYeNFH5Es
- sO52Ztz7yJflvJBpGkvyYfP+WoMQiviZAt7+VvQwcxj5P+VIRsvCyq6xGMMyB4BsJqxRNBG+90W
- wTYa0bOrCMr3t2AA++K76qTpqAvWJBU8zQo5R0JGK70mKDrY4ZmTpD/I9olvs7ODatHVj9NdNP3
- PXAA+MB52d5ClTcXLQnfVzXzVw+WrHpjs26A5Xl6UBIxBTU36xaNdDxAabdQ7jJSzZa8MDfu2xi
- ccDZfSH3g6l/Nk4/lQlbjNPQiZv7xSlLrp8+NEp4AkfmSSMEQxivuu4XCHOLsmACHRSdou6N1+o
- RbAPrV3raSquetfhHlA==
-X-Proofpoint-ORIG-GUID: mXF_GVOlIL3UhSXDL8zHWk_jmLv7qZHK
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-16_04,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 impostorscore=0 priorityscore=1501 malwarescore=0
- phishscore=0 lowpriorityscore=0 clxscore=1015 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610170004
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, 15 Oct 2026 12:33:00 +0300
+Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org> wrote:
+
+> From: Radu Sabau <radu.sabau@analog.com>
+>=20
+> The ADIS16607 is a Precision MEMS IMU from Analog Devices with
+> triaxial gyroscope and accelerometer, delta angle/velocity, and
+> temperature channels, communicating over a custom SPI Half-Duplex
+> protocol. ADIS16607-2 has a =C2=B1450=C2=B0/s gyroscope range, ADIS16607-3
+> =C2=B12000=C2=B0/s; both share a =C2=B140g accelerometer range and an 8 k=
+Hz internal
+> clock.
+>=20
+> This is the base driver: probe, raw channel reads, sampling-frequency
+> control, startup/self-test via adislib, and debugfs identity entries.
+> No buffered capture, external clock sync, or calibration bias yet -
+> those follow in later patches.
+>=20
+> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
+Various comments inline.
+
+Thanks,
+
+Jonathan
+
+> diff --git a/drivers/iio/imu/adis16607.c b/drivers/iio/imu/adis16607.c
+> new file mode 100644
+> index 000000000000..1d471f59f043
+> --- /dev/null
+> +++ b/drivers/iio/imu/adis16607.c
+
+> +struct adis16607 {
+> +	const struct adis16607_chip_info *info;
+> +	struct adis adis;
+> +	unsigned long clk_freq;	/* millihertz */
+> +	u64 sample_period_ns;
+> +	/* IIO buffer for reordered data - sized for max channels */
+> +	u8 data[64] __aligned(IIO_DMA_MINALIGN);
+
+I guess this gets used in a later patch?  Add it there instead.
+
+> +};
+
+> +
+> +/*
+> + * SPI Half-Duplex write operation for ADIS16607.
+> + * Protocol:
+> + *   - Send 3 bytes: [reg, val_high, val_low]
+> + *   - Only 16-bit writes are supported
+> + */
+> +static int adis16607_spi_write(struct adis *adis, unsigned int reg,
+> +			       unsigned int val, unsigned int size)
+> +{
+> +	if (size !=3D 2)
+> +		return -EINVAL;
+> +
+> +	adis->tx[0] =3D reg;
+> +	adis->tx[1] =3D (val >> 8) & 0xFF;
+> +	adis->tx[2] =3D val & 0xFF;
+
+put_unaligned_be16()
+
+as that will clearly document what is going on here.
+
+> +
+> +	return spi_write(adis->spi, adis->tx, 3);
+> +}
+
+> +/*
+> + * Perform sensor self-test for ADIS16607.
+> + * Reads self-test data before and after forcing self-test,
+> + * then verifies delta values are within acceptable ranges.
+> + */
+> +static int adis16607_sensor_self_test(struct adis16607 *st)
+> +{
+> +	struct adis *adis =3D &st->adis;
+> +	u16 st1_val[6], st2_val[6];
+> +	s16 delta_max[6] =3D {
+> +		ADIS16607_ACCEL_XY_DELTA_MAX,
+> +		ADIS16607_ACCEL_XY_DELTA_MAX,
+> +		ADIS16607_ACCEL_Z_DELTA_MAX,
+> +		ADIS16607_GYRO_DELTA_MAX,
+> +		ADIS16607_GYRO_DELTA_MAX,
+> +		ADIS16607_GYRO_DELTA_MAX,
+> +	};
+> +	int ret, i;
+> +
+> +	/* Enable sensor self-test */
+> +	ret =3D __adis_write_reg_16(adis, ADIS16607_REG_SELF_TEST,
+> +				  ADIS16607_SNSR_SELF_TEST_MASK);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Wait for self-test to settle before reading results */
+> +	msleep(adis->data->timeouts->self_test_ms);
+> +
+> +	/* Read first set of self-test data */
+> +	for (i =3D 0; i < 6; i++) {
+> +		ret =3D __adis_read_reg_16(adis, ADIS16607_REG_SELF_TEST_DATA(i),
+> +					 &st1_val[i]);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	/* Force self-test */
+> +	ret =3D __adis_write_reg_16(adis, ADIS16607_REG_SELF_TEST,
+> +				  ADIS16607_SNSR_SELF_TEST_MASK | ADIS16607_ST_FORCE_MASK);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Wait for forced self-test to settle before reading results */
+> +	msleep(adis->data->timeouts->self_test_ms);
+> +
+> +	/* Read second set of self-test data */
+> +	for (i =3D 0; i < 6; i++) {
+> +		ret =3D __adis_read_reg_16(adis, ADIS16607_REG_SELF_TEST_DATA(i),
+> +					 &st2_val[i]);
+> +		if (ret)
+> +			return ret;
+> +
+> +		if (!adis16607_delta_check((s16)st1_val[i], (s16)st2_val[i],
+> +					   delta_max[i])) {
+> +			dev_err(&adis->spi->dev,
+> +				"Self-test failed for axis %d: delta out of range\n", i);
+> +			return -EINVAL;
+> +		}
+> +	}
+> +
+> +	/* Clear self-test register */
+> +	ret =3D __adis_write_reg_16(adis, ADIS16607_REG_SELF_TEST, 0);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return 0;
+	return __adis_write_reg_16()
+
+> +}
+
+
+> +static int adis16607_get_freq(struct adis16607 *st, u32 *freq)
+> +{
+> +	u16 dec =3D 0;
+> +	int ret;
+> +
+> +	mutex_lock(&st->adis.state_lock);
+> +
+> +	ret =3D __adis_read_reg_16(&st->adis, ADIS16607_REG_DEC_RATE, &dec);
+> +	if (ret)
+> +		goto unlock;
+> +
+> +	*freq =3D DIV_ROUND_CLOSEST(st->clk_freq, dec + 1);
+> +
+> +unlock:
+> +	mutex_unlock(&st->adis.state_lock);
+
+As below. We have guards for this and a special helper
+to make them even easier to use for this lock.
+
+> +	return ret;
+> +}
+> +
+> +static int adis16607_set_freq(struct adis16607 *st, u32 freq)
+> +{
+> +	u32 dec;
+> +	int ret;
+> +
+> +	if (!freq)
+> +		return -EINVAL;
+> +
+> +	mutex_lock(&st->adis.state_lock);
+
+Use guard.  However, don't we have more specific helpers for these?
+
+adis_dev_autolock()
+
+> +
+> +	dec =3D DIV_ROUND_CLOSEST(st->clk_freq, freq);
+> +	if (dec)
+> +		dec--;
+> +
+> +	dec =3D min_t(u32, dec, st->info->max_dec);
+> +
+> +	ret =3D __adis_write_reg_16(&st->adis, ADIS16607_REG_DEC_RATE, dec);
+> +	if (!ret)
+With a guard you can have the error path out of line.
+Always do that unless it makes the code a lot less redable.
+	if (ret)
+		return ret;
+
+	st->sample_period_ns =3D ...
+
+> +		st->sample_period_ns =3D DIV_ROUND_CLOSEST_ULL((u64)NSEC_PER_SEC * 100=
+0ULL * (dec + 1),
+> +							     st->clk_freq);
+> +
+> +	mutex_unlock(&st->adis.state_lock);
+> +	return ret;
+> +}
 
 
 
-On 10/15/2026 7:43 AM, Konrad Dybcio wrote:
-> On 9/29/26 11:35 PM, Elson Serrao wrote:
->> The EUD hardware can support multiple High-Speed USB paths, each connected
->> to different USB controllers. The current implementation uses a single
->> chip-level role switch, which cannot properly handle multi-path
->> configurations where each path needs independent role management. Since
->> EUD is physically present between the USB connector and the controller,
->> it should also relay the role change requests from the connector.
->>
->> Restructure the driver to support per-path role switches and remove the
->> chip-level role switch. Additionally, as EUD need not modify the USB
->> role upon enabling, remove the unnecessary role switch call from
->> enable_eud().
->>
->> Reviewed-by: Peter Chen <peter.chen@kernel.org>
->> Signed-off-by: Elson Serrao <elson.serrao@oss.qualcomm.com>
->> ---
-> 
-> 
-> [...]
-> 
->> +	sw = usb_role_switch_find_by_fwnode(of_fwnode_handle(controller_node));
->> +	if (!sw) {
->> +		of_node_put(controller_node);
->> +		return dev_err_probe(chip->dev, -EPROBE_DEFER,
->> +				     "Failed to get controller role switch for path %d\n",
->> +				     path_num);
->> +	}
-> 
-> This will always probe defer on a fixed-role controller, we should patch
-> dwc3 to always register a roleswitch
-> 
-You mean for fixed-role controllers where an explicit `dr_mode` is not
-provided in DT and the fixed mode is derived from the HW capabilities?
-For explicit `dr_mode=host/peripheral` cases we bail out earlier and
-never reach this path.
+> +#define ADIS16607_MOD_CHAN(_type, _mod, _address, _si, _bits) { \
+> +	.type =3D (_type), \
+> +	.modified =3D 1, \
+> +	.channel2 =3D (_mod), \
+> +	.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW), \
+> +	.info_mask_shared_by_type =3D BIT(IIO_CHAN_INFO_SCALE), \
+> +	.info_mask_shared_by_all =3D BIT(IIO_CHAN_INFO_SAMP_FREQ), \
+> +	.address =3D (_address), \
+> +	.scan_index =3D (_si), \
+> +	.scan_type =3D { \
+> +		.sign =3D 's', \
+> +		.realbits =3D (_bits), \
 
-The EUD databook does not explicitly mention fixed-role controllers,
-so I was assuming all DWC3 controllers relevant to EUD are DR-capable
-and register a role switch.
+Always 24?  If so hard code it.
 
-I can see how a no-op role switch would address this case. Would it be
-reasonable to handle that as a follow-up improvement for controllers
-that resolve to a fixed role at runtime, rather than as part of this
-series?
+> +		.storagebits =3D 32, \
+> +		.endianness =3D IIO_BE, \
+> +	}, \
+> +}
+> +
+> +#define ADIS16607_ACCEL_CHANNEL(_mod) \
+> +	ADIS16607_MOD_CHAN(IIO_ACCEL, IIO_MOD_ ## _mod, \
+> +			   ADIS16607_REG_ ## _mod ## _ACCEL, \
+> +			   ADIS16607_SCAN_ACCEL_ ## _mod, 24)
+> +
+> +#define ADIS16607_GYRO_CHANNEL(_mod) \
+> +	ADIS16607_MOD_CHAN(IIO_ANGL_VEL, IIO_MOD_ ## _mod, \
+> +			   ADIS16607_REG_ ## _mod ## _GYRO, \
+> +			   ADIS16607_SCAN_GYRO_ ## _mod, 24)
+> +
+> +#define ADIS16607_TEMP_CHANNEL() { \
+> +	.type =3D IIO_TEMP, \
+> +	.indexed =3D 1, \
+> +	.channel =3D 0, \
+> +	.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) | \
+> +			      BIT(IIO_CHAN_INFO_SCALE) | \
+> +			      BIT(IIO_CHAN_INFO_OFFSET), \
+> +	.info_mask_shared_by_all =3D BIT(IIO_CHAN_INFO_SAMP_FREQ), \
+> +	.address =3D ADIS16607_REG_TEMP, \
+> +	.scan_index =3D ADIS16607_SCAN_TEMP, \
+> +	.scan_type =3D { \
+> +		.sign =3D 's', \
+> +		.realbits =3D 16, \
+> +		.storagebits =3D 16, \
+> +		.endianness =3D IIO_BE, \
+> +	}, \
 
-Thanks
-Elson
+Only one of these. Just put it inline.  The macro isn't adding anything
+useful that I can see.
+
+> +}
+> +
+> +#define ADIS16607_MOD_CHAN_DELTA(_type, _mod, _address, _si) { \
+> +	.type =3D (_type), \
+> +	.modified =3D 1, \
+> +	.channel2 =3D (_mod), \
+> +	.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW), \
+> +	.info_mask_shared_by_type =3D BIT(IIO_CHAN_INFO_SCALE), \
+> +	.info_mask_shared_by_all =3D BIT(IIO_CHAN_INFO_SAMP_FREQ), \
+> +	.address =3D (_address), \
+> +	.scan_index =3D (_si), \
+> +	.scan_type =3D { \
+> +		.sign =3D 's', \
+> +		.realbits =3D 24, \
+> +		.storagebits =3D 32, \
+> +		.endianness =3D IIO_BE, \
+> +	}, \
+> +}
+> +
+> +#define ADIS16607_DELTANG_CHAN(_mod) \
+> +	ADIS16607_MOD_CHAN_DELTA(IIO_DELTA_ANGL, IIO_MOD_ ## _mod, \
+> +				 ADIS16607_REG_ ## _mod ## _DELTANG, \
+> +				 ADIS16607_SCAN_DELTANG_ ## _mod)
+> +
+> +#define ADIS16607_DELTVEL_CHAN(_mod) \
+> +	ADIS16607_MOD_CHAN_DELTA(IIO_DELTA_VELOCITY, IIO_MOD_ ## _mod, \
+> +				 ADIS16607_REG_ ## _mod ## _DELTVEL, \
+> +				 ADIS16607_SCAN_DELTVEL_ ## _mod)
+> +
+> +static const struct iio_chan_spec adis16607_channels[] =3D {
+> +	ADIS16607_ACCEL_CHANNEL(X),
+> +	ADIS16607_ACCEL_CHANNEL(Y),
+> +	ADIS16607_ACCEL_CHANNEL(Z),
+> +	ADIS16607_GYRO_CHANNEL(X),
+> +	ADIS16607_GYRO_CHANNEL(Y),
+> +	ADIS16607_GYRO_CHANNEL(Z),
+> +	ADIS16607_DELTVEL_CHAN(X),
+> +	ADIS16607_DELTVEL_CHAN(Y),
+> +	ADIS16607_DELTVEL_CHAN(Z),
+> +	ADIS16607_DELTANG_CHAN(X),
+> +	ADIS16607_DELTANG_CHAN(Y),
+> +	ADIS16607_DELTANG_CHAN(Z),
+> +	ADIS16607_TEMP_CHANNEL(),
+> +	IIO_CHAN_SOFT_TIMESTAMP(13),
+> +};
+> +
+> +/*
+> + * ADIS16607-2: 450 deg/s gyro, 40g accel
+> + * ADIS16607-3: 2000 deg/s gyro, 40g accel
+> + */
+> +#define ADIS16607_CHIP_INFO_COMMON					\
+> +	.channels	=3D adis16607_channels,				\
+> +	.num_channels	=3D ARRAY_SIZE(adis16607_channels),		\
+> +	.accel_max_val	=3D IIO_G_TO_M_S_2(40),				\
+> +	.accel_max_scale =3D 31250 << 8,					\
+> +	.temp_scale	=3D 5,						\
+> +	.deltvel_max_val =3D IIO_G_TO_M_S_2(40),				\
+> +	.int_clk	=3D 8000,						\
+> +	.max_dec	=3D 65535
+
+For only two instances, I'd just duplicate this in the assignments.
+
+> +
+> +static const struct adis16607_chip_info adis16607_2_chip_info =3D {
+> +	ADIS16607_CHIP_INFO_COMMON,
+> +	.name		=3D "adis16607-2",
+> +	.gyro_max_val	=3D IIO_DEGREE_TO_RAD(450),
+> +	.gyro_max_scale	=3D 30000 << 8,
+> +	.deltang_max_val =3D IIO_DEGREE_TO_RAD(450),
+> +};
+> +
+> +static const struct adis16607_chip_info adis16607_3_chip_info =3D {
+> +	ADIS16607_CHIP_INFO_COMMON,
+> +	.name		=3D "adis16607-3",
+> +	.gyro_max_val	=3D IIO_DEGREE_TO_RAD(2000),
+> +	.gyro_max_scale	=3D 31250 << 8,
+> +	.deltang_max_val =3D IIO_DEGREE_TO_RAD(2000),
+> +};
+
+
