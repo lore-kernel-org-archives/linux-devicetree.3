@@ -1,343 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0455488229;
-	Sat, 17 Oct 2026 14:30:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD8ED3537F7;
+	Sat, 17 Oct 2026 14:46:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792247414; cv=none; b=CZF9FXw7++kjXij5v+xaYZVnwWM35PQH0ts872LN/v6gYYfQ4YTWQBXjJejSCqq+RPGJLhiK7ls0k7X2owoH25H9I72VCRh7OSHL/hE6HSYI2E3yc/KVboLdNJ3NGDvH+Pb8W5jn/zcYjiIX93nonArXLiRRn5yr+Il/tKDGplo=
+	t=1792248418; cv=none; b=tWDccKVeAB3FcM55feqe5unypSLboRTvmNaiMlBjgtqeE4Evhz5kbU2nCWgq36Y48AKCQGzOrMtZW8n5E31VakAzLPAKmUNscSYTM4lzhVODCClPvM3j+ZX1hzGDXEOmNHlUMiKwrVVkFplHnREjZnTnNXqGby8RRZFzCqfEPbc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792247414; c=relaxed/simple;
-	bh=JUgB8qcsBCx0dybmRAogIg6/M8EEEY/ZVlfeGspN6ZQ=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=a4tBQwRwfhn3BuoJjlpY8wIqjGYtgDQm1rgWJVsEFdaNpC/mqiGJsiWE4C8RYh3RSSQ15zBCTLWI6v7IhRYleKUorce9YIg11b0z5IwqU8JosShBGNaHFFydK0LU8tNUmGOF0W7wQs8Ope8fGK0Jisy1Du3GSSUkCj4xOaiFcNU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dJRJaIzF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792248418; c=relaxed/simple;
+	bh=HwsrOXMhbox2Mt7rrPvhtHc3LdN1Y2OwIiaYBnI2izo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mtPn7da21dXTd/Pc4eHLGoUWMOAITwnG0JzSLcE2SoRij6Zr/RjMqeQygTsMjLou2WLFgQHgZQqwTzeTD4/IrGYP40UdPmfciMMqb7Ekt6C2293h8OyGEkIxOjiHBc060HMCQbJUXP16HLyRy3kN65yqsiNMbGrFumPj9nXCsWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=L2lW7FNN; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dJRJaIzF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA46D1F000C4;
-	Sat, 17 Oct 2026 14:30:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792247413;
-	bh=XzGEY10x01v57dxjatZmPh4di6pE2tCeemqhGQ+7bSo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dJRJaIzFXLRVyT+QOvo0PqkcbeonKhNAsG38yxU/IOuRuHY6mY4sWmnzuDSlz8a7p
-	 a6ffX9vN4aCPu8YymCrUHJBnbd7p6geu5p0A8v3S+1oPGZHUNKfLskSPNDyxFMQHiz
-	 5qWfBkuxeVPCEeWj3bmXLKQqBSW4L/LpYavE+dRkrxMZf1y+uEi8V1YtpDk/Cwl+rF
-	 6GP3Re3iXxpNmnd3D2rzY4XDWMeIg4mpQe6woGg+NbpRCEKYc8tz1S+OKCosv0IMUk
-	 zevg4Y7RKoe75NqxPzjRZbsIv9ylxXVhTxEecuPD9vWy7FmI5CsNH36sxaKAFxdz9n
-	 B6TaOikuqpdEQ==
-Message-ID: <sashiko-outbox-175550@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 7/7] Input: edt-ft5x06 - support following a DRM panel
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Luka Panio" <lukapanio@gmail.com>
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20261017140827.290666-8-lukapanio@gmail.com>
-References: <20261017140827.290666-1-lukapanio@gmail.com>
- <20261017140827.290666-8-lukapanio@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 17 Oct 2026 14:30:12 +0000
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="L2lW7FNN"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4j6PlT6pVczMlQf;
+	Sat, 17 Oct 2026 16:46:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1792248406;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wyIpv1DH78bERhuonFyBzHAzXGjwnH87oDm0djKYOjQ=;
+	b=L2lW7FNNKcA0nxzjhLgLyi0yJe4Ip5D0OTMZh5Q3zdB4hTALCv+mT+jBZWeJMQx6btp9+z
+	Gm0LkGPztXJb1+qRqojom7Vzx/CGcG9rtlIGKXateITIKq55k/phZGyjEY+wn5h6HzWpPS
+	/W2D77qxP24KEreFhdw59OZF/k2Syng5E0PiRheHLrPM1EdGdiENe67V/t2dns57B2gmpB
+	AtxCBzbkRfesWZLuqf8bP88ef0z+LD23es8SuFZ4Zhso+RbTk3g/eia9szSfgploUnUxav
+	DDhp77KjFRmRDQ3QIEf5fesIz2jmTAHiEnWmthTaFnDxA4sQz75VsSZnk0gXtQ==
+Message-ID: <f5697305-2f25-4a56-85e6-ebc3c8745fe7@mailbox.org>
+Date: Sat, 17 Oct 2026 16:46:43 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: PCI: rcar-gen4-pci-host: Replace sft_ce IRQ
+ with AER IRQ on R-Car Gen5
+To: linux-pci@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Koichiro Den <den@valinux.co.jp>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+References: <20261003215710.792518-1-marek.vasut+renesas@mailbox.org>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <20261003215710.792518-1-marek.vasut+renesas@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: uzxigruue3873izzkzceeuc6ubig8rkt
+X-MBO-RS-ID: d83845d60e5241af131
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] Input: edt-ft5x06 - unbind race between panel_work and remove/devr=
-es teardown
-- [High] Input: edt-ft5x06 - non-idempotent edt_ft5x06_ts_init_hw() retried=
- in panel_work
-- [Medium] Input: edt-ft5x06 - reset_gpio left deasserted on boot failure i=
-n panel_work
-- [Medium] Input: edt-ft5x06 - missing powered_off check and factory_mode r=
-estore for panel follower
-- [Medium] Input: edt-ft5x06 - unlocked sysfs reads in model_show() and fw_=
-version_show()
---
+On 10/3/26 11:57 PM, Marek Vasut wrote:
+> The R-Car Gen5 SoC PCIe4 controller does not have dedicated sft_ce IRQ.
+> Make that interrupt conditionally available only on R-Car Gen4 SoC PCIe
+> controller.
+> 
+> The R-Car Gen5 SoC PCIe4 controller does have dedicated AER interrupt,
+> include it from the beginning. R-Car Gen4 SoC PCIe controller also has
+> an AER interrupt, but to retain binding backward compatibility, this
+> interrupt is kept optional and added in a separate patchset.
+> 
+> Fixes: 5b555a496160 ("dt-bindings: PCI: rcar-gen4-pci-host: Add R-Car X5H PCIe4 compatible")
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> ---
+> Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
+> Cc: Bjorn Helgaas <bhelgaas@google.com>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+> Cc: Koichiro Den <den@valinux.co.jp>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+> Cc: Manivannan Sadhasivam <mani@kernel.org>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-pci@vger.kernel.org
+> Cc: linux-renesas-soc@vger.kernel.org
+> ---
+> NOTE: Gen4 AER is added in https://lore.kernel.org/all/20260928165230.3397664-1-den@valinux.co.jp/
 
-commit 8d0f54b6a0e4f2aafd88896b2e7280382657e313
-Author: Luka Panio <lukapanio@gmail.com>
+This would be good to apply since it is a fix, however, I think this 
+needs review from DT maintainers first.
 
-Input: edt-ft5x06 - support following a DRM panel
+Thank you for your help!
 
-This commit adds DRM panel follower support to the edt-ft5x06 touchscreen
-driver for TDDI controllers that share power and reset lines with a display
-panel. When following a panel, initial hardware probing and subsequent power
-transitions are deferred to a workqueue triggered by the panel follower
-callbacks.
-
-> diff --git a/drivers/input/touchscreen/edt-ft5x06.c b/drivers/input/touch=
-screen/edt-ft5x06.c
-> index 7bcc48e07d629..b2fca6c372052 100644
-> --- a/drivers/input/touchscreen/edt-ft5x06.c
-> +++ b/drivers/input/touchscreen/edt-ft5x06.c
-
-[ ... ]
-
-> @@ -1206,9 +1217,117 @@ static int edt_ft5x06_ts_init_hw(struct edt_ft5x0=
-6_ts_data *tsdata)
-> =20
->  	edt_ft5x06_ts_prepare_debugfs(tsdata);
-> =20
-> +	tsdata->hw_initialized =3D true;
+> ---
+>   .../bindings/pci/rcar-gen4-pci-host.yaml      | 21 ++++++++++++-------
+>   1 file changed, 14 insertions(+), 7 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
+> index 362c43a1a15d0..083b77d4de8f7 100644
+> --- a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
+> +++ b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
+> @@ -28,13 +28,6 @@ properties:
+>     interrupts:
+>       maxItems: 4
+>   
+> -  interrupt-names:
+> -    items:
+> -      - const: msi
+> -      - const: dma
+> -      - const: sft_ce
+> -      - const: app
+> -
+>     clocks:
+>       maxItems: 2
+>   
+> @@ -98,6 +91,13 @@ allOf:
+>               - const: app
+>               - const: phy
+>               - const: config
 > +
-> +	return 0;
-> +}
+> +        interrupt-names:
+> +          items:
+> +            - const: msi
+> +            - const: dma
+> +            - const: sft_ce
+> +            - const: app
+>     - if:
+>         properties:
+>           compatible:
+> @@ -117,6 +117,13 @@ allOf:
+>               - const: app
+>               - const: config
+>   
+> +        interrupt-names:
+> +          items:
+> +            - const: msi
+> +            - const: dma
+> +            - const: app
+> +            - const: aer
 > +
-> +/*
-> + * TDDI controllers share their power and reset with the display panel. =
-When
-> + * following a panel, power the touch controller down before the panel g=
-oes
-> + * off and bring it back once the panel is up again.
-> + */
-> +static void edt_ft5x06_panel_work(struct work_struct *work)
-> +{
-> +	struct edt_ft5x06_ts_data *tsdata =3D
-> +		container_of(work, struct edt_ft5x06_ts_data, panel_work);
-> +	int error;
-> +
-> +	guard(mutex)(&tsdata->mutex);
-> +
-> +	if (!tsdata->powered_off)
-> +		return;
-> +
-> +	if (!tsdata->hw_initialized) {
-> +		error =3D edt_ft5x06_ts_init_hw(tsdata);
-> +		if (error) {
-> +			/* try again the next time the panel comes up */
-> +			gpiod_set_value_cansleep(tsdata->reset_gpio, 1);
-> +			dev_err(tsdata->dev,
-> +				"Failed to initialize the controller: %d\n",
-> +				error);
-> +			return;
-> +		}
-> +		goto out;
-> +	}
+>   unevaluatedProperties: false
+>   
+>   examples:
 
-[Severity: High]
-Is it safe to retry edt_ft5x06_ts_init_hw() on a subsequent panel prepare
-cycle if the first attempt fails?
 
-edt_ft5x06_ts_init_hw() performs several one-shot actions that do not roll
-back on error:
-
-1. In edt_ft5x06_ts_init_hw() -> edt_ft5x06_ts_identify(), if an EDT_M06
-   chip is detected, it destroys tsdata->regmap and replaces it:
-
-	regmap_exit(tsdata->regmap);
-	tsdata->regmap =3D regmap_init_i2c(client,
-					 &edt_M06_i2c_regmap_config);
-	if (IS_ERR(tsdata->regmap)) {
-		dev_err(tsdata->dev, "regmap allocation failed\n");
-		return PTR_ERR(tsdata->regmap);
-	}
-
-   If regmap_init_i2c() returns an error pointer, the next retry will pass
-   that error pointer into regmap_bulk_read() and dereference it. Even if
-   regmap_init_i2c() succeeds and a later step in edt_ft5x06_ts_init_hw()
-   fails, the next retry will call edt_ft5x06_ts_identify() using
-   edt_M06_i2c_regmap_config, which masks the 0xBB identification register
-   to 0x3B and only reads a single byte, breaking M06 identification.
-
-2. edt_ft5x06_ts_init_hw() calls input_register_device(tsdata->input) on the
-   input_dev allocated once in edt_ft5x06_probe(). If input_register_device=
-()
-   fails, struct input_dev cannot be passed to input_register_device() a
-   second time on the next retry.
-
-3. In edt_ft5x06_ts_init_hw(), if tsdata->boot() fails, it calls
-   dev_err_probe() from the background panel_work workqueue after
-   edt_ft5x06_probe() has already returned.
-
-> +
-> +	gpiod_set_value_cansleep(tsdata->reset_gpio, 0);
-> +
-> +	if (tsdata->boot) {
-> +		error =3D tsdata->boot(tsdata->dev, tsdata->reset_gpio);
-> +		if (error) {
-> +			dev_err(tsdata->dev,
-> +				"Failed to boot the controller: %d\n", error);
-> +			return;
-> +		}
-> +	} else {
-> +		msleep(300);
-> +	}
-
-[Severity: Medium]
-Should reset_gpio be re-asserted to 1 if tsdata->boot() fails here, just as
-is done in the !tsdata->hw_initialized error path above?
-
-Because tsdata->powered_off remains true on this early return, a subsequent
-call to edt_ft5x06_panel_unpreparing() will see tsdata->powered_off =3D=3D =
-true
-and return early without asserting reset_gpio to 1:
-
-	if (tsdata->powered_off)
-		return 0;
-
-	disable_irq(tsdata->irq);
-	gpiod_set_value_cansleep(tsdata->reset_gpio, 1);
-	tsdata->powered_off =3D true;
-
-That leaves reset_gpio deasserted (0) while the shared TDDI panel power goes
-off, and also prevents a 1 -> 0 reset transition on the next panel wake-up.
-
-> +
-> +	edt_ft5x06_restore_reg_parameters(tsdata);
-> +out:
-> +	tsdata->powered_off =3D false;
-> +	enable_irq(tsdata->irq);
-> +}
-
-[Severity: Medium]
-What happens if tsdata->factory_mode is active across a panel power cycle, =
-or
-if the debugfs files are accessed while tsdata->powered_off is true?
-
-In edt_ft5x06_debugfs_mode_set() and edt_ft5x06_debugfs_raw_data_read(),
-tsdata->mutex is acquired, but unlike edt_ft5x06_setting_show() and
-edt_ft5x06_setting_store(), neither function checks tsdata->powered_off
-before accessing the controller over regmap or toggling IRQ state.
-
-In addition, if factory mode was enabled before the panel turned off
-(calling disable_irq(tsdata->irq) once and setting tsdata->factory_mode =3D
-true), edt_ft5x06_panel_unpreparing() will call disable_irq(tsdata->irq) a
-second time and assert reset_gpio. When edt_ft5x06_panel_work() runs on
-resume, the controller comes out of reset in work mode while
-tsdata->factory_mode is still true, causing edt_ft5x06_restore_reg_paramete=
-rs()
-on M06 to format writes as factory-mode requests, and leaving tsdata->irq
-disabled after the single enable_irq(tsdata->irq) call because
-edt_ft5x06_factory_mode() is not called as in edt_ft5x06_ts_resume():
-
-	edt_ft5x06_restore_reg_parameters(tsdata);
-	enable_irq(tsdata->irq);
-
-	if (tsdata->factory_mode)
-		ret =3D edt_ft5x06_factory_mode(tsdata);
-
-[ ... ]
-
-> +static void edt_ft5x06_cancel_panel_work(void *data)
-> +{
-> +	struct edt_ft5x06_ts_data *tsdata =3D data;
-> +
-> +	cancel_work_sync(&tsdata->panel_work);
-> +}
-> +
-> +static int edt_ft5x06_register_panel_follower(struct edt_ft5x06_ts_data =
-*tsdata)
-> +{
-> +	struct device *dev =3D tsdata->dev;
-> +	int error;
-> +
-> +	INIT_WORK(&tsdata->panel_work, edt_ft5x06_panel_work);
-> +	error =3D devm_add_action_or_reset(dev, edt_ft5x06_cancel_panel_work,
-> +					 tsdata);
-> +	if (error)
-> +		return error;
-> +
-> +	tsdata->panel_follower.funcs =3D &edt_ft5x06_panel_follower_funcs;
-> +
-> +	return devm_drm_panel_add_follower(dev, &tsdata->panel_follower);
-> +}
-
-[Severity: High]
-Can deferring panel follower removal and cancel_work_sync(&tsdata->panel_wo=
-rk)
-to devres actions race with edt_ft5x06_remove() and devres teardown when the
-driver is unbound while edt_ft5x06_panel_work() is running?
-
-When unbinding the driver:
-
-1. edt_ft5x06_remove() runs before devres release:
-
-	void edt_ft5x06_remove(struct device *dev)
-	{
-		struct edt_ft5x06_ts_data *tsdata =3D dev_get_drvdata(dev);
-
-		edt_ft5x06_ts_teardown_debugfs(tsdata);
-	}
-
-   For I2C devices, i2c_device_remove() then immediately calls
-   debugfs_remove_recursive(client->debugfs) before devres_release_group().
-   Because panel_work has not been cancelled yet, a concurrent execution of
-   edt_ft5x06_panel_work() -> edt_ft5x06_ts_init_hw() ->
-   edt_ft5x06_ts_prepare_debugfs() can dereference the freed tsdata->debugfs
-   dentry and allocate tsdata->raw_buffer after teardown has already run.
-
-2. During devres teardown, remove_nodes() drains dev->devres_head into a
-   local todo list before release_nodes() invokes the devm actions for
-   drm_panel_remove_follower and edt_ft5x06_cancel_panel_work. If
-   edt_ft5x06_panel_work() is mid-flight inside edt_ft5x06_ts_init_hw()
-   waiting to finish while edt_ft5x06_cancel_panel_work() blocks in
-   cancel_work_sync(), input_register_device(tsdata->input) will append
-   devm_input_device_unregister to dev->devres_head after dev->devres_head
-   was already drained into todo. release_nodes() will then execute
-   devm_input_device_release from todo without having run
-   devm_input_device_unregister.
-
-> @@ -1331,14 +1450,24 @@ int edt_ft5x06_probe(struct device *dev, struct r=
-egmap *regmap, int irq,
->  	tsdata->factory_mode =3D false;
->  	dev_set_drvdata(dev, tsdata);
-> =20
-> -	error =3D edt_ft5x06_ts_init_hw(tsdata);
-> -	if (error)
-> -		return error;
-> +	/*
-> +	 * A controller sharing its power with a panel can only be accessed
-> +	 * once the panel is up, so leave it in reset and do the rest of the
-> +	 * initialization from the panel follower callback.
-> +	 */
-> +	tsdata->is_panel_follower =3D drm_is_panel_follower(dev);
-> +	if (!tsdata->is_panel_follower) {
-> +		error =3D edt_ft5x06_ts_init_hw(tsdata);
-> +		if (error)
-> +			return error;
-> +	}
-
-[Severity: Medium]
-When tsdata->is_panel_follower is true and edt_ft5x06_ts_init_hw() is
-deferred to edt_ft5x06_panel_work(), should model_show() and
-fw_version_show() hold tsdata->mutex when reading tsdata->name and
-tsdata->fw_version?
-
-	static ssize_t model_show(struct device *dev,
-				  struct device_attribute *attr, char *buf)
-	{
-		struct edt_ft5x06_ts_data *tsdata =3D dev_get_drvdata(dev);
-
-		return sysfs_emit(buf, "%s\n", tsdata->name);
-	}
-
-	static ssize_t fw_version_show(struct device *dev,
-				       struct device_attribute *attr, char *buf)
-	{
-		struct edt_ft5x06_ts_data *tsdata =3D dev_get_drvdata(dev);
-
-		return sysfs_emit(buf, "%s\n", tsdata->fw_version);
-	}
-
-Previously, tsdata->name and tsdata->fw_version were populated synchronously
-in edt_ft5x06_probe() before the sysfs attributes in edt_ft5x06_groups were
-registered. With hardware initialization deferred to edt_ft5x06_panel_work(=
-),
-edt_ft5x06_ts_identify() now writes to tsdata->name and tsdata->fw_version
-under tsdata->mutex after the sysfs files are already visible to userspace,
-so unlocked reads in model_show() and fw_version_show() can race with
-edt_ft5x06_ts_identify().
-
-[ ... ]
-
->
->
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261017140827.2906=
-66-1-lukapanio@gmail.com?part=3D7
+-- 
+Best regards,
+Marek Vasut
