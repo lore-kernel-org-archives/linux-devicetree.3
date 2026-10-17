@@ -1,184 +1,90 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2124.outbound.protection.partner.outlook.cn [139.219.17.124])
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9ADB3115B8;
-	Sat, 17 Oct 2026 07:08:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792220886; cv=fail; b=AEDO/MPVx3NSKhXQ76dW8tFpdPyI7xurKxyVgHzRWkwx8ESU+xPq6g/cDQJNWfoZQX10OGEH/vK0Y4Yp7xPLhfkq8Jk6Cjz+gf6YiAoQ7k5UiaZBfze2wmmSA/sEhPAnCmzf35Ya82E6P2DFnwRoIOmkjZJwG1rnWBS4DgvH8sI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792220886; c=relaxed/simple;
-	bh=4hNS2verl7djBr1HQZ5LfGuyvS6pj376EsupEyiHRjI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Z8dojEhFVGTOv4DSqee4G9GlVToKwHZ3i8xCTZXClyEp1OpnFKkY3PXlnzYlRgakEZbSIyAXeKQuqrzLtzqS3cdw7Q8lUwvbA2o5vMOzIhFmxHu/ybGCBTxwKc4Mf2w1zoOMM9AQ6yT04JuSyBBPbBKsfcinMIv6xodhrFCKnQ8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Gw4gT+xw66Sp+rS2wr03QLc0hX58v+3NlKhjJYbDO8brDCm5uIiRUCKn1C9E376iBw+hYwehroB+r4FTzdYm3O9HexFqzyebSt8Un2ddir1uSwJ39PzZ0kDhMDiNQJJTOO5t3qaHzjtuonciLB9FmBauG8UDk2tcw5kKra+jaoe+nog4nvoHeMbfyiVxJnm230G6EK8pNo8vvpXgbFdziGeBPnTLcgzPx8U/elfLuOyNdVj533t4GO8+WxMjbzNjkCDhtMEzN/nump1zwZUTH3SNlJz/o+dfkG4T8QfbbCPmPa44FIEeybC0bpXyTk4e533jzvjVR/wwf02ax7Twpw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=P9fvpEDXxRo4joGgx4s5iXFjBycG9jJi06nMAvOqQPE=;
- b=k2WotCrsHT1X94X3vZ0I1tflassA2LiIAxX2MquIgGFm7z77/Z2HAySnZ16vTlF4Zr1aKhi3r4Vr3dGdjd5SqURKCrQ8uMOScoKkUdfztT6qpzRIz8GjBP81d7pq08qjbAUyXT0in8Z/9tUHyKBuy8HOOrxCkLF8FOAAjm+zXRJLbKZysE8UJFX2irYDkgkOr7/zS6BkT2CnRC7tzuL3l85LhWWP46JD+v2hJebXYTwgGHv0ZddZ49hy6J8pc4TTZdfreZyJqSEgGgPyevhjSO0UTV4AgqJxU7jUWvtWsNYpGsL4OscBh2kGvJb8r3llMlqXBJxwXWXfyuLcMdAJSw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1156.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:14::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.17; Sat, 17 Oct
- 2026 07:07:50 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0522.016; Sat, 17 Oct 2026 07:07:50 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Breno Leitao <leitao@debian.org>
-CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Joel
- Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Chia-Wei Wang <chiawei_wang@aspeedtech.com>, Oskar Senft <osk@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Shuah Khan
-	<skhan@linuxfoundation.org>, Jani Nikula <jani.nikula@intel.com>, Vitaly
- Lubart <lubvital@gmail.com>, Hanjun Guo <guohanjun@huawei.com>, Andrew Morton
-	<akpm@linux-foundation.org>, Alexander Usyskin <alexander.usyskin@intel.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, Philipp Zabel <p.zabel@pengutronix.de>, James
- Morse <james.morse@arm.com>, Paolo Abeni <pabeni@redhat.com>, Stephen
- Hemminger <stephen@networkplumber.org>, Dave Penkler <dpenkler@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>, Jonathan Cameron <jic23@kernel.org>, Dan
- Williams <djbw@kernel.org>, Mukesh Rathor <mrathor@linux.microsoft.com>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>, Alexandra Winter
-	<wintera@linux.ibm.com>, Julian Braha <julianbraha@gmail.com>, Karthikeyan KS
-	<karthiproffesional@gmail.com>, Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
-	<linux-aspeed@lists.ozlabs.org>
-Subject: Re: [PATCH v2 1/4] uart-routing: Add common UART routing framework
-Thread-Topic: [PATCH v2 1/4] uart-routing: Add common UART routing framework
-Thread-Index: AQHdPSFocjktLUPKVk6wGx4cu9RnpLb+m6cAgAL2hSA=
-Date: Sat, 17 Oct 2026 07:07:50 +0000
-Message-ID:
- <ZQ4PR01MB12025942CE5D2F83D82BD1BCF29A2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-References: <20260905102901.126035-1-changhuang.liang@starfivetech.com>
- <20260905102901.126035-2-changhuang.liang@starfivetech.com>
- <atCibvmbCSTMTMYD@gmail.com>
-In-Reply-To: <atCibvmbCSTMTMYD@gmail.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1156:EE_
-x-ms-office365-filtering-correlation-id: a036de3e-805d-45b2-1520-08df2c1d5b06
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|376014|7416014|366016|1800799024|10067099003|22082099003|18002099003|4143699003|261009223027099003|38070700021|56012099006;
-x-microsoft-antispam-message-info:
- utRJekgtv75KZ6hbikRcPwP3g3AMvj/lP6rydsEhUkVBc7wo8Ka/DkxMvfD4jzcmFve9UZVHly3MDAwLLiQwI+LbA2cGyH7g0mDIreIUDqbP/gSITjtL6LLhauo4NVjBhOnW7w0O4fCDGEvBJxNyQ3G1g7zVDrSgTztXkX7ryN79X7V/dSmOQmnXvlx2iN8QL0JZ1ve3Ponpi3+UodJbk/r80zimh7CrJ7GoR3QeWwFqDaZD5hJqq7ecpY6Z3lRypM5DECNg6y+EsZ5patGbSfxO8yxLOpWfzQe5vyO39loz/bgJcAm+VEsMZGD742kDdxO4Pl/inbMj6xkEdag0xKVTvOXZ8hC1H8QGokolKQd4Sj/yBQRjN2doLjkYy4sti7MhsOmoWlDQXfJGrpKzKs7r3PJZjSdHxYo8YKu0UNLhGFaik0b60R34wWeXfSkgIUBL/JObeh9OffZc1w6tOXQqcrywFqynscQe+KdPmppITWurM4YH8PUy1g0GEX1zsMHSnoIJJ1PhYdvHsKiu2hN6klvyMrKDQYO7mS+3WKyuwexva55zbpcJ5vG+7x3A
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(10067099003)(22082099003)(18002099003)(4143699003)(261009223027099003)(38070700021)(56012099006);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?O2wuCtjpR4/HkokmUVsZ6yzWuRW4oc/VqfJbhtJsQ8j0xB2nj1KFxuWfdcNW?=
- =?us-ascii?Q?v2bpEHhq6q3fXgQmbEqqbpC7JJuqNqRUks/c24jQ/o9Iqyj3bBZjlWHLlDyH?=
- =?us-ascii?Q?i10g/V11rGedpZq3CWQv/+qRHFiQvkuCr1gyjg6xBNIaarRLniZb5hPRdC9s?=
- =?us-ascii?Q?f9SykGzmcq/6NgUTPTNHeH0Dhs1052IhqQyHIz88uPnQfQh4LIO0qblI7f9a?=
- =?us-ascii?Q?x2mehoOAjo2OhlxwL8lIwb9KgGWSGP0m6QTHB39KdeL4yq1mQvbHHLwWyEnS?=
- =?us-ascii?Q?uHgrvvmQR2Nt6zdxdHBrrHGEGpr5mmTcHGfNoHygK2zAHpnwPd64cR7XsQ89?=
- =?us-ascii?Q?kprwmCaGViCGxGLFGUf4Qx/Uvs3UBKPGwyvXAxKAjmbY7aE8zaUyvbJzN+cM?=
- =?us-ascii?Q?GwMslLjZgKRqWR/G1+soDVe6JIAuoudpiBDTlisQCM/3xXpDZsmUrs6+BuUM?=
- =?us-ascii?Q?5WSvof+X+ypZRjvATwfcFiwLyZqeU0CYMPXJaYOHpZq/PVEcQilyjFTGLKVu?=
- =?us-ascii?Q?oNHYdVBhU+zo+LXb5VIutnnXnSw9fZ3FRDKIRkNmkgo9XvTLy/oW/Pvc+zyZ?=
- =?us-ascii?Q?A4Hr3OAF5j29Fkc3+ESUc2hzzEekYMVNjt68NW4liRPoux4X4JJiSaqNjLZm?=
- =?us-ascii?Q?fAeSH11WhK3+ur9Y6FhRKl5+st0yiPU8iVAl3qdgKmvWiUXUYkW9zA7HKQ5t?=
- =?us-ascii?Q?NdUGlDh5B8oEWyVeGxN2lw4Rr9V1W1rVKO7K6Za7BElmBHwRAKwSn8zCu1Dc?=
- =?us-ascii?Q?hqmS0nj1mQbTPOZGKZTstDDpNGfElN/9u1bIWu81iA0zkGei2PYqCgZILT/4?=
- =?us-ascii?Q?yiG6M+Y9P+bD/YwjPCWmBPRyc76VuKQFp5wAUf+UVUb0BltgDD3w1dfAggcF?=
- =?us-ascii?Q?x+cro2jppSSmt4q8V+mON7zmq7ES17IP6JroYVfEB5xZRZar00fBiiHAcnej?=
- =?us-ascii?Q?e1OnxxAtPSP0kVkmBJLs6Pu4TuREBcsYoUbiJF1r+aRmngAQKEQZJbpqH4i9?=
- =?us-ascii?Q?cDdMqh6LsVL9qBBQ+HcZZvBiz0qg1ezgMl0tGTIz+ln0U57+hmpKrEDmSJIt?=
- =?us-ascii?Q?qB0wQucupfKojesWQuQj+xzgNDrLaJTvX1DC9V2E2OdirgYxILzu0N3KhIT9?=
- =?us-ascii?Q?X9wxLWX/NLs7i5WCogTK6QiC2cNk7i1iYu9WReuxQOidljR3e+ldHaxQF08C?=
- =?us-ascii?Q?x1XJWuwUg148vicfiSfAAZJkt6xJNPmN5v8Jt7Hi/Y123qLIbR6cG7+Z2gzd?=
- =?us-ascii?Q?ajfievEw7HTBqogLrNhUcDC44BUIl4xeq0kLZdMuwTMHZiYycJEFE1CzsQPG?=
- =?us-ascii?Q?u29W6XfnmWEw9R1OLYwTK0deHdp58faUCxIiHgq5R8kO8DHM0QgGvCPR4hEH?=
- =?us-ascii?Q?ebJrfM2poA0IvYyeQQYtTVWwJ7WQp2OqgSuAeWTbERKxfItp2OADTh+rbTUH?=
- =?us-ascii?Q?HQzDn74dO2EIZas3TVj8EB6zqGQh6WBTBfgYJbomcF95/Fx1C3RtsaWMLpIP?=
- =?us-ascii?Q?9OszPwXxGW4r2QuC1PNcccYBlbRK/MqUKNYyh/NRik0eBOYacEKlWpleyKjZ?=
- =?us-ascii?Q?kDyIx7gOEUfrkdJ1EC4SiJQtWfn/QXEeMNLHjqmV4ejZ4ro21VU0JSD4ueRg?=
- =?us-ascii?Q?dNkkhaDjAzhODiW9+evyAj+F3kXCVeiPqihQxPnCtORuRXVUOmBpAxPv05iN?=
- =?us-ascii?Q?WB2/PiqCoGY1kbI2xXCB1hUrjZmaLSp0EYBNujl/+NAXaUkD9ZHi88JEZNE9?=
- =?us-ascii?Q?QtqEYaWJEyi4MHkHwxLX55BOJWZe4c0=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30BC042AD77;
+	Sat, 17 Oct 2026 07:22:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.238.236.174
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792221754; cv=none; b=ckTuVseROwjXSUNt10PaICR3PpXwe61p3+qRvB0CFjgpZweQLuSScKebohFXlwlqPabxSIu/y2wDgks6YYhowhuDPDA5k2BcbO5Khg070LmeuO9uBzO4Cfqwy2hjqQwepH9Bwsb06rB+/bMmMgpVxizXfOAi4V4SM79WYIg9HYA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792221754; c=relaxed/simple;
+	bh=4tlM9DH26Jk6K9xCLPb1uHMYubLY+sTMCGdKo5juFPk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UlMpK6LagHzHfZz2nRtOoAy0l6db6OCiRQVQ0dNGPvJsR23LaOmTY0FPXjkj2jEMvX2FY3EkCQNC1sRYUurt4I64DQwL8GuJnyRndJnPbv5E08DXZHHUCaPGYre0dfa1H1Dx4ORW9VSG0aw7ZF3zouiSu+hmwQGYSc2zG6wNiEM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info; spf=pass smtp.mailfrom=kemnade.info; dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b=v6DqruYv; arc=none smtp.client-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b="v6DqruYv"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=PANH83LO9KrofHVTq/98fVVjN62lrjOODBRAe7r1vek=; t=1792221751; x=1793431351; 
+	b=v6DqruYvktfGsukun84zvQb/WAe/b4thD4K1wOw0VuqGIbjQsxOYOr2JqCuS0FzDfKHEG+j2uJG
+	akTaeaIHt8fNTy8rDPYDQbCdZkuq9eLajmQizkECnI0ZsNN5qz7g7BC+oT0bm6InTIPuSefF+vBH7
+	rkrmVyH1NevNmF94zSpLHuH6WWQisPeb77Y3LDNXLl9NKV+qxJ9hhAqjLxa/lAXUnhJejfXm0XeRu
+	I77wYK1KbRDGZB7SxvQjhL8WP71c6EbcJHcvDgAyNK0Xvkn5XconU7yPPPr+383CPZuX/axM3vsqR
+	reNLwbaNW4gLKrqiZHMGjgzExBViDxuQn3lQ==;
+Date: Sat, 17 Oct 2026 08:39:57 +0200
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Ettore Chimenti <ettore.chimenti@linaro.org>
+Cc: Paul Walmsley <paul@pwsan.com>, Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>,
+ Tony Lindgren <tony@atomide.com>, Russell King <linux@armlinux.org.uk>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Christopher Obbard
+ <chris.obbard@oss.qualcomm.com>, Andrew Goodbody
+ <andrew.goodbody@linaro.org>, Linus Walleij <linusw@kernel.org>, Rouven
+ Czerwinski <rouven.czerwinski@linaro.org>, linux-omap@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 06/10] ARM: dts: omap: dm816x: Update USB node
+Message-ID: <20261017083957.7c2696f5@kemnade.info>
+In-Reply-To: <20261016-patch-ektor5-dm8168-dts-v1-6-b4ce30217028@linaro.org>
+References: <20261016-patch-ektor5-dm8168-dts-v1-0-b4ce30217028@linaro.org>
+	<20261016-patch-ektor5-dm8168-dts-v1-6-b4ce30217028@linaro.org>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: a036de3e-805d-45b2-1520-08df2c1d5b06
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Oct 2026 07:07:50.1890
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Ohhki4sPohoPiX7ARVEE5zvNCg5zHqO2isikhZ4PNd7rbBa1RvxOarTsaVH+bDJaoxu9HTyTUJhKHnz6d1dLges4gOJB02F1xIY85FdVIl669IyheX6t9gn7LhaVJmgF
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1156
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi, Breno
+On Fri, 16 Oct 2026 16:41:21 +0200
+Ettore Chimenti <ettore.chimenti@linaro.org> wrote:
 
-> On Sat, Sep 05, 2026 at 03:28:58AM -0700, Changhuang Liang wrote:
-> > +ssize_t uart_routing_show(struct device *dev, struct device_attribute =
-*attr,
-> > +                       char *buf)
-> > +{
-> > +     const struct uart_routing_selector *sel =3D
-> to_uart_routing_selector(attr);
-> > +     struct uart_routing *routing =3D uart_routing_from_dev(dev);
-> > +     unsigned int val, pos;
-> > +     int len, ret;
-> > +
-> > +     ret =3D regmap_read(routing->regmap, sel->reg, &val);
->=20
-> It seems routing can be NULL here if the file is read while the device is=
- being
-> unbound, and uart_routing_store() has the same problem.
->=20
-> I hit this while testing v2 on arm64 (next-20261008 with KASAN), and the
-> code is unchanged in v3.
->=20
->         d=3D/sys/bus/platform/devices/$DEV
->         drv=3D/sys/bus/platform/drivers/aspeed-uart-routing
->         while :; do cat $d/uart1; done >/dev/null 2>&1 &
->         while :; do echo $DEV > $drv/unbind; echo $DEV > $drv/bind; done
->=20
-> and then got:
->=20
->     KASAN: null-ptr-deref in range
-> [0x0000000000000000-0x0000000000000007]
->     Internal error: Oops: 0000000096000006 [#1]  SMP
->     pc : uart_routing_show+0x64/0x288 [uart_routing]
->     Call trace:
->      uart_routing_show+0x64/0x288 [uart_routing] (P)
->      dev_attr_show+0x64/0xc0
->      sysfs_kf_seq_show+0x21c/0x380
->      kernfs_seq_show+0x138/0x1c8
->      seq_read_iter+0x358/0xa30
->      kernfs_fop_read_iter+0x438/0x500
->      vfs_read+0x484/0x6f0
+> From: Andrew Goodbody <andrew.goodbody@linaro.org>
+> 
+> USB node was not working correctly with DMA enabled as the supporting
+> code had been updated without updating this SoC's device tree. Bring the
+> device tree more up to date so that it works with DMA enabled.
+> 
+> Signed-off-by: Andrew Goodbody <andrew.goodbody@linaro.org>
+> Signed-off-by: Ettore Chimenti <ettore.chimenti@linaro.org>
+> ---
+>  arch/arm/boot/dts/ti/omap/dm816x.dtsi | 41 +++++++++++++++++++++--------------
+>  1 file changed, 25 insertions(+), 16 deletions(-)
+> 
+> diff --git a/arch/arm/boot/dts/ti/omap/dm816x.dtsi b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
+> index 7f3ef3a00ab8..5be9efc60785 100644
+> --- a/arch/arm/boot/dts/ti/omap/dm816x.dtsi
+> +++ b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
+> @@ -574,18 +574,27 @@ uart3: serial@48024000 {
+>  		};
+>  
+>  		/* NOTE: USB needs a transceiver driver for phys to work */
+> -		usb: usb_otg_hs@47401000 {
+> -			compatible = "ti,am33xx-usb";
+> -			reg = <0x47401000 0x400000>;
+> -			ranges;
+> +		usb: target-module@47400000 {
+> +			compatible = "ti,sysc-omap4", "ti,sysc";
+> +			ti,hwmods = "usb_otg_hs";
 
-Thank you for pointing out the issue. I will reproduce and fix it.
+Why do we still need this? It is depcrecated.
 
-Best Regards,
-Changhuang
+Regards,
+Andreas
