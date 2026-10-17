@@ -1,65 +1,34 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.fhannenheim.net (mail.fhannenheim.net [188.245.251.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19AA1483BEA
-	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 14:53:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99523515E3;
+	Sat, 17 Oct 2026 15:13:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.245.251.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792248839; cv=none; b=pytGA16l2nY5jcxg1DOwmfVUDrhLoD/lGWwuJ24JmlJ8s9hqU9bNJZkquc7Z+fjTX65UgBhwL5A8EXLIB/p5W/G/NCgqY0X/VOX11IkI2JN6b817Fw5+4HJ8nOtxNIPbshuT36OUoUweohdyqAPz873AKN+wp4fQGMZsWtTuyHs=
+	t=1792249992; cv=none; b=ptLkGWwxT769q4ezRqKm7PvOEa+QMth+2BB9cqu7WrqgLYsQtKeHwPZAmjDnBOtO6+4HRGkznHtQGyGwHYIcjY7XTnMYJ1iSfEHfZmos9WaaqFbAbecKLcgczk4lEDW+RWA82E4nvaaDjgo9ZPo9I3nR+yoehSohWeJMqmzLxP0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792248839; c=relaxed/simple;
-	bh=QGkkL2Br9nOFTntWsohnZUbwzb7F2vn9vpbJDAOpngU=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=oMTQbCaNtwNIMQNA+3Nc8mAYPcgu20t5k/QvWt4k2HiFi9Jw3VjELvDm9+UEypEuXaiZpvAQSZloP6vRiX+x51/kub1rh44VDmGRcWK+CZy1U/YFPMtxpH4U8OaVMeDZgdx7XOCjuO0UZcZvTJ29SPNGJUjheTyJNVn6IzAjHuw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=RE6EIXmO; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1792249992; c=relaxed/simple;
+	bh=HTgEpA3wvjgMmORg8/TEDusewTLPDzjz4yiugn2k5GU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Hcf2DURc1gHRJmy/g7Av9BrXXy5groANDhwKX6VSjaZKmoLjfjjz8MCziM4iijiypeN1W/P5Z+K5rum4UcgJwCelN4/ITEP61p9hLNxtgHngydaYaHbqV2KYJCwYaqmC717QzSkYSvRjlBy24AtbcjflzQJv7TkL+huR2QEGRuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fhannenheim.net; spf=pass smtp.mailfrom=fhannenheim.net; dkim=pass (1024-bit key) header.d=fhannenheim.net header.i=@fhannenheim.net header.b=WKQnJMSE; arc=none smtp.client-ip=188.245.251.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fhannenheim.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fhannenheim.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="RE6EIXmO"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48df8fe8513so524946f8f.0
-        for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 07:53:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1792248836; x=1792853636; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=hiKDA+pCxvcmNuKm7oMIMiLNyrcd5EU9PaDKDAFb1ZA=;
-        b=RE6EIXmOplmwvceNWrWHy5LBMLEv0OAC8H4ZiPbddBV3OtUMzfB1iPCIltukGXxhvd
-         mMhNPBOScidmTegqDSPOhYkEz5dIKwIjB42kyW533Ife41doiTLlPEkGWcJeJfv+8G5m
-         mF4gPfEg7o8UthOG6AdXWhIZ7Y7R4T9Z2vPlpFHSzZV7nQLOssLzyRb/uKTPtYEuDGIb
-         NgKNvLeTuBg7sTdBvygXD0jO3blOSFnCRraATyDyxlZ2u5UfzwENCNAwc+H1zndPLFD1
-         zN355hvvRAwwk88iWWgQNfBdsgasZG4Fw9qQAuKhcfXrnxBlFZiaG37jjlHp3Mk8btVg
-         8d+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792248836; x=1792853636;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hiKDA+pCxvcmNuKm7oMIMiLNyrcd5EU9PaDKDAFb1ZA=;
-        b=MVod1U2Zf/HhBNvUi08bIk0+KnTQCSGAcPjw2ISo8P16U84g7PBsrEHKmUTFagChaw
-         2O2xKI+tUH/l7WNrCkKwhrpJ/wMedMpD9ilWdrllKXHekpyjUXR7/slXNf8yyNssZEvn
-         /FYpKo1pADOunZ+xUOynyf8uJq/ewxkdHdMxmOHNJuhfyyXwbP4m/rcdikskI1V/B8tJ
-         GBGBBFZPmNKeW3rLTVG988fNGp/plDIW8OiBCynVZchRqkY2QmSluVvEc0PZ0THVaJgv
-         NZAkpCVWg0XNgIC6w2ds30YNw2D6WC9UUxoAhY5VRzDh5r5PD6u4xfNH6bW8z9T/tDJ4
-         RuVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwvfmNxVe1N3PmhE9yAXNfy75TI8eiVRYH+7ua/Nhf6a9KBI/psLKXP/2iKZnUNxniVCmmLHn0yleD9@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ6/X4J+VZA3LYJeE5+5/AR12eb21uaWLxpb7ZkrFlEfrLJCcJk
-	AsvcPLXTONqV8HAYJSbA5pyRIwcLaAMBPM+PwkzkFneHuWy+AZw5eO3uhVE461zWXMY=
-X-Gm-Gg: AYBFou0LnREeFwjeV2YGLwwZphuVAFguSZptq+QoRa78RTwACW9PI6hNW+n1kI3qbJC
-	yLeyz/bK30FmHRbKAmTO6ja6uJApPttJ+oBhn1xuHRfS1EDC7TSlnGlmATz317uMxWVt+LX2CcZ
-	yf116iQuiJ42jOCUwPTEWHWyEaMu684lcvX2+Wu+fV1lLYgkz02Hvj52JLV0gKbcqJ7x4pX2baF
-	eR6ZZOfFd7ReN9wDT7sO5EuirG2VnqOu+OdEx8zEXbbMe5Y5eelbDpKZeDQLEOokLGvQ7dOXSsD
-	tu98cyR0EQihhIZbmRMsWkkxyv+ZLnqv7F9SN//RJkTzmUkTuTgvglMmOgR25I4TgKM4PUI4rjd
-	ArUsvXAB7JzK6FUukiGrT6Z+pLV5wUxl1oOlYNmol8ArN2sH9akla/WDqGT4Wc1QJ335GQMDW6z
-	mufgzUza42HLlIpAa2IEEzLZKTvH4zAl8oFib24oHK1wHTnmPj8Hpbri1Y/PhQQ3NAjRy7k98w2
-	h265LDEl6IZULpYdA==
-X-Received: by 2002:a5d:69c3:0:b0:48d:f831:2681 with SMTP id ffacd0b85a97d-48e07f9c04emr3912331f8f.38.1792248836373;
-        Sat, 17 Oct 2026 07:53:56 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd5035bbsm11683485f8f.44.2026.10.17.07.53.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 07:53:55 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=fhannenheim.net header.i=@fhannenheim.net header.b="WKQnJMSE"
+From: Frieder Hannenheim <git@fhannenheim.net>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fhannenheim.net;
+	s=mail; t=1792249988;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wNcnaaOF/5d7HdNph5GR5LUOZE/5XPU8OnIv96U+uWs=;
+	b=WKQnJMSE2LWv+CRVrNjEZEGdedMuEXk6GE35QUz7tIaysFL+d4A6eLX5nEDDc/kOizXULU
+	LY0pkMN6eYP0cWSOO7jkj2VOM+i2dRcBgcAHOqMmo36tZaPPlWVPcp2b6Q+HDc7mrO+iI8
+	YzAQndn/7+SHf6mdsVD9AneNZu1Sapg=
+Date: Sat, 17 Oct 2026 17:12:34 +0200
+Subject: [PATCH v3 1/3] dt-bindings: arm: qcom: Document OnePlus 8T
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,54 +37,47 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v10 06/10] clk: Create
- devm_clk_hw_register_fixed_rate_parent_hw()
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
- Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+Message-Id: <20261017-kebab_dts-v3-1-5fc3ca52a383@fhannenheim.net>
+References: <20261017-kebab_dts-v3-0-5fc3ca52a383@fhannenheim.net>
+In-Reply-To: <20261017-kebab_dts-v3-0-5fc3ca52a383@fhannenheim.net>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
- openbmc@lists.ozlabs.org
-In-Reply-To: <20261015-perso-ma35d1-upstream-clk-v10-6-47c97b54a809@bootlin.com>
-References: <20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com>
- <20261015-perso-ma35d1-upstream-clk-v10-6-47c97b54a809@bootlin.com>
-Date: Sat, 17 Oct 2026 16:53:42 +0200
-Message-Id: <179224882241.859276.3068400770588177354.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=543; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=QGkkL2Br9nOFTntWsohnZUbwzb7F2vn9vpbJDAOpngU=;
- b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFmXexj3VFp7rN9ucmVlQYXo+uJV97vPuik3FKzN0dvAc
- yEnL0i5o5SFQYyLQVZMkaWGu1r8naTWl1nTdW7DzGFlAhnCwMUpABOR1WBkODlR7IHFf528iI1X
- /i/aHic+02uHx8LYcm8Lg3WbjXaKuDP89z+wrdmo2azRkSO5eCNfZH+wZRH7Vc+bs3Z7m0kEvd7
- HAAA=
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Robert Oscilowski <drgitx@gmail.com>, 
+ =?utf-8?q?Jean-Fran=C3=A7ois_Bobier?= <jf.bobier@gmail.com>, 
+ phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Frieder Hannenheim <git@fhannenheim.net>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=732; i=git@fhannenheim.net;
+ h=from:subject:message-id; bh=HTgEpA3wvjgMmORg8/TEDusewTLPDzjz4yiugn2k5GU=;
+ b=owGbwMvMwCWWw1h8YvtkuWDG02pJDFmXJ5SU3Mlhrqs47SIT0197RO9Q10SDHxwxK9yFki9Ef
+ t/+Qpuxo5SFQYyLQVZMkcV5uuQP+0phHf3wf4owc1iZQIYwcHEKwES+mDEyPIrJMzrKelZ8W8UG
+ l1uLK25rtnrGtLyfYGwUvDpvwevjPIwMZyJOHWNc9ZRnt8ZH9TdFzkuEt7wvq9n3VNM5508kt3Q
+ SMwA=
+X-Developer-Key: i=git@fhannenheim.net; a=openpgp;
+ fpr=439719F83F79132C2F57FE216C0173C8B7931E53
 
-On Thu, 15 Oct 2026 18:01:19 +0200, Miquel Raynal <miquel.raynal@bootlin.com> wrote:
-> clk-provider.h exposes many different helpers to help registering
-> clocks. Most of them expose both a 'basic' variant and their 'devm_'
-> extension (with just the last parameter of the inner function call
-> becoming true instead of false). Do the same with:
-> 
->      clk_hw_register_fixed_rate_parent_hw() by creating
-> devm_clk_hw_register_fixed_rate_parent_hw().
-> 
-> [...]
+Add compatible for OnePlus 8T
 
-Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
+Signed-off-by: Frieder Hannenheim <git@fhannenheim.net>
+---
+ Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index 50cc18a6ec5e..6e3fdce92798 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -1070,6 +1070,7 @@ properties:
+               - qcom,qrb5165-rb5
+               - qcom,sm8250-hdk
+               - qcom,sm8250-mtp
++              - oneplus,kebab
+               - samsung,r8q
+               - samsung,x1q
+               - sony,pdx203-generic
 
 -- 
-Jerome
+2.54.0
 
