@@ -1,167 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 119E84F5E0;
-	Sat, 17 Oct 2026 14:16:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37C02339375;
+	Sat, 17 Oct 2026 14:24:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792246619; cv=none; b=G1H2Xo7+hdUAsbMxzUBVEnouqLagmv4u4huTg+F7qs3mKaYOinhbBkAr+1ijDxYyUOQPoIZ7RST1TFwx4EW5otC5fHwTGobLxEY91wnZ1onr7nzsm1bdD/RoszXtH6GaRNYwB7oumX8RgqItw5LIMdjQKDe35xspqdokysrCbyA=
+	t=1792247080; cv=none; b=gUPO59XFK+X7f8ww4Kex08y4dzW20A1eEktnTxoIi9fyf3lYqwJc34O4sC7/NdOTpPyUu34R24q4CpHKDa4JDS+zqBXEGCjPaA2+K9K2UO0SUhLIWexESYWXW7B/UwXRF6lbMhffhoKZNotxSPIEVH53NXxDI/VKm+ZYhnMn7BY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792246619; c=relaxed/simple;
-	bh=RIZjVekdMiJGiPJizKJfpWWpdC3mduDBFv5TbqTMVl8=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=fjh6JOybLKCmtsi9Mbg4kEg7n0i0xR6Gb1jVoiedbg0K6q/rPkfbvTSj3q58Ko37FnPD9UJ2CtjjNIgKaeaude8RqkY0YJseg7QGIQlVlzxiyUU6dDIrbMqdRiZTtZ+1TnV/jC1QMVh0V7A7C3m8xMbfzI4BKUtaLVztFHQfLzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oveaPm8O; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792247080; c=relaxed/simple;
+	bh=QbHfjeIGKiQU338q0g8Oeylgixw3zvUk+tNkDLgIDxc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=M4ZXxQkuP7/AQgq4na55NN9Eu17uWrL9Ji4I9hNvbdJPLnq3QYM6UHkqiNnbciCLfb6W7bTrNJoLiZwuDyNdIabNB4Zz1s+7E9n6+IaQU7dAwo7v5hJCxY0/ELD7gByzAGmJyBDKgEm/e/1biQy7xcCa65nO/isoGg6y4qkXqfU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PBypj0yt; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oveaPm8O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53DED1F000C4;
-	Sat, 17 Oct 2026 14:16:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792246617;
-	bh=TlW3uCCvPw8oRYqoh8XMlvnaGOk9Zc2ktOuL/qbySGY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oveaPm8OzEOCbzY+SvVSAfSzMIFHFCJHr2xijfAKUMFBslehRYFVI2P3P3fwGgaU1
-	 TpfuAfSkDMHGAjA3TGpP/YWBYh8nR2Cx0kObWcyGpD28UKNqWypVvz289WqAzL80ru
-	 tAfSwbXbj5oVwOs6Ovqzpfr+KTTTdtNKFmiQkKhhDs71xIpc9soYMb/G61zcqcGG6l
-	 vi+CQOlhST3LDnv2ahHOD5oHjB0ZIk7MepO/zDpTCztuh6s2F7cYzkGg7myfRXrDww
-	 k3MqKzvXlst1ChLEzq2zbC36h+LtSX6TO4XCr122iv5w1LOSpM8Cu4smnSBYeeHT21
-	 U1cfn/sZVZ4qw==
-Message-ID: <sashiko-outbox-175542@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/7] Input: edt-ft5x06 - move the controller bring-up
- into a helper
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Luka Panio" <lukapanio@gmail.com>
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20261017140827.290666-3-lukapanio@gmail.com>
-References: <20261017140827.290666-1-lukapanio@gmail.com>
- <20261017140827.290666-3-lukapanio@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 17 Oct 2026 14:16:56 +0000
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PBypj0yt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792247076; x=1823783076;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=QbHfjeIGKiQU338q0g8Oeylgixw3zvUk+tNkDLgIDxc=;
+  b=PBypj0ytAtNAjVA9N8o/LsU6cOO+Qhn0BkeSlSKyXSpHAVbAudfGDTRO
+   lzcrHc8XcgUmdmPTz5oInXDguHsrZIoZw1cLx/ykoE2sEGgI8YQ0puxE3
+   x4XVRxZILOhPNuJviWNyiFGRLpRPB7COs+8d2YTPCWboc1nql76tr0bhC
+   sw2DU5hPgtQMbUxEJUyddcLk9CVAUethOZnlLmXDEQLChuOhQWG7J0EZM
+   doxA8bjbUMGp6fSeKtc5BWgpFauiH6toHLj2y+SPYNsBtLa1m6MTtnH3k
+   WpKSOw+AWD7Px6xCgLC6vJAgwxP0PRUYVtXnTWDzWHO7LWeOozgRpaj0d
+   Q==;
+X-CSE-ConnectionGUID: PhsSHfN0Ssy5NZdDvUPf6w==
+X-CSE-MsgGUID: zL851pA2QbiEgl4eCdv4wQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11937"; a="906138"
+X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
+   d="scan'208";a="906138"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2026 07:24:35 -0700
+X-CSE-ConnectionGUID: HOZEW8DFQk2gJA2zyd7wTA==
+X-CSE-MsgGUID: haglIp14ROaLRtm+xsBwMQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
+   d="scan'208";a="3935055"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa013.fm.intel.com with ESMTP; 17 Oct 2026 07:24:31 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xI5Km-00000000JPy-32zq;
+	Sat, 17 Oct 2026 14:24:28 +0000
+Date: Sat, 17 Oct 2026 22:23:54 +0800
+From: kernel test robot <lkp@intel.com>
+To: Sebastian Reichel <sre@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+	kernel@collabora.com,
+	Sebastian Reichel <sebastian.reichel@collabora.com>
+Subject: Re: [PATCH 3/4] arm64: dts: mediatek: Use DP AltMode defines
+Message-ID: <202610172234.PyocmhiR-lkp@intel.com>
+References: <20261014-dp-altmode-dt-defines-v1-3-b657c9b6e4c3@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014-dp-altmode-dt-defines-v1-3-b657c9b6e4c3@collabora.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Input: edt-ft5x06: edt_ft5x06_ts_init_hw() registers device befo=
-re IRQ
+Hi Sebastian,
+
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on 0fcb05b72344f40806cbe810de8872f1698bf053]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Sebastian-Reichel/dt-bindings-connector-Add-DP-AltMode-VDO-definitions/20261014-233149
+base:   0fcb05b72344f40806cbe810de8872f1698bf053
+patch link:    https://lore.kernel.org/r/20261014-dp-altmode-dt-defines-v1-3-b657c9b6e4c3%40collabora.com
+patch subject: [PATCH 3/4] arm64: dts: mediatek: Use DP AltMode defines
+config: arm64-randconfig-1001-20261017 (https://download.01.org/0day-ci/archive/20261017/202610172234.PyocmhiR-lkp@intel.com/config)
+compiler: aarch64-linux-gcc (GCC) 13.4.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261017/202610172234.PyocmhiR-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610172234.PyocmhiR-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   Lexical error: arch/arm64/boot/dts/mediatek/mt8395-genio-common.dtsi:600.25-45 Unexpected 'USB_DISPLAYPORT_SVID'
+>> FATAL ERROR: Syntax error parsing input tree
 --
+   Lexical error: arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi:530.24-44 Unexpected 'USB_DISPLAYPORT_SVID'
+>> FATAL ERROR: Syntax error parsing input tree
 
-commit 5aab9a2f7e5d9f696c6cdfb8f9baf87581af8689
-Author: Luka Panio <lukapanio@gmail.com>
-
-Input: edt-ft5x06 - move the controller bring-up into a helper
-
-This commit moves the controller reset release, hardware identification,
-input device registration, and debugfs setup out of edt_ft5x06_probe()
-into a new edt_ft5x06_ts_init_hw() helper function.
-
-> diff --git a/drivers/input/touchscreen/edt-ft5x06.c b/drivers/input/touch=
-screen/edt-ft5x06.c
-> index 543cc62088c7a..536d633d97a78 100644
-> --- a/drivers/input/touchscreen/edt-ft5x06.c
-> +++ b/drivers/input/touchscreen/edt-ft5x06.c
-> @@ -1116,16 +1116,96 @@ static void edt_ft5x06_disable_regulators(void *a=
-rg)
->  	regulator_disable(data->iovcc);
->  }
-> =20
-> +/*
-> + * Take the controller out of reset, identify it and register the input
-> + * device.
-> + */
-> +static int edt_ft5x06_ts_init_hw(struct edt_ft5x06_ts_data *tsdata)
-> +{
-
-[ ... ]
-
-> +	error =3D input_register_device(input);
-> +	if (error)
-> +		return error;
-> +
-> +	edt_ft5x06_ts_prepare_debugfs(tsdata);
-> +
-> +	return 0;
-> +}
-> +
->  int edt_ft5x06_probe(struct device *dev, struct regmap *regmap, int irq,
->  		     const struct edt_ft5x06_chip_data *chip_data, u16 bustype,
->  		     struct dentry *debugfs)
->  {
-
-[ ... ]
-
-> @@ -1225,78 +1305,22 @@ int edt_ft5x06_probe(struct device *dev, struct r=
-egmap *regmap, int irq,
-
-[ ... ]
-
-> +	error =3D edt_ft5x06_ts_init_hw(tsdata);
-> +	if (error)
->  		return error;
-> -	}
-> =20
->  	irq_flags =3D irq_get_trigger_type(irq);
->  	if (irq_flags =3D=3D IRQF_TRIGGER_NONE)
-> @@ -1310,12 +1334,6 @@ int edt_ft5x06_probe(struct device *dev, struct re=
-gmap *regmap, int irq,
->  		return error;
->  	}
-> =20
-> -	error =3D input_register_device(input);
-> -	if (error)
-> -		return error;
-> -
-> -	edt_ft5x06_ts_prepare_debugfs(tsdata);
-> -
->  	dev_dbg(dev,
->  		"EDT FT5x06 initialized: IRQ %d, WAKE pin %d, Reset pin %d.\n",
->  		irq,
-
-[Severity: Medium]
-Previously, edt_ft5x06_probe() called devm_request_threaded_irq() before
-calling input_register_device() and edt_ft5x06_ts_prepare_debugfs().
-
-With edt_ft5x06_ts_init_hw() now running before devm_request_threaded_irq(),
-the input device and debugfs files are published to userspace before the
-touchscreen IRQ is requested.
-
-If devm_request_threaded_irq() fails, the input device is announced to
-userspace only to be immediately torn down during devres release.
-
-Additionally, because edt_ft5x06_ts_prepare_debugfs() exposes the debugfs
-mode file early, writing 1 to it before or during IRQ setup triggers:
-
-edt_ft5x06_debugfs_mode_set()
-  -> edt_ft5x06_factory_mode()
-       disable_irq(tsdata->irq);
-       if (!tsdata->raw_buffer) {
-           tsdata->raw_bufsize =3D tsdata->num_x * tsdata->num_y *
-                                 sizeof(u16);
-           tsdata->raw_buffer =3D kzalloc(tsdata->raw_bufsize, GFP_KERNEL);
-           ...
-       }
-
-Can this cause disable_irq() (or enable_irq() on error or when switching
-back in edt_ft5x06_work_mode()) to be called before the IRQ is requested, or
-cause irq_startup() inside devm_request_threaded_irq() to re-enable the
-interrupt while tsdata->factory_mode is true?
-
-Also, if devm_request_threaded_irq() fails after tsdata->raw_buffer is
-allocated, edt_ft5x06_remove() -> edt_ft5x06_ts_teardown_debugfs() is not
-run on probe failure. Does this leak tsdata->raw_buffer?
-
-Should devm_request_threaded_irq() be called before edt_ft5x06_ts_init_hw()
-(for example, with IRQF_NO_AUTOEN if needed until the hardware is ready), or
-should input_register_device() and edt_ft5x06_ts_prepare_debugfs() happen
-after the IRQ is requested?
-
-oggler
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261017140827.2906=
-66-1-lukapanio@gmail.com?part=3D2
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
