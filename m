@@ -1,67 +1,69 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 092CC3939B1
-	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 17:52:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 059C63C1F45
+	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 17:52:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792259551; cv=none; b=dRc803Ot8uOku72JpHXxdCOVVgVCEgdr0XIpHK75mQMrl2w5YxeuiI9xuXjKqLL7gIbkq+cEQwP2vubkU7GSDZSDz2bvtX4s3Dv0H73lmA/9suflqHBkuVQ5cdyyQrCj+Ks0HSTEYKJnsomkmCNfiH2PzOtChpTiNZsdMUY97j4=
+	t=1792259554; cv=none; b=hvSNB6OKwhpUFZFz/mp7+UzalNYE9LwIJbgUG7l4RJqnsoBxHZmxMzc83RXzyJSBpMaITdeoSSGvq5y3YuEgwTLWUUTmUBP0ttu9pnGMYlOQTWiT+0tIM9rQVE65R3bC2wFCpF6VPlXKFl4X4dyb/QFimrQgDO4lhRHRxwyh7Xk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792259551; c=relaxed/simple;
-	bh=RvyyXJVT6NTkKHJtv9luXFIdJPR6X9pRfsnAcFViff0=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=XSm5QvscPJcb3xsLx9/8bxhUnkhhsR1A7fNc555lTpYnHoVs4hNPqXI7HrjeeprRG+RYHa03VVVFhmBgQ4zyWFaFbWbxWsdLDO3Qge5BYtOxf1wnDDm6XRHUDtCEJEwtqj8CVMrmpC1GBr8pm4c1BrvzELOpNOGKKaNhJq6oBZk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=es647pKA; arc=none smtp.client-ip=209.85.221.50
+	s=arc-20240116; t=1792259554; c=relaxed/simple;
+	bh=r+ZyeqRq4hr1l/v11neFzMiPd1gUhiZKSKrRDT5o3tA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=s0734c+XBWFEPaG8+IesKa2LVTGpzNkPqT4yCtHkoR/L/n+lMLUOBFz9G3dFxHIjFTxT6sCJvMxI/wI3E4C2KnaiRn4dsNxWDym9ndrXEjzZSd+nzwvi3gxG8ai+cKTF4oky+U+p8F4H19AVOu6qSeU3wGMuciKiwJxa8Eb46RA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WiurdITI; arc=none smtp.client-ip=209.85.221.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="es647pKA"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48afcfc4bf5so625737f8f.1
-        for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 10:52:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WiurdITI"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48b060ec084so497729f8f.0
+        for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 10:52:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792259548; x=1792864348; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=KCsJp0MHB9uPiSNtf+Qp5XQzhNWphBRW5nGkjAoSi2s=;
-        b=es647pKARD2ocvS6U9LSOg5V6B6SYPDghpGj98XZn07GcNR7F6STCiW55K9GAjYibH
-         bBOSUwOcaz8G8GOQXmJgEN2ElYB68TP+MY9chZPoZsiNF25toKw6u28cXDhetLb5Tp5/
-         kdSqW+4OKxfwdsKSeEv80+7XtAr58Siui581Rjbd4cp+1+1/OTmj0naK5VO+SQhDfqV+
-         inlGHgAHHj34AT6LdjT1iJRKQhds8t6XV9LvwWvxMh6+5kPTevznK4r7ipfir6KmRGbE
-         uDQXqCQWldGRhBLfbrzpeVPdKQ1BRztjC/DqWmcAXS26x8/eThKdI+lmIUWxfgZcXzTV
-         zoRg==
+        d=gmail.com; s=20251104; t=1792259550; x=1792864350; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=69tZwWkK9tX5KcNiATY2wgE5iwPkgXeDVM/0B88knb0=;
+        b=WiurdITIDgXb5J3TPDoaXrL2JQe/bj5O3iS0gpWzkEuXohLp6w2BpE9T8W4cS+Lk8o
+         nCl7FMKV6ECwGjPvEx+4Mglu4f0Yh5FuNtZdWC/4p4G26Vthb+sZyU14uug/mE6brq7Y
+         X8ejWy9tV8UnTRB84DbRIS5V8nkbP6wSgYOPuEurmEd+X3ElnzDIDYYRcYsVsoDALdJJ
+         qJT69MVScqqeB5+QXfxihrRkBWCDnYsWqF2NmthfeNotlKeoDs2eRZ7rI33DUe0n7mim
+         C8J+gvbzIErQgPBrQL+ufTtra3i3dt5vuibb2FTba+IHHGqcpxS9Qhzwn7eu3MxXoIYV
+         /kuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792259548; x=1792864348;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=KCsJp0MHB9uPiSNtf+Qp5XQzhNWphBRW5nGkjAoSi2s=;
-        b=VPcN9u4UEG0qd9MIJwkdYlMXSfSyR5UA1lcMgOTcHDLTPGSrLC52MUftI4efZ7Ny0E
-         bZY6/k9wpVv8P/iAyPFgJW0DMacMY/QYpaPNsfWUqGtUwdWLigJZDGZNODqAD0ECETiR
-         01kH4zYwg5VdxBLFJ2WO5jaPbovF4QJI3/9rIqdHyinC5LxIcLr02EEbRvAr3MJH89zv
-         Y/1kLsRud4UTv2N2tYUWI/LYCG3X7+8Qvu/N90tKnNUpBqZaPUdosA4Nqcp5dp/y7plR
-         GDCXCZD9cXqqgWBQxU1bXt/imMw9rSEhtZl6mIG8xsqJHnRyZ4E2g0fvJEgqX3eVWFB2
-         IRow==
-X-Forwarded-Encrypted: i=1; AKwUvBxW8uEd2weVXi1CkZ+oAGPntHKF+v7CF0zMy8bWdFu7T+948CrktovJsPzdWibJ9vEz52916mrOpQAx@vger.kernel.org
-X-Gm-Message-State: AFq9FYJp/UVGhqhRozEVlJnR1QMv2HWUXU4wS3nWiXr+Iv6Gac/TeCMT
-	a17lLigJnHKJaCIlNbE63JD6bGpGlLk94NtyNuCULdHulPecVKDdaHaF
-X-Gm-Gg: AYBFou3aWJO3oiCWLAtmag2SOlc5y17zy9jSrkL0Q4TicBEcTEjRiHUvOCkELUU/s/b
-	kBW3rwKP+xQXwlD5JauQv9x0+R4WQYY4ipaWGjArIqqeHrHu9Quuk2w4/aaYidR+KbxmDgAqKjQ
-	X400rYdltk3xomKZQenXvjN1bDRBVn+GmxjyexKrgD6ndm/k23IqCJN/IhIYEz9TngfTdUBA8R7
-	b9hWxNZTf2dUgmfKF+2+8ebkaus+QrvYCjykmiZEcIP5Cg6W5Qtp1J37vL3vL4E2Vv/MBugnbFF
-	kfqgaGkg21PYTIxXbEmK/8xM2tEQbwnP8e84LdQ+F7VqNBKQxU56ep2VVJo12PBgf/F/rpPw//c
-	/MqPzhOiwlLLqGCn/a1r4Tsp4nxdn8DJS+xSbo+KSyZurkxdugBHjKY7bv64f3pPE7v78gFtUPy
-	naVBq4lzFpY2imyMI4tbcpAU6eLFcHZVJdBgXbO6H+AeP2TIOvZipQyIIfZ4rbyxg56Aoz5DTvh
-	0Bcg1B997Mw4RknPRu2OY75DcF+TA==
-X-Received: by 2002:a05:6000:4a0c:b0:48d:db77:d119 with SMTP id ffacd0b85a97d-48e07975a78mr6303403f8f.2.1792259547901;
-        Sat, 17 Oct 2026 10:52:27 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792259550; x=1792864350;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=69tZwWkK9tX5KcNiATY2wgE5iwPkgXeDVM/0B88knb0=;
+        b=OL26dU6g33LTsy0vuTInAIxk9LaVFyZG2AEF3/gExn6W/DS63eC0oo7m3gqJsPqJkc
+         Tvyyok5SRiuA/Kswa3JN8trX9WMsxBF/9AHEzMIQohg4SOl4IdLO6hxD/t/Lp+mQJGEB
+         wI+sh1Oi5z0Pjd446S11IInluR2NnGOlJQochv4DX6Aip/HbEkbtR6T6J3Gare9Tf+bm
+         b9FWrd45L30+Kda3jHjQesweMUDSQjzvuNgKG1C4wcvbxrFtoYT5ehE+ZtOLVtxMyARY
+         De2XpiPCUWqFjNbaKTgly7qHZNuGOjXvmTYKJmVoOhJ7TasgPRRSYsHl2a+3HSWG3yyr
+         pXeg==
+X-Forwarded-Encrypted: i=1; AKwUvBzaB/U31iQsuiO9ZJblkYAaV5G3xytpOfBGfOnoRs3K/dJAgM8MN3PMgh8e8p272O5wv0IVkgR3xAmB@vger.kernel.org
+X-Gm-Message-State: AFq9FYLrxo+Wwcy/jZfHqUV7WNahC/fvVkxoJG62lhuMb0aBl+ir7XT1
+	WwuopRsdKSNmZ/bOVsLE0ZVysagrb3xIpvfTa1/cUMbTitcn4osopFJa
+X-Gm-Gg: AYBFou1COf37JvM6ZZuejmmtf2n62SlhiCNPdeLvepetP29Qm3wJlhmq7hgEOoa4vq1
+	AjTLoCYDXEWct6u7esY6wfjeoNTz/cS/ZwbYdzc00Ws962o1CYsNrMJq3BD560J+6TlY3erUI5x
+	c22ezBc4VY8BOB8pmNTYv2xG5i/H1OODi6iBAImUnBpPf80Un64ORrzGsat7blUCwQAtXNIQXDG
+	Y2IDVrI5iDAHkjgfOyj/JG5Q8Ei6m2BZWJOZpp5Uz/QAoEiDuGFsbKaOXItj8FZTzBtviS9qtwz
+	dsD1g+VZROV2evQncUTfWx3+gV8N8ZsNDXqb1mfXjz/l1lcOP83g8PVs9OBwhA0CYFBcHqgpYM4
+	5Hos2FwPLZIvX9Z8QBKA0rMMt047xPa4eairrHDasUxXZdwezd8j+n6MXkZ2fIz51YvFFj5DTuG
+	q0qXzStUsJbSz1Ovy2EMsBu2L0o5/Omtxakt/1JiFVojXbUr4KqkzGy/jjxqV6Vaf8ZQ3xqGZa3
+	UusNgO8sM+nmkXbeVMGjtIbAUumUQ==
+X-Received: by 2002:a05:600c:8b6f:b0:4a1:ce33:1536 with SMTP id 5b1f17b1804b1-4a1d75e37ecmr56865265e9.9.1792259550149;
+        Sat, 17 Oct 2026 10:52:30 -0700 (PDT)
 Received: from [192.168.1.3] ([148.252.146.238])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4c5942sm18263626f8f.16.2026.10.17.10.52.26
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4c5942sm18263626f8f.16.2026.10.17.10.52.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 10:52:27 -0700 (PDT)
+        Sat, 17 Oct 2026 10:52:28 -0700 (PDT)
 From: Dale Whinham <daleyo@gmail.com>
-Subject: [PATCH 0/2] Backlight fixes for X1-based Surface Pro 11
-Date: Sat, 17 Oct 2026 18:52:24 +0100
-Message-Id: <20261017-sp11-lcd-fixes-v1-0-0eb916c01a3d@gmail.com>
+Date: Sat, 17 Oct 2026 18:52:25 +0100
+Subject: [PATCH 1/2] arm64: dts: qcom: x1-denali: Add missing pinctrl for
+ eDP HPD
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,10 +72,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDQAyF4atI1g2YkYnQq4gLHaNGxMqkiiDe3
- bFdfjz+d4JJVDF4ZydE2dX0syTQK4MwNssgqF0yuNwx5VSirUQ4hw57PcTQN46ZC/aeCVK0Rvk
- Nqanqv21rJwnf5wWu6wbo9k6pcgAAAA==
-X-Change-ID: 20261017-sp11-lcd-fixes-5a2666365561
+Message-Id: <20261017-sp11-lcd-fixes-v1-1-0eb916c01a3d@gmail.com>
+References: <20261017-sp11-lcd-fixes-v1-0-0eb916c01a3d@gmail.com>
+In-Reply-To: <20261017-sp11-lcd-fixes-v1-0-0eb916c01a3d@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -84,47 +85,39 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
  Haipeng Lin <jimmie.lin@gmail.com>, Dale Whinham <daleyo@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792259546; l=1468;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792259546; l=886;
  i=daleyo@gmail.com; s=20251214; h=from:subject:message-id;
- bh=RvyyXJVT6NTkKHJtv9luXFIdJPR6X9pRfsnAcFViff0=;
- b=Lf+tmZ/tKY+2VhA4g7bV2nLyZfEMVHO/BXOXlCEPoZzWEJp5RaWPdCOobZeVPmlmkzDNwQer8
- TKhCn7sZHIUCWWxUlSDF5xvn1/oJZY/vR8SFJ85S60vcqFdGGkiR8Rl
+ bh=r+ZyeqRq4hr1l/v11neFzMiPd1gUhiZKSKrRDT5o3tA=;
+ b=ukOzpCkiL1Sx6fO3DAq7gYBVMV0W6zozax1nilINnVPiGHmAwFlbEQaw2YaM9ECjGnfYUQsfT
+ 18mv0X/6n0sB3758WNmf9yTnXgSgSlnTdfMSvsScEHRYhHjGG6wLCkc
 X-Developer-Key: i=daleyo@gmail.com; a=ed25519;
  pk=M4mvgx1TB2TniKaedTDsO3PbLKgFosJuegXRXPbn2Ds=
 
-The LCD variant of the Surface Pro 11 has had no working backlight
-control since the device was added. Its DT took the panel description
-from the OLED model, where pmc8380_3 gpio4 is the panel enable line.
-On the LCD model, gpio4 enables the backlight instead, and brightness
-is a PWM output from the PMK8550 LPG on gpio5. The supply is enabled
-by pmc8380_3 gpio10. This is the same arrangement as the ThinkPad T14s
-LCD and the Surface Laptop 7.
+The Windows ACPI muxes gpio119 to edp0_hot for both panels. Describe
+it rather than relying on UEFI.
 
-Patch 1 describes the eDP HPD pinmux (gpio119 -> edp0_hot), which the
-Windows ACPI configures for both panel variants. At the moment we rely
-on UEFI to set it up.
-
-Patch 2 moves the OLED-specific panel enable and compatible out of the
-common dtsi, and adds a pwm-backlight node for the LCD variant.
-
-Tested on the OLED variant by myself and on the LCD variant by Haipeng
-Lin.
-
+Fixes: 0d72ccaa1e84 ("arm64: dts: qcom: Add support for X1-based Surface Pro 11")
 Signed-off-by: Dale Whinham <daleyo@gmail.com>
+Tested-by: Haipeng Lin <jimmie.lin@gmail.com>
 ---
-Dale Whinham (2):
-      arm64: dts: qcom: x1-denali: Add missing pinctrl for eDP HPD
-      arm64: dts: qcom: x1-denali: Add PWM backlight for LCD
+ arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi | 3 +++
+ 1 file changed, 3 insertions(+)
 
- arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi  |  8 ++--
- .../dts/qcom/x1e80100-microsoft-denali-oled.dts    |  4 ++
- .../boot/dts/qcom/x1p64100-microsoft-denali.dts    | 47 ++++++++++++++++++++++
- 3 files changed, 54 insertions(+), 5 deletions(-)
----
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
-change-id: 20261017-sp11-lcd-fixes-5a2666365561
+diff --git a/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi b/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi
+index e3a53b8930d9..332189839606 100644
+--- a/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi
++++ b/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi
+@@ -894,6 +894,9 @@ &mdss_dp3 {
+ 	compatible = "qcom,x1e80100-dp";
+ 	/delete-property/ #sound-dai-cells;
+ 
++	pinctrl-0 = <&edp0_hpd_default>;
++	pinctrl-names = "default";
++
+ 	status = "okay";
+ 
+ 	aux-bus {
 
-Best regards,
---  
-Dale Whinham <daleyo@gmail.com>
+-- 
+2.56.0
 
