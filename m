@@ -1,87 +1,131 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 650CB288C81;
-	Sat, 17 Oct 2026 14:00:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06CFD39B97F
+	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 14:08:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792245645; cv=none; b=i+W/uVkELzA3dqv33ZN+SnO2k5Me/t5vF9St7J4Zb/znpjlg95xWtz0zDIRKxkANjYX2rTPaV2Dz98S3MdToVcB2SQ2Iqv/0873K4meJLsglvcMv2+Ag+vkFU1Um0dvj4Axsl9RxxAXWhYZjDyEcQSzcl9VtpX7+msglP2+arkc=
+	t=1792246119; cv=none; b=N9GU+8udV1YP3OverxKLCX9XVn4J2rsDAkM57ye+exHCbRiaeVlDuty17Pd0EvZwhR7qbmSmwuoX8Hd4D11WbDLHU8XaFJF5A+WRlZAtyZTfuZy3XlA/4KbaDcJdeA9R8b44r6HCF0INZNRrQKbDBcXpJW+nzvvvad+uuw3fvqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792245645; c=relaxed/simple;
-	bh=uKAq/I39DYJpRKZqMq/Uedp2r3VwANBCAaAx9B4Q7Ng=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iL0r85Y5pRI8gdCs+oo1HZa+0Jys0ZtXLYjqB+Kpnhdmi7Vvn6XNblNHwoHVTrxrL8oy12gIQCJFRWcoxeMxviq2weAEKTOs8z+we7Rqb595fNphdaaKcyg9eogTBKRw4o8V4g9vQN0R2MDRQOFcTZp8sEDvQvKiVPsI2gVr6IM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=2AJaWJDC; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1792246119; c=relaxed/simple;
+	bh=xwgUPno0Hmk2RqvQzb6DqmcZ3JYTRMeMpDvenuilM58=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nEyWxH1UhwRpZS2qgndsSHv8WCb9nVhGJomYtyrkdxZNgLjwQ/1WK8P+kFs+Zqadd8+gfv9J9FP1PhgNmRFgFj5AJMuRBrjN/e056PIsBeOzQqezKKLKbRTm9t/XPacJ0X3en6XKhAnWzOCdCnNXPACC4CgeYVk7W4cuUZQ+YqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k/ohMPZW; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="2AJaWJDC"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=kPPCN5mO1w9ljF9Wewa/F05O38JnxffoK9c7OCDPdwI=; b=2AJaWJDCmKW2z+q+w+IGEntZex
-	rskd9a5dnoDIOdMUm4q+BnYJHTkH3NQDH0+tjjCpPfLe3TkWq9D24bDIN8OIQUsDaNz/ObcdIo3MX
-	Ue0lGo9mnDgom207txtLgENg17p9iUjaxC7PjyEwTADUHoHyASdYMF3GSm7Xmef0vpNU=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xI4xY-00BKLE-0O; Sat, 17 Oct 2026 16:00:28 +0200
-Date: Sat, 17 Oct 2026 16:00:27 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k/ohMPZW"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a1d484b4a9so10733445e9.0
+        for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 07:08:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792246116; x=1792850916; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HsS7zD1Uucl5hqez+slw3pwoFAUHw9mJSijEO6l6OA0=;
+        b=k/ohMPZWbrnzGftwk/mZJYJOf3NBSncQN3xM7RjjpFZwEuZ2cf6DwekpSd4GPR8KUU
+         pXU3qhWvY3p5LXPpDn9hX54bY/PhhL8mFOPDvzJMeBV5DDIhw7ckm7WT/bEGgskzX32J
+         3DPDQ0uCk30a3bfQGixBu/nVKuI/1u7CMMlZq50OxCDsPj7sLw/vtqfU4uihh/uYN9wA
+         ZcJmVyCPNl0X94jQ9V9nOd2GYPP22ljhL68c/HQTTucyNxzNICEsnlKRfielVRobjlpR
+         2OyXp5dG49P3xVBuU37DuIO1A6RlGc3Fp+T4SuLXLhn49D8fRGANve3ntxiBdZjmG336
+         xe0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792246116; x=1792850916;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HsS7zD1Uucl5hqez+slw3pwoFAUHw9mJSijEO6l6OA0=;
+        b=Y8B8L7clroZTWysPXXerLdJTMxAPKUNFyN3Lukbx7qVH7Ovyxg1NSE4BlmeOJE5BNX
+         pjacmmOa8f7P+Ko1AV4QMPQMh6+PawHBYvAFTaY0KFxTp8Wyu/1sL8aLWWxgoGDqR2z0
+         2DCie9BkH/O3e2hqvpLGrhv/E3yfDgK8kPq2itR2S1xx+meTucluGNC0mCKL4aw3vPQK
+         hZ8th276KsRbfmXwPqyVZnOUd+lq+JU2QN/BtHB08ERPqQ1W/pupi1ZddSwregiokzDA
+         S3i9OLT9UGz7qXNkC6ELFgfBlkz3ClxvnqrTPo/oE3eWq6k7hQNyxCQ2H5khffQ5Lxpd
+         Pewg==
+X-Forwarded-Encrypted: i=1; AKwUvByfNclCFx+9x9brNcH0qMQ6hVOc/ZhqfTnfCQF0CJlLNFSwAhyd9qo7AZeJ+vAHgxQ7dNMKbPEW2dAy@vger.kernel.org
+X-Gm-Message-State: AFq9FYLYrT0DmyPQaMtapWKb6b3NrALn2DOPf5dfomCOJhFqLATiwUrd
+	O0RZRWpG4OUeuFqymAYXNl9XLicoKHR9bURmR+WDo9GVVcgenI4rrWM1f33t90K5LM8=
+X-Gm-Gg: AYBFou2bG8qqPlbmMpmhQnci7wHNAaN0KkQPuijZOsSi/OsO/YC6bbXTKTNW7HySti5
+	znPbKz6VadbYPePbAaScYi8jPc7hFKFYIDkYK+srWwlfoEBNWGRdtTEiI369HzKIdqvdQ2oDpvv
+	v5KTKZm7Zt5gKo6VIBD327Z6Qv/nir3tnlKwLPZXYoLqiw2leEDFqX8wCZvQfzSf5zzph1WA0tS
+	BTksi/xuVNNF0Dm8j5V4K1yk8LWx2CA+8s166Xx1oB8CRYIJqFS8jcdjsBtS885Xs2YZpq6+eYh
+	M2xQCComctAsIp0oRxXoWY17ItfD3pXf+VTqWdXuzFwLLo4USUyQPSoF206Vsg/tpMc/6oohvjl
+	rO6U0T/v46ov7F44EubEZ8+VX2BcX6uFTDpGnWefEWq2uobTFidtidI6TNOGuUyPjyfPkZ7xZWB
+	4QXDUoemGZTd+hV6jQ6vn4UySVpQAnmmuF53XaaeVX+JP4yEF4nQCI3x6rGUcYLOKuIzJeccwg2
+	Z/OT8NgKxcbkOWKavLHYv9bjhP5S7HhzBhOxYa3y8JoyigzhKPyjgQlk8Js+K+R/ZqWYemCPw5e
+	wg==
+X-Received: by 2002:a05:600c:34c3:b0:4a1:df11:45a9 with SMTP id 5b1f17b1804b1-4a1df11472emr20823185e9.4.1792246115663;
+        Sat, 17 Oct 2026 07:08:35 -0700 (PDT)
+Received: from machine.home.arpa ([2a0d:3344:57f6::1046])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1ce3302b5sm84430745e9.4.2026.10.17.07.08.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 07:08:35 -0700 (PDT)
+From: Luka Panio <lukapanio@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Andrew Davis <afd@ti.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
-	Jose Abreu <joabreu@synopsys.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH net-next v3 4/9] net: stmmac: qcom-ethqos: fix RGMII_ID
- mode to use DLL bypass
-Message-ID: <17aea8bf-490f-4006-880f-1999aed1df59@lunn.ch>
-References: <20261017-shikra_ethernet-v3-0-26a8beb44b8f@oss.qualcomm.com>
- <20261017-shikra_ethernet-v3-4-26a8beb44b8f@oss.qualcomm.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Henrik Rydberg <rydberg@bitmath.org>,
+	Douglas Anderson <dianders@chromium.org>,
+	linux-input@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Luka Panio <lukapanio@gmail.com>
+Subject: [PATCH 0/7] Input: edt-ft5x06 - add SPI transport and FocalTech FT8722 support
+Date: Sat, 17 Oct 2026 16:07:48 +0200
+Message-ID: <20261017140827.290666-1-lukapanio@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261017-shikra_ethernet-v3-4-26a8beb44b8f@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 17, 2026 at 03:15:15PM +0530, Mohd Ayaan Anwar wrote:
-> When "rgmii-id" is selected the PHY supplies both TX and RX delays, so
-> the MAC must not add its own. The driver currently falls through to the
-> generic DLL initialisation path which programs it to add a delay.
-> 
-> Power down the DLL and set DDR bypass mode for RGMII_ID, then program
-> the IO_MACRO via a new ethqos_rgmii_id_macro_init() helper. Also fix
-> ethqos_set_clk_tx_rate() to not double the clock rate in bypass mode at
-> 100M/10M, and remove RGMII_ID from the phase-shift suppression in
-> ethqos_rgmii_macro_init() since RGMII_ID no longer reaches that path.
+The FocalTech FT8722 is a touch and display driver (TDDI) found in the
+Nexphone (QCM6490). Its touch controller speaks the usual FocalTech
+register protocol handled by edt-ft5x06, but it is connected over SPI,
+has no flash and runs its firmware from RAM, and shares its power and
+reset with the display panel.
 
-How many different boards have you tested this on? How confident are
-you there will not be regressions?
+This series:
 
-Since you are adding a new compatible "qcom,shikra-ethqos", you could
-limit the change in behaviour to just this.
+ - splits the bus independent core of edt-ft5x06 from the I2C driver
+   (patch 1) and moves the controller bring-up into a helper (patch 2),
+ - adds an optional per-chip boot hook, used to download the firmware
+   after every reset (patch 3), and a per-chip touch data register
+   (patch 4),
+ - documents the FT8722 touch controller as focaltech,ft8722-ts, keeping
+   it distinct from the display side of the chip (patch 5),
+ - adds an SPI transport with the FT8722 firmware loader (patch 6),
+ - lets the driver follow a DRM panel, like i2c-hid does, so the touch
+   controller is powered down and re-initialised together with the panel
+   (patch 7).
 
-	Andrew
+Tested on the Nexphone by Nex Computers. A board DTS using it will
+follow separately.
+
+Luka Panio (7):
+  Input: edt-ft5x06 - split the bus independent core from the I2C driver
+  Input: edt-ft5x06 - move the controller bring-up into a helper
+  Input: edt-ft5x06 - add an optional controller boot hook
+  Input: edt-ft5x06 - allow a chip specific touch data register
+  dt-bindings: input: touchscreen: edt-ft5x06: Add FocalTech FT8722
+  Input: edt-ft5x06 - add SPI transport and FT8722 support
+  Input: edt-ft5x06 - support following a DRM panel
+
+ .../input/touchscreen/edt-ft5x06.yaml         |  37 ++
+ drivers/input/touchscreen/Kconfig             |  15 +
+ drivers/input/touchscreen/Makefile            |   1 +
+ drivers/input/touchscreen/edt-ft5x06-spi.c    | 475 ++++++++++++++
+ drivers/input/touchscreen/edt-ft5x06.c        | 585 ++++++++++++------
+ drivers/input/touchscreen/edt-ft5x06.h        |  33 +
+ 6 files changed, 957 insertions(+), 189 deletions(-)
+ create mode 100644 drivers/input/touchscreen/edt-ft5x06-spi.c
+ create mode 100644 drivers/input/touchscreen/edt-ft5x06.h
+
+
+base-commit: d419d682257d813f6cb7a28e42b35d0edf4ad038
+-- 
+2.55.0
+
