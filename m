@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6627C3D6497
-	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 10:32:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 619AC47F793
+	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 10:32:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792233138; cv=none; b=BNp8h8TT2RNCHEyfMh8gtMZcdJ6Pu0dPpwK1eYGD2MXs1zQn9yB3Xv2oldZ6pKrmbVAveaHAktkonvAY0DHD25MNiMi0i2gXMhxI6vIO0QtGzeAyYkIIxLfW/sIpJcxthpS/PLfwdjvrZ640yOqyuCo4FYKh2kgSkwNyjXb71Sc=
+	t=1792233141; cv=none; b=t0deaw4dFU4pdpHmqKC3RC0aprB/bc/2s1+Y1Cg2fhIcnpg/swqRKEbUNcvkRtijm7inBsNPvKyzAn69gO/rRhQlRZyA7U4C+YHMkUm50MlTHhRROyxxY0LAz9LEm35uDS3l6jyIX7XveWGFH3zPZA9N7I880WPtS+snMT32ggE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792233138; c=relaxed/simple;
-	bh=LRTnUHG6cDlzwZuDlPiIvn8p1HK7m48NpnuMN0I5lIk=;
+	s=arc-20240116; t=1792233141; c=relaxed/simple;
+	bh=XuETu2zOBzeAjHDf/RiAE71EeSn5nlczpB8Fq8k9JEg=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=FBfyqysWdpgHd7RMFJ1dZKKqQOu5XgV3goX3COQzjVBx9DD0NNMAmyc5DmnOGmRWqhdjBfoSlANJgN9XLV+HFc/r5jtjFWn29rqRDQrfChQXPDGa/KeT8y/YhLkH/HX60KiTi5cRTWXo6AKqHRF+tVWXiH4yVO3mqos80AKze6A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KNavpQqK; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=AgVLhP1S3e3TDM2qkdBc63BB8vEM8BqDm9M1COHKlrwL8pCYpWgJBefOgae/d8e9U0qZMqdDgTZVb47zmCltryrR5Il6B0R5iORjzTPhYNbGHpedh1KGz92J9PX+bLX2Ay0ye9zp0kVuPwOqzf/mfqiComMUHOwVWVOVlbtW0jQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dBZXvs1D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KNavpQqK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7E6F1F000C5;
-	Sat, 17 Oct 2026 10:32:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dBZXvs1D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1CEC1F000C6;
+	Sat, 17 Oct 2026 10:32:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1792233137;
-	bh=KqJAskyE+1iN1GEuLWnl6gU4mOgt7hO+wpznLhG27N0=;
+	bh=6BFlRa7eHJU63EXNy5/XtcoWnUI/Im2jPhah8QCrmGU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KNavpQqK0oOAzpMtu0PK9Ud/XZUXpYq8Qp/fpitMkJpsbj+JmH+/V794ZvLSC4uJa
-	 8Rp4Mi/RQzS/a7em5ikDhfl2lBREy5MdCap+dLgb1jutuG07Mh6frbfxBDT06kgco7
-	 uqF/uZ0fYjjaj7k9wzLiP6UXtb2qoKJjYr5hVC2Kd5mX2vS9FUBks7AWEPCYjRoHnL
-	 tcgDb3g9ss7Al6b6c6RU9MYAODMePdoM/y5Hn5/Bim730pYnGxtOKXTXp9WRBAsdAV
-	 swRFaW0rsjLMAG32CBU/Ad7ILMN19LbldKqb7o2Xyj8gNByGTd0+cHFnV4hCPMLYDF
-	 Ggr35J78mOs+w==
-Message-ID: <sashiko-outbox-175459@kernel.org>
+	b=dBZXvs1Df4urGCjpkLA7xs7/JylTeeH6StQj7xsPfHSg6H485YBjOrlqzwgjw7OgQ
+	 DhsN0jhIwZCs6J+LYNdH2Mj58BaS8pP1PysU3tgjkXDXC4XjpHQn4+hGQj2OORvlRi
+	 J2MzLEJP1axyRX7BdTll5j7C9Kzor86pDUIt1qcO4D+HGXAa76U2OL/2VHQh+wA0QQ
+	 zHaHz2iKSu6VD4SzhHLyUItupfsNnNweXID80MlnHGtFegJ+gVx5svKS1iExs4jrhy
+	 KVxK3G3x6aO+/XJ5oO+nGOy/4L1aW7agnUAiZ3ue0ARVJ8VWHGEyuv6bdt4tqrEQTA
+	 dzENuOKMDuDbw==
+Message-ID: <sashiko-outbox-175461@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v3 5/9] net: stmmac: mediatek: add RX/TX delay
- stage divider in platform data
+Subject: Re: [PATCH net-next v3 7/9] net: stmmac: mediatek: use TX clock
+ phase shift in RGMII mode with 1Gbps speed
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261016-dwmac-mediatek-mt8189-v3-5-25daf2bbcf35@collabora.com>
+In-Reply-To: <20261016-dwmac-mediatek-mt8189-v3-7-25daf2bbcf35@collabora.com>
 References: <20261016-dwmac-mediatek-mt8189-v3-0-25daf2bbcf35@collabora.com>
- <20261016-dwmac-mediatek-mt8189-v3-5-25daf2bbcf35@collabora.com>
+ <20261016-dwmac-mediatek-mt8189-v3-7-25daf2bbcf35@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 17 Oct 2026 10:32:16 +0000
+Date: Sat, 17 Oct 2026 10:32:17 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,61 +47,104 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] net: stmmac: mediatek: copy-paste error assigns RMII macro to RGMI=
-I TX delay divider
+- [Medium] net: stmmac: mediatek: TX clock inversion is unintentionally cle=
+ared at 1Gbps
 --
 
-commit c43e3615c53c38caf38fb0fc788d29a2ffa994ad
+commit 1240293d7bdcca392029932327a2063871dd1b83
 Author: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 
-    net: stmmac: mediatek: add RX/TX delay stage divider in platform data
+net: stmmac: mediatek: use TX clock phase shift in RGMII mode with 1Gbps sp=
+eed
 
-This commit adds RX and TX delay stage divider values to the variant
-platform data for MediaTek SoCs. This prepares the driver for newer SoCs
-like MT8189 which have different internal delay stage steps.
+This patch introduces a callback to set the TX clock phase shift in the RGM=
+II
+mode for 1Gbps speeds on MT8195. Because the hardware delay macro circuit c=
+an
+be affected by external factors, the new logic overrides the delay settings
+with a more stable 2ns fixed delay after link speed negotiation.
 
 > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drive=
 rs/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> index 596411d4a5b2b..cb5bda53edb94 100644
+> index 7dd46cd5a49e1..4b2d5280f7030 100644
 > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
 > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-
 [ ... ]
+> @@ -430,9 +433,65 @@ static int mt8195_set_delay(struct mediatek_dwmac_pl=
+at_data *plat)
+>  	return 0;
+>  }
+> =20
+> +static void mt8195_fix_mac_speed(void *priv, phy_interface_t interface,
+> +				 int speed, unsigned int mode)
+> +{
+> +	struct mediatek_dwmac_plat_data *priv_plat =3D priv;
+> +	const struct mediatek_dwmac_variant *variant;
+> +	struct mac_delay_struct *mac_delay;
+> +	u32 tx_delay_stage_val, reg_offset;
+> +	u32 reg_val =3D 0;
+> +
+> +	if (!priv_plat)
+> +		return;
+> +
+> +	mac_delay =3D &priv_plat->mac_delay;
+> +	variant =3D priv_plat->variant;
+> +
+> +	if (!mac_delay->tx_delay ||
+> +	    (interface !=3D PHY_INTERFACE_MODE_RGMII &&
+> +	     interface !=3D PHY_INTERFACE_MODE_RGMII_RXID))
+> +		return;
+> +
+> +	/*
+> +	 * When link speed is 1Gbps with RGMII interface, and a TX internal
+> +	 * delay needs to be applied on MAC, prefer to override the delay
+> +	 * settings with a 2ns fixed delay which is controlled by
+> +	 * RGMII_TXC_PHASE_CTRL. Otherwise, fallback to HW delay macro circuit
+> +	 * for 10/100Mbps link speeds.
+> +	 */
+> +	if (speed =3D=3D SPEED_1000) {
+> +		reg_val =3D MT8195_RGMII_TXC_PHASE_CTRL;
 
-> @@ -258,6 +270,10 @@ static const struct mediatek_dwmac_variant mt2712_gm=
-ac_variant =3D {
->  	.num_clks =3D ARRAY_SIZE(mt2712_dwmac_clk_l),
->  	.rx_delay_max =3D MT2712_RGMII_DLY_RXC_MAX,
->  	.tx_delay_max =3D MT2712_RGMII_DLY_TXC_MAX,
-> +	.rx_rmii_delay_stage_div =3D MT2712_RMII_DLY_RXC_STAGE_DIV,
-> +	.tx_rmii_delay_stage_div =3D MT2712_RMII_DLY_TXC_STAGE_DIV,
-> +	.rx_rgmii_delay_stage_div =3D MT2712_RGMII_DLY_RXC_STAGE_DIV,
-> +	.tx_rgmii_delay_stage_div =3D MT2712_RMII_DLY_TXC_STAGE_DIV,
-                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[Severity: Medium]
+When the link negotiates to 1Gbps and a non-zero tx_delay is configured, do=
+es
+this omit the MT8195_DLY_GTXC_INV bit from reg_val?
 
-[Severity: High]
-Does this initialization assign the wrong macro for the RGMII TX delay divi=
-der?
+Because the update mask in the regmap_update_bits() call includes
+MT8195_DLY_GTXC_INV, omitting it here will forcefully clear the clock
+inversion bit in the hardware register.
 
-It looks like mt2712_gmac_variant.tx_rgmii_delay_stage_div is being initial=
-ized
-with the MT2712_RMII_DLY_TXC_STAGE_DIV macro instead of the RGMII variant d=
-ue
-to a possible copy-paste error.
+If tx_delay is 0 but tx_inv is true, the function returns early and preserv=
+es
+the inversion bit set during probe. Is it intended that clock inversion at
+1Gbps is dropped only when a non-zero TX delay is configured?
 
-Before this patch, mt2712_set_delay() correctly used the RGMII constant for
-the tx_delay_stage_div. Because of this error, when configuring the TX delay
-for an RGMII interface on the MT2712 platform, the driver will now divide t=
-he
-delay by the RMII constant instead.
-
-This will result in an incorrect, much larger delay stage value being
-programmed into the PERI_ETH_DLY register via the ETH_DLY_GTXC_STAGES field,
-which could break RGMII transmission timing.
-
->  	.dma_bit_mask =3D 33,
->  };
+> +	} else {
+> +		if (variant->tx_rgmii_delay_stage_div) {
+> +			tx_delay_stage_val =3D mac_delay->tx_delay /
+> +					     variant->tx_rgmii_delay_stage_div;
+> +		} else {
+> +			tx_delay_stage_val =3D 0;
+> +		}
+> +
+> +		reg_val |=3D FIELD_PREP(MT8195_DLY_GTXC_ENABLE,
+> +				      !!tx_delay_stage_val);
+> +		reg_val |=3D FIELD_PREP(MT8195_DLY_GTXC_STAGES,
+> +				      tx_delay_stage_val);
+> +		reg_val |=3D FIELD_PREP(MT8195_DLY_GTXC_INV,
+> +				      mac_delay->tx_inv);
+> +	}
+> +
+> +	reg_offset =3D variant->peri_eth_ctrl_offset + MT8195_PERI_ETH_CTRL0;
+> +	regmap_update_bits(priv_plat->peri_regmap,
+> +			   reg_offset,
+> +			   MT8195_RGMII_TXC_PHASE_CTRL |
+> +			   MT8195_DLY_GTXC_ENABLE |
+> +			   MT8195_DLY_GTXC_INV |
+> +			   MT8195_DLY_GTXC_STAGES,
+> +			   reg_val);
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016-dwmac-medi=
-atek-mt8189-v3-0-25daf2bbcf35@collabora.com?part=3D5
+atek-mt8189-v3-0-25daf2bbcf35@collabora.com?part=3D7
