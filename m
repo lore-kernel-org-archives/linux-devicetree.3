@@ -1,95 +1,135 @@
-Received: from smtp052.goneo.de (smtp052.goneo.de [85.220.129.60])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67A5E3DB63D;
-	Sat, 17 Oct 2026 18:47:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.220.129.60
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F20C33E832A
+	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 19:01:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792262865; cv=none; b=M/S7qSnX1NLgX3B9uMNVJ3bqzwrqubAAwkTH+y9s2iL/8GILT7JGTI6EQ7IpUAVo4Ae0n91TvOnzVlZCXPm5zlt/WNH3YxrvZHMCWz3MT8xZs5mnDFLHHdHg74U4SUlfVEU2gvRd73iDWejX7hpkEbYanZRGURB96BJ9yEAHn4k=
+	t=1792263722; cv=none; b=EBy2LfAhP54m5gJ1wUMwePxXMCQMstHY9uEzWBefUUmzKhDuGxMWZVDtnqS2cF6ruPo33oSY37j+U33HesoRmPSckqfxYQc7d8Mzrb5OJqQroVb2BcbVh1xkrtT6u9cI1FvHapAwUzov6KddPanDCrmUZmWZqBPr33udJbKS+s8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792262865; c=relaxed/simple;
-	bh=d70tjNajH7W5JdK4oZqTt5T71m6okE8yeOJdubvZaXE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=urdnxN4gHfFp25WNNQVrTt2EzPGLVTusS01S+0KZjdwD+TgfbNPx8Cb95jTFRxSfCg1PthCC5t4C8TZN80SVrFhWfQkenobPiN7c4j++RSkFLxkE19HnwS+8c0dYsd1UqdOM/djNTNXoQT0GXBJWfA8KHJF4wi2f2MXrMug/lKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tk154.de; spf=pass smtp.mailfrom=tk154.de; dkim=pass (2048-bit key) header.d=tk154.de header.i=@tk154.de header.b=hTCK7UBI; arc=none smtp.client-ip=85.220.129.60
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tk154.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tk154.de
+	s=arc-20240116; t=1792263722; c=relaxed/simple;
+	bh=OLRW7s+yNC5tjl37gTdFreL7HOCnw4vNpy7AfT7FaTw=;
+	h=From:Content-Type:Mime-Version:Subject:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=cCduhrP9GbrX71kV3bcAB0lqguWc02hTIc+AMR805J2XruIZebFfyjtmMj/cOwyO0gakXLFQvBVxcTuzHYZ4no9YOfgaznJ+79InQnvGCbN4qFhmhDxIVXX7qWlsnAMqQ9rEQ3F/2VAXvtAyql/X2nyjIebBZauvvtHNPlxfAT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FFgc+8+z; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tk154.de header.i=@tk154.de header.b="hTCK7UBI"
-Received: from hub1.goneo.de (hub1.goneo.de [IPv6:2001:1640:5::8:52])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by smtp5.goneo.de (Postfix) with ESMTPS id 16D5A240B56;
-	Sat, 17 Oct 2026 20:37:32 +0200 (CEST)
-Received: from hub1.goneo.de (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by hub1.goneo.de (Postfix) with ESMTPS id D41E9240114;
-	Sat, 17 Oct 2026 20:37:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tk154.de; s=DKIM001;
-	t=1792262249;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GZOw3LVxrwWnJzNeCV109Is8TVZT5XuQejH8TuHMcyk=;
-	b=hTCK7UBIpicVxtLdBBjUpewHOKqeVMujDrXyQ+N6huBg5QZz0jhOMi86o9mVHxATA+NpNT
-	zowSXvDrIkB42eBPCiso7qqtf5zlLjn/2EMRFlhWmbddnzLDmWSQx8d0UZ0273KyG03dLo
-	aKQS7lFS16mhCraYLMlOeaKQb+LtVY1lTCHAnBoEe7rP/yoOZqtzhc4MF5t7CrT90WJ8Ue
-	fjqvwT9GVB4uY6UnfeSkbFXLaDs72nRsYg+7AuD60PZobjJFveduuncUhxFkgSGaHvDgTA
-	0csS+acMDJDaR8dfMjYHXEyIULpCCktlqFmM04SAho65hjCG3kDgQpEyaYoaXw==
-Received: from [192.168.154.193] (p4fd55e66.dip0.t-ipconnect.de [79.213.94.102])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by hub1.goneo.de (Postfix) with ESMTPSA id 75C2124010F;
-	Sat, 17 Oct 2026 20:37:27 +0200 (CEST)
-Message-ID: <c40f4d8f-223c-441b-901e-5bea5bcb612e@tk154.de>
-Date: Sat, 17 Oct 2026 20:37:27 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FFgc+8+z"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48df8fe8513so613715f8f.0
+        for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 12:01:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792263718; x=1792868518; darn=vger.kernel.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:subject:mime-version:content-type:from:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=vJ3S+zrJ53PJeoB13lI44vseeQL6ZkTaT4zeMMelbtg=;
+        b=FFgc+8+z64PqZZkaSVGU367jYwpOweJeg4qYh+D/KYJIk9fq+4utO6uW5+zHJJ4Wnp
+         1884cDf3lzG7fzIAVymVQwmTj5ENqEa22itVXL+rNjDGnpcArWsXeiUDwxsmVgBbQp9z
+         aVzjTdoGQnNwh3UHsubIzWIf5zdxIXETVckw7YIKCrj7wSHOYz1FCv3xHgyj0DhGIXdF
+         0nsGhSQe6NxpjH0aHBHxozQNyz/KJSFR4vjKSpu9II9CkkjwuvtGtiFdJiAc5Q4RGipX
+         MRJInq7jbsrqxzfyhL+exp2Qqezh1YO7PBQgoupkgLG/AWl3rrqZ1m00Mk29uzflLjlW
+         dZTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792263718; x=1792868518;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:subject:mime-version:content-type:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vJ3S+zrJ53PJeoB13lI44vseeQL6ZkTaT4zeMMelbtg=;
+        b=t/xfMI5G1zJwMNOBTPF+Be3DW5DOQ7OTn557Py1rbpd/fqcT2pTDjtmhvx01wmsDIY
+         XiSKrDihxSFRr3vTyQpFn1SgXVcnCVYboSt8RpupJC9yBsrYEPqlpGVqAVAML4eMa7Rr
+         p9UV4DMbQgQ293GLaAqz+4o7z4KzGwSLdoLdQDwo/WU4fPednBurKlDm7/gL0Fqmf4KN
+         aefJUMSrfh2IP9B3yo4c8dXOlN3ENPee4R4mbP4qXgpaLShm4dR3aIEhE+dXJ0/netTA
+         5OjF4ZSppcJc7v2v+vrGzI265K0CPJ/YgrvqQ+90dcZNGKkahLYj/+wgnRHXkGpnPsng
+         7hdw==
+X-Forwarded-Encrypted: i=1; AKwUvBxoPeSkjDk+CVZ+VdHFrsdvgZx8O/BBEqco2868+C/LC00mGLvzewfK0rJDL2jmgXeGVyQ/IiFBpZiR@vger.kernel.org
+X-Gm-Message-State: AFq9FYKlq5GiKJZoOwsUfvbrbBj1wuc6BY6iclRp/C9pf2Ak1SIP6nse
+	RTdRK6PD2laqSXb1zDG2hRcwDb93V5QWEGBbKP0swvL/Mde+RtwGLfmkYRcM5oez
+X-Gm-Gg: AYBFou2Wgb3B42nZw2BFZlCLBNuADVxwTXSmsgpzbtDEud5eLfCS8yY2eWQ/N/u1KqI
+	4axow0q4dcWHSUhgXr4Wjh11X0XiB3ijXSmpCVKpW5UPHaGTHHh+XjzI4E0eL0Lppq2jcOlWnaS
+	LJd1+0bWfjEtm+lnUNkgT3xGkL009IAzS7ObmCSqXxbjrY1GQG38dQzG09YczSW97V6KjYplTuF
+	r+el8TDqHl7e/GOYPteX7fzrtkbYw92sldnVdzDhSpWy7sH4dULc+m4Rrm9N+tTZZoBaGut9/vy
+	tM7T+V6T4uYX5WfTJ5WO6vgizAobYoujIj7JFgJAMno6jkPEvHUWkBouGtUFCMkfL12vaeZP7Gu
+	5dFd4a/b1DBuzfLy9WoIQPRH7OR4PrlJvQf7n6UWfleJJXLPMcei8UGMO+uzS1p71Pg9kztkFfl
+	6lwA3tZb/SS7EAc0pEV6nyAhk4S8diwxScZOpnAIrnUTRGKua7odpIRO2DnftX/mFZnSa3hBzYh
+	ETC/LxYJVx8Jeo6m4BBrm5fNrA7FSS1ak+V/UklxeAHUdM0d7jSRtdKqgwoXrx/RAD0u/CXfna4
+	31x55LgZaXjrmsdiC1Gq2hRRXvkgvQx776Ofv9WDa+tBwfOwl4RosFPdgAzVmZ/D1Xcz0b9BFrQ
+	JmZple4rNtZZFr7p1
+X-Received: by 2002:a05:6000:24c7:b0:48e:e98:8b6a with SMTP id ffacd0b85a97d-48e0e988e86mr1971222f8f.4.1792263717875;
+        Sat, 17 Oct 2026 12:01:57 -0700 (PDT)
+Received: from smtpclient.apple (dynamic-2a00-1028-8388-a84e-4dec-301f-bf3e-93cd.ipv6.o2.cz. [2a00:1028:8388:a84e:4dec:301f:bf3e:93cd])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f8bd9sm13074929f8f.35.2026.10.17.12.01.54
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sat, 17 Oct 2026 12:01:57 -0700 (PDT)
+From: Josef Schlehofer <pepe.schlehofer@gmail.com>
+X-Google-Original-From: Josef Schlehofer <Pepe.Schlehofer@gmail.com>
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2 3/3] net: ethernet: qualcomm: ppe: Add IPQ5332
- support
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
- netdev@vger.kernel.org
-References: <20261016152449.934312-1-mail@tk154.de>
- <20261016152449.934312-4-mail@tk154.de> <sashiko-outbox-175580@kernel.org>
-Content-Language: en-US, de-DE
-From: Til Kaiser <mail@tk154.de>
-In-Reply-To: <sashiko-outbox-175580@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Rspamd-UID: 2c9a6a
-X-Rspamd-UID: addb0e
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH v3 2/2] leds: Add support for Turris 1.x LEDs
+In-Reply-To: <arvNDgAVO4V_drW7@solitude>
+Date: Sat, 17 Oct 2026 21:01:44 +0200
+Cc: Lee Jones <lee@kernel.org>,
+ Pavel Machek <pavel@kernel.org>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ =?utf-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>,
+ Andy Shevchenko <andy@kernel.org>,
+ Rong Zhang <i@rong.moe>,
+ linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org,
+ linux-api@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <D7371D8B-06B6-4F52-8B08-CC573E699EE5@gmail.com>
+References: <20260928111907.72592-1-pepe.schlehofer@gmail.com>
+ <20260928111907.72592-3-pepe.schlehofer@gmail.com>
+ <arvNDgAVO4V_drW7@solitude>
+To: =?utf-8?Q?Marek_Beh=C3=BAn?= <kabel@kernel.org>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-On 10/17/26 5:25 PM, sashiko-bot@kernel.org wrote:
-> 
-> [Severity: High]
-> Does ppe_config_qm() calculate the multicast queue register address correctly
-> when queue_id is >= 256?
-> 
-> In ppe_config_qm(), the code calculates the address like this:
-> 
-> 			} else {
-> 				reg = PPE_AC_MULTICAST_QUEUE_CFG_TBL_ADDR +
-> 				      PPE_AC_MULTICAST_QUEUE_CFG_TBL_INC * queue_id;
-> 
-> Since queue_id ranges from 256 to 299 for multicast queues, and is not offset
-> by 256 (PPE_AC_UNICAST_QUEUE_CFG_TBL_ENTRIES) before multiplication, does this
-> result in an out-of-bounds address calculation?
-> 
 
-This is the pre-existing issue you identified in v1, affecting IPQ9574 as well.
-I submitted the fix separately to net:
-https://lore.kernel.org/all/20261016150140.929729-2-mail@tk154.de/
+Hi Marek,
 
-I could also mention this in the commit message or add the link to the net series
-in the cover letter.
+> On 29. 9. 2026, at 16:45, Marek Beh=C3=BAn <kabel@kernel.org> wrote:
+>=20
+> My proposal is to register the first LAN LED as a true multicolor LED,
+> and the rest of LAN LEDs as simple LEDs, and then create sysfs
+> symlinks for the multi_intensity and multi_index attribute files:
+>=20
+>  rgb:lan-1
+>    multi_intensity   (true attribute file)
+>    multi_index       (true attribute file)
+>  rgb:lan-2
+>    multi_intensity   (symlink to ../rgb:lan-1/multi_intensity)
+>    multi_index       (symlink to ../rgb:lan-1/multi_index)
+>  ...
+>=20
+> This way the sysfs will somehow reflect this topology.
+>=20
+> Also, the max_brigthness will need to be set to 1 instead of 255,
+> since we can set each LAN LED on/off state individually, but color
+> globally.
+
+I tried to reach you privately about this. I am ready to do it, but
+before I do, I would like to clarify one thing.
+
+v4 will have rgb:lan-1 as the multicolor LED, the other four LAN LEDs
+as plain LEDs, and max_brightness 1 on all five.
+
+I am not sure about the symlinks, though. sysfs_create_link() can only
+link a whole kobject. A single attribute can be linked with
+compat_only_sysfs_link_entry_to_kobj(), but its callers in the tree
+(tpm, fadump, img-ascii-lcd) use it to keep old sysfs paths working.
+Would you and Lee be fine with it here, or do you prefer a link to the
+whole rgb:lan-1 directory, or only the ABI documentation saying that
+rgb:lan-1 sets the colour of all five?
+
+Josef=
