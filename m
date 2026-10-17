@@ -1,146 +1,230 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from freeshell.de (freeshell.de [116.202.128.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A2933D1ABD;
-	Sat, 17 Oct 2026 20:56:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E2003EC802;
+	Sat, 17 Oct 2026 21:06:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.202.128.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792270615; cv=none; b=lI6zdgliTPwKdZ8JILQ8pvt3G57i7SM1yjW1mTBQ2vlMm3n8PBZx3LOLehtXP/HHkqI8kKtqhsTdpRJWWRqO4B/ZACgapOvk+xAFV743pMI5E7IPN9ieNfujosDgKqsusa28YGauaEFJsZ3ZtEN0HIhEb4KUU8YGwOqtElg1Nxc=
+	t=1792271192; cv=none; b=oLt1zeJ5+sHaYEmR/SK7ecR7nw5Ye/jINnJ/uYsGkZtJoXjY/HltKlXEi4syg0WqK6RN1hy/PS9eOJGJL7yrcQsVUgoSWPwH/s3X4ixS7qrT1nY/N8WvZKSNgc1IoQSP23WN7kw1x5EwpDEWQNfYHZlATyRrKK6X9x0v59GQVs0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792270615; c=relaxed/simple;
-	bh=aNBNRODfl+LBphR93nXPTS1UcwhBxEF/nlaa1RPjIH4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JZvXr3BGanbNw1FCM3iPRi3UKRk2XV4bDQpBQh9VLx3u6gnQeuEwQ5QtBmicENFJuY1bw+VfBMc/ZshrOmnH/O4oocUGjr4trw1s70rV0h2+3dbLsZrnmiC1roKIjw1gxNEmbEW3w2LH6kAyoE9XKGzyOjQbQCsgdwJkeDkcAss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ocoofUb5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792271192; c=relaxed/simple;
+	bh=AVgNLZ3TFbJiXts+HVJihfsJS/suvsBreFJc0spb4eY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jkOZqEFp4SFfTGk5I+qM3TbNz60nVe5qffPsJoXGuPDmiifEwt9VCdJuCFbuRkRgNFL44W+EKh2jNWitGsPdK+oqh9/gwEU8qE9fuhUhkTfUAFnUoA3DP15ijxoAU+OgBKJkO6YIowuA4DiJ8hDTM628N/QQ2AbLQQyNHUPytio=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de; spf=pass smtp.mailfrom=freeshell.de; dkim=pass (2048-bit key) header.d=freeshell.de header.i=@freeshell.de header.b=f+dBEzyU; arc=none smtp.client-ip=116.202.128.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freeshell.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ocoofUb5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BE3C1F000C4;
-	Sat, 17 Oct 2026 20:56:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792270613;
-	bh=ICaHlESv3/ZEgb0CL6c9OpvIzwqhaxILgNv0hKoeWb4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ocoofUb5j8zOL9hJxSUpD9COIXYE+Qb98ZjzeRsCrYCd2mgQCqyg5Y9Kfmp48uxj/
-	 C6vcahxYvFOvszO4UHHTNQvghBy6IQZqB+J16ZtYEKbEDEFWPuJH0xXNniJJ8K0m0u
-	 x62noQj5k+QgnRLu1jJJ+8p4WTl2aOM8fNd+Fv8Xqoth1mW47YurD51peFurGGYUMb
-	 jDRCCbXsBvqJ0ZOA1xJEuZvq3RwsSRvvitD0ppxwT8yzEuCyosnk0hxjmTEgXBYqPY
-	 wFMNSwaLXbD9nzQRvYPgdwwxkUXWWO/bO0cCFODqPnNZNgi/bY1ENy6Fs5KedcMjoU
-	 bWwQlAV/qYIUg==
-Date: Sat, 17 Oct 2026 13:56:51 -0700
-From: Drew Fustini <fustini@kernel.org>
-To: Sunil V L <sunilvl@oss.qualcomm.com>
-Cc: Adrien Ricciardi <aricciardi@baylibre.com>,
-	Alexandre Ghiti <alex@ghiti.fr>, Albert Ou <aou@eecs.berkeley.edu>,
-	Atish Patra <atish.patra@linux.dev>,
-	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>,
-	Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>,
-	Gong Shuai <gong.shuai@sanechips.com.cn>,
-	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
-	James Morse <james.morse@arm.com>,
-	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-	Peter Newman <peternewman@google.com>,
-	Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Tony Luck <tony.luck@intel.com>,
-	Vasudevan Srinivasan <vasu@rivosinc.com>,
-	Ved Shanbhogue <ved@rivosinc.com>, Weiwei Li <liwei1518@gmail.com>,
-	yunhui cui <cuiyunhui@bytedance.com>,
-	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	x86@kernel.org, devicetree@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v9 2/5] riscv_cbqri: resctrl: Add cache allocation via
- capacity block mask
-Message-ID: <atPhE6rF0Uz93qF2@thelio>
-References: <20261003-dfustini-atl-sc-cbqri-dt-v9-0-52fd8be98dcf@kernel.org>
- <20261003-dfustini-atl-sc-cbqri-dt-v9-2-52fd8be98dcf@kernel.org>
- <CAB19ukEkAOMnPpi2jVFz68GZ_7cwYmNtrBkxnfEJtFcPb7PJ5Q@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=freeshell.de header.i=@freeshell.de header.b="f+dBEzyU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freeshell.de;
+	s=s2025; t=1792271150;
+	bh=GZCIYxzwJgfq5iax1nk6spe3PnZmYcsROINLBRk7eCU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=f+dBEzyU2h+xCUynaxy+XFsX/cazSMzV5qD8FbTAhL0Edy6tm/oXbImU/O5pFcexV
+	 eKg+L4m48Zmgv3ZrgUzSj9EkyoejvXXxruDHKtD2leIZ3LM0gWo+KrNML7nIL2ZsLH
+	 /3z7EMitRTGEr7BG7j7nNK8Te7T44WnUnLoHpQe6gbMVomB46QMzir+WfudKvN4DFu
+	 944mLM+i8k8D8Z2i/FuMFCN3UFpP202olP+/dZCDRQiE7QdbeeWhtubTD+l3wB8aqY
+	 tSBkpczkYaOaADll3fADeJsXmSiBap1OLrgrgMCS6Zwe4kDel1N6Jz8szQGV7PZTuQ
+	 NRm5dzNwjHB5Q==
+Received: from [IPV6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc] (unknown [IPv6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc])
+	(Authenticated sender: e)
+	by freeshell.de (Postfix) with ESMTPSA id 79CACB221DBD;
+	Sat, 17 Oct 2026 23:05:47 +0200 (CEST)
+Message-ID: <05e0c9e4-4e27-4114-866a-ec55c33ba349@freeshell.de>
+Date: Sat, 17 Oct 2026 14:05:40 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAB19ukEkAOMnPpi2jVFz68GZ_7cwYmNtrBkxnfEJtFcPb7PJ5Q@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] riscv: dts: spacemit: k1: mark boot-critical SoC
+ nodes bootph-pre-ram
+To: Hung-Chun Tseng <alan.tseng.cs@gmail.com>, Yixun Lan <dlan@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20261017180141.3477743-1-alan.tseng.cs@gmail.com>
+ <20261017180141.3477743-2-alan.tseng.cs@gmail.com>
+Content-Language: en-US
+From: E Shattow <e@freeshell.de>
+In-Reply-To: <20261017180141.3477743-2-alan.tseng.cs@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 12, 2026 at 10:23:57PM +0530, Sunil V L wrote:
-> On Sat, Oct 3, 2026 at 12:45 PM Drew Fustini <fustini@kernel.org> wrote:
-> >
-> > Wire CBQRI capacity controllers into resctrl as RDT_RESOURCE_L2 and
-> > RDT_RESOURCE_L3 schemata.
-> >
-> > resctrl exposes a single capacity mask per resource, so when more than
-> > one capacity controller backs a cache level they must report the same
-> > number of capacity blocks. The same holds for the other capabilities
-> > resctrl exposes once per resource. A level whose controllers disagree
-> > is left unexposed. Other levels are unaffected.
-> >
-> > The set of controllers backing each level is fixed when resctrl is set
-> > up at late_initcall. Control domains are created in the cpuhp online
-> > callback and keyed on the onlining CPU's cache id from cacheinfo, so a
-> > CPU that is offline at probe time still joins its domain once it comes
-> > online, provided a controller for its cache is in that set. A CPU whose
-> > cache has no controller is left out of that level and a warning is
-> > logged once. A domain is published on the ctrl_domains RCU list only
-> > after it is fully initialized and brought online, and removed from the
-> > list before it is taken offline, following the documented safe
-> > traversal rules.
-> >
-> > Assisted-by: LLM
-> > Tested-by: Chen Pei <cp0613@linux.alibaba.com>
-> > Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> > Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> > Signed-off-by: Drew Fustini <fustini@kernel.org>
-> > ---
-> >  MAINTAINERS                      |   2 +
-> >  arch/riscv/include/asm/resctrl.h | 147 +++++++
-> >  drivers/resctrl/Kconfig          |   4 +
-> >  drivers/resctrl/Makefile         |   1 +
-> >  drivers/resctrl/cbqri_resctrl.c  | 831 +++++++++++++++++++++++++++++++++++++++
-> >  5 files changed, 985 insertions(+)
-[..]
-> > diff --git a/drivers/resctrl/cbqri_resctrl.c b/drivers/resctrl/cbqri_resctrl.c
-> > new file mode 100644
-> > index 000000000000..f10a24761b25
-> > --- /dev/null
-> > +++ b/drivers/resctrl/cbqri_resctrl.c
-[..]
-> > +static int cbqri_resctrl_setup(void)
-> > +{
-> > +       int rid;
-> > +       int err;
-> > +
-> > +       for (rid = 0; rid < RDT_NUM_RESOURCES; rid++)
-> > +               cbqri_resctrl_resources[rid].resctrl_res.rid = rid;
-> > +
-> Why can't cbqri_resctrl_control_init directly use
-> cbqri_resctrl_resources? I feel this initialization is redundant.
+Hi Hung-Chun,
 
-This is similar to what x86 and arm mpam also do since it is important
-before any resctrl code is called. for_each_rdt_resource() will get
-stuck in a loop if the rid values are not initialized. In contrast,
-cbqri_resctrl_control_init() only handles the resources for which
-cbqri_resctrl_pick_caches() found a controller.
+On 10/17/26 11:01, Hung-Chun Tseng wrote:
+> A bootloader SPL that follows the K1 BootROM runs from SRAM before DRAM
+> is up. It needs the root clocks, the clock and reset controllers, the
+> console UART, the I2C bus of the PMIC (i2c8, which every K1 board
+> uses), and the boot media controllers: SD (sdhci0), eMMC and QSPI NOR.
+> Mark these nodes bootph-pre-ram so an SPL can use the upstream device
+> tree as is, instead of carrying the tags in per-board overlays.
+> 
+> These are the SoC nodes that the mainline U-Boot SPL for K1 currently
+> tags in its board -u-boot.dtsi files.
 
-The initialization could be moved into cbqri_resctrl_control_init()
-before any early return paths but it does introduce the possibility that
-rid initialization could be missed if cbqri_resctrl_control_init() is
-ever refactored. Given that, I'm inclined to keep the current structure.
+Drop this last paragraph/sentence or place after scissors line, not for
+the commit message itself.
 
-Thanks,
-Drew
+Device tree in Linux describes hardware and not the arbitrary needs of
+some other specific software project. Any SPL executed by hardware
+BootROM SPL loader functionality in the SoC mask ROM will reasonably be
+expected to need bootph-pre-ram tags on peripherals configured by that
+same hardware workflow so boot can be successful in an initially
+SRAM-constrained environment before DRAM setup. This is not the same as
+stating that "U-Boot SPL for K1 currently tags..." which is a
+description of arbitrary software and not any correct justification.
+
+Examples illustrative how to reason about why bootph-pre-ram tags belong
+upstream and not as recommendations for what to say in the commit message:
+
+* Valid here upstream: BootROM serial UART SPL loader => U-Boot SPL UART
+YMODEM U-Boot main app loader
+
+* Valid here upstream: BootROM USB fastboot SPL loader => U-Boot SPL
+fastboot U-Boot main app loader
+
+* Valid downstream, not upstream here: BootROM USB fastboot SPL loader
+=> U-Boot SPL UART YMODEM U-Boot main app loader; it is valid downstream
+without additional effort as a side-effect of implementing all the valid
+upstream bootph-pre-ram tags
+
+* Valid downstream, not upstream here: BootROM serial UART SPL loader =>
+serial UART-attached Bluetooth BLE VibeCodedBootLoader; When there is no
+such Bluetooth BLE loader functionality in MaskROM BootROM code, any
+bootloader project may implement such exotic interface and add
+bootph-pre-ram tags in its own overrides downstream.
+
+This is not so easy to review for lack of knowing the fact of what all
+peripherals that BootROM may configure, and what tags might reasonably
+be then extended to any SPL in any given BootROM SPL loader workflow.
+Without knowledge of the BootROM code we then rely on vendor-employed
+developer review and community testing for outcomes.
+
+> 
+> Assisted-by: claude-opus-5-5 dtbs_check
+> Signed-off-by: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
+> ---
+>  arch/riscv/boot/dts/spacemit/k1.dtsi | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+> 
+> diff --git a/arch/riscv/boot/dts/spacemit/k1.dtsi b/arch/riscv/boot/dts/spacemit/k1.dtsi
+> index 3fabfd341..5d9550272 100644
+> --- a/arch/riscv/boot/dts/spacemit/k1.dtsi
+> +++ b/arch/riscv/boot/dts/spacemit/k1.dtsi
+> @@ -322,6 +322,7 @@ cluster1_l2_cache: l2-cache1 {
+>  	clocks {
+>  		vctcxo_1m: clock-1m {
+>  			compatible = "fixed-clock";
+> +			bootph-pre-ram;
+>  			clock-frequency = <1000000>;
+>  			clock-output-names = "vctcxo_1m";
+>  			#clock-cells = <0>;
+> @@ -329,6 +330,7 @@ vctcxo_1m: clock-1m {
+>  
+>  		vctcxo_24m: clock-24m {
+>  			compatible = "fixed-clock";
+> +			bootph-pre-ram;
+>  			clock-frequency = <24000000>;
+>  			clock-output-names = "vctcxo_24m";
+>  			#clock-cells = <0>;
+> @@ -336,6 +338,7 @@ vctcxo_24m: clock-24m {
+>  
+>  		vctcxo_3m: clock-3m {
+>  			compatible = "fixed-clock";
+> +			bootph-pre-ram;
+>  			clock-frequency = <3000000>;
+>  			clock-output-names = "vctcxo_3m";
+>  			#clock-cells = <0>;
+> @@ -343,6 +346,7 @@ vctcxo_3m: clock-3m {
+>  
+>  		osc_32k: clock-32k {
+>  			compatible = "fixed-clock";
+> +			bootph-pre-ram;
+>  			clock-frequency = <32768>;
+>  			clock-output-names = "osc_32k";
+>  			#clock-cells = <0>;
+> @@ -586,6 +590,7 @@ i2c5: i2c@d4013800 {
+>  		syscon_apbc: system-controller@d4015000 {
+>  			compatible = "spacemit,k1-syscon-apbc";
+>  			reg = <0x0 0xd4015000 0x0 0x1000>;
+> +			bootph-pre-ram;
+>  			clocks = <&osc_32k>, <&vctcxo_1m>, <&vctcxo_3m>,
+>  				 <&vctcxo_24m>;
+>  			clock-names = "osc", "vctcxo_1m", "vctcxo_3m",
+> @@ -726,6 +731,7 @@ i2c7: i2c@d401d000 {
+>  		i2c8: i2c@d401d800 {
+>  			compatible = "spacemit,k1-i2c";
+>  			reg = <0x0 0xd401d800 0x0 0x38>;
+> +			bootph-pre-ram;
+>  			#address-cells = <1>;
+>  			#size-cells = <0>;
+>  			clocks = <&syscon_apbc CLK_TWSI8>,
+> @@ -857,6 +863,7 @@ pwm19: pwm@d4022c00 {
+>  		syscon_mpmu: system-controller@d4050000 {
+>  			compatible = "spacemit,k1-syscon-mpmu";
+>  			reg = <0x0 0xd4050000 0x0 0x209c>;
+> +			bootph-pre-ram;
+>  			clocks = <&osc_32k>, <&vctcxo_1m>, <&vctcxo_3m>,
+>  				 <&vctcxo_24m>;
+>  			clock-names = "osc", "vctcxo_1m", "vctcxo_3m",
+> @@ -869,6 +876,7 @@ syscon_mpmu: system-controller@d4050000 {
+>  		pll: clock-controller@d4090000 {
+>  			compatible = "spacemit,k1-pll";
+>  			reg = <0x0 0xd4090000 0x0 0x1000>;
+> +			bootph-pre-ram;
+>  			clocks = <&vctcxo_24m>;
+>  			spacemit,mpmu = <&syscon_mpmu>;
+>  			#clock-cells = <1>;
+> @@ -877,6 +885,7 @@ pll: clock-controller@d4090000 {
+>  		syscon_apmu: system-controller@d4282800 {
+>  			compatible = "spacemit,k1-syscon-apmu";
+>  			reg = <0x0 0xd4282800 0x0 0x400>;
+> +			bootph-pre-ram;
+>  			clocks = <&osc_32k>, <&vctcxo_1m>, <&vctcxo_3m>,
+>  				 <&vctcxo_24m>;
+>  			clock-names = "osc", "vctcxo_1m", "vctcxo_3m",
+> @@ -956,6 +965,7 @@ uart0: serial@d4017000 {
+>  				compatible = "spacemit,k1-uart",
+>  					     "intel,xscale-uart";
+>  				reg = <0x0 0xd4017000 0x0 0x100>;
+> +				bootph-pre-ram;
+>  				clocks = <&syscon_apbc CLK_UART0>,
+>  					 <&syscon_apbc CLK_UART0_BUS>;
+>  				clock-names = "core", "bus";
+> @@ -1085,6 +1095,7 @@ qspi: spi@d420c000 {
+>  				reg = <0x0 0xd420c000 0x0 0x1000>,
+>  				      <0x0 0xb8000000 0x0 0xc00000>;
+>  				reg-names = "QuadSPI", "QuadSPI-memory";
+> +				bootph-pre-ram;
+>  				clocks = <&syscon_apmu CLK_QSPI_BUS>,
+>  					 <&syscon_apmu CLK_QSPI>;
+>  				clock-names = "qspi_en", "qspi";
+> @@ -1328,6 +1339,7 @@ usb_dwc3: usb@c0a00000 {
+>  			sdhci0: mmc@d4280000 {
+>  				compatible = "spacemit,k1-sdhci";
+>  				reg = <0x0 0xd4280000 0x0 0x200>;
+> +				bootph-pre-ram;
+>  				clocks = <&syscon_apmu CLK_SDH_AXI>,
+>  					 <&syscon_apmu CLK_SDH0>;
+>  				clock-names = "core", "io";
+> @@ -1341,6 +1353,7 @@ sdhci0: mmc@d4280000 {
+>  			emmc: mmc@d4281000 {
+>  				compatible = "spacemit,k1-sdhci";
+>  				reg = <0x0 0xd4281000 0x0 0x200>;
+> +				bootph-pre-ram;
+>  				clocks = <&syscon_apmu CLK_SDH_AXI>,
+>  					 <&syscon_apmu CLK_SDH2>;
+>  				clock-names = "core", "io";
+
+Presumably the BootROM does configure all of the above? If so, the shape
+of this looks good to me, the device tree node sorting where
+bootph-pre-ram is added appears correct. With that,
+
+Reviewed-by: E Shattow <e@freeshell.de>
