@@ -1,130 +1,148 @@
-Received: from mail-pz2-f6.google.com (mail-pz2-f6.google.com [74.125.228.6])
+Received: from mail-ej2-f8.google.com (mail-ej2-f8.google.com [74.125.228.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 867403E556B
-	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 05:45:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.6
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792215927; cv=none; b=pDz8E+1ZBYJqPE9IZea6owPLf2g9g9/D6mGIMiA7KsZrGPGlE1KQDfV/QeoCki54BIrjCSn8pXNL1U10FYDMwIuCTMvICzIQdufDataPgP42oxY3MISvAh+1XCHMESfRAG1yzEOPPeSCm2Lk+l1GQHnIkJ1CQ7XCxHuEHxV7qCg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792215927; c=relaxed/simple;
-	bh=77hqLc9J7JNzbmg7AMorhPOB16l5fiuXalMgNBngkQc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QHxdIgYn509diKPk95pMGkLlRzsIg1YhcP/dU81/kpIYiHRfZ6X2MIoKgh3FP1RrsDxowDsZSjhYK6b5+gvxgdzSTbZXjEJDXLC7OZA6Zcl7JR59uCsAhYOOihG4z5ikQ9mj1yMusdqYPvvrcek7Iuzp7mYn3SpI4Vm90T7f6C0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kaDuDKG1; arc=none smtp.client-ip=74.125.228.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C683D3E6394
+	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 05:52:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.136
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792216324; cv=pass; b=Nzc6G2GxwBdcDXT6xOCmQTD/iZ5cF8UdFZQ3WV9ox05/hokS1SXXDqcoLoFHA/IyxEm2WGBl2EhNSC8nmiuohVVKMi3nviEONMdKcoBKuZA5AKlhvoNaumlnevl2RSWqEJhtM21j527nPSE2bXMhIXYI4e0wUlcprrHFQPS0YDs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792216324; c=relaxed/simple;
+	bh=dAGUxU7S2OS9o0qphDYnHj84WBQWlXZXMIpBTNhn7O0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QrFbiTHfJ6hSeIzP6gMQh5fBoyhEH7VrQxs/u8ezNw/OTuvDwbKJcO/u/LzHpUnfkCH8nHWr15OoRKXns9nm+hshi1Q7+98AbfuS4gx9Ftk5eDBBAUr25SqT7SsAbpCCCDfZhtX5CwX2Ps3Dct+L4KEYnIrKEv0YxWBheD+SN98=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CTIcAt+/; arc=pass smtp.client-ip=74.125.228.136
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kaDuDKG1"
-Received: by mail-pz2-f6.google.com with SMTP id 41be03b00d2f7-cd613507bd1so78702a12.0
-        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 22:45:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CTIcAt+/"
+Received: by mail-ej2-f8.google.com with SMTP id a640c23a62f3a-c2e790c38caso22091466b.1
+        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 22:52:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792216321; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gng2z8U3ronDDDVxeQqcXReGFQPtrreYqyDzmz1Lt6fVa7aL7JaD38yt0TrsFX9ip/
+         ZKOB22jGfjS73qpIK7mWuYortAekI0ZqlKNZseb8bUA+Bq8l0INKTnu0NXcwdL3hXmiA
+         SOku6PghoVJ0HuCF4hBcPslemdTK76DDC+KcGtCACOzFS7/WiRmlSaj9Z+UTRPPpUDip
+         NxBcm4ac5xwNniiTk/hUCFJBEqi7pDQB4mAMxgZwo8sWaujvzkWckndMz316rDB5Bt1w
+         maNMIDsRR0OMJJuUK3Ir7Ix6cygZ7z5szvcWVvCpmmunht8EYvkQO/5nES+ztvtWCPpJ
+         bUjA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=1NQoVsKz0LnNjJ4rVcBhJaqVhtFod/04Q9AhzSfJg/Y=;
+        fh=5+yNME27ot0TXQwuLBpFfHaZqp71lN4EpHPYefZx97E=;
+        b=ZymfBa/Y+gSoWEcKCjN8mzCnJphC7/pjHEIvGfwDv82xz2P+alCXRoFXM6r/qzOveP
+         SI2YBXIa9CYfZe6/hymsvfpT/G6YB5nzZe9MjazTh+rlKnVkzA4F671XNLnFhekeG9M7
+         A49GA8tRmxiHTC7LGxobsXEsnhCxdco9owmt3QFJoXsqHtF39TZUCbImsSA9ZwprTXP3
+         2KHputsGXPCxclFrMMPuZjNZmlJ09T+wMfvjuTYMP1oFcS3MxawjrGEsvbXTF3a4m2k7
+         9XDmAwxYJlz3x1MNCiY/cEsg+t9cDoG6Q8uTxd8qraEem9PNCDIJi1ZI+pkt24HBIbgP
+         Hd3w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792215926; x=1792820726; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yY8SyQWcSYsDi8cm3rA+aW2F8vWLi9p/feyMtYn7Pcg=;
-        b=kaDuDKG136hNm5tp9UX79/0FF1Mun9gn5tmDLxEe7NWNGc9+4IcOncJ+C/GjIyg04q
-         RPCYATQtAX9SbZx/GtS6I9J1cVFL1tJG5A/edKXOhyvhu/Q/kKOS1lWE8CsR5h4nHi4j
-         a6n7WQmPTBRijHwci0inGaeNd9wtE4udu5AUzD9JInrxqAl1ntepN2swaLZqEI6m5L7f
-         d0HWj/1NhmpCkGj6GwtQJX8w0ciDDVdKRIXHkg8Wv67s6arF3zu4b6MjM6oPjAG1BcxO
-         k2IMrIvJVZ2JQFKNjQz/9ppY2BE2t2hiw3xMrWqQqgzSbCnsVblJlAT1Y3hDfZBhynlj
-         MeQg==
+        d=gmail.com; s=20251104; t=1792216321; x=1792821121; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1NQoVsKz0LnNjJ4rVcBhJaqVhtFod/04Q9AhzSfJg/Y=;
+        b=CTIcAt+/DjtvuOUNJ/C8+B9Ul4Pfgo9Hd50liLLvWB9X9EcIhi2mqhlrzQtpDUdFVr
+         AOSotTOXeJZWdUufE3JhQM7vxV9lTtfY/9lav8VkX4jaVTtbp83eH6/enwqquVT/A79D
+         uUL0G72MNM6IQqZWuWC5WRiYtUbIE3U41j9JMCd4OETLzkwO24p0deL5B0nEtG3bJWHn
+         waLXY34d+3Gt0pJSmTSGdKa3p31xn+w71x11gJHqZOyysc9qsbTjFLYWJibflIdzHULU
+         zCcmw057Fp3ty5bi/ldnjxYOGRwo/LFQOMEa0iCqiu/ugstznCZkuMXKAVJottIHq0eC
+         1k3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792215926; x=1792820726;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yY8SyQWcSYsDi8cm3rA+aW2F8vWLi9p/feyMtYn7Pcg=;
-        b=BqEE8Z71vBcJrUg8muS+WAL1OgiKUiDJeI68C9cPzNoX39UyEdZaKxgl53yuS6dOov
-         I/ergEZdjbU0wDX+0NdM2Jq8Vs9x6Fi9UMjArPucoNeJcnVdpOOSqA6Z0l09PkGd1dEu
-         n31hrl/iCUMx1bvG2I6CVy78oF5gwaOUxt6wvdKDId9wnaxjIrBH8Pg6xSf2sB92qPU7
-         6T4//7KCLVafszQ2oenj4aq1DukN22K0l52N6JFD3uXRVmg49DtAe4uajYRC7/wdlLBn
-         dqQsOs62GA/JP0jUdbAU0bPa/PzkA+zvmEpgxnJ+tXNDUdVkx97xsoFCQesIIEXM+jMz
-         7slg==
-X-Forwarded-Encrypted: i=1; AKwUvByzpkV4GUHopIENNGu4jNBkk8svn2ZBhheQnlEy9giAqKoa5TyfFqdICrQC0rzUYI/OTmwzXW8/Rb0Z@vger.kernel.org
-X-Gm-Message-State: AFq9FYJuljETTcVLJ05HszkTk5EaNDE+DF1ZdLt5tlNY7en6ltc1iWYN
-	ERZCaMlprAFItcVTRGZv9k5atQlUxqk/MnwpQkQ8pPAmZBKY2xksKnAp
-X-Gm-Gg: AYBFou1f5H5SBdp1XddxhlFN4v+qmOHtGYYxIfXSKL9z3uJOKydD0w0V/N+Wm8Nfe+Q
-	LWjFhhMpJ1g9gwYWY/aKS1zvfWKtjM5IELc+MqjBNUN5WpUXnwnXBdjikSpmDjdqZJ8A9z504Ql
-	JwZqqY1f6mydALu8BzCEvNM2dBBkp74qJBXFVlyAECxm34VAVW/ZRnTKFPCDYuvR/owbu4XKvfo
-	7sGnoRuK/pI6Y5vQZAurc6QHfQo47QRZMSyGc0NeKkE4aluCjwUtY8WaCwzWhbai2wJC75+Znok
-	umyPEZQaJpMvQew5NMcv0m8InJLAhZGcKEJZtbrZ7BJPLY6kG79NhwEcpx7aCuJYLmA4DB1qKry
-	GUY/56VtgEaizsMk7s5x5Xh861nUfxtcy50Lo4o46hYMXKD7s7xV1WRPR0gxb20duY4KTXPrwyh
-	tMsE0NlXQxCTu8mR4i/GiRLuhUV8ku8TjhXw+vDpJFL8TpnYmrWikw7zpv/2hKJIDbT2uK
-X-Received: by 2002:a05:6a00:4146:b0:87d:430:1437 with SMTP id d2e1a72fcca58-8a04be6035cmr1481735b3a.38.1792215925893;
-        Fri, 16 Oct 2026 22:45:25 -0700 (PDT)
-Received: from server.lan ([168.138.199.194])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f57269315sm1958225b3a.23.2026.10.16.22.45.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 22:45:25 -0700 (PDT)
-From: Coia Prant <coiaprant@gmail.com>
-To: Jakub Kicinski <kuba@kernel.org>,
-	netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	David Wu <david.wu@rock-chips.com>,
-	linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Coia Prant <coiaprant@gmail.com>
-Subject: [PATCH net-next v12 6/6] MAINTAINERS: add entry for Rockchip XPCS driver
-Date: Sat, 17 Oct 2026 13:44:04 +0800
-Message-ID: <20261017054406.1828061-7-coiaprant@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261017054406.1828061-1-coiaprant@gmail.com>
-References: <20261017054406.1828061-1-coiaprant@gmail.com>
+        d=1e100.net; s=20260707; t=1792216321; x=1792821121;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1NQoVsKz0LnNjJ4rVcBhJaqVhtFod/04Q9AhzSfJg/Y=;
+        b=ozqHva/SyJszQ0Vj72tIAillJBS0MmNPLWkc9ok4vaghmF0ke2IHyLErKdpjR1WmP5
+         OqYvnlHiP8LpilRDYJqDDgfA30ujfJGkRBm3PoSURxJqTHzGjTq7tnAKW90mw7eqdYhq
+         qPQphfyGBLxZsN/gevFPrwc2Tb6V/Ob1oy05uiaVl9fRcprSiE/xovx5ekyxR5mxpBPY
+         XnvIEI+jWDc82c7c9lRusYP/p1Hny8p+8w2MXnflJ//FXJHbtDWzAE3FB1HHxUf0qNtu
+         2l8Y+2Kho1YtKCBe4hSenQKMldgxyJgLTrbvpmJZT7/PMtaJ/wHF3L8sGV2ud5cO5xHd
+         VJqA==
+X-Forwarded-Encrypted: i=1; AKwUvBztW4WoSF2QEnaoNkVjyMzfqXrXTGqzAZpidrgXZ8I7pOeOFe0scK24IsqPhohm9IMGqHz75vwiFzXj@vger.kernel.org
+X-Gm-Message-State: AFq9FYLcslAm9bZJXksnVqqetO/OTNmw0fMTdlvE7ulAtrRZpRBMxt+K
+	/hraGPTJGiGutK3LVehF6t3erBTIU5Ij5g4I0nsSK1dF7iEKHqsu15SL0EYTcVG/e2/U4nOmfqB
+	7SRXagML4x4UJ6Yc9QRBI6w7Z5Me93Yo=
+X-Gm-Gg: AYBFou0QkJz2FqlHaBOJopp/Ij57+wa6wvni4lwdJT3PLM1CGMoxehRGf7DqsTfgiq+
+	/mdvcvbIFmOVaF7zjot/JYYa+HRyYFGyaMdoiNYZ6No4VdNPsG9jRyFjqHhY8sfHNWGrJ26ChyM
+	tQ1+jALw+ygaRolhjKapNWNWkx14j38jrMUQOez1NRnZ5FpaOZTRsk7G+viX/n7m0ZPHr8wFXZt
+	Q0TnPCDdseQ6XPhJpPOCa5QKrwfb+cac8v78j9I8EtDpbuG7KOwiFh1KpKfwDsOKc05quhKmv4T
+	IMm0U1S0pYHB3i7efLupIegUidvnyTMacjh7eaAR/jOjT6A2z4t0UDkqdA==
+X-Received: by 2002:a17:907:930e:b0:c31:8c48:e18b with SMTP id
+ a640c23a62f3a-c419df3d9e2mr123713166b.14.1792216320815; Fri, 16 Oct 2026
+ 22:52:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261008175225.3375274-1-coiaprant@gmail.com> <20261008175225.3375274-4-coiaprant@gmail.com>
+ <20261016163709.00cc7c12@kernel.org>
+In-Reply-To: <20261016163709.00cc7c12@kernel.org>
+From: Coia Prant <coiaprant@gmail.com>
+Date: Sat, 17 Oct 2026 13:51:48 +0800
+X-Gm-Features: AclHuK9gR2DkSi4xw_m2fA1Jz76Zlk0PlqVhdG4GFOV5ZHbiAG1eg9HG8sAydCI
+Message-ID: <CALj3r0jc4GECe=Dp_gngTsVL03YmXhAt+BSQJei4QRrwLRrerA@mail.gmail.com>
+Subject: Re: [PATCH net-next v11 3/6] net: pcs: xpcs: add Rockchip RK3568
+ platform glue driver
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	David Wu <david.wu@rock-chips.com>, linux-rockchip@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add a MAINTAINERS entry for the Rockchip RK3568 XPCS platform driver
-and its device tree binding.
+Jakub Kicinski <kuba@kernel.org> =E4=BA=8E2026=E5=B9=B410=E6=9C=8817=E6=97=
+=A5=E5=91=A8=E5=85=AD 07:37=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Fri,  9 Oct 2026 01:51:57 +0800 Coia Prant wrote:
+> > +config PCS_XPCS_PLATFORM
+> > +     tristate "Generic XPCS controller support"
+> > +     default PCS_XPCS
+>
+> Why the default? Surely there are platforms with PCS_XPCS enabled
+> which work today =3D=3D don't care about the new code?
+>
+> Linus is known to hate _any_ new symbols defaulting to enabled
+> on olddefconfig.
+>
+> > +     help
+> > +       Generic DWXPCS driver for platforms that don't require any
+> > +       platform specific code to function or is using platform
+> > +       data for setup.
+> > +
+> > +       If you have a controller with this interface, say Y or M here.
+> > +
+> > +config PCS_XPCS_ROCKCHIP
+> > +     tristate "Rockchip XPCS controller support"
+> > +     default ARCH_ROCKCHIP
+>
+> Same here.
+>
 
-Include the relevant mailing lists (netdev and linux-rockchip) so that
-future patches are properly distributed.
+Thanks, both defaults are dropped in v12:
 
-Signed-off-by: Coia Prant <coiaprant@gmail.com>
----
- MAINTAINERS | 9 +++++++++
- 1 file changed, 9 insertions(+)
+- PCS_XPCS_PLATFORM no longer defaults to PCS_XPCS. There is no
+  in-tree user of the generic snps,dw-xpcs glue that needs it selected
+  by default, so platforms that need it select it explicitly.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 65e8a4b5c90b1..2f0f46eabcf54 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23757,6 +23757,15 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/sound/rockchip,rk3576-sai.yaml
- F:	sound/soc/rockchip/rockchip_sai.*
- 
-+ROCKCHIP XPCS DRIVER
-+M:	Coia Prant <coiaprant@gmail.com>
-+L:	netdev@vger.kernel.org
-+L:	linux-rockchip@lists.infradead.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/net/pcs/rockchip,rk3568-xpcs.yaml
-+F:	drivers/net/pcs/pcs-xpcs-rk.c
-+F:	include/linux/pcs/pcs-xpcs-rk.h
-+
- ROCKER DRIVER
- M:	Jiri Pirko <jiri@resnulli.us>
- L:	netdev@vger.kernel.org
--- 
-2.47.3
+- PCS_XPCS_ROCKCHIP no longer defaults to ARCH_ROCKCHIP. DWMAC_ROCKCHIP
+  already selects it.
 
+Link: https://lore.kernel.org/all/20261017054406.1828061-1-coiaprant@gmail.=
+com/T/#t
+
+- Coia
