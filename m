@@ -1,44 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FCDF394470;
-	Sat, 17 Oct 2026 16:46:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B75132E8DEB;
+	Sat, 17 Oct 2026 16:49:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792255619; cv=none; b=qWp+M+dYrgjpP2yGuw7RaQVY0VdLvHJ5x/cFXaUmE/MXPrYJrgh6XVruNY1OHl4vor97rXd3yZ+Ci4n92spVkXajkgj8aDpr9IbkvtMBYvHEVXGD0GepLQrtioQN+hw7mrbobQM/tK1qUdDB/WUGVM5ZKWfOZvROE8cYB0vlz8U=
+	t=1792255776; cv=none; b=AzNNhguYPPj6k570Kjt1T0O8FQJaHgFbHft17c+1aVttdQGVBOoHd5zs03MtjcqaSFyczL+vw1PGOk5L483lNxHKhm0CEflADTkbTY3CbhqTPNgBzB7+ERWOYZJ9J9kRgjub6QULpw3JXfxOvwh3je446MmanIDXp2uKj72gjt0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792255619; c=relaxed/simple;
-	bh=CQbrhhLKidtf1UWtdAEFbq90r73GdHLgD5eJk2qWG80=;
+	s=arc-20240116; t=1792255776; c=relaxed/simple;
+	bh=fK09GASih0/JskyQqKhQP/WPQPSqfTMo+0kzj53zvmM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DJIT+gM3NSpztJbMs8G41+USXIQFJUF58XhEtMLzvHKJhSIyGfxsFhzkAIDKrF4/wOe9InlhEh8+ri3uj6g86oJLqD4E5rqrS+oQV5x/ZhTEP1Wu6Tav5Fr+e/W2QaeThhay44PjYD3TLnoYWPlvYIjfNfFrTencpTN1uZaUFxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=muK3phXV; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Perg4mz9cMPnfjDGm4LlG4lNWjLpIbi12oMa4djvGX+ztKgR123/dfBSpXeY/AHqTBzSiBLT++FCR6WVvEQ8e8CRWJLRnjq0qZoJVoeibPVA0PpGA/58Jxm65HG4ZdsIaX1VenKPuMDqR7BnG5OLD/loy8IljRcbGgQ2LQJwZkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E133SB8q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="muK3phXV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49BBF1F000C6;
-	Sat, 17 Oct 2026 16:46:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E133SB8q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 980C71F000C5;
+	Sat, 17 Oct 2026 16:49:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792255618;
-	bh=2L9t0PStXoy1aMEjoZZmzqqaAJGqJKhPaP/NUg0hXmE=;
+	s=k20260515; t=1792255775;
+	bh=fsxfwPT4wg9h/H7lXA4Tp784s/lYWDhqVFN6GgNrPTQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=muK3phXVaW36MMzWTXlUWfd/hjD3JMMqe/tKxhpbIdWBiUPf0iF7W2mwV0BYsYbJp
-	 BYdJwfAeXMTyD6K7ZQty1RSkVNIesW18vfg32Nnxf7UcdYzFZfkZvB7vIm2TZXy7/Z
-	 /mZkSUyK5U7VKXvkLQUdx3z0/j1jNxCRz1lKuNxuuEG32HXraQxSS8TkgDqqxqqF81
-	 6kWpK3EUIMCqpimN4cAdQ6HIDSF191qc6CCBtt7fHyXPMPUDg+nU2JhAXfKUnLlByn
-	 szkHFX4dLL9JdQKOqNLT+xODVSLDjQ/ti8ve0Cw4BXLtlgQBJ7QmBg45FgmjLx7TX2
-	 rimfr7+Zekthw==
-Date: Sat, 17 Oct 2026 18:46:55 +0200
+	b=E133SB8qnYVQ4b7RgVUDQIcA5BOIkKdr6FBPyQzSjmYCk5+qnjhm+a4aeJsbPeQrJ
+	 Rd+e9QxDV3Uzsal2VAstZVCrDjo86x7LX7RxoF1SK7xAi7DV29bxUUqgFxAHH/u5NT
+	 idlIx4pt21YPgq8Giird2TKdk4RD8cbULQhn3sA7QmUVFCq9XMgvGtpkw+JA/1/3+a
+	 mjKeNECI43Fbjdd8A87cRlrpSJQ000jVFib9ibNlrSdTk+6Nil80zpTBBwGKQu+jnh
+	 V+t1xjb+I1NBmVVsE0nAAfls56MvsU980jH/GvUucQaROfjJNMjIUOtJEFq2nK9Bo3
+	 Cyis6OCQDalSg==
+Date: Sat, 17 Oct 2026 18:49:32 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Frieder Hannenheim <git@fhannenheim.net>
+To: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
 Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Robert Oscilowski <drgitx@gmail.com>, =?utf-8?Q?Jean-Fran=C3=A7ois?= Bobier <jf.bobier@gmail.com>, 
-	phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: oneplus-kebab: new device
-Message-ID: <20261017-lively-trout-of-hail-8fbaed@quoll>
-References: <20261015-kebab_dts-v2-0-e783463bffd3@fhannenheim.net>
- <20261015-kebab_dts-v2-2-e783463bffd3@fhannenheim.net>
+	Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jagadeesh Kona <quic_jkona@quicinc.com>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Ajit Pandey <ajit.pandey@oss.qualcomm.com>, 
+	Imran Shaik <imran.shaik@oss.qualcomm.com>, Taniya Das <taniya.das@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 2/4] dt-bindings: clock: qcom: Add AV1E clock controller
+ on Glymur SoC
+Message-ID: <20261017-sapphire-barracuda-of-unity-7b95f8@quoll>
+References: <20261015-glymur-av1ecc-v1-0-448a476d54af@oss.qualcomm.com>
+ <20261015-glymur-av1ecc-v1-2-448a476d54af@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,24 +52,19 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261015-kebab_dts-v2-2-e783463bffd3@fhannenheim.net>
+In-Reply-To: <20261015-glymur-av1ecc-v1-2-448a476d54af@oss.qualcomm.com>
 
-On Thu, Oct 15, 2026 at 02:32:37PM +0200, Frieder Hannenheim wrote:
-> Add initial device-tree for the OnePlus 8T. Downstream reference is [1].
+On Thu, Oct 15, 2026 at 07:05:02PM +0530, Jagadeesh Kona wrote:
+> Add compatible string for video AV1 encoder clock controller (AV1ECC)
+> and the corresponding bindings for Qualcomm Glymur SoC.
 > 
-> [1] https://github.com/LineageOS/android_kernel_oneplus_sm8250/blob/lineage-23.2/arch/arm64/boot/dts/vendor/oplus/kona-kebab-overlay.dts
-> 
-> Signed-off-by: Frieder Hannenheim <git@fhannenheim.net>
-> Co-developed-by: Robert Oscilowski <drgitx@gmail.com>
-> Signed-off-by: Robert Oscilowski <drgitx@gmail.com>
+> Signed-off-by: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
+> ---
+>  .../bindings/clock/qcom,sm8450-videocc.yaml        |  2 ++
+>  include/dt-bindings/clock/qcom,glymur-av1ecc.h     | 35 ++++++++++++++++++++++
+>  2 files changed, 37 insertions(+)
 
-Your SoB is the last. Please follow closely submitting patches document.
-
-Please run scripts/checkpatch.pl on the patches and fix reported
-warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-patches and (probably) fix more warnings. Some warnings can be ignored,
-especially from --strict run, but the code here looks like it needs a
-fix. Feel free to get in touch if the warning is not clear.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
