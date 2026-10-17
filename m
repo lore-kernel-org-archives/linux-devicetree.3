@@ -1,137 +1,192 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6BDD3C345F
-	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 18:01:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE9803CB2FD;
+	Sat, 17 Oct 2026 18:01:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792260108; cv=none; b=YD3FnDXoLJFrFw05kYNv9pnfX8YqvTB2qqy2LRNFSC0kQEa8ip9EXhWSkPnArSmC74k+8gK3JORJ1tvEfURiXP0hih0qiHfW1M1uw4J/gMtlJAnAIoYbVGyG8X5apJGwAv6J0OGeLmGjjS7lz/3wkWOQYpUow7dEXkgN9rCm3q8=
+	t=1792260110; cv=none; b=m2uL+8Xs3ooDU0QqhPWoFBYW6e0A5UKZRUTRgajl7xwE+HWYOEMyPOShRHUQFcSSIRR1z6oyrw+/eAybOAkUi6QQ7m+/g91FLEMlefekfXguBMVf7CyjO2kICZVG4nbvHC8AaQBM3QlAy/njri1WHC1HFFtXtGB+K8JC4sdPUbY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792260108; c=relaxed/simple;
-	bh=OC28K9DeVAvdNt2i4HLQhvj/9KpHA1D851pZfGYKe8E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XLjsYZwZR/nXh5GLAjELYj1Ax3s2LIm8mY/Cc1vh8nZO/+nHFXdJaCH29qky6fztKc+HTj5rIJk503/6gkAAXgZH4FNeH5TbVoVKvsPBzua7QAlz90OH727I9BtOk+7HQAR8uD1tql2BWttUjOkZs8hAsDefrlDN7MKXQOF+YOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A+cWFWCd; arc=none smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792260110; c=relaxed/simple;
+	bh=ovdzQPg0KZPJpC8SYBiXxj7Ho0A3Jt0PGcwGBLWGek4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=I2kVbBqcMWWVqUVzaOwQzUgXD3N9AcIEDKAYYtNV6EaXQdgg81uZISzn/ZgxMBpreatfwkPaAIud8Wo4nYAjKrpMhWG4ghLRarhoqINEJVVNKCAipZFKeqsnzB04A8UecOC2Cx/W50sz8hCWBxwBo9ZYmKKOOie8ktNMoIpfp6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Egin5z6d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A+cWFWCd"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e5fb79ce82so4167225ad.0
-        for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 11:01:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792260107; x=1792864907; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Tpd5O0R9+duoKDmKNVdsMKIxn7WvXRY/NssiY4nj4tc=;
-        b=A+cWFWCdgw4rdM/pG6koANtVAvZ0B8JEN3xJ4Cdoz2SnR7QhCFGVoKJgalJsq1CQJ9
-         mczG4P90fCEKKj8xwxykbNN4L/ILvGabfR1u7q+RRPmOMHzAAe0YP9epGl9XEPpOlrvI
-         x5eVe72vgkO2kdsJNS7qqRVF8dcJ8qtBaYPJgtRPvzh5Yoi05bQzbQYPXtKIP2Btm0Do
-         K8voe9TzJH+4mWfuEGZSd7VgtsqLHcbwpGg4dYED/X89dGX9/yQU2hKWrGvpbw9HD1YH
-         zKg5SJbtHqXbjFuPel52Bws4l8KbzvUAcK/ZOKHAB36MhXw/If1XxAx2/ZlytesGzc3r
-         lJqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792260107; x=1792864907;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Tpd5O0R9+duoKDmKNVdsMKIxn7WvXRY/NssiY4nj4tc=;
-        b=bumewyee+Uw70WMOqNjvIDu0nAeeRi3HfTu0bM35Mw9RpcDuiRvuQgGARpQJAooglz
-         AWzqdDmJm3NWs7xn30JYrmjWbemt6AlrVw+bhIdqC0gRVjTgjglAtmyjvEn4s+eMercA
-         3Zsim1kBwA6ef17Ix+olX0gdauuU9p01QEfNkZb3db5phD/mvnZMR9CNYnCiO2ugJOee
-         DB9C3KTZm8HQWPilaQqSKElttOqwo4EIkXYSUBfvSk+wyc9CNel7R07majTl6RgcGsTR
-         0KswH14SYhlDBrUKqKrdiRXQCL/1xvAibvAIFLHfMBGuKWUDnpbRzbFSzhtk+K/USvMF
-         qRQw==
-X-Forwarded-Encrypted: i=1; AKwUvBwah46xWa8hv61/F30OIkgpb65MuJ79GJUJ+zV0kzcLot0197d4WFJsE3Jbcgt/NuRm/nlhCfyndPWK@vger.kernel.org
-X-Gm-Message-State: AFq9FYLLngVSH54ndXe7tnTVKqWfZEba19Hm3HBvIv+PEUHtHwZQ1+6O
-	SvBzGQXUDX0jqUBQD2AtF/WKqzQD2dTFwehi+qHS8UhoNXl2ndVRtDKv
-X-Gm-Gg: AYBFou1jVK25JmhUmDvLGHELdiedOK10ay6hyuIGUbdpWalzfqKYxm6t0rO1PFOFOq5
-	2LfDOn/OBHtanZjhFlIVYHTYdf0Jqa3tCIO0SkrsZGVrpQOyCbk9iuX8kVBro+Kv/inazpJQgMB
-	rL8jKuBRCMyGRirBi2AZtayxdPmE7e0reQJ/pKcCPhOhgq6NwCM127yxfOfNY21Ytm89C+PTDHi
-	FejQWm7nfm4+wh/xKY1EtVO1pcPtUG2UluzPMijUgzTpwzJocVRLyhSDx7KMFbx/CpjC1hBFgjc
-	kQpP5tth9c+vU9ZdLONfoII/A+b1S17DKzxLR2tiJsCfQTjwEcYBMrTQZCOMJa9UM26FOZ7zsCv
-	YLE5Wa+0fCUZkB+nMM80dZN8Cg6tbIAg/5UiZmEaDXhLN+/HM6R7VsygQ/FR0yD+sYYV40rP/OW
-	bsJzm++pC51jWBJ+iFb8o/GrhrzxWnGT57QuWfmcy9GbHNj4cmGVEPUyUG50U1Rlnvjnk+J/8Rw
-	Su5zTgz6tHUBFOxYHhu0l34W4qOsWXO0qbfbNqlD21QygGWoSriETL+BkQQ3kgsmFxhl91YDgZh
-	Fb3rdn8xk+E5dNajPridnedmJNUo9SEX30qixf4Ny5Cj/9AXmbZwxw==
-X-Received: by 2002:a17:903:a90:b0:2e9:40ef:e44a with SMTP id d9443c01a7336-2e9a6833906mr30171515ad.3.1792260106924;
-        Sat, 17 Oct 2026 11:01:46 -0700 (PDT)
-Received: from alanhc-14700.tailb22ec2.ts.net (180-177-138-120.dynamic.kbronet.com.tw. [180.177.138.120])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e5d98d9sm23030035ad.2.2026.10.17.11.01.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 11:01:46 -0700 (PDT)
-From: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
-To: Yixun Lan <dlan@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	E Shattow <e@freeshell.de>,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/2] riscv: dts: spacemit: mark K1 boot nodes bootph-pre-ram
-Date: Sun, 18 Oct 2026 02:01:39 +0800
-Message-ID: <20261017180141.3477743-1-alan.tseng.cs@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Egin5z6d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06CD61F000CB;
+	Sat, 17 Oct 2026 18:01:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792260108;
+	bh=97pYc+O+9TdLZnqQyCCZ9T422NQvkmilLyx9fsARpLE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Egin5z6dkjHv1KedYstFBAZHvUksI1EM2N6isPAi1MDylAHSnKGudPp51CDLFKbJi
+	 lNy36BIcpcpUJonBEzGkeDeAiRigrZP/h107Drhlypz7104HdZuliDVSlw7Dmcjxjn
+	 Qs6yy5h4tRETSpAKQePve/i8SJw6DBZlEDU/aO4wkJbe8kcaoXQKuqC8bdOsrgnoHq
+	 uM3BCLSF7ZQB/UpJIOKn7OY7EJueO6xBKeRkuzdEzbwTG0qrhsVxIdc09YbIX7gGb8
+	 f2TdFzcav3rhMaLrNECz7yfojNACcEQCQ4J4eeA8XR956P8EKntSpvtP+z5bHJ3r8A
+	 M8rdmBjC2wIXg==
+Date: Sat, 17 Oct 2026 20:01:45 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: wyibo6109@gmail.com
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	linux-input@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 1/2] dt-bindings: input: add OnePlus pogo-pin keyboard
+Message-ID: <20261017-literate-prudent-walrus-dc6dad@quoll>
+References: <20261016163859.1070138-1-wyibo6109@gmail.com>
+ <20261016163859.1070138-2-wyibo6109@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261016163859.1070138-2-wyibo6109@gmail.com>
 
-A bootloader SPL on the SpacemiT K1 runs from SRAM and needs a handful
-of nodes before DRAM is up: the root clocks and clock controllers, the
-console UART, the boot media (SD, eMMC, QSPI NOR), the board EEPROM
-used to identify the board, and the PMIC rails it programs before DRAM
-training. Today mainline U-Boot carries the bootph-pre-ram tags for
-these in per-board -u-boot.dtsi files.
+On Fri, Oct 16, 2026 at 11:38:58AM -0500, wyibo6109@gmail.com wrote:
+> From: Yibo Wang <wyibo6109@gmail.com>
+> 
+> Binding for the OnePlus Pad 3 Pro / Pad 4 and OPPO Pad 5 Pro pogo-pin
+> smart keyboards, built around a Tinno keyboard MCU and attached to a
+> tablet UART.  Describes the supply, TX-gate and wake GPIOs, with a
+> MAINTAINERS entry.
+> 
+> The compatible names the tablet project the pogo port belongs to
+> (caihong, erhai or iceland), which pins the keyboard generation and
+> with it the protocol extensions the host may use: the 0x3A general
+> sub-commands grew over time, from the caihong (sm8650 era) keyboards
+> with neither wake notification nor backlight, through erhai (sm8750
+> era, wake notification) to iceland (sm8850 era, keyboard backlight).
+> 
+> The keyboard is a fixed physical device, so the touchpad geometry and
+> the product names are per-project constants and live in the driver;
+> the common touchscreen properties (touchscreen-size-x/y,
+> touchscreen-x-mm/y-mm) remain as an optional override if a variant
+> ever needs one.
+> 
+> The binding documentation was prepared with the assistance of an AI
+> language model; the technical content was reviewed, adjusted and
+> validated by the author.
+> 
+> Assisted-by: Z.ai:GLM-5.3
 
-When I sent a U-Boot patch adding another such file for the Milk-V
-Jupiter, E Shattow asked for the tags to go upstream first, so every
-K1 board gets them and the U-Boot overlays can shrink [1]. Earlier
-there was no working mainline SPL for K1 to justify them; there is now.
+LLM
 
-Patch 1 tags the SoC nodes in k1.dtsi, including i2c8, which every K1
-board uses for the PMIC. Patch 2 tags the board-specific EEPROM and its
-bus, the PMIC rails and the SPI NOR on the boards that have them. The
-set of nodes matches what the mainline U-Boot SPL tags for the BPI-F3
-and MusePi Pro. Pin control and regulator supplies are left untagged:
-the K1 SPL does not enable SPL_PINCTRL, and neither the P1 PMIC driver
-nor the SPI NOR and EEPROM drivers look up supplies there.
+> Signed-off-by: Yibo Wang <wyibo6109@gmail.com>
+> ---
+>  .../bindings/input/oneplus,pogo-keyboard.yaml | 76 +++++++++++++++++++
+>  MAINTAINERS                                   |  6 ++
+>  2 files changed, 82 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml b/Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
+> new file mode 100644
+> index 000000000..78d398912
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
+> @@ -0,0 +1,76 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +# Copyright (c) 2026 Yibo Wang <wyibo6109@gmail.com>
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/input/oneplus,pogo-keyboard.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: OnePlus / OPPO Pad pogo-pin smart keyboard
+> +
+> +maintainers:
+> +  - Yibo Wang <wyibo6109@gmail.com>
+> +
+> +description:
+> +  The OnePlus Pad 3 Pro / Pad 4 and OPPO Pad 5 Pro pogo-pin smart
+> +  keyboards, built around a Tinno keyboard MCU.  The keyboard is
+> +  attached to a tablet UART and speaks a framed half-duplex protocol
+> +  over a shared single wire; host transmission is gated onto the wire
+> +  by a PMIC GPIO for the duration of a frame.  It provides a keyboard
+> +  matrix, a touchpad and a keyboard backlight.
+> +
+> +allOf:
+> +  - $ref: /schemas/serial/serial-peripheral-props.yaml#
+> +  - $ref: /schemas/input/touchscreen/touchscreen.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    description: |
+> +      Names the tablet project the pogo port belongs to, which pins the
+> +      keyboard generation and the protocol extensions the host may
+> +      use: caihong (sm8650 era) supports neither the wake notification
+> +      nor a backlight, erhai (sm8750 era) adds the wake notification,
+> +      iceland (sm8850 era) adds the keyboard backlight.
+> +    enum:
+> +      - oneplus,caihong-pogo-keyboard
+> +      - oneplus,erhai-pogo-keyboard
+> +      - oneplus,iceland-pogo-keyboard
+> +
+> +  power-gpios:
+> +    description:
+> +      GPIO enabling the keyboard supply, held high while attached.
+> +    maxItems: 1
+> +
+> +  tx-enable-gpios:
+> +    description: GPIO gating host TX onto the shared one-wire bus.
+> +    maxItems: 1
+> +
+> +  wake-gpios:
+> +    description: GPIO signalling attach/detach, also used as the wake line.
+> +    maxItems: 1
+> +
+> +  touchscreen-size-x: true
+> +  touchscreen-size-y: true
+> +  touchscreen-x-mm: true
+> +  touchscreen-y-mm: true
 
-Testing: all K1 DTBs build, and dtbs_check is clean for them with and
-without this series. I have not run an SPL built from these trees on
-hardware. On a Milk-V Jupiter running Linux I checked that the EEPROM,
-PMIC and SPI NOR answer at the addresses described.
-
-Changes in v2:
-- Tag i2c8 in k1.dtsi instead of in every board file (Yixun)
-- Rebase onto the spacemit dt-for-next branch, where buck1 now carries
-  the buck1_0v9 label on musepi-pro and the OrangePi boards
-- Link to v1: https://lore.kernel.org/all/20261012235624.77993-1-alan.tseng.cs@gmail.com/
-
-[1] https://lore.kernel.org/u-boot/5d323a11-da4e-4071-bdeb-ab5c03e8f85e@freeshell.de/
-
-Hung-Chun Tseng (2):
-  riscv: dts: spacemit: k1: mark boot-critical SoC nodes bootph-pre-ram
-  riscv: dts: spacemit: mark K1 board boot devices bootph-pre-ram
-
- arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi |  6 ++++++
- arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts   |  6 ++++++
- arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts |  7 +++++++
- arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts    |  7 +++++++
- arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts  |  4 ++++
- arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts  |  5 +++++
- arch/riscv/boot/dts/spacemit/k1.dtsi              | 13 +++++++++++++
- 7 files changed, 48 insertions(+)
+We agreed to drop all these.
 
 
-base-commit: d05c6236496071916e19012cda7149465f15e66e
--- 
-2.43.0
+> +
+> +required:
+> +  - compatible
+> +  - power-gpios
+> +  - tx-enable-gpios
+> +  - wake-gpios
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    serial {
+> +        keyboard {
+> +            compatible = "oneplus,iceland-pogo-keyboard";
+> +            power-gpios = <&pmic_gpios 12 GPIO_ACTIVE_HIGH>;
+> +            tx-enable-gpios = <&pmic2_gpios 6 GPIO_ACTIVE_HIGH>;
+> +            wake-gpios = <&tlmm 151 GPIO_ACTIVE_LOW>;
+> +        };
+> +    };
+> +...
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 8014b9f82..9c29eb961 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -20156,6 +20156,12 @@ S:	Maintained
+>  F:	Documentation/ABI/testing/sysfs-bus-platform-onboard-usb-dev
+>  F:	drivers/usb/misc/onboard_usb_dev.c
+>  
+> +ONEPLUS POGO-PIN KEYBOARD DRIVER
+
+P > N
+
+> +M:	Yibo Wang <wyibo6109@gmail.com>
+> +L:	linux-input@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
+> +
+>  ONENAND FLASH DRIVER
+
+Best regards,
+Krzysztof
 
