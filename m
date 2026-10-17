@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E655463B75;
-	Sat, 17 Oct 2026 09:04:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83780469854;
+	Sat, 17 Oct 2026 09:06:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792227885; cv=none; b=sTX5xjVQWvgUBrk6TPXQlmU6V+LMh0c1kW/omB2gX4VgGcj54kGkC1CWjXLHU2npigFFi0KNx4quO07D9D4R/IqUMASpx9e/RCGtuVFY3HoRfinqI4oaUcjeSfIeqqNpf0yMNo0qpR8gdJESGUQAA35+m7TOWWovcjZX129ffTA=
+	t=1792227967; cv=none; b=hzmDZOivj9yTtVOXZFIUE+TnZL2kftYE0YlGlcEpM/2GrQZM3yEszb+vfVSzc+hz/r1dIuuJC+m8joOkPpsO0rdY0dHrIA/udkuuBEZVcn/fivw6fu4PVglDtJT37XQ+4CwxTZ4Hqc7J9hTBWeCG/9cV+qNFbAaBzJIX2LhxjHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792227885; c=relaxed/simple;
-	bh=djD/V9d0QYLhzz/76krlJ84+3vyG49fYA5wmKdmvis4=;
+	s=arc-20240116; t=1792227967; c=relaxed/simple;
+	bh=7Ue6KCLMZZq/oyXgt2UOwGRcEggV+FcLKIRLYa5QJLY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OPQZ614IDD3KzbJt6io+otSuUALGlHDPkAmlaCTx3BcdLmIsLOe1YuUpq7dmFwHq22bg6vXB+ZNgbaC/FxVFm7FyD2axAkVed9ktPc2aSVOAG6QUoul/9v0Qkg6CCR76Hpox1zm7Hwc1vDD+vZgf0DKddZHMXqXilFUn6nw0Tec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VWtQKOsL; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=PWl1Ip/TYPmWo8WwkI0qWxoWNksTAZduSwzTaZOmZxt78g5coh3D6BxardQVTne784ZSOb9no/4POoOi+wcfnCeeojFGI7X5Kmopw+0wCvHKnpugAShXLNeACg94Swk4LKZu7SPRXUSXIC/fnqv81lQK3YYyVu0xoiTQkKvOnKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JkgCE04J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VWtQKOsL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8E521F000C4;
-	Sat, 17 Oct 2026 09:04:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JkgCE04J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FFA91F000C4;
+	Sat, 17 Oct 2026 09:06:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792227883;
-	bh=99mlhEUv4uuRxGlx/KL/BwKIec6lmdsz9tFjs72EqpU=;
+	s=k20260515; t=1792227966;
+	bh=k/pQx3sYytdyLJQaSKx+NKUBn/iTrj7Jku3kPuR4DYE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=VWtQKOsLyvFFcFhmxFn6XghqCoKT7auV9H/QWdZiNRaO6xM/1NKTk82h/2CeFKXMv
-	 AD+nMBOUFUJ5Qc9RhtDlzmYmFmGjkAS9dWGvWUjxU2pIgVV+ahWsAa3W8V+aa5s7rQ
-	 mRb8dw6+EoPhvgK+jJ6r0VGA87CzItbWJLPIASvk0Lqd6X53BnxgdkfkFV5JrOBgNi
-	 KB1HoMfmBi7mHFRKuvcsOGsUSMlG+lrNQE8TmoMlUysob53Zf4CRWvoBox0bn/rp+I
-	 LPmm5hFlcsdcG8G0KIr+sOXYalQR4mAl4Y7tKViHihfcvE3VeX7y8r1nPFDAV1cY3l
-	 8HPwIbvLbVwgw==
-Message-ID: <6ac3413c-1c40-49a0-a5b3-05d059114efe@kernel.org>
-Date: Sat, 17 Oct 2026 11:04:36 +0200
+	b=JkgCE04JXFNslt6t/uzops20RjNxckF+JDt3V8HSyrUsUYwlWmqnpAgLqUZKEsSFg
+	 5Yo0NoHyqId/dwRgTFufFo0mTuJP9oCKNqYzPxynshfgTr8Utd4XcmM84jclHSmIKN
+	 UEmipCBqvq8b5rvos2A8dT9iMiUbkjYVMFpwnRqbBxziKk78XRI8Zzmb3W3oFUDXLP
+	 OOTXblYenPPZu2mfK/hPe7NRhqA9B/XcRKMZLzgEE70L0o9iMgFeXyLJ4blzTD8xiZ
+	 5HKd3DLOaotmwXqJWbbvSCB/5pD7Q8OIDwgLg3mBFEsi5Wo04LjHUcBiMMk0dxgxzB
+	 9Ez0W2heiFe9A==
+Message-ID: <dcb60d92-a8ed-4348-96f0-d90c659da72f@kernel.org>
+Date: Sat, 17 Oct 2026 11:05:59 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,17 +35,16 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: arm: qcom: Document Xiaomi 17 Ultra
- devices
-To: Igor Belwon <igor.belwon@mentallysanemainliners.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261017-nezha-v2-0-44c95e1a9d6a@mentallysanemainliners.org>
- <20261017-nezha-v2-1-44c95e1a9d6a@mentallysanemainliners.org>
+Subject: Re: [PATCH 1/2] dt-bindings: arm: amlogic: Add Khadas VIM 5
+To: Nick Xie <nick@khadas.com>, neil.armstrong@linaro.org,
+ khilman@baylibre.com
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ jbrunet@baylibre.com, martin.blumenstingl@googlemail.com,
+ christianshewitt@gmail.com, xianwei.zhao@amlogic.com,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, xieqinick@gmail.com
+References: <20261017040038.3702428-1-nick@khadas.com>
+ <20261017040038.3702428-2-nick@khadas.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -91,16 +90,17 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261017-nezha-v2-1-44c95e1a9d6a@mentallysanemainliners.org>
+In-Reply-To: <20261017040038.3702428-2-nick@khadas.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 17/10/2026 08:41, Igor Belwon wrote:
-> Add compatibles for the Xiaomi 17 Ultra devices, consisting of the
-> EU model with a smaller capacity battery and the CN model.
+On 17/10/2026 06:00, Nick Xie wrote:
+> The Khadas VIM 5 is a board based on the Amlogic A311Y3 SoC.
+> Document its board compatible.
 > 
-> Signed-off-by: Igor Belwon <igor.belwon@mentallysanemainliners.org>
+> Signed-off-by: Nick Xie <nick@khadas.com>
 > ---
+>  Documentation/devicetree/bindings/arm/amlogic.yaml | 1 +
 
 
 Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
