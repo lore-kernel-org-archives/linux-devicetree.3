@@ -1,65 +1,65 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4816F480338
-	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 14:53:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFC612FFDFC
+	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 14:53:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792248793; cv=none; b=gGW3lPhkNcCLofH8n1uMYlBlKt3fiIs3rIY3bNt2Vn4aZVgi2t3iYzluswk+aHdHw3U9d518+o7WwBuBDK1WqmjFfspkbPApAcvRqxvZplE0hi4oPSNOAJ1z5E39ItMbePbwjOj6VDSKZ9I0vc/SPseftPhsIMzJNp815lPRwYI=
+	t=1792248838; cv=none; b=O0mppvlnQeKxrWJUzxr4BG9hMCmkIrIitFjNTg8ohnv0FHJ5FAo5n0l3Sr1vhqIkh054oEiu/5zUOpbI3j62y9f00HQ7UxOjcqYiIXQASdpg0H0/WklVk/FQEk+8IbfxF/esCzWVmTFRLWKK8YCaxx7Z/4Wxh6oiLzSFECGZQa8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792248793; c=relaxed/simple;
-	bh=Fvka/I8Qk9HOFH62SbLDTdQOv+/n4Lr6xbNErwQYZ88=;
+	s=arc-20240116; t=1792248838; c=relaxed/simple;
+	bh=14/hMLHV/tYtznG0hyhpzTapCNH3vt/FqyYM36Xqhsw=;
 	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=S3/rX6XUIZLNUhddkUI78dis751BiihQvNtkYRI+Uy8YPDDbY+p+WhWPmklzPZ0UoqKiYjaS0xeBoAEHS/jL1RaApakro2UXf25wkTIsYUfaFvmXEviYTMkb0NwhdwIgtvupc1xDZf+9IGxrQQoLhgChcblvAqVU2fbCdh9p8XY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=LKTrxCby; arc=none smtp.client-ip=209.85.128.48
+	 References:Date:Message-Id; b=a1Uk0mj/q7R6mil9akzhdPXUbPyN7+KTOlB5VLA6sFeV0eLKcxm2saCiqVLhgj5pOXM5EmNqyvptJxb8IkvU4lxqogCNrHFOXQgvU4yU/PvJSAazhI7ZEfHuNFsrp6RogZPzJFuvaoMkvrFIDcjA8KDo2i+61U/5JpVcfoxGNXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=f3syT2qo; arc=none smtp.client-ip=209.85.128.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="LKTrxCby"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a1dede3c2cso4091765e9.2
-        for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 07:53:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="f3syT2qo"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a16bc2278aso6600755e9.1
+        for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 07:53:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1792248789; x=1792853589; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1792248835; x=1792853635; darn=vger.kernel.org;
         h=message-id:date:references:in-reply-to:cc:to:from:subject
          :content-transfer-encoding:content-type:mime-version:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=+66VnjPF/YyVU7Vru1kQeXTRwhm4W1VNOEJvI0QSylg=;
-        b=LKTrxCbyQzl6s1iUh6Y5UJVUGypWfe8jSLIOvmCXW+afA76N0Q4LeyuwBoTeh9Crq5
-         j3r5Y8EBs1aSOhx+e5EJiyRsOHY1T6Uqm2HLKRZVwuVKZ5szX7d0RhooxYnioqemF63S
-         3SBRrnDSIYBA7Acaa5wO0YzdoDHpWPm7JDR+XvSVUbkmwi5GDWi6Zm094ywLp6pohv9d
-         15BVnsLlvE7AHXGWZzsaZ1HbjZEqGLZxWN+QRzqddxswQdfkwN7rowpaz6DRiivkkl8L
-         n93+jYF7ujqteng/2hIiulMnYjxjN+AvUCB9lpj3WvtfvdSSjPeuCbPFD1qQIK63/7J1
-         VxhA==
+        bh=p9zss0HBxC2hnh3BG5QDi7k5785zMX75I0uTXgjx5mI=;
+        b=f3syT2qo/3TFp/8ROffPWWw8I70qB+tcFyHNSM/8TcaxkUqaCtjZkZdvj2JSMSGUHf
+         +9EWZ6d5K4gpne9RQSqgpxmyj8d++dihDaKIXdwlHKxWMEo6qqpydzJZ5/IdLHOlFXj3
+         2ERg2toU39IhvS9qZkSV1uE0khD614YZPcOdk3rj1x8ws7whhpY6j26Wh1oOPzRsyW8i
+         hEOhRx3UJXymlCJ9gJZRLwYQx7jmjEvCnx9flExfrwkRfLbT5Tco+8JIq99R6D6tEAGA
+         fp57RxU75lJXfPYWqzGx9yJ2UJtS4kbKZyEb9bOFrPrHh3sqmV33bdKiYOD7KWgzIE0E
+         457g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792248789; x=1792853589;
+        d=1e100.net; s=20260707; t=1792248835; x=1792853635;
         h=message-id:date:references:in-reply-to:cc:to:from:subject
          :content-transfer-encoding:content-type:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+66VnjPF/YyVU7Vru1kQeXTRwhm4W1VNOEJvI0QSylg=;
-        b=KzIaXEWOYejcL3dympeseFmf1iPlZx7XefEDVRqzX0BZOeHkVAmixSJgMIWKTSjPJT
-         3tWQ9pQSJkm//FQwJh+M9cQ3ICRQL9pGKd9Z6NXJ+zDTcef+4SWibljJ9Q+liSnYiJF3
-         jZ5EdCVNh8hDkjr3k6t275YjCNTaGyreiV6pEkSKFWkkKIqpAa5Xku4J6Vf1KNAozDYa
-         6VWhBgXMRuc4aJoQ3+QuPizlaAebjTdT3UAvAOejVRYbkHMA3kZJTbeNBh/yqYWLBivZ
-         5ugg5eNeEctlKQNU0m+wshyRLnviWwz6sL0EdQUcbzFuI/2vovTc8TsqHaOGVJJRdXXO
-         qPIA==
-X-Forwarded-Encrypted: i=1; AKwUvByiaHnSQclbON4dfmnGvWl8bHDS5MgUsdUpD3jCZMtItXbeyY9YFYETOpPPmImO/YdwTR+qvMJ7bEll@vger.kernel.org
-X-Gm-Message-State: AFq9FYLlrM1gn8XLJfehEE+1Ik6xltie6MQwlRud3fzTGk6Gf6gwL0ZU
-	/8TntzgOJwv2wSI+9tltgb/G52Avh5uzPuw3KyCkhJI3YfE3Q5brRqEV28meFKM7PEU=
-X-Gm-Gg: AYBFou0IbsXIRyre1D4933XWKk3ZJGr0pEx4NXuL8ndT/D04+KCfa95Ddnfw2eYPZUu
-	GiKG9FnPtKndFSJqXJmFnr0vMJZH85Y0ApF6nmIO/H65/3TOLf3QGfNrN0mrIZ2DK1QqjMNDXxm
-	rfnzYKJOVytl0Y1R0CYiuNgoZ9z7pjoAqfTCwUpMbirBXBCUxoXA9it1FmLl+n7Nomj4DalAr6M
-	w6HHkONEcKgx9o9ISo9R6qulInq1CtNQbAeGoBY2LqfIeHLcwQ4JXFA71Qf4LIaFstexWvgnM58
-	KY/2u+joe/m6HpeQzxs17LSz5K3E67trI9ffLCIpeAD+CtO3OWS1xVM3SQx8ZrlCjGplxLy5S6J
-	IgloDsKir5u1QZnwSKv/qAwcfQ/wFcgQ7JN84Hx4kglEMYNLAdKRfNrxLsOJPXmOY8CJoL3T1hq
-	vo2lOOsFrL0QJ55fenuwD0NbM12GucoCWm6Le5bJKelnUp6snPdrJNAowuyfU99pXdrmmM7KTel
-	jh8AMcwAqjVFlV2Sg==
-X-Received: by 2002:a05:600c:81c8:b0:4a1:9661:14b5 with SMTP id 5b1f17b1804b1-4a1d7616576mr55179145e9.29.1792248789113;
-        Sat, 17 Oct 2026 07:53:09 -0700 (PDT)
+        bh=p9zss0HBxC2hnh3BG5QDi7k5785zMX75I0uTXgjx5mI=;
+        b=gPs1JSpC3QON9D9/jMUCDJSS+eBSj7zq9xfBkIixILoSKAPawBXGc7tKRw8T1nA8XA
+         mcSC7rqqI2/4SYYUuKLj/oX00BxJrPNEUzZjISo7zLD+FtvCap3z26hRU83Ld7Rw30Vp
+         JIWp+7fsgMpwmk23GqpRrAsmXP/0TNEmcAMaXl0WR1atZr+0xyqo3+a6n1fwWZGPo6gs
+         LikkpbGC3hPJzhk/VkufS5HakzzRZwj8X7pNUUY9AsH95K4y0IPEJwEYqGlR3v7KUfwp
+         Z63UgJjaaQYX3cSLhJUEgzX8r6ywwtGD8jfoPDglRjBkw0QpL71ic8Z2A33GSWAs5vMW
+         oKBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw24cBN2daY5Jb0gYdo/FPzvIHiLXoPcnAFu/ajwCEAonwuZX+J9coKjO64Ao2bI2oUslgsdoAZZqt6@vger.kernel.org
+X-Gm-Message-State: AFq9FYJIbQpfxKhi8nsO0qU3JPM1wfrJuYR5iLGy8FRNqULzG9Jp3y2r
+	m9UPKYrgXRfOZxg79hRONpgW6Li2ZroTw3QNvEyMUpbUr+s/kbs5RHvBF52ERlRWat8=
+X-Gm-Gg: AYBFou3tCIaqa2vBofVNEaXlYQ7GY/yhMtKFGcZGbpBqN9DdbrGNuP1Td6Mx7IA3V4i
+	ckNTfUnpRTvgACKjJ6feu9ytOqr64uXB7nAM96Ql+Xb4o9LlhfrmFayxxIBWd2TZ7AaIuea87qz
+	OapvJd9NsfvttqL7e5aUz+vxQ3bJHiQnj/Y777wLtqoJUvIacB0BOp1jhwfMKo1eoxhxIk9NssF
+	oHE16q16fS8LG2YQvb4mXxdkCZ7kMoB/5lS1XnsM2fzYSV2KTiKJXn0lhrqcCt8PZwjHX452tY8
+	Xnx/3suxKmMp8NZIIXHWMkCCyrzz7E44YXQjxitvMugw4/UxyX/dUOz/xCFR/hmiOVIEbIpVVit
+	2ld1KYG6TS+rNQwLOffzW2aJ1N0fAt/LjbZzApk94DKVyGq704vuJ+ZNnBTr6OnQpPbPESf4tBq
+	IYje+BMD3uzPtBmDF8ycMLIjLt6EtG23BweSaX4EFp4xO1tOztOwqQUiRj/mD9zb8GtZxsozbbl
+	BuaAZpF5iR+nYOG3A==
+X-Received: by 2002:a05:600c:19ca:b0:4a1:ac66:5ffe with SMTP id 5b1f17b1804b1-4a1d75fce82mr60259805e9.15.1792248835113;
+        Sat, 17 Oct 2026 07:53:55 -0700 (PDT)
 Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1cbedb6f7sm148500265e9.2.2026.10.17.07.53.08
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd503862sm11663833f8f.46.2026.10.17.07.53.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 07:53:08 -0700 (PDT)
+        Sat, 17 Oct 2026 07:53:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,46 +68,139 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v10 04/10] clk: nuvoton: ma35d1: Reparent the gates
- correctly
+Subject: Re: [PATCH v10 03/10] clk: nuvoton: ma35d1: Retrieve HXT/LXT from
+ DT when possible
 From: Jerome Brunet <jbrunet@baylibre.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: sashiko-bot@kernel.org, sashiko-reviews@lists.linux.dev, 
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, 
- conor+dt@kernel.org
-In-Reply-To: <877bjivrf5.fsf@bootlin.com>
+Cc: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ openbmc@lists.ozlabs.org, stable@vger.kernel.org
+In-Reply-To: <20261015-perso-ma35d1-upstream-clk-v10-3-47c97b54a809@bootlin.com>
 References: <20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com>
- <20261015-perso-ma35d1-upstream-clk-v10-4-47c97b54a809@bootlin.com>
- <sashiko-outbox-173157@kernel.org> <877bjivrf5.fsf@bootlin.com>
-Date: Sat, 17 Oct 2026 16:53:07 +0200
-Message-Id: <179224878757.859276.836775392883899374.b4-reply@b4>
+ <20261015-perso-ma35d1-upstream-clk-v10-3-47c97b54a809@bootlin.com>
+Date: Sat, 17 Oct 2026 16:53:42 +0200
+Message-Id: <179224882241.859276.15035084302735586039.b4-review@b4>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=909; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=Fvka/I8Qk9HOFH62SbLDTdQOv+/n4Lr6xbNErwQYZ88=;
- b=kA0DAAoWrRk/eyua5RcByyZiAGrTi9PIr3jXzkL3hPmoR9xxFK/1/LlW3qSqHNJrkRmkyxJ0Q
- 4h1BAAWCgAdFiEEfAt7F+4ZKvSalyzbrRk/eyua5RcFAmrTi9MACgkQrRk/eyua5RdugwD/XtK0
- ki15jlcgtzwga2FiiBGlGPxqB3vuFhbG5OxU+zMA/27a5Sk09wWvbJM3JiKm9WZLUwkc6mDyoYu
- dFvDeCKsB
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4123; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=14/hMLHV/tYtznG0hyhpzTapCNH3vt/FqyYM36Xqhsw=;
+ b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFmXexhiw+4KLE5n8ZwffqTXfGbaLNNtyasLfJ8e/iCm3
+ CLy7tCfjlIWBjEuBlkxRZYa7mrxd5JaX2ZN17kNM4eVCWQIAxenAEzErpWR4Sdf0fTfq1xm7zgu
+ fv93xOVbXPPn+r/I3S6oeFzkuOUXhThGhgMHEnaejKt438ISlZTPdOvAkmXKVzS2fls294zl9io
+ tcx4A
 X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
  fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-On 2026-10-15 18:50:54+02:00, Miquel Raynal wrote:
-> > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> > - [Medium] clk: nuvoton: CCAP muxes registered with 1-bit width but 4
-> > parents
+> HXT and LXT are crystal oscillator inputs of the clock controller. As
+> such, they are external clock sources which should not be registered by
+> this driver.
 > 
-> This is a pre-existing issue. I will wait for the maintainers to comment
-> on the rest of the series. If they ask for other changes, I'll include
-> this to the next revision. If not, I will send a dedicated patch for it.
+> HXT is already described in the DT, but is not named. In order to point
+> to this parent from its direct child which is HXT_GATE, we must provide
+> a fw_name (when it is named, new DTs) and a .name (for when it's not
+> named, but the fixed clock node name is used).
+> 
+> LXT is missing in old DTs, so we must create that clock and register it
+> for backward compatibility reasons. It should however be described and
+> pointed at in updated DTs.
+> 
+> Both HXT and LXT are exposed by this driver only in the backward
+> compatibility case. Otherwise, both clocks are expected to be retrieved
+> from the DT.
+> 
+> Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+> ---
+>  drivers/clk/nuvoton/clk-ma35d1.c | 44 +++++++++++++++++++++++++++++++++-------
+>  1 file changed, 37 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
+> index 00d635cdb604..33b397d7b7c5 100644
+> --- a/drivers/clk/nuvoton/clk-ma35d1.c
+> +++ b/drivers/clk/nuvoton/clk-ma35d1.c
+> @@ -65,6 +65,14 @@ static DEFINE_SPINLOCK(ma35d1_lock);
+>  
+>  #define MA35D1_MUX_MAX_PARENTS	10
+>  
+> +static const struct clk_parent_data hxtg_parent_data[] = {
+> +	{ .fw_name = "hxt", .name = "clk_hxt" },
+> +};
+> +
+> +static const struct clk_parent_data lxtg_parent_data[] = {
+> +	{ .fw_name = "lxt", .name = "lxt" },
+> +};
+> +
+>  /* Mux parent selection, by index into the controller's clock table */
+>  static const int ca35clk_parent_idx[] = { HXT, CAPLL, DDRPLL };
+>  static const int sysclk0_parent_idx[] = { EPLL_DIV2, SYSPLL };
+> @@ -191,6 +199,15 @@ static struct clk_hw *ma35d1_clk_gate(struct device *dev, const char *name, cons
+>  				    reg, shift, 0, &ma35d1_lock);
+>  }
+>  
+> +static struct clk_hw *ma35d1_clk_gate_parent_data(struct device *dev, const char *name,
+> +						  const struct clk_parent_data *parent_data,
+> +						  void __iomem *reg, u8 shift)
+> +{
+> +	return devm_clk_hw_register_gate_parent_data(dev, name, parent_data,
+> +						     CLK_SET_RATE_PARENT,
+> +						     reg, shift, 0, &ma35d1_lock);
+> +}
+> +
+>  static int ma35d1_get_pll_setting(struct device_node *clk_node, u32 *pllmode)
+>  {
+>  	const char *of_str;
+> @@ -219,7 +236,7 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
+>  	static struct clk_hw **hws;
+>  	static struct clk_hw_onecell_data *ma35d1_hw_data;
+>  	u32 pllmode[PLL_MAX_NUM];
+> -	int ret;
+> +	int ret, num_clks;
+>  
+>  	ma35d1_hw_data = devm_kzalloc(dev,
+>  				      struct_size(ma35d1_hw_data, hws, MA35D1_CLK_COUNT),
+> @@ -240,12 +257,25 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
+>  		return -EINVAL;
+>  	}
+>  
+> -	hws[HXT] = ma35d1_clk_fixed("hxt", 24000000);
+> -	hws[HXT_GATE] = ma35d1_clk_gate(dev, "hxt_gate", "hxt",
+> -					clk_base + REG_CLK_PWRCTL, 0);
+> -	hws[LXT] = ma35d1_clk_fixed("lxt", 32768);
+> -	hws[LXT_GATE] = ma35d1_clk_gate(dev, "lxt_gate", "lxt",
+> -					clk_base + REG_CLK_PWRCTL, 1);
+> +	num_clks = of_clk_get_parent_count(clk_node);
+> +	if (num_clks < 1 || num_clks > 2)
+> +		return -EINVAL;
+> +
+> +	/*
+> +	 * Old DTs do not describe the low-speed crystal. They may also expect
+> +	 * an HXT output from this driver. In practice, nobody should use these
+> +	 * clocks directly, but they must be kept for backward compatility
+> +	 * purposes.
+> +	 */
+> +	if (num_clks == 1) {
+> +		hws[HXT] = ma35d1_clk_fixed("hxt", 24000000);
+> +		hws[LXT] = ma35d1_clk_fixed("lxt", 32768);
+> +	}
 
-It is too late for cycle for this cycle and I'll wait for rc1.
+The above is fine but the problem is those IDs still exist and something like
+<&clk HXT> is still valid in DT but now does not provide a clock anymore.
 
-Best would be sent the next versions without the DT stuff, so we can apply
-the series using the cover as merge description . It makes it easier for
-us to then provide an immutable branch, should you need it for the DT side.
-
-You can fold pre-existing issue fixups in your series if you want to,
-or you can send follow-ups later. Fine with me either way.
+This is why I asked if you about removing the ID. At the very least a comment is
+needed next to the IDs saying those are obsolete and should not be used.
 
 -- 
 Jerome
