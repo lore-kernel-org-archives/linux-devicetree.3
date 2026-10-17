@@ -1,273 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81B323CB542;
-	Sat, 17 Oct 2026 08:28:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19ABC2D1F7B
+	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 08:36:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792225722; cv=none; b=md4I3OwDuMUGuKyoXpeWNO92ePdRJbBucYTQmWYrBfdwOZ60vZZE8zHP3ywfof86FZ5v0e6PbEr9e2W1aLoxTMndSOz2lu0l9YXjBGr9YCuo4fqdsgxSqxcWPgQMEsXpy/zy9yAUGbQw77UtfxDl4VNlzSXPl5nWMXDe49eHZpw=
+	t=1792226169; cv=none; b=c4MXULc2S7FG9Y19402KSOirmZYp5oGl/d9Sk1NjXxeqz5qBqg5Lx2XLJhEfxAdp4phJLIarpSvpACDhw6QuoBciLhuD5ZUxtlcXTHWi/KsB3TWSmgn3Xyl8bkua9G9dQ99JzxErr9U0BlfeA3PEyHsrBagtJY3HVNRg5CPEhXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792225722; c=relaxed/simple;
-	bh=wZkYRm6OrqK/DQ4oY4JaIcyrY6IpAzfA7KJh6cLq+DI=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=T902OE3MLDYQ4fstffBvq6yh/ZTvLkPdRyPwceuJmxAP8frYAwsVf0wQV7VYfGDtyvNprz/dcXQTZhpMF5kZY7I1TI80kdYTw6RlTQy0bLkkejlnY3+i7/va7Jjk769Ud4y/0Xblbep2JrGpCnLrtgDirj/DS6DUlTvf/a6WeuI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rbz6c+He; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792226169; c=relaxed/simple;
+	bh=RtCye4OYr+2e3wcQltPUd/mx5SOGyuXm6AFbqyk9vo0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fTMe3qxWA/ZQ4kakwV3mt1v3Qqq+kc056cN0DluQ4ID8FZdW67lYikCkzQp5PpoWRAbQMQbZ2K1NMIJ7Ool0913UgfLyQDt6QLau1YfN3JZLnukZVT2Ca9mDVFdeIW9Y7l8irHQ08l5paN0qU5Uwsn33jyk7dgfVNzhOV5mFddA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nlzoV/+V; arc=none smtp.client-ip=74.125.227.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rbz6c+He"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2028B1F000C4;
-	Sat, 17 Oct 2026 08:28:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792225721;
-	bh=a0N4pfiPlAV736gNkFlC1Xo1EYe0tZQvtDBsOXnRmmA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Rbz6c+HegRZvbo3euwJaP6LhinddJolrSLpcqSKWBusUMeLxRZcsOtw/7f/tF+muZ
-	 SLv2BZazHxqumg7lwKqv2ZBuovrWCGYhWPaOa6A5BJU50mptXJ9zobC8hr15HmGJna
-	 xkTdmkbR7w8dOdyM8I/gc6XOJaiARqSbU7h4hNJRdWLYXw5J0ed/1gVPtemkh9lSvY
-	 xz13nI9oDCQOkfyiTM7fYm/sW7ccWnW/IyduczVCEvh4UHWc/tmHBgFDaak4hzsgMM
-	 +s8lK8KUfaE4mXFvJXRFwyrEFnaPHH81U3GYKZORA5y2zIkeuc3eV1hdAtHcGd4Cuu
-	 uPXC0ekP+810A==
-Message-ID: <sashiko-outbox-175391@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: usb: snps,dwc3: describe the
- two-connector HS data path
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Qianhui Xu" <xiaqinghuan@mail.ustc.edu.cn>, linux-usb@vger.kernel.org
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261017081320.220525-2-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261017081320.220525-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261017081320.220525-2-xiaqinghuan@mail.ustc.edu.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 17 Oct 2026 08:28:40 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nlzoV/+V"
+Received: by mail-pj2-f10.google.com with SMTP id 98e67ed59e1d1-3abe4821449so420005a91.1
+        for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 01:36:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792226166; x=1792830966; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3Q8IZ33W6NNgXpiE2H7gk1DjA4QMN4AQzf1Ck9B7ifM=;
+        b=nlzoV/+VZDRgzPhY0+QeuJDgDsAkDUnBfuugqLTJKZ60negPfaGJlvnRyKCo3k+wR+
+         tyoMMkZXf6/Ig2EjFgfnOdNs1vB2AyrIU5bNG1gMy1mVdZl6/7DzyYy90gH2CIWEPhwC
+         lkttDZqbvtNGn5ULSaw3YAzgQ1VL0dRXSXd5JP+YF9ynNimKDxMC/2tyivq+isdcmhv3
+         ZFqDdhk5dkHS1da0/OE8EGBRSiUHK73r/U3Yoq+yAnRGfm3tW+wwRp+q+Nf31fnIDugs
+         FlvYTF58AJV7R0vDp44OhZMSde6nt3qNNq9t1RrEm9za6oM+jqGPh/TvbE+Z9J8KeC4J
+         wCew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792226166; x=1792830966;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3Q8IZ33W6NNgXpiE2H7gk1DjA4QMN4AQzf1Ck9B7ifM=;
+        b=aTUvI2epC2g0SM80AS1B2x6vkIM6PVnPA/wutpmmYzcbvW6OnHh7TOAoMOW3AR+7oU
+         5EOwmZhYmAS7J9zxmL0CiNBU3inVSnF7mGt5w71TkvaKcdaKpRhowQ6wTHIbydp8XYJy
+         nftPAgd17eqHSgwHmqWjoBJlFbQsW238OD7lBCimPGMsUgUensjKv6Yli5srf32CvXd0
+         9Fm2trKh4Fkv73GKi3FLIIPn90PC0bkRic/+IsfjeSdC6WCgnJ9mBvw9adS+S0xrWvX9
+         L9YUCy6GJA4IeSVMbw4THjZk66J6kVKQvYxLULuj1Y8KXs6bLe2vW723w0hPBzovH5gg
+         RuEg==
+X-Forwarded-Encrypted: i=1; AKwUvBxRjEzByhOO7V8lnzu40fZ3AKa1qEuNvIbCBrIxYNlnpNgMLF+9nFRMLF0cQM6tWsR2x0fSxr3GQWG3@vger.kernel.org
+X-Gm-Message-State: AFq9FYLzdKKW9KxO7Jn6eTcf5E0nWaiu4wljJd+QgFR6Sllw4sj4173S
+	sXdlPCBmsAp3u/mcJlFsmLiels0M2tnNLInBTAUGc+CE8kpiTk2UHE4U
+X-Gm-Gg: AYBFou36evwK+ByOLlnkL48fW9dMjKwEZADDig9ems1JuCSlhdfttBH8lveV9e8MijQ
+	7+eydI49ZpetRzCHj7Kfk9TOVYxRQ7o94TF1M/jOTXIrnr/Ax5/ab/LAcGB9HrcRak9GPSqNTTD
+	uYgcPcxoTq166I+kbZTGxfQy6T45IQNelx0nlUJIUyNokrJikawcyvAoSqy4JmouWQstRxVEI/h
+	46yvT2hIECrN3pINZNipokC2jPTU2/Fv6+MEh6V3DG3CIWNayse27PTFhjtkzBZ/0Iv2rNFibe2
+	s8Aaawmfi7UIPpiyBUm+u01wJEyzsO2deF+CMXiVRSXCW0ZPV5aYRYsaxZAKlRPmDERQ4Xt5E/+
+	D2JVIvxaxt3LYrKTSVAznT6FeoU9kYVfPi0mssaavb4OF8b1cyQ1zA1ysY+7BadmbrH1atSqYlT
+	fad8FhWMN7bxQ4Q4Tptb2MhgpUeDOTUMdnXb/xOe/a1J+3LnNp8jNxBIk=
+X-Received: by 2002:a17:90b:5111:b0:3ac:a521:960 with SMTP id 98e67ed59e1d1-3acee2927aemr1967627a91.1.1792226166418;
+        Sat, 17 Oct 2026 01:36:06 -0700 (PDT)
+Received: from Linux-PC ([2a09:bac5:1f0f:3141::4e8:8])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac9461d71esm12548544a91.7.2026.10.17.01.35.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 01:36:05 -0700 (PDT)
+From: tianshi12127 <tianshi12127@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	dri-devel@lists.freedesktop.org
+Cc: Jessica Zhang <jesszhan0024@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Simona Vetter <simona@ffwll.ch>,
+	devicetree@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Lu Chen <tianshi12127@gmail.com>
+Subject: [PATCH 0/3] drm/panel: Add Smartisan TD4362 panel support
+Date: Sat, 17 Oct 2026 16:35:28 +0800
+Message-ID: <20261017083531.766557-1-tianshi12127@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: usb: snps,dwc3: board-level HS GPIO mux modeled in =
-controller
-- [Medium] dt-bindings: usb: snps,dwc3: port@2 models second connector as c=
-ontroller bus
-- [Medium] dt-bindings: usb: snps,dwc3: usb-role-switch placed on graph end=
-point node
-- [Medium] dt-bindings: usb: snps,dwc3: port-select-gpios conditional omits=
- required ports
-- [Medium] dt-bindings: usb: snps,dwc3: schema allows identical mux-state o=
-n both ports
---
+From: Lu Chen <tianshi12127@gmail.com>
 
-commit ee0273505f8490131392861ded800f75a8b82b18
-Author: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+This series adds support for the Smartisan TD4362, a 1080x2242
+command mode DSI panel found in the Smartisan R1 (trident)
+smartphone.
 
-dt-bindings: usb: snps,dwc3: describe the two-connector HS data path
+The initialization and power sequences were converted from the
+downstream device tree with linux-mdss-dsi-panel-driver-generator,
+and the driver was tested on a Smartisan R1 (trident).
 
-This patch updates Documentation/devicetree/bindings/usb/snps,dwc3-common.y=
-aml
-to describe a shared High Speed data bus connected to two receptacles via a
-GPIO-controlled selector, adding port-select-gpios, port@2, and endpoint
-properties mux-state and usb-role-switch.
+Patch 1 adds the "smartisan" vendor prefix, patch 2 documents the
+panel binding, and patch 3 adds the DRM panel driver itself.
 
-> diff --git a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml =
-b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
-> index 6c0b8b6538246..3d012f22231cb 100644
-> --- a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
-> +++ b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
-> @@ -13,6 +13,34 @@ description:
->    Defines the properties of the DWC3 core as being embedded in either an
->    vendor-specific implementation or as a standalone component.
-> =20
-> +$defs:
-> +  hs-port:
-> +    $ref: /schemas/graph.yaml#/$defs/port-base
-> +    unevaluatedProperties: false
-> +
-> +    properties:
-> +      endpoint:
-> +        $ref: /schemas/graph.yaml#/$defs/endpoint-base
-> +        unevaluatedProperties: false
-> +
-> +        properties:
-> +          usb-role-switch:
-> +            type: boolean
-> +            description:
-> +              This connector provides its own role-switch input to the
-> +              controller.
-> +
-> +          mux-state:
-> +            $ref: /schemas/types.yaml#/definitions/uint32
-> +            enum: [0, 1]
-> +            description:
-> +              Logical level of the port-select GPIO which connects this
-> +              connector to the shared High Speed data bus.
-> +
-> +        dependentRequired:
-> +          usb-role-switch: [mux-state]
-> +          mux-state: [usb-role-switch]
+Lu Chen (3):
+  dt-bindings: vendor-prefixes: add smartisan
+  dt-bindings: display: panel: add Smartisan TD4362
+  drm/panel: add driver for Smartisan TD4362
 
-[Severity: Medium]
-Does usb-role-switch belong on the OF graph endpoint subnode here?
+ .../display/panel/smartisan,td4362.yaml       |  75 +++++
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ drivers/gpu/drm/panel/Kconfig                 |  13 +
+ drivers/gpu/drm/panel/Makefile                |   1 +
+ .../gpu/drm/panel/panel-smartisan-td4362.c    | 263 ++++++++++++++++++
+ 5 files changed, 354 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/smartisan,td4362.yaml
+ create mode 100644 drivers/gpu/drm/panel/panel-smartisan-td4362.c
 
-In Documentation/devicetree/bindings/usb/usb-drd.yaml, usb-role-switch is a
-device-level boolean property indicating that the controller node registers=
- a
-USB role switch.
+-- 
+2.56.0
 
-When a connector driver resolves its role switch over the OF graph via:
-
-  usb_role_switch_get() / fwnode_usb_role_switch_get()
-    -> fwnode_graph_devcon_matches()
-      -> fwnode_graph_get_remote_port_parent()
-        -> of_fwnode_graph_get_port_parent()
-
-the lookup walks from the remote endpoint up past port@N and ports to the
-parent controller device node, and checks:
-
-  if (!fwnode_property_present(node, "usb-role-switch"))
-          continue;
-
-on the parent device node rather than the endpoint subnode.
-
-In addition, because dependentRequired under $defs:hs-port:properties:endpo=
-int
-requires usb-role-switch whenever mux-state is present and vice versa,
-isn't usb-role-switch on the endpoint completely redundant with mux-state?
-
-> +
->  allOf:
->    - $ref: usb-drd.yaml#
->    - if:
-> @@ -26,8 +54,37 @@ allOf:
->        $ref: usb.yaml#
->      else:
->        $ref: usb-xhci.yaml#
-> +  - if:
-> +      required: [port-select-gpios]
-> +    then:
-> +      required: [dr_mode, usb-role-switch]
-> +      properties:
-> +        dr_mode:
-> +          const: otg
-> +        ports:
-> +          required: [port@0, port@2]
-> +          properties:
-> +            port@0:
-> +              required: [endpoint]
-> +              properties:
-> +                endpoint:
-> +                  required: [usb-role-switch, mux-state]
-> +            port@2:
-> +              required: [endpoint]
-> +              properties:
-> +                endpoint:
-> +                  required: [usb-role-switch, mux-state]
-
-[Severity: Medium]
-Since ports is optional at the top level of snps,dwc3-common.yaml (where
-required only lists compatible and reg), will a node with port-select-gpios,
-dr_mode =3D "otg", and usb-role-switch that omits the ports node altogether
-silently pass dt_binding_check?
-
-In JSON Schema, properties:ports: only applies if the ports child node is
-present. Should ports also be listed in then:required: alongside dr_mode and
-usb-role-switch?
-
-Conversely, without an else branch or dependency, won't port@2 and the
-endpoint mux-state and usb-role-switch properties remain allowed even when
-port-select-gpios is absent?
-
-[Severity: Medium]
-Can a device tree specify the same mux-state value (for example, both <0> or
-both <1>) on ports/port@0/endpoint and ports/port@2/endpoint and still pass
-schema validation?
-
-Both port@0 and port@2 reference #/$defs/hs-port, which independently checks
-enum: [0, 1] on each endpoint, without constraining the two endpoints to use
-distinct GPIO levels.
-
-> =20
->  properties:
-> +  port-select-gpios:
-> +    maxItems: 1
-> +    description:
-> +      Selects which of two connectors drives the controller's shared High
-> +      Speed data bus. Each connector is described by a "ports" endpoint =
-that
-> +      carries its own role-switch input and the "mux-state" level select=
-ing
-> +      it. The controller switches the data path only after it has stoppe=
-d the
-> +      role of the previous connector.
-
-[Severity: Medium]
-Should a board-level GPIO multiplexer on the High Speed D+/D- lines be mode=
-led
-using the existing mux bindings instead of adding controller-specific
-port-select-gpios and endpoint mux-state properties to snps,dwc3-common.yam=
-l?
-
-The GPIO switches external board routing between two receptacles rather than
-an internal block of the Synopsys DWC3 IP core, and the description also
-encodes driver switching policy ("The controller switches the data path only
-after it has stopped the role of the previous connector").
-
-Could this hardware topology be represented using
-Documentation/devicetree/bindings/mux/gpio-mux.yaml (mux-gpios),
-Documentation/devicetree/bindings/mux/mux-consumer.yaml (mux-controls /
-mux-states), or Documentation/devicetree/bindings/usb/usb-switch.yaml?
-
-> +
->    extcon:
->      maxItems: 1
->      deprecated: true
-> @@ -411,13 +468,17 @@ properties:
-> =20
->      properties:
->        port@0:
-> -        $ref: /schemas/graph.yaml#/properties/port
-> +        $ref: '#/$defs/hs-port'
->          description: High Speed (HS) data bus.
-> =20
->        port@1:
->          $ref: /schemas/graph.yaml#/properties/port
->          description: Super Speed (SS) data bus.
-> =20
-> +      port@2:
-> +        $ref: '#/$defs/hs-port'
-> +        description: Second connector on the multiplexed High Speed data=
- bus.
-> +
-
-[Severity: Medium]
-Does adding port@2 under properties:ports conflate the DWC3 controller's own
-hardware buses with remote connectors?
-
-In snps,dwc3-common.yaml, the children of ports represent buses on the
-controller itself (port@0 for the High Speed data bus and port@1 for the Su=
-per
-Speed data bus). When a single High Speed bus is routed to two remote targe=
-ts,
-OF graph bindings normally model either an intermediate mux node in the gra=
-ph
-or multiple numbered endpoints (endpoint@0, endpoint@1) under port@0.
-
-Also, by changing port@0 from /schemas/graph.yaml#/properties/port to
-#/$defs/hs-port (which uses /schemas/graph.yaml#/$defs/port-base with
-unevaluatedProperties: false and only defines an unnumbered endpoint node),
-won't this reject numbered endpoint@N children under port@0, while leaving
-port@1 (Super Speed) as a single port even though the commit message notes
-that Super Speed lanes stay per connector?
-
->    wakeup-source:
->      $ref: /schemas/types.yaml#/definitions/flag
->      description:
-
-Base commit: 90d9f76ccb72ec024ef476b4229f3dd1957d7b26
---=20
-2.51.0
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261017081320.2205=
-25-1-xiaqinghuan@mail.ustc.edu.cn?part=3D1
