@@ -1,65 +1,65 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFC612FFDFC
-	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 14:53:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19AA1483BEA
+	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 14:53:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792248838; cv=none; b=O0mppvlnQeKxrWJUzxr4BG9hMCmkIrIitFjNTg8ohnv0FHJ5FAo5n0l3Sr1vhqIkh054oEiu/5zUOpbI3j62y9f00HQ7UxOjcqYiIXQASdpg0H0/WklVk/FQEk+8IbfxF/esCzWVmTFRLWKK8YCaxx7Z/4Wxh6oiLzSFECGZQa8=
+	t=1792248839; cv=none; b=pytGA16l2nY5jcxg1DOwmfVUDrhLoD/lGWwuJ24JmlJ8s9hqU9bNJZkquc7Z+fjTX65UgBhwL5A8EXLIB/p5W/G/NCgqY0X/VOX11IkI2JN6b817Fw5+4HJ8nOtxNIPbshuT36OUoUweohdyqAPz873AKN+wp4fQGMZsWtTuyHs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792248838; c=relaxed/simple;
-	bh=14/hMLHV/tYtznG0hyhpzTapCNH3vt/FqyYM36Xqhsw=;
+	s=arc-20240116; t=1792248839; c=relaxed/simple;
+	bh=QGkkL2Br9nOFTntWsohnZUbwzb7F2vn9vpbJDAOpngU=;
 	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=a1Uk0mj/q7R6mil9akzhdPXUbPyN7+KTOlB5VLA6sFeV0eLKcxm2saCiqVLhgj5pOXM5EmNqyvptJxb8IkvU4lxqogCNrHFOXQgvU4yU/PvJSAazhI7ZEfHuNFsrp6RogZPzJFuvaoMkvrFIDcjA8KDo2i+61U/5JpVcfoxGNXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=f3syT2qo; arc=none smtp.client-ip=209.85.128.50
+	 References:Date:Message-Id; b=oMTQbCaNtwNIMQNA+3Nc8mAYPcgu20t5k/QvWt4k2HiFi9Jw3VjELvDm9+UEypEuXaiZpvAQSZloP6vRiX+x51/kub1rh44VDmGRcWK+CZy1U/YFPMtxpH4U8OaVMeDZgdx7XOCjuO0UZcZvTJ29SPNGJUjheTyJNVn6IzAjHuw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=RE6EIXmO; arc=none smtp.client-ip=209.85.221.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="f3syT2qo"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a16bc2278aso6600755e9.1
-        for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 07:53:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="RE6EIXmO"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48df8fe8513so524946f8f.0
+        for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 07:53:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1792248835; x=1792853635; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1792248836; x=1792853636; darn=vger.kernel.org;
         h=message-id:date:references:in-reply-to:cc:to:from:subject
          :content-transfer-encoding:content-type:mime-version:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=p9zss0HBxC2hnh3BG5QDi7k5785zMX75I0uTXgjx5mI=;
-        b=f3syT2qo/3TFp/8ROffPWWw8I70qB+tcFyHNSM/8TcaxkUqaCtjZkZdvj2JSMSGUHf
-         +9EWZ6d5K4gpne9RQSqgpxmyj8d++dihDaKIXdwlHKxWMEo6qqpydzJZ5/IdLHOlFXj3
-         2ERg2toU39IhvS9qZkSV1uE0khD614YZPcOdk3rj1x8ws7whhpY6j26Wh1oOPzRsyW8i
-         hEOhRx3UJXymlCJ9gJZRLwYQx7jmjEvCnx9flExfrwkRfLbT5Tco+8JIq99R6D6tEAGA
-         fp57RxU75lJXfPYWqzGx9yJ2UJtS4kbKZyEb9bOFrPrHh3sqmV33bdKiYOD7KWgzIE0E
-         457g==
+        bh=hiKDA+pCxvcmNuKm7oMIMiLNyrcd5EU9PaDKDAFb1ZA=;
+        b=RE6EIXmOplmwvceNWrWHy5LBMLEv0OAC8H4ZiPbddBV3OtUMzfB1iPCIltukGXxhvd
+         mMhNPBOScidmTegqDSPOhYkEz5dIKwIjB42kyW533Ife41doiTLlPEkGWcJeJfv+8G5m
+         mF4gPfEg7o8UthOG6AdXWhIZ7Y7R4T9Z2vPlpFHSzZV7nQLOssLzyRb/uKTPtYEuDGIb
+         NgKNvLeTuBg7sTdBvygXD0jO3blOSFnCRraATyDyxlZ2u5UfzwENCNAwc+H1zndPLFD1
+         zN355hvvRAwwk88iWWgQNfBdsgasZG4Fw9qQAuKhcfXrnxBlFZiaG37jjlHp3Mk8btVg
+         8d+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792248835; x=1792853635;
+        d=1e100.net; s=20260707; t=1792248836; x=1792853636;
         h=message-id:date:references:in-reply-to:cc:to:from:subject
          :content-transfer-encoding:content-type:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=p9zss0HBxC2hnh3BG5QDi7k5785zMX75I0uTXgjx5mI=;
-        b=gPs1JSpC3QON9D9/jMUCDJSS+eBSj7zq9xfBkIixILoSKAPawBXGc7tKRw8T1nA8XA
-         mcSC7rqqI2/4SYYUuKLj/oX00BxJrPNEUzZjISo7zLD+FtvCap3z26hRU83Ld7Rw30Vp
-         JIWp+7fsgMpwmk23GqpRrAsmXP/0TNEmcAMaXl0WR1atZr+0xyqo3+a6n1fwWZGPo6gs
-         LikkpbGC3hPJzhk/VkufS5HakzzRZwj8X7pNUUY9AsH95K4y0IPEJwEYqGlR3v7KUfwp
-         Z63UgJjaaQYX3cSLhJUEgzX8r6ywwtGD8jfoPDglRjBkw0QpL71ic8Z2A33GSWAs5vMW
-         oKBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw24cBN2daY5Jb0gYdo/FPzvIHiLXoPcnAFu/ajwCEAonwuZX+J9coKjO64Ao2bI2oUslgsdoAZZqt6@vger.kernel.org
-X-Gm-Message-State: AFq9FYJIbQpfxKhi8nsO0qU3JPM1wfrJuYR5iLGy8FRNqULzG9Jp3y2r
-	m9UPKYrgXRfOZxg79hRONpgW6Li2ZroTw3QNvEyMUpbUr+s/kbs5RHvBF52ERlRWat8=
-X-Gm-Gg: AYBFou3tCIaqa2vBofVNEaXlYQ7GY/yhMtKFGcZGbpBqN9DdbrGNuP1Td6Mx7IA3V4i
-	ckNTfUnpRTvgACKjJ6feu9ytOqr64uXB7nAM96Ql+Xb4o9LlhfrmFayxxIBWd2TZ7AaIuea87qz
-	OapvJd9NsfvttqL7e5aUz+vxQ3bJHiQnj/Y777wLtqoJUvIacB0BOp1jhwfMKo1eoxhxIk9NssF
-	oHE16q16fS8LG2YQvb4mXxdkCZ7kMoB/5lS1XnsM2fzYSV2KTiKJXn0lhrqcCt8PZwjHX452tY8
-	Xnx/3suxKmMp8NZIIXHWMkCCyrzz7E44YXQjxitvMugw4/UxyX/dUOz/xCFR/hmiOVIEbIpVVit
-	2ld1KYG6TS+rNQwLOffzW2aJ1N0fAt/LjbZzApk94DKVyGq704vuJ+ZNnBTr6OnQpPbPESf4tBq
-	IYje+BMD3uzPtBmDF8ycMLIjLt6EtG23BweSaX4EFp4xO1tOztOwqQUiRj/mD9zb8GtZxsozbbl
-	BuaAZpF5iR+nYOG3A==
-X-Received: by 2002:a05:600c:19ca:b0:4a1:ac66:5ffe with SMTP id 5b1f17b1804b1-4a1d75fce82mr60259805e9.15.1792248835113;
-        Sat, 17 Oct 2026 07:53:55 -0700 (PDT)
+        bh=hiKDA+pCxvcmNuKm7oMIMiLNyrcd5EU9PaDKDAFb1ZA=;
+        b=MVod1U2Zf/HhBNvUi08bIk0+KnTQCSGAcPjw2ISo8P16U84g7PBsrEHKmUTFagChaw
+         2O2xKI+tUH/l7WNrCkKwhrpJ/wMedMpD9ilWdrllKXHekpyjUXR7/slXNf8yyNssZEvn
+         /FYpKo1pADOunZ+xUOynyf8uJq/ewxkdHdMxmOHNJuhfyyXwbP4m/rcdikskI1V/B8tJ
+         GBGBBFZPmNKeW3rLTVG988fNGp/plDIW8OiBCynVZchRqkY2QmSluVvEc0PZ0THVaJgv
+         NZAkpCVWg0XNgIC6w2ds30YNw2D6WC9UUxoAhY5VRzDh5r5PD6u4xfNH6bW8z9T/tDJ4
+         RuVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwvfmNxVe1N3PmhE9yAXNfy75TI8eiVRYH+7ua/Nhf6a9KBI/psLKXP/2iKZnUNxniVCmmLHn0yleD9@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ6/X4J+VZA3LYJeE5+5/AR12eb21uaWLxpb7ZkrFlEfrLJCcJk
+	AsvcPLXTONqV8HAYJSbA5pyRIwcLaAMBPM+PwkzkFneHuWy+AZw5eO3uhVE461zWXMY=
+X-Gm-Gg: AYBFou0LnREeFwjeV2YGLwwZphuVAFguSZptq+QoRa78RTwACW9PI6hNW+n1kI3qbJC
+	yLeyz/bK30FmHRbKAmTO6ja6uJApPttJ+oBhn1xuHRfS1EDC7TSlnGlmATz317uMxWVt+LX2CcZ
+	yf116iQuiJ42jOCUwPTEWHWyEaMu684lcvX2+Wu+fV1lLYgkz02Hvj52JLV0gKbcqJ7x4pX2baF
+	eR6ZZOfFd7ReN9wDT7sO5EuirG2VnqOu+OdEx8zEXbbMe5Y5eelbDpKZeDQLEOokLGvQ7dOXSsD
+	tu98cyR0EQihhIZbmRMsWkkxyv+ZLnqv7F9SN//RJkTzmUkTuTgvglMmOgR25I4TgKM4PUI4rjd
+	ArUsvXAB7JzK6FUukiGrT6Z+pLV5wUxl1oOlYNmol8ArN2sH9akla/WDqGT4Wc1QJ335GQMDW6z
+	mufgzUza42HLlIpAa2IEEzLZKTvH4zAl8oFib24oHK1wHTnmPj8Hpbri1Y/PhQQ3NAjRy7k98w2
+	h265LDEl6IZULpYdA==
+X-Received: by 2002:a5d:69c3:0:b0:48d:f831:2681 with SMTP id ffacd0b85a97d-48e07f9c04emr3912331f8f.38.1792248836373;
+        Sat, 17 Oct 2026 07:53:56 -0700 (PDT)
 Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd503862sm11663833f8f.46.2026.10.17.07.53.53
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd5035bbsm11683485f8f.44.2026.10.17.07.53.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 07:53:53 -0700 (PDT)
+        Sat, 17 Oct 2026 07:53:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,8 +68,8 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v10 03/10] clk: nuvoton: ma35d1: Retrieve HXT/LXT from
- DT when possible
+Subject: Re: [PATCH v10 06/10] clk: Create
+ devm_clk_hw_register_fixed_rate_parent_hw()
 From: Jerome Brunet <jbrunet@baylibre.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>
 Cc: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
@@ -87,120 +87,34 @@ Cc: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>,
  Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
  linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
- openbmc@lists.ozlabs.org, stable@vger.kernel.org
-In-Reply-To: <20261015-perso-ma35d1-upstream-clk-v10-3-47c97b54a809@bootlin.com>
+ openbmc@lists.ozlabs.org
+In-Reply-To: <20261015-perso-ma35d1-upstream-clk-v10-6-47c97b54a809@bootlin.com>
 References: <20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com>
- <20261015-perso-ma35d1-upstream-clk-v10-3-47c97b54a809@bootlin.com>
+ <20261015-perso-ma35d1-upstream-clk-v10-6-47c97b54a809@bootlin.com>
 Date: Sat, 17 Oct 2026 16:53:42 +0200
-Message-Id: <179224882241.859276.15035084302735586039.b4-review@b4>
+Message-Id: <179224882241.859276.3068400770588177354.b4-review@b4>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4123; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=14/hMLHV/tYtznG0hyhpzTapCNH3vt/FqyYM36Xqhsw=;
- b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFmXexhiw+4KLE5n8ZwffqTXfGbaLNNtyasLfJ8e/iCm3
- CLy7tCfjlIWBjEuBlkxRZYa7mrxd5JaX2ZN17kNM4eVCWQIAxenAEzErpWR4Sdf0fTfq1xm7zgu
- fv93xOVbXPPn+r/I3S6oeFzkuOUXhThGhgMHEnaejKt438ISlZTPdOvAkmXKVzS2fls294zl9io
- tcx4A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=543; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=QGkkL2Br9nOFTntWsohnZUbwzb7F2vn9vpbJDAOpngU=;
+ b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFmXexj3VFp7rN9ucmVlQYXo+uJV97vPuik3FKzN0dvAc
+ yEnL0i5o5SFQYyLQVZMkaWGu1r8naTWl1nTdW7DzGFlAhnCwMUpABOR1WBkODlR7IHFf528iI1X
+ /i/aHic+02uHx8LYcm8Lg3WbjXaKuDP89z+wrdmo2azRkSO5eCNfZH+wZRH7Vc+bs3Z7m0kEvd7
+ HAAA=
 X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
  fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-> HXT and LXT are crystal oscillator inputs of the clock controller. As
-> such, they are external clock sources which should not be registered by
-> this driver.
+On Thu, 15 Oct 2026 18:01:19 +0200, Miquel Raynal <miquel.raynal@bootlin.com> wrote:
+> clk-provider.h exposes many different helpers to help registering
+> clocks. Most of them expose both a 'basic' variant and their 'devm_'
+> extension (with just the last parameter of the inner function call
+> becoming true instead of false). Do the same with:
 > 
-> HXT is already described in the DT, but is not named. In order to point
-> to this parent from its direct child which is HXT_GATE, we must provide
-> a fw_name (when it is named, new DTs) and a .name (for when it's not
-> named, but the fixed clock node name is used).
+>      clk_hw_register_fixed_rate_parent_hw() by creating
+> devm_clk_hw_register_fixed_rate_parent_hw().
 > 
-> LXT is missing in old DTs, so we must create that clock and register it
-> for backward compatibility reasons. It should however be described and
-> pointed at in updated DTs.
-> 
-> Both HXT and LXT are exposed by this driver only in the backward
-> compatibility case. Otherwise, both clocks are expected to be retrieved
-> from the DT.
-> 
-> Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
-> ---
->  drivers/clk/nuvoton/clk-ma35d1.c | 44 +++++++++++++++++++++++++++++++++-------
->  1 file changed, 37 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
-> index 00d635cdb604..33b397d7b7c5 100644
-> --- a/drivers/clk/nuvoton/clk-ma35d1.c
-> +++ b/drivers/clk/nuvoton/clk-ma35d1.c
-> @@ -65,6 +65,14 @@ static DEFINE_SPINLOCK(ma35d1_lock);
->  
->  #define MA35D1_MUX_MAX_PARENTS	10
->  
-> +static const struct clk_parent_data hxtg_parent_data[] = {
-> +	{ .fw_name = "hxt", .name = "clk_hxt" },
-> +};
-> +
-> +static const struct clk_parent_data lxtg_parent_data[] = {
-> +	{ .fw_name = "lxt", .name = "lxt" },
-> +};
-> +
->  /* Mux parent selection, by index into the controller's clock table */
->  static const int ca35clk_parent_idx[] = { HXT, CAPLL, DDRPLL };
->  static const int sysclk0_parent_idx[] = { EPLL_DIV2, SYSPLL };
-> @@ -191,6 +199,15 @@ static struct clk_hw *ma35d1_clk_gate(struct device *dev, const char *name, cons
->  				    reg, shift, 0, &ma35d1_lock);
->  }
->  
-> +static struct clk_hw *ma35d1_clk_gate_parent_data(struct device *dev, const char *name,
-> +						  const struct clk_parent_data *parent_data,
-> +						  void __iomem *reg, u8 shift)
-> +{
-> +	return devm_clk_hw_register_gate_parent_data(dev, name, parent_data,
-> +						     CLK_SET_RATE_PARENT,
-> +						     reg, shift, 0, &ma35d1_lock);
-> +}
-> +
->  static int ma35d1_get_pll_setting(struct device_node *clk_node, u32 *pllmode)
->  {
->  	const char *of_str;
-> @@ -219,7 +236,7 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
->  	static struct clk_hw **hws;
->  	static struct clk_hw_onecell_data *ma35d1_hw_data;
->  	u32 pllmode[PLL_MAX_NUM];
-> -	int ret;
-> +	int ret, num_clks;
->  
->  	ma35d1_hw_data = devm_kzalloc(dev,
->  				      struct_size(ma35d1_hw_data, hws, MA35D1_CLK_COUNT),
-> @@ -240,12 +257,25 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
->  		return -EINVAL;
->  	}
->  
-> -	hws[HXT] = ma35d1_clk_fixed("hxt", 24000000);
-> -	hws[HXT_GATE] = ma35d1_clk_gate(dev, "hxt_gate", "hxt",
-> -					clk_base + REG_CLK_PWRCTL, 0);
-> -	hws[LXT] = ma35d1_clk_fixed("lxt", 32768);
-> -	hws[LXT_GATE] = ma35d1_clk_gate(dev, "lxt_gate", "lxt",
-> -					clk_base + REG_CLK_PWRCTL, 1);
-> +	num_clks = of_clk_get_parent_count(clk_node);
-> +	if (num_clks < 1 || num_clks > 2)
-> +		return -EINVAL;
-> +
-> +	/*
-> +	 * Old DTs do not describe the low-speed crystal. They may also expect
-> +	 * an HXT output from this driver. In practice, nobody should use these
-> +	 * clocks directly, but they must be kept for backward compatility
-> +	 * purposes.
-> +	 */
-> +	if (num_clks == 1) {
-> +		hws[HXT] = ma35d1_clk_fixed("hxt", 24000000);
-> +		hws[LXT] = ma35d1_clk_fixed("lxt", 32768);
-> +	}
+> [...]
 
-The above is fine but the problem is those IDs still exist and something like
-<&clk HXT> is still valid in DT but now does not provide a clock anymore.
-
-This is why I asked if you about removing the ID. At the very least a comment is
-needed next to the IDs saying those are obsolete and should not be used.
+Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
 
 -- 
 Jerome
