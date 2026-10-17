@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3732338654F;
-	Sat, 17 Oct 2026 16:20:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1160F37BE64;
+	Sat, 17 Oct 2026 16:32:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792254013; cv=none; b=HlsHEN0y8P5rpkp1nklbHpXRJY0ewokor0wi4Advq05FUsbvGIuzaUZR+GL5uCmeAsJGvyMEeRNObPKFjYtt3zZ0zikXUPn9FCLu26Jzi3K/b4uhZ2yzPpbXB/6OCrD1FXo2sLpWWnbBBgN7EBI8e52hzX9RXJLVMCnUUEo9KZQ=
+	t=1792254738; cv=none; b=HRrxMtfJtvZeXjn877lk9Kgi5j9Zi3AH7FG61+qzuVyfZ7Lnr5+ajtfsTsPEFaqMI1RtW0cbE47kT86w6aX1za7tjr/ZswkGKbXoot8BLHzcWZSA3oQRXAMe+dIwlZ6VB5CqUV4Hp2MvJV+jbJB8DxYBGnJGPCj9rkOWRbSQXgA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792254013; c=relaxed/simple;
-	bh=es/BDdCfm/CvtnxZ/LEicQF6OddQSmMSFvIj6PgYFlk=;
+	s=arc-20240116; t=1792254738; c=relaxed/simple;
+	bh=6aArWhdUyT7JOEHGG/p/CF2AWoy197eosIqZXtgGF0g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iDPY/4LeRs5D5WzbvkBNQajYfvkxRTYCMqsGg3GxwlUac9jAbaX35NAZ4rGS643abvuK+Ruo5H/caMhyo27pBZ8yf42M7ZXQwaean+cDxFaDBILIYwcyA7l8y5WOaPF/eJz4ooRiEDUx6HJHpJUs+F4fdIyhGFyv/wARdTrg6T4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NKCLBzIs; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=N5hilGBYr35gRmcGamCbcYDFPDmhgj+jLpL0RSlF1WJISDN0sr+cLYYq7VkIq3ueSMCslLm3gt5Xe/qEzPgQ9mCX6hDyLTQMvXVYClGvdWrOvQnu0Y2D0ziPJS3beyPQGPIlEBHig9fRUkHq5KMGywG8xVWShZHlZ7qr0oJIUWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WHltJ8sm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NKCLBzIs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 346DD1F000C4;
-	Sat, 17 Oct 2026 16:20:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WHltJ8sm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B3E71F000C5;
+	Sat, 17 Oct 2026 16:32:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792254012;
-	bh=QpGyoQykc3liLZie3yUFqmZ5bf5eC2Ns8mV45/9/ryw=;
+	s=k20260515; t=1792254737;
+	bh=LiCBouRtEdVUhIhRFH26iTaGqUiyrApY9i75/37ninQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NKCLBzIspt3WK/W1vyS0P5NtbOSFGGOuReVcNtQArGkc/GGqhEctHmCW83O/RR/Hk
-	 o/ftvfeED7Gm4Ma2Mt0LBd72yCCU10UTwyMawkfutRux8VX/7mUltBZuVCBpCGI06U
-	 lqIv3Le2E5WzpzFoP0jnHnSTOsxhUVRc7gCYW3vlN74mcf42j+r1qUTCWDHeyJLBKD
-	 CR/vHj/BzaxE3Fg0ySJiKmsjLdpfR+xoDjlRe9fd8tmbd9IlK4ALYXdxL/uo1+yVTf
-	 suFeK4aVA8vTGq8JpZISvbOJL4fnPhKJNL0v4V/M75jHX2q7Tsw9LKMYJn6Xq9kDzp
-	 2ieuUcLTtee0w==
-Date: Sat, 17 Oct 2026 18:20:08 +0200
+	b=WHltJ8smM5clEoJ9t9KOHhurwVsxDf6ToNDmNzaEKJh2Vx03Hzp0JNzueQJIVOjvT
+	 qFxOawj4XP9WqB5ZGvHq5GY6+fcrMeId3Z0vUggXetkgJb2R/jHDsjMyOjNQfZGqHr
+	 GvnAi42qvAmoAHK6El3zQZHpoumbx5x+KTOPjBUsoJ9ZEIQq5lqSTYGFxZKBGzIzV7
+	 S4NRMMrC91IfNkCKIgQmYwPaYoiuvYrJ6e9OFixmErKnEt+GQ+YEebAZPawSb3UKiJ
+	 8qtgKqkukIz4nTpzvlkayYMcWTUQZCAFuShCFHZ4SdlsXWrDJm+RyYZ49nmBNj+RbJ
+	 f8CkQsGMiPikw==
+Date: Sat, 17 Oct 2026 18:32:13 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Navid Ghahremani <ghahramani.navid@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org, arnd@arndb.de, 
-	stefandoesinger@gmail.com, Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Tony Lindgren <tony@atomide.com>, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 09/24] dt-bindings: pinctrl: pinctrl-single: Add ZTE
- ZX279128S pin mux
-Message-ID: <20261017-lion-of-noble-management-d94cfe@quoll>
-References: <20261014072109.1759502-1-ghahramani.navid@gmail.com>
- <20261014072109.1759502-10-ghahramani.navid@gmail.com>
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linux-arm-msm@vger.kernel.org, 
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+Subject: Re: [PATCH v5 7/9] ASoC: dt-bindings: qcom: Add Maili LPASS macro
+ codecs
+Message-ID: <20261017-vivid-chubby-chimpanzee-c31c56@quoll>
+References: <20261014-add_shikra_support_v5-v5-0-fb9f0667e613@oss.qualcomm.com>
+ <20261014-add_shikra_support_v5-v5-7-fb9f0667e613@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,18 +48,40 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261014072109.1759502-10-ghahramani.navid@gmail.com>
+In-Reply-To: <20261014-add_shikra_support_v5-v5-7-fb9f0667e613@oss.qualcomm.com>
 
-On Wed, Oct 14, 2026 at 08:20:49AM +0100, Navid Ghahremani wrote:
-> Use pinctrl-single for the verified PCIe and external-PHY bit selections
-> without guessing the unverified field layout.
+On Wed, Oct 14, 2026 at 02:42:53PM +0530, Mohammad Rafi Shaik wrote:
+> From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
 > 
-> Signed-off-by: Navid Ghahremani <ghahramani.navid@gmail.com>
+> Add compatibles for the RX, TX and VA macro codecs found in the Low
+> Power Audio SubSystem (LPASS) of the Qualcomm Maili SoC.
+> 
+> The Maili RX, TX and VA macros are identical to their Hawi counterparts,
+> so document them with the corresponding Hawi compatible as fallback.
+> 
+> Signed-off-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 > ---
->  Documentation/devicetree/bindings/pinctrl/pinctrl-single.yaml | 1 +
->  1 file changed, 1 insertion(+)
+>  Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml | 4 ++++
+>  Documentation/devicetree/bindings/sound/qcom,lpass-tx-macro.yaml | 4 ++++
+>  Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml | 4 ++++
+>  3 files changed, 12 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
+> index 142955b85..41b578f83 100644
+> --- a/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
+> +++ b/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
+> @@ -29,6 +29,10 @@ properties:
+>                - qcom,sm8750-lpass-rx-macro
+>                - qcom,x1e80100-lpass-rx-macro
+>            - const: qcom,sm8550-lpass-rx-macro
+> +      - items:
+> +          - enum:
+> +              - qcom,maili-lpass-rx-macro
+> +          - const: qcom,hawi-lpass-rx-macro
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+h < s, thus this list should be placed before above one using sm8550
+fallback.
 
 Best regards,
 Krzysztof
