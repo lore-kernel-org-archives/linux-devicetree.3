@@ -1,111 +1,172 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37C02339375;
-	Sat, 17 Oct 2026 14:24:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0325483804;
+	Sat, 17 Oct 2026 14:29:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792247080; cv=none; b=gUPO59XFK+X7f8ww4Kex08y4dzW20A1eEktnTxoIi9fyf3lYqwJc34O4sC7/NdOTpPyUu34R24q4CpHKDa4JDS+zqBXEGCjPaA2+K9K2UO0SUhLIWexESYWXW7B/UwXRF6lbMhffhoKZNotxSPIEVH53NXxDI/VKm+ZYhnMn7BY=
+	t=1792247384; cv=none; b=pByBi8/xpqOZkZbCxA9eOPTiVb6kBgWpNAwviNC4Gj7k87Sdm3QQIrk+gERuLY000Wn80ugJksOZadN510ajDr5ThFMl+JlG6U/HyNmpBv82IKCzsTMBU+9HmMyjRN6gpbxAyEQDxyPcqJ+iXkV+onmwdjSPiLDA63gqXDE3sQ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792247080; c=relaxed/simple;
-	bh=QbHfjeIGKiQU338q0g8Oeylgixw3zvUk+tNkDLgIDxc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M4ZXxQkuP7/AQgq4na55NN9Eu17uWrL9Ji4I9hNvbdJPLnq3QYM6UHkqiNnbciCLfb6W7bTrNJoLiZwuDyNdIabNB4Zz1s+7E9n6+IaQU7dAwo7v5hJCxY0/ELD7gByzAGmJyBDKgEm/e/1biQy7xcCa65nO/isoGg6y4qkXqfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PBypj0yt; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792247384; c=relaxed/simple;
+	bh=Z+0UT6wkH5YIJvqK86y1UGVwEhViyUTH99RaaqRPA3Q=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=Y/7V2oB/GdylpBk6JIziGFYWRsbAKdWwnaqPY1Wrk61Uk2tJYvF60wlQPOBFC4onRIWii0Udz0htt5/nKKWt9TKkPFF44rnPIfcCGTRABouIJ5KgupTJzHTXOxMPs2aBh4/VzKKIUOI12N7g6hchuVD08zllk7nghkfrRLMmmho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KfUhYG1l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PBypj0yt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792247076; x=1823783076;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=QbHfjeIGKiQU338q0g8Oeylgixw3zvUk+tNkDLgIDxc=;
-  b=PBypj0ytAtNAjVA9N8o/LsU6cOO+Qhn0BkeSlSKyXSpHAVbAudfGDTRO
-   lzcrHc8XcgUmdmPTz5oInXDguHsrZIoZw1cLx/ykoE2sEGgI8YQ0puxE3
-   x4XVRxZILOhPNuJviWNyiFGRLpRPB7COs+8d2YTPCWboc1nql76tr0bhC
-   sw2DU5hPgtQMbUxEJUyddcLk9CVAUethOZnlLmXDEQLChuOhQWG7J0EZM
-   doxA8bjbUMGp6fSeKtc5BWgpFauiH6toHLj2y+SPYNsBtLa1m6MTtnH3k
-   WpKSOw+AWD7Px6xCgLC6vJAgwxP0PRUYVtXnTWDzWHO7LWeOozgRpaj0d
-   Q==;
-X-CSE-ConnectionGUID: PhsSHfN0Ssy5NZdDvUPf6w==
-X-CSE-MsgGUID: zL851pA2QbiEgl4eCdv4wQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11937"; a="906138"
-X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
-   d="scan'208";a="906138"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2026 07:24:35 -0700
-X-CSE-ConnectionGUID: HOZEW8DFQk2gJA2zyd7wTA==
-X-CSE-MsgGUID: haglIp14ROaLRtm+xsBwMQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
-   d="scan'208";a="3935055"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa013.fm.intel.com with ESMTP; 17 Oct 2026 07:24:31 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xI5Km-00000000JPy-32zq;
-	Sat, 17 Oct 2026 14:24:28 +0000
-Date: Sat, 17 Oct 2026 22:23:54 +0800
-From: kernel test robot <lkp@intel.com>
-To: Sebastian Reichel <sre@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-	kernel@collabora.com,
-	Sebastian Reichel <sebastian.reichel@collabora.com>
-Subject: Re: [PATCH 3/4] arm64: dts: mediatek: Use DP AltMode defines
-Message-ID: <202610172234.PyocmhiR-lkp@intel.com>
-References: <20261014-dp-altmode-dt-defines-v1-3-b657c9b6e4c3@collabora.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KfUhYG1l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16E5F1F000C4;
+	Sat, 17 Oct 2026 14:29:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792247382;
+	bh=RQgG0VzTa3aTt9qNxCmwEkzQEguGF162Q9vn4gJB3Fw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=KfUhYG1loOmA7KS1lZ/pz9FFSOyY61tBX7cO+5Ku3Tlel9rptjajBOtqDJIExdXfp
+	 7WYw+Q+nFSdRgydcG8LMiwRwFhvQpVeLX4JnQLmXAxJVCyRD+IuofjhWKjfhCOWKEG
+	 xP/FO1O1EcjUup2T8IOG1vC/vs/MLshCVm6s0EXyqxQ8uzN6mopyAKGS3g64O6WeqV
+	 QRlsj0Kkgr3Dr4ANdo8xWAauyYYct1ZcEgBrJEKv51SE/b2NIPBgdqFDCR+dcg2XMl
+	 hQuH3wymwNFBpX/OqU0KjHEkVD3s/q9TV4OOYpCqJS/abCWO10AgGOJbnWgID1J0Hc
+	 lJ9Hti30w7hPg==
+Message-ID: <sashiko-outbox-175548@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 6/7] Input: edt-ft5x06 - add SPI transport and FT8722
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Luka Panio" <lukapanio@gmail.com>
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
+In-Reply-To: <20261017140827.290666-7-lukapanio@gmail.com>
+References: <20261017140827.290666-1-lukapanio@gmail.com>
+ <20261017140827.290666-7-lukapanio@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 17 Oct 2026 14:29:41 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014-dp-altmode-dt-defines-v1-3-b657c9b6e4c3@collabora.com>
 
-Hi Sebastian,
-
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on 0fcb05b72344f40806cbe810de8872f1698bf053]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Sebastian-Reichel/dt-bindings-connector-Add-DP-AltMode-VDO-definitions/20261014-233149
-base:   0fcb05b72344f40806cbe810de8872f1698bf053
-patch link:    https://lore.kernel.org/r/20261014-dp-altmode-dt-defines-v1-3-b657c9b6e4c3%40collabora.com
-patch subject: [PATCH 3/4] arm64: dts: mediatek: Use DP AltMode defines
-config: arm64-randconfig-1001-20261017 (https://download.01.org/0day-ci/archive/20261017/202610172234.PyocmhiR-lkp@intel.com/config)
-compiler: aarch64-linux-gcc (GCC) 13.4.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261017/202610172234.PyocmhiR-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610172234.PyocmhiR-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   Lexical error: arch/arm64/boot/dts/mediatek/mt8395-genio-common.dtsi:600.25-45 Unexpected 'USB_DISPLAYPORT_SVID'
->> FATAL ERROR: Syntax error parsing input tree
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Input: edt-ft5x06 - unaligned DMA rx buffer sharing cacheline with=
+ tx
 --
-   Lexical error: arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi:530.24-44 Unexpected 'USB_DISPLAYPORT_SVID'
->> FATAL ERROR: Syntax error parsing input tree
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+commit 6c4cc2125db365d716cb624219a2c7fd67fb674b
+Author: Luka Panio <lukapanio@gmail.com>
+
+Input: edt-ft5x06 - add SPI transport and FT8722 support
+
+This commit adds an SPI transport driver for FocalTech touchscreen
+controllers handled by the edt-ft5x06 driver, along with firmware
+download support for the RAM-only FT8722 controller.
+
+> diff --git a/drivers/input/touchscreen/edt-ft5x06-spi.c b/drivers/input/t=
+ouchscreen/edt-ft5x06-spi.c
+> new file mode 100644
+> index 0000000000000..d0ae0d4b621dd
+> --- /dev/null
+> +++ b/drivers/input/touchscreen/edt-ft5x06-spi.c
+> @@ -0,0 +1,475 @@
+
+[ ... ]
+
+> +static int fts_spi_xfer(struct spi_device *spi, const u8 *tx, u8 *rx,
+> +			size_t len)
+> +{
+> +	struct spi_transfer xfer =3D {
+> +		.tx_buf =3D tx,
+> +		.rx_buf =3D rx,
+> +		.len =3D len,
+> +	};
+> +	int ret;
+> +
+> +	ret =3D spi_sync_transfer(spi, &xfer, 1);
+> +	fsleep(FTS_SPI_CS_HIGH_US);
+> +
+> +	return ret;
+> +}
+> +
+> +static int fts_spi_write(struct spi_device *spi, u8 reg, const void *val,
+> +			 size_t len)
+> +{
+> +	size_t xlen =3D FTS_SPI_HEADER_LEN + (len ? FTS_SPI_DUMMY_LEN + len : 0=
+);
+> +	u8 *tx, *rx;
+> +	int ret, i;
+> +
+> +	if (len > U16_MAX)
+> +		return -EINVAL;
+> +
+> +	tx =3D kzalloc(2 * xlen, GFP_KERNEL);
+> +	if (!tx)
+> +		return -ENOMEM;
+> +	rx =3D tx + xlen;
+> +
+> +	tx[0] =3D reg;
+> +	tx[1] =3D FTS_SPI_CTRL_WRITE;
+> +	put_unaligned_be16(len, &tx[2]);
+> +	if (len)
+> +		memcpy(&tx[FTS_SPI_HEADER_LEN + FTS_SPI_DUMMY_LEN], val, len);
+> +
+> +	for (i =3D 0; i < FTS_SPI_RETRIES; i++) {
+> +		ret =3D fts_spi_xfer(spi, tx, rx, xlen);
+> +		if (!ret && !(rx[3] & FTS_SPI_STATUS_ERR))
+> +			break;
+> +		if (!ret)
+> +			ret =3D -EIO;
+> +	}
+> +
+> +	kfree(tx);
+> +	return ret;
+> +}
+> +
+> +static int fts_spi_read(struct spi_device *spi, u8 reg, void *val,
+> +			size_t len)
+> +{
+> +	size_t dp =3D FTS_SPI_HEADER_LEN + FTS_SPI_DUMMY_LEN;
+> +	size_t xlen =3D dp + len + FTS_SPI_CRC_LEN;
+> +	u8 *tx, *rx;
+> +	int ret, i;
+> +
+> +	if (!len || len > U16_MAX)
+> +		return -EINVAL;
+> +
+> +	tx =3D kzalloc(2 * xlen, GFP_KERNEL);
+> +	if (!tx)
+> +		return -ENOMEM;
+> +	rx =3D tx + xlen;
+
+[Severity: High]
+Does placing rx at tx + xlen in fts_spi_write() and fts_spi_read() cause
+tx and rx to share a cacheline during full-duplex SPI DMA transfers?
+
+In both functions, a single buffer of size 2 * xlen is allocated, with tx
+at offset 0 and rx =3D tx + xlen. Both buffers are then passed to
+fts_spi_xfer() -> spi_sync_transfer() in a single full-duplex
+spi_transfer, where the SPI core maps tx as DMA_TO_DEVICE and rx as
+DMA_FROM_DEVICE concurrently.
+
+Because xlen is typically not aligned to ARCH_DMA_MINALIGN (for example,
+xlen is 4 or 8 for control writes, 10 or 11 for short reads, 71 for
+touch report reads in edt_ft5x06_ts_isr(), and 32759 for firmware RAM
+writes in fts_boot_write_ram()), rx starts in the middle of the cacheline
+where tx ends.
+
+On systems with DMA-capable SPI controllers, this overlapping mapping in
+opposite DMA directions triggers DMA-API debug EEXIST warnings and risks
+cacheline corruption between tx and rx during cache maintenance on
+non-coherent architectures (particularly when xlen is large enough to
+bypass swiotlb bouncing under CONFIG_DMA_BOUNCE_UNALIGNED_KMALLOC, or
+across retries in the FTS_SPI_RETRIES loop), as well as presenting an
+unaligned rx_buf pointer to SPI controllers that require aligned buffers.
+
+Could tx and rx be allocated separately, or could the offset of rx be
+aligned with ALIGN(xlen, ARCH_DMA_MINALIGN)?
+
+[ ... ]
+
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261017140827.2906=
+66-1-lukapanio@gmail.com?part=3D6
