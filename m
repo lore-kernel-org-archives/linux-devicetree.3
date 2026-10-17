@@ -1,383 +1,585 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A85ED3A7D82;
-	Sat, 17 Oct 2026 22:47:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86D2D38F250
+	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 23:01:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792277273; cv=none; b=CTxi99Zkt09gGu3yhX1z71KuRdhJ3qpxlGK4UuNdsKowGWTxPN52kfykQQd9/SPGteb0u16N3qWpIQwGtxI6wYLTW4NFMZPGQOmCbBOAVAC3Aq3JSykimlm87T7/wYy4rEEvMYqCcLqWFg05TpUXpcYqCwFWd5KvG+n84WEn/7M=
+	t=1792278066; cv=none; b=mtC6L1bbmmqRLOVro1OJzLqFk9G2NBkaHtEXz3choIoBar5+3MTUr0lPUomwqYSaLtixUdKDLK7gPMz6V2bjdWv3TFVfq8QJNFBi9G8G2U+UKxVw4G2BdRpGIztTUbpKyiciOrv2ypsmw2KQO6yP2clZ5Zn/kNVAg6wxvToB2dg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792277273; c=relaxed/simple;
-	bh=1R0dc0z9e8kqb7Jc23e4ZGOhaYmv8gQcbTVK/UCreUY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UfoyrU+tfhfG4Rkg1POtBlZciPUQSpKyufZFUYa0CJ0x9X0ZLtJS4LGwhtLz9YsnzsTdJeEwDKvTA0rNZY8aobA59Bv22D7ThTLK6+sNAb0tyoR9l98lEnln4SgBv5cw1rEHbqtjYyGD3Xx1IvmGHuzUCiKuAZEn8ymIYgSVBsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H5gBLm9b; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792278066; c=relaxed/simple;
+	bh=Gj/SK00v3D8Yn0daF2aLp4/1TPvMRdrjJ8UTQO+Zr30=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=klogul17xy6mc8vSSYjk7BydwUw0j9BsBzxLUlpuWXUsNMNbRRx0WeEcHEDDL9oJRnUjv+sjVD5iPxdDv9C40viDbxXNABRrrDS6pnXpCY70qGAtEpXPgr7/hyukrgJpYyaN12CrrY5eFvCyK4bEOOkKY6KnfVy1jurKUxYAmYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=jYUqmuXf; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H5gBLm9b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C323D1F000C4;
-	Sat, 17 Oct 2026 22:47:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792277271;
-	bh=Z3LvxrDURZwrtPkb5eP+Ohc+mQiogSpY4hH5g0DvOmw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=H5gBLm9bBQrxOtYXVBC6ZF3CRwuL51CIdx9hZd8N/iYv8xTk3ryPsIM5XpzYXlIGy
-	 PKKSFBUnm5q5/h9zD8SOxqKNC8MwIgi5vuw1Sm0nKbJrPvuFgAyNfb2a+0w8uvss55
-	 KdsIsR2y41rtbM6Y1FN817ie8KOoTjiNBdRb9cBk6cLxKk8ZWtrrQ44m3rY7iUHLyg
-	 H5inWfDpnDUiey/Euold9l6Jf7LwYqhe/bubyNmit16yf71JTn8huHFNU7dNS40MuQ
-	 tL4Yb0GUhPKQA/w95YbS4P5enKcT/yvDYhYbXvRZ7LPIDAOAPbD/VXlPr76c6tIP+7
-	 /jyXz5BtzQ76A==
-Date: Sat, 17 Oct 2026 23:47:46 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-hwmon@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] iio: adc: add driver for the MAX34417
- Four-Channel High Dynamic Range Power Accumulator
-Message-ID: <20261017234746.4af7b7f6@jic23-hlaptop>
-In-Reply-To: <20261013-topic-sm8x50-iio-max34417-adc-v3-3-d3604ae4a229@linaro.org>
-References: <20261013-topic-sm8x50-iio-max34417-adc-v3-0-d3604ae4a229@linaro.org>
-	<20261013-topic-sm8x50-iio-max34417-adc-v3-3-d3604ae4a229@linaro.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="jYUqmuXf"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48b060ec084so578753f8f.0
+        for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 16:01:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1792278063; x=1792882863; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=P/I4CWTOnF72MO6TJ0fAD5XD9Zo2YxliNSAqMZbnA6s=;
+        b=jYUqmuXfwAjC0Oe0ij6kyr9L0VMj73saamlArC7/0+vng0uX8RmHD8xTmd3d515o+q
+         uJFOcOEXYyryeCM1/82z9i3zM9EWadt6Sz8qM0vmevG/ZDF8xjlh4BVyT918Y1TlBZqo
+         7HG9IZ4DVNXRYIkPwn5dXvehbTe1OMm0qcqujJiTIAxXaqmjCFPC9RqPh7vXnfSY4tcL
+         scelot8zcKm63gdu/SjQ6exGCF9kAvaIvpJ8JhBXgNi1qsq7C4MhFjBnAEG7jyXqw/6s
+         TcgT/j5MnNmm+48msYv6FholKUvsvJ06IzGJpW8u/Zny6IgjhQ/N6eYCJrLQ+gzRPcsv
+         gDnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792278063; x=1792882863;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=P/I4CWTOnF72MO6TJ0fAD5XD9Zo2YxliNSAqMZbnA6s=;
+        b=fT6CyIgl0vQuX2C/sqAX6GR6O1YhZ1xYMxhKMUPyOsFiYsqHMlDTX/Y2wnGm0xIdIa
+         QtTJ1p+EidGpubAxD2BXTTOKYjpB1ymlI/wMoMGNn8nUMoN/jOp8n5Atd4ryIhqYJsRQ
+         UWGI/r/EIA07hyCcs7EOEWmxe1wtkAKlyYlvlAomzbxUa092eLy1SAOF1wAysugdgwIc
+         ghfrgbqIXgNCS5xgVSvTvwBkfUmiA9D9kj4uQnBfVxwkfVcMkTfqMcaEmG5nj9MjxBlo
+         JKNzYLrFQ+Mrj8z3XxdgqT2+PDogEVek5EOn+2tSmd8BdcAHPm/46i6HJ0cb9plz/AK+
+         Ic8Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwFvCQ331zwfdJSQO9ncPvzz4D0i3mIWw/Kx5T4FLP2w56d/epA8lCwwTqRe8YvrFky6X7o2dAz+l8N@vger.kernel.org
+X-Gm-Message-State: AFq9FYIiMH749GOVCkcxDwmqNI6wwEEnEcs7LCtXSV08xQUiDrTOfc13
+	ax5P5ooy9UxZoDwBAiilf8e62TyLEPftW1HFUn/IDgTdaT+AGcnHSgTu6OXOYAyy/Uk=
+X-Gm-Gg: AYBFou3L6rHirOJhv/yQYtXiqFjXg8VAPNDczXHaZdzInxC716kK8r98NgbpvoecMCA
+	lyed1qrDjQ+nZ7PY37wi2QlnJ74yBomZLshk9hf17ce7iXlu/kRnPeO06W3ftICqSRmE8GAFiD1
+	aMlPpD7k2X2NVYBlpp6/NQFT1Nn7ziaDEGzIX9kOGBHoQAxuweVRVKCz05KOEf2DF2wm0oKF/CC
+	GaqHsW4E+S7rXGHqOZfyIHyHSwNvwSNUlblorry1FHOrGxWbyW5OEeW3uYLF8tI3rXMhzaHM92B
+	AgQ5P9N3HzMQd9o64/70IfHP11LYUzYnoUWb9+IY6Q8UtkyMuZOTcdDGNedAGtg38EMbdgtqoLJ
+	0IRmVqANlo+l3x9OWDKzQQu8AipGTqudf5aDjfqK/X3sUPj3DxJJ5mvgVlj6fqC0TRJmgZex7SX
+	iKYji7Gdv5ivhibZ60tGAx/oRFdlmkMZ0Q4Xb20ng6qdANxu9D5gNdix9P9DUppWS83DhgefUBC
+	HH84uj8Hx+7
+X-Received: by 2002:a05:600c:1910:b0:4a0:1c10:1419 with SMTP id 5b1f17b1804b1-4a1d7607bcdmr73735745e9.26.1792278062528;
+        Sat, 17 Oct 2026 16:01:02 -0700 (PDT)
+Received: from [192.168.0.167] ([109.77.131.195])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd471a64sm14416701f8f.6.2026.10.17.16.00.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 17 Oct 2026 16:01:00 -0700 (PDT)
+Message-ID: <a6d8514b-269c-441d-b280-4895b5f21fac@linaro.org>
+Date: Sun, 18 Oct 2026 00:00:58 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] phy: core: add generic MIPI C-PHY configuration API
+To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>, david@ixit.cz,
+ andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, bod@kernel.org,
+ vladimir.zapolskiy@linaro.org, loic.poulain@oss.qualcomm.com,
+ mchehab@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, gjorgji.rosikopulos@oss.qualcomm.com,
+ jigarkumar.zala@oss.qualcomm.com, hariram.purushothaman@oss.qualcomm.com,
+ akapatra@quicinc.com, linux-media@vger.kernel.org,
+ krzysztof.kozlowski@oss.qualcomm.com, daniel@quora.org,
+ konrad.dybcio@oss.qualcomm.com, christopher.obbard@linaro.org,
+ alex.vinarskis@gmail.com
+References: <20261017041733.3946816-1-anusha.nandi@oss.qualcomm.com>
+ <20261017041733.3946816-2-anusha.nandi@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261017041733.3946816-2-anusha.nandi@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Tue, 13 Oct 2026 16:07:13 +0200
-Neil Armstrong <neil.armstrong@linaro.org> wrote:
-
-> The MAX34417 is a specialized current and voltage monitor used to
-> determine power consumption of portable systems. The driver support
-> getting the channels voltage, average power and accumulated average
-> power and energy over an I2C/SMBUS serial interface.
+On 17/10/2026 05:17, Anusha Arun Nandi wrote:
+> Add PHY_MODE_MIPI_CPHY, struct phy_configure_opts_mipi_cphy and three
+> helpers: phy_mipi_cphy_get_default_config(),
+> phy_mipi_cphy_get_default_config_for_hsclk() and
+> phy_mipi_cphy_config_validate(). These mirror the existing MIPI D-PHY
+> generic configuration API (phy-core-mipi-dphy.c) so PHY providers can
+> be configured for C-PHY via phy_configure().
 > 
-> The MAX34417 datasheet only specified on how to calculate the
-> accumulated average power, but with the Sample Per Second rate
-> we can easily get accumulated Energy in mJ.
+> C-PHY encodes 16 bits per 7 symbols across a 3-wire trio; the default
+> config helper derives the required per-trio symbol rate from the pixel
+> clock, bits-per-pixel and lane (trio) count the same way the D-PHY
+> helper derives its HS clock rate. The timing fields are filled in from
+> the MIPI Alliance Specification for C-PHY (v1.0), Table 18 "Global
+> Operation Timing Parameters"; unlike D-PHY, these are not data-rate
+> dependent, so phy_mipi_cphy_get_default_config() fills the spec's
+> minimum values directly rather than computing them from the symbol
+> rate, and phy_mipi_cphy_config_validate() checks each field against
+> its spec-defined bound.
 > 
-> By default the IIO driver only supports single-shot Voltage
-> and Power sensing, but the accumulation can be enabled by
-> enabling the Energy IIO channel which then enables the
-> Continuous Accumulation Mode.
+> No existing phy consumer or provider selects GENERIC_PHY_MIPI_CPHY
+> yet, so this commit has no functional effect on its own.
 > 
-> The counter is common to all channels, so when reading a single
-> channel we will copy all accumulators to registers, so in order
-> to permit reading individual channels we must accumulate the
-> other channels in the driver when Continuous Accumulation Mode
-> is enabled.
+> Co-developed-by: Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>
+> Signed-off-by: Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>
+> Signed-off-by: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
+> ---
+>   drivers/phy/Kconfig               |   9 ++
+>   drivers/phy/Makefile              |   1 +
+>   drivers/phy/phy-core-mipi-cphy.c  | 131 ++++++++++++++++++++++
+>   include/linux/phy/phy-mipi-cphy.h | 177 ++++++++++++++++++++++++++++++
+>   include/linux/phy/phy.h           |   5 +
+>   5 files changed, 323 insertions(+)
+>   create mode 100644 drivers/phy/phy-core-mipi-cphy.c
+>   create mode 100644 include/linux/phy/phy-mipi-cphy.h
 > 
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-
-Reminder to check sashiko.  I haven't looked at whether they
-are right this time.
-https://sashiko.dev/#/patchset/20261013-topic-sm8x50-iio-max34417-adc-v3-0-d3604ae4a229%40linaro.org
-
-> diff --git a/drivers/iio/adc/max34417.c b/drivers/iio/adc/max34417.c
+> diff --git a/drivers/phy/Kconfig b/drivers/phy/Kconfig
+> index 19f3b7d12b7d..a6b0749a40cc 100644
+> --- a/drivers/phy/Kconfig
+> +++ b/drivers/phy/Kconfig
+> @@ -46,6 +46,15 @@ config GENERIC_PHY_MIPI_DPHY
+>   	  Provides a number of helpers a core functions for MIPI D-PHY
+>   	  drivers to us.
+>   
+> +config GENERIC_PHY_MIPI_CPHY
+> +	bool
+> +	select GENERIC_PHY
+> +	help
+> +	  Generic MIPI C-PHY configuration helpers.
+> +
+> +	  Provides a number of helper core functions for MIPI C-PHY
+> +	  drivers to use.
+> +
+>   config PHY_AIROHA_PCIE
+>   	tristate "Airoha PCIe-PHY Driver"
+>   	depends on ARCH_AIROHA || COMPILE_TEST
+> diff --git a/drivers/phy/Makefile b/drivers/phy/Makefile
+> index d7aa516bcc49..a94dc1b352e1 100644
+> --- a/drivers/phy/Makefile
+> +++ b/drivers/phy/Makefile
+> @@ -7,6 +7,7 @@ obj-$(CONFIG_PHY_COMMON_PROPS)		+= phy-common-props.o
+>   obj-$(CONFIG_PHY_COMMON_PROPS_TEST)	+= phy-common-props-test.o
+>   obj-$(CONFIG_GENERIC_PHY)		+= phy-core.o
+>   obj-$(CONFIG_GENERIC_PHY_MIPI_DPHY)	+= phy-core-mipi-dphy.o
+> +obj-$(CONFIG_GENERIC_PHY_MIPI_CPHY)	+= phy-core-mipi-cphy.o
+>   obj-$(CONFIG_PHY_AIROHA_PCIE)		+= phy-airoha-pcie.o
+>   obj-$(CONFIG_PHY_CAN_TRANSCEIVER)	+= phy-can-transceiver.o
+>   obj-$(CONFIG_PHY_ECONET_PCIE)		+= phy-econet-pcie.o
+> diff --git a/drivers/phy/phy-core-mipi-cphy.c b/drivers/phy/phy-core-mipi-cphy.c
 > new file mode 100644
-> index 000000000000..00d7f20cd953
+> index 000000000000..303b9a02f096
 > --- /dev/null
-> +++ b/drivers/iio/adc/max34417.c
-
-> +/* TODO Implement trigger to update accumulator once and get all channels at once */
-> +
-> +static int max34417_reset_smm(struct max34417_data *max34417)
-> +{
-> +	u32 control;
-> +	int rc;
-> +
-> +	rc = regmap_read(max34417->regmap, MAX34417_CONTROL_REG, &control);
-> +	if (rc)
-> +		return rc;
-> +
-> +	/* Set SMM=0 to re-init the SMM mode */
-> +	control &= ~(MAX34417_CONTROL_SMM);
-> +	rc = regmap_write(max34417->regmap, MAX34417_CONTROL_REG, control);
-> +	if (rc)
-> +		return rc;
-> +
-> +	/* Reset accumulators after setting SMM=0 */
-> +	rc = regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
-return regmap_write()
-
-Might as well save a few lines.
-
-> +	if (rc)
-> +		return rc;
-> +
-> +	return 0;
-> +}
-
-
-> +
-> +static int max34417_check_ovf(struct max34417_data *max34417)
-> +{
-> +	u32 control;
-> +	int rc;
-> +
-> +	/* Check for overflow */
-
-Given function name and the check below, not seeing value in this comment.
-
-> +	rc = regmap_read(max34417->regmap, MAX34417_CONTROL_REG, &control);
-> +	if (rc)
-> +		return rc;
-> +
-> +	if (control & MAX34417_CONTROL_OVF) {
-> +		rc = regmap_write(max34417->regmap, MAX34417_CONTROL_REG,
-> +				  control & ~MAX34417_CONTROL_OVF);
-> +		if (rc)
-> +			return rc;
-> +
-> +		rc = regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
-> +		if (rc)
-> +			return rc;
-> +	}
-> +
-> +	return 0;
-> +}
+> +++ b/drivers/phy/phy-core-mipi-cphy.c
+> @@ -0,0 +1,131 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + *
+> + * Generic MIPI C-PHY configuration helpers.
+> + */
+> +#include <linux/phy/phy-mipi-cphy.h>
+> +#include <linux/errno.h>
+> +#include <linux/export.h>
+> +#include <linux/kernel.h>
+> +#include <linux/math64.h>
 > +
 > +/*
-> + * Save all power accumulators and counter after each UPDATE command
-> + * since it will reset the internal registers for ALL channels,
-> + * so in order to not loose any captured data we retrieve all registers
-> + * and accumulate them in the context variables.
-> + * When user gets either power or energy, those variables content
-> + * will be returned and zero-ed to return the power accumulated
-> + * since last read for each separate channel.
+> + * C-PHY carries 16 bits per 7 symbols per trio (lane).
 > + */
-> +static int max34417_save_accumulators(struct max34417_data *max34417)
+> +#define PHY_MIPI_CPHY_SYMBOLS_PER_GROUP		7
+> +#define PHY_MIPI_CPHY_BITS_PER_GROUP		16
+> +
+> +/*
+> + * Fill in the C-PHY global operation timing parameters based on the MIPI
+> + * Alliance Specification for C-PHY (v1.0), Table 18 "Global Operation Timing
+> + * Parameters". These parameters are not data rate dependent (see sections
+> + * 6.14.3 and 6.14.4 of that specification), so unlike the D-PHY equivalent
+> + * this helper does not need the symbol rate to compute them.
+> + */
+> +static int phy_mipi_cphy_calc_config(unsigned long pixel_clock,
+> +				     unsigned int bpp, unsigned int lanes,
+> +				     unsigned long long hs_clk_rate,
+> +				     struct phy_configure_opts_mipi_cphy *cfg)
 > +{
-> +	unsigned int i;
-> +	u64 acc_power;
-> +	u32 acc_count;
-> +	int rc;
-> +
-> +	rc = max34417_read_acc_count(max34417, &acc_count);
-> +	if (rc)
-> +		return rc;
-> +
-> +	for (i = 0; i < MAX34417_CHANNEL_COUNT; ++i) {
-> +		rc = max34417_read_acc_power(max34417, MAX34417_PWR_ACC_1_REG + i,
-> +					     &acc_power);
-> +		if (rc)
-> +			return rc;
-> +
-> +		max34417->acc_power[i] += acc_power;
-> +		max34417->acc_count[i] += acc_count;
-> +	}
-> +
-> +	/* Check for overflow */
-> +	rc = max34417_check_ovf(max34417);
+> +	if (!cfg || !lanes)
+> +		return -EINVAL;
 
-return max34417_..
-
-> +	if (rc)
-> +		return rc;
-> +
-> +	return 0;
-> +}
-
+Lanes must be a multiple of three to be valid, at least for your three 
+submissions to be logically consistent, this statement must be so.
 
 > +
-> +static int max34417_setup_cam_mode(struct max34417_data *max34417, int val)
-> +{
-> +	u32 control;
-> +	int rc, i;
-> +
-> +	guard(mutex)(&max34417->lock);
-> +
-> +	rc = regmap_read(max34417->regmap, MAX34417_CONTROL_REG, &control);
-> +	if (rc)
-> +		return rc;
-> +
-> +	if (max34417->cam_mode && !val) {
-> +		/* SMM and CAM modes should not be enabled at the same time */
-> +		control &= ~(MAX34417_CONTROL_CAM | MAX34417_CONTROL_SMM);
-
-The comment doesn't makes sense given neither are enabled.
-
-> +		rc = regmap_write(max34417->regmap, MAX34417_CONTROL_REG, control);
-
-Feels like it would be cleaner as an update_bits() here and below rather than
-sharing that read above.
-
-> +		if (rc)
-> +			return rc;
+> +	if (!hs_clk_rate) {
+> +		if (!bpp)
+> +			return -EINVAL;
 > +
 > +		/*
-> +		 * If CAM mode must be set, the Control byte must be set to
-> +		 * desired values with CAM = 0, then followed by an UPDATE
+> +		 * Total payload bits/s = pixel_clock * bpp, spread over the
+> +		 * active trios. C-PHY carries 16 bits per 7 symbols per trio,
+> +		 * so the per-trio symbol rate is the bit rate scaled by 7/16.
 > +		 */
-> +		rc = regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
-> +		if (rc)
-> +			return rc;
-> +	} else if (!max34417->cam_mode && val) {
-> +		/*
-> +		 * After this, the CAM mode bit can be set and another
-> +		 * UPDATE must be sent.
-> +		 */
-> +		control |= MAX34417_CONTROL_CAM;
-> +		/* SMM and CAM modes should not be enabled at the same time */
-> +		control &= ~(MAX34417_CONTROL_SMM);
+> +		hs_clk_rate = (unsigned long long)pixel_clock * bpp;
 
-As above, perhaps an update_bits is simpler?
 
-> +		rc = regmap_write(max34417->regmap, MAX34417_CONTROL_REG, control);
-> +		if (rc)
-> +			return rc;
-> +
-> +		rc = regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
-> +		if (rc)
-> +			return rc;
-> +
-> +		/* Reset counters and accumulators */
-> +		for (i = 0; i < MAX34417_CHANNEL_COUNT; ++i) {
-> +			max34417->acc_power[i] = 0;
-> +			max34417->acc_count[i] = 0;
-> +		}
+> +		hs_clk_rate = DIV_ROUND_UP_ULL(hs_clk_rate *
+> +						PHY_MIPI_CPHY_SYMBOLS_PER_GROUP,
+> +						(unsigned long long)lanes *
+> +						PHY_MIPI_CPHY_BITS_PER_GROUP);
 > +	}
 > +
-> +	max34417->cam_mode = val;
+> +	cfg->lanes = lanes;
+> +	cfg->hs_clk_rate = hs_clk_rate;
+> +
+> +	cfg->t3_prepare = 38000;
+> +	cfg->t3_term_en = 0;
+> +	cfg->t3_settle = 95000;
+> +	cfg->t3_hs_exit = 100000;
+> +	cfg->lpx = 50000;
+> +	cfg->init = 100;
+
+Whatever about how DPHY does this in upstream Linux, these values should 
+be defines with names that mean something WRT the specification.
+
+> +	cfg->ta_get = 5 * cfg->lpx;
+> +	cfg->ta_go = 4 * cfg->lpx;
+> +	cfg->ta_sure = cfg->lpx;
+> +	cfg->wakeup = 1000;
 > +
 > +	return 0;
 > +}
-
-
-
-> +static int max34417_probe(struct i2c_client *client)
+> +
+> +int phy_mipi_cphy_get_default_config(unsigned long pixel_clock,
+> +				     unsigned int bpp, unsigned int lanes,
+> +				     struct phy_configure_opts_mipi_cphy *cfg)
 > +{
-> +	struct device *dev = &client->dev;
-> +	struct max34417_data *max34417;
-> +	struct iio_dev *indio_dev;
-> +	struct regmap *regmap;
-> +	int rc, i;
+> +	if (!bpp)
+> +		return -EINVAL;
 > +
-> +	regmap = devm_regmap_init_i2c(client, &max34417_regmap_config);
-> +	if (IS_ERR(regmap))
-> +		return dev_err_probe(dev, PTR_ERR(regmap), "regmap_init failed\n");
+> +	return phy_mipi_cphy_calc_config(pixel_clock, bpp, lanes, 0, cfg);
+> +}
+> +EXPORT_SYMBOL_GPL(phy_mipi_cphy_get_default_config);
 > +
-> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*max34417));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
+> +int phy_mipi_cphy_get_default_config_for_hsclk(unsigned long long hs_clk_rate,
+> +					       unsigned int lanes,
+> +					       struct phy_configure_opts_mipi_cphy *cfg)
+> +{
+> +	if (!hs_clk_rate)
+> +		return -EINVAL;
 > +
-> +	rc = devm_regulator_get_enable(dev, "vdd");
-> +	if (rc)
-> +		return dev_err_probe(dev, rc, "failed to get vdd regulator\n");
+> +	return phy_mipi_cphy_calc_config(0, 0, lanes, hs_clk_rate, cfg);
+> +}
+> +EXPORT_SYMBOL_GPL(phy_mipi_cphy_get_default_config_for_hsclk);
 > +
-> +	rc = devm_regulator_get_enable(dev, "vio");
-> +	if (rc)
-> +		return dev_err_probe(dev, rc, "failed to get vio regulator\n");
+> +/*
+> + * Validate C-PHY configuration according to the MIPI Alliance
+> + * Specification for C-PHY (v1.0), Table 18 "Global Operation Timing
+> + * Parameters".
+> + */
+> +int phy_mipi_cphy_config_validate(struct phy_configure_opts_mipi_cphy *cfg)
+> +{
+> +	if (!cfg || !cfg->lanes)
+> +		return -EINVAL;
 > +
-> +	max34417 = iio_priv(indio_dev);
-> +	max34417->regmap = regmap;
-> +	max34417->dev = dev;
-> +	max34417->indio_dev = indio_dev;
-> +	mutex_init(&max34417->lock);
-> +
-> +	/* Set default input correction for all channels */
-> +	for (i = 0; i < MAX34417_CHANNEL_COUNT; ++i)
-> +		max34417->input_correction[i] =
-> +			max34417_calc_input_correction(MAX34417_DEFAULT_RSENSE);
-> +
-> +	device_for_each_child_node_scoped(dev, node) {
-> +		u32 rsense, index;
-> +
-> +		if (!fwnode_property_present(node, "reg"))
-> +			return dev_err_probe(dev, -EINVAL, "missing reg property of %pfwP\n",
-> +					     node);
+> +	if (cfg->t3_prepare < 38000 || cfg->t3_prepare > 95000)
 
-Bit unusual to check for a property that must be there.
-We tend to use present checks for optional properties. Is the
-following failure path not enough?
+T3_PREPARE_MIN T3_PREPARE_MAX etc I'm stating a preference of course but 
+I think its better practice to define your constants with names that 
+mean things as frequently we end up reusing constants all over the place.
 
+> +		return -EINVAL;
 > +
-> +		rc = fwnode_property_read_u32(node, "reg", &index);
-> +		if (rc)
-> +			return dev_err_probe(dev, rc, "failure reading reg property of %pfwP\n",
-> +					     node);
+> +	if (cfg->t3_term_en > 38000)
+> +		return -EINVAL;
 > +
-> +		if (index >= MAX34417_CHANNEL_COUNT)
-> +			return dev_err_probe(dev, -EINVAL, "invalid reg %d of %pfwP\n",
-> +					     index, node);
+> +	if (cfg->t3_settle < 95000 || cfg->t3_settle > 300000)
+> +		return -EINVAL;
 > +
-> +		if (fwnode_property_present(node, "label")) {
-> +			rc = fwnode_property_read_string(node, "label",
-> +							 &max34417->input_label[index]);
-> +			if (rc)
-> +				return dev_err_probe(dev, rc,
-> +						"failure reading label property of %pfwP\n",
-> +						node);
-> +		}
+> +	if (cfg->t3_hs_exit < 100000)
+> +		return -EINVAL;
 > +
-> +		if (fwnode_property_present(node, "shunt-resistor-micro-ohms")) {
-> +			rc = fwnode_property_read_u32(node, "shunt-resistor-micro-ohms",
-> +						      &rsense);
-> +			if (rc)
-> +				return dev_err_probe(dev, rc,
-> +						"failure reading shunt property of %pfwP\n",
-> +						node);
+> +	if (cfg->lpx < 50000)
+> +		return -EINVAL;
 > +
-> +			if (!rsense || rsense < MAX34417_MIN_RSENSE ||
-
-Is !rsense useful given that is less than min?
-
-> +			    rsense > MAX34417_MAX_RSENSE)
-> +				return dev_err_probe(dev, -EINVAL,
-> +						     "invalid shunt value %d of %pfwP\n",
-> +						     rsense, node);
+> +	if (cfg->init < 100)
+> +		return -EINVAL;
 > +
-> +			max34417->input_correction[index] =
-> +				max34417_calc_input_correction(rsense);
-> +		}
-> +	}
+> +	if (cfg->ta_get != 5 * cfg->lpx)
+> +		return -EINVAL;
 > +
-> +	indio_dev->channels = max34417_channels;
-> +	indio_dev->num_channels = ARRAY_SIZE(max34417_channels);
-> +	indio_dev->name = "max34417";
-> +	indio_dev->info = &max34417_info;
-> +	indio_dev->modes = INDIO_DIRECT_MODE;
+> +	if (cfg->ta_go != 4 * cfg->lpx)
+> +		return -EINVAL;
 > +
-> +	rc = devm_iio_device_register(dev, indio_dev);
-> +	if (rc)
-> +		return rc;
+> +	if (cfg->ta_sure < cfg->lpx || cfg->ta_sure > (2 * cfg->lpx))
+> +		return -EINVAL;
 > +
-> +	/* Reset mode and set accumulator width to Wide */
-
-The docs refer to this as choosing between the max34417 and the max34407.
-Any idea what that is going on about?  Is it that the setting this to 0 would
-make the device look just like the part with small accumulator?
-Seems like an easy win if you fancy adding support for that part as well as
-this would be the main difference I think (it's reserved on that part to 0)
-
-Anyhow, just made me curious rather than a request to change anything!
-
-> +	rc = regmap_write(max34417->regmap, MAX34417_CONTROL_REG, MAX34417_CONTROL_MODE);
-> +	if (rc)
-> +		return dev_err_probe(max34417->dev, rc, "Error writing control register\n");
-> +
-> +	/* Reset the accumulators */
-> +	rc = regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
-
-return regmap_write();
-
-Though I'm not sure why you'd do these two after setting up the userspace
-interface (iio_device_register). Is there no potential race where something
-related to the accumulators gets read before they are reset?  Seems that would look
-a little more odd than the other way around where they aren't quite
-zero when they first become readable.
-
-> +	if (rc)
-> +		return rc;
+> +	if (cfg->wakeup < 1000)
+> +		return -EINVAL;
 > +
 > +	return 0;
 > +}
+> +EXPORT_SYMBOL_GPL(phy_mipi_cphy_config_validate);
+> diff --git a/include/linux/phy/phy-mipi-cphy.h b/include/linux/phy/phy-mipi-cphy.h
+> new file mode 100644
+> index 000000000000..7627602eb57f
+> --- /dev/null
+> +++ b/include/linux/phy/phy-mipi-cphy.h
+> @@ -0,0 +1,177 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +#ifndef __PHY_MIPI_CPHY_H_
+> +#define __PHY_MIPI_CPHY_H_
+> +
+> +#include <linux/types.h>
+> +
+> +#define PHY_MIPI_CPHY_MAX_DATA_LANES	4
+> +
+> +/**
+> + * struct phy_configure_opts_mipi_cphy - MIPI C-PHY configuration set
+> + *
+> + * This structure is used to represent the configuration state of a
+> + * MIPI C-PHY phy. The timing fields are named after their symbol in
+> + * the MIPI Alliance Specification for C-PHY (v1.0), Table 18 "Global
+> + * Operation Timing Parameters", and are all time values in picoseconds
+> + * (microseconds for @init and @wakeup) that are not data rate dependent
+> + * (see Table 18 and sections 6.14.3/6.14.4 of that specification).
+> + */
+> +struct phy_configure_opts_mipi_cphy {
+> +	/**
+> +	 * @lanes:
+> +	 *
+> +	 * Number of active C-PHY trios (data lanes).
+> +	 */
+> +	unsigned int		lanes;
 
+This statement and how you go about using the data aren't consistent.
+
+In CAMSS you do
+
+/* Set data trio lane positions and polarities (no clock lane) */
+for (i = 0; i < num_lanes; i++) {
+	cphy_cfg->lane_positions[i] = lncfg->data[i].pos;
+	cphy_cfg->lane_polarities[i] = lncfg->data[i].pol;
+}
+
+where num_lanes == lncfg->num_data;
+
+Let's assume dt has data-lanes = <1 2 3>; => num_data == 3
+
+Then in qcom-mipi-csi2-core you do:
+
+/* C-PHY has no clock lane; all entries map data trios. */
+for (i = 0; i < csi2phy->stream_cfg.num_data_lanes; i++) {
+	if (data_lanes[i] < 1 || data_lanes[i] > CSI2_MAX_DATA_LANES) {
+		dev_err(dev, "Invalid lane %d\n", data_lanes[i]);
+		ret = -EINVAL;
+		goto out_put;
+	}
+
+	csi2phy->stream_cfg.lane_cfg.data[i].pos = data_lanes[i] - 1;
+	csi2phy->stream_cfg.lane_cfg.data[i].pol = lane_polarities[i];
+}
+
+This specifies which physical lanes will be in CPHY mode and what their 
+polarities will be
+
+=>
+
+lanes specifies the number of pads in a trio
+data_lanes specifies which pads are in those trios
+lane_polarities specifies the polarity of each of the given pads
+
+To my knowledge the C-PHY specification doesn't mandate adjacent LNx as 
+required in a trio.
+
+=> lanes % 3 should be invalid
+=> for each trio lanes must increase by 3 also.
+
+
+> +
+> +	/**
+> +	 * @hs_clk_rate:
+> +	 *
+> +	 * High speed symbol rate in symbols/s derived from link rate.
+> +	 *
+> +	 * C-PHY encodes 16 bits per 7 symbols across a 3-wire trio.
+> +	 * Consumers fill this from the sensor link frequency and hand
+> +	 * it to phy_configure().
+> +	 */
+> +	unsigned long		hs_clk_rate;
+> +
+> +	/**
+> +	 * @lane_positions:
+> +	 *
+> +	 * Physical-to-logical trio (data lane) position mapping. Entry @i
+> +	 * gives the physical lane position carrying logical trio @i. C-PHY
+> +	 * has no clock lane, so all entries map data trios only.
+> +	 */
+> +	unsigned char		lane_positions[PHY_MIPI_CPHY_MAX_DATA_LANES];
+> +
+> +	/**
+> +	 * @lane_polarities:
+> +	 *
+> +	 * Polarity (0 = normal, 1 = swapped) of each logical trio. Entry
+> +	 * @i corresponds to logical trio @i.
+> +	 */
+> +	bool			lane_polarities[PHY_MIPI_CPHY_MAX_DATA_LANES];
+> +
+> +	/**
+> +	 * @t3_prepare:
+> +	 *
+> +	 * Time, in picoseconds, that the transmitter drives the
+> +	 * 3-wire LP-000 line state immediately before the HS_+x line
+> +	 * state starting HS transmission.
+> +	 *
+> +	 * Minimum value: 38000 ps
+> +	 * Maximum value: 95000 ps
+> +	 */
+> +	unsigned int		t3_prepare;
+> +
+> +	/**
+> +	 * @t3_term_en:
+> +	 *
+> +	 * Time, in picoseconds, for the slave to enable the HS line
+> +	 * termination, starting from the time point when the A, B
+> +	 * and C wires cross VIL_MAX.
+> +	 *
+> +	 * Maximum value: 38000 ps
+> +	 */
+> +	unsigned int		t3_term_en;
+> +
+> +	/**
+> +	 * @t3_settle:
+> +	 *
+> +	 * Time interval, in picoseconds, during which the HS receiver
+> +	 * should ignore any HS transitions on the lane, starting from
+> +	 * the beginning of @t3_prepare.
+> +	 *
+> +	 * Minimum value: 95000 ps
+> +	 * Maximum value: 300000 ps
+> +	 */
+> +	unsigned int		t3_settle;
+> +
+> +	/**
+> +	 * @t3_hs_exit:
+> +	 *
+> +	 * Time, in picoseconds, that the transmitter drives LP-111
+> +	 * following an HS burst.
+> +	 *
+> +	 * Minimum value: 100000 ps
+> +	 */
+> +	unsigned int		t3_hs_exit;
+> +
+> +	/**
+> +	 * @lpx:
+> +	 *
+> +	 * Transmitted length, in picoseconds, of any low-power state
+> +	 * period.
+> +	 *
+> +	 * Minimum value: 50000 ps
+> +	 */
+> +	unsigned int		lpx;
+> +
+> +	/**
+> +	 * @init:
+> +	 *
+> +	 * Time, in microseconds, for the initialization period to
+> +	 * complete.
+> +	 *
+> +	 * Minimum value: 100 us
+> +	 */
+> +	unsigned int		init;
+> +
+> +	/**
+> +	 * @ta_get:
+> +	 *
+> +	 * Time, in picoseconds, that the new transmitter drives the
+> +	 * Bridge state (LP-000) after accepting control during a
+> +	 * link turnaround.
+> +	 *
+> +	 * Value: 5 * @lpx
+> +	 */
+> +	unsigned int		ta_get;
+> +
+> +	/**
+> +	 * @ta_go:
+> +	 *
+> +	 * Time, in picoseconds, that the transmitter drives the
+> +	 * Bridge state (LP-000) before releasing control during a
+> +	 * link turnaround.
+> +	 *
+> +	 * Value: 4 * @lpx
+> +	 */
+> +	unsigned int		ta_go;
+> +
+> +	/**
+> +	 * @ta_sure:
+> +	 *
+> +	 * Time, in picoseconds, that the new transmitter waits after
+> +	 * the LP-100 state before transmitting the Bridge state
+> +	 * (LP-000) during a link turnaround.
+> +	 *
+> +	 * Minimum value: @lpx
+> +	 * Maximum value: 2 * @lpx
+> +	 */
+> +	unsigned int		ta_sure;
+> +
+> +	/**
+> +	 * @wakeup:
+> +	 *
+> +	 * Time, in microseconds, that a transmitter drives a Mark-1
+> +	 * state prior to a Stop state in order to initiate an exit
+> +	 * from ULPS.
+> +	 *
+> +	 * Minimum value: 1000 us
+> +	 */
+> +	unsigned int		wakeup;
+> +};
+
+Should the following fields be included in this definition too ?
+
+- T3-PREBEGIN
+- T3-PROGSEQ
+- T3-PREEND
+- T3-SYNC
+- T3-POST
+> +
+> +int phy_mipi_cphy_get_default_config(unsigned long pixel_clock,
+> +				     unsigned int bpp, unsigned int lanes,
+> +				     struct phy_configure_opts_mipi_cphy *cfg);
+> +int phy_mipi_cphy_get_default_config_for_hsclk(unsigned long long hs_clk_rate,
+> +					       unsigned int lanes,
+> +					       struct phy_configure_opts_mipi_cphy *cfg);
+> +int phy_mipi_cphy_config_validate(struct phy_configure_opts_mipi_cphy *cfg);
+> +
+> +#endif /* __PHY_MIPI_CPHY_H_ */
+> diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
+> index c480d6cb42c5..f12337834031 100644
+> --- a/include/linux/phy/phy.h
+> +++ b/include/linux/phy/phy.h
+> @@ -19,6 +19,7 @@
+>   #include <linux/phy/phy-dp.h>
+>   #include <linux/phy/phy-hdmi.h>
+>   #include <linux/phy/phy-lvds.h>
+> +#include <linux/phy/phy-mipi-cphy.h>
+>   #include <linux/phy/phy-mipi-dphy.h>
+>   #include <linux/phy/phy-thunderbolt.h>
+>   
+> @@ -42,6 +43,7 @@ enum phy_mode {
+>   	PHY_MODE_PCIE,
+>   	PHY_MODE_ETHERNET,
+>   	PHY_MODE_MIPI_DPHY,
+> +	PHY_MODE_MIPI_CPHY,
+>   	PHY_MODE_SATA,
+>   	PHY_MODE_LVDS,
+>   	PHY_MODE_DP,
+> @@ -69,6 +71,8 @@ union phy_notify {
+>    *
+>    * @mipi_dphy:	Configuration set applicable for phys supporting
+>    *		the MIPI_DPHY phy mode.
+> + * @mipi_cphy:	Configuration set applicable for phys supporting
+> + *		the MIPI_CPHY phy mode.
+>    * @dp:		Configuration set applicable for phys supporting
+>    *		the DisplayPort protocol.
+>    * @lvds:	Configuration set applicable for phys supporting
+> @@ -78,6 +82,7 @@ union phy_notify {
+>    */
+>   union phy_configure_opts {
+>   	struct phy_configure_opts_mipi_dphy	mipi_dphy;
+> +	struct phy_configure_opts_mipi_cphy	mipi_cphy;
+>   	struct phy_configure_opts_dp		dp;
+>   	struct phy_configure_opts_lvds		lvds;
+>   	struct phy_configure_opts_hdmi		hdmi;
 
