@@ -1,103 +1,138 @@
-Received: from sg-3-26.ptr.tlmpb.com (sg-3-26.ptr.tlmpb.com [101.45.255.26])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E6233ADA0
-	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 10:14:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.26
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C076C348463
+	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 10:32:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792232059; cv=none; b=lVSaNlP5IV2I6TyH/GPzwsGXP/335wuFWN9HNSnstzTJCroODnfPQM8ug6q5LmD5idAKIvy4UXoCjCrVnKn7HP8tnrj1MVYyrnoCb4oMHwNDnsft1oMoVilE0/rCT1jNvf6pxhrL55251rXnPeBpqLgHZ9QPmqxx0qXm3zPvSlQ=
+	t=1792233138; cv=none; b=G/cu2dBdtbg8V0puNs8o4xpGQr3GhlVPy5kIBaHaDY22UXr87IsuKHCoVEU/9Zn81Wf/oUo32upo4ozNXCOKN3CJoVrFRKotGSa5RE3ObiNBhVafIlMZGe++mNaG9MbeTfYo1hV/1eV8hwsNwizgrYfGKWvW3aW0H2wQonygePc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792232059; c=relaxed/simple;
-	bh=GPZFSKaSQO6ijkNW2YtiCTlnwLD7iVefOOedFSfNETA=;
-	h=Message-Id:In-Reply-To:Cc:From:Subject:To:References:Date:
-	 Mime-Version:Content-Type; b=O+G2kQ2XD5m5Sc/hxZY5P1YXIDJ+MkcWRiEfdteFq9B94rqroRDmAb+z2VFqHMCAtmVhukUxpvqZQ3+lFLnTVpfM8cY7OyzfFxx9LhX9z6RsYatULyLO4xfp6YilPmp/edwkcZ259M02du3ezo5ywED4JVhYdOf3JXTtbokYf04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com; spf=pass smtp.mailfrom=picoheart.com; dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b=sLAc8YXK; arc=none smtp.client-ip=101.45.255.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=picoheart.com
+	s=arc-20240116; t=1792233138; c=relaxed/simple;
+	bh=v2Hn9EYwuQ+E6lf0Rf3ht21Voze0wDWEtPegUEo1zhc=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=f0wc4lX7An/fFmnfMnipisCxCxHRSAeSavTq9nMdqQjrdlC62TEbX5v3/Q5QSiwJHH9XEZiB16IhOxUdRugaKeEVSXcna9GoEeXiXC1rcZeyp4fbh2Olu7FWTwOtAxxYzKA9xoZMCGV39hK4QRStLEUYjUVYw4fm5CYofJjeuYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hTK2483k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b="sLAc8YXK"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604151535; d=picoheart.com; t=1792232006; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=OOYEfpEwMLQO0bPlTQu721mtf/5q4uehv1PDBQLDVZ8=;
- b=sLAc8YXKYd4YMon94mD82aqzPrkwixXpb9is/QaBRC0ytna+zwFEe10FjrhbhIwEvOuoQa
- S3vNwa8MtaUikrhJRTgPLG0ANnOto7WLqg7Wmr7SPZqSGmw8dh2lce/x7+pbMssl7DReds
- etgZH6EppJ62TMDRHqmPsnbC8ioi7B2fV0W0R7WBklHIkhy5MTyOtXWxJiZHwTmljY1hUX
- snfxLMMsux/gujiPg5JGFYzH7w5bx7i5lycN7PWWncKmGfSg3mErYpn6D4Tptjh6ksMdGS
- Flvu7p9N90Ctf2iRiYzLqjtBfTf5crmmEzrxfpyPyws61w2W2K+HNAOQ8bRR7w==
-Message-Id: <f77689e0-91e9-4e5c-9185-fc6fb9394cc6@picoheart.com>
-In-Reply-To: <DLLOVHIKRXPY.3AGBAPAM8F9WV@linux.dev>
-Cc: "Sudeep Holla" <sudeep.holla@kernel.org>, 
-	"Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, 
-	"Danilo Krummrich" <dakr@kernel.org>, "Paul Walmsley" <pjw@kernel.org>, 
-	"Palmer Dabbelt" <palmer@dabbelt.com>, 
-	"Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, 
-	<yang.yicong@picoheart.com>, "Catalin Marinas" <catalin.marinas@arm.com>, 
-	"Will Deacon" <will@kernel.org>, "Mark Rutland" <mark.rutland@arm.com>, 
-	"Rob Herring" <robh@kernel.org>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
-	"Conor Dooley" <conor+dt@kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<driver-core@lists.linux.dev>, <linux-riscv@lists.infradead.org>, 
-	<linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>
-From: "Yicong Yang" <yang.yicong@picoheart.com>
-Subject: Re: [PATCH RFC 2/3] arch_topology: Parse die nodes in /cpu-map
-Received: from [100.86.216.62] ([61.141.241.117]) by smtp.feishu.cn with ESMTPS; Sat, 17 Oct 2026 18:13:24 +0800
-To: "Troy Mitchell" <troy.mitchell@linux.dev>
-References: <20260920-riscv-die-topology-rfc-v1-0-071c0bf61d5f@linux.dev> <20260920-riscv-die-topology-rfc-v1-2-071c0bf61d5f@linux.dev> <20260921-rational-frisky-jerboa-0f2ff0@sudeepholla> <DLLOVHIKRXPY.3AGBAPAM8F9WV@linux.dev>
-X-Lms-Return-Path: <lba+26ad34a44+fac80b+vger.kernel.org+yang.yicong@picoheart.com>
-X-Original-From: Yicong Yang <yang.yicong@picoheart.com>
-Date: Sat, 17 Oct 2026 18:13:22 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hTK2483k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 382901F000C4;
+	Sat, 17 Oct 2026 10:32:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792233136;
+	bh=pSG2Urt3XB9A0dnhckPlcULhrMUaFsfBg2jNhZn7nzQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hTK2483kySCWzMmph3JO3X5TSU9XzNruuFEYS7WlNKqnHNuCwVgnzcTJNCU48ha6Z
+	 y224QT51oW5CeouW58rQ9gUgZIdOKS6hl+4gruyeiMXTqzlalEqgk6CGMaEtX9vWQX
+	 kK4SNSrDYodusDzwaVZKikxan53euG3WjJV616PlLP1wSdvzlxv6WXmQQ69bY8gAc9
+	 kBww1oZXp9yowMiP09u0PDGxyx2EGyMTMK9mBHvIK5TpQ7S06aa1gEhZik2hW0pk3U
+	 NEhh6ObO6mHVIBRvi9W1ONmm54RxyZ75iVMyB0KIK9qfuvE1sACSvjkDYRk+lwMBoL
+	 E7elTOqF9hlPw==
+Message-ID: <sashiko-outbox-175458@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v3 4/9] net: stmmac: mediatek: simplify TX/RX
+ delay handling in mt2712_set_delay
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261016-dwmac-mediatek-mt8189-v3-4-25daf2bbcf35@collabora.com>
+References: <20261016-dwmac-mediatek-mt8189-v3-0-25daf2bbcf35@collabora.com>
+ <20261016-dwmac-mediatek-mt8189-v3-4-25daf2bbcf35@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 17 Oct 2026 10:32:15 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
 
-On 9/22/26 4:06 PM, Troy Mitchell wrote:
->> Where is the associated bindings ? Am I missing to check it in the series
->> or it is really missing ? It is essential to add any code using the binding.
-> 
-> I left the binding out to get initial feedback on the topology model,
-> but I agree it should be available for review alongside the code.
-> 
-> The cpu-map binding lives in dt-schema. I have now opened a draft PR [1]
-> with the proposed dieN hierarchy. The PR also links back to this kernel
-> series.
-> 
->> Also how does it align with ACPI implementation ? It is preferred to be
->> in parity here, so we need some binding there as well IMHO.
-> 
-> This series does not implement ACPI die discovery and leaves die_id at
-> -1 on that path. I agree that DT and ACPI should describe the same
-> topology model.
-> 
-> RISC-V does not define topology fields in hart IDs. PPTT can describe
-> intermediate processor hierarchy nodes, but I could not find an explicit
-> die indicator in the ACPI 6.6 processor-node flags. Is there an existing
-> PPTT convention for identifying die boundaries that we should follow?
-> 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] stmmac: mediatek: swapped RGMII and RMII/MII delay stage divisors
+--
 
-PPTT describes the hierarchical processor information but except physical
-package and SMT, there's no flags to bind the nodes to a real topology
-structure. so maybe it's hard to choose one unless a new flag is added by
-the spec to indicate the DIE topology.
+commit 83d585b88ab8ffcfd715b793f8dc33929760603d
+Author: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 
-may I know the target use case for this die information (as I see the same
-question raised on the thread of the device tree PR)? IIUC the NUMA and
-cluster information should be enough for the software to aware the
-performance differences and the scheduler has already make use them.
+net: stmmac: mediatek: simplify TX/RX delay handling in mt2712_set_delay
 
-thanks.
+This commit simplifies TX/RX delay handling for MT2712 by calculating
+delay stage values locally instead of modifying the driver data. It
+also introduces macro definitions for the stage divisors and maximums.
 
-> Would it be acceptable to add DT support first, keeping ACPI die IDs
-> unknown until that mapping is agreed, or should the ACPI mapping be
-> defined as part of this RFC?
-> 
-> Link: https://github.com/devicetree-org/dt-schema/pull/208 [1].
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drive=
+rs/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> index f7eb85110df08..596411d4a5b2b 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> @@ -36,6 +36,14 @@
+>  #define ETH_FINE_DLY_GTXC	BIT(1)
+>  #define ETH_FINE_DLY_RXC	BIT(0)
+> =20
+> +#define MT2712_RMII_DLY_RXC_STAGE_DIV	170 /* 170ps per stage */
+> +#define MT2712_RMII_DLY_TXC_STAGE_DIV	170 /* 170ps per stage */
+> +
+> +#define MT2712_RGMII_DLY_RXC_STAGE_DIV	550 /* 550ps per stage */
+> +#define MT2712_RGMII_DLY_RXC_MAX	17600 /* 32 x 550ps */
+> +#define MT2712_RGMII_DLY_TXC_STAGE_DIV	550 /* 550ps per stage */
+> +#define MT2712_RGMII_DLY_TXC_MAX	17600 /* 32 x 550ps */
+> +
+
+[Severity: High]
+Are these stage divisors swapped compared to the original code?
+
+In the original code, the divisors were:
+/* 550ps per stage for MII/RMII */
+mac_delay->tx_delay /=3D 550;
+...
+/* 170ps per stage for RGMII */
+mac_delay->tx_delay /=3D 170;
+
+With the new definitions, RMII gets divided by 170 and RGMII by 550, which
+reverses the intended delay values for both interfaces.
+
+[ ... ]
+
+> @@ -129,71 +137,36 @@ static int mt2712_set_interface(struct mediatek_dwm=
+ac_plat_data *plat,
+>  static int mt2712_set_delay(struct mediatek_dwmac_plat_data *plat)
+>  {
+>  	struct mac_delay_struct *mac_delay =3D &plat->mac_delay;
+> -	u32 delay_val =3D 0, fine_val =3D 0;
+> +	u32 rx_delay_stage_val, tx_delay_stage_val;
+> +	u16 rx_delay_stage_div, tx_delay_stage_div;
+> +	u32 delay_val =3D 0;
+> +	u32 fine_val =3D 0;
+> =20
+> -	mt2712_delay_ps2stage(plat);
+> +	if (phy_interface_mode_is_rgmii(plat->phy_mode)) {
+> +		rx_delay_stage_div =3D MT2712_RGMII_DLY_RXC_STAGE_DIV;
+> +		tx_delay_stage_div =3D MT2712_RGMII_DLY_TXC_STAGE_DIV;
+> +	} else {
+> +		rx_delay_stage_div =3D MT2712_RMII_DLY_RXC_STAGE_DIV;
+> +		tx_delay_stage_div =3D MT2712_RMII_DLY_TXC_STAGE_DIV;
+> +	}
+> +	rx_delay_stage_val =3D mac_delay->rx_delay / rx_delay_stage_div;
+> +	tx_delay_stage_val =3D mac_delay->tx_delay / tx_delay_stage_div;
+> =20
+>  	switch (plat->phy_mode) {
+>  	case PHY_INTERFACE_MODE_MII:
+> -		delay_val |=3D FIELD_PREP(ETH_DLY_TXC_ENABLE, !!mac_delay->tx_delay);
+> -		delay_val |=3D FIELD_PREP(ETH_DLY_TXC_STAGES, mac_delay->tx_delay);
+> +		delay_val |=3D FIELD_PREP(ETH_DLY_TXC_ENABLE,
+> +					!!tx_delay_stage_val);
+> +		delay_val |=3D FIELD_PREP(ETH_DLY_TXC_STAGES,
+> +					tx_delay_stage_val);
+
+[Severity: High]
+Because the divisors are swapped above, could the resulting stage value
+exceed the bitfield boundaries?
+
+Since RMII is now incorrectly divided by 170 instead of 550, valid device
+tree delay values might produce a stage count that exceeds the 5-bit width
+of the ETH_DLY_TXC_STAGES hardware field. When this happens, FIELD_PREP()
+would silently truncate the stages value, leading to misconfigured hardware
+timings.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016-dwmac-medi=
+atek-mt8189-v3-0-25daf2bbcf35@collabora.com?part=3D4
