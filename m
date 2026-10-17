@@ -1,66 +1,65 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABC0447CC8C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3500367283
 	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 14:08:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792246132; cv=none; b=MIRc1NvE7jLkuC6WVl74gSSRFQGzaaZtJ2fXSgMCSg855aIBr6rvBiMGBee0WVxv3hzTZghfGZwdl0R3WNnd15WIQExT/IL4Ne9eYKC5NFa/ho8c93AF8oyAkxtD39LRlor32AuhHzvXLVcJpv0n72Wt+PAnbIqs+AdFPhoE+nI=
+	t=1792246134; cv=none; b=jc4/Pdm2mLeMiopO3dAQ82QLj2ikLMNVIXekgSNS+iiyuVIMYzp2hkxzMiwzfIg5asfQHISaOP9H5rpKZuXdoV+CJV0Jp6XGAPsy7NQcGHe0cowQ0sq4aaB4FjGARLB6CBWNdVB9qSPcGyheBI4hW3u4TnTx7ppvezmLH4KcRV0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792246132; c=relaxed/simple;
-	bh=M/fO2fPNKEJuGGAETlGpiAMAmlXI8AfDa1ul3FclVRA=;
+	s=arc-20240116; t=1792246134; c=relaxed/simple;
+	bh=Cp1xKoKHjee8NVeMf2TCIX1IMrRZc66OQ1LmC8Eyses=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=s4/gJiF1YWyOvAxsJMPH4cbnr1PdduxAiFeajj2g6DGQZooidEe/xidftsmLwfz3y27gQ+7UNL3klfRdQi+FsjglXNmIEw6IjF5ny4PoJ4XZFNaQDjXUr3GOTniwBU9mJNkNjNJVAQNn5IDf+N7tWzBIbPdwoKqNNj6hHwEx3FU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xk3NblTs; arc=none smtp.client-ip=209.85.128.48
+	 MIME-Version; b=nEoI99W9x6CzoNQFTGJZhHW1W61u9LvjOXnj78yrmJxdR+fUojzfUtGU1OuvP9w6tFbG2YMlvD0dv9WF3R0MQmHvYYauvzt0AEfXIV/VvyUPYIuRHczFg+sR3dX7hVxjqjMOZ9QzsnCvl6CEZEnhq4aTF9OLNQaPlolL1SzMGhE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cNqeDi8V; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xk3NblTs"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49d05d51553so5291895e9.2
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cNqeDi8V"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso6532175e9.3
         for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 07:08:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792246127; x=1792850927; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qfOl1kjHpYXnvDQ7klGKtwkq44SiCg69dIWYFZz39rU=;
-        b=Xk3NblTsJX1dwlOid+CvUf8moW7AfhQGV3rhkBY8eSb+6xtvvJMjQ8DGFCE2bfrrqs
-         BCkYLuYNKYGriFPSDsBnHevB5ZTyV9gFIRpjQafiKZosUXAHBMj7sCpRKcm39fHKCvYu
-         x3GgGn4GbKpGAupTtrGcoXMO0KbhkRHxxD6jCLyKk+tTWZTR5ZEa6/OhYo6CoULDvhww
-         HmdeiI9M6aqd3Whkqj2rF0oaQAeXtvYiJ7CM7edEC4Z79LqvuNwgWg8tJdeP8dS813eE
-         jkHuX7fYIzzKJ1VNr3UghYV5NWypp1j0NxoX7sCV2PA/vYNzJgF3fgbQcBfrOu2nmtUA
-         m/cQ==
+        d=gmail.com; s=20251104; t=1792246126; x=1792850926; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=C+1f1lj3zLciCCO8Mc5INC/JSPS2g2K5CtomKct7Fmg=;
+        b=cNqeDi8VT0uUSjH+LRHFpQ4NTkeIW1u1C88CbHh55kxDldfk4+FHhZECmLTK5y3Zfh
+         IJWIif0HL/7QeVPYywTQB0AfwPVzyIcLuynVtGtmpIBmukFKhsexZV4OHM7o9HkuyXLe
+         FcLIRom+8gluN3RBCw+xzU1G+64W03cOCn2oqAfQyCdRzz8VZGpufTlsy5Lyp9PDNCJe
+         vzOUBXDt265k/a5ZjEWsxLr4YyDtmLgH/BQigdUMQYm0QIBDSScydt//DNb8SO8YMVfr
+         hyudHYeBN9aFo1g2RpauizIxopJnrwj4l0aiad5KZin/gZ+7N/nHFbJEtlA4YkgNV9Ei
+         nsWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792246127; x=1792850927;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qfOl1kjHpYXnvDQ7klGKtwkq44SiCg69dIWYFZz39rU=;
-        b=eIddioIqAWLE4oDVryDCfH5WobxGLX2gxaK6N1JGVeia/18kY9ZNqNcQ2HiCd3J0iq
-         vNi7zu4B0EAN4/NBcyLvbq73ZKMLZhmVomM7V8ctG7vcjzZmb3YPAPicy7d9Oxem2/2u
-         nHUMYKGPd7zMciqltsBqGk0/N7G4vXpLQriAi1rVDahxYzV15kw34TR3q9uikbh8Qyq6
-         zuVYNxuI+tvOXeav6uYY53BHKkNdiVwnI3ArisTk8Ak8W6h8lPLgtBCEYfuIBqAJULIZ
-         CtxOH5w/mw4/C026hX5eH6alI61vyAPq+1C0tOFpt2IwmTqhoximyMZuMTqDHUGo5z3M
-         X8Hw==
-X-Forwarded-Encrypted: i=1; AKwUvBzVog17RaLN2apowqKq2P3H98m8SQ222XTvW6E60uOgaSUGUxpNA45ojdzgjaryfQIacM5xLx3Q4w0Y@vger.kernel.org
-X-Gm-Message-State: AFq9FYKur5rzxGaiGLRzkIzPNjhBDbdU6uG78xmLuviSesXToLwOE4rJ
-	xfN1eh9IugLB6Z5A4ledQLe9oV9nOppgDVyrmf/YQBsIvpYja+NEEef0
-X-Gm-Gg: AYBFou1QOIdljNedV4qU1yxpWghoZM3CNgots38Rh4bc1T+fkADj5J71QDE7rbVJlNC
-	F/ZK2uVBnTAv8uSX5HJ3QuBLpk3d5WrMikhjNFjvP4JHJpJAda3skBIqiZw6uWvxyKJy9Qf1yQZ
-	LiDjsFsybKr5mhe/yrEoR7hChhJBdHmqEAPTXZYAuVAEosWJj8PsrkoNBRJr4D7zdlSr4lJ/C+O
-	z+1qfynlcGH0+5ZIpEKdw2VEDd3euBvynURKFTyukqwLD07sFqjLaj0OmxaxR+Zqui6G2d9JFAO
-	YlHa9i5BlABwq1K+0xVJqiAQ2/rKtDBV3W0fZ8z0awAu20sxPJ+4dLyF1pej3haW9Pu3+yqZk/9
-	ESbR8xJvHcE8iEC6xH1ieNbJArMgabr9aqsl0tU6QkvVUDZlB97jYJ1DZPAaEW3bmdofWRDA+O5
-	dSBfgXNZ1Rdrj+UUOwdGAljUZUJuWZ2MnznfvWpvT8T9olQhQVYuaMNiu8Zq5Ha0KZVOI7FtuBZ
-	98dw0WJ+v2cWRzcCunicusGAN/id71B0EF+DblOrHhw2uzCD6zb4MjAHJ10EWR1l2621To8jh2k
-	jA==
-X-Received: by 2002:a05:600c:468e:b0:4a0:12d7:4c88 with SMTP id 5b1f17b1804b1-4a1d7625f71mr59997585e9.30.1792246127263;
-        Sat, 17 Oct 2026 07:08:47 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792246126; x=1792850926;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=C+1f1lj3zLciCCO8Mc5INC/JSPS2g2K5CtomKct7Fmg=;
+        b=PCLJBFwmkzOadzzc4l6vi+METfgqEv81UgnrezB6SEnwRKPV3JunR04ZrPXOHetmHU
+         QMFRyP6W+CM2Y196OQXSYo2KV3Mcu5fctSAC0KbHqry/GiXCoR5ACAd3BegVvdpX3T1q
+         7Oa+EjNGaEPPbcZwNnvAp23ekW7Q6f6HRlgyPUkJZ+uh0za5HNjrvpB18Xgh3FA86PGb
+         R0Ln5wx0RQx3UHjaFHqLjbSysB3OpeNIsdLEPARoYZILnVXHnk/DbUE49GMEne8iZA2v
+         zdZaLgs5KXyfg0eMtY2rOQ5IfIHr56kt8vzBNaxFlbkFzcBgzrlKxeUCMdvgtZd/gJaT
+         v/mw==
+X-Forwarded-Encrypted: i=1; AKwUvBxI44rjNNDIHbqMR2Biopdn0rHPYFpzTby1Ln5M0G/WSn+A5qpJJlqYpf4b3XC6Umb1fNjozCc3V3Rq@vger.kernel.org
+X-Gm-Message-State: AFq9FYKkZ3/AO4gURAAW3cWp5wmBqetfvZ2xBuj7HKqeXuvjPwJQACS3
+	pms7IOP+1xVTk4xbOzBHXMafmCRPOEgyyFKwJLw3m8dYa+3asmYIP22m
+X-Gm-Gg: AYBFou3bfzwJw/8lshcdR36elRPWSFKBtqxXs0A2hhXLBUZnf0Dxwji/nvv2eoGvNAQ
+	hNlsYiTOtTT4mREOJ3U5KPVVJNbq5gFBGYTO5AOPtIAHDayss2jwSK5+zq20GqnOEZ0/RQ8RYEt
+	xTmcGvDYBFLU8/YHX/pngajvpOaffazA9RXwNb/KItTK2bnp3mWaQXy2GMoIuMVuxjvZ11u65rv
+	sOh07Z+rEA0lr45wXOkI4X8ui5l6O3U5J5VhjCNmjnK+FTL0PoLWy3A5baFn3F9oDosvDilusMb
+	SCGdeoBJHgNX4y3p6YYlsb8407o6ltX4CxDfyK0k3MweuVLRu9kUCXaOav8x3ndZ4Ry6NqLpyLm
+	iFPL92C6gi1bQZTyX3wgxNADsNoNFElRxi5SIqEvshRI/A1wqNt+M1p4g1QAdk5Cdu8QdxYPidD
+	xfUCJ/dzwU9npf7MABvTt+DPMIFZcymfwLiemzFi49U0uIpCx48U2IERQIU54B4x/ZLwzpdtaIY
+	dPWsWm7Oc9WyM69+4ts17iCCbmWfNs2lyNYbWOMpAtANzeTw6XWUfKQs52v0JTfKmfLs178eeAA
+	Jg==
+X-Received: by 2002:a05:600c:34d2:b0:4a1:cfa7:e968 with SMTP id 5b1f17b1804b1-4a1d760d2camr53930535e9.21.1792246125729;
+        Sat, 17 Oct 2026 07:08:45 -0700 (PDT)
 Received: from machine.home.arpa ([2a0d:3344:57f6::1046])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1ce3302b5sm84430745e9.4.2026.10.17.07.08.45
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1ce3302b5sm84430745e9.4.2026.10.17.07.08.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 07:08:46 -0700 (PDT)
+        Sat, 17 Oct 2026 07:08:45 -0700 (PDT)
 From: Luka Panio <lukapanio@gmail.com>
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 Cc: Rob Herring <robh@kernel.org>,
@@ -73,9 +72,9 @@ Cc: Rob Herring <robh@kernel.org>,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	Luka Panio <lukapanio@gmail.com>
-Subject: [PATCH 7/7] Input: edt-ft5x06 - support following a DRM panel
-Date: Sat, 17 Oct 2026 16:07:55 +0200
-Message-ID: <20261017140827.290666-8-lukapanio@gmail.com>
+Subject: [PATCH 6/7] Input: edt-ft5x06 - add SPI transport and FT8722 support
+Date: Sat, 17 Oct 2026 16:07:54 +0200
+Message-ID: <20261017140827.290666-7-lukapanio@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261017140827.290666-1-lukapanio@gmail.com>
 References: <20261017140827.290666-1-lukapanio@gmail.com>
@@ -85,280 +84,541 @@ List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On touch and display driver (TDDI) chips such as the FT8722 the touch
-controller shares its supply and reset with the display panel, so it
-can only be accessed while the panel is powered and loses its state,
-and for RAM-only parts its firmware, every time the panel goes off.
+Add an SPI bus driver and FT8722 support to edt-ft5x06.
 
-When the device tree links the touchscreen to its panel, register as a
-DRM panel follower, like i2c-hid does.
+The FT8722 TDDI has no flash, so add a boot hook that downloads the
+firmware every time the controller comes out of reset: enter the boot
+ROM, write the program and data RAM, verify both with the ROM's ECC
+and start the application.
 
 Signed-off-by: Luka Panio <lukapanio@gmail.com>
 ---
- drivers/input/touchscreen/Kconfig      |   1 +
- drivers/input/touchscreen/edt-ft5x06.c | 156 ++++++++++++++++++++++++-
- 2 files changed, 151 insertions(+), 6 deletions(-)
+ drivers/input/touchscreen/Kconfig          |  14 +
+ drivers/input/touchscreen/Makefile         |   1 +
+ drivers/input/touchscreen/edt-ft5x06-spi.c | 475 +++++++++++++++++++++
+ 3 files changed, 490 insertions(+)
+ create mode 100644 drivers/input/touchscreen/edt-ft5x06-spi.c
 
 diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/Kconfig
-index 92840ea9c65f..b4fd55028a04 100644
+index 9b9ae8ac3f7f..92840ea9c65f 100644
 --- a/drivers/input/touchscreen/Kconfig
 +++ b/drivers/input/touchscreen/Kconfig
-@@ -794,6 +794,7 @@ config TOUCHSCREEN_PENMOUNT
- config TOUCHSCREEN_EDT_FT5X06
- 	tristate "EDT FocalTech FT5x06 I2C Touchscreen support"
- 	depends on I2C
-+	depends on DRM_PANEL || !DRM_PANEL
- 	select REGMAP_I2C
- 	help
- 	  Say Y here if you have an EDT "Polytouch" touchscreen based
-diff --git a/drivers/input/touchscreen/edt-ft5x06.c b/drivers/input/touchscreen/edt-ft5x06.c
-index 7bcc48e07d62..b2fca6c37205 100644
---- a/drivers/input/touchscreen/edt-ft5x06.c
-+++ b/drivers/input/touchscreen/edt-ft5x06.c
-@@ -4,6 +4,7 @@
-  * Daniel Wagener <daniel.wagener@kernelconcepts.de> (M09 firmware support)
-  * Lothar Waßmann <LW@KARO-electronics.de> (DT support)
-  * Dario Binacchi <dario.binacchi@amarulasolutions.com> (regmap support)
-+ * Luka Panio <lukapanio@gmail.com> (SPI and DRM panel support)
-  */
+@@ -805,6 +805,20 @@ config TOUCHSCREEN_EDT_FT5X06
+ 	  To compile this driver as a module, choose M here: the
+ 	  module will be called edt-ft5x06.
  
- /*
-@@ -33,6 +34,9 @@
- #include <linux/uaccess.h>
- 
- #include <linux/unaligned.h>
-+#include <linux/workqueue.h>
++config TOUCHSCREEN_EDT_FT5X06_SPI
++	tristate "EDT FocalTech FT5x06 SPI Touchscreen support"
++	depends on TOUCHSCREEN_EDT_FT5X06 && SPI
++	select CRC_CCITT
++	help
++	  Say Y here if you have a FocalTech touchscreen controller based
++	  on the FocalTech FT5x06 family of controllers that is connected over
++	  SPI.
 +
-+#include <drm/drm_panel.h>
- 
- #include "edt-ft5x06.h"
- 
-@@ -150,6 +154,12 @@ struct edt_ft5x06_ts_data {
- 	enum edt_ver version;
- 	int (*boot)(struct device *dev, struct gpio_desc *reset_gpio);
- 	u8 tdata_reg;
++	  If unsure, say N.
 +
-+	struct drm_panel_follower panel_follower;
-+	struct work_struct panel_work;
-+	bool is_panel_follower;
-+	bool powered_off;
-+	bool hw_initialized;
- 	unsigned int crc_errors;
- 	unsigned int header_errors;
- };
-@@ -383,7 +393,7 @@ static ssize_t edt_ft5x06_setting_show(struct device *dev,
- 
- 	guard(mutex)(&tsdata->mutex);
- 
--	if (tsdata->factory_mode)
-+	if (tsdata->factory_mode || tsdata->powered_off)
- 		return -EIO;
- 
- 	switch (tsdata->version) {
-@@ -441,7 +451,7 @@ static ssize_t edt_ft5x06_setting_store(struct device *dev,
- 
- 	guard(mutex)(&tsdata->mutex);
- 
--	if (tsdata->factory_mode)
-+	if (tsdata->factory_mode || tsdata->powered_off)
- 		return -EIO;
- 
- 	error = kstrtouint(buf, 0, &val);
-@@ -1120,7 +1130,8 @@ static void edt_ft5x06_disable_regulators(void *arg)
- 
- /*
-  * Take the controller out of reset, identify it and register the input
-- * device.
-+ * device. Called from probe, or once the panel is up for controllers
-+ * following a panel.
-  */
- static int edt_ft5x06_ts_init_hw(struct edt_ft5x06_ts_data *tsdata)
- {
-@@ -1206,9 +1217,117 @@ static int edt_ft5x06_ts_init_hw(struct edt_ft5x06_ts_data *tsdata)
- 
- 	edt_ft5x06_ts_prepare_debugfs(tsdata);
- 
-+	tsdata->hw_initialized = true;
++	  To compile this driver as a module, choose M here: the
++	  module will be called edt-ft5x06-spi.
++
+ config TOUCHSCREEN_RASPBERRYPI_FW
+ 	tristate "Raspberry Pi's firmware base touch screen support"
+ 	depends on RASPBERRYPI_FIRMWARE || (RASPBERRYPI_FIRMWARE=n && COMPILE_TEST)
+diff --git a/drivers/input/touchscreen/Makefile b/drivers/input/touchscreen/Makefile
+index bfd9de83389d..263c7e8039af 100644
+--- a/drivers/input/touchscreen/Makefile
++++ b/drivers/input/touchscreen/Makefile
+@@ -33,6 +33,7 @@ obj-$(CONFIG_TOUCHSCREEN_DA9034)	+= da9034-ts.o
+ obj-$(CONFIG_TOUCHSCREEN_DA9052)	+= da9052_tsi.o
+ obj-$(CONFIG_TOUCHSCREEN_DYNAPRO)	+= dynapro.o
+ obj-$(CONFIG_TOUCHSCREEN_EDT_FT5X06)	+= edt-ft5x06.o
++obj-$(CONFIG_TOUCHSCREEN_EDT_FT5X06_SPI)	+= edt-ft5x06-spi.o
+ obj-$(CONFIG_TOUCHSCREEN_HAMPSHIRE)	+= hampshire.o
+ obj-$(CONFIG_TOUCHSCREEN_HYCON_HY46XX)	+= hycon-hy46xx.o
+ obj-$(CONFIG_TOUCHSCREEN_GUNZE)		+= gunze.o
+diff --git a/drivers/input/touchscreen/edt-ft5x06-spi.c b/drivers/input/touchscreen/edt-ft5x06-spi.c
+new file mode 100644
+index 000000000000..d0ae0d4b621d
+--- /dev/null
++++ b/drivers/input/touchscreen/edt-ft5x06-spi.c
+@@ -0,0 +1,475 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2026 Luka Panio, <lukapanio@gmail.com>
++ *
++ * SPI transport for FocalTech touchscreen controllers handled by the
++ * edt-ft5x06 driver, with firmware download for the RAM-only FT8722.
++ *
++ * Protocol and boot sequence based on the FocalTech vendor driver:
++ * Copyright (c) 2012-2020, FocalTech Systems, Ltd.
++ */
++
++#include <linux/crc-ccitt.h>
++#include <linux/delay.h>
++#include <linux/firmware.h>
++#include <linux/gpio/consumer.h>
++#include <linux/input.h>
++#include <linux/minmax.h>
++#include <linux/mod_devicetable.h>
++#include <linux/module.h>
++#include <linux/property.h>
++#include <linux/regmap.h>
++#include <linux/slab.h>
++#include <linux/spi/spi.h>
++#include <linux/unaligned.h>
++
++#include "edt-ft5x06.h"
++
++#define FTS_SPI_CTRL_WRITE		0x00
++#define FTS_SPI_CTRL_READ		BIT(7)
++#define FTS_SPI_CTRL_CRC		BIT(5)
++#define FTS_SPI_STATUS_ERR		(BIT(7) | BIT(5))
++#define FTS_SPI_HEADER_LEN		4
++#define FTS_SPI_DUMMY_LEN		3
++#define FTS_SPI_CRC_LEN			2
++#define FTS_SPI_RETRIES			3
++#define FTS_SPI_CS_HIGH_US		150
++
++/* Boot ROM commands */
++#define FTS_BOOT_CMD_START		0x55
++#define FTS_BOOT_CMD_READ_ID		0x90
++#define FTS_BOOT_CMD_START_APP		0x08
++#define FTS_BOOT_CMD_SET_ADDR		0xad
++#define FTS_BOOT_CMD_WRITE		0xae
++#define FTS_BOOT_CMD_ECC		0xcc
++#define FTS_BOOT_CMD_ECC_READ		0xcd
++#define FTS_BOOT_CMD_ECC_FINISH		0xce
++#define FTS_BOOT_ECC_FINISH_OK		0xa5
++#define FTS_BOOT_ECC_POLY		0x8408
++
++#define FTS_REG_CHIP_ID			0xa3
++
++/* Firmware image layout */
++#define FTS_FW_INFO_OFFSET		0x100
++#define FTS_FW_MIN_LEN			0x120
++
++#define FTS_BOOT_RETRIES		3
++#define FTS_ECC_RETRIES			100
++
++struct fts_ram_chip {
++	u8 boot_id[2];
++	u8 chip_id;
++	u8 len_unit;
++	u32 pram_max;
++	u32 dram_base;
++	u32 packet_len;
++	unsigned int boot_delay_ms;
++	const char *default_fw;
++};
++
++static int fts_spi_xfer(struct spi_device *spi, const u8 *tx, u8 *rx,
++			size_t len)
++{
++	struct spi_transfer xfer = {
++		.tx_buf = tx,
++		.rx_buf = rx,
++		.len = len,
++	};
++	int ret;
++
++	ret = spi_sync_transfer(spi, &xfer, 1);
++	fsleep(FTS_SPI_CS_HIGH_US);
++
++	return ret;
++}
++
++static int fts_spi_write(struct spi_device *spi, u8 reg, const void *val,
++			 size_t len)
++{
++	size_t xlen = FTS_SPI_HEADER_LEN + (len ? FTS_SPI_DUMMY_LEN + len : 0);
++	u8 *tx, *rx;
++	int ret, i;
++
++	if (len > U16_MAX)
++		return -EINVAL;
++
++	tx = kzalloc(2 * xlen, GFP_KERNEL);
++	if (!tx)
++		return -ENOMEM;
++	rx = tx + xlen;
++
++	tx[0] = reg;
++	tx[1] = FTS_SPI_CTRL_WRITE;
++	put_unaligned_be16(len, &tx[2]);
++	if (len)
++		memcpy(&tx[FTS_SPI_HEADER_LEN + FTS_SPI_DUMMY_LEN], val, len);
++
++	for (i = 0; i < FTS_SPI_RETRIES; i++) {
++		ret = fts_spi_xfer(spi, tx, rx, xlen);
++		if (!ret && !(rx[3] & FTS_SPI_STATUS_ERR))
++			break;
++		if (!ret)
++			ret = -EIO;
++	}
++
++	kfree(tx);
++	return ret;
++}
++
++static int fts_spi_read(struct spi_device *spi, u8 reg, void *val,
++			size_t len)
++{
++	size_t dp = FTS_SPI_HEADER_LEN + FTS_SPI_DUMMY_LEN;
++	size_t xlen = dp + len + FTS_SPI_CRC_LEN;
++	u8 *tx, *rx;
++	int ret, i;
++
++	if (!len || len > U16_MAX)
++		return -EINVAL;
++
++	tx = kzalloc(2 * xlen, GFP_KERNEL);
++	if (!tx)
++		return -ENOMEM;
++	rx = tx + xlen;
++
++	tx[0] = reg;
++	tx[1] = FTS_SPI_CTRL_READ | FTS_SPI_CTRL_CRC;
++	put_unaligned_be16(len, &tx[2]);
++
++	for (i = 0; i < FTS_SPI_RETRIES; i++) {
++		ret = fts_spi_xfer(spi, tx, rx, xlen);
++		if (ret)
++			continue;
++
++		if (rx[3] & FTS_SPI_STATUS_ERR) {
++			ret = -EIO;
++			continue;
++		}
++
++		if (crc_ccitt(0xffff, &rx[dp], len) !=
++		    get_unaligned_le16(&rx[dp + len])) {
++			ret = -EBADMSG;
++			continue;
++		}
++
++		memcpy(val, &rx[dp], len);
++		break;
++	}
++
++	kfree(tx);
++	return ret;
++}
++
++static int fts_spi_regmap_write(void *context, const void *data,
++				size_t count)
++{
++	const u8 *buf = data;
++
++	return fts_spi_write(context, buf[0], buf + 1, count - 1);
++}
++
++static int fts_spi_regmap_read(void *context, const void *reg,
++			       size_t reg_size, void *val, size_t val_size)
++{
++	return fts_spi_read(context, *(const u8 *)reg, val, val_size);
++}
++
++static const struct regmap_bus fts_spi_regmap_bus = {
++	.write = fts_spi_regmap_write,
++	.read = fts_spi_regmap_read,
++};
++
++static const struct regmap_config fts_spi_regmap_config = {
++	.reg_bits = 8,
++	.val_bits = 8,
++};
++
++static int fts_boot_enter(struct spi_device *spi, struct gpio_desc *reset,
++			  const struct fts_ram_chip *chip)
++{
++	u8 id[2] = { };
++	int ret, i;
++
++	for (i = 0; i < FTS_BOOT_RETRIES; i++) {
++		/* The boot ROM only listens shortly after reset */
++		if (i && reset) {
++			gpiod_set_value_cansleep(reset, 1);
++			usleep_range(1000, 2000);
++			gpiod_set_value_cansleep(reset, 0);
++		}
++		fsleep(chip->boot_delay_ms * USEC_PER_MSEC);
++
++		ret = fts_spi_write(spi, FTS_BOOT_CMD_START, NULL, 0);
++		if (ret)
++			continue;
++
++		fsleep(chip->boot_delay_ms * USEC_PER_MSEC);
++
++		ret = fts_spi_read(spi, FTS_BOOT_CMD_READ_ID, id, sizeof(id));
++		if (ret)
++			continue;
++
++		if (!memcmp(id, chip->boot_id, sizeof(id)))
++			return 0;
++
++		ret = -ENODEV;
++	}
++
++	dev_err(&spi->dev, "boot ROM not responding, last id %02x%02x: %d\n",
++		id[0], id[1], ret);
++	return ret;
++}
++
++static int fts_boot_write_ram(struct spi_device *spi,
++			      const struct fts_ram_chip *chip, u32 base,
++			      const u8 *data, u32 len)
++{
++	u8 addr[3];
++	u32 off, n;
++	int ret;
++
++	for (off = 0; off < len; off += n) {
++		n = min(len - off, chip->packet_len);
++
++		put_unaligned_be24(base + off, addr);
++		ret = fts_spi_write(spi, FTS_BOOT_CMD_SET_ADDR, addr,
++				    sizeof(addr));
++		if (ret)
++			return ret;
++
++		ret = fts_spi_write(spi, FTS_BOOT_CMD_WRITE, data + off, n);
++		if (ret)
++			return ret;
++	}
 +
 +	return 0;
 +}
 +
-+/*
-+ * TDDI controllers share their power and reset with the display panel. When
-+ * following a panel, power the touch controller down before the panel goes
-+ * off and bring it back once the panel is up again.
-+ */
-+static void edt_ft5x06_panel_work(struct work_struct *work)
++static u16 fts_boot_ecc(const u8 *data, u32 len)
 +{
-+	struct edt_ft5x06_ts_data *tsdata =
-+		container_of(work, struct edt_ft5x06_ts_data, panel_work);
-+	int error;
++	u16 ecc = 0;
++	u32 i;
++	int j;
 +
-+	guard(mutex)(&tsdata->mutex);
++	for (i = 0; i + 1 < len; i += 2) {
++		ecc ^= get_unaligned_be16(data + i);
++		for (j = 0; j < 16; j++)
++			ecc = (ecc & 1) ? (ecc >> 1) ^ FTS_BOOT_ECC_POLY :
++					  ecc >> 1;
++	}
 +
-+	if (!tsdata->powered_off)
-+		return;
++	return ecc;
++}
 +
-+	if (!tsdata->hw_initialized) {
-+		error = edt_ft5x06_ts_init_hw(tsdata);
-+		if (error) {
-+			/* try again the next time the panel comes up */
-+			gpiod_set_value_cansleep(tsdata->reset_gpio, 1);
-+			dev_err(tsdata->dev,
-+				"Failed to initialize the controller: %d\n",
-+				error);
-+			return;
-+		}
++static int fts_boot_check_ecc(struct spi_device *spi, const u8 *data,
++			      u32 len)
++{
++	u8 cmd[6], val[2];
++	int ret, i;
++
++	put_unaligned_be24(0, &cmd[0]);
++	put_unaligned_be24(len, &cmd[3]);
++	ret = fts_spi_write(spi, FTS_BOOT_CMD_ECC, cmd, sizeof(cmd));
++	if (ret)
++		return ret;
++
++	usleep_range(2000, 3000);
++
++	for (i = 0; i < FTS_ECC_RETRIES; i++) {
++		ret = fts_spi_read(spi, FTS_BOOT_CMD_ECC_FINISH, val, 1);
++		if (ret)
++			return ret;
++		if (val[0] == FTS_BOOT_ECC_FINISH_OK)
++			break;
++		usleep_range(1000, 2000);
++	}
++	if (i == FTS_ECC_RETRIES)
++		return -ETIMEDOUT;
++
++	ret = fts_spi_read(spi, FTS_BOOT_CMD_ECC_READ, val, sizeof(val));
++	if (ret)
++		return ret;
++
++	if (get_unaligned_be16(val) != fts_boot_ecc(data, len)) {
++		dev_err(&spi->dev, "ECC mismatch: %04x != %04x\n",
++			get_unaligned_be16(val), fts_boot_ecc(data, len));
++		return -EIO;
++	}
++
++	return 0;
++}
++
++static u32 fts_fw_len(const struct firmware *fw, unsigned int off,
++		      const struct fts_ram_chip *chip)
++{
++	const u8 *info = fw->data + FTS_FW_INFO_OFFSET + off;
++	u16 len = get_unaligned_be16(info);
++
++	if ((u16)(len + get_unaligned_be16(info + 2)) != 0xffff)
++		return 0;
++
++	return len * chip->len_unit;
++}
++
++static int fts_ram_boot(struct device *dev, struct gpio_desc *reset,
++			const struct fts_ram_chip *chip)
++{
++	struct spi_device *spi = to_spi_device(dev);
++	const struct firmware *fw;
++	const char *fw_name = chip->default_fw;
++	u32 pram_len, dram_len;
++	u8 id;
++	int ret, i;
++
++	device_property_read_string(dev, "firmware-name", &fw_name);
++
++	ret = request_firmware(&fw, fw_name, dev);
++	if (ret)
++		return ret;
++
++	ret = -EINVAL;
++	if (fw->size < FTS_FW_MIN_LEN) {
++		dev_err(dev, "firmware %s too short\n", fw_name);
 +		goto out;
 +	}
 +
-+	gpiod_set_value_cansleep(tsdata->reset_gpio, 0);
-+
-+	if (tsdata->boot) {
-+		error = tsdata->boot(tsdata->dev, tsdata->reset_gpio);
-+		if (error) {
-+			dev_err(tsdata->dev,
-+				"Failed to boot the controller: %d\n", error);
-+			return;
-+		}
-+	} else {
-+		msleep(300);
++	pram_len = fts_fw_len(fw, 0, chip);
++	dram_len = fts_fw_len(fw, 8, chip);
++	if (!pram_len || pram_len > chip->pram_max ||
++	    pram_len + dram_len > fw->size) {
++		dev_err(dev, "invalid firmware %s\n", fw_name);
++		goto out;
 +	}
 +
-+	edt_ft5x06_restore_reg_parameters(tsdata);
++	ret = fts_boot_enter(spi, reset, chip);
++	if (ret)
++		goto out;
++
++	ret = fts_boot_write_ram(spi, chip, 0, fw->data, pram_len);
++	if (!ret)
++		ret = fts_boot_check_ecc(spi, fw->data, pram_len);
++	if (ret) {
++		dev_err(dev, "failed to load program RAM: %d\n", ret);
++		goto out;
++	}
++
++	if (dram_len) {
++		ret = fts_boot_write_ram(spi, chip, chip->dram_base,
++					 fw->data + pram_len, dram_len);
++		if (!ret)
++			ret = fts_boot_check_ecc(spi, fw->data + pram_len,
++						 dram_len);
++		if (ret) {
++			dev_err(dev, "failed to load data RAM: %d\n", ret);
++			goto out;
++		}
++	}
++
++	ret = fts_spi_write(spi, FTS_BOOT_CMD_START_APP, NULL, 0);
++	if (ret)
++		goto out;
++
++	/* Wait for the application to report the chip ID */
++	for (i = 0; i < 20; i++) {
++		fsleep(10 * USEC_PER_MSEC);
++		if (!fts_spi_read(spi, FTS_REG_CHIP_ID, &id, 1) &&
++		    id == chip->chip_id)
++			break;
++	}
++	if (i == 20) {
++		dev_err(dev, "firmware did not start\n");
++		ret = -EIO;
++		goto out;
++	}
++
++	dev_dbg(dev, "loaded %s (%u + %u bytes)\n", fw_name, pram_len,
++		dram_len);
 +out:
-+	tsdata->powered_off = false;
-+	enable_irq(tsdata->irq);
++	release_firmware(fw);
++	return ret;
 +}
 +
-+static int edt_ft5x06_panel_prepared(struct drm_panel_follower *follower)
-+{
-+	struct edt_ft5x06_ts_data *tsdata =
-+		container_of(follower, struct edt_ft5x06_ts_data, panel_follower);
-+
-+	/* Downloading firmware takes a while, don't hold up the panel */
-+	schedule_work(&tsdata->panel_work);
-+
- 	return 0;
- }
- 
-+static int edt_ft5x06_panel_unpreparing(struct drm_panel_follower *follower)
-+{
-+	struct edt_ft5x06_ts_data *tsdata =
-+		container_of(follower, struct edt_ft5x06_ts_data, panel_follower);
-+
-+	cancel_work_sync(&tsdata->panel_work);
-+
-+	guard(mutex)(&tsdata->mutex);
-+
-+	if (tsdata->powered_off)
-+		return 0;
-+
-+	disable_irq(tsdata->irq);
-+	gpiod_set_value_cansleep(tsdata->reset_gpio, 1);
-+	tsdata->powered_off = true;
-+
-+	return 0;
-+}
-+
-+static const struct drm_panel_follower_funcs edt_ft5x06_panel_follower_funcs = {
-+	.panel_prepared = edt_ft5x06_panel_prepared,
-+	.panel_unpreparing = edt_ft5x06_panel_unpreparing,
++static const struct fts_ram_chip fts_ft8722 = {
++	.boot_id = { 0x87, 0x22 },
++	.chip_id = 0x87,
++	.len_unit = 2,
++	.pram_max = 88 * 1024,
++	.dram_base = 0xd00000,
++	.packet_len = 32 * 1024 - 16,
++	.boot_delay_ms = 8,
++	.default_fw = "focaltech/ft8722.bin",
 +};
 +
-+static void edt_ft5x06_cancel_panel_work(void *data)
++static int ft8722_boot(struct device *dev, struct gpio_desc *reset)
 +{
-+	struct edt_ft5x06_ts_data *tsdata = data;
-+
-+	cancel_work_sync(&tsdata->panel_work);
++	return fts_ram_boot(dev, reset, &fts_ft8722);
 +}
 +
-+static int edt_ft5x06_register_panel_follower(struct edt_ft5x06_ts_data *tsdata)
++static const struct edt_ft5x06_chip_data edt_ft8722_data = {
++	.max_support_points = 10,
++	.tdata_reg = 0x01,
++	.boot = ft8722_boot,
++};
++
++static int edt_ft5x06_spi_probe(struct spi_device *spi)
 +{
-+	struct device *dev = tsdata->dev;
-+	int error;
++	const struct edt_ft5x06_chip_data *chip_data;
++	struct regmap *regmap;
++	int ret;
 +
-+	INIT_WORK(&tsdata->panel_work, edt_ft5x06_panel_work);
-+	error = devm_add_action_or_reset(dev, edt_ft5x06_cancel_panel_work,
-+					 tsdata);
-+	if (error)
-+		return error;
++	chip_data = spi_get_device_match_data(spi);
++	if (!chip_data)
++		return -ENODEV;
 +
-+	tsdata->panel_follower.funcs = &edt_ft5x06_panel_follower_funcs;
++	if (!spi->bits_per_word)
++		spi->bits_per_word = 8;
++	ret = spi_setup(spi);
++	if (ret)
++		return ret;
 +
-+	return devm_drm_panel_add_follower(dev, &tsdata->panel_follower);
++	regmap = regmap_init(&spi->dev, &fts_spi_regmap_bus, spi,
++			     &fts_spi_regmap_config);
++	if (IS_ERR(regmap))
++		return dev_err_probe(&spi->dev, PTR_ERR(regmap),
++				     "failed to init regmap\n");
++
++	return edt_ft5x06_probe(&spi->dev, regmap, spi->irq, chip_data,
++				BUS_SPI, NULL);
 +}
 +
- int edt_ft5x06_probe(struct device *dev, struct regmap *regmap, int irq,
- 		     const struct edt_ft5x06_chip_data *chip_data, u16 bustype,
- 		     struct dentry *debugfs)
-@@ -1331,14 +1450,24 @@ int edt_ft5x06_probe(struct device *dev, struct regmap *regmap, int irq,
- 	tsdata->factory_mode = false;
- 	dev_set_drvdata(dev, tsdata);
- 
--	error = edt_ft5x06_ts_init_hw(tsdata);
--	if (error)
--		return error;
-+	/*
-+	 * A controller sharing its power with a panel can only be accessed
-+	 * once the panel is up, so leave it in reset and do the rest of the
-+	 * initialization from the panel follower callback.
-+	 */
-+	tsdata->is_panel_follower = drm_is_panel_follower(dev);
-+	if (!tsdata->is_panel_follower) {
-+		error = edt_ft5x06_ts_init_hw(tsdata);
-+		if (error)
-+			return error;
-+	}
- 
- 	irq_flags = irq_get_trigger_type(irq);
- 	if (irq_flags == IRQF_TRIGGER_NONE)
- 		irq_flags = IRQF_TRIGGER_FALLING;
- 	irq_flags |= IRQF_ONESHOT;
-+	if (tsdata->is_panel_follower)
-+		irq_flags |= IRQF_NO_AUTOEN;
- 
- 	error = devm_request_threaded_irq(dev, irq, NULL, edt_ft5x06_ts_isr,
- 					  irq_flags, dev_name(dev), tsdata);
-@@ -1347,6 +1476,14 @@ int edt_ft5x06_probe(struct device *dev, struct regmap *regmap, int irq,
- 		return error;
- 	}
- 
-+	if (tsdata->is_panel_follower) {
-+		tsdata->powered_off = true;
-+		error = edt_ft5x06_register_panel_follower(tsdata);
-+		if (error)
-+			return dev_err_probe(dev, error,
-+					     "failed to follow the panel\n");
-+	}
++static void edt_ft5x06_spi_remove(struct spi_device *spi)
++{
++	edt_ft5x06_remove(&spi->dev);
++}
 +
- 	dev_dbg(dev,
- 		"EDT FT5x06 initialized: IRQ %d, WAKE pin %d, Reset pin %d.\n",
- 		irq,
-@@ -1374,6 +1511,10 @@ static int edt_ft5x06_ts_suspend(struct device *dev)
- 	if (device_may_wakeup(dev))
- 		return 0;
- 
-+	/* The panel powers us down and up */
-+	if (tsdata->is_panel_follower)
-+		return 0;
++static const struct of_device_id edt_ft5x06_spi_of_match[] = {
++	{ .compatible = "focaltech,ft8722-ts", .data = &edt_ft8722_data },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, edt_ft5x06_spi_of_match);
 +
- 	if (tsdata->suspend_mode == EDT_PMODE_NOT_SUPPORTED)
- 		return 0;
- 
-@@ -1415,6 +1556,9 @@ static int edt_ft5x06_ts_resume(struct device *dev)
- 	if (device_may_wakeup(dev))
- 		return 0;
- 
-+	if (tsdata->is_panel_follower)
-+		return 0;
++static const struct spi_device_id edt_ft5x06_spi_ids[] = {
++	{ "ft8722-ts", (kernel_ulong_t)&edt_ft8722_data },
++	{ }
++};
++MODULE_DEVICE_TABLE(spi, edt_ft5x06_spi_ids);
 +
- 	if (tsdata->suspend_mode == EDT_PMODE_NOT_SUPPORTED)
- 		return 0;
- 
++static struct spi_driver edt_ft5x06_spi_driver = {
++	.driver = {
++		.name = "edt_ft5x06_spi",
++		.dev_groups = edt_ft5x06_groups,
++		.of_match_table = edt_ft5x06_spi_of_match,
++		.pm = pm_sleep_ptr(&edt_ft5x06_pm_ops),
++		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
++	},
++	.id_table = edt_ft5x06_spi_ids,
++	.probe = edt_ft5x06_spi_probe,
++	.remove = edt_ft5x06_spi_remove,
++};
++module_spi_driver(edt_ft5x06_spi_driver);
++
++MODULE_IMPORT_NS("EDT_FT5X06");
++MODULE_AUTHOR("Luka Panio <lukapanio@gmail.com>");
++MODULE_DESCRIPTION("EDT FT5x06 SPI Touchscreen Driver");
++MODULE_LICENSE("GPL");
++MODULE_FIRMWARE("focaltech/ft8722.bin");
 -- 
 2.55.0
 
