@@ -1,97 +1,122 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA6FB483817
-	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 11:17:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFAAB419FDC
+	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 11:20:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792235880; cv=none; b=KqBkYj2kjsWW4uxgnyz8VJo/Jio1H018pGJEgEDgsRev11AbrPv6cZHqpPJtrnkgvj2mqO/G5W21MTcb7H3aamI+l97ddLYyyo664da//pyHpGsjLkJ27tNamX2HZcO603LbiGkjYrg+i8rqIjK96kGnl1Hcir2HsiZOMB/rdgY=
+	t=1792236053; cv=none; b=lE/DFmerQDTOF6DnVtuPh14doUoT2e+4tZKKNY+yAJeNBcWrS4u4B2mi3O0TlTbFfuI5J76k1+5O7DkCAXAJHTH/1QOO+3DAf8IeT/cylQF1v51WAzLE/x0if/sOCVtVuO0fOEhbuXcs3+OXk+ZG3E3++UOBGC4GG5GV8TWmvCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792235880; c=relaxed/simple;
-	bh=qnaU4A9xveettmpS+vopSNolBG6QJGbtDjGNYstTtWY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=S5Y4/gSOHZqXtMTgWSV/WPbgNO8OhoretVNL5biLjD06+U0nJ2omI+6F23HP5is0gY4I7wh0UbvrnQAhcLcCYBpmcczZEesViEnCiAOzwOq/uio9r4UBkvC3pPnpcdRHIM3CGkyrySn3ORaph1pU/c8JAWBKMHcKgaVNAorHTy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=c/d1+QMq; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	s=arc-20240116; t=1792236053; c=relaxed/simple;
+	bh=L4CdzbFOFYCVp195C6yGLZi9s3DcvC9PJsm+Mw9p058=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=uvkdIB7uV9C9gVfOk0vD/VmsP4MhL2khohpAHT3V2oR581gXEhiZfRKahXkcqp7bGH3WlL696hBCX4peRgezAjd+n6adM9V2GgXLuxXd+geRPE4Lw1X598TeI6iTDmrMLl7Ki0tscNr9qj1vQFK/2a2gjQTGWS2DZO+KIRwgqRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JpgSANDD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="c/d1+QMq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=wxuk
-	6IDriLl7MXn594d/LjgaXzjR4puXOU8/hIVUu9c=; b=c/d1+QMqtQyDgaUoeZH6
-	ERLHM6l26dA0mOpWZEIpoRWkLzN0XWkgma+AeD36oEsGg5o3EfdzYX5Cp5/eNCqE
-	ZGY2axdqXfL48EsScQ63GecPZRcY7sZ6nUlB2Ylr+CW2IR6OMwsXSXGgTNRJT6i6
-	v52jeP409R6LS0ERvQhF/AyWBv3jip8SDH3HXI7EHBbo73+SA7EPdLrAnkKd/4OI
-	2tk5DWbM+4MdAIO2pKaKElHilapT8folp/DDiZ+nSbrNrg9um27iF3PT18TrOrkd
-	Goa+tyLk8oU1lkUEPPKeBlEYpwLrTxeJn8LfXnneWZvqJuroxZ71FbAstfVgUiPd
-	ZA==
-Received: (qmail 984 invoked from network); 17 Oct 2026 13:17:42 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 17 Oct 2026 13:17:42 +0200
-X-UD-Smtp-Session: l3s3148p1@5eDrbQdeOsMujnuO
-Date: Sat, 17 Oct 2026 13:17:41 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Kevin Hilman <khilman@baylibre.com>, Vinod Koul <vkoul@kernel.org>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
-	=?utf-8?Q?Cl=C3=A9ment?= Le Goffic <clegoffic@baylibre.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v4 0/8] R-Car X5H Ironhide CPG/MDLC SCMI remapping support
-Message-ID: <atNZVWSjJV8GiK9n@shikoro>
-References: <cover.1792163045.git.geert+renesas@glider.be>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JpgSANDD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27FC11F000C4;
+	Sat, 17 Oct 2026 11:20:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792236052;
+	bh=nmoYhnuK7kwyRfLmt55IfamCERFkazLdlT0TZlhzY+o=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JpgSANDD7jCTLTso6TeHx/MPNLd3FNKZ1NwMYOYcF/R0gkrDGPSCvi4gaF22j8Lrv
+	 quVA+V2JrAhvwPp9iK6lzHfa/U+Yy1Y/GYvnggq75BecMSv49oG7eKbe/J5Br43GSq
+	 biQWQRTzU9UUAvpB7DWegYp+El8rJCHfS5gjqD8PZpHNYuOO7k769Wv5UGukILZnUN
+	 WESG4JUP3JFXx2/Ley30k9yORmUdD9D/fK6TIfNr4VqrF/bAYnO7ks6x8xI1ub0/yd
+	 Saa7rSvBLeav3rBLxXvG0j8C/6vY3jBPqX91S8ZlT1HruxAwLh7H0QxXeqEmH6Y6cY
+	 tWsj0aLvZOqKw==
+Message-ID: <sashiko-outbox-175489@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v2 1/5] dt-bindings: net: maxlinear: add
+ MxL86211C VDDP supply
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Robert Marko" <robert.marko@sartura.hr>, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261016112033.949026-1-robert.marko@sartura.hr>
+References: <20261016112033.949026-1-robert.marko@sartura.hr>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 17 Oct 2026 11:20:51 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1792163045.git.geert+renesas@glider.be>
 
-Hi Geert,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: overly restrictive select block breaks validation f=
+or other PHYs
+--
 
-thank you very much for this update!
+commit 695546f38e461889fde9ccbc3738543cebc3766c
+Author: Robert Marko <robert.marko@sartura.hr>
 
-> During last OSSJ/LPC, Marek Vasut pondered if we could keep our own ID
+dt-bindings: net: maxlinear: add MxL86211C VDDP supply
 
-Well, it is not the last LPC anymore ;) Time flies...
+This commit describes the VDDP supply used by the MxL86211C PHY.
+It adds a new schema section to validate that the supply requirement is met
+when the MxL86211C PHY ID is present.
 
-> This series consists of four parts:
->   A. Patches 1-2 prepare and add SCMI remapping support to the R-Car X5H
->      CPG clock driver,
->   B. Patches 3-6 fix and add new interfaces needed for remapping in the
->      R-Car X5H MDLC pmdomain driver,
->   C. Patch 7 adds SCMI remapping support to the R-Car X5H MDLC pmdomain
->      driver,
->   D. Patch 8 enables more SCMI protocols on R-Car X5H Ironhide.
+> diff --git a/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml =
+b/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
+> index 8a3713abd1ca9..a0dfb6192d81b 100644
+> --- a/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
+> +++ b/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
+> @@ -10,10 +10,38 @@ maintainers:
+>    - Andrew Lunn <andrew@lunn.ch>
+>    - Michael Walle <michael@walle.cc>
+> =20
+> +select:
+> +  properties:
+> +    compatible:
+> +      contains:
+> +        const: ethernet-phy-idc133.5400
+> +  required:
+> +    - compatible
 
-I rebased my I2C branch to it, enabled the debug output and can confirm
-that the clocks and resets are now mapped and I2C still works fine. So,
-for the whole series:
+[Severity: Medium]
+Does this top-level select block restrict the entire schema to only match t=
+his
+single PHY ID? By acting as a gatekeeper for the whole schema, it appears t=
+his
+breaks validation for all other supported GPY2xx PHYs.
 
-Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+For example, the maxlinear,use-broken-interrupts property intended for
+GPY215B/C might no longer be validated, and even pre-existing examples in t=
+he
+schema might fail to match.
 
-The branch is here:
+> +
+>  allOf:
+>    - $ref: ethernet-phy.yaml#
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: ethernet-phy-idc133.5400
+> +      required:
+> +        - compatible
+> +
+> +    then:
+> +      required:
+> +        - vddp-supply
+> +
+> +    else:
+> +      properties:
+> +        vddp-supply: false
 
-git://git.kernel.org/pub/scm/linux/kernel/git/wsa/linux.git renesas/x5h/i2c-experimental
+[Severity: Medium]
+Since the top-level select block already guarantees that the compatible str=
+ing
+contains ethernet-phy-idc133.5400, does this else branch become dead code?=
+=20
 
-All the best,
+The if condition will always evaluate to true when this file is applied, so
+this branch won't be able to enforce the vddp-supply restriction on other
+PHYs.
 
-   Wolfram
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016112033.9490=
+26-1-robert.marko@sartura.hr?part=3D1
