@@ -1,314 +1,309 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B55D33603D3;
-	Sat, 17 Oct 2026 19:34:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A91A3B637E
+	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 19:46:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792265656; cv=none; b=BF3FljSAtjkQlErzIb3rnVJhOA/mzbXmEmhOmtj1nz9J8pSgHQx/vBm4L4GVoA1yVY/2KmfgwPFVWAPd9Qt7d527Lg3TjwArcQAixvBX/eRF/L34mmAyGG54MaiLc9N9+B373FDR+dTnU1izpe13uoGfODWzd9RJDLKqNeIuT84=
+	t=1792266373; cv=none; b=VWmcNK1koCwQclISLW7GxlEjR3CxP4LHpMKK0cNEyWgWrxA6ZBGxcH8W7Tkeez+XVu0jjOriuPxn0XYv/IdlgTz42l2e9VS0burIpD2i0A1TLpwj+jTvGF5pf7xOVrVx98cl+JMAqkEcD5WmwCMd2mtMJtiisg9feLdw3y6jKfI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792265656; c=relaxed/simple;
-	bh=/K+3a1OL3gzh2Z0TyY1hczg1YM0bpfYgAX5Hac+jzrI=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=mSrOgyPMiT7zJxw5eMt6kLQPCQeM9SqHa94SIepwERh19HzGBi+LUUwrOOY6/mKsjwcDxnSqTnKB0AOxpp3rpclKGrzWaV8CKn2rmiSjyZ8f05HFgdE+48o5us2jv/PIuglTj+xNHbRWi2Cp5FoFIcTODm5se5IfQqNsIZ9h0s8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=agRW1Nh6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792266373; c=relaxed/simple;
+	bh=ZsisjnqSttJ4KE8ATzeY3F/Qtxk0ftJjUAROm3Y/9HY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=UeTWQ4DEADtoWt2IDoViQbG3Tv2bSLZ6pSuMgjw4RgZQMFY77IiRxK/KShgive2ymTFFRO0pJO3vJc1WHwbJhWAh02E1nnKmIpN65MHwNe2B8o/xPc6cvR7CNSbWGZ3PS9ylgXqv2atX1oO70M+70yOSY+Ormk9YVRLjTmq/mSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qs8BHShX; arc=none smtp.client-ip=209.85.210.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="agRW1Nh6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BFEC1F000C4;
-	Sat, 17 Oct 2026 19:34:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792265652;
-	bh=cqKJc8Dn42oaH9s2Flfh+rSmqmVJjealRFxS/ydXdg4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=agRW1Nh6l+s7rdZXuEAwYJXB5WcT2p5E1qUZipS11Mnv8Q+S1qx7vT4fPQYRrcTuf
-	 rezmFZ78NFB2NtNRVuLyN993xdVvdrWkBRYiOwLo8VK7VDhKz6ujXZX1RTUEyy9tEC
-	 cnQFYix27rOKNcspRNr9OG02MLTnwU88saLyRsjymVpcMnB3tuGBvOnq427N7Mi8UY
-	 luG4y+jD6bPYIGsH/pFPfDsRPTl5axqYm2TPhOh4DtcrqbEzV4ESKzaKkLd8bhlV0X
-	 oln3ROWUuSx9ZErH8DKDYzJtFbgx6neM1hSIUJuL6U+Yg8cK0fWoUrCt2ISb/sZPQN
-	 SPdZESEFyOZow==
-Message-ID: <sashiko-outbox-175787@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [net-next,PATCH 2/2] enetc: Make eMDIO MDC rate configurable
- from DT
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marek Vasut" <marex@nabladev.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261016193344.115518-2-marex@nabladev.com>
-References: <20261016193344.115518-1-marex@nabladev.com>
- <20261016193344.115518-2-marex@nabladev.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 17 Oct 2026 19:34:11 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qs8BHShX"
+Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-8439fe796ebso552551a34.3
+        for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 12:46:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792266370; x=1792871170; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Y6U7yD1KMbiV4YstLaKTX39G1im47gZROCUD/mh3EZM=;
+        b=Qs8BHShX5jSmQpEu9Exbbe3cz0NzANRwnJsbeWa2euGegl58vkQLScAQOFYs4FxNgN
+         HzNIvv/l7syquyadjqWj+rU7+F8gXhbYDUNQZFKlGh+S1WcCiF2PzWgJw8xkHWvdQBnt
+         v+ElgKhf5r0MIQXKxtVs6f1SKhBULIv2BQk0WZ1acnQOhJCzJUhlRXxvBqwde9tz0Fhp
+         EZa1vuCVFn6l0lu6CLTeqPdadFnW2FbxAZAe0zsW5ueYajlRgJsHs1bI0hFB+rJoTzpB
+         SJyWqwis22NarbA1L55tICovdI7GD35HYZkxdNA+HSNMF0aQeFrJPUhcI5a2u9QLbgaE
+         IrMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792266370; x=1792871170;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Y6U7yD1KMbiV4YstLaKTX39G1im47gZROCUD/mh3EZM=;
+        b=jgiLTSjlct0BnJ/BsscEeqCQF+6z0MlLHNm+6O1tDZ4b8elwTygxCpmqt3ZAyS6Yn9
+         wXKlkwuoEaWo4sVqm+dZGvjYf6/IwPWHPJx3vXzPxrnQwhOYZUOOQLOR02hJ5NSr4J9M
+         /wHrFbG8HtPoMzzJIzDAic8m2/K4nlVrKnzFSe78BSrd6Hd/Z+kzXKwEm9cU+I8rFix7
+         TZkNzDTTG9Fn/bOBtAqLqXQFWn1gPPi5Krwd0g9A2qNsUrNIhw8qwwtMcOfC4fhKIhIZ
+         7FI4aQrCzDheuGKKjMAXZYU0vYlz4hosCzx5flboZoAmn0EclzsqmIH1YUcBHUhslF6g
+         fPJg==
+X-Forwarded-Encrypted: i=1; AKwUvBwHSSqStCWp0rPq0zIK//jOxjUlvc4/xN1amY6j82AOzyVP3ZCYW6NJYtV5/otTjDjkDJ+INYTYEY5S@vger.kernel.org
+X-Gm-Message-State: AFq9FYIM1UkA5Undx0a2Dm6mks6MuD+CfKIoclHQg6utzDfMN+wLU8kt
+	IlXAU1Y/9EbO021p/xcpg0Wr7Pa3HsQ3+r69xKXbkOpC59EXdf6KbA0lXGzHsX/z
+X-Gm-Gg: AYBFou04mHeSKIDBSA4En41c+LzgYDGyccFG4G6DEtf6b8/i82ZWUY0hsUl1oMOKdqK
+	n+jcIaZIz7Pz5mxjGN7RcF5k5jJmZ29kkG/BNEOfEZamdag54mSoQOMK2TFK7jFIZhPtzVT1pYq
+	C8burTDePzdJxwisNgTgD+tS5e4hDe3AtUjqWk80yR+s2avzrf3A/5Bv50+rDmTzRwDk5aTcZZb
+	nfg1G2wP0JMk2OlvTnRZ2EHj5csT/jcx24kQgPId/j/UtzKXU8TtaoHRnXrB+7v6QniYOoF8fbx
+	TzVwokw3JkvRiuW77TxyXBehbNpwWYv0QI/MWNbZUYzO0RudMP0xu4dF/OYSEBgaZyX9VPHV0FZ
+	ivIKlGyWiVK+B8MDs6oNtsmEo7noMbh3Cf7mPJRL53R/inpXPupnSjjeSrdwz7oNHBJLGDF5Lvl
+	kPQdGMlgosQjBSplxoIW88LHlCeEmgPYcraK38CeT2Kawc0rbBwlg7MajNEroZQCav3Lee/Km5+
+	mp+sY7gIdZRhgzF6MXisBKaONYaVEQBOPSb83SKPxMGaZ3WzE+2dLuP+4QIsbcVCdzA1E4UJxxx
+	zXMYH9zCPsFs3tGQXDiDLV24jGkKMwQ18KfQLqjtcJwgwrqJkMlk/DQ8BsJWLYn6dk/ApsNzInw
+	lfJzw18zxb9nGYx//fINrzw==
+X-Received: by 2002:a05:6808:4f1f:b0:4b9:a8ac:479 with SMTP id 5614622812f47-53ccaf25927mr2916541b6e.23.1792266370041;
+        Sat, 17 Oct 2026 12:46:10 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-5388dd8b5a2sm4025321b6e.12.2026.10.17.12.46.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 12:46:09 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Subject: [PATCH v9 00/18] mtd: rawnand: sunxi: fix transfers and support
+ randomized OOB
+Date: Sat, 17 Oct 2026 13:45:55 -0600
+Message-Id: <20261017-submit-sunxi-nand-vendor-oob-layout-v1-v9-0-b624c09e3ee5@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5XRS2rDMBAG4KsEraui0dtd9R6li9ErUUmsYjsmI
+ fjulVNoTbxxQCB+GL4ZZm6kj12OPXnb3UgXx9zn0tbQvOyIP2C7jzSHmglnXDMLjPZnd8pD/dp
+ Lpi22gY6xDaWjpTh6xGs5D3QEGgWADMC8bzyp2HcXU77cG318/uYqfUU/zPpcccj9ULrrfZIR5
+ rqnm9bHqNTCKoEgMTTv+xPm46svJzI3Hfk/2zC5meWVdcCZkUmiR/PIiiXbbGZFZa2w3jGHoOS
+ KlQsW+GZWzktALV0MjeR8tQS1ZMVmVlXWBAPAjEadVtPqJbt9t7qyPDlmZYrMKHhkzR8L7AnWV
+ FYFkbzGwAOuWLtk1WbWzidzKK2F5GK0S3aaph9XhcTCTwMAAA==
+X-Change-ID: 20260810-submit-sunxi-nand-vendor-oob-layout-v1-e3114d10cc9c
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, 
+ Richard Genoud <richard.genoud@bootlin.com>, 
+ Boris Brezillon <bbrezillon@kernel.org>, 
+ Masahiro Yamada <yamada.masahiro@socionext.com>, 
+ Brian Norris <computersforpeace@gmail.com>, linux-mtd@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
+ devicetree@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>, 
+ Sashiko <sashiko-bot@kernel.org>, Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.15.2
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] net: dsa: netc: uninitialized mdc_div in netc_port_create_emdio_bu=
-s()
-- [High] net: enetc: enetc_mdio_update_mdc_div() queries bus->parent instea=
-d of MDIO node
-- [Medium] enetc: mii_bus and pci_iomap() leaks on enetc_mdio_update_mdc_di=
-v() error
-- [Medium] net: enetc: MDIO_CFG_CLKDIV() drops LSB of 9-bit MDC divider
---
+Patches 1-16 address the existing driver independently of the Allwinner
+randomized-OOB format in patches 17-18. Please review and apply that prefix
+regardless of whether the format extension is accepted. Supported geometries
+keep their existing on-flash ECC layout, bad-block-marker representation
+and raw callbacks.
 
-commit f237be9574cf74fc03c82f92befcff8d462ed078
-Author: Marek Vasut <marex@nabladev.com>
+Patch 1 centralizes OOB handling without changing behavior. Patches 2-12
+fix the controller's ECC step limit, logical-step lengths, read and write
+error handling, completion reuse, pattern handling, duplicate program
+confirms, small-page read commands and the H6/H616 user-data register limit.
+Patches 13-16 then reduce repeated status reads, column changes, chip setup
+and length-register accesses.
+The pattern fixes precede status caching so correctness can be reviewed
+before the register-access optimization.
 
-enetc: Make eMDIO MDC rate configurable from DT
+Here, "user data" means ECC-protected metadata in OOB, not the page's main
+data. PIO reuses hardware slot zero for each logical ECC step; DMA can
+transfer several steps at once. The patches distinguish logical steps,
+hardware slots and packed register offsets, and explain their triggering
+conditions independently of the format work that prompted the review.
 
-This commit adds an mdc_div field to struct enetc_mdio_priv and introduces
-enetc_mdio_update_mdc_div() to calculate the MDC clock divider from an
-optional upstream clock and clock-frequency DT property.
+The IRQ fix retains timeout-only disable_irq() and explains both the
+forced-threaded PREEMPT_RT race and the unbounded cleanup/no-priority-
+inheritance tradeoff. The small-page fix is limited to read-side
+repositioning within existing geometry restrictions. DMA batching preserves
+the installed OOB layout rather than capping its allocation.
 
-> diff --git a/drivers/net/dsa/ocelot/felix_vsc9959.c b/drivers/net/dsa/oce=
-lot/felix_vsc9959.c
-> index 8387dd208adb9..dbeec1b229325 100644
-> --- a/drivers/net/dsa/ocelot/felix_vsc9959.c
-> +++ b/drivers/net/dsa/ocelot/felix_vsc9959.c
-> @@ -1008,8 +1008,13 @@ static int vsc9959_mdio_bus_alloc(struct ocelot *o=
-celot)
->  	 * starting with the proper offset.
->  	 */
->  	mdio_priv->mdio_base =3D 0;
-> +	mdio_priv->mdc_div =3D ENETC_MDIO_DEFAULT_DIVIDER;
->  	snprintf(bus->id, MII_BUS_ID_SIZE, "%s-imdio", dev_name(dev));
-> =20
-> +	rc =3D enetc_mdio_update_mdc_div(bus);
-> +	if (rc)
-> +		return rc;
+For devices provisioned with the Allwinner normal-page format, support is
+required compatibility with existing flash contents, not a preference for
+another layout. Its bad-block marker is randomized: applying the existing
+plain-marker compensation can make normal OOB reads and bad-block scans
+interpret good blocks as bad. Switching formats is not a transparent
+kernel upgrade.
 
-[Severity: Medium]
-Does this error path leak bus?
+Patch 17 documents the opt-in binding; patch 18 implements the format
+through separate OOB callbacks and an attach helper. Its geometry,
+page-wide classification and contiguous parity reads stay together.
+Without the property, existing format selection and callbacks are unchanged.
 
-In vsc9959_mdio_bus_alloc(), bus is allocated earlier with non-devm
-mdiobus_alloc_size():
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 
-	bus =3D mdiobus_alloc_size(sizeof(*mdio_priv));
-	if (!bus)
-		return -ENOMEM;
+Changes in v9:
+- Add an independent fix rejecting pages that exceed the controller's ECC
+  step limit, as reported by Sashiko. Keep it after the initial refactor and
+  retain the final ECC step size when validating explicit or maximized ECC.
+- Add missing Reported-by and report links for the IRQ lifetime,
+  small-page read and DMA user-data batching fixes.
+- Make the existing PIO and DMA OOB-read branches explicit in the initial
+  refactor, preserving their transfer ordering and error handling.
+- Add a cached pattern-ID accessor with status caching, so the Allwinner
+  format can request pattern IDs without duplicating the shared reader's
+  register-read conditions.
+- Clarify OOB callback indices, buffer and ECC-cache lifetimes, and why
+  an empty pending-event mask completes the IRQ timeout recheck.
+- Explain packed parity placement and byte-based erased-page classification
+  as Allwinner format compatibility rules, distinct from hardware limits.
+- Link to v8: https://patch.msgid.link/20261015-submit-sunxi-nand-vendor-oob-layout-v1-v8-0-8ba4881fbee8@gmail.com
 
-If enetc_mdio_update_mdc_div(bus) fails (for example, when devm_clk_get()
-defers or fails, or when the calculated divider is out of range), returning
-rc directly skips calling mdiobus_free(bus), unlike the mdiobus_register()
-error path right below.
+Changes in v8:
+- Add a separate fix for the pre-existing zero-pattern overwrite reported
+  by Sashiko. Preserve synthesized data and OOB in the existing-format
+  read path without treating zero chunks as erased.
+- Place the fix after pattern-ID selection and update the later status
+  caching conversion to use the same pattern check. Keep the initial
+  refactor behavior-preserving and the Allwinner format callbacks unchanged.
+- Recheck the remaining command/DMA events after draining a timed-out
+  handler, as suggested by Sebastian Andrzej Siewior. Accept completion
+  during cleanup and balance IRQ disabling even when the recheck succeeds.
+- Link to v7: https://patch.msgid.link/20261014-submit-sunxi-nand-vendor-oob-layout-v1-v7-0-5d3fc6ad2da1@gmail.com
 
-> +
->  	/* Needed in order to initialize the bus mutex lock */
->  	rc =3D mdiobus_register(bus);
->  	if (rc < 0) {
-> diff --git a/drivers/net/ethernet/freescale/enetc/enetc_mdio.c b/drivers/=
-net/ethernet/freescale/enetc/enetc_mdio.c
-> index 998aaa394e9c4..93d61c2f1464f 100644
-> --- a/drivers/net/ethernet/freescale/enetc/enetc_mdio.c
-> +++ b/drivers/net/ethernet/freescale/enetc/enetc_mdio.c
+Changes in v7:
+- Put a behavior-preserving OOB refactor first, the correctness fixes next,
+  register-access optimizations after them, and the binding and Allwinner
+  format last. Keep 16 patches with no external prerequisites.
+- Keep logical-step length, read recovery, IRQ lifetime, write failures,
+  pattern IDs and DMA limits independently reviewable. Correct pattern-ID
+  selection before introducing per-transfer status caching.
+- Update both DMA callers with the protected-OOB helper contract in the
+  logical-step length fix, before the later batching change.
+- Isolate format policy behind its own callbacks and one opt-in attach
+  path. Fold packed H6/H616 geometry and contiguous parity reads into the
+  final patch, leaving existing format callbacks unchanged.
+- Use scrambled_plain_bbm_oob for the existing scrambled profile and
+  allwinner_oob for the firmware profile. Keep shared randomizer helpers
+  generic and name the H6-generation spare predicate after H6.
+- Clarify protected-OOB terminology, logical/hardware indices, transfer
+  failures and the limited small-page read scope. Explain the RT timeout
+  mechanism and disable_irq() tradeoff discussed with Miquel Raynal.
+- Explain installed-format compatibility and that the spare check re-encodes
+  ECC-decoded protected OOB rather than rereading physical bytes.
+- Drop the standalone OOB-helper renaming cleanup and explicit stable Cc
+  trailers; retain Fixes tags and Conor Dooley's binding Acked-by.
+- Rebase onto current MTD nand/next.
+- Link to v6: https://patch.msgid.link/20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-0-2fb084fe0751@gmail.com
 
-[ ... ]
+Changes in v6:
+- retain the bank-sized first DMA batch, but transfer later logical steps
+  individually to avoid PAGE_OP's absolute internally generated main columns
+- keep ECC exception mode enabled for randomized reads on all supported
+  controllers, using the shared physical-pattern classifier
+- classify uniform-pattern steps even when hardware suppresses their ECC
+  errors; skip their correction counters and preserve decoded buffers unless
+  the page-wide zero override or vendor spare predicate accepts the page
+- Link to v5: https://patch.msgid.link/20260913-submit-sunxi-nand-vendor-oob-layout-v1-v5-0-7d711076a6f7@gmail.com
 
-> @@ -22,9 +23,9 @@
->   /* external MDIO only - driven on neg MDC edge */
->  #define MDIO_CFG_NEG		BIT(23)
-> =20
-> -#define ENETC_EMDIO_CFG \
-> +#define ENETC_EMDIO_CFG(mdc_div) \
->  	(MDIO_CFG_HOLD(2) | \
-> -	 MDIO_CFG_CLKDIV(258) | \
-> +	 MDIO_CFG_CLKDIV(mdc_div) | \
->  	 MDIO_CFG_NEG)
+Changes in v5:
+- add a separate small-page command-handling fix: use READ0/READ1/READOOB
+  with the page address for rereads and normal OOB access, and select PIO
+  instead of the large-page DMA sequencer
+- keep physical reread errors visible, preserve the OOB cursor and retain
+  the existing ECC geometry requirements, including rejection of 512+16
+  with controller ECC
+- group the small-page fix and the DMA register-bank fix with the opening
+  fixes, ahead of cleanups, bindings, format support and optimizations
+- make the DMA register-bank fix independent of randomized-OOB support
+  and the later register-access optimizations
+- Link to v4: https://patch.msgid.link/20260912-submit-sunxi-nand-vendor-oob-layout-v1-v4-0-4a64bed94229@gmail.com
 
-[Severity: High]
-What happens to netc_port_create_emdio_bus() in
-drivers/net/dsa/netc/netc_main.c when ENETC_EMDIO_CFG uses
-mdio_priv->mdc_div?
+Changes in v4:
+- prepend an independent fix for completion reuse and IRQ timeout races:
+  initialize the completion once, finish IRQ register updates before
+  signalling success, and drain timed-out handlers before clearing their
+  interrupt state
+- add a separate fix for aggregate protected-user-data register overflow
+  by splitting DMA transfers into bounded batches, retaining the existing
+  OOB layout, ECC offsets and DMA support
+- distinguish logical page steps from batch-local hardware slots, retain
+  page-wide ECC accounting and avoid retrying partially transferred writes
+- Link to v3: https://patch.msgid.link/20260909-submit-sunxi-nand-vendor-oob-layout-v1-v3-0-838cb0ba1547@gmail.com
 
-In drivers/net/dsa/netc/netc_main.c:netc_port_create_emdio_bus(), the
-driver allocates struct enetc_mdio_priv via devm_mdiobus_alloc_size() and
-wires up the shared enetc_mdio callbacks without initializing
-mdio_priv->mdc_div:
+Changes in v3:
+- add a prerequisite fix for the logical OOB length used by PIO transfers
+- clarify logical ECC steps versus hardware slots and share protected-OOB
+  register indexing
+- select the controller-specific vendor spare-byte erased-page check from
+  the SoC capabilities, only in randomized-OOB mode and without rereading
+  the main data
+- retain hardware-decoded data and protected OOB on other ECC failures
+  for bad-block and BBT pattern scans (reported by Miquel Raynal)
+- retain a bad marker and ECC failure for all-zero physical pages, and
+  disable the ECC exception for the vendor format
+- share page classification between PIO and DMA, reading complete pages
+  for randomized-format subpage requests
+- propagate OOB read errors and defer randomized-format ECC accounting
+  until those reads have succeeded
+- propagate read/program setup, column-change and buffer-transfer errors,
+  including extra OOB; stop failed writes and disable ECC and randomization
+- discard partial DMA ECC statistics before retrying in PIO, and keep
+  correction counts separate from successful OOB-transfer status
+- select the current hardware step's pattern ID instead of slot zero
+- avoid a second program confirm after an OOB-only write
+- avoid redundant column changes before writing extra OOB bytes
+- reject oversized ECC steps in randomized-OOB mode before the core can
+  fall back to software ECC
+- combine adjacent parity and trailing OOB reads in randomized-OOB mode
+- remove duplicate chip setup immediately before core page commands
+- program each packed DMA user-data length register once per operation,
+  and write PIO slot zero directly without read-modify-write
+- reuse pattern IDs and packed error counters within a DMA read, while
+  refreshing the snapshot after every PIO ECC operation
+- Link to v2: https://patch.msgid.link/20260904-submit-sunxi-nand-vendor-oob-layout-v1-v2-0-b12074f4aca7@gmail.com
 
-	bus->name =3D "NXP NETC switch external MDIO Bus";
-	bus->read =3D enetc_mdio_read_c22;
-	bus->write =3D enetc_mdio_write_c22;
-	bus->read_c45 =3D enetc_mdio_read_c45;
-	bus->write_c45 =3D enetc_mdio_write_c45;
-	bus->parent =3D dev;
-	mdio_priv =3D bus->priv;
-	mdio_priv->hw =3D hw;
-	mdio_priv->mdio_base =3D NETC_EMDIO_BASE;
+Changes in v2:
+- rebase on the current MTD nand/next branch
+- retain the merged protected-OOB allocation, BBM reservation and
+  stack-buffer fixes
+- clarify that randomization is part of the normal hardware-ECC page
+  format while MTD_OPS_RAW continues to expose physical bytes
+- explain why a BSP-compatible BBM remains randomized in physical raw data
+- document the decoded bad-block and flash-BBT access paths
+- reject the firmware OOB format with software or disabled ECC
+- document the BSP page-format compatibility contract and the
+  older-controller format audit
+- Link to v1: https://patch.msgid.link/20260810-submit-sunxi-nand-vendor-oob-layout-v1-v1-0-463853a14ad9@gmail.com
 
-Because devm_mdiobus_alloc_size() zero-initializes bus->priv,
-mdio_priv->mdc_div remains 0. Every subsequent C22 or C45 MDIO read or
-write on a NETC switch port external MDIO bus will program
-MDIO_CFG_CLKDIV(0) into ENETC_MDIO_CFG instead of
-ENETC_MDIO_DEFAULT_DIVIDER (258), violating the hardware minimum divider
-requirement of 5.
+---
+James Hilliard (18):
+      mtd: rawnand: sunxi: centralize OOB handling
+      mtd: rawnand: sunxi: reject pages exceeding the ECC step limit
+      mtd: rawnand: sunxi: use the logical step's OOB length in PIO
+      mtd: rawnand: sunxi: propagate page-setup and erased-check errors
+      mtd: rawnand: sunxi: drain interrupts before reusing the completion
+      mtd: rawnand: sunxi: stop failed program operations and disable ECC
+      mtd: rawnand: sunxi: select the pattern ID for the current ECC step
+      mtd: rawnand: sunxi: preserve synthesized zero-pattern data and OOB
+      mtd: rawnand: sunxi: propagate buffer and column transfer errors
+      mtd: rawnand: sunxi: avoid a second program confirm for OOB writes
+      mtd: rawnand: sunxi: use page reads to reposition small-page NAND
+      mtd: rawnand: sunxi: bound DMA batches by the user-data register bank
+      mtd: rawnand: sunxi: reuse ECC status within each transfer
+      mtd: rawnand: sunxi: avoid redundant column changes for extra OOB
+      mtd: rawnand: sunxi: avoid duplicate chip setup before page commands
+      mtd: rawnand: sunxi: reduce user-data length register accesses
+      dt-bindings: mtd: sunxi: Add randomized OOB flag
+      mtd: rawnand: sunxi: support the Allwinner randomized OOB format
 
-Should netc_port_create_emdio_bus() also initialize mdio_priv->mdc_div?
+ .../bindings/mtd/allwinner,sun4i-a10-nand.yaml     |   10 +
+ drivers/mtd/nand/raw/sunxi_nand.c                  | 1578 ++++++++++++++------
+ 2 files changed, 1109 insertions(+), 479 deletions(-)
+---
+base-commit: 30daaf3e7897b4a8d9b72e5b0c86dd6e2a4d7d85
+change-id: 20260810-submit-sunxi-nand-vendor-oob-layout-v1-e3114d10cc9c
 
-[ ... ]
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
-> @@ -231,6 +232,32 @@ struct enetc_hw *enetc_hw_alloc(struct device *dev, =
-void __iomem *port_regs)
->  }
->  EXPORT_SYMBOL_GPL(enetc_hw_alloc);
-> =20
-> +int enetc_mdio_update_mdc_div(struct mii_bus *bus)
-> +{
-> +	struct enetc_mdio_priv *mdio_priv =3D bus->priv;
-> +	struct device *dev =3D bus->parent;
-> +	struct clk *enet_clk;
-> +	u32 div, mdc_freq;
-> +
-> +	if (device_property_read_u32(dev, "clock-frequency", &mdc_freq))
-> +		return 0;
-> +
-> +	enet_clk =3D devm_clk_get(dev, NULL);
-
-[Severity: High]
-Is bus->parent the right device to query for the clock-frequency property
-and input clock across all callers of enetc_mdio_update_mdc_div()?
-
-1. When called from enetc_mdiobus_create() -> enetc_mdio_probe() in
-drivers/net/ethernet/freescale/enetc/enetc_pf_common.c, bus->parent is
-&pf->si->pdev->dev (the parent ENETC PF PCI device), while the external
-MDIO bus is represented by the child DT node np (the mdio subnode passed to
-of_mdiobus_register(bus, np)). Any clock-frequency property placed in the
-mdio child node is ignored because device_property_read_u32() inspects the
-parent PF device instead.
-
-2. Furthermore, on ENETC4 PF nodes (such as pci1131,e101 in
-Documentation/devicetree/bindings/net/fsl,enetc.yaml and
-arch/arm64/boot/dts/freescale/imx95.dtsi), the parent PF node's clocks
-property is the MAC RGMII/RMII ref clock (IMX95_CLK_ENETREF), rather than
-the NETC system clock that drives MDC.
-
-3. When called from enetc_imdio_create() and vsc9959_mdio_bus_alloc(), the
-bus is an internal on-chip PCS MDIO bus (imdio) with no DT node of its own,
-so querying bus->parent inspects the parent PF or switch PCI device node.
-
-4. Also, since enet_clk is only used here to read clk_get_rate(enet_clk),
-does devm_clk_get() unnecessarily hold a managed clock reference on
-bus->parent for the lifetime of the device?
-
-> +	if (IS_ERR(enet_clk))
-> +		return dev_err_probe(dev, PTR_ERR(enet_clk),
-> +				     "Input clock unknown, not changing MDC frequency\n");
-> +
-> +	div =3D ((clk_get_rate(enet_clk) / mdc_freq) - 1) / 4;
-> +	if (div < 5 || div > 0x1ff)
-> +		return dev_err_probe(dev, -EINVAL,
-> +				     "Requested MDC frequency is out of range, ignoring\n");
-> +
-> +	mdio_priv->mdc_div =3D div;
-
-[Severity: Medium]
-Does MDIO_CFG_CLKDIV() drop the least-significant bit of odd 9-bit dividers
-calculated here?
-
-In drivers/net/ethernet/freescale/enetc/enetc_mdio.c, MDIO_CFG_CLKDIV is
-defined just above MDIO_CFG_ENC45:
-
-	#define MDIO_CFG_CLKDIV(x)	((((x) >> 1) & 0xff) << 8)
-	#define MDIO_CFG_HOLD(x)	(((x) << 2) & GENMASK(4, 2))
-	#define MDIO_CFG_ENC45		BIT(6)
-
-Shifting x right by 1 before shifting left by 8 is equivalent to
-(((x) & 0x1fe) << 7), which clears bit 7 (the LSB of the 9-bit
-MDIO_CLK_DIV[8:0] field at bits [15:7]) and turns any odd divider in
-[5, 0x1ff] into div - 1. In particular, when div =3D=3D 5, it passes the
-div < 5 check above but programs 4 into the hardware register.
-
-When commit dd8f467eda72 ("net/fsl: xgmac_mdio: Support setting the MDC
-frequency") added xgmac_mdio_set_mdc_freq(), it updated the corresponding
-macro from (((x>>1) & 0xff) << 8) to (((x) & 0x1ff) << 7). Should
-MDIO_CFG_CLKDIV(x) be updated the same way here?
-
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(enetc_mdio_update_mdc_div);
-> +
->  /* Lock for MDIO access errata on LS1028A */
->  DEFINE_RWLOCK(enetc_mdio_lock);
->  EXPORT_SYMBOL_GPL(enetc_mdio_lock);
-> diff --git a/drivers/net/ethernet/freescale/enetc/enetc_pci_mdio.c b/driv=
-ers/net/ethernet/freescale/enetc/enetc_pci_mdio.c
-> index e108cac8288d3..4ff182d7d21ec 100644
-> --- a/drivers/net/ethernet/freescale/enetc/enetc_pci_mdio.c
-> +++ b/drivers/net/ethernet/freescale/enetc/enetc_pci_mdio.c
-> @@ -71,8 +71,13 @@ static int enetc_pci_mdio_probe(struct pci_dev *pdev,
->  	mdio_priv =3D bus->priv;
->  	mdio_priv->hw =3D hw;
->  	mdio_priv->mdio_base =3D ENETC_EMDIO_BASE;
-> +	mdio_priv->mdc_div =3D ENETC_MDIO_DEFAULT_DIVIDER;
->  	snprintf(bus->id, MII_BUS_ID_SIZE, "%s", dev_name(dev));
-> =20
-> +	err =3D enetc_mdio_update_mdc_div(bus);
-> +	if (err)
-> +		return err;
-
-[Severity: Medium]
-Does returning err directly here leak the port_regs mapping?
-
-In enetc_pci_mdio_probe(), port_regs is mapped with non-devm pci_iomap():
-
-	port_regs =3D pci_iomap(pdev, 0, 0);
-
-When enetc_mdio_update_mdc_div(bus) fails, returning directly bypasses the
-err_pci_enable / err_mdiobus_alloc / err_hw_alloc cleanup path that calls
-iounmap(port_regs).
-
-> +
->  	pcie_flr(pdev);
->  	err =3D pci_enable_device_mem(pdev);
->  	if (err) {
-> diff --git a/drivers/net/ethernet/freescale/enetc/enetc_pf_common.c b/dri=
-vers/net/ethernet/freescale/enetc/enetc_pf_common.c
-> index d32a195a04c97..6b519871856eb 100644
-> --- a/drivers/net/ethernet/freescale/enetc/enetc_pf_common.c
-> +++ b/drivers/net/ethernet/freescale/enetc/enetc_pf_common.c
-
-[ ... ]
-
-> @@ -332,6 +337,7 @@ static int enetc_imdio_create(struct enetc_pf *pf)
->  	bus->phy_mask =3D ~0;
->  	mdio_priv =3D bus->priv;
->  	mdio_priv->hw =3D &pf->si->hw;
-> +	mdio_priv->mdc_div =3D ENETC_MDIO_DEFAULT_DIVIDER;
-> =20
->  	if (is_enetc_rev1(pf->si))
->  		mdio_priv->mdio_base =3D ENETC_PM_IMDIO_BASE;
-> @@ -340,6 +346,10 @@ static int enetc_imdio_create(struct enetc_pf *pf)
-> =20
->  	snprintf(bus->id, MII_BUS_ID_SIZE, "%s-imdio", dev_name(dev));
-> =20
-> +	err =3D enetc_mdio_update_mdc_div(bus);
-> +	if (err)
-> +		return err;
-
-[Severity: Medium]
-Does this error path also leak bus in enetc_imdio_create()?
-
-Here bus is allocated with non-devm mdiobus_alloc_size():
-
-	bus =3D mdiobus_alloc_size(sizeof(*mdio_priv));
-	if (!bus)
-		return -ENOMEM;
-
-Returning err directly when enetc_mdio_update_mdc_div(bus) fails skips the
-free_mdio_bus label that calls mdiobus_free(bus).
-
-> +
->  	err =3D mdiobus_register(bus);
->  	if (err) {
->  		dev_err(dev, "cannot register internal MDIO bus (%d)\n", err);
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016193344.1155=
-18-1-marex@nabladev.com?part=3D2
