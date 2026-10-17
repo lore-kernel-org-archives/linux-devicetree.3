@@ -1,334 +1,243 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38E7025524C
-	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 00:11:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 023944CF477
+	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 00:19:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792195890; cv=none; b=VY6kJCQRj3NacRlx9EQMS9IGmrWyH4ZJOTESXQd9wkVO/Aku49aUx/DS4BlmJTAZF4KOGapgtI9tssVdgeoOOIcqvR1ODgxRm4Kt/b7QSY75GeqppTUtAt5EtYFmNUnlyJ2Ia+oJVF3fUrXK3JimGR8/1EFJKfDxwQVxC/J6q1U=
+	t=1792196366; cv=none; b=sniOOYItqLPVB+gPceS/lNghVHkoxkw2ZGr0kUF/vfeGm1nSJOeL8yBqMHwDtGKjqVOZFntU07dZlbJ3MWvfllLMnKdjVOHnjiBuXL46O2rlwHziuyWZqESFIZKkyURbV6QnIW3zzskNpY58XQOPGnolNP4nDbfQJbvFWwBc6Ec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792195890; c=relaxed/simple;
-	bh=GncZ4YssOZVlGgLiEAYbI+2z4+k/22FvhlxQlnwN20c=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=UzVo4XR6GhFBZLbOXO8no8qYPYWQPbfO806d3i5+VE191efs9QkitexuCQHuagZh/Pp7D2Dxzl6Uvy0CieMmVCsYs1oOMgQ+8NquJyTM75J1d/M5CrWC96gVHKDWSfrfcUDS3R3MyUDlHHdMUFOAQC7d9TMGcb4RhAelSdZ2+SA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dR1UZJHM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ESUfl5TU; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792196366; c=relaxed/simple;
+	bh=8f+XDfP/P6xEkbYLBLzY3WlKn9qg/Gj/jD5N6M/o5hQ=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=fFdf2ENwo4g4eJbh3fxxOwYtwKqPY4rP/tolt4PdxyUgGBn4Jfe8+eIzD7qcFT3xhByd4Zn59rUvddlCgCIowUy/QcOq7eCwQfIlbI4uFJ+Cwed9T0MwDGzTIcJQ/5tfrt4sI9wwun1e8uY3/JFKCW5QaxG5cIzO87LFfqmqH34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EWHmQ8Qz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dR1UZJHM";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ESUfl5TU"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GNFAXh4085026
-	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 00:11:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=SiE+QSa0Nvv
-	sbAwwK476XtO4f+nn9xs+m6bRdi4G9q8=; b=dR1UZJHMeBDfjW8lc+FeUhx9Fot
-	pJvilkRvUBtIMxqi8uuTfFfSWY4V7dgVR/hi0AzYqZwtcnqL/yKR+hact8yMTo7D
-	i9FvvbyrartvdgueTJ3JialEaiDLII0O71w4NVqHnnV2+viqkzOpi4DeZiRDTAJ5
-	D0bl/ngGMKT2D2/x6Nd+D8tC9pFF0K2g1qz/hce4N7j4lkea516tvdj8lEIVU6l4
-	G1s9BYwoLjo3BcY2AXrH/4Nk5WMIPT1rh2OcDJNAyCvdf/Kyg/kN5w7EeiM0fU+P
-	719V3HWYRM8FsNGh/rTcktKUvDxF35RbSnhZc8ajFOZc58LKTUuCcL81YEw==
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hbmmq266y-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 00:11:27 +0000 (GMT)
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1383723dfddso899828c88.0
-        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 17:11:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792195887; x=1792800687; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SiE+QSa0NvvsbAwwK476XtO4f+nn9xs+m6bRdi4G9q8=;
-        b=ESUfl5TUeeWXRCwi9G0ZRVLoqmGGSyWY01qKocxQiS/cTUn7S+l7ahaNhR3XVlpLDN
-         md/ANRURiyyOezkCLhxX+SXWC3khOULFnA0OeK78bIbZjkHV8FzytgnOa6c5XaBXMJoL
-         0oSp7XAReIWLgvZ6aiU32NP3Wd1T0K9fJJX3+17V4TjiC58MRmQl+HJhKpKeDAia2222
-         JpJN6kGzb1EMlNeHx/tKWKfTRz+AncWG8DyKNm3tb1IcwA1Janr7KLhURfMcFtGpHBbU
-         6PVUIp1XntBnS2Q7s+5q43vKzQt2DdxoO7NxiuS/2n1XEuRspMdeytKoNhXSJfzLK7yd
-         8rCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792195887; x=1792800687;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SiE+QSa0NvvsbAwwK476XtO4f+nn9xs+m6bRdi4G9q8=;
-        b=TFs8C+eDUm0tI0NcDWG2QmPfdjdXgh87po8ILKzMGCnom5W+LhMhYzFTH1kbkUNG15
-         1RSbhwWq5ibk6CAU9IdJfYrONTn9RN0HmJ6FfK/ePDDm6jK2iEhm6xJepI99nRlydhoT
-         Srm6RJFwXtEkPbYHOBN7b4n42Mzj6uY13i6YJwlGZ1oqg4X7taThJL/P9YIw5ndIxhlA
-         T74Ku/pDJnwhoxqgCC368c8fg9yjvR8nIs8KSFxhQzNluPSZtLUGpL9h0Rrddyc4eJdd
-         8i85zcWT96ADM+OlJNzOK6DyrtDI+aUEL/dPqMo96OGq0z4fawZhpdKurIkADBbHzgnp
-         p5LQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxyOJPRZnCp3VlOs8AFhlb6BEYmyjGMQ4nosWcy2t6CA/dKIkhsQ+nfxGS7TdCs25w+rZNNMtAZBQtF@vger.kernel.org
-X-Gm-Message-State: AFq9FYKfLqTvst4J6ChvhrvNYda3evqOCGU0q6s/rog5QvxeGlS6ki3G
-	6+KT8hnsSEyFNTb2P0Ow6iqavohtwDhxPXudw2DZa217OJIg1KAuJFtiejg7RNxB+Cgtx6aT7Ay
-	nEd3f9QXadCtd/F7qhcaHYP5FzmZPR98RqWTGxkc2zL5szfh2/DXR2Ii9GYUVi4Ck
-X-Gm-Gg: AYBFou3vltCW3Ia268ZCiY8QdT3KHA+ksEAG7tT4ausNCXvdLDnCJYfAqgokyPztB4a
-	/hVMflAX7TiA5f2L0kIjyOqAURJCe2x8YYeJiycN/ROuv3V9mG9XMEP0zUkhvjCgWEz/pmpPxMS
-	n9Eklpd5o+1XsTf1VoSYTfesNg/1EsOG4NZFoslSY9bQUVBMMgNXk84FLSc8F83lWX0k6H7Xsn7
-	TuyZdJPKVdkGQcyisVIgg27ysJj+tjoPSQZE3HvT0lQwM7eAUqiIMwd+jUG1WnPzjxXsl4GuYWA
-	jdJbx2fx6Dxh/B0AHkYbs0NDYD3fScGtPQsz+aQ0PWCr11Sv87EgLIrh+SblF6WMpcgR9vRrnRa
-	vf6xg1rnCavnJ8h6XtAvnJzUO2SUKUhKx1CLINTo7MMVsHfMlcz7e+w==
-X-Received: by 2002:a05:7022:b050:b0:184:329d:eced with SMTP id a92af1059eb24-1851267070bmr1803701c88.25.1792195886572;
-        Fri, 16 Oct 2026 17:11:26 -0700 (PDT)
-X-Received: by 2002:a05:7022:b050:b0:184:329d:eced with SMTP id a92af1059eb24-1851267070bmr1803668c88.25.1792195886012;
-        Fri, 16 Oct 2026 17:11:26 -0700 (PDT)
-Received: from hu-aarunnan-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831a6f58c2sm13441361c88.11.2026.10.16.17.11.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 17:11:25 -0700 (PDT)
-From: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
-To: bryan.odonoghue@linaro.org, andersson@kernel.org, konradybcio@kernel.org,
-        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        bod@kernel.org, vladimir.zapolskiy@linaro.org,
-        loic.poulain@oss.qualcomm.com, mchehab@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, gjorgji.rosikopulos@oss.qualcomm.com,
-        jigarkumar.zala@oss.qualcomm.com,
-        hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
-        linux-media@vger.kernel.org, krzysztof.kozlowski@oss.qualcomm.com,
-        daniel@quora.org, konrad.dybcio@oss.qualcomm.com,
-        christopher.obbard@linaro.org, alex.vinarskis@gmail.com
-Subject: [PATCH 3/3] arm64: dts: qcom: kodiak: add CSI2 D-PHY common-phy providers
-Date: Fri, 16 Oct 2026 17:11:16 -0700
-Message-Id: <20261017001116.2318647-4-anusha.nandi@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261017001116.2318647-1-anusha.nandi@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EWHmQ8Qz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43E5D1F000C4;
+	Sat, 17 Oct 2026 00:19:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792196364;
+	bh=qnuqF05D0VYSabEnj5Xu9FSqeIx59gcj3O998nY5H5g=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EWHmQ8QzLMxsWvLm1fxADQF1vV3/UIX1ihlFyDjoij82R6xtwj6VRYAvOw34jHNvl
+	 uEIYygq+qSgFcfVT6r8gUJ0Sqo2+FH4WWByW/6Pv6L/vF0bx/WtOw0wj5edC5ZZL6c
+	 wAjbcixb3TfsAcRXsvJY/+y64ZeiYQzIdAghCOtbiEzs2NnxYIj6ct3EDkMUWAvAxn
+	 SBkfXW/qrJSLLi9rpflLQIksRUKJOKSvOvcFovPFB9Eqyj1eYRup2YFSTosbZDtbsi
+	 Ix99/wMvaEYNg2ksQnmzmgM16ja9bhCSN7VIvDUZ34gpPq+C6ArJyt6oavG2LhNolk
+	 eg+mCQdu9n8Ig==
+Message-ID: <sashiko-outbox-175063@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/3] arm64: dts: qcom: lemans: add CSI2 D-PHY common-phy
+ providers
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Anusha Arun Nandi" <anusha.nandi@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261017001116.2318647-2-anusha.nandi@oss.qualcomm.com>
 References: <20261017001116.2318647-1-anusha.nandi@oss.qualcomm.com>
+ <20261017001116.2318647-2-anusha.nandi@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 17 Oct 2026 00:19:23 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE3MDAwMCBTYWx0ZWRfX/qFpWslQlUaI
- 3np7aJ+vrJ3y/Ncn6F+4U67Zx5vixWFyJAadDkISalV+Ir24GTjvn89uPXBd9YUKgFW3reh9Q6Q
- rg1Twnoh4RdEulZKuVK4F8hgpQOkNxA=
-X-Authority-Analysis: v=2.4 cv=P9uvFSAu c=1 sm=1 tr=0 ts=6ad2bd2f cx=c_pps
- a=SvEPeNj+VMjHSW//kvnxuw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
- a=AEMvfOE69tE_Q1r2TxsA:9 a=Kq8ClHjjuc5pcCNDwlU0:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE3MDAwMCBTYWx0ZWRfX2fUGO7zc2NFA
- Z9aHLtK46EnE2Lu8jYnSnkXWZF/7SLkhO9dtqsji4OKocxwmjsWjYN1cNaLvvKYMP4V5ztvYJea
- iTVRPZw/K3S84VZFztG/MAu3PACOfFIxqnUiuADeTlrS4rNWuIByTBKHQvA5el16ZpQX3yOAYM7
- 98Rr9fmoCuu+AWHSM+flFCtqQb5JlCEpiIr7MCgh+SzRXKXv0y+fuDzU3C+ebLxpoh34+U+yfD2
- nZxpWBg2sp0uSrUq2F6ZXgogGG0ZN8zV3WD5llagn68aWKMvHOL78K32ALAEgVf5cK7wKJ/nyyZ
- bgjOH8561eTzAJYTkBTI6SSXKy9JbX+PMbMGfhsFePffycjZ0QiCQs0OmoIHcHgdtsZyuAiQ2VH
- /m0xm+jBk6nyNZqBnaxu25sAh0vrOlX1gG+24zaUI6sRCcdTOVantpKsmSZPGXFUlGhQCq9ef4n
- wI+H5/CzCm16xWIbnhQ==
-X-Proofpoint-GUID: Q8TiFWkhQBQHVaUugpEzwozPMavmMp0z
-X-Proofpoint-ORIG-GUID: Q8TiFWkhQBQHVaUugpEzwozPMavmMp0z
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-16_04,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 phishscore=0 adultscore=0 lowpriorityscore=0
- clxscore=1015 priorityscore=1501 bulkscore=0 impostorscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610170000
 
-Expose SC7280's five CSIPHYs as standalone
-qcom,sc7280-csi2-phy generic-PHY provider nodes (csiphy0..4) at their
-existing register addresses, each with its own OF graph (port@0
-sensor-facing, port@1 CAMSS-facing) so camss_detect_legacy_phy() picks
-the non-legacy path once a board wires a sensor through one of them.
-The camss node's own reg-names/clocks/interrupts for the CSIPHYs are
-unchanged, so boards that don't use a provider still get the legacy
-binding.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] arm64: dts: qcom: lemans: duplicate MMIO and IRQ resources in csip=
+hy0..3
+- [Medium] arm64: dts: qcom: lemans: undocumented compatible and missing cs=
+iphy driver
+- [Medium] arm64: dts: qcom: lemans: missing #phy-cells in csiphy0..3 provi=
+der nodes
+- [Medium] arm64: dts: qcom: lemans: invalid csiphy_opp_table bus placement=
+ and 300MHz OPP
+--
 
-The provider nodes are disabled by default; a board or camera overlay
-enables the one(s) it uses.
+commit 86878cdbb9d7bba4aeea8079cca2e39342692dee
+Author: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
 
-Signed-off-by: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/kodiak.dtsi | 172 +++++++++++++++++++++++++++
- 1 file changed, 172 insertions(+)
+arm64: dts: qcom: lemans: add CSI2 D-PHY common-phy providers
 
-diff --git a/arch/arm64/boot/dts/qcom/kodiak.dtsi b/arch/arm64/boot/dts/qcom/kodiak.dtsi
-index 347815e5983e..20b43b7625b6 100644
---- a/arch/arm64/boot/dts/qcom/kodiak.dtsi
-+++ b/arch/arm64/boot/dts/qcom/kodiak.dtsi
-@@ -5151,6 +5151,178 @@ cci1_i2c1: i2c-bus@1 {
- 			};
- 		};
- 
-+		csiphy0: phy@ace0000 {
-+			compatible = "qcom,sc7280-csi2-phy";
-+			reg = <0x0 0x0ace0000 0x0 0x2000>;
-+
-+			clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
-+				 <&camcc CAM_CC_CSI0PHYTIMER_CLK>;
-+			clock-names = "core",
-+				      "timer";
-+
-+			interrupts = <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
-+
-+			operating-points-v2 = <&csiphy_opp_table>;
-+
-+			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
-+			power-domain-names = "top";
-+
-+			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+				};
-+			};
-+		};
-+
-+		csiphy1: phy@ace2000 {
-+			compatible = "qcom,sc7280-csi2-phy";
-+			reg = <0x0 0x0ace2000 0x0 0x2000>;
-+
-+			clocks = <&camcc CAM_CC_CSIPHY1_CLK>,
-+				 <&camcc CAM_CC_CSI1PHYTIMER_CLK>;
-+			clock-names = "core",
-+				      "timer";
-+
-+			interrupts = <GIC_SPI 478 IRQ_TYPE_EDGE_RISING>;
-+
-+			operating-points-v2 = <&csiphy_opp_table>;
-+
-+			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
-+			power-domain-names = "top";
-+
-+			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+				};
-+			};
-+		};
-+
-+		csiphy2: phy@ace4000 {
-+			compatible = "qcom,sc7280-csi2-phy";
-+			reg = <0x0 0x0ace4000 0x0 0x2000>;
-+
-+			clocks = <&camcc CAM_CC_CSIPHY2_CLK>,
-+				 <&camcc CAM_CC_CSI2PHYTIMER_CLK>;
-+			clock-names = "core",
-+				      "timer";
-+
-+			interrupts = <GIC_SPI 479 IRQ_TYPE_EDGE_RISING>;
-+
-+			operating-points-v2 = <&csiphy_opp_table>;
-+
-+			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
-+			power-domain-names = "top";
-+
-+			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+				};
-+			};
-+		};
-+
-+		csiphy3: phy@ace6000 {
-+			compatible = "qcom,sc7280-csi2-phy";
-+			reg = <0x0 0x0ace6000 0x0 0x2000>;
-+
-+			clocks = <&camcc CAM_CC_CSIPHY3_CLK>,
-+				 <&camcc CAM_CC_CSI3PHYTIMER_CLK>;
-+			clock-names = "core",
-+				      "timer";
-+
-+			interrupts = <GIC_SPI 448 IRQ_TYPE_EDGE_RISING>;
-+
-+			operating-points-v2 = <&csiphy_opp_table>;
-+
-+			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
-+			power-domain-names = "top";
-+
-+			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+				};
-+			};
-+		};
-+
-+		csiphy4: phy@ace8000 {
-+			compatible = "qcom,sc7280-csi2-phy";
-+			reg = <0x0 0x0ace8000 0x0 0x2000>;
-+
-+			clocks = <&camcc CAM_CC_CSIPHY4_CLK>,
-+				 <&camcc CAM_CC_CSI4PHYTIMER_CLK>;
-+			clock-names = "core",
-+				      "timer";
-+
-+			interrupts = <GIC_SPI 122 IRQ_TYPE_EDGE_RISING>;
-+
-+			operating-points-v2 = <&csiphy_opp_table>;
-+
-+			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
-+			power-domain-names = "top";
-+
-+			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+				};
-+			};
-+		};
-+
-+		csiphy_opp_table: opp-table-csiphy {
-+			compatible = "operating-points-v2";
-+
-+			opp-300000000 {
-+				opp-hz = /bits/ 64 <300000000>;
-+			};
-+
-+			opp-400000000 {
-+				opp-hz = /bits/ 64 <400000000>;
-+			};
-+		};
-+
- 		camss: isp@acb3000 {
- 			compatible = "qcom,sc7280-camss";
- 
--- 
-2.34.1
+This commit adds four standalone qcom,sa8775p-csi2-phy provider nodes
+(csiphy0..3) and a shared csiphy_opp_table to arch/arm64/boot/dts/qcom/lema=
+ns.dtsi,
+while leaving the existing CSIPHY resources on the camss node unchanged.
 
+> diff --git a/arch/arm64/boot/dts/qcom/lemans.dtsi b/arch/arm64/boot/dts/q=
+com/lemans.dtsi
+> index 695eae1b72569..a92a06a5d4865 100644
+> --- a/arch/arm64/boot/dts/qcom/lemans.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/lemans.dtsi
+> @@ -5166,6 +5166,154 @@ cci3_i2c1: i2c-bus@1 {
+>  			};
+>  		};
+> =20
+> +		csiphy0: phy@ac9c000 {
+> +			compatible =3D "qcom,sa8775p-csi2-phy";
+> +			reg =3D <0x0 0x0ac9c000 0x0 0x2000>;
+
+[Severity: Medium]
+Does this depend on a binding and driver series that has not been merged ye=
+t?
+
+The compatible string qcom,sa8775p-csi2-phy (used on csiphy0, csiphy1,
+csiphy2, and csiphy3) is not documented anywhere under
+Documentation/devicetree/bindings/, and no driver in drivers/phy/ or
+drivers/media/ matches it. Currently,
+Documentation/devicetree/bindings/media/qcom,sa8775p-camss.yaml defines the
+CSIPHY resources inside the qcom,sa8775p-camss node.
+
+In addition, the commit message mentions that camss_detect_legacy_phy()
+selects the non-legacy path when a sensor is wired through one of these
+nodes, but camss_detect_legacy_phy() does not exist in the tree. In
+drivers/media/platform/qcom/camss/camss.c, camss_parse_ports(),
+camss_subdev_notifier_complete(), and camss_find_sensor_pad() expect camss
+ports to connect directly to a MEDIA_ENT_F_CAM_SENSOR subdevice:
+
+drivers/media/platform/qcom/camss/camss.c:camss_find_sensor_pad() {
+	while (1) {
+		pad =3D &entity->pads[0];
+		if (!(pad->flags & MEDIA_PAD_FL_SINK))
+			return NULL;
+
+		pad =3D media_pad_remote_pad_first(pad);
+		if (!pad || !is_media_entity_v4l2_subdev(pad->entity))
+			return NULL;
+
+		entity =3D pad->entity;
+
+		if (entity->function =3D=3D MEDIA_ENT_F_CAM_SENSOR)
+			return pad;
+	}
+}
+
+Will this cause dtbs_check failures and prevent boards that enable csiphy0.=
+.3
+from probing a PHY driver or linking the media pipeline?
+
+[Severity: Medium]
+Should csiphy0..csiphy3 also include a #phy-cells property?
+
+Because these nodes are generic PHY providers,
+Documentation/devicetree/bindings/phy/phy-bindings.txt requires #phy-cells =
+on
+each provider node, and other phy@... nodes in
+arch/arm64/boot/dts/qcom/lemans.dtsi specify #phy-cells =3D <0>. In
+drivers/phy/phy-core.c, _of_phy_get() looks up #phy-cells when resolving a
+PHY phandle:
+
+drivers/phy/phy-core.c:_of_phy_get() {
+	ret =3D of_parse_phandle_with_args(np, "phys", "#phy-cells",
+		index, &args);
+	if (ret)
+		return ERR_PTR(-ENODEV);
+}
+
+Without #phy-cells on csiphy0..csiphy3, won't _of_phy_get() fail with
+-ENODEV and dtbs_check report schema validation errors?
+
+> +
+> +			clocks =3D <&camcc CAM_CC_CSIPHY0_CLK>,
+> +				 <&camcc CAM_CC_CSI0PHYTIMER_CLK>,
+> +				 <&camcc CAM_CC_CSID_CSIPHY_RX_CLK>;
+> +			clock-names =3D "core",
+> +				      "timer",
+> +				      "csiphy_rx";
+> +
+> +			interrupts =3D <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
+
+[Severity: High]
+When a board enables both camss and one of csiphy0..csiphy3, won't the
+duplicate MMIO and interrupt assignments cause probe failures with -EBUSY?
+
+Here, csiphy0..csiphy3 claim MMIO regions 0xac9c000, 0xac9e000, 0xaca0000,
+and 0xaca2000 (size 0x2000 each) and GIC_SPI interrupts 477, 478, 479, and
+448, while the camss node (isp@ac78000) in
+arch/arm64/boot/dts/qcom/lemans.dtsi retains the exact same MMIO ranges and
+interrupts for csiphy0..csiphy3.
+
+In drivers/media/platform/qcom/camss/camss.c, sa8775p_resources defines all=
+ 4
+CSIPHY entries, and camss_probe() -> camss_init_subdevices() unconditionally
+initializes every one of them:
+
+drivers/media/platform/qcom/camss/camss.c:camss_init_subdevices() {
+	for (i =3D 0; i < camss->res->csiphy_num; i++) {
+		ret =3D msm_csiphy_subdev_init(camss, &camss->csiphy[i],
+					     &res->csiphy_res[i],
+					     res->csiphy_res[i].csiphy.id);
+}
+
+msm_csiphy_subdev_init() then requests exclusive ownership of the memory
+region and a non-shared interrupt for each CSIPHY:
+
+drivers/media/platform/qcom/camss/camss-csiphy.c:msm_csiphy_subdev_init() {
+	csiphy->base =3D devm_platform_ioremap_resource_byname(pdev, res->reg[0]);
+	if (IS_ERR(csiphy->base))
+		return PTR_ERR(csiphy->base);
+	...
+	ret =3D devm_request_irq(dev, csiphy->irq, csiphy->res->hw_ops->isr,
+			       IRQF_TRIGGER_RISING | IRQF_NO_AUTOEN,
+			       csiphy->irq_name, csiphy);
+}
+
+Won't this conflict whenever a standalone csiphy0..csiphy3 driver and camss
+are both active?
+
+[ ... ]
+
+> +		csiphy_opp_table: opp-table-csiphy {
+> +			compatible =3D "operating-points-v2";
+> +
+> +			opp-300000000 {
+> +				opp-hz =3D /bits/ 64 <300000000>;
+> +			};
+> +
+> +			opp-400000000 {
+> +				opp-hz =3D /bits/ 64 <400000000>;
+> +			};
+> +		};
+> +
+>  		camss: isp@ac78000 {
+>  			compatible =3D "qcom,sa8775p-camss";
+
+[Severity: Medium]
+Are the placement and frequencies of csiphy_opp_table valid for SA8775P?
+
+First, csiphy_opp_table (opp-table-csiphy) is placed directly inside soc@0
+(which has compatible =3D "simple-bus" with #address-cells =3D <2> and
+#size-cells =3D <2>) without a unit address, reg, or ranges property, where=
+as
+shared OPP tables in arch/arm64/boot/dts/qcom/lemans.dtsi (such as
+qup_opp_table_100mhz) are placed under the root node or inside consumer
+device nodes. Also, phy@ac9c000..phy@aca2000 are placed before isp@ac78000
+even though 0xac9c000 > 0xac78000.
+
+Second, csiphy_opp_table includes opp-300000000 (300 MHz), and csiphy0..3
+list CAM_CC_CSIPHY0..3_CLK as the first clock in clocks (which the OPP core
+scales by default). In drivers/clk/qcom/camcc-sa8775p.c, both
+cam_cc_cphy_rx_clk_src (parent of CAM_CC_CSIPHY0..3_CLK and
+CAM_CC_CSID_CSIPHY_RX_CLK) and cam_cc_csi0..3phytimer_clk_src use
+ftbl_cam_cc_cphy_rx_clk_src, which only supports 400 MHz:
+
+drivers/clk/qcom/camcc-sa8775p.c:
+static const struct freq_tbl ftbl_cam_cc_cphy_rx_clk_src[] =3D {
+	F(400000000, P_CAM_CC_PLL0_OUT_ODD, 1, 0, 0),
+	{ }
+};
+
+Should csiphy_opp_table be moved out of soc@0 (with phy@ac9c000..phy@aca2000
+ordered after isp@ac78000), and is the 300 MHz OPP supported by the SA8775P
+CAMCC clock driver?
+
+[ ... ]
+
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261017001116.2318=
+647-1-anusha.nandi@oss.qualcomm.com?part=3D1
