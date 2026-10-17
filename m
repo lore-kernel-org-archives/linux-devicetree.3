@@ -1,218 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B89B339365;
-	Sat, 17 Oct 2026 00:43:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ABD272621
+	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 00:55:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792197836; cv=none; b=Y2FAF+WrgaxSSyo9Xcp8bnREfxsIyYLfE0tbZ7Eyc2DiWMXbls+S3lJ9IHmsAFXvwT+do8sZCAjLnxLA5EBoKjG/YinoetqZtxKxd9rYbxaluWGSWezc1LBH5DQ1erXuRC1H7X/GRROSpnCNEd95XF2hgS/jnOWDZqoBonzIcxo=
+	t=1792198560; cv=none; b=liklaXwHZ9oZQFcFw/LlG50v8r+VjsKKmqX0xkRon5JpBHSuEEZCYylMa+dVggXriG8p8kKfgvjFaZWlatfSy2toyrYamocZYvsrsJSAugZ6dVzlFDxxsTdSSzHjjUI70er69LfLL1WATgutlqW4tiJAJlGCKzBMqcHpGQO3MNA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792197836; c=relaxed/simple;
-	bh=S0I3+5/gHuryal2ZZA4WPGSDDxCd97Qm5f8HxhSzM94=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=egMGv2hhwF8y/FdawWmsCRbRMOjdAutQCl/79AsXif7aT4VH04A4iqexgRV4c2ojFd8O5MoshTD3hgg3/CYg6BdXzRunhfnwKqKN1e9goiD8lrq/hpcqatxXiFvR6dclkpvMH4AdnL6xxVDtM5PlibNSDaiJv4o25XqdbYY70nk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a3Q8LjxB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792198560; c=relaxed/simple;
+	bh=PbjlJHekCB32Q3mkt1M5NEoLD2mQfZVW4FTHYL8AmAk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NrF+VPTvHzvuYOouqIaiBjstsh9z6tOcuZbhulu5oNzsoC/pZu6vLrAKb8ndNcidmcVj2gqORC+SiS84pH7ON97AJ1H6meBFN6/A2oqPT7b49OwAjkCiPDlB3YoVd2RKroB75WgprnzzNrbZIrpfwCQHaRVbLDWcNqVx0NAYyXU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ja3nuv4Y; arc=none smtp.client-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a3Q8LjxB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE5F91F000C4;
-	Sat, 17 Oct 2026 00:43:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792197835;
-	bh=iwEEy+hiKMM2tEseS67iZSa0Vv64AiD5OGOhwck5SsQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=a3Q8LjxBCGy3pICSK/FOBWTB7Q+Y34yxVpmg+zMH9Aww13k0sTOIurmqeNpd5GHFw
-	 NMwhHczlbwM3852LK7LooKeDzqtMeqX1LDXGRVLdJGJrgC+RW5xe5t7X0ruCtrljWg
-	 llyZDsHiE+wv/FpgwbNtH86uqvapHV290cHKn+sfdVSJY+0WAj49bJrr5emZBIDunN
-	 /+jk9nRR9uJdW6MxIHrTqMNStt8fNqpYfTVkYFvFuKczlzFWtsWKZJ/vHFaSiYLJzg
-	 H2O6VyCGhKiAS+sPuW1KPZAu9g5bG+Sd+e2nf1yZYsmN1O8PU4ryPv9pEsxpIBfFm2
-	 zJLyZKnar003w==
-Date: Sat, 17 Oct 2026 01:43:48 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: HuskerMinion via B4 Relay
- <devnull+mocker-mug-unwoven.duck.com@kernel.org>
-Cc: mocker-mug-unwoven@duck.com, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Peter Meerwald-Stadler
- <pmeerw@pmeerw.net>, Arka Mondal <arka@arkamondal.net>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] iio: light: tcs3472: Add TCS3400 support
-Message-ID: <20261017014348.6dfa8d9a@jic23-hlaptop>
-In-Reply-To: <20261016-tcs3400-v1-2-3d79d2a7f449@duck.com>
-References: <20261016-tcs3400-v1-0-3d79d2a7f449@duck.com>
-	<20261016-tcs3400-v1-2-3d79d2a7f449@duck.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ja3nuv4Y"
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3282db206d3so1195673eec.0
+        for <devicetree@vger.kernel.org>; Fri, 16 Oct 2026 17:55:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792198558; x=1792803358; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KG+QW60TgA6JIhij7lcxYutadNlvdPWNNLolkVy1zbI=;
+        b=Ja3nuv4Yo4HjxADM6N2507xkzhBOawlkshBxbzMfn/oo2ZJ7B/1jIh+cogm2FOJl+y
+         +URaNAeei3rj5SYzBPlRo7AzGcv0ywc382zUz39ruPnpRfEZAIdyVibpyicbbS/IQeyV
+         5K+hK9dB5q5qd7AMIzSqIShYVyQos45sSgP1NRHW0uGM1mSbRDXQ81U6Xh8JZ791SXk7
+         7cMsZS180iSoq6zHbj+r8Gr9+pmAIfgzoQI/kqaLe6uYi++IGbhmCKxL1M57m6syonTS
+         A2Q7rX10ou0u5eZCIsbqOAYEID1bh9nJWF4hsVCgzUG7kH9pO3wk6xbJn62N5XYyp2jN
+         8lug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792198558; x=1792803358;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=KG+QW60TgA6JIhij7lcxYutadNlvdPWNNLolkVy1zbI=;
+        b=LMe5bPRKcf2WWftMYh/ZRxrA4h760Zk2Pu0QUSU69NO0zj+8igGxO7+Fi1CiL71OxM
+         aGcU1YfScAc7MTLa4tPkoQp01rKlx/sRPXoo3FY0paIv43qNbLl+/HLeSVbUMPoGUskc
+         5Y+PkR3iICeQzVGpnNUiyDqlkpWGCuT2Rf1xyzYtRq5E5vNYigdW5cIcw5VpreXJorlQ
+         youoi6nZbWnVqD+DyJjG2rJWvQE5X/nqpZmpGyekhfrgymSP9s8JtuDZ5j1kcfs70vSV
+         yWAZcOmAgG+81pg/ukn3FXTHX0I2NJqRm7KtpSydqQNfmWkIZn7AcylqRdzDmeC0o3+u
+         bc9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxesKiOS0Vegh6hPdarQu3aZftt1i7tUenute1QSw9yJ50miEmBcHojXXsiMnkOpSIGuylLBBgsbtbp@vger.kernel.org
+X-Gm-Message-State: AFq9FYKPnMngy7O4H0u1d+1AIoDWFWaTXs4Daxy+m/QO9WJfo6cwjJs3
+	+CqKVQevoyz1Ec9LR0tvEmgDOaHCWCs2MnvYZAUJ4r7kXPD9WfDkBddu
+X-Gm-Gg: AYBFou1K/0008liKTU6bblYEKQWVr7VlJW1T8m994eEEOY5Ggr9Z8v4sZiLRmc1ZD1c
+	zwmb9l+uRUahZ4s6r5PhxAG1ZCu9aUm7BZup1Bjge9PthAyrrm4RNUbDBFuTjtPOFAWk+2cPAM9
+	WywYul8CM8eLkC9WubMbEmfSnw0Mp6eG0P2N1EOXsECIM8798zvkDUD+Arc/u8HpzeqVYkdF0iP
+	nM8/jbjaxBNIGg5vQH9T9rdWb/ReXDxVgo3gQhwZLUklUn56a72M+WxHuv+eWXP44XadO5bakMA
+	TMy7wOANzZeBodQtVNEMHSZNWfLK4ptqTyVm7ZUfS3yjkNKbjkFKyJLBuCj6jrFh33YDOcb1m30
+	CGO4ss4u32rQxDUWfYGaBhluvsw+4WFAC6y7jtI6c0RKsfXqF+lmudqVew5xJy8xuhvRiA6SSzq
+	4g5ZJGli4N3iS+suHjfg2PPOudB0WN/lamHwjY9utVu+19jNxMfFehEJn38UXkAfmNNGxvEXrfn
+	OiFEA==
+X-Received: by 2002:a05:7301:3a8f:b0:360:8a6e:640f with SMTP id 5a478bee46e88-361a3719b9emr1823808eec.39.1792198558239;
+        Fri, 16 Oct 2026 17:55:58 -0700 (PDT)
+Received: from localhost ([2804:30c:4067:b00:a68b:4892:7af1:b51d])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360813b6791sm11354769eec.6.2026.10.16.17.55.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 17:55:57 -0700 (PDT)
+Date: Fri, 16 Oct 2026 21:57:02 -0300
+From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
+Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux@analog.com, jic23@kernel.org, dlechner@baylibre.com,
+	andy@kernel.org, Michael.Hennerich@analog.com, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, corbet@lwn.net,
+	skhan@linuxfoundation.org
+Subject: Re: [PATCH v4 10/13] iio: adc: ad4134: Support SPI 4-wire mode
+Message-ID: <atLH3iWLXQqyctu7@debian-BULLSEYE-live-builder-AMD64>
+References: <cover.1791309733.git.marcelo.schmitt@analog.com>
+ <ec26e0e1cbb6572c8eee391951c084a7c264887c.1791309733.git.marcelo.schmitt@analog.com>
+ <179199692830.658576.14049229425648931434.b4-review@b4>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <179199692830.658576.14049229425648931434.b4-review@b4>
 
-On Fri, 16 Oct 2026 02:15:42 -0600
-HuskerMinion via B4 Relay <devnull+mocker-mug-unwoven.duck.com@kernel.org> wrote:
-
-> From: HuskerMinion <mocker-mug-unwoven@duck.com>
+On 10/14, Nuno Sá wrote:
+> On Tue, 06 Oct 2026 15:19:00 -0300, Marcelo Schmitt <marcelo.schmitt@analog.com> wrote:
+> > diff --git a/drivers/iio/adc/ad4134.c b/drivers/iio/adc/ad4134.c
+> > index b5207f16054e..debc2ff02705 100644
+> > --- a/drivers/iio/adc/ad4134.c
+> > +++ b/drivers/iio/adc/ad4134.c
+> > @@ -308,14 +423,18 @@ static int ad4134_register_read(struct ad4134_state *st, unsigned int reg,
+> >  		.len = st->crc_en ? AD4134_SPI_MAX_XFER_LEN : 2,
+> >  	};
+> >  	unsigned int inst;
+> > -	int ret;
+> > +	int access_ret, ret;
+> > +
+> > +	ret = ad4134_claim_reg_access(st);
+> > +	if (ret)
+> > +		return ret;
 > 
-> The AMS TCS3400 is the ambient light sensor of the Amazon Echo Show 8
-> (2nd gen). It has the TCS3472 register map (ENABLE at 0x80 up to BDATAH
-> at 0x9b, ID at 0x92, STATUS at 0x93 with the same bits), with these
-> differences:
+> Do we really need to claim/release for every register read? Can't we
+> just select register mode at probe and leave it in that position by
+> default?
+
+Yeah, we could have it that way but then the error paths get trickier to handle.
+For example, we might deselect reg mode and then fail to select sample mode.
+Because of that, we would need to keep track of what mux_states we hold lock to
+avoid deselecting a state that is not selected. 
+
+After sample read, we are susceptible to succeed sample mode deselect and fail
+reg mode select, so we actually also need to check we have reg mode selected
+before register access anyway.
+
+Not to mention we would need a driver .remove callback to check which (if any)
+mode we have selected to correctly deselect any multiplexer state on driver detach.
+
+> Then when starting to buffer, we deselect + select sample mode
+> and when exiting do the reverse. Seems even more appropriate when the dt
+> mode property does not want to use DOUT at all which means that all this
+> select + deselect is really unneeded.
 > 
-> - There is no command type field. Addresses auto-increment on their
->   own, so word registers are read and written at their plain address
->   (CDATA at 0x94, AILT at 0x84). With the TCS3472 auto-increment bit
->   set the driver would address 0xb4 and 0xa4, which are not the data
->   and threshold registers on the TCS3400.
-> - Interrupts are cleared by writing AICLEAR (0xe7).
-> - The gains are 1x, 4x, 16x and 64x instead of 1x, 4x, 16x and 60x.
-> - The ATIME step is 2.78 ms instead of 2.4 ms. The driver uses the
->   same step for WTIME and the RGBC init time, as on the TCS3472.
-> - The ID register reads 0x90 (TCS34001, TCS34005) or 0x93 (TCS34003,
->   TCS34007).
-> 
-> Describe each family in a chip_info structure and pick it from the ID
-> register, which the driver already reads to detect the part. The
-> TCS3472 behavior does not change. The IIO device is named "tcs3400" on
-> a TCS3400.
-> 
-> Add the "tcs3400" I2C ID and an OF match table with "ams,tcs3400" and
-> "ams,tcs3472".
-> 
-> Tested on the Amazon Echo Show 8 (2nd gen), which has a TCS34003 or
-> TCS34007 (ID 0x93) at 0x29: raw reads follow the light, and a hand over
-> the sensor takes the clear channel from about 2100 to 35 counts. The
-> threshold interrupt was not tested.
-> 
-> Signed-off-by: HuskerMinion <mocker-mug-unwoven@duck.com>
-Hi,
+The select/deselect dance is not needed for minimum I/O mode (no CS wiring) so
+I made it skip the multiplexer switching entirely for that mode.
 
-Other than the well known name thing that was already pointed out, a few
-comments inline.  Many of them are requests to make minor modernization
-changes whilst you are touching this rather old and (recently) unloved driver!
-
-Jonathan
-
-> diff --git a/drivers/iio/light/tcs3472.c b/drivers/iio/light/tcs3472.c
-> index b392943e5..fbd9a1b34 100644
-> --- a/drivers/iio/light/tcs3472.c
-> +++ b/drivers/iio/light/tcs3472.c
-
-> +static const struct tcs3472_chip_info tcs3472_chip_info = {
-> +	.name = "tcs3472",
-> +	.calibscale_avail = "1 4 16 60",
-> +	.agains = { 1, 4, 16, 60 },
-> +	.step_us = 2400,
-> +	.auto_incr = true,
-> +};
-> +
-> +static const struct tcs3472_chip_info tcs3400_chip_info = {
-> +	.name = "tcs3400",
-> +	.calibscale_avail = "1 4 16 64",
-
-Using read_avail() callback is probably just a case of passing it agains.
-
-> +	.agains = { 1, 4, 16, 64 },
-> +	.step_us = 2780,
-> +	.aiclear = true,
-> +};
-
-> @@ -219,19 +267,20 @@ static int tcs3472_read_raw(struct iio_dev *indio_dev,
->  			iio_device_release_direct(indio_dev);
->  			return ret;
->  		}
-> -		ret = i2c_smbus_read_word_data(data->client, chan->address);
-> +		ret = i2c_smbus_read_word_data(data->client,
-> +					       tcs3472_word_reg(data, chan->address));
->  		iio_device_release_direct(indio_dev);
->  		if (ret < 0)
->  			return ret;
->  		*val = ret;
->  		return IIO_VAL_INT;
->  	case IIO_CHAN_INFO_CALIBSCALE:
-> -		*val = tcs3472_agains[data->control &
-> +		*val = data->chip->agains[data->control &
->  			TCS3472_CONTROL_AGAIN_MASK];
-
-Whilst here, just put that on a long line.
-I've gotten more relaxed about the 80 char limit and that
-is not nice to read at all!
-
-
-> @@ -628,12 +686,13 @@ static ssize_t tcs3472_show_int_time_available(struct device *dev,
->  					struct device_attribute *attr,
->  					char *buf)
->  {
-> +	struct tcs3472_data *data = iio_priv(dev_to_iio_dev(dev));
->  	size_t len = 0;
->  	int i;
->  
->  	for (i = 1; i <= 256; i++)
->  		len += scnprintf(buf + len, PAGE_SIZE - len, "0.%06d ",
-> -			2400 * i);
-> +			data->chip->step_us * i);
-Hmm. It is sort of an ABI change but why is this using the full list of
-values when it could be using the [start step end] form of available
-attribute.
-
-Maybe we take the risk that anyone notices (I doubt it as generic
-code should support either) and jump to that simpler description?
-
-Ideally you'd also use the read_avail() callback rather than
-custom attributes.  Nice to modernize that bit whilst you are here.
-
->  
->  	/* replace trailing space by newline */
->  	buf[len - 1] = '\n';
-> @@ -641,11 +700,21 @@ static ssize_t tcs3472_show_int_time_available(struct device *dev,
->  	return len;
->  }
-
-> @@ -706,7 +775,6 @@ static int tcs3472_probe(struct i2c_client *client)
->  		return ret;
->  
->  	indio_dev->info = &tcs3472_info;
-> -	indio_dev->name = TCS3472_DRV_NAME;
->  	indio_dev->channels = tcs3472_channels;
->  	indio_dev->num_channels = ARRAY_SIZE(tcs3472_channels);
->  	indio_dev->modes = INDIO_DIRECT_MODE;
-> @@ -715,12 +783,27 @@ static int tcs3472_probe(struct i2c_client *client)
->  	if (ret < 0)
->  		return ret;
->  
-> -	if (ret == 0x44)
-> +	switch (ret) {
-> +	case 0x44:
->  		dev_info(dev, "TCS34721/34725 found\n");
-> -	else if (ret == 0x4d)
-> +		data->chip = &tcs3472_chip_info;
-> +		break;
-> +	case 0x4d:
->  		dev_info(dev, "TCS34723/34727 found\n");
-> -	else
-> +		data->chip = &tcs3472_chip_info;
-> +		break;
-> +	case 0x90:
-> +		dev_info(dev, "TCS34001/34005 found\n");
-> +		data->chip = &tcs3400_chip_info;
-> +		break;
-> +	case 0x93:
-> +		dev_info(dev, "TCS34003/34007 found\n");
-> +		data->chip = &tcs3400_chip_info;
-> +		break;
-> +	default:
->  		return -ENODEV;
-
-This is one of those ironic moments. We shouldn't
-be rejecting devices based on ID as that breaks fallback compatibles
-but in reality these new parts aren't actually compatible but
-we pretend they are... I'd add the data to the match table
-and if we fail to match use whatever comes from there rather
-than this -ENODEV.
-
-> +	}
-
-
+Thanks,
+Marcelo
