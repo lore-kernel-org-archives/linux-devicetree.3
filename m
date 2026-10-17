@@ -1,84 +1,79 @@
-Received: from mail.fhannenheim.net (mail.fhannenheim.net [188.245.251.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 477A93C9896;
-	Sat, 17 Oct 2026 18:16:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.245.251.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4822E3A2559;
+	Sat, 17 Oct 2026 18:19:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792261017; cv=none; b=TACn1xveBgT+SBOa+wo9OAgqlqmDLgEhql/9Om7Pja2FQY2BrYRWEJKdg6HkcYs1efaUjGuSngTXQRRoEqMKwhGgGsYyL84sUfXdIDfMVVqchsrDVf3SVIeUn8ShZcP6tc/GRKAN6SqO42X8XCHIF3/NUONnYDgNmHK4+9SdTPM=
+	t=1792261158; cv=none; b=oTqVYv6dbGyzQbfyUVTWkA2SRvTNlBTreQi7C/Yvh124AEK3SbTcUXK+PGqDZTqZ4JVRPU2E4fDjhBMn0T6HW89oQziw6mL8y8MAKHLZ1kGnYJj8MO/a7bOmpVSuJT5L2DLZlOmpnH1VpcXeOaKZ91RZhkw/5QK4HnY36KcFFa8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792261017; c=relaxed/simple;
-	bh=BC6COJBLLPRdm3aPF3SVrdiVDoHuNBhfnORCAam0ro0=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=mVnnRU7uq0E2ap/gdX9ScUx+NBuTGBCX9MclCOigt+9+33z+Ana5IVrCn2euJ0QbwhNXNBzidUWUfnyGpYDnHB5+N0FpTz/l8Ip4w0DQaQk3FoYTIE78rGagrXIKlLnW/Ge55r5jph7m7O/kzsKG39adce0e4QeCf088mke1vmI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fhannenheim.net; spf=pass smtp.mailfrom=fhannenheim.net; dkim=pass (1024-bit key) header.d=fhannenheim.net header.i=@fhannenheim.net header.b=5nUle1P8; arc=none smtp.client-ip=188.245.251.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fhannenheim.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fhannenheim.net
+	s=arc-20240116; t=1792261158; c=relaxed/simple;
+	bh=L/P4HtHRbTJElNoTQJpIvdWlFl4tFtfm9DPAIaSyhQU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tTYO/cwBoIKp/EsxFW4sN5ZLtGmHllrYIfIE65LCTXPtawrPXZ+S0Qf5ZA4XMNCj2d43Rkk7OrZ3SLixpXLUqHxWMA97ZAkInKCBTc77ffAwQdJjXzCV9IYF2QmgBTSzl3gCTs7jdW0jXQ3RhhBb5ufkZueG1Clh7mM0sz1OMJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=jzlvZpvD; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=fhannenheim.net header.i=@fhannenheim.net header.b="5nUle1P8"
-Message-ID: <d8fc8b20-4745-49f7-9519-9b52a9621173@fhannenheim.net>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fhannenheim.net;
-	s=mail; t=1792261014;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=g4Cf/7e+t31/uvBZmrssJApZ+Bs7m6M0ki7dD67CZDY=;
-	b=5nUle1P8gtdcj+UlVidXY7ErSP560QHaiErjMMMPzwrEW9tmUc6RSXdbbG0+13knksnpJC
-	wMZnCdInzwBNQwm8PPSMVWNSe0df3IlREnFq10C3Jhqcda1Am/lf3lZU0e7tJDCVDRwXxE
-	42cn2xWcTtBBcZ700fGbhre/ho5JXQk=
-Date: Sat, 17 Oct 2026 20:16:52 +0200
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="jzlvZpvD"
+Received: from francesco-nb (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
+	by mail11.truemail.it (Postfix) with ESMTPA id 250AE1FB65;
+	Sat, 17 Oct 2026 20:19:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1792261151;
+	bh=RpTSiOPXX8wfXwImlsolqAJ9WURkWVPhsipC38lvdxg=; h=From:To:Subject;
+	b=jzlvZpvDijkHExpia6go2tWbL3gNnnjaUicl7J7bG70rCpdlLnO8iHeVsDtLJViux
+	 G3R//dDgdpE7pm/TrJ9l0f9Wh50G4iFB+ITanrSWaa55O8UQncNVS8brkzOTdwAiEe
+	 bhxDAd08+EjuGnO2gfRzltiq+umepgVu/4Bjdp1aqrlF4vw0CXPQBlXZ2CTIhxWCer
+	 ZUFWxjn1WZ84+F8ib/kG8fP71kbQVHT0ARvMxM8EmRow+UZ81Sa1Ikz+yW4bJsqJYL
+	 7747Z+S5rXrSaQydALonfGxM/fBRBQpgt38PiLRxMDq3hY0hxaRTLWVQaIIMIQcenJ
+	 r6yvejn38Da1A==
+Date: Sat, 17 Oct 2026 20:19:06 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Frank.Li@oss.nxp.com
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH 08/14] ARM: dts: imx6qdl-apalis: remove disabled node
+ "panel-lvds"
+Message-ID: <20261017181906.GA8265@francesco-nb>
+References: <20261016-arm_dts_cleanup2-v1-0-3a0cab9fd784@nxp.com>
+ <20261016-arm_dts_cleanup2-v1-8-3a0cab9fd784@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Frieder Hannenheim <git@fhannenheim.net>
-Subject: Re: [PATCH v3 1/3] dt-bindings: arm: qcom: Document OnePlus 8T
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Robert Oscilowski <drgitx@gmail.com>,
- =?UTF-8?Q?Jean-Fran=C3=A7ois_Bobier?= <jf.bobier@gmail.com>,
- phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261017-kebab_dts-v3-0-5fc3ca52a383@fhannenheim.net>
- <20261017-kebab_dts-v3-1-5fc3ca52a383@fhannenheim.net>
- <ced5461d-4c56-4250-9a0c-cafde5d08f12@kernel.org>
-Content-Language: de-DE
-In-Reply-To: <ced5461d-4c56-4250-9a0c-cafde5d08f12@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016-arm_dts_cleanup2-v1-8-3a0cab9fd784@nxp.com>
 
-On 17.10.26 19:34, Krzysztof Kozlowski wrote:
-> On 17/10/2026 17:12, Frieder Hannenheim wrote:
->> Add compatible for OnePlus 8T
->>
->> Signed-off-by: Frieder Hannenheim <git@fhannenheim.net>
->> ---
->>   Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
->>   1 file changed, 1 insertion(+)
->>
->> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
->> index 50cc18a6ec5e..6e3fdce92798 100644
->> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
->> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
->> @@ -1070,6 +1070,7 @@ properties:
->>                 - qcom,qrb5165-rb5
->>                 - qcom,sm8250-hdk
->>                 - qcom,sm8250-mtp
->> +              - oneplus,kebab
-> 
-> 
-> o < q, please don't break existing sorting.
-> 
-> Best regards,
-> Krzysztof
+Hi Frank,
 
-Right, q such a weird letter to me that my intuition always sorts it 
-wrong. Will fix. Thank you.
+On Fri, Oct 16, 2026 at 04:10:51PM -0400, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
+> 
+> "panel-lvds"'s status is disabled and no dtso overlay to enable it. So
+> remove it to fix below CHECK_DTBS:
+>  arch/arm/boot/dts/nxp/imx/imx6q-apalis-eval.dtb: panel-lvds (panel-lvds): compatible: ['panel-lvds'] is too short
+>         from schema $id: http://devicetree.org/schemas/display/panel/panel-lvds.yaml
+> 
+> Reduce move than 44 lines warnings.
+> 
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
 
-Kind regards,
-Frieder
+Please, do not merge this. This is just breaking functionality for real
+user to fix a warning.
+
+There is a series [1] already posted to address the issue correctly, so that
+we can have the issue fixed without impacting users.
+
+[1] https://lore.kernel.org/all/20261001155412.3177428-1-leoreis.costa@gmail.com/
+
+Francesco
+
