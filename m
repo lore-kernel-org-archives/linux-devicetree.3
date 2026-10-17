@@ -1,68 +1,67 @@
 Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E2030216D
-	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 13:29:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F67F33B6EF
+	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 13:44:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792243748; cv=none; b=j7KFOVI2TrfaN71uBQqw3ImBlAcjK6m5otG8X4f3/FAkcchXWMV1CjjmeMr53GCqUdavavhrgvResCSa6mTTaRJLaBZaPaHl/z9PJcrmZEplAw8gtZrxFe9ktMcvTCkvAebwZ8wiRXNuXHEaMGEqAsNqVRjdCbv+8hVNUFmsOu8=
+	t=1792244671; cv=none; b=ZpJ+tP/bV9nKgdEDO56SQSFgOTyGBon3dq7gTn1oTX4HjLEah9hC2m6YyYb3DOiOXB5ZgZPaKEhFmaRnYU5cTiRPXwqXeHWYWzACto0L6qIQ2Td5RYMIUGoPscy7EQCarJnzmJ4hK6EuVVu38fu/ZthanZL7CpJko0oZk4SHbsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792243748; c=relaxed/simple;
-	bh=MlOIkzfTSdzbzhKZope6zdJW1Tz0EBjzJbGpxaanTYA=;
+	s=arc-20240116; t=1792244671; c=relaxed/simple;
+	bh=4G6HjC3OFMtDJN/ek0zU5CdmbYoC3FuoWdTCSbDnxac=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sJxl90QL6QGB2moR74f44ROEYKnwEnUgfhaUN7fbmbgciszNYdpumR6Gs1YVF90y4ccIaIO4RPoHqaQkmJhP1VLPtuH+yvitmSwCrMLhLcI5D7ey0m0aRnp33OQAu9SMaXcDMThqfJiCr1sntjEAZiFeatRiI771JFA2EeNqEtY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=clZW414U; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=Sk9oDAPy73zuCKfduYUxE1MusVnx5F331KAmoUWN3Lvn7iRFj6H8OUBIFW+HyovjdeuHXPNER7M47MfK4s8QiSOfAceEBOJPvkIKQD4z3Jq1IUOsRbT/XC1cDSFr9KxBJQnuU8OnIUygYbngUOtE2Jo2AiovK6ACAicIo12OGS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=mmj8a7+U; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="clZW414U"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso340966f8f.1
-        for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 06:29:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="mmj8a7+U"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48df4f540ebso334999f8f.3
+        for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 06:44:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792243745; x=1792848545; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=o5K6Tgc0KOXuZjCEEfd87yj6b3Ngd/fmCUzUiRYVE9w=;
-        b=clZW414UUl7h40jP67q//PxrHJBSoLXux1wD0nM2w5ZS59YrsjPau85lNpMapQDCTZ
-         B8WudYBkhKEmr6S1fvjeX3sgdnMI+q2e+cvqYNz6C646KM3RwJ/jqUAjjko+O6KDd+Id
-         DMb34B1wrwvS8KatX5jTrApC+wNLRfbJrJhu6ZBza9SwyW23q2+iSqgRD3lua5MyyTWj
-         4fgfaj2iIiDm2+c5Ljn4C/JceDLTx6zfy85hi0FSasXf8AHuxSKEXoBqKMHgu4OfUs4B
-         gvq7GYejX5MpUycIKpgvfnjuf99lr++8oRjyu0jTErWxOupaVXxBqy23dfeVcUvrnE21
-         c2oQ==
+        d=linaro.org; s=google; t=1792244668; x=1792849468; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7zGCtE8QeIQktHUrqda/mm6sfjzhY0f9C7ySnIw33io=;
+        b=mmj8a7+UjYp3L8aHicsuLP+87SnLSHyFC6vpgDb9i8ypaA6yv+EhnvfVnB8wjlGgc6
+         Wr08N6hN22Wdn8MGuJpsuauK7UmOjR8XxovLRaZb+KgNy5lB9cgPqf6enLn4hfCtfwOY
+         mYQnGA96IpOOSoYIsVww83azNriv+bypFTSoLou3IRyEOROvZAR9y9EbieBbO9dJn03S
+         9bIDd34AhYX6t4lmjdjkILoXHqKxdSQnqEMtXR4xU5ulSCY9lnyOEyiSuaDUR21R93Op
+         NIw0di+Ad9sAHKRZ2NaRhVSSOGwJyp2h5jxnT+hpVw+a+jpVtnqok/cQiFrsv1NxzvJ6
+         tvuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792243745; x=1792848545;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792244668; x=1792849468;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=o5K6Tgc0KOXuZjCEEfd87yj6b3Ngd/fmCUzUiRYVE9w=;
-        b=ErrNbEHXauNCwlWhI9c1aagEivOiNZqFUiaxxIEcam+aXX+/m6tjC696VX8io0Jxbe
-         fDe5detITVryE4uymZTJlkhTI9/LHDf2JVhK8ic0SCMuCpIKjFkKvTz/TFDbhGJsgNIZ
-         2xuALi9WoRrikBtn+3BJTJ+2PoopJKOkQnlufIzJjK0tldul9Ijd65R0qgYjid+AIOB1
-         5VbhTuqDdzLP9NKhcKY3mXGEr/UsN/4jd7Q5BFkCdsC5V0fmuGyY2R4mkVAAKZjN+pBO
-         u+i8JG/hBsAIsLDmKjQ/QKV++VxuKj4Bqi5WtbIPZl6VGjO72HjxOLM5xworpH8qEDYo
-         A4hQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzIg/BB8J9eME0i0RpJyG8M6lyNVW6G11oHQnVO4+dpFQk9kzydv29+mEcL/N+b2s6B1+lq3kSkG8U2@vger.kernel.org
-X-Gm-Message-State: AFq9FYJyifezqEyI42q7M5T/sxrBEjldx3uFXZHD+kyeHQ91Uutun4tO
-	s5d0UaahgvLCe/+9EZJvCwHTBrV0wGBGRyLzzZSZodM/u3MhewW0W6HW
-X-Gm-Gg: AYBFou1GDG+CNGvRxeLFrtd5QiN3WLE6kaL4E51iqGbum0N3S8Nlde4d1HUOfwqOL15
-	eARnqzfdIDjyF9eWLEFHHmjVEGm9rIy8YETGZ52J422gZPyWNx5BsdwfB3jnwMvkYMycxl0amTw
-	GVJZn7gTJBAMYOyu2dHvBqjZJQR5j9ijZNHZsCpQ2/puOxO6g8IW8Kp2V0bECOXMl32wpBnU8ed
-	z3vlesFeHIdq0OmAc/P27I7ry5GALEP7vHZ/4QBzb34ZtyfZF79AnYdzcbKYtUc4D2wYYC06ZlM
-	6kgiXukEW99F+xXXWUKLFGDV514uDcBmt+WtL8dlcoMub+G0fdEBptxvGx/38pELS7aNDbe7fjk
-	+dxpzJXBP15HqcAWtYQOtBJuBXKTNv/DnTd6Hkz2NeFImuNyXvWzwfFEs29Oih9c3RKeFUNklI1
-	uDpEQGoDX5rWLA/iLway3ufU6IT2HS3P+ms/n3FXs6oFfjGpxBJtNLxr8htKxXEk3ZDbLAvJAT+
-	e0=
-X-Received: by 2002:adf:e199:0:b0:487:6f2:1a4c with SMTP id ffacd0b85a97d-48e07bb98d9mr5122636f8f.25.1792243744983;
-        Sat, 17 Oct 2026 06:29:04 -0700 (PDT)
-Received: from [192.168.0.114] ([88.223.153.72])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f9c41sm11998520f8f.38.2026.10.17.06.29.03
+        bh=7zGCtE8QeIQktHUrqda/mm6sfjzhY0f9C7ySnIw33io=;
+        b=0FMaMEBJ7MJI4U84wikqrowvdhcOrTFiIutxeDk9SGVKRAhvBcTBVkLTSpO9IIBeXr
+         aL15+kr2B6RsoefzugCzgkuSMEEiEA7DHQPpVRGxG2G1ycmZNLjtPA62V01abC63JYxj
+         /86SziBhwK7Ruqa72vmwE7PFW0RbuHldvrxBTcPeacbv5/KoUi1txawMA/7I300Ag8Bo
+         9VRWSVtbEza44TvCq2e7txwDehDAjBw/IK6GzLyWokT2Xm4J1tkSrBf1z3PkutyzTik1
+         LPwEQ9ZKo1WdrEHx40uYlcypGx73gj9Nt4wTjMY6K/nBzR4M2BZ42c3WibxnEGtkzgde
+         EBHg==
+X-Forwarded-Encrypted: i=1; AKwUvBw8ZD506DYcd/RrLmXqvixQPuMnzXrrlPDpYgS8SBLjGgd1rMec+LkUY5Z7UTRPiM0KGgj7aAo/BabA@vger.kernel.org
+X-Gm-Message-State: AFq9FYIiSnUWgTKH4oADmuelhtQFmo7OCPMt79MaoO5g7ggjaGKFylSn
+	IykPP32Pr2MeCOV8RsF7olAvgjwcDgzgZ/U4aTCqZ2OrcxLekOmrZLy/z4R0elsLiZU=
+X-Gm-Gg: AYBFou3T7UYERZRIVap+IWliSyZ4rkGXGnqPLaOkStKo1gsWyJaYm0cmnHc1mxtP0fA
+	gAEbFSNAd8eg421HSx1mrfSuWL4J+iqMY9SwG7/2NxCbEZfj1h3hg1Y8RNwbkO9rPa1ttCCw0pb
+	hdr4Eui8+ktMi5gHWb35hKL5OQi/VlC3A+vUxgHJSRB/htMtWbPC9fevKAM7UkQV+i2tA4l4V+f
+	HR2voAbMhv6+QTh2I0ig4wwSj5fu8/gOqoqMNRuKHHpBPMyi1phriOog2S9OhY5GoZ3fYWFAGJR
+	Cp66mX8pccXcTQM2t85C0IW3UwMdC9+5q0Jz9xYqbedUGofUb7GNAg2RHHQtwXzkYiN36QrR9zA
+	uKzgY2pukGDf+RtThobfheMS+siByfD1NSmWIXJAw8FhbjDesG9kzdqauzWHEG9QQV+kv0bqGop
+	IFWkTWmgN83JTFzqmSS+ZSOw4235TVonOAIKwKthdbtJSLpOuCB5oh7XmyytQUFg902TMy3Gsgr
+	ibDk5cgnnv8
+X-Received: by 2002:a05:6000:468d:b0:48d:f39b:83de with SMTP id ffacd0b85a97d-48e07b92058mr3310171f8f.3.1792244668447;
+        Sat, 17 Oct 2026 06:44:28 -0700 (PDT)
+Received: from [192.168.0.167] ([109.77.131.195])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f8d1esm11547094f8f.39.2026.10.17.06.44.24
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 17 Oct 2026 06:29:04 -0700 (PDT)
-Message-ID: <b33efcca-eaed-4efe-99c6-035afd73dec5@gmail.com>
-Date: Sat, 17 Oct 2026 16:29:03 +0300
+        Sat, 17 Oct 2026 06:44:26 -0700 (PDT)
+Message-ID: <c3608c29-a20e-4b88-a060-165116d2b6f7@linaro.org>
+Date: Sat, 17 Oct 2026 14:44:24 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,54 +69,129 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] arm64: dts: qcom: sm7125-samsung: add initial device
- tree
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>,
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Subject: Re: [PATCH] media: qcom: camss: configure C-PHY in the new
+ csiphy_stream_on()
+To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>, david@ixit.cz,
+ andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, bod@kernel.org,
+ vladimir.zapolskiy@linaro.org, loic.poulain@oss.qualcomm.com,
+ mchehab@kernel.org
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Stefan Hansson <newbyte@postmarketos.org>,
- ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
- David Heidelberg <david@ixit.cz>, Abel Vesa <abelvesa@kernel.org>
-References: <20261013-sm7125-samsung-v4-1-3233901b48bb@gmail.com>
- <5fb086d1-7725-4d8b-a2c9-7627f6da7cd9@oss.qualcomm.com>
-Content-Language: en-US
-From: Erikas Bitovtas <xerikasxx@gmail.com>
-In-Reply-To: <5fb086d1-7725-4d8b-a2c9-7627f6da7cd9@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+ linux-kernel@vger.kernel.org, gjorgji.rosikopulos@oss.qualcomm.com,
+ jigarkumar.zala@oss.qualcomm.com, hariram.purushothaman@oss.qualcomm.com,
+ akapatra@quicinc.com, linux-media@vger.kernel.org,
+ krzysztof.kozlowski@oss.qualcomm.com, daniel@quora.org,
+ konrad.dybcio@oss.qualcomm.com, christopher.obbard@linaro.org,
+ alex.vinarskis@gmail.com
+References: <20261017040529.3832120-1-anusha.nandi@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261017040529.3832120-1-anusha.nandi@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 10/16/26 13:56, Konrad Dybcio wrote:
-> On 10/13/26 3:58 PM, Erikas Bitovtas wrote:
->> Samsung Galaxy A52/A72 are devices released on atoll (SM7125) platform
->> in 2021. Add initial device tree for SM7125 Samsung platform with
->> +&soc {
->> +	i2c_17: i2c-17 {
-> 
-> This is not a MMIO device, so it doesn't belong under /soc
-> 
-Will move it to / in v5.
-> Have you tried using the bus through the normal QUP driver path?
-> 
-No, I haven't. GPI DMA support for this platform is not yet upstream.
->> +		compatible = "i2c-gpio";
->> +		sda-gpios = <&tlmm 51 (GPIO_ACTIVE_HIGH|GPIO_OPEN_DRAIN)>;
->> +		scl-gpios = <&tlmm 52 (GPIO_ACTIVE_HIGH|GPIO_OPEN_DRAIN)>;
-> 
-> style nit: (foo | bar) instead of (foor|bar), please
-> 
-Will fix that in v5.
->> +&usb_1 {
->> +	qcom,select-utmi-as-pipe-clk;
-> 
-> Is there no superspeed / DP altmode?
->
-I could not find anything that confirms super-speed or DP altmode on
-these devices. Besides, ufshcd-qcom fails with "link startup failed 1"
-after setting super-speed and removing "qcom,select-utmi-as-pipe-clk".
-> Konrad
+On 17/10/2026 05:05, Anusha Arun Nandi wrote:
+> +	const bool cphy = (lncfg->phy_cfg == V4L2_MBUS_CSI2_CPHY);
 
+suggest is_cphy
+
+>   	s64 link_freq;
+> +	int i;
+>   	int ret;
+>   
+> -	dphy_cfg = &dphy_opts.mipi_dphy;
+> -
+> -	link_freq = camss_get_link_freq(&csiphy->subdev.entity, bpp, num_lanes, false);
+> +	link_freq = camss_get_link_freq(&csiphy->subdev.entity, bpp, num_lanes, cphy);
+>   
+>   	if (link_freq <= 0) {
+>   		dev_err(dev,
+> @@ -346,23 +345,49 @@ static int csiphy_stream_on(struct csiphy_device *csiphy)
+>   		return -EINVAL;
+>   	}
+>   
+> -	ret = phy_mipi_dphy_get_default_config_for_hsclk(link_freq, num_lanes,
+> -							 dphy_cfg);
+> -	if (ret < 0) {
+> -		dev_err(dev, "Invalid config for link frequency %lld\n",
+> -			link_freq);
+> -		return ret;
+> -	}
+> +	if (cphy) {
+> +		struct phy_configure_opts_mipi_cphy *cphy_cfg = &phy_opts.mipi_cphy;
+>   
+> -	ret = phy_set_mode(csiphy->phy, PHY_MODE_MIPI_DPHY);
+> -	if (ret) {
+> -		dev_err(dev, "Failed to set phy mode\n");
+> -		return ret;
+> +		ret = phy_mipi_cphy_get_default_config_for_hsclk(link_freq, num_lanes,
+> +								 cphy_cfg);
+> +		if (ret < 0) {
+> +			dev_err(dev, "Invalid config for link frequency %lld\n",
+> +				link_freq);
+> +			return ret;
+> +		}
+> +
+> +		/* Set data trio lane positions and polarities (no clock lane) */
+> +		for (i = 0; i < num_lanes; i++) {
+> +			cphy_cfg->lane_positions[i] = lncfg->data[i].pos;
+> +			cphy_cfg->lane_polarities[i] = lncfg->data[i].pol;
+> +		}
+> +
+> +		ret = phy_set_mode(csiphy->phy, PHY_MODE_MIPI_CPHY);
+> +		if (ret) {
+> +			dev_err(dev, "Failed to set phy mode\n");
+> +			return ret;
+
+We already derive the lane positions and polarities in the PHY driver. 
+There's no reason for the CSID block to know or care what the polarities 
+or positions are.
+
+drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c::phy_qcom_mipi_csi2_parse_routing()
+
+I guess the PHY already knows the polarities and positions - or at least 
+knows them for the DPHY case.
+
+         /* lane-polarities: optional, up to num_data_lanes + 1 entries */
+         memset(lane_polarities, 0x00, sizeof(lane_polarities));
+         num_polarities = fwnode_property_count_u32(ep, "lane-polarities");
+         if (num_polarities > 0) {
+                 if (num_polarities != stream_cfg->num_data_lanes + 1) {
+                         ret = -EINVAL;
+                         dev_err(dev, "clock+data-lane %d/polarities %d 
+mismatch\n",
+                                 stream_cfg->num_data_lanes + 1, 
+num_polarities);
+                         goto out_put;
+                 }
+
+                 ret = fwnode_property_read_u32_array(ep, 
+"lane-polarities", lane_polarities,
+                                                      num_polarities);
+                 if (ret) {
+                         dev_err(dev, "Failed to read lane-polarities: 
+%d\n", ret);
+                         goto out_put;
+                 }
+         }
+
+         csi2phy->stream_cfg.lane_cfg.clk.pos = CSI2_DEFAULT_CLK_LANE;
+         csi2phy->stream_cfg.lane_cfg.clk.pol = lane_polarities[0];
+
+         for (i = 0; i < csi2phy->stream_cfg.num_data_lanes; i++) {
+                 if (data_lanes[i] < 1 || data_lanes[i] > 
+CSI2_MAX_DATA_LANES) {
+                         dev_err(dev, "Invalid lane %d\n", data_lanes[i]);
+                         ret = -EINVAL;
+                         goto out_put;
+                 }
+
+                 /* Convert data-lanes = <1 2 3 4> to bit positions */
+                 csi2phy->stream_cfg.lane_cfg.data[i].pos = 
+data_lanes[i] - 1;
+                 csi2phy->stream_cfg.lane_cfg.data[i].pol = 
+lane_polarities[i + 1];
+         }
+
+---
+bod
