@@ -1,150 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f6.google.com (mail-pz2-f6.google.com [74.125.228.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 619AC47F793
-	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 10:32:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C6F72E719B
+	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 10:33:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792233141; cv=none; b=t0deaw4dFU4pdpHmqKC3RC0aprB/bc/2s1+Y1Cg2fhIcnpg/swqRKEbUNcvkRtijm7inBsNPvKyzAn69gO/rRhQlRZyA7U4C+YHMkUm50MlTHhRROyxxY0LAz9LEm35uDS3l6jyIX7XveWGFH3zPZA9N7I880WPtS+snMT32ggE=
+	t=1792233205; cv=none; b=iCWdEc8q5n8Mv0LWNgKO8XphWRAvi3nGxHUFB3/Qj6mW20oaQCgjodWuaH/P0SILtGkuhrU5BBb3ZFW05o0f26IvNEEllvEXglxW5g7AD5KGFsHyqNz4E+A1JsB9wJhkC8fVIWR5r81LjkOvwId1HcYc16NxxVy9KnvIc30/S8Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792233141; c=relaxed/simple;
-	bh=XuETu2zOBzeAjHDf/RiAE71EeSn5nlczpB8Fq8k9JEg=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=AgVLhP1S3e3TDM2qkdBc63BB8vEM8BqDm9M1COHKlrwL8pCYpWgJBefOgae/d8e9U0qZMqdDgTZVb47zmCltryrR5Il6B0R5iORjzTPhYNbGHpedh1KGz92J9PX+bLX2Ay0ye9zp0kVuPwOqzf/mfqiComMUHOwVWVOVlbtW0jQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dBZXvs1D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792233205; c=relaxed/simple;
+	bh=h9mpyNGxyB5LQ5/f3cT1zd18jPmDbLcsYpdDrXeaHok=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=e4cRkxcp9gMjoyBzKjAfmzV7LrjBjMld4+qj4QB7e+ljPK+v212mrLN6ToBYkhxA0kTsQedc62Kgomr+2R7E7IYZh/k/DNX9h8kD5OftrvoiiKqzvx2A2mPpOivoVc/3cMtccIBhiJaI6EbKkcx8BQmFn0a+3cqup8iUowjAebY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z5PW6Xyr; arc=none smtp.client-ip=74.125.228.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dBZXvs1D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1CEC1F000C6;
-	Sat, 17 Oct 2026 10:32:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792233137;
-	bh=6BFlRa7eHJU63EXNy5/XtcoWnUI/Im2jPhah8QCrmGU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dBZXvs1Df4urGCjpkLA7xs7/JylTeeH6StQj7xsPfHSg6H485YBjOrlqzwgjw7OgQ
-	 DhsN0jhIwZCs6J+LYNdH2Mj58BaS8pP1PysU3tgjkXDXC4XjpHQn4+hGQj2OORvlRi
-	 J2MzLEJP1axyRX7BdTll5j7C9Kzor86pDUIt1qcO4D+HGXAa76U2OL/2VHQh+wA0QQ
-	 zHaHz2iKSu6VD4SzhHLyUItupfsNnNweXID80MlnHGtFegJ+gVx5svKS1iExs4jrhy
-	 KVxK3G3x6aO+/XJ5oO+nGOy/4L1aW7agnUAiZ3ue0ARVJ8VWHGEyuv6bdt4tqrEQTA
-	 dzENuOKMDuDbw==
-Message-ID: <sashiko-outbox-175461@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v3 7/9] net: stmmac: mediatek: use TX clock
- phase shift in RGMII mode with 1Gbps speed
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261016-dwmac-mediatek-mt8189-v3-7-25daf2bbcf35@collabora.com>
-References: <20261016-dwmac-mediatek-mt8189-v3-0-25daf2bbcf35@collabora.com>
- <20261016-dwmac-mediatek-mt8189-v3-7-25daf2bbcf35@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 17 Oct 2026 10:32:17 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z5PW6Xyr"
+Received: by mail-pz2-f6.google.com with SMTP id 41be03b00d2f7-cd616db42fcso287539a12.1
+        for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 03:33:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792233203; x=1792838003; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PE+HwLCwRnxv9Z9DzgjUbOHs4/5c++tnA7FG82mBFBc=;
+        b=Z5PW6Xyrb/yHCZXJlD0saKWcSdUBpdU3jem+YD6Axvy/lfkg8c46WTi57EGxP8wPML
+         nOJelPuKjzD0gxHRHb91NOdRtoc6hBhlizF7k/nMrY+tp2kNMz/Gl17bpofUdeqnWnS7
+         nl7Tvd/cSL6dNnFNpLHjYCpJnsx7fhaQLMg6LDNrgyuGqnRXjKh+PnFOxDd1tLzUdoxw
+         xFw6sJi0tuXZVuSLIw7/VZHo1Q8pJzztoYqtHrQRSmjaH8Y43E2jfgz3wjej3uiYNn1h
+         VVBusgsy18DUC1ihop3szHiEZi9GrfAZ7ir1GexqyG/i/SajVAF0IVW5yulhFH6LZvb9
+         kN9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792233203; x=1792838003;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PE+HwLCwRnxv9Z9DzgjUbOHs4/5c++tnA7FG82mBFBc=;
+        b=tDKt9S+o1wOjIAIanJyxvQJPDBMjvyew7ITu7V6nBpgychTXTAhP7cVhOQpP2gZZuO
+         rY5dvKEvFGub2DRdAYFa291a96VRfo1basDh1MbRb++x9iFohfJmLjG52Y9aWWXZ40nQ
+         VtUCEe2/23pgiCaUpwLykMWuhq8Z1bwRjho01W961n8YMmjJAwvKWY71csbxSRsAHi6s
+         OFHHH58Ujscwliax99WQ0Fg6SKjfIs9R8AN5abS1g8jtxO7mkS41uSw2/KCUDLb5z/aE
+         uvKUgKc0Ys/k27qnG05D2jkZ6mncyTS8BeEa9wF74NpBa1YOgYUI5kMZK4z+HZz7QZkZ
+         rmIA==
+X-Forwarded-Encrypted: i=1; AKwUvBzKuTdc6YFa4Aa/zOzs/YslMItLM0PqEPAyjMDpUcCMgpIi+dZ2hyr8ZG+Pz5QrkozrpRPNJByxZdXg@vger.kernel.org
+X-Gm-Message-State: AFq9FYKCuG79122t/EHCEPl+JLvufSR3204cgJ3HWlVdv090e4MgpZkM
+	rj1FBHp1h927OqBatGYh/cDJjez8JmgZwGW+TFwlTSgueCZ9YEIMc5KJ
+X-Gm-Gg: AYBFou18tOnzWKltgp1poUAMRw+NxUFq65D3ig52oenL+8hAheqanl2vZZtaA/voahY
+	Emd92dTQ3L6ilq5NXxVLewRUyeEGDq4SzjmJNiwsfg8qndsxH+sTnXeY7O1BF624HsznPGOq9dw
+	BBkmF1LdWHrF5ox6ltXCxJYot3xdP7OPrX3Rz0Akke7R4Z0RxZiwAOPZ2ShqpjcmFC94kYJ6do/
+	ioc5ztbrnJ+i9GGQ0yaBOTZ8U5U/neZ2QDuu6+fUO5rqYND+08pirlckDJVg27Yhv5lWyWoMn+D
+	J+jEcS8v/XRmVvoHvTy8A/DaOdSV0h+Schb7wR/lZCNycZXevAYh2tAM/GQiDydTbZGKCtZbnhV
+	9khdPz7bWm1cGDN67yekcXMhUKPjAPXikPiMAPSHMAitGGr77qNoRfcIgHBsWLFSAwKL5ZLZidi
+	VFPlJiRBWyRk4CXXLHWAmqVrq7MyCzaSJAVHjygdEpTZSJvANeUcFUoNCM
+X-Received: by 2002:a05:6a00:13a6:b0:878:34d7:6a24 with SMTP id d2e1a72fcca58-8a04be4a6bfmr1651573b3a.38.1792233203390;
+        Sat, 17 Oct 2026 03:33:23 -0700 (PDT)
+Received: from Linux-PC ([2a09:bac5:1f0f:372d::57f:4e])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f58414986sm2051585b3a.57.2026.10.17.03.33.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 03:33:22 -0700 (PDT)
+From: tianshi12127 <tianshi12127@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	dri-devel@lists.freedesktop.org
+Cc: Jessica Zhang <jesszhan0024@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Simona Vetter <simona@ffwll.ch>,
+	devicetree@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Lu Chen <tianshi12127@gmail.com>
+Subject: [PATCH v2 0/3] drm/panel: Add Smartisan TD4362 panel support
+Date: Sat, 17 Oct 2026 18:32:47 +0800
+Message-ID: <20261017103250.800109-1-tianshi12127@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261017083531.766557-1-tianshi12127@gmail.com>
+References: <20261017083531.766557-1-tianshi12127@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] net: stmmac: mediatek: TX clock inversion is unintentionally cle=
-ared at 1Gbps
---
+From: Lu Chen <tianshi12127@gmail.com>
 
-commit 1240293d7bdcca392029932327a2063871dd1b83
-Author: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+This series adds support for the Smartisan TD4362, a 1080x2242
+command mode DSI panel found in the Smartisan R1 (trident)
+smartphone.
 
-net: stmmac: mediatek: use TX clock phase shift in RGMII mode with 1Gbps sp=
-eed
+The initialization and power sequences were converted from the
+downstream device tree with linux-mdss-dsi-panel-driver-generator,
+and the driver was tested on a Smartisan R1 (trident).
 
-This patch introduces a callback to set the TX clock phase shift in the RGM=
-II
-mode for 1Gbps speeds on MT8195. Because the hardware delay macro circuit c=
-an
-be affected by external factors, the new logic overrides the delay settings
-with a more stable 2ns fixed delay after link speed negotiation.
+Patch 1 adds the "smartisan" vendor prefix, patch 2 documents the
+panel binding, and patch 3 adds the DRM panel driver itself.
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drive=
-rs/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> index 7dd46cd5a49e1..4b2d5280f7030 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-[ ... ]
-> @@ -430,9 +433,65 @@ static int mt8195_set_delay(struct mediatek_dwmac_pl=
-at_data *plat)
->  	return 0;
->  }
-> =20
-> +static void mt8195_fix_mac_speed(void *priv, phy_interface_t interface,
-> +				 int speed, unsigned int mode)
-> +{
-> +	struct mediatek_dwmac_plat_data *priv_plat =3D priv;
-> +	const struct mediatek_dwmac_variant *variant;
-> +	struct mac_delay_struct *mac_delay;
-> +	u32 tx_delay_stage_val, reg_offset;
-> +	u32 reg_val =3D 0;
-> +
-> +	if (!priv_plat)
-> +		return;
-> +
-> +	mac_delay =3D &priv_plat->mac_delay;
-> +	variant =3D priv_plat->variant;
-> +
-> +	if (!mac_delay->tx_delay ||
-> +	    (interface !=3D PHY_INTERFACE_MODE_RGMII &&
-> +	     interface !=3D PHY_INTERFACE_MODE_RGMII_RXID))
-> +		return;
-> +
-> +	/*
-> +	 * When link speed is 1Gbps with RGMII interface, and a TX internal
-> +	 * delay needs to be applied on MAC, prefer to override the delay
-> +	 * settings with a 2ns fixed delay which is controlled by
-> +	 * RGMII_TXC_PHASE_CTRL. Otherwise, fallback to HW delay macro circuit
-> +	 * for 10/100Mbps link speeds.
-> +	 */
-> +	if (speed =3D=3D SPEED_1000) {
-> +		reg_val =3D MT8195_RGMII_TXC_PHASE_CTRL;
+Changes in v2:
+- rename lab-supply/ibb-supply to vsp-supply/vsn-supply (per review)
 
-[Severity: Medium]
-When the link negotiates to 1Gbps and a non-zero tx_delay is configured, do=
-es
-this omit the MT8195_DLY_GTXC_INV bit from reg_val?
+Lu Chen (3):
+  dt-bindings: vendor-prefixes: add smartisan
+  dt-bindings: display: panel: add Smartisan TD4362
+  drm/panel: add driver for Smartisan TD4362
 
-Because the update mask in the regmap_update_bits() call includes
-MT8195_DLY_GTXC_INV, omitting it here will forcefully clear the clock
-inversion bit in the hardware register.
+ .../display/panel/smartisan,td4362.yaml       |  75 +++++
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ drivers/gpu/drm/panel/Kconfig                 |  13 +
+ drivers/gpu/drm/panel/Makefile                |   1 +
+ .../gpu/drm/panel/panel-smartisan-td4362.c    | 263 ++++++++++++++++++
+ 5 files changed, 354 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/smartisan,td4362.yaml
+ create mode 100644 drivers/gpu/drm/panel/panel-smartisan-td4362.c
 
-If tx_delay is 0 but tx_inv is true, the function returns early and preserv=
-es
-the inversion bit set during probe. Is it intended that clock inversion at
-1Gbps is dropped only when a non-zero TX delay is configured?
+-- 
+2.56.0
 
-> +	} else {
-> +		if (variant->tx_rgmii_delay_stage_div) {
-> +			tx_delay_stage_val =3D mac_delay->tx_delay /
-> +					     variant->tx_rgmii_delay_stage_div;
-> +		} else {
-> +			tx_delay_stage_val =3D 0;
-> +		}
-> +
-> +		reg_val |=3D FIELD_PREP(MT8195_DLY_GTXC_ENABLE,
-> +				      !!tx_delay_stage_val);
-> +		reg_val |=3D FIELD_PREP(MT8195_DLY_GTXC_STAGES,
-> +				      tx_delay_stage_val);
-> +		reg_val |=3D FIELD_PREP(MT8195_DLY_GTXC_INV,
-> +				      mac_delay->tx_inv);
-> +	}
-> +
-> +	reg_offset =3D variant->peri_eth_ctrl_offset + MT8195_PERI_ETH_CTRL0;
-> +	regmap_update_bits(priv_plat->peri_regmap,
-> +			   reg_offset,
-> +			   MT8195_RGMII_TXC_PHASE_CTRL |
-> +			   MT8195_DLY_GTXC_ENABLE |
-> +			   MT8195_DLY_GTXC_INV |
-> +			   MT8195_DLY_GTXC_STAGES,
-> +			   reg_val);
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016-dwmac-medi=
-atek-mt8189-v3-0-25daf2bbcf35@collabora.com?part=3D7
