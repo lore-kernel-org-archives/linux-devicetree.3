@@ -1,41 +1,68 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF7854CF47C;
-	Sat, 17 Oct 2026 12:17:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E2030216D
+	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 13:29:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792239475; cv=none; b=Zs/qPy15QO4mh9TBa6Ngh4neQTVeoODtuanIeT+yEFTQ3/VD+Va/hWL6EyiCVrOzIK3bGbzGmOIVnzq4n9IsWq7M8y9aYxqMQZfw4EiJUn6Ui68BAaNHiFc5baZqukaSO3fgsDpKtEt2egbbLHmLvR8MrQZh85voBLV9c9uBdXM=
+	t=1792243748; cv=none; b=j7KFOVI2TrfaN71uBQqw3ImBlAcjK6m5otG8X4f3/FAkcchXWMV1CjjmeMr53GCqUdavavhrgvResCSa6mTTaRJLaBZaPaHl/z9PJcrmZEplAw8gtZrxFe9ktMcvTCkvAebwZ8wiRXNuXHEaMGEqAsNqVRjdCbv+8hVNUFmsOu8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792239475; c=relaxed/simple;
-	bh=ltUFJHuUt8xxihxeGW7JXWQvpY6Far+jwebWB6Wgo6Q=;
+	s=arc-20240116; t=1792243748; c=relaxed/simple;
+	bh=MlOIkzfTSdzbzhKZope6zdJW1Tz0EBjzJbGpxaanTYA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ALFoDTf7Vo+1F5aVou9pk9G6keGV0C4ta4dAAKitWidLpMMupHfBzI4mA/0dKEqKhizpWtQTLxCjmiH+XwYmlXWerLHEAU23ePGaDv2WtkZkPoIvptOO8H/Xw58+VQGHEhIKefPXdEW1kfkogn3jqR0CWGqSd6my0RmjAna6VUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=hQwPcZf3; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	 In-Reply-To:Content-Type; b=sJxl90QL6QGB2moR74f44ROEYKnwEnUgfhaUN7fbmbgciszNYdpumR6Gs1YVF90y4ccIaIO4RPoHqaQkmJhP1VLPtuH+yvitmSwCrMLhLcI5D7ey0m0aRnp33OQAu9SMaXcDMThqfJiCr1sntjEAZiFeatRiI771JFA2EeNqEtY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=clZW414U; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="hQwPcZf3"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4j6LRW5n7zz8sYP;
-	Sat, 17 Oct 2026 14:17:43 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1792239463;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Rk5Lh21RnQJCZHlWuL13QYUUtzk8xkysSYr1XB0Phdo=;
-	b=hQwPcZf3n1ch7VoaUcFqBl1U/UWXmfSsF5DxVsYNWkHSqiyaA9KKGNdZlDoki89vAjudm2
-	nODfBX5+iiYpNVancfgD2JBBzGf1uFLFYZC6WSRcN2r/f7oYZygNlZLQSx270IbEwpjbqk
-	8abqVq9b4HiwXW0aio5fZWhMJgFptMBD0lj05SPiq691WfbXpcpSKnlojIkz/J96iOr7ga
-	mwDshAEfcj+BoA1daHuQjrAUuP/39l77af0iGUVRI31dvOqRsWiiz/0uds4u4hFwP38X2P
-	HEgX1jfpfE6ctv9veQweQOq8OY88kslrO0O+hyWuHmxJuVVseximiy/NkaM7KA==
-Message-ID: <814043dc-d194-4afd-8317-03b55cc9e913@mailbox.org>
-Date: Sat, 17 Oct 2026 14:17:38 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="clZW414U"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso340966f8f.1
+        for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 06:29:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792243745; x=1792848545; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=o5K6Tgc0KOXuZjCEEfd87yj6b3Ngd/fmCUzUiRYVE9w=;
+        b=clZW414UUl7h40jP67q//PxrHJBSoLXux1wD0nM2w5ZS59YrsjPau85lNpMapQDCTZ
+         B8WudYBkhKEmr6S1fvjeX3sgdnMI+q2e+cvqYNz6C646KM3RwJ/jqUAjjko+O6KDd+Id
+         DMb34B1wrwvS8KatX5jTrApC+wNLRfbJrJhu6ZBza9SwyW23q2+iSqgRD3lua5MyyTWj
+         4fgfaj2iIiDm2+c5Ljn4C/JceDLTx6zfy85hi0FSasXf8AHuxSKEXoBqKMHgu4OfUs4B
+         gvq7GYejX5MpUycIKpgvfnjuf99lr++8oRjyu0jTErWxOupaVXxBqy23dfeVcUvrnE21
+         c2oQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792243745; x=1792848545;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=o5K6Tgc0KOXuZjCEEfd87yj6b3Ngd/fmCUzUiRYVE9w=;
+        b=ErrNbEHXauNCwlWhI9c1aagEivOiNZqFUiaxxIEcam+aXX+/m6tjC696VX8io0Jxbe
+         fDe5detITVryE4uymZTJlkhTI9/LHDf2JVhK8ic0SCMuCpIKjFkKvTz/TFDbhGJsgNIZ
+         2xuALi9WoRrikBtn+3BJTJ+2PoopJKOkQnlufIzJjK0tldul9Ijd65R0qgYjid+AIOB1
+         5VbhTuqDdzLP9NKhcKY3mXGEr/UsN/4jd7Q5BFkCdsC5V0fmuGyY2R4mkVAAKZjN+pBO
+         u+i8JG/hBsAIsLDmKjQ/QKV++VxuKj4Bqi5WtbIPZl6VGjO72HjxOLM5xworpH8qEDYo
+         A4hQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzIg/BB8J9eME0i0RpJyG8M6lyNVW6G11oHQnVO4+dpFQk9kzydv29+mEcL/N+b2s6B1+lq3kSkG8U2@vger.kernel.org
+X-Gm-Message-State: AFq9FYJyifezqEyI42q7M5T/sxrBEjldx3uFXZHD+kyeHQ91Uutun4tO
+	s5d0UaahgvLCe/+9EZJvCwHTBrV0wGBGRyLzzZSZodM/u3MhewW0W6HW
+X-Gm-Gg: AYBFou1GDG+CNGvRxeLFrtd5QiN3WLE6kaL4E51iqGbum0N3S8Nlde4d1HUOfwqOL15
+	eARnqzfdIDjyF9eWLEFHHmjVEGm9rIy8YETGZ52J422gZPyWNx5BsdwfB3jnwMvkYMycxl0amTw
+	GVJZn7gTJBAMYOyu2dHvBqjZJQR5j9ijZNHZsCpQ2/puOxO6g8IW8Kp2V0bECOXMl32wpBnU8ed
+	z3vlesFeHIdq0OmAc/P27I7ry5GALEP7vHZ/4QBzb34ZtyfZF79AnYdzcbKYtUc4D2wYYC06ZlM
+	6kgiXukEW99F+xXXWUKLFGDV514uDcBmt+WtL8dlcoMub+G0fdEBptxvGx/38pELS7aNDbe7fjk
+	+dxpzJXBP15HqcAWtYQOtBJuBXKTNv/DnTd6Hkz2NeFImuNyXvWzwfFEs29Oih9c3RKeFUNklI1
+	uDpEQGoDX5rWLA/iLway3ufU6IT2HS3P+ms/n3FXs6oFfjGpxBJtNLxr8htKxXEk3ZDbLAvJAT+
+	e0=
+X-Received: by 2002:adf:e199:0:b0:487:6f2:1a4c with SMTP id ffacd0b85a97d-48e07bb98d9mr5122636f8f.25.1792243744983;
+        Sat, 17 Oct 2026 06:29:04 -0700 (PDT)
+Received: from [192.168.0.114] ([88.223.153.72])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f9c41sm11998520f8f.38.2026.10.17.06.29.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 17 Oct 2026 06:29:04 -0700 (PDT)
+Message-ID: <b33efcca-eaed-4efe-99c6-035afd73dec5@gmail.com>
+Date: Sat, 17 Oct 2026 16:29:03 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -43,114 +70,54 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 04/18] dt-bindings: PCI: rcar-gen4: Add optional "aer"
- interrupt for R-Car Gen4 SoCs
-To: Koichiro Den <den@valinux.co.jp>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
- Niklas Cassel <cassel@kernel.org>, Wilfred Mallawa
- <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>,
- linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261015033103.3076869-1-den@valinux.co.jp>
- <20261015033103.3076869-5-den@valinux.co.jp>
+Subject: Re: [PATCH v4] arm64: dts: qcom: sm7125-samsung: add initial device
+ tree
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Stefan Hansson <newbyte@postmarketos.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+ David Heidelberg <david@ixit.cz>, Abel Vesa <abelvesa@kernel.org>
+References: <20261013-sm7125-samsung-v4-1-3233901b48bb@gmail.com>
+ <5fb086d1-7725-4d8b-a2c9-7627f6da7cd9@oss.qualcomm.com>
 Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <20261015033103.3076869-5-den@valinux.co.jp>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Erikas Bitovtas <xerikasxx@gmail.com>
+In-Reply-To: <5fb086d1-7725-4d8b-a2c9-7627f6da7cd9@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: rjej7x87b81ytdg5xf5xxb7s3wh5rtxc
-X-MBO-RS-ID: 3315d6597cf075cc723
 
-On 10/15/26 5:30 AM, Koichiro Den wrote:
-> The intreq_pcim_lperr interrupt carries Root Port AER notifications,
-> separately from the integrated MSI receiver interrupt. Describe it with
-> the "aer" name so the controller driver can use it for Root Port error
-> reporting.
+On 10/16/26 13:56, Konrad Dybcio wrote:
+> On 10/13/26 3:58 PM, Erikas Bitovtas wrote:
+>> Samsung Galaxy A52/A72 are devices released on atoll (SM7125) platform
+>> in 2021. Add initial device tree for SM7125 Samsung platform with
+>> +&soc {
+>> +	i2c_17: i2c-17 {
 > 
-> Keep the fifth interrupt optional on R-Car Gen4 SoCs so existing device
-> trees remain valid. Extend the example accordingly.
+> This is not a MMIO device, so it doesn't belong under /soc
 > 
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> ---
-> Changes since v3:
->    - Rebase on Marek's Gen5 AER binding fix:
->      https://lore.kernel.org/r/20261003215710.792518-1-marek.vasut+renesas@mailbox.org/
->      This requires "aer" for the Gen5 SoC PCIe4 controller from the
->      beginning. Update the subject to clarify that it is optional only
->      on Gen4 SoCs, for compatibility with existing DTs.
->    - Drop R-b tags due to the changes.
+Will move it to / in v5.
+> Have you tried using the bus through the normal QUP driver path?
 > 
-> v3: https://lore.kernel.org/r/20261006084638.3821710-5-den@valinux.co.jp/
+No, I haven't. GPI DMA support for this platform is not yet upstream.
+>> +		compatible = "i2c-gpio";
+>> +		sda-gpios = <&tlmm 51 (GPIO_ACTIVE_HIGH|GPIO_OPEN_DRAIN)>;
+>> +		scl-gpios = <&tlmm 52 (GPIO_ACTIVE_HIGH|GPIO_OPEN_DRAIN)>;
 > 
->   .../devicetree/bindings/pci/rcar-gen4-pci-host.yaml | 13 ++++++++++---
->   1 file changed, 10 insertions(+), 3 deletions(-)
+> style nit: (foo | bar) instead of (foor|bar), please
 > 
-> diff --git a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
-> index 083b77d4de8f..a86c06701fa9 100644
-> --- a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
-> +++ b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
-> @@ -26,7 +26,8 @@ properties:
->             - const: renesas,rcar-gen5-pcie4 # R-Car Gen5 PCIe4
->   
->     interrupts:
-> -    maxItems: 4
-> +    minItems: 4
-> +    maxItems: 5
+Will fix that in v5.
+>> +&usb_1 {
+>> +	qcom,select-utmi-as-pipe-clk;
+> 
+> Is there no superspeed / DP altmode?
+>
+I could not find anything that confirms super-speed or DP altmode on
+these devices. Besides, ufshcd-qcom fails with "link startup failed 1"
+after setting super-speed and removing "qcom,select-utmi-as-pipe-clk".
+> Konrad
 
-Wouldn't it be easier/cleaner keep only maxItems: 4 here and set ...
-
->     clocks:
->       maxItems: 2
-> @@ -93,11 +94,13 @@ allOf:
->               - const: config
->   
->           interrupt-names:
-> +          minItems: 4
-
-... minItems/maxItems here ^ for R-Car Gen4 (because Gen4 is the only 
-SoC family which has optional non-mandatorily-described AER interrupt) ...
-
->             items:
->               - const: msi
->               - const: dma
->               - const: sft_ce
->               - const: app
-> +            - const: aer
->     - if:
->         properties:
->           compatible:
-> @@ -117,6 +120,9 @@ allOf:
->               - const: app
->               - const: config
->   
-> +        interrupts:
-> +          maxItems: 4
-
-... and drop this interrupts: hunk here entirely (because Gen5 always 
-has mandatorily described AER interrupt) ?
-
->           interrupt-names:
->             items:
->               - const: msi
-> @@ -146,8 +152,9 @@ examples:
->               interrupts = <GIC_SPI 416 IRQ_TYPE_LEVEL_HIGH>,
->                            <GIC_SPI 417 IRQ_TYPE_LEVEL_HIGH>,
->                            <GIC_SPI 418 IRQ_TYPE_LEVEL_HIGH>,
-> -                         <GIC_SPI 422 IRQ_TYPE_LEVEL_HIGH>;
-> -            interrupt-names = "msi", "dma", "sft_ce", "app";
-> +                         <GIC_SPI 422 IRQ_TYPE_LEVEL_HIGH>,
-> +                         <GIC_SPI 421 IRQ_TYPE_LEVEL_HIGH>;
-> +            interrupt-names = "msi", "dma", "sft_ce", "app", "aer";
->               clocks = <&cpg CPG_MOD 624>, <&pcie0_clkref>;
->               clock-names = "core", "ref";
->               power-domains = <&sysc R8A779F0_PD_ALWAYS_ON>;
-
-What do you think ?
