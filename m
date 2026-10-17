@@ -1,156 +1,114 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD8ED3537F7;
-	Sat, 17 Oct 2026 14:46:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4816F480338
+	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 14:53:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792248418; cv=none; b=tWDccKVeAB3FcM55feqe5unypSLboRTvmNaiMlBjgtqeE4Evhz5kbU2nCWgq36Y48AKCQGzOrMtZW8n5E31VakAzLPAKmUNscSYTM4lzhVODCClPvM3j+ZX1hzGDXEOmNHlUMiKwrVVkFplHnREjZnTnNXqGby8RRZFzCqfEPbc=
+	t=1792248793; cv=none; b=gGW3lPhkNcCLofH8n1uMYlBlKt3fiIs3rIY3bNt2Vn4aZVgi2t3iYzluswk+aHdHw3U9d518+o7WwBuBDK1WqmjFfspkbPApAcvRqxvZplE0hi4oPSNOAJ1z5E39ItMbePbwjOj6VDSKZ9I0vc/SPseftPhsIMzJNp815lPRwYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792248418; c=relaxed/simple;
-	bh=HwsrOXMhbox2Mt7rrPvhtHc3LdN1Y2OwIiaYBnI2izo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mtPn7da21dXTd/Pc4eHLGoUWMOAITwnG0JzSLcE2SoRij6Zr/RjMqeQygTsMjLou2WLFgQHgZQqwTzeTD4/IrGYP40UdPmfciMMqb7Ekt6C2293h8OyGEkIxOjiHBc060HMCQbJUXP16HLyRy3kN65yqsiNMbGrFumPj9nXCsWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=L2lW7FNN; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1792248793; c=relaxed/simple;
+	bh=Fvka/I8Qk9HOFH62SbLDTdQOv+/n4Lr6xbNErwQYZ88=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=S3/rX6XUIZLNUhddkUI78dis751BiihQvNtkYRI+Uy8YPDDbY+p+WhWPmklzPZ0UoqKiYjaS0xeBoAEHS/jL1RaApakro2UXf25wkTIsYUfaFvmXEviYTMkb0NwhdwIgtvupc1xDZf+9IGxrQQoLhgChcblvAqVU2fbCdh9p8XY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=LKTrxCby; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="L2lW7FNN"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4j6PlT6pVczMlQf;
-	Sat, 17 Oct 2026 16:46:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1792248406;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wyIpv1DH78bERhuonFyBzHAzXGjwnH87oDm0djKYOjQ=;
-	b=L2lW7FNNKcA0nxzjhLgLyi0yJe4Ip5D0OTMZh5Q3zdB4hTALCv+mT+jBZWeJMQx6btp9+z
-	Gm0LkGPztXJb1+qRqojom7Vzx/CGcG9rtlIGKXateITIKq55k/phZGyjEY+wn5h6HzWpPS
-	/W2D77qxP24KEreFhdw59OZF/k2Syng5E0PiRheHLrPM1EdGdiENe67V/t2dns57B2gmpB
-	AtxCBzbkRfesWZLuqf8bP88ef0z+LD23es8SuFZ4Zhso+RbTk3g/eia9szSfgploUnUxav
-	DDhp77KjFRmRDQ3QIEf5fesIz2jmTAHiEnWmthTaFnDxA4sQz75VsSZnk0gXtQ==
-Message-ID: <f5697305-2f25-4a56-85e6-ebc3c8745fe7@mailbox.org>
-Date: Sat, 17 Oct 2026 16:46:43 +0200
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="LKTrxCby"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a1dede3c2cso4091765e9.2
+        for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 07:53:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1792248789; x=1792853589; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=+66VnjPF/YyVU7Vru1kQeXTRwhm4W1VNOEJvI0QSylg=;
+        b=LKTrxCbyQzl6s1iUh6Y5UJVUGypWfe8jSLIOvmCXW+afA76N0Q4LeyuwBoTeh9Crq5
+         j3r5Y8EBs1aSOhx+e5EJiyRsOHY1T6Uqm2HLKRZVwuVKZ5szX7d0RhooxYnioqemF63S
+         3SBRrnDSIYBA7Acaa5wO0YzdoDHpWPm7JDR+XvSVUbkmwi5GDWi6Zm094ywLp6pohv9d
+         15BVnsLlvE7AHXGWZzsaZ1HbjZEqGLZxWN+QRzqddxswQdfkwN7rowpaz6DRiivkkl8L
+         n93+jYF7ujqteng/2hIiulMnYjxjN+AvUCB9lpj3WvtfvdSSjPeuCbPFD1qQIK63/7J1
+         VxhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792248789; x=1792853589;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+66VnjPF/YyVU7Vru1kQeXTRwhm4W1VNOEJvI0QSylg=;
+        b=KzIaXEWOYejcL3dympeseFmf1iPlZx7XefEDVRqzX0BZOeHkVAmixSJgMIWKTSjPJT
+         3tWQ9pQSJkm//FQwJh+M9cQ3ICRQL9pGKd9Z6NXJ+zDTcef+4SWibljJ9Q+liSnYiJF3
+         jZ5EdCVNh8hDkjr3k6t275YjCNTaGyreiV6pEkSKFWkkKIqpAa5Xku4J6Vf1KNAozDYa
+         6VWhBgXMRuc4aJoQ3+QuPizlaAebjTdT3UAvAOejVRYbkHMA3kZJTbeNBh/yqYWLBivZ
+         5ugg5eNeEctlKQNU0m+wshyRLnviWwz6sL0EdQUcbzFuI/2vovTc8TsqHaOGVJJRdXXO
+         qPIA==
+X-Forwarded-Encrypted: i=1; AKwUvByiaHnSQclbON4dfmnGvWl8bHDS5MgUsdUpD3jCZMtItXbeyY9YFYETOpPPmImO/YdwTR+qvMJ7bEll@vger.kernel.org
+X-Gm-Message-State: AFq9FYLlrM1gn8XLJfehEE+1Ik6xltie6MQwlRud3fzTGk6Gf6gwL0ZU
+	/8TntzgOJwv2wSI+9tltgb/G52Avh5uzPuw3KyCkhJI3YfE3Q5brRqEV28meFKM7PEU=
+X-Gm-Gg: AYBFou0IbsXIRyre1D4933XWKk3ZJGr0pEx4NXuL8ndT/D04+KCfa95Ddnfw2eYPZUu
+	GiKG9FnPtKndFSJqXJmFnr0vMJZH85Y0ApF6nmIO/H65/3TOLf3QGfNrN0mrIZ2DK1QqjMNDXxm
+	rfnzYKJOVytl0Y1R0CYiuNgoZ9z7pjoAqfTCwUpMbirBXBCUxoXA9it1FmLl+n7Nomj4DalAr6M
+	w6HHkONEcKgx9o9ISo9R6qulInq1CtNQbAeGoBY2LqfIeHLcwQ4JXFA71Qf4LIaFstexWvgnM58
+	KY/2u+joe/m6HpeQzxs17LSz5K3E67trI9ffLCIpeAD+CtO3OWS1xVM3SQx8ZrlCjGplxLy5S6J
+	IgloDsKir5u1QZnwSKv/qAwcfQ/wFcgQ7JN84Hx4kglEMYNLAdKRfNrxLsOJPXmOY8CJoL3T1hq
+	vo2lOOsFrL0QJ55fenuwD0NbM12GucoCWm6Le5bJKelnUp6snPdrJNAowuyfU99pXdrmmM7KTel
+	jh8AMcwAqjVFlV2Sg==
+X-Received: by 2002:a05:600c:81c8:b0:4a1:9661:14b5 with SMTP id 5b1f17b1804b1-4a1d7616576mr55179145e9.29.1792248789113;
+        Sat, 17 Oct 2026 07:53:09 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1cbedb6f7sm148500265e9.2.2026.10.17.07.53.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 07:53:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: PCI: rcar-gen4-pci-host: Replace sft_ce IRQ
- with AER IRQ on R-Car Gen5
-To: linux-pci@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Koichiro Den <den@valinux.co.jp>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-References: <20261003215710.792518-1-marek.vasut+renesas@mailbox.org>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <20261003215710.792518-1-marek.vasut+renesas@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: uzxigruue3873izzkzceeuc6ubig8rkt
-X-MBO-RS-ID: d83845d60e5241af131
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v10 04/10] clk: nuvoton: ma35d1: Reparent the gates
+ correctly
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: sashiko-bot@kernel.org, sashiko-reviews@lists.linux.dev, 
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, 
+ conor+dt@kernel.org
+In-Reply-To: <877bjivrf5.fsf@bootlin.com>
+References: <20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com>
+ <20261015-perso-ma35d1-upstream-clk-v10-4-47c97b54a809@bootlin.com>
+ <sashiko-outbox-173157@kernel.org> <877bjivrf5.fsf@bootlin.com>
+Date: Sat, 17 Oct 2026 16:53:07 +0200
+Message-Id: <179224878757.859276.836775392883899374.b4-reply@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=909; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=Fvka/I8Qk9HOFH62SbLDTdQOv+/n4Lr6xbNErwQYZ88=;
+ b=kA0DAAoWrRk/eyua5RcByyZiAGrTi9PIr3jXzkL3hPmoR9xxFK/1/LlW3qSqHNJrkRmkyxJ0Q
+ 4h1BAAWCgAdFiEEfAt7F+4ZKvSalyzbrRk/eyua5RcFAmrTi9MACgkQrRk/eyua5RdugwD/XtK0
+ ki15jlcgtzwga2FiiBGlGPxqB3vuFhbG5OxU+zMA/27a5Sk09wWvbJM3JiKm9WZLUwkc6mDyoYu
+ dFvDeCKsB
+X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
+ fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-On 10/3/26 11:57 PM, Marek Vasut wrote:
-> The R-Car Gen5 SoC PCIe4 controller does not have dedicated sft_ce IRQ.
-> Make that interrupt conditionally available only on R-Car Gen4 SoC PCIe
-> controller.
+On 2026-10-15 18:50:54+02:00, Miquel Raynal wrote:
+> > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> > - [Medium] clk: nuvoton: CCAP muxes registered with 1-bit width but 4
+> > parents
 > 
-> The R-Car Gen5 SoC PCIe4 controller does have dedicated AER interrupt,
-> include it from the beginning. R-Car Gen4 SoC PCIe controller also has
-> an AER interrupt, but to retain binding backward compatibility, this
-> interrupt is kept optional and added in a separate patchset.
-> 
-> Fixes: 5b555a496160 ("dt-bindings: PCI: rcar-gen4-pci-host: Add R-Car X5H PCIe4 compatible")
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> ---
-> Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
-> Cc: Bjorn Helgaas <bhelgaas@google.com>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-> Cc: Koichiro Den <den@valinux.co.jp>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
-> Cc: Manivannan Sadhasivam <mani@kernel.org>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-pci@vger.kernel.org
-> Cc: linux-renesas-soc@vger.kernel.org
-> ---
-> NOTE: Gen4 AER is added in https://lore.kernel.org/all/20260928165230.3397664-1-den@valinux.co.jp/
+> This is a pre-existing issue. I will wait for the maintainers to comment
+> on the rest of the series. If they ask for other changes, I'll include
+> this to the next revision. If not, I will send a dedicated patch for it.
 
-This would be good to apply since it is a fix, however, I think this 
-needs review from DT maintainers first.
+It is too late for cycle for this cycle and I'll wait for rc1.
 
-Thank you for your help!
+Best would be sent the next versions without the DT stuff, so we can apply
+the series using the cover as merge description . It makes it easier for
+us to then provide an immutable branch, should you need it for the DT side.
 
-> ---
->   .../bindings/pci/rcar-gen4-pci-host.yaml      | 21 ++++++++++++-------
->   1 file changed, 14 insertions(+), 7 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
-> index 362c43a1a15d0..083b77d4de8f7 100644
-> --- a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
-> +++ b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
-> @@ -28,13 +28,6 @@ properties:
->     interrupts:
->       maxItems: 4
->   
-> -  interrupt-names:
-> -    items:
-> -      - const: msi
-> -      - const: dma
-> -      - const: sft_ce
-> -      - const: app
-> -
->     clocks:
->       maxItems: 2
->   
-> @@ -98,6 +91,13 @@ allOf:
->               - const: app
->               - const: phy
->               - const: config
-> +
-> +        interrupt-names:
-> +          items:
-> +            - const: msi
-> +            - const: dma
-> +            - const: sft_ce
-> +            - const: app
->     - if:
->         properties:
->           compatible:
-> @@ -117,6 +117,13 @@ allOf:
->               - const: app
->               - const: config
->   
-> +        interrupt-names:
-> +          items:
-> +            - const: msi
-> +            - const: dma
-> +            - const: app
-> +            - const: aer
-> +
->   unevaluatedProperties: false
->   
->   examples:
-
+You can fold pre-existing issue fixups in your series if you want to,
+or you can send follow-ups later. Fine with me either way.
 
 -- 
-Best regards,
-Marek Vasut
+Jerome
+
