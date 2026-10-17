@@ -1,90 +1,117 @@
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30BC042AD77;
-	Sat, 17 Oct 2026 07:22:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.238.236.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24EE33B71B7;
+	Sat, 17 Oct 2026 07:51:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792221754; cv=none; b=ckTuVseROwjXSUNt10PaICR3PpXwe61p3+qRvB0CFjgpZweQLuSScKebohFXlwlqPabxSIu/y2wDgks6YYhowhuDPDA5k2BcbO5Khg070LmeuO9uBzO4Cfqwy2hjqQwepH9Bwsb06rB+/bMmMgpVxizXfOAi4V4SM79WYIg9HYA=
+	t=1792223477; cv=none; b=H/Unc9qQaJxeVHpM/HwXE1vjuPeivjnIvq9F9H31txhH+nuJoQkrA0xvl4AUg7OHX8/UXtLLQpiJ2b36tzjCuubNfwhom++M9EA4qsLylA5TwPU4JDeLFbEovylJAciPIGx7j3fopoz0nzQsENJo2dEyi/+m1TAcWgfEdOCM1XI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792221754; c=relaxed/simple;
-	bh=4tlM9DH26Jk6K9xCLPb1uHMYubLY+sTMCGdKo5juFPk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UlMpK6LagHzHfZz2nRtOoAy0l6db6OCiRQVQ0dNGPvJsR23LaOmTY0FPXjkj2jEMvX2FY3EkCQNC1sRYUurt4I64DQwL8GuJnyRndJnPbv5E08DXZHHUCaPGYre0dfa1H1Dx4ORW9VSG0aw7ZF3zouiSu+hmwQGYSc2zG6wNiEM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info; spf=pass smtp.mailfrom=kemnade.info; dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b=v6DqruYv; arc=none smtp.client-ip=178.238.236.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	s=arc-20240116; t=1792223477; c=relaxed/simple;
+	bh=gVMgPnWqHZffe8OWB7TWKj0qhaLAjtv+k58zrupz/FU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=F2zg5vr+1QpjFMzigAnTveGvkTDczuHU+kcWENqtAU/BjKn8DqNob4h0WfdyDZoXUKU1a4rkpmSqfkYramxlbbk0ZrKPdHakmfUDJr7CX6WmSJEQEYr1zM478VaTBn9DRa9MaYo5XcAjdZBl4QTuTRwrLUa4JAiKyT/FZw/FQLQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UR3BEbsG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b="v6DqruYv"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=PANH83LO9KrofHVTq/98fVVjN62lrjOODBRAe7r1vek=; t=1792221751; x=1793431351; 
-	b=v6DqruYvktfGsukun84zvQb/WAe/b4thD4K1wOw0VuqGIbjQsxOYOr2JqCuS0FzDfKHEG+j2uJG
-	akTaeaIHt8fNTy8rDPYDQbCdZkuq9eLajmQizkECnI0ZsNN5qz7g7BC+oT0bm6InTIPuSefF+vBH7
-	rkrmVyH1NevNmF94zSpLHuH6WWQisPeb77Y3LDNXLl9NKV+qxJ9hhAqjLxa/lAXUnhJejfXm0XeRu
-	I77wYK1KbRDGZB7SxvQjhL8WP71c6EbcJHcvDgAyNK0Xvkn5XconU7yPPPr+383CPZuX/axM3vsqR
-	reNLwbaNW4gLKrqiZHMGjgzExBViDxuQn3lQ==;
-Date: Sat, 17 Oct 2026 08:39:57 +0200
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Ettore Chimenti <ettore.chimenti@linaro.org>
-Cc: Paul Walmsley <paul@pwsan.com>, Aaro Koskinen <aaro.koskinen@iki.fi>,
- Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>,
- Tony Lindgren <tony@atomide.com>, Russell King <linux@armlinux.org.uk>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Christopher Obbard
- <chris.obbard@oss.qualcomm.com>, Andrew Goodbody
- <andrew.goodbody@linaro.org>, Linus Walleij <linusw@kernel.org>, Rouven
- Czerwinski <rouven.czerwinski@linaro.org>, linux-omap@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 06/10] ARM: dts: omap: dm816x: Update USB node
-Message-ID: <20261017083957.7c2696f5@kemnade.info>
-In-Reply-To: <20261016-patch-ektor5-dm8168-dts-v1-6-b4ce30217028@linaro.org>
-References: <20261016-patch-ektor5-dm8168-dts-v1-0-b4ce30217028@linaro.org>
-	<20261016-patch-ektor5-dm8168-dts-v1-6-b4ce30217028@linaro.org>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UR3BEbsG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E18DC1F000C4;
+	Sat, 17 Oct 2026 07:51:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792223473;
+	bh=5ojz3J9U9pjfam0SiCzA7hp5IDMcpLXYpoYXz465AFQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=UR3BEbsGpTN/7Mf/RpAry4gmYakCLulp19COUNCc7upRwOG+VyRmTkD+NHfyWoEiF
+	 W/9T7fm/41PNiz51lnfjLOahG/jnOa8/Ohvy3eHLLEIAX23i94JIsZ9NEtCw6rO14A
+	 xfZDJTxtApToWHQJj7oi7Tw3elwi/ZU7iXJJFgoJjd0wzedqadKeWXEC0stM5BqBu1
+	 rXj6tSvLJwFvpwCT9WvM1rSYujWeyJW9FVdVtg4lTx7Yj//8DnL9KkZPCRlS/wmfBC
+	 pQDUoM8VAwpdFDXScMy2QQ+8KBTNMZ7X/cBhD1wCpIwczqP++24/CqsELz1BO8bM9v
+	 b6zunz+WZ5B8A==
+Message-ID: <a093e1ba-95cf-4767-82dc-c84db08a1edb@kernel.org>
+Date: Sat, 17 Oct 2026 09:51:07 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: phy: qcom: Relax required supplies
+To: "Rob Herring (Arm)" <robh@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260921232603.3129898-1-robh@kernel.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260921232603.3129898-1-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Fri, 16 Oct 2026 16:41:21 +0200
-Ettore Chimenti <ettore.chimenti@linaro.org> wrote:
-
-> From: Andrew Goodbody <andrew.goodbody@linaro.org>
+On 22/09/2026 01:26, Rob Herring (Arm) wrote:
+> For the QUSB2 PHY binding, keep the three regulator supplies required
+> except for legacy IPQ6018 nodes that do not describe the board rails.
 > 
-> USB node was not working correctly with DMA enabled as the supporting
-> code had been updated without updating this SoC's device tree. Bring the
-> device tree more up to date so that it works with DMA enabled.
-> 
-> Signed-off-by: Andrew Goodbody <andrew.goodbody@linaro.org>
-> Signed-off-by: Ettore Chimenti <ettore.chimenti@linaro.org>
+> Assisted-by: LLM
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 > ---
->  arch/arm/boot/dts/ti/omap/dm816x.dtsi | 41 +++++++++++++++++++++--------------
->  1 file changed, 25 insertions(+), 16 deletions(-)
+>  .../devicetree/bindings/phy/qcom,qusb2-phy.yaml | 17 ++++++++++++++---
+>  1 file changed, 14 insertions(+), 3 deletions(-)
 > 
-> diff --git a/arch/arm/boot/dts/ti/omap/dm816x.dtsi b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
-> index 7f3ef3a00ab8..5be9efc60785 100644
-> --- a/arch/arm/boot/dts/ti/omap/dm816x.dtsi
-> +++ b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
-> @@ -574,18 +574,27 @@ uart3: serial@48024000 {
->  		};
->  
->  		/* NOTE: USB needs a transceiver driver for phys to work */
-> -		usb: usb_otg_hs@47401000 {
-> -			compatible = "ti,am33xx-usb";
-> -			reg = <0x47401000 0x400000>;
-> -			ranges;
-> +		usb: target-module@47400000 {
-> +			compatible = "ti,sysc-omap4", "ti,sysc";
-> +			ti,hwmods = "usb_otg_hs";
 
-Why do we still need this? It is depcrecated.
+I think this is fine. These devices do not expose controllable supplies,
+so the supplies are there, but all other IPQxxxx variants just use
+regulator-fixed stubs.
 
-Regards,
-Andreas
+We can fix it by relaxing constraints or adding semi-fake regulator stubs.
+
+With checkpatch warning fixed:
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
