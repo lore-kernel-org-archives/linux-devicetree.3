@@ -1,106 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp052.goneo.de (smtp052.goneo.de [85.220.129.60])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D07D8345EB0;
-	Sat, 17 Oct 2026 18:47:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67A5E3DB63D;
+	Sat, 17 Oct 2026 18:47:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.220.129.60
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792262833; cv=none; b=ocRjpMDD6I85/hCg9f4itM7Pfw1S7SkpOqm76JW7sl04QPxqgLpCUe8bDBgsbLeU4cHHeoMWLmTcka001GGXMZ5euMH4pJ/DM5nAFd11UN/dVhRzIC+a9OsCft+csHLm0frR3Hti57VL/NRBF6yxaREiqZXFqLnTeb+wi5aPsPM=
+	t=1792262865; cv=none; b=M/S7qSnX1NLgX3B9uMNVJ3bqzwrqubAAwkTH+y9s2iL/8GILT7JGTI6EQ7IpUAVo4Ae0n91TvOnzVlZCXPm5zlt/WNH3YxrvZHMCWz3MT8xZs5mnDFLHHdHg74U4SUlfVEU2gvRd73iDWejX7hpkEbYanZRGURB96BJ9yEAHn4k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792262833; c=relaxed/simple;
-	bh=87oqsfBHVVsxZCaoGGkSeSOKMcNv2pQTppzPbV1NvP8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OQWUMuNZ7rkudmHq5LDhNcTrUh7eySTs6KZBqdnn4teRFMNsptrldtptync6ysHwnTcwn6bwV/6OUhp+DjvuxdKK2RyPDyye0ZTjWpl6N4A4/BXYhGyO/b6/p2jdNuUFNJ8XqEU00x2hvAO34zV5w5G022yLnTNS7xXVpEmFpmA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ndRCpubm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792262865; c=relaxed/simple;
+	bh=d70tjNajH7W5JdK4oZqTt5T71m6okE8yeOJdubvZaXE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=urdnxN4gHfFp25WNNQVrTt2EzPGLVTusS01S+0KZjdwD+TgfbNPx8Cb95jTFRxSfCg1PthCC5t4C8TZN80SVrFhWfQkenobPiN7c4j++RSkFLxkE19HnwS+8c0dYsd1UqdOM/djNTNXoQT0GXBJWfA8KHJF4wi2f2MXrMug/lKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tk154.de; spf=pass smtp.mailfrom=tk154.de; dkim=pass (2048-bit key) header.d=tk154.de header.i=@tk154.de header.b=hTCK7UBI; arc=none smtp.client-ip=85.220.129.60
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tk154.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tk154.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ndRCpubm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A62441F000C4;
-	Sat, 17 Oct 2026 18:47:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792262832;
-	bh=sYvlStSz66uv+NV8wsfZqePA2CSRPfCcdD359Kbd6oU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ndRCpubmDwY7H7OeTREabElrmk2+OL324MtiNyqRcLiCB2llsNOgKpOD4uVAw3XtC
-	 99REncwgqPu73VeafVIml/s7JRqiumle97o88D6EV8O/5LGY6FTw7hZd9I3jygGM9B
-	 jP1ZadMwdLo4wUrtBWSOqrgI9LhZZv0TM9COv9lUhN79PAjsU0SZw0W1EHCheb05Ux
-	 NsX2XBvg9cw15eBqrV80GOYSyl9YKjz8TDXX74qvwKx9iWBbYu1bvA7CjlK7+ZDrUO
-	 IwnfNiuzjm7PoKvl+osTaouDMA1uhOGXTjcRdpOPA/8wDKYi0+W8NkLV4BGpkLQH3U
-	 D54y1WHTkTRVw==
-Date: Sat, 17 Oct 2026 19:47:07 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Marcelo Schmitt <marcelo.schmitt@analog.com>
-Cc: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux@analog.com>, <nuno.sa@analog.com>,
- <dlechner@baylibre.com>, <andy@kernel.org>, <Michael.Hennerich@analog.com>,
- <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
- <corbet@lwn.net>, <skhan@linuxfoundation.org>, <marcelo.schmitt1@gmail.com>
-Subject: Re: [PATCH v5 06/15] iio: adc: ad4134: Protect conventional device
- access from debug accesses
-Message-ID: <20261017194707.48f6f242@jic23-hlaptop>
-In-Reply-To: <b05978468abb537f7fe5b1d0ed2753df9a69decb.1792200021.git.marcelo.schmitt@analog.com>
-References: <cover.1792200021.git.marcelo.schmitt@analog.com>
-	<b05978468abb537f7fe5b1d0ed2753df9a69decb.1792200021.git.marcelo.schmitt@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=tk154.de header.i=@tk154.de header.b="hTCK7UBI"
+Received: from hub1.goneo.de (hub1.goneo.de [IPv6:2001:1640:5::8:52])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	by smtp5.goneo.de (Postfix) with ESMTPS id 16D5A240B56;
+	Sat, 17 Oct 2026 20:37:32 +0200 (CEST)
+Received: from hub1.goneo.de (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	by hub1.goneo.de (Postfix) with ESMTPS id D41E9240114;
+	Sat, 17 Oct 2026 20:37:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tk154.de; s=DKIM001;
+	t=1792262249;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GZOw3LVxrwWnJzNeCV109Is8TVZT5XuQejH8TuHMcyk=;
+	b=hTCK7UBIpicVxtLdBBjUpewHOKqeVMujDrXyQ+N6huBg5QZz0jhOMi86o9mVHxATA+NpNT
+	zowSXvDrIkB42eBPCiso7qqtf5zlLjn/2EMRFlhWmbddnzLDmWSQx8d0UZ0273KyG03dLo
+	aKQS7lFS16mhCraYLMlOeaKQb+LtVY1lTCHAnBoEe7rP/yoOZqtzhc4MF5t7CrT90WJ8Ue
+	fjqvwT9GVB4uY6UnfeSkbFXLaDs72nRsYg+7AuD60PZobjJFveduuncUhxFkgSGaHvDgTA
+	0csS+acMDJDaR8dfMjYHXEyIULpCCktlqFmM04SAho65hjCG3kDgQpEyaYoaXw==
+Received: from [192.168.154.193] (p4fd55e66.dip0.t-ipconnect.de [79.213.94.102])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by hub1.goneo.de (Postfix) with ESMTPSA id 75C2124010F;
+	Sat, 17 Oct 2026 20:37:27 +0200 (CEST)
+Message-ID: <c40f4d8f-223c-441b-901e-5bea5bcb612e@tk154.de>
+Date: Sat, 17 Oct 2026 20:37:27 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v2 3/3] net: ethernet: qualcomm: ppe: Add IPQ5332
+ support
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
+ netdev@vger.kernel.org
+References: <20261016152449.934312-1-mail@tk154.de>
+ <20261016152449.934312-4-mail@tk154.de> <sashiko-outbox-175580@kernel.org>
+Content-Language: en-US, de-DE
+From: Til Kaiser <mail@tk154.de>
+In-Reply-To: <sashiko-outbox-175580@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Rspamd-UID: 2c9a6a
+X-Rspamd-UID: addb0e
 
-On Fri, 16 Oct 2026 22:58:05 -0300
-Marcelo Schmitt <marcelo.schmitt@analog.com> wrote:
-
-> Require debug access to acquire device synchronization locks before
-> allowing any transfer from the debug interface so to avoid disrupting
-> operations issued from usual (non-debug) interfaces.
-
-These needs more.  What sort of disruption are we talking?
-
-A deliberate write to change state that breaks normal operation
-is a debug mess up that we don't guard against, but if a read
-is enough to break things, or there is an inherent disruption
-of other operations by using the bus at all then state that.
-
-What isn't regmap locking covering?  
-
-If this is all about the mux stuff and backend usage,
-then move it to nearer that in the series and refer to that.
-
-Jonathan
-
+On 10/17/26 5:25 PM, sashiko-bot@kernel.org wrote:
 > 
-> Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
-> ---
-> New patch in v5.
+> [Severity: High]
+> Does ppe_config_qm() calculate the multicast queue register address correctly
+> when queue_id is >= 256?
 > 
-> I'm not sure about this one and have no strong opinion about it.
-> Providing it according to suggestion from Nuno.
-> https://lore.kernel.org/linux-iio/179199692826.658576.4841754843069240356.b4-review@b4/
-> From previous discussions I guess this patch might not be welcome.
-> https://lore.kernel.org/linux-iio/20250421142359.11fb483f@jic23-huawei/
-> In that case, completely fine with it being dropped.
+> In ppe_config_qm(), the code calculates the address like this:
 > 
->  drivers/iio/adc/ad4134.c | 6 ++++++
->  1 file changed, 6 insertions(+)
+> 			} else {
+> 				reg = PPE_AC_MULTICAST_QUEUE_CFG_TBL_ADDR +
+> 				      PPE_AC_MULTICAST_QUEUE_CFG_TBL_INC * queue_id;
 > 
-> diff --git a/drivers/iio/adc/ad4134.c b/drivers/iio/adc/ad4134.c
-> index dc4d801490db..42a1272c2894 100644
-> --- a/drivers/iio/adc/ad4134.c
-> +++ b/drivers/iio/adc/ad4134.c
-> @@ -302,6 +302,12 @@ static int ad4134_debugfs_reg_access(struct iio_dev *indio_dev,
->  {
->  	struct ad4134_state *st = iio_priv(indio_dev);
->  
-> +	IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-> +	if (IIO_DEV_ACQUIRE_FAILED(claim))
-> +		return -EBUSY;
-> +
-> +	guard(mutex)(&st->sync_lock);
-> +
->  	if (readval)
->  		return regmap_read(st->regmap, reg, readval);
->  
+> Since queue_id ranges from 256 to 299 for multicast queues, and is not offset
+> by 256 (PPE_AC_UNICAST_QUEUE_CFG_TBL_ENTRIES) before multiplication, does this
+> result in an out-of-bounds address calculation?
+> 
 
+This is the pre-existing issue you identified in v1, affecting IPQ9574 as well.
+I submitted the fix separately to net:
+https://lore.kernel.org/all/20261016150140.929729-2-mail@tk154.de/
+
+I could also mention this in the commit message or add the link to the net series
+in the cover letter.
