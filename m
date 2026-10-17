@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24EE33B71B7;
-	Sat, 17 Oct 2026 07:51:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EEEF4CF47E;
+	Sat, 17 Oct 2026 07:58:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792223477; cv=none; b=H/Unc9qQaJxeVHpM/HwXE1vjuPeivjnIvq9F9H31txhH+nuJoQkrA0xvl4AUg7OHX8/UXtLLQpiJ2b36tzjCuubNfwhom++M9EA4qsLylA5TwPU4JDeLFbEovylJAciPIGx7j3fopoz0nzQsENJo2dEyi/+m1TAcWgfEdOCM1XI=
+	t=1792223892; cv=none; b=KYU1fA3eRZ+WMWbk3L8cRiTgAUl8gVbFViOnCbS6aW+bTPLCaJEa5vHYN7lLJAM1yGna9nDQ6er5PAZJZNrBmIgJ6F4jbp4L02fAKf34oQJEY/cA4wcmmKouBNaLNWDNNgp3PX5wXzFL3Tk3ZOIy60uMPS8KsZEq4ortD5idRBA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792223477; c=relaxed/simple;
-	bh=gVMgPnWqHZffe8OWB7TWKj0qhaLAjtv+k58zrupz/FU=;
+	s=arc-20240116; t=1792223892; c=relaxed/simple;
+	bh=Au/BoQ1xa2bP8yNdXdbdZEZjnx1UxcvuZqe7ps6P644=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=F2zg5vr+1QpjFMzigAnTveGvkTDczuHU+kcWENqtAU/BjKn8DqNob4h0WfdyDZoXUKU1a4rkpmSqfkYramxlbbk0ZrKPdHakmfUDJr7CX6WmSJEQEYr1zM478VaTBn9DRa9MaYo5XcAjdZBl4QTuTRwrLUa4JAiKyT/FZw/FQLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UR3BEbsG; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=cvkwVKgYyUOKP/ZSEZGGSr42D3lYe3JWk5dvIVwcIGDGOQaQFqmxvE1MGbKYG1fi3IpWSXB+oG4cXaOXrL2UnBCesIW0Tcngrh5mq/UbXaIw51ToMMIcuf+cuVRuuqwBxQROwngQYLNacwT/FS3XIBlmeJQbCBCiEZMaf75i0PQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NjCnWhrR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UR3BEbsG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E18DC1F000C4;
-	Sat, 17 Oct 2026 07:51:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NjCnWhrR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D66781F000C4;
+	Sat, 17 Oct 2026 07:58:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792223473;
-	bh=5ojz3J9U9pjfam0SiCzA7hp5IDMcpLXYpoYXz465AFQ=;
+	s=k20260515; t=1792223891;
+	bh=zyIpORDCcEGS3jQM/lTyiCkfDTuP5WcKeUnbqUJlYac=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=UR3BEbsGpTN/7Mf/RpAry4gmYakCLulp19COUNCc7upRwOG+VyRmTkD+NHfyWoEiF
-	 W/9T7fm/41PNiz51lnfjLOahG/jnOa8/Ohvy3eHLLEIAX23i94JIsZ9NEtCw6rO14A
-	 xfZDJTxtApToWHQJj7oi7Tw3elwi/ZU7iXJJFgoJjd0wzedqadKeWXEC0stM5BqBu1
-	 rXj6tSvLJwFvpwCT9WvM1rSYujWeyJW9FVdVtg4lTx7Yj//8DnL9KkZPCRlS/wmfBC
-	 pQDUoM8VAwpdFDXScMy2QQ+8KBTNMZ7X/cBhD1wCpIwczqP++24/CqsELz1BO8bM9v
-	 b6zunz+WZ5B8A==
-Message-ID: <a093e1ba-95cf-4767-82dc-c84db08a1edb@kernel.org>
-Date: Sat, 17 Oct 2026 09:51:07 +0200
+	b=NjCnWhrRgoRpe7KfjZt2eN8rF2UkH4MX4D4bwuIQserv1O/oTs7NUB3Da4bprszDI
+	 YbNMkjzJJPjgZ6YRy/e7jeRVx9w7qzTjjY6TqbNhasD8zqAUrA6YkRhR1UrUqhrFIf
+	 FQ+TzWdgRO7dlPLWHFYmYTo2tRjPldD08kR3R/tsMzeNHmp/IhjfPAuKbPqBf+voET
+	 LF4nJH/G9nFdhCKHdgigW+Y+AOtOMm/eACQC5pUeb/0C1u49vi3mGQH8x2voZt6rN3
+	 PRjOyn71iC4puTcIlaJg55oNCDgVT6KjBc119o8J/MN1VAgtS3VZKKvEcD24G9i3+v
+	 mt89kp7eK04Lg==
+Message-ID: <bbe0144d-183f-466d-a073-f65a6948ab28@kernel.org>
+Date: Sat, 17 Oct 2026 09:58:03 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,15 +35,19 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: phy: qcom: Relax required supplies
-To: "Rob Herring (Arm)" <robh@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
+Subject: Re: [PATCH 1/2] dt-bindings: iio: light: Add AMS TCS3472 and TCS3400
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: mocker-mug-unwoven@duck.com, David Lechner <dlechner@baylibre.com>,
+ =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ <conor+dt@kernel.org>, Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
+ Arka Mondal <arka@arkamondal.net>, linux-iio@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260921232603.3129898-1-robh@kernel.org>
+References: <20261016-tcs3400-v1-0-3d79d2a7f449@duck.com>
+ <20261016-tcs3400-v1-1-3d79d2a7f449@duck.com>
+ <af011ab8-b9ab-49d1-b9fe-4e87b3979bbd@kernel.org>
+ <20261017013600.077fee36@jic23-hlaptop>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -89,29 +93,43 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260921232603.3129898-1-robh@kernel.org>
+In-Reply-To: <20261017013600.077fee36@jic23-hlaptop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 22/09/2026 01:26, Rob Herring (Arm) wrote:
-> For the QUSB2 PHY binding, keep the three regulator supplies required
-> except for legacy IPQ6018 nodes that do not describe the board rails.
+On 17/10/2026 02:36, Jonathan Cameron wrote:
+>>> +properties:
+>>> +  compatible:
+>>> +    enum:
+>>> +      - ams,tcs3400
+>>> +      - ams,tcs3472  
+>>
+>> Your driver cod suggests these are compatible, so it should be expressed.
 > 
-> Assisted-by: LLM
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
->  .../devicetree/bindings/phy/qcom,qusb2-phy.yaml | 17 ++++++++++++++---
->  1 file changed, 14 insertions(+), 3 deletions(-)
+> That's only true because this driver hard rejects a whoami mismatch
+> which is something we shouldn't really be doing. If we do a look
+> up in driver and fail to match we should be using the data associated with
+> the ID that the fallback compatible would have had.
 > 
+> Our old fun of what should we do about fallback compatibles and
+> devices with ID registers.  Some of which (in this driver) are actually
+> compatible with each other and some of which are not (in the sense
+> that the match the WHOAMI and do different things depending on that
+> matching).
+> 
+> I still prefer that we never claim devices that need different
+> handling are compatible (even if detectable) because of that prevents
+> new drop in parts being used (as they normally have different whoami
+> values even as supposedly drop in replacements).
+> 
+> I don't mind enough to argue much about it however.
+> Note that before this series all the supported parts were actually
+> compatible and the only difference was a print on the id match. So
+> if this patch hadn't turned up an I'd noticed, I have simply
+> deleted the error return.
 
-I think this is fine. These devices do not expose controllable supplies,
-so the supplies are there, but all other IPQxxxx variants just use
-regulator-fixed stubs.
-
-We can fix it by relaxing constraints or adding semi-fake regulator stubs.
-
-With checkpatch warning fixed:
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+In such case lack of compatibility should be very briefly explained in
+the commit msg or description in binding.
 
 Best regards,
 Krzysztof
