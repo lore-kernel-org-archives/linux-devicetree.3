@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D9A431B828
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEE0229D294
 	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 01:00:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792198823; cv=none; b=nmXIhhgReoJqZrhOXx6pDMeCtlsQ9gUflW7vOclcDYrWit8+YXBLnI6ZKz3Mspv8gv3HEFzMZCVtE/0XgWRfRYGBjA+pXypZPusIYJRFjkGiVP2kD04cyHNllujLSL68TBKoRO62U0cS6GC61jBf4CTWEsE+PUOmpIxld/nHXLY=
+	t=1792198824; cv=none; b=XjBG6CLFRa02pUs94VFFMblWxx2bMBBVf8OE2bE49ouIuhoJBgh46CPUlSf6n1eOUwQAr/MbPIVzPk8ppNUqkC2ElpDFCSbfsvlXDnyN4FH2W19ZZzz/jU4Uq2f1zpnIRwscvk1vthGw/ZMWTgY2SKU6FfiKXOzStynCku5k4Qg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792198823; c=relaxed/simple;
-	bh=oHwjUypwWCW+YQoWIsELatVxLyTMJeuRt5pvIwcrli4=;
+	s=arc-20240116; t=1792198824; c=relaxed/simple;
+	bh=24vDvmJ+EuUxvu2RGh7/VqCesRmQbmYqYfrdEcDen1k=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=Lfiv+Sldkql9ouaM30tyFf8jvrCTN7QO8DSYGOHCcme/eSIpwcHO/btLMfKOom0YbMhbC6j+9hfql1M5+QghzXK4wQXYIARuuKCxJIcGGlI9ye8sdk4tcXCzfY67kJToJgQWDcuJ4rS/pGBRfd1rVNPaXnFj6A25WnDhNekK/rE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BlwPPcz4; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=kacIVFIRmbUYUH3yKsEcOke3Wm06sKFSdKZpS5C/h2lY+Pul4zS/qe8miPgVZFIsxKWpuynmdUCtMa+XXiiv2FHvmlNrGhlqFlfIfd8v5ILFbXlZiGE7sKJ4+nRN6zjpjL5HimONys4RcSgVTyfgRjeKiXOrUy8GOjVOk0XpCPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZyRCmR5d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BlwPPcz4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C13EE1F000C5;
-	Sat, 17 Oct 2026 01:00:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZyRCmR5d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F9021F000C4;
+	Sat, 17 Oct 2026 01:00:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1792198822;
-	bh=zpyuv+LkJJXziBOSFckNAfXnvyDNe5IUOVX2kIqV8gg=;
+	bh=gmx+TrflDghc/SOfT9hRzGDH/3zUzvwWvxa2FcvRl8w=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BlwPPcz4pWvUcvSCZhbUEDiUCV2lD7piCtHX0bOG8JkCiUjFcFcFPiznJdNSOk06m
-	 gYiIT/Mk1JanozczbkOzx6/nl6R1Le5UjqcYw50Wk8CSutxGTJqFidsMxPWJ3Qk8K5
-	 dGgVRSU5qlAGzaD7LqUZq0IHF2EOURc8fW3tEsOdzkeENp4p9AyHAq4MUgpb2DiJxq
-	 HhQdFyDlWgtWpnJ1j6NGXe0/dJX3W5nqzm6k2XZBksKGGfxEC9lCVtTLQxh+7QHO3N
-	 wR9JOJklFv0l56mPdpj0k7iUbNRZhKXu3rjgbJB7+dBnO/lx3bC+DFs+SrLxsPZXER
-	 WOTxqShmpvn5w==
-Message-ID: <sashiko-outbox-175092@kernel.org>
+	b=ZyRCmR5dwsAvEWNvh/2sB4BNIy4anc5tajth9M8GDpWJpSWPoCp04n2C09mkrr/I8
+	 NpXLM3Yzq46BY/9cqXQSep4qDnOIe+CCjUkoeEr7pnTOZyTzFIEfjN2Oiz/Og3sNAY
+	 otuKUG6ip6E3RwPAL91/T2t5amE44EZAbTdigDmEp+zpq/6YttsB+VMIHxaUldoMLP
+	 eWsADCjJHHGhPFoYCT2ZF+o5fRYniwBoJ900eITYTrEoZipajdkTASh5Xjb3vgAIQT
+	 /9zcwSHWmrxL2rzvDuQTiC42qXxCc4NL1sOeqF+XENApkrQ7A8TU643PDIk8a7+h1j
+	 YfDNDO5UUHtIQ==
+Message-ID: <sashiko-outbox-175094@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v14 08/12] dpll: sit9531x: add support to get
- and set frequency on pins
+Subject: Re: [PATCH net-next v14 10/12] dpll: sit9531x: add support to
+ adjust output phase
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Ali Rouhi" <arouhi@sitime.com>
 Cc: =?utf-8?b?ZGV2aWNldHJlZUB2Z2VyLmtlcm5lbC5vcmc=?= <devicetree@vger.kernel.org>, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261016005823.13690-9-arouhi@sitime.com>
+In-Reply-To: <20261016005823.13690-11-arouhi@sitime.com>
 References: <20261016005823.13690-1-arouhi@sitime.com>
- <20261016005823.13690-9-arouhi@sitime.com>
+ <20261016005823.13690-11-arouhi@sitime.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 17 Oct 2026 01:00:21 +0000
+Date: Sat, 17 Oct 2026 01:00:22 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,73 +47,68 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] dpll: sit9531x: endianness reversal in DIVN register read
+- [High] dpll: phase adjust on unrouted output causes spurious flush on PLL=
+ 0
 --
 
-commit 1d40f7b3172f27292951c0c38e90a095069d4230
+commit 110382f4bcb6a9f0c30f287863026dd1cb412fb3
 Author: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
 
-dpll: sit9531x: add support to get and set frequency on pins
+dpll: sit9531x: add support to adjust output phase
 
-This commit introduces pin frequency set and get functionality for the
-sit9531x DPLL driver. It calculates hardware divider values, reads actual
-pin rates, and manages device locking and programming sequences.
+This commit introduces support for output phase adjustment in the SiT9531x
+driver. It computes coarse and fine delays and implements the hardware
+programming sequence, including divider realignments.
 
 > diff --git a/drivers/dpll/sit9531x/core.c b/drivers/dpll/sit9531x/core.c
-> index f3dbe949f219b..875a5fe783d5c 100644
 > --- a/drivers/dpll/sit9531x/core.c
 > +++ b/drivers/dpll/sit9531x/core.c
 [ ... ]
-> +static int sit9531x_divn_static(struct sit9531x_dev *sitdev, u8 pll_idx,
-> +				s64 *divn)
+> +int sit9531x_output_phase_adjust_set(struct sit9531x_dev *sitdev,
+> +				     u8 out_idx, s32 phase_ps)
 > +{
-> +	u32 int_part, fracn_raw =3D 0, fracd_raw =3D 0;
-> +	u64 fracd;
-> +	s64 fracn;
-> +	int rc, i;
-> +	u8 v;
+> +	u8 old_bytes[SIT9531X_OUT_PRG_BYTES], new_bytes[SIT9531X_OUT_PRG_BYTES];
+> +	const struct sit9531x_chip_info *info =3D sitdev->info;
+> +	u64 fvco, divo, coarse;
+> +	u8 pll_idx, fine;
+> +	s32 phase_adj;
+> +	int rc, ret;
 > +
-> +	rc =3D sit9531x_read_pll_u8(sitdev, pll_idx,
-> +				  SIT9531X_PLL_REG_DIVN_INT, &v);
-> +	if (rc)
-> +		return rc;
-> +	int_part =3D v;
+> +	lockdep_assert_held(&sitdev->multiop_lock);
 > +
-> +	for (i =3D 3; i >=3D 0; i--) {
-> +		rc =3D sit9531x_read_pll_u8(sitdev, pll_idx,
-> +					  SIT9531X_PLL_REG_DIVN_NUM + i, &v);
-> +		if (rc)
-> +			return rc;
-> +		fracn_raw =3D (fracn_raw << 8) | v;
-> +	}
+> +	if (out_idx >=3D info->num_outputs)
+> +		return -EINVAL;
+> +
+> +	pll_idx =3D sitdev->out[out_idx].pll_idx;
+> +	if (pll_idx >=3D SIT9531X_NUM_PLLS)
+> +		return -EINVAL;
 
 [Severity: High]
-Does this loop reverse the bytes of the 32-bit numerator?
+Does this code need to check if the output is actually routed?
 
-Because the chip's registers use a Big-Endian layout, the lowest address
-(offset + 0) contains the most significant byte. By reading from the highest
-address (offset + 3) first and shifting it into the MSB position of the
-accumulator, it appears to be parsing the value as Little-Endian. Will this
-cause the VCO frequency calculation to produce incorrect values?
+For unrouted outputs, the initial state fetch assigns a default placeholder
+pll_idx =3D 0. Without verifying sitdev->out[out_idx].routed is true, this
+extracts pll_idx =3D 0 and computes phase bytes against PLL 0's Fvco when
+userspace requests a phase adjustment on a disconnected pin.
 
-> +
-> +	for (i =3D 3; i >=3D 0; i--) {
-> +		rc =3D sit9531x_read_pll_u8(sitdev, pll_idx,
-> +					  SIT9531X_PLL_REG_DIVN_DEN + i, &v);
-> +		if (rc)
-> +			return rc;
-> +		fracd_raw =3D (fracd_raw << 8) | v;
-> +	}
+[ ... ]
+> +flush:
+> +	/*
+> +	 * Restart the output divider phase so the freshly programmed delay is
+> +	 * applied against a known edge instead of the divider's arbitrary
+> +	 * running phase.
+> +	 */
+> +	rc =3D sit9531x_output_phase_flush(sitdev, pll_idx);
 
 [Severity: High]
-Can this identical loop logic cause the denominator bytes to be reversed as
-well?
+Will this cause a spurious flush on PLL 0 for unrouted pins?
 
-Since both the numerator and denominator are affected, it looks like this
-will corrupt the readbacks and cause sit9531x_output_divo_calc() to
-miscalculate or incorrectly reject requested output rates. Should the loop
-read the lowest address first, or should the accumulator shift be reversed?
+If the request proceeded with the placeholder pll_idx =3D 0, this flush
+restarts the divider phase for every output driven by PLL 0. This could
+subject active, properly routed outputs on PLL 0 to an unintended phase
+jump and loss of lock, simply because userspace issued a valid DPLL netlink
+request on a disconnected pin.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016005823.1369=
-0-1-arouhi@sitime.com?part=3D8
+0-1-arouhi@sitime.com?part=3D10
