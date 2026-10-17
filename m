@@ -1,130 +1,103 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+Received: from sg-3-26.ptr.tlmpb.com (sg-3-26.ptr.tlmpb.com [101.45.255.26])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 327BB33ADA0
-	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 10:12:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E6233ADA0
+	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 10:14:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.26
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792231952; cv=none; b=jl5kG35kF5beyHFG1lUAYpwKHarHJF6d9jXiVXVMyBpuTDZe23YwrbD4Szo08uoR4dtbk5Dt8FN/++2Jb/GoGCyxoLYn8LJ0sWZ4VPR6v3X21rBOMO30Qz3WtMbreHA3kj/bmV1N+Pj7gMtOyxa9ILpaIsgbwG0KpPL7gx924y8=
+	t=1792232059; cv=none; b=lVSaNlP5IV2I6TyH/GPzwsGXP/335wuFWN9HNSnstzTJCroODnfPQM8ug6q5LmD5idAKIvy4UXoCjCrVnKn7HP8tnrj1MVYyrnoCb4oMHwNDnsft1oMoVilE0/rCT1jNvf6pxhrL55251rXnPeBpqLgHZ9QPmqxx0qXm3zPvSlQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792231952; c=relaxed/simple;
-	bh=qzvrrLy2qj+cZQoZi4u9ExBicE4rIpxnRBO9CfMg51g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WNHzGxKbDqwmL2hQV12EUMWdeRu8Xj/kEfnGfvTE9e44lkOjTP9jo52fqbXwUhhcMFGHOl/G7aAamNhe6pIsxkAxnbnxN3HQR9krgEmDxgGCePnF6mt7rfdATq//v9PHLQPPGL0bCoSHlbqSeSQequVOKOtA7MT/j6p74JBfdts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NC4AEspa; arc=none smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792232059; c=relaxed/simple;
+	bh=GPZFSKaSQO6ijkNW2YtiCTlnwLD7iVefOOedFSfNETA=;
+	h=Message-Id:In-Reply-To:Cc:From:Subject:To:References:Date:
+	 Mime-Version:Content-Type; b=O+G2kQ2XD5m5Sc/hxZY5P1YXIDJ+MkcWRiEfdteFq9B94rqroRDmAb+z2VFqHMCAtmVhukUxpvqZQ3+lFLnTVpfM8cY7OyzfFxx9LhX9z6RsYatULyLO4xfp6YilPmp/edwkcZ259M02du3ezo5ywED4JVhYdOf3JXTtbokYf04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com; spf=pass smtp.mailfrom=picoheart.com; dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b=sLAc8YXK; arc=none smtp.client-ip=101.45.255.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=picoheart.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NC4AEspa"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48e0d885929so95770f8f.3
-        for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 03:12:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792231949; x=1792836749; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dKoUY67/0brH9PfrEtDz8lEuDjVGpCp9GkyhQChz7oI=;
-        b=NC4AEspaLZ0jkCIpN6Uk3ZRdt+4i7DlqAmAQ1r0JyKUZlNTH/uOHj8hWMewDJt57s+
-         xwrGpxlFXIc5l+wn7Wf8AvsKPKzg/qvKGzAQ4jXGV3FWAT2RxJTdSBtjYTjTcoCBW+FC
-         eESeNMxGDzKm7iMAs6FlcbrHNQWJKcAfX8Vu1IGwG9JDgCiBbI576vCnt8RLjp3t2bXu
-         xJfvGBrm+VMUozelVlQHpHoQJl0KayFgD3PdozYphwRjGjQd6o4SszLT62/FphvkN4wX
-         Z7/I8m2pmvDlrAsjzcbVJl1XH8jcUad7XuappsZG6R6okSZFYyvj9CVfpQnHYtY3HTaj
-         XIvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792231949; x=1792836749;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dKoUY67/0brH9PfrEtDz8lEuDjVGpCp9GkyhQChz7oI=;
-        b=2qgHT9FcLvtkrDtADQzws2tvgFNFEIzG90R1VUMA3DYl4cv2Uawh9C5eFpxwdn5Oxz
-         YStdu+NWWj/dHDYC16ni7p6S8rNsf72UwYnFldyULG22ZAqg8dESbrkk8ss8esk7IHKB
-         w7bu0c246M9pRYMmeqoOnezyXwFylsxEM1e0RrpQlHvK3Q1YdUVuZ4YTpsr/u7poDMUt
-         2JJBhxeKPVgAH/G48tk/cewTUSIBuWY/5bfU3e6n4l7OwS1KStdn00IkUdMEfYFvoe31
-         h9QAHnhf6HtKE58Mho8X3dUJwtDussgd7TjAXLqMBnjm6hsPMytTeP1JpJiEuS1PW/C7
-         WJtg==
-X-Forwarded-Encrypted: i=1; AKwUvBz9zQkH+m/p6uGSDJIpeieW5YTpvV5OkaLMMPtJloG2nfhGls+0+qo5DBusMYuK2hg0J1MRZMkkSrPQ@vger.kernel.org
-X-Gm-Message-State: AFq9FYJq5yBAjPBeZBQ5/F/1WPA9XKMh6iZj9Ur6Sz1/ocHouUG0h54M
-	oj8oDigh1+onYhB9Gi/LO/Vqr9h9Og3cNAFYwXoxidOugvM20zz9gjNu
-X-Gm-Gg: AYBFou3Q6oNs26+9TVY2BRYeVkO/ztyMrtj5BfEq36uBoglTJHQujfwD6pc93tlG50k
-	kNsvEHz9FNJcQxp6MTGrLpFvQC/12dpyltcTwf4AvqK/14p1XZQi4hlu2NC0T74HlPgkCwEoJV+
-	tPcMzqSa2dll7yrcDoYmiL9GA9uQ9CICJ53YBfuoqOeN8Vhv5jAGZDyQrmbEYgqMhXJ0wzCB/ep
-	63Jvipmnzr/3thZXGhCEgS6EJ0OIzC6iV7mITLbJr2hMNWOpXMxNQvPDqiUVn5nB3ESgwRMChK4
-	Iujzv5G8i2PsAvW9nIOSB4+K33ycEm6DdgN+SxHXWJfS8LJx+yauyn4HTHeurQndzx5BE4En4Cv
-	CGL8N9kFjaErjLvxaqk9zKHPA+0vTmUCkQLfJDdH3BvslohjSOcHVr62V2EX5mqfuDQXh/hfEL/
-	AH69JCdeEXs8ZlejV7GzxpYXZq4CL4+FReCFJ/t4qKO8GPmIoHnoiHPtRPIsTE69w4kjGWVbXus
-	RWjnzM4gCsDG8JgOfBhTwJJ6L3QqU6/lPnCYzYq62xJh8/L5rOJWOaexJ0q3yD9PpKuBq2s
-X-Received: by 2002:a05:6000:14b:b0:488:8525:4979 with SMTP id ffacd0b85a97d-48e07fb5261mr2934328f8f.45.1792231949280;
-        Sat, 17 Oct 2026 03:12:29 -0700 (PDT)
-Received: from SP11X1e.cable.virginm.net (cpc99340-croy26-2-0-cust244.19-2.cable.virginm.net. [80.193.62.245])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4c5957sm10183948f8f.9.2026.10.17.03.12.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 03:12:28 -0700 (PDT)
-From: George Neacsu <geocausa@gmail.com>
-To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
-Cc: David Heidelberg <david@ixit.cz>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	gjorgji.rosikopulos@oss.qualcomm.com,
-	jigarkumar.zala@oss.qualcomm.com,
-	hariram.purushothaman@oss.qualcomm.com,
-	akapatra@quicinc.com,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	linux-media@vger.kernel.org,
-	krzysztof.kozlowski@oss.qualcomm.com,
-	daniel@quora.org,
-	konrad.dybcio@oss.qualcomm.com,
-	christopher.obbard@linaro.org,
-	alex.vinarskis@gmail.com
-Subject: Re: [PATCH 2/2] media: qcom: camss: account for C-PHY when calculating link frequency
-Date: Sat, 17 Oct 2026 11:12:27 +0100
-Message-ID: <20261017101227.61271-1-geocausa@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261017035221.3816464-3-anusha.nandi@oss.qualcomm.com>
-References: <20261017035221.3816464-1-anusha.nandi@oss.qualcomm.com> <20261017035221.3816464-3-anusha.nandi@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b="sLAc8YXK"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604151535; d=picoheart.com; t=1792232006; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=OOYEfpEwMLQO0bPlTQu721mtf/5q4uehv1PDBQLDVZ8=;
+ b=sLAc8YXKYd4YMon94mD82aqzPrkwixXpb9is/QaBRC0ytna+zwFEe10FjrhbhIwEvOuoQa
+ S3vNwa8MtaUikrhJRTgPLG0ANnOto7WLqg7Wmr7SPZqSGmw8dh2lce/x7+pbMssl7DReds
+ etgZH6EppJ62TMDRHqmPsnbC8ioi7B2fV0W0R7WBklHIkhy5MTyOtXWxJiZHwTmljY1hUX
+ snfxLMMsux/gujiPg5JGFYzH7w5bx7i5lycN7PWWncKmGfSg3mErYpn6D4Tptjh6ksMdGS
+ Flvu7p9N90Ctf2iRiYzLqjtBfTf5crmmEzrxfpyPyws61w2W2K+HNAOQ8bRR7w==
+Message-Id: <f77689e0-91e9-4e5c-9185-fc6fb9394cc6@picoheart.com>
+In-Reply-To: <DLLOVHIKRXPY.3AGBAPAM8F9WV@linux.dev>
+Cc: "Sudeep Holla" <sudeep.holla@kernel.org>, 
+	"Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, 
+	"Danilo Krummrich" <dakr@kernel.org>, "Paul Walmsley" <pjw@kernel.org>, 
+	"Palmer Dabbelt" <palmer@dabbelt.com>, 
+	"Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, 
+	<yang.yicong@picoheart.com>, "Catalin Marinas" <catalin.marinas@arm.com>, 
+	"Will Deacon" <will@kernel.org>, "Mark Rutland" <mark.rutland@arm.com>, 
+	"Rob Herring" <robh@kernel.org>, 
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
+	"Conor Dooley" <conor+dt@kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<driver-core@lists.linux.dev>, <linux-riscv@lists.infradead.org>, 
+	<linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>
+From: "Yicong Yang" <yang.yicong@picoheart.com>
+Subject: Re: [PATCH RFC 2/3] arch_topology: Parse die nodes in /cpu-map
+Received: from [100.86.216.62] ([61.141.241.117]) by smtp.feishu.cn with ESMTPS; Sat, 17 Oct 2026 18:13:24 +0800
+To: "Troy Mitchell" <troy.mitchell@linux.dev>
+References: <20260920-riscv-die-topology-rfc-v1-0-071c0bf61d5f@linux.dev> <20260920-riscv-die-topology-rfc-v1-2-071c0bf61d5f@linux.dev> <20260921-rational-frisky-jerboa-0f2ff0@sudeepholla> <DLLOVHIKRXPY.3AGBAPAM8F9WV@linux.dev>
+X-Lms-Return-Path: <lba+26ad34a44+fac80b+vger.kernel.org+yang.yicong@picoheart.com>
+X-Original-From: Yicong Yang <yang.yicong@picoheart.com>
+Date: Sat, 17 Oct 2026 18:13:22 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
 
-Hi Anusha,
+On 9/22/26 4:06 PM, Troy Mitchell wrote:
+>> Where is the associated bindings ? Am I missing to check it in the series
+>> or it is really missing ? It is essential to add any code using the binding.
+> 
+> I left the binding out to get initial feedback on the topology model,
+> but I agree it should be available for review alongside the code.
+> 
+> The cpu-map binding lives in dt-schema. I have now opened a draft PR [1]
+> with the proposed dieN hierarchy. The PR also links back to this kernel
+> series.
+> 
+>> Also how does it align with ACPI implementation ? It is preferred to be
+>> in parity here, so we need some binding there as well IMHO.
+> 
+> This series does not implement ACPI die discovery and leaves die_id at
+> -1 on that path. I agree that DT and ACPI should describe the same
+> topology model.
+> 
+> RISC-V does not define topology fields in hart IDs. PPTT can describe
+> intermediate processor hierarchy nodes, but I could not find an explicit
+> die indicator in the ACPI 6.6 processor-node flags. Is there an existing
+> PPTT convention for identifying die boundaries that we should follow?
+> 
 
-I tested the CAMSS pieces on X1E80100 and found one extra receiver path
-that needs the C-PHY select.
+PPTT describes the hierarchical processor information but except physical
+package and SMT, there's no flags to bind the nodes to a real topology
+structure. so maybe it's hard to choose one unless a new flag is added by
+the spec to indicate the DIE topology.
 
-X1E80100 uses csid_ops_680, not the gen3 CSID path changed here. The
-C-PHY flag reaches struct csid_phy_config correctly, but
-camss-csid-680.c leaves CSI2_RX_CFG0.PHY_TYPE_SEL clear, so the front
-IMX681 stream is decoded as D-PHY and capture times out with a zero-byte
-buffer.
+may I know the target use case for this die information (as I see the same
+question raised on the thread of the device tree PR)? IIUC the NUMA and
+cluster information should be enough for the software to aware the
+performance differences and the scheduler has already make use them.
 
-The equivalent change for CSID 680 is just:
+thanks.
 
-    val |= phy->cphy << CSI2_RX_CFG0_PHY_TYPE_SEL;
-
-before writing CSID_CSI2_RX_CFG0. With that line, the register reads
-back 0x01300000 on CSID1 and 3844x2640 RAW10 capture succeeds from the
-IMX681 over one C-PHY trio. The rear OV13858 still captures over four
-D-PHY lanes.
-
-I also ran a control with your posted CAMSS/qcom-mipi-csi2 module code,
-plus only the X1E PHY table and this CSID-680 select: both front and rear
-capture successfully.
-
-Would you prefer to fold the CSID-680 line into this patch? I have a
-clean follow-up commit ready if you would rather I send it separately.
-
-Thanks,
-George
+> Would it be acceptable to add DT support first, keeping ACPI die IDs
+> unknown until that mapping is agreed, or should the ACPI mapping be
+> defined as part of this RFC?
+> 
+> Link: https://github.com/devicetree-org/dt-schema/pull/208 [1].
