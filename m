@@ -1,84 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9204D38424C;
-	Sat, 17 Oct 2026 02:03:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0AEC377A8B
+	for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 02:05:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792202587; cv=none; b=iIlcUR2+qUhR4u9fFwRBeXNhQ7IxYZMkTEoqreUfJY9kF65VCSbcrASVtXlfsVfgAiNbnPu7o1PZ8TN4OsTR6F0Gd3d9zuf4Tbk2ovg2XUAChjBmGMCWQ+5XCy21f4YWW6J91SNcrRpn0OZn1x0VLhBZmKtGYKVcISNnNOwOR1Q=
+	t=1792202744; cv=none; b=BW4UHRKanwmqqsm5r06S1yhaVJCeTh2/vHd9leIlOIA9u6c1q5UmgPgwDqa7acbEUX5/NWYX7ADyYBjQ0sQX2etG2g/2TKiJKI//wUjR283OXPa0sFlew1wD+yatziQXAc3Ad7ow4uj2P+SpGOcdstt2FioMJh7UA0XSUSpAGec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792202587; c=relaxed/simple;
-	bh=zxDyrKoG6b6BMQdhx2eHnKWY9oMDfv7nDAtzugsa2nU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=J1rG/8tP1WBferPXKwSUwCxzNnswYI9+FyD0HComYW/ttfz4ZoxU/+q6Z16ZzKtvXukaUYog7k6fIm4K73vpZqXKub4Bv2pksbAAUeWyuxoHvPdKHL3kAi4NKJsc8y5QculM/CuNzTxFv3iR/RLQkp8sXZ3zisjqxhZasfoW57Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KtOQI9Rn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792202744; c=relaxed/simple;
+	bh=+GLX94vcP3yOdU+8OKnyqUaiXWl224Go6iv10tZ7q+U=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=hoReh4HXzOU8HYAr6V4y8HfOV5Zbtl7ssRIFvWTFfFyn6lDNz4apGSloK4AjOnwIs/VcXnGWxlm8VDWLxoMLvai8IeZ57CNBfvlz7ewHJxKCRth8NOK7iNGFmudvA9kYcCD/g/8tsoExiBIETr0OhXVOJ3rKVKmWYcPUtcMn0tw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CTgEynFG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KtOQI9Rn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC60B1F000C4;
-	Sat, 17 Oct 2026 02:03:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CTgEynFG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C0CE1F000C4;
+	Sat, 17 Oct 2026 02:05:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792202586;
-	bh=LizRZHLnqt6c/yrgA4GIqDBk6Yug6XyQhPvTm9fd++4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=KtOQI9RnFHw3a0CoeXTkSzBwQJ+27pgqXPYhVy575/zUoRUQB4hIQDSUtfgjJ7bw1
-	 Gfe9NgGIKeUcYqvFxksMarZM4M8pZmo9vcD0Dh+4jmjVhJDnIPE5rTy+9A8VVxLaJL
-	 GS7ULmg7O+sq/qv8mAnnRXT2IoM6DEw23O//sC8sYz0/tvyVdNsau0cvHZLs0TgLvu
-	 6VAjQccSKrGRP2+H/TqExBzD69Egh3kVt0pp8c1rLJKQSF8R5O9IWE0JyjIQ8ImYsI
-	 bGRM6OvkwrYueK24NXVmnfMuRbwj1tkx3Amdv9Tef3ZYXxPWrrqKP2n6SAExISaNg9
-	 jXjL6+gvevMiA==
-Date: Sat, 17 Oct 2026 03:02:58 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
-Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
- Hennerich <Michael.Hennerich@analog.com>, Nuno Sa <nuno.sa@analog.com>,
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
- Alexandru Ardelean <alexandru.ardelean@analog.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 5/6] iio: imu: adis16607: Add external clock sync
- support
-Message-ID: <20261017030258.0157e651@jic23-hlaptop>
-In-Reply-To: <20261015-adis16607-v3-5-f972d4efee85@analog.com>
-References: <20261015-adis16607-v3-0-f972d4efee85@analog.com>
-	<20261015-adis16607-v3-5-f972d4efee85@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1792202743;
+	bh=PxTNUrvpf5bFU4wIghy2KWDH6xsBe7KFl4xUGFzcyFo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=CTgEynFGSNXwdCdiS+C0oQOIB2xYhAtHb0O1NvWs9yVPDGZj2V/J9v54LnS6hdnGX
+	 jhV1fRoskwykTH8y2TCoa1ZjkUwXfq5Na19GRhi7Dw37xZJqPEV3+/YnDlIb+4PdGz
+	 r1jFHnpIuEGyma+4+NgOmNXLgIn8MBQTALNHtqMm6W48ufe9q0ZB1uxI9C2Qf9Z4j3
+	 JaMOsCi57fcjMSA+M2N3uyEOf8iqaPtnt95WT/AM3WKZpIexhhi/Bt0tz4ClocUBbv
+	 Y8li6cTR+OSXA9givRypCbg5WftOICKLIE8qmCYkPR2Ivl2ZOxW7JhKfIoTgwE0ICy
+	 Rat+fu3s6167g==
+Message-ID: <sashiko-outbox-175185@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 03/15] iio: adc: ad4134: Apply reset recovery wait
+ time
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Marcelo Schmitt" <marcelo.schmitt@analog.com>, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <9f6d78d607b2f9a896513535fefa3329d52c4464.1792200021.git.marcelo.schmitt@analog.com>
+References: <cover.1792200021.git.marcelo.schmitt@analog.com>
+ <9f6d78d607b2f9a896513535fefa3329d52c4464.1792200021.git.marcelo.schmitt@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 17 Oct 2026 02:05:42 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Thu, 15 Oct 2026 12:33:02 +0300
-Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] iio: adc: ad4134: 10-second sleep in ad4134_probe() due to USEC_=
+PER_SEC
+--
 
-> From: Radu Sabau <radu.sabau@analog.com>
-> 
-> Add support for an optional external clock (clocks property),
-> selecting between SYNC_DIRECT and SYNC_SCALED modes depending on the
-> supplied frequency, with the internal 8 kHz clock used as the default
-> when no clock is provided.
-> 
-> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
+commit 3488776492f80838a5517d1bec747527ca957473
+Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
 
-Just a very quick look as I'm out of time for today.
+iio: adc: ad4134: Apply reset recovery wait time
 
-> +
-> +	/* Default dec=0 after reset: period = 1 / clk_freq */
+This commit adds an fsleep() call after deasserting reset in ad4134_probe()
+to wait for reset recovery before starting SPI transfers.
 
-Why does the comment make sense now but didn't before?
+> diff --git a/drivers/iio/adc/ad4134.c b/drivers/iio/adc/ad4134.c
+> index 40b27b01f1260..d555874b49597 100644
+> --- a/drivers/iio/adc/ad4134.c
+> +++ b/drivers/iio/adc/ad4134.c
+> @@ -442,6 +442,7 @@ static int ad4134_probe(struct spi_device *spi)
+>  		return dev_err_probe(dev, PTR_ERR(rst),
+>  				     "failed to get and deassert reset\n");
+> =20
+> +	fsleep(AD4134_RESET_TIME_US);
+>  	crc8_populate_msb(ad4134_spi_crc_table, AD4134_SPI_CRC_POLYNOM);
+> =20
+>  	st->regmap =3D devm_regmap_init(dev, NULL, st, &ad4134_regmap_config);
 
->  	st->sample_period_ns = DIV_ROUND_CLOSEST_ULL((u64)NSEC_PER_SEC * 1000ULL,
-> -						     st->clk_freq);
-> +						      st->clk_freq);
-Tidy this up.
+[Severity: Medium]
+Does calling fsleep(AD4134_RESET_TIME_US) here in ad4134_probe() cause the
+probe path to stall for 10 seconds?
 
-> +
->  	return 0;
->  }
->  
-> 
+Earlier in drivers/iio/adc/ad4134.c, AD4134_RESET_TIME_US is defined using
+USEC_PER_SEC:
 
+    #define AD4134_RESET_TIME_US			(10 * USEC_PER_SEC)
+
+This evaluates to 10,000,000 microseconds (10 seconds), causing fsleep() to
+invoke msleep(10000) every time devm_reset_control_get_optional_exclusive_d=
+easserted()
+succeeds during probe. Should AD4134_RESET_TIME_US be defined with
+USEC_PER_MSEC for a 10 millisecond recovery delay instead?
+
+=D1=82=D0=B8=D1=82=D1=8C=D1=81=D1=8F
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1792200021.gi=
+t.marcelo.schmitt@analog.com?part=3D3
