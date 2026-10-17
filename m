@@ -1,499 +1,175 @@
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8B4893264E7;
-	Sat, 17 Oct 2026 08:13:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.38.64.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792224823; cv=none; b=mi5laqwC9xXIAp/T/6ekKItUzfahaUaOkWls74czuOkGO/iwitFcuWF0jufxMY25yiDYmjmBuUm9CRWjlenCtso0HmnQ6P6f0rMTaQPE+afAYOV9Mr1N3FzAW/QieOs1YMzYQ+EjumzLgSGJsgpOb+EWMYB0UnbbaUOEeWgFb4A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792224823; c=relaxed/simple;
-	bh=wmaPv5rroZ62w0ovVbDv3EUTUZ0eTmmbI4UOIRY0G9o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p8P0JmZlBJwT9xSMBjrT/WBBw4Yig7l20MH8Pt/jyzR0oalJIF2F3aFonnQil4NK82xi8KyC4zeexFo5hvPkwCL2v1wMTIn0/pnC+//HoWOWYDcTSbRHB75UyVZTcFSJoiUo+3vzQ+NEe+ZOLMDPk3f2FH01vGafks+ge9W9G+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn; spf=pass smtp.mailfrom=mail.ustc.edu.cn; dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.b=vDC+NQ7C; arc=none smtp.client-ip=202.38.64.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010028.outbound.protection.outlook.com [52.101.229.28])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E6953C4B91;
+	Sat, 17 Oct 2026 08:23:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792225390; cv=fail; b=skMa26lC+1Ho7DCkgKSVi/mbxH5GF0E90kx4Pp5f6ueMT2K4vs5dSkcW/MREGQ4Yz87HQ3hKRRsGQu4nNOna4Y9xmWWnxijphj2IQlbfmgoXazGr1BYGYXt4xvuqraXH0Q7MTX5asQ6UzNZ4N+VORuMD1atHOByW7/EjBAtr5Ek=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792225390; c=relaxed/simple;
+	bh=rh2qvi8SFHOaT1JpDE0HDX44Uegw8G+B5eAaj+Vgg+Q=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=rzkaaBABLevYJRT0y2OLryAXdaNDqEt+NiLqiIxyiLhbdpbqJJrdaiA7DBOUuKsX+/cWNgOD+MP0DwX5biSyjhZbRLEbUXgf88Lh5/lBpE6wPtkI+R9HX/uUlpNKS1x9TF9pqhnJurHHUKh/Q8SUkErG6VC1ZRlm6b5JMV9wAI4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=gxMrQ+FY; arc=fail smtp.client-ip=52.101.229.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.b="vDC+NQ7C"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=v38KXIzY5OVw+0ADFQ8Cq4L6SpLo5DUj+v
-	xodLfzlcc=; b=vDC+NQ7CE2XoNOc3Noq/EngORFfZStha6zJA3nmaKRGgiSVXKZ
-	nhtEG9qBvCy0SusxxdZSPVcNa0oWpiZspwIzQStKbr2Z0i833DS0mRk33EPLAfqI
-	y8ioWmvcaEfOPAF621aupu+/pVDly8zvqqWAPaugxIKHXrOluEl7gNii0=
-Received: from xuqianhui.ustc.edu.cn (unknown [114.214.230.12])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgBH1EggLtNqndoCAA--.2781S4;
-	Sat, 17 Oct 2026 16:13:26 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	linux-usb@vger.kernel.org
-Cc: Felipe Balbi <balbi@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] usb: dwc3: support two connectors sharing one HS data bus
-Date: Sat, 17 Oct 2026 16:13:20 +0800
-Message-ID: <20261017081320.220525-3-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261017081320.220525-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261017081320.220525-1-xiaqinghuan@mail.ustc.edu.cn>
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="gxMrQ+FY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wludo6SwXReKqxZkdlNKobFpropFijycx2tOwPh7n20QnoucCKZyFtX4RxmMKOMFRBBJnV+OvpszniSK/ofG3A5NSQR83baoQVwqmKh+Xh29nf+jW8vKJFTVU+WdkNwUt6EasWmkBc9m5eqTeZz+you+DsHuv0ukigoeF2zSxPSgzCEH2BRur6eHWMSw22xlM3Thcg2axC09weTuRFMfboYoD95JZhBW0mH6N4dUpm35ID1nfxxDowj114NnwxzDZr7bPRsItUeadggVlE7VZkYzYJREd1O953ejTtZlYlIAxmFCJWPirg7lOzCdLHVyP1Dk2KSlDYCcX/oHTUDboQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rh2qvi8SFHOaT1JpDE0HDX44Uegw8G+B5eAaj+Vgg+Q=;
+ b=Ppayt0+2tUy+SJvzAHhkBvTqnxGBUnd7vhNyu3uWrABhFJEC6SiTMtjz75TyA/HKG1JVtgqThedOBk6WamPB3YG+env4GTv/e9XE6OxbuTJOYdFbEb0fXl1HhWJytuiDJKBQv9b/Ya+mWR0tHfMVKnzyax3JVsmW8k9SA+iUTHSr8ohUA6HcxXDseFcrh9LrISZSiH9MXkjVBVqOYNifnk536naw1ywaMcp/SH2WmHsTcVfHx1TYq44HIweJe5jBMKi8VsI13XULvHq9P7wffvMXHEfwEHwb2DGYGuQo6aob7rhwJPKA9uWJpuoJcDirAg0ju3o3YJm6l55YoggvRg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rh2qvi8SFHOaT1JpDE0HDX44Uegw8G+B5eAaj+Vgg+Q=;
+ b=gxMrQ+FYbSJD4IdAgih2/3Q5nVJTn+z+JUUmfGCjdgcjEp21JHpcvSWoozPXO1AV+S9P0mLBFFbQ/+JW+eVMS4HR8H8qN49A4N+MgzDNN8IqBDwyOrrsn7G5LUMTeK+mGsmlpkGx8s4LDRc17AM47kwB08wnOFebaRt4EJEFWSo=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by TY3PR01MB10125.jpnprd01.prod.outlook.com (2603:1096:400:1da::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.18; Sat, 17 Oct
+ 2026 08:23:04 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%6]) with mapi id 15.21.0496.021; Sat, 17 Oct 2026
+ 08:23:04 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Marc
+ Kleine-Budde <mkl@pengutronix.de>, Krzysztof Kozlowski <krzk+dt@kernel.org>
+CC: Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
+	"magnus.damm" <magnus.damm@gmail.com>, Fabrizio Castro
+	<fabrizio.castro.jz@renesas.com>, "linux-can@vger.kernel.org"
+	<linux-can@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-renesas-soc@vger.kernel.org"
+	<linux-renesas-soc@vger.kernel.org>, Chris Paterson
+	<Chris.Paterson2@renesas.com>, Prabhakar Mahadev Lad
+	<prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: RE: [PATCH v4 1/3] dt-bindings: can: renesas,rcar-canfd: Document
+ RZ/G3L SoC
+Thread-Topic: [PATCH v4 1/3] dt-bindings: can: renesas,rcar-canfd: Document
+ RZ/G3L SoC
+Thread-Index: AQHdUXqWGJYcQwxreka0VFtI2IFYOLcAS3kAgAABusCAAS3QgIAAAZIA
+Date: Sat, 17 Oct 2026 08:23:03 +0000
+Message-ID:
+ <TY3PR01MB11346ACB35A041309BCFA744F869A2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20261001075742.21961-1-biju.das.jz@bp.renesas.com>
+ <20261001075742.21961-2-biju.das.jz@bp.renesas.com>
+ <20261016-rebel-ostrich-from-vega-f759c8-mkl@pengutronix.de>
+ <TY3PR01MB113465234171180FFB5F1B6FD869B2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <c624d8d5-3362-458a-96db-0457b25cad53@oss.qualcomm.com>
+In-Reply-To: <c624d8d5-3362-458a-96db-0457b25cad53@oss.qualcomm.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TY3PR01MB10125:EE_
+x-ms-office365-filtering-correlation-id: a9859956-a48e-477f-5c35-08df2c27dd63
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|18002099003|22082099003|10067099003|4143699003|261009223027099003|11063799006|38070700021|56012099006;
+x-microsoft-antispam-message-info:
+ /1NNCl8B8ZkVslipJ2sqTymSvY7ve2oNM+4U+JbvzYgx+bDpAC0GA2GC/QdnzlTu1dm9zKEhqXhUJBgBybIfHfBetxWHPlXdCSvDsSk5Xa+DOZK2w8iQTp+ZMnvCvZphLuiCK2ubEfD7ZZbWjLNS6fzxFPaT1uVhm4GyOJuitbTK/BYHdOCGPZnj/FrADyghkspwhwTs65vO0YBk/OA/p0G9/GRsFZ1Dq3+lzVZB/Kv+q9adOSLcu6PTcAdBHwt2bm8n0WNFqnpYW/4FkgrOfnGts7DXOvdvVH5X8Qw/Q/LdYsXEVrdpYQ+qwXtiVmkT2RqbeI4dBo7mEqPf9XE9tqXboBdG4tFZJLDFhD75fJhG4U+sEImX+cKmBqQpEyJIz4YkTzWJmE38Rsr+V8PZ3Gvxm+GVz252/XS9GOpNJn8U8KCYMtxMmR/sfm1E4tGIwz2U5giJBEfdzQRPai3KIQsCbl12sCZrfGS5v1BjmO/X9wAT1o1IadB030VZWWP3MQkBeqsu8LOsvVPJy+oDb5hpaw8CFwWz/cWZf93UOfSqOPgRh4VPsC6lnKZKoZWwEeSoPn5w5ckL30tarvZfcmdEBAlU/PKiktuNYSXTKZ+BptNOWRKaNf9nBsr/PsNN1WTjH4jDGmODQn0saA9iyZ9xrmx9H/vts+jkpXgrOY1TpzH5lh+SsPWpCA1sNWwSrkAhc3QWLmzSkUsgPWH9vJWtWGWQtDgwCNSuzhLvYhA=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(18002099003)(22082099003)(10067099003)(4143699003)(261009223027099003)(11063799006)(38070700021)(56012099006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?a1I1MC9vdkwzd0dNZW44UW1kSys2OE5vQlJHbHA3L1JENkJwTVg4RnFtbDR0?=
+ =?utf-8?B?OHRSemE0a1BYUFRnd2RCTEtqMG1oKzJEei9VSW05bUVGeVM0SUZkNk9RZ0d0?=
+ =?utf-8?B?ZndYb2pUSWtPN1cxM1U2M1ZnVkc0Mkc4U2ROZnVSTUlvdnFGSFJCcXV2UEd5?=
+ =?utf-8?B?WEZOcCtpQUZyQ1hJOTB4Z2xRbDBhQU9vMm4yb0hSeUwyRm1PQlgzaW5lK1gz?=
+ =?utf-8?B?aDBqbm5GSFAwcVFwNzFtdTdEOWl6emd5RE9BRWdMSk9OWGRUbkV4b0ZGV01D?=
+ =?utf-8?B?ME5jV3JtdGdGZUFiL0xmdGdLNXRHRXd2di9QejVKT05KUUhWT0U4WmM0Tk5y?=
+ =?utf-8?B?S29nS0hmNlE5UkNuQ1RNR2k2dWVWWGpzclFQRGxaREFlcysxWUhEaDBVOFRp?=
+ =?utf-8?B?VnNhUHlIWDc1cUdTNzV5c1BOeVFHek9IMy9oRm9hblNzcGtWMUdrSDdCZVNw?=
+ =?utf-8?B?NXduSkpYMGJUOWk0RkRlbmtzVmJsc1A1YlBPd0wzZVlaMG0wdzlxV2NqQnhE?=
+ =?utf-8?B?NGNVOWhEVFF6bWlBbjl6ZmRwR0F2WjAvdGtzS2QxQmNkc3ZycXlkSWdxNFQ5?=
+ =?utf-8?B?RWJicFNDYkhycXZDVUVLS1YwcWM2SWxSVE5sZ0FYdDJQQkZ0R0N5WFNNYzQ5?=
+ =?utf-8?B?MDNCdGlWNk5rVnR1S2pPeENJa1g2TnhlOFdHbkdkT0VHdExFRUQvbll5VlQ0?=
+ =?utf-8?B?MFVxVW96NmNHMWpTdHhFMGF2UXFYRVBKeGFoUzY2SHAzVTVZNXovdmw1Q0l6?=
+ =?utf-8?B?aTF6Rk5rTDB6WUpJcDZIQmZYbDVGdUx6RTJOTUdEZVgwU1padEYxUzFvNFBE?=
+ =?utf-8?B?YnpqdFJtZE9aaElyUkswS2szL0JwSmN1cE40UWRscmcyMVh2R3NQbTdFSElQ?=
+ =?utf-8?B?Vi9DbnUzeFpWZ2JBV2N3NnM4ZEVhZk9KZ1ZVSUdna1NrQ1M2bWN3WE5IKzl1?=
+ =?utf-8?B?OHdTL0xRYmg3cUpvei9SQjBlS2kzQ2pGN0Z0a3JJUzhTcTYvYXhpOENaUlVQ?=
+ =?utf-8?B?ZnE2dUlDalJvZjVHWFBzUnRKY3p1RHpMZk92dkxudllsdUd1ZUllYks5UHE2?=
+ =?utf-8?B?Umg4dWM2TUQxV3l0S0psQXZGZlg5TkZqdDJhRlJWeFBRZlRoT1FraDRxK3ZO?=
+ =?utf-8?B?RjhDcVkwbXltOVgzOVN2NlJORzVJS1Z5VVFLYm9UR0w4YzFQdWJ0QnVYZE1u?=
+ =?utf-8?B?UmxlandIU2tMTTZwTDQybTZxSnkrVDMra293ZjhDRm1abkhNSU9DdnFJbTU5?=
+ =?utf-8?B?ZFZoaXdza1p6ZkxqNlJRaXB4aExlSkNVWmZURytpYlFUZjNEeGZnNU8rUnhS?=
+ =?utf-8?B?TlliR0grbkhRdlkwKzdSMm5jSVZqWnRCZGk3cUcxREs3dTlVSUtLU2N1NXRr?=
+ =?utf-8?B?bmtZdWd6VWY0ajAwNGhqTHJ4Mk9obDBFdFBNUVcyZXVmNndhbk93eUc1N1Rw?=
+ =?utf-8?B?bUU1RVhlNnlleHNobW8zK0dzTnZ4Umc3QjIxZnMwYTRjV1FIRFFDbm1kRGhL?=
+ =?utf-8?B?aG1YOHl3L1JtT1gvbHV3ZE1wUUk2YUlOUjlqaU55dXdUdnd2UTA3SzBNazJ5?=
+ =?utf-8?B?eWVLckl0WVR2U3RtRkpZZFZEWFgrbGsvYWQ2NEFvdStwaDl1aUhrV0cyZGhC?=
+ =?utf-8?B?QnhCcGVvWXduc0V5YUZzOEE4WVBUMnZZdDkzZVZDN1NHWWZaT2VtZk44YklJ?=
+ =?utf-8?B?T1FhZmYrTjJWL0dqNmtCRXhSL3p1Rk52dlJLNXNwL2ZXKzJVdEpmZGM5eFRC?=
+ =?utf-8?B?SmhpaTljODhlUmQxSlYxZTFkUHRXTTBFY1QwS1R5U2ZRSFN4RW9wdEo3MEti?=
+ =?utf-8?B?a0hxQllXZDYzTU11MnExN3FsWEh3NmNCeTMzcE9aajV3ZGZUT2hXTkloNCtV?=
+ =?utf-8?B?bXZKMHB4SWw4RU42Z3FRblpRUDl3bm1rdUhsQXVBandBSTRQS0dIT0RSRTFN?=
+ =?utf-8?B?a3ZROHlEWWpydzB5WFVkWTNBZ1FmbzhRcCtLYWdXZ29GWnh6RkVpck13YXpL?=
+ =?utf-8?B?d0pMTm40NEl6eHBZMWpjcnVzUm9kTFd6cnNPQkhrUXNxTDR6YTUrb1dvZUkr?=
+ =?utf-8?B?SUR3d2ljNWdSYkpvSzBuTU1TVWk5eHlxcTZOd1FBejdpTUtLdWpFOFFZbldO?=
+ =?utf-8?B?WHBwNi9lbHA3ajJGUExSSk9FZDBDRDM3bHoyT2FuVmZVU1h4MFkrQWtpNHZq?=
+ =?utf-8?B?Y2VoTmJXa0lES1Zua01lR21pWHUycnErekErMmxINS9DYVl1K2hVRmdyRUJH?=
+ =?utf-8?B?TFAyMU56MGxWWmpYai8wQno4Z0QzYTljdWc5Wk1valBlUHZndldLQ1c1L1Fw?=
+ =?utf-8?B?WlFqK0U3SCtZVC84b2NwSUs4VjQ2RTRzRk92KzU0dlZkMXBrbkFBdz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgBH1EggLtNqndoCAA--.2781S4
-X-Coremail-Antispam: 1UD129KBjvAXoW3CrWUAry7trWUAFyxCFykXwb_yoW8Gry8Ao
-	WftayDXws5KryFgrykCFn7tFyUZ397Kr1UAr1rZrsruF1DW3yrKr9rGF4jqFWfWa1ayF45
-	XFZ7Zr4FqFsayr95n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UjIYCTnIWjp_UUUOr7k0a2IF6w4kM7kC6x804xWl14x267AKxVWrJVCq3wAFc2x0
-	x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87
-	I2jVAFwI0_Jryl82xGYIkIc2x26xkF7I0E14v26r4j6ryUM28lY4IEw2IIxxk0rwA2F7IY
-	1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20x
-	vEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280
-	aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzV
-	Aqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S
-	6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7Mx
-	kF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4U
-	MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67
-	AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0
-	cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z2
-	80aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI
-	43ZEXa7IU5ZNVPUUUUU==
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREDB2rSe1QUgwBUsA
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a9859956-a48e-477f-5c35-08df2c27dd63
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Oct 2026 08:23:03.8927
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ieFf9CcWTcnroLVuqQxtyMbsQGluVb8nEbCKUqTsXzAlOCGvrljG6vWEppiRQyGp+Eol/p1/sNmWYtoNCWe++ETwSM/Oz+YbnDCgsHEphfY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB10125
 
-On some boards a single DWC3 controller drives two receptacles: the Super
-Speed pairs are wired to separate PHYs, while the High Speed data lines
-are muxed to whichever connector is in use.  Such a controller has to
-service two independent role-switch inputs, and the shared data path has
-to be moved before the controller is reinitialised for the requested role.
-
-Register one usb_role_switch per connector endpoint described in
-"ports"/"mux-state" when "port-select-gpios" is present.  Requests from
-the two switches are serialised, the oldest pending request wins, and the
-port-select GPIO is only changed once the previous host or gadget instance
-has been torn down, which is where __dwc3_set_mode() runs.  A connector
-only reports its own role while it owns the data path, so the connector
-drivers see a consistent view of a shared controller.
-
-The role change keeps the asynchronous semantics of the existing
-single-connector role switch: __dwc3_set_mode() is the only place that
-programs hardware, and it never aborts half-way, so a failed GPIO write
-cannot leave a torn-down role behind.
-
-While the two-connector mux owns role selection, the debugfs "mode" write
-used to force a specific role is refused instead of racing with it.
-
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
----
- drivers/usb/dwc3/core.c    |  29 +++++-
- drivers/usb/dwc3/core.h    |  38 +++++++
- drivers/usb/dwc3/debugfs.c |   4 +
- drivers/usb/dwc3/drd.c     | 199 ++++++++++++++++++++++++++++++++++++-
- 4 files changed, 268 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
-index fd5c2cd36..6607e65e8 100644
---- a/drivers/usb/dwc3/core.c
-+++ b/drivers/usb/dwc3/core.c
-@@ -21,6 +21,7 @@
- #include <linux/io.h>
- #include <linux/list.h>
- #include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/dma-mapping.h>
- #include <linux/of.h>
- #include <linux/of_graph.h>
-@@ -165,7 +166,9 @@ EXPORT_SYMBOL_GPL(dwc3_set_prtcap);
- static void __dwc3_set_mode(struct work_struct *work)
- {
- 	struct dwc3 *dwc = work_to_dwc(work);
-+	struct dwc3_role_mux *mux = dwc->role_mux;
- 	unsigned long flags;
-+	int mux_port = 0;
- 	int ret;
- 	u32 reg;
- 	u32 desired_dr_role;
-@@ -174,6 +177,8 @@ static void __dwc3_set_mode(struct work_struct *work)
- 	mutex_lock(&dwc->mutex);
- 	spin_lock_irqsave(&dwc->lock, flags);
- 	desired_dr_role = dwc->desired_dr_role;
-+	if (mux)
-+		mux_port = mux->desired_port;
- 	spin_unlock_irqrestore(&dwc->lock, flags);
- 
- 	pm_runtime_get_sync(dwc->dev);
-@@ -184,7 +189,8 @@ static void __dwc3_set_mode(struct work_struct *work)
- 	if (!desired_dr_role)
- 		goto out;
- 
--	if (desired_dr_role == dwc->current_dr_role)
-+	if (desired_dr_role == dwc->current_dr_role &&
-+	    (!mux || mux_port == mux->active_port))
- 		goto out;
- 
- 	if (desired_dr_role == DWC3_GCTL_PRTCAP_OTG && dwc->edev)
-@@ -233,6 +239,27 @@ static void __dwc3_set_mode(struct work_struct *work)
- 		dwc3_writel(dwc, DWC3_GCTL, reg);
- 	}
- 
-+	/*
-+	 * The previous host or gadget instance has been torn down above, so the
-+	 * shared High Speed data path can now be moved to the requesting
-+	 * connector.  A failure here must not abort the mode change half-way:
-+	 * the controller would be left with a torn-down role and a stale
-+	 * current_dr_role, which the next request would tear down a second time.
-+	 */
-+	if (mux && mux_port != mux->active_port) {
-+		ret = gpiod_direction_output(mux->select, mux_port);
-+		if (ret) {
-+			WRITE_ONCE(mux->error, ret);
-+			dev_err_ratelimited(dwc->dev,
-+					    "failed to select USB port %d: %d\n",
-+					    mux_port, ret);
-+		} else {
-+			spin_lock_irqsave(&dwc->lock, flags);
-+			mux->active_port = mux_port;
-+			spin_unlock_irqrestore(&dwc->lock, flags);
-+		}
-+	}
-+
- 	spin_lock_irqsave(&dwc->lock, flags);
- 
- 	dwc3_set_prtcap(dwc, desired_dr_role, false);
-diff --git a/drivers/usb/dwc3/core.h b/drivers/usb/dwc3/core.h
-index f3dabb37f..6312c1ed6 100644
---- a/drivers/usb/dwc3/core.h
-+++ b/drivers/usb/dwc3/core.h
-@@ -1008,6 +1008,42 @@ struct dwc3_glue_ops {
- 	void	(*pre_run_stop)(struct dwc3 *dwc, bool is_on);
- };
- 
-+/* Per-connector state of the optional shared-HS-data-bus mux. */
-+struct dwc3_role_port {
-+	struct dwc3		*dwc;
-+	struct usb_role_switch	*sw;
-+	struct fwnode_handle	*fwnode;
-+	enum usb_role		role;
-+	unsigned long		stamp;
-+	unsigned int		state;
-+};
-+
-+/**
-+ * struct dwc3_role_mux - optional data-path mux between two connectors
-+ * @select: GPIO selecting which connector drives the shared HS data lines
-+ * @lock: serialises role requests coming from both connectors
-+ * @ports: per-connector state, indexed by the endpoint's "mux-state"
-+ * @desired_role: role requested by the connector that currently wins
-+ * @desired_port: index of that connector
-+ * @active_port: index of the connector currently driving the data lines
-+ * @error: sticky data-path switch error, reported to the role-switch users
-+ *
-+ * Two connectors can share the High Speed data lines of one controller while
-+ * keeping their Super Speed lanes separate.  Each connector then needs its own
-+ * role-switch input, and the shared data path has to be moved before the
-+ * controller is reinitialised for the requested role.
-+ */
-+struct dwc3_role_mux {
-+	struct gpio_desc	*select;
-+	/* serialises role requests coming from both connectors */
-+	struct mutex		lock;
-+	struct dwc3_role_port	ports[2];
-+	enum usb_role		desired_role;
-+	int			desired_port;
-+	int			active_port;
-+	int			error;
-+};
-+
- /**
-  * struct dwc3 - representation of our controller
-  * @drd_work: workqueue used for role swapping
-@@ -1064,6 +1100,7 @@ struct dwc3_glue_ops {
-  *		- USBPHY_INTERFACE_MODE_UTMI
-  *		- USBPHY_INTERFACE_MODE_UTMIW
-  * @role_sw: usb_role_switch handle
-+ * @role_mux: optional shared data-path mux plus per-connector role switches
-  * @role_switch_default_mode: default operation mode of controller while
-  *			usb role is USB_ROLE_NONE.
-  * @usb_psy: pointer to power supply interface.
-@@ -1265,6 +1302,7 @@ struct dwc3 {
- 	struct notifier_block	edev_nb;
- 	enum usb_phy_interface	hsphy_mode;
- 	struct usb_role_switch	*role_sw;
-+	struct dwc3_role_mux	*role_mux;
- 	enum usb_dr_mode	role_switch_default_mode;
- 
- 	struct power_supply	*usb_psy;
-diff --git a/drivers/usb/dwc3/debugfs.c b/drivers/usb/dwc3/debugfs.c
-index 65d909e4b..0d42f1098 100644
---- a/drivers/usb/dwc3/debugfs.c
-+++ b/drivers/usb/dwc3/debugfs.c
-@@ -438,6 +438,10 @@ static ssize_t dwc3_mode_write(struct file *file,
- 	u32			mode = 0;
- 	char			buf[32];
- 
-+	/* The connector providers own both the role and the data-path selection. */
-+	if (dwc->role_mux)
-+		return -EBUSY;
-+
- 	if (copy_from_user(&buf, ubuf, min_t(size_t, sizeof(buf) - 1, count)))
- 		return -EFAULT;
- 
-diff --git a/drivers/usb/dwc3/drd.c b/drivers/usb/dwc3/drd.c
-index f3e37d383..491047796 100644
---- a/drivers/usb/dwc3/drd.c
-+++ b/drivers/usb/dwc3/drd.c
-@@ -8,6 +8,7 @@
-  */
- 
- #include <linux/extcon.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/of_platform.h>
- #include <linux/platform_device.h>
- #include <linux/property.h>
-@@ -501,10 +502,199 @@ static enum usb_role dwc3_usb_role_switch_get(struct usb_role_switch *sw)
- 	return role;
- }
- 
-+/*
-+ * Index of the connector that should own the shared data path: the oldest
-+ * pending request wins, and the last selection is kept when neither connector
-+ * requests a role.
-+ */
-+static int dwc3_role_mux_pick(struct dwc3_role_mux *mux)
-+{
-+	int sel = mux->desired_port;
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(mux->ports); i++) {
-+		if (mux->ports[i].role == USB_ROLE_NONE)
-+			continue;
-+		if (mux->ports[sel].role == USB_ROLE_NONE ||
-+		    time_before(mux->ports[i].stamp, mux->ports[sel].stamp))
-+			sel = i;
-+	}
-+
-+	return sel;
-+}
-+
-+static u32 dwc3_role_mux_mode(struct dwc3 *dwc, enum usb_role role)
-+{
-+	if (role == USB_ROLE_HOST)
-+		return DWC3_GCTL_PRTCAP_HOST;
-+	if (role == USB_ROLE_DEVICE)
-+		return DWC3_GCTL_PRTCAP_DEVICE;
-+	if (dwc->role_switch_default_mode == USB_DR_MODE_HOST)
-+		return DWC3_GCTL_PRTCAP_HOST;
-+
-+	return DWC3_GCTL_PRTCAP_DEVICE;
-+}
-+
-+static int dwc3_mux_role_set(struct usb_role_switch *sw, enum usb_role role)
-+{
-+	struct dwc3_role_port *port = usb_role_switch_get_drvdata(sw);
-+	struct dwc3 *dwc = port->dwc;
-+	struct dwc3_role_mux *mux = dwc->role_mux;
-+	unsigned long flags;
-+	enum usb_role selected_role;
-+	int selected;
-+
-+	if (role > USB_ROLE_DEVICE)
-+		return -EINVAL;
-+
-+	mutex_lock(&mux->lock);
-+	spin_lock_irqsave(&dwc->lock, flags);
-+	if (role != port->role && role != USB_ROLE_NONE)
-+		port->stamp = jiffies;
-+	port->role = role;
-+	selected = dwc3_role_mux_pick(mux);
-+	mux->desired_port = selected;
-+	selected_role = mux->ports[selected].role;
-+	mux->desired_role = selected_role;
-+	spin_unlock_irqrestore(&dwc->lock, flags);
-+	mutex_unlock(&mux->lock);
-+
-+	/*
-+	 * Same asynchronous semantics as the single-connector role switch: the
-+	 * data path and the controller are reprogrammed from __dwc3_set_mode().
-+	 */
-+	dwc3_set_mode(dwc, dwc3_role_mux_mode(dwc, selected_role));
-+
-+	return 0;
-+}
-+
-+static enum usb_role dwc3_mux_role_get(struct usb_role_switch *sw)
-+{
-+	struct dwc3_role_port *port = usb_role_switch_get_drvdata(sw);
-+	struct dwc3 *dwc = port->dwc;
-+	struct dwc3_role_mux *mux = dwc->role_mux;
-+	unsigned long flags;
-+	enum usb_role role = USB_ROLE_NONE;
-+
-+	/*
-+	 * A connector only reports its own role while it owns the shared data
-+	 * path, so the connector drivers never fight over the controller.
-+	 */
-+	spin_lock_irqsave(&dwc->lock, flags);
-+	if (mux->active_port == port->state)
-+		role = port->role;
-+	spin_unlock_irqrestore(&dwc->lock, flags);
-+
-+	return role;
-+}
-+
-+static void dwc3_role_mux_exit(struct dwc3 *dwc)
-+{
-+	struct dwc3_role_mux *mux = dwc->role_mux;
-+	unsigned int i;
-+
-+	if (!mux)
-+		return;
-+
-+	for (i = 0; i < ARRAY_SIZE(mux->ports); i++) {
-+		if (mux->ports[i].sw)
-+			usb_role_switch_unregister(mux->ports[i].sw);
-+		mux->ports[i].sw = NULL;
-+		fwnode_handle_put(mux->ports[i].fwnode);
-+		mux->ports[i].fwnode = NULL;
-+	}
-+}
-+
-+/* Returns 1 when the optional two-connector mux has been set up. */
-+static int dwc3_role_mux_init(struct dwc3 *dwc, u32 mode)
-+{
-+	struct usb_role_switch_desc desc = {};
-+	struct dwc3_role_mux *mux;
-+	struct fwnode_handle *ep;
-+	struct gpio_desc *select;
-+	char name[64];
-+	u32 state;
-+	int ret, i;
-+
-+	select = devm_gpiod_get_optional(dwc->dev, "port-select", GPIOD_ASIS);
-+	if (IS_ERR(select))
-+		return PTR_ERR(select);
-+	if (!select)
-+		return 0;
-+
-+	mux = devm_kzalloc(dwc->dev, sizeof(*mux), GFP_KERNEL);
-+	if (!mux)
-+		return -ENOMEM;
-+
-+	ret = gpiod_get_value_cansleep(select);
-+	if (ret < 0)
-+		return ret;
-+
-+	mux->select = select;
-+	mux->desired_port = ret;
-+	mux->active_port = -1;
-+	mutex_init(&mux->lock);
-+
-+	fwnode_graph_for_each_endpoint(dev_fwnode(dwc->dev), ep) {
-+		if (!fwnode_property_present(ep, "usb-role-switch"))
-+			continue;
-+
-+		ret = fwnode_property_read_u32(ep, "mux-state", &state);
-+		if (ret || state >= ARRAY_SIZE(mux->ports)) {
-+			ret = -EINVAL;
-+			goto err_put_ep;
-+		}
-+		if (mux->ports[state].fwnode) {
-+			ret = -EINVAL;
-+			goto err_put_ep;
-+		}
-+
-+		mux->ports[state].fwnode = fwnode_handle_get(ep);
-+		mux->ports[state].state = state;
-+		mux->ports[state].dwc = dwc;
-+	}
-+
-+	for (i = 0; i < ARRAY_SIZE(mux->ports); i++) {
-+		if (!mux->ports[i].fwnode) {
-+			ret = -EINVAL;
-+			goto err;
-+		}
-+	}
-+
-+	dwc->role_mux = mux;
-+	dwc3_set_mode(dwc, mode);
-+
-+	for (i = 0; i < ARRAY_SIZE(mux->ports); i++) {
-+		snprintf(name, sizeof(name), "%s-port%u", dev_name(dwc->dev), i);
-+		desc.name = name;
-+		desc.fwnode = mux->ports[i].fwnode;
-+		desc.set = dwc3_mux_role_set;
-+		desc.get = dwc3_mux_role_get;
-+		desc.driver_data = &mux->ports[i];
-+		mux->ports[i].sw = usb_role_switch_register(dwc->dev, &desc);
-+		if (IS_ERR(mux->ports[i].sw)) {
-+			ret = PTR_ERR(mux->ports[i].sw);
-+			mux->ports[i].sw = NULL;
-+			goto err;
-+		}
-+	}
-+
-+	return 1;
-+
-+err:
-+	dwc3_role_mux_exit(dwc);
-+	dwc->role_mux = NULL;
-+	return ret;
-+err_put_ep:
-+	fwnode_handle_put(ep);
-+	goto err;
-+}
-+
- static int dwc3_setup_role_switch(struct dwc3 *dwc)
- {
- 	struct usb_role_switch_desc dwc3_role_switch = {NULL};
- 	u32 mode;
-+	int ret;
- 
- 	dwc->role_switch_default_mode = usb_get_role_switch_default_mode(dwc->dev);
- 	if (dwc->role_switch_default_mode == USB_DR_MODE_HOST) {
-@@ -513,6 +703,11 @@ static int dwc3_setup_role_switch(struct dwc3 *dwc)
- 		dwc->role_switch_default_mode = USB_DR_MODE_PERIPHERAL;
- 		mode = DWC3_GCTL_PRTCAP_DEVICE;
- 	}
-+
-+	ret = dwc3_role_mux_init(dwc, mode);
-+	if (ret)
-+		return ret < 0 ? ret : 0;
-+
- 	dwc3_set_mode(dwc, mode);
- 
- 	dwc3_role_switch.fwnode = dev_fwnode(dwc->dev);
-@@ -526,7 +721,7 @@ static int dwc3_setup_role_switch(struct dwc3 *dwc)
- 
- 	if (dwc->dev->of_node) {
- 		/* populate connector entry */
--		int ret = devm_of_platform_populate(dwc->dev);
-+		ret = devm_of_platform_populate(dwc->dev);
- 
- 		if (ret) {
- 			usb_role_switch_unregister(dwc->role_sw);
-@@ -541,6 +736,7 @@ static int dwc3_setup_role_switch(struct dwc3 *dwc)
- #else
- #define ROLE_SWITCH 0
- #define dwc3_setup_role_switch(x) 0
-+static inline void dwc3_role_mux_exit(struct dwc3 *dwc) {}
- #endif
- 
- int dwc3_drd_init(struct dwc3 *dwc)
-@@ -597,6 +793,7 @@ void dwc3_drd_exit(struct dwc3 *dwc)
- {
- 	unsigned long flags;
- 
-+	dwc3_role_mux_exit(dwc);
- 	if (dwc->role_sw)
- 		usb_role_switch_unregister(dwc->role_sw);
- 
--- 
-2.53.0
-
+SGkgS3J6eXN6dG9mLA0KDQpUaGFua3MgZm9yIHRoZSBmZWVkYmFjay4NCg0KPiAtLS0tLU9yaWdp
+bmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBLcnp5c3p0b2YgS296bG93c2tpIDxrcnp5c3p0b2Yu
+a296bG93c2tpQG9zcy5xdWFsY29tbS5jb20+DQo+IFNlbnQ6IDE3IE9jdG9iZXIgMjAyNiAwOTox
+MQ0KPiBTdWJqZWN0OiBSZTogW1BBVENIIHY0IDEvM10gZHQtYmluZGluZ3M6IGNhbjogcmVuZXNh
+cyxyY2FyLWNhbmZkOiBEb2N1bWVudCBSWi9HM0wgU29DDQo+IA0KPiBPbiAxNi8xMC8yMDI2IDE2
+OjEyLCBCaWp1IERhcyB3cm90ZToNCj4gPj4NCj4gPj4+IEBAIC0yOTQsNiArMjk1LDI1IEBAIGFs
+bE9mOg0KPiA+Pj4gICAgICAgIHBhdHRlcm5Qcm9wZXJ0aWVzOg0KPiA+Pj4gICAgICAgICAgIl5j
+aGFubmVsWzYtN10kIjogZmFsc2UNCj4gPj4+DQo+ID4+PiArICAtIGlmOg0KPiA+Pj4gKyAgICAg
+IHByb3BlcnRpZXM6DQo+ID4+PiArICAgICAgICBjb21wYXRpYmxlOg0KPiA+Pj4gKyAgICAgICAg
+ICBjb250YWluczoNCj4gPj4+ICsgICAgICAgICAgICBjb25zdDogcmVuZXNhcyxyOWEwOGcwNDYt
+Y2FuZmQNCj4gPj4+ICsgICAgdGhlbjoNCj4gPj4+ICsgICAgICBwcm9wZXJ0aWVzOg0KPiA+Pj4g
+KyAgICAgICAgaW50ZXJydXB0czoNCj4gPj4+ICsgICAgICAgICAgbWluSXRlbXM6IDExDQo+ID4+
+PiArDQo+ID4+PiArICAgICAgICBpbnRlcnJ1cHQtbmFtZXM6DQo+ID4+PiArICAgICAgICAgIG1p
+bkl0ZW1zOiAxMQ0KPiA+Pj4gKw0KPiA+Pj4gKyAgICAgICAgcmVzZXRzOg0KPiA+Pj4gKyAgICAg
+ICAgICBtaW5JdGVtczogMg0KPiA+Pg0KPiA+PiBEaXNjb3ZlcmVkIGJ5OiBzYXNoaWtvLWdlbWlu
+aSDCtyBNaXNzZWQgYnk6IG9wdXMtNS01LCBncHQtNi1hc3RyYSDCtw0KPiA+PiBDb25maXJtZWQg
+Ynk6IG9wdXMtNS01IFNob3VsZCB0aGlzIGJsb2NrIGFsc28gY2FwIGludGVycnVwdHMgYW5kIGlu
+dGVycnVwdC1uYW1lcyBhdCAxMT8NCj4gDQo+IENvcnJlY3QuDQo+IA0KPiA+DQo+ID4gS3J6eXN6
+dG9mLA0KPiA+DQo+ID4gRG8geW91IGFncmVlIHdpdGggc2FzaGlrbydzIGNvbW1lbnQ/IEkgZHJv
+cHBlZCBtYXhJdGVtcyBiYXNlZCBvbiB0aGUNCj4gPiByZXZpZXcgY29tbWVudCBbMV0NCj4gDQo+
+IEkgYXNrZWQgdG8gZHJvcCBtYXhJdGVtcyBmcm9tIHJlc2V0cy4gV2h5IGRpZCB5b3UgZHJvcCBp
+dCBmcm9tIG90aGVyIHBsYWNlcz8gQ29tbWVudHMgZnJvbSByZXZpZXdlcnMNCj4gYXBwZWFyIGlu
+IHNwZWNpZmljIHBsYWNlcywgbm90IHJhbmRvbWx5Lg0KDQpPb3BzIEl0IHdhcyBteSBtaXN0YWtl
+LiBJIHRob3VnaHQgSSBuZWVkIHRvIHVwZGF0ZSBvdGhlciBibG9jayBhcyB3ZWxsDQpzcyBpdCB3
+YXMgc2ltaWxhciBwYXR0ZXJuIHdpdGggbWluL21heCBJdGVtcy4NCg0KSSB3aWxsIHJlc3RvcmUg
+bWF4SXRlbXMgaW4gSW50ZXJydXB0cy9pbnRlcnJ1cHQtbmFtZXMgaW4gdGhlIG5leHQgdmVyc2lv
+bi4NCg0KPiANCj4gV2hhdCBpcyB0aGUgdXBwZXIgY2FwIG9uIGludGVycnVwdHM/DQoNCjIwLg0K
+DQpDaGVlcnMsDQpCaWp1DQo=
