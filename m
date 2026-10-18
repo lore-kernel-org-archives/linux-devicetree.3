@@ -1,36 +1,37 @@
-Received: from out-2uec-a79.jellyfish.systems (out-2uec-a79.jellyfish.systems [63.250.43.79])
+Received: from out-2uec-a118.jellyfish.systems (out-2uec-a118.jellyfish.systems [63.250.43.118])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 650C0320A04
-	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 19:56:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=63.250.43.79
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BCCA40F72D
+	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 19:56:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=63.250.43.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792353383; cv=none; b=X2IzpJB0Yp2B045Gf4xwFyOdcG40LA6kwgmAON9dVkEn/vQZBoZjw1JxJJmkMO3o0LF6g9qNooL73dzm1h2Q/+RUEOMRucpgX0D9n/nncVqERad5MimWsjPourh4YHc6SjnaGgQLZ9S3oB2JlM/KaBkeT5bQlEXh0d8onCCRrsI=
+	t=1792353397; cv=none; b=Vb397rDfWQ8Ba9xIoLmroFVRSZYHBYDMa+45y03e0RhRdK++5gmUVL8fSRkYIpFXPjOiXfs3kFCi56cDuXiksro57OtpuKBM4g44bV7Ve1Th+XzyjQy+gGtbn973veVlxS3H8xQdGLXgfBOamWvPuW4U2k2uK89El5s0dLms4kU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792353383; c=relaxed/simple;
-	bh=2PGAzzRlSdrIQUC+PQFeAibSGLtSOBZUnNfKQJY+qTo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=u3hYUJ04xGtTl3UxmzAubzvepsKMlbxoX7n4/kOVYzQiAuA2zANoXzYASrEv9fxM6ogvLgTLKGiHvjQHnWtK9FnLet2HtTaTrp8OMKz9PT996Ps0SuMbod6Vzlp453qGM9Gj3vUTHxUbaGXZBIHU8xHPJXv2REd4a2hKMinPcIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=r-sc.ca; spf=pass smtp.mailfrom=r-sc.ca; dkim=pass (2048-bit key) header.d=r-sc.ca header.i=@r-sc.ca header.b=nk5rnZQs; arc=none smtp.client-ip=63.250.43.79
+	s=arc-20240116; t=1792353397; c=relaxed/simple;
+	bh=4oRVV0Sq19UY5y51DFj9OghAxvL7UUqG4sywn84IEkU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WTWgUlG6T95NKCix0HZ96Pje80zcgOT3g/i7EdR7s+iQUarDIxeBN7+k3wjTuDdmhi8IZ///RfrLLi9dd0q3k01SaMTto5r8amqHUZdIxWeeUOL6CxuqtaGT3WPI+7NjZfXmr2/REwmwaVehWKwaMQmcqpzIFu54C0Kl18vzaSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=r-sc.ca; spf=pass smtp.mailfrom=r-sc.ca; dkim=pass (2048-bit key) header.d=r-sc.ca header.i=@r-sc.ca header.b=G8zl6yHr; arc=none smtp.client-ip=63.250.43.118
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=r-sc.ca
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=r-sc.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=r-sc.ca header.i=@r-sc.ca header.b="nk5rnZQs"
+	dkim=pass (2048-bit key) header.d=r-sc.ca header.i=@r-sc.ca header.b="G8zl6yHr"
 Received: from DESKTOP-290OH2S (d207-6-150-133.bchsia.telus.net [207.6.150.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail.spacemail.com (Postfix) with ESMTPSA id 4j78Hk5Hsbz8sWP;
-	Sun, 18 Oct 2026 19:43:46 +0000 (UTC)
+	by mail.spacemail.com (Postfix) with ESMTPSA id 4j78Hp3MXdz8sWP;
+	Sun, 18 Oct 2026 19:43:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=r-sc.ca;
-	s=spacemail; t=1792352627;
-	bh=dlM6jqufpKiSv8mOhbn+KjX0+8BaJbqWVeEnLDQePCM=;
-	h=From:To:Cc:Subject:Date:From;
-	b=nk5rnZQs3mBOMaxEhjyLZ1OLkyoD28nAqGDQlg674ZEXLclVqwtqYjoYaAE/ZdHLw
-	 kA4EmrXzczeMHEjztdJ8AEgldbCr143A/q6FvUCNrfISJX5+aY0a+w/YiDB148IcEY
-	 yUNGeaMoJboiDLOA83jNhmEi+/mjsJmKQyzIkwh0xq5UeH2WX0w8wnfUoCiD+fCmrg
-	 H87zacnx9niX5Lq6Ccq0EXhMalmc9rychuqiHZHANmCbb2l2Y+8zF4sJAOtKDhgf3e
-	 4/xLmCvjxWWFdgagdftmUHOP6cxfte4SzMoxoiwIKlo/hiyYSzz8c/ULG+9NrDy7m3
-	 NIRJHTYlfLPyg==
+	s=spacemail; t=1792352632;
+	bh=KwnYgGkKVJxn1/6IzIyhwZUksddwH2puKpniqIhWWKk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=G8zl6yHrLWUlUW82i904lMXjQKXh+LFpIJIpUVNWDnobdn1b6UGRQBKZ7HEfFQhki
+	 vi11ka71HVDRt7Hoe7jLLAH/LR9GVA6ZNPKg71LpxYI4HvlcV3bO7zgFcp7RC18/Sj
+	 yd7tInP/zKQb2vnlj2WSOkZu8c8zEipzpL3Iaa26FYYWTsC+c0+AMhmgKR9Y88csxt
+	 8ZvE0Q/xROcjrLeb/tIuGGpbE2H39+TaGOTu0RiXgk5/PStod3L1ZK3P39rdFlS8HX
+	 0hlptLZFIouhIE2KD3ahea12nx7MXG3oNRIMIZt9OMPHXwYD+CF1xMqUygMzW1EWMg
+	 m7fiRaSvr96Jg==
 From: Ross Cawston <ross@r-sc.ca>
 To: lee@kernel.org,
 	pavel@kernel.org
@@ -48,10 +49,12 @@ Cc: robh@kernel.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Ross Cawston <ross@r-sc.ca>
-Subject: [PATCH 0/3] leds: add Realtek RTL9300 port LEDs under software control
-Date: Sun, 18 Oct 2026 12:43:35 -0700
-Message-ID: <20261018194339.132-1-ross@r-sc.ca>
+Subject: [PATCH 2/3] dt-bindings: net: realtek,rtl9301-switch: add port LED controller
+Date: Sun, 18 Oct 2026 12:43:37 -0700
+Message-ID: <20261018194339.132-3-ross@r-sc.ca>
 X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <20261018194339.132-1-ross@r-sc.ca>
+References: <20261018194339.132-1-ross@r-sc.ca>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -61,34 +64,31 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Envelope-From: ross@r-sc.ca
 
-The RTL9300 switch drives up to four LEDs per port over its LED
-interface, serial or scanned, each normally showing a hardware function
-chosen by the LED set of the port. Some boards wire LEDs to it that have
-no hardware function and that the vendor firmware switches in software,
-such as the PoE status LEDs of the MokerLink POE-10G07110GSM.
+The switch drives the port LEDs, and some boards wire LEDs to it that
+have no hardware function and are switched in software, such as PoE
+status LEDs. Allow the software LED control block, described by
+realtek,rtl9301-port-leds, as a child of the switch like its I2C and
+MDIO controllers.
 
-This series adds a binding for such LEDs as a child of the switch, like
-its I2C and MDIO controllers, and a driver that takes them under
-software control and exposes them as LED class devices. With the PSE
-core's LED triggers, the PoE LEDs then follow the power delivery of
-their ports. The registers come from the vendor SDK's register table.
-Tested on the MokerLink POE-10G07110GSM.
+Signed-off-by: Ross Cawston <ross@r-sc.ca>
+---
+ .../devicetree/bindings/net/realtek,rtl9301-switch.yaml        | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Ross Cawston (3):
-  dt-bindings: leds: add Realtek RTL9301 port LEDs
-  dt-bindings: net: realtek,rtl9301-switch: add port LED controller
-  leds: add Realtek RTL9300 port LED driver
-
- .../leds/realtek,rtl9301-port-leds.yaml       |  84 ++++++++
- .../bindings/net/realtek,rtl9301-switch.yaml  |   3 +
- MAINTAINERS                                   |   7 +
- drivers/leds/Kconfig                          |  13 ++
- drivers/leds/Makefile                         |   1 +
- drivers/leds/leds-rtl9300-port.c              | 201 ++++++++++++++++++
- 6 files changed, 309 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/leds/realtek,rtl9301-port-leds.yaml
- create mode 100644 drivers/leds/leds-rtl9300-port.c
-
+diff --git a/Documentation/devicetree/bindings/net/realtek,rtl9301-switch.yaml b/Documentation/devicetree/bindings/net/realtek,rtl9301-switch.yaml
+index 80eabc17066..9529327ee0c 100644
+--- a/Documentation/devicetree/bindings/net/realtek,rtl9301-switch.yaml
++++ b/Documentation/devicetree/bindings/net/realtek,rtl9301-switch.yaml
+@@ -57,6 +57,9 @@ patternProperties:
+   'mdio-controller@[0-9a-f]+$':
+     $ref: realtek,rtl9301-mdio.yaml#
+ 
++  'led-controller@[0-9a-f]+$':
++    $ref: /schemas/leds/realtek,rtl9301-port-leds.yaml#
++
+ required:
+   - compatible
+   - reg
 -- 
 2.55.0.windows.5
 
