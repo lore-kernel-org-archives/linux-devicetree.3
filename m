@@ -1,182 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7534145B27;
-	Sun, 18 Oct 2026 12:36:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A23FE488748;
+	Sun, 18 Oct 2026 12:38:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792326975; cv=none; b=BNl4hfMcdPuS1KmP8J1CkZjCrrnxxcSWnzqrdSGP1XV8HK6OiPgscF8awvXqN3CrU4WrQbauz7v+HvrUP0zXhnThIfWWeoquAfPNsQDxO9JMyoe+LL4wrXmZ3zbzccUfg03MCk8OiyKGD1hNMa1C9ZzxleCoGVhf150QwEnkaxM=
+	t=1792327140; cv=none; b=n2YwdwoOC+hCfL3psXs4aIGnw7znZEXkQP9xKtJP0zo7KahCrLAyC+6CPzPoMW7rQPQUmtkYykikXX5MpOdY4oWSO4WFvbO+4E9U1kPpqlWzkm/YYzOaxRbWBb1M2756KXDc9TWJbTDokck2TErkKKbpsH+dTnQ59SC89v9zlC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792326975; c=relaxed/simple;
-	bh=ljDHyDaZBANeeICNvzSN7DVpxrl3r0R0WMwfV/PkUXM=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=OKg8r50AHQ+1iDQ63SvFa9Tlw6GFRmSp+omm9Sa9iDxtoZCAZmRsBD1HJYBWRDlIz4CsRvhJEt5Ph7WH13yuuZSJPGZtiJFq0rMDgTt7YW/TJ+XbMxTQzJbnKxg6wlpQZlembqoWLRu3ydJ2oh2ze1Wc80JtL9HJXSPcEygywzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4178D1F000C4;
-	Sun, 18 Oct 2026 12:35:57 +0000 (UTC)
+	s=arc-20240116; t=1792327140; c=relaxed/simple;
+	bh=oVPdqOD1qQ/9Bwu47b0AGq40Ro6mBbDMSB4AIRFG6vM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HnK7fIqOMQqHVJxM05N+1zFdKG4BEQlZsgPSdBH4EQZL9QW1+bfymlfGi+vna7vvDQRl7iwp2YdHEKRKvxGuK97FRzJiiVcsbuIsSfv/kjNdkmQ2+2B/R4pCXEBOFbksH0E91zYPcr7DNMhWt3OZOMz43AFA3VEnKWJkP2oWWDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Df2zhNES; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Df2zhNES"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95DE21F000C4;
+	Sun, 18 Oct 2026 12:38:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792327138;
+	bh=h1LXYDOO/Z8xuh1wGAPdOZloEBmsk/yg3LNiA+dYzDk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Df2zhNESQtjsQtxvephl4BVpUKlUm/CEh2OhVKE8c2EvnEcDHQsrvymQy8lOXVNmq
+	 Ou4FqX8DU5qu/P29qOAPvNpuOlxpzM2ZB4aB4UWSCvqKyFU9/2tZv4X7jt04OgvaYs
+	 59splyZzCwZnMoShPuAHXRbZ4Hkbo4ikRv8XQT9LfNAvsQbvi5/mnytoMzX1qYTrfn
+	 dclBZjMgjSV4vVvHo6JLks4biiwmTeeoFK9zVkqCYHCdWrgQre09LL85c4AzBvpnQ8
+	 ATYGexPalqMu1YJTFSdX+OtgCZvHS5yGeYtUW6xT7NmJCbEJ79E6cmsluEBzpJlMmj
+	 zKuhQxEZQoS9w==
+Date: Sun, 18 Oct 2026 13:38:52 +0100
+From: Simon Horman <horms@kernel.org>
+To: Jie Luo <jie.luo@oss.qualcomm.com>
+Cc: netdev-bot+sashiko@kernel.org, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, quic_leiwei@quicinc.com,
+	quic_suruchia@quicinc.com, quic_pavir@quicinc.com, corbet@lwn.net,
+	skhan@linuxfoundation.org, rdunlap@infradead.org,
+	netdev@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, quic_kkumarcs@quicinc.com,
+	quic_linchen@quicinc.com
+Subject: Re: [PATCH net-next v2 02/11] net: ethernet: qualcomm: ppe: Fix
+ multicast queue config table access
+Message-ID: <20261018123852.GA503057@horms.kernel.org>
+References: <20261011-qcom_ipq5424_ppe-v2-2-8c7b057e2c43@oss.qualcomm.com>
+ <179181020968.434549.112728167970187942@kernel.org>
+ <56401e91-6d8e-4489-ab34-ee25af031a74@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v7 6/6] PCI: spacemit-k1: Add Spacemit K3 PCIe host
- controller support
-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-To: Inochi Amaoto <inochiama@gmail.com>
-Cc: Jingoo Han <jingoohan1@gmail.com>, 
- Manivannan Sadhasivam <mani@kernel.org>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Frank Li <Frank.Li@nxp.com>, Arnd Bergmann <arnd@arndb.de>, 
- Niklas Cassel <cassel@kernel.org>, 
- Christian Bruel <christian.bruel@foss.st.com>, 
- Senchuan Zhang <zhangsenchuan@eswincomputing.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Randolph Lin <randolph@andestech.com>, 
- Xincheng Zhang <zhangxincheng@ultrarisc.com>, 
- Alex Elder <elder@riscstar.com>, Siddharth Vadapalli <s-vadapalli@ti.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Marek Vasut <marek.vasut+renesas@mailbox.org>, 
- Vidya Sagar <vidyas@nvidia.com>, Pengpeng Hou <pengpeng@iscas.ac.cn>, 
- Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, 
- Gustavo Pimentel <gustavo.pimentel@synopsys.com>, linux-pci@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
- Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
-In-Reply-To: <20260929083755.458238-7-inochiama@gmail.com>
-References: <20260929083755.458238-1-inochiama@gmail.com>
- <20260929083755.458238-7-inochiama@gmail.com>
-Date: Sun, 18 Oct 2026 18:05:39 +0530
-Message-Id: <179232693939.2114.10956498814503201256.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4010;
- i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=ljDHyDaZBANeeICNvzSN7DVpxrl3r0R0WMwfV/PkUXM=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq1L0pE5kbgUbKenMgAMe+ZzJeUUKq5H6vAkioO
- RiDLJWutYKJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCatS9KQAKCRBVnxHm/pHO
- 9RvzB/9/ZK7KgWgk4XijvjJCRJao8cXcma0BG7oXAw0FSZAUcT47dcuRodLf4Qn6okWf9kCDbmn
- aHD17eIigO8b6uPuGn8P+zndjKVE3yXIxPQU/Am9k+/T/6TFhZD5VxhtCChzFi8jxIpa6S9S14L
- pHksTseuSy8+l7eMZcw1Orq9GNHitN5lMRkRYhb/qSumrZIgL4IKCdqho64yZ2dEJRaYquGhvEz
- ltoCD/PkJA4QvgRc5yrIYMw4nuQXDrGviRUL9iZdRaIFi2HsjNCzrcdXgL7pLjsjDPiQSM5FLLG
- sFcUeCrrqDAHwMlPFVuNK4Zcxhy913CMi8nNUH7jQFaYHJNy
-X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <56401e91-6d8e-4489-ab34-ee25af031a74@oss.qualcomm.com>
 
-On 2026-09-29 16:37 +0800, Inochi Amaoto wrote:
-> The PCIe controller on Spacemit K3 is almost a standard Synopsys
-> DesignWare PCIe IP with extra link and reset control. Unlike
-> the PCIe controller on K1, this controller supports external MSI
-> interrupt controller and can use multiple PHYs at the same time.
+On Wed, Oct 14, 2026 at 03:20:53PM +0800, Jie Luo wrote:
 > 
-> Add driver to support PCIe controller on Spacemit K3 PCIe.
 > 
-> Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
-> ---
->  drivers/pci/controller/dwc/Kconfig            |   4 +-
->  drivers/pci/controller/dwc/pcie-spacemit-k1.c | 139 ++++++++++++++++++
->  2 files changed, 141 insertions(+), 2 deletions(-)
+> On 10/12/2026 9:03 PM, netdev-bot+sashiko@kernel.org wrote:
+> >> Fix it by converting the queue ID to the index of the multicast queue
+> >> configuration table and accessing only the 3 words of the entry.
+> >>
+> >> Signed-off-by: Luo Jie <jie.luo@oss.qualcomm.com>
+> > [Severity: Low]
+> > Should this have a Fixes: tag? Commit 806268dc7efd added both the
+> > multicast_queue_cfg[5] declaration and the absolute queue_id indexing:
+> > 
+> > Fixes: 806268dc7efd ("net: ethernet: qualcomm: Initialize PPE queue management for IPQ9574")
+> > 
+> > ipq9574_ppe_qm_queue_config[] covers multicast queues 256 to 299. That
+> > means kernels which already have the IPQ9574 PPE QM code take the broken
+> > else branch in ppe_config_qm() on every probe.
+> > 
+> > Since this fixes code that is already merged, could it be sent on its
+> > own to net with the Fixes: tag, rather than as part of the IPQ5424
+> > series?
 > 
-> diff --git a/drivers/pci/controller/dwc/Kconfig b/drivers/pci/controller/dwc/Kconfig
-> index dcfbe7e229fd..f9c27165260e 100644
-> --- a/drivers/pci/controller/dwc/Kconfig
-> +++ b/drivers/pci/controller/dwc/Kconfig
-> @@ -443,7 +443,7 @@ config PCIE_SOPHGO_DW
->  	  Sophgo SoCs.
->  
->  config PCIE_SPACEMIT_K1
-> -	tristate "SpacemiT K1 PCIe controller (host mode)"
-> +	tristate "SpacemiT PCIe controller (host mode)"
->  	depends on ARCH_SPACEMIT || COMPILE_TEST
->  	depends on HAS_IOMEM
->  	select PCIE_DW_HOST
-> @@ -451,7 +451,7 @@ config PCIE_SPACEMIT_K1
->  	default ARCH_SPACEMIT
->  	help
->  	  Enables support for the DesignWare based PCIe controller in
-> -	  the SpacemiT K1 SoC operating in host mode.  Three controllers
-> +	  the SpacemiT SoC operating in host mode. Three controllers
->  	  are available on the K1 SoC; the first of these shares a PHY
->  	  with a USB 3.0 host controller (one or the other can be used).
->  
-> diff --git a/drivers/pci/controller/dwc/pcie-spacemit-k1.c b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-> index ec59ccb710ec..61b430f2294a 100644
-> --- a/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-> +++ b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-> @@ -28,8 +28,18 @@
->  #define SMLH_LINK_UP			BIT(1)
->  #define RDLH_LINK_UP			BIT(12)
->  
-> +#define INTR_STATUS				0x0010
-> +
->  #define INTR_ENABLE				0x0014
->  #define MSI_CTRL_INT			BIT(11)
-> +#define RDLH_LINK_UP_INT		BIT(20)
-> +
-> +#define K3_PHY_AHB_IRQSTATUS_INTX		0x0008
-> +
-> +#define K3_ADDR_INTR_STATUS1			0x0018
-> +
-> +#define K3_CACHE_MSTR_AWCACHE_MODE	GENMASK(14, 11)
-> +#define K3_CACHE_MSTR_AWCACHE_BEHAVIOR	0xf
->  
->  /* Some controls require APMU regmap access */
->  #define SYSCON_APMU			"spacemit,apmu"
-> @@ -44,6 +54,9 @@
->  
->  #define PCIE_CONTROL_LOGIC			0x0004
->  #define PCIE_SOFT_RESET			BIT(0)
-> +#define PCIE_PERSTN_OE			BIT(24)
-> +#define PCIE_PERSTN_OUT			BIT(25)
-> +#define PCIE_IGNORE_PERSTN		BIT(31)
->  
->  struct k1_pcie;
->  
-> @@ -315,6 +328,123 @@ static int k1_pcie_parse_port(struct k1_pcie *k1)
->  	return ret;
->  }
->  
-> +static int k3_pcie_init(struct dw_pcie_rp *pp)
-> +{
-> +	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
-> +	struct k1_pcie *k1 = to_k1_pcie(pci);
-> +	u32 reset_ctrl = k1->pmu_off + PCIE_CLK_RESET_CONTROL;
-> +	u32 val;
-> +	int ret;
-> +
-> +	regmap_clear_bits(k1->pmu, reset_ctrl, LTSSM_EN);
-> +
-> +	k1_pcie_toggle_soft_reset(k1);
-> +
-> +	/* K3: Set IGNORE_PERSTN and drive PERSTN_OE high (assert reset) */
-> +	regmap_update_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
-> +			   PCIE_IGNORE_PERSTN | PCIE_PERSTN_OE | PCIE_PERSTN_OUT,
-> +			   PCIE_IGNORE_PERSTN | PCIE_PERSTN_OE);
-> +
-> +	ret = k1_pcie_enable_resources(k1);
-> +	if (ret)
-> +		goto failed_resources;
-> +
-> +	regmap_set_bits(k1->pmu, reset_ctrl, PCIE_AUX_PWR_DET);
-> +	regmap_clear_bits(k1->pmu, reset_ctrl, APP_HOLD_PHY_RST);
-> +
-> +	ret = phy_bulk_init(k1->phy_count, k1->phys);
-> +	if (ret)
-> +		goto failed_phy_init;
+> The IPQ5424 QM configuration in this series depends on this fix. The
+> issue is only theoretical: it was found by code inspection, and no
+> user has reported it. So we would like to keep this patch in this series
+> for net-next, without the Fixes: tag.
 
-You got me confused with this PHY bulk API for a moment. I think you are trying
-to control all the PHYs of the multi-port RC setup at once. But I believe
-that's not what we want mostly. Each port is an independent entity with its own
-PHY, PERST# etc... So the RC driver controlling all the PHYs at once, doesn't
-seem logical.
-
-- Mani
+Reviewed-by: Simon Horman <horms@kernel.org>
 
