@@ -1,68 +1,37 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8DB141D23C
-	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 04:30:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43EC0422E2E;
+	Sun, 18 Oct 2026 04:55:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792297844; cv=none; b=CmZNUbmpN4OX/C0oD4Cw+xvLbjyvNya2j0r5LMTOS2CAxHfo59trI+YpqMPdnWt8YRDL22oPv0e+UM+wLPcN8lbl8t0+L/98ftTTV4bRO0iMK1Pp8flAEyr1n9R1VlhUCSu4UVYo+Krzeeota2kwuItmbbQM+pQzr3uHY+m/L0w=
+	t=1792299313; cv=none; b=bdyilkNr99+tKqp+LaflXcFmYdcZ48bxjEK8guR93n/7oHu3rdS8yK0zACXbK30U5eGxigf4BggXOWRBsu17PhcQZJe/3XWBAVtMMK5T5VylUP8In7JblSqdBDl1vrVsE7fGyeg0g2yZs1n2ObQ5yxlTmmhsBkUDU1dh0JdvSZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792297844; c=relaxed/simple;
-	bh=V1PrfALe+dXwVq1n5n/hITI7hGqfkZud86/hme5sr+Y=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eSMh0yupgWx+GNs7lgeqX2oyKE32KpkLOQqVk15tsh+Eh5bwck8ap8BFTz1AcJRf1NkzCHo8XC/jhbCoq1F2aYhaFvvlTXyaLnwwsRW5xx3fFwkpIt2mHt6NuUnBYa1nBL5QTXybV8Q5DF1V9qEABVC/A42Bps/B02XKnOyPpY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AiDHFkgK; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792299313; c=relaxed/simple;
+	bh=fUdq2VvosvV5UWVKEKg821xAaTCVqPc2wV9SA9hzTFA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=l/YpQENZZqAWHukOoz5dS7lcCCMY+1c4gotnXVhVR1uLBJmN+7t6Aa9hT40l+K62TYfRp/lABv42Y9blMnvGtgF5aI4+J8iBlj/y2YYzeYUyB6roUJeug5tdZJs1HIkERQK+TtD7o2yy8jzbSRJ4FzxmQQAW5znzquqQmgF5w7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F8kp6cvP; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AiDHFkgK"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ac78f4c10bso506639a91.1
-        for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 21:30:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792297839; x=1792902639; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JyrovHosLdX2LQj1aC6ideMoPUaKKiI6CstREEz9Rbg=;
-        b=AiDHFkgKgTtqrGV/pACAL8QeR3YGPRzDSBXywJIF6f9wfJDwzDVmmEddWI7PaShnbd
-         FJfNZegkH5+dPNJ0D8nk1v3ZdwFxch0q52MQT7/hYQzyhKQq8jtd82zlF4CXxVfXvKWx
-         wn/g2h7k6n3MM0gnrZfZZdFggOZ11slw9R33iORWeRbQ0My5xTBsVB5ECIduL/NyMhdy
-         1Q00tCIjUUfK0Ay+r5X2L0USJGGMG8XD3vngyUm5DXHkKDsKws6P0oH64zx+5+w06cMz
-         DmRGB3zUPzZZUFx2DwV8xDpbIr9dTUFzO6V6bKQfAJb7I8814WTsxNtOT2k/98ojtfz7
-         zWPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792297839; x=1792902639;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JyrovHosLdX2LQj1aC6ideMoPUaKKiI6CstREEz9Rbg=;
-        b=inbLxmAKAZqoGvMd+ndoC4ozvP7Ce+fnsFIDYCvIqAUT+e1AE60++EBPuSNwRv7Lq4
-         OT400xVmT3yyhZOTmzn8kWWspJSLAS2vMWdoVWrr2yiGCKdk+fJvFTypbfXAyU2bToxn
-         j0NlDN74xxJsqB6sS1OkEwB0pUh2mC7dkuOihE5hcT5g5Ak+Nq58oSrJWFBD3cB2x1lY
-         Mgt+8SbwBaYJWfcLpLFTr/iR1t/1GwcSgWr4c3FB59qxLfZxO87QIboVMHjXOrjroqH6
-         e+y6r94ayyqfQ4skxo5tbuDVf4l9CuClfhPG3D0AdmkSDWCxTH/NiY/xk6AFnsED9F9m
-         DeqA==
-X-Forwarded-Encrypted: i=1; AKwUvBzBxX09uK2JOpgJ8ZMR0oi21EjIfjOaQNoii3fsJ9zevtPCx9fDFHDmPnWzhh+d+kXquk5Nd1ebTMx1@vger.kernel.org
-X-Gm-Message-State: AFq9FYJN8ycSr2zu9sDAoRPbx+hcUc2ONnMEKGZ/hrqlSkNoeXkN5LmO
-	bXmpuJu6vuO7y95Tk41iCgmBST6cqLWJMUmrazKJUI4073keJYc3V0ar
-X-Gm-Gg: AYBFou1A+c1WEAFWSOxyvyHMTFsofhDdWpyM/Cs8iwyH4ApJ+TXVZuWlSaDO49rzc2Q
-	3nX1lQCjoVv7UeOO+7PsQFCeyAH4vtJUyWTZ8pInZR0Pv7a2Vjqq7JDyVwE2FFRRMqAcDFimgwp
-	jrOB52zEgW3hksBdr8SueRhNk6+/m9aWw7R3ldFE+uX3rHrinD6RGP8Xde4S/31L2U6eMJ3v95N
-	XykFSN4APUIXBMX7HbP6A7IwOkCriJpt0THewmZ97qJXXlSFe6PE61g+EBBRVYf+Qlw64XBDHm0
-	PWOvlT1p9CId6GM+KCS8XIx//V9havZkwEA8D8CZBzILC0eSwC5/27j+quN/lV5e8bkOFVcPOj7
-	MwNdVbxUokh3hqKqzHB10F7lgtwC4YFQl33L4xLxzc773CZqjD+lIzeOOMQzuiiwLAcSAQIwz9G
-	l27WWTi+vxJ+0+48B/VuSNMkKKBxIdhcxpwhN6y/3LEvgMSZK5A0rtAjfTzR0Gv70=
-X-Received: by 2002:a17:90b:380b:b0:39e:59a0:46b5 with SMTP id 98e67ed59e1d1-3acef14451fmr3843389a91.24.1792297839161;
-        Sat, 17 Oct 2026 21:30:39 -0700 (PDT)
-Received: from [127.0.0.2] ([2404:c0:7618:4e1c:8841:a092:12c2:47d7])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc9e47588sm5885369a91.1.2026.10.17.21.30.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 21:30:38 -0700 (PDT)
-From: Reza Kurniawan <imkyufie@gmail.com>
-Date: Sun, 18 Oct 2026 04:29:24 +0000
-Subject: [PATCH v2 4/4] arm64: dts: qcom: msm8917: Use a shallower cluster
- state to fix unresponsive idle
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F8kp6cvP"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D28DCC2BCFD;
+	Sun, 18 Oct 2026 04:55:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792299312;
+	bh=fUdq2VvosvV5UWVKEKg821xAaTCVqPc2wV9SA9hzTFA=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=F8kp6cvPLCznrDZQRsfWwsbMwi8ryaNHvXrMLCEVa08Wfi/crE7frkp4zq/LIWvKN
+	 8snGkDu4d6PluMefPivoYxgwdyC12loGvdTOcyL1bAcKRRk9+2ncvKMfEyvfa8Cr+U
+	 1+Ao1VduB4YEgTv1QxigHtWFY7Xd942cFcSHjj9iydth/d+PEAAkHD8evBP26Lp0gI
+	 JF6DNQl0MK0wZD00EJLTXYl2BIIVlbpzynBmqBuXBSiRkPMyhhSB6X/SR1ORIKnCS1
+	 qaEzP8H4XL8RkJwJIaKq0s6+RE18hylbrWYXoqPDbBiiUnmk2Wmp3ro29+FJJA+8ni
+	 vXWO7jPIalrrg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AAD78CCF2C4;
+	Sun, 18 Oct 2026 04:55:12 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Subject: [PATCH 0/2] Label the fans on Kobol Helios64
+Date: Sun, 18 Oct 2026 07:54:58 +0300
+Message-Id: <20261018-helios64-fan-label-v1-0-69a3f96d4efa@iav.lv>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,66 +40,62 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261018-psci-fix-v2-4-35f65b59eb9a@gmail.com>
-References: <20261018-psci-fix-v2-0-35f65b59eb9a@gmail.com>
-In-Reply-To: <20261018-psci-fix-v2-0-35f65b59eb9a@gmail.com>
-To: Mark Rutland <mark.rutland@arm.com>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Christian Loehle <christian.loehle@arm.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Val Packett <val@packett.cool>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, Reza Kurniawan <imkyufie@gmail.com>
-X-Mailer: b4 0.15.2
+X-B4-Tracking: v=1; b=H4sIACJR1GoC/x3MQQqEMAxG4atI1gaMDipeRVykM79joFRpQYTi3
+ S0uv8V7mRKiIdFUZYo4LdkeCqSu6Ltp+IPtV0xt0/bSyMgbvO2p//Cqgb06eFYZOsUgDg5UwiN
+ iteudzst9P0FKSfJkAAAA
+To: Guenter Roeck <linux@roeck-us.net>, Jean Delvare <jdelvare@suse.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1298; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=fUdq2VvosvV5UWVKEKg821xAaTCVqPc2wV9SA9hzTFA=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFlXAlVnOwqGVKsLxp8pFLmVty+gpnDn3QfGWpO672yNT
+ Nv5MPtuRykLgxgXg6yYIsuEQxq3MpZc/evvYf4AZg4rE8gQBi5OAZjIcSeG/znP3I4tdzJ2dc71
+ 3fzX/M6ErX+XmzBnMzFNmvo3fOa0nU2MDM8+G82JLt9QcuiksMlzXQGPoD3Kc49b287pUZ18Wmx
+ uNCcA
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
 
-MSM8917 is a single cluster SoC, so powering down the cluster means
-powering down the whole system. This causes two problems:
+Helios64 has two identical PWM fans, and userspace can tell them apart
+only by their platform device names. Patch 1 makes pwm-fan.yaml
+reference fan-common.yaml, as Rob suggested, which also allows label;
+the hwmon core already exposes it as the label attribute. Patch 2 names
+the fans after their headers, P6 and P7.
 
-1. The system becomes unresponsive, even to common interrupts. Waking it
-   requires an interrupt from the MPM (MSM Power Manager) or scheduling
-   the MPM to wake the system later. Linux currently has no way of doing
-   the latter, so the cluster may never resume operation.
+To: Guenter Roeck <linux@roeck-us.net>
+To: Jean Delvare <jdelvare@suse.com>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: linux-hwmon@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-rockchip@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
 
-2. Entering power collapse blanks the screen. When the state is entered
-   and exited repeatedly, this shows up as visible flicker.
-
-Even if MPM scheduling were implemented, the second problem would remain
-and it wouldn't fix the system being unresponsive at idle.
-
-Replace the idle state with PSCI mode 4 (dubbed GDHS downstream), which
-is less aggressive and can wake up from conventional interrupt sources.
-
-Signed-off-by: Reza Kurniawan <imkyufie@gmail.com>
+Signed-off-by: Igor Velkov <iav@iav.lv>
 ---
- arch/arm64/boot/dts/qcom/msm8917.dtsi | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Igor Velkov (2):
+      dt-bindings: hwmon: pwm-fan: Reference the common fan schema
+      arm64: dts: rockchip: Label the fans on Kobol Helios64
 
-diff --git a/arch/arm64/boot/dts/qcom/msm8917.dtsi b/arch/arm64/boot/dts/qcom/msm8917.dtsi
-index f0771187d0..7730977e6e 100644
---- a/arch/arm64/boot/dts/qcom/msm8917.dtsi
-+++ b/arch/arm64/boot/dts/qcom/msm8917.dtsi
-@@ -112,10 +112,10 @@ core3 {
- 		domain-idle-states {
- 			cluster_sleep_0: cluster-sleep-0 {
- 				compatible = "domain-idle-state";
--				arm,psci-suspend-param = <0x41000053>;
--				entry-latency-us = <700>;
--				exit-latency-us = <1000>;
--				min-residency-us = <6500>;
-+				arm,psci-suspend-param = <0x41000043>;
-+				entry-latency-us = <240>;
-+				exit-latency-us = <280>;
-+				min-residency-us = <806>;
- 			};
- 		};
- 
+ .../devicetree/bindings/hwmon/pwm-fan.yaml         | 22 +++++-----------------
+ .../boot/dts/rockchip/rk3399-kobol-helios64.dts    |  4 ++--
+ 2 files changed, 7 insertions(+), 19 deletions(-)
+---
+base-commit: d2abcbb905b0e4b2e06b257fa1e5bcf4faa6dbda
+change-id: 20261018-helios64-fan-label-a173ae71bebe
 
+Best regards,
 -- 
-2.55.0
+Igor Velkov <iav@iav.lv>
+
 
