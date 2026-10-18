@@ -1,41 +1,35 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04F793D567E;
-	Sun, 18 Oct 2026 23:08:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 742423D567E;
+	Sun, 18 Oct 2026 23:08:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792364910; cv=none; b=aVfGc5Ee6+6WvSPbZMMocZbDJzv913XXtCRFDjdBxVoIZrpmJt+JqvNiAf4VKP3AyP22/WWlPnwOz3XBYqe/Zpu/Z9M9gJ3K5kVciaBkg3Q4LyFjHbC1JjmTCm/9l+B0zOpCvIIGXFHXUk4RTTkGIjWzurF8NEhKi1XCEdefeVo=
+	t=1792364928; cv=none; b=L/T6luL3DaoTjp92EfNz+/DErLrj+vWQTg3QwHYckXV1EeXWM+ejkpxb0BhpUdRQ/nh71QgpKHhLDBOlG4ehjuOsDfEqI0H7gmKd1+yTqmGPHdPZNMfl0PRfMr3Y4Z1irFcBaaN6ngcOYSsF/8M+t7cE9kRno5I1AJfAHkyLvmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792364910; c=relaxed/simple;
-	bh=7mXkF1gQ9X0dgexyk2NiLVbwLgkj6RIkSopmYeA2QkE=;
+	s=arc-20240116; t=1792364928; c=relaxed/simple;
+	bh=H6LmmGiOLW2RB2MTWkCvg7+eK4YKZ1NjaQZi8HlZB2g=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UOPNWNwOptcFv3ub2u9qW36zTBsvlRoc43e9MS4Spu2xLygui8Af0gWG+OxJM+QQ74/8R3Kj0lVwnOppnYJp9y29xOTp5AK2S5mo2LlS7t/EFvGm3spxsY879jMmX6sOrcQQJtD6U6PLIisceLNY0GL39dELNzGpmMtOmX+10+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=oT5cH/at; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	 In-Reply-To:Content-Type; b=pMQl2IgXvdSdWqhNo1Rd74y1bP6/3qf37vFpsOfWTN9Q0hbBLXMcl8j6LA78bWhEivpOddI1/+0sX9pagH3kL8hmBHSJHGfXJ7o/u5bRyXuWVaYXrl6HWfOAY6IEC/iwIc/Z9wQhsobvp7OYdi2RQxGma58sWdmM06pnrYi019s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=ZGhJDyMe; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="oT5cH/at"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4j7Dqk1l4TzKnP9;
-	Mon, 19 Oct 2026 01:08:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1792364898;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=d7lgpJVBTsYDOKCZp9reWWs+AKWsfF0gEALW6fOkYM0=;
-	b=oT5cH/atrp9ovqdpuQIP7DfVGJ6SEhc4NYdWaebnlGknP6Lj0h/aCCi8/iTnwX5OQ9OZFb
-	3Q8h8LA/Dd8FervajaX1FzI80HpA4eYtTrsyyDzQzEP+PopebzWl5rYCY+0NTVany7lwK0
-	Lg6Xz1z9G3ULlVdx4CEvtumT8U0nV3yhIQlLM/v5cStHSL+hLtRxK//XUeYEu4U0Kg3B7F
-	RmNYQdpmFnCPXq1qg4OkqtAD3f3cJCH2j1sI/HN8bpaJLdxg98cSez1ROMcSvgSuLVxdMu
-	KhMZR869qV+ADdRnRqrTxtsCvYTZVusYgW5fKMu1tpR8Xc8QuwtSH/VzG3r5Aw==
-Message-ID: <63af69a1-3372-4986-90a8-395f0c0334db@mailbox.org>
-Date: Sun, 18 Oct 2026 16:04:13 +0200
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="ZGhJDyMe"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 879F41073F8;
+	Mon, 19 Oct 2026 01:08:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1792364913;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=lObRH7lgJ2tY9c62lK2zWDxsiX6xmmPg5n9WVOkohgA=;
+	b=ZGhJDyMeGEGxslZFOZ0Ze+iZ8KipMFowV6/wSQ+zgQVVT+7JKCK+0FQI23IcXefr3DmUWs
+	6/yBmR5CfFoMSX+ag51TyDj/F8oqEeJx1kTc0vn1xhZuG6XD5tWeRKhAwddV41ghXzs824
+	Q3d319wYaGIWrwmppbLasoSMSg1wq1bo571uNwGNchgZH3eFTygekRjNG79TE+7+bZk8bE
+	yrVau/X7Y/sz1dVjNqmKFqO+82nam6xWsHZtN9kzV1UUhQU75PyU/6nOu9E426t4QCTwK2
+	/3QQ3D687t5mv2QzvS3Jdnt7/QhnA2p+529E0r81Wh9KvUjaxgSxyO7aZ+kuaQ==
+Message-ID: <fd15f846-94d4-44d8-a42d-5f13a7b18794@nabladev.com>
+Date: Sun, 18 Oct 2026 23:38:09 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -43,57 +37,127 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/8] clk: renesas: r8a78000: Add clk_hw to clk_map
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Ulf Hansson <ulfh@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Kevin Hilman <khilman@baylibre.com>, Vinod Koul <vkoul@kernel.org>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>,
- Sudeep Holla <sudeep.holla@kernel.org>,
- Cristian Marussi <cristian.marussi@arm.com>, arm-scmi@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-References: <cover.1792163045.git.geert+renesas@glider.be>
- <1d7da50cfb58232c6dd4c4afefb938fd7e62fdcd.1792163045.git.geert+renesas@glider.be>
- <51d8ba05-76e5-45ab-91da-3c6cb02505d7@mailbox.org>
- <CAMuHMdVzX8fd4NDQi8ow0m+48g8p-LBHMysFi+fOqp1oDtT8LQ@mail.gmail.com>
+Subject: Re: [PATCH 1/1] dt-bindings: spi: Add separate binding for
+ dh,dhcom-board
+To: Conor Dooley <conor@kernel.org>,
+ Christoph Niedermaier <cniedermaier@dh-electronics.com>
+Cc: Frank.Li@oss.nxp.com, imx@lists.linux.dev,
+ Guenter Roeck <linux@roeck-us.net>,
+ Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+ Frank Li <Frank.Li@nxp.com>, Ashish Yadav <ashish.yadav@infineon.com>,
+ Colin Huang <u8813345@gmail.com>, Sanman Pradhan <psanman@juniper.net>,
+ Thorsten Blum <blum@kernel.org>, Troy Mitchell <troy.mitchell@linux.dev>,
+ Eddie James <eajames@linux.ibm.com>,
+ Rodrigo Gobbi <rodrigo.gobbi.7@gmail.com>,
+ "open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+ "open list:DH ELECTRONICS DHSOM SOM AND BOARD SUPPORT"
+ <kernel@dh-electronics.com>, open list <linux-kernel@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+References: <20261016205718.877668-1-Frank.Li@oss.nxp.com>
+ <e7095176-44b8-4838-8443-2e515d34cb25@nabladev.com>
+ <20261018-freeway-twitch-e813208aa9af@spud>
 Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <CAMuHMdVzX8fd4NDQi8ow0m+48g8p-LBHMysFi+fOqp1oDtT8LQ@mail.gmail.com>
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <20261018-freeway-twitch-e813208aa9af@spud>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-MBO-RS-ID: e818b94e08cabca6903
-X-MBO-RS-META: mmgr5c94npbzb9imi9iunexn55pa6xbh
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 10/18/26 3:51 PM, Geert Uytterhoeven wrote:
-
-Hello Geert,
-
-> On Sat, 17 Oct 2026 at 19:34, Marek Vasut <marek.vasut@mailbox.org> wrote:
->> On 10/16/26 5:55 PM, Geert Uytterhoeven wrote:
+On 10/18/26 9:37 PM, Conor Dooley wrote:
+> On Sat, Oct 17, 2026 at 12:01:55AM +0200, Marek Vasut wrote:
+>> On 10/16/26 10:57 PM, Frank.Li@oss.nxp.com wrote:
+>>> From: Frank Li <Frank.Li@nxp.com>
+>>>
+>>> The dh,dhcom-board SPI device uses spi-cpha and spi-cpol properties,
+>>> which are not permitted by the trivial-devices schema. Move it to a
+>>> dedicated binding file that references spi-peripheral-props.yaml and
+>>> explicitly allows those SPI mode properties.
+>>>
+>>> Fixes below CHECK_DTBS warnings:
+>>>     arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dtb: spidev@0 (dh,dhcom-board): 'spi-cpha', 'spi-cpol' do not match any of the regexes: '^pinctrl-[0-9]+$'
+>>>           from schema $id: http://devicetree.org/schemas/trivial-devices.yaml
 >>
->> [...]
+>> How come this did not trigger until now ?
 >>
->>>    static int r8a78000_cpg_probe(struct platform_device *pdev)
->>>    {
->>>        struct device *dev = &pdev->dev;
->>>        struct r8a78000_cpg_priv *priv;
->>> -     const struct clk_map *map;
->>> -     int ret;
->>> +     const struct clk_map_in *map;
+>>> Assisted-by: LLM
+>>> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+>>> ---
+>>>    .../bindings/spi/dh,dhcom-board.yaml          | 46 +++++++++++++++++++
+>>>    .../devicetree/bindings/trivial-devices.yaml  |  2 -
+>>>    2 files changed, 46 insertions(+), 2 deletions(-)
+>>>    create mode 100644 Documentation/devicetree/bindings/spi/dh,dhcom-board.yaml
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/spi/dh,dhcom-board.yaml b/Documentation/devicetree/bindings/spi/dh,dhcom-board.yaml
+>>> new file mode 100644
+>>> index 0000000000000..ed213cbe9b04c
+>>> --- /dev/null
+>>> +++ b/Documentation/devicetree/bindings/spi/dh,dhcom-board.yaml
+>>> @@ -0,0 +1,46 @@
+>>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+>>> +%YAML 1.2
+>>> +---
+>>> +$id: http://devicetree.org/schemas/spi/dh,dhcom-board.yaml#
+>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>> +
+>>> +title: DH electronics GmbH on-board CPLD trivial SPI device
 >>
->> Super-nitpick, use reverse xmas tree ordering here if there will be V5.
+>> This does not look quite right, since compatible this is used only on:
+>>
+>> arch/arm/boot/dts/imx6ull-dhcor-maveo-box.dts
+>>
+>>         model = "DH electronics i.MX6ULL DHCOR on maveo box";
+>>         compatible = "marantec,imx6ull-dhcor-maveo-box",
+>> "dh,imx6ull-dhcor-som",
+>>
+>> So the whole
+>>
+>>         spidev@0 {
+>>                 compatible = "dh,dhcom-board";
+>>                 reg = <0>;
+>>                 spi-cpha;
+>>                 spi-cpol;
+>>                 spi-max-frequency = <54000000>;
+>>         };
+>>
+>> Should probably use a different compatible.
+>>
+>> Christoph, what device is this on this board ?
+>>
+>> (and this change should only be applied with RB from Christoph, I do not
+>> have the hardware so I cannot tell what it really is)
+>>
+>>> +maintainers:
+>>> +  - Marek Vasut <marex@denx.de>
+>>
+>> @nabladev.com
+>>
+>>> +  - Frank Li <Frank.Li@nxp.com>
+>>> +
+>>> +allOf:
+>>> +  - $ref: spi-peripheral-props.yaml
+>>> +
+>>> +properties:
+>>> +  compatible:
+>>> +    const: dh,dhcom-board
+>>> +
+>>> +  reg:
+>>> +    maxItems: 1
+>>> +
+>>> +  spi-cpha: true
+>>> +
+>>> +  spi-cpol: true
+>>
+>> Wouldn't it make more sense to allow those properties for trivial SPI
+>> devices in general ?
 > 
-> I believe that's already the case. What am I missing?
-It is , sorry for the noise.
+> If the device requires them (which it probably does?), then standalone
+> makes sense to actually set that requirement.
+
+All right.
+
+But in any case, the compatible string should likely be fixed here, this 
+does not seem right. The dh,dhcom-board was describing some CPLD/FPGA on 
+one of the evalboards.
