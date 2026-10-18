@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDC764071DE;
-	Sun, 18 Oct 2026 18:51:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 913A648D864;
+	Sun, 18 Oct 2026 18:53:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792349483; cv=none; b=kUbKDTujaEXZaxaZ107mDc9oV26O4PyXtCypqvlEp+r3AIYjoTFb73voL/Uuo47aKl9AVxKlg566rCBTMnzUJg5gXX3+7VSDq9dx+c7HqL7VRPYPJqbXO7jjKAcQUvxtPqBzVNTy4J7gfMNLUnXG9m3UKovdWQj7HYd8WGTRec4=
+	t=1792349622; cv=none; b=igx9zjXakunha6mgCL92AsrbYCbG0vr1dnSAS1FAcvKQBOq8qkTErP0f/iu6CCSYP68peim9e3IsbHW2E/r3ekDZ77Z7iXMHW4Dr/uFCYEdCJCXTdI4GWDfvVGp0+O1fCRESpTva6qM6XTFCCYvS090II4FfMfg4x6KgELgE3Nc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792349483; c=relaxed/simple;
-	bh=nI0Mo9K6wNbpzc6WH1o0ex4u9xbK7kaPdxDmuDw24eA=;
+	s=arc-20240116; t=1792349622; c=relaxed/simple;
+	bh=Csfu+p7DecNNEaF3nmVC8sIFseRFu0794bq3QCYty+w=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NNf+mwx1UXU6pM51vgkjYbpHFpIrNrIXI1i1wgBdoDlWctZC59ZB94kixf2RhlzM6Ua56JXRFlNRPPuYMDTikoKs18Kl2DE1JUae9aNCgjVKC8Nj5HvIFZqCLFEIZlP+dyvorTmoHrWYZdnQU4GG5L/HnOz8EFKezdhSo1ZF34A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dku5uRPa; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=BTDvxwXEbAukC1XUVbXuhikpapEikWot9Q6RrcxtkiMVfcsORQPC+3y3S5cCEfW7diTveRydH/ufw3Wo26xnJ43qeVzU/lrUkWIOy9jUzDbp6sWnBPL0ZQYJgQL7eP4C/Lxp+ZskI6FRt+LvuxCQINWZxgZPdcR17LJwZQKb6U0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jjA4CUnd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dku5uRPa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16F561F000C4;
-	Sun, 18 Oct 2026 18:51:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jjA4CUnd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B00AB1F000C4;
+	Sun, 18 Oct 2026 18:53:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792349481;
-	bh=nI0Mo9K6wNbpzc6WH1o0ex4u9xbK7kaPdxDmuDw24eA=;
+	s=k20260515; t=1792349620;
+	bh=Csfu+p7DecNNEaF3nmVC8sIFseRFu0794bq3QCYty+w=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Dku5uRPa+b4JnRohhs4dIyC7stFLjtCohgCs51GQxs5n4o6LNlfD5sDP5I+9rxK5N
-	 xc3CPquir26Tc56Og0zOOBBpqEGkPnYGBLygAc74ZBzB0fVIByDLTFXxByQT4LhPJJ
-	 VNt+/AkkI7Pj0MwEJop6f3zW51JMwHsT8usRZd3rw1mHVbo4+lVXUOAwTVY4ujV2Zh
-	 MNK19G/JJ1IOdc01iKlN9Za5+BiZjhSPBjk+UMinU5vjtMY/VImMsJUpuaVn4fnoIf
-	 Nf9CNJ+9MyB/9BXChq8F3SSGIUzTi0pU2qdomMMDj0Cn5fG1gOXcshkGWdUx3z2b4q
-	 DWCO0LkEmI6IQ==
-Date: Sun, 18 Oct 2026 19:51:17 +0100
+	b=jjA4CUndG4pAHeZbrm1BxDlNpX+HwJnx5LMzyQhuRncmok2Is9Ye8llG9g5VDAMjg
+	 x0jPf3L6EIV5jtbCf0rrWHecI+WUgQ2BYjvJ7U79qlJ2tlyaEvMDG2WkxVZMG9nzKN
+	 g9xNf6xCxfV0Wbo+ntKJTxxnYs57ATObOtUGAj08h4M8VKPpDHSsEDMTD44dFVas0W
+	 RQ9L3b8Nrml2q2PgegnN1dqxu0GPb8trAEyETF8LmgJnn4CH9oB8DjF+GGT7FpsTwi
+	 8ThRNHtvUjIjNA9yU4XuEbZK7tzUhg6jDqQRrBnfrG1PsgMKQNhzILU/VJ4yMs+ZlL
+	 QJewmA3n03Pmg==
+Date: Sun, 18 Oct 2026 19:53:35 +0100
 From: Conor Dooley <conor@kernel.org>
 To: tianshi12127 <tianshi12127@gmail.com>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>,
@@ -39,11 +39,11 @@ Cc: Neil Armstrong <neil.armstrong@linaro.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: vendor-prefixes: add smartisan
-Message-ID: <20261018-delirious-equal-86755d897a0d@spud>
+Subject: Re: [PATCH v2 2/3] dt-bindings: display: panel: add Smartisan TD4362
+Message-ID: <20261018-snorkel-mollusk-0bfba29ae1f8@spud>
 References: <20261017083531.766557-1-tianshi12127@gmail.com>
  <20261017103250.800109-1-tianshi12127@gmail.com>
- <20261017103250.800109-2-tianshi12127@gmail.com>
+ <20261017103250.800109-3-tianshi12127@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,26 +51,26 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lwjdUVkLnxoBgmOc"
+	protocol="application/pgp-signature"; boundary="lC/VVTF4dvcK+DOZ"
 Content-Disposition: inline
-In-Reply-To: <20261017103250.800109-2-tianshi12127@gmail.com>
+In-Reply-To: <20261017103250.800109-3-tianshi12127@gmail.com>
 
---lwjdUVkLnxoBgmOc
+--lC/VVTF4dvcK+DOZ
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
 Acked-by: Conor Dooley <conor.dooley@microchip.com>
 pw-bot: not-applicable
 
---lwjdUVkLnxoBgmOc
+--lC/VVTF4dvcK+DOZ
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatUVJAAKCRB4tDGHoIJi
-0qqNAQCHjqcEBCc1TJ1D7e8eiw/2FXICrT55fWjoVLIa89ymzAD+IV1CY2I9fbVp
-wB5G2DKF0KV7+X+2KUsvIIF6NixUGgM=
-=X6Vv
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatUVrwAKCRB4tDGHoIJi
+0qsmAQDCxEOSqGcSTiPp8dYp93pj9cpI6gg97r3RkkHx9lbjaQEAu81O/c5LeMu5
+GPjVL9aFsE6ayuPTU9LuBlQWBOl8RQY=
+=NMlV
 -----END PGP SIGNATURE-----
 
---lwjdUVkLnxoBgmOc--
+--lC/VVTF4dvcK+DOZ--
