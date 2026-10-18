@@ -1,176 +1,618 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19288265CB2
-	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 06:18:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47F253F58DC
+	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 06:23:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792304330; cv=none; b=NaHgBduUjxMYxjktdjirR8Hn9ebJoH3Tv9pwd+CrXIeUURH01kPZ81BEjJWDvwwkYshqj2wtefZgOZdhFwBy6qQf5MiTpBveY/uwyvjDj59U+IzsHYwivYILqY0I+SoOCLwHk/4kAUmgb7JuDUqzxdaELOmfYJlT1U1tlEUGYqM=
+	t=1792304594; cv=none; b=W6AxenlqF9oGhie6ErdpXDFm2h1JDbfsz1NdZQ4swT3EJqvpkMSRZNE+x8adaRcXdkvDaKjcrBFFf9cnVGf4pR550FjFon1Cmf14djdg+CEaNMujw3EPOLfNr91br+atm/Oe4uArPKmC9Wsgy7GB2bZnJ6Ru/Q+SaetaXVrOiG4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792304330; c=relaxed/simple;
-	bh=fh15zWcbwdQBf541KPLG2838Kk7bkHLlto3XyHFlOwE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qO2yiHb0UdPG2VlnNON8YlykfjzROgpHV+9DSTiuqbdR5o62cXef9Ul8tTK1sgrhjkMk+9FyBDUCc9C22Rv+jUCV9p1/F74nq8lo7ZYwcJgtUmhM2+PhIIJzF85eh0KuecI395xp9hWVPizvHjScisuM9K2CQ0aBLrMe9DgyJqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=d5ob6j5t; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VZcxofxJ; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792304594; c=relaxed/simple;
+	bh=VIB0jsDsA4pes9xbX9J0M2u+l9ve4Zv6qmy0CwHMxvc=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=FTM527/of1Cz7bgfBOawzd4GgXlbvZExN0GsUwb2MdxV2FEuNL5FQiUqvpy8kQ6LRekqxb7FZC7Ck97po/wOi4ZbF2zqmi3HqUu5I9lTpPIw5mOiHNSfPHhVGn59k62L7Rneb1bE8CTyX2791G6XyBLmKlhhTtbiE7TIPQ5nbD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hD9uWPzw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="d5ob6j5t";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VZcxofxJ"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69I5t9PU2110354
-	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 06:18:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	c2flQ9H/gIbTtycaEqJj117FdmKcgUiVqJCxdODCoPc=; b=d5ob6j5tw8T3hUIh
-	vdr78hQE81CBb7fwWJVs08crENiz+37KmNDEz8I9J29YV8sER7u8h39oVmLJuc90
-	2xvaq8SSZTaBbCMwqC6QJzKqkjdcJ+636GOYpT5SrXUh0rbVDPJnj1OZwyuzIDJO
-	jtxTqRDQ063tmZlgtq0oNzOsL/S2n+CQWAjHoRsv9FcG/HwRsuds9x9x2+pJkQtk
-	E4eBZhY1FlculdUZZWVhy8slmDNE7O2T8Dc8sKoo9Rm0k593luQRp4tXioXDFWUM
-	rb5oewJ7AgPJUU838VGv7EJ9NdjG2hiHZdEw9wgwNsFvHeARmguVKfzJHOZvW/jW
-	t3jPgA==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hc1d7tfd2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 06:18:47 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-351788121cfso1925228eec.0
-        for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 23:18:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792304327; x=1792909127; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=c2flQ9H/gIbTtycaEqJj117FdmKcgUiVqJCxdODCoPc=;
-        b=VZcxofxJqCqqdFIbljZ1WnJv/4x1Qi7tb2FeRla7IimRhWRHKnRizEoXMtgls4kQhs
-         cLcN07s38fRgUTxYgYr+uH4O8tYs2PgHAgeVnzJVSDgB+5hxaTSqiufy/4T5b3ji1UFH
-         DXLP3+iGQT2Gf14Y4cAOYxqef3ahe4o5nl1noZN4B/FF8pkW8MR2pFq0kAhLPDzBKIGj
-         KyFG6JZkmbtxEqGgho08D56XT3mDBGna9oNRHxSzoc7AaRJI31L2OFFd0Jn5XrHHUmmp
-         VrE0yyfG8XNSObjRYhMNHB3g/TUT5SksJKWjrKh0CK5ltzUwljufB7dd6lqgWABqsvyF
-         Rqhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792304327; x=1792909127;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=c2flQ9H/gIbTtycaEqJj117FdmKcgUiVqJCxdODCoPc=;
-        b=aT0RTzZG7greayzlxhDqogY1BTbczxnKQ08JEE2bSO29Pp4XhbnqYkvDCUExirQAD0
-         AL+rGvVse09exzJwcHMEKZvKwdsIubGJ+JHLOtabEcfuEO4hxFoGEOAZg8hZxy12vSA5
-         2xAUTQ2PuuPi3BgJGNNym1mzAPATrw0EFHYUWpPzcl4vux6mVVUBE1O/tZ+vxpSBSLxa
-         W3qwnjGqyZlo9etl+/g7Fi/kNBNVu+yVbI1D+r/ApZjIVvtBUv/brI8TGDgjOGMOETWz
-         6roKeflUPNqHqEAcfzFQ4CUVqovWx2LZcaNQ2L4xNUzQph6CwK0xjuIvLpPZ76gt1E22
-         oz+g==
-X-Forwarded-Encrypted: i=1; AKwUvBx8E1StPuwr3wTm2r1u4w1rAdMikk1RBLQIGCumfybijwjojAg9uAIzzkgzPnYMXBr3DVyq02LpXbUi@vger.kernel.org
-X-Gm-Message-State: AFq9FYLVxGRvNI7vz+iKbhLdmbPoGjRX/aO1bvou3RvbwsjxBdD+7xcY
-	pQG8UE07j/Zrh5gp6Mp7OqIO1Z0vOB8abBnNuAy4ST/ftPmUXJ5jcNEENwZZpPNSGvAzZ0pU/VD
-	FaD3aVB/mdyMSr4VC4JVS+PHVQG/5zfUAOuKQ242MxNKIve8xqmIR6H//2OvgRR8M
-X-Gm-Gg: AYBFou3AHxuTLTCVYGagLSlSNAbQ9X05ljXeK85pB703QfCR1vi2uxIJFeijMrY0E15
-	1Y3WOSYffZhmHOJX+mClNPQQnwGug22xS4FtNxwKO0yblGV3S5ZsHRncBioSypcfYNpd23JixQo
-	F4TnTen2YtSMWexkgR0g2VhAyjmaHxofuwPvyCCYbRVgqu9mxrPFWTCKOEcXUshfZZSphYSC2jp
-	gQPGtlNLavKrWfVXLIFJTf285O/ivsoWvkQKWqj+ZMRqF3k5a4QdI950NjOdM4cI5nZSLT/eQPx
-	E+rcHR+FyKZh40YuO3sCSKj/lYLdsw3kOF3Vt3kuUUzlPKSWeRCwQmqx3UT7KWiMLsC+6ypBjt8
-	KibXTCue7tJcecePjr2S7aVpFW5mZGt76mw==
-X-Received: by 2002:a05:7301:1a07:b0:35a:a5c6:40e6 with SMTP id 5a478bee46e88-361a126a8femr5735208eec.9.1792304326925;
-        Sat, 17 Oct 2026 23:18:46 -0700 (PDT)
-X-Received: by 2002:a05:7301:1a07:b0:35a:a5c6:40e6 with SMTP id 5a478bee46e88-361a126a8femr5735178eec.9.1792304326355;
-        Sat, 17 Oct 2026 23:18:46 -0700 (PDT)
-Received: from [192.168.1.4] ([106.222.235.247])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360813b63e1sm22719789eec.8.2026.10.17.23.18.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 17 Oct 2026 23:18:45 -0700 (PDT)
-Message-ID: <4bd7b1f7-9156-40b3-9037-f909a1d02ab8@oss.qualcomm.com>
-Date: Sun, 18 Oct 2026 11:48:41 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hD9uWPzw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B40EA1F000C4;
+	Sun, 18 Oct 2026 06:23:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792304592;
+	bh=2cUVikTx0oc+WGNepxIF0Mi9mTleGM16CKoi2IT/HBQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hD9uWPzw0mfN3LGVUgWPQr5s6kKcIyO6tMW1bGlDZtEBQJBjasQYegHM9u6W4LtRF
+	 1R3KlalqRbSXlVdHcdqhINfVmbYUEXR5U8GL1iQrQVBLp2ARF0SEe35DDsT9Ld0mAN
+	 SAd1BKT97OJsaLxAc3zrdJRsIHjpvpEnxuS90gFbzwINhTW2sD4S/mmQt0LwIDZT2L
+	 QbgT/g9KRZHcYOhGWhr1sTsgd2bWQp8ikgH/m1wOceMIl0tm57MKldX9bhDhUUsEgu
+	 yrelPLwpmat5ZD+NHjRTBvyTRq+8bEESfv1iLHgnc3tQg9aT1dfR3sAvQjnEyHRXTZ
+	 RfAokNxPd+Rhg==
+Message-ID: <sashiko-outbox-175986@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 08/21] ASoC: apple: Add macaudio machine driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "James Calligeros" <jcalligeros99@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261018-macaudio-v3-8-abdff7741dea@gmail.com>
+References: <20261018-macaudio-v3-0-abdff7741dea@gmail.com>
+ <20261018-macaudio-v3-8-abdff7741dea@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 18 Oct 2026 06:23:12 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 2/3] arm64: dts: qcom: nord: Enable SoCCP on RRD board
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-References: <20261016-nord-soccp-dt-v1-0-ee13aef55d8b@oss.qualcomm.com>
- <20261016-nord-soccp-dt-v1-2-ee13aef55d8b@oss.qualcomm.com>
- <82b96322-c6e4-45bc-956f-ef21ff4bed5f@oss.qualcomm.com>
-Content-Language: en-US
-From: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
-In-Reply-To: <82b96322-c6e4-45bc-956f-ef21ff4bed5f@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE4MDAyNCBTYWx0ZWRfX9tCrY2CCs+PO
- 32B7tnFVbARLtugSab3U3PFJP0dm4cjzWf/Yc+MtcP6P2yVQKi7ld0tp6HrpCBNXG63unIsHtcA
- atrwN8WzHFiGFFaeqNN7AV+a/on6G6Y=
-X-Proofpoint-ORIG-GUID: COpUQXrU1sknr-KjhXG1yniuVLgATcU0
-X-Proofpoint-GUID: COpUQXrU1sknr-KjhXG1yniuVLgATcU0
-X-Authority-Analysis: v=2.4 cv=K4O3jCWI c=1 sm=1 tr=0 ts=6ad464c8 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=2a2+ae0sWwZdsBobmU+nRA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=1Kh7krj5s1ZBTWuj6-sA:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE4MDAyNCBTYWx0ZWRfX7uFkrXR0CLOs
- pQpPuzaOsG6j9Enp55dX52/tKbtV47KrwxbZgqqkNsZFBKEO6MBHPwguRpUZMnFsle8tOwxAruH
- daRLIPbTODp2jv6fpMNAuZiGN0Bzvio4cOTZ+cIsEvKwiT9B1irxQrwntrHP0+exyTjZqTWvhc6
- 096rZhP7HEoXff6eAnDpM1k+foVEsGV+8LfhW9FFhlP90EVcPeNYolAmsSnQ3dyJy/w03HY5y6w
- poG4j5qCjMrydtoolgR8ELw4asXnQdae236YuEYTCho09H5LayRF8BG9GFXJYWBuPGliNLYr7SG
- nz2WZpTWodKxv8/0rkhDeqYSb6qC3LfZvHTfQ71HWSDPLrvVDircRsZcR5hepxCcuf6lV9fQbFF
- twfc0QK9HO1xcspTXYfd8m5qGtWFmpydBVwq0A3xaZmzXAJW3oZ6RHBEnALOzfGLDRBiBJC8SeK
- TGhk72r9yh6/DPlgZCQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-18_02,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 priorityscore=1501 phishscore=0 clxscore=1015
- adultscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610180024
 
-On 10/16/2026 2:22 PM, Konrad Dybcio wrote:
-> On 10/16/26 7:39 AM, Anurag Pateriya wrote:
->> Enable the SoCCP remoteproc node with its firmware path on the Nord
->> RRD board.
->>
->> Signed-off-by: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
->> ---
->>   arch/arm64/boot/dts/qcom/nord-rrd.dts | 6 ++++++
->>   1 file changed, 6 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/nord-rrd.dts b/arch/arm64/boot/dts/qcom/nord-rrd.dts
->> index 47978df0af92..9db94c3b0c91 100644
->> --- a/arch/arm64/boot/dts/qcom/nord-rrd.dts
->> +++ b/arch/arm64/boot/dts/qcom/nord-rrd.dts
->> @@ -434,6 +434,12 @@ &spi16 {
->>   	status = "okay";
->>   };
->>   
->> +&remoteproc_soccp{
-> 
-> Missing space before opening bracket
-> 
-> Konrad
->
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
+- [Critical] ASoC: apple: macaudio: wrong drvdata and teardown order in rem=
+ove()
+- [High] ASoC: apple: macaudio: ABBA deadlock in macaudio_vlimit_update()
+- [High] ASoC: apple: macaudio: static macaudio_card mutated across probes
+- [High] ASoC: apple: macaudio: atomic Primary FE fails with nonatomic spea=
+ker BE
+- [Medium] ASoC: apple: macaudio: OF node reference leaks in macaudio_parse=
+_of()
+- [Medium] ASoC: apple: macaudio: TDM idle mode skipped in macaudio_be_assi=
+gn_tdm()
+- [Medium] ASoC: apple: macaudio: race with cancel_delayed_work() on timeou=
+t work
+--
 
-Yes. I will fix this in next version.
+commit 56eeabc9bf8ef8e9b2a3eb1ec213300f3ed1ab23
+Author: Martin Povi=C5=A1er <povik+lin@cutebit.org>
 
-Thanks,
-Anurag
->> +	firmware-name = "qcom/nord/soccp.mbn";
->> +
->> +	status = "okay";
->> +};
->> +
->>   &uart4 {
->>   	status = "okay";
->>   };
->>
+ASoC: apple: Add macaudio machine driver
 
+This commit adds an ASoC machine driver for Apple Silicon Macs to manage
+DPCM routing between MCA I2S frontends/backends, speaker arrays, speaker
+sense capture, and headset jack codecs.
+
+> diff --git a/sound/soc/apple/macaudio.c b/sound/soc/apple/macaudio.c
+> new file mode 100644
+> index 0000000000000..b8e58c9a676f8
+> --- /dev/null
+> +++ b/sound/soc/apple/macaudio.c
+> @@ -0,0 +1,1715 @@
+
+[ ... ]
+
+> +static struct snd_soc_dai_link macaudio_fe_links[] =3D {
+> +	{
+> +		.name =3D "Primary",
+> +		.stream_name =3D "Primary",
+> +		.dynamic =3D 1,
+> +		.dpcm_merged_rate =3D 1,
+> +		.dpcm_merged_chan =3D 1,
+> +		.dpcm_merged_format =3D 1,
+> +		.dai_fmt =3D MACAUDIO_DAI_FMT,
+> +		SND_SOC_DAILINK_REG(primary),
+> +	},
+> +	{
+> +		.name =3D "Secondary",
+> +		.stream_name =3D "Secondary",
+> +		.dynamic =3D 1,
+> +		.dpcm_merged_rate =3D 1,
+> +		.dpcm_merged_chan =3D 1,
+> +		.dpcm_merged_format =3D 1,
+> +		.dai_fmt =3D MACAUDIO_DAI_FMT,
+> +		.playback_only =3D 1,
+> +		.nonatomic =3D 1,
+> +		SND_SOC_DAILINK_REG(secondary),
+> +	},
+
+[Severity: High]
+Should the Primary frontend link in macaudio_fe_links[] (and the headphone
+backend links in macaudio_parse_of()) also set .nonatomic =3D 1?
+
+In macaudio_dapm_routes[], both Primary and Secondary are routed to both
+Speaker Playback Mux (where Primary is the default selection at index 0)
+and Headphone Playback Mux. In macaudio_parse_of(), speaker backend links
+set link->nonatomic =3D 1, while headphone backend links have
+link->nonatomic =3D 0.
+
+When Primary (atomic) is routed to a speaker backend (nonatomic),
+dpcm_be_connect() in sound/soc/soc-pcm.c rejects the connection with
+-EINVAL because an atomic frontend cannot connect to a nonatomic backend:
+
+sound/soc/soc-pcm.c:dpcm_be_connect() {
+	...
+	if (be_substream->pcm->nonatomic && !fe_substream->pcm->nonatomic) {
+		dev_err(be->dev, "FE is atomic but BE is nonatomic, invalid configuration=
+\n");
+		return -EINVAL;
+	}
+	if (!be_substream->pcm->nonatomic && fe_substream->pcm->nonatomic) {
+		be_substream->pcm->nonatomic =3D 1;
+	}
+	...
+}
+
+Furthermore, if Secondary (nonatomic) is ever routed to Headphone Playback
+Mux, dpcm_be_connect() mutates the headphone backend PCM to nonatomic =3D 1,
+causing subsequent attempts to route Primary to headphones to also fail
+with -EINVAL.
+
+[ ... ]
+
+> +static void macaudio_vlimit_update(struct macaudio_snd_data *ma, bool ta=
+ke_rwsem)
+> +{
+> +	bool unlock =3D true;
+> +	const char *reason;
+> +
+> +	/* Do nothing if there is no safety configured */
+> +	if (!ma->has_safety)
+> +		return;
+> +
+> +	/* Check that the control has been pinged within the timeout */
+> +	if (ma->speaker_lock_remain <=3D 0) {
+> +		reason =3D "Lock timeout";
+> +		unlock =3D false;
+> +	}
+> +
+> +	/*
+> +	 * If this has been called from either of the safety interlock
+> +	 * workqueues, the core API has not taken controls_rwsem for us.
+> +	 * Take the write semaphore since macaudio_vlimit_unlock writes
+> +	 * to the kcontrols.
+> +	 */
+> +	if (take_rwsem)
+> +		down_write(&ma->card->snd_card->controls_rwsem);
+
+[Severity: High]
+Can taking controls_rwsem here while holding ma->volume_lock_mutex cause an
+AB-BA deadlock with macaudio_slk_put()?
+
+When lock_update_work or lock_timeout_work runs,
+macaudio_vlimit_enable_timeout(), macaudio_vlimit_disable_timeout(), and
+macaudio_vlimit_timeout_work() first acquire ma->volume_lock_mutex via
+guard(mutex)(&ma->volume_lock_mutex) and then call
+macaudio_vlimit_update(ma, true), which calls
+down_write(&ma->card->snd_card->controls_rwsem):
+
+  volume_lock_mutex -> controls_rwsem
+
+Conversely, when userspace writes to the Speaker Volume Unlock control,
+snd_ctl_elem_write() in sound/core/control.c acquires
+down_write(&card->controls_rwsem) before invoking macaudio_slk_put(), which
+then acquires guard(mutex)(&ma->volume_lock_mutex):
+
+  controls_rwsem -> volume_lock_mutex
+
+If a userspace control write races with either work item, will the two
+threads deadlock against each other?
+
+> +
+> +	if (unlock !=3D ma->speaker_volume_unlocked) {
+> +		if (unlock) {
+> +			dev_info(ma->card->dev, "Speaker volumes unlocked\n");
+> +		} else  {
+> +			dev_info(ma->card->dev, "Speaker volumes locked: %s\n", reason);
+> +			ma->speaker_volume_was_locked =3D true;
+> +		}
+> +
+> +		macaudio_vlimit_unlock(ma, unlock);
+> +		ma->speaker_volume_unlocked =3D unlock;
+> +		snd_ctl_notify(ma->card->snd_card, SNDRV_CTL_EVENT_MASK_VALUE,
+> +			       &ma->speaker_lock_kctl->id);
+> +	}
+> +
+> +	if (take_rwsem)
+> +		up_write(&ma->card->snd_card->controls_rwsem);
+> +}
+> +
+> +static void macaudio_vlimit_enable_timeout(struct macaudio_snd_data *ma)
+> +{
+> +	guard(mutex)(&ma->volume_lock_mutex);
+> +
+> +	if (ma->speaker_lock_timeout_enabled) {
+> +		return;
+> +	}
+> +
+> +	if (ma->speaker_lock_remain > 0) {
+> +		ma->speaker_lock_timeout =3D ktime_add(ktime_get(), ma->speaker_lock_r=
+emain);
+> +		schedule_delayed_work(&ma->lock_timeout_work,
+> +				      usecs_to_jiffies(ktime_to_us(ma->speaker_lock_remain)));
+> +		dev_dbg(ma->card->dev, "Enabling volume limit timeout: %ld us left\n",
+> +			(long)ktime_to_us(ma->speaker_lock_remain));
+> +	}
+> +
+> +	macaudio_vlimit_update(ma, true);
+> +
+> +	ma->speaker_lock_timeout_enabled =3D true;
+> +}
+> +
+> +static void macaudio_vlimit_disable_timeout(struct macaudio_snd_data *ma)
+> +{
+> +	ktime_t now;
+> +
+> +	guard(mutex)(&ma->volume_lock_mutex);
+> +
+> +	if (!ma->speaker_lock_timeout_enabled) {
+> +		return;
+> +	}
+> +
+> +	now =3D ktime_get();
+> +
+> +	cancel_delayed_work(&ma->lock_timeout_work);
+> +
+> +	if (ktime_after(now, ma->speaker_lock_timeout))
+> +		ma->speaker_lock_remain =3D 0;
+> +	else if (ma->speaker_lock_remain > 0)
+> +		ma->speaker_lock_remain =3D ktime_sub(ma->speaker_lock_timeout, now);
+> +
+> +	dev_dbg(ma->card->dev, "Disabling volume limit timeout: %ld us left\n",
+> +		(long)ktime_to_us(ma->speaker_lock_remain));
+> +
+> +	macaudio_vlimit_update(ma, true);
+> +
+> +	ma->speaker_lock_timeout_enabled =3D false;
+> +}
+> +
+> +static void macaudio_vlimit_timeout_work(struct work_struct *wrk)
+> +{
+> +	struct macaudio_snd_data *ma =3D container_of(to_delayed_work(wrk),
+> +						    struct macaudio_snd_data, lock_timeout_work);
+> +
+> +	guard(mutex)(&ma->volume_lock_mutex);
+> +	ma->speaker_lock_remain =3D 0;
+> +	macaudio_vlimit_update(ma, true);
+> +}
+
+[Severity: Medium]
+What happens if lock_timeout_work fires and macaudio_vlimit_timeout_work()
+blocks on ma->volume_lock_mutex just after macaudio_slk_put() or
+macaudio_vlimit_disable_timeout() acquires ma->volume_lock_mutex?
+
+Because macaudio_slk_put() and macaudio_vlimit_disable_timeout() use
+non-synchronous cancel_delayed_work(&ma->lock_timeout_work) while holding
+ma->volume_lock_mutex, cancel_delayed_work() cannot stop a
+macaudio_vlimit_timeout_work() instance that has already been dispatched
+and is waiting on ma->volume_lock_mutex.
+
+Once macaudio_slk_put() refreshes ma->speaker_lock_remain to
+ms_to_ktime(SPEAKER_LOCK_TIMEOUT), reschedules lock_timeout_work, and
+releases ma->volume_lock_mutex (or macaudio_vlimit_disable_timeout()
+disables the timeout and releases the mutex), the waiting
+macaudio_vlimit_timeout_work() will acquire ma->volume_lock_mutex and
+unconditionally zero ma->speaker_lock_remain and lock the speaker volumes.
+
+Should macaudio_vlimit_timeout_work() verify that
+ma->speaker_lock_timeout_enabled is still true and
+ktime_after(ktime_get(), ma->speaker_lock_timeout) before zeroing
+ma->speaker_lock_remain?
+
+[ ... ]
+
+> +static int macaudio_parse_of_component(struct device_node *node, int ind=
+ex,
+> +				struct snd_soc_dai_link_component *comp)
+> +{
+> +	struct of_phandle_args args;
+> +	int ret;
+> +
+> +	ret =3D of_parse_phandle_with_args(node, "sound-dai", "#sound-dai-cells=
+",
+> +						index, &args);
+> +	if (ret)
+> +		return ret;
+> +	comp->of_node =3D args.np;
+> +	return snd_soc_get_dai_name(&args, &comp->dai_name);
+> +}
+
+[ ... ]
+
+> +static int macaudio_parse_of(struct macaudio_snd_data *ma, struct snd_so=
+c_card *card)
+> +{
+> +	struct device_node *codec =3D NULL;
+> +	struct device_node *cpu =3D NULL;
+> +	struct device_node *np =3D NULL;
+> +	struct device_node *platform =3D NULL;
+> +	struct snd_soc_dai_link *link =3D NULL;
+> +	struct device *dev =3D card->dev;
+> +	struct macaudio_link_props *link_props;
+> +	int ret, num_links, i;
+
+[ ... ]
+
+> +		for (be_index =3D 0; be_index < num_bes; be_index++) {
+> +			/*
+> +			 * Set initial link name to be overwritten by a BE-specific
+> +			 * name later so that we can use at least use the provisional
+> +			 * name in error messages.
+> +			 */
+> +			link->name =3D link_name;
+> +
+> +			ret =3D macaudio_parse_of_be_dai_link(card, link, be_index,
+> +							    ncodecs_per_cpu, cpu, codec);
+> +			if (ret)
+> +				goto err_free;
+> +
+> +			link->nonatomic =3D link_props->is_speakers =3D speakers;
+> +			link_props->is_headphones =3D !speakers;
+> +
+> +			link_props->codecs =3D devm_kcalloc(dev, ncodecs_per_cpu,
+> +							  sizeof(struct ma_codec_idle), GFP_KERNEL);
+> +			if (!link_props->codecs)
+> +				return -ENOMEM;
+
+[ ... ]
+
+> +			/* Steal platform OF reference for use in FE links later */
+> +			platform =3D link->cpus->of_node;
+> +
+> +			link++; link_props++;
+> +		}
+> +
+> +		of_node_put(codec);
+> +		of_node_put(cpu);
+> +		cpu =3D codec =3D NULL;
+> +
+> +		num_links +=3D num_bes;
+> +	}
+
+[ ... ]
+
+> +err_free:
+> +	of_node_put(codec);
+> +	of_node_put(cpu);
+> +	of_node_put(np);
+> +
+> +	if (!card->dai_link)
+> +		return ret;
+> +
+> +	for (i =3D 0; i < num_links; i++) {
+> +		/*
+> +		 * TODO: If we don't go through this path are the references
+> +		 * freed inside ASoC?
+> +		 */
+> +		snd_soc_of_put_dai_link_codecs(&card->dai_link[i]);
+> +		snd_soc_of_put_dai_link_cpus(&card->dai_link[i]);
+> +	}
+> +
+> +	return ret;
+> +}
+
+[Severity: Medium]
+Does macaudio_parse_of() leak device_node references in several paths?
+
+1. If devm_kcalloc() for link_props->codecs fails, macaudio_parse_of()
+returns -ENOMEM directly from inside the for_each_available_child_of_node()
+loop instead of jumping to err_free, leaking np, cpu, codec, and all
+previously acquired DAI link component of_node references.
+
+2. In macaudio_parse_of_component(), comp->of_node =3D args.np is assigned
+before calling snd_soc_get_dai_name(&args, &comp->dai_name). In
+macaudio_parse_of(), num_links is only incremented by num_bes after the
+entire inner for (be_index =3D 0; be_index < num_bes; be_index++) loop
+completes. If macaudio_parse_of_be_dai_link() fails (for example when
+snd_soc_get_dai_name() returns -EPROBE_DEFER), execution jumps to err_free,
+where the cleanup loop only iterates up to num_links and misses any
+comp->of_node references already populated in the current child node's BE
+links.
+
+3. Regarding the TODO comment in err_free: ASoC core does not release
+dai_link->codecs[].of_node or dai_link->cpus[].of_node. If
+devm_snd_soc_register_card() fails or when the driver is removed, those
+device_node references are never released.
+
+[ ... ]
+
+> +static int macaudio_be_assign_tdm(struct snd_soc_pcm_runtime *rtd)
+> +{
+> +	struct snd_soc_card *card =3D rtd->card;
+> +	struct macaudio_snd_data *ma =3D snd_soc_card_get_drvdata(card);
+> +	struct macaudio_link_props *props =3D &ma->link_props[rtd->dai_link->id=
+];
+> +	struct snd_soc_dai *dai;
+> +	unsigned int mask;
+> +	int nslots, ret, i;
+> +
+> +	if (!props->tdm_mask)
+> +		return 0;
+> +
+> +	mask =3D props->tdm_mask;
+> +	nslots =3D __fls(mask) + 1;
+> +
+> +	if (rtd->dai_link->num_codecs =3D=3D 1) {
+> +		ret =3D snd_soc_dai_set_tdm_slot(snd_soc_rtd_to_codec(rtd, 0), mask,
+> +					       0, nslots, MACAUDIO_SLOTWIDTH);
+> +
+> +		/*
+> +		 * Headphones get a pass on -ENOTSUPP (see the comment
+> +		 * around bclk_ratio value for primary FE).
+> +		 */
+> +		if (ret =3D=3D -ENOTSUPP && props->is_headphones)
+> +			return 0;
+> +
+> +		return ret;
+> +	}
+> +
+> +	for_each_rtd_codec_dais(rtd, i, dai) {
+> +		int slot =3D __ffs(mask);
+> +
+> +		mask &=3D ~(1 << slot);
+> +		ret =3D snd_soc_dai_set_tdm_slot(dai, 1 << slot, 0, nslots,
+> +					       MACAUDIO_SLOTWIDTH);
+> +		if (ret)
+> +			return ret;
+> +
+> +		if (props->codecs[i].idle_mode) {
+> +			ret =3D snd_soc_dai_set_tdm_idle(dai, props->codecs[i].idle_mask,
+> +						       0, props->codecs[i].idle_mode, 0);
+> +			if (ret) {
+> +				dev_err(card->dev, "Failed to set idle props for codec %d\n", i);
+> +				return ret;
+> +			}
+> +
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+
+[Severity: Medium]
+When rtd->dai_link->num_codecs =3D=3D 1, macaudio_be_assign_tdm() returns e=
+arly
+after calling snd_soc_dai_set_tdm_slot() without checking
+props->codecs[0].idle_mode or calling snd_soc_dai_set_tdm_idle().
+
+On machines where each speaker backend DAI link has a single codec (such as
+2 speaker codecs split across 2 CPU BEs), won't this skip applying the
+dai-tdm-idle-mode-* and dai-tdm-slot-tx-idle-mask-* properties parsed by
+macaudio_get_codec_idle_props()?
+
+[ ... ]
+
+> +static struct snd_soc_card macaudio_card =3D {
+> +	.owner =3D THIS_MODULE,
+> +	.driver_name =3D "macaudio",
+> +	.dapm_widgets =3D macaudio_snd_widgets,
+> +	.num_dapm_widgets =3D ARRAY_SIZE(macaudio_snd_widgets),
+> +	.dapm_routes =3D macaudio_dapm_routes,
+> +	.num_dapm_routes =3D ARRAY_SIZE(macaudio_dapm_routes),
+> +	.controls =3D macaudio_controls,
+> +	.num_controls =3D ARRAY_SIZE(macaudio_controls),
+> +	.probe =3D macaudio_probe,
+> +	.late_probe =3D macaudio_late_probe,
+> +	.component_chaining =3D true,
+> +	.fully_routed =3D true,
+> +	.fixup_controls =3D macaudio_fixup_controls,
+> +};
+
+[ ... ]
+
+> +static int macaudio_snd_platform_probe(struct platform_device *pdev)
+> +{
+> +	struct snd_soc_card *card;
+> +	struct macaudio_snd_data *data;
+> +	struct device *dev =3D &pdev->dev;
+> +	struct snd_soc_dai_link *link;
+> +	const struct of_device_id *of_id;
+> +	int ret;
+> +	int i;
+> +
+> +	of_id =3D of_match_device(macaudio_snd_device_id, dev);
+> +	if (!of_id)
+> +		return -EINVAL;
+> +
+> +	data =3D devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
+> +	if (!data)
+> +		return -ENOMEM;
+> +	card =3D &macaudio_card;
+> +	data->card =3D card;
+> +
+> +	snd_soc_card_set_drvdata(card, data);
+> +	dev_set_drvdata(&pdev->dev, data);
+> +	mutex_init(&data->volume_lock_mutex);
+> +	mutex_init(&data->be_link_mutex);
+> +
+> +	card->dev =3D dev;
+> +
+> +	if (of_id->data)
+> +		data->cfg =3D of_id->data;
+> +	else
+> +		data->cfg =3D &macaudio_fallback_cfg;
+> +
+> +	ret =3D macaudio_parse_of(data, card);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Remove useless controls */
+> +	if (!data->has_speakers) /* No speakers, remove both */
+> +		card->num_controls -=3D MACAUDIO_NUM_SPEAKER_CONTROLS;
+> +	else if (!data->cfg->safe_vol) /* No safety, remove unlock */
+> +		card->num_controls -=3D MACAUDIO_NUM_SPEAKER_LIMIT_CONTROLS;
+> +	else /* Speakers with safety, mark us as such */
+> +		data->has_safety =3D true;
+
+[Severity: High]
+Since macaudio_card is a static struct shared across probe attempts, what
+happens if devm_snd_soc_register_card() defers probe (-EPROBE_DEFER) or the
+device is unbound and re-probed?
+
+In macaudio_snd_platform_probe(), card->num_controls is decremented in-place
+with -=3D without being reset to ARRAY_SIZE(macaudio_controls). Across
+repeated deferred probes, card->num_controls will be decremented multiple
+times, dropping valid controls or underflowing. For example, on a machine
+with speakers and !safe_vol, a second probe attempt will drop the Speaker
+Sample Rate control, causing snd_soc_card_get_kcontrol(card, "Speaker Sample
+Rate") in macaudio_late_probe() to return NULL and triggering a NULL pointer
+dereference when macaudio_dpcm_hw_params() or macaudio_be_hw_free() accesses
+&ma->speaker_sample_rate_kctl->id.
+
+Similarly, macaudio_parse_of() assigns a devm-allocated array to
+macaudio_card.dai_link; if probe fails after that allocation, devres frees
+the array while leaving macaudio_card.dai_link pointing to freed memory if a
+subsequent probe jumps to err_free before reallocating card->dai_link.
+Embedding struct snd_soc_card inside struct macaudio_snd_data (and
+initializing it from a const template on probe) would avoid mutating global
+state across probes.
+
+> +
+> +	for_each_card_prelinks(card, i, link) {
+> +		if (link->no_pcm) {
+> +			link->ops =3D &macaudio_be_ops;
+> +			link->init =3D macaudio_be_init;
+> +			link->exit =3D macaudio_be_exit;
+> +		} else {
+> +			link->ops =3D &macaudio_fe_ops;
+> +			link->init =3D macaudio_fe_init;
+> +		}
+> +	}
+> +
+> +	INIT_WORK(&data->lock_update_work, macaudio_vlimit_update_work);
+> +	INIT_DELAYED_WORK(&data->lock_timeout_work, macaudio_vlimit_timeout_wor=
+k);
+> +
+> +	return devm_snd_soc_register_card(dev, card);
+> +}
+> +
+> +static void macaudio_snd_platform_remove(struct platform_device *pdev)
+> +{
+> +	struct macaudio_snd_data *ma =3D dev_get_drvdata(&pdev->dev);
+> +
+> +	cancel_work_sync(&ma->lock_update_work);
+> +	cancel_delayed_work_sync(&ma->lock_timeout_work);
+> +}
+
+[Severity: Critical]
+Does macaudio_snd_platform_remove() retrieve the wrong pointer from
+dev_get_drvdata(&pdev->dev) and cancel the work items in the wrong order
+relative to card unregistration?
+
+1. In macaudio_snd_platform_probe(), dev_set_drvdata(&pdev->dev, data) sets
+the platform device's drvdata to struct macaudio_snd_data *data, and then
+calls devm_snd_soc_register_card(dev, card). Inside snd_soc_register_card()
+in sound/soc/soc-core.c, ASoC unconditionally overwrites card->dev's drvdata
+with card:
+
+sound/soc/soc-core.c:snd_soc_register_card() {
+	...
+	dev_set_drvdata(card->dev, card);
+	...
+}
+
+When macaudio_snd_platform_remove() later calls dev_get_drvdata(&pdev->dev),
+it receives struct snd_soc_card * (instead of struct macaudio_snd_data *)
+and passes offsets inside macaudio_card to cancel_work_sync() and
+cancel_delayed_work_sync().
+
+2. Because the card is registered with devm_snd_soc_register_card(), the
+devres release callback that unregisters the card runs after
+macaudio_snd_platform_remove() returns. While the card is still registered
+(and during PCM teardown in snd_soc_unregister_card()), macaudio_be_trigger=
+()
+or macaudio_slk_put() can schedule lock_update_work and lock_timeout_work
+again after macaudio_snd_platform_remove() has completed, leading to
+use-after-free when devres frees struct macaudio_snd_data.
+
+|}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261018-macaudio-v=
+3-0-abdff7741dea@gmail.com?part=3D8
