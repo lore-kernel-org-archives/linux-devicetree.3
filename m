@@ -1,105 +1,145 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C184B3DB632;
-	Sun, 18 Oct 2026 17:48:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EBF029D291;
+	Sun, 18 Oct 2026 17:56:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792345694; cv=none; b=qaDKVNduG2u9CMmbXNItyHze0CJH7qFoLN72Vr1i6ywIasiklHDVV9VJuNIhaf0wGnJAFon/vrw0Y4l/OTBb4UkPj8lMjDO3maFXbr3B0Ye9lCVO0hFTYZMSelJQpjaSPYGfwrnPwjt91lYTNsD9oRAiKnPVSi+yaBb6/mm06q0=
+	t=1792346185; cv=none; b=Ay0SBNSmt3OEuKl4B88giKgBkRbFxxYxUxD2D4D7snnBS8lZHDP0O0iXoTemdl+nY58eLeMn8GkyzAceFfzGyXBqXjnn/ozyiMsci8OnoAPHPZeUvLVOJLzgLDhSxgcFwQzYLAcFmtN3TnOP6XvEnl44299uZpjKGZHvZrDUTaQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792345694; c=relaxed/simple;
-	bh=QWq3i3vzm1mSRgoW4PRUGVCNPZiytoi3lzMyn9N9VfE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=NFjfcAPlsXsLSa2HnXxTct/E4/vA9cC4zvqCo8gvWrQze5FBqQf17SMjo1c5HTrvGYI0VjktmOkDxeCefrnWIBn3mafoW5PlZVgnOccy6W/P8KRgbxB1j31wFMYeSNLCzC/Y+xSmZGvMoaABr0WAz3X7J5qi/hbhjCSWrxFZh7A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WmMsRKJX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792346185; c=relaxed/simple;
+	bh=7IgQgvCYxNvVaE+ueZonl8NCpJ9gvuDv8VYcY2+iM9o=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ZH4PUUz+8g1NP/P+pKcQ6ft1LB8qCe/Ua8D6XJp15uUcEaBr7Il53JIFQW5kYANo6cEcbUYHWJ9CPsHEnqiVFM4DzaKiqBwQOJjdsdLYlUkZSV+XZ32acs4ShhMKrv1CdNByWSfZxYu482kW2qyqEJTgyiLUNyX1qKxcpSbeTrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m2PiBFOK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WmMsRKJX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 831251F000C4;
-	Sun, 18 Oct 2026 17:47:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m2PiBFOK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F0A71F000C4;
+	Sun, 18 Oct 2026 17:56:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792345691;
-	bh=dY2M5OxJo8HeSyHYgOk8jaF2BQkfRQ9MFiTg1z74do8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=WmMsRKJXRHA7kPl/KchgJmnzSCOk7/+AC+7m/LM0me8m9EDoyPAcPxzuBhYDus1Km
-	 zWbojCUpK18UhP3qRdL892hvkftGS4bxpMycE0ee/k+gptg+4P3hSHAuuUzTG/p1As
-	 54GX7SH6OudgfWflcFNGP4tsQSeVKdwpKyEg45qLjNj8n9tuECQ69gts09fcFByRXc
-	 hmtoM0NETvSt6Wr4Sn1NvZ+wemUmxcV0qNQyCpDMGi0exdaQ3m9ECEZpgJNVkdEWma
-	 qJSjO/hV5zpUoxxpsxOell4pJwwp7y+RLR0CTEA+6Ngh6Zk5ypQTwMjq8o4O1FFGkE
-	 Ttx+6MC2wKGLg==
-From: Mark Brown <broonie@kernel.org>
-To: Val Packett <val@packett.cool>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Luca Weiss <luca.weiss@fairphone.com>, 
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, 
- Conor Dooley <conor+dt@kernel.org>, ~postmarketos/upstreaming@lists.sr.ht, 
- phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261016073157.611956-1-val@packett.cool>
-References: <20261016073157.611956-1-val@packett.cool>
-Subject: Re: (subset) [PATCH 0/5] Enable soundcard on Motorola Edge 30
-Message-Id: <179218647657.3162228.4284806308774013026.b4-ty@b4>
-Date: Fri, 16 Oct 2026 22:34:36 +0100
+	s=k20260515; t=1792346184;
+	bh=liB8BgC1Ml46m5qJ2Km0vMLjnxc3Pun60AgSOQRsiBs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=m2PiBFOKh3/PBfkF09d5G2Pwrq2k/hNmmokceGySQIEf70CsesetjNFDxkLk+w9hR
+	 hu8j0pugh6irna+V40Dhr1NAeECfOrC0YtW8Dr+2iPWkHHvglwsywMy+HNz6MTQ92t
+	 Y4o5uCiPCdEeOatLDZFikNOtuhZiRy74n97SFe2Ty0eFJFor8S564Y5Sip3sbxZcQT
+	 yG04jSBwIXkOfWiJ0rNPYbcatwzm9CBpg0rqQVYFPIVzTzya1dRjNnOSEOBeOsHbkT
+	 aJRjs8TL7+7xhp/SPRvrMj/0n19BVMn7CMc5Qp7hYLzzpEJ6SYXwh61MnEyT/fFp0M
+	 WaacBoD5v00bQ==
+Date: Sun, 18 Oct 2026 18:56:19 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: "chr[]" <chris@rudorff.com>
+Cc: Linus Walleij <linusw@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn
+ Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] iio: light: gp2ap002: add led power supply
+Message-ID: <20261018185619.2aa694da@jic23-hlaptop>
+In-Reply-To: <d06d51cf-a53d-4bef-881e-cdcb4925a316@rudorff.com>
+References: <20261017-iio-light-gp2ap002-v2-0-d6879767a446@rudorff.com>
+	<20261017-iio-light-gp2ap002-v2-2-d6879767a446@rudorff.com>
+	<20261017190006.224b73e7@jic23-hlaptop>
+	<d06d51cf-a53d-4bef-881e-cdcb4925a316@rudorff.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1766; i=broonie@kernel.org;
- h=from:subject:message-id; bh=QWq3i3vzm1mSRgoW4PRUGVCNPZiytoi3lzMyn9N9VfE=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLKusjnsvXlOalPSOZVfXa8bu/+I8OkxWf7w8jAqFpoSy
- Prz5FfRjlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAEyk/gwjw8zn6WtWG1dc15Wp
- 0V5uN3veliU7/bv4ZY/ZWDjIsS209mH4K6D/WvhS66x3x/XOFOqIcstM+Pr2/T21BemvF0Wc+JK
- lzA0A
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Fri, 16 Oct 2026 04:31:48 -0300, Val Packett wrote:
-> Enable soundcard on Motorola Edge 30
+On Sun, 18 Oct 2026 16:41:48 +0200
+"chr[]" <chris@rudorff.com> wrote:
+
+> Hi,
 > 
-> This series enables sound support on motorola-dubai, at least the
-> speakers.. The WCD that handles microphones and analog USB-C sound
-> is left out because it would first need:
-> https://lore.kernel.org/all/20260522-kodiak-elite-macros-v1-1-487661ac1270@fairphone.com/
+> In preparation of v3:
 > 
-> [...]
+> Am 17.10.26 um 20:00 schrieb Jonathan Cameron:
+> > On Sat, 17 Oct 2026 19:27:42 +0200
+> > Christoph Rudorff <chris@rudorff.com> wrote:
+> >   
+> >>   	/* VIO should be between 1.65V and VDD */
+> >> -	ret = regulator_get_voltage(gp2ap002->vdd);
+> >> +	ret = regulator_get_voltage(gp2ap002->supplies[SUPPLY_VDD].consumer);  
+> > 
+> > Ah. I'd failed to register the voltages were being manually set (generally
+> > we leave that to firmware in more modern drivers).
+> > That rather reduces the advantage in using bulk regulators.  Probably
+> > still just about worth doing.
+> >  
+> 
+> Yes, this is why I didn't made it in v1.
+> 
+> >   
+> >>   	if (ret < 0) {
+> >>   		dev_err(dev, "failed to get VDD voltage\n");
+> >>   		return ret;
+> >>   	}
+> >> -	ret = regulator_set_voltage(gp2ap002->vio, 1650000, ret);
+> >> +	ret = regulator_set_voltage(gp2ap002->supplies[SUPPLY_VIO].consumer, 1650000, ret);
+> >>   	if (ret) {
+> >>   		dev_err(dev, "failed to set VIO voltage\n");
+> >>   		return ret;
+> >>   	}
+> >> +	/* LED voltage 2.4V .. 3.6V according to datasheet */
+> >> +	/* We need to check this, as dummy or fixed controllers trigger an error. */  
+> > I'd make that a multiline comment and say what 'this' is.
+> > 	/*
+> > 	 * LED voltage 2.4V .. 3.6V according to datasheet
+> > 	 * We need to check control is supported, as controlling dummy or fixed
+> > 	 * controllers results in an error.
+> > 	 */
+> > 
+> > Do you actually need to control this for your board?  I'm not that
+> > keen to replicate the controlling of voltages if we don't have
+> > to.  We can't drop existing code as maybe a board is relying on it
+> > but we can avoid adding new examples!
+> >   
+> 
+> So we don't want to drop all the set_voltage code in general.
+> My board does not need that at all, all voltages are already set
+> to valid values in DT, ... I hope ... I check downstream ...
+Unfortunately it would be a bit of a gamble to remove the in
+driver voltage control on existing supplies. Given it works
+for yours though let us not do it for the new one! 
+> 
+> So I skip the "example" for set_voltage(vled)?!
 
-Applied to
+Exactly.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+Jonathan
 
-Thanks!
-
-[1/5] ASoC: qcom: qdsp6: q6routing: add Senary MI2S ports
-      https://git.kernel.org/broonie/sound/c/2b20c976bb63
-[2/5] ASoC: qcom: sm8250: add Senary MI2S RX support
-      https://git.kernel.org/broonie/sound/c/41c6eb15291f
-[3/5] ASoC: dt-bindings: qcom,sm8250: Add Motorola Edge 30 sound card
-      https://git.kernel.org/broonie/sound/c/a0f1887655af
-[4/5] ASoC: qcom: sm8250: Add motorola-dubai soundcard compatible
-      https://git.kernel.org/broonie/sound/c/32c9d661dab0
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+> 
+> And thanks for the advice to pretty up the code!
+> 
+> chr[]
+> 
+> >> @@ -632,9 +650,8 @@ static void gp2ap002_remove(struct i2c_client 
+> *client)>>   	pm_runtime_get_sync(dev);
+> >>   	pm_runtime_put_noidle(dev);
+> >>   	pm_runtime_disable(dev);
+> >> +	regulator_bulk_disable(NUM_SUPPLIES, gp2ap002->supplies);  
+> > 
+> > Why at that point in sequence?  You are turning the power off
+> > before removing the userspace interfaces which seems unlikely to
+> > be race free. More generally it is no longer reverse of probe
+> > order. If that is necessary for some reason I'd expect a comment
+> > to say why.
+> >  
+> 
+> Sorry, just a stupid mistake.
+> 
+> >>   	iio_device_unregister(indio_dev);
+> >> -	regulator_disable(gp2ap002->vio);
+> >> -	regulator_disable(gp2ap002->vdd);
+> >>   }  
+> > 
+> >   
+> 
 
