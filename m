@@ -1,80 +1,119 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9BF4395AFE;
-	Sun, 18 Oct 2026 15:51:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30C2139B49A;
+	Sun, 18 Oct 2026 16:08:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792338683; cv=none; b=qdJpHRny4AybyQtUnXVmIm+6p1Zp86NnbjetJ1kjsvGl0d8F2ogcYz21m9wnEteiJduRkPv9Qn4cn8BlxQfn/t5iUc146Q4Yjy0Wocr2pl5H40llsznrVHKa+GmPUDP6WAfNgRC9y3OIx1I6SbBcAdEkIG+AemJK9xIoP1ohppo=
+	t=1792339684; cv=none; b=aFy6Y8wzrgN/mdY5ed3UUqHdb1RSBNJp6RTTpwOkirlIuI7QkY8CSGUte3lamYJPSl/7BhNC41b/h5hX4RjfMbxbvv8BG3ZMlcIYMHgW/t5xpwCHYyo+co1zvt578B4KNwT162S/8jlvqebF1+F9rIbSPBVtHLp+p6lUxH4bUCk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792338683; c=relaxed/simple;
-	bh=PC2nwUIctw/opFVir6NYxMVSrSsNepCXzeuf4jelZlU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YB3W+jzuSQEBLQa/yJIIP9RpBJu15rk2cm+ELe3nBUbV4VoLBRO8/9h1Cru6hLGKAwVyY8ZwIISp6aDgwkr83czRlAwh3L/e1NYbRu8Ywi9JNe0CPpCKnJXbxu9XWIONujw4XiZM1m0l7+YPCKXDDlkT16MMj/LPIApyHyHCEBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=JmSJjNfQ; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1792339684; c=relaxed/simple;
+	bh=Ww265C1brfTYOTX+UKwTICR7ZGeL4Bj1knjlUcQBulY=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gBkuxWbFu0PyN9wxMeI3CjKGOyFASwrPHi9T72e71gdZwkXeXSi5D6daNOXuCj8tbymbAqtFD1kyIDyE+SYg8+f7GwI6jxAyWxzqGkhS0KKZTRHBN4IXULFJ3tgIRogY0Bt5f9f5oqmTel7M97UaPfuFh0ZDi82/FPzZTeYszbY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=qlgSC/gp; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="JmSJjNfQ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
-	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
-	In-Reply-To:References; bh=/GXMNXvu9Ucx8ydkf56R+nlJN3aAcHuHVa89lye6maQ=; b=Jm
-	SJjNfQqNodHlr4SfFLNQ8bLBjhHmMOrV6SK9ZZJLq771tU4uqAbV7KI3Xc6l1glVGiyfSFKTyh34q
-	nHUrIl6xVQkOdvowc+LsYFMzXu2crkXlkoK4Z/J00+oP/Jz/FxGGcLS3njy6FDD653ozfzD7c2ZqY
-	kJRyEanfmesSRdw=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xITA8-00BVLw-OY; Sun, 18 Oct 2026 17:51:04 +0200
-Date: Sun, 18 Oct 2026 17:51:04 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Josef Schlehofer <pepe.schlehofer@gmail.com>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
-	Marek =?iso-8859-1?Q?Beh=FAn?= <kabel@kernel.org>,
-	devicetree@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] powerpc: dts: turris1x.dts: Describe switch PHYs on the
- MDIO bus
-Message-ID: <cb96159f-c510-49ab-bc1d-20149222781a@lunn.ch>
-References: <20261018015311.4822-1-pepe.schlehofer@gmail.com>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="qlgSC/gp"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69IG6rwnE1115120, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1792339613; bh=1bl8OPVoTwnMPPl51iRYBO3yUTf6D0qWlAJVw0y0IXo=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type;
+	b=qlgSC/gp9H/IqxDELVlBhwlU2iKfJOPTLETis6p66zyJWuj5PltBBUfCikrJbzDd1
+	 ys6ZI8iQzK4FMBN0/rc6sQd3tMk5fYbHAO8tglbctiIV1SBzHyoI6+jc9CcEyq7wkx
+	 +YKibbO4NQ4ksTF8r6Aegu88RFKE2EJYXdopq3sPEWOLpHRhDTSP/nc36Cjd7BJjyG
+	 hdO58gS0494Sfu+XF8JZqBqjYIEF/uzb3EqVN0+nz7bKw3oMWT0KLbAcdS0WuHs6P3
+	 b2ANjZ702drUJ7LsrUo0WYqk17HwwqFrW6AUaLh2RkFazDk/bzL/fhviX/tgAZYulM
+	 XUvBeOf7kQrUg==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69IG6rwnE1115120
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 19 Oct 2026 00:06:53 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 19 Oct 2026 00:06:54 +0800
+Received: from cn1dhc-k02 (172.21.252.101) by RTKEXHMBS06.realtek.com.tw
+ (10.21.1.56) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Mon, 19 Oct 2026 00:06:54 +0800
+From: Yu-Chun Lin <eleanor.lin@realtek.com>
+To: <tglx@kernel.org>, <radu@rendec.net>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <lee@kernel.org>,
+	<afaerber@suse.com>
+CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<mfd@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-realtek-soc@lists.infradead.org>, <james.tai@realtek.com>,
+	<cy.huang@realtek.com>, <stanley_chang@realtek.com>,
+	<eleanor.lin@realtek.com>
+Subject: [PATCH v5 3/8] dt-bindings: mfd: realtek,rtd1xxx: Add interrupt controller child node
+Date: Mon, 19 Oct 2026 00:06:48 +0800
+Message-ID: <20261018160653.3940371-4-eleanor.lin@realtek.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261018160653.3940371-1-eleanor.lin@realtek.com>
+References: <20261018160653.3940371-1-eleanor.lin@realtek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261018015311.4822-1-pepe.schlehofer@gmail.com>
+Content-Type: text/plain
 
-On Sun, Oct 18, 2026 at 03:53:11AM +0200, Josef Schlehofer wrote:
-> The QCA8337's integrated PHYs are visible on the same MDIO bus as the
-> KSZ9031, at addresses 0–4. Since they are not described in the device
-> tree, qca8k accesses them through the switch's MDIO master.
-> 
-> Describe the PHYs and reference them from the switch ports so phylib
-> accesses them directly through the MDIO bus. This fixes intermittent
-> WAN link recovery failures on Turris 1.x.
-> 
-> Tested on Turris 1.1: 40 WAN link down/up cycles across 3 boots and
-> 10 LAN link down/up cycles passed.
-> 
-> Fixes: 54c15ec3b738 ("powerpc: dts: Add DTS file for CZ.NIC Turris 1.x routers")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+Allow an interrupt controller as a child node by referencing the
+rtd1319-intc-iso schema, update additionalProperties to
+unevaluatedProperties, and append a usage example.
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+---
+ .../bindings/mfd/realtek,rtd1xxx.yaml         | 28 +++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
-    Andrew
+diff --git a/Documentation/devicetree/bindings/mfd/realtek,rtd1xxx.yaml b/Documentation/devicetree/bindings/mfd/realtek,rtd1xxx.yaml
+index 717e29c37b36..b21e14df2879 100644
+--- a/Documentation/devicetree/bindings/mfd/realtek,rtd1xxx.yaml
++++ b/Documentation/devicetree/bindings/mfd/realtek,rtd1xxx.yaml
+@@ -65,6 +65,10 @@ properties:
+     const: 1
+ 
+ patternProperties:
++  "^interrupt-controller":
++    $ref: /schemas/interrupt-controller/realtek,rtd1319-intc-iso.yaml
++    unevaluatedProperties: false
++
+   '@[0-9a-f]+$':
+     type: object
+ 
+@@ -76,3 +80,27 @@ required:
+   - reg
+ 
+ additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    syscon@7000 {
++        compatible = "realtek,rtd1625-iso", "syscon", "simple-mfd";
++        reg = <0x7000 0x1000>;
++        ranges = <0x0 0x7000 0x1000>;
++        #address-cells = <1>;
++        #size-cells = <1>;
++
++        interrupt-controller {
++            compatible = "realtek,rtd1625-intc-iso";
++            interrupt-controller;
++            interrupt-parent = <&gic>;
++            interrupts = <GIC_SPI 41 IRQ_TYPE_LEVEL_HIGH>,
++                         <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>,
++                         <GIC_SPI 39 IRQ_TYPE_LEVEL_HIGH>;
++            #address-cells = <0>;
++            #interrupt-cells = <1>;
++        };
++    };
+-- 
+2.43.0
+
