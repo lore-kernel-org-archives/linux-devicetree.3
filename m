@@ -1,248 +1,71 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7358541443F;
-	Sun, 18 Oct 2026 18:05:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C0F39B48D;
+	Sun, 18 Oct 2026 18:18:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.238.236.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792346703; cv=none; b=qBLm/8tKN4YpGRD30zQCmpfx2XUVIR+yBxJ73w16pLNgZFIs+fYykGAyFA1bJNiwEKzdiD9t4TJvFuil8AUCFtb0HxNOASlG4+HqeHVpNiz8Idq2rFeNpxMl1wCgAX6Kane5Nt4JDHGhKvSp46izdSDD86WR7OU5JnExXCE99Nc=
+	t=1792347494; cv=none; b=o1gIdYY27I4zR36KkAwmtplwKzL+htL9q/N3ux3G3e67KJw759preHXZhSM+0By+neY6GWxpLwHtmfg2wAmsLAWdG+/fgP0gitNrgaPfLhDOhBvGKVSV5Z1h72WuwDqShAiJoeWBzbr5XqPG5l6mA81NC0wqu4Wxez5V/CNTPCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792346703; c=relaxed/simple;
-	bh=/Bxk4vAxLIX3U06yReasi67RpPbqLpnI3i2QnQJg3jQ=;
+	s=arc-20240116; t=1792347494; c=relaxed/simple;
+	bh=wfF20U5MreQNHz9FrFezfUpfgZX4o0Msnt6kSdZ4558=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=G7rBe073OVBatg+Zw7RQsO6IF50tdHnJWvsHMTmsvTVT7W6NX2hPAj8AXTxmhvk+AOvwYaMfd60cVTirex45iJ/bL88r2VpgElJz0A8gRUwA7o7hCnZahpedArirHH2UM0Rn6b662WDotb378haSWJvagQD+2boilKpOC1pkboI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jSCPF5RP; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=SIjifBFQODXLsWDyfNhPFgjD5fm9QWYO9vklBLu7JZnhtOeV5QVoCD2FYmhw3TYVhAHjtC/pJxprAnG0539RTWwfwpKklkbu7LbEOX6gWIiyCHz+WaYsFQnPgK0s6kFfwhx8oaCZCPWPJN3ACAnmeX40h8Ej/2nEZZgzcgZN35k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info; spf=pass smtp.mailfrom=kemnade.info; dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b=UlZ95RLD; arc=none smtp.client-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jSCPF5RP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A9441F000C4;
-	Sun, 18 Oct 2026 18:04:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792346702;
-	bh=lbZDBkg0RPLoZEk0qy5QezILklZ3O58FuUWO6feszX8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=jSCPF5RP+XtGe3IzcSOSM+NOmv+BVsCkM9SI/m2lEfgRGI6gpD5ucAGYfdgD8McGO
-	 WVTVkxTuEgFoI3yIRQ4rQyMbRghHYZjzZfKWY1Z2eMiaJRQJSC4X9zcuyNyxWyVR5x
-	 36bUcWS2xA9qcToODWQt+XSobaeacvInS+4U7wqPwKEt4Y4EbrDkCE8yl9fi6zlLmn
-	 V1NAZaOs6/hnIO/YCFdMM3e8BssEG7a8YvETN1BLJUj8KQk/WqdE8KBlSGsX49hUBS
-	 BilyYka0yzGHw6+b/VXhO3Vd0f5ZnimaxOkxzW02tm/6snI968lEyL6GpDaQP/6Oeu
-	 esUzK9F5PbBHQ==
-Date: Sun, 18 Oct 2026 19:04:54 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Kim Jinseob <kimjinseob88@gmail.com>
-Cc: linux-iio@vger.kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
- andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- neil.armstrong@linaro.org, andersson@kernel.org,
- prabhakar.mahadev-lad.rj@bp.renesas.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
- rdunlap@infradead.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v11 0/8] iio: add Open Sensor Fusion UART support
-Message-ID: <20261018190454.054d3385@jic23-hlaptop>
-In-Reply-To: <CALMSewJZbDbEe28v9VJ7sfTTNVJfvfcryS=0gpARAvc7g3MP8w@mail.gmail.com>
-References: <20261011231340.42885-1-kimjinseob88@gmail.com>
-	<20261018010201.4b427c3c@jic23-hlaptop>
-	<CALMSewJZbDbEe28v9VJ7sfTTNVJfvfcryS=0gpARAvc7g3MP8w@mail.gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b="UlZ95RLD"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=ErZB2ZZ3XmQhb+Taa2wj1GmXp8EN7dNa3whRakTKL+M=; t=1792347493; x=1793557093; 
+	b=UlZ95RLDl4Y1C6//8xHFjmjDBIL9o19mrDOySS0ySiT9q5DmJmSgzdGqivxJeTtIvy4RBr6PHZd
+	MiFzn2Ae9FGzaqosryUFNkeETVdMj8FHgnWsVt6/Tywr/8zo+lY96+uQsgmXd92ZDFP5y46LYWUx6
+	7l4oTMI1vaDmPtEjTLZ3MciiEwO1tWNBDZQLd9IjTamA+uu2MunYH4J3istBIP3CRRWB4VxP04IJN
+	uYUOCeZ7W2vZoyf78FvO6RClFzTf8vTotLnrU6wHFej8j2KItQk2PEPqNBpl9lOEZbkzgnKH4u8NP
+	42KXMsvqzPHpQnsYSzRqWpzutEAy2UZWbUxQ==;
+Date: Sun, 18 Oct 2026 20:17:47 +0200
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang
+ <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent Pinchart
+ <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, Marek Vasut <marex@denx.de>, Aaro Koskinen
+ <aaro.koskinen@iki.fi>, Kevin Hilman <khilman@baylibre.com>, Roger Quadros
+ <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, hns@goldelico.com
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org
+Subject: Re: [PATCH RFC 0/9] drm: panel: Add support for Epson Moverio BT
+ 200 display
+Message-ID: <20261018201747.0f1280f3@kemnade.info>
+In-Reply-To: <20260922-b2-panel-via-bridge-v1-0-45ff36b364cf@kemnade.info>
+References: <20260922-b2-panel-via-bridge-v1-0-45ff36b364cf@kemnade.info>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sun, 18 Oct 2026 18:46:56 +0900
-Kim Jinseob <kimjinseob88@gmail.com> wrote:
+On Tue, 22 Sep 2026 08:16:57 +0200
+Andreas Kemnade <andreas@kemnade.info> wrote:
 
-> Hi Jonathan,
->=20
-> I investigated the review comments on the two pending OSF KUnit patches.
->=20
-> The revised Kconfig allows the tests to run when OSF is built as a
-> module, using the existing composite driver without exporting internal
-> symbols.
->=20
-> I validated the following configurations:
->=20
-> OSF=3Dy, KUNIT=3Dy
->=20
-> OSF=3Dm, KUNIT=3Dy
->=20
-> OSF=3Dm, KUNIT=3Dm
->=20
-> All configurations used the enabled KUnit test selector. The existing
-> 16 core and 2 IIO tests passed, including actual module load/unload
-> testing.
->=20
-> I also added deferred mutex cleanup for the pending-session, receive
-> and IIO test fixtures, and strengthened the producer/configuration
-> synchronization. The relevant cleanup paths were validated, including
-> assertion-abort cases.
->=20
-> The unregister concurrency test depends on mainline commit
-> 84bb0fc46ccf, which is not yet in jic23/testing. I therefore ran that
-> test on a separate integration tree containing the fix.
->=20
-> I have prepared and validated an updated, signed two-patch KUnit-only
-> series based on the already applied OSF driver patches.
->=20
-> Since you mentioned wanting to review the KUnit tests further, would
-> you prefer that I send the updated two-patch series now, or wait until
-> you have completed your review?
+> This series depends on
+> https://lore.kernel.org/lkml/20260907-tc358762-fixes-v4-0-e3fc3ab5cd83@ideasonboard.com/.
+> That series is still v7.2 based, but this needs -next material, to work.
+> It compiles on -rc.
+> 
+just of of couriosity: I got no Sashiko mails here. So really nothing to
+complain here?
 
-If you have them ready go ahead and send the updated ones.
-I'll mark this versions as superceeded in patchwork.
-
-Thanks
-
-Jonathan
-
->=20
-> Thanks,
->=20
-> Jinseob
->=20
->=20
-> 2026=EB=85=84 10=EC=9B=94 18=EC=9D=BC (=EC=9D=BC) =EC=98=A4=EC=A0=84 9:02=
-, Jonathan Cameron <jic23@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
-> >
-> > On Mon, 12 Oct 2026 08:13:32 +0900
-> > Jinseob Kim <kimjinseob88@gmail.com> wrote:
-> > =20
-> > > This series adds a UART/serdev receiver for the project's fixed OSF
-> > > Device-to-Host 0.0 protocol. Complete capability snapshots create IIO
-> > > accelerometer, gyroscope, magnetometer and temperature devices with R=
-AW,
-> > > descriptor-derived SCALE and initialized buffered scans.
-> > >
-> > > The receiver validates the fixed OSF0 envelope, CRC and exact known
-> > > message lengths. Equivalent capability reports are idempotent; changes
-> > > to a bound supported inventory fault the session until explicit rebin=
-d.
-> > > IIO samples use host timestamps.
-> > > =20
-> > Hi Jinseob,
-> >
-> > I'm going to do something a little unusual which is more about the time
-> > I have available today and desire to look more closely at your unit tes=
-ts
-> > to learn from them.  So for now I'm just going to apply the driver (so
-> > patches 1-6) and leave the last two on list and in patchwork as still n=
-eeding
-> > review.  Hopefully I will get time to circle back to them later this
-> > kernel cycle!  In general I'm keen to get broad testing into IIO so
-> > want to learn from what you have done there.
-> >
-> > Jonathan
-> > =20
-> > > Changes since v10:
-> > > - Move OSF under drivers/iio/sensorhubs/osf/ following review.
-> > > - Use the OSF GREEN compatible with the generic OSF fallback.
-> > > - Clarify complete capability-report snapshot semantics.
-> > > - Use designated decoded-frame initialization and drop decoded reserv=
-ed
-> > >   fields while retaining reserved wire-byte tolerance.
-> > > - Reuse stream reset and simplify core/serdev locking and lifecycle.
-> > > - Use IIO buffer-mode claims instead of a private buffer lock.
-> > > - Simplify scan storage and channel declarations.
-> > > - Fix KUnit worker/device/mutex/resource/completion lifetimes.
-> > >   Generic IIO self-test extraction remains deferred.
-> > > - Synchronize KUnit fault observation and configuration completion wi=
-th
-> > >   completions and thread joins instead of short polling/deadline wind=
-ows.
-> > >
-> > > The IIO buffer teardown serialization issue found during the v10 revi=
-ew
-> > > was fixed separately and is now in mainline as commit 84bb0fc46ccf
-> > > ("iio: buffer: serialize buffer teardown with mode claims").
-> > >
-> > > This series is based on the IIO testing snapshot fetched for this sub=
-mission:
-> > > a22dc7ebb21a6bd4c8b63bc2c1dd46a24945aae7
-> > > Runtime validation used this testing base plus the eight OSF patches
-> > > and the exact mainline IIO core fix 84bb0fc46ccf6a545b8fdf57cda837701=
-86ed8dd.
-> > > The core fix is not included in this series and must be present when
-> > > running the series on this testing base.
-> > >
-> > > Fresh validation of this source:
-> > > - GCC and Clang W=3D1 kernel builds; module builds.
-> > > - osf-core (16 tests) and osf-iio (2 tests), with KASAN, lockdep,
-> > >   DEBUG_MUTEXES, DEBUG_LOCK_ALLOC, DEBUG_OBJECTS and DEBUG_OBJECTS_FR=
-EE.
-> > > - 200 production module load/unload cycles and 200 test-enriched modu=
-le
-> > >   load/unload cycles using identical driver/test C sources, exercising
-> > >   20,000 IIO buffer toggles, scan subsets, timestamps and unregister.
-> > > - DT binding/style/example/schema checks and IIO Sphinx build.
-> > > - Clean sequential application and relevant builds of all eight patch=
-es.
-> > > Physical board tests were not repeated for this revision.
-> > >
-> > > Canonical specification (fixed revision):
-> > > https://github.com/opensensorfusion/opensensorfusion-protocol/blob/ca=
-9cdea1ae550c2b4d6f29f87877adae99470744/spec/osf-d2h-0.0.md
-> > >
-> > > The fixed public specification is maintained and adopted by the OSF
-> > > project. This does not imply Linux maintainer approval of the
-> > > specification or driver.
-> > >
-> > > Jinseob Kim (8):
-> > >   dt-bindings: iio: add Open Sensor Fusion device
-> > >   Documentation: iio: add Open Sensor Fusion driver overview
-> > >   iio: osf: add protocol decoding
-> > >   iio: osf: add validated stream parser
-> > >   iio: osf: add UART transport and core receive path
-> > >   iio: osf: add IIO devices from capability reports
-> > >   iio: osf: add core KUnit tests
-> > >   iio: osf: add IIO KUnit tests
-> > >
-> > >  .../bindings/iio/opensensorfusion,osf.yaml    |   55 +
-> > >  .../devicetree/bindings/vendor-prefixes.yaml  |    2 +
-> > >  Documentation/iio/index.rst                   |    1 +
-> > >  Documentation/iio/open-sensor-fusion.rst      |   81 ++
-> > >  MAINTAINERS                                   |    8 +
-> > >  drivers/iio/Kconfig                           |    1 +
-> > >  drivers/iio/Makefile                          |    1 +
-> > >  drivers/iio/sensorhubs/Kconfig                |    7 +
-> > >  drivers/iio/sensorhubs/Makefile               |    3 +
-> > >  drivers/iio/sensorhubs/osf/Kconfig            |   27 +
-> > >  drivers/iio/sensorhubs/osf/Makefile           |    7 +
-> > >  drivers/iio/sensorhubs/osf/osf_core.c         |  460 +++++++
-> > >  drivers/iio/sensorhubs/osf/osf_core.h         |   75 ++
-> > >  drivers/iio/sensorhubs/osf/osf_core_test.c    | 1056 +++++++++++++++=
-++
-> > >  drivers/iio/sensorhubs/osf/osf_iio.c          |  288 +++++
-> > >  drivers/iio/sensorhubs/osf/osf_iio.h          |   22 +
-> > >  drivers/iio/sensorhubs/osf/osf_iio_test.c     |  386 ++++++
-> > >  drivers/iio/sensorhubs/osf/osf_protocol.c     |  215 ++++
-> > >  drivers/iio/sensorhubs/osf/osf_protocol.h     |   99 ++
-> > >  drivers/iio/sensorhubs/osf/osf_serdev.c       |  151 +++
-> > >  drivers/iio/sensorhubs/osf/osf_stream.c       |  230 ++++
-> > >  drivers/iio/sensorhubs/osf/osf_stream.h       |   53 +
-> > >  22 files changed, 3228 insertions(+)
-> > >  create mode 100644 Documentation/devicetree/bindings/iio/opensensorf=
-usion,osf.yaml
-> > >  create mode 100644 Documentation/iio/open-sensor-fusion.rst
-> > >  create mode 100644 drivers/iio/sensorhubs/Kconfig
-> > >  create mode 100644 drivers/iio/sensorhubs/Makefile
-> > >  create mode 100644 drivers/iio/sensorhubs/osf/Kconfig
-> > >  create mode 100644 drivers/iio/sensorhubs/osf/Makefile
-> > >  create mode 100644 drivers/iio/sensorhubs/osf/osf_core.c
-> > >  create mode 100644 drivers/iio/sensorhubs/osf/osf_core.h
-> > >  create mode 100644 drivers/iio/sensorhubs/osf/osf_core_test.c
-> > >  create mode 100644 drivers/iio/sensorhubs/osf/osf_iio.c
-> > >  create mode 100644 drivers/iio/sensorhubs/osf/osf_iio.h
-> > >  create mode 100644 drivers/iio/sensorhubs/osf/osf_iio_test.c
-> > >  create mode 100644 drivers/iio/sensorhubs/osf/osf_protocol.c
-> > >  create mode 100644 drivers/iio/sensorhubs/osf/osf_protocol.h
-> > >  create mode 100644 drivers/iio/sensorhubs/osf/osf_serdev.c
-> > >  create mode 100644 drivers/iio/sensorhubs/osf/osf_stream.c
-> > >  create mode 100644 drivers/iio/sensorhubs/osf/osf_stream.h
-> > >
-> > >
-> > > base-commit: a22dc7ebb21a6bd4c8b63bc2c1dd46a24945aae7
-> > > =20
-> > =20
-
+Regards,
+Andreas
