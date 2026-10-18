@@ -1,157 +1,228 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95DCE3E6DD9;
-	Sun, 18 Oct 2026 10:44:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD3E018D62A;
+	Sun, 18 Oct 2026 10:47:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792320304; cv=none; b=h5iT4HnySEPPNRQ6Dh9tInvOOvpAJfhR3xPBn3+7SDn34W+a5bINI9U8Og1ce5Nk2hePMHOnMdd/mvoslNm5LwTCjLB+XpQ6juoeAc45BMjKux8i7qGS8Skmb7H28H9KN+sMtuI0EhugqUIPf8HfPAA69FDCFjMOJunNex07kso=
+	t=1792320454; cv=none; b=YaS+LYXvWTYitZE7PQ+XbXvkvlVEDStJfHH1ADolBrELgjwG9XON6udSjHTkjicWMFIfnvzlsiFxNbWg8DrRK+g1Gl+WbEQ3EpSTdyUbvTz4uh9TGgC1ijCAxnC2nUzuV1mrVfMq+HZoTzA92lp/64TGFkJs0tzYtrf5HpyDGa8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792320304; c=relaxed/simple;
-	bh=vNqaHCrfSA0b4VKqfRdlPpjbXdDNlSf9M0McDU4t62Y=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=K04lg6QpRzxKY8PHS4cchkhAbsDR5ghi5pmlB9WLhZv6hru1AZtHnSDQqZy8hUnsG2YxIkXHzEEbgXlcUTMP/XW6LzohdQf8+zg/kLDfrFKsLirLNSxe/T15xjJEiilgnhAxfUokNp2PmDj4tZU1jDzzc4o09wl0uJyf18Zg414=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=VOudf8Te; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792320454; c=relaxed/simple;
+	bh=kYYvf1iNkXfeGZJSST92UoYl1vNxC3SbCyPO7Iqtmn4=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ctdpg1lg42AhzGIuEb7hvLvbMVQ98y1CdlK3uPMe9iwORG+5RquLgjGh1CtjjiDjOrG4L9VRs7yIQlPqk8hUkv70TBAF2jXm1aSzhY0gp9hGcXUkHYhpVER+1wxLlfJPsvvGe4bo9xEpSa9p7TKzCCgUis+naixkMcIYKTbGR8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BDoA6NUD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="VOudf8Te"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Mi
-	MF4+nj09eXhJ0U/z9DFw9etlGUXEWdhhThFMF/aeg=; b=VOudf8TedwmBasyZWK
-	rsKszhheksu2/hC5d1xV3g3xuqrkI7tFBbsKW9AFnS1gXSP4fEpgq7I9Oy8r+s0e
-	k3Lyt2auVvxT/fdasyEYVM9DZS5Qquk32oqWsPj9d9AzwDZTz+YEAmd7kAczr8tJ
-	JLYWWREYZU49Z0igAkm2/I7vk=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgAX5pnxotRqUthIAg--.5987S2;
-	Sun, 18 Oct 2026 18:44:11 +0800 (CST)
-From: wrmfwv@163.com
-To: nuno.sa@analog.com,
-	jic23@kernel.org,
-	robh@kernel.org
-Cc: Michael.Hennerich@analog.com,
-	dlechner@baylibre.com,
-	andy@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux@analog.com,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Tenglong Guo <admin@micronull.cn>,
-	Sashiko AI <sashiko-bot@kernel.org>
-Subject: [PATCH v2] dt-bindings: iio: adc: add documentation for adi,ad7816
-Date: Sun, 18 Oct 2026 18:43:58 +0800
-Message-Id: <20261018104358.38255-1-wrmfwv@163.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BDoA6NUD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04C881F000C4;
+	Sun, 18 Oct 2026 10:47:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792320452;
+	bh=DnhWGak6th3C+r8+ASfIM/FXpoFd0Su7Yr8FNkAqU4I=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=BDoA6NUDTLdOU19yijEuglWTG3E3F+wT0dc0VQSfJCxz1LQq3AWvO7DBkixZkh8XW
+	 gLfl9JSc7mr6L1xsWMjUNCbwi8eCxNAetMoExTO4Z19kzURB4QlzMsxvW7qTNdha4h
+	 MEMRv10X5mN7hcT8YxhYAnwKbnGthNSWfZwNH/J1ZhYt6DVFsAnbhEp38ugaplAcXg
+	 hoKNPbQPcBtdsL70IhLHjs0wLSuanc56vByiLbgy7zVrdEQNgpu7sfOW59gjTyGkdS
+	 FZxx3zPlrmJRVJh5AoFACr20gpBtN2Y/BK3VA3KwG1y/rZhaWQuKAgX1i55EY+VxZH
+	 htszzNA5ILegg==
+Subject: Re: [PATCH net-next v3 1/9] net: phy: dp83867: add regulator supply
+ management
+From: netdev-bot+sashiko@kernel.org
+To: mohd.anwar@oss.qualcomm.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, afd@ti.com, andrew@lunn.ch, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, richardcochran@gmail.com, andersson@kernel.org,
+ konradybcio@kernel.org, alexandre.torgue@foss.st.com, peppe.cavallaro@st.com,
+ joabreu@synopsys.com, maxime.chevallier@bootlin.com,
+ mcoquelin.stm32@gmail.com, lorenzo.bianconi@oss.qualcomm.com,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Date: Sun, 18 Oct 2026 10:47:30 +0000
+Message-ID: <179232045050.3135.12351240759088487913@kernel.org>
+In-Reply-To: <20261017-shikra_ethernet-v3-1-26a8beb44b8f@oss.qualcomm.com>
+References: <20261017-shikra_ethernet-v3-1-26a8beb44b8f@oss.qualcomm.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgAX5pnxotRqUthIAg--.5987S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7AF13AryxuF4rAFyfGr45KFg_yoW8Kw4UpF
-	4DCF93K3yfK3W3Ka1fKa40kFW5ZF1UCw1rK3WDWr1UGrZ0gF1jyw43KF13Xw1UWFyDtF9r
-	WFy5Cr15tw10vr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UkCzNUUUUU=
-X-CM-SenderInfo: xzupw4ry6rljoofrz/xtbC5hy3o2rUovxDxgAA3L
 
-From: Tenglong Guo <admin@micronull.cn>
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-Add a YAML binding document for the AD7816 family of ADCs.
-This fixes the checkpatch.pl warning about un-documented
-DT compatible strings in the staging driver.
+Critical: 0 · High: 0 · Medium: 2 · Low: 1
 
-Reviewed-by: Sashiko AI <sashiko-bot@kernel.org>
-Signed-off-by: Tenglong Guo <admin@micronull.cn>
----
- .../bindings/iio/adc/adi,ad7816.yaml          | 76 +++++++++++++++++++
- 1 file changed, 76 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/iio/adc/adi,ad7816.yaml
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad7816.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad7816.yaml
-new file mode 100644
-index 000000000000..d23ef9163e61
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/adc/adi,ad7816.yaml
-@@ -0,0 +1,76 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/adc/adi,ad7816.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Analog Devices AD7816/AD7817/AD7818 ADC
-+
-+maintainers:
-+  - Tenglong Guo <admin@micronull.cn>
-+
-+description: |
-+  The AD7816/AD7817/AD7818 are 10-bit ADCs with on-chip temperature sensors.
-+  They use a SPI interface for communication.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - adi,ad7816
-+      - adi,ad7817
-+      - adi,ad7818
-+
-+  reg:
-+    maxItems: 1
-+
-+  rdwr-gpios:
-+    description: GPIO connected to the RD/WR pin.
-+
-+  convert-gpios:
-+    description: GPIO connected to the CONVST pin.
-+
-+  busy-gpios:
-+    description: GPIO connected to the BUSY pin. Required for AD7816 and AD7817.
-+
-+  interrupts:
-+    maxItems: 1
-+    description: Optional interrupt for over-temperature indication.
-+
-+required:
-+  - compatible
-+  - reg
-+  - rdwr-gpios
-+  - convert-gpios
-+
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - adi,ad7816
-+              - adi,ad7817
-+    then:
-+      required:
-+        - busy-gpios
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        adc@0 {
-+            compatible = "adi,ad7816";
-+            reg = <0>;
-+            rdwr-gpios = <&gpio0 1 GPIO_ACTIVE_HIGH>;
-+            convert-gpios = <&gpio0 2 GPIO_ACTIVE_HIGH>;
-+            busy-gpios = <&gpio0 3 GPIO_ACTIVE_HIGH>;
-+            interrupts-extended = <&gpio0 4 IRQ_TYPE_EDGE_FALLING>;
-+        };
-+    };
-+...
+- [Medium] With CONFIG_REGULATOR=n, dp83867_power_on()
+  (drivers/net/phy/dp83867.c) sleeps 200 ms on every probe, even when…
+- [Medium] The patch makes the driver read four new DT properties
+  (vdda-2p5-supply, vdd-1p0-supply, vdda-1p8-supply, vddio-supply)…
+- [Low] The commit message says the driver sleeps 200 ms "when any supply
+  is newly enabled".
+
+--
+
+net: phy: dp83867: add regulator supply management
+
+This commit adds dp83867_power_on(), which enables up to four optional
+supplies (vdda-2p5, vdd-1p0, vdda-1p8, vddio) at the start of
+dp83867_probe(). If any supply is present, the driver sleeps for 200 ms
+to meet the datasheet's post power-up stabilization requirement.
+
+> diff --git a/drivers/net/phy/dp83867.c b/drivers/net/phy/dp83867.c
+> index a3cd5cb11ea0a..092bc68bb9bc6 100644
+> --- a/drivers/net/phy/dp83867.c
+> +++ b/drivers/net/phy/dp83867.c
+
+[ ... ]
+
+> @@ -730,11 +731,42 @@ static int dp83867_resume(struct phy_device *phydev)
+>  	return 0;
+>  }
+>  
+> +static int dp83867_power_on(struct phy_device *phydev)
+> +{
+> +	static const char * const supply_names[] = {
+> +		"vdda-2p5", "vdd-1p0", "vdda-1p8", "vddio",
+> +	};
+
+[Severity: Medium]
+These names become four new DT properties: vdda-2p5-supply,
+vdd-1p0-supply, vdda-1p8-supply and vddio-supply. Should
+Documentation/devicetree/bindings/net/ti,dp83867.yaml document them in
+the same series?
+
+Right now the binding lists no *-supply properties and ends with:
+
+  unevaluatedProperties: false
+
+The only schema it references, ethernet-controller.yaml, has no supply
+properties either. A node that uses the new properties won't validate
+against this schema.
+
+ti,dp83867.yaml has no select, so dtbs_check may never apply it to board
+DTs. Even so, the properties would still be undocumented ABI.
+
+A related question: should the binding also say that an
+ethernet-phy-idXXXX.XXXX compatible is required when these rails are
+switched? fwnode_mdiobus_register_phy() only skips the MDIO ID read when
+that compatible is present:
+
+drivers/net/mdio/fwnode_mdio.c:fwnode_mdiobus_register_phy() {
+    ...
+	if (is_c45 || fwnode_get_phy_id(child, &phy_id))
+		phy = get_phy_device(bus, addr, is_c45);
+	else
+		phy = phy_device_create(bus, addr, phy_id, 0, NULL);
+    ...
+}
+
+Without that compatible, get_phy_device() reads the ID from a PHY that
+is not powered yet. The phy_device is then never created, so
+dp83867_probe() never runs to turn the rails on.
+
+> +	struct device *dev = &phydev->mdio.dev;
+> +	bool supplies_enabled = false;
+> +	int i, ret;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(supply_names); i++) {
+> +		ret = devm_regulator_get_enable_optional(dev, supply_names[i]);
+> +		if (ret == -ENODEV)
+> +			continue;
+
+[Severity: Medium]
+What happens here with CONFIG_REGULATOR=n? The stub returns 0, not
+-ENODEV:
+
+include/linux/regulator/consumer.h:
+static inline int devm_regulator_get_enable_optional(struct device *dev,
+						     const char *id)
+{
+	return 0;
+}
+
+In that case the -ENODEV check never matches and supplies_enabled is set
+on the first iteration. fsleep(200000) then runs on every probe, even
+when the board describes no supplies.
+
+DP83867_PHY in drivers/net/phy/Kconfig doesn't depend on REGULATOR, so
+this config is valid. Each probe attempt, including -EPROBE_DEFER
+retries, would add 200 ms per PHY.
+
+This doesn't match the commit message:
+
+    Absent supplies are silently skipped, so boards
+    that do not describe them are unaffected.
+
+Would an IS_ENABLED(CONFIG_REGULATOR) check work here? Another option is
+devm_regulator_get_optional() followed by an explicit enable, so the
+sleep only runs when a real regulator was found.
+
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "failed to enable %s supply\n",
+> +					     supply_names[i]);
+> +		supplies_enabled = true;
+
+[Severity: Low]
+The commit message says:
+
+    When any supply is newly enabled the driver sleeps for 200 ms before
+    returning.
+
+Is "newly enabled" accurate? _devm_regulator_get_enable() returns the
+result of regulator_enable():
+
+drivers/regulator/devres.c:_devm_regulator_get_enable() {
+    ...
+	ret = regulator_enable(r);
+	if (!ret)
+		ret = devm_add_action_or_reset(dev, &regulator_action_disable, r);
+    ...
+}
+
+That result is also 0 when the rail was already on. This covers
+regulator-always-on, regulator-boot-on, a rail enabled by the
+bootloader, or a rail shared with another consumer. So the 200 ms delay
+runs whenever any supply is described, whatever its earlier state.
+
+The rails are also enabled before dp83867_of_init(), which can fail with
+-EPROBE_DEFER:
+
+dp83867_probe()
+  dp83867_of_init()
+    dp83867_of_init_io_impedance()
+      of_nvmem_cell_get() -> -EPROBE_DEFER
+
+On that failure, devres runs regulator_action_disable for each enabled
+supply and the PHY loses power.
+
+Does each deferral then power-cycle the PHY and add another 200 ms on
+the retry?
+
+> +	}
+> +
+> +	/* Datasheet section 6.6 suggests a 200ms post power-up stabilization */
+> +	if (supplies_enabled)
+> +		fsleep(200000);
+> +
+> +	return 0;
+> +}
+
+[ ... ]
+
 -- 
-2.25.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261017-shikra_ethernet-v3-0-26a8beb44b8f%40oss.qualcomm.com
