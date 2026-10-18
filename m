@@ -1,97 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98FAD30EF8F;
-	Sun, 18 Oct 2026 21:28:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EE7A4D17BA
+	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 22:07:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792358934; cv=none; b=LPUhY3iLqWcl/K3W9bxT69ix4xQ9sRihewzzAaCiOLqoAin3xRYlXwRIPksKMeBkwCYOhjkH2Ku2wbqapwRpvdorKFHugRgW9vCbjaj28zzBlLOFYtZlovq6FFpAz0MEKlVGsNzAL2zQMxuESevLKqF9yMc6cTbPzarmmXkbZjY=
+	t=1792361253; cv=none; b=CpHa463lsQ4NRrsFj7L3S0+xHLqMbFVKtHhEpjaDae4CB6NkTwUSezAubbP8CaZ1NrvGAUpkI2a0x+9a79PrYVTRccEVjApKi7C1nuprtpmtr4ZZWc7333aCQdpuqg1cBbZ0QfZG2Nru8HYKCpcpnXfDQVB8iPJR/QIqZILLPAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792358934; c=relaxed/simple;
-	bh=e5Q+ZyHgYBU13Zn6ZSiOcYSLg8z6Sf8+4EL4qcvhBgA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=r5Cer2D4FuXMuaXFxaOMVX2pcgW2W8ky8ZVQgqiEilLduagZ39anCf+GLEi5S0e3JuQHAs4zqfUQ8obDB5bgtDoxuaLeD1quVnFy0AquKAMycRTjxu3Ane6xidT7FTB1sOiDofmfblihtFep150tfBo8WicZgGBrWbFYG3vrko8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GVJrZDzS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792361253; c=relaxed/simple;
+	bh=F9xbwsOGYhZLxeYQhkkpp+B03a+2047+e+nLiVBNWDk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=C5d5ZCgKQBfeT7ejS/FORw66Ju/aDBSEyqKwUj/sE1jrJwbevkxaXtBdgS/lzHlricqWTNrmf2yUgsukLt/Xhv1r2KuRYTwBGNWhH7534Y4JBkKUqKYGptadHrBXwF9xXwBxnB7N0ShtR6qQNj4BBCWI2jKB4g9Xgvit8HBLPV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aRpH5Lad; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GVJrZDzS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1DE01F000C4;
-	Sun, 18 Oct 2026 21:28:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aRpH5Lad"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E5261F000CF
+	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 22:07:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792358933;
-	bh=pNq269S3aqqeQdTrcdt+nL50rcEjgdLiWPPFUWCSGCY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=GVJrZDzSVUMUjIA1mQPafwFPEfAv0znfdyl4PdU8gmDsMJnaD6ftCVC172ZCjOryV
-	 HpgqRCp56mcxHfBrsnhbqT7ClSHzua7vjSiVsBxWrfNy9lUxg0ZiLp+3S9z3i0oWDx
-	 MWZ2sp00IdVL6gZIbPgCysMSoHsxWrkh4ksOFgMmMz4AaqFj6sPWmeB4CqTvE6a1Va
-	 LNACvxh0rY2eiLFzsmpRexqdd9m+aCTFyN68NE5C/bQBMPhke7Z6jF8eP98HiRnXwm
-	 umjBjGsPJ64ADmS8SrKi0uXYKCl27XWFfIlD0NyWh4/6hrDF6zWcNGBeEa2a0D4/B2
-	 T8ydoJpmqqzzw==
-Date: Sun, 18 Oct 2026 22:28:45 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Arka Mondal <arka@arkamondal.net>
-Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Stefan
- Popa <stefan.popa@analog.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux@analog.com,
- arkamondalofficial@gmail.com
-Subject: Re: [PATCH v2 0/5] iio: dac: ad5758: fix the 4 mA to 20 mA current
- range
-Message-ID: <20261018222845.2fab0b57@jic23-hlaptop>
-In-Reply-To: <20261006153210.364862-1-arka@arkamondal.net>
-References: <20261006153210.364862-1-arka@arkamondal.net>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1792361252;
+	bh=CWdO1KyORGSqm7uhLPCSusKj/IGXrx0602wzuxRWapI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=aRpH5LadcvD9j+QI5en9zFrZ1rw5eyWXbD7KE93jHW6YBtemaVpgklxxQvhxlgolO
+	 qS8hQ6V2BRnOrk46qwAjdqTJOjzKZVn7K7huCu8Z0xuKsXGKp1kSY27A/4vaXh+K/D
+	 ooAOdkjoB1zKMJMrYiys2UAx/yMYSxmBtnMN+HWVK883Mjcp6qFxh7CVOAIsgEsf37
+	 J8gGK54yuXAji9W9BuNereDgAJds8F+sLlwEiflqxQ0haHhQnZqipoxAOme/QXIoWQ
+	 Y1x2My6UO3PmLhrwjdG464dznAYtzSdsOjvWhe+/9L2zdDHoqKOiF3Mm+I6yizLASp
+	 RupLCaCaW8yRA==
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5be4b61fd3dso1305003e87.3
+        for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 15:07:32 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxHRUMo5R79e+rqgxRsgAXjOek/5kP77OI5q65epiCztaD0BN42Qu7R+rD6VVDP+0EzzFLGjmSL5TrF@vger.kernel.org
+X-Gm-Message-State: AFq9FYK3d4dJoznyrBy1pfuJW9AHDb5RtwLtqvFInbGbTKGSNo19LeWf
+	Foc4+UoOSujmNRvD1wwvmA8pcqygnx13XaSY19X9DjAzAFLBruiLAfQto35Mv0WDkPxztzkSis1
+	oDSkacxYnVF2ytdy/jQY5l5yFaK8QQK8=
+X-Received: by 2002:a05:6512:10c1:b0:5b8:f4d4:7ff4 with SMTP id
+ 2adb3069b0e04-5be50a74cc6mr1663573e87.53.1792361250883; Sun, 18 Oct 2026
+ 15:07:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20261017-iio-light-gp2ap002-v2-0-d6879767a446@rudorff.com> <20261017-iio-light-gp2ap002-v2-1-d6879767a446@rudorff.com>
+In-Reply-To: <20261017-iio-light-gp2ap002-v2-1-d6879767a446@rudorff.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 19 Oct 2026 00:07:18 +0200
+X-Gmail-Original-Message-ID: <CAD++jLn92F+pt3TjBpZYJGa_yJc_vO6SNN4UQ7cQicr5303Z8Q@mail.gmail.com>
+X-Gm-Features: AclHuK-c09UZJfrcHpK9Gk0C-hPkHJfmtbKsGalJ_K_1dxEP5I0KdV6EMn4_rI4
+Message-ID: <CAD++jLn92F+pt3TjBpZYJGa_yJc_vO6SNN4UQ7cQicr5303Z8Q@mail.gmail.com>
+Subject: Re: [PATCH v2 1/3] dt-bindings: iio: light: gp2ap002: add vled
+To: Christoph Rudorff <chris@rudorff.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, linux-iio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed,  7 Oct 2026 00:32:08 +0900
-Arka Mondal <arka@arkamondal.net> wrote:
+On Sat, Oct 17, 2026 at 7:28=E2=80=AFPM Christoph Rudorff <chris@rudorff.co=
+m> wrote:
 
-> These are patches 4 and 5 of the v1 series, with the deprecated
-> <4 24000> value dropped as Rob Herring <robh@kernel.org> and
-> Jonathan Cameron <jic23@kernel.org> asked. Patches 1 to 3 are already
-> applied on togreg and are not resent.
-> 
-> The binding and the driver give the 4 mA to 20 mA range as <4 24000>,
-> which is 4 uA to 24 mA. The data sheet (Rev. B, Table 32) and the
-> original text binding say range code 1010 is 4 mA to 20 mA..
-Applied to the fixes-togreg branch of iio.git. I'll rebase that on rc1
-once available.
+> According to datasheet page 8 "Recommended external circuit",
+> it can have tree supplies: vio, vdd and vled. As vdd and vled wants the
+> same voltage, they may be connected to a single supply.
+>
+> Signed-off-by: Christoph Rudorff <chris@rudorff.com>
+> ---
+>  Documentation/devicetree/bindings/iio/light/sharp,gp2ap002.yaml | 4 ++++
+>  1 file changed, 4 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/iio/light/sharp,gp2ap002.y=
+aml b/Documentation/devicetree/bindings/iio/light/sharp,gp2ap002.yaml
+> index 99bddf31cbed..f5b2c6a4d7e3 100644
+> --- a/Documentation/devicetree/bindings/iio/light/sharp,gp2ap002.yaml
+> +++ b/Documentation/devicetree/bindings/iio/light/sharp,gp2ap002.yaml
+> @@ -33,6 +33,10 @@ properties:
+>    vio-supply:
+>      description: VIO power supply a phandle to a regulator
+>
+> +  vled-supply:
 
-Thanks,
+So this should be named leda-supply like the pin on the component.
 
-Jonathan
+> +    description: LED power supply a phandle to a regulator
+> +      Optional. It may already be connected to VDD.
 
-> 
-> Changes since v1:
-> - binding: replace <4 24000> with <4000 20000>, instead of adding the
->   correct pair and marking the old one deprecated.
-> - driver: drop the mapping from <4 24000> to the corrected range.
-> 
-> A device tree that still has <4 24000> now fails the binding check, and
-> probe stops with "range invalid".
-> 
-> Compile tested only; no relevant hardware available. The binding was
-> checked with make dt_binding_check and with test device trees:
-> <4000 20000> is accepted, <4 24000> is now rejected.
-> 
-> Link: https://lore.kernel.org/r/20260918122032.134947-1-arka@arkamondal.net
-> 
-> Arka Mondal (2):
->   dt-bindings: iio: dac: adi,ad5758: Fix the 4 mA to 20 mA current range
->   iio: dac: ad5758: Fix the 4 mA to 20 mA current range
-> 
->  Documentation/devicetree/bindings/iio/dac/adi,ad5758.yaml | 4 ++--
->  drivers/iio/dac/ad5758.c                                  | 4 ++--
->  2 files changed, 4 insertions(+), 4 deletions(-)
-> 
-> 
-> base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
+Description should say "LED anode power supply" as that is what the
+"A" means in leda.
 
+I'm not sure it should be optional really as it technically *must*
+be connected but the diplomatic solution is to not make it
+required so we don't break a ton of device trees.
+
+If we wanna be really detail oriented, add it optional, fix all
+device trees, make it non-optional.
+
+Yours,
+Linus Walleij
