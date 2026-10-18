@@ -1,159 +1,193 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2CB143E9C6
-	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 11:56:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B18A48821D;
+	Sun, 18 Oct 2026 12:16:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792324594; cv=none; b=evW6UMjhdaKHCAC5lN4rQ/fq2R53aWafNct4qffMg6mBTKlS3dV0DYHnQF8l2Jcpy2709wqvh44MOl3fO9K8fdnZ1cY5e5QiURwEHCTUwwxM3mnNOatVTlKstv3CxLZbXXfxa843lTX/RYCiFU7p/oehr8IISrNZw7Ff9SDDlec=
+	t=1792325782; cv=none; b=Vrd8cjviedaLjyuHRWBs54orDmYb316Yu/xdTMFbVEyPCxO8Di0qbYpPD9qzOPOPcF6rPTNb+wkCi9U5fF9nDKjK8G8DzPkRRxIg5pbM0eqWcQc2yOheRS3QPPLf26+uFS2KNNQnAMPGzv+YQOfrr45bWfuzBpIdHR8XQyXUnKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792324594; c=relaxed/simple;
-	bh=ap+80GaPDnXI09SxjszHeawrEkEUnedSIl8LSpSpaRc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PLTne+FFvFK7Naa9HCyhpIfSvtJV8DxrkTWNTIeiMKqNvZGvGtEtzq3Sv2B063C0BoSTj+ArsQVD2EGWD71o9ItYfH5ggvHo3tcTOSmT863K+jOBYZjAcQ26bq8kRK2eyOSdn2EJy4RcFUef9aLohUTkJQJ3C+y2kizf1KaqB6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QvQ9Afmz; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bIYmpMR7; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QvQ9Afmz";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bIYmpMR7"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69I5tPGu2111379
-	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 11:56:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=gcEYZe12IS5R8fbm0oKp4F5/
-	idlukA88I/0oldtDxJQ=; b=QvQ9Afmzj/fGG+aeASrcA/JAaYzYGKk6IFlJtbUL
-	W5uH3JiBvrYtBFZykDTHD+Tt8jKX4GWEdGsUD0D/CNPcV42pZYoskpnfq8yAn2TJ
-	JXZqU5JFzIO7YLkjVbnQ29AjMQkbTeMKVfeGXEPu2rpZDRdhAl5uLx6qU0X/Qxg2
-	D6gB8QsP3SURJ9+VxKET818hKXYkd3wIoLVBDMXRbjBGDdPQrFH+ZLYwJUC8r3W4
-	yLU/HfKASohkj9S3ANaovwgwu8urHvo1FRMMb1sg4Gdb6QvubeYSQ226KPx3hdR+
-	CDGjnlupNYD6znJGGMCNc3Nq9nHEt3gedBst9cjCh/7Sdw==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hc1d7txgx-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 11:56:32 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93cb71b1443so285699485a.2
-        for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 04:56:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792324592; x=1792929392; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gcEYZe12IS5R8fbm0oKp4F5/idlukA88I/0oldtDxJQ=;
-        b=bIYmpMR7eSOK1TWKlF4snWvPeV2X9sgKMkfxhZvBL1mZy+NTUzGBB/VfVZhe2nb1sC
-         gmmy+oHY21eV9JaBGgLcG+pB5Ah6q3Z/r+phl65oje5zIAoNrDjNDGYoSHlmKWaRVBj3
-         MMQjl8pXHHhafPjE4OIaDBvR27osDZ4txyWhyGAWMROLJbvDUxvt7soeR7lYZ/zSm/32
-         QcQecs5G9Df5wD1+opWNW+RK1uIE6MbiD0fClAs4sPZj0K+KOeBi9/csciAq9C962+L7
-         CyBHncaPnBslpgyp3Cak6Tc5NkynaThSAwvubrKfJfB2ZfdheWjNlId8+7JZlLrhtjeY
-         BybA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792324592; x=1792929392;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gcEYZe12IS5R8fbm0oKp4F5/idlukA88I/0oldtDxJQ=;
-        b=YbkFhmh6p9srpgDi0gyXScJqGoYsag/7YZLMhZT2EtF5m7RT8wbv2/XJxJjX17Ly5v
-         0xB+ldSjiTX+xVOgv/j1dm4KAt6ePqRQay7u5rWW8wUWtXQ8K5h6naJJH86E2p5l2BmM
-         locyEPKd+zQeTg5D0FhHnw2iHLT2TpFJUyXUCgRFCi5egZ1dQZyunLSTgZo6FV1kI8oB
-         7BR1P6waE++JMYkL8dV5O6MxgwX+1DE6mX/+KyZIaQmKprX7j5tVgtMjfc2uMZE3jVyK
-         K1MkOMD2p/pwNbSQ3HZNmY5mXZdqLIxyJDWGvboMHzz2u8gcUnNLMTdM6b9NP1J7j8/a
-         iCNw==
-X-Forwarded-Encrypted: i=1; AKwUvBwlrDChYJTx2ZeOOtSytAqFVt8mt3xkU6FwCrjQNLnEhsFzTse8oMtjMYhpdw8G4MhxTNEvVbXv/h7h@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ2fIFkSkITt+UJ51q8cs/enOMTUcfaoFOsDrtms9gmsHqDDzHs
-	fgZHfbLqwPih0QngfD3clo0zdWYBX3yj+LAZZrUliEGhXZmQfdgcMiwtYwYitT23BoybWkEC8rV
-	js1IjZD5ZydcSYxdVcbXEXz6aVp8W2Gc0tN0RO9bi9PcNYRRAAGoyl6GR7nMKX7xp
-X-Gm-Gg: AYBFou31Stl1RGq1USdRlcRe1sdgggfAEUsF8Fnq02V/bUsFpvgP+EhJbVgiyUDlWzZ
-	kJemjj8CzCzhbti8ByDs68STvzsOA/XhQPCzYsSZSVkOTEj37K51kiOAdQu3fYn7qp7ISR6/t4h
-	E9b9dTHSWruqPk3yZod9NXkB8o5/EtiAiZos6aQXpWxbz9IP4RppL3colaWH1YvIhATMjQJoHXh
-	MuUhniGFsjKkvzP4Wdq9rMuD+hIc/NFFz4kSeb9UrrfsHOFJ3IUBn6EJeJI404dPN903Yo/qbAX
-	FX7lISmwHTzLNAUxruHnA2NrpdW06P7AEee+uHeWmoai8nKahlU+kwRKCNs4EAL3v5o91BZIlw5
-	dqfwU8McB9eBhchtaB45wWFJyHt6jILRTqyzTkqS6KOpoegOwNRzqu5DnCZMMrSD0EUWJHDWmXS
-	7LrJDVlxVMS6e2
-X-Received: by 2002:a05:620a:2314:10b0:93f:31bb:e3c with SMTP id af79cd13be357-93f31bb153bmr332142385a.68.1792324591832;
-        Sun, 18 Oct 2026 04:56:31 -0700 (PDT)
-X-Received: by 2002:a05:620a:2314:10b0:93f:31bb:e3c with SMTP id af79cd13be357-93f31bb153bmr332139985a.68.1792324591331;
-        Sun, 18 Oct 2026 04:56:31 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5be4a63cd1esm1370126e87.72.2026.10.18.04.56.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 04:56:29 -0700 (PDT)
-Date: Sun, 18 Oct 2026 14:56:27 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Sebastian Reichel <sre@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
-        Matthias Brugger <matthias.bgg@gmail.com>,
-        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org,
-        linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
-        linux-arm-msm@vger.kernel.org, kernel@collabora.com,
-        Sebastian Reichel <sebastian.reichel@collabora.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v2 4/4] arm64: dts: qcom: Use DP AltMode defines
-Message-ID: <46mtzsydckbt6ca66h3stj7sn37ittzarhc6nqbjp3fitaqx3x@i7b7vbpxsui6>
-References: <20261017-dp-altmode-dt-defines-v2-0-7ab3d93553dd@collabora.com>
- <20261017-dp-altmode-dt-defines-v2-4-7ab3d93553dd@collabora.com>
+	s=arc-20240116; t=1792325782; c=relaxed/simple;
+	bh=1+bzX4D83wRXdVGWnDM81hIqRB9iDL/i6XQrXMg469g=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=FZSCQQn/8yyFhZL55avMyEitenzwlO+8bwB9fsGvj56G110g+Mu0wBOvUofDrVoFfT5ZpjhWzBfnk0IytceM0fMDyRRx0pB8trr6sH2nL8JFqvq09snxj5nU8Az3HN9GJpSk8Mcovk5vhWOotJEyJ+Exa/w7op/SXDo3SAWTKq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 389FC1F000C4;
+	Sun, 18 Oct 2026 12:16:06 +0000 (UTC)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261017-dp-altmode-dt-defines-v2-4-7ab3d93553dd@collabora.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE4MDA0NyBTYWx0ZWRfX9YR20Ak6eAHF
- 81GVHZxp5TXaiU1OMGrSYIuDnqtFeORAc73zb25R2BLABkaZDxY2bfMbGxfLbfYtfspkp/LVhyU
- Iu2T5o4FK1u9pgHs4eFkh01FjbVHjlM=
-X-Proofpoint-ORIG-GUID: HDXFS0uXWd49FZPLSlvOM2zPxewvwvas
-X-Proofpoint-GUID: HDXFS0uXWd49FZPLSlvOM2zPxewvwvas
-X-Authority-Analysis: v=2.4 cv=K4O3jCWI c=1 sm=1 tr=0 ts=6ad4b3f0 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=QX4gbG5DAAAA:8
- a=EUspDBNiAAAA:8 a=imkpALUroobUoGdfvlcA:9 a=CjuIK1q_8ugA:10
- a=NFOGd7dJGGMPyQGDc5-O:22 a=AbAUZ8qAyYyZVLSsDulk:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE4MDA0NyBTYWx0ZWRfX22pfOamtkDn5
- 3Revuwt4iq29NEjEBUzaJzR1VqnM4wqGSw1WhbdAUqSfT7E1zTX3XNv0yiQFgURu8r50NBcfgwP
- wWu512zrvHKJhIB93BO1DEZNVdBtifqT548itM1bFa1ymFWSU6Mrv09eQu4ozlV0IfvoWX43iw6
- w4ebq1/3N6V0kuL1hK7a1cRQx3WExUsn0lSn2xZuUjwMr4pnVf4+QvHNuEA1AlHBIoFZ2LetpAq
- s+3v0FsCMaT5dRpn90MyVy+anwdsOM1Tp07S7H6tcRjaypfrrNyIpJGKN0gJ80oKyTpXnUSNa1Q
- 9ftdd+zYg5utGv2pIfBsr9UtKGR60ficPG+BXOeEmRlfmzJ1qFSJbZ6SI7tUjortHYaC/zqGGYV
- 2wBQx/JVnmvP0Pd98ASLhe4H8h2h55fpj2hLre8xmpBclQAz5fjc7IG9oGXIDpmHjXpDkN0XhHd
- 8ImSIwvtywfgU3wXYsg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-18_02,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 priorityscore=1501 phishscore=0 clxscore=1015
- adultscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610180047
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v7 6/6] PCI: spacemit-k1: Add Spacemit K3 PCIe host
+ controller support
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+To: Inochi Amaoto <inochiama@gmail.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Jingoo Han <jingoohan1@gmail.com>, Manivannan Sadhasivam <mani@kernel.org>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Frank Li <Frank.Li@nxp.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Niklas Cassel <cassel@kernel.org>, 
+ Christian Bruel <christian.bruel@foss.st.com>, 
+ Senchuan Zhang <zhangsenchuan@eswincomputing.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Randolph Lin <randolph@andestech.com>, 
+ Xincheng Zhang <zhangxincheng@ultrarisc.com>, 
+ Alex Elder <elder@riscstar.com>, Siddharth Vadapalli <s-vadapalli@ti.com>, 
+ Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+ Vidya Sagar <vidyas@nvidia.com>, Pengpeng Hou <pengpeng@iscas.ac.cn>, 
+ Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, 
+ Gustavo Pimentel <gustavo.pimentel@synopsys.com>, linux-pci@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+ Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
+In-Reply-To: <arzYt1svE0HtZPSB@inochi.infowork>
+References: <20260929083755.458238-1-inochiama@gmail.com>
+ <20260929083755.458238-7-inochiama@gmail.com>
+ <arzAGOKLOustEW7F@ashevche-desk.local> <arzYt1svE0HtZPSB@inochi.infowork>
+Date: Sun, 18 Oct 2026 17:45:53 +0530
+Message-Id: <179232575369.2114.17486970950843580484.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3918;
+ i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
+ bh=1+bzX4D83wRXdVGWnDM81hIqRB9iDL/i6XQrXMg469g=;
+ b=owGbwMvMwMUYOl/w2b+J574ynlZLYsi6sqOp5HR6+/6Zi9TeXRfUO5ulZG6QrBXsetxa7mLa2
+ u26NSZCnYzGLAyMXAyyYoos6UudtRo9Tt9YEqE+HWYQKxPIFAYuTgGYSAsj+z991nLpwsUV2+rf
+ zdi2JrNLyc6e5c/J+/72/8zFE3/VRU9PXRcVf9ajXmZ3YvKasOKeyZlnNwgofTH8+TdWWnTH636
+ OmUt4Ii6zVSR08SiLc5zjlAhq/v3m/6Owl1ve3+XMTWw38G86l/ZF6myfk92k6HIf+30cFwK3nW
+ v4kFAm2XzKLSR95S0JOYbHt8pvfJ/GIWth7L795AHmHV3b1NyVapN/Pvko0Fc5TzFz44HyvfI7f
+ d0Vv3TPdEox7fpkzOi2h1Fz/w57v6VXfvNx1yUUVleGeVpVlTV4fWR6yrX7QFioQsAKwTgrxc88
+ nVWG79+xh4X4bhdqbfJ6sJrtnfceo97QfweOb2SPZPoIAA==
+X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-On Sat, Oct 17, 2026 at 09:59:33PM +0200, Sebastian Reichel wrote:
-> From: Sebastian Reichel <sebastian.reichel@collabora.com>
+On 2026-09-30 17:44 +0800, Inochi Amaoto wrote:
+> On Wed, Sep 30, 2026 at 10:54:00AM +0300, Andy Shevchenko wrote:
+> > On Tue, Sep 29, 2026 at 04:37:52PM +0800, Inochi Amaoto wrote:
+> > > The PCIe controller on Spacemit K3 is almost a standard Synopsys
+> > > DesignWare PCIe IP with extra link and reset control. Unlike
+> > > the PCIe controller on K1, this controller supports external MSI
+> > > interrupt controller and can use multiple PHYs at the same time.
+> > > 
+> > > Add driver to support PCIe controller on Spacemit K3 PCIe.
+> > 
+> > ...
+> > 
+> > > +static int k3_pcie_init(struct dw_pcie_rp *pp)
+> > > +{
+> > > +	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
+> > > +	struct k1_pcie *k1 = to_k1_pcie(pci);
+> > > +	u32 reset_ctrl = k1->pmu_off + PCIE_CLK_RESET_CONTROL;
+> > > +	u32 val;
+> > > +	int ret;
+> > > +
+> > > +	regmap_clear_bits(k1->pmu, reset_ctrl, LTSSM_EN);
+> > > +
+> > > +	k1_pcie_toggle_soft_reset(k1);
+> > > +
+> > > +	/* K3: Set IGNORE_PERSTN and drive PERSTN_OE high (assert reset) */
+> > > +	regmap_update_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
+> > > +			   PCIE_IGNORE_PERSTN | PCIE_PERSTN_OE | PCIE_PERSTN_OUT,
+> > > +			   PCIE_IGNORE_PERSTN | PCIE_PERSTN_OE);
+> > 
+> > Would it make sense to define permutations
+> > 
+> >   PCIE_IGNORE_PERSTN | PCIE_PERSTN_OE
+> > 
+> > for here...
+> > 
 > 
-> Use the new USB-C DP AltMode defines for the SVID and the capabilities
-> VDO to make the DTs more readable.
+> I think it does not make sense, they are two separate fields.
+> A combine does not make the thing easier.
 > 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> ---
->  arch/arm64/boot/dts/qcom/qrb5165-rb5.dts | 8 ++++++--
->  arch/arm64/boot/dts/qcom/sm8150-hdk.dts  | 9 +++++++--
->  2 files changed, 13 insertions(+), 4 deletions(-)
+> > > +	ret = k1_pcie_enable_resources(k1);
+> > > +	if (ret)
+> > > +		goto failed_resources;
+> > > +
+> > > +	regmap_set_bits(k1->pmu, reset_ctrl, PCIE_AUX_PWR_DET);
+> > > +	regmap_clear_bits(k1->pmu, reset_ctrl, APP_HOLD_PHY_RST);
+> > > +
+> > > +	ret = phy_bulk_init(k1->phy_count, k1->phys);
+> > > +	if (ret)
+> > > +		goto failed_phy_init;
+> > > +
+> > > +	ret = phy_bulk_power_on(k1->phy_count, k1->phys);
+> > > +	if (ret)
+> > > +		goto failed_phy_power_on;
+> > > +
+> > > +	msleep(PCIE_T_PVPERL_MS);
+> > > +
+> > > +	regmap_set_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
+> > > +			PCIE_PERSTN_OUT | PCIE_PERSTN_OE);
+> > 
+> > ...and
+> > 
+> >   PCIE_PERSTN_OUT | PCIE_PERSTN_OE
+> > 
+> > for here and elsewhere?
+> > 
+> > > +	val = dw_pcie_readl_dbi(pci, GEN3_EQ_CONTROL_OFF);
+> > 
+> > > +	val = u32_replace_bits(val, BIT(7),
+> > > +			       GEN3_EQ_CONTROL_OFF_PSET_REQ_VEC);
+> > 
+> > It's perfectly a single line. Check your editor settings (I believe I have
+> > commented on a such in one of the previous rounds).
+> > 
+> 
+> Yes, but it is too hard for me as the intellisense plugin will show
+> the argument name so I am toot hard to keep that for a line that near
+> 80 chars....
 > 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+If the line is within 80 chars, then there is no need to break. If your plugin
+is the issue, then fix it please.
+
+> > > +	dw_pcie_writel_dbi(pci, GEN3_EQ_CONTROL_OFF, val);
+> > > +
+> > > +	k1_pcie_set_device_id(k1);
+> > > +
+> > > +	/* Finally, as a workaround, disable ASPM L1 */
+> > > +	k1_pcie_disable_aspm_l1(k1);
+> > > +
+> > > +	return 0;
+> > > +
+> > > +failed_phy_power_on:
+> > > +	phy_bulk_exit(k1->phy_count, k1->phys);
+> > > +failed_phy_init:
+> > > +	k1_pcie_disable_resources(k1);
+> > > +failed_resources:
+> > > +	regmap_update_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
+> > > +			   PCIE_PERSTN_OUT | PCIE_PERSTN_OE,
+> > > +			   PCIE_PERSTN_OE);
+> > > +
+> > > +	return ret;
+> > > +}
+> > 
+> > ...
+> > 
+> > You checked everything but regmap IO. Why? Do you except it won't ever fail?
+> > Perhaps to add a note about this (if not yet) to the cover letter?
+> > 
+> 
+> It should not fail. IIRC the regmap will not fail for an
+> exclusive usage. The regmap here is just as handle for
+> the common device, but the device driver only use its
+> exclusive area so it should be safe.
+> 
+
+Here, regmap on MMIO is just readl+writel, so there is no way it can fail.
+
+- Mani
 
 
--- 
-With best wishes
-Dmitry
