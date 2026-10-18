@@ -1,105 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6184242CB1C;
-	Sun, 18 Oct 2026 04:55:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86F481684B0
+	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 05:45:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792299315; cv=none; b=IdE1vg7pGd27zabK32TBcxA2I+fT79QuIKl6avQXWKYuXPsW/Ubgel3kmMJmN6JwSEWJb6UkIGytDOSFFTdlDTxBtQrcwkuKs5g0wF5gVP/ygBqNmKGi7+JuNV7LNHDE5n4Lgt+71ccC9lbsBFWy1m9iJJ4G1aV9CMe34yVVUyU=
+	t=1792302340; cv=none; b=kU76XsvptVRfVDh7w2l7sxpsN2lzcqy9c4Tb3wBEPHraChbaHWcJVKJhrXbmwwqKa0TbF3csywGNJDkmp0Jf9BxIU13QoFWMkkTS/TcKfAaqTzoAfajheW4oBfAOdSfvRHYPHRBx7+NjVaAqxSU+wR7WcNTLxMj621DM64j8peU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792299315; c=relaxed/simple;
-	bh=St4QUOnykiewwv5EWmKAgq6LofwIxgwobf+CO8xJ7Cw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=DM3t5KxNrH32JFpsNqPamFlch2pSzsPtbEDTmI2SUGWic7mlY/AJDa8t0CqZ2kF6FJfzHbzZZcUGsXunQJad+cPmb36h2VAEIJV1dUg/pm1G19DiD6l2YsTZ05bFtoivWxi7yNpio7Mx/xEnqgdfWNMSAFZ+sOivk5aaHNXO9Cc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EVaZFPgu; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792302340; c=relaxed/simple;
+	bh=LhcweGVBT25tVquTnAzhUKCDjyD0Mnbfa9OHf7CX5n8=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=dv0KF3mYde1ZDF7vUvBNcB49d6/Sk0Gu34BiCZekm3LQMs27UuSlD7RobT+wI6Gx00tTHKx7UsMZ87yC5nOg6Yi2dw6b2tIGjrGzRs2jZSK/M2HYxv0knEJxVxOQQJ/fXu6IrfRglco8cBmjwFjiHjg3ceQXQD/R7BebF1qWYX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jqEdSA1X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EVaZFPgu"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 0388EC4AF1B;
-	Sun, 18 Oct 2026 04:55:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792299315;
-	bh=St4QUOnykiewwv5EWmKAgq6LofwIxgwobf+CO8xJ7Cw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=EVaZFPguy1CSmuXJVzvtLdcgiUiMUvwA44isfx1jNqnAYgXj9HrYugfgFgakMMEF4
-	 kIttJkrC938RlLw6aCQBZknlKI+DJHtiQqmzW2btxAs3ycdOeJ1/HrOsx8H5Kkr6L3
-	 TtyEviRoBDj/33EoQF1rUi+6veTRgB48bOMA71K/HnB6gLIEVmCM8oav39xNo7Ldpx
-	 57WCSYCFW4E2hNszLy37UBsxdgkyaxX9vle1f3SAABzuIRhQz+Vcb5E0hJIqzD0bNl
-	 yp4DWc2IGN6RxKVoGscw5cNFQgUBCe4gn2OJoI3GyhIEVQXxc8h+WREdRtPvCpwTb9
-	 +t7o8ANDQjw4w==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DD40ECCF2CF;
-	Sun, 18 Oct 2026 04:55:12 +0000 (UTC)
-From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
-Date: Sun, 18 Oct 2026 07:55:00 +0300
-Subject: [PATCH 2/2] arm64: dts: rockchip: Label the fans on Kobol Helios64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jqEdSA1X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF85B1F000C4;
+	Sun, 18 Oct 2026 05:45:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792302339;
+	bh=0/UmJarMk4vQFR1uC9kh1X6IG2eSci5Tk6U2hOMJvGw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=jqEdSA1XSrggHVaTtN5crOHqOG5yRzwleF0A6Lcjyoq0RicaCYSYXA6XfHKu5q2n/
+	 6YF6MYcdaWFdCdGyyNNH7xwUWa14sbOdMh+C5a0VdtGBuAbn/DAThcvdRgVQBGFiqg
+	 qpNY5u7GW0rVsPd59jQYGHKDQDSaSZOCYpcpzGWB3UX7mdoSPOq4FRX9g+05a74yZX
+	 TfFZUvosYau7TM/JizzaDGCcWZk48UTMOdJEdosy6NfI7h30wa0QBACVm8KZjffUEd
+	 212L06EyHRGuPWNqBccUkDwxGrvqTaxG5HceFSQtvoDfkhl6oodPeZ4jV8ksu/Ib2q
+	 slshVe4gGNeQg==
+Message-ID: <sashiko-outbox-175952@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v12 3/6] net: pcs: xpcs: add Rockchip RK3568
+ platform glue driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Coia Prant" <coiaprant@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261017054406.1828061-4-coiaprant@gmail.com>
+References: <20261017054406.1828061-1-coiaprant@gmail.com>
+ <20261017054406.1828061-4-coiaprant@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 18 Oct 2026 05:45:38 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261018-helios64-fan-label-v1-2-69a3f96d4efa@iav.lv>
-References: <20261018-helios64-fan-label-v1-0-69a3f96d4efa@iav.lv>
-In-Reply-To: <20261018-helios64-fan-label-v1-0-69a3f96d4efa@iav.lv>
-To: Guenter Roeck <linux@roeck-us.net>, Jean Delvare <jdelvare@suse.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1083; i=iav@iav.lv;
- h=from:subject:message-id;
- bh=8aw4Q5PUDH6ZuJvAmunt0x+2TojvBEPQhOMZdMQFsu4=;
- b=owGbwMvMwCVmNH1q96v4SmbG02pJDFlXAnWNvvozNJcwG/2IF53P377q+jN24+aDyi9OWF76Y
- VjwYd2DjlIWBjEuBlkxRZYJhzRuZSy5+tffw/wBzBxWJpAhDFycAjARpxUM/9Q0si8d+u9uvkTq
- fGi3Y591yt/ohHMNGo0+tbafjjhqcDMybBVtdBKLYUk2kte+/jTVbEHY7alm522eTNvJp8i+KnE
- iMwA=
-X-Developer-Key: i=iav@iav.lv; a=openpgp;
- fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
-X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
-X-Original-From: Igor Velkov <iav@iav.lv>
-Reply-To: iav@iav.lv
 
-From: Igor Velkov <iav@iav.lv>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] net: pcs: xpcs: xpcs_rk_system_suspend() relies on unset active_=
+wakeup
+--
 
-Name each fan after the header it plugs into, so that userspace can
-tell the two apart through the hwmon label attribute.
+commit 51040950622ac8bc620e18e37d9000b98191388d
+Author: Coia Prant <coiaprant@gmail.com>
 
-Assisted-by: LLM
-Signed-off-by: Igor Velkov <iav@iav.lv>
----
- arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+net: pcs: xpcs: add Rockchip RK3568 platform glue driver
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-index 63ad79b4c8ac..a206827903e9 100644
---- a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-@@ -70,8 +70,8 @@ clkin_gmac: external-gmac-clock {
- 	};
- 
- 	fan1 {
--		/* fan connected to P7 */
- 		compatible = "pwm-fan";
-+		label = "P7";
- 		pwms = <&pwm0 0 40000 0>;
- 		cooling-levels = <0 80 170 255>;
- 		interrupt-parent = <&gpio4>;
-@@ -81,8 +81,8 @@ fan1 {
- 	};
- 
- 	fan2 {
--		/* fan connected to P6 */
- 		compatible = "pwm-fan";
-+		label = "P6";
- 		pwms = <&pwm1 0 40000 0>;
- 		cooling-levels = <0 80 170 255>;
- 		interrupt-parent = <&gpio4>;
+This commit adds a platform glue driver for the Synopsys DesignWare XPCS
+on Rockchip RK3568 SoCs, creating a virtual MDIO bus over APB3 registers
+and managing the SerDes PHY, clocks, and power domain.
 
--- 
-2.43.0
+Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TRM%=
+20Part1%20V1.1-20210301.pdf (Page 59, CRU_CLKSEL_CON29)
+Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TRM%=
+20Part2%20V1.1-20210301.pdf (Page 2078)
 
+> diff --git a/drivers/net/pcs/pcs-xpcs-rk.c b/drivers/net/pcs/pcs-xpcs-rk.c
+> new file mode 100644
+> index 0000000000000..698a43b753341
+> --- /dev/null
+> +++ b/drivers/net/pcs/pcs-xpcs-rk.c
+> @@ -0,0 +1,598 @@
 
+[ ... ]
+
+> +static int xpcs_rk_system_suspend(struct device *dev)
+> +{
+> +	/*
+> +	 * Keep the PD_PIPE power domain on during system suspend.
+> +	 *
+> +	 * PD_PIPE is shared with SATA/PCIe and would be powered down by
+> +	 * genpd once all its consumers are suspended, killing the SerDes
+> +	 * and breaking MAC WoL.  Mark the XPCS as part of the wakeup path
+> +	 * so genpd keeps the domain on.  Unconditional because the XPCS
+> +	 * core has no callback to convey the MAC WoL state.
+> +	 */
+> +	device_set_wakeup_path(dev);
+> +	return 0;
+> +}
+> +
+> +static int xpcs_rk_system_resume(struct device *dev)
+> +{
+> +	return 0;
+> +}
+
+[Severity: Medium]
+Does calling device_set_wakeup_path(dev) in xpcs_rk_system_suspend()
+actually keep the RK3568_PD_PIPE power domain powered on during system
+suspend?
+
+The commit message notes that genpd leaves the domain powered because the
+Rockchip power domain driver sets GENPD_FLAG_ACTIVE_WAKEUP on PD_PIPE.
+However, in drivers/pmdomain/rockchip/pm-domains.c, rk3568_pm_domains
+defines RK3568_PD_PIPE with wakeup set to false:
+
+drivers/pmdomain/rockchip/pm-domains.c:
+	[RK3568_PD_PIPE]	=3D DOMAIN_RK3568("pipe", BIT(8), BIT(11), false, false),
+
+In rockchip_pm_add_one_domain(), GENPD_FLAG_ACTIVE_WAKEUP is only set when
+pd_info->active_wakeup is true:
+
+	pd->genpd.flags =3D GENPD_FLAG_PM_CLK | GENPD_FLAG_NO_STAY_ON;
+	if (pd_info->active_wakeup)
+		pd->genpd.flags |=3D GENPD_FLAG_ACTIVE_WAKEUP;
+
+When the system suspends via genpd_suspend_noirq() -> genpd_finish_suspend()
+in drivers/pmdomain/core.c, genpd checks:
+
+	if (device_awake_path(dev) && genpd_is_active_wakeup(genpd) &&
+	    !device_out_band_wakeup(dev))
+		return 0;
+
+Because genpd_is_active_wakeup(genpd) is false for RK3568_PD_PIPE, genpd
+ignores device_awake_path(dev) and powers off the domain once all consumers
+are suspended. This powers down the shared SerDes PHY and XPCS controller,
+breaking MAC Wake-on-LAN and losing hardware state across suspend and
+resume since xpcs_rk_system_resume() is a no-op.
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261017054406.1828=
+061-1-coiaprant@gmail.com?part=3D3
