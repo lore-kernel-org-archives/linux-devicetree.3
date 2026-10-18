@@ -1,105 +1,112 @@
-Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8511382F2F
-	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 09:04:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.61.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AF3136AB6B
+	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 09:18:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792314275; cv=none; b=SBtZ2BALfI5wh+94f2/cS8yWL/saonhj3XY4gXRHKJp0koqlL4Z/4KMShF/sEYCWIYPdNnXuK1GpIlXi07i6ZXMFm6xbAfj1tM9DTj/xETYbHoI+eeesf1dknjtT9hJ7iDtmdcdjcF8ykSnJQKsra5GzuyqZ4JgJs3j5HJlPh98=
+	t=1792315105; cv=none; b=t01BIe7Cb585HGvExdDJKOTK6Ff71InUluXAW8NT+cdv1F0Qf7wRwRJ3X2St8LTyZmyuzJsqkKhhPIOOyCK0bfUzF5Nqu6pcZOSQfpeds1Jq+H86XHNf/t2GwyTQ1RzeVp7eDx/kcVSCtBKQ2T1EuACe+ZIFzpVJ4VX+NQGkxtw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792314275; c=relaxed/simple;
-	bh=7JSwmRHMeCpoRpZ+V304C3rcHX1ouKohB9jQ8dpXb9U=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=XXPc1wLXUZWIvdiFFJlYE53Fv6B9QyVwO8jiE0iZhMpj+D98kdnpKVkAYsJEbFk71fRGUmu7w7DpLZPYKJm3eFQ1rA+nqKsQUE4ZgNUHBCG1/vCWK0aIWcM4aB4oPsU/ocTAzAwJwccN6dTyYPNi8pGLaULzTXNo9tteqsAXzEk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr; spf=pass smtp.mailfrom=aliel.fr; dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b=WAHDuXaE; arc=none smtp.client-ip=65.21.61.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
+	s=arc-20240116; t=1792315105; c=relaxed/simple;
+	bh=0tZn4Mec2OvIe81Hd24jrS+MDdaRi3GMpoOY2OQRzSE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=oVTC1M762mxduWw1N/DwAyQexpaZC7DU/iBvWRuovJToJnrbwcyoaApQW+Aw3ZLvQRavOcvb3djIjqL6DubUU4IJO0igHrkCoEdoH6FHgJwtevbGvRL9A0u5bUSfGddmDVOmNjt7Uz5J75bL1eoCwSGiimnUb49SJI443dtQuTk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mentallysanemainliners.org; spf=pass smtp.mailfrom=mentallysanemainliners.org; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=hhjVhP5V; arc=none smtp.client-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mentallysanemainliners.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mentallysanemainliners.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b="WAHDuXaE"
-Message-ID: <dda4b297-6dd1-42ba-8332-80c22b741e29@aliel.fr>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
-	s=courrier-s1; t=1792314262;
-	bh=7JSwmRHMeCpoRpZ+V304C3rcHX1ouKohB9jQ8dpXb9U=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=WAHDuXaE0WHGgKo+PmYG9T25fFEMovyLJcTPtnJRvFdFYtHYf3YTdflYEMIh8zIE3
-	 +LdKHLcDAOMgJhkAdDnijhoIpaC3Oc5MazTWCdQTqTgR80D37gwRBPdfTQt1dEuA+d
-	 EVK3r6qspQ7JhJSQBIcUT+3+ReekxuqYYj7tfEyI=
-Date: Sun, 18 Oct 2026 11:03:06 +0200
+	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="hhjVhP5V"
+DKIM-Signature: a=rsa-sha256; b=hhjVhP5VJs67wyb1XQIeaNX+VFdSyX3l/0tZvdX9mzCUKAouyEvEbNMZQnIrt9CLp8PryPjrwnqrojjYJAHcyGsNCYmLebol91WIJAWG830KoZbSGfgZpelJGaAmb2jSYxkLNR7l9SoFMm/2+6km/ptiEIx73+IEboj+36vzjMZkcdwD7KvWPTUd5SXtvmcCHDMdDQk/6z4kKWnPgQTZRi0SZ2gUPza0Rf8O/IUImLbhpmy961X30LpxDsAuGF8EtOiiG2OEQ0W+QxyV5bD6aJgP/cyUjXoAcv4c7eebl5WXw2T5z1HJIfZzxgTKPdhKk3SuYz/DOmwVEFqI/+9YIw==; s=purelymail3; d=purelymail.com; v=1; bh=0tZn4Mec2OvIe81Hd24jrS+MDdaRi3GMpoOY2OQRzSE=; h=Feedback-ID:Received:From:Subject:Date:To;
+Feedback-ID: 68247:10037:null:purelymail
+X-Pm-Original-To: devicetree@vger.kernel.org
+Authentication-Results: purelymail.com; auth=pass
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 799555268;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Sun, 18 Oct 2026 09:18:01 +0000 (UTC)
+From: Igor Belwon <igor.belwon@mentallysanemainliners.org>
+Subject: [PATCH v3 0/2] arm64: dts: qcom: Add support for the Xiaomi 17
+ Ultra series of devices
+Date: Sun, 18 Oct 2026 11:17:55 +0200
+Message-Id: <20261018-nezha-v3-0-7e8c63903290@mentallysanemainliners.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Subject: Re: [PATCH v7 2/4] arm64: dts: amlogic: t7: Add thermal sensor nodes
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
-References: <20261016-add-thermal-t7-vim4-v7-0-6eede5450fd4@aliel.fr>
- <20261016-add-thermal-t7-vim4-v7-2-6eede5450fd4@aliel.fr>
- <sashiko-outbox-174722@kernel.org>
-Content-Language: en-US
-In-Reply-To: <sashiko-outbox-174722@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32Nyw6CMBBFf4V0bU1bHqau/A/jYqADjIFiWiQi4
+ d9tMSbGhcuTnHvuwjw6Qs+OycIcTuRpsAHSXcKqFmyDnExgpoQqpJAFt/hsgQuButRprmStWHB
+ vDmt6bJ3z5c3+Xl6xGuM4Gi35cXDzdjTJ6P02J8kFh1RrIUwNYMypRztC180eLPZAtiOLzu8H1
+ 7B4MqnvzOGTUSGTZZXOUYI2BfzNrOv6AvM+uHcEAQAA
+X-Change-ID: 20261016-nezha-00e9b93521f2
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Igor Belwon <igor.belwon@mentallysanemainliners.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792315080; l=2048;
+ i=igor.belwon@mentallysanemainliners.org; s=20251104;
+ h=from:subject:message-id; bh=0tZn4Mec2OvIe81Hd24jrS+MDdaRi3GMpoOY2OQRzSE=;
+ b=RnkmdiKvXibMoiKQooM9nyclMKVMmWb5DIkZsWqqdcN0MwUKik+0rh3Usr3ywN8HSr/FjlyYA
+ 2SWxTRXZy8aBlJRnF5ikQgBX6xXBmyKAESxJvnUAvkBq4YIo1G2iXtF
+X-Developer-Key: i=igor.belwon@mentallysanemainliners.org; a=ed25519;
+ pk=i9++1bbnBwoyc3uhTaetGXS1TbBJoS0mcxT59GrpYh0=
 
-On 10/16/26 7:25 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] thermal: amlogic: system hang due to MMIO access before clock enable
-> --
-> 
-> commit d943dedd550441fdf5ee6b1eb6eb97f02aac1ef7
-> Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
-> 
-> arm64: dts: amlogic: t7: Add thermal sensor nodes
-> 
-> This commit adds six temperature sensor nodes to the device tree using
-> the amlogic,t7-thermal compatible. The nodes include references to their
-> required clocks and calibration data from the secure monitor.
-> 
->> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
->> index 8aa85aab30469..c81632d3984e8 100644
->> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
->> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
->> @@ -696,6 +696,26 @@ sec_ao: ao-secure@10220 {
->>  				amlogic,has-chip-id;
->>  			};
->>  
->> +			a73_tsensor: temperature-sensor@20000 {
->> +				compatible = "amlogic,t7-thermal";
->> +				reg = <0x0 0x20000 0x0 0x50>;
->> +				interrupts = <GIC_SPI 31 IRQ_TYPE_LEVEL_HIGH>;
->> +				clocks = <&clkc_periphs CLKID_SYS_TS_A73>, <&clkc_periphs CLKID_TS>;
-> 
-> [Severity: High]
-> Does adding this thermal sensor node expose an initialization order bug
-> in the driver that causes a system hang?
-> 
-> In drivers/thermal/amlogic_thermal.c:amlogic_thermal_probe(), the thermal
-> zone is registered before the hardware clocks are enabled:
-> 
-> 	pdata->tzd = devm_thermal_of_zone_register(&pdev->dev,
-> 						   0,
-> 						   pdata,
-> 						   &amlogic_thermal_ops);
-> 	...
-> 	ret = amlogic_thermal_enable(pdata);
-> 
-> During registration, the thermal core synchronously queries the temperature
-> via the driver's .get_temp callback (amlogic_thermal_get_temp()), which
-> performs an MMIO read via regmap_read() on TSENSOR_STAT0.
-> 
-> Since the driver enables the required peripheral clocks after the thermal
-> zone is registered, executing this MMIO read before the necessary bus clocks
-> are enabled will stall the AMBA bus and hang or reboot the system.
-> 
-> [ ... ]
-> 
+Hi,
 
-This is pre-existing and can be managed outside of this series.
+This series adds support for the Xiaomi 17 Ultra series of devices,
+consisting of the Chinese domestic region version of the device as well
+as the EEA version. The only real difference in the devices is the 
+battery capacity.
 
--- 
+Currently only basic devicetree support is added, with driver support
+for the display panel as well as other hardware blocks to be added in
+future patch series.
+
+Signed-off-by: Igor Belwon <igor.belwon@mentallysanemainliners.org>
+---
+Changes in v3:
+- Fixed two mishaps that occured because of me not saving the correct file. [both sashiko]
+- Link to v2: https://patch.msgid.link/20261017-nezha-v2-0-44c95e1a9d6a@mentallysanemainliners.org
+
+Changes in v2:
+- Fixed a duplicate compatible match [sashiko]
+- Fixed firmware names [sashiko]
+- Removed synaptics dep nodes whilst the driver is not merged [sashiko]
+- Fixed unit-address-matching-reg [sashiko]
+- Link to v1: https://patch.msgid.link/20261016-nezha-v1-0-a39900dfaadd@mentallysanemainliners.org
+
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Abel Vesa <abelvesa@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Igor Belwon (2):
+      dt-bindings: arm: qcom: Document Xiaomi 17 Ultra devices
+      arm64: dts: qcom: Add support for Xiaomi 17 Ultra phones
+
+ Documentation/devicetree/bindings/arm/qcom.yaml    |   8 +
+ arch/arm64/boot/dts/qcom/Makefile                  |   1 +
+ .../boot/dts/qcom/kaanapali-xiaomi-nezha-cn.dts    |  20 +
+ .../dts/qcom/kaanapali-xiaomi-nezha-common.dtsi    | 883 +++++++++++++++++++++
+ .../boot/dts/qcom/kaanapali-xiaomi-nezha-eea.dts   |  20 +
+ 5 files changed, 932 insertions(+)
+---
+base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
+change-id: 20261016-nezha-00e9b93521f2
+
 Best regards,
-Ronald
+--  
+Igor Belwon <igor.belwon@mentallysanemainliners.org>
+
