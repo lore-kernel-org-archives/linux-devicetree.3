@@ -1,134 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86F481684B0
-	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 05:45:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7454346A14
+	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 05:47:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792302340; cv=none; b=kU76XsvptVRfVDh7w2l7sxpsN2lzcqy9c4Tb3wBEPHraChbaHWcJVKJhrXbmwwqKa0TbF3csywGNJDkmp0Jf9BxIU13QoFWMkkTS/TcKfAaqTzoAfajheW4oBfAOdSfvRHYPHRBx7+NjVaAqxSU+wR7WcNTLxMj621DM64j8peU=
+	t=1792302433; cv=none; b=AacDd15g8OdcSFrHmvjKbCFyyoQS58qe1G1qBV2TfrF64r8R1OLmDG+3BxAI2Ipu/P5VjeII/E7af59yze2n0yyCMbXZ8rEVRm+4IZiy01QiO3HMYSTZY0yZQSUfWp8IOTa3MgGqDLJUnYP9k0Hc1xh+yI7PcxCiwl/eipaNEgU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792302340; c=relaxed/simple;
-	bh=LhcweGVBT25tVquTnAzhUKCDjyD0Mnbfa9OHf7CX5n8=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=dv0KF3mYde1ZDF7vUvBNcB49d6/Sk0Gu34BiCZekm3LQMs27UuSlD7RobT+wI6Gx00tTHKx7UsMZ87yC5nOg6Yi2dw6b2tIGjrGzRs2jZSK/M2HYxv0knEJxVxOQQJ/fXu6IrfRglco8cBmjwFjiHjg3ceQXQD/R7BebF1qWYX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jqEdSA1X; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792302433; c=relaxed/simple;
+	bh=nL33N4MkG2GAXW61rbmW51GmG14HD5JKfZBJNorgJ1I=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qT+FjXHOySHURUmp3acNsErYtxRhoWPx8xvpx/k3GN4THeuPcSP/kAzGdKS4gqCvUzGZffd5ckUGJSEGDTkj96bRKP33SNI7HxbyQAXnC5JL0TfyZ7sdVskFYvgulfbbag4bLvNqtfEXaO+DYrXq/5InjuL4nT1xo8UMzLXmeGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b1b5Yeie; arc=none smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jqEdSA1X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF85B1F000C4;
-	Sun, 18 Oct 2026 05:45:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792302339;
-	bh=0/UmJarMk4vQFR1uC9kh1X6IG2eSci5Tk6U2hOMJvGw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jqEdSA1XSrggHVaTtN5crOHqOG5yRzwleF0A6Lcjyoq0RicaCYSYXA6XfHKu5q2n/
-	 6YF6MYcdaWFdCdGyyNNH7xwUWa14sbOdMh+C5a0VdtGBuAbn/DAThcvdRgVQBGFiqg
-	 qpNY5u7GW0rVsPd59jQYGHKDQDSaSZOCYpcpzGWB3UX7mdoSPOq4FRX9g+05a74yZX
-	 TfFZUvosYau7TM/JizzaDGCcWZk48UTMOdJEdosy6NfI7h30wa0QBACVm8KZjffUEd
-	 212L06EyHRGuPWNqBccUkDwxGrvqTaxG5HceFSQtvoDfkhl6oodPeZ4jV8ksu/Ib2q
-	 slshVe4gGNeQg==
-Message-ID: <sashiko-outbox-175952@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v12 3/6] net: pcs: xpcs: add Rockchip RK3568
- platform glue driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Coia Prant" <coiaprant@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261017054406.1828061-4-coiaprant@gmail.com>
-References: <20261017054406.1828061-1-coiaprant@gmail.com>
- <20261017054406.1828061-4-coiaprant@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 18 Oct 2026 05:45:38 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b1b5Yeie"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ab3260b35dso879654a91.1
+        for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 22:47:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792302431; x=1792907231; darn=vger.kernel.org;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OZY9wh4sxQs63RQAxeF2tIFILu93inTX2QwnrPUnhYs=;
+        b=b1b5YeiegRWMuWgLAuFRN7y6LxLREtGy459QCaTt1P9kb1YUBoMa5peZcYbwjpPBuL
+         De/5iwn9vjTflKclM5OjnUhljJkSp43agMqm01adiGB7umO7iM58dJABbRdfRemF8Iy6
+         8JYvx7EsgoY6o6A/A8QrIIPyE4GHM2rmVWKgwIXIi0lgV4WpaCugxQj7G+sMy95Kczjh
+         r3AzTIx5aFRegSzQhM21iW0TRdV9YJIdcrrpZ4XOF7fFYQLrcVDXbgW6wxdJGVwngXxx
+         0dJ+rwgOuSNG812S3HXkuVU3RAAI5Cg0yk6zALS6sT3eoBeYWKGIFoeRCaO1w5PpR5Vt
+         We9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792302431; x=1792907231;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OZY9wh4sxQs63RQAxeF2tIFILu93inTX2QwnrPUnhYs=;
+        b=1D6unvk916jGFfD8+YPCtJLYY0+f/JECi2mJc31ZuBKQNTP5MCZo9uU3xekdA0cUbK
+         FFeGIr9GdjibUm3RW+Kn8hFyii+sH7FlawxiF5Kpz3zNy5WjbqVAVd6iY5HW4dVaEQ5p
+         XHdLwGyvS7rHuDBxHn60Ot1pCHPXHn0KveAptJV2TgY81UYgygII19h09y2OXi4z5rDG
+         fYaxukFwVwy3L2Ti25S6mL11NJygZ4LLeHg5FmmH/zayhCzej6ZO65ibPVLKit8j+y7g
+         dn0FQQryasy3nzGxYeAMOwAfwR4xXUohKKkt+cb58OQnx0x+yA+Uv/9HAY6gdWxvcaF2
+         iecg==
+X-Forwarded-Encrypted: i=1; AKwUvBxzYMfv9ZFvy+kYmI+E+//YVidUl16pDoaE7eSNtyw8aktzMi0+RQ88q1CJ3CR6NFOId0WQARBn4Cz7@vger.kernel.org
+X-Gm-Message-State: AFq9FYJUJ/d/Zxu7F7sQ+H2tPecWAiKwBlJzud+TBAUmWc7TK3Kcy9hj
+	4eDz4hB0Bv9mcS6LE8AUOQLk/8XS5yiPCnN+1g7ScBPXAkh23ZOFob/Z
+X-Gm-Gg: AYBFou3NriD00/VTQ6t9y2PfNIay6B4XCMpVsMkJ3GbOBMav8C14Jz26Lyi6XDm9OWn
+	dc9V0cnCll4QJTZMXfZBXB3PJoe42U/hBdpcQogOzr+X3nvE3IQh/cKcBfMZZl6GjlB+XfkPa3O
+	6KCjzs03GaJ11Dukf8RKJXYds3q3siZuSDUkWnx5EgwXHuuasZA/99lYq1DnkFxgtikTSASuaKr
+	1L2dymiPPQLcNP2xAujiX2j+sabv4csVpAl3udRVxMxN+YXPD0gXDkc8suILr5QSWov2vdcqTYw
+	9quCxKm8iU6iZm77nOVyY/SZWTvilV/7D08sdhCZMfUPC54UeUrmh9sATIVFAiXFdIJtFqO5wr0
+	DNkOTNyhVx8Fj1k5gPCvCTplsJxOIFq16mH/3t0n5vS1Z3I6rW052zHbQv3sWtTQB4oYnWR+etf
+	V5xVDVyKiA7W7EDyh2wc3Uvi90ZYM6w7y+Xu/FqJuijRlzjo+IJJ2XFTyBWmsjld9x5VVaQ2oxh
+	JTTJaFiXFfuZgaeJ9njEeG5VW7HDVTiM86jbWn8x3tT+hFaxgwie9wrBBGr83qnXAD7KcSRIGaR
+	QdMRoYRtCpJXTumFfekzs4jOC5RWCFcQu6M5v2BWW8xBwmSmXGs=
+X-Received: by 2002:a17:90b:4c49:b0:3a8:185:cf40 with SMTP id 98e67ed59e1d1-3aceeb95f82mr3942070a91.10.1792302431271;
+        Sat, 17 Oct 2026 22:47:11 -0700 (PDT)
+Received: from setsuna.localnet ([2403:581e:d87e:0:fc2d:ed31:e80e:412d])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc9d266d6sm5442358a91.1.2026.10.17.22.47.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 22:47:09 -0700 (PDT)
+From: James Calligeros <jcalligeros99@gmail.com>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Martin =?UTF-8?B?UG92acWhZXI=?= <povik+lin@cutebit.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+ Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
+ Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+ Neal Gompa <neal@gompa.dev>, asahi@lists.linux.dev,
+ linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH v2 08/21] ASoC: card: Let 'fixup_controls' return errors
+Date: Sun, 18 Oct 2026 15:46:54 +1000
+Message-ID: <hMEBpV6QSOSLxRVSn92CIQ@gmail.com>
+In-Reply-To: <asZV7oBh7jQ6wk/g@opensource.cirrus.com>
+References:
+ <20261004-macaudio-v2-0-7b47ed6335a8@gmail.com>
+ <20261004-macaudio-v2-8-7b47ed6335a8@gmail.com>
+ <asZV7oBh7jQ6wk/g@opensource.cirrus.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] net: pcs: xpcs: xpcs_rk_system_suspend() relies on unset active_=
-wakeup
---
+On Thursday, 8 October 2026 12:23:42=E2=80=AFam Australian Eastern Standard=
+ Time=20
+Charles Keepax wrote:
+> On Sun, Oct 04, 2026 at 04:03:35PM +1000, James Calligeros wrote:
+> > From: Martin Povi=C5=A1er <povik+lin@cutebit.org>
+> >=20
+> > Let the 'fixup_controls' card method return error values which will roll
+> > back the half-done binding of the card.
+> >=20
+> > Signed-off-by: Martin Povi=C5=A1er <povik+lin@cutebit.org>
+> > Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
+> > ---
+> >=20
+> >  include/sound/soc-card.h                 |  2 +-
+> >  include/sound/soc.h                      |  2 +-
+> >  .../soc/mediatek/mt8188/mt8188-mt6359.c  |  4 +++-
+> >  sound/soc/soc-card.c                     | 12 +++++++++---
+> >  sound/soc/soc-core.c                     |  5 ++++-
+>=20
+> Fixup is missing here for sound/soc/sdca/sdca_class_function.c
 
-commit 51040950622ac8bc620e18e37d9000b98191388d
-Author: Coia Prant <coiaprant@gmail.com>
+Unless I'm missing something, that one calls the .fixup_controls on
+snd_soc_component_driver, which is not the snd_soc_card callback
+modified by this commit. That callback already expected an int,
+and class_function_component_fixup_controls already returns one
+per b8f71f16134f ("ASoC: SDCA: Switch to fixup_controls callback
+for IRQ registration").
 
-net: pcs: xpcs: add Rockchip RK3568 platform glue driver
+Regards,
+James
 
-This commit adds a platform glue driver for the Synopsys DesignWare XPCS
-on Rockchip RK3568 SoCs, creating a virtual MDIO bus over APB3 registers
-and managing the SerDes PHY, clocks, and power domain.
 
-Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TRM%=
-20Part1%20V1.1-20210301.pdf (Page 59, CRU_CLKSEL_CON29)
-Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TRM%=
-20Part2%20V1.1-20210301.pdf (Page 2078)
-
-> diff --git a/drivers/net/pcs/pcs-xpcs-rk.c b/drivers/net/pcs/pcs-xpcs-rk.c
-> new file mode 100644
-> index 0000000000000..698a43b753341
-> --- /dev/null
-> +++ b/drivers/net/pcs/pcs-xpcs-rk.c
-> @@ -0,0 +1,598 @@
-
-[ ... ]
-
-> +static int xpcs_rk_system_suspend(struct device *dev)
-> +{
-> +	/*
-> +	 * Keep the PD_PIPE power domain on during system suspend.
-> +	 *
-> +	 * PD_PIPE is shared with SATA/PCIe and would be powered down by
-> +	 * genpd once all its consumers are suspended, killing the SerDes
-> +	 * and breaking MAC WoL.  Mark the XPCS as part of the wakeup path
-> +	 * so genpd keeps the domain on.  Unconditional because the XPCS
-> +	 * core has no callback to convey the MAC WoL state.
-> +	 */
-> +	device_set_wakeup_path(dev);
-> +	return 0;
-> +}
-> +
-> +static int xpcs_rk_system_resume(struct device *dev)
-> +{
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Does calling device_set_wakeup_path(dev) in xpcs_rk_system_suspend()
-actually keep the RK3568_PD_PIPE power domain powered on during system
-suspend?
-
-The commit message notes that genpd leaves the domain powered because the
-Rockchip power domain driver sets GENPD_FLAG_ACTIVE_WAKEUP on PD_PIPE.
-However, in drivers/pmdomain/rockchip/pm-domains.c, rk3568_pm_domains
-defines RK3568_PD_PIPE with wakeup set to false:
-
-drivers/pmdomain/rockchip/pm-domains.c:
-	[RK3568_PD_PIPE]	=3D DOMAIN_RK3568("pipe", BIT(8), BIT(11), false, false),
-
-In rockchip_pm_add_one_domain(), GENPD_FLAG_ACTIVE_WAKEUP is only set when
-pd_info->active_wakeup is true:
-
-	pd->genpd.flags =3D GENPD_FLAG_PM_CLK | GENPD_FLAG_NO_STAY_ON;
-	if (pd_info->active_wakeup)
-		pd->genpd.flags |=3D GENPD_FLAG_ACTIVE_WAKEUP;
-
-When the system suspends via genpd_suspend_noirq() -> genpd_finish_suspend()
-in drivers/pmdomain/core.c, genpd checks:
-
-	if (device_awake_path(dev) && genpd_is_active_wakeup(genpd) &&
-	    !device_out_band_wakeup(dev))
-		return 0;
-
-Because genpd_is_active_wakeup(genpd) is false for RK3568_PD_PIPE, genpd
-ignores device_awake_path(dev) and powers off the domain once all consumers
-are suspended. This powers down the shared SerDes PHY and XPCS controller,
-breaking MAC Wake-on-LAN and losing hardware state across suspend and
-resume since xpcs_rk_system_resume() is a no-op.
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261017054406.1828=
-061-1-coiaprant@gmail.com?part=3D3
