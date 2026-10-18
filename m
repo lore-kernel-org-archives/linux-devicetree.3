@@ -1,85 +1,83 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4045492196
-	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 14:08:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E8764C10C5
+	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 14:23:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792332537; cv=none; b=boedZmbUDKWTzwIDkjK0C3lWLiNVf1zDYdn2b+0OOk0VgjSsH80zDbWU6Tu3C+TRIMhBBHnsT81nj8T2nZwVx7XCobIE9l/SGN3+D/h0RsXmPJDNy9qqnpBJrvr80/wRL8MjrJ4Vlqg31or37BMYfuz1xn7gVHxguI/xXcuoDNY=
+	t=1792333397; cv=none; b=mf0y7osxUCpNjWhCh9G861+VrMQ8P5yvb9vQvSih0o5nZo2a2V+QkVsx5Y7vaJa/JrzCy7hIvosXvvEtruCj5SIhST/HFrSmum+jSxhsrUf8uNCcWWfVnkkod70uAxT774JMJJrcA5YLRCNYOcRMhZP/XPg2P752XAnlzrHMxYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792332537; c=relaxed/simple;
-	bh=a9xujErffccRWJmb2kmaLMfqp7WKEG50k3ZOPDrgYt4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=i2/J1RJZxAgzkHLh4Us8QSgeSjUial3/BZEeIvo5omR8wdu2i6kwsMCssMA5PHMrdDMHfFgIleAmL6XHz8XUB8kpGZRFsbtvTHRjKyPidy0uvFeEiqRedEz30BZB5PiY5oArqmbqNeeHIlXvqgWq8wZVsQ3hQsUlKrEgn+aKlVg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DUtp4gLW; arc=none smtp.client-ip=209.85.216.45
+	s=arc-20240116; t=1792333397; c=relaxed/simple;
+	bh=DehZpx2/K8ju4VpADuJdHXsOH8lGOwPvHMyPcJsyyKs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n5DTHhIe39Om+qC4BjLChwwNonf0x03pSsMWiOWnapKgt4JlCFtJImqdmehcvC1/5l/aaQD44A8IBMIlM5hhLTZMI7vr3VRd0IlMH8PlxFbefVxOIOPMYiQfaNXZlkAFmg5Wjae0/gj342+5+cfraR3G2JKisx1e8H8rfZe4HB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DzpbPE+0; arc=none smtp.client-ip=209.85.221.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DUtp4gLW"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ab2cb8d577so1141075a91.1
-        for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 07:08:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DzpbPE+0"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48c5358fc28so1060071f8f.0
+        for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 07:23:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792332536; x=1792937336; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=a9xujErffccRWJmb2kmaLMfqp7WKEG50k3ZOPDrgYt4=;
-        b=DUtp4gLWlzFhUiKtAvK42BJqxOgFCfANT/5Bxwzec+VBQ+8A9MqNd9kP3UR4Js5YMj
-         YlbrxStDSWUfyIJkP5y4FdTOYFWHOgcHpY2n106+jxx3nniknvvihjUOGotJgpQk1tcc
-         4VHQeGKwqXAVjwZpCtPjpg7r1iy2z6oi6TAesZNIP1I8QtWxbjIjlzS+dwh585UoiBde
-         WJ1tHMQ83LoYEQyUwfAO08lY9RiC8iyk8Fmtl3EaBjpnrMfi84GxCNaQ8sBpIxK2q/i6
-         aVE31K+9Np+hXPcmJd+gKO/r+hFyC3fn/Dui0iaaDHdD2rxpPc3bBrSY75l2u3Api2z/
-         zw+Q==
+        d=gmail.com; s=20251104; t=1792333394; x=1792938194; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=A95fhrvfAAlu2Cvs/sZqanN19o2eeng7TB9Tzs9GgKQ=;
+        b=DzpbPE+0k+5+uiSp70vXXau8zR7C++OcT3waA7+NBGhSoLa/BzyH67v2I+TzqpRNLt
+         uN1GF7WDN3fzAZVJyHPckSp724E98Q5PSh+zAC9sWm2ZU4rrP6f4MT1eHk69lUG7/7dQ
+         fdvK7Lb1vrec3fg8q5+CJbOB6gRFeihL6hl6QSaUe85edhlwHN9Uxz1FU9o8W4ac5gEl
+         4wlPNEKdBlbdRfzTuHoflWoZtX8BG8nxSWlxFP5l1aEvtHSc+nZMx8HZiFJF5YfI+tac
+         3glT7DN8GFdIOriYgvl1zrhsTGNEem7LiasVEdWul6GjYIptHuYOdsK2Mx3jPFNVaOq2
+         Bc7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792332536; x=1792937336;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=a9xujErffccRWJmb2kmaLMfqp7WKEG50k3ZOPDrgYt4=;
-        b=Wvigb77NmddNHTJU5DewJ6IjjzkowgjCxy8XboPpM4sPlM37KHGiLHuRzTX2d32FuG
-         7UnOGcHFq9XrsSkXqZIWlxCKpvpv9/wh35TRAYx7Yt/+MvPH3gDsnE5PtpkBPknCcOJC
-         ErGtRJQr8k5qfbyywJUsg4+mCtiJVXDq8elxHV7a2lzIGLBpUKtOI+8iaic32EF71MqG
-         UxxbIqP4mv6uiphctFxsYUQr+tv+t6nk6b1TqL/KXqz1sbB91lE5BU9uXqoLLT39XCKn
-         geZob2y4XqP4qpK/HsDAREoZDhTyczEoUxczwQUKNoNJs2BC62NjXchP7gZOE2lSuFta
-         1ycw==
-X-Forwarded-Encrypted: i=1; AKwUvBzi5vheSFFnw9/+ogIhCLNzCfjPj/8pgunRPFGzoLrKKiCSiHcH+F3QZCF/mazcgp+xAALnk8bDC1ju@vger.kernel.org
-X-Gm-Message-State: AFq9FYI22oZHYxiR4LIuPexCh47potLECmtwWWEDtSN6JXo3NyUeZgML
-	crNao7h13hM4D3CAvTkIoPiZJyNxQIxahCCsKzoaIlXhUzgfpvfPB1yc
-X-Gm-Gg: AYBFou1vx9vxJkHrtSkmXXFHhnX9MU3RkNF4iJc3Kundluq0rf5lungPz3OLy8jqLxC
-	d5ebjrE9+WwTlarVjmBUu0x/ZP/xkNjbTsp/O6h5JmPC8YhB9l68y4eLXcgZO/mZ8X4Ym2i6NYR
-	n4T45RseMp0m46F5uLehBjdqv9sVORh1NeBCHKQJwgPX3S4a/WGt5PVPMPIATSoH7siiC1dFU1B
-	Rp0SfU3pBTqiuCnPQPYd4jezgKYo0McNvWCXxmNyLkgZWbaUfGdw0SHOX27bGfOQNFJ/Kx2AdsW
-	rsdJT1Lr+7tBFFCAJpdZJcwpQ1Q49CAkw0v+P6p6NrlCyIsZIr8pU/BQVgUQoUbHZ/qtwGNBZui
-	vl7U7a4v7J+S0z6SyVjTMDZfV8vOvUD0Ub/UZ//TbguE2fkUN/B9j0c2f4vA6bIBLZutAkxEvBI
-	ytuDHFagPGedYrDd7sioBzC2+KuNc87nDb4egoZ995wvTvU5K6PwrrWawPATonCxlIgl5JijOX8
-	eIN7sh5H1YzN/S8cCsRY4tQ+ErFwGsIpFAxm6GWKBAJVMlqUTJuZlPo3PTYB398y0WlJiK9sl74
-	Ch8HhW8jQIyr6fT4zrW2n2uPKCoyt+SmvKRGkuHs426EZCEmAPqSuQ==
-X-Received: by 2002:a17:90b:4a4b:b0:3ab:188b:c5be with SMTP id 98e67ed59e1d1-3acef15462cmr4793176a91.45.1792332536192;
-        Sun, 18 Oct 2026 07:08:56 -0700 (PDT)
-Received: from alanhc-14700.tailb22ec2.ts.net (180-177-138-120.dynamic.kbronet.com.tw. [180.177.138.120])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac947cf9a5sm16970791a91.15.2026.10.18.07.08.52
+        d=1e100.net; s=20260707; t=1792333394; x=1792938194;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=A95fhrvfAAlu2Cvs/sZqanN19o2eeng7TB9Tzs9GgKQ=;
+        b=GL3HluNnzUeZoeojQkwT/QjWoEngY1UgEGWm2Mp5SWGHkIv23cN9AgeIYA5fvenrSA
+         949kDJDbN0A35wimVan4tVv57wraG+nxWiIN0G7HMuoWKRnAja1xVpB+TgvSL3euAa6S
+         7JhesFlRqw3DV2J5ndbAe1anr4CzqXUUj3nrUeFaeMSwsLqGkbULs8jkDMPCfKd+4fpc
+         zKG8aXEokcXgJofv++WlnONvYPk1pZPf3jyd77M4fkadQ5cQtvgoqhM4FJzcQ4UseuNM
+         /9gKu+kwQB7szvWdxOMGGcnmPbsJNzj1lZkM3LcFyd24l21xwNmVnTrNwJ7aDVnwGpdK
+         Nugw==
+X-Forwarded-Encrypted: i=1; AKwUvBxLBf44E7BaJtodku5zm3Z1oQ3eSA1R8QSJatDSyiC6g1y6lFavXRiCCBfv0gJ63DxQ1jlIbhB8K19y@vger.kernel.org
+X-Gm-Message-State: AFq9FYIpIEV+R9RJJszaMp7Kchus2TvOXbmuYADDrD5L40XV6dAAWo0k
+	TOOhFJF+opTOsSJI8pbvBoNoMocKu2pEqTucUGLO1gv5J7tSbYKA1gkM
+X-Gm-Gg: AYBFou34LsUGZaLuFrbVq8DG6P/L1k3HYYggUhKpvTgbEuTsr0cyfo65adB0J12tiyF
+	BefwVGIZHWDjoga024uXOIDMc4FhkInp1+jzUKkjRMrCW9VztvmAJnhsqkFLUFK5AbIu569SbAO
+	qHFcnzRK7zVvXPbJ3XOtAEDfPOMs6ujyZ190fIK4LcV56dGY/QnW3FB4LG7V7hsFNGcNPY+yJJ3
+	RX81e5/7LIgV016nnbzDAZIIhoof39XCIK2YZ3JhVfWrt3e4z6PCLLZjpp76FPRJFIoK6Yp/v1G
+	6WjQuV8H3rXpMZjckuQuv3AqvEJzvRGJw7ToPweF56xWqA4mxCH6lOYBo5ZF1Ag9DuGgjDLxr9i
+	r/R+Rl1P+iug9Yx8cYU2gFgF7RplOnwsWernPzXfwZtMFseNzWdJ/g0kOkmxdAcMBL2frwKBmMV
+	TIfM03teJ3ZCMxRzS3ZKMlWLSkbtg2FOorjARVEK11KOB9VpbZ/W+XCEyaQsEf+O/H7KDgFHD3m
+	eVLk2JtY6DzF4gss/6ePn60nhtwz3TcJw7PMx2a1C4+MtDAmKwXdB/UvepBLd7EBUm/Jw5sBBys
+	wsrGcqrWcynBROKOQk/GTg==
+X-Received: by 2002:adf:e18e:0:b0:48c:7387:6b88 with SMTP id ffacd0b85a97d-48e07fa0252mr10691595f8f.37.1792333394198;
+        Sun, 18 Oct 2026 07:23:14 -0700 (PDT)
+Received: from Lord-Beerus.station ([93.66.71.207])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f8cfesm14971909f8f.37.2026.10.18.07.23.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 07:08:55 -0700 (PDT)
-From: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
-To: E Shattow <e@freeshell.de>
-Cc: Yixun Lan <dlan@kernel.org>,
+        Sun, 18 Oct 2026 07:23:13 -0700 (PDT)
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
+To: Frank Li <Frank.Li@nxp.com>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] riscv: dts: spacemit: k1: mark boot-critical SoC nodes bootph-pre-ram
-Date: Sun, 18 Oct 2026 22:08:42 +0800
-Message-ID: <20261018140850.1630481-1-alan.tseng.cs@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <05e0c9e4-4e27-4114-866a-ec55c33ba349@freeshell.de>
-References: <20261017180141.3477743-2-alan.tseng.cs@gmail.com> <05e0c9e4-4e27-4114-866a-ec55c33ba349@freeshell.de>
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Luan Rafael Carneiro <luan.r@variscite.com>
+Subject: [PATCH v1 1/1] arm64: dts: imx8mm-var-som: Use the official product names in model strings
+Date: Sun, 18 Oct 2026 16:23:10 +0200
+Message-ID: <20261018142310.28242-1-stefano.r@variscite.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,28 +86,48 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi E,
+From: Stefano Radaelli <stefano.r@variscite.com>
 
-E Shattow wrote:
-> Drop this last paragraph/sentence or place after scissors line, not for
-> the commit message itself.
+Replace VAR-SOM-MX8MM with the official VAR-SOM-MX8M-MINI product
+name and identify the carrier as Symphony-Board.
 
-Thanks, I will drop it in v3.
+This aligns the model strings exposed to userspace with the product
+names used in Variscite documentation.
 
-> Presumably the BootROM does configure all of the above?
+Co-developed-by: Luan Rafael Carneiro <luan.r@variscite.com>
+Signed-off-by: Luan Rafael Carneiro <luan.r@variscite.com>
+Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
+---
+ arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony.dts | 2 +-
+ arch/arm64/boot/dts/freescale/imx8mm-var-som.dtsi         | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-Mostly. The boot straps select SD, eMMC, SPI NOR or NAND, and the
-BootROM loads the SPL from there, so the SPL needs the same
-controllers and the clock and reset controllers behind them. The
-BootROM also prints to the console UART.
+diff --git a/arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony.dts b/arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony.dts
+index fd0a1862ce90..d9b588526542 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony.dts
+@@ -11,7 +11,7 @@
+ #include "imx8mm-var-som-wifi-bt-iw61x.dtsi"
+ 
+ / {
+-	model = "Variscite VAR-SOM-MX8MM Symphony evaluation board";
++	model = "Variscite VAR-SOM-MX8M-MINI on Symphony-Board";
+ 	compatible = "variscite,var-som-mx8mm-symphony", "variscite,var-som-mx8mm", "fsl,imx8mm";
+ 
+ 	chosen {
+diff --git a/arch/arm64/boot/dts/freescale/imx8mm-var-som.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-var-som.dtsi
+index 514cc568fb71..e717bc229d3e 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mm-var-som.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mm-var-som.dtsi
+@@ -7,7 +7,7 @@
+ #include "imx8mm.dtsi"
+ 
+ / {
+-	model = "Variscite VAR-SOM-MX8MM module";
++	model = "Variscite VAR-SOM-MX8M-MINI module";
+ 
+ 	memory@40000000 {
+ 		device_type = "memory";
+-- 
+2.47.3
 
-i2c8 is different. The BootROM does not touch the PMIC, but the SPL
-has to set the PMIC regulators over i2c8 before it can bring up DRAM.
-I will give that as the reason in v3 instead of the U-Boot sentence.
-
-The BootROM can also load the SPL over USB fastboot. I left USB out
-of this series and can add it in a follow-up.
-
-Thanks for the review.
-
-Hung-Chun
