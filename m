@@ -1,65 +1,65 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E6C2E8DE3
-	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 12:32:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D683F49B5A1
+	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 12:32:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792326772; cv=none; b=mZMZ4It6YjEuB19H4HGIGaQ8IDLrlt1uUWCmEqHPL/LPd1RjvI0+gBX22nKq4HT2yWxr8Zf4FYOYM3sWs77VL+UnwM890w0qU8yKkKffIx8GU0CKL6MYXM1Pu0WuPn7PWVksV3cku7PmvsvtVdAJnAN7cALx1Wk1r21ZVHTSJc0=
+	t=1792326773; cv=none; b=SG1LbtRbC8nWc85XS+qZp92tQ4pbTGjumGnwDrP8ZNdNSD3XWoDwroTK1QBninOnqHXoxA70qMch/B/JXtOXY2JHTGW3JbPIG44U8yTLWa+j1H7bYIydk/rxPkwbk7XdKS5ojhfCSYRwUKeDFp6JAer9Q0yRMzJjxPnARH0hmPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792326772; c=relaxed/simple;
-	bh=kTz07uCPd3IIAU2tuW29eA2AVOLw4tb4lfqCUC95pLA=;
+	s=arc-20240116; t=1792326773; c=relaxed/simple;
+	bh=zLxW7Bv3Ru3U7jHr0/eoztXfDcqq0fHfPDwR5r/Ud/Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=J6t3vX8TX7ZvQt1tDx3Ynu2w0J5Bltu50vlG9+kIWJTYHf/V2viqqD00XONxGunQnhq2RweVPG1AITgP4ORh+Enn14WBGLTc4x8AEdOC13DF0uHuPDRoSHPKMTz+Cbs82C3FGionFdYKGopirDLla9G/oDOmtoh800VjmUeyFQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JIzZjE0H; arc=none smtp.client-ip=209.85.128.53
+	 MIME-Version; b=pv8DjF9lUFYqU/1dl6Sd0/u30oW6eyIOEvdpvVL+bPdxU6MelnZMG/2FQjjYnFDEYDVdVc4UPFB1QIcmcmfwwNwlwdu3ZRL/m9jtpI7Y5i8ozrkTOGiDrFjOD13lScAAu6lyxU2YbLtVdk15b/A+D/Jv5HcnlPUKTezBjAPEB8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PNBI3zNh; arc=none smtp.client-ip=209.85.128.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JIzZjE0H"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a1e3b87ac5so2660555e9.1
-        for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 05:32:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PNBI3zNh"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a1dfd49525so5140695e9.0
+        for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 05:32:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792326767; x=1792931567; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792326770; x=1792931570; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Mbhy+FzLVarX5z41FEjg/6yaqn9vrkSa3rr8ypDlujw=;
-        b=JIzZjE0He2Cskos8ENN1d9+3AAU7YsJU88+GdoVg3IeOvPu8VyKbYLUKOiMDCBaquT
-         yFTb4iWGmI4HBsqiiZswBQqpnp38R5i8FpGzjaap9X69u+734+xp4t9EEEXClea5DCef
-         IZQHQ8dptpgQ+2v2Hnyv+VPle5DbhBPWOPXYZt83oI/p+FGJPP3y/0gmLQ8lwikdN/Kv
-         uFp9WXGiD7ilOVe7EeVth2z99qReaLCTMbW2hY4Biswc7PFgsOeFEi5wvDkr4kZRpSUk
-         +qhCS+Qm46frt84XMtCnL/RnhDFR9orJx+zqy3yB7e7fMtxcZU4CsOQv6YgO7AkvETlK
-         fNLA==
+        bh=YoTkqetwDXx7EPpERx3l0yijxyF3Cc+zIbtbMzAnzsQ=;
+        b=PNBI3zNhiPVrd9/ddmWKVYOutTjICv6ukxK4ptNw8+tOzRxoOR0wMCNnA6Zev0P8Ub
+         gvgWxEGHYyb7DsZDjEYSA+9UDBRm/YJqUVXyd98Fk9Nfl/A/dJyyq5aJ+KPLx3UsUbqB
+         0P0HOZ0k+x7Qb0so+8S8vKDDxE9j5yLSqRREAy1Qb3gl8k/74Qe/xYMKY8YumA2VSLYW
+         wwFEb8kjgazgGOwniT4gcW/0+urDRtvcUXvaaXx5Jp1jdy0KahJLZBALwO23QEv5k8F7
+         8bUDRVMk6dfdc56mwWn/RaJdky1TafjDKi2+Ge29c8D/e0q6Qw7IQ1HXq2nrsW0OxDJP
+         7Q5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792326767; x=1792931567;
+        d=1e100.net; s=20260707; t=1792326770; x=1792931570;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Mbhy+FzLVarX5z41FEjg/6yaqn9vrkSa3rr8ypDlujw=;
-        b=OASqbA5trXpIxs8s1CvvC6/LTurAYG6HUVPstPVzHKBTpiiLYt/PX7DOG2j0JotebD
-         Sy/BJ4/Kj0rs6ZdF9d9/Z6a7f18zlgAiyGRc2Zr8XrvTjUisniJp24K6+B8j7mfknykb
-         cYhHg4UVZXECfVf96WIrOn8/gGH55WwB6XjaXnD80I0fru/iYjhiCKoBZqrT0/oYX67R
-         4cmT3LcNTZo+QtgA7yVI8TntR4E7DkeoyCLbtSNj7UmUlAvwi8OLbzzWqRpRMdjeA83r
-         cISACUN0Gvijrlke+DUPW4jaVOGj2S1b9sxWBEF2j+NOnoKG0XcnrUXpGll1Wy7Dvkbp
-         980A==
-X-Forwarded-Encrypted: i=1; AKwUvBzccufjAQtEaxRurAeS0/Y5AbOjj6j7AQAAzIrg3ICPywcnwpcA017gOsZKYMFVTIjszuk0rBum68IX@vger.kernel.org
-X-Gm-Message-State: AFq9FYLwbYnlPYDALidl25f0mHuG+qNkif+lydJNewwbweIa/OuBX0pI
-	AC5ebFKzz/g9EKjR8B/bp9oOFMRVJKbeO8VcyuakzYsjEv0+xfigW4KJDFgFMA==
-X-Gm-Gg: AYBFou0twZmrb9VZEnCn3DpWgKo3G8eJWkkwWbpsUb3CxxhwRIEbgflMpBgFbItV3ah
-	frzoY5y4sd1LB5RbLa57xzDW6c5rWJwfhOy3cICxaopSIG9bwaWtl1l2eVtzT0NL6twtmh/Ah6p
-	Or/dfX+i37S2YkLwlnTf0RV2Toh5aPOUAREigVHYuNcqbgZreslNlA0D1Uycw+VpryPxjrdjSp4
-	rQId6IQsIbFrfubqKfhl6KszGSAyuztbIRLKuuK/iXEYa7bSCZPpSwVJoZY8ea5okmSrp/EzVYd
-	EIW+YdGbPhSZfToTUtOf6P6P15bF7AlB/be2YuITSlUxhYp4MM4AG+2Gj7+9QPN4zEX/sBJDfoG
-	yHHLn5TFcAnXsl9YhF699BlRUHx3seeY9qneRtrsG4FZwqesy1nBlAzTsGmLnM+GOwj+XR2C6hf
-	q96prsj/3F/VPZwv+1IA92/B09xB0tbJNaOXltL/ITR6zfNObxwa2KlQzLkG09QcAOnlASyOeYP
-	0NZyL5wg4de1lh0cmpIThWhX1pd1lwh0shvoebA7AU/ISzF8uxBvUCrmdiAMckIl3q1VpyvBgOa
-	InrPTlErbnoppCQOgJLi4RU=
-X-Received: by 2002:a05:600c:6815:b0:49f:fd40:80fa with SMTP id 5b1f17b1804b1-4a1d762367fmr103844675e9.34.1792326766510;
-        Sun, 18 Oct 2026 05:32:46 -0700 (PDT)
+        bh=YoTkqetwDXx7EPpERx3l0yijxyF3Cc+zIbtbMzAnzsQ=;
+        b=bGol/S2hV75wkLWWajye6/m2HAoM41pET42PZ9zuwNK8KCHjKhGsWcbMbrw6n8tb8y
+         snvCNFulgdxwWuqMayfHhWJrh47GagjS6CocvuOOzJQ1mFFX483bQR3RPJfQUkR5oqwn
+         5j6KSefRShE/EzPfMSFmd40fjgG2nEiLeUGd0Ix3Vg2kWdqeafpYJWSItZb8bQnczyQu
+         ygs06YEkoWng+gS2iVX2QDCGsZ2jfI8ybM5Rps6gFnGXfStWlMJcOYIKl+nvQpHaUt0A
+         HK0gX/aCMWh+2Sxwl4TPES+W9UWHA8mKRlWVaRCDKMWZ5NoRbAVAyV5AuqU3x4Z7AKyG
+         BO0A==
+X-Forwarded-Encrypted: i=1; AKwUvBzpbImMxXNv1dzuotmZ8xfvgz0VGLmSJTgIWhbEvaudATNJdQIlvM7Ajfx4jdF4VZv+3eHWy2ldxKnh@vger.kernel.org
+X-Gm-Message-State: AFq9FYKacHfZJRmndH1smtNRCCregPkWz9/bxkIRHpF/4zKX11iSbWV3
+	8GV1HIMbdDdd4QcqLiogCnjGYwNlwR3QJ88EXT1xum6aNtYYn0AIJJ7evvLIcA==
+X-Gm-Gg: AYBFou0evLHyBNMmnQMRAK04jJ1aOk0f+GOxRAn0+nOemfHsSewtBR7PLOU5oDZNDb2
+	FZhoIhR5DPz5cuXX0NP1P7hIrUxdqOuxkWW9eM4AlR+KbP/opp3Z+e8dv+hf/VtlnrEbrRzowdK
+	wazEv60wo4L44wVmCUgDmYFE/x9KbUnKPxVmR8LzaHlOuAAConUmMjJcPnWuiIHqk+n1+AFS9qP
+	vu9hWj4sUeycgokqTI47/Wo8MgAtciLHoKKoZUjAptCddY+Kdy5WqJ6xtYNDFiJBDhiI7kULfsS
+	ya5nslqJkNtlmPKFQoHqW6VIeFXROM1pGmXxcjxNuQUzwPJOAQtXHQRpEJmfiNfkWgLZ6qguxaM
+	uqYCBFF+GBsIE9uH1yCB44jXSoQO+pbJPaphfRh2WPM18ewCGOheqGqHGeZUv8j66OHiMSLfaoz
+	A5WTTR1+yxlzjHcVYm9FegwbAJgmFlshM44fukjV2ofV1Es4H3RVI/MKDyzqGG7F9aAkGdctvH5
+	ein6zcqTHjTER1pdDTGmuBPzEJK2WcUqJ4rjynMxGAS9PwTW4wn7koRnhDMDU514cxnKUxltzkI
+	gGcVODOQHIJRfQHsvu23ITY=
+X-Received: by 2002:a05:600c:c117:b0:4a0:1c0e:b057 with SMTP id 5b1f17b1804b1-4a1d75af362mr75981735e9.4.1792326769990;
+        Sun, 18 Oct 2026 05:32:49 -0700 (PDT)
 Received: from Lord-Beerus.station ([93.66.71.207])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1c8ddde4esm245012535e9.12.2026.10.18.05.32.45
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1c8ddde4esm245012535e9.12.2026.10.18.05.32.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 05:32:46 -0700 (PDT)
+        Sun, 18 Oct 2026 05:32:49 -0700 (PDT)
 From: Stefano Radaelli <stefano.radaelli21@gmail.com>
 X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
 To: Frank Li <Frank.Li@nxp.com>,
@@ -75,9 +75,9 @@ Cc: pierluigi.p@variscite.com,
 	Sascha Hauer <s.hauer@pengutronix.de>,
 	Pengutronix Kernel Team <kernel@pengutronix.de>,
 	Fabio Estevam <festevam@gmail.com>
-Subject: [PATCH v1 1/4] arm64: dts: imx91-var-som: Mark I2C recovery GPIOs as open drain
-Date: Sun, 18 Oct 2026 14:32:24 +0200
-Message-ID: <f591f8cde74ef4b3bd0e2fcc2108b8564b195e90.1792326585.git.stefano.r@variscite.com>
+Subject: [PATCH v1 3/4] arm64: dts: imx93-var-som: Mark I2C recovery GPIOs as open drain
+Date: Sun, 18 Oct 2026 14:32:26 +0200
+Message-ID: <775959bbb03ff0b5dd5c45b5c8793ab8945adca3.1792326585.git.stefano.r@variscite.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <cover.1792326585.git.stefano.r@variscite.com>
 References: <cover.1792326585.git.stefano.r@variscite.com>
@@ -98,14 +98,14 @@ open-drain operation on SCL.
 
 Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
 ---
- arch/arm64/boot/dts/freescale/imx91-var-som.dtsi | 4 ++--
+ arch/arm64/boot/dts/freescale/imx93-var-som.dtsi | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/freescale/imx91-var-som.dtsi b/arch/arm64/boot/dts/freescale/imx91-var-som.dtsi
-index b30a0d8a81ba..a90a784f1966 100644
---- a/arch/arm64/boot/dts/freescale/imx91-var-som.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx91-var-som.dtsi
-@@ -89,8 +89,8 @@ &lpi2c3 {
+diff --git a/arch/arm64/boot/dts/freescale/imx93-var-som.dtsi b/arch/arm64/boot/dts/freescale/imx93-var-som.dtsi
+index 24063bf8183d..b0ffcb534cb6 100644
+--- a/arch/arm64/boot/dts/freescale/imx93-var-som.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx93-var-som.dtsi
+@@ -104,8 +104,8 @@ &lpi2c3 {
  	pinctrl-0 = <&pinctrl_lpi2c3>;
  	pinctrl-1 = <&pinctrl_lpi2c3_gpio>;
  	pinctrl-2 = <&pinctrl_lpi2c3_gpio>;
