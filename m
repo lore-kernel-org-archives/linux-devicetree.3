@@ -1,354 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 977FE442118;
-	Sun, 18 Oct 2026 06:45:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88A603D25AD
+	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 07:17:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792305947; cv=none; b=AN51+Dr6X+pvlF9xLW53ih6p/BIh+6NbFK7DlEKuu2sCTz2MWdA7A3R+6KhJZwx20J9a3DrcDZ3fsj8Jc1qYZ8J4NeGTIlFNErB2Hs+YzOdj2EtnVZhHNmJr8WGpj/5cV8pl5wxfQ6UE9UO6Ohw/LYsFkEZF0VSFTwmEvXB8DLM=
+	t=1792307829; cv=none; b=RMQ0nnrX+cV3h30QSMfuTkWNewjD94QKzKhMphmaDsbwNGbDs+B4c9n8VZ3FPBcNVkUl8kvbstA+CjiB8VZWa0QGDmajyPhl5Zn4OIxxwqEtx084LLfKa7hOjVfmePeUBqDAzMT0HBZA0W8YyZPo7tUUhsHncMsXIJA3bgyx2v0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792305947; c=relaxed/simple;
-	bh=Wo56oYlwkbZsDOrAr4k9FFTv5l+veJH2vxDuLXkRdcE=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=QWAk4ThS0DGJ1HtlSqPkQN1kZXJI7LX4o112xezjrLqvSdITW7MWlYAAkVHoG9tk9jqFWYnP0MajVcabX+O97GHYw+Rder/y8AKsBmaqBzE6DNETN+U+Er+ARIgIW/QvKlylyf/jizpdphFnBFsT1g0oFM2uqHRs8pmx06YRmso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l7TiaQov; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792307829; c=relaxed/simple;
+	bh=uUan4TmU0vUxvbUxw/i2eIb5myqFE5YLG0wMDDAUu/E=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=m3hs5M9bLxsjNeNHt5/v9IBMVh9JS6AZn8hSITxjI9QcnCBfWA4vhmOy1/ly7GCfG7qOFVVwOKIVUD9zK8x9UsJQ99ELgQSBerByLgfdr/bijnuNid8nkJAEEz8QOwJ6352Ghje3hXVfZKCQAo1/KmqO/T5cW3FPjYsiYMWd11o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lpKFPpDw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=e+S6+rav; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l7TiaQov"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 286E31F000C4;
-	Sun, 18 Oct 2026 06:45:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792305935;
-	bh=5fOP/bMQXaA7taKz4VSpGw2+M+edO4QsSogcgYJEQgU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=l7TiaQovMwgw7yDhFnQaELZKPzPGjLxyK8FRg14brB/pN2QmUhPhndHIcTHYH+ISD
-	 ft2+aqncxJLOiYtHWQgN0dMCbw3/oziWmdokHhJt2y9lIfwTn/CSOs3DqHXAxkSO2G
-	 tF/GVW0ywVDqH72/TDDyMxra6aO6kHRbY/TwoIBfO45WkBaHjMpMd0tlR2bcLckplH
-	 iqh9L+BXyJVzBlBJ/Nxtijjm5zamPc2wMfmWjXvKen5zBmGhDFZaeAqcsnfbOaCUK4
-	 CJ66hf0Coit5bYZCQAsvq7UI5Bvnv5HlrlJ3p+ygvdHFL6n3KPmQOBdCEtIZfVBhSE
-	 56+Jf0R1HUTHQ==
-Subject: Re: [PATCH net-next v12 5/6] net: stmmac: dwmac-rk: add SGMII support
- for RK3568
-From: netdev-bot+sashiko@kernel.org
-To: coiaprant@gmail.com
-Cc: kuba@kernel.org, netdev@vger.kernel.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, pabeni@redhat.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, heiko@sntech.de,
- maxime.chevallier@bootlin.com, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, hkallweit1@gmail.com, linux@armlinux.org.uk,
- david.wu@rock-chips.com, linux-rockchip@lists.infradead.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Date: Sun, 18 Oct 2026 06:45:33 +0000
-Message-ID: <179230593374.3135.1162107426363265471@kernel.org>
-In-Reply-To: <20261017054406.1828061-6-coiaprant@gmail.com>
-References: <20261017054406.1828061-6-coiaprant@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lpKFPpDw";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="e+S6+rav"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69I5twXO2981031
+	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 07:17:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=O+gTfOsXpjgINoG1d0vg5N
+	if4Ym3/qlhF0e0i8UvHMs=; b=lpKFPpDwAMkdN8XUQIndBQzvBZ2MBBV2NChvwo
+	X5xKz5gRmM5EohMebsyGml3kp1uKLNC30de1L441yoJcxDiUpT6LcWqb//uHi9d6
+	ZqtrT2gJePYqNwQBSlDu5zJQqp9FnOFwW7TtJWjV1h3lv2K/PcvJ1FWzQrBwDB9P
+	Xx8f0/89zoB03F4Vi2briXkC22p8AC1WfY4s+EMfmGNeQfHEwbCblj4WtWaJ7bkZ
+	NF2DdbvRR8WrpdQ0q1buJ8jeE7nwOk0j2cQ3OhFGAHAoYoj0FgupTFQZ2QD5vLxQ
+	CaWqFLw3bFTdHsC8sbTdv9tFrTLkB9AoeE4Yler3OG11JyoA==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hbxcntxdh-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 07:17:07 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-35a4d2e39acso2759162eec.1
+        for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 00:17:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792307826; x=1792912626; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=O+gTfOsXpjgINoG1d0vg5Nif4Ym3/qlhF0e0i8UvHMs=;
+        b=e+S6+ravRF23bt1Whqgu9EWY6B1KqQkJGXWsiRzB8zAF30+vwYOThL5SztlpzVv38L
+         cwNRHAfJv5ei/Zpat6RqaiE5pTiJrUht6nSsjPQsOFQ4fo3ITDCSTvCIuDd0SHfohL4V
+         LUYilOONH54TclGmQOBNVPMSqvR1HP3iLt2GQjbXCus3uWDNmn565kKpCcsLFlGx/AVm
+         jZeypybnv4DkmfhAQRIa1VKyraQ6UHPKItGxLYoeHcmqbls9hOg70nn69RJOalR6tiHM
+         hU7JaGWpWu8DsWFzyB6EWySBkmi75kAcsYqYqgzJRslH1k3D+utzWMN+OylunJnSPgQT
+         NeNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792307826; x=1792912626;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=O+gTfOsXpjgINoG1d0vg5Nif4Ym3/qlhF0e0i8UvHMs=;
+        b=MxydcjiPWpCoucwwTq7Q7oXNRmaGgXYee9LrrR9haxT7j/m9xeuQqeJTbN5T4S9+SI
+         D+NLBoWxGOtkN+D6n9bQ3IHNr/HIGa5/UIFZTuCQMf5SWrhSOt62oO9WBy8xT2iO+PAj
+         M3ylNUV7/yryr3FWLjnntMG4e9KQDye66rp1BXvO3vniyvptZqu8XPyh5gHHiZKW8/nA
+         rTuPcegbUmcRcfT08yipNaL3W2xzq1Yr/GfqKVvANxHcEA1QeH6ZoTKVUy1TvgOgI9WQ
+         KymO4MEy/z5WGsSwIOSAD+8Se49HGtMQFAgNmDbyQSEuaxKc2xuv3VMESnim0kWAT6Cm
+         SxDw==
+X-Forwarded-Encrypted: i=1; AKwUvBz+n4PCnEFI+ttbL3W4OPVOiH6KLJpZmXeYWWhox0JZCYXhpGj3tcHxknykpYcHQTWzxC+Fedg5b7nc@vger.kernel.org
+X-Gm-Message-State: AFq9FYLWaw5e3rXuf6xH+c5roP9byHYUgUCsiElwlfjU6UsWs6OtirSI
+	dCFE/jDgkM6QxPXZekTGoZJprYXcBKqrwVJWKu8G/0I2umdurgJnIlZBq6H1hgysUWg1aVSv8ZO
+	h9HN45+5E+Tb2AHRE+loQJqiMKT+yD3Glu0oqUX62J+rPfGwTxUrsJBMigJhKIb5MLmJwBQzusL
+	I=
+X-Gm-Gg: AYBFou011mVEPBwzbzK6E+zz+tBJbp+k1aHDeIAWlKoBzclTGUq9yfzLHEMktjoBUOM
+	MOcGXofsg+Voe6OkVRx6+K+SVzPP3KZdxlIToYkTMrnAYjUT+KF2OPfVQAizA9DdPWUHaU9c7gf
+	+b7s5FnvHnGk1+9wBr12WehbESbulIOLVE1vabuT41QlgTFZgo2NSeywdcXI01rV2kjgJFSvGje
+	m4QfCxmf1o7nlYGPw5PE8C7TIwAvBUQufQKJ8tpzDsRccOq8+9hInUVRa/hIKImfV8bgxXi2wUn
+	glDriC4JusAinVWdT+1Nu4S2RCYLBkHh++lQVg0hJiPFQpqNH+q3pjfnJjYFSIZPCE4WAUU9cFr
+	m81UMAOBlKp2LFgezGrNLtSDx8kJCbVmmljU=
+X-Received: by 2002:a05:701b:450a:10b0:166:862b:9bcc with SMTP id a92af1059eb24-18512f1b124mr6603196c88.18.1792307826227;
+        Sun, 18 Oct 2026 00:17:06 -0700 (PDT)
+X-Received: by 2002:a05:701b:450a:10b0:166:862b:9bcc with SMTP id a92af1059eb24-18512f1b124mr6603172c88.18.1792307825668;
+        Sun, 18 Oct 2026 00:17:05 -0700 (PDT)
+Received: from hu-apateriy-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-183190aa7bbsm18646776c88.5.2026.10.18.00.17.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 00:17:05 -0700 (PDT)
+From: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+Subject: [PATCH RFC v2 0/3] arm64: dts: qcom: nord: Enable SoCCP remoteproc
+ support
+Date: Sun, 18 Oct 2026 12:46:45 +0530
+Message-Id: <20261018-nord-soccp-dt-v2-0-4d713d316e9d@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAF1y1GoC/12NwQqDMBBEf0X23JUkJUF6KhT8gF6Lh5isNVCNz
+ VppEf+9QXrqZWBmmDcrMKVADKdihURL4BDHbNShANfb8U4YfPaghDJSSI1jTB45Ojehn7FtnfK
+ qqpw2AvJmStSF9867wbW+QJPDPvAc02f/WORe/XDmD7dIFEgkj5Y6rX3VniNz+XzZh4vDUGaBZ
+ tu2L5+btsG2AAAA
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.13.0
+X-Authority-Analysis: v=2.4 cv=BNUmP1QG c=1 sm=1 tr=0 ts=6ad47273 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=vAcK-UyUk3z7rgjP8dMA:9 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-GUID: A1pd_IuHPrsz2JIeMTIWN4M-ff40iEkb
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE4MDAyOCBTYWx0ZWRfX7Mh1BiganbEN
+ s9E5QvGq0aboP8bz9Uz0+2uqjO/w9RSjDgzBpCALNq3YQ8reQQuh5t9cR9vztrw4iz4ZlsAhuXp
+ lYxUTc/TQeMPn5L9/P7FlBKZy9wtbck=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE4MDAyOCBTYWx0ZWRfXz8PWkju9IK9h
+ +s3wprVEPujWtrW95sKolncbtohJgR9+Npyudg+QfpZZaaogxwHoJhhhXDBbCpoMr79Lz75j+ZO
+ BJ1lzBA75dQa/122yWyZJu5muTB05h7ZFD49nLsc8yQhRO/F0gJoT0e6AaogAYAWcM9hef911fD
+ GVzAo5RzR342z5FaDpu6Bmthrxnr9ZfKvH5plSSfVcLcFz/iL+2NjYNXwJoDZgu5pObKuaf/5T1
+ FL3zT9vmEh2l9egXg5M4W/vo0X5FxDABPJq9MoNvQjwze1zIfIqPCDedc35JzTsdQi8wYArmuih
+ RkrzhS81vYnQleNO6+WRb9f4gWPye3t7NBuYYejELm30EJqXDD7GV2Eaubink0hjHy7NBk2u2dh
+ 9rbfSTJ07sqnksjB4bmMz3y9EdH69bWabYQ1sPrJKTUq/ZMw1N3pzlLmn7nZHNOy8CuT7RfmBvb
+ vUedy6KsTwViXH7XtVQ==
+X-Proofpoint-ORIG-GUID: A1pd_IuHPrsz2JIeMTIWN4M-ff40iEkb
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-18_02,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 impostorscore=0 priorityscore=1501 malwarescore=0
+ phishscore=0 lowpriorityscore=0 clxscore=1015 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610180028
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+This series adds device tree support for SoCCP
+(System on Chip Control Processor) on Nord platform.
+SoCCP is used for hw fencing for display and other
+use cases on Nord.
 
-Critical: 0 · High: 0 · Medium: 3 (2) · Low: 0
+It has the same interrupts, SMP2P states, power domains
+and clock as Kaanapali SoCCP, but its firmware ships without a separate
+SoCCP devicetree image. It therefore takes a single firmware-name and
+memory-region.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Prerequisite series:
 
-- [Medium] On SGMII, phylink is offered more interface modes than the
-  RK3568 glue can configure.
-- [Medium] The commit message says out-of-band SGMII at 10/100 gives
-  working TX and failing RX on RK3568, because the MAC clock is fixed at…
-- [Medium] The new SGMII path cannot open a PHY-less in-band link, such
-  as a direct SGMII connection to a switch with managed = "in-band-…
+[PATCH v5 0/7] arm64: dts: qcom: nord: Add remoteproc and PMIC support
 
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but
-  rk_gmac_resume() throws away the return value of rk_gmac_powerup() and…
-- [Medium] This problem wasn't introduced by this patch, but
-  __stmmac_dvr_probe() calls pm_runtime_get_noresume(),…
+https://lore.kernel.org/all/20261014063953.549379-1-shengchao.guo@oss.qualcomm.com/
 
---
+[PATCH v2 0/2] Add binding and driver for Nord SoCCP
 
-net: stmmac: dwmac-rk: add SGMII support for RK3568
+https://lore.kernel.org/all/20261014-soccp_driver_dtbinding-v2-0-09d9c1378e9e@oss.qualcomm.com/
 
-This patch adds SGMII support to the RK3568 dwmac-rk glue. It sets the
-GRF mode bit and creates the Rockchip XPCS through xpcs_rk_create() in
-new pcs_init/pcs_exit/select_pcs callbacks, and it asks for in-band mode
-via default_an_inband. It also reorders rk_gmac_powerup() so the clocks
-are enabled before the SGMII check, and it merges the error unwinding
-into one clk_disable label.
+Signed-off-by: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+---
+Changes in v2:
+- Drop the BWMON nodes from the Nord SoC as they are outside the scope of this series. (Konrad, Abel)
+- Enable SoCCP by default on Nord and drop the board-level status overrides. (Konrad)
+- Amend the RRD and Ride-Embedded board commits to describe the addition of SoCCP support rather than its enablement.
+- Fix missing whitespace before the opening brace in the RRD SoCCP node. (Konrad)
+- Got Reviewed-By tags from Abel.
+- Link to v1: https://lore.kernel.org/r/20261016-nord-soccp-dt-v1-0-ee13aef55d8b@oss.qualcomm.com
 
-Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TRM%20Part1%20V1.1-20210301.pdf (Page 386)
+---
+Anurag Pateriya (3):
+      arm64: dts: qcom: nord: Add SoCCP remoteproc DT support for Nord
+      arm64: dts: qcom: nord: Add SoCCP on RRD board
+      arm64: dts: qcom: nord: Add SoCCP on Ride-Embedded board
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> index 72bdbcb5e863a..c4db919ec1640 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+ arch/arm64/boot/dts/qcom/nord-embedded.dtsi     |  9 ++++
+ arch/arm64/boot/dts/qcom/nord-ride-embedded.dts |  4 ++
+ arch/arm64/boot/dts/qcom/nord-rrd.dts           |  4 ++
+ arch/arm64/boot/dts/qcom/nord.dtsi              | 57 +++++++++++++++++++++++++
+ 4 files changed, 74 insertions(+)
+---
+base-commit: 601369ae08a35f1698a96bbcff02f3665a0cf675
+change-id: 20261015-nord-soccp-dt-bbc2d288c560
 
-[ ... ]
-
-> @@ -1211,6 +1239,44 @@ static void rk_phy_powerdown(struct rk_priv_data *bsp_priv)
->  		dev_err(bsp_priv->dev, "fail to disable phy-supply\n");
->  }
->  
-> +static int rk_pcs_init(struct stmmac_priv *priv)
-> +{
-> +	struct rk_priv_data *bsp_priv = priv->plat->bsp_priv;
-> +	struct device_node *node = priv->device->of_node;
-> +	struct device_node *pcs_node;
-> +	struct dw_xpcs *xpcs;
-> +
-> +	pcs_node = of_parse_phandle(node, "pcs-handle", 0);
-> +	if (!pcs_node)
-> +		return -ENODEV;
-> +
-> +	xpcs = xpcs_rk_create(priv->device, pcs_node, bsp_priv->id);
-> +	of_node_put(pcs_node);
-> +	if (IS_ERR(xpcs))
-> +		return PTR_ERR(xpcs);
-
-[Severity: Medium]
-This is a pre-existing issue in the stmmac core, but this new path seems
-to make it much easier to hit. xpcs_rk_create() returns -EPROBE_DEFER
-until the XPCS is bound. fw_devlink does not appear to track pcs-handle,
-so the MAC can probe first.
-
-__stmmac_dvr_probe() takes a runtime PM reference before
-stmmac_pcs_setup():
-
-drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:__stmmac_dvr_probe() {
-    ...
-	pm_runtime_get_noresume(device);
-	pm_runtime_set_active(device);
-	if (!pm_runtime_enabled(device))
-		pm_runtime_enable(device);
-    ...
-error_pcs_setup:
-	stmmac_mdio_unregister(ndev);
-    ...
-}
-
-The unwind labels never drop that reference and never disable runtime PM.
-
-Does each deferred probe attempt leak one usage count on the GMAC device?
-Runtime PM is left enabled, so pm_runtime_reinit() would not reset the
-count. After the eventual successful probe, the GMAC would then never
-runtime suspend and its clocks would stay on.
-
-> +
-> +	priv->hw->xpcs = xpcs;
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Does this work for a PHY-less in-band link? An example would be
-phy-mode = "sgmii" with managed = "in-band-status", a pcs-handle and no
-phy-handle.
-
-The PCS is only stored in priv->hw->xpcs, so hw->phylink_pcs stays NULL.
-In stmmac_init_phy(), phylink_expects_phy() is true for MLO_AN_INBAND,
-and the xpcs bypass only covers clause 73:
-
-drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:stmmac_init_phy() {
-    ...
-	if (priv->hw->xpcs &&
-	    xpcs_get_an_mode(priv->hw->xpcs, mode) == DW_AN_C73)
-		return 0;
-    ...
-		if (addr < 0) {
-			/* If a custom PCS is in use, no PHY is needed */
-			if (priv->hw->phylink_pcs)
-				return 0;
-
-			netdev_err(priv->dev, "no phy found\n");
-			return -ENODEV;
-    ...
-}
-
-SGMII uses DW_AN_C37_SGMII. With plat->phy_addr == -1, this would log
-"no phy found" and stmmac_open() would fail with -ENODEV.
-
-If the DT has no mdio subnode, the legacy MDIO scan in
-stmmac_mdio_register() would instead fail probe with "No PHY found".
-
-The commit message recommends managed = "in-band-status", so is this
-configuration expected to work?
-
-> +
-> +static void rk_pcs_exit(struct stmmac_priv *priv)
-> +{
-> +	if (!priv->hw->xpcs)
-> +		return;
-> +
-> +	xpcs_destroy(priv->hw->xpcs);
-> +	priv->hw->xpcs = NULL;
-> +}
-> +
-> +static struct phylink_pcs *rk_select_pcs(struct stmmac_priv *priv,
-> +					 phy_interface_t interface)
-> +{
-> +	if (!priv->hw->xpcs)
-> +		return NULL;
-> +
-> +	return xpcs_to_phylink_pcs(priv->hw->xpcs);
-> +}
-
-[Severity: Medium]
-Can phylink select an interface mode here that the glue never set up?
-
-rk_select_pcs() ignores the interface argument and returns the XPCS for
-every mode. stmmac_phylink_setup() adds the XPCS supported_interfaces to
-phylink's set, and the glue does not filter them:
-
-drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:stmmac_phylink_setup() {
-    ...
-	if (priv->hw->xpcs)
-		pcs = xpcs_to_phylink_pcs(priv->hw->xpcs);
-    ...
-		phy_interface_or(config->supported_interfaces,
-				 config->supported_interfaces,
-				 pcs->supported_interfaces);
-    ...
-}
-
-If the XPCS uses the generic synopsys_xpcs_compat table,
-xpcs_get_interfaces() advertises 1000BASE-X, 2500BASE-X and the 10G+
-modes alongside SGMII. The GMAC4 MAC capabilities (MAC_10 | MAC_100 |
-MAC_1000 | MAC_2500FD) do not rule out 1000BASE-X or 2500BASE-X, so both
-would pass phylink validation.
-
-The glue only programs SGMII, though. rk_gmac_check_ops(), the
-rk_gmac_powerup() switch and rk3568_set_to_sgmii() each act once, on the
-phy-mode from DT.
-
-Take an SFP cage, or a PHY whose possible_interfaces includes 2500BASE-X.
-Would phylink then move the XPCS into a mode that the GRF, SerDes and
-MAC path were never configured for?
-
-This also seems to conflict with the commit message:
-
-    1000BASE-X is not enabled by this series; it may be added later if
-    there is a user for it.
-
-Should rk_select_pcs() reject anything other than
-PHY_INTERFACE_MODE_SGMII, or should the supported interfaces be masked
-down to SGMII?
-
-[ ... ]
-
-> @@ -1450,15 +1521,20 @@ static int rk_gmac_powerup(struct rk_priv_data *bsp_priv)
-
-[ ... ]
-
->  	ret = rk_phy_powerup(bsp_priv);
-> -	if (ret) {
-> -		gmac_clk_enable(bsp_priv, false);
-> -		return ret;
-> -	}
-> +	if (ret)
-> +		goto clk_disable;
->  
->  	pm_runtime_get_sync(dev);
->  
-> @@ -1466,6 +1542,10 @@ static int rk_gmac_powerup(struct rk_priv_data *bsp_priv)
->  		bsp_priv->ops->integrated_phy_powerup(bsp_priv);
->  
->  	return 0;
-> +
-> +clk_disable:
-> +	gmac_clk_enable(bsp_priv, false);
-> +	return ret;
->  }
-
-[Severity: Medium]
-This bug was not introduced by this patch, but rk_gmac_resume() ignores
-the return value of rk_gmac_powerup():
-
-drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c:rk_gmac_resume() {
-    ...
-	if (!device_may_wakeup(dev))
-		rk_gmac_powerup(bsp_priv);
-
-	return 0;
-}
-
-When rk_gmac_powerup() fails, the clk_disable exit runs before
-rk_phy_powerup() and pm_runtime_get_sync() have been called. A later
-rk_gmac_suspend() or rk_gmac_exit() still calls rk_gmac_powerdown():
-
-drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c:rk_gmac_powerdown() {
-    ...
-	pm_runtime_put_sync(gmac->dev);
-
-	rk_phy_powerdown(gmac);
-	gmac_clk_enable(gmac, false);
-}
-
-Would a failed resume leave the runtime PM usage count and the
-phy-supply regulator enable count unbalanced?
-
-The new exits added here (the rk_get_phy_intf_sel() failure and the
-default case) should not be reachable at resume, because probe has
-already validated the interface. The clock enable, GRF write and
-regulator enable failures can still happen.
-
-[ ... ]
-
-> @@ -1605,6 +1685,17 @@ static int rk_gmac_probe(struct platform_device *pdev)
->  	plat_dat->suspend = rk_gmac_suspend;
->  	plat_dat->resume = rk_gmac_resume;
->  
-> +	if (plat_dat->phy_interface == PHY_INTERFACE_MODE_SGMII) {
-> +		/* SGMII clock always runs at 125 MHz */
-> +		plat_dat->set_clk_tx_rate = NULL;
-> +
-> +		/* SGMII requires a PCS */
-> +		plat_dat->default_an_inband = true;
-
-[Severity: Medium]
-The commit message says out-of-band SGMII at 10/100 gives working TX and
-failing RX, because the MAC clock is fixed at 125 MHz. Does anything in
-the driver enforce or report that limit?
-
-default_an_inband only states a preference. phylink_parse_mode() turns a
-fixed-link node into MLO_AN_FIXED. A PHY whose phy_inband_caps() reports
-only LINK_INBAND_DISABLE makes phylink_pcs_neg_mode() fall back:
-
-drivers/net/phy/phylink.c:phylink_pcs_neg_mode() {
-    ...
-			neg_mode = PHYLINK_PCS_NEG_OUTBAND;
-			if (pl->phydev)
-				mode = MLO_AN_PHY;
-    ...
-}
-
-For SGMII, xpcs_inband_caps() returns LINK_INBAND_DISABLE |
-LINK_INBAND_ENABLE, so the PCS accepts the out-of-band fallback.
-
-stmmac_mac_link_up() then sets the MAC to 10/100, and
-xpcs_link_up_sgmii_1000basex() writes the speed into BMCR, but the clock
-stays at 125 MHz. Would the link then report up while RX silently does
-not work?
-
-Could the driver reject out-of-band SGMII below 1000 Mbps, or at least
-warn about it? fix_mac_speed() receives the mode and could do this, or
-the MAC capabilities could be limited.
-
-> +		plat_dat->pcs_init = rk_pcs_init;
-> +		plat_dat->pcs_exit = rk_pcs_exit;
-> +		plat_dat->select_pcs = rk_select_pcs;
-> +	}
-
-[ ... ]
-
+Best regards,
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261017054406.1828061-1-coiaprant%40gmail.com
+Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+
