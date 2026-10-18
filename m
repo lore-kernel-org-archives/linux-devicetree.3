@@ -1,353 +1,205 @@
-Received: from out-zbxj-a65.jellyfish.systems (out-zbxj-a65.jellyfish.systems [198.54.127.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A0194AF173
-	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 20:29:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7ACB2836F;
+	Sun, 18 Oct 2026 20:35:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792355400; cv=none; b=FwGSndOYjtN3eglF10SNMFp9DnXWDqZnpWcT72KDeV3dKmLoGpIpIp1ySav8pI0EuDb2AhnG1rOLQXdrbqfNP/uTc6h/uTDhYCWdkzTx3OsrhV9TyLWw8cWLKa41iEgnHHmmGtBrcEd/JnM9qyMGy3LJVxoc/pd8C2P/Xl5xr0Q=
+	t=1792355736; cv=none; b=o6rmY99DmbLJ4k+Hrae6E5nPE22lM76Y6cqtcNpidjifPcNj0oZNQT9YW+YRoGiH3eASBwRa+dhSBt25WRHwc4dm65nngpehJoB/dQzfc3e+l6zh5b1Yf3O6SeysWINKAVHrNrNl3yB7mU/7W4/Un3LOK9pyIjn9+j5sOupZ0Tg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792355400; c=relaxed/simple;
-	bh=EwLwi1vy0+d8Qjb36rv/G5UkgmcFJkerenRwGDWil1o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EwUGNwIlMWxlaZIxFrGGe82m/ZdK2GhS4sbWJiPX+KNFBtaPACeCD1y29HSwA2VIx/xWnKfyRx5aBP+iDb9IKdBGjqSbBgz901XtKG3BaATPHrlt9h29U4JD7ug3xjevIWJwJ82LmlZAVUzKueX1r8cofdVqRtAV550Hf0BRepo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=r-sc.ca; spf=pass smtp.mailfrom=r-sc.ca; dkim=pass (2048-bit key) header.d=r-sc.ca header.i=@r-sc.ca header.b=c3n16LqQ; arc=none smtp.client-ip=198.54.127.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=r-sc.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=r-sc.ca
+	s=arc-20240116; t=1792355736; c=relaxed/simple;
+	bh=SclcYBZPUU5rwsTipGUDYC7OlOe/UT+RSTp/C4qQffw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JSeDlLRAuguln7Qbq1Tpgo16mefIw6oEtSs/8a+T87Vq3eMr/yjDwfn99mK6dL5l6MyYw6tvd+kL0J/NcyDF/WAXgXP4gJkVcabtvjLTy2MPuokmm3sIB+WS+ks/MevZysMSl5oqH3NGBiLVhhQWk0FSAKlScr9ZqJZgWUZWvBk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ActKFuNS; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=r-sc.ca header.i=@r-sc.ca header.b="c3n16LqQ"
-Received: from DESKTOP-290OH2S (d207-6-150-133.bchsia.telus.net [207.6.150.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.spacemail.com (Postfix) with ESMTPSA id 4j78Hr5Z3xz8sWQ;
-	Sun, 18 Oct 2026 19:43:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=r-sc.ca;
-	s=spacemail; t=1792352634;
-	bh=ODygMlVEDHZ8XOPkugE0UOt/7kwwt4imsdbKXKe2QjA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=c3n16LqQnnUNpFB7g0oa/x6qG8SP1l+kmYUppySR0/ETHhbOB2iE5Eh0tF5i3Lakh
-	 G8W3LevlyXLdD/0CH0CDbtmbva83NZAuQe9E8AVJn8QN8KJ66LI293OU3Wr7IfJ/Bn
-	 PlOwzgGt5GOOw074ndD7Z0I4BFPWA8Fl1srwW0d5gbesALfHhGSs8ul3ORnMq7h9Vx
-	 MJ8cFuZo8JJFDqtckfkHCPcRMx4v1nudMrxC8CrBVH/3iPwPvB+SQ95u0cdVUCwDzd
-	 h9x2uSEUFIyzlSxlMDZQT1YVBpt0g1CtHxlxdbbESAEnjpL12B7GBW45fTCvuSzDnR
-	 lJ2nnjP/d7k9Q==
-From: Ross Cawston <ross@r-sc.ca>
-To: lee@kernel.org,
-	pavel@kernel.org
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	chris.packham@alliedtelesis.co.nz,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ross Cawston <ross@r-sc.ca>
-Subject: [PATCH 3/3] leds: add Realtek RTL9300 port LED driver
-Date: Sun, 18 Oct 2026 12:43:38 -0700
-Message-ID: <20261018194339.132-4-ross@r-sc.ca>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20261018194339.132-1-ross@r-sc.ca>
-References: <20261018194339.132-1-ross@r-sc.ca>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ActKFuNS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792355734; x=1823891734;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=SclcYBZPUU5rwsTipGUDYC7OlOe/UT+RSTp/C4qQffw=;
+  b=ActKFuNSw4n/X18IKx6xKIG1ESkyFYFNa0pGioFW7ZK8EGe3nGuWulro
+   4AddYNY72E9UjeLMj+OIKnnpyPKIbqFvyHYK/nYTub0uhyGetL6wK6V7C
+   P8KBgt9qYMEkp3/RFVLFdoLHXjlHtpSu+Ojfiw3BTFpGemqu9MZJji4W+
+   Ns+aYqVrcf9UpOyg4XJgWo2nO0swAn9JE/LQPayiO/nroRjLzH5Fges0b
+   pqbMgIcENKDZQlLETFsc0ohe+cVzpo/cALorUgMpTgvUWOOSoB4rnKm/W
+   iWiQWg//hglGBxcfoTYooorUD6obL71nY3JBFZfgTYJdJ2EF23EWesa2z
+   A==;
+X-CSE-ConnectionGUID: rW7OkhphT0CPEP7X3wv7MA==
+X-CSE-MsgGUID: F27JN/bNTK2lDSBKHfK37w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="932164"
+X-IronPort-AV: E=Sophos;i="6.27,166,1787036400"; 
+   d="scan'208";a="932164"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Oct 2026 13:35:33 -0700
+X-CSE-ConnectionGUID: K7suMM8QTOGVG0Pu0sL8dw==
+X-CSE-MsgGUID: ZJKR/4szToin6jrlrfogoQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,166,1787036400"; 
+   d="scan'208";a="4211004"
+Received: from slindbla-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.162])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Oct 2026 13:35:30 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 670211203AA;
+	Sun, 18 Oct 2026 23:35:37 +0300 (EEST)
+Date: Sun, 18 Oct 2026 23:35:37 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: geocausa@gmail.com
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Sergey Lebedev <lsa.uz@pm.me>,
+	German Pablo Lindo <germanpapulindez@gmail.com>,
+	Bryan O'Donoghue <bod@kernel.org>, linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] media: i2c: ov13858: Add device tree support
+Message-ID: <atUtmQzZ_KWVcIJl@kekkonen.localdomain>
+References: <20261015-ov13858-x1e-v1-0-acdd918f4fb6@gmail.com>
+ <20261015-ov13858-x1e-v1-2-acdd918f4fb6@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Envelope-From: ross@r-sc.ca
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015-ov13858-x1e-v1-2-acdd918f4fb6@gmail.com>
 
-The RTL9300 switch drives up to four LEDs per port over its LED
-interface, serial or scanned. Each normally shows a hardware function
-picked by the LED set of the port, but software can take it over: one
-enable bit per LED, a 3-bit mode per LED (off, on or one of six blink
-rates), kept separately for copper and fibre media, and a load strobe
-after which the LED controller applies the modes.
+Hi George,
 
-Add a driver for LEDs that boards wire to the switch without a hardware
-function, such as PoE status LEDs. It takes the LEDs listed in the
-device tree under software control, sets both media alike, exposes them
-as LED class devices and hands them back to their hardware function
-when it is removed. The register offsets come from the reg of its node,
-within the switch's syscon register block.
+On Thu, Oct 15, 2026 at 10:48:20PM +0100, George Neacsu via B4 Relay wrote:
+> From: George Neacsu <geocausa@gmail.com>
+> 
+> The rear camera of the Surface Pro 11 with a Snapdragon X Elite is an
+> OV13858 on a four-lane D-PHY link, described in the device tree. Add an
+> OF match table.
+> 
+> Parse the endpoint as other sensor drivers that serve both ACPI and DT
+> do. Wait for the endpoint if a bridge driver has not created it yet,
+> require four data lanes, and require both link frequencies, since the
+> modes switch between 540 and 270 MHz. The IPU bridge entry for OVTID858
+> lists both, so an ACPI machine with that entry probes as before. Without
+> the entry the sensor now waits for the bridge instead of probing into an
+> empty graph.
+> 
+> Tested on the Surface Pro 11 (X1E80100), with an out-of-tree CAMSS
+> capturing raw frames over CSIPHY1, CSID0 and an RDI interface:
+> 4224x3136 at 29.95 fps at 540 MHz, the colour-bar test pattern intact,
+> and a scene captures.
 
-Signed-off-by: Ross Cawston <ross@r-sc.ca>
----
- MAINTAINERS                      |   7 ++
- drivers/leds/Kconfig             |  13 ++
- drivers/leds/Makefile            |   1 +
- drivers/leds/leds-rtl9300-port.c | 201 +++++++++++++++++++++++++++++++
- 4 files changed, 222 insertions(+)
- create mode 100644 drivers/leds/leds-rtl9300-port.c
+Please describe what the patch does here. Nearly everything above should go
+to the cover letter.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index a1eb0937238..1e099a4cf05 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23013,6 +23013,13 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/net/dsa/realtek.yaml
- F:	drivers/net/dsa/realtek/*
- 
-+REALTEK RTL9300 PORT LED DRIVER
-+M:	Ross Cawston <ross@r-sc.ca>
-+L:	linux-leds@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/leds/realtek,rtl9301-port-leds.yaml
-+F:	drivers/leds/leds-rtl9300-port.c
-+
- REALTEK SPI-NAND
- M:	Chris Packham <chris.packham@alliedtelesis.co.nz>
- S:	Maintained
-diff --git a/drivers/leds/Kconfig b/drivers/leds/Kconfig
-index 7ec2c8d7854..d9b2afca2a6 100644
---- a/drivers/leds/Kconfig
-+++ b/drivers/leds/Kconfig
-@@ -676,6 +676,19 @@ config LEDS_REGULATOR
- 	help
- 	  This option enables support for regulator driven LEDs.
- 
-+config LEDS_RTL9300_PORT
-+	tristate "LED support for Realtek RTL9300 switch port LEDs"
-+	depends on LEDS_CLASS
-+	depends on MACH_REALTEK_RTL || COMPILE_TEST
-+	select MFD_SYSCON
-+	help
-+	  This option enables software control of the port LEDs of the
-+	  Realtek RTL9300 switch, for port LEDs that have no hardware
-+	  function, such as the PoE status LEDs of PoE switches.
-+
-+	  To compile this driver as a module, choose M here: the module
-+	  will be called leds-rtl9300-port.
-+
- config LEDS_BD2606MVV
- 	tristate "LED driver for BD2606MVV"
- 	depends on LEDS_CLASS
-diff --git a/drivers/leds/Makefile b/drivers/leds/Makefile
-index 4d4b089156e..e1295303738 100644
---- a/drivers/leds/Makefile
-+++ b/drivers/leds/Makefile
-@@ -87,6 +87,7 @@ obj-$(CONFIG_LEDS_POWERNV)		+= leds-powernv.o
- obj-$(CONFIG_LEDS_PWM)			+= leds-pwm.o
- obj-$(CONFIG_LEDS_QNAP_MCU)		+= leds-qnap-mcu.o
- obj-$(CONFIG_LEDS_REGULATOR)		+= leds-regulator.o
-+obj-$(CONFIG_LEDS_RTL9300_PORT)		+= leds-rtl9300-port.o
- obj-$(CONFIG_LEDS_SC27XX_BLTC)		+= leds-sc27xx-bltc.o
- obj-$(CONFIG_LEDS_ST1202)		+= leds-st1202.o
- obj-$(CONFIG_LEDS_SUN50I_A100)		+= leds-sun50i-a100.o
-diff --git a/drivers/leds/leds-rtl9300-port.c b/drivers/leds/leds-rtl9300-port.c
-new file mode 100644
-index 00000000000..623932a2a41
---- /dev/null
-+++ b/drivers/leds/leds-rtl9300-port.c
-@@ -0,0 +1,201 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Realtek RTL9300 switch port LEDs under software control
-+ *
-+ * The RTL9300 drives up to four LEDs per switch port over its LED interface,
-+ * serial or scanned. Each one normally shows a hardware function (link,
-+ * speed, activity) chosen by the LED set of the port, but software can take
-+ * it over and switch it on or off instead. Boards use that for port LEDs
-+ * that have no hardware function, such as the PoE status LED of a PoE
-+ * switch.
-+ *
-+ * Software control has a mode per LED, kept separately for copper and fibre
-+ * media, and the LED controller picks the new modes up when it is told to
-+ * load them. Both media are set alike here. The registers are part of the
-+ * switch register block; the node's reg gives their offset in it.
-+ *
-+ * Copyright (C) 2026 Ross Cawston <ross@r-sc.ca>
-+ */
-+
-+#include <linux/bits.h>
-+#include <linux/leds.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/property.h>
-+#include <linux/regmap.h>
-+
-+/* Offsets from reg, which is SW_LED_LOAD (0xcc48 on the RTL9301) */
-+#define RTL9300_LED_SW_LOAD			0x00
-+#define   RTL9300_LED_SW_LOAD_START		BIT(0)
-+#define RTL9300_LED_PORT_SW_EN_CTRL(port)	(0x04 + ((port) / 8) * 4)
-+#define   RTL9300_LED_PORT_SW_EN(port, led)	BIT(((port) % 8) * 4 + (led))
-+#define RTL9300_LED_PORT_SW_CTRL(port)		(0x14 + (port) * 4)
-+/* 3-bit mode per LED: 0 off, 7 on, copper LEDs from bit 0, fibre from 12 */
-+#define   RTL9300_LED_SW_MODE(led)		((GENMASK(2, 0) | GENMASK(14, 12)) << (3 * (led)))
-+
-+#define RTL9300_LED_PORTS			28
-+#define RTL9300_LED_PER_PORT			4
-+
-+struct rtl9300_port_leds {
-+	struct regmap *map;
-+	u32 base;
-+};
-+
-+struct rtl9300_port_led {
-+	struct led_classdev cdev;
-+	struct rtl9300_port_leds *ctrl;
-+	u32 port;
-+	u32 led;
-+};
-+
-+static int rtl9300_port_led_load(struct rtl9300_port_leds *ctrl)
-+{
-+	return regmap_write(ctrl->map, ctrl->base + RTL9300_LED_SW_LOAD,
-+			    RTL9300_LED_SW_LOAD_START);
-+}
-+
-+static int rtl9300_port_led_set(struct led_classdev *cdev,
-+				enum led_brightness brightness)
-+{
-+	struct rtl9300_port_led *pled = container_of(cdev, struct rtl9300_port_led, cdev);
-+	struct rtl9300_port_leds *ctrl = pled->ctrl;
-+	u32 mask = RTL9300_LED_SW_MODE(pled->led);
-+	int ret;
-+
-+	ret = regmap_update_bits(ctrl->map, ctrl->base + RTL9300_LED_PORT_SW_CTRL(pled->port),
-+				 mask, brightness ? mask : 0);
-+	if (ret)
-+		return ret;
-+
-+	return rtl9300_port_led_load(ctrl);
-+}
-+
-+/* Hand the LED back to its hardware function */
-+static void rtl9300_port_led_release(void *data)
-+{
-+	struct rtl9300_port_led *pled = data;
-+	struct rtl9300_port_leds *ctrl = pled->ctrl;
-+
-+	regmap_clear_bits(ctrl->map, ctrl->base + RTL9300_LED_PORT_SW_EN_CTRL(pled->port),
-+			  RTL9300_LED_PORT_SW_EN(pled->port, pled->led));
-+	rtl9300_port_led_load(ctrl);
-+}
-+
-+static int rtl9300_port_led_add(struct device *dev, struct rtl9300_port_leds *ctrl,
-+				struct fwnode_handle *fwnode)
-+{
-+	struct led_init_data init_data = { .fwnode = fwnode };
-+	struct rtl9300_port_led *pled;
-+	enum led_brightness brightness;
-+	u32 reg[2], sw_en, val;
-+	int ret;
-+
-+	ret = fwnode_property_read_u32_array(fwnode, "reg", reg, ARRAY_SIZE(reg));
-+	if (ret)
-+		return dev_err_probe(dev, ret, "%pfw: bad reg\n", fwnode);
-+	if (reg[0] >= RTL9300_LED_PORTS || reg[1] >= RTL9300_LED_PER_PORT)
-+		return dev_err_probe(dev, -EINVAL, "%pfw: no LED %u of port %u\n",
-+				     fwnode, reg[1], reg[0]);
-+
-+	pled = devm_kzalloc(dev, sizeof(*pled), GFP_KERNEL);
-+	if (!pled)
-+		return -ENOMEM;
-+
-+	pled->ctrl = ctrl;
-+	pled->port = reg[0];
-+	pled->led = reg[1];
-+	sw_en = ctrl->base + RTL9300_LED_PORT_SW_EN_CTRL(pled->port);
-+
-+	switch (led_init_default_state_get(fwnode)) {
-+	case LEDS_DEFSTATE_ON:
-+		brightness = LED_ON;
-+		break;
-+	case LEDS_DEFSTATE_KEEP:
-+		ret = regmap_read(ctrl->map, sw_en, &val);
-+		if (ret)
-+			return ret;
-+		brightness = LED_OFF;
-+		if (val & RTL9300_LED_PORT_SW_EN(pled->port, pled->led)) {
-+			ret = regmap_read(ctrl->map,
-+					  ctrl->base + RTL9300_LED_PORT_SW_CTRL(pled->port),
-+					  &val);
-+			if (ret)
-+				return ret;
-+			if (val & RTL9300_LED_SW_MODE(pled->led))
-+				brightness = LED_ON;
-+		}
-+		break;
-+	default:
-+		brightness = LED_OFF;
-+		break;
-+	}
-+
-+	ret = rtl9300_port_led_set(&pled->cdev, brightness);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_set_bits(ctrl->map, sw_en, RTL9300_LED_PORT_SW_EN(pled->port, pled->led));
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_add_action_or_reset(dev, rtl9300_port_led_release, pled);
-+	if (ret)
-+		return ret;
-+
-+	ret = rtl9300_port_led_load(ctrl);
-+	if (ret)
-+		return ret;
-+
-+	pled->cdev.brightness = brightness;
-+	pled->cdev.max_brightness = LED_ON;
-+	pled->cdev.brightness_set_blocking = rtl9300_port_led_set;
-+
-+	return devm_led_classdev_register_ext(dev, &pled->cdev, &init_data);
-+}
-+
-+static int rtl9300_port_leds_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct rtl9300_port_leds *ctrl;
-+	int ret;
-+
-+	ctrl = devm_kzalloc(dev, sizeof(*ctrl), GFP_KERNEL);
-+	if (!ctrl)
-+		return -ENOMEM;
-+
-+	ctrl->map = syscon_node_to_regmap(dev_of_node(dev->parent));
-+	if (IS_ERR(ctrl->map))
-+		return dev_err_probe(dev, PTR_ERR(ctrl->map), "no switch regmap\n");
-+
-+	ret = device_property_read_u32(dev, "reg", &ctrl->base);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "no reg\n");
-+
-+	device_for_each_child_node_scoped(dev, child) {
-+		ret = rtl9300_port_led_add(dev, ctrl, child);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id rtl9300_port_leds_of_match[] = {
-+	{ .compatible = "realtek,rtl9301-port-leds" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, rtl9300_port_leds_of_match);
-+
-+static struct platform_driver rtl9300_port_leds_driver = {
-+	.probe = rtl9300_port_leds_probe,
-+	.driver = {
-+		.name = "leds-rtl9300-port",
-+		.of_match_table = rtl9300_port_leds_of_match,
-+	},
-+};
-+module_platform_driver(rtl9300_port_leds_driver);
-+
-+MODULE_DESCRIPTION("Realtek RTL9300 switch port LEDs under software control");
-+MODULE_LICENSE("GPL");
+> 
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: George Neacsu <geocausa@gmail.com>
+> ---
+>  drivers/media/i2c/ov13858.c | 62 +++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 62 insertions(+)
+> 
+> diff --git a/drivers/media/i2c/ov13858.c b/drivers/media/i2c/ov13858.c
+> index 83eefba..587ee38 100644
+> --- a/drivers/media/i2c/ov13858.c
+> +++ b/drivers/media/i2c/ov13858.c
+> @@ -1713,6 +1713,57 @@ static int ov13858_power_off(struct device *dev)
+>  static DEFINE_RUNTIME_DEV_PM_OPS(ov13858_pm_ops, ov13858_power_off,
+>  				 ov13858_power_on, NULL);
+>  
+> +static int ov13858_check_hwcfg(struct device *dev)
+> +{
+> +	struct v4l2_fwnode_endpoint bus_cfg = {
+> +		.bus_type = V4L2_MBUS_CSI2_DPHY
+> +	};
+> +	unsigned long link_freq_bitmap;
+> +	struct fwnode_handle *ep;
+> +	int ret;
+> +
+> +	/*
+> +	 * Sometimes the fwnode graph is initialized by the bridge driver.
+> +	 * Bridge drivers doing this also add sensor properties, wait for this.
+> +	 */
+> +	ep = fwnode_graph_get_next_endpoint(dev_fwnode(dev), NULL);
+> +	if (!ep)
+
+You can omit this check -- v4l2_fwnode_endpoint_alloc_parse() does it.
+
+> +		return dev_err_probe(dev, -EPROBE_DEFER,
+> +				     "waiting for fwnode graph endpoint\n");
+> +
+> +	ret = v4l2_fwnode_endpoint_alloc_parse(ep, &bus_cfg);
+> +	fwnode_handle_put(ep);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "parsing endpoint failed\n");
+> +
+> +	if (bus_cfg.bus.mipi_csi2.num_data_lanes != 4) {
+> +		ret = dev_err_probe(dev, -EINVAL,
+> +				    "%u data lanes are not supported, only 4\n",
+> +				    bus_cfg.bus.mipi_csi2.num_data_lanes);
+> +		goto out;
+> +	}
+> +
+> +	/* The modes use both link frequencies, so both have to be allowed. */
+> +	ret = v4l2_link_freq_to_bitmap(dev, bus_cfg.link_frequencies,
+> +				       bus_cfg.nr_of_link_frequencies,
+> +				       link_freq_menu_items,
+> +				       ARRAY_SIZE(link_freq_menu_items),
+> +				       &link_freq_bitmap);
+> +	if (ret)
+> +		goto out;
+> +
+> +	if (link_freq_bitmap != GENMASK(ARRAY_SIZE(link_freq_menu_items) - 1, 0))
+> +		ret = dev_err_probe(dev, -EINVAL,
+> +				    "link frequencies %lld and %lld are both needed\n",
+> +				    link_freq_menu_items[1]);
+> +
+> +out:
+> +	v4l2_fwnode_endpoint_free(&bus_cfg);
+> +
+> +	return ret;
+> +}
+> +
+>  static int ov13858_probe(struct i2c_client *client)
+>  {
+>  	struct ov13858 *ov13858;
+> @@ -1725,6 +1776,10 @@ static int ov13858_probe(struct i2c_client *client)
+>  
+>  	ov13858->dev = &client->dev;
+>  
+> +	ret = ov13858_check_hwcfg(ov13858->dev);
+> +	if (ret)
+> +		return ret;
+> +
+>  	ov13858->clk = devm_v4l2_sensor_clk_get(ov13858->dev, NULL);
+>  	if (IS_ERR(ov13858->clk))
+>  		return dev_err_probe(ov13858->dev, PTR_ERR(ov13858->clk),
+> @@ -1845,10 +1900,17 @@ static const struct acpi_device_id ov13858_acpi_ids[] = {
+>  MODULE_DEVICE_TABLE(acpi, ov13858_acpi_ids);
+>  #endif
+>  
+> +static const struct of_device_id ov13858_of_match[] = {
+> +	{ .compatible = "ovti,ov13858" },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, ov13858_of_match);
+> +
+>  static struct i2c_driver ov13858_i2c_driver = {
+>  	.driver = {
+>  		.name = "ov13858",
+>  		.acpi_match_table = ACPI_PTR(ov13858_acpi_ids),
+> +		.of_match_table = ov13858_of_match,
+>  		.pm = pm_ptr(&ov13858_pm_ops),
+>  	},
+>  	.probe = ov13858_probe,
+> 
+
 -- 
-2.55.0.windows.5
+Regards,
 
+Sakari Ailus
