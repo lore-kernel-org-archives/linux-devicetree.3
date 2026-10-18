@@ -1,330 +1,279 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5B54390224
-	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 06:15:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 306403CA49D
+	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 06:15:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792304144; cv=none; b=Bx/Kumlh+SWW3utO3V05uPCjzY8wmKpxfgLBkOel7MtmXl7iQIzSLBUUEjVjOl8dZxo39mppWGpOAbCyN1CyIenFnm2ywQUCb7nVBLi3hAhNJDmXIT8Sp5eciFo/s8zx4fmZ/rmYijXYwilvTqyxiuQ232gKRbbCqA0bPxESm0I=
+	t=1792304155; cv=none; b=tx56qNnDtjppdH5HXsXWeZKvNZs9AXi5GqULKNBUhIQcil0UzI4XSGVxXnhhJSFDu97GGlBpuofsqxZOR8Z4iQxRoDX97E1isB+8gB3XTIkkGD7Z/s2PF4We18JhvmQ2fIq9sIzhUfkkVhyViV3f0u1h4LQYS2/qrCsfxWA/igw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792304144; c=relaxed/simple;
-	bh=gx4KnzVAYHb61libMRKwX4hqkb/vxxdKW/rTXXY9ER4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=khRBcMMY5biaLL2uH9utE9ZWFKYvjGmhvLoOgDKsPNny0eF+PVxJIFcNz6kKBBYReoeZUDRPQoyourTV2ehseK+uoRoDJ99R98JjHfn/oKB950jyb4v47or7aazV75iuo3Ktj3Vb1VsGwRsZlS4mTqeLKYhQiyl9uPodQxWi6rg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=n5naOo1n; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eV6o2EPD; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792304155; c=relaxed/simple;
+	bh=wkRLCF16/K99dGcxif3bLF2NmMhzv5EL0cdTHlxzkCI=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=stfyJaZ5wLLESK6KdItRVPJnf92QqXUPRmAT23ct1HvrToPsGy/R+HjklO6qv3CES7gHG8LG/IydPMoG2NUxxIqcCDcvcQ9PDX4U3pTR7LbGZZK7LDyA8vaHJbbPU6PXeiwj+eek1eF7lvU84/PgXT6aruYQtaNEm9RK9cz5JB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kX4rhhtk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="n5naOo1n";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eV6o2EPD"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69I5t1aT3169197
-	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 06:15:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	iZcc2HBd9fJGE0u982HJSvfnpRwonL+IcSJdNaL1XJA=; b=n5naOo1n2HRVtO31
-	CC6CHtX8OCmsqEkC5gRzGXzcDlj2ADuY0J5BDUlvfYyvccb6/NskhwKxeSGnTn7h
-	FL92y69GNeibNJY67Chm0cg35xaHQUBcMVK6dB0ar3LVN33V9V0fTHdCR0qGVxdT
-	ZJV+vxEG/Gxw+h/ivSDwrn1rXnrSabdOnP11gqJq5chJO9Y5rXv0Rk/rqDP/eMzU
-	6mbSEz5EtLTelVWnTK30/oRvx5dn+BcSu8mBLrRzfp0ttU6DQlSZVsamLQEnkNU1
-	aND/eOH11yAMn/keaH60+Ll8qFXixYz+qC5Wnb8yHNRG12N1R08zmD7SXnDLkkPY
-	+HaZCw==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hc183agnq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 06:15:41 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3425098ae4bso3323245eec.0
-        for <devicetree@vger.kernel.org>; Sat, 17 Oct 2026 23:15:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792304141; x=1792908941; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iZcc2HBd9fJGE0u982HJSvfnpRwonL+IcSJdNaL1XJA=;
-        b=eV6o2EPDYrju4k0giXGHTWgE/8SkYy1jLHwTHtP81AKLUQs7Ea9Uyi7M7k9BwjCxHh
-         BKLRtaiuu0MbHXokbOgaUo7IBaUDcf2xejFytSoEIM39jn/cV9oY4J18B62+x8OMdT9k
-         IVofghzqBTmryV2xc09uZIhGoDIT7HWcgZt4km97BedcGfOUd7dc+n/RgVvSyKdC0peW
-         vpHAAv7aCiINQzyJiAs11RmI6ssL6U+K9b1PkkTH1XRzAoYejXhHAmtQf7Z4TrVlPPxO
-         aBYGr14jSvV4MHv3VtUBfyTSxEXf6N8kGQYS/uH/3NVlHcjC/ITo/kQXP5R3xu6QoR6b
-         zrbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792304141; x=1792908941;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iZcc2HBd9fJGE0u982HJSvfnpRwonL+IcSJdNaL1XJA=;
-        b=rbR/H8qkOsx2bYzATKgFMx2SWBMQmPujEnP4JEQm/n5W38Sao9Ivqd1/jtBUwFjR5o
-         LmUePHCRcxYDzh2Gr2zlnIyYpt6LbDHEirlXEa11ZIDx2ZHyujugoTi3KGkHKxSrn/px
-         3BpFhF9PXSNSu8gv7fTYFmHmLlqxVICedU79Tu5u4KdioVu+MAopcX9cDJ/NdOGydRQR
-         x2bycxn0fqf94bs8/reP4QmBqFNmbwvws4U2AtCK6GAl4STwsSDdbEw6Yj3grkJAiTMn
-         quNrygm1dVN6FIydvvUGczxTe7WHviAqm9x0OfmSXnsBOOZG5u5M7/VBa7mILw9mIiT2
-         IEIg==
-X-Forwarded-Encrypted: i=1; AKwUvBxFDScSB0Db9N+pG6ivi8B4V25SrZSWuWAN6rgcB965WbQqMB48Cd/ZwqDMNNhVwUbY88WUXJhzTQnm@vger.kernel.org
-X-Gm-Message-State: AFq9FYJeHlsAKiLneUDxk+B/jAIR01Eh7RNW5YsrpvEM9TGfQir8HR11
-	TU80QakZnk3a0O1h3sx57dcZ1cP1UyrWtITEmCegN8WD311cI1YByDeHOHtKvBmB5ENEkJ9KzVs
-	r25knvZNjnZdgKQAB3HpDiuDJc7ZSHUq50SGlnwVgOgh21V1RtPVdfANCYeXGdjnn
-X-Gm-Gg: AYBFou1Do9za4DfdO+tblxp7G3Lo//rUdrEMX5i8VUUmrM/tiH48eRPINse6oI0+c3j
-	E57UUeoSr7AUENF9pwK1Zgld4pEB+OnCHXYFuWp9muOqpdidiUtdHXC3khlOTJUgHgnIseVGm09
-	WLjIGVdpRSj4YaxYTIaV14OjwLOKocP3tMf9QjgbfZFy+X6n/Zp8VuZpy0vO6DVIwdrPNdedyj2
-	M+GzxlGbQ14Sfcl5L6HBJT3pgxICNXDD+mq18wykv+mX6JehARCkI04iABxSSxeYk6Go0LoOblU
-	87WCaL87+nXseUk/P376kDN24LwGs36iOhXpEg1VvHCh0jwiO4kDuzc4veCrJqLiXFFB3n4faeW
-	LBy5XKWH/f1FAwVIpZSeZyTlN4bvGNwWL6Q==
-X-Received: by 2002:a05:7022:7e0d:b0:166:f097:6f10 with SMTP id a92af1059eb24-18258376404mr10743345c88.11.1792304141042;
-        Sat, 17 Oct 2026 23:15:41 -0700 (PDT)
-X-Received: by 2002:a05:7022:7e0d:b0:166:f097:6f10 with SMTP id a92af1059eb24-18258376404mr10743296c88.11.1792304140438;
-        Sat, 17 Oct 2026 23:15:40 -0700 (PDT)
-Received: from [192.168.1.4] ([106.222.235.247])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831996071csm19153933c88.9.2026.10.17.23.15.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 17 Oct 2026 23:15:40 -0700 (PDT)
-Message-ID: <2b9e00e4-05c9-4416-9ee8-b1dc84777f85@oss.qualcomm.com>
-Date: Sun, 18 Oct 2026 11:45:35 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kX4rhhtk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FCE11F000C4;
+	Sun, 18 Oct 2026 06:15:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792304151;
+	bh=3EsmPyUBeKJokR/qycScvvpF/b6L6clNaSaCclu7STg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kX4rhhtkLKFi1QjwWhfvy8C5Uo1zQlaVc2BWMCxVTTPt56quZDrnEVr0ZzFj3QVxE
+	 Nig1yYfoG0yDHkzJ3+T7fBAo5qR3fjPjQlA4Yb1q1Y33Jk9+wndIcnZJLl7sEaC+Zd
+	 Bp7P9P+7eq8iTupVGkNB+pxRYDrr5duDUIe3sLpjp56Ax7bMTGNr2t2SI645nJ/NsV
+	 sKSXjeIQGG2eVXBF0rIPy+AJB3aw9dsVf9pFsFwlOgMgDGVJnqWIob/5R7Dh6+k3rb
+	 I9CGHu3tO27eksJXJG2JQgbz1XgUBZdNZqwKqRjzq17g5/kjunCH9u+DP4i3nUZ5eo
+	 9zzltIBToiWRw==
+Message-ID: <sashiko-outbox-175982@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 11/21] arm64: dts: apple: t8103-j313: Add
+ speaker/headset jack nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "James Calligeros" <jcalligeros99@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261018-macaudio-v3-11-abdff7741dea@gmail.com>
+References: <20261018-macaudio-v3-0-abdff7741dea@gmail.com>
+ <20261018-macaudio-v3-11-abdff7741dea@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 18 Oct 2026 06:15:50 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 1/3] arm64: dts: qcom: nord: Add SoCCP remoteproc DT
- support for Nord
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-References: <20261016-nord-soccp-dt-v1-0-ee13aef55d8b@oss.qualcomm.com>
- <20261016-nord-soccp-dt-v1-1-ee13aef55d8b@oss.qualcomm.com>
- <sgqypoylrjwl7da6vsd5bkxxyfziv2ajxc77p6qgn6ted5bwnf@mctm5rfwsn26>
-Content-Language: en-US
-From: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
-In-Reply-To: <sgqypoylrjwl7da6vsd5bkxxyfziv2ajxc77p6qgn6ted5bwnf@mctm5rfwsn26>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE4MDAyNCBTYWx0ZWRfX6p8wPrz4qxaD
- 9NFAUZszRe9M2+WELZvURakNL8KgLOJf+EOCp2VBh0l7jANzZzJC+f7Sf2vfufYPaAQgRlFpV1E
- jmr4UcNqwLY1aBFGzaEw8eCYlu7tuPo=
-X-Proofpoint-GUID: o-f-LA5cVEcyqBTkqdk-_DFuq3P0FMfa
-X-Authority-Analysis: v=2.4 cv=Bu8IUoX5 c=1 sm=1 tr=0 ts=6ad4640d cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=2a2+ae0sWwZdsBobmU+nRA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=YAPKfHnlDYbKqGIrVI8A:9 a=QEXdDO2ut3YA:10
- a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE4MDAyNCBTYWx0ZWRfX7yiFFYak29R2
- saaYS1/1x2N0YzvVKMAnm+PN070Tj8TkBPSoO5KTrF2CgbyVEZOtqGr12cnU788Yp0k/drKYdNh
- Yr7YcjoPGmJV6SY9/fR2oucWXvrFwcw89BSGwmEFyiH2btiOsCIaaU6F1KEVUjRuZnNTYwzg3gc
- d88kaFn0gBxTkNZO1HtJeuqU3UFxNE1dChBUy1wlcr9GdLhcSku3EXq62eTctCL1S++oGvX47HH
- 1lsLV3fEx+qsrh4kvXTqpf4dGzXoRWRvCFiY2+p6873cNTqRhnzDIBmRxd1R1CCxldIsh0d/a6S
- /9a5yCKuPoiynYjgO7bfdM8weqdqi0tn3k10lzJa5aC1rYtQKzQ4rWCGht/sLIDgau8HLACWxRH
- eo6fsjcOEcAhUuN8jHRFhgWYngYjg65qGkOCyHxJ8Ugnd4XRG/S3i9d6roYoEHGiryDawxWpEKD
- CEvnqJqCXYxFiqDm3Lg==
-X-Proofpoint-ORIG-GUID: o-f-LA5cVEcyqBTkqdk-_DFuq3P0FMfa
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-18_02,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 impostorscore=0 bulkscore=0 suspectscore=0 clxscore=1015
- adultscore=0 priorityscore=1501 phishscore=0 spamscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610180024
 
-On 10/16/2026 2:35 PM, Abel Vesa wrote:
-> On 26-10-16 11:09:54, Anurag Pateriya wrote:
->> Add the SoCCP (System on Chip Control Processor) remoteproc node and
->> its SMP2P configuration at the SoC level in nord.dtsi, and wire up
->> the clock and power-domain dependencies shared by all Nord embedded
->> variants in nord-embedded.dtsi.
->>
->> Signed-off-by: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
->> ---
->>   arch/arm64/boot/dts/qcom/nord-embedded.dtsi |   9 ++
->>   arch/arm64/boot/dts/qcom/nord.dtsi          | 126 ++++++++++++++++++++++++++++
->>   2 files changed, 135 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
->> index 6dc4c871f41e..e21b9ba480f5 100644
->> --- a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
->> @@ -430,6 +430,15 @@ &remoteproc_cdsp3 {
->>   			     "nsp";
->>   };
->>   
->> +&remoteproc_soccp {
->> +	clocks = <&rpmhcc RPMH_CXO_CLK>;
->> +	clock-names = "xo";
->> +	power-domains = <&rpmhpd RPMHPD_CX>,
->> +			<&rpmhpd RPMHPD_MX>;
->> +	power-domain-names = "cx",
->> +			     "mx";
->> +};
->> +
->>   &spi0 {
->>   	clocks = <&segcc SE_GCC_QUPV3_WRAP0_S0_CLK>;
->>   	clock-names = "se";
->> diff --git a/arch/arm64/boot/dts/qcom/nord.dtsi b/arch/arm64/boot/dts/qcom/nord.dtsi
->> index dfbbaf94a7ae..53c594281f6b 100644
->> --- a/arch/arm64/boot/dts/qcom/nord.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/nord.dtsi
->> @@ -1029,6 +1029,28 @@ smp2p_cdsp3_in: slave-kernel {
->>   		};
->>   	};
->>   
->> +	smp2p-soccp {
->> +		compatible = "qcom,smp2p";
->> +		interrupts-extended = <&ipcc0 IPCC_MPROC_SOCCP
->> +					      IPCC_MPROC_SIGNAL_SMP2P
->> +					      IRQ_TYPE_EDGE_RISING>;
->> +		mboxes = <&ipcc0 IPCC_MPROC_SOCCP IPCC_MPROC_SIGNAL_SMP2P>;
->> +		qcom,smem = <617>, <616>;
->> +		qcom,local-pid = <0>;
->> +		qcom,remote-pid = <19>;
->> +
->> +		smp2p_soccp_out: master-kernel {
->> +			qcom,entry-name = "master-kernel";
->> +			#qcom,smem-state-cells = <1>;
->> +		};
->> +
->> +		smp2p_soccp_in: slave-kernel {
->> +			qcom,entry-name = "slave-kernel";
->> +			interrupt-controller;
->> +			#interrupt-cells = <2>;
->> +		};
->> +	};
->> +
->>   	soc: soc@0 {
->>   		compatible = "simple-bus";
->>   		#address-cells = <2>;
->> @@ -1587,6 +1609,110 @@ uart13: serial@a98000 {
->>   			};
->>   		};
->>   
->> +		remoteproc_soccp: remoteproc@d00000 {
->> +			compatible = "qcom,nord-soccp-pas";
->> +			reg = <0x0 0x00d00000 0x0 0x200000>;
->> +
->> +			interrupts-extended = <&intc GIC_SPI 167 IRQ_TYPE_EDGE_RISING>,
->> +					      <&smp2p_soccp_in 0 IRQ_TYPE_EDGE_RISING>,
->> +					      <&smp2p_soccp_in 1 IRQ_TYPE_EDGE_RISING>,
->> +					      <&smp2p_soccp_in 2 IRQ_TYPE_EDGE_RISING>,
->> +					      <&smp2p_soccp_in 3 IRQ_TYPE_EDGE_RISING>,
->> +					      <&smp2p_soccp_in 9 IRQ_TYPE_EDGE_RISING>;
->> +			interrupt-names = "wdog",
->> +					  "fatal",
->> +					  "ready",
->> +					  "handover",
->> +					  "stop-ack",
->> +					  "pong";
->> +
->> +			memory-region = <&soccp_mem>;
->> +
->> +			qcom,smem-states = <&smp2p_soccp_out 0>,
->> +					   <&smp2p_soccp_out 8>;
->> +			qcom,smem-state-names = "stop",
->> +						"ping";
->> +
->> +			status = "disabled";
->> +
->> +			glink-edge {
->> +				interrupts-extended = <&ipcc0 IPCC_MPROC_SOCCP
->> +							      IPCC_MPROC_SIGNAL_GLINK_QMP
->> +							      IRQ_TYPE_EDGE_RISING>;
->> +				mboxes = <&ipcc0 IPCC_MPROC_SOCCP
->> +						 IPCC_MPROC_SIGNAL_GLINK_QMP>;
->> +				qcom,remote-pid = <19>;
->> +				label = "soccp";
->> +			};
->> +		};
->> +
->> +		bwmon_cluster2: pmu@1014400 {
->> +			reg = <0x0 0x01014400 0x0 0x600>;
->> +			interrupts = <GIC_SPI 739 IRQ_TYPE_LEVEL_HIGH>;
->> +			operating-points-v2 = <&bwmon_cluster_opp_table>;
->> +		};
-> 
-> This isn't supposed to be part of this patch, right?
-> 
-> Same for the ones below.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] ASoC: apple: macaudio: macaudio_be_assign_tdm() skips idle_mode =
+for 1-codec BE
+- [Medium] arm64: dts: apple: t8103-j313: jack_codec supplies merge into on=
+e /regulator
+- [Medium] ASoC: apple: macaudio: unreleased OF node refs in macaudio_parse=
+_of()
+--
 
-Yes. I will remove these changes in next version.
+commit 802339e5380e3a87c88c58c583fe94106f5d49a8
+Author: James Calligeros <jcalligeros99@gmail.com>
 
-> 
->> +
->> +		bwmon_cluster1: pmu@1015400 {
->> +			reg = <0x0 0x01015400 0x0 0x600>;
->> +			interrupts = <GIC_SPI 812 IRQ_TYPE_LEVEL_HIGH>;
->> +			operating-points-v2 = <&bwmon_cluster_opp_table>;
->> +		};
->> +
->> +		bwmon_cluster0: pmu@1016400 {
->> +			reg = <0x0 0x01016400 0x0 0x600>;
->> +			interrupts = <GIC_SPI 813 IRQ_TYPE_LEVEL_HIGH>;
->> +
->> +			operating-points-v2 = <&bwmon_cluster_opp_table>;
->> +
->> +			bwmon_cluster_opp_table: opp-table {
->> +				compatible = "operating-points-v2";
->> +
->> +				opp-0 {
->> +					opp-peak-kBps = <800000>;
->> +				};
->> +
->> +				opp-1 {
->> +					opp-peak-kBps = <2188800>;
->> +				};
->> +
->> +				opp-2 {
->> +					opp-peak-kBps = <5414400>;
->> +				};
->> +
->> +				opp-3 {
->> +					opp-peak-kBps = <6220800>;
->> +				};
->> +
->> +				opp-4 {
->> +					opp-peak-kBps = <6835200>;
->> +				};
->> +
->> +				opp-5 {
->> +					opp-peak-kBps = <7603200>;
->> +				};
->> +
->> +				opp-6 {
->> +					opp-peak-kBps = <8371200>;
->> +				};
->> +
->> +				opp-7 {
->> +					opp-peak-kBps = <9657600>;
->> +				};
->> +
->> +				opp-8 {
->> +					opp-peak-kBps = <10944000>;
->> +				};
->> +
->> +				opp-9 {
->> +					opp-peak-kBps = <12748800>;
->> +				};
->> +
->> +				opp-10 {
->> +					opp-peak-kBps = <14745600>;
->> +				};
->> +			};
->> +		};
->> +
->>   		rng: rng@10c3000 {
->>   			compatible = "qcom,nord-trng",
->>   				     "qcom,trng";
->>
->> -- 
->> 2.43.0
->>
+arm64: dts: apple: t8103-j313: Add speaker/headset jack nodes
 
-Thanks,
-Anurag
+This commit adds the TI TAS5770L speaker amplifier nodes and Cirrus CS42L83
+headset jack codec node to the M1 MacBook Air (J313) device tree and wires
+them to the macaudio machine driver via the sound node.
 
+> diff --git a/arch/arm64/boot/dts/apple/t8103-j313.dts b/arch/arm64/boot/d=
+ts/apple/t8103-j313.dts
+> index f8b2b1637b9dc..ed0eb358809b4 100644
+> --- a/arch/arm64/boot/dts/apple/t8103-j313.dts
+> +++ b/arch/arm64/boot/dts/apple/t8103-j313.dts
+> @@ -55,4 +55,91 @@ &typec1 {
+
+[ ... ]
+
+> +	jack_codec: codec@48 {
+> +		compatible =3D "cirrus,cs42l83";
+> +		reg =3D <0x48>;
+> +		interrupts-extended =3D <&pinctrl_ap 183 IRQ_TYPE_LEVEL_LOW>;
+> +		reset-gpios =3D <&pinctrl_nub 11 GPIO_ACTIVE_HIGH>;
+> +		#sound-dai-cells =3D <0>;
+> +		sound-name-prefix =3D "Jack";
+> +		cirrus,ts-inv =3D <1>;
+> +		VA-supply =3D <&jack_va_reg>;
+> +		VP-supply =3D <&jack_vp_reg>;
+> +		VCP-supply =3D <&jack_vcp_reg>;
+> +		VD_FILT-supply =3D <&jack_vd_reg>;
+> +		VL-supply =3D <&jack_vl_reg>;
+> +	};
+> +};
+
+[Severity: Medium]
+Do these five supply phandles on jack_codec resolve to five distinct
+regulators in the compiled DTB?
+
+In arch/arm64/boot/dts/apple/t8103-jxxx.dtsi (included by t8103-j313.dts),
+all five fixed regulators are defined as direct children of / with the
+identical node name regulator:
+
+arch/arm64/boot/dts/apple/t8103-jxxx.dtsi:
+	jack_va_reg: regulator {
+		compatible =3D "regulator-fixed";
+		regulator-name =3D "jack-va";
+	};
+
+	/* CS42L83 VCP and VCP_FILT */
+	jack_vcp_reg: regulator {
+		compatible =3D "regulator-fixed";
+		regulator-name =3D "jack-vcp";
+	};
+
+	jack_vl_reg: regulator {
+		compatible =3D "regulator-fixed";
+		regulator-name =3D "jack-vl";
+	};
+
+	/* VD_FILT */
+	jack_vd_reg: regulator {
+		compatible =3D "regulator-fixed";
+		regulator-name =3D "jack-vd";
+	};
+
+	jack_vp_reg: regulator {
+		compatible =3D "regulator-fixed";
+		regulator-name =3D "jack-vp";
+	};
+
+Because they share the same /regulator path, dtc merges all five definitions
+into a single node, overwriting regulator-name to "jack-vp" and attaching
+all five labels to that single node, so VA-supply, VP-supply, VCP-supply,
+VD_FILT-supply, and VL-supply all point to the same regulator instance.
+
+> +
+> +/ {
+> +	sound: sound {
+> +		compatible =3D "apple,j313-macaudio";
+> +		model =3D "MacBook Air J313";
+> +
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +
+> +		dai-link@0 {
+> +			reg =3D <0>;
+> +
+> +			dai-tdm-idle-mode-0 =3D "zero";
+> +			dai-tdm-idle-mode-1 =3D "zero";
+> +
+> +			link-name =3D "Speakers";
+> +
+> +			codec {
+> +				sound-dai =3D <&speaker_left>, <&speaker_right>;
+> +			};
+> +
+> +			cpu {
+> +				sound-dai =3D <&mca 0>, <&mca 1>;
+> +			};
+> +		};
+
+[Severity: Medium]
+Will dai-tdm-idle-mode-0 and dai-tdm-idle-mode-1 actually be applied to
+speaker_left and speaker_right here?
+
+In dai-link@0, there are 2 codecs (<&speaker_left>, <&speaker_right>) and
+2 CPU DAIs (<&mca 0>, <&mca 1>). When macaudio_snd_platform_probe() ->
+macaudio_parse_of() parses this node in sound/soc/apple/macaudio.c,
+ncodecs_per_cpu is num_codecs / num_bes =3D 2 / 2 =3D 1. Two backend DAI li=
+nks
+are created with num_codecs =3D 1, and macaudio_get_codec_idle_props() stor=
+es
+dai-tdm-idle-mode-0 and dai-tdm-idle-mode-1 into each backend link's
+link_props->codecs[0].idle_mode.
+
+However, when macaudio_be_init() -> macaudio_be_assign_tdm() runs, it takes
+the single-codec early return without configuring idle_mode:
+
+sound/soc/apple/macaudio.c:macaudio_be_assign_tdm() {
+	...
+	if (rtd->dai_link->num_codecs =3D=3D 1) {
+		ret =3D snd_soc_dai_set_tdm_slot(snd_soc_rtd_to_codec(rtd, 0), mask,
+					       0, nslots, MACAUDIO_SLOTWIDTH);
+
+		/*
+		 * Headphones get a pass on -ENOTSUPP (see the comment
+		 * around bclk_ratio value for primary FE).
+		 */
+		if (ret =3D=3D -ENOTSUPP && props->is_headphones)
+			return 0;
+
+		return ret;
+	}
+	...
+}
+
+Because macaudio_be_assign_tdm() returns before calling
+snd_soc_dai_set_tdm_idle(), tas2770_set_dai_tdm_idle() is never called for
+either speaker amplifier on J313, leaving the SDOUT TDM idle slots
+unconfigured while both codecs share the IV-sense capture TDM bus.
+
+[Severity: Medium]
+Also, can binding apple,j313-macaudio with this multi-BE dai-link@0 leak
+device_node references in macaudio_parse_of() when probing defers or fails,
+or on driver unbind?
+
+First, in macaudio_parse_of_component(), of_parse_phandle_with_args()
+acquires a reference on args.np and assigns it to comp->of_node before
+calling snd_soc_get_dai_name():
+
+sound/soc/apple/macaudio.c:macaudio_parse_of_component() {
+	ret =3D of_parse_phandle_with_args(node, "sound-dai", "#sound-dai-cells",
+						index, &args);
+	if (ret)
+		return ret;
+	comp->of_node =3D args.np;
+	return snd_soc_get_dai_name(&args, &comp->dai_name);
+}
+
+When speaker_left, speaker_right, jack_codec, or mca has not registered its
+ASoC component yet, snd_soc_get_dai_name() returns -EPROBE_DEFER while
+comp->of_node still holds the reference. In macaudio_parse_of(), the
+for (be_index =3D 0; be_index < num_bes; be_index++) loop populates
+card->dai_link[num_links + be_index], but num_links is only incremented by
+num_bes after the entire be_index loop finishes:
+
+sound/soc/apple/macaudio.c:macaudio_parse_of() {
+		for (be_index =3D 0; be_index < num_bes; be_index++) {
+			...
+			ret =3D macaudio_parse_of_be_dai_link(card, link, be_index,
+							    ncodecs_per_cpu, cpu, codec);
+			if (ret)
+				goto err_free;
+			...
+			link_props->codecs =3D devm_kcalloc(dev, ncodecs_per_cpu,
+							  sizeof(struct ma_codec_idle), GFP_KERNEL);
+			if (!link_props->codecs)
+				return -ENOMEM;
+			...
+		}
+		...
+		num_links +=3D num_bes;
+}
+
+When macaudio_parse_of_be_dai_link() jumps to err_free, the cleanup loop
+only iterates up to num_links, missing the comp->of_node references acquired
+in card->dai_link[num_links .. num_links + be_index] during the failing
+iteration:
+
+sound/soc/apple/macaudio.c:macaudio_parse_of() {
+err_free:
+	of_node_put(codec);
+	of_node_put(cpu);
+	of_node_put(np);
+
+	if (!card->dai_link)
+		return ret;
+
+	for (i =3D 0; i < num_links; i++) {
+		snd_soc_of_put_dai_link_codecs(&card->dai_link[i]);
+		snd_soc_of_put_dai_link_cpus(&card->dai_link[i]);
+	}
+}
+
+Second, if devm_kcalloc() for link_props->codecs fails inside
+for_each_available_child_of_node(dev->of_node, np), macaudio_parse_of()
+returns -ENOMEM directly instead of jumping to err_free, leaking np, cpu,
+codec, and all previously parsed DAI link component node references.
+
+Finally, once macaudio_parse_of() succeeds, neither a failure in
+devm_snd_soc_register_card() in macaudio_snd_platform_probe() nor
+macaudio_snd_platform_remove() calls snd_soc_of_put_dai_link_codecs() and
+snd_soc_of_put_dai_link_cpus() on the backend DAI links.
+
+[ ... ]
+
+> --=20
+> 2.43.0
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261018-macaudio-v=
+3-0-abdff7741dea@gmail.com?part=3D11
