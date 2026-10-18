@@ -1,93 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E309D497397;
-	Sun, 18 Oct 2026 12:18:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30373476059
+	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 12:32:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792325909; cv=none; b=ndSbAkh4A3VPBWCmJSMF2VnbZ41aw8cn2gjJOeQEgS3JysohabsPyTp+h5/9KnYxa+WC+PAO0uhxWjALKaMdtE/+Qv+6Ud2PRsX3h0D2mgOIqBW1pqRR7i89fKRpy49LyWXMQOdn4LDu3gS0P7E7L1cYIJf1kOHio/3z2OswjgA=
+	t=1792326768; cv=none; b=p3n9hg5oJL1qrzYy3d247q0oJMz4B3pZGYi79ikV0MufGymfHnDvlVJzxw2XRoj0j0nCN0unbGbJd99Zq+7YrIgoGgz/scoPk+P7hZxCntfr9ysXUVivRfsla37PvhZt+5dqXHUXMIeRSGtwTmng5wmuwNrstcZWVkrN4zi0+mc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792325909; c=relaxed/simple;
-	bh=JzFKbODBCqDITSYuKKMi/ioeCQuhBxzidDm8OGH7APQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IIw3Mu+/I/uK4WWJP9Wh1DSS9lUDDDw1xUqhVeEJeGfbCznPcUUOTBQmciKdcQ8q7OyRTRv8c7SH5Cf5QgrevEJ7t366ulL7CreTdzIyxuRH0CwMDRLywdJlFqnDNG0OMz7pEa+JXvT2BbGLET15eWOpeF1+hrGNmzaeRv7b/IE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aGX9jNAV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792326768; c=relaxed/simple;
+	bh=jK42QSJLlFCZiNAkrZ4uWt8pBppxkc2bz1zJLNGahFA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NXEstSY8PL+iJmmQrFrk+bn2eMDR1uV4MFEIcMEU+ge49g/9Noc0+SNZ8lu8SqJIgsGlG32sCexBHAD37pZnbaj2U0DeV/Bsi8GAZ+DqJIWrrQlojF0qys46NOVa0cLeYiAwkXOjz7qxzW8N+JGmGdv+C82oT87mEEMj1kLTtQk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h/+CjGDQ; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aGX9jNAV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B52271F000C4;
-	Sun, 18 Oct 2026 12:18:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792325904;
-	bh=hccCCx/tW9VKP49Dniv/sGPS23PNohQsekM5NC4RLN4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aGX9jNAVoq6Mfx1fP1oK9Mfs+FGLVirxgSTm/LIFveyusaXJcXDnAup0KxeShoTa4
-	 ZzcORTG3rQCBU7SavMAx+9BDTuLzDh4wPwBrhN20qsepbjPehpioMnxdUMe5bejtQ4
-	 RN0ecq4JhmBsZT452zCLQoVc3KZY4v1B8In2qQbdYLUy7FLFH6H/EHMcDZ+QBoMI+p
-	 lJZWt4E8oUYi/0KhqYV2ZN/esJFYYOkJIT6/zV6a6hvS7how4HyJhlg6nIQFZ+sTMN
-	 oVvMNSBfjfCOgC1e9rTUDVxr7M0ytCm0PFAi0Bly6fmDhlSkAILiLFTbl5kOD+XoSM
-	 hlR8e2YNxuUHw==
-Date: Sun, 18 Oct 2026 15:18:19 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Chengchang Tang <tangchengchang@huawei.com>,
-	Junxian Huang <huangjunxian6@hisilicon.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h/+CjGDQ"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso14182215e9.1
+        for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 05:32:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792326765; x=1792931565; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GpPqZvPlIP3fXy4tW9d7V+mx955z5cVsFSY/eblWfwA=;
+        b=h/+CjGDQ/y2NFYO2Aij72eXlfWMe9D9aufSjskF3XRqm01WCnH1rBmpbC5m4PVt9Zc
+         88u2/27jOc2w7k2+LP4oWwoqe4Ov3ydAshEX4Krw7Bn359146sTgQC5c0nexlyTCXUPW
+         qAAX8Ol05owQQ6B+1t89XDb+pnSds7/mhM0x1nJUQN8EwNDijixN5ENC9U8wnR7OKbXU
+         yt7TNUp9WneQlJzibpPC3Nk5UbhYqH0nc2fEpSIqZkXPx0PSuLf4iEWKdgrZ74pBLdXD
+         8RpRJ1rFDZDCaJkuZMVF46PJ53nlQ38Zp/YkJIpVb64zzYJ2jWzbta2bRFnKDqyl2tQv
+         3q2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792326765; x=1792931565;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GpPqZvPlIP3fXy4tW9d7V+mx955z5cVsFSY/eblWfwA=;
+        b=gddDsd2w5ng13cxHRAIn0SlP/WPPDrckzHmnI8AjC2sVlwNfa/HTxWGHhso8vN+yVI
+         QyHmKDyBIpKEfAZPD0LYk51VKUlRRbI+Hz80+pedlGPFzHPqhL0Zk92C6sGxw6kxsXad
+         6lGG16eEgr/z/nWBGJNLvvmPPYcYHp24BT6GNV2CV+cZ/QHFvmgha9s98sTgko2dd78W
+         dIaPsMHVozsPwpK1kIPwSLgpLCTWR3iJxUbcqd4g413Vyvn1XENhEd30o65nMj6ftXdj
+         eRpE0iDSw70KsoOSmvc50tWHzKhylnbVcKcUrHWJEECsRCkAzB1sqdwylhke6DSSFiym
+         FZwQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxmOvbPofNVGYTQMo4MUC9XvNZ9WsOMQx4BXe0j6RUDzNRoneDnpJtZG7nsQeUOVK0iQ6u8EhtLNLjU@vger.kernel.org
+X-Gm-Message-State: AFq9FYIMOe+ukmISvqQe3PgmuhvDwDwdQSj60YQMhpGtOFGnXnd9sfx1
+	R0gSbe9hhVAdKN6EkGZaNsoWjDt77r5PpeQn3MwFnV0xRljRyjjY3MSk
+X-Gm-Gg: AYBFou2ty1xxy44FJbmzFTbGhKvNgDy1yeY7+fZxmMfVds9ClB5LpMvHlX+j+J0n4+t
+	DKgMC6Ip3HvBaD1Ykg6fzZZCkUkbucL4P0VCaCi4dco8FbtbQKvd6FoJs48VY8MiHtkwRhj6cGI
+	Q7RkywwegWLbz44C9EanwMPfrKTtPMng19Q7lwr2Q25c3+KxAO20ihnCrS7ueOH51iCVdbpQOot
+	Ew8CFfpqcUIdr5L4bVTwHFMnR4I2o8WVXrUbYlf7VRqf3a65M/ELhSM2MmUgCEAcEJjA6X7ECCa
+	98c8RZcl6q3nVEpLGtY6QhS09T9kxT3HzyRH5lFAQGcdNhEiGFfSPqzhQwiKiTgo0MFumuSIuRH
+	r/VdHkHPyxkun+Rc8pCG1/eMKskjm3bVkosDB9XV0CPi216DHbLb7OfH75tuu5JPHVSyGH6Rxcb
+	bl+b6t29PPzMtm0Ks1GTAtZTASBTMVWPB2i08CzhQdD01kVB8p391TpdII6eV2J3GN3fpi9pnVY
+	xmxEPBxHId2MZe9j+d5jP7oB1oMNf5/lrGey6LLnLNPW81k6hI1LgDNKGajnfAaLvIPzTM0WyRt
+	deVV7X+H/VfzNivXZg6org==
+X-Received: by 2002:a05:600c:6992:b0:4a1:d7c3:d3d with SMTP id 5b1f17b1804b1-4a1d7c30dd2mr96288465e9.10.1792326765173;
+        Sun, 18 Oct 2026 05:32:45 -0700 (PDT)
+Received: from Lord-Beerus.station ([93.66.71.207])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1c8ddde4esm245012535e9.12.2026.10.18.05.32.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 05:32:44 -0700 (PDT)
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
+To: Frank Li <Frank.Li@nxp.com>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-rdma@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: infiniband: Convert hisilicon,hns-roce-v1
- to DT schema
-Message-ID: <20261018121819.GB64621@unreal>
-References: <20261016223935.1496846-1-robh@kernel.org>
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Subject: [PATCH v1 0/4] arm64: dts: Mark Variscite i.MX9 I2C recovery GPIOs as open drain
+Date: Sun, 18 Oct 2026 14:32:23 +0200
+Message-ID: <cover.1792326585.git.stefano.r@variscite.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016223935.1496846-1-robh@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 16, 2026 at 05:39:34PM -0500, Rob Herring (Arm) wrote:
-> Convert hisilicon,hns-roce-v1 binding to DT schema format. It's a
-> straight forward conversion.
-> 
-> While generally '#address-cells' and '#size-cells' are not needed in
-> leaf nodes, there are some exceptions. Not sure if there's a dependency
-> in this case, so leaving them in place since this is an old binding.
-> 
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
->  .../infiniband/hisilicon,hns-roce-v1.yaml     | 173 ++++++++++++++++++
->  .../infiniband/hisilicon-hns-roce.txt         | 108 -----------
->  MAINTAINERS                                   |   2 +-
->  3 files changed, 174 insertions(+), 109 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/infiniband/hisilicon,hns-roce-v1.yaml
->  delete mode 100644 Documentation/devicetree/bindings/infiniband/hisilicon-hns-roce.txt
-> 
-> diff --git a/Documentation/devicetree/bindings/infiniband/hisilicon,hns-roce-v1.yaml b/Documentation/devicetree/bindings/infiniband/hisilicon,hns-roce-v1.yaml
-> new file mode 100644
-> index 000000000000..d987840f417c
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/infiniband/hisilicon,hns-roce-v1.yaml
-> @@ -0,0 +1,173 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/infiniband/hisilicon,hns-roce-v1.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Hisilicon HNS RoCE
-> +
-> +maintainers:
-> +  - Chengchang Tang <tangchengchang@huawei.com>
-> +  - Junxian Huang <huangjunxian6@hisilicon.com>
-> +
-> +description:
-> +  Hisilicon RoCE engine is a part of network subsystem. It works depending on
+The I2C recovery GPIOs on VAR-SOM-MX91 and VAR-SOM-MX93, including their
+Symphony carrier boards, are missing the open-drain flag.
 
-I'm not sure what this sentence is intended to convey in the RDMA subsystem
-file, but it was before your conversion, so let's take the patch as is.
+This series adds GPIO_OPEN_DRAIN to the SCL and SDA GPIO specifiers to
+match the I2C bus requirements and avoid the warning emitted when the
+I2C core enforces open-drain operation on SCL.
 
-Thanks
+Stefano Radaelli (4):
+  arm64: dts: imx91-var-som: Mark I2C recovery GPIOs as open drain
+  arm64: dts: imx91-var-som-symphony: Mark I2C recovery GPIOs as open
+    drain
+  arm64: dts: imx93-var-som: Mark I2C recovery GPIOs as open drain
+  arm64: dts: imx93-var-som-symphony: Mark I2C recovery GPIOs as open
+    drain
+
+ arch/arm64/boot/dts/freescale/imx91-var-som-symphony.dts | 4 ++--
+ arch/arm64/boot/dts/freescale/imx91-var-som.dtsi         | 4 ++--
+ arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts | 8 ++++----
+ arch/arm64/boot/dts/freescale/imx93-var-som.dtsi         | 4 ++--
+ 4 files changed, 10 insertions(+), 10 deletions(-)
+
+
+base-commit: 31f9ec9f38735f42e1f0ba57347c420e56b99824
+-- 
+2.47.3
+
