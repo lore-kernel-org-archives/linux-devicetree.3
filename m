@@ -1,76 +1,121 @@
-Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86A2F3FCB2F;
-	Sun, 18 Oct 2026 16:38:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.39.247.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 551BA3CF20A
+	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 17:00:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792341521; cv=none; b=G2suxJpFeoxWs4b1QYyJmiFlbBim34U+0jEW0JsO70c0sdtDtYjuXlatKFGpMjzaFyyB3NCfZxKRMM1hmsWIGnXleEYAfbQZGp7vuvT4g4Ov9DeGG1DA/4vDe5BbGNotwuEyZH7gCMtTIQ29CgUkzu7xGlqNTPCVr8dbcRKswpE=
+	t=1792342818; cv=none; b=PYreKBqE0fBsoSRe4+iZwEP5iilc6cbKC0Dc9ZWGLglBWHJcMjV0NswMOj0UEyIAaJPQvIvT0A5P/SBpjV2oSJm/GAKM2rubYQvxOxp4aVemDbQnrbXKDdcbGVB7b4LnIqs1OWPVk7YEzAp0vXai9zmK0ucuTiXbRv4DzveBGbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792341521; c=relaxed/simple;
-	bh=UDHszNuWmQbq3Wu7Bs2AhnZdXhL6cRT0VdJSJ+6uM64=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=O2eNuUL9ipW01fCjbHhUBx01jCDMvP3pzS42/JfL77hMoJqELYDgqia9jkc1c7snHreb7xxnCVFFdcpB4aovegdWXLNMsLzpcsKbZwOaZHLiO6waZWz7X+wLh30re2n0nvcxo9Icjv4fHjmt0CKHmul4s5KPQg6p1kfsSO6vo2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev; spf=pass smtp.mailfrom=cyberchaos.dev; dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b=atA6yuZi; arc=none smtp.client-ip=195.39.247.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
+	s=arc-20240116; t=1792342818; c=relaxed/simple;
+	bh=j6QwPSkInJeEhrzmgYZqfRvcEPRt7b6y26e5smlmvys=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=skbnLZ/BukNgn2DKhfNCcGlZEzmEx7wmCAWKtkDdX/sJ8eFJ+tijY/dBgHf0ouw+jlx4BAv+nJW2EKnb3pv/4bPBQa42rFWjmOEpU84Dnd5IMwPtw4oh3tSITteFteoaAAXMdpWkL+HhwdnA8Cpem7kYKz0TC5QpK1tX2EP6jpE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CXrVonlm; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b="atA6yuZi"
-From: Yureka Lilian <yureka@cyberchaos.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
-	s=mail; t=1792341505;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=emJJkhshzeK8P+If+K2qks4eZgheDqgrDrDeTe9jGqs=;
-	b=atA6yuZiFe5joFM10lquRpZ+3zbhop7/gWmncclhAls+SRCX6WKogikmlepluLLojl4l3E
-	dSNnlEk0vrzHOfs6nRpWhXBpSWAhmCre2NUeVIrwKTL7YFGWC/sTr0iV0WWiqXk47U3vcN
-	Tb0SlshEDgTjjkzuWEZv6td3AHmF9/o=
-Date: Sun, 18 Oct 2026 18:38:10 +0200
-Subject: [PATCH 1/2] dt-bindings: iommu: apple,sart: Add apple,t6050-sart
- compatible
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CXrVonlm"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48dee593f18so929586f8f.3
+        for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 10:00:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792342814; x=1792947614; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UqQp0/X3a9cfP9CawrgORU5i80U6c5G1RMObrYCGUFU=;
+        b=CXrVonlmDqUhebkpmralhJWlPrtut9hsjF+Tw9UDzJU24bJ4YTwBGJAvKxWkW075Re
+         4TLxIyhPLQGMS+H4ZtwF40pKK6ZmTaQbe6X++b2GZ2XFHPf7NSBSnOTRJ9NY4DeNU+y9
+         abVWKfk4YDtjP67ZxONfFfP7+gjxApnS0A7AcfmKFgdfrDlfAgbQA/E3AufbX5gA2sXP
+         w3sl/zQmcQa2ik2DRwB6r8mXN9JfZdSj5QQ44IITfvNLJ1M4MVqk07i3uWvCTov1dp1D
+         AzdyaPBpOiiPKnRZHK8CxMVtG7CKZ0jI7q8OSF7QhZRYP5bPmueUj5CkngbZBNaMpN6C
+         ayaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792342814; x=1792947614;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UqQp0/X3a9cfP9CawrgORU5i80U6c5G1RMObrYCGUFU=;
+        b=yvy/PGIgsTycULtbHnoXM1NYb6S8UTSpSKdkWigZmuvH3fdpgAu1Zr6CHpvaXrHkWZ
+         TIEe7ClRUjh9S7xBMuYAjaVFjrmdVW8XKzaAbwp89L0B4K64doGVLTDJVB8an8h3V2zx
+         TxOIzYfqv2pq0BsZUJrOGog4e57eYEVKjT4kR3Qg9dqsKTLYwvc3zjhQuwLf8/egcRG+
+         MwhDGcee9RkQqQL6efdNxoHZ6RKNjVQxlmvX0Mxtlun+lAwa/2/prPMO6e0cIfR67y93
+         /PtW5bAAPEvEZoszxAY8CWyFDQjvdr4K1dNE/+CUeCXzAPZy4ZBcpNytW5A+c1Yk9EGB
+         5kqw==
+X-Forwarded-Encrypted: i=1; AKwUvBxBEEvhzrJsYr8+Qfd4qeQXPWbVg/Xd6a0UhtxAonHgzkfwgpnl2sReiRYg3zpq8TRTQP7LTzShkVrP@vger.kernel.org
+X-Gm-Message-State: AFq9FYIwYK4+zUtleuw1e1uUywjTEktqNH2IHl4CJ1FcxTxJdSUtty9S
+	udpVvaKcp3gSnFMWkVvM4CtLaQrLQApbFG2NxBIRXtvmGnpz+19tLWwHDhIkFA==
+X-Gm-Gg: AYBFou2W7NfKkOgo/i9qbBNTiWIN1A42s58KFvO9UmfNt6bhF2QodlWuNRDIANdnNGy
+	oiycqDPDopMyhPyT/ZTh83jrfG8vZsi7M4wtc8POKpVrXSf7pLcmst6cXMOk+a5nt3UHjUW5Wnc
+	TQr7SoESQTb9Q4exHEQfhCiql6mrxxAL+5VK7O3fPJA9ePVCIz/oyWXOL07vaL9Y4WH3B/cSAVk
+	Ig0q3MDF0lizeNwDrCeloecyBOtkscmlGLtVE1CW7vh1pNMo5t/EhYFpyqFylxllxrzw3Xp57Qk
+	7NKQMPsrTVKNaCzhQ2Mg/lRg+q9akJ2tk5fMPeZpghgXyt2pELSZewSTKWv1+2AnIMiMrjaKT4Y
+	wpfoF85grdaUFLQcliLs9AlkcD+rusxvStCdTnNsIYZzVyeGnjnHymY4I8WdmV0+ePO1Ch+vcOB
+	pu/gucVBWt++9/fy5yUfxRJ7D10Oc0MKQvsgzBkw5DrdYk61U7BNqiSs35YdIJ3ELa6PRqrhyYl
+	wjR1BkOoPsbJIz28OQnqZnhyRvQs90o8ep1jhmWORD36utQcibQER8GoGxTE3nTF/XjUy6onnWK
+	wL91vrCGrq7xaYLDjdrN5Mc=
+X-Received: by 2002:a5d:4390:0:b0:48d:f025:110d with SMTP id ffacd0b85a97d-48e07fa9d49mr7744225f8f.43.1792342813663;
+        Sun, 18 Oct 2026 10:00:13 -0700 (PDT)
+Received: from Lord-Beerus.station ([93.66.71.207])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4ecac3sm19744454f8f.27.2026.10.18.10.00.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 10:00:12 -0700 (PDT)
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
+To: Frank Li <Frank.Li@nxp.com>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Luan Rafael Carneiro <luan.r@variscite.com>
+Subject: [PATCH v1 1/1] arm64: dts: imx8mm-var-som: fix touchscreen IRQ trigger
+Date: Sun, 18 Oct 2026 19:00:07 +0200
+Message-ID: <20261018170007.38381-1-stefano.r@variscite.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261018-apple-sartv4-v1-1-1eaa5d63f6a2@cyberchaos.dev>
-References: <20261018-apple-sartv4-v1-0-1eaa5d63f6a2@cyberchaos.dev>
-In-Reply-To: <20261018-apple-sartv4-v1-0-1eaa5d63f6a2@cyberchaos.dev>
-To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
- Neal Gompa <neal@gompa.dev>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- iommu@lists.linux.dev, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Yureka Lilian <yureka@cyberchaos.dev>
+Content-Transfer-Encoding: 8bit
 
-The SART4 is on Apple M5 Pro/Max (t6050) SoCs. It has 50% more entries
-than its SART3 predecessor and is otherwise the same.
+From: Stefano Radaelli <stefano.r@variscite.com>
 
-Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+The touchscreen interrupt is configured as level-high, causing a
+pending wakeup that prevents Symphony from entering suspend.
+
+Change the interrupt to falling-edge so the board can suspend
+with touchscreen wakeup enabled.
+
+Fixes: 5f67317bd967 ("arm64: dts: imx8mm: correct interrupt flags")
+Co-developed-by: Luan Rafael Carneiro <luan.r@variscite.com>
+Signed-off-by: Luan Rafael Carneiro <luan.r@variscite.com>
+Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
 ---
- Documentation/devicetree/bindings/iommu/apple,sart.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/iommu/apple,sart.yaml b/Documentation/devicetree/bindings/iommu/apple,sart.yaml
-index 88e66d4b13c6..d081dde44b05 100644
---- a/Documentation/devicetree/bindings/iommu/apple,sart.yaml
-+++ b/Documentation/devicetree/bindings/iommu/apple,sart.yaml
-@@ -36,6 +36,7 @@ properties:
-           - const: apple,t6000-sart
-       - enum:
-           - apple,t6000-sart
-+          - apple,t6050-sart
-           - apple,t8015-sart
-           - apple,t8103-sart
+diff --git a/arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony.dts b/arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony.dts
+index fd0a1862ce90..5a60430eb96a 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony.dts
+@@ -192,7 +192,7 @@ ft5x06_ts: touchscreen@38 {
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&pinctrl_captouch>;
+ 		interrupt-parent = <&gpio5>;
+-		interrupts = <4 IRQ_TYPE_LEVEL_HIGH>;
++		interrupts = <4 IRQ_TYPE_EDGE_FALLING>;
  
-
+ 		touchscreen-size-x = <800>;
+ 		touchscreen-size-y = <480>;
 -- 
-2.55.0
+2.47.3
 
