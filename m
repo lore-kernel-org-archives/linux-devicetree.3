@@ -1,91 +1,223 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1114D3E3D98
-	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 21:05:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7C6549AA4B;
+	Sun, 18 Oct 2026 21:10:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792357555; cv=none; b=b0Am1fBY6Jr0KXJGKKBZS7NZk+rj8OYHfsQi2nssX6u0q/ydze9ueFG+OAGjegX8xvtXg17BttjsEBXVR7SvkMfQkaqfZmf2vWtqFZG6tB/JT8AAmeun9swUpxdenJz4BXioyG1jHo+Js/lXec38WXv/HJzg6KMInWRzKLdFFyk=
+	t=1792357823; cv=none; b=RGiX9LHJYQq7TUR4yzxcG/5JDweQx280qlxdF9hUTEPgMtiiOaIR+zBZuaWqgrfMlqCg/I4wVpbVntJM+4vpPHfuL/xlwgxz3kGHouICN8CwzWajyjp/eBjOuAEMPrIYEHQKagcAMulBN1z0uwFTdN0cjraxAxTRKdEyCutWnjE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792357555; c=relaxed/simple;
-	bh=X9w/uTIz8mCO7IVavpsOU4YOnHgNhjn7Fq0V7BdmwrI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nFQaHw+4ZOTuGGCyzLUxc0QhzfvejM6Vve0whA52/Ke/KlAu89zgWelwqR3maRBO/HOSc8xStJdZh4SGQoNOI/PbOGR9ViUAa0yi3f81Ypcq0KAmzixq5ucH7wz0vEVwpGQoBF4qhIhngwcHZJYrb5o0ZUh0uXxqS+AGc+VpwwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nsivr2Tj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792357823; c=relaxed/simple;
+	bh=cHcpTFOTGdHKWfrxgwp/CfZ0r4K5eHiSCNS9p/A+NcY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=i8k33SgTP8bgkLcb8tSS2HK92v1DoYIPnOXT7aZmtWKS4dMOz+ZjQ2pyCEEabaZskiqDjDkQsn6BXBHsJlKYPJMKmtVmH/KUoJFl154Ef7l2fUFSdc1dB3tqPlkJxmE4xEKV04SWh1ia1bHMS8cv/UQCnlTe9T9eyA4ehn/cM54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZrOEEjfP; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nsivr2Tj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6A761F000CA
-	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 21:05:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792357553;
-	bh=X9w/uTIz8mCO7IVavpsOU4YOnHgNhjn7Fq0V7BdmwrI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Nsivr2TjtLpUhqtcw+3h6AEh8RlosvHydpHJzzW9bzTF+abxNY7WM25vHaaNc05o3
-	 dqN79/aHL32zYkTSa2MiEZN5xcHJeMdtTatqQlMMopeXkHvAWlB3FgMQ8WYsqbT/d5
-	 3mcFfNhY7fzRjpJOtyIrB01FqG27yG7es3IwjKDZmIE3dAouIFwHU2J4T/UVAK/gtk
-	 xjdeSL8pEJVWJDdVdBB9R4En++x8Jy2vWCOkmrCHyMlKArUoGXWu0exBiI/IirPp9m
-	 o6ZIedOH+9R3ZxyxNKbLOzRnZxT1J0pebk41Hn/9uJhR6SUe2nb1b5HL50FzO+lkfq
-	 E1XU48CUdkGBQ==
-Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3ab4354db11so854911fa.1
-        for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 14:05:53 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBynnMJ3pw+2dU+XcnrsMgxclA6HKsfO0BvPTsKmEbZ0d3mAsKoXhgJcP2wK50ub9GecAnS+/t9UOqJ9@vger.kernel.org
-X-Gm-Message-State: AFq9FYIFqt1Iw8cHCJLngPPIun1CxxvaQ7Vnu6lqr9O5r9+7RXqdRM3S
-	+CGorYDCuyY2ujhE3Ihx6hoynDKzPb2TSG2RUMwJE2GDROyYp+G80nb2nY9JVW1Hz0JZN0VPSdd
-	v+0xTDdYxEMpk6TgDUn0/1QiM+y9TmM4=
-X-Received: by 2002:a05:651c:324b:b0:3a7:6b27:260e with SMTP id
- 38308e7fff4ca-3ab28f486d3mr14469821fa.2.1792357552633; Sun, 18 Oct 2026
- 14:05:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZrOEEjfP"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 533CAC2BCF7;
+	Sun, 18 Oct 2026 21:10:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792357823;
+	bh=cHcpTFOTGdHKWfrxgwp/CfZ0r4K5eHiSCNS9p/A+NcY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=ZrOEEjfPFJrw6OjWaKq3obyEmsivkTTTNiPhD3mT7v3wIKpzERC1ng/dSozUcvwjq
+	 EEmHymhPJ1KsXT5pBa1DZQZjZ4WhM+7RUZHYFtHQHUti+0JpuVTbV5f9CQgwTpaUe/
+	 RfP8DjZy7cjoMRfrCKBwVYpBSrinTVzCf+SFkLxbgunqZIl6PFEnd/UyZU0kM/KhA3
+	 DZ3ZW9uzsrIMPW6DnofqzBTZIYcF1ayE/y711iohbKZfnXkjHbiyNSGZ9oAW3XY7n8
+	 GI+CIEvUxbTSM6gM6jD5b4+UgfMDE4a0mW4K4jXYO4ocZpu2EgdsdJBp3HUOBiaDOY
+	 RthfKK2tN5P/g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 35D72CCF2C4;
+	Sun, 18 Oct 2026 21:10:23 +0000 (UTC)
+From: George Neacsu via B4 Relay <devnull+geocausa.gmail.com@kernel.org>
+Date: Sun, 18 Oct 2026 22:10:21 +0100
+Subject: [PATCH v2 1/2] dt-bindings: media: i2c: Add OmniVision OV13858
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261016-iio-light-gp2ap002-v1-0-7c93312fa8d5@rudorff.com>
- <20261016-iio-light-gp2ap002-v1-2-7c93312fa8d5@rudorff.com>
- <CAD++jLkSjbMRV_53rjpd1D+vxg=OVVWzVwiddUL0eqmSBoONHw@mail.gmail.com> <3ef190ac-eac2-4c0d-b3b2-6fb627f086ef@rudorff.com>
-In-Reply-To: <3ef190ac-eac2-4c0d-b3b2-6fb627f086ef@rudorff.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Sun, 18 Oct 2026 23:05:38 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmD3ARRtwPZBsCOmUS0icP6yGjaX8GL+vt0qqnmBj8Gdw@mail.gmail.com>
-X-Gm-Features: AclHuK-JCU6Jc0xQi6Pc2hMskCDXFXdAnilG6QWxPy75OSiEz-MjrNHbVAvTZnA
-Message-ID: <CAD++jLmD3ARRtwPZBsCOmUS0icP6yGjaX8GL+vt0qqnmBj8Gdw@mail.gmail.com>
-Subject: Re: [PATCH 2/3] iio: light: Update DT bindings for GP2AP002
-To: "chr[]" <chris@rudorff.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, linux-iio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261018-ov13858-x1e-v2-1-cd35434cfcfe@gmail.com>
+References: <20261018-ov13858-x1e-v2-0-cd35434cfcfe@gmail.com>
+In-Reply-To: <20261018-ov13858-x1e-v2-0-cd35434cfcfe@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sergey Lebedev <lsa.uz@pm.me>, 
+ German Pablo Lindo <germanpapulindez@gmail.com>, 
+ Bryan O'Donoghue <bod@kernel.org>, linux-media@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, George Neacsu <geocausa@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792357821; l=4174;
+ i=geocausa@gmail.com; s=20261015; h=from:subject:message-id;
+ bh=OzTG46gfpk2pnDBYcA+0AMPZaN8UKbkzHCoTLIiLDiQ=;
+ b=D6/vax9StjV/YkL7bMS7iyxZhSo+BcAK11gxRm6fddpzsjuA0L7acDJKZgncl3wmfM9A9ULyI
+ gnqTRW0qmigATdpNkeUejJ6gROr6UL8vnSbtlz5pzeKWbfRnv1IB7+H
+X-Developer-Key: i=geocausa@gmail.com; a=ed25519;
+ pk=KyQk/iWbxsikewDBh0SwlHI51RvAqahD3loqmRp9DVI=
+X-Endpoint-Received: by B4 Relay for geocausa@gmail.com/20261015 with
+ auth_id=1199
+X-Original-From: George Neacsu <geocausa@gmail.com>
+Reply-To: geocausa@gmail.com
 
-On Sat, Oct 17, 2026 at 11:18=E2=80=AFAM chr[] <chris@rudorff.com> wrote:
+From: George Neacsu <geocausa@gmail.com>
 
-> > My datasheet for the GP2AP002S00F clearly has only
-> > VIO and VCC, enjoy:
-> > https://dflund.se/~triad/krad/GP2AP002S00F.pdf
->
-> That's the paper I'm looking at. Pin LEDA wants power!
-> See page 8 "Recommended external circuit"
+The OV13858 is a 13 megapixel sensor with a four-lane MIPI CSI-2 D-PHY
+output. So far its driver has only been probed through ACPI. The
+Microsoft Surface Pro 11 with a Snapdragon X Elite uses it as the rear
+camera and describes it in the device tree.
 
-Aha finally I got the design through my thick skull.
+Describe the sensor input clock, three supplies, reset GPIO and
+four-lane CSI-2 endpoint.
 
-You're absolutely right.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Tested-by: Sergey Lebedev <lsa.uz@pm.me> # Surface Pro 11 (Intel)
+Assisted-by: Claude:claude-opus-5-5
+Assisted-by: ChatGPT:gpt-5.6-sol
+Signed-off-by: George Neacsu <geocausa@gmail.com>
+---
+ .../bindings/media/i2c/ovti,ov13858.yaml           | 113 +++++++++++++++++++++
+ MAINTAINERS                                        |   1 +
+ 2 files changed, 114 insertions(+)
 
-But regulator supplies should be named after the input
-on the package so this needs to be named
+diff --git a/Documentation/devicetree/bindings/media/i2c/ovti,ov13858.yaml b/Documentation/devicetree/bindings/media/i2c/ovti,ov13858.yaml
+new file mode 100644
+index 0000000000..62bfb27782
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/ovti,ov13858.yaml
+@@ -0,0 +1,113 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/ovti,ov13858.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: OmniVision OV13858 CMOS Sensor
++
++maintainers:
++  - George Neacsu <geocausa@gmail.com>
++
++description:
++  The OmniVision OV13858 is a 13 megapixel CMOS image sensor with an I2C
++  control interface. It outputs 10-bit Bayer data over a four-lane MIPI
++  CSI-2 D-PHY interface.
++
++allOf:
++  - $ref: /schemas/media/video-interface-devices.yaml#
++
++properties:
++  compatible:
++    const: ovti,ov13858
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    description: Input clock.
++    maxItems: 1
++
++  avdd-supply:
++    description: Analogue circuit voltage supply.
++
++  dovdd-supply:
++    description: I/O circuit voltage supply.
++
++  dvdd-supply:
++    description: Digital circuit voltage supply.
++
++  reset-gpios:
++    description: Active low GPIO connected to the XSHUTDN pad of the sensor.
++    maxItems: 1
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    additionalProperties: false
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          data-lanes:
++            items:
++              - const: 1
++              - const: 2
++              - const: 3
++              - const: 4
++
++        required:
++          - data-lanes
++          - link-frequencies
++
++    required:
++      - endpoint
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - avdd-supply
++  - dovdd-supply
++  - dvdd-supply
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        camera@10 {
++            compatible = "ovti,ov13858";
++            reg = <0x10>;
++
++            clocks = <&cam_mclk>;
++            assigned-clocks = <&cam_mclk>;
++            assigned-clock-rates = <19200000>;
++
++            avdd-supply = <&vreg_cam_2p8>;
++            dovdd-supply = <&vreg_cam_1p8>;
++            dvdd-supply = <&vreg_cam_1p2>;
++
++            reset-gpios = <&tlmm 110 GPIO_ACTIVE_LOW>;
++
++            orientation = <1>;
++            rotation = <0>;
++
++            port {
++                endpoint {
++                    remote-endpoint = <&csiphy1_ep>;
++                    data-lanes = <1 2 3 4>;
++                    link-frequencies = /bits/ 64 <540000000 270000000>;
++                };
++            };
++        };
++    };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 760791e363..d4348a56a9 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -20235,6 +20235,7 @@ M:	Sakari Ailus <sakari.ailus@linux.intel.com>
+ L:	linux-media@vger.kernel.org
+ S:	Maintained
+ T:	git git://linuxtv.org/media.git
++F:	Documentation/devicetree/bindings/media/i2c/ovti,ov13858.yaml
+ F:	drivers/media/i2c/ov13858.c
+ 
+ OMNIVISION OV13B10 SENSOR DRIVER
 
-leda-supply
+-- 
+2.53.0
 
-And in description write something like "LED Anode supply."
 
-Technically this should be Required: and the right supply added
-to all existing device trees.
-
-Thanks for hashing out this stuff!
-
-Yours,
-Linus Walleij
