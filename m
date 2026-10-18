@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 615A843CE42
-	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 06:04:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A93B4CF477
+	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 06:04:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792303445; cv=none; b=flJCfXUdWIivxSQyFGZurJVx1uoCC/5aCizumDc3UHSPyiZdjMjkgtrr69juXYUH/J8UL0C06CLR8pbxiSn5v22urIO0C2iXkCSW9pms4B7+aaNwpidum4MU/YPn81/9BwnvLvytPWxTN972h/+7hcDuvv69jJoYYbw3PDGM/f4=
+	t=1792303475; cv=none; b=ffb/hZ4cwkD3Xs4DeXS2njc/pEnn1mEM02GlPcT20ZfG3l3U/Q6sVvRiXQz7NuOCpv1rAqIPtGSpsXJy1XXNbmqu5PlUB6b08WJZVI1YXwc3G3fiRpyVOba9/amn06tTN6NOCT0D0NoPtKuUJYbCbAaqX5r0Lc5iWbt12289ays=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792303445; c=relaxed/simple;
-	bh=oDrxnRvaMQ9fNuaIF2mnuJEWQAJtBTB+iO6pTcXEk/M=;
+	s=arc-20240116; t=1792303475; c=relaxed/simple;
+	bh=u8y3seedtLQT+02s9yLBgJJ4zNwlJpG8nvq+FXm23qo=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=FTWJfpexT0AY6fq0kERP0lBXnsgrcwW27CYpOJPWLA/RMA47UQFS8RK2tinots0t0KOOcMxvNnIekTWGvy003jH7mOz1R/q08u75kySH1WDP+wrKQiusefqIu2AxQLKiCIQrUId2fRwPnud/isfEnAATJx8MGRkS+st5ZQ2PKVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NtWmq4x6; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=raBjNyYq7kWD3PF7CzDh2PfTYFW0NnFyTv6GNHHvNdozSgvlWlnpy5LLsibcD/EtPXqxL+sEL/w2DAOJAQqa47UfqxckFUvStKw07MGweFPAFe2folIwZrN0kCNDSJucisn7hjgi1tW41ONDJHIz8O8CYFJze4GOzPpTEP8UX7o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WeZ4Ovzo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NtWmq4x6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FBFE1F000C4;
-	Sun, 18 Oct 2026 06:04:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WeZ4Ovzo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AFD41F000C4;
+	Sun, 18 Oct 2026 06:04:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792303442;
-	bh=0pzURY3z1IbdLOwAL1nAXV67/bYnnShH/kyMOIC5bRw=;
+	s=k20260515; t=1792303473;
+	bh=SFxIbrzUUB7PIRylfjOydJj7+mO3dPHDDNtodX6kDFQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NtWmq4x6x16Wgm6+j5WgFwjz8+GoQLbicQuBTQAifKpPaGI0qzdXgydwSwPOq3VLO
-	 O9YIehlyMMjtiCrDA9Z/0tNwBTKwXUSVX/WJP9YBffspWutjkmwG0ENvpzV0/LrPrI
-	 ETVzAr5Qhyo2JNhSwEeyxEjKo/aLYARetZuj4aIQR6G1k4fB6Hw7FxcZdC3u3pqMWi
-	 hBHqr54ETZYNGCzmV+oGx2KNDjmIT7d/i44tBDT3ptR9S9zOG7zG1QbHyul6h/rMET
-	 0wltvDFtlu5gA41vmP8R0gZAPzFdUDK9yESR71iMMsJWrLeBYLofCHCBrjzGIxtWn2
-	 T/v8E2NUOIdvw==
-Message-ID: <sashiko-outbox-175975@kernel.org>
+	b=WeZ4OvzolQ6Z5z3Bdax26zmo8okXegGHw4z9hvOT0Sx0px4rgKqkXGTyGClfpa4zw
+	 LaCqeh190xSQ27JKEP2eVdK/QSMu3QV/stY48ENy0ZjJCEXrPKJUVgytDx1xYXkEiQ
+	 YNLHe+i7+l8ec4lHL7HC2buz2H7MUmok6gWWYm7PO0bsykaLLUDrhvtIE8eug2NB1c
+	 JW6N/TSm9WrxwjA5/iod46TwgEPmPnvfIOGHydS9fbfukrIL8If/XT0JVvv8qEJzla
+	 X0NYLqsFnZsxtJUTK7Hc89xEh2St6iV7Z8GmvRAGb43vu+kQpKnIhK8tuAO9dh2QZY
+	 4WiHEBPTqh6qQ==
+Message-ID: <sashiko-outbox-175976@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 02/21] ASoC: dt-bindings: cs42l42: Document
- additional dai-common properties
+Subject: Re: [PATCH v3 09/21] arm64: dts: apple: t8103-jxxx: Add regulators
+ for CS42L83 power supply
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "James Calligeros" <jcalligeros99@gmail.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261018-macaudio-v3-2-abdff7741dea@gmail.com>
+In-Reply-To: <20261018-macaudio-v3-9-abdff7741dea@gmail.com>
 References: <20261018-macaudio-v3-0-abdff7741dea@gmail.com>
- <20261018-macaudio-v3-2-abdff7741dea@gmail.com>
+ <20261018-macaudio-v3-9-abdff7741dea@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 18 Oct 2026 06:04:02 +0000
+Date: Sun, 18 Oct 2026 06:04:33 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,69 +47,95 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] ASoC: dt-bindings: cs42l42: unconstrained #sound-dai-cells property
+- [Medium] arm64: dts: apple: duplicate node names in t8103-jxxx.dtsi merge=
+ regulators
 --
 
-commit 41e0b44d1b55811c2f6af66b07ffb649188a35d3
+commit d0005942339444378649a8aca2fe8ee2e51f9a6a
 Author: James Calligeros <jcalligeros99@gmail.com>
 
-ASoC: dt-bindings: cs42l42: Document additional dai-common properties
+arm64: dts: apple: t8103-jxxx: Add regulators for CS42L83 power supply
 
-This patch references dai-common.yaml# and documents #sound-dai-cells
-and sound-name-prefix in the cirrus,cs42l42.yaml device tree binding.
+This commit adds five fixed-regulator nodes to the Apple T8103 template
+devicetree to serve as stand-in power supplies for the CS42L83 codec.
 
-> diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml =
-b/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml
-> index ab4c7d22dc0eb..aba2121ac64a7 100644
-> --- a/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml
-> +++ b/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml
-> @@ -9,6 +9,9 @@ title: Cirrus Logic CS42L42 audio CODEC
->  maintainers:
->    - patches@opensource.cirrus.com
+> diff --git a/arch/arm64/boot/dts/apple/t8103-jxxx.dtsi b/arch/arm64/boot/=
+dts/apple/t8103-jxxx.dtsi
+> index 686fb1dd215d2..7483fc5cbd204 100644
+> --- a/arch/arm64/boot/dts/apple/t8103-jxxx.dtsi
+> +++ b/arch/arm64/boot/dts/apple/t8103-jxxx.dtsi
+> @@ -38,6 +38,38 @@ memory@800000000 {
+>  		device_type =3D "memory";
+>  		reg =3D <0x8 0 0x2 0>; /* To be filled by loader */
+>  	};
+> +
+> +	/*
+> +	 * The CS42L83 found on all T8103 boards requires VA, VCP, VCP_FILT,
+> +	 * VL, VD and VP regulators. We don't (officially) know how power
+> +	 * gets to the codec, so these fixed regulators are stand-ins.
+> +	 */
+> +	jack_va_reg: regulator {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "jack-va";
+> +	};
+> +
+> +	/* CS42L83 VCP and VCP_FILT */
+> +	jack_vcp_reg: regulator {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "jack-vcp";
+> +	};
+> +
+> +	jack_vl_reg: regulator {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "jack-vl";
+> +	};
+> +
+> +	/* VD_FILT */
+> +	jack_vd_reg: regulator {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "jack-vd";
+> +	};
+> +
+> +	jack_vp_reg: regulator {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "jack-vp";
+> +	};
+
+[Severity: Medium]
+Won't giving all five sibling nodes under / the identical node name
+"regulator" cause dtc to merge them into a single /regulator node?
+
+When a T8103 board DTS includes t8103.dtsi (which defines /) followed by
+t8103-jxxx.dtsi (which re-opens /), dtc merges the two root nodes via
+merge_nodes() in scripts/dtc/livetree.c:
+
+    for_each_child_withdel(old_node, old_child) {
+        if (streq(old_child->name, new_child->name)) {
+            merge_nodes(old_child, new_child);
+            new_child =3D NULL;
+            break;
+        }
+    }
+
+    if (new_child)
+        add_child(old_node, new_child);
+
+The first child named "regulator" (jack_va_reg) is added to /, and the
+remaining four sibling nodes named "regulator" (jack_vcp_reg, jack_vl_reg,
+jack_vd_reg, and jack_vp_reg) match streq(old_child->name, new_child->name)
+and are merged into that single /regulator node. As a result, all five
+labels resolve to the same node and each definition overwrites
+regulator-name until only "jack-vp" remains.
+
+Should each node be given a distinct name matching
+Documentation/devicetree/bindings/regulator/fixed-regulator.yaml, such as
+regulator-jack-va, regulator-jack-vcp, regulator-jack-vl,
+regulator-jack-vd, and regulator-jack-vp?
+
+>  };
 > =20
-> +allOf:
-> +  - $ref: dai-common.yaml#
-> +
->  description:
->    The CS42L42 is a low-power audio codec designed for portable applicati=
-ons.
->    It provides a high-dynamic range, stereo DAC for audio playback and a =
-mono
-> @@ -26,6 +29,10 @@ properties:
->        The I2C address of the CS42L42.
->      maxItems: 1
-> =20
-> +  '#sound-dai-cells': true
-> +
-> +  sound-name-prefix: true
-> +
-
-[Severity: Low]
-Should '#sound-dai-cells' be constrained to const: 0 here instead of true?
-
-In Documentation/devicetree/bindings/sound/dai-common.yaml,
-'#sound-dai-cells': true is a generic placeholder, and referencing codec
-schemas normally constrain the cell count to match the hardware.
-
-In sound/soc/codecs/cs42l42.c, cs42l42_common_probe() registers a single
-DAI without a custom .of_xlate_dai_name callback:
-
-    ret =3D devm_snd_soc_register_component(cs42l42->dev, component_drv, da=
-i, 1);
-
-Leaving '#sound-dai-cells' as true allows non-zero cell counts in device
-tree nodes to pass schema validation while failing at runtime during
-ASoC DAI phandle resolution.
-
-Also, if additionalProperties: false at the bottom of
-Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml is changed
-to unevaluatedProperties: false when referencing dai-common.yaml# in
-allOf, would that avoid needing to list sound-name-prefix: true here?
-
->    VP-supply:
->      description:
->        VP power supply.
+>  &serial0 {
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261018-macaudio-v=
-3-0-abdff7741dea@gmail.com?part=3D2
+3-0-abdff7741dea@gmail.com?part=3D9
