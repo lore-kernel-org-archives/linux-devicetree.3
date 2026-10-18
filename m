@@ -1,145 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EBF029D291;
-	Sun, 18 Oct 2026 17:56:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792346185; cv=none; b=Ay0SBNSmt3OEuKl4B88giKgBkRbFxxYxUxD2D4D7snnBS8lZHDP0O0iXoTemdl+nY58eLeMn8GkyzAceFfzGyXBqXjnn/ozyiMsci8OnoAPHPZeUvLVOJLzgLDhSxgcFwQzYLAcFmtN3TnOP6XvEnl44299uZpjKGZHvZrDUTaQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792346185; c=relaxed/simple;
-	bh=7IgQgvCYxNvVaE+ueZonl8NCpJ9gvuDv8VYcY2+iM9o=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZH4PUUz+8g1NP/P+pKcQ6ft1LB8qCe/Ua8D6XJp15uUcEaBr7Il53JIFQW5kYANo6cEcbUYHWJ9CPsHEnqiVFM4DzaKiqBwQOJjdsdLYlUkZSV+XZ32acs4ShhMKrv1CdNByWSfZxYu482kW2qyqEJTgyiLUNyX1qKxcpSbeTrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m2PiBFOK; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAAE6414439
+	for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 18:04:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792346669; cv=pass; b=el975KOLTWekuaDU7CJeNytwjemLxZkcUgE77fD3VfVkuFPRbgW+KLha41sDwAnnrLa/fGTFIUWSsTWt5j9jcyvAF2Sp8q89u1eJts20r8ax5ApGj7s9x2WQBg0Q3fitiM4M6cy3s24zysVaL6Jf+sf8bmJhu6xOBhJILN+Ozu8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792346669; c=relaxed/simple;
+	bh=uSc5BfTvWQLr3mEx1fqMIkGXe5VzMAa7W88GOKZJAag=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pSDxWo2K8aUZobUkQTBYTfTMUM+E8XMFYd7CLpJgQsA9sgcpkM4ojHT7o5Nbeb7X/z0D+M6XtQt8ZHMp4Cz7bFar3IM2ZHW732B9IjvjyHbPDji3ZiZBG+iIZ95Kmgf0bv2jhivQXVC44MBZXtSnakr7fkrt7D6fwUCb4tlaClo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BifnEZ5N; arc=pass smtp.client-ip=209.85.210.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m2PiBFOK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F0A71F000C4;
-	Sun, 18 Oct 2026 17:56:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792346184;
-	bh=liB8BgC1Ml46m5qJ2Km0vMLjnxc3Pun60AgSOQRsiBs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=m2PiBFOKh3/PBfkF09d5G2Pwrq2k/hNmmokceGySQIEf70CsesetjNFDxkLk+w9hR
-	 hu8j0pugh6irna+V40Dhr1NAeECfOrC0YtW8Dr+2iPWkHHvglwsywMy+HNz6MTQ92t
-	 Y4o5uCiPCdEeOatLDZFikNOtuhZiRy74n97SFe2Ty0eFJFor8S564Y5Sip3sbxZcQT
-	 yG04jSBwIXkOfWiJ0rNPYbcatwzm9CBpg0rqQVYFPIVzTzya1dRjNnOSEOBeOsHbkT
-	 aJRjs8TL7+7xhp/SPRvrMj/0n19BVMn7CMc5Qp7hYLzzpEJ6SYXwh61MnEyT/fFp0M
-	 WaacBoD5v00bQ==
-Date: Sun, 18 Oct 2026 18:56:19 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: "chr[]" <chris@rudorff.com>
-Cc: Linus Walleij <linusw@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn
- Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] iio: light: gp2ap002: add led power supply
-Message-ID: <20261018185619.2aa694da@jic23-hlaptop>
-In-Reply-To: <d06d51cf-a53d-4bef-881e-cdcb4925a316@rudorff.com>
-References: <20261017-iio-light-gp2ap002-v2-0-d6879767a446@rudorff.com>
-	<20261017-iio-light-gp2ap002-v2-2-d6879767a446@rudorff.com>
-	<20261017190006.224b73e7@jic23-hlaptop>
-	<d06d51cf-a53d-4bef-881e-cdcb4925a316@rudorff.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BifnEZ5N"
+Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-7f48c750afcso713228a34.0
+        for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 11:04:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792346667; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RWfYTJ8xFg+6UzABCB/Us06gJ9caFbpEpJOchGNj6yZEX0Q05Ywe9BKRXYNQdfz3PM
+         5olVGfq/9h6PUo2V/9I4yXFrtbCkjXH8IKheAMuVSk76Aoq207pnKXk7u04iUukHUD80
+         bzl1u7OHmqxUUX31mklE4Fb7s4Ees5Y56Sm5xTgGZMGI5xCwT8ZaXhwVCIR8Y3P7HAMs
+         DANLmgS1Fzl0AG6BZhggD+1Px8sDBwj62v3nn+0218ifk379KKJM1LuNTBr+6MUAsGIi
+         yKM3Qzd7BrrBakbPjtwyxqUeqeizmCpFmzNIGAHN+rH3WhNBrNbq/qTsgiGgJljfcH72
+         lJhg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=1mdbBwBWo2/ZQakn2PE2+HqsoPZdP41mPHeDVrW/vk0=;
+        fh=JjgCCsW7hyP8vrM70wDxBG4iSqtqQazpvbHsOCeWUKc=;
+        b=WJE+LPCkpYFz5ZZsGYXDGAJTqhbYJJtcii0qS9SAu23uVHN8r8t/9ClqGDI24l2CTQ
+         yKdhZHf3W/ViVa5C2cTz6lo2tRJtE4ke865Glxm3RhDNEweELPMI1RF3tXoC9Qfak1Aw
+         0EvFDWw+jt4kCnwkvrNIHkcOag7peudYFikGhKqaChjbrNvDAV+gtCXb2DydeNACbDym
+         DPMAYyRRbpbfd3u2agsy1Zcm4vMUm/VtwTyBEYqkwqkEaSJnJqGgqXA8jJZE9NNlV/uc
+         8ZZ/K3Qh8F1WH+8nXmKFtqZJFH0fVUdeUQnwm+i27OWqUyDBUbNtV8kPDdzcvJhZrYTH
+         jWcg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792346667; x=1792951467; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1mdbBwBWo2/ZQakn2PE2+HqsoPZdP41mPHeDVrW/vk0=;
+        b=BifnEZ5NoxCkRDLr4KLc2SEQf/iNG0++zy1cM8BqHbrFxeZzGASb445bDYzdkzSjAM
+         oENsLzhOHsjOyP6nV7Sbw8YV0GUcIROG/0gkdiRM1BlUCqhimk7+l0y7xScpH3PqksoE
+         Fl7LNpfXfkNQlEezeEoHDi4q4E885a0kGpiwKuTg51/fMSO2A/YIAJZaUqYgXxvOB3SM
+         7KQLbTJZqcK5ieBA6No6xsxT5TvPm89DzTuUXDIfLKVNV/kWo1iDgccyEsPmSTRoE2mG
+         gQA3v2W+wm9LM4HqWR2ydMiu7sFFjxWqrarXLzwDPWEV/iIXIT2kyjz/URei1R5oOnl8
+         E5NQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792346667; x=1792951467;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1mdbBwBWo2/ZQakn2PE2+HqsoPZdP41mPHeDVrW/vk0=;
+        b=gYwxRSNB89ocXtQZuo+YK+AjYevjmYad0/+NpQJ8ZOBDYS0fdbxPCTdkJ3HIyUb+zj
+         c8QXFNOv8odF8fpjJl++nr1KhsG1eJcaeMJI8YZw5e+fXHMmu/+YtO2cxwjDN0PHSchZ
+         rF7Pe7IlstdKyJZm/VuLirI0h1SHtUQeFG2fLftRZMPI3kiUfNiOaNj5jb5a6ovWE04J
+         B8HNdCHWm5LAxS3AioTVIQRafTZb0dWaawlcLa74ysiKs+KUTtvJSq4WacjoeUVJfGJn
+         28ecdfngQvphvCIEJ71jXXg3r0bJrkKbUHdJpphf8/Fqp1uVb7IPOHBUj2ozCwIaOcF1
+         +nuw==
+X-Forwarded-Encrypted: i=1; AKwUvBw1R2OxIGUJZuVQJUoBrAhkE9VOv4ycHatb873nWSZu/gTyCTrBOqTd7HkLqM1qscZGfOUIgCTtfF1b@vger.kernel.org
+X-Gm-Message-State: AFq9FYIpCoQzcFcOED4d2i0br6wf8BteTblTJeRQMZFqgrttZsxpd2RJ
+	wJFw7SVgtvnDpsUlpftWmm0zxUZ/fi7+Wb1st3X1cjPgwIQe3mt2qys3Ywco6YS0XmbTV1ChHUB
+	bqt3u1yyncNY34YPbwzKbef/RUq/Xw1vYNI/t
+X-Gm-Gg: AYBFou0cxc07+nigg/cquFeI+AwjYni5HXjTxoeGH7iua4BXLnnaPgneAHcAdwb73Dr
+	NA0aXEcUAES3nVXqNzT8g5CJPmRhUlwZ9SXZ2i/qezHczkIQjSrVyQYd42lJ8aNsPmwFQoe6G8I
+	l6njWfI0G/2nXYWUp0ce6S4/igUItwWeUeB9QCnGlIw5IqgRHeAgG+/ZP26rHpj1pKLpYgIEo4U
+	B52Sh7XsrEUYMTFo5CaDPUfuCdcjz5wyEFRzOVVS0EXqXdPKf/NIoGbo0kYtrDCAinHzIOb+lih
+	bEiNlP9TDhDiHpWjiTMRHcfhhVXO7HPPcpqahuePiRmQ3nhbNCUxsvU=
+X-Received: by 2002:a05:6808:c16a:b0:4e8:f158:504 with SMTP id
+ 5614622812f47-53ccfcb3732mr4440447b6e.44.1792346666667; Sun, 18 Oct 2026
+ 11:04:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260714222338.2965707-1-dianders@chromium.org>
+ <20260714152138.7.I5cef580a62c86ba6c3465ad336fa509afbdf1476@changeid>
+ <CABb+yY3_xBvQVFHEs=v39u7+TLjJRaVv3sg5pGgd0YxCruZ8Tw@mail.gmail.com>
+ <CAD=FV=X-fAJp=EG_yTAg+QQgNYRCt25947oHGHZuq-FEyirK0g@mail.gmail.com>
+ <CABb+yY2CH5A1ixfX9czgtEwsP95FN-2JVzN_wmRDRNsSuZY5PQ@mail.gmail.com>
+ <CAD=FV=XiguzS7nH1sE=BkXt+7G6-hhqyz5u3sjc4zAA9H7KqJg@mail.gmail.com>
+ <CABb+yY2_AvcnaTDmpL8gP4H2_Pp3HddrtNr5gvL4GCW2DPPvOw@mail.gmail.com>
+ <CAD=FV=VzJCb1nz+q5EZ33G5U6KZM_tXi8snL=KbUM3C5yymG4g@mail.gmail.com>
+ <CABb+yY2omp+g13UgZfiKWLux9J1P+=ed0U3F8AhS0iQK=kpN8w@mail.gmail.com>
+ <CAD=FV=WA2wFbk0=qFE0aZs9E5jg-EXzcrkPCk6VOMhbDroOQCw@mail.gmail.com>
+ <CABb+yY0W+244qaXqHdfEq9XFuQXBez7PVcDNrKooV9cFS8TS_Q@mail.gmail.com>
+ <CAD=FV=VW2h1zWDYWQ6LknX3O+3=EY665jde35Ly+UQzuscXy=Q@mail.gmail.com>
+ <CABb+yY2Cc9YGKb0ej7CZ_LQLw-iMQOtcAwLPier+X2ej1fWcJQ@mail.gmail.com>
+ <CAD=FV=U1DAuDN4eR_hZ2bbGoGkgkszDLPUDiosxh1aKg7Y1T=A@mail.gmail.com>
+ <CABb+yY3n3QmxTPOyAuHz9JkOKbhRqKok+24THc_JfdxwzROWDw@mail.gmail.com> <CAD=FV=XGka_QqGt5iK53vU704ZsvCrXUWvJ9ewo1=TCiepfz-g@mail.gmail.com>
+In-Reply-To: <CAD=FV=XGka_QqGt5iK53vU704ZsvCrXUWvJ9ewo1=TCiepfz-g@mail.gmail.com>
+From: Jassi Brar <jassisinghbrar@gmail.com>
+Date: Sun, 18 Oct 2026 13:04:14 -0500
+X-Gm-Features: AclHuK9jkljhKuhIJglKVeLMSVOb6YPON2UjWK6R6JPfulmpbIc-vcVZcLxOoks
+Message-ID: <CABb+yY2FHBxNMnvVkJ=tmeRF--Y4t_L5A=FvXks8SCzwwARvyw@mail.gmail.com>
+Subject: Re: [PATCH 7/7] mailbox: goog-mba: Introduce the goog-mba mailbox driver
+To: Doug Anderson <dianders@chromium.org>
+Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Joonwon Kang <joonwonkang@google.com>, Subhash Jadavani <sjadavani@google.com>, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, Lucas Wei <lucaswei@google.com>, 
+	Brian Norris <briannorris@chromium.org>, Peter Griffin <peter.griffin@linaro.org>, 
+	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-samsung-soc@vger.kernel.org, 
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, 18 Oct 2026 16:41:48 +0200
-"chr[]" <chris@rudorff.com> wrote:
+On Mon, Sep 28, 2026 at 4:41=E2=80=AFPM Doug Anderson <dianders@chromium.or=
+g> wrote:
 
-> Hi,
-> 
-> In preparation of v3:
-> 
-> Am 17.10.26 um 20:00 schrieb Jonathan Cameron:
-> > On Sat, 17 Oct 2026 19:27:42 +0200
-> > Christoph Rudorff <chris@rudorff.com> wrote:
-> >   
-> >>   	/* VIO should be between 1.65V and VDD */
-> >> -	ret = regulator_get_voltage(gp2ap002->vdd);
-> >> +	ret = regulator_get_voltage(gp2ap002->supplies[SUPPLY_VDD].consumer);  
-> > 
-> > Ah. I'd failed to register the voltages were being manually set (generally
-> > we leave that to firmware in more modern drivers).
-> > That rather reduces the advantage in using bulk regulators.  Probably
-> > still just about worth doing.
-> >  
-> 
-> Yes, this is why I didn't made it in v1.
-> 
-> >   
-> >>   	if (ret < 0) {
-> >>   		dev_err(dev, "failed to get VDD voltage\n");
-> >>   		return ret;
-> >>   	}
-> >> -	ret = regulator_set_voltage(gp2ap002->vio, 1650000, ret);
-> >> +	ret = regulator_set_voltage(gp2ap002->supplies[SUPPLY_VIO].consumer, 1650000, ret);
-> >>   	if (ret) {
-> >>   		dev_err(dev, "failed to set VIO voltage\n");
-> >>   		return ret;
-> >>   	}
-> >> +	/* LED voltage 2.4V .. 3.6V according to datasheet */
-> >> +	/* We need to check this, as dummy or fixed controllers trigger an error. */  
-> > I'd make that a multiline comment and say what 'this' is.
-> > 	/*
-> > 	 * LED voltage 2.4V .. 3.6V according to datasheet
-> > 	 * We need to check control is supported, as controlling dummy or fixed
-> > 	 * controllers results in an error.
-> > 	 */
-> > 
-> > Do you actually need to control this for your board?  I'm not that
-> > keen to replicate the controlling of voltages if we don't have
-> > to.  We can't drop existing code as maybe a board is relying on it
-> > but we can avoid adding new examples!
-> >   
-> 
-> So we don't want to drop all the set_voltage code in general.
-> My board does not need that at all, all voltages are already set
-> to valid values in DT, ... I hope ... I check downstream ...
-Unfortunately it would be a bit of a gamble to remove the in
-driver voltage control on existing supplies. Given it works
-for yours though let us not do it for the new one! 
-> 
-> So I skip the "example" for set_voltage(vled)?!
+> > It is not the diff stat but about inserting a flag in the api to
+> > introduce special case behavior. It is like adding one person to the
+> > party introduces N-1 handshakes - the has_queue flag doesn't play well
+> > with other configurations and may allow future platforms to abuse
+> > has_queue to implement hacks.
+>
+> Can you elaborate more on this?
+>
+> 1. How does "has_queue" not play well with other configurations?
+> Everything should behave the same if "has_queue" isn't set, right? Are
+> you saying that it will make the code too hard to understand, or
+> something?
+>
+has_queue doesn't fit with all tx-done-by poll/ack/irq in
+blocking/non-blocking modes. And we can't say that flag is for only
+one specific setup.  I can imagine people (poor LLMs) concocting weird
+designs because that's what fits their first implementation attempt...
+just because that flag is available.  And then people vehemently
+defend their first implementation.
 
-Exactly.
 
-Jonathan
+> 2. How does this allow future programs to abuse "has_queue"? Won't
+> they need to submit mailbox controllers to the mailbox subsystem,
+> meaning they'll have to go through you? If someone is using
+> "has_queue" to do a hack, can't you just NAK them?
+>
+It is difficult to fight platform specific changes because people
+can/do say "their special platform doesn't work that way". It is much
+better to reduce the abuse surface area.
 
-> 
-> And thanks for the advice to pretty up the code!
-> 
-> chr[]
-> 
-> >> @@ -632,9 +650,8 @@ static void gp2ap002_remove(struct i2c_client 
-> *client)>>   	pm_runtime_get_sync(dev);
-> >>   	pm_runtime_put_noidle(dev);
-> >>   	pm_runtime_disable(dev);
-> >> +	regulator_bulk_disable(NUM_SUPPLIES, gp2ap002->supplies);  
-> > 
-> > Why at that point in sequence?  You are turning the power off
-> > before removing the userspace interfaces which seems unlikely to
-> > be race free. More generally it is no longer reverse of probe
-> > order. If that is necessary for some reason I'd expect a comment
-> > to say why.
-> >  
-> 
-> Sorry, just a stupid mistake.
-> 
-> >>   	iio_device_unregister(indio_dev);
-> >> -	regulator_disable(gp2ap002->vio);
-> >> -	regulator_disable(gp2ap002->vdd);
-> >>   }  
-> > 
-> >   
-> 
+> ...but I guess the root of the problem is that it just seems
+> unexpected to me that fw_xlate() is taking the same input "fw_node"
+> and then is returning different mailboxes.
 
+Why is that unexpected? xlate() doesn't have to consume any hint if
+all channels are identical. Another obvious example is a controller
+with just one channel.
+I think you should go ahead with the v2.
+
+Regards,
+Jassi
