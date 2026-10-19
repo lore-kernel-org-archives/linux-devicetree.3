@@ -1,241 +1,179 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA5CE291C10;
-	Mon, 19 Oct 2026 10:21:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792405313; cv=pass; b=WjaLkJK+2BrByu5aJLKtINdUTQefHWNX+6F+ptPWbi0OUFwaRtbuMi1VhLsE4I3VEe/6qI+sarZ+TYGAm1F0+a3fQHS1y+fbNUMgKSprdu4w/dfqeNpMgV5vkQuuPp2T4FuiC6FF8+AzU92ruXhcb9WotviOodIZhG6PfF6Z30w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792405313; c=relaxed/simple;
-	bh=dqsU2k+j2h/jlU9K90a1b8H/2C2guTNSlwlML51Pmxw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gOQnbVmoEKOjShDJ+uD70Wpq6bPwpTzASX5ygiA9X3yk9uPFvl9Nh5VByGf+C2S3y404ypaegyvB+BD4upv0dX94atRI6L1c6MGzltAlQGxCA8dvskeyjEUUVpUkXYv7Qxtj7144kdlvEzHiBc7Wzrux486HaUNsRUI1+GAAYjA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=XIZIFLNM; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8178C4C225E;
+	Mon, 19 Oct 2026 10:22:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792405325; cv=none; b=AaSdPOLM5bEhd4sZ3xUYmYtEqCoRiXBlt3vZRUxcZNmSs2NVCHsU0hpQY7dcmy4jMgbNvPeIwoiJTdMXoVYmN3HHPS4ecxXoQ1RFFT/M5zq+vdKg4Zx0v7WrYucAeImd+aWauOqZe5ZCia0WS3lndCXdap766izH4tlSaYM+3R4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792405325; c=relaxed/simple;
+	bh=d8Bj4vzObU/jRIwHnyVsu4EjR9LZ3fZZc+NYrJEJoEY=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=J0NkuRzRV1d+52AK/I1ppYMbi71MzOVQkLw3jPXRoUmMmQ4GygVrisCn66smnQn4sr5RTyfJ8FZwSOSDlizTBhKzEKLFmD4svYmVV0xeiacq4/+r1fGLuqQuc2Qmzah156WnOR8On4NDJ0aCI+08GsJ38zekCI0SaXDj2arNz24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SUGiEgar; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="XIZIFLNM"
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 80B242005A6;
-	Mon, 19 Oct 2026 12:21:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792405307;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/gLGTyZVae2UoxIdOnGHqtMC2VcU6jvzG6cGMRiNPqg=;
-	b=XIZIFLNMW3e6kz6LqSCkZl8ko9cMp/xXoWh08Iwt1WA3AjxVOenq3kU9oDfN94XoVY5CrG
-	PT2kz3z9i/KdJxpIk7q3o+ccIpnBzaKs1Zlq9JOtR7GwP/lIp2ea4j6nddaMRBwY4s2Y+S
-	NHvpvcT8rT+Rj00s/8q9SyviLw2Tn1YerZdnFwMirHFZxLEAzR/1xD11IRH+eN45fIVbBz
-	cb3kM3t7Z3cmFrG3XxMFQX+Rfom1NDumTSLptgQ8UDZsyCWALtJuKpbcjeTTrVGl5qqu47
-	GQFOnbVqa47tmV87CAZBulg+V6n6N2MXqkmj2ak3QINOWmjH/+3HKoKRFNfU6w==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792405307; a=rsa-sha256;
-	cv=none;
-	b=enCnV/XP4qDh1aGLyqae6IQ6xIlOdnR7wendVtenyN+fj8sXfGWN4bO2C0T6tL4KM/Lpjg
-	88HRkiFDEayX4RBzhU0uJcSi5m1mrRZSv2rfArbXEG696+fgDjRNLgOdPBPDXsWu0lRZPz
-	zAlDWJMEhMmkU13np3JnsspTJcoXZutyqc5SQH9xmLgunjeAMXCzYhA7vdk4QpkTrLISpk
-	wq4LQsb6P1KpS6xubm7wNXKDAtwZ4pAxuwKeYYk+2cIWt+pPvNdaKGzZUuwPcfC93J/Vg+
-	dwiZpr+LjdAquuOaScfNrv/FSEX6UFqQ2Yui+Oir1kEoUxpEdNv31e/e3/o18Q==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792405307;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/gLGTyZVae2UoxIdOnGHqtMC2VcU6jvzG6cGMRiNPqg=;
-	b=bkFSWblRRD9jAm/ia6ooniECkY6l5ntZN/2h6vHvtpO5vol1oVpvCpabbEd/bo1TBYz22z
-	IohVc9tLKDwAoNgFOgvqmxM43mqJj29ELaqs5x5xhOMGSCgXAdV3zMg064oiRh3wGJGbdw
-	fWLYKdPagpJHzKGHU4RzCCanAt1D6a8ka+Td3rADPlz5ejZQo3bCJCi5U1mHCS1APQ9odJ
-	C5pc68iq+PsaCUOLemhsMDa7CocDY8JGWM94fMQ33UxWRDYewcU+VMRzp1reyJJSP/GyWw
-	uQjEkLAXyYblKsSXE1PJHLMHGNHyoWY4kFld99bd+NCchMposw7f6ratYLeDEA==
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xIkV1-000D3H-1M;
-	Mon, 19 Oct 2026 12:21:47 +0200
-Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 15AA15C8610;
-	Mon, 19 Oct 2026 10:21:47 +0000 (UTC)
-Date: Mon, 19 Oct 2026 12:21:46 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: claudiu beznea <claudiu.beznea@tuxon.dev>
-Cc: mailhol@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, geert+renesas@glider.be, magnus.damm@gmail.com, 
-	biju.das.jz@bp.renesas.com, fabrizio.castro.jz@renesas.com, linux-can@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Subject: Re: [PATCH v4 3/7] can: rcar_canfd: Allow the CAN FD clock to be
- sourced from fck
-Message-ID: <20261019-fantastic-beaver-of-action-e065bb-mkl@pengutronix.de>
-References: <20260902141544.565763-1-claudiu.beznea+renesas@tuxon.dev>
- <20260902141544.565763-4-claudiu.beznea+renesas@tuxon.dev>
- <20261016-durable-meticulous-owl-7a9eed-mkl@pengutronix.de>
- <69826962-0c21-4616-9cd8-6eb0478a422b@tuxon.dev>
- <20261017-weightless-poetic-mayfly-bbdf75-mkl@pengutronix.de>
- <4a9e32a8-8a2e-4b70-8057-2d51e6d38b98@tuxon.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SUGiEgar"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1BAB1F000C4;
+	Mon, 19 Oct 2026 10:22:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792405324;
+	bh=p8cCog9OtPuO8i1Zg+6ar7IAkRn0H6P47rVBxkYuGQY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=SUGiEgar4hfSFzwPhNYHQnhzusIIJaNO1bQEeR26pu08jH2NsDqOxhLS+VtDy+uXA
+	 9MPoZNXzvkcQaNfurstnTym9nH84L1StkJ2B0acU9iWEnpaALTCUGJWZkRSthdgVCt
+	 CAqFw8iZCXtqg3HxxzcTfkEoqWDBHxpVKpSTu5De15nNgtPz5BlXrqHMfTEm/0imM3
+	 GhVsKRR+3DEgBnU4MDIubIkMZ9T1ZovQl7RyIvKC0rcL8zxje67KuPEVvFAuOACwqF
+	 ET+mDpfvho/9MeeskFJbi1lmDZM1oU2F/ZnVFl5wgzAFdDFHYG66HOrksdp5MvdZzu
+	 GHbFPcC3iowpg==
+Message-ID: <sashiko-outbox-176977@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 3/7] input: serio: Add driver for ASUS Transformer
+ dock keyboard and touchpad
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-input@vger.kernel.org, mfd@lists.linux.dev, linux-leds@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com, lee@kernel.org
+In-Reply-To: <20261019100406.103687-4-clamor95@gmail.com>
+References: <20261019100406.103687-1-clamor95@gmail.com>
+ <20261019100406.103687-4-clamor95@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 19 Oct 2026 10:22:03 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="zb6jkvi7dmft3zzc"
-Content-Disposition: inline
-In-Reply-To: <4a9e32a8-8a2e-4b70-8057-2d51e6d38b98@tuxon.dev>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] input: serio: serio ports registered before notifier in asus_ec_=
+kbc_probe()
+--
 
---zb6jkvi7dmft3zzc
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v4 3/7] can: rcar_canfd: Allow the CAN FD clock to be
- sourced from fck
-MIME-Version: 1.0
+commit 03f99aa77c8833478d88304ecd5af6dc8d7131c2
+Author: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
 
-On 19.10.2026 12:58:24, claudiu beznea wrote:
-> Hi, Mark,
->
-> On 10/17/26 23:01, Marc Kleine-Budde wrote:
-> > > > >    /* Helper functions */
-> > > > > @@ -2190,13 +2196,20 @@ static int rcar_canfd_probe(struct platfo=
-rm_device *pdev)
-> > > > >    	 */
-> > > > >    	gpriv->can_clk =3D devm_clk_get(dev, "can_clk");
-> > > > >    	if (IS_ERR(gpriv->can_clk) || (clk_get_rate(gpriv->can_clk) =
-=3D=3D 0)) {
-> > > >               ^^^^^^^^^^^^^^^^^^^^^
-> > > >
-> > > > As sashiko.dev [1] pointed out here's no check for -EPROBE_DEFER.
-> > > This looks to me a pre-existing issue.
-> > >
-> > > The newly added support does:
-> > >
-> > > fcan_freq =3D clk_get_rate(gpriv->clkp);
-> > >
-> > > At the time this is executed the clkp was already checked against any=
- errors
-> >                                     ^^^^
-> > > (above) including -EPROBE_DEFER.
-> > It's not about "clkp".
-> >
-> > What's missing is, that "gpriv->can_clk" is checked against IS_ERR():
-> >
-> > > > >    	gpriv->can_clk =3D devm_clk_get(dev, "can_clk");
-> > > > >    	if (IS_ERR(gpriv->can_clk) || (clk_get_rate(gpriv->can_clk) =
-=3D=3D 0)) {
-> > but if it's a -EPROBE_DEFER, IS_ERR() returns true. I think in this case
-> > you want to return with dev_err_probe().
-> >
-> > There's also a difference between "can_clk" not found (e.g. not
-> > configured in DT), and there was a problem with "can_clk". I don't know
-> > if this is important for this driver, but if you want to distinguish
-> > between those, you can use devm_clk_get_optional(). I will return NULL
-> > if the clock is not found, -EPROBE_DEFER if not available yet, the clock
-> > or, in case of an error -errno.
-> >
-> > Thinking about it: if "can_clk" is not available, I would consider it
-> > intentional, so the driver should use the other clock. If the clock has
-> > an error, the driver should not fallback to a probably untested clock
-> > configuration.
->
->         /* fCAN clock: Pick External clock. If not available fallback to
->          * CANFD clock
->          */
->         gpriv->can_clk =3D devm_clk_get(dev, "can_clk");
->         if (IS_ERR(gpriv->can_clk) || (clk_get_rate(gpriv->can_clk) =3D=
-=3D 0)) {
->
-> Based on the comment on this code "If not available fallback to CANFD clo=
-ck"
-> I think the intention with IS_ERR() is to allow probing go forward, falli=
-ng
-> back to CANFD clock, in case of any error of devm_clk_get().
+input: serio: Add driver for ASUS Transformer dock keyboard and touchpad
 
-=46rom my point of view it's not consistent to continue probing if the
-"can_clk" has been configured in the DT, and it fails for some reason.
+This commit adds a serio driver for the ASUS Transformer dock keyboard and
+touchpad controller, forwarding EC notifications to serio ports and
+remapping several non-standard keycodes.
 
-> The device trees that I've checked sets the can_clk to a fixed clock with
-> rate =3D 0 or have the clock provided directly by the SoC clock
-> provider.
+> diff --git a/drivers/input/serio/asus-transformer-ec-kbc.c b/drivers/inpu=
+t/serio/asus-transformer-ec-kbc.c
+> new file mode 100644
+> index 0000000000000..fa7f7c3f037db
+> --- /dev/null
+> +++ b/drivers/input/serio/asus-transformer-ec-kbc.c
+> @@ -0,0 +1,264 @@
 
-Using a clock rate of 0 to signal something to the driver sounds like a
-hack to me :)
+[ ... ]
 
-> I
-> think the intention with IS_ERR() was not only for -ENOENT but for any ot=
-her
-> kind of errors. We can return in case of -EPROBE_DEFER, to ensure the
-> expected clock is used, when it's available and sane.
->
-> I'll switch to something like:
->
->  gpriv->can_clk =3D devm_clk_get(&pdev->dev, "can_clk");
-> +if (ERR_PTR(gpriv->can_clk) =3D=3D -EPROBE_DEFER)
-> +	return dev_err_ptr(dev, ...);
->
-> The devm_clk_get_optional() would involve changing more lines:
-
-
-
-> -       gpriv->can_clk =3D devm_clk_get(dev, "can_clk");
-> -       if (IS_ERR(gpriv->can_clk) || (clk_get_rate(gpriv->can_clk) =3D=
-=3D 0)) {
-> +       gpriv->can_clk =3D devm_clk_get_optional(dev, "can_clk");
-> +       if (ERR_PTR(gpriv->can_clk) =3D=3D -EPROBE_DEFER)
-> +               return dev_err_probe(dev, -EPROBE_DEFER, "cannot get can_=
-clk");
+> +static int asus_ec_register_serio(struct platform_device *pdev, int idx,
+> +				  const char *name, int cmd)
+> +{
+> +	struct asus_ec_kbc_data *priv =3D platform_get_drvdata(pdev);
+> +	struct i2c_client *parent =3D priv->parent;
+> +	struct serio *port =3D kzalloc_obj(*port);
 > +
-> +       if (IS_ERR_OR_NULL(gpriv->can_clk) || (clk_get_rate(gpriv->can_cl=
-k) =3D=3D 0)) {
->                 gpriv->can_clk =3D devm_clk_get(dev, "canfd");
->                 if (IS_ERR(gpriv->can_clk))
->                         return dev_err_probe(dev, PTR_ERR(gpriv->can_clk),
->
-> Please let me know otherwise.
+> +	if (!port)
+> +		return -ENOMEM;
+> +
+> +	priv->sdev[idx] =3D port;
+> +	port->dev.parent =3D &pdev->dev;
+> +	port->id.type =3D SERIO_8042;
+> +	port->id.extra =3D cmd & 0xFF;
+> +	port->write =3D asus_ec_serio_write;
+> +	port->port_data =3D (void *)priv;
+> +	snprintf(port->name, sizeof(port->name), "%s %s",
+> +		 priv->ec->model, name);
+> +	snprintf(port->phys, sizeof(port->phys), "i2c-%u-%04x/serio%d",
+> +		 i2c_adapter_id(parent->adapter), parent->addr, idx);
+> +
+> +	serio_register_port(port);
+> +
+> +	return devm_add_action_or_reset(&pdev->dev, asus_ec_serio_remove, port);
+> +}
+> +
+> +static void asus_ec_notifier_chain_unregister(void *data)
+> +{
+> +	struct asus_ec_kbc_data *priv =3D data;
+> +	struct asusec_core *ec =3D priv->ec;
+> +
+> +	blocking_notifier_chain_unregister(&ec->notify_list, &priv->nb);
+> +}
+> +
+> +static int asus_ec_kbc_probe(struct platform_device *pdev)
+> +{
+> +	struct asusec_core *ec =3D dev_get_drvdata(pdev->dev.parent);
+> +	struct asus_ec_kbc_data *priv;
+> +	int error;
+> +
+> +	priv =3D devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	platform_set_drvdata(pdev, priv);
+> +
+> +	priv->ec =3D ec;
+> +	priv->parent =3D to_i2c_client(pdev->dev.parent);
+> +
+> +	error =3D asus_ec_register_serio(pdev, 0, "Keyboard", 0);
+> +	if (error)
+> +		return error;
+> +
+> +	error =3D asus_ec_register_serio(pdev, 1, "Touchpad", I8042_CMD_AUX_SEN=
+D);
+> +	if (error)
+> +		return error;
+> +
+> +	priv->nb.notifier_call =3D asus_ec_kbc_notify;
+> +
+> +	error =3D blocking_notifier_chain_register(&ec->notify_list, &priv->nb);
+> +	if (error)
+> +		return dev_err_probe(&pdev->dev, error,
+> +				     "failed to register blocking notifier chain");
+> +
+> +	error =3D devm_add_action_or_reset(&pdev->dev,
+> +					 asus_ec_notifier_chain_unregister,
+> +					 priv);
 
-I was thinking of not ignoring errors:
+[Severity: Medium]
+Can registering the serio ports before registering the notifier in
+asus_ec_kbc_probe() cause a race with serio driver probing?
 
-       gpriv->can_clk =3D devm_clk_get_optional(dev, "can_clk");
-       if (ERR_PTR(gpriv->can_clk))
-               return dev_err_probe(dev, ERR_PTR(gpriv->can_clk), "cannot g=
-et can_clk");
+Inside asus_ec_register_serio(), serio_register_port() immediately queues
+SERIO_REGISTER_PORT onto system_long_wq (serio_event_work). If
+serio_event_work runs on another CPU before
+blocking_notifier_chain_register() completes, serio_add_port() will bind
+atkbd or psmouse, which immediately send PS/2 reset and identification
+commands via asus_ec_serio_write() and wait for responses via
+serio_interrupt().
 
-       if (!gpriv->can_clk || (clk_get_rate(gpriv->can_clk) =3D=3D 0)) {
+Since the parent MFD driver has already enabled its IRQ handler
+asus_ec_interrupt(), the EC response will be read from ASUSEC_READ_BUF and
+passed to blocking_notifier_call_chain(&ddata->ec.notify_list, ...) before
+priv->nb is on the list, dropping the response bytes and causing
+ps2_command() timeouts.
 
-If you plan to keep the current logic and always fall back to "canfd",
-please:
-- add -EPROBE_DEFER handling
-- add a comment that all other errors result in fallback to "canfd" clock
-- add a comment that a "can_clk" rate of "0" means don't use the clock
+Similarly, on driver unbind, devm will run
+asus_ec_notifier_chain_unregister() before asus_ec_serio_remove() calls
+serio_unregister_port(), disconnecting the receive path while the serio
+ports and their drivers are still active.
 
-regards,
-Marc
+Should the notifier be registered (or gated via serio open/close or
+start/stop callbacks with priv->sdev[] initialized beforehand) so that the
+receive path is active whenever the serio ports are registered?
+
+> +	if (error)
+> +		return error;
+> +
+> +	return 0;
+> +}
+
+[ ... ]
 
 --=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---zb6jkvi7dmft3zzc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCatXvOAAKCRDMOmT6rpmt
-0vIjAQDCdKOia/1Z2wcV8Hyu9YLCFuKeIpWcjdfxHAiHwjy3AQEAkQe4TbjPGsBw
-IBsZGeflQTA6q6c9qVsQRViPf33qAgA=
-=W+FB
------END PGP SIGNATURE-----
-
---zb6jkvi7dmft3zzc--
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019100406.1036=
+87-1-clamor95@gmail.com?part=3D3
