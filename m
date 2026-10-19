@@ -1,109 +1,126 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F0694B2CD3;
-	Mon, 19 Oct 2026 10:17:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93994C042B;
+	Mon, 19 Oct 2026 10:17:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792405025; cv=none; b=l+n2sGs/ewE91kfqFZbz4glJ7AWwhDOesaZwLtgJr6/xpeIOfOH5PxCO2cjGAIoK3YKArTjnIPPSKEjs+aWwkWtaTZvxkFWR78RiEGdFVvcY0MOTLPwki53QBxUhKvao0fTBlbZ9FEkv4huF8PwyhZy+6GnaXZUHC+K7NZHXWSc=
+	t=1792405046; cv=none; b=GIrQ3LyphJVSO6+wwBhzDTWPJY+yOdZqNqq1Z4rql6HvE4HEdzW2b7QvoKVfuM8mOUHBbgmimVGJhB00+Y2cM++XJmGc8JAqa/sGsbLbqpeiXf/34OVC//LQ0IlJcUpzMk0vgehROxX1jBfcIhMx/2XDox7EEFE+lsxJmjDcrXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792405025; c=relaxed/simple;
-	bh=qAH4QXQQILxKf4rUswGbhV1iZlZbmHrI9Rk7HcnKayk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LgjxaIq+1jE07/ZQTW7Fn+nbdfLimNlcLccM95gefvHa/NPpXR1B0UxpdOLlkAJ35vMgeykgwJsUfoRrjAt79OAXNb01/wP6CrOuKYhO6JnWEhMhmysoq5j3BFi1Eqgpno3feCk8upIpa+N9HION+Kd5TFqm+BUu+ZQpgsq5/U0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kax2Omqo; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792405046; c=relaxed/simple;
+	bh=FAHqsoUg2810z5rSDiRI7iF8uxpnaV/Znr69GSjc0/M=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=EdK01RnA7d5j4Hy4mgACygturVeV0xfI0H0MUwErKFnGpJGlweFA12NaZMYjyohQqVGGQmmIwEJun3MWbtPeGWgcxOVenBfzCQ0w8Le8+YYEfOwnIiaXJyX/QxSI7l37wB3bVlCjNU8VdlYnqMgOk3Azj4yu9JXm2xoV/JI0iGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l1r6FQ/9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kax2Omqo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792405024; x=1823941024;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=qAH4QXQQILxKf4rUswGbhV1iZlZbmHrI9Rk7HcnKayk=;
-  b=kax2OmqoXbQHzb4vkfZMC5fbGm61myPxQFY46mKzENpB2luhdGMwUS9D
-   XOEPcIdafp/O+e4kOAzMcLp9P1Fy2Gnx/7IrLTWf7Q5/ubaxy2hkEHUh+
-   pdPN7Ss7Mr5qRb0A6Pv2FzIToidYQqxuq5E+7bP6yMxf/xJnsJbV9SpIP
-   5x91yTgnYYhC2ylOvHAjneJItCH7TLGiNoBkKN1eRc5ZRstEHV4XFjL1f
-   9wVlKqZhNLHYIv9II7xy918Ww4N06fvUPd3RM0rL8qnxTYKuvmhmC4ZfM
-   lCdOCioIJkvBH8/TpVIYSRjK0+Dsd5UXtwYXJ/4rrXveX5jUW9nK6ZIxG
-   g==;
-X-CSE-ConnectionGUID: sjeVFf1+Rb6TRCO2h77ikQ==
-X-CSE-MsgGUID: Xj9cOoZPQGWY3Nz8kRIM8g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="989073"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="989073"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 03:17:03 -0700
-X-CSE-ConnectionGUID: O511YhUeTiOpAGkOsUUS/w==
-X-CSE-MsgGUID: 4ylu/0J9Qw6juLBXjVKtqw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2903740"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 03:17:00 -0700
-Date: Mon, 19 Oct 2026 13:16:58 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Stephan Costa Barros <stephanbrrs8@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mike Looijmans <mike.looijmans@topic.nl>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] iio: adc: add TI ADS1299
-Message-ID: <atXuGv3esexdRJ4e@ashevche-desk.local>
-References: <20261019001247.483005-1-stephanbrrs8@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l1r6FQ/9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C95C81F000C7;
+	Mon, 19 Oct 2026 10:17:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792405045;
+	bh=47htpg6vnn4atX2n39sDrqJNFndcLxxZM44tBWxj6RU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=l1r6FQ/9qmu+xrL7fbZNO9KOJhgp0ie/QKysBYApmYb+8OqcdKInarNMXmmS1IGPw
+	 zgajCxaRh/oexL86EGdIMYqrS1etd5ZIVVB0mfeJoiaV7RgpN8X95yxYEwh4V4AtzR
+	 aI24LKi8dnEF5LRHClLvbrSCZavOC93uyGCkfQCd8HRYj7MkTnkaE1PIuKjEPrOePg
+	 Vea0ENF30BPL39F28mkmCt7xVx7PVilrx4gEB4MR3hi7upnlV48cB23NVqMzmkOcd4
+	 t5MpTDl7FvColJlf0Mu+I3qxaHSNPJwAmXK79StI6nHuy4oymP4DyxXflUlWUy41AF
+	 Y4qn+iNWlIloA==
+Message-ID: <sashiko-outbox-176970@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 2/7] mfd: Add driver for ASUS Transformer embedded
+ controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-input@vger.kernel.org, mfd@lists.linux.dev, linux-leds@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com, lee@kernel.org
+In-Reply-To: <20261019100406.103687-3-clamor95@gmail.com>
+References: <20261019100406.103687-1-clamor95@gmail.com>
+ <20261019100406.103687-3-clamor95@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 19 Oct 2026 10:17:24 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019001247.483005-1-stephanbrrs8@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sun, Oct 18, 2026 at 09:12:45PM -0300, Stephan Costa Barros wrote:
-> This series adds a driver for the TI ADS1299 family (ADS1299, ADS1299-6
-> and ADS1299-4): 24-bit, simultaneous-sampling biopotential front-ends
-> for EEG, on SPI.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] mfd: asus-transformer-ec: hard-coded cell IDs instead of PLATFORM_D=
+EVID_AUTO
+--
 
-Why a brand new driver?
+commit 69f71ab310cf2527cceba8746f7a17bbb27f3ab4
+Author: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
 
-> This first version keeps to the generic IIO ABI: raw reads, the gain of
-> each channel's PGA through its scale, the sampling frequency, and a
-> kfifo buffer fed from the DRDY interrupt with a software timestamp.
-> 
-> The part has more, which I would like to add in follow-up series, each
-> with its own ABI discussion: SRB1 and SRB2 reference routing, the bias
-> drive amplifier, lead-off detection (through IIO_EV_TYPE_FAULT and
-> IIO_EV_DIR_FAULT_OPENWIRE), the internal test signal, the temperature
-> sensor and supply monitors, GPIO1 to GPIO4 as a gpiochip, the CLK pin
-> as a clock output, and daisy chains. The binding already describes the
-> hardware for those.
-> 
-> A question on structure. The driver started from ti-ads1298.c, and in
-> this subset the two are close. What differs here is the PGA gain table
-> (1 to 24 against 1 to 12 with 3), the data rates (no high-resolution
-> mode), the fixed 4.5 V internal reference, the ID register layout and
-> the 4 and 6 channel variants; above 0x14 the register maps also part
-> (MISC1 and MISC2 here, PACE, RESP and WCT on the ADS1298). Most of what
-> would follow, SRB1 and SRB2, the bias drive and lead-off on every
-> channel, is specific to the ADS1299, so I kept a separate driver. If you
-> would rather have the ADS1299 as a variant in ti-ads1298, I can rework
-> it that way.
+mfd: Add driver for ASUS Transformer embedded controller
 
-Okay, I think you can try to rework this as a series on top of the existing
-code. I can't easily see if the above difference warrants a brand new driver.
+This commit adds an MFD core driver for the Nuvoton NPCE795-based embedded
+controller found in ASUS Transformer series tablets and keyboard docks. It
+handles I2C communication, firmware detection, interrupt notifications, and
+sub-device registration.
 
--- 
-With Best Regards,
-Andy Shevchenko
+> diff --git a/drivers/mfd/asus-transformer-ec.c b/drivers/mfd/asus-transfo=
+rmer-ec.c
+> new file mode 100644
+> index 0000000000000..15942ea59fe1a
+> --- /dev/null
+> +++ b/drivers/mfd/asus-transformer-ec.c
+> @@ -0,0 +1,569 @@
 
+[ ... ]
 
+> +static const struct mfd_cell asus_ec_sl101_dock_mfd_devices[] =3D {
+> +	MFD_CELL_NAME("asus-transformer-ec-kbc"),
+> +};
+> +
+> +static const struct mfd_cell asus_ec_tf101_dock_mfd_devices[] =3D {
+> +	MFD_CELL_BASIC("asus-transformer-ec-battery", NULL, NULL, 0, 1),
+> +	MFD_CELL_BASIC("asus-transformer-ec-charger", NULL, NULL, 0, 1),
+> +	MFD_CELL_BASIC("asus-transformer-ec-led", NULL, NULL, 0, 1),
+> +	MFD_CELL_NAME("asus-transformer-ec-kbc"),
+> +	MFD_CELL_NAME("asus-transformer-ec-keys"),
+> +};
+> +
+> +static const struct mfd_cell asus_ec_tf201_pad_mfd_devices[] =3D {
+> +	MFD_CELL_NAME("asus-transformer-ec-battery"),
+> +	MFD_CELL_NAME("asus-transformer-ec-led"),
+> +};
+> +
+> +static const struct mfd_cell asus_ec_tf600t_pad_mfd_devices[] =3D {
+> +	MFD_CELL_NAME("asus-transformer-ec-battery"),
+> +	MFD_CELL_NAME("asus-transformer-ec-charger"),
+> +	MFD_CELL_NAME("asus-transformer-ec-led"),
+> +};
+> +
+> +static int asus_ec_probe(struct i2c_client *client)
+> +{
+
+[ ... ]
+
+> +	/* Parent I2C controller uses DMA, ASUS EC and child devices do not */
+> +	client->dev.coherent_dma_mask =3D 0;
+> +	client->dev.dma_mask =3D &client->dev.coherent_dma_mask;
+> +
+> +	return devm_mfd_add_devices(dev, 0, cells, num_cells, NULL, 0, NULL);
+> +}
+
+[Severity: Low]
+In asus_ec_probe(), devm_mfd_add_devices() is called with a hard-coded base
+ID of 0, while asus_ec_tf101_dock_mfd_devices[] manually sets a cell ID of
+1 via MFD_CELL_BASIC() for the battery, charger, and led subdevices to offs=
+et
+them from the pad EC cells (leaving kbc and keys at ID 0).
+
+Could devm_mfd_add_devices() pass PLATFORM_DEVID_AUTO instead of 0, so that
+asus_ec_tf101_dock_mfd_devices[] can use MFD_CELL_NAME() for all entries and
+rely on automatic cell indexing without risk of platform device name
+collisions in sysfs if multiple EC instances with identical cell IDs are
+registered?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019100406.1036=
+87-1-clamor95@gmail.com?part=3D2
