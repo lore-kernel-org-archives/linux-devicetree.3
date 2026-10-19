@@ -1,80 +1,164 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D27A83515CB;
-	Mon, 19 Oct 2026 02:17:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02D58355819
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 02:22:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792376233; cv=none; b=N+ROQIc9iB6lbzGBOb729zuNm14BakIKdCIod9RMuOw/WW0goDSnmHQgROBgnFZ4xs+HQ9WGMQlR1SP0G7MPgqSEwNuet+w382/dmRHpO7xLRnR3sIySyww7a8j3JxG4BuT7bLB26QSjPt5nu/W+5STge7B7rBs6yhqsVN17Q+A=
+	t=1792376535; cv=none; b=Id5EJPQ5FWyv5ieaz6ulFdHYd/QO3csV+IeIZRY5RZHcXXd36SG/iUPbqn9EhP8K0ZM+echlUcdP3a5tLPTIvCdVVKF07Kdw5mHDX1z2I3FSyGyMyf8Gr7V+YOYZv61A+J0G7csmhT6n9SA+ZmiCsSaazs285jRUWL+D3YHtUgw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792376233; c=relaxed/simple;
-	bh=JBDexEjVkF4HcZ5xyK5okwNP+jA7IkDtihlK3ONAP7A=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DQe48fvFWlktADMszyn41JUOlntpujcyYP7JX3KXVvG7VNhIMgowh/ktPArzZiD/fIciY5PpDXUSfx8Rl8nLEIU5QiDfNPyB6C0cMM2AAFWfbwJzpfcqvX2l5BmSKfH7sUrvFNfXxIPAOdlHP3pXHl9Jaa4esupzyvu2QIrRKlk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IWEFV8Zz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792376535; c=relaxed/simple;
+	bh=BgBmdAdm1SC0RFOooL1iJoDA7n/BbQNwrLWjy+BMaL8=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=lm2u4WpU4x9WFLGwVAQWLi5O6jQBarNGF92xjVPSZb8sMDDJPSdOby3v5PY8KTA4sccpiVt1ap8jxmPjOfXYyt8ft2tz1OYrkp4ooXjgmoz17csZAVuLITUrsB4A35MKqTaRj57sYluw6FIK0JwDWqTpKZYa1oF1mYYhWDbAxJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fcbhoUkj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IWEFV8Zz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C1721F000C4;
-	Mon, 19 Oct 2026 02:17:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fcbhoUkj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BFAC1F000C4;
+	Mon, 19 Oct 2026 02:22:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792376232;
-	bh=jvtTMjda2t5otk3q4T/RwoeADaBqu1tfq5HYrbuA/+0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=IWEFV8ZzOx9LcJpVBKLGI3Oc99YXx6zLYgh1hGeL3JHLecKbfycsgRPsG9JAEgQT2
-	 vKkcM1SHNWIvGgH5S6YE6ibMzXnH0tmmE/xTmJBhaN0YIhvl/v+elWEIdceWdX366t
-	 I4i/1Le79LCeA2VQSyymOX3Tyi/lsq/cfkKL89mQ4UqfcoVeIKPHCkcSjCOc/7zmnn
-	 Mmf6C9NCrw7qUNlvLYDNxhzWKcKcCDdMrtwo3hQOgXe8iXWIK1BOiZ2zm0qRI/nMJA
-	 LhiJibcl//Ye4yQDC4r4PYIY90+Cm22EHeCA6ImvZbMCJiK/RSKWoTy3sYOeW53L+S
-	 fJxw46JG38IJQ==
-Date: Mon, 19 Oct 2026 03:17:06 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Antoniu Miclaus <antoniu.miclaus@analog.com>
-Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, <linux@analog.com>,
- <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 0/2] iio: adc: ad4080: add support for AD4886
-Message-ID: <20261019031706.53b3057e@jic23-hlaptop>
-In-Reply-To: <20260928104806.9330-1-antoniu.miclaus@analog.com>
-References: <20260928104806.9330-1-antoniu.miclaus@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1792376533;
+	bh=8eLKo+TFTDi3hlrD9tP9Fr0sBiZgZQ52QPyaXa1ak5A=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=fcbhoUkjBUf2YJLnqddipzzAm2P16Ahuuw/AN9TM/fhGew39EdUcfKMIX/wFB3sPq
+	 SxhKbtyE+nW/N4U7CxvYxhnMWI7v30BejNnONHBem+6kjQSMQ4jtXuCa+soi0sICPV
+	 eUXxh8aQWJ+uP9zOsRlSjFstHZKFaWVjY5Km0GXm1vartdLtbnXytoo3Iaq4D30w7+
+	 ibvEmuMhScH87n4EUbe5GPbmHU3OT/gAAL/LWxOehfqEFQQbkzRKODu6rLXBJkW/zs
+	 qSvYIyVLjbf8mQWmX1sKlDyvAddvB/tC1PZrahCj8DnbV5jn8z/sNHsIe48igH10/U
+	 H+Dem+zFGWt8w==
+Message-ID: <sashiko-outbox-176532@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v26 3/3] net: phy: Add driver for Motorcomm
+ Quad 2.5GbE phy
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kyle Switch" <kyle.switch@motor-comm.com>, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261018022151.2677056-4-kyle.switch@motor-comm.com>
+References: <20261018022151.2677056-1-kyle.switch@motor-comm.com>
+ <20261018022151.2677056-4-kyle.switch@motor-comm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 19 Oct 2026 02:22:12 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Mon, 28 Sep 2026 13:48:04 +0300
-Antoniu Miclaus <antoniu.miclaus@analog.com> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] net: phy: motorcomm: BMCR_PDOWN left set in yt8824_config_utp_init=
+_paged()
+--
 
-> Add support for the AD4886, a dual-channel, 14-bit, 40 MSPS SAR ADC in
-> the AD4080 family. The AD4886 is the dual-channel variant of the AD4086
-> and, like the AD4885, has two independent ADC channels, each with its
-> own SPI configuration interface, so the part requires two chip selects
-> and two io-backends. It differs from the AD4885 in resolution and
-> therefore uses the same maximum LVDS conversion clock count as the
-> AD4086.
-> 
-> The first patch adds the devicetree binding compatible string; the
-> second adds the driver support (chip ID, channel spec, chip info and
-> device-table entries).
-> 
-Applied.
-Thanks,
+commit d67c9c1b5b54d6dd6ed50449a68cdea77bc4e19b
+Author: Kyle Switch <kyle.switch@motor-comm.com>
 
-> Antoniu Miclaus (2):
->   dt-bindings: iio: adc: ad4080: add AD4886 support
->   iio: adc: ad4080: add support for AD4886
-> 
->  .../bindings/iio/adc/adi,ad4080.yaml           |  2 ++
->  drivers/iio/adc/ad4080.c                       | 18 ++++++++++++++++++
->  2 files changed, 20 insertions(+)
-> 
-> 
-> base-commit: 873ba60d7f2e52a171845ca290cf366878864b1e
+net: phy: Add driver for Motorcomm Quad 2.5GbE phy
 
+This commit adds support for the Motorcomm YT8824 quad-port 2.5G PHY to the
+motorcomm driver using phy_package helpers for the shared top extended
+register space.
+
+> diff --git a/drivers/net/phy/motorcomm.c b/drivers/net/phy/motorcomm.c
+> index 463e1ea3efc93..6628ebcca0819 100644
+> --- a/drivers/net/phy/motorcomm.c
+> +++ b/drivers/net/phy/motorcomm.c
+[ ... ]
+> @@ -638,15 +949,1165 @@ static int ytphy_set_wol(struct phy_device *phyde=
+v, struct ethtool_wolinfo *wol)
+[ ... ]
+> +static int yt8824_config_utp_init_paged(struct phy_device *phydev)
+> +{
+> +	int ctrl =3D 0;
+> +	int mask =3D 0;
+> +	int ret =3D 0;
+> +	int val =3D 0;
+> +	int r;
+> +
+> +	ret =3D phy8824_page_write_with_lock(phydev, YT8824_RSSR_UTP_SPACE);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	ret =3D phy_modify(phydev, MII_BMCR, BMCR_PDOWN, BMCR_PDOWN);
+> +	if (ret < 0)
+> +		goto err_restore;
+
+[ ... ]
+
+> +	/* reset */
+> +	ret =3D genphy_c45_template_testmode(phydev, MDIO_PMA_10GBT_TESTMODE_1);
+> +	if (ret < 0)
+> +		goto err_restore_normal;
+> +
+> +	ret =3D phy_modify(phydev, MII_BMCR, BMCR_RESET | BMCR_ANENABLE,
+> +			 BMCR_RESET | BMCR_ANENABLE);
+> +	if (ret < 0)
+> +		goto err_restore_normal;
+> +	ret =3D phy_read_poll_timeout(phydev, MII_BMCR, val, !(val & BMCR_RESET=
+),
+> +				    50000, 600000, true);
+> +	if (ret < 0)
+> +		goto err_restore_normal;
+> +
+> +	ret =3D genphy_c45_template_testmode(phydev,
+> +					   MDIO_PMA_10GBT_TESTMODE_NORMAL);
+> +	if (ret < 0)
+> +		goto err_restore_normal;
+> +	return 0;
+> +
+> +err_restore:
+> +	r =3D phy_modify(phydev, MII_BMCR, BMCR_PDOWN, 0);
+> +	if (ret >=3D 0 && r < 0)
+> +		ret =3D r;
+> +	return ret;
+> +
+> +err_restore_normal:
+> +	r =3D genphy_c45_template_testmode(phydev,
+> +					 MDIO_PMA_10GBT_TESTMODE_NORMAL);
+> +	if (ret >=3D 0 && r < 0)
+> +		ret =3D r;
+> +	r =3D phy_modify(phydev, MII_BMCR, BMCR_PDOWN, 0);
+> +	if (ret >=3D 0 && r < 0)
+> +		ret =3D r;
+> +	return ret;
+> +}
+
+[Severity: High]
+Does yt8824_config_utp_init_paged() leave BMCR_PDOWN set in MII_BMCR on the
+normal success path?
+
+At the start of yt8824_config_utp_init_paged(), BMCR_PDOWN is set:
+
+	ret =3D phy_modify(phydev, MII_BMCR, BMCR_PDOWN, BMCR_PDOWN);
+
+At the end of the function, the soft reset uses phy_modify() with a mask of
+BMCR_RESET | BMCR_ANENABLE, which preserves BMCR_PDOWN in MII_BMCR. The
+subsequent yt8824_soft_reset() -> yt8824_utp_softreset_paged() call in
+yt8824_config_init() also uses phy_modify(phydev, MII_BMCR, BMCR_RESET,
+BMCR_RESET), preserving BMCR_PDOWN as well.
+
+Under err_restore, the code checks for ret >=3D 0 before clearing BMCR_PDOW=
+N:
+
+err_restore:
+	r =3D phy_modify(phydev, MII_BMCR, BMCR_PDOWN, 0);
+	if (ret >=3D 0 && r < 0)
+		ret =3D r;
+	return ret;
+
+However, the return 0 statement right above err_restore prevents the success
+path from falling through to clear BMCR_PDOWN, and makes the ret >=3D 0 che=
+ck
+unreachable since all goto err_restore paths only trigger when ret < 0.
+
+When phy_init_hw() -> yt8824_config_init() -> yt8824_config_utp_init_paged()
+runs without a subsequent phy_resume() (for example via phy_mii_ioctl() on
+BMCR_RESET or phy_abort_cable_test()), will the UTP port remain powered dow=
+n?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261018022151.2677=
+056-1-kyle.switch@motor-comm.com?part=3D3
