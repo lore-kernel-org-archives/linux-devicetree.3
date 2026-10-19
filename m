@@ -1,150 +1,94 @@
-Received: from mailgate01.uberspace.is (mailgate01.uberspace.is [95.143.172.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77462492E37
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 09:15:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.143.172.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B3CA499F27;
+	Mon, 19 Oct 2026 09:16:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792401308; cv=none; b=kRrfsn2FsgR/nWjkB79X0YGCbxiu4vOaRRXaADjkt+9VN1nzGJvQB7+SvMW0FTtQ5/QGzqAcYj6wJc/I2bSCcgbhyvwPS4tTAFKOI/27cr+rXVw7kZ9VAtMyWEUPyDh+pro8u0+tIvza0EaeQ62RMAzeSvCtj42XIJkNfbNQh1c=
+	t=1792401421; cv=none; b=NHr1+KimGVtnIlIxFatqnRwtBs+DkiKqmD0e1eGt3zit+axIbgEV3hwzJ2DHVy695FdZgU7qM97kucYWytqxXuzA3D+akJBUah9sBcLDLyrdNkRdeQw5tpzpM2gvk7fHxKc39nbi+NOeV3/957eD5BkOaRj8lMpK3eLytafS2xE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792401308; c=relaxed/simple;
-	bh=G5e7xDGKZrF0gm5xtX9ZO1xpalWcEwZGn20RV5qhZOo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DY7z1gdYIGKMZHvxCsCpLJEQbLWxe9mSOLkvHS89nLSEyg3O3PHRV6926nKbNpZ+rm7o4VeTT+N1FEWQVf4L+mnbsE7JBGGxd+/fytMoucyK9uiHU3377ZEQ39sXjGU/STOD/zjTYgqy6DZoSpPHjqKNM4kZODJczz5MexSqi4c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl; spf=pass smtp.mailfrom=lausen.nl; dkim=pass (4096-bit key) header.d=lausen.nl header.i=@lausen.nl header.b=f/xc/cIQ; arc=none smtp.client-ip=95.143.172.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lausen.nl
+	s=arc-20240116; t=1792401421; c=relaxed/simple;
+	bh=uAieFqZzWEE4iir5H94XDVzwP5csEDO6wN3/uC+uEDE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ijCzoKLW2uv0eSQf6rJ2N0awQxTrjn2VbL5ydwaRLHtj6TNZksfKUu4sWDMOpHWLzwELydHw+l0TseiGWGWAwiOw89wLwKrzgEUthyu/Z+AsfNmcH7SZTQWKrZCy+A4CJxbam+FTu7hwoI6yg/ST8UU9jjucDscXd38kXHndX4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=kVakKz93; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=lausen.nl header.i=@lausen.nl header.b="f/xc/cIQ"
-Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
-	by mailgate01.uberspace.is (Postfix) with ESMTPS id 59CB560ED9
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 11:06:11 +0200 (CEST)
-Received: (qmail 9972 invoked by uid 990); 19 Oct 2026 09:06:11 -0000
-Authentication-Results: devico.uberspace.de;
-	auth=pass (plain)
-Received: from unknown (HELO unknown) (::1)
-	by devico.uberspace.de (Haraka/3.1.1) with ESMTPSA; Mon, 19 Oct 2026 11:06:11 +0200
-From: Leonard Lausen <leonard@lausen.nl>
-To: heiko@sntech.de,
-	gahing@gahingwoo.com
-Cc: leonard@lausen.nl,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	tomeu@tomeuvizoso.net,
-	ulfh@kernel.org,
-	linux-pm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org
-Subject: [PATCH] arm64: dts: rockchip: Enable the NPU on NanoPi M5
-Date: Mon, 19 Oct 2026 09:03:42 +0000
-Message-ID: <20261019090348.378183-2-leonard@lausen.nl>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260924102135.92217-1-gahing@gahingwoo.com>
-References: <20260924102135.92217-1-gahing@gahingwoo.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="kVakKz93"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id DD99EC653EB;
+	Mon, 19 Oct 2026 09:17:54 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D685960582;
+	Mon, 19 Oct 2026 09:16:56 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7151F10328429;
+	Mon, 19 Oct 2026 11:16:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792401415; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=p0C3J2UWXMiY3krnUqz0whueT56JxA8h4FYf7ytSkmo=;
+	b=kVakKz93Uj9+nlSaxTOv3iLyjXJ50snK2OiTdJnAduyj08IwTc6fhSFFRNrpGXs1NwRCJe
+	SyaaBxab0gGZ+4K9Dw3M/PvZZdn62rPZnBF/SehXkAk3kFulEasWfZfsj9g9kc7d1s21BH
+	SH4sJ5aA/iZKmKjV/cAG6y8/TSdSdorYXdY+JP4XIgA0KPnWUpr8IpDQyVAachL92Nbo1G
+	bOUcQBfFsJULm+v8pm+syt2BXFySm3Mbojg7FCGI9tzZdmc/fn/7JPpXDuiTtNfRu7BmTg
+	ycq2dhFSf1D+08R8rkBVsiiEfhQSBaUGRMTpaADYlz9zmcZ0gONp+ecYojNiaA==
+Message-ID: <dad770a7-1c4e-4037-a6f4-89ec499855b4@bootlin.com>
+Date: Mon, 19 Oct 2026 11:16:52 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Betterbird (Linux)
+Subject: Re: [PATCH net-next 0/2] net: pse-pd: Plain I2C transport for Realtek
+ Gen1
+To: Sander Vanheule <sander@svanheule.net>,
+ Jonas Jelonek <jelonek.jonas@gmail.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261018161248.376205-1-sander@svanheule.net>
+From: Kory Maincent <kory.maincent@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <20261018161248.376205-1-sander@svanheule.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Bar: /
-X-Rspamd-Report: SUSPICIOUS_RECIPS(1.5) MID_CONTAINS_FROM(1) MIME_GOOD(-0.1) BAYES_HAM(-2.999999) R_MISSING_CHARSET(0.5)
-X-Rspamd-Score: -0.099999
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-	d=lausen.nl; s=uberspace;
-	h=from:to:cc:subject:date;
-	bh=G5e7xDGKZrF0gm5xtX9ZO1xpalWcEwZGn20RV5qhZOo=;
-	b=f/xc/cIQtFrsxLz/Lbmo5IdXDWN1Nrtyv76OmaMwgrWVwizASO8PSVWBL6ZVrf1WYnh+GQI4aL
-	vNTJS1mQD6I373/xRbpDJJNBrDqVzQXq68RrYD8wdr16Rz33/Z+qiX+uZnpgpY1rPPtYNxIs71rS
-	fyw+4eM8gaAhIBMGy0GpLzOmaPMFUSDm1KXaP9GOkrsfPifax5LEjRNEQDfDHyNzaGHSyweOQQCC
-	7k14CJO8hoR9LjQZGsUV76vTX1lwVOz4HSZjgCs7/IBXHM9Jeh9QbNrYOIk9FUwbGZJ6IMWq67bQ
-	7AR+3tjyCMwO9UyLj9VHIcRsv0+8jVO8k+CV3c7M7XFIYToZ1fdbQtDMCTHrZBxM95Xi+rvEKKxU
-	T0r+1gy8O4Dg7mlZpoHy0mqUVWGuP310FSQpfMOGNJ6jkbrniiRo4YWpKueM1ZiazjwmiI73tDCf
-	WsphzaJMUij036yyEUDAhHJ1CzsXxLZm3S1KCppCXV/EfPlUW1FHW+GBoq0EP21deYfCAd2beibl
-	BKptxgUHHkOY7k4skd+5AHdP08DO+5NI7ZIDXSMZ8kHcEtaeCCBRm7hCLwlTNeXBn4Mf4HElO0UM
-	TGxV+OFP+FaG8sqpTVcVoTGIiVdGrjvqVh8/GgRSe5JFNQfzFWqc7At4jQ4bvzaAj2RSW3LjDIy7
-	s=
+X-Last-TLS-Session-Version: TLSv1.3
 
-Connect the NPU parent power domain and both RKNN cores to the existing
-RK806 vdd_npu_s0 regulator, and enable both cores and their IOMMUs on the
-NanoPi M5.
 
-The domain supply lets the power-domain driver enable the rail before
-powering on the NPU. Each core also references the rail through its
-npu-supply property.
+On 10/18/26 18:12, Sander Vanheule wrote:
+> While for the Gen2 protocol both a plain I2C transport and an SMBus
+> transport were provided, Gen1 only got SMBus. The Unifi Switch Lite 16
+> PoE uses the Gen1 protocol to manage a single BCM59121, but does to
+> using plain I2C.
+> 
+> These patches simply add a new compatible for the plain I2C transport
+> and the associated match data. This is sufficient to let the existing
+> code talk to the management MCU.
 
-Link: https://lore.kernel.org/all/20260924102135.92217-1-gahing@gahingwoo.com/
-Signed-off-by: Leonard Lausen <leonard@lausen.nl>
----
-Applies on top of this series.
+Reviewed-by: Kory Maincent <kory.maincent@bootlin.com>
 
-The NPU has been tested and works on the NanoPi M5.
-The NanoPi M5 DTB builds with W=1 and passes schema validation.
+Thank you!
 
- .../boot/dts/rockchip/rk3576-nanopi-m5.dts    | 22 +++++++++++++++++++
- 1 file changed, 22 insertions(+)
+> Sander Vanheule (2):
+>    dt-bindings: net: pse-pd: realtek,pse: add gen1 I2C transport
+>    net: pse-pd: realtek-pse-mcu: add gen1 I2C transport
+> 
+>   .../bindings/net/pse-pd/realtek,pse-mcu-gen1.yaml         | 7 +++++++
+>   drivers/net/pse-pd/realtek-pse-mcu-core.c                 | 8 +++++++-
+>   drivers/net/pse-pd/realtek-pse-mcu-i2c.c                  | 1 +
+>   drivers/net/pse-pd/realtek-pse-mcu.h                      | 1 +
+>   4 files changed, 16 insertions(+), 1 deletion(-)
+> 
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts b/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
-index 227fe6f3ec7c7..96c21838419e8 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
-@@ -800,6 +800,10 @@ &pcie0 {
- 	status = "okay";
- };
- 
-+&pd_npu {
-+	domain-supply = <&vdd_npu_s0>;
-+};
-+
- &pinctrl {
- 	gmac {
- 		gmac0_int: gmac0-int {
-@@ -877,6 +881,24 @@ usb_otg0_pwren_h: usb-otg0-pwren-h {
- 	};
- };
- 
-+&rknn_core_0 {
-+	npu-supply = <&vdd_npu_s0>;
-+	status = "okay";
-+};
-+
-+&rknn_core_1 {
-+	npu-supply = <&vdd_npu_s0>;
-+	status = "okay";
-+};
-+
-+&rknn_mmu_0 {
-+	status = "okay";
-+};
-+
-+&rknn_mmu_1 {
-+	status = "okay";
-+};
-+
- &sai2 {
- 	status = "okay";
- };
-
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
-prerequisite-patch-id: 46ebb679e93d3d25393e8cbf8fc3c955bcc01bd4
-prerequisite-patch-id: 0a572164fcadaa890f0fcd7795e9aed71b4110f7
-prerequisite-patch-id: 7d00dce28af9d650165613b4e63fc1632f1001b0
-prerequisite-patch-id: 1f4f63a13e342a642ce4ee33c64115c7ec09998d
-prerequisite-patch-id: 30b7597254007acdb9ce6f76535df17a896b92ee
-prerequisite-patch-id: 8f7794535e7def740abb4c0c154cd2dec15b1c26
-prerequisite-patch-id: e6dae43a32f177292235c896dd7534e704121afd
-prerequisite-patch-id: a18dcdf841b6975b1e5be01a931430c0a5711f47
-prerequisite-patch-id: c98141bac89990a409fa2a6d3bea93796c9d58ab
-prerequisite-patch-id: d72696eb07efc69faaee3da39b1995d2b2cef289
-prerequisite-patch-id: 6d5c580e02cd2ba4e1f0a590fdcd49dd643b91b0
-prerequisite-patch-id: 48b926e205e294a27d6e11d00b10d98205fd4afb
-prerequisite-patch-id: 8babd101cd3628a478872e8a28a9081906b87160
-prerequisite-patch-id: a0129d3f560f297a03780ef78be819e7aa0775fe
 -- 
-2.47.3
+Köry Maincent, Bootlin
+Embedded Linux and kernel engineering
+https://bootlin.com
 
