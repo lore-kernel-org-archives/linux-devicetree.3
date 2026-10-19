@@ -1,120 +1,110 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792421581;
-	b=Bk0ODFMSKU3/Gu9k+HdLg3FKOAGHayUi+x4BfoIhr1U2QxfhcjuHo9xrYdUI1ySNk2e8
-	 lBbSkSpP22A0unPwiavos2Old82ZJXUnBYlxRkUlgE8o81tEuMr1CuRo8KUvhT3/oUuod
-	 IkaIg2OOMNInsSQMi1tvFKpnZTCID8ZtyLQNWM0C9fjWSnfIe7mywLFZfvOueEilFdiFv
-	 MiRvSo9Oj/xV/hPyoOdfFoWlLDu4WpIqS1jEMvKWDvTWL2g1vDkUB9LeQdbu7CTzitJYs
-	 yGvN5ITS1C0G2BDoButJJMxfKXCEluKOdn47hILNSMHCyfRaduvhl7JV3dV7ZEd1MXQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792421581;
-	h=Received:Received:DKIM-Signature:Received:Received:DKIM-Signature:
-	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
-	 X-Gm-Gg:X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=SmP7mf1aTtakbEsKRgYC+LPlie1PGuRE+ut6DuR3Cd0=;
-	b=XK6Gib+g7XfyJWX06VYHgoj2Ybj5+YH5Y2vpTE03ydbB6CrvbkP7leDzvbcXCtPXMu/g
-	 i7S1RQmAx8ATg+VnAjPLCJYYR+PaPvfMD3qnEHksZbqb/qcksQOIHZgDWDODibOBEm83H
-	 TmY5BQ86isbGKghKmTo6DEXeU9ZN9fwWOs6sRwoThyWlK+CpWSgC4VaUEW9KVJG2rzAbB
-	 wEDgh1CS4TMASOZjng+FnCqtTdjM5gG3/ttW9nNQE1HVoTalTT6NKQoTHDrzhLASyb84G
-	 qnrazjDkqsU7Jgw1QkHKW9UXFnXnJysMGQIuWMogN1RCT+vLyLPM/OmC06yAxGs/f0g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Pptyslek;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UP+22tCe;
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
+ARC-Seal: i=3; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792421717;
+	b=dRYqIONCTPvmhLso1fkN4IwTbz1twUAr2FEyGhRoWGpGTzXr+9g5La+DkdBzPmp5Oqat
+	 mzTrOh0Qw1FE5c7ipY2Wc0d3F7k5u6O5Ftx7bqPSHCShT5jtEmQjGrRCdyQitorPZIhHB
+	 LPxkZphZDOZL0mZHp66qPBHQRR6MKVBH/UcenU+2wV2tt7myBGHdpoRSxl/3nWS0hf+G2
+	 iYCcV4y3gh6SUX4HUJ0M0JYiAcnE7VwwTvcoB9E6H3VP27BixC0/jJdlGa+/SY/ijvtwX
+	 FtV7lQ3r/oXuoZlEXyYS/Kki4w8qWS5Ns+FwTJMd2Zau/EKnYG+EjTGxSmiNFjODx8A==
+ARC-Message-Signature: i=3; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792421717;
+	h=Received:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=1JVa4anZLJXOQzT6DdFCFiAtwNU6Km/IK3O7kS1gknE=;
+	b=40N/sIrRCHh5VA/q5+MGVG3YZUKgozdHqTGC+qhMvQpJRB4X24Y6Qmz8pJ7/XNUpOGfA
+	 lFvn17KQggdLKuK2cPquiHE2WNsoFJaMQb2kFt6Xs7NJ2l89gTjLchiYuNsyc98gQDzIR
+	 HIVcRhodyNOOLyxyuLY/BweFvxisDSxmHlUqyDIIY3VKMJ5AsZVSp8pIcUEZVtzAKbiAB
+	 /kHvVkCb+sn2Xfzzn3/ePR++1LkA7n7kGqwtv7pXxDI0SuGomWNRWQL5V3ySfqiz3P3Pb
+	 90+ig9pWyHt9SWYnjdWXgg/D1mcSChW4qyPNviRG/xQtDaLPR4OzETJvU74Q/p1c9ug==
+ARC-Authentication-Results: i=3; smtp.subspace.kernel.org; 
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IOaySC7U;
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
 Received: from aws-us-west-2-korg-listserv-1.web.codeaurora.org (ip-10-30-226-211.us-west-2.compute.internal [10.30.226.211])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2BDD6606AAC7
-	for <devicetree.vger.kernel.org@localhost.mlmmj>; Mon, 19 Oct 2026 14:53:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B5D02606EFFE
+	for <devicetree.vger.kernel.org@localhost.mlmmj>; Mon, 19 Oct 2026 14:55:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Pptyslek;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UP+22tCe
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IOaySC7U
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C72724D3BEA
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 14:52:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792421581; cv=none; b=Ketf0L0zUlYSbbTHXQRn030DL9tFfkLRCLq/zN5tNPzTuxYTVJ5WLJhu6+pMFpm63BEoszjFAPm95ZlgDEOzSmBSgAL4gaQvyNdnFAWtNkmzz/WMON5cwzWAp6niL4ELwkUJ0C3JctBGULa/+1tNITxvNYmQLfcy8QA04ATvFjE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792421581; c=relaxed/simple;
-	bh=Q8ELXF6LLbtqADEm3zzC52Pu10rc3XpBpK4nD5ZwOqk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MB7APtzZWCs1XD527Dpr9cP01uvd5ujOBsAPL6ksKHtipqSlsHGUY4L2N4NpJDgXuly9Ji1kHWay4ylGdMth+9YARbLGPzSC+ZFUmzsEp4WVrcdTqb5bKkyMzzdMbz2JFlOyiYrIiZ5qMGQvRTtNiom5TaeGTrooqWR3rkgYlmg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Pptyslek; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UP+22tCe; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69JE0hZi1904087
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 14:52:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	SmP7mf1aTtakbEsKRgYC+LPlie1PGuRE+ut6DuR3Cd0=; b=Pptyslek4ttLiH5m
-	QQHolh96lkqa5dPpnl2zIbUN3kvq6bimL1s4DNm1dlnyH/0sZcX4KF+RHNiH1m1j
-	rUusEkRTyh3ZrSGbYObcBDDDiYINkGr/ciZ47ih2biuwHBVgJMtTpCbJi/OZIz8e
-	g7YFqFwIkJqlHbzwVxk5EnaEdH86nUgvSWNKjVC7U+u84ffDstcwA7hiA7Jbuubg
-	/DrgcdXgMkjFt7Nz32G1s6clnRTtgwtROq4IoIHIWizxKJVsXH1cAI97XZl8pYoF
-	xVQqD7aiGnQaOcpq6kxo3XDpx4n0OfkZLv3JjD+jh/UpmkxtR0+J8ij+QYgb0mob
-	6CkQOA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdf5c9qgt-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 14:52:58 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93cc50fb0d2so60063485a.0
-        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 07:52:58 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D43D86513C1
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 14:55:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792421717; cv=pass; b=VWdfMWZEcZ8KhRAVRXxv2og153D6tPaAYMyGAwHHbPQxb1DDe1Gf0rMDV4qaroOVtVO96bCc7kGdYv3kn3PnHCrHovyvWqaRTTqoFjRTawArC9/SY/Acw47pr5Eg+7x6WI2SHsVM0PV8BG3xM574aa+JKTIDXKypqvcBjZmpnYc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792421717; c=relaxed/simple;
+	bh=AKW3t68ZOk81dPuxPw32ZX6gYuPNE52T8jj7L1+y7RM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZRGGZo9PiLQePBLqtTYBpqrsSIuHkzXWLhQc3d7e2+v2fmvgazMVFOBFYeL7RX/Kj/XCvocC4e0ujeiaf/UnH7x3dOoBjlCFqB1FYrrN5oBVndJFHYdba/o0c55aDvDWhySbRb23lza+n+nYsv9IHGlKkdmGQueq0VSEB9iPybQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IOaySC7U; arc=pass smtp.client-ip=74.125.82.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-15ea896ddc8so2645110c88.0
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 07:55:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792421715; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iGe1UNaSdRO4AYCvYQfQG1IZy6+gDLNMHnJa7A9tU0hdO9Xo4qfF6NKBYG7V/rbr7v
+         XT/cefwK2/ABWWG+k92dz6AElDu/mEAtuq1aIPq2fsSrvwHzo847XaV0JGG5QdEBbCrc
+         dNJVBpy0an2jWQPV1dVtEW+NH4XofeL0rMOk01xHaOaO6JVEdmbtjDotDHQLQEQkz788
+         MO9Haw1cN0R20W1EHXolBMjNwtqvcG4l8+KT2FHyQRZv9/SKMYnHYX/DrKzg4s8bibd3
+         ggdxfhvShrZOy17gHf6Q9dAudPXRJ/JzncfNy3FIDWWFs+1hdLbNjGuhdE+v9nxZQ5uD
+         flLQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=1JVa4anZLJXOQzT6DdFCFiAtwNU6Km/IK3O7kS1gknE=;
+        fh=T/MEuG7WLhHarQYY6+rwtQ+lbVSCRikhbEbdzaRCJUQ=;
+        b=Hv11gniuhKGT8idwAvtpErD/+osjN0k1u9o3VrNuZPXv5RCAqRW/l1Ducd3mPqU4p+
+         KFMlgWQtA0DmU1vSYJEhVxG1uWlsHy7f9m3w0VzT68rJEkdmaP2Whd2L0hn3EdWXRHGF
+         E7ilx1ArfmH8SkhGftrkz26VO8TwUyzUOh8RPTHLVFzSEup1onm0LILfPgrjEkDqeJpU
+         DZiwja59x85yeB3TJo0XzpF1y/HaKF/RFeQLkMyH77ogillonEq7RyeUXU8KN6WfdI1H
+         wTewOa3R0Yqh/oSCP40JCmBOdqB52rZVymPPDTaFXqXVs9xgmdzggTe7vMdE1ApsxZhS
+         u4DA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792421578; x=1793026378; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SmP7mf1aTtakbEsKRgYC+LPlie1PGuRE+ut6DuR3Cd0=;
-        b=UP+22tCeXsHmvSoohOKJedsC+lnLk3AzOE0gsVg0VTMaftWiE9Jpchujxo5Q7RfhQ9
-         1guYbcqKA0yjFJ4wx/2j8CPYQNO5XjPVX/kEz+Ac2hPhuxqnViWLIfEoENzcxYPGCUDl
-         26tg6vAJXg7N4oGa6m5GQREDqfmQ1qAwA2oOt+ZvWTs5kNrXPIne/T/WNtsWKUWk7k/E
-         2At610cfYw/qSTLuWvoVGeXNN3Sq4QLOW5a5HAm4WrD+vcptF3+ySpL6qbhlRNPU7JDx
-         oLL2zFlj6QzEag3MhO2m7I3bfRKBS2EB/SIi0mar5dq90C8nPFsgazrB27RQYNXk2NVZ
-         HQ5Q==
+        d=gmail.com; s=20251104; t=1792421715; x=1793026515; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1JVa4anZLJXOQzT6DdFCFiAtwNU6Km/IK3O7kS1gknE=;
+        b=IOaySC7U7W3uf19SUIgQObLWJ1HaLaEi8jv+lORJA1D3mjRjX/AMccUsulTefGV2X7
+         LssP+DVlzVD6X7WdIIo6/p2/khhDwe0+x6Ylo3djuwxncoOMlPQCexPT9dOFbLa9nz6V
+         kVEuvNC1cCl6DJlAybsPj2wGhHApWyLYxk9DPidR/P8zhVTzXr9Btl/5upVkpGurwFkZ
+         jVI00O/WHa7aNmeupJ4Bo68cZlmX+mBEIkNVgy7kdJHAqb9gpQPlmOyp0mPqbzkTewFE
+         azcdcRBkYIOd8SPDf4fTzO7P9QFEQg78Q61TxDUNiiFSRcuUPYnclPj+yAaGVDluFz7o
+         BZFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792421578; x=1793026378;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SmP7mf1aTtakbEsKRgYC+LPlie1PGuRE+ut6DuR3Cd0=;
-        b=Av/JhrP9bsTolmHGbmFU1zdRJ5NW+6MGWJAjppklqMHh3jSYdfZJEMbCtaCNOeanX3
-         iOv2dVVjy0IYSHvZRaRgTuofPQo5NRII189aqq5CLMXR5Jwd0/i9DzNqIg4t0ESkAw+s
-         Fwg1huezkjwvCtqFRjb9ww9KI5LNi5nxqjSNokM3NZq1BM+Sly8JEugqfuXOGSeLDm35
-         4OHZL9mIcOIdQ4lv+8TFTHNICc/U9Topg5lfwmpiBTcYunJH4PuU7lKOf3FCR6Z9PqeH
-         QHeesE8PcWB3YjzDrww0gIw/OwikaxB0bTqJKezM8ixZY1OGgjgAAPAXI08nJpohQHEu
-         jU/g==
-X-Forwarded-Encrypted: i=1; AKwUvByisJ/881TM7vICsvidWMOwx8YfzCbdI/yEJ1C3jmSBXL2h0IcawreJVnoC4MZyR0qdOJjypxeXy3Ov@vger.kernel.org
-X-Gm-Message-State: AFq9FYKmm+pS5F971p5CghS0C1koV4yOoL/lyPlWNHztHsaCQUJ64lx8
-	oMjEiQRUqWY3aihjaM3LQj1gkJdJzQ+Hpn7wcGDWZbPawLemQn0OK8FzB4WuGkLSEz9YA5PB701
-	B9sEcwtE6F6Ora7VTRLeVqktrI0eVmLpvo7TKKZlvFHpkiAjcoJ9lGCWll9k/hodF
-X-Gm-Gg: AYBFou2Vmb5tT2Rh/5onQZKy3OGqQEwOQHtsPe2C8a9WKL8wzSPNUf9jIVWXAHfgHva
-	o6AJNnvhpzB+F9EqUFm4qBZowlHyp0Lq5xdAhSFxQAaI0sngTkXHXOC4cRJdVuupeoyV3yKkKHy
-	Vdq2VnQrXpMQ/OhxjOikBXxCUw/ITf95RqeG/XpWb7zPCYKhg5b5iT2dKYgZzWJZrJWMxyqc961
-	/7WpsUiJ0f3eWbNikAdvH4pa/cVIaQ1Sf8L1tO8KaOBIC03Wp4R+x/Be2pkRYcW8O+3nH0ZN6vD
-	a0aGDAibKOf9u5UOFz3l3XZ8ft4DiGxnOo6b3pGfl5Gh31RIdgKmQDobKdRVw7HW/MS/HMGePas
-	dbjs7lp1m11VvADMK/THiXg==
-X-Received: by 2002:a05:620a:711b:b0:93e:54d2:2283 with SMTP id af79cd13be357-93f29e15e32mr1459384385a.6.1792421578059;
-        Mon, 19 Oct 2026 07:52:58 -0700 (PDT)
-X-Received: by 2002:a05:620a:711b:b0:93e:54d2:2283 with SMTP id af79cd13be357-93f29e15e32mr1459376185a.6.1792421577483;
-        Mon, 19 Oct 2026 07:52:57 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c408e32c075sm380967066b.11.2026.10.19.07.52.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 07:52:56 -0700 (PDT)
-Message-ID: <a334b115-6fac-4417-b6da-fd0a2e5fc43d@oss.qualcomm.com>
-Date: Mon, 19 Oct 2026 16:52:55 +0200
+        d=1e100.net; s=20260707; t=1792421715; x=1793026515;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1JVa4anZLJXOQzT6DdFCFiAtwNU6Km/IK3O7kS1gknE=;
+        b=mgZP8JOQP/ijR/bi2MwvePP3IngM17tVeLCvhzZVcacSRKFK8FOCY3HHg/I5FN366O
+         eS7jZX1DfJbudYvDS7RbFLw9VPh3Q3egMdVXyHIcG9Mopfwrt+DYiLNkPae8ssoxwuF1
+         n+tBEm0+Rp3iIq5lx/3MCNLF+67Enflh+VdFOkdATScvwqttX4GCquNTA5g0VeIPaf8p
+         28WNpoQ5T0F1i4VABJzTV1x5SDm4hJ/VVb9xtg4MSo8KTyHha4ecAFry3XQAMvIZQwGk
+         uayER1RbHhcYgNj+qZorVv5Pu0wm5ABXF7P/YdM/4FgT903joRSy6hlqQPcaNHlfkbn4
+         TQlA==
+X-Forwarded-Encrypted: i=1; AKwUvByysBgCRgCY6ufUBypfVGdoDTT3MOstwhh6+AUCgNyGj/nXlpr1b47v9K15fAZ58d5jJHTBA3DFCYXT@vger.kernel.org
+X-Gm-Message-State: AFq9FYLbVMsgbl74JaUGvQkXoNiYvEpTfgwL1KYtry+8Frbo+blyA0Rp
+	tO21Qn1TA3XWD16yzGC9rX6laRqhnMq6sAYRGZ+S3ouryB1oER6l/VFcUVxWAo2H7/2jWy5Z+ne
+	1gswgH1VrC/if0FzHnrlmyqZjXUjxFqU=
+X-Gm-Gg: AYBFou0ekOKVeJ53w9rVzBiyJdUvoz9U5zQ5eNzDaBTgJcO5zD0nPoWKtIp/FHXkhh8
+	xdZYHCujLRp0XfTaD9+Kivqr/c/Ql7obmpYuTdr4bJOIhgd6Fh/3XkNFJHd3qitrSVXI+1IE6yc
+	zhFwbTunh2yaKKsDtX3EMhcfMss6Cwg5tXd1KX1IUN9Uj40iAOxU6i9h5H4fglBZAtinadkwc+d
+	sE4pkK7qGZq5MWXspHJ1J1WX2J3U0qenUve1Wbrg8u2HDocXEXgBO5ilt1f8S2VTBry6zHjTvKZ
+	ruNQKcJTIAvaPgiET/783FhocSlI3GMeVJOWp9A3A4wEdD7PX+a/wIbMCkbprEfeH65lf771HWZ
+	MBQHIvlyetFxT
+X-Received: by 2002:a05:693c:87ca:b0:35b:c1d2:eab9 with SMTP id
+ 5a478bee46e88-361a2e3d3abmr10553103eec.39.1792421714834; Mon, 19 Oct 2026
+ 07:55:14 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -124,67 +114,126 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 06/12] arm64: dts: qcom: pm7550ba-eliza: Enable BCL
- sensor node
-To: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
-        Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        mfd@lists.linux.dev, Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>
-References: <20261005-qcom-bcl-hwmon-v4-0-50b9a8c730b7@oss.qualcomm.com>
- <20261005-qcom-bcl-hwmon-v4-6-50b9a8c730b7@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261005-qcom-bcl-hwmon-v4-6-50b9a8c730b7@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA1OSBTYWx0ZWRfX/PTx0KUNOPlP
- Tpj5zgjyupLUls2Lm5dGM/IwQvXLT2dHm4jH4d98dMsUlWLhA6O/CLSfeNXZ/mzAzNKUWVGO8lH
- 8sKHUTtd8EvKFelCKYBo+WJpKdYth8k=
-X-Proofpoint-ORIG-GUID: FlrXWOQZXqyEBlDa2Qum-DLVryQw0TK2
-X-Proofpoint-GUID: FlrXWOQZXqyEBlDa2Qum-DLVryQw0TK2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA1OSBTYWx0ZWRfX/ztm8htbKUEJ
- 0eXvm8Jl5dyrfRG+QQHQ/NtrCthDcdEiydg0JgACC2AgOi6gxVo6MtuM2lbO/bcZCWU1kB5p4xE
- tvLmMfqNoHvyYe0SL9wDnoIjZTl0LSEkHRW6ZWCoDgDG6A0x35KLJsNPY8rPH7fC9VLu4PIRo/W
- I+ivsO1oozwrx12+xJIG9mrFmqFrDuXtLWrSzwL5/hgoo9dBzCL/c1LMM+wNHvGCvtVGShGvEpr
- 8clQzBQbWF1J5jIwCGCYV/RzyuUM+KH3S2ZPjsR16LKTNy3iGHOHoK84+GhA2vj7zoy8ML7Ghrk
- /5G66yrDj9xvNxsBCMKO46xu85fvs+5++8KDTNSoMqSg4TQWNv8fOIDhWh5kKx0LRuiyvcIOGxS
- HliAqmQuRZZsrHYB3GieKjwFrlyR8i/eFeJk/oq6vs1eGzgiXmAJfdo+zRP8U7xKdYJu9Yq90eo
- SGmAj9AKt2v7VrYDagQ==
-X-Authority-Analysis: v=2.4 cv=K6O3jCWI c=1 sm=1 tr=0 ts=6ad62eca cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=GBzGvGGi_yB6IOxyoawA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-19_04,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 bulkscore=0 impostorscore=0 malwarescore=0
- adultscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190059
+References: <20261013180933.487013-1-clamor95@gmail.com> <20261013180933.487013-3-clamor95@gmail.com>
+ <179198332384.839288.13126529382772558553@kernel.org>
+In-Reply-To: <179198332384.839288.13126529382772558553@kernel.org>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Mon, 19 Oct 2026 17:55:03 +0300
+X-Gm-Features: AclHuK-mou-LoaLS3qywfc3GD7SbgOiLXnwqTE0Jl9qjYTR1SQVKYSakF-bo474
+Message-ID: <CAPVz0n14BhmK4P-tqnt6AMrAh=W-HPoBbP0ztdOrRd_JocRSqQ@mail.gmail.com>
+Subject: Re: [PATCH v3 2/4] mfd: aat2870: Derive brightness steps from max current
+To: Lee Jones <lee@kernel.org>
+Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, linux-leds@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, mfd@lists.linux.dev, 
+	dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/5/26 2:24 PM, Manaf Meethalavalappu Pallikunhi wrote:
-> Add Battery Current Limiting (BCL) hardware monitor node for
-> pm7550ba-eliza. The BCL monitors battery voltage and current, providing
-> hardware interrupts when configurable thresholds are violated.
-> 
-> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> Signed-off-by: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
-> ---
+=D0=BF=D0=BD, 19 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 17:4=
+4 Lee Jones <lee@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> Wrong subject line.
+>
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+What do you mean by "Wrong subject line"? Specify.
 
-Konrad
+> Please review, explain or fix the Sashiko review(s).
+> If this is a set, this request includes the other patches too.
+>
+> > The AAT2870 allows only 32 steps of brightness, with this amount define=
+d
+> > by the maximum supported current. Remove the need for max_brightness by
+> > calculating the allowed number of steps from the maximum current.
+> >
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > ---
+> >  drivers/video/backlight/aat2870_bl.c | 30 ++++++++++------------------
+> >  1 file changed, 10 insertions(+), 20 deletions(-)
+> >
+> > diff --git a/drivers/video/backlight/aat2870_bl.c b/drivers/video/backl=
+ight/aat2870_bl.c
+> > index 8b790df1e842b..eb686e315921d 100644
+> > --- a/drivers/video/backlight/aat2870_bl.c
+> > +++ b/drivers/video/backlight/aat2870_bl.c
+> > @@ -24,18 +24,6 @@ struct aat2870_bl_driver_data {
+> >       int brightness; /* current brightness */
+> >  };
+> >
+> > -static inline int aat2870_brightness(struct aat2870_bl_driver_data *aa=
+t2870_bl,
+> > -                                  int brightness)
+> > -{
+> > -     struct backlight_device *bd =3D aat2870_bl->bd;
+> > -     int val;
+> > -
+> > -     val =3D brightness * (aat2870_bl->max_current - 1);
+> > -     val /=3D bd->props.max_brightness;
+> > -
+> > -     return val;
+> > -}
+> > -
+> >  static inline int aat2870_bl_enable(struct aat2870_bl_driver_data *aat=
+2870_bl)
+> >  {
+> >       struct aat2870_data *aat2870
+> > @@ -69,10 +57,11 @@ static int aat2870_bl_update_status(struct backligh=
+t_device *bd)
+> >       dev_dbg(&bd->dev, "brightness=3D%d, power=3D%d, state=3D%d\n",
+> >                bd->props.brightness, bd->props.power, bd->props.state);
+> >
+> > -     ret =3D aat2870->write(aat2870, AAT2870_BLM,
+> > -                          (u8)aat2870_brightness(aat2870_bl, brightnes=
+s));
+> > -     if (ret < 0)
+> > -             return ret;
+> > +     if (brightness) {
+> > +             ret =3D aat2870->write(aat2870, AAT2870_BLM, (u8)brightne=
+ss - 1);
+> > +             if (ret < 0)
+> > +                     return ret;
+> > +     }
+> >
+> >       if (brightness =3D=3D 0) {
+> >               ret =3D aat2870_bl_disable(aat2870_bl);
+> > @@ -150,10 +139,11 @@ static int aat2870_bl_probe(struct platform_devic=
+e *pdev)
+> >       else
+> >               aat2870_bl->max_current =3D AAT2870_CURRENT_27_9;
+> >
+> > -     if (pdata->max_brightness > 0)
+> > -             bd->props.max_brightness =3D pdata->max_brightness;
+> > -     else
+> > -             bd->props.max_brightness =3D 255;
+> > +     /*
+> > +      * The maximum number of brightness steps is determined by the ma=
+x current.
+> > +      * The aat2870_current enum maps directly to the allowed brightne=
+ss steps.
+> > +      */
+> > +     bd->props.max_brightness =3D pdata->max_current;
+>
+> What happens if 'pdata->max_current' is 0?  Above, we fall back to
+> AAT2870_CURRENT_27_9 when assigning 'aat2870_bl->max_current'.  Shouldn't=
+ this
+> use 'aat2870_bl->max_current' instead, and if 'aat2870_bl->max_current' i=
+s no
+> longer used anywhere else, should it be dropped from 'aat2870_bl_driver_d=
+ata'?
+>
+
+Resolved in v4
+
+https://lore.kernel.org/lkml/20261019100930.110954-1-clamor95@gmail.com/
+
+> >
+> >       aat2870_bl->brightness =3D 0;
+> >       bd->props.power =3D BACKLIGHT_POWER_ON;
+> > --
+> > 2.53.0
+> >
+>
+> --
+> Lee Jones
