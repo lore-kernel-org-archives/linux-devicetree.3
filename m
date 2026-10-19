@@ -1,125 +1,153 @@
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011002.outbound.protection.outlook.com [40.107.130.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FF6C4A2A70
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 08:51:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 609FC49E143;
+	Mon, 19 Oct 2026 08:52:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.2
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792399899; cv=pass; b=qk9Xsr0GFJ34vnRZytu6nOifZlvHbC/pXqxg8UnYLK4cDyMjqGvY7dBUh0TjRaVAX7YEOoIc1QpqW3Zxawco7I+rfL1zai+Hv6/IIU5qvMycCtss9Bx6sRZFiEwLspiIcC/+n9c8h6+lkR52Ow2utk5KJ8+lXNDGtSiMk3tcOYI=
+	t=1792399967; cv=fail; b=LNEnAM39jWugmx4V3Vn0ODo2ekK0mtKsJTsfxWXY6Yt3GrGdvR8DqGxkENTJiuCFjy/bFT7TcCEgSiyXKUBJTPbdQ9QeuN+k4e50k2w9/MjstAmycqpnZdfKJWH/k7/xFeStJuBaFNKOQMcUENG2PnxVzctTOBhvGhFfqq5mEtU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792399899; c=relaxed/simple;
-	bh=YZGPcgD9AFqKQnqdPo2/PO6pxJ4WnzRDZW0BsKuEGoY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FwMlhw1bMhbakFd7n6ANj5mZFMRT2TCnLL7fmtkv8tRziFQANXX2H6hx8NMpvH/NoLZeOZELap6rIzvFCP34St7A4E5nMaBHPSxYkuomsmCIH0vjklMpfTj2vgLALMsZs3zAYbxv82/IBNxBSP6vp4uv4gtC/gEck683Qnj37A0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h4kdIJwC; arc=pass smtp.client-ip=209.85.208.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792399967; c=relaxed/simple;
+	bh=tVa+GY8/rRfTNkjY6LezLzLH+7UDc9DIpc4TulEqxGM=;
+	h=From:To:CC:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=peWVCrd6rTk7eZRMtsZmAv7U+H8NLs1KiiZ/fNcusMc16EhP3FX22a+o0PhoJ7QHJbXI3mfh5RugwVsjbGijE7JZZnA3Y4ESQyLfi0YIfMKKT+UdbZO9FhEPZ3mSRKqibaS5gtwgiLfgQWig8I8a76HfvLJYQ/AYKAmtQawHCEo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=AtYvibxV; arc=fail smtp.client-ip=40.107.130.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h4kdIJwC"
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6aa046a99c6so355100a12.2
-        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 01:51:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792399897; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VUUyfYtCbC1bxOHz9N0DFdJ/mS7jINvtOL+rAnHMFJ98tLLNvgUb4CNM77MvjwulXQ
-         P1jwZMUqg3J+hy8eNr9PhdTErC2rF04ZfZ9oYO3KTTyKuuZxsvmDrT/QX1dF6045tb5F
-         9M4Q1/1ntIM5i5Ns2ssKJz+uwOe0mt8p86LsACU/9x6D7Rx4V9HdoALb8lT0+2j+OyDu
-         0lp0f/vLCjIPEjt/hxcif01Kl0Jm98lUE3eEaXxSsfm25kMPr7NOA2XXCXNGPGS8X3QS
-         y+hUsGQunwxQyAJhqzuJ8umPEadGm74N8ITZN+k4Q9rHq2/iVIghCght5t2lXvQX67MF
-         vEoQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=YZGPcgD9AFqKQnqdPo2/PO6pxJ4WnzRDZW0BsKuEGoY=;
-        fh=CS1H2uvD/FqEZuVRPqTOC3YPTo2UQOh7JVvggasNMkk=;
-        b=D/X6ef4N251i4n9lKAiguNVU9FiHzUgRGfVRDt3bs6DvfjKeUzPcXvxwwZEv93E/YO
-         3e0YYyiIsceVFYyuBgGiWeM9GIkcCYLo2ejQ+33d1mzzyxdobj9C/SnDohDoGdrFyNZv
-         LpL8AHLGs23X+A9/9SHE30H4aK4T2JclH3U7/FNCZWSU3vCtSa5owysV71JD4CMMKWAg
-         bz74taNKZdKPqVUUlU8shieOdgJ48ns8k6pLbgg8kM2iZOaHFXE8i1GkcTdSgW3xx9Ul
-         Pb50VS0GZ27zJ9xyVdIoV3Kf7V8IyX+5uk7wOGl2Cd2qtSBHcYl+1X9npLIokVFyk7ow
-         XNyg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792399897; x=1793004697; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YZGPcgD9AFqKQnqdPo2/PO6pxJ4WnzRDZW0BsKuEGoY=;
-        b=h4kdIJwC3BSlODG+uWwjhUoVKgH21GnE/26XSzalXkBFvjCbzB7VKV/SZ26esGMGNK
-         z4aLukjexfdeDN3dY7rmH9dH6c9WDuibYKqkONoDhZ6DYlepVL1j9LxBfE4g1VTuD1RL
-         2tM1BgJ5VAETgTbksQmmxjrgBvDWRcizslaGqM8fRLPXqxzrtLgCgJd5GorGdxGgNwmh
-         oAbvPGOMG1FWG6xiK0gQBE7Q8uJGYu/eXLnhS6iVeI3TIEQVU4zmLy7IfAdctSQPOSpF
-         QJ2WtxIoewRFAvF2Et37HVLpW5FitwfO0+UUzsnM9H7JzO3UbX/fWrliJY8fuhsETBGy
-         MoCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792399897; x=1793004697;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=YZGPcgD9AFqKQnqdPo2/PO6pxJ4WnzRDZW0BsKuEGoY=;
-        b=OEn7WR7+qG0qyXFl81nG5YknNAtpXdTemRLQIFhfh0jXaq3sxoaY9nbVl9+sY/ShLb
-         cFqo+66k4ApiVGDbzfrYc1yrNfrp8aNyKbpabxhMtI7k6mwAi5ASJ7vDE9HuMkJ3ArSI
-         +J6pSuidSH2JDHk8O9z04tVd3nkdvA9EZOiq4BlbffPoTvbfUG/CchYwYfvH4Y+KSnCu
-         Opy/Lq6wnHZrozCBYA1ZFTTlhpfDrVlec8CgcN56REVeTq99ARBG+Pl8X4njzwNsSsW3
-         CTqCFPbMdht6pGNYLr2qLqSqUgqlb2RO/P0CSadBTNqAD2WEDL+6DzBWpcHe0ctlycfN
-         nE3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwehfhd0cNUivthEkCDDQkDMCLl+kFs4OX5CsG8sKuml7UnCdtLmfXoqcmc3kEptMVgT8s6h+gnkJ+i@vger.kernel.org
-X-Gm-Message-State: AFq9FYKHIL4A1Er2Q9TEXfZEBf/QHTFrro5b6X/VGPS+PcmRYfdj0hyN
-	ZGbR9BfgZ2apyIgLCikJ7NDQXSh0ZVbj2KMAvzqEwUqZT5n6JrezrcudU0n4zIe5jo65EvHH6uY
-	QsroSuXEC3RqwIcYI9Rse8YkTa1jqArc=
-X-Gm-Gg: AYBFou0j6RLKs8+ag2SmB1NKReyIOgeiovp51rVP5QQMxrzWLLIYgOdQtrGTzHZqI4K
-	9qYwqCZG2iWnlLrWOMxdl23asoqupZ6RitNJRpsf0nI8nDWUizBXoADu+tzxT9pph3tzNYdB0WL
-	4D2MRH8C4jNtYz04iAdz0Wz77DtaRkvb725UGXmJYC2/RHZcH+WWLFAZoXorcSN7/d59SSkcAhB
-	aTalMVLbq48gLSwUlG2fVUcWd7FIMIG5Y6xerqSzgJ4AucgoeWmjNdo2jp0gR6NFYxlC0gU4kVR
-	j2wueBliGOQy1gpWIDIovSPL0S9SxlZnl2JCUaMowDvnN3RKOaPvGA==
-X-Received: by 2002:aa7:cd16:0:b0:6b1:a509:8a2 with SMTP id
- 4fb4d7f45d1cf-6b3a8153c70mr3342735a12.2.1792399896018; Mon, 19 Oct 2026
- 01:51:36 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="AtYvibxV"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=a1ct3BOsvUGaQaSp0VHpVHn77fZABZPflTyAT78u3lL4qP1OF1pS26ZHimirvniaTKtkDZcBHh+Rk6oIBEB5PxTVobKpiGA6rNLbPuC8adb/krCPdYEh6nF6BRTmk5i6sDpZv5flPace3JniZFfIG7egoscZU05FJhxQIw0rz09NZEoWf2BZfda84YIVQ8nOtdDapeADFb9LHHrXycon6SY0Dl+9Iy+G+7aery22obiw8dZxSfkVqk8DviloPJk2xBx2kIDG+GN3r+4EjHhmbxLXkcKazswTrh9ElCG4DYUO71XPqE8ilojgolaMLYidmUiZ3pdUMqxjM9QtYFkbbA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KjAMpi9AD+y0/6UQD4nrEkHL4bUmwFyFC9MfEWN57LE=;
+ b=hRlRiTirrA7hTz6bPG5YbarbzP13EtoIfs5MUuyPDJR+ZAhHW15518GMcrKKCDa7PtS8JnESLwg7PPZqkBGMRqhicCu3w/nwn+tLB9ljLzib8O1ZG32lihBhBuKnSIx3RcRvDS8bmHc09vpzrzeWDhjHq8FRzL+UEEISozwr5fUHcjqJ9sRjPmGMgyBHdf3NQeDjhte671GSbas4GUMARl1omv/8u9c7glngrDBfTh9InGhzsHjgy1VsKt/K+bathh9IiByUDBYLe7pg36BoJsMCY08T5YLxxJz+ffCz1gnXls7Bt4cpGJUUeJ+ahfzncv9CuhAO9NqVGRVRWyThiA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 195.60.68.100) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=axis.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=axis.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KjAMpi9AD+y0/6UQD4nrEkHL4bUmwFyFC9MfEWN57LE=;
+ b=AtYvibxVSN+7yhYsKRJ/o3xvdRbJdQK7bftMiwntpUf0whSpKpjc97SMumc1AGk9NYtI0L7vcpKVjUcpDJXHoO3ZBvsE6F9YqvtYtgK2p4UATa5SHW9PUWj0T3f4ll1td7LhAOdaIAQTgNT1wMNxuXkKeqqhxS7f20JMg0bsjkQ=
+Received: from AS4P191CA0012.EURP191.PROD.OUTLOOK.COM (2603:10a6:20b:5d5::11)
+ by VI1PR02MB6048.eurprd02.prod.outlook.com (2603:10a6:800:180::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
+ 2026 08:52:41 +0000
+Received: from CPH1EPF0000051B.eurprd04.prod.outlook.com
+ (2603:10a6:20b:5d5:cafe::5a) by AS4P191CA0012.outlook.office365.com
+ (2603:10a6:20b:5d5::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Mon, 19
+ Oct 2026 08:52:40 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 195.60.68.100) smtp.mailfrom=axis.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=axis.com;
+Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
+ 195.60.68.100 as permitted sender) receiver=protection.outlook.com;
+ client-ip=195.60.68.100; helo=mail.axis.com; pr=C
+Received: from mail.axis.com (195.60.68.100) by
+ CPH1EPF0000051B.mail.protection.outlook.com (10.167.241.230) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Mon, 19 Oct 2026 08:52:40 +0000
+Received: from pc67007-2609 (10.4.0.13) by se-mail10w.axis.com (10.20.40.10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Mon, 19 Oct
+ 2026 10:52:39 +0200
+From: Waqar Hameed <waqar.hameed@axis.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+CC: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Bjorn Andersson
+	<andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa
+	<abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, <kernel@axis.com>,
+	<linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 22/38] arm: dts: qcom: ipq8064: Break long property
+ array data
+In-Reply-To: <861b11cf-fe29-413b-a39b-5abff011ed77@kernel.org>
+References: <cover.1790892852.git.waqar.hameed@axis.com>
+	<3eb4fba92d67e7ff3486e8dea17233369f62545d.1790892852.git.waqar.hameed@axis.com>
+	<4451c072-3a11-4819-aff4-e7de100cab8b@oss.qualcomm.com>
+	<pndfqy5n343.a.out@axis.com>
+	<861b11cf-fe29-413b-a39b-5abff011ed77@kernel.org>
+Date: Mon, 19 Oct 2026 10:52:39 +0200
+Message-ID: <pndpkx6kr6w.a.out@axis.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
- <20261016-dcphy-rx-v1-v5-2-e63b49eabe2d@gmail.com> <f337f41f-2ada-4958-b0f9-379e78e96a3d@linaro.org>
-In-Reply-To: <f337f41f-2ada-4958-b0f9-379e78e96a3d@linaro.org>
-From: =?UTF-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>
-Date: Mon, 19 Oct 2026 16:51:23 +0800
-X-Gm-Features: AclHuK_WAI6-16edIPrAFWjpLBUVloumDqFsNS60JoizZzHWBKP6V-AdFc5lP64
-Message-ID: <CAPwA33KFY0avDH-F_5w01vqWu=RK=nXZ=za-Do5Zm3S8CPtGgA@mail.gmail.com>
-Subject: Re: [PATCH v5 2/8] dt-bindings: phy: rockchip,rk3588-mipi-dcphy: Add
- a cell to select TX or RX
-To: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Guochun Huang <hero.huang@rock-chips.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Michael Riesch <michael.riesch@collabora.com>, 
-	Sebastian Reichel <sebastian.reichel@collabora.com>, linux-phy@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
+X-ClientProxiedBy: se-mail10w.axis.com (10.20.40.10) To se-mail10w.axis.com
+ (10.20.40.10)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CPH1EPF0000051B:EE_|VI1PR02MB6048:EE_
+X-MS-Office365-Filtering-Correlation-Id: f49ac687-bae5-435e-6195-08df2dbe554c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|7416014|376014|36860700016|82310400026|56012099006|4143699003|11063799006|5023799004|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	gRuOCtU5PDKe67rxaC++V1vSSFlckVkB5LnMQajO6oRJLhe5l8vmSqd2zo+dfIre7P0dCEg2Pu+POBpLc3Y36x3+GVChlz/7/A3LWg+DuJ8VKclyW1/LurUhK5bW5r2A+BrF0YIUrAafWU+ZOoIl+17TqYuIz/dotiPxHwvVhhXDaALBVZ4yPv57Yj1OwtyAk81/d6uwGW58sBGPe8W9V3mWJ4BQawTWS4JcRdRg4UvryhViI7K5vH33tvCfa6orr1m269fBoKhMKKQoeW8G7LucCufRSZAjt17wUFbSp+9T8NkK2LexwVzXKMlRyqWEtTvCwTcNC3pPDbNHc1rzVHb02QdDTlhREdtjric3ekkMCsLCroOag0vOpbISiglYTe9gVWN5BXS16b5g2guL09eIee0L3vWTjGgYwc75gIFmq7JH96D7WqbSOCiIAbLJtAlEOVQ/axvHbnBKg0v1exDS6PG3F4Ed2TXgeEmXLBbxW4cmh7olG7UX/5mGGgkEpEB4LbMkyxEBgjVEUxoJgzY3obiyLsKS456Ww6tvmyJZXYRmN3ARyOP+OMhvEdXLBMVS0gJUxGpzQPopo2ED2BQa3AlV4iA8ACT5N9xfsHdflGrXrj8RRuN4yNcU13lv7lA2MehGa1hSXWw0JYzRU6kYsPKk7b1RT14FCZJQSDJPSp5mcmwbvHSERt/Fgv/voGge/HYin3HxbLIfkVqUwg==
+X-Forefront-Antispam-Report:
+	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(36860700016)(82310400026)(56012099006)(4143699003)(11063799006)(5023799004)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	QUIcMbVxuOXpZuwfBkxgmKDhCyXwsyHflIN2p8jI3+4mzqicul698fYwvCP+tH4OWvneah7RlKuFS9AdAHKe9F+5CtXz4cygsh75U2sizH2lu00RZhRjwo9jTS05ftsE+Q0QJP8WK1Jx2adjstA9ko91Mn1gQj7ZepEoIS8phXbKvP+x1Jgy19+7T9fl6v34OUVQfuod2/z/JiWYIS8yclA3f+XEgwfVprMBMGFQbDsAkft7JaNWMuX6Esk68bDnldihNCKR3fi450DX/+PbrqBc0C5d6zIp2jxDYnJD1Wm6xC2GsQUlAUQiOnNRwY6l1a1Eed/gvMQAFYk1489k01RiTJVwTz0rHNMAfLayaFL2EXuD4FfzJCwIlZffmi2AwxvCEbqEQ9KAisZXOnCPdYxgyqHo4KpXyBLymy7YzHDAbUJgrf+d7fc3bqri3JP5
+X-OriginatorOrg: axis.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 08:52:40.7811
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f49ac687-bae5-435e-6195-08df2dbe554c
+X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af;Ip=[195.60.68.100];Helo=[mail.axis.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CPH1EPF0000051B.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR02MB6048
 
-Hi Bryan,
+On Fri, Oct 16, 2026 at 16:48 +0200 Krzysztof Kozlowski <krzk@kernel.org> wrote:
 
-> Two consumers use them - which them ? Two consumers use the receivers at
-> the same time ?
-
-> Its minor but instead of "them" define what the them is.
-> The second cell, if present
+> On 16/10/2026 16:15, Waqar Hameed wrote:
+>> Yeah, as I responded in patch 19, this is hard and needs some
+>> discussions. Having the braces on separate lines like this is one way to
+>> do it, and in fact that's how `black` for Python does it. `rustfmt` also
+>> chooses this but first tries to fit it on one line with a newline after
+>> the assignment:
+>> 
+>> 		interrupts =
+>> 			<GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_HIGH)>;
+>> 
+>> If it still doesn't fit 100 chars (like here), it then formats long
+>> arrays as
+>> 
+>> 		interrupts = <
+>> 			GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_HIGH)
+>> 		>;
+>> 
+>> This still doesn't fit 100 chars. Maybe we could then wrap the
+>> individual items like:
+>> 
+>> 		interrupts = <
+>> 			GIC_PPI 10
+>> 			(GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_HIGH)
+>> 		>;
+>> 
+>> I think that's a reasonable algorithm to have in dtfmt for wrapping
+>> arrays, or?
 >
-> -> you want to make clear it is optional.
+> The code should be:
+> interrupts = <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_HIGH)
+> it fits within reasonable limits. Why would you wrap it?
 
-I will check my description and make sure there is nothing misleading.
+Ah sorry, I can see how this is confusing, but this was just a response
+to Konrad's comment "... For lines that overflow, I think we may need
+some brainstorming from the wider audience". This was my "brainstorming"
+about line wrapping in general. What do you think Krzysztof about this
+approach?
 
-> Not really related to this patch but how do you envision that
-> requirement being enforced, per driver ?
-
-The transmitter and the receiver of this PHY share the bias block, and
-the TRM explicitly does not allow them to run in different modes. Since
-this is part of this PHY's spec, the check is done in this driver's
-xlate for now.
-
-Best regards
-Jason
+We are all in agreement that the line in _this patch_ should only be on
+one line, without any wrapping (since it's shorter than 100 chars)!
