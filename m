@@ -1,134 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E63A329E116;
-	Mon, 19 Oct 2026 11:39:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC20148E0D4
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 11:40:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792409957; cv=none; b=htM0+XUmrK+bHB/I53Kf0lpQyEW7YWHvNHqPFV4ZIcPmktGt9RkEQaGcw8xCDMwRNI7NaZKNRuxOc/qvH6wH6o0J5D/WhUvsZHOXkyG5PYzLn2oi4065lVDTCAEgA8fwiY6sOjArWKD2tnnaB89Wq1RajjR/1WAUdWTKRcPVXfo=
+	t=1792410022; cv=none; b=I+sX0EMD0ExbvAVntQjiLpyy/OjSpKeVA5YJJ9Ky+uHzTQSWSKmdgmTE8TLWaTDUrj0g/mEVWiTJzPfWNcCBkmUW1uSsRbtGtxaR444Kr+t1y0PBkrk0MNdpT7ERWG2sd6aIAG8eeq88vamYsW1LjJOwm7Uk/beA8f9zfsKQJvE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792409957; c=relaxed/simple;
-	bh=UGqIXd04iH20IDIO1aYrY55peNrlVL/tM/ngg5sN3y0=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=XrUm6gdscV40Tui3vPRJNLshKEOsvCkgI6a0XZsbcbxz+BJwaGco2ep/IyfqdVi73K11xuv5o2MVDaGyvj0pkTb0S2myjDH09qFLlr8aHU6HQWC+21yndHQ2dqhdQStq/kurXsEpDnPXM7sFHSbjU8eFbDyt66c7ocK4Kg3hKU4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lkjTsFaO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792410022; c=relaxed/simple;
+	bh=zNa6hjnbJsZirNp2D6itt1WLH37BdWd7BIdoXDU6qOY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sLydcyNh+RdmsJ65rfMQWe2I9f6clQbCKTmYfKnkPLENiDUr5f80wEMjFyMQ5SpVsHDtjkan57ClcIVc35eAWUw0vqNVTW0CD2EvxZT4XtrxMO7g1F72Goli1olEWM3rl2EaMYVXZfC3+jPVHcTTHV//gjOfJdV4E+MkzV9twYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=b0qske6Y; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EDQbixxJ; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lkjTsFaO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 572A11F000C4;
-	Mon, 19 Oct 2026 11:39:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792409955;
-	bh=lplIOhIV5V0C/jHRmjr3FKaB3R0Z/dkdoI6azjkHDJ0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lkjTsFaOrrOmdyrjXe8F4qDQ1CntmfPDejDjhvnfHqS18wXVODe/Oj93eXQATUEv9
-	 82vYL6/F+oKV+U/3q0H/BHXge9sgO70CYyKxPuvoLQiHs3uA/1U2YQZ1j0OE64of13
-	 mRgyq1NJOTs9a3FduooW7irxbYFpbLAn03M2B6k2r1A81BzhNsw2oTQ79wf+SV1K4R
-	 My/VT3HzViF/zQaLzhMZTYcrQWEB2jpU1iqM11H3j2Pjpb8BdyYd7kQYS/eslNfIdB
-	 VNWbaFQKTuJ2E6KdiyZsN5jztSWTNyErEGTyvaOKp0YRBlDD71UYLbGcvyp9U66I9J
-	 CMjG7yrUcezIw==
-Message-ID: <sashiko-outbox-177045@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/8] regulator: add Qualcomm LCDB driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, mfd@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
-In-Reply-To: <20261019-sm8150-display-card-v2-4-86c05068efc5@oss.qualcomm.com>
-References: <20261019-sm8150-display-card-v2-0-86c05068efc5@oss.qualcomm.com>
- <20261019-sm8150-display-card-v2-4-86c05068efc5@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 19 Oct 2026 11:39:14 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="b0qske6Y";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EDQbixxJ"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J8Os0K1168036
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 11:40:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=IqIT7unUNeDVbUGIwzQRnFuw
+	+MAaKeTUmeCgf8MNO6I=; b=b0qske6YXg+7km4y82nPrdnSjk/9jGB8dE2zAfS2
+	aLdB2rwbp9/1KnLBds4r2l+TrTfOr0U2KAQr2xmzeLUMdUyF2/jWc/jzV2W/Kzk1
+	MtUZqw//2uZv88Ml9ugxhsStIbmxF22YsG21P7WFiHCPcXOx5sKcKQgO+9SZqewA
+	Nn9U5MxRg+2/s3jR73PD5JiMN7wGp5myf7+uj7UvOlcx+8Jine2wHPRi1OIIzv5o
+	HDwZfAfu8RHnZTzOeU/78hxlJnQnc9tUb76eQE7DRNM3yaeO6PY6HP03SIfEdORN
+	Z0W+8/fHeQ3IvKkWvCw1PCqKIIktBR/PKTyWevAi2Ib5rg==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdf5c8v2v-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 11:40:19 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f33438950so462445785a.1
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 04:40:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792410019; x=1793014819; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IqIT7unUNeDVbUGIwzQRnFuw+MAaKeTUmeCgf8MNO6I=;
+        b=EDQbixxJ0NfTXTz7U+4qvABrqvUor5sanbWa0DR/E+8gPR3poqnx8Wdgz9lWq+g42R
+         t3jdLH1nSenRiBJ4HOnH1VbzwsfHAhKx3apt2+zQtHSZlYCTIlqDTp9x07HuY19N6BYp
+         qMIMgu5iBC07+0/cXDZhNC2kOo+7Ag0FSdNpjkwJUWvqmo5pHNeYpoFmgxrCcwaGUj7n
+         niBkZpnsubaOVkk2zk8bDI664ZGJG4zqN8QRo4HLxcV7rPNCyCIWNGYJuDFxmKXQZvp1
+         kvMdmu0pEV+995FCdPF6+6GxsNK78ki5opgFJxt+Sel1iGX5jdjHzkb/EmP59VHEuWQK
+         Hk7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792410019; x=1793014819;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IqIT7unUNeDVbUGIwzQRnFuw+MAaKeTUmeCgf8MNO6I=;
+        b=zCJKPyJDtLJKXH6A9dNWKbI71ZibvFYEDuPfLNUfXddssZSj1NZFj/hwMNB/up7Pl5
+         8RK3smq/WWHufRu14P6eLDqPHSkFBJcRDjB8L0o0r7e2V0OnEGpR6xcVzDnYbdNHpArw
+         1C1OIdvLQx+ej2C8Jx4+IBiaU0Zle5SBI/Y6AwSLIh4r2Nbpmn+NOkmkHHrHNiQ2of9T
+         eXqitPs6z98L6C6wa/GfKOAZAZqu4wlE75hrNisAnfKbB/pm3AWvKfT17AQ86afa1JkU
+         7a7v23UL/Gw+oDAp1QuFDlDvEpX3+umf2xycHJywNwZmJiQmhu2sTECJxC1Mge/WId54
+         uVvg==
+X-Forwarded-Encrypted: i=1; AKwUvBxtMDQ0tEO+zCYUR3wecBItZIDYfA+Qp+dxGZdjR27euWVPzikAuakeqg4Nwl9gLcO5TmUhVhEHLSCx@vger.kernel.org
+X-Gm-Message-State: AFq9FYLeYazzlRW9TJQvmoKUHv7drxW2tzQdqKbwshb8ol08DV4VtDCL
+	D32Gx15saGl3rNZKQ+KOZ/MLuUADQFxYbwCrJsCmK51ewS0cDWDVdBFQBp5TvyMXAuDzah+Iq83
+	ss403T+23pTv3WEUw10t4Ss4TS7wL6gu4TokL/gxku11L/INyfP5cipKR8BaycqzK
+X-Gm-Gg: AYBFou3+rIHCZxnVx0IG85QVLx6PZhYBnF5elrpzyTLbuhOe64YI/j0lz77UIU3K6nl
+	djQP14zchnohmUHCToFNkvPBg5Cz0ibS5S+/LOB7KfcBNnu/smTDcOX5s3EKo2Sw1huoU9+HdbC
+	jSswRpUuLiDXu7No73514L7XVHyWnn8Ozo8VTyK4kZICD0DXvDBw4q8PhX3TNHpE3+k9CQDEXH4
+	jZKEGr3zhugHjrv0URSzvEa551Bkg8Fq2z+oaUY6E5lPmktfYUreRzaXM/Wv//2rsZFVxPInIi6
+	fYn+MmztNHStQ7V04IUc+uA6+uUoW8hFYuJowU5zzgTFR3U8cPQGIWBdcGgxD6XiFigzvQGY9LB
+	q3WXHGp0mn60Lcejv
+X-Received: by 2002:a05:620a:258d:b0:939:6dea:374d with SMTP id af79cd13be357-93f29d813camr1251144285a.49.1792410019007;
+        Mon, 19 Oct 2026 04:40:19 -0700 (PDT)
+X-Received: by 2002:a05:620a:258d:b0:939:6dea:374d with SMTP id af79cd13be357-93f29d813camr1251139485a.49.1792410018424;
+        Mon, 19 Oct 2026 04:40:18 -0700 (PDT)
+Received: from oss.qualcomm.com ([188.27.161.187])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1c8a81587sm519633865e9.1.2026.10.19.04.40.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 04:40:17 -0700 (PDT)
+Date: Mon, 19 Oct 2026 14:40:15 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
+        Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Guenter Roeck <linux@roeck-us.net>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+        linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v4 4/4] arm64: dts: qcom: glymur-zenbook-a14: Add
+ Embedded Controller
+Message-ID: <44vpjtmnwg7wtp6xsqgl54rbpos27fndfru7pmudfvzweyl3zo@r7dxlf74klfl>
+References: <20261015-topic-asus_ec-v4-0-af6305ffcb10@oss.qualcomm.com>
+ <20261015-topic-asus_ec-v4-4-af6305ffcb10@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015-topic-asus_ec-v4-4-af6305ffcb10@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA0NiBTYWx0ZWRfXyAo6ENdWVxqu
+ 7EfLCt1qAoYw9OD3SzOuHZuCR3FxO2mf0UioHZnlYZSYR9smYmKHmX3ZI+pfT9ckYSpU5UJR5Yo
+ yz+7Mom8X0ZPj1s0c+tjoOpCbfR4tDU=
+X-Proofpoint-ORIG-GUID: Da4bmWkzMQDexcHTPH4CHqqADXCoVll5
+X-Proofpoint-GUID: Da4bmWkzMQDexcHTPH4CHqqADXCoVll5
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA0NiBTYWx0ZWRfX7Lt5xdv5if7Z
+ agpyAZwjqO/uhksiEq6Ks0l59WhlbKud9y3TGNNHYejLPxESxJmocYaPvKWwlHBl7QDsaTfK47K
+ wyHABzcC9nuK9MK6qf97rMz6mMEcl19R2utZm1kZKNM3ua4DQvHL0ypWSA9/U7QspQuZidAl7r8
+ nZF/f8tC5TI0HYiBAO8MS9eVdjf/4tTi00CKKWhVzNhDhkDGiNbNhKBuXw8n8Sa0quFFmx2UVUJ
+ XqXbrfNWzGYZsLiA2qDAUTQBMP/jv0BBjFB+pyxaSlFcqj7+pLbp12oIBXvoaASQmmpeGuj/5/Z
+ 0idJrrJbWhGyp60IveCjOBQ7rD8qJq/J7HmyHYsaaiuqIVuQWkPeWE8ozk097yhNr+CzL8WMf1F
+ QhiS1PH3x2YGmePX9vJ12GG2YAjXCqppStaNTfcWjhIhF8SJol2GbfpGENGi698XB6VF2BGJ0UD
+ Kay4WoIsrIxsfQJoolw==
+X-Authority-Analysis: v=2.4 cv=K6O3jCWI c=1 sm=1 tr=0 ts=6ad601a3 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=-FifcBtKAQNI-ioUATQA:9 a=CjuIK1q_8ugA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-19_03,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 bulkscore=0 impostorscore=0 malwarescore=0
+ adultscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190046
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] regulator: qcom-lcdb: off-by-one and window reset in qcom_lcdb_h=
-andle_sc()
---
+On 26-10-15 10:55:32, Konrad Dybcio wrote:
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> 
+> The Glymur-based Zenbook A14 features an Embedded Controller running
+> custom ASUS firmware (which is loosely based on the reference Qualcomm
+> Hamoa EC one with a lot of modifications). It provides keyboard
+> backlight control, additional temperature sensor readouts, fan speed
+> monitoring and a number of miscellaneous functions.
+> 
+> Describe it.
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-commit 5b5d0fa4182dea42061084cb3ab6d86b894783ff
-Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-
-regulator: add Qualcomm LCDB driver
-
-This commit adds a regulator driver for the Qualcomm LCDB (LCD bias) block
-found on PMICs such as PMI632, PM6150L, and PM8150L. It manages the shared
-module enable, boost headroom tracking, voltage ramp-up, and short-circuit
-recovery for the LDO and NCP bias rails.
-
-> diff --git a/drivers/regulator/qcom-lcdb-regulator.c b/drivers/regulator/=
-qcom-lcdb-regulator.c
-> new file mode 100644
-> index 0000000000000..bb2d4ee23ad5c
-> --- /dev/null
-> +++ b/drivers/regulator/qcom-lcdb-regulator.c
-> @@ -0,0 +1,494 @@
-
-[ ... ]
-
-> +static bool qcom_lcdb_handle_sc(struct qcom_lcdb *lcdb)
-> +{
-> +	guard(mutex)(&lcdb->lock);
-> +
-> +	if (!lcdb->enabled_mask || lcdb->sc_disabled)
-> +		return false;
-> +
-> +	qcom_lcdb_module_disable(lcdb);
-> +
-> +	if (ktime_us_delta(ktime_get(), lcdb->sc_time) > LCDB_SC_RESET_CNT_DLY_=
-US) {
-> +		lcdb->sc_count =3D 0;
-> +	} else if (lcdb->sc_count > LCDB_SC_CNT_MAX) {
-> +		dev_err(lcdb->dev, "persistent short circuit, keeping the outputs off\=
-n");
-> +		lcdb->sc_disabled =3D true;
-> +		return true;
-> +	}
-> +
-> +	lcdb->sc_count++;
-> +	lcdb->sc_time =3D ktime_get();
-
-[Severity: Medium]
-Does qcom_lcdb_handle_sc() have an off-by-one in the retry count and reset
-the 1-second fault window on every short-circuit event?
-
-The commit message notes that on a short circuit the module is restarted up
-to ten times within a second. However, in qcom_lcdb_handle_sc(),
-lcdb->sc_count > LCDB_SC_CNT_MAX is evaluated before lcdb->sc_count++,
-allowing 11 restarts (for lcdb->sc_count values 0 through 10) before
-disabling the outputs on the 12th fault.
-
-In addition, lcdb->sc_time =3D ktime_get() is updated on every fault rather
-than only when starting a new counting window. Because ktime_us_delta()
-measures the time since the immediately preceding fault instead of the first
-fault in the window, intermittent faults spaced less than 1 second apart
-(for example, every 0.8 seconds) will never reset lcdb->sc_count and will
-permanently disable the rails across multiple seconds.
-
-> +
-> +	if (qcom_lcdb_module_enable(lcdb)) {
-> +		dev_err(lcdb->dev, "failed to recover from a short circuit\n");
-> +		lcdb->sc_disabled =3D true;
-> +		return true;
-> +	}
-> +
-> +	return false;
-> +}
-
-[ ... ]
-
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80
-=F0=9F=A4=96 ThisDimensions (v1.2 =C2=B7 gpt-5.4) =C2=B7 2026-10-19 04:01 U=
-TC =C2=B7 [=F0=9F=93=9A](https://github.com/masoncl/review-prompts)
-  =F0=9F=93=A7 dmitry.baryshkov@oss.qualcomm.com =C2=B7 =F0=9F=92=AC ~420 w=
-ords =C2=B7 =F0=9F=AA=99 ~15k tokens =C2=B7 =F0=9F=92=B0 ~$0.05 ([=F0=9F=93=
-=8A](https://platform.openai.com/docs/pricing))
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019-sm8150-dis=
-play-card-v2-0-86c05068efc5@oss.qualcomm.com?part=3D4
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
