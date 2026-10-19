@@ -1,163 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B51D4D599C
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 10:32:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78F5D4B1CF0
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 10:32:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792405922; cv=none; b=VcIYdWgMeoXonl6Ktd9BOBTswzAjhdxySB/y91fXR0sQlyITrVZKXhpGo36yl+uuOmWuVSr2ZLa/gj3mbeFnX0b8O4Wqkn12foCWBZ1TrlS9A8JS3fvjV6U+zlXvu6ElkRSX7LybkAHCE73Ye3KVU02Jlmp7+Wgnpqv32ZgDmzo=
+	t=1792405925; cv=none; b=FYIyLqfzoAYpeKgH4lPj2GVmv96w+J0lW400ht1AJVvak3Iw3IglI80BWcF7/gsSpWbmfOdCSWiJKDHTscc771+p4ROQT5kuwUiVK2W9nl/Qzt0yXg7x1sBzAIA/KJ4WgG6kkayYoG1RLgIlLbDhNIGPfyA+lxWUjEMHZmHpOzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792405922; c=relaxed/simple;
-	bh=uefN6EBMUSzi+85BkUHzKvWmaAjuiUcnmOiDMtuy4BI=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=WwGPgCAcys9LPURPN9q+g5NGp+qsTCbL4Tlx6kkwiItykaQ+zYT8gOKp3DzonvkEoo6/BQHyEdnafnv6ipW1xtjPrcD4Te73QEirYdQc/QOp0Lz7eAg7F1FMRhfZpEuSGOW/arkRiZTzOfCHPZTYfojFH5ziVWuqLZGJXQZY37s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ivsNozIW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792405925; c=relaxed/simple;
+	bh=4trbUtUGxdoEwUCtKJvBBNIQl3//HqfI14DxYCxZ1JE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oUfL97srDQPFpBsVOrXhYcDLmqubMFMj6w/8aHVjTUdcoWzp5yqZ0IZ2o03nxN/+g2yVNKG47mNNLTwL8n225a7uAJ6hfcuN/wVccc1D6t3EiwIgYgQZD3TyH95fYFfyR7TfiY6wunmeTD9ZsX3VLbkeHxs8xt1xB/X+kvXmftQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ERcGbE9C; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=A64ug3e+; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ivsNozIW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BEB81F000C5;
-	Mon, 19 Oct 2026 10:32:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792405920;
-	bh=DiTjFIHjZ6vKemtcsuLK/LW1ci/dx5xaoFYs/CQcltI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ivsNozIWW+ElVFurs7MvJjooI31r8pBjtAvtog2U613OKXNCHFSBZxQOtfan5+aDw
-	 u6iOEwn8UlrLvxVVu1nbALnNi8uW6vgYx/YrpZme4RySihWHJn05CmLxcIGh8ONDmN
-	 zKbIPnZBpHrkW/HQfKesPM8EOj/9WJNwFspwwK/zSp0d5Mc5XUxyvK8R434NJjBR6T
-	 +5VIl70JdKXIUs2ZCisZcjZwj/MfaIKhR5tK7H5H6O+veeuxMtyPVnO+1RsRJKesO6
-	 jQp6QpuToOYglJFhvsTPrYhl1mZf/KUs31P2kDkdakEcxH0Qr0nYvUeS7VYDsxD+17
-	 AnQFEWjuXrQRg==
-Message-ID: <sashiko-outbox-176992@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 5/5] arm64: dts: exynos: Add initial support for
- Samsung Galaxy Watch FE
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Aiden Isik" <aidenisik@member.fsf.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261019-for-next-lucky7-v2-5-c4ecab4b1c4c@member.fsf.org>
-References: <20261019-for-next-lucky7-v2-0-c4ecab4b1c4c@member.fsf.org>
- <20261019-for-next-lucky7-v2-5-c4ecab4b1c4c@member.fsf.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 19 Oct 2026 10:32:00 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ERcGbE9C";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="A64ug3e+"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J8OmVL1348084
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 10:32:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=5EmfudG/tQAKyrwRj4Laa20s
+	3oN5QSBgeQVVbHVa7ls=; b=ERcGbE9CK/4fSPW/p7zn8UToX/Yi7ehIEyomS+Zg
+	NTYqDCss3W9PfGf3Wgjcj6FLyfNMSq9FbZ8yTXUTnJMSxzRUwHA3EKzfriI26Jkq
+	Uqx3J1pJa0ApiZLnyshJVRADpidW9+fO2dnxtaIdutAvycUdnR24TfJ5jBSNxdxr
+	fFr+xuJW0wragQO1/aoqlIZBO24XeophYnUHOlaY71Q4h3k+SPniY8uiSH8lyF6n
+	YrsqzhFxZLnIcxoeKGE2+t/+9OB718Ake761gYAH+2SIJ6l3jKsrUjmaaCe+gtdr
+	+CKj3zZqYZX7ArQlF6D7Z0t1ujI9bZ5CazrfZjLrTfvBZA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdf4rgm9e-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 10:32:03 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93dd3c3badbso469810685a.2
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 03:32:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792405923; x=1793010723; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5EmfudG/tQAKyrwRj4Laa20s3oN5QSBgeQVVbHVa7ls=;
+        b=A64ug3e+eIXPqL/u1M86fEwgQJmgjdDTiSS0CusmvhvGpz4MpjeLSO8QDqhdf9LYrc
+         FeI0+8ydiDPSe56K5y74QaDNwehJ7DijnzS/XnQMD8j/XvT3zZstoQ9cZrZY3vfkhGge
+         CUcgbspS/QoE6y18unVG7b68+x9sY+7VCFzOH0lInLlsx1gc9ZakHKaIVXWTHKX+6iJf
+         3i77bzrdidD3Z7z2CUSsB2YaJlZr16iydi8QJluIPqo8TmU2FwUOprkf0azAcDBjH39h
+         ehXMcODrgKyrD5tUGfqZjgkrVrFWGSHCDYe3JLi8rXf9uk+C+lIuHvPTTHJzln5yM2cx
+         uEWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792405923; x=1793010723;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5EmfudG/tQAKyrwRj4Laa20s3oN5QSBgeQVVbHVa7ls=;
+        b=SvCp+eJZDS+C2CDxLwG8X5DhHjJJFJgA83alGDwnsWpV4tE93UHu8arQk72isqi4E4
+         UlrEeuIJQG6Vs2cdxYrBkCMdfs8ld2u5/dBF4L3PY8oyrkB1NR9345KLR1D+lCWxnaYI
+         vXRyQr0nw/oPvV6N/35ffCBf+lvKpf8lgpli7VYcrMQN64luaCuLS+rd7yr0ZO0zMy7S
+         hNsfHIGZQTWKTs+/KYTDXHz1wcXgPmv5XEiQkB3wKtKREJctLNYTvrAuAW+5nlZRUQZ7
+         RXdwcYJd50BLPOYD38L5x2sv9cgqBMp6yVMWlguGcX73QgBTRuu/WOceZTAz1DtApyt2
+         Qh1g==
+X-Forwarded-Encrypted: i=1; AKwUvBz0+w8p94mjov8gpK/zU/Q5qdjtXgc9DctOyBQfqOtooWxTiAnWHvzY6Yox7cx6zykUHNA2SwP0WoKD@vger.kernel.org
+X-Gm-Message-State: AFq9FYIFwbyplTBEVvLnKkKfXZ2sI3TvSIdzX0utZfCqPLdd8+EGYTtm
+	SlCIQZ92NMo49R00Ye4Fu0KdCzzSBUBPBCqpQFKmzmcrDD/J//bb5BRVeamzxU8ZZwZsN0igoEw
+	GXA9mkoWP/sCCkHW7p162bEERLErvrTYe/wMFL55W6hKNZDH+HfuRxhpHMooCSUoF
+X-Gm-Gg: AYBFou2LiLjGOb7aqGfSfc2J83GMyjsYU68MSh3BLAgwBEKd41UttrUrXMKZpJm/WXl
+	5nNfGb6DWY6SY8vOfqvJrinQUSxMFNd1Y+YpSD8mTxP0PMc1P5pyv12Nia1cx/XvxdoCUBCfXZX
+	l6mxiyW9f4hlyeN6OHv2cjg7EZzWZxgI6O7OeO7U41cuaX7cH8kiHlVzLZi9PKt2e+8WrlxVT+v
+	1JXmxTGnjd/0N87sH6hNfe+ZCJFW+mjoIZC6CUFp6t276IFn1J55H0tQ+g4rdr6Nz9cVVrlROEO
+	AyBv3yaGMVPPIiY5m7CdMseNx3s9jevpAxdgkpoJ5wpNTkObFzCbQ3hkNKqZH//zFZBBP5j6MbS
+	aj3SyuOHxfjAOdBKt
+X-Received: by 2002:a05:620a:29d2:b0:93e:910c:5fbd with SMTP id af79cd13be357-93f29db8a92mr1174459485a.63.1792405922704;
+        Mon, 19 Oct 2026 03:32:02 -0700 (PDT)
+X-Received: by 2002:a05:620a:29d2:b0:93e:910c:5fbd with SMTP id af79cd13be357-93f29db8a92mr1174454785a.63.1792405921989;
+        Mon, 19 Oct 2026 03:32:01 -0700 (PDT)
+Received: from oss.qualcomm.com ([188.27.161.187])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4ee183sm22322630f8f.29.2026.10.19.03.32.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 03:32:01 -0700 (PDT)
+Date: Mon, 19 Oct 2026 13:31:59 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bharath Kumar <quic_bkumar@quicinc.com>,
+        Chenna Kesava Raju <quic_chennak@quicinc.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: kaanapali: Add memory-region for audio
+ PD
+Message-ID: <yjsxmoecw6o2guifj2kprmb3l5x4rqduo6hnvkzzz4bp6efghk@zssuwn6d36eu>
+References: <20260922-knp-rh-v1-1-35e29b104809@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922-knp-rh-v1-1-35e29b104809@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: YlwZKjD-N5BDV3YmE-VjPjjQ6K1fFPQU
+X-Proofpoint-GUID: YlwZKjD-N5BDV3YmE-VjPjjQ6K1fFPQU
+X-Authority-Analysis: v=2.4 cv=H7NOUOYi c=1 sm=1 tr=0 ts=6ad5f1a3 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=uWrXBvF99A4s_EMQbgoA:9 a=CjuIK1q_8ugA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA0MSBTYWx0ZWRfX4zS0UTdp3sPP
+ UPmab2HmO083UFI+yZLjDQQJdRNUGHG67nFkIX8XSd3AGmDYJ3fI8EssUUAIhJwQU5zeoNoEtgJ
+ A+Y0iB2eRhCtoakJdSWtgoht2z0T9+KxYbm0Wp+enRrnY+h33TECJB9YA84G9vRtrkaEMC0Rx2p
+ RqVmUTwP2/xJaY/bMYjHjuRSuGSs1R49AAjjz2gcIYG0ZqaQgbaH3rOgUJXKvjhPuq/SVB5gy4m
+ npBShiaHqpzI0v8agUT8FSxC8YQdgwg8jDgNs5n2ds9Wrx4gy3LYlORgO4LUEreqJWy7yhaWGCk
+ Cn5StvWhuUAG1YThqOBbybwPTcPFJKuiENy4JeRwaHu3VBmBWXcdsPch2u2PkyE5EWSC4d7Q66+
+ 5tjeU3fS8fNN6wZ8vrigsn7OcFUaa8EQIa+3e0ctfsN25HWFV2k1QJMq0/gPabWBRssenQPQmFm
+ xmE9NxbhvEtQyjGdxuQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA0MSBTYWx0ZWRfX33Wcl09d1iB3
+ GZvuaRUmpa+0mjpaQeBMJ1BF1LHZcVNHBjnrwHBKeK/wDTWMv7PWnMkL4w1U18Da6Czsg9suJwc
+ dp8KKlwavJaSBs2YnWcKUmT5hepNEtY=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-19_03,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 priorityscore=1501 impostorscore=0
+ suspectscore=0 spamscore=0 bulkscore=0 adultscore=0 malwarescore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610190041
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] arm64: dts: exynos: missing Makefile entry for exynos5515-lucky7=
-.dtb
-- [Medium] arm64: dts: exynos: undocumented and unsupported samsung,exynos5=
-515-wdt enabled
---
+On 26-09-22 12:57:36, Ekansh Gupta wrote:
+> Reserve memory region for audio PD dynamic loading and remote heap
+> requirements. Add the required VMID list for memory ownership
+> transfers.
+> 
+> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 
-commit 0d8def366a8d338fb8397be7ac629d0ddc3e5c1d
-Author: Aiden Isik <aidenisik@member.fsf.org>
+With Konrad's comment addressed:
 
-arm64: dts: exynos: Add initial support for Samsung Galaxy Watch FE
-
-This commit adds the initial device tree source for the Samsung Galaxy
-Watch FE (SM-R861/SM-R866, codenamed lucky7) based on the Exynos5515 SoC,
-with support for memory, reserved memory regions, and the bootloader
-framebuffer.
-
-> diff --git a/arch/arm64/boot/dts/exynos/exynos5515-lucky7.dts b/arch/arm6=
-4/boot/dts/exynos/exynos5515-lucky7.dts
-> new file mode 100644
-> index 0000000000000..e80a0f0948cb7
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/exynos/exynos5515-lucky7.dts
-> @@ -0,0 +1,219 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Samsung Galaxy Watch FE (lucky7/SM-R861/SM-R866) device tree source
-> + *
-> + * Copyright (c) 2026 Aiden Isik <aidenisik+git@member.fsf.org>
-> + */
-> +
-> +/dts-v1/;
-> +#include "exynos5515.dtsi"
-> +
-> +/ {
-> +	compatible =3D "samsung,lucky7", "samsung,exynos5515";
-> +	chassis-type =3D "watch";
-> +	model =3D "Samsung Galaxy Watch FE (SM-R861/SM-R866)";
-
-[Severity: Medium]
-Should arch/arm64/boot/dts/exynos/Makefile also be updated to include
-exynos5515-lucky7.dtb under dtb-$(CONFIG_ARCH_EXYNOS):
-
-arch/arm64/boot/dts/exynos/Makefile:
-dtb-$(CONFIG_ARCH_EXYNOS) +=3D \
-	exynos2200-g0s.dtb		\
-	exynos5433-tm2.dtb		\
-	exynos5433-tm2e.dtb		\
-	exynos7-espresso.dtb		\
-
-Without an entry in arch/arm64/boot/dts/exynos/Makefile,
-exynos5515-lucky7.dts will not be compiled into exynos5515-lucky7.dtb during
-make dtbs, and both exynos5515-lucky7.dts and exynos5515.dtsi will be
-skipped during make dtbs_check schema validation.
-
-[ ... ]
-
-> +&oscclk {
-> +	clock-frequency =3D <26000000>;
-> +};
-> +
-> +&watchdog {
-> +	status =3D "okay";
-> +};
-
-[Severity: Medium]
-Will enabling the watchdog node here pass dtbs_check or bind to a driver at
-runtime?
-
-In arch/arm64/boot/dts/exynos/exynos5515.dtsi, the watchdog node is defined
-with no fallback compatible string:
-
-		watchdog: watchdog@10050000 {
-			compatible =3D "samsung,exynos5515-wdt";
-			reg =3D <0x10050000 0x100>;
-			clocks =3D <&cmu_peri CLK_GOUT_PERI_WDT0_PCLK>,
-				 <&oscclk>;
-			clock-names =3D "watchdog",
-				      "watchdog_src";
-			interrupts =3D <GIC_SPI 185 IRQ_TYPE_LEVEL_HIGH>;
-			samsung,syscon-phandle =3D <&pmu_system_controller>;
-
-			status =3D "disabled";
-		};
-
-However, "samsung,exynos5515-wdt" is not documented in
-Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml, nor is it
-present in s3c2410_wdt_match[] in drivers/watchdog/s3c2410_wdt.c:
-
-static const struct of_device_id s3c2410_wdt_match[] =3D {
-	{ .compatible =3D "google,gs101-wdt",
-	  .data =3D &drv_data_gs101_cl0 },
-	{ .compatible =3D "samsung,s3c6410-wdt",
-	  .data =3D &drv_data_s3c6410 },
-	{ .compatible =3D "samsung,exynos5250-wdt",
-	  .data =3D &drv_data_exynos5250 },
-	{ .compatible =3D "samsung,exynos5420-wdt",
-	  .data =3D &drv_data_exynos5420 },
-	{ .compatible =3D "samsung,exynos7-wdt",
-	  .data =3D &drv_data_exynos7 },
-	{ .compatible =3D "samsung,exynos850-wdt",
-	  .data =3D &drv_data_exynos850_cl0 },
-
-Additionally, if the hardware is compatible with an existing two-clock
-variant such as "samsung,exynos850-wdt", both
-Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml and
-s3c2410_get_wdt_drv_data() in drivers/watchdog/s3c2410_wdt.c require the
-samsung,cluster-index property, which is not present in watchdog@10050000.
-
-Should the binding and driver support (or an appropriate fallback compatible
-and samsung,cluster-index property) be in place before enabling &watchdog?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019-for-next-l=
-ucky7-v2-0-c4ecab4b1c4c@member.fsf.org?part=3D5
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
