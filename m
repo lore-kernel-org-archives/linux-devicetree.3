@@ -1,68 +1,68 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B154148875D
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 07:37:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1FE849158D
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 07:40:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792395432; cv=none; b=F5Q7jgaloKV7D25zL2nCISJJ/m2Kv5nFcnwXvFJIL5Ey9BYLUwd02hcGHVW/yokCvivdoaHlZMEl0Pr2Ov0owR+jBiJLDA2Silc1yueSy9Xf/0ztSJ4tftucMObQ9rjzqSH0C1K+t9U4vierqF1jYDUQfxQ9hQLP9aIYctvbgjM=
+	t=1792395613; cv=none; b=Hzujrv+NTkOvkvEPmtk1Y9mR3HcQJ0Ta8Gi6raKfdjkFQB7XXjyCxyU/JXDRZvVXvVhiTUxqIPr9TQvN2Htt+pkYvcarvNuw8I2qzJiJKEfnNHYWl6FgcE6V2iSQtp79+iYtaszfpDMRNcNzOYh3L+p2zP708f1L5/pEd+D+2iM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792395432; c=relaxed/simple;
-	bh=ECyBmSMSrDZXgArarpvT0cyc692WgKdDIT9ZDoEi7Hw=;
+	s=arc-20240116; t=1792395613; c=relaxed/simple;
+	bh=DT7tWGRorHL45umJe9t2q7qTRzJoJLjHRBL+ufDbIcQ=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=dBzQHt5rPN9J9YGlIq6Rxc+zOoL9O8f+9G4/F78/PP+b6x9Xe494QGUmsyAQnsTMf2o0btWN0ZvqoBg4VUeGWGoHP+LF3cpKF2CmzfFl4TWCrUuDRTiBzyW+/0ekTK31VyP2aBYWGzmekkN0lm8Xy03k4TkVIpOn+KGAJQAberw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=FWbOZ/Y7; arc=none smtp.client-ip=209.85.128.52
+	 In-Reply-To:Content-Type; b=YQhmlbBQum8lW8CfCLpUSa3gRqvyErNTw0dD/m+q8sqWW+hdCjRlmkaEONPdiHbQtI3yoLmGc4i+tlV1g3ZfUP+rSDPYqPJ6rd7bxT5iRGAWCuWizCH8x7Of1xj1auPjIodq4BJ3hnnTmNC43IJ223qRZpw256o9bvTjk2f3ZPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=V8PhslIJ; arc=none smtp.client-ip=209.85.221.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="FWbOZ/Y7"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a1880e1bf1so15363905e9.1
-        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 00:37:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="V8PhslIJ"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48e10a70540so464619f8f.1
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 00:40:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792395428; x=1793000228; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1792395605; x=1793000405; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8QPld4PDvxchqNmytlS7taNyVAk0cnj+pHWf4Ud33mo=;
-        b=FWbOZ/Y7/3kXJeITchyfR2Zf/7vnLCEH818nbTi9S02zQCyEw5GVu8pPj7rLUPrAP8
-         qlxJf7obPq6C8C61ykAVmApgcUiWXXmOCOLSoprls9VXAKYoMGEDO7/BjwidMhvNU/nU
-         e35meK+CXRTTB/QhHTOumxrLnpnSqEokj+KuTZ/Lh+AJWgCfJp+VOBYD1CCchDTBP77V
-         maPny47Zs0cGAwcxe4kEo3ZnGdsiSoLuF2T6Om97WFCC0y3bPp3xjw7QQqOOvlVNZRZi
-         pMuN7zFaNSiJcyr5hQzwcnXaw/Jadhwjsn5hZOVIBwoC1/aAlrGENAAw1wMJxOwrweJ3
-         ZR2A==
+        bh=M0SUy48Ueh56GzaTiRmwygfsPwqE3Nw6AJaFjvfAhy4=;
+        b=V8PhslIJ14XACrtgoMAmVuPVPo2pHG4PYU/w4DtQwo4DnFh0YXKu0WtcrkGz2W4sRJ
+         f2fHYtbLEzMf7wpRMPwMGYIywrxcqjUwmpCwczxQqxpvk0E1EIbud96W3tttWNQrjASR
+         t7gfNVbcaQ777RXYT3yuxK4hUC6fJ15bPprWIzQ9/TAbvjMr8nK7Jjo7bdum2L7G1Cjb
+         i8Dc/LDVU3CNqUQcD/9aTgJZE3DNAIM7sr/qdjWSzsPzsFzvXir2rER5hiZNh4yU4N1d
+         jBRAMNlE0JRREDTI7/6ZZuT94P99f1bqW8YSX6UqrxSxIXnKXweEPp/WbukboCA/jrdu
+         uIkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792395428; x=1793000228;
+        d=1e100.net; s=20260707; t=1792395605; x=1793000405;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8QPld4PDvxchqNmytlS7taNyVAk0cnj+pHWf4Ud33mo=;
-        b=e75i9FSjCjIx8V8pPiL73pjPCrzgo1YviUg5FKQj5KLKV9BQKKt2gNaoiah5d+ejAN
-         dOYcdEPsniRaVQk6IOHl3cAuwSpmLIXPDVRwR7nYey8gXGof719pApN919pY9hC3IfXr
-         pZ3Yhpgm27roVfxHhDY5tE2p4TEwNw4/aXgg8C6qu39vKxjGEUFaqvMeBkulatnjwvW4
-         8tokFGVtLDms65du0tn5odtLRB9U6eGsOoga/uHZqC75uwR1UTHtgiiXKKlFBWyEDuuo
-         Ud3gldihJAEEHVv9yPFG8mQZqnir0wzdBzr3jqJEBK6gRpWX5xSbRDKUeOaVKuOfa1mc
-         AFaQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxuI6EiJWDZCAOMvYqbUpMSJiAYgWc2hiUOZgfSiKtmDwZK+lp+y+fuCkg5YG4a+1OHyLUd+CdQHIY5@vger.kernel.org
-X-Gm-Message-State: AFq9FYKkiWkfARPCSAAkVQmmdoRDtiq9UYPOxOb/q7JXVht+SuPLmOrB
-	PJTU7K2NVwznXn03I1So9dy3t8h4k3/05M28anBa83gPC5yj3bFCDm/sq5jM7SVE9Fo=
-X-Gm-Gg: AYBFou2Gc4JWI857te+xMeCdQyRyp6c6VB84hopY0o4SZUblEhmqEFGxjubQGgz97vU
-	5jEWeqZ1Eea6kh7vDk32haPXJ+3z57/hEzDKK5NY8UCcKNBt9D4vXI92NJAti1vzjzktlSlgvOY
-	6BS+q4EAfCZBfJWU0dAtVhflZcvshj6xuoNrkbIMvEaao7SGq6f4CDQWcUzQYyDKg5c5XAdpd26
-	a0VLMnKlDKJwlb4dUVPSXJG27RHpCwBpXbJvd9aGgnNebzoYET+QmyREXeflnFBd+x3QhP18EVW
-	jogYgK0f3lw+xLMR2EZeWZ0BVnqZL59qzMe4wKcoX+VC83BpzL6DzhM7ISUy1EUiLLj7TNmKv87
-	phDD4kSi+4wZWMhuGgECPLphh1TDOIC5P7u+ZLT6ZjSMlWIdc7sXusoG7W5t5Huib7Xw2h76uZp
-	3xy38D8wxTAMR1tzExwFyfRcYjGay8IAb6cNUs/mcI7hs83jq6fBfPJiilZdrwxlcFqjz22tDKT
-	R107fpzNX+R9tbrI1ZpZdAVIC2U0k4ET2WVGJmDm3vZgtvkaN2ldrI=
-X-Received: by 2002:a05:600c:1da1:b0:4a1:6425:be69 with SMTP id 5b1f17b1804b1-4a1d7614e61mr143555575e9.17.1792395427243;
-        Mon, 19 Oct 2026 00:37:07 -0700 (PDT)
+        bh=M0SUy48Ueh56GzaTiRmwygfsPwqE3Nw6AJaFjvfAhy4=;
+        b=a3QBr/Vhobm1Q+PV3Nz/kh/OmZI537y8kywEjC8wJ7yJkmBz/VTC8FoHP5tLjfpsG/
+         kDGscJVjeQxKkkTdGwp4jrwBiGAhmdFTfDrgAdi4Wm4venBQ6rw48EVkaVP65HEfWfeY
+         vWue0t0oMLmc1h8iQPkEaUq5laaQyh0wtjQxWsfikR72fETs0/7wQ9fSwevKyWrlwv45
+         VhxPjFvxCyd8hVTVY0mdnn2cCH34kUQSNkS+5z7HiTjunHLqlkQNEP0iFJdk7hR3T1Iy
+         N5HiIgmEYjrTSlVnXEg32EGHaW3lNjrpqzzG1rEDOQkeCPYQ4W3C/uMNnAilTVcLBmLR
+         3mmw==
+X-Forwarded-Encrypted: i=1; AKwUvByT8a4mql8C3VCRoMldBbGCzpQB8YjTzmtJLfOqV4fmceAm6sPEKAdhXsb1EshxoojbM1YVwYKp2vzw@vger.kernel.org
+X-Gm-Message-State: AFq9FYLwaEwgD2Gmi3vYdxHXtmLJWRl015BtY3GtcGeEj0pDoA9mSe82
+	mfHFRXjLEOnPY7iqIrT+wSkKSVfImUIhP8CFRWmNZ6YI1XyUFJscAcwdZCH7K/BNH2I=
+X-Gm-Gg: AYBFou3a1pjn2GXZtMqEVVW1N0hYs80ICI9I+de+EnclE7JEIGOlzIh2GhJDJj1tEJ1
+	O3dEPw7OuypuFHLHKtRDTWbw1h38dROaR3YubVIpWL0HWagh+hGReXimbwnSsJz+iPz4Nj0vm05
+	GJG4t+9KO3t5O2+5c/arWiS136QBRXSGuMQbrY+nCe+bMS1eg2Bu9wntJlUG8mRWXVBKF24zE05
+	9g7NWeZLez51iof2X2FLwxKUyBlfWhuJrB1rdqP4r1qQpMlt/No+VvlHFAWLgWaxAAl4FGkfTmV
+	A0mR7TWOFK39wEcQkP6tkNKYAPg7rQTaGelnJnkWrj98gSjAA8bpYSWuwFgQueT1qusbOqwpifr
+	ZhgX2/j6O99niwpVS1ftyO34P/KjMON40BRhrnCdT4pVSEVciKvtvSjkGzepLGrHHZ7eLhAzLfE
+	YY31ve1YxQ5NlMZkk6fXGD1zVShLZaHgHg9CRqTj0IJhvwJXh4L/4a3Uh7TFQDvheOlpeKdaQc1
+	QRN6W1oxhxVtlHvGhHHT//cgjVJHhzmQar5dP7TvLjF6OB8JAhziQ==
+X-Received: by 2002:a05:6000:29c6:b0:48b:5e2:52dd with SMTP id ffacd0b85a97d-48e07bbd36emr9726692f8f.11.1792395604385;
+        Mon, 19 Oct 2026 00:40:04 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:6674:33bf:38d6:bc10? ([2a01:e0a:106d:1080:6674:33bf:38d6:bc10])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd471a35sm18346334f8f.7.2026.10.19.00.37.06
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f8bd9sm22298261f8f.35.2026.10.19.00.40.03
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 00:37:06 -0700 (PDT)
-Message-ID: <f5dc8732-9248-44f1-9337-379991cd5762@linaro.org>
-Date: Mon, 19 Oct 2026 09:37:06 +0200
+        Mon, 19 Oct 2026 00:40:03 -0700 (PDT)
+Message-ID: <98df3ac1-c6ae-4acb-b0ee-ddda92487660@linaro.org>
+Date: Mon, 19 Oct 2026 09:40:03 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,18 +70,24 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: neil.armstrong@linaro.org
+From: Neil Armstrong <neil.armstrong@linaro.org>
 Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 2/2] arm64: dts: amlogic-a9-a311y3-khadas-vim-5: add
- initial device tree
-To: Nick Xie <nick@khadas.com>, khilman@baylibre.com
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- jbrunet@baylibre.com, martin.blumenstingl@googlemail.com,
- christianshewitt@gmail.com, xianwei.zhao@amlogic.com,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, xieqinick@gmail.com
-References: <20261017040038.3702428-1-nick@khadas.com>
- <20261017040038.3702428-3-nick@khadas.com>
+Subject: Re: [PATCH 3/3] i3c: master: svc: Add Amlogic A9 glue layer
+To: junyi.zhao@amlogic.com, Alexandre Belloni
+ <alexandre.belloni@bootlin.com>, Frank Li <Frank.Li@nxp.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, Kees Cook <kees@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, imx@lists.linux.dev,
+ linux-hardening@vger.kernel.org, xianwei.zhao@amlogic.com,
+ Kelvin.Zhang@amlogic.com
+References: <20261019-a9_i3c-v1-0-329d819d621f@amlogic.com>
+ <20261019-a9_i3c-v1-3-329d819d621f@amlogic.com>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -108,103 +114,333 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20261017040038.3702428-3-nick@khadas.com>
+In-Reply-To: <20261019-a9_i3c-v1-3-329d819d621f@amlogic.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 10/17/26 06:00, Nick Xie wrote:
-> The Khadas VIM 5 uses the Amlogic A311Y3 SoC, based on the Amlogic A9
-> SoC family, on a board with the same form factor as the
-> VIM/VIM2/VIM3/VIM4/VIM1S models. The serial debug console works with this
-> initial device tree.
+On 10/19/26 07:34, Junyi Zhao via B4 Relay wrote:
+> From: Junyi Zhao <junyi.zhao@amlogic.com>
 > 
-> It features:
->   - 8GB LPDDR5
->   - 64GB eMMC 5.1 storage
->   - 32MB SPI flash
->   - 10/100/1000 Base-T Ethernet
->   - AP6275P Wireless (802.11 a/b/g/n/ac/ax, BT5.1)
->   - HDMI 2.1 output
->   - HDMI 2.1 input
->   - 1x USB 2.0 + 1x USB 3.0 ports
->   - 1x USB-C with USB 3.0/DP/PD
->   - 2x LEDs (1x red, 1x white)
->   - 3x buttons (power, function, reset)
->   - M2 socket with PCIe, USB, ADC & I2C
->   - 1x 4 lanes MIPI DSI
->   - 1x 4 lanes MIPI CSI
->   - 40pin GPIO Header
->   - 1x micro SD card slot
+> Add support for the Amlogic A9 implementation of the Silvaco
+> SVC I3C controller.
 > 
-> Signed-off-by: Nick Xie <nick@khadas.com>
+> The glue layer provides Amlogic-specific operations and resource
+> handling while reusing the common SVC I3C core driver.
+> 
+> Add a corresponding MAINTAINERS entry for the Amlogic I3C
+> controller.
+> 
+> Signed-off-by: Junyi Zhao <junyi.zhao@amlogic.com>
 > ---
->   arch/arm64/boot/dts/amlogic/Makefile          |  1 +
->   .../amlogic-a9-a311y3-khadas-vim-5.dts        | 42 +++++++++++++++++++
->   2 files changed, 43 insertions(+)
->   create mode 100644 arch/arm64/boot/dts/amlogic/amlogic-a9-a311y3-khadas-vim-5.dts
+>   MAINTAINERS                          |   6 +
+>   drivers/i3c/master/svc/Kconfig       |   7 +
+>   drivers/i3c/master/svc/Makefile      |   1 +
+>   drivers/i3c/master/svc/i3c-amlogic.c | 250 +++++++++++++++++++++++++++++++++++
+>   4 files changed, 264 insertions(+)
 > 
-> diff --git a/arch/arm64/boot/dts/amlogic/Makefile b/arch/arm64/boot/dts/amlogic/Makefile
-> index 57bc440fa55cc..8b4e3212be131 100644
-> --- a/arch/arm64/boot/dts/amlogic/Makefile
-> +++ b/arch/arm64/boot/dts/amlogic/Makefile
-> @@ -2,6 +2,7 @@
->   dtb-$(CONFIG_ARCH_MESON) += amlogic-a4-a113l2-ba400.dtb
->   dtb-$(CONFIG_ARCH_MESON) += amlogic-a5-a113x2-av400.dtb
->   dtb-$(CONFIG_ARCH_MESON) += amlogic-a9-a311y3-by401.dtb
-> +dtb-$(CONFIG_ARCH_MESON) += amlogic-a9-a311y3-khadas-vim-5.dtb
->   dtb-$(CONFIG_ARCH_MESON) += amlogic-c3-c302x-aw409.dtb
->   dtb-$(CONFIG_ARCH_MESON) += amlogic-c3-c308l-aw419.dtb
->   dtb-$(CONFIG_ARCH_MESON) += amlogic-s6-s905x5-bl209.dtb
-> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-a9-a311y3-khadas-vim-5.dts b/arch/arm64/boot/dts/amlogic/amlogic-a9-a311y3-khadas-vim-5.dts
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index dffc63af2..478979446 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -1398,6 +1398,12 @@ F:	Documentation/userspace-api/media/v4l/metafmt-c3-isp.rst
+>   F:	drivers/media/platform/amlogic/c3/isp/
+>   F:	include/uapi/linux/media/amlogic/
+>   
+> +AMLOGIC I3C DRIVER
+> +M:	Junyi Zhao <junyi.zhao@amlogic.com>
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/i3c/amlogic,i3c-a9.yaml
+> +F:	drivers/i3c/master/svc/i3c-amlogic.c
+> +
+>   AMLOGIC MIPI ADAPTER DRIVER
+>   M:	Keke Li <keke.li@amlogic.com>
+>   L:	linux-media@vger.kernel.org
+> diff --git a/drivers/i3c/master/svc/Kconfig b/drivers/i3c/master/svc/Kconfig
+> index 14fa1e542..df3528bc1 100644
+> --- a/drivers/i3c/master/svc/Kconfig
+> +++ b/drivers/i3c/master/svc/Kconfig
+> @@ -18,4 +18,11 @@ config I3C_SILVACO
+>   	  compatible strings such as "silvaco,i3c-master-v1" and
+>   	  "nuvoton,npcm845-i3c".
+>   
+> +config I3C_AMLOGIC
+> +	tristate "Amlogic I3C support"
+> +	default y
+> +	help
+> +	  This selects the Amlogic SoC glue layer support for
+> +	  the Silvaco device driver. This driver is used for A9, C5 SoCs.
+> +
+>   endif # SVC_I3C
+> diff --git a/drivers/i3c/master/svc/Makefile b/drivers/i3c/master/svc/Makefile
+> index cf18c5da6..695863d1f 100644
+> --- a/drivers/i3c/master/svc/Makefile
+> +++ b/drivers/i3c/master/svc/Makefile
+> @@ -3,3 +3,4 @@
+>   
+>   obj-$(CONFIG_SVC_I3C)	+= i3c-main.o
+>   obj-$(CONFIG_I3C_SILVACO)	+= i3c-silvaco.o
+> +obj-$(CONFIG_I3C_AMLOGIC)	+= i3c-amlogic.o
+> diff --git a/drivers/i3c/master/svc/i3c-amlogic.c b/drivers/i3c/master/svc/i3c-amlogic.c
 > new file mode 100644
-> index 0000000000000..3989ce7a8aff9
+> index 000000000..82300d6ae
 > --- /dev/null
-> +++ b/arch/arm64/boot/dts/amlogic/amlogic-a9-a311y3-khadas-vim-5.dts
-> @@ -0,0 +1,42 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +++ b/drivers/i3c/master/svc/i3c-amlogic.c
+> @@ -0,0 +1,250 @@
+> +// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
 > +/*
-> + * Copyright (c) 2026 Khadas Technology Co., Ltd.
+> + * Copyright (C) 2026 Amlogic, Inc. All rights reserved
 > + */
+> +#include "i3c-main.h"
+> +#include <linux/math64.h>
 > +
-> +/dts-v1/;
+> +/* Amlogic specific registers */
+> +#define I3C_BG_RD_ADDR			0x200
+> +#define I3C_BG_WR_ADDR			0x204
+> +#define I3C_BG_WR_CTRL			0x208
+> +#define I3C_BG_R_TT_LEN			0x20c
+> +#define I3C_BG_X_CNT			0x210
+> +#define I3C_BUS_MON_CTRL		0x214
+> +#define I3C_BUS_MON_ADDR		0x218
+> +#define I3C_BUS_MON_DATA		0x21c
+> +#define I3C_BUS_MON_DATA_MAK		0x220
+> +#define I3C_CLK_SLOW_DIV_CTRL		0x224
+> +#define I3C_BG_R_WCNT_CLR		0x228
+> +#define I3C_DEBUG_MODIFY		0x22c
 > +
-> +#include "amlogic-a9.dtsi"
+> +#define I3C_AO_CLK_SLOW_DIV_CTRL	0x300
+> +#define I3C_AO_FCLK_DIV_CTRL		0x304
+> +#define I3C_AO_FCLK_DIV_MASK		GENMASK(7, 0)
+> +#define I3C_AO_FCLK_DIV_EN		BIT(8)
+> +#define I3C_AO_FCLK_EN			BIT(9)
+> +#define I3C_AO_DEBUG_MODIFY		0x308
 > +
-> +/ {
-> +	model = "Khadas VIM 5";
-> +	compatible = "khadas,vim-5", "amlogic,a9";
-> +	#address-cells = <2>;
-> +	#size-cells = <2>;
+> +#define I3C_DEFAULT_FCLK_RATE		25000000UL
 > +
-> +	aliases {
-> +		serial0 = &uart_b;
-> +	};
-> +
-> +	memory@0 {
-> +		device_type = "memory";
-> +		reg = <0x0 0x0 0x0 0xe0000000>,
-> +		      <0x1 0x0 0x1 0x20000000>; /* 8 GiB */
-> +	};
-> +
-> +	reserved-memory {
-> +		#address-cells = <2>;
-> +		#size-cells = <2>;
-> +		ranges;
-> +
-> +		/* 35 MiB reserved for ARM Trusted Firmware */
-> +		secmon_reserved: secmon@5000000 {
-> +			compatible = "shared-dma-pool";
-> +			reg = <0x0 0x05000000 0x0 0x2300000>;
-> +			no-map;
-> +		};
-> +	};
+> +struct amlogic_i3c_priv {
+> +	int num_clks;
+> +	struct clk_bulk_data *clks;
 > +};
 > +
-> +&uart_b {
-> +	status = "okay";
+> +struct amlogic_i3c_drvdata {
+> +	int (*fclk_rate_init)(struct svc_i3c_master *master,
+> +			      struct clk *fclk, unsigned long rate);
 > +};
+> +
+> +static int default_i3c_fclk_rate_init(struct svc_i3c_master *master,
+> +				      struct clk *fclk, unsigned long rate)
+> +{
+> +	int err;
+> +
+> +	err = clk_set_rate(fclk, rate);
+> +	if (err)
+> +		return dev_err_probe(master->dev, err,
+> +				     "setting fast clock rate failed\n");
+> +
+> +	return 0;
+> +}
+> +
+> +static int ao_i3c_fclk_rate_init(struct svc_i3c_master *master,
+> +				 struct clk *fclk, unsigned long rate)
+> +{
+> +	unsigned int div_cnt, reg_val;
+> +	unsigned long fin_freq = clk_get_rate(fclk);
+> +
+> +	if (!fin_freq)
+> +		return dev_err_probe(master->dev, -EINVAL,
+> +				     "can't get I3C fast clock rate\n");
+> +
+> +	div_cnt = div64_u64(fin_freq, rate);
+> +	if (!div_cnt || div_cnt > I3C_AO_FCLK_DIV_MASK)
+> +		return dev_err_probe(master->dev, -EINVAL,
+> +				     "requested fast clock frequency too low\n");
+> +
+> +	reg_val = I3C_AO_FCLK_DIV_EN | I3C_AO_FCLK_EN | (div_cnt - 1);
+> +	writel(reg_val, master->regs + I3C_AO_FCLK_DIV_CTRL);
+> +
+> +	return 0;
+> +}
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+You could also create a clock divider, register it and use a common clk_set_rate()
+for both setups.
 
-Thanks,
 Neil
+
+> +
+> +static int amlogic_i3c_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	const struct amlogic_i3c_drvdata *data;
+> +	struct svc_i3c_master *master;
+> +	struct amlogic_i3c_priv *priv;
+> +	struct clk *fclk;
+> +	int ret, i;
+> +
+> +	master = svc_i3c_master_alloc(dev);
+> +	if (!master)
+> +		return -ENOMEM;
+> +
+> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	master->drvdata = of_device_get_match_data(dev);
+> +	if (!master->drvdata)
+> +		return -EINVAL;
+> +
+> +	data = master->drvdata->bsp_data;
+> +	if (!data)
+> +		return -EINVAL;
+> +
+> +	master->regs = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(master->regs))
+> +		return PTR_ERR(master->regs);
+> +
+> +	master->irq = platform_get_irq(pdev, 0);
+> +	if (master->irq < 0)
+> +		return master->irq;
+> +
+> +	priv->num_clks = devm_clk_bulk_get_all(dev, &priv->clks);
+> +	if (priv->num_clks < 0)
+> +		return dev_err_probe(dev, -EINVAL, "can't get I3C clocks\n");
+> +
+> +	for (i = 0; i < priv->num_clks; i++) {
+> +		if (!strcmp(priv->clks[i].id, "fast_clk"))
+> +			break;
+> +	}
+> +
+> +	if (i == priv->num_clks)
+> +		return dev_err_probe(dev, -EINVAL,
+> +				     "can't get I3C peripheral clock\n");
+> +
+> +	if (IS_ERR(priv->clks[i].clk))
+> +		return PTR_ERR(priv->clks[i].clk);
+> +	fclk = priv->clks[i].clk;
+> +
+> +	ret = clk_bulk_prepare_enable(priv->num_clks, priv->clks);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "can't enable I3C clocks\n");
+> +
+> +	master->dev = dev;
+> +	master->bsp_priv = priv;
+> +	ret = data->fclk_rate_init(master, fclk, I3C_DEFAULT_FCLK_RATE);
+> +	if (ret)
+> +		goto err_disable_clks;
+> +	master->fclk_rate = I3C_DEFAULT_FCLK_RATE;
+> +
+> +	pm_runtime_set_autosuspend_delay(dev, SVC_I3C_PM_TIMEOUT_MS);
+> +	pm_runtime_use_autosuspend(dev);
+> +	pm_runtime_get_noresume(dev);
+> +	pm_runtime_set_active(dev);
+> +	pm_runtime_enable(dev);
+> +
+> +	ret = svc_i3c_master_probe(pdev, master);
+> +	if (ret)
+> +		goto rpm_disable;
+> +
+> +	platform_set_drvdata(pdev, master);
+> +	pm_runtime_put_autosuspend(dev);
+> +
+> +	return 0;
+> +
+> +rpm_disable:
+> +	pm_runtime_dont_use_autosuspend(dev);
+> +	pm_runtime_put_noidle(dev);
+> +	pm_runtime_disable(dev);
+> +	pm_runtime_set_suspended(dev);
+> +
+> +err_disable_clks:
+> +	clk_bulk_disable_unprepare(priv->num_clks, priv->clks);
+> +
+> +	return ret;
+> +}
+> +
+> +static void amlogic_i3c_remove(struct platform_device *pdev)
+> +{
+> +	struct svc_i3c_master *master = platform_get_drvdata(pdev);
+> +
+> +	svc_i3c_master_remove(master);
+> +
+> +	pm_runtime_dont_use_autosuspend(&pdev->dev);
+> +	pm_runtime_disable(&pdev->dev);
+> +}
+> +
+> +static int __maybe_unused amlogic_i3c_runtime_suspend(struct device *dev)
+> +{
+> +	struct svc_i3c_master *master = dev_get_drvdata(dev);
+> +	struct amlogic_i3c_priv *priv = master->bsp_priv;
+> +
+> +	svc_i3c_save_regs(master);
+> +	clk_bulk_disable_unprepare(priv->num_clks, priv->clks);
+> +	pinctrl_pm_select_sleep_state(dev);
+> +
+> +	return 0;
+> +}
+> +
+> +static int __maybe_unused amlogic_i3c_runtime_resume(struct device *dev)
+> +{
+> +	struct svc_i3c_master *master = dev_get_drvdata(dev);
+> +	struct amlogic_i3c_priv *priv = master->bsp_priv;
+> +	int ret;
+> +
+> +	pinctrl_pm_select_default_state(dev);
+> +	ret = clk_bulk_prepare_enable(priv->num_clks, priv->clks);
+> +	if (ret)
+> +		return ret;
+> +
+> +	svc_i3c_restore_regs(master);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct dev_pm_ops amlogic_i3c_pm_ops = {
+> +	SET_NOIRQ_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
+> +				      pm_runtime_force_resume)
+> +	SET_RUNTIME_PM_OPS(amlogic_i3c_runtime_suspend,
+> +			   amlogic_i3c_runtime_resume, NULL)
+> +};
+> +
+> +static const struct amlogic_i3c_drvdata amlogic_i3c_data = {
+> +	.fclk_rate_init = default_i3c_fclk_rate_init,
+> +};
+> +
+> +static const struct amlogic_i3c_drvdata amlogic_i3c_ao_data = {
+> +	.fclk_rate_init = ao_i3c_fclk_rate_init,
+> +};
+> +
+> +static const struct svc_i3c_drvdata amlogic_a9_drvdata = {
+> +	.quirks = SVC_I3C_QUIRK_FIFO_EMPTY |
+> +		SVC_I3C_QUIRK_FALSE_SLVSTART |
+> +		SVC_I3C_QUIRK_DAA_CORRUPT,
+> +	.bsp_data = &amlogic_i3c_data,
+> +};
+> +
+> +static const struct svc_i3c_drvdata amlogic_a9_ao_drvdata = {
+> +	.quirks = SVC_I3C_QUIRK_FIFO_EMPTY |
+> +		SVC_I3C_QUIRK_FALSE_SLVSTART |
+> +		SVC_I3C_QUIRK_DAA_CORRUPT,
+> +	.bsp_data = &amlogic_i3c_ao_data,
+> +};
+> +
+> +static const struct of_device_id amlogic_i3c_of_match_tbl[] = {
+> +	{ .compatible = "amlogic,i3c-a9", .data = &amlogic_a9_drvdata },
+> +	{ .compatible = "amlogic,i3c-ao-a9", .data = &amlogic_a9_ao_drvdata },
+> +	{ /* sentinel */ },
+> +};
+> +MODULE_DEVICE_TABLE(of, amlogic_i3c_of_match_tbl);
+> +
+> +static struct platform_driver amlogic_i3c_master = {
+> +	.probe = amlogic_i3c_probe,
+> +	.remove = amlogic_i3c_remove,
+> +	.driver = {
+> +		.name = "amlogic-i3c-master",
+> +		.of_match_table = amlogic_i3c_of_match_tbl,
+> +		.pm = &amlogic_i3c_pm_ops,
+> +	},
+> +};
+> +module_platform_driver(amlogic_i3c_master);
+> +
+> +MODULE_AUTHOR("Junyi Zhao <junyi.zhao@amlogic.com>");
+> +MODULE_DESCRIPTION("Amlogic I3C master driver");
+> +MODULE_LICENSE("GPL");
+> 
+
