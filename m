@@ -1,174 +1,245 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AEEF4D9F6A;
-	Mon, 19 Oct 2026 10:08:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4E4D4A2A5F
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 10:09:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792404536; cv=none; b=SeGbYHL+TMpsTQed0bMsPM3L9oTg1qo6aAOeYEAMmAbieWkfwFXHohnqAVNDtlXH3uVSi4RFYMLFM3l2gmhkrUnGjdsLz50R9HQFtm9FTZziB90snD3jmuK0nZNbR4/6VyM9HBt97eYRpL0DOdrm3dfUXVX/rMlvUVcqd6QwqJs=
+	t=1792404560; cv=none; b=aRKxONDX9A7hVWiSSy2sb0LkdhJM0wIIBjBSIYpNnIGW+shNiERcmlsWrm3/MZk0dn3q3nBNQbMHx9kpMye6EkXW8TMiZJnxktmZ4dMY/SXRic4i4Mbdppm0QJY0+xoM8Bw0ChKxAVzWIZ65TP/68OozkP2Ug5d+j63T8tZz9GA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792404536; c=relaxed/simple;
-	bh=e4M5GIVHRKJleKxwEFL10u3DdioDxRxmWP8f9Ju2vLo=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=H/A5LJpBvulBIEFYkGevT7D6wm6kSl/vNxHlhDaWsGhji0dZuCE5RUObEU4NFwxcZBZhn17L4wGL5rVF/QPEiBD7rt0BW6heSVmQWUcnMYRQycn9JP3FAQO20z0VkynMzdsnaSgFk28caZ4jXt4Tx91g5URmy+6NQTb2+q68amg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S8C4+uhv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792404560; c=relaxed/simple;
+	bh=mNIGB20BY+GjvHXXBUa5js4W8dvsQtuUHQhuvhxX9yQ=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=Jj3yiyqA9dVhPi+f75cm8pYrdb2RxjgXMIKaVmsrnC9GY3MGtEkME7SiOCSwXHGUlyvvCzx/+ec56cOKt4SGrRm3PLJmD+JZKb7GrUlZbbeRG0p/6rM4fQnKoSFpSFbwtvPkOVpz6ub+NtmwRfrvxmqe62qhombSqZ8PBOtGGbo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UlpvlC7d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S8C4+uhv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 794691F000C5;
-	Mon, 19 Oct 2026 10:08:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UlpvlC7d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D7011F000C5;
+	Mon, 19 Oct 2026 10:09:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792404534;
-	bh=if/r576nCJveP9pEbWDHZQui6hukAF4UhYA2QYWeDXE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=S8C4+uhvJw0yvIP1nCu0HUXdFKmwKY+A1Zxvy9bSXOwszU9YzIn4ZzCc8T1irXaly
-	 2Aij6KHnms6nJ9YP6c9Sxn8OetPaY8bhueWvmDw9r1BKHP8+Ey/wxHeZTcBQzGyfV7
-	 rUF1lHEF57a90V9Jh3Ayg53tFQAleaipU04dNBO4fQxx6qh3TSvaNxHtTLo5QeI3r9
-	 jxUXWHt7yduz/e7ZgK3yDMoIDrcxR5EN3KGUCLBpjXlhUgFV96WI/r4D8qnKqBixFJ
-	 wxVrsLDTEyPfp11mJvbJ5xBUFdTyTtD0XgW28hJ2OpR+bqL++rfavIWpiIPyTjpFGl
-	 dUom/HUMVDOMg==
-Subject: Re: [PATCH net-next v15 9/9] net: dsa: lan9645x: add port statistics
-From: netdev-bot+sashiko@kernel.org
-To: jensemil.schulzostergaard@microchip.com
-Cc: UNGLinuxDriver@microchip.com, andrew@lunn.ch, olteanv@gmail.com,
- davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- woojung.huh@microchip.com, linux@armlinux.org.uk,
- Steen.Hegelund@microchip.com, daniel.machon@microchip.com,
- geert+renesas@glider.be, magnus.damm@gmail.com, edumazet@kernel.org,
- richardcochran@gmail.com, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-Date: Mon, 19 Oct 2026 10:08:53 +0000
-Message-ID: <179240453307.3135.2065386937763476332@kernel.org>
-In-Reply-To:
- <20261015-dsa_lan9645x_switch_driver_base-v15-9-562f316f78b9@microchip.com>
-References:
- <20261015-dsa_lan9645x_switch_driver_base-v15-9-562f316f78b9@microchip.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1792404559;
+	bh=nxn/92jjwQUMArB247A1WBK30C3YVW/dTQViUzms37g=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UlpvlC7dAYUEeE92YqCfKs/ya9S7b3U7HXMyBPqwJCtgEE/M6HFo9FaQMbhbtmxYc
+	 yIo149iFFxgCh9M+O17oEVdg9WWjCkJ3OkR1gAt/cMAUkpTA9d2pOJusKGfUVT2ZFg
+	 bDTwfc/rPCL6V5ZEF5fhabGlIfgg3QS2v3KlagB8zxvbQmXvo0NiE0JBzOm2KSJ5Di
+	 uc9fg1S3GXETFqJ99ZLLFtS/o43tuHWGUDc358aaiGG4u7j5vswAmKnRCwOfOpb1wS
+	 h3B4REjrliCTlFFdTuS+5a0YU4emFZyS2h03aYP33wOYa+qz7u0Pjsth4Tkqo1wHua
+	 RRR4dPtPHfMqA==
+Message-ID: <sashiko-outbox-176953@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 6/7] drm/panel: Add Hitachi TX10D07VM0BAA MIPI DBI
+ Type B panel driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261019095705.91062-7-clamor95@gmail.com>
+References: <20261019095705.91062-1-clamor95@gmail.com>
+ <20261019095705.91062-7-clamor95@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 19 Oct 2026 10:09:18 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
-
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] lan9645x_stats_get_stats64()
-  (drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c) counts error…
-
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] drm/panel: tx10d07vm0baa: DBI commands in disable() use freed tegr=
+a-dbi GPIOs
+- [High] drm/panel: unchecked priv->dbi in hitachi_tx10d07vm0baa_enable()
+- [Medium] drm/panel: hitachi-tx10d07vm0baa: swapped width_mm and height_mm=
+ in mode
 --
 
-net: dsa: lan9645x: add port statistics
+commit a653f9af8d9f186ab20cfe9e9245165b2be8f4e3
+Author: Svyatoslav Ryhel <clamor95@gmail.com>
 
-This adds port statistics support to the lan9645x DSA driver. The 32 bit
-hardware counters are polled into a 64 bit software cache, and the pMAC
-counters are summed into the aggregate source. The cache is exposed through
-ethtool -S, the standard ethtool groups and ndo_get_stats64.
+drm/panel: Add Hitachi TX10D07VM0BAA MIPI DBI Type B panel driver
 
-> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c b/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c
+This commit adds a DRM panel driver for the Hitachi TX10D07VM0BAA 4" WVGA M=
+IPI
+DBI Type B panel used in the LG Optimus 2X P990 smartphone.
+
+> diff --git a/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c b/driver=
+s/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
 > new file mode 100644
-> index 0000000000000..a21afb4d98532
+> index 0000000000000..c3434cb96c86c
 > --- /dev/null
-> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c
-> @@ -0,0 +1,854 @@
-
+> +++ b/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
+> @@ -0,0 +1,297 @@
 [ ... ]
-
-> +void lan9645x_stats_get_stats64(struct lan9645x *lan9645x, int port,
-> +				struct rtnl_link_stats64 *stats)
+> +static int hitachi_tx10d07vm0baa_prepare(struct drm_panel *panel)
 > +{
+> +	struct hitachi_tx10d07vm0baa *priv =3D to_hitachi_tx10d07vm0baa(panel);
+> +	struct device *dev =3D panel->dev;
+> +	int ret;
+> +
+> +	priv->dbi =3D dev_get_drvdata(dev->parent);
+> +	if (!priv->dbi)
+> +		return -ENODEV;
+> +
+> +	gpiod_set_value_cansleep(priv->reset_gpio, 1);
+> +
+> +	ret =3D regulator_bulk_enable(ARRAY_SIZE(hitachi_tx10d07vm0baa_supplies=
+), priv->supplies);
+> +	if (ret) {
+> +		dev_err(dev, "failed to enable power supplies: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	usleep_range(1000, 2000);
+> +
+> +	gpiod_set_value_cansleep(priv->reset_gpio, 0);
+> +
+> +	usleep_range(10000, 11000);
+> +
+> +	return 0;
+> +};
+> +
+> +static int hitachi_tx10d07vm0baa_enable(struct drm_panel *panel)
+> +{
+> +	struct hitachi_tx10d07vm0baa *priv =3D to_hitachi_tx10d07vm0baa(panel);
+> +
+> +	panel_dbi_command(priv, MIPI_DCS_SET_PARTIAL_ROWS, 0x00, 0x00, 0x03, 0x=
+1f);
 
+[Severity: High]
+Can priv->dbi be NULL when hitachi_tx10d07vm0baa_enable() (and later
+hitachi_tx10d07vm0baa_disable()) calls panel_dbi_command()?
+
+In hitachi_tx10d07vm0baa_probe(), priv->dbi is not initialized. Instead,
+hitachi_tx10d07vm0baa_prepare() looks up dev_get_drvdata(dev->parent) and
+returns -ENODEV if priv->dbi is NULL (for instance, if the panel device tree
+node is not a child of a bound DBI parent device, or if the parent has no
+drvdata set).
+
+During an atomic modeset commit, the prepare path runs:
+
+  drm_atomic_helper_commit_modeset_enables()
+    drm_atomic_bridge_chain_pre_enable()
+      panel_bridge_atomic_pre_enable()
+        drm_panel_prepare()
+          hitachi_tx10d07vm0baa_prepare() -> returns -ENODEV
+
+When hitachi_tx10d07vm0baa_prepare() returns an error, drm_panel_prepare()
+logs the error and skips setting panel->prepared =3D true, but does not abo=
+rt
+the atomic commit. Next in the same commit:
+
+  drm_atomic_helper_commit_modeset_enables()
+    drm_atomic_bridge_chain_enable()
+      panel_bridge_atomic_enable()
+        drm_panel_enable()
+          hitachi_tx10d07vm0baa_enable()
+
+Because drm_panel_enable() only checks panel and panel->enabled without
+checking panel->prepared, it unconditionally calls
+hitachi_tx10d07vm0baa_enable(). That passes a NULL priv->dbi to
+panel_dbi_command() -> mipi_dbi_command_stackbuf() -> mipi_dbi_command_buf(=
+),
+which dereferences dbi at mutex_lock(&dbi->cmdlock).
+
+> +	panel_dbi_command(priv, MIPI_DCS_SET_SCROLL_AREA, 0x00, 0x00, 0x03, 0x2=
+0,
+> +			  0x00, 0x00);
 [ ... ]
+> +static int hitachi_tx10d07vm0baa_disable(struct drm_panel *panel)
+> +{
+> +	struct hitachi_tx10d07vm0baa *priv =3D to_hitachi_tx10d07vm0baa(panel);
+> +
+> +	panel_dbi_command(priv, MIPI_DCS_SET_DISPLAY_OFF);
+> +	msleep(35);
+> +
+> +	panel_dbi_command(priv, MIPI_DCS_ENTER_SLEEP_MODE);
+> +	msleep(50);
+> +
+> +	return 0;
+> +}
 
-> +	stats->rx_packets = c[SCNT_RX_SHORT] +
-> +			    c[SCNT_RX_JABBER] +
-> +			    c[SCNT_RX_SZ_64] +
-> +			    c[SCNT_RX_SZ_65_127] +
-> +			    c[SCNT_RX_SZ_128_255] +
-> +			    c[SCNT_RX_SZ_256_511] +
-> +			    c[SCNT_RX_SZ_512_1023] +
-> +			    c[SCNT_RX_SZ_1024_1526] +
-> +			    c[SCNT_RX_SZ_JUMBO] +
-> +			    c[SCNT_RX_LONG] +
-> +			    c[SCNT_RX_PMAC_SHORT] +
-> +			    c[SCNT_RX_PMAC_FRAG] +
-> +			    c[SCNT_RX_PMAC_JABBER] +
-> +			    c[SCNT_RX_PMAC_SZ_64] +
-> +			    c[SCNT_RX_PMAC_SZ_65_127] +
-> +			    c[SCNT_RX_PMAC_SZ_128_255] +
-> +			    c[SCNT_RX_PMAC_SZ_256_511] +
-> +			    c[SCNT_RX_PMAC_SZ_512_1023] +
-> +			    c[SCNT_RX_PMAC_SZ_1024_1526] +
-> +			    c[SCNT_RX_PMAC_SZ_JUMBO] +
-> +			    c[SCNT_RX_PMAC_LONG];
+[Severity: High]
+When this panel is paired with its parent tegra-dbi bridge, does
+hitachi_tx10d07vm0baa_disable() end up using freed GPIO descriptors when
+sending MIPI_DCS_SET_DISPLAY_OFF and MIPI_DCS_ENTER_SLEEP_MODE?
+
+In drivers/gpu/drm/tegra/dbi.c, tegra_dbi_probe() wraps the panel in a panel
+bridge via devm_drm_panel_bridge_add_typed() and attaches it downstream of
+tegra_dbi->bridge in tegra_dbi_attach(). At the end of
+tegra_dbi_atomic_enable(), tegra-dbi releases its shared DBI GPIOs with
+gpiod_put() and gpiod_put_array(priv->data_gpios) without clearing the
+pointers.
+
+When the display pipeline is disabled, drm_atomic_bridge_chain_disable()
+iterates encoder->bridge_chain in reverse order:
+
+  drm_atomic_bridge_chain_disable()
+    panel_bridge_atomic_disable()
+      drm_panel_disable()
+        hitachi_tx10d07vm0baa_disable()
+          panel_dbi_command()
+            mipi_dbi_command_stackbuf()
+              tegra_dbi_dbi_command()
+                tegra_dbi_write()
+
+Because panel_bridge_atomic_disable() runs before tegra_dbi_atomic_disable(=
+),
+tegra_dbi_write() sees the non-NULL dangling priv->data_gpios pointer and
+dereferences the freed struct gpio_descs memory and freed GPIO descriptors
+before tegra_dbi_atomic_disable() has a chance to call
+tegra_dbi_prepare_gpios():
+
+drivers/gpu/drm/tegra/dbi.c:tegra_dbi_atomic_disable() {
+	struct tegra_dbi_priv *priv =3D bridge_to_tegra_dbi(bridge);
+	int ret;
+
+	ret =3D tegra_dbi_prepare_gpios(priv);
+	if (ret)
+		return;
+
+	if (priv->output.panel)
+		drm_panel_disable(priv->output.panel);
+    ...
+}
+
+When tegra_dbi_atomic_disable() subsequently runs, its call to
+drm_panel_disable() becomes a no-op because panel->enabled is already false.
+
 > +
-> +	stats->multicast = c[SCNT_RX_MC] + c[SCNT_RX_PMAC_MC];
-> +
-> +	stats->rx_errors = c[SCNT_RX_SHORT] +
-> +			   c[SCNT_RX_JABBER] +
-> +			   c[SCNT_RX_CRC] +
-> +			   c[SCNT_RX_LONG] +
-> +			   c[SCNT_RX_PMAC_SHORT] +
-> +			   c[SCNT_RX_PMAC_JABBER] +
-> +			   c[SCNT_RX_PMAC_CRC] +
-> +			   c[SCNT_RX_PMAC_LONG];
+> +static int hitachi_tx10d07vm0baa_unprepare(struct drm_panel *panel)
+> +{
+[ ... ]
+> +static const struct drm_display_mode hitachi_tx10d07vm0baa_mode =3D {
+> +	.clock =3D (480 + 10 + 10 + 10) * (800 + 4 + 4 + 4) * 60 / 1000,
+> +	.hdisplay =3D 480,
+> +	.hsync_start =3D 480 + 10,
+> +	.hsync_end =3D 480 + 10 + 10,
+> +	.htotal =3D 480 + 10 + 10 + 10,
+> +	.vdisplay =3D 800,
+> +	.vsync_start =3D 800 + 4,
+> +	.vsync_end =3D 800 + 4 + 4,
+> +	.vtotal =3D 800 + 4 + 4 + 4,
+> +	.width_mm =3D 86,
+> +	.height_mm =3D 52,
+> +	.type =3D DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
+> +};
 
 [Severity: Medium]
-Should short, jabber and oversize frames be counted in rx_packets in
-lan9645x_stats_get_stats64()?
+Are width_mm and height_mm swapped in hitachi_tx10d07vm0baa_mode?
 
-rx_packets and rx_errors both add SCNT_RX_SHORT, SCNT_RX_JABBER and
-SCNT_RX_LONG, plus their pMAC versions. JABBER and LONG are also added to
-rx_length_errors. So every malformed frame received on a user port counts
-once as a good packet and once as an error.
+The active mode resolution is portrait (hdisplay =3D 480, vdisplay =3D 800,
+matching MIPI_DCS_SET_PARTIAL_ROWS 0..799 and MIPI_DCS_SET_SCROLL_AREA 800 =
+in
+hitachi_tx10d07vm0baa_enable()), whereas width_mm =3D 86 and height_mm =3D =
+52 are
+landscape dimensions. When hitachi_tx10d07vm0baa_get_modes() calls
+drm_connector_helper_get_modes_fixed(), those values are copied to
+connector->display_info, resulting in non-square DPI calculations in
+userspace. Should width_mm be 52 and height_mm be 86?
 
-The rtnl_link_stats64 kernel-doc in include/uapi/linux/if_link.h says:
+[ ... ]
 
-  @rx_packets: Number of good packets received by the interface.
-
-The v5 changelog also says CRC and symbol error frames "are already counted
-in SZ_* buckets". Since those buckets feed rx_packets, frames with a bad CRC
-would be counted as good packets as well.
-
-This also gives a different answer from lan9645x_stats_get_eth_mac_stats(),
-which counts good received frames as UC + MC + BC only:
-
-	m->FramesReceivedOK = c[SCNT_RX_UC] +
-			      c[SCNT_RX_MC] +
-			      c[SCNT_RX_BC] +
-			      ...
-
-As a result, rx_packets is larger than FramesReceivedOK by the number of
-errored frames. ocelot_port_get_stats64() uses a similar rx_packets formula,
-but that does not match the uAPI description either.
-
-Could rx_packets be derived the same way as FramesReceivedOK?
-
-A separate point: c[SCNT_RX_PMAC_FRAG] is added to rx_packets but not to
-rx_errors. The comment in lan9645x_stats_get_rmon_stats() says:
-
-	/* ... Only SCNT_RX_PMAC_FRAG counts runts with an invalid
-	 * CRC, so fragments is left unset rather than reporting the pMAC alone.
-	 */
-
-Going by that comment, a pMAC runt with a bad CRC would be counted as a
-good packet and left out of the error total. Is that intended?
-
-v12 removed the eMAC SCNT_RX_FRAG from rx_packets, but the pMAC version is
-still there. Since the pMAC gets no traffic without MAC merge, this has
-little effect today.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261015-dsa_lan9645x_switch_driver_base-v15-0-562f316f78b9%40microchip.com
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019095705.9106=
+2-1-clamor95@gmail.com?part=3D6
