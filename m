@@ -1,60 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792427269;
-	b=mBGDaX/imix7cwGNOxSG90eYbdE9UEEF0BgfATj+x6WVSXhHBFmAhDICpfO4bCqELaHe
-	 BYeT/v/tdE/U9BXocZmgjuX/qCE376Tktqo3EATAqvBTobJR4lpk8UbX2V1SoV4IECgWJ
-	 GWtgVigksyhzIlH7Zta4YcDTylsAHVIBIaiq3SK7LZ3d2dnfKw+b+ufIZAjg8EMdX2cT+
-	 FAa6agzPAIPZlg5S+tEmDjyJ3iZJvV0XA9I20j6ZTmsEWR0Xx5y0XWJJlOnzI6hfO4nlx
-	 wz+ScJQjaA7aLQHp8siJ1NZ3jAtB9IiMr1S4Ohtgl//BSkIDafKaQducLGrPM0zpZMg==
+	t=1792427283;
+	b=fwtgZ8+pi/i3F2O066Ngpf/H2PGV1zZ+N4tIPoE/5Xle+ADqgD9nasetGTJxuCt7IcUy
+	 j4LiRaFncKO3NWrH0GMNjiynkYTW0yNUGwIH8qfccIboiEmkAm1QMaR8cwE4PZmLupOFy
+	 D1HIrmMmxlW1hNvR/slvpze8y85hIFISBIMGtk8ZaiT/ugZV4WoWhzO5oofPniTF/tYcl
+	 6JFhadaKVQYJMcfPfPiIW5BZ3jD30cWnKvfmQfWwoc0dfhqGk3aanvDaCLa6aDbf/2f+H
+	 6mM62YDfd6XVrtP7rTSSVcyfGuRBgzlL2bddOmiRvgRLW8Hx5BvhzFRJZbbU88JN3Zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792427269;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=E0kdQMlTkU0U95vRQXu54GmTzl69UL7f/+igTH8mVwc=;
-	b=hPG9sgDID911O/2FLW2ikInGshsJMpEcxhZtBKOcv9YWahh0FjySwd12u13Ld7PCazgl
-	 LMb0s+/KSQMeGDo0bgJVyQSD29l8Mbt6lOrI2JPMYaE9oM8DPZxI3jIesn5KTjZtd3fR0
-	 S57XWiW8J02ZQ+GmPM4vKHD6WD07m+WhIpLY75exRN1AY+UoFNoK5EL56hvkkymGLwgFv
-	 40g8KjX3H/5QD4zyQszRTgsAmG+QaG3Ld/6AD7P9sIGTLLceB7bJ4RZgn0LEUA1UdHAT1
-	 p6TpdObAHGIKRcUVe2CnncmdIjojXGb9rDeLhujwxYJg83HouQDK+dAAgvCjpNfXp+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792427283;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:Received:Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gmail-Original-Message-ID:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=grtW76dvtFb1t9XrerLmKdj5qwyowpPAeH9vnpYNVM8=;
+	b=Gb6/TWKxoZRiZgSWm397JciZmmKkk7D+Hlo+O69b40KKKTna8Z3AZQEaSbPFPlajEwmh
+	 kLq8mczGhvF6ImCGDDqCe2L5kjdYTmnQWCnOOwtKeLtOFYhzlSVFiAkSKgv7fkdSividz
+	 11JGEHvVcCQnhIrSQU6EcZO1WOtqayE57rTdcIX3SVXeHe9owcEAXoGXbiA2Stfn2mWIa
+	 4V3RAgMFab05oQl8YE3z6XDtyPkpDyLQM3tlEkKwOIySrTY1eaJLbkVlHjioYy2OsXtwr
+	 xEF7XxYE9UUoVFItP6APVx0aezdvV9B2aKnpLRvTNV7G2q0hqvjKuQVHUsl+TrEiJ+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b="hCAzON//";
-	arc=none smtp.remote-ip=185.70.43.16
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.208.46
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C0CD606AAC1;
-	Mon, 19 Oct 2026 16:27:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C0CD606AAC1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=hCAzON//
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1792427266; x=1792686466;
-	bh=E0kdQMlTkU0U95vRQXu54GmTzl69UL7f/+igTH8mVwc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=hCAzON//zfrY6oy41D3kvGlO2axui94o0PvfFkuXYPJt31sUr7mFH+XoWdyjiou9K
-	 Dzom5Vd6v/3fQLYKKqK2Ba9zOw3Fpu183aMbGRa07d6FV3gNi/ZGgm4Er1vFW8Ifqi
-	 BvU39KAGHy5F8vv8X4V+Qr/ZYi/mdetU2AH1WNA6EVFvwOUPCSODYTGzf19zVEVnhw
-	 SjlsdIIATKfU2FQlPluMot4ZmZ7OlOJc5FpQAnjIboLBWbdHzAemWoTIjtm1aS8BGK
-	 gwbISUnhs7J/mZ1XZNtL2IIla3xF/T02TyIDufE8bBvR2ItP0SYjWhbQbq3K48urU6
-	 hiGwAd/afXq1g==
-Date: Mon, 19 Oct 2026 16:27:38 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 1/4] dt-bindings: media: i2c: Add ST VD55G0 camera sensor
-Message-ID: <20261019162722.25587-2-lsa.uz@pm.me>
-In-Reply-To: <20261019162722.25587-1-lsa.uz@pm.me>
-References: <20261019162722.25587-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: cc5b59fab56c2649139bd4b48b27cacf3b72d89f
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 029FE606A31C
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 16:28:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 029FE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b1ab2ad719so3384979a12.3
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 09:28:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792427281; x=1793032081;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=grtW76dvtFb1t9XrerLmKdj5qwyowpPAeH9vnpYNVM8=;
+        b=2BcSDfVziQetobYeBwbVo7/JFbzbGzqwcNvoH3aKFsF56DbM4MJXl7QPI+cZ7VBAkj
+         9pYwzAHgBHJesbLkuIWpLUodyRRMEChE1FvUptWk10vxynjRmAM5cBInQtIuE76PCbdo
+         oYf5ndcb9o/CnyfFW1E4pDQtPjhOCCneVKUtQ7hxlE/73RJbUJB0ayw/w84myrYclOMX
+         myvBWUoNcn+urRyirtPp9+GfprIc8q+zHPEwfrOUQ9DVkNhuO20TwWaP1xyrF+36cNhs
+         dvW4fZCqBOT0MZY2W/KYia+LJQppmT8yk5piEQ8oJoc9JrulE52bO4pt/UHXWn7kmrbk
+         g1cQ==
+X-Gm-Message-State: AFq9FYKy21PaVQCgNMyLjFwg+yZkzhDz5GalEa3qj8cNObYQG0WYqb95
+	GHqJKREjlCQaL7hhusio/kcjh8q/2FbtNYhd+xQUlgJ29Wo4HPokH2RLKBgl+C6qwNY=
+X-Gm-Gg: AYBFou0czyejeGyFxyPR2jGs1GhcCUU2HGICHeQplQBvOrKAYkiUsyQPkjCFstmxThS
+	nmLPYMoU9y5L5jEQNwLxilWg/QPk39S6uHxRrxkmlg5yK2ALAdwdEypEDqQ79LaPXHpg7ELQdV0
+	jhqqVB+RY1p6hw4L3TG/EFx4hoNHAzXlPY5K5boGiIFB0YiudR1RfndS4GEvRqckEqmxDQGFjbm
+	X+d8a52AFELfUwTiFmljh1EZpUq2Qpyq7nysV5Fpt6NmlMOWH6sC9BHhAFY9RvTp4ESneRXzJ1C
+	3iKMnt4Y6u9tpPsV2myUHTlLyrZMH/3mtzLw9JXhE37BpTY/edmGnBweqThs3CGHBjy6oulym1w
+	4z40DRMbCxkIn7y4BuRpp0HVHFb6eAtPVCNfzonMRs/qpAHblq7eJAVC2oxZAvygJpwEJlXCRMc
+	+X58THQXg07AhJs4QRaBTLIP2WxQlxDDzpskYi2HU+zicuF9MgWA0hUupEnW4xSsDNCFPP7U7jH
+	HcYTKbBra8bFtQrJws+2wFYj+XWTY0FiEIU
+X-Received: by 2002:a17:907:c510:b0:c2d:bae5:27d9 with SMTP id a640c23a62f3a-c41a01f4977mr580165466b.46.1792427276673;
+        Mon, 19 Oct 2026 09:27:56 -0700 (PDT)
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com. [209.85.218.47])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c408e32897fsm384962466b.2.2026.10.19.09.27.56
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 09:27:56 -0700 (PDT)
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c3fd91337baso303704966b.3
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 09:27:56 -0700 (PDT)
+X-Received: by 2002:a17:907:9486:b0:c40:f9ea:7387 with SMTP id
+ a640c23a62f3a-c4199c63fd2mr604034966b.6.1792427276005; Mon, 19 Oct 2026
+ 09:27:56 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,182 +76,105 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+References: <cover.1792163045.git.geert+renesas@glider.be> <4524363679c1f2163aca3b3dda2bfbde170d095a.1792163045.git.geert+renesas@glider.be>
+ <sashiko-outbox-174605@kernel.org>
+In-Reply-To: <sashiko-outbox-174605@kernel.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 19 Oct 2026 18:27:42 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWT=9-GCt6pr3HT6C_=kxe2ud1y2jjXPZBH9MjcDYjB+g@mail.gmail.com>
+X-Gm-Features: AclHuK-zFCPihodw8HUR_tYnDf84w30NySJpayeqxb6wS60EuVgB6NNWocEAZa4
+Message-ID: <CAMuHMdWT=9-GCt6pr3HT6C_=kxe2ud1y2jjXPZBH9MjcDYjB+g@mail.gmail.com>
+Subject: Re: [PATCH v4 5/8] pmdomain: Make genpd_get_from_provider() return -EPROBE_DEFER
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, robh@kernel.org, 
+	conor+dt@kernel.org, wsa+renesas@sang-engineering.com
+Content-Type: text/plain; charset="UTF-8"
 
-The VD55G0 is a monochrome global shutter sensor with a 644x604 active
-array, sending over a single MIPI CSI-2 lane.
+Hi Sashiko,
 
-Merged from ST's own binding in STMicroelectronics/vd55g0-linux-driver,
-which gives the supply voltages, and st,vd55g1.yaml, whose conventions and
-property list it follows. ST's st,out-sync and st,in-sync are left out, as
-in vd55g1. Link frequencies run from 375 to 600 MHz, for the sensor's MIPI
-rate of 750 to 1200 Mbps (UM2829, 13.1).
+On Fri, 16 Oct 2026 at 18:09, <sashiko-bot@kernel.org> wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Low] pmdomain: unnecessary probe deferral on invalid domain index
+> --
+>
+> commit c105920d803c0cf9396fb90d8428fdc4d83e8655
+> Author: Geert Uytterhoeven <geert+renesas@glider.be>
+>
+> pmdomain: Make genpd_get_from_provider() return -EPROBE_DEFER
+>
+> Unlike provider-based look-up functions in other subsystems[1],
+> genpd_get_from_provider() returns -ENOENT instead of -EPROBE_DEFER when
+> the provider is not found, thus not supporting probe deferral.
+> Currently this is worked around in of_genpd_add_subdomain() by remapping
+> -ENOENT[2].
+>
+> Fix this for all current and future callers by returning -EPROBE_DEFER
+> instead, and drop the no longer needed remapping code.
+>
+> > diff --git a/drivers/pmdomain/core.c b/drivers/pmdomain/core.c
+> > index 964e44c2f78f1..88c886814a5b9 100644
+> > --- a/drivers/pmdomain/core.c
+> > +++ b/drivers/pmdomain/core.c
+> > @@ -3021,7 +3021,7 @@ EXPORT_SYMBOL_GPL(of_genpd_del_provider);
+> >  static struct generic_pm_domain *genpd_get_from_provider(
+> >                                       const struct of_phandle_args *genpdspec)
+> >  {
+> > -     struct generic_pm_domain *genpd = ERR_PTR(-ENOENT);
+> > +     struct generic_pm_domain *genpd = ERR_PTR(-EPROBE_DEFER);
+> >       struct of_genpd_provider *provider;
+> >
+> >       if (!genpdspec)
+>
+> [ ... ]
+>
+> > @@ -3276,7 +3276,7 @@ int of_genpd_add_subdomain(const struct of_phandle_args *parent_spec,
+> >  out:
+> >       mutex_unlock(&gpd_list_lock);
+> >
+> > -     return ret == -ENOENT ? -EPROBE_DEFER : ret;
+> > +     return ret;
+> >  }
+>
+> [Severity: Low]
+> Does this change leave an unnecessary probe deferral in __genpd_dev_pm_attach()?
+>
+> If a device specifies a valid PM domain provider but an invalid domain index,
+> genpd_get_from_provider() returns the specific error code from the provider's
+> xlate callback, such as -ENOENT.
+>
+> However, __genpd_dev_pm_attach() still unconditionally routes all errors
+> through driver_deferred_probe_check_state():
+>
+> drivers/pmdomain/core.c:__genpd_dev_pm_attach() {
+>         ...
+>         pd = genpd_get_from_provider(&pd_args);
+>         of_node_put(pd_args.np);
+>         if (IS_ERR(pd)) {
+>                 mutex_unlock(&gpd_list_lock);
+>                 dev_dbg(dev, "%s() failed to find PM domain: %ld\n",
+>                         __func__, PTR_ERR(pd));
+>                 return driver_deferred_probe_check_state(base_dev);
+>         }
+>         ...
+> }
+>
+> Could this unnecessarily delay boot and error reporting for devices with
+> permanently invalid PM domain IDs by forcing a wait until late_initcall?
+>
+> Should __genpd_dev_pm_attach() be updated to only call
+> driver_deferred_probe_check_state() when PTR_ERR(pd) is -EPROBE_DEFER?
 
-Co-developed-by: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-Signed-off-by: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
----
-The properties follow st,vd55g1.yaml nearly line for line. If a
-compatible in that file is preferred, with an if/then for the
-link-frequency minimum, I can fold it in there.
+__genpd_dev_pm_attach() doesn't care about the actual error code,
+it only cares about error or success.  Hence a change in error code
+has no impact.
 
- .../bindings/media/i2c/st,vd55g0.yaml         | 137 ++++++++++++++++++
- 1 file changed, 137 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/media/i2c/st,vd55g0.y=
-aml
+Gr{oetje,eeting}s,
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/st,vd55g0.yaml b/D=
-ocumentation/devicetree/bindings/media/i2c/st,vd55g0.yaml
-new file mode 100644
-index 00000000000..be03d7e8b9c
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/i2c/st,vd55g0.yaml
-@@ -0,0 +1,137 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+# Copyright (c) 2026 STMicroelectronics SA.
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/i2c/st,vd55g0.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: STMicroelectronics VD55G0 Global Shutter Image Sensor
-+
-+maintainers:
-+  - Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-+  - Sylvain Petinot <sylvain.petinot@foss.st.com>
-+
-+description: |-
-+ The STMicroelectronics VD55G0 is a monochrome global shutter image sensor
-+ with an active array size of 644H x 604V. It is programmable through an I=
-2C
-+ interface.
-+
-+ Image data is sent through MIPI CSI-2, over a single data lane. The senso=
-r
-+ provides 4 GPIOs, which can drive a strobe light source synchronised with=
- the
-+ exposure period.
-+
-+allOf:
-+  - $ref: /schemas/media/video-interface-devices.yaml#
-+
-+properties:
-+  compatible:
-+    const: st,vd55g0
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  vcore-supply:
-+    description: Digital core power supply (1.2V)
-+
-+  vddio-supply:
-+    description: Digital IO power supply (1.8V)
-+
-+  vana-supply:
-+    description: Analog power supply (2.8V)
-+
-+  reset-gpios:
-+    description: Sensor reset active low GPIO (XSHUTDOWN)
-+    maxItems: 1
-+
-+  st,leds:
-+    description:
-+      List of sensor GPIOs used to control strobe light sources during the
-+      exposure time. The numbers identify the sensor pin on which the
-+      illumination system is connected. GPIOs are active-high.
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    minItems: 1
-+    maxItems: 4
-+    items:
-+      minimum: 0
-+      maximum: 3
-+
-+  port:
-+    $ref: /schemas/graph.yaml#/$defs/port-base
-+    additionalProperties: false
-+
-+    properties:
-+      endpoint:
-+        $ref: /schemas/media/video-interfaces.yaml#
-+        unevaluatedProperties: false
-+
-+        properties:
-+          data-lanes:
-+            items:
-+              - const: 1
-+
-+          link-frequencies:
-+            maxItems: 1
-+            items:
-+              minimum: 375000000
-+              maximum: 600000000
-+            description:
-+              The MIPI output runs at twice the link frequency, 750 to 120=
-0
-+              Mbps, and at an integer multiple of the input clock frequenc=
-y.
-+
-+          lane-polarities:
-+            minItems: 1
-+            maxItems: 2
-+
-+        required:
-+          - data-lanes
-+          - link-frequencies
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - vcore-supply
-+  - vddio-supply
-+  - vana-supply
-+  - reset-gpios
-+  - port
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    #include <dt-bindings/media/video-interface-devices.h>
-+
-+    i2c {
-+        #address-cells =3D <1>;
-+        #size-cells =3D <0>;
-+
-+        camera-sensor@60 {
-+            compatible =3D "st,vd55g0";
-+            reg =3D <0x60>;
-+
-+            clocks =3D <&camera_clk_12M>;
-+
-+            vcore-supply =3D <&camera_vcore_v1v2>;
-+            vddio-supply =3D <&camera_vddio_v1v8>;
-+            vana-supply =3D <&camera_vana_v2v8>;
-+
-+            reset-gpios =3D <&gpio 5 GPIO_ACTIVE_LOW>;
-+            st,leds =3D <1>;
-+
-+            orientation =3D <MEDIA_ORIENTATION_FRONT>;
-+            rotation =3D <0>;
-+
-+            port {
-+                endpoint {
-+                    data-lanes =3D <1>;
-+                    link-frequencies =3D /bits/ 64 <402000000>;
-+                    remote-endpoint =3D <&csiphy0_ep>;
-+                };
-+            };
-+        };
-+    };
---=20
-2.54.0
+                        Geert
 
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
