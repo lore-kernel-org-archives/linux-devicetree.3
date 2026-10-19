@@ -1,105 +1,86 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 716D54E5346
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 12:57:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C19D4E3EEF;
+	Mon, 19 Oct 2026 12:59:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792414654; cv=none; b=ifHCir2FnwqQAc/+evDMVkWk4so6/1PgzCl+ul2Qy5ASmMJrbXcsLtsiCD5IBrDEmBRG5RlujM552jRafsu5Ue496HBj9f87aOjVnjvpcAGc0Fk0KDH1wVDW56Yj45FaAcjSLE9LrJ/fn3ivaNy0ia2mqPJE2/BbatnxwYe42Us=
+	t=1792414797; cv=none; b=ukm+XRpGx1c31oyOHZy441Ct4hRfBT9o0gnV8MQIPfhMkA0lCHa+vDMqDLNubeM3GO0/2WmQLGvm/x7dDgQWA/cHveGPCV/3rPDKHnOexC7d31G+h1eumIEPMLP7FJVNcPLx5iMf+cq+OpDnLlD6ltAHHoAVo+YbHtx6asgkWZ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792414654; c=relaxed/simple;
-	bh=DPtgRhzyzAeLmGS47IlPoFEDwn+LdYIoM5JOg6vn1jI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Tluk4X5GCJKefgYQ9NzS1jq1vaj8YxA2I32MS2aGunFoPUSUuZvAQMYXQ+VZzN+lVnCP9eYQPrOyL6f9c5iJ0isgaCr7o9qx99MmhwZOPPh2ZKVcT8KIuajapULpWwKxDEQqlTqNL1qKwVqn3essARvSVfscmv2IB86pvhOVbkk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UaTdNt4o; arc=none smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792414797; c=relaxed/simple;
+	bh=wJQe/RHMCwpliomwiNGW7DEjkmZi/G6TXWBu2c8yoxM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=W6R9DyeJBZD5trj6NLX73n3a+XN3RYm8ExzbC46iJ385oqxP6juGn3MRB9enrYOVTw0F2ZlBUBgGOJAVsgY2MuyG4TZu12sXEx1kKEyixKg7N+nS71pv1ew0oOsLi6AKQIwwFLJdlWf7b7daAKDxGO3ejGjFcEjJ4YxtwDU2SIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=OwtqiSn/; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UaTdNt4o"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48dee593f18so1522165f8f.3
-        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 05:57:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792414652; x=1793019452; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lf9FLL6T5/Kb7gEctiirso0+WOoWDflrhqqlYLNOZeU=;
-        b=UaTdNt4oSh9tXQFDkjdXsFnCBRqQhVDjFVJE/FaqQOT9+of9Ny7rpMMZrdMSV7s0Kf
-         4RusC9VjHHubQzgj/bGezsMkzlGVi/8V69ledDOWvB5C4Hjrb46wqVy7WeIRRG+r0sIv
-         okaZGZx54gZTKPr01JZfl9RAer/vNimHubJ88/+pHpR6bgPHjDGnKRHf/S8ZxUIsN7L4
-         rkcT50oiASX+oL6WmOpTLgwNjpBFhYUt5S/UIyMgBULFJp5a83ASOaBfA0G6XtLlRb8M
-         i2BEU/xVCDQ9lua1KKdiuSSBKqR0JfPgt4HZA2ODMF9kqZPbku+7zgWJ1hShJ9hbl0X4
-         kFRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792414652; x=1793019452;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lf9FLL6T5/Kb7gEctiirso0+WOoWDflrhqqlYLNOZeU=;
-        b=izalHPKAo4pK/8tZje99LB4MMG3v9g0Ca+52M5sJGg2SyDxhxH86eo2EXdU9eK2gfM
-         zarD0gYyMFvM1DlpGLkVQWYHhki8Bxay8ThX5lBzG+z2GjbjCLz9PFO7cv5bQAIOCrmy
-         iAT/ksdKcM3Yw1dBTK+dawSusgbDoOiO5HvQsD8R2qe2cEtKAprPesKaewRN/RFcl6WX
-         psEoLQBZ62Bp3whkGXlU29cPe9l4sND6uG3QXd+wxK0wIrxiGEt+jEPV0qPKMPBPtWnB
-         Oy3ZAWi1UjIRyjz+CxNeSL+VwqjQuu2dMAGTLDwiE2YcM7Ggfje+vt1IDHTAtp7XS1s/
-         57cQ==
-X-Forwarded-Encrypted: i=1; AKwUvBypoUIk7RdafKhhFV4DyQw8LGYX6JphCEEcZiBdizyKa003RuLRha65YEaysjo2NLNwvkQ6M4+spMoA@vger.kernel.org
-X-Gm-Message-State: AFq9FYKGtfGeldlbOs+fvaQ+V8fAy8PbtL0sZmYXPtnAQ5uPjNcBXeUH
-	GTFl2nzzAs7KkAWv9X5Z0/YgbYvM7q7/nNbA8aqHtRPwELLAKiQ+ZPXz
-X-Gm-Gg: AYBFou325vCSN9UgGVIToC5oUDsSlFOB6/fTkiioZiH+/HCvzpBrzT64kyjnFTVVbEo
-	ai0ItY38P1ao/RkVvfBuLwUpn+//zhbXiPqWhX8H4vHBFocqaeLR/dHpDoxV34L0htWcEr4jTh1
-	6D6HfZx6GXI6Y4PCULrk2DYpGsgjTPQyODlHMQLD2IwZny8BXGKotPrqVG1VJMYzRAD+0f2OccS
-	Xpb+oREWinmZiSi3lTGKJMirruAysa0guF50FpbIxKaXiYdq+DZlWfV9JC9iCfe6punRcKcMDaL
-	ATy3g3X8vp0JDoXANh5wSRb+YMqt1oBWftYpveooKPwE5Y0OlBZjmbkEzZ7gB1hQ6/BMblgByA9
-	X5Nq3c+rDeBV/5TNI59w+f/SNuaD/tR+onoOtNyDuIk5Mcna5nHrs9JAfiDIcdS0X04mys1Hms7
-	dvGtu43687abYM0VcyUrbWz2E6PSzLmPnFeog1qL8VIJefdC5BUeIHhnL2R1tR6cXoDVfbXFJNL
-	HbCEv9Aqv54
-X-Received: by 2002:a05:6000:4b15:b0:48e:1421:ed49 with SMTP id ffacd0b85a97d-48e14220c4amr6571820f8f.18.1792414651426;
-        Mon, 19 Oct 2026 05:57:31 -0700 (PDT)
-Received: from [192.168.69.3] ([91.189.216.255])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfdcc0f20sm22643828f8f.11.2026.10.19.05.57.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 05:57:30 -0700 (PDT)
-Message-ID: <2c73e54a-d2b1-48cc-827c-6c29c6664697@gmail.com>
-Date: Mon, 19 Oct 2026 14:57:29 +0200
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="OwtqiSn/"
+Received: from francesco-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch [83.173.201.248])
+	by mail11.truemail.it (Postfix) with ESMTPA id 1A4171FB78;
+	Mon, 19 Oct 2026 14:59:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1792414784;
+	bh=eqw1GXGCRAW1PgP9DMPctNibwOSw+urfwmSp78HtwzA=; h=From:To:Subject;
+	b=OwtqiSn/XhoR2HA4ujVyBsokug4TuRkkpktuPpRhVXM9lTnfxp+1bWYL39vXxzO09
+	 XvZm1BPZIPVJKv1YaKGq7fUMdYQXGjxMOM8kMLPAs9Fb5evb7smyvzoVaKivgvIgDX
+	 gZ+5rQyya33N7C+mnWCQ8BQG4CbVic7jAHYmiJ+j34WS3R0MjjH1RgPKOPzvANWTiC
+	 h85U4vYAWHGvbRlqOjdhy1aWT42ZrLbpi8EOPegmogg5WRNMdqpynDz1mUc5ODzdxO
+	 8UZQx2LdMenvJwUn0RpoFpKjWPzuhFaMQqXUnKZelBey5aA+t6rskJ/bw9xGQkLTbo
+	 g/H8HISqOSqZQ==
+Date: Mon, 19 Oct 2026 14:59:40 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Kendall Willis <k-willis@ti.com>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, msp@baylibre.com,
+	s-kochidanadu@ti.com, a-kaur@ti.com, s-tripathi1@ti.com,
+	vishalm@ti.com, linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 0/2] Input: gpio-keys - support wakeup pinctrl state
+Message-ID: <20261019125925.GA149024@francesco-nb>
+References: <20261005-upstream-gpio-wakeup-v4-0-96f092de4690@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/12] iommu: qcom_iommu: implement support for instances
- on MSM8974
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>
-Cc: linux-arm-msm@vger.kernel.org, iommu@lists.linux.dev,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260809-msm8974-iommu-upstream-v1-0-87f5cd492560@oss.qualcomm.com>
-Content-Language: pl-PL
-From: =?UTF-8?Q?Micha=C5=82_Szczepaniak?= <m.szczepaniak.000@gmail.com>
-In-Reply-To: <20260809-msm8974-iommu-upstream-v1-0-87f5cd492560@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261005-upstream-gpio-wakeup-v4-0-96f092de4690@ti.com>
 
-On 09/08/2026 22:15, Dmitry Baryshkov wrote:
-> Qualcomm MSM8974 platform has five SMMU instances, used by display, GPU,
-> Venus, VFE (camera) and JPEG encoder. Each of them follows ARM SMMU v1
+Hello Kendall,
 
-Hi Dmitry,
+On Mon, Oct 05, 2026 at 03:47:03PM -0500, Kendall Willis wrote:
+> Add 'wakeup' pinctrl state to support separate pin wakeup
+> configurations for GPIO. Upon suspend the 'wakeup' pinctrl state is
+> chosen if it exists. On resume the 'default' pinctrl state is selected.
+> The 'wakeup' pinctrl state allows wakeup from low-power states if a
+> specific pin configuration is needed.
+> 
+> On TI K3 AM62 family of devices, the GPIO controller is turned off in
+> suspend to RAM states, so no interrupt can be received by the
+> controller. This prevents system wakeup from low-power states.
+> Alternatively, the pins can wakeup the system if a wakeup flag is set on
+> the pin by using pinctrl.
+> 
+> A corresponding device tree patch using the 'wakeup' pinctrl state can
+> be found under "arm64: dts: ti: k3-am62l3-evm: add wakeup-source for GPIO
+> button" [1].
+> 
+> Tested GPIO wakeup from suspend on AM62L EVM and AM62P EVM.
+> 
+> [1] https://lore.kernel.org/all/20260912-upstream-gpio-wakeup-dts-v1-1-2057d76c63aa@ti.com/
+> 
+> Signed-off-by: Kendall Willis <k-willis@ti.com>
 
-As requested, for the series:
+What's the plan/status on this? I see rob reviewed the bindings patch
+(in v3), but the tag is lost here.
 
-Tested-by: Michał Szczepaniak <m.szczepaniak.000@gmail.com> # Motorola 
-Moto X 2014 (MSM8974PRO-AC)
+We would benefit for having this merged, Toradex Verdin AM62 needs this
+feature.
 
-Thanks,
-Michał
+Francesco
 
