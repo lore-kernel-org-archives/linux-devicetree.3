@@ -1,103 +1,112 @@
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E8FB4FC8EA
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 13:41:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 921323DCD85;
+	Mon, 19 Oct 2026 13:45:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.238.236.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792417314; cv=none; b=F9YaYYvX2hZgA/ic/npxXfsd/RoXM5TE+pN8vrejfNqErQSmjvj9v8dYy0EcWEoPp7/FECIfDt25+0aB8Mg9zxW/fpgJLAnC9jSnbrzw3icnnCgBkcVljy1BI5PkvY/eWTQWQFKjyX9cp8S2Gbc6vQl6GKFdPwtDl0zJoaumJUg=
+	t=1792417518; cv=none; b=rKp2BaBZF5MQxbGFRCcSMvzsUNI+/pIj6MaLdKYTBZxhhklVXQkDOzGiOBHUcDzyZfeGD/h4vTZDjUVmGW+CjTGxqkNnyw4qVzroHeRIp7LXvA3DAmV9rJm3rVVPJQSH28qKtmEFuZpGt0W6xFtpezSfRsKE1dXNNQuHNt87NAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792417314; c=relaxed/simple;
-	bh=qrBvbqPT1PvYj/unzA4BJv9CA15VUhJrFfLuKfno1hg=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=m0etxEeFljDgeyrV4i6sbbWkwxwY1kUDyzcY6z7q3VdIm5TG3Hrgh4GBqL6oO6wCkKgr502Iivo6Lry6LCAC1kD4EfgfsMt59Zr1Ise/kR3e+jOXQkLTyB+jI2IqH3YHeJULgkhGMmBXbzlU17S34gaPAnqAOMSQRbdQxjYegN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mentallysanemainliners.org; spf=pass smtp.mailfrom=mentallysanemainliners.org; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=E7WK3j2q; arc=none smtp.client-ip=34.202.193.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mentallysanemainliners.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mentallysanemainliners.org
+	s=arc-20240116; t=1792417518; c=relaxed/simple;
+	bh=yaqoncugfCQpSCNIAmM/qNJTAZhZ2Gww61ws/IDHdFk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Z02DVdZ1VV5pnHmOZjaoOwfwev2CA5xC3BHz9efLAcmyAywEjuB5nLmhF9gw2mTWC1AUOsPa2/cxjvKOnBQQI8RBJBccqLCw864yNdFwuHecVk//IrspgyN7fVLwGWTPnsJmSFo4Azt7UP0HQI33RRLa838qkX4F8lFyGI1Ftms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info; spf=pass smtp.mailfrom=kemnade.info; dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b=14Kci2JB; arc=none smtp.client-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="E7WK3j2q"
-DKIM-Signature: a=rsa-sha256; b=E7WK3j2qEsD42xwu7LwH/xAzzGg1Gsiw6o2Trs/kVDwgUE4Ql9VQ6YYlWXDfLeKTo00v0HHNNFCAiWkU4XdHxuigUU4OHGXuzkKJXx9+Mhi/lIP+j11ROHTJ1Q3CCUMToOU3VKfv7dxORIVmvTvV0fOVWfjnqWi4L/Gyw24zr8uagEpUVthUmLZZ75NJsVbB8fRL8pMn+aV1EaGDxklHShAPniSRD4dIVwbWN+kgHWRR7Imh/VV66NM7bn2Ag8IcPuB6SwZVXExTO4OSJB42G2tM5pbPy59TZcgTsoZVehoV+iKa0JnmS7/Fqvj9mFdORpKuRneiQVlhNJmAQxmWxg==; s=purelymail3; d=purelymail.com; v=1; bh=qrBvbqPT1PvYj/unzA4BJv9CA15VUhJrFfLuKfno1hg=; h=Feedback-ID:Received:Date:Subject:From:To;
-Feedback-ID: 68247:10037:null:purelymail
-X-Pm-Original-To: devicetree@vger.kernel.org
-Authentication-Results: purelymail.com; auth=pass
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -1708545566;
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Mon, 19 Oct 2026 13:41:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b="14Kci2JB"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=peY+aObVcRc3+z92SmndUBTWbLH2yBpJPFW/B8sgqIg=; t=1792417517; x=1793627117; 
+	b=14Kci2JB7JgcO0zwVQA88zYe3ujIIkoUUZV0rDtioFu0OVcOyDd5vu3dmCWvNc+vozZ09LYGjYV
+	56dmAA6q5jJlhKA5oiGichf7hm1wqzj8eyUe2FWWbH9cg3zC0JPg2i81FahCX/tohybq1k0DL/gg0
+	hRk5E0mOwYt0uvL92YqyYe2kFV+oXuFgNUSuSlfI6uGBMSriXc7fnWcKCbiFqcUwmBRenPhkiP2aq
+	rJk1WncSr4CvPgjhMTsI/LvOwXrq3/2iH+zs9MrKVjn1SUyCORkNd3eVG4OpzujzV6PObyH6xaH+T
+	+bohyKQC/T3mJFW1BUJoucyqb9Mu33R76UtA==;
+Date: Mon, 19 Oct 2026 15:45:03 +0200
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Andrew Goodbody <andrew.goodbody@linaro.org>
+Cc: Ettore Chimenti <ettore.chimenti@linaro.org>, Paul Walmsley
+ <paul@pwsan.com>, Aaro Koskinen <aaro.koskinen@iki.fi>, Kevin Hilman
+ <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, Tony Lindgren
+ <tony@atomide.com>, Russell King <linux@armlinux.org.uk>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Christopher Obbard <chris.obbard@oss.qualcomm.com>,
+ Linus Walleij <linusw@kernel.org>, Rouven Czerwinski
+ <rouven.czerwinski@linaro.org>, linux-omap@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 06/10] ARM: dts: omap: dm816x: Update USB node
+Message-ID: <20261019154503.2111a89c@kemnade.info>
+In-Reply-To: <8a8313f1-d525-45d3-9044-b5f7a00b256d@linaro.org>
+References: <20261016-patch-ektor5-dm8168-dts-v1-0-b4ce30217028@linaro.org>
+	<20261016-patch-ektor5-dm8168-dts-v1-6-b4ce30217028@linaro.org>
+	<20261017083957.7c2696f5@kemnade.info>
+	<8a8313f1-d525-45d3-9044-b5f7a00b256d@linaro.org>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 19 Oct 2026 15:41:05 +0200
-Message-Id: <DM8UW484M1QM.1HU5NBOJ8TDDF@mentallysanemainliners.org>
-Subject: Re: [PATCH v3 2/2] arm64: dts: qcom: Add support for Xiaomi 17
- Ultra phones
-From: "Igor Belwon" <igor.belwon@mentallysanemainliners.org>
-To: "Abel Vesa" <abel.vesa@oss.qualcomm.com>, "Igor Belwon"
- <igor.belwon@mentallysanemainliners.org>
-Cc: "Bjorn Andersson" <andersson@kernel.org>, "Konrad Dybcio"
- <konradybcio@kernel.org>, "Abel Vesa" <abelvesa@kernel.org>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, <linux-arm-msm@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-X-Mailer: aerc 0.22.0
-References: <20261018-nezha-v3-0-7e8c63903290@mentallysanemainliners.org>
- <20261018-nezha-v3-2-7e8c63903290@mentallysanemainliners.org>
- <srwzxkzxbbgtlnhp6nndneoh6wgmfuheryxkaezi3jyps6f23c@jj7bgtezypqm>
-In-Reply-To: <srwzxkzxbbgtlnhp6nndneoh6wgmfuheryxkaezi3jyps6f23c@jj7bgtezypqm>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Abel!
+On Mon, 19 Oct 2026 10:36:37 +0100
+Andrew Goodbody <andrew.goodbody@linaro.org> wrote:
 
-Thanks for your review.
+> On 17/10/2026 07:39, Andreas Kemnade wrote:
+> > On Fri, 16 Oct 2026 16:41:21 +0200
+> > Ettore Chimenti <ettore.chimenti@linaro.org> wrote:
+> >   
+> >> From: Andrew Goodbody <andrew.goodbody@linaro.org>
+> >>
+> >> USB node was not working correctly with DMA enabled as the supporting
+> >> code had been updated without updating this SoC's device tree. Bring the
+> >> device tree more up to date so that it works with DMA enabled.
+> >>
+> >> Signed-off-by: Andrew Goodbody <andrew.goodbody@linaro.org>
+> >> Signed-off-by: Ettore Chimenti <ettore.chimenti@linaro.org>
+> >> ---
+> >>   arch/arm/boot/dts/ti/omap/dm816x.dtsi | 41 +++++++++++++++++++++--------------
+> >>   1 file changed, 25 insertions(+), 16 deletions(-)
+> >>
+> >> diff --git a/arch/arm/boot/dts/ti/omap/dm816x.dtsi b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
+> >> index 7f3ef3a00ab8..5be9efc60785 100644
+> >> --- a/arch/arm/boot/dts/ti/omap/dm816x.dtsi
+> >> +++ b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
+> >> @@ -574,18 +574,27 @@ uart3: serial@48024000 {
+> >>   		};
+> >>   
+> >>   		/* NOTE: USB needs a transceiver driver for phys to work */
+> >> -		usb: usb_otg_hs@47401000 {
+> >> -			compatible = "ti,am33xx-usb";
+> >> -			reg = <0x47401000 0x400000>;
+> >> -			ranges;
+> >> +		usb: target-module@47400000 {
+> >> +			compatible = "ti,sysc-omap4", "ti,sysc";
+> >> +			ti,hwmods = "usb_otg_hs";  
+> > 
+> > Why do we still need this? It is depcrecated.
+> > 
+> > Regards,
+> > Andreas  
+> 
+> Without that line we get the following on boot and USB does not work
+> 
+> [    0.110148] omap_hwmod: usb_otg_hs: no dt node
 
-On Mon Oct 19, 2026 at 12:57 PM CEST, Abel Vesa wrote:
-> On 26-10-18 11:17:57, Igor Belwon wrote:
->> The Xiaomi 17 Ultra device, codenamed 'nezha', is a flagship mobile
->> phone released by Xiaomi in 2025 (China)/2026 (EEA). It uses the
->> Qualcomm Kaanapali SoC.
->>=20
->> This device's configuration is based on the 'MTP' from Qualcomm,
->> as is also referenced in the downstream sources. Apart from the
->> usual differences (i.e. codecs, panel), it also uses the newer
->> WCN7860 (peach) connectivity chip, which is why WiFi/BT are not
->> brought up.
->>=20
->> The difference between the EEA and the Chinese model is the battery
->> capacity, notably, the EEA model has a smaller 6000 mAh battery when
->> compared to the CN 6800 mAh SiC battery.
->>=20
->> Currently implemented features are:
->>  - Booting
->>  - Power and volume keys
->>  - Storage (UFS)
->>  - USB-C Peripheral and Host modes
->>  - GPU
->>  - Fuel gauge
->>  - ADSP, CDSP, SoCCP remote processors
->>=20
->> Signed-off-by: Igor Belwon <igor.belwon@mentallysanemainliners.org>
+It is somewhat odd to use both ti-sysc and hwmod. It looks like a
+half conversion.
 
-[snip]
+For an example how usb_otg_hs was converted to ti-sysc for omap3, look at
+42a79edd4a3dc1bb8e89fd2849f9e8e1e1c13977...v6.1-rc1
 
->> +		sleep_clk: sleep-clk {
->> +			compatible =3D "fixed-clock";
->> +			clock-frequency =3D <32000>;
->
-> Is this not 32764 ?
->
+It has no hwmod stuff left.
 
-Downstream specifies 32000:
-- https://github.com/MiCode/kernel_devicetree/blob/popsicle-w-oss/qcom/cano=
-e.dtsi#L1439
-
->> +			#clock-cells =3D <0>;
->> +		};
-
-Ack for the rest.
-
-Warm regards,
-Igor
+Regards,
+Andreas
 
