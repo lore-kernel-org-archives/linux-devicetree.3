@@ -1,228 +1,168 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D4E14C1502;
-	Mon, 19 Oct 2026 10:23:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD9964C1502;
+	Mon, 19 Oct 2026 10:23:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792405390; cv=none; b=BZawT3wbbgJpIyWKJZMTXiNekr0QBGYAAjLWNSdophAOiYXLwdgxqEo8tdh1JUTD7SM2f2w90NLbm5VVBLUOzR72s+n1nehq7G+7RRQPe3dIa3Wt72sCZP4UNcQBkFX1Y/5gI7ehSL5eLoavsh7r26JUgN8ZrR6lMSOK0UQ5hCI=
+	t=1792405438; cv=none; b=dzOLjfEqKYehf+jve2NmtNZYgHnUsyjgB5oI0ms/Hs/M17D6DCQXV0IifHb/LmmNHhbLXaGLe7kB+9gkJJoHDC167demcOJYVyH6kdfcNE4v72D9ij0dnkJF/ML5kiPfnh2SyyIMsiUPfnAw6wIRPd8OMzwEv2eQ7WJh9J5/HKE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792405390; c=relaxed/simple;
-	bh=ELgmHtyUZK6LxZ9ZkLKbgrwvuThezsxfji8fEKzAf+E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Oe5DQgGGYXDYwwxqS/5h4fQxCQT1Azshd1/EQz+tKc3GG/v0SyJqTYbaYqZ/YTdVnbqukzrqaIqHJPXwaAjs1i+koPY5kzaXFfRW3yVkwINTZ+aFcNxQuc9WsC8Q6vOpCDomIqP1ygQWr3UyF7y+iCf/XvDQrhftWCNznh8gS/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=lOhO8DPz; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1792405438; c=relaxed/simple;
+	bh=EQ/IbfNS9nKNdAEu6jhHR5zYzZlCmz/vHhGduVDUTHY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Oi34mF5yr8irS9nOagQTpA2AenEuJGM6THxGtiBP1ielRPikbpcNV94DEAA1QpuW32OJoPptpDSxeZMKFqkZ6p4ytUBuroF5aQPniNTaSS2osLUEgCHbLDuHpij2+hcYaQtSQM2/ofcn9tWAoJY5URuuQzjs3DwRwKWWwL9lwT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hD+z2glt; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="lOhO8DPz"
-Received: from ideasonboard.com (unknown [93.65.100.155])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id DCC5B56D;
-	Mon, 19 Oct 2026 12:20:58 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1792405259;
-	bh=ELgmHtyUZK6LxZ9ZkLKbgrwvuThezsxfji8fEKzAf+E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=lOhO8DPz95h3dpArngaTT90NUp108nwPFN5QsOnlDo8JHBOtjbyfFfsxebbx99NTB
-	 J3wKXdY2yEKHsX9wcPDZeFRSfek51H/Wu12C/vn60tx2KTCc/EmY4wsc/3JUkv2rRL
-	 arRK+qcLbYCEHXg/UEvFHCm7MbCZZ64Jij/IlWTs=
-Date: Mon, 19 Oct 2026 12:23:01 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Daniel Scally <dan.scally@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Magnus Damm <magnus.damm@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v4 4/5] arm64: dts: renesas: r9a09g057: Add IVC and ISP
- nodes
-Message-ID: <atXol9eFjLKxgTpg@zed>
-References: <20261012-mali-c55-renesas-dts-v4-0-c410e280bf2d@kernel.org>
- <20261012-mali-c55-renesas-dts-v4-4-c410e280bf2d@kernel.org>
- <asz8oEtow_lrUU7K@zed>
- <CAD++jLnnSLXeYzxonkfnZA3OxLE9Hssma9fHsL=U=NmVn7ZVOg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hD+z2glt"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 62758C2BCFC;
+	Mon, 19 Oct 2026 10:23:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792405438;
+	bh=EQ/IbfNS9nKNdAEu6jhHR5zYzZlCmz/vHhGduVDUTHY=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=hD+z2gltoW/k4FmSkPQdNNc4KTvEhagNVFWQlB/K8EL3YhFWDDajT7SE4R35jU1go
+	 u7Rfj27VMEJVsB8fR+dp9xj6J9b8FDgENdXOOGWSJRkG5rnqVZzHAtoqH9C8DJ4RKR
+	 eRa6ukXZrZYh0iatAhhFFvFFBr7ihNF1Y9SshEyJG/otyjtozsi23Mhs/7f9NwzWdp
+	 x1w+cy/wCKd+1lSv21jn/hJx0PJHDwDsGT97l/ucjYcitpmD0Bl1xnJv5L2QFVZ0o9
+	 v+YhSW45ULjOYKiFnqUXAp2w3RUsQ8JF0NuSSCYB/8vqUv2elRYB8jQcBVBf0fUspw
+	 ZL2sULFcnsLXw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EF7ABCCF2D3;
+	Mon, 19 Oct 2026 10:23:57 +0000 (UTC)
+From: Aiden Isik via B4 Relay <devnull+aidenisik.member.fsf.org@kernel.org>
+Subject: [PATCH v2 0/5] arm64: dts: exynos: add initial support for Samsung
+ Galaxy Watch FE
+Date: Mon, 19 Oct 2026 11:23:46 +0100
+Message-Id: <20261019-for-next-lucky7-v2-0-c4ecab4b1c4c@member.fsf.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD++jLnnSLXeYzxonkfnZA3OxLE9Hssma9fHsL=U=NmVn7ZVOg@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALLv1WoC/2WNQQ6CMBBFr2K6dkhbRdSV9zAsGJiBqlAzBQIh3
+ F3AuHL5kvffn1QgcRTUdTcpod4F55sF7H6n8iprSgJXLKystid9NjGwF2hoaOHV5c8xAYqRD5d
+ YY4GkltVbiN2wFe/pl0OHD8rbNbMalQutl3G77M3q/erJX703oOFomdFiYjCzt5pqJIk4cOSlV
+ Ok8zx/wV4ZVxQAAAA==
+X-Change-ID: 20260815-for-next-lucky7-e5bf3950bdbe
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Aiden Isik <aidenisik@member.fsf.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3551;
+ i=aidenisik@member.fsf.org; h=from:subject:message-id;
+ bh=EQ/IbfNS9nKNdAEu6jhHR5zYzZlCmz/vHhGduVDUTHY=;
+ b=owEBiQJ2/ZANAwAIAUknAbLEetfrAcsmYgBq1e+6YjzaaPOzeBdhgf8S+2tZ8ccJTr788n1nN
+ SbeCkHVQR2JAk8EAAEIADkWIQSDy8UkXGpc3JNbEaVJJwGyxHrX6wUCatXvuhsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQSScBssR61+v+1hAAyy3DLescGXWNJZh8B+AdAfWdBRZxlE3
+ 38Dt+0/UzbzWuN7RVY5UHqJHK6iHb9AaZ0JKv8lO4SPKmhjQ/dmwwezLjnKaHaqZhF3qHk7r7od
+ vjtif9aUFVWoKGlON94ARrFvfb0AnLEfvj0aWRkOmIYmsjx+gBiXarh4aewaBRvniN5lF7S1XyN
+ lHWkE04UzYTcpJgQfuyTp2b8BpD3Zynv1Q0YnQI8xpap7q/hq3sC96W5h047GU0nuUVELxH1iG0
+ sq5Yve+dEHP2MXe0+3yFg1prfzae/2tZTOp01Cm2sjCkiSdR8N0vZZE5HYQvf2lqgdaa56GAfxy
+ V9QsKySOyn0OrMoUdEf0JGhqmEgnvqYr8JHXU3Cf9ScJylqr4Awv813Y7FO1F99WDuuAJ81ltI3
+ LWITfKehVjKTzhGuRWvCGYZGH17XUgX8BNR86tVTWNsZBLKH5x7/1fDG/J0xFx6HfVFIvJq3eut
+ G7eRz90KDKxoJm8/14TPq/Odmnq1K3xpLJVsU2/R6i7AV5A1Q7aul7TeW7zHI0ycX9+aGjGGpTr
+ BgLgJnm0vViKvGF1SYK4ACjIGefSgB//rBZV7KucW5ALRybBo0RLNnWpkUBcKoyl7Nuk6ffAgPd
+ Huj7PemM6FIyiSyDIQcbQhq2N5CymzQWZJj/AWytUNZ8EBq+Iftk=
+X-Developer-Key: i=aidenisik@member.fsf.org; a=openpgp;
+ fpr=83CBC5245C6A5CDC935B11A5492701B2C47AD7EB
+X-Endpoint-Received: by B4 Relay for aidenisik@member.fsf.org/default with
+ auth_id=956
+X-Original-From: Aiden Isik <aidenisik@member.fsf.org>
+Reply-To: aidenisik@member.fsf.org
 
-Hi Linus
+Hi there,
 
-On Thu, Oct 15, 2026 at 02:36:00PM +0200, Linus Walleij wrote:
-> Hi Jacopo,
->
-> On Mon, Oct 12, 2026 at 5:39 PM Jacopo Mondi
-> <jacopo.mondi@ideasonboard.com> wrote:
->
-> > How was this patch tested ?
->
-> I was using the TPG only so far, a camera module is in the mail.
->
-> I do have the RPi camera module 3 but didn't get it to work, this
-> may explain why...
->
-> > > +             ivc: isp-input@16040000 {
-> > > +                     compatible = "renesas,r9a09g057-ivc";
-> > > +                     reg = <0 0x16040000 0 0x10000>;
-> > > +                     clocks = <&cpg CPG_MOD 0xe3>, <&cpg CPG_MOD 0xe4>,
-> > > +                              <&cpg CPG_MOD 0xe5>;
-> >
-> > Compared to Dan's original patch I was carrying my tree the first and
-> > third ids of clock and reset properties in the ivc and isp nodes respectivelty
-> > are swapped
->
-> OK
->
-> > -                       resets = <&cpg 0xd3>, <&cpg 0xd1>, <&cpg 0xd2>;
-> > +                       resets = <&cpg 0xd2>, <&cpg 0xd1>, <&cpg 0xd3>;
-> >                         reset-names = "vresetn", "aresetn", "hresetn";
-> >                         status = "disabled";
-> >
-> > Fixes the issue for me
->
-> OK
->
-> > Why is this an issue it's not 100% clear to me.
->
-> Can you try this?
->
-> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-> b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-> --- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-> @@ -703,6 +703,12 @@
->                 return ret;
->         }
->
-> +       /*
-> +        * Allow the ISP's 2500-vclk reset recovery time.
-> +        * 200 us cover the RZ/V2H's documented minimum of 20 MHz.
-> +        */
-> +       usleep_range(200, 300);
-> +
->         /* Use "software only" context management. */
->         mali_c55_update_bits(mali_c55, MALI_C55_REG_MCU_CONFIG,
->                              MALI_C55_REG_MCU_CONFIG_OVERRIDE_MASK, 0x01);
->
-> When we now retrieve the reset and assert it, it matters that
-> we give the hardware time to recover. (If this works I will make
-> a separate patch.)
+This patchset adds initial support for the Exynos5515 SoC, along with
+support for the Samsung Galaxy Watch FE (codenamed lucky7), which uses
+this SoC.
 
-Unfortunately this doesn't help
+Support for the following is added:
+- Bootloader framebuffer
+- Both CPU cores
+- Memory
+- Generic timer
+- Watchdog timer
+- CMU_TOP, CMU_FSYS, CMU_PERI clock management units
+- ChipID
 
->
-> > I can't access the "additional documentation" from the Renesas website
-> > where the clock/reset ids are reported. Could you please check ?
->
+Currently, these device trees support booting the device to an initramfs.
 
-I mapped the dts entries to the clock/reset signals.
+There are quite a few regions of reserved memory, where usage of them
+can crash the system and/or cause unexpected behaviour. Currently, most
+of them are named "misc-rmem@addr". They will be given names as their
+accompanying device drivers are added and their purpose becomes apparent.
+If you would like them named feel differently, feel free to let me know.
 
-This is what is implemented by your patch:
+The VGIC maintenance interrupt seems to be unavailable on this SoC.
+I cannot find any reference to it, nor usage of it, anywhere.
+It *could* very well still exist, but it is a mystery for now (and also
+not a *huge* deal on a low-power SoC designed for smartwatches).
 
-* means the clock/reset is only handled by the IVC/ISP drivers
-** means the clock/reset is handled by both the IVC/ISP drivers
+I am getting checkpatch warnings on this patchset advising to check
+MAINTAINERS as new files were added, but I am ignoring them as the
+entirety of arch/arm64/boot/dts/exynos is covered already.
 
-(why the IVC has three entries as well, it's not 100% clear to me, but
-this is unrelated)
+This patchset depends on [1] for drivers and device tree bindings.
+Note: This dependency was merged into the linux-watchdog tree.
 
-ivc:
-   clocks:
-   - reg: e3 (227)  -> CGC_ISP_0_pclk         *
-   - axi: e4 (228)  -> CGC_ISP_0_vin_aclk     **
-   - isp: e5 (229)  -> CGC_ISP_0_isp_sclk     **
+[1] https://lore.kernel.org/all/20260821-for-next-lucky7-watchdog-v4-0-d070cee5009f@member.fsf.org/
 
-   resets:
-   - reg: d4 (212)  -> ISP_0_PRESETN          *
-   - axi: d1 (209)  -> ISP_0_REG_ARESETN      **
-   - isp: d3 (211)  -> ISP_0_ISP_SRESETN      **
+Kind regards,
+- Aiden Isik
 
-isp:
-   clocks:
-   - vclk e5  (229)  -> CGC_ISP_0_isp_sclk    **
-   - aclk e4  (228)  -> CGC_ISP_0_vin_aclk    **
-   - hclk e2  (226)  -> CGC_ISP_0_reg_aclk    *
+Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
+---
+Changes in v2:
+- Fix patchset title
+- Fix DCO email
+- Fix style issues reported by dt-check-style in strict mode
+- Added patches which were accidentally dropped in v1
+- Fix reserved memory and make all memory accessible in the memory node
+- Remove redundant PSCI 1.0 cpu_* function IDs
+- Extend GIC registers to correct size
+- Correct GIC unit address
+- Correct CPU unit address
+- Document unavailable VGIC maintenance interrupt
+- Remove references to dependencies which have since been merged to this tree
+- Link to v1: https://patch.msgid.link/20260817-for-next-lucky7-v1-0-42ffb2b71ba2@member.fsf.org
 
-   resets:
-   - vresetn d3 (211) -> ISP_0_ISP_SRESETN    **
-   - aresetn d1 (209) -> ISP_0_VIN_ARESETN    **
-   - hresetn d2 (210) -> ISP_0_REG_ARESETN    *
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Peter Griffin <peter.griffin@linaro.org>
+To: Alim Akhtar <alim.akhtar@samsung.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-samsung-soc@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
-As libcamera calls start_streaming on the IVC first the sequence in
-which resets/clocks are bulk_enabled is:
+---
+Aiden Isik (5):
+      dt-bindings: soc: samsung: exynos-sysreg: Add compatibles for Exynos5515
+      dt-bindings: soc: samsung: exynos-pmu: Add Exynos5515 compatible
+      dt-bindings: arm: samsung: Add lucky7 board binding
+      arm64: dts: exynos: Add initial support for Exynos5515 SoC
+      arm64: dts: exynos: Add initial support for Samsung Galaxy Watch FE
 
-* = number of time the clock/reset signal has been enabled:
+ .../bindings/arm/samsung/samsung-boards.yaml       |   6 +
+ .../bindings/soc/samsung/exynos-pmu.yaml           |   1 +
+ .../soc/samsung/samsung,exynos-sysreg.yaml         |   3 +
+ arch/arm64/boot/dts/exynos/exynos5515-lucky7.dts   | 219 +++++++++++++++++++++
+ arch/arm64/boot/dts/exynos/exynos5515.dtsi         | 189 ++++++++++++++++++
+ 5 files changed, 418 insertions(+)
+---
+base-commit: 993e1bec85faedf90c5d27480793084e54357c09
+change-id: 20260815-for-next-lucky7-e5bf3950bdbe
 
-        [IVC        ][ISP          ]
-        [e3* e4* e5*][e5** e4** e2*]
+Best regards,
+--  
+Aiden Isik <aidenisik@member.fsf.org>
 
-        [IVC        ][ISP          ]
-        [d4* d1* d3*][d3** d1** d2*]
 
-This results in the following overall ordering
-
-        e3: CGC_ISP_0_pclk
-        e4: CGC_ISP_0_vin_aclk
-        e5: CGC_ISP_0_isp_sclk
-        e2: CGC_ISP_0_reg_aclk
-
-        d4: ISP_0_PRESETN
-        d1: ISP_0_REG_ARESETN
-        d3: ISP_0_ISP_SRESETN
-        d2: ISP_0_REG_ARESETN
-
-Now, my proposed patch switches e5 with e2 and d3 with d2
-
-        [IVC        ][ISP          ]
-        [e3* e4* e5*][e2* e4** e5**]
-
-        [IVC        ][ISP          ]
-        [d4* d1* d3*][d2* d1** d3**]
-
-What I don't get is why this should make any difference as the overall
-ordering wouldn't change. When the IVC resumes the 0xe5 clock will
-anyway be enabled before the 0xe2 one, regardless of the order in
-which they are specified in the isp node.
-
-        [IVC    ][ISP]
-        e3 e4 e5  e2
-        d4 d1 d3  d2
-
-Unless I don't understand something about the enablement of
-reset/clocks with multiple users...
-
-Also the only indication I find on the V2H manual on the expected
-enablment ordering is:
-
-    All clocks should be turned on and off simultaneously.
-
-Something the doesn't happen today. Maybe we're *very* lucky that
-enabling e2 first in the ISP driver matches some window that is missed
-by enabling it last, but this seems very very far fetched, isn't it ?
-
-> These changes contradicts the manual so we can't change things
-> like this unless we know more, it'd be too much trial-and-horror.
->
-> The manual says:
->
-> Video/ISP core
-> 0xe5, isp_sclk
-> 0xd3, isp_sresetn
->
-> Register-interface bridge
-> 0xe2, reg_aclk
-> 0xd2, reg_aresetn
-
-Do you maybe have any information on how the above signal maps to the
-C55 clocks/reset and if there's any indication that might help better
-understand the issue ?
-
->
-> Yours,
-> Linus Walleij
