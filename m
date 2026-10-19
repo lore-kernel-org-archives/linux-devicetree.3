@@ -1,53 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=142.132.183.134
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792435641;
-	b=YqhoK5i+4sIgIuoOoCKKT2Dk7fDQDQA+cWCRki5Z1rdYAjJv2Ak6ktcUbLHjiahcaGVP
-	 RjfsFbboxinMpeXsYpqFMbHrsTFn0ttYYqVBE37JtDflnpv1FzhiNLIylcm0dXKLpFEUd
-	 8+ntisomHQF9buFwS4q+KB5xCRnAO5/N4t4Os9DlY5QjhZMOQr64NQMYI5h+ZCNA54YvD
-	 tMKxidjbTPgtZAtzjMCXXffVmHOtf5Txj7zQ0lkNw4YVa5+96uNF9O9Wqlrcmwg8hkQwv
-	 v51gy8pkPzRclqL7h/iInl/XkOPNBBYirt2Bdt+cy9VGjTf9DExnSqJI85d/Cyarh/w==
+	t=1792435956;
+	b=yiGJr7PFfDECNWCAapIW8tvX707baOiAX4WNHskiDtDGDhiUaLrIcedmWrrly94qTxCG
+	 Ut+cIt88FxF42PYwN1wnOy9yFiqch6e7eiwOlINxMmYZdCdhb1yOgsMxLruKQn65OKrTn
+	 TVGXWO2d1nHsPHOsHIaDsxcZdZeXU1FeRmuFuqRluUk8SUtRsoONzxYBBOMuGW9pfYXA8
+	 RgGQcmEHu+UV7+jIX5b4sXM49IIyxPuVS+TMe5fXUValZQm9TYyJxGex0VLTJDo3EFtat
+	 MV84Qc+qTURuIdbIGffr5gffTJH4ms7DwWlGPwpzAt+D/oxFiEzK9m2/6t4Rabo831Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792435641;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
-	 From:Autocrypt:In-Reply-To:Content-Type;
-	bh=8lRJe6qcL32g26xvlmRfstXqu2NrULSP/zOENc5q8uM=;
-	b=gM6QbpTwg+Hwigie/C1VLbIG69Pt4AwittI6J2hZk9CO+VdsdTA1FQDvGH1P2dKwSgEy
-	 iWhMpuc6YsLyCT5XVwfA4Fid3MspP1FZ/vVKIMkW6NBqXyuKnmg86WyWk3DXOeapTHB5q
-	 OLuw0yrBZzF8cHSgqfZLA2GhERgvg9M0dPxjak/CahzMZHJgvUgjbI9ragBRbKRO3VIsT
-	 gOxs04tKBksGrNcosPl+goUzUl2xjTXD2ud9Qe1AbXeMk+e2N8thHQLZd3++vZg5lkk7O
-	 HfzQxaCcVH2mOE3bVsd2+KxIOAN7V8kbdurKoCNMcRLO4JSOwCZOUy5hx4tYgncmU2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792435956;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=hw8mNyz0WQQVtaj/CRL34akX6Nc9WuHlIQaHOlLjqNk=;
+	b=bMvITF7LlCFYwVwjqz22J1dpvCbV02laeQn9gBMop7kPlo3EyaEMNSJTscLb/SjU0sVe
+	 hXt3GRRMIwN+SAXA0vvjMVKGIv73dJr0HKYU55k+JEZw2b6I4OpfVs5uuVYCOdryBGh9P
+	 9Bw4IEjZ+Iw1dZAh78x0+SYkYjlBWjrBAt6/7uP65MDPvTPrU8oAChnP9YxXXeaYegj8k
+	 IeQeDbhIMVyxpPygMpieYBQvAy8UJJCXb0i5dWdemad76+pSf3KwhGzGbdsyXLy5qpJh0
+	 sqjO9KOSUIFpU1Oz/MaltY+DH1oEncb8quuZv1OTvNjqjp9VcyUS4dBH4cLoE/Ehkgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=erebion.eu;
-	spf=pass smtp.mailfrom=erebion.eu;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=XSgqmx6G;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=JV+d0HXt;
-	arc=none smtp.remote-ip=142.132.183.134
-Received: from erebion.eu (erebion.eu [142.132.183.134])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iSmRPQpi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A10BC606A32A;
-	Mon, 19 Oct 2026 18:47:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A10BC606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=erebion.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D055606A31E;
+	Mon, 19 Oct 2026 18:52:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=XSgqmx6G;
-	dkim=pass (2048-bit key, unprotected) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=JV+d0HXt
-DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=From:To:Subject:Date:Message-ID; t=1792435619; bh=8lRJe6qcL32g26xvlmRfstX
-	qu2NrULSP/zOENc5q8uM=; b=XSgqmx6GJFEc55A58Z69kzM+ZxM+9OMpCkmlyMX8PMhn0Trq5Y
-	o8SKSZQ44tSyEo/EJu0Aes9S9Rp9xU1d9zDg==;
-DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=From:To:Subject:Date:Message-ID; t=1792435619; bh=8lRJe6qcL32g26xvlmRfstX
-	qu2NrULSP/zOENc5q8uM=; b=JV+d0HXtsgjVFmk7ygN7jYk+YTiX17byMVPzU1/L1+GnxvHSMT
-	Ua6wxvFAg1d+xBFx2TcaxeX932UyYGPXM05oUpdgSKJM6Y6X5ZRqH1/aUhhT7Ls0h1A2fBqllL9
-	sLOw91ZnZ1w60mjxk7NEYaL2V2ryqQTxe4H/5Pef+BdCExdP3jtBddJ3cpL/khngdkkQk8oH9Wo
-	5qY4eOizsTHQZ00YsesGn6r1naQAyuAbv3OsSJ14r6/4JHlCRo0Ihg/1BLMPrjE+IRS4ezfwaS0
-	ZtqZjKciYakJgIbmswyAf08FIwpFvzIusV3Iw32a7iihCr6u4Aq6nc0x+zW6DxXTiXw==;
-Message-ID: <4fda6ac5-b6e9-4c95-a671-5a9aa86a4c38@erebion.eu>
-Date: Mon, 19 Oct 2026 20:46:58 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iSmRPQpi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91F491F000C4;
+	Mon, 19 Oct 2026 18:52:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792435955;
+	bh=hw8mNyz0WQQVtaj/CRL34akX6Nc9WuHlIQaHOlLjqNk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=iSmRPQpinqxdqgtMZeZJWARK1vBDh5TelL4sc35nc04xgGMC4T1UwUk9F/608cUvv
+	 BlUOAncr+6FJ+exQ8HkqIiuqyZZCbjOlTHdEhJBSg0xppKdr4F6SgEnFSHcLyHAY+e
+	 G545t9d6vN/6T85N5v0+cfa8MOQmB4LgcdZ1JRtY4MXrifZ3pcPRYeg2+mxoZ+lM59
+	 RwFQgkIoNKVqg/CxtRGTTdDEcS/7OMFud0M+w9BlTzE0nL/QBkLzqJWcbeQJYD1y3W
+	 rjzrYJuV7Dqg4Wp4Afw5pcwop8y9Z6cyscyjJhpiHxQk/AtCzAEePliBjEmVCfdoAR
+	 sK/HMAJX3jrgg==
+Message-ID: <sashiko-outbox-178111@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/3] hwmon: (fs1603) Add driver for TDK FS160x and
+ FS1006 uPOL converters
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kevin Jia" <kjia@nexthop.ai>
+Cc: devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261019-fs1603-v1-3-8adf972386c1@nexthop.ai>
+References: <20261019-fs1603-v1-0-8adf972386c1@nexthop.ai>
+ <20261019-fs1603-v1-3-8adf972386c1@nexthop.ai>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 19 Oct 2026 18:52:35 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -56,102 +60,58 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 7/8] arm64: dts: qcom: sm6350-lena: Enable PM7250B
-Content-Language: en-GB
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
- <20260926-pdx213-upstream-3-v2-7-b4612e3eb536@erebion.eu>
- <90d33b88-d171-4aef-8046-332a518dafca@oss.qualcomm.com>
-From: erebion <erebion@erebion.eu>
-Autocrypt: addr=erebion@erebion.eu; keydata=
- xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
- HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
- QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
- j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
- qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
- OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
- CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
- rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
-In-Reply-To: <90d33b88-d171-4aef-8046-332a518dafca@oss.qualcomm.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------H90K3fw2jYTnIrWn1g01WfTJ"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------H90K3fw2jYTnIrWn1g01WfTJ
-Content-Type: multipart/mixed; boundary="------------FDJmtutktn8xqKdrIpzVE0Qk";
- protected-headers="v1"; hp="clear"
-Message-ID: <4fda6ac5-b6e9-4c95-a671-5a9aa86a4c38@erebion.eu>
-Date: Mon, 19 Oct 2026 20:46:58 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 7/8] arm64: dts: qcom: sm6350-lena: Enable PM7250B
-Content-Language: en-GB
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
- <20260926-pdx213-upstream-3-v2-7-b4612e3eb536@erebion.eu>
- <90d33b88-d171-4aef-8046-332a518dafca@oss.qualcomm.com>
-From: erebion <erebion@erebion.eu>
-Autocrypt: addr=erebion@erebion.eu; keydata=
- xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
- HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
- QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
- j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
- qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
- OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
- CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
- rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
-In-Reply-To: <90d33b88-d171-4aef-8046-332a518dafca@oss.qualcomm.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] hwmon: (fs1603) positional initializers in struct i2c_device_id fs1=
+603_id
+--
 
---------------FDJmtutktn8xqKdrIpzVE0Qk
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+commit d32400df72d7884af500586426d84640110c0f0e
+Author: Kevin Jia <kjia@nexthop.ai>
 
-T24gMTAvMTUvMjYgMTI6NTUsIEtvbnJhZCBEeWJjaW8gd3JvdGU6DQoNCj4gYXJjaC9hcm02
-NC9ib290L2R0cy9zb21jL2NoYXJnZXItbGVuYS1jb21tb24uZHRzaQ0KPiAxODogICAgIHFj
-b20sb3RnLWNsLXVhID0gPDEwMDAwMDA+Ow0KPiANCj4gc2hvdWxkIHRyYW5zbGF0ZSBpbnRv
-IHRoZSBtYXggYmVpbmcgMSBBIGhlcmUNCj4gDQo+IEtvbnJhZA0KDQpDaGVja2VkIHRoYXQg
-YWdhaW4gYW5kIHlvdSdyZSByaWdodCwgd2lsbCBmaXggdGhhdC4gVGhhbmsgeW91Lg0KDQot
-LSANCmVyZWJpb24NCg0KWE1QUDogZXJlYmlvbkBlcmViaW9uLmV1DQoNCk15IGxhbmd1YWdl
-czogR2VybWFuLCBFbmdsaXNoLCBTd2VkaXNoLCBOb3J3ZWdpYW4sIERhbmlzaA0KWWVzLCBJ
-J20gYSBsYW5ndWFnZSBuZXJkLiBGZWVsIGZyZWUgdG8gd3JpdGUgdG8gbWUgaW4gYW55IG9m
-IHRoZSANCmFmb3JlbWVudGlvbmVkIGxhbmd1YWdlcy4NCg0K
+hwmon: (fs1603) Add driver for TDK FS160x and FS1006 uPOL converters
 
---------------FDJmtutktn8xqKdrIpzVE0Qk--
+This commit adds a read-only hwmon driver for the TDK FS1603, FS1604,
+FS1606, and FS1006 uPOL DC-DC converters, reporting input and output
+voltages, output current, temperature, and protection thresholds over a
+proprietary I2C register map.
 
---------------H90K3fw2jYTnIrWn1g01WfTJ
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+> diff --git a/drivers/hwmon/fs1603.c b/drivers/hwmon/fs1603.c
+> new file mode 100644
+> index 0000000000000..ae22964d22b2c
+> --- /dev/null
+> +++ b/drivers/hwmon/fs1603.c
+> @@ -0,0 +1,480 @@
 
------BEGIN PGP SIGNATURE-----
+[ ... ]
 
-wnsEABYIACMWIQScjKa1EcO/2KYx++uOr0AybgKufQUCatZlogUDAAAAAAAKCRCOr0AybgKufcOQ
-AP9yABAksAOzQkkp/37NV1Jto2w2xrpXku2ghU37JtTZ1QEA2VVc1EF7TAvaTPnMs/SO5CmQB9+b
-XiqaUT9UBcAI2Ag=
-=M7OE
------END PGP SIGNATURE-----
+> +static const struct i2c_device_id fs1603_id[] =3D {
+> +	{ "fs1603", (kernel_ulong_t)&fs1603_models[fs1603] },
+> +	{ "fs1604", (kernel_ulong_t)&fs1603_models[fs1604] },
+> +	{ "fs1606", (kernel_ulong_t)&fs1603_models[fs1606] },
+> +	{ "fs1606_0600", (kernel_ulong_t)&fs1603_models[fs1606_0600] },
+> +	{ "fs1606_2500", (kernel_ulong_t)&fs1603_models[fs1606_2500] },
+> +	{ "fs1006_5000", (kernel_ulong_t)&fs1603_models[fs1006] },
+> +	{ "fs1006_3300", (kernel_ulong_t)&fs1603_models[fs1006] },
+> +	{}
+> +};
+> +MODULE_DEVICE_TABLE(i2c, fs1603_id);
 
---------------H90K3fw2jYTnIrWn1g01WfTJ--
+[Severity: Low]
+This isn't a bug, but should the entries in fs1603_id[] in
+drivers/hwmon/fs1603.c use named initializers (.name and .driver_data)
+rather than positional initializers, matching the convention for new
+struct i2c_device_id tables and the style used in fs1603_of_match[] right
+below?
+
+[ ... ]
+
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80
+Touestas, feedback, or questions about this review? Email
+linux-kernel-bot@google.com.
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019-fs1603-v1-=
+0-8adf972386c1@nexthop.ai?part=3D3
