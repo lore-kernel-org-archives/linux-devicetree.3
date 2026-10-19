@@ -1,78 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792428070;
-	b=FQosHKIcwVou1P7qW66i3bbi1m29fr2KLRMiRtLc8k0RzD2P6XdpA5EFhCjqffY+isoe
-	 5TM9/xAwnVbfNbn3NWD/mAm281bB/6pkqVsYxPGt95nK+OfjmyNa0bjd0LEKvrOyPAAbm
-	 zRE8kK8CvS3MKQJUga65HdZiliI5cqHwBgxBwqKBK0fq/hL670hlgbTQu/aUmXq/wAXPp
-	 TVDHIMN42a08rrwtzMlECkaS+ygLEhZJQ3qs/O7DUxAuiuAWaXsQc14b9HlWxbfi+xMTx
-	 zkgens2TR+0Ds5qAs2v3ITJMQ8h7oo3Fl7PJRuxwqU/rfAv4BDZD3AZxclYfwdLskFw==
+	t=1792428180;
+	b=IeZL3ijrkV2REIhVhfsVuDbVNwE477wthQjOzyPJG1FOOs81X7x78UXXbXlR13DjK79y
+	 4dBJig5nS4k+U0KuHNl7nwCVDcRbQRKUOKojiKwtMO7J8tarNX96E8MMtw4MGk7GMe8DE
+	 I6cHqUvG1qXOItnJdjgTaF60dht5ymIhz6YLQz4Lg+ccuXUSTCUjQoy894VYc90JtgZ0I
+	 kODvi+YHm3/N4WmDN2eezIYATEY5ZkM7vXSJ+IlqTx1g/QXQH4j70bVD+OYxlPEe73YPs
+	 T5b3J+MgmbZ80iL66HGpbxwWeOF5zfY0fJyuiNOkYuwLUaNXRWdL93gSJUqo/UiYzfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792428070;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=rbdfVHO0AKwNo2sneKiVEbPJk3OuiQ8lKgq/D/YXIj4=;
-	b=NORRN6wWWgQwM1rROhRJ1ISkRrgkxaJlXtJLBbR54+MsqU4sFFfHye8T4e4AflaUVOJD
-	 wHkOKGCeDwMPT/s+tGUICuvD3++Q7iDA1sA/WrrLQmLcCS1FzXTahDDnRi0nHresIex4r
-	 ZZF50HPCQr8PTF8vk9CrmY0YvjgYSij+uQJxOcr8a1BVlbtltNty6+uKt5r0c8plSLOFY
-	 txVIreWcp/iDlKg7DK/Qd6RKy3RSt+NEvZn5ns5SroxU/Z4/GF77wVTUTsNUkiT7wPeau
-	 dFu0JQ0EkWZUBNIPdzbqTwtX9nNtzz0aIgaHiy6RzDTQQ5M92W+l9g37ZZ0CkMJjb5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792428180;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=PmiGcIdjfKIGHCu1gzOSxutdw7IHUOocB921VJoVgxA=;
+	b=uaKWyUaec6exKe0oPi7hNXE4DmeHC4FJY9EfQqE99wKuZ8v/izFKshwqPoi2dt9OzPiJ
+	 hyUXvKfrpf/npyzJhsjvNOl2mYvu59o7DIa8jD5MF4wMbobyln9/qa2PhTU3mUOX05pOL
+	 x+96k0I133NnE1JhNV7laJaLqrRmoGEKBJkddwHVIt0MC7nMm6co2bDHNHdvsJyA+XbGz
+	 8ERcZpHJvllM6X9+vEn7GeNmwXn6+jFHRxrlPjB7KqIbsXfvZfPSBC6P3uazbSXadKc4a
+	 MbJ4hz+pAwTHHNumv9SiShGovyz3vTNmi92e9Qfx5fW1FWSTuJTEQcod5mPvTy5kntg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iJoCE9DB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.218.53
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE7FA606A31A;
-	Mon, 19 Oct 2026 16:41:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iJoCE9DB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 360D71F000C4;
-	Mon, 19 Oct 2026 16:41:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792428069;
-	bh=rbdfVHO0AKwNo2sneKiVEbPJk3OuiQ8lKgq/D/YXIj4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=iJoCE9DB2Dexn5w31cqx1Is7Akz7QHS7QDtEZIpsTaGyksewCOPOZTkDqQFoFXl+3
-	 jBRd8C4q7edopIozvLloPBDNK3De5o3NttHYOvP8Eo008bFd8/DnmmMrUrm4nB41BG
-	 MIvMGQ4PSLNxua+sGZCv85rrFQ1T7HEmNPZ9g/qrAyRvDH8TiGgsTMuFEvWG04rQq+
-	 jk4MA9aJ9cBcS3saD9IRKX4TpRZX/gP0WD5D8ngtDXmn4E8uMaDvVWOm+MM4eIyPBy
-	 ykoktRYSXdG5lGcbVm3YRyoxpty48Z9EQLQI68IEg4ZBND6XSDDirexkSRygLMrqLR
-	 U1juSrQeIUKsA==
-Date: Mon, 19 Oct 2026 11:41:08 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Inochi Amaoto <inochiama@gmail.com>
-Cc: Jingoo Han <jingoohan1@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Frank Li <Frank.Li@nxp.com>, Arnd Bergmann <arnd@arndb.de>,
-	Niklas Cassel <cassel@kernel.org>,
-	Christian Bruel <christian.bruel@foss.st.com>,
-	Senchuan Zhang <zhangsenchuan@eswincomputing.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Randolph Lin <randolph@andestech.com>,
-	Xincheng Zhang <zhangxincheng@ultrarisc.com>,
-	Alex Elder <elder@riscstar.com>,
-	Siddharth Vadapalli <s-vadapalli@ti.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Vidya Sagar <vidyas@nvidia.com>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
-	linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev, Yixun Lan <dlan@gentoo.org>,
-	Longbin Li <looong.bin@gmail.com>
-Subject: Re: [PATCH v7 1/6] PCI: spacemit-k1: Add device data support
-Message-ID: <20261019164108.GA2177470@bhelgaas>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7950606A31A
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 16:42:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7950606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c3f04e0e65fso317291166b.2
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 09:42:59 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792428178; x=1793032978;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=PmiGcIdjfKIGHCu1gzOSxutdw7IHUOocB921VJoVgxA=;
+        b=hbgxUGgw5wZutWBMSSf3nTmFJzbVnSGC8do1jhafuRwIW1j4Oajym+w4ERXE5qzSu8
+         ZzvekofIY9Q8akN38aNgoqP/JsjWVb+Kl/SBZ2rfbY8GlOVc6ZbmwKC0oNzqncmskigr
+         dBNY8VSmle8fWv5wSywrw289CXcolDND3zTHN7IL/BqQSeDw9TFlNmoFE1Yn9NwibUQB
+         vD2/CE0un9EIQMHwqf5URCIMHbSvH+JBXI2yadG+XTRQ0T13dtaOrLDg0NRMHRHgtj/f
+         edYcQF47ErbR2oWE5lKdl+aztVqNvaLW9z+CLGJh0ZAVk8zEcVVX1lJlCbyQIg2uq4rh
+         zdqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzSYAvAkSUDXjPEHihcU/Uo4OnlFjk7Kz0QzCzXnHhk7GrrpFBkqU108+Zs1MwOSGedCoRF2ZcdZXG+@vger.kernel.org
+X-Gm-Message-State: AFq9FYID8cIwNJvV9+qaJIqdN7eqNNW+28g9POHkBEce9ZJt79exvpzj
+	RQaNBGpN9LKj10wuDmz3roCmjGwyPEjI0t9D0qqgd9RJXZCevVCNm8bv6zQ8VBtilE0=
+X-Gm-Gg: AYBFou1DvFMNO2x0mOVa1DhFm5D6F1rzq1pUBtHVOhD9QX+UuCLAQJGeOx0NAlt+twV
+	2dwGxgvqLCK3QsEAruRAG0wUqg/0cV1ClwKYaaANPvokWKYU69ASpClhjZS4K+pUAy2q8AjU/Lw
+	e63RSMz4UPNHr5LJsm64OtrmJHLs0s1PVsN1Ta1QuX46on7dPyKP4GNoAdWRlQqEcTncCmYHs3H
+	gFLUaR1sr8cQgzRElfQiDevRbr3f2EmiciUcOWNrQQSiuar/HDwV4k7YopT8AtVBepGLhTlKbaZ
+	F/7rIt7vLxK62DG+97G8SJ2JJ59z6JQA9gFKx6JWhSIj5HO26KnkH/vmqUAbF/hxcs+qWuK4x0y
+	xTF+CDF5/HOr/lZH0n5bQ1sYqot76zmy7jna86mIdN0lnNaOjO/C95a/NOsrOaFM+csS1mxWDG5
+	WPe4SmCjZEhMR3paiSKzztA/1qGrf+zwceqQEckad8PqTYTTjGskZKWSrNIgYpQyqX7i9Bgy5RP
+	GTtmGMT+xUZXg1m5QzfcYI43qD9Dhc15HINLu2DtgYE3xsRbKbZN6XvjoAJoKiscUUM5/lk0GSp
+	+Y+0bcqjhLScZNS5sg==
+X-Received: by 2002:a17:906:99c4:b0:c3f:a728:b437 with SMTP id a640c23a62f3a-c41a0dd50damr554573266b.45.1792428177946;
+        Mon, 19 Oct 2026 09:42:57 -0700 (PDT)
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com. [209.85.218.50])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4090dd10d4sm385906966b.27.2026.10.19.09.42.57
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 09:42:57 -0700 (PDT)
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so264401166b.3
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 09:42:57 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByw4Uf7lkghlV7njPcRIFc/XT+YgSh4ZB+06poAymUUjtT/ICk9nOqc2R/ybfsUgxxcTO2FlxkHYbGd@vger.kernel.org
+X-Received: by 2002:a17:907:9605:b0:c3e:ee86:d2c with SMTP id
+ a640c23a62f3a-c419f31c8bamr564444366b.27.1792427870527; Mon, 19 Oct 2026
+ 09:37:50 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,109 +80,119 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929083755.458238-2-inochiama@gmail.com>
+References: <cover.1792163045.git.geert+renesas@glider.be> <1d7da50cfb58232c6dd4c4afefb938fd7e62fdcd.1792163045.git.geert+renesas@glider.be>
+ <20261019144256.GC763679@killaraus.ideasonboard.com> <CAMuHMdWkAvkxHkzRVviF_NkZHP7UeCBjebxciE6jFN_8ViM=aQ@mail.gmail.com>
+ <20261019152203.GA5830@killaraus.ideasonboard.com> <20261019161436.GD3705@killaraus.ideasonboard.com>
+In-Reply-To: <20261019161436.GD3705@killaraus.ideasonboard.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 19 Oct 2026 18:37:36 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVRvguzV+3CpOfkR+b-a0p5TrmUUF1fV0kdafXuNLV1oA@mail.gmail.com>
+X-Gm-Features: AclHuK-8scCJz9rF32kL_0712rSWvXw0tvi_Wr1HURn1pKiiIZROkb3-2ONTagY
+Message-ID: <CAMuHMdVRvguzV+3CpOfkR+b-a0p5TrmUUF1fV0kdafXuNLV1oA@mail.gmail.com>
+Subject: Re: [PATCH v4 1/8] clk: renesas: r8a78000: Add clk_hw to clk_map
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Ulf Hansson <ulfh@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	"Rafael J . Wysocki" <rafael@kernel.org>, Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Kevin Hilman <khilman@baylibre.com>, 
+	Vinod Koul <vkoul@kernel.org>, Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+	=?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>, 
+	Sudeep Holla <sudeep.holla@kernel.org>, Cristian Marussi <cristian.marussi@arm.com>, 
+	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Sep 29, 2026 at 04:37:47PM +0800, Inochi Amaoto wrote:
-> To reuse the K1 PCIe driver logic for K3 PCIe controller, add device
-> data to handle the K1 specific logic and make room for the incoming
-> logic for K3.
-> 
-> Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
-> ---
->  drivers/pci/controller/dwc/pcie-spacemit-k1.c | 30 ++++++++++++++++---
->  1 file changed, 26 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/pci/controller/dwc/pcie-spacemit-k1.c b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-> index 0564c46e2f48..ab2953ad8f56 100644
-> --- a/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-> +++ b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-> @@ -45,8 +45,17 @@
->  #define PCIE_CONTROL_LOGIC			0x0004
->  #define PCIE_SOFT_RESET			BIT(0)
->  
-> +struct k1_pcie;
-> +
-> +struct k1_pcie_device_data {
-> +	const struct dw_pcie_host_ops *host_ops;
-> +	const struct dw_pcie_ops *ops;
-> +	int (*parse_port)(struct k1_pcie *k1);
-> +};
+Hi Laurent,
 
-Does the "const" here add anything useful?  This patch suggests maybe
-not:
+On Mon, 19 Oct 2026 at 18:14, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+> On Mon, Oct 19, 2026 at 06:22:04PM +0300, Laurent Pinchart wrote:
+> > On Mon, Oct 19, 2026 at 04:56:28PM +0200, Geert Uytterhoeven wrote:
+> > > On Mon, 19 Oct 2026 at 16:42, Laurent Pinchart wrote:
+> > > > On Fri, Oct 16, 2026 at 05:55:40PM +0200, Geert Uytterhoeven wrote:
+> > > > > Prepare for mapping to other than fixed-rate clocks by adding a clk_hw
+> > > > > pointer to the clk_map structure, and populating it up-front.
+> > > > >
+> > > > > Move r8a78000_cpg_priv.fixed_hws into fill_clk_map(), as it is no longer
+> > > > > needed afterwards, and drop NUM_FIXED_CLKS.
+> > > > >
+> > > > > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> > >
+> > > > > --- a/drivers/clk/renesas/r8a78000-cpg.c
+> > > > > +++ b/drivers/clk/renesas/r8a78000-cpg.c
+> > > > > @@ -16,19 +16,24 @@
+> > > > >
+> > > > >  #include <dt-bindings/clock/renesas,r8a78000-cpg.h>
+> > > > >
+> > > > > +struct clk_map_in {
+> > > >
+> > > > The "_in" suffix isn't very explicit.
+> > >
+> > > I can add a comment...
+> >
+> > How about calling it clk_id_map ?
+> >
+> > > > > +     int dt_id;              /* DT binding clock ID or -1 sentinel */
+> > > > > +     u32 fw_id;              /* FIXED_CLK() ID */
+> > > > > +};
+> > > > > +
+> > > > >  struct clk_map {
+> > > > >       int dt_id;              /* DT binding clock ID or -1 sentinel */
+> > > > >       u32 fw_id;              /* FIXED_CLK() ID */
+> > >
+> > > BTW, do you think it would be worthwhile to reuse clk_map_in here?
+> >
+> > Possibly. I was about to recommend just using a single structure and
+> > leaving the clk_hw pointer NULL and unused in .rodata, but the memory
+> > waste isn't very nice, especially if we end up with many entries :-(
+>
+> Actually, you could even turns clk_map into
+>
+> struct clk_map {
+>         const struct clk_id_map *map;
+>         struct clk_hw *hw;
+> };
+>
+> It should consume the same amount of space on 64-bit platforms. Doing
+> the same in the MDLC driver would save space.
+>
+> Or, if you want to save more memory, you could drop clk_map and store
+> the clk_hw in a separate array in r8a78000_cpg_priv, using the same
+> indices as clk_map_id.
+>
+> struct r8a78000_cpg_priv {
+>         struct device *dev;
+>
+>         const struct clk_id_map *map;
+>         unsigned int num_map_entries;
+>         struct clk_hw **clks;
+>
+>         struct clk_hw *fixed_hws[NUM_FIXED_CLKS];
+> };
+>
+> where clks is a dynamically-allocated array fo struct clk_hw pointers,
+> having the same size as the map array.
 
-  https://lore.kernel.org/all/20260911233541.1650895-2-james.quinlan@broadcom.com/
+IIRC, I considered that option, but rejected it, as I still hoped to
+put the (at that time multiple, per version) tables in __initconst,
+so they had to be allocated and copied anyway...
 
-> +
->  struct k1_pcie {
->  	struct dw_pcie pci;
-> +	const struct k1_pcie_device_data *data;
->  	struct phy *phy;
->  	void __iomem *link;
->  	struct regmap *pmu;	/* Errors ignored; MMIO-backed regmap */
-> @@ -274,14 +283,21 @@ static int k1_pcie_parse_port(struct k1_pcie *k1)
->  
->  static int k1_pcie_probe(struct platform_device *pdev)
->  {
-> +	const struct k1_pcie_device_data *data;
->  	struct device *dev = &pdev->dev;
->  	struct k1_pcie *k1;
->  	int ret;
->  
-> +	data = device_get_match_data(dev);
-> +	if (!data)
-> +		return -ENODATA;
-> +
->  	k1 = devm_kzalloc(dev, sizeof(*k1), GFP_KERNEL);
->  	if (!k1)
->  		return -ENOMEM;
->  
-> +	k1->data = data;
-> +
->  	k1->pmu = syscon_regmap_lookup_by_phandle_args(dev_of_node(dev),
->  						       SYSCON_APMU, 1,
->  						       &k1->pmu_off);
-> @@ -295,11 +311,11 @@ static int k1_pcie_probe(struct platform_device *pdev)
->  				     "failed to map \"link\" registers\n");
->  
->  	k1->pci.dev = dev;
-> -	k1->pci.ops = &k1_pcie_ops;
-> +	k1->pci.ops = data->ops;
->  	k1->pci.pp.num_vectors = MAX_MSI_IRQS;
->  	dw_pcie_cap_set(&k1->pci, REQ_RES);
->  
-> -	k1->pci.pp.ops = &k1_pcie_host_ops;
-> +	k1->pci.pp.ops = data->host_ops;
->  
->  	/* Hold the PHY in reset until we start the link */
->  	regmap_set_bits(k1->pmu, k1->pmu_off + PCIE_CLK_RESET_CONTROL,
-> @@ -316,7 +332,7 @@ static int k1_pcie_probe(struct platform_device *pdev)
->  
->  	platform_set_drvdata(pdev, k1);
->  
-> -	ret = k1_pcie_parse_port(k1);
-> +	ret = data->parse_port(k1);
->  	if (ret)
->  		return dev_err_probe(dev, ret, "failed to parse root port\n");
->  
-> @@ -334,8 +350,14 @@ static void k1_pcie_remove(struct platform_device *pdev)
->  	dw_pcie_host_deinit(&k1->pci.pp);
->  }
->  
-> +static const struct k1_pcie_device_data k1_pcie_device_data = {
-> +	.host_ops	= &k1_pcie_host_ops,
-> +	.ops		= &k1_pcie_ops,
-> +	.parse_port	= k1_pcie_parse_port,
-> +};
-> +
->  static const struct of_device_id k1_pcie_of_match_table[] = {
-> -	{ .compatible = "spacemit,k1-pcie", },
-> +	{ .compatible = "spacemit,k1-pcie", .data = &k1_pcie_device_data },
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(of, k1_pcie_of_match_table);
-> -- 
-> 2.55.0
-> 
+> Too many options.
+
+Hehe...
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
