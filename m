@@ -1,317 +1,214 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C50BD4CDDD7
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 10:29:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE5C749A3BA
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 10:31:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792405785; cv=none; b=X1hD+Q5XQjCeMfFPwpk/zt7xE1vGY5g+kjeJO74jjPyCz/+gyhW4TATdiPdtJeUVnKF60Pjel3PjjJk1fbdqfrKSW5CevKHcjXc8edEqe6r/Z6DfUJnmJUdB6sCw9a3thqbXyL4XeZ+lOn+YguKZoIsYVI6aEoPkv0ki4U4N6q0=
+	t=1792405875; cv=none; b=kccCd8pBOwK2oiMYrgCBILbH4FCRqbJhrPTRVTi/7qo3PSvkC5Tpx7dWxdCfppVjd6HNTOAuoEO+fKCK8eAOcJ75xJ9S5ygYpXfm5WdITLlJREwIDnMyoIQY6kX7vRWiDpfDj378FkpyDLM/qa5B4YVDzoZ+D9p2NCpU7FQL1oQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792405785; c=relaxed/simple;
-	bh=Q+Xm+ijS9Y34wn0wlnq8c+vLJdQEmjltJ8gU3GeDsso=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=DY2qdkbiTTMG4C8w1O2kkRLdLS8m6zmjy27xLyK9tNsO+eHJn2M0KaZmFM8Nq/oxYM9BImZYr7z2qoj4YOdicUFP1jUazK2/Kuc34B5Ly6DLQOySqMBUhL8w3z8+wHlekxVdKGhV1NygujwQW5Kvvt74JCwxiY2+HlqXeymxCME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k5nN0Liz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792405875; c=relaxed/simple;
+	bh=xLOGKGdR/TkesfS5Hh1P1f17v+nmPE9pRniwwMVSoy4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Q77GeE5oUVyp+iucxLCNkwCmqjpscYEGLdM3JPKi62uzuoP4sOFDfR2SqWoDdaLoBjTXCIAzhtVMGv2umvZIiNAeRgPuXiUaH339hyMOz/rLTIL3vI/7rNDI+JyvCQ2jB72WLndnE0/5WUomgoyb4pW0w27B1mR3eYhToJZu9Kw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Rmw8KTi0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Y/DWDGJQ; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k5nN0Liz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BF681F000C4;
-	Mon, 19 Oct 2026 10:29:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792405783;
-	bh=99lf2PCE2oqMBq58uRrpJEBoOhjzoK+pSpH56KVdk+I=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=k5nN0LizSKzjI6PHzMeib/L5CyHs6rnCvBKQFmfiyYvfDDLf0qDvs9Rv+xDc8qjoY
-	 GZi8eChDQKgn7lapM/OCNC3aoTuNjpsSmBAi6R5OSlG3kI97DXU22xKBenlkaEHooZ
-	 NW2RageHmHYuormpc0ufi7s0cWB7lkgjmycW2TndpDUOkZgpEBm+TR7yeAKrNPbiPx
-	 Yr/6WvAJ34cuFgvrH70wjlK1oG6kKBsB1Y0VpLBZfB0NUPGr7ozYp65kSKzTMJEdyu
-	 9klsgap1dQ96d9h1vESDBMs+g5f4sDRTfBVUbWVVlqfjG/breuBUg+9l8v9wN0ZhWM
-	 ONeYK51Ssi29Q==
-Message-ID: <sashiko-outbox-176987@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] ASoC: codecs: Add support for Fortemedia FM34NE
- DSP
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261019101357.117462-3-clamor95@gmail.com>
-References: <20261019101357.117462-1-clamor95@gmail.com>
- <20261019101357.117462-3-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 19 Oct 2026 10:29:42 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Rmw8KTi0";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Y/DWDGJQ"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J8YhgO2688721
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 10:31:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	RYK1463Om0BeLkjtSbKer/jvmkMwEuX1kL+uNM6n95M=; b=Rmw8KTi0pUVSCpBY
+	wiF8RiATQWk60bVp/6dCGSJIy1eEb7SEmXjJhM/T7Ku82wna+2M16RzB7oHjuq9I
+	6EBZlQXb+bAbnaQMACOajPSc8TtRZobmWmiNNB6yQWiVu6RA/+QTUKUAwJKbRKSo
+	vB+0NY8vnFX0nqkI676eJNB7IdeamuyHa3VJJU1FCBJlK+CoBWZF7I33jluOk2ni
+	naStfiVbo6lArR7JOy9y9iJhB0p6t6h6qc5U02bdBMZmxIrPt9B9UofwuranTAEh
+	xvTDVLBoxxPGcGDNG624IEM2QfeM/qsWE/eI4/pPRErWn0Kei0r45YawOfQn6RG6
+	zwIyBg==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdftn0en1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 10:31:12 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93e629c7b16so34024785a.1
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 03:31:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792405872; x=1793010672; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RYK1463Om0BeLkjtSbKer/jvmkMwEuX1kL+uNM6n95M=;
+        b=Y/DWDGJQDghumupjsoRc03RZcYQrn4wOYTsiy8WUXasIF9YWw9h5YnAYYj4je2LQfA
+         uD89A5OgVcJMkDFSHbS85oD3nc6C/EHr5scGdTi+3XB6tqaYb/Vc+Q7LeR9HbQh27vQ7
+         e6jtVPNQlE+iTJbPcTWoRvq2lyAzXn0Lp5x8AlUjc4AI5RuFr/kAvbNLDbotKNky18hX
+         7UV2fKZ2cMx9JWndYmKsvVTfSDQklM7MCZYMiFneIXOntwUFIdAEZ3jNwtzljVPRe16S
+         ZGgYXjpNd4h048x4/1d6ZOYPyXP5tzV+mFygWKyhKuGP6TvkLYgrnUIdwZhrceS1X/te
+         9bJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792405872; x=1793010672;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RYK1463Om0BeLkjtSbKer/jvmkMwEuX1kL+uNM6n95M=;
+        b=AwV9Y4BM4w4CFGNBxhSzy5ihRPmuMK5TUswBfqmX1zrAKNnev6h9rA6A4bES8K2K6Z
+         Dvf1K2etOAIHaKEJJpZLPvWDYZiZZQq7lvL+CKBFUM08CwH3usj6U/WMoQLmIN3zxqqC
+         cW4dHksjyTvmPXkSv1nsTUuO0dqEdYPyevvBAwOC2CQahWA0eU7YQJrAbkJQXJ1zTMwj
+         nCjZY2A1vNFEouTVxyWmZ8Rx1PQ7dMYqv/8j59ioVmgGxVzN6XwwoGHVF4YxxaoiwpeC
+         ASDtDlvz9RVFS/IPR+uE0/B4rc2lkSH37l4NVL7lkK+nyxiqeDHL2yhq44KqlTaJ2cjc
+         eu9g==
+X-Forwarded-Encrypted: i=1; AKwUvBySCRb1gWc34Hm1F7B0WISmEgNN+18nmwaMxFo3HIQnvcO7sGDGeWkubVGI75cIo050QZ4zhlireU19@vger.kernel.org
+X-Gm-Message-State: AFq9FYK/gQDd4fAPA7FmoHsPKcicZyLeEGJmljox5iO5q6FeDOw6xC1P
+	vlxTrNTuSiVqGT1KoxpqXQ+Xz3KYM7Jk1m/hNp65ZjmR8TixMF6WtoZiDVJIz9Qglu9NsljFuNX
+	WMjrn25Tzn20h1ZUY7ZgJuGuWvQTsRtSY9xnZkUvXrZo1F5J+hScbgzbOp4WotdpB
+X-Gm-Gg: AYBFou1g+GvZSEryGsj4TYw4EUH95lmCWfTnUeXMvUxi4VHLhPScVNGMktnW5z3bX0n
+	6awTfZn/2v9rFptX19V0fMw2Wto1xrtXoW/FnoELizsSBVeT6W2rEo5WGqnhtYrx95MwS3/W29C
+	D+STEPwlihOmkfB74I/PlE9OhovtoHqiXSUDwaQZFcsHyHwOQSY7tm8EbM+D9zJriDSDmbqD2Eg
+	Scnv2JI3EUKEzzY5lOaH1K0j3bZ9ABExCCO7zVXahlfOlHx/sEoxXbO4lZZocKxYpckP0H0xURI
+	10ch+IbThLr8AsWs2nnmHCl+zJO172OT5yYh5LWiPCZVQJJQt1pNDFFTdJ+X5xMyJOGgFi3g0Z9
+	18KIa65tAztYCsL5a2aEZCw==
+X-Received: by 2002:a05:620a:2a0a:b0:93c:61e0:81ff with SMTP id af79cd13be357-93f29b88632mr1364648685a.1.1792405870998;
+        Mon, 19 Oct 2026 03:31:10 -0700 (PDT)
+X-Received: by 2002:a05:620a:2a0a:b0:93c:61e0:81ff with SMTP id af79cd13be357-93f29b88632mr1364644685a.1.1792405870444;
+        Mon, 19 Oct 2026 03:31:10 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4091fade41sm343284966b.82.2026.10.19.03.31.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 03:31:09 -0700 (PDT)
+Message-ID: <5cfc6414-735d-4df3-868d-c8c3c4a98e30@oss.qualcomm.com>
+Date: Mon, 19 Oct 2026 12:31:05 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/5] dt-bindings: arm: qcom: Document Microsoft Surface
+ Laptop 8th Edition
+To: Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+        Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Maximilian Luz
+ <luzmaximilian@gmail.com>,
+        Hans de Goede <hansg@kernel.org>,
+        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+        Douglas Anderson <dianders@chromium.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+Cc: Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+        dri-devel@lists.freedesktop.org
+References: <20261006-mahua-surface-laptop-v1-0-406fc042162a@oss.qualcomm.com>
+ <20261006-mahua-surface-laptop-v1-1-406fc042162a@oss.qualcomm.com>
+ <245e5eef-e18a-4ec5-b57c-65e561101351@oss.qualcomm.com>
+ <52adff3a-370c-4445-9797-e0b0dde36fab@oss.qualcomm.com>
+ <5568fd0f-e412-4f2a-9f1e-729a469da572@oss.qualcomm.com>
+ <65f6883d-8ead-4c6e-80f5-81f6857df0b8@oss.qualcomm.com>
+ <f624b075-df3b-4862-8231-8fcae7f18d50@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <f624b075-df3b-4862-8231-8fcae7f18d50@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA0MSBTYWx0ZWRfXyad8ovRuaXjo
+ YEtBh3gdUzRVt0x2CIL3hukiYMks3E02aV/0AtRhNwjjCdsocBEj9AcIxrf/BmLDmj9oDfC9+F/
+ 8FdHpPtgpcMouMEeUmr822AsyK7uLPU=
+X-Proofpoint-GUID: S89FnlJu263CJXDCenWiz97q0OnquqJj
+X-Proofpoint-ORIG-GUID: S89FnlJu263CJXDCenWiz97q0OnquqJj
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA0MSBTYWx0ZWRfXyWsafSAwRJoz
+ 1Q5Y+o7Xn8k3Jqx8wJJZIhv1b5uNvO9w9WAw9C7zVJ27rSxhdgok0cgS/VRn1oVPfstMcEbboOs
+ k31PMXBv0YYdRxAL4czfm2ng2kTaK2pEPDdxUUz/CUEnH4QUSrBE/dmLFitmkdwmrd+hMZK1sW9
+ flMm1aB6W1ybdWzDey4p3aoHSu1DsOkEE/OW19N4ci/DbJRg1BKfBg3PG2J/jyzCcncQfE1nhuv
+ YhMuvfr1oH3rIxsU0/odcjO40BXp+A/LIqOlECVwOVNRWi/niPr2+nGjTTmU1WLhhXPeqwFhywj
+ 56799NEYgMnWW9cXT1ff2K3y6iPlcYZNxnwsW454RVs/n1FJJigMwdiJQJUX8V52NMb0IinC9U8
+ ohIwEB7iMXhh7SNBzuxNxpmVXoKFUHTGTvUX6FY7m3tkzZT2DWiB3VhzWR8isbNwxtlFT82PkoG
+ 6o42ZU1Na0Vc/NjwRQg==
+X-Authority-Analysis: v=2.4 cv=OvTaWC/t c=1 sm=1 tr=0 ts=6ad5f170 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=NEAV23lmAAAA:8 a=EUspDBNiAAAA:8 a=8k6WQxmsAAAA:8 a=-HwF9I-Zzcp5qfXbVEgA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-19_03,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 adultscore=0 lowpriorityscore=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 impostorscore=0 spamscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610190041
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] ASoC: fm34ne-dsp: goto mixing and stuck bypass_gpio in fm34ne_ds=
-p_set_config()
-- [Medium] ASoC: fm34ne-dsp: conflicting DAPM widget events clobber DSP sta=
-te
-- [Low] ASoC: fm34ne-dsp: reset GPIO left deasserted when DSP is disabled
---
+On 10/16/26 11:26 AM, Sibi Sankar wrote:
+> 
+> 
+> On 15/10/2026 19:02, Konrad Dybcio wrote:
+>> On 10/15/26 2:47 PM, Gopikrishna Garmidi wrote:
+>>> Hi Konrad,
+>>>
+>>> On 10/13/2026 2:09 PM, Konrad Dybcio wrote:
+>>>> On 10/7/26 9:11 AM, Gopikrishna Garmidi wrote:
+>>>>>
+>>>>>
+>>>>> On 10/6/2026 3:20 PM, Gopikrishna Garmidi wrote:
+>>>>>> Document the Mahua-based Microsoft Surface Laptop 13.8" 8th Edition.
+>>>>>>
+>>>>>> Signed-off-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+>>>>>> ---
+>>
+>> [...]
+>>
+>>
+>>> Thanks for checking. The only matches I see are in the MPTF thermal
+>>> package, which ships"883ROT13Inch.bin" and "883ROT15Inch.bin". Nothing
+>>> else mentions ROT.
+>>>
+>>> I also checked all the ACPI tables but didn't find a codename there.
+>>> The tables are here:
+>>>
+>>>    https://github.com/aarch64-laptops/build/pull/176
+>>>
+>>> Following the Lenovo gen8 naming, would something like
+>>> "microsoft,surface-laptop-gen8-13p8in"
+>>> (mahua-microsoft-surface-laptop-gen8-13p8in.dts) work? I'm open to
+>>> whatever you and Krzysztof prefer.
+>>
+>> FWIW the "gen" naming comes directly from Lenovo's product name,
+>> i.e. if you go on lenovo.com it says "ThinkPad T14s Gen 7".
+> 
+> Official Documentation say "Surface Laptop, 13.8 inch (8th Edition)"
+> 
+> We have to create a dedicated board file for the fifteen inch variant
+> since it is expected to have a sd-card port and another one for 13inch
+> specifically to enable ufs. All of them will have only lcd panels. So
+> how about if we go with the following?
+> 
+> microsoft,surface-laptop-8-lcd13
+> microsoft,surface-laptop-8-lcd13p8
+> microsoft,surface-laptop-8-lcd15
 
-commit 44c3b6ffa34580e6c173c2874d0fa14d84f97af1
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+sgtm
 
-ASoC: codecs: Add support for Fortemedia FM34NE DSP
+> With this is mind it might make sense to create a common
+> file mahua-microsoft-surface-laptop-8.dtsi that all these
+> boards can import from as well.
 
-This commit adds an ASoC codec driver for the Fortemedia FM34NE digital
-sound processing chip used for active noise suppression on ASUS
-Transformer devices.
+If they're sufficiently similar, sure thing
 
-> diff --git a/sound/soc/codecs/fm34ne-dsp.c b/sound/soc/codecs/fm34ne-dsp.c
-> new file mode 100644
-> index 0000000000000..608b94e6ea0ca
-> --- /dev/null
-> +++ b/sound/soc/codecs/fm34ne-dsp.c
-
-[ ... ]
-
-> +static int fm34ne_dsp_set_config(struct fm34ne_dsp *dsp, enum dsp_state =
-state)
-> +{
-> +	struct device *dev =3D &dsp->client->dev;
-> +	int ret;
-> +
-> +	guard(mutex)(&dsp->lock);
-> +
-> +	gpiod_set_value_cansleep(dsp->bypass_gpio, 1);
-> +	msleep(20);
-> +
-> +	switch (state) {
-> +	case FM34NE_NS_ENABLE:
-> +		ret =3D i2c_master_send(dsp->client, dsp->info->enable_parameter,
-> +				      dsp->info->enable_parameter_length);
-> +		if (ret < 0) {
-> +			dev_err(dev, "Failed to set DSP enable %d\n", ret);
-> +			goto exit;
-> +		}
-> +
-> +		ret =3D i2c_master_send(dsp->client, dsp->info->enable_noise_suppressi=
-on,
-> +				      dsp->info->enable_ns_length);
-> +		if (ret < 0) {
-> +			dev_err(dev, "Failed to enable DSP noise suppression %d\n", ret);
-> +			goto exit;
-> +		}
-> +
-> +		break;
-> +
-> +	case FM34NE_NS_DISABLE:
-> +		ret =3D i2c_master_send(dsp->client, dsp->info->enable_parameter,
-> +				      dsp->info->enable_parameter_length);
-> +		if (ret < 0) {
-> +			dev_err(dev, "Failed to set DSP enable with %d\n", ret);
-> +			goto exit;
-> +		}
-> +
-> +		ret =3D i2c_master_send(dsp->client, dsp->info->disable_noise_suppress=
-ion,
-> +				      dsp->info->disable_ns_length);
-> +		if (ret < 0) {
-> +			dev_err(dev, "Failed to disable DSP noise suppression with %d\n", ret=
-);
-> +			goto exit;
-> +		}
-> +
-> +		break;
-> +
-> +	case FM34NE_BYPASS:
-> +	default:
-> +		ret =3D i2c_master_send(dsp->client, bypass_parameter, sizeof(bypass_p=
-arameter));
-> +		if (ret < 0) {
-> +			dev_err(dev, "Failed to set DSP bypass with %d\n", ret);
-> +			goto exit;
-> +		}
-> +
-> +		break;
-> +	}
-> +
-> +exit:
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	gpiod_set_value_cansleep(dsp->bypass_gpio, 0);
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-In sound/soc/codecs/fm34ne-dsp.c, fm34ne_dsp_set_config() mixes
-guard(mutex)(&dsp->lock) with goto exit labels, which goes against the
-scope-based cleanup guidelines in include/linux/cleanup.h.
-
-Also, if any i2c_master_send() call fails during a DAPM widget event
-(via fm34ne_dsp_int_state_control() or fm34ne_dsp_ext_state_control()),
-the exit label returns early when ret < 0 before resetting
-dsp->bypass_gpio back to 0:
-
-exit:
-	if (ret < 0)
-		return ret;
-
-	gpiod_set_value_cansleep(dsp->bypass_gpio, 0);
-
-Should fm34ne_dsp_set_config() deassert dsp->bypass_gpio before
-returning on error so the DSP is not left stuck in programming mode, and
-avoid mixing guard(mutex) with goto labels (as well as explicitly
-including <linux/cleanup.h> and <linux/mutex.h>)?
-
-> +static int fm34ne_dsp_ext_state_control(struct snd_soc_dapm_widget *w,
-> +					struct snd_kcontrol *kcontrol, int event)
-> +{
-> +	struct snd_soc_component *component =3D snd_soc_dapm_to_component(w->da=
-pm);
-> +	struct fm34ne_dsp *dsp =3D snd_soc_component_get_drvdata(component);
-> +
-> +	switch (event) {
-> +	case SND_SOC_DAPM_POST_PMU:
-> +		return fm34ne_dsp_set_config(dsp, FM34NE_BYPASS);
-> +
-> +	default:
-> +		WARN(1, "Unexpected event");
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +static int fm34ne_dsp_int_state_control(struct snd_soc_dapm_widget *w,
-> +					struct snd_kcontrol *kcontrol, int event)
-> +{
-> +	struct snd_soc_component *component =3D snd_soc_dapm_to_component(w->da=
-pm);
-> +	struct fm34ne_dsp *dsp =3D snd_soc_component_get_drvdata(component);
-> +
-> +	switch (event) {
-> +	case SND_SOC_DAPM_POST_PMU:
-> +		return fm34ne_dsp_set_config(dsp, FM34NE_NS_ENABLE);
-> +
-> +	case SND_SOC_DAPM_PRE_PMD:
-> +		return fm34ne_dsp_set_config(dsp, FM34NE_NS_DISABLE);
-> +
-> +	default:
-> +		WARN(1, "Unexpected event");
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +static const struct snd_soc_dapm_widget fm34ne_dsp_dapm_widgets[] =3D {
-> +	SND_SOC_DAPM_INPUT("DSP DMIC"),
-> +	SND_SOC_DAPM_INPUT("DSP AMIC"),
-> +
-> +	SND_SOC_DAPM_OUT_DRV_E("DSP Processing Engine INT", SND_SOC_NOPM,
-> +			       0, 0, NULL, 0, fm34ne_dsp_int_state_control,
-> +			       SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
-> +	SND_SOC_DAPM_OUT_DRV_E("DSP Processing Engine EXT", SND_SOC_NOPM,
-> +			       0, 0, NULL, 0, fm34ne_dsp_ext_state_control,
-> +			       SND_SOC_DAPM_POST_PMU),
-> +
-> +	SND_SOC_DAPM_OUTPUT("DSP Digital Mic"),
-> +	SND_SOC_DAPM_OUTPUT("DSP Analog Mic"),
-> +};
-
-[Severity: Medium]
-Can transitions between "DSP Processing Engine INT" and
-"DSP Processing Engine EXT" clobber the shared DSP state?
-
-Both widgets call fm34ne_dsp_set_config() to update the global hardware
-state without tracking which engine is active:
-
-1. If "DSP Processing Engine EXT" powers up (SND_SOC_DAPM_POST_PMU ->
-FM34NE_BYPASS) and "DSP Processing Engine INT" subsequently powers down
-(SND_SOC_DAPM_PRE_PMD -> FM34NE_NS_DISABLE), fm34ne_dsp_int_state_control()
-sends dsp->info->enable_parameter and dsp->info->disable_noise_suppression,
-taking the DSP out of bypass mode while the external analog mic path is
-still active.
-
-2. Conversely, "DSP Processing Engine EXT" only handles
-SND_SOC_DAPM_POST_PMU and has no PMD handler. If both paths are active
-and "DSP Processing Engine EXT" powers down while
-"DSP Processing Engine INT" remains powered on, the DSP stays in
-FM34NE_BYPASS instead of restoring FM34NE_NS_ENABLE.
-
-Should the driver coordinate state across these widgets (or model the
-routing so the active path's configuration is preserved)?
-
-[ ... ]
-
-> +static void fm34ne_dsp_reset(struct fm34ne_dsp *dsp)
-> +{
-> +	gpiod_set_value_cansleep(dsp->reset_gpio, 1);
-> +	msleep(20);
-> +	gpiod_set_value_cansleep(dsp->reset_gpio, 0);
-> +	msleep(100);
-> +}
-> +
-> +static void fm34ne_dsp_disable_hw(struct fm34ne_dsp *dsp)
-> +{
-> +	gpiod_set_value_cansleep(dsp->bypass_gpio, 0);
-> +	regulator_disable(dsp->vdd_supply);
-> +	clk_disable_unprepare(dsp->dap_mclk);
-> +}
-> +
-> +static int fm34ne_dsp_probe(struct snd_soc_component *component)
-> +{
-
-[ ... ]
-
-> +exit:
-> +	fm34ne_dsp_reset(dsp);
-> +	fm34ne_dsp_disable_hw(dsp);
-> +
-> +	return ret;
-> +}
-> +
-> +static void fm34ne_dsp_remove(struct snd_soc_component *component)
-> +{
-> +	struct fm34ne_dsp *dsp =3D snd_soc_component_get_drvdata(component);
-> +
-> +	fm34ne_dsp_reset(dsp);
-> +	fm34ne_dsp_disable_hw(dsp);
-> +}
-
-[ ... ]
-
-> +static int fm34ne_probe(struct i2c_client *client)
-> +{
-
-[ ... ]
-
-> +	dsp->reset_gpio =3D devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LOW=
-);
-> +	if (IS_ERR(dsp->reset_gpio))
-> +		return dev_err_probe(dev, PTR_ERR(dsp->reset_gpio),
-> +				     "Failed to get reset GPIO\n");
-
-[Severity: Low]
-Is the reset_gpio state inverted during probe and hardware disable?
-
-In fm34ne_probe(), dsp->reset_gpio is requested with GPIOD_OUT_LOW
-(deasserted) before vdd_supply and dap_mclk are enabled in
-fm34ne_dsp_enable_hw().
-
-In addition, both fm34ne_dsp_remove() and the error path in
-fm34ne_dsp_probe() call fm34ne_dsp_reset() right before
-fm34ne_dsp_disable_hw():
-
-	fm34ne_dsp_reset(dsp);
-	fm34ne_dsp_disable_hw(dsp);
-
-fm34ne_dsp_reset() asserts reset_gpio (1) for 20 ms, then deasserts
-reset_gpio (0) and sleeps 100 ms waiting for the chip to boot, only for
-fm34ne_dsp_disable_hw() to immediately turn off vdd_supply and dap_mclk
-with reset_gpio left deasserted.
-
-Should fm34ne_probe() request reset_gpio with GPIOD_OUT_HIGH, and should
-fm34ne_dsp_disable_hw() assert reset_gpio (1) instead of calling
-fm34ne_dsp_reset() before power-down?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019101357.1174=
-62-1-clamor95@gmail.com?part=3D2
+Konrad
