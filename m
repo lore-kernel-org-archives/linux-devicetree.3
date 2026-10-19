@@ -1,40 +1,69 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EDEF48E0CB
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 07:58:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 343DD15E5BB
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 08:02:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792396730; cv=none; b=arqIMw6Km9ODgVCPVUv16vgDu7vOeOvNXSTIB6QWYQS3pY0r62RJbd/Zyo+m0edcpUaDMZ5XfYNPZqPAWyhe4uT1W5R2i+/sS/Hga7X+KR6JKHAV2YqYkENnQaCCh/tdcSuZ00m9tuHqIXnZSjSFfnizx+tI3rTMOsnvalRQrLo=
+	t=1792396922; cv=none; b=aFZFPd3RxM0RCmwpnL+GNu259Jt7+EjCT/CJq1IEYhRZGkMNcgI5iTv6/xPf09I0Ivkfe9UrilmtkLKTC/oeunHZFK6+Xbjn3MKHUSG6ZIqZmK4d5SEewXCHMT6NLWBityiOCvd6hhyfj0KDDoG0gcF3s83yMY9h5Z42NTvuMw0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792396730; c=relaxed/simple;
-	bh=V0VIqDVyiPPQJ+caJbPRvCvUhmLBJmBJ39zRFbxwIvM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kYJFhotmQK49TaC6q0YxHk+6gt5afNixiaNdjmD3Wb8zu1Rn4BSecTuFfOOyFM+fMFeCJkDHM6i+U1RxYssElEBiHmRfw8ux9RERBf+oyxS6T6zdOcO463L303FxsOj39OtTZ2eE4Qzns/05bmfYal5YhadNDVmPx9JTIk+Y1kc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=lW3gZU1F; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1792396922; c=relaxed/simple;
+	bh=hP4wF+WPnK0B2Q1KKFEnxgTNrut6FSSKnsRv3RZJ50A=;
+	h=From:Message-ID:Date:MIME-Version:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=fX6l3duVjk/kcnaXIUsCYgebch0Mt2CMjLxijvX9zHEObMHg9uW0v+yP7Nswbul1jgwqItz+PSW9dLtdcAjDIQToLpbhYgHZY5duGbdklVhiUAYr7RLeU4+8v/7Sfo+AYEuPA2EiNqqPWue39z6I+tcGDl50qkQkTevNlQAQR0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev; spf=pass smtp.mailfrom=tuxon.dev; dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b=Utao0K7C; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxon.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="lW3gZU1F"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 16AFC4E4127C;
-	Mon, 19 Oct 2026 07:58:40 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id DA2C5606D2;
-	Mon, 19 Oct 2026 07:58:39 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0FF0A10328429;
-	Mon, 19 Oct 2026 09:58:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792396717; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=NYrf3UgXP5DXfY3kt/urngIbizBWIl4Prx1hFfMMht4=;
-	b=lW3gZU1F/b/XgskjtbHeWUXleyoE6/Ao9cUMr7VJcryyvtqxE3jcorbEiG4quyYfbzLnTK
-	3yja1CP5VGO5cQbfeG+FZmXTeAaVtnydtZKPK9JNXWBOq64G4kSPREwaoxebjqlgJbrNkR
-	mE7KwToXnsGH67mMtR6hfIUeivHwqTjpD2AWJEOs/VS9TnpV08uf1+Hxp7qdgLn81x0Zh9
-	vQeKOwSvzaXlJ/1+MUbba7+CBBNGu0Py8gHRjCiGwwjIgYyMngo91qasz8VYvi46SUwnOB
-	tyaIKF1enK62ejkB/zTK1UEQq0zcN3gnF7U5gtpZju998slcU9NbSIBkE9SFKA==
-Message-ID: <7980859d-bc9e-4886-8096-ea5254bae8d4@bootlin.com>
-Date: Mon, 19 Oct 2026 09:58:30 +0200
+	dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b="Utao0K7C"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a0286c981dso19245185e9.2
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 01:01:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=tuxon.dev; s=google; t=1792396918; x=1793001718; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ocLaY0WHvEptQ8Kwyj8wyj7j+7F9Bumbj27CCmpTaLg=;
+        b=Utao0K7C7jQ9lwDr4a7gcLnou4U7qG2PjAv9asy6+1mPFi6GMYif9fql1+GfMQGy6p
+         hBAn+pE2NPY4kaNBhbe/z9zudJ/tEWMnoI0sR7Di5srb1EVmNZBp39e1SScBwk0oYrT9
+         BYH2/p6XpwzY4HRiU/A9dqZpEJCOLkGwWTWThJu67FLa3YgXs/r8ipJId+3tRd3+dVCk
+         al+M9AtdW60/Z9/cPA9S5BpK3x4KalRzcmvP6CAT6ozFXUHDL5WDlmEZPQgb1q/AvK7T
+         TMykXJKHI+xn/NPT8V9Ri00pO+0KNQJo9FaTGE+YAaSZt4MuBU16xMTY4QZowNnzHUIH
+         42ng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792396918; x=1793001718;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ocLaY0WHvEptQ8Kwyj8wyj7j+7F9Bumbj27CCmpTaLg=;
+        b=cDQ0K2y0kWC19C4ShawwpFuYJZs8Jp44SNF08xNgAA3G3iW7OOfMu6xc9oKsXSP1MW
+         Gy9NfBuUPqprQCMILd2Z1kFndb5Hm8Ic9rSBRI9HtbT0i00d+00SDb2JXRLyq0fyV86l
+         dOSPNQ60Ox/vidmmb2TA/IXNARvmU8tWMv9Mc7UEOcLNMfHdE8cJ5f++cvgXAQLapDjC
+         v+4s4L360SBivoK1TstmcUdpMjGGQFAAfEpC3RQAKNq9eQzbr5CBOn/y/zAR0yFh6hWq
+         fQacro6RPa3rOkVqM2CcSKrf9HubADCctpUvSBESLJwwDyb0Fu7nCCqRvpBrKIIwqpT9
+         K47Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzXtOHtjWkyuQbMV9CiHyjHr9e3YAtvMRTW8WX81u7K4XwtCWOH4zqlISLpvVMaXGdI67eo7RtTAkZ6@vger.kernel.org
+X-Gm-Message-State: AFq9FYIhe7cplRqUORdjF/iHbGTDlURqjdB4Riml4wDB4lQv9O2Twb5D
+	JwqSPqw2gHzHE16gaRivO3jDcpY9nsNXoefiODM2sfN9YN/2+aNPS4loZbJa/hMdeqY=
+X-Gm-Gg: AYBFou24VUxm9DbhhorTww0hK9mJ3KBu9wFmYANPw80Qiijb9t5zW6NK59tV3KjgSvX
+	p9qmSq00w5ATSLPJiUu1dUinGDht4IXxkEFG14PPjopiZIYz8b5LF85cKxl2Y+TAjJxsOMjRX1R
+	/CJL9pzukpfeU1zSqGmvbyllmpswuZQaNViJDXxw81wcJquKTnByfUSe/IsRMVjURdV/HvJPfcS
+	XAwFvs17mORaMERYgmrMRuA3q9LDUqUjdeQYl1HiJmU/agZ95L8gMlzoboTz13G81EV9UQl5WP/
+	0cqmeqTBfWQGbG4qKgiMSpCYsibe0eR/RhfC4eEoUrACakD9qDwl80/WKJqlwR3afk4gqmOqXum
+	bcBN/NJUQ6zX+4M4Cm7BG7qf9uHfWRIvjCqY9ZOn18SFxyMdqTYoAIHI9oM/xa75HMICg5l/u25
+	pGTVP8EcaZXD4zXE55tpvxbWh1Cn5FAJkJS7g5YypehFdrCzmkIy1eFuE7diLUJSTPthfAcSMYe
+	igo5EpCGeXZs2Nycw==
+X-Received: by 2002:a05:600c:8709:b0:4a1:7b05:3a6d with SMTP id 5b1f17b1804b1-4a1d75e6fa6mr126442275e9.8.1792396917972;
+        Mon, 19 Oct 2026 01:01:57 -0700 (PDT)
+Received: from [192.168.50.4] ([82.78.167.221])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1dea678cdsm174349695e9.1.2026.10.19.01.01.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 01:01:57 -0700 (PDT)
+From: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+X-Google-Original-From: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
+Message-ID: <3ac7b72a-3468-49f6-b4d3-6b33e252ffc6@tuxon.dev>
+Date: Mon, 19 Oct 2026 11:01:55 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -42,150 +71,157 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 3/5] net: stmmac: dwxgmac2: Add XGMAC 3.01a
- support
-To: Alex Elder <elder@riscstar.com>, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: Daniel Thompson <daniel@riscstar.com>, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, hkallweit1@gmail.com, linux@armlinux.org.uk,
- richardcochran@gmail.com, p.zabel@pengutronix.de, peppe.cavallaro@st.com,
- joabreu@synopsys.com, mohd.anwar@oss.qualcomm.com,
- lorenzo.bianconi@oss.qualcomm.com, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261019030129.1470307-1-elder@riscstar.com>
- <20261019030129.1470307-4-elder@riscstar.com>
+Subject: Re: [PATCH v4 1/7] dt-bindings: can: renesas,rcar-canfd: Document
+ RZ/G3S SoC
+To: Biju Das <biju.das.jz@bp.renesas.com>,
+ Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: "mailhol@kernel.org" <mailhol@kernel.org>,
+ "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+ <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ "geert+renesas@glider.be" <geert+renesas@glider.be>,
+ "magnus.damm" <magnus.damm@gmail.com>,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ "Claudiu.Beznea" <claudiu.beznea@tuxon.dev>,
+ "linux-can@vger.kernel.org" <linux-can@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+References: <20260902141544.565763-1-claudiu.beznea+renesas@tuxon.dev>
+ <20260902141544.565763-2-claudiu.beznea+renesas@tuxon.dev>
+ <20261016-elite-feathered-rook-5dcf2b-mkl@pengutronix.de>
+ <TY3PR01MB1134682A7E8AEDB860F02752D86982@TY3PR01MB11346.jpnprd01.prod.outlook.com>
 Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20261019030129.1470307-4-elder@riscstar.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+In-Reply-To: <TY3PR01MB1134682A7E8AEDB860F02752D86982@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Hi, Biju,
 
-On 10/19/26 05:01, Alex Elder wrote:
-> From: Daniel Thompson <daniel@riscstar.com>
+On 10/19/26 10:24, Biju Das wrote:
+> Hi Claudiu,
 > 
-> XGMAC 2.x and 3.x are architecturally very similar.  That means that
-> for everything except one erratum we can simply use the XGMAC 2.x
-> callback functions in the stmmac_dma_ops structure.
+>> -----Original Message-----
+>> From: Marc Kleine-Budde <mkl@pengutronix.de>
+>> Sent: 16 October 2026 14:34
+>> Subject: Re: [PATCH v4 1/7] dt-bindings: can: renesas,rcar-canfd: Document RZ/G3S SoC
+>>
+>> On 02.09.2026 17:15:38, Claudiu Beznea wrote:
+>>> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+>>>
+>>> The CAN FD controller found on the Renesas RZ/G3S SoC is largely
+>>> compatible with the variant present on the RZ/G3E SoC. The main differences are:
+>>> - the RZ/G3S provides only two CAN FD channels
+>>> - the RZ/G3S supports only CAN FD operation; the Channel n CAN FD
+>>>    Configuration Register does not implement the bits used to select
+>>>    classical CAN-only mode (bit 30) or CAN FD-only mode (bit 28);
+>>>    consequently, bit 31 (CAN FD Frame Distinction Enable) of the same
+>>>    register is also not implemented
+>>> - some bits in several registers (mainly reserved or status bits) are
+>>>    read-write on the RZ/G3S but read-only on the RZ/G3E; their behavior is
+>>>    otherwise identical: the bits read back as 0 on both SoCs and software
+>>>    is allowed to write only 0 to them on the RZ/G3S
+>>> - the RZ/G3S provides 256 acceptance filters, compared to 768 on the
+>>>    RZ/G3E
+>>> - the RZ/G3S can use PCLK clock as the CAN FD clock source through an
+>>>    internal clock divider, while also supporting an external CAN FD clock
+>>>    source
+>>>
+>>> Since:
+>>> - the SoC clock generator provides to the CAN IP only the peripheral and
+>>>    the RAM clocks
+>>> - when sourced from the peripheral clock, the CAN-FD clock is obtained
+>>>    inside the IP itself by dividing the peripheral clock
+>>> - the assigned-clocks and assigned-clock-rates properties are specific to
+>>>    the CAN-FD clock
+>>> the assigned-clocks and assigned-clock-rates properties were dropped
+>>> from the required properties list of the Renesas RZ/G3S SoC.
+>>>
+>>> Add documentation for the Renesas RZ/G3S SoC.
+>>>
+>>> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+>>> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+>>> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+>>
+>> the netdev review bot has found a nitpick, it's about the comment in "rcar_canfd.c". Can you fix it, if
+>> you re-spin the series.
+>>
+>> regards,
+>> Marc
+>>
+>> pw-bot: cr
+>>
+>> --- Patch [11]: [PATCH net-next 11/37] dt-bindings: can: renesas,rcar-canfd: Document RZ/G3S SoC ---
+>> commit 69b4e37d18e5229e1c800b45a5df061af8a98eb9
+>> Author: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+>>
+>> dt-bindings: can: renesas,rcar-canfd: Document RZ/G3S SoC
+>>
+>> This adds the renesas,r9a08g045-canfd compatible for the RZ/G3S CAN FD controller. It adds the compatible
+>> to the existing conditional blocks. It also forbids renesas,no-can-fd and renesas,fd-only on RZ/G3S, and
+>> makes assigned-clocks and assigned-clock-rates required only for the other SoCs.
+>>
+>> Link: https://patch.msgid.link/20260902141544.565763-2-claudiu.beznea+renesas@tuxon.dev
+>>
+>>> diff --git
+>>> a/Documentation/devicetree/bindings/net/can/renesas,rcar-canfd.yaml
+>>> b/Documentation/devicetree/bindings/net/can/renesas,rcar-canfd.yaml
+>>> index b9d9dd7a7967..bbaaef8f4282 100644
+>>> ---
+>>> a/Documentation/devicetree/bindings/net/can/renesas,rcar-canfd.yaml
+>>> +++ b/Documentation/devicetree/bindings/net/can/renesas,rcar-canfd.yam
+>>> +++ l
+>>
+>> [ ... ]
+>>
+>>> @@ -350,6 +352,20 @@ allOf:
+>>>         properties:
+>>>           reset-names: false
+>>>
+>>> +  - if:
+>>> +      properties:
+>>> +        compatible:
+>>> +          contains:
+>>> +            const: renesas,r9a08g045-canfd
+>>> +    then:
+>>> +      properties:
+>>> +        renesas,no-can-fd: false
+>>
+>> Discovered by: opus-5-5 · Missed by: fable-5-1, gpt-6-astra, sashiko-gemini · Confirmed by: fable-5-1
+>> This isn't a bug, but should the renesas,no-can-fd description be updated to match this new constraint?
+>>
+>> The property description in the same binding still says that every controller can run in Classical CAN
+>> mode:
+>>
+>>    renesas,no-can-fd:
+>>      $ref: /schemas/types.yaml#/definitions/flag
+>>      description:
+>>        The controller can operate in either CAN-FD mode (default) or FD-Only
+>>        mode (RZ/{G2L,G3E} and R-Car Gen4) or Classical CAN mode. Specify this
+>>        property to put the controller in Classical CAN mode.
+>>
+>> With this patch the property is forbidden for renesas,r9a08g045-canfd, because RZ/G3S does not have the
+>> mode select bits.
+>>
+>> The header comment in drivers/net/can/rcar/rcar_canfd.c says the same
+>> thing:
+>>
+>>   * To switch the controller to Classical CAN (CAN 2.0) only mode, add
+>>   * "renesas,no-can-fd" optional property to the device tree node. A h/w reset is
+>>   * also required to switch modes.
+>>
+>> Neither text is changed later in the series. Both now contradict the schema for RZ/G3S, and for RZ/G3L
+>> once it is added the same way.
+>>
+>> Could the description exclude the SoCs that only support CAN FD mode?
 > 
-> Only the set_rx_ring_len callback is specific to XGMAC 3.01.  It
-> limits the number of outstanding write requests that can be serviced
-> per DMA.
 > 
-> The other erratum addressed in this patch is simply a comment to
-> ensure that a feature that stmmac doesn't currently use is not enabled
-> without contemplating the errata.
-> 
-> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
-> Co-developed-by: Alex Elder <elder@riscstar.com>
-> Signed-off-by: Alex Elder <elder@riscstar.com>
+> Do you plan to update description of renesas,no-canfd in bindings/driver exempting Classical CAN mode
+> for RZ/G3S? Or do you want me to update?
 
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+I intend to send follow up patches today. If you already have something prepared 
+for this, please send it.
 
-Maxime
-
-> ---
->  .../net/ethernet/stmicro/stmmac/dwxgmac2.h    |  3 ++
->  .../ethernet/stmicro/stmmac/dwxgmac2_dma.c    | 52 +++++++++++++++++++
->  2 files changed, 55 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-> index f8ab347f7b5b9..0fe86e9942334 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-> @@ -374,6 +374,8 @@
->  #define XGMAC_DMA_CH_RxDESC_TAIL_LPTR(x)	(0x0000312c + (0x80 * (x)))
->  #define XGMAC_DMA_CH_TxDESC_RING_LEN(x)		(0x00003130 + (0x80 * (x)))
->  #define XGMAC_DMA_CH_RxDESC_RING_LEN(x)		(0x00003134 + (0x80 * (x)))
-> +#define XGMAC_OWRQ			GENMASK(25, 24)
-> +#define XGMAC_RDRL			GENMASK(15, 0)
->  #define XGMAC_DMA_CH_INT_EN(x)		(0x00003138 + (0x80 * (x)))
->  #define XGMAC_NIE			BIT(15)
->  #define XGMAC_AIE			BIT(14)
-> @@ -465,6 +467,7 @@
->  extern const struct stmmac_ops dwxgmac210_ops;
->  extern const struct stmmac_ops dwxlgmac2_ops;
->  extern const struct stmmac_dma_ops dwxgmac210_dma_ops;
-> +extern const struct stmmac_dma_ops dwxgmac301_dma_ops;
->  extern const struct stmmac_desc_ops dwxgmac210_desc_ops;
->  
->  #endif /* __STMMAC_DWXGMAC2_H__ */
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-> index ff83858ebc1f3..f9a77d641eb65 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-> @@ -36,6 +36,13 @@ static void dwxgmac2_dma_init(void __iomem *ioaddr,
->  	 * Route DMA interrupts to per-channel lines when multi-MSI enabled.
->  	 */
->  	if (dma_cfg->multi_msi_en) {
-> +		/*
-> +		 * A friendly warning to future adventurers. If Descriptor Posted
-> +		 * Write support, which is off by default, is ever enabled then be sure
-> +		 * to make it optional. This is required by errata for at least XGMAC
-> +		 * 3.01A... and the XGMAC 2.x and 3.x are architecturally similar so we
-> +		 * use dwxgmac2 support for the 3.x family as well.
-> +		 */
->  		value = readl(ioaddr + XGMAC_DMA_MODE);
->  		value = u32_replace_bits(value, XGMAC_INTM_MODE1,
->  					 XGMAC_INTM_MASK);
-> @@ -492,6 +499,20 @@ static void dwxgmac2_set_rx_ring_len(struct stmmac_priv *priv,
->  	writel(len, ioaddr + XGMAC_DMA_CH_RxDESC_RING_LEN(chan));
->  }
->  
-> +static void dwxgmac301_set_rx_ring_len(struct stmmac_priv *priv,
-> +				       void __iomem *ioaddr, u32 len, u32 chan)
-> +{
-> +	u32 val = FIELD_PREP(XGMAC_RDRL, len);
-> +
-> +	/*
-> +	 * Reduce the number of outstanding write requests to 3 (from default
-> +	 * of 4). This is an errata workaround for XGMAC 3.01a.
-> +	 */
-> +	val |= FIELD_PREP(XGMAC_OWRQ, 3);
-> +
-> +	writel(val, ioaddr + XGMAC_DMA_CH_RxDESC_RING_LEN(chan));
-> +}
-> +
->  static void dwxgmac2_set_tx_ring_len(struct stmmac_priv *priv,
->  				     void __iomem *ioaddr, u32 len, u32 chan)
->  {
-> @@ -621,3 +642,34 @@ const struct stmmac_dma_ops dwxgmac210_dma_ops = {
->  	.enable_sph = dwxgmac2_enable_sph,
->  	.enable_tbs = dwxgmac2_enable_tbs,
->  };
-> +
-> +/* All but one field are the same as dwxgmac210_dma_ops */
-> +const struct stmmac_dma_ops dwxgmac301_dma_ops = {
-> +	.reset = dwxgmac2_dma_reset,
-> +	.init = dwxgmac2_dma_init,
-> +	.init_chan = dwxgmac2_dma_init_chan,
-> +	.init_rx_chan = dwxgmac2_dma_init_rx_chan,
-> +	.init_tx_chan = dwxgmac2_dma_init_tx_chan,
-> +	.axi = dwxgmac2_dma_axi,
-> +	.dump_regs = dwxgmac2_dma_dump_regs,
-> +	.dma_rx_mode = dwxgmac2_dma_rx_mode,
-> +	.dma_tx_mode = dwxgmac2_dma_tx_mode,
-> +	.enable_dma_irq = dwxgmac2_enable_dma_irq,
-> +	.disable_dma_irq = dwxgmac2_disable_dma_irq,
-> +	.start_tx = dwxgmac2_dma_start_tx,
-> +	.stop_tx = dwxgmac2_dma_stop_tx,
-> +	.start_rx = dwxgmac2_dma_start_rx,
-> +	.stop_rx = dwxgmac2_dma_stop_rx,
-> +	.dma_interrupt = dwxgmac2_dma_interrupt,
-> +	.get_hw_feature = dwxgmac2_get_hw_feature,
-> +	.rx_watchdog = dwxgmac2_rx_watchdog,
-> +	.set_rx_ring_len = dwxgmac301_set_rx_ring_len,	/* Only 3.01 */
-> +	.set_tx_ring_len = dwxgmac2_set_tx_ring_len,
-> +	.set_rx_tail_ptr = dwxgmac2_set_rx_tail_ptr,
-> +	.set_tx_tail_ptr = dwxgmac2_set_tx_tail_ptr,
-> +	.enable_tso = dwxgmac2_enable_tso,
-> +	.qmode = dwxgmac2_qmode,
-> +	.set_bfsize = dwxgmac2_set_bfsize,
-> +	.enable_sph = dwxgmac2_enable_sph,
-> +	.enable_tbs = dwxgmac2_enable_tbs,
-> +};
+Thank you,
+Claudiu
 
