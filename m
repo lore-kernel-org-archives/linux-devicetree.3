@@ -1,94 +1,198 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6600356CE28;
-	Mon, 19 Oct 2026 14:26:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A06004E3244
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 14:28:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792419964; cv=none; b=gXg/rjfP3/PgnYu2l2ZwXevogVl2dnfFHGJyZ2u5R+y7OYGy+OkD1CdQdKWzBZ/xsqokEzqXIjuY7ud7kpjWsdqMfrBHOAPOum7hzkka9Hl/ARFX196R8GiP4ZOrsA18s78+dPpTxtpZn5D1+NZUq55fmGWWENVtlkSA6pIYJHQ=
+	t=1792420104; cv=none; b=Ov8EkUo926eSLJZYbpknL+AGjjHF0y7O/6AjEiyuOT9e1jS6tef5M1U4WECXOqbBGBBU9+31r+4OQTL166eCAF6Thm/yFHHL1lpNiO2VFdbPU1A89O2MKq1dR6WC/hYjyMSxVFDqkzURi2Wia8Zggs4AcpX8dV8gqOL7EpYHRIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792419964; c=relaxed/simple;
-	bh=ti1yO82NWAXq70CnTV98mY57q0nPfClzAudNIlBtrSo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=az/uOzlt0EiJ37HqPOb+BixysQAm8xsa35265X5Rb0TydRIyelc8M8ySTDjVP87LP+ZXxZ6VoYcgcGj8SstuLgDtAZ3vzArM0+UXxsXYKF2pNWw0F760hkc5XoRNK4C/k7iR/E4XB2waZR/EqueIMoPuOBDGRgTnyr+7oUShwUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gK829uGJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792420104; c=relaxed/simple;
+	bh=u3yqHBU03QsLqMft9KIPPJ+/nOaInNkvfdJsD2ofFYY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=KwvFSWfmVHwg1ginfMbmzd3ShKTXwnBAyJx2RkA1potuiG9FMaIBlPn9dzCxUZ4UBwqt1pC3WzyLgFWAHcFPZQ6TmF+kkLl+CUVLHWw7aTZ4FywC1DUMlPakfPOtpSHw0zu0O6++HN9RJguXErr3WQzEp0Wx1bVaeIpjE1lx/8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=C7/jtdNi; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gK829uGJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2FC91F000C4;
-	Mon, 19 Oct 2026 14:25:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792419962;
-	bh=5c7yVaLtr9x4fkx2BIkC1OF7uxkwFHyouac+2BuosV8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gK829uGJwuHy0+KUuUByxqIxBVMzXAoNbSej8eAWfvgRaS+5YW1j5+tGZBOxMj5AK
-	 gjd5XvAqtMkOyARij0M6L/Ah0i2oee/l2wDD3B49iLnn8SmyztKaHkYKo8aBhnPD9k
-	 wkOh48gpxMWMlmBM3OwydpOuj4uUlBzxW1HFZv+VdxeZx9bR5P4W+tkaf2QiED27BG
-	 Bc6O/HBPILIPgOnuCN4ZLwYJxMUqdBUs/paPiIukoYGJRptYqDoMIaT+65zVg3zQ3V
-	 6Z/6WVtoJ/VY9LnLw6z3I/Dr4i1doDDnl5g7ZuqbGp8GalMl5Ao9MQ6ZVXwOjnv+XO
-	 ynQq2sStMJcSw==
-Date: Mon, 19 Oct 2026 15:25:55 +0100
-From: Lee Jones <lee@kernel.org>
-To: Lakshay Piplani <lakshay.piplani@nxp.com>
-Cc: linux-kernel@vger.kernel.org, linux-i3c@lists.infradead.org,
-	alexandre.belloni@bootlin.com, krzk+dt@kernel.org, robh@kernel.org,
-	conor+dt@kernel.org, devicetree@vger.kernel.org, broonie@kernel.org,
-	mfd@lists.linux.dev, Frank.Li@nxp.com, lgirdwood@gmail.com,
-	linux-gpio@vger.kernel.org, linusw@kernel.org, brgl@kernel.org,
-	vikash.bansal@nxp.com, priyanka.jain@nxp.com,
-	aman.kumarpandey@nxp.com
-Subject: Re: [RFC PATCH 7/7] gpio: p3h2x4x: add GPIO expander for the NXP
- P3H2x4x I3C hub
-Message-ID: <20261019142555.GB2663669@google.com>
-References: <20261016164625.3166779-1-lakshay.piplani@nxp.com>
- <20261016164625.3166779-8-lakshay.piplani@nxp.com>
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="C7/jtdNi"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48afcfc4bf5so1798159f8f.1
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 07:28:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1792420100; x=1793024900; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=aFenL6WtKoIB0uGYWQlfKEQvrS5xFRsP32DbZWJaJbU=;
+        b=C7/jtdNiOMA9nQrBZnOtq2x0bpTjHn1Zbpih2s8rjHys0xfIUJMaGT66a9r8C2Ad3n
+         5yyW5et+knULifFtngFrAUFGEc/t1re7xzhekDWsZ51iYNzEiy1+uoRqFcqLY7+UPHmb
+         zKozhi2Wz4pb4jF5x1nG5IGHUwYGfjnRIxjdzP0G0aeB7iKSOjP/yPblzjzsmlWUPDs+
+         TUMD+ll3UMmUBxDmx5mhoaNlvCB/AlFpY8YjjHQD+WLRkt/CHLoFl6vJF9fkRKup4u3c
+         GScstrp0AgGxlNmbtb+e9heRAu0Uz2NG7PmwZ/3e6nDh6tOPqqllUeGdi/7flT7iHJuC
+         SesQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792420100; x=1793024900;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=aFenL6WtKoIB0uGYWQlfKEQvrS5xFRsP32DbZWJaJbU=;
+        b=ksiz63BMTkL9rD2lsUFmbRwopSySkeDFCt8dbouEn8ez7qNsnugpEszch+hpg5uGGS
+         TK1+VS0Aj6zzXv3s4lt1EIQr0HAYZJqK2BZCS7os/hMKNLseg6GKok1bnUeSAJjnn7hA
+         bo6ptjJEpeTzZYSm1C+GX1iH9FlP9VOL7bkNhawwlTYuksWsWH/S/tIRYMDHYTptGpoR
+         6ZtJ6qgM9Hn9gN6ZOB5QLoZkPQMA2/yq50LPC+4F/PJjMaaystoA8i010GtxUdDl2pRZ
+         Gw/CReCBdBVsvvKKWS8j854ymcwAfSOVauh7Nl6CnIYJKRIHV4Xl2XBf9mpGprZVCBdy
+         Aewg==
+X-Forwarded-Encrypted: i=1; AKwUvBy7qOh/03Jp0gYjGlVgKiPsDInZWwpCuQMUJXJ0VjljlBoHmIK525BDi4aCqKvfZSAsi0vb46cAxVBp@vger.kernel.org
+X-Gm-Message-State: AFq9FYLb4FEcKwG29PRG7o8ljykETS+58vwql9gRMxqMuEggNF0YsN71
+	vJfp+YSIrgfcN0CL6LuSlTpKLoaYuBR+T5wGTC4Zz3rXoxHVPaVblpLHsDcwI/6iwUo=
+X-Gm-Gg: AYBFou3ClvoESBVwRLzlAYxPo1iKjO+/AP/gKdRLP4d+LVLjsq2q4BgiR8RZOWIv2Ss
+	OH4ZBJkt9XWrVDAmBj9mufPMRd/CV2qCRmypk8BeAYonifJe7NhJ//1lQPcVKs29Av69+CsM7l2
+	qwLsbdOYLyfsHyUWIvjJQApNibqtZ+AKsIaB9AMVpVNYHUOHvdEf8OlTC72RLBau/Peh11s3hA1
+	hxfRcH1FHnPWODt1gvyncG4CRQkaEpUT04A5JOKewnDGaq/a1QzPYXIu39XnWTJX2JCAlYeObmJ
+	8LtuMIbV4go/YEf9U5L5p7vyFnJdejvbn22J2hhB/i7rrvy6CMpiufnwhThG5ZvGFySDXE+ukdD
+	5w+HQosQAulwH6snlM/w5FQTrz/jqX25jFwd+TNeT1bBsRQAPBg6B+Ms2HD6soZdKhRm7TmzJJn
+	fQShs5kD++2W6Hw0HMt9wgabfV3Pne+GmT0+dn9fbeuRVH5xG0CYw7px3e8vOp2COrFTqi/7YXf
+	F1nzeZ5tDADfksHr82fxg3KGPED2Le7iKx04JFrwIAIKYXOxg==
+X-Received: by 2002:a05:6000:1aca:b0:48b:1296:52ec with SMTP id ffacd0b85a97d-48e07bb5837mr15910092f8f.18.1792420099554;
+        Mon, 19 Oct 2026 07:28:19 -0700 (PDT)
+Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48dfd540bc4sm23854576f8f.2.2026.10.19.07.28.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 07:28:19 -0700 (PDT)
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Subject: [PATCH v5 00/16] Update imx678 to act as a common Sony Starvis 2
+ driver.
+Date: Mon, 19 Oct 2026 15:28:07 +0100
+Message-Id: <20261019-media-starvis2-v5-0-eef935347ce9@raspberrypi.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016164625.3166779-8-lakshay.piplani@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAPco1moC/23PTYoCMRAF4KtI1maoVKrS7azmHsMs8lOtWWhLI
+ gGRvrtBUGTaVfGg3gfvpqqULFV9b26qSMs1z6ceeLtR8eBPe9E59awQ0MEIpI+Sstf14kt/Ru3
+ Yc4gEHAZSvXTI9TKX68Nrpp/fZ5X/V5vRoHdGRiHxQjT9FF/PQUq5nvNXnI/qr4MNX4gBY1cId
+ sS6AQbEhAz+M2LfkdWIZjsSdzxah4ETuM8IvSPrOdSRgaeYAhlnJ7tGlmW5A32u96pxAQAA
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Jai Luthra <jai.luthra@ideasonboard.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Alexander Shiyan <eagle.alexander923@gmail.com>, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.1
 
-On Fri, 16 Oct 2026, Lakshay Piplani wrote:
+The IMX678 (8MPix) driver has already been accepted into the
+kernel.
 
-> Expose the pins of the target ports placed in GPIO mode as a gpio_chip, so
-> the hub can be used as an IO expander.
-> 
-> Each port contributes two lines, the SCL pin first, so target port N owns
-> the lines 2 * N and 2 * N + 1, and the line number is also the port bit
-> position in the direction and level registers. Ports that carry bus traffic
-> are masked out through init_valid_mask. The port function is taken from the
-> device tree rather than from the GPIO mode register, because the hub child
-> that programs that register and this child are independent MFD devices with
-> no probe ordering guarantee.
-> 
-> Direction is the output enable: clearing it leaves the pin in Hi-Z. An
-> output drives the level before the buffer is enabled to avoid a glitch, and
-> the input level register is used for reads in both directions. These
-> registers are not protected, so the callbacks do not take the shared
-> register lock. Implement get_multiple and set_multiple so an access to all
-> lines of the hub costs two register accesses instead of one per line.
-> 
-> Interrupts on input level changes are not supported yet: they arrive as an
-> I3C in-band interrupt and the edge detection configuration is shared by
-> groups of four ports.
-> 
-> Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
-> Signed-off-by: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
-> Signed-off-by: Vikash Bansal <vikash.bansal@nxp.com>
-> ---
->  MAINTAINERS                 |   1 +
->  drivers/gpio/Kconfig        |  11 ++
->  drivers/gpio/Makefile       |   1 +
->  drivers/gpio/gpio-p3h2x4x.c | 294 ++++++++++++++++++++++++++++++++++++
->  drivers/mfd/p3h2840.c       |   5 +
+Whilst preparing a patchset for IMX662 (1080p), I observed such
+commonality between the two that it seemed sensible to attempt
+a common driver rather than submitting a separate IMX662 series
+again.
 
-This needs to be a separate patch.
+On checking my box of sensors, I found I had an IMX675 (5MPix) as
+well, so that has been incorporated. Subsequently I was able to
+add IMX585 (8MPix) and IMX832 (1080p).
 
->  5 files changed, 312 insertions(+)
->  create mode 100644 drivers/gpio/gpio-p3h2x4x.c
+The Sony datasheets are rather lacking on the limits for HMAX.
+They list HMAX (and VMAX) values for nice round framerates at
+a number of the supported link frequencies.
+These limits have been adopted for IMX662 and IMX832, but for
+IMX675 and IMX585 they have been determined empirically by
+observing values of HMAX that start to introduce image issues.
 
+Now cleaned up over the RFC V1.
+
+Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+---
+Changes in v5:
+Fix Sashiko issues that were present in V3 but it didn't report.
+- v4l2_ctrl_new_int_menu failing for LINK_FREQ could avoid
+  printing an error.
+- Make setting common_regs_written conditional on all cci_write
+  calls having succeeded.
+- Please note that the checkpatch failure on the first patch is
+  a false positive. starvis2_of_match does have the sentinel, but
+  it's not shown in this patch as it's being renamed from
+  imx678_of_match. I'll report the false positive.
+- Link to v4: https://lore.kernel.org/r/20261015-media-starvis2-v4-0-75fcdb4163f3@raspberrypi.com
+
+Changes in v4:
+- Added Krzysztof's tag
+- Made the variant_def structs static (sparse)
+- Put the sensor back into standby after identify in case PM is
+  disabled (sashiko)
+- New patch to enable pm_runtime_autosuspend.
+- Not fixed a Sashiko report of potential use-after-free with
+  v4l2_subdev_cleanup vs v4l2-ctrl_handler_free. It is a
+  pre-existing issue in imx678, and many others are sharing the
+  same pattern. There is no immediately obvious solution as the
+  active state is sharing the control handler lock, so the
+  suggested inversion of operations will use a destroyed mutex.
+  https://sashiko.dev/#/message/sashiko-outbox-171674%40kernel.org
+- Checkpatch error "missing sentinel in ID array" is a false
+  positive, confused by the comment in the middle of the array.
+  That comment was pre-existing in imx678.
+- Link to v3: https://lore.kernel.org/r/20261014-media-starvis2-v3-0-c958362b5d06@raspberrypi.com
+
+Changes in v3:
+- Sorted compatibles list (Krzysztof)
+- Corrected exposure limits for imx585 via parameterization (Jai)
+Issues identified by Sashiko-bot
+- Fixed the Kconfig for VIDEO_IMX678 still depending on GPIOLIB
+- Removed the remnant build rule for imx678.o
+- Fixed sending the common registers if CONFIG_PM is disabled.
+- Fixed potential NULL deref and lockdep in link freq handling.
+- Fixed the duplicated active_area definition for imx585
+- Link to v2: https://lore.kernel.org/r/20261013-media-starvis2-v2-0-3670722d250a@raspberrypi.com
+
+Changes in v2:
+- Switched from an RFC to a patch set.
+- Add the dtbinding changes.
+- Added IMX832 and IMX585. Tested and fully working on all 5 modules.
+- Updated 2 lane handling so that the higher link frequencies achieve
+  the maximum frame rates.
+- Adds a patch that corrects the minimum exposure time.
+- Allow userspace selection of all link frequencies specified via DT
+  (makes testing all the link frequency options far easier).
+- Link to v1: https://lore.kernel.org/r/20260805-media-starvis2-v1-0-91e8e4eae44f@raspberrypi.com
+
+---
+Dave Stevenson (16):
+      media: imx678: Rework into generic Starvis 2 sensor driver.
+      media: sony-starvis2: Reorder link frequencies to remove lookup
+      media: sony-starvis2: Always program the sensor in window mode
+      media: sony-starvis2: Parameterise the configuration to allow for other models
+      media: sony-starvis2: Rework 2 lane support for higher link freqs
+      media: sony-starvis2: Allow runtime control of link frequency
+      media: sony-starvis2: Correct the exposure range
+      media: sony-starvis2: Put module into standby after identify
+      media: sony-starvis2: Use pm_runtime_autosuspend
+      media: dt-bindings: sony,imx678: Add other Starvis 2 family members
+      media: sony-starvis2: Add support for IMX662
+      media: sony-starvis2: Add support for IMX675
+      media: sony-starvis2: Add support for IMX832
+      media: sony-starvis2: Only update bits for window mode
+      media: sony-starvis2: Parameterise exposure min and step
+      media: sony-starvis2: Add support for IMX585
+
+ .../devicetree/bindings/media/i2c/sony,imx678.yaml |   38 +-
+ MAINTAINERS                                        |   14 +-
+ drivers/media/i2c/Kconfig                          |   19 +-
+ drivers/media/i2c/Makefile                         |    2 +-
+ drivers/media/i2c/imx678.c                         | 1447 ------------
+ drivers/media/i2c/sony-starvis2.c                  | 2362 ++++++++++++++++++++
+ 6 files changed, 2416 insertions(+), 1466 deletions(-)
+---
+base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
+change-id: 20260804-media-starvis2-65a5bc405b74
+
+Best regards,
 -- 
-Lee Jones
+Dave Stevenson <dave.stevenson@raspberrypi.com>
+
