@@ -1,100 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.19
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792437954;
-	b=p37ytMHC7Of9aljmmhkJ8zZu8G10aypXvtFj3uzxi1L4etbXf6DrGXt3DqVXUsuqW6oG
-	 CvWYFZyDyLEen+LH6EpZk9Hhj+G/DHSvSOvob7x9LeGuTsQL0xqNVEeF6D3fsmD4i4koH
-	 IE3UzMf6dadHYaanrlNu//xFw5y+iNnfPPIZuLVnxLlz4+dErUwY6f94uqJs2Qk7nKWHo
-	 XqdtiZOD0WvtxKtDBOV67FgVxU2/sn3isODgaaH5uTzT0rux0EL8QqL0hN9AzNWJtn7qJ
-	 eAhbdzv5Y/NWrqrMoAEkuJZLgSjxHCS2hNPulrJmaECRPV9vXMqBEsmutjOCHn9g7Yg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792437954;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=b1W9iqUpKXE15L2AZCsufGSTZfeG4IVKBg+0n6MzXgA=;
-	b=k9tfyVAPlPzGGZLqEqH7rgMX7WL7058eVXf43aFNKtez0/MNGddbBbWBYyAcku7KfH6Z
-	 wkVWH476+ETlm/IRjHOtvEcWI4/EvaRcpzhLECdvyniuBmrwOb8T1MWjtZO1ijKgfdaeh
-	 tbhvPZQrHLyI3jowUUEwVGzZjRYgtK+A50pQFGU3LmWucHutFz0Yc6SSB+Lr/w1qwvlId
-	 CFEnGvXEJ7QqyfqylIhbY9pLahv3NZu6AfWD7XduQqxNchsX3i9P+aZO6tow1h82IBz3s
-	 ksTrTJY2i7yjjRYPtkjKANXilaqoTHK4hl55tllpxUNYM+ttk9sEro8IbpfGWG0bVew==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Ucg19Lso;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.19
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012019.outbound.protection.outlook.com [52.101.66.19])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792438019;
+	b=tEkngr4Hp3VrHEXXMs86dEOpr4Oy2IXKHLOdTKxnAQv4P1tBJHYMtF3SneHMWFJo++Vb
+	 w8SKCscdPcvBlfDzIRqdtaELE2acUtX1VRCNUVNZRFkQh7cJNulSdhUK7dn0iju3IVK1R
+	 aNl2Zq6HertIVjPDBJu1RfAcnBcBPN3mTQdR4YwE+KGDNlbCd3YnNcM5U4jz1+fmLFEg5
+	 8c5foTeOf/vTyRWurTZ36GKzZ9FEF7nVN7xsHSWl0AA8Edbqf+vkgNimskQf7KWveRjtx
+	 uIIo1hM7G3sj564uFpdij+msYAi8Yjb1kiW6+cUK6XUyFw6jz9sKot7KG2vIE7OwPkA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792438019;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=XJxIc7IZPOWvgbXWTDNvi1oJM4oQX4nC6DFxnxfPJAM=;
+	b=TmFj/jS/fwbZzq+Vu609zhXqVMNT+oydqrgHOX83rjuneFNlTUVvXDNp0wMqwGX9G0/D
+	 LNSoUNVwjkzlu9G2P8afFrimlfsQdFPaFBot/ruoIlk3H6DvTre6MxeAaKOFwjm5UrBWx
+	 Xg9Mf1Qx5rJH3LoCi2SuPc+Vb0pMMK39OxmdkB0/xtbxCYFUcsF/4QSrhI2dZQx68N/bq
+	 CHcfumoBKHnKS310db29amRdLQL9LXf/AknZeSa+32fWXv4JWBIFHZynb3PdWHyhOmZW1
+	 TSy63/Vq4x52/luRTDGdac3YmArSy7yEOooymZkQx5pi//S14tdAQRu2zF07iPqjLhw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HA1u57TD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15528606A326;
-	Mon, 19 Oct 2026 19:25:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15528606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA43C606A320;
+	Mon, 19 Oct 2026 19:26:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Ucg19Lso
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MhH3sJ/sBt+jz4slqNkQt8r2oZo1OQuOunTt3mJfGvcA+HmWJT14O0MNhnQm5g7FlGd04gtzT23ibmaGZxPz7+xFn+e8WF8HxjCcD4/wCMZ0Zd1sJO63YIN0O7L3K13k5mYJcuq7I6jrQ2s1P5jkSLuTdVcUn/FTimqjYwiyCPW1W/6/wWBMhi6dam5iB1/8ISSltFN/1DEGHltcSuY33tcYZNM2N7IqYWGdGvij00eJM3uEjkhe0C9gNQOrJKYBWIAY+g9HcidNJRAI13jOqFyhP+w3yOqi5/qyugR6ScTfxOEw078jsWEeNIbYLgxiFMYkBTE1MN9iA1By2Sa00g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b1W9iqUpKXE15L2AZCsufGSTZfeG4IVKBg+0n6MzXgA=;
- b=Idq2Meup2mmBT+5E/zT5CfD1T7sTcvVR7rtdchxu9p8qfI9kwEVofl7qCRXm9hygQw38asGcoV72RwMqCRg43QJQAbeQwUNOycRK/28jUC6lOKR9EVjPC0v+4JJg90BcDYyFP/TkQhTpaWLdm4DTm6HZ8WBho9O/3MC+D+Rb9KstVfRa4mO3acpAzeaZcr07MH90qFC03GnLpw7TaEWvKVLFzgsxHfLkkdNANFFMEB7agCHRGNSFvBuStFlnsh86LuG/4SbV3CTphxrRf1uxMVZOiYiLAqVVCqDub83Nsw9iagdweZfU6EDo0FFlFy3hzi5o7s8+qufQb0V1JNgfug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b1W9iqUpKXE15L2AZCsufGSTZfeG4IVKBg+0n6MzXgA=;
- b=Ucg19LsoPNpvWl3TO7HUfYrE4M4os1tBS1W1/UkPsxxkMt0pl+a04k7HzVeaOlpSPoUUjLfyeUkTIe4yjd1TS9sIOW24Ex1k7qdFgsDtgRh2XB7iMGjycRt0hPejunK50HOB0kTO2AslFBUrbC2YxH+18uVBvoWEtjcKROVraMUDbsZbWdSisFEVuqWf6zNGHQVcB50Q/hIb2Y+Ps9M2DD7DSYDFaEkq3CKQEboXO6t8L1kFMumbiQCkjhnF8Wjo9dvpEZuq3fzEh54AJ4XxXgvWTFkoWWUWqaJxahO5LPYKE8oSMdc8cVGuSEVlqoENJvlIQVR3owk+y5qqrql2BQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by VI1PR04MB6861.eurprd04.prod.outlook.com (2603:10a6:803:13c::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 19:25:50 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
- 19:25:50 +0000
-Date: Mon, 19 Oct 2026 14:25:40 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Antoine Gouby <antoine.gouby@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Antoine Gouby <antoine.gouby@toradex.com>
-Subject: Re: [PATCH 2/5] ARM: dts: imx6dl-colibri: Add Toradex Capacitive
- Touch Display 7" Parallel
-Message-ID: <atZutHmYt1aNWTpP@SMW015318>
-References: <20261019-colibri-imx6-overlays-v1-0-e4d028727382@toradex.com>
- <20261019-colibri-imx6-overlays-v1-2-e4d028727382@toradex.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019-colibri-imx6-overlays-v1-2-e4d028727382@toradex.com>
-X-ClientProxiedBy: PH0PR07CA0091.namprd07.prod.outlook.com
- (2603:10b6:510:4::6) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HA1u57TD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 166701F000C5;
+	Mon, 19 Oct 2026 19:26:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792438018;
+	bh=XJxIc7IZPOWvgbXWTDNvi1oJM4oQX4nC6DFxnxfPJAM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HA1u57TDRPq6UjOED+DV69EWPkOi8yCEx96AEr5kGy2qe3RJi7Ab6Ly8iaOxkiSKH
+	 lm0zv+l+S6wwyOeA7P7+mEOR2a+g6OCYU8OpxHXYYENrilGYEj8tfaaUvFNOO5OhH4
+	 FtC4qYMVfsodyItizF+JbQ8RnMpqmMTFPaRCqT5fdejkpv5QAYs6//+K0jNARJotnK
+	 XHDDn3ZzcEdn7jsWrr8FJgBz0G7Stm9RRjT0+ylhFahPIOhIgEXmDRCB4dR75+i07r
+	 IwNQbJv0HhJtBWqGHpOE+q12tOR7icBRZSoB3WDy+RirGai4VQGHUdVtZwucKyQjBL
+	 QsY/yu1f42BzA==
+Message-ID: <sashiko-outbox-178143@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 04/11] HID: spi-hid: add spi-hid driver HID layer
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jingyuan Liang" <jingyliang@chromium.org>
+Cc: linux-input@vger.kernel.org, linux-trace-kernel@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
+In-Reply-To: <20261019-send-upstream-v6-4-cb9ba4b3d6fa@chromium.org>
+References: <20261019-send-upstream-v6-0-cb9ba4b3d6fa@chromium.org>
+ <20261019-send-upstream-v6-4-cb9ba4b3d6fa@chromium.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 19 Oct 2026 19:26:57 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,195 +59,154 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|VI1PR04MB6861:EE_
-X-MS-Office365-Filtering-Correlation-Id: 28dcf0ba-d499-452c-cfd7-08df2e16c8f0
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|1800799024|376014|23010399003|19092799006|56012099006|11063799006|4143699003|261009220027099003|10067099003|261009223027099003|261009221227099003|261009221727099003|261009223327099003|22082099003|18002099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	+uvQW2D0P3KxqbjQ0hBURojz76Jm6lanG6AS46PRIOiK8Em1zmvLFIHpzlHHx4WpM3HzgeWXPyuncDMJSSXAE9trs7mmiSrbeLoZjioJAuj0OXacTiOxsPCc/PAGDcO2byXNgJZT525dnd9VBC61mQplftY7IqcER60fUoGClDOIiWQNc6vNS3IPTrvHV2svSh1JBTvVNKOA6Pe1pfVEhgwC4i8Rn6rEWjw5ERpq2WfhtuAodSYCKu2M+UOnqJkWTVqmIi8SqZ0KXj9d7BLh2MDq3yrkWxz86SSDoJjTZhsSqDt9/UgC8MY/wQSzbpCP3vmTjPebESq7hcbvkpS1e9+wAQWVeb7jM18TmdPmzORntC8QIa6VpPp/UWRf2OwmWM9b806y/0DBuAY4GxdU40PRWpColegzrtiD8SsT7oFNOShXeGL5uKNbhpOrpGJ81AcVPKp0vGnFSpZCwBJrEGcnaqI86qis9bB/aoJKSBoauUqBd1svywhuQv4Rl+hwNzeb1due9tk/fqC6L0a9h0lqGsXCwPjAR6EtXbqBnQA9IG2svr8/mDNzUi4seYzqVsnjrholy/5WO/DKsc22Mkmrki2/L09hSeCMuj4i3iCdOknP4jIq4iunSQV1Mg7J
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(1800799024)(376014)(23010399003)(19092799006)(56012099006)(11063799006)(4143699003)(261009220027099003)(10067099003)(261009223027099003)(261009221227099003)(261009221727099003)(261009223327099003)(22082099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?+1kenMPu1RWaSUNbWL202JQgT8bd1yVAXDubzribYCQdFyvVve1hXrFhAFeZ?=
- =?us-ascii?Q?uHwFSmpf6EadDxSXjdOL1+n5hNsRnvOM4fZce81UWWW6DlBBk1zKQpXLnsaw?=
- =?us-ascii?Q?VEiaCpACh18OfdYYy3NamZUoB9fMootIby8JInO275qiqZU/lncnpfaZjSMW?=
- =?us-ascii?Q?BJmvbdg4HObt/6ar0k1bJfyFALwTjcyv3zl6GtWrxVpJcZbryqE367bCJPYV?=
- =?us-ascii?Q?FFYtMiYviBiz3DYN/BU7RTUcRm+ew7fIbs5jOqatCNlga1MXsQMpx8y7SCfi?=
- =?us-ascii?Q?B+gm5G8uWqgrMfVy0KnKoRcozERxzO3A9OSll150PDzTFrsYTsOIlt6Jh4iq?=
- =?us-ascii?Q?Ds2i/d3vEjkqpicj4NNEbHYo3zFAXXWe05lf8/w08qD6ktlecMC07EnnpCdg?=
- =?us-ascii?Q?A1RQ3Q1hWuhA3TmCaXW3+ziGIMYtgEJWAhjN242PW6OtgDcnea6LroV8foNO?=
- =?us-ascii?Q?xDnJ+KvttBsX92WdXCg9p6uJBxgQ73R7/fbyFC2QIfsHpC1vnIdhqXz2SoBI?=
- =?us-ascii?Q?Wl321V43A4Py/6wjKh9Ryq52F3WlXep5A9/nkXSdKrwn8OdtXGrZzGO0W0df?=
- =?us-ascii?Q?tuYetghUx6I7VfKEbwgjNzz2y1z4EXdqxlDuEIqFzoxjRabuWWiACBJ47C0I?=
- =?us-ascii?Q?CSWltHgsKbT1HdV7/dbvVu4c6BwXenMlZdgE6pRUBl210QleoKW1L4iwxtla?=
- =?us-ascii?Q?QaNiwKziik4oKVtoufwsz0OC5qv3BJFvxW1Fr0eyTz3OwP55blepMC4FFieL?=
- =?us-ascii?Q?E0J2kJOdm4IhR/UdZ2Wt4ZghPF/8eFGagA5qkOdlq8kUROJoJOB/rkh9KijD?=
- =?us-ascii?Q?oOXq7H7Lqb6KVSdJ50O/ungIH4skheFeexcITyIpFAbRDPj1IC456FpORkBp?=
- =?us-ascii?Q?+gHX/Ov4CV1Af6pd6gYv8I8+BInXatOVQkWVji0m6+WCN3NI2RUigUqzveLd?=
- =?us-ascii?Q?lxpCl0HGhO5klym1mByJASQe+MEK2uZlScybkdjjcw3N/uhw/x2Tp7lUfgMp?=
- =?us-ascii?Q?FZ5RMgrpnejCnob+R5Tv4Ub0XhCScF1WHhTkNKklQM8mQQXdjPoireO8FXiq?=
- =?us-ascii?Q?gBycXSOn0K5Bzy/OF/9ygMM3ygwBeXo95guHxAB8DYZMi/egWgZJoZXJXAji?=
- =?us-ascii?Q?pvEYx/XwZ8dNHSixtWS8qVEV/yUEkBwjEf39UrfpsrhGTdMsZ7kuXvj5BiWR?=
- =?us-ascii?Q?6INdw9LxCW7K33EWTf8LCWUGTsrPneojAVbWuFzUMNxVm62kcWF/dknrL/fs?=
- =?us-ascii?Q?3zzCRjhnRmBEbZAyhrI99TGxDfS+ObeKbZvvvDLPr7VaxIViOlhs7GMINzGI?=
- =?us-ascii?Q?2M0SLsLbaFV+cdmSkXN1UImhj7r4DklqXBAmHHryEutImdBaV41ThcwLkPU6?=
- =?us-ascii?Q?KhVKNEWhkRlQR7ZBe9xW9UbUCfDCKwMwTh+kMeIHeXPlfM++uIaNSFKuYngz?=
- =?us-ascii?Q?qjFwEsVh6HCtH6zDI7kiYjfzwruoxSRv0K8Cgib+d4b3Xje0NoxsU8yYS/N4?=
- =?us-ascii?Q?46ZJ+4CUm3cWYnkvX6jGHopxU8XqOcK86n15Jtg/+SoyRgXku+oNU9vIffif?=
- =?us-ascii?Q?9rwtKd2Ck6tb6UPIduiaprPEce1jwJhkctBlg1+ZkFRx+zy/Mc74o9tcjOsn?=
- =?us-ascii?Q?JGks8yguewJ7HnJgCWjQvwOy/RgrX63TwLI7b7UqUtZX+OE/Grdmx/VIw/8X?=
- =?us-ascii?Q?a1MXy0FgiZovDTuAo+GWcWlciAsKVeqnMCyqZiWFP+dGQayoyBL0itxCW630?=
- =?us-ascii?Q?saOBkE5HwLR+AZxPIp3QLD8tJsYXp1tlFWyW02yw4jOqE9F13ydU?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 28dcf0ba-d499-452c-cfd7-08df2e16c8f0
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 19:25:50.7323
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ioeTwFGMK7+K4ryFmB1EhZ81aAt7ZMmSj3w7e/Cxhr5sj6dAcxKHOd07YhW0fYfbbveMfgmfBD/NxFMp/P419oQkHSLCNLarXFX+WpqA3uEdo1jed77dTyaTY6xwr+ME
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6861
 
-On Mon, Oct 19, 2026 at 01:18:31PM +0200, Antoine Gouby wrote:
-> [You don't often get email from antoine.gouby@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
->
-> From: Antoine Gouby <antoine.gouby@toradex.com>
->
-> Add a device tree overlay for the Capacitive Touch Display 7" Parallel
-> on the Colibri iMX6 parallel RGB LCD interface.
->
-> The panel is a LogicTechno LT161010-2NHC 7" WVGA TFT Transmissive LCD
-> and the touch input is provided by an Atmel MaxTouch capacitive touch
-> controller.
->
-> The touch controller is connected to the Toradex 10-way Capacitive Touch
-> Interface connector available on Iris v2 and Aster carrier boards.
->
-> The touch interrupt and reset signals on SODIMM 107 and SODIMM 106 share
-> their pads with the WEIM nEXT_CS1 and nEXT_CS2 chip selects, disable
-> WEIM to avoid the pin conflict.
->
-> The overlay is also combined with the Colibri iMX6 V1.2 Iris v2 and
-> Aster carrier board device trees to provide ready-to-use DTBs.
->
-> Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-7inch-parallel/
-> Signed-off-by: Antoine Gouby <antoine.gouby@toradex.com>
-> ---
->  arch/arm/boot/dts/nxp/imx/Makefile                 | 11 +++++++
->  ...6dl-colibri-panel-cap-touch-7inch-parallel.dtso | 38 ++++++++++++++++++++++
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] HID: spi-hid: zero-length report descriptor accepted in spi_hid_=
+ll_parse()
+--
 
-File name include key componets, lt161010
+commit 9328ec8c48a0b55cf1019d845ec2c37e89f4cdbb
+Author: Jingyuan Liang <jingyliang@chromium.org>
 
-such as
+HID: spi-hid: add spi-hid driver HID layer
 
-imx6dl-colibri-7inch-lt161010.dtso, like others
+This commit adds the HID low-level driver callbacks and device creation log=
+ic
+for spi-hid, handling report descriptor fetching, buffer allocation, and
+output/feature report requests.
 
-	imx93-tqma9352-mba93xxla-lvds-tm070jvhg33.dtso
-
-In case you will add more 7" panel in future, panel is quite easily EOL.
-
-Frank
-
->  2 files changed, 49 insertions(+)
->
-> diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
-> index 76e2ce85a4d3..7897d9dbdfac 100644
-> --- a/arch/arm/boot/dts/nxp/imx/Makefile
-> +++ b/arch/arm/boot/dts/nxp/imx/Makefile
-> @@ -80,6 +80,10 @@ imx6dl-colibri-v1.2-aster-hdmi-dtbs := \
->         imx6dl-colibri-v1.2-aster.dtb \
->         imx6dl-colibri-hdmi.dtbo
->
-> +imx6dl-colibri-v1.2-aster-panel-cap-touch-7inch-parallel-dtbs := \
-> +       imx6dl-colibri-v1.2-aster.dtb \
-> +       imx6dl-colibri-panel-cap-touch-7inch-parallel.dtbo
-> +
->  imx6dl-colibri-v1.2-eval-v3-hdmi-dtbs := \
->         imx6dl-colibri-v1.2-eval-v3.dtb \
->         imx6dl-colibri-hdmi.dtbo
-> @@ -92,6 +96,10 @@ imx6dl-colibri-v1.2-iris-v2-hdmi-dtbs := \
->         imx6dl-colibri-v1.2-iris-v2.dtb \
->         imx6dl-colibri-hdmi.dtbo
->
-> +imx6dl-colibri-v1.2-iris-v2-panel-cap-touch-7inch-parallel-dtbs := \
-> +       imx6dl-colibri-v1.2-iris-v2.dtb \
-> +       imx6dl-colibri-panel-cap-touch-7inch-parallel.dtbo
-> +
->  imx6qdl-dhcom-pdk2-overlay-497-200-x12-dtbs := \
->         imx6q-dhcom-pdk2.dtb \
->         imx6qdl-dhcom-pdk2-overlay-497-200-x12.dtbo
-> @@ -132,14 +140,17 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
->         imx6dl-colibri-iris-hdmi.dtb \
->         imx6dl-colibri-iris-v2.dtb \
->         imx6dl-colibri-iris-v2-hdmi.dtb \
-> +       imx6dl-colibri-panel-cap-touch-7inch-parallel.dtbo \
->         imx6dl-colibri-v1.2-aster.dtb \
->         imx6dl-colibri-v1.2-aster-hdmi.dtb \
-> +       imx6dl-colibri-v1.2-aster-panel-cap-touch-7inch-parallel.dtb \
->         imx6dl-colibri-v1.2-eval-v3.dtb \
->         imx6dl-colibri-v1.2-eval-v3-hdmi.dtb \
->         imx6dl-colibri-v1.2-iris.dtb \
->         imx6dl-colibri-v1.2-iris-hdmi.dtb \
->         imx6dl-colibri-v1.2-iris-v2.dtb \
->         imx6dl-colibri-v1.2-iris-v2-hdmi.dtb \
-> +       imx6dl-colibri-v1.2-iris-v2-panel-cap-touch-7inch-parallel.dtb \
->         imx6dl-cubox-i.dtb \
->         imx6dl-cubox-i-emmc-som-v15.dtb \
->         imx6dl-cubox-i-som-v15.dtb \
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx6dl-colibri-panel-cap-touch-7inch-parallel.dtso b/arch/arm/boot/dts/nxp/imx/imx6dl-colibri-panel-cap-touch-7inch-parallel.dtso
-> new file mode 100644
-> index 000000000000..13b4888e07db
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/nxp/imx/imx6dl-colibri-panel-cap-touch-7inch-parallel.dtso
-> @@ -0,0 +1,38 @@
-> +// SPDX-License-Identifier: GPL-2.0-only OR MIT
+> diff --git a/drivers/hid/spi-hid/spi-hid-core.c b/drivers/hid/spi-hid/spi=
+-hid-core.c
+> index 02a7608c4b882..fca7a44eeb9f9 100644
+> --- a/drivers/hid/spi-hid/spi-hid-core.c
+> +++ b/drivers/hid/spi-hid/spi-hid-core.c
+[ ... ]
+> @@ -84,11 +185,484 @@ static const char *spi_hid_power_mode_string(enum h=
+idspi_power_state power_state
+[ ... ]
 > +/*
-> + * Copyright (c) Toradex
-> + *
-> + * Toradex Capacitive Touch Display 7" Parallel connected through the 40-way
-> + * Unified Interface Display and 10-way Capacitive Touch Interface connectors
-> + * (as featured on Iris v2 and Aster v1.1 carrier boards).
-> + *
-> + * https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-7inch-parallel/
-> + * https://docs.toradex.com/104497-7-inch-parallel-capacitive-touch-display-800x480-datasheet.pdf
-> + * https://www.toradex.com/accessories/capacitive-touch-display-7-inch-parallel
+> + * This function returns the length of the report descriptor, or a negat=
+ive
+> + * error code if something went wrong.
 > + */
+> +static int spi_hid_report_descriptor_request(struct spi_hid *shid)
+> +{
+> +	struct device *dev =3D &shid->spi->dev;
+> +	struct spi_hid_output_report report =3D {
+> +		.report_type =3D REPORT_DESCRIPTOR,
+> +		.content_length =3D 0,
+> +		.content_id =3D SPI_HID_OUTPUT_REPORT_CONTENT_ID_DESC_REQUEST,
+> +		.content =3D NULL,
+> +	};
+> +	int ret;
 > +
-> +/dts-v1/;
-> +/plugin/;
+> +	ret =3D  spi_hid_sync_request(shid, &report);
+> +	if (ret) {
+> +		dev_err(dev,
+> +			"Expected report descriptor not received: %d\n", ret);
+> +		return ret;
+> +	}
 > +
-> +&atmel_mxt_ts {
-> +       status = "okay";
-> +};
+> +	ret =3D shid->response_length;
+> +	if (ret !=3D shid->desc.report_descriptor_length) {
+> +		ret =3D min_t(unsigned int, ret, shid->desc.report_descriptor_length);
+> +		dev_err(dev, "Received report descriptor length doesn't match device d=
+escriptor field, using min of the two: %d\n",
+> +			ret);
+> +	}
 > +
-> +&backlight {
-> +       status = "okay";
-> +};
+> +	return ret;
+> +}
+[ ... ]
+> +static int spi_hid_ll_parse(struct hid_device *hid)
+> +{
+> +	struct spi_device *spi =3D hid->driver_data;
+> +	struct spi_hid *shid =3D spi_get_drvdata(spi);
+> +	struct device *dev =3D &spi->dev;
+> +	unsigned int rsize =3D shid->desc.report_descriptor_length;
+> +	int error, len;
 > +
-> +&lcd_display {
-> +       status = "okay";
-> +};
+> +	if (rsize > HID_MAX_DESCRIPTOR_SIZE) {
+> +		dev_err(dev,
+> +			"Report descriptor size %d is greater than HID_MAX_DESCRIPTOR_SIZE %d=
+\n",
+> +			rsize, HID_MAX_DESCRIPTOR_SIZE);
+> +		return -EINVAL;
+> +	}
 > +
-> +&panel_dpi {
-> +       compatible = "logictechno,lt161010-2nhc";
-> +       power-supply = <&reg_module_3v3>;
+> +	if (rsize > shid->bufsize) {
+> +		error =3D spi_hid_alloc_buffers(shid, rsize);
+> +		if (error)
+> +			return error;
+> +	}
 > +
-> +       status = "okay";
-> +};
+> +	len =3D spi_hid_report_descriptor_request(shid);
+> +	if (len < 0) {
+> +		dev_err(dev, "Report descriptor request failed, %d\n", len);
+> +		return len;
+> +	}
 > +
-> +&weim {
-> +       status = "disabled";
-> +};
->
-> --
-> 2.55.0
->
->
+> +	/*
+> +	 * FIXME: below call returning 0 doesn't mean that the report descriptor
+> +	 * is good. We might be caching a crc32 of a corrupted r. d. or who
+> +	 * knows what the FW sent. Need to have a feedback loop about r. d.
+> +	 * being ok and only then cache it.
+> +	 */
+> +	error =3D hid_parse_report(hid, (u8 *)shid->response->content, len);
+> +	if (error) {
+> +		dev_err(dev, "failed parsing report: %d\n", error);
+> +		return error;
+> +	}
+> +	shid->report_descriptor_crc32 =3D crc32_le(0,
+> +						 (unsigned char const *)shid->response->content,
+> +						 len);
+> +
+> +	set_bit(SPI_HID_READY, &shid->flags);
+> +
+> +	return 0;
+> +}
+
+[Severity: Medium]
+What happens in spi_hid_ll_parse() if the report descriptor length is 0?
+
+In spi_hid_ll_parse(), rsize (shid->desc.report_descriptor_length) is check=
+ed
+against HID_MAX_DESCRIPTOR_SIZE, but not for zero. Later in the series, the
+commit "HID: spi-hid: add HID SPI protocol implementation" validates
+raw->rep_desc_len !=3D 0 in spi_hid_dev_desc_response(), but if a device re=
+turns
+a REPORT_DESCRIPTOR_RESPONSE with content_length =3D=3D 0 (shid->response_l=
+ength =3D=3D
+0), spi_hid_report_descriptor_request() computes min_t(unsigned int, 0,
+shid->desc.report_descriptor_length) and returns 0.
+
+Both spi_hid_ll_parse() here and spi_hid_refresh_device() in the protocol p=
+atch
+only check if (len < 0), treating len =3D=3D 0 as success.
+
+When len =3D=3D 0 is passed to hid_parse_report():
+
+drivers/hid/hid-core.c:hid_parse_report() {
+	hid->dev_rdesc =3D kmemdup(start, size, GFP_KERNEL);
+	if (!hid->dev_rdesc)
+		return -ENOMEM;
+	hid->dev_rsize =3D size;
+	return 0;
+}
+
+kmemdup() returns ZERO_SIZE_PTR (non-NULL), so hid_parse_report() returns 0.
+spi_hid_ll_parse() then caches a CRC32 of 0 and sets SPI_HID_READY, and
+hid_add_device() sees a non-NULL hdev->dev_rdesc and calls device_add(),
+registering an unusable hid_device while bypassing SPI_HID_ERROR reset
+recovery.
+
+Should spi_hid_report_descriptor_request() or its callers reject a 0-length
+report descriptor (for example, checking !rsize in spi_hid_ll_parse() and
+returning -EINVAL when shid->response_length =3D=3D 0 or len <=3D 0)?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019-send-upstr=
+eam-v6-0-cb9ba4b3d6fa@chromium.org?part=3D4
