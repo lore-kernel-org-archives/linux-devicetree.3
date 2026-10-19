@@ -1,222 +1,313 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A43A245040E
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 05:02:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7CEA345EC0;
+	Mon, 19 Oct 2026 05:05:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792386129; cv=none; b=FowlT5hK/4fbxa6v0/LXcIsqwHIHjlUbmfoeCq0fxJ9YrpGQuZi9qWPyEeaklXUyOoUsIlVofBZhetFK6kOqL1DT/HD2wa43V/kYz9ZpBaapaueS/sSC9HLFxm6d+RhciYAkhcxXoMeESNN8MRVqefEFwaHdgrTFaMxHyzS2yI0=
+	t=1792386319; cv=none; b=qHo0yJyijWUlgmxW1w9UyBhp3TuMtcz2TKRs6bEjLvm0CgfICR1FtVSYFj7y7Wr6TlrVh4JFYjpSnzuB3FsAnITYtNWZMziigmcFEXIhwkTwJcswRUxNppzS+tS6nt/Iy64Akw9Xzgd7W/nqFqunfW5XDvMCqonYuYDS7E3edIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792386129; c=relaxed/simple;
-	bh=kn+5ESPtj0RJi5bfjx0hmp39+NNbUKQWRWiWu6lWa/A=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=m9t3BWgC7FSASAVnGHVu/37SamSx/7Bb459PgOwbz5GPJ6484S+pTsBOE9CCdgQXglUmLrYKS0YgJRVCVwhx4JBcqXVN8mA9Cetb10hl1u8WrST1tKMobLiJvKnDgwLdSSYTZ1u/l4LEKhT09BT74ymI7vDEY2xlT9wzYSETLF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GsxGsQ3Z; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VeVhDwuz; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792386319; c=relaxed/simple;
+	bh=NxhcC/alXNWfyATTRqBnPlSXDbDsnR85ckwxuqEPl4g=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=CJKK72KH2dT68WXjfFdZQsbitxQSDlK36QcLTsxJoiiicDmCc4Adn/RKMcl3Wg8esIZ7Q9qha7rRKLsbp8hVc9YBNmh6Z7A8+QdEd4dTVpY6mrB7aRimDXYGNhQ8iZV2oGi9KGwLzaotx3zzFc7GdITFS8iLmtuVWPa68sdNntA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZONV8F9c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GsxGsQ3Z";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VeVhDwuz"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J4j2Ed2819069
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 05:01:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Or4asT3KXALdKFQAYnB0KiA0P++DP8jjRqXZ1+HPl+w=; b=GsxGsQ3ZT2d72ntA
-	vOk5NPWBt31GRMqA0xsZeC9RYAz9haqBlKgYh/M/xN46UgSqdVQkmHPro1UsZZV9
-	ihIsdPlDpDCuIXXSIadLIGd1PhTZ7QEiGd1jjmtw/PIeSQ3VWAWn8QkWYeGT0uCV
-	986bCuOSyFiQTgz526cb6J2ONVNr7SfM64Gh8GWbCHpHAjD7ZAMcLKmiTlSGr2na
-	3KBOS7qzAjlx+Jo9mvKmH3DzyIzhBMlV0NzvjsCqD+CfjtyG7Q+cfSUP4d7e/IAz
-	QIT2z1Q5kfowxVFcGNXca7cv51P5gqpaNNeln6SiDAWHRv08M1BT/X1kgrlKdvpU
-	G9l23Q==
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hbxqfw5ma-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 05:01:59 +0000 (GMT)
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1383723dfddso3507083c88.0
-        for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 22:01:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792386118; x=1792990918; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Or4asT3KXALdKFQAYnB0KiA0P++DP8jjRqXZ1+HPl+w=;
-        b=VeVhDwuz++H5IGv8o+D+SJppodlwZQgNWNbSB623enXkLIqwLO27XTI9O7IT7Jnwxk
-         ADl2rLBz5PACockZn2VMMH1dAD+h5yE2Vl+nUkxX8Cw+pOdQm5YOtteLa8BCRJRXPqhy
-         8yxsYnE5+F2gA/1ktx8kgvuV7m5oeDzZ7JgdasNahovKq4e/+jUt8j2ZtS7w2DV+G8FH
-         qdaYFR0keAQkVXu8HmAP8VsK1qpmX9iAEPCnyOAxq4RIluKQiQemOKjXUcJyQPjuhlG1
-         u5H44E/SaDZyjCCxExl1yfiHGARCNETdOksdkaXSOMCKm8CPIK15teCn7+uA8Y2zFHXA
-         PEGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792386118; x=1792990918;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Or4asT3KXALdKFQAYnB0KiA0P++DP8jjRqXZ1+HPl+w=;
-        b=fNukdwkGxR3G0Pljxo22/0P3S8OH/vT0fAMLYaBeZRQ9h0xz1PKvL3FtdVrlw9zYpu
-         welR5g4EXwuCgS6GTBBKTHhuLolBOlFjI7vbE7bktTCEkhTLQd7/XnZ+CKsi52PXjUsv
-         Hri590/5wk3pZPx0jc+NXTmsyxfq5hE/ls467W+AiSfWwj6qtiv3/ILHcLTN9wrT3MAn
-         j5olHaybmDc67dFX7ZyhdipNHFv+H1AOVxPc/HChQNPfB+tqv+xk0HGxxsrGscuVKbsL
-         4ZNA7lWJCKTOBJZvwcujYMFZOIpziOOgcN1ibJSIls2DtOwSSMkOAf2zzS5pwkW0TX5w
-         PtEg==
-X-Forwarded-Encrypted: i=1; AKwUvBzPnzdv2j/SU32DBLcdi1d+nVw6aphXyL1VEh2Jh+8ctfR9nhRvWW/hyW4fRVzRlxsI8JU25qveEg+X@vger.kernel.org
-X-Gm-Message-State: AFq9FYLz+hr2g+vAhl2UQkBWaUcvUEWjlYYSvlakY2EYoRUHss53VD9p
-	wKJfG7NqYVhs1qjzKRkCv0RDxM12My7a5JSPux1K/9PHOmoc68PgvhA4gLIetxSUzlZpvv4y3hp
-	T9HEz0WrLar0oZM4uhN63EL1Nr4FIc2Q4odMOhX6Q+PLsr58S55qT3c4+gnhQpJ/W
-X-Gm-Gg: AYBFou2RN1kcn563jkjlWR2oLuTqCTqGBO4j/3QZ1p4+Fnct6WUaDbumjilKk7zRHRR
-	IaHdfGM7fPlSdXS75Ft9CdY2JMH4VewguAIOdF61rUfGexduaa3e7J5aM4vD4ZW1MVZqzTgw3wr
-	itnhTwVm0eG1UuzVyKkA3msTBivDF/5E2mleTl9IiLHtfm1r9c3iaxWoOKzF5MuniQYyetW5axN
-	WK03u0UwRrB+vtxIZrVivurK8xBAk/9Oq/cbnXK8A+mP49yzxARbXcEiIboaQiL9Wb/+bGWUzqB
-	/z85GBWB+iyKou7iUDM07BkUkHrbrYDonnvRRmqZSiywiSboJa++vAbAKH/iMnaxf7uVECO0gAr
-	qiRs+B/rcjFsKqLlT6HnsdwR4ESqm
-X-Received: by 2002:a05:7022:28b:10b0:16f:c9db:c5af with SMTP id a92af1059eb24-185118eded7mr10365905c88.11.1792386118132;
-        Sun, 18 Oct 2026 22:01:58 -0700 (PDT)
-X-Received: by 2002:a05:7022:28b:10b0:16f:c9db:c5af with SMTP id a92af1059eb24-185118eded7mr10365874c88.11.1792386117582;
-        Sun, 18 Oct 2026 22:01:57 -0700 (PDT)
-Received: from [10.218.7.34] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831a6f58c2sm38132385c88.11.2026.10.18.22.01.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 18 Oct 2026 22:01:57 -0700 (PDT)
-Message-ID: <ddefe6d9-1a75-46f0-9ccb-10766729e04c@oss.qualcomm.com>
-Date: Mon, 19 Oct 2026 10:31:50 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZONV8F9c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEA351F000C4;
+	Mon, 19 Oct 2026 05:05:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792386313;
+	bh=GzsfRT1M+pGum/bxVHMbtI0D+TpCiJSveTAvOkF/h84=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZONV8F9c+NrPOIi0dpFys7e6KEqK9VKw/t7dS8PVesopPZp/sa75/AUqSE6uwVHKL
+	 RXCT0hNJHVH66g/vmDPyI8cg7c/UFZJzajSsL3SIvM6T6vI3iYg0KztL/Cke70m3gd
+	 64WxsKshSYqhX+8GacbjR3tQDWXTWW0JqW5QMsRdLZvOtWZus4LQqwJobXa0Le5cbl
+	 xMTQU71yLpp27LCQkoNxQuFF1f+VyGq6eeXL8O2C52WZluukdHY0AABgr0967jxqmy
+	 StY6P5WglhREgYdshGI1WWnQB9obzsSuOtp33XjAtBdmcIPhTmXpscMO3TltzIqB2f
+	 b8g+erVUhOo7w==
+Message-ID: <sashiko-outbox-176658@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 4/5] arm64: ambarella: add ARCH_AMBARELLA and CV75
+ EVK DT
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Long Zhao" <longzhao@ambarella.com>
+Cc: linux-clk@vger.kernel.org, mfd@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
+In-Reply-To: <20261019-cv75-soc-v10-4-d386065e2dd5@ambarella.com>
+References: <20261019-cv75-soc-v10-0-d386065e2dd5@ambarella.com>
+ <20261019-cv75-soc-v10-4-d386065e2dd5@ambarella.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 19 Oct 2026 05:05:12 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-Subject: Re: [PATCH v2 7/7] mfd: qcom-pm8008: Tolerate missing interrupt
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, mfd@lists.linux.dev,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Dhruvin Rajpura <drajpura@qti.qualcomm.com>,
-        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        Oleg Keri <okerixx@gmail.com>, Lee Jones <lee@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Guru Das Srinagesh <linux@gurudas.dev>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-References: <20261014-pm8010_i2c_support-v2-0-b395d2b3f668@oss.qualcomm.com>
- <20261014-pm8010_i2c_support-v2-7-b395d2b3f668@oss.qualcomm.com>
- <e68177a7-f2ef-46ed-a468-15d0d9421d98@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <e68177a7-f2ef-46ed-a468-15d0d9421d98@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDAxOSBTYWx0ZWRfX4KNQH3vVLW1c
- etsPQx4lVndS+qfKJI9XMRuMBodFDUPI3hst9wTljd1Ghy6NLeQWtLX8YNBM80vv2p1na4UBzI1
- t8dPzlKNB+C+8q4WfRy3wriorV3L/F0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDAxOSBTYWx0ZWRfX2KRxTrao+KbF
- PbSQ4SMgJMs2Kwxo+nKY3bTN8EECIQfJloWEovM5tp21fwa+pNiwW9Yi18j9dSPhhToeuEBbebj
- 5lrayfUI2sQgHGSeuTWPOkQBFBhRyBbyNMxxy0fPx6J0/4yqMz/1K3x4Bq4y9IB5W4J7B4GJRFy
- c00npsIdTX/9lcqZG9FAMUgbmIoQMNVYN6HT2UglFwuLB+d6GBc9cQqBj97dTy/YsA/Pt120lan
- 86ckqrfEBEQnGJXsuIKIJxJE1+WA64aNQ6Gh1f1/uW7nwsV/50AwHOx8os/seW371cYbpXZmVV4
- zloaObqBj2MsQMQiEpUa0PKBNnoYeD+AgxgdtdIJDDMGyQV9jDi8yp1X169QUPEPhskQdWrcsHP
- 1Kr7VWJDaNq2PcWMEMCRY998rKQaZ17K5ZmfdZ9zTjtZlKAZsaQapN2vPwLDgARqrITC9zm5RON
- ijsVBhFxuNdsY+rgpmA==
-X-Proofpoint-ORIG-GUID: znU5X7caxYnimJRymUCHQKJbgCt-sXQW
-X-Proofpoint-GUID: znU5X7caxYnimJRymUCHQKJbgCt-sXQW
-X-Authority-Analysis: v=2.4 cv=RYMFmFtv c=1 sm=1 tr=0 ts=6ad5a447 cx=c_pps
- a=kVLUcbK0zfr7ocalXnG1qA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=FgZ6Ug7uWDD4XhXpjZ0A:9 a=QEXdDO2ut3YA:10
- a=vr4QvYf-bLy2KjpDp97w:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-19_02,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 impostorscore=0 spamscore=0
- lowpriorityscore=0 malwarescore=0 phishscore=0 bulkscore=0 suspectscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610190019
 
-Hi Konrad,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] arm64: dts: ambarella: uart0 permanently defers probe due to missi=
+ng pinctrl
+- [Medium] arm64: dts: ambarella: undocumented compatible strings and prope=
+rties in cv75
+- [Medium] arm64: dts: ambarella: gpio nodes use unmatched periphid and unp=
+robed pinctrl
+--
 
-On 10/15/2026 5:35 PM, Konrad Dybcio wrote:
-> On 10/14/26 12:32 PM, Jishnu Prakash wrote:
->> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->>
->> PM8010 is often wired up with the interrupt pin tied to ground. Only
->> register the IRQ infrastructure if we have a parent irq.
->>
->> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->> Co-developed-by: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
->> Signed-off-by: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
->> Co-developed-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
->> Signed-off-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
->> ---
->>  drivers/mfd/qcom-pm8008.c | 82 ++++++++++++++++++++++++++++++++++-------------
->>  1 file changed, 60 insertions(+), 22 deletions(-)
->>
->> diff --git a/drivers/mfd/qcom-pm8008.c b/drivers/mfd/qcom-pm8008.c
->> index 4179427f3891..8b1bbb4052a7 100644
->> --- a/drivers/mfd/qcom-pm8008.c
->> +++ b/drivers/mfd/qcom-pm8008.c
->> @@ -208,6 +208,14 @@ static const struct mfd_cell pm8010_cells[] = {
->>  	MFD_CELL_RES("qpnp-temp-alarm", pm8008_temp_res),
->>  };
->>  
->> +static const struct mfd_cell pm8008_no_irq_cells[] = {
->> +	MFD_CELL_NAME("pm8008-regulator"),
-> 
-> There's no reason to not register the temperature alarm driver
-> if we don't have an irq. It will not be able to carry out the
-> "alarm" part, but one can still poll on it.
-> 
+commit 7e36a79675aa487cf1bb15e171011853976e17db
+Author: Long Zhao <longzhao@ambarella.com>
 
-That suggestion does make sense, but I think it would not
-work, for multiple reasons. Let me explain them here.
+arm64: ambarella: add ARCH_AMBARELLA and CV75 EVK DT
 
+This commit adds the ARCH_AMBARELLA platform configuration and introduces
+the device tree files for the Ambarella CV75 SoC and CV75 EVK board to
+support initial console bring-up.
 
-If we are talking about using drivers/thermal/qcom/qcom-spmi-temp-alarm.c,
-the driver has this check in the probe:
+> diff --git a/arch/arm64/Kconfig.platforms b/arch/arm64/Kconfig.platforms
+> index d2acfac730037..16d7e3a4c2d62 100644
+> --- a/arch/arm64/Kconfig.platforms
+> +++ b/arch/arm64/Kconfig.platforms
+> @@ -26,6 +26,12 @@ config ARCH_SUNXI
+>  	help
+>  	  This enables support for Allwinner sunxi based SoCs like the A64.
+> =20
+> +config ARCH_AMBARELLA
+> +	bool "Ambarella SoC family"
+> +	select PINCTRL
+> +	help
+> +	  This enables support for the ARM64 based Ambarella SoCs like CV75.
+> +
+>  config ARCH_ALPINE
+>  	bool "Annapurna Labs Alpine platform"
+>  	select ALPINE_MSI if PCI
 
-  irq = platform_get_irq(pdev, 0);
-  if (irq < 0)
-        return irq;
+[ ... ]
 
-So its probe would fail right now if it does not have
-an IRQ specified.
+> diff --git a/arch/arm64/boot/dts/ambarella/cv75-evk.dts b/arch/arm64/boot=
+/dts/ambarella/cv75-evk.dts
+> new file mode 100644
+> index 0000000000000..42a0fe24b83bd
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/ambarella/cv75-evk.dts
+> @@ -0,0 +1,30 @@
 
+[ ... ]
 
+> +	chosen {
+> +		stdout-path =3D &uart0;
+> +	};
+> +
+> +	memory@200000 {
+> +		device_type =3D "memory";
+> +		reg =3D <0x0 0x00200000 0x0 0x07e00000>;
+> +	};
+> +};
+> +
+> +&uart0 {
+> +	status =3D "okay";
+> +};
+> diff --git a/arch/arm64/boot/dts/ambarella/cv75.dtsi b/arch/arm64/boot/dt=
+s/ambarella/cv75.dtsi
+> new file mode 100644
+> index 0000000000000..c36b6af48237a
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/ambarella/cv75.dtsi
+> @@ -0,0 +1,177 @@
 
-Another point is, PM8010 does not have an ADC peripheral.
-Without an ADC channel to read from, temperature read from
-this temp-alarm driver would show a constant value most of
-the time (37000, for stage 0) and this would be updated only
-if a high temperature stage (possibly around 90-100 degC)
-is crossed, so it may not be very useful for polling without
-interrupts either.
+[ ... ]
 
+> +		ahb@ffe0000000 {
+> +			compatible =3D "simple-bus";
+> +			reg =3D <0xff 0xe0000000 0x0 0x01000000>;
+> +			ranges =3D <0xe0000000 0xff 0xe0000000 0x01000000>;
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <1>;
+> +
+> +			s_scratchpad_syscon: scratchpad@e002e000 {
+> +				compatible =3D "ambarella,cv75-sec-scratchpad", "syscon";
+> +				reg =3D <0xe002e000 0x1000>;
+> +			};
+> +		};
+> +
+> +		apb@ffe4000000 {
+> +			compatible =3D "simple-bus";
+> +			reg =3D <0xff 0xe4000000 0x0 0x01000000>;
+> +			ranges =3D <0xe4000000 0xff 0xe4000000 0x01000000>;
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <1>;
+> +
+> +			uart0: serial@e4000000 {
+> +				compatible =3D "ambarella,cv75-uart", "snps,dw-apb-uart";
+> +				reg =3D <0xe4000000 0x1000>;
+> +				clocks =3D <&rct CV75_GCLK_UART0>;
+> +				interrupts =3D <GIC_SPI 170 IRQ_TYPE_LEVEL_HIGH>;
+> +				reg-shift =3D <2>;
+> +				reg-io-width =3D <4>;
+> +				pinctrl-names =3D "default";
+> +				pinctrl-0 =3D <&uart0_pins>;
+> +
+> +				status =3D "disabled";
+> +			};
+> +
+> +			pinctrl: pinctrl@e4010000 {
+> +				compatible =3D "ambarella,cv75-pinctrl";
+> +				reg =3D <0xe4010000 0x1000>;
+> +				ambarella,drive-strength-syscon =3D <&rct>;
+> +				ambarella,pull-syscon =3D <&s_scratchpad_syscon>;
+> +
+> +				uart0_pins: uart0-pins {
+> +					function =3D "uart0";
+> +					groups =3D "uart0";
+> +				};
+> +			};
 
+[Severity: High]
+Will uart0 permanently defer probing on boot because no driver exists for
+"ambarella,cv75-pinctrl"?
 
-And another point we should note is, the MFD cell name
-"qpnp-temp-alarm" used right now does not bind to our temp-alarm
-driver and this was intentional, as explained by Johan Hovold
-in his change (mfd: pm8008: Rework to match new DT binding),
-in the last paragraph of the commit message:
+In arch/arm64/boot/dts/ambarella/cv75-evk.dts, uart0 is enabled as the
+console via stdout-path =3D &uart0. In cv75.dtsi, uart0 specifies
+pinctrl-0 =3D <&uart0_pins>, which is a child of pinctrl@e4010000
+(compatible =3D "ambarella,cv75-pinctrl"). However, there is no driver in
+the kernel tree matching "ambarella,cv75-pinctrl".
 
-    Finally, note that the temperature alarm and GPIO subdrivers need some
-    minor rework before they can be used with non-SPMI devices like the
-    PM8008. The temperature alarm MFD cell name specifically uses a "qpnp"
-    rather than "spmi" prefix to prevent binding until the driver has been
-    updated.
+With CONFIG_ARCH_AMBARELLA selecting CONFIG_PINCTRL and arm64 defconfig
+enabling CONFIG_MODULES=3Dy, fw_devlink (via parse_pinctrl_n() ->
+device_links_check_suppliers()) will hold off probing uart0 waiting for
+the pinctrl supplier. Even after fw_devlink times out or if fw_devlink=3Doff
+is passed, the probe path runs:
 
-Since these changes are not yet done, we cannot use
-temp-alarm for PM8008 or PM8010 over I2C for now.
+really_probe()
+  -> pinctrl_bind_pins()
+    -> devm_pinctrl_get()
+      -> create_pinctrl()
+        -> pinctrl_dt_to_map()
+          -> dt_to_map_one_config()
 
-Thanks,
-Jishnu
+In drivers/pinctrl/devicetree.c:dt_to_map_one_config(), when
+get_pinctrl_dev_from_of_node() fails to find a registered pinctrl_dev for
+pinctrl@e4010000 and walks up to the root node without pinctrl-use-default
+set:
 
+		if (!np_pctldev || of_node_is_root(np_pctldev)) {
+			of_node_put(np_pctldev);
+			ret =3D -ENODEV;
+			/* keep deferring if modules are enabled */
+			if (IS_ENABLED(CONFIG_MODULES) && !allow_default && ret < 0)
+				ret =3D -EPROBE_DEFER;
+			return ret;
+		}
 
-> Konrad
+This returns -EPROBE_DEFER to pinctrl_bind_pins(), aborting really_probe()
+before dw8250_probe() can bind the serial console. Should pinctrl-0 and
+pinctrl-names be omitted from uart0 (or the pinctrl node disabled/omitted)
+until the pinctrl driver is present?
 
+> +
+> +			gpio0: gpio@e4013000 {
+> +				compatible =3D "ambarella,cv75-gpio", "arm,primecell";
+> +				reg =3D <0xe4013000 0x1000>;
+> +				clocks =3D <&rct CV75_GCLK_APB>;
+> +				clock-names =3D "apb_pclk";
+> +				interrupts =3D <GIC_SPI 163 IRQ_TYPE_LEVEL_HIGH>;
+> +				gpio-controller;
+> +				#gpio-cells =3D <2>;
+> +				gpio-ranges =3D <&pinctrl 0 0 32>;
+> +				interrupt-controller;
+> +				#interrupt-cells =3D <2>;
+> +				arm,primecell-periphid =3D <0x000e8061>;
+> +			};
+> +
+> +			gpio1: gpio@e4014000 {
+> +				compatible =3D "ambarella,cv75-gpio", "arm,primecell";
+> +				reg =3D <0xe4014000 0x1000>;
+> +				clocks =3D <&rct CV75_GCLK_APB>;
+> +				clock-names =3D "apb_pclk";
+> +				interrupts =3D <GIC_SPI 164 IRQ_TYPE_LEVEL_HIGH>;
+> +				gpio-controller;
+> +				#gpio-cells =3D <2>;
+> +				gpio-ranges =3D <&pinctrl 0 32 32>;
+> +				interrupt-controller;
+> +				#interrupt-cells =3D <2>;
+> +				arm,primecell-periphid =3D <0x000e8061>;
+> +			};
+> +
+> +			gpio2: gpio@e4015000 {
+> +				compatible =3D "ambarella,cv75-gpio", "arm,primecell";
+> +				reg =3D <0xe4015000 0x1000>;
+> +				clocks =3D <&rct CV75_GCLK_APB>;
+> +				clock-names =3D "apb_pclk";
+> +				interrupts =3D <GIC_SPI 165 IRQ_TYPE_LEVEL_HIGH>;
+> +				gpio-controller;
+> +				#gpio-cells =3D <2>;
+> +				gpio-ranges =3D <&pinctrl 0 64 32>;
+> +				interrupt-controller;
+> +				#interrupt-cells =3D <2>;
+> +				arm,primecell-periphid =3D <0x000e8061>;
+> +			};
+> +		};
+
+[Severity: Medium]
+Are binding schemas missing for the newly introduced compatible strings and
+properties in cv75.dtsi?
+
+Running make dtbs_check on cv75-evk.dtb will fail validation because
+several compatible strings and vendor properties are not documented under
+Documentation/devicetree/bindings/:
+
+- scratchpad@e002e000 uses compatible =3D "ambarella,cv75-sec-scratchpad",
+  "syscon", which is not listed in
+  Documentation/devicetree/bindings/mfd/syscon.yaml.
+- serial@e4000000 uses compatible =3D "ambarella,cv75-uart",
+  "snps,dw-apb-uart", which is not listed in
+  Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml.
+- pinctrl@e4010000 uses compatible =3D "ambarella,cv75-pinctrl" along with
+  ambarella,drive-strength-syscon and ambarella,pull-syscon, which have no
+  binding schema in the tree.
+- gpio@e4013000, gpio@e4014000, and gpio@e4015000 use
+  compatible =3D "ambarella,cv75-gpio", "arm,primecell", which is not
+  documented in any binding schema.
+
+[Severity: Medium]
+How are gpio0, gpio1, and gpio2 expected to bind to a driver with
+arm,primecell-periphid =3D <0x000e8061>?
+
+Because "arm,primecell" is in compatible, of_platform_bus_create()
+registers gpio0, gpio1, and gpio2 as struct amba_device instances on the
+AMBA bus, where amba_match() -> amba_lookup() matches exclusively against
+periphid. No amba_driver in the tree matches 0x000e8061; for example,
+drivers/gpio/gpio-pl061.c has:
+
+static const struct amba_id pl061_ids[] =3D {
+	{
+		.id	=3D 0x00041061,
+		.mask	=3D 0x000fffff,
+	},
+	{ 0, 0 },
+};
+
+(and PL061 only supports 8 GPIO lines per block rather than 32). In
+addition, gpio-ranges =3D <&pinctrl ... 32> references the unprobed
+pinctrl@e4010000 node, which would cause of_gpiochip_add_pin_range() ->
+of_pinctrl_get() to return -EPROBE_DEFER. Is there a separate GPIO and
+pinctrl driver series that these nodes depend on?
+
+[ ... ]
+
+> diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
+> index ad3bd3d9507b2..454f07a6a6a6f 100644
+> --- a/arch/arm64/configs/defconfig
+> +++ b/arch/arm64/configs/defconfig
+> @@ -36,6 +36,7 @@ CONFIG_CRASH_DUMP=3Dy
+>  CONFIG_ARCH_ACTIONS=3Dy
+>  CONFIG_ARCH_AIROHA=3Dy
+>  CONFIG_ARCH_SUNXI=3Dy
+> +CONFIG_ARCH_AMBARELLA=3Dy
+>  CONFIG_ARCH_ALPINE=3Dy
+>  CONFIG_ARCH_APPLE=3Dy
+>  CONFIG_ARCH_ARTPEC=3Dy
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019-cv75-soc-v=
+10-0-d386065e2dd5@ambarella.com?part=3D4
