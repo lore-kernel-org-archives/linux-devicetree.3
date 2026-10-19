@@ -1,77 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.183.30.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792460270;
-	b=HT7/pfeEroAYTWTkNz0cAYTNvMjPXD2NQzN6LRMxMy9X93I2nHKnDcSvTpVLjM5sibQr
-	 xYzGeF2MIfWOkwIkmodhXz2R6+OKRya3C6AyNa2W/eTlUwY0JDDI0BqPnvX9CTL0XBY2z
-	 rYnqyFZfIifBS/mv5CsC0t4RvGDBMoIZVzpHjS/du01iXo6fwRM3wYRbTMnLZPNLkw7CN
-	 6wdvUhTRqMfEjsQQDLJO88NWI1ozIa3q/MSIxeC4lBm6Oelg3m2MEPpa69DS96CLU4kO/
-	 G0kXqxJh1pgk/fWWWX7suqaBT7Jw/GBv/Ej/9t6D5abZ6s6JY+k0B9IwzSdxxr1kBsg==
+	t=1792460285;
+	b=QPWcboIUCwsWuo77p1DvKL9S4dpqZYjK3sib3tj1/XzXC6mRS6ydjESwWBo3PFQM0Nx8
+	 p4MwuH5AqafoH5/x5ia6KvF3MFWswft5UDV82c/Y7ZPfn9FxPkvNGlabOWQsfiGniEP6U
+	 LpgqUnU4BWCDHJTR78DA4mBDZboQSGHw353qN9KrJGXlOUGK+/Kz2SfL4FJ6jiBdx9VIw
+	 DTONNUkR9c4EF8wfs0blP8Ybd5z3gPgvf8asboAO/LwI2TiloKMwnZAfCPHZqK7DYi4PW
+	 O6GCcQtZwNsDu0PXwA7Pia0OCXSh8RTvJgwikLJLDV+rHmfTEA+KgIUiUCvR1aTm6qQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792460270;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
-	 Cc:References:Content-Language:From:Organization:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Sony-BusinessRelay-GUID:
-	 X-Proofpoint-Virus-Version:X-Sony-EdgeRelay-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Sony-Outbound-GUID:
-	 X-Proofpoint-Virus-Version;
-	bh=5Wlhf+2RdwZwj9+OlXjfXJb1V6sCsvah1rFK3bKNefg=;
-	b=ksYoWKKfbUSYtTWjHHzOWNVt/qDlDvuaU67Q0UxfNKr5ny+ly+xYHFh/9dUiqc//74jv
-	 G9F2LFYIUOyKUGXVC2gw1rFewUM5QkCemfQAYkRpK6rB5rtw2Dq/PRBY+WtZWABsbv5Q5
-	 uuBPccwFS3grd6U8RVLwPlcIq19sOaHnWu2k2BKUA16dBYvvQfyXTjy4jP8paSeyjSlUt
-	 vspncJ0xF/lr0y/a1lfkwtVVgM6NozCsOe2KmHohyLjwapK5Eo0ah2TbGjjtcOL4EoR5K
-	 2gDgXpApDQhfWEZmqujIOWQha+wozn1x+dzugIxQ6Kz7T+jIsXECKhNLBXqrDXaV1RQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792460285;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=PbjFjYksln6X5VCuok/GYUEp4Jt2bFAm9SetP90rGcM=;
+	b=3yM1FUTxHf2jQ8exWJqIo0VVpiLZ02N3lYNzcxiNISTnwOKnJmUlP/STN/1h3zYttreO
+	 6uhGJXLjWeRwBxjylaT1NCx9i8Ex8MnTBiySKZAQGXI/ySJplgowKYKnn5oQ1tuBqiq0B
+	 QZ1II9lhRV7KhMJGk/amJ5avb0V6Ut0blK7dRBCJWOJ9mAwortDwFZCUQZ40/JR5WwoLQ
+	 dZQzyW29VtC+nIWsqA6KdW7cL8DkNh4qc2X/t2+UNTTg3oMvT1SvC+rOcoP/P7efcnBGJ
+	 QrFLPti5vaKCDfZcOzt7tW7RGs1AGq/xbICAHHT8QYUoKK90e130GrWEjiPPBeGm4jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sony.com;
-	spf=pass smtp.mailfrom=sony.com;
-	dkim=pass header.d=sony.com header.i=@sony.com header.a=rsa-sha256 header.s=p1 header.b=iuh+m4C7;
-	arc=none smtp.remote-ip=185.183.30.70
-Received: from mx08-001d1705.pphosted.com (mx08-001d1705.pphosted.com [185.183.30.70])
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=gkhjrsVg;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99074606A319;
-	Tue, 20 Oct 2026 01:37:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99074606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sony.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ECFF606A319;
+	Tue, 20 Oct 2026 01:38:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4ECFF606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sony.com header.i=@sony.com header.a=rsa-sha256 header.s=p1 header.b=iuh+m4C7
-Received: from pps.filterd (m0209323.ppops.net [127.0.0.1])
-	by mx08-001d1705.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K0uE7M3979141;
-	Tue, 20 Oct 2026 01:37:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sony.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=p1; bh=5Wlhf+2
-	RdwZwj9+OlXjfXJb1V6sCsvah1rFK3bKNefg=; b=iuh+m4C7zlVgQ03Clz1Yogp
-	I4NnyMgpgj5tZUdXsQqO4yAdN8ZsABeLH/ZSnXtZPwMfEZciqGNFBi4GyGeuKbGh
-	+XlYtZ6xQM9g4/t/V2aMuydARxlodWirFjydpYwrRX8LwuJ6LV5e42085eo/kh0T
-	ULqlen4LwKZde6VboNxOu7zv0t0Zj58IRq+jWsrv9hzyhDrQLc3HVr6wmJIlkHGB
-	CK5YqhUHvI5AcXvN+XHvwTZRgE0ocDYuxxHvI2o3ANgaI1+uHSeB/JN9XU0O9Qi8
-	Z/Q3LQ0h1gjeloZfKkxfZ+v2/0ttTnf2NPJdcqlrFD9nlN43i2Do3W1Tz22qTAA=
-	=
-Received: from usculxsnt03v.am.sony.com ([160.33.194.235])
-	by mx08-001d1705.pphosted.com (PPS) with ESMTPS id 4hdw4x03w7-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
-	Tue, 20 Oct 2026 01:37:27 +0000 (GMT)
-Received: from pps.filterd (usculxsnt03v.am.sony.com [127.0.0.1])
-	by usculxsnt03v.am.sony.com (8.18.1.11/8.18.1.11) with ESMTP id 69K0sHmu4156036;
-	Mon, 19 Oct 2026 18:37:26 -0700
-Received: from sgppsba01v.s.gdce.sony.com.sg ([146.215.113.218])
-	by usculxsnt03v.am.sony.com (PPS) with ESMTPS id 4hctk844rw-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 19 Oct 2026 18:37:26 -0700 (PDT)
-Received: from pps.filterd (SGPPSBA01v.s.gdce.sony.com.sg [127.0.0.1])
-	by SGPPSBA01v.s.gdce.sony.com.sg (8.18.1.11/8.18.1.11) with ESMTP id 69K0tLQW990024;
-	Tue, 20 Oct 2026 01:37:23 GMT
-Received: from [43.21.135.184] ([146.215.113.251])
-	by SGPPSBA01v.s.gdce.sony.com.sg (PPS) with ESMTPS id 4hc4gg1tjt-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT);
-	Tue, 20 Oct 2026 01:37:23 +0000 (GMT)
-Message-ID: <a63dfe3d-9178-43a6-a9fb-ae82c86a047a@sony.com>
-Date: Tue, 20 Oct 2026 10:37:22 +0900
+	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=gkhjrsVg
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E71FA108825;
+	Tue, 20 Oct 2026 03:37:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1792460281;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=PbjFjYksln6X5VCuok/GYUEp4Jt2bFAm9SetP90rGcM=;
+	b=gkhjrsVg8YdzKJiWw+oBJJoGOWMSaX2plJh2ECGP6pobGez/hDtH0UV4Rc2GlxMKP/fXbF
+	mFRHOvJDQ5/kcprfkbErcvoAO2cidfW1VgzDUdVmsiwoKZq51M2pIyMSiB9+mFd5e2Y+XE
+	zIrWXd21uoO8qiwXwxlMoS1cEEkqb5V7RipLdtD1smpxlx42HVcI2xhjn7frxAydftEr9K
+	BRNUqGr0Hyai2/OODFby0KhwLg52WWQJ0Ndu4cZfDaERlK07618LcHO8wB2hrcFgrUvMa/
+	vQkCTJEDpb9ssDuGPZeYe/7oi7OrMmtFkutPvii2Ku6bc20iYPHtQno+K7cwGw==
+Message-ID: <fe920b05-6d89-4dc1-83d3-0664fbc2e00c@nabladev.com>
+Date: Mon, 19 Oct 2026 18:10:18 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,114 +57,85 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/2] media: dt-bindings: imx908: Add Sony IMX908 sensor
-To: Conor Dooley <conor@kernel.org>, sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
-        media-ci@linuxtv.org
-References: <20261019014720.2635-1-lachlan.michael@sony.com>
- <20261019014720.2635-2-lachlan.michael@sony.com>
- <sashiko-outbox-176511@kernel.org> <20261019-cause-decline-feb5a68f0d06@spud>
+Subject: Re: [net-next,PATCH 2/2] enetc: Make eMDIO MDC rate configurable from
+ DT
+To: Wei Fang <wei.fang@nxp.com>, "Frank Li (OSS)" <frank.li@oss.nxp.com>
+Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, Clark Wang <xiaoning.wang@nxp.com>,
+ Claudiu Manoil <claudiu.manoil@nxp.com>, Conor Dooley <conor+dt@kernel.org>,
+ Eric Dumazet <edumazet@kernel.org>, Frank Li <frank.li@nxp.com>,
+ Jakub Kicinski <kuba@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+ "UNGLinuxDriver@microchip.com" <UNGLinuxDriver@microchip.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "imx@lists.linux.dev" <imx@lists.linux.dev>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>
+References: <20261016193344.115518-1-marex@nabladev.com>
+ <20261016193344.115518-2-marex@nabladev.com> <atKDNdxl0w65s8yQ@SMW015318>
+ <DB9PR04MB933217F7ADCB6223A44DACA7889A2@DB9PR04MB9332.eurprd04.prod.outlook.com>
+ <661412ff-3942-4d1c-be6f-1ef6c54620fd@nabladev.com>
+ <AS4PR04MB933821150913BDCF35C4827F88982@AS4PR04MB9338.eurprd04.prod.outlook.com>
 Content-Language: en-US
-From: Lachlan Michael <Lachlan.Michael@sony.com>
-Organization: Sony Semiconductor Solutions Corporation
-In-Reply-To: <20261019-cause-decline-feb5a68f0d06@spud>
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <AS4PR04MB933821150913BDCF35C4827F88982@AS4PR04MB9338.eurprd04.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Sony-BusinessRelay-GUID: 9_K4QSbeUaHoBWPa5lZ4Jq4isaSR7w-_
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
-X-Sony-EdgeRelay-GUID: Le1Dns-u0jodrHXVoQRr0RB86GejOWod
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAwNSBTYWx0ZWRfX4t1WMl6mqfmf
- yeCyNGH6ZGFbcRodi/um2Yim3EFeprqyFy5nH8EcGJUcqk8EYUpjICSodhwnN93NxUUtoahOsX/
- cab81mFcxODEPMvEX2XzEb6lTpUW8zKAmUSaQpoqz0zXLDPCGIGo
-X-Authority-Analysis: v=2.4 cv=Vbdir1p9 c=1 sm=1 tr=0 ts=6ad6c5d7 cx=c_pps
- a=Ycsf2/9e4zkPkE23zi987Q==:117 a=Ycsf2/9e4zkPkE23zi987Q==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=KAb5x4SsHD3PzxGk7EmX:22 a=dNm3KQjjYUbhztXjLiFs:22 a=c92rfblmAAAA:8
- a=z6gsHLkEAAAA:8 a=VwQbUJbxAAAA:8 a=ALUUi9MSbu_VYicB2QEA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-GUID: PrJmEJ2YR6oA-aNLmOv79CT9K6g4PpMf
-X-Proofpoint-ORIG-GUID: PrJmEJ2YR6oA-aNLmOv79CT9K6g4PpMf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAwNSBTYWx0ZWRfX0J4F6Xfw8rk6
- vUuS5Ymq8fl5xemFtpunr9P0REIKR2eAd+rDDlUw40FBa+a5rWF7ryya9y8jR7ZNqXGYNv5ruIM
- ktKwtCyGXqiKNtsdGrWzjUbYuIHKPJ6OMCO+KW/Od2QVSxcj0sxbtm1SG3DgiNF4cZkesJPKXLU
- rALb4ap156HwmZhFjK4Q4ficVAXlOhq5CJCgneZv6IvXE0dV6cewP+0iuwQDbAA3XGvxfC6d+H1
- 5WuWiNSohYWY2fvkRt/5hTi/+Y+Id8qi7s6pdAn+k3QBUeECwSbIG76zhHnC7W+ArLf0kSS28t8
- ktk6J3ICiUwjhV3UtlVsp2/zZtq8CPytpjqO7dHb0QOB8rdDvTEIzhabx7JEINqVBOcS6N12Z5m
- REAjUcxjcTdbZOEVL9mxGe9rb0EAVMX+7lWiP3sYlVBht16SghLVRZJqGzpEK7SoKUCN/XAcE99
- ZKT5WEJ1pS0IqiYcWWw==
-X-Sony-Outbound-GUID: PrJmEJ2YR6oA-aNLmOv79CT9K6g4PpMf
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 10/20/2026 3:21 AM, Conor Dooley wrote:
-> On Mon, Oct 19, 2026 at 01:53:48AM +0000, sashiko-bot@kernel.org wrote:
->> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
->> - [Medium] dt-bindings: media: imx908: additionalProperties: false blocks allOf schema
->> --
+On 10/19/26 4:59 AM, Wei Fang wrote:
+
+Hello Wei,
+
+>>>>> +int enetc_mdio_update_mdc_div(struct mii_bus *bus) {
+>>>>> +	struct enetc_mdio_priv *mdio_priv = bus->priv;
+>>>>> +	struct device *dev = bus->parent;
+>>>>> +	struct clk *enet_clk;
+>>>>> +	u32 div, mdc_freq;
+>>>>> +
+>>>>> +	if (device_property_read_u32(dev, "clock-frequency", &mdc_freq))
+>>>>> +		return 0;
+>>>>> +
+>>>>> +	enet_clk = devm_clk_get(dev, NULL);
+>>>>> +	if (IS_ERR(enet_clk))
+>>>>> +		return dev_err_probe(dev, PTR_ERR(enet_clk),
+>>>>> +				     "Input clock unknown, not changing MDC
+>>>> frequency\n");
+>>>>
+>>>> binding said clock is optional. If return failure here, it will block
+>>>> existing dts, which have not clock property.
+>>>>
+>>>
+>>> For EMDIO device, the clocks property is not added to
+>>> fsl,enetc-mdio.yaml, I suppose this property should be added to the
+>>> dt-binding doc if the clock is really needed here.
 >>
->> commit ff8a8181af73cacaf3f8a03e0acde33eb53bb18b
->> Author: Lachlan Michael <lachlan.michael@sony.com>
->>
->> media: dt-bindings: imx908: Add Sony IMX908 sensor
->>
->> This commit adds device tree bindings and a MAINTAINERS entry for the Sony
->> IMX908 8.39 megapixel MIPI CSI-2 CMOS image sensor.
->>
->>> diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
->>> new file mode 100644
->>> index 0000000000000..828db1175e2f5
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
->>> @@ -0,0 +1,108 @@
->> [ ... ]
->>> +allOf:
->>> +  - $ref: /schemas/media/video-interface-devices.yaml#
->>> +
->>> +properties:
->>> +  compatible:
->>> +    const: sony,imx908
->> [ ... ]
->>> +required:
->>> +  - compatible
->>> +  - reg
->>> +  - clocks
->>> +  - dvdd-supply
->>> +  - ovdd-supply
->>> +  - avdd-supply
->>> +  - port
->>> +
->>> +additionalProperties: false
->>
->> [Severity: Medium]
->> Should this be unevaluatedProperties: false instead of
->> additionalProperties: false?
+>> Isn't this what 1/2 in this series does ? (maybe I misunderstood this
+>> paragraph)
 > 
-> Only if the properties outside of what's already explicitly used in the
-> binding are possible.
+> Sorry, my email filtered out the 1/2 patch, so I missed it.
 
-IMX908 modules (i.e. IMX908 image sensor + board, made by various 
-companies) could specify rotation, orientation etc. so I think the 
-comment is valid.
+No worries.
 
-I'll change as suggested:
+>>> For ENETC device, we already have a 'ref' clock in the enetc node, so
+>>> devm_clk_get(dev, NULL) may get the 'ref' clock rather than the system
+>>> clock of NETC.
+>> Shouldn't the clock be described in the MDIO DT node ?
+> 
+> The enetc_mdio_read_* and enetc_mdio_write_* interfaces are not only
+> used by EMDIO devices, the ENETCs and NETC switches also use them.
+> NETC switches and ENETCs can access external PHYs or internal PCS/Serdes
+> through their own port MDIO registers, instead of through EMDIO devices.
+> 
+> Your first patch only modified the EMDIO binding-doc, not the ENETC and
+> switch binding-doc.
+So I need to patch also 
+Documentation/devicetree/bindings/net/dsa/mscc,ocelot.yaml ? Any other 
+binding document ?
 
--additionalProperties: false
-+unevaluatedProperties: false
-
->> Because the schema references /schemas/media/video-interface-devices.yaml#
->> in allOf without listing common properties such as rotation, orientation,
->> lens-focus, or flash-leds under the local properties block, using
->> additionalProperties: false will cause dtbs_check to reject any
->> sony,imx908 node that uses those inherited properties.
->>
->> [ ... ]
->>
->> -- 
->> Sashiko AI review · https://sashiko.dev/#/patchset/20261019014720.2635-1-lachlan.michael@sony.com?part=1
-
+Thank you for your help !
