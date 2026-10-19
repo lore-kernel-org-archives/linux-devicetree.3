@@ -1,62 +1,64 @@
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74BDA1AC45D
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 00:13:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E85211EB5CE
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 00:13:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792368802; cv=none; b=PW5j/czMgcYTAILnY5dh0Ojll8xa9K9F0zB32EKHfmLpju0s0iym/n1hePimgd/6UPVpmPRhQhDwEbNYYj8BKZDhHlnTMhg47ghlFk8JOFEtTbOQ6PvHlVTp8qCCRVfOB1D1gmDibygX9MHebyEvQ2tAzxh+U74gWqix/jKbryM=
+	t=1792368808; cv=none; b=uUlCOL/ba7cQzY7CZCAA2gkJbYLAFi77RHBFLGsU81rJT0AZCTXzSdGkLfvn3gneZszwrzOTi4NThb0Trz3FPK47FONS9SuPW0il7gOB3DnaY18w+/GOMoerf723h62R5WnQy2F9Sc0usTj6WXMtXg86j6yBANjpGIy6IfvY35Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792368802; c=relaxed/simple;
-	bh=knf+1wF9ksJgxjHb4wumyiicX5OX4gIFh9hhKLR9xII=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EHS1BaZACsbJcKHeWr7K+ORpJCfFvAIqDGexEi9bMX6SyydBoIr5khqrpvb9phYCR/aWNXSWR8eJXCf1+2hEIMOtpmomltKEqo8/bpXoq+hcKOGEvp2uXk2RZaaqbUaPAKkQlqF4a0PfUs4oJRsMjcLu4+YZNKLBZor0EBye7mw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QkmkcQCJ; arc=none smtp.client-ip=74.125.82.181
+	s=arc-20240116; t=1792368808; c=relaxed/simple;
+	bh=e66JuePu6a7ir1WWhyQtl3ZGTZL5+1V6njZ2rqbUywc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VssbrN4M6AGgxvTJaqTq8eJE89UNadCjmm8BCbbSgJ0HUZkQ07V9NP8O89XGBlGXx9jzM9nnaGw7XEsDYJJ4D6ytvlocX36jZMvIj4zWP7dbq9TAXusvlgY79moJHp4l44dyZdIxrONK3+AIzZynUwJ+rEC8Fs0KvJbI391A1bg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nO55MSCD; arc=none smtp.client-ip=74.125.82.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QkmkcQCJ"
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3550c917fd3so1790546eec.0
-        for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 17:13:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nO55MSCD"
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-35cd4e8bdbdso3859317eec.1
+        for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 17:13:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792368800; x=1792973600; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fmCKVuEhcyinCJJCJLug0EcJL3YbcTgm8cMUgb76yLI=;
-        b=QkmkcQCJyS6d41rPG9LU1Ov4luGbPAd1t6J+2phi29Bp1qSnz3VRJA7iAZi/Mn1sGv
-         75GbsItHf9CPKicpXA/P6+BpfUz1NEyHmNPRzU19Qo++cmxu9L79kmgv9A20q7Igzx6X
-         Hl7gGLNXxaBhwOB2uaKo5jCGMQNm03pD+XZdmwQdU57vgc1911BYoyeyEj2DKhhsK4QF
-         YAezqfJNEMz2WZRFJKdGANP4dOVUx14w0je8wrPPb0DRXKr/5xh5AC0rQ431XxRs3TRn
-         x/5R0qwPMcL3ivxyHx3RtBMe+wrNVaGd6N1MVgx5isvBSOvGuq2qkuvgGDStdpIdlSW7
-         Igfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792368800; x=1792973600;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792368806; x=1792973606; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fmCKVuEhcyinCJJCJLug0EcJL3YbcTgm8cMUgb76yLI=;
-        b=fSWYP76AdJhPbvIVsMYwBAba1xkLmckIaBWIURLZUjqbKXO7y5do21Dw86++T5qAMQ
-         XNxedVR5TXcK705usaOA2p6uAIY/E4DOKkx1Lyc+LmeQcnFpOJ87+92gWXaV6GcfZ0YU
-         rw84shWsEfpXRXpYFav+WgtvB0RFTG1Y0rt3ia4fBzy5Q4l60c8mCO/HErxN+a48wco8
-         LLA0aGvkeYPYQdfc4jABIIFJ/l9pM5AySwlMVPcVE9309RMLtxXwp+YbrlYoSxts6mOV
-         BMO97rhTx8UBD1zYtHCfKERESpCumBITMFpUulRAg3+y2+jn4buaDwqpEOA/3Epxh46V
-         nNnQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzf/TvsoU+RxzPE3ktdb2jSfeLuSE84V4BvkG8hF71wyEM/Hv83m/5jpBjsfHEefCmpzhtfLY93Hje3@vger.kernel.org
-X-Gm-Message-State: AFq9FYKvz5hdjxEnLqrzn44tJWCdkkst2N8WMqOM2+gXKzAco3J/OPQY
-	CwdlLkSk+JCOhIU/G58vCkxFSDfo8QXOs49WdCYGhRCNpP62k+YrVotl
-X-Gm-Gg: AYBFou02NsqEpruvbkovhlOLTFKcVFNoaOLDgAfd2xljxO0ZZ/ASF6rD9BS5Uynt9a1
-	toqm2+UoTtkezGA8uvu5sCSPzC/uyBUpyZpJdLyn4OWwqxuuG9ioiS/OUd1cRJmWreSkAKnBIMp
-	K3nVV7nVEDCuWGCjO8+mRAFbeanJGi4ZqBa2Jvjh3WRAlej1l2CcFGCU/WrguVmrosSfzkiLc7F
-	Tdzi9HDnKE9KIX57VkSEQtAMvuz3lge+T8xv2VsXqYzHQGwAFc2jU7tK7wPzsvBGDhj/uyBDuCJ
-	J4pZsFeKz0uKvTnnFNSgHiUmExH6F/zQjZiS5JtlOhLpKMUHmdxjE5ZdA0fjixBALKcFEEG0qpZ
-	kigPnK7pjGhcobnjLNMemyIICyJhGuWDOFbvWwyoKVkpvKscz/atnu2fcNcETu9w7cRU1qcAciA
-	735ug+auwF498ju2+FLVpNFAOZ818DSYIyxKxzELfPNgZNrFOnIaeyJEwIgCwcVkqntL0uYU2Mn
-	9Q8JrIPhBIKYkhOJGqt/Sg=
-X-Received: by 2002:a05:7300:7a9e:b0:361:1dd6:531b with SMTP id 5a478bee46e88-361a2052bebmr8300968eec.26.1792368800338;
-        Sun, 18 Oct 2026 17:13:20 -0700 (PDT)
+        bh=WlauIIya78Tvj2uup0SeYB78dPiKQXeWRQRrva/Ygkc=;
+        b=nO55MSCD7GC2M+W8Eh2huDAZJeUUZO/Sqdy20+9LBoi4SRGuSM/pqymETCpPJe0DTw
+         Dj2KFXmV+/dyvMORjLYQaM4v23QLXj4aTcoBUSO0qyyNEcUzaK89hPFHdAZKheXaU1A/
+         3ndUHhDUja3JaZltacKbgkdylUnC9iWYaMojJuwwLfO5WSDTpKBeuCvuoYTk660x1DOQ
+         vJ9jTVRAt1ZECynH+0PHJM3Ei3EjdMcXRp9lx5lh+gbxOzM71OURmlxw3eRi2rRna65Y
+         gecWkG4tjXa+QNu7wPHN48vi+bpmTskLt3A2njxspIA5QixPsCmVTEe0IFjW7QvNhtip
+         g6RA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792368806; x=1792973606;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WlauIIya78Tvj2uup0SeYB78dPiKQXeWRQRrva/Ygkc=;
+        b=SWi9o/pvNZPI5JyUx32U+y3FX4sDLBE0edLO2s6Zye2NHqpeYh8pnlU+kRjNSu0B5q
+         ddCagHYc/Zkvcjtb44aFDTbma6l3azOpSNoG3lFpiGvLdCmm5q9FnuIdz5OzfsJ7qDnO
+         oCXbRhqF54+SCeTFKnXTDIoVwNrn2jv0RyF/0xhPHj+eMAh/LdseDdF07Ehz9TXtPNd3
+         KUnqzEedWFE0PGTOAD8ZwcLT7uA0VaU6C2tPyQwmRqReA/cmjdLviFtCQHNUKfYKCuGm
+         Tfmf9D/MBudDEVQd9k33SiXn21W1yrLVBsFgS2WwJtseggSEeVZ0uYYDib8Qa9HcaBk/
+         zWig==
+X-Forwarded-Encrypted: i=1; AKwUvBzVSWCckGzwEK2rfdpfaw8IrTOXMDgZ9wrAU+Ktl4ofd1MWkCewwOylLS4BiglO9CzJzfRHTZIahoun@vger.kernel.org
+X-Gm-Message-State: AFq9FYJgQVUmT9H0V8e3XULIH1oJYVPZz69Je3FQt3yIcSBQmLL1z16k
+	ogudY0bEse6lZy9kMTRNcBaFsb/5+0cg2fRYjDi1fWBmm631zk6/93aw
+X-Gm-Gg: AYBFou1KVoZMDUja740xWqPhZK16Xhshy7bbil2vRSa1r1YyMPcs1F5VbUTZIULAXMW
+	YMR1S/NDuuHqwhUeo3ASj3pMw09eR7fHnUdjyevrVdDUczmSkuFBoAGA9yiUVTl3I3OLbTgixxz
+	/3NwDVKm/vqSxE50dk8qGZWmpi5TTtyyA87emUTq6g84qIVMkdHpD0faxAzSfnzqvmw2SzzP12D
+	QT8Ohnaho+j4n5YcmegtL7DDLZGihR76awlb4l93AsrB5sNSyAh4uew50m3/bSjAFgdpKgOm2zF
+	771RmKAjyC4VSmhXXJ90F8Uy9zsPlNffYTwk63/4Sw2lFNYUBd1Ji9UMk87GtwM5DbVecoBd/4s
+	nOGNzgMYOP1K9cJOkG1wXrwYAy3p1Ihoyh0BPel048JMfo5NMCDQ/+zZXJ/Ze8GpkBk3nqDyeLu
+	9y/igMkdfebymnNETigKaqj+fv3XYT2JHPlailv1jDM1EtUpbBkOYVrZOBEejLuApi9qYG2Ow2A
+	y4uj1wGlr44ULH+RvVyDpU=
+X-Received: by 2002:a05:7300:ce0d:b0:34c:5831:8a19 with SMTP id 5a478bee46e88-361a361222emr7829098eec.40.1792368805870;
+        Sun, 18 Oct 2026 17:13:25 -0700 (PDT)
 Received: from stephan-Inspiron-15-3520.. ([2804:5d20:6009:6701:9a49:ae2e:1b25:b04a])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36082f7f6e0sm30631371eec.27.2026.10.18.17.13.15
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36082f7f6e0sm30631371eec.27.2026.10.18.17.13.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 17:13:19 -0700 (PDT)
+        Sun, 18 Oct 2026 17:13:25 -0700 (PDT)
 From: Stephan Costa Barros <stephanbrrs8@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>
 Cc: David Lechner <dlechner@baylibre.com>,
@@ -70,10 +72,12 @@ Cc: David Lechner <dlechner@baylibre.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Stephan Costa Barros <stephanbrrs8@gmail.com>
-Subject: [PATCH 0/2] iio: adc: add TI ADS1299
-Date: Sun, 18 Oct 2026 21:12:45 -0300
-Message-ID: <20261019001247.483005-1-stephanbrrs8@gmail.com>
+Subject: [PATCH 1/2] dt-bindings: iio: adc: add TI ADS1299
+Date: Sun, 18 Oct 2026 21:12:46 -0300
+Message-ID: <20261019001247.483005-2-stephanbrrs8@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261019001247.483005-1-stephanbrrs8@gmail.com>
+References: <20261019001247.483005-1-stephanbrrs8@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -82,66 +86,265 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series adds a driver for the TI ADS1299 family (ADS1299, ADS1299-6
-and ADS1299-4): 24-bit, simultaneous-sampling biopotential front-ends
-for EEG, on SPI.
+The ADS1299 is an 8-channel, 24-bit, simultaneous-sampling biopotential
+(EEG) analog front-end with an SPI interface. The ADS1299-6 and ADS1299-4
+are the same part with six and four channels.
 
-This first version keeps to the generic IIO ABI: raw reads, the gain of
-each channel's PGA through its scale, the sampling frequency, and a
-kfifo buffer fed from the DRDY interrupt with a software timestamp.
+One converter can drive its clock out of its CLK pin to the others
+(#clock-cells), and converters sharing a chip select in daisy-chain mode
+are described as one node with #daisy-chained-devices.
 
-The part has more, which I would like to add in follow-up series, each
-with its own ABI discussion: SRB1 and SRB2 reference routing, the bias
-drive amplifier, lead-off detection (through IIO_EV_TYPE_FAULT and
-IIO_EV_DIR_FAULT_OPENWIRE), the internal test signal, the temperature
-sensor and supply monitors, GPIO1 to GPIO4 as a gpiochip, the CLK pin
-as a clock output, and daisy chains. The binding already describes the
-hardware for those.
-
-A question on structure. The driver started from ti-ads1298.c, and in
-this subset the two are close. What differs here is the PGA gain table
-(1 to 24 against 1 to 12 with 3), the data rates (no high-resolution
-mode), the fixed 4.5 V internal reference, the ID register layout and
-the 4 and 6 channel variants; above 0x14 the register maps also part
-(MISC1 and MISC2 here, PACE, RESP and WCT on the ADS1298). Most of what
-would follow, SRB1 and SRB2, the bias drive and lead-off on every
-channel, is specific to the ADS1299, so I kept a separate driver. If you
-would rather have the ADS1299 as a variant in ti-ads1298, I can rework
-it that way.
-
-Tested on a Raspberry Pi 4B running 6.18.50 (Raspberry Pi OS), with one
-ADS1299 and DRDY on a GPIO edge interrupt, the driver built out of tree
-from this patch:
-- every value in in_voltage_scale_available and
-  sampling_frequency_available written and read back, and values outside
-  the lists refused;
-- the internal DC test signal, routed through debugfs register access,
-  read at gain 24 against shorted inputs: -0.08 % to -0.41 % from
-  VREF / 2400 across the eight channels, as with the out-of-tree driver
-  on the same board;
-- a 10 s capture at 250 SPS: 2497 samples for 2497 DRDY interrupts, no
-  gaps in the timestamps, and buffered values matching direct reads.
-So on 6.18 the driver was run and tested as above; on the IIO tree below,
-the same source, unchanged, was compiled but not run.
-
-The series is based on the testing branch of Jonathan's IIO tree
-(git.kernel.org/pub/scm/linux/kernel/git/jic23/iio.git).
-
-Stephan Costa Barros (2):
-  dt-bindings: iio: adc: add TI ADS1299
-  iio: adc: ti-ads1299: add driver for TI ADS1299
-
- .../bindings/iio/adc/ti,ads1299.yaml          | 221 +++++
- MAINTAINERS                                   |   7 +
- drivers/iio/adc/Kconfig                       |  14 +
- drivers/iio/adc/Makefile                      |   1 +
- drivers/iio/adc/ti-ads1299.c                  | 897 ++++++++++++++++++
- 5 files changed, 1140 insertions(+)
+Signed-off-by: Stephan Costa Barros <stephanbrrs8@gmail.com>
+---
+ .../bindings/iio/adc/ti,ads1299.yaml          | 221 ++++++++++++++++++
+ MAINTAINERS                                   |   6 +
+ 2 files changed, 227 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/iio/adc/ti,ads1299.yaml
- create mode 100644 drivers/iio/adc/ti-ads1299.c
 
-
-base-commit: 19c5db3507633edc21b4172d99f573c2dfbf42b1
+diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads1299.yaml b/Documentation/devicetree/bindings/iio/adc/ti,ads1299.yaml
+new file mode 100644
+index 000000000..a8966cd07
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/adc/ti,ads1299.yaml
+@@ -0,0 +1,221 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iio/adc/ti,ads1299.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments ADS1299 biopotential analog front-end
++
++maintainers:
++  - Stephan Costa Barros <stephanbrrs8@gmail.com>
++
++description: |
++  Texas Instruments ADS1299 family: low-noise, 24-bit, simultaneous-sampling
++  biopotential (EEG) analog front-ends with an SPI interface. The ADS1299 has
++  eight channels, the ADS1299-6 six and the ADS1299-4 four.
++
++  Each channel has its own programmable gain amplifier and a multiplexer that
++  can select the electrode inputs, a shorted input, the internal test signal,
++  the supply or the temperature sensor. The part also provides lead-off
++  detection and a bias drive amplifier for the driven reference electrode.
++
++  The converter signals a completed conversion on its DRDY output and is read
++  over SPI in mode 1 (CPOL=0, CPHA=1).
++
++  Several converters can share one SPI bus in two ways. In cascaded mode each
++  has its own chip select and its own node; one of them can drive its internal
++  oscillator out of its CLK pin (#clock-cells) for the others to use as their
++  external clock. In daisy-chain mode they share the chip select and DIN, the
++  DOUT of each one feeds the DAISY_IN of the one before it, and the chain is a
++  single node with #daisy-chained-devices. A daisy chain shares DIN, so every
++  register write reaches every device: the devices run with one configuration
++  and from one external clock, and the bias drive amplifier cannot be used.
++
++  https://www.ti.com/lit/gpn/ads1299
++
++properties:
++  compatible:
++    enum:
++      - ti,ads1299
++      - ti,ads1299-4
++      - ti,ads1299-6
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++    description:
++      The DRDY output of the converter, asserted low when a conversion is
++      ready to be read.
++
++  reset-gpios:
++    maxItems: 1
++    description: The active-low RESET input of the converter.
++
++  powerdown-gpios:
++    maxItems: 1
++    description:
++      The active-low PWDN input.
++
++  clocks:
++    maxItems: 1
++    description:
++      External clock on the CLK pin, used when the CLKSEL pin selects an
++      external clock. Omit when the part runs from its internal oscillator.
++
++  clock-names:
++    const: clk
++
++  '#clock-cells':
++    const: 0
++    description:
++      The CLK pin as a clock output, for a part whose CLKSEL pin selects the
++      internal oscillator.
++
++  clock-output-names:
++    maxItems: 1
++
++  gpio-controller:
++    description:
++      GPIO1 to GPIO4 are wired for use as general-purpose pins. Omit when they
++      are tied to DGND, as the datasheet asks of unused ones, so that no pin
++      tied to ground can be driven as an output.
++
++  '#gpio-cells':
++    const: 2
++
++  gpio-line-names:
++    minItems: 1
++    maxItems: 4
++
++  '#daisy-chained-devices':
++    description:
++      Number of converters in the daisy chain, all of the type the compatible
++      names. Their channels are reported in chain order, the device whose DOUT
++      reaches the host first.
++    minimum: 1
++    maximum: 8
++    default: 1
++
++  avdd-supply:
++    description: Analog supply.
++
++  dvdd-supply:
++    description: Digital supply.
++
++  vref-supply:
++    description:
++      External voltage reference on VREFP. Omit to use the internal 4.5 V
++      reference.
++
++  biasref-supply:
++    description:
++      External voltage on the BIASREF pin, the reference of the bias drive
++      amplifier. Omit to have the part generate (AVDD + AVSS) / 2.
++
++  spi-cpha: true
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - avdd-supply
++  - spi-cpha
++
++allOf:
++  - $ref: /schemas/spi/spi-peripheral-props.yaml#
++  - if:
++      required:
++        - '#clock-cells'
++    then:
++      properties:
++        clocks: false
++  - if:
++      required:
++        - '#daisy-chained-devices'
++      properties:
++        '#daisy-chained-devices':
++          minimum: 2
++    then:
++      required:
++        - clocks
++      properties:
++        '#clock-cells': false
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    spi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        adc@0 {
++            compatible = "ti,ads1299";
++            reg = <0>;
++            spi-max-frequency = <4000000>;
++            spi-cpha;
++            interrupt-parent = <&gpio1>;
++            interrupts = <5 IRQ_TYPE_EDGE_FALLING>;
++            reset-gpios = <&gpio1 2 GPIO_ACTIVE_LOW>;
++            powerdown-gpios = <&gpio1 3 GPIO_ACTIVE_LOW>;
++            avdd-supply = <&reg_avdd>;
++            dvdd-supply = <&reg_dvdd>;
++            gpio-controller;
++            #gpio-cells = <2>;
++            gpio-line-names = "ADC_GPIO1", "ADC_GPIO2", "", "STATUS_LED";
++        };
++    };
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    /* Cascaded: the first converter clocks the second */
++    spi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        adc0: adc@0 {
++            compatible = "ti,ads1299";
++            reg = <0>;
++            spi-cpha;
++            interrupt-parent = <&gpio1>;
++            interrupts = <5 IRQ_TYPE_EDGE_FALLING>;
++            avdd-supply = <&reg_avdd>;
++            #clock-cells = <0>;
++        };
++
++        adc@1 {
++            compatible = "ti,ads1299";
++            reg = <1>;
++            spi-cpha;
++            interrupt-parent = <&gpio1>;
++            interrupts = <6 IRQ_TYPE_EDGE_FALLING>;
++            avdd-supply = <&reg_avdd>;
++            clocks = <&adc0>;
++            clock-names = "clk";
++        };
++    };
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    /* Daisy chain: three converters, 24 channels, one chip select */
++    spi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        adc@0 {
++            compatible = "ti,ads1299";
++            reg = <0>;
++            spi-cpha;
++            interrupt-parent = <&gpio1>;
++            interrupts = <5 IRQ_TYPE_EDGE_FALLING>;
++            avdd-supply = <&reg_avdd>;
++            clocks = <&osc_2048k>;
++            clock-names = "clk";
++            #daisy-chained-devices = <3>;
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 52024397d..b4a8e4573 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -27370,6 +27370,12 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/iio/adc/ti,ads1018.yaml
+ F:	drivers/iio/adc/ti-ads1018.c
+ 
++TI ADS1299 ADC DRIVER
++M:	Stephan Costa Barros <stephanbrrs8@gmail.com>
++L:	linux-iio@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/iio/adc/ti,ads1299.yaml
++
+ TI ADS7924 ADC DRIVER
+ M:	Hugo Villeneuve <hvilleneuve@dimonoff.com>
+ L:	linux-iio@vger.kernel.org
 -- 
 2.43.0
 
