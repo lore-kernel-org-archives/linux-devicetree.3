@@ -1,109 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.9
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792436171;
-	b=2cMiMhIPBbjR5mmlnYNBfHMVK+pZEVPwbyXKfJFhb0mqa7zxQB6YWFCyGM+Az5b+iGPi
-	 DF9B7zoplQhWRpWMi8Ed5Oi0grg9okUVpr8Mp8YW5lV+mz2rBj8ezTBCzYbs/0ZGP+E13
-	 RlTPkIopCxxxXaFgUTYNKBCP6y5WJOBdBf8s0ZtQfFP8fnLkmD0z/zXkT8xi97XEXzCQ8
-	 kOsz9Iy+IzDzXQCn8vcXyD0/6woXIsyTy982QT6D9X0D2Qi+HGr9DNbcFDlOFYVzjQLPx
-	 iQw/vQEdUvA2E7yb1aBhSEcp/fcbd4V4XVvcQgeulv7243gIt+tVPhrp0Ov0X1g8HUw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792436171;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=wh4Sjr+m9wANJwd35UDCkQlCRnURGlrHGONDBL69HV4=;
-	b=D/C6NeuZAesEjiJbvL8ZmQFE0UFaQqeGNy0k/C3Pa2kfgOf8f7sFC/+uKsvbKK0FLAsP
-	 nkYnu0Ls3fDPu1RjFJQhQcgOU+lySOYhnvTEJFkyEi+UK/mMJN+E79glBg+xdbibpHpA8
-	 CJxJAjbGSUrlBCZzlMyFEqhLpsdQb7psTD2sKZ+zUfa+0iSEQhUHBtfKEQwvNTKITVEnF
-	 T+NE1/LC21/4mQ8K9TO0Oi70882bYSuUo7CXsOXkrGavfxoKNqKUXmWxmItxQ00afGu5N
-	 FTIqcXCaeGBqqiPsFgchs2CPjl6c3DT1p4sMSJmC/U1LsAIew39gJ8yLs8iYLlsQ4dw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=rlKDa3oB;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.9
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011009.outbound.protection.outlook.com [52.101.70.9])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792436490;
+	b=VLFU46/FexZ5POUr2uDDK4WuJKqnAyvzyOAHRHh9GLIif2z11PDtnTY5iuMcPQ4yP9Z2
+	 moqRzpwd+Fxs3ZI0uC9l9ihx4Le1yW0Sb2SxclH8gEpAWgalteHJSVZP8ckufQJIpml0p
+	 GMz08pfG+1zmWusxVduEplpa61PaL6Ovlv62xCVFJdsj06e/8C95JwDhozIVbR1jBLQVH
+	 ZOoyl7OC/odjTvWnch34LREAjEnlAxpHnXHiMRys/Xr8FIuoKDsO6oCHQwyFZfF20sHDo
+	 8MY3fLLmQyi8BqzfGiatyRWVdBkBiXzOmsOFVEK6vPq+K8lvhy55Ux5cuYumXZKQPXA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792436490;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=NlRWSTOFbePBOR+ZW461CZ2nj2CGvQoMjpOv8gpMfng=;
+	b=pCu+RHhTjxferOQwSnh0Q+BoAGTclokq/pBrCj+AiAqI2RXfptuKdRwY1wOSczlzZtsR
+	 uAwvcvYpTxhV5u6NaeBRC6RACnqTjIIGPwtVdODNhoQ4INB7/t5b6j9B+8jUFrH1ZFphB
+	 SidFTMWqTKmgLtHlvFe8XUg8OsODQLTnuw9zB/v23Csqd3AAtbtoHDXQSyi19Kfc2kTNI
+	 kYYx7tBrIoSXWS3hmFA9sDYz9R5i12hMH7s4KNmAU4h07mHe/1sIiqibSiP+qJ9nMTNjB
+	 VFCRBprugjH0IPZzIh8WV0UwrW1d/JZyAVXMUiehWF5aHg3rUr/ITMPSeBTSdKjOZnw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=ZEvpwaca;
+	arc=none smtp.remote-ip=209.85.214.175
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9554606A31D;
-	Mon, 19 Oct 2026 18:56:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9554606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FA1B606A325
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 19:01:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FA1B606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=rlKDa3oB
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Nunpf97FD1OjUboLFYSJ91/x4CrdzEjS5768g4Hz6IWoTSF2g9iiTyGK6sDb8KKPK26uCmztnCPlE4bfj0I6sPaLHrFMRKFnDG6E58/lNBbBVsJbGZd72Zjc40bnQyFKLyULCUpUbmagVPgq/iUXHX7nzpB0xM6yl1mRL6/i4n/mu7MsBadyh4llnbTpmkaadTgpxEhfh8WcG9aF0GKBjSgJB8EwLIUhCs7Ly6Z3C04/HTjzqjtC9kq06wI0QLdq3rSFL0TK49zUuovuoLqBBbhR7KB1tBPRNEM3l3IVcFuBAPgMa04bm+2SYOOLROId06V6+cEAfQ7PE8GLgRv0tQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wh4Sjr+m9wANJwd35UDCkQlCRnURGlrHGONDBL69HV4=;
- b=OL6dTOpaAjtLY2QaSPVqXKBlpK+H4uHlWWR1L+2dsUt+ui7RFpqYvcLTM4d1hABnLyXV0ijNSMNsXNZNQCtOIsQ5GIeYGdVHHtUJhAP9m4kYTcWGTQUZQJeocD941UHOC4lQDSU5f2LjNdj18Da2GxZx6Nzi0vvF7y9IFPtwEAuLcFNvHoovWGyjGYkagX4ZRm/nBXHFB5GikP/Nsu3MjCHEnep2k/oCZQOt5BhzxVMR90QpuWOlL60O4L1oRy7X0Th9R2UK6Oa4/svhcehwUvPhudwVGqzJcSBQuXmxyc5y6VQK+DVFkqdEPzQuWzli0clDbLmE35drdAMTwcgWNQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wh4Sjr+m9wANJwd35UDCkQlCRnURGlrHGONDBL69HV4=;
- b=rlKDa3oBjm4faSHnPzCE7TtvX64hfHvYCaBzcQDMcDLBrw7n45ygjSMly0NY+JlpB2ynAKL7OXr9fxi/uWw+l9uUF3yZ24o1y+CHLzPl0z1+6W3sReyTLMNsWYWOLXCFjr8dm2Lb+Ng2CaNyFmer39AnsM7UlWKAIv+4RiFSs66o/3Xn9OG91TsDkWv52nHlFfYYY5Cgkt4lRdejfmAX2qPtn8FUki1gWzl/eWwjPXhvALWV0UrZNaKqZdzkHcHQuITd1AnXJ2jqBbCvMSHzX+1O56YhioIWWHF0AIDnggiM5NqbM1k/oBDuVE5FlG4x1q0e0brkOSUhFRQwzGzwQQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by PA4PR04MB9320.eurprd04.prod.outlook.com (2603:10a6:102:2a7::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 18:56:06 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
- 18:56:05 +0000
-From: Frank.Li@oss.nxp.com
-Date: Mon, 19 Oct 2026 14:55:49 -0400
-Subject: [PATCH v6 2/3] remoteproc: imx_rpoc: use memory-region-names to
- avoid hidden ABI
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-memory-region-name-v6-2-2e46b2e7d667@nxp.com>
-References: <20261019-memory-region-name-v6-0-2e46b2e7d667@nxp.com>
-In-Reply-To: <20261019-memory-region-name-v6-0-2e46b2e7d667@nxp.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>
-Cc: linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, 
- Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>, 
- Frank Li <Frank.Li@nxp.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792436151; l=2705;
- i=Frank.Li@nxp.com; s=20240130; h=from:subject:message-id;
- bh=TlfSh89coOhOhqIwKJP7LzYTsKt5NbnqLx8zyv+qYH4=;
- b=yaB6qjwbYqTYmhG0IZE0d6aVLhPFUCQyIPmSldoO2hGILCt6dixoNL4e5Vo0BNSGCpkU4fe8q
- 6n438hVAY5QAHq6osPgAkajKocnkEtLDpg6TKk9NKDotthAUppb+LSq
-X-Developer-Key: i=Frank.Li@nxp.com; a=ed25519;
- pk=I0L1sDUfPxpAkRvPKy7MdauTuSENRq+DnA+G4qcS94Q=
-X-ClientProxiedBy: PH8PR07CA0001.namprd07.prod.outlook.com
- (2603:10b6:510:2cd::26) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=ZEvpwaca
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e5fb79ce82so12994005ad.0
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 12:01:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1792436490; x=1793041290; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NlRWSTOFbePBOR+ZW461CZ2nj2CGvQoMjpOv8gpMfng=;
+        b=ZEvpwacarzzImH6V6uOJTzbL8stPTETvmYc17X7c96whAtVQTM+Ndsw4UT0JGwmD+I
+         BKmRrsuT6++2dsgO3bXm5ZuurZ21ZFUlWCPMc3B7m+FXydpVtnxL6hsXeexpZE1Av4L+
+         0CoKGxEzPf1ZzmmWfMOYbNLnW7pyHFfz0mkPE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792436490; x=1793041290;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=NlRWSTOFbePBOR+ZW461CZ2nj2CGvQoMjpOv8gpMfng=;
+        b=HlmT6NkjAtxLRLN9twTgK0P5pl0A21y68ARzRLIiTPGo41yeUdx2WB/ojuQD0epd7A
+         Sj0H6D8RpuZTg/NTq91SipNZ3ExeLomeUy+dtCZuX7iJ01H3lQ9hkChRMMTZCxYBkme0
+         UkbbCpxY0u4b7lVlSII3/r+ZN8ocTeuruGX0OIHBs640+Gx6jZ5ooLy7zKTEWyWbIwIJ
+         LiI1ISAyf2qztui9SP66aou8AiPZlBJUfKRl3LedAatugZXvl3LJu5XfjvNndoGmJKKl
+         F214dL5mvmiYBPc1t+0i5d0FJpqiAQqsuc4ifBS09sBQlLEQNbJd5jBMb+otUJzt1PmU
+         8rvw==
+X-Forwarded-Encrypted: i=1; AKwUvBy+pSrPrfFj0hqxHi0YOyVY4f8wZou3QCPF2fHPTbkwGpRKlhc1LvRlRRM0E4DKzYwv+xzieh4ovuuw@vger.kernel.org
+X-Gm-Message-State: AFq9FYJn9IMLuPNuZRL2k53FijvsA2lmxVW+sy1w+Gua4LSNYfEQGUMe
+	g5StsnAHRnD6E2uCZZ5Ib8nzCdsyEbRs3Spfdade/LGhCluYK8V//0Ry+1vr0u0Isg==
+X-Gm-Gg: AYBFou38Onbw+jvLrOUL/mOVaoGyQ9HHM6J8+ivVPCv88HfyP4bL27Q5UuE6tiaaZ8p
+	0naAwMGFWAuTEhnH2gILDj0YSswL9xvhVO1+hPD610+OYwzQgmLm3QeP03qY3lnZL6RFdfLSyNg
+	06PObuaiWYlFsbnMy0d5D8k+H9/g+yAmgt6MQNc0Hc7pnEMNukprUA4FTBYKXe+e3dHf07NI7oQ
+	xfkJUbd9XUZ5rwnzwz6oTvNQ0u3QeA4Z/ZwHRvkKEAFZYLynS2vz5fSTY428CHc9jNKrHHxNMPa
+	tOs7yOHM51/nSF5PTxXmA42oeWLN5zRJTNnSteaNRecDsiP7YV5O30Q+zINsbhla7KY1aqaZhl8
+	gp7NzTfvxmIxniB7wXeR+Mub02SqAq8rkkaI0u8biUMSoSK+g0MzpY9oCJce1LBCI8Tx5njJQk4
+	7S7yVwEFlrw9XES9WEnNGMrFJwt22j7PvRczEgHYyj+luqGkBHyUH8zRdVX8tjCidxraf4LWscQ
+	ODvxJmxfwBDQsfiL2NwpLhWa8ojgesoL96uR3z/+4k06IL9Uk0vwonEwoy4w8MrnoUTZLssHKPv
+	Aj6VrA==
+X-Received: by 2002:a17:902:e84c:b0:2e9:6b5b:3db6 with SMTP id d9443c01a7336-2e9a69e93d4mr78949655ad.30.1792436488354;
+        Mon, 19 Oct 2026 12:01:28 -0700 (PDT)
+Received: from jingyliang-input-linux.c.googlers.com (218.117.230.35.bc.googleusercontent.com. [35.230.117.218])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea151e1b7esm4473105ad.75.2026.10.19.12.01.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 12:01:27 -0700 (PDT)
+From: Jingyuan Liang <jingyliang@chromium.org>
+Subject: [PATCH v6 00/11] Add spi-hid transport driver
+Date: Mon, 19 Oct 2026 19:01:12 +0000
+Message-Id: <20261019-send-upstream-v6-0-cb9ba4b3d6fa@chromium.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -113,154 +89,154 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PA4PR04MB9320:EE_
-X-MS-Office365-Filtering-Correlation-Id: 12f3af1a-34bd-4c56-b7ea-08df2e12a115
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|366016|1800799024|7416014|376014|22082099003|18002099003|5023799004|11063799006|261009223027099003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	sMj5wCUjLiOI5mc2nE77SZgqHZl4WuB1rrcou9I8vwMP+rKd7BJez4s4a+fn55409HRt3iGrdLGWZxPRoCy6VPlMygfbBNY36UWQnv/+PEG1wO4CF2xJ/981k0rDKdS/GRzEnakYQbOheBWu/7R9RuiOSz8kJSuAusV3t0Y8QAPdy48Fi8L7uCbCORkL+8ynx1xq3zNsnEHw9E+OSxl7ybZUN8Oro1FgUlsMfPj7t8t/CCoBqnRM9STFbIwt/kZIcLSRJUR8Md0IHHjU7puwTszmayZ3iKHn/ugZ4J/T65nFUFgMFrVbaKhDNvSxVgHqs+/U+Kj4dP82a1AQbSJp2u3V3+mIEQ2x9d/DQPiCqhLChl2cmCZr4DfkxXnD1Ikh7j8OPmrNiIWOLzlg6OXuJIwG00/kiRy3bIGIUbnmXBidi0zofSDmiCHEuhAXogwPJ9R5aGfN3jAgvdoYLvHfgfZ753fGxarWOkh/fjMvIB5xU6dzi26kWwFMOE7IGEhltAFnHIFlT5A84y7H/6IUowWEoB0OBH9IDWTqIKHVUEEn8D5t/DGzEYU09J9Qht7xup0fnq+VpHcDu0aqgai07c8+9tDl4nexnfYYJ2IsZF1gSJ8qzdaaDVoPlzEQYx0o
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(366016)(1800799024)(7416014)(376014)(22082099003)(18002099003)(5023799004)(11063799006)(261009223027099003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NTErM01Bbm80V0JNR2VJb1puTloycXQ4Mk5VNWUwL3AzbGQ2NEVrN1hNbUVt?=
- =?utf-8?B?TXBYS0RnaGxCWVpCYUpGaGY5K2xhYmJWWC9aVEJkMXZ1SFVCUGovdTJNalFn?=
- =?utf-8?B?Z1k4SXUzVnBSKzdsTlgveFZ1UWJ0aWpob2hFbjR5UHhZVk5tRnhtT2ppMHJ3?=
- =?utf-8?B?N3NUV0ZOUTBEbldMNnZINFJ6R3NCRHpYRG9TT0dRdlhodUV0d0xTQmdCbDNq?=
- =?utf-8?B?eklSTWVhb25mRDY2T3RzM1ZDWjRxd3RYVjhzYW5KNldQZXdta3NBVlFrb1li?=
- =?utf-8?B?bFQ3QW54ZkdEU2F4bjIvM3l4S0RqdjZLdHdtSExObkdWV2lKeHVUZ3VqMGs3?=
- =?utf-8?B?Q1huSFRFUWwzM2V1YjIyL3RhcWpBQnNWd2hhQnIrYjRMU284d0F5cW04cXJn?=
- =?utf-8?B?ejgxVUZCVVkzNGNaWTRndXU0TW1EWFNkbFVWNS9pcHR5T3hHbFZ1aGFPbzRi?=
- =?utf-8?B?N3o1RnpkOWhROU50emtoNFgzYlVRSkRkb2VobXdLcElUeE5WUVBKVWNmb3Vl?=
- =?utf-8?B?U2lzRTY5d1o1QnV1US9WdmExYTRNMm03WjQrc3NzcHBuaWpEeVkvSXlnMXhm?=
- =?utf-8?B?NExIenB6Z0s0UFluR1dlRFN0NFJEd3NJYURUVS9rTktpV0ZJWklVMjJQZVdz?=
- =?utf-8?B?OGFLdjhpVzdxRWVOT01WRnNudDlTb09jT0pQcHFndU1jWWVmdEJEekp4b0Nq?=
- =?utf-8?B?clZJbWhyc2ZjMFl1NkxEdkxwY2YvenNGQ21ucDlPY0VRTkUrTTVFcHpCemZs?=
- =?utf-8?B?SnFCY28rcDZta3BoTVQvZDM2NWRtZi93SDBEazF0MXJ1Nm8vTWFTOFJENXQ3?=
- =?utf-8?B?eFEvbFdvd2IyUk1uUXBBdklSMUZ4c2tFS2kyaUtxUlZHK2FMcjYxeUIraEg0?=
- =?utf-8?B?Y3lVL2Z3aWwzTHJPcVBWZzRwbERaV1cwTEdEK2UvUGpoZC9GdlhCdXlqUnBp?=
- =?utf-8?B?aVo4WENHYTAxZUQxOHNvVlA3TGs3R2NCU1U2bll2TFhvci9xRzJpVGJmUXcy?=
- =?utf-8?B?aHFWMnZRdjZlSnhrVGNyM2dUMHFLdEdjd3AwaDNERzBSUXJzYjhSZXJhb3Ny?=
- =?utf-8?B?cG13alNuZitmMlJLaGtaaXZIbXFkQkRFMkp2TDhpek1GMTF3a3dRSmFJcGFI?=
- =?utf-8?B?M1VsR2R0dG0yb0N0Ri9wbW41Mk5WYlIyT1lnekdDZ24yS0tqSHRETlJIVUtG?=
- =?utf-8?B?ODI5YjJ5akNiMVAxc3A2c0VHWG1sZklOY1ZkNUxHMCtRemdscVNJdzduRTJH?=
- =?utf-8?B?enJPN3gxM2krbWFBVjVKd29ISm01R1VLQWV3SGtQbE9RLzhvRmRYQTVPdzZy?=
- =?utf-8?B?OXBjVmJwWXp0aHAzTXFKTEcyUC8za0RxbGZqNk5Xd1NlN0x2aXFUL2FaeDlh?=
- =?utf-8?B?LzNTVjRkOEIvYnY4TlJaeFZJRnV3L0FoNWE1ZXg0YlZ5OEVUeDhGTVJ1Yi9P?=
- =?utf-8?B?Uy92eGpnMmNJUW8wb3RXM2xZVFQ2eXg1SDF0WS9VZGZtaVc3YnlkY0dxVlRF?=
- =?utf-8?B?dDRrd2p1MjdyT3BqT0t0Zk15ZElrQ3VBU3VDeDhyQmFwMGI3M1gwTWhjTEZU?=
- =?utf-8?B?MWJxa1BjNlFsUTJDd3dnV0hzYlpIc0N0SnZWSVZYREFsZmdFekNuQURUTzVa?=
- =?utf-8?B?eStSbVZ5eHZWNVhqdkUwLzlGVWl6UWIxTEhVK3ZuZEhHUjc3cEhKQjI2THp4?=
- =?utf-8?B?Y0xVTkdWcWo5c2FOSGxvc3RTN05La1NVbnlsd3JyZWxUbnJlZWFHTENveXhx?=
- =?utf-8?B?UExKNnhqU29raG5MYXg0RnRIWGVIckFHWXJLZjN1TmM1bU1JakhQUk5ZUXRl?=
- =?utf-8?B?bVZHVzM4YkVwQVExTVh5RDh0UE9BRDRMOTUwMnc2TFhWbklldWxXVExpSDBK?=
- =?utf-8?B?eU9WR1h1U0owOTFocENiRnJkQmx1YXE4RkhFTFhFSzB5c016czV3UXpoQ0Fl?=
- =?utf-8?B?T2hRTU5WV0lrbWs2MjBzOFVQN3EySzdMcElHSkJaWm8xS1VEVkpnMFU2RDFs?=
- =?utf-8?B?KzJTK011Z1Q4NVl4bTZSOTNLWWp4c2RaNnhTdTVGQXFMd3VoaENzWmlpNkpK?=
- =?utf-8?B?Uk9vVURXbDdjcG5hcUFQdXVKV2tBbEJZemNKS1ZUMzRGZ2RRZTZwSTVwa0Fv?=
- =?utf-8?B?MUoyN2VOU2RwMllEYlh4endXb3p0NjZxcjExZjVSckQwa0lza0VBSmhyUmVP?=
- =?utf-8?B?OVkrc295U2o4eXJlQjA1TFlOMGxSa05jd2FZajNGSjV6ZTN1YmVCQXlmblRZ?=
- =?utf-8?B?MTVUTDBtRE45eFl3ODQrOG01MG1uTm8rNDZ1N0VPdExlUWxQWHFISnlzb1Ri?=
- =?utf-8?B?ZmNGNkpYaGE4TEdrcUtaK2N4VWNOVHp3d0pwOTFHSENxUlZNZkF5NEp1cTN4?=
- =?utf-8?Q?BTHp1Tm540d9HmFNse/OwQAdbKhbbIgZV/cf9?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 12f3af1a-34bd-4c56-b7ea-08df2e12a115
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 18:56:05.7417
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /q2q/gtaKxe3DgRI3rKevkk8RijnLSUkviktCKng2t8gCxwUc8uhPE3bD5jaFJUz0JRAg9+QMrOhGNilMQi7mI8plWo9fkiV5k6lGBoGu77dL6dDgz5Ojdq/lCkzL3Yo
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB9320
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAPho1moC/23PzW7DIAzA8VepOI8Jm4+SnvYe0w4UTMMhSQUt2
+ lTl3Uc7aZ1Yjn/L/km+sUI5UWGH3Y1lqqmkZW5hXnbMj24+EU+hNUOBRiAgLzQHfj2XSyY38b2
+ OJoaBwoDE2s05U0yfD+/9o/WYymXJXw++wn36I0khO6kCFxw06KNDsFGGNz/mZUrX6XXJJ3bHK
+ v4BUPUANkAjeLIuxmjNBiCfgBL9L1U2wIgBvNI2SL3fANQTaJs9oBpwtEoGTcZTkBuA/gVA/Ad
+ 0A6RVLgoIThJ1wLqu3/ZCO9axAQAA
+X-Change-ID: 20260212-send-upstream-75f6fd9ed92e
+To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Mark Brown <broonie@kernel.org>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-input@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ hbarnor@chromium.org, tfiga@chromium.org, fqwqf@fqwqf.xyz, daleyo@gmail.com, 
+ Jingyuan Liang <jingyliang@chromium.org>, 
+ Jarrett Schultz <jaschultz@microsoft.com>, 
+ Dmitry Antipov <dmanti@microsoft.com>, Angela Czubak <acz@semihalf.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792436487; l=5852;
+ i=jingyliang@chromium.org; s=20260213; h=from:subject:message-id;
+ bh=ga6CwkzARUkSvEvRDG0PQmoQD7fSmYRrychrK6mPJmA=;
+ b=vBA5OO3tSh7vW0DnhWVDJWpbII+xJtYD5/j1+yxiiJ5vl/UDtQJ3Uk4FZ+YGJnUP3gkXxZnv6
+ fjs+9TLMNgCBwXACf0yfOCEkSy7lN5urMp6GOiINJI/amWw+dLgEKq1
+X-Developer-Key: i=jingyliang@chromium.org; a=ed25519;
+ pk=VTYSdqslTtYOjWWoIGgYoWupGWqNSidrggReKMgfPo4=
 
-From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
+This series picks up the spi-hid driver work originally started by
+Microsoft. The patch breakdown has been modified and the implementation
+has been refactored to address upstream feedback and testing issues. We
+are submitting this as a new series while keeping the original sign-off
+chain to reflect the history.
 
-The driver currently derives the memory region type from the referenced
-memory node name, creating a hidden DT ABI. Since memory node names are
-not constrained by the binding, incorrect names can silently pass DT
-validation, as seen in examples using "vdevbuffer" instead of
-"vdev0buffer" ([1] and [2]).
+Same as the original series, there is a change to HID documentation, some
+HID core changes to support a SPI device, the SPI HID transport driver,
+and HID over SPI Device Tree binding. We have added the HID over SPI ACPI
+support, power management, panel follower, and quirks for Ilitek touch
+controllers.
 
-Parse memory-region-names to identify the expected memory regions and avoid
-relying on memory node names as ABI.
+Original authors: Jarrett Schultz <jaschultz@microsoft.com>,
+		  Dmitry Antipov <dmanti@microsoft.com>
+Link: https://lore.kernel.org/r/86b63b7b-afda-d7f4-7bfa-175085d5a8ef@gmail.com
 
-Link: https://lore.kernel.org/imx/a3602ef8-2b77-4cc3-adef-2c4cba08a5d9@nabladev.com/ [1]
-Link: https://lore.kernel.org/imx/alexXTYQHUs76J7v@SMW015318/T/#mb9dc709ff3adc24d9db6d30c973f37b580f6f1f9 [2]
-
-Signed-off-by: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
-Reviewed-by: Peng Fan <peng.fan@nxp.com>
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Jingyuan Liang <jingyliang@chromium.org>
 ---
- drivers/remoteproc/imx_rproc.c | 32 ++++++++++++++++++++++++++++++--
- 1 file changed, 30 insertions(+), 2 deletions(-)
+Changes in v6:
+- Take output_lock while reallocating buffers in ll_start()
+- Don't drop input reports while a refreshed device probes
+- OF: drop mod_devicetable.h, use named initializers, fix alignment
+- Move the dt-bindings patch before the OF driver patch
+- Drop Tested-by from the documentation and DT binding patches
+- Link to v5: https://lore.kernel.org/r/20261009-send-upstream-v5-0-384af01da3ee@chromium.org
 
-diff --git a/drivers/remoteproc/imx_rproc.c b/drivers/remoteproc/imx_rproc.c
-index 581bb07f5893f..714c3615d1884 100644
---- a/drivers/remoteproc/imx_rproc.c
-+++ b/drivers/remoteproc/imx_rproc.c
-@@ -28,6 +28,25 @@
- #include "imx_rproc.h"
- #include "remoteproc_internal.h"
- 
-+static int imx_rproc_rmem_to_resource(struct device_node *np,
-+				      int index,
-+				      struct resource *res)
-+{
-+	int ret;
-+
-+	ret = of_reserved_mem_region_to_resource(np, index, res);
-+	if (ret)
-+		return ret;
-+
-+	/* "memory-region-names" is optional */
-+	ret = of_property_read_string_index(np, "memory-region-names",
-+					    index, &res->name);
-+	if (ret == -EINVAL)
-+		return 0;
-+
-+	return ret;
-+}
-+
- #define IMX7D_SRC_SCR			0x0C
- #define IMX7D_ENABLE_M4			BIT(3)
- #define IMX7D_SW_M4P_RST		BIT(2)
-@@ -648,7 +667,7 @@ static int imx_rproc_prepare(struct rproc *rproc)
- 		int err;
- 		struct resource res;
- 
--		err = of_reserved_mem_region_to_resource(np, i++, &res);
-+		err = imx_rproc_rmem_to_resource(np, i++, &res);
- 		if (err)
- 			break;
- 
-@@ -823,11 +842,20 @@ static int imx_rproc_addr_init(struct imx_rproc *priv,
- 	if (nph <= 0)
- 		return 0;
- 
-+	if (!of_property_present(np, "memory-region-names")) {
-+		dev_warn(dev, "using node names for carveouts should be avoided\n");
-+	} else {
-+		if (nph != of_property_count_strings(np, "memory-region-names")) {
-+			dev_err(dev, "invalid reserved memory name count\n");
-+			return -EINVAL;
-+		}
-+	}
-+
- 	/* remap optional addresses */
- 	for (a = 0; a < nph; a++) {
- 		struct resource res;
- 
--		err = of_reserved_mem_region_to_resource(np, a, &res);
-+		err = imx_rproc_rmem_to_resource(np, a, &res);
- 		if (err) {
- 			dev_err(dev, "unable to resolve memory region\n");
- 			return err;
+Changes in v5:
+- Fix request/response races; match GET_FEATURE responses by report ID
+- Reset the device on response timeout; wait uninterruptibly
+- Validate device descriptor and report lengths; fix buffer sizing
+- Honor rtype in raw_request(); fix GET_REPORT off-by-one
+- Use hid_safe_input_report(); forward input reports only while open
+- Disable IRQ around hid_device teardown; fix a sparse warning
+- Use disable_work_sync() for reset_work in remove()
+- Cap trace copies at 64 bytes; cacheline-align read approval buffers
+- ACPI: select RESET_CONTROLLER, use device_reset_optional()
+- OF & DT: read opcodes as u8, use dev_err_probe(), require reg
+- PM: cancel reset_work on suspend, wait for reset before
+  reset_resume(), fix IRQ imbalance on resume failure
+- Panel follower: fix regulator/IRQ imbalance; depend on DRM || !DRM
+- Link to v4: https://lore.kernel.org/r/20260609-send-upstream-v4-0-b843d5e6ced3@chromium.org
 
+Changes in v4:
+- Extended io_lock scope to protect the shid->hid pointer lifecycle
+  against races with the IRQ handler
+- Cacheline-aligned DMA buffers, enforced 4-byte alignment
+- Added error rollback for failed suspend/resume transitions
+- Moved IRQ request to probe with IRQF_NO_AUTOEN (disabled by default)
+- DT Bindings & OF Driver:
+  - Required a device-specific compatible string in the schema.
+  - Added description to explain why opcodes and addresses properties
+    need to be defined in the schema
+  - Added `spi-peripheral-props.yaml` reference and switched to
+    `unevaluatedProperties: false`.
+  - Added fallback to default timing parameters in OF driver if match
+    data is missing.
+- Link to v3: https://lore.kernel.org/r/20260402-send-upstream-v3-0-6091c458d357@chromium.org
+
+Changes in v3:
+- Add io_lock init
+- Relocate tracepoints to drivers/hid/spi-hid/ and fix tracepoint macros
+- Add tracepoints for sync, error handling, reset, and report processing
+- Clean up internal includes and fix Makefile CFLAGS
+- Add more details in v2 changelog
+- Link to v2: https://lore.kernel.org/r/20260324-send-upstream-v2-0-521ce8afff86@chromium.org
+
+Changes in v2:
+- Clean up DT bindings: fix formatting and remove timing and flags properties
+- Update DT binding example: use a device-specific compatible and drop
+  reset_assert
+- Simplify ACPI/OF match tables by removing ACPI_PTR/of_match_ptr
+- Refactor OF driver to use match data for timing parameters instead
+  of DT properties
+- Switch to fsleep() for delays in ACPI and OF drivers
+- Drop patch 12 as it is vendor specific
+- Add a lock to fix input/output concurrency race
+- Link to v1: https://lore.kernel.org/r/20260303-send-upstream-v1-0-1515ba218f3d@chromium.org
+
+---
+Angela Czubak (2):
+      HID: spi-hid: add transport driver skeleton for HID over SPI bus
+      HID: spi-hid: add ACPI support for HID over SPI
+
+Jarrett Schultz (3):
+      Documentation: Correction in HID output_report callback description.
+      HID: Add BUS_SPI support and define HID_SPI_DEVICE macro
+      HID: spi-hid: add device tree support for HID over SPI
+
+Jingyuan Liang (6):
+      HID: spi-hid: add spi-hid driver HID layer
+      HID: spi-hid: add HID SPI protocol implementation
+      HID: spi-hid: add spi_hid traces
+      dt-bindings: input: Document hid-over-spi DT schema
+      HID: spi-hid: add power management implementation
+      HID: spi-hid: add panel follower support
+
+ .../devicetree/bindings/input/hid-over-spi.yaml    |  130 ++
+ Documentation/hid/hid-transport.rst                |    4 +-
+ drivers/hid/Kconfig                                |    2 +
+ drivers/hid/Makefile                               |    2 +
+ drivers/hid/hid-core.c                             |    3 +
+ drivers/hid/spi-hid/Kconfig                        |   50 +
+ drivers/hid/spi-hid/Makefile                       |   12 +
+ drivers/hid/spi-hid/spi-hid-acpi.c                 |  262 +++
+ drivers/hid/spi-hid/spi-hid-core.c                 | 1757 ++++++++++++++++++++
+ drivers/hid/spi-hid/spi-hid-core.h                 |  118 ++
+ drivers/hid/spi-hid/spi-hid-of.c                   |  242 +++
+ drivers/hid/spi-hid/spi-hid-trace.h                |  184 ++
+ drivers/hid/spi-hid/spi-hid.h                      |   46 +
+ include/linux/hid.h                                |    2 +
+ 14 files changed, 2812 insertions(+), 2 deletions(-)
+---
+base-commit: ee9c669f9bf5fd2c24206746ded9382fe810df89
+change-id: 20260212-send-upstream-75f6fd9ed92e
+
+Best regards,
 -- 
-2.43.0
+Jingyuan Liang <jingyliang@chromium.org>
 
