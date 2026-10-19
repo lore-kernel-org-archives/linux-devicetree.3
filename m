@@ -1,195 +1,210 @@
-Received: from mail-m103131191187.xmail.ntesmail.com (mail-m103131191187.xmail.ntesmail.com [103.131.191.187])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58939498922;
-	Mon, 19 Oct 2026 10:05:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.131.191.187
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05BAB3F4105;
+	Mon, 19 Oct 2026 10:08:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792404338; cv=none; b=TJIh8cM1vs/AwGKzcNfgxtI98IHUbqb1D0dMcCmf/ZqKZhemFwei2MmaUF51l6AbZ9R1bUmDlv/wugwQ/nlxs09OyYkBqz2mXA32fPT+f/Y9msQrML/TSVc0QRCOsIssswv15pJUQlxQcMlxoNV9wGqw6910Qgy0Fu+LseaoCuY=
+	t=1792404525; cv=none; b=hTiqqArq99db9L9/naUEywfzixW17V2ADkTvU7vNPBlb5PuEH6zbJpxbUOD1/3ZYlWKiRpd65HNqtJPSJ2CdIJjZOF+eIC6rhH5eBHhWahQbHLMdhEyM0sOay4BCcROyXkSHrv3BbIk5CPFT/egR3icuKwKmmM4NTGKrEuJdZ4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792404338; c=relaxed/simple;
-	bh=aP6gpqF3SRKV+cz/DZ3F4I5kr6Ch5wFAFsX4kBbIe6E=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=CThoDaqtWBwNXr5L8j/sl5MGZjDFAB1I7+xsdO750MblLVR9kJkGq0QSGNWmpVaDYcPgMYSsrBrt7GmyF6uXLNAXXtC9W2ynz4z4YbVN/Hgk32YFyRusAmDT4gG4SSJWnuYtlZsVzT40Q5k587vkD7Ny8HUx5ZRbYTWiBFVPolI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=OzAuOrMS; arc=none smtp.client-ip=103.131.191.187
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1792404525; c=relaxed/simple;
+	bh=n8Tf/7qqLiw//HQdDvn08tz5aemP+CPcX71vysQ2MLs=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=HxoEPDseJYkqzAuU8tVzO2IYwGz685ns1TWl/u2+BRWan3S/wS+pqSXsbWoTrybQRw5Gj0kJpq+2XqeJBzwWv5671hfcAFCnSdr5xNFaDIUUl3X5nCriOwhy5BRP8nKZZbm3zKzNCQbq+xVN6JQxGZSV57nm0F7ULSIMQEvjyv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JgsuENI1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="OzAuOrMS"
-Received: from [172.16.12.48] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 518c72105;
-	Mon, 19 Oct 2026 18:05:22 +0800 (GMT+08:00)
-Message-ID: <dd24624f-25cf-4f1f-aafe-064c22b0226c@rock-chips.com>
-Date: Mon, 19 Oct 2026 18:05:20 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JgsuENI1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78A651F000C5;
+	Mon, 19 Oct 2026 10:08:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792404523;
+	bh=4QJqzVRlOb/4XvD9jkbEf5ioTwlVuvgRlotuSLwkD7Y=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=JgsuENI1mXMPg27lBmBGKlhIx8CakmHhQFpSiibBItLlh+Md0NNt1rmAVVfKwnMF8
+	 6ksikFnTCWi4qG2kFVWxWXZzduG5uMZNRPrUb2LOf6SZig5xhpNnneiJCNEukYjCdB
+	 2qU+zYo8nBiXdMjDziqXtTwGlcmDhtjbS7GWrPqZzBvg6m+z0pUqaJF+OhOPtFq0hh
+	 ST2s9QR45Nc+++nABlNcrBs8Jsf8IJQ30yN3KMQPxd8vGbMASZOpaC6Tq/oLI8zB2y
+	 LEeSnd62h9PtktQOlAdw1EGJnUqy6zWnJevsn1vwzg+4REO+PL7svlx08ZUez65NKJ
+	 Zqedhkk7YT2oA==
+Subject: Re: [PATCH net-next v15 1/9] net: dsa: add tag driver for LAN9645X
+From: netdev-bot+sashiko@kernel.org
+To: jensemil.schulzostergaard@microchip.com
+Cc: UNGLinuxDriver@microchip.com, andrew@lunn.ch, olteanv@gmail.com,
+ davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ woojung.huh@microchip.com, linux@armlinux.org.uk,
+ Steen.Hegelund@microchip.com, daniel.machon@microchip.com,
+ geert+renesas@glider.be, magnus.damm@gmail.com, edumazet@kernel.org,
+ richardcochran@gmail.com, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+Date: Mon, 19 Oct 2026 10:08:42 +0000
+Message-ID: <179240452203.3135.15637760949369416187@kernel.org>
+In-Reply-To:
+ <20261015-dsa_lan9645x_switch_driver_base-v15-1-562f316f78b9@microchip.com>
+References:
+ <20261015-dsa_lan9645x_switch_driver_base-v15-1-562f316f78b9@microchip.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: shawn.lin@rock-chips.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, detlev.casanova@collabora.com,
- finley.xiao@rock-chips.com, zhangqing@rock-chips.com, inindev@gmail.com,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org, gahing@gahingwoo.com
-Subject: Re: [PATCH 1/2] pmdomain: rockchip: Manage the RK3576 GPU domain
- supply
-To: Leonard Lausen <leonard@lausen.nl>, heiko@sntech.de, ulfh@kernel.org
-References: <20261019092417.391522-1-leonard@lausen.nl>
- <20261019092417.391522-2-leonard@lausen.nl>
-From: Shawn Lin <shawn.lin@rock-chips.com>
-In-Reply-To: <20261019092417.391522-2-leonard@lausen.nl>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1539f76c503a4kunm93d66b22706dd2
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSh1MVh8fThgfQx4fSEpPGVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=OzAuOrMSSc4NEyK3dbA+prFmbfSJSxw5HEAON51DvF6GTPJVffqPDlex3dFUBRy2S9HvYOPftQFIgl4fA7JvkPCNi5LZ7D9ENmebMHjkcDak22FxF26WQsuQpxniuyaMosRo5/Uhu85VIqI5d2Uw1iAQcEZXPr6Z44eOMxaejwk=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=217PjOf4FEFkv0Sop8OiYO8Cf7p7mV1hzNZL4FLAjcY=;
-	h=date:mime-version:subject:message-id:from;
 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-在 2026/10/19 星期一 17:24, Leonard Lausen 写道:
-> On the NanoPi M5, boot hangs during Panfrost initialization. Before this
-> fix, booting required blacklisting Panfrost on the kernel command line.
-> Loading Panfrost after boot reports a GPU power-domain acknowledgment
-> timeout:
-> 
->    failed to get ack on domain 'gpu', val=0x113ff
-> 
-> Add regulator support to the RK3576 domain descriptors and mark the GPU
-> domain as regulator-dependent. This lets the existing Rockchip
-> power-domain regulator handling manage the GPU domain supply.
-> 
-> A corresponding domain-supply property is needed in the board DT.
-> 
-> The regulator-capable descriptors are based on the regulator support in
-> Jiaxing Hu's pending RK3576 NPU enablement series, without its NPU settle
-> delay changes.
-> 
+Critical: 0 · High: 0 · Medium: 1 (1) · Low: 1
 
-It looks correct to me after checking TRM that PD_GPU need a VD_GPU on
-this Soc.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
+- [Medium] In lan9645x_rcv() (net/dsa/tag_lan9645x.c), the VLAN tag is
+  restored only if the software VLAN-filtering flag is set: `if…
+- [Low] In lan9645x_rcv() (net/dsa/tag_lan9645x.c), the comment above
+  skb_postpull_rcsum() lists what is subtracted from skb->csum as "what…
 
-> Link: https://lore.kernel.org/all/20260924102135.92217-10-gahing@gahingwoo.com/
-> Fixes: cfee1b507758 ("pmdomain: rockchip: Add support for RK3576 SoC")
-> Signed-off-by: Leonard Lausen <leonard@lausen.nl>
-> 
-> ---
->   drivers/pmdomain/rockchip/pm-domains.c | 10 +++++++---
->   1 file changed, 7 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/rockchip/pm-domains.c
-> index e193f978d5f35..b41f9fcb62bfe 100644
-> --- a/drivers/pmdomain/rockchip/pm-domains.c
-> +++ b/drivers/pmdomain/rockchip/pm-domains.c
-> @@ -176,41 +176,42 @@ struct rockchip_pmu {
->   	.mem_offset = m_offset,				\
->   	.mem_status_mask = (m_status),			\
->   	.repair_status_mask = (r_status),		\
->   	.req_offset = r_offset,				\
->   	.req_w_mask = (req) << 16,			\
->   	.req_mask = (req),				\
->   	.idle_mask = (idle),				\
->   	.ack_mask = (ack),				\
->   	.active_wakeup = wakeup,			\
->   	.need_regulator = regulator,			\
->   }
->   
-> -#define DOMAIN_M_O_R_G(_name, p_offset, pwr, status, m_offset, m_status, r_status, r_offset, req, idle, ack, g_mask, wakeup)	\
-> +#define DOMAIN_M_O_R_G(_name, p_offset, pwr, status, m_offset, m_status, r_status, r_offset, req, idle, ack, g_mask, wakeup, regulator)	\
->   {							\
->   	.name = _name,					\
->   	.pwr_offset = p_offset,				\
->   	.pwr_w_mask = (pwr) << 16,			\
->   	.pwr_mask = (pwr),				\
->   	.status_mask = (status),			\
->   	.mem_offset = m_offset,				\
->   	.mem_status_mask = (m_status),			\
->   	.repair_status_mask = (r_status),		\
->   	.req_offset = r_offset,				\
->   	.req_w_mask = (req) << 16,			\
->   	.req_mask = (req),				\
->   	.idle_mask = (idle),				\
->   	.clk_ungate_mask = (g_mask),			\
->   	.ack_mask = (ack),				\
->   	.active_wakeup = wakeup,			\
-> +	.need_regulator = regulator,			\
->   }
->   
->   #define DOMAIN_M_R(_name, pwr, status, req, idle, ack, wakeup, regulator)	\
->   {							\
->   	.name = _name,				\
->   	.pwr_w_mask = (pwr) << 16,			\
->   	.pwr_mask = (pwr),				\
->   	.status_mask = (status),			\
->   	.req_w_mask = (req) << 16,			\
->   	.req_mask = (req),				\
->   	.idle_mask = (idle),				\
->   	.ack_mask = (ack),				\
-> @@ -250,25 +251,28 @@ struct rockchip_pmu {
->   	DOMAIN(name, pwr, status, req, req, req, wakeup)
->   
->   #define DOMAIN_RK3528(name, pwr, req)		\
->   	DOMAIN_M(name, pwr, pwr, req, req, req, false)
->   
->   #define DOMAIN_RK3562(name, pwr, req, g_mask, mem, wakeup)		\
->   	DOMAIN_M_G_SD(name, pwr, pwr, req, req, req, g_mask, mem, wakeup, false)
->   
->   #define DOMAIN_RK3568(name, pwr, req, wakeup, regulator)		\
->   	DOMAIN_M_R(name, pwr, pwr, req, req, req, wakeup, regulator)
->   
->   #define DOMAIN_RK3576(name, p_offset, pwr, status, r_status, r_offset, req, idle, g_mask, wakeup)	\
-> -	DOMAIN_M_O_R_G(name, p_offset, pwr, status, 0, r_status, r_status, r_offset, req, idle, idle, g_mask, wakeup)
-> +	DOMAIN_M_O_R_G(name, p_offset, pwr, status, 0, r_status, r_status, r_offset, req, idle, idle, g_mask, wakeup, false)
+Pre-existing issues:
+- [Medium] This problem wasn't introduced by this patch, but
+  lan9645x_xmit() calls dsa_port_bridge_dev_get(dp) (`dp->bridge ?
+
+--
+
+net: dsa: add tag driver for LAN9645X
+
+This adds a DSA tag driver for the Microchip LAN9645x switch. A front port
+is used as the NPI (CPU) port. Extraction uses a 16 byte long prefix plus
+a 28 byte IFH, and injection uses only the IFH.
+
+On receive, a VLAN tag popped by the hardware is restored from the IFH as
+a hwaccel C-tag. On transmit, the VLAN tag of a VLAN-aware port is moved
+from the payload into the IFH.
+
+> diff --git a/net/dsa/tag_lan9645x.c b/net/dsa/tag_lan9645x.c
+> new file mode 100644
+> index 0000000000000..00339daecfcbd
+> --- /dev/null
+> +++ b/net/dsa/tag_lan9645x.c
+> @@ -0,0 +1,514 @@
+
+[ ... ]
+
+> +static struct sk_buff *lan9645x_xmit(struct sk_buff *skb,
+> +				     struct net_device *ndev)
+> +{
+> +	struct dsa_port *dp = dsa_user_to_port(ndev);
+> +	u32 vlan_tci, tag_type;
+> +	u32 qos_class;
+> +	void *ifh;
 > +
-> +#define DOMAIN_RK3576_R(name, p_offset, pwr, status, r_status, r_offset, req, idle, g_mask, wakeup)	\
-> +	DOMAIN_M_O_R_G(name, p_offset, pwr, status, 0, r_status, r_status, r_offset, req, idle, idle, g_mask, wakeup, true)
->   
->   /*
->    * Dynamic Memory Controller may need to coordinate with us -- see
->    * rockchip_pmu_block().
->    *
->    * dmc_pmu_mutex protects registration-time races, so DMC driver doesn't try to
->    * block() while we're initializing the PMU.
->    */
->   static DEFINE_MUTEX(dmc_pmu_mutex);
->   static struct rockchip_pmu *dmc_pmu;
->   
->   /*
-> @@ -1323,25 +1327,25 @@ static const struct rockchip_domain_info rk3576_pm_domains[] = {
->   	[RK3576_PD_VOP]		= DOMAIN_RK3576("vop",    0x0, BIT(11), 0,      BIT(11), 0x0, 0x6000,  0x6000,  0x6000,  false),
->   	[RK3576_PD_VO1]		= DOMAIN_RK3576("vo1",    0x0, BIT(14), 0,      BIT(14), 0x0, BIT(12), BIT(12), 0x7000,  false),
->   	[RK3576_PD_VO0]		= DOMAIN_RK3576("vo0",    0x0, BIT(15), 0,      BIT(15), 0x0, BIT(11), BIT(11), 0x6800,  false),
->   	[RK3576_PD_USB]		= DOMAIN_RK3576("usb",    0x4, BIT(0),  0,      BIT(16), 0x0, BIT(10), BIT(10), 0x6400,  true),
->   	[RK3576_PD_VI]		= DOMAIN_RK3576("vi",     0x4, BIT(1),  0,      BIT(17), 0x0, BIT(9),  BIT(9),  BIT(9),  false),
->   	[RK3576_PD_VEPU0]	= DOMAIN_RK3576("vepu0",  0x4, BIT(2),  0,      BIT(18), 0x0, BIT(7),  BIT(7),  0x280,   false),
->   	[RK3576_PD_VEPU1]	= DOMAIN_RK3576("vepu1",  0x4, BIT(3),  0,      BIT(19), 0x0, BIT(8),  BIT(8),  BIT(8),  false),
->   	[RK3576_PD_VDEC]	= DOMAIN_RK3576("vdec",   0x4, BIT(4),  0,      BIT(20), 0x0, BIT(6),  BIT(6),  BIT(6),  false),
->   	[RK3576_PD_VPU]		= DOMAIN_RK3576("vpu",    0x4, BIT(5),  0,      BIT(21), 0x0, BIT(5),  BIT(5),  BIT(5),  false),
->   	[RK3576_PD_NPUTOP]	= DOMAIN_RK3576("nputop", 0x4, BIT(6),  0,      BIT(22), 0x0, 0x18,    0x18,    0x18,    false),
->   	[RK3576_PD_NPU0]	= DOMAIN_RK3576("npu0",   0x4, BIT(7),  0,      BIT(23), 0x0, BIT(1),  BIT(1),  0x1a,    false),
->   	[RK3576_PD_NPU1]	= DOMAIN_RK3576("npu1",   0x4, BIT(8),  0,      BIT(24), 0x0, BIT(2),  BIT(2),  0x1c,    false),
-> -	[RK3576_PD_GPU]		= DOMAIN_RK3576("gpu",    0x4, BIT(9),  0,      BIT(25), 0x0, BIT(0),  BIT(0),  BIT(0),  false),
-> +	[RK3576_PD_GPU]		= DOMAIN_RK3576_R("gpu",  0x4, BIT(9),  0,      BIT(25), 0x0, BIT(0),  BIT(0),  BIT(0),  false),
->   };
->   
->   static const struct rockchip_domain_info rk3588_pm_domains[] = {
->   	[RK3588_PD_GPU]		= DOMAIN_RK3588("gpu",     0x0, BIT(0),  0,       0x0, 0,       BIT(1),  0x0, BIT(0),  BIT(0),  false, true),
->   	[RK3588_PD_NPU]		= DOMAIN_RK3588("npu",     0x0, BIT(1),  BIT(1),  0x0, 0,       0,       0x0, 0,       0,       false, true),
->   	[RK3588_PD_VCODEC]	= DOMAIN_RK3588("vcodec",  0x0, BIT(2),  BIT(2),  0x0, 0,       0,       0x0, 0,       0,       false, true),
->   	[RK3588_PD_NPUTOP]	= DOMAIN_RK3588("nputop",  0x0, BIT(3),  0,       0x0, BIT(11), BIT(2),  0x0, BIT(1),  BIT(1),  false, false),
->   	[RK3588_PD_NPU1]	= DOMAIN_RK3588("npu1",    0x0, BIT(4),  0,       0x0, BIT(12), BIT(3),  0x0, BIT(2),  BIT(2),  false, false),
->   	[RK3588_PD_NPU2]	= DOMAIN_RK3588("npu2",    0x0, BIT(5),  0,       0x0, BIT(13), BIT(4),  0x0, BIT(3),  BIT(3),  false, false),
->   	[RK3588_PD_VENC0]	= DOMAIN_RK3588("venc0",   0x0, BIT(6),  0,       0x0, BIT(14), BIT(5),  0x0, BIT(4),  BIT(4),  false, false),
->   	[RK3588_PD_VENC1]	= DOMAIN_RK3588("venc1",   0x0, BIT(7),  0,       0x0, BIT(15), BIT(6),  0x0, BIT(5),  BIT(5),  false, false),
->   	[RK3588_PD_RKVDEC0]	= DOMAIN_RK3588("rkvdec0", 0x0, BIT(8),  0,       0x0, BIT(16), BIT(7),  0x0, BIT(6),  BIT(6),  false, false),
+> +	skb = lan9645x_xmit_get_vlan_info(skb, dsa_port_bridge_dev_get(dp),
+> +					  &vlan_tci, &tag_type);
 
+[Severity: Medium]
+This isn't a bug introduced by this patch, but is it safe to dereference
+dp->bridge here?
+
+lan9645x_xmit() runs without rtnl, and dsa_port_bridge_dev_get() uses
+plain loads with no READ_ONCE() or RCU:
+
+include/net/dsa.h:dsa_port_bridge_dev_get() {
+	return dp->bridge ? dp->bridge->dev : NULL;
+}
+
+At the same time, dsa_port_bridge_leave()->dsa_port_bridge_destroy() runs
+under rtnl and frees the dsa_bridge with no grace period:
+
+net/dsa/port.c:dsa_port_bridge_destroy() {
+	...
+	dp->bridge = NULL;
+
+	if (!refcount_dec_and_test(&bridge->refcount))
+		return;
+	...
+	kfree(bridge);
+}
+
+Suppose a transmit loads dp->bridge before the NULL store, and the last
+port leaves the bridge before it reads bridge->dev. Could that read be a
+use-after-free of the dsa_bridge?
+
+tag_dsa.c, tag_ocelot.c, tag_sja1105.c, tag_vsc73xx_8021q.c and
+dsa_software_vlan_untag() in net/dsa/tag.h already use this pattern. The
+root cause looks like the way DSA core manages the lifetime of struct
+dsa_bridge, not this tagger.
+
+[ ... ]
+
+> +	/* Reset skb->data past the actual ethernet header. */
+> +	skb_pull(skb, ETH_HLEN);
+> +
+> +	/* We must deliver the skb so skb->csum only covers the data beyond the
+> +	 * real ethernet header. The fake ethernet header in the prefix is
+> +	 * not part of skb->csum already. We must subtract what remains of the
+> +	 * prefix, the ifh and the gap. The start is derived from the current
+> +	 * skb->data rather than saved on entry, because the pskb_may_pull()
+> +	 * calls above may have reallocated skb->head.
+> +	 */
+> +	skb_postpull_rcsum(skb,
+> +			   skb->data - LAN9645X_TOTAL_TAG_LEN - ifh_gap_len,
+> +			   LAN9645X_TOTAL_TAG_LEN + ifh_gap_len);
+
+[Severity: Low]
+This isn't a bug, but the comment in lan9645x_rcv() doesn't match the
+length passed here. "what remains of the prefix, the ifh and the gap"
+comes to 2 + 28 + gap bytes.
+
+The call subtracts LAN9645X_TOTAL_TAG_LEN + ifh_gap_len, which is
+44 + gap bytes. That range also covers the 14 byte real ethernet header.
+
+The code looks correct, because dsa_switch_rcv() later calls
+skb_push(ETH_HLEN) and eth_type_trans() without adjusting csum. Could the
+comment also list the real ethernet header?
+
+[ ... ]
+
+> +	dp = dsa_user_to_port(skb->dev);
+> +
+> +	if (dsa_port_is_vlan_filtering(dp) && ifh_gap_len) {
+
+[Severity: Medium]
+Can a frame lose its VLAN tag here while VLAN filtering is being turned
+on?
+
+lan9645x_rcv() strips the gap whenever the hardware reports a pop, but
+it only restores the tag if the software flag is also set. Turning on
+vlan_filtering happens in this order:
+
+br_vlan_filter_toggle()
+  br_opt_toggle(br, BROPT_VLAN_ENABLED, !!val)  /* bridge VLAN-aware */
+  switchdev_port_attr_set()
+    dsa_port_vlan_filtering()
+      ds->ops->port_vlan_filtering()
+        lan9645x_port_vlan_filtering()
+          lan9645x_vlan_port_apply()
+            lan9645x_vlan_port_apply_ingress()
+              ANA_VLAN_CFG_VLAN_POP_CNT_SET(1)  /* hw starts popping */
+      dp->vlan_filtering = vlan_filtering;      /* tagger flag set */
+
+Take a frame extracted after the POP_CNT write but handled before the
+dp->vlan_filtering store. It arrives with ifh_gap_len == 4.
+lan9645x_rcv() strips the gap but skips __vlan_hwaccel_put_tag().
+
+The bridge is already VLAN-aware, so it sees an untagged frame. It
+classifies the frame to the port pvid, or drops it if there is no pvid,
+and the original VID and PCP are lost.
+
+The same window opens when a port joins a bridge that already filters,
+through dsa_port_switchdev_sync_attrs()->dsa_port_vlan_filtering().
+
+The hardware only pops tags on a bridged, VLAN-aware port. Would it be
+enough to restore the tag based on ifh_gap_len alone?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261015-dsa_lan9645x_switch_driver_base-v15-0-562f316f78b9%40microchip.com
