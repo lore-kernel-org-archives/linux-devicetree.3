@@ -1,57 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.202.193.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792424876;
-	b=NE33uBjejH1xe2dNGWGEulEYle5TH+GE9R1OfSjjvfZJ/l3IohaN4faZbERPZRJXfrUi
-	 +5o+Cn9bvNZI+Z5cbyrX/l0xFSpGcxiiXFP+o6HXBrqlrllGx1ntVlxDfyQ/VghLDDvxZ
-	 eE7xv6+6J3kooatCHnsHrz7epTgFLAhPfzR2V93skrqPf5/7v4RP60FQETRCWnG07fClW
-	 ITG/pAqVspdHVhYBt9YCNcc6Oq0P+MElcScSuOlJzfgtN4J+/+n/Vcb8jWTAFkw5dOzhq
-	 iVcqJRhurNR4TIbToIeS5wROKVHuKIFQgnxWv4Vio9NfOpMePj66fV0W/rG6jV45W9w==
+	t=1792424906;
+	b=ZiBLBMis5WdOzREiYNZGLg37n37S/vibCgJwAZVFQZZxsC8jN7Ss3hQMYK8aExoKgHhw
+	 jvfOj5MNehG6myjpUWKPcB9+V9BeyDmy1EoB9xOMCWUydBW8Qa/PPAM31WXJ2EpJvX/ft
+	 edJ/1MTNj4MaXsrKbqsLVSxzbew1cPVhcdUv8eq404usx80U7BnMhdXwMOtX78ORWA5xz
+	 qf+na1pLUNrTT8e5nkuD4yjQv9rGSip/8xAbJt3v3J2ML+AE+ZQn5fWr10Lni3DhYa6ty
+	 fmyG5i6KCxkeIU0ZfHBu8V2lHI4hlyw5vjCTlwuUt2/66ac35TIVLcOqrzYSnuLju5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792424876;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=ZuGNlOne1v1TQIk8yIQdoRU/h7WQ4XqR0AiCiov0ZVU=;
-	b=AcCrdlwnaR/exKyDGsIhKBupFvMpTh3495tnmbwZVCrBEoj5D9NMScQGn/PZeq0DwAvo
-	 7rsiKHrC5qDA/J4wW6+y/ELYVmSxGpgk31U1qrFUog/Ge0WCqb6YgW2iPB+Yg1rjTv72d
-	 cjSVJ+SSbmyzdxGKYPgt/04Ky6zRBt0nBdPUIfD2cVjFIKrxvQH/e9Qu+M9iJ9EWfXVrB
-	 /myK+SK3xHIprI6m01aeaRfQ4c2soXvtys/idqMa//nKWXrw10gBB2KsydLIDBHbZsiq4
-	 rFipWmy6koVcMWtiREk3yHNvBHmnOV6wL9eypii2Ft2HelPbGZUXP8pvUSw4iSNpAhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792424906;
+	h=DMARC-Filter:DKIM-Signature:Feedback-ID:X-Pm-Original-To:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=jlnB32LCHA0I4qZyo/tYM1nPEXySNpUnvzRunyvEwr8=;
+	b=Tc6Q3MsZ8IFsnRbnShYcVBf5GW/zA/Pj994RjnExbO2L968Svc7faeS6d6GzVtMANIWc
+	 8LjEuFFzBzLjTksc0LsYWFbCsga/76eTS0EnJivQ70Ww1zuKJXFl0t3UpNFrNTHTUR/qH
+	 qEQ9NiRgIQA/T5AQ8iwBBRwsPC0SXgzGwRuXvf1x+fqTF0cqAPm8e5kqBKWYiNzcPoFpF
+	 lcFBV662ZhML+VDgPY04LFaXfFYMo+Mpu2EeONYlRQoyyAa+LOMvruB+M+Yv/H2sXP4qT
+	 Tjpr58M2DBVmFVprblWDyLHjntz0YiNc04YWmmbnD6kqCCwbB9vyRgnrsmwSHJMGa/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wbmlk18y;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=mentallysanemainliners.org;
+	spf=pass smtp.mailfrom=mentallysanemainliners.org;
+	dkim=pass header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail3 header.b=T7IYp1Fk;
+	arc=none smtp.remote-ip=34.202.193.197
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C290606AFB2;
-	Mon, 19 Oct 2026 15:47:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65421608829E
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 15:48:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65421608829E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mentallysanemainliners.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mentallysanemainliners.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wbmlk18y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E6B81F000C8;
-	Mon, 19 Oct 2026 15:47:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792424875;
-	bh=ZuGNlOne1v1TQIk8yIQdoRU/h7WQ4XqR0AiCiov0ZVU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Wbmlk18y6WRK3+5mpaQhm9+k4CVgo8fN57kBo5ubUY7abND30V8YnXC/DGHfvjx+i
-	 auf8yiYJ3FFmM+dxWZHRdvVOr9YlmY1zvyBeqv5x+WOPfYxxd4GF3uQGu9jQMUrcLK
-	 L7QTnngbEahitUfm1SBfvEs3zLBcD2CpcyabswsoKma49hdwm8t+F4FgOrjyU/biAP
-	 MQ7vsOnScWvm/mysQ9bIxWjQfrrSW9z7ZwerZAdGvSr9eOB8qAukjtHGFMVea+qYmZ
-	 62pjxs+ewx7EwERadGhB0rHP5ORTXereraBlVP22mFC1tiLlRMOH3+MLDHduxSpKQa
-	 0mWFxhHf7SCNw==
-Message-ID: <sashiko-outbox-177786@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] pinctrl: samsung: Add Exynos5515 pinctrl
- configuration
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Aiden Isik" <aidenisik@member.fsf.org>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261019-for-next-lucky7-pinctrl-v1-3-0f77e94c70bc@member.fsf.org>
-References: <20261019-for-next-lucky7-pinctrl-v1-0-0f77e94c70bc@member.fsf.org>
- <20261019-for-next-lucky7-pinctrl-v1-3-0f77e94c70bc@member.fsf.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 19 Oct 2026 15:47:54 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail3 header.b=T7IYp1Fk
+DKIM-Signature: a=rsa-sha256; b=T7IYp1FkAxva6r1yzogNTO2l9NH4Qm7bBxgAMYLSsEXaVlmZ/hSfysdkmbYfS6A33AEVeqyyh8jVF1VLwzTDvuRVPNKpkPvviyiNTjWiJrJ51tDGvQWPO2aCRFQGtnL6EhfJe43Gm7mlAI2J/hr+OntLhPXKuRJ1hBGqq8DeX8wUN6xduqdBpY1PgPr04Bgmvid5oEL3flmUZ3ucTPwNgUWmIfDicYFmJ3SgPqLWMfZOV3l0Euu2KmLs6RJblylA7CQ/GDCRPm8uauL49nInp46Yi/GUmfCs09iXTDw+AEhRnGbTdKIic7jaZ7wpkDeINwjoas/Ieq4PstEXpO7Nvg==; s=purelymail3; d=purelymail.com; v=1; bh=LlB6iypx0SJ2C2sZVr+0cmFUBBfczV79VPZDjZQrLmQ=; h=Feedback-ID:Received:From:Date:Subject:To;
+Feedback-ID: 68247:10037:null:purelymail
+X-Pm-Original-To: devicetree@vger.kernel.org
+Authentication-Results: purelymail.com; auth=pass
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -415248943;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Mon, 19 Oct 2026 15:47:33 +0000 (UTC)
+From: Igor Belwon <igor.belwon@mentallysanemainliners.org>
+Date: Mon, 19 Oct 2026 17:47:22 +0200
+Subject: [PATCH v4 1/2] dt-bindings: arm: qcom: Document Xiaomi 17 Ultra
+ devices
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,143 +53,58 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261019-nezha-v4-1-19c1e31eb255@mentallysanemainliners.org>
+References: <20261019-nezha-v4-0-19c1e31eb255@mentallysanemainliners.org>
+In-Reply-To: <20261019-nezha-v4-0-19c1e31eb255@mentallysanemainliners.org>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Igor Belwon <igor.belwon@mentallysanemainliners.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792424849; l=1043;
+ i=igor.belwon@mentallysanemainliners.org; s=20251104;
+ h=from:subject:message-id; bh=LlB6iypx0SJ2C2sZVr+0cmFUBBfczV79VPZDjZQrLmQ=;
+ b=wuPQeyMKx2H7/Pe6ardSaBn30Kba4Sw7PXSof7bLFMX5jU6/iVYaJ+Wa9JicWZEL5AjVKYo8y
+ g7zvLjmANAsDT3XocysgDat1NtUVTyjbXBSHjYkYhrX5cz9ktVhyGks
+X-Developer-Key: i=igor.belwon@mentallysanemainliners.org; a=ed25519;
+ pk=i9++1bbnBwoyc3uhTaetGXS1TbBJoS0mcxT59GrpYh0=
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] pinctrl: samsung: mismatched EINT config for Exynos5515 FSYS contr=
-oller
-- [High] pinctrl: samsung: invalid exynos_eint_gpio_init() on Exynos5515 AL=
-IVE
---
+Add compatibles for the Xiaomi 17 Ultra devices, consisting of the
+EU model with a smaller capacity battery and the CN model.
 
-commit 9b9aa666ae93755ccd47b8a80ec9f4fcc81c1eca
-Author: Aiden Isik <aidenisik@member.fsf.org>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Igor Belwon <igor.belwon@mentallysanemainliners.org>
+---
+ Documentation/devicetree/bindings/arm/qcom.yaml | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-pinctrl: samsung: Add Exynos5515 pinctrl configuration
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index 121ca557ce1e..6d9e6a81b419 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -173,6 +173,14 @@ properties:
+               - qcom,hawi-mtp
+           - const: qcom,hawi
+ 
++      - description: Xiaomi 17 Ultra
++        items:
++          - enum:
++              - xiaomi,nezha-cn
++              - xiaomi,nezha-eea
++          - const: xiaomi,nezha
++          - const: qcom,kaanapali
++
+       - items:
+           - enum:
+               - qcom,kaanapali-mtp
 
-This commit adds the pinctrl configuration, pin bank definitions, and
-compatible string match data for the Samsung Exynos5515 SoC.
+-- 
+2.56.0
 
-> diff --git a/drivers/pinctrl/samsung/pinctrl-exynos-arm64.c b/drivers/pin=
-ctrl/samsung/pinctrl-exynos-arm64.c
-> index 1aa977d2a1f80..def84f7f029ea 100644
-> --- a/drivers/pinctrl/samsung/pinctrl-exynos-arm64.c
-> +++ b/drivers/pinctrl/samsung/pinctrl-exynos-arm64.c
-> @@ -488,6 +488,129 @@ const struct samsung_pinctrl_of_match_data exynos54=
-33_of_data __initconst =3D {
->  	.num_ctrl	=3D ARRAY_SIZE(exynos5433_pin_ctrl),
->  };
-> =20
-> +/* pin banks of exynos5515 pin-controller 0 (ALIVE) */
-> +static const struct samsung_pin_bank_data exynos5515_pin_banks0[] __init=
-const =3D {
-> +	GS101_PIN_BANK_EINTW(8, 0x000, "gpa0", 0x00, 0x00),
-> +	GS101_PIN_BANK_EINTW(7, 0x020, "gpa1", 0x04, 0x08),
-> +	EXYNOS850_PIN_BANK_EINTN(6, 0x040, "gpq0"),
-> +	EXYNOS850_PIN_BANK_EINTN(6, 0x060, "etc0"),
-> +};
-> +
-
-[ ... ]
-
-> +/* pin banks of exynos5515 pin-controller 3 (FSYS) */
-> +static const struct samsung_pin_bank_data exynos5515_pin_banks3[] __init=
-const =3D {
-> +	EXYNOS5515_PIN_BANK_EINTN(4, 0x000, "gpf0"),
-> +	EXYNOS5515_PIN_BANK_EINTN(8, 0x020, "gpf1"),
-> +	EXYNOS5515_PIN_BANK_EINTN(6, 0x040, "gpf2"),
-> +};
-> +
-
-[ ... ]
-
-> +static const struct samsung_pin_ctrl exynos5515_pin_ctrl[] __initconst =
-=3D {
-> +	{
-> +		/* pin-controller instance 0 ALIVE data */
-> +		.pin_banks	=3D exynos5515_pin_banks0,
-> +		.nr_banks	=3D ARRAY_SIZE(exynos5515_pin_banks0),
-> +		.eint_gpio_init	=3D exynos_eint_gpio_init,
-> +		.eint_wkup_init	=3D exynos_eint_wkup_init,
-> +		.suspend	=3D gs101_pinctrl_suspend,
-> +		.resume		=3D gs101_pinctrl_resume,
-> +	}, {
-
-[Severity: High]
-Should eint_gpio_init be set on the ALIVE controller entry in
-exynos5515_pin_ctrl?
-
-exynos5515_pin_banks0 only defines EINT_TYPE_WKUP banks (gpa0 and gpa1 via
-GS101_PIN_BANK_EINTW) and EINT_TYPE_NONE banks (gpq0 and etc0 via
-EXYNOS850_PIN_BANK_EINTN), with no EINT_TYPE_GPIO banks.
-
-When samsung_pinctrl_probe() calls exynos_eint_gpio_init() for the ALIVE
-controller:
-
-drivers/pinctrl/samsung/pinctrl-exynos.c:exynos_eint_gpio_init() {
-	if (!d->irq) {
-		dev_err(dev, "irq number not available\n");
-		return -EINVAL;
-	}
-}
-
-Because ALIVE wakeup interrupts are described per-bank and handled by
-exynos_eint_wkup_init() without a controller-level GPIO interrupt property,
-won't d->irq be zero and cause probe of the ALIVE pin controller to fail
-with -EINVAL?
-
-[ ... ]
-
-> +	}, {
-> +		/* pin-controller instance 3 FSYS data */
-> +		.pin_banks	=3D exynos5515_pin_banks3,
-> +		.nr_banks	=3D ARRAY_SIZE(exynos5515_pin_banks3),
-> +		.eint_gpio_init	=3D exynos_eint_gpio_init,
-> +		.suspend	=3D gs101_pinctrl_suspend,
-> +		.resume		=3D gs101_pinctrl_resume,
-> +	}, {
-
-[Severity: High]
-Is the EINT configuration for the FSYS controller in exynos5515_pin_ctrl
-and exynos5515_pin_banks3 mismatched?
-
-All three banks in exynos5515_pin_banks3 (gpf0, gpf1, and gpf2) are defined
-with EXYNOS5515_PIN_BANK_EINTN, which sets eint_type to EINT_TYPE_NONE,
-whereas the FSYS entry in exynos5515_pin_ctrl sets eint_gpio_init, suspend,
-and resume:
-
-drivers/pinctrl/samsung/pinctrl-exynos.c:exynos_eint_gpio_init() {
-	if (!d->irq) {
-		dev_err(dev, "irq number not available\n");
-		return -EINVAL;
-	}
-
-	ret =3D devm_request_irq(dev, d->irq, exynos_eint_gpio_irq,
-					0, dev_name(dev), d);
-	...
-	bank =3D d->pin_banks;
-	for (i =3D 0; i < d->nr_banks; ++i, ++bank) {
-		if (bank->eint_type !=3D EINT_TYPE_GPIO)
-			continue;
-
-If the FSYS controller has no GPIO interrupt in Device Tree,
-exynos_eint_gpio_init() will fail probe with -EINVAL when checking d->irq.
-Conversely, if FSYS does provide an interrupt, exynos_eint_gpio_init() will
-register exynos_eint_gpio_irq() and then skip all three banks because their
-eint_type is EINT_TYPE_NONE, leaving bank->irq_domain NULL if an interrupt
-fires (and gs101_pinctrl_suspend() / gs101_pinctrl_resume() will also skip
-every bank).
-
-Should gpf0, gpf1, and gpf2 be defined as EINTG banks, or should
-eint_gpio_init, suspend, and resume be omitted from the FSYS entry in
-exynos5515_pin_ctrl?
-
-[ ... ]
-
-> +};
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019-for-next-l=
-ucky7-pinctrl-v1-0-0f77e94c70bc@member.fsf.org?part=3D3
