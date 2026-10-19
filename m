@@ -1,87 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792427568;
-	b=RQSuWkB+oi1YKIdrIy6MgBZAWOUJi1ps4H2zOmTvm8ih0CtGA7sfMrcTgI8zLuX6Jqxy
-	 CmBguIr40s1kYhrnXeQoGCAhExPB1OrB2soi6xPYz1PSl997vy4CTjBS+rPv+xeOrWqXp
-	 JRyk9z3WQeUIjuUMp7KFtnxO6+qU93fNirOGupromgU4sDtaJUk1mtwSo/Fk4P3d8mDsc
-	 BDfYKYgaeVJ27GvGTIznBUPTzKHMpLj0mYDM2HGdF9s3w+xDXe710E37dn43+t83N1Gq8
-	 codxydFjwZkyO3W+PQBsFC4xZJQUfJQlfCw0qqDSablcwxTWv2eVt4ejrGZ+t6CuRcg==
+	t=1792427588;
+	b=GNbjXTLaaG4Lz4JEviXN3w2HLBBfmL4B8HRRF1MVxDxq+WK82HPSJSofjuDeTnZohW46
+	 eilippRlXKybZfLzwJQkPmPSefKAZjqbUBpT9+L3e0vt3xOuVPdF1CnMWyB3LEku+Y/7m
+	 0W5xZsOK8zADz6ONgqmwZSIv+23+lLIaXcyhMvItr8HhSf8qAuAlUU1Iih0mNaOhLaQ1q
+	 ZLE72UiIkh5vZL5epswOwsg/lPlSduaE+elMP9UXhh3amuOeeo0SETd3taHUK9mk7dOi6
+	 /46HR6xWhOf/tt4Uu2tTITAD13hDanCgpg7q1Cgb04ZDzeLc0DMoOu05qfL7csCqBhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792427568;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=BWj6P+5N+9+xj86kghtIJTrYQUXSGty1irTiTrrFBnA=;
-	b=pVMoEx+wf96/Jdb1azl9+Sj0Edi6et+I+4JGCXBepCew1oYxy64nHW367KEKbl53PHTc
-	 xHUKZdeCRJHIO6R724A7bQENCV0Y75rlVLaZYR7fetsXCHdCCcYIOe/mggWo/Iepq/T9Z
-	 rfEtRrNTKuHfaQcLaPt3JUKnAIe6Tx+ZWhH0SmN2f0HePO6nagktMgYbcypaw3sXIlk7R
-	 KBAJVZDh1sO6LcYvDOi8XI5PBrdN9SwA+LprxOIvJKUgK1oJgNIpXRxmQqYBWVebw74Iq
-	 gwCAGHUpWc5A+0r+FnU9YfEidz17EIK3Xsjr/dQ6slzSw5uq3p91IjCdRdJhqW2iFEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792427588;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=Q8KL6LGvq0FwHTPovYus9FfkhDMRIi4bd+XQz8TiIQM=;
+	b=U6a4mnPUEaLYLvzoen3lb306vMYr0nZ6PUmBcy8Tw7pshcKaHWQGYYIHfnOlt3CYwG02
+	 YEy3+QkBH95wX0X/GfYQFFaF94h7NkLHJDkwBLyo17aN+ny0DYT3AIZqJSfv5FcisK3G8
+	 7Q4YTl72Cdt3dF+hBz0Ccy2NQWudx0IsbsGEO1Y77/jgDcu0dqwoa9ra74vOtRnajlmGX
+	 PlAgaKXCt39fd7vmK6HanHz5w64xYGfei6Ff04GqeHTWDLsgfbbV61NEPqN65v3B33h5C
+	 GUJMBo9n1p+VRu/76D+aur0T52iplG7naZgSNdoj69aLSA+eYeCG99gzd0vSc22sQqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=uihAlf9K;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.218.52
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05C4F606A31C
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 16:32:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05C4F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=uihAlf9K
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a1cef0439aso25408605e9.0
-        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 09:32:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792427565; x=1793032365; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BWj6P+5N+9+xj86kghtIJTrYQUXSGty1irTiTrrFBnA=;
-        b=uihAlf9KMF1E7leWuq2ziF+jrvFzjVQh7yDYYwzmE3kGwVMD/K26Cbe/WTxyj+aj7T
-         mAesrIGwyR4p4Ql43E484qxEkEgCc0OkE9YMJdVzd0q1ccVEqcLEq3T7yJPl0GDq5V2M
-         VjoLaMO1/sSM9Xw0782GHEKPJDIi+C135kZe6YY73odVwoBYIbX6GUimHcMSomwtinBM
-         qKmut9yiRk+wIbHsrkMrx1UWH7snwPL6op9IUbn8BCco5lV+VMY0sdLxsYG91VuGKJcF
-         hK4ft3UJvUPrYuW9Afwdl5axq6UN2qcIMClH3N+BNIuY2d/Yl/VQCVizt+5p/aBByBlZ
-         V6Og==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35327606A31B
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 16:33:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35327606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c414e5d282eso264182266b.1
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 09:33:07 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792427565; x=1793032365;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BWj6P+5N+9+xj86kghtIJTrYQUXSGty1irTiTrrFBnA=;
-        b=Ur/Ms9yny4zOX6Um7ka6fxBH030DsamiFUigL7QgAMKEVN4xxwPLYA0o/iYqEJ69bq
-         oeJnMWtyzmGyX5za6e2YMHHrkAhgqZZQv+XdaZ8MUtsLUw8SQbZXlt9kBJKmTxjrnJrB
-         K/bniJarUP3fXf9WEbjRp9xxzb5SpYMilHN5VYw+v542H4zU3pYFwDsh3NtEIc99RQ3e
-         xg3AFBGXAqhblvP/lVAqioxmzwF9zHdyhCCLbpgMj0La/8fkV92hjXSj9AxeU31APxv4
-         wD4coufvxmdQ/mDjtABYdHm3tgOJbh7yIThziYUJU/Cj+eVPdZT7C83EJXqsYbqfa7a2
-         t6MA==
-X-Forwarded-Encrypted: i=1; AKwUvBz3vARLLEXVw9kJAkjUclxwTcQU+z7HRtTyeAU/LGIC2rRXkn8ZNaQ64hSsRpeSSnE3NbMzITPS582I@vger.kernel.org
-X-Gm-Message-State: AFq9FYIkvYNMo1C/NSZxbbIz0aMd9mkn/dEpgR8wFX3I7Bsk+qyp72k6
-	QVK8PzO3fB0F1NR4nws3gMoEyMVxZO1zsAEfGM9Rr1svR69tYfj9eh6N6EDfp5HFao4=
-X-Gm-Gg: AYBFou0OzGDWLJyahFTW5NrL8PWqY6unsqTOOvIBH34Z59oLfDUIE+hzJoYluwZn/UO
-	nN4tojgsm8LxVh9KdnschQAhe7TiJfmhKBLtN5lp8l4kNb94l6eC4iHq+H+zocvydy0ROoqbcuH
-	L1miXXkphIqTxQ9kgr4wbEJEoy9tZvnX2tBcJIvsLIX/gDu93JlK2k0ZX7NskDPoxaNEy/fVfsP
-	KapZBonOsyVQjCyoaYVvnQaWhiPQD1Vh3kVoJaeyXViS53ECdGfnYVTBQm+iWXP8esX1/mpq6Nc
-	0MKM8V3XHryQlwFsau1lOGD4TQRqEwzLHlmEJSlhqV5/WFEtQCvuJkAZP0lurcYAcfROmOKfEXl
-	FkIi6tXDXwTGhAmkmtsM4DwJ5N0uZimZgf7knTpAhoBtNBwC1rIIfzVlo1lT5ALoKjDFFnzofIv
-	+7E9/42ZYzKjyymiYVFVdlwtHd1ywBuKS/jF+cVafNlmP6JkKtiqMYAlPC5ft2bQWZcLX1z4ZFj
-	W/S6KA8UcgE2CRUm2LJnUeH7gP3O4actoAEKg9/CEXaDm73ovv9SVGYkFK+iA==
-X-Received: by 2002:a05:600c:3b13:b0:4a0:2150:55fb with SMTP id 5b1f17b1804b1-4a1d75ad08amr209137105e9.4.1792427565319;
-        Mon, 19 Oct 2026 09:32:45 -0700 (PDT)
-Received: from ?IPV6:2a0a:ef40:eb0:c501:2c4e:44f:2449:8978? ([2a0a:ef40:eb0:c501:2c4e:44f:2449:8978])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2cc809csm3538555e9.8.2026.10.19.09.32.44
+        d=1e100.net; s=20260707; t=1792427586; x=1793032386;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Q8KL6LGvq0FwHTPovYus9FfkhDMRIi4bd+XQz8TiIQM=;
+        b=WPJN3sCOLEltkfrkL1ZaIohbAIvvgMuYtSx2CewlOyZzYwK2G5mmRdY+gKTg+8VXlv
+         lA2JFnUYeLnm6dVDB/M6l6eOXiBtUEdTMT/DgUibPgiBbYPo8wkJlDEbyNAUbHDnU3kI
+         7S4A4bYKluocY3ISLlIzUgRgg1Km7TgTtohvw2JVJLusC0CZOeUKKehPrhm4vIRh5iNv
+         ZbIMgicJrfo8oI97KAsbiIXuK+0zwvRp7oO1dr2li0nWJyp5ADMw/kzfnkeqwFR3rgI+
+         +kZaNzIDhIDjf4NgykbCUQw1XADsQDuZEgo9pUJVuA3Mv9kUzzAkKnXiTpIg84voTwkR
+         FbCA==
+X-Forwarded-Encrypted: i=1; AKwUvBwpc7MA/ku3D/uB+AyF3hw9YvcIB/dnGmrR9tlQax21+vWBsv679YeKt3GApZSWRAyHq6MhWv8On/oj@vger.kernel.org
+X-Gm-Message-State: AFq9FYL74hwlAW1Cd4EEbuMxtrIwjRZHw4fo+0dedHHmxfokRBX4Lyrn
+	UmMa5LGvX0ROqYTqPKynDOlgbq3Rjzl1zlAE6k2PPO59V/XU7BLzefivzckk4ckeH0c=
+X-Gm-Gg: AYBFou2kyGyYwZrKiFQMwxLnL8veQ/1EEv+2EYHPoOBBkdO6zBNTWMoPYgyT0gQ21Vy
+	Wpwk6ne3gWENcsgYhiLeEvW2f9Kpc+JdqtC/f4uNpjy5YzCvr5OQqRAr9ln0nclx+Eys+S+izT4
+	3bMh2KdNzB14Aikjzx7VdlzV+Iu1NpBBxf4aonsJIixQC1tPiFRI1tr0hnRcaDy/fAFfRdjJyqB
+	AQer5c/laLGVSsggtexVo+vP37eXgXeZwPZbgS3f5i8Lzja33LAoDIMLWpJZW/2YwAueeYu8sIm
+	n/SbcrOyWQzdLNxVhJ5UB2GPnTwwAJeySYtwhkAYOLVSf812CiyKGC6NFIBn5Xk00VbzCevgj0l
+	qAbm7VNwVEW10xhMZuf6oF7bpQbhKvL88oq6JEyosuAmh3WqI80Yl4RbrP45/OrFIaV5FHkhbHx
+	adSzcpA04RH0rVz/we9zfas1apfxvyfZcm0eWPXRuezTO0YM1qDol2w6A/4cKqj6yiJ0ehw1iUf
+	1eibCKaKZ1I/OH16ZrwemaeylppHt3GIWg0HuZixgLvVzZO
+X-Received: by 2002:a17:907:3da5:b0:c29:f5d5:5a97 with SMTP id a640c23a62f3a-c419f31bd1cmr592439966b.33.1792427586363;
+        Mon, 19 Oct 2026 09:33:06 -0700 (PDT)
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com. [209.85.218.43])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4091eb2f64sm374013666b.77.2026.10.19.09.33.02
+        for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 09:32:44 -0700 (PDT)
-Message-ID: <ee975969-e310-4950-af09-f57fb423a9f5@linaro.org>
-Date: Mon, 19 Oct 2026 17:32:43 +0100
+        Mon, 19 Oct 2026 09:33:03 -0700 (PDT)
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c414e5d282eso264172666b.1
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 09:33:02 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzYcuS7jEKXdMQ0+4L4UWh9G04ZyIL4w9HxqFf2EutVJleg8r2ZKgnyY85r4BusI6T+kOqdRtl7T4K8@vger.kernel.org
+X-Received: by 2002:a17:907:944c:b0:c40:6ed9:b961 with SMTP id
+ a640c23a62f3a-c419a05c502mr618122766b.5.1792427582507; Mon, 19 Oct 2026
+ 09:33:02 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,88 +79,127 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 06/10] ARM: dts: omap: dm816x: Update USB node
-To: Andreas Kemnade <andreas@kemnade.info>
-Cc: Ettore Chimenti <ettore.chimenti@linaro.org>,
- Paul Walmsley <paul@pwsan.com>, Aaro Koskinen <aaro.koskinen@iki.fi>,
- Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>,
- Tony Lindgren <tony@atomide.com>, Russell King <linux@armlinux.org.uk>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Christopher Obbard <chris.obbard@oss.qualcomm.com>,
- Linus Walleij <linusw@kernel.org>,
- Rouven Czerwinski <rouven.czerwinski@linaro.org>,
- linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-gpio@vger.kernel.org
-References: <20261016-patch-ektor5-dm8168-dts-v1-0-b4ce30217028@linaro.org>
- <20261016-patch-ektor5-dm8168-dts-v1-6-b4ce30217028@linaro.org>
- <20261017083957.7c2696f5@kemnade.info>
- <8a8313f1-d525-45d3-9044-b5f7a00b256d@linaro.org>
- <20261019154503.2111a89c@kemnade.info>
-Content-Language: en-GB
-From: Andrew Goodbody <andrew.goodbody@linaro.org>
-In-Reply-To: <20261019154503.2111a89c@kemnade.info>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <cover.1792163045.git.geert+renesas@glider.be> <4524363679c1f2163aca3b3dda2bfbde170d095a.1792163045.git.geert+renesas@glider.be>
+ <20261019160545.GC3705@killaraus.ideasonboard.com>
+In-Reply-To: <20261019160545.GC3705@killaraus.ideasonboard.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 19 Oct 2026 18:32:48 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUTz3BR48_Y8_UR9PEjLuavHtN-4uaEKURtqRXFBO0uUA@mail.gmail.com>
+X-Gm-Features: AclHuK84fhnixZiNIMOwb9AdAvJEMnIe-A6l4ZZgkoIEEk378oR8Z0wb7zPZzKY
+Message-ID: <CAMuHMdUTz3BR48_Y8_UR9PEjLuavHtN-4uaEKURtqRXFBO0uUA@mail.gmail.com>
+Subject: Re: [PATCH v4 5/8] pmdomain: Make genpd_get_from_provider() return -EPROBE_DEFER
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Ulf Hansson <ulfh@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	"Rafael J . Wysocki" <rafael@kernel.org>, Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Kevin Hilman <khilman@baylibre.com>, 
+	Vinod Koul <vkoul@kernel.org>, Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+	=?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>, 
+	Sudeep Holla <sudeep.holla@kernel.org>, Cristian Marussi <cristian.marussi@arm.com>, 
+	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 19/10/2026 14:45, Andreas Kemnade wrote:
-> On Mon, 19 Oct 2026 10:36:37 +0100
-> Andrew Goodbody <andrew.goodbody@linaro.org> wrote:
-> 
->> On 17/10/2026 07:39, Andreas Kemnade wrote:
->>> On Fri, 16 Oct 2026 16:41:21 +0200
->>> Ettore Chimenti <ettore.chimenti@linaro.org> wrote:
->>>    
->>>> From: Andrew Goodbody <andrew.goodbody@linaro.org>
->>>>
->>>> USB node was not working correctly with DMA enabled as the supporting
->>>> code had been updated without updating this SoC's device tree. Bring the
->>>> device tree more up to date so that it works with DMA enabled.
->>>>
->>>> Signed-off-by: Andrew Goodbody <andrew.goodbody@linaro.org>
->>>> Signed-off-by: Ettore Chimenti <ettore.chimenti@linaro.org>
->>>> ---
->>>>    arch/arm/boot/dts/ti/omap/dm816x.dtsi | 41 +++++++++++++++++++++--------------
->>>>    1 file changed, 25 insertions(+), 16 deletions(-)
->>>>
->>>> diff --git a/arch/arm/boot/dts/ti/omap/dm816x.dtsi b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
->>>> index 7f3ef3a00ab8..5be9efc60785 100644
->>>> --- a/arch/arm/boot/dts/ti/omap/dm816x.dtsi
->>>> +++ b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
->>>> @@ -574,18 +574,27 @@ uart3: serial@48024000 {
->>>>    		};
->>>>    
->>>>    		/* NOTE: USB needs a transceiver driver for phys to work */
->>>> -		usb: usb_otg_hs@47401000 {
->>>> -			compatible = "ti,am33xx-usb";
->>>> -			reg = <0x47401000 0x400000>;
->>>> -			ranges;
->>>> +		usb: target-module@47400000 {
->>>> +			compatible = "ti,sysc-omap4", "ti,sysc";
->>>> +			ti,hwmods = "usb_otg_hs";
->>>
->>> Why do we still need this? It is depcrecated.
->>>
->>> Regards,
->>> Andreas
->>
->> Without that line we get the following on boot and USB does not work
->>
->> [    0.110148] omap_hwmod: usb_otg_hs: no dt node
-> 
-> It is somewhat odd to use both ti-sysc and hwmod. It looks like a
-> half conversion.
-> 
-> For an example how usb_otg_hs was converted to ti-sysc for omap3, look at
-> 42a79edd4a3dc1bb8e89fd2849f9e8e1e1c13977...v6.1-rc1
-> 
-> It has no hwmod stuff left.
-> 
-> Regards,
-> Andreas
+Hi Laurent,
 
-Thank you. That was the pointer I needed to sort this out.
+On Mon, 19 Oct 2026 at 18:05, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+> On Fri, Oct 16, 2026 at 05:55:44PM +0200, Geert Uytterhoeven wrote:
+> > Unlike provider-based look-up functions in other subsystems[1],
+> > genpd_get_from_provider() returns -ENOENT instead of -EPROBE_DEFER when
+> > the provider is not found, thus not supporting probe deferral.
+> > Currently this is worked around in of_genpd_add_subdomain() by remapping
+> > -ENOENT[2].
+>
+> But not in the other functions calling genpd_get_from_provider() and
+> propagating the error up. Have you validated that no existing call
+> stacks will break ?
+>
+> > Fix this for all current and future callers by returning -EPROBE_DEFER
+> > instead, and drop the no longer needed remapping code.
+> >
+> > [1] of_clk_get_hw_from_clkspec(), __fwnode_reset_control_get()),
+> > [2] Commit 18027d6f392ee8d8 ("PM: domains: Make of_genpd_add_subdomain()
+> >     return -EPROBE_DEFER").
+> >
+> > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> > ---
+> > v4:
+> >   - New.
+> > ---
+> >  drivers/pmdomain/core.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/pmdomain/core.c b/drivers/pmdomain/core.c
+> > index 964e44c2f78f1d55..88c886814a5b9da3 100644
+> > --- a/drivers/pmdomain/core.c
+> > +++ b/drivers/pmdomain/core.c
+> > @@ -3021,7 +3021,7 @@ EXPORT_SYMBOL_GPL(of_genpd_del_provider);
+> >  static struct generic_pm_domain *genpd_get_from_provider(
+> >                                       const struct of_phandle_args *genpdspec)
+> >  {
+> > -     struct generic_pm_domain *genpd = ERR_PTR(-ENOENT);
+> > +     struct generic_pm_domain *genpd = ERR_PTR(-EPROBE_DEFER);
+> >       struct of_genpd_provider *provider;
+> >
+> >       if (!genpdspec)
+>
+> Expanding the context:
+>
+> >               return ERR_PTR(-EINVAL);
+> >
+> >       mutex_lock(&of_genpd_mutex);
+> >
+> >       /* Check if we have such a provider in our array */
+> >       list_for_each_entry(provider, &of_genpd_providers, link) {
+> >               if (provider->node == genpdspec->np)
+> >                       genpd = provider->xlate(genpdspec, provider->data);
+> >               if (!IS_ERR(genpd))
+> >                       break;
+> >       }
+> >
+> >       mutex_unlock(&of_genpd_mutex);
+> >
+> >       return genpd;
+>
+> The for loop seems to imply that we can have multiple providers for the
+> same node. In case a provider fails, the function overrides the error
+> code from -EPROBE_DEFER to whatever the first xlate() returns. That may
+> cause issues for your use case.
 
-Andrew
+The code has been like that since its introduction.  Technically one
+can register multiple providers for the same device node, but one
+can never safely remove one of them, as of_genpd_del_provider() just
+considers the device node, and removes the first matching provider.
+So I think someone just didn't like nesting curly braces, and tried
+to be smart ;-)
+
+> If the of_genpd_providers list doesn't expect multiple providers per
+> device node, I would change the above into
+>
+>         list_for_each_entry(provider, &of_genpd_providers, link) {
+>                 if (provider->node == genpdspec->np) {
+>                         genpd = provider->xlate(genpdspec, provider->data);
+>                         break;
+>                 }
+>         }
+>
+> to make it explicit.
+
+Will do.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
