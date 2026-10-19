@@ -1,386 +1,172 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C3AB4CA790
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 09:57:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 134194B8285
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 09:58:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792403862; cv=none; b=As0oC8mTwrXmty2Mh3ErAlueBL2SWIYfYqHZEe1/9VE7d66/NhFurMCkfBzbrXUprwhHU0i07O3EiB4Q7dIrCIQKuvckuzciSPGrYXUmbZuUDTgEX0MiZ/1WX8MOk88M+blohvEDidckbTPelN10snVYMpdIynRVZRfxUO60Ah8=
+	t=1792403910; cv=none; b=dhCtkAa0E7emS0qbd0oJ3mdPuMrPDUpt/SwFwMBB9NfuUzLcNcAZc7uA3weWdIb1UdCr/jHQGs1V9m8TLbe3voXn94QNKC05QCAdkMH/6CRA/Yl7izf1xcAY0W5BL6qCtoZd1hjExNOjpxNY9bFSNgkcSA1UIHUXSBUCap+xnxU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792403862; c=relaxed/simple;
-	bh=P9IOR/ggsKFBr8K7fAGanMomEQ1BN+Elz67wVqulLZ8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ILzrGFra5KhByDjZHbybsN0+GEknTy97jVPlPDRQBT/TjtQidSfO1mkC7Bu7xxjYxrsmlcQRfZChI9i5mrdEXXC1iMfrO7yYufSFp9KZahCHFEX9L5F53yAoX845rH3UDReUruKND9e41fU5dzRBwymlf0wA6946ekPE5aVLkWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lCR7KVHb; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792403910; c=relaxed/simple;
+	bh=eGAF2rlwQq8vrlYsNjNO5wZQgv0NDo73dHPMv/EUZMA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FDsIsmicvBABsX0pSBMuvR8gnoX3jUQM5JRSz11zJKRkPmwAHT7+/Gsb19UTTPUSxfmKj+WbmL2x324FVWPzZpx7dpJ2UFq+4ChjK4vDC4gpsbJFzAT/YHEXsiuD/wT0uOdC9Tr4WqWYaikUDG0r9tZAYKjZfp+BqATl+J3ar40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev; spf=pass smtp.mailfrom=tuxon.dev; dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b=ESeQ7N44; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxon.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lCR7KVHb"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48df0fa43c5so1375368f8f.0
-        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 02:57:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b="ESeQ7N44"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a1635f7c89so18964575e9.2
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 02:58:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792403858; x=1793008658; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KKrJUyf8jHE8ZLrqKcUACJ7Jgl2zFEKXFuvKG/Xk2Ms=;
-        b=lCR7KVHbKK+QCqMhy+huLDxdakekVRr30Y4kGbvA/3KPO9dhxXNY2WwuHK70kta+s5
-         /5kLxWP4j3l1A6C5n05HB6goDnKLPUXnPT4smP6lhFjTrRS7af6ev39KO3f1HzXif8p1
-         pEVg+G1voLGwgz1VcWuCfw1fxdNUQaAhZ2i1qY8wyFecZYlKqwc7JyTAI5/mtftpJEL5
-         B1R2KcoGAbhFJvOWuUZcV6ocA47GsJYl0FzAqknSXiwvDuJRrd0vj2Rh/uByKx6pzhUO
-         35TMY+QMdK60iDAPAW0jAEtG5e+oXYGQkNveOIM4iO/kWqtKYRef4HkwX63nzxytmTPh
-         vDiA==
+        d=tuxon.dev; s=google; t=1792403906; x=1793008706; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fFxY6AoLFrbUivYUuQNWjKVo2lafGDyB/yJV4/e5rAo=;
+        b=ESeQ7N44rAVadcdww7HKi34BCvlPvJ/WBrGpGgngLuTG42gBx+5SPVgNliJCBwVa4O
+         89pbHujG+82jsPLRW7e6r5be8yk46hvYDk0tv1axYFUA1ZZY+BApLEC48R9folA95uyD
+         p4wQk7ELbE6xscICda7ygBfuARyOq2F9qA9BYJF6BiBYhHDZMXGOdb0kTu7GG7vA1aQP
+         xgB+LlgcxdDTyfWqcGIvoYBxbvy3tNrcuEuYIPJXlzvXQNt5ESBkbfzAeuuJvINFNO6L
+         oHzHLx8+PNECXfQpuyaHL6zgnSdnKq5axW9zGDie8Cs5UqIzV8e0F3M0ab5pySmr/nVE
+         WiDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792403858; x=1793008658;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KKrJUyf8jHE8ZLrqKcUACJ7Jgl2zFEKXFuvKG/Xk2Ms=;
-        b=Rn/u3Tgdyuaa48y5lqj2y0X/N0MgbuBhlWh5Wiy4gfc0h0Yz3aKd/Q7zyZgPVe3jaW
-         VXz3pt3CiZuL49fq9CBBhq54h68ia/VT63DpzSOp2J1ePRgebrvjQQCW4K0g5r44jky2
-         03AIvAmGaw7zOTRD/nGqZ+YW8ghYQ6/qpwZLxs04WPekLCUinuviQ5BAMhD9+/CG1bbk
-         J5sAJ4yew+CXvhUfkfRzWFCo9EaLIIjjaf1pOUocvUK8yIVAx/jnm+3H6LjAO8kUUj7E
-         ZRS1QBuTBvTFq5zZ/VLUCLkp1wVSk7keZVnWdcBF4izETOBYVTei82meLGZpT4Vmqm10
-         HMCQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwX2b2aR/sYn+EXu7DG5J+tEnui/2DaL0ns2zQj21vxv4ortyYja795MC2Ndna10ebx7XWzdsH7B5SH@vger.kernel.org
-X-Gm-Message-State: AFq9FYJC8k1PmIUlGeQvIiGOZMnp2B/V1FOux56Y+HSnqoyQRb/VQAHH
-	QtcQotGuEli/Z6cfAO1HWKsCpfDRMovUgTZlw2f39BgCX/yS9UeMB9K3
-X-Gm-Gg: AYBFou08CQwd0SgV7AXYeDzD3e07rtW60+fNwRmFQ2+5uNSqHzar6CQZPCiVYuh2c87
-	IMlETq+2Q6qND/dYJw1rH+VwqY/nMwbrG9sJEkXx5+C6tyrHhDVySU8N1/jy++VNc8JInej+mFQ
-	X/zsQdY8srRjHl8vptw4xN2n3Nxm5e/wP1Qnse6Xv+M5CaN2Q2ESRBDsO77esPHbRJyOviGqAiW
-	JCcRaD3oOjy29AX4ZG79yPtvb7b4AntzdzW6c8QJOp5W6ya4FnGIZGKBNr5n0ImVA5set6qz0KE
-	Ni1KjleC0eRPryJx+Nsi8v03Qw3GXLwjUQ5qXb8tJNdmlTqLJNMp3ICSLuVu2lSPjA8jKbnpPC/
-	aQYjrTY+SNtYTFdNdKQkFMbTJV65UJ1l/vtrt6GV5SSBa57HMUoTnPzS7rD+oiFllxZD9MitlQf
-	uMLxNApHqhOtfmrtKwAYbqig3XBYDbx/LdO4fYNDZHGIZiE7ugmeKsFzRVleYlGS4eJzZ7syjrA
-	VhBnbmwf97sqW1nUY5wX/RFl4NFLLY=
-X-Received: by 2002:a05:6000:46cd:b0:48c:69b3:6114 with SMTP id ffacd0b85a97d-48dfadf34cemr17357438f8f.3.1792403858100;
-        Mon, 19 Oct 2026 02:57:38 -0700 (PDT)
-Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd500e75sm21740089f8f.42.2026.10.19.02.57.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 02:57:37 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-tegra@vger.kernel.org
-Subject: [PATCH v3 7/7] drm/panel: Add LG LH400WV3-SD04 MIPI DBI Type B panel driver
-Date: Mon, 19 Oct 2026 12:57:05 +0300
-Message-ID: <20261019095705.91062-8-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261019095705.91062-1-clamor95@gmail.com>
-References: <20261019095705.91062-1-clamor95@gmail.com>
+        d=1e100.net; s=20260707; t=1792403906; x=1793008706;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fFxY6AoLFrbUivYUuQNWjKVo2lafGDyB/yJV4/e5rAo=;
+        b=R830MMlJWyLBHLT2y7ELTc1Nls3Axxl8yFIQ5VPL0ZpZTjX6FlkRk8AA6RzBvGJCiu
+         JMEcDkikQ8I9f3DEKlgy2e4j6503g9UqkcLKGkc9OjFf+MX6JlmA69kCSXB3wpoyOYHl
+         oO7mZj4u3RiSXU+uypxIZe/NcZlN3GLxKgoq6YScLK3JY5f52tyP48sVXCBuZBidVj3b
+         rawiLqO5d+XxIqDOmjdehMo1P3s9eMuPWrjXrYXJDQZ8h+n9Se3IVLYsNKq7QHFVj7dt
+         RCDCNuGavXCIdAdCzsWCTRMGp435keNBZSooUqSF40DqOMopSpqT/UhWtu6Nywws6bfc
+         XaZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwt7RrBjh3HQN6HVB0kpyuKz+zQ1aHiPTrf53E9lCyrVwZw+Gd9F+AAc/v+qmSQh25rPcTLRhwkZpl/@vger.kernel.org
+X-Gm-Message-State: AFq9FYLeXhZk6D8X6v5kgVg88WhoqZmJEP+QysHJf1blJS8vt0AiAw9h
+	8/CG1SXiSNRrUDEMm7Xiu5pn+bNtwZ3Mv/Kd2FxCLwCvvkeTiq//9cbUFIJf/mbhi3Q=
+X-Gm-Gg: AYBFou3loqOfPWCPFDdigGCkS9hK8H6Jo4kHwvSe5nyoO5HDk/2RkIsq5ydzehHdrKF
+	bO5Iu2p4PR5w906vi2aYGhdYRm0PRGyh10IbYVLo0yYe5dfQaYARe6OeZ+4AfeLv9UsP8LJDoOy
+	hE32EHEQlH/EbdAp3j2OANCzgJUo4di4wK/MgV80wIvT6KOc5mR+9qNlDlwXfB4rVDZKj4NBhrV
+	hyPYcrqNJKGYrP7XYhzW6NKonNmhelraQnTd/g1KaWS7dBmC6xD3eZeTQuUzvOPICta0XcAiiiE
+	VZcGOcoN5/rQqbXXs/TO91ePUOGzJGHBuH+jfAAv7t2XeHPGLKycXJuSPQ3d66O2bQ7+PmbGlGW
+	rrDtI5EEBqGaHKSN2tmx0YJ+rL0bdb50QqqdL40AV5cj7ngMtGXncBIkkjvu6sADb+c4YjYcQDs
+	iBoa/bg1SEHcHPtB+16olXWBLnC2lsIuDJP9l7ZZzEJghtxS0l/su9RQMmyFGCaBcyn7Q6oqVOv
+	9s1Oro=
+X-Received: by 2002:a05:600c:540f:b0:4a1:97c6:d2e8 with SMTP id 5b1f17b1804b1-4a1d7633b35mr152802705e9.32.1792403906248;
+        Mon, 19 Oct 2026 02:58:26 -0700 (PDT)
+Received: from [192.168.50.4] ([82.78.167.221])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1cdf2f0d1sm156663265e9.2.2026.10.19.02.58.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 02:58:25 -0700 (PDT)
+Message-ID: <4a9e32a8-8a2e-4b70-8057-2d51e6d38b98@tuxon.dev>
+Date: Mon, 19 Oct 2026 12:58:24 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 3/7] can: rcar_canfd: Allow the CAN FD clock to be
+ sourced from fck
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: mailhol@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, geert+renesas@glider.be, magnus.damm@gmail.com,
+ biju.das.jz@bp.renesas.com, fabrizio.castro.jz@renesas.com,
+ linux-can@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+References: <20260902141544.565763-1-claudiu.beznea+renesas@tuxon.dev>
+ <20260902141544.565763-4-claudiu.beznea+renesas@tuxon.dev>
+ <20261016-durable-meticulous-owl-7a9eed-mkl@pengutronix.de>
+ <69826962-0c21-4616-9cd8-6eb0478a422b@tuxon.dev>
+ <20261017-weightless-poetic-mayfly-bbdf75-mkl@pengutronix.de>
+Content-Language: en-US
+From: claudiu beznea <claudiu.beznea@tuxon.dev>
+In-Reply-To: <20261017-weightless-poetic-mayfly-bbdf75-mkl@pengutronix.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Add a driver for panel used in LG Optimus 2X P990. Panel is 4" WVGA MIPI
-DBI Type B linked to DRM encoder via RGB to DBI bridge.
+Hi, Mark,
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- drivers/gpu/drm/panel/Kconfig             |  13 ++
- drivers/gpu/drm/panel/Makefile            |   1 +
- drivers/gpu/drm/panel/panel-lg-lh400wv3.c | 236 ++++++++++++++++++++++
- 3 files changed, 250 insertions(+)
- create mode 100644 drivers/gpu/drm/panel/panel-lg-lh400wv3.c
+On 10/17/26 23:01, Marc Kleine-Budde wrote:
+>>>>    /* Helper functions */
+>>>> @@ -2190,13 +2196,20 @@ static int rcar_canfd_probe(struct platform_device *pdev)
+>>>>    	 */
+>>>>    	gpriv->can_clk = devm_clk_get(dev, "can_clk");
+>>>>    	if (IS_ERR(gpriv->can_clk) || (clk_get_rate(gpriv->can_clk) == 0)) {
+>>>               ^^^^^^^^^^^^^^^^^^^^^
+>>>
+>>> As sashiko.dev [1] pointed out here's no check for -EPROBE_DEFER.
+>> This looks to me a pre-existing issue.
+>>
+>> The newly added support does:
+>>
+>> fcan_freq = clk_get_rate(gpriv->clkp);
+>>
+>> At the time this is executed the clkp was already checked against any errors
+>                                     ^^^^
+>> (above) including -EPROBE_DEFER.
+> It's not about "clkp".
+> 
+> What's missing is, that "gpriv->can_clk" is checked against IS_ERR():
+> 
+>>>>    	gpriv->can_clk = devm_clk_get(dev, "can_clk");
+>>>>    	if (IS_ERR(gpriv->can_clk) || (clk_get_rate(gpriv->can_clk) == 0)) {
+> but if it's a -EPROBE_DEFER, IS_ERR() returns true. I think in this case
+> you want to return with dev_err_probe().
+> 
+> There's also a difference between "can_clk" not found (e.g. not
+> configured in DT), and there was a problem with "can_clk". I don't know
+> if this is important for this driver, but if you want to distinguish
+> between those, you can use devm_clk_get_optional(). I will return NULL
+> if the clock is not found, -EPROBE_DEFER if not available yet, the clock
+> or, in case of an error -errno.
+> 
+> Thinking about it: if "can_clk" is not available, I would consider it
+> intentional, so the driver should use the other clock. If the clock has
+> an error, the driver should not fallback to a probably untested clock
+> configuration.
 
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index 5f68b78526c3e..f29b63ad8ba0f 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -554,6 +554,19 @@ config DRM_PANEL_LG_LG4573
- 	  Say Y here if you want to enable support for LG4573 RGB panel.
- 	  To compile this driver as a module, choose M here.
- 
-+config DRM_PANEL_LG_LH400WV3
-+	tristate "LG LH400WV3 MIPI DBI Type B panel"
-+	depends on OF
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	select DRM_MIPI_DBI
-+	select VIDEOMODE_HELPERS
-+	help
-+	  Say Y here if you want to enable support for the LG LH400WV3 MIPI
-+	  DBI Type B panel found in the LG Optimus 2X P990 smartphone.
-+
-+	  To compile this driver as a module, choose M here: the module will
-+	  be called panel-lg-lh400wv3.
-+
- config DRM_PANEL_LG_SW43408
- 	tristate "LG SW43408 panel"
- 	depends on GPIOLIB
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index 414267a49d922..842a2a973777f 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -54,6 +54,7 @@ obj-$(CONFIG_DRM_PANEL_LINCOLNTECH_LCD197) += panel-lincolntech-lcd197.o
- obj-$(CONFIG_DRM_PANEL_LG_LB035Q02) += panel-lg-lb035q02.o
- obj-$(CONFIG_DRM_PANEL_LG_LD070WX3) += panel-lg-ld070wx3.o
- obj-$(CONFIG_DRM_PANEL_LG_LG4573) += panel-lg-lg4573.o
-+obj-$(CONFIG_DRM_PANEL_LG_LH400WV3) += panel-lg-lh400wv3.o
- obj-$(CONFIG_DRM_PANEL_LG_SW43408) += panel-lg-sw43408.o
- obj-$(CONFIG_DRM_PANEL_LXD_M9189A) += panel-lxd-m9189a.o
- obj-$(CONFIG_DRM_PANEL_MAGNACHIP_D53E6EA8966) += panel-magnachip-d53e6ea8966.o
-diff --git a/drivers/gpu/drm/panel/panel-lg-lh400wv3.c b/drivers/gpu/drm/panel/panel-lg-lh400wv3.c
-new file mode 100644
-index 0000000000000..cb2a09699fc6d
---- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-lg-lh400wv3.c
-@@ -0,0 +1,236 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+
-+#include <linux/array_size.h>
-+#include <linux/delay.h>
-+#include <linux/err.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/media-bus-format.h>
-+#include <linux/module.h>
-+#include <linux/of_platform.h>
-+#include <linux/platform_device.h>
-+#include <linux/property.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <video/mipi_display.h>
-+
-+#include <drm/drm_mipi_dbi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_of.h>
-+#include <drm/drm_panel.h>
-+#include <drm/drm_probe_helper.h>
-+
-+static const struct regulator_bulk_data lg_lh400wv3_supplies[] = {
-+	{ .supply = "avci" }, { .supply = "iovcc" },
-+};
-+
-+struct lg_lh400wv3 {
-+	struct drm_panel panel;
-+	struct mipi_dbi *dbi;
-+
-+	struct regulator_bulk_data *supplies;
-+	struct gpio_desc *reset_gpio;
-+};
-+
-+static inline struct lg_lh400wv3 *to_lg_lh400wv3(struct drm_panel *panel)
-+{
-+	return container_of(panel, struct lg_lh400wv3, panel);
-+}
-+
-+#define panel_dbi_command(priv, cmd, seq...) \
-+({ \
-+	const u8 d[] = { seq }; \
-+	struct drm_panel *panel = &(priv)->panel; \
-+	struct device *dev = panel->dev; \
-+	int ret; \
-+	ret = mipi_dbi_command_stackbuf((priv)->dbi, cmd, d, ARRAY_SIZE(d)); \
-+	if (ret) \
-+		dev_err_ratelimited(dev, "error %d when sending command %#02x\n", ret, cmd); \
-+	ret; \
-+})
-+
-+static int lg_lh400wv3_prepare(struct drm_panel *panel)
-+{
-+	struct lg_lh400wv3 *priv = to_lg_lh400wv3(panel);
-+	struct device *dev = panel->dev;
-+	int ret;
-+
-+	priv->dbi = dev_get_drvdata(dev->parent);
-+	if (!priv->dbi)
-+		return -ENODEV;
-+
-+	gpiod_set_value_cansleep(priv->reset_gpio, 1);
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(lg_lh400wv3_supplies), priv->supplies);
-+	if (ret) {
-+		dev_err(dev, "failed to enable power supplies: %d\n", ret);
-+		return ret;
-+	}
-+
-+	usleep_range(1000, 2000);
-+
-+	gpiod_set_value_cansleep(priv->reset_gpio, 0);
-+
-+	usleep_range(10000, 11000);
-+
-+	return 0;
-+};
-+
-+static int lg_lh400wv3_enable(struct drm_panel *panel)
-+{
-+	struct lg_lh400wv3 *priv = to_lg_lh400wv3(panel);
-+
-+	panel_dbi_command(priv, MIPI_DCS_EXIT_INVERT_MODE);
-+	panel_dbi_command(priv, MIPI_DCS_SET_TEAR_ON);
-+
-+	panel_dbi_command(priv, MIPI_DCS_SET_PIXEL_FORMAT, MIPI_DCS_PIXEL_FMT_24BIT |
-+			  MIPI_DCS_PIXEL_FMT_24BIT << 4);
-+
-+	panel_dbi_command(priv, 0xb2, 0x00, 0xc8);
-+	panel_dbi_command(priv, 0xb3, 0x00);
-+	panel_dbi_command(priv, 0xb4, 0x04);
-+	panel_dbi_command(priv, 0xb5, 0x42, 0x10, 0x10, 0x00, 0x20);
-+	panel_dbi_command(priv, 0xb6, 0x0b, 0x0f, 0x3c, 0x13, 0x13, 0xe8);
-+	panel_dbi_command(priv, 0xb7, 0x4c, 0x06, 0x0c, 0x00, 0x00);
-+
-+	panel_dbi_command(priv, 0xc0, 0x01, 0x11);
-+	panel_dbi_command(priv, 0xc3, 0x07, 0x03, 0x04, 0x04, 0x04);
-+	panel_dbi_command(priv, 0xc4, 0x12, 0x24, 0x18, 0x18, 0x02, 0x49);
-+	panel_dbi_command(priv, 0xc5, 0x65);
-+	panel_dbi_command(priv, 0xc6, 0x41, 0x63);
-+
-+	panel_dbi_command(priv, 0xd0, 0x00, 0x46, 0x74, 0x32, 0x1d, 0x03, 0x51, 0x15, 0x04);
-+	panel_dbi_command(priv, 0xd1, 0x00, 0x46, 0x74, 0x32, 0x1d, 0x03, 0x51, 0x15, 0x04);
-+	panel_dbi_command(priv, 0xd2, 0x00, 0x46, 0x74, 0x32, 0x1f, 0x03, 0x51, 0x15, 0x04);
-+	panel_dbi_command(priv, 0xd3, 0x00, 0x46, 0x74, 0x32, 0x1f, 0x03, 0x51, 0x15, 0x04);
-+	panel_dbi_command(priv, 0xd4, 0x01, 0x46, 0x74, 0x25, 0x00, 0x03, 0x51, 0x15, 0x04);
-+	panel_dbi_command(priv, 0xd5, 0x01, 0x46, 0x74, 0x25, 0x00, 0x03, 0x51, 0x15, 0x04);
-+
-+	panel_dbi_command(priv, MIPI_DCS_SET_COLUMN_ADDRESS, 0x00, 0x00, 0x01, 0xdf);
-+	panel_dbi_command(priv, MIPI_DCS_SET_PAGE_ADDRESS, 0x00, 0x00, 0x03, 0x1f);
-+
-+	panel_dbi_command(priv, MIPI_DCS_EXIT_SLEEP_MODE);
-+	msleep(120);
-+
-+	panel_dbi_command(priv, MIPI_DCS_WRITE_MEMORY_START);
-+	panel_dbi_command(priv, MIPI_DCS_SET_DISPLAY_ON);
-+
-+	return 0;
-+}
-+
-+static int lg_lh400wv3_disable(struct drm_panel *panel)
-+{
-+	struct lg_lh400wv3 *priv = to_lg_lh400wv3(panel);
-+
-+	panel_dbi_command(priv, MIPI_DCS_SET_DISPLAY_OFF);
-+	panel_dbi_command(priv, MIPI_DCS_ENTER_SLEEP_MODE);
-+	msleep(150);
-+
-+	panel_dbi_command(priv, 0xc1, 0x01);
-+	usleep_range(10000, 11000);
-+
-+	return 0;
-+};
-+
-+static int lg_lh400wv3_unprepare(struct drm_panel *panel)
-+{
-+	struct lg_lh400wv3 *priv = to_lg_lh400wv3(panel);
-+
-+	gpiod_set_value_cansleep(priv->reset_gpio, 1);
-+	regulator_bulk_disable(ARRAY_SIZE(lg_lh400wv3_supplies), priv->supplies);
-+
-+	msleep(50);
-+
-+	return 0;
-+}
-+
-+static const struct drm_display_mode lg_lh400wv3_mode = {
-+	.clock = (480 + 10 + 10 + 10) * (800 + 4 + 4 + 4) * 60 / 1000,
-+	.hdisplay = 480,
-+	.hsync_start = 480 + 10,
-+	.hsync_end = 480 + 10 + 10,
-+	.htotal = 480 + 10 + 10 + 10,
-+	.vdisplay = 800,
-+	.vsync_start = 800 + 4,
-+	.vsync_end = 800 + 4 + 4,
-+	.vtotal = 800 + 4 + 4 + 4,
-+	.width_mm = 86,
-+	.height_mm = 52,
-+	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
-+};
-+
-+static int lg_lh400wv3_get_modes(struct drm_panel *panel,
-+				 struct drm_connector *connector)
-+{
-+	u32 bus_format = MEDIA_BUS_FMT_RGB888_1X24;
-+
-+	drm_display_info_set_bus_formats(&connector->display_info,
-+					 &bus_format, 1);
-+
-+	connector->display_info.bus_flags = DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE |
-+					    DRM_BUS_FLAG_SYNC_SAMPLE_NEGEDGE |
-+					    DRM_BUS_FLAG_DE_HIGH |
-+					    DRM_BUS_FLAG_DATA_LSB_TO_MSB;
-+
-+	return drm_connector_helper_get_modes_fixed(connector, &lg_lh400wv3_mode);
-+}
-+
-+static const struct drm_panel_funcs lg_lh400wv3_panel_funcs = {
-+	.prepare = lg_lh400wv3_prepare,
-+	.enable = lg_lh400wv3_enable,
-+	.disable = lg_lh400wv3_disable,
-+	.unprepare = lg_lh400wv3_unprepare,
-+	.get_modes = lg_lh400wv3_get_modes,
-+};
-+
-+static int lg_lh400wv3_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct lg_lh400wv3 *priv;
-+	int ret;
-+
-+	priv = devm_drm_panel_alloc(dev, struct lg_lh400wv3, panel,
-+				    &lg_lh400wv3_panel_funcs, DRM_MODE_CONNECTOR_DPI);
-+	if (IS_ERR(priv))
-+		return PTR_ERR(priv);
-+
-+	ret = devm_regulator_bulk_get_const(dev, ARRAY_SIZE(lg_lh400wv3_supplies),
-+					    lg_lh400wv3_supplies, &priv->supplies);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to get supplies\n");
-+
-+	priv->reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(priv->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(priv->reset_gpio),
-+				     "Failed to get reset gpio\n");
-+
-+	ret = drm_panel_of_backlight(&priv->panel);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to get backlight\n");
-+
-+	ret = devm_drm_panel_add(dev, &priv->panel);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to add panel\n");
-+
-+	platform_set_drvdata(pdev, priv);
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id lg_lh400wv3_of_match[] = {
-+	{ .compatible = "lg,lh400wv3-sd04" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, lg_lh400wv3_of_match);
-+
-+static struct platform_driver lg_lh400wv3_driver = {
-+	.driver = {
-+		.name = "panel-lg-lh400wv3",
-+		.of_match_table = lg_lh400wv3_of_match,
-+	},
-+	.probe = lg_lh400wv3_probe,
-+};
-+module_platform_driver(lg_lh400wv3_driver);
-+
-+MODULE_AUTHOR("Svyatoslav Ryhel <clamor95@gmail.com>");
-+MODULE_DESCRIPTION("LG LH400WV3-SD04 MIPI DBI Type B panel driver");
-+MODULE_LICENSE("GPL");
--- 
-2.53.0
+         /* fCAN clock: Pick External clock. If not available fallback to
+          * CANFD clock
+          */
+         gpriv->can_clk = devm_clk_get(dev, "can_clk");
+         if (IS_ERR(gpriv->can_clk) || (clk_get_rate(gpriv->can_clk) == 0)) {
 
+Based on the comment on this code "If not available fallback to CANFD clock"
+I think the intention with IS_ERR() is to allow probing go forward, falling back 
+to CANFD clock, in case of any error of devm_clk_get().
+
+The device trees that I've checked sets the can_clk to a fixed clock with rate = 
+0 or have the clock provided directly by the SoC clock provider. I think the 
+intention with IS_ERR() was not only for -ENOENT but for any other kind of 
+errors. We can return in case of -EPROBE_DEFER, to ensure the expected clock is 
+used, when it's available and sane.
+
+I'll switch to something like:
+
+  gpriv->can_clk = devm_clk_get(&pdev->dev, "can_clk");
++if (ERR_PTR(gpriv->can_clk) == -EPROBE_DEFER)
++	return dev_err_ptr(dev, ...);
+
+The devm_clk_get_optional() would involve changing more lines:
+
+-       gpriv->can_clk = devm_clk_get(dev, "can_clk");
+-       if (IS_ERR(gpriv->can_clk) || (clk_get_rate(gpriv->can_clk) == 0)) {
++       gpriv->can_clk = devm_clk_get_optional(dev, "can_clk");
++       if (ERR_PTR(gpriv->can_clk) == -EPROBE_DEFER)
++               return dev_err_probe(dev, -EPROBE_DEFER, "cannot get can_clk");
++
++       if (IS_ERR_OR_NULL(gpriv->can_clk) || (clk_get_rate(gpriv->can_clk) == 0)) {
+                 gpriv->can_clk = devm_clk_get(dev, "canfd");
+                 if (IS_ERR(gpriv->can_clk))
+                         return dev_err_probe(dev, PTR_ERR(gpriv->can_clk),
+
+Please let me know otherwise.
+
+Thank you,
+Claudiu
