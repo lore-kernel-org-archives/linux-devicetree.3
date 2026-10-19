@@ -1,110 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BFF9490BE1;
-	Mon, 19 Oct 2026 08:29:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8585248551D
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 08:31:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792398570; cv=none; b=o+CL41W4DR1N1GM3MvREZGVBU954LI+t6fgAaNYJfnaHDzupYbiuUwGorN0mnakyIH68n8eYQkm4fRF3BcIPPdJOrzLxmyJMKEhcHiFyU2EjXjPp7s2js1KoUDZ3Rq9Vo0PaNSyhVnSa4+n7WPhdA9C/k3EvC04BRqnCDrAV7do=
+	t=1792398698; cv=none; b=UXRWWaR+b/v2ZSJj9tiI5ek0B4anIMd/DL+atdJOGRUowPj746XtGEkm4iFVEQCXH3ZxoDKHYz6NPBcO8Rg3IOth0Lbepuzucz3DXYzaBhB/Tq6bOm7wQ138WPhXtAxQV7LQ26r/Ttn9fGH52TZ+3lftohynzWwLigcxETyVhys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792398570; c=relaxed/simple;
-	bh=2T8yUg3USoZLSWCKE3Q81aYqDVt5CaQawi8GcUD57qY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pXHwTCNyQlMXv2y/N//U+BsjyJtl8WmOECTogTeAYynFC5dgiBq6y40HjpjTePJ74WRhTRONz4Ti2978/fWUBtrqXZHZw7UXUnE4KzX6iTfIm9R/MZtXCv25GqjEcVuGiKF93cHXTWchdwDYaL5yyj+IDBzOT4GUBMIGe5SMSnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EfW07gMC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792398698; c=relaxed/simple;
+	bh=PBtDG7IaGArA5oidyV57104ug2/3g9vZYpC1ajDvsoU=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=iIE36WTNU7Xai9dEGm2zEMzNZrVyG7ZPzxDfzMyMVlhmdj+1C+nXiugS1CECom3+DzF50EunbZJ0M9NH4sbXuaG9jZ+akTTZOhRi63v3YXUQUJaSSqz/Jz5qcc+ROOGtV1hqZTWJDMIcLXdmTkD6CJdXRfXI3akvIP5PLVQyNxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=mvJ9/HZD; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EfW07gMC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06D301F000C4;
-	Mon, 19 Oct 2026 08:29:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792398568;
-	bh=2T8yUg3USoZLSWCKE3Q81aYqDVt5CaQawi8GcUD57qY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=EfW07gMC/pe9SkRG7otllFhewm0SjDFvYPPzcAzmA6riGP4A80dodt7DiIq2o+YM6
-	 +WmaE7jNBBdjnXzJJyDH3RgBJYJCeJgMGikeBnE6uKbPsa+6Ku5ZT+ykzrD4jd2f9G
-	 mPLC2px0MrtIKFcisnv47swUrgSpRdO4iaK7CvDNe5U7SOEYLfccR01o5RV4i5HDEx
-	 pLUl0XVOr3VgSb6ZUeYcoVTDlcUw3Yif14Wi0ETIjs1IuHgpwp1ZcFuXdgc7hObcc+
-	 71TRWguCvYOdV9+SbwfTb99pxwOevLB7fCPHjP0XzKLMs5lQMPNgSUTcjQPNYZF2yK
-	 iN+B05AX5iMnw==
-Message-ID: <bf402074-d666-4988-8426-d8faa9625551@kernel.org>
-Date: Mon, 19 Oct 2026 09:29:23 +0100
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="mvJ9/HZD"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49d05d51553so12106785e9.2
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 01:31:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1792398695; x=1793003495; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=l7oxDA8ZM54hjX0LF1jWr12XxVGQQXbDbmOXq61AZsk=;
+        b=mvJ9/HZDzZB2wM3g/ie6rVcnirtaSOu5DlB3Wbsps4hKIxmXMhNzWC+hTdWPR29f/b
+         CwywdBBQI2kFJzCgVKG9slZuEYh4rpGXIt2kiFbN3Q6tOaCJ6zx51WgkxE0Q+ryZd+WQ
+         3xrH6aoU09vUVrBlUoLb+XjPy3FuDDQAqHEPwZMKAf43HAD1PQSoxmJFTvv3uwtghShG
+         fRvF3UdGmmCRFDLOz/y7LkPabp8pp+G5R2IY53T2IUlh/98GApglWd4TrnWeMvcXEx8a
+         OAH4FgBleSgFZIE58NtVRz8NWvb9UDqoOfFxMAl0bo+tT1i5K2uah8UHcrdrBY37Ze5P
+         tOmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792398695; x=1793003495;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=l7oxDA8ZM54hjX0LF1jWr12XxVGQQXbDbmOXq61AZsk=;
+        b=kpgXKnxZN0Kl6F0Aqx+V34u+ZDTDYPVneRwu9qZjUfWIK82uEEfiSN/BQycsH+b5xX
+         FqILwSzhqGHxTlUuesOwNymRz8xv7OIGErzaQ75p+rdfJNEbhlkFtCQncVqwmZmwBXqZ
+         WWCtPT9BbT+GObFcTdIrRVaW1jM3Whzh4nY3poX7u/TnE87/yWJvNnjv9/metSWrvnnT
+         ngncdIShIKhBovhYLUHstv4D3Y2ry2WSh3GBLPO1IA2di9YSP1ilJHHBPELMn7jPEeU5
+         +8Z5ecxMf18tauWH6zZodVR/hlP5cjU45GGdFp/poFbzJ6JeI723CJFp4MXCXMzq8HwL
+         e3cg==
+X-Forwarded-Encrypted: i=1; AKwUvBx8NQZGlTQKo275GHbZTP8jsQ89NU07ld7CLUYJ57AfiW66HUSu11Sy/b8+beukmUdt+stlqrF+vieI@vger.kernel.org
+X-Gm-Message-State: AFq9FYLts/V5g+y19eUav5EdQOnmOsK1uJImU3PZgjsUAmmZWdnIjdrj
+	KcBTviuc3BL1C2iqDuDG8Urm/Qptag3nTO2q+SK00dDg8f4eQR4F/IG7rx+bHGn8RTo=
+X-Gm-Gg: AYBFou3aOR+ejSmNT3O7WkycD9MB4U9Gp4YeZsNPk8o1bRh1xL1gX23A4fy3FpwAI8P
+	CgNAykYcFvuw/4vkUg7t5YqH+xZhfcfDYWf6g+antzgdNHV6TJ8S0a+DEGwvioSAeKzQHVGWpx6
+	N3bPq8MPuGl271fNbXQR8dgXg4WNrWySbaBQ7fd2XOP6+b890e3Cc7t8duvVsZsS3516+WF0TTX
+	XK9s9ljdLDIs2sUPCPLLvCoS8NigU7oFfk0bGJzm5rpTNORsj9ozTuZ8HQFTa6DDqKGukBlpm+Q
+	tW0BLLazA1ykfqIJh+4TE23B/xQ/9xz5/E8HhqL/dETdB9hYYULdNZUuv/H0qB988kMUi+6nqzz
+	JgwSG5wVdzsJYI9JDYzMF5MEsMl3MLhPv5Qil+5bmaUvrm4OqTgq1NHz6BLw2LjO9fAapYnghbi
+	z+5xW8tqrtOhKvtqJ3T07CDtpKZr8by7FklSc8oGA7QFG+AllJ2tE8vGafzaLvOgViTEfnjxaf6
+	WJRZr49QqChuYjGaBMkZscoTgtJ6zkD
+X-Received: by 2002:a05:600c:37cf:b0:4a1:df14:ad07 with SMTP id 5b1f17b1804b1-4a1df14b4d3mr115190655e9.18.1792398694579;
+        Mon, 19 Oct 2026 01:31:34 -0700 (PDT)
+Received: from [192.168.7.218] (82-230-44-19.subs.proxad.net. [82.230.44.19])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a1c10fe9d3sm316410855e9.13.2026.10.19.01.31.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 01:31:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/7] dt-bindings: phy: qcom: Add qcom,sa8775p-csi2-phy
- schema
-To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>, vkoul@kernel.org,
- kishon@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- neil.armstrong@linaro.org, mani@kernel.org
-Cc: gjorgji.rosikopulos@oss.qualcomm.com,
- hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
- jigarkumar.zala@oss.qualcomm.com, loic.poulain@oss.qualcomm.com,
- vladimir.zapolskiy@linaro.org, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261016235502.2274268-1-anusha.nandi@oss.qualcomm.com>
- <qLjQvei0fouaxpwPTn80Nhf-aITowIXFteQ3i4M6uq3PVYim2WLaeukVq1MgNcwOeagmzK7HP1tzQbTTlhNXOA==@protonmail.internalid>
- <20261016235502.2274268-3-anusha.nandi@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20261016235502.2274268-3-anusha.nandi@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH PARTIAL-RESEND v12 0/5] Add support MT6316/6363/MT6373
+ PMICs regulators and MFD
+From: Alexandre Mergnat <amergnat@baylibre.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-mediatek@lists.infradead.org, lee@kernel.org, robh@kernel.org, 
+ krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com, 
+ lgirdwood@gmail.com, broonie@kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kernel@collabora.com, wenst@chromium.org
+In-Reply-To: <20260511101355.122478-1-angelogioacchino.delregno@collabora.com>
+References: <20260511101355.122478-1-angelogioacchino.delregno@collabora.com>
+Date: Mon, 19 Oct 2026 10:31:10 +0200
+Message-Id: <179239867012.642420.15110854236483587234.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=409; i=amergnat@baylibre.com;
+ h=from:subject:message-id; bh=PBtDG7IaGArA5oidyV57104ug2/3g9vZYpC1ajDvsoU=;
+ b=owEBbQKS/ZANAwAKAStGSZ1+MdRFAcsmYgBq1dVWFu5n7LST9XjNvuRmDW3m8PImRaa/WwJvF
+ aGMwo1WH0WJAjMEAAEKAB0WIQQjG17X8+qqcA5g/osrRkmdfjHURQUCatXVVgAKCRArRkmdfjHU
+ RYoYD/9v5gmSdVR1pNcJamGYwCTaV5rT+OL0L7Hy0d0zenqBBKLBoB5ULjy1XzRycl4z3uzaIyh
+ HQUxpufXinchYoRParULVTDzEU4bDge3j+RivbJcNFkvXnPCQgkpifnmkNcDXTB9oUboxK1rI7r
+ +tAfXnNtM2XECrhINjZemeKSzTK4o8hFFQJpNqZ4vaEGd+p+yQ4OydfroxrsQ4ussOJJPt11pGq
+ XYPpjNtd0I0txUKPm4uxzqeKXpecqVNan77gYpf2Zy4bqjyPIJ4J8QL6kPbR5WqdRvNYsOHGDqJ
+ dl7xZBqbcEbBuPZcPfrVa/SSbEyzcEhseR1YtAQVTAC6839HIwcR1jpJFaDI9G9Ir3/FpYJQLmE
+ aeNNSiYLiXr7xplXwVUPfNl1T2lJVnqdJG3AIkiGgPrgG/ejs1a4kvLbqWOHQj/tmmEwDk4AIfb
+ xtYYBpnPtu5B8G7FThL3jY6+qKUYBxCqmMmqQlOJspghF2IILNdA+7mnxsIhLRfzU2Rl6nFTl8z
+ Geg76d4ZObp7A2TIzxpiApY+ZYVr1BBhu+N8aEMC2oJlVTeBUzWsCz0zgnTHPk8MSX7lzXsUqAV
+ Us+8pkPLCQTVvlh75nO0i+L8I/yvjmltf99bYdYnK2F2Zi6T6c96vwUg8+NuXxvyDa5WIYTa2nc
+ 0xA7MHt6FvBAylQ==
+X-Developer-Key: i=amergnat@baylibre.com; a=openpgp;
+ fpr=231B5ED7F3EAAA700E60FE8B2B46499D7E31D445
 
-On 17/10/2026 00:54, Anusha Arun Nandi wrote:
-> Add a device-tree binding for the Qualcomm SA8775P MIPI CSI2
-> PHY, modelled as a standalone generic-PHY provider like the existing
-> qcom,x1e80100-csi2-phy, so CAMSS can consume the CSIPHY through the
-> common PHY framework instead of driving it in-line.
+Hi Angelo,
 
-Do you really need a whole new separate file for this though ?
+I'm working on mainline support for the MT6363 MFD PMIC.
 
----
-bod
+Are you planning to send a new revision addressing the review feedback
+on v12? If you don't have time to pick it up again, I'd be happy to
+help address the remaining comments and prepare a new revision,
+if that works for you.
+
+Thanks for your work on this!
+
+Cheers,
+Alexandre
+
+-- 
+Alexandre Mergnat <amergnat@baylibre.com>
