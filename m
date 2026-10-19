@@ -1,214 +1,108 @@
-Received: from mail-244123.protonmail.ch (mail-244123.protonmail.ch [109.224.244.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B862D500358
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 14:18:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9049152CCE4
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 14:21:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792419495; cv=none; b=ool0xvmQ6UVAqxpvtIvYFCZwDmq1byyNBl/aMX47Y2zpy5Oi30yzX6H0fTJWBNgq7WfUwcqtndVJPxHw2A1A7+78IcWIUpi8hrfzG/ezSn89b5287oPhkeL0Of6ZCKupnyYNI9r2Eo7nVMCULtMpO8dpAzFwingyjOwI9sxwd+A=
+	t=1792419703; cv=none; b=ZFywOcVuTA88E3wjK6ibylOtU48NBupansIKxLMbU/e4qv23PtzTG9kmW31K/EYLa6ZxVUhQwG1VKfVHGGcP4bfP498lxbPQ8s7ad1IXwesqcF6sdcBLFPxzj2Rr5sEhJdqr0bAD2tnMWx1wIgu54W339toRaQU+UErU6vOhLt0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792419495; c=relaxed/simple;
-	bh=o1LIOxVpr/1oZ+zQn/5uQ24QCB9UMm5+1Q0bvlvsIM8=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=avwH+I8nImYk7k+niUA4Fe3RL3ZU1UsV0JCRh1zAGhvNXl7sXjuQOquM3ntu4u3wiQpPNtMXO/q/d4MXA97dEPv8ffIiSHA+ZwBm/VA0ZAyiRTmWCuPDNUqXW/DfvjsHqe85f3KH1LiABjtJdqxHpMnZ2zMagJrvBfQ+DzDH8BY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=ngXmdZJj; arc=none smtp.client-ip=109.224.244.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="ngXmdZJj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1792419489; x=1792678689;
-	bh=vfhb/pw7ZRssM1iSnmUYJHw+k4HI9miwD0VnZdHZ0vw=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=ngXmdZJjjwxURfClkly1Om92g5hGnWIfdUkG2j5zwqw7Uh9/4UnURQMZE/16Dc6jD
-	 Wb64qEFH4D+PbcJW7YQz2Ul8GfvaKWEizKAvkXx7RM3pIbeSqrIDx0lU4w7rlTxFlx
-	 gv+vjoOLEWtV5VD5GS82xKmTmvSaNAKSZZ5mU7+w4L6QOEm2QIULXsWjIJDjPzOhqf
-	 SRFsRfaHKXTWMB6gmRaqnjDMFhlowSSWXSA1xhto709pylV3tXZ4Yiem4QACXDXukU
-	 B/oH+HrMKOPWVwzPkCDBlgZjdfGArUhyynbpOKuhjRRNgPqYnuA6JphuUMins3fqTm
-	 H/92m2YglBa6w==
-Date: Mon, 19 Oct 2026 14:18:04 +0000
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Alexander Koskovich <akoskovich@pm.me>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
-From: Alexander Koskovich <akoskovich@pm.me>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Abel Vesa <abelvesa@kernel.org>
-Subject: [PATCH v5] arm64: dts: qcom: milos: Add Iris VPU v2.0
-Message-ID: <20261019-milos-iris-v5-1-2b3181876b2f@pm.me>
-Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: a1d94aa0b0875273cccb46d6216dff97cefabfd1
+	s=arc-20240116; t=1792419703; c=relaxed/simple;
+	bh=SNGLc1dRo+r2RFwuwPeYSacsXpa5s/1i0LqchSr1mA0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=f1QMdlcT6j8SaV6WpO9YUD+Bgr4I/QrGD0gf3sFXfPAanGyRZpPQSvNz1vPp4QcLv/tj4/QRgxE1o0Tp53F6t8gF/to+9Tp0roWnn8+ZSWhq5qk/pmIOzWaCl2/CGAVXrSPhhbLO3tgiJHUUpFbNLu2FPfjW6CsgJPCY+o2NLCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b1b13e09ffso2493039a12.3
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 07:21:41 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792419700; x=1793024500;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=r5Un3tcFd0CWzR3WfawxmOsdbODnCsUjJ4VgKeoks+s=;
+        b=N6doY8WAQz1YoPf7E3tYBpA5eQ2XifMgDqFih9RuMzmprA/ryhXmQoNbZaqozdPmYr
+         NwLGDH1wCQCIdAZek8oLTn029EakzIKrYm+50LsGSOzrUmnt3G6nn4U6PfySa0ZaFmN8
+         edD3q7qkF48LjIdpZc74z664HuuITz9MGCFoZSjH3XkdUNOSTssWzlIlHfylfg4NeGjL
+         Ouo0HD7ZAsAlGZFWqmBjfBTyQA9jKnLu6mxakNrv60+IVPpPpWPfOsDX93LNro/dwXvO
+         ynqf8gDcyiydSPDeKRlsEKWU1Jv/696CJNv5I1OFcig+2kbkZHPM+a9GyjYDJMVTHHeh
+         eAhQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzYwW0qUnfzPqvgtckHSmfNvAqJKRLxCauDaAXUs3rE0Wp8gu42YX4Z5fUMPPtnZHuuMYMxuz4SXgqg@vger.kernel.org
+X-Gm-Message-State: AFq9FYKjyW+CHb87+XXhFQye98SrHWCRO0yr1bk1xszYzZSP0dfR6Xkq
+	bjE9Bt8dThaT2DC8L8GaecldrbzBRw0pypReLapV7z3w7EZDRj2pkjLJFF+hzTQZlHI=
+X-Gm-Gg: AYBFou2xA/4MExflRrmR5No94VRmaZPLFl/Ct5knkJ9+Z/rOT1tmfTzycBcY1TQINM6
+	fEt+zo6Ayz7aO7oevQoACYGdlrwqnkPYJbp9k3WMzfS++ZJFQCq6JBVEzN4JXKCj8swmswpDyQO
+	y9VFT/o5M+TxDhHSCAk8keE6Iyuxle6j407j+W/+OMPNqxI5j985jPoxXKmaH25KublcE8PB0Jv
+	hI+1Z2WCzVZppTIei+igZuO1kCBiIE67NTBCMiqrE8jwX7kXRhgmCnHMxW4XxOe9Ha+Yos5lAWx
+	n/+s8lpxfjS2A5CRO3B+XrpUfk11bdVV8T0ODGknw+QB+JrgwDvQw9Qex5OGUKvMLIVons+pxE6
+	tKEZFupUli1TlYXYSHOGO7Bx2pm1drzEcDjhtBFo6igA5VCnAmdlP9fZhziiVZQDlMyHcDMpg9v
+	Myew1iLX6+PC3pbemaqEi9KMbE+v2AJizs4FouB9NbymIN1Jl7RJA5SpHM2+mF8lv9K7TYXOmj6
+	YgrnPxUlYyZuAijMTD55x1flIPXCG5bcki4
+X-Received: by 2002:a05:6402:52ca:b0:6b3:b7bf:9389 with SMTP id 4fb4d7f45d1cf-6b3b7bf9e53mr3068741a12.9.1792419699318;
+        Mon, 19 Oct 2026 07:21:39 -0700 (PDT)
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com. [209.85.208.51])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b38a1b1347sm4102489a12.12.2026.10.19.07.21.35
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 07:21:37 -0700 (PDT)
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6af9a90e4bbso2072023a12.0
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 07:21:35 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzpGKmBV5ASR3ywkOeGntOYJhyIOY/v7f3TAwkW/HmWrMbQEj8smKh+jmUWwv0OpTR2NfeDCNM11Ktx@vger.kernel.org
+X-Received: by 2002:a17:907:720b:b0:c3f:153a:8663 with SMTP id
+ a640c23a62f3a-c419e63930cmr576763166b.23.1792419694998; Mon, 19 Oct 2026
+ 07:21:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+References: <20261013-paul-v7-3-rc1-edac-v6-0-2f1d6f2f74db@bootlin.com> <20261013-paul-v7-3-rc1-edac-v6-2-2f1d6f2f74db@bootlin.com>
+In-Reply-To: <20261013-paul-v7-3-rc1-edac-v6-2-2f1d6f2f74db@bootlin.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 19 Oct 2026 16:21:21 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUkhM3OtWnckc-ou69ZYFMfRT+DmU5AgUctJ0uY9w_GDw@mail.gmail.com>
+X-Gm-Features: AclHuK-siV4JYKFbtDQyYh3ROQEzSATnv4TCER_6U2XNGxIXypq0WsoD3L-uWls
+Message-ID: <CAMuHMdUkhM3OtWnckc-ou69ZYFMfRT+DmU5AgUctJ0uY9w_GDw@mail.gmail.com>
+Subject: Re: [PATCH v6 2/3] EDAC/cadence: Add Cadence DDR EDAC driver
+To: Paul Louvel <paul.louvel@bootlin.com>
+Cc: Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	linux-edac@vger.kernel.org, devicetree@vger.kernel.org, 
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Miquel Raynal <miquel.raynal@bootlin.com>, 
+	Herve Codina <herve.codina@bootlin.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Add devicetree nodes for the Iris codec (VPU 2.0) found on the Milos
-platform.
+Hi Paul,
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
----
-Changes in v5:
-- Rebase onto next-20261016
-- Link to v4: https://lore.kernel.org/r/20260706-milos-iris-v4-0-119cbe0a72=
-62@pm.me
+On Tue, 13 Oct 2026 at 12:45, Paul Louvel <paul.louvel@bootlin.com> wrote:
+> Add the Cadence EDAC driver found on Renesas RZ/N1x SoC.
+> The memory controller supports ECC, software scrubbing, and SECDED.
+>
+> Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com>
 
-Changes in v4:
-- Update firmware name to vpu20_p2_gen2_s7.mbn
-- Drop mb_cycles_fw[_vpp], unused on vpu2
-- Add mb_cycles_vsp
-- Use hex for iommus
-- Link to v3: https://lore.kernel.org/r/20260705-milos-iris-v3-0-8c1353530f=
-24@pm.me
+Thanks for the update!
 
-Changes in v3:
-- Rebase onto next-20260703
-- Switched fluster tests to use gstreamer, ffmpeg ones not reproducible run=
- to run?
-- Update milos caps to include caps introduced in tree after v2
-- Correct iris opp table to only update the MX rail values
-- Link to v2: https://lore.kernel.org/r/20260529-milos-iris-v2-0-7a763d7195=
-ae@pm.me
+> --- /dev/null
+> +++ b/drivers/edac/cadence_edac.c
 
-Changes in v2:
-- Rebase onto 7.1.0-rc5
-- Change firmware name to vpu20_p2.mbn
-- Change iris reg to hex
-- Correct iris opp table
-- Update cover letter with new test run on 7.1.0-rc5, add -s arg to v4l2-co=
-mpliance
-- Link to v1: https://lore.kernel.org/r/20260406-milos-iris-v1-0-17ed0167ba=
-6f@pm.me
+> +static const struct of_device_id cdns_ddr_ctrl_of_match[] = { { .compatible = "cdns,ddr-edac" },
+> +                                                             {} };
 
-To: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-To: Abel Vesa <abelvesa@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
----
- arch/arm64/boot/dts/qcom/milos.dtsi | 85 +++++++++++++++++++++++++++++++++=
-++++
- 1 file changed, 85 insertions(+)
+Why this weird formatting?
 
-diff --git a/arch/arm64/boot/dts/qcom/milos.dtsi b/arch/arm64/boot/dts/qcom=
-/milos.dtsi
-index ed994c2170af..51c7d3a06957 100644
---- a/arch/arm64/boot/dts/qcom/milos.dtsi
-+++ b/arch/arm64/boot/dts/qcom/milos.dtsi
-@@ -8,6 +8,7 @@
- #include <dt-bindings/clock/qcom,milos-dispcc.h>
- #include <dt-bindings/clock/qcom,milos-gcc.h>
- #include <dt-bindings/clock/qcom,milos-gpucc.h>
-+#include <dt-bindings/clock/qcom,milos-videocc.h>
- #include <dt-bindings/clock/qcom,rpmh.h>
- #include <dt-bindings/clock/qcom,sm8650-tcsr.h>
- #include <dt-bindings/dma/qcom-gpi.h>
-@@ -2271,6 +2272,90 @@ usb_1_dwc3_hs: endpoint {
- =09=09=09};
- =09=09};
-=20
-+=09=09iris: video-codec@aa00000 {
-+=09=09=09compatible =3D "qcom,milos-iris";
-+=09=09=09reg =3D <0x0 0x0aa00000 0x0 0xf0000>;
-+
-+=09=09=09interrupts =3D <GIC_SPI 174 IRQ_TYPE_LEVEL_HIGH 0>;
-+
-+=09=09=09power-domains =3D <&videocc VIDEO_CC_MVS0C_GDSC>,
-+=09=09=09=09=09<&videocc VIDEO_CC_MVS0_GDSC>,
-+=09=09=09=09=09<&rpmhpd RPMHPD_CX>,
-+=09=09=09=09=09<&rpmhpd RPMHPD_MX>;
-+=09=09=09power-domain-names =3D "venus",
-+=09=09=09=09=09     "vcodec0",
-+=09=09=09=09=09     "cx",
-+=09=09=09=09=09     "mx";
-+
-+=09=09=09operating-points-v2 =3D <&iris_opp_table>;
-+
-+=09=09=09clocks =3D <&gcc GCC_VIDEO_AXI0_CLK>,
-+=09=09=09=09 <&videocc VIDEO_CC_MVS0C_CLK>,
-+=09=09=09=09 <&videocc VIDEO_CC_MVS0_CLK>;
-+=09=09=09clock-names =3D "iface",
-+=09=09=09=09      "core",
-+=09=09=09=09      "vcodec0_core";
-+
-+=09=09=09interconnects =3D <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE=
-_ONLY
-+=09=09=09=09=09 &cnoc_cfg SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
-+=09=09=09=09=09<&mmss_noc MASTER_VIDEO QCOM_ICC_TAG_ALWAYS
-+=09=09=09=09=09 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+=09=09=09interconnect-names =3D "cpu-cfg",
-+=09=09=09=09=09     "video-mem";
-+
-+=09=09=09memory-region =3D <&video_mem>;
-+
-+=09=09=09resets =3D <&gcc GCC_VIDEO_AXI0_CLK_ARES>,
-+=09=09=09=09 <&videocc VIDEO_CC_MVS0C_CLK_ARES>;
-+=09=09=09reset-names =3D "bus",
-+=09=09=09=09      "core";
-+
-+=09=09=09iommus =3D <&apps_smmu 0x1960 0x0>,
-+=09=09=09=09 <&apps_smmu 0x1967 0x0>;
-+
-+=09=09=09dma-coherent;
-+
-+=09=09=09/*
-+=09=09=09 * IRIS firmware is signed by vendors, only enable on
-+=09=09=09 * boards where the proper signed firmware is available.
-+=09=09=09 */
-+=09=09=09status =3D "disabled";
-+
-+=09=09=09iris_opp_table: opp-table {
-+=09=09=09=09compatible =3D "operating-points-v2";
-+
-+=09=09=09=09opp-240000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <240000000>;
-+=09=09=09=09=09required-opps =3D <&rpmhpd_opp_low_svs>,
-+=09=09=09=09=09=09=09<&rpmhpd_opp_svs>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-338000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <338000000>;
-+=09=09=09=09=09required-opps =3D <&rpmhpd_opp_svs>,
-+=09=09=09=09=09=09=09<&rpmhpd_opp_svs>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-366000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <366000000>;
-+=09=09=09=09=09required-opps =3D <&rpmhpd_opp_svs_l1>,
-+=09=09=09=09=09=09=09<&rpmhpd_opp_svs>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-444000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <444000000>;
-+=09=09=09=09=09required-opps =3D <&rpmhpd_opp_nom>,
-+=09=09=09=09=09=09=09<&rpmhpd_opp_svs_l1>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-552000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <552000000>;
-+=09=09=09=09=09required-opps =3D <&rpmhpd_opp_turbo>,
-+=09=09=09=09=09=09=09<&rpmhpd_opp_nom>;
-+=09=09=09=09};
-+=09=09=09};
-+=09=09};
-+
- =09=09videocc: clock-controller@aaf0000 {
- =09=09=09compatible =3D "qcom,milos-videocc";
- =09=09=09reg =3D <0x0 0x0aaf0000 0x0 0x10000>;
+> +MODULE_DEVICE_TABLE(of, cdns_ddr_ctrl_of_match);
 
----
-base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
-change-id: 20260406-milos-iris-d1a854e4cb75
+Gr{oetje,eeting}s,
 
-Best regards,
--- =20
-Alexander Koskovich <akoskovich@pm.me>
+                        Geert
 
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
