@@ -1,76 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792428180;
-	b=IeZL3ijrkV2REIhVhfsVuDbVNwE477wthQjOzyPJG1FOOs81X7x78UXXbXlR13DjK79y
-	 4dBJig5nS4k+U0KuHNl7nwCVDcRbQRKUOKojiKwtMO7J8tarNX96E8MMtw4MGk7GMe8DE
-	 I6cHqUvG1qXOItnJdjgTaF60dht5ymIhz6YLQz4Lg+ccuXUSTCUjQoy894VYc90JtgZ0I
-	 kODvi+YHm3/N4WmDN2eezIYATEY5ZkM7vXSJ+IlqTx1g/QXQH4j70bVD+OYxlPEe73YPs
-	 T5b3J+MgmbZ80iL66HGpbxwWeOF5zfY0fJyuiNOkYuwLUaNXRWdL93gSJUqo/UiYzfQ==
+	t=1792428276;
+	b=m5dMH4d9MFidWqN47zxIQqzOtIsjk06yNsATNITcHyPVazpOaYZP7xIGvpUa6KUQY6Hh
+	 42m/kOuu1UCws93pLClcPFWI2rikC4PfBclUg6PaI9GudydqLNLASZkU8xvin+zw0eRvt
+	 q5DQ8Ut3A3K1AIDBzrsytGM7riwTFtcamDlAB2bj308rnGiSOIDWtP9kWC1Y6la/h2PEx
+	 EVR2w/gYgg51qQ4T8zN8yo5Bj/6ZML77SntMZoxw23K2znyKkBJGqZ1BCMqXphEombgty
+	 jNl1OjZHgwmUtyDQizlt/zqb0m/JS75jMnx5JAe8SgxdJZ4T5zbmMLaNb/0a2CdPS0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792428180;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=PmiGcIdjfKIGHCu1gzOSxutdw7IHUOocB921VJoVgxA=;
-	b=uaKWyUaec6exKe0oPi7hNXE4DmeHC4FJY9EfQqE99wKuZ8v/izFKshwqPoi2dt9OzPiJ
-	 hyUXvKfrpf/npyzJhsjvNOl2mYvu59o7DIa8jD5MF4wMbobyln9/qa2PhTU3mUOX05pOL
-	 x+96k0I133NnE1JhNV7laJaLqrRmoGEKBJkddwHVIt0MC7nMm6co2bDHNHdvsJyA+XbGz
-	 8ERcZpHJvllM6X9+vEn7GeNmwXn6+jFHRxrlPjB7KqIbsXfvZfPSBC6P3uazbSXadKc4a
-	 MbJ4hz+pAwTHHNumv9SiShGovyz3vTNmi92e9Qfx5fW1FWSTuJTEQcod5mPvTy5kntg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792428276;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=RTGG8Wv6YxI7VfKAb2qV6Q07PcEzw293eRcc07FevZo=;
+	b=5mxaHR6mS/CdMK/Px1XJLUPNPFnNKXo2fM+IEbiRAld4S+gbYecEItGrrjpJERv+DIts
+	 E6zblUfSavOq2N0tHHjLMut8RqNkP/tIKLWniw6JkeRhC99xDXk7oDcZtRDXpKQPLWyP6
+	 PihOTqNHlLjdI9XFeH4ij+YLE0bz+qpVKYkH4JQGY9MpYlx/J2bwqYyCdpm5IXrKHgHEz
+	 T8iFBvUVabqmNHDS5uP/1O0VKZaedt9qvWUrQZf/ISlJTvGlX6pCi+2M6JC1bs4fhDwCC
+	 liJCuRjgUvhkbz/rjcDQ319eXxJ/GmsEpTPcpmMDfp6KmYU4dilP6qm7NvbP4dI96KQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.218.53
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IlOUFc5L;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7950606A31A
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 16:42:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7950606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c3f04e0e65fso317291166b.2
-        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 09:42:59 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792428178; x=1793032978;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=PmiGcIdjfKIGHCu1gzOSxutdw7IHUOocB921VJoVgxA=;
-        b=hbgxUGgw5wZutWBMSSf3nTmFJzbVnSGC8do1jhafuRwIW1j4Oajym+w4ERXE5qzSu8
-         ZzvekofIY9Q8akN38aNgoqP/JsjWVb+Kl/SBZ2rfbY8GlOVc6ZbmwKC0oNzqncmskigr
-         dBNY8VSmle8fWv5wSywrw289CXcolDND3zTHN7IL/BqQSeDw9TFlNmoFE1Yn9NwibUQB
-         vD2/CE0un9EIQMHwqf5URCIMHbSvH+JBXI2yadG+XTRQ0T13dtaOrLDg0NRMHRHgtj/f
-         edYcQF47ErbR2oWE5lKdl+aztVqNvaLW9z+CLGJh0ZAVk8zEcVVX1lJlCbyQIg2uq4rh
-         zdqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzSYAvAkSUDXjPEHihcU/Uo4OnlFjk7Kz0QzCzXnHhk7GrrpFBkqU108+Zs1MwOSGedCoRF2ZcdZXG+@vger.kernel.org
-X-Gm-Message-State: AFq9FYID8cIwNJvV9+qaJIqdN7eqNNW+28g9POHkBEce9ZJt79exvpzj
-	RQaNBGpN9LKj10wuDmz3roCmjGwyPEjI0t9D0qqgd9RJXZCevVCNm8bv6zQ8VBtilE0=
-X-Gm-Gg: AYBFou1DvFMNO2x0mOVa1DhFm5D6F1rzq1pUBtHVOhD9QX+UuCLAQJGeOx0NAlt+twV
-	2dwGxgvqLCK3QsEAruRAG0wUqg/0cV1ClwKYaaANPvokWKYU69ASpClhjZS4K+pUAy2q8AjU/Lw
-	e63RSMz4UPNHr5LJsm64OtrmJHLs0s1PVsN1Ta1QuX46on7dPyKP4GNoAdWRlQqEcTncCmYHs3H
-	gFLUaR1sr8cQgzRElfQiDevRbr3f2EmiciUcOWNrQQSiuar/HDwV4k7YopT8AtVBepGLhTlKbaZ
-	F/7rIt7vLxK62DG+97G8SJ2JJ59z6JQA9gFKx6JWhSIj5HO26KnkH/vmqUAbF/hxcs+qWuK4x0y
-	xTF+CDF5/HOr/lZH0n5bQ1sYqot76zmy7jna86mIdN0lnNaOjO/C95a/NOsrOaFM+csS1mxWDG5
-	WPe4SmCjZEhMR3paiSKzztA/1qGrf+zwceqQEckad8PqTYTTjGskZKWSrNIgYpQyqX7i9Bgy5RP
-	GTtmGMT+xUZXg1m5QzfcYI43qD9Dhc15HINLu2DtgYE3xsRbKbZN6XvjoAJoKiscUUM5/lk0GSp
-	+Y+0bcqjhLScZNS5sg==
-X-Received: by 2002:a17:906:99c4:b0:c3f:a728:b437 with SMTP id a640c23a62f3a-c41a0dd50damr554573266b.45.1792428177946;
-        Mon, 19 Oct 2026 09:42:57 -0700 (PDT)
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com. [209.85.218.50])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4090dd10d4sm385906966b.27.2026.10.19.09.42.57
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 09:42:57 -0700 (PDT)
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so264401166b.3
-        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 09:42:57 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByw4Uf7lkghlV7njPcRIFc/XT+YgSh4ZB+06poAymUUjtT/ICk9nOqc2R/ybfsUgxxcTO2FlxkHYbGd@vger.kernel.org
-X-Received: by 2002:a17:907:9605:b0:c3e:ee86:d2c with SMTP id
- a640c23a62f3a-c419f31c8bamr564444366b.27.1792427870527; Mon, 19 Oct 2026
- 09:37:50 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6A68606A33E;
+	Mon, 19 Oct 2026 16:44:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IlOUFc5L
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FB8B1F000C4;
+	Mon, 19 Oct 2026 16:44:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792428275;
+	bh=RTGG8Wv6YxI7VfKAb2qV6Q07PcEzw293eRcc07FevZo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IlOUFc5Lj/1xD2joJP716L+ZV+C/snXCDUrmzGH1R/eU6JObr2CnUF90T/7KAbZqw
+	 LB9JpjzWGffyO42pZLrr250Xze7wvgTUMWjIYRUALFxF3+KUjWhOTolXuNzQUUi12K
+	 craxxvjHbrmNIrpWThMilbq7HPjeq8LzVOwYr3uM6mS1H2juUzNS/1m1XKgR58Wn2W
+	 d8xcTuuiF53fORtoM4pcJrRjZGbTGeG91xh0xqNgAMBOpmdrtWzNCbXNMUMppDWVa1
+	 C0j/H3Mz/tASG3rOLgZznyVbM6zqtcQ9O37aZaBuL3/D6m196bIOAumLbmLfeGF+FU
+	 5Uuaut14xdb+g==
+Date: Mon, 19 Oct 2026 17:44:30 +0100
+From: Lee Jones <lee@kernel.org>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: sashiko-reviews@lists.linux.dev, mfd@lists.linux.dev,
+	conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+Subject: Re: [PATCH net-next v25 04/10] mfd: an8855: Add support for Airoha
+ AN8855 Switch
+Message-ID: <20261019164430.GI2663669@google.com>
+References: <20261009161102.38961-1-ansuelsmth@gmail.com>
+ <20261009161102.38961-5-ansuelsmth@gmail.com>
+ <sashiko-outbox-166721@kernel.org>
+ <6acccc4e.4c22a69b.132624.271f@mx.google.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -80,119 +60,83 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1792163045.git.geert+renesas@glider.be> <1d7da50cfb58232c6dd4c4afefb938fd7e62fdcd.1792163045.git.geert+renesas@glider.be>
- <20261019144256.GC763679@killaraus.ideasonboard.com> <CAMuHMdWkAvkxHkzRVviF_NkZHP7UeCBjebxciE6jFN_8ViM=aQ@mail.gmail.com>
- <20261019152203.GA5830@killaraus.ideasonboard.com> <20261019161436.GD3705@killaraus.ideasonboard.com>
-In-Reply-To: <20261019161436.GD3705@killaraus.ideasonboard.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 19 Oct 2026 18:37:36 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVRvguzV+3CpOfkR+b-a0p5TrmUUF1fV0kdafXuNLV1oA@mail.gmail.com>
-X-Gm-Features: AclHuK-8scCJz9rF32kL_0712rSWvXw0tvi_Wr1HURn1pKiiIZROkb3-2ONTagY
-Message-ID: <CAMuHMdVRvguzV+3CpOfkR+b-a0p5TrmUUF1fV0kdafXuNLV1oA@mail.gmail.com>
-Subject: Re: [PATCH v4 1/8] clk: renesas: r8a78000: Add clk_hw to clk_map
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	Ulf Hansson <ulfh@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	"Rafael J . Wysocki" <rafael@kernel.org>, Marek Vasut <marek.vasut+renesas@mailbox.org>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Kevin Hilman <khilman@baylibre.com>, 
-	Vinod Koul <vkoul@kernel.org>, Wolfram Sang <wsa+renesas@sang-engineering.com>, 
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
-	=?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>, 
-	Sudeep Holla <sudeep.holla@kernel.org>, Cristian Marussi <cristian.marussi@arm.com>, 
-	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6acccc4e.4c22a69b.132624.271f@mx.google.com>
 
-Hi Laurent,
+On Mon, 12 Oct 2026, Christian Marangi wrote:
 
-On Mon, 19 Oct 2026 at 18:14, Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> wrote:
-> On Mon, Oct 19, 2026 at 06:22:04PM +0300, Laurent Pinchart wrote:
-> > On Mon, Oct 19, 2026 at 04:56:28PM +0200, Geert Uytterhoeven wrote:
-> > > On Mon, 19 Oct 2026 at 16:42, Laurent Pinchart wrote:
-> > > > On Fri, Oct 16, 2026 at 05:55:40PM +0200, Geert Uytterhoeven wrote:
-> > > > > Prepare for mapping to other than fixed-rate clocks by adding a clk_hw
-> > > > > pointer to the clk_map structure, and populating it up-front.
-> > > > >
-> > > > > Move r8a78000_cpg_priv.fixed_hws into fill_clk_map(), as it is no longer
-> > > > > needed afterwards, and drop NUM_FIXED_CLKS.
-> > > > >
-> > > > > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> > >
-> > > > > --- a/drivers/clk/renesas/r8a78000-cpg.c
-> > > > > +++ b/drivers/clk/renesas/r8a78000-cpg.c
-> > > > > @@ -16,19 +16,24 @@
-> > > > >
-> > > > >  #include <dt-bindings/clock/renesas,r8a78000-cpg.h>
-> > > > >
-> > > > > +struct clk_map_in {
-> > > >
-> > > > The "_in" suffix isn't very explicit.
-> > >
-> > > I can add a comment...
-> >
-> > How about calling it clk_id_map ?
-> >
-> > > > > +     int dt_id;              /* DT binding clock ID or -1 sentinel */
-> > > > > +     u32 fw_id;              /* FIXED_CLK() ID */
-> > > > > +};
-> > > > > +
-> > > > >  struct clk_map {
-> > > > >       int dt_id;              /* DT binding clock ID or -1 sentinel */
-> > > > >       u32 fw_id;              /* FIXED_CLK() ID */
-> > >
-> > > BTW, do you think it would be worthwhile to reuse clk_map_in here?
-> >
-> > Possibly. I was about to recommend just using a single structure and
-> > leaving the clk_hw pointer NULL and unused in .rodata, but the memory
-> > waste isn't very nice, especially if we end up with many entries :-(
->
-> Actually, you could even turns clk_map into
->
-> struct clk_map {
->         const struct clk_id_map *map;
->         struct clk_hw *hw;
-> };
->
-> It should consume the same amount of space on 64-bit platforms. Doing
-> the same in the MDLC driver would save space.
->
-> Or, if you want to save more memory, you could drop clk_map and store
-> the clk_hw in a separate array in r8a78000_cpg_priv, using the same
-> indices as clk_map_id.
->
-> struct r8a78000_cpg_priv {
->         struct device *dev;
->
->         const struct clk_id_map *map;
->         unsigned int num_map_entries;
->         struct clk_hw **clks;
->
->         struct clk_hw *fixed_hws[NUM_FIXED_CLKS];
-> };
->
-> where clks is a dynamically-allocated array fo struct clk_hw pointers,
-> having the same size as the map array.
+> On Sat, Oct 10, 2026 at 04:11:40PM +0000, sashiko-bot@kernel.org wrote:
+> > Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> > - [Medium] mfd: overlapping regmap readable ranges for General Purpose and GPU timers
+> > - [Low] mfd: structure and variable naming violates MFD API guidelines
+> > --
+> > 
+> > commit 05d4dc95b969f0fcf66d11398aafad3e7eb7c7f1
+> > Author: Christian Marangi <ansuelsmth@gmail.com>
+> > 
+> > mfd: an8855: Add support for Airoha AN8855 Switch
+> > 
+> > This commit adds support for the Airoha AN8855 Switch which provides
+> > a DSA switch and a NVMEM provider. It utilizes the mdio-regmap driver
+> > and registers a regmap for each internal PHY.
+> > 
+> > > diff --git a/drivers/mfd/airoha-an8855.c b/drivers/mfd/airoha-an8855.c
+> > > new file mode 100644
+> > > index 0000000000000..a2778511dfefc
+> > > --- /dev/null
+> > > +++ b/drivers/mfd/airoha-an8855.c
+> > [ ... ]
+> > > +static const struct regmap_range an8855_readable_ranges[] = {
+> > [ ... ]
+> > > +	regmap_reg_range(0x10009000, 0x10009fff), /* PDMA */
+> > > +	regmap_reg_range(0x1000a100, 0x1000a2ff), /* General Purpose Timer */
+> > > +	regmap_reg_range(0x1000a200, 0x1000a2ff), /* GPU timer */
+> > 
+> > [Severity: Medium]
+> > Is this range definition correct? The General Purpose Timer range
+> > (0x1000a100 to 0x1000a2ff) fully overlaps with the GPU timer range
+> > (0x1000a200 to 0x1000a2ff).
+> > 
+> > Could this be a typo in the hardware memory map definition? It seems like
+> > the General Purpose Timer range might have been intended to end at
+> > 0x1000a1ff to avoid overlapping and potential register access boundary
+> > issues.
+> 
+> I have to double check this from documentation, but if possible I would
+> like to fix this with a followup patch.
+>  
+> > [ ... ]
+> > > +static int an8855_core_probe(struct mdio_device *mdiodev)
+> > > +{
+> > > +	struct an8855_phy_bus phy_bus_infos[AN8855_MAX_PHY_PORT] = { };
+> > > +	struct device *dev = &mdiodev->dev;
+> > > +	struct an8855_core *priv;
+> > > +	struct regmap *regmap;
+> > > +	int num_phys;
+> > > +	int i, ret;
+> > > +
+> > > +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> > 
+> > [Severity: Low]
+> > This isn't a bug, but does this variable and structure naming align with MFD
+> > subsystem conventions?
+> > 
+> > The MFD guidelines suggest avoiding generic variable names like priv, and
+> > instead recommend using ddata for the instance variable. Also, should the
+> > struct name itself avoid hardcoding implementation details like core?
+> > Naming it something closer to struct an8855 might better adhere to the
+> > subsystem guidelines.
+> > 
+> 
+> I already updated the struct, is it needed to also update the local
+> variables?
 
-IIRC, I considered that option, but rejected it, as I still hoped to
-put the (at that time multiple, per version) tables in __initconst,
-so they had to be allocated and copied anyway...
+Ah, I was just about to apply this!
 
-> Too many options.
+This would be preferred:
 
-Hehe...
-
-Gr{oetje,eeting}s,
-
-                        Geert
+  struct an8855 *ddata;
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Lee Jones
