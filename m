@@ -1,67 +1,69 @@
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D8B64CE699
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 10:20:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8F2D4D7D35
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 10:20:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792405231; cv=none; b=nxUFJuAUfoBJv3oxc2Rr5sNtEcw6jZLj+9Q6foA6iqJ7AH3Rz691u6h7APxaojeKw3qxtBt9tsLvOO7CFQPCdrjPCwRYjcXjUxjj5wr/2b5io5Y5IgKGa2s94V08KzKZwdV7BuDDE9To7OFTYgEtCccN5FtPs/pt5cggN1OWlGw=
+	t=1792405238; cv=none; b=nJrFBueYaaZajWDol+d+t58hYHPjZF0TUUFKOXxNumbnw4gSI+uAYE8KBwrLs4IUzBi7JHsrUD1VU48Ro28BRppLkjhpXmEPkFzcGfCiupY7MNrRpWnd47F1AGJ7/u3tWWtPePMMKqtIYPrf/J7wENLgVC8EHqfSNCVBiwCrTrU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792405231; c=relaxed/simple;
-	bh=Wtjo2nq6SBTIM531bE9hkp4uSTiLMC+4CM/B7PGT41I=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=FWQ8EJpRQVQpxyhBo909mkJ5etze3w3ksaN7BXd3Gc4w1ut6lGx5iVGIpGRCK0x40IV3fslGjR3IztRTNHZLpIAeuXcIm8wiyPzOkz3bGmbFa4cr/ddzEHJhCoGppXm1dBwvzS3HbYJGe8skk3UxopjXuqeZvn1VGKFYfi7977w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KEaAQrbc; arc=none smtp.client-ip=74.125.82.51
+	s=arc-20240116; t=1792405238; c=relaxed/simple;
+	bh=p2BuP3I+TMrSGg/xzqyxfT/0XRDTvkwqjvU6at2DNLc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=eYyK3lCO45LXq4/U3oVSIPelqPxyhcgEUIvAMWuCTruC1rYpZXuFPfZAroRHgWovJvD9VfP2RSV1HIl//6K1MAN9X5OX1yW1eFnKRGeesgSzt4w3/PAAbZiR6QTIER1nRspgEaqajZUHF8mce2gCP5msuQOKNsJ8EDzaNtdDP9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bsUEppeh; arc=none smtp.client-ip=74.125.82.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KEaAQrbc"
-Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-15943c9c005so1272517c88.1
-        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 03:20:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bsUEppeh"
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-157fe9d771bso500264c88.0
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 03:20:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792405229; x=1793010029; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=zL01sBFtwzYNtBLBNOJogTgRcd3XXRxHUdSzNtaNMhk=;
-        b=KEaAQrbcopfeUpJspu/RKANbsa07N75e793fKoWVgS4efy9o7G6J0ZaN4HwY2dEykv
-         h/xjKyryQVaEm+GDK09XWjkKB5zanTr5DbHiVSZK7Z2eYHeXV0Dsy9Ah+FG5hBq5QukY
-         /XjGpjLKwbaVe6E7R/M36nLTWPKMarQcH5o5wVqwyauIlxL21HwTpVoL/UvzIx7hhswV
-         ZHb/9NDwNTks7jAQp5/dijVSIvPnCTbsQDVdWe78x9ThsmaTp8DDJIohtsD+KhhCNSk6
-         ZwDPOaSJIvEYcfd34XwpjALusi8lBEt1zaaafPmWbvW2ERa/pVzqGivQwgfzG6bcuwZb
-         KBxQ==
+        d=gmail.com; s=20251104; t=1792405236; x=1793010036; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5cb5xsu/Ek8DjIcHOFj6xTziW0Tc8RenZR8/LpBW7iE=;
+        b=bsUEppeh3FUIjTFdtWnu1d7AM0GagWS56d0tIcNnYNZE4g2zJcKmvN4/TENs4+zzPE
+         +S36paGOtupDvRWZfbV0wLpyyRY33bLCoPdbAr1o/+UBneAkZL0EKU143SgTjlH/aRKz
+         ilSngQAeHbplesBQ4CvhV9i4skL/7D0c3nAWalsDKRNVG9JtC3RysOMPGJBbbnaBPMIK
+         WQL7y3b/TcAj9zboblsv9dioU6SW1/HnjfnfhG8mb3vmoDGfhHB0F8C61AI4bvD4Sy5S
+         lsP8Pr2BgA0lNIQ/lnbjebdoikulhzie2A2UYllJ8XakPVKKm0RxfeTAFQhqn22dIZpV
+         S1yw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792405229; x=1793010029;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=zL01sBFtwzYNtBLBNOJogTgRcd3XXRxHUdSzNtaNMhk=;
-        b=XD5ZxsGNBCDBhZTOJaeVmMhQI2dqe369rI176xiauDZ7Ecl+ZR3ZQYMTRhMgiR4arO
-         OThknbo9g0FaRb2l0afSIVUcRxkvJRnm0WHrHkXvng3WSlSuqbL0HGU2Qe0e2Bw+ug4f
-         aMnnBWKyWFRiXBtlxl+4aEckxArw6ImMci05cTNFzDo1opCC/COdA75U4hVDO0QRoltf
-         SgNWijtMDpulKe/qXye1aVlzsv4Sg8kl1AsKBFiejXUwSz2+NdVbx3Md+20qS4LLgV80
-         eNsUS4VrS5CfH7Z9qZzNXn0Qzz4uxFeU+HpbUgrydfe5ibAnRgo18JvLFIPJ0cogHQRE
-         SxAw==
-X-Forwarded-Encrypted: i=1; AKwUvBzWt4neaFwSIdO4tu/il6Qi2ii7OmtA4eO05AFFfYIaHrODpEOFhrCL9aHYTcQXtspVmdOElwE2hqs1@vger.kernel.org
-X-Gm-Message-State: AFq9FYKrg9naAdy8CJ47nVGRknr625czoKPuW0Cj+CUffUN1xYIwlsSe
-	T18WwU8z1kpZUhSiw/8eOThmYew0WUwg5pOmyXJeUzMU+d80kBlVYALO
-X-Gm-Gg: AYBFou2gZERs1dE1XsIvDEpH3R8JPIKokbimxWLCrI+TRxY7iSHUfjetHICke0AZRQA
-	gYk1ogy9JO5Ya8bphBwIvWbISb0kV+BgvPFvtM9KkjjqJqKtuA7WMAY02NFbrAHte2/ikeuAVX8
-	vCpqY6ae1cweL9FGG6FCiOgKJ2Xyzira4KndrTUpQo5j0vjHcfp1JAhgmzGR9hGdvN131g25w0i
-	8ovmUqI+Tpes2NZUBtF3YSuS5mqdYvUec0sB+LrYS+OUMpxgB1vNW611GcTyRNSEAxK5ZwXzb2T
-	2/SFyJdva/nHh8xjU1BHherykPWLH/Iwl284pO2TlPBHLPoBukg8kTckK3ZCQSLk+CK/HV82ofL
-	68xhEEg3F5b37Q7WK6K353IMFwBhbRI+bnc+sy8+THAms8YELhjmrgKocdEdHGzMmy6cEEuip7v
-	KXxDZfUsFcina4gdzLe4JZUM6BM/CAEj4NuKTns/UrBgOoqYY4DS+tk7M9rfVw7Us19BhqjJipu
-	Z8=
-X-Received: by 2002:a05:701b:280f:b0:17b:fea8:1425 with SMTP id a92af1059eb24-185138b58e0mr9940511c88.30.1792405228916;
-        Mon, 19 Oct 2026 03:20:28 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792405236; x=1793010036;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5cb5xsu/Ek8DjIcHOFj6xTziW0Tc8RenZR8/LpBW7iE=;
+        b=SPyj4FXK06712WzKiOJp53WfMgMbUgt7an841jabzt4Fk/2WtR3TnSqROLMYkF+PaY
+         7CEeqqW6+pklJmDuQq2fWBtBYSuLr9IVu96LS7PnC0H+NZ4q9y7pxemLb3ed33OyW3Ex
+         1iKl5lzddgwECwlFpEtMnwAqcpRONo6br8WeHyn2TbRN3SzkJ9sdMpdJtw1jB1pmDXtl
+         ldo+258XCGavIK+wrWFONNDphXFFJxUYCWkTYxbTK0C89W376j/ySnI9f4tmub8kJ9ff
+         BB7tMZhJkQvfNoSqCYvfnozASnpleQSzzqHClW2rhwRs8MPV3zg2xcBGwnw1wDwdhYpm
+         +FOg==
+X-Forwarded-Encrypted: i=1; AKwUvBxDtryd9okf39m4tAPwzdtTrFn21jivqA2Po0kBAi4swQEPyUQLCHbnI9qK/O4wwXh/mfJaIdbsQlzP@vger.kernel.org
+X-Gm-Message-State: AFq9FYLYRmny06a3oqv6qS87X9g4EHIPyHYg3TkPwkrf6+KuojOd7I7E
+	BFoXoH7KjeR+QEp5dLODuQWrz906YqmO0SsiDc7TPjkPBhqVqO1iL3s5
+X-Gm-Gg: AYBFou0ZNH9PrbrbqQRoyfz2VsDeS9R0nWVCVqeRKXvioQnGCubyivsfVZxd3FFq697
+	ysX0jkvcUOU46fhkL0NDAOeu57wosCom350zpkCpedJvdQJVCVaYHV8MRgOTYlWozi5U+CSw1XG
+	ggNill+XF8Wj4mGEhbnedHGSvQZdfyBiUkShP9bhddtmYXiBEBRP7wfbH+vODU9yjVyq7NoeP0Z
+	B97nRlqS1LChLsivCs0UU5kfGLveDMSxKSbWIid2cMKtkLy0MC0Tx4NZ8g1Te3UgWSnahSBhh05
+	DZdhhO7XMVS8CmuPPjJMF2+pzwrCBkxWowcexomTRdF0hyxBZbSV2BHnL8z8+Y459RZEUFScqwz
+	nUZK8GBsuVdNQVclRPN8sXdry8SSunFEl5SHkAvveW7bicdIZ2LqHu0FWHNc4aoodwEVDcXcl7X
+	n2801WwnuZ0gYyKNv9YbHzf/puSkUgG3qfJIYLmJr4ywsg4cVKy1EgtcbQnfhjXd3m6w3qDQ9Hf
+	pU=
+X-Received: by 2002:a05:701b:4348:b0:14c:96a4:b631 with SMTP id a92af1059eb24-1851453fc8dmr10504406c88.30.1792405235442;
+        Mon, 19 Oct 2026 03:20:35 -0700 (PDT)
 Received: from [127.0.1.1] ([67.159.246.222])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-18319d3b880sm26324251c88.10.2026.10.19.03.20.21
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-18319d3b880sm26324251c88.10.2026.10.19.03.20.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 03:20:26 -0700 (PDT)
+        Mon, 19 Oct 2026 03:20:35 -0700 (PDT)
 From: Leonardo Costa <leoreis.costa@gmail.com>
-Subject: [PATCH v2 0/3] Add VGA support for Apalis iMX6
-Date: Mon, 19 Oct 2026 07:17:13 -0300
-Message-Id: <20261019-v2-apalis-imx6-enable-vga-v2-0-ef6a3a780472@toradex.com>
+Date: Mon, 19 Oct 2026 07:17:14 -0300
+Subject: [PATCH v2 1/3] dt-bindings: display: bridge: simple: Add
+ data-enable-active to dumb-vga-dac
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,9 +72,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIACnu1WoC/x3MQQqAIBBA0avErBswMYWuEi2mmmygLBREiO6et
- HyL/x9IHIUTDM0DkbMkuUKFbhtYdgqeUdZq0ErbTnUGs0a66ZCEchaLHGg+GLMnNL3aeuccGWe
- h9nfkTcr/Hqf3/QBiOi3/awAAAA==
+Message-Id: <20261019-v2-apalis-imx6-enable-vga-v2-1-ef6a3a780472@toradex.com>
+References: <20261019-v2-apalis-imx6-enable-vga-v2-0-ef6a3a780472@toradex.com>
+In-Reply-To: <20261019-v2-apalis-imx6-enable-vga-v2-0-ef6a3a780472@toradex.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
@@ -91,65 +93,74 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, 
  Leonardo Costa <leonardo.costa@toradex.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792405217; l=2441;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792405217; l=1828;
  i=leonardo.costa@toradex.com; s=20261001; h=from:subject:message-id;
- bh=Wtjo2nq6SBTIM531bE9hkp4uSTiLMC+4CM/B7PGT41I=;
- b=K/92ccUEyeN+TkExSsHIzTIooOpzahjw6HNCnpCaTctauVPX9ywt82Fnmfxdz7h43b7N6JoQ8
- agNgWXrR1O0Bd2/w7lhY8SXJ79VsHXNsansU0VxIDNA3yLiaBD/A/Tz
+ bh=PF05NXBIDireg6ZUuKSrsvk0d/GOH3dnTBdN38H+03I=;
+ b=HD53baHT8u8/D5pbXuDGQl16Aht+8414McxB843sMyEC12qLowhQ0jc1HnfAvNB3zgF23VEb/
+ NDRwdc+iyH3BM2jB6dL4/ITgsqWwfg90tizY7oL/Djh99ux42ruW1MI
 X-Developer-Key: i=leonardo.costa@toradex.com; a=ed25519;
  pk=4xvoVLDt+NxIz9D8BJHhT0fD43Ig6XgSDw4jRN/gHzk=
 
-This series adds a device tree overlay that enables the VGA output on Apalis
-iMX6, which is driven from a parallel RGB interface passing through a
-non-programmable video DAC.
+From: Leonardo Costa <leonardo.costa@toradex.com>
 
-The video DAC is a simple resistor network gated by an active-low
-data-enable signal. For the bridge to work properly, this series also
-changes the following in the dt-bindings and simple-bridge driver:
-
-- dt-bindings: Add the existing data-enable-active property from
-  video-interfaces.yaml to the simple-bridge binding. The property is
-  read from the bridge's input endpoint. This allows a dumb-vga-dac to
-  specify a data-enable signal polarity.
-
-- simple-bridge: Read the data-enable-active property and fill out the
-  bridge's input bus flags accordingly. The property is ignored if the
-  bridge already has its own timings struct defined, to not interfere
-  with its existing settings.
-
-This change depends on another patch, and should be applied after it:
-
-- https://lore.kernel.org/all/20261002-v1-simple-bridge-atomic-check-v1-1-ef5d8332b078@toradex.com/T/#u
-
-  Adds the atomic_check function to the simple-bridge driver, which
-  allows the data-enable bus flag to be propagated through the DRM
-  pipeline. This is necessary for the VGA to work correctly on the
-  Apalis iMX6.
-
-Changes in v2:
-  - Introduce the data-enable-active property.
-  - Describe the VGA bridge on the Apalis iMX6 as a dumb-vga-dac using
-    the data-enable-active property to specify the DE signal polarity,
-    instead of using a dedicated compatible.
-  - Link to v1: https://lore.kernel.org/all/as-heYw7PKLPm3yH@SMW015318/T/#u
+Some simple VGA DACs may include a data-enable input that must be driven
+at a specific polarity. Add the data-enable-active property from
+video-interfaces to the input endpoint to describe that polarity.
 
 Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
 ---
-Leonardo Costa (3):
-      dt-bindings: display: bridge: simple: Add data-enable-active to dumb-vga-dac
-      drm/bridge: simple-bridge: Support data-enable-active endpoint property
-      ARM: dts: imx6q-apalis: Add VGA overlay
+ .../bindings/display/bridge/simple-bridge.yaml     | 28 +++++++++++++++++++++-
+ 1 file changed, 27 insertions(+), 1 deletion(-)
 
- .../bindings/display/bridge/simple-bridge.yaml     | 28 +++++++-
- arch/arm/boot/dts/nxp/imx/Makefile                 | 21 ++++++
- .../boot/dts/nxp/imx/imx6q-apalis-eval-vga.dtso    | 80 ++++++++++++++++++++++
- drivers/gpu/drm/bridge/simple-bridge.c             | 21 +++++-
- 4 files changed, 148 insertions(+), 2 deletions(-)
----
-base-commit: f33c2a109da4a527ed3103acb649a88e88cf368c
-change-id: 20261014-v2-apalis-imx6-enable-vga-450f5777a476
+diff --git a/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml b/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml
+index 7636c24906ba..b1b23d41245d 100644
+--- a/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml
++++ b/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml
+@@ -43,9 +43,18 @@ properties:
+ 
+     properties:
+       port@0:
+-        $ref: /schemas/graph.yaml#/properties/port
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
+         description: The bridge input
+ 
++        properties:
++          endpoint:
++            $ref: /schemas/media/video-interfaces.yaml
++            unevaluatedProperties: false
++
++            properties:
++              data-enable-active: true
++
+       port@1:
+         $ref: /schemas/graph.yaml#/properties/port
+         description: The bridge output
+@@ -65,6 +74,23 @@ required:
+   - compatible
+   - ports
+ 
++allOf:
++  - if:
++      not:
++        properties:
++          compatible:
++            contains:
++              const: dumb-vga-dac
++    then:
++      properties:
++        ports:
++          properties:
++            port@0:
++              properties:
++                endpoint:
++                  properties:
++                    data-enable-active: false
++
+ additionalProperties: false
+ 
+ examples:
 
-Best regards,
 -- 
-Leonardo Costa <leonardo.costa@toradex.com>
+2.43.0
 
