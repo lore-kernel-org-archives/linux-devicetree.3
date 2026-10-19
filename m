@@ -1,184 +1,160 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E9AE3DFC82
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 11:18:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A44863D9DB4
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 11:19:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792408733; cv=none; b=P0k4YYkZTdsWJwXpp8NRuAOn6NOpcKxJTHo2aIG6dY6bzGrQ2d2GtHJ60bCY+ek7VtIm4FUQgO9WqfzAVWHi4MO5vu0+SR54EssVD11cIu3FpoxYNaTZIbbb75TaDi+W7vQANPy81G8+9Kk9jUSqTOQm/ATDDdq1NwPu0pHRIsE=
+	t=1792408759; cv=none; b=e2xChXcV5JinF7ABi+e5TxiRLVpO5DUvo3SIDtBLlXn6PHABe/g42E3vmyApzWKtIcEqErljC20uugdRZaUzBt3PhfsSZLfbJUmPHCF7FsZlHfnDgAzXE49aX0CWc1lTLqdtFvgvV3of2d50BFey1aCd0lER3dCKHacG/XHXK48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792408733; c=relaxed/simple;
-	bh=mhxLCTPjVQZv2OtRsJyKUu3/MGnO5VTuhQw6MyljM28=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GD/sDAIsYnu0Q0Qnm1BMLH+w3qfkcRSHHpf1kDMD8VCMv5wll93lpG7y/pvH30pzQUZut7+jCo0Sv2eFHNLCiILnj/BcaYyHVr7T9TCPn3es5A9K6Cnp6oaVxzqxQRTwkhw6ZsTTox9ABgpvVPz/BZqAimjMr/JL3V9PX03ykHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a3WldgqG; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792408759; c=relaxed/simple;
+	bh=hicWBf/nVrO2B5eYi9m4lI3Q4TQg11SfjA+n7D5Muxc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uh0rRvU1wpV1bbDoVqbBCHDKTYyiLoRg6NMXkzgZNJzdqOX4iEF4xGMzvdswVYJ3ns3yl0fOu476grRhGTKvldKlocu3dQYrvmDQBdE3QZL7H09YA14u9elnMAeg8/8dfqR+8m2MTznMLMVePKGjfsy7aLl1afRFi0S8hR4pons=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aqaz8iOU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dlfP6Nq5; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a3WldgqG"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1e266fca2so6965905e9.3
-        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 04:18:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aqaz8iOU";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dlfP6Nq5"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J8YhTV2688707
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 11:19:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	VJwQ3LmwPXa1BUiwGt4fvNRB7J3oUm4v+8tRT0WON2s=; b=aqaz8iOU66AOsySE
+	3bxvHMMq1Y3zs/8NhvncfI8jRm9FB+fixr1QBQo/JwC0L13/5QYH96xi0ABqUb1K
+	gFzNpXV6yuL4gb4ThW0ufT5xXu4bCGkc9dXypvzolNN+15RAK0zJcyoaH01jGSIq
+	PLwa5s3zWSmDFEZ4Ktn0L4imOQHMsDqqcKglaT+vuAp6iA/LuJeMRSUH7Hj7NkZ0
+	FHmySMftoSkEDSaOowMpBb+OWesW50ipy98tsT3E8k/c3hzSwgUfxvv3h6lTGjf3
+	8oFpZhFItHAVpKWAD98bzYTTQKaLMU+8uLGdc+c1AJr3G91lUTZ7uKo/oGalGBKG
+	AzHPew==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdftn0m8g-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 11:19:15 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cac495d99so34582385a.2
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 04:19:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792408725; x=1793013525; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ADWQiUiXmhFxdxGNtaNp4L2f/HRKA6KEJjR+eWf0vVM=;
-        b=a3WldgqGFfraGc5x3lmUaokHskplTVWL+Y8hD0E9CkOSJ/X54Hg0ZDQ+3cU6rj7zXN
-         gQTAAY4RgwLMogBwHXonB1K+cnKuvTjqHegKkPfiENJ2hW1kmH9d2lfwn69wAeCoGVif
-         4tuYKpVXyn7NZARU2tc6raRJXwKv0O4k6rjhGqC5oXJ7Zhe4a6jMnT91UB/1kcZyZFrc
-         WpNuSmzN6ISpSlGErM/S9cRv8FgdJ7HLDdXzB9kL1CjA1a+bpJpp1IgBU+m0ftWHlY9O
-         bLnBoi24c6sl2K7ddBlB9cKvhNBz6h41RxVO13NCKO9gXJ1VuayDmO1/GpTMW31/aASQ
-         txeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792408725; x=1793013525;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1792408754; x=1793013554; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ADWQiUiXmhFxdxGNtaNp4L2f/HRKA6KEJjR+eWf0vVM=;
-        b=cd/1FvBAsQ3XKz+DZFBsarWvx5pD6B2mE3lyfHNW6ZMZ1yY0q4Ix2IXXrkWUPdYrx+
-         Wc2l8e+U8D7iiS7bJlDtcKL9sMEStSO1zB9WKk1b4iujgU0vUrUVzn33oeiz6d70UJCn
-         6zF05WBcJCRYgyD9R8+xtdtlDTEvtiJZOpiunq1OBNNNYZMrpdvElpWXAznR1w0l2+6q
-         X7xq1m7XLlftiOlxNWr9qZADbH/hfXm8VCkxgVxUwRIiLYSBVLt0yFWHJufPPebL8oR2
-         f+VR0jQEaP9sazt2eKURutL5jcQWDZIJbew/RaVvV1PMEVCQtmmKdBLO84O2S+4tCLUC
-         21lQ==
-X-Gm-Message-State: AFq9FYJNuo7abLN7FtXVe8HVQt2fDL2qAYe7pGuwMwZXnv/ygkzCJwBH
-	PRl7CV0sO0YxrEokxLtbdnSxEP8SLmovItYhnwKxb6fDOnFRmJt9stg6
-X-Gm-Gg: AYBFou0scVo+Z8OhKotbYFmrx20/qWct7hUWe/8pLdtkzO8UUKPhSwiA5jtMtF8NTWB
-	fQNrZS+fJYs+7W0vT0PE2rvMRw5LEklshFJvI/gPPxc3TXF4C8UDtNZnrSA+q0Jvc7N3bmvnwZU
-	A4WcBtq75XfMD+VNom5WerDRHSYLdAzELllsOb5i0kjeD6spa6/djWFG48Qz5tCDjQ2JN+VHZOv
-	vmKson4eWD7h5/vRNmZ9UlC5Z0R3Ws+ROk4o5J6gc6Ef+cJhRlO0aNDBkDxw9EGG+EbJh5q0bLv
-	XPtJUgVdDVTUZ5RrRE45Tt0ziU4iY5D3TTsVKJ+XQlrvYGzMrEIIJwRs14spRP2zhj094flhIub
-	ecEdFW837DBvH7Ugf0hPhEHaKlInimGQQqZvArhkDOpEO7+exZhRUPKDj3IK04zaxABoNG/i1pG
-	7mNFsr1Ukr5kOVN4boYgspUvh5dKFMknTbbYkI+5kcKK6GUJ0XAgjh7v+mezQ9Mr2kMef6wXpR8
-	1itPeuFqIJl5ITp/PVwE9ddElqk9aasq0Ud6QMMLn/Osyorcpx9MjIuC1qNwpE1Cq7oBguS1y5/
-	+wmtqeJRLK52EPuql3udkjR/7YoFOFec
-X-Received: by 2002:a05:600c:858c:b0:4a1:d957:733e with SMTP id 5b1f17b1804b1-4a1d95773ccmr99705095e9.26.1792408725266;
-        Mon, 19 Oct 2026 04:18:45 -0700 (PDT)
-Received: from [10.0.0.136] (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1e3ebb3aasm193183505e9.0.2026.10.19.04.18.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 04:18:44 -0700 (PDT)
-From: Antoine Gouby <antoine.gouby@gmail.com>
-Date: Mon, 19 Oct 2026 13:18:33 +0200
-Subject: [PATCH 4/5] ARM: dts: imx6dl-colibri: Add Toradex Resistive Touch
- Display 7" Parallel
+        bh=VJwQ3LmwPXa1BUiwGt4fvNRB7J3oUm4v+8tRT0WON2s=;
+        b=dlfP6Nq5iMSFWE8XHX+JL6JLcXnnxdGra2J5vKF2IGk5wAZkVAvOm5nGxCowLx3RYw
+         oXTfla1ZmgM5EYQIl3T1xB6FS7FRnOmqH4HlULO0utQuQNnuhxIugxz95miCyRMCvcAy
+         dR7WEKkzhse+pGzfwt3WMVa7rz5X716LNSetqWtWAk/iIic8j+6UxgQ1oHGUuoTu2NGT
+         ZtUTUvmnIb+ejuizcFNVUkycbyVRiUWzmJtHLhuvkVHUowO+p9UzDm1WkEXiJZMADO75
+         ck0H45Qex/UstxRzcziXZdyoWyCG7ZtRRVHq2fzu9ZItA1eMMsh+w5Yi/cVtEmLv7qIr
+         E7cQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792408754; x=1793013554;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VJwQ3LmwPXa1BUiwGt4fvNRB7J3oUm4v+8tRT0WON2s=;
+        b=eCwMY+vo4QEBmDDfqtVEYR34uUXsAGxSEBm+ukIrUmEgyuhSsflflqCqzLtQAilbzv
+         yphVGRKVxG1sckjMyyA7Kd6nprHGtHWyZQQfdOZYfK4tqwg00Ir+4Gk9qnDV2/6wnt58
+         xHc6G1qJxIWB2upBxn6gMWt01UhHLcwEH9a9lWjRcJ+TVq6dr7Z9tZOeEv6g4TXeaflC
+         VesMU4utrvSTgjBbi/Qqnx+345Hh0bn/8nyRLRlKNkW1qtJk+iVvJTH+mghKBJqjOdHn
+         ZkwQfTz3S9BiDe67WUG5PPoGE8BQOL4WsS1aNsSoD8MF1drQAsdO81aD5mH+NArXNkU0
+         O2Yg==
+X-Forwarded-Encrypted: i=1; AKwUvByQljN/LHws4FbtS8hGHrx6VGGzGF4DKI3VNgoiOLhgABCrPsmXXWmuspzyB/jnqYTyMZhlKcPwoafF@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ2S0iQtuQkKEikqlmA040VYmt12HDEKUCB8bWkbd2UH6phtXaY
+	f/Jy9QQUuuAi7DLn06pD+4pHs0ogQwmDqb0ic3IlLs7o2s2RiHCXEaaWOPMeadXGejsD8HeVWkh
+	phawrHV9eI+NWxRtownTDb4yzxM6/AkeQ2mfY4ysKBaZm5qfRokrtCZHBJpdgq/Ey
+X-Gm-Gg: AYBFou1sTJ8gX4rRUjd4Rz5ryUKbIzgRj0/7xfQgx5NzZRKpbs3SKoLiP+arflZnatH
+	5UWi94PXHJzTMKRIS6qvvYn6BpAtEzqe9d1FYTzT0qaZke5lSiQB3f+APgxe/nKHeZ7WOWIZLZ4
+	HaagtChhcUIq645SnuU5HClN/+Ck254fnU/QS6ElPE6ZCSEXY+AytgrD5j9mZ9tP6ZeRSZiJMdQ
+	ENBGtKVN7xDQhpf2J46sPyLMFQLR23ceq+gnswJ2nFheFr4ynf95NKZwZCriweh1SK/C7vYKPSs
+	DFMJ3JG0IFjsefYtpb/vemQfoxLQEagyTHB3sJ8aAhV0bfb0M26Fnn6gCjlZ2QQXe/6/Cl7ps0+
+	GSSuet/xUIlov7CZAzcir+Q==
+X-Received: by 2002:a05:620a:2948:b0:93a:1312:ff19 with SMTP id af79cd13be357-93f29dcd9cdmr1236981285a.5.1792408754588;
+        Mon, 19 Oct 2026 04:19:14 -0700 (PDT)
+X-Received: by 2002:a05:620a:2948:b0:93a:1312:ff19 with SMTP id af79cd13be357-93f29dcd9cdmr1236977885a.5.1792408754046;
+        Mon, 19 Oct 2026 04:19:14 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b38a1eb8dbsm3646220a12.37.2026.10.19.04.19.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 04:19:12 -0700 (PDT)
+Message-ID: <d4e2fcfb-856c-4fe9-b0e7-fb8df4dbbc15@oss.qualcomm.com>
+Date: Mon, 19 Oct 2026 13:19:09 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/9] irqchip/irq-qcom-mpm: Prepare common access path
+ for timer and pin regs
+To: Sneh Mankad <sneh.mankad@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+        Shawn Guo <shawn.guo@linaro.org>, Marc Zyngier <maz@kernel.org>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Will Deacon <will@kernel.org>,
+        Anna-Maria Behnsen <anna-maria@linutronix.de>,
+        Frederic Weisbecker <frederic@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+References: <20261015-b4-shikra_lpm_addition-v2-0-ac7f1a0d5638@oss.qualcomm.com>
+ <20261015-b4-shikra_lpm_addition-v2-4-ac7f1a0d5638@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261015-b4-shikra_lpm_addition-v2-4-ac7f1a0d5638@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-colibri-imx6-overlays-v1-4-e4d028727382@toradex.com>
-References: <20261019-colibri-imx6-overlays-v1-0-e4d028727382@toradex.com>
-In-Reply-To: <20261019-colibri-imx6-overlays-v1-0-e4d028727382@toradex.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, 
- Francesco Dolcini <francesco.dolcini@toradex.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Antoine Gouby <antoine.gouby@toradex.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3261;
- i=antoine.gouby@toradex.com; h=from:subject:message-id;
- bh=3yhzmAkS0sm6Z89eEvnHRy31Jkz9wloR2qd4ecuJsYo=;
- b=owGbwMvMwCWm0rPo7MxLN2YynlZLYsi6+qe/r05eak5Xb/exYr29f+X5FfZ4G3D/2f5hgRefa
- sW8zA82HaUsDGJcDLJiiiwZT1QF+RRCZD04mpNh5rAygQxh4OIUgIkwRTP8M37288i/Pm6tg5eN
- VBZ6Mrlvmv3xrG/vRfbQ1jsRsTwZrYwMd/LMd85bqCL69jzn710vFGafP3zISMVverOM+IqdUcp
- /2AA=
-X-Developer-Key: i=antoine.gouby@toradex.com; a=openpgp;
- fpr=68E425110E20541D48088363248CA2CD99D2D899
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA0NCBTYWx0ZWRfX2qM4p8yf4/nq
+ ft0TgWrBuZVmjp1NkHcJrVEjIujG5VfheGNZx/s/af4IVxxxq/N1O5khBpL4Bocyb13KBmHcDja
+ orzhKjPUyDj5OSpsMlrLPM59kzbF/7E=
+X-Proofpoint-GUID: pG-SSuLLg_XUSo1w14R4CMPKctR0phXq
+X-Proofpoint-ORIG-GUID: pG-SSuLLg_XUSo1w14R4CMPKctR0phXq
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA0NCBTYWx0ZWRfXzmCzj6aQDZKC
+ EJNtlbIGBHX9FzfTyJ+yXJDQc7Fq9+oRQTYoOqcLj9DKz38WO5+sgZz8mk0WPNpxjn7le/5RnRY
+ imILtGcCtDbZ0dMeqTBmwdtX+SxTIlrDZA28fY9yNhWiwFPVvKB08QPRzNjWu3SxD0Fb/9ItJWI
+ zanZvIEXV/h7U+lZBMYe5fWInXO1sUu7DI8EcYZFpDAasbsngd/3ulVxus1wCn2I2br2E+5SL1e
+ Lvhq+j89RoNw2avyoAM6UUqwjxYVxB3YP9BD9vkup7vub3ug+OdzFa4Xfdu8+uahjtvVSx8Hq6h
+ cDuoNNN1+yAD73dNycC/jH9Zni59Yfbm0h6EUjS3kY3IegTpzR5CjsWKHdMqmYVkDKevQ4X/xeO
+ L7vaT+XlTBkAUPv/lk0xaiNhiBYrVr3bdMnYhijyWLPjgxYmJxXjx8UUPuDo38s/tgrhL8BMBgG
+ c+koA9NpwKnyDBItr6w==
+X-Authority-Analysis: v=2.4 cv=OvTaWC/t c=1 sm=1 tr=0 ts=6ad5fcb3 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=_QkEx9C7_NLcMqeofcYA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-19_03,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 adultscore=0 lowpriorityscore=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 impostorscore=0 spamscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610190044
 
-From: Antoine Gouby <antoine.gouby@toradex.com>
+On 10/15/26 11:55 AM, Sneh Mankad wrote:
+> The vMPM layout starts with two timer registers followed by pin register
+> banks (ENABLE/FALLING/RISING/POLARITY/STATUS), each with reg_stride
+> number of entries.
+> 
+> Use qcom_mpm_offset() as the common addressing helper for both timer and
+> pin register accesses based on that layout.
+> 
+> vMPM has MPM_REG_* values represented as contiguous register IDs,
+> hence replace the macros with enum qcom_mpm_reg and modify the accessor
+> helpers accordingly.
+> 
+> Signed-off-by: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
+> ---
 
-Add a device tree overlay for the Resistive Touch Display 7" Parallel
-on the Colibri iMX6 parallel RGB LCD interface.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-The panel is a LogicTechno LT161010-2NHR 7" WVGA TFT Transmissive LCD
-with a resistive touch, handled by the touch controller on the module.
-
-The overlay is also combined with the Colibri iMX6 V1.2 Evaluation
-Board v3 device tree to provide a ready-to-use DTB.
-
-Link: https://developer.toradex.com/hardware/accessories/displays/resistive-touch-display-7inch-parallel/
-Signed-off-by: Antoine Gouby <antoine.gouby@toradex.com>
----
- arch/arm/boot/dts/nxp/imx/Makefile                 |  6 +++++
- ...6dl-colibri-panel-res-touch-7inch-parallel.dtso | 29 ++++++++++++++++++++++
- 2 files changed, 35 insertions(+)
-
-diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
-index 4f59ef0855cb..1ea51b13ab7c 100644
---- a/arch/arm/boot/dts/nxp/imx/Makefile
-+++ b/arch/arm/boot/dts/nxp/imx/Makefile
-@@ -92,6 +92,10 @@ imx6dl-colibri-v1.2-eval-v3-panel-cap-touch-7inch-parallel-touch-adapter-dtbs :=
- 	imx6dl-colibri-v1.2-eval-v3.dtb \
- 	imx6dl-colibri-panel-cap-touch-7inch-parallel-touch-adapter.dtbo
- 
-+imx6dl-colibri-v1.2-eval-v3-panel-res-touch-7inch-parallel-dtbs := \
-+	imx6dl-colibri-v1.2-eval-v3.dtb \
-+	imx6dl-colibri-panel-res-touch-7inch-parallel.dtbo
-+
- imx6dl-colibri-v1.2-iris-hdmi-dtbs := \
- 	imx6dl-colibri-v1.2-iris.dtb \
- 	imx6dl-colibri-hdmi.dtbo
-@@ -146,12 +150,14 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
- 	imx6dl-colibri-iris-v2-hdmi.dtb \
- 	imx6dl-colibri-panel-cap-touch-7inch-parallel.dtbo \
- 	imx6dl-colibri-panel-cap-touch-7inch-parallel-touch-adapter.dtbo \
-+	imx6dl-colibri-panel-res-touch-7inch-parallel.dtbo \
- 	imx6dl-colibri-v1.2-aster.dtb \
- 	imx6dl-colibri-v1.2-aster-hdmi.dtb \
- 	imx6dl-colibri-v1.2-aster-panel-cap-touch-7inch-parallel.dtb \
- 	imx6dl-colibri-v1.2-eval-v3.dtb \
- 	imx6dl-colibri-v1.2-eval-v3-hdmi.dtb \
- 	imx6dl-colibri-v1.2-eval-v3-panel-cap-touch-7inch-parallel-touch-adapter.dtb \
-+	imx6dl-colibri-v1.2-eval-v3-panel-res-touch-7inch-parallel.dtb \
- 	imx6dl-colibri-v1.2-iris.dtb \
- 	imx6dl-colibri-v1.2-iris-hdmi.dtb \
- 	imx6dl-colibri-v1.2-iris-v2.dtb \
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6dl-colibri-panel-res-touch-7inch-parallel.dtso b/arch/arm/boot/dts/nxp/imx/imx6dl-colibri-panel-res-touch-7inch-parallel.dtso
-new file mode 100644
-index 000000000000..331c81332081
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx6dl-colibri-panel-res-touch-7inch-parallel.dtso
-@@ -0,0 +1,29 @@
-+// SPDX-License-Identifier: GPL-2.0-only OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Toradex Resistive Touch Display 7" Parallel connected through the 40-way
-+ * Unified Interface Display connector.
-+ *
-+ * https://developer.toradex.com/hardware/accessories/displays/resistive-touch-display-7inch-parallel/
-+ * https://docs.toradex.com/104498-7-inch-parallel-resistive-touch-display-800x480.pdf
-+ * https://www.toradex.com/accessories/resistive-touch-display
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+&backlight {
-+	status = "okay";
-+};
-+
-+&lcd_display {
-+	status = "okay";
-+};
-+
-+&panel_dpi {
-+	compatible = "logictechno,lt161010-2nhr";
-+	power-supply = <&reg_module_3v3>;
-+
-+	status = "okay";
-+};
-
--- 
-2.55.0
-
+Konrad
