@@ -1,115 +1,104 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C2BB491B10;
-	Mon, 19 Oct 2026 14:40:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34B554C461E;
+	Mon, 19 Oct 2026 14:41:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792420808; cv=none; b=BMU649HGCdg4IWP7zUbIoBtWZmImMD4fE7YUZBmqOT7ebcx8agiC2Tw+gKMZOP8KBfBWHq8ExVGGzq7b4g2vLCBjKqcM9Dij5aRz9DeQ9PxxmGeNZvT10lv7NCmejuucLfhwpH7JllWtkOnD+f3BYvUBshu9PJ5NvZBOiVIti/4=
+	t=1792420894; cv=none; b=kWtEN2uZadjYdJpJDFHe1127XlxlvEpIypjPj5lkjNnp7njZvKHAnWOH+pDKlZq1oxYnA/WZPhwW3P/JjcjDC+uAQQvkApeOZtLdWeAkNOWJmkwZR9f086/RakahDLoi4ECEsE7odFuDBV6rGkxIod3F6hWl5SkrReGLgew6DZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792420808; c=relaxed/simple;
-	bh=pwjAxSjLuWoCyYAVhTlWcCU3k6IV2ZHDLx7Jj3Of7nw=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=oZdPJl20EQ3kUL5Y7t/lQkxCozV+RtkXcS817dID5J0WFQamrPvyHysIBAZfukkHvKkXh38SZFhjsXgcP9A4fq4Rz7r1k8c318niqxhXncXbWdqcEnh6IHD74f7zjLF4J/UeImYFyMPI7Jv2NUfmHTE8g29IoJY0VJL2FPGcBsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=imR3VF0H; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1792420894; c=relaxed/simple;
+	bh=qvOt3HHxIE5wGuN+4BoB73etZ0LxLru+TeLnprWKzoQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=iM8pwdA5GaaN4v/3f/Suiixg6PhhxOlNkZeF70HUXMNiXJv0w5XjTzVs2jYo62lTLhvCWXrDuzPdmmBxx9Oa733bz6g4tl7o9p9y2p7uGVAfp7481zd47fWNwjMe43sm43UhDsu9Y9TwcpvjYIQvm2U1yxuZeD8YgsjvKA1F0Po=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WMH6LPND; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="imR3VF0H"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 54CB21A126D;
-	Mon, 19 Oct 2026 14:40:03 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 26AC460582;
-	Mon, 19 Oct 2026 14:40:03 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C0BB110328E21;
-	Mon, 19 Oct 2026 16:39:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792420797; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=2558d3oEif7BHNSpDFXjjEfEGVqxe4R6m3rNhXBFMy0=;
-	b=imR3VF0HPWrcZd2WKEwd1C78YgVYd0zoxoTXE522efmJm7XK0tnfdjOO3ZJMWFBqZgn2rO
-	XSkJ/DAJYLBxgbOrFryJ782qM0Y+YCZf/9LdJC0ahRouAEPv5NRaJFl/m7e1Pqu7tx53yr
-	2cg2OY25eGzx1PqbVOOAhm/Vaz9//z2I7b0zbe2kVirDp5P7DvvLfFAZV+UGhRfutMrQl8
-	PnNe7swRj8exnKxuJEfq/dpVFUNuozuBThvPGgVpe0Gx7IJXsDUeVf1yB4ldkbVAwOgxQc
-	CKYzfxJyW70r+kk+erxMGvQIdQwfhZCaLRKzl4TILtA2DSzrDoZJg7f4oCvg9w==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WMH6LPND"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D8AA6C2BCFC;
+	Mon, 19 Oct 2026 14:41:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792420893;
+	bh=qvOt3HHxIE5wGuN+4BoB73etZ0LxLru+TeLnprWKzoQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=WMH6LPND7hWkslGEk9fPiBeXtEzk4LJTsyCzcXXHm9vJw1UGHFJpLTB7uBoBtuDnC
+	 HDF6eAatvtPuKH6Mwy/jzJP0Pv/VGjJZGcdtUAdHp+OmzHtHq5l+hUy9B5OEHWd2mz
+	 nwtbUC23wqhShacE3WmuFUKLxSUvvVjqj2Wuj4SLYROZrTFTNjad3fRx6UE8fcxh7y
+	 14KS2lkKZd4nbq+ns30LA/xDZYGAbpyxjTOtMg0818XhBKmPgPOpFXw2MY5HSm1Jb7
+	 Ng4m6aZGgxP+V/dcv6ono0S6bSJqJhsofJB0QqTqYndU/AalbLqlr0vakGwnHPu0PM
+	 7u3vv0Zua6RcA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C94A7CCF2E7;
+	Mon, 19 Oct 2026 14:41:33 +0000 (UTC)
+From: Aiden Isik via B4 Relay <devnull+aidenisik.member.fsf.org@kernel.org>
+Date: Mon, 19 Oct 2026 15:41:30 +0100
+Subject: [PATCH 1/3] dt-bindings: pinctrl: samsung: Add compatible for
+ Exynos5515
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 19 Oct 2026 16:39:50 +0200
-Message-Id: <DM8W53QHZGGW.H5DPDQW3OQT9@bootlin.com>
-Cc: "Borislav Petkov" <bp@alien8.de>, "Tony Luck" <tony.luck@intel.com>,
- "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Geert
- Uytterhoeven" <geert+renesas@glider.be>, "Magnus Damm"
- <magnus.damm@gmail.com>, <linux-kernel@vger.kernel.org>,
- <linux-renesas-soc@vger.kernel.org>, <linux-edac@vger.kernel.org>,
- <devicetree@vger.kernel.org>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>, "Miquel Raynal"
- <miquel.raynal@bootlin.com>, "Herve Codina" <herve.codina@bootlin.com>
-Subject: Re: [PATCH v6 2/3] EDAC/cadence: Add Cadence DDR EDAC driver
-From: "Paul Louvel" <paul.louvel@bootlin.com>
-To: "Geert Uytterhoeven" <geert@linux-m68k.org>, "Paul Louvel"
- <paul.louvel@bootlin.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261013-paul-v7-3-rc1-edac-v6-0-2f1d6f2f74db@bootlin.com>
- <20261013-paul-v7-3-rc1-edac-v6-2-2f1d6f2f74db@bootlin.com>
- <CAMuHMdUkhM3OtWnckc-ou69ZYFMfRT+DmU5AgUctJ0uY9w_GDw@mail.gmail.com>
-In-Reply-To: <CAMuHMdUkhM3OtWnckc-ou69ZYFMfRT+DmU5AgUctJ0uY9w_GDw@mail.gmail.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261019-for-next-lucky7-pinctrl-v1-1-0f77e94c70bc@member.fsf.org>
+References: <20261019-for-next-lucky7-pinctrl-v1-0-0f77e94c70bc@member.fsf.org>
+In-Reply-To: <20261019-for-next-lucky7-pinctrl-v1-0-0f77e94c70bc@member.fsf.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>, 
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, Linus Walleij <linusw@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Tomasz Figa <tomasz.figa@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Aiden Isik <aidenisik@member.fsf.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=844;
+ i=aidenisik@member.fsf.org; h=from:subject:message-id;
+ bh=wcMJv5MC9TAqtq4PfS0HwwKmDAbPXKFvyCt4uDAd3gs=;
+ b=owEBiQJ2/ZANAwAIAUknAbLEetfrAcsmYgBq1iwalT3DrmyIqPYLP3Z7S5COD3XtGVEIvxELp
+ cCUWs70fYSJAk8EAAEIADkWIQSDy8UkXGpc3JNbEaVJJwGyxHrX6wUCatYsGhsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQSScBssR61+u50hAAlqJrRNdYR/IhdgDR2Z4JKrlPojiSFZF
+ r4kSl4JfDqKJeVBbydVc+TRfP3AiSN/jpBtieHLGjPMSuCE+2/r0zSa5LSetSGq72tBEo8fE0DR
+ /4xc+peLKdp/oJjZxpbDS3Yoi0VUITPhjzy6zW6aGjfV4CtYYpCoN/TR6k2VK9fYAxkVKx4hqmV
+ 2Mrr4xla3sowMZ2zMsZasqg1leusJ8kLDcTuMKiSWiU8fRW7gGRiqYqNOrK5zsHZtRvK7j10IEE
+ 5P7c4sUjaTnV87ecrHA/JQLw/OAcvVdUKgjPGlXMzQbyU2PmV2m/dCu8LkupnMyuCOk8ObY3Far
+ prfwgZytOvlxXX2SnfquLe2ydvj8N65Q0PJpWPNU27ns8KGTmfzEkv2gLt/VWkXamO/EtDJITal
+ U8Pil1ONY0bdbgSlmPr0LcLWFZ6uUyihnS/dFAyzdnXUFNLnSt5QZNJdkzKP4FgZE0MmwBVkE3d
+ bG1czf3R99cmTjopp/VScbDKxv/N41mUtZdJIV/YhqEvql3/CxRTO3Lrl5fDoshV41e99wHKpvW
+ m2hF3agqVs3Zl0STBww2u5WbTlrx0t1BT5hpCt44YrQJei32adFTbsQCoyuEKm9uqGiMif5ye98
+ H7qqtq1Ts774mlTeE7w7N0qOQ6PiSeryjdrDUPCQgQaQTzhTamFo=
+X-Developer-Key: i=aidenisik@member.fsf.org; a=openpgp;
+ fpr=83CBC5245C6A5CDC935B11A5492701B2C47AD7EB
+X-Endpoint-Received: by B4 Relay for aidenisik@member.fsf.org/default with
+ auth_id=956
+X-Original-From: Aiden Isik <aidenisik@member.fsf.org>
+Reply-To: aidenisik@member.fsf.org
 
-Hello,
+From: Aiden Isik <aidenisik@member.fsf.org>
 
-On Mon Oct 19, 2026 at 4:21 PM CEST, Geert Uytterhoeven wrote:
-> Hi Paul,
->
-> On Tue, 13 Oct 2026 at 12:45, Paul Louvel <paul.louvel@bootlin.com> wrote=
-:
->> Add the Cadence EDAC driver found on Renesas RZ/N1x SoC.
->> The memory controller supports ECC, software scrubbing, and SECDED.
->>
->> Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com=
->
->
-> Thanks for the update!
->
->> --- /dev/null
->> +++ b/drivers/edac/cadence_edac.c
->
->> +static const struct of_device_id cdns_ddr_ctrl_of_match[] =3D { { .comp=
-atible =3D "cdns,ddr-edac" },
->> +                                                             {} };
->
-> Why this weird formatting?
+Document the Exynos5515 pinctrl compatible string.
 
-Clang-format shenanigans.. It will be fixed in the next iteration (coming
-today).
+Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
+---
+ Documentation/devicetree/bindings/pinctrl/samsung,pinctrl.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
->
->> +MODULE_DEVICE_TABLE(of, cdns_ddr_ctrl_of_match);
->
-> Gr{oetje,eeting}s,
->
->                         Geert
->
-> --
-> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m6=
-8k.org
->
-> In personal conversations with technical people, I call myself a hacker. =
-But
-> when I'm talking to journalists I just say "programmer" or something like=
- that.
->                                 -- Linus Torvalds
+diff --git a/Documentation/devicetree/bindings/pinctrl/samsung,pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/samsung,pinctrl.yaml
+index 1feb6a6fc690..7e49ca7b560a 100644
+--- a/Documentation/devicetree/bindings/pinctrl/samsung,pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/samsung,pinctrl.yaml
+@@ -49,6 +49,7 @@ properties:
+       - samsung,exynos5410-pinctrl
+       - samsung,exynos5420-pinctrl
+       - samsung,exynos5433-pinctrl
++      - samsung,exynos5515-pinctrl
+       - samsung,exynos7-pinctrl
+       - samsung,exynos7870-pinctrl
+       - samsung,exynos7885-pinctrl
 
-Best regards,
---=20
-Paul Louvel, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+-- 
+2.54.0
+
 
