@@ -1,150 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792445901;
-	b=OvNgnxjrDYdij/vHC5PcnVxS4zWAEyrlYIi3HHrHPLBxq4k6xz1TRiSbqS13YHz+tMgD
-	 lrmSQb4+MbGbIXkU9X5MgXSDUzB43NnkA/0WWu+DzJ9a/IWKzSQC0wbBttu34QqvGqKLY
-	 rMQXTJ30IOQHuGnEbsE32zWdEkAluFKDWuUTE3IrG75Pl6Vono+xRy/iQnWELkJ+Jo1eG
-	 B9oN/yX47UCPeLC3X8F6xmKp3xN5B1MhpBCs4CWsnSS9fl4OWdwBZlTNxVxsZMpcnQi3f
-	 5lNlUgUgsYMvRPIm2awvAvQbxnTKNwt06HwV5BMTVykLqnfcGRszgl6j6z8qsLCuU5Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792445901;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
-	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792445897;
+	b=y1BauIUzZu0VmHlLSTdxytbCGA/kfHjvRluAzi9tLDoZ/4TZOh4QEFfn/PaJ+ctDKdF9
+	 rSdow0p30XyH+aCjzW3ua049SO/wek9GGMe0ohXC0rxsDBYfCFfGWNnwf6bT1vMNUrarJ
+	 Icke4eKdHnDad4d9+yDE/JMJngVzeS7JSBMHD+GrG8U5w3oBO1yLbAGtBYPUgWQJYMLN5
+	 zjhfcv4tW5HTylyqeFjbUktSuICvHsytgHk2AUEd2nQfZA09otXUpreegpjO02tTCVj0O
+	 hrGfB4PZFU2Ss/QlrFyC1sE8OectHiTTwDPvVI/imzsmUdBJdbhRV//r6gVvrFzXcPg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792445897;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=EZnxgOpQ1PPF2ln5eJhueqDKQTKOHzbiLp2rVvltEwo=;
-	b=UHIOtiQN7w6UoN+wm93M8dR/xB9lOn7nYR6Iu+u+jhwTgsuQGJnGKWRn+NuLDEwmU1Vk
-	 g0lYv5FqHlnZRj1sixokN6nhVPxvRoErTcALoqy7QgNjYzrVpRaNmUO6tLFwY7K1p/wF2
-	 oqWqZ5JgrRsCO1j/HgqI2vhy09FCHt7iBx0AhVl0wUU5vJyVHfp7YjaxqTclkpulW1UGq
-	 ApQ8vocw6GLb6mRTx2JYtpi5dD/9YrqEmNVHXoGRLr4nnokT5H/QvQ66rced3oVtxs93K
-	 ki1byexyP79gayFBf8fzB98rZpBwIxLdGL6yVjIRSt3t2FCpc6Ue8wDsfRHFVtlSIMA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ti.com;
-	spf=pass smtp.mailfrom=ti.com;
-	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=n5ZpbMaJ;
-	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=ojIlha7P;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+	bh=LIfePWjFQJh8/rC+L/ZgDno64sd5DgcUdBm59T9ASBU=;
+	b=HytP28UoMAvpOsyhE5Izb/a++sP2HiizhhxRWV4xKEJEwQ5qkmxo7h1J/b0tGtPCSKUq
+	 vMgWfsHGXHpfhGqYLNNCtF4W7LHbUHffHC2SR7xC9W4iVjNDrfmiGVkArnTI5IXpDkKBd
+	 e/LUHliy86gD4LP/ZBxnqjZ3BdTcdoqCR3ufuz77Ca2ggXMYNeypPceKQKrae9pW4BBDi
+	 ZxTsCRteCj5ANhsK+/lSgToaLlFdRWPJZAbIDivr3OkUpr3oid4MroafLc/sPEjkvj6pb
+	 dYQsjy2dLX7doIxJu7XLT/UpcDT2dwftZK1c1Fd5jmJNI2Kugn32hkw3m/pFomLkg1Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=o62xQRKE;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jMY9gFz6;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46797606A326;
-	Mon, 19 Oct 2026 21:38:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46797606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D84D7606A323
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 21:38:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D84D7606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=n5ZpbMaJ;
-	dkim=pass (1024-bit key, unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=ojIlha7P
-Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69JLGqb2742153;
-	Mon, 19 Oct 2026 16:37:58 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=EZnxgOpQ1PPF2ln5eJhueqDKQTKOHzbiLp2rVvltE
-	wo=; b=n5ZpbMaJ8zVUwS79AtL8vtYQ28QGOxv6m+IkTDT/Gfslk498ZRNMrOVdU
-	TXqdCCekzVPbnqeS/LUJaGvJoRAZ0wA7THLq6m24WWnGuBeeDbUuzb2qhKECD9hY
-	xhkIH3EaG5u1eDxzP+c1xG4CHqqEWO6IaLeOI5+mRhWJ7HXcI9KsTM+leyWWYJlO
-	4kuDAQ1RQWE3sgik+55b5lQf5HAAjQno0CTpErr6A3g2NTBtMp5TArjtUKB93+mf
-	QN0ykh5EGyXpSb5Ji3rrEyVozTEgUCwlNoyl9fDPeihLW59tnohYyG1Af0tThd/g
-	fPfvnJIFCTw0r+DUjpV3dHyOBHOZw==
-Received: from co1pr03cu002.outbound.protection.outlook.com (mail-westus2azon11010046.outbound.protection.outlook.com [52.101.46.46])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4hdjbkuq9r-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 19 Oct 2026 16:37:58 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EUrgrmzzagWZ59xVOF59+im36+HXeB2gxiW/Zs3WxeQB5RLDoHpbI5BsQnoWVZjaPrepo19fYqgnH7qQYiB5rXuECB/qu4ZVbDB6qBwIl1jXbTaAURtx8amFotozZPHDWsRNqoL+CPRgy69JSWwYp9viuR+IuLIEtYSg8x2PIPgn+CRDELxMgHpMb4cgs2jgDUGd4GOf0bAslkWo6U9Yt5BbMli5dxlPI/QlHxA02l+SVKo5dT//6SnKAIcuiMeFnQw9UPNugsIMnDT//QgkfTMTN453fp94xCYmAwkuMnxXHQN6DheNE+irej6xngSQl/Arv4vhXiDGaG7Hb20ZeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EZnxgOpQ1PPF2ln5eJhueqDKQTKOHzbiLp2rVvltEwo=;
- b=n7umahMjU+MnWRGmo3oVylrqzM7jXpFPNwr9K/h1ZtYVyM9zwSA8yFP2ijusZm80yG9fNB1Xc6MFlzZ+suQDuT1x3uXJsaCNA0JVR9cskPAtUFPrgU4gbPg/ovg7I8dZ/X86AqIbPGitgUv7ojZ+AEXz58UhLl+U7FsvZ4BW6GqKj3rV0dPuE4w+JumtVByUSNc9tQNHUxGXkrmu78PUV40CxKPe8kzxC6FvZr517dE0TZ1EE7W+Qz9QAEZ8F2y8MK+of7uYwYRdLUK1009ElzO05CsBMD2Etye/HlD8Z4yW3ogdXjW8WkapcrUilad8dAB8/vc7U6MYExMMMmmsfw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=gmail.com smtp.mailfrom=ti.com; dmarc=pass
- (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
- (message not signed); arc=none (0)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=o62xQRKE;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jMY9gFz6
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69JLaC1T2892503
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 21:38:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=LIfePWjFQJh8/rC+L/ZgDno6
+	4sd5DgcUdBm59T9ASBU=; b=o62xQRKEwBqTayFhXRc18GP26keaM0344wrBcb+6
+	ddzEapubovvQW+XWoS0WwJj0Qiwzwp+gq+AjOG+Ulnjg8KHStHPTHdP5mhGqrhpO
+	frJMuNazXWvNSDszNJ5ytyaiZ9gxkzdKetzn/HL3RUMu/rY0rkDjWkukRy41mxPQ
+	Qj6ESj0r0mHLDgkkdchLLsU64qeVnRO4WuHinxrGrhmH96fPo8v0HhIMbMlrwoic
+	A1faZqSnjp5uLhPyfKVuL7DRx+j3Varn8a3ixfxAFiO9z8oVQ6aWXkSr1HmJpUQ7
+	FJTKVfKJYgn4RgjwlHwFvviTTGzOT+zKy/IP4wHEfWd3SA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdr4a0rc0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 21:38:15 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f32050e72so748459485a.1
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 14:38:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EZnxgOpQ1PPF2ln5eJhueqDKQTKOHzbiLp2rVvltEwo=;
- b=ojIlha7PX7x6/4cts0YDOwiGyrlZbqZtMhY12bP5gb8CoUQxFCj7PxpWrptYNoytuu+kiCv3WjqgOKCKklLug+Rof1wp0zuoX0+rKH+8SoFu3HRbATLR8x3/O49ALCnfnsNmIgV3IZxILWpc/EQWpg7Y5n36r29ACRsGwBuUcHU=
-Received: from BN9P222CA0006.NAMP222.PROD.OUTLOOK.COM (2603:10b6:408:10c::11)
- by CY5PR10MB6093.namprd10.prod.outlook.com (2603:10b6:930:3a::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Mon, 19 Oct
- 2026 21:37:54 +0000
-Received: from BN2PEPF0000A7FE.namprd02.prod.outlook.com
- (2603:10b6:408:10c:cafe::2c) by BN9P222CA0006.outlook.office365.com
- (2603:10b6:408:10c::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Mon, 19
- Oct 2026 21:37:53 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.23.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- BN2PEPF0000A7FE.mail.protection.outlook.com (10.167.245.165) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Mon, 19 Oct 2026 21:37:53 +0000
-Received: from DLEE200.ent.ti.com (157.170.170.75) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 19 Oct
- 2026 16:37:45 -0500
-Received: from DLEE209.ent.ti.com (157.170.170.98) by DLEE200.ent.ti.com
- (157.170.170.75) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 19 Oct
- 2026 16:37:44 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE209.ent.ti.com
- (157.170.170.98) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Mon, 19 Oct 2026 16:37:44 -0500
-Received: from localhost (ti.dhcp.ti.com [10.24.51.125] (may be forged))
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 69JLbhYe3577051;
-	Mon, 19 Oct 2026 16:37:44 -0500
-From: Devarsh Thakkar <devarsht@ti.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard
-	<mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie
-	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Rob Herring
-	<robh@kernel.org>,
+        d=oss.qualcomm.com; s=google; t=1792445895; x=1793050695; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LIfePWjFQJh8/rC+L/ZgDno64sd5DgcUdBm59T9ASBU=;
+        b=jMY9gFz6oVSBVWCJxAWnJYu2u1iT7MQQsB4R+kvfEg7yhGUc9v3BRRpvafR3MAEAop
+         VK13ahZtPJWaKy4D5WrHNJB3RS69rYO8dlGqj0XpUtIGVeIxBAh/zTfCpTWUpHPAnYxC
+         qWxPd7zvUsl3UP0rhG58z6Ht3wSaW0Nvl8RywZEzW/cH8SrCWZAxb6mi/kmy/D7v3CKr
+         f4czSyDAjxWwDsIaqVt1Y0/457gHa/6VJ3FpiyqfWEplzGB6zddTePshBKyCv5RgccLH
+         f4e4OZOF2G3pZmyajmG/AjYzfnAwqn7magnEN7WknayaWE5XjbdlUU7mK1B5Ff2N1kUd
+         pFLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792445895; x=1793050695;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LIfePWjFQJh8/rC+L/ZgDno64sd5DgcUdBm59T9ASBU=;
+        b=Ep74ygPKuUiJMmxhq0Lu0KEpsMmcJVTNp6sjqfDmlK+g9A++6d/uSvro8GA76bhxPo
+         xjpQEQF5tWWxHmiRuMMSBofcrSOo1BpLdk7Q7CGAzm7ogijHVLAt+1yA7/ADHaVFOZXR
+         /TdW0WVRVSDZVHnp1nd3UeWs1QaJKD9vhFP0yQIqGobtZwURAfLwvHp2oXcfgo4WfHoa
+         fPXDavXD+Owd92kg8CFgvP2O8vmS3yI2rTDwWnO/usKSH1EHVl7oDPQDtUcjM+Q4eVBM
+         4cfnyeYzsWQ9d2H+M+sFR7tuIIEGgxIrRRmtWqt69yE4mdqpwUxrPHUA+pKQsK066Js0
+         w4ug==
+X-Forwarded-Encrypted: i=1; AKwUvBxCGQ4+v6llH+q1OhyewMe69Q99LzstKZSHx0ojveTgWmI1U4kMQk1Q1a+on1pIgsPVGpcixaBYIFt5@vger.kernel.org
+X-Gm-Message-State: AFq9FYIxhAUYrOkj47PjH63GyMyfE8SFTtWjvc5dmCtd+aGLaLqCMZ5B
+	lBloYzByiNsXXfkfcNrvpDO1N+xJYflAaW4rtMK2JBehEKarUupc+s+mIgQSK3FnDmTXo8aDBY2
+	FzguoZYoMrTTUNQ0Y/+ViFHFoRgGlgAEVTAFYdMxMTl0hPy/l3lwP+zQz/8Xy2Ec8
+X-Gm-Gg: AYBFou28HSnzojUyfXs1ZaJgNnS8zn+5LwG0OwbM5yOf23UvKZ2RUJNZZw5V7wSFuKt
+	rZjLLNBOIkx7VOm0UZV5CA0bfxVjFQ6qsWtRK3R/wQFCiZmOLYyMgbq6aL8lDQGD/i8E10QG3sz
+	3MRVjYf/ZPEmjU5lpk7dXqUryyc97MNaVzUoKuFGiML7e36pu/Y3YmKXJ4jsdUmbkkIIZkm9mQZ
+	HCx3NZz1vRjICR/cZny/YyBdoeHciblntIwRkWkNzPUU8aJCrsymJf6u0Ej/UrnEhutomVAv9Ex
+	tHIqiM5IFl088opwLjuaANG6RxJ/HrCgi1jjWfLx/NvMOs9/N7GUxzfIZBwrlwgz7Id2Ct/JU9g
+	yiaXNKon3Z5+tXRbcBOe/A/FhgwNgOEtFmfMjOiAj3q/ILLhAY9XVCcRCHJaBGk/2pHmcHLW0xy
+	GzBGBMh/LBvWp6
+X-Received: by 2002:a05:620a:27d5:b0:93e:c6fc:7f50 with SMTP id af79cd13be357-93f29ba04bdmr1478803185a.5.1792445895058;
+        Mon, 19 Oct 2026 14:38:15 -0700 (PDT)
+X-Received: by 2002:a05:620a:27d5:b0:93e:c6fc:7f50 with SMTP id af79cd13be357-93f29ba04bdmr1478800485a.5.1792445894600;
+        Mon, 19 Oct 2026 14:38:14 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5be4a533900sm2290916e87.50.2026.10.19.14.38.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 14:38:12 -0700 (PDT)
+Date: Tue, 20 Oct 2026 00:38:11 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Richard Acayan <mailingradian@gmail.com>
+Cc: Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
-	<conor+dt@kernel.org>, Nishanth Menon <nm@ti.com>,
-        Vignesh Raghavendra
-	<vigneshr@ti.com>,
-        Tero Kristo <kristo@kernel.org>
-CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-        <devarsht@ti.com>, LiangCheng Wang <zaq14760@gmail.com>
-Subject: [PATCH v3 09/14] drm/solomon: ssd16xx: Expose color mode as plane property
-Date: Tue, 20 Oct 2026 03:07:21 +0530
-Message-ID: <20261019213726.4145532-10-devarsht@ti.com>
-X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20261019213726.4145532-1-devarsht@ti.com>
-References: <20261019213726.4145532-1-devarsht@ti.com>
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Andy Gross <agross@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        linux-sound@vger.kernel.org
+Subject: Re: [PATCH v2 08/11] arm64: dts: qcom: sdm670-google: enable adsp
+Message-ID: <5bs72nbd44ppib66n2amljtayro2ghnpek2xvdbioz5k265nbk@if7gqck2u6fa>
+References: <20261003175659.23536-1-mailingradian@gmail.com>
+ <20261003175659.23536-9-mailingradian@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -154,209 +131,49 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A7FE:EE_|CY5PR10MB6093:EE_
-X-MS-Office365-Filtering-Correlation-Id: f52e4474-5420-4fc5-e079-08df2e293b8a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|36860700016|82310400026|921020|260925021311599003|261009223027099003|260925021911599003|260925022911599003|10067099003|56012099006|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	6iO5He7nzDVUZOO4oAStrd8wcuLlhvogtaxo14XtxYFjDnlTj0JnjA0OUvJhPlmBSRJld0L+fIIRvptHsPhcNedFwc4h2cdY5kTURnyj8HNBY6B8cAGT6BYj6f0XbxttvwSpEATRO8L+ULx5wl+mVI4J4D1jOWYFUQVVlNKU2DfwMgsHNcuxXBTqSJwHWd41E3t1FLNVXcXDbbKZWwTAQsP2wQjobjmH3i2eSKV1Iv2Bxus9nf97TKjytgUo1U77CIuR+FKPwHgxdHlZvHGI7QQkbVVfQHL+sGggY2AUk1YOv6ckbPY/KNZyP7htZMfW7IZ4XFBe0nENymQJp16cam0iOWSzDYXYNloldQce8vfIedTtgW7qWFJf8FFND3jCWrxPoK+kI/F5/nmKv8mSmoVxlvBSP+aZxlXOraMngQ2J7W/LN+6J22NMrKxxWLnqcBsKZOc/Wvt9QqiuV6jUi+0cKG6YEA9xlIUp5PpXqLCLwd7udjlQOixEIdDLIkeLA77NnZAU0xCj2RlCAQxae5GMp44nIvOKb5gaYANmuEDeWI2o9bdGvolGBJcomlvaud77dwlDMky48J31lVtLNrbIiZj+ux8+P+IMVutsGXlcf+80u1VlXo7SuErdz7LAn7FZ4HYnWuvhFTfVxOD7bicB3ZuBRZQjBeP8ZRluRTMjboYMBiwYgayAYDEWTPJ+x6M7EUTjnHTC51ALJxt0tIiHmh5lfnRi1PCumgj93qwKyNu/LMV4qpfQNWT0hjiL
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(36860700016)(82310400026)(921020)(260925021311599003)(261009223027099003)(260925021911599003)(260925022911599003)(10067099003)(56012099006)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	dS3uOGlUcHjLoTDtdxwGc8H/IMjunaXlHEb5XacE2vhESpsD5U65owgbNwvXocoCsu8eBJ7bOCC2NBKWlnkY8fBWNMG4LvuKGksKEpKRSSme3gkJ6ktSN7YMqqzoe8cvKGO9ea6Fg+WnjC66RIIZfFfkMeXspdVOYtX3cYkeiRAbwcppaxKMXWQpxPV+hXyg3NSzNkWDr37DItmlgbeubPVlawbk/+zjIoVBpMKVaY2QQ8klrpkTSp28Im0/5PUXWePWPAs0J4bg3sAIMljYnGRygW1WIgbnjr1yt4XZ3sfCzIpaQHaaCsiw5Ih4eEF9BkkSGTNj24zG79tJPhKPhAJWgBN7rSuEMtVOG5ItyKlDzzYtAIVrjTi1tCf8Nniy893odNcVamwcCtk9EewPFQ0UsKSq+ej9NCk7WcdM41IsPolapaQcpaLVUYQrKS5z
-X-Exchange-RoutingPolicyChecked:
-	f9bhTllFSrVEvW0g1xmSQA6EsQ3Zr+/fJ8icwIIZlNS+ZF76v285rtTFudFNGbIgShbSZIy1eEQ3hLeZnVzbJQ1eqzRRbs5+ljI5u1b4fEldt9hGd0MK9V7Ln4TlYz3HjBaDrv8XbszADWUEgxQI/H1ZbRteUpFIqWQHrwr4Azh4eA6PjZ+jIaqT2ZreAW6PgfNuogpzfq1tARkanSXYf1DmHUjfZR/QfLl3wr1InFBIQX9pYqe6V5+2GaseXqoUjuCrkdbBLRnCLA+k6BEqQvMKlCLhOrnCf0bXIMadO6efy0i0eydZ9Hh11C5JuwvR6p5j+PFRHljBco4/lxDaew==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 21:37:53.6285
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f52e4474-5420-4fc5-e079-08df2e293b8a
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF0000A7FE.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR10MB6093
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA4NSBTYWx0ZWRfX8Y5LvNEsCZ19
- XHiZGrt8qWoML8bP8JIqAia33mw9xepJXwDJvwYyC10EWaKhUVkdHMAbtzyUZ/bE6bKtbey9R5z
- bLCPkdJ8Uu3rspK/6ecoW7aO96JVZ6w3QhejOb90tvWyD/do4/c7uuE4Ke0veLGZa7f88/hgkwJ
- oB6NFMFQxYUsCRYb73UjqK4+OrLUeCqErPvnt1TWzkqAjO5ywnfi1rk3lbhihMh8SC0+5Zn7waN
- OODQ9dC/dqgNUm/sxFEb1k7A1vLnUYjUu5qEpIaMH1QkkJHe0RmWDr446Y+wNUYevi71CNOKlHz
- uZNbgIw2Ud18B8hembYW/ow7Fxp7QflXXP4G8vBbrGeoh2mT6fEv1sxeaigQsyY0myqUSXkTRy/
- tZBftmfObSHG8tnEIBXilacl5I5isATayAg4vp7GLt0z62Slnpuz230On+P+EQTYfFdnGVrcI5B
- Wf0e786dAvXru1/54kQ==
-X-Proofpoint-ORIG-GUID: 9KJqsK0mlUb_ZFfWTwy361nWM3VIdi8e
-X-Proofpoint-GUID: 9KJqsK0mlUb_ZFfWTwy361nWM3VIdi8e
-X-Authority-Analysis: v=2.4 cv=Vsa2kO2n c=1 sm=1 tr=0 ts=6ad68db6 cx=c_pps
- a=BcPl/o76WFXIZ3b3OvynCQ==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=660iZSQnnn4A:10 a=s63m1ICgrNkA:10
- a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=jwouBfj2j3NM8CExmVVE:22 a=sozttTNsAAAA:8 a=3IO9RwVF9Dv72MOw_kIA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA4NSBTYWx0ZWRfX3wan71mzvUb7
- ENtFejdBxTHd9fYhuWLFHJoa/MpJslMh1Z0R3hpciKVLlqBa099xVNOx3Ci3KErBDwEl+0Y6Q05
- Xg9FBrlyDOkx7H4bjg1V85UVn+Ekoqw=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261003175659.23536-9-mailingradian@gmail.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA4NiBTYWx0ZWRfX4A/yIy17UElh
+ txM6b935U9YkhhyABTQxLDaD/5RDhPdJWKCK4uu0WmwXDDxTX/a63CnYUW6DhLwod3vOumMp9YR
+ +47/pXTvObGtxesMCGAleuCTJdgswuc=
+X-Authority-Analysis: v=2.4 cv=Zt54uN7G c=1 sm=1 tr=0 ts=6ad68dc7 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=pGLkceISAAAA:8
+ a=EUspDBNiAAAA:8 a=1DDleCVHwAjOA7h17fsA:9 a=CjuIK1q_8ugA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-ORIG-GUID: -JaTIY90MJHI1tz9AURqq9y-TfEteefB
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA4NiBTYWx0ZWRfXwN73apg1tuc3
+ QpVvXi6H6NosXywZ70oL5rt25jdLjokdSWz/UkUuFApnVSO1Hbsjzfr2Lf2CWjPoh/f6FVb3WUk
+ HI3Pp6SAlo5WDkyqAwRkuCYXFYCVruxDg+1QUmmar/HpiLOdgXL1Dhy9kdVZkdKwsHMkYPRTDsK
+ ylAELpDjUODsj0y3TMZ0dC7wBmfX+11GB+tNS9EDwQt0WjEcCrWO+W+K5WQY5xafr/SusOj5oZe
+ kdJ/lo2a5Fa2wXYIAV4PXNW0CI1f6YGKJJ2iwXmJB+taTsnBGzDu86HW1qnTZgdnWnSdA4TRwRd
+ o4SdG2P9chT5N8eIWcxmsSeG+bCiC6tOKm8UAvILi8sjz3ebsq/mbjkTYNJz2ArWLZTpJDS9wzZ
+ W0iWs6a+/ia2Kk7EeWlff+nc0fvLrq8i4O9Wwjquy9beFxarAo6ZXtZeiQzjJBkWq5x8gq5w7nH
+ v9yrKQWbKb5ingh7UZg==
+X-Proofpoint-GUID: -JaTIY90MJHI1tz9AURqq9y-TfEteefB
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-19_05,2026-10-19_02,2025-10-01_01
+ definitions=2026-10-19_06,2026-10-19_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 bulkscore=0 suspectscore=0 spamscore=0
- phishscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0 impostorscore=0
+ malwarescore=0 clxscore=1015 phishscore=0 impostorscore=0 adultscore=0
+ priorityscore=1501 suspectscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190085
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190086
 
-Add a DRM plane property "color_mode" for panels that support
-3-color (black/white/red) display modes.
+On Sat, Oct 03, 2026 at 01:56:56PM -0400, Richard Acayan wrote:
+> Enable the ADSP on the Pixel 3a in anticipation of audio support.
+> 
+> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+> ---
+>  arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
 
-The property allows runtime selection between:
-  - bw (black/white): R1 format represents black (0) and white (1)
-  - 3color: R1 format represents red ink (1) on white background
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-The property is created on all panels with "black-white" selectable;
-panels with red_supported = true also expose the "3-color" option.
-The default is set from the panel configuration's default_color_mode
-field (typically BW for monochrome panels).
 
-Signed-off-by: Devarsh Thakkar <devarsht@ti.com>
----
-Changes in v3:
-- Reject 3-color mode together with partial refresh in the plane
-  atomic_check, as partial refresh does not update the red channel
-- Only create the color_mode property on panels with a red plane instead
-  of exposing a property with a single possible value
----
- drivers/gpu/drm/solomon/ssd16xx.c | 51 +++++++++++++++++++++++++++++++
- 1 file changed, 51 insertions(+)
-
-diff --git a/drivers/gpu/drm/solomon/ssd16xx.c b/drivers/gpu/drm/solomon/ssd16xx.c
-index f53c67ae7d31..6037717635a4 100644
---- a/drivers/gpu/drm/solomon/ssd16xx.c
-+++ b/drivers/gpu/drm/solomon/ssd16xx.c
-@@ -399,6 +399,7 @@ struct ssd16xx_device {
- 	u8  spi_buf[64] ____cacheline_aligned; /* DMA-safe buffer for SPI transfers */
- 
- 	struct drm_property *refresh_mode_property;
-+	struct drm_property *color_mode_property;
- };
- 
- /* Plane state subclass: refresh_mode lives on the plane, not the connector,
-@@ -407,6 +408,7 @@ struct ssd16xx_device {
- struct ssd16xx_plane_state {
- 	struct drm_shadow_plane_state base;
- 	enum ssd16xx_refresh_mode refresh_mode; /* Pending refresh mode */
-+	enum ssd16xx_color_mode color_mode;     /* Pending color mode */
- };
- 
- #define to_ssd16xx_plane_state(s) \
-@@ -1457,6 +1459,7 @@ static struct drm_plane_state *ssd16xx_plane_atomic_create_state(struct drm_plan
- 
- 	__drm_gem_shadow_plane_state_init(plane, &ssd_state->base);
- 	ssd_state->refresh_mode = device->refresh_mode;
-+	ssd_state->color_mode = device->color_mode;
- 
- 	return &ssd_state->base.base;
- }
-@@ -1499,6 +1502,10 @@ static int ssd16xx_plane_atomic_get_property(struct drm_plane *plane,
- 		*val = ssd_state->refresh_mode;
- 		return 0;
- 	}
-+	if (property == device->color_mode_property) {
-+		*val = ssd_state->color_mode;
-+		return 0;
-+	}
- 	return -EINVAL;
- }
- 
-@@ -1516,6 +1523,18 @@ static int ssd16xx_plane_atomic_set_property(struct drm_plane *plane,
- 		ssd_state->refresh_mode = val;
- 		return 0;
- 	}
-+	if (property == device->color_mode_property) {
-+		if (val > SSD16XX_COLOR_MODE_3COLOR)
-+			return -EINVAL;
-+		if (val == SSD16XX_COLOR_MODE_3COLOR &&
-+		    !device->device_cfg->red_supported) {
-+			drm_dbg(&device->drm,
-+				"3-color not supported by this panel\n");
-+			return -EINVAL;
-+		}
-+		ssd_state->color_mode = val;
-+		return 0;
-+	}
- 	return -EINVAL;
- }
- 
-@@ -1535,11 +1554,20 @@ static int ssd16xx_plane_atomic_check(struct drm_plane *plane,
- {
- 	struct drm_plane_state *new_plane_state =
- 		drm_atomic_get_new_plane_state(state, plane);
-+	struct ssd16xx_plane_state *ssd_state =
-+		to_ssd16xx_plane_state(new_plane_state);
- 	struct drm_crtc_state *crtc_state;
- 
- 	if (!new_plane_state->crtc)
- 		return 0;
- 
-+	if (ssd_state->color_mode == SSD16XX_COLOR_MODE_3COLOR &&
-+	    ssd_state->refresh_mode == SSD16XX_REFRESH_PARTIAL) {
-+		drm_dbg_atomic(plane->dev,
-+			       "3-color mode does not support partial refresh\n");
-+		return -EINVAL;
-+	}
-+
- 	crtc_state = drm_atomic_get_new_crtc_state(state, new_plane_state->crtc);
- 
- 	return drm_atomic_helper_check_plane_state(new_plane_state, crtc_state,
-@@ -1608,6 +1636,7 @@ static void ssd16xx_plane_atomic_update(struct drm_plane *plane,
- 	}
- 
- 	device->refresh_mode = new_ssd->refresh_mode;
-+	device->color_mode = new_ssd->color_mode;
- 
- 	/*
- 	 * When refresh_mode_init was set, use the specified mode for this first
-@@ -1855,6 +1884,11 @@ static const struct drm_prop_enum_list ssd16xx_refresh_mode_enum[] = {
- 	{ SSD16XX_REFRESH_FAST,    "fast"    },
- };
- 
-+static const struct drm_prop_enum_list ssd16xx_color_mode_enum[] = {
-+	{ SSD16XX_COLOR_MODE_BW,     "black-white" },
-+	{ SSD16XX_COLOR_MODE_3COLOR, "3-color"     },
-+};
-+
- static int ssd16xx_plane_create_properties(struct ssd16xx_device *device)
- {
- 	struct drm_device *drm = &device->drm;
-@@ -1869,6 +1903,23 @@ static int ssd16xx_plane_create_properties(struct ssd16xx_device *device)
- 	drm_object_attach_property(plane_obj,
- 				   device->refresh_mode_property,
- 				   device->refresh_mode);
-+
-+	/*
-+	 * Color mode: only meaningful on panels with a physical red plane.
-+	 * BW-only panels get no property at all rather than a one-value knob.
-+	 */
-+	if (!device->device_cfg->red_supported)
-+		return 0;
-+
-+	device->color_mode_property =
-+		drm_property_create_enum(drm, 0, "color_mode",
-+					 ssd16xx_color_mode_enum,
-+					 ARRAY_SIZE(ssd16xx_color_mode_enum));
-+	if (!device->color_mode_property)
-+		return -ENOMEM;
-+	drm_object_attach_property(plane_obj,
-+				   device->color_mode_property,
-+				   device->color_mode);
- 	return 0;
- }
- 
 -- 
-2.39.1
-
+With best wishes
+Dmitry
