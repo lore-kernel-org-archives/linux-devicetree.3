@@ -1,97 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-173.mta0.migadu.com [91.218.175.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00A2660613E
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 14:03:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B1D663AC73
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 14:05:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418600; cv=none; b=uLvlVBMDZbFF62yQ2ZyunWiXRYTAbhOtMHUpoBEfyBH+Y2VyL9zggoZKirDz+M7d4UCpos3/axn2P6RdUJ0wZ2RNqxA2WE5QjBSo1hNO9uGCNw7eaSlHbH8Iw4WsPa8vZfLPu8bFJJZc4dQ3NXMjekpOZxr2wCE4ykuhOgBApEk=
+	t=1792418759; cv=none; b=pZBrQgM34Whi+0YyGfuYx0G/9KeJ8nVvKi7na92KYKI6ZafRg66nGrBvhAUPdXsMePq8NesBUx0vJAlZsO87O2nFC9jeU05j4TRo324KDlO/gtgbMr+5AMgPt0/Jy3v7TG06+Q6J9XTVJ1pPGo32e2qsPHL3S2Lu9z+N71wvpHA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418600; c=relaxed/simple;
-	bh=8N7M03OaTh61dQid1CdVCs1IXyRUsjhkJaKyLSnBGUA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Oe7xeEO0GwjXfUalnaXg/hQdfE3bdNQ4b3CTVuCjvD5rLwhTplSIlBELwHmZFaAurirgUyAE25VTzFrUdCpsfbNZcoSf/cEPEC/q3+1ij3mRGVYJLjb6kvzjjF5ZTRVPHsop41Jokbx8kKJNZQyUdiSNc0CudAyAiMFFbFI6amg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jXnyMGRA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792418759; c=relaxed/simple;
+	bh=XW7BceGWPY9WiX1upsARm8MUVolkmVHvz8rIGu+9G9I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qxWOKprlHEQEDy7u6Zz4dWEp9ScnIXVdgITik8RFagoKOMx5htR+sPn8XWnQjjrtE0cHvpq2WdCd7ji7tMl//Ol9fN3hPMK/dtd0D3um1s2iXvhuMhz48dnkX3j+8NDtHZ5/MjZmSosJiT6FRrrXPjzPzpH3/PEV9WxLuz1De9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=grimler.se; spf=pass smtp.mailfrom=grimler.se; dkim=pass (1024-bit key) header.d=grimler.se header.i=@grimler.se header.b=TE+vxoCE; arc=none smtp.client-ip=91.218.175.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=grimler.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grimler.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jXnyMGRA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE1711F000CA
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 14:03:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418598;
-	bh=xfgYFNTqOYa8NAxPLZPVhWUvOB20sAQXRAOszr0q/VQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=jXnyMGRAlDjr6zRCDBdzkvoeuKZgCnmWpbL1kiPytyJlyP1LbZi/Utp1jHgWqbkFH
-	 KxaSejYZbUSYs/WRpkVn2MjWkQ34tZzi3Pxqh2UmUUjXzt4dPYrWMIaOhHBxBr9Yle
-	 pLc5YXgcKOh1i+xgDvhbi7CQMsiM3P66qmOZ4r+/UVwmylegOdz0iTvNzjOts1HUqe
-	 D2vpVVYqHSsyiEqycblNxq4HPwCp4eXK/HrE/8bx1I/Wjmqk0CN4d8icxlcwycv3g9
-	 5dfOKn+jX+l9lFtr7Vxem2zizx7cNvjOffMr3dPeeEfbtiIRms34Q0xAhhzt0Gvyui
-	 FCMz2oQ9TfxeQ==
-Received: by mail-oa1-f45.google.com with SMTP id 586e51a60fabf-43bf9548df4so1971831fac.0
-        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 07:03:18 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzEdaGMyTypyNw9w1c2CHjcW63vzgskrmYysnRIPngCEIIUTE/tOrt1cSz+GbeidxhlY5S21pyaSbxo@vger.kernel.org
-X-Gm-Message-State: AFq9FYIFd+36Efa5p3oUchllN1A1owCZg/mJ7nyv/p91Tp1ZAveutsJb
-	a0YmyShy6nujjXtEA0ch5aijwBxaqd9oBTOq0ohz94Wmc7TXWgRJO0w1jBmCFx6UERKfEDmYdxy
-	QjjXteHeScLJ8kt28B1MiWfR3P/Tuhfg=
-X-Received: by 2002:a05:6871:2e89:b0:48f:e0e5:a1e8 with SMTP id
- 586e51a60fabf-4a757a1408amr5342765fac.45.1792418598137; Mon, 19 Oct 2026
- 07:03:18 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=grimler.se header.i=@grimler.se header.b="TE+vxoCE"
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=XW7BceGWPY9WiX1upsARm8MUVolkmVHvz8rIGu+9G9I=;
+ c=simple/simple; d=grimler.se;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792418755; v=1; x=1793023555;
+ b=TE+vxoCEf3stLXSEjVEUNU9n45xc88Ps16DW4AoK+qdwVrHUyg+myOFhZEjYfjekhMUPiop7
+ U/1pHMarY1sm3fnKfRUqsk7hhxtsC52MHbKKMihjb21YemHHzBFo1s0Q/WvKLmwYJ/qIK8Ag4r0
+ J+PEMZbBApEWCtrXaGZK4/Kk=
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 6aae6aeb5c5dc7b9;
+	Mon, 19 Oct 2026 14:05:35 +0000
+X-Mizu-Trace-ID: 6aae6aeb5c5dc7b9
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 19 Oct 2026 16:05:32 +0200
+From: Henrik Grimler <henrik@grimler.se>
+To: Josef Schlehofer <pepe.schlehofer@gmail.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	linux-samsung-soc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: arm: samsung: Add Hardkernel ODROID-U2
+Message-ID: <20261019140532.GB26863@localhost>
+References: <20261018124459.3026-1-pepe.schlehofer@gmail.com>
+ <20261018124459.3026-2-pepe.schlehofer@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261014-xg6846b-bcmbca-xrdp-reset-v1-0-daf5d177e113@kernel.org>
- <20261014-xg6846b-bcmbca-xrdp-reset-v1-2-daf5d177e113@kernel.org> <9ee8a8f1-5e32-4ecc-80dd-027f0424fda4@kernel.org>
-In-Reply-To: <9ee8a8f1-5e32-4ecc-80dd-027f0424fda4@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 19 Oct 2026 16:03:04 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=_FhbjBCAZKTa_sBLT6UX+xL4kaHmTCE5GAOJf__2tnQ@mail.gmail.com>
-X-Gm-Features: AclHuK-CrXHR_ECn6jU2pZ0tG1afGY2U1A37vPXP2XK7b3-I69SZV02e8oV3Oa4
-Message-ID: <CAD++jL=_FhbjBCAZKTa_sBLT6UX+xL4kaHmTCE5GAOJf__2tnQ@mail.gmail.com>
-Subject: Re: [PATCH RFC 2/5] dt-bindings: soc: Describe the BCM6846 Processor
- Monitor Bus
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	William Zhang <william.zhang@broadcom.com>, Anand Gore <anand.gore@broadcom.com>, 
-	Kursad Oney <kursad.oney@broadcom.com>, Florian Fainelli <florian.fainelli@broadcom.com>, 
-	=?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261018124459.3026-2-pepe.schlehofer@gmail.com>
 
-On Fri, Oct 16, 2026 at 4:20=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
+On Sun, Oct 18, 2026 at 02:44:58PM +0200, Josef Schlehofer wrote:
+> Add Hardkernel ODROID-U2 board compatible string.
+> 
+> The ODROID-U2 is an Exynos 4412 Prime (Cortex-A9) based single board
+> computer featuring 2 GB LPDDR2 RAM, SMSC LAN9730 HSIC Ethernet, and
+> MAX98090 audio codec.
+> 
+> Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
 
-> > +    /* Called PMB Processor Monitor Bus in vendor tree */
-> > +    bus@ffb20100 {
-> > +        compatible =3D "brcm,bcm6846-pmb";
-> > +        reg =3D <0xffb20100 0x200>;
-> > +
-> > +        reset-controller {
-> > +            compatible =3D "brcm,bcm6846-pmb-reset";
-> > +            #reset-cells =3D <1>;
->
-> Anyway this tells - no resources here. This must be part of the parent
-> node, not a separate device.
+Reviewed-by: Henrik Grimler <henrik@grimler.se>
 
-It so happens that this bus (PMB) has several children just not defined
-in this series. (thermal, clocks, power domains).
+Best regards,
+Henrik Grimler
 
-One of the children is the thermal monitor, which in turn is using a
-reset from the reset-controller node, to reset just that hardware
-which is under the PMB.
-
-At this point if we put both #reset-cells and #thernal-sensor-cells
-in the same PMB root node, the reset resource would come from
-one part of the PMB to another part.
-
-They really are different devices under PMB bus, but I'll just go
-and implement thermal sensing in the same patch series so
-that it becomes obvious what is going on, why not.
-
-Yours,
-Linus Walleij
+> ---
+>  .../devicetree/bindings/arm/samsung/samsung-boards.yaml          | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml b/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml
+> index 273464400477..f863803c84f8 100644
+> --- a/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml
+> +++ b/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml
+> @@ -86,6 +86,7 @@ properties:
+>          items:
+>            - enum:
+>                - friendlyarm,tiny4412            # FriendlyARM TINY4412
+> +              - hardkernel,odroid-u2            # Hardkernel Odroid U2
+>                - hardkernel,odroid-u3            # Hardkernel Odroid U3
+>                - hardkernel,odroid-x             # Hardkernel Odroid X
+>                - hardkernel,odroid-x2            # Hardkernel Odroid X2
+> -- 
+> 2.54.0 (Apple Git-157)
+> 
+> 
