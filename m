@@ -1,60 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.122
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792427301;
-	b=JO7X4LO18VMGnHlnbjcyMr7wDtikNTMfqb7Lb9+wf8jzFKGO6mIWLPxT2Bc+SseH14A9
-	 m5vYjdcRaZwkzYFm2KwOMNXifCHZbYhFza4bdgzNgySDT8n+2spmTz764Zkzz4uMT2kiW
-	 J1dZP4aBWxwVpCAnY2yOBoXYsM2vHDMSVE74nBwuPctRHkx+haf6LsS9d8ud1TUTZrhzT
-	 5+fNo9UcgCPh1ARMEc4V/o9B0MGVucaSka1X3Ye9+5Rf3ACISACMuyGlG1HlHdeDgBpLq
-	 wbHvaSfU/s6ivFC0jP/TxPjJWoc2sluPNxVcV39vpBuAnD1UrUUuBjdD8yoEwcrVxug==
+	t=1792427568;
+	b=RQSuWkB+oi1YKIdrIy6MgBZAWOUJi1ps4H2zOmTvm8ih0CtGA7sfMrcTgI8zLuX6Jqxy
+	 CmBguIr40s1kYhrnXeQoGCAhExPB1OrB2soi6xPYz1PSl997vy4CTjBS+rPv+xeOrWqXp
+	 JRyk9z3WQeUIjuUMp7KFtnxO6+qU93fNirOGupromgU4sDtaJUk1mtwSo/Fk4P3d8mDsc
+	 BDfYKYgaeVJ27GvGTIznBUPTzKHMpLj0mYDM2HGdF9s3w+xDXe710E37dn43+t83N1Gq8
+	 codxydFjwZkyO3W+PQBsFC4xZJQUfJQlfCw0qqDSablcwxTWv2eVt4ejrGZ+t6CuRcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792427301;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=AUPj41ctOhJ+cZQoXn73t6Z/v6D9oxg5RLDX2zwJVW8=;
-	b=O4swXLn7T2TaiodavZ70rZv6TDDvbbB7e0V3uanqPrYf4SZqnmh+GiVDMVIOPXZavykN
-	 MrsVLzRuI3YaHmlQ/5i4WzxFrMtP0xv4vhZb4XwAPqZOXa4XcMTrbqDvjvW2R+I4CiWZz
-	 JSpDe/qoixd4c9QoieTPy+YfyoH30Jxja2Kc76ALTbI6nnRuyta00xRpx/LhDaVMk8GBA
-	 wRsrDHpnq2Z+N35xiD7co/Nr/mHY3ukYapPg7sUmqtf7qXARED832VKffFhRZYAoZpLeE
-	 WWJqorNsdLaXpcS8j8kjOlvQpSo2Agbw1/GHwbP5V0vAWyhnLVi6d/dI51X9tFIiAQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792427568;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=BWj6P+5N+9+xj86kghtIJTrYQUXSGty1irTiTrrFBnA=;
+	b=pVMoEx+wf96/Jdb1azl9+Sj0Edi6et+I+4JGCXBepCew1oYxy64nHW367KEKbl53PHTc
+	 xHUKZdeCRJHIO6R724A7bQENCV0Y75rlVLaZYR7fetsXCHdCCcYIOe/mggWo/Iepq/T9Z
+	 rfEtRrNTKuHfaQcLaPt3JUKnAIe6Tx+ZWhH0SmN2f0HePO6nagktMgYbcypaw3sXIlk7R
+	 KBAJVZDh1sO6LcYvDOi8XI5PBrdN9SwA+LprxOIvJKUgK1oJgNIpXRxmQqYBWVebw74Iq
+	 gwCAGHUpWc5A+0r+FnU9YfEidz17EIK3Xsjr/dQ6slzSw5uq3p91IjCdRdJhqW2iFEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=KcLAl94c;
-	arc=none smtp.remote-ip=109.224.244.122
-Received: from mail-244122.protonmail.ch (mail-244122.protonmail.ch [109.224.244.122])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=uihAlf9K;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77F0860A2600
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 16:28:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77F0860A2600
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05C4F606A31C
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 16:32:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05C4F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=KcLAl94c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1792427298; x=1792686498;
-	bh=AUPj41ctOhJ+cZQoXn73t6Z/v6D9oxg5RLDX2zwJVW8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=KcLAl94cRsDTYQoCxS7MvJ7DzPoHXMGqTUQRdhP8PCnAipBJiIcRzUk0fwFT0Z972
-	 gNBgBwe6eeVPECVdMlSaJ4X2WX0qer5nqk13QSi5FP07b3zXNs4Igegd18acaVZ80S
-	 Kgg103gN6/1cQEo37eMprstfbCZ1KMQX2LNs1IWxvUrHU4xU03eoKh/KRATVf9gJth
-	 LUJOj0A/KzIFn3KBMPZnjjdZOTgpE7QwazJP2oECTrdKweTETNz+tN5RVLzXWJCa1s
-	 wpCTHTpJlkLtyDmQFmd/C93skYSoJbCmAy+tcCsKodVwHwwfMMhlskZAG3VIse9NXi
-	 SnNV1l05/YiBA==
-Date: Mon, 19 Oct 2026 16:28:11 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 4/4] media: ipu-bridge: Add the Surface Pro 11 infrared illuminator
-Message-ID: <20261019162722.25587-5-lsa.uz@pm.me>
-In-Reply-To: <20261019162722.25587-1-lsa.uz@pm.me>
-References: <20261019162722.25587-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 48126862a596524f46a1020032fa9283563189d3
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=uihAlf9K
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a1cef0439aso25408605e9.0
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 09:32:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1792427565; x=1793032365; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BWj6P+5N+9+xj86kghtIJTrYQUXSGty1irTiTrrFBnA=;
+        b=uihAlf9KMF1E7leWuq2ziF+jrvFzjVQh7yDYYwzmE3kGwVMD/K26Cbe/WTxyj+aj7T
+         mAesrIGwyR4p4Ql43E484qxEkEgCc0OkE9YMJdVzd0q1ccVEqcLEq3T7yJPl0GDq5V2M
+         VjoLaMO1/sSM9Xw0782GHEKPJDIi+C135kZe6YY73odVwoBYIbX6GUimHcMSomwtinBM
+         qKmut9yiRk+wIbHsrkMrx1UWH7snwPL6op9IUbn8BCco5lV+VMY0sdLxsYG91VuGKJcF
+         hK4ft3UJvUPrYuW9Afwdl5axq6UN2qcIMClH3N+BNIuY2d/Yl/VQCVizt+5p/aBByBlZ
+         V6Og==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792427565; x=1793032365;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BWj6P+5N+9+xj86kghtIJTrYQUXSGty1irTiTrrFBnA=;
+        b=Ur/Ms9yny4zOX6Um7ka6fxBH030DsamiFUigL7QgAMKEVN4xxwPLYA0o/iYqEJ69bq
+         oeJnMWtyzmGyX5za6e2YMHHrkAhgqZZQv+XdaZ8MUtsLUw8SQbZXlt9kBJKmTxjrnJrB
+         K/bniJarUP3fXf9WEbjRp9xxzb5SpYMilHN5VYw+v542H4zU3pYFwDsh3NtEIc99RQ3e
+         xg3AFBGXAqhblvP/lVAqioxmzwF9zHdyhCCLbpgMj0La/8fkV92hjXSj9AxeU31APxv4
+         wD4coufvxmdQ/mDjtABYdHm3tgOJbh7yIThziYUJU/Cj+eVPdZT7C83EJXqsYbqfa7a2
+         t6MA==
+X-Forwarded-Encrypted: i=1; AKwUvBz3vARLLEXVw9kJAkjUclxwTcQU+z7HRtTyeAU/LGIC2rRXkn8ZNaQ64hSsRpeSSnE3NbMzITPS582I@vger.kernel.org
+X-Gm-Message-State: AFq9FYIkvYNMo1C/NSZxbbIz0aMd9mkn/dEpgR8wFX3I7Bsk+qyp72k6
+	QVK8PzO3fB0F1NR4nws3gMoEyMVxZO1zsAEfGM9Rr1svR69tYfj9eh6N6EDfp5HFao4=
+X-Gm-Gg: AYBFou0OzGDWLJyahFTW5NrL8PWqY6unsqTOOvIBH34Z59oLfDUIE+hzJoYluwZn/UO
+	nN4tojgsm8LxVh9KdnschQAhe7TiJfmhKBLtN5lp8l4kNb94l6eC4iHq+H+zocvydy0ROoqbcuH
+	L1miXXkphIqTxQ9kgr4wbEJEoy9tZvnX2tBcJIvsLIX/gDu93JlK2k0ZX7NskDPoxaNEy/fVfsP
+	KapZBonOsyVQjCyoaYVvnQaWhiPQD1Vh3kVoJaeyXViS53ECdGfnYVTBQm+iWXP8esX1/mpq6Nc
+	0MKM8V3XHryQlwFsau1lOGD4TQRqEwzLHlmEJSlhqV5/WFEtQCvuJkAZP0lurcYAcfROmOKfEXl
+	FkIi6tXDXwTGhAmkmtsM4DwJ5N0uZimZgf7knTpAhoBtNBwC1rIIfzVlo1lT5ALoKjDFFnzofIv
+	+7E9/42ZYzKjyymiYVFVdlwtHd1ywBuKS/jF+cVafNlmP6JkKtiqMYAlPC5ft2bQWZcLX1z4ZFj
+	W/S6KA8UcgE2CRUm2LJnUeH7gP3O4actoAEKg9/CEXaDm73ovv9SVGYkFK+iA==
+X-Received: by 2002:a05:600c:3b13:b0:4a0:2150:55fb with SMTP id 5b1f17b1804b1-4a1d75ad08amr209137105e9.4.1792427565319;
+        Mon, 19 Oct 2026 09:32:45 -0700 (PDT)
+Received: from ?IPV6:2a0a:ef40:eb0:c501:2c4e:44f:2449:8978? ([2a0a:ef40:eb0:c501:2c4e:44f:2449:8978])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2cc809csm3538555e9.8.2026.10.19.09.32.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 09:32:44 -0700 (PDT)
+Message-ID: <ee975969-e310-4950-af09-f57fb423a9f5@linaro.org>
+Date: Mon, 19 Oct 2026 17:32:43 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,138 +91,88 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 06/10] ARM: dts: omap: dm816x: Update USB node
+To: Andreas Kemnade <andreas@kemnade.info>
+Cc: Ettore Chimenti <ettore.chimenti@linaro.org>,
+ Paul Walmsley <paul@pwsan.com>, Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>,
+ Tony Lindgren <tony@atomide.com>, Russell King <linux@armlinux.org.uk>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Christopher Obbard <chris.obbard@oss.qualcomm.com>,
+ Linus Walleij <linusw@kernel.org>,
+ Rouven Czerwinski <rouven.czerwinski@linaro.org>,
+ linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-gpio@vger.kernel.org
+References: <20261016-patch-ektor5-dm8168-dts-v1-0-b4ce30217028@linaro.org>
+ <20261016-patch-ektor5-dm8168-dts-v1-6-b4ce30217028@linaro.org>
+ <20261017083957.7c2696f5@kemnade.info>
+ <8a8313f1-d525-45d3-9044-b5f7a00b256d@linaro.org>
+ <20261019154503.2111a89c@kemnade.info>
+Content-Language: en-GB
+From: Andrew Goodbody <andrew.goodbody@linaro.org>
+In-Reply-To: <20261019154503.2111a89c@kemnade.info>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On the Surface Pro 11 with Intel the infrared illuminator is driven by the
-VD55G0's GPIO 1, which strobes it during the exposure. The ACPI tables do
-not describe it, so the sensor driver finds no st,leds and offers no
-V4L2_CID_FLASH_LED_MODE.
+On 19/10/2026 14:45, Andreas Kemnade wrote:
+> On Mon, 19 Oct 2026 10:36:37 +0100
+> Andrew Goodbody <andrew.goodbody@linaro.org> wrote:
+> 
+>> On 17/10/2026 07:39, Andreas Kemnade wrote:
+>>> On Fri, 16 Oct 2026 16:41:21 +0200
+>>> Ettore Chimenti <ettore.chimenti@linaro.org> wrote:
+>>>    
+>>>> From: Andrew Goodbody <andrew.goodbody@linaro.org>
+>>>>
+>>>> USB node was not working correctly with DMA enabled as the supporting
+>>>> code had been updated without updating this SoC's device tree. Bring the
+>>>> device tree more up to date so that it works with DMA enabled.
+>>>>
+>>>> Signed-off-by: Andrew Goodbody <andrew.goodbody@linaro.org>
+>>>> Signed-off-by: Ettore Chimenti <ettore.chimenti@linaro.org>
+>>>> ---
+>>>>    arch/arm/boot/dts/ti/omap/dm816x.dtsi | 41 +++++++++++++++++++++--------------
+>>>>    1 file changed, 25 insertions(+), 16 deletions(-)
+>>>>
+>>>> diff --git a/arch/arm/boot/dts/ti/omap/dm816x.dtsi b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
+>>>> index 7f3ef3a00ab8..5be9efc60785 100644
+>>>> --- a/arch/arm/boot/dts/ti/omap/dm816x.dtsi
+>>>> +++ b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
+>>>> @@ -574,18 +574,27 @@ uart3: serial@48024000 {
+>>>>    		};
+>>>>    
+>>>>    		/* NOTE: USB needs a transceiver driver for phys to work */
+>>>> -		usb: usb_otg_hs@47401000 {
+>>>> -			compatible = "ti,am33xx-usb";
+>>>> -			reg = <0x47401000 0x400000>;
+>>>> -			ranges;
+>>>> +		usb: target-module@47400000 {
+>>>> +			compatible = "ti,sysc-omap4", "ti,sysc";
+>>>> +			ti,hwmods = "usb_otg_hs";
+>>>
+>>> Why do we still need this? It is depcrecated.
+>>>
+>>> Regards,
+>>> Andreas
+>>
+>> Without that line we get the following on boot and USB does not work
+>>
+>> [    0.110148] omap_hwmod: usb_otg_hs: no dt node
+> 
+> It is somewhat odd to use both ti-sysc and hwmod. It looks like a
+> half conversion.
+> 
+> For an example how usb_otg_hs was converted to ti-sysc for omap3, look at
+> 42a79edd4a3dc1bb8e89fd2849f9e8e1e1c13977...v6.1-rc1
+> 
+> It has no hwmod stuff left.
+> 
+> Regards,
+> Andreas
 
-Give the sensor's software node st,leds from a DMI match, as the
-upside-down quirk gives a rotation. dev_properties gains an entry for it,
-as a sensor can also have a lens-focus reference.
+Thank you. That was the pointer I needed to sort this out.
 
-Assisted-by: Claude:claude-opus-5-5 sparse
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
----
- drivers/media/pci/intel/ipu-bridge.c | 60 +++++++++++++++++++++++++++-
- include/media/ipu-bridge.h           |  2 +-
- 2 files changed, 59 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel=
-/ipu-bridge.c
-index cb1d1582fa1..05aa6d92bbf 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -283,6 +283,39 @@ static const struct dmi_system_id upside_down_sensor_d=
-mi_ids[] =3D {
- =09{} /* Terminating entry */
- };
-=20
-+/*
-+ * Sensor GPIOs that drive an illuminator, for machines whose ACPI tables =
-do
-+ * not say which. They reach the sensor driver as its own leds property.
-+ */
-+struct ipu_sensor_leds {
-+=09const char *hid;
-+=09const char *property;
-+=09const u32 *gpios;
-+=09unsigned int nr_gpios;
-+};
-+
-+/* The infrared illuminator, strobed by the VD55G0's GPIO 1 */
-+static const u32 surface_pro_11_ir_gpios[] =3D { 1 };
-+
-+static const struct ipu_sensor_leds surface_pro_11_ir_leds =3D {
-+=09.hid =3D "SMO55F0",
-+=09.property =3D "st,leds",
-+=09.gpios =3D surface_pro_11_ir_gpios,
-+=09.nr_gpios =3D ARRAY_SIZE(surface_pro_11_ir_gpios),
-+};
-+
-+static const struct dmi_system_id sensor_leds_dmi_ids[] =3D {
-+=09{
-+=09=09.matches =3D {
-+=09=09=09DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Microsoft Corporation"),
-+=09=09=09DMI_EXACT_MATCH(DMI_PRODUCT_NAME,
-+=09=09=09=09=09"Surface Pro for Business 11th Edition with Intel"),
-+=09=09},
-+=09=09.driver_data =3D (void *)&surface_pro_11_ir_leds,
-+=09},
-+=09{} /* Terminating entry */
-+};
-+
- static const struct ipu_property_names prop_names =3D {
- =09.clock_frequency =3D "clock-frequency",
- =09.rotation =3D "rotation",
-@@ -563,6 +596,22 @@ int ipu_bridge_parse_ssdb(struct acpi_device *adev, st=
-ruct ipu_sensor *sensor)
- }
- EXPORT_SYMBOL_NS_GPL(ipu_bridge_parse_ssdb, "INTEL_IPU_BRIDGE");
-=20
-+static const struct ipu_sensor_leds *
-+ipu_bridge_get_leds(const struct ipu_sensor_config *cfg)
-+{
-+=09const struct dmi_system_id *dmi_id;
-+=09const struct ipu_sensor_leds *leds;
-+
-+=09for (dmi_id =3D dmi_first_match(sensor_leds_dmi_ids); dmi_id;
-+=09     dmi_id =3D dmi_first_match(dmi_id + 1)) {
-+=09=09leds =3D dmi_id->driver_data;
-+=09=09if (!strcmp(cfg->hid, leds->hid))
-+=09=09=09return leds;
-+=09}
-+
-+=09return NULL;
-+}
-+
- static void ipu_bridge_create_fwnode_properties(
- =09struct ipu_sensor *sensor,
- =09struct ipu_bridge *bridge,
-@@ -570,7 +619,8 @@ static void ipu_bridge_create_fwnode_properties(
- {
- =09struct ipu_property_names *names =3D &sensor->prop_names;
- =09struct software_node *nodes =3D sensor->swnodes;
--=09unsigned int i =3D 0;
-+=09const struct ipu_sensor_leds *leds;
-+=09unsigned int i =3D 0, d =3D 3;
-=20
- =09sensor->prop_names =3D prop_names;
-=20
-@@ -624,10 +674,16 @@ static void ipu_bridge_create_fwnode_properties(
- =09if (sensor->vcm_type) {
- =09=09sensor->vcm_ref[0] =3D
- =09=09=09SOFTWARE_NODE_REFERENCE(&sensor->swnodes[SWNODE_VCM]);
--=09=09sensor->dev_properties[3] =3D
-+=09=09sensor->dev_properties[d++] =3D
- =09=09=09PROPERTY_ENTRY_REF_ARRAY("lens-focus", sensor->vcm_ref);
- =09}
-=20
-+=09leds =3D ipu_bridge_get_leds(cfg);
-+=09if (leds)
-+=09=09sensor->dev_properties[d++] =3D
-+=09=09=09PROPERTY_ENTRY_U32_ARRAY_LEN(leds->property, leds->gpios,
-+=09=09=09=09=09=09     leds->nr_gpios);
-+
- =09sensor->ep_properties[IPU_BRIDGE_NEXT_PROPERTY(i, EP_BUS_TYPE)] =3D
- =09=09PROPERTY_ENTRY_U32(names->bus_type,
- =09=09=09=09   V4L2_FWNODE_BUS_TYPE_CSI2_DPHY);
-diff --git a/include/media/ipu-bridge.h b/include/media/ipu-bridge.h
-index 3ef94c2b767..f56ac1c4e96 100644
---- a/include/media/ipu-bridge.h
-+++ b/include/media/ipu-bridge.h
-@@ -179,7 +179,7 @@ struct ipu_sensor {
-=20
- =09struct ipu_property_names prop_names;
- =09struct property_entry ep_properties[IPU_BRIDGE_EP_NUM_ENTRIES];
--=09struct property_entry dev_properties[5];
-+=09struct property_entry dev_properties[6];
- =09struct property_entry ipu_properties[3];
- =09struct property_entry ivsc_properties[1];
- =09struct property_entry ivsc_sensor_ep_properties[4];
---=20
-2.54.0
-
-
+Andrew
