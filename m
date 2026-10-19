@@ -1,298 +1,177 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 271A4356767;
-	Mon, 19 Oct 2026 14:51:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21421470850
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 14:51:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792421472; cv=none; b=l/wA39/f69rTVsqjI5QGuHj041zQIHwp+3/lk6992r5zdUUWTilXK/Ms28Ai95EWioKQqHd2phGK64WaXwIOtRXmuqUaeweGXt3AikI740ihotbN8YCh642VJEEL7OQKskL+iWJ+f0c5YyCfLnfa19Ieh8nL5Ztr+tJdCs0c5Q0=
+	t=1792421492; cv=none; b=ua3QGEVbG948NLHLK6Aqt3HZ29SGjwCiA9KOk3lVTJx6su6EPkQY2qUMPz+obA9/lhFwYtHuSnsQRk0REuO8TUdufDcbTUItoN3vCpZQoFguInFZxTt1VN/M4cjVqEon2mlQuz4oFRtysMNTzIvKLDda6/h2oxlvBag0zzZRagU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792421472; c=relaxed/simple;
-	bh=A8fuQ0NHwsnFaJFz0bEbjc8KhxQOYjBSxS3WtPY3fX4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m24P6AYdkrCtcY1RsIPfm8QQ1uIkzJojHhpjDsoXEPrA1zLoJSJYDg76cKbTeDjfZ+i1bEpz9RGTGzfxlVZHzrTxU01mFIvDr1G9Po7gTxPvHb4SAajf6GZAucKNFBLr5bgXvZLKBbq+dZ8eEp/OhP8uTDrQtDUP7mTaRLAXd74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CnCUiMhY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792421492; c=relaxed/simple;
+	bh=zvVlRGPfV18YCPCiwYSoInnOl8u2eP57S5CcXqMx7/4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=U18y+d/gPIEbRsqIJUo+jvWFiEceSDVuxgcUpkzdOBGRNwhs4gOh5n3LhiJANkI/8lej2lMy2anrTxolLqATE3EnKgVMa3kJ2+M7jVFEyWQGYCiFp+rXPgZGMHyVgq/ppqFxAYs7Cy1fLrc46U/fsrVwE0oRK4hD1EfMNNcRdxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hPhx03yE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RS/popTU; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CnCUiMhY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8932E1F000C4;
-	Mon, 19 Oct 2026 14:51:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792421470;
-	bh=AhGtNkW/Au0X6+Smv+ruARwYKKJ/M3mDdnyD8Ld0g6c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CnCUiMhYz45/u4bryd0iO/1Knz0HPTMCaGUe4/rgvN662svhuO6KRSq0RyPngvSak
-	 MyBSvaPBir/z+9abnuryZ4S9FuaFRvmzx/TJvKe7tsBRyJLFFbpx9ystMgWX/tCTGq
-	 w5bqrGaoQm6YHU1RpfK6yPpvm72nJyvxJZUAlhiY3eT1HpRsEyB72bqxoCkL0BajQv
-	 jdwlPXgCo10seXAVI5kibGtr/34a5xxSCZMSgGo0nnfLu/oZAmeHs4eHFAJfCU9zv0
-	 YbOHpRcpPuOCwIQ/J1cCyR6l0+BAzEoZMunn7ooARNaVpC20udcGHexJjoHg0Oa/A5
-	 TN9VetQP1YKRg==
-Date: Mon, 19 Oct 2026 15:51:04 +0100
-From: Lee Jones <lee@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Daniel Thompson <danielt@kernel.org>,
-	Jingoo Han <jingoohan1@gmail.com>, linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	mfd@lists.linux.dev, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v3 3/4] mfd: aat2870: Convert to use OF bindings
-Message-ID: <179198329794.839288.10569542357230656958@kernel.org>
-References: <20261013180933.487013-1-clamor95@gmail.com>
- <20261013180933.487013-4-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hPhx03yE";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RS/popTU"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69JE0Z7g2774590
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 14:51:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	w7M0iJEy9hTraQhyfaGjwba1FzFb0/2NEss+BKOE7Ok=; b=hPhx03yEApUtS2Cr
+	G/mnu/lPHF8i7R5Xbh2U5J5RZyxLTdfI3aSP/kgAhP6l9orDBuTvcv94G8GyFQ1a
+	lIduw304YqkY0Di5O58pQ9+hgU0fkY7kJWGti+yvui94zphx/B4AoO5/4F+Y/XKa
+	DkTC9ZiIX7VMWKFTH1fkjDAgvklQqz8N3HOkDg73nAFOJSLZhdY42bDIHSryHwKl
+	5al8zVCFVssTXigjEO5Gx389G9Dz03w+2TTlpcec0bnnMoBLPfKsALuYIPqnWXIh
+	16B+vGNJWo03AxL8/ENT8e2+KpIl3tU6YjzL6JHNzGl/5Ck9VI4URkFmWWDarHGw
+	2MZcqA==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hd5ur3b82-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 14:51:29 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-536540909e5so2990471cf.2
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 07:51:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792421489; x=1793026289; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=w7M0iJEy9hTraQhyfaGjwba1FzFb0/2NEss+BKOE7Ok=;
+        b=RS/popTUkCJwd216WSikbLfc98gazCniIfFPlIdwCSHk4Z95jdrch9J1YgXHDkjjxd
+         TYGQuAD0Ks+lKwN723TimLzi9kwVr1pITqS4e5sX5kL8bZgNSccwPx6RZ60TwIkecheb
+         s+ehG4usR1XSqPPRURyrBbjI94GxZqzLUspNzUvJUrA1tLjTzELS5j3mv+Q4sOa/b2wz
+         tysiXUUD/EytXznoq/qRtKfJQRXL8bb34xCRfJ4XzaPFiXM13tDSo/0H2i5o3RjA2el9
+         gV/vbXAUOwH+o2NTk/40sNczRz8mnpTq7/Zug1AsTnMY9xjGx5l+Zj1bGBO3mlr9j3kL
+         EyGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792421489; x=1793026289;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=w7M0iJEy9hTraQhyfaGjwba1FzFb0/2NEss+BKOE7Ok=;
+        b=dkAWmDZqQ+Lyf21J5Mjf8C+mmhtqNyXaeicILVEpY3zrzyYIiK+kaLvCirL4Gh3FFH
+         yeQPQaqlT0IlfET2VS+SP6iksxOrwxsfpP9wz7jZzpvlp7s+nDHhVdibdP0KhkvJrKTW
+         BKDYX925K9brQr/ZGsJAAnjaHH+v/ZACEPCLHV36e4Q34vVLcSSpoes0YR8L1aR1XAe/
+         RkstUg/1Z01Ohy3m7DaPexHJRnRssHU2uc7X1HSjGt5JN4dYm4hPQgXTZlEr8bsTAMr9
+         W3/UJnuz+Qu/KJ5ttEdoW0Rkn0tUUczQRJ9E8Rbm9cU8Z/D+Dl7Q01FEAl2d91ds19Yj
+         z8Iw==
+X-Forwarded-Encrypted: i=1; AKwUvBw+Uax/XfC54WNxTKqbC75ypXsonM6al7yba1U/KBrD3xZHAqFQTwcBhVzy34NBKK/E7nQ9vSXvnP8N@vger.kernel.org
+X-Gm-Message-State: AFq9FYLoTCDZPzuQrCpdilnCjBla9hTN7TTsyIkEj1NvakpBRU2kW5X9
+	yNtVuNjgeXE/ZKXW5Y80N0E6oX7eqJM0JrRebpCffzk5ww3cb62QHQsWYky+7iNbSi7tvV7T9fW
+	x+OjH0Ud0+sZNZlxQl5lk2E5q0CC5VaqURPY7lPX1I544lUgWJytzRYhT51uNtZfb
+X-Gm-Gg: AYBFou07oKRHclt6RFIwmtkgx9n1B49soYCiLTHL1kgXUg/M7QrFWrGK8az3ehkTcM5
+	BWICiz/Hfpm5Z3W6OfxOTolwQTIWOsIECr0N93Jpp90NtZ5GA4o2nDT5INnqqFgiwdSAd9OJQX7
+	JNpezmqiXmd+KPRPdnbm7LaJVgumkH2WHUJMSHszDvDfahEiHxX3iiPL/tHnNyEMh3IoSRlkzX7
+	/3+Z2aM917XLJJCDiTydl0ljkdzlMjQZW22qRvWKka3+uzDgzXrY7wYPw0LMjEexKTqvQ1w4wRr
+	GJW+iq3zjDX0QwUbb73WWZGyD+hKZR5etydmX1bT3o1yWyu8uz9kqX/SsPZ14SJRO8CvBUov2b3
+	aPoA9akK+gwgpSCDRpHCs3Q==
+X-Received: by 2002:a05:620a:a99a:20b0:93f:43a4:a48f with SMTP id af79cd13be357-93f43a4a566mr197677585a.5.1792421489195;
+        Mon, 19 Oct 2026 07:51:29 -0700 (PDT)
+X-Received: by 2002:a05:620a:a99a:20b0:93f:43a4:a48f with SMTP id af79cd13be357-93f43a4a566mr197672985a.5.1792421488554;
+        Mon, 19 Oct 2026 07:51:28 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c408e32c075sm380856366b.11.2026.10.19.07.51.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 07:51:27 -0700 (PDT)
+Message-ID: <43a57f69-caa2-4943-90a5-729e0f378b21@oss.qualcomm.com>
+Date: Mon, 19 Oct 2026 16:51:24 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013180933.487013-4-clamor95@gmail.com>
-X-AI-Review-Draft: <20261013180933.487013-4-clamor95@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 03/12] arm64: dts: qcom: hamoa-pmic: Enable BCL sensor
+ node
+To: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
+        Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        mfd@lists.linux.dev, Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
+References: <20261005-qcom-bcl-hwmon-v4-0-50b9a8c730b7@oss.qualcomm.com>
+ <20261005-qcom-bcl-hwmon-v4-3-50b9a8c730b7@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261005-qcom-bcl-hwmon-v4-3-50b9a8c730b7@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA1OSBTYWx0ZWRfX6klG8/s4Em9G
+ iKRB1d80xgEyyk0apNet3lKzNcapdK9WqIB9ZENzeOpNFnMcdCij+OCXO91QQHCrhcAf2H4wy/w
+ jtpVAGmmQn9jMOvZ2TyNKcm+n/87x5g=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA1OSBTYWx0ZWRfX3KpwJ6O0yKZp
+ JPPbEQovdDmXhlMoDVBm+C0kigG+FnRDaY39Jui/neio0HcSUkVdmfdLZ1O6fSL6hk2iSbJvWYh
+ 75GwG8CQsCvUij7LVas27FkiwK/m+Nta96q3WVdAl3lvKmp4wUEB/PG0etdZHjl0SI5DRCtFKZx
+ kl/kPqzUWjo8H3Vdb3RzWVSGF547dO2KyKobMPV7qbvE+SM6pyGR6B9L5Cj8EyWXlRcI5JuDx04
+ bM4fS8GjGYZIEAR83HssjhoC+8tmM60/Z0T+H9rcqXrg1yGgqBykWIWQcKBCb/OagUpRUmQtW/D
+ 8j17ONVVSjIuYvbO8jMaXuzu8HrA9HfoA+7iXzlOOzAhOOxpCuoTiJ04tWHJ3SP0e3YiVkTtX/W
+ LYEAea8KM6Rcc2HTw2X/ONY4wRPdWbjWaJlfVtjD0nbhfsvTzmk4yBkPrURwXLYlcdekOndT5dJ
+ XG2yQ9pWdZbUs+fjM+w==
+X-Proofpoint-ORIG-GUID: ne-4RdF9_nKQVMDCwuut_wIKL9xz6-Ei
+X-Proofpoint-GUID: ne-4RdF9_nKQVMDCwuut_wIKL9xz6-Ei
+X-Authority-Analysis: v=2.4 cv=CP6/zhrD c=1 sm=1 tr=0 ts=6ad62e71 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=-LKvvtDxBJcjZvG-X40A:9 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-19_04,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 bulkscore=0 clxscore=1015 suspectscore=0 lowpriorityscore=0
+ priorityscore=1501 spamscore=0 impostorscore=0 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190059
 
-On Tue, 13 Oct 2026, Svyatoslav Ryhel wrote:
-
-> Conversion of the AAT2870 driver to use OF bindings requires a few complex
-> changes that should be done simultaneously.
->
-> The AAT2870 essentially provides two functions via child devices:
-> backlight and regulators. Both functions are fairly self-sufficient and
-> may not be populated on the final board. Consequently, the MFD
-> registration API was replaced with of_platform_populate(), and each
-> sub-device was given its own compatible string.
->
-> Additionally, aat2870-core utilizes an enable GPIO. Obtaining this GPIO
-> was converted to use modern gpiod/OF helpers, allowing the redundant
-> aat2870_enable() and aat2870_disable() helpers to be removed.
->
-> The aat2870-regulator driver was updated to register each of the four LDOs
-> from a dedicated OF node using modern regulator framework.
->
-> The aat2870-backlight driver was changed to populate all required
-> properties from a dedicated Device Tree node. Its channel map was updated
-> to use u8 instead of int. Furthermore, because the maximum current is now
-> parsed as an absolute value rather than an enum entry, the calculation and
-> application of the maximum current were updated accordingly.
->
-> All of the changes above allow platform data to be removed entirely.
->
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+On 10/5/26 2:24 PM, Manaf Meethalavalappu Pallikunhi wrote:
+> Add Battery Current Limiting (BCL) hardware monitor node for
+> hamoa-pmic. The BCL monitors battery voltage and current, providing
+> hardware interrupts when configurable thresholds are violated.
+> 
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> Signed-off-by: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
 > ---
->  drivers/mfd/aat2870-core.c            | 115 +++++--------------
->  drivers/regulator/aat2870-regulator.c | 159 +++++++++++---------------
->  drivers/video/backlight/aat2870_bl.c  |  51 +++++----
->  include/linux/mfd/aat2870.h           |  95 +--------------
->  4 files changed, 121 insertions(+), 299 deletions(-)
->
-> diff --git a/drivers/mfd/aat2870-core.c b/drivers/mfd/aat2870-core.c
-> index 0d56cd6fbc6a5..909c14ee60323 100644
-> --- a/drivers/mfd/aat2870-core.c
-> +++ b/drivers/mfd/aat2870-core.c
-> @@ -16,8 +16,15 @@
->  #include <linux/gpio/legacy.h>
->  #include <linux/mfd/core.h>
->  #include <linux/mfd/aat2870.h>
-> +#include <linux/of_platform.h>
->  #include <linux/regulator/machine.h>
 
-Since we are moving away from legacy GPIO and MFD APIs here, does it
-make sense to replace '<linux/gpio/legacy.h>' and '<linux/mfd/core.h>'
-with '<linux/gpio/consumer.h>'?
+[...]
 
-> +struct aat2870_register {
-> +	bool readable;
-> +	bool writeable;
-> +	u8 value;
-> +};
+> @@ -674,6 +685,17 @@ smb2360_0: pmic@7 {
+>  
+>  		status = "disabled";
+>  
+> +		sensor@4700 {
+
+Is it not there on the 4 other SMB2360s?
+
+Konrad
+
+> +			compatible = "qcom,smb2360-bcl";
+> +			reg = <0x4700>;
+> +			interrupts = <0x7 0x47 0x0 IRQ_TYPE_EDGE_RISING>,
+> +				     <0x7 0x47 0x1 IRQ_TYPE_EDGE_RISING>,
+> +				     <0x7 0x47 0x2 IRQ_TYPE_EDGE_RISING>;
+> +			interrupt-names = "max-min",
+> +					  "critical",
+> +					  "emergency";
+> +		};
 > +
->  static struct aat2870_register aat2870_regs[AAT2870_REG_NUM] = {
->  	/* readable, writeable, value */
->  	{ 0, 1, 0x00 },	/* 0x00 AAT2870_BL_CH_EN */
-> @@ -61,34 +68,6 @@ static struct aat2870_register aat2870_regs[AAT2870_REG_NUM] = {
->  	{ 0, 1, 0x00 },	/* 0x26 AAT2870_LDO_EN */
->  };
->
-> -static struct mfd_cell aat2870_devs[] = {
-> -	{
-> -		.name = "aat2870-backlight",
-> -		.id = AAT2870_ID_BL,
-> -		.pdata_size = sizeof(struct aat2870_bl_platform_data),
-> -	},
-> -	{
-> -		.name = "aat2870-regulator",
-> -		.id = AAT2870_ID_LDOA,
-> -		.pdata_size = sizeof(struct regulator_init_data),
-> -	},
-> -	{
-> -		.name = "aat2870-regulator",
-> -		.id = AAT2870_ID_LDOB,
-> -		.pdata_size = sizeof(struct regulator_init_data),
-> -	},
-> -	{
-> -		.name = "aat2870-regulator",
-> -		.id = AAT2870_ID_LDOC,
-> -		.pdata_size = sizeof(struct regulator_init_data),
-> -	},
-> -	{
-> -		.name = "aat2870-regulator",
-> -		.id = AAT2870_ID_LDOD,
-> -		.pdata_size = sizeof(struct regulator_init_data),
-> -	},
-> -};
-> -
->  static int __aat2870_read(struct aat2870_data *aat2870, u8 addr, u8 *val)
->  {
->  	int ret;
-> @@ -196,22 +175,6 @@ static int aat2870_update(struct aat2870_data *aat2870, u8 addr, u8 mask,
->  	return ret;
->  }
->
-> -static inline void aat2870_enable(struct aat2870_data *aat2870)
-> -{
-> -	if (aat2870->en_pin >= 0)
-> -		gpio_set_value(aat2870->en_pin, 1);
-> -
-> -	aat2870->is_enable = 1;
-> -}
-> -
-> -static inline void aat2870_disable(struct aat2870_data *aat2870)
-> -{
-> -	if (aat2870->en_pin >= 0)
-> -		gpio_set_value(aat2870->en_pin, 0);
-> -
-> -	aat2870->is_enable = 0;
-> -}
-> -
->  #ifdef CONFIG_DEBUG_FS
->  static ssize_t aat2870_dump_reg(struct aat2870_data *aat2870, char *buf)
->  {
-> @@ -332,9 +295,7 @@ static inline void aat2870_init_debugfs(struct aat2870_data *aat2870)
->
->  static int aat2870_i2c_probe(struct i2c_client *client)
->  {
-> -	struct aat2870_platform_data *pdata = dev_get_platdata(&client->dev);
->  	struct aat2870_data *aat2870;
-> -	int i, j;
->  	int ret = 0;
->
->  	aat2870 = devm_kzalloc(&client->dev, sizeof(struct aat2870_data),
-> @@ -348,60 +309,29 @@ static int aat2870_i2c_probe(struct i2c_client *client)
->
->  	aat2870->reg_cache = aat2870_regs;
->
-> -	if (pdata->en_pin < 0)
-> -		aat2870->en_pin = -1;
-> -	else
-> -		aat2870->en_pin = pdata->en_pin;
-> +	aat2870->en_pin = devm_gpiod_get_optional(&client->dev, "enable",
-> +						  GPIOD_OUT_HIGH);
-> +	if (IS_ERR(aat2870->en_pin))
-> +		return dev_err_probe(&client->dev, PTR_ERR(aat2870->en_pin),
-> +				     "Failed to get EN GPIO\n");
->
-> -	aat2870->init = pdata->init;
-> -	aat2870->uninit = pdata->uninit;
->  	aat2870->read = aat2870_read;
->  	aat2870->write = aat2870_write;
->  	aat2870->update = aat2870_update;
->
->  	mutex_init(&aat2870->io_lock);
->
-> -	if (aat2870->init)
-> -		aat2870->init(aat2870);
-> -
-> -	if (aat2870->en_pin >= 0) {
-> -		ret = devm_gpio_request_one(&client->dev, aat2870->en_pin,
-> -					GPIOF_OUT_INIT_HIGH, "aat2870-en");
-> -		if (ret < 0) {
-> -			dev_err(&client->dev,
-> -				"Failed to request GPIO %d\n", aat2870->en_pin);
-> -			return ret;
-> -		}
-> -	}
-> -
-> -	aat2870_enable(aat2870);
-> -
-> -	for (i = 0; i < pdata->num_subdevs; i++) {
-> -		for (j = 0; j < ARRAY_SIZE(aat2870_devs); j++) {
-> -			if ((pdata->subdevs[i].id == aat2870_devs[j].id) &&
-> -					!strcmp(pdata->subdevs[i].name,
-> -						aat2870_devs[j].name)) {
-> -				aat2870_devs[j].platform_data =
-> -					pdata->subdevs[i].platform_data;
-> -				break;
-> -			}
-> -		}
-> -	}
-> +	gpiod_set_value(aat2870->en_pin, 1);
-
-Is this needed when 'devm_gpiod_get_optional()' already requested the pin with
-'GPIOD_OUT_HIGH'?
-
->
-> -	ret = mfd_add_devices(aat2870->dev, 0, aat2870_devs,
-> -			      ARRAY_SIZE(aat2870_devs), NULL, 0, NULL);
-> -	if (ret != 0) {
-> -		dev_err(aat2870->dev, "Failed to add subdev: %d\n", ret);
-> -		goto out_disable;
-> +	ret = devm_of_platform_populate(&client->dev);
-> +	if (ret) {
-> +		gpiod_set_value(aat2870->en_pin, 0);
-> +		return dev_err_probe(&client->dev, ret, "Failed to populate cells\n");
->  	}
->
->  	aat2870_init_debugfs(aat2870);
->
->  	return 0;
-> -
-> -out_disable:
-> -	aat2870_disable(aat2870);
-> -	return ret;
->  }
->
->  static int aat2870_i2c_suspend(struct device *dev)
-> @@ -409,7 +339,7 @@ static int aat2870_i2c_suspend(struct device *dev)
->  	struct i2c_client *client = to_i2c_client(dev);
->  	struct aat2870_data *aat2870 = i2c_get_clientdata(client);
->
-> -	aat2870_disable(aat2870);
-> +	gpiod_set_value(aat2870->en_pin, 0);
->
->  	return 0;
->  }
-> @@ -421,7 +351,7 @@ static int aat2870_i2c_resume(struct device *dev)
->  	struct aat2870_register *reg = NULL;
->  	int i;
->
-> -	aat2870_enable(aat2870);
-> +	gpiod_set_value(aat2870->en_pin, 1);
->
->  	/* restore registers */
->  	for (i = 0; i < AAT2870_REG_NUM; i++) {
-> @@ -436,6 +366,12 @@ static int aat2870_i2c_resume(struct device *dev)
->  static DEFINE_SIMPLE_DEV_PM_OPS(aat2870_pm_ops, aat2870_i2c_suspend,
->  				aat2870_i2c_resume);
->
-> +static const struct of_device_id aat2870_match_table[] = {
-> +	{ .compatible = "skyworks,aat2870" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, aat2870_match_table);
-> +
->  static const struct i2c_device_id aat2870_i2c_id_table[] = {
->  	{ "aat2870" },
->  	{ }
-> @@ -444,6 +380,7 @@ static const struct i2c_device_id aat2870_i2c_id_table[] = {
->  static struct i2c_driver aat2870_i2c_driver = {
->  	.driver = {
->  		.name			= "aat2870",
-> +		.of_match_table		= aat2870_match_table,
->  		.pm			= pm_sleep_ptr(&aat2870_pm_ops),
->  		.suppress_bind_attrs	= true,
->  	},
-
--- 
-Lee Jones
+>  		smb2360_0_eusb2_repeater: phy@fd00 {
+>  			compatible = "qcom,smb2360-eusb2-repeater";
+>  			reg = <0xfd00>;
+> 
