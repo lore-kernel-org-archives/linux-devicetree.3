@@ -1,160 +1,172 @@
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011005.outbound.protection.outlook.com [40.107.74.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CAAA492E2E;
-	Mon, 19 Oct 2026 08:35:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.5
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792398946; cv=fail; b=crq69mri51NhunV9c7Om6tbUVvi+eYg2mdYqO3uI6WC71kvvtO8C/NI7PAb20cYkt522j/8DIb7payJN8c1TLfRxklzwulwPYSJrp6pzBdyXnkfitNZr5UmRL/SrG6XWjLDytAh5ZSp5EZp/56aGr7aUr7slByBk1nX1tzwuvVs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792398946; c=relaxed/simple;
-	bh=G6+IgdWTlWUiCBp+HfpAg5M6P6RD5fMcX4ySaCtr3zw=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Lx6wSQqM79MNpw+e/5x6JYCdcpqTjWP5fUD5fzQLEmk9Od8XpDCrPNONQ1qUsVMsGhmWdkxfujPd0NmjBRNQUVAQ4ZyVstJqVuVPEldb4VWTrhmzL84gdCgSNv+7e6P8kgenztKAzHHFMACOq5XYwYthTypabjd6ftqVHmMhLR4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=Pa8eBPoW; arc=fail smtp.client-ip=40.107.74.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D213128DF
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 08:36:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792398987; cv=none; b=DgydgJUJj9VJMFI/Mq3v+7SCsFKq1YyaiWMz6I9cBrXNT+xysyIdfyYMjeczESfgjJmLz1je2Tsqd7qGHEEgL+TOtuwmapF91RFZFguydp7Cq08Huu3l4junLWYuzfZ/t0uNCvSFUTkETviKahni2ezWz8Ue8ZGDYCn5hfy9V7g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792398987; c=relaxed/simple;
+	bh=fYRj8qFKNJXm1gWOar6pgdPbjVP6k3xNpTQTpY/uZrE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M5ZjlGFU7mIGAtcMVMEvNOsvIOAmP7d5DIjgm99TTBNa+mPZfqP9aKCKSpeqq3ZChaC0HMJzjVuzidMHuCHqT7j8EsmTV4Tf4qs9a6OeYxp2Z7334UVru+JM1hqa8wsKsH5pciYCmEUXVlntt+GyO61xauhVwVlZh51I0xrpv8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HDc0Jirf; arc=none smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="Pa8eBPoW"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=M2molG7jkIZZ7endC8ORW59Ca1YSJNZDgBldax3OYS8ejaGAU7Oax4rsDhOPmqLN8HpsXyg6bElwU8YsL75B/dYSIdxvs29ofrSwhv8kRSNa2T0pZ+Zf5ltuthcs4jdE3w1wgIMW0aRpdeVz9JLDB+BadO4sd2a/MnQCHqPuHsTMGGJP3cdZv9s7yFL/00UP5g9TZAl1ploKo2BOkQ8tKRYBXvaXB7LaQFgHzDqDwkD445fteZ0a5BdM3M8lhbFCsiqTglgp0us4GYZuuSMEE7ifEXWT3N2rcgJ9AcE0HQ1x2FWOYfswjzjukG1wUHx9QOpa8U9yoIEtm//t1x+51g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G6+IgdWTlWUiCBp+HfpAg5M6P6RD5fMcX4ySaCtr3zw=;
- b=ec1scmJvwPhvN//rPdNXJc6mVGz65u8Or7pk2AZcOiYy9oiM1v4nMCIqPOyW4ke78luXMircafTPhaf82PwEyqF4uRh5GxrjcO75QsCI6zAdtmhm8ISx9HoqiKdxzZdJndEHKhfPHqzm4NYu2IK3Ujb6knFggOSPeuRbj/ASfRRb2yvjzt63zzVmJQTUe53II6S7GBmO6FVYAqbNMFmIfOdE/OIy5pH0qbgwiYKrX2z4QwxNO50hfPVYnHyCnPWYwX2/OK+O+Cx9BWerx26/+WSvzFHlioOVeogxYpoWy5rUiYU+DloVQlQd+ly3mNMoxCaiwqKz0fPz4yt+B3PQXQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=G6+IgdWTlWUiCBp+HfpAg5M6P6RD5fMcX4ySaCtr3zw=;
- b=Pa8eBPoWjZ9T5UL15wg/hiKBO2n4dqRlF9DUS714nAzAIDQViE6r0miK76VlOoTZMJ/oPnzCn6egOdMczcznmoYGkXrQxDwnYb4OmWLZuPoyoYPbd/hnmljCHuEd7oHycTouBgaxS5o2f8wmLaf8edOSyg5y/SdWvOLtmbK9k2k=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by OS3PR01MB9786.jpnprd01.prod.outlook.com (2603:1096:604:1ec::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 08:35:41 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%6]) with mapi id 15.21.0496.021; Mon, 19 Oct 2026
- 08:35:41 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Marc
- Kleine-Budde <mkl@pengutronix.de>, Krzysztof Kozlowski <krzk+dt@kernel.org>
-CC: Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
-	"magnus.damm" <magnus.damm@gmail.com>, Fabrizio Castro
-	<fabrizio.castro.jz@renesas.com>, "linux-can@vger.kernel.org"
-	<linux-can@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-renesas-soc@vger.kernel.org"
-	<linux-renesas-soc@vger.kernel.org>, Chris Paterson
-	<Chris.Paterson2@renesas.com>, Prabhakar Mahadev Lad
-	<prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: RE: [PATCH v4 1/3] dt-bindings: can: renesas,rcar-canfd: Document
- RZ/G3L SoC
-Thread-Topic: [PATCH v4 1/3] dt-bindings: can: renesas,rcar-canfd: Document
- RZ/G3L SoC
-Thread-Index:
- AQHdUXqWGJYcQwxreka0VFtI2IFYOLcAS3kAgAABusCAAS3QgIAAAZIAgACbvoCAAo40kA==
-Date: Mon, 19 Oct 2026 08:35:41 +0000
-Message-ID:
- <TY3PR01MB11346AD7649DBAA2E9E065FFE86982@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20261001075742.21961-1-biju.das.jz@bp.renesas.com>
- <20261001075742.21961-2-biju.das.jz@bp.renesas.com>
- <20261016-rebel-ostrich-from-vega-f759c8-mkl@pengutronix.de>
- <TY3PR01MB113465234171180FFB5F1B6FD869B2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <c624d8d5-3362-458a-96db-0457b25cad53@oss.qualcomm.com>
- <TY3PR01MB11346ACB35A041309BCFA744F869A2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <ce03d3ce-da47-4435-8c98-d86b2816c5c0@oss.qualcomm.com>
-In-Reply-To: <ce03d3ce-da47-4435-8c98-d86b2816c5c0@oss.qualcomm.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|OS3PR01MB9786:EE_
-x-ms-office365-filtering-correlation-id: 0d0d7f2e-aa36-400a-7ad3-08df2dbbf5cf
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|38070700021|56012099006|4143699003|11063799006|261009223027099003|10067099003|22082099003|18002099003;
-x-microsoft-antispam-message-info:
- jhKpaMHsSkaQy5vtQV1MTaAwrLdMQLFcuhTRLRpsHv+rc/1W/GMYfP8/nrYeYLkaAkbrwKwPFH8/AdammMGbhlPgqrXoivxj6Fw+80C1mUNT8wlC4O8+KrF4rJjBzh3D+iuygfg/uDyLHpjF2g7laF64aQhB/i8inTPaI0xgdXBNjolVa3BZI3Sdr/T2pHdj4Nd0e6Iiwr29PvsbNE0bQFW5aOYh+zpbg5iq1mPXRFg3X5ojvKtC3BRmCogucv6ySaFmmSM3S4O7laEM4tNU0aYrWV86nHZFJMj2xR0LuSVoY5dmzCdcKuJUg4/WSQXMlDl1jEOpixttNxMyeaGkvzFyYy+3omEjCiIBTpE7IafOout6AuDXxaz/VzCXeHua1RjuaNRs6yDRQ3tApE0QvSa0+3SxVAZRAbOk0P8OKED7dXPmeguuvDBasnZlp4ZbG4iVXetNHmOa0e/s4mOSCOzWoVLiAn2xP18xzFGFCOFOR+Gok5upXJyP2wPmKsp7WBJzVUgmKz7Qey8+2jJA8NMaKpRczGgC+paW90IHjUepukgepdA9zLoo4tph3cYqb+uuxmrBFa8cCW0sTNstQ7IceyYnr7FJBTHFgctX0Q+/PLknHbdxWtzosv4MCQ/kK0ZtMILbstIa8c0p9GHanMUgi5p6nnoBODGYPWcgLqFR+XcAqEJtQNECobktyea0bmTs3P3D3eAV7dZGskULYqrOSy4WI9nRq12yqHE662o=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(38070700021)(56012099006)(4143699003)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?QUV6YW9LYU1BQ3ZrSnVSQ3g0ZXhPL2xQRE5lK0krcFJmN0NtRURwMTJBZ2lt?=
- =?utf-8?B?VU51ZE1XSFB2M3lGdG16R1QvQkJTRlBuTmt6RzY2Y0NnUFNJRTAyem9LZ1pZ?=
- =?utf-8?B?VVpZWnB3UGlEUHdldkdyWm5kRlM0Sm9tb1IrSSt3cFNncEhqQU8wRkxuaGRl?=
- =?utf-8?B?T2JHdUhkTXJDVXhxTUVrcGp5eFNxUGZrVk1hMXBySEdoMy8vYnh5ci9Ld3cr?=
- =?utf-8?B?T0pqMnEyMEJHbTVoR0VZNkVRVWh1cDdKQzBlU3prR3Z1d0JJYmFvL0ZKOFV6?=
- =?utf-8?B?NTczZkNZVlZQakNOYmRaSUtwam52bytCZlRMbkdpUGl2NmRYdURxaXNxeDlz?=
- =?utf-8?B?VytHcjNKSVlpUnBNM1VKVzQxTXV6VHhxNk0vdmJVMGRXaTA2dUdydFhkSEY4?=
- =?utf-8?B?azFDY1dKTzNJbTlRYWsrVzhBTHRZelFkVUZPdUE5ZG5CaUpQM2ZvR09haVVj?=
- =?utf-8?B?TldxR0hscmV4alFKd1NMek5jL0p4SmVXZUlqdis4SnpMd3I1ZFpHZmNDZEZl?=
- =?utf-8?B?cFA4akJCenZvaE1acFdWQ2pMU1M3TER1U2lPb0ZreXRyeC90MGc1c0oyZm80?=
- =?utf-8?B?M0tIUmw0YW5EbkdMKzdqaHpoS1l0b2FhdGFoN0pGdkhuNEtTL21CWHE5NDBn?=
- =?utf-8?B?Uk5uOC9NYzI5SmppZjNDTHdZODhqZnV1NmxIUHJqZUd5K2VoNG56dlpkS0M1?=
- =?utf-8?B?dXE2RUR5QzVCMlBSRi8zR3Iyd3d0RHVQYTQrMGtxTTIra3dJSDJtVlFlZmh0?=
- =?utf-8?B?VVRRM0dzZG5VdDBJL1F0RHhHRGEwNFh1dS95TlNIbU93OFZIejlCMHZ1ZXdG?=
- =?utf-8?B?bjA3bGR5MFVzdzR3NHUzdzB4eWZWdk5yTjFuek1zZnpGRmlnMlhKMHczQTl2?=
- =?utf-8?B?alZ6alczeUVFV084Q1dQeDBhdGNBMzZNSzBmSWpFa2phTS9STHpGY2xiTSsr?=
- =?utf-8?B?c1J3ZjNla3g3NXgwQi9LZ1VxWURmTTF1d0ZJWElydHk2Y1ZiUS9lMTMvaFV2?=
- =?utf-8?B?czUyemZ0S0dxYlI4c25mYWRoMHZmc2VEMGorZmliZk5rZkd1L1F5aVpJWmxQ?=
- =?utf-8?B?L3Z6aHcydW1xNnk5bVpRTFBQakE2YUs2THlHbGtiaUVqQm1YWWdObXQyRyt3?=
- =?utf-8?B?NVI5VlNhaGFRRDUrTElrZmtYMWdnaXpZb2JoWTRHY3hDV1psdlEwc1FFWVVj?=
- =?utf-8?B?KzJzd2M0elUwRGFKdHZmQVgrV2Q4TFBxQ090T2RYaXA5bVhZTW5hRFRBNnNB?=
- =?utf-8?B?ckw1Y0VycGdJWGpEazJ6eFpWWktNMnNWdHd1Z1VrQURZMHo4TlAzMHdEcGha?=
- =?utf-8?B?ZDF5TTA0L0RjTlpQcGZPdVBkZ2FXK2M5aVJKY0phYmRPT3JpSE54ajE5am85?=
- =?utf-8?B?Vk91UnVua0FlR2hkdWl4MEdtZlczRlEyVGdmMXJPb0ttNm9zcFRoYkw3Vmk0?=
- =?utf-8?B?eDRsMXcvQ2dYMDR4OUZ0c0E3VnlodEw4eVlVOEg4RTQ2ekdYTTZnRmZ5YWs5?=
- =?utf-8?B?Z0IyWXZVMzRvSmFqVmVIWWJOK3lrNG1WdVcrS0lLc0gycDZsQlgyaHVNb1hy?=
- =?utf-8?B?Zkt5THpYN004RUswVytKZGxPNkxzWWFVVi9ZNmlkOUtqZVVHMnlmUDg4OEh3?=
- =?utf-8?B?cEpTNk1TeDd6bHJqbVVlV3RsYnZ2a3A3UTgzKzEzYjJ2eEl5YUdwSG1yWUQv?=
- =?utf-8?B?SGNxNVBpRGhNcVZ2K3FiUmpuRkFuRE5ta0ZzcEpIdy95UStyMmlucm9vbHpl?=
- =?utf-8?B?K3l0Tks0TmZlTENiT2lEZVBXYldNOHJGODlWUTBibWZXelhSK1Bmb2JqZG5T?=
- =?utf-8?B?bENIbll1dEViOWM5TW5US293YTVHZmJCUHU1RnpQWmVWbU9yMG5zNGZUWGQ4?=
- =?utf-8?B?cUpaYkdGUjVtcndyekEzZjAwQVNIUjRCRGQraUNFWk5PRXM4WW9kWk5BdFpV?=
- =?utf-8?B?c2RBQXREcHp1dElFR3VFV0RPdXJ3TmhjM0lqS1lDVUljc1BHdVIwYTdkczFH?=
- =?utf-8?B?YS9seHJEQUp4VUlPWHN4SklzZzhZYUJsK2Q3VU5RREpSeXFQK2g0bG51WkJs?=
- =?utf-8?B?TFFzZVA3QlFScWx1MzlpVEhCdG56T1ZidzVvenhvcXA5cGlvOWN4MzE1cHNG?=
- =?utf-8?B?bWhrRDNsR2xnQjI0OGtzS05PUEs3WkExZWE3TkRXNU9HZkxYbnlMV25yZ2k1?=
- =?utf-8?B?b1FuYzB1YzVyUmo5ZmlURnppZFczMXdTWDR1U3NHVXlOYXdha0JyaG8yNGxl?=
- =?utf-8?B?TUdYWVVOcHdiSlNtV0FScFRQa3lqM3JPNUlvS3llZWlBUkJZZ0VxS2xVYzF2?=
- =?utf-8?B?VHJmZldxWVNjVHdOako4UkFPTTNUanJ4cnNKNHJjSGcrM1c4STVZQT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HDc0Jirf"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c263415982eso202539566b.0
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 01:36:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792398985; x=1793003785; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UyIIKcOQE3LOkHo2Iikq4ClSniu9+AZmAOWlKwdcPZg=;
+        b=HDc0Jirf8aXAXc09oa18l2P2kguyZN9J78VYn3DXXpclPy2Zj9KrWv6RBcJLMYMzNQ
+         Gyr17bNM3RhTWcweQ+yIw3QAt6/22LDj8vaKRwLLdaR+REpxD6FCcBzVqx6o89Yuqq52
+         ZV/b+6f/KgFLWNDWrLtkHr/49jDntQ8k3TwAvDMgsG5RKU+dktg7w+OIJIaW3v6TVxsm
+         grPw6S7fQfTx0oBPq0QDgcqNchSrD9UPhGZpPrdPfkJw+y581THA8B1K/ZbcYE3nb0JV
+         9QykkZVvaeGLzQJL5DZMbBUgQubnsh/Q7+pmRLgEpE/GjJ8oggQn8jxOnRLV4HLvgaXU
+         MAWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792398985; x=1793003785;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UyIIKcOQE3LOkHo2Iikq4ClSniu9+AZmAOWlKwdcPZg=;
+        b=XGsZEcESxRDfb7aLz/kt/fqwHj8GhD5Hg/BFZTfgogmy4RbBAmYDjtopBhR+uVAPQt
+         Pc6zsAaxllIA6+qyYxNY7TAc/TKqA2HePCRyLbhBa50AKKMVl19RIZ5e1h32c2gHy0LC
+         UIINDgtkgHgT7wybUsubv/CazSBr9aDMrLm3VqFs6uzfo4fVflv5A0KsW8/tS7eD67BC
+         eZbIxv0LuolJGbdpTOIKPu+WrUcpKtEbHEdRZYHwJVqan3jmDh4xi+ONQW9xqY80NcgG
+         Y6cvvJW4DHjkrVFdBgAH1I2wWrouQM2PZKWfor+muohzuPddFvJi4KU8RjFwjEu/IjG+
+         dO5Q==
+X-Forwarded-Encrypted: i=1; AKwUvBypYj5uCLiouhWo9FA3VCfE3fZ2vCtPrhVrd6pSF9wBl6QnC3AcMg8dyH6MIaDZs2GygIk63HorCnGf@vger.kernel.org
+X-Gm-Message-State: AFq9FYIOKh6WJ8R0sEbGh5ZLIM6bF+JX+K5vW5t/rRGhPNHOKeZulvGJ
+	nOPeDeBn2QaapAVAaeBbDJHcFjLJrVIuQJvrbIuBNsVhKNeVlUuzAJAj
+X-Gm-Gg: AYBFou2Fr2/2uS8gClGcWgpEKJF+1fUrL2KNm0bId1/6DjONxQaEard4bCn/H4vNRee
+	DvNuWAq23cn8NM+PJiDem510ulsJ0FEaFBezEcJiqWz2RwIGb8yrOzOA5XV1+VrmvAoRmm10Cx6
+	6+1bsMx8ktYubVdw1jr1hRjYELFtNwxE7bnIzp8oOfSUB3JiTFaeVdNm2eGK3El2VaJHWycgjbu
+	vpN6iqhYuzS+V3ejMNSiECGpPuUbfV1GurWSaKr5NxtcPaOYvpYhe2Q/5RF0G0dFHK5JIOK/MTq
+	mRGJ/4GeOjzJRxmfA9jFKuSR24UF0LMLK2/JecyjhDa8VgMne4663ZsqewIW2OVmhvi9XCUalPX
+	7BJr5E2k/rR8R1Tkj9GIAZB4T33IPdpFzTNXY5AF315bDYAIMQ/RKp2cVEykWOEpzHbK/cPpRX1
+	ib8ntakPo8hUddphQIY/FWb4i6FzsW2tSP48t7twkwMYkcmgYSp/aZTZ5fqCa+Q1n/lSltg2uLZ
+	F5oODuzxnOHgU4/WEFsZItBVUAAxhKkkTLX36LAxiILZ1RU761S59Eu2Gm4lD/e7FhDdJMl2Vlm
+	zeVCwK0Xs60g+l1EikBEIiHPCPQ=
+X-Received: by 2002:a17:907:3e15:b0:c2e:808a:f78a with SMTP id a640c23a62f3a-c419f31b40emr481793566b.32.1792398984217;
+        Mon, 19 Oct 2026 01:36:24 -0700 (PDT)
+Received: from M-K2012N0113010.localdomain ([88.119.128.229])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4090dcf98fsm323106966b.13.2026.10.19.01.36.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 01:36:23 -0700 (PDT)
+From: Paulius Zaleckas <paulius.zaleckas@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	linux-iio@vger.kernel.org
+Cc: Eddie James <eajames@linux.ibm.com>,
+	Joel Stanley <joel@jms.id.au>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Rupesh Majhi <zoone.rupert@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Paulius Zaleckas <paulius.zaleckas@gmail.com>
+Subject: [PATCH v5 0/5] iio: pressure: dps310: add Zilltek ZTS8032
+Date: Mon, 19 Oct 2026 11:36:15 +0300
+Message-ID: <20261019083620.1285782-1-paulius.zaleckas@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0d0d7f2e-aa36-400a-7ad3-08df2dbbf5cf
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Oct 2026 08:35:41.5849
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 5OL7oxIAmBr5ph3v7GBoC8KOfmT83y3jhfM9gJa/+KyQK9NKecHX/fzhSnrXmwcQTWzzn9/ogFhnDjXtlSVY/qaixg+gbjfisC5fbYirOhY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB9786
+Content-Transfer-Encoding: 8bit
 
-SGkgS3J6eXN6dG9mLA0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IEty
-enlzenRvZiBLb3psb3dza2kgPGtyenlzenRvZi5rb3psb3dza2lAb3NzLnF1YWxjb21tLmNvbT4N
-Cj4gU2VudDogMTcgT2N0b2JlciAyMDI2IDE4OjM0DQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggdjQg
-MS8zXSBkdC1iaW5kaW5nczogY2FuOiByZW5lc2FzLHJjYXItY2FuZmQ6IERvY3VtZW50IFJaL0cz
-TCBTb0MNCj4gDQo+IE9uIDE3LzEwLzIwMjYgMTA6MjMsIEJpanUgRGFzIHdyb3RlOg0KPiA+IEkg
-d2lsbCByZXN0b3JlIG1heEl0ZW1zIGluIEludGVycnVwdHMvaW50ZXJydXB0LW5hbWVzIGluIHRo
-ZSBuZXh0IHZlcnNpb24uDQo+IA0KPiBZZXANCj4gDQo+ID4NCj4gPj4NCj4gPj4gV2hhdCBpcyB0
-aGUgdXBwZXIgY2FwIG9uIGludGVycnVwdHM/DQo+ID4NCj4gPiAyMC4NCj4gDQo+IFRoZW4geW91
-IG5lZWQgdG8gc2V0IHNwZWNpZmljIHVwcGVyL2xvd2VyIGJvdW5kLCBzaW5jZSB5b3UgaGF2ZSBs
-ZXNzIHRoYW4gdGhhdA0KDQpPSy4gQWdyZWVkLg0KDQpDaGVlcnMsDQpCaWp1DQo=
+The Zilltek ZTS8032 is a register compatible DPS310 with two more
+pressure calibration coefficients (c31, c40) and a different TMP_CFG
+layout. The FIFO is the same as on the DPS310.
+
+1-2: Vendor prefix and the zilltek,zts8032 compatible.
+3: Per-chip data in the I2C and ACPI match data, no functional change.
+4: OF match table.
+5: ZTS8032 chip data: the coefficient count, the external sensor flag,
+   and a Horner step each for c40 and c31.
+
+Based on iio/testing (43ffda3c7f84), on top of the FIFO series.
+
+There is no public ZTS8032 datasheet.
+
+Testing: ZTS8032 on an arm64 (MT7987) board, with dps310.c from this
+series backported to 6.12. in_pressure_input matches the datasheet
+formula evaluated from the raw and coefficient registers to within 1 Pa
+at every oversampling rate from 1 to 128, and TMP_CFG reads 0x00 after
+probe. Buffered capture without a trigger runs through the FIFO
+(CFG_REG reads 0x02 while enabled, 0x00 after) and returns the same
+pressure and temperature as direct reads, with pressure only and with
+both channels. Every patch builds without warnings with W=1 on x86_64
+and i386, dt_binding_check passes. I have no DPS310, so patches 3-4 are
+untested on one.
+
+An LLM coding assistant (Claude Code) was used for this series: it
+ported the ZTS8032 support from the vendor driver, wrote the code and
+changelogs and the hardware test scripts, under my direction. I
+reviewed and tested the result.
+
+Changes in v5:
+- Rebase onto iio/testing with the FIFO series. The ZTS8032 FIFO is the
+  same (FIFO_EN, 32 entries, FIFO_STS, RESET FIFO_FLUSH), so it needs no
+  chip flag (Rupesh)
+- Replace the tmp_cfg chip field with coef_for_ext_sensor and build the
+  TMP_CFG startup value with FIELD_PREP() (Jonathan)
+- Drop the TMP_CFG comment on the ZTS8032 chip data (Jonathan)
+- Use get_unaligned_be16() for c31 and c40 (Jonathan)
+- Link to v4: https://lore.kernel.org/r/20261016153533.3701000-1-paulius.zaleckas@gmail.com
+
+Changes in v4:
+- Rename DPS310_MAX_COEF_LEN to MAX_COEF_LEN, separated from the
+  per-chip lengths by a blank line (Andy)
+- Add Andy's and Joshua's Reviewed-by tags
+- Link to v3: https://lore.kernel.org/r/20261015104945.2687162-1-paulius.zaleckas@gmail.com
+
+Changes in v3:
+- Drop v2 1/6, superseded by a22dc7ebb21a in iio/testing; rebase onto
+  it and add c40 and c31 as Horner steps. This also covers the Sashiko
+  overflow report on v2 1/6.
+- C99 initializers for the ACPI ID (Andy, Uwe)
+- Add DPS310_MAX_COEF_LEN in patch 3 and bump it in patch 5 (Andy)
+- Parse c31/c40 based on a chip flag, not the coefficient count (Andy)
+- List the supported sensors one per line in Kconfig (Andy)
+- Link to v2: https://lore.kernel.org/r/20261013112124.1878296-1-paulius.zaleckas@gmail.com
+
+Changes in v2:
+- Split the driver patch into per-chip data, OF match table and
+  ZTS8032 support (Andy)
+- Drop the linux/mod_devicetable.h include (Andy, Uwe)
+- Return -ENODATA when there is no match data (Andy)
+- Add Conor's Acked-by to the bindings
+- Link to v1: https://lore.kernel.org/r/20261012114550.1680054-1-paulius.zaleckas@ui.com
+
+Paulius Zaleckas (5):
+  dt-bindings: vendor-prefixes: Add ZillTek Technology
+  dt-bindings: iio: pressure: infineon,dps310: Add Zilltek ZTS8032
+  iio: pressure: dps310: add per-chip data
+  iio: pressure: dps310: add an OF match table
+  iio: pressure: dps310: add Zilltek ZTS8032 support
+
+ .../iio/pressure/infineon,dps310.yaml         |  4 +-
+ .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
+ drivers/iio/pressure/Kconfig                  |  6 +-
+ drivers/iio/pressure/dps310.c                 | 80 ++++++++++++++++---
+ 4 files changed, 77 insertions(+), 15 deletions(-)
+
+
+base-commit: 43ffda3c7f8456bbe641ae8249a077a361b97880
+-- 
+2.55.0
+
