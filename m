@@ -1,67 +1,133 @@
-Received: from mail-10696.protonmail.ch (mail-10696.protonmail.ch [79.135.106.96])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1E324503ED
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 11:17:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.96
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7884649BB65
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 11:18:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792408628; cv=none; b=LM3Mo4+RIcq0gfEJGW2DMKUHb0ElTw25zW9j7+er+nY2pm5kSDp7rispQenGcxwLjfQU/0gS6QZGidrsqgz21VPfbDqjcrAHtINwUvnVJJh9Xi2/8U/p/0930SzStqBDU+eN0WrjiPlQ+MDNR3MJkMzIiK8/fcw5t0Tf8CkCJAs=
+	t=1792408727; cv=none; b=tFqIqu/r4lahwbks+K5h5BiZvtyDNTaGVySoDSQzKsGx4hbl86s3+g3/jNam950+JBvGGxGt9PVFqNohigrvOyKn0uCqB1/vswYSWxDbHJDfW6JmebPyn+soAvkXaRsFSusp11ToEF2UTXiqoL5SxIuZjhRTOkr4GC3FBPfzAQI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792408628; c=relaxed/simple;
-	bh=D4/TrKkFA1ZKrGzrwtrzZI2hz0p1rOmZGbEWuMNR+qg=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DIS+74fV0v/5MQuwbgL1qkCvyKEnrZBOYDHDjldrN1jCdCrP7E35ySXe+IZxTkbpmrxoM+qezrtCbq6uw1L6kvDFlX/w9/QZK2HXiBfHsazfVcwzOvz45Qh17Gws4ldJX61X4bNziqy9oTjJzH+oNAv42kifQdBJq4BFzRLP33g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=FGrK+3gC; arc=none smtp.client-ip=79.135.106.96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	s=arc-20240116; t=1792408727; c=relaxed/simple;
+	bh=sibS6+PbzNU0PLhMfzlVYE7Xqoew+WZ9iiOgUjlOo0c=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=A53zSDEsqxmOVB3QWwgPC26S17K30+ImspqFo7jWpiAYSmCJI//sRA2ypnqD7KN7FswEJeahiI/efGReL7KBHtfRReFJRPhgH1A2FKSz4igcotKc3hU/+YBDaq8yqDufwlmB0hzi4RVvcbAcLt1a1StIdgo4A6nIZiKoQRQp9V0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o9jQvef4; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="FGrK+3gC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1792408617; x=1792667817;
-	bh=D4/TrKkFA1ZKrGzrwtrzZI2hz0p1rOmZGbEWuMNR+qg=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=FGrK+3gCDmdpPu63W8OLD/42449J99WehM+OHFvPSv/gnl8uxNjj/UUdsg7mfPs4v
-	 xfumsa5+6dbXeHtcS731GuFWN+qlpW/yShsZX9rGvAer0a/vAGDhhWCEGao8DYiFO5
-	 cfXm5XiH2o7gO6HJj1VASchmQBstjVUse6UEik8zZ+044zkdaZzMgd6X+W1s0nsyZd
-	 ru4K2eGBKwL6qIFIp6lg4rgNC8XHjGkug5GGRl19rGYdfJih9Z/BKPXFKalFbh7PV/
-	 KnMVADSkxmh5UNSnPhrSsBN78PVlw9Kj6/2IA3hiBacgSZavD+w1M5/X7lMYZH9GP9
-	 dBvP9UXACSn4Q==
-Date: Mon, 19 Oct 2026 11:16:52 +0000
-To: sashiko-reviews@lists.linux.dev
-From: Aiden Isik <aidenisik@protonmail.com>
-Cc: Aiden Isik <aidenisik@member.fsf.org>, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH v2 4/5] arm64: dts: exynos: Add initial support for Exynos5515 SoC
-Message-ID: <TNrRalMg_NIZSIREkbKJy0O2TcDljShx9R5_su6q9GOAIf1Y0QHnRg6u6l7a0e_I_FDVVnQ7k-Nz5Z0tEYV6qkOJwtsIZ7m2psmRGAd2AMY=@protonmail.com>
-In-Reply-To: <sashiko-outbox-177006@kernel.org>
-References: <20261019-for-next-lucky7-v2-0-c4ecab4b1c4c@member.fsf.org> <20261019-for-next-lucky7-v2-4-c4ecab4b1c4c@member.fsf.org> <sashiko-outbox-177006@kernel.org>
-Feedback-ID: 46524699:user:proton
-X-Pm-Message-ID: 174d21043a398cf97e754477290656dfa2bccc00
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o9jQvef4"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48dfdd431dcso1573219f8f.1
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 04:18:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792408720; x=1793013520; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=gU+rM/4AoM2OmLlkODpIkEr5BcTOLpyqHtt4WEM8bII=;
+        b=o9jQvef4QMmvhdBDnKHZmXqLoOETCkIPM6pAVAGuDC7o25jSFuvEgPMEGgnIhBXkBE
+         bQJRYJQPvlvQf/N+qT8iOq3Lr/fvjEvhJ3bzY3jjACsbc8pzoupUux4l6S4fz0+hJGHY
+         X16MzB0gj3h3OZEgPFG/u7bncI+rPSdWfZYxh0iE04Bbewn2Rw0YWBKzzaH90Mz7yekH
+         1l49CAOOJmd6R7z9lC7b9J+/PIAP+nXUfD9uwvTNtH3mtl+r9s5bacC8D9AYU1tYmGAw
+         Uzk+2Y96rU+A1TtnGyq1J13xwlPRk6hpZMbT7tMgq5pXbMiKXlfqn1pnOtZemy0rlfxo
+         Ni4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792408720; x=1793013520;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gU+rM/4AoM2OmLlkODpIkEr5BcTOLpyqHtt4WEM8bII=;
+        b=06GJVyGIxeMpW8rXcmh8nnmfS+l8fIp0TnoZ/0LRy5XIq1l6IjWgM842ZX8LM6YKfR
+         LCmNsLr9ttF80GvJbbc/TQI0+9RwFsk4uVcg7tpzAsI1T7q0ZQuReTk0PYIEyKSFP0J2
+         CtEJ4mqfGNgGnv7aoQwknJgAn9HtmEd2vCm3PNr7gkugMqymlty1kCXx/VO8hgnQyL2x
+         6OkEqiRWnZQzQKBs/DXWQsffVMFokzxQ9hKtYiaiqwoehskLrpkaUXbC2S/f203Bd3EB
+         Yznl3ubLxxTeeZdgwlZlTfwN5WsSAjaPRzseCJk037btSI1WvLm1oB0j3/AYynG23UB6
+         IU7g==
+X-Gm-Message-State: AFq9FYIpVmqXXfnLbPhS16FwuNjbSz4LoKmYWhQZ5xCfhGw0Fm/KpEog
+	dw87mjmF94X2hOlWxwh+ktZru+OBwFpvatnlmqKLqdv6CbgxLulClBZW
+X-Gm-Gg: AYBFou2HfN4+40/U7ZYoE81Z6i5l56jcx+TlgyeAC9/lzD4m1GpwC3KlBzSl+Amuujv
+	K8Dzzat3nPnHcLqRPIzTPNRbHQ/4W99DJ9JcziJRNmBCywHH5GfcOx/+bE+m66qzIyhGaWZ+w60
+	Utukp9t0ae9MIuK65PS83m1Z4zJcZYaTTlb3+jCfRH0ePik3HG1wLWiaTdn3K7I6DYrzZ1ParZs
+	OLqjVTndi2Q3gCK8XPkPeddOFGo/jU6nHrsuVh2wjAxDbW/AS9txbVle7/Z7JN1nuqmJBHjt3u1
+	CFiqp81MR7okw3bKR7D/KLdXHVxFQKzfD8W4YwpFyi5oHkzJKknGd3mpLMIwsY9VnxUlK7cacdo
+	eT6dl2183JdK8trXgDTXOO7G8cJuCY2kk5n4Arh4hwxvW4SpNCkGj88ODK4tZGNU9fpKPLfo8/W
+	G/NPiZLs9695yGsXlcHFSIYw52CajbKzqxCmSetuTEOh6l73Z8oaUsz/TxOVEUGSVjiqE+cRDR8
+	vCdEmdc/JBcNEyKL7pg5pCKL9ZJiqzjseIMAbqmvRrmFoRd0MCz7CtCeAb6qRZS79f38+bqBJd2
+	I75O/dQKVHMb63UQQVrLng==
+X-Received: by 2002:a05:600c:1f83:b0:4a0:20b4:ba93 with SMTP id 5b1f17b1804b1-4a1d7612128mr156524285e9.16.1792408720439;
+        Mon, 19 Oct 2026 04:18:40 -0700 (PDT)
+Received: from [10.0.0.136] (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1e3ebb3aasm193183505e9.0.2026.10.19.04.18.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 04:18:40 -0700 (PDT)
+From: Antoine Gouby <antoine.gouby@gmail.com>
+Subject: [PATCH 0/5] ARM: dts: Add Colibri iMX6 overlays
+Date: Mon, 19 Oct 2026 13:18:29 +0200
+Message-Id: <20261019-colibri-imx6-overlays-v1-0-e4d028727382@toradex.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MSwqAMAwA0atI1gZs0fq5irioNWpAraRQFPHuF
+ pdvMfNAIGEK0GUPCEUO7I8ElWfgVnsshDwlgy60UYVq0fmNR2Hk/TLoI8lm74C2mmxT0jgrXUN
+ qT6GZr//bD+/7AXR7kt5nAAAA
+X-Change-ID: 20261019-colibri-imx6-overlays-a5da84ebf127
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, 
+ Francesco Dolcini <francesco.dolcini@toradex.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Antoine Gouby <antoine.gouby@toradex.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1531;
+ i=antoine.gouby@toradex.com; h=from:subject:message-id;
+ bh=sibS6+PbzNU0PLhMfzlVYE7Xqoew+WZ9iiOgUjlOo0c=;
+ b=owGbwMvMwCWm0rPo7MxLN2YynlZLYsi6+qdvk9Gbh8e+i0/dPTuiabXL8+MPu7zneko6NZo6H
+ ysSLHX07ShlYRDjYpAVU2TJeKIqyKcQIuvB0ZwMM4eVCWQIAxenAExkxg6G/3miV6822KTwsHi/
+ N39z4Ihps1nPpVmfIizZXEQvOy1/sIuRYcshkQVL3rQvK9EX3+EabK0vOzHaqKks+vDdX4uZy4O
+ YGAA=
+X-Developer-Key: i=antoine.gouby@toradex.com; a=openpgp;
+ fpr=68E425110E20541D48088363248CA2CD99D2D899
 
-> When drivers/perf/arm_pmuv3.c matches "arm,armv8-pmuv3", it registers the
-> PMU with the generic name "armv8_pmuv3" instead of "armv8_cortex_a55",
-> preventing userspace perf tooling from identifying the Cortex-A55
-> microarchitectural events.
+This series adds device tree overlays for the Colibri iMX6 SoM. The
+overlays cover HDMI, VGA and parallel displays.
 
-Will look into this.
+The series adds support for:
 
-> Do sysreg_peri and sysreg_fsys need their clocks properties wired up to
-> CLK_GOUT_PERI_SYSREG_PCLK and CLK_GOUT_FSYS_SYSREG_PCLK?
+- HDMI Displays
+- Toradex Capacitive and Resistive Touch 7" Parallel Displays
+- VGA Displays
 
-Will also look into this, as I mentioned in another one of these patches.
+The Makefile entries build the standalone overlays as DTBOs, and add
+ready-to-use composed DTBs for selected carrier boards and accessory
+combinations, for build-time coverage.
 
-> The compatible string "samsung,exynos5515-wdt" has no fallback compatible
-> and is not present in Documentation/devicetree/bindings/watchdog/samsung-=
-wdt.yaml
-> or in s3c2410_wdt_match[] in drivers/watchdog/s3c2410_wdt.c:
+Signed-off-by: Antoine Gouby <antoine.gouby@toradex.com>
+---
+Antoine Gouby (5):
+      ARM: dts: imx6dl-colibri: Add HDMI overlay
+      ARM: dts: imx6dl-colibri: Add Toradex Capacitive Touch Display 7" Parallel
+      ARM: dts: imx6dl-colibri: Add Toradex Capacitive Touch Display 7" Parallel with Touch Adapter
+      ARM: dts: imx6dl-colibri: Add Toradex Resistive Touch Display 7" Parallel
+      ARM: dts: imx6dl-colibri: Add VGA overlay
 
-This is what the dependency listed in the cover letter is for.
+ arch/arm/boot/dts/nxp/imx/Makefile                 | 85 ++++++++++++++++++++++
+ arch/arm/boot/dts/nxp/imx/imx6dl-colibri-hdmi.dtso | 27 +++++++
+ ...nel-cap-touch-7inch-parallel-touch-adapter.dtso | 57 +++++++++++++++
+ ...6dl-colibri-panel-cap-touch-7inch-parallel.dtso | 38 ++++++++++
+ ...6dl-colibri-panel-res-touch-7inch-parallel.dtso | 29 ++++++++
+ arch/arm/boot/dts/nxp/imx/imx6dl-colibri-vga.dtso  | 67 +++++++++++++++++
+ 6 files changed, 303 insertions(+)
+---
+base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
+change-id: 20261019-colibri-imx6-overlays-a5da84ebf127
+
+Best regards,
+-- 
+Antoine Gouby <antoine.gouby@toradex.com>
+
