@@ -1,120 +1,120 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com [209.85.221.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4C0048DB3A
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 08:07:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792397226; cv=pass; b=R8wT3Dnz+l3BAZqDfqQrwq5W3ac9ro/YWHqVZuiht/AIdv1ZnUq3hoosqNbEvi9Gz1qC44YHg6cM3kvuEYHiitm6vgmCuFxr9d1xKo4ClXTdsE0KiUntKDDxU/t6ksL0XruPDe5xiFUzU3F0R9iAzgQPSHXIXy6AsnQ4n0MQcMA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792397226; c=relaxed/simple;
-	bh=ojWZsLxBf/E+oTlWaEvpu7l9Gy8FFWSO9+FSkAQyrOA=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 613CA495030
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 08:08:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792397306; cv=none; b=NWb6wENK2eqX/XDpJgEpxkZfvVsS3WRVjZwFFcvn5SsnfEvFM7kJpW0MozpfS6nrjw99g0EIwfH5+uDpxFZ54PPGE2OV99MKT7WBmGZEInn2QpmFJ/OWuHBzIMhU9gBvRERbNVQcyIR/bgHXeEL05tPQYNeq1A2kbSlO1YGkeJs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792397306; c=relaxed/simple;
+	bh=QfENBpcHhADpjfd53lUe0RxsDEJq18op5rWidDM1g4w=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Unhfafh6+1cJ5dJggK+7CSEMoToGiWJuWJNcvu+a5s1HOI6iIHlfVVPP7wjXYb6JkSUdF3g8hdUo+jtWV186kLynd23IJRQTZzC26MfMMgwCWMNN6QYTG/9swmCBGUJUjQLt2OXAZzlyz0nXSVqA8zddyEZiXq/wO8rKTbtFD1Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TkQOSc2K; arc=pass smtp.client-ip=209.85.210.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	 To:Cc:Content-Type; b=sWc9q4p7jDiM/YYqJev1NukDGmI9F+422lFGQYrabg0v6bvi8dGisqHVcZ2HuRhtqozhinWy2mYkS17DaDqxFjPQ6BII/++CODAGwMaTEyCZQO8Q73orrHT9SpbkzBKECHAEK2oDQhUaIj982EG3gMFbh6NqNYHyGHyHOJfGa5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TkQOSc2K"
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8a06b44bd01so303337b3a.0
-        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 01:07:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792397225; cv=none;
-        d=google.com; s=arc-20260327;
-        b=I5klscBCUvO3r6tBUfwZ/v8wCtSYsv4rqZc0qvll9gR3bDjAoZKWf19DLpxvBg0Bie
-         W5F/9A+8/Cb0KuiEuAWyR6CE8ghd9bnHbKgZ57DNE7tbxDBXVec9Hqkdg7cMNP+Nnhn+
-         NeDXw9bV2hGCT2Mw/3/JNNbWyWMAkBqxS/LM17PyQJiaoyMdv1VF2U9bC0BZvjhXG6mS
-         9zk8UMPQBtglmdu5loMFjsgO9MSBHFMB3GlrzrFhaYYEUUbRGtbp8xlH89gfRpYNF6Ja
-         KVAgDw3twqQWsqmr0/H5sm9O8LKZ1e053MV+EiLX78ZZNpESJNkuWHGper3Aa0JDwkfG
-         MtMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=OapHBRcO/exbGoTSwjHoSV037nGR79dQye9OkHt9RRs=;
-        fh=L9j/HnHnU7qaLcnk8RqfSxsdWeZgOsHBOrpUHV1PddA=;
-        b=pTg0B3rRFDD5jp8+tCsMIQhrV3SGkuTXlrQNEsftXe4rgQscQf9CU79ysMvXgDPv39
-         nzRvF54SDgIE1Mh8ZTlXGKKUDP3eHERCsi8uhoaponkRhOXkX3caIWOE/w6BnzoLbsdz
-         khQYPj9900hnSxmdti8RDWpW4Mula67j5NVBoasqg9eDZFVVLX7ZK2SflStYTkmPFhKv
-         Hg55HhYJf65p5gs5CzoOb1sJeXZzKwAyX+2PARWXxhRsb5J30/kMNBtKMsAmYAkSV5Y2
-         t7LATttegp0nuS9//ZjK8+oPrjynsBIppGwgP/ZFf/sqdclUp2U3aDYySvf3MhhI5Kxg
-         eLWw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792397225; x=1793002025; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=OapHBRcO/exbGoTSwjHoSV037nGR79dQye9OkHt9RRs=;
-        b=TkQOSc2KalxknOqVU+eistxoosuP7UMGLTMlh/iZ5K0ItpGMd7YJRzim/mcJwb2XPF
-         /hTOtLNK1z3VQCDr9KAqkcofQa6mQ1Vg074rjAHkT/ZsNgxykaDt4xjoRC9N2TdeR8Cx
-         AiHl5wDlHzJDdY3SzlWpZrD6qZUj7oKf5wIG05EO1ax/LM2uv3p5XEt2EZuJWihikIhw
-         4xXiEehxbpV6y1VIO20PmiHGpZ8N9b7bMN8y/Otw+oQQ+B86MW5sW+nBb5WRIbk1Sdeh
-         /A3kH5OX7qB4ghgcBagPE0njtCFzgAvtADwGsUzAkk4EL2u0LUhpS2+pyM/fW3bk6bdE
-         gLoQ==
+Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-5eac4855401so340031e0c.1
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 01:08:24 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792397225; x=1793002025;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OapHBRcO/exbGoTSwjHoSV037nGR79dQye9OkHt9RRs=;
-        b=tB7bdehimBZhnc0SMMXahnUgBuBgf5vclhS+H72jyU/PD1ZBPfKrBE391zyl3EciFP
-         Lysb2xp/e4IgfoaPdEDxSKifnUpI6zLMHD+4U09bnCV7pTCLy8Q0r6q7aXMuRH+M6ugA
-         jyj3CYiwdVwE4HgHjTTARQOCt8KXQVtGnIa42JOLbBCEzyigJhXzID2hB+jANHRYSre7
-         l5SfD6SR4WwGRmT4uDHrLmf8iub3TeK1kQqlGa5SGqfWxDAlzOv434kcVTyANyg3QH79
-         E1kIz6z/bw65Pfu/v78jC4u8ww6a6F3waLgibDFPDmrxQHLDvn3JHnS47gjS0Ci1yAL/
-         kUUg==
-X-Forwarded-Encrypted: i=1; AKwUvBwY/MlBlJuKECMRA/pLwt0F11xfa/JHStQ/ajm2eyVBI1o9PMKL8JO7TsYLycqz9AOrg83hogvU4Zlf@vger.kernel.org
-X-Gm-Message-State: AFq9FYJKjEDybrX8KAlvEQZAhqbg59nRVmgoq4gRl2vxa/CD59tPZYmN
-	nZiSHO+ZqfB/9nK7EF9q6tAI6Z20XtuvfzSGPDZPtm2gtePpbeR9KfJ6qzyJTkoWawTUpW0WGSZ
-	wD9pQV9ZS4CbXHyaaXJA616TmOFaXD4Q=
-X-Gm-Gg: AYBFou0nMy7e2PXj4nf0XJDyCxEexepXj5Fk9bSpEMloue36HA5nDpYria+2SrtwOKs
-	Dt6h3h36XqetSwienUe42eACTojwXVPIsvvj4s//F57S8PyPfxylxmvCCFzIpf4uGZapD+XZxck
-	Bx11SizdFOsdm/XrOqLUHqEuVW2zAG+aOMZeACcEDBMhR1rEutfpmijNCCb4YMfxC8czzfE/log
-	X3A2vELkm1E+B6Bqa3Bf9jVrgNEW9CMCFBX7MtQVehOXIPdarmDgIzdi00oPcsiv9pOpX5pThIC
-	tdaPJxRber1sRtsbGfFja7zADrB6p4trDzm5mTNYDpD25fzA/iuQA/VI+sEIn5F9eIdUd3vTqDy
-	5Uv6Z3sCejVgz9nD5cPBId71UYGyV+huYU8nWnGFN7WAc1sAy8ZKBCDV0OZuAQz7934V6BiPGzZ
-	TRM9JOrg==
-X-Received: by 2002:a05:6a00:1f12:b0:880:973d:597a with SMTP id
- d2e1a72fcca58-8a04d04e513mr5511453b3a.53.1792397224811; Mon, 19 Oct 2026
- 01:07:04 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792397303; x=1793002103;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=botmgDWh3QU3uykH2zSrPm6okwvbkqaZK5yti63bokk=;
+        b=2zq6hug4zCUuKP4hq3M4zBpsw2pmxS4H43mtC7UtBM6sLMGXRcNy2ovbEKQsjINVvp
+         ogaaCUSkKDc+T4lkwxAl9/PMYIlMtGC1AzXAQVj2t05MzQmQrnxkfISY/UdyaBmGWz38
+         Npc45IXTQ2gH3WXTNglEVqyiOc6YYU91xaPMCUGsevWMkqGMnecShWpdrd619LZPevKE
+         cvhDExzRFJBc4cHuTtgOi7xC+KvQZIz/YZW2Vyy8LWg4CijyHaPmLlFXZ6kNfjCnYmU2
+         lYCIgcJg7ODmO6n/0j6aFjWgoIntzyoXAw4fcqN17daAjmI5Z0fuz63vY/1N9G2V743v
+         Z1KQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxSxfS9hgYzq6GzsofW4CwIUxtFK2oJQkeGSgiT1iELMDrP4HH/7F73cCju62VG3ITWGTmcKQq/4S7f@vger.kernel.org
+X-Gm-Message-State: AFq9FYIUH40JR9sVsDimwVT4bXmu4sGwC5a/6UuOmFhZ8Q6D+rEYOb1P
+	eDV1tdwNKUyliLAsnMle2FrsVBbcY1XxmtzFMV1c7pFlwuRd99JGN+TpZzk+X2TC
+X-Gm-Gg: AYBFou0+UOYn7rYsQxaoo/vmLyoJuR6jHYaJHPEgc1cOABmc7HzKIq6u+1ppQYY2n6h
+	Jqz4EgFfGFSttrOKurOfIiFZZmtCfLhXiIsRYFBJafjDLSrt3JzL3Pvg4DwkJy/6MkdE8pAGeEM
+	BFWVZoplYRpc07PaXgzbTN/03ICUk1j8/J9Bg8MY080fxZrvN7gTq2AOT3WYg4FIyDM1V8p9zHI
+	QXbN2EJpSFWiQESDFV8fVPqEx5cRNniCtKoxJKMT889tdTbhOF/TgW5M5BJzk/FdPDXP/8p/Oub
+	QTNBXs5HqmYPSigdYj89ZDlery0yqqbRVDy4N280W2rG/vU+Pu2ZY/2d7TVhEGVOAMtATdiC/no
+	sIM5MwVcYkGkqln0wefmjvOaP0Prib4ZcNPrE7ZuqRTNZkh59/AohIS9GkImNWWORYpCIRlT5gA
+	YhucBvrFQig69DnKE+TAxbBapiYVKgTV/lxm3zrv86p+gn3fhQPhGSnHKd+lkKl/o7WlSb08fET
+	a1o9t8AKjskBc+XNvB5MnSXs2vMwBDWbpKvRzbQ
+X-Received: by 2002:ac5:c003:0:10b0:5c7:a9ee:dcfb with SMTP id 71dfb90a1353d-5eaaa391a3cmr1577281e0c.5.1792397303207;
+        Mon, 19 Oct 2026 01:08:23 -0700 (PDT)
+Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com. [209.85.221.179])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eabe1b2026sm4335604e0c.17.2026.10.19.01.08.22
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 01:08:22 -0700 (PDT)
+Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5ead5ff47caso50272e0c.0
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 01:08:22 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx2+QXmczk7CjwnQQ0Sr2TX7REXPiXnPoE+i+yzpbNE6HBDjkrQCfK80LaLCExsEjxUEmnQXofgk6Wz@vger.kernel.org
+X-Received: by 2002:a67:e703:0:b0:7a1:f980:e934 with SMTP id
+ ada2fe7eead31-7cc369c0d0bmr1772093137.16.1792397302431; Mon, 19 Oct 2026
+ 01:08:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261017140827.290666-1-lukapanio@gmail.com> <20261017140827.290666-6-lukapanio@gmail.com>
- <20261019-free-groovy-grebe-7e50d3@quoll>
-In-Reply-To: <20261019-free-groovy-grebe-7e50d3@quoll>
-From: Luka Panio <lukapanio@gmail.com>
-Date: Mon, 19 Oct 2026 10:06:53 +0200
-X-Gm-Features: AclHuK9kTiQI2FRvtYDoJKATe8CTCBUQkubjvei0NZuQDDdDmbhaB9xhCb4qNvE
-Message-ID: <CACi=Ov7D503Ug-D2xmKvRP-LceQpEWOrktXTy5Srdc-MZO=02Q@mail.gmail.com>
-Subject: Re: [PATCH 5/7] dt-bindings: input: touchscreen: edt-ft5x06: Add
- FocalTech FT8722
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Henrik Rydberg <rydberg@bitmath.org>, Douglas Anderson <dianders@chromium.org>, linux-input@vger.kernel.org, 
-	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+References: <20261019022717.511096-1-artem122novak@gmail.com>
+In-Reply-To: <20261019022717.511096-1-artem122novak@gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 19 Oct 2026 10:08:10 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUKpkTFBEj9HkSPOMfefNYcqGyh33H43oVhHVHevn4bag@mail.gmail.com>
+X-Gm-Features: AclHuK_PpER2TShAXTflyONo_n8Icmw2EzWmH61DvSpoBwL56FzjhvRFzzvqUgE
+Message-ID: <CAMuHMdUKpkTFBEj9HkSPOMfefNYcqGyh33H43oVhHVHevn4bag@mail.gmail.com>
+Subject: Re: [RFC PATCH] dt-bindings: timer: renesas,tmu: add SH7305 compatible
+To: cacioandpepe <artem122novak@gmail.com>
+Cc: daniel.lezcano@kernel.org, robh@kernel.org, geert+renesas@glider.be, 
+	tglx@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	laurent.pinchart+renesas@ideasonboard.com, magnus.damm@gmail.com, 
+	devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
 	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Krzysztof,
+Hi Artem,
 
+On Mon, 19 Oct 2026 at 04:27, cacioandpepe <artem122novak@gmail.com> wrote:
+> From: Artem Novak <artem122novak@gmail.com>
+>
+> The Renesas SH7305 includes a three-channel Timer Unit (TMU).
+> Add its compatible string to the Renesas TMU Device Tree binding.
+>
+> This is an RFC because SH7305 TMU0 Device Tree support is still
+> under review.
+> Feedback on the proposed binding would be appreciated.
+>
+> Signed-off-by: Artem Novak <artem122novak@gmail.com>
 
-The FT8722 is a TDDI: a single chip that includes both display AND
-touchscreen controllers.
-But seems like other  cases like this handle it differently:
-focaltech,ft8719 is the touch side, while the display side is
-documented as ebbg,ft8719. I=E2=80=99ll follow that in v2 and use
-focaltech,ft8722 for the touch controller, with the display getting a
-compatible for the panel module including panel manufacturer name, or
-something like that.
+Thanks for your patch!
 
-Agreed on the properties as well. The supplies are shared with the
-display and described on the panel node, and there is no wake GPIO, so
-v2 will disallow vcc-supply, iovcc-supply and wake-gpios for the
-FT8722 and keep reset-gpios required.
+> --- a/Documentation/devicetree/bindings/timer/renesas,tmu.yaml
+> +++ b/Documentation/devicetree/bindings/timer/renesas,tmu.yaml
+> @@ -21,6 +21,7 @@ properties:
+>    compatible:
+>      items:
+>        - enum:
+> +          - renesas,sh7305-tmu  # SH7305
+
+renesas,tmu-sh7305 (+ sorted alpabetically)
+
+>            - renesas,tmu-r8a73a4  # R-Mobile APE6
+>            - renesas,tmu-r8a7740  # R-Mobile A1
+>            - renesas,tmu-r8a7742  # RZ/G1H
+
+Probably SH7305 does not support module reset, so "resets"
+should be excluded, cfr. the proposed bindings for SH7750:
+https://lore.kernel.org/3b3f41148158aa146f06a40aeb5b23c8611b1895.1716965617.git.ysato@users.sourceforge.jp/
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
