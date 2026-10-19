@@ -1,173 +1,250 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB5174DC550
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 12:33:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A31624F3901
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 12:35:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792413207; cv=none; b=FQ7EGOTuuXYy+SR2GQQUu5E3kVEkNtwq0MSY2reBSIkW4kVILDb3JsF/rvbMzI+WS51mIl5SrfAho4XWhiRDZ4ZYVf0OB6wmMI7kUzOR+uUcNnJ8OxbNWPw6AN0HcNduRZ96gSuAl78So3n8rTGsHYxfqEWtAErb9E+Z50M99hc=
+	t=1792413319; cv=none; b=iiCD9tQbsrUSg8Xmba7Qj3oKrpjkPhICYhCigBQOvsMvK7SSzZyjkj8b4+fuPofTkVe77Ozz0VQMzzupmJSxJ93EXdSqBbCLd1LHgYzsD7KBGRu/82Cgg3JThbVSTiTbgEGghe2CPWso88/8fufrKivShGC4YOkv4SLl2zoEsSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792413207; c=relaxed/simple;
-	bh=WuSIXePJZfAwr2w90b8o7Rc5jYA58jcVuPMl6rfMIio=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QFAlMdS1o78sGCOXx/lsk91k4Q66RgvUmWDUHRs7OtQ/CO+J+7bq2eVnO547re3zigAcZdDv5uS8sha1ASnMeDw13oIRPHqSIFuN3Bz5008tXEPHi3G3KJtjPBaPete4z8D1tSoqe6llztit/a0RjYNtCk6ommIKw/bczD24N50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fEgLOVbS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FUlq0naM; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792413319; c=relaxed/simple;
+	bh=Fq+5jceyyVaq8QVIyCdtKEb90686LrUtOCvSPahEGWg=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=G6vLJrNyfzDsptZriIh7mAnkoY8gfcY9qjTmZ2UAcg0SL/HwfpOwdxAIGFl61IRV3nE3AGeCK7RYmC4j3t2GOr2xOsGs97JFuPWn+h7u8XysR4Dx1qwD18qt+UGJJ7q4aonXhgX42+sgYoqfdJWEe/y1SnySYnN4xF7CWJqeRvo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LEPbnPt/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fEgLOVbS";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FUlq0naM"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J8Os1X1348209
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 12:33:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	OHkb8hS3ILJ7jtb6Ae0OQ+p6ZaeWT/Gl2MVFAVf41S8=; b=fEgLOVbSldv3UDuH
-	8S+FVzaK1IhDVEyUGw3ha1hHCKJ+qcUDJtfC3e7myWcNbHsUvSAuD66LcTd15nEM
-	tNHbBP9v+SFT/FAt7HwssxOzTAu5h3H1fRaJYgpHiJr4w1PSGQn/SwHQMcyNVQUU
-	+ioXFKsWTkC4b+f65kLFTF+K1PXxXsKwa1xE0eKyCFEuwErVBGGuGAS8jAg84S2n
-	ZGkDSe+pkNfIEprazh/gknADz1mRwG/seX2H75hslfSKlWl5dfy9PCDnSrFGOkaD
-	AKkaQkXSaaEqgLbt3xBM0Ls0gmsmp8hcgoN9F3tWRA7rQOqkBh+RI2k1C7n6N637
-	tdEvsw==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdf4rh26q-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 12:33:15 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5356c6d98cbso7846401cf.0
-        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 05:33:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792413195; x=1793017995; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OHkb8hS3ILJ7jtb6Ae0OQ+p6ZaeWT/Gl2MVFAVf41S8=;
-        b=FUlq0naM3Cy0JLl6tVZ2/VHvAdCr32reiY7775ncOPUUDAhnbb8nLwhbRYcvfsjclh
-         HAjhBYM3sJac8mEiODvKJYvlaqjPHMpQloxMIZWuaomQdqiLq3wqnVwCqo05pU1elL3w
-         mBnncx3VcNFyz2ySYO4SeFzL6z9e2MvRRS2ofRNMjhskfZzAOeVp+hRzw19CAFtCgbz2
-         SgNt6RcD93NBtoeA23uLQ5rcOs2KAFGqN7SfsCoUqIrQM5VCdjn9YYs8cnncA0g94T0l
-         kTWYbIX+Ptn01FAyQYlU5e+LBu18Bs/oAcv1YiDhD6KH4UewsFWBHOrRp/aLMdRUZL+B
-         jj6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792413195; x=1793017995;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OHkb8hS3ILJ7jtb6Ae0OQ+p6ZaeWT/Gl2MVFAVf41S8=;
-        b=kiOX58cH7V79NeB25OYAfQd5CuILoMjfQMiUZ+gAQwbZK1DvV3pzy8XBPTjgdzS2Tr
-         v3qalqaf2IkSZ0mlQDEVhmbcee9jNqB3vBCmbiteoFyGy3hbZmuia6kqRuvfdV16viAW
-         0SIUiplX6cFnmVLciQBotX3j0VKejSBP9hbMLpLEau7gBYdplT2QQmiZygN4O6FuZcvc
-         LMBx16bjrPQnlBVuW+2SUcWxiCPcFtku+yJcrkTOBb8/eIzXolETDRY52ur5MNAlEuoW
-         BhT/d6InGWZtLr5+x/eUYvwd3OPxgVJ5WwK/a+rznLh9QMIBw9Ai+XL6epZw4dblRPj5
-         iA1w==
-X-Forwarded-Encrypted: i=1; AKwUvBwC98DWzoIxHCXII0p0OVe4NSPrQfAYbxMJV6epVz3b5h7/J+DVQ3NutIx48XOS/hXdUOINVzXyP5Ge@vger.kernel.org
-X-Gm-Message-State: AFq9FYIm/1vuKHUZEEkWKLZYf2/ULtO2WYSNSeTUBYeB81IpNKYs7CBw
-	0jYByvBIWEGnQJQ9ej13B+2JnePC7VQuVuEVZV+WXAKNPvjG1GVPKeBf/PugT501J65OUd9Hrj3
-	fjRXYGttJ1s9lN927pi2CV6YDM6Z3n6CMuU1HDfa2maqpdXF/g4l1Un9veXQAAgcuZQscM7Lr
-X-Gm-Gg: AYBFou2g/iGL2vZozV9nwMORFSJbDJSqH7o3HdT5faqGQ6JK7t4OQGNO4/WkpOlzSKq
-	+inZzmW7msZe5NkBZWOBk/mLT709jmjnBB/hVTOwvyaXdzN4JGudxMhCxKLBzjbwaXNSSBPYqrJ
-	9fuRt0u0KyIeWoPIRYafambstrV0N1kIVpMz95XeHSCfuY2U9i/5X0Np9OuRdLJ2nvT6+zfRjYo
-	60m0ks9DBYXQ6L5Zdk2mwGbW8xoQop+Q8hUzVCFj4mWm4tNOXiIO6vLDbbSx3Zx0ETbYmXEbR+Q
-	jsVEljE5SX9ZR+eGB2B78g7tXYJmtZKJFIJGyh1X1cxObCkfVx2RFXdtLXRPr26o7zx18OPdIyu
-	Qcz9sOYsY/ud5izcdbPLd6Q==
-X-Received: by 2002:ac8:5701:0:b0:535:fd16:4393 with SMTP id d75a77b69052e-536461cc281mr132702831cf.5.1792413194936;
-        Mon, 19 Oct 2026 05:33:14 -0700 (PDT)
-X-Received: by 2002:ac8:5701:0:b0:535:fd16:4393 with SMTP id d75a77b69052e-536461cc281mr132702391cf.5.1792413194431;
-        Mon, 19 Oct 2026 05:33:14 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4090dceadesm368526966b.20.2026.10.19.05.33.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 05:33:13 -0700 (PDT)
-Message-ID: <c2f7946b-ba31-4f0c-bd84-fae3481f2965@oss.qualcomm.com>
-Date: Mon, 19 Oct 2026 14:33:11 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LEPbnPt/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0EFD1F000C4;
+	Mon, 19 Oct 2026 12:35:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792413308;
+	bh=UbtDzCrjAqO18C+KHWlKV4EuwZ31DUsewXoIUV65JYE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LEPbnPt/vD9K9F+P+K5nlydLWEEwBwN3ApDjzkb0j/t29UJnBKRJmJOGp7+3CQPli
+	 1oJyOGZCSxPj8E2upNOSE0hw52vBzdADaUXyjv+Pi+IL3CluJrlut4Jj3VITBhj6jD
+	 hoM5pdjPYA5SRtoYbSuH2LPy6TWrMP0U6kAP5Cu/wLaWbgULUeFD0O0V9Dj7IiIwMY
+	 0IKaVIx9ZyvTkmpwU/T2ypNFl6rAu/bt8ze1dKBbIXwry1mQIX5NZqFV8CJyVAnGmy
+	 vNAf3sTz6YRILDCPanfXzDbaJ4fN6iZ3Wp46dTSdz+/v8U4MV6er167zVBo4i6zmgD
+	 LMiQ7zIVHev7w==
+Message-ID: <sashiko-outbox-177072@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 4/4] ASoC: cdns: Add Cadence I2S-MC controller driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: joakim.zhang@cixtech.com
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261019122048.1107179-5-joakim.zhang@cixtech.com>
+References: <20261019122048.1107179-1-joakim.zhang@cixtech.com>
+ <20261019122048.1107179-5-joakim.zhang@cixtech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 19 Oct 2026 12:35:07 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: sm8550: Add support for Samsung
- Galaxy Tab S9 Wi-Fi
-To: Nizat Mikayilli <nacht@dxdmail.cc>,
-        Bjorn Andersson
- <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261005-gts9wifi-dts-v2-0-c3ac9b0f9ceb@dxdmail.cc>
- <20261005-gts9wifi-dts-v2-2-c3ac9b0f9ceb@dxdmail.cc>
- <2e3c1082-e5d0-4a33-ad3f-272dd74aa54c@oss.qualcomm.com>
- <f7ba4d5a-0e8c-417d-a1fd-5b5e392df71a@dxdmail.cc>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <f7ba4d5a-0e8c-417d-a1fd-5b5e392df71a@dxdmail.cc>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: JfBV-L1mh8jsBes8xxKjltJveRfhJkoN
-X-Proofpoint-GUID: JfBV-L1mh8jsBes8xxKjltJveRfhJkoN
-X-Authority-Analysis: v=2.4 cv=H7NOUOYi c=1 sm=1 tr=0 ts=6ad60e0c cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=AqZmfHzJsoaMp3Ki:21 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=Fpsou6_slo2yYXvzRi8A:9 a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA0OSBTYWx0ZWRfXxp673KEiVZD7
- XcfJfXLpo+nLbedvM1jE99zDdPoXNbNHo93mlCneDsnnuIlbNwAA/a/VgSoi5wA/8bX8tCmlmcr
- WY/xEX5sF8pGXHRg+TQT3sv+J8VxJ+uiMKXVrp6PYhqHyDXsOtTckUaa+ToFR8ZOsLq2QpURU6h
- 4lk0u51wE2Chp9yEbhBFNB6w4A8UgsoARTaoewCEvsa3RQUd6WTsgUC/vP3UEJ3ytNuwui49LfY
- POMtnzr4z+67QdX+yEUVQtETNT/fhQDtECwdfb8iwuMcJGHz9s1hAHjwnZ4Osiz3JAzQHBGHS7I
- NMetbOf50IO+mnqhP+3JABZJGUR8JbCTu61Gp8Vz/zoe+Dwh3/RJuE8BPwQdRbc94+XzpMFNmsb
- xNV61tFyiRj9KaXr1kSpZ2He9fkF7g==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA0OSBTYWx0ZWRfX0t3TZbZMLq+k
- 03LqkdBdxSd3koXqilxowJ5yhSTu47J7N2LFxu3aV3gw2bq5d+1FRoGtZ/8cCR5UdusFryNH2Te
- MjoANhid7Dso2XcDCIiQBST+u6zvbiU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-19_03,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 spamscore=0 suspectscore=0 adultscore=0
- bulkscore=0 malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610190049
 
-On 10/15/26 11:06 PM, Nizat Mikayilli wrote:
-> On 10/12/26 4:14 PM, Konrad Dybcio wrote:
->> On 10/5/26 9:47 PM, Nizat Mikayilli via B4 Relay wrote:
->>> amplifiers and the VA macro probing. The microSD slot is described but
->>> not yet tested; audio playback and capture were not exercised.
->>
->> Please test them!
-> 
-> Done: microSD works (UHS-I SDR104, read/write verified, card detect
-> works), and so do speaker playback and DMIC capture. I'll update the
-> commit message in v3.
-> 
->>> The display panel, touch, pen digitizer, cameras, battery/charging and
->>> the wireless module are not described here; the latter needs additional
->>> power sequencing and follows as a separate series.
->>
->> Wi-Fi/BT should be a low-hanging fruit, see e.g. sm8550-qrd.dts
-> 
-> I tried a qrd-style description (wcn6855-pmu, PCIe0 with wifi@0, BT on
-> uart14). From a cold boot the chip doesn't come up: all PMU rails are on
-> and wlan-en is high, but there's no PCIe link and BT times out.
-> 
-> It works with the same nodes once the 11 WLAN PDC messages from the
-> downstream qcom,pdc_init_table are sent to AOP over the AOSS QMP during
-> power-up (tested with a hacked-up pwrseq-qcom-wcn). So this needs a
-> driver change first, and I'd like to send it separately.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] ASoC: cdns: shared clk_i2s reparented in cdns_i2s_mc_hw_params()=
+ while active
+- [Medium] ASoC: cdns: clock and runtime PM leak in cdns_i2s_mc_probe() and=
+ on remove
+- [Medium] ASoC: cdns: devm_pm_runtime_enable() ordered before IRQ in cdns_=
+i2s_mc_probe()
+--
 
-Sure!
+commit b995dbd0c500d9df940a91311e64f2712a2548e6
+Author: Joakim Zhang <joakim.zhang@cixtech.com>
 
-> Any preference on how to model that? I'd rather not put the raw strings
-> in DT, so a table in the driver seems better, but I'm not sure what to
-> key it on, since other boards don't need it.
+ASoC: cdns: Add Cadence I2S-MC controller driver
 
-Please show me what your current diff is, on other platforms we didn't
-have to go through these hoops..
+This commit adds ASoC driver support for the Cadence I2S-MC multi-channel
+controller found in the CIX SKY1 audio subsystem. It exposes playback and
+capture DAIs using dmaengine PCM, manages audio reference clock parenting,
+and handles runtime and system power management.
 
-Konrad
+> diff --git a/sound/soc/cdns/cdns-i2s-mc.c b/sound/soc/cdns/cdns-i2s-mc.c
+> new file mode 100644
+> index 0000000000000..defbb93adfe76
+> --- /dev/null
+> +++ b/sound/soc/cdns/cdns-i2s-mc.c
+> @@ -0,0 +1,1128 @@
+
+[ ... ]
+
+> +static int cdns_i2s_mc_hw_params(struct snd_pcm_substream *substream,
+> +				 struct snd_pcm_hw_params *params,
+> +				 struct snd_soc_dai *cpu_dai)
+> +{
+> +	struct cdns_i2s_mc_priv *i2s_mc_priv =3D snd_soc_dai_get_drvdata(cpu_da=
+i);
+> +	struct device *dev =3D i2s_mc_priv->dev;
+> +	u32 rate, sample_rate =3D 0;
+> +	u32 slots, slot_width, resolution, ctrl;
+> +	unsigned long i2s_clk_rate;
+> +	u8 pin_tx_num, pin_rx_num;
+> +	struct clk *clk_parent;
+> +	bool is_master_mode;
+> +	int ret;
+> +
+> +	rate =3D params_rate(params);
+> +	slot_width =3D i2s_mc_priv->devtype_data->data_width;
+> +	dev_dbg(dev, "rate =3D %d, slot_width =3D %d\n", rate, slot_width);
+> +
+> +	/* switch clk mux to select the appropriate clk parent */
+> +	if (rate % 8000 =3D=3D 0) {
+> +		/* Sampling rate is a multiple of 8KHz, select "audio-clk0" */
+> +		clk_parent =3D i2s_mc_priv->clks[AUDIO_CLK0];
+> +
+> +		ret =3D clk_set_parent(i2s_mc_priv->clk_i2s, clk_parent);
+> +	} else if (rate % 11025 =3D=3D 0) {
+> +		/* Sampling rate is a multiple of 11.025KHz, select "audio-clk2" */
+> +		clk_parent =3D i2s_mc_priv->clks[AUDIO_CLK2];
+> +
+> +		ret =3D clk_set_parent(i2s_mc_priv->clk_i2s, clk_parent);
+> +	} else {
+> +		dev_err(i2s_mc_priv->dev, "Invalid sample rate\n");
+> +		return -EINVAL;
+> +	}
+
+[Severity: Medium]
+Can switching the parent of i2s_mc_priv->clk_i2s here corrupt an already
+active stream on the other DAI?
+
+The driver exposes two separate DAIs in cdns_i2s_mc_dai[] (i2s-mc-aif1 for
+playback and i2s-mc-aif2 for capture), which can be opened and configured
+independently. Both DAIs share the single functional clock
+i2s_mc_priv->clk_i2s.
+
+If one DAI is running at a multiple of 8 kHz (using clks[AUDIO_CLK0]) and
+userspace calls snd_pcm_hw_params() -> cdns_i2s_mc_hw_params() on the second
+DAI with a multiple of 11.025 kHz (using clks[AUDIO_CLK2]), clk_set_parent()
+will change the parent of clk_i2s underneath the active stream. That changes
+i2s_clk_rate while the first stream is active, invalidating its programmed
+I2S_SRR divider (I2S_SRR_TSAMPLE_RATE or I2S_SRR_RSAMPLE_RATE) and
+potentially violating I2S_CLK_RATIO_MIN_MASTER or I2S_CLK_RATIO_MIN_SLAVE.
+
+Should cdns_i2s_mc_hw_params() check whether the other stream is already
+configured with an incompatible clock parent, or constrain the two DAIs to
+the same rate family when both are active?
+
+[ ... ]
+
+> +static int cdns_i2s_mc_probe(struct platform_device *pdev)
+> +{
+
+[ ... ]
+
+> +	pm_runtime_get_noresume(&pdev->dev);
+> +	pm_runtime_set_active(&pdev->dev);
+> +	ret =3D devm_pm_runtime_enable(&pdev->dev);
+> +	if (ret) {
+> +		pm_runtime_put_noidle(&pdev->dev);
+> +		return dev_err_probe(&pdev->dev, ret, "Failed to enable runtime PM\n");
+> +	}
+> +
+> +	ret =3D cdns_i2s_mc_clks_enable(i2s_mc_priv);
+> +	if (ret) {
+> +		pm_runtime_put_noidle(&pdev->dev);
+> +		return dev_err_probe(&pdev->dev, ret, "Failed to enable clocks\n");
+> +	}
+> +
+> +	cdns_i2s_mc_rst(i2s_mc_priv);
+> +
+> +	irq =3D platform_get_irq(pdev, 0);
+> +	if (irq < 0) {
+> +		ret =3D irq;
+> +		goto err_disable_clks;
+> +	}
+> +	i2s_mc_priv->irq =3D irq;
+> +
+> +	ret =3D devm_request_irq(&pdev->dev, irq, cdns_i2s_mc_isr, 0,
+> +			       dev_name(&pdev->dev), i2s_mc_priv);
+> +	if (ret) {
+> +		dev_err(&pdev->dev, "Failed to request irq: %d\n", ret);
+> +		goto err_disable_clks;
+> +	}
+
+[Severity: Medium]
+Is the devres registration order between devm_pm_runtime_enable() and
+devm_request_irq() safe during teardown?
+
+In cdns_i2s_mc_probe(), devm_pm_runtime_enable() is registered before
+i2s_mc_priv->irq is assigned and before devm_request_irq() is called.
+Because devres unwinds in reverse order, on driver unbind or if
+devm_snd_soc_register_component() fails, devm_irq_release() calls free_irq()
+before pm_runtime_disable_action() disables runtime PM.
+
+Since cdns_i2s_mc_runtime_suspend() calls disable_irq(i2s_mc_priv->irq) and
+cdns_i2s_mc_runtime_resume() calls enable_irq(i2s_mc_priv->irq), a runtime
+PM transition occurring before runtime PM is disabled can call enable_irq()
+or disable_irq() on an already-freed IRQ. It also leaves the IRQ disabled
+when devm_irq_release() frees it.
+
+Should platform_get_irq() and devm_request_irq() be moved before
+devm_pm_runtime_enable()?
+
+> +
+> +	/*
+> +	 * Let pm_runtime_put_sync() disable the clocks, and take regcache effe=
+ct.
+> +	 * If CONFIG_PM is not enabled, the clock will stay powered.
+> +	 */
+> +	pm_runtime_put_sync(&pdev->dev);
+> +
+> +	ret =3D devm_snd_soc_register_component(&pdev->dev, &cdns_i2s_mc_compon=
+ent,
+> +					      cdns_i2s_mc_dai, ARRAY_SIZE(cdns_i2s_mc_dai));
+> +	if (ret)
+> +		return dev_err_probe(&pdev->dev, ret, "Failed to register soc componen=
+t\n");
+> +
+> +	return 0;
+> +
+> +err_disable_clks:
+> +	cdns_i2s_mc_clks_disable(i2s_mc_priv);
+> +	pm_runtime_put_noidle(&pdev->dev);
+> +	return ret;
+> +}
+
+[Severity: Medium]
+Does cdns_i2s_mc_probe() leak the prepare/enable counts on clk_hst and
+clk_i2s when devm_snd_soc_register_component() fails or when the driver is
+unbound?
+
+In cdns_i2s_mc_probe(), clk_hst and clk_i2s are enabled via
+cdns_i2s_mc_clks_enable(), and the driver relies on pm_runtime_put_sync()
+running cdns_i2s_mc_runtime_suspend() to disable them. There is no devm
+action or .remove callback in cdns_i2s_mc_driver to disable the clocks.
+
+When CONFIG_PM is disabled (where pm_runtime_put_sync() is a no-op and the
+clocks stay powered) or when runtime suspend is prevented (for example via
+sysfs power/control), if devm_snd_soc_register_component() fails,
+cdns_i2s_mc_probe() returns without calling cdns_i2s_mc_clks_disable().
+The same leak occurs on driver unbind because devm_pm_runtime_enable() only
+calls pm_runtime_disable() and does not invoke cdns_i2s_mc_runtime_suspend()
+when the device is still runtime-active.
+
+Also, on the error paths after pm_runtime_set_active(&pdev->dev) (when
+devm_pm_runtime_enable(), cdns_i2s_mc_clks_enable(), platform_get_irq(), or
+devm_request_irq() fails), pm_runtime_set_suspended(&pdev->dev) is not
+called, leaving the runtime PM status marked active while the clocks are
+disabled.
+
+[ ... ]
+
+> +static struct platform_driver cdns_i2s_mc_driver =3D {
+> +	.probe =3D cdns_i2s_mc_probe,
+> +	.driver =3D {
+> +		.name =3D DRV_NAME,
+> +		.pm =3D pm_ptr(&cdns_i2s_mc_pm_ops),
+> +		.of_match_table =3D cdns_i2s_mc_of_match,
+> +	},
+> +};
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019122048.1107=
+179-1-joakim.zhang@cixtech.com?part=3D4
