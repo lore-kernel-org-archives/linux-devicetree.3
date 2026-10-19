@@ -1,160 +1,263 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81713489867
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 07:25:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90F035AC1E;
+	Mon, 19 Oct 2026 07:27:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792394750; cv=none; b=skCMtC2i760oNN3PGmUa6zNFJ/Dds6m2S6y8C7ZWsfBfKPSADOb4kbdlAbA5v5zxNCPepnem1E7L6I0zo1NTJX8dpzISiVro2LVZMBdu/kTgN1bFeqeb4uinI6eo2d8Sh0iuNO9fAkgfVWSSMPgH24Yee3BqSfYeW1u79LcEIzY=
+	t=1792394833; cv=none; b=dha/6rS7AeN1e5JTjPxoFYLdCBi7SCFMjdiEAjBJ19ERTV9g0Mu6PAXoViucl0UJPawZupa3DTGkBUTEs+FY3Yp6ICGdblqwOafE3QTjo6kaWtiWB8kykIb+AsLiVWWFPcno6F10UtCtw5goK/BdQ7l7ZStcQxi9eIXJOtw9b0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792394750; c=relaxed/simple;
-	bh=0xQUeD5kuMCGhhK+FQyGwuZHoSMJnIxmG3EWT2YgZuY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=grRE2q2iDgkuZbcznAMxm/L7qJNfqjfEnayrQhwyf24+GbtT4woXChcHbE2kF2Mt+bR8BtH6K4/sP+1CVWRZw1Xe+f19oK6rrDx7Zccjkq/CgtrxVggxj4N/SO19DMRATze4gUT/5LRKYFtDcV4zHVDI80cwoPAr3cAQTZpOMLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TNYbOH2T; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=G01N6IaP; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792394833; c=relaxed/simple;
+	bh=JWRZ87p8cHMbw0v4XW5vqy8hPjLd0VdcwuFwgz6AS7E=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=a5ezmIvkrGx0rH/SEB8bY4duqPKTrGn3WxHqmvA83pmy6HkB3BjiVjx74Ep6H5I4Xc+7w7IwXknpOuWfklKr/R3RkIYrVKqYj3D5P/eMDpKX3ElbSva/j8nS6kmnW0fDYfAfYc+tLHZ4taZbDxpCXvwI3HtKoYWlaCtsE+0mEKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lRpYsITy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TNYbOH2T";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="G01N6IaP"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J4jplD2180151
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 07:25:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	MfEQlfKriOoZNiF29x59T585s1PSoDwBql762uznc+4=; b=TNYbOH2Td/6mbw6T
-	2/pcZsReh2I2+54kXl6sXTBtpGyTBa3K63+Tk2botHPQZvWalwe92OP8Zn/IFLig
-	oVPkDxOk5BKaozNWbHkBWFjEfG5cvPm1D1oGrUI13sqyPuNeECNG1kOvapi9PXmZ
-	wXnF4w1VHjPntkM76V8bJj1TMUwi+f/FEqJPkciYb05oDFFIYQu/bkfwlv09Kmkj
-	DcurPDVSjlSU+MCWemYH2IgXUnxIDLpkjSSYwuwAc+WLIrNOC0D9Wgm12GX3uhGc
-	ulGDQrBDJZTeO/eGOBcONckSSa238Lnmy7o3GIHFt3p131FDOY0STpWQHpfdU+vg
-	Ki2xBw==
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hd5u1hhnv-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 07:25:47 +0000 (GMT)
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-16bc6f3fdb1so774835c88.0
-        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 00:25:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792394746; x=1792999546; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MfEQlfKriOoZNiF29x59T585s1PSoDwBql762uznc+4=;
-        b=G01N6IaPLOBmrrgOTHpMoSCJAHk7Oib3ukKS8s0uFVdY4HqytPL8JjZ6FeUSjmNdRe
-         2l0RrKzjb6JjXUCk0dCWCzi0jYXcUSehEcZ7UDyJrLr8bPeC6tZXwgkwX4FBFkvrN2x+
-         ZnLSeyHYIF7EpMEJBc0k1gD6WL8Gypvd3nv3s4lidUV3jocDT1DeK+MAgAvTvNOisl4i
-         fYYxYjfK3u9wUsFyadZmFHylAuld8yYQ34z+dr3jXNJNNbfNkbmL46UtpjoR5AdqBc2/
-         6J5f0upi+lXB2uctl8K7R46Hj78KWB/b6djzsvWiHOn/K9PQetq7xPLHp0+QDfncMGCB
-         1mqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792394746; x=1792999546;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MfEQlfKriOoZNiF29x59T585s1PSoDwBql762uznc+4=;
-        b=uzUBHgDuyON85V6UoAtZLl5aPELEyHMyTLUiHsKFweI/4+mAxQf5bPs32iTok63VTW
-         lEFZQq/GA+NOzcSJwav/2tIOkBYCY2sHMB7WMzWEtNhnkESGc0t0ueGaOM+ds4DJAO7N
-         WrPG3ZVAqs8Byyk4KaFPBuikauwHLnoSLxNA7zO3KFxym6tx5yZsVgj18ccws8GCM3NI
-         bHCuMLZgn9aq4Rwk5oberXn6Nu9ckxZ3G2IR+hDuiB6XPqjPVjgapsOjAbNDUIpUOHKd
-         nw+tfF88WBeJYiakZrDrohaY37ODbuLh+ISJ/71I8buzW4yVu0IwNIblG3NHeTGUqiLN
-         8+VA==
-X-Forwarded-Encrypted: i=1; AKwUvBwMr55yw/2P/X7C8V1mX0YuxGuZpciF4PX1U2C0rLdNJ/jKQQxSEgYlFOgKtptvKfEDVum0mIb/ojap@vger.kernel.org
-X-Gm-Message-State: AFq9FYIbfjWEq7W/0VHcLDSttpGsQPkhaiVwQdKOgicgZ9gtZnPwMUHl
-	BRDzcvC+iRtojRszOBMyiguPfCrYFKGDjf2t4gQdDUsrF7qFCDDS/qDG6xkh8waby2bNnbjejy/
-	6TDQWPIKlR2yjqZzezru0aYiP9lcLiYn0DFaPL14mz0WI1d+MOO3wpbIk00cKnS+7
-X-Gm-Gg: AYBFou2S46dXZV22hAe8YFdF3g/sYlUShlvek9pua4V9ySAG7Z4mDnx/kploxOHDWic
-	JdY3FB4byslViw95AZuE//OrJJOruR5dpYGY+22SF9vEk52xtltqR42qJwPhTzW/5sUB0Tt5Y2M
-	HH6iLRIT8mhN7Dy5oMKV+hY5B6vNcmW2eERaegswBtTycJWcEZW927Y1R5EEnBE7xBEo8skcw08
-	9ubzgqHqwFaPhG67KYmSYX1jPOm5q7FiMGu5awjjBmmsNCk2SWfgX6Ava20N5rEIDkEimde5eUZ
-	U+JHDdnzsaxqvouW6lacXY5ZzEA7ioSkCQ6x9lZ4A5KWXT5YacJMM5oyQZGHb6B6xGBnLWLRuPk
-	37Bmv689vKhRkPcXjhf+dZ2RG3Qdz0w==
-X-Received: by 2002:a05:701b:4309:b0:168:3243:c91a with SMTP id a92af1059eb24-18511eb6891mr11403398c88.13.1792394746217;
-        Mon, 19 Oct 2026 00:25:46 -0700 (PDT)
-X-Received: by 2002:a05:701b:4309:b0:168:3243:c91a with SMTP id a92af1059eb24-18511eb6891mr11403360c88.13.1792394745648;
-        Mon, 19 Oct 2026 00:25:45 -0700 (PDT)
-Received: from [192.168.1.10] ([103.211.19.100])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831919fdfesm26416418c88.7.2026.10.19.00.25.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 00:25:45 -0700 (PDT)
-Message-ID: <7766382e-5187-465b-aa89-ff1bf9a16588@oss.qualcomm.com>
-Date: Mon, 19 Oct 2026 12:55:37 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lRpYsITy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9C731F000C4;
+	Mon, 19 Oct 2026 07:27:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792394832;
+	bh=nicixn6yiGSSav/ZgC3Y6XWoIj2ecaBOT9kxq+wY4G4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=lRpYsITyKsTuHHdgQPzQBIbjeVlMo0iBAEBCcayUFNLF+hUDK3DlErRjXUyhAzo9q
+	 uCgYgpxQzve1QQSySObuHPzQihb8fJcBTCC0ee1MMFQ+aqBdhRBg4tV2/YMJ7c+2Nm
+	 tbJplQDIhQAnonCD+ppJfzTDhpNTkwmoRf7GujtZAQQvALA8U/34BxA0ZaCI4kc7QA
+	 3A/xiRT7rn7sahlmTwWVVRcpul8OMPcSLToj7j1dFLfbUHFhQbqLmIFt5MxWX8OGIn
+	 liwhlaI0BaVYQPmeO81N8CdXZvpqGnFd5cQH4MKjHc+TFcthAw7DNfv7E2hnJkaLmJ
+	 33JMizyuoqVjw==
+Subject: Re: [PATCH net-next v3 1/6] dt-bindings: net: ftgmac100: Add AST2700
+ compatible
+From: netdev-bot+sashiko@kernel.org
+To: jacky_chou@aspeedtech.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
+ pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ ratbert@faraday-tech.com, edumazet@kernel.org, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Mon, 19 Oct 2026 07:27:11 +0000
+Message-ID: <179239483139.3135.3394003778895796670@kernel.org>
+In-Reply-To: <20261015-support_ast2700-v3-1-8d7999171ac4@aspeedtech.com>
+References: <20261015-support_ast2700-v3-1-8d7999171ac4@aspeedtech.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/7] dt-bindings: phy: qcom: Add qcom,sa8775p-csi2-phy
- schema
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>, bod@kernel.org,
-        vkoul@kernel.org, kishon@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org,
-        mani@kernel.org, gjorgji.rosikopulos@oss.qualcomm.com,
-        hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
-        jigarkumar.zala@oss.qualcomm.com, loic.poulain@oss.qualcomm.com,
-        vladimir.zapolskiy@linaro.org, linux-arm-msm@vger.kernel.org,
-        linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20261016235502.2274268-1-anusha.nandi@oss.qualcomm.com>
- <20261016235502.2274268-3-anusha.nandi@oss.qualcomm.com>
- <851434b3-4cf1-4371-9b4a-57dba8022e13@oss.qualcomm.com>
- <20261019-funky-real-skunk-eda6dc@quoll>
-Content-Language: en-US
-From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-In-Reply-To: <20261019-funky-real-skunk-eda6dc@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: ys72gJ1PcRQhxePrrg_6Qobf6xqlCOHF
-X-Authority-Analysis: v=2.4 cv=NItAaE6g c=1 sm=1 tr=0 ts=6ad5c5fb cx=c_pps
- a=SvEPeNj+VMjHSW//kvnxuw==:117 a=ocEEpg4cTnoGtXECQz/e5g==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=K1xP-2VuxSs3Jipg4doA:9 a=QEXdDO2ut3YA:10 a=Kq8ClHjjuc5pcCNDwlU0:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDAyOSBTYWx0ZWRfX911GvmJAHpej
- K/h83dcnB62i9EYwKVx2pwHQVxqXS/0K7XonDg4iOAUhGf0ZLcGzDR6rf7STROTLg8w9egGdoYw
- CcwJjk86qk7ERooCkKm8LASZZLVHyBc=
-X-Proofpoint-GUID: ys72gJ1PcRQhxePrrg_6Qobf6xqlCOHF
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDAyOSBTYWx0ZWRfX7S7USrw+XZVc
- Jd/VFDed18dcF42GtI5uR9atkWLric0aEXaXJtTZaUKLQWOdnKhsgjBBFGWCoguW73a+uUB6/uI
- yNd25WyQGdc7FnsbH+Iciv/6t9jZBJsJjJFKBwE71Vwcwr2KM2KlaLQaRE+wYNRH1443KUXid1V
- 910VPvcFOIDtFA60vhRUifu9rgvmbfFo5r0yNWFq12Q34mzEn+zuImQvwr9PneLGM/8jczAjVW2
- KTnhPQygDoeuh2aSyuTFJzdffhGNhhcnxiV7Rmt8lVkt8uOyhXx66gy4J/G8uHc2v7MOt+I2hpZ
- sHrkoJyev59kykc4pJBAeLsl4HQdZ7MQrkU3TsGabTm90cbOGLwmrt5zPh7RTWOuM8QCJz5kThp
- G70HKEky02A/vTNngGD/W3Si2e6jWTumKmmdQ7lAWieS4wDhWUUM2a2I25dhSegbZDfA/7TQUGg
- 3lomlhrdmH/BxlYfJZw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-19_02,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 bulkscore=0 malwarescore=0 impostorscore=0
- spamscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190029
 
+Thank you for your contribution! Sashiko AI review found 6 potential
+issue(s) to consider.
 
+Critical: 0 · High: 0 · Medium: 3 · Low: 3
 
-On 19-10-2026 12:43, Krzysztof Kozlowski wrote:
->> DTS uses 2-cell reg but binding example uses 1-cell. Please align:
->>   reg = <0x0 0x0ac9c000 0x0 0x2000>;
-> I don't understand what is supposed to be aligned here. The code is
-> correct.
-Right, the DTS change is correct.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-My comment was about the binding example using a different address/size cell
-layout from the real DTS. 
+- [Medium] In
+  Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml…
+- [Medium] The rewritten `compatible: oneOf` in faraday,ftgmac100.yaml
+  (lines 13-20) no longer accepts the two-string `"aspeed,astXXXX-mac",…
+- [Medium] dt-bindings: net: unconditional phy-mode requirement conflicts
+  with use-ncsi
+- [Low] The commit message says requiring phy-mode 'match[es] the
+  driver's probe-time requirement' and talks about AST2700…
+- [Low] At this commit, the binding documents a standalone
+  `aspeed,ast2700-mac` compatible, but ftgmac100_of_match[] (line 2138)…
+- [Low] The new aspeed,ast2700-mac compatible does not require `clocks`
+  (top-level `required:` at faraday,ftgmac100.yaml lines 71-74 lists…
 
-Krzysztof, should the binding example mirror the SoC bus address/size cell
-layout here, or is the standalone 2-cell example fine as long as it passes
-dt_binding_check?
+--
+
+dt-bindings: net: ftgmac100: Add AST2700 compatible
+
+This adds aspeed,ast2700-mac to the ftgmac100 binding, allows the reset
+line for it and requires phy-mode for it. It also changes all of the
+Aspeed compatibles from the "aspeed,astXXXX-mac", "faraday,ftgmac100" pair
+to standalone strings.
+
+> diff --git a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> index d14410018bcf..0a376b849a91 100644
+> --- a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> +++ b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> @@ -13,12 +13,11 @@ properties:
+>    compatible:
+>      oneOf:
+>        - const: faraday,ftgmac100
+> -      - items:
+> -          - enum:
+> -              - aspeed,ast2400-mac
+> -              - aspeed,ast2500-mac
+> -              - aspeed,ast2600-mac
+> -          - const: faraday,ftgmac100
+> +      - enum:
+> +          - aspeed,ast2400-mac
+> +          - aspeed,ast2500-mac
+> +          - aspeed,ast2600-mac
+> +          - aspeed,ast2700-mac
+
+[Severity: Medium]
+Will DTBs written to the new binding still get networking on older
+kernels?
+
+Before commit 03a2aba50b2c ("net: ftgmac100: List all compatibles"),
+ftgmac100_of_match[] in drivers/net/ethernet/faraday/ftgmac100.c only had:
+
+    { .compatible = "faraday,ftgmac100" },
+
+On those kernels, Aspeed MAC nodes bound only through the fallback string.
+A node with only compatible = "aspeed,ast2500-mac", as in the updated
+example, matches no driver on such a kernel. That includes stable/LTS
+kernels that predate that commit, and any other DT consumer that matches
+only the generic string.
+
+The commit message only mentions the dtbs_check warnings and calls this a
+binding correctness fix. Could it also mention this forward-compatibility
+change? Alternatively, could the two-string form be kept as a deprecated
+alternative instead of being removed?
+
+[Severity: Medium]
+Without the items branch, both oneOf branches accept only a single
+string. Every in-tree Aspeed MAC node still uses the two-string form:
+
+arch/arm/boot/dts/aspeed/aspeed-g4.dtsi (mac0, mac1):
+    compatible = "aspeed,ast2400-mac", "faraday,ftgmac100";
+
+arch/arm/boot/dts/aspeed/aspeed-g5.dtsi (mac0, mac1):
+    compatible = "aspeed,ast2500-mac", "faraday,ftgmac100";
+
+arch/arm/boot/dts/aspeed/aspeed-g6.dtsi (mac0..mac3):
+    compatible = "aspeed,ast2600-mac", "faraday,ftgmac100";
+
+After this patch, these 8 MAC nodes fail dtbs_check on every AST2400,
+AST2500 and AST2600 board. Nothing in this series updates the dtsi files,
+and DTBs already deployed with this compatible become schema-invalid too.
+The two-string form was never marked deprecated before being removed.
+
+Dropping the pair also changes nothing at runtime on current kernels.
+of_match_node() scores matches by their position in the node's compatible
+list, so the dedicated aspeed,astXXXX-mac entries in ftgmac100_of_match[]
+already win over "faraday,ftgmac100".
+
+Could the existing items form stay valid, for example marked deprecated,
+next to the new standalone enum?
+
+[Severity: Low]
+At this commit, ftgmac100_of_match[] has no aspeed,ast2700-mac entry and
+enum ftgmac100_mac_id has no AST2700 value. A schema-valid AST2700 node
+would therefore bind to nothing.
+
+Later in the series, "net: ftgmac100: Add AST2700 compatible support"
+adds FTGMAC100_AST2700, the match entry and the BIT(30) EDORR selection in
+ftgmac100_probe(). So this only affects the intermediate state.
+
+> @@ -30,7 +29,7 @@ properties:
+>      minItems: 1
+>      items:
+>        - description: MAC IP clock
+> -      - description: RMII RCLK gate for AST2500/2600
+> +      - description: RMII RCLK gate for AST2500/2600/2700
+
+[Severity: Low]
+Should clocks also be required for aspeed,ast2700-mac? The top-level
+required list has only compatible, reg and interrupts, and no conditional
+adds clocks.
+
+With the later driver patches in this series, ftgmac100_probe() calls
+ftgmac100_setup_clk() for AST2700, which does:
+
+	clk = devm_clk_get_enabled(priv->dev, NULL /* MACCLK */);
+	if (IS_ERR(clk))
+		return PTR_ERR(clk);
+
+So an AST2700 node without clocks passes dt_binding_check but then fails
+probe.
+
+phy-mode is made required below to match a probe-time requirement. Should
+clocks be required for the same reason? AST2400-2600 already have this
+gap; this patch extends it to the new compatible.
+
+> @@ -82,26 +81,35 @@ allOf:
+>            contains:
+>              enum:
+>                - aspeed,ast2600-mac
+> +              - aspeed,ast2700-mac
+>      then:
+>        properties:
+>          resets: true
+>      else:
+>        properties:
+>          resets: false
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: aspeed,ast2700-mac
+> +    then:
+> +      required:
+> +        - phy-mode
+
+[Severity: Medium]
+Should this requirement exclude NC-SI configurations? use-ncsi takes
+the place of an MDIO PHY. When it is present, probe goes down the
+ftgmac100_probe_ncsi() path and returns before ftgmac100_mii_probe()
+is reached. The driver therefore never reads phy-mode for such a node.
+
+With this block, an AST2700 node written like the first example in
+this binding fails dt_binding_check / dtbs_check because phy-mode is
+missing:
+
+    compatible = "aspeed,ast2700-mac";
+    reg = <...>;
+    interrupts = <...>;
+    use-ncsi;
+
+The only way to make it pass is to add a phy-mode value that nothing
+consumes. That value would also not describe the hardware, since
+there is no PHY on that MAC.
+
+The commit message says this matches the driver's probe-time
+requirement. As far as I can tell, that requirement only applies on
+the PHY path, not with use-ncsi.
+
+Could the then: branch be limited to nodes without use-ncsi? For
+example, a nested if: with not: required: use-ncsi could carry the
+phy-mode requirement. Or is there a reason AST2700 NC-SI boards need
+phy-mode as well?
+
+[Severity: Low]
+The commit message says:
+
+    Require "phy-mode" to be present in the device tree when the AST2700
+    compatible is used, matching the driver's probe-time requirement.
+
+It also describes the AST2700 EDORR, clock and DMA mask handling in
+ftgmac100_probe().
+
+At this commit, ftgmac100.c has no AST2700 support and never calls
+dma_set_mask*(). ftgmac100_mii_probe() also still treats phy-mode as
+optional:
+
+	err = of_get_phy_mode(np, &phy_intf);
+	if (err)
+		phy_intf = PHY_INTERFACE_MODE_RGMII;
+
+This driver behavior is added later in the series by:
+
+    "net: ftgmac100: Add AST2700 compatible support"
+    "net: ftgmac100: Require phy-mode for AST2700"
+    "net: ftgmac100: Add AST2700 upper DMA address support"
+
+Putting the binding first is the normal order. Could the commit message
+say that it describes the driver once the rest of the series is applied?
+
+[ ... ]
 
 -- 
-Regards,
-Nihal Kumar Gupta
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261015-support_ast2700-v3-0-8d7999171ac4%40aspeedtech.com
