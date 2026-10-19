@@ -1,446 +1,86 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+Received: from out-utut-a220.jellyfish.systems (out-utut-a220.jellyfish.systems [198.177.127.220])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1FE849158D
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 07:40:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18F3948DB4C
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 07:41:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.177.127.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792395613; cv=none; b=Hzujrv+NTkOvkvEPmtk1Y9mR3HcQJ0Ta8Gi6raKfdjkFQB7XXjyCxyU/JXDRZvVXvVhiTUxqIPr9TQvN2Htt+pkYvcarvNuw8I2qzJiJKEfnNHYWl6FgcE6V2iSQtp79+iYtaszfpDMRNcNzOYh3L+p2zP708f1L5/pEd+D+2iM=
+	t=1792395707; cv=none; b=cNlK3Iv2yNEA2HDpDz/Zuc7jBLFFHJkeCy4lcXS3Se4bDl0YeOpRtmk2n0oo7938pE5d0mWUjraGFJSe7uVo0sGObRqjCAIb6XVtSWSBEyNknFv7WSVkdAuGwz4ZjRC1cInJoQqI748DwIftWlzNFUxLmSM1kV6TFvbWNAXhxQk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792395613; c=relaxed/simple;
-	bh=DT7tWGRorHL45umJe9t2q7qTRzJoJLjHRBL+ufDbIcQ=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=YQhmlbBQum8lW8CfCLpUSa3gRqvyErNTw0dD/m+q8sqWW+hdCjRlmkaEONPdiHbQtI3yoLmGc4i+tlV1g3ZfUP+rSDPYqPJ6rd7bxT5iRGAWCuWizCH8x7Of1xj1auPjIodq4BJ3hnnTmNC43IJ223qRZpw256o9bvTjk2f3ZPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=V8PhslIJ; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1792395707; c=relaxed/simple;
+	bh=8iCy8Dh2ohTt/d+rfWDZv4l8W4e8ADEiqK3sjs2xLB4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iX1dXxJlJDbifIF78jnm98So5UlOGrY04CK+Ww2b5Z3J+nm3M8Ut4I/CkOYWtx0ZwGoaRw8giBPgaNI3Yw2YLDwwJE+VgwYinnrygSdlZMLv4FRJ1f0LwdzE3sDqrBNGkknsaiyTN80LLbpWkDRR9TMKX7jGyqg8H9kSVOQcYUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gurudas.dev; spf=pass smtp.mailfrom=gurudas.dev; dkim=pass (2048-bit key) header.d=gurudas.dev header.i=@gurudas.dev header.b=jB1NEoLr; arc=none smtp.client-ip=198.177.127.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gurudas.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gurudas.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="V8PhslIJ"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48e10a70540so464619f8f.1
-        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 00:40:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792395605; x=1793000405; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=M0SUy48Ueh56GzaTiRmwygfsPwqE3Nw6AJaFjvfAhy4=;
-        b=V8PhslIJ14XACrtgoMAmVuPVPo2pHG4PYU/w4DtQwo4DnFh0YXKu0WtcrkGz2W4sRJ
-         f2fHYtbLEzMf7wpRMPwMGYIywrxcqjUwmpCwczxQqxpvk0E1EIbud96W3tttWNQrjASR
-         t7gfNVbcaQ777RXYT3yuxK4hUC6fJ15bPprWIzQ9/TAbvjMr8nK7Jjo7bdum2L7G1Cjb
-         i8Dc/LDVU3CNqUQcD/9aTgJZE3DNAIM7sr/qdjWSzsPzsFzvXir2rER5hiZNh4yU4N1d
-         jBRAMNlE0JRREDTI7/6ZZuT94P99f1bqW8YSX6UqrxSxIXnKXweEPp/WbukboCA/jrdu
-         uIkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792395605; x=1793000405;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=M0SUy48Ueh56GzaTiRmwygfsPwqE3Nw6AJaFjvfAhy4=;
-        b=a3QBr/Vhobm1Q+PV3Nz/kh/OmZI537y8kywEjC8wJ7yJkmBz/VTC8FoHP5tLjfpsG/
-         kDGscJVjeQxKkkTdGwp4jrwBiGAhmdFTfDrgAdi4Wm4venBQ6rw48EVkaVP65HEfWfeY
-         vWue0t0oMLmc1h8iQPkEaUq5laaQyh0wtjQxWsfikR72fETs0/7wQ9fSwevKyWrlwv45
-         VhxPjFvxCyd8hVTVY0mdnn2cCH34kUQSNkS+5z7HiTjunHLqlkQNEP0iFJdk7hR3T1Iy
-         N5HiIgmEYjrTSlVnXEg32EGHaW3lNjrpqzzG1rEDOQkeCPYQ4W3C/uMNnAilTVcLBmLR
-         3mmw==
-X-Forwarded-Encrypted: i=1; AKwUvByT8a4mql8C3VCRoMldBbGCzpQB8YjTzmtJLfOqV4fmceAm6sPEKAdhXsb1EshxoojbM1YVwYKp2vzw@vger.kernel.org
-X-Gm-Message-State: AFq9FYLwaEwgD2Gmi3vYdxHXtmLJWRl015BtY3GtcGeEj0pDoA9mSe82
-	mfHFRXjLEOnPY7iqIrT+wSkKSVfImUIhP8CFRWmNZ6YI1XyUFJscAcwdZCH7K/BNH2I=
-X-Gm-Gg: AYBFou3a1pjn2GXZtMqEVVW1N0hYs80ICI9I+de+EnclE7JEIGOlzIh2GhJDJj1tEJ1
-	O3dEPw7OuypuFHLHKtRDTWbw1h38dROaR3YubVIpWL0HWagh+hGReXimbwnSsJz+iPz4Nj0vm05
-	GJG4t+9KO3t5O2+5c/arWiS136QBRXSGuMQbrY+nCe+bMS1eg2Bu9wntJlUG8mRWXVBKF24zE05
-	9g7NWeZLez51iof2X2FLwxKUyBlfWhuJrB1rdqP4r1qQpMlt/No+VvlHFAWLgWaxAAl4FGkfTmV
-	A0mR7TWOFK39wEcQkP6tkNKYAPg7rQTaGelnJnkWrj98gSjAA8bpYSWuwFgQueT1qusbOqwpifr
-	ZhgX2/j6O99niwpVS1ftyO34P/KjMON40BRhrnCdT4pVSEVciKvtvSjkGzepLGrHHZ7eLhAzLfE
-	YY31ve1YxQ5NlMZkk6fXGD1zVShLZaHgHg9CRqTj0IJhvwJXh4L/4a3Uh7TFQDvheOlpeKdaQc1
-	QRN6W1oxhxVtlHvGhHHT//cgjVJHhzmQar5dP7TvLjF6OB8JAhziQ==
-X-Received: by 2002:a05:6000:29c6:b0:48b:5e2:52dd with SMTP id ffacd0b85a97d-48e07bbd36emr9726692f8f.11.1792395604385;
-        Mon, 19 Oct 2026 00:40:04 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:6674:33bf:38d6:bc10? ([2a01:e0a:106d:1080:6674:33bf:38d6:bc10])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f8bd9sm22298261f8f.35.2026.10.19.00.40.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 00:40:03 -0700 (PDT)
-Message-ID: <98df3ac1-c6ae-4acb-b0ee-ddda92487660@linaro.org>
-Date: Mon, 19 Oct 2026 09:40:03 +0200
+	dkim=pass (2048-bit key) header.d=gurudas.dev header.i=@gurudas.dev header.b="jB1NEoLr"
+Received: from gurudas.dev (107-194-158-19.lightspeed.sntcca.sbcglobal.net [107.194.158.19])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.spacemail.com (Postfix) with ESMTPSA id 4j7SCs4fhBz2x99;
+	Mon, 19 Oct 2026 07:41:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gurudas.dev;
+	s=spacemail; t=1792395690;
+	bh=TDpuGLk4VdS+1BmydS1MckZ+DHA1iY5r82SIQvDgwj4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=jB1NEoLrQ7qDs8zGfIte9yrWhmSlN8soRpqyOZGcS9UkrK5kdRPfaaYiHx2+j8Ku7
+	 oTCDsD0WRS7pKDoTf608vG11yHFqZYSAPKi8pbqayb5ygGP01f2zXaiBtG8XqzBBQB
+	 4wVnBKuurGDqBe2z7YUn+qzS8H8rcWCEfK9X6LCxteuUStZxHhlp2w+4wIqDouAqGz
+	 9LqgTrii5U8xBn9OGxos74tcJHkTvsueBVGqIic3KN7F8VWuumSy8kOdVJVBp0dSN8
+	 dosFTWH11hHHAubaJsqaCWtlB15X6W/YJdRR/UA/BITo0AJKAdYP6wPeO+IDjZVzc6
+	 76Qr1A4SeHB3g==
+Date: Mon, 19 Oct 2026 00:41:27 -0700
+From: Guru Das Srinagesh <linux@gurudas.dev>
+To: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, linux-arm-msm@vger.kernel.org,
+	mfd@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Dhruvin Rajpura <drajpura@qti.qualcomm.com>,
+	Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+	Oleg Keri <okerixx@gmail.com>
+Subject: Re: [PATCH v2 3/7] regulator: qcom-pm8008: Add PM8010 mode support
+Message-ID: <atXJp5ct5jANeo0T@gurudas.dev>
+References: <20261014-pm8010_i2c_support-v2-0-b395d2b3f668@oss.qualcomm.com>
+ <20261014-pm8010_i2c_support-v2-3-b395d2b3f668@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 3/3] i3c: master: svc: Add Amlogic A9 glue layer
-To: junyi.zhao@amlogic.com, Alexandre Belloni
- <alexandre.belloni@bootlin.com>, Frank Li <Frank.Li@nxp.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, imx@lists.linux.dev,
- linux-hardening@vger.kernel.org, xianwei.zhao@amlogic.com,
- Kelvin.Zhang@amlogic.com
-References: <20261019-a9_i3c-v1-0-329d819d621f@amlogic.com>
- <20261019-a9_i3c-v1-3-329d819d621f@amlogic.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261019-a9_i3c-v1-3-329d819d621f@amlogic.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014-pm8010_i2c_support-v2-3-b395d2b3f668@oss.qualcomm.com>
+X-Envelope-From: linux@gurudas.dev
 
-On 10/19/26 07:34, Junyi Zhao via B4 Relay wrote:
-> From: Junyi Zhao <junyi.zhao@amlogic.com>
+On Wed, Oct 14, 2026 at 04:02:00PM +0530, Jishnu Prakash wrote:
+> From: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
 > 
-> Add support for the Amlogic A9 implementation of the Silvaco
-> SVC I3C controller.
+> Implement set_mode/get_mode support for PM8010 LDOs using the mode
+> control and status registers to allow clients to vote for LDO modes.
+> Mode voting is not supported in the PM8008 LDOs.
 > 
-> The glue layer provides Amlogic-specific operations and resource
-> handling while reusing the common SVC I3C core driver.
-> 
-> Add a corresponding MAINTAINERS entry for the Amlogic I3C
-> controller.
-> 
-> Signed-off-by: Junyi Zhao <junyi.zhao@amlogic.com>
+> Signed-off-by: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
+> Tested-by: Oleg Keri <okerixx@gmail.com> # Lenovo Yoga Slim 7x Gen 11 (Glymur)
+> Signed-off-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
 > ---
->   MAINTAINERS                          |   6 +
->   drivers/i3c/master/svc/Kconfig       |   7 +
->   drivers/i3c/master/svc/Makefile      |   1 +
->   drivers/i3c/master/svc/i3c-amlogic.c | 250 +++++++++++++++++++++++++++++++++++
->   4 files changed, 264 insertions(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index dffc63af2..478979446 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -1398,6 +1398,12 @@ F:	Documentation/userspace-api/media/v4l/metafmt-c3-isp.rst
->   F:	drivers/media/platform/amlogic/c3/isp/
->   F:	include/uapi/linux/media/amlogic/
->   
-> +AMLOGIC I3C DRIVER
-> +M:	Junyi Zhao <junyi.zhao@amlogic.com>
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/i3c/amlogic,i3c-a9.yaml
-> +F:	drivers/i3c/master/svc/i3c-amlogic.c
-> +
->   AMLOGIC MIPI ADAPTER DRIVER
->   M:	Keke Li <keke.li@amlogic.com>
->   L:	linux-media@vger.kernel.org
-> diff --git a/drivers/i3c/master/svc/Kconfig b/drivers/i3c/master/svc/Kconfig
-> index 14fa1e542..df3528bc1 100644
-> --- a/drivers/i3c/master/svc/Kconfig
-> +++ b/drivers/i3c/master/svc/Kconfig
-> @@ -18,4 +18,11 @@ config I3C_SILVACO
->   	  compatible strings such as "silvaco,i3c-master-v1" and
->   	  "nuvoton,npcm845-i3c".
->   
-> +config I3C_AMLOGIC
-> +	tristate "Amlogic I3C support"
-> +	default y
-> +	help
-> +	  This selects the Amlogic SoC glue layer support for
-> +	  the Silvaco device driver. This driver is used for A9, C5 SoCs.
-> +
->   endif # SVC_I3C
-> diff --git a/drivers/i3c/master/svc/Makefile b/drivers/i3c/master/svc/Makefile
-> index cf18c5da6..695863d1f 100644
-> --- a/drivers/i3c/master/svc/Makefile
-> +++ b/drivers/i3c/master/svc/Makefile
-> @@ -3,3 +3,4 @@
->   
->   obj-$(CONFIG_SVC_I3C)	+= i3c-main.o
->   obj-$(CONFIG_I3C_SILVACO)	+= i3c-silvaco.o
-> +obj-$(CONFIG_I3C_AMLOGIC)	+= i3c-amlogic.o
-> diff --git a/drivers/i3c/master/svc/i3c-amlogic.c b/drivers/i3c/master/svc/i3c-amlogic.c
-> new file mode 100644
-> index 000000000..82300d6ae
-> --- /dev/null
-> +++ b/drivers/i3c/master/svc/i3c-amlogic.c
-> @@ -0,0 +1,250 @@
-> +// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
-> +/*
-> + * Copyright (C) 2026 Amlogic, Inc. All rights reserved
-> + */
-> +#include "i3c-main.h"
-> +#include <linux/math64.h>
-> +
-> +/* Amlogic specific registers */
-> +#define I3C_BG_RD_ADDR			0x200
-> +#define I3C_BG_WR_ADDR			0x204
-> +#define I3C_BG_WR_CTRL			0x208
-> +#define I3C_BG_R_TT_LEN			0x20c
-> +#define I3C_BG_X_CNT			0x210
-> +#define I3C_BUS_MON_CTRL		0x214
-> +#define I3C_BUS_MON_ADDR		0x218
-> +#define I3C_BUS_MON_DATA		0x21c
-> +#define I3C_BUS_MON_DATA_MAK		0x220
-> +#define I3C_CLK_SLOW_DIV_CTRL		0x224
-> +#define I3C_BG_R_WCNT_CLR		0x228
-> +#define I3C_DEBUG_MODIFY		0x22c
-> +
-> +#define I3C_AO_CLK_SLOW_DIV_CTRL	0x300
-> +#define I3C_AO_FCLK_DIV_CTRL		0x304
-> +#define I3C_AO_FCLK_DIV_MASK		GENMASK(7, 0)
-> +#define I3C_AO_FCLK_DIV_EN		BIT(8)
-> +#define I3C_AO_FCLK_EN			BIT(9)
-> +#define I3C_AO_DEBUG_MODIFY		0x308
-> +
-> +#define I3C_DEFAULT_FCLK_RATE		25000000UL
-> +
-> +struct amlogic_i3c_priv {
-> +	int num_clks;
-> +	struct clk_bulk_data *clks;
-> +};
-> +
-> +struct amlogic_i3c_drvdata {
-> +	int (*fclk_rate_init)(struct svc_i3c_master *master,
-> +			      struct clk *fclk, unsigned long rate);
-> +};
-> +
-> +static int default_i3c_fclk_rate_init(struct svc_i3c_master *master,
-> +				      struct clk *fclk, unsigned long rate)
-> +{
-> +	int err;
-> +
-> +	err = clk_set_rate(fclk, rate);
-> +	if (err)
-> +		return dev_err_probe(master->dev, err,
-> +				     "setting fast clock rate failed\n");
-> +
-> +	return 0;
-> +}
-> +
-> +static int ao_i3c_fclk_rate_init(struct svc_i3c_master *master,
-> +				 struct clk *fclk, unsigned long rate)
-> +{
-> +	unsigned int div_cnt, reg_val;
-> +	unsigned long fin_freq = clk_get_rate(fclk);
-> +
-> +	if (!fin_freq)
-> +		return dev_err_probe(master->dev, -EINVAL,
-> +				     "can't get I3C fast clock rate\n");
-> +
-> +	div_cnt = div64_u64(fin_freq, rate);
-> +	if (!div_cnt || div_cnt > I3C_AO_FCLK_DIV_MASK)
-> +		return dev_err_probe(master->dev, -EINVAL,
-> +				     "requested fast clock frequency too low\n");
-> +
-> +	reg_val = I3C_AO_FCLK_DIV_EN | I3C_AO_FCLK_EN | (div_cnt - 1);
-> +	writel(reg_val, master->regs + I3C_AO_FCLK_DIV_CTRL);
-> +
-> +	return 0;
-> +}
+>  drivers/regulator/qcom-pm8008-regulator.c | 75 ++++++++++++++++++++++++++++++-
+>  1 file changed, 74 insertions(+), 1 deletion(-)
 
-You could also create a clock divider, register it and use a common clk_set_rate()
-for both setups.
+...
 
-Neil
+Patches 2 and 3 both say "Add PM8010 mode support" in their subject lines and edit
+the same file. Could they either be squashed into one commit or have their subject
+lines amended appropriately to better reflect the changes they are making?
 
-> +
-> +static int amlogic_i3c_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	const struct amlogic_i3c_drvdata *data;
-> +	struct svc_i3c_master *master;
-> +	struct amlogic_i3c_priv *priv;
-> +	struct clk *fclk;
-> +	int ret, i;
-> +
-> +	master = svc_i3c_master_alloc(dev);
-> +	if (!master)
-> +		return -ENOMEM;
-> +
-> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-> +	if (!priv)
-> +		return -ENOMEM;
-> +
-> +	master->drvdata = of_device_get_match_data(dev);
-> +	if (!master->drvdata)
-> +		return -EINVAL;
-> +
-> +	data = master->drvdata->bsp_data;
-> +	if (!data)
-> +		return -EINVAL;
-> +
-> +	master->regs = devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(master->regs))
-> +		return PTR_ERR(master->regs);
-> +
-> +	master->irq = platform_get_irq(pdev, 0);
-> +	if (master->irq < 0)
-> +		return master->irq;
-> +
-> +	priv->num_clks = devm_clk_bulk_get_all(dev, &priv->clks);
-> +	if (priv->num_clks < 0)
-> +		return dev_err_probe(dev, -EINVAL, "can't get I3C clocks\n");
-> +
-> +	for (i = 0; i < priv->num_clks; i++) {
-> +		if (!strcmp(priv->clks[i].id, "fast_clk"))
-> +			break;
-> +	}
-> +
-> +	if (i == priv->num_clks)
-> +		return dev_err_probe(dev, -EINVAL,
-> +				     "can't get I3C peripheral clock\n");
-> +
-> +	if (IS_ERR(priv->clks[i].clk))
-> +		return PTR_ERR(priv->clks[i].clk);
-> +	fclk = priv->clks[i].clk;
-> +
-> +	ret = clk_bulk_prepare_enable(priv->num_clks, priv->clks);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "can't enable I3C clocks\n");
-> +
-> +	master->dev = dev;
-> +	master->bsp_priv = priv;
-> +	ret = data->fclk_rate_init(master, fclk, I3C_DEFAULT_FCLK_RATE);
-> +	if (ret)
-> +		goto err_disable_clks;
-> +	master->fclk_rate = I3C_DEFAULT_FCLK_RATE;
-> +
-> +	pm_runtime_set_autosuspend_delay(dev, SVC_I3C_PM_TIMEOUT_MS);
-> +	pm_runtime_use_autosuspend(dev);
-> +	pm_runtime_get_noresume(dev);
-> +	pm_runtime_set_active(dev);
-> +	pm_runtime_enable(dev);
-> +
-> +	ret = svc_i3c_master_probe(pdev, master);
-> +	if (ret)
-> +		goto rpm_disable;
-> +
-> +	platform_set_drvdata(pdev, master);
-> +	pm_runtime_put_autosuspend(dev);
-> +
-> +	return 0;
-> +
-> +rpm_disable:
-> +	pm_runtime_dont_use_autosuspend(dev);
-> +	pm_runtime_put_noidle(dev);
-> +	pm_runtime_disable(dev);
-> +	pm_runtime_set_suspended(dev);
-> +
-> +err_disable_clks:
-> +	clk_bulk_disable_unprepare(priv->num_clks, priv->clks);
-> +
-> +	return ret;
-> +}
-> +
-> +static void amlogic_i3c_remove(struct platform_device *pdev)
-> +{
-> +	struct svc_i3c_master *master = platform_get_drvdata(pdev);
-> +
-> +	svc_i3c_master_remove(master);
-> +
-> +	pm_runtime_dont_use_autosuspend(&pdev->dev);
-> +	pm_runtime_disable(&pdev->dev);
-> +}
-> +
-> +static int __maybe_unused amlogic_i3c_runtime_suspend(struct device *dev)
-> +{
-> +	struct svc_i3c_master *master = dev_get_drvdata(dev);
-> +	struct amlogic_i3c_priv *priv = master->bsp_priv;
-> +
-> +	svc_i3c_save_regs(master);
-> +	clk_bulk_disable_unprepare(priv->num_clks, priv->clks);
-> +	pinctrl_pm_select_sleep_state(dev);
-> +
-> +	return 0;
-> +}
-> +
-> +static int __maybe_unused amlogic_i3c_runtime_resume(struct device *dev)
-> +{
-> +	struct svc_i3c_master *master = dev_get_drvdata(dev);
-> +	struct amlogic_i3c_priv *priv = master->bsp_priv;
-> +	int ret;
-> +
-> +	pinctrl_pm_select_default_state(dev);
-> +	ret = clk_bulk_prepare_enable(priv->num_clks, priv->clks);
-> +	if (ret)
-> +		return ret;
-> +
-> +	svc_i3c_restore_regs(master);
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct dev_pm_ops amlogic_i3c_pm_ops = {
-> +	SET_NOIRQ_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
-> +				      pm_runtime_force_resume)
-> +	SET_RUNTIME_PM_OPS(amlogic_i3c_runtime_suspend,
-> +			   amlogic_i3c_runtime_resume, NULL)
-> +};
-> +
-> +static const struct amlogic_i3c_drvdata amlogic_i3c_data = {
-> +	.fclk_rate_init = default_i3c_fclk_rate_init,
-> +};
-> +
-> +static const struct amlogic_i3c_drvdata amlogic_i3c_ao_data = {
-> +	.fclk_rate_init = ao_i3c_fclk_rate_init,
-> +};
-> +
-> +static const struct svc_i3c_drvdata amlogic_a9_drvdata = {
-> +	.quirks = SVC_I3C_QUIRK_FIFO_EMPTY |
-> +		SVC_I3C_QUIRK_FALSE_SLVSTART |
-> +		SVC_I3C_QUIRK_DAA_CORRUPT,
-> +	.bsp_data = &amlogic_i3c_data,
-> +};
-> +
-> +static const struct svc_i3c_drvdata amlogic_a9_ao_drvdata = {
-> +	.quirks = SVC_I3C_QUIRK_FIFO_EMPTY |
-> +		SVC_I3C_QUIRK_FALSE_SLVSTART |
-> +		SVC_I3C_QUIRK_DAA_CORRUPT,
-> +	.bsp_data = &amlogic_i3c_ao_data,
-> +};
-> +
-> +static const struct of_device_id amlogic_i3c_of_match_tbl[] = {
-> +	{ .compatible = "amlogic,i3c-a9", .data = &amlogic_a9_drvdata },
-> +	{ .compatible = "amlogic,i3c-ao-a9", .data = &amlogic_a9_ao_drvdata },
-> +	{ /* sentinel */ },
-> +};
-> +MODULE_DEVICE_TABLE(of, amlogic_i3c_of_match_tbl);
-> +
-> +static struct platform_driver amlogic_i3c_master = {
-> +	.probe = amlogic_i3c_probe,
-> +	.remove = amlogic_i3c_remove,
-> +	.driver = {
-> +		.name = "amlogic-i3c-master",
-> +		.of_match_table = amlogic_i3c_of_match_tbl,
-> +		.pm = &amlogic_i3c_pm_ops,
-> +	},
-> +};
-> +module_platform_driver(amlogic_i3c_master);
-> +
-> +MODULE_AUTHOR("Junyi Zhao <junyi.zhao@amlogic.com>");
-> +MODULE_DESCRIPTION("Amlogic I3C master driver");
-> +MODULE_LICENSE("GPL");
-> 
-
+Also, patch 3 uses the wrong subject prefix "qcom-pm8008" when git log on the
+regulator driver reveals the convention is to use "pm8008".
