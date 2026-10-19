@@ -1,103 +1,163 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31F024A64D5;
-	Mon, 19 Oct 2026 09:55:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91A374AAC62
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 09:57:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792403749; cv=none; b=hM3qCTWceMBA1Zq/rvcfYLYAS4WAAYHU+o1ZBQr19HPpp25m8m8KKgCJ8q5EwXACnGv8g2lfG8JFve4Z1yyUILgKw13nnQmJqGmOb/OGDUWYnEHLuXKtBzkvLi7BkoHUMuKJthUPoy1qyWqS8/0wveO7o1MrD6z4XIttoc47n88=
+	t=1792403847; cv=none; b=BX5NkNCsvwuE9bddMD4OF8ByOqZOfwgdFG8m4ZErEtsM1957m+p4ChkNA26L759HdzQNW6oFtsG0gZ9SWFmYR+IZImKK+3qJuc6Q8F6KnhdC3oEwoCTaNJ1AfVcpVpKOMcKiPiUqYa0jbzQm2NX8Tpvs9uKgoWIGiMt3aRaD8/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792403749; c=relaxed/simple;
-	bh=WY7dkoHNxdfw3FP1Y8UPHLwUUxou+v+KbEKXraSJmdE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=iqsBWw1eIL5jF6wLHCJYacO+IO+y8u6sjT31B2am/8uMNWDuAkR4UnjnJWqMBlq27HtZ0C/oCfWEX8kr7IlH1xLm/wsvGyvwXMHlNi7obEGgLOq7wyzKkI0JWoa+hLpDTQjnfukE0abgJQMmnICVSDCIAoWgXpnXJc6/inUQ8j8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=vcnxa2RM; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1792403847; c=relaxed/simple;
+	bh=XB5CwEO7affGKAmL4pQhgSwl62lNe0rB4dEO0D6OYYo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y+t0TAuIUrAsQ3HheGSh0AzlJbjk+9PtNb+1M4GdAfF0E1KXpBPAdY97jzDjyQL7RQnOGwZcmXLdDu3wIPs9hb9HYg4BSi3i8fqW+LWl45bCDMND232XeFA8Q66oDajkPY8Rl/JJID0nuTXf9Nsl6wiR8EE4ShBfDstMAnzBdc0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PYWg/Y++; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="vcnxa2RM"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 8FA1B1A1271;
-	Mon, 19 Oct 2026 09:55:45 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 623F560582;
-	Mon, 19 Oct 2026 09:55:45 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8C51B10328429;
-	Mon, 19 Oct 2026 11:55:43 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792403744; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=WY7dkoHNxdfw3FP1Y8UPHLwUUxou+v+KbEKXraSJmdE=;
-	b=vcnxa2RMnNL2AJxYf35XTCw5sY39XqS5dnoj3MH9sIqq9iBKSorWg38+IRx9O3Om3yiDs7
-	5Slt8dhe5JAlVyu6Ji7ujjss71YjJPRpcPAiKQQ8wNsytOClTg6sb6xw/w9delGgaTa92U
-	jeMHRUX8CR7BljJgxe2yTPRrk9mSpH97hgqp3Q3ZcuP+UhAJUam+qNan/NC7YQ7zeD1W5w
-	XDwCSZF4E+FPMxMka8XSq5aawTNestnLVhP+GapEuMaI+wtQC0TZdCFVdrpKCf5IDwZBlM
-	GRaSPpizIFSXKVX0Jt8fkFjhhuGmcL5ZjOffXzoYVSy3r3ImOVy3nfoo5+dTyA==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: sashiko-bot@kernel.org,  sashiko-reviews@lists.linux.dev,
-  linux-clk@vger.kernel.org,  devicetree@vger.kernel.org,  robh@kernel.org,
-  conor+dt@kernel.org
-Subject: Re: [PATCH v10 04/10] clk: nuvoton: ma35d1: Reparent the gates
- correctly
-In-Reply-To: <179224878757.859276.836775392883899374.b4-reply@b4> (Jerome
-	Brunet's message of "Sat, 17 Oct 2026 16:53:07 +0200")
-References: <20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com>
-	<20261015-perso-ma35d1-upstream-clk-v10-4-47c97b54a809@bootlin.com>
-	<sashiko-outbox-173157@kernel.org> <877bjivrf5.fsf@bootlin.com>
-	<179224878757.859276.836775392883899374.b4-reply@b4>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Mon, 19 Oct 2026 11:55:43 +0200
-Message-ID: <87cxt6ypy8.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PYWg/Y++"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48b060ec084so1243752f8f.0
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 02:57:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792403844; x=1793008644; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7COsRHRwbFZs67dB0peGMQf1r+S9Yv4n+CsneXuo9SU=;
+        b=PYWg/Y++E+4vO4MVDsolvTL/XjzUBM+YbmVZTKHt0wiIeNRKx+uOpeHKGMBn9EQlmR
+         cNUos4wrulqTvAJacwxghyWKRMIPOATw599VVtINAf36XaDWlA9OzyuGh9Oz8RvNuVUG
+         M0nAb1z3Qj2FGdVZ5fodB6XIXLCcbfILfBHpBGvjMavaUB9yNTeS6c1DitYJZ8PeAycf
+         Op/HqyqVvRaM3CixEQoug7Zkc4Xg+AhWFHH3vHNvp9O4SJ8ta7MNynbJi2zGmQLlfehl
+         19ZK3xad5BPVl1GcbkLpl/Bd4CVnO7ZOWrODGZKexKIXi6ER+gTiXwnQ9erwaoXF5ED0
+         Tubg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792403844; x=1793008644;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7COsRHRwbFZs67dB0peGMQf1r+S9Yv4n+CsneXuo9SU=;
+        b=figIfXuwR3e+9mQz78MUMbN+xtkXqVVfq7Hjh/3anNSl4QUmQkvA0LRDASHEI2yAnF
+         ssd63YSNXynfn6/QL5ow9e/0k5atpjtpzbwoV0v4H1n1B4Nm33tyTg5hp59uZqkRHKhZ
+         c5fE2zAdDstNefG13r84IYOyC3+UUNKij0RMOe7/1Bu03r3C/9QCK8PhEsgG6cw4ARBZ
+         5FbKgI0pZTOQDVGd+XTtZ2uaMuKBGw2PuAL6LEQWNiyNWlrx0PVZmwEYDnnmYRt9gjKj
+         raQb9DhLOskmDleSxfShA2vBjxHVA+LrnAMt4J4bAE73jMCNeDAzx75I9WKO+L2axe8U
+         DA0A==
+X-Forwarded-Encrypted: i=1; AKwUvByoXGL5pUZZ4tf2YU0VW55z4Ko7TR7MlmuNpzeHznD4GGM9t/7vWBJkhQwYah4n4xjDrfjfuou8Jax9@vger.kernel.org
+X-Gm-Message-State: AFq9FYLyPJtkQXqTlUZfm2mSho4PUWcopOEimz1DulbpON0yin9IMPsI
+	afE4YqV+0WVlnp3cs8oe/Vs6Szm83aqudtzjB2HMDyBMjoI6OpMBmwF+
+X-Gm-Gg: AYBFou2dtweNzfCAjnjJE3srtwo+tuuZ9i2zEqHI8hjjpIL/re9m8TsZCATyE8tm8c7
+	UzXizkOQygtAqGhQE2cRtd9g6xqOWWqjLsD17QQOiNUhbaop/mMKuienCjtsbfwt+G771Uxb+vV
+	UlBrqUr35GN/JQyeP5iPerWfAYBI3xdvzIPAUvpa1cj6s00ogawes84bCH5ROpK4A60UtJz3Dlw
+	jwqAl+qebC3AGlETCVuOmc9bqh4WcPNIDtenEJvIfpMx8rlrb2T8YV5UC/X3SV+reC/AQKOqSZz
+	fJfUPBfTWxVR9nQTavGz80+q/Ad0ATgakXpSDOpqRPb3NLTPPA3N9mQ47tVMfPzbpw0dvhrwIC+
+	QiS8lML29tyYltlNQwodTpxpz6qUgM7MkwlMYPjrjqDMBmbv3XGeB5F2yqv7KT2N6y1KAPRqzOD
+	/ouUdExocJYZ5l0nHHIWQbEM3tpCfirAeISopxOgM+G4Nst1WmJLHyRATOW7uo4FcNlXmQ6tzr1
+	D/xHHRDdUlSqM5hI3U=
+X-Received: by 2002:a05:6000:468d:b0:488:80d0:873a with SMTP id ffacd0b85a97d-48e07978df7mr9786078f8f.5.1792403843556;
+        Mon, 19 Oct 2026 02:57:23 -0700 (PDT)
+Received: from xeon ([188.163.112.62])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd500e75sm21740089f8f.42.2026.10.19.02.57.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 02:57:22 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-tegra@vger.kernel.org
+Subject: [PATCH v3 0/7] drm/tegra: Add support for Tegra20/Tegra30 8-bit CPU interface
+Date: Mon, 19 Oct 2026 12:56:58 +0300
+Message-ID: <20261019095705.91062-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-On 17/10/2026 at 16:53:07 +02, Jerome Brunet <jbrunet@baylibre.com> wrote:
+The display controller in Tegra20/30 SoCs features an 8-bit SPI interface
+that closely resembles the MIPI DBI Type B protocol and is referred to as
+'8-bit CPU'.
 
-> On 2026-10-15 18:50:54+02:00, Miquel Raynal wrote:
->> > Thank you for your contribution! Sashiko AI review found 1 potential i=
-ssue(s) to consider:
->> > - [Medium] clk: nuvoton: CCAP muxes registered with 1-bit width but 4
->> > parents
->>=20
->> This is a pre-existing issue. I will wait for the maintainers to comment
->> on the rest of the series. If they ask for other changes, I'll include
->> this to the next revision. If not, I will send a dedicated patch for it.
->
-> It is too late for cycle for this cycle and I'll wait for rc1.
+Add DC parametrization options needed for fine tuning by bridges.
+Add 8-bit CPU interface in form of a bridge linking to RGB port.
+Add 2 DBI Type B panels used in LG Optimus 2X which work with
+the 8-bit CPU interface.
 
-I understand your reluctance, but in case you delay the clk PR or make a
-second PR during this merge window I'd like to stress the fact that the
-very first patch of this series is actually fixing the probe of the SPI
-controller on the Nuvoton platform. The rest is general improvement
-which makes sense to merge after -rc1 at this point, but in case there
-is still a window, I believe from a maintainance standpoing it makes
-sense to take it.
+---
+Changes in v2:
+- convert enums in the dc header into definitions list
+- add check in RGB if bridge_state is not NULL, if yes, use default flags
+- inverted FLAG_PIXDATA_SAMPLE flag setup logic since default value is set to
+  be on NEGEDGE while v1 set default to be on POSEDGE
+- 8bit-cpu schema renamed to dbi, removed compaible and set as DC child
+- expanded list of required properties
+- 8bit-cpu bridge remodelled into dbi interface as DC child
+- improve gpio handling
+- rework attach to get drvdata from parent
+- add panel supplies description
+- split panel driver into per-panel drivers
+- get DBI interface from the patent directly
 
-> Best would be sent the next versions without the DT stuff, so we can apply
-> the series using the cover as merge description . It makes it easier for
-> us to then provide an immutable branch, should you need it for the DT
-> side.
+I have deliberately left GPIO parsing from device tree since it seems to
+be the most convenient and mainstream method of working with GPIOs.
 
-I don't know what is the canonical way, but myself when I apply series
-with patches that do not belong to 'my' subsystem (typically DT patches)
-I do apply the whole series using b4 using the cover letter and then
-just `git reset --hard <before the DT stuff>`. When sending the `ty`
-letters, it just states something like "<no commit>" under the said DT
-patches, which is perfectly fine. Most maintainers seem to just do that
-given the various `ty` letters I receive when I am the contributor.
 
-> You can fold pre-existing issue fixups in your series if you want to,
-> or you can send follow-ups later. Fine with me either way.
+Changes in v3:
+- rgb: fix default bus_flags to match original behavior
+- dbi-schema: remove compatible from required props
+  remove dc@54200000 wrapper from example
+  restrict dbi nodes for tegra20/tegra30 only
+- dbi: remove unused idx from tegra_dbi_priv
+  wrap dbi registration in dc with devm_add_action_or_reset()
+  separate dbi into separate object
+  export tegra_dc_commit() and trace_dc_readl()/dc_readl()
+---
 
-Since I will re-send it at -rc1, I will include that extra fix.
+Svyatoslav Ryhel (7):
+  drm/tegra: dc: Expand available registers layouts
+  drm/tegra: rgb: Parameterize configuration based on bus flags
+  dt-bindings: display: tegra: Document 8-bit CPU parallel interface
+  drm/tegra: Add support for 8-bit CPU interface
+  dt-bindings: display: panel: Document Hitachi TX10D07VM0BAA and LG
+    LH400WV3 panels
+  drm/panel: Add Hitachi TX10D07VM0BAA MIPI DBI Type B panel driver
+  drm/panel: Add LG LH400WV3-SD04 MIPI DBI Type B panel driver
 
-Thanks,
-Miqu=C3=A8l
+ .../display/panel/hit,tx10d07vm0baa.yaml      |  58 +++
+ .../display/tegra/nvidia,tegra-dbi.yaml       | 138 ++++++
+ .../display/tegra/nvidia,tegra20-dc.yaml      |  15 +
+ drivers/gpu/drm/panel/Kconfig                 |  27 ++
+ drivers/gpu/drm/panel/Makefile                |   2 +
+ .../drm/panel/panel-hitachi-tx10d07vm0baa.c   | 297 +++++++++++++
+ drivers/gpu/drm/panel/panel-lg-lh400wv3.c     | 236 ++++++++++
+ drivers/gpu/drm/tegra/Kconfig                 |   7 +
+ drivers/gpu/drm/tegra/Makefile                |   3 +
+ drivers/gpu/drm/tegra/dbi.c                   | 415 ++++++++++++++++++
+ drivers/gpu/drm/tegra/dc.c                    |  32 +-
+ drivers/gpu/drm/tegra/dc.h                    |  50 ++-
+ drivers/gpu/drm/tegra/rgb.c                   |  41 +-
+ drivers/gpu/drm/tegra/trace.c                 |   3 +
+ 14 files changed, 1312 insertions(+), 12 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/hit,tx10d07vm0baa.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/tegra/nvidia,tegra-dbi.yaml
+ create mode 100644 drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
+ create mode 100644 drivers/gpu/drm/panel/panel-lg-lh400wv3.c
+ create mode 100644 drivers/gpu/drm/tegra/dbi.c
+
+-- 
+2.53.0
+
