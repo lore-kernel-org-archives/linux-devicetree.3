@@ -1,495 +1,460 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 652DB2AEF5;
-	Mon, 19 Oct 2026 00:58:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F31A19D074;
+	Mon, 19 Oct 2026 01:25:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792371508; cv=none; b=O2BKI0ty1ebiYPNA4okA40wEGMyOpdkgZte/bYzTV/fQJ9YePVuMF011O5+27CjkyNsT07TbOXCgeev9f7UDQPi9lnQx50NJh7GzL6q0HtDVfWMwa71/Z+F7vDVtKGHjnafcDzFS5qWLdfFtY4fT0z/hibpCMuR/E/gQWCN+GiQ=
+	t=1792373121; cv=none; b=FPAb821wsG/ycEoDZICG273KLaUWvNTuysSubPbplhn29rP9txFh8naKrH7oXDbTzAmum/YKv4N5/ROr8lzO+MjCQVYbv/fDsd/NAg6lbG+kN528zd+SHirR86HxEJ1gR8mf/tuX4XjJxNH+R8CSS0sSYzEi1fKO8fnZHeV3YGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792371508; c=relaxed/simple;
-	bh=Fc3y4ITQf/DyEsy9eOyVxSO63STURXzlW/Oa91B2Xpc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cFYFzIQhpK4WUQ3qjvc7upYw+JO3gQGCSxpe/ttJUdnf2dRSBZLVuEWeDgF4gz0Sz06aPHOpJjzt4am04O625W5Qzq8cUXPUCgTVsQyDPwBRht8UR2i1nMbKY4pvmdqtMe+QN1PANaANp4xzMbMQGbR6eh77yo7fRPjhIHGaLpo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=IbLNJaTu; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	s=arc-20240116; t=1792373121; c=relaxed/simple;
+	bh=Q+urfe/rE0RzGbZB3fpkMvtN/BBhkGp/H+jgJAuHAY0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dU0YjOE4Wa3ntz+zNd/Y7WvsA+gEp/xtvdobb4wEkmeANGU8JzriqZ/EK0ch2Hjmrc96VnD2wFItcCK+8mNDImaXFFBzYe+btQ9iI9VeXXToVG9qDLmOkhW9lGJvmasdeSGKR5bRoOCAcmMHNMm0X5IYG+aFT5xrYPfTS9elS8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KCxNxixl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="IbLNJaTu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202610; t=1792371502;
-	bh=2cIHH2W9NqLn2dpAmqry6mn1QN+98mdvENWNahqFizw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=IbLNJaTuNbh9MP1AWvPChWP5SGTQ4zGv42l6sEQd9j0mNkAspSubnVFiVIjFNEXOe
-	 3iM0sndpO0eS/m2cAyHL/s7OzHhvsjvd0rcNYFT5R2PiwZz3u2cLzW6AaL6fW/vNs+
-	 LWU74fbvQYgGHnSiiStaWQkFD5iiyhcRifpRd7VqRjytvH5d+tDlB2WXWPtHDfMJUy
-	 4lwQrE3Xh2uy5z3HiS7hRwIJaHEJkMmFnIgMktFRWGUW4861oX1WAd4vKGH3WJDDAb
-	 WTRCck6sitWRDMQ1Ktwrn7P5M57N6nMMwFYC7ryuQ+aWLDibKtru6H3if05zLZ7jHw
-	 e6fXKBsoBlnWw==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4j7HGk32vKz4wLc; Mon, 19 Oct 2026 11:58:22 +1100 (AEDT)
-Date: Mon, 19 Oct 2026 11:58:17 +1100
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [RFC PATCH v2 05/74] libfdt: Prepare for metadata tag support
-Message-ID: <atVrHkfXl10FTEye@gractus.seuss>
-References: <20260826094950.1088288-1-herve.codina@bootlin.com>
- <20260826094950.1088288-6-herve.codina@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KCxNxixl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F4971F000C4;
+	Mon, 19 Oct 2026 01:25:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792373119;
+	bh=8zLV/oA5mXJ2dsu+6UTBfH8DC6caY520BYB0DD+Xugo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=KCxNxixlJa2XxeG05iqWyOPTRF9anrZQCY6rT3XcWCG6+7CLlJQIUXqDy2vLxojkv
+	 4ocEMk51sfN0J8G3uqxc7Lm7l7Nfkob/Vk5C8QvU1Be+epmZ6/7kESG0xdyVqqhmuw
+	 5qkSOAXVA9AjqBsFmHE6OBApcx27Lqs8gKq4errwl8F1IsuZrKBjfj7nbDHUbDRzgZ
+	 yA88CZWDOWSNQLrrxutmuJdzu1zdoV9DqhtoU/4VpwuP9UXCKjtEPpr3nYMsPOnTTZ
+	 72PwpzZZZW9fjIPVkwh5sevl8bkg55SZzpBl7/J+KOaZKPUi6J2g56+lRL7XIPyAKP
+	 YI9WFQeM30FUw==
+Date: Mon, 19 Oct 2026 02:25:10 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Cc: Olivier MOYSAN <olivier.moysan@foss.st.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: iio: adc: add bindings for stm32 mdf
+ filter
+Message-ID: <20261019022510.0d554b39@jic23-hlaptop>
+In-Reply-To: <20261015-attentive-conflict-1a1f538de77d@spud>
+References: <20261001-tribesman-gauze-862e1ef0cdd8@spud>
+	<bb8af256-5a77-4215-9eeb-fbcd0cae1829@foss.st.com>
+	<20261008-9e2a48675c1a4c28f2dfa73b@squawk>
+	<950f2801-a613-4f5a-a5a7-cb30101cf293@foss.st.com>
+	<20261009-8db882a9fa159f8759aa7327@squawk>
+	<2ba9235f-182e-4906-92e2-e35cf831d289@foss.st.com>
+	<20261014-untrimmed-partly-81a4a21db49c@spud>
+	<48e528a5-0c54-4778-bd29-b6f44ae95be7@foss.st.com>
+	<20261014-unmade-sphinx-71cb25110d58@spud>
+	<436ef0bf-4146-435d-8252-acec68e64b9e@foss.st.com>
+	<20261015-attentive-conflict-1a1f538de77d@spud>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="HzIh3zK9fu7b/KqE"
-Content-Disposition: inline
-In-Reply-To: <20260826094950.1088288-6-herve.codina@bootlin.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
---HzIh3zK9fu7b/KqE
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Thu, 15 Oct 2026 13:34:04 +0100
+Conor Dooley <conor@kernel.org> wrote:
 
-On Wed, Aug 26, 2026 at 11:48:34AM +0200, Herve Codina wrote:
-> Metadata tags are tags carrying extra information, either global to
-> the DTB, specific to a node, or specific to a property.
->=20
-> In several places (e.g. node/property iterators), these tags just need
-> to be skipped. Introduce fdt_next_tag_filter() which wraps
-> fdt_next_tag() and uses a user-supplied filter function to decide
-> whether a tag should be hidden from the caller. Filtered-out tags are
-> returned as FDT_NOP.
->=20
-> Introduce fdt_tag_filter_skip_metadata() a filter function whose purpose
-> is to filter metadata tags; actual metadata tag filtering will be added
-> when metadata tags are defined.
->=20
-> Metadata tags must also be handled when a DTB is modified. They have to
-> be removed or skipped depending on the modification.
->=20
-> Here also, introduce fdt_tag_is_property_metadata() to provide a central
-> check for whether a tag is a property metadata tag; actual metadata
-> check will be added when metadata tags are defined.
->=20
-> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> ---
->  libfdt/fdt.c             | 34 +++++++++++++--
->  libfdt/fdt_ro.c          |  3 +-
->  libfdt/fdt_rw.c          | 90 +++++++++++++++++++++++++++++++++-------
->  libfdt/fdt_wip.c         | 23 +++++++++-
->  libfdt/libfdt_internal.h | 10 +++++
->  5 files changed, 140 insertions(+), 20 deletions(-)
->=20
-> diff --git a/libfdt/fdt.c b/libfdt/fdt.c
-> index 7941632f..8c026f26 100644
-> --- a/libfdt/fdt.c
-> +++ b/libfdt/fdt.c
-> @@ -323,6 +323,33 @@ uint32_t fdt_next_tag(const void *fdt, int startoffs=
-et, int *nextoffset)
->  	return fdt_next_tag_(fdt, startoffset, nextoffset, NULL);
->  }
-> =20
-> +uint32_t fdt_next_tag_filter(const void *fdt, int offset, int *nextoffse=
-t,
-> +			     bool (*tag_filter)(void *priv, uint32_t tag),
-> +			     void *priv)
+> On Thu, Oct 15, 2026 at 11:19:19AM +0200, Olivier MOYSAN wrote:
+> > Hi Conor,
+> > 
+> > On 10/15/26 00:49, Conor Dooley wrote:  
+> > > On Wed, Oct 14, 2026 at 06:51:45PM +0200, Olivier MOYSAN wrote:  
+> > > > On 10/14/26 17:15, Conor Dooley wrote:  
+> > > > > On Mon, Oct 12, 2026 at 02:56:04PM +0200, Olivier MOYSAN wrote:  
+> > > > > > On 10/9/26 21:12, Conor Dooley wrote:  
+> > > > > > > On Thu, Oct 08, 2026 at 06:37:26PM +0200, Olivier MOYSAN wrote:  
+> > > > > > > > On 10/8/26 12:11, Conor Dooley wrote:  
+> > > > > > > > > On Wed, Oct 07, 2026 at 11:01:28AM +0200, Olivier MOYSAN wrote:  
+> > > > > > > > > > On 10/1/26 20:32, Conor Dooley wrote:  
+> > > > > > > > > > >   
+> > > > > > > > > > > > +
+> > > > > > > > > > > > +required:
+> > > > > > > > > > > > +  - compatible
+> > > > > > > > > > > > +  - reg
+> > > > > > > > > > > > +  - ranges
+> > > > > > > > > > > > +  - clocks
+> > > > > > > > > > > > +  - clock-names
+> > > > > > > > > > > > +  - clock-ranges
+> > > > > > > > > > > > +  - "#address-cells"
+> > > > > > > > > > > > +  - "#size-cells"
+> > > > > > > > > > > > +
+> > > > > > > > > > > > +additionalProperties: false
+> > > > > > > > > > > > +
+> > > > > > > > > > > > +patternProperties:
+> > > > > > > > > > > > +  "^sitf@[0-9]+$":
+> > > > > > > > > > > > +    type: object
+> > > > > > > > > > > > +    description: Serial interface child node  
+> > > > > > > > > > > 
+> > > > > > > > > > > Why is this a child node at all?
+> > > > > > > > > > > Probably not worth reviewing more without a link to the docs for this
+> > > > > > > > > > > device so I can figure out what on earth is going on!
+> > > > > > > > > > >   
+> > > > > > > > > > 
+> > > > > > > > > > The MDF is a digital filter for sigma-delta bitstreams, rather than the
+> > > > > > > > > > analog-to-digital converter itself.
+> > > > > > > > > > 
+> > > > > > > > > > Here is the link to STM32MP25 reference manuel
+> > > > > > > > > > https://www.st.com/resource/en/reference_manual/rm0457-stm32mp2325xx-advanced-armbased-3264bit-mpus-stmicroelectronics.pdf
+> > > > > > > > > > Chapter 45: Multi-function digital filter (MDF)
+> > > > > > > > > > 
+> > > > > > > > > > On STMP32MP25 SoC, the MDF provides 8 serial interfaces (SITF) and 8 digital
+> > > > > > > > > > filters (DFLT) which can be connected through a multiplexer.
+> > > > > > > > > > 
+> > > > > > > > > > Below is a schematic view of typical applications targeted by this
+> > > > > > > > > > peripheral
+> > > > > > > > > > 
+> > > > > > > > > > 
+> > > > > > > > > > Audio use case:
+> > > > > > > > > > 
+> > > > > > > > > > 		mdf
+> > > > > > > > > >                 +-------------------------------------+
+> > > > > > > > > > +------+    | +------+    +------+    +------+    |
+> > > > > > > > > > | dmic | -> | | sitf | -> | mux  | -> | dflt | -- | -> audio device
+> > > > > > > > > > +------+    | +------+    +------+    +------+    |
+> > > > > > > > > >                 +-------------------------------------+
+> > > > > > > > > > 
+> > > > > > > > > > For instance, in an audio use case the serial interface can be configured to
+> > > > > > > > > > provide the clock to the digital microphone (cck0, cck1 or both) at a common
+> > > > > > > > > > predefined rate, and to retrieve the PDM samples.
+> > > > > > > > > > The serial interface provides this samples to a digital filter, which
+> > > > > > > > > > delivers PCM samples on its output.
+> > > > > > > > > > 
+> > > > > > > > > > 
+> > > > > > > > > > Analog use case:
+> > > > > > > > > > 
+> > > > > > > > > > 		mdf
+> > > > > > > > > >                   +-------------------------------------+
+> > > > > > > > > > +--------+    | +------+    +------+    +------+    |
+> > > > > > > > > > | sd adc | -> | | sitf | -> | mux  | -> | dflt | -- | -> iio device
+> > > > > > > > > > +--------+    | +------+    +------+    +------+    |
+> > > > > > > > > >                   +-------------------------------------+  
+> > > > > > > > > 
+> > > > > > > > > 
+> > > > > > > > > So, looking at the docs and a brief chat with Jonathan about this
+> > > > > > > > > device, I believe you've got things backwards and this is actually the backend,
+> > > > > > > > > and the adc should be the one populating the io-backends property
+> > > > > > > > > pointing to this device. You should have io-backend-cells, and I assume
+> > > > > > > > > that there should be a cell for the adc to select which dlft it is connected
+> > > > > > > > > to.
+> > > > > > > > >   
+> > > > > > > > 
+> > > > > > > > There have already been lengthy discussions in the past about a DFSDM
+> > > > > > > > peripheral on STM32MP1, which has features similar to those of the MDF and
+> > > > > > > > similar implementation constraints. For the DFSDM, a solution based on an
+> > > > > > > > IIO backend had been upstreamed. The MDF follows the same architecture. I
+> > > > > > > > need to take a little time to dive back into this issue.  
+> > > > > > > 
+> > > > > > > One thing to note there is that you retrofitted the backends onto that
+> > > > > > > device, and the original design here is much older (it's a text
+> > > > > > > binding).
+> > > > > > > 
+> > > > > > >   
+> > > > > > > > 
+> > > > > > > > DFSDM sources:
+> > > > > > > > drivers/iio/adc/stm32-dfsdm-adc.c
+> > > > > > > > drivers/iio/adc/stm32-dfsdm-core.c
+> > > > > > > > 
+> > > > > > > > Here is a sample of DFSDM DT
+> > > > > > > > 
+> > > > > > > > sd_adc0: simple-sd-adc0 {
+> > > > > > > > 	compatible = "sd-modulator";
+> > > > > > > > 	#io-backend-cells = <0>;
+> > > > > > > > 	vref-supply = <&v3v3>;  
+> > > > > > > 
+> > > > > > > Yeah, pretty sure this is wrong (backwards). The backend is the thing
+> > > > > > > that gets data from an ADC not the ADC.
+> > > > > > >   
+> > > > > > 
+> > > > > > The backend framework was introduced to implement complex IIO aggregate
+> > > > > > devices. The hardwares that were driving this need were analog device ad9467
+> > > > > > and ST DFSDM.
+> > > > > > 
+> > > > > > https://lore.kernel.org/linux-iio/20231204144925.4fe9922f@jic23-huawei/T/#m222f5175273b81dbfe40b7f0daffcdc67d6cb8ff
+> > > > > > 
+> > > > > >   From drivers/iio/industrialio-backend.c:
+> > > > > > 
+> > > > > > "The typical architecture is to have one device as the frontend device which
+> > > > > > can be "linked" against one or multiple backend devices. All the IIO and
+> > > > > > userspace interface is expected to be registers/managed by the frontend
+> > > > > > device which will callback into the backends when needed (to get/set some
+> > > > > > configuration that it does not directly control)."
+> > > > > > 
+> > > > > >    *                                    ---------------------
+> > > > > >    * ------------------                 | ------------
+> > > > > >    * |     ADC        |-----------------| | ADC CORE |
+> > > > > >    * | (Frontend/IIO) | Serial Data (eg | |(backend) |-------
+> > > > > >    * |                |-----------------| ------------
+> > > > > >    * ------------------                 ---------------------
+> > > > > > 
+> > > > > > The MDF (or DFSDM) use case, follows this topology:
+> > > > > > - The SD modulator (ADC core) registers in backend framework
+> > > > > > - The MDF registers in IIO framework and exposes the IIO devices
+> > > > > >     It also get configuration (ref voltage) from SD modulator, to compute
+> > > > > > scaling.
+> > > > > > 
+> > > > > > I agree that if we consider the terms frontend and backend, the elements in
+> > > > > > the data flow do not have the roles that we would naturally expect. However,
+> > > > > > if we consider the expected role of the elements using the iio-backend
+> > > > > > framework, the usage seems coherent to me.  
+> > > > > 
+> > > > > I didn't even get as far as sd modulators or whatever, if I understand
+> > > > > correctly the ADC inputs on this device are fed by the onboard ADC?
+> > > > > (https://lore.kernel.org/linux-iio/20261006-adc-stm32mp25-v1-v4-0-d31ec75aecf3@foss.st.com/)
+> > > > > In that case, I can't really see how it makes sense for the primary iio
+> > > > > device to change when data is fed back through the mdf or taken
+> > > > > directly from the ADC itself, particularly given how that would affect
+> > > > > the userspace interface.
+> > > > > 
+> > > > > The "serial" side of this seems in a similar vein to the adi,axi-adc
+> > > > > stuff, which when considered with the ADC inputs, really does give me
+> > > > > the impression this is backwards.  
+> > > > 
+> > > > Some clarifications about the STM32MP25. This SoC does indeed provide ADCs,
+> > > > and these can be connected to the MDF via a dedicated interface. (but not
+> > > > the serial interface).
+> > > > 
+> > > > However, this use case is not supported by the driver. Only sigma-delta
+> > > > modulators, external to the SoC and connected via the serial interface, are
+> > > > supported. On ST boards, the only available SD modulators are digital
+> > > > microphones.  
+> > > 
+> > > Quite frankly, I don't care what you are choosing to implement in the
+> > > driver or what your first-party boards support. The binding must
+> > > represent the capabilities of the device, not what subset you deem
+> > > relevant at this point in time. I'm not going to ack anything that does
+> > > not consider all use cases for the device, especially since I the more I
+> > > look the more I am convinced that this is the wrong way to model the
+> > > relationship between devices and therefore intentionally ignoring a use case
+> > > is likely to be problematic when someone does decide that they want to use
+> > > that feature.
+> > >   
+> > > > Anyway, if the internal ADC to MDF use case was supported, the issue would
+> > > > be the same. The whole ADC + MDF set would be presented at the interface as
+> > > > an aggregated device, and the ADC data would not be directly accessible to
+> > > > the user.  
+> > > 
+> > > Of course, that's what I was talking about when I said:
+> > > | In that case, I can't really see how it makes sense for the primary iio
+> > > | device to change when data is fed back through the mdf or taken
+> > > | directly from the ADC itself, particularly given how that would affect
+> > > | the userspace interface.
+> > > 
+> > > To me, in that ADC to MDF use case, the frontend portion of the aggregate
+> > > device presented to userspace needs to be the ADC and the MDF needs to be
+> > > the backend, since otherwise the ADC will simultaneously be frontend and
+> > > backend, depending on which channel is considered. That makes no sense to me
+> > > when the MDF can always be the backend, for all use cases and avoid that
+> > > sort of problem entirely.
+> > > I've heard no argument as to why the MDF cannot be a backend, just that you
+> > > don't want to because the previous device didn't, but copying what was
+> > > done before isn't a justification that bears weight if how it was done
+> > > before isn't the way it should be done.
+> > >   
+> > 
+> > These topology problems were discussed at length in the case of DFSDM.
+> > The main blocking point being support for interleaved channels (scan mode),
+> > a problematic issue that is still found with MDF.  
+> 
+> If I am not mistaken, you're talking about what's described in the
+> section labelled "Interleaved-transfer mode" of the document you
+> provided previously?
+> 
+> > The constraints that led to this approach are in the following thread:
+> > https://lore.kernel.org/all/20210919191414.09270f4e@jic23-huawei/  
+> 
+> That to me seemed like a discussion about why the MDF/interleaver needs
+> to be represented as a separate device, I don't see anything that
+> explains why the MDF cannot be a backend.
+> 
+> Reading the document, "Interleaved-transfer mode" doesn't trash the
+> association between data and which fifo, and thereby which sensor or
+> ADC, it came from. Using #io-backend-cells = <1> in the MDF, the
+> sensor/ADC can provide the channel to which it is linked, and the data
+> association restored. You already know what the set of interleaved channels
+> is from the st,interleave property so there's no extra properties required
+> for this I think.
+> 
+> The problem here must be that you want to access the interleaved data? That
+> could be handled by having a cell value that represents the interleaved
+> data (e.g. -1), rather than a channel (1-N)? That'd support systems that
+> want interleaved data (like an array of identical sensors?) and systems
+> using the mode for the stated aim of it in documentation of optimising
+> DMA request resources who have disparate devices where interleaved data
+> itself is not useful?
 
-I don't really see why a higher order function is more useful than
-skipping tags you don't care about from the caller.
+Sorry it took me so long to get to this. I promise I wasn't hiding - it
+just happened to fall down the gaps in my various flurries of reading
+IIO from latest emails back in time over the last few weeks.
 
-> +{
-> +	int startoffset =3D offset;
-> +	uint32_t tag;
-> +
-> +	tag =3D fdt_next_tag_(fdt, startoffset, nextoffset, NULL);
-> +	if (tag =3D=3D FDT_END)
-> +		return tag;
-> +
-> +	if (tag_filter(priv, tag))
-> +		return FDT_NOP;
-> +
-> +	return tag;
-> +}
-> +
-> +bool fdt_tag_filter_skip_metadata(void *data, uint32_t tag)
-> +{
-> +	return false;
-> +}
-> +
-> +bool fdt_tag_is_property_metadata(uint32_t tag)
-> +{
-> +	return false;
-> +}
-> +
->  int fdt_check_node_offset_(const void *fdt, int offset)
->  {
->  	if (!can_assume(VALID_INPUT)
-> @@ -355,7 +382,8 @@ int fdt_root_offset(const void *fdt)
-> =20
->  	do {
->  		offset =3D nextoffset;
-> -		tag =3D fdt_next_tag(fdt, offset, &nextoffset);
-> +		tag =3D fdt_next_tag_filter(fdt, offset, &nextoffset,
-> +					  fdt_tag_filter_skip_metadata, NULL);
->  		switch (tag) {
->  		case FDT_END_NODE:
->  		case FDT_PROP:
-> @@ -393,8 +421,8 @@ int fdt_next_node(const void *fdt, int offset, int *d=
-epth)
-> =20
->  	do {
->  		offset =3D nextoffset;
-> -		tag =3D fdt_next_tag(fdt, offset, &nextoffset);
-> -
-> +		tag =3D fdt_next_tag_filter(fdt, offset, &nextoffset,
-> +					  fdt_tag_filter_skip_metadata, NULL);
->  		switch (tag) {
->  		case FDT_PROP:
->  		case FDT_NOP:
-> diff --git a/libfdt/fdt_ro.c b/libfdt/fdt_ro.c
-> index 50c0a8bc..ea6a540d 100644
-> --- a/libfdt/fdt_ro.c
-> +++ b/libfdt/fdt_ro.c
-> @@ -206,7 +206,8 @@ static int nextprop_(const void *fdt, int offset)
->  	int nextoffset;
-> =20
->  	do {
-> -		tag =3D fdt_next_tag(fdt, offset, &nextoffset);
-> +		tag =3D fdt_next_tag_filter(fdt, offset, &nextoffset,
-> +					  fdt_tag_filter_skip_metadata, NULL);
-> =20
->  		switch (tag) {
->  		case FDT_END:
-> diff --git a/libfdt/fdt_rw.c b/libfdt/fdt_rw.c
-> index 1c6ce0a3..30f3da40 100644
-> --- a/libfdt/fdt_rw.c
-> +++ b/libfdt/fdt_rw.c
-> @@ -259,6 +259,42 @@ int fdt_prop_remove_unknown_tags(void *fdt, bool for=
-ce_inplace,
->  	return 0;
->  }
-> =20
-> +int fdt_prop_remove_metadata_tags(void *fdt, bool force_inplace,
-> +				  int prop_offset)
-> +{
-> +	int nextoffset, offset;
-> +	uint32_t tag;
-> +
-> +	/*
-> +	 * Only inplace using nopify is supported even if we could use an other
-> +	 * method involving splices if force_inplace is set to false.
-> +	 */
+I'd managed to blank the whole complexity of multi channel SD demodulators
+from my mind since the earlier discussion that was linked (thanks for that
+- I now remember how these work - though maybe not how we ended up with
+the binding).  We are still evolving so it is also possible the solution
+from that isn't how we'd do it today.
 
-As with earlier things, I'd really prefer to see this splice, based on
-principle of least surprise.
+As to the question of front end vs backend question, Nuno is probably best person
+to give input on that but let me have a go.
 
-> +
-> +	tag =3D fdt_next_tag(fdt, prop_offset, &nextoffset);
-> +	if (tag =3D=3D FDT_END)
-> +		return nextoffset;
-> +
-> +	/*
-> +	 * Look at all tags related to the current property. I.e. tags after the
-> +	 * current property and before either the next property, a sub-node  or
-> +	 * the end of current node
-> +	 */
-> +	do {
-> +		offset =3D nextoffset;
-> +		tag =3D fdt_next_tag(fdt, offset, &nextoffset);
-> +		if (tag =3D=3D FDT_END)
-> +			return nextoffset;
-> +
-> +		/* Remove metadata tags related to the property */
-> +		if (fdt_tag_is_property_metadata(tag))
-> +			fdt_nopify_area(fdt, offset, nextoffset);
+Backends tend to the datashifter / manging engines that deal with taking
+data from the 'front end' which is typically the ADC device with the actual
+pins to which we connect analog signals.  Examples being parallel interfaces
+and the many weird and wonderful specialist SPI engines.
 
-The distinction between "metadata" and other tags doesn't make much
-sense to me.  Specifically why would the tag being "metadata" make it
-more of a candidate for removal?  What we need to know (for the
-callers so far) is whether the tag is invalidated by changing the
-contents of the property: I can't see how that would be related to
-whether it's "metadata" or not.
+Front ends as mentioned are the devices to which the inputs are connected.
+I think that aligns with what Conor was suggesting (and the quick discussion
+we had in Prague 10 days or so back).
 
-> +
-> +	} while ((tag !=3D FDT_PROP) && (tag !=3D FDT_BEGIN_NODE) &&
-> +		 (tag !=3D FDT_END_NODE));
-> +
-> +	return 0;
-> +}
-> +
->  static int fdt_resize_property_(void *fdt, int nodeoffset,
->  				const char *name, int namelen,
->  				int len, struct fdt_property **prop)
-> @@ -273,10 +309,18 @@ static int fdt_resize_property_(void *fdt, int node=
-offset,
->  		return oldlen;
-> =20
->  	/*
-> -	 * The property is resized. Remove possible unknown tags related to the
-> -	 * property downgrading the dtb version.
-> +	 * The property is resized and data are going to be modified. Remove
-> +	 * property metadata tags
->  	 */
->  	prop_offset =3D fdt_ptr_offset_(fdt, *prop);
-> +	err =3D fdt_prop_remove_metadata_tags(fdt, false, prop_offset);
-> +	if (err)
-> +		return err;
-> +
-> +	/*
-> +	 * Remove also possible unknown tags related to the property downgrading
-> +	 * the dtb version.
-> +	 */
->  	err =3D fdt_prop_remove_unknown_tags(fdt, false, prop_offset, true);
->  	if (err)
->  		return err;
-> @@ -289,7 +333,7 @@ static int fdt_resize_property_(void *fdt, int nodeof=
-fset,
->  	return 0;
->  }
-> =20
-> -static int fdt_node_skip_unknown_tags(void *fdt, int next)
-> +static int fdt_node_skip_unknown_and_metadata_tags(void *fdt, int next)
->  {
->  	int nextoffset =3D next;
->  	int offset;
-> @@ -299,6 +343,7 @@ static int fdt_node_skip_unknown_tags(void *fdt, int =
-next)
->  	 * Skip all tags related to the current node. I.e. tags after the
->  	 * current node and before either the next property, a sub-node or the
->  	 * end of current node.
-> +	 * FDT_NOP, unknown tags and potential node metadata tags are skipped.
->  	 */
->  	do {
->  		offset =3D nextoffset;
-> @@ -332,10 +377,10 @@ static int fdt_add_property_(void *fdt, int nodeoff=
-set, const char *name,
-> =20
->  	/*
->  	 * nextoffset it at the first tag after the node.
-> -	 * Skip possible unknown tags related to the node in order to add the
-> -	 * property after those tags.
-> +	 * Skip possible unknown tags and metadata tags related to the node in
-> +	 * order to add the property after those tags.
->  	 */
-> -	nextoffset =3D fdt_node_skip_unknown_tags(fdt, nextoffset);
-> +	nextoffset =3D fdt_node_skip_unknown_and_metadata_tags(fdt, nextoffset);
+The problem you have with the multiple modulators is actually pretty similar
+to the one we have with chained SPI devices or those weird addressable ones.
+ - share a bus
+ - extra address bits that allow any given device to 'sometimes' ignore messages.
+ - magic registers that are written whatever the address bits.
+ - Special read out sequences that let you 'stream' from multiple devices.
+ - For these we currently constrain things to 'like' devices rather than a mix.
 
-This makes even less sense to me.  The tags following the node belong
-to the node, until either FDT_BEGIN_NODE, FDT_END_NODE or FDT_PROP.
-We need to skip all of them regardless of whether they're "metadata"
-or not.
+A single data pipe (the interleaver here?) is taking data from multiple front end devices.
 
->  	if (nextoffset < 0)
->  		return nextoffset;
-> =20
-> @@ -453,6 +498,12 @@ int fdt_appendprop(void *fdt, int nodeoffset, const =
-char *name,
->  		if (err)
->  			return err;
-> =20
-> +		/*
-> +		 * We append data to the property. If known metadata tags are
-> +		 * present, they are related to existing data and not impacted
-> +		 * by data added. No need to remove them.
+A question here.  Do you care about mixed modulator types? The example
+suggests you do.  Which puts us in the situation of something like
+ ____________              _______           ___________
+|Modulator 1 |            |       |         |           |
+|(ADC)       |-pulsetrain-|Demod 1|-Digital-|Interleaver|
+|____________|            |_______|         | (Skipping |
+ ____________              _______          |  dflt as  |-> Software dmux
+| Modulator 2|            |       |         |  diag too |
+|(Audio/ADC) |-Pulsetrain-|Demod 2|-Digital-|  fat)     |
+|____________|            |_______|         |___________|
 
-You don't know that.  It might be true for the tags you have in mind
-so far, but there's no guarantee.  It's a contrived example, but a tag
-which gives "number of 0 bytes in the property" would be invalidated
-by an append, for example.
+In this if we just took the top half, then simples, the
+Demodulator 1 and Interleaver (not interleaving) would
+be a normal IIO Backend for the Modulator 1 (kind of
+the ADC). 
 
-> +		 */
-> +
->  		newlen =3D len + oldlen;
->  		err =3D fdt_splice_struct_(fdt, prop->data,
->  					 FDT_TAGALIGN(oldlen),
-> @@ -484,11 +535,16 @@ int fdt_delprop(void *fdt, int nodeoffset, const ch=
-ar *name)
->  	if (!prop)
->  		return len;
-> =20
-> +	/* The property is going to be removed. Remove its metadata tags */
-> +	prop_offset =3D fdt_ptr_offset_(fdt, prop);
-> +	err =3D fdt_prop_remove_metadata_tags(fdt, false, prop_offset);
-> +	if (err)
-> +		return err;
+If we take the whole thing (but with bottom as an Audio
+channel, not an ADC) then effectively we have a backend
+backing both signal types and it's up to software to unwind
+what turns up in memory.
 
-All tags from the property to the next END_NODE or FDT_PROP need to be
-removed, regardless of whether they're "metadata" or not.
+Note that a lot of what follows isn't stuff that ends
+up in DT, but I'm trying to represent the dataflows through
+IIO. Some of this is very idealistic :(  Also my terminology
+is probably garbage. For me demods go from an encoded signal
+on one line to ADC samples. I suspect that maps to the acquisition
+bit of the digital filters in this device.
 
-Also, rather than removing them one by one, I'd prefer to see the
-total length of them calculated, and remove the property and extra
-tags with a single splice.
+If they are both IIO style ADCs then this runs into the
+same challenges as SPI chaining.  We really would want to
+end up with a composite device that presents
 
-> +
->  	/*
-> -	 * The property is going to be removed. Remove also possible unknown
-> -	 * tags related to this property. Keep the dtb version unchanged.
-> +	 * Remove also possible unknown tags related to this property.
-> +	 * Keep the dtb version unchanged.
->  	 */
-> -	prop_offset =3D fdt_ptr_offset_(fdt, prop);
->  	err =3D fdt_prop_remove_unknown_tags(fdt, false, prop_offset, false);
->  	if (err)
->  		return err;
-> @@ -522,10 +578,15 @@ int fdt_add_subnode_namelen(void *fdt, int parentof=
-fset,
->  		return offset;
-> =20
->  	/*
-> -	 * Try to place the new node after the parent's properties and unknown
-> -	 * tags related to those properties.
-> -	 * Unknown tags are reported as FDT_NOP tags by fdt_next_tag.
-> -	 * Skipping FDT_NOP tags will correctly skip unknown tags.
-> +	 * Try to place the new node after:
-> +	 *  - the parent's properties
-> +	 *  - the metadata tags related to those properties
+ __   ____________              _______           ___________
+|  |  |Modulator 1 |            |       |         |           |
+|  |--|(ADC)       |-pulsetrain-|Demod 1|-Digital-|Interleaver|
+|  |  |____________|            |_______|         | (Skipping |
+|A |   ____________              _______          |  dflt as  |-> Software dmux
+|  |  | Modulator 2|            |       |         |  diag too |
+|  |--|(ADC)       |-Pulsetrain-|Demod 2|-Digital-|  fat)     |
+|__|  |____________|            |_______|         |___________|
 
-Again, the "metadata" distinction doesn't really make sense.  You want
-to place the new node immediately before the first FDT_BEGIN_NODE or
-FDT_END_NODE tag within the parent node.
+Imagine A for example was an a multichannel analog device such
+as a 2 axis analog Accelemeter.  The ultimate IIO device we want
+would represent that A.  We have these in tree and they work
+by being consumers of ADC channels but assume those channels
+come from a single IIO ADC.  Here the snag is that
+Modulators 1 and and 2 would naturally be separate IIO 'devices'.
+(Note there is an example like A in the datasheet - middle of figure
+378 - key is the shared clock I think)
 
-> +	 *  - unknown tags related to those properties.
-> +	 * Unknown tags are reported as FDT_NOP tags by fdt_next_tag_filter.
-> +	 * metadata tags are also reported as FDT_NOP by fdt_next_tag_filter
-> +	 * thanks to the filter function used.
-> +	 * Skipping FDT_NOP tags will correctly skip unknown tags and metadata
-> +	 * tags.
->  	 */
->  	tag =3D fdt_next_tag(fdt, parentoffset, &nextoffset);
->  	/* the fdt_subnode_offset_namelen() should ensure this never hits */
-> @@ -533,7 +594,8 @@ int fdt_add_subnode_namelen(void *fdt, int parentoffs=
-et,
->  		return -FDT_ERR_INTERNAL;
->  	do {
->  		offset =3D nextoffset;
-> -		tag =3D fdt_next_tag(fdt, offset, &nextoffset);
-> +		tag =3D fdt_next_tag_filter(fdt, offset, &nextoffset,
-> +					  fdt_tag_filter_skip_metadata, NULL);
->  	} while ((tag =3D=3D FDT_PROP) || (tag =3D=3D FDT_NOP));
-> =20
->  	nh =3D fdt_offset_ptr_w_(fdt, offset);
-> diff --git a/libfdt/fdt_wip.c b/libfdt/fdt_wip.c
-> index 7ca3ffbc..b2f9f8d1 100644
-> --- a/libfdt/fdt_wip.c
-> +++ b/libfdt/fdt_wip.c
-> @@ -31,6 +31,17 @@ int fdt_setprop_inplace_namelen_partial(void *fdt, int=
- nodeoffset,
->  	if ((unsigned)proplen < (len + idx))
->  		return -FDT_ERR_NOSPACE;
-> =20
-> +	if (idx < (unsigned)proplen) {
-> +		/*
-> +		 * The property existing data are going to be modified.
-> +		 * The property metadata tags are related to the property
-> +		 * data. Remove them.
-> +		 */
-> +		err =3D fdt_prop_remove_metadata_tags(fdt, true, prop_offset);
-> +		if (err)
-> +			return err;
-> +	}
+So conceptually we have
 
-Similar to removal, I'd prefer to see a calculation of the total
-length and a single splice_region, rather than removing them one by
-one.
+ __   ____________        _______     ___________           __________
+|  |  |Modulator 1 |     |       |   |           |         | Data for |
+|  |--|(ADC)       |-pdm-|Demod 1|-D-|Interleaver|        /| A chan 0 |
+|  |  |____________|     |_______|   | (Skipping |       / | (mod 1)  |
+|A |   ____________       _______    |  dflt as  |-SWDemux |__________|
+|  |  | Modulator 2|     |       |   |  diag too |       \  __________
+|  |--|(ADC)       |-pdm-|Demod 2|-D-|  fat)     |        \| Data for |
+|__|  |____________|     |_______|   |___________|         | A chan 1 |
+                                                           | (mod 2)  |
+                                                           |__________|
+
+But then we actually want to have A as one device which
+conceptually requires a mux
+
+ __   ____________        _______     ___________          __________
+|  |  |Modulator 1 |     |       |   |           |        | Data for |
+|  |--|(ADC)       |-pdm-|Demod 1|-D-|Interleaver|        | A chan 0 |
+|  |  |____________|     |_______|   | (Skipping |       /| (mod 1)  |\
+|A |   ____________       _______    |  dflt as  |-SWDemux|__________| SWMux - Data A
+|  |  | Modulator 2|     |       |   |  diag too |       \ __________ /
+|  |--|(ADC)       |-pdm-|Demod 2|-D-|  fat)     |        | Data for |
+|__|  |____________|     |_______|   |___________|        | A chan 1 |
+                                                          | (mod 2)  |
+                                                          |__________|
+
+Obviously in practice we want some way of flattening the and mux
+so that we don't actually do anything. (FWIW we haven't yet built
+a SW mux concept into IIO, though it has come up a few times for
+this soft of case).
+
+So what is what in this model.
+
+A - Simple IIO consumer of Modulator 1 and Modulator 2.
+Modulator 1/2 - IIO front end devices - each a device on its own.
+Demod 1/2 + interleaver - IIO backend (data mangler)
+
+SWdemux - new concept we need to unwind from a backend that provides
+          service to a pair of front end (actually similar to the IIO
+	  demux. Might be able to reuse that)
+Data for A chan 0.  Kind of a virtual backend for the top half of diag.
+
+SWMux - new concept that we haven't built - but here it is only theoretical
+        anyway because we don't want to demux then remux. Trick is
+        never use the apparent interfaces for the IIO devices
+        representing the modulator
+
+Anyhow, how on earth to we map this to DT. Hmm..
+
+We don't need to represent the device A, though we may need to figure
+that out by looking for devices pointing to the backend and build it
+in software.
+
+The backend should be both the demodulators and the interleaver
+(which I think maps to interleaver + digital fiters + the serial
+ interfaces in this case).
+Stuff to the right is all software concepts.
+
+How to indicate what is interleaved?  Maybe we do have to
+represent that front end device as a consumer of channels provided
+by the various ADCs (modulators here).
+
+Other bits in the device here.
+Digital filters.  Why do we need those in DT?  Aren't they software
+controlled things and associate with a channel? Or are they representing
+what I have as demodulators above.?
+
+Given I think they end up in the backend we may need to extend some interfaces.
+
+Anyhow, that probably confused anyone who previously had
+any idea on how this all fits together.
+
+Also, I should have gotten out my UK keyboard or changed keyboard layout.
+US keyboard, with UK layout makes for tricky to find symbols for asci art :(
+
+Jonathan
 
 
->  	/*
->  	 * Remove unknown tags related to the property downgrading the dtb
->  	 * version.
-> @@ -81,10 +92,18 @@ int fdt_nop_property(void *fdt, int nodeoffset, const=
- char *name)
->  		return len;
-> =20
->  	/*
-> -	 * The property is going to be removed (nopified). Remove unknown tags
-> -	 * related to this property. Keep the dtb version unchanged.
-> +	 * The property is going to be removed (nopified). Remove its metadata
-> +	 * tags
->  	 */
->  	prop_offset =3D fdt_ptr_offset_(fdt, prop);
-> +	err =3D fdt_prop_remove_metadata_tags(fdt, true, prop_offset);
-> +	if (err)
-> +		return err;
-> +
-> +	/*
-> +	 * Remove also possible unknown tags related to this property.
-> +	 * Keep the dtb version unchanged.
-> +	 */
->  	err =3D fdt_prop_remove_unknown_tags(fdt, true, prop_offset, false);
->  	if (err)
->  		return err;
-> diff --git a/libfdt/libfdt_internal.h b/libfdt/libfdt_internal.h
-> index d4154119..47dfc0d4 100644
-> --- a/libfdt/libfdt_internal.h
-> +++ b/libfdt/libfdt_internal.h
-> @@ -23,6 +23,14 @@ int32_t fdt_ro_probe_(const void *fdt);
->  uint32_t fdt_next_tag_(const void *fdt, int startoffset, int *nextoffset,
->  		       bool *is_unknown);
-> =20
-> +uint32_t fdt_next_tag_filter(const void *fdt, int offset, int *nextoffse=
-t,
-> +			     bool (*tag_filter)(void *priv, uint32_t tag),
-> +			     void *priv);
-> +
-> +bool fdt_tag_filter_skip_metadata(void *data, uint32_t tag);
-> +
-> +bool fdt_tag_is_property_metadata(uint32_t tag);
-> +
->  int fdt_get_structured_tag_data(uint32_t tag, const void *fdt, int offse=
-t,
->  				uint32_t *data_len);
-> =20
-> @@ -31,6 +39,8 @@ int fdt_check_prop_offset_(const void *fdt, int offset);
-> =20
->  int fdt_prop_remove_unknown_tags(void *fdt, bool force_inplace,
->  				 int prop_offset, bool downgrade_version);
-> +int fdt_prop_remove_metadata_tags(void *fdt, bool force_inplace,
-> +				  int prop_offset);
-> =20
->  int fdt_getprop_offset_namelen(const void *fdt, int nodeoffset,
->  			       const char *name, int namelen);
-> --=20
-> 2.55.0
->=20
->=20
+> 
+> Thanks,
+> Conor.
 
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
-
---HzIh3zK9fu7b/KqE
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrVax4ACgkQzQJF27ox
-2Gf56w//WMZCZ9MQ6My2TfyRgksA/QQR3DmlSxAPKBI3iKrErB+HGPh5TB6T3F6m
-ediAUWfqmrvWupYLKb9wt8l6ikMck4S8XqzegQzGxk/wCyzeSjUYHXk8uUiWE62Y
-JCiMY3kSstP6mr2p8qQ68533LE3qfwdyqa5c9jPPAbV5oO7vIG+KVFjZ/3Us0QUX
-QYPt78O+gZwjSrVKcFFT68XvLuwjW+ClwsqdA9YKss/BuARR4loyLTQmE4ZXJ9XO
-sCI+ZwbgdUIhQ5jIeRXmX2qPruI7DjDvM9LApp5jwA6iIruI8x2zG3kuMRp6yJQy
-+ATG7fgh9AEsNKc7NXrDYeaJTOnTBA4wPdaQneMozy+zN+fhN4d0jnfDDHmW8mkT
-D1E7gnaV8aO+ITXXN2Qs0Evg2DpvKq3wNmU8R3DSMMzhMDbRUyIn3ntWqpubzBAF
-Gi+vrw75qoIKPTJ8EcJzlYUH+opCNY4RoJ8Y3iR+FxOCYZ9Fo7gRPw/1G5MebE3V
-5TnEfy1O4UipvE6KTEK3V5Ar7Hryuy1DZdC0uVd/aS7l0Q+L6eRIwydJuVfkWL1S
-EBA/izhzNbdUHAf0LYYsS34qKppGQZkzPC5lPaISqkyrCZk00mS8P/Jbc4CkEU5F
-EsP+PR4s1f3ZMRXojBEnV5fl54gGeEFKk67Aivvs3zy4vx3Y39U=
-=0dcH
------END PGP SIGNATURE-----
-
---HzIh3zK9fu7b/KqE--
