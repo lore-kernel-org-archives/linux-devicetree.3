@@ -1,79 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.54.127.90
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792450889;
-	b=NM71HjVxPDle0mmXRS2hDzhAs0OGiFLBj4TCbEmplEwc04NRTBp5QzR9kAAL9oa+wrVB
-	 hxtbdt5F/bLukfWVMT9jDC5aa3M76QXoo7btybYfMumpVzyM1o2Hj3SOwpaCL2XbI+Du0
-	 7bRghiZnWRjXtbZ9FpVcUTs5PmoCZw74q8XZPQAswaYG7BJSLPlXz3qgN1+UC/qQwSKkn
-	 1Up980jKSJ/R36YiCKjyTtvDhMUrWWTwWXoc9x/luL9gdc4p1IiIJDO3EtWyLnqouBKoz
-	 0Yi8n/iZBve5Q/m0XEyTHNnyErNdHmRa1OGqqWqMahCvFqmqpfOKUo3T+95IQ4KkDFQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792450889;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Envelope-From;
-	bh=emO6sEIDSkEFWkAyFtAW5uo9IdZWrTOY02AsTAB3ghg=;
-	b=d0edOiH/kCFDynJSie6aIqxHPdrK35plwFptPcHcni3olrbjOtPHgZdb2qK4WISMNjRW
-	 QgSj8iXpvmlIqObjoqVCOkDEJHYS7pLGqOMSXFJ014IOLKxVzyaMQxQtHWzUW+r42qKOx
-	 83ptNimgGd3lv4f7CZKTVmQ9L3zK9UHc4Jfa93BtRQM/OzpDUKVRlP1KmeNNaldEvAM1q
-	 ALJW6y6TFq44DcfdUStFgc5KZ8NJT4JRe3YASDKlkkYDupQqBsNFtf5pVoy4SfDlyCmhc
-	 BHXXAYpW5UoYHM9gU8hKZpBMdsj4YHd4XXJBj4nMTZKOOjxDBy8knqkIheNoiZ02lWw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=r-sc.ca;
-	spf=pass smtp.mailfrom=r-sc.ca;
-	dkim=pass header.d=r-sc.ca header.i=@r-sc.ca header.a=rsa-sha256 header.s=spacemail header.b=kbEdxGlY;
-	arc=none smtp.remote-ip=198.54.127.90
-Received: from out-zbxj-a90.jellyfish.systems (out-zbxj-a90.jellyfish.systems [198.54.127.90])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792451863;
+	b=jdSLJxXVionezDYPZX4W/1+Yb4TuLgfri7BHD15vSlrM/dBbQUHISB2+nUw7Mk+9cv55
+	 5Q+15JiFtk0omCDc3p4iazCHUQZciWWTaDam66qF6RQvsMz3I2klribjHRSDK6KgPVorL
+	 upc8tRZXIPIWGsGUpCeKEOzMLz1fIfuzvuCG2rQBlWFLn3P+3sztqm8TzXi4KBtKzOIt5
+	 VKE5OWpCCwrnqqQT16JiNUfvS2vtqiatAqPIU+lM8OhNhvYAG7GaRwGRHG9lzMYCZN8El
+	 48Kf6RCc/TJiJEGBI7UVutmfL7SRNMkYYfo8/d051eNFof+Oak0Y7jtj2dQT5+fUYow==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792451863;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=kGGGLP9z4tXsyl45NRkYOKObEn9kuAr+SkM2Bsz2wm4=;
+	b=GfMmXH4jGjNsmKAqfgjFvvZupZO022b6KjPb/ELX9KNwSKowmmuRxCBgGFxr/2HUFLV8
+	 GbCFiskopb3XTEn5GyCbfo/PXehQpfadxxNABFv8jzcMqta6rqqFfQLRDus/Ddw3LM3WR
+	 fUDuCbmgfd6wNi2AUdihWemdH5jFA7z6WIHzoAa1hBn8dCstUBUqWydsSvtIyqKcFYCZM
+	 KW8fh11DGOC6YRLZf9/WRKfP8m2+4ehO1vOcmw+liHySxrOuwe4ZvxMs0Iu/xJt/5uoJd
+	 wq1t03CIPCvx88Tc6wO6KIva/dJdgITabDcYnkJ5T5eZZUDr3L+lR3rF3g3jnMZThZA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KGDcloJO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5211C606A324;
+	Mon, 19 Oct 2026 23:17:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KGDcloJO
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792451863;
+	b=RI/Dc9nP6RRV48wmxzCAUB4hui3MPKw9EDWrxFysIYrWD3j1TS6K3Ei9FanUl66dN1LG
+	 TKVBFi4/rYcpZYNj1uAq2c9114KjvQ/Gq74de/2b0syv4d0yOGfFz9TP5elGEYv4+WVkX
+	 rKK7PvrrIJJaaUre037Nz9A3bjSrbjT5Jrt7ODP8wfFxQXwZNbJLpUWtjEOey9xm2tNdy
+	 Qi+IHcbC20EUoGOeKrob+50yfcPGvn07i0Ajpv2K98vgN+ww3aqv8bq+CTZsPI26dztbI
+	 /mCxDqqQSoh+PpeYvgvkcR2a6LCneJTlddhC+MvKWteUueEUMhFJ+uBv0Ac3Z2jBgzA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792451863;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=kGGGLP9z4tXsyl45NRkYOKObEn9kuAr+SkM2Bsz2wm4=;
+	b=hiZ299WyIxjrlGSCZVhyGv0OGkzHaoPYDITCGFzlTXuQWQ2pb6HvtwSm51CfLbeC+wn0
+	 DEzKAKxGBxpxsWvyPLy7jdw908Pqd5EDv6ew9EhBxnNcxBAa81HqyfRR6ZKsItnK5benW
+	 J3xVDZ7bdQ2sAIPVAqPTE7fU8O0WbMLwHUpiX8+v50n9eaJkvJZrEZ11dF19DFFh8Vebx
+	 kPw/Y69nCMVrXua+l/hH8jd/9CnU3V+FnWfblUkbMARIhEqGKqrg5BTzSfFhdU14o78an
+	 DQYlqWJpSzJEYJae36ZHXB/DBrAbyngvElqhL2Gh39p4j1BLSZ0PM9llLBU1fYFTsZQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D08B4606A31C
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 23:01:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D08B4606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=r-sc.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=r-sc.ca
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=r-sc.ca header.i=@r-sc.ca header.a=rsa-sha256 header.s=spacemail header.b=kbEdxGlY
-Received: from DESKTOP-290OH2S (d207-6-150-133.bchsia.telus.net [207.6.150.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.spacemail.com (Postfix) with ESMTPSA id 4j7rcq5L1Gz8sWN;
-	Mon, 19 Oct 2026 23:00:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=r-sc.ca;
-	s=spacemail; t=1792450860;
-	bh=emO6sEIDSkEFWkAyFtAW5uo9IdZWrTOY02AsTAB3ghg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=kbEdxGlY9Nlbf4rp/11jWG32FqrEyxlFiYY1zJbOTD/+utKtaYNDlVzg8jgCqtgGB
-	 6K4uPO4SeNrtk47TN8NZzN8CUIGZKuZ8PNrGlGG9EtmYXQ/3Ezn7HPZGci8vPK+nhz
-	 MDLzYkXQF94JKsOnSSYNr+d+5Nn9aGpEOXEi3f6d2MqQDKNdPUf0BAagTYLlubK9PJ
-	 N+3fcNxexu0Cpb8BMKcdgQEgx34J17WYCDxL/F2DMviO6MtbsMGnGVSD/Pjp4fl8Xf
-	 2Yjs/X7Aq2YkRdLI7I90SEVWbubj0grzDbgIxEx7TUwXB/fG2FmNLhAtxyFUcPnvrE
-	 VkzOWlCdLUjzQ==
-From: Ross Cawston <ross@r-sc.ca>
-To: markus.stockhausen@gmx.de,
-	andrew@lunn.ch
-Cc: lee@kernel.org,
-	pavel@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	chris.packham@alliedtelesis.co.nz,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ross Cawston <ross@r-sc.ca>
-Subject: Re: [PATCH 0/3] leds: add Realtek RTL9300 port LEDs under software control
-Date: Mon, 19 Oct 2026 16:00:53 -0700
-Message-ID: <20261019230053.503-1-ross@r-sc.ca>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <010701dd5f94$d636ff70$82a4fe50$@gmx.de>
-References: <20261018194339.132-1-ross@r-sc.ca> <59f75e7d-9b56-441d-a4b5-58ad3862267e@lunn.ch> <20261018232015.527-1-ross@r-sc.ca> <38ca5375-ecea-4361-ab26-c044f38ceadb@lunn.ch> <20261019054233.1884-1-ross@r-sc.ca> <010701dd5f94$d636ff70$82a4fe50$@gmx.de>
+	by smtp.kernel.org (Postfix) with ESMTPS id 2692A1F000C5;
+	Mon, 19 Oct 2026 23:17:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792451863;
+	bh=kGGGLP9z4tXsyl45NRkYOKObEn9kuAr+SkM2Bsz2wm4=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=KGDcloJODJQPD/dHSXADLHsTvU0dNbgRb7Nf0EUoayau9hQUinfdCm9r+K2Zr7pfU
+	 gteJ2PpHuhkWmLwoxLvzzPlvdcU77m2BWMg5HpamRJTnrPT/cuxu2Svi4ztoB4YNks
+	 4PW7idU0jEC3GSd2xxJfZJWXGHI6ty1knHLL1zA/s76erzXm1TEtBVqm3av5No7FZ2
+	 aAT/a4pRYrLwiqQVKJWtGq4T8FgGBwOJiX2MZChzTzuQSNEogPqzDygJmpEpTkTLjB
+	 YlrpB21TCm4gds6tXx10wV51pImS2P2WLjhy9E5fdL17P9D4k9bsb5eAjNwpqh0oyG
+	 Y/FCDHJfvAVhg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 769224066C;
+	Mon, 19 Oct 2026 23:17:40 +0000 (UTC)
+From: Vidhu Sarwal via B4 Relay <devnull+vidhu.linux.gmail.com@kernel.org>
+Subject: [PATCH 0/3] iio: proximity: Add Benewake TF-Luna LiDAR driver
+Date: Tue, 20 Oct 2026 00:03:40 +0530
+Message-Id: <20261020-tf-luna-v1-0-53a88f93db24@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,16 +83,78 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Envelope-From: ross@r-sc.ca
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMywrCMBBFf6XM2sEkkPr4FXGRpNN2RKaSSUUo/
+ XcTXZ7LOXcDpcykcO02yPRm5UUq2EMHaQ4yEfJQGZxxvTX2gmXE5yoByfVnT8afzOCh2q9MI39
+ +T7f7n3WND0ql5c2IQQljDpLmNjEvx0JaWCbY9y+uCS09iQAAAA==
+X-Change-ID: 20261019-tf-luna-e2685e0570d5
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Vidhu Sarwal <vidhu.linux@gmail.com>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-iio@vger.kernel.org, Shuah Khan <skhan@linuxfoundation.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792434836; l=2129;
+ i=vidhu.linux@gmail.com; s=20260713; h=from:subject:message-id;
+ bh=AqRUiR4PUtUlWpRVFT94V35Qa7422g3L1JI66lW1jU0=;
+ b=xUYl31z5VBB+JqcWZAzEqY1h+b++lrUGMv2yptbu+6XiTcn6WTk10oCU6DJ8hj/ABvzH8lDUw
+ v1S/yr78vnmA8OQUPtEOmHaGk0cM0KCNGeIC6O7h8Gtp1ibpyoN9xtg
+X-Developer-Key: i=vidhu.linux@gmail.com; a=ed25519;
+ pk=xDu3Cbesz76CQXwY8lteI74n3ELVIV7wCsuYAvcX1Q4=
+X-Endpoint-Received: by B4 Relay for vidhu.linux@gmail.com/20260713 with
+ auth_id=869
+X-Original-From: Vidhu Sarwal <vidhu.linux@gmail.com>
+Reply-To: vidhu.linux@gmail.com
 
-On Mon, Oct 19, 2026 at 08:41 AM +0200, Markus Stockhausen wrote:
-> [...] it is currently beyond the time available.
+This series adds support for the Benewake TF-Luna, a single point ToF
+ LiDAR distance sensor with a range of 0.2 m to 8 m. The
+sensor uses either UART or I2C, selected by a strap pin at power-up.
+This series covers the I2C interface only.
 
-Thanks Markus, that answers it.
+Patch 1 adds the vendor prefix, patch 2 adds the binding and patch 3 adds the
+driver, which reports distance using an IIO_DISTANCE channel.
 
-Then please drop this series. The PoE LEDs of this board go to OpenWrt
-with openwrt/openwrt#25341 for now, and I'll come back to the port LEDs,
-in the port nodes, once there is an RTL930x switch driver upstream.
+The driver keeps the sensor in trigger mode and starts a measurement
+per read. The manual warns that reads in continuous mode can race with
+the sensor updating its result registers unless they are synchronised
+to the data ready output, which the driver does not use yet.
 
-Ross
+Two issues I faced with the hardware that the manual does not mention:
+- The sensor silently drops a register write that arrives right after
+  another one, so probe reads the mode back after setting it.
+- The boot time is not documented. I was able to measure 350ms after a
+  reboot before the registers read back correctly, so probe waits
+  500 ms after enabling the supply, keeping some buffer.
+
+Later on I plan to add buffered caputure using data ready interrupt and 
+runtime PM in a follow up series. 
+
+This was tested on hardware using Raspberry Pi 4 and with firmware v3.6.0
+built out of tree on the 6.18 RPi kernel both via new_device as well as a 
+DT Overlay.
+
+---
+Vidhu Sarwal (3):
+      dt-bindings: vendor-prefixes: Add Benewake
+      dt-bindings: iio: proximity: Add Benewake TF-Luna
+      iio: proximity: Add Benewake TF-Luna LiDAR driver
+
+ .../bindings/iio/proximity/benewake,tf-luna.yaml   |  58 +++++
+ .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
+ MAINTAINERS                                        |   7 +
+ drivers/iio/proximity/Kconfig                      |  11 +
+ drivers/iio/proximity/Makefile                     |   1 +
+ drivers/iio/proximity/tf-luna.c                    | 254 +++++++++++++++++++++
+ 6 files changed, 333 insertions(+)
+---
+base-commit: 43ffda3c7f8456bbe641ae8249a077a361b97880
+change-id: 20261019-tf-luna-e2685e0570d5
+
+Best regards,
+--  
+Vidhu Sarwal <vidhu.linux@gmail.com>
+
+
