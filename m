@@ -1,170 +1,268 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F02AB4C150B
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 10:36:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B19F48382F
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 10:37:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792406216; cv=none; b=lDrUB6mBB3aAaKeUV5hlb0t73EZDad1ymNgRGAeHw55MmH+Z4Nzakn/qG62q8RCD+nruOJL/IcK87xf3LbqzLFukE9q922YhAAMPGyc0Mrbt7sIHfOeQNHu0INqjntMHhSXH7GyW3Ut6M6a8nmFMEzvpzwONLLrLnWqALQhVjNQ=
+	t=1792406253; cv=none; b=nFxzuUDwRahATMXiCQiDlFRXuQzTAgL8AIbMeGUC798Z6cAL4qy9Q6VtT6ra2XrqoIcceIsDCqI2Y5Q6S6C7wmmegd66cwuT4HsXtKdaQZeGH8F1rq0eoNmE0gN3MM6TVfLVwwoS//Z2Wwh1+ke2k0T7ejI59BSWz2QyqZwVr3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792406216; c=relaxed/simple;
-	bh=vykg/OJAriT/sx9F+QK3R3JwZ7Dbvie5oTtlYPTxv9c=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=oqIXOpZ9109QnIpOokNRI6HgaR8GusofwqF+nEj7CFAVG1I4eySiw+wKpqOKy63IxaNaoohAEKosaILKODsEJRW56dk4dzU4QWEaarynIxX5FIth3GITshoQjhXi/rC1XAk3l3D6RXm+nGhlYcDpcXIwWeSFEy79bnI7btOYmbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev; spf=pass smtp.mailfrom=tuxon.dev; dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b=X/sGRZF6; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxon.dev
+	s=arc-20240116; t=1792406253; c=relaxed/simple;
+	bh=fDeMZfHk59IGhuQQqa3sf+ZsCIBFuAYw44gs/8KR7TU=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=OQTO29gsdhOhtBC4Dk3HoN2zVA4WkTerC6nsfF+UyWm2+lIiJe1lXygKoZ7V3OdIGc209UoErLPip3QC7POmNP9mm4++M2z0mNLyRbVlIJ8kyBSzTV3SGOLT3HdN5FS/bayU8zFppaFv/mgKRVJ+0wYSP28BNKoiEvIRyBdAWCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Naa44i3b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b="X/sGRZF6"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a0e1b0681bso13620345e9.3
-        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 03:36:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tuxon.dev; s=google; t=1792406212; x=1793011012; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Z57EO/ibWAdNwQekG27y4VD2pFEfdog7Rh4uiN0n8iY=;
-        b=X/sGRZF6mLkXDbZGXu8m93Pa69i2CCspA94Xseh7+bnX9wgtyeviZAmS9QSPX4An+W
-         oRlAyiW79G7a5SpMrWJkvNnO8kgdIhGFvUABu60NEeYy1GeWN/3M5+EZ+3LEDhR01m2h
-         j02zbRAffUCFY1QeuiuWaIoZtEfahcOMjQrQQrNcx0qloqTNkhVBHMHDFk1GZEWqTtsS
-         HwMxDOGitdytJjIzHgZPhXXi/1G0n/KwZEDtGE2wui7b/gTW6mfG4rLPakpavxb6PenB
-         ZYRl0c7+MyMTj/v9lhE7XzCwbpetDLUFvLUAaC8wXpvGq3LI8/RK8yL6LdOi2w/y5IrV
-         9lRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792406212; x=1793011012;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Z57EO/ibWAdNwQekG27y4VD2pFEfdog7Rh4uiN0n8iY=;
-        b=vOzHLltnrqZuC+AKFrPM/vVESIjADwL6Y1MmvKvSvEg4hxSyDqZdX7L1D8a9TJAqkW
-         cfHlYRg/jeunTj/cRmIVDEKbMHmN40ZO/vnSB1OiaYzZpWw6IBr1cokUCklRUSkaP49E
-         f5ZObZduJ3jv0nqQiDsN79Px4UZuYF4MyjICUpsOqhgEDi+KZ/FFceZP8oQd+Tpo61ZG
-         0z0bkKSS6C5ohxba9ctE0zYULnUbdJ62SU3/NEXdNcXof1QBCUkOlDqKW2uElZ03CXbY
-         ifDgZXs3x0acVhlSTy8BDHTw4IeXerQs+aNyL+j2eo2CVUikkE/2W1+QBug9LoXOEcZa
-         DTzg==
-X-Forwarded-Encrypted: i=1; AKwUvBwbN+HqPDKp6cxLoTzsLmfadW76OmlyInLx1UbSOKv+lBWDu2cd/a8tWSVsn6UnXquRwGQ4JHcPhVmM@vger.kernel.org
-X-Gm-Message-State: AFq9FYI06fMZ/PQydznjibJsSZnseCD+NnWZtR8o8Wc8hKjpTYIgZO5s
-	Vy4lLlUM9MzXDCDKisJkdK//JyO4g6uGGjwSuigin8Rv2+INDQ3r2q4XZ95On+Hkru4=
-X-Gm-Gg: AYBFou2dRbIjB8f7GGlPNHrFtpBdt0FAzfeWW0eL501j3E5JzumD7cU0+8uHOaHRZov
-	HDt/qFyPVS/y3DaGMZJBTOYw5bQXkUi2Y8LEA5QWQq2sl4kkwOwLNyL2w3JWIOzcKLrw8WYyHju
-	YTq9CGUqE3MvlEEpPUIsHpes5mcT7rx2O8zUpuZWRc00CVYEQUx/9Nu1SX4ZZkDDXBhJZz4LwzV
-	QXMzUs9Urs5exLSDg0Cjki3E9oHae135exwkIfsJXppme1bzmWLPTYRE/OPzLcxkqcihc1fxNxh
-	wkPpwCsr7WGq/Sdu42imJS5kQ06TZIoZczovvzKI+aIEsnfOgp/FcIeo6vuzAVUYHjeEsI0LXKN
-	+yQDCdMUBQQ9LPG98lxHeF8hDuZUsUOkcV6jkU+8nBWtB1MCd8v0TuSujiBm5QbH7G8uEKPJC9H
-	xdXRBtFSjJbjuCPaWR5unWeIW2CAYY/mtXFM+C7V6rvD1RD1m/v+7toX8V0oZZlRFahPN6je8N6
-	SkMWHS6p4Quh9HU5w==
-X-Received: by 2002:a05:600c:4e50:b0:4a0:1ea2:10c6 with SMTP id 5b1f17b1804b1-4a1d7600357mr141235245e9.17.1792406211862;
-        Mon, 19 Oct 2026 03:36:51 -0700 (PDT)
-Received: from [192.168.50.4] ([82.78.167.221])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bdbb4a30sm348976065e9.15.2026.10.19.03.36.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 03:36:51 -0700 (PDT)
-Message-ID: <69f0c77d-8c23-4949-bbb3-0a07da506b7a@tuxon.dev>
-Date: Mon, 19 Oct 2026 13:36:49 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Naa44i3b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABF7C1F000C4;
+	Mon, 19 Oct 2026 10:37:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792406252;
+	bh=/oHQ4bdH43j1fuumTS02Am3jQZBjLwwUEwkgUZPR6zI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Naa44i3bJPqsT7f0nOe/lglmj1/NFLsOEbmh3rbA62SBQLNYlWu4pf5JVcf5Pu6SF
+	 Xb91lgPSM8eWmMTsQCfAz+/s9E/JnZr1vlYbH+FWualm8lAI08BBYyU9cOeoU0cDaP
+	 CcRq0dsVSudcSYuhS1VU/8lOtimRIMGm34W/5WbpqxxMi4qmaFYFDWPaO4hYysnpVM
+	 MEnxtdnAslBCPYyvrvjNXiveQi5b7QqYWKCwOzDICPLznqjp/gSK67dhWJAEgPkBww
+	 Fy1MxG8r42DWrT7VhqI32XHwE5nL0Vh6xewUBOdcWvjXEcK+Ql3sI5XK7HNPfi7ZGA
+	 fRpMwogchSsow==
+Message-ID: <sashiko-outbox-177004@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 4/6] phy: rockchip: Add support for Naneng eDP phy
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Damon Ding" <damon.ding@rock-chips.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <20261019102824.3157044-5-damon.ding@rock-chips.com>
+References: <20261019102824.3157044-1-damon.ding@rock-chips.com>
+ <20261019102824.3157044-5-damon.ding@rock-chips.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 19 Oct 2026 10:37:31 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/7] can: rcar_canfd: Allow the CAN FD clock to be
- sourced from fck
-From: claudiu beznea <claudiu.beznea@tuxon.dev>
-To: Marc Kleine-Budde <mkl@pengutronix.de>
-Cc: mailhol@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, geert+renesas@glider.be, magnus.damm@gmail.com,
- biju.das.jz@bp.renesas.com, fabrizio.castro.jz@renesas.com,
- linux-can@vger.kernel.org, devicetree@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-References: <20260902141544.565763-1-claudiu.beznea+renesas@tuxon.dev>
- <20260902141544.565763-4-claudiu.beznea+renesas@tuxon.dev>
- <20261016-durable-meticulous-owl-7a9eed-mkl@pengutronix.de>
- <69826962-0c21-4616-9cd8-6eb0478a422b@tuxon.dev>
- <20261017-weightless-poetic-mayfly-bbdf75-mkl@pengutronix.de>
- <4a9e32a8-8a2e-4b70-8057-2d51e6d38b98@tuxon.dev>
-Content-Language: en-US
-In-Reply-To: <4a9e32a8-8a2e-4b70-8057-2d51e6d38b98@tuxon.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] phy: rockchip: missing set_lanes handling in rockchip_edp_phy_conf=
+igure()
+- [Medium] phy: rockchip: uninitialized val read in rockchip_edp_phy_enable=
+d()
+--
 
+commit d07a3a0e3533b84cdc67b6de45db340e9d9898c9
+Author: Damon Ding <damon.ding@rock-chips.com>
 
-On 10/19/26 12:58, claudiu beznea wrote:
-> Hi, Mark,
-> 
-> On 10/17/26 23:01, Marc Kleine-Budde wrote:
->>>>>    /* Helper functions */
->>>>> @@ -2190,13 +2196,20 @@ static int rcar_canfd_probe(struct platform_device 
->>>>> *pdev)
->>>>>         */
->>>>>        gpriv->can_clk = devm_clk_get(dev, "can_clk");
->>>>>        if (IS_ERR(gpriv->can_clk) || (clk_get_rate(gpriv->can_clk) == 0)) {
->>>>               ^^^^^^^^^^^^^^^^^^^^^
->>>>
->>>> As sashiko.dev [1] pointed out here's no check for -EPROBE_DEFER.
->>> This looks to me a pre-existing issue.
->>>
->>> The newly added support does:
->>>
->>> fcan_freq = clk_get_rate(gpriv->clkp);
->>>
->>> At the time this is executed the clkp was already checked against any errors
->>                                     ^^^^
->>> (above) including -EPROBE_DEFER.
->> It's not about "clkp".
->>
->> What's missing is, that "gpriv->can_clk" is checked against IS_ERR():
->>
->>>>>        gpriv->can_clk = devm_clk_get(dev, "can_clk");
->>>>>        if (IS_ERR(gpriv->can_clk) || (clk_get_rate(gpriv->can_clk) == 0)) {
->> but if it's a -EPROBE_DEFER, IS_ERR() returns true. I think in this case
->> you want to return with dev_err_probe().
->>
->> There's also a difference between "can_clk" not found (e.g. not
->> configured in DT), and there was a problem with "can_clk". I don't know
->> if this is important for this driver, but if you want to distinguish
->> between those, you can use devm_clk_get_optional(). I will return NULL
->> if the clock is not found, -EPROBE_DEFER if not available yet, the clock
->> or, in case of an error -errno.
->>
->> Thinking about it: if "can_clk" is not available, I would consider it
->> intentional, so the driver should use the other clock. If the clock has
->> an error, the driver should not fallback to a probably untested clock
->> configuration.
-> 
->          /* fCAN clock: Pick External clock. If not available fallback to
->           * CANFD clock
->           */
->          gpriv->can_clk = devm_clk_get(dev, "can_clk");
->          if (IS_ERR(gpriv->can_clk) || (clk_get_rate(gpriv->can_clk) == 0)) {
-> 
-> Based on the comment on this code "If not available fallback to CANFD clock"
-> I think the intention with IS_ERR() is to allow probing go forward, falling back 
-> to CANFD clock, in case of any error of devm_clk_get().
-> 
-> The device trees that I've checked sets the can_clk to a fixed clock with rate = 
-> 0 or have the clock provided directly by the SoC clock provider. I think the 
-> intention with IS_ERR() was not only for -ENOENT but for any other kind of 
-> errors. We can return in case of -EPROBE_DEFER, to ensure the expected clock is 
-> used, when it's available and sane.
-> 
-> I'll switch to something like:
-> 
->   gpriv->can_clk = devm_clk_get(&pdev->dev, "can_clk");
-> +if (ERR_PTR(gpriv->can_clk) == -EPROBE_DEFER)
-> +    return dev_err_ptr(dev, ...);
+phy: rockchip: Add support for Naneng eDP phy
 
-On the other hand, returning -EPROBE_DEFER here means the driver may never probe 
-if the can_clk provider fails to probe, even though the fallback clock is 
-available. That would go against what I understand to be the intent of the 
-IS_ERR() check: letting the probe continue when can_clk can't be obtained.
+This commit adds a driver for the Rockchip eDP transmitter PHY with the
+NaNeng IP block found on the RK3568 SoC, controlled via the eDP PHY GRF
+syscon regmap.
 
-Please let me know how you would like me to proceed.
+> diff --git a/drivers/phy/rockchip/phy-rockchip-naneng-edp.c b/drivers/phy=
+/rockchip/phy-rockchip-naneng-edp.c
+> new file mode 100644
+> index 0000000000000..a407714f639a7
+> --- /dev/null
+> +++ b/drivers/phy/rockchip/phy-rockchip-naneng-edp.c
 
-Thank you,
-Claudiu
+[ ... ]
 
+> +static int rockchip_edp_phy_set_voltages(struct rockchip_edp_phy *edpphy,
+> +					 struct phy_configure_opts_dp *dp)
+> +{
+> +	u8 lane;
+> +
+> +	for (lane =3D 0; lane < dp->lanes; lane++)
+> +		rockchip_edp_phy_set_voltage(edpphy, dp, lane);
+> +
+> +	return 0;
+> +}
+> +
+> +static int rockchip_edp_phy_set_rate(struct rockchip_edp_phy *edpphy,
+> +				     struct phy_configure_opts_dp *dp)
+> +{
+> +	u32 value;
+> +	int ret;
 
+[ ... ]
+
+> +	regmap_write(edpphy->grf, EDP_PHY_GRF_CON0, FIELD_PREP_WM16(EDP_PHY_PD_=
+PLL_MASK, 0));
+> +	regmap_write(edpphy->grf, EDP_PHY_GRF_CON0,
+> +		     FIELD_PREP_WM16(EDP_PHY_TX_PD_MASK, ~GENMASK(dp->lanes - 1, 0)));
+> +	ret =3D regmap_read_poll_timeout(edpphy->grf, EDP_PHY_GRF_STATUS0,
+> +				       value, value & PLL_RDY, 100, 1000);
+> +	if (ret) {
+> +		dev_err(edpphy->dev, "Failed to wait for PHY PLL ready: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	regmap_write(edpphy->grf, EDP_PHY_GRF_CON5, FIELD_PREP_WM16(EDP_PHY_TX_=
+MODE_MASK, 0x0));
+> +	regmap_write(edpphy->grf, EDP_PHY_GRF_CON0,
+> +		     FIELD_PREP_WM16(EDP_PHY_TX_IDLE_MASK, ~GENMASK(dp->lanes - 1, 0))=
+);
+> +
+> +	return 0;
+> +}
+> +
+> +static int rockchip_edp_phy_verify_config(struct rockchip_edp_phy *edpph=
+y,
+> +					  struct phy_configure_opts_dp *dp)
+> +{
+> +	int i;
+> +
+> +	/* If changing link rate was required, verify it's supported. */
+> +	if (dp->set_rate) {
+> +		switch (dp->link_rate) {
+> +		case 1620:
+> +		case 2700:
+> +			/* valid bit rate */
+> +			break;
+> +		default:
+> +			return -EINVAL;
+> +		}
+> +	}
+> +
+> +	if (dp->set_lanes) {
+> +		/* Verify lane count. */
+> +		switch (dp->lanes) {
+> +		case 1:
+> +		case 2:
+> +		case 4:
+> +			/* valid lane count. */
+> +			break;
+> +		default:
+> +			return -EINVAL;
+> +		}
+> +	}
+> +
+> +	/*
+> +	 * If changing voltages is required, check swing and pre-emphasis
+> +	 * levels, per-lane.
+> +	 */
+> +	if (dp->set_voltages) {
+> +		/* Lane count verified previously. */
+> +		for (i =3D 0; i < dp->lanes; i++) {
+> +			if (dp->voltage[i] > 3 || dp->pre[i] > 3)
+> +				return -EINVAL;
+> +
+> +			/*
+> +			 * Sum of voltage swing and pre-emphasis levels cannot
+> +			 * exceed 3.
+> +			 */
+> +			if (dp->voltage[i] + dp->pre[i] > 3)
+> +				return -EINVAL;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int rockchip_edp_phy_configure(struct phy *phy, union phy_configu=
+re_opts *opts)
+> +{
+> +	struct rockchip_edp_phy *edpphy =3D phy_get_drvdata(phy);
+> +	int ret;
+> +
+> +	ret =3D rockchip_edp_phy_verify_config(edpphy, &opts->dp);
+> +	if (ret) {
+> +		dev_err(edpphy->dev, "Invalid params for phy configure\n");
+> +		return ret;
+> +	}
+> +
+> +	if (opts->dp.set_rate) {
+> +		ret =3D rockchip_edp_phy_set_rate(edpphy, &opts->dp);
+> +		if (ret) {
+> +			dev_err(edpphy->dev, "Failed to set rate\n");
+> +			return ret;
+> +		}
+> +	}
+> +
+> +	if (opts->dp.set_voltages) {
+> +		ret =3D rockchip_edp_phy_set_voltages(edpphy, &opts->dp);
+> +		if (ret) {
+> +			dev_err(edpphy->dev, "Failed to set voltages\n");
+> +			return ret;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+
+[Severity: High]
+How does rockchip_edp_phy_configure() handle callers that issue separate
+phy_configure() calls for rate, lane count, and voltage levels?
+
+Looking at drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c, the Analogix =
+DP
+bridge issues three separate phy_configure() calls, each with a
+zero-initialized union phy_configure_opts:
+
+1. analogix_dp_set_link_bandwidth() sets only phy_cfg.dp.link_rate and
+phy_cfg.dp.set_rate =3D true, leaving phy_cfg.dp.lanes =3D 0:
+
+    union phy_configure_opts phy_cfg =3D {0};
+
+    phy_cfg.dp.link_rate =3D
+        drm_dp_bw_code_to_link_rate(dp->link_train.link_rate) / 100;
+    phy_cfg.dp.set_rate =3D true;
+    ret =3D phy_configure(dp->phy, &phy_cfg);
+
+When rockchip_edp_phy_set_rate() runs, dp->lanes is 0 (and unvalidated since
+dp->set_lanes is false), so GENMASK(dp->lanes - 1, 0) evaluates
+GENMASK(UINT_MAX, 0) when programming EDP_PHY_TX_PD_MASK and
+EDP_PHY_TX_IDLE_MASK.
+
+2. analogix_dp_set_lane_count() sets phy_cfg.dp.lanes and
+phy_cfg.dp.set_lanes =3D true, but rockchip_edp_phy_configure() never checks
+opts->dp.set_lanes, so the lane-dependent TX configuration is not applied a=
+nd
+the active lane count is not stored in struct rockchip_edp_phy.
+
+3. analogix_dp_set_lane_link_training() sets phy_cfg.dp.voltage[],
+phy_cfg.dp.pre[], and phy_cfg.dp.set_voltages =3D true, with phy_cfg.dp.lan=
+es
+left at 0. Both rockchip_edp_phy_verify_config() and
+rockchip_edp_phy_set_voltages() loop up to dp->lanes, so 0 iterations run a=
+nd
+no voltage swing or pre-emphasis registers are written (or if a caller pass=
+es
+set_voltages =3D true with set_lanes =3D false and an unvalidated dp->lanes=
+ > 4,
+the loops read past the end of dp->voltage[4] and dp->pre[4]).
+
+Should the lane-dependent TX configuration be applied in a set_lanes handler
+that also stores the lane count in struct rockchip_edp_phy for set_voltages
+to use?
+
+> +static bool rockchip_edp_phy_enabled(struct rockchip_edp_phy *edpphy)
+> +{
+> +	u32 val;
+> +
+> +	regmap_read(edpphy->grf, EDP_PHY_GRF_STATUS0, &val);
+> +
+> +	return FIELD_GET(PLL_RDY, val);
+> +}
+
+[Severity: Medium]
+What happens in rockchip_edp_phy_enabled() if regmap_read() fails?
+
+Because val is uninitialized and the return value of regmap_read() is not
+checked, FIELD_GET(PLL_RDY, val) will read an uninitialized stack variable,
+which can cause rockchip_edp_phy_power_on() to return 0 early without
+powering on or configuring the PHY AUX channel.
+
+Should val be initialized to 0 (or the regmap_read() error checked)?
+
+[ ... ]
+
+> --=20
+> 2.34.1
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019102824.3157=
+044-1-damon.ding@rock-chips.com?part=3D4
