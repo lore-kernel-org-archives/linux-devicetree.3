@@ -1,741 +1,158 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mail-m2422.xmail.ntesmail.com (mail-m2422.xmail.ntesmail.com [45.195.24.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E734DB540
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 10:28:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3DC43DB31A;
+	Mon, 19 Oct 2026 10:28:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.195.24.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792405697; cv=none; b=ushEClGp+c04NngbYp9xpVStZJTd8T/+2DtsHXwH7pSVz8qY8/J+BEsUSjAq32Qd43LDBNsNhZ7AngB9D6dw29AjYSSJuil9v/dX7D0QztSe44f1Q3BEBUaIW3ljHBS8GNNPJ/3sdEyb7XpvFEFDS2CQaBjwVfwVPR5c5FkBQFg=
+	t=1792405741; cv=none; b=TA3jpR9+MlWZ7UqlKskQPGtQIgXGfqk6U5rkxWiB7Ey95a+z8wsCBVm8eQFXCkj0Oow4ht8OjBcbC9+HjTMNfakV18zQv3xqUSYIJa43oFhWc/EaQuBu1yHPrT4IfymP4qVSxk/lzd1t/qDO+g3VWdxWFJg8WgN7OmNgIhtwVT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792405697; c=relaxed/simple;
-	bh=O+iazLguLyovlIP3fa/uVTa9ArunFV5vRJNzz6i57mY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fzUpfENjDqnF5PC3w2RuZzkuX/m2b7LBhkxOMzjUaud84YcdcWhUK81KsC7M0teAnHUfRa1R2N3EZtYQ/NpzAY3G2XderktfrP37caaLyWJ8HsYg4asCN9Z4WcX+xN3MGQuKi3km+QFNL+b7ManR1u8hLaef1Rvqr7kvt0WguZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TTf01I4S; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ForPtr3l; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792405741; c=relaxed/simple;
+	bh=vU5Sf3HoDIzEzHMiVHgrX2awErv95i1t1LH4gR1/Cro=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=K+oBgT+tUHOLUl1HLsC+DKZUAfwys3iGCN3+dHm+dxA6zL8r3YAfqWY2E6RCqcGj+SPZTSTQdM0KZChPtymGOSumySMwBONTHPtrDHjv4o7NgvuovW47d3Q/F8ZzWhKvmD5ipMidW8KPzxKPgUlQCeIiESwjYxrcPW2PATLb+J0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=UwB4wSn/; arc=none smtp.client-ip=45.195.24.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TTf01I4S";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ForPtr3l"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J8OmR13305154
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 10:28:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	IPvlp3jqlW0A24vumhBMxzUHc0LetsIebcnDpbuLGNU=; b=TTf01I4SaqmfK3RA
-	M6YlxJsmIKUBJR++VzPlTz82S8acn9VMdmM2nFPxGBp/rOifXCJWJgAXAZ+zAU12
-	l2Dfpx+ao7eMjxRmhGKSaZWqAn5WdT213XNiD8fR9+2OPeozHBTDhyuSW+Pc492w
-	837dKSTfgPFt7JswE8ffDtgWbo3jgR1oNOTH3u+HGGD3G3tx+/6fBjYaIt71Pi3z
-	l9J2KH3TyAcRk5ezFeluQOzvq82R5UNzQkjZrf0EawXcvQuXnp6ssN2ieplXwajA
-	9Y/5mOi8e9xKBYVY194ghjxzs8WT0oScmPbfeshR2kV2GjEbnxAwM0GJH7qVmZM5
-	zpYqAg==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdf47gm5g-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 10:28:13 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e94b4a6e8dso13424335ad.3
-        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 03:28:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792405693; x=1793010493; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IPvlp3jqlW0A24vumhBMxzUHc0LetsIebcnDpbuLGNU=;
-        b=ForPtr3l8LRWu4i63R8/YSqPg7qfOz/H+hsnWlCWmrk375yw7vNm3t9G4k2mX5hE6W
-         vWit62j6FpcECSlX5D9npPm8Aj8TGlzXc8uNYhu87Jq6j2dO6wIJ6r9z1Ahzk/sV49hR
-         8q4MTbtAOF33cciXkyH2WAALqD3VjuK7GZHD+g/y+KYlMgTSXeeY7FHQLT748XCBpd9e
-         K+RYtWjB4gnMZdVnPr6usdpUtJ18XkcJd7616zgeipQUVgllozwYUXHbEARESnMgvxQV
-         CiASA6j6q6SY5NrZ6fnTzdVZAbBcJV0GoWdVKr8YtXH+8PK82YYRg3Q6dG8g0OSHOTKF
-         lnOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792405693; x=1793010493;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IPvlp3jqlW0A24vumhBMxzUHc0LetsIebcnDpbuLGNU=;
-        b=mim8qjex1i21FrCskPpAtibmmzF3Jb1dt6NRd4u6mEPAsm8ExdRTzLGJgXA3OwnHUp
-         gd8YQCO7nSVs0ksfC3LuEo8/kdaAmgRm+S1wvEm8LphCjN29+GY2lzzkDnTqpksQThz7
-         OCYmAyBUwZUXQ6gqEuHIHH0EZk7Z88f1kY0SosQ5UC5blKTP6sqhoyVf36PeuAOxR6TL
-         GAkORYL4TPnIiXXslotJoZzxAyEOPIpU5nKpM3HfUpu/zKV5oTHoegR90HbiQdJD69C7
-         0VjaFCKa2+tXQqkY+14/6OSPV9Ys1MQSQfHAdDnO6eWVll0MpHr5NQ+oSNko7v+9i/8y
-         cS7w==
-X-Forwarded-Encrypted: i=1; AKwUvBwwMoHCuERl3vtN/CyJntMZhG0Pom3Hx4OG3Hn9UFFM59XpgQyvT+W/wEIuToG6x2ubULyQbqkbxU+e@vger.kernel.org
-X-Gm-Message-State: AFq9FYKIUwaRapUtGo+XYZvgq2OHk8kna0ta8etOurD3O/CUEp3KNyaG
-	GclalFwnDtP6w3lv7hqi1Nvq8e3ii6PDlJ9hARmDhGRy/PvKAvA2PJ7GAQQfY7+bJ6DKZ1fTmq8
-	mZhIscbDm8UH0Z9uDgugjuRpQfVCGwys2NdwPO0VwmVBYjNhsElrW/iatGMB78SUf
-X-Gm-Gg: AYBFou29YBoPv1ypB85CdTXTPUJgXHwxlywg5OM9x/yS2IAJOUnBA6ULITpHVa4DlAC
-	apAJQCUjT6vuM3d98bsfvPyEL65guAPGS4EHOAIwM/scsg/xbXgC2ioa+Ba3+ZQ45xya6XEsOY/
-	LXGrc2m4tHxvHRJGRthu5oyEITXGlJBFkakqbcj66ShLCRwRmFRIykXobVVLv8l1t0ZWDX8sN2A
-	g+aleAWnmPjNRFLCZyhetK7vyfE00F4BiLKFcyh0T2F4kkbMQUi0FT0zhwrTrCII/EU1oeQWHdC
-	Xx8ZIdheCklsYkI8zflmi06QJjoT2Pfo3TtIbp2aj5/mYITJbAcNwVS364pzHStIqERziogvwC9
-	faNS8FW/aaISHRQskI3xwKMBX0kn5xWwAYUygvA==
-X-Received: by 2002:a17:903:228a:b0:2e8:3d48:4d80 with SMTP id d9443c01a7336-2e9a6e53cb5mr60808655ad.45.1792405692682;
-        Mon, 19 Oct 2026 03:28:12 -0700 (PDT)
-X-Received: by 2002:a17:903:228a:b0:2e8:3d48:4d80 with SMTP id d9443c01a7336-2e9a6e53cb5mr60808465ad.45.1792405692132;
-        Mon, 19 Oct 2026 03:28:12 -0700 (PDT)
-Received: from hu-gthawre-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e5d7ef1sm36359785ad.3.2026.10.19.03.28.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 03:28:11 -0700 (PDT)
-From: Gopikishan Thawre <gopikishan.thawre@oss.qualcomm.com>
-Date: Mon, 19 Oct 2026 15:57:34 +0530
-Subject: [PATCH 3/3] arm64: dts: qcom: lemans: Add Draco EVK board
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="UwB4wSn/"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 518d3ddad;
+	Mon, 19 Oct 2026 18:28:48 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Sandy Huang <hjc@rock-chips.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Andy Yan <andy.yan@rock-chips.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Robert Foss <rfoss@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dave Jones <s.dave.jones@gmail.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v2 5/6] drm/rockchip: analogix_dp: Add support for RK3568
+Date: Mon, 19 Oct 2026 18:28:23 +0800
+Message-Id: <20261019102824.3157044-6-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261019102824.3157044-1-damon.ding@rock-chips.com>
+References: <20261019102824.3157044-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-lemans-draco-final-changes-bringup-v1-3-dcabe94f1074@oss.qualcomm.com>
-References: <20261019-lemans-draco-final-changes-bringup-v1-0-dcabe94f1074@oss.qualcomm.com>
-In-Reply-To: <20261019-lemans-draco-final-changes-bringup-v1-0-dcabe94f1074@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Gopikishan Thawre <gopikishan.thawre@oss.qualcomm.com>,
-        Richard Cochran <richardcochran@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-        Vishnu Saini <vishnu.saini@oss.qualcomm.com>,
-        Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>,
-        Ajinkya Inchure <ainchure@qti.qualcomm.com>,
-        Anuj Tripathi <anuj.tripathi@oss.qualcomm.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792405669; l=12809;
- i=gopikishan.thawre@oss.qualcomm.com; s=20261019; h=from:subject:message-id;
- bh=O+iazLguLyovlIP3fa/uVTa9ArunFV5vRJNzz6i57mY=;
- b=XkaMP1Vpd3wAeFpNxkU+P+6Q197FzQWviafUQzuepDW02Ri81m+zeA8kwMyJlm8ce+Gsus1xs
- Zp43wxICdmoBsMm5JjQrK8+VTQhYnHTOuMn0Cae7j8Me6TDKa1KyLsQ
-X-Developer-Key: i=gopikishan.thawre@oss.qualcomm.com; a=ed25519;
- pk=l7diN2ZWn/39T24vZixhPPrGDEUF6RKc19MsWZubM6s=
-X-Proofpoint-ORIG-GUID: dzc-SVbUp7wio5YEBuYP-htZetlGiBmk
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA0MSBTYWx0ZWRfX682pCFJddQRi
- w9Cz64k5lxgGdhonnJPGGudLn89nHiyf5tunRJY1XgzZXDTBK1LxJCDQy3Be0FQ3cLq+zY5d1+h
- nFfCFiw6lEOG3y8GeL9JPfDw5s/zQ4gE01IASTx7NuN+5EYo9JZ5VVIrSgPliWqXS720so7IOBg
- ASpR+0zE9kmdR3FuE1j2xxtlpnIazIfq3u7wyhRRP81OrK142nha2zXm6R28nZ8DPLhiOjBheDo
- aU+5UBixOlHh3OBa15xbfa5p6t0VLRvurzcvVZbDpxFPlVkn80nE/H8nxO/ZVqfCzVX3pzbff0m
- DPoSx8VzShC5y6iczu4Or9pMFdirgBnl372oDv7Sdhf7uVNYF/3rW6Dggb1A9+2t3AOdW+csafb
- V7hFTbUAZH/k8kgxUORdqWW9UQGfXEN29Ru90rdPIIA/vdnH7UdB03ycMA+FcqpP9lfStswW9n9
- 64kX6KS3EOjtCWEJz5A==
-X-Proofpoint-GUID: dzc-SVbUp7wio5YEBuYP-htZetlGiBmk
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA0MSBTYWx0ZWRfXxDAaccyZ7zt4
- oIpFY045kHfc+DP+iEFCAkgGJzl8AkAwOe4qZvIGyvFlbFSmeJh7TGUphl523G3S8kel2q13U2C
- YcM5TLvlzL6tpGscd2wfQZQwClekm5E=
-X-Authority-Analysis: v=2.4 cv=cLt1IVeN c=1 sm=1 tr=0 ts=6ad5f0bd cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=56b0w_5mWSKF6VX4WC4A:9 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-19_03,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 phishscore=0 spamscore=0 clxscore=1011
- priorityscore=1501 impostorscore=0 lowpriorityscore=0 bulkscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610190041
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa153b4ebb803a8kunme348c01b2f6c4e
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGk8ZVklJGElLSkhCQ04dGVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=UwB4wSn/rBgxjYEqq23Aca4mCS85peuuusbGTAkUmvlqfXMP13iu4VEudylGE6F0rcQ62CoVlo5A4VXWaP4RRVEJZMJpAJsNlWf1GAUYzHtXmcAx9rVhTVXkFEIDRbc44mnDMY5sdp3Rd2s13lWLwug+epl/YclQxwjnnTUdCdU=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=PIme3hcZlC53RfvT2IEjzq2swieDeYbsRW7Jr3b/EnY=;
+	h=date:mime-version:subject:message-id:from;
 
-Add the device tree for the LeMans Draco EVK platform which combines
-the LeMans Draco EVK SoM and Draco carrier board.
+The RK3568 eDP controller does not require any GRF configurations,
+so make the "rockchip,grf" property optional.  Also enable the
+optional avdd-0v9 and avdd-1v8 supplies which power the eDP PHY.
 
-This device tree adds board-specific peripheral configuration on top
-of the SoM, including:
+Add the "rockchip,rk3568-edp" compatible along with its chip data;
+the register base in the chip data is used to match the platform
+device memory resource.
 
-- I2C GPIO expanders (TCA6416/PCA9534) on i2c2 and i2c18
-- EEPROM with MAC address nvmem layout on i2c18
-- Native DisplayPort output (DP0-DP3)
-- Dual Ethernet (ethernet0/ethernet1) with HSGMII PHY over SerDes
-- ST33HTPM TPM over SPI16
-- AMC6821 fan controller on i2c4
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
-Co-developed-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-Co-developed-by: Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>
-Signed-off-by: Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>
-Co-developed-by: Ajinkya Inchure <ainchure@qti.qualcomm.com>
-Signed-off-by: Ajinkya Inchure <ainchure@qti.qualcomm.com>
-Co-developed-by: Anuj Tripathi <anuj.tripathi@oss.qualcomm.com>
-Signed-off-by: Anuj Tripathi <anuj.tripathi@oss.qualcomm.com>
-Signed-off-by: Gopikishan Thawre <gopikishan.thawre@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/qcom/Makefile             |   5 +
- arch/arm64/boot/dts/qcom/lemans-draco-evk.dts | 543 ++++++++++++++++++++++++++
- 2 files changed, 548 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 4e714251d5e6..f1713d53af5f 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -50,6 +50,11 @@ dtb-$(CONFIG_ARCH_QCOM)	+= ipq9650-rdp488.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= kaanapali-mtp.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= kaanapali-qrd.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= lemans-evk.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= lemans-draco-evk.dtb
-+
-+lemans-draco-evk-el2-dtbs := lemans-draco-evk.dtb lemans-el2.dtbo
-+
-+dtb-$(CONFIG_ARCH_QCOM)	+= lemans-draco-evk-el2.dtb
+Changes in v2:
+- Fail the probe when the chip data requires GRF configurations while
+  the "rockchip,grf" property is missing.(Sashiko)
+---
+ .../gpu/drm/rockchip/analogix_dp-rockchip.c   | 24 ++++++++++++++++++-
+ 1 file changed, 23 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
+index ccdd4b9ecdb8..38c78360842f 100644
+--- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
+@@ -320,12 +320,17 @@ static int rockchip_dp_of_probe(struct rockchip_dp_device *dp)
+ 	struct device *dev = dp->dev;
+ 	struct device_node *np = dev->of_node;
+ 	struct clk *clk;
++	int ret;
  
- lemans-evk-camera-csi1-imx577-dtbs	:= lemans-evk.dtb lemans-evk-camera-csi1-imx577.dtbo
- lemans-evk-camera-dtbs	:= lemans-evk.dtb lemans-evk-camera.dtbo
-diff --git a/arch/arm64/boot/dts/qcom/lemans-draco-evk.dts b/arch/arm64/boot/dts/qcom/lemans-draco-evk.dts
-new file mode 100644
-index 000000000000..5238157ad002
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/lemans-draco-evk.dts
-@@ -0,0 +1,543 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+/dts-v1/;
+-	dp->grf = syscon_regmap_lookup_by_phandle(np, "rockchip,grf");
++	dp->grf = syscon_regmap_lookup_by_phandle_optional(np, "rockchip,grf");
+ 	if (IS_ERR(dp->grf))
+ 		return dev_err_probe(dev, PTR_ERR(dp->grf),
+ 				     "failed to get rockchip,grf property\n");
+ 
++	if (!dp->grf && (dp->data->lcdc_sel.valid || dp->data->edp_mode.valid))
++		return dev_err_probe(dev, -EINVAL,
++				     "missing the required rockchip,grf property\n");
 +
-+#include <dt-bindings/pwm/pwm.h>
-+#include "lemans-draco-evk-som.dtsi"
+ 	dp->grfclk = devm_clk_get_optional(dev, "grf");
+ 	if (IS_ERR(dp->grfclk))
+ 		return dev_err_probe(dev, PTR_ERR(dp->grfclk),
+@@ -351,6 +356,14 @@ static int rockchip_dp_of_probe(struct rockchip_dp_device *dp)
+ 		return dev_err_probe(dev, PTR_ERR(dp->apbrst),
+ 				     "failed to get apb reset control\n");
+ 
++	ret = devm_regulator_get_enable_optional(dev, "avdd-0v9");
++	if (ret && ret != -ENODEV)
++		return dev_err_probe(dev, ret, "failed to enable avdd-0v9\n");
 +
-+/ {
-+	model = "Qualcomm Technologies, Inc. Lemans Draco EVK";
-+	compatible = "qcom,lemans-draco-evk", "qcom,qcs9100",
-+		     "qcom,sa8775p";
-+	chassis-type = "embedded";
++	ret = devm_regulator_get_enable_optional(dev, "avdd-1v8");
++	if (ret && ret != -ENODEV)
++		return dev_err_probe(dev, ret, "failed to enable avdd-1v8\n");
 +
-+	aliases {
-+		ethernet0 = &ethernet0;
-+		ethernet1 = &ethernet1;
-+	};
-+
-+	dp0-connector {
-+		compatible = "dp-connector";
-+		label = "DP0";
-+		type = "full-size";
-+
-+		dp-pwr-supply = <&vreg_dp0_pwr>;
-+
-+		port {
-+			dp0_connector_in: endpoint {
-+				remote-endpoint = <&mdss0_dp0_out>;
-+			};
-+		};
-+	};
-+
-+	dp1-connector {
-+		compatible = "dp-connector";
-+		label = "DP1";
-+		type = "full-size";
-+
-+		dp-pwr-supply = <&vreg_dp1_pwr>;
-+
-+		port {
-+			dp1_connector_in: endpoint {
-+				remote-endpoint = <&mdss0_dp1_out>;
-+			};
-+		};
-+	};
-+
-+	dp2-connector {
-+		compatible = "dp-connector";
-+		label = "DP2";
-+		type = "full-size";
-+
-+		dp-pwr-supply = <&vreg_dp2_pwr>;
-+
-+		port {
-+			dp2_connector_in: endpoint {
-+				remote-endpoint = <&mdss1_dp0_out>;
-+			};
-+		};
-+	};
-+
-+	dp3-connector {
-+		compatible = "dp-connector";
-+		label = "DP3";
-+		type = "full-size";
-+
-+		dp-pwr-supply = <&vreg_dp3_pwr>;
-+
-+		port {
-+			dp3_connector_in: endpoint {
-+				remote-endpoint = <&mdss1_dp1_out>;
-+			};
-+		};
-+	};
-+
-+	vreg_dp0_pwr: regulator-dp0-pwr {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VREG_DP0_PWR_3P3";
-+
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+
-+		gpio = <&expander1 7 GPIO_ACTIVE_HIGH>;
-+	};
-+
-+	vreg_dp1_pwr: regulator-dp1-pwr {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VREG_DP1_PWR_3P3";
-+
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+
-+		gpio = <&expander1 8 GPIO_ACTIVE_HIGH>;
-+	};
-+
-+	vreg_dp2_pwr: regulator-dp2-pwr {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VREG_DP2_PWR_3P3";
-+
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+
-+		gpio = <&expander1 9 GPIO_ACTIVE_HIGH>;
-+	};
-+
-+	vreg_dp3_pwr: regulator-dp3-pwr {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VREG_DP3_PWR_3P3";
-+
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+
-+		gpio = <&expander1 10 GPIO_ACTIVE_HIGH>;
-+	};
+ 	return 0;
+ }
+ 
+@@ -530,6 +543,14 @@ static const struct rockchip_dp_chip_data rk3288_dp[] = {
+ 	{ /* sentinel */ }
+ };
+ 
++static const struct rockchip_dp_chip_data rk3568_edp[] = {
++	{
++		.chip_type = RK3568_EDP,
++		.reg = 0xfe0c0000,
++	},
++	{ /* sentinel */ }
 +};
 +
-+&i2c2 {
-+	status = "okay";
-+
-+	expander0: gpio@20 {
-+		compatible = "ti,tca6416";
-+		reg = <0x20>;
-+		#gpio-cells = <2>;
-+		gpio-controller;
-+	};
-+
-+	expander1: gpio@21 {
-+		compatible = "ti,tca6416";
-+		reg = <0x21>;
-+		#gpio-cells = <2>;
-+		gpio-controller;
-+	};
-+
-+	expander2: gpio@22 {
-+		compatible = "ti,tca6416";
-+		reg = <0x22>;
-+		#gpio-cells = <2>;
-+		gpio-controller;
-+	};
-+
-+	expander3: gpio@23 {
-+		compatible = "ti,tca6416";
-+		reg = <0x23>;
-+		#gpio-cells = <2>;
-+		gpio-controller;
-+	};
-+
-+	expander4: gpio@38 {
-+		compatible = "nxp,pca9534";
-+		reg = <0x38>;
-+		#gpio-cells = <2>;
-+		gpio-controller;
-+	};
-+};
-+
-+&tlmm {
-+
-+	dp2_hot_plug_det: dp2-hot-plug-det-state {
-+		pins = "gpio104";
-+		function = "edp2_hot";
-+		bias-disable;
-+	};
-+
-+	dp3_hot_plug_det: dp3-hot-plug-det-state {
-+		pins = "gpio103";
-+		function = "edp3_hot";
-+		bias-disable;
-+	};
-+
-+	ethernet0_default: ethernet0-default-state {
-+		ethernet0_mdc: ethernet0-mdc-pins {
-+			pins = "gpio8";
-+			function = "emac0_mdc";
-+			drive-strength = <16>;
-+			bias-pull-up;
-+		};
-+
-+		ethernet0_mdio: ethernet0-mdio-pins {
-+			pins = "gpio9";
-+			function = "emac0_mdio";
-+			drive-strength = <16>;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	ethernet1_default: ethernet1-default-state {
-+		ethernet1_mdc: ethernet1-mdc-pins {
-+			pins = "gpio20";
-+			function = "emac1_mdc";
-+			drive-strength = <16>;
-+			bias-pull-up;
-+		};
-+
-+		ethernet1_mdio: ethernet1-mdio-pins {
-+			pins = "gpio21";
-+			function = "emac1_mdio";
-+			drive-strength = <16>;
-+			bias-pull-up;
-+		};
-+	};
-+
-+};
-+
-+&i2c18 {
-+	status = "okay";
-+
-+	expander5: gpio@3c {
-+		compatible = "nxp,pca9534";
-+		reg = <0x3c>;
-+		#gpio-cells = <2>;
-+		gpio-controller;
-+	};
-+
-+	eeprom@50 {
-+		compatible = "giantec,gt24c256c", "atmel,24c256";
-+		reg = <0x50>;
-+		pagesize = <64>;
-+
-+		nvmem-layout {
-+			compatible = "fixed-layout";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			mac_addr0: mac-addr@0 {
-+				reg = <0x0 0x6>;
-+			};
-+
-+			mac_addr1: mac-addr@6 {
-+				reg = <0x6 0x6>;
-+			};
-+		};
-+	};
-+};
-+
-+&i2c4 {
-+	status = "okay";
-+
-+	fan_controller: fan@1a {
-+		compatible = "ti,amc6821";
-+		reg = <0x1a>;
-+		#pwm-cells = <2>;
-+
-+		fan {
-+			pwms = <&fan_controller 40000 PWM_POLARITY_INVERTED>;
-+		};
-+	};
-+};
-+
-+&qup_i2c4_default {
-+	drive-strength = <6>;
-+	bias-pull-up;
-+};
-+
-+&spi16 {
-+	status = "okay";
-+
-+	tpm@0 {
-+		compatible = "st,st33htpm-spi", "tcg,tpm_tis-spi";
-+		reg = <0>;
-+		spi-max-frequency = <20000000>;
-+	};
-+};
-+
-+&mdss0 {
-+	status = "okay";
-+};
-+
-+&mdss0_dp0 {
-+	pinctrl-0 = <&dp0_hot_plug_det>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+&mdss0_dp0_out {
-+	data-lanes = <0 1 2 3>;
-+	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
-+
-+	remote-endpoint = <&dp0_connector_in>;
-+};
-+
-+&mdss0_dp0_phy {
-+	vdda-phy-supply = <&vreg_l1c>;
-+	vdda-pll-supply = <&vreg_l4a>;
-+
-+	status = "okay";
-+};
-+
-+&mdss0_dp1 {
-+	pinctrl-0 = <&dp1_hot_plug_det>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+&mdss0_dp1_out {
-+	data-lanes = <0 1 2 3>;
-+	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
-+
-+	remote-endpoint = <&dp1_connector_in>;
-+};
-+
-+&mdss0_dp1_phy {
-+	vdda-phy-supply = <&vreg_l1c>;
-+	vdda-pll-supply = <&vreg_l4a>;
-+
-+	status = "okay";
-+};
-+
-+&mdss1 {
-+	status = "okay";
-+};
-+
-+&mdss1_dp0 {
-+	pinctrl-0 = <&dp2_hot_plug_det>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+&mdss1_dp0_out {
-+	data-lanes = <0 1 2 3>;
-+	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
-+
-+	remote-endpoint = <&dp2_connector_in>;
-+};
-+
-+&mdss1_dp0_phy {
-+	vdda-phy-supply = <&vreg_l1c>;
-+	vdda-pll-supply = <&vreg_l4a>;
-+
-+	status = "okay";
-+};
-+
-+&mdss1_dp1 {
-+	pinctrl-0 = <&dp3_hot_plug_det>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+&mdss1_dp1_out {
-+	data-lanes = <0 1 2 3>;
-+	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
-+
-+	remote-endpoint = <&dp3_connector_in>;
-+};
-+
-+&mdss1_dp1_phy {
-+	vdda-phy-supply = <&vreg_l1c>;
-+	vdda-pll-supply = <&vreg_l4a>;
-+
-+	status = "okay";
-+};
-+
-+&ethernet0 {
-+	phy-handle = <&hsgmii_phy0>;
-+	phy-mode = "2500base-x";
-+
-+	pinctrl-0 = <&ethernet0_default>;
-+	pinctrl-names = "default";
-+
-+	snps,mtl-rx-config = <&mtl_rx_setup>;
-+	snps,mtl-tx-config = <&mtl_tx_setup>;
-+
-+	nvmem-cells = <&mac_addr0>;
-+	nvmem-cell-names = "mac-address";
-+
-+	status = "okay";
-+
-+	mdio {
-+		compatible = "snps,dwmac-mdio";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		hsgmii_phy0: ethernet-phy {
-+			compatible = "ethernet-phy-id004d.d101";
-+			reg = <0x1c>;
-+			reset-gpios = <&pmm8654au_2_gpios 8 GPIO_ACTIVE_LOW>;
-+			reset-assert-us = <11000>;
-+			reset-deassert-us = <70000>;
-+		};
-+	};
-+
-+	mtl_rx_setup: rx-queues-config {
-+		snps,rx-queues-to-use = <4>;
-+		snps,rx-sched-sp;
-+
-+		queue0 {
-+			snps,dcb-algorithm;
-+			snps,map-to-dma-channel = <0x0>;
-+			snps,route-up;
-+			snps,priority = <0x1>;
-+		};
-+
-+		queue1 {
-+			snps,dcb-algorithm;
-+			snps,map-to-dma-channel = <0x1>;
-+			snps,route-ptp;
-+		};
-+
-+		queue2 {
-+			snps,avb-algorithm;
-+			snps,map-to-dma-channel = <0x2>;
-+			snps,route-avcp;
-+		};
-+
-+		queue3 {
-+			snps,avb-algorithm;
-+			snps,map-to-dma-channel = <0x3>;
-+			snps,priority = <0xc>;
-+		};
-+	};
-+
-+	mtl_tx_setup: tx-queues-config {
-+		snps,tx-queues-to-use = <4>;
-+
-+		queue0 {
-+			snps,dcb-algorithm;
-+		};
-+
-+		queue1 {
-+			snps,dcb-algorithm;
-+		};
-+
-+		queue2 {
-+			snps,avb-algorithm;
-+			snps,send_slope = <0x1000>;
-+			snps,idle_slope = <0x1000>;
-+			snps,high_credit = <0x3e800>;
-+			snps,low_credit = <0xffc18000>;
-+		};
-+
-+		queue3 {
-+			snps,avb-algorithm;
-+			snps,send_slope = <0x1000>;
-+			snps,idle_slope = <0x1000>;
-+			snps,high_credit = <0x3e800>;
-+			snps,low_credit = <0xffc18000>;
-+		};
-+	};
-+};
-+
-+&ethernet1 {
-+	phy-handle = <&hsgmii_phy1>;
-+	phy-mode = "2500base-x";
-+
-+	pinctrl-0 = <&ethernet1_default>;
-+	pinctrl-names = "default";
-+
-+	snps,mtl-rx-config = <&mtl_rx_setup1>;
-+	snps,mtl-tx-config = <&mtl_tx_setup1>;
-+
-+	nvmem-cells = <&mac_addr1>;
-+	nvmem-cell-names = "mac-address";
-+
-+	status = "okay";
-+
-+	mdio {
-+		compatible = "snps,dwmac-mdio";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		hsgmii_phy1: ethernet-phy {
-+			compatible = "ethernet-phy-id004d.d101";
-+			reg = <0x1c>;
-+			reset-gpios = <&pmm8654au_2_gpios 9 GPIO_ACTIVE_LOW>;
-+			reset-assert-us = <11000>;
-+			reset-deassert-us = <70000>;
-+		};
-+	};
-+
-+	mtl_rx_setup1: rx-queues-config {
-+		snps,rx-queues-to-use = <4>;
-+		snps,rx-sched-sp;
-+
-+		queue0 {
-+			snps,dcb-algorithm;
-+			snps,map-to-dma-channel = <0x0>;
-+			snps,route-up;
-+			snps,priority = <0x1>;
-+		};
-+
-+		queue1 {
-+			snps,dcb-algorithm;
-+			snps,map-to-dma-channel = <0x1>;
-+			snps,route-ptp;
-+		};
-+
-+		queue2 {
-+			snps,avb-algorithm;
-+			snps,map-to-dma-channel = <0x2>;
-+			snps,route-avcp;
-+		};
-+
-+		queue3 {
-+			snps,avb-algorithm;
-+			snps,map-to-dma-channel = <0x3>;
-+			snps,priority = <0xc>;
-+		};
-+	};
-+
-+	mtl_tx_setup1: tx-queues-config {
-+		snps,tx-queues-to-use = <4>;
-+
-+		queue0 {
-+			snps,dcb-algorithm;
-+		};
-+
-+		queue1 {
-+			snps,dcb-algorithm;
-+		};
-+
-+		queue2 {
-+			snps,avb-algorithm;
-+			snps,send_slope = <0x1000>;
-+			snps,idle_slope = <0x1000>;
-+			snps,high_credit = <0x3e800>;
-+			snps,low_credit = <0xffc18000>;
-+		};
-+
-+		queue3 {
-+			snps,avb-algorithm;
-+			snps,send_slope = <0x1000>;
-+			snps,idle_slope = <0x1000>;
-+			snps,high_credit = <0x3e800>;
-+			snps,low_credit = <0xffc18000>;
-+		};
-+	};
-+};
-+
-+&serdes0 {
-+	phy-supply = <&vreg_l5a>;
-+
-+	status = "okay";
-+};
-+
-+&serdes1 {
-+	phy-supply = <&vreg_l5a>;
-+
-+	status = "okay";
-+};
-
+ static const struct rockchip_dp_chip_data rk3576_edp[] = {
+ 	{
+ 		.chip_type = RK3576_EDP,
+@@ -555,6 +576,7 @@ static const struct rockchip_dp_chip_data rk3588_edp[] = {
+ static const struct of_device_id rockchip_dp_dt_ids[] = {
+ 	{.compatible = "rockchip,rk3288-dp", .data = &rk3288_dp },
+ 	{.compatible = "rockchip,rk3399-edp", .data = &rk3399_edp },
++	{.compatible = "rockchip,rk3568-edp", .data = &rk3568_edp },
+ 	{.compatible = "rockchip,rk3576-edp", .data = &rk3576_edp },
+ 	{.compatible = "rockchip,rk3588-edp", .data = &rk3588_edp },
+ 	{}
 -- 
-2.43.0
+2.34.1
 
