@@ -1,154 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E4F0489894
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 08:08:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80C8431BCAE;
+	Mon, 19 Oct 2026 08:13:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792397312; cv=none; b=ZAPZCHB3oD1Kt6xWmUkReHphNMfdS4yzYvHI7/zsmtj/SpcEOdSsybSXDPZqAYCn5sQNx9n7Z9bd15dETJCNZ4t0fDVugGEv9DS6htiyx4GnbWSylAUhCYTb1xsCDOhnHF3aF5MxZR2SMgwUxan6PPJzTppXolE/VHc7oxoxFUI=
+	t=1792397606; cv=none; b=pRp4wORctSuFruNVMRaLCsIJeKk3qR9yxIZ7TjYi27hanHpiwJpUOwLSMN5aQxpcd+4jgsqabfmdG4ZFXrmGHvUyW24xG/eUpw9vi8jOHh8APvX0MB5IK2IkrgMI4lz9FxcYPMQ+YhpPL5U3lJDFnvOMMU1sUz1touULfCuhhq8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792397312; c=relaxed/simple;
-	bh=eoi5LEcN5iz9C1ccIdSTVkQgfItbjvHxoVn+HQpxCjs=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=Cxsg12PwsnaAuU9R255e6QHQRe//NKeI/6zlXfU9NwOKI89Oy3BJXiDpOhsA0AJbaLjiNbNAserbfgG/UIrPCJ2Xou3T/tLJaXeY+avJIcyFcJhGx15VYAxCODA/xkchIBzHN7Uzq5naB6X2TX6Fo2xm3bQstA0FvlC1yGxGFEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OLHfdnm+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792397606; c=relaxed/simple;
+	bh=XouZpUQ5YBG7lppUugLKluXBp9QpXs/PNN1AJMW6by4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Rp6MvSK6XuJFgG1yULQMILbc+pHgmvVYUFadZTweH/tfvWtCuSO+wML9IRdeNX/6ChLg+tz7s3Jd70qy77MqR9RcY1tAsdkfkDO/+0z6QgKz1Gy2mvJOXxeNxTwikMXd/eV33oix/vyQM8Wnd++fYm174B43BtcK3oaYnHOjLv8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=FvItgfkB; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OLHfdnm+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 597851F000C4;
-	Mon, 19 Oct 2026 08:08:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792397310;
-	bh=L8rK/1NtqDlWJcJglHCwjkVpPEJUJLr26ph69qg3Qm4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OLHfdnm+jcOt5qRc8zWyP6nhBvzhB9PSL1Ek8QR3KBvkD/Znsk2q8OZVOX0wIGZ7U
-	 s9/21WDCrwHXFItjdNAUqPHrDh8PzBDnnzSHi+3rw6A7Ixvqa/MNlm8jOpkY8fSzlk
-	 NskNYpdc9/YaMxhYmjxsyvzITP+8Q3dFG+vsa+Lu2kz5P1H9msQEVHT6LjZucyR4cX
-	 O4jCnRFfRyIDwfO9bun3pNJeOBoWcU/T0VG1vxsZFEVe45jfX54Hwa9mhlKCp2K477
-	 roMcUoeb7nquKMfdEg8XAaD629EYDKjJSFoyPy15hXqlYzA1ART8ezeThZCeXm3jQJ
-	 BfGGdLN/ENOmg==
-Message-ID: <sashiko-outbox-176776@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 7/7] riscv: dts: ultrarisc: Add Milk-V Titan board
- device tree
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Xincheng Ji" <jixincheng@ultrarisc.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261019-ultrarisc-dts-v4-7-3979747cda2e@ultrarisc.com>
-References: <20261019-ultrarisc-dts-v4-0-3979747cda2e@ultrarisc.com>
- <20261019-ultrarisc-dts-v4-7-3979747cda2e@ultrarisc.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 19 Oct 2026 08:08:29 +0000
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="FvItgfkB"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 9E572C5CD45;
+	Mon, 19 Oct 2026 08:14:20 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9304F60582;
+	Mon, 19 Oct 2026 08:13:22 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C06F010328429;
+	Mon, 19 Oct 2026 10:13:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792397601; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=trNQO0U9XQLBOWcQGLIc+ci4GywnkatJEUe8E9u6r4I=;
+	b=FvItgfkBI0uIwemxLOQyXNqDxWTC/p0cGmtkocphPeGleMMne9ZPgFH0wpCiMNJtFVpPKV
+	+g1u7KYl2AJaktUp0fVPQLS+bEuvTbJB9e7RfonI4dpFbM29cq7QBf6xt9KPPehchHuHXd
+	yL9QIyg4JYh8gCnBNPJ6z9OjGOcL6rHMvJ4pldB6QC7y0LtoBGTPEfyj1ez4iVYMO+ng/q
+	JMi6xmyW+h7DjjhbvAai1Swrfgsi80X7i9etz4cbWXjgsNa1VDPhuykMnp5o6ABI+955Z9
+	ZvqH8FrEy2lodwuX4g7n4uCq6sSiR9PjTSTaoKfSY+jmZdAOcgF6y18MWSRAig==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Jacky Huang <ychuang3@nuvoton.com>,  Shan-Chun Hung
+ <schung@nuvoton.com>,  Michael Turquette <mturquette@baylibre.com>,
+  Stephen Boyd <sboyd@kernel.org>,  Richard Cochran
+ <richardcochran@gmail.com>,  Arnd Bergmann <arnd@arndb.de>,  Brian Masney
+ <bmasney+clk@redhat.com>,  Jerome Brunet <jbrunet+clk@baylibre.com>,  Rob
+ Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>,  Andrew Jeffery
+ <andrew@codeconstruct.com.au>,  Avi Fishman <avifishman70@gmail.com>,
+  Tomer Maimon <tmaimon77@gmail.com>,  Tali Perry <tali.perry1@gmail.com>,
+  Patrick Venture <venture@google.com>,  Nancy Yuen <yuenn@google.com>,
+  Benjamin Fair <benjaminfair@google.com>,  Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>,  Steam Lin <STLin2@winbond.com>,
+  linux-arm-kernel@lists.infradead.org,  linux-clk@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  Krzysztof Kozlowski <krzk@kernel.org>,
+  devicetree@vger.kernel.org,  openbmc@lists.ozlabs.org,
+  stable@vger.kernel.org
+Subject: Re: [PATCH v10 03/10] clk: nuvoton: ma35d1: Retrieve HXT/LXT from
+ DT when possible
+In-Reply-To: <179224882241.859276.15035084302735586039.b4-review@b4> (Jerome
+	Brunet's message of "Sat, 17 Oct 2026 16:53:42 +0200")
+References: <20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com>
+	<20261015-perso-ma35d1-upstream-clk-v10-3-47c97b54a809@bootlin.com>
+	<179224882241.859276.15035084302735586039.b4-review@b4>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Mon, 19 Oct 2026 10:13:08 +0200
+Message-ID: <87zewayup7.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] riscv: dts: ultrarisc: deprecated LED label overrides color and =
-function
---
 
-commit b602c792a6efba56c2935012c89e05f8d6efaf40
-Author: Jia Wang <wangjia@ultrarisc.com>
+>> +	/*
+>> +	 * Old DTs do not describe the low-speed crystal. They may also expect
+>> +	 * an HXT output from this driver. In practice, nobody should use these
+>> +	 * clocks directly, but they must be kept for backward compatility
+>> +	 * purposes.
+>> +	 */
+>> +	if (num_clks =3D=3D 1) {
+>> +		hws[HXT] =3D ma35d1_clk_fixed("hxt", 24000000);
+>> +		hws[LXT] =3D ma35d1_clk_fixed("lxt", 32768);
+>> +	}
+>
+> The above is fine but the problem is those IDs still exist and something =
+like
+> <&clk HXT> is still valid in DT but now does not provide a clock
+> anymore.
 
-riscv: dts: ultrarisc: Add Milk-V Titan board device tree
+Yeah, it's hard to prevent, but people would immediately face errors
+when developing anyway.
 
-This commit adds the device tree and pinctrl definitions for the Milk-V
-Titan ITX motherboard based on the UltraRISC DP1000 SoC.
+> This is why I asked if you about removing the ID. At the very least a com=
+ment is
+> needed next to the IDs saying those are obsolete and should not be used.
 
-Link: https://milkv.io/docs/titan/overview
+Ok, 'next to the IDs' may be relevant indeed, I'll add that.
 
-> diff --git a/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan.dts b/arch/=
-riscv/boot/dts/ultrarisc/dp1000-milkv-titan.dts
-> new file mode 100644
-> index 0000000000000..59edd8157221a
-> --- /dev/null
-> +++ b/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan.dts
-> @@ -0,0 +1,203 @@
-
-[ ... ]
-
-> +&ethernet {
-> +	phy-handle =3D <&phy0>;
-> +	/*
-> +	 * The PCB does not add RGMII TX or RX clock delays. The DP1000
-> +	 * integration adds fixed delays in both directions.
-> +	 */
-> +	phy-mode =3D "rgmii-id";
-> +
-> +	status =3D "okay";
-> +
-> +	mdio {
-> +		compatible =3D "snps,dwmac-mdio";
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-> +
-> +		phy0: phy@0 {
-> +			reg =3D <0>;
-> +
-> +			leds {
-> +				#address-cells =3D <1>;
-> +				#size-cells =3D <0>;
-> +
-> +				led@1 {
-> +					label =3D "eth-link";
-> +					reg =3D <1>;
-> +					color =3D <LED_COLOR_ID_YELLOW>;
-> +					function =3D LED_FUNCTION_INDICATOR;
-> +					default-state =3D "keep";
-> +					linux,default-trigger =3D "netdev";
-> +				};
-> +
-> +				led@2 {
-> +					label =3D "eth-activity";
-> +					reg =3D <2>;
-> +					color =3D <LED_COLOR_ID_GREEN>;
-> +					function =3D LED_FUNCTION_ACTIVITY;
-> +					default-state =3D "keep";
-> +					linux,default-trigger =3D "netdev";
-> +				};
-> +			};
-> +		};
-> +	};
-> +};
-
-[Severity: Medium]
-Should the label properties be dropped from led@1 and led@2 here?
-
-When the PHY driver probes phy0, the call chain:
-
-  of_phy_leds() ->
-    of_phy_led() ->
-      devm_led_classdev_register_ext() ->
-        led_classdev_register_ext() ->
-          led_compose_name() ->
-            led_parse_fwnode_props()
-
-checks for the deprecated label property first in
-drivers/leds/led-core.c:led_parse_fwnode_props():
-
-	if (fwnode_property_present(fwnode, "label")) {
-		ret =3D fwnode_property_read_string(fwnode, "label", &props->label);
-		if (ret)
-			dev_err(dev, "Error parsing 'label' property (%d)\n", ret);
-		return;
-	}
-
-Because led_parse_fwnode_props() returns early when label is present, the
-color and function properties on led@1 and led@2 are never parsed and are
-completely ignored at runtime.
-
-In addition, Documentation/devicetree/bindings/leds/common.yaml deprecates
-label for new bindings in favor of color and function.
-
-Would it make sense to remove label from both nodes so that the LED core
-uses color and function to compose the standard LED names?
-
-=E5=AE=8C=E7=BE=8E!
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019-ultrarisc-=
-dts-v4-0-3979747cda2e@ultrarisc.com?part=3D7
+Thanks,
+Miqu=C3=A8l
