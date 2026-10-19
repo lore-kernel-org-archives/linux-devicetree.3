@@ -1,157 +1,105 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 248454E36EF;
-	Mon, 19 Oct 2026 12:55:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792414525; cv=pass; b=Sv/kOwQXRSbJlUYY6yxXKSgA5vUTBFJnZHBVmPX6Z1qeQ2cczfn4rQ/7QZ4o4DQHb4UhU3koAfWjOX46aT25jwc0p/qzf4TCdznFmfyzU/mEj4SUiRbNkA1Adyq9JkCxIjtS9Ge5H7BPOFV6hhwUe6vSZ1TpKflhU/4NYQb/qZQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792414525; c=relaxed/simple;
-	bh=UE3KjtawDtoJMnO40sfSb4jeUTfZW5R6uwnCYBQkZPo=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=isF72o+LATcEvbOLewnsgN9iEBKjuWynZcHQtOpfMvCGYN+297VneyWF8m86z66egvvPK0ZS5B9ewxsTKiBTW1xF9zYKLTzh+UPd3XO6zj6X/jQFZVnfAYwiDVENEjrrS0uUtrp09FgIDrsazmvtznZVAo+CJ1ixlkncADVUxWo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=gepNrz1U; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 716D54E5346
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 12:57:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792414654; cv=none; b=ifHCir2FnwqQAc/+evDMVkWk4so6/1PgzCl+ul2Qy5ASmMJrbXcsLtsiCD5IBrDEmBRG5RlujM552jRafsu5Ue496HBj9f87aOjVnjvpcAGc0Fk0KDH1wVDW56Yj45FaAcjSLE9LrJ/fn3ivaNy0ia2mqPJE2/BbatnxwYe42Us=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792414654; c=relaxed/simple;
+	bh=DPtgRhzyzAeLmGS47IlPoFEDwn+LdYIoM5JOg6vn1jI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Tluk4X5GCJKefgYQ9NzS1jq1vaj8YxA2I32MS2aGunFoPUSUuZvAQMYXQ+VZzN+lVnCP9eYQPrOyL6f9c5iJ0isgaCr7o9qx99MmhwZOPPh2ZKVcT8KIuajapULpWwKxDEQqlTqNL1qKwVqn3essARvSVfscmv2IB86pvhOVbkk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UaTdNt4o; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="gepNrz1U"
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 631DE201B55;
-	Mon, 19 Oct 2026 14:55:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792414521;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EDFACtr3joZkKek48vhVDUWWppSHXimH9DiDBJeDnxE=;
-	b=gepNrz1U6+E8DSXqJNpla4aXDaQwIAZnouL+bQeaRSWSAnv2PkKkBDIfOu+/sUKzcSIb69
-	Vb3gNn7tFjTsoSAdFA9FAC1jK5tMR/cYy8zNGtOj9R0kLVV9AEV0atx2vQR0hkuIRecLCo
-	GGZg/l/BkkQXqi2qah6aklRy1TpfVXdcwjb3RnHha1JokSF6VVy29R9/r1XK7QDjXBlpfy
-	ud42s54DCGMykv2BFWruIe/Oa3Kp5kB5gJplt96g1mFC1Ka6F9cijJo8605D3aJ0AD6T7w
-	URe84NPQPBiddAqyK5z3YB3p1mnPJgINxVlBVF0vS0JPFRssVrf6vtTvEjrolQ==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792414521; a=rsa-sha256;
-	cv=none;
-	b=M+hY0bCqbBjAqkJiO2Dr0W85cayLgKDgnezkb8w7P8Kbnfem5o4rkdVs+OO5MYoRU1GhyY
-	1emQfM7kAJ7J/0Du2oa+qljCtBrlE+muxwidb+1I0Rzp9det36UkWsn9F72JYTjMFicR5r
-	3BDmGClKSVFcl4ZxDKWlQVNT8oPYgu0pvsvb9oPfch6QM97vUbkokmNUl2y8ZccmpwJw52
-	T4X/FIfYiE4E11R0m9JaQXOccNBdLul94VMjlfthBlzujHddG61+0ArW8R8qbgYuawyALt
-	ZIB+uJ68KX3UzMV7mb0bw/h/aEZJsNH/xmJBJljzNxVETGf7yhI+THk8vvkiMQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792414521;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EDFACtr3joZkKek48vhVDUWWppSHXimH9DiDBJeDnxE=;
-	b=SUHVSVb/QsnfjboxpMPWcd1QAf94pumlmEDKgHK+WWDxGpOuKE7pQW7TXFJWTXqcf/dmQH
-	YG7xgdA+2RnWlMj8FDVd6/IZ93shS0Si6MPewJztTSRrEq+tSGSKpM0JdzGNpYn+Y0Ejhc
-	osYs7kdzZXtj9PuQBcmmrSr7QJd8q0Ol9Pij963siJ6W3WM+bT2Wwhb0dncClsMgGvTRwo
-	kI3VVPwSQ+xfY5gum4LASWgNwQxbe7edm/DEItkd1W0C7MIx5tjqhrvTuLsqYM8t5jya54
-	8aomFz9pg01MLE9NmR6a0PX/m0w0TVzYWCIC+RWrNEhYzyU1v+04FQiPExG6Zw==
-Message-ID: <62860351b9ae360c174d36dd54d4110417f395ad.camel@pengutronix.de>
-Subject: Re: [PATCH 05/20] i3c: dw: switch to array-based exclusive reset
- control
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Jisheng Zhang <jszhang@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Stephen Boyd	 <sboyd@kernel.org>, Brian Masney
- <bmasney+clk@redhat.com>, Jerome Brunet	 <jbrunet+clk@baylibre.com>, Andi
- Shyti <andi.shyti@kernel.org>, Alexandre Belloni
- <alexandre.belloni@bootlin.com>, Frank Li <Frank.Li@nxp.com>, Lee Jones
- <lee@kernel.org>,  Linus Walleij <linusw@kernel.org>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,  Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, Sebastian
- Hesselbarth	 <sebastian.hesselbarth@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-i2c@vger.kernel.org, 
-	linux-i3c@lists.infradead.org, mfd@lists.linux.dev,
- linux-gpio@vger.kernel.org, 	linux-serial@vger.kernel.org,
- linux-spi@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org
-Date: Mon, 19 Oct 2026 14:55:21 +0200
-In-Reply-To: <20260929061417.20733-6-jszhang@kernel.org>
-References: <20260929061417.20733-1-jszhang@kernel.org>
-	 <20260929061417.20733-6-jszhang@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UaTdNt4o"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48dee593f18so1522165f8f.3
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 05:57:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792414652; x=1793019452; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lf9FLL6T5/Kb7gEctiirso0+WOoWDflrhqqlYLNOZeU=;
+        b=UaTdNt4oSh9tXQFDkjdXsFnCBRqQhVDjFVJE/FaqQOT9+of9Ny7rpMMZrdMSV7s0Kf
+         4RusC9VjHHubQzgj/bGezsMkzlGVi/8V69ledDOWvB5C4Hjrb46wqVy7WeIRRG+r0sIv
+         okaZGZx54gZTKPr01JZfl9RAer/vNimHubJ88/+pHpR6bgPHjDGnKRHf/S8ZxUIsN7L4
+         rkcT50oiASX+oL6WmOpTLgwNjpBFhYUt5S/UIyMgBULFJp5a83ASOaBfA0G6XtLlRb8M
+         i2BEU/xVCDQ9lua1KKdiuSSBKqR0JfPgt4HZA2ODMF9kqZPbku+7zgWJ1hShJ9hbl0X4
+         kFRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792414652; x=1793019452;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lf9FLL6T5/Kb7gEctiirso0+WOoWDflrhqqlYLNOZeU=;
+        b=izalHPKAo4pK/8tZje99LB4MMG3v9g0Ca+52M5sJGg2SyDxhxH86eo2EXdU9eK2gfM
+         zarD0gYyMFvM1DlpGLkVQWYHhki8Bxay8ThX5lBzG+z2GjbjCLz9PFO7cv5bQAIOCrmy
+         iAT/ksdKcM3Yw1dBTK+dawSusgbDoOiO5HvQsD8R2qe2cEtKAprPesKaewRN/RFcl6WX
+         psEoLQBZ62Bp3whkGXlU29cPe9l4sND6uG3QXd+wxK0wIrxiGEt+jEPV0qPKMPBPtWnB
+         Oy3ZAWi1UjIRyjz+CxNeSL+VwqjQuu2dMAGTLDwiE2YcM7Ggfje+vt1IDHTAtp7XS1s/
+         57cQ==
+X-Forwarded-Encrypted: i=1; AKwUvBypoUIk7RdafKhhFV4DyQw8LGYX6JphCEEcZiBdizyKa003RuLRha65YEaysjo2NLNwvkQ6M4+spMoA@vger.kernel.org
+X-Gm-Message-State: AFq9FYKGtfGeldlbOs+fvaQ+V8fAy8PbtL0sZmYXPtnAQ5uPjNcBXeUH
+	GTFl2nzzAs7KkAWv9X5Z0/YgbYvM7q7/nNbA8aqHtRPwELLAKiQ+ZPXz
+X-Gm-Gg: AYBFou325vCSN9UgGVIToC5oUDsSlFOB6/fTkiioZiH+/HCvzpBrzT64kyjnFTVVbEo
+	ai0ItY38P1ao/RkVvfBuLwUpn+//zhbXiPqWhX8H4vHBFocqaeLR/dHpDoxV34L0htWcEr4jTh1
+	6D6HfZx6GXI6Y4PCULrk2DYpGsgjTPQyODlHMQLD2IwZny8BXGKotPrqVG1VJMYzRAD+0f2OccS
+	Xpb+oREWinmZiSi3lTGKJMirruAysa0guF50FpbIxKaXiYdq+DZlWfV9JC9iCfe6punRcKcMDaL
+	ATy3g3X8vp0JDoXANh5wSRb+YMqt1oBWftYpveooKPwE5Y0OlBZjmbkEzZ7gB1hQ6/BMblgByA9
+	X5Nq3c+rDeBV/5TNI59w+f/SNuaD/tR+onoOtNyDuIk5Mcna5nHrs9JAfiDIcdS0X04mys1Hms7
+	dvGtu43687abYM0VcyUrbWz2E6PSzLmPnFeog1qL8VIJefdC5BUeIHhnL2R1tR6cXoDVfbXFJNL
+	HbCEv9Aqv54
+X-Received: by 2002:a05:6000:4b15:b0:48e:1421:ed49 with SMTP id ffacd0b85a97d-48e14220c4amr6571820f8f.18.1792414651426;
+        Mon, 19 Oct 2026 05:57:31 -0700 (PDT)
+Received: from [192.168.69.3] ([91.189.216.255])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfdcc0f20sm22643828f8f.11.2026.10.19.05.57.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 05:57:30 -0700 (PDT)
+Message-ID: <2c73e54a-d2b1-48cc-827c-6c29c6664697@gmail.com>
+Date: Mon, 19 Oct 2026 14:57:29 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/12] iommu: qcom_iommu: implement support for instances
+ on MSM8974
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>
+Cc: linux-arm-msm@vger.kernel.org, iommu@lists.linux.dev,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260809-msm8974-iommu-upstream-v1-0-87f5cd492560@oss.qualcomm.com>
+Content-Language: pl-PL
+From: =?UTF-8?Q?Micha=C5=82_Szczepaniak?= <m.szczepaniak.000@gmail.com>
+In-Reply-To: <20260809-msm8974-iommu-upstream-v1-0-87f5cd492560@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Di, 2026-09-29 at 14:14 +0800, Jisheng Zhang wrote:
-> The Synopsys DesignWare I3C master controller can have multiple reset
-> lines, such as a core reset and APB reset.
->=20
-> Refactor the driver to use devm_reset_control_array_get_exclusive()
-> instead of a single named reset handle. This automatically manages all
-> resets allocated to the device node sequentially.
+On 09/08/2026 22:15, Dmitry Baryshkov wrote:
+> Qualcomm MSM8974 platform has five SMMU instances, used by display, GPU,
+> Venus, VFE (camera) and JPEG encoder. Each of them follows ARM SMMU v1
 
-Note that this does not guarantee any particular order. Are you sure
-that this is good enough for all implementations of the DW I3C core?
+Hi Dmitry,
 
-Otherwise it may be wise to at least specify the names in binding, to
-be able to switch to the bulk API or individual control later, if
-needed.
+As requested, for the series:
 
-> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-> ---
->  drivers/i3c/master/dw-i3c-master.c | 24 ++++++++++++++++++------
->  drivers/i3c/master/dw-i3c-master.h |  2 +-
->  2 files changed, 19 insertions(+), 7 deletions(-)
->=20
-> diff --git a/drivers/i3c/master/dw-i3c-master.c b/drivers/i3c/master/dw-i=
-3c-master.c
-> index 4563d8761ba0..1c6c870f5bb3 100644
-> --- a/drivers/i3c/master/dw-i3c-master.c
-> +++ b/drivers/i3c/master/dw-i3c-master.c
-> @@ -1657,6 +1657,11 @@ static const struct dw_i3c_platform_ops dw_i3c_pla=
-tform_ops_default =3D {
->  	.set_dat_ibi =3D dw_i3c_platform_set_dat_ibi_nop,
->  };
-> =20
-> +static void dw_i3c_resets_assert(void *data)
-> +{
-> +	reset_control_assert(data);
-> +}
-> +
->  int dw_i3c_common_probe(struct dw_i3c_master *master,
->  			struct platform_device *pdev)
->  {
-> @@ -1696,10 +1701,17 @@ int dw_i3c_common_probe(struct dw_i3c_master *mas=
-ter,
->  	if (IS_ERR(master->pclk))
->  		return PTR_ERR(master->pclk);
-> =20
-> -	master->core_rst =3D devm_reset_control_get_optional_exclusive_deassert=
-ed(&pdev->dev,
-> -										NULL);
-> -	if (IS_ERR(master->core_rst))
-> -		return PTR_ERR(master->core_rst);
-> +	master->resets =3D devm_reset_control_array_get_optional_exclusive(&pde=
-v->dev);
-> +	if (IS_ERR(master->resets))
-> +		return PTR_ERR(master->resets);
-> +
-> +	ret =3D reset_control_deassert(master->resets);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D devm_add_action_or_reset(&pdev->dev, dw_i3c_resets_assert, mast=
-er->resets);
-> +	if (ret)
-> +		return ret;
+Tested-by: Michał Szczepaniak <m.szczepaniak.000@gmail.com> # Motorola 
+Moto X 2014 (MSM8974PRO-AC)
 
-This looks like we are missing
-devm_reset_control_array_get_optional_exclusive_deasserted().
+Thanks,
+Michał
 
-regards
-Philipp
