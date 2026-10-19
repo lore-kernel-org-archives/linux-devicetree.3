@@ -1,60 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792448487;
-	b=Ws9moy1fGQbKG6grJVIvfKuKx7jVsxLtQQQbMpiqbSVC+s8SR33DmIohBcEzniFVwn8U
-	 ME8pUP5uuFIzXR27iLa54lHC5wKYKAW1pN5ZipwYMp02GstJtfanueqMC7p9XzLS/zWCk
-	 iNRxiMP1oMxs940SK2Rqs5yrAoN3C9trZdwZXiC3HnRjpFv8vuaGXomuc5EMJcbgdRjof
-	 634qsWeS4FqlcxrXJyNG/nDUVq5U2YvaxHFcIr6FQrlY3zz0DPV5fM9S5U/Y0QVE1YbFP
-	 A1jLor86CW5Igp0IrhCVGxEatq/IQufxV6vfP+uv6IdsuXWTI8gn8Kkq+gLKowPTslw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792448487;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=s51N6XNe2djMI4gMavRjcuP3fUqvxRFw7XI3t+UeSdg=;
-	b=1VS0Nhia6NPO4mQDfoyLUIzrDFKPGVtN3HxOs45o405jZZ7n9TxGXx5IF/lw1ktTBTvt
-	 dQy7sVXiKk+Z4AYGPo/UkET9eO+SqrMuGzjA8kImbwAWaokL7PTerTEfaNwwza6UicKx8
-	 tBQ1wwDiv018E8Pgu1BFgmCm9F8uAxm5c2gSaplkCDIhcVMhOuvyOa31yPkZ3dRMlWpok
-	 rC5+qdZAWGXs09Yb9jkjvosXkcdecYM0kcwU8BY+2qwRDPK3WGCwNQptIQXtufFnESCLZ
-	 euVO6nCD+wtANIwJEhPw6ppxEjpzNvzJcCPFgUJ9O3SjanfYLe8t1IIabPfiBQaGL2g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=michael.riesch@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=f04JsVaO;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792448622;
+	b=bNZLomP9lRjrB0D1QwHgT9PAGmwhA3q+NaosmPDI+TwGqVPlTxZITFdgrARQfw+Vosq8
+	 rvYOHoDOozTtyQalS766Kudt9NOtBKlUUmggVJ6raR/Zhyl8sIrp1jGer6Ftoia+mOeiH
+	 CoQmzGN37MCl7uOJ9/M04uLt444Cusw7r65+RqUHYM4V1MFxfzJpYgByq2xSXH5rDj+T0
+	 NeP3TQhp5JXxrDHNzinR+pQAH+yawDEVqao0DBdeL0n4lZeU0XAn5faUcUyTOKaHbChoz
+	 3ul09FMERbykCMEiveQvy407ej93Akn+4/hkQaOI2ireru6e/8LGf+q02taD/0IL4qw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792448622;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=USQtrcdyhKNaGhzibqLvfNZ+j6mKmvxo61o+NFYHEyQ=;
+	b=5QklaQV8RvbsMJPlD+JQRJMGM3rsD0Qkd2Qq3OOvt2r48Gtb8vmd5kBuvE7ISOorzBbF
+	 l6o/tWdUjbfNCH8eLOUBNTbglmKAo4tBQrp/CwgR6hSInfzVZGp7QRdotF9Z058CYfdZ/
+	 3ssbfEHNQuLMwXRqq2MKeFflFzrdusINPWJOWQ6d1UOcD9HRnJLDwcqe9/yybH+fDQEVu
+	 8hIl2Y/P373KcvI0FSsLb4893t6qEE1NZRsowWeKtpb9NJnK7/osBl0/488kXRySPavqy
+	 2mwqIN/OS96zNqq+PDOqobGlYBg2DxJK8jddQMmJUr5Wi42xGbDIzN/LR9AW5pn7hqA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MOyG8FNL;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=G3Ch11jV;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63A89606A319;
-	Mon, 19 Oct 2026 22:21:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63A89606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E07D606A319
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 22:23:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E07D606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=michael.riesch@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=f04JsVaO
-ARC-Seal: i=1; a=rsa-sha256; t=1792448456; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=WrrXJ1YWBO5A0kDwu9XrscKsAznjiY++dqm22cz5TXcJnQBDaTlCmJm5rqnjRXoFsbkPZzL8Kp6vpowXk5RkwsJNvZIlS5PI47Gu+0ilGlvm5jJ9Ff6P3Ssr2mmEYcntRjhpEPwGspb4JjK5Xi2Blfx8Y4aYGiys/aL4XpGd/IY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1792448456; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=s51N6XNe2djMI4gMavRjcuP3fUqvxRFw7XI3t+UeSdg=; 
-	b=nDtccBpIf+SsKGYYGImeYiugxqa/fA7XlI7Pdn9SNfqGz0e9UJ4Y+BBfaPDwRIP832btLtYcUpDFO2FCvm9nkX0uHgxFBed2ZrqemvY8fgGuhTkY83qcVl3usntWPRJNF6kIlRR3JxBot7McAG32BOiIj7u8kUVVREQsa30PlIc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
-	dmarc=pass header.from=<michael.riesch@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792448456;
-	s=zohomail; d=collabora.com; i=michael.riesch@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=s51N6XNe2djMI4gMavRjcuP3fUqvxRFw7XI3t+UeSdg=;
-	b=f04JsVaO23ITcR3e/y7REbigorpmjJrcP71oHq1fSWOlg8BuYCdLXWIbydPOzQ4e
-	kxEXdx7SMniTwzyHtibN6IVwMhrHgpn/sc1Cuh0CgcLaVHTTv6QNypaAv7z1PRbJlfP
-	F4Cdgpt/FqSEiiTrTwUQ386cQ+Soyd5XNs8/LPuo=
-Received: by smtp.zohomail.com with SMTPS id 1792448452872579.0876982000046;
-	Mon, 19 Oct 2026 15:20:52 -0700 (PDT)
-Message-ID: <73ef0d06-75c5-4c10-b4c3-c7b3c07a1e18@collabora.com>
-Date: Tue, 20 Oct 2026 00:20:47 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MOyG8FNL;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=G3Ch11jV
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69JLZWO53914151
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 22:23:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=USQtrcdyhKNaGhzibqLvfNZ+
+	j6mKmvxo61o+NFYHEyQ=; b=MOyG8FNLdkS0Bbku7VH4ETh2pCTkCzyCkkWzZB8l
+	0FCqOw1AqQOaSFp50KSRa5tW4dSwmgVbYPN0rMsqBDSnqYC1/3yYUFzFdmwzY5Se
+	BItn7HP7rNqabDAl+PZz2HXugJGtHwne6GxBine9emJQ1wKhTW/eO+9hsyuouCHS
+	+yFYL9ScyQw6wGX+9ognJ1Gy0DO2+ePmY3N5X3aQzGUgbH8fqJk3td7KxYMWW3Qh
+	WI7XA5ojY1EIHMpzRzWWjgV41SeJgNgswMKPtRGJQHgILDS5aiAYpdHx2l45nJns
+	ik1ygQbqKV5xTeoQoKkGyGyTN64570Iuzgx9IOUmuHEzXw==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdr42gvf9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 22:23:40 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93a3f673221so966602785a.0
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 15:23:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792448620; x=1793053420; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=USQtrcdyhKNaGhzibqLvfNZ+j6mKmvxo61o+NFYHEyQ=;
+        b=G3Ch11jVMYTumPM2Je6+cRZCSheOmVMh6AqdOMwUdbwxlZCYxLTwoT+ZEKHuZvAXvC
+         OOquaUMAhpLpZ+0JytryzB+Q4e+nNKpvVTQQDm47/6IaIbM9y+4b0GIB+QInnqFC95Iq
+         l5iZ14bTock+BFMHlUy8jbBMS3AmpgopsicOS6LA99N97hP+W1BKR9K63GZTloq6wCsb
+         k19vRRG7Yy4e+lrFd1Au82JbAvzYQYTwrr4qqx61XJfaXbPIpxanLeqsmt7wf/iaLcb2
+         wFrKBbtq8LnPD6rCUoWH/xNpNvDPvnW0oCT2DR+jpiIM4ZgNMFRXgmG2yA//9ncbVUkg
+         R+Dw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792448620; x=1793053420;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=USQtrcdyhKNaGhzibqLvfNZ+j6mKmvxo61o+NFYHEyQ=;
+        b=1uyAV8oXB5N0nw/tXVNon+lf8zW/p4rVK8NqGCUfUPKCwkQUu/Cym90h3MhOKGycsl
+         /oTBzyL8sHIiJtmA9rJ6IGYpDjZN3px8C4FztTT+fDrmDWmCMmBI9ZzzwV4/pqInUEvh
+         7IcFNgGcpcVShzYo1JhJ/06nyIzpt69jY25i+c7n7ES49KDhie/Eag2sXEuTliNiLwS/
+         2iR1J5ymTulndz0TiPRDwMM+B9zAIrW7r5UYSn5giUY2SyhqTX3m96BT00FACVEBugIB
+         Vsrt65vRhlabAbh0g6mw9iXPgyxFTmG2goJpbWWNbMkaCpSAd9jwF2eb1LcJCqBu42DB
+         0Xvw==
+X-Forwarded-Encrypted: i=1; AKwUvBweJrh+IKz6Mq3wmiVE/oqluMxo5FA+/fYisGacUdeoXOI22sLbByHdFqIkXAlfM3FswdZWofU0N/rM@vger.kernel.org
+X-Gm-Message-State: AFq9FYJAvRUYsw33ihZQQy8/Y5nQdyU5BJ9T+elmHhONy9Wr1wHP9VRL
+	S4ON9n4pcFp2Kz0Z71C+ODA79V9ng5bEvD9Tu72YNDmYe00fBZyrU+aRRQzkEU/ahyNctmh4nUj
+	apnoUipzKXhFnT+7af/kFGKOh4iu1W80rCGfyVh9gJLqzy5KQ73bC7ZDHul0K5kHn
+X-Gm-Gg: AYBFou0q2xZuENMCerrhI8bbLQNzusW3RFrIkwFDJWQWBBrPJaAFkOW3YiEmLBeuLAS
+	wGCrVMvuFIbFyIMMc8I6OmpKTx3MRzdYoM1TmVyFI9idZNk6Xzm77lgX4ArltQJqYgzQL+XrdBe
+	eUwUM+p+Gb7DgxSRC5l6FcFvGIdMoZOFbCN1w6iCgCmVpobyCzEHphnoixxvIE8ARrgiXORbMY1
+	80tELo8CXPIPMLv9tHi+KSiAn63Gt+8/5LyIqfR4HxASE0+i4ZaMJ4NPiJ6iILrKbSUk1bEMLfG
+	ujbIUlafmsiCPDYwhgLGr6n7mSlq7IufzSOCP6phoEGro/OCgxaW0OKM0PGaTXWOgiPQR52Kkry
+	Tfv8rNJY/WLAiDb2qOWYKTvZY0kL8BZLWUpkC1Q4QAKzducEWB+88/6pg9a8NSA0jP8ecvkC6yM
+	oOiJa1gfMVkNLv
+X-Received: by 2002:a05:620a:4456:b0:93c:5951:38e9 with SMTP id af79cd13be357-93f29d5e01dmr1497002785a.52.1792448619728;
+        Mon, 19 Oct 2026 15:23:39 -0700 (PDT)
+X-Received: by 2002:a05:620a:4456:b0:93c:5951:38e9 with SMTP id af79cd13be357-93f29d5e01dmr1496999585a.52.1792448619273;
+        Mon, 19 Oct 2026 15:23:39 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5be4a3fd03dsm2279048e87.11.2026.10.19.15.23.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 15:23:37 -0700 (PDT)
+Date: Tue, 20 Oct 2026 01:23:35 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        Dmitry Baryshkov <lumag@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: Re: [PATCH v2] arm64: dts: qcom: sda660-inforce-ifc6560: fix ADV7535
+ interrupt pin
+Message-ID: <3g6yjybhsqzedb7q3ygpf3ej3btyap6y3dqpqcnh7ghhwduwre@gzl2kqc4o4x7>
+References: <20261019-ifc6560-adv-v2-1-ade625df3fe3@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,120 +128,71 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/8] dt-bindings: phy: rockchip,rk3588-mipi-dcphy: Add
- a cell to select TX or RX
-To: Rob Herring <robh@kernel.org>, =?UTF-8?B?5qWK5pm65oiQ?=
- <jason98166@gmail.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Guochun Huang <hero.huang@rock-chips.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
- <20261016-dcphy-rx-v1-v5-2-e63b49eabe2d@gmail.com>
- <20261016140115.GA1798470-robh@kernel.org>
- <20261017-gainful-goldfish-of-climate-bef863@quoll>
- <CAPwA33+bR1BF9KeA9my07Yz7gXW7TXq8EPhwQ4GvHMSFDk+uWw@mail.gmail.com>
- <20261019150631.GA265407-robh@kernel.org>
-Content-Language: en-US
-From: Michael Riesch <michael.riesch@collabora.com>
-In-Reply-To: <20261019150631.GA265407-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019-ifc6560-adv-v2-1-ade625df3fe3@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA4OSBTYWx0ZWRfX8MkLyMWlxdeF
+ sjW4z1En5H3juUXviLZcSw0PuuQqVpRcHAnU4UuWme7ZT3FyaFjVm7aD/3sgF9rJhqgAFuFtdLM
+ T7QcrF1VLVWZFWOMtWrMqkYXe1oVsYJnmPPKix3U8J/OOP/8KLsFw9NVa084p3a72IkJ9Xcrto+
+ u1Y0/gZBo98S9Wo7sRn9um5cJ9UQGhKZllezM2lK1zZ+E5+4pZnlP/TpySeVxiWLZyOpIc0J9fe
+ bPnE/JjiGk53yNsxCCuMgvSeNRewdC/lpI7N0tq54t96DUqq03crnokI/mQO2YTXerecg5VPkje
+ SQReAj24Th7jNeYRb8Xwe/trFHD9U90qxUtSdRtXZP7m2ipAgBbpPzM4UFF8SqJk0FA3hqOcdIj
+ kmefG3jgn1NuRhy3e8PU9LGrw5Bc6w7kAFg7p7l8ZBYcsQNqxfTWbXcnU+17bp84veniH6dSGhz
+ V7n71SFerndbeoEOvCQ==
+X-Authority-Analysis: v=2.4 cv=Ve9ir1p9 c=1 sm=1 tr=0 ts=6ad6986c cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=bC-a23v3AAAA:8
+ a=EUspDBNiAAAA:8 a=ajiliMmGaEjDzu8pHK0A:9 a=CjuIK1q_8ugA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA4OSBTYWx0ZWRfX91lwLzrAWHB/
+ WBYWL6pKo0K/erTTezw3gI1injeljMsETFVd/HLzpfeOHkYliSjhAEkzYjFp2imZ04m34DUwSt5
+ bNb9sziNSRXAo9V8cM5hOjuVn+X4BzU=
+X-Proofpoint-ORIG-GUID: RHdDHCQuIriuSxobrxkdv_tCWnxJXUmQ
+X-Proofpoint-GUID: RHdDHCQuIriuSxobrxkdv_tCWnxJXUmQ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-19_06,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 impostorscore=0 adultscore=0
+ lowpriorityscore=0 suspectscore=0 clxscore=1015 bulkscore=0 spamscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610190089
 
-Hi all,
-
-On 10/19/26 17:06, Rob Herring wrote:
-> On Mon, Oct 19, 2026 at 04:15:03PM +0800, 楊智成 wrote:
->> Hi Krzysztof, Rob,
->>
->>> Existing OS should ignore surplus cell if the driver is coded properly.
->>> Same as adding new properties or new front-compatible.  The question is
->>> how the existing driver behaves?
->>
->> As you pointed out on 5/8, the xlate checks args_count != 1. The DC-PHY
->> driver was merged in v6.15, so every kernel since 6.15 fails on a second cell.
->>
->> 1. Keep the second cell. Add the patch as follows:
->>
->> - if (args->args_count != 1) {
->> + if (args->args_count < 1) {
->>     dev_err(dev, "invalid number of arguments\n");
->>     return ERR_PTR(-EINVAL);
->>   }
->>
->> + if (args->args_count > 1 && args->args[1]) {
->> +   dev_err(dev, "only the transmitter is supported\n");
->> +   return ERR_PTR(-EINVAL);
->> + }
->>
->>   With Fixes: and Cc: stable, the stable kernels maintained at that
->>   time (currently 6.18.y and 7.2.y) keep DSI working with the new
->>   dts, and the receiver fails cleanly instead of getting the transmitter.
->>   But EOL kernels (6.15, 6.16, 6.17, 6.19, 7.0, 7.1) stay affected.
->>   It goes in with the series, since two-cell dts only exist after it.
->>
->> 2. Use a flag in the upper bits of the existing cell, as Rob
->>     suggested. Existing kernels are not affected, unless a board enables
->>     the DC-PHY CSI-2 receiver on 7.0 or later without this series.
->>
->> I will write the impact clearly whichever  approach is selected in
->> the related commit messages and the cover letter.
->>
->> I think the cell approach is easier to read and more symmetric in the
->> long term,
->> but it breaks more. Which one do you think is better? Thanks.
+On Mon, Oct 19, 2026 at 05:30:08PM +0300, Dmitry Baryshkov wrote:
+> Probing the ADV7535 HDMI bridge fails on the IFC6560:
 > 
-> I'm not a user of this platform, so I don't care. Up to the platform 
-> maintainers to decide if breakage is acceptible. You just need to 
-> document the issue in the commit message.
+>   gpio gpiochip3: (800f000.spmi:pmic@2:gpio@c000): gpiochip_lock_as_irq: tried to flag a GPIO set as output for IRQ
+>   gpio gpiochip3: (800f000.spmi:pmic@2:gpio@c000): unable to lock HW IRQ 10 for IRQ
 > 
-> Rob
+> The bridge's interrupt line is PM660L GPIO11, but the board never
+> configures that pad. pmic_gpio_populate() reads back the state left by
+> the bootloader, which is PMIC_GPIO_MODE_DIGITAL_OUTPUT, so
+> pmic_gpio_get_direction() reports GPIO_LINE_DIRECTION_OUT and
+> gpiochip_lock_as_irq() refuses the line. Requesting the interrupt then
+> fails and the bridge does not probe.
+> 
+> Add a default pinctrl state switching the pad to digital input, applied
+> by pinctrl_bind_pins() before the driver requests the interrupt. The
+> ADV7535 INT pin is open-drain and pulled up on the board, so leave the
+> internal bias disabled.
+> 
+> Fixes: 34279d6e3f32 ("arm64: dts: qcom: sdm660: Add initial Inforce IFC6560 board support")
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+> Changes in v2:
+> - Dropped extra empty line (Konrad)
+> - Added a note about pull-up for the IRQ line present on the PCB.
+> - Link to v1: https://patch.msgid.link/20260920-ifc6560-adv-v1-1-89b1435d00c2@oss.qualcomm.com
+> ---
+>  arch/arm64/boot/dts/qcom/sda660-inforce-ifc6560.dts | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+> 
+Other than Sashiko's mention of output-disable, I'd also need to correct
+the PMIC that provides a GPIO, so there will be a v3.
 
-It's a bit of a pickle, all this.
-
-I gave it some more thought. In the end this is an IP block with two
-PHYs. No more, no less. One cell is sufficient to address those, and it
-could be 0 for the transmitting PHY (DSI, display) and 1 for the
-receiving PHY (CSI, camera).
-
-Of course the two PHYs can operate in either DPHY or CPHY mode. The
-phy-cells have been (mis?)used to select the proper mode of combo PHYs,
-and this principle has been applied here too.
-
-However, we have the special situation here that the mode can only be
-changed for the complete IP block (and thus for both PHYs at the same
-time). As Bryan points out, we need to check and complain if the PHY
-mode is not set to the same value for both PHYs.
-
-I suggest using a property
-    samsung,cphy-mode;
-(name to be bikeshedded) that sets the complete IP block into CPHY mode
-(DPHY being the default) to distinguish between the modes. Since both
-modes use a different electrical interface, this is clearly a hardware
-thing and thus suitable for device tree.
-
-Then, we can address the two PHYs with the help of the already existing
-phy cell (without any bitflag tweaks to the value).
-
-The sole drawback is that we need to accept the PHY_TYPE_DPHY and
-PHY_TYPE_CPHY values that some OS in the field might pass. (For Linux,
-it should only be the former.) And we need to handle those values
-correctly. But I think this is not more painful than the other
-approaches. At the same time, this design seems to be the most correct
-one IMHO.
-
-What do you think?
-
-Best regards,
-Michael
-
+-- 
+With best wishes
+Dmitry
