@@ -1,61 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792444390;
-	b=i9LwmhOdL7C6+6b4NQY2PkZ9aUc5XCxspQd8r5Ap8PFMtEfqpElzJRguY50ffkI5OZEc
-	 s4Uomt1LuDR/eMcT1YTDy7kMnms2gq8lb99CaKTbL2KV/XWCD9pYZ/Z9yxlymjsM/Ao2N
-	 0wfwCFP5u8tQw/sGph7oAf67tTSxiHrsmuhCyGnJY0DWDiDr2nLneNBCMP7j0EPBHlpb/
-	 WWE2VDHzAWlMIlLKePuhF2PiMgneffzeqzn2Uia2fwJ93xSJqNTOneUdo/Horc8b/89ns
-	 Zp7Oe6iTQHr5Yvifk/1tDL9G8phjPLRhJE3QU6MIuH5pPylh7Zuh3+PQhdLM/eGK2eA==
+	t=1792445080;
+	b=3/I6PmfvlapDglychPWOViYO1SMMceoK6TBT/suFnGnO8bcoIGzjrFmNurlttp9dVRNQ
+	 AePlZNedlz2tLDTlOcVXmlkfiTF4Rpp8fTOQCHJLtHwpzZPn1lDDz2dHqpJCgAiVQzqtV
+	 3oumkSQIBAPKLafdOK24Pm71vLNwM8aG79irR7eCeMXoc2iB13SJmPgGf88or1UhkC2rZ
+	 QBx5HUkwSILTIN8NFc1MaBdicOxf57hnl4sbpxhWCWBw7JewBq65Pq8uLTDRU0nYapPic
+	 q3lVgLD2oaA/nqT488XyKiwuN9reOmhWkxG0V0TWoSSm3yAOMk8vbe0eHkSTRuypWXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792444390;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=nag2B8Ch3hK9SXC5XfJia0Hg3V0D0m5XcYZNjThfpdc=;
-	b=c1jKiYlC1ESC81iMAwbGV3jLnIXvNcc7VyA4qfKSK3f0oGwAVGaS8kOYlUXBly/Gw5tQ
-	 VvMX6qGvDCvUzVEWiRLgett65nc0qTmsu/Ag6X7sYmU3tjDVL0P36YWDa9lp4Yq/LWfTg
-	 tz4V5FHY8/ugFCsV1BmbidbN/rUV4HlRrkIQgwmX8AtmiUr3TgYADxuSmgSCnWCnU5X6A
-	 fUZThYwzT0ByPK//JRespIVbLBCwizHAL7BvVndvIGK9HzMKCgfyvlzrs6EOO+6pOAaYq
-	 6GqAaexnyN5Xuo+V1DYHeRHnu03TjRMq+axTLkEShYrE4MvnD6EgLfXKI9CX1X+XVKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792445080;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=/1AN1ESpWi5jgJPYsy5btghJQVKGbBKJpkxKtYBKunU=;
+	b=350oSzGbwLAW2oyPA49Dj3D6QQBxE/mvnUe0oFg+g51jfD6GAOnBCyx+AXTnEhbUWtZR
+	 Z3YvMjwPl/ZgjygAUVMokJ5ehUAzJ7k4+G7xYcbHaL8ozHzgCiDAQP3QfVTmDykU82frb
+	 Hjw9Sw0+LFyLMi0dgjlUjeMXocfYaviU+XHPmWvt9k9xqo135ICp0iMBEUZFbnwUTkkh9
+	 iBmHuqxU+5eabUsGgZPW2dnrBJ7/pLZ322BvUFCSBGwxlaIRBE7ebBqTrueGX+Ak4b1X3
+	 DCyODrRrfsBtx6mBwB16OrTUsQihnMec8KXoNWCeX3j0QU/+NqHfLg9o8qf+k4IPPmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=NqIpl9pC;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cOFZulKP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3432B606A31D;
-	Mon, 19 Oct 2026 21:13:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3432B606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6777606A31A;
+	Mon, 19 Oct 2026 21:24:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=NqIpl9pC
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=nag2B8Ch3hK9SXC5XfJia0Hg3V0D0m5XcYZNjThfpdc=; b=NqIpl9pCltsIliKDjXgVxf4lwC
-	eoz/IuSR/baG4ak0YWk8mCCIY9AQ5xezNNWWv5SzcgfwZL4tBXAqLKT4uK1exSqs1nvV801XkQgYi
-	quUGrzfQtsfGo5W07K/+hv5JVmvlvhyCEiQ1VshMXlcCuBI5GOIAvQ10agAtOC35fzf8=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xIuf0-00Bi1J-0V; Mon, 19 Oct 2026 23:12:46 +0200
-Date: Mon, 19 Oct 2026 23:12:45 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Miguel Jesus Seron Gonzalez <info@gluon.es>
-Cc: Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cOFZulKP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FA2A1F000C4;
+	Mon, 19 Oct 2026 21:24:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792445079;
+	bh=/1AN1ESpWi5jgJPYsy5btghJQVKGbBKJpkxKtYBKunU=;
+	h=From:To:Cc:Subject:Date;
+	b=cOFZulKPhn3MYRu1y0ekb0riZp6D6+qjITek6qm7uSCUrIRhXej4s05s57YMCr+6R
+	 l9mBahUFYFhvc7w2ix0N8x9aQ6Mwwu2F2Fg7BBIn7J+mmHjsDFOW0VB/Rn0nYlQER8
+	 /S3nqNBneUgY9cILeuTL0YQs6pgKWXClNmMTfW1Yrgzf78mjQLHVC3ZbpFP4ZVRzfR
+	 cXc6risAA0iNkB/Iqu2LnGmgTiF8JSbBllRZ7IJtTMQcIB+cgwQioYpPS+6BtmMJ8i
+	 P28h/368CrhAldiB29+cQ5YdimVjxuQN6uzqJy+ozUzD2QMOe/rNhSMSaXQY6mUdQy
+	 X/XITcVyGGz5Q==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Tiffany Lin <tiffany.lin@mediatek.com>,
+	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+	Yunfei Dong <yunfei.dong@mediatek.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Dongjin Kim <tobetter@gmail.com>, Chukun Pan <amadeus@jmu.edu.cn>,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: rockchip: odroid-m1: use rgmii-id for gmac0
-Message-ID: <c8860bfb-b8b8-4255-9b98-42c129ecddc6@lunn.ch>
-References: <20261019192254.6933-1-info@gluon.es>
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	Allen-KH Cheng <allen-kh.cheng@mediatek.com>
+Cc: Kyrie Wu <kyrie.wu@mediatek.com>,
+	linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH] media: dt-bindings: mediatek,vcodec-subdev-decoder: Fix child node if/then schemas
+Date: Mon, 19 Oct 2026 16:24:29 -0500
+Message-ID: <20261019212431.4109371-1-robh@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,54 +70,130 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019192254.6933-1-info@gluon.es>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 19, 2026 at 09:22:54PM +0200, Miguel Jesus Seron Gonzalez wrote:
-> The gmac0 node uses phy-mode "rgmii" with the MAC delays
-> tx_delay = <0x4f> and rx_delay = <0x2d>. On some boards this TX delay
-> does not work at 1000 Mbit/s. Dongjin Kim reported iperf3 throughput
-> below 200 Mbit/s on REV 1.0 20220613 boards. On a REV 1.0 20211112
-> board, TX from the board stalls completely in iperf3 and ping loss
-> grows with frame size (5% at 56 bytes, 20% at 1472 bytes), while RX is
-> unaffected. Other boards work with the current value, so it seems to
-> be marginal rather than wrong everywhere.
-> 
-> Instead of tuning the MAC TX delay again, switch to phy-mode
-> "rgmii-id", so that the RTL8211F PHY adds both RGMII delays, and drop
-> the MAC delay properties, as suggested by Chukun Pan. Dongjin
-> confirmed in the same thread that rgmii-id works.
-> 
-> With this change, on the REV 1.0 20211112 board at 1000 Mbit/s full
-> duplex, there were 3 retransmitted TCP segments out of 24929 (0.012%)
-> over almost four hours, no RX/TX errors and no ping loss.
-> 
-> Fixes: fd3583267703 ("arm64: dts: rockchip: Add Hardkernel ODROID-M1 board")
-> Link: https://lore.kernel.org/r/20250819075522.2238643-1-tobetter@gmail.com
-> Suggested-by: Chukun Pan <amadeus@jmu.edu.cn>
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Miguel Jesus Seron Gonzalez <info@gluon.es>
+The if/then schemas in mediatek,vcodec-subdev-decoder are all at the
+wrong level as they apply to child nodes. The clock-names schemas
+applies to the parent node, but the clock-names properties are in the
+child nodes. Move the clock-names definitions to the child node
+clock-names property. This exposes that the MT8186 clocks are not
+documented, so add them as well.
 
-> @@ -200,7 +200,7 @@ &gmac0 {
->  	assigned-clock-rates = <0>, <125000000>;
->  	clock_in_out = "output";
->  	phy-handle = <&rgmii_phy0>;
-> -	phy-mode = "rgmii";
-> +	phy-mode = "rgmii-id";
->  	phy-supply = <&vcc3v3_sys>;
->  	pinctrl-names = "default";
->  	pinctrl-0 = <&gmac0_miim
-> @@ -209,9 +209,6 @@ &gmac0_rx_bus2
->  		     &gmac0_rgmii_clk
->  		     &gmac0_rgmii_bus>;
->  	status = "okay";
-> -
-> -	tx_delay = <0x4f>;
-> -	rx_delay = <0x2d>;
+The interrupts if/then schema is never true as the parent compatible
+will never match the child compatible. The subschema also belongs in the
+child node.
 
-Correct from the DT binding point of few.
+Fixes: 3fbf1eac01b5 ("media: dt-bindings: media: mediatek: vcodec: Adds decoder dt-bindings for lat soc")
+Closes: https://sashiko.dev/#/bug/linux-5ab90035-1914-412f-8310-097fb05bda15
+Fixes: 355e9472ccb0 ("media: dt-bindings: media: mediatek: vcodec: adapt to the 'clock-names' of different platforms")
+Closes: https://sashiko.dev/#/bug/linux-caa6adb1-38de-4889-9517-2beede7c8f96
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+---
+ .../media/mediatek,vcodec-subdev-decoder.yaml | 77 ++++++++-----------
+ 1 file changed, 31 insertions(+), 46 deletions(-)
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+diff --git a/Documentation/devicetree/bindings/media/mediatek,vcodec-subdev-decoder.yaml b/Documentation/devicetree/bindings/media/mediatek,vcodec-subdev-decoder.yaml
+index d1d209cbbd43..6033ecffd707 100644
+--- a/Documentation/devicetree/bindings/media/mediatek,vcodec-subdev-decoder.yaml
++++ b/Documentation/devicetree/bindings/media/mediatek,vcodec-subdev-decoder.yaml
+@@ -135,8 +135,26 @@ patternProperties:
+         maxItems: 5
+ 
+       clock-names:
+-        minItems: 4
+-        maxItems: 5
++        oneOf:
++          - description: MT8186 clocks
++            items:
++              - const: vdec-sel
++              - const: vdec-soc-vdec
++              - const: vdec
++              - const: vdec-top
++          - description: MT8192 clocks
++            items:
++              - const: sel
++              - const: soc-vdec
++              - const: soc-lat
++              - const: vdec
++              - const: top
++          - description: MT8195 clocks
++            items:
++              - const: sel
++              - const: vdec
++              - const: lat
++              - const: top
+ 
+       assigned-clocks:
+         maxItems: 1
+@@ -159,6 +177,17 @@ patternProperties:
+ 
+     additionalProperties: false
+ 
++    if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - mediatek,mtk-vcodec-core
++              - mediatek,mtk-vcodec-lat
++    then:
++      required:
++        - interrupts
++
+ required:
+   - compatible
+   - reg
+@@ -166,50 +195,6 @@ required:
+   - mediatek,scp
+   - ranges
+ 
+-if:
+-  properties:
+-    compatible:
+-      contains:
+-        enum:
+-          - mediatek,mtk-vcodec-core
+-          - mediatek,mtk-vcodec-lat
+-
+-then:
+-  required:
+-    - interrupts
+-
+-allOf:
+-  - if:
+-      properties:
+-        compatible:
+-          contains:
+-            enum:
+-              - mediatek,mt8192-vcodec-dec
+-    then:
+-      properties:
+-        clock-names:
+-          items:
+-            - const: sel
+-            - const: soc-vdec
+-            - const: soc-lat
+-            - const: vdec
+-            - const: top
+-
+-  - if:
+-      properties:
+-        compatible:
+-          contains:
+-            enum:
+-              - mediatek,mt8195-vcodec-dec
+-    then:
+-      properties:
+-        clock-names:
+-          items:
+-            - const: sel
+-            - const: vdec
+-            - const: lat
+-            - const: top
+-
+ additionalProperties: false
+ 
+ examples:
+-- 
+2.53.0
 
-    Andrew
