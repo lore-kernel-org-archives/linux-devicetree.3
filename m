@@ -1,102 +1,191 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 536E8485955
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 07:57:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792396663; cv=pass; b=fPlIYLcrK86FSlEgdG1t23q1Ub5ApFfdMYDqmEPYWBh93AydBbX4wQ54pJqPgwS/ODY5rtbRXtPOBHb9wk1wwDREEfH/PnnLXpXjzibwPNrj0i1K2s3GIAr4IlPZwS4oqtahFwPQEaAa6gjSk/65eqWzepRIP6qywW8KU3AV414=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792396663; c=relaxed/simple;
-	bh=MPcEmjZPn0U1HR0YqbRJlGEJNlJcmuvq9yIqrqLbn/k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=p+0z3faj5KzBSq2Wdx30+N2c6ko3/VLIzLpW2tdZMCW2kMJgY54+s/Tg7b+2hq7hcyc2lABGeG6B9z/J60kBrsMRn7zomCM3mG/wxtxgGUgfvtkqB07V80lIgMjSEgaqGxvvfRRCEOQkTgImsUYtTxigkULS/Sj7ldpC8sAchzE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JTuflbtj; arc=pass smtp.client-ip=209.85.210.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EDEF48E0CB
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 07:58:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792396730; cv=none; b=arqIMw6Km9ODgVCPVUv16vgDu7vOeOvNXSTIB6QWYQS3pY0r62RJbd/Zyo+m0edcpUaDMZ5XfYNPZqPAWyhe4uT1W5R2i+/sS/Hga7X+KR6JKHAV2YqYkENnQaCCh/tdcSuZ00m9tuHqIXnZSjSFfnizx+tI3rTMOsnvalRQrLo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792396730; c=relaxed/simple;
+	bh=V0VIqDVyiPPQJ+caJbPRvCvUhmLBJmBJ39zRFbxwIvM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kYJFhotmQK49TaC6q0YxHk+6gt5afNixiaNdjmD3Wb8zu1Rn4BSecTuFfOOyFM+fMFeCJkDHM6i+U1RxYssElEBiHmRfw8ux9RERBf+oyxS6T6zdOcO463L303FxsOj39OtTZ2eE4Qzns/05bmfYal5YhadNDVmPx9JTIk+Y1kc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=lW3gZU1F; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JTuflbtj"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8a06c60065fso365428b3a.1
-        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 00:57:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792396662; cv=none;
-        d=google.com; s=arc-20260327;
-        b=G2AEQYbecWwNZPrHMDCtCPeUvBXLhyzZ5IWBerzb9B3vmCOoZyJv75CQAV2dxb9Akn
-         w75h/So4Ex3YJ8jGHHeyuKCdXhyOnnQoqZTYKkAESN6UeyWj1nIoGlDOYenQjGP4nQjo
-         t2WjrrfMcZUJlwBWdmNCHbYpeQa6S0+PfZMflOVgLo8hTqfJvWk164zZ+IfIDntnaE6P
-         JYgMg1c4T5FjKJSkHhqaamzuwXhzvGNOmGrINgXrrqxcjxhPPs4T98SfnEPWAzD4Nhds
-         vvv42gXUZjAj7QZ16fnYGyykVG1vlf45lLEXBf+qmc91wRYSkRLJ87HC7qikszktCUYn
-         EkWA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=MPcEmjZPn0U1HR0YqbRJlGEJNlJcmuvq9yIqrqLbn/k=;
-        fh=dzZbiCbbzpLxDqo2C81dlZNcK93/mZrpobeqf01Zn+U=;
-        b=hXJdIt/2u6pguWgbEHq6IwRFIFkuA+zqfDLKdB9pbVTxti+pAvdpcatLbQOxNrclpO
-         HxdjXhWqBudTl7ZMUFsWcn83blL0f0WjPCqullKraXUOh7/lHlVM+MH8X7iPqKBDI+uK
-         FdiEnWNE1P+brZSU/PnmA/uHYC908T+4oXmewRgSKEU+zDR1UBA+tl2EaiBj6ZVjlcwr
-         9Q368Y6rvHG36rzWwJn4ybk0rkuubs2EUXgYVPUn9YXpPjgCwqmg7RFqEa8CNByeNPk3
-         2TjfOTGP3Yco64fzDqvaM6IecgqA2Uhv1Ot1eH0nZLSSiBMOhzCarm1I4UgDYA4AobhN
-         NTvw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792396662; x=1793001462; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MPcEmjZPn0U1HR0YqbRJlGEJNlJcmuvq9yIqrqLbn/k=;
-        b=JTuflbtjqRg0kNyO3t8Scwuwio0mdIoM/hFSJxzrmOl7mrVni/ryJ1Jpf1H16IaAH7
-         EMJ8J1Hr/wyJumDoouhgMsbMBLETo3OdNpvvgwVVbpYYAvW4SidOU6agPx17dlPDPTzU
-         ydh6yghiottVbZPC0+mCFnc23HpgJ4wh3xeyUf99hmxvMnDndGsh/vW7DPLmuAa1lyDf
-         O71+3GHpcpSJzsFT4nGZzuFH8G3AXcmnwkgChAY89+qziSHkEnLVafHdAVleIc3KL8Rg
-         kmYQeKLq+fN+7DcpJKDIemtjp4g7WJ8FerVImtT6nsyMJ0oM+qSTTFjhWgkdlDpv5qEd
-         QLIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792396662; x=1793001462;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=MPcEmjZPn0U1HR0YqbRJlGEJNlJcmuvq9yIqrqLbn/k=;
-        b=Ae3pcxQv8kcTXpKCYkpt7+JahbP9yNkiloidoAG+0VX2icY6sZfuzR9ql9rh6LZFol
-         sbrQtRFY9rFCF5YtqR8GRfk2DI73q/ZbMDfkjD8Sg4Rds8gVZ9R1WCiA1ufUEpntCTni
-         9laft0GRC9zp0cW94I5RMAKkdbLRTWSZfPkl3VzDHG0C/PvImdAZGVTjUzfhnVPCe6ck
-         hvYM/icnVJVaZMkaR66V2vkoR0/kikX9YWhm13MUaeukEK9R+caPVPux1L2lJX0yUaUO
-         uMXcg5UfWUaqtan6gmbaocL4Sbz7ssv7EED1t7BwpTN+1C8eI2g66y1KqS3+G1Pbb4tC
-         WCRw==
-X-Forwarded-Encrypted: i=1; AKwUvBxRNW7pZum/2+S889z8QtFk5QsuWx9rHktXyL1U5TZnq2SwVze3zHR+8i2ObYb5mEjg1bjfT2/gl2qH@vger.kernel.org
-X-Gm-Message-State: AFq9FYJLxLveI1NE39eafA0viTrFyLNa6TWm8jfku438qceSu+jrdH3u
-	gjbrZV8ROM8IkzjfQuUhx1ef9s/OG7Upqi4m59X2UkwMrqe2bbCLysLWPoDHKNH/vNW9XzOrxvb
-	WI/NUtkdcrDEvfDNUH+SCl1DMRmk/4/g=
-X-Gm-Gg: AYBFou3fsPd2g8AkTIxo3p/hx0VJtkIXcJDzdy1smfTY+mehOuCvelXaSTJqU2UYo0w
-	Q0kRddeSn2c8Tc1VX1nif9fonw4errX0mfzquk4TypmMeGSUa3vu9NZz7ee2PgX6zSWzp4nETXH
-	LOwxpUpSbqp5B8mSYNypjOp7mnlqhyffEGwIh+l1B+dIrmx0tsxUhOICkaQuHIEq/njq//nXoLZ
-	+x60U3za80QEEtqzZU4U2BOsU39Lt0Y2gRyVL3MhwcVixrkLct0szuVjHDrlUiVZxkywENXxYnl
-	7xaAosT3D6Lc8fStGy2g8ACy6Vhws4VhgrQ7bRaivA/F/GKozZ+z+dn9Ftshfzlhs9OE/cuYs8H
-	pdW7HmI+pGm96zNrKAZcdSKljEQHsNsw13+nMwpMPAFJVTiZO18w2LG0QvVqOiXnmE2jN5YWsA8
-	79V5X2Dg==
-X-Received: by 2002:a05:6a00:f8c:b0:874:705d:f64e with SMTP id
- d2e1a72fcca58-8a04ba30be6mr5022138b3a.28.1792396661246; Mon, 19 Oct 2026
- 00:57:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="lW3gZU1F"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 16AFC4E4127C;
+	Mon, 19 Oct 2026 07:58:40 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id DA2C5606D2;
+	Mon, 19 Oct 2026 07:58:39 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0FF0A10328429;
+	Mon, 19 Oct 2026 09:58:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792396717; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=NYrf3UgXP5DXfY3kt/urngIbizBWIl4Prx1hFfMMht4=;
+	b=lW3gZU1F/b/XgskjtbHeWUXleyoE6/Ao9cUMr7VJcryyvtqxE3jcorbEiG4quyYfbzLnTK
+	3yja1CP5VGO5cQbfeG+FZmXTeAaVtnydtZKPK9JNXWBOq64G4kSPREwaoxebjqlgJbrNkR
+	mE7KwToXnsGH67mMtR6hfIUeivHwqTjpD2AWJEOs/VS9TnpV08uf1+Hxp7qdgLn81x0Zh9
+	vQeKOwSvzaXlJ/1+MUbba7+CBBNGu0Py8gHRjCiGwwjIgYyMngo91qasz8VYvi46SUwnOB
+	tyaIKF1enK62ejkB/zTK1UEQq0zcN3gnF7U5gtpZju998slcU9NbSIBkE9SFKA==
+Message-ID: <7980859d-bc9e-4886-8096-ea5254bae8d4@bootlin.com>
+Date: Mon, 19 Oct 2026 09:58:30 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261017140827.290666-1-lukapanio@gmail.com> <20261017140827.290666-7-lukapanio@gmail.com>
- <atW_DkB9H0oV6U8v@monoceros>
-In-Reply-To: <atW_DkB9H0oV6U8v@monoceros>
-From: Luka Panio <lukapanio@gmail.com>
-Date: Mon, 19 Oct 2026 09:57:28 +0200
-X-Gm-Features: AclHuK-MehupUeh6pNNKQQ7CplFtLMUS6VR_BXN9elAOlhRnJMBhoDSEjrXhQXI
-Message-ID: <CACi=Ov77_J3N=5UoY8A9XRuQgcprojpV=KahGQ9e3gZz_yErqA@mail.gmail.com>
-Subject: Re: [PATCH 6/7] Input: edt-ft5x06 - add SPI transport and FT8722 support
-To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Henrik Rydberg <rydberg@bitmath.org>, Douglas Anderson <dianders@chromium.org>, linux-input@vger.kernel.org, 
-	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 3/5] net: stmmac: dwxgmac2: Add XGMAC 3.01a
+ support
+To: Alex Elder <elder@riscstar.com>, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: Daniel Thompson <daniel@riscstar.com>, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ richardcochran@gmail.com, p.zabel@pengutronix.de, peppe.cavallaro@st.com,
+ joabreu@synopsys.com, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261019030129.1470307-1-elder@riscstar.com>
+ <20261019030129.1470307-4-elder@riscstar.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20261019030129.1470307-4-elder@riscstar.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thanks Uwe, both make sense, will fix in v2.
+Hi,
+
+On 10/19/26 05:01, Alex Elder wrote:
+> From: Daniel Thompson <daniel@riscstar.com>
+> 
+> XGMAC 2.x and 3.x are architecturally very similar.  That means that
+> for everything except one erratum we can simply use the XGMAC 2.x
+> callback functions in the stmmac_dma_ops structure.
+> 
+> Only the set_rx_ring_len callback is specific to XGMAC 3.01.  It
+> limits the number of outstanding write requests that can be serviced
+> per DMA.
+> 
+> The other erratum addressed in this patch is simply a comment to
+> ensure that a feature that stmmac doesn't currently use is not enabled
+> without contemplating the errata.
+> 
+> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+> Co-developed-by: Alex Elder <elder@riscstar.com>
+> Signed-off-by: Alex Elder <elder@riscstar.com>
+
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+
+Maxime
+
+> ---
+>  .../net/ethernet/stmicro/stmmac/dwxgmac2.h    |  3 ++
+>  .../ethernet/stmicro/stmmac/dwxgmac2_dma.c    | 52 +++++++++++++++++++
+>  2 files changed, 55 insertions(+)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> index f8ab347f7b5b9..0fe86e9942334 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> @@ -374,6 +374,8 @@
+>  #define XGMAC_DMA_CH_RxDESC_TAIL_LPTR(x)	(0x0000312c + (0x80 * (x)))
+>  #define XGMAC_DMA_CH_TxDESC_RING_LEN(x)		(0x00003130 + (0x80 * (x)))
+>  #define XGMAC_DMA_CH_RxDESC_RING_LEN(x)		(0x00003134 + (0x80 * (x)))
+> +#define XGMAC_OWRQ			GENMASK(25, 24)
+> +#define XGMAC_RDRL			GENMASK(15, 0)
+>  #define XGMAC_DMA_CH_INT_EN(x)		(0x00003138 + (0x80 * (x)))
+>  #define XGMAC_NIE			BIT(15)
+>  #define XGMAC_AIE			BIT(14)
+> @@ -465,6 +467,7 @@
+>  extern const struct stmmac_ops dwxgmac210_ops;
+>  extern const struct stmmac_ops dwxlgmac2_ops;
+>  extern const struct stmmac_dma_ops dwxgmac210_dma_ops;
+> +extern const struct stmmac_dma_ops dwxgmac301_dma_ops;
+>  extern const struct stmmac_desc_ops dwxgmac210_desc_ops;
+>  
+>  #endif /* __STMMAC_DWXGMAC2_H__ */
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+> index ff83858ebc1f3..f9a77d641eb65 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+> @@ -36,6 +36,13 @@ static void dwxgmac2_dma_init(void __iomem *ioaddr,
+>  	 * Route DMA interrupts to per-channel lines when multi-MSI enabled.
+>  	 */
+>  	if (dma_cfg->multi_msi_en) {
+> +		/*
+> +		 * A friendly warning to future adventurers. If Descriptor Posted
+> +		 * Write support, which is off by default, is ever enabled then be sure
+> +		 * to make it optional. This is required by errata for at least XGMAC
+> +		 * 3.01A... and the XGMAC 2.x and 3.x are architecturally similar so we
+> +		 * use dwxgmac2 support for the 3.x family as well.
+> +		 */
+>  		value = readl(ioaddr + XGMAC_DMA_MODE);
+>  		value = u32_replace_bits(value, XGMAC_INTM_MODE1,
+>  					 XGMAC_INTM_MASK);
+> @@ -492,6 +499,20 @@ static void dwxgmac2_set_rx_ring_len(struct stmmac_priv *priv,
+>  	writel(len, ioaddr + XGMAC_DMA_CH_RxDESC_RING_LEN(chan));
+>  }
+>  
+> +static void dwxgmac301_set_rx_ring_len(struct stmmac_priv *priv,
+> +				       void __iomem *ioaddr, u32 len, u32 chan)
+> +{
+> +	u32 val = FIELD_PREP(XGMAC_RDRL, len);
+> +
+> +	/*
+> +	 * Reduce the number of outstanding write requests to 3 (from default
+> +	 * of 4). This is an errata workaround for XGMAC 3.01a.
+> +	 */
+> +	val |= FIELD_PREP(XGMAC_OWRQ, 3);
+> +
+> +	writel(val, ioaddr + XGMAC_DMA_CH_RxDESC_RING_LEN(chan));
+> +}
+> +
+>  static void dwxgmac2_set_tx_ring_len(struct stmmac_priv *priv,
+>  				     void __iomem *ioaddr, u32 len, u32 chan)
+>  {
+> @@ -621,3 +642,34 @@ const struct stmmac_dma_ops dwxgmac210_dma_ops = {
+>  	.enable_sph = dwxgmac2_enable_sph,
+>  	.enable_tbs = dwxgmac2_enable_tbs,
+>  };
+> +
+> +/* All but one field are the same as dwxgmac210_dma_ops */
+> +const struct stmmac_dma_ops dwxgmac301_dma_ops = {
+> +	.reset = dwxgmac2_dma_reset,
+> +	.init = dwxgmac2_dma_init,
+> +	.init_chan = dwxgmac2_dma_init_chan,
+> +	.init_rx_chan = dwxgmac2_dma_init_rx_chan,
+> +	.init_tx_chan = dwxgmac2_dma_init_tx_chan,
+> +	.axi = dwxgmac2_dma_axi,
+> +	.dump_regs = dwxgmac2_dma_dump_regs,
+> +	.dma_rx_mode = dwxgmac2_dma_rx_mode,
+> +	.dma_tx_mode = dwxgmac2_dma_tx_mode,
+> +	.enable_dma_irq = dwxgmac2_enable_dma_irq,
+> +	.disable_dma_irq = dwxgmac2_disable_dma_irq,
+> +	.start_tx = dwxgmac2_dma_start_tx,
+> +	.stop_tx = dwxgmac2_dma_stop_tx,
+> +	.start_rx = dwxgmac2_dma_start_rx,
+> +	.stop_rx = dwxgmac2_dma_stop_rx,
+> +	.dma_interrupt = dwxgmac2_dma_interrupt,
+> +	.get_hw_feature = dwxgmac2_get_hw_feature,
+> +	.rx_watchdog = dwxgmac2_rx_watchdog,
+> +	.set_rx_ring_len = dwxgmac301_set_rx_ring_len,	/* Only 3.01 */
+> +	.set_tx_ring_len = dwxgmac2_set_tx_ring_len,
+> +	.set_rx_tail_ptr = dwxgmac2_set_rx_tail_ptr,
+> +	.set_tx_tail_ptr = dwxgmac2_set_tx_tail_ptr,
+> +	.enable_tso = dwxgmac2_enable_tso,
+> +	.qmode = dwxgmac2_qmode,
+> +	.set_bfsize = dwxgmac2_set_bfsize,
+> +	.enable_sph = dwxgmac2_enable_sph,
+> +	.enable_tbs = dwxgmac2_enable_tbs,
+> +};
+
