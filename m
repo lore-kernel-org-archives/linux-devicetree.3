@@ -1,57 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792447371;
-	b=e8oXtUgI8bZsqh7585RKWyavTljr9nJo1IZlo6IviKwawndlWq6psEHyJ5RzxeHL7XXd
-	 wXOdKvsnaOjpIYYnmTav1DyQyUF7UPwrOjGDBKwCp4gnCGp4pa4+m/ZbOOiNAAbMb84dD
-	 oMewh0V4d1bDceDeCv5BM2Pgg20LDOWCGPhb0QXO0VjNjIphLXAFiHFHitSaRcJTJgSXE
-	 JPr4F/NazImidc9ytTMLQnTB9oX0wSPtJK5rLH3gInfprfSIzINePdNkmeUtDxlWr4ArI
-	 lYt3Bs5mh/9KDXJKKThNlLi+1YhkIiw3zimTn8TvVybkG0AqxntGp5AifuZ5bZY5GoQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792447371;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=1vNr5FO/mm711jaU+jFZYO+lcV7Jij+fa8I1nHyeJMQ=;
-	b=Y1XuXmepGzPzE4IN3kMAKKzT5/rCXtTgDuh0Iw3yMn6EyF1MIlI7x6CGlgnkfxjbC2AR
-	 2Y5EVMui9/96/AYo/iJDa44+vRpDNMpdn1MvfxFQ3Jbu/NXvw5537nmo9TAGKpdR8/iln
-	 Jz5MezH5n5m9s6xsT9uuINqBP4gn9E2012V+/vEBZFbW46I5Dmr75Xv7TCR3qkpa0EPgo
-	 GmOM2IeOkmaB3QkUPYj1klhkwXZJ+jT9tuaPBrDC8GzdcUWHdQgZ4ikmZ5N2/fr4fn7qY
-	 29xDoBmBf0NGFJGP/epiS4xMhcTSjqp+wfOtYO3NK/lm3L4lBjto+z+rogOIBncmsUQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H5TlxEIn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792448487;
+	b=Ws9moy1fGQbKG6grJVIvfKuKx7jVsxLtQQQbMpiqbSVC+s8SR33DmIohBcEzniFVwn8U
+	 ME8pUP5uuFIzXR27iLa54lHC5wKYKAW1pN5ZipwYMp02GstJtfanueqMC7p9XzLS/zWCk
+	 iNRxiMP1oMxs940SK2Rqs5yrAoN3C9trZdwZXiC3HnRjpFv8vuaGXomuc5EMJcbgdRjof
+	 634qsWeS4FqlcxrXJyNG/nDUVq5U2YvaxHFcIr6FQrlY3zz0DPV5fM9S5U/Y0QVE1YbFP
+	 A1jLor86CW5Igp0IrhCVGxEatq/IQufxV6vfP+uv6IdsuXWTI8gn8Kkq+gLKowPTslw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792448487;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
+	bh=s51N6XNe2djMI4gMavRjcuP3fUqvxRFw7XI3t+UeSdg=;
+	b=1VS0Nhia6NPO4mQDfoyLUIzrDFKPGVtN3HxOs45o405jZZ7n9TxGXx5IF/lw1ktTBTvt
+	 dQy7sVXiKk+Z4AYGPo/UkET9eO+SqrMuGzjA8kImbwAWaokL7PTerTEfaNwwza6UicKx8
+	 tBQ1wwDiv018E8Pgu1BFgmCm9F8uAxm5c2gSaplkCDIhcVMhOuvyOa31yPkZ3dRMlWpok
+	 rC5+qdZAWGXs09Yb9jkjvosXkcdecYM0kcwU8BY+2qwRDPK3WGCwNQptIQXtufFnESCLZ
+	 euVO6nCD+wtANIwJEhPw6ppxEjpzNvzJcCPFgUJ9O3SjanfYLe8t1IIabPfiBQaGL2g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=michael.riesch@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=f04JsVaO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E60CD606A31B
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 22:02:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63A89606A319;
+	Mon, 19 Oct 2026 22:21:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63A89606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H5TlxEIn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24CDD1F000C4;
-	Mon, 19 Oct 2026 22:02:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792447370;
-	bh=1vNr5FO/mm711jaU+jFZYO+lcV7Jij+fa8I1nHyeJMQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=H5TlxEInbHIyivWCEquk1G14tKJE8wJHaiuVuifC9UQzW4mrnpNzyb4WDH1hamBSt
-	 zhdWI4qFAxTcn3vNWaiWPhRDT1RRIXCYgrh6If6bXekuRalHsGm9fSAl6IFubchI2A
-	 QvGDKuVQ9xXuBP7wB3t9gjYhvkrYqYnV8BcPHxKLul6bQvc/BgWeGGaOe8e5sZMoyg
-	 j52+1mTg0WL3O2LmJAschzkXDv6H/U5HVXHdchjNmA8jTdcqrSrqQYvi5MwUkmPcp6
-	 K5oQAUzDTsppkI2sQ5O+ZMjTyD1w7mLVt6AomUnP22rAhMXp+hushdS/NcLjrgS+Bj
-	 trVa7BPzcgbVw==
-Message-ID: <sashiko-outbox-178288@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 08/14] drm/solomon: ssd16xx: Expose refresh mode as
- plane property
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Devarsh Thakkar" <devarsht@ti.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261019213726.4145532-9-devarsht@ti.com>
-References: <20261019213726.4145532-1-devarsht@ti.com>
- <20261019213726.4145532-9-devarsht@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 19 Oct 2026 22:02:49 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=michael.riesch@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=f04JsVaO
+ARC-Seal: i=1; a=rsa-sha256; t=1792448456; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=WrrXJ1YWBO5A0kDwu9XrscKsAznjiY++dqm22cz5TXcJnQBDaTlCmJm5rqnjRXoFsbkPZzL8Kp6vpowXk5RkwsJNvZIlS5PI47Gu+0ilGlvm5jJ9Ff6P3Ssr2mmEYcntRjhpEPwGspb4JjK5Xi2Blfx8Y4aYGiys/aL4XpGd/IY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1792448456; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=s51N6XNe2djMI4gMavRjcuP3fUqvxRFw7XI3t+UeSdg=; 
+	b=nDtccBpIf+SsKGYYGImeYiugxqa/fA7XlI7Pdn9SNfqGz0e9UJ4Y+BBfaPDwRIP832btLtYcUpDFO2FCvm9nkX0uHgxFBed2ZrqemvY8fgGuhTkY83qcVl3usntWPRJNF6kIlRR3JxBot7McAG32BOiIj7u8kUVVREQsa30PlIc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
+	dmarc=pass header.from=<michael.riesch@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792448456;
+	s=zohomail; d=collabora.com; i=michael.riesch@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=s51N6XNe2djMI4gMavRjcuP3fUqvxRFw7XI3t+UeSdg=;
+	b=f04JsVaO23ITcR3e/y7REbigorpmjJrcP71oHq1fSWOlg8BuYCdLXWIbydPOzQ4e
+	kxEXdx7SMniTwzyHtibN6IVwMhrHgpn/sc1Cuh0CgcLaVHTTv6QNypaAv7z1PRbJlfP
+	F4Cdgpt/FqSEiiTrTwUQ386cQ+Soyd5XNs8/LPuo=
+Received: by smtp.zohomail.com with SMTPS id 1792448452872579.0876982000046;
+	Mon, 19 Oct 2026 15:20:52 -0700 (PDT)
+Message-ID: <73ef0d06-75c5-4c10-b4c3-c7b3c07a1e18@collabora.com>
+Date: Tue, 20 Oct 2026 00:20:47 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,252 +63,121 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/8] dt-bindings: phy: rockchip,rk3588-mipi-dcphy: Add
+ a cell to select TX or RX
+To: Rob Herring <robh@kernel.org>, =?UTF-8?B?5qWK5pm65oiQ?=
+ <jason98166@gmail.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Guochun Huang <hero.huang@rock-chips.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
+ <20261016-dcphy-rx-v1-v5-2-e63b49eabe2d@gmail.com>
+ <20261016140115.GA1798470-robh@kernel.org>
+ <20261017-gainful-goldfish-of-climate-bef863@quoll>
+ <CAPwA33+bR1BF9KeA9my07Yz7gXW7TXq8EPhwQ4GvHMSFDk+uWw@mail.gmail.com>
+ <20261019150631.GA265407-robh@kernel.org>
+Content-Language: en-US
+From: Michael Riesch <michael.riesch@collabora.com>
+In-Reply-To: <20261019150631.GA265407-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] drm/solomon: ssd16xx: missing helper in ssd16xx_plane_atomic_creat=
-e_state()
-- [High] drm/solomon: ssd16xx: missed fast LUT preload in ssd16xx_plane_ato=
-mic_update()
---
+Hi all,
 
-commit 5297d32536b98e77de269756d1d61d02dc735b4b
-Author: Devarsh Thakkar <devarsht@ti.com>
+On 10/19/26 17:06, Rob Herring wrote:
+> On Mon, Oct 19, 2026 at 04:15:03PM +0800, 楊智成 wrote:
+>> Hi Krzysztof, Rob,
+>>
+>>> Existing OS should ignore surplus cell if the driver is coded properly.
+>>> Same as adding new properties or new front-compatible.  The question is
+>>> how the existing driver behaves?
+>>
+>> As you pointed out on 5/8, the xlate checks args_count != 1. The DC-PHY
+>> driver was merged in v6.15, so every kernel since 6.15 fails on a second cell.
+>>
+>> 1. Keep the second cell. Add the patch as follows:
+>>
+>> - if (args->args_count != 1) {
+>> + if (args->args_count < 1) {
+>>     dev_err(dev, "invalid number of arguments\n");
+>>     return ERR_PTR(-EINVAL);
+>>   }
+>>
+>> + if (args->args_count > 1 && args->args[1]) {
+>> +   dev_err(dev, "only the transmitter is supported\n");
+>> +   return ERR_PTR(-EINVAL);
+>> + }
+>>
+>>   With Fixes: and Cc: stable, the stable kernels maintained at that
+>>   time (currently 6.18.y and 7.2.y) keep DSI working with the new
+>>   dts, and the receiver fails cleanly instead of getting the transmitter.
+>>   But EOL kernels (6.15, 6.16, 6.17, 6.19, 7.0, 7.1) stay affected.
+>>   It goes in with the series, since two-cell dts only exist after it.
+>>
+>> 2. Use a flag in the upper bits of the existing cell, as Rob
+>>     suggested. Existing kernels are not affected, unless a board enables
+>>     the DC-PHY CSI-2 receiver on 7.0 or later without this series.
+>>
+>> I will write the impact clearly whichever  approach is selected in
+>> the related commit messages and the cover letter.
+>>
+>> I think the cell approach is easier to read and more symmetric in the
+>> long term,
+>> but it breaks more. Which one do you think is better? Thanks.
+> 
+> I'm not a user of this platform, so I don't care. Up to the platform 
+> maintainers to decide if breakage is acceptible. You just need to 
+> document the issue in the commit message.
+> 
+> Rob
 
-drm/solomon: ssd16xx: Expose refresh mode as plane property
+It's a bit of a pickle, all this.
 
-This commit exposes a "refresh_mode" enum property on the primary plane to
-allow userspace to select between partial, full, and fast e-paper display
-update modes at runtime. It subclasses drm_shadow_plane_state into
-ssd16xx_plane_state and tracks refresh mode transitions in
-ssd16xx_plane_atomic_update().
+I gave it some more thought. In the end this is an IP block with two
+PHYs. No more, no less. One cell is sufficient to address those, and it
+could be 0 for the transmitting PHY (DSI, display) and 1 for the
+receiving PHY (CSI, camera).
 
-> diff --git a/drivers/gpu/drm/solomon/ssd16xx.c b/drivers/gpu/drm/solomon/=
-ssd16xx.c
-> index 99f11b7ec03e9..f53c67ae7d317 100644
-> --- a/drivers/gpu/drm/solomon/ssd16xx.c
-> +++ b/drivers/gpu/drm/solomon/ssd16xx.c
-> @@ -397,8 +397,21 @@ struct ssd16xx_device {
->  	u8  *tx_red_buf; /* 1bpp red-channel buffer (3-color panels only) */
->  	u16 *tx_buf9;    /* 9-bit SPI expansion buffer (3-wire mode only) */
->  	u8  spi_buf[64] ____cacheline_aligned; /* DMA-safe buffer for SPI trans=
-fers */
-> +
-> +	struct drm_property *refresh_mode_property;
-> +};
-> +
-> +/* Plane state subclass: refresh_mode lives on the plane, not the connec=
-tor,
-> + * so plane_atomic_update() can diff against its own old/new state.
-> + */
-> +struct ssd16xx_plane_state {
-> +	struct drm_shadow_plane_state base;
-> +	enum ssd16xx_refresh_mode refresh_mode; /* Pending refresh mode */
->  };
-> =20
-> +#define to_ssd16xx_plane_state(s) \
-> +	container_of((s), struct ssd16xx_plane_state, base.base)
-> +
->  static inline struct ssd16xx_device *to_ssd16xx_device(struct drm_device=
- *drm)
->  {
->  	return container_of(drm, struct ssd16xx_device, drm);
-> @@ -1430,11 +1443,91 @@ static void ssd16xx_plane_destroy(struct drm_plan=
-e *plane)
->  	drm_plane_cleanup(plane);
->  }
-> =20
-> +static void ssd16xx_plane_atomic_destroy_state(struct drm_plane *plane,
-> +					       struct drm_plane_state *state);
-> +
-> +static struct drm_plane_state *ssd16xx_plane_atomic_create_state(struct =
-drm_plane *plane)
-> +{
-> +	struct ssd16xx_device *device =3D plane_to_ssd16xx_device(plane);
-> +	struct ssd16xx_plane_state *ssd_state;
-> +
-> +	ssd_state =3D kzalloc_obj(*ssd_state, GFP_KERNEL);
-> +	if (!ssd_state)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	__drm_gem_shadow_plane_state_init(plane, &ssd_state->base);
-> +	ssd_state->refresh_mode =3D device->refresh_mode;
-> +
-> +	return &ssd_state->base.base;
-> +}
+Of course the two PHYs can operate in either DPHY or CPHY mode. The
+phy-cells have been (mis?)used to select the proper mode of combo PHYs,
+and this principle has been applied here too.
 
-[Severity: High]
-Does this compile when CONFIG_DRM_SSD16XX is enabled?
+However, we have the special situation here that the mode can only be
+changed for the complete IP block (and thus for both PHYs at the same
+time). As Bryan points out, we need to check and complain if the PHY
+mode is not set to the same value for both PHYs.
 
-In drivers/gpu/drm/solomon/ssd16xx.c, ssd16xx_plane_atomic_create_state()
-calls __drm_gem_shadow_plane_state_init(), which does not exist in
-include/drm/drm_gem_atomic_helper.h or anywhere else in the tree:
+I suggest using a property
+    samsung,cphy-mode;
+(name to be bikeshedded) that sets the complete IP block into CPHY mode
+(DPHY being the default) to distinguish between the modes. Since both
+modes use a different electrical interface, this is clearly a hardware
+thing and thus suitable for device tree.
 
-include/drm/drm_gem_atomic_helper.h:
-    void __drm_gem_duplicate_shadow_plane_state(struct drm_plane *plane,
-                                                struct drm_shadow_plane_sta=
-te *new_shadow_plane_state);
-    void __drm_gem_destroy_shadow_plane_state(struct drm_shadow_plane_state=
- *shadow_plane_state);
-    void __drm_gem_reset_shadow_plane(struct drm_plane *plane,
-                                      struct drm_shadow_plane_state *shadow=
-_plane_state);
+Then, we can address the two PHYs with the help of the already existing
+phy cell (without any bitflag tweaks to the value).
 
-Should this implement a plane .reset callback calling
-__drm_gem_reset_shadow_plane() instead of .atomic_create_state (and drop the
-unused forward declaration of ssd16xx_plane_atomic_destroy_state() above)?
+The sole drawback is that we need to accept the PHY_TYPE_DPHY and
+PHY_TYPE_CPHY values that some OS in the field might pass. (For Linux,
+it should only be the former.) And we need to handle those values
+correctly. But I think this is not more painful than the other
+approaches. At the same time, this design seems to be the most correct
+one IMHO.
 
-[ ... ]
+What do you think?
 
-> @@ -1462,6 +1555,8 @@ static void ssd16xx_plane_atomic_update(struct drm_=
-plane *plane,
->  	struct drm_plane_state *new_state =3D drm_atomic_get_new_plane_state(st=
-ate, plane);
->  	struct drm_shadow_plane_state *shadow_state =3D to_drm_shadow_plane_sta=
-te(new_state);
->  	struct ssd16xx_device *device =3D plane_to_ssd16xx_device(plane);
-> +	struct ssd16xx_plane_state *new_ssd =3D to_ssd16xx_plane_state(new_stat=
-e);
-> +	struct ssd16xx_plane_state *old_ssd =3D to_ssd16xx_plane_state(old_stat=
-e);
->  	enum ssd16xx_refresh_mode saved_mode;
->  	u8 saved_border_waveform_idx;
->  	struct drm_framebuffer *fb =3D new_state->fb;
-> @@ -1495,6 +1590,25 @@ static void ssd16xx_plane_atomic_update(struct drm=
-_plane *plane,
-> =20
->  	drm_dbg(&device->drm, "plane_atomic_update: calling fb_dirty rect=3D(%d=
-,%d)-(%d,%d)\n",
->  		rect.x1, rect.y1, rect.x2, rect.y2);
-> +
-> +	/* Diff refresh_mode against the plane's own previous state to see
-> +	 * whether fast LUT preload is needed.
-> +	 */
-> +	if (old_ssd->refresh_mode !=3D new_ssd->refresh_mode) {
-> +		/*
-> +		 * Fast refresh omits LOAD_LUT each update; arm the
-> +		 * one-shot flag so LUT is pre-loaded before the first
-> +		 * fast frame.
-> +		 */
-> +		if (new_ssd->refresh_mode =3D=3D SSD16XX_REFRESH_FAST &&
-> +		    old_ssd->refresh_mode !=3D SSD16XX_REFRESH_FULL)
-> +			device->fast_lut_pending =3D true;
-> +		else
-> +			device->fast_lut_pending =3D false;
-> +	}
-> +
-> +	device->refresh_mode =3D new_ssd->refresh_mode;
-> +
->  	/*
->  	 * When refresh_mode_init was set, use the specified mode for this first
->  	 * frame only, then restore the user-configured refresh_mode so
+Best regards,
+Michael
 
-[Severity: High]
-Can ssd16xx_plane_atomic_update() in drivers/gpu/drm/solomon/ssd16xx.c miss
-preloading the Mode 1 LUT before executing SSD16XX_REFRESH_FAST?
-
-There appear to be three scenarios where the LUT state and plane state get =
-out
-of sync:
-
-1. If userspace sets refresh_mode to SSD16XX_REFRESH_FAST while the CRTC is
-inactive (where drm_atomic_helper_commit_tail_rpm() passes
-DRM_PLANE_COMMIT_ACTIVE_ONLY and skips ssd16xx_plane_atomic_update()), or w=
-hen
-ssd16xx_plane_atomic_update() returns early before this diff check:
-
-drivers/gpu/drm/solomon/ssd16xx.c:ssd16xx_plane_atomic_update() {
-    ...
-	if (!fb)
-		goto out_exit;
-
-	/* Nothing to draw: don't wake the panel up. */
-	if (!drm_atomic_helper_damage_merged(old_state, new_state, &rect))
-		goto out_exit;
-    ...
-}
-
-drm_atomic_helper_swap_state() has already updated plane->state to new_stat=
-e,
-while device->refresh_mode and device->fast_lut_pending remain unchanged. On
-the next commit that actually draws a frame,
-ssd16xx_plane_atomic_duplicate_state() copies plane->state, so both
-old_ssd->refresh_mode and new_ssd->refresh_mode are SSD16XX_REFRESH_FAST. A=
-s a
-result, neither ssd16xx_crtc_atomic_enable() -> ssd16xx_hw_init() (which st=
-ill
-sees the stale device->refresh_mode) nor ssd16xx_plane_atomic_update() (whi=
-ch
-sees old_ssd->refresh_mode =3D=3D new_ssd->refresh_mode) will preload the f=
-ast
-LUT.
-
-2. In ssd16xx_plane_atomic_update(), pm_runtime_resume_and_get() is called
-before device->refresh_mode is updated from new_ssd->refresh_mode. If the
-panel was in SSD16XX_REFRESH_FULL mode and entered runtime suspend, waking =
-the
-device on a commit that switches from SSD16XX_REFRESH_FULL to
-SSD16XX_REFRESH_FAST runs:
-
-pm_runtime_resume_and_get()
-  -> ssd16xx_pm_runtime_resume()
-    -> ssd16xx_hw_init()
-
-ssd16xx_hw_init() resets the controller (wiping the LUT) and checks
-device->refresh_mode =3D=3D SSD16XX_REFRESH_FAST, which is still
-SSD16XX_REFRESH_FULL, so it skips the LUT preload. Then
-ssd16xx_plane_atomic_update() checks old_ssd->refresh_mode !=3D
-SSD16XX_REFRESH_FULL, which is false, and sets device->fast_lut_pending =3D
-false even though the controller was just reset.
-
-3. Right below this hunk in ssd16xx_plane_atomic_update(), when
-device->init_refresh_pending is true on the first frame, device->refresh_mo=
-de
-is temporarily overridden with device->refresh_mode_init, but
-device->fast_lut_pending is still consumed and cleared before
-ssd16xx_fb_dirty() runs:
-
-drivers/gpu/drm/solomon/ssd16xx.c:ssd16xx_plane_atomic_update() {
-    ...
-	if (device->init_refresh_pending) {
-		device->refresh_mode =3D device->refresh_mode_init;
-		device->border_waveform_update_idx =3D device->border_waveform_init_idx;
-	}
-
-	if (device->fast_lut_pending) {
-		ret =3D ssd16xx_preload_fast_lut(device);
-		...
-		device->fast_lut_pending =3D false;
-	}
-    ...
-}
-
-If refresh_mode_init is SSD16XX_REFRESH_PARTIAL, ssd16xx_fb_dirty() will lo=
-ad
-the Mode 2 partial LUT for that first frame, overwriting the preloaded Mode=
- 1
-LUT before subsequent SSD16XX_REFRESH_FAST frames execute.
-
-Would it be more reliable to track what LUT mode is currently loaded in the
-hardware (resetting that tracking in ssd16xx_hw_init() and updating it when
-ssd16xx_fb_dirty() or ssd16xx_preload_fast_lut() runs), rather than diffing
-old_ssd->refresh_mode against new_ssd->refresh_mode?
-
-[ ... ]
-
-> @@ -2057,6 +2194,9 @@ static int ssd16xx_probe(struct spi_device *spi)
->  	if (ret)
->  		return ret;
-> =20
-> +	ret =3D ssd16xx_plane_create_properties(device);
-> +	if (ret)
-> +		return ret;
->  	drm_mode_config_reset(drm);
-> =20
->  	/*
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019213726.4145=
-532-1-devarsht@ti.com?part=3D8
