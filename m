@@ -1,34 +1,67 @@
-Received: from mail.fhannenheim.net (mail.fhannenheim.net [188.245.251.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 645524CA789;
-	Mon, 19 Oct 2026 10:18:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.245.251.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D8B64CE699
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 10:20:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792405129; cv=none; b=EMZntPZcTij4x3deJ7VP0DERhP73lXrXt0N+Z43ZThQPX1Tv1lcQh5Jmiyolyco1kFLYXPrA5/fdgbPL1GLFWnx4yGbD82G6qi9Ej06n5cucrJ6wf3tbpQy8prtweTZL+WKsF09aSJg5lzSqbGhy9Pr8SAOomSOB7XU6O2/D6Xo=
+	t=1792405231; cv=none; b=nxUFJuAUfoBJv3oxc2Rr5sNtEcw6jZLj+9Q6foA6iqJ7AH3Rz691u6h7APxaojeKw3qxtBt9tsLvOO7CFQPCdrjPCwRYjcXjUxjj5wr/2b5io5Y5IgKGa2s94V08KzKZwdV7BuDDE9To7OFTYgEtCccN5FtPs/pt5cggN1OWlGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792405129; c=relaxed/simple;
-	bh=eFN0oPt8LbwdQC4gEdJDMCEQKp5QpuVtNTmJ0UNoUU0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FoQtveYHazSBhxS8SgNEkVUAERsX42dCoaBYTbhy6YQ9PneW3WUzT3ZYgTWmUHucwMY1Tf8srTr5hFrDH1lWFqzuCTmwIaRhI2aY7iLCWFCMONXtjzJAw7Y7/GSMoVSnFwoGyPYHD0FoCS07QBjjxsH4Hbf6sgBAPVY3a0zSD2Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fhannenheim.net; spf=pass smtp.mailfrom=fhannenheim.net; dkim=pass (1024-bit key) header.d=fhannenheim.net header.i=@fhannenheim.net header.b=JmQ3fG5R; arc=none smtp.client-ip=188.245.251.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fhannenheim.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fhannenheim.net
+	s=arc-20240116; t=1792405231; c=relaxed/simple;
+	bh=Wtjo2nq6SBTIM531bE9hkp4uSTiLMC+4CM/B7PGT41I=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=FWQ8EJpRQVQpxyhBo909mkJ5etze3w3ksaN7BXd3Gc4w1ut6lGx5iVGIpGRCK0x40IV3fslGjR3IztRTNHZLpIAeuXcIm8wiyPzOkz3bGmbFa4cr/ddzEHJhCoGppXm1dBwvzS3HbYJGe8skk3UxopjXuqeZvn1VGKFYfi7977w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KEaAQrbc; arc=none smtp.client-ip=74.125.82.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=fhannenheim.net header.i=@fhannenheim.net header.b="JmQ3fG5R"
-From: Frieder Hannenheim <git@fhannenheim.net>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fhannenheim.net;
-	s=mail; t=1792405119;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kZoo6Xq9I3i3dRKJodA5bb9ws1/i8Y+qe6ffJC6BL00=;
-	b=JmQ3fG5RWhGwhT9+sycI1cU04tjCeblgoH3m43zzr2JtJRu/2t39MJkZNN25PRmRVyzBs1
-	K/IF2veXKtSSA/uupA6vA1SE4sJ34El3rzd2jPxM7BGcVJrcCuBqcW+IfEB8ySJhUUkyaQ
-	sq5QJlkn2mRbBQPK+E3nR2tz3JJLesw=
-Date: Mon, 19 Oct 2026 12:18:09 +0200
-Subject: [PATCH v4 2/3] arm64: dts: qcom: Add sm8250-oneplus-common.dtsi
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KEaAQrbc"
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-15943c9c005so1272517c88.1
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 03:20:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792405229; x=1793010029; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=zL01sBFtwzYNtBLBNOJogTgRcd3XXRxHUdSzNtaNMhk=;
+        b=KEaAQrbcopfeUpJspu/RKANbsa07N75e793fKoWVgS4efy9o7G6J0ZaN4HwY2dEykv
+         h/xjKyryQVaEm+GDK09XWjkKB5zanTr5DbHiVSZK7Z2eYHeXV0Dsy9Ah+FG5hBq5QukY
+         /XjGpjLKwbaVe6E7R/M36nLTWPKMarQcH5o5wVqwyauIlxL21HwTpVoL/UvzIx7hhswV
+         ZHb/9NDwNTks7jAQp5/dijVSIvPnCTbsQDVdWe78x9ThsmaTp8DDJIohtsD+KhhCNSk6
+         ZwDPOaSJIvEYcfd34XwpjALusi8lBEt1zaaafPmWbvW2ERa/pVzqGivQwgfzG6bcuwZb
+         KBxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792405229; x=1793010029;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=zL01sBFtwzYNtBLBNOJogTgRcd3XXRxHUdSzNtaNMhk=;
+        b=XD5ZxsGNBCDBhZTOJaeVmMhQI2dqe369rI176xiauDZ7Ecl+ZR3ZQYMTRhMgiR4arO
+         OThknbo9g0FaRb2l0afSIVUcRxkvJRnm0WHrHkXvng3WSlSuqbL0HGU2Qe0e2Bw+ug4f
+         aMnnBWKyWFRiXBtlxl+4aEckxArw6ImMci05cTNFzDo1opCC/COdA75U4hVDO0QRoltf
+         SgNWijtMDpulKe/qXye1aVlzsv4Sg8kl1AsKBFiejXUwSz2+NdVbx3Md+20qS4LLgV80
+         eNsUS4VrS5CfH7Z9qZzNXn0Qzz4uxFeU+HpbUgrydfe5ibAnRgo18JvLFIPJ0cogHQRE
+         SxAw==
+X-Forwarded-Encrypted: i=1; AKwUvBzWt4neaFwSIdO4tu/il6Qi2ii7OmtA4eO05AFFfYIaHrODpEOFhrCL9aHYTcQXtspVmdOElwE2hqs1@vger.kernel.org
+X-Gm-Message-State: AFq9FYKrg9naAdy8CJ47nVGRknr625czoKPuW0Cj+CUffUN1xYIwlsSe
+	T18WwU8z1kpZUhSiw/8eOThmYew0WUwg5pOmyXJeUzMU+d80kBlVYALO
+X-Gm-Gg: AYBFou2gZERs1dE1XsIvDEpH3R8JPIKokbimxWLCrI+TRxY7iSHUfjetHICke0AZRQA
+	gYk1ogy9JO5Ya8bphBwIvWbISb0kV+BgvPFvtM9KkjjqJqKtuA7WMAY02NFbrAHte2/ikeuAVX8
+	vCpqY6ae1cweL9FGG6FCiOgKJ2Xyzira4KndrTUpQo5j0vjHcfp1JAhgmzGR9hGdvN131g25w0i
+	8ovmUqI+Tpes2NZUBtF3YSuS5mqdYvUec0sB+LrYS+OUMpxgB1vNW611GcTyRNSEAxK5ZwXzb2T
+	2/SFyJdva/nHh8xjU1BHherykPWLH/Iwl284pO2TlPBHLPoBukg8kTckK3ZCQSLk+CK/HV82ofL
+	68xhEEg3F5b37Q7WK6K353IMFwBhbRI+bnc+sy8+THAms8YELhjmrgKocdEdHGzMmy6cEEuip7v
+	KXxDZfUsFcina4gdzLe4JZUM6BM/CAEj4NuKTns/UrBgOoqYY4DS+tk7M9rfVw7Us19BhqjJipu
+	Z8=
+X-Received: by 2002:a05:701b:280f:b0:17b:fea8:1425 with SMTP id a92af1059eb24-185138b58e0mr9940511c88.30.1792405228916;
+        Mon, 19 Oct 2026 03:20:28 -0700 (PDT)
+Received: from [127.0.1.1] ([67.159.246.222])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-18319d3b880sm26324251c88.10.2026.10.19.03.20.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 03:20:26 -0700 (PDT)
+From: Leonardo Costa <leoreis.costa@gmail.com>
+Subject: [PATCH v2 0/3] Add VGA support for Apalis iMX6
+Date: Mon, 19 Oct 2026 07:17:13 -0300
+Message-Id: <20261019-v2-apalis-imx6-enable-vga-v2-0-ef6a3a780472@toradex.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -37,651 +70,86 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-kebab_dts-v4-2-bb6db87ff15f@fhannenheim.net>
-References: <20261019-kebab_dts-v4-0-bb6db87ff15f@fhannenheim.net>
-In-Reply-To: <20261019-kebab_dts-v4-0-bb6db87ff15f@fhannenheim.net>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Robert Oscilowski <drgitx@gmail.com>, 
- =?utf-8?q?Jean-Fran=C3=A7ois_Bobier?= <jf.bobier@gmail.com>, 
- phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Frieder Hannenheim <git@fhannenheim.net>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=16557; i=git@fhannenheim.net;
- h=from:subject:message-id; bh=eFN0oPt8LbwdQC4gEdJDMCEQKp5QpuVtNTmJ0UNoUU0=;
- b=owGbwMvMwCWWw1h8YvtkuWDG02pJDFlX3xXP4BLev+eRxsG7hcYXxHqWlmdN032TaT73asy3y
- ltLmxebd5SyMIhxMciKKbI4T5f8YV8prKMf/k8RZg4rE8gQBi5OAZjIzHyG/7Hy85Sbvgj3fP87
- qV7fYPbki+mJh784C50zjK+RtzqoacjwPziksGDWoYKzcorclpdbTFXbM0qL5jxwlmqa3pJ1WkW
- TAQA=
-X-Developer-Key: i=git@fhannenheim.net; a=openpgp;
- fpr=439719F83F79132C2F57FE216C0173C8B7931E53
+X-B4-Tracking: v=1; b=H4sIACnu1WoC/x3MQQqAIBBA0avErBswMYWuEi2mmmygLBREiO6et
+ HyL/x9IHIUTDM0DkbMkuUKFbhtYdgqeUdZq0ErbTnUGs0a66ZCEchaLHGg+GLMnNL3aeuccGWe
+ h9nfkTcr/Hqf3/QBiOi3/awAAAA==
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, 
+ Leonardo Costa <leonardo.costa@toradex.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792405217; l=2441;
+ i=leonardo.costa@toradex.com; s=20261001; h=from:subject:message-id;
+ bh=Wtjo2nq6SBTIM531bE9hkp4uSTiLMC+4CM/B7PGT41I=;
+ b=K/92ccUEyeN+TkExSsHIzTIooOpzahjw6HNCnpCaTctauVPX9ywt82Fnmfxdz7h43b7N6JoQ8
+ agNgWXrR1O0Bd2/w7lhY8SXJ79VsHXNsansU0VxIDNA3yLiaBD/A/Tz
+X-Developer-Key: i=leonardo.costa@toradex.com; a=ed25519;
+ pk=4xvoVLDt+NxIz9D8BJHhT0fD43Ig6XgSDw4jRN/gHzk=
 
-This file contains common properties shared by all OnePlus devices using
-the Qualcomm sm8250 chipset.
+This series adds a device tree overlay that enables the VGA output on Apalis
+iMX6, which is driven from a parallel RGB interface passing through a
+non-programmable video DAC.
 
-Co-developed-by: Robert Oscilowski <drgitx@gmail.com>
-Signed-off-by: Robert Oscilowski <drgitx@gmail.com>
-Signed-off-by: Frieder Hannenheim <git@fhannenheim.net>
+The video DAC is a simple resistor network gated by an active-low
+data-enable signal. For the bridge to work properly, this series also
+changes the following in the dt-bindings and simple-bridge driver:
+
+- dt-bindings: Add the existing data-enable-active property from
+  video-interfaces.yaml to the simple-bridge binding. The property is
+  read from the bridge's input endpoint. This allows a dumb-vga-dac to
+  specify a data-enable signal polarity.
+
+- simple-bridge: Read the data-enable-active property and fill out the
+  bridge's input bus flags accordingly. The property is ignored if the
+  bridge already has its own timings struct defined, to not interfere
+  with its existing settings.
+
+This change depends on another patch, and should be applied after it:
+
+- https://lore.kernel.org/all/20261002-v1-simple-bridge-atomic-check-v1-1-ef5d8332b078@toradex.com/T/#u
+
+  Adds the atomic_check function to the simple-bridge driver, which
+  allows the data-enable bus flag to be propagated through the DRM
+  pipeline. This is necessary for the VGA to work correctly on the
+  Apalis iMX6.
+
+Changes in v2:
+  - Introduce the data-enable-active property.
+  - Describe the VGA bridge on the Apalis iMX6 as a dumb-vga-dac using
+    the data-enable-active property to specify the DE signal polarity,
+    instead of using a dedicated compatible.
+  - Link to v1: https://lore.kernel.org/all/as-heYw7PKLPm3yH@SMW015318/T/#u
+
+Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
 ---
- .../arm64/boot/dts/qcom/sm8250-oneplus-common.dtsi | 607 +++++++++++++++++++++
- 1 file changed, 607 insertions(+)
+Leonardo Costa (3):
+      dt-bindings: display: bridge: simple: Add data-enable-active to dumb-vga-dac
+      drm/bridge: simple-bridge: Support data-enable-active endpoint property
+      ARM: dts: imx6q-apalis: Add VGA overlay
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8250-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sm8250-oneplus-common.dtsi
-new file mode 100644
-index 000000000000..6d7793c792f0
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/sm8250-oneplus-common.dtsi
-@@ -0,0 +1,607 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/arm/qcom,ids.h>
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-+#include "sm8250.dtsi"
-+#include "pm8150.dtsi"
-+#include "pm8150b.dtsi"
-+#include "pm8150l.dtsi"
-+
-+/*
-+ * Delete following upstream (sm8250.dtsi) reserved
-+ * memory mappings which are different on this device.
-+ */
-+/delete-node/ &adsp_mem;
-+/delete-node/ &camera_mem;
-+/delete-node/ &cdsp_mem;
-+/delete-node/ &cdsp_secure_heap;
-+/delete-node/ &cvp_mem;
-+/delete-node/ &gpu_mem;
-+/delete-node/ &ipa_fw_mem;
-+/delete-node/ &ipa_gsi_mem;
-+/delete-node/ &npu_mem;
-+/delete-node/ &removed_mem;
-+/delete-node/ &slpi_mem;
-+/delete-node/ &spss_mem;
-+/delete-node/ &video_mem;
-+/delete-node/ &wlan_mem;
-+
-+/ {
-+	chassis-type = "handset";
-+	qcom,msm-id = <QCOM_ID_SM8250 0x20001>;
-+	qcom,board-id = <QCOM_BOARD_ID_MTP 0x0>;
-+
-+	aliases {
-+		serial0 = &uart12;
-+		serial1 = &uart6;
-+	};
-+
-+	battery: battery {
-+		compatible = "simple-battery";
-+	};
-+
-+	chosen {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		stdout-path = "serial0:115200n8";
-+
-+		framebuffer: framebuffer-0 {
-+			compatible = "simple-framebuffer";
-+			memory-region = <&framebuffer_mem>;
-+			format = "a8r8g8b8";
-+			clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+				 <&gcc GCC_DISP_HF_AXI_CLK>,
-+				 <&gcc GCC_DISP_SF_AXI_CLK>,
-+				 <&dispcc DISP_CC_MDSS_VSYNC_CLK>,
-+				 <&dispcc DISP_CC_MDSS_MDP_CLK>,
-+				 <&dispcc DISP_CC_MDSS_BYTE0_CLK>,
-+				 <&dispcc DISP_CC_MDSS_BYTE0_INTF_CLK>,
-+				 <&dispcc DISP_CC_MDSS_PCLK0_CLK>,
-+				 <&dispcc DISP_CC_MDSS_ESC0_CLK>;
-+			power-domains = <&dispcc MDSS_GDSC>;
-+		};
-+	};
-+
-+	gpio_keys: gpio-keys {
-+		compatible = "gpio-keys";
-+		label = "Volume keys";
-+
-+		pinctrl-0 = <&vol_down_l &vol_up_n>;
-+		pinctrl-names = "default";
-+
-+		key-vol-down {
-+			label = "Volume Down";
-+			linux,code = <KEY_VOLUMEDOWN>;
-+			gpios = <&pm8150_gpios 7 GPIO_ACTIVE_LOW>;
-+			debounce-interval = <15>;
-+			linux,can-disable;
-+			wakeup-source;
-+		};
-+
-+		key-vol-up {
-+			label = "Volume Up";
-+			gpios = <&pm8150_gpios 6 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_VOLUMEUP>;
-+			debounce-interval = <15>;
-+			linux,can-disable;
-+			wakeup-source;
-+		};
-+	};
-+
-+	reserved-memory {
-+		removed_mem: memory@80b00000 {
-+			reg = <0x0 0x80b00000 0x0 0xcd00000>;
-+			no-map;
-+		};
-+
-+		camera_mem: memory@8dc00000 {
-+			reg = <0x0 0x8dc00000 0x0 0x500000>;
-+			no-map;
-+		};
-+
-+		wlan_mem: memory@8e100000 {
-+			reg = <0x0 0x8e100000 0x0 0x100000>;
-+			no-map;
-+		};
-+
-+		ipa_fw_mem: memory@8e200000 {
-+			reg = <0x0 0x8e200000 0x0 0x10000>;
-+			no-map;
-+		};
-+
-+		ipa_gsi_mem: memory@8e210000 {
-+			reg = <0x0 0x8e210000 0x0 0xa000>;
-+			no-map;
-+		};
-+
-+		gpu_mem: memory@8e21a000 {
-+			reg = <0x0 0x8e21a000 0x0 0x2000>;
-+			no-map;
-+		};
-+
-+		npu_mem: memory@8e300000 {
-+			reg = <0x0 0x8e300000 0x0 0x500000>;
-+			no-map;
-+		};
-+
-+		video_mem: memory@8e800000 {
-+			reg = <0x0 0x8e800000 0x0 0x500000>;
-+			no-map;
-+		};
-+
-+		cvp_mem: memory@8ed00000 {
-+			reg = <0x0 0x8ed00000 0x0 0x500000>;
-+			no-map;
-+		};
-+
-+		cdsp_mem: memory@8f200000 {
-+			reg = <0x0 0x8f200000 0x0 0x1400000>;
-+			no-map;
-+		};
-+
-+		slpi_mem: memory@90600000 {
-+			reg = <0x0 0x90600000 0x0 0x1500000>;
-+			no-map;
-+		};
-+
-+		adsp_mem: memory@91b00000 {
-+			reg = <0x0 0x91b00000 0x0 0x2500000>;
-+			no-map;
-+		};
-+
-+		spss_mem: memory@94000000 {
-+			reg = <0x0 0x94000000 0x0 0x100000>;
-+			no-map;
-+		};
-+
-+		cdsp_secure_heap: memory@94100000 {
-+			reg = <0x0 0x94100000 0x0 0x4600000>;
-+			no-map;
-+		};
-+
-+		framebuffer_mem: memory@9c000000 {
-+			reg = <0 0x9c000000 0 0x2300000>;
-+			no-map;
-+		};
-+
-+		ramoops: ramoops@b0000000 {
-+			compatible = "ramoops";
-+			reg = <0x0 0xb0000000 0x0 0x400000>;
-+			record-size = <0x40000>;
-+			console-size = <0x40000>;
-+			ftrace-size =  <0x40000>;
-+			pmsg-size = <0x200000>;
-+		};
-+	};
-+
-+	vph_pwr: vph-pwr-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vph_pwr";
-+		regulator-min-microvolt = <3700000>;
-+		regulator-max-microvolt = <3700000>;
-+		regulator-always-on;
-+	};
-+
-+	vreg_s4a_1p8: vreg-s4a-1p8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vreg_s4a_1p8";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		regulator-allow-set-load;
-+		regulator-always-on;
-+	};
-+
-+	vreg_s6c_0p88: smpc6-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vreg_s6c_0p88";
-+		regulator-min-microvolt = <880000>;
-+		regulator-max-microvolt = <880000>;
-+		regulator-always-on;
-+		vin-supply = <&vph_pwr>;
-+	};
-+};
-+
-+&apps_rsc {
-+	regulators-0 {
-+		compatible = "qcom,pm8150-rpmh-regulators";
-+		qcom,pmic-id = "a";
-+		vdd-s1-supply = <&vph_pwr>;
-+		vdd-s2-supply = <&vph_pwr>;
-+		vdd-s3-supply = <&vph_pwr>;
-+		vdd-s4-supply = <&vph_pwr>;
-+		vdd-s5-supply = <&vph_pwr>;
-+		vdd-s6-supply = <&vph_pwr>;
-+		vdd-s7-supply = <&vph_pwr>;
-+		vdd-s8-supply = <&vph_pwr>;
-+		vdd-s9-supply = <&vph_pwr>;
-+		vdd-s10-supply = <&vph_pwr>;
-+		vdd-l2-l10-supply = <&vreg_bob>;
-+		vdd-l3-l4-l5-l18-supply = <&vreg_s6a_0p95>;
-+		vdd-l6-l9-supply = <&vreg_s8c_1p3>;
-+		vdd-l7-l12-l14-l15-supply = <&vreg_s5a_1p9>;
-+		vdd-l13-l16-l17-supply = <&vreg_bob>;
-+
-+		vreg_s5a_1p9: smps5 {
-+			regulator-name = "vreg_s5a_1p9";
-+			regulator-min-microvolt = <1904000>;
-+			regulator-max-microvolt = <2000000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_s6a_0p95: smps6 {
-+			regulator-name = "vreg_s6a_0p95";
-+			regulator-min-microvolt = <920000>;
-+			regulator-max-microvolt = <1128000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l2a_3p1: ldo2 {
-+			regulator-name = "vreg_l2a_3p1";
-+			regulator-min-microvolt = <3072000>;
-+			regulator-max-microvolt = <3072000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l3a_0p9: ldo3 {
-+			regulator-name = "vreg_l3a_0p9";
-+			regulator-min-microvolt = <928000>;
-+			regulator-max-microvolt = <932000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l5a_0p88: ldo5 {
-+			regulator-name = "vreg_l5a_0p88";
-+			regulator-min-microvolt = <880000>;
-+			regulator-max-microvolt = <880000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l6a_1p2: ldo6 {
-+			regulator-name = "vreg_l6a_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l7a_1p8: ldo7 {
-+			regulator-name = "vreg_l7a_1p8";
-+			regulator-min-microvolt = <1704000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
-+		};
-+
-+		vreg_l9a_1p2: ldo9 {
-+			regulator-name = "vreg_l9a_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l10a_1p8: ldo10 {
-+			regulator-name = "vreg_l10a_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l12a_1p8: ldo12 {
-+			regulator-name = "vreg_l12a_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l13a_ts_3p0: ldo13 {
-+			regulator-name = "vreg_l13a_ts_3p0";
-+			regulator-min-microvolt = <3008000>;
-+			regulator-max-microvolt = <3008000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l14a_1p8: ldo14 {
-+			regulator-name = "vreg_l14a_1p8";
-+			regulator-min-microvolt = <1650000>;
-+			regulator-max-microvolt = <1880000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l15a_1p8: ldo15 {
-+			regulator-name = "vreg_l15a_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l16a_2p7: ldo16 {
-+			regulator-name = "vreg_l16a_2p7";
-+			regulator-min-microvolt = <2704000>;
-+			regulator-max-microvolt = <2960000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l17a_3p0: ldo17 {
-+			regulator-name = "vreg_l17a_3p0";
-+			regulator-min-microvolt = <2856000>;
-+			regulator-max-microvolt = <3008000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l18a_0p92: ldo18 {
-+			regulator-name = "vreg_l18a_0p92";
-+			regulator-min-microvolt = <800000>;
-+			regulator-max-microvolt = <912000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+	};
-+
-+	regulators-1 {
-+		compatible = "qcom,pm8150l-rpmh-regulators";
-+		qcom,pmic-id = "c";
-+		vdd-s1-supply = <&vph_pwr>;
-+		vdd-s2-supply = <&vph_pwr>;
-+		vdd-s3-supply = <&vph_pwr>;
-+		vdd-s4-supply = <&vph_pwr>;
-+		vdd-s5-supply = <&vph_pwr>;
-+		vdd-s6-supply = <&vph_pwr>;
-+		vdd-s7-supply = <&vph_pwr>;
-+		vdd-s8-supply = <&vph_pwr>;
-+		vdd-l1-l8-supply = <&vreg_s4a_1p8>;
-+		vdd-l2-l3-supply = <&vreg_s8c_1p3>;
-+		vdd-l4-l5-l6-supply = <&vreg_bob>;
-+		vdd-l7-l11-supply = <&vreg_bob>;
-+		vdd-l9-l10-supply = <&vreg_bob>;
-+		vdd-bob-supply = <&vph_pwr>;
-+
-+		vreg_s8c_1p3: smps8 {
-+			regulator-name = "vreg_s8c_1p3";
-+			regulator-min-microvolt = <1352000>;
-+			regulator-max-microvolt = <1352000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_bob: bob {
-+			regulator-name = "vreg_bob";
-+			regulator-min-microvolt = <3008000>;
-+			regulator-max-microvolt = <4000000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_AUTO>;
-+		};
-+
-+		vreg_l1c_1p8: ldo1 {
-+			regulator-name = "vreg_l1c_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l2c_1p2: ldo2 {
-+			regulator-name = "vreg_l2c_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l3c_0p8: ldo3 {
-+			regulator-name = "vreg_l3c_0p8";
-+			regulator-min-microvolt = <800000>;
-+			regulator-max-microvolt = <800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l4c_1p7: ldo4 {
-+			regulator-name = "vreg_l4c_1p7";
-+			regulator-min-microvolt = <1704000>;
-+			regulator-max-microvolt = <2928000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l5c_1p8: ldo5 {
-+			regulator-name = "vreg_l5c_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2928000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l6c_2p96: ldo6 {
-+			regulator-name = "vreg_l6c_2p96";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2960000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l7c_cam_vcm0_2p85: ldo7 {
-+			regulator-name = "vreg_l7c_cam_vcm0_2p85";
-+			regulator-min-microvolt = <2856000>;
-+			regulator-max-microvolt = <3104000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l8c_1p8: ldo8 {
-+			regulator-name = "vreg_l8c_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l9c_2p96: ldo9 {
-+			regulator-name = "vreg_l9c_2p96";
-+			regulator-min-microvolt = <2704000>;
-+			regulator-max-microvolt = <2960000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l10c_3p0: ldo10 {
-+			regulator-name = "vreg_l10c_3p0";
-+			regulator-min-microvolt = <3000000>;
-+			regulator-max-microvolt = <3000000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l11c_3p0: ldo11 {
-+			regulator-name = "vreg_l11c_3p0";
-+			regulator-min-microvolt = <3000000>;
-+			regulator-max-microvolt = <3304000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
-+		};
-+	};
-+
-+	vreg_f: regulators-2 {
-+		compatible = "qcom,pm8009-1-rpmh-regulators";
-+		qcom,pmic-id = "f";
-+
-+		vdd-s1-supply = <&vph_pwr>;
-+		vdd-s2-supply = <&vph_pwr>;
-+		vdd-l2-supply = <&vreg_s8c_1p3>;
-+		vdd-l5-l6-supply = <&vreg_bob>;
-+		vdd-l7-supply = <&vreg_s4a_1p8>;
-+
-+		vreg_s2f_0p95: smps2 {
-+			regulator-name = "vreg_s2f_0p95";
-+			regulator-min-microvolt = <900000>;
-+			regulator-max-microvolt = <952000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_AUTO>;
-+		};
-+
-+		vreg_l1f_1p1: ldo1 {
-+			regulator-name = "vreg_l1f_1p1";
-+			regulator-min-microvolt = <1104000>;
-+			regulator-max-microvolt = <1104000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l2f_1p2: ldo2 {
-+			regulator-name = "vreg_l2f_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l3f_1p05: ldo3 {
-+			regulator-name = "vreg_l3f_1p05";
-+			regulator-min-microvolt = <1056000>;
-+			regulator-max-microvolt = <1056000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l4f_1p05: ldo4 {
-+			regulator-name = "vreg_l4f_1p05";
-+			regulator-min-microvolt = <1056000>;
-+			regulator-max-microvolt = <1056000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l5f_2p8: ldo5 {
-+			regulator-name = "vreg_l5f_2p8";
-+			regulator-min-microvolt = <2800000>;
-+			regulator-max-microvolt = <3000000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l6f_2p8: ldo6 {
-+			regulator-name = "vreg_l6f_2p8";
-+			regulator-min-microvolt = <2800000>;
-+			regulator-max-microvolt = <3000000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l7f_1p8: ldo7 {
-+			regulator-name = "vreg_l7f_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+	};
-+};
-+
-+&pm8150_gpios {
-+	vol_up_n: vol-up-n-state {
-+		pins = "gpio6";
-+		function = "normal";
-+		power-source = <1>;
-+		input-enable;
-+		bias-pull-up;
-+	};
-+
-+	vol_down_l: vol-down-l-state {
-+		pins = "gpio7";
-+		function = "normal";
-+		power-source = <1>;
-+		input-enable;
-+		bias-pull-up;
-+	};
-+};
-+
-+&pon {
-+	mode-bootloader = <0x2>;
-+	mode-recovery = <0x1>;
-+};
-+
-+&pon_pwrkey {
-+	status = "okay";
-+};
-+
-+&pon_resin {
-+	linux,code = <KEY_VOLUMEDOWN>;
-+
-+	status = "okay";
-+};
-+
-+&qup_spi4_cs_gpio {
-+	drive-strength = <6>;
-+	bias-disable;
-+};
-+
-+&qup_spi4_data_clk {
-+	drive-strength = <6>;
-+	bias-disable;
-+};
-+
-+&qupv3_id_0 {
-+	status = "okay";
-+};
-+
-+&qupv3_id_1 {
-+	status = "okay";
-+};
-+
-+&qupv3_id_2 {
-+	status = "okay";
-+};
-+
-+&tlmm {
-+	gpio-reserved-ranges = <28 4>, /* SPI (NFC) */
-+			       <40 4>; /* SPI (fingerprint scanner) */
-+};
-+
-+&uart12 {
-+	status = "okay";
-+};
-+
-+&ufs_mem_hc {
-+	vcc-supply = <&vreg_l17a_3p0>;
-+	vcc-max-microamp = <800000>;
-+	vccq-supply = <&vreg_l6a_1p2>;
-+	vccq-max-microamp = <800000>;
-+	vccq2-supply = <&vreg_s4a_1p8>;
-+	vccq2-max-microamp = <800000>;
-+
-+	status = "okay";
-+};
-+
-+&ufs_mem_phy {
-+	vdda-phy-supply = <&vreg_l5a_0p88>;
-+	vdda-pll-supply = <&vreg_l9a_1p2>;
-+
-+	status = "okay";
-+};
-+
+ .../bindings/display/bridge/simple-bridge.yaml     | 28 +++++++-
+ arch/arm/boot/dts/nxp/imx/Makefile                 | 21 ++++++
+ .../boot/dts/nxp/imx/imx6q-apalis-eval-vga.dtso    | 80 ++++++++++++++++++++++
+ drivers/gpu/drm/bridge/simple-bridge.c             | 21 +++++-
+ 4 files changed, 148 insertions(+), 2 deletions(-)
+---
+base-commit: f33c2a109da4a527ed3103acb649a88e88cf368c
+change-id: 20261014-v2-apalis-imx6-enable-vga-450f5777a476
 
+Best regards,
 -- 
-2.54.0
+Leonardo Costa <leonardo.costa@toradex.com>
 
