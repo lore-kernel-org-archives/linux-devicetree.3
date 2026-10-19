@@ -1,53 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.77.151
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792449621;
-	b=RMA3hD/p9htbtj4HZp0nmpQvmepH1dLZ5Qe8b39DjxGkbL5CdMfwRkIeIVFZXw9fCiXA
-	 eNA3K3hW/XM1fB4X7Bx9Sy9J4xZ6iFGIpp0uQyE4kBCENi+U6ry6KmfK7q4AUuQiVggsG
-	 iIyj80lJMhs93OsroHF8VIzR4d9c4TlHHQ6QoPrrWuyAG9EowTBHxW8AAC/bWJ3SNQpG8
-	 pCp0x0Cty42XEq2PBa4OC9PXIjCkK+8V6v1BD6lkq/zENPsL9JPbvshe8hvYh6TwJPao/
-	 OO5IpCOZt2HxdbtPWK0aXkQSlsOTCUciSIQixIqHJMdG3yS5PZS4tMdWwTQDupLC3Rw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792449621;
-	h=DMARC-Filter:Received:X-ICL-RepId:X-ICL-Out-Info:Dkim-Signature:
-	 mail-alias-created-date:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Info-Out:X-JNJ;
-	bh=5pXi2sRbBAYWTBRjuYPyBroCk7obWCltBrEvYib5BRk=;
-	b=ylCgs1yptUzeX2OuPLNi/3yOQ9hiwCdggt4pA+h39fyPBizEvNzMJPOSiCgI4OoqK3JF
-	 Cw0etYMf+28mVGI0UIoATNk2AzQQHwqPV6bdD+ZYrKycBBjm+5JGQn4az0HmNID5X7V9m
-	 iClsP2UdpJPuhWGyCtgdsnVZj3vO8A0/+eGrqWsT5YQ/ultWFQPwusE5tSDu8NQnkb8o+
-	 CZl9ix/rI8lQ//fntRq9icWu/IdRxtzkbHOXyZVXaMYUMFpcEYvYUPxVZa5RDpUxfgm5t
-	 u/2aKtE9UpGEiYhbPc67AsC1YUhbCzJaUh4BDeip2pKoBSOrlsm6H63mbyzWtJjv00g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=dxdmail.cc;
-	spf=pass smtp.mailfrom=dxdmail.cc;
-	dkim=pass header.d=dxdmail.cc header.i=@dxdmail.cc header.a=rsa-sha256 header.s=sig1 header.b=A2bsX6P2;
-	arc=none smtp.remote-ip=57.103.77.151
-Received: from outbound.st.icloud.com (st-2003j-snip4-11.eps.apple.com [57.103.77.151])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792449750;
+	b=tF9KgMkwxnXiDQD9qHqo9eTKxGp+oorQHOeKoujy6Np+2/3MgMYIk5cqfgYXGgcPf2OG
+	 V4dt9DirWDGgS3HdlIJ55nfaCsq8CEltPr2BV/2nBrS8Zd4GXv/70+K3ixsGkKUbru6zS
+	 unzCxb+5FdkoinUP0iKUWqQPVQ4LmXCzHUxJaG2ufK1uTJtYjWdUOQHqGwpUl8BtqDmhG
+	 UA7TfiwhbMk3ORFSfa63Yw0mwq7FYuJXNPQ+G/8zxrnl1EsHfyliSUeRScLxSPUi4fU7/
+	 7K5FbPPN6dbkVQYULkpo4WgqxkNN5Bot10eMLdhg5W4e7uwm6GfRmeFJPe+xV2YV+0g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792449750;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=TLrmBgRAwOW0mUHNBf1ByblFHvpKFtK23BGn4OBtp80=;
+	b=yhVjYrdiZ+gVomfDf5r/z72ZjFsocVR6AUI8Ui1Sh2llloi0+5hT8VlMCC9uDu61UH9J
+	 cQYmjjDZOnf0ppv+bbfU+6R5Ib2plb+PnzrWBRLMWpGwuGkZmDzLDJxjtXPOgtMGVsa0R
+	 eFAgJomCiXFxiZE+kPk6SOhuuOYQQ2oRlrPJth6kZvgJFpFMgNjgur4H5+qcs3vwfzAU1
+	 2H9b5Lmo6H10VxCRj/Cy82minJkBBA72zcV/LhXn9U3bUkc/SMrU3ZhH1lZlJuJ34irce
+	 UMLTPZtTTd2USrtG9xPw4GG54xpAR0a+EyR8TD7F9tmA3Yv75OsdzgxfF//ZyNcOAPQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AeiKV6nB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02261606A319;
+	Mon, 19 Oct 2026 22:42:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AeiKV6nB
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792449749;
+	b=vWxoX7K/aZuCWU7EI/I/TEpZxiIph7iH/kR+y8Q2F2s7wfSCeT0d4AgJaTQhwOfLHiuX
+	 uCn5XXLt85oygasgGAJqhIP70hdQD1pBj3qEHFu6XPfSdPVdCVOfOHvHJiZiMMGLn4LrE
+	 qpggn5uYFUnBnmSoKyW5t2aCsKrKrIYfHKiTGgO9iFCYFWaPosoCgsPBO0FZHSF2eN3F1
+	 FJeeZQiB7d915lAeTDPyIkdL251PZpt2j0gjjncJ3MyXizLQrNx0mj51JVk++XQxtLm1p
+	 dc7FZmaJ9TNHK4GafikreBfw+KVeJTdLg48hQF5lFvNt4DvGJF47h9NoatVROM/+hHg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792449749;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=TLrmBgRAwOW0mUHNBf1ByblFHvpKFtK23BGn4OBtp80=;
+	b=LuV02eaDIFAwugREXlrzdiBhH5YEcpH5HJ3D4LUNcCLJ63hvPMK+mA7IYhQ/x9OXbaTu
+	 8bgo7IaTbCTitFGQ55ySnUkU2d2/rxXXh9eyVg3Eu7HLn+t57u8LWq8r00EDj39tIjU0N
+	 Mv+60cxLnu+9Pvj/1A/Jh8lERq2efQdqWFNHwW3NEWfUfBYID+MH68Y/5W6hKhS3nR6MR
+	 pNAurEoMSSurV+RfKZd3lSlM1gPpMGouC0lNTBmPYeewd3jLJTO2rNFstGlTvsxNkoTRU
+	 dw4cbGMkZSLmUqsTrCRWTlffpj82occ19JKpHmvtInXl85Rv9x5Z1QRZOwfYJXKqf7Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B21606A31F
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 22:40:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87B21606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dxdmail.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dxdmail.cc
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dxdmail.cc header.i=@dxdmail.cc header.a=rsa-sha256 header.s=sig1 header.b=A2bsX6P2
-Received: from outbound.st.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-east-1a-10-percent-2 (Postfix) with ESMTPS id 255101800225;
-	Mon, 19 Oct 2026 22:40:19 +0000 (UTC)
-X-ICL-RepId: 01a15652-a4c6-70b0-87a4-149b74a34b96
-X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQFBHV8DXhxCDFYCXA5LVxQEFlIOXx9yFEEcXgxeBxwTWlhVCQoPShRUGVoBGQhRUEsbDlwHS1oVVRcOAkIfUB9MFldDRB8cGVoUXBhTRVEfVFhDGUVWaUELTx1dGVscQmRYVwkKD0oUVBlaARkIUVBUEVdQC1gAEwkaCgxTRlYVAUoeWVRSAV1YQAZdGl0LFV1KC1gHDVdBDThXFVMGUxlVVlAOCUtGCUkdDg5CGEYfVCdXAloKWx4=
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dxdmail.cc; s=sig1; t=1792449619; x=1823985619; bh=5pXi2sRbBAYWTBRjuYPyBroCk7obWCltBrEvYib5BRk=; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type:x-icloud-hme; b=A2bsX6P2qGZprOMYcbvhsvzGsplPUW+3aU4Tn0qVLvzYxPug0XGJEnU7rSnxiIYvoqoYVmgj3s2xyNku4UQdHiG8++WDQFc8Z15u9Og2MmLo94vqsiwhSyGN+q2HTFXwjbb4rAGTeL0mmnGTknwMA6FaoWgC/RgpgEN8d1POUOIVzTsp0NJg7FMlV7kVe5p2+lvbdOOsyxNc/my8n3OCTxf9Y6ZOem8XWjVb7PQQsyfmecIO77RzwKw3+hyZFrVwuvZk+/3M6uqU3o58VvyEX5AxevQXwix/jFt7wW4lkSLK6H4T4KnTCcGD0J7wd6D6PUSVRD5QKI7BfYW4G4tsxQ==
-mail-alias-created-date: 1790174225171
-Received: from [192.168.178.181] (unknown [17.156.216.30])
-	by p00-icloudmta-asmtp-us-east-1a-10-percent-2 (Postfix) with ESMTPSA id B89D118002C5;
-	Mon, 19 Oct 2026 22:40:17 +0000 (UTC)
-Message-ID: <32c0b9ad-de82-4c93-a850-69ed2850fe14@dxdmail.cc>
-Date: Tue, 20 Oct 2026 00:40:16 +0200
+	by smtp.kernel.org (Postfix) with ESMTPS id EA25B1F000C5;
+	Mon, 19 Oct 2026 22:42:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792449749;
+	bh=TLrmBgRAwOW0mUHNBf1ByblFHvpKFtK23BGn4OBtp80=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=AeiKV6nBlJsPberHC0BdFKiU5tG5Y6z1G+8OykPeJR95e6B8e6Izc5/kJfti8+nIu
+	 XOvz9Jx1Be/0kZqm3uzhSeXKyPiR/joPmWZeWryvPAvbfB2ipq6OCBGmW2sqiljXSN
+	 QzsARkefSeOUhmnRSvfQqOVXNKdOu3F/vKQRfmYrZJooAlq/Mns04yM2BrLwk9zh9/
+	 mCdc4N+YdRpiiS7fF+EzN/p1DjuiR4okTnsaqpVt6wQICIVFKGTMcfXFXY5gPQAMvR
+	 xe8PMVarJjPu+sJJvfxulAIZut0uGCw5/GcZTtmYVq6rQ7CHD9nMzSBkpKJpfoqcED
+	 RXc/EWJAkxmSA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 5230840672;
+	Mon, 19 Oct 2026 22:42:28 +0000 (UTC)
+From: Nizat Mikayilli via B4 Relay <devnull+nacht.dxdmail.cc@kernel.org>
+Date: Tue, 20 Oct 2026 00:42:09 +0200
+Subject: [PATCH v3 1/2] dt-bindings: arm: qcom: Add Samsung Galaxy Tab S9
+ Wi-Fi
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,51 +83,58 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: sm8550: Add support for Samsung
- Galaxy Tab S9 Wi-Fi
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261005-gts9wifi-dts-v2-0-c3ac9b0f9ceb@dxdmail.cc>
- <20261005-gts9wifi-dts-v2-2-c3ac9b0f9ceb@dxdmail.cc>
- <2e3c1082-e5d0-4a33-ad3f-272dd74aa54c@oss.qualcomm.com>
- <f7ba4d5a-0e8c-417d-a1fd-5b5e392df71a@dxdmail.cc>
- <c2f7946b-ba31-4f0c-bd84-fae3481f2965@oss.qualcomm.com>
-Content-Language: en-US
-From: Nizat Mikayilli <nacht@dxdmail.cc>
-In-Reply-To: <c2f7946b-ba31-4f0c-bd84-fae3481f2965@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261020-gts9wifi-dts-v3-1-afd06fb2d9f9@dxdmail.cc>
+References: <20261020-gts9wifi-dts-v3-0-afd06fb2d9f9@dxdmail.cc>
+In-Reply-To: <20261020-gts9wifi-dts-v3-0-afd06fb2d9f9@dxdmail.cc>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Nizat Mikayilli <nacht@dxdmail.cc>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792449747; l=868;
+ i=nacht@dxdmail.cc; s=20261004; h=from:subject:message-id;
+ bh=sR0cnCpdpiTlMKTOwU1tkGMcO6qB707MJF9oZ3BW5c0=;
+ b=ipjhObC3/ajONJXHIUQWos0btqPdA9Sa/3KwuzgZyp9CAbMZ0/a3euAs4NfEFulO5MGav2zOx
+ XDJ71oqwV6HCISDKtq1RTziwfgeObvNLFzVeMQmCUgpnq9SwVZbqBPM
+X-Developer-Key: i=nacht@dxdmail.cc; a=ed25519;
+ pk=Kay3P3pOJq5klUD+0/I8QX8JGOh0CeQXEwRVv7CMm4k=
+X-Endpoint-Received: by B4 Relay for nacht@dxdmail.cc/20261004 with
+ auth_id=1111
+X-Original-From: Nizat Mikayilli <nacht@dxdmail.cc>
+Reply-To: nacht@dxdmail.cc
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: c433lpCkJP9JY9MpEN8w9GiDRvhbCqs8
-X-Proofpoint-ORIG-GUID: c433lpCkJP9JY9MpEN8w9GiDRvhbCqs8
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA5MCBTYWx0ZWRfXw67x1x/vluXu
- V6Kl9rbK7CgE86LZRygxd5JLO0P6X4A9ZAfEyTak4eYW9+tC5lj9QBqiHD79naENQ7BJUE0euQx
- QyEHaukKmdjY0prEf81PxLXXU7Y6DerH6CoNFf+h/RKNEl6mNZPGz3GmcCrZdX6D8i9kAabVd1n
- fg4Inns3Pi0uVM4M4gtkBjrPU/IfedS4iE6cmKSm8UKkKt1uWGQ7QJhJQoUfOSInFlvY9E0VFmN
- gpz7d3ECevMY5v0nMaaTWwFjLbzRL0dRsNslaV3gGj4Eqb4oHJHZZGfEI7Tf2BAYHV7k2QlmABQ
- zAlgGZxbYJPeI7nHtKz2167tP7jf13USIjrv0W9+VoCOzdbg4nxh1VoSNR11nk=
-X-Authority-Info-Out: v=2.4 cv=JsD8bc4C c=1 sm=1 tr=0 ts=6ad69c53
- cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
- a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=AqZmfHzJsoaMp3Ki:21 a=IkcTkHD0fZMA:10
- a=MKtGQD3n3ToA:10 a=1oJP67jkp3AA:10 a=660iZSQnnn4A:10
- a=VkNPw1HP01LnGYTKEx00:22 a=zqu-M_Q2-P-lgxK51TQA:9 a=QEXdDO2ut3YA:10
-X-JNJ: AAAAAAAB3R+zTMouZRuYT7BGL4P5l0RU9uHWYW1Czf9nUwDJh5Iat1X1gGPa9O4QMI4JXm8tkaKucDxGg5hm84biPdl4Py64JLh0S6j2KWcAUdyNRjP/fC9tk2h7+CARrEXVbP3Q+X1SGZhldhQD1y9weSkDXWbOMT27j0cG8y1R6LOnzRnVjC7mDpwYdYXHBW4l+Y2/3f4VMEWsTmPWNUZVrUPIF/Qjc2xdVL/Lp4c7k7aBBNw0QrQf1fdhffJ+BccxZ7eGOj8N1MouRmN0Fhzf8k9cAOzAcm4YcHy82X8gPYi7tlELIcsNxmQ54cZQF3LGwhhN/2+xLbn4lmAYvUPzgTnby1yLkzJLyJD1D0QkhEwytSRzlmTnYhZD8xhiP/dMn+AfxcdhlycYg5JGAtOWnXanZKzuzVTCgDhdjZZJjwu2TM9Qk+cVvdo8ryitysUNDRzh4n0PR1ZDMFVu6OCdW0ukpjx7EEnqAvzLkj2b1m7+yxTTpahfcm5Q91EPUyxI3q1u7SqjnbmGRFz4mLPOvqmkepHVS/9R/owHoOKawy0Hger5gDTlVOU0tYyKQoisYftT78NoNGxfejvSHxMRCkTjwcinAItvmYahmM56Le7cruMJ5GFckdg+bdpc/6k8xUK6pVMseC70IR6lcpoNlipi9hZYEvA7kk4P0x5pnf57gzczP44W0P/7R4fMlbWNevacApkqA2tkHGPQdu1LFltmRuEjZKQVZC9b/Zw0H5Y9Oj9HDycMaPUC7QrbLjxEoK2OfEoJnoNnMxBZR2P0E/dKUAINv+cko/ayUFRsJV+cT93+X4qeP5ht6fU+Sok74fUoay/7fB3J9HIw86evu9x8mdYXAgMpqnwVx7RH3O43FQP+NVjoIjjGCgwSlLGDpL/ouaH2CZOdW4l/ibBVplyuE+SopZn24Cd41GsS186blYCqIAVHuW66p/1VDpiqjMBjWcpUhA5x+wKo3muuQgJ0TKi
- VnODqt82k1hG8V/Jh/OBA5jaczGtkkkIe8vy52FUV4iyU3BY1UvdHCxH89yOigJuMe/lpcnUG2dWUI88EmF01h300SbdQhemwJZuz8Mn3g/gqGhEgxWQtp0SIzxThPDdetZsdZ13OKnIcgu+5Zz1s38RpGfctGb8RqFDzM0Al/mbRN2usVm8L0VtS+OpNm2RLkpt9zqutZ98gb3Hn8fdRvM2EvGYoHU0o/Fdxm7BdBK32105/iej6yef/amRnQfT8aQTdLyvoVM0g3fdDjRI1Sh68hcU568NN7SH1cKpmmxKKBxz/1KrEQI/+tElBwOtas+m1zVyL6NRObFJ6sXW7wJL0wfUylIyMcUpAlIE+ZU4ELOEX/65E
 
-On 10/19/26 2:33 PM, Konrad Dybcio wrote:
-> Please show me what your current diff is, on other platforms we didn't
-> have to go through these hoops..
+From: Nizat Mikayilli <nacht@dxdmail.cc>
 
-You're right, my mistake. I had copied bias-pull-up for wlan-en from
-the downstream DT, so the pin was already high before the rails came
-up. My hack also drove it low at probe, and that's what actually fixed
-it, not the PDC messages.
+Document the Samsung Galaxy Tab S9 Wi-Fi (SM-X710), a tablet based on
+the SM8550 SoC.
 
-With bias-pull-down like on qrd it works without any driver changes,
-so I'll add Wi-Fi/BT to the board DT in v3.
+Assisted-by: LLM
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Nizat Mikayilli <nacht@dxdmail.cc>
+---
+ Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Nizat
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index 121ca557ce1e..5e560f523d32 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -1173,6 +1173,7 @@ properties:
+               - qcom,sm8550-hdk
+               - qcom,sm8550-mtp
+               - qcom,sm8550-qrd
++              - samsung,gts9wifi
+               - samsung,q5q
+               - sony,pdx234
+           - const: qcom,sm8550
+
+-- 
+2.56.0
+
+
