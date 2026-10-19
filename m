@@ -1,227 +1,97 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 343DD15E5BB
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 08:02:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A8B848987A
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 08:05:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792396922; cv=none; b=aFZFPd3RxM0RCmwpnL+GNu259Jt7+EjCT/CJq1IEYhRZGkMNcgI5iTv6/xPf09I0Ivkfe9UrilmtkLKTC/oeunHZFK6+Xbjn3MKHUSG6ZIqZmK4d5SEewXCHMT6NLWBityiOCvd6hhyfj0KDDoG0gcF3s83yMY9h5Z42NTvuMw0=
+	t=1792397133; cv=none; b=s8LMU+vnqkIou4OcYP+BKhdDE9CLAF7UYhumtGFjbTbqLq57Gy6UEN/Y05n+VqQoWJQR37XE0iK9USH8rInbWg2iCAPQ9IFBKKvMpSMFGZZyIXPOddN6QsvijOt3EtMA2VkkTGLqQoxJhWrP1oMHnEd4RsowGrklG2dAmfCqmM8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792396922; c=relaxed/simple;
-	bh=hP4wF+WPnK0B2Q1KKFEnxgTNrut6FSSKnsRv3RZJ50A=;
-	h=From:Message-ID:Date:MIME-Version:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=fX6l3duVjk/kcnaXIUsCYgebch0Mt2CMjLxijvX9zHEObMHg9uW0v+yP7Nswbul1jgwqItz+PSW9dLtdcAjDIQToLpbhYgHZY5duGbdklVhiUAYr7RLeU4+8v/7Sfo+AYEuPA2EiNqqPWue39z6I+tcGDl50qkQkTevNlQAQR0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev; spf=pass smtp.mailfrom=tuxon.dev; dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b=Utao0K7C; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxon.dev
+	s=arc-20240116; t=1792397133; c=relaxed/simple;
+	bh=MNn9EReI0H6EENStGI7aE0ualMsLo14gdkGY09N5E3U=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MtK7KK/5AlxAfuKdND66GhoBuRd9PBJsw9G3Ido4JFan7a+nZZ80VhrOQAWzviZURHMwDMrX0zbgyxpLJ7rQ3po8COBTk6tkBTIMpQFxLQBbLRUWkOUf2e5bo/4GIkQLQLfIkbUO3wiQDt511T2r5tVhOUbp1fuYqJgIyX2W0Ls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Eaawz8Nk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b="Utao0K7C"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a0286c981dso19245185e9.2
-        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 01:01:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tuxon.dev; s=google; t=1792396918; x=1793001718; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ocLaY0WHvEptQ8Kwyj8wyj7j+7F9Bumbj27CCmpTaLg=;
-        b=Utao0K7C7jQ9lwDr4a7gcLnou4U7qG2PjAv9asy6+1mPFi6GMYif9fql1+GfMQGy6p
-         hBAn+pE2NPY4kaNBhbe/z9zudJ/tEWMnoI0sR7Di5srb1EVmNZBp39e1SScBwk0oYrT9
-         BYH2/p6XpwzY4HRiU/A9dqZpEJCOLkGwWTWThJu67FLa3YgXs/r8ipJId+3tRd3+dVCk
-         al+M9AtdW60/Z9/cPA9S5BpK3x4KalRzcmvP6CAT6ozFXUHDL5WDlmEZPQgb1q/AvK7T
-         TMykXJKHI+xn/NPT8V9Ri00pO+0KNQJo9FaTGE+YAaSZt4MuBU16xMTY4QZowNnzHUIH
-         42ng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792396918; x=1793001718;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ocLaY0WHvEptQ8Kwyj8wyj7j+7F9Bumbj27CCmpTaLg=;
-        b=cDQ0K2y0kWC19C4ShawwpFuYJZs8Jp44SNF08xNgAA3G3iW7OOfMu6xc9oKsXSP1MW
-         Gy9NfBuUPqprQCMILd2Z1kFndb5Hm8Ic9rSBRI9HtbT0i00d+00SDb2JXRLyq0fyV86l
-         dOSPNQ60Ox/vidmmb2TA/IXNARvmU8tWMv9Mc7UEOcLNMfHdE8cJ5f++cvgXAQLapDjC
-         v+4s4L360SBivoK1TstmcUdpMjGGQFAAfEpC3RQAKNq9eQzbr5CBOn/y/zAR0yFh6hWq
-         fQacro6RPa3rOkVqM2CcSKrf9HubADCctpUvSBESLJwwDyb0Fu7nCCqRvpBrKIIwqpT9
-         K47Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzXtOHtjWkyuQbMV9CiHyjHr9e3YAtvMRTW8WX81u7K4XwtCWOH4zqlISLpvVMaXGdI67eo7RtTAkZ6@vger.kernel.org
-X-Gm-Message-State: AFq9FYIhe7cplRqUORdjF/iHbGTDlURqjdB4Riml4wDB4lQv9O2Twb5D
-	JwqSPqw2gHzHE16gaRivO3jDcpY9nsNXoefiODM2sfN9YN/2+aNPS4loZbJa/hMdeqY=
-X-Gm-Gg: AYBFou24VUxm9DbhhorTww0hK9mJ3KBu9wFmYANPw80Qiijb9t5zW6NK59tV3KjgSvX
-	p9qmSq00w5ATSLPJiUu1dUinGDht4IXxkEFG14PPjopiZIYz8b5LF85cKxl2Y+TAjJxsOMjRX1R
-	/CJL9pzukpfeU1zSqGmvbyllmpswuZQaNViJDXxw81wcJquKTnByfUSe/IsRMVjURdV/HvJPfcS
-	XAwFvs17mORaMERYgmrMRuA3q9LDUqUjdeQYl1HiJmU/agZ95L8gMlzoboTz13G81EV9UQl5WP/
-	0cqmeqTBfWQGbG4qKgiMSpCYsibe0eR/RhfC4eEoUrACakD9qDwl80/WKJqlwR3afk4gqmOqXum
-	bcBN/NJUQ6zX+4M4Cm7BG7qf9uHfWRIvjCqY9ZOn18SFxyMdqTYoAIHI9oM/xa75HMICg5l/u25
-	pGTVP8EcaZXD4zXE55tpvxbWh1Cn5FAJkJS7g5YypehFdrCzmkIy1eFuE7diLUJSTPthfAcSMYe
-	igo5EpCGeXZs2Nycw==
-X-Received: by 2002:a05:600c:8709:b0:4a1:7b05:3a6d with SMTP id 5b1f17b1804b1-4a1d75e6fa6mr126442275e9.8.1792396917972;
-        Mon, 19 Oct 2026 01:01:57 -0700 (PDT)
-Received: from [192.168.50.4] ([82.78.167.221])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1dea678cdsm174349695e9.1.2026.10.19.01.01.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 01:01:57 -0700 (PDT)
-From: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-X-Google-Original-From: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
-Message-ID: <3ac7b72a-3468-49f6-b4d3-6b33e252ffc6@tuxon.dev>
-Date: Mon, 19 Oct 2026 11:01:55 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Eaawz8Nk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5C6C1F000CC
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 08:05:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792397131;
+	bh=Opn2C+E92xKwQsN6h5E9V9ZrB1GQ2MnOKeEbuvT5O7g=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=Eaawz8NkGmmc/B2+oRKDloMx4jvuCIPwPI/PzNc+TS9pajKYIumZL5T6DZPNr1i2C
+	 9qXOHdOaqpdGV+NSavPcoVW8EhCz97Rl6Wx/wRldqi9qufbDgC1IBG0pN5G6SmE/mh
+	 BGBTmjb3xIji3BNE14L0492XU6GB7eXQNOLSEZMCMAt7YL83V/LcIy5GGgpMCQbNtT
+	 ZIYZMGc2nAVPXC9zkEE/2obrZD/pdsRPNMDzPQG1WlSz3VkVwq3jv71934V9EK4BP0
+	 PaxurzGH7cDkDQ2K0H1jasollcTYOKWb2wEvzypDNJVIvsocTAFuAb2Ol91CHISCzn
+	 UtX5nB8GesGFQ==
+Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3ab3b29a210so6726861fa.0
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 01:05:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBycEX56b+RKwcCU9NBjqYCrsUsOXBn9FO8KwNS+QWo26RMJQKDtQkhaHVPu2iT8vdYZgVaBkNsZFz+p@vger.kernel.org
+X-Gm-Message-State: AFq9FYKBp03XeTlnMJnZ5t3bcc91R3iN+CSUK4+RYVs3JIDN02r5rayv
+	wicSmg7E7X11iOVV7XiRhK+Fm+4soP7pCxe7aMHz45c71l+t8UsUh1ZI+cHNvYpMgUjjPcj0fKY
+	/hEAhI6E2kf2HyNmO9eYBXPi/bTH3lBQh+oUJKitX4g==
+X-Received: by 2002:a2e:be9f:0:b0:3ab:39c4:55a5 with SMTP id
+ 38308e7fff4ca-3ab39c4607amr6913691fa.17.1792397130541; Mon, 19 Oct 2026
+ 01:05:30 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 19 Oct 2026 10:05:29 +0200
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 19 Oct 2026 10:05:29 +0200
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20261016-upstream-tda54-gpio-v2-1-5c4f8b10cdbc@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/7] dt-bindings: can: renesas,rcar-canfd: Document
- RZ/G3S SoC
-To: Biju Das <biju.das.jz@bp.renesas.com>,
- Marc Kleine-Budde <mkl@pengutronix.de>
-Cc: "mailhol@kernel.org" <mailhol@kernel.org>,
- "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
- <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "geert+renesas@glider.be" <geert+renesas@glider.be>,
- "magnus.damm" <magnus.damm@gmail.com>,
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
- "Claudiu.Beznea" <claudiu.beznea@tuxon.dev>,
- "linux-can@vger.kernel.org" <linux-can@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-References: <20260902141544.565763-1-claudiu.beznea+renesas@tuxon.dev>
- <20260902141544.565763-2-claudiu.beznea+renesas@tuxon.dev>
- <20261016-elite-feathered-rook-5dcf2b-mkl@pengutronix.de>
- <TY3PR01MB1134682A7E8AEDB860F02752D86982@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-Content-Language: en-US
-In-Reply-To: <TY3PR01MB1134682A7E8AEDB860F02752D86982@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20261016-upstream-tda54-gpio-v2-0-5c4f8b10cdbc@ti.com> <20261016-upstream-tda54-gpio-v2-1-5c4f8b10cdbc@ti.com>
+Date: Mon, 19 Oct 2026 10:05:29 +0200
+X-Gmail-Original-Message-ID: <CAMRc=MdXhgtFKXvb9ZwCKya9uHR79AA=Je_pUKe-aL4JGGiTXQ@mail.gmail.com>
+X-Gm-Features: AclHuK-KhikiLJw6im0dPRghw6fj_ecjB_InLYFf-XUgpvNM-jDdSNh_Mm6cFZo
+Message-ID: <CAMRc=MdXhgtFKXvb9ZwCKya9uHR79AA=Je_pUKe-aL4JGGiTXQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/4] dt-bindings: gpio: gpio-davinci: Add the tda54 support
+To: Aniket Limaye <a-limaye@ti.com>
+Cc: vigneshr@ti.com, u-kumar1@ti.com, nm@ti.com, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Keerthy <j-keerthy@ti.com>, 
+	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi, Biju,
+On Fri, 16 Oct 2026 06:30:36 +0200, Aniket Limaye <a-limaye@ti.com> said:
+> New version of GPIO IP used in TDA54 SoCs adds support for level-triggered
+> interrupts via extended registers.
+> Add the device binding for ti,tda54-gpio.
+>
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Aniket Limaye <a-limaye@ti.com>
+> ---
+>  Documentation/devicetree/bindings/gpio/gpio-davinci.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/Documentation/devicetree/bindings/gpio/gpio-davinci.yaml b/Documentation/devicetree/bindings/gpio/gpio-davinci.yaml
+> index 1434d08f8b741..02b6b9a436a68 100644
+> --- a/Documentation/devicetree/bindings/gpio/gpio-davinci.yaml
+> +++ b/Documentation/devicetree/bindings/gpio/gpio-davinci.yaml
+> @@ -18,6 +18,7 @@ properties:
+>                - ti,am654-gpio
+>                - ti,j721e-gpio
+>                - ti,am64-gpio
+> +              - ti,tda54-gpio
+>            - const: ti,keystone-gpio
+>
+>        - items:
+>
+> --
+> 2.53.0
+>
+>
 
-On 10/19/26 10:24, Biju Das wrote:
-> Hi Claudiu,
-> 
->> -----Original Message-----
->> From: Marc Kleine-Budde <mkl@pengutronix.de>
->> Sent: 16 October 2026 14:34
->> Subject: Re: [PATCH v4 1/7] dt-bindings: can: renesas,rcar-canfd: Document RZ/G3S SoC
->>
->> On 02.09.2026 17:15:38, Claudiu Beznea wrote:
->>> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
->>>
->>> The CAN FD controller found on the Renesas RZ/G3S SoC is largely
->>> compatible with the variant present on the RZ/G3E SoC. The main differences are:
->>> - the RZ/G3S provides only two CAN FD channels
->>> - the RZ/G3S supports only CAN FD operation; the Channel n CAN FD
->>>    Configuration Register does not implement the bits used to select
->>>    classical CAN-only mode (bit 30) or CAN FD-only mode (bit 28);
->>>    consequently, bit 31 (CAN FD Frame Distinction Enable) of the same
->>>    register is also not implemented
->>> - some bits in several registers (mainly reserved or status bits) are
->>>    read-write on the RZ/G3S but read-only on the RZ/G3E; their behavior is
->>>    otherwise identical: the bits read back as 0 on both SoCs and software
->>>    is allowed to write only 0 to them on the RZ/G3S
->>> - the RZ/G3S provides 256 acceptance filters, compared to 768 on the
->>>    RZ/G3E
->>> - the RZ/G3S can use PCLK clock as the CAN FD clock source through an
->>>    internal clock divider, while also supporting an external CAN FD clock
->>>    source
->>>
->>> Since:
->>> - the SoC clock generator provides to the CAN IP only the peripheral and
->>>    the RAM clocks
->>> - when sourced from the peripheral clock, the CAN-FD clock is obtained
->>>    inside the IP itself by dividing the peripheral clock
->>> - the assigned-clocks and assigned-clock-rates properties are specific to
->>>    the CAN-FD clock
->>> the assigned-clocks and assigned-clock-rates properties were dropped
->>> from the required properties list of the Renesas RZ/G3S SoC.
->>>
->>> Add documentation for the Renesas RZ/G3S SoC.
->>>
->>> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
->>> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
->>> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
->>
->> the netdev review bot has found a nitpick, it's about the comment in "rcar_canfd.c". Can you fix it, if
->> you re-spin the series.
->>
->> regards,
->> Marc
->>
->> pw-bot: cr
->>
->> --- Patch [11]: [PATCH net-next 11/37] dt-bindings: can: renesas,rcar-canfd: Document RZ/G3S SoC ---
->> commit 69b4e37d18e5229e1c800b45a5df061af8a98eb9
->> Author: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
->>
->> dt-bindings: can: renesas,rcar-canfd: Document RZ/G3S SoC
->>
->> This adds the renesas,r9a08g045-canfd compatible for the RZ/G3S CAN FD controller. It adds the compatible
->> to the existing conditional blocks. It also forbids renesas,no-can-fd and renesas,fd-only on RZ/G3S, and
->> makes assigned-clocks and assigned-clock-rates required only for the other SoCs.
->>
->> Link: https://patch.msgid.link/20260902141544.565763-2-claudiu.beznea+renesas@tuxon.dev
->>
->>> diff --git
->>> a/Documentation/devicetree/bindings/net/can/renesas,rcar-canfd.yaml
->>> b/Documentation/devicetree/bindings/net/can/renesas,rcar-canfd.yaml
->>> index b9d9dd7a7967..bbaaef8f4282 100644
->>> ---
->>> a/Documentation/devicetree/bindings/net/can/renesas,rcar-canfd.yaml
->>> +++ b/Documentation/devicetree/bindings/net/can/renesas,rcar-canfd.yam
->>> +++ l
->>
->> [ ... ]
->>
->>> @@ -350,6 +352,20 @@ allOf:
->>>         properties:
->>>           reset-names: false
->>>
->>> +  - if:
->>> +      properties:
->>> +        compatible:
->>> +          contains:
->>> +            const: renesas,r9a08g045-canfd
->>> +    then:
->>> +      properties:
->>> +        renesas,no-can-fd: false
->>
->> Discovered by: opus-5-5 · Missed by: fable-5-1, gpt-6-astra, sashiko-gemini · Confirmed by: fable-5-1
->> This isn't a bug, but should the renesas,no-can-fd description be updated to match this new constraint?
->>
->> The property description in the same binding still says that every controller can run in Classical CAN
->> mode:
->>
->>    renesas,no-can-fd:
->>      $ref: /schemas/types.yaml#/definitions/flag
->>      description:
->>        The controller can operate in either CAN-FD mode (default) or FD-Only
->>        mode (RZ/{G2L,G3E} and R-Car Gen4) or Classical CAN mode. Specify this
->>        property to put the controller in Classical CAN mode.
->>
->> With this patch the property is forbidden for renesas,r9a08g045-canfd, because RZ/G3S does not have the
->> mode select bits.
->>
->> The header comment in drivers/net/can/rcar/rcar_canfd.c says the same
->> thing:
->>
->>   * To switch the controller to Classical CAN (CAN 2.0) only mode, add
->>   * "renesas,no-can-fd" optional property to the device tree node. A h/w reset is
->>   * also required to switch modes.
->>
->> Neither text is changed later in the series. Both now contradict the schema for RZ/G3S, and for RZ/G3L
->> once it is added the same way.
->>
->> Could the description exclude the SoCs that only support CAN FD mode?
-> 
-> 
-> Do you plan to update description of renesas,no-canfd in bindings/driver exempting Classical CAN mode
-> for RZ/G3S? Or do you want me to update?
+Just a nit: you don't "add support" in dt-bindings. That's done in driver code.
+Here, you "document" new hardware so please next time try to use a different
+wording in commit messages.
 
-I intend to send follow up patches today. If you already have something prepared 
-for this, please send it.
-
-Thank you,
-Claudiu
-
+Bart
