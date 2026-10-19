@@ -1,18 +1,18 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792445909;
-	b=uQrkjN8kfvkKEKcQWT6OU5OxoVevIlBBHU0QXNb01yzcvh4NYVN1QnVBtX8CFHg0Ctg7
-	 SaFTsgbeqguKnd3j7LjLCukrpXXBvEBCYBSWdjaMelZMGZBJe6gTJUa5vEtbqo0Gosjfd
-	 QsIVUcAmCmHXaXgwZvVbNEzaw3W9xBD3KuIoclOEPBDky1on84dBYPjlwMmrOyO2MHhh4
-	 8EYD0JyA8yOLCopWsxbJmKANlfudBhZK/aheR2K4Ahecs3cDy+kPVmYKENqze5eSkCKPK
-	 wQum9wjwWkIg0YiFnNFLDLokCdcl917bIUAA7A1xBFmgyJRgBAUj1xFJxlPL/aFc+rQ==
+	t=1792445923;
+	b=ra75rCWkWss0Gr7qmpQNHLq5JzUX9gFD1MzUQQ+8zVI5DfZ8F9PnFjxFTww2W8LvB1E4
+	 N6znxtHtAh8k2Eq3nwmV2To7BOHCqBKa3frwoSg3iUtR8ZxfPT58UOrCRhmG2GvDekF+E
+	 H98Mu/BEprSvQgEJW9sSr/33EezvdVdX1f2j7BlbQt4faT5Nt4A8gDyg+6fjMqrKxAGbC
+	 N8aPVdeBL2Y6A79NVx7B71Cac89AHvub9KqfE6xhtAiMHc6FYr+tPQKV0UF5y15jUjO7G
+	 o9VQQqKeZBqzxPtKDJzHBjHFKdAiLObsqhyeUE1jsWHLGxiezVdK3mcbnjVHuF9BvxQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792445909;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792445923;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
 	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
 	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-EOPAttributedMessage:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
 	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
 	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
 	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
@@ -29,98 +29,97 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
 	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=iPdQquN/MDj28p5SNgtFDVG7f9S7/2aYZY4+lRuFIN4=;
-	b=P83tGIz52UysneVJO2HiaQRYG1wfDZpW+NdlNXogondWoJzN02lNtgvYRf36BgMWKxVv
-	 69qtiahrND6PNEXZyzmPv7Qhr3/DnTa6uhTzd5Wq0lDXmlaakwniXgNa5FSOnG8Zrl43o
-	 4Ih7sMjWH3vn3GYMYAhvcI3GIAnBsywP+Ls93/wjtUNMWo6cDca9bGdpkVuT0IAio/RcD
-	 WJN3bbfpc95HYUY2qPcdfbQ4/wJ8Nrk1gaFSuBrUYq6+PnlA/NfPgolzs9Pv2pN2fAaR1
-	 Kw5dvYfyLBcqWph3FEvnzTYNtorX/OvTnwhG9ZTgth5tx+GKOS0WtM96alCboPq7CPw==
+	bh=8sYimcajn8LG2n2Hgm0miOOdJcDxJzLEwb3jDwf9ml8=;
+	b=p5wZboA51dNz4ooAoB69fiBjl12YFmypKQH+ZsPEa4TJqbu8JxUvtuXI+FAzmZQv6k3k
+	 7e8LOhWBeblfKUfo+pDFDaBfJvlK9b49dEE7Z3WYonu7Q/ioJBfJKIEp+h4xZsAONxmMY
+	 HeFq3cA5s5n0m8C4lp7JL+B9jN3FlsQ/cHQrRq3lDW/L4AOITCREr+V2Qaq5m67q9n3Q+
+	 ShDeytcoGG730HpJh17ib2ayeEE+HSIagrIO/Fiv6tIFyMYGhn78WAD9pfH8vyvanf4P+
+	 3IZikpW+h3saRk7FqqobJQEe2rESps5Pc+Mi42C6wR9tT3pwdbYO7I3ioaZr3PsLl2w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ti.com;
 	spf=pass smtp.mailfrom=ti.com;
-	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=ZAVfadfe;
-	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=FArrOEAZ;
+	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=Dre6jvL2;
+	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b="h7vq/T0W";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
 Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3592B606A330;
-	Mon, 19 Oct 2026 21:38:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3592B606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47523606A322;
+	Mon, 19 Oct 2026 21:38:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47523606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=ZAVfadfe;
-	dkim=pass (1024-bit key, unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=FArrOEAZ
+	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=Dre6jvL2;
+	dkim=pass (1024-bit key, unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=h7vq/T0W
 Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69JLbxXD1358411;
-	Mon, 19 Oct 2026 16:38:07 -0500
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69JLc1Np1358521;
+	Mon, 19 Oct 2026 16:38:21 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=iPdQquN/MDj28p5SNgtFDVG7f9S7/2aYZY4+lRuFI
-	N4=; b=ZAVfadfeVY1a3wHjaWMiRcbJFYAq9Ub1fhoVPL4bByiEhnImkEKl+i8N0
-	14eaG4/S6ckQNTihCi5UO/P5xcUKa+FsMma+ywU2Vl92UcMISHsKm6V4qJIZAKSr
-	mtk+v8j0R1aYutrABwtme43DdYi4AKhw5xsdknGmtsktPnBiF34MX7T2GEuYEqGl
-	L151vk7shozwjbXQVnLOwEQdsH0kVT67gBzvPPiIbSegI2jNqdfQEZQZ6YOIHNG/
-	zU5K7at+6GYS79R32SrNUcxI/dbsNVniffkg/ppfhhL1tyrIq+BtzPIa5Syvv4vT
-	+XFLNe7LbQLgYECjiNqXxO+rhVccQ==
-Received: from sj2pr03cu001.outbound.protection.outlook.com (mail-westusazon11012004.outbound.protection.outlook.com [52.101.43.4])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4hcrd6156y-1
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=proofpoint-05-2026; bh=8sYimcajn8LG2
+	n2Hgm0miOOdJcDxJzLEwb3jDwf9ml8=; b=Dre6jvL2hLgrjhFSvtBhmyfFTZtiP
+	fj+5QtpXUbw2fWcIoJWaZClxqzC4mfp0M6T12dI6R324pdotW2WOxHbiwVf6UKCt
+	ieadCIbEQCj6KpJP5c0/xPNF2Qdeaf6E21/fDeEyBqj6oab30ZBLO+de2et3ese1
+	FCMg4pK7F2zzEixusv7IcuVTQ/tqfw6iLKviusRvINji83d+qiTyUoZ1sxi2Go0z
+	aj3PTE8ZUo2VYrYh0ygxVbXk7PWZcc0NfUwyeZ7vatjC/Pf9FVgJMckXOH6dREyQ
+	lbgM5PYIsyS2/xFlBlET+3tJDtSbbaX7BhiATnkGBv6ErAMlioA+TPRiw==
+Received: from byapr05cu005.outbound.protection.outlook.com (mail-westusazon11010009.outbound.protection.outlook.com [52.101.85.9])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4hcrd61584-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 19 Oct 2026 16:38:06 -0500 (CDT)
+	Mon, 19 Oct 2026 16:38:21 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JouwCqZ3mxysKDuN2zUA4pimY2nFNpalN+NrXb7l18g3/ZFUbIyaytL8Q+kSuL40moTTrQiy0ua4xkfMz+xIaM1Q9Jnnno7Up9bPmhRhZOvfgXRUg7H3ytOZQgib60G+r+tICov6g0ybA/oQn+Zbz09MOYKEu3XANJiq7vsIQyswcN/DsDVz7CNrAP34UCxG4r25Dn5DQdaze713g5mC2S2SabCqI3EkPmnZIFyZO4E4yLFuBO3uMy6uWk0og1ljFRpjYAw79lRay+3EuFG3+IlUao0wrLdC+Ec2l3sOjRJ8ylI5Taf480XJLAJ8MeA/iGHOE9P1gFuAZ1zzkWmU1w==
+ b=q+b9Z4Ectasdu5q6SsQKy7HknRYw6b1KrrByC2Vw7iAvjkjhCz/uSmdk9qPu7ZUeDhk7Q7R5tsQ/ALcZw7mPncND4mTng8JW0WNFkWFHUncGbAGl7m9E48cz9xTKlY8TsmSQYx9ruhP92e7zWmQt3YRRJ/XzjUDAUJhoXaVV2VitekBMVSVBajsa8ZLk2/t1S9+ef2A7RuiD48ywLtjaU7TZlKBFWOoqcIZMqNylTm+gtbl7Ta/55TZGeoeOP3BdNzJI6scLNuobwLfIcjIjSb81yYav61zDJukxdkngiHrdr4Avqz9Dcu5ipr6HyHhDcKUggsIL6qj651fHijMGbw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iPdQquN/MDj28p5SNgtFDVG7f9S7/2aYZY4+lRuFIN4=;
- b=FgjxasaMmVlDr8rJ2Y9z1+zu4tYLcUyyemQ7OgOiabH58shie9zH4pIrqMM82OIA+JEOTbrXfCr2JQYvtWtVsI/s+8C3uEzEjmXV1LGfywAHFNQj2XLKfNtDUo7MllLAym//AYgTGMz44GpXC+G6shl5EEWBshemptK2KUkvQoVkGXEWE8TmYFRQQ93eJKcQZDb3aUXXxOdGKrivH3VV3y8HDqLAjGpfE2yq7JeG3sbs+Z38btOWNSsmy0/j1MiYgQJXbVQYTYgFB3zViEItw+j6T9b3mO111yWKREEJqWjbCeEVhTIBKiUbImHJEKOccltZLK8375vfKgKYLB4W/g==
+ bh=8sYimcajn8LG2n2Hgm0miOOdJcDxJzLEwb3jDwf9ml8=;
+ b=Yt9QqZ7PkH/IKpmoLUWO+1mquAsnuEG8TAUNEXwYMdCt39LB/AJS3Mn65pHfJ0IjQLk/JzKcaQo3aIiIAZEyWMgmH9NRMToKtBKj01g0Kffmx/VzEoi51uVKRZmJ4IeT7AArwEzmTGy84+WDEzcvpEb8WbsCL4EURuUh0epNqvJLNhJe0wgAFevo+Lf6gXiYeVAHP41RE58ALUhYcunAHVGmk7R+NGW/fDZ8jCUuepw9dv8M2WeZ1DpFM/a8HHaeSpuzYiIBmOB7c/tpUjee2z6/KxkKxoZYEm2Nf3RCZChV3GkylOwLCDfyZm112PgosbgxG//CNROuC3+kcPRFPQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=gmail.com smtp.mailfrom=ti.com; dmarc=pass
+ 198.47.21.195) smtp.rcpttodomain=gmail.com smtp.mailfrom=ti.com; dmarc=pass
  (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
  (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iPdQquN/MDj28p5SNgtFDVG7f9S7/2aYZY4+lRuFIN4=;
- b=FArrOEAZKwVYanV+YRybVLkqGyqD9yvgCAOYtoySR2YNUv6sBj4ka6b53Pu8JSTqgpZOhe8d3Nf/PsEDP9tEYOcMAHCKxR26ZjO7+iue1Vc6DdS13qS6iV3c0Hl7nCtFfSij6lN/IgWh4G78hyICfEg9XjYDlPf4sP26QW/qT0E=
-Received: from BN9P222CA0010.NAMP222.PROD.OUTLOOK.COM (2603:10b6:408:10c::15)
- by DS4PPFD91C619EF.namprd10.prod.outlook.com (2603:10b6:f:fc00::d4e) with
+ bh=8sYimcajn8LG2n2Hgm0miOOdJcDxJzLEwb3jDwf9ml8=;
+ b=h7vq/T0WpMmOrNVnwj5cXI4CxQhG2yjIXyhqmiiCDUP97Loi8sqt+WIwGLmq8rIzY4gUvPq+Yuz/1ZEkSpbna1z1DErH2k5JeJgYZmkB8p9LGD1FzPQp07CZP3H2vB8i2s3KRXEgoP2Z6gbzkXrhin4LnBDNH0UgQEDqueoD2yY=
+Received: from DS7PR03CA0299.namprd03.prod.outlook.com (2603:10b6:5:3ad::34)
+ by CH4PR10MB8226.namprd10.prod.outlook.com (2603:10b6:610:1f6::23) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Mon, 19 Oct
- 2026 21:37:59 +0000
-Received: from BN2PEPF0000A7FE.namprd02.prod.outlook.com
- (2603:10b6:408:10c:cafe::e) by BN9P222CA0010.outlook.office365.com
- (2603:10b6:408:10c::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Mon, 19
- Oct 2026 21:37:58 +0000
+ 2026 21:38:17 +0000
+Received: from CY5PEPF00000E76.namprd02.prod.outlook.com
+ (2603:10b6:5:3ad:cafe::c) by DS7PR03CA0299.outlook.office365.com
+ (2603:10b6:5:3ad::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.19 via Frontend Transport; Mon,
+ 19 Oct 2026 21:38:16 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.23.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ is 198.47.21.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=ti.com;
 Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- BN2PEPF0000A7FE.mail.protection.outlook.com (10.167.245.165) with Microsoft
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ CY5PEPF00000E76.mail.protection.outlook.com (10.167.247.38) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Mon, 19 Oct 2026 21:37:58 +0000
-Received: from DLEE212.ent.ti.com (157.170.170.114) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.522.6 via Frontend Transport; Mon, 19 Oct 2026 21:38:15 +0000
+Received: from DFLE206.ent.ti.com (10.64.6.64) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 19 Oct
- 2026 16:37:54 -0500
-Received: from DLEE215.ent.ti.com (157.170.170.118) by DLEE212.ent.ti.com
- (157.170.170.114) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 16:37:27 -0500
+Received: from DFLE214.ent.ti.com (10.64.6.72) by DFLE206.ent.ti.com
+ (10.64.6.64) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 19 Oct
- 2026 16:37:54 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE215.ent.ti.com
- (157.170.170.118) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 16:37:27 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE214.ent.ti.com
+ (10.64.6.72) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Mon, 19 Oct 2026 16:37:54 -0500
+ Transport; Mon, 19 Oct 2026 16:37:27 -0500
 Received: from localhost (ti.dhcp.ti.com [10.24.51.125] (may be forged))
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 69JLbrk1325996;
-	Mon, 19 Oct 2026 16:37:53 -0500
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 69JLbQT3325701;
+	Mon, 19 Oct 2026 16:37:27 -0500
 From: Devarsh Thakkar <devarsht@ti.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
         Maxime Ripard
@@ -139,12 +138,10 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
         <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
         <devarsht@ti.com>, LiangCheng Wang <zaq14760@gmail.com>
-Subject: [PATCH v3 14/14] arm64: dts: ti: [DO_NOT_MERGE] Add AM62L3 EVM overlay for GDEY042T81 e-paper display
-Date: Tue, 20 Oct 2026 03:07:26 +0530
-Message-ID: <20261019213726.4145532-15-devarsht@ti.com>
+Subject: [PATCH v3 00/14] Add DRM driver for Solomon SSD16xx e-paper display controllers
+Date: Tue, 20 Oct 2026 03:07:12 +0530
+Message-ID: <20261019213726.4145532-1-devarsht@ti.com>
 X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20261019213726.4145532-1-devarsht@ti.com>
-References: <20261019213726.4145532-1-devarsht@ti.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -154,54 +151,56 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A7FE:EE_|DS4PPFD91C619EF:EE_
-X-MS-Office365-Filtering-Correlation-Id: b7b1f91b-a861-4dac-1adb-08df2e293e9d
+X-MS-TrafficTypeDiagnostic: CY5PEPF00000E76:EE_|CH4PR10MB8226:EE_
+X-MS-Office365-Filtering-Correlation-Id: c9c04303-e451-4255-3e63-08df2e29488b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|23010399003|1800799024|36860700016|7416014|18002099003|22082099003|10067099003|3023799007|13003099007|261009223327099003|261009220027099003|261009221227099003|261009223027099003|261009221727099003|921020|56012099006;
+	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|36860700016|82310400026|56012099006|5023799004|261009223027099003|10067099003|18002099003|6133799003|921020|13003099007;
 X-Microsoft-Antispam-Message-Info:
-	lFTFV4MSl0Zljryggk/AuX9si+FuBFkTkp7OIEiBoXkhQ7yPStW7hNUWB0pPLxvwQewx0D44kfpv5q3zwDXAKQ1N27wdwrHPoHrGy73/ysQ/xUGt+UdtWldgGK8vCuMgDp2nBgGM4gGA+7ZwAz+LBVA8yvycs1X3Cz9QqZVC1/T43mfVilLVmMtxzjCYqj88hndELXythdZENKGSI57F6+2Uo3GAVrW3qEODIcNd2ibcHeO8HNiQqeiCgbp4QDmZoY8xtoNL+e6sxoKodu5JQjehZzHxqNhZMWj6ccxVp1I9Np6QvGR+MtSJ087oC/Gea1HaRLGDDjHJch68UB0PiegJBEPL5oB2tEnsBxAAJHQknaS9CEAOhs8GvT8efzerAVaIRLRnMYEkr+Ngwqi4bsNPvh6f5Wo03wBs1cJ20Z/mOmixyYnNAAz6igzIhH9RSccYHacdCxwOvhHLafgTJ6X3U5QZz7afNw7vHS1OXYTkQ3FbOf+xdFhlFuFcWKum/S5dpAyAf5lxNwnl0619FEoCmJ9HqAiwsM2rg0n+Kro4WiMTSaPVDCiv7ZcUSHIzHfmUoY+EPWqh7c2UWkSkUkTQbZt9VwOrV/xM8DIYDrtgKBvgWhk/urdJ0bShQ36s0o7kj4dHWZUMNqlI8524GvbHt6Nj+9fabbhnsiP4plq2rzPwVx6sxvC8t7+QH4ws
+	egeTwCI1vzPVex498yjGk/OgefuD5wwJhFNqeB/8MWLzYl05e0Isl0snO5SAzuW9zD8c9CrNiSvT7GMCqTg5+32Ok84j9O4f6PeOVoMswvJ8taPwTrPIonOkSEaR8Fodoadx4Lfmrz/soR1fvgI+x+OeXrZqvLwYv2gEXjoSOexDuuqnW0UB2z9B9aHTG2Gd17iBlUhFAFreIiNs7R4eLC3YIGBCE6caGaiO3favywn3qdzreZB7BzToHqdM4OL/pxI/TLWI8Dz6Iomh09c45A0Fz+GB4sO3vvAM0TwWBXINzwMa3MT3IbdvGFqw9Ra/uiANBhX4H0SauO33RZT0wugVawmzWp7JWwgxOquNBjubnD7DQkrRbgUW3rDCRdXKA1yblXjC4zvD3dEVOxlv26EMfa+fsIQoVV04/p0CPpIF3HAp277y/JJchwQQ8ZRgGzmxYYpTIH7QJsfirtvuhJT9vQAnmkiuox/lbHG3Z27PZCf9NZBE2pEfLSDAonM2+1hCSyH37HPX9xPPCTc4UC/sxGDsa860NxIp7q5uofpptxKRHLiPt+tVkfYbVDadryyGaGWCCWp7bRQSrouUD01IDMrCWdB8x91Rlw3UfbSQpenMEygcRal6gSQZGRSdnXwNEyqis1epcf2xV3DDIcN4Xu8QUETA8Q/698TEMyDTVuVRm/YZaj6OnePbwWO09iyYRYRPWUuAV5I2Y42Djw==
 X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(23010399003)(1800799024)(36860700016)(7416014)(18002099003)(22082099003)(10067099003)(3023799007)(13003099007)(261009223327099003)(261009220027099003)(261009221227099003)(261009223027099003)(261009221727099003)(921020)(56012099006);DIR:OUT;SFP:1101;
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(36860700016)(82310400026)(56012099006)(5023799004)(261009223027099003)(10067099003)(18002099003)(6133799003)(921020)(13003099007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	IwFZ/CFYq0q/AfoFOF7fH/JZO16eFntD6kaUUI4+Qv6bEBFbFkSVLtcvQGhve5RfYcSW7/o1fKmSkWPtrO2dKZ6bYRARuJPerMPLKoZEWLumM0q4GtXWLzbaYB3JkV1WaA0TKUDKZSDkqebLUJyHegHD+GAlWHn3N/3D+gbPOTzpbFmfl5PgA5Ldigr7QjfgAN9S9gCAY+oe5t055gwy6WcX017Vd5Z7ZRpwxk8xUpaZo+C3tq6kJxL7npXYu4PnSts6Uhj1Tfy7Vyvd/soCqzQI4VD0aXOClmwqAM7GqhHbRBX+7R5OL9eCEYy9cIu3Zd9YLBOrTz2c3lGs3SO5CCa3mPjxJOGOwkQ8eBlHy3mHwEpvIbfrKcLwrL62KPFrHj43ktpNNxbxmw6x3dBqk7NVr7rNhW29PzPUrR3p2OO83frNm7PbAIAMNQx9Wqym
+	nWQ8NwbIAdEWn8xqsI1U01DoHM/kDbMEaammRQskUAfi8rSG7oUVdYwEAENjCpEe8PeWuinWzjbJ9meYU+2/eoAsumBwVDFobXo3/iVrtHAOohZxa087AsGaNiaM5xnp/DTyS7y38afrwxHBeTJ9sx8PqqU1Ub1SfqzMKFuvgSrJI8VkxbjUZaqSrA4D4raGcKL+9Qv7WSlmYN0tz44d0OQpYt4rqWTmKjM4Ai1643/dWBxIpr0NZmuVcfZwcrZCMa7KMgN8gUP4rtbykFMScGlYge5OX+fhwWE4Pi/s43WzB72r8R6Obaaln9GPSzQwAS1ON8obg7MyBmnn5dgG6rfp3NRE2X6Z8FMuLLAtstIwazJQxtG1Xkvvv+ZvCEHb1bg48EBlK6FPcrrzJ4wdY55uMVABjakDFcuIKQG2poJI8MQBi7v0SNneHpZ4/NDA
 X-Exchange-RoutingPolicyChecked:
-	al6JhiFNdEv1/HCLaOZUsIs9DfWPhu9ZQQyb4rQ4cFBimJv85l/DeDk0cnMaaNa4Lv1l4izUktJzWVw2aDaJMiV1pGL/Vs1kWztyPHUcv4BcyWPYznWTMPELT/j3AIYtg7TiPfokM+/oNopA7uzAHbhiq8gjIcuWJ57lTlH/q5qkiJWp8xLFUbNR5NcBKD9UEMLwDs9ZDkGOcyIrSshSXKNwHxrcx0+og+jHrxcceGrZSVQ7Q/sTW5XFkJ803ekfFYc+FFKnNM5waHqZwYfI2uwQrAooKjFjIEaOR3DDwXqIRtdsfvjev5wiKUYompMdQwa1I78T0kB6VFJzSSFq0g==
+	pYuT2ZAs/dbhDmRNPrl6kA+R8xFQrYf0S2QB4ka2wgNj2la/PcOHkCUgJd+B6WBJVmG3Gm/vQpn/AC22EbtDJV2BnXugsa11nLYVeVmPAP3D2ZBZThJobxovNKEU5Px+0IBgUZleBdyBBdQV/ffgs9agrZ4O6h2f3YkR8aVd+UeID70KQoKCrJXMeOiclpXh/KPT3eLIQj8RN7ospoxstWZl4z+9vKEk+XJbrYs0zRyToJuRJolw+AlombZBCjqqXI9QdG7lt5aVwzMR+oN9pYrG4JfXgSGN9BNL8wncYqL7buq2S9pmpxM13Jx0rI9jIoheZZ2ME3qFI3XuNNXPkg==
 X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 21:37:58.7789
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 21:38:15.4662
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b7b1f91b-a861-4dac-1adb-08df2e293e9d
+X-MS-Exchange-CrossTenant-Network-Message-Id: c9c04303-e451-4255-3e63-08df2e29488b
 X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF0000A7FE.namprd02.prod.outlook.com
+	CY5PEPF00000E76.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PPFD91C619EF
-X-Proofpoint-ORIG-GUID: YrxJf0wqDa6Aun8Uye9DIzwiqCITciAN
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA4NiBTYWx0ZWRfX5T6lbfyJMt7n
- lwGRsFD1Sf2WNgIdpGg6NZ/nM4QNd6epX2bUfqJwFeKGZT75YzoEdCEqgvRvs4MBJfffmw7A6oE
- YKlc67UHruGgCoMUmFkW1DzUBgNF7TQsUsuxDo0WkXvZhVp1WEj05GlSOQzg45QI2qPcYXA9Kbb
- iW37Rde9tPvUamuQIu2ntnsyRCGBm6PufGgzHXf5ylgVUqs1u3HUWoDEZrylfk66uMyqaZSFCtI
- QWiRTrxygI/wEWtCaFTDR8w2VdMc27Koawl6XZp0dr2MMOP7qCrEDjkAbTggXoDfpml8I4cBPdx
- p1a+BQm4ZQTg6+d9PnyxrsJEUz42fftRYdOrk/90KUhoNCFIBQ7ED1w7Heya8U7EjrV/eePh5tv
- sGQ1Zx7k9mq1CBRYBPbwtJXaoMGj7+0RpzM5bz8jNnP1Zz3KFTnpG69ocsSK6Fi1OBlFz51wDwq
- 5GSFJNcbqx3KiVoQdgw==
-X-Authority-Analysis: v=2.4 cv=ReYFmFtv c=1 sm=1 tr=0 ts=6ad68dbe cx=c_pps
- a=1mmXF8F6+aLADKsbn3w/2Q==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=660iZSQnnn4A:10 a=s63m1ICgrNkA:10
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR10MB8226
+X-Proofpoint-ORIG-GUID: DQHVkQdXq8kBlznBgP7puKGAcRl3aGyN
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA4NiBTYWx0ZWRfX81ZUryz3ENBA
+ UupzmkowV487RY7ucD61JgUSj7WgRolUWoltytCxmX8aQ/B1h+7htkwYD08PSsp5G+SYgzKofjv
+ vP8W9jIWMfOGTx2vwXgoOwRDqicsRqZWF+doX3dRrKCEZ7pCKZyvTmKvlRPQ+4kqOUr98ccKaKs
+ PiyFez805ioulgslp1AdHRZUUUZBj7Xia5L0OwLw4y3h4xTQ4XeXKqugKp5DP+PFUCMTDyvdNpH
+ B+U2ADbIWaoqFN7eSbVpK794y+Tw8NsAjUXoSc0y+gkTIZcK3iPPPNbslIbs3d2mw0Hmqcd9/fT
+ 0d68V1iQSjdIWB0wzw8KTkj+Gl++IiaMxq+yace9JHZ7DfheFmLHdJFvoOQutPmE0ks4vw70UgT
+ itsoPVq4MSWb+WQI3CwBdIPI3A2LfQTti8traPcnq75hqOoe/5s1ulJxgNc0ySf5WH4c4toHqX1
+ UXHjhdRYrGLMnyPearQ==
+X-Authority-Analysis: v=2.4 cv=ReYFmFtv c=1 sm=1 tr=0 ts=6ad68dcd cx=c_pps
+ a=A+iiJIZ7q7LOtbDGyL1ITQ==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
  a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=fPAWb5peG099m5CrUpKH:22 a=sozttTNsAAAA:8 a=zmbZ_4TfkIE7zwaIlw4A:9
-X-Proofpoint-GUID: YrxJf0wqDa6Aun8Uye9DIzwiqCITciAN
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA4NiBTYWx0ZWRfX0tJsTkV7h7tw
- No2MvX1Ka+2qo1dkaZut+IeIg+CMMo9q1huIRqaPptk3nv15guHYBtq1eOmu8GnApc3cW600vfj
- 135UhbCeFPJKkkTXzjCynFgpr7fXj60=
+ a=fPAWb5peG099m5CrUpKH:22 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8 a=NEAV23lmAAAA:8
+ a=Ep_Mk7Q0AAAA:20 a=wtlya_pM6xCrRJ69qO0A:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=bA3UWDv6hWIuX7UZL3qL:22
+X-Proofpoint-GUID: DQHVkQdXq8kBlznBgP7puKGAcRl3aGyN
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA4NiBTYWx0ZWRfX9RmPZ7rqs7P7
+ 7QfSNJ5KPJZ7wOLORf9MZ+3YqmscT2TpLbSeeVQ9wyoepdkvDWrG8NZuwPdDnkSgJXuqV/B3jJ7
+ zj8AqAi6MYPHsRY5eVafWIOdC9hDzjk=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-19_06,2026-10-19_02,2025-10-01_01
@@ -211,152 +210,188 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190086
 
-Add device tree overlay for the Good Display GDEY042T81 4.2" e-paper
-panel connected to the AM62L3 EVM via SPI.
+This series adds a DRM driver for the Solomon Systech SSD16xx family of
+e-paper display controllers (SSD1673, SSD1680, SSD1681, SSD1683), starting
+with support for the Gooddisplay GDEY042T81, a 4.2" 400×300 black-and-white
+e-paper panel driven by the SSD1683 controller.
 
-The overlay configures SPI1 with the SSD1683-based GDEY042T81 panel
-at 2MHz, with reset, busy, and DC GPIOs connected to Main GPIO0 (&gpio0).
+The driver is designed and architected keeping the bi-stable nature
+and low-power requirements of epaper display based systems in mind
+along with having adequate flexibility to support varying use-case
+requirements for the e-paper display use-cases.
 
-Signed-off-by: Devarsh Thakkar <devarsht@ti.com>
----
- arch/arm64/boot/dts/ti/Makefile               |  6 ++
- .../ti/k3-am62l3-evm-epaper-gdey042t81.dtso   | 96 +++++++++++++++++++
- 2 files changed, 102 insertions(+)
+The driver integrates with the DRM atomic modesetting framework and
+supports:
+
+  - SPI communication in both 4-wire mode (separate D/C GPIO) and
+    3-wire mode (9-bit SPI with embedded D/C# bit)
+  - Full 4-way rotation via the Data Entry Mode register, with no GPU
+    or memory-copy overhead
+  - Three independently selectable refresh waveforms: partial (~300–500 ms),
+    full (~1.5–2 s), and fast (~1.0–1.5 s)
+  - 3-colour BWR pixel classification for panels with a red RAM plane
+  - Pixel format support: XRGB8888 (color path) and R1 (native 1bpp,
+    zero-copy path)
+  - Runtime PM with configurable autosuspend: the controller enters
+    Mode 1 deep sleep (RAM retained) after an idle timeout, waking
+    transparently on the next frame update
+  - System suspend/resume: switches to Mode 2 deep sleep (maximum
+    power savings) on system suspend and rebuilds the pipeline on resume
+  - Runtime-configurable DRM plane properties for refresh mode, colour
+    mode, and session control (clear-on-init/close/disable, init-refresh
+    waveform); rotation is set at probe time from a device tree property,
+    and border waveform uses a fixed per-panel default
+
+Changes from v2 [6]:
+
+Bindings:
+  - Rename the binding file to solomon,ssd1683.yaml to match an actual
+    compatible, and shape the compatible as oneOf so the SSD1677 patch
+    only adds a branch
+  - Reference panel-common.yaml and use the common 'rotation' property
+    instead of a local one that said "clockwise"
+  - Add spi-3wire and document that omitting dc-gpios selects 3-wire mode
+
+Driver core (base patch):
+  - Keep lazy hardware initialization: ssd16xx_hw_init() is deferred to
+    crtc_atomic_enable(); probe() performs only a GPIO reset. Follows
+    the precedent of repaper.c and ssd130x.c
+  - Add drm_dev_enter()/drm_dev_exit() to plane_atomic_update
+  - Wrap the framebuffer read in drm_gem_fb_begin/end_cpu_access()
+  - Skip the update when drm_atomic_helper_damage_merged() reports no
+    damage instead of making up a full-screen rectangle
+  - Remove ssd16xx_crtc_atomic_flush() and last_fb; the orientation is
+    static so flush did a full hardware re-init and a second redraw on
+    every commit, and last_fb had no remaining users
+  - Use drm_crtc_cleanup() directly as the CRTC .destroy callback
+  - Call drm_atomic_helper_check_crtc_primary_plane() from CRTC
+    atomic_check
+  - Send SPI data from a DMA-safe buffer in struct ssd16xx_device
+    instead of the stack
+  - Read XRGB8888 pixels with le32_to_cpup()
+  - Size the transfer buffers per row, as the packing code does
+  - Make Kconfig depend on MMU
+  - GDEY042T81: use the HIZ border waveform for updates and do not
+    refresh the border on every update, to avoid border flicker
+
+Session management (clear_on_init/close/disable):
+  - Split display_cleared_on_deinit into cleared_on_disable and
+    cleared_on_close. A single flag made a clear on disable suppress
+    the clear on close and was never re-armed on re-enable
+  - Reset the RAM window before clearing and size the clear buffer per
+    row
+  - In 3-colour mode clear the red RAM to 0x00 (no red) instead of
+    writing the all-white buffer to it, which would paint the panel red
+
+Power management:
+  - Check for damage before taking the runtime PM reference, so the
+    panel is not woken up when there is nothing to draw
+  - Put the panel to sleep in remove() with pm_runtime_force_suspend(),
+    independent of clear_on_disable
+  - Return the error from pm_runtime_force_suspend() in system suspend
+  - Do not clear ->initialized again in system resume; force_resume()
+    already re-initializes the hardware
+  - Do not fail runtime suspend if the deep sleep command fails, as
+    that would block all later resumes
+
+Plane properties:
+  - Reject 3-color mode together with partial refresh in the plane
+    atomic_check, as partial refresh does not update the red channel
+  - Only create the color_mode property on panels with a red plane
+    instead of exposing a property with a single possible value
+  - Add a mutex serializing the session state and panel access between
+    atomic commits and master_set()/master_drop(); master_drop() can
+    run concurrently with a nonblocking commit (e.g. on DROP_MASTER)
+    and both drive the SPI bus with the same transfer buffers
+  - Sync the session properties from the new plane state in
+    atomic_enable as well, since it runs before plane_atomic_update
+    and used the values of the previous commit
+
+MAINTAINERS / platform integration:
+  - Follow the rename of the binding file to solomon,ssd1683.yaml
+  - Add the GDEY042T81 EVM overlay to the MAINTAINERS file list
+  - Drop PixPaper reference from the MAINTAINERS commit message (not
+    in v3)
+  - DTS overlay: fix the BUSY pin name in the comments (pad 0x00b8 is
+    GPMC0_CLK, not GPMC0_AD0), use GPIO_ACTIVE_HIGH for the fet-sel
+    gpio-hog, fix SPDX separator to uppercase OR per SPDX-2.1, mark
+    [DO_NOT_MERGE] (for driver review context only)
+
+Changes from v1[0]:
+  - Restructured into 14 modular patches covering bindings, driver core,
+    features, and platform integration (was 6 patches in v1)
+  - Added comprehensive device-tree bindings support for vendor prefixes
+    and SSD16xx controller configurations
+  - Refactored driver architecture from drm/tiny panel driver to drm/solomon
+    bridge driver
+  - Switch to using GEM_SHMEM helpers
+  - Refactored data entry mode implementation
+  - Removed runtime-configurable rotation/border-waveform DRM properties and
+    their module params; rotation is now set via device tree, and border
+    waveform now uses an enhanced fixed per-panel default
+  - Added support for Solomon SSD1677 controller variant
+  - Improved session management with plane properties
+  - Added comprehensive power management support
+  - Support for panels with reversed RAM X order
+  - Dropped RGB888, RGB565, R8, NV12, NV16, YUYV, and UYVY format support;
+    driver now only exposes XRGB8888 and R1
+
+[0]: [V1 patch series]
+https://lore.kernel.org/all/20260430183311.2978142-1-devarsht@ti.com/
+
+[1]: [Development Branch]
+https://github.com/devarsht/linux-next/tree/epaper_v3_final_4
+
+[2]: [Test Suite]
+https://github.com/devarsht/linux-next/tree/epaper_v3_final_4/tests_27sept_new8
+
+[3]: [Test Logs]
+https://github.com/devarsht/linux-next/tree/epaper_v3_final_4/tests_27sept_new8/logs
+
+[4]: [Test Results]
+https://github.com/devarsht/linux-next/tree/epaper_v3_final_4/tests_27sept_new8/results
+
+[5]: [Result Summary]
+https://github.com/devarsht/linux-next/blob/epaper_v3_final_4/tests_27sept_new8/results/run_all*.summary
+
+[6]: [V2 Patch]
+https://lore.kernel.org/all/20260927182329.4193961-1-devarsht@ti.com/
+
+Devarsh Thakkar (13):
+  dt-bindings: vendor-prefixes: Add Dalian Good Display Co., Ltd.
+  dt-bindings: display: Add Solomon SSD16xx e-paper controller
+  dt-bindings: display: solomon,ssd16xx: Add Solomon SSD1677 controller
+  drm/solomon: Add DRM driver for Solomon SSD16xx e-paper display
+    controllers
+  drm/solomon: ssd16xx: Add clear_on_init/close/disable session
+    management
+  drm/solomon: ssd16xx: Add support for Solomon SSD1677 controller
+  drm/solomon: ssd16xx: Add power management support
+  drm/solomon: ssd16xx: Expose refresh mode as plane property
+  drm/solomon: ssd16xx: Expose color mode as plane property
+  drm/solomon: ssd16xx: Expose session management as plane properties
+  MAINTAINERS: Add entry for Solomon SSD16xx DRM driver
+  arm64: defconfig: Enable DRM_SSD16XX for AM62L3 EVM
+  arm64: dts: ti: [DO_NOT_MERGE] Add AM62L3 EVM overlay for GDEY042T81
+    e-paper display
+
+LiangCheng Wang (1):
+  drm/solomon: ssd16xx: support panels whose RAM X order is reversed
+
+ .../bindings/display/solomon,ssd1683.yaml     |   86 +
+ .../devicetree/bindings/vendor-prefixes.yaml  |    2 +
+ MAINTAINERS                                   |    9 +
+ arch/arm64/boot/dts/ti/Makefile               |    6 +
+ .../ti/k3-am62l3-evm-epaper-gdey042t81.dtso   |   96 +
+ arch/arm64/configs/defconfig                  |    1 +
+ drivers/gpu/drm/solomon/Kconfig               |   13 +
+ drivers/gpu/drm/solomon/Makefile              |    1 +
+ drivers/gpu/drm/solomon/ssd16xx.c             | 2659 +++++++++++++++++
+ 9 files changed, 2873 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/solomon,ssd1683.yaml
  create mode 100644 arch/arm64/boot/dts/ti/k3-am62l3-evm-epaper-gdey042t81.dtso
+ create mode 100644 drivers/gpu/drm/solomon/ssd16xx.c
 
-diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-index 795978e962ee..90e7a687ca86 100644
---- a/arch/arm64/boot/dts/ti/Makefile
-+++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -82,6 +82,9 @@ dtb-$(CONFIG_ARCH_K3) += k3-am62d2-evm.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am62l3-beaglebadge.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am62l3-evm.dtb
- 
-+# Overlays for AM62Lx EVM
-+dtb-$(CONFIG_ARCH_K3) += k3-am62l3-evm-epaper-gdey042t81.dtbo
-+
- # Boards with AM62Px SoC
- dtb-$(CONFIG_ARCH_K3) += k3-am62p5-sk.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am62p5-var-som-symphony.dtb
-@@ -319,6 +322,8 @@ k3-am62a7-sk-csi2-ov5640-dtbs := k3-am62a7-sk.dtb \
- k3-am62a7-sk-csi2-tevi-ov5640-dtbs := k3-am62a7-sk.dtb \
- 	k3-am62x-sk-csi2-tevi-ov5640.dtbo
- k3-am62a7-sk-hdmi-audio-dtbs := k3-am62a7-sk.dtb k3-am62x-sk-hdmi-audio.dtbo
-+k3-am62l3-evm-epaper-gdey042t81-dtbs := k3-am62l3-evm.dtb \
-+	k3-am62l3-evm-epaper-gdey042t81.dtbo
- k3-am62p5-sk-csi2-imx219-dtbs := k3-am62p5-sk.dtb \
- 	k3-am62x-sk-csi2-imx219.dtbo
- k3-am62p5-sk-csi2-ov5640-dtbs := k3-am62p5-sk.dtb \
-@@ -458,6 +463,7 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
- 	k3-am62a7-sk-csi2-imx219.dtb \
- 	k3-am62a7-sk-csi2-ov5640.dtb \
- 	k3-am62a7-sk-hdmi-audio.dtb \
-+	k3-am62l3-evm-epaper-gdey042t81.dtb \
- 	k3-am62p5-sk-csi2-imx219.dtb \
- 	k3-am62p5-sk-csi2-ov5640.dtb \
- 	k3-am62p5-sk-csi2-tevi-ov5640.dtb \
-diff --git a/arch/arm64/boot/dts/ti/k3-am62l3-evm-epaper-gdey042t81.dtso b/arch/arm64/boot/dts/ti/k3-am62l3-evm-epaper-gdey042t81.dtso
-new file mode 100644
-index 000000000000..1ff43fb54df3
---- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-am62l3-evm-epaper-gdey042t81.dtso
-@@ -0,0 +1,96 @@
-+// SPDX-License-Identifier: GPL-2.0-only OR MIT
-+/*
-+ * DT Overlay for GoodDisplay GDEY042T81 4.2" E-Paper Display on AM62L3 EVM
-+ *
-+ * The GDEY042T81 is a 400x300 black-and-white e-paper panel driven by a
-+ * Solomon SSD1683 controller, connected via SPI1 on the AM62L3 EVM
-+ * expansion header.
-+ *
-+ * Pin mapping (AM62L3 EVM expansion header):
-+ * P5  --> BUSY  (GPMC0_CLK.GPIO0_31)
-+ * P26 --> RST   (GPMC0_AD1.GPIO0_16)
-+ * P27 --> CLK   (GPMC0_AD5.SPI1_CLK)
-+ * P28 --> DC    (GPMC0_AD2.GPIO0_17)
-+ * P29 --> DAT   (GPMC0_AD3.SPI1_D1 / MOSI)
-+ * P30 --> CS    (GPMC0_AD4.SPI1_CS0)
-+ *
-+ * The GPMC0_AD[0:5] pins are multiplexed for SPI1 and GPIO use; GPMC0 is
-+ * already disabled by default in the SoC DTSI.
-+ *
-+ * Copyright (C) 2025 Texas Instruments Incorporated - https://www.ti.com/
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include "k3-pinctrl.h"
-+
-+&pmx0 {
-+	dc_pins_default: epaper-dc-default-pins {
-+		pinctrl-single,pins = <
-+			AM62LX_IOPAD(0x0080, PIN_OUTPUT, 7) /* (K22) GPMC0_AD2.GPIO0_17 */
-+		>;
-+	};
-+
-+	rst_pins_default: epaper-rst-default-pins {
-+		pinctrl-single,pins = <
-+			AM62LX_IOPAD(0x007c, PIN_OUTPUT, 7) /* (L23) GPMC0_AD1.GPIO0_16 */
-+		>;
-+	};
-+
-+	busy_pins_default: epaper-busy-default-pins {
-+		pinctrl-single,pins = <
-+			AM62LX_IOPAD(0x00b8, PIN_INPUT, 7) /* (L21) GPMC0_CLK.GPIO0_31 */
-+		>;
-+	};
-+
-+	main_spi1_pins_default: main-spi1-default-pins {
-+		pinctrl-single,pins = <
-+			AM62LX_IOPAD(0x008c, PIN_OUTPUT, 4) /* (H22) GPMC0_AD5.SPI1_CLK */
-+			AM62LX_IOPAD(0x0088, PIN_OUTPUT, 4) /* (K23) GPMC0_AD4.SPI1_CS0 */
-+			AM62LX_IOPAD(0x0084, PIN_OUTPUT, 4) /* (J23) GPMC0_AD3.SPI1_D1  */
-+		>;
-+	};
-+
-+	fet_sel_pins_default: epaper-fet-sel-default-pins {
-+		pinctrl-single,pins = <
-+			AM62LX_IOPAD(0x01a8, PIN_OUTPUT, 7) /* (E13) SPI0_CLK.GPIO0_89 */
-+		>;
-+	};
-+};
-+
-+/* Drive GPIO0_89 high to select the SPI1 path on the VOUT0 FET switch */
-+&gpio0 {
-+	fet-sel-hog {
-+		gpio-hog;
-+		gpios = <89 GPIO_ACTIVE_HIGH>;
-+		output-high;
-+		line-name = "GPIO_EXP_CONN_FET_SEL";
-+	};
-+};
-+
-+&gpmc0 {
-+	status = "disabled";
-+};
-+
-+&spi1 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&main_spi1_pins_default>, <&fet_sel_pins_default>;
-+	status = "okay";
-+
-+	gdey042t81: display@0 {
-+		compatible = "gooddisplay,gdey042t81", "solomon,ssd1683";
-+		reg = <0>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&dc_pins_default>,
-+			    <&rst_pins_default>,
-+			    <&busy_pins_default>;
-+		spi-max-frequency = <2000000>;
-+		reset-gpios = <&gpio0 16 GPIO_ACTIVE_LOW>;
-+		dc-gpios    = <&gpio0 17 GPIO_ACTIVE_HIGH>;
-+		busy-gpios  = <&gpio0 31 GPIO_ACTIVE_HIGH>;
-+	};
-+};
 -- 
 2.39.1
 
