@@ -1,101 +1,146 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80C8431BCAE;
-	Mon, 19 Oct 2026 08:13:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792397606; cv=none; b=pRp4wORctSuFruNVMRaLCsIJeKk3qR9yxIZ7TjYi27hanHpiwJpUOwLSMN5aQxpcd+4jgsqabfmdG4ZFXrmGHvUyW24xG/eUpw9vi8jOHh8APvX0MB5IK2IkrgMI4lz9FxcYPMQ+YhpPL5U3lJDFnvOMMU1sUz1touULfCuhhq8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792397606; c=relaxed/simple;
-	bh=XouZpUQ5YBG7lppUugLKluXBp9QpXs/PNN1AJMW6by4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Rp6MvSK6XuJFgG1yULQMILbc+pHgmvVYUFadZTweH/tfvWtCuSO+wML9IRdeNX/6ChLg+tz7s3Jd70qy77MqR9RcY1tAsdkfkDO/+0z6QgKz1Gy2mvJOXxeNxTwikMXd/eV33oix/vyQM8Wnd++fYm174B43BtcK3oaYnHOjLv8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=FvItgfkB; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BFFE48E0E9
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 08:15:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792397720; cv=pass; b=A/A0aQHEBOxsZFw6JEWLDlyDax8iuYQcFQGcgxS+N9Nc/QxZnibvJNh4Z29DDrrTSEmgDJTGI0MA7EmOlVReKKSg68/w3i78HlyAgd1BAS/xb4D7SZjbNgj0PoCFKsRakBHQjTGQOTAb6HMWl5ihD5IfCcOhXHhcdUTlx1FvhiI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792397720; c=relaxed/simple;
+	bh=gMt+7JbG3jjSGNo2y6QC4ePJzR0+6YmVengrB6NbMjU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oTAHkgQtvzntAtZIdsSprPbS4sJSd6Cb2ADDNK/GkD/BkITzI/pcntLUDfoiToSU+7b+r3YlP0eQ+aCMylnXAmwL9s9LVO/h/cDa+BmVA0/VLDpE9etEWAjQgjgOo19RRj1cSFZPHQ5e6tas6tzNXW7dVrW35eT2h8L8G6l59/s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SwTUszms; arc=pass smtp.client-ip=74.125.224.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="FvItgfkB"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 9E572C5CD45;
-	Mon, 19 Oct 2026 08:14:20 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9304F60582;
-	Mon, 19 Oct 2026 08:13:22 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C06F010328429;
-	Mon, 19 Oct 2026 10:13:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792397601; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=trNQO0U9XQLBOWcQGLIc+ci4GywnkatJEUe8E9u6r4I=;
-	b=FvItgfkBI0uIwemxLOQyXNqDxWTC/p0cGmtkocphPeGleMMne9ZPgFH0wpCiMNJtFVpPKV
-	+g1u7KYl2AJaktUp0fVPQLS+bEuvTbJB9e7RfonI4dpFbM29cq7QBf6xt9KPPehchHuHXd
-	yL9QIyg4JYh8gCnBNPJ6z9OjGOcL6rHMvJ4pldB6QC7y0LtoBGTPEfyj1ez4iVYMO+ng/q
-	JMi6xmyW+h7DjjhbvAai1Swrfgsi80X7i9etz4cbWXjgsNa1VDPhuykMnp5o6ABI+955Z9
-	ZvqH8FrEy2lodwuX4g7n4uCq6sSiR9PjTSTaoKfSY+jmZdAOcgF6y18MWSRAig==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Jacky Huang <ychuang3@nuvoton.com>,  Shan-Chun Hung
- <schung@nuvoton.com>,  Michael Turquette <mturquette@baylibre.com>,
-  Stephen Boyd <sboyd@kernel.org>,  Richard Cochran
- <richardcochran@gmail.com>,  Arnd Bergmann <arnd@arndb.de>,  Brian Masney
- <bmasney+clk@redhat.com>,  Jerome Brunet <jbrunet+clk@baylibre.com>,  Rob
- Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>,  Andrew Jeffery
- <andrew@codeconstruct.com.au>,  Avi Fishman <avifishman70@gmail.com>,
-  Tomer Maimon <tmaimon77@gmail.com>,  Tali Perry <tali.perry1@gmail.com>,
-  Patrick Venture <venture@google.com>,  Nancy Yuen <yuenn@google.com>,
-  Benjamin Fair <benjaminfair@google.com>,  Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>,  Steam Lin <STLin2@winbond.com>,
-  linux-arm-kernel@lists.infradead.org,  linux-clk@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  Krzysztof Kozlowski <krzk@kernel.org>,
-  devicetree@vger.kernel.org,  openbmc@lists.ozlabs.org,
-  stable@vger.kernel.org
-Subject: Re: [PATCH v10 03/10] clk: nuvoton: ma35d1: Retrieve HXT/LXT from
- DT when possible
-In-Reply-To: <179224882241.859276.15035084302735586039.b4-review@b4> (Jerome
-	Brunet's message of "Sat, 17 Oct 2026 16:53:42 +0200")
-References: <20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com>
-	<20261015-perso-ma35d1-upstream-clk-v10-3-47c97b54a809@bootlin.com>
-	<179224882241.859276.15035084302735586039.b4-review@b4>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Mon, 19 Oct 2026 10:13:08 +0200
-Message-ID: <87zewayup7.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SwTUszms"
+Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-677d9c68d09so243997d50.1
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 01:15:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792397718; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Cu0PaIlyRJ9DfI3Lqa50qj8PC2R+uTkvERvp2iZSPlxBWZRg/jKLAouaon4yQxbA0Y
+         zNNvTUymYw9xEPqnToOSiXiLk97RxwTU2BN7xssaa2PAPI95hMilMA2/q8JMekElZs+f
+         sybD5+Au4vdrOxq0pNw3wtSsB7GffuAeVoZKpa4tpM915l0DsRWW5yo6hlKQ6hdGtgvN
+         kkx0ehBIgQWX5HoQI345xPjbhZtiMOLtGoqF1FM0bTVcftXeuAkGOcF9NJHzwdLe4pfG
+         m8M9GjFNotvs3pRoCmDK2hTIfApt1AgmOnT+5daNWBPPPp80Cp9M6o9vtksPdW9K07WS
+         9bpw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=U1X6Ak1b5YnhMEpM33yKsTItIXYeyxlIqpx2Kl/jIFo=;
+        fh=Wq4zM2ZF0HgETQpqk9wVxZrWkYo8dEmiaOsLLE9mlUo=;
+        b=AFn2hi5CccADC1lsQKAYtxr9ePscuSfPyv4jby4vWxm54R5XgvBQcqWaZSXLQhWl15
+         jmsltDGGOcAr6pvDqZDcQgOZwXvaQha2nV5cpTOLM7vhY3NZnvkmG3tu0OAEU5Qr024f
+         fUfWsh2gFLnnObvwEBOYJbuTD54zmAY0zA2GRjpxSazC92LQqWHM4Jd3PPx4h1lKhJfP
+         m1yghA6055Dj3jBeZIeO+vrNiAY73TW4PqbfHxIFRk+ZyaT32bmnOJEoZufSJARlSVIn
+         zdP1090Tn90qJG8XUOebBDJRXAyiseeGmgFt/szcD9cxEkIGOvSlgk9U3QbYKprnWdt5
+         q3EA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792397718; x=1793002518; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=U1X6Ak1b5YnhMEpM33yKsTItIXYeyxlIqpx2Kl/jIFo=;
+        b=SwTUszmskZQcVUL7kwqIprP3//2zk3++YAAFYKJt79fTx1pvT/Qno8qcw6nACNqjzG
+         LHHPZQ+RD20no/bncTbnBY+LObhX2U3jZPjFL7yzUfNcEIykEsXUIhhhnoH3YKqPhxyS
+         5xD2vI58TTtYEBg9L8i2NjCwvYG6iFfuWKRKl7Ioo1ws3zAzD4S8iggnHXsN4imhkwg3
+         mLC7zkR1HrKnBHeoP2NULCTgGWVo8a1GBEAT5BF3MJJZuRXUZj3xQbb8Tq0zFD3ZAUQy
+         b0ULDFf/Mw11Rai3MkIkctqPBRwkuh66ARKa1AjgtDteLFTMvODI9cSpguA+DvRnEWH5
+         yicg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792397718; x=1793002518;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=U1X6Ak1b5YnhMEpM33yKsTItIXYeyxlIqpx2Kl/jIFo=;
+        b=f6YtnJLQbV8K7vY6+P11+ihBpgcRE0KHGzEqxbZIWqI5EXyCr7eT2pp0qnJcpCFJBd
+         20Qqzh784a1uKKtAKaag5uUQ9d81/VO45t55ZR9ll8h7PbY5bhGgXdsSE9kPJrUVPG78
+         oJJ/LJD5lIkCTIH6JBxxSqQUA+3JJxzvX9g1p7lPQ93Yi3y1ER7Bj9klaWwuwjAc07eN
+         p+TNoZ6M6UxJzPNEUNahsZmV9iJ5DlcRrXuArNAEwSh90qv33aLWeRWpwjPcpRI5x2Fs
+         V7i+YAZyQ6FN83u76yYdpMFnnv0YlPhDR5GiGFNA4UfpkzODMUmxibubSUpCVNp5A2sm
+         zXBw==
+X-Forwarded-Encrypted: i=1; AKwUvBxRWTkpFsko3GFyGBVfm8+/W6eZ3eFaIPSW4zE4g3nBvRh1m3Q5Nu/Tjs6uDeDi1WL69blwBKOZa9D0@vger.kernel.org
+X-Gm-Message-State: AFq9FYLA7VWB7JFwaDjrtJZfngl81rl9YdNTiL7wczJi0pQRBTE1QT4J
+	aIKZldgJNf4kOgXDpWRjyOqx/XyAvGD0LWwXSfPooyxeUUdF/y5thH7L9pnUarIu2aA82F1Krrg
+	W9Ed3DGAZB4DUV+DcNfPyARuHEozCP88=
+X-Gm-Gg: AYBFou3Yr7MTd6HWyFFp6rL92PW5h8W/SPgK8lYC5lPrvOj6vF4rkJh0U8JqUNJIrI9
+	IIo/GWLPhyyDF4mTpX7dFo2uLGoe1YHBQhSR7bNW4+E9ES4d7RQpTFjRJePsKog/G0DcadVnCrC
+	o6lgZTpVfEhwBoACvHbzcnOiaZ/yjyZvHgjZrXpARrpzF3mxnIoBGDjyJgQk8zJSCTcobd85sZs
+	lnriIt1pDJRDykP1Zv/N/LfVhfZWtOZJeFvFqabcyID9sajwzR6cmJEfXeiQqVMIxOMm44ooqBB
+	QH37JLHpKWzNPo4Hl+LyFeJCJJ6zsFX9Efv3JxYnu+bZrU8604+wUA==
+X-Received: by 2002:a05:690c:686:b0:853:bc96:d834 with SMTP id
+ 00721157ae682-8b0f2149354mr41098877b3.2.1792397717882; Mon, 19 Oct 2026
+ 01:15:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
+ <20261016-dcphy-rx-v1-v5-2-e63b49eabe2d@gmail.com> <20261016140115.GA1798470-robh@kernel.org>
+ <20261017-gainful-goldfish-of-climate-bef863@quoll>
+In-Reply-To: <20261017-gainful-goldfish-of-climate-bef863@quoll>
+From: =?UTF-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>
+Date: Mon, 19 Oct 2026 16:15:03 +0800
+X-Gm-Features: AclHuK9_kQhXB8k-ejh4iETHQ_pbinYeRno2QSundTfXAhMLFdEsJrbL5fs5ZiY
+Message-ID: <CAPwA33+bR1BF9KeA9my07Yz7gXW7TXq8EPhwQ4GvHMSFDk+uWw@mail.gmail.com>
+Subject: Re: [PATCH v5 2/8] dt-bindings: phy: rockchip,rk3588-mipi-dcphy: Add
+ a cell to select TX or RX
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Guochun Huang <hero.huang@rock-chips.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Michael Riesch <michael.riesch@collabora.com>, 
+	Sebastian Reichel <sebastian.reichel@collabora.com>, 
+	"Bryan O'Donoghue" <bryan.odonoghue@linaro.org>, linux-phy@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Krzysztof, Rob,
 
->> +	/*
->> +	 * Old DTs do not describe the low-speed crystal. They may also expect
->> +	 * an HXT output from this driver. In practice, nobody should use these
->> +	 * clocks directly, but they must be kept for backward compatility
->> +	 * purposes.
->> +	 */
->> +	if (num_clks =3D=3D 1) {
->> +		hws[HXT] =3D ma35d1_clk_fixed("hxt", 24000000);
->> +		hws[LXT] =3D ma35d1_clk_fixed("lxt", 32768);
->> +	}
->
-> The above is fine but the problem is those IDs still exist and something =
-like
-> <&clk HXT> is still valid in DT but now does not provide a clock
-> anymore.
+> Existing OS should ignore surplus cell if the driver is coded properly.
+> Same as adding new properties or new front-compatible.  The question is
+> how the existing driver behaves?
 
-Yeah, it's hard to prevent, but people would immediately face errors
-when developing anyway.
+As you pointed out on 5/8, the xlate checks args_count != 1. The DC-PHY
+driver was merged in v6.15, so every kernel since 6.15 fails on a second cell.
 
-> This is why I asked if you about removing the ID. At the very least a com=
-ment is
-> needed next to the IDs saying those are obsolete and should not be used.
+1. Keep the second cell. Add the patch as follows:
 
-Ok, 'next to the IDs' may be relevant indeed, I'll add that.
+- if (args->args_count != 1) {
++ if (args->args_count < 1) {
+    dev_err(dev, "invalid number of arguments\n");
+    return ERR_PTR(-EINVAL);
+  }
 
-Thanks,
-Miqu=C3=A8l
++ if (args->args_count > 1 && args->args[1]) {
++   dev_err(dev, "only the transmitter is supported\n");
++   return ERR_PTR(-EINVAL);
++ }
+
+  With Fixes: and Cc: stable, the stable kernels maintained at that
+  time (currently 6.18.y and 7.2.y) keep DSI working with the new
+  dts, and the receiver fails cleanly instead of getting the transmitter.
+  But EOL kernels (6.15, 6.16, 6.17, 6.19, 7.0, 7.1) stay affected.
+  It goes in with the series, since two-cell dts only exist after it.
+
+2. Use a flag in the upper bits of the existing cell, as Rob
+    suggested. Existing kernels are not affected, unless a board enables
+    the DC-PHY CSI-2 receiver on 7.0 or later without this series.
+
+I will write the impact clearly whichever  approach is selected in
+the related commit messages and the cover letter.
+
+I think the cell approach is easier to read and more symmetric in the
+long term,
+but it breaks more. Which one do you think is better? Thanks.
+
+Best regards,
+Jason
