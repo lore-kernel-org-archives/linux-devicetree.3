@@ -1,174 +1,133 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B381A483837
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 11:56:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A45F4E5341;
+	Mon, 19 Oct 2026 11:58:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792410998; cv=none; b=cylCPbCZqUW+DjJW5lqRZHkjjFFAdEMvsT8umX1hM87utqFzOYIBX+ObGjbXoV8RAJwrkOPhZpp0udC+g8onnwEqDKR+/lG9BZw8UOyvrnZStdqzwYEJioS5Za/IfA9pdHthVp/at/J1/WhBZ3k9dOxOZ5jzo446EkKeWXtFIKI=
+	t=1792411111; cv=none; b=XF79x2fPcPokpMQkQ3mS8AcaLKe1znxlg4wzkp6ZHK61nvavUZz0hulMYtowfrSmpMjxEoaMZItt/mccvk+wwbBL4lKmtB8G8OhX0hKWX8aykm4yfGqYOqa5L22PsJG6TZyS30lMcpCDuzDZsAcNnf0MzpKUp58VAmOYkoDLUj0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792410998; c=relaxed/simple;
-	bh=HLjsyxiyP0RrLsmru8bFLMsnV9JU+jXFj64vDL8QUno=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=I4d8F0srh4e7b0epHYQN+jHhYWKfk0FbUuZjmhrbWz7wJIEhzQFj941Lhnrjsw25giYKiCEbPrE2PLML/H8MePaXlO2L5s/ZVO2myI0sut1OC6AGmTGFYoJbJHDz0auYBuPT4l+UXVdi/jROFFGe0HtLCQT5ebKvIYcgEEUgLRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=I64/bdIT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IAeOJG9Z; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792411111; c=relaxed/simple;
+	bh=cHIFotOLP+ROw61qDJefg+IYCNKivhosYztbis8JYQU=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=FXyYPPQXsiAmP/lyOHQOlxEulfLlZb/ldc+CMv1LPrkxO4xqaJ0VdSr7wJU00aCHYjw/T7+zXLbOeSRTBnzBbmMFzTWT9Ry6m0LTvfhug+oKoRDhXtt4fA2zN67W6pSyJL0bW4zBbPvn64aoqbJWKZFIiRqLZ/KIaFP8kkPI21c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DwgtAJpg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="I64/bdIT";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IAeOJG9Z"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J8P3XC2042431
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 11:56:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	gHWSTOXAK11dHbhFaZJD674H5cswRRHK4YqORV+tgJk=; b=I64/bdITvizEuBN7
-	CN6iaKcaYuqx6Oc1kMybp5O8icKXh1vS84CEeRJb5p9lmR0WkKNDxPbhepyYdyR8
-	BKsakfc0d0HawUpzZ7SaxejVnakOxBVMLKfD73oW0Yb+j17ITn7pMDXiKL+MB0EN
-	osmkEbgC9lsuHyt/LCZrGfewtsSbh1wIbgvKOW8XvlePaGJEtRsOuIme52By48Sf
-	4yTcaS3TBUy5Tpz1PXKeKZVHTLtHfU3XHPvN4lKiqphniohqJ0ZxTvplDl1Z6qJp
-	qhs4Sbg9FK6Y3h3PfIAPmIxn/n+nwVFzVC3Pj+ly+HxvAAdEFbBvTDgI2debwBAr
-	NmeUqw==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hd5ur2jmf-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 11:56:35 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-533758f24f4so3561261cf.1
-        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 04:56:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792410995; x=1793015795; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gHWSTOXAK11dHbhFaZJD674H5cswRRHK4YqORV+tgJk=;
-        b=IAeOJG9Z/68kHpYUlGD3z/+9FRBRmnJF4x5FGdNMUFPzOiyImb3L+yoBow+vdX2srw
-         83nUTixf/gIsxgOyy9/ee9gy0jj1lLB7knVKsmG2y/xEOGQOise8lYoU7U0KnZl+jJau
-         FkmmiRaOX6Ab3goodJlbDHQf+poLX7iu9w5VC71OuXHDD7JYiJ60pygAVcz/kMLVC/Kp
-         NUJyMfdTXWu+vjxih0Y/aT8DaFsN2otp7sxG+rl37+wD04DSRkYRBPU889bDxjFtaeil
-         1rIFEZaKkxKUVIgsmrjfy7fz/YLv76ETyfFWoiRq+K8ijUe2tQC9HbB6bdsRwN+cW3oZ
-         9BHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792410995; x=1793015795;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gHWSTOXAK11dHbhFaZJD674H5cswRRHK4YqORV+tgJk=;
-        b=Ol0sjr7esJovZYtCchQh6gQtjMbFAdKzW3CdiFPioZBiR0GbHgSNVkr+9lZv+PkWTO
-         8LXKoA0hk3P0zuma2lJBui4yZS8IOJKa2p0yyEotiVnGMp5DwyNENKjif26bw6d89COI
-         jkvHBuMEVrDTlqxmsfNp1HEurGNAy7hE8fFAYDuGBqQRGwlv4OklHNEfttFWX+G7b/n9
-         HTTuN1dYV1L3V0Qe+Lv+gsLI/Lz7MjQls+YgevgaEFRLSDIT5svG+gW6p6dH87QD4XRG
-         38jTWcnV+ArhQIZE2rxq/QJIiLG9hn1gsnpuKRb/MqCwxMi7R56NKMcWXT8UyEy0PHp4
-         MNEw==
-X-Forwarded-Encrypted: i=1; AKwUvBxl0Lnb/GeU1hJYtwogv6Itmb7yABLpZNXXTE67QJkIIQ9uWre8sEE8AfgjGinrQR4O3lmcVGTrIv0E@vger.kernel.org
-X-Gm-Message-State: AFq9FYLD5Og7n8PkiIKQYJerVVjR8J14TIy2Q8QRwNlPStz5ICNGJ7mS
-	jx3fcnfXY1OhbTNwPqg5ymQ/nZ7R/X9iv7+Qv7o+/7ppf1vC/WBqby2xtcpr8WKml4HgwmdQ26x
-	pzRGZp94CefKcfvjLICyZoS3D27zkur5SovghGTHvsW/VgOr3aiV9vyv0NH04NZbI
-X-Gm-Gg: AYBFou2H4HQ8VYe//GlLY68FIHHwI6Cw8DrGgpxpJA+xY/miEiCdgxyFJvWmtASRjTv
-	+BVAecfD+KSe/VY0iXYGg3t34XG+0iiyhMNVODK8vvAvKzL5NMD2sEiu/tVBgxO6qPhk9zipbSI
-	rIbokY7OJlL4UMFmIDIVbTXrNibElvczXp2OwCIph/mVY8aCZ8ZP8vnjmy1QNLUxL19x2XnqL0y
-	5rNdVjsE0TvAs3TKtoHN3ukqQlTzI5ywRXmLyUOb0VHbZvQ+5bvPMQ+paA4f4vJO/D6gsCknrmN
-	TbPdlfliWdMeoB2V9iK/BNyaaKzrNUHSeDWO3OO66xIZ5SmI3bpIziSAeo6Di4JKmygUug3ERA5
-	ytb0MYZBV+LM07MCRkooFhQ==
-X-Received: by 2002:ac8:5a8b:0:b0:536:61d4:cc80 with SMTP id d75a77b69052e-53661d51a96mr77425601cf.5.1792410994831;
-        Mon, 19 Oct 2026 04:56:34 -0700 (PDT)
-X-Received: by 2002:ac8:5a8b:0:b0:536:61d4:cc80 with SMTP id d75a77b69052e-53661d51a96mr77425281cf.5.1792410994368;
-        Mon, 19 Oct 2026 04:56:34 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40912ca52esm366595366b.38.2026.10.19.04.56.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 04:56:33 -0700 (PDT)
-Message-ID: <b833f6f9-5729-4936-8c5b-cd42d32c5198@oss.qualcomm.com>
-Date: Mon, 19 Oct 2026 13:56:30 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DwgtAJpg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98A051F000C4;
+	Mon, 19 Oct 2026 11:58:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792411109;
+	bh=XXkiyHmxPpKgXcdDYmFrzlcV0nO6TkiWZPL1rL6OSg4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=DwgtAJpgBj70c/7kErysWDVz07y5wfrShA1yT8y2wryrAmIXaegpc9zwWIm+kLh5Q
+	 afNc/Ja+zhmtlnUj6hwTMhKSQZwNePmOR5b7ENedb5jFotEzw9mJWOc3jnAECD+LT1
+	 b7J/35xCBD+XTB+4U9jCFMb8cP4W+Oq1GkxsjizdgvsiSy2erWsXnRkOFIm79H8nYR
+	 niHdLExe1mReiWsHmdgEnFoBFD96w3M/zyAVzL0XkxSAYBa0hsFPVaLFNy8IYXHZb4
+	 w+QJ4yNL1MdMQ2eBFxhb1qSPJqsuZJnvtE54sm8HF7VxnxZ6cOB+2n/0f/2Zw8hh6H
+	 XpZYJk5JM9yqA==
+Message-ID: <sashiko-outbox-177057@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/6] peci: controller: Add StarFive JHB100 PECI
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Changhuang Liang" <changhuang.liang@starfivetech.com>
+Cc: devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261019114502.55307-3-changhuang.liang@starfivetech.com>
+References: <20261019114502.55307-1-changhuang.liang@starfivetech.com>
+ <20261019114502.55307-3-changhuang.liang@starfivetech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 19 Oct 2026 11:58:29 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/9] irqchip/irq-qcom-mpm: Program wakeup timer when
- CPU cluster goes to LPM
-To: Sneh Mankad <sneh.mankad@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-        Shawn Guo <shawn.guo@linaro.org>, Marc Zyngier <maz@kernel.org>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Will Deacon <will@kernel.org>,
-        Anna-Maria Behnsen <anna-maria@linutronix.de>,
-        Frederic Weisbecker <frederic@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-References: <20261015-b4-shikra_lpm_addition-v2-0-ac7f1a0d5638@oss.qualcomm.com>
- <20261015-b4-shikra_lpm_addition-v2-5-ac7f1a0d5638@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261015-b4-shikra_lpm_addition-v2-5-ac7f1a0d5638@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA0NyBTYWx0ZWRfX50NdpXTQC7nY
- 80XQUdmAUe3Y5/9o3C7bOVLAAdP5d0uYmz3XAeiM0y4VXdaLJSXjyiU5jR3IKzAX0tE3cBxlwsp
- Um4xsP0Ey2SEno+3B6cpgkOjxD7+j7o=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA0NyBTYWx0ZWRfXxkjxkUz6h85G
- w9BUVNvzMkM+NzIsR3izS+FVsEoheB8PqLTb+yIWaGtKCurSSuJEDD1jm/cE45SVh3dtf6OOVoZ
- NxZzBhKaLw9X0fHCWLc5mxxLH88RnMwkSLtHdb5zWl0eCglICLvSW7GE4CC/IlUBYNS8x4U9Gx9
- MsyhJj3k8LtpLsQ3KUz+b6WF6Ion7xNOHp63SC1U0MaotxRNDqWkTULuxlRLDnH02oehdHvMWSi
- wVTGIG+lxWRMvPfymc1RCntPy4ZveudRDbpH5C2SKciS2mFqZOpWMgv21Qt4FjFC+N5xqt472Pr
- kjTw8K9gkrs8MxuYUTboAVbOMi5IBfvc4lUyJz7U76hO+UmldCqYYiluwM3TexggotBoCxgK4IL
- CpzehrxlcuM9vJcjUJA4MizihAqzRXuE/SsL5MR1wEjOnEv4p2702uFrNl3OScGNG3yxuWojV7v
- r2exJWvid7SwyRQZmPg==
-X-Proofpoint-ORIG-GUID: MPB84_T_Y7u3MeA5AxwBCNnKqxydsyA8
-X-Proofpoint-GUID: MPB84_T_Y7u3MeA5AxwBCNnKqxydsyA8
-X-Authority-Analysis: v=2.4 cv=CP6/zhrD c=1 sm=1 tr=0 ts=6ad60573 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=rqCDwAl6iYQHjBXnP38A:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-19_03,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 bulkscore=0 clxscore=1015 suspectscore=0 lowpriorityscore=0
- priorityscore=1501 spamscore=0 impostorscore=0 phishscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190047
 
-On 10/15/26 11:55 AM, Sneh Mankad wrote:
-> The next wakeup timer value needs to be set in MPM timer as the arch timer
-> interrupt can not wakeup the SoC if after the deepest CPUidle states the
-> SoC also enters deepest low power state.
-> 
-> To wakeup the SoC in such scenarios the earliest wakeup time is set in MPM
-> timer and the Resource Power Manager (RPM processor) takes care of setting
-> the timer in HW.
-> 
-> Add MPM timer programming when CPU cluster enters power collapse.
-> 
-> Signed-off-by: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
-> ---
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] peci: starfive: missing reg_stride in starfive_peci_regmap_config
+--
 
-[...]
+commit 2951f13eb5d64c12334f96bb237dfd0078d838b2
+Author: Changhuang Liang <changhuang.liang@starfivetech.com>
 
-> +static void mpm_write_next_wakeup(struct qcom_mpm_priv *priv)
+peci: controller: Add StarFive JHB100 PECI driver
+
+This commit adds a PECI controller driver for the StarFive JHB100 SoC to
+support PECI protocol communication for CPU thermal management.
+
+> diff --git a/drivers/peci/controller/peci-starfive.c b/drivers/peci/contr=
+oller/peci-starfive.c
+> new file mode 100644
+> index 0000000000000..9f59721b891df
+> --- /dev/null
+> +++ b/drivers/peci/controller/peci-starfive.c
+> @@ -0,0 +1,367 @@
+
+[ ... ]
+
+> +static const struct regmap_config starfive_peci_regmap_config =3D {
+> +	.reg_bits =3D 32,
+> +	.val_bits =3D 32,
+> +	.max_register =3D STARFIVE_PECI_MAX_REG,
+> +	.fast_io =3D true,
+> +};
+
+[Severity: Medium]
+Should starfive_peci_regmap_config also set .reg_stride =3D 4?
+
+When starfive_peci_probe() calls devm_regmap_init_mmio() with
+config->reg_stride left at 0, __regmap_init() defaults map->reg_stride to 1:
+
+drivers/base/regmap/regmap.c:__regmap_init() {
+	...
+	if (config->reg_stride)
+		map->reg_stride =3D config->reg_stride;
+	else
+		map->reg_stride =3D 1;
+	...
+}
+
+Because .max_register is set to STARFIVE_PECI_MAX_REG (0x100), reading the
+regmap debugfs registers file (/sys/kernel/debug/regmap/<dev>/registers) wi=
+ll
+cause regmap_debugfs_get_dump_start() and regmap_read_debugfs() to iterate
+across registers in 1-byte increments and issue unaligned 32-bit readl() MM=
+IO
+accesses via regmap_mmio_read32le(), which can trigger misaligned MMIO acce=
+ss
+traps or bus errors on RISC-V and return corrupted dump data.
+
+[ ... ]
+
+> +static int starfive_peci_probe(struct platform_device *pdev)
 > +{
-> +	ktime_t now, wakeup = KTIME_MAX;
-> +	u64 wakeup_us, wakeup_cycles = ~0;
-> +	u32 lo, hi;
+> +	struct peci_controller *controller;
+> +	struct starfive_peci *priv;
+> +	void __iomem *base;
+> +	int ret;
 > +
-> +	/* Set highest time when system (timekeeping) is suspended */
-> +	if (system_state == SYSTEM_SUSPEND)
-> +		goto exit;
+> +	priv =3D devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
 > +
-> +	/* Find the relative wakeup in kernel time scale */
-> +	wakeup = dev_pm_genpd_get_next_hrtimer(priv->dev);
+> +	priv->dev =3D &pdev->dev;
+> +	dev_set_drvdata(&pdev->dev, priv);
+> +
+> +	base =3D devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(base))
+> +		return PTR_ERR(base);
+> +
+> +	priv->regmap =3D devm_regmap_init_mmio(&pdev->dev, base,
+> +					     &starfive_peci_regmap_config);
 
-This returns KTIME_MAX after the DT patches in this series are merged
-(because there's no power_domain that the MPM hangs off of anymore)
+[ ... ]
 
-Konrad
+> --=20
+> 2.34.1
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019114502.5530=
+7-1-changhuang.liang@starfivetech.com?part=3D2
