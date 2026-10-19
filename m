@@ -1,153 +1,228 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0D45493D5C
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 10:22:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D4E14C1502;
+	Mon, 19 Oct 2026 10:23:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792405377; cv=none; b=j51ulb65+wwY4H7qM0KMW/clNXQpdVTHYSweZWo0CvnmbSlTCPzr3U5ylQ7DcfL0oouQTrYFJLNJD8YziOq+RCutGZgUXoDxs8XLMfpOJK5c8x1u56l0ScZp9ZRoIK7I6ldMPk7Px+YLUaqft1/dA7deGiwIjuuRCRyVCiCY0Bc=
+	t=1792405390; cv=none; b=BZawT3wbbgJpIyWKJZMTXiNekr0QBGYAAjLWNSdophAOiYXLwdgxqEo8tdh1JUTD7SM2f2w90NLbm5VVBLUOzR72s+n1nehq7G+7RRQPe3dIa3Wt72sCZP4UNcQBkFX1Y/5gI7ehSL5eLoavsh7r26JUgN8ZrR6lMSOK0UQ5hCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792405377; c=relaxed/simple;
-	bh=kUUpPsTxPIwjQ86JF12+BW4PvPq7GSCiTMS+HGO3pjU=;
+	s=arc-20240116; t=1792405390; c=relaxed/simple;
+	bh=ELgmHtyUZK6LxZ9ZkLKbgrwvuThezsxfji8fEKzAf+E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pyH96rCyo6q5poCodlgRG9QS1qcT3O7C0Iv6LDgb/o7ZiEkV7sLM/1EPpi9TIAn1YJBb5XsBpkIoCmYWHn8MDXv1oLLGog3INU6nUpqyUN/E0sRq4NUPvsitDliyaT2bZV0csmGoU6m5wB9+EhQW3WCTYNrEvh/BUiCu8ePgrww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rx/2N+Kh; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=Oe5DQgGGYXDYwwxqS/5h4fQxCQT1Azshd1/EQz+tKc3GG/v0SyJqTYbaYqZ/YTdVnbqukzrqaIqHJPXwaAjs1i+koPY5kzaXFfRW3yVkwINTZ+aFcNxQuc9WsC8Q6vOpCDomIqP1ygQWr3UyF7y+iCf/XvDQrhftWCNznh8gS/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=lOhO8DPz; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rx/2N+Kh"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48c4649b35bso1565556f8f.3
-        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 03:22:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792405374; x=1793010174; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DcQm1UppAernfyJDNeazwp3tPSiXo5FxZGSLgNLJYCQ=;
-        b=Rx/2N+Khk5VuaCJn5nr35VcNWoeVIYme0SiITGhegjp/vCFvyIeIMZ9UL7EZM9puem
-         JChFwxkq9V6zjZ/lZZS7aCkkC+bco0MwbCknAS5uwb7geLd9jKe9Xc6TG3B2+D6RCMb7
-         /sMu5vqpEX0lWssTRXf31x2O/2SEPLyYgcgQtn44cLomOk5Tr6SfNDLL5wq1qXVEyp1f
-         ro2aQhg+kyX5fs7T5SItQOVmF5mT4lqetpLgy9Y0S/82qouOhlCfVW9KpvHWcU7YeKBE
-         vJNQTIQhaDnAaCyJUfKkYcjn4dIqQcpKwv/mrcr5TLKqfuOw8lZNh/8PK0zbXlWnsWh/
-         ToTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792405374; x=1793010174;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DcQm1UppAernfyJDNeazwp3tPSiXo5FxZGSLgNLJYCQ=;
-        b=0ny8sQGAlmGVWLqalqxWWvYFPEWmEuRQ7VQopxsWiJa8GPyPSp+bGPZcfUeQZv1ZMp
-         CBUj3gSo+LAKrZI/u7sgtlw017wU9r1vDan+X3MgV73wwPs8DLkbXT4q4QgUaY9jOtqv
-         EFPhb25BFG3elnB1AZARBMcqAiUyECkps8TUJcERifV54IDvw8g/fPShi8GC9hL8086M
-         QD/rsJ/j237sHz8kiK2PrGwrYBx+TiAN3gd/3GGzPmyXakRD8X07ebtF1gNHGMBm+BWl
-         ZXoLZyz5DjWZDo5XpmVVISBsLgZt+topfrC3KamqeAMxykzdA2FGh2sBFZbwcMUSeaCY
-         dydQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxZM5iNOJunwkEHOPacK8ihYsNyAaqigdU7fMwbZ4rMGsn8SO3wkHtf+RUH0ZHyfnKayeNYo8Le/Q03@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ2ICpfFEEAjTMZy+5TPUn3z2tc9W3TcjpsB/Mv5u6t2d0+jA1W
-	uLe9m7AM3pgxhR2xMic8il0gtZyMAWNMsHdWdzPLNTin5g6bZeJltBJY
-X-Gm-Gg: AYBFou2iyrzlfsMdO1XJ2DHbfq7n5ucof4myQ3t662xkNbr+rJhnxveLV+4qjEt0fL1
-	TAX81I+zGIuPNCcHYz09Vm8O6vCNSvXICVMloTmlaGDdkj2tC4AjsC11m29z2eOLgmIVwnXMlIL
-	wqTbMV5GMvQK1Qum6lxtAf7/6QiEbQr/qwwdWO43e04+cJV3ntVrNQqSKQzSsIK79H/jv2zXm30
-	qA65tDiuQCOke5Bu7GqsEtG4j0JGOg4Iu/cCnqokBS0eqtM9A6Y5BSDrR6k3NfDaaT3wX+7BL6d
-	7mUBh8TRY5oODKOpGQQfyR8rEV3aUbSwHwJJqkBVIhWAxaS8kHKLfuXKkAc4b3py+sQF9NFd57K
-	yUbAszbLVHV+wDSmILZvi1yvylc+1NqvZw7eZ0pg01OfjIr99733RYL9xu9GwIkNnk/WfJxNq7U
-	XO/B6PoXGYa6+XONxshs4SOsR6UnFrRvWTRV/1Fj5LiBgpHFR/2JMhNXv5/aORLA7nkZ0oknqhF
-	ByQVg7oIc07QmBWXTVByRgANJjvL2AOaHFHBYDDFz4PqTWT17dTwFgWOf0EQV2ITlLo2RxCemLZ
-	zGGAOw9AueH3RdW9ereV2FKQwWRGio+Irxzt2cQ=
-X-Received: by 2002:a05:6000:2889:b0:48d:f14a:9179 with SMTP id ffacd0b85a97d-48e07fadef3mr14864487f8f.48.1792405373733;
-        Mon, 19 Oct 2026 03:22:53 -0700 (PDT)
-Received: from Lord-Beerus.station ([93.66.71.207])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd471a64sm23771242f8f.6.2026.10.19.03.22.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 03:22:52 -0700 (PDT)
-Date: Mon, 19 Oct 2026 12:22:50 +0200
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Subject: Re: [PATCH v1 1/1] arm64: dts: imx8mm-var-dart-sonata: Add OV5640
- camera support
-Message-ID: <atXver4B2Acc3z0w@Lord-Beerus.station>
-References: <20261015162301.63838-1-stefano.r@variscite.com>
- <atEci_KwxUdvAekv@SMW015318>
- <atJY6DzjmAeq7U8q@Lord-Beerus.station>
- <atKHI1B0hL6q-CmY@SMW015318>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="lOhO8DPz"
+Received: from ideasonboard.com (unknown [93.65.100.155])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id DCC5B56D;
+	Mon, 19 Oct 2026 12:20:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1792405259;
+	bh=ELgmHtyUZK6LxZ9ZkLKbgrwvuThezsxfji8fEKzAf+E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=lOhO8DPz95h3dpArngaTT90NUp108nwPFN5QsOnlDo8JHBOtjbyfFfsxebbx99NTB
+	 J3wKXdY2yEKHsX9wcPDZeFRSfek51H/Wu12C/vn60tx2KTCc/EmY4wsc/3JUkv2rRL
+	 arRK+qcLbYCEHXg/UEvFHCm7MbCZZ64Jij/IlWTs=
+Date: Mon, 19 Oct 2026 12:23:01 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Daniel Scally <dan.scally@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Magnus Damm <magnus.damm@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v4 4/5] arm64: dts: renesas: r9a09g057: Add IVC and ISP
+ nodes
+Message-ID: <atXol9eFjLKxgTpg@zed>
+References: <20261012-mali-c55-renesas-dts-v4-0-c410e280bf2d@kernel.org>
+ <20261012-mali-c55-renesas-dts-v4-4-c410e280bf2d@kernel.org>
+ <asz8oEtow_lrUU7K@zed>
+ <CAD++jLnnSLXeYzxonkfnZA3OxLE9Hssma9fHsL=U=NmVn7ZVOg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <atKHI1B0hL6q-CmY@SMW015318>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAD++jLnnSLXeYzxonkfnZA3OxLE9Hssma9fHsL=U=NmVn7ZVOg@mail.gmail.com>
 
-On Fri, Oct 16, 2026 at 03:20:51PM -0500, Frank Li wrote:
-> On Fri, Oct 16, 2026 at 07:03:36PM +0200, Stefano Radaelli wrote:
-> > On Thu, Oct 15, 2026 at 01:33:47PM -0500, Frank Li wrote:
-> > > On Thu, Oct 15, 2026 at 06:23:01PM +0200, Stefano Radaelli wrote:
-> > > > From: Stefano Radaelli <stefano.r@variscite.com>
-> > > >
-> > > > Add support for the OV5640 camera connected to the Sonata carrier
-> > > > board's first MIPI CSI port.
-> > >
-> > > Does this board only support ov5640 camera? Suppose ov5640 module also use
-> > > for other boards.
-> > >
-> > > Can you refer https://lore.kernel.org/imx/20261011-expulsion-frivolous-690de090cf9d@spud/
-> > > to define connectors?
-> > >
-> > > Frank
-> > >
+Hi Linus
+
+On Thu, Oct 15, 2026 at 02:36:00PM +0200, Linus Walleij wrote:
+> Hi Jacopo,
+>
+> On Mon, Oct 12, 2026 at 5:39 PM Jacopo Mondi
+> <jacopo.mondi@ideasonboard.com> wrote:
+>
+> > How was this patch tested ?
+>
+> I was using the TPG only so far, a camera module is in the mail.
+>
+> I do have the RPi camera module 3 but didn't get it to work, this
+> may explain why...
+>
+> > > +             ivc: isp-input@16040000 {
+> > > +                     compatible = "renesas,r9a09g057-ivc";
+> > > +                     reg = <0 0x16040000 0 0x10000>;
+> > > +                     clocks = <&cpg CPG_MOD 0xe3>, <&cpg CPG_MOD 0xe4>,
+> > > +                              <&cpg CPG_MOD 0xe5>;
 > >
-> > Hi Frank,
+> > Compared to Dan's original patch I was carrying my tree the first and
+> > third ids of clock and reset properties in the ivc and isp nodes respectivelty
+> > are swapped
+>
+> OK
+>
+> > -                       resets = <&cpg 0xd3>, <&cpg 0xd1>, <&cpg 0xd2>;
+> > +                       resets = <&cpg 0xd2>, <&cpg 0xd1>, <&cpg 0xd3>;
+> >                         reset-names = "vresetn", "aresetn", "hresetn";
+> >                         status = "disabled";
 > >
-> > Thanks for your feedback! I looked at the Toradex approach you linked.
-> >
-> > In our case, the same connector can also accommodate Basler cameras and
-> > potentially other camera modules in the future, while some of our other
-> > carrier boards use different connectors.
-> >
-> > Given these differences, I would prefer to keep the classic approach proposed
-> > in this patch, describing the camera directly in the carrier board DTS.
-> > Do you think we should still use connector bindings in our case?
-> > If so, how would you suggest handling these differences?
-> 
-> Need understand whole board familar, basic Two problem:
-> 
->  	Does carrier board support difference kinds camera?
-> 
-> 	Does carrier board or camera module reused for other boards?
-> 
-> Frank
-> 
+> > Fixes the issue for me
+>
+> OK
+>
+> > Why is this an issue it's not 100% clear to me.
+>
+> Can you try this?
+>
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> @@ -703,6 +703,12 @@
+>                 return ret;
+>         }
+>
+> +       /*
+> +        * Allow the ISP's 2500-vclk reset recovery time.
+> +        * 200 us cover the RZ/V2H's documented minimum of 20 MHz.
+> +        */
+> +       usleep_range(200, 300);
+> +
+>         /* Use "software only" context management. */
+>         mali_c55_update_bits(mali_c55, MALI_C55_REG_MCU_CONFIG,
+>                              MALI_C55_REG_MCU_CONFIG_OVERRIDE_MASK, 0x01);
+>
+> When we now retrieve the reset and assert it, it matters that
+> we give the hardware time to recover. (If this works I will make
+> a separate patch.)
 
-Hi Frank,
+Unfortunately this doesn't help
 
-Yes to both:
+>
+> > I can't access the "additional documentation" from the Renesas website
+> > where the clock/reset ids are reported. Could you please check ?
+>
 
-- The carrier board supports different cameras: we currently support
-  OV5640 and Basler modules, and support for another camera is planned.
-- The OV5640 module can be used on multiple carrier boards that share
-  the same camera connector.
-  Other carrier boards in our family use a different connector.
+I mapped the dts entries to the clock/reset signals.
 
-Given these combinations, would you consider reasonable keeping the
-camera described directly in the carrier board DTS as proposed in this patch?
-This would avoid adding complexity across the different configurations.
+This is what is implemented by your patch:
 
-If you still recommend connector bindings, how would you suggest
-structuring them to handle these differences?
+* means the clock/reset is only handled by the IVC/ISP drivers
+** means the clock/reset is handled by both the IVC/ISP drivers
 
-Thank you so much for your help,
-Best Regards,
-Stefano
+(why the IVC has three entries as well, it's not 100% clear to me, but
+this is unrelated)
+
+ivc:
+   clocks:
+   - reg: e3 (227)  -> CGC_ISP_0_pclk         *
+   - axi: e4 (228)  -> CGC_ISP_0_vin_aclk     **
+   - isp: e5 (229)  -> CGC_ISP_0_isp_sclk     **
+
+   resets:
+   - reg: d4 (212)  -> ISP_0_PRESETN          *
+   - axi: d1 (209)  -> ISP_0_REG_ARESETN      **
+   - isp: d3 (211)  -> ISP_0_ISP_SRESETN      **
+
+isp:
+   clocks:
+   - vclk e5  (229)  -> CGC_ISP_0_isp_sclk    **
+   - aclk e4  (228)  -> CGC_ISP_0_vin_aclk    **
+   - hclk e2  (226)  -> CGC_ISP_0_reg_aclk    *
+
+   resets:
+   - vresetn d3 (211) -> ISP_0_ISP_SRESETN    **
+   - aresetn d1 (209) -> ISP_0_VIN_ARESETN    **
+   - hresetn d2 (210) -> ISP_0_REG_ARESETN    *
+
+As libcamera calls start_streaming on the IVC first the sequence in
+which resets/clocks are bulk_enabled is:
+
+* = number of time the clock/reset signal has been enabled:
+
+        [IVC        ][ISP          ]
+        [e3* e4* e5*][e5** e4** e2*]
+
+        [IVC        ][ISP          ]
+        [d4* d1* d3*][d3** d1** d2*]
+
+This results in the following overall ordering
+
+        e3: CGC_ISP_0_pclk
+        e4: CGC_ISP_0_vin_aclk
+        e5: CGC_ISP_0_isp_sclk
+        e2: CGC_ISP_0_reg_aclk
+
+        d4: ISP_0_PRESETN
+        d1: ISP_0_REG_ARESETN
+        d3: ISP_0_ISP_SRESETN
+        d2: ISP_0_REG_ARESETN
+
+Now, my proposed patch switches e5 with e2 and d3 with d2
+
+        [IVC        ][ISP          ]
+        [e3* e4* e5*][e2* e4** e5**]
+
+        [IVC        ][ISP          ]
+        [d4* d1* d3*][d2* d1** d3**]
+
+What I don't get is why this should make any difference as the overall
+ordering wouldn't change. When the IVC resumes the 0xe5 clock will
+anyway be enabled before the 0xe2 one, regardless of the order in
+which they are specified in the isp node.
+
+        [IVC    ][ISP]
+        e3 e4 e5  e2
+        d4 d1 d3  d2
+
+Unless I don't understand something about the enablement of
+reset/clocks with multiple users...
+
+Also the only indication I find on the V2H manual on the expected
+enablment ordering is:
+
+    All clocks should be turned on and off simultaneously.
+
+Something the doesn't happen today. Maybe we're *very* lucky that
+enabling e2 first in the ISP driver matches some window that is missed
+by enabling it last, but this seems very very far fetched, isn't it ?
+
+> These changes contradicts the manual so we can't change things
+> like this unless we know more, it'd be too much trial-and-horror.
+>
+> The manual says:
+>
+> Video/ISP core
+> 0xe5, isp_sclk
+> 0xd3, isp_sresetn
+>
+> Register-interface bridge
+> 0xe2, reg_aclk
+> 0xd2, reg_aresetn
+
+Do you maybe have any information on how the above signal maps to the
+C55 clocks/reset and if there's any indication that might help better
+understand the issue ?
+
+>
+> Yours,
+> Linus Walleij
