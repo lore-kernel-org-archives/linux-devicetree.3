@@ -1,13 +1,13 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792445921;
-	b=lqgA6LES9PmiOUssX4ePif720Iuazt7urGhoT+y3z+Z49QCYwv5H4755CxLclyrDtZPo
-	 +5Koho3Y2lQFVHiX2EXe369YtYfy0elhfe3LUgYB7JwowuqgUBw4fU/0rFTs6NHCpP5vf
-	 6OwvG1XDRQlnWObwQ8uy4EklHYF9Jq36UHLQ+H6HEi3GoK1Z3+7a4XUe81daAJM9zL0PA
-	 N0sEtB+bTe8G+qD3vbFaxIeQyypqiNa3xgpXZCnHCtNdHpmH0w4C36R6yx9oU3uQ0yer3
-	 TAho0kX2vv6mUuHUNGTrZr1VsvcLw+fgQa+IHrbg6Nc9x5CgBhLLFUXUgQOCZT28+Ig==
+	t=1792445929;
+	b=kYZFC3RtAEF8C0X9PtlmHzslKiIdwChqYNxFf2E7ZlsoL9LQaUAfvLVElo2+PMlTnJtk
+	 3BdQBy8nW7y8aM8OX6xlkN4bMLQawIZ8zRVWCtkq2jrRJ/6qq2iP/g+5ShrLy3h+4wnJM
+	 hySb8Lblgvy+fPkLTwlWkOa6pI1hISFvuoHq7ZOAGly/gpAO08ZF24VQNGdqW2nYdGX+3
+	 6CJvnHjKHgmXi18MBZcVzkQWjJbmS6qjXUq8QZgW4qD1ZgNuFCJaMp94oVWsRLe4nufo0
+	 bDxT/EaRu1JWLCVJP7xwb8V5FA7aWmVe0Lna+HWHH4be0IvZlccBY6P9J01b4xTlhXA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792445921;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792445929;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
 	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
 	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
@@ -26,101 +26,101 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=maZc9N0MU00VoIOO0mtaYAySEtGRpSxsOt1Xwut2SPI=;
-	b=1rzFHAGnHavrF7LiQJxYoyvFs95QjKnS5SN20HavIZejjw1epCa3obdWo92fWeabJOwS
-	 AytQwUf2JZHnr8F7F28kdF2Hengc2ac0Ez+VV+Re//nzlKTKYa7VWws+zeM0RejNS+th6
-	 HWY9XTR+1j8ioaXb/4e2K49N6v3VjzYTWmrwKkksQsdxVeU4KHlSkBSpiKxH/sJaX70FQ
-	 1vlucNm39uemmTKTHRaV4NzTt9xKu4el661CWXCyLtppkNvAR2DOjBDDczYe7KyLHYPYj
-	 msBRYVSAnpqy34UzZ7nSigMwwrDpizQ04oKpbXio1ogX2/7L6vGeXnc10vqvIcZ6vsQ==
+	bh=xFuhxS3mmVtQpfdYNVFMvW4qHBo/W2/2cDEroY0AaYY=;
+	b=D/DZdx+xs6KCTuwfFnZjZ50reT+0h6qFPhYwy2x2KdCuYGT2YoGJZjj8Ow5OYHwzqH7Y
+	 3YlgTj3dvB3qPHSMdjjuqXE4qsm3sGoZMf7MSmvVteVOcaYYhoS8kNS+kSDmKvm4DgKNh
+	 Mu3FQcdskyhSfCEEcUNElBT8c2cpwU1nJqKdNuGGrOxrhMzCd3MFN6T7OaObkana4VeIF
+	 ote98VyMyPwlwMXQypD8QSMKHOL1Hi6OXocIhxH+f2vZvpaaQjqDsFGNwfanfCQgj805G
+	 JyEr/Ja8oZgNOPZyrMCp4lERMYA4mKiiZDh0vGJ2bxaduDd60CfLP/SmogMrcVjqQ4w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ti.com;
 	spf=pass smtp.mailfrom=ti.com;
-	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=XNJWeinK;
-	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=sSyE0nA+;
+	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=qiKPyzWr;
+	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=NgU32XRT;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
 Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD65E606A328;
-	Mon, 19 Oct 2026 21:38:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD65E606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 214E060A263C;
+	Mon, 19 Oct 2026 21:38:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 214E060A263C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=XNJWeinK;
-	dkim=pass (1024-bit key, unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=sSyE0nA+
-Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69JLboVA1358350;
-	Mon, 19 Oct 2026 16:38:22 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=qiKPyzWr;
+	dkim=pass (1024-bit key, unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=NgU32XRT
+Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69JLc3mC780618;
+	Mon, 19 Oct 2026 16:38:27 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=maZc9N0MU00VoIOO0mtaYAySEtGRpSxsOt1Xwut2S
-	PI=; b=XNJWeinKPRCM+qw8wqXBjWyFB08xj1v93tg9/obFeUymuEJekoWn1gkaq
-	4SfupszlqLCBD3XSMCoc2YNKLxwHnApqYANsROO4pOJ+YKaRM5H8L7txMhOhbeQz
-	5kr886GkXGrV23+d0r8NBFbrP0TW6XeTjs/cRuALlN5mjZh7FE+/yB+KVMKcoCkb
-	nK0SMpdop4/yCrOhiv3SxN4CKTEjfLjTWG1VoiQfsTx6oIJNG5j7CaTT7fNlxesv
-	5IvnoriD6VW3uR/mcII9Bmw2f/Jo+pu6aaLzVHjxnvbLQbeArfvjS8TLf+j8MJ1s
-	8X80p7Bc+Inu2SmNL/9x+zJAZEpiA==
-Received: from mw6pr02cu001.outbound.protection.outlook.com (mail-westus2azon11012071.outbound.protection.outlook.com [52.101.48.71])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4hcrd61588-1
+	proofpoint-05-2026; bh=xFuhxS3mmVtQpfdYNVFMvW4qHBo/W2/2cDEroY0Aa
+	YY=; b=qiKPyzWr6uswkK791XAB2G/HdA7E84kgffKvk95Fk0M63doU6ibOIH4rD
+	Ca5mKDnyGOu4fEXX9BtVJqFf5K8RcrnTKBD88sp22inkUqcuz7UYBXhj+c7CPh4h
+	8BOtf/jr6a91I8Y2cG+EcbSvanLQ0196dnbGpJ2Qa+7NE46rUvFFMv5/LOeM4fBv
+	VmSCMexz6YxDe9U+14/ruD6mxt2Hj49PlvIo3gXVIKadwx98p+7AepSz17FaCot2
+	PgjHZIZ61oqz7SpZB7IRM+400Lcl/22zQ51Fv6mg8FOpKQl16VJ0jq1SzWLULncS
+	PH6/lukAASGmxVTp1t1aRoa4luFRg==
+Received: from ph8pr06cu001.outbound.protection.outlook.com (mail-westus3azon11012016.outbound.protection.outlook.com [40.107.209.16])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4hdjbkuqcf-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 19 Oct 2026 16:38:21 -0500 (CDT)
+	Mon, 19 Oct 2026 16:38:27 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EnEkw4VvsfyXDvvx88tmOSlk5m127fE7YMMNGtXMeALHSnwp3fcbMRqDowkEAWSyYA7HDbcTzLmDUWzYywtgj13VjmRa0wvlX6v2Jz9+zGm3FtkbBMyMeqW8fvyyjGoWocjq18k/k8pgsrsXmotWGfBy1b2ZCnUaYlpSLuOT2n9CIU3ssgvvUecjeET80aeofJKSIc7cdjKgg0XlM+xHv/fvPCMF2pEpPX2To3ysW2pcuhqDWw+Sh8rbehfC5oZNTThFlz86DUWJd4oWAn8OJsv/jkrcSQQtLnSTQS9As628s3vOpYomeHi4pjBuaGLJDSMerxsMZ8ezyEsVVU4Ygw==
+ b=rmL2mz84Ol1u3Zq7ZP672gtffOXb0Wd8lEh+1yEv8+2XLxnQ0itBD4pnt6ffI42QFlvQ5wkHtsZSO+TbZZLKaTOnfX5tpHNQq4Jb470E+YsNDE07GWZN5ZU4RlUbyvxRvh5PydzW8n2NTfVdrIt1/PIAKsEu4ACu6VIT8XJwyIPYf2nVvDgsSaONq0+gOs5OKkeO4/sWEPArnsMRq6QWmeFJRvyhcoFyBmcQv2yaOkcWIoQGXxUjc6gFA8beXDD9lu95XkndxVMMx+h4dQ0L+QAQCJW9MkPvYefmLfryArOVrl8AbyZAIHSilDyvcZDaH12xomw1ATRvHGHpruG1FQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=maZc9N0MU00VoIOO0mtaYAySEtGRpSxsOt1Xwut2SPI=;
- b=y/Y3dx1bhRvXgvJ+bmXaEPQy+40CU5cZ1nIgdBwLDEW4+71Wifn2zzEzqqD+GoiHHM69KdQNRNg8nX5TZjbQB7k0YnVQkGr7AkuTozuHdD6NULLC+moCiDtFKtN+A17gEnmWfzj4Aq+dmWMBZLrG+Nxql+ccsjmHabfoTMYEzHdrcNY7+/QeCIEaPsdXg/4kfD02E+ZRm8b3CN+rVkXEGd6kybx+NCQD/JDN0WpiM9klwe8gVlQrUkYNGfBJGaklc1ASOvX13oAhkHwPIE1/qyhp8Y7cFvHvLR0A8nIoXByqOutIFIDqOyaGqFd9a6Nk+PhIUP3dclrQs+VpfK9mvg==
+ bh=xFuhxS3mmVtQpfdYNVFMvW4qHBo/W2/2cDEroY0AaYY=;
+ b=ikrgi2QCRuoLsMJzVrs7DSBgaovZ8BIfD4ZdE2G5wxI1wYtSyDcCVgEngOfc4TVRkOCVpgQ1Hy2EiktI+Y+DJ2cRdkoD3TOD74rEN3Tm3hgFxBlta/EFsE9sTcaGQAWzKdMPOFvAHY3oNzg0+5M8hM65RmB4N77mlh2JR3iyqF44YJvoolW4hlrzLnzSmW/zcHckxT/aEgvwaAWF0OZKzLQpV9qDCQDSl12vxRNskoB/0CFXY3/+iUKJ7Ty2+8n68ZFUS6gxBj5rwu3cYLVkD3tS2fQAw0H13bQVPcvdgKUBHSzUIDejUsiT1qpQMQJUX1cSdCTfIgSE4o7H05gaFA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=gmail.com smtp.mailfrom=ti.com; dmarc=pass
+ 198.47.21.194) smtp.rcpttodomain=gmail.com smtp.mailfrom=ti.com; dmarc=pass
  (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
  (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=maZc9N0MU00VoIOO0mtaYAySEtGRpSxsOt1Xwut2SPI=;
- b=sSyE0nA+bqPmgIiKBiNxGp1GQbXsW1vZfq0OPgIit7qsHseGHgvR0Gsud9iU7+wkFZJTq7c984hhhg7yj0aQToxuWBuiFF89M27roCUWUMr2a/NmFy+8OqigUnH4lX8hUeaDd0hP+eT4frX3TRsUPWYv/CCPf7QmOLNP3ruv910=
-Received: from DS7PR03CA0293.namprd03.prod.outlook.com (2603:10b6:5:3ad::28)
- by IA4PR10MB8610.namprd10.prod.outlook.com (2603:10b6:208:55f::7) with
+ bh=xFuhxS3mmVtQpfdYNVFMvW4qHBo/W2/2cDEroY0AaYY=;
+ b=NgU32XRTf7glIhVtKUyUb+/pQpqpAzXGJa8q9Ih6qvWPvhk9P7xTcsOIf/QLnY08uwJ6DDucY/GylRxwjHgUfzzxRXlx7aqMQlaQRyiGJze4JxJQRp7d/OZM+/su1ZiEtUb9vvZMboOGjWFhcsv2CczXvchTPMyFj0dL7AukF4U=
+Received: from BN9PR03CA0365.namprd03.prod.outlook.com (2603:10b6:408:f7::10)
+ by DS4PPF194C7D93E.namprd10.prod.outlook.com (2603:10b6:f:fc00::d0e) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Mon, 19 Oct
  2026 21:38:19 +0000
-Received: from CY5PEPF00000E76.namprd02.prod.outlook.com
- (2603:10b6:5:3ad:cafe::b) by DS7PR03CA0293.outlook.office365.com
- (2603:10b6:5:3ad::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.19 via Frontend Transport; Mon,
- 19 Oct 2026 21:38:18 +0000
+Received: from LV8PEPF0000005D.namprd02.prod.outlook.com
+ (2603:10b6:408:f7:cafe::87) by BN9PR03CA0365.outlook.office365.com
+ (2603:10b6:408:f7::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Mon, 19
+ Oct 2026 21:38:19 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.21.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ is 198.47.21.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=ti.com;
 Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- CY5PEPF00000E76.mail.protection.outlook.com (10.167.247.38) with Microsoft
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ LV8PEPF0000005D.mail.protection.outlook.com (10.167.245.134) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
  15.21.522.6 via Frontend Transport; Mon, 19 Oct 2026 21:38:17 +0000
-Received: from DFLE213.ent.ti.com (10.64.6.71) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+Received: from DFLE203.ent.ti.com (10.64.6.61) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 19 Oct
- 2026 16:37:29 -0500
-Received: from DFLE202.ent.ti.com (10.64.6.60) by DFLE213.ent.ti.com
- (10.64.6.71) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 16:37:43 -0500
+Received: from DFLE209.ent.ti.com (10.64.6.67) by DFLE203.ent.ti.com
+ (10.64.6.61) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 19 Oct
- 2026 16:37:29 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE202.ent.ti.com
- (10.64.6.60) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 16:37:43 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE209.ent.ti.com
+ (10.64.6.67) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Mon, 19 Oct 2026 16:37:29 -0500
+ Transport; Mon, 19 Oct 2026 16:37:43 -0500
 Received: from localhost (ti.dhcp.ti.com [10.24.51.125] (may be forged))
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 69JLbSj4325728;
-	Mon, 19 Oct 2026 16:37:29 -0500
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 69JLbfuV325899;
+	Mon, 19 Oct 2026 16:37:42 -0500
 From: Devarsh Thakkar <devarsht@ti.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
         Maxime Ripard
@@ -139,9 +139,9 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
         <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
         <devarsht@ti.com>, LiangCheng Wang <zaq14760@gmail.com>
-Subject: [PATCH v3 01/14] dt-bindings: vendor-prefixes: Add Dalian Good Display Co., Ltd.
-Date: Tue, 20 Oct 2026 03:07:13 +0530
-Message-ID: <20261019213726.4145532-2-devarsht@ti.com>
+Subject: [PATCH v3 08/14] drm/solomon: ssd16xx: Expose refresh mode as plane property
+Date: Tue, 20 Oct 2026 03:07:20 +0530
+Message-ID: <20261019213726.4145532-9-devarsht@ti.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20261019213726.4145532-1-devarsht@ti.com>
 References: <20261019213726.4145532-1-devarsht@ti.com>
@@ -158,87 +158,277 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY5PEPF00000E76:EE_|IA4PR10MB8610:EE_
-X-MS-Office365-Filtering-Correlation-Id: ff7c9bdc-4027-4964-8479-08df2e2949a7
+X-MS-TrafficTypeDiagnostic: LV8PEPF0000005D:EE_|DS4PPF194C7D93E:EE_
+X-MS-Office365-Filtering-Correlation-Id: c1dd91ed-217f-4d61-61a6-08df2e2949b0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|23010399003|7416014|36860700016|1800799024|22082099003|10067099003|18002099003|260925022911599003|260925021311599003|260925021911599003|261009223027099003|921020|56012099006;
+	BCL:0;ARA:13230040|82310400026|376014|7416014|36860700016|1800799024|23010399003|6133799003|18002099003|22082099003|921020|261009223027099003|10067099003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	YQEgDhdnAK+fh8yN+fmi5W4bLt2MSXl4T/TDOGeUKhOS4c3xqLIDyql1KFGIWgSZ+TaOAC6fUgKdULfoSMvY44oCgwq9prUn4h3DthvlcwfNEBsyXabZvdZXuISybhYcYTTPovqDchkrtqNW5KkT8yn9xld8ECOkT/iBH7S5VECfQ4dlzsuGqzbbIaeYHLhTd9XjcwS3qvnXG7slJE1pWYbfEM2bejBqqmwbpjzGWpFmvTEcGrWxdZ+XC9IPgb374PhyFDNZls1cJdYvVBcOxxa8gsZgi89JGJ8m5H6qPQkCN/G8uUdcG8uGe8XcYxC+GzXc0mZmD093LjOHk4o0ggH0hDTMbWFNhhVWEyZFiht3kiW3z5QH+/BOvoHwtVD0X3VwKWuTMxb0QvHlZosmfS8ezGtKcDc4Xks971wYe3FwFbg+aNdvYjE56OY58/tM8fVigbwAUZ7MUMco/gNd7Uv2MGAb/HIDZaI4NBHxdpX0WByn5Sv73xtf/uhcGJRISssRU2KoEX0qLeos/6rgHeqh/lhRdXADjgUQtVuRCCjOm8+xCQukuOXAM61xYP/j4vzR6qP6Y5RINwBn3QuUNqYzEb4V3jsWO8bA9vcZcDXG55+amhiygkJy8Tx5x/bVff2G3lERdC7xsQo9aLycq6GWisRpDLHEtnW1472DmU9TWGAZUoCbIiN7NfKQWWQJkWhSVqlNHU1FOa05b7e4uzIPqqXmIn3hJDVhmvj7VZujZ2JviAfJVob5GIvlbuaq
+	GJ0tCJ5Sx7mNSFx6CzVKQipa06BGG5YuOr53Wh7EsVoRS7doN//Af37yiWM0KL39X7CA5PRGoSQnTM6dXLuLW2qeKMx078+uh/Vxj0TN5+H+bhrAteWaPLOrhCRL0DPyI/SouXwLH2dprh0F5jHjz9UYfvJSp/I+ko5LIZ/QFm+Ce2X2G9vkovej5H53RbVZR2H0DiwQNO42yOdfPPI0RaVKTOwxWcYvLJT12CZKfIftj3CBmeD99It7j27Yw34slUU0eIW60OWPk7Q+6Hg0zmS9RboQUh2BvRRDuFBzliefMBDohG8CKjH/3C7+QDI2JcXpY7DFsPAEHhzf3InwnI7411eNlz0AIxABtaWVzBz28y1Napa2wm0aVcL+lolrqXySFz2i0y+sQTdoUGCuKPraNbiPDswm7UeiXRrC2Lf6VYvvT1NFcGoQda2+3WNGryxgCV6ZFO8K0qUGY5yviMQupxe6GhplznBNHPe6+FcJtWDfFQKBf3GpoclmhAuuCYFkTdE+pG30VGIiHFnMaYvHSYv5z6soNDJz0XKIl9GosY9hEe+fFq9fizxSUKJZ2E+yum+xq3+DleyiQ4PJO32X+pAEKPoSWTj1K+efv+A0WOOJvSfaDmew64pCMFg0zGrHdUbvgF4lwmRWHOLCCmbYDFxv5M5LHky0dnO60ela/3qjS6EEEFNlNosm0xuaJn9M0zQX0WAm9mkgVjUQxySauqJaVt1Qdsxg5uDc35PXV+wzZzTHY2jp7JmeIifJ
 X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(376014)(23010399003)(7416014)(36860700016)(1800799024)(22082099003)(10067099003)(18002099003)(260925022911599003)(260925021311599003)(260925021911599003)(261009223027099003)(921020)(56012099006);DIR:OUT;SFP:1101;
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(376014)(7416014)(36860700016)(1800799024)(23010399003)(6133799003)(18002099003)(22082099003)(921020)(261009223027099003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	BtYqdD1U1/mfGZ0At7qg8PEqUEXcgsstCUm6nWJqJiH3ChHgCHBebZWQRQn4BU+3zt96faNBCveElGqrtMDNqAloOiIM7BBQryfHPhRKWj2bm3UuAjrs0heDkxUD1Y+eeawyXLgrewz9oGWEg81s+93ssmu372Rlbh34Q4AvzIrYNrn+foaT4XCLg7jzVbz71I93MUOm0ra0COf2FMjSQc51PxGxxSNdLednYzM0eu9XbfnLyaKRMDJW88b8yJu9U219jyvrfaotl2ji2lEhCFiX1yhOTJqgZaA7Voi/1Cs2WvY0d7QbkdkDBOnhlxd4jcNfxEGhHJNlhe+7ezUgqEGW4yJkNf+mYdueWoQCvAifs1mHBo9c7X2PZ9RXdX5p17g2hfuTzAOJ8OkHpHbVmxtK1966A9d/e0kK698+GTuapgIYWWMLmKwfjdrLP590
+	Ku1LeEw4Nd5+QFZePBJJGtdlysie5tSh1DwvXDZrQ6m74buv2YWvbAPN/RF5xf+UxNLxbDXUnO35myFE4l3/brYASvuG8uO9S72bVED6MOKmGUD0NHTe6IMc43037W4KLADJKvvOp7NMGUg4HcrVH8IZruYXNB8jFGyfTFYPk7HZeRs6X2R61Gb+EJKp1I0E0WqMhqGz2y1Ldzr8uKie9/YD1DQbOA4Z/PTBWg+2IHWRkL7luTPpy8xvpYdH/IV4l+OZztjZqpBf4liWqDmBU7JFrBArFIMYpGUcjAAjmcU568xV+BQG3nzfZJufI27fdm6/pQBRRYyLS6LFnjTD/pAVHszJF0JtjaOvFvBS4dPvNfMfo/EwkEGbGnE84wC2ktgbywtaFErm96md2xvLi3QA05O+FoIopf4X1lUWQXIUlWJ4Ekr667RSiobI5/ea
 X-Exchange-RoutingPolicyChecked:
-	kdZ5i6pp5mjHNR1IiTTz17TbGXVNN0qUdI8EIepSvRMOgq7+fZAS1grmr/CnbxoHWpPW3Ugo+/pYjvxzal+IQhNEHCHvVoibugNMR+hwCD5U8+7jbnsxRj2A7fiSngnShqX07w35WMbFhBeZB1CzKfFKIvbArmyS90/glLeKLhx6CqU25mqsqHAKxqCOiSqvpH4Oc6oAiy3U/jMCTgbU42QBboEFRSNgknHbcS5ml0rIcaS21E6Uo7EUfOBV7CJfaHN+UjrnxRCkfmEHUXqAo6LDyT1QVyCNgA5HiqEzzQY56tF7aCXsIK7dVKg0H9GmDtn/nD7+6Pk0ezD7J+eK0g==
+	abJp7FiV95rAM7qSqq/rCokMSI8K7nQMp0WebwyYXJyT+tM6YEHOH3msTmWoqEgsHTOVksHKW8UamI6w6ChVIc0uU6c9QYAz/ipVrwPt7NYDNUNMz1dZof1ynPXnQyecXk9NDOeczffkNAOM3wp/Y5aitHlSBqXYaZ7obAOwRC0/SRD8HaZxlQSSpzor3OrLozVkh6A1P60culn5eG9bcnxA6co/QXzFaW+qBRXrujc61nL8vIiFBHlhJ15XROBNUvVWZrLOoEIzJ9OjIXMaT4JuWT/rcLmHdp/uO6BbiMO501jQENqICJzAyFb61ItDkfJDezzb9CcR66XYUcGsKg==
 X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 21:38:17.3318
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 21:38:17.3559
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff7c9bdc-4027-4964-8479-08df2e2949a7
+X-MS-Exchange-CrossTenant-Network-Message-Id: c1dd91ed-217f-4d61-61a6-08df2e2949b0
 X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CY5PEPF00000E76.namprd02.prod.outlook.com
+	LV8PEPF0000005D.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR10MB8610
-X-Proofpoint-ORIG-GUID: m6X4Taaf_U6PcYafXSMsjW2uKTt8iayD
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA4NiBTYWx0ZWRfX49REq28TwVaw
- U3VXXPnBG6LQN8m5tb151z3aq+HUUkn8UvMsZzP4IMwzCLQKp+268+QGI33DEv1cWc3gaqUnh1e
- lHtBBr1J/4WlsZWqffLofAiGmROVQv5VE3BDW1M3lzS6YeAWvfmm+Uihz/+hUqHxrZetFgMe6GH
- Gb6WLSIO6OffKSVXBpVg7/GqpXbpHlNiyNxkZTeGGjQGIKkMIiV46gOn3839bRfMYeenRVJ7Fhb
- tIoLHSRCInHN0WZYSNkj2QfYx9pLK/7oJtIiXlTZAwwlHUVRRr//92JP7solncP0cXvLlH8ljT/
- H+jrmjNoHzmyY+iuA6rlnl6PWBVbcmZEtaljGdxz5GoKsUwVVcNGVQx/NT2XgeYhTJvbzF1Rvth
- 5PzlxVo4BPkDwE4Y6h+BYWCvRB+WAGy8hp9tXGhoSbz8rPNZKu4ailMHbECdSLPMwGmo2hoZapU
- EOBeoJyi4XpIMCshC6w==
-X-Authority-Analysis: v=2.4 cv=ReYFmFtv c=1 sm=1 tr=0 ts=6ad68dce cx=c_pps
- a=3vo4EN8bzuoLd/SmvO3peg==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PPF194C7D93E
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA4NiBTYWx0ZWRfX002f+2hSLmp0
+ eqWLqsdUTdMBz2wXI3MIEXwswNTbemyDGRTXygC2pjw1yG9g9u3fgViOoMLNm3TH5zgoafjXqcp
+ bzVbn0oLnnZEEzUFYma3bxbLWyIqLJABh1wHeU1kZQG76YANlpQFzPKZlsQIqKm8e5C+oM7WbfP
+ LIXjQtpPVFkTR45108WERBPUCzOskMtcbdeA2K1MhlnYnK/c1r0wUy+BprubxFRDlJ2YP/I+1S6
+ PQ+XyXZzQPjAG76nlDpRnXyfzMAwhQetRq5hDtuhzpOqKpSU2Y5TMG4LOwIr4Av+PLyYXf+gSuC
+ DPIivm8X1+MewCigMF8OAAdSFa+/+QVmyHmZRdxehi1CwfZ2MHWwW6cZSh+UB6G+8ZMLrlg77MT
+ ldeHjhO4Jne1dpNtGzpQOtBhn9jOmrhDGNBPlNRvAc6i6xPYacYTSTt56q6rBnHuBZ9oatzNPN+
+ 3XzGkzPmW+ZGPk0rXHw==
+X-Proofpoint-ORIG-GUID: irTBPyqV2oqv_9qk3js5m1NSXUICrmz0
+X-Proofpoint-GUID: irTBPyqV2oqv_9qk3js5m1NSXUICrmz0
+X-Authority-Analysis: v=2.4 cv=Vsa2kO2n c=1 sm=1 tr=0 ts=6ad68dd3 cx=c_pps
+ a=lV9semjb6HF4qJ8WeHToSQ==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
  a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=660iZSQnnn4A:10 a=AlMIdn_sM9wA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=fPAWb5peG099m5CrUpKH:22
- a=sozttTNsAAAA:8 a=EUspDBNiAAAA:8 a=6SX0sZSdmN_HxNRVgkQA:9
-X-Proofpoint-GUID: m6X4Taaf_U6PcYafXSMsjW2uKTt8iayD
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA4NiBTYWx0ZWRfX/QUysdg+Vlj4
- IFl7wbjws7t36s3mI/Hufp8JPqTPo/tXMTVjYhQjEh8vFuFzmq2aXOOITGBUVtceDwnEaMys/Fd
- l7ajMriJZQVvqKpcXembA3Pl6JQosUs=
+ a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22
+ a=sozttTNsAAAA:8 a=ZefhO2H21uGiRyTyvdgA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA4NiBTYWx0ZWRfXwZBXwxndSyIW
+ 3nC9R9r7/UhVeEzY/76AlBMoqmyjwGlssdzJ7+Bk+/CvWFPoJWPPWPxkDr991Syt0IWKFTbaKDA
+ fZnIvALZ7YGKCN/uQ6wTQsUcDfU21Ow=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-19_06,2026-10-19_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 phishscore=0 malwarescore=0 impostorscore=0
- adultscore=0 lowpriorityscore=0 clxscore=1011 spamscore=0 suspectscore=0
+ clxscore=1015 priorityscore=1501 bulkscore=0 suspectscore=0 spamscore=0
+ phishscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0 impostorscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190086
 
-Add vendor prefix 'gooddisplay' for Dalian Good Display Co., Ltd., a
-manufacturer of e-paper display panels and modules.
+Add a DRM plane property "refresh_mode" allowing userspace to
+select between partial, full and fast display update modes at runtime.
 
-This prefix will be used for the GDEY042T81 e-paper display panel in
-the solomon,ssd16xx binding.
+E-paper displays support multiple refresh strategies with different
+tradeoffs:
+  - partial: fastest updates (~300-500ms), minimal flicker, ghosting
+    accumulates over time
+  - full: cleanest image (~1.5-2s), full black-white cycle eliminates
+    ghosting, most flicker
+  - fast: intermediate (~1s), skips LUT reload per frame (loaded once
+    at init)
+
+The property uses an enum with values matching the internal
+ssd16xx_refresh_mode enum. The default is set from the panel
+configuration (typically "partial" for interactive use).
 
 Signed-off-by: Devarsh Thakkar <devarsht@ti.com>
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
-V3: No change
-V2: No change
+Changes in v3:
+- Use kzalloc_obj() and fix formatting, no functional changes
 ---
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/solomon/ssd16xx.c | 142 +++++++++++++++++++++++++++++-
+ 1 file changed, 141 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index ba2002969373..3e8062aa92f7 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -686,6 +686,8 @@ patternProperties:
-     description: GOcontroll Modular Embedded Electronics B.V.
-   "^goldelico,.*":
-     description: Golden Delicious Computers GmbH & Co. KG
-+  "^gooddisplay,.*":
-+    description: Dalian Good Display Co., Ltd.
-   "^goodix,.*":
-     description: Shenzhen Huiding Technology Co., Ltd.
-   "^google,.*":
+diff --git a/drivers/gpu/drm/solomon/ssd16xx.c b/drivers/gpu/drm/solomon/ssd16xx.c
+index 99f11b7ec03e..f53c67ae7d31 100644
+--- a/drivers/gpu/drm/solomon/ssd16xx.c
++++ b/drivers/gpu/drm/solomon/ssd16xx.c
+@@ -397,8 +397,21 @@ struct ssd16xx_device {
+ 	u8  *tx_red_buf; /* 1bpp red-channel buffer (3-color panels only) */
+ 	u16 *tx_buf9;    /* 9-bit SPI expansion buffer (3-wire mode only) */
+ 	u8  spi_buf[64] ____cacheline_aligned; /* DMA-safe buffer for SPI transfers */
++
++	struct drm_property *refresh_mode_property;
++};
++
++/* Plane state subclass: refresh_mode lives on the plane, not the connector,
++ * so plane_atomic_update() can diff against its own old/new state.
++ */
++struct ssd16xx_plane_state {
++	struct drm_shadow_plane_state base;
++	enum ssd16xx_refresh_mode refresh_mode; /* Pending refresh mode */
+ };
+ 
++#define to_ssd16xx_plane_state(s) \
++	container_of((s), struct ssd16xx_plane_state, base.base)
++
+ static inline struct ssd16xx_device *to_ssd16xx_device(struct drm_device *drm)
+ {
+ 	return container_of(drm, struct ssd16xx_device, drm);
+@@ -1430,11 +1443,91 @@ static void ssd16xx_plane_destroy(struct drm_plane *plane)
+ 	drm_plane_cleanup(plane);
+ }
+ 
++static void ssd16xx_plane_atomic_destroy_state(struct drm_plane *plane,
++					       struct drm_plane_state *state);
++
++static struct drm_plane_state *ssd16xx_plane_atomic_create_state(struct drm_plane *plane)
++{
++	struct ssd16xx_device *device = plane_to_ssd16xx_device(plane);
++	struct ssd16xx_plane_state *ssd_state;
++
++	ssd_state = kzalloc_obj(*ssd_state, GFP_KERNEL);
++	if (!ssd_state)
++		return ERR_PTR(-ENOMEM);
++
++	__drm_gem_shadow_plane_state_init(plane, &ssd_state->base);
++	ssd_state->refresh_mode = device->refresh_mode;
++
++	return &ssd_state->base.base;
++}
++
++static struct drm_plane_state *
++ssd16xx_plane_atomic_duplicate_state(struct drm_plane *plane)
++{
++	struct ssd16xx_plane_state *old_ssd_state, *ssd_state;
++
++	if (WARN_ON(!plane->state))
++		return NULL;
++
++	old_ssd_state = to_ssd16xx_plane_state(plane->state);
++	ssd_state = kmemdup(old_ssd_state, sizeof(*ssd_state), GFP_KERNEL);
++	if (!ssd_state)
++		return NULL;
++
++	__drm_gem_duplicate_shadow_plane_state(plane, &ssd_state->base);
++	return &ssd_state->base.base;
++}
++
++static void ssd16xx_plane_atomic_destroy_state(struct drm_plane *plane,
++					       struct drm_plane_state *state)
++{
++	struct ssd16xx_plane_state *ssd_state = to_ssd16xx_plane_state(state);
++
++	__drm_gem_destroy_shadow_plane_state(&ssd_state->base);
++	kfree(ssd_state);
++}
++
++static int ssd16xx_plane_atomic_get_property(struct drm_plane *plane,
++					     const struct drm_plane_state *state,
++					     struct drm_property *property,
++					     uint64_t *val)
++{
++	struct ssd16xx_device *device = plane_to_ssd16xx_device(plane);
++	const struct ssd16xx_plane_state *ssd_state = to_ssd16xx_plane_state(state);
++
++	if (property == device->refresh_mode_property) {
++		*val = ssd_state->refresh_mode;
++		return 0;
++	}
++	return -EINVAL;
++}
++
++static int ssd16xx_plane_atomic_set_property(struct drm_plane *plane,
++					     struct drm_plane_state *state,
++					     struct drm_property *property,
++					     uint64_t val)
++{
++	struct ssd16xx_device *device = plane_to_ssd16xx_device(plane);
++	struct ssd16xx_plane_state *ssd_state = to_ssd16xx_plane_state(state);
++
++	if (property == device->refresh_mode_property) {
++		if (val > SSD16XX_REFRESH_FAST)
++			return -EINVAL;
++		ssd_state->refresh_mode = val;
++		return 0;
++	}
++	return -EINVAL;
++}
++
+ static const struct drm_plane_funcs ssd16xx_plane_funcs = {
+ 	.update_plane = drm_atomic_helper_update_plane,
+ 	.disable_plane = drm_atomic_helper_disable_plane,
+ 	.destroy = ssd16xx_plane_destroy,
+-	DRM_GEM_SHADOW_PLANE_FUNCS,
++	.atomic_create_state = ssd16xx_plane_atomic_create_state,
++	.atomic_duplicate_state = ssd16xx_plane_atomic_duplicate_state,
++	.atomic_destroy_state = ssd16xx_plane_atomic_destroy_state,
++	.atomic_get_property = ssd16xx_plane_atomic_get_property,
++	.atomic_set_property = ssd16xx_plane_atomic_set_property,
+ };
+ 
+ static int ssd16xx_plane_atomic_check(struct drm_plane *plane,
+@@ -1462,6 +1555,8 @@ static void ssd16xx_plane_atomic_update(struct drm_plane *plane,
+ 	struct drm_plane_state *new_state = drm_atomic_get_new_plane_state(state, plane);
+ 	struct drm_shadow_plane_state *shadow_state = to_drm_shadow_plane_state(new_state);
+ 	struct ssd16xx_device *device = plane_to_ssd16xx_device(plane);
++	struct ssd16xx_plane_state *new_ssd = to_ssd16xx_plane_state(new_state);
++	struct ssd16xx_plane_state *old_ssd = to_ssd16xx_plane_state(old_state);
+ 	enum ssd16xx_refresh_mode saved_mode;
+ 	u8 saved_border_waveform_idx;
+ 	struct drm_framebuffer *fb = new_state->fb;
+@@ -1495,6 +1590,25 @@ static void ssd16xx_plane_atomic_update(struct drm_plane *plane,
+ 
+ 	drm_dbg(&device->drm, "plane_atomic_update: calling fb_dirty rect=(%d,%d)-(%d,%d)\n",
+ 		rect.x1, rect.y1, rect.x2, rect.y2);
++
++	/* Diff refresh_mode against the plane's own previous state to see
++	 * whether fast LUT preload is needed.
++	 */
++	if (old_ssd->refresh_mode != new_ssd->refresh_mode) {
++		/*
++		 * Fast refresh omits LOAD_LUT each update; arm the
++		 * one-shot flag so LUT is pre-loaded before the first
++		 * fast frame.
++		 */
++		if (new_ssd->refresh_mode == SSD16XX_REFRESH_FAST &&
++		    old_ssd->refresh_mode != SSD16XX_REFRESH_FULL)
++			device->fast_lut_pending = true;
++		else
++			device->fast_lut_pending = false;
++	}
++
++	device->refresh_mode = new_ssd->refresh_mode;
++
+ 	/*
+ 	 * When refresh_mode_init was set, use the specified mode for this first
+ 	 * frame only, then restore the user-configured refresh_mode so
+@@ -1735,6 +1849,29 @@ static const struct drm_connector_helper_funcs ssd16xx_connector_helper_funcs =
+ 	.get_modes = ssd16xx_connector_get_modes,
+ };
+ 
++static const struct drm_prop_enum_list ssd16xx_refresh_mode_enum[] = {
++	{ SSD16XX_REFRESH_PARTIAL, "partial" },
++	{ SSD16XX_REFRESH_FULL,    "full"    },
++	{ SSD16XX_REFRESH_FAST,    "fast"    },
++};
++
++static int ssd16xx_plane_create_properties(struct ssd16xx_device *device)
++{
++	struct drm_device *drm = &device->drm;
++	struct drm_mode_object *plane_obj = &device->primary_plane.base;
++
++	device->refresh_mode_property =
++		drm_property_create_enum(drm, 0, "refresh_mode",
++					 ssd16xx_refresh_mode_enum,
++					 ARRAY_SIZE(ssd16xx_refresh_mode_enum));
++	if (!device->refresh_mode_property)
++		return -ENOMEM;
++	drm_object_attach_property(plane_obj,
++				   device->refresh_mode_property,
++				   device->refresh_mode);
++	return 0;
++}
++
+ static const struct drm_connector_funcs ssd16xx_connector_funcs = {
+ 	.reset = drm_atomic_helper_connector_reset,
+ 	.fill_modes = drm_helper_probe_single_connector_modes,
+@@ -2057,6 +2194,9 @@ static int ssd16xx_probe(struct spi_device *spi)
+ 	if (ret)
+ 		return ret;
+ 
++	ret = ssd16xx_plane_create_properties(device);
++	if (ret)
++		return ret;
+ 	drm_mode_config_reset(drm);
+ 
+ 	/*
 -- 
 2.39.1
 
