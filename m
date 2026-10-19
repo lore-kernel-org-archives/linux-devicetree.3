@@ -1,198 +1,132 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACCD14D7977;
-	Mon, 19 Oct 2026 10:34:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 340954D7D55
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 10:34:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792406050; cv=none; b=aT8gSI2w2TZ669jzIATSHab6TGkaNzKGUcBuQq9wAxg47XJhWbX7fRSdxIJ3J7EvdKtzq82z+NeXI0Kbo+n2dxuZvMgi6ST4ZVDOsIYmLKhV+VB0hXDiVfc/mz/C/ScvPvA8gndYwb61CfG9Nj5Tzzlz2JuOx9YP5WJapegDLRE=
+	t=1792406066; cv=none; b=GMYOlnwJWJ2zMwGn5Git3LjPDgaJwZaiKm3B0ayhf99VgrJMh94nXy+wFHcKHZZE5QbtEEsKJ1GT/2Xi9L2+uF/W2u5pGwJqITLA6y5aVFSo+iraOqQhpSdGhJI/zbcNGB+/mDPDGgU/Bd8iAAOyWY7cluPkudJENeAPeWfSw0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792406050; c=relaxed/simple;
-	bh=PJGT8DxMiD7+pvSBuUnBLIEONlrlsH89GQjqdWvSMfI=;
+	s=arc-20240116; t=1792406066; c=relaxed/simple;
+	bh=Wbpsxu+kOiAtoYq9KyyVfsyes/HB/Tp0ZKieBIJFvF0=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=sWn5aoQksRB0V/hV/T9joOywtLsGkQI841B0QOjKDJzwmpgLmYtxCGW6+r2PBN89g02yVqn+QllJyNMhb4M6IMHPe/EZxntjsQ8ETInwZnktNCejUa8joutNvrEXeA9CcbQL+NoueAEYQg/7Ji6ObEVuZzmP8ekrDFXrURgd0MI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a8HY3GLW; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=lc061lDbfivxxLO4irdsTI4ynaaZRve358nRLR4Y9LwkT9YQ3Ko1UWz9jzsUh3/mnJtQ0siGN/AHbkEqTO40kPQqLzeDBsFqFPhkVrXo9DcowAvY5KJs9zyKMT7M3H/Lp+U98RYYuorq5/GXftu4WmNeIwKA1+gvgNs82KE/+8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ISWFwIm0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a8HY3GLW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 009531F000C4;
-	Mon, 19 Oct 2026 10:34:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ISWFwIm0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89E761F000C5;
+	Mon, 19 Oct 2026 10:34:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792406047;
-	bh=BxFJg1WeFW7LYxavisv8eBBfuyz6duDUtX3mBa2YhYs=;
+	s=k20260515; t=1792406063;
+	bh=3aQKqW6/c1MMTRivk1CvAvOj3hMI4UMnyi0QCXipvzw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=a8HY3GLWLkQWLh72816xMNviirN4f0vjbLH2kvDhaKa0n4iULLYjbXftjvW5Kzwos
-	 Yak6w1RKrPXL93g26dgM2oy4X48ak8F5aS9o1SdciNQySjTX8Y471p7hguuPGXNRLd
-	 1Xtdg5jXLKAaebefb2HXaohnqkkvIcxFwfn2J9YcVoCl9rmUXpGPu0e63wSQpgy9FQ
-	 yNntfbEiOCAB2y+x0kqDGjR1FaP26REvYNk0MSwNJ6OFutZuXfKWiVoYRgjg8LObgL
-	 6KVcYiu+bI3xBs7zzvXU9RvIKy1RyTSQD5wCJibID0Ej5jMcW/yf3cZjQbHKlOuhXO
-	 U7YNJTz6BmB8w==
-Message-ID: <sashiko-outbox-176995@kernel.org>
+	b=ISWFwIm0dtQ0VwhddEi+T+dcwxEBtWkY7P92joFcKmXMZGjEACOFilk/IqnGhfEeH
+	 aaHLnFyhCz3z6mzAXs/DJ6ztjf8Vqs1gb5U/cO8A+pLGKQs4rUf64EI3F9e76nowNm
+	 NCtQuOuqK7+S0Ar7TXT6h4DndaYY7KcyZTgXcoc14CyBTJpO4S5dNRh19nhgGvQt+W
+	 WaBiqNGFwcFommPD4uBIkvKrU7xpUs3wgHYfhvWtE5HOpDeufvppQammrZ7Gn1J6xR
+	 no++I9nc+WEMbvkkD1c8NqeiQzF0uIo6MRlj1bR6SST2RqSAUmMpMOC+4k5JHhFNQ0
+	 L3I4lmq/phChg==
+Message-ID: <sashiko-outbox-176998@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] drm/bridge: simple-bridge: Support
- data-enable-active endpoint property
+Subject: Re: [PATCH v2 1/5] dt-bindings: soc: samsung: exynos-sysreg: Add
+ compatibles for Exynos5515
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Leonardo Costa" <leoreis.costa@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261019-v2-apalis-imx6-enable-vga-v2-2-ef6a3a780472@toradex.com>
-References: <20261019-v2-apalis-imx6-enable-vga-v2-0-ef6a3a780472@toradex.com>
- <20261019-v2-apalis-imx6-enable-vga-v2-2-ef6a3a780472@toradex.com>
+To: "Aiden Isik" <aidenisik@member.fsf.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261019-for-next-lucky7-v2-1-c4ecab4b1c4c@member.fsf.org>
+References: <20261019-for-next-lucky7-v2-0-c4ecab4b1c4c@member.fsf.org>
+ <20261019-for-next-lucky7-v2-1-c4ecab4b1c4c@member.fsf.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 19 Oct 2026 10:34:06 +0000
+Date: Mon, 19 Oct 2026 10:34:23 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] drm/bridge: simple-bridge: missing atomic_check() to propagate DE =
-bus flags
-- [Medium] drm/bridge: simple-bridge: timings devm_kzalloc() lifetime misma=
-tch
+- [Medium] dt-bindings: soc: samsung: missing clocks condition for exynos55=
+15 sysreg
 --
 
-commit 17d03fa8dcd99e5bb3af7da622344c856ca2c887
-Author: Leonardo Costa <leonardo.costa@toradex.com>
+commit 780d375e416e5c58dedc0e1cdf45e84c270a29e6
+Author: Aiden Isik <aidenisik@member.fsf.org>
 
-drm/bridge: simple-bridge: Support data-enable-active endpoint property
+dt-bindings: soc: samsung: exynos-sysreg: Add compatibles for Exynos5515
 
-This commit reads the data-enable-active property from the input endpoint in
-simple_bridge_probe() and allocates a drm_bridge_timings structure to set
-DRM_BUS_FLAG_DE_HIGH or DRM_BUS_FLAG_DE_LOW in input_bus_flags when the bri=
-dge
-does not already define its own timings.
+This commit adds Exynos5515 sysreg compatible strings for the top, peri,
+and fsys blocks to the Samsung Exynos sysreg Device Tree binding schema.
 
-> diff --git a/drivers/gpu/drm/bridge/simple-bridge.c b/drivers/gpu/drm/bri=
-dge/simple-bridge.c
-> index 3fba7002322e9..393228bed6e28 100644
-> --- a/drivers/gpu/drm/bridge/simple-bridge.c
-> +++ b/drivers/gpu/drm/bridge/simple-bridge.c
-> @@ -171,6 +171,9 @@ static int simple_bridge_probe(struct platform_device=
- *pdev)
->  {
->  	struct simple_bridge *sbridge;
->  	struct device_node *remote;
-> +	struct device_node *ep;
-> +	bool de_present;
-> +	u32 de;
-> =20
->  	sbridge =3D devm_drm_bridge_alloc(&pdev->dev, struct simple_bridge,
->  					bridge, &simple_bridge_bridge_funcs);
-> @@ -208,10 +211,26 @@ static int simple_bridge_probe(struct platform_devi=
-ce *pdev)
->  		return dev_err_probe(&pdev->dev, PTR_ERR(sbridge->enable),
->  				     "Unable to retrieve enable GPIO\n");
-> =20
-> -	/* Register the bridge. */
->  	sbridge->bridge.of_node =3D pdev->dev.of_node;
->  	sbridge->bridge.timings =3D sbridge->info->timings;
-> =20
-> +	ep =3D of_graph_get_endpoint_by_regs(pdev->dev.of_node, 0, -1);
-> +	de_present =3D !of_property_read_u32(ep, "data-enable-active", &de);
-> +	of_node_put(ep);
-> +
-> +	if (de_present && !sbridge->bridge.timings) {
-> +		struct drm_bridge_timings *timings;
-> +
-> +		timings =3D devm_kzalloc(&pdev->dev, sizeof(*timings), GFP_KERNEL);
-> +		if (!timings)
-> +			return -ENOMEM;
+> diff --git a/Documentation/devicetree/bindings/soc/samsung/samsung,exynos=
+-sysreg.yaml b/Documentation/devicetree/bindings/soc/samsung/samsung,exynos=
+-sysreg.yaml
+> index fcdb9ffd26448..c6731a3ea1c47 100644
+> --- a/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg=
+.yaml
+> +++ b/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg=
+.yaml
+> @@ -29,6 +29,9 @@ properties:
+>                - samsung,exynos3-sysreg
+>                - samsung,exynos4-sysreg
+>                - samsung,exynos5-sysreg
+> +              - samsung,exynos5515-fsys-sysreg
+> +              - samsung,exynos5515-peri-sysreg
+> +              - samsung,exynos5515-top-sysreg
+>                - samsung,exynos7870-cam0-sysreg
+>                - samsung,exynos7870-disp-sysreg
+>                - samsung,exynos8895-fsys0-sysreg
 
 [Severity: Medium]
-Can allocating timings with devm_kzalloc() in simple_bridge_probe() cause a
-lifetime mismatch with sbridge->bridge?
+Should samsung,exynos5515-fsys-sysreg and samsung,exynos5515-peri-sysreg al=
+so
+be added to the allOf conditional block that requires clocks?
 
-sbridge is allocated via devm_drm_bridge_alloc(), which manages the contain=
-er's
-lifetime through sbridge->bridge.refcount and only frees it in
-__drm_bridge_free() after all drm_bridge references are dropped:
+In include/dt-bindings/clock/samsung,exynos5515-cmu.h and
+drivers/clk/samsung/clk-exynos5515.c, CMU_PERI and CMU_FSYS register
+dedicated PCLK gate clocks for their respective SYSREG blocks in
+peri_gate_clks and fsys_gate_clks:
 
-drivers/gpu/drm/drm_bridge.c:__drm_bridge_free()
-	if (bridge->funcs->destroy)
-		bridge->funcs->destroy(bridge);
+drivers/clk/samsung/clk-exynos5515.c:
+	/* SYSREG */
+	GATE(CLK_GOUT_PERI_SYSREG_PCLK, "gout_peri_sysreg_pclk",
+	     "mout_pll_peri_bus_user",
+	     CLK_CON_GAT_CLK_BLK_PERI_UID_SYSREG_PERI_IPCLKPORT_PCLK,
+	     21, 0, 0),
+...
+	/* SYSREG */
+	GATE(CLK_GOUT_FSYS_SYSREG_PCLK, "gout_fsys_sysreg_pclk",
+	     "mout_pll_fsys_bus_user",
+	     CLK_CON_GAT_GOUT_BLK_FSYS_UID_SYSREG_FSYS_IPCLKPORT_PCLK,
+	     21, 0, 0),
 
-	drm_bridge_put(bridge->next_bridge);
+However, in Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sy=
+sreg.yaml,
+the allOf block sets clocks: false in the else branch when a compatible
+string is not listed in the if enum:
 
-	kfree(bridge->container);
+  - if:
+      properties:
+        compatible:
+          contains:
+            enum:
+              - google,gs101-dpu-sysreg
+              ...
+              - samsung,exynos990-peric1-sysreg
+    then:
+      required:
+        - clocks
+    else:
+      properties:
+        clocks: false
 
-If pdev is unbound while an upstream bridge or encoder still holds a refere=
-nce
-to sbridge->bridge, devres_release_all() will free timings immediately, lea=
-ving
-sbridge->bridge.timings as a dangling pointer that can be dereferenced by
-upstream drivers (for example, in imx8mp_hdmi_pvi_bridge_enable()).
-
-Would embedding struct drm_bridge_timings inside struct simple_bridge (as d=
-one
-in lvds-codec.c and ti-tfp410.c), or pointing to static const
-drm_bridge_timings instances for DRM_BUS_FLAG_DE_HIGH and DRM_BUS_FLAG_DE_L=
-OW,
-avoid this lifetime mismatch?
-
-> +
-> +		timings->input_bus_flags =3D de ? DRM_BUS_FLAG_DE_HIGH :
-> +						DRM_BUS_FLAG_DE_LOW;
-> +		sbridge->bridge.timings =3D timings;
-> +	}
-
-[Severity: High]
-Will setting only sbridge->bridge.timings->input_bus_flags actually propaga=
-te
-the DE polarity to upstream atomic encoders and bridges?
-
-simple_bridge_bridge_funcs registers atomic state callbacks without an
-.atomic_check callback:
-
-drivers/gpu/drm/bridge/simple-bridge.c:
-static const struct drm_bridge_funcs simple_bridge_bridge_funcs =3D {
-	.atomic_create_state =3D drm_atomic_helper_bridge_create_state,
-	.atomic_destroy_state =3D drm_atomic_helper_bridge_destroy_state,
-	.atomic_duplicate_state =3D drm_atomic_helper_bridge_duplicate_state,
-	.attach		=3D simple_bridge_attach,
-	.atomic_enable =3D simple_bridge_enable,
-	.atomic_disable =3D simple_bridge_disable,
-};
-
-During an atomic modeset, drm_atomic_bridge_chain_check() calls
-drm_atomic_bridge_propagate_bus_flags(), which overwrites
-bridge_state->input_bus_cfg.flags with output_flags from the downstream bri=
-dge
-or connector (0 for a VGA connector) and never checks
-bridge->timings->input_bus_flags:
-
-drivers/gpu/drm/drm_bridge.c:drm_atomic_bridge_propagate_bus_flags()
-	bridge_state->output_bus_cfg.flags =3D output_flags;
-	...
-	bridge_state->input_bus_cfg.flags =3D output_flags;
-
-Because simple-bridge has a valid drm_bridge_state, upstream bridges and at=
-omic
-encoders such as imx_pd_bridge_atomic_check() in
-drivers/gpu/drm/imx/ipuv3/parallel-display.c read
-next_bridge_state->input_bus_cfg.flags instead of
-next_bridge->timings->input_bus_flags:
-
-drivers/gpu/drm/imx/ipuv3/parallel-display.c:imx_pd_bridge_atomic_check()
-	if (next_bridge_state)
-		bus_flags =3D next_bridge_state->input_bus_cfg.flags;
-	else
-		bus_flags =3D di->bus_flags;
-
-As a result, bus_flags remains 0 instead of DRM_BUS_FLAG_DE_LOW or
-DRM_BUS_FLAG_DE_HIGH.
-
-Should simple_bridge_bridge_funcs implement an .atomic_check callback that
-copies sbridge->bridge.timings->input_bus_flags into
-bridge_state->input_bus_cfg.flags (similar to tfp410_atomic_check() in
-drivers/gpu/drm/bridge/ti-tfp410.c)?
-
-> +
-> +	/* Register the bridge. */
->  	return devm_drm_bridge_add(&pdev->dev, &sbridge->bridge);
->  }
+Without listing samsung,exynos5515-fsys-sysreg and
+samsung,exynos5515-peri-sysreg in that enum, won't schema validation reject
+Device Tree nodes that specify CLK_GOUT_FSYS_SYSREG_PCLK or
+CLK_GOUT_PERI_SYSREG_PCLK, while allowing unclocked nodes where
+of_syscon_register() cannot attach the PCLK via regmap_mmio_attach_clk()?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019-v2-apalis-=
-imx6-enable-vga-v2-0-ef6a3a780472@toradex.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019-for-next-l=
+ucky7-v2-0-c4ecab4b1c4c@member.fsf.org?part=3D1
