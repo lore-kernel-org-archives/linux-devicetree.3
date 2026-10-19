@@ -1,56 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.160.32.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792438019;
-	b=tEkngr4Hp3VrHEXXMs86dEOpr4Oy2IXKHLOdTKxnAQv4P1tBJHYMtF3SneHMWFJo++Vb
-	 w8SKCscdPcvBlfDzIRqdtaELE2acUtX1VRCNUVNZRFkQh7cJNulSdhUK7dn0iju3IVK1R
-	 aNl2Zq6HertIVjPDBJu1RfAcnBcBPN3mTQdR4YwE+KGDNlbCd3YnNcM5U4jz1+fmLFEg5
-	 8c5foTeOf/vTyRWurTZ36GKzZ9FEF7nVN7xsHSWl0AA8Edbqf+vkgNimskQf7KWveRjtx
-	 uIIo1hM7G3sj564uFpdij+msYAi8Yjb1kiW6+cUK6XUyFw6jz9sKot7KG2vIE7OwPkA==
+	t=1792438078;
+	b=rJRnCdQW0jA5B3Vx+PZFx8HlsjBeQH2U1S2qQsLag3eCiffSHRNlFg2+HItHE/Y264YE
+	 SPW0vd/JcZR8LRfT/5WAAg4M4KkH4IAMXia6/1e/89TSygnY0gmo6QjPY63PVavxZPdvt
+	 3SNXjoBWa+zQQkN8zekutSLEgCJYes4aBxnwO4luShoyRQiYHRZm0lWRM/2nCjrfYSjEn
+	 ZflQlYT1jKQPN9HioXePhW+SfA13wACuITSwli6ltCBWcM1sXIVzV8/ojEFZFx+Sx9MTu
+	 H8uVpN2R/qK/cq+JzUMmVv9Xv+iLqdBsoe6pk+vxdjo92VB1oloICKgtN8M5R8ifDRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792438019;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=XJxIc7IZPOWvgbXWTDNvi1oJM4oQX4nC6DFxnxfPJAM=;
-	b=TmFj/jS/fwbZzq+Vu609zhXqVMNT+oydqrgHOX83rjuneFNlTUVvXDNp0wMqwGX9G0/D
-	 LNSoUNVwjkzlu9G2P8afFrimlfsQdFPaFBot/ruoIlk3H6DvTre6MxeAaKOFwjm5UrBWx
-	 Xg9Mf1Qx5rJH3LoCi2SuPc+Vb0pMMK39OxmdkB0/xtbxCYFUcsF/4QSrhI2dZQx68N/bq
-	 CHcfumoBKHnKS310db29amRdLQL9LXf/AknZeSa+32fWXv4JWBIFHZynb3PdWHyhOmZW1
-	 TSy63/Vq4x52/luRTDGdac3YmArSy7yEOooymZkQx5pi//S14tdAQRu2zF07iPqjLhw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792438078;
+	h=DMARC-Filter:Received:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
+	 X-Spam-Status:Received:Received:DKIM-Signature:Received-SPF:From:To:
+	 Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:X-PPP-Message-ID:X-PPP-Vhost;
+	bh=nb/x52c8v7ZaO3dMeyrkw31le9iF2h99epDlEuSNVyE=;
+	b=F2czQYGLonWJM5WJr/NTiAX2h8LUk7wvOXXVCH6/+p8EP5TM4mQclrOW7C0qNCtXB9nA
+	 0CqkzyQ7047+7hsahWkx/UXnZKADYHlHLKoEyXL8lZhhXWMSNhDfIHismDbRIXu7zUNcz
+	 PwA4pPr3C0L966ZcBbqQ1JOyE5meM0hJsMDXbT5CU4h9j2B4GH9DDIUGsR2bkZwKK5myp
+	 6omWYYSvINHgttJP66lBTlCecWG66t98Q2ECRI7yNKL7XG6lxW7+yOUjMv+3i1TCQgwz+
+	 8VylyDaoqwsv241oaiezKgbr8ibL57IFKYZBwvbjLL5fLul50aifHmM/x+qz7Aouf/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HA1u57TD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=gluon.es;
+	spf=pass smtp.mailfrom=gluon.es;
+	dkim=pass header.d=gluon.es header.i=@gluon.es header.a=rsa-sha256 header.s=default header.b=VwI55yIw;
+	arc=none smtp.remote-ip=217.160.32.16
+Received: from nimiomail.com (nimiomail.com [217.160.32.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA43C606A320;
-	Mon, 19 Oct 2026 19:26:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1C2606A31B;
+	Mon, 19 Oct 2026 19:27:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B1C2606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gluon.es
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gluon.es
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HA1u57TD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 166701F000C5;
-	Mon, 19 Oct 2026 19:26:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792438018;
-	bh=XJxIc7IZPOWvgbXWTDNvi1oJM4oQX4nC6DFxnxfPJAM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HA1u57TDRPq6UjOED+DV69EWPkOi8yCEx96AEr5kGy2qe3RJi7Ab6Ly8iaOxkiSKH
-	 lm0zv+l+S6wwyOeA7P7+mEOR2a+g6OCYU8OpxHXYYENrilGYEj8tfaaUvFNOO5OhH4
-	 FtC4qYMVfsodyItizF+JbQ8RnMpqmMTFPaRCqT5fdejkpv5QAYs6//+K0jNARJotnK
-	 XHDDn3ZzcEdn7jsWrr8FJgBz0G7Stm9RRjT0+ylhFahPIOhIgEXmDRCB4dR75+i07r
-	 IwNQbJv0HhJtBWqGHpOE+q12tOR7icBRZSoB3WDy+RirGai4VQGHUdVtZwucKyQjBL
-	 QsY/yu1f42BzA==
-Message-ID: <sashiko-outbox-178143@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 04/11] HID: spi-hid: add spi-hid driver HID layer
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jingyuan Liang" <jingyliang@chromium.org>
-Cc: linux-input@vger.kernel.org, linux-trace-kernel@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20261019-send-upstream-v6-4-cb9ba4b3d6fa@chromium.org>
-References: <20261019-send-upstream-v6-0-cb9ba4b3d6fa@chromium.org>
- <20261019-send-upstream-v6-4-cb9ba4b3d6fa@chromium.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 19 Oct 2026 19:26:57 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gluon.es header.i=@gluon.es header.a=rsa-sha256 header.s=default header.b=VwI55yIw
+Received: from nimiomail.com (localhost.localdomain [127.0.0.1])
+	by nimiomail.com (Postfix) with ESMTP id 46D0B81E92;
+	Mon, 19 Oct 2026 21:27:45 +0200 (CEST)
+X-Spam-Flag: NO
+X-Spam-Score: -3.101
+X-Spam-Level:
+Authentication-Results: nimiomail.com (amavis) (amavisd-new);
+	dkim=pass (2048-bit key) header.d=gluon.es
+Received: from nimiomail.com ([127.0.0.1])
+	by nimiomail.com (nimiomail.com [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id mK7rNro2vOrT; Mon, 19 Oct 2026 21:27:44 +0200 (CEST)
+Received: from DESKTOP-2QFDG0H.tail76f4b.ts.net (21.red-2-139-241.staticip.rima-tde.net [2.139.241.21])
+	by nimiomail.com (Postfix) with ESMTPSA id 25B2F80709;
+	Mon, 19 Oct 2026 21:27:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gluon.es; s=default;
+	t=1792438064; bh=nb/x52c8v7ZaO3dMeyrkw31le9iF2h99epDlEuSNVyE=;
+	h=From:To:Subject;
+	b=VwI55yIwFWA5iK/hte3+DrrtVExTyqQNyy7Uv26QKUgW372WY/SA74ZkoWdD0q8TN
+	 btcsymJvTIlyfG2nrxrYTWJx8YTwmLwfN3yZqwqzUFW0D9UAwxQuzSuydeS7qCgR3D
+	 n0RPgXPoQsfpm5treMzrjCZ1Cyp3tGtD8cJ+hWRRwOwih5mC8RBwjxCfyuDHW0tEMR
+	 +Sest3p9KSytmL+6VdNClet74iTuOtXkb6g0joexSUdyUyvlL4VpkNA+RfL2iWLRoy
+	 El1NOShRJykP7A7tt3LE7HLvxd/odmYNtw4nujINKvOduQBPp/jyTIAsEUHSh13Vk+
+	 bbxxTfgv0NJcQ==
+Authentication-Results: nimiomail.com;
+	spf=pass (sender IP is 2.139.241.21) smtp.mailfrom=info@gluon.es smtp.helo=DESKTOP-2QFDG0H.tail76f4b.ts.net
+Received-SPF: pass (nimiomail.com: connection is authenticated)
+From: Miguel Jesus Seron Gonzalez <info@gluon.es>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dongjin Kim <tobetter@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: rockchip: odroid-m1: keep vcc3v3_pcie enabled
+ from boot
+Date: Mon, 19 Oct 2026 21:27:22 +0200
+Message-ID: <20261019192722.6985-1-info@gluon.es>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261019132458.855-1-info@gluon.es>
+References: <20261019132458.855-1-info@gluon.es>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,154 +85,18 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: <179243806464.1151496.15391910988614657662@nimiomail.com>
+X-PPP-Vhost: gluon.es
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] HID: spi-hid: zero-length report descriptor accepted in spi_hid_=
-ll_parse()
---
+On Mon, Oct 19, 2026 at 03:24:58PM +0200, Miguel Jesus Seron Gonzalez wrote:
+> Fixes: 35b28582aa3d ("arm64: dts: rockchip: Add PCIEe v3 nodes to ODROID-M1")
+> Signed-off-by: Miguel Jesus Seron Gonzalez <info@gluon.es>
 
-commit 9328ec8c48a0b55cf1019d845ec2c37e89f4cdbb
-Author: Jingyuan Liang <jingyliang@chromium.org>
+I forgot to add the Assisted-by tag that
+Documentation/process/coding-assistants.rst asks for. The changelog and
+the patch were prepared with the help of Claude (Anthropic). I reviewed
+them, and the testing was done on my own board.
 
-HID: spi-hid: add spi-hid driver HID layer
-
-This commit adds the HID low-level driver callbacks and device creation log=
-ic
-for spi-hid, handling report descriptor fetching, buffer allocation, and
-output/feature report requests.
-
-> diff --git a/drivers/hid/spi-hid/spi-hid-core.c b/drivers/hid/spi-hid/spi=
--hid-core.c
-> index 02a7608c4b882..fca7a44eeb9f9 100644
-> --- a/drivers/hid/spi-hid/spi-hid-core.c
-> +++ b/drivers/hid/spi-hid/spi-hid-core.c
-[ ... ]
-> @@ -84,11 +185,484 @@ static const char *spi_hid_power_mode_string(enum h=
-idspi_power_state power_state
-[ ... ]
-> +/*
-> + * This function returns the length of the report descriptor, or a negat=
-ive
-> + * error code if something went wrong.
-> + */
-> +static int spi_hid_report_descriptor_request(struct spi_hid *shid)
-> +{
-> +	struct device *dev =3D &shid->spi->dev;
-> +	struct spi_hid_output_report report =3D {
-> +		.report_type =3D REPORT_DESCRIPTOR,
-> +		.content_length =3D 0,
-> +		.content_id =3D SPI_HID_OUTPUT_REPORT_CONTENT_ID_DESC_REQUEST,
-> +		.content =3D NULL,
-> +	};
-> +	int ret;
-> +
-> +	ret =3D  spi_hid_sync_request(shid, &report);
-> +	if (ret) {
-> +		dev_err(dev,
-> +			"Expected report descriptor not received: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	ret =3D shid->response_length;
-> +	if (ret !=3D shid->desc.report_descriptor_length) {
-> +		ret =3D min_t(unsigned int, ret, shid->desc.report_descriptor_length);
-> +		dev_err(dev, "Received report descriptor length doesn't match device d=
-escriptor field, using min of the two: %d\n",
-> +			ret);
-> +	}
-> +
-> +	return ret;
-> +}
-[ ... ]
-> +static int spi_hid_ll_parse(struct hid_device *hid)
-> +{
-> +	struct spi_device *spi =3D hid->driver_data;
-> +	struct spi_hid *shid =3D spi_get_drvdata(spi);
-> +	struct device *dev =3D &spi->dev;
-> +	unsigned int rsize =3D shid->desc.report_descriptor_length;
-> +	int error, len;
-> +
-> +	if (rsize > HID_MAX_DESCRIPTOR_SIZE) {
-> +		dev_err(dev,
-> +			"Report descriptor size %d is greater than HID_MAX_DESCRIPTOR_SIZE %d=
-\n",
-> +			rsize, HID_MAX_DESCRIPTOR_SIZE);
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (rsize > shid->bufsize) {
-> +		error =3D spi_hid_alloc_buffers(shid, rsize);
-> +		if (error)
-> +			return error;
-> +	}
-> +
-> +	len =3D spi_hid_report_descriptor_request(shid);
-> +	if (len < 0) {
-> +		dev_err(dev, "Report descriptor request failed, %d\n", len);
-> +		return len;
-> +	}
-> +
-> +	/*
-> +	 * FIXME: below call returning 0 doesn't mean that the report descriptor
-> +	 * is good. We might be caching a crc32 of a corrupted r. d. or who
-> +	 * knows what the FW sent. Need to have a feedback loop about r. d.
-> +	 * being ok and only then cache it.
-> +	 */
-> +	error =3D hid_parse_report(hid, (u8 *)shid->response->content, len);
-> +	if (error) {
-> +		dev_err(dev, "failed parsing report: %d\n", error);
-> +		return error;
-> +	}
-> +	shid->report_descriptor_crc32 =3D crc32_le(0,
-> +						 (unsigned char const *)shid->response->content,
-> +						 len);
-> +
-> +	set_bit(SPI_HID_READY, &shid->flags);
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-What happens in spi_hid_ll_parse() if the report descriptor length is 0?
-
-In spi_hid_ll_parse(), rsize (shid->desc.report_descriptor_length) is check=
-ed
-against HID_MAX_DESCRIPTOR_SIZE, but not for zero. Later in the series, the
-commit "HID: spi-hid: add HID SPI protocol implementation" validates
-raw->rep_desc_len !=3D 0 in spi_hid_dev_desc_response(), but if a device re=
-turns
-a REPORT_DESCRIPTOR_RESPONSE with content_length =3D=3D 0 (shid->response_l=
-ength =3D=3D
-0), spi_hid_report_descriptor_request() computes min_t(unsigned int, 0,
-shid->desc.report_descriptor_length) and returns 0.
-
-Both spi_hid_ll_parse() here and spi_hid_refresh_device() in the protocol p=
-atch
-only check if (len < 0), treating len =3D=3D 0 as success.
-
-When len =3D=3D 0 is passed to hid_parse_report():
-
-drivers/hid/hid-core.c:hid_parse_report() {
-	hid->dev_rdesc =3D kmemdup(start, size, GFP_KERNEL);
-	if (!hid->dev_rdesc)
-		return -ENOMEM;
-	hid->dev_rsize =3D size;
-	return 0;
-}
-
-kmemdup() returns ZERO_SIZE_PTR (non-NULL), so hid_parse_report() returns 0.
-spi_hid_ll_parse() then caches a CRC32 of 0 and sets SPI_HID_READY, and
-hid_add_device() sees a non-NULL hdev->dev_rdesc and calls device_add(),
-registering an unusable hid_device while bypassing SPI_HID_ERROR reset
-recovery.
-
-Should spi_hid_report_descriptor_request() or its callers reject a 0-length
-report descriptor (for example, checking !rsize in spi_hid_ll_parse() and
-returning -EINVAL when shid->response_length =3D=3D 0 or len <=3D 0)?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019-send-upstr=
-eam-v6-0-cb9ba4b3d6fa@chromium.org?part=3D4
+Assisted-by: Claude:claude-opus-5-5
