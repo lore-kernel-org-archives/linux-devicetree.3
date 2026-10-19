@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792423999;
-	b=Wk88lSOiCzIGyu1ZiSR3xgvxd8k+DCYiHkig+RF3oTD1fFFmLdktVQ699GFaKnCKCtIl
-	 xqAlfvDjhqnkLhK6wmAeZ5r5Xf6A/9y93vqvwquSKAQJn3lbtzlGpTIaypyl0akmC9O9y
-	 MT++ENty5FU8Z9AlQV8I50jEW2YyUN3KIACWxZtK/AiDyeawBBj0ecJUEPTDNxXbqBrXd
-	 J4qiWoZw+Q09NgoNJq959yZtbloWqEqjYhHlfyr4UGG/UAXNr9OALvfubjP+tOXjs9E79
-	 eWo0C4phdR7zCYoGTNYLU5nMwCQ9R8z1caVNAQCm3DiTQHfJYa5L1CzoQ9qZPnL84/Q==
+	t=1792424204;
+	b=YvfmltbidywGM4lPiwTO5RacNZE3Gzk7Aq0gV7MqINZk7yWNIdLw1VfFEYe2cByEnq4g
+	 At8jJJv2lDxdNSj/FbhqsG3oEMl0wwZurXSax05Ti6djOC/mJTcN4ZNy7o+NA3rdRdt6i
+	 Op4fpgRRCJ5Pw2XgDoD2U4rVn3UZR0pZSx7o6hM3ISYbWyqsTHeXOMi7AQFlr9WSLoBkM
+	 dhiE72fmNPg3zuCR1KNS0z/T+Itr/jOiOXOWyFDc+T1nsZcfzn2OGU0BDpHrRMJzrgCE8
+	 0QVSf2cpCqM9ZWWF7LtUaBU15mOrm9nOtl56qI6NyVl3K6osKBDUmKJCNAKR/jOACCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792423999;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792424204;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=YW4DfEvFP6ZwiZk1r8ZaWiaUW6TDXm5eVfHWbjv2ies=;
-	b=tqORDxdn0e5yNzj+01F0eaPIz68JSZyHAu/mZOVAqpBK7wGpTd2KCfdfX7yya/cdOh92
-	 7YlInVlr7eEkmEsRmLwIOrzfBd8tKuL/OdfAvHArQVqBKYNHGUJDkvP8X5/J87IZi62Xh
-	 xf+lzZJUuP1qTY6ucy7+bHttqmparjGfkpa3lWttDxrTJJMkAt/DmK7gVTn2M3UiYGY3H
-	 Q2yGvsjuuDJ74UDbzZYqtHfvtiUwH+FjwL8s/Qptr3f2UROZUSgM6Rz3RnV9rOLgwl3ZN
-	 WckBl3ti8Yu/JemnvhiEY/P2wSpFWH3agFIciC5QnDHHGYi/tEWuYkhA0UQycSMOfXQ==
+	bh=BGEeQKJl8Gk30nMbB+jqsFr1NBCv0Qnt3rMbhplll2I=;
+	b=X4eWQZfVwqSSwxl95hoKatAKYs1J2C7NcMUYHzH3JXVh82jf9Ny9MRaD3+2XATGDbFcd
+	 +nrtEOxVneozfIRnQlwkoBiBaZFg1z1bbkzdn5+o6R7sdLBBwjecH9kFxIrTnUMEQIfLJ
+	 talXP+SNVULfz9EszZbvB7VmBQvHeB/VcEwan8K1UKLXpelWFQ4a1wtUy7XJX9erqBei5
+	 +uRD9tsflWPnOV1q1eoTuBvqyefZFIHE0h8a1q+vZiskmZ8IzlS1F5dfNcg0YQFfSS/2B
+	 wyYyjiBQxFkWGgvyVYgDOviygVMXwL/6bexrXa7G1FmckNXLzDlIrgQqkR9yFxI/aLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ERp0U3oy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SgmmFxql;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F23D60774D3;
-	Mon, 19 Oct 2026 15:33:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8181606A33F
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 15:36:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ERp0U3oy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D2681F031CE;
-	Mon, 19 Oct 2026 15:33:18 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SgmmFxql
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16E791F000C4;
+	Mon, 19 Oct 2026 15:36:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792423998;
-	bh=YW4DfEvFP6ZwiZk1r8ZaWiaUW6TDXm5eVfHWbjv2ies=;
+	s=k20260515; t=1792424203;
+	bh=BGEeQKJl8Gk30nMbB+jqsFr1NBCv0Qnt3rMbhplll2I=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ERp0U3oyopIb0EIQ+ip9d7VPaSVy5ot4VDiAP8RhvjLU+di2LF2sp98RpkcTMXZvr
-	 Smbez8m869oeCZfQrs4cy/d99gVCeU/JpMPNAIPbIxLDJ9p8L4py8EA35jmN+3aTFc
-	 Ntx9R/n1ZjTo3Eb2KwsuaArx3pp3qBq3N6MdgalvSR4woDwEvHZGBAFbTjBLtDlTtf
-	 +PJ7VGJLGyRVD9l0XLXWK+vdnYlf83HUwOz6H7svy+4GN+zuLIxFxSByE4sQKKVvrL
-	 bhAjMDwV9YAfL2YNohSdLEX3O9sjlkeMUBNXe0wqr8kZjey4IFqVeQqfxsWBZIyknS
-	 eiZ2tU3DNMyTg==
-Message-ID: <sashiko-outbox-177755@kernel.org>
+	b=SgmmFxql9HTDioP+tu72HKiH9fX8bp/cj8o5wwnt/c/KWaDrJrsvU9HLRmeRbqOkR
+	 /1ugw/wkQ6e81nqf8/G0i6aTGYDbBOQUTe1Jf5uAv7cX5QLPe3K+LilXGyzxOf6Nc/
+	 Kx2QchyFWM//oBCxu9cJAMOvuHwiun6ycpmBWbG5y1HPbb26JOdzEvmsA7bVErVvVE
+	 pikrMv5aEjGqqrfMqCIfQXJOAr2exCHHZd8h47z4diLAyb2RWgy/iOlNyTFTWfgLYr
+	 EllPj0Hz8SQtW2EDpX0Oz1zObZKdKV4zopF1Qc/aMtnsm5rUbyyOq8hklLuvhYO9HR
+	 le1C7lH8RYBzQ==
+Message-ID: <sashiko-outbox-177768@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] arm64: dts: qcom: sda660-inforce-ifc6560: fix
- ADV7535 interrupt pin
+Subject: Re: [PATCH 1/8] dt-bindings: interconnect: add Qualcomm MSM8998 NoC
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261019-ifc6560-adv-v2-1-ade625df3fe3@oss.qualcomm.com>
-References: <20261019-ifc6560-adv-v2-1-ade625df3fe3@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261019-msm8998-icc-v1-1-c2da3934b6c8@oss.qualcomm.com>
+References: <20261019-msm8998-icc-v1-0-c2da3934b6c8@oss.qualcomm.com>
+ <20261019-msm8998-icc-v1-1-c2da3934b6c8@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 19 Oct 2026 15:33:18 +0000
+Date: Mon, 19 Oct 2026 15:36:42 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,95 +60,151 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] arm64: dts: qcom: missing output-disable in adv7533_int_default
+- [Medium] dt-bindings: interconnect: qcom,msm8998: require clocks for cloc=
+ked NoCs
+- [Medium] dt-bindings: interconnect: qcom,msm8998: disallow reg on mnoc-ah=
+b child
+- [Low] dt-bindings: interconnect: qcom,msm8998: require compatible on mnoc=
+-ahb
 --
 
-commit 18e53f95f5fe825b6b2171c0f9241c69a999af55
+commit 2b1f68f1df36a65ddbb7510a13783218c56291b7
 Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-arm64: dts: qcom: sda660-inforce-ifc6560: fix ADV7535 interrupt pin
+dt-bindings: interconnect: add Qualcomm MSM8998 NoC
 
-This commit adds a default pinctrl state for the ADV7535 HDMI bridge on the
-Inforce IFC6560 board to configure PM660L GPIO11 as a digital input with
-internal bias disabled.
+This patch adds the YAML device tree binding schema and header definitions
+for the eight Qualcomm MSM8998 Network-On-Chip interconnect providers.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sda660-inforce-ifc6560.dts b/arch/a=
-rm64/boot/dts/qcom/sda660-inforce-ifc6560.dts
-> index 9e14f53b552eb..10b454cc4218a 100644
-> --- a/arch/arm64/boot/dts/qcom/sda660-inforce-ifc6560.dts
-> +++ b/arch/arm64/boot/dts/qcom/sda660-inforce-ifc6560.dts
+> diff --git a/Documentation/devicetree/bindings/interconnect/qcom,msm8998.=
+yaml b/Documentation/devicetree/bindings/interconnect/qcom,msm8998.yaml
+> new file mode 100644
+> index 0000000000000..0a05dc620cfd4
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/interconnect/qcom,msm8998.yaml
+> @@ -0,0 +1,192 @@
 
 [ ... ]
 
-> @@ -285,6 +288,16 @@ sw_ctrl_default: sw-ctrl-default-state {
->  	};
->  };
-> =20
-> +&pm660l_gpios {
-> +	adv7533_int_default: adv7533-int-default-state {
-> +		pins =3D "gpio11";
-> +		function =3D "normal";
-> +		input-enable;
-> +		/* pull-up on board */
-> +		bias-disable;
-> +	};
-> +};
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          const: qcom,msm8998-mnoc
 > +
+> +    then:
+> +      properties:
+> +        clocks:
+> +          items:
+> +            - description: CPU-NoC High-performance Bus Clock
+> +            - description: MMSS NoC AXI Clock
+> +
+> +        clock-names:
+> +          items:
+> +            - const: iface
+> +            - const: mnoc_bus
+> +
+> +        interconnect-mnoc-ahb:
+> +          type: object
+> +          additionalProperties: true
+> +
+> +          properties:
+> +            compatible:
+> +              const: qcom,msm8998-mnoc-ahb
 
-[Severity: High]
-Does adv7533-int-default-state also need output-disable?
+[Severity: Low]
+Should compatible be listed under required for the interconnect-mnoc-ahb
+subschema here?
 
-When the bootloader leaves the pin in PMIC_GPIO_MODE_DIGITAL_OUTPUT,
-pmic_gpio_populate() in drivers/pinctrl/qcom/pinctrl-spmi-gpio.c sets
-pad->output_enabled =3D true:
+Because interconnect-mnoc-ahb sets additionalProperties: true and relies on
+the top-level schema matching on compatible to validate the child node, an
+interconnect-mnoc-ahb child node that omits compatible will pass validation
+without its properties being checked, and will fail to bind a driver when
+populated by devm_of_platform_populate() in qnoc_probe().
 
-	case PMIC_GPIO_MODE_DIGITAL_OUTPUT:
-		pad->input_enabled =3D false;
-		pad->output_enabled =3D true;
-		break;
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          const: qcom,msm8998-mnoc-ahb
+> +
+> +    then:
+> +      description:
+> +        The MMSS AHB NoC shares its register space with the MMSS NoC, so=
+ it is
+> +        described as a child of the latter and has no register range of =
+its own.
+> +
+> +      properties:
+> +        clocks:
+> +          items:
+> +            - description: MMSS AHB Clock
+> +
+> +        clock-names:
+> +          const: bus
+> +
+> +      required:
+> +        - clocks
+> +        - clock-names
+> +
+> +    else:
+> +      required:
+> +        - reg
 
-In pmic_gpio_config_set(), PIN_CONFIG_INPUT_ENABLE only updates
-pad->input_enabled and leaves pad->output_enabled untouched unless
-PIN_CONFIG_OUTPUT_ENABLE (output-disable) is also passed:
+[Severity: Medium]
+Should the then branch for qcom,msm8998-mnoc-ahb also set reg: false under
+properties?
 
-		case PIN_CONFIG_INPUT_ENABLE:
-			pad->input_enabled =3D arg ? true : false;
-			break;
-		case PIN_CONFIG_OUTPUT_ENABLE:
-			pad->output_enabled =3D arg ? true : false;
-			break;
+Since reg is defined at the top level of the schema, unevaluatedProperties:
+false still allows reg to be present on a qcom,msm8998-mnoc-ahb child node.
 
-With both flags true, pmic_gpio_config_set() programs the mode to
-PMIC_GPIO_MODE_DIGITAL_INPUT_OUTPUT rather than PMIC_GPIO_MODE_DIGITAL_INPU=
-T:
+In drivers/interconnect/qcom/icc-rpm.c:qnoc_probe(), the child device only
+inherits its parent's regmap when IORESOURCE_MEM is absent:
 
-	if (pad->analog_pass)
-		val =3D PMIC_GPIO_MODE_ANALOG_PASS_THRU;
-	else if (pad->output_enabled && pad->input_enabled)
-		val =3D PMIC_GPIO_MODE_DIGITAL_INPUT_OUTPUT;
-	else if (pad->output_enabled)
-		val =3D PMIC_GPIO_MODE_DIGITAL_OUTPUT;
-	else
-		val =3D PMIC_GPIO_MODE_DIGITAL_INPUT;
+	res =3D platform_get_resource(pdev, IORESOURCE_MEM, 0);
+	if (!res) {
+		/* Try parent's regmap */
+		qp->regmap =3D dev_get_regmap(dev->parent, NULL);
+		if (qp->regmap)
+			goto regmap_done;
+		return -ENODEV;
+	}
 
-Additionally, since commit 19fc4240358b ("pinctrl: qcom: spmi-gpio: make
-direction changes exclusive"), pmic_gpio_get_direction() checks
-pad->output_enabled:
+If a child node specifies reg, schema validation passes, but qnoc_probe()
+attempts to claim and ioremap the memory resource instead of inheriting the
+parent's regmap.
 
-	return pad->output_enabled ? GPIO_LINE_DIRECTION_OUT : GPIO_LINE_DIRECTION=
-_IN;
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          enum:
+> +            - qcom,msm8998-bimc
+> +            - qcom,msm8998-gnoc
+> +
+> +    then:
+> +      properties:
+> +        clocks: false
+> +        clock-names: false
 
-Without output-disable to clear pad->output_enabled, won't the PMIC output
-buffer remain active on the open-drain interrupt line and cause
-pmic_gpio_get_direction() to still report GPIO_LINE_DIRECTION_OUT to
-gpiochip_lock_as_irq()?
+[Severity: Medium]
+Should clocks and clock-names be required for all compatibles other than
+qcom,msm8998-bimc and qcom,msm8998-gnoc (for instance, in an else branch
+here instead of only under qcom,msm8998-mnoc-ahb)?
 
->  &qusb2phy0 {
->  	status =3D "okay";
->
+Currently, required: [clocks, clock-names] is only specified for
+qcom,msm8998-mnoc-ahb. Nodes using qcom,msm8998-a1noc, qcom,msm8998-a2noc,
+qcom,msm8998-cnoc, qcom,msm8998-mnoc, or qcom,msm8998-snoc without clocks or
+clock-names will pass schema validation, but fail probe in
+drivers/interconnect/qcom/icc-rpm.c:qnoc_probe():
+
+	ret =3D devm_clk_bulk_get(dev, qp->num_intf_clks, qp->intf_clks);
+	if (ret)
+		goto err_disable_unprepare_clk;
+
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019-ifc6560-ad=
-v-v2-1-ade625df3fe3@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019-msm8998-ic=
+c-v1-0-c2da3934b6c8@oss.qualcomm.com?part=3D1
