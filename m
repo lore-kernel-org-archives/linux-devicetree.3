@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792440415;
-	b=vX1d1X5YKGcPlBDe3s7+fbC2L7A+2q2/Ottyk3xO2/ZZ7YFHqMl9qBFfBGnXX0P8/NNN
-	 7M0yxJee3n4tl9E0H7sjUN6h9M2xarjEshTCvoQcDJfjP68L5mEWB7w0zLdapOpfb6jLC
-	 AnVjTMNnoNjs5HYYivopUtJIiztbcazLMpJ3ecZ+fBOARnsRtVJSKrrBAwKSXfYAM5dqP
-	 Ov7BZ3QpJ6U3wbAqpZv6o9tUlhHIR5D2UyZljLPeDgqLqBj7yeUNmPj+NXMy7tKedZ6et
-	 RNVNUNE3lnaNEtMgOi1YlktEjPONXCdD5ZDZF6Bd2gwCJ0uX90EzL83a2rxxAQHJR3w==
+	t=1792440422;
+	b=yGLbkLtJKeC8AMPl6+fRhO6nPBcnRLSgDLV8J1zX4A39d+DW9ikB+ZB+/MpPIQyajICM
+	 fE+kBAGrySQr68IcBf6OMVZvf4qz2lmo0hgk/vtS9YEcZaR3tKYZTBBHXnSSQNy8PVIxl
+	 ll+jjkd+eNIqoTowV4XWmetPp6YT6/+5E9JsrmHuL5E2UM0LxFQM1QHfZWdFRxPtucMAw
+	 tDXnrlB9+hmuneR/auu9TgJ0rtZDJt5CHR8cGuP+yxjE6ZwWRg/ZkU+8gCNka8p6G3KII
+	 GBCpYJ1JKidK31K1pdoOeS1WG6Aignqy11DN/jTMJpD/av6cwTulQhOxnWBd1rPI5ZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792440415;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792440422;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=bFBNSvs3JDos8tPW/MP3a/GFNwGRHv00G3UEulH7lLI=;
-	b=2nnWT09vDP1dNWDMe1V+L4Iw6QOk+108Vf71XYmSkbc+LO2C5d9e8k9W4ZHYIK71N8MB
-	 0zBB8mr+da8Qd7JV8Y8jUUCcntD0HyVuRZIhSqLCOxF1VtCgBWnvefEgr7LEwY1kbf616
-	 OzdWlxplLLoRkzXZh+XUnVUE6fcAoTAdvcKqpokXDgo5jlJzbEK8oSeLuFhlMH5v+E1zy
-	 YapDJga1kWM3ZkHPvXOXv/jMP7gkNfJDOHWsvX6GntOz7ZXFbNAKmzbIHWqwVkw9FDTdY
-	 059lJ/FiN59SvRNlcantvSnHV+miVjmN01GipNxDxrlT9Yeomt7n9pNopl7rEaMYwFA==
+	bh=MQXVI025privUEtANhdwM89LTKKhsWNz40cUmpuugYc=;
+	b=O0GNhzPP6YxbQFwexomksm7zhdQVemZNreULTenJHrhPYTmAvffdyZaobSvKQf4iS6x8
+	 C4Slrl1FDunse6maTzXIrJgx9Hf6OWgKlMgJ/QY6dsX2NlOCah7R1+YLbhllfUMdDfw8q
+	 iQ1n6ymfyLrCM1uenbnKQNeDko8tfxN3jEqGTtxJj8uArNrbYxaNlVaVpzHr9fpalGVWw
+	 2dOYrAK/589Dd0e6/osPHRu7dO/l1jhQACl121GFVO2koq/jbRnX0pIU7tu86Hv93tuhF
+	 3Kex+E7k5We/ooEsar/pwNmIXYvtW8HVBwdv3/Cbm2PH8ynrbpw/68Eb+2TF6WTd1jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=k+ReZMKd;
-	arc=none smtp.remote-ip=209.85.221.173
-Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com [209.85.221.173])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Z0mwdAZT;
+	arc=none smtp.remote-ip=209.85.221.178
+Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE622606A320
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 20:06:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE622606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2261F606A31A
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 20:07:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2261F606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=k+ReZMKd
-Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-5e94a057d9eso1863970e0c.3
-        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 13:06:53 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Z0mwdAZT
+Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5eac3b6b2ceso588042e0c.2
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 13:07:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792440413; x=1793045213; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792440421; x=1793045221; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=bFBNSvs3JDos8tPW/MP3a/GFNwGRHv00G3UEulH7lLI=;
-        b=k+ReZMKdSageNNAFjvrEadRNGjsGPh+Xmau7wqs8rZ2ffw4znW1ZG3ruaIGAiKnr3k
-         QYPljWbMks7XN124ne1Vfq7CFlVC1B7J60Q7LVufloBuonm7c03YUX4ksw2uQ1DrPcln
-         i7qtPXw1PPqlMPyYyA1do4CsBAwRlRFEE3ZcP1CGfL9cBnr0b89u8vSnOBWjQte1Czeq
-         lq4djU4PWBh5deuZpR16ZUrH7rqTaZFEqMFWz2BengDZ/wnaW9yanookAqhxJc7ab2RV
-         02fFg9OOxXlHShMQLKAdRCuJZqAXPi3QLJBtlZapPnxZ4LEjZYQUlue5pIGJDq8vKMLm
-         jmXw==
+        bh=MQXVI025privUEtANhdwM89LTKKhsWNz40cUmpuugYc=;
+        b=Z0mwdAZTrhQsrFAWnmaf4+LGT9x+W+BMs8zyNOThm3icLQe29j1vwCnAgVBH7Mex1m
+         qhEbE9zybpU8dNzkTLgY6FEQdhAf7T6SV99GuPvFIKAThCMUA/Sk2n2AQZJeUqVY/R8O
+         ou1FNzc8jqXtQvheh6k8uBsZ3znXwiWPjX9GuSi4Dq2l/byJfkt23I2AWc3779v7m+Vc
+         0crrNiS4Mn+DD3+6x1PebiNwSl6PpxID41wJ2bUtMuq+GUyyQ/h/lzTN4ey8sjwOS5Nd
+         6rN5vyPCrj/wngt1DZN8S99qFLMYh5jQH8MLzJSAqx1Iz9KQZcSNHuBynkL5j711TuSk
+         Oq7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792440413; x=1793045213;
+        d=1e100.net; s=20260707; t=1792440421; x=1793045221;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bFBNSvs3JDos8tPW/MP3a/GFNwGRHv00G3UEulH7lLI=;
-        b=uXnXQvQN1pZgTfussyTGHJzIhin+zI2L/WDdN5l0AtTNf7halWu88teg8M5stZZ/F7
-         SNLyudC0s6mqkGCJVqwQMp10KZP9DYeXipmusAksDJpppxkxak5QBEpSb7Y/M2cduZ7m
-         Wf24qHJSGyhdfKih+QyQ4SQeRFobsjJfa+xF0npuBSdkD0dLjbePZa4ij3Iy0+TRFiRd
-         E/fYB0fulHtKd9vxci+QdFaxH5r2sc3T6L4KkSTLj3Pbj6rEBuaY3MzGom9DdJ/R9sjf
-         KzMDhNaTvUfZgNDnwPDv5QXrq7WCwbrQddMCH/1p8lVAINkaIMntiCkNtspGlEUBEGM8
-         y7Rg==
-X-Forwarded-Encrypted: i=1; AKwUvBw5SbS9z5qj/KwJCoosdZoO7FlWbrUOmv2WMjTHdL1FkzyQczHu4sNFYuLY39KCgkT1ae51XZPpX4nx@vger.kernel.org
-X-Gm-Message-State: AFq9FYLjq5qvO8Y9ar66H4LKJzOGU17EojYE3IynVtoTxVT9ZDkP3ZCv
-	l55LywLu6qpPfIvbgKTyxsvo2kp5vtc5Ce07Ek1PSARDgJeBz8D7sQ2g
-X-Gm-Gg: AYBFou2B/FnFCmtJMOESIknL8CgsgJeshwt8pNMGMIbienYL0DfdvYIbuj4hO8uO+O9
-	2I3H8ZH0Vh4x0fBzV1J3p2Ly88ugY9UqDD9Vou7aaHq2XR3Qc+bvJxAupKEQIHr7Mg8MeZKWzcj
-	H8LZnsNQI8hNYwhp3TE59StklEAnvMoc9bPN0dJSgyCfDqYu2Yh6SbCeebJydX6JoysBblHscHW
-	3oExPk9QkqxCouAR2UsZ3OmHU+6n4QrIRvxZQIfVB5z3z1t2+HrpWtzCgnx1MUf55c7U7Ai6Nr5
-	vMaaxonU3qfp40l0z5cbHCkhCn6TEezTfucNjlHotJaxwKmp8/8RcWTmO7GXOBUNf5V2QLYiNCf
-	IqXlKYeVqps00zVoxaQSYULdkoovqnvostWp1I76Qb/z8f+RBckdh1/a76qIKQXp9l6g/gE6B9K
-	9V5/G8uc9Njo/npk2J42w68lLaFwDPxFtjV/dZU/rkPzZIsEC74TtVnzq4qrRpWFZ88W0XtLirx
-	I6Kpkm0wbwysQsPF6fX7r0eZm2fhpNQ4yAXlOT4yy7qQrIBsJL8bcDWiw1KBG4Cu6x1Wnj+qcQ+
-	TTbycl4=
-X-Received: by 2002:a05:6122:1c02:b0:5de:ee96:75b with SMTP id 71dfb90a1353d-5eaaa68b961mr2904319e0c.12.1792440412948;
-        Mon, 19 Oct 2026 13:06:52 -0700 (PDT)
+        bh=MQXVI025privUEtANhdwM89LTKKhsWNz40cUmpuugYc=;
+        b=kGzJB7+aph/RzP5Q1mTKi2SmlbY7TClxFATZa8B73gOWefeiwzy9Isgk9+o9mQm/4Y
+         +0dcEw4mFil06Oj4WW2CKiOSG3+Wl93INDz9/DFoeQuXlCLtjDoC6QL/LrQy3WnjJADG
+         ONeg7hIlcQbW5VBy5kAbhIRnsbg0SRn7TXyw6eAFOuiPw5km5utjeanVDLkIpVLhAtkz
+         KJfIwHsonWbe7itkQJ3u8rY1RBIH4Q//Opt41+zQSl0Os4womzKeU8/0JPbpCAWiWJlU
+         UcQDsakDhKlWWRa2b5fBR3epzNwJzgmy/P9Dv2BbmQRciPB4dVipS/ZfNee3hUzO18uS
+         J9hA==
+X-Forwarded-Encrypted: i=1; AKwUvBzk2NUWB/Ey0re62zSd9Tszx8e/fRKy+JV8jIRoVeetkgoorMaNprHMgyJQEN02uYY8tSHBOv9j1Pg5@vger.kernel.org
+X-Gm-Message-State: AFq9FYLiK0h7ndk/GyUWoJ9lxNzsWkLHsiZ0jcd35/2cW0Lk6EG/J46F
+	fDQqeRIYhrA4wSntD5Iwg9ZhnSpVM0BZo52Gd8AEKCgUtHoudwznwNs+
+X-Gm-Gg: AYBFou1nrOr0E9T6FB/ul8nB0/7yf2mtRREtu79Dotc+ZXBbojyo5KNcuG5YqNYyajT
+	sIqEx15KiIKwYxA0g6/PDHQnZkdBzja6Of8isU/nM9REWmWMlFjsLbiRVLTL1BaQ4qsSsisvt21
+	DBxqpWgP0CPq+wkCBkd1tS3f242OjuL7uy+k7i6sUl68WDbq88SaqBZUSHVjr2UWewYUqs8at16
+	wiJqRwybJrXNX+iKLDJxUcTMx2Qpo9h//4+Ak0pPXSjiON/JB4G5x/nJqJafbBCOtNc3zn5uHVx
+	GfUK8G88O/ETsZjRt67dXNWFV6cjpo14ULh5Yqmih3ajwMLO93Jx4qhUXlyHE6VVw3TwpM4rYnW
+	Ur9LjI87nTs0kghwf4VqUDy3voA1kkhAD+pXLEVnTc/7qWbeOEBMbCDAY0+OBfJDqvgUKJ0IPcz
+	7ZSzhrupNIRc3C73hNErmdB+YiH4R8x4DqXyLKcC5jstffRiPnUvhVYtx69K/o+gimRR49GShSV
+	lYYGKXO4Db6/s2CHrvOV51dzF3rJi32isJ94aWU2A4Ka4J30e675fXHYspVaEOJsgg9kqkdXdTR
+	gx6U2/E=
+X-Received: by 2002:a05:6122:4004:b0:5ea:7126:38a7 with SMTP id 71dfb90a1353d-5eaaa62c43cmr2437882e0c.13.1792440421005;
+        Mon, 19 Oct 2026 13:07:01 -0700 (PDT)
 Received: from MaquinaLab.. ([179.179.244.163])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ea9b4776b5sm10451611e0c.3.2026.10.19.13.06.46
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ea9b4776b5sm10451611e0c.3.2026.10.19.13.06.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 13:06:52 -0700 (PDT)
+        Mon, 19 Oct 2026 13:07:00 -0700 (PDT)
 From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
 To: linux-serial@vger.kernel.org
 Cc: gregkh@linuxfoundation.org,
@@ -94,11 +94,10 @@ Cc: gregkh@linuxfoundation.org,
 	Chen-Yu Tsai <wens@kernel.org>,
 	Jernej Skrabec <jernej.skrabec@gmail.com>,
 	Samuel Holland <samuel@sholland.org>,
-	Enzo Adriano <enzo.adriano.code@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/4] serial: 8250_dw: Keep the BUSY-safe divisor hook when DLF is present
-Date: Mon, 19 Oct 2026 17:06:10 -0300
-Message-ID: <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
+	Enzo Adriano <enzo.adriano.code@gmail.com>
+Subject: [PATCH v2 2/4] serial: 8250_dw: Only accept a contiguous DLF readback
+Date: Mon, 19 Oct 2026 17:06:11 -0300
+Message-ID: <a79114e72d029732db6764935dde12aa5d497706.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
 References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
@@ -113,101 +112,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-dw8250_probe() installs dw8250_set_divisor(), which brackets the
-DLAB/DLL/DLH sequence with dw8250_idle_enter() and dw8250_idle_exit()
-so a BUSY UART cannot drop the divisor LCR write.
+dw8250_setup_port() writes all ones to offset 0xc0 and treats any
+nonzero readback as the DLF register. DLF is a bit field starting at
+bit 0, so a real one reads back as a contiguous 2^n - 1 mask. On some
+Allwinner SoCs offset 0xc0 is the RS485 control register instead
+(UART_485_CTL in the A733 User Manual), whose implemented bits are not
+contiguous. The probe still takes its readback for a DLF of fls(readback)
+bits, and every later divisor change writes the fractional divisor into
+the RS485 control register.
 
-dw8250_setup_port() runs afterwards and replaces that hook with the
-dwlib divisor hook whenever it detects DLF. The dwlib hook programs the
-divisor through serial8250_do_set_divisor() without entering idle,
-leaving the LCR|DLAB write exposed to BUSY.
+Only accept a readback of the form 2^n - 1.
 
-When termios changes while the UART is transmitting, that LCR|DLAB
-write can be ignored and dw8250_check_lcr() retries it between
-dw8250_idle_enter() and dw8250_idle_exit(). dw8250_idle_exit() then
-restores IER while DLAB is still set, so the value lands in DLH. The
-real IER stays at the zero written by dw8250_idle_enter(), and the port
-gets no further TX or RX interrupts while up->ier says they're enabled.
+The probe itself is unchanged: it still writes all ones to offset 0xc0
+and then restores the old value, so this only changes how the readback
+is interpreted.
 
-Do not replace a divisor hook the driver has already installed. Program
-DLF from the BUSY-safe hook, inside the idle section, through a dwlib
-helper that checks dlf_size.
+The A733 reads back 0x19f, and Andre Przywara observed 0x9f on the
+A523. Without this check the A733 RS485 control register reads 0xb after
+boot; with it, the register stays 0 across 300 termios toggle and
+restore cycles.
 
-Observed on an Allwinner A733 (Radxa Cubie A7Z), where
-dw8250_setup_port() mistakes the RS485 control register for DLF (see the
-next patch): the first interactive tcsetattr() during console output
-left hardware IER at 0 and up->ier at 0x07. The shell never printed its
-prompt or read input. With this change alone the same boot reached the
-prompt and echoed input, and hardware IER matched up->ier afterwards.
-
-Fixes: a7b9ce39fbe4 ("serial: 8250_dw: Ensure BUSY is deasserted")
-Cc: stable@vger.kernel.org
+Suggested-by: Andre Przywara <andre.przywara@arm.com>
 Signed-off-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
 ---
- drivers/tty/serial/8250/8250_dw.c    |  2 ++
- drivers/tty/serial/8250/8250_dwlib.c | 16 ++++++++++++++--
- drivers/tty/serial/8250/8250_dwlib.h |  1 +
- 3 files changed, 17 insertions(+), 2 deletions(-)
+ drivers/tty/serial/8250/8250_dwlib.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
-index eca02e8bd6d1..4c86aaf9c121 100644
---- a/drivers/tty/serial/8250/8250_dw.c
-+++ b/drivers/tty/serial/8250/8250_dw.c
-@@ -197,6 +197,8 @@ static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
- 	if (ret < 0)
- 		return;
- 
-+	__dw8250_set_divisor(p, quot_frac);
-+
- 	serial_port_out(p, UART_LCR, up->lcr | UART_LCR_DLAB);
- 	if (!(serial_port_in(p, UART_LCR) & UART_LCR_DLAB))
- 		goto idle_failed;
 diff --git a/drivers/tty/serial/8250/8250_dwlib.c b/drivers/tty/serial/8250/8250_dwlib.c
-index 9bb02a4ab11f..325793f20256 100644
+index 325793f20256..1b0192efe162 100644
 --- a/drivers/tty/serial/8250/8250_dwlib.c
 +++ b/drivers/tty/serial/8250/8250_dwlib.c
-@@ -36,10 +36,20 @@ static unsigned int dw8250_get_divisor(struct uart_port *p, unsigned int baud,
- 	return quot;
- }
+@@ -225,7 +225,11 @@ void dw8250_setup_port(struct uart_port *p)
+ 	reg = dw8250_readl_ext(p, DW_UART_DLF);
+ 	dw8250_writel_ext(p, DW_UART_DLF, old_dlf);
  
-+/* Program the fractional part of the divisor, if the UART has one */
-+void __dw8250_set_divisor(struct uart_port *p, unsigned int quot_frac)
-+{
-+	struct dw8250_port_data *d = p->private_data;
-+
-+	if (d->dlf_size)
-+		dw8250_writel_ext(p, DW_UART_DLF, quot_frac);
-+}
-+EXPORT_SYMBOL_GPL(__dw8250_set_divisor);
-+
- static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
- 			       unsigned int quot, unsigned int quot_frac)
- {
--	dw8250_writel_ext(p, DW_UART_DLF, quot_frac);
-+	__dw8250_set_divisor(p, quot_frac);
- 	serial8250_do_set_divisor(p, baud, quot);
- }
- 
-@@ -218,7 +228,9 @@ void dw8250_setup_port(struct uart_port *p)
- 	if (reg) {
+-	if (reg) {
++	/*
++	 * DLF is a bit field starting at bit 0, so a real one reads back as
++	 * 2^n - 1. Any other value means this offset is something else.
++	 */
++	if (reg && !(reg & (reg + 1))) {
  		pd->dlf_size = fls(reg);
  		p->get_divisor = dw8250_get_divisor;
--		p->set_divisor = dw8250_set_divisor;
-+		/* Keep a hook the driver has already installed */
-+		if (!p->set_divisor)
-+			p->set_divisor = dw8250_set_divisor;
- 	}
- 
- 	reg = dw8250_readl_ext(p, DW_UART_UCV);
-diff --git a/drivers/tty/serial/8250/8250_dwlib.h b/drivers/tty/serial/8250/8250_dwlib.h
-index 39fcb1b323ad..4bb0ccb3e8ef 100644
---- a/drivers/tty/serial/8250/8250_dwlib.h
-+++ b/drivers/tty/serial/8250/8250_dwlib.h
-@@ -99,6 +99,7 @@ struct dw8250_port_data {
- 
- void dw8250_do_set_termios(struct uart_port *p, struct ktermios *termios, const struct ktermios *old);
- void dw8250_setup_port(struct uart_port *p);
-+void __dw8250_set_divisor(struct uart_port *p, unsigned int quot_frac);
- 
- static inline u32 dw8250_readl_ext(struct uart_port *p, int offset)
- {
+ 		/* Keep a hook the driver has already installed */
