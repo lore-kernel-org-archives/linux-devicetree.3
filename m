@@ -1,64 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792439385;
-	b=vGmT3rdKxjB+IcrUN2BAPIazGE44wlFpYOtUtDdqTdJGAE/x3wiDnovW5YNTrcUXrLGw
-	 R8I+nWceDNGuWOzZhbMLFjUhpMh/MG5WQjgfaQ/TMryRcdIBK9cDbodfBgTUZw2YLHf/7
-	 cLUqNjIZeYek4ZW1F5S5ZFEiNaMSPEDHmPqQzd6VKtgVWj97PVcRZN+ugJyKQGaiDGNKh
-	 VJAzDpfeY2VIFShkHyRwDLTjd7AH7R2QaDm1+agsiTXw9Aya8/PKFQW+lbjS+Lf6NgSMF
-	 QVJ0Ws5AJyHEXixAKe0V10iqRYXYJtSusvJO9mRiM5T/q5R6H6MvZ7QSpIaODdC8Kng==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792439385;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=N95/D3QHpPK+quUbfN1Ofqtaod9jW0kiXN8/QAgqyPw=;
-	b=cEBYCvLVhCDQ0QoD54GV6O2K6stxM+5+B4wfMiAQNO8w2Hifz7Hd6z4edF8B0xHgekQ5
-	 4rZVZ8V7mzwX3Gr+Y0+lQV0RbiCKdIstMEJibAFWdhvkKEfjZHC5Hr0q2H2H/0rJUIdpO
-	 EIS/wy+SGWP+8PNuNgwpxHmfYC085CelHoSvWydQwLQQJriCHRYEE6ymH8+emWTp12N00
-	 8mMJ1WBMl6xzfN/1CQMgi/TaxBLyLfF3AMWs6cNGJLX2KOdtJfHy08Be1/8EeMzKLjg0u
-	 J2DMLKDyzuO1Bcfn/QpftAPldxEk6EgrO/U+RyJMJDpVqeV89SPdAJbe8L0tYmqzPFA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RkmDsNdn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.16
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792439456;
+	b=hWjCCBhlCCCp/5jsjeoHosnJ9k7QLZvNIbOoWq7LR2Zx0LyA1Q2v8//vTh07/dZ9Ia8Y
+	 +VM3kEX1SnKXqhMR/DYDISiea2CeWNHPK3EAyax0qb3iD/PN1un9fMa37CfhPwRojobdz
+	 /3BAUqA77ycvavKbgDSnbmKD7mOb20fHKKNLLMz1wsJzwQuMzZZImLNqPzmYt0PA0kmpi
+	 tElg/cN3LznP+7kccKRbyZ3M6Cjyc9ap2Q30V+pMnPrht+3LG0K7OeEWrc7HEXKeXjZ8w
+	 tkeheZV7FReprlq0Il49hGT7v1UeDHjwi+A/m0eJYA7wt3SNpKCW5vNNWH6Lqea0OsA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792439456;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=GapZnKoLYCZAPBX9r8CJxKt7GR+kj2w1VAzfY1vZNrk=;
+	b=snXCKdOJO4lExuaRxVAXvA9d+VWS03W+iiu32h85D1i1/94uG+6muAj8wCASyuVZDvhG
+	 ZmhFNpHDQuqnBXZkzxTTNciQMEl/2g1/RWhzTSgQVs0l2/tDCCc35NlYczxMTigukKm7L
+	 8DSwd8lXgeb+6lhxb4fhWbNQ7yf1PDeSQdGUC+ywzY4eHCBPuszPjej17dQsiq45EyYE2
+	 kuaGjgTEIIT7ODT1+m8jHGK+cOgvVU5cP/dwgySBhiSOJ9mmM3tZImFvuO45LT/5eaU9E
+	 TImxl3gh5/n9MuYMpImkETsArwH5elODOpLp9PdjYJIxs0lAWOOUV2NaJJUSTS4DORA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="UmRH/SIo";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.16
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013016.outbound.protection.outlook.com [52.101.72.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 788BB606A31A;
-	Mon, 19 Oct 2026 19:49:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 689BF606A320;
+	Mon, 19 Oct 2026 19:50:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 689BF606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RkmDsNdn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8838F1F000C4;
-	Mon, 19 Oct 2026 19:49:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792439385;
-	bh=N95/D3QHpPK+quUbfN1Ofqtaod9jW0kiXN8/QAgqyPw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RkmDsNdnOCqC0S81a6TIaLmduMl3HhPFj2jdJjTvv3Ur8V+AOXcIt+kLZn4AR5FEF
-	 Hfw4AhJfpyBvmNkBGjt1Th4Qvp9aXFM7Lj3+X4Pfad1FKzcAQXSIz2C9Q0VygXkSgL
-	 q9n5F/Wv4Y6OxDsgrJf54dr7vWpjw6j3Ku2t+37L0F3SEuHQbZaS1jqDFrJDnNpfmR
-	 NFwp5K5iiGrl3J77oAzCRgXa63K7N5ETFjr+eHwFdGwmf+6CMhGi4141tDfxF6Nm2c
-	 ZoslUOIs3CrZu/mk2ECmEZwW9jlY20UwSsG2vvSmIP5X+bb/e/rzm6FSKLlItPBG13
-	 vLuMUSespaomA==
-Date: Mon, 19 Oct 2026 20:49:40 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Alex Elder <elder@riscstar.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, tglx@kernel.org, radu@rendec.net,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	p.zabel@pengutronix.de, mohd.anwar@oss.qualcomm.com,
-	lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=UmRH/SIo
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ot4iY7VcVsnPgXGTmgQDDGohMMA2TAbtnjEDBff0+wbQAtajIFPc+jDQIqU1jd5CXm07D8WF/PbuKQbkXJMJtIJ8gtW1MllOMKEe55iL252duobhThfm1lf/xKsRt0LMX9ICyrNGZCnW6doDILWRK0Tufob+6+GfzPKcxvegC7xJ+rqbEvzAUuA9ygzeHCOaGGqNLmZ4hvloUrsUwRoVCIApHLkcN7c9bjQ6EX+ADPRcjRWn6TR6aliaSrEwL3J+UWn3/xo+n8U50lVTQNPNnk85rfsHSzfI5nWqLfgGOiKWi08cip7qPh8P+4K8G7a+jBW2jAIwt8QZyRLL+ayFzQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GapZnKoLYCZAPBX9r8CJxKt7GR+kj2w1VAzfY1vZNrk=;
+ b=chNQNyPUCc2eTSZ62Dj3UYzrJqZCy7qhCaAAkqiFmmBwADAQvi7wd40GTSE/urXH8+8cfvT9CP2NQTUhoK3SEz08UdU8kd71y1g2zMY7pec7PanApkVpvbASHxTC9uerYe8LtzB2jsZ7vDkrQN0dEOY7t44UxBpfddMtw7DNOj07kUYjHS8U/3taJWbljZiHPH3x4d8S4b6/ZmjDeW/WPgpGoZvbtuzTmoD/42X0Qenens+pdAGBWkWmv3luPggNLDfuSz2zteEmqQZAbEBO7tfkejkjXxfQsPU49lEpVq4pLpOtmsP6R9tLzHpI3XHslkWwWFoLFTI1Kn9cstj78A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GapZnKoLYCZAPBX9r8CJxKt7GR+kj2w1VAzfY1vZNrk=;
+ b=UmRH/SIoOb9Usnzb2KeCdRokAOr50t4cTuKlFtMW+FO2arlCH4RqPXLDITPBvFSHiSXC8WNWYc5wMnDj+F2llJ5UuTM0DdZ2DiM4OpAf/Fxb0H976BZjPyqsnxqIu57Pte5uANM4O7gIrgW8w7FBC8rSc7P1Si09Ve0bSK4csTORWXgf7bU4koxOVFYXEBXStaJl+ajO65OW5zv6md6nPWUfa7pD9EDAvBcwIt3n1IBFeMuAldSDDYMFMAWwjulzotQFWQAOS341yFkJ8SpAQE2ReDA0Gt85Xy9/WKzPZsSCD0IC2IJcCV7h6q0PsmlEb58Pf25QICxM0tBi3jwC3g==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by VI1PR04MB9761.eurprd04.prod.outlook.com (2603:10a6:800:1df::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 19 Oct
+ 2026 19:50:50 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 19:50:50 +0000
+Date: Mon, 19 Oct 2026 14:50:36 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Leonardo Costa <leoreis.costa@gmail.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Daniel Thompson <daniel@riscstar.com>
-Subject: Re: [PATCH 1/2] dt-bindings: interrupt-controller: introduce
- toshiba,tc9564-msigen.yaml
-Message-ID: <20261019-darkroom-endowment-43ef047fc24e@spud>
-References: <20261012190245.3988619-1-elder@riscstar.com>
- <20261012190245.3988619-2-elder@riscstar.com>
- <20261013-coexist-sixtyfold-cc6614086d3a@spud>
- <20261014-eminent-normal-lynx-3ebba3@quoll>
- <c5af1a40-e498-4855-8797-2663db83b9e6@kernel.org>
- <b8a8ca4f-c575-448a-baea-4b9f82f15e39@riscstar.com>
- <20261014-getting-bronze-d8ab7598d9ee@spud>
- <af5ce6ac-244c-4fc4-bbc1-8875eec8508a@riscstar.com>
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Leonardo Costa <leonardo.costa@toradex.com>
+Subject: Re: [PATCH v2 2/3] drm/bridge: simple-bridge: Support
+ data-enable-active endpoint property
+Message-ID: <atZ0jECm5BDeROSI@SMW015318>
+References: <20261019-v2-apalis-imx6-enable-vga-v2-0-ef6a3a780472@toradex.com>
+ <20261019-v2-apalis-imx6-enable-vga-v2-2-ef6a3a780472@toradex.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019-v2-apalis-imx6-enable-vga-v2-2-ef6a3a780472@toradex.com>
+X-ClientProxiedBy: PH1PEPF00013303.namprd07.prod.outlook.com
+ (2603:10b6:518:1::12) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,151 +115,124 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ROsNIakkkNc423LV"
-Content-Disposition: inline
-In-Reply-To: <af5ce6ac-244c-4fc4-bbc1-8875eec8508a@riscstar.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|VI1PR04MB9761:EE_
+X-MS-Office365-Filtering-Correlation-Id: a71b93f7-ea9b-4300-441f-08df2e1a46b0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|23010399003|19092799006|366016|376014|1800799024|18002099003|261009223027099003|11063799006|22082099003|260925021311599003|10067099003|56012099006|260925021911599003|260925022911599003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	7juGyMbZMHovwZfxrFF9brTzi1OUT8pK33VqSQkVcB7tKCfXcmV9jL6h8EG0wFPu1AR5jHoHbbClXeFgUiqkHw5guk3xSrbVSxvFSFQY+FFPgy0nLINGzbb+ahAcicYkMEc/5NNGZE2N4TfNrhQqTnQWWGrln8IBmbB257Dian9kwNJdKkyPrQ4Fobb9J0w2hRWuQAMdI2KV3LtrhERSJd9hiGKEx7k/97BEajaq4duACXfJYXXsBK+D2v9hLPBbryhJ/af/AGvT2FcVn6hODjOqliXdu4OfMP8/p2Wg8OXB8tgC/JIP9VbEvWErBEB+ExLMzwUNrAPEOt9oKGkJ966fgOlleqcLHI0oPvpJ8rEXe1H7LEP2DzO8zfs/dLwQq84IKuBEk4d/YPr3SKVF6svwYgNpf4YLp/24sV2SKyt87EsIPHgNmotczYZ5o53Jpu/36NAtcXzoFdSKPHhpcOQE/MpzdXHN+v9IqsGv/fyfb3ORXiVTF+rR4HIDa1piBzhwKRrFglr/l3okDxgrcopNMdKlljajl/707P65A7KaXnLGfHiJsP/fmtFESOWyKAMnM+xx9/TtwmiUwxJ+IOcsSVl91nLaG8qwbll4Vx5ehVH8RUXA9KkKEj7BpPbBIkRuIMmcfzpvhpW63W9wTXPvzK6liGxvVGmTIm7zTP0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(19092799006)(366016)(376014)(1800799024)(18002099003)(261009223027099003)(11063799006)(22082099003)(260925021311599003)(10067099003)(56012099006)(260925021911599003)(260925022911599003)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?+pCGY4s1vyYjAH86wKARZJvHj5iapYfM8MCAFaQE6nihK9zIVjZGZ8UaqA8x?=
+ =?us-ascii?Q?TLmhSm5i00Tq9m673a8Snu7E1fTBwSk78CLIFMn696jqOJjFvPrhvBBNhBZa?=
+ =?us-ascii?Q?sD99DFun7yrEeXul4CLpGrGxB5nNXv0u3B3FXNmskSKQmBSrHbISDyROj1IJ?=
+ =?us-ascii?Q?24POst1hlg5zIz1wxaFBEfWhs98OH6hmANbBC8j8QBwdmHJ/LowkKvElgtNX?=
+ =?us-ascii?Q?77Yy5+o+Lv3Md5VB3EKNQK3htelOV7J0zShIUGqwvYuXrvV7UicRQZT+Lkj3?=
+ =?us-ascii?Q?gIQwll2DaJa3V5UO10QKDGvPl9zWgps5GXpS50RUaFtbEb0HHyUEoQThH7JD?=
+ =?us-ascii?Q?Y15j1DyqldpZQxI9GDMSugwPjY3zj+ibsbY/uWA92PhUk8QacqjE6960oas3?=
+ =?us-ascii?Q?vlA8qpB1GjbuHzWiY3IX8hucVVd7sJej+WTtdI3bI2ixsZbnyXigBJRT4vDJ?=
+ =?us-ascii?Q?xv8uPjmRsJDCZjys+glr6jhoQtzhUMW3ENsbY7VW4zKdfbaaQEV+IxOO4KZC?=
+ =?us-ascii?Q?vnwJWQuNZZfA019v32OTylLq+yksedxRqOmAAGqr3MX14/dH2wL+KRjcR4j5?=
+ =?us-ascii?Q?8SMUsYIvujXtXlayzdHDgx+Frw5OlxLtFs4O51Ci4zx6qnlkQn0uRm87dBRr?=
+ =?us-ascii?Q?g/Rlg34EY6Fry0fsKUuNL3EGHt3+tFiwiJZo7d68/1nuJF/3xFfu+B5Hsbcc?=
+ =?us-ascii?Q?zaTpl0dLiKtBkzdXCwXFaixR6EbqRktnUWm6SBtF+32Bj7DpJKzii0ObPME6?=
+ =?us-ascii?Q?y9HPkh4TCGa9CnA0jNAoKNKQYoA32DO+zBgUQsNQsBGEKc2lKxJQg9G3vRDb?=
+ =?us-ascii?Q?DjOY1syipr0oxCKHlg6sSH4sNc9sy2m2TDYHS8aatTb/4RWCeSL8CPuSyrG3?=
+ =?us-ascii?Q?uP4XQDp7NSXYF1K6MatKMONgU2dBH8Pvhl7IrWPGblccLV2k7x70bflRufpO?=
+ =?us-ascii?Q?t1SiqH9jHjP16Ytre9/y4ZEON3xUg0O3A43YzJ/QZ4M40GlTTdKYmLnNywfO?=
+ =?us-ascii?Q?nEa2ZzMw1a5JrYpWn0wCxgdctCq0Y5eCZryQpRsqD71JUIz68qpNGL2lJvUG?=
+ =?us-ascii?Q?DTpcw410OnhIC2lzc5DzZUh7vTprcKvbBCK8SxjIDxtsqVtvkUKUu3Gm8bds?=
+ =?us-ascii?Q?EV7dk0KXrS4UBW+Q4/LGr2HorLae7DbnIbiXvamfYk9Ug2HPVfQGhQkuUTqX?=
+ =?us-ascii?Q?JsHZsg1ngnxaDLnAdvo7pUy6Sw+b1jo6QdadLraGOLgmZXpgTwZ/rzzXPWCS?=
+ =?us-ascii?Q?0eHdbtW7Tsy9VedfmXJalMqnfPVjZ9+9EM2IDyQ9VF22RRg11MtpXcviwqcG?=
+ =?us-ascii?Q?Z0SmeJ/8M8CZfir0y+kdpidLudHG+/+Eg9TfPMEQDijxnbxmjC1IWmTxlJy0?=
+ =?us-ascii?Q?ZCly+vqIlhWdM6yJUfVKkpK68B4ZuRsokkS7M65CIb5bR5UwYwhzCNCdkJpU?=
+ =?us-ascii?Q?VB3wsJ6KLAuo8JpOPIhKKTiPQavlLMzIbs9DE7hSTYUUg4AXQzyC/U0LQgEz?=
+ =?us-ascii?Q?t1KGnHy/+sd7kUjiJxDfSlFSVbkvm3eRSKau2NBtNlH+39Vk2FgjjWPKp24X?=
+ =?us-ascii?Q?KAU3JgewUd0pZUjiYCsgilTjXWkBkjQ8zDDVyq6m4C40/KyFptIOcytG6PVf?=
+ =?us-ascii?Q?Z3j3HGDBhVnZMrmA9SeoX5Yvdomx4qSBA6ZCQ5hutp6DIvrSYQtrBQJx7S1T?=
+ =?us-ascii?Q?PYBYWQWotPc5A/J3cq1CjAYLZSuabkuWjfSb0CLX3FALWWLQLFDBnMG7IQ5+?=
+ =?us-ascii?Q?z01XqwAFUMFO/bNys4tteKGjkdwGvgK866EcdqF2g7copP9latJ8?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a71b93f7-ea9b-4300-441f-08df2e1a46b0
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 19:50:50.1923
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lC3aEI3St7mBtjKLaH18EM8gNHrp9Lsi7E3AP9YFdnvOP8YAr4QhzFMe0yVlHc1eEwduP5Md4Y62F50iG7OAQhJ+NJ4yLzhAC8GtPl7z85m6lJnoujCqYq+RlyKU1Pmx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB9761
 
---ROsNIakkkNc423LV
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Mon, Oct 19, 2026 at 07:17:15AM -0300, Leonardo Costa wrote:
+> From: Leonardo Costa <leonardo.costa@toradex.com>
+>
+> Some simple bridges, such as a resistor ladder DAC, may include a
+> data-enable input that must be driven at a specific polarity.
+>
+> Read the data-enable-active property from the input endpoint and fill
+> the bridge's input bus flags accordingly, so the upstream encoder drives
+> DE with the required polarity. The property is applied only if the
+> bridge doesn't provide its own timings struct.
+>
+> Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+> ---
 
-On Wed, Oct 14, 2026 at 11:57:08AM -0500, Alex Elder wrote:
-> On 10/14/26 11:41 AM, Conor Dooley wrote:
-> > On Wed, Oct 14, 2026 at 09:55:03AM -0500, Alex Elder wrote:
-> > > On 10/14/26 5:22 AM, Krzysztof Kozlowski wrote:
-> > > > > I still do not understand why do we need to describe the inner wi=
-rings
-> > > > > of the tc9564 device. So far I found no posting of DTS showing pr=
-oper
-> > > > > usage of it on the host. Without proper usage, what is the point =
-exactly
-> > > > > to describe the inner specifics of tc9564?
-> > > > And as shown here:
-> > > > https://lore.kernel.org/all/20261012152408.3729237-5-elder@riscstar=
-=2Ecom/
-> > > >=20
-> > > > there is no single user of any of this (this=3Dreset, clock, irqchip
-> > > > probably and more) in upstreamed patches.
-> > > >=20
-> > > > I am getting tired to keep discussing it, so next time instead of w=
-ords,
-> > > > please post CODE which is the argument - who uses any of these devi=
-ces
-> > > > you keep adding.
-> > >=20
-> > > I'll take a break from my in-order responses to messages, and will
-> > > respond to this first.
-> >=20
-> > Not really replying to any of this, but figured it was worth
-> > mentioning that I am reviewing with the assumption that it's similar
-> > to the microchip lan9xxx devices that can either be a standalone SoC
-> > or connected as PCI endpoint.
->=20
-> Yes, that was one of two things that this was modeled upon.
->=20
-> The other is the Raspberry Pi RP1, which is probably a more
-> similar example.
->=20
-> > You keep calling it an SoC, which I took to mean that this had
-> > linux-capable CPU cores on it. Is that not actually the case?
->=20
-> Well it is an SoC, in that it has numerous interacting
-> components that are aggregated into a single chip.
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-If that's it, I wouldn't really call this an SoC, you're just going to
-confuse people (like me!) into thinking that this device can work
-standalone...
-
-> It does, in fact, have an embedded CPU that uses SRAM, but
-> it's just an Arm Cortex M3 and is not Linux capable.
-
-=2E..but maybe it can, depending on whether the devices being discussed
-appear in the address space of the M3 or if the M3 is just some sort of
-monitor CPU running firmware and bringing the device out of reset.
-
->=20
-> So no, it is not a Linux-capable SoC the way the LAN966x is.
-
-IIRC the LAN966x didn't expose the various peripherals as different
-discoverable PCI functions and was just like "hey, we're a LAN966x".
-What made it special was that there was already drivers etc for this
-device from being an SoC, so the DT overlay solution neatly made use of
-the existing stuff for the device.
-
-If your device only exposes a single function for the whole device, I
-feel like aping the LAN966x and describing it in DT via an overlay is
-reasonable.
-
-Cheers,
-Conor.
-
-> > > Our ultimate goal is to support the two DWMAC interfaces attached
-> > > to PCIe functions within the TC9564.  This is a complex SoC which
-> > > interfaces with the host via an upstream PCIe switch port, and
-> > > incorporates an embedded PCIe endpoint with two functions.
-> > >=20
-> > > Based on your request, I will plan to send *all* of the code that's
-> > > required for DWMAC support for review later today and tomorrow.  I
-> > > have been pacing myself (in part not to inundate the lists with
-> > > patches).
-> > >=20
-> > >=20
-> > > A block diagram representing the TC9564 SoC is included in this
-> > > devicetree binding:
-> > >=20
-> > > https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git/=
-commit/?h=3Dchar-misc-next&id=3Ded0a1c1eaa376e11cf8c97d898f2811b8ded322f
-> > >=20
-> > > That explains (and attempts to show) that devices (including clock
-> > > and reset functionality) use PCI endpoint BARs for access to their
-> > > registers.  Other IP blocks shown are an address translation unit,
-> > > a block of SRAM, two XGMAC interfaces, and an MSI generator for
-> > > each of the two embedded PCI functions.
-> > >=20
-> > >=20
-> > > To show the final DTS file, I have squashed the working code I have
-> > > and refer you here, starting at line 994:
-> > >=20
-> > > https://github.com/riscstar/linux/blob/18d7146c807a6264388c919391b77a=
-795612e342/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts#L994
-> > >=20
-> > >=20
-> > > Note that this exposes many internal details of the SoC, which
-> > > Krzysztof objected to here:
-> > > https://lore.kernel.org/lkml/fbeac5ba-a28d-4d34-8d23-4946aef515ea@ker=
-nel.org/
-> > >=20
-> > > I responded, explaining some history on this code and asking
-> > > for clarification on criteria for when it's acceptable to
-> > > describe chip internals in devicetree, but received no answer.
-> > >=20
-> > >=20
-> > > The PCI endpoint bus enables a PCI endpoint to be treated as
-> > > a *bus* that provides access to multiple peripherals, rather
-> > > than as a simple single-peripheral device.  This goes well
-> > > beyond the capability of the PCI enumeration process to
-> > > discover the nature of the hardware, leveraging devicetree as
-> > > a hardware description language to describe the organization
-> > > within a complex chip.
-> > >=20
-> > > I understand the desire to consider the PCI endpoint (function)
-> > > as the boundary for devicetree descriptions.  But I also see
-> > > great benefit from viewing the SoC as a subsystem in itself,
-> > > whose IP blocks and connections between them are described
-> > > using devicetree.
->=20
-
---ROsNIakkkNc423LV
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatZ0VAAKCRB4tDGHoIJi
-0sfuAP0UPXgvtVWoiIk/gsnOb5yJJuJsJJwVavPi3oURvneisAD5AUf7CtjkwtqB
-bgir2dfjuP1cGAKnYf0PXrXC9FtHxww=
-=NMGR
------END PGP SIGNATURE-----
-
---ROsNIakkkNc423LV--
+>  drivers/gpu/drm/bridge/simple-bridge.c | 21 ++++++++++++++++++++-
+>  1 file changed, 20 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/bridge/simple-bridge.c b/drivers/gpu/drm/bridge/simple-bridge.c
+> index 848c2df2a276..c5301295658a 100644
+> --- a/drivers/gpu/drm/bridge/simple-bridge.c
+> +++ b/drivers/gpu/drm/bridge/simple-bridge.c
+> @@ -183,6 +183,9 @@ static int simple_bridge_probe(struct platform_device *pdev)
+>  {
+>  	struct simple_bridge *sbridge;
+>  	struct device_node *remote;
+> +	struct device_node *ep;
+> +	bool de_present;
+> +	u32 de;
+>
+>  	sbridge = devm_drm_bridge_alloc(&pdev->dev, struct simple_bridge,
+>  					bridge, &simple_bridge_bridge_funcs);
+> @@ -220,10 +223,26 @@ static int simple_bridge_probe(struct platform_device *pdev)
+>  		return dev_err_probe(&pdev->dev, PTR_ERR(sbridge->enable),
+>  				     "Unable to retrieve enable GPIO\n");
+>
+> -	/* Register the bridge. */
+>  	sbridge->bridge.of_node = pdev->dev.of_node;
+>  	sbridge->bridge.timings = sbridge->info->timings;
+>
+> +	ep = of_graph_get_endpoint_by_regs(pdev->dev.of_node, 0, -1);
+> +	de_present = !of_property_read_u32(ep, "data-enable-active", &de);
+> +	of_node_put(ep);
+> +
+> +	if (de_present && !sbridge->bridge.timings) {
+> +		struct drm_bridge_timings *timings;
+> +
+> +		timings = devm_kzalloc(&pdev->dev, sizeof(*timings), GFP_KERNEL);
+> +		if (!timings)
+> +			return -ENOMEM;
+> +
+> +		timings->input_bus_flags = de ? DRM_BUS_FLAG_DE_HIGH :
+> +						DRM_BUS_FLAG_DE_LOW;
+> +		sbridge->bridge.timings = timings;
+> +	}
+> +
+> +	/* Register the bridge. */
+>  	return devm_drm_bridge_add(&pdev->dev, &sbridge->bridge);
+>  }
+>
+>
+> --
+> 2.43.0
+>
+>
