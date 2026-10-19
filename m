@@ -1,228 +1,117 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E00DD3546C6
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 06:06:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1A89339395
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 06:14:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792389967; cv=none; b=jPR8OCx0yXm+vAcCT6YuSAGve+wR4sLSA5PsC3JYkm/W/lJ6Bge39m8vA/PFoxyaYIY6cZdQ8cqXliMaRBcfGvIcv0nSmu0+iZD3g8dUknkX1prYuT650eSSDhPanEseY0RM3Qdw6GCcmN9WfAsiTCJccUTr8Pib7saq+Dhu9gA=
+	t=1792390469; cv=none; b=oxmTDdYN+ndznX9LvmymWM0HWqhIMT2xmwp+XAazuXxo/77OdCcJ93/o5w+vpWq25TKC1SpOvcxTx3SbmocXQLQ4eTOLZ19ZnBSG6evWa5oPzjC75mo7GZN5KvNd5cW6AwCKJIbBzMwrbQFuM/qISz8BkX9IZuPXaPDSY3xnMK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792389967; c=relaxed/simple;
-	bh=6LwTmVt0WwD7hvgGsw8DPupUoKZXFuHF3AJCdQqKNqI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=n6iBAiao9lKY4hzDSnYGvO0OzfQfMbAellBrNNqYq8HjTcY4epfgKOeuwtia5jLe4BviLZI1yBAQC0uXYtRhcvRL2v9f05jSolPdtvAk1txIPQmyNQTm1fPC/WzBdHh+AmiKYQc5zl+WsbU4Z7P1bXHp2MMpb/FtlYLOIAXzm8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pC1tnusJ; arc=none smtp.client-ip=209.85.221.49
+	s=arc-20240116; t=1792390469; c=relaxed/simple;
+	bh=a4zYuxAOTe5hOZO9exG0p9T3Y5OYZrqCGPDtfN0/quA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=SICBriC3UPGpIT27HjDEgCIPdlkIlMgNSmhHFXbvVdV14y1yks/u8Uy3VCVr4G5nCKyEA/uhX/F6Jujs8eDl9Hz9yNck5TNST+HCYr8UR6jM+MuqUcuoaSl2l60cEyOklR7Gs1sznuIVZPB0UHzLm2Y2rC4mryg1qsLgjN9/0HQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wwx52QRw; arc=none smtp.client-ip=209.85.221.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pC1tnusJ"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48df4e9d2d4so960162f8f.3
-        for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 23:06:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wwx52QRw"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48e0d1da913so1076006f8f.1
+        for <devicetree@vger.kernel.org>; Sun, 18 Oct 2026 23:14:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792389963; x=1792994763; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=xfNDVcCLMyws7NZEalRZx3KM792JOu/3dZx8XrnMr4E=;
-        b=pC1tnusJeAN0rPNSgLi4hLJc0Wg88TU6ItH9cSzTX1joY4XVrY4oqe4IY8UHMeahYt
-         6lskKdFBG36Ka6OV1lF9vHA5U8uY6DoAd/8u+jyeAKPlK6H2uvxjrs+6lF13d2lNh9Vx
-         eztzIakkkHZymu3Ky5Gvg5vsOSf9k8ZUyTfneKDciXS7M5LANrzoVXHgrAcnhRw+jRQw
-         TkPv73zSjpUbcJjoTLQUwWQ+UWHSXz6Dh6cDu9Ydw6YYFSAfTBZwifHjh0gRGzIMS3Mx
-         1XhwZ050GXhOiIj8Wh7IHtTlBjMhXr784GXn+lerBAa50Vj9WV6hS5bUSjgdxh/h834+
-         ++3g==
+        d=gmail.com; s=20251104; t=1792390466; x=1792995266; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=a4zYuxAOTe5hOZO9exG0p9T3Y5OYZrqCGPDtfN0/quA=;
+        b=Wwx52QRwECmAS08gpuFlTTY+yO9Ek0YyyZq50YKLVFBgZw+z4Bd7lbvyx9uOPNO59m
+         o8cWZC3Rrk9N4HuqZVlXlM8Y9asJn70lttbQBWw9Cd2gpLDc2M0J77BKMfvSW/1FH+Z+
+         dHPiTJ14Npnjvo76bbjzWzbPFnvDqCpF+Z6G13x+Oy3tgZ9Vv9THa4V8gr9pTDAYXZkp
+         TF7FzkhUoiu+wdspBCqoOf5605dMaCpKut/S7KVswt7bFu2Sdx4qjqz1bsaU8JH3Owa8
+         EnmXJF3PJs6k0Q3L+WqZWT9PRnH6srXEUK0mCpnd3tD0qLETvmaSQIS2FXz7dgqZ2dan
+         ZpEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792389963; x=1792994763;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+        d=1e100.net; s=20260707; t=1792390466; x=1792995266;
+        h=content-transfer-encoding:mime-version:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xfNDVcCLMyws7NZEalRZx3KM792JOu/3dZx8XrnMr4E=;
-        b=NLHqBFuBGO9fr+diAORwWZ9Tf7EmvCeIMt66pqugJmwLAt48a3faGTJVbWIR/JdrxS
-         dv5C2OMRZc8kg/9sLLMx6+Ly0tYigBJFzyEMSCEfW3TTSSZX1KNHtKFXKb9/q/mxVuO9
-         agqwZqSjX2G3fCdppSX2tkQ5qg90KUmGyPy3vEoH6uHwhqqn4rHSfrfXv0OZsBDCmqWn
-         xOLb9ePogOT5bYRLXqeTL6dg/zbHnjENMtRh4h1pmy0c5QDdq0bVTt+RgFbIri0z/AAX
-         X3GvnTPFUlA3pXY61fVQ+gOuTwnIyvlGfmUjxorUyNB8Niw6P1LkhttgPNGTOVAbdG+K
-         +kiA==
-X-Forwarded-Encrypted: i=1; AKwUvBxbUjM3QUms2yS+b0IOKdYlzw1rB9LYCNq1Em7EcEN/Rj93djwoutw2CSJCjnTcaHfZ2rU8DqMU15h9@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJzQRH4PXX7k0M5Cfnro6GUrlvgSKdm7GzhLeBZxDIZj5Dt49j
-	wSiD+YaQI6ZTQYNw0Bk4s+UrlyU16XDmcQ29DB3grzPXTb7AAGuVp0wr
-X-Gm-Gg: AYBFou2tt7PqmeYyQIhvVDA9KP+wKmMzh4uXiVlD52YC4yjntw1OKqWDJhr1iRJVtTY
-	RFRXRwO8+MuPzpncfhCjqFwz3cOKnTHTHm8F10/aZKOSeLT8b2e1DzzRR5ok0IHXDCnpcjVM2ih
-	KwCf90tSAntIPhGHbR3JNaX6CL8vkWofOKot3/szty/amp8lrI06wEVAo8U7eKeX7sxDajRl8BQ
-	matKNcQYFZkjMswEp2yveLfSHbDxVpLhrio58jGlPecPaNLnwcxLbHoRjDz4fOhyhXGZJnMEfkZ
-	hUVCZz65X0fuqo1JKFLLket+LovEM1Ct5M6/xAvKWfLyaVSk4DTreSdBp06zminqMGxWZI7UwxA
-	2+c24a4BuK5/Keo3nilPuj/V1w/O09AgmF9EQx8mKhMsoDJ6y5jYTBjnuaLF142ZIJ3LWE+wYib
-	xtyy9HY9Gyuaf2CXZ5+BXHj/qzvdCuwFcrJmMKcn0Lh6bK7NDod3dW2UvcbG2l15+2IYWsw1pDT
-	RlTFu1DhJlsmMsI0h9mw3VXtTIn04mAlotwl8IU1DW2ByLGCLKIjDjDmq4wqnCdMGnOUrSM1F/C
-	h3F3Cw==
-X-Received: by 2002:a05:6000:4549:b0:48b:69d4:bb35 with SMTP id ffacd0b85a97d-48e07bbe545mr7818984f8f.12.1792389963039;
-        Sun, 18 Oct 2026 23:06:03 -0700 (PDT)
-Received: from ?IPv6:2001:818:ea56:d000:56e0:ceba:7da4:6673? ([2001:818:ea56:d000:56e0:ceba:7da4:6673])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd540bc4sm21248191f8f.2.2026.10.18.23.06.01
+        bh=a4zYuxAOTe5hOZO9exG0p9T3Y5OYZrqCGPDtfN0/quA=;
+        b=NoW/QJi2L5ebBzAfFG8zRbnFyBAaYFKSGsDGMLv890uYnzRfYhmIFVQF9fZicz7100
+         4j+S8ii5MQ75hv9LSxKe3i70NiWJ7lUE7+2heWNB45uvHcMV2EvqkktC+FW1LL5hVYEG
+         1MJ05RPtggwxra+OnhqvQIcpj9EjWu5A6WSCW4ivlXqKvpStMFPry24bTA5X97pT1gZR
+         wLAexhtGpQgzx9EGSFu53Ld2a8uhDTWVxth8/OEXtOZ2wzDCObCekFe7inCbxTfqWpt3
+         N4YnsDh2+4jHfqIWbKG5/mUk3fiHK6c0Xb015ddifInq2robAWylJdgf2146/+gf85ow
+         h28Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxZgopDfoXr6L0GgWugIgPPjKv7c0xPINGZX6BNUV8eHxDRqBTac/Pi3F1K9Kzu/cTRW4bliWL9Wtly@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ37b49JhyrQsPCis+KUJ54BNuxplauYM5tIiuH5bCcs8laRBQT
+	Ep9FO+QF+VnyD/ha+FWDBtZlE3nNJQySXwIJaxKqa/3gqEkxFvW2WKQJ
+X-Gm-Gg: AYBFou2jVxYOEwQ3OZDR9QsVqE8zctdsrgaLwyuRNqzoSTFFWBAvQW6Wc8yKXjzRpuk
+	NZF0q+O1jtvP5m+TM3jabi/xLbtdWqUTz6Os6fqlF3p7KAup27SElQ7PgHlz9xp4Xs92PMNKqQ2
+	w80/bipOBXP21O5grAp0qm5fQeOb0Fdxr0NzWtFfYP95i8lNFKPMJykuCai3FME7arrgoYOC3c6
+	/wsMc8H+I92x+Hwpc4EsHtS/pH5OA9/45Ey4lB+s/X+LV/Ksi1ZBaY/ZCK2WZavqCdvpwxNeN0v
+	42PUMV5CuMepmumaYRlXeVWzH6q29RrzktvIKVZROjgk7lB+OyehPBjJ23akA/Tyk46rOwEYlpx
+	EsAHQo9wUe8ITcBMHG/9YhjiVUl2GneYCwLzcFzngLPaRQ40XaQi8nVqAi3RpfNor6TvcntiqFt
+	kgJTR+we4FXJSlLN1ctxhsj57Hh7OVhbMk1pkfdS6YiaxXQSgqVlJmpq9nERWqEIMER3iDrLbnr
+	wzpgYxeuMO+OFEd28cn0+9dehG5znmiE26fFMUv3OemPJGtwVsTY3/7HDElYtCjodrNRams
+X-Received: by 2002:adf:edcc:0:b0:48c:7d67:8ee9 with SMTP id ffacd0b85a97d-48e07f98e75mr9489300f8f.19.1792390465937;
+        Sun, 18 Oct 2026 23:14:25 -0700 (PDT)
+Received: from SP11X1e.cable.virginm.net (cpc99340-croy26-2-0-cust244.19-2.cable.virginm.net. [80.193.62.245])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4ec8dfsm21937786f8f.26.2026.10.18.23.14.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 23:06:02 -0700 (PDT)
-Message-ID: <c1cb1b7ca3f69d5d456d6940f5dd8d93a0a91e8e.camel@gmail.com>
-Subject: Re: [PATCH 02/10] iio: backend: add devm_iio_backend_get_optional()
-From: Nuno =?ISO-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>, Nuno =?ISO-8859-1?Q?S=E1?=
-	 <nuno.sa@analog.com>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, Rodrigo Alencar	
- <455.rodrigo.alencar@gmail.com>, linux-iio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux@analog.com, devicetree@vger.kernel.org,
- 	linux-pwm@vger.kernel.org, linux-doc@vger.kernel.org, Olivier Moysan	
- <olivier.moysan@foss.st.com>, David Lechner <dlechner@baylibre.com>, Andy
- Shevchenko <andy@kernel.org>, Michael Hennerich
- <Michael.Hennerich@analog.com>, Rob Herring	 <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley	 <conor+dt@kernel.org>, Uwe
- =?ISO-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,  Jonathan Corbet	
- <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap	
- <rdunlap@infradead.org>
-Date: Mon, 19 Oct 2026 07:07:34 +0100
-In-Reply-To: <20261017212834.002392c6@jic23-hlaptop>
-References: <20261015-ad9910-backend-support-v1-0-3c21648c8e26@analog.com>
-		<20261015-ad9910-backend-support-v1-2-3c21648c8e26@analog.com>
-		<atEeZPOLASHAcnjF@ashevche-desk.local>	<atHjHqyxXj6jkObW@nsa>
-		<w7waqang6lriwbcq6o5s5yuedouuwgacmnj55qsjpzjrv3jut2@cthvkakgyhpi>
-		<atIkZa0noHjcl13X@ashevche-desk.local>	<atIt3eXNeTT7cqxH@nsa>
-	 <20261017212834.002392c6@jic23-hlaptop>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+        Sun, 18 Oct 2026 23:14:25 -0700 (PDT)
+From: George Neacsu <geocausa@gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sergey Lebedev <lsa.uz@pm.me>,
+	German Pablo Lindo <germanpapulindez@gmail.com>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: media: i2c: Add OmniVision OV13858
+Date: Mon, 19 Oct 2026 07:13:21 +0100
+Message-ID: <179239003370.10232.14441777373870206418@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <366fba16-a479-4e4b-b6b2-7d0dc6ae4fd4@kernel.org>
+References: <20261018-ov13858-x1e-v2-0-cd35434cfcfe@gmail.com>
+ <20261018-ov13858-x1e-v2-1-cd35434cfcfe@gmail.com>
+ <366fba16-a479-4e4b-b6b2-7d0dc6ae4fd4@kernel.org>
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, 2026-10-17 at 21:28 +0100, Jonathan Cameron wrote:
-> On Fri, 16 Oct 2026 15:07:02 +0100
-> Nuno S=C3=A1 <nuno.sa@analog.com> wrote:
->=20
-> > On Fri, Oct 16, 2026 at 04:19:33PM +0300, Andy Shevchenko wrote:
-> > > On Fri, Oct 16, 2026 at 08:18:08AM -0300, Rodrigo Alencar wrote:=C2=
-=A0=20
-> > > > On 16/10/26 09:45, Nuno S=C3=A1 wrote:=C2=A0=20
-> > > > > On Thu, Oct 15, 2026 at 09:41:40PM +0300, Andy Shevchenko wrote:=
-=C2=A0=20
-> > > > > > On Thu, Oct 15, 2026 at 01:49:42PM -0300, Rodrigo Alencar via B=
-4 Relay
-> > > > > > wrote:
-> > > > > > =C2=A0=20
-> > > > > > > Frontend devices might not need a backend driver to rely on. =
-An IIO
-> > > > > > > device
-> > > > > > > that supports backends can behave differently when they are n=
-ot
-> > > > > > > available
-> > > > > > > and that should be acceptable. Such parts may provide basic
-> > > > > > > functionality
-> > > > > > > solely using the control interface (SPI for instance), being =
-able to
-> > > > > > > have
-> > > > > > > extended features when a backend is present.
-> > > > > > >=20
-> > > > > > > Add devm_iio_backend_get_optional(), which returns NULL when =
-the
-> > > > > > > backend
-> > > > > > > is not described in firmware, i.e., when the io-backends prop=
-erty is
-> > > > > > > not
-> > > > > > > present or, for a named lookup, when the name is not listed i=
-n the
-> > > > > > > io-backend-names property. Other errors, such as probe deferr=
-al, are
-> > > > > > > still returned.
-> > > > > > >=20
-> > > > > > > To make that possible, a named lookup that does not match any=
- entry of
-> > > > > > > io-backend-names now fails with -ENOENT, the same error retur=
-ned when
-> > > > > > > the
-> > > > > > > io-backends reference is missing. Also, the missing reference=
- is no
-> > > > > > > longer
-> > > > > > > logged as an error, leaving that to the caller.=C2=A0=20
-> > >=20
-> > > ...
-> > > =C2=A0=20
-> > > > > > > =C2=A0		ret =3D device_property_match_string(dev, "io-backend=
--
-> > > > > > > names", name);
-> > > > > > > +		if (ret =3D=3D -EINVAL || ret =3D=3D -ENODATA)
-> > > > > > > +			return ERR_PTR(-ENOENT);=C2=A0=20
-> > > > > >=20
-> > > > > > No. Please, use device_property_present() instead.=C2=A0=20
-> > > > >=20
-> > > > > Oh right! Totally forgot about that internally :). And it fits in=
-to my
-> > > > > internal point where I don't agree much in treating -ENODATA the =
-same
-> > > > > way as property does not exist.=C2=A0=20
-> > >=20
-> > > +1
-> > > =C2=A0=20
-> > > > Say a frontend consumes multiple backends, but some of them are opt=
-ional.
-> > > > If we care only about the presence of the property we would fail wh=
-en
-> > > > trying to acquire the optional ones when the required ones are defi=
-ned.
-> > > > am I thinking correctly?=C2=A0=20
-> > >=20
-> > > If there is an empty property for names, shouldn't we simply fail? I =
-rather
-> > > would consider the firmware table to be broken in such a case.=C2=A0=
-=20
-> >=20
-> > What Rodrigo is saying is that an IIO frontend driver can have multiple
-> > backends. So in practice:
-> >=20
-> > io-backend-names =3D "foo", "bar";
-> >=20
-> > But we might want to have foo as optional while bar is mandatory so tha=
-t
-> >=20
-> > io-backend-names =3D "bar"
->=20
-> Not sure mandatory or not is relevant.=C2=A0 Two optional backends where =
-the
-> driver can run with either or both of them would hit the same problem of
-> present property but particular backend not being there.
->=20
-
-True.
-
-> >=20
-> > So if we treat all errors (after checking for presence) the same we wil=
-l fail
-> > in the optional one. Note -ENODATA also means match_string() failed.
-> >=20
-> > As of now there's no such usecase in tree or oeven out of tree (that I'=
-m
-> > aware of) but to support it is also fairly simple that I don't mind to
-> > have it now.
->=20
-> I'm in two minds over this. It's unused complexity, but it also makes the
-> function behave how a user might expect.=C2=A0 Definitely needs some
-> good justifying comments in the code though as it will look weird!
->=20
-
-Agreed! Yes, already asked for it as well special because of the non common=
- -ENODATA
-check.
-
-- Nuno S=C3=A1
-
-> Jonathan
->=20
->=20
-> >=20
-> > - Nuno S=C3=A1
-> >=20
-> > >=20
-> > > --=20
-> > > With Best Regards,
-> > > Andy Shevchenko
-> > >=20
-> > > =C2=A0=20
+On Mon, Oct 19, 2026 at 08:03:11AM +0200, Krzysztof Kozlowski wrote:=0D
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>=0D
+> Tested-by: Sergey Lebedev <lsa.uz@pm.me> # Surface Pro 11 (Intel)=0D
+>=0D
+> Did not happen.=0D
+>=0D
+> Add only applicable tags. Otherwise please explain how this code was=0D
+> executed and tested.=0D
+=0D
+You're right -- I mistakenly carried Sergey's Tested-by onto the binding=0D
+patch. His hardware testing covers the driver/series, not execution of the=
+=0D
+YAML binding itself. I'll drop that Tested-by from patch 1 in the next=0D
+revision.=0D
+=0D
+For clarity, I carried your Reviewed-by from your v1 reply where you=0D
+explicitly gave it. I intend to keep that tag unless you consider the v2=0D
+changes substantial enough to invalidate it.=0D
+=0D
+Thanks for catching this.=0D
+=0D
+Best regards,=0D
+George=0D
