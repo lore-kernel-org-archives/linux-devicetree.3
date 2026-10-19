@@ -1,184 +1,174 @@
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E11C94D0CF0
-	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 11:49:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B381A483837
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 11:56:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792410577; cv=none; b=Q0EDc5qWb22osreAmCd0lKSgjEWHzZ7Wjdl5jDak9qf6hHDshziXZhZswqB4ruhSsClpIWZCDv/dZR58Iu7sJsNkvi8YtdEPI100lyM6snXyCI5DwQnOs0HCbOTiYt5JJu5H6ze1ehlm7ZcsXbcXlIzk7LoeT/Dej1cUVGkNhS8=
+	t=1792410998; cv=none; b=cylCPbCZqUW+DjJW5lqRZHkjjFFAdEMvsT8umX1hM87utqFzOYIBX+ObGjbXoV8RAJwrkOPhZpp0udC+g8onnwEqDKR+/lG9BZw8UOyvrnZStdqzwYEJioS5Za/IfA9pdHthVp/at/J1/WhBZ3k9dOxOZ5jzo446EkKeWXtFIKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792410577; c=relaxed/simple;
-	bh=F+eUXlB9VQCNsGw/BnGjdCOOD1jtnHYHaQsq8Lw3nXU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=e9/qO6NHdVZwgslsjD5aNI16xWYZImyM916tkXYEl0q6rArYewazlgWBvSzXnvjsLxBJe1E36GCIMAJ/rVLDnrLFUSlyjofY+gPqkjla7gdSTeRxfPz2mheJvaEXJxDR3Ee4GSTtPxH9L9sF9kSroyYUoCRThJHud1hnVi7un68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=beagleboard.org; spf=fail smtp.mailfrom=beagleboard.org; dkim=pass (2048-bit key) header.d=beagleboard.org header.i=@beagleboard.org header.b=pMOQzwOr; arc=none smtp.client-ip=74.125.82.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=beagleboard.org
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=beagleboard.org
+	s=arc-20240116; t=1792410998; c=relaxed/simple;
+	bh=HLjsyxiyP0RrLsmru8bFLMsnV9JU+jXFj64vDL8QUno=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=I4d8F0srh4e7b0epHYQN+jHhYWKfk0FbUuZjmhrbWz7wJIEhzQFj941Lhnrjsw25giYKiCEbPrE2PLML/H8MePaXlO2L5s/ZVO2myI0sut1OC6AGmTGFYoJbJHDz0auYBuPT4l+UXVdi/jROFFGe0HtLCQT5ebKvIYcgEEUgLRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=I64/bdIT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IAeOJG9Z; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=beagleboard.org header.i=@beagleboard.org header.b="pMOQzwOr"
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3282db206d3so3134329eec.0
-        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 04:49:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="I64/bdIT";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IAeOJG9Z"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J8P3XC2042431
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 11:56:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	gHWSTOXAK11dHbhFaZJD674H5cswRRHK4YqORV+tgJk=; b=I64/bdITvizEuBN7
+	CN6iaKcaYuqx6Oc1kMybp5O8icKXh1vS84CEeRJb5p9lmR0WkKNDxPbhepyYdyR8
+	BKsakfc0d0HawUpzZ7SaxejVnakOxBVMLKfD73oW0Yb+j17ITn7pMDXiKL+MB0EN
+	osmkEbgC9lsuHyt/LCZrGfewtsSbh1wIbgvKOW8XvlePaGJEtRsOuIme52By48Sf
+	4yTcaS3TBUy5Tpz1PXKeKZVHTLtHfU3XHPvN4lKiqphniohqJ0ZxTvplDl1Z6qJp
+	qhs4Sbg9FK6Y3h3PfIAPmIxn/n+nwVFzVC3Pj+ly+HxvAAdEFbBvTDgI2debwBAr
+	NmeUqw==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hd5ur2jmf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 11:56:35 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-533758f24f4so3561261cf.1
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 04:56:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=beagleboard.org; s=google; t=1792410575; x=1793015375; darn=vger.kernel.org;
-        h=content-type:mime-version:user-agent:message-id:date:references
-         :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=fdu26r29oZudM220HDvHSe81ZJ51gRqNF+fkaXqjiTE=;
-        b=pMOQzwOrBCnaZQK+meWn1jHz4XkXmt8003N1L/nq9O6kA1m7qbTqSe7+IYeSsHnnQs
-         10z6D2q3Oqy6iCaTtsOsO2o7+pYGfP0mlRezL7gShCxAdHCOti8yKLFGEeVyxIGserXM
-         sBxvsTEH9J5CruOsaohvdcuLGBqeoADsSXrG7YNf+yZEZHKZs2mhcgmWh3kgOiGQJaic
-         FE7V+czjwNXb6upcnxR+wnfv6GyWF1Ep6uPLVpjPplWheeYYcKqx4qy/xuzTDGaO30B1
-         zQZFWL4/KJR4QqGyVMjelR5DQZTA9lbSCy7tYTzpawFKpcsEoHo5SpSVbQnsI+Z3Eioh
-         aBiQ==
+        d=oss.qualcomm.com; s=google; t=1792410995; x=1793015795; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gHWSTOXAK11dHbhFaZJD674H5cswRRHK4YqORV+tgJk=;
+        b=IAeOJG9Z/68kHpYUlGD3z/+9FRBRmnJF4x5FGdNMUFPzOiyImb3L+yoBow+vdX2srw
+         83nUTixf/gIsxgOyy9/ee9gy0jj1lLB7knVKsmG2y/xEOGQOise8lYoU7U0KnZl+jJau
+         FkmmiRaOX6Ab3goodJlbDHQf+poLX7iu9w5VC71OuXHDD7JYiJ60pygAVcz/kMLVC/Kp
+         NUJyMfdTXWu+vjxih0Y/aT8DaFsN2otp7sxG+rl37+wD04DSRkYRBPU889bDxjFtaeil
+         1rIFEZaKkxKUVIgsmrjfy7fz/YLv76ETyfFWoiRq+K8ijUe2tQC9HbB6bdsRwN+cW3oZ
+         9BHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792410575; x=1793015375;
-        h=content-type:mime-version:user-agent:message-id:date:references
-         :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=fdu26r29oZudM220HDvHSe81ZJ51gRqNF+fkaXqjiTE=;
-        b=J2PwYOr6Qu27Vqdcad3O93AZfg21+5WcFxRBL8bJl2S7r45DUJNVgNgS4ZjqaauTjp
-         I2/MBSRccpdk9S8TUtt7Ii4CMYfaHl+hdg2FU/ClOQU+aD/7+6CNABkdG7ABEyONynW8
-         QvK1ls6SDva0uG4cIkFSNL59CTJpTmgTpcvtcU2NWG9xZrWXl5JRfHgYwAbH6yXbvjSW
-         MALIy8BphRVdct+go7ly8YAFv2QzY+A1BpnmPVsOQyxqEiGziK6sJDiSlYrUmN/fdeIb
-         4eIi9X373q7rX5gUI6HV9LSC6qygMoyUBAhnvk7GJDNt51dLabi4mFWt+2oVgXZ738PT
-         1WbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx7W8AQFPvaZ7tT1e+v1xRJgMce0eLfX3NeXZmif2Jinvu8xjw2GqhVSjkIJTpRK++P5gXgyI5/aPNS@vger.kernel.org
-X-Gm-Message-State: AFq9FYLPGqA2g5wU2fOglxlNpXZ5eajfg+uFOtXS0E+Hfjdwe4ZPMSQ/
-	Jcm5j0ziqQCL6QV+CPT7cX4RK5FvuBYzuefS3G+mYrte5eccKuufWxtTrb2WiyHUTw==
-X-Gm-Gg: AYBFou1eE/bYL56EWi9Su0jIbhcnMr5CU3qcLitQiO9Zv4IaqkIawp3lS9t1SAPSgmG
-	yc36R/hfoS+4BC8EbFGiTx3MOdzRYESbnwiJkChCb2kgvVkzx7q547SKqJ3bsLlOG8gFofmaeNs
-	9bNqafuwzGDUhRImW/ctDB+he2ARR+5EpjLuhcJEQyxGi9uUOUwc3sph12DmO9GqpVY6n1N5eTl
-	3ha30STQo09sZH/1yLRXc46snov1UvZA9CpesyE4lRz7Zy+URSC13iebrsKU8hyZrgntSIwWbgT
-	lUlTLKrxmwgl+cK/V63YRG2rSPcMrxAZx2JK2Pd4Xqd+T1OdsQNVmcKBZ24TsnAcUzPx73MqoCZ
-	KHd5c1yKSW5IhZ1RW1EWgUvd5ieRkDqVzlQtvt9TR4ViLj0DW+F0Ros48bi/GSHcrM0Mb6VlYpC
-	Q7ToEHxaI6DW6NtM534h2MAOih3EgZm2nuCQD8idgeHXDCkxAqYItvQmg/VuDiOmKEMrLlVswx
-X-Received: by 2002:a05:7300:b085:b0:341:225b:d6f with SMTP id 5a478bee46e88-361a234315amr10888833eec.19.1792410574904;
-        Mon, 19 Oct 2026 04:49:34 -0700 (PDT)
-Received: from fedorapc ([2405:201:4019:32fc:3c55:6b24:5147:322b])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3608258aa66sm40017421eec.20.2026.10.19.04.49.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 04:49:34 -0700 (PDT)
-From: Ayush Singh <ayush@beagleboard.org>
-To: sashiko-bot@kernel.org
-Cc: "Ayush Singh" <ayush@beagleboard.org>,  sashiko-reviews@lists.linux.dev,
-  devicetree@vger.kernel.org,  robh@kernel.org,  conor+dt@kernel.org,
-  ojeda@kernel.org,  gary@garyguo.net
-Subject: Re: [PATCH v3 4/7] rust: kernel: Add greybus abstractions
-In-Reply-To: <sashiko-outbox-169737@kernel.org> (sashiko-bot@kernel.org's
-	message of "Tue, 13 Oct 2026 12:48:04 +0000")
-References: <20261013-gb-uart-transport-v3-0-81d0a8a1acf7@beagleboard.org>
-	<20261013-gb-uart-transport-v3-4-81d0a8a1acf7@beagleboard.org>
-	<sashiko-outbox-169737@kernel.org>
-Date: Mon, 19 Oct 2026 17:19:30 +0530
-Message-ID: <877bjdap11.fsf@beagleboard.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+        d=1e100.net; s=20260707; t=1792410995; x=1793015795;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gHWSTOXAK11dHbhFaZJD674H5cswRRHK4YqORV+tgJk=;
+        b=Ol0sjr7esJovZYtCchQh6gQtjMbFAdKzW3CdiFPioZBiR0GbHgSNVkr+9lZv+PkWTO
+         8LXKoA0hk3P0zuma2lJBui4yZS8IOJKa2p0yyEotiVnGMp5DwyNENKjif26bw6d89COI
+         jkvHBuMEVrDTlqxmsfNp1HEurGNAy7hE8fFAYDuGBqQRGwlv4OklHNEfttFWX+G7b/n9
+         HTTuN1dYV1L3V0Qe+Lv+gsLI/Lz7MjQls+YgevgaEFRLSDIT5svG+gW6p6dH87QD4XRG
+         38jTWcnV+ArhQIZE2rxq/QJIiLG9hn1gsnpuKRb/MqCwxMi7R56NKMcWXT8UyEy0PHp4
+         MNEw==
+X-Forwarded-Encrypted: i=1; AKwUvBxl0Lnb/GeU1hJYtwogv6Itmb7yABLpZNXXTE67QJkIIQ9uWre8sEE8AfgjGinrQR4O3lmcVGTrIv0E@vger.kernel.org
+X-Gm-Message-State: AFq9FYLD5Og7n8PkiIKQYJerVVjR8J14TIy2Q8QRwNlPStz5ICNGJ7mS
+	jx3fcnfXY1OhbTNwPqg5ymQ/nZ7R/X9iv7+Qv7o+/7ppf1vC/WBqby2xtcpr8WKml4HgwmdQ26x
+	pzRGZp94CefKcfvjLICyZoS3D27zkur5SovghGTHvsW/VgOr3aiV9vyv0NH04NZbI
+X-Gm-Gg: AYBFou2H4HQ8VYe//GlLY68FIHHwI6Cw8DrGgpxpJA+xY/miEiCdgxyFJvWmtASRjTv
+	+BVAecfD+KSe/VY0iXYGg3t34XG+0iiyhMNVODK8vvAvKzL5NMD2sEiu/tVBgxO6qPhk9zipbSI
+	rIbokY7OJlL4UMFmIDIVbTXrNibElvczXp2OwCIph/mVY8aCZ8ZP8vnjmy1QNLUxL19x2XnqL0y
+	5rNdVjsE0TvAs3TKtoHN3ukqQlTzI5ywRXmLyUOb0VHbZvQ+5bvPMQ+paA4f4vJO/D6gsCknrmN
+	TbPdlfliWdMeoB2V9iK/BNyaaKzrNUHSeDWO3OO66xIZ5SmI3bpIziSAeo6Di4JKmygUug3ERA5
+	ytb0MYZBV+LM07MCRkooFhQ==
+X-Received: by 2002:ac8:5a8b:0:b0:536:61d4:cc80 with SMTP id d75a77b69052e-53661d51a96mr77425601cf.5.1792410994831;
+        Mon, 19 Oct 2026 04:56:34 -0700 (PDT)
+X-Received: by 2002:ac8:5a8b:0:b0:536:61d4:cc80 with SMTP id d75a77b69052e-53661d51a96mr77425281cf.5.1792410994368;
+        Mon, 19 Oct 2026 04:56:34 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40912ca52esm366595366b.38.2026.10.19.04.56.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 04:56:33 -0700 (PDT)
+Message-ID: <b833f6f9-5729-4936-8c5b-cd42d32c5198@oss.qualcomm.com>
+Date: Mon, 19 Oct 2026 13:56:30 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 5/9] irqchip/irq-qcom-mpm: Program wakeup timer when
+ CPU cluster goes to LPM
+To: Sneh Mankad <sneh.mankad@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+        Shawn Guo <shawn.guo@linaro.org>, Marc Zyngier <maz@kernel.org>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Will Deacon <will@kernel.org>,
+        Anna-Maria Behnsen <anna-maria@linutronix.de>,
+        Frederic Weisbecker <frederic@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+References: <20261015-b4-shikra_lpm_addition-v2-0-ac7f1a0d5638@oss.qualcomm.com>
+ <20261015-b4-shikra_lpm_addition-v2-5-ac7f1a0d5638@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261015-b4-shikra_lpm_addition-v2-5-ac7f1a0d5638@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA0NyBTYWx0ZWRfX50NdpXTQC7nY
+ 80XQUdmAUe3Y5/9o3C7bOVLAAdP5d0uYmz3XAeiM0y4VXdaLJSXjyiU5jR3IKzAX0tE3cBxlwsp
+ Um4xsP0Ey2SEno+3B6cpgkOjxD7+j7o=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA0NyBTYWx0ZWRfXxkjxkUz6h85G
+ w9BUVNvzMkM+NzIsR3izS+FVsEoheB8PqLTb+yIWaGtKCurSSuJEDD1jm/cE45SVh3dtf6OOVoZ
+ NxZzBhKaLw9X0fHCWLc5mxxLH88RnMwkSLtHdb5zWl0eCglICLvSW7GE4CC/IlUBYNS8x4U9Gx9
+ MsyhJj3k8LtpLsQ3KUz+b6WF6Ion7xNOHp63SC1U0MaotxRNDqWkTULuxlRLDnH02oehdHvMWSi
+ wVTGIG+lxWRMvPfymc1RCntPy4ZveudRDbpH5C2SKciS2mFqZOpWMgv21Qt4FjFC+N5xqt472Pr
+ kjTw8K9gkrs8MxuYUTboAVbOMi5IBfvc4lUyJz7U76hO+UmldCqYYiluwM3TexggotBoCxgK4IL
+ CpzehrxlcuM9vJcjUJA4MizihAqzRXuE/SsL5MR1wEjOnEv4p2702uFrNl3OScGNG3yxuWojV7v
+ r2exJWvid7SwyRQZmPg==
+X-Proofpoint-ORIG-GUID: MPB84_T_Y7u3MeA5AxwBCNnKqxydsyA8
+X-Proofpoint-GUID: MPB84_T_Y7u3MeA5AxwBCNnKqxydsyA8
+X-Authority-Analysis: v=2.4 cv=CP6/zhrD c=1 sm=1 tr=0 ts=6ad60573 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=rqCDwAl6iYQHjBXnP38A:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-19_03,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 bulkscore=0 clxscore=1015 suspectscore=0 lowpriorityscore=0
+ priorityscore=1501 spamscore=0 impostorscore=0 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190047
 
-sashiko-bot@kernel.org writes:
+On 10/15/26 11:55 AM, Sneh Mankad wrote:
+> The next wakeup timer value needs to be set in MPM timer as the arch timer
+> interrupt can not wakeup the SoC if after the deepest CPUidle states the
+> SoC also enters deepest low power state.
+> 
+> To wakeup the SoC in such scenarios the earliest wakeup time is set in MPM
+> timer and the Resource Power Manager (RPM processor) takes care of setting
+> the timer in HW.
+> 
+> Add MPM timer programming when CPU cluster enters power collapse.
+> 
+> Signed-off-by: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
+> ---
 
-> Thank you for your contribution! Sashiko AI review found 4 potential issue(s) to consider:
-> - [High] greybus: safe Connection methods allow UAF of parent devices
-> - [High] greybus: rust: UAF of driver data due to eager drop in Registration::drop
-> - [Low] rust: missing #[inline] on trivial abstraction functions
-> - [Low] rust: missing // INVARIANT comment and size validation in GbOperationMsgHdr
-> --
->
-> commit 75320c1f601296bad85db7371e32bc7e97df53b7
-> Author: Ayush Singh <ayush@beagleboard.org>
->
-> rust: kernel: Add greybus abstractions
->
-> This commit adds Rust abstractions for the Greybus core to support implementing
-> Greybus host drivers in Rust. The abstractions cover the APIs used by gb-softsvc
-> and gb-uart-node drivers, including host device registration, connection management,
-> and SVC protocol structures. It also introduces lifetime and ownership rules for
-> Greybus messages and callbacks within the Rust bindings.
->
->> diff --git a/rust/kernel/greybus/hd.rs b/rust/kernel/greybus/hd.rs
->> --- /dev/null
->> +++ b/rust/kernel/greybus/hd.rs
->
-> [ ... ]
->
->> +    unsafe extern "C" fn message_send(
->> +        hd: *mut bindings::gb_host_device,
->> +        dest_cport_id: u16,
->> +        msg: *mut bindings::gb_message,
->> +        gfp_mask: bindings::gfp_t,
->> +    ) -> c_int {
->> +        // SAFETY: gb_host_device and HostDevice have the same layout.
->> +        let hd = unsafe { Device::<device::CoreInternal<'_>>::from_raw(hd) };
->> +        // SAFETY: message_send is only ever called after a successful call to
->> +        // gb_hd_add, hence it's guaranteed that Device::set_drvdata() has been called
->> +        // and stored a Pin<KBox<T>>.
->> +        let data = unsafe { hd.as_ref().drvdata_borrow() };
->> +        // SAFETY: The caller guarantees msg is valid for the duration of this call.
->> +        let msg = unsafe { Message::from_raw(msg) };
->> +
->> +        match T::message_send(&data, dest_cport_id, msg, Flags::new(gfp_mask)) {
->
-> [Severity: High]
-> Does this code allow a use-after-free of the driver data?
->
-> Thread A could initiate a request through gb_operation_request_send(), which
-> calls this message_send wrapper without taking locks that serialize against
-> deletion. This wrapper borrows the driver data T via drvdata_borrow() and
-> invokes T::message_send().
->
-> If the hardware receives the request and replies immediately, the response can
-> be processed by gb_operation_work() in a workqueue, dropping the operation's
-> active count to 0. Meanwhile, if Thread B executes Registration::drop and
-> calls gb_hd_del(), it cancels operations. Since the active count is 0,
-> wait_event(!gb_operation_is_active(operation)) returns immediately without
-> waiting for message_send to return.
->
-> When gb_hd_del() finishes, Registration::drop eagerly extracts and drops
-> the driver data. If Thread A was preempted inside T::message_send or before
-> returning to C, it could resume execution and access the freed driver data.
->
-> [ ... ]
->
->> +impl<T> Drop for Registration<T> {
->> +    fn drop<'a>(&'a mut self) {
->> +        // SAFETY: By the type invariant of Self, self.as_raw() is a pointer to a valid
->> +        // struct gb_host_device.
->> +        unsafe { bindings::gb_hd_del(self.as_raw()) }
->> +
->> +        {
->> +            // SAFETY: hd is a valid pointer to gb_host_device.
->> +            let hd_dev = unsafe { Device::<device::CoreInternal<'_>>::from_raw(self.as_raw()) };
->> +            // SAFETY: The driver data was set to a T in Registration::new() and has not been
->> +            // taken since, and this is the only place that takes it.
->> +            drop(unsafe { hd_dev.as_ref().drvdata_obtain::<T>() });
->
-> [Severity: High]
-> Can the eager drop of driver data here lead to a use-after-free if
-> message_send is still executing concurrently?
->
-> Since gb_hd_del() may return without waiting for message_send if the
-> operation's active count drops to 0 (e.g., from an immediate hardware response),
-> we might drop the driver data while Thread A is still executing the wrapper
-> or driver code referencing it.
->
+[...]
 
-I feel like this particular race condition should be fixed on the C side
-instead of the Rust bindings. Put simply gb_hd_del should first flush all
-in-flight operations, and prevent new operations from being executed after
-the function returns.
+> +static void mpm_write_next_wakeup(struct qcom_mpm_priv *priv)
+> +{
+> +	ktime_t now, wakeup = KTIME_MAX;
+> +	u64 wakeup_us, wakeup_cycles = ~0;
+> +	u32 lo, hi;
+> +
+> +	/* Set highest time when system (timekeeping) is suspended */
+> +	if (system_state == SYSTEM_SUSPEND)
+> +		goto exit;
+> +
+> +	/* Find the relative wakeup in kernel time scale */
+> +	wakeup = dev_pm_genpd_get_next_hrtimer(priv->dev);
 
-Of course, I might be missing something, so people more familiar with
-greybus can correct me if I am wrong. I can work on the patches for what I
-described above.
+This returns KTIME_MAX after the DT patches in this series are merged
+(because there's no power_domain that the MPM hangs off of anymore)
 
-Best Regards,
-Ayush Singh
-
--- 
-BeagleBoard.org Foundation
-https://www.beagleboard.org
+Konrad
