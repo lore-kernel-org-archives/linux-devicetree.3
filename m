@@ -1,54 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.103
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792524493;
-	b=LROeomNJpLbiTUrQlgnmXgSG0VkmnuhwWjnmSm28VT4fUca4iQ9WCXL6DnK7UXHtmxkV
-	 Q50rvWIKG6AeM5xzna2J05R0ZW4ObADA0RLUbnXtGNgUcI0f4W2dExZI/ujQW/hdQlcbD
-	 Hp7pvAGOim8H/4Nr+V2sQnLsUOZgFhr1M30Hk8r6dPV1pglfl88/M0OcC26yJBBd+vswI
-	 4FiKKJb+crwAF4ox1IWHp4YmIek+9hM5KfalEJWnOkljOtwSyJATfofp4bBsgCoAyBpH8
-	 8npOYdeZWab5uf+EedxssPuga31nne5Azgq7zVpS077uhn3LydJ8Fugq90mUtt6ghLA==
+	t=1792524573;
+	b=aGRHwDzUzroJAUi5tGKBuqZP5/IkKIjCcH4RcNqDMpwgnQgEVU2MZrCTyJxNhhe8TpCr
+	 JCsnTHQQwNnfSUirB1vlbXVFGRttuwmOoSIkQnknwiqQ5FOtqJdnJcP0srpnnv80i0PRc
+	 5XT6mCsD+3ZR9qwDwHGNulx6f3ODkoS0S4wpI/ftAzKQqy0a/nbXEaxhDPA8PGQeV5DR8
+	 idkoSYZViNBuNj1J+AIJ6acH878glgGBGrPieU1/HXkTyKAdXtZ695IIaaRmd4k6x7iO6
+	 vfDf8RmN1VZi19A454/dE/NcEjT+hiFr3xvQb50ZW9CiM7RT2mfWIhYe76semQTyrJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792524493;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:MIME-Version:Date:Content-Type:
-	 Content-Transfer-Encoding:From:Message-ID:TLS-Required:Subject:To:Cc:
-	 In-Reply-To:References;
-	bh=nhw4NeSU454BOKwhnUyqxz9y3bQlniVFV2xnSR9NZew=;
-	b=ARP0fxiLn9OqS1S5QjFMnBblleYpzx57+58uWtTg/Ib5H49hlyGbEB63TA61pDpeJMKL
-	 7PgnSoc0WDezVPAXQ74/oXqCfU/dvGryajGCX4k/xV3uBqpz427JqUaGwWHRwLN9+N4Mz
-	 PeOiv7Zc6tX9eVKeZo89OpEloPiyBFrW5GNZgDSPf/BF3I2MOoUvcDuoPX7VrTecv7RyU
-	 +tOyKiNKDpe7stRuFqSBlS9/ZSy0KYZHHthMnSmXkU43MWIjVxthCBD+VSsmVEozHC9oa
-	 UAFbeVosg8IH/PWDWw14HlU0D20VKZszYp0i9RurchS0jkKWgNuODRrFmCLaZUin/0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792524573;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
+	bh=C/iSPX73nR7XVogkkTvvUPc6C5UsSw8Yeh0YEAvQaKg=;
+	b=QWiTgsFE/hFwLcMdPD+uh1qg3nXxIW0iGGPliJBe75lohtr+qf4wNZfs+S4mi493RUIr
+	 Xw5s3c69utiadpvp4YYZjh9lXCYolgZcqQMIAa81S3GR/qQecy5WZ3OzAM0NNviWsWuUe
+	 g8X21FgmOMEAF71BNq8cIrGFwvl3EyLmy6TKffc6Oh0cO9IBktz8QV3A66qXHA7W9IFz7
+	 FybIUoAQJaqW+7Gb/mHiZt+t+y/WD7W3UrHVgeB5Y63KcsxikrpLujZw3rWUJYVrVyWZy
+	 St+lN/A76zR+0nIUVkm1zy8VLXSE9W5o295xXOZjYZGd80L+zxVzcWKa19YMD0B0NyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=postmarketos.org;
-	spf=pass smtp.mailfrom=postmarketos.org;
-	dkim=pass header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=aE7p0YAw;
-	arc=none smtp.remote-ip=95.215.58.103
-Received: from mta1.migadu.com (out-103.mta1.migadu.com [95.215.58.103])
+	dmarc=pass header.from=fairphone.com;
+	spf=pass smtp.mailfrom=fairphone.com;
+	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=nE9Sss1A;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF95606A319
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 19:28:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DF95606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37D9E606A31B
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 19:29:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37D9E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=aE7p0YAw
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=nhw4NeSU454BOKwhnUyqxz9y3bQlniVFV2xnSR9NZew=;
- c=simple/simple; d=postmarketos.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792524490; v=1; x=1793129290;
- b=aE7p0YAw+as7Xca7qxj1PFyCXZH/6PMfqTFoMsmKByNBawbEKO39gV1rHSbijQR9J6Cm5Sye
- uWez+Yep/7mfxb6MP7l9TBvANeEaU/37/EgSYkz/PBHiKYl3jzHBO25kN78CJ53xBdIeU1kbMk/
- 73nlKT4L8BDoMJnZOZ+D7BAP97ZBpSCfh+ecWcd5ibZADv0qI+s7aGOUgkMQ+FkmtOPyzFuZAiI
- qLCDO+Tw9CUlBh3sKXDP7PHbRXyCgAnKAUYNXQlN+c14IKtm1CkQ72w5kwjdY/Xgf0593QzvNEd
- OyevAN2A+M/EtELC1txBMF6tIo2c4MwuQQO1z9wtb6R+Q==
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d89a57325dc7bec0;
-	Tue, 20 Oct 2026 19:28:10 +0000
-X-Mizu-Trace-ID: d89a57325dc7bec0
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key, unprotected) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=nE9Sss1A
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a1dfd49525so23443065e9.0
+        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 12:29:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1792524566; x=1793129366; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=C/iSPX73nR7XVogkkTvvUPc6C5UsSw8Yeh0YEAvQaKg=;
+        b=nE9Sss1A6JrrIagj2oLOrZ5xA7aMiP8Py01Fl+A+eWG2XrHLHYXiEyEydoeMkWa/1J
+         sQamhTV9IL9dl+/1t49FKXNF5jNMzYHu2CKrlVa9H8Xs1ho3x7AaPB+uQAfEVMRflWih
+         HOiI4v9MEcOxlfoo+DeMF16uIejUNvT3sZKaq/Ax0wDNqpeIZY1oAuq6cfVVtYks6bqo
+         yRxwRDvxk0xzIxevHspyQ+P7+r+/Gn2aAImMDSqAq90e1XYJrvGAdkjGGZR+2U6o2Vn9
+         kwjDrTZvOVS55kw//ZsP2dveerWUSDVmVawsts6r+HnllLWbmsFL2cUg8ghhxbOYJrfk
+         twQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792524566; x=1793129366;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=C/iSPX73nR7XVogkkTvvUPc6C5UsSw8Yeh0YEAvQaKg=;
+        b=rG2XqyuXiIsiNqMmR/pZ2AkgdcUmiG8HGRmQUg3XWQjGlUpryFUZQCcID9v1CHr656
+         XK13/WGEjz/3SPxUeTelRmQOVH5dSfm/TiAluphgvO92QmK3EPrrNSolMScsBXuIfAjU
+         cBYmDs/m7MMgartDMTMezEPdbfgETjbc0TooUXHddj5SGvfGPC32r6bB2e+LX9IV7q5i
+         8N8HDXTJhj71uGr7BIBDEuk4ubp5WjcPqIrd7W945zGlLDfhUmfsAg7L9ZiAZ72PMJv5
+         SiITHLh+07MfvCNBG+spNeGEcvaYXe5hANUdlJhw+eEKOQBWlgpj3eIVRE5YZlTZv/po
+         PMAA==
+X-Forwarded-Encrypted: i=1; AKwUvBxzGAlnXuPTissMmCI7TAYSp3sb4p+EuysL+oZx85NX6dUsfkYflEKwYwDDO1gW8S/Kh05p8gzA/jeK@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ7KAlXagG7yQuTtdUHUlvCP8rCJUW552aZoaklIE4L69oMj9Xd
+	zwoqgxdm+TKOshu6NcgyQl2gVJ52chxNYIPmUtqPkKipgFwP+Jhjm1ZJ1Np/Graw9qo=
+X-Gm-Gg: AYBFou0niadMu6zZZtwUACMx1IfdwXzE9V6f6g7UOryplCORVjS09ws1daMJLNzr1HX
+	neOy4CSA9zjwHxDvc93r9HzhmYqimLj216zS9q64TmbfMP/+hadJ3cOMqzIcLEGDQgKnXJng0bH
+	Ov3lc+lvlmf2gdS4WXFkpR/fwUjaZW7gBx3NjDqcLlkAvWUx57Zz9UxYqVyeO8afEXBoFRvLNr3
+	ArGZx6pOPJWIy14t/2hSFbhwQy4DsQIX0glaSZ+7KLv4ONIAhOkE8v+PLzeNi8zpwdTFT7C6UJl
+	OSy9SPs+e5GU2OfAC9dTEPWECbPP16RhIE08bIVXIceQBsQiZpdODKiQzNVgDYh6s4LXOnU90yS
+	RHwAcuu5FH4yQ4gvg8avVlSY1LttLvW6CjgpT5iG7hJKzjTyiYqIo26P8ihmamqdRGg9nsAOlpc
+	M5zkch2mxbU7D14shcyNw5Rf/voBns95VVcdqFlLCD3Xya1Oh05FJ2KiPzzHZ69aq/cwxxJYX8x
+	DPk/6TOWak=
+X-Received: by 2002:a05:600c:190e:b0:4a1:90d7:88a8 with SMTP id 5b1f17b1804b1-4a1d76106c0mr258091055e9.25.1792524566645;
+        Tue, 20 Oct 2026 12:29:26 -0700 (PDT)
+Received: from localhost ([103.239.146.42])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36741e71eaesm1049611eec.26.2026.10.20.12.29.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 12:29:25 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,30 +86,91 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Date: Tue, 20 Oct 2026 19:28:09 +0000
-Content-Type: text/plain; charset="utf-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-From: "Paul Sajna" <sajattack@postmarketos.org>
-Message-ID: <338bdb9dddd9cf502a05ae8a79ccf5bb368b37a7@postmarketos.org>
-TLS-Required: No
-Subject: Re: [PATCH v3 5/6] leds: aw2013: Prevent writes to unpowered chip
-To: "Lee Jones" <lee@kernel.org>, sashiko-reviews@lists.linux.dev
-Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
- conor+dt@kernel.org
-In-Reply-To: <20261020101654.GF1206986@google.com>
-References: <20261012-aw2013-aw20xx-rename-v3-0-cab1fdd050b6@postmarketos.org>
- <20261012-aw2013-aw20xx-rename-v3-5-cab1fdd050b6@postmarketos.org>
- <sashiko-outbox-169017@kernel.org>
- <20261020101654.GF1206986@google.com>
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 21 Oct 2026 00:59:15 +0530
+Message-Id: <DM9WX8LJQ2VD.3QUBHZYBWDBC2@fairphone.com>
+Cc: "Douglas Anderson" <dianders@chromium.org>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Jessica Zhang" <jesszhan0024@gmail.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn
+ Andersson" <andersson@kernel.org>, "Konrad Dybcio"
+ <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ <cros-qcom-dts-watchers@chromium.org>,
+ <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>, "Jasper
+ Korten" <jja2000@gmail.com>, "Federico Amedeo Izzo" <federico@izzo.pro>,
+ "Luca Weiss" <luca@lucaweiss.eu>, "Hans de Goede"
+ <johannes.goede@oss.qualcomm.com>
+Subject: Re: [PATCH 3/3] arm64: dts: qcom: Add Samsung Galaxy Book2 Go
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "Konrad Dybcio" <konrad.dybcio@oss.qualcomm.com>, "Luca Weiss"
+ <luca.weiss@fairphone.com>, "Dmitry Baryshkov"
+ <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
+References: <20261012-book2go-v1-0-7188e7ea7a15@fairphone.com>
+ <20261012-book2go-v1-3-7188e7ea7a15@fairphone.com>
+ <fb634f17-de56-4f43-b139-3d040a35f019@oss.qualcomm.com>
+ <DM3MSNLF42BV.1UV490PXB0C07@fairphone.com>
+ <emdm463llmoi6vsv3zmfjddqrfaf2iubdnydsqye2n6ui56oae@frsvj6el3zvq>
+ <DM4DIJZOLJC0.2KAZET8VYUDY0@fairphone.com>
+ <a69738f1-1c6a-4476-9c0c-8443650d1f6a@oss.qualcomm.com>
+In-Reply-To: <a69738f1-1c6a-4476-9c0c-8443650d1f6a@oss.qualcomm.com>
 
-October 20, 2026 at 3:16 AM, "Lee Jones" <lee@kernel.org mailto:lee@kerne=
-l.org?to=3D%22Lee%20Jones%22%20%3Clee%40kernel.org%3E > wrote:
+On Tue Oct 20, 2026 at 1:05 PM IST, Konrad Dybcio wrote:
+> On 10/14/26 9:13 AM, Luca Weiss wrote:
+>> On Wed Oct 14, 2026 at 3:28 AM CEST, Dmitry Baryshkov wrote:
+>>> On Tue, Oct 13, 2026 at 12:17:05PM +0200, Luca Weiss wrote:
+>>>> On Tue Oct 13, 2026 at 12:10 PM CEST, Konrad Dybcio wrote:
+>>>>> On 10/12/26 8:11 PM, Luca Weiss wrote:
+>>>>>> From: Jasper Korten <jja2000@gmail.com>
+>
+> [...]
+>
+>
+>>>>> I'm assuming there's no pmic-glink on this device?
+>>>>
+>>>> I'm not quite sure yet how the USB stuff works. For sure from
+>>>> observation, USB-C only works when stuff was plugged-in at boot time
+>>>> (UEFI?), and charger also only supplies any power (but not actually
+>>>> charging) when plugged in at boot time.
+>>>
+>>> This means that something is not 100% correct, for example, missing EC
+>>> support.
+>>=20
+>> For sure some bits are missing. This laptop doesn't have an EC per-se,
+>> it's got a "EMEC" - Emulated EC, where on Windows there's just a bunch
+>> of drivers handling EC-like functionality.
+>>=20
+>> So e.g. already for battery, we just talk with the sbs-battery directly.
+>> I assume this will be the case for the other components on this laptop
+>> as well.
+>
+> I guess sweeping the i2c busses would be a good start. The other day
 
-> >=20
->=20No more reviews until Sashko is clean or everything has been reasoned=
- about.
+We have one list of I2C devices from ACPI description, and a different
+list from i2cdetect. They overlap to a certain extent but also have
+enough bits that differ for some reason.
+
+> we got a contribution for a SM8550-based Samsung tablet which also
+> didn't have pmic-glink, but used a SM5714 IC instead:
+
+Interesting, will keep that in mind. Difficult to figure out what an I2C
+chip is based on just the address and potentially basic register reads.
+Downstream Linux devicetree would help where it's not just an obscure
+"EMEC" device with a million I2C addresses in ACPI.
+
+Regards
+Luca
+
+>
+> https://lore.kernel.org/linux-arm-msm/f7ba4d5a-0e8c-417d-a1fd-5b5e392df71=
+a@dxdmail.cc/
+>
+> Konrad
 
 
-Thanks for the review, wasn't expecting anything until I fixed Sashiko, j=
-ust didn't have time to circle back yet.
