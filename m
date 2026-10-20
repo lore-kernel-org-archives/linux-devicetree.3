@@ -1,63 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792497506;
-	b=yGHMPDC29TjM/7ifW3a5M1hOTGa7Ntpe4KgoV+JJApfr3eRZ/Hk/9MPtVzSDfjOggFFk
-	 IHRNQYPBCqNvJzC3OohCmC8TcHOly6EBMORTIbjj+91d/hK089PcEIzi/5pT74pQMDd4y
-	 QI/SkJACpoJiec2DSIPbe8bcG5AsDUq7yLfo94Vj6QuQmvY/+VZHuZ6aIXTxkXB4bS2+T
-	 QKz5raaLxG0YHUvb4f0yVTXqcDu3pvBXyl5X98OdOR+CyMCNRPT8G7OMzQKY1HNbEhRzL
-	 xAS4AZ2cjzhFKaQVDHJuq/lFMVoZjmzP3FXno/XlFmbpynQyLlDk8+Amn/9HEc1Yd3w==
+	t=1792497547;
+	b=SC3J5rHc6Pba8xHSfgfqYpDR0mnuNk+WnYA1IuQ5NQiDYs75ApVP5ojScD15xMGbm5Sm
+	 DV/R5CWrvX1x0khH9LozSoOAf5dnx904aGpAlCkx5QeTZJRi5TlVkheM/sY2+/mOf28cI
+	 A8Gd9OY3Tl3g8ijm/63IB7yuB6/zCsvmXM6qrQFujC4GxIW5f5dgmu2XAjWmZDzxVP0sN
+	 dle2uvPTkQUFEDWLpgT6LQbp7C1Pm0iEFyZVx/dWfrt+xdEXSWv152j3LoKfg2JwcVl+t
+	 MuU/1pkOIdA+PNRrw0hdeJdfD3AV6h0ZTaU8OJL3Xnzw8caDBapxOfmQ+XukXsjIpUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792497506;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=3cSxXqVZINLaJAxubbW3o8shpEbL0tUTG34iYCI9EGw=;
-	b=EpY9KBYIscK2QBS+Ef2I8OII84CfVsjFhwvikdhZ0WJKA2Ed/HSGsrHOFgJv/I6jOZIO
-	 XMoorDTw4kWXFWvY5Ljvp/JIRKUIRfDRwNtMETUljGXAuIU/BDjzAvPdIpjOsvnnNEQfF
-	 Af7+b4q5FlF0PvI1wND767Lm3ZU5hV+D3LMw1NI4A9U1WT3v6dXLoExxtWY41NDxLyX8K
-	 t4vLZMk2EhAaQpcV3N9fIyPpcJTm8LSAcdJnAXerPUU7hGRPPMnIQ4oiG72/P5Oc41bd4
-	 32UR86LeBcaoSJepO3+zKPcBIEn8Nq0e8dNZeE6ab5GqXYGyH9+/VCadf2gBfFkm3IQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792497547;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=B7B0ogmG+yI8zgy4iQeMNyHKfdE1d/1H2LE3NA6bm4I=;
+	b=l36UvXffSXNgyRQehorMA4CQcY/XJjVCm/ccm1lavy1pZ43WOBXqZUbW4A3cJd9jnhol
+	 Q0YtCQmHQQRGt/2+JKXii/88esAIm7d3Ta6q5nAyhSFnJ8WRiZfZhE41XOXKWdQrvKR3/
+	 2nFN0QTIPU54vmr9elM+MXjatBWnCp2vHOcwrckukHzwXNrRDyxcDAHZ0oyrt+0GuOGYr
+	 YNtjRPRnPQFEtPk5j9AXrZhhPpfKiRXBvov/xv1yzuN1NRc4OHyV9d9S+3HPxlurz3hEc
+	 RmpcnbDWQNsLzN/aPinrcj/PUsL1npdTqeNfp3/WmEWKujyxIEAKT5RlA7Qyzroi4zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mPCsoNHu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CP2iwbvo;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HgGCpnxE;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BBC360A3802;
-	Tue, 20 Oct 2026 11:58:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F23660A2611
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 11:59:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F23660A2611
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mPCsoNHu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E243A1F000CE;
-	Tue, 20 Oct 2026 11:58:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792497506;
-	bh=3cSxXqVZINLaJAxubbW3o8shpEbL0tUTG34iYCI9EGw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=mPCsoNHu8NkqOtKwnTL59BoMcQ5VHuIimMsCxFr+2x8NLW6DT0PKYBInJw/kCCBIZ
-	 98tOwk6/2FuDpBdbxok4rgu5JRvjh3To/UB1124Z69O1SbHSZ5pI8VHYhAa2I5fIVI
-	 cJTOFBqwzPmqXfXtsQbsDYNb2xBGTci7xrZuP+fulKZpdHW6Sw6L7KbYaDBybbfWIZ
-	 6HFKVLa2sYKAWwfwjINzRyTuNfkVMI4muZJoMekMMdrmgKG2aSS84ZytaEvbqUARB/
-	 usl94ajGSPaGzmkEgbf7prrhOaspifxvXDEs3DxcalPRK1NObZuo0vm46Eg7nv9utB
-	 zfSWb8qLEm7Mw==
-Subject: Re: [PATCH net-next v3 8/8] net: xilinx: tsn: deliver endpoint RX
- frames to DSA user ports
-From: netdev-bot+sashiko@kernel.org
-To: srinivas.neeli@amd.com
-Cc: nagadheeraj.rottela@amd.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, richardcochran@gmail.com, michal.simek@amd.com,
- bigeasy@linutronix.de, clrkwllms@kernel.org, rostedt@goodmis.org,
- edumazet@kernel.org, netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rt-devel@lists.linux.dev, neelisrinivas18@gmail.com, git@amd.com
-Date: Tue, 20 Oct 2026 11:58:24 +0000
-Message-ID: <179249750444.3135.1692275587478159303@kernel.org>
-In-Reply-To: <20261016-patches_v2_external-v3-8-e33d3960ca1e@amd.com>
-References: <20261016-patches_v2_external-v3-8-e33d3960ca1e@amd.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CP2iwbvo;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HgGCpnxE
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KBWVR21571787
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 11:59:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	B7B0ogmG+yI8zgy4iQeMNyHKfdE1d/1H2LE3NA6bm4I=; b=CP2iwbvoj9AxplqB
+	XtEYnOAUryPZSXQz4b96sLKEmHLqgy49V3FSllEBqwBhizNXO+xoEJBm+/bkr0W7
+	CCc7PrY5HGU6jL6GUxJ30LcaQFSiggwWq2ll/apkteFfT6rXPts1PQN/9dnF9OtM
+	l6NH4bLEyOr758vBG0QovrfpdRgPMfQrGn5LmKDxbtqBV3ph/H3CvAAa3yOmaBXh
+	+LyksrSIHbFLC1TiaJP1fKYAsG/SAmDiRuo0jm1CimGtqPy+HQmVbhm1MmBBhAIW
+	8AhZgXdKY7PxKoHn4idEsUwoSkvA+bd+xW+B1PCq0TeIRgYbYPQc6WaV8qu031Wt
+	/qctwg==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4he7h282ks-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 11:59:05 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-53389750985so4809491cf.3
+        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 04:59:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792497545; x=1793102345; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=B7B0ogmG+yI8zgy4iQeMNyHKfdE1d/1H2LE3NA6bm4I=;
+        b=HgGCpnxEBhkge1Z49EB/vhEsdhD5eMkHr79IrTXLfgO8apUtxkGbp455cpaRctktyD
+         ymHeGB3N9kFZ37Mtzm09nXf4I8i0yXsIDE6+fWIs9SmhYwG1KM9cnYQHwj8Y8LzwMt3I
+         DWT8CL1Xe0IkNfZ7itIcLHXMcozf3fgOcXypUR8FDhZBYgkKN/rZmhnoguPZ55ZFwK0o
+         V4aN5R19CJ77J77Jzrr1CkZA5z+JfuFX+jYwgMtrXy46qUiMu8tnA9IKrhGsnG2nURMR
+         g/3xNcasxFJ/kngRK7oIG1fm/ETOtEKol8tOfgi80e7dwAsqgLZBXza8REu+azigZzsf
+         GS+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792497545; x=1793102345;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=B7B0ogmG+yI8zgy4iQeMNyHKfdE1d/1H2LE3NA6bm4I=;
+        b=b4krFEgPzWw7YdrC4/VbE1WZjytNCa6RZ9yPqB1KJjt5wSpig5GDAxnfmBp/s80De/
+         zWtF6pAc6tc1oe1hHbblIzdSZJpnr1OotBhDXSY7XMkOZntnw8baHmtN5FaVgu5rNvsg
+         xk2gNV77SYyIBJXnLNZJgATyBJn/ZwMflH4v46wkZUj1GTeQS5FM0qr3C3RQ+r1BEuyn
+         ME1iHoV7KFu2/6T27nEXjZDNermb949d+l3hR7BJVF3mJW1IDYjoEMu7ZUtPon9n+2No
+         q33Km0Z/VraqiDIKITcn2YLCDkgCoWLCGsTcik1lo4K6RxyUXkGA3L6W4D1VsEgro082
+         VmwQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzNySxxFl6wDrnfz3aw3WDgCy5yEckvNQ7DYwrJdtUQtmbm4uO+iCs/Qy1H0sbcFCAF5KCPanztBesG@vger.kernel.org
+X-Gm-Message-State: AFq9FYJjX5LAY8MRWBAZFTwLA2kNixsLghKpuGKTai2x16ISle0rXAxV
+	J5jDKxo9C3Ard8bFUwlasVV8Mwk252LPOZj5AxX4qAgvgqAVsmB0s2bNdFBFb1ECwGU31QQcGUT
+	E/IJixHUUpXrr03K8EPVS3/GNfFyc6EESe2qswyRW0JjwzBpB3oDUC/bOSumeGI9+
+X-Gm-Gg: AYBFou2d+2KCA6NHU1huUk+ZG1XR60WTLOxhclwft8hv14rln1FqxvmzFRPNtw82d9V
+	GVC2OZF8glkpAmzF8m3gpO4eaOmynnrnJmkCPX9WdlO0gV1oFji1mU5/jfTQYJ9FS9rrORkkfsY
+	na/h485ST97jLT6SClslcFE9fbJW3zDyrfCqjsO/j36j/bOL2QVcEHPx2D91Jzr6NknroleqwGJ
+	fysj7iI5WCWbSgTKTv6lY5L1gZBJRUfrk1bgxotaQKCyvNo/gHwk/K+he5s4QZegGwxMJ4eDY/O
+	JZK/e9FjOneJ2AfZANKfflcOv94n9jXhZwuJEqcTyIOD/u+qvsCSlDLWZQFnjUlG4372lD5Dun3
+	N7nbSO84pBZ0Sfy2S782mSA==
+X-Received: by 2002:a05:622a:411:b0:535:162c:2e81 with SMTP id d75a77b69052e-5364616cceemr192543781cf.5.1792497544973;
+        Tue, 20 Oct 2026 04:59:04 -0700 (PDT)
+X-Received: by 2002:a05:622a:411:b0:535:162c:2e81 with SMTP id d75a77b69052e-5364616cceemr192543371cf.5.1792497544441;
+        Tue, 20 Oct 2026 04:59:04 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c408e32bc33sm476375366b.5.2026.10.20.04.59.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 04:59:03 -0700 (PDT)
+Message-ID: <372be891-fa8b-4d17-a9d4-2d7becf1ad8f@oss.qualcomm.com>
+Date: Tue, 20 Oct 2026 13:59:00 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,88 +115,96 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: shikra: Enable CDSP & Modem cooling
+To: Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        gaurav.kohli@oss.qualcomm.com
+References: <20260911-shikra_qmi_tmd-v1-0-96c1cca82f30@oss.qualcomm.com>
+ <20260911-shikra_qmi_tmd-v1-2-96c1cca82f30@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260911-shikra_qmi_tmd-v1-2-96c1cca82f30@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: pU__d78KR7Y1CdTW_YTWZroOGQaP2rgm
+X-Proofpoint-ORIG-GUID: pU__d78KR7Y1CdTW_YTWZroOGQaP2rgm
+X-Authority-Analysis: v=2.4 cv=EuJHPicA c=1 sm=1 tr=0 ts=6ad75789 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=2J1e7r4m5WDM-kp8FRYA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA0NyBTYWx0ZWRfX7FvMcpaiqXop
+ t682oPAX3gm252FL141W1GW2wd8Th8OCy5GWx89YBUO5meHKMeTaN+OM5mSuanKthm4GEFxkvrT
+ dbd/4Q5MGDesp1uec9Nt1MB1S4GieC8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA0NyBTYWx0ZWRfXzqI1qotKKFDt
+ s3i6y7jigHGttTis0pjy+QZh/VmEcz286I0dBEcmlMl8+Zr0Vv/Z3WvrIBV0wyv5k5vMKlZBeXP
+ xN39dOS1k2xrhf/p78KSLV/mmlQDF/HXGhe/FRjWk1dHRb5RslT8YYo3C4DVV4HBHp1wmgVmWar
+ MB/n82/8AIHLJMC2/Qj/wKNa1mSu0BrdwNDb+KDzmFPeQyzZ8o5oP7QWL/RYfxK5WNlxNFq7YqP
+ EwtcYBirm/PU+SFmmWM4K80t4njpTNgY60iXHqai7F9T3AX2UR7scr4/TB31ImSKqYGDIYzBxtV
+ kamkILVVlCynk1eGrjQiF60SrpSVSzcWh9uEl1ciXYJOSunR/nUWv6GFfyx38Kd6Y5rtc5hUxhP
+ FCRG1R3YvgfV1FwdZlR/rhGFTuv0cXgm63hwj4GedGuScoBurBWWvGYwVbUsH04icaFvaNdF+lm
+ +AWEnXw/dSWUeyPz8IA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 clxscore=1015 spamscore=0 adultscore=0
+ priorityscore=1501 lowpriorityscore=0 suspectscore=0 phishscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200047
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+On 9/11/26 7:03 AM, Dipa Ramesh Mantre wrote:
+> Unlike the CPU, the CDSP/Modem does not throttle its speed automatically
+> when it reaches high temperatures in shikra.
+> 
+> Set up CDSP/Modem cooling by throttling the CDSP and modem when they
+> reach 115°C using the QMI TMD cooling device framework.
+> 
+> Signed-off-by: Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>
+> ---
 
-Low priority / nit picks for your consideration:
+[...]
 
-- [Low] The new RX demux in ep_dma_rx_cb()
-  (drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c) relies on a DSA…
+> -				nsp-critical {
+> +				nsp_alert1: nsp-alert1 {
+>  					temperature = <115000>;
+> +					hysteresis = <5000>;
+> +					type = "passive";
+> +				};
 
---
+No "hot" points? And no throttling at all until 115?
 
-net: xilinx: tsn: deliver endpoint RX frames to DSA user ports
+> +
+> +				nsp-critical {
+> +					temperature = <118000>;
+>  					hysteresis = <0>;
+>  					type = "critical";
+>  				};
+>  			};
+> +
+> +			cooling-maps {
+> +				map0 {
+> +					trip = <&nsp_alert1>;
+> +					cooling-device = <&remoteproc_cdsp QCOM_TMD_CDSP_SW
+> +							 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
 
-At probe time this commit allocates one METADATA_HW_PORT_MUX metadata dst
-for each of the two MAC ports. In ep_dma_rx_cb() it then attaches the
-matching dst to each RX frame based on its TUSER port_id, gated on
-netdev_uses_dsa(), so DSA can deliver the frame to its swpN user port.
+Please align the arguments so that we have:
 
-> diff --git a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
-> index bd8cd504cefb4..5103a3b4b018a 100644
-> --- a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
-> +++ b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
+<&foo bar
+ FOO BAR>
 
-[ ... ]
+instead of
 
-> @@ -302,6 +311,10 @@ static void ep_dma_rx_cb(void *data, const struct dmaengine_result *result)
->  	}
->  
->  	skb_put(skb, rx_len);
-> +	if (netdev_uses_dsa(ndev)) {
-> +		dst_hold(&ep->port_md[port_id]->dst);
-> +		skb_dst_set(skb, &ep->port_md[port_id]->dst);
-> +	}
+<&foo bar
+FOO BAR>
 
-[Severity: Low]
-Can this branch be reached at all with the tree as submitted?
 
-As far as I can tell, nothing under drivers/net/dsa/ binds
-"xlnx,tsn-switch", and net/dsa/ has no TSN tagger. The only references
-are the binding in xlnx,tsn-endpoint-ethernet-mac.yaml and this Kconfig
-help text:
-
-    The three-port switch is supported by the companion DSA driver.
-
-Without that driver, nothing sets dsa_ptr on this netdev, so
-netdev_uses_dsa() is always false here. That leaves three pieces of dead
-code for now: this branch, the port_md[] allocation in
-xlnx_tsn_ep_probe(), and ep_free_port_md(). It also means RX delivery to
-swp1/swp2 can't be tested from this tree.
-
-Will the companion DSA driver be posted along with this series?
-
-The commit message also says:
-
-    guarded by netdev_uses_dsa() so it runs only while a switch is bound
-    as the conduit.
-
-netdev_uses_dsa() checks a bit more than that:
-
-include/net/dsa.h:netdev_uses_dsa() {
-    ...
-	return dev->dsa_ptr && dev->dsa_ptr->rcv;
-    ...
-}
-
-dsa_port_set_tag_protocol() copies cpu_dp->rcv directly from the
-tagger's ops.
-
-Every frame accepted here carries a METADATA_HW_PORT_MUX dst, so
-dsa_switch_rcv() always takes the md_dst branch and never calls
-cpu_dp->rcv. The tagger still has to provide a non-NULL .rcv, though,
-or this code never runs.
-
-With a tagger that has no .rcv, such as none_ops in net/dsa/tag_none.c,
-every frame would quietly stay on the conduit eth%d. tag_none.c warns
-against using it for new switches, so this mainly applies to whatever
-tagger the companion driver adds.
-
-Could the commit message, or a comment here, say that the tagger must
-provide an .rcv callback, even though it won't be called for these
-frames?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016-patches_v2_external-v3-0-e33d3960ca1e%40amd.com
+Konrad
