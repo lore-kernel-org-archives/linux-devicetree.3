@@ -1,115 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792536624;
-	b=fsVjbqrHD+tcQmoaFUCia/pELRn7SUpLzSgTHQ6wXWeKTBFntFsD/XFiYHPMjzr/8vvZ
-	 1Cr1gZDrb9z84/VVyporbb1vCWehlRRa8+tDDMmkZu6KdRbZT2S1qWzd98FzdBpMX9QVt
-	 MMwD7GELmpHjJec+/30Pj4s4RaaGa0JUlp0Pj7WDJ3l02ROmfshzaTBLSwx7mKDfSMZYo
-	 rfKT45pGQeje1i60KwPBcMNnKHYIH2ky6KQFbqXOUI/u3oz7segJQtei3wQirqc/U6Mxi
-	 LE9jnB+owLEffdOkG0hQGJYsn56vyJtFVKPhsWO83+nzLsd2V9UqhE+8k4XeIh/UinA==
+	t=1792536644;
+	b=YCxD0w6qlxHWVXtCLup3J8lkaSmU+CxBtPiqqec1yq1FnzKAncjsoEzI1yQrNbNT/+eU
+	 7VafhutjY6d/tFGtlFKAOrNn5F7n09jBj9X3RfpVd5ctjlzP6ECMv79FgtPBBasXEVBFa
+	 nvm+87aVConsUIyBdGB6hzwgqDKKpt4WYHDj+OYLhKZbPXS5f1YGGkvy/6J/CIyGKjosu
+	 P3uamkQg/6o37Q/Ko7MGzBKEIqZ6gVNWCyV9brIxi/3E1L0tjJjtq761r3+SZHkrWx7af
+	 eekg5S6Zc9vBKKBfdcnt9sHaKcC7Bmz4n8gkRgsvqgsX4gDnr0cNdfplt8pqkuEd6IQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792536624;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=4zL0S6kvmtkQoYmoWRmufP9rJujsnjUqprK46hj2fn0=;
-	b=Ldde6dfUg+GM6CQw5cq5tvHPsQr2iFnIIGeVf7GjUoAroUaxCmMlf9mRR9RzJ+ctfEV/
-	 DZS64wCU4fDzdQJryqyj8Mj1DeYucxNhdcSQ3zxY8HkJFTbKI06WBSxsZVZzNGuCSdeC3
-	 AFCh8gCuZAyne73Zy9ZJkOaohXY3cSpK84i2yKDQlpZPkL9vrnD3Uhu6oZB0y7yqqXfyJ
-	 blWxML46fGdSpXWZbuqnxT2+NDCEFVdu90dXNmgNkWlHqoowepUMqNqnn7xCei0MX+zpe
-	 O3gRnX+HK+zOtly6rOPhN70DiACcM3PCE9cUt78vxW5cKreDknX615lRcCFQmR+C9vg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792536644;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=2GOH7mXarglmENabRvw20M2lBiWKpshFtyUnlHT7A6Y=;
+	b=Tap/Ue1g8Cc5Cfl1uWOINPNOeLM5+EZUQzidit3DW+Ari/0ASqUx8H+zkWF/Ig+kkdWL
+	 tHj0tgb4go945o0BR9cl2zCY2Jz6y0zWjwz9T+tICxklbXjcamI7eVQhG0ROPtq0Q61jv
+	 M/RxmaCg1KCE0oTCj/mFSzi6QFxo8HwXaEmI/IuyVg4KNW1EhxXh8xzJVRSfViaNCjafB
+	 1iFX9yx2bOPOg7HzdgPMgxVKrBwtCEuP+rV4scTG44MKApK+Y058ij8Ip5GSsJK2iXgJ2
+	 CDsUTDxD7GMJxbrJ/ZlFENE0b93t63WXTzTNuiPGSuGmsU5AlJdteTvUMqvb2odcJiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Y9FIbqDR;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g6ZLrLVg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CD56606A325
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 22:50:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CD56606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AAA5606A31D;
+	Tue, 20 Oct 2026 22:50:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Y9FIbqDR
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a1ec92f655so1346975e9.0
-        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 15:50:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792536618; x=1793141418; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4zL0S6kvmtkQoYmoWRmufP9rJujsnjUqprK46hj2fn0=;
-        b=Y9FIbqDRFsiHCh6wCMx/lGXYMzbEMpcYPExHRKo8kxmfRwSdsbHKcVN6b2o3fsfWmS
-         EMfNStvVEXtwQlwGFhTspCN6Iy8LsIslmTQJZArs9croRUFFsg9a0R2Wmowm78fCGk+p
-         qoMRAjWrlWyjvmo/cv+QOkjio/QCUym29eIrZxNWbZgTO868C5tZQiYnBcrDy/y+qYxV
-         AxXCy+jIbfVSYNWbB6SaV+1+cus75rqPWlO2twcCFTqCAqrzmVEb5SQPuQ0TN5KrYxQd
-         MNdNYIr9ltemS55NjRHUaTPPPJnI8hAvgtgmCV7T01bNB3UVCcpT2l7+0a9cI5hk20GK
-         EuaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792536618; x=1793141418;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4zL0S6kvmtkQoYmoWRmufP9rJujsnjUqprK46hj2fn0=;
-        b=aGeVcopfhp4wXza9gkUY6DUL+335oBvuQ0x6BRMF1IKVKzZYV7ihXTFQH85Ki60d0a
-         7B801E7MGvHlfLf8Qz3nb7xAPxIdhOfOBCtZK3m6bRdvZv8g0Z07U8HQGspKOlhlibQR
-         HXNwWYfieCGSqaKSkbw9Th8JaMAFNPOndtKxj8mmgkniAcH920dBwSDn5CQaZWcaNAKj
-         kcjOPD1kVFJKl60T5MkXtlR/Yvx7HUeHKycqjZA4fNtqBoVjShbPT5bRQljJY0d7MsYu
-         gh03qVNr076tiE9KaFI1cf6sH+GNAU2A67gSlfldOYS8rw0tv10xs+0zBnO40x8JqMkp
-         jDyw==
-X-Forwarded-Encrypted: i=1; AKwUvBzlfYE3QrONbVcSJvjuFGGDYvyUxVxpJSzP9WiPKZrMG82fqCWl660DJn8+H3HSQSsP3L8DUceWaVFZ@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ6i30OtHoPwWjkh6x0FVCYYu1eSIwYvo3ZbYlBZca7/EyJJaWZ
-	OnwDcUJMVcSjylEODPb9AGulXhjU/entxrA8hEzUlURQP6nykcoy9CJ4
-X-Gm-Gg: AYBFou0XiSScdk/lDtDcSQOqoMxhKz7PL2MshYO/zqEeJfe19HoF6sVM13/TS6UJCUj
-	3eY6Vip/oCgAVRJqM1oXcFuEiNOTFU6BMlcq008aLEmTMFCJR712fo07KHdSYXKbiBoI0KqKyjX
-	+dYx1MOV0qeuVSwex3X8u0YN1gySWNdB+ly3O12IjIHGz+/ZdihI7KOsjK/76tHth/YPBV6piZu
-	NV5SpPfW4aKp5d+P9cXa12wCSdPzS/kpb/qYnwN3l7+vCku05NIaBcy3wBu5J2YvEuBLnDAhrjY
-	FGtG6PyoEn/FvAZzgU0pbJch2nIRAdvJ8mQWOWB8l5RCzeTOgmrw3yHWIcYvNoY6a+WQiK/ajIT
-	tei5jjq/zeuDJbZttkNBW/3daRalcxGFR17kM5mCMVO5UThFkWa9Sf5xNKQX/9cl1unyDABkURD
-	tGKColCOHkM4crbezuQG1x7Vki1vFdIo+HPtQgotK3jNozS8M8KuYxfKHbGF8K4+UkXxypnLxvM
-	43BruAa5r7/UyRUGVheHtAC
-X-Received: by 2002:a05:600c:b8d:b0:49e:65f2:db64 with SMTP id 5b1f17b1804b1-4a1fdb165d8mr2576335e9.5.1792536618009;
-        Tue, 20 Oct 2026 15:50:18 -0700 (PDT)
-Received: from ingenieria31.oficinasStQ.local ([79.117.46.175])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fc0b42bdsm17511805e9.0.2026.10.20.15.50.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 15:50:17 -0700 (PDT)
-From: =?UTF-8?q?M=C3=A0xim=20Pedraza=20Padilla?= <maximpedraza@gmail.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Francesco Valla <francesco@valla.it>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Javier Martinez Canillas <javierm@redhat.com>,
-	Jocelyn Falempe <jfalempe@redhat.com>,
-	Sam Ravnborg <sam@ravnborg.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-efi@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-embedded@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 09/13] drm/client: splash: turn the device tree image as it asks
-Date: Wed, 21 Oct 2026 02:50:04 +0200
-Message-Id: <20261021005006.2341200-5-maximpedraza@gmail.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <350adc03-dd7f-4120-ac9c-b6d04ff44faf@suse.de>
-References: <20261013093243.505776-1-maximpedraza@gmail.com> <20261013093243.505776-10-maximpedraza@gmail.com> <350adc03-dd7f-4120-ac9c-b6d04ff44faf@suse.de>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g6ZLrLVg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D545A1F000C9;
+	Tue, 20 Oct 2026 22:50:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792536644;
+	bh=2GOH7mXarglmENabRvw20M2lBiWKpshFtyUnlHT7A6Y=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=g6ZLrLVgEJ3IYOE1v/68J4dKPQAIz1E9KKAwh/I8P2uMS3roNIZqTTpg/5AJCN8S0
+	 +MI9Yq/hEr6kWFoxmG4OV4PQBQUOrCY65yRIP01eFDCC2RybHekbix1WLUapzhbKx4
+	 x/RVkrsLwNXFa9VKEMgfrMCnA/nqiJXJjj4HaarKo/wRRFl2AADzaRiApWCBuji2LG
+	 fCeIRz/+uBRR21klBvqQECWhGF+EtirxhKSIX+kGbObh78oTok1dK+FI73ywLqjGcL
+	 DXD6F+ddA5Y4f+na30rzSVC3zU9FKfEAg9anqjG8DecooJSJH3uuy1f9+GBEcjz+Jg
+	 /4HEjvXd0e/8A==
+Message-ID: <sashiko-outbox-179581@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 4/7] arm64: dts: imx8-ss-dma: Add lcdif support for
+ i.MX8QXP and i.MX8DXL
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Frank.Li@oss.nxp.com
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261020-dxl_lcdif-v3-4-adc944659e14@nxp.com>
+References: <20261020-dxl_lcdif-v3-0-adc944659e14@nxp.com>
+ <20261020-dxl_lcdif-v3-4-adc944659e14@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 20 Oct 2026 22:50:43 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -118,29 +60,113 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-Hi Thomas,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] arm64: dts: imx8: missing adma_lcdif and lcd_clk_lpcg deletion o=
+n imx8qm
+--
 
-Am 20.10.26 um 13:16 schrieb Thomas Zimmermann:
-> Reading the code below, may I suggest to do this in two steps: first
-> read the image data into a temporary buffer, invert height and rotate as
-> needed.  Second, copy the temporary image into the graphics buffer and
-> adjust the color format.
->
-> Eventually we want to have a useful and flexible drawing/blitting API
-> for the DRM clients. Keeping drawing steps separate will help a lot in
-> the long run.
+commit 90895a7ff82b0903e1aaa5301959b704913e49e1
+Author: Frank Li <Frank.Li@nxp.com>
 
-Makes sense. v6 will do it that way: the first step turns and flips
-the BMP into an XRGB8888 buffer, and the second converts that into the
-framebuffer's format. The buffer is as large as the image in
-XRGB8888, up to 8 MB for a full screen 1080p splash, and it goes once
-the image is drawn. If there is a helper you would like the second
-step to go through, or a shape you have in mind for the API, I am happy
-to follow it.
+arm64: dts: imx8-ss-dma: Add lcdif support for i.MX8QXP and i.MX8DXL
 
-Best regards,
-Màxim
+This commit adds the adma_lcdif and lcd_clk_lpcg device tree nodes to
+imx8-ss-dma.dtsi for i.MX8QXP and overrides the compatible string, clock
+rates, and interrupt in imx8dxl-ss-adma.dtsi for i.MX8DXL.
+
+> diff --git a/arch/arm64/boot/dts/freescale/imx8-ss-dma.dtsi b/arch/arm64/=
+boot/dts/freescale/imx8-ss-dma.dtsi
+> index 4de78f870c05c..87082c3fa9338 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8-ss-dma.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx8-ss-dma.dtsi
+> @@ -149,6 +149,24 @@ lpuart3: serial@5a090000 {
+>  		status =3D "disabled";
+>  	};
+> =20
+> +	adma_lcdif: lcdif@5a180000 {
+> +		compatible =3D "fsl,imx8qxp-lcdif", "fsl,imx6sx-lcdif";
+> +		reg =3D <0x5a180000 0x10000>;
+> +		clocks =3D <&lcd_clk_lpcg IMX_LPCG_CLK_0>,
+> +			 <&lcd_clk_lpcg IMX_LPCG_CLK_4>,
+> +			 <&clk IMX_SC_R_LCD_0 IMX_SC_PM_CLK_MISC0>;
+> +		clock-names =3D "pix", "axi", "disp_axi";
+> +		assigned-clocks =3D <&clk IMX_SC_R_LCD_0 IMX_SC_PM_CLK_PER>,
+> +				  <&clk IMX_SC_R_LCD_0 IMX_SC_PM_CLK_MISC0>,
+> +				  <&clk IMX_SC_R_ELCDIF_PLL IMX_SC_PM_CLK_PLL>;
+> +		assigned-clock-parents =3D <&clk IMX_SC_R_ELCDIF_PLL IMX_SC_PM_CLK_PLL=
+>,
+> +					 <&clk IMX_SC_R_LCD_0 IMX_SC_PM_CLK_BYPASS>;
+> +		assigned-clock-rates =3D <0>, <24000000>, <804000000>;
+> +		interrupts =3D <GIC_SPI 62 IRQ_TYPE_LEVEL_HIGH>;
+> +		power-domains =3D <&pd IMX_SC_R_LCD_0>;
+> +		status =3D "disabled";
+> +	};
+> +
+>  	adma_pwm: pwm@5a190000 {
+>  		compatible =3D "fsl,imx8qxp-pwm", "fsl,imx27-pwm";
+>  		reg =3D <0x5a190000 0x1000>;
+> @@ -298,6 +316,17 @@ uart3_lpcg: clock-controller@5a490000 {
+>  		power-domains =3D <&pd IMX_SC_R_UART_3>;
+>  	};
+> =20
+> +	lcd_clk_lpcg: clock-controller@5a580000 {
+> +		compatible =3D "fsl,imx8qxp-lpcg";
+> +		reg =3D <0x5a580000 0x4>;
+> +		#clock-cells =3D <1>;
+> +		clocks =3D <&clk IMX_SC_R_LCD_0 IMX_SC_PM_CLK_PER>,
+> +			 <&dma_ipg_clk>;
+> +		clock-indices =3D <IMX_LPCG_CLK_0>, <IMX_LPCG_CLK_4>;
+> +		clock-output-names =3D "lcd_clk_lpcg", "lcd_ipg_clk";
+> +		power-domains =3D <&pd IMX_SC_R_LCD_0>;
+> +	};
+
+[Severity: Medium]
+Should arch/arm64/boot/dts/freescale/imx8qm-ss-dma.dtsi also delete
+&adma_lcdif and &lcd_clk_lpcg?
+
+arch/arm64/boot/dts/freescale/imx8-ss-dma.dtsi is included by
+arch/arm64/boot/dts/freescale/imx8qm.dtsi:
+
+	#include "imx8-ss-img.dtsi"
+	#include "imx8-ss-dma.dtsi"
+	#include "imx8-ss-conn.dtsi"
+	...
+};
+
+#include "imx8qm-ss-img.dtsi"
+#include "imx8qm-ss-dma.dtsi"
+
+i.MX8QM does not have the adma_lcdif peripheral or the IMX_SC_R_LCD_0 and
+IMX_SC_R_ELCDIF_PLL resources (which are omitted from
+imx8qm_clk_scu_rsrc_table[] in drivers/clk/imx/clk-imx8qm-rsrc.c).
+
+For the companion adma_pwm and adma_pwm_lpcg nodes,
+arch/arm64/boot/dts/freescale/imx8qm-ss-dma.dtsi explicitly removes them
+(added in commit e07c4c0a5972 ("arm64: dts: imx8: delete pwm nodes in dma
+subsys for imx8qm")):
+
+/delete-node/ &adma_pwm;
+/delete-node/ &adma_pwm_lpcg;
+
+Without deleting &adma_lcdif and &lcd_clk_lpcg in imx8qm-ss-dma.dtsi, all
+i.MX8QM and i.MX8QP device trees inherit both nodes, and lcd_clk_lpcg
+(clock-controller@5a580000) is enabled by default.
+
+On i.MX8QM, does this cause U-Boot resource partition ownership warnings
+and cause Linux probing of 5a580000.clock-controller to fail power domain
+attachment in imx_scu_add_pm_domain() -> imx_scu_pd_xlate() (-ENOENT) and
+clock lookup in imx_clk_scu_alloc_dev() -> imx_scu_of_clk_src_get()
+(-ENODEV) for IMX_SC_R_LCD_0?
+
+> +
+>  	adma_pwm_lpcg: clock-controller@5a590000 {
+>  		compatible =3D "fsl,imx8qxp-lpcg";
+>  		reg =3D <0x5a590000 0x10000>;
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261020-dxl_lcdif-=
+v3-0-adc944659e14@nxp.com?part=3D4
