@@ -1,57 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792482254;
-	b=jbwMybS76X65KRDEHC7cCGvn+LfUaIASyTeRtNl73m8DJ2dtOE9JdnIDzP52xRkNOhr7
-	 q2uSiu0T/IQx4WPiM5heWHxeAqYM1WEo43VI5RrFNkBPk2zQH+6nvGiZ1OaKE8Apbribh
-	 TC6rrVlTnLCH11a+Dx24bu24djiejmeEKx/Lcmo4mk1XTBcSiUFw/GV4yFOpqf2JMcMIa
-	 4+T7zmy42Anz2QEWXO8SJXBv7YDDTbn+Y2C7A69sqzzR58p1TtzXN8tDxHKqZLGIZ2GIi
-	 fwLMfJmJZ2gJUB90rap4KHbMhujzVYBZSIZP54x6OxMuqXcwsuQSQbUBRD5Na1YrGWA==
+	t=1792482531;
+	b=rTIpL9K0FLXEcs4RWCwQ+Om/17v4Dlxh98156AhcrcY4r2ohmyaDnUieWrlw3H84F1jZ
+	 44cqKGcjJpOezmoi5b8rHK2dCzk3XC6SwmrPcnPmx24qDQb5OuFzkaqFCKm1FOY4vunJy
+	 z+yTOQoq0NPe84wijIf/yxHi4MeodpKviuSOn6NIb5L2YP6yAp+GRyneNwzhU0S3ZA1EH
+	 9Cq0JHpJPiOiLZqJ2uPhEeyZ39JXzd1y6FXsrCGnYqLhBvMFPKlCqEPnyGje+I+yP0mWc
+	 A+WEtxfz9G8LGTbs46KhAMujlM1Fzmm8zKcoZ9QiJoUCptpVOPfLBG5eiUlWuwAAu/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792482254;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792482531;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=7Y4VaQCrShEsWxxC8upZ8USfPAGufEQjClAhPLxVnY8=;
-	b=0SXGOwYBpMo33ZwdXe32yfoMLStm8/ei7yE5Ym9IEdtHBNfDKlsRSHF56tnhr1x58ucU
-	 E8NoMAYfytdLBbsGGyXU463RX3gyeXnsqKfVuaxze507DpMTwmSEnpfUkAjSqZKVLQCM4
-	 JbUk6i7dWkpjEf/8R0bQDXhQ9z5Nw1O/REsLXiIi65+NvnkhTliy2Xo6PNUBs8upue1Mz
-	 phOGYMTTu9uc11VdxzNTo/QY1TkwCC0OTJVpZtW7DLq+FprTaBN3rwEQRT+XcliPqGboD
-	 eZ7XZhyUFAhzoH3Gq/bqv81sjszJJfvTumGovx5A42f/QMUCYyRX5gyRzB8Ja2hoOHA==
+	bh=5WJejRQ1dgLFBOCLqpRd0Ns7FKSaoNZt5CDN08Xrzlg=;
+	b=jG+9hkQJ14h/R03BF3v+jF9nKwuHigQX8+V4bkQpM97EflfhTRpKui1byQydz8dau7or
+	 N2kpICL8BsTAwcSEmoXz+e8WJQ26oW4cW/hakC9lu2gO7IerKcusN+hufWX/YHuCgR6+Y
+	 xmayDHK0tHMZNB2Z7AVGAa4m1EQ/zFQtK2BKH+E/bPXeVceXfgLkjMqAOxY2Ql6ctbrHA
+	 6y6GcRwLMV6/0H9sQ0VO22O6UNqadaeQo2NUPZE2IL/uTeWjNqzfjhP6ANK7yExdmHr04
+	 6rSBH3fyYa3aZLdy/XUrS9EaEfNQ5ddt1MYYerwwFbK4NGtn8UIb3LrWXJ141nlVdrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SCv57Sxi;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jJO1cqhE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C467A606A31B;
-	Tue, 20 Oct 2026 07:44:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D940606A31C;
+	Tue, 20 Oct 2026 07:48:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SCv57Sxi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C90DD1F000C4;
-	Tue, 20 Oct 2026 07:44:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jJO1cqhE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DB251F000C4;
+	Tue, 20 Oct 2026 07:48:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792482253;
-	bh=7Y4VaQCrShEsWxxC8upZ8USfPAGufEQjClAhPLxVnY8=;
+	s=k20260515; t=1792482531;
+	bh=5WJejRQ1dgLFBOCLqpRd0Ns7FKSaoNZt5CDN08Xrzlg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SCv57SxiiuXtOSfzY0OYUlA0539SNx5dCCUTriu5hhXsrUAnxP4MafOSj4vu2pV1q
-	 9AYylJK2787bqXFQi6vE5KgasL4iCvHptC1a5VAt2zXoTeXBu6xx6Vr+/IKQUdaz1+
-	 4Y9uiuz/JsMJ+lk/bSD7KDqq5AocERifQq9awsUt51srkOwRBn+pzuloD/KtbVA3zW
-	 7MQA9HF1815+OqA2HxYr1g7prR8Up189vK2aC9C5s2pVBAbPqnFFQP0SktdEKQ7ZRZ
-	 FY6AepX5XJGJfh442KWGPXPNolXVyZ8Rc+0tqlgdr0PW246Lh909TDhM2NXX9f2LT/
-	 Kr692trdJ4w5Q==
-Date: Tue, 20 Oct 2026 09:44:10 +0200
+	b=jJO1cqhER9m24y9G2WFTQFQJdrrtrclU9RWpPBRzwdUVmkBtDYu6m7LVWHPxqidR6
+	 fojzGOjbfBrfmOcvkduyH66Kv2koCMbw9v44ZzxHHOcmw7H9qn4NNLd920zevtNDek
+	 XB6mg4tqeIUW0G6xHamk4UjHadf40YN4ZOfJ2ZU+hTOkZpMzX7HX+vJ/SerbNunK6n
+	 xAfP5uCGnsFxjc0L/2kSe8sgdFrwCY5OJtpGfgJbZwlpiHIDttBGR6IvTKB1lbiGbl
+	 AEQJyJjTeEKTP6C9LcWJQff6sPPrn7pKSBTs9o6LljU/6Vlq7LEf+M5CerSYsu8Mrf
+	 phwBuvPRP27Uw==
+Date: Tue, 20 Oct 2026 09:48:48 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Stephan Costa Barros <stephanbrrs8@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+To: Linghui Wu <linghui.wu@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Mark Brown <broonie@gmail.com>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Mike Looijmans <mike.looijmans@topic.nl>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: iio: adc: add TI ADS1299
-Message-ID: <20261020-fast-amber-myna-10b121@quoll>
-References: <20261019001247.483005-1-stephanbrrs8@gmail.com>
- <20261019001247.483005-2-stephanbrrs8@gmail.com>
+Subject: Re: [PATCH v3 1/3] dt-bindings: regulator: qcom,wcn3990-pmu: document
+Message-ID: <20261020-fearless-boobook-of-philosophy-f64de4@quoll>
+References: <20261014121910.1509541-1-linghui.wu@oss.qualcomm.com>
+ <20261019093911.3199891-1-linghui.wu@oss.qualcomm.com>
+ <20261019093911.3199891-2-linghui.wu@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,113 +66,18 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261019001247.483005-2-stephanbrrs8@gmail.com>
+In-Reply-To: <20261019093911.3199891-2-linghui.wu@oss.qualcomm.com>
 
-On Sun, Oct 18, 2026 at 09:12:46PM -0300, Stephan Costa Barros wrote:
-> The ADS1299 is an 8-channel, 24-bit, simultaneous-sampling biopotential
-> (EEG) analog front-end with an SPI interface. The ADS1299-6 and ADS1299-4
-> are the same part with six and four channels.
+On Mon, Oct 19, 2026 at 05:39:09PM +0800, Linghui Wu wrote:
+> The SW_CTRL GPIO can be used as a wake signal on platforms where the WCN
+> device needs to wake the application processor.
 > 
-> One converter can drive its clock out of its CLK pin to the others
-> (#clock-cells), and converters sharing a chip select in daisy-chain mode
-> are described as one node with #daisy-chained-devices.
-> 
-> Signed-off-by: Stephan Costa Barros <stephanbrrs8@gmail.com>
-> ---
->  .../bindings/iio/adc/ti,ads1299.yaml          | 221 ++++++++++++++++++
->  MAINTAINERS                                   |   6 +
->  2 files changed, 227 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/adc/ti,ads1299.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads1299.yaml b/Documentation/devicetree/bindings/iio/adc/ti,ads1299.yaml
-> new file mode 100644
-> index 000000000..a8966cd07
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/ti,ads1299.yaml
-> @@ -0,0 +1,221 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/adc/ti,ads1299.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Texas Instruments ADS1299 biopotential analog front-end
-> +
-> +maintainers:
-> +  - Stephan Costa Barros <stephanbrrs8@gmail.com>
-> +
-> +description: |
-> +  Texas Instruments ADS1299 family: low-noise, 24-bit, simultaneous-sampling
-> +  biopotential (EEG) analog front-ends with an SPI interface. The ADS1299 has
-> +  eight channels, the ADS1299-6 six and the ADS1299-4 four.
-> +
-> +  Each channel has its own programmable gain amplifier and a multiplexer that
-> +  can select the electrode inputs, a shorted input, the internal test signal,
-> +  the supply or the temperature sensor. The part also provides lead-off
-> +  detection and a bias drive amplifier for the driven reference electrode.
-> +
-> +  The converter signals a completed conversion on its DRDY output and is read
-> +  over SPI in mode 1 (CPOL=0, CPHA=1).
-> +
-> +  Several converters can share one SPI bus in two ways. In cascaded mode each
-> +  has its own chip select and its own node; one of them can drive its internal
-> +  oscillator out of its CLK pin (#clock-cells) for the others to use as their
-> +  external clock. In daisy-chain mode they share the chip select and DIN, the
-> +  DOUT of each one feeds the DAISY_IN of the one before it, and the chain is a
-> +  single node with #daisy-chained-devices. A daisy chain shares DIN, so every
-> +  register write reaches every device: the devices run with one configuration
-> +  and from one external clock, and the bias drive amplifier cannot be used.
-> +
-> +  https://www.ti.com/lit/gpn/ads1299
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - ti,ads1299
 
-This should be then "-8" variant?
+Subject is incomplete and this is somehow buried in RFC huge thread. I
+guess this is still RFC.
 
-> +      - ti,ads1299-4
-> +      - ti,ads1299-6
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +    description:
-> +      The DRDY output of the converter, asserted low when a conversion is
-> +      ready to be read.
-> +
-> +  reset-gpios:
-> +    maxItems: 1
-> +    description: The active-low RESET input of the converter.
-> +
-> +  powerdown-gpios:
-> +    maxItems: 1
-> +    description:
-> +      The active-low PWDN input.
-> +
-> +  clocks:
-> +    maxItems: 1
-> +    description:
-> +      External clock on the CLK pin, used when the CLKSEL pin selects an
-> +      external clock. Omit when the part runs from its internal oscillator.
-> +
-> +  clock-names:
-> +    const: clk
-
-Drop clock-names
-
-> +
-> +  '#clock-cells':
-> +    const: 0
-> +    description:
-> +      The CLK pin as a clock output, for a part whose CLKSEL pin selects the
-> +      internal oscillator.
-> +
-> +  clock-output-names:
-> +    maxItems: 1
+> Document wakeup-source and require the existing swctrl-gpios property
+> when wakeup-source is present.
 
 Best regards,
 Krzysztof
