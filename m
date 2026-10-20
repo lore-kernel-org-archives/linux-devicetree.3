@@ -1,111 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792530285;
-	b=sCFlUB1DfnsogT1fKkX1P7Lwk+R+PF/d6cxLIVqPyIvt/xaBAQRkbHkEVOicb8W5W132
-	 v7DrPLZi76qLmYTRxMmdc7MN0D9k81azScMv/8Qbgj+tGnqq27yiPEYXwI2l9dCSmQFcN
-	 VxGcD3yIfRsQg5Hsa/+A5yHydcWkUc9uuX0uErbcRP2/XzA9+EFClBPRI8XJSOU2Ue+zV
-	 oHf2bJufDFNBLP/a5mQxLoMSCT8felN1xFVHB4RE32HgZtzQ4+k6Xlj3WZhDlIKEN2XGj
-	 Yj7qKfI1rubtI5o8XFyPyUMhLUMAteDvRVojM1Mfsbe2U02gC+DVXQ78GtEjHr5TSng==
+	t=1792530371;
+	b=TIuXMtdb2UO3VffxVT1bPL5FUlsb8PHHfPjBfhItPnOMd+zsETZKYkdUsqLGMpNZMo63
+	 iOZtxfzkdBNHukDj0nErYqfr8cUmT5ujqxBK5KF0a8EKpobv8s+R0PCSiI0NXT8KUleh3
+	 Pm4/+FTWAdZNxya4nGY8BCCbz4ISLKyuYYQaAXgdrZUZQPZ9f855vd7noQo4jeofpLbgV
+	 6+BC5D17ntF9LRaKrgi1o5tuZIMspiKz0fjQV0zCAT2ELx7neH48/FzdfrtLneFNqq7WK
+	 9Gaqe3oatJGrpd8zgvzTCTWbv2YDHy1bMmIwr095hCLxaoErj04ToqQbaFH0Qt2R1EQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792530285;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=W0kb4Akw+bn8BPFIkHjW3CrJjYWME/XFWI4jMhrgN6c=;
-	b=tNXXvJ48dtTKkd2Q1RfwGQgcKm22cUt4jndc5hVW28oV3TY92GbEGnVC5ua63yYLDBW5
-	 N1ru/roaFbSid8Meef8H7vVkZaPmZkOzyljQuYQ/hkz+tqfg8EZoPFvk2R9uddGcMzNKc
-	 SaWQ8OQ7geAUCauiQr6FivzE5tAt8G4wqlDga61wWyr0QK1QUhQKiGoWi/xpw/5i1vKUh
-	 7riaUhBUm6gBFJPdxvb3qYhoZbMyHxMp6w0B1MydJryXKjBD1G6G8T6LbddHVjKDFs/5Q
-	 dDs1xQkq5JUMNcTkGxIwtcXjrbJ3jYFc0GFELE2ASkmsJJbLDea9RRpgR2+OWg1lFQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792530371;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Okbwmm84zWuOe4euiyrXaliuQ5bQTF/Kj7LXwohSA00=;
+	b=S2RHHhvP3rBlzu4mAnZykO+3z5rlnMsSFqITRFCWN0ryjf5kfGshLGHc9UVWLeoIm0yP
+	 LYl3kQdgUR6UE41KUU385EkNBmJ+DELyGsJQBfAFIprSvbRoN21FaBRBioV8KtOhsr8vX
+	 /PQK2PSi8Eo/Z7e3TbjID3qYeBU8L2+kNO7ZojPAshAbhg7IsbqDNVBYz2/8TcSeIQM15
+	 2rniLX4ljTI3UqbLW8nmZFTXJAzh9Zzbjpwd37NDCNF5xQW66FSiYDljKB/USC+w4O/0m
+	 we/fhBjMHsnWoU70GX8BCV7CvcesBe51IN7GFz2X8EJAUS0Y1i3CGyr7GW7jiihXuYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OdEK5b0u;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NeEJoS5H;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o2k06brA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C225606A324
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 21:04:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C225606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0864606A319;
+	Tue, 20 Oct 2026 21:06:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OdEK5b0u;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NeEJoS5H
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KKtfYQ3856210
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 21:04:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	W0kb4Akw+bn8BPFIkHjW3CrJjYWME/XFWI4jMhrgN6c=; b=OdEK5b0uuDC4pl1H
-	rNfBFMks4raI2FTAL83yd+QaQu12fO2psfxpI+toA/wXxROva9zEopDXmpWT5h/B
-	78RDs+JmsgRaQIS+o1S07XMwyndu6UuJ8KTcYyn4TQ8/Tjj/Yi1GZD4qBEhnKxb2
-	IhPHLAiB5/zjJi1btP/IkvZ7Pt832Jcixk8FSdC89XcekOjN5L+kaZWLy9L9GLiW
-	F9FPWhPX+mbwURIA+levjeMClatWVGcyAHCI9htozT8qPM/7LGWy1VznoOeyiWLL
-	rjllWMgN94URv029cnS5fN2dSdbK+mPghpjqX0Ol28T8QrUmIFN2qHkDY1rKZ1l6
-	6a7nbw==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hedabgkuw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 21:04:44 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso7340482eec.1
-        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 14:04:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792530284; x=1793135084; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=W0kb4Akw+bn8BPFIkHjW3CrJjYWME/XFWI4jMhrgN6c=;
-        b=NeEJoS5HBzjdHG6nPxFrTVlPnPcYw0Dvww/Dir8BYn2x43Re2jA/roecqpE84BpQCe
-         aqYax/rZzgsTsw7YUbYbxrxeNRcjJjrhXLFhb0fsDIz8VCwCN17W6piUcemYv+WFRH04
-         xdKm5zRaSzndO9ysfzM9qCPpATiSJNeuz3Pyu5jjCod8uKFmYX8tBiXOsqD9/fPIK/wy
-         p3m7ypjy428ZLhcgaRMAwFb9IckPN3a+eVzIDsbYHq1wl9ZuAKC3sp/EVVV1BSb+ytJD
-         7Jqefnkl82h40a9mUDwhJ3HrAGLNk23t3PVuwj1o3dxz3XvmA8x5uQ5qVfW86MdUOz4b
-         6nOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792530284; x=1793135084;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W0kb4Akw+bn8BPFIkHjW3CrJjYWME/XFWI4jMhrgN6c=;
-        b=268cYNsqA8vXbLT0N/GnH9GMS3J3I0EfWADqSRU69NJvXtuDIyguC5kSDckAxWD5/v
-         /Cj5bIx9wRWcCYRX3qWQjn6/wu6mIyQiUyk+I4tjKugX+N/hnH5UluRFhXxSIPCxpUZv
-         CXcV+if74YhKcpF3k6vw06GbipGZqm3BT70ESA8ZGCg7LfmvqKFfs9sbBDL4xYrOH+RA
-         6Bk1D1tr384Y6fh2uk8rZE0ldpRPWXLbRPKA6aDaGvVFmSssjFxigPqdy4gVNt01n6CG
-         H/W9ciCbFlCJ3hPVpJ7IfoSbJuNjj13YnIQ57AtLLSYziip3gbFxcyCdzLc2Vsj1GsIi
-         ITJw==
-X-Forwarded-Encrypted: i=1; AKwUvBzNclselDPM5Ly44iV/Uwg3RAqoxMsNVQXaEPnQTdS19rI/JVU61Z3Wzrt8OolbXMWbsjbVhqtf4qmC@vger.kernel.org
-X-Gm-Message-State: AFq9FYI0sCeJ8gjGD+0vDacQ2uYPsn+NRL/UVNN2Jnvk/ME1B9imx6G5
-	JU+1do9D0em7N7hq3vg5bVSP4UyuXpEnb+jZw4+cNYK5bLF73OHi+ltSIIf9iBTle6PjjNoAlE5
-	21hTIEgP8phKYiOIXuQwdRAnyknLAHu3yhzRBOl2bnPOjRLSwJ2F0AROFF7fAUGJl
-X-Gm-Gg: AYBFou2BC9UIA+1K+hIkZhAZ/LXgvYksUxZeh6NFDYqEOAB22VjUdAklGdgZRag1BgF
-	vGhyl8saFzK8Qpe+0ewBkeMO33olRIn0+a5aGKjn7LP+FEdSWsCPWVakrYK7wfrLnnzDpYfIyxE
-	XA7Hte+TQtey0lll+EKppJt3rXMMb3HtZLkz8f+Lnl+yEtzl0L0SQiRq9t0yA6h1O1UTs7MSZIo
-	oQUsiqIAOouw3djsZHDaEYNLEh4+LBOoqK/BulOomr0A/4b/+Qg5F5QZH3Uhgn69ObLqRa8Appy
-	uEq3fmZIbPZP4N+m59eXuXjXU5vsd2kzp3RjkDPwXBg9wU0HfUzWqUx/PIWIH6ma/39tv9sZvCj
-	sX/ujS1sX3K4MdFZ5Fqr3icgR5OlZZqESTiYISN/yRVAHP8en+hf5sez0yg==
-X-Received: by 2002:a05:7022:691:b0:149:d501:b990 with SMTP id a92af1059eb24-190a599a59fmr60125c88.25.1792530283953;
-        Tue, 20 Oct 2026 14:04:43 -0700 (PDT)
-X-Received: by 2002:a05:7022:691:b0:149:d501:b990 with SMTP id a92af1059eb24-190a599a59fmr60003c88.25.1792530282524;
-        Tue, 20 Oct 2026 14:04:42 -0700 (PDT)
-Received: from [10.71.181.181] (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903e02901fsm1009238c88.22.2026.10.20.14.04.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 14:04:42 -0700 (PDT)
-Message-ID: <0c6b0b6f-af1d-4b7f-8494-01b1990b2d52@oss.qualcomm.com>
-Date: Tue, 20 Oct 2026 14:04:41 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o2k06brA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69C6C1F000C9;
+	Tue, 20 Oct 2026 21:06:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792530370;
+	bh=Okbwmm84zWuOe4euiyrXaliuQ5bQTF/Kj7LXwohSA00=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=o2k06brAvTVvieiztxnSUOhgnLqYQ9kQ+vUrlU574jBoe2u5jXcGbmjx5PZM7OF3p
+	 foKa5aTGywK93Jw6dlFUCjHjiqVlHR5VDsXqipIFbwP1AN8Zjfw37kyvNUOg3ev0N/
+	 U2aJEBzjHLWOQQUz+GLOexfioMpzNRyebEtlGyXjRUDg7ScsJypDMvJpnekZir0Cxy
+	 2Y0RTOl4snRvogwJo1WkAmvECBUJBVXdOSeNNqBLcsQWvK4uTxAiJgUFoCbPur3BJx
+	 UvC2BEeXS1hMh+Ke3rqpCEq1IaphX1XD0SeHCOTDgTFApWQwH9ICxAVfrIPf8ILHfF
+	 g6R3n4cDHgaKg==
+Date: Tue, 20 Oct 2026 22:06:05 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, mocker-mug-unwoven@duck.com,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
+	Arka Mondal <arka@arkamondal.net>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: iio: light: Add AMS TCS3472 and TCS3400
+Message-ID: <20261020-protector-supper-1e9d019291a0@spud>
+References: <20261016-tcs3400-v1-0-3d79d2a7f449@duck.com>
+ <20261016-tcs3400-v1-1-3d79d2a7f449@duck.com>
+ <af011ab8-b9ab-49d1-b9fe-4e87b3979bbd@kernel.org>
+ <20261017013600.077fee36@jic23-hlaptop>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,99 +66,181 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/7] dt-bindings: phy: qcom: Add qcs8300 to the CSI2 PHY
- schema
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: bod@kernel.org, vkoul@kernel.org, kishon@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org,
-        mani@kernel.org, gjorgji.rosikopulos@oss.qualcomm.com,
-        hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
-        jigarkumar.zala@oss.qualcomm.com, loic.poulain@oss.qualcomm.com,
-        vladimir.zapolskiy@linaro.org, linux-arm-msm@vger.kernel.org,
-        linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261016235502.2274268-1-anusha.nandi@oss.qualcomm.com>
- <20261016235502.2274268-4-anusha.nandi@oss.qualcomm.com>
- <20261019-majestic-gorgeous-sheep-a9eae0@quoll>
-Content-Language: en-US
-From: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
-In-Reply-To: <20261019-majestic-gorgeous-sheep-a9eae0@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA4NCBTYWx0ZWRfX9K0P22nRYAy1
- veec3M2/e+YLojO/AwZ3CfEEEZe6AdIEhx6dd8KRr7k8D9yaZG51l8yqzEnK6UW2Pn14t1A6dfY
- XNEkbpMEmmdDXAtMz3g4CSiFGv1AvDs=
-X-Proofpoint-ORIG-GUID: ZmI5RHfmXUu--vvLTMRo1WshY_YPISyA
-X-Proofpoint-GUID: ZmI5RHfmXUu--vvLTMRo1WshY_YPISyA
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA4NCBTYWx0ZWRfX3h2q71VEV/Ws
- t0AFuHRYW4ELQBqeXIaFZ0ruv6jMwBNYgri+4MDvANVNcbXSSPtVJx5RVFHYx4C0NjCK4Lkr1by
- KZqXE0E/GhOHsx9ZCYwVEK//mZbc4AstNh8QU7ljNsoY9Xb5A5OEKf08ciySlnZlRdZAd9jE5uu
- tRmGF0++2oKk3jP1u6dyePggfdgH0Ov0UaxwkPTKT8k10LMLYHgqbsR2UilDjjZ/7COyJZy6Hhx
- ZdreWAOdfR3Ln3CYWcQ1Z6IwpvQqvnR5IohSWEVHUzD443pX9jA/H5AF56dbjDkYTpzcR18F990
- YjXlS4pFlCT243GEKM7SB9eyRrchk1zQFzL7A7p5u07q7zWdcaVskuvuFmZ41IqExwH04DnRDLe
- wbjFgePnU+y82I6H6IRzWlhHK4E+rOeKpevLw02hrgE3TpieAAqm1Ze5rr1F1zUxex3rw8Tgftz
- sMSASDTVbEdU96ZtjDA==
-X-Authority-Analysis: v=2.4 cv=NLpAaE6g c=1 sm=1 tr=0 ts=6ad7d76c cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=Xvw101RpNOGDi7fnrawA:9 a=QEXdDO2ut3YA:10
- a=PxkB5W3o20Ba91AHUih5:22 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-20_04,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
- impostorscore=0 phishscore=0 spamscore=0 adultscore=0 lowpriorityscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610200084
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="L6OcHM2yt5jenoCy"
+Content-Disposition: inline
+In-Reply-To: <20261017013600.077fee36@jic23-hlaptop>
 
-Hi Krzysztof,
+--L6OcHM2yt5jenoCy
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I can drop this file if there is a generic yaml file.
+On Sat, Oct 17, 2026 at 01:36:00AM +0100, Jonathan Cameron wrote:
+> On Fri, 16 Oct 2026 16:43:42 +0200
+> Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>=20
+> > On 16/10/2026 10:15, HuskerMinion via B4 Relay wrote:
+> > > From: HuskerMinion <mocker-mug-unwoven@duck.com>
+> > >=20
+> > > The tcs3472 driver has no binding yet. It matches DT nodes only throu=
+gh
+> > > its I2C device ID.
+> > >=20
+> > > Document the TCS3472 family and the AMS TCS3400 family, which the next
+> > > patch adds to the driver. Both are I2C color sensors with one thresho=
+ld
+> > > interrupt and a VDD supply.
+> > >=20
+> > > Signed-off-by: HuskerMinion <mocker-mug-unwoven@duck.com> =20
+> >=20
+> > Please read submitting patches how to properly attribute the work with
+> > your real and known identity
+> >=20
+> >=20
+> > > ---
+> > >  .../devicetree/bindings/iio/light/ams,tcs3472.yaml | 57 ++++++++++++=
+++++++++++
+> > >  1 file changed, 57 insertions(+)
+> > >=20
+> > > diff --git a/Documentation/devicetree/bindings/iio/light/ams,tcs3472.=
+yaml b/Documentation/devicetree/bindings/iio/light/ams,tcs3472.yaml
+> > > new file mode 100644
+> > > index 000000000..cd4a0516e
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/iio/light/ams,tcs3472.yaml
+> > > @@ -0,0 +1,57 @@
+> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > +%YAML 1.2
+> > > +---
+> > > +$id: http://devicetree.org/schemas/iio/light/ams,tcs3472.yaml#
+> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > +
+> > > +title: AMS TCS3472 and TCS3400 color light-to-digital converters
+> > > +
+> > > +maintainers:
+> > > +  - HuskerMinion <mocker-mug-unwoven@duck.com>
+> > > +
+> > > +description: |
+> > > +  Color light sensors with 16-bit clear, red, green and blue channel=
+s, an
+> > > +  I2C interface and a threshold interrupt.
+> > > +
+> > > +  The TCS3472 family covers the TCS34721, TCS34723, TCS34725 and TCS=
+34727.
+> > > +  The TCS3400 family covers the TCS34001, TCS34003, TCS34005 and TCS=
+34007. =20
+> >=20
+> > We do not take families, but actual devices. TCS3400 seems to be a real
+> > device, so I don't get why you call it a family.
+> >=20
+> >=20
+> > > +  The variants differ in I2C address and interface voltage.
+> > > +
+> > > +properties:
+> > > +  compatible:
+> > > +    enum:
+> > > +      - ams,tcs3400
+> > > +      - ams,tcs3472 =20
+> >=20
+> > Your driver cod suggests these are compatible, so it should be expresse=
+d.
+>=20
+> That's only true because this driver hard rejects a whoami mismatch
+> which is something we shouldn't really be doing. If we do a look
+> up in driver and fail to match we should be using the data associated with
+> the ID that the fallback compatible would have had.
 
-Best Regards,
-Anusha
+Agreed. At most, the driver can emit at info level that the unknown ID is
+being treated as xyz device instead.
 
-On 10/19/2026 12:18 AM, Krzysztof Kozlowski wrote:
-> On Fri, Oct 16, 2026 at 04:54:58PM -0700, Anusha Arun Nandi wrote:
->> QCS8300 uses the same MIPI CSI2 CSIPHY as SA8775P --
->> identical D-PHY register layout, common-control offset and clock set.
->> Add "qcom,qcs8300-csi2-phy" as a second enum value in the existing
->> schema rather than duplicating it, and generalise the title/description
->> to cover both SoCs.
-> 
-> Just squash the patch.
-> 
->>
->> Signed-off-by: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
->> ---
->>  .../devicetree/bindings/phy/qcom,sa8775p-csi2-phy.yaml   | 9 ++++++---
->>  1 file changed, 6 insertions(+), 3 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/phy/qcom,sa8775p-csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sa8775p-csi2-phy.yaml
->> index b66ec2f14189..8e60ef0714bc 100644
->> --- a/Documentation/devicetree/bindings/phy/qcom,sa8775p-csi2-phy.yaml
->> +++ b/Documentation/devicetree/bindings/phy/qcom,sa8775p-csi2-phy.yaml
->> @@ -5,18 +5,21 @@
->>  $id: http://devicetree.org/schemas/phy/qcom,sa8775p-csi2-phy.yaml#
->>  $schema: http://devicetree.org/meta-schemas/core.yaml#
->>  
->> -title: Qualcomm SA8775P CSI2 PHY
->> +title: Qualcomm SA8775P / QCS8300 CSI2 PHY
->>  
->>  maintainers:
->>    - Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
->>  
->>  description:
->>    Qualcomm MIPI CSI2 D-PHY. Connects MIPI CSI2 sensors to Qualcomm's Camera
->> -  CSI Decoder on the SA8775P (lemans) SoC.
-> 
-> You just added this line. Changing something you added means previous
-> patch is not correct.
-> 
-> Best regards,
-> Krzysztof
+> Our old fun of what should we do about fallback compatibles and
+> devices with ID registers.  Some of which (in this driver) are actually
+> compatible with each other and some of which are not (in the sense
+> that the match the WHOAMI and do different things depending on that
+> matching).
+>=20
+> I still prefer that we never claim devices that need different
+> handling are compatible (even if detectable) because of that prevents
+> new drop in parts being used (as they normally have different whoami
+> values even as supposedly drop in replacements).
 
+I think I've said this a few times, but I have no recollection if I said
+it to you or elsewhere, but IMO how detection works is as follows:
+
+If you can detect capabilities at runtime, then having some sort of
+common compatible is fine, because you can figure out how to handle the
+device based on what the capability discovery interface reports and this
+works fine for new devices. Ideally the common compatible is a fallback in
+case some issue with the integration crops up or to constrain things like
+input clocks etc. The former is more of a problem for things like i2c
+controller IPs and the latter probably isn't super relevant either to
+different devices in a family of ADCs that likely all share the same
+package. If there's some new bit, you have to change the driver to deal
+with that feature, but you'd have to do that for any new feature no
+matter the scheme used, so that's not a big deal. The designware SPI
+controller works like this, for example. I don't know if there are any
+IIO devices supported that have something like this.
+
+On the other hand, detecting the device ID at runtime is no better in any
+way than having a specific compatible. You effectively end up with match
+data gated on a whoami value, which is basically the same thing as
+gating it on a specific compatible except for how this blows up in your
+face when someone comes along with drop-in replacements (which maybe are
+made by another company) that, as you point out, can have different whoami
+values meaning you need to modify the driver for every new device
+despite having the ability to detect what device is being used.
+
+Devices being declared compatible that need different handling, because
+you can use whoami values to account for the behavioural differences I
+would advise avoiding since it's equally easy to use match data to get
+the same result and it's immediately obvious when looking at a
+potentially 1000s of line driver spread across multiple files that
+things are different when you can jump to the of/spi/i2c device id
+array and see what the differences between devices actually are.
+
+IOW, I am recommending removing decision making based on whoami values,
+removing warnings about whoami mismatches, adding specific compatibles
+for all devices to the bindings, using fallbacks to devices with
+compatible programming models where applying identical handling to both
+devices in the driver is functional and adding match data in place of
+whoami-based decision making in drivers. The end result of that being
+that your drop in replacement devices, be that from a different vendor
+or the same one after a product refresh/manufacturing change etc can
+work without any changes being needed to the code.
+
+Personally, I think it's okay for an 8 channel device to fall back to a
+4 channel one, if the extra 4 channels won't work since technically the
+fallback is an exact subset of the 8 channel device - but I do
+understand that people don't want to do that because 4 channels not
+working is not really the same thing as a device where using the
+fallback means a reduction in performance, e.g. using a fallback on an
+ethernet controller that allows networking in U-Boot to function without
+driver changes, but at a reduced bandwidth compared to using some new
+feature only available in the new device. So I tend to ack stuff where
+people say that an 8 channel and a 4 channel device aren't compatible,
+even though technically a driver written for the 4 channel device would
+work perfectly fine on the first 4 channels of the 8 channel device.
+
+Hope that helps?
+
+Conor.
+
+> I don't mind enough to argue much about it however.
+> Note that before this series all the supported parts were actually
+> compatible and the only difference was a print on the id match. So
+> if this patch hadn't turned up an I'd noticed, I have simply
+> deleted the error return.
+
+--L6OcHM2yt5jenoCy
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatfXvQAKCRB4tDGHoIJi
+0vRTAP9oW0xcpw9j7yCVc+5v3TSoVq3S5pVJ8nEjDMWG9S4sgwD/cr7KMifZ3OZe
+zBvLBaJMwqCUWKGNFd11id10QJx6jwc=
+=GMQ0
+-----END PGP SIGNATURE-----
+
+--L6OcHM2yt5jenoCy--
