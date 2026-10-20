@@ -1,55 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792460292;
-	b=0IkQNeXfKtLiOsPYyeUkhNfbue8wdgSGJjs/VoXrUCSA2E0u0VPwwpyyFPZBNhEDX1nq
-	 8G+5IjCOnh1ii3UfxVMglDS9X9ebnajbAd6rJt5cUKJhy/9mN1tMaKcTgfVgPJ84EGAsM
-	 oEyd5BmBCovxvWkCLqFAR0en2BG0AfQEVV9eP0GTqx4iDz2CmtdUwG+NSBqryzJrG/6O/
-	 1tNuGG+J+YQDZPcL2SGJh43s7IB3zBDMG4UetvDvw50CCxFA3kzhhCn8lM2T7kSnsv/+J
-	 lKK+CMXdzTOLkuWm79FflpuQHqi1DP9s3kgkNodO8mgHDwkB/t6PnpAxdRCkx0dMwLg==
+	t=1792460319;
+	b=vrhHeqZCN0zGDYthjsLx048/NIQsbM6OnU4kSphiN0GLxG4bueTSA53IO83+Qv1ApiZb
+	 Z5+wpBgQde+b3tpueNXxXAx226taV56EY2wcDTvES3gybaawDbOevwUTUG/l4SaBdSFxl
+	 m7RXnQHDKMWDjr/gXAXja2PXSDPY2Egz2aipufVYYkrl0KPGKYAw26nmkOB9b0pkdgMOX
+	 zYclUV8sAX+kY9SDnYb2sS/FIHePCd6LJj+KZ0S8CXjFxkKqy9sY4w09ULazCZkPl2bz9
+	 ltyfNn+XIlFVg65VI4D98GegK+jQxuJ7A89xmeNVMCm7Eq+/VKOIEkdCSz71nmtPzaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792460292;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-MBO-RS-ID:X-MBO-RS-META;
-	bh=2uUBJF342k/4gPby2H7U6z2OOmR9jw+AkFYz58yDUYY=;
-	b=grTzPAflnFdDsjlC7iHRwqkZwe/YZyGPBNcy/YXxZ3+fsgpk6rXcFspImTacMCA2Dbz7
-	 xe++Arizcu3NidKauINn4idLWV6BVo+LtPQdAsqRxm3jpRa6IWk30tL+M4DqKLF2M+a4m
-	 aim36dLRlOaKRsyZlNrq0J3FxqtJvLPQmm4V6N1NnAafdpJdwug3Oa3Owrz3d65la3x2D
-	 udTQKYaT02pwcna0HB9n3sO15e7S7/kW1bzP+ZJkFB+FC3jLuSOP8blIH2pPHllnOjBnY
-	 Ef2RXBRQ9z7u+RV5bbkecNUiCKcZDPFznuZGPImnAVyC1Vd/VwFstRMlC00tQSG8e6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792460319;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=LjwwN5Dzf8X1Yx08q6zZspcMWuK38LtYvZHShxnEiOc=;
+	b=Da2PPm4cmz/e3S12EzqfcGq3yWev1SMhTn4UjwBW5IVlz3XqhYSFyfX0HV7C5KwdXXg3
+	 tunMX818eIgbG8aUyqIumBgySyxjHQx2bcr506lop3SO/QzACGdyVSVZOc8CepDmruV3f
+	 R/6p3hIbXC19htaQUMG5payyzMXUk1p/PmAKKs/1TjLbC8Wnvo2GRS9RBX9TgYif1zYUJ
+	 lrIVIyxzwDSSxZ6KIi63kAOOA56XflIR3o/jgPwvkvlqpbyZEqpd4Gn+d7Q9nxCD5EPaQ
+	 CI6zcLvxNMUYFhlJ23DNM/COBQTrFHBTcyRCWhM9GmjbJr1d2QA7sLkb6QQ02ipCjsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	arc=none smtp.remote-ip=80.241.56.151
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=roeck-us.net;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rhK27hUj;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3420606A339;
-	Tue, 20 Oct 2026 01:38:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3420606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4j7w676s8vz8vLc;
-	Tue, 20 Oct 2026 03:38:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1792460288;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2uUBJF342k/4gPby2H7U6z2OOmR9jw+AkFYz58yDUYY=;
-	b=uFsvpaBfLS9PPBl/Vm7AkkYu8bfV2LF1Nz/xRR8cGTV3zHAFBkLj31WdtTdQAXtRJkwenc
-	gz6JHHEPuJMbgjjFtdUaz8iTh4urWQnO1Ol6zs8maMvjl9po5XzL7GW4PufzVcSoI5OigJ
-	uxg6cmdGv7Fedzo4KovEIjxf72kMgjk1LzXJo6QGj6klCFL21DfXHLZBY6DJYRZtIHY450
-	OkNAcXj7syT1OZouI+KFAMNKeFMMpL+SbZdLeym2XoBAFb3CnVxRM513G7j4WTzF+cK98A
-	oYVznWhJt4eDK414fjyJxErEDvWzqJWGcb3I0UvaBuzfGOnkW1rCPKLwb6fvpg==
-Message-ID: <0fece6ed-e91a-4d35-99ab-ce3f4fd789a9@mailbox.org>
-Date: Mon, 19 Oct 2026 22:18:57 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A469606A319
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 01:38:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A469606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rhK27hUj
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-35cd4e8bdbdso6602709eec.1
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 18:38:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792460318; x=1793065118; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=LjwwN5Dzf8X1Yx08q6zZspcMWuK38LtYvZHShxnEiOc=;
+        b=rhK27hUjeHRnkhbrVNJ2XwhZq7l4qeNjK188G/cQOCNGrllyZZrjFdmE7BBmC6PbZ0
+         FqpQMmlLnaWvKqtvLwsP3VoeRu8uWRcYOA9ni1wMMT2H0G3ODy0x+IpphTIFPd3Yv0/I
+         OiK8oGmEqGaMBBu1Yvhzln7e6Zgm2NH1kyRSgAGkThUXOFf4T9CG5Xg4Lb8dgNxQK1OY
+         zGI7XFWCPwMcaI/ldYUB8ytRSo0huZB2FgurXz984M4tjKyRWOS8mLPdz+yFxO5kyzxO
+         2AePlDfj0/lvRVnUnyQdoseg+5cRhVxFR/kx6i0QWz1eDRegxuSi8pCDH+bgI2hbVJQ8
+         cXww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792460318; x=1793065118;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LjwwN5Dzf8X1Yx08q6zZspcMWuK38LtYvZHShxnEiOc=;
+        b=MkPmsyysYOD1PgWuCekYr708XqCBN0uqLrvbs4i6g8Bc/BWtK6JFaG2tZhCpk2YhVc
+         BBsCPbUZi5ln/OvbdUwgWNLSS1IyNm/4/otATTfvHxuvafdZI5PxK+bb6wPuKmTAPTtE
+         8J6e/BGuXv/XKM9O5C12BLOazC60r/6GR97ymlXi0uFgiJt6PeOIQN/e2aiNu735dzpX
+         GOXlxnt1tHG6+5Q1ajY3Ls39GsE1FYbECoJvXS6E6gi7m2tcmFXx7fnp6hr3mj1BNA2D
+         cboHVV6l3DmnI9lKHVsKcrhO4A2/aNcHLjJn2MBv5/w+qVQilA/nnTjMcAH/0Fd1PByl
+         W0Vw==
+X-Forwarded-Encrypted: i=1; AKwUvByDAn8fy8lRQiLblorGy0an+59KpCjEO/NPo6xW/fSdojMfSkFla8tlM6cYgZANokF66NBYw2dnsRWy@vger.kernel.org
+X-Gm-Message-State: AFq9FYK4qixtt0QyezODcFWkXmD/cJ2Om9Z8qGUFlg+AYsmVtY4lYvYV
+	ChlLACSExziFSqvvaqU4NJ7hnHlN/eiy6l4lLfyqUxCJMFhjV9Fv5GS/
+X-Gm-Gg: AYBFou3fxuhG0+WLLHgkbY48y9+XwrNiefHDosRjIf9xiWeuPJN6U9p7ElDQ810nQNS
+	+lF9AUWXQmOeH3wDD3RYjR7o8wlMsIJU2afe8PJlPROZ7NSpbIVnD6Gg8CrnH7k509pO+nAedIl
+	mbEVu7Tdj3YoENRxEvK8TQrWABOtGEK9OwG5tSwuwn01yhJAql624FWKtTl19abosQn2S6gNYov
+	txkKZRGg5L1gAJizy9S9o5TvqNbbC2KDgqVu+ImdEfXNCASZ4eZgOELh7bS0IMhdkUSldh9ee9m
+	3cb9PQmHLD0DCUgLKsmUHfCDNv05+OG/AhQQAJ0nEKcJcZAYiGB489TJwcUJEczogs8uCCXllzk
+	i6/kVHn3s85GYKWOK5p91VNruhjw4X5fo0xr0MAr92XNrT+/eTJzQ/tJjmouoy+HTKQcskC/8AV
+	+AvPjjTNfbjhSyZvBbCNW6zlgOMDSBJDmiYAc/Z6WWh1ihgBgpJUeD6xt9BBUWad+oEdfeUnpJ5
+	sp7OnVdKLyG
+X-Received: by 2002:a05:693c:20c5:20b0:35c:2986:35ab with SMTP id 5a478bee46e88-361a1668b4dmr13507939eec.13.1792460318438;
+        Mon, 19 Oct 2026 18:38:38 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360813b6e33sm37720983eec.7.2026.10.19.18.38.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 18:38:37 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Mon, 19 Oct 2026 18:38:37 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Florian Fainelli <f.fainelli@gmail.com>
+Cc: linux-mips@vger.kernel.org, Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
+	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Mingyu Wang <25181214217@stu.xidian.edu.cn>,
+	Robert Marko <robert.marko@sartura.hr>,
+	"open list:WATCHDOG DEVICE DRIVERS" <linux-watchdog@vger.kernel.org>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>, manuel.lauss@gmail.com
+Subject: Re: [PATCH 2/5] dt-bindings: watchdog: gpio: Describe minimum
+ heartbeat intervals
+Message-ID: <704e79be-3fa0-46fa-aaa9-d13fb9d933ac@roeck-us.net>
+References: <20261016221617.2223004-1-f.fainelli@gmail.com>
+ <20261016221617.2223004-3-f.fainelli@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,86 +112,24 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 09/18] PCI: rcar-gen4: Add Root Port reset support
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
- Niklas Cassel <cassel@kernel.org>, Wilfred Mallawa
- <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>,
- linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261015033103.3076869-1-den@valinux.co.jp>
- <20261015033103.3076869-10-den@valinux.co.jp>
- <072cccd1-8fd4-41e5-a64c-3cc4dc0dee07@mailbox.org>
- <57zypillvon2jsw6ayckcuyhkhmv5kehh7rpxox33dzg2lfkqt@4zqkgpwxob7b>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <57zypillvon2jsw6ayckcuyhkhmv5kehh7rpxox33dzg2lfkqt@4zqkgpwxob7b>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-ID: b058a89cf9cff052a67
-X-MBO-RS-META: pjb3j94z77kpgpi34dphjsbh5tdgszsp
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016221617.2223004-3-f.fainelli@gmail.com>
 
-On 10/19/26 5:01 AM, Koichiro Den wrote:
-
-[...]
-
->>> @@ -563,9 +604,11 @@ static int rcar_gen4_pcie_host_msi_init(struct dw_pcie_rp *pp)
->>>    	writel(0, rcar->base + AXIINTCCONT);
->>>    	/* Deconfigure MSI interrupt signal */
->>> +	raw_spin_lock_irqsave(&rcar->app_lock, flags);
->>
->> This is only a small nitpick. I wonder if you could use the same
->> scoped_guard() {} call here instead of the raw_spin_lock_irqsave() and
->> raw_spin_unlock_irqrestore() pair?
->>
->> scoped_guard(raw_spinlock_irqsave, &rcar->app_lock) {
->>
->>>    	val = readl(rcar->base + PCIEINTSTS0EN);
->>>    	val &= ~MSI_CTRL_INT;
->>>    	writel(val, rcar->base + PCIEINTSTS0EN);
->>
->> }
+On Fri, Oct 16, 2026 at 03:16:14PM -0700, Florian Fainelli wrote:
+> Some GPIO-controlled watchdogs require a minimum interval between input
+> transitions. Add an optional hw-min-interval-ms property to describe this
+> constraint, allowing the watchdog core to defer early keepalives.
 > 
-> Yeah, actually I've been always wondering whether to ask you and the other
-> maintainers about the guard/scoped_guard policy in this driver, or PCI
-> contreoller drivers more broadly. I'm not aware of any documented PCI-specific
-> policy, while netdev as an example, has some guidance on this.
+> Also remove the 16-bit limit on hw_margin_ms. The generic GPIO driver has
+> no hardware register imposing this limit, and its heartbeat interval is
+> stored in an unsigned int. The MTX-1 watchdog has a nominal 100-second
+> hardware timeout and requires at least 1.6 seconds between transitions.
 > 
-> In v2, Sashiko flagged the mix of goto-based cleanup and guard():
-> https://lore.kernel.org/r/20260928170317.B0B331F000FF@smtp.kernel.org/
-> so I switched that part to explicit locking in v3/v4.
+> Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
-Mixing guard and goto makes the code difficult to read, which would most 
-likely lead to bugs, right. I think scoped_guard() and goto is OKish, as 
-long as there is no goto inside the scoped guard (that would be horror).
+Applied.
 
-> Would you consider an explicit scoped_guard() block (instead of guard()) at the
-> end of the function OK, even though the function still uses goto? Or, maybe I
-> should have just ignored the feedback from Sashiko, and guard() would have been
-> fine here too?
-> 
-> Since I need to respin anyway:
-> https://lore.kernel.org/r/bi3rvyqpdu4iq6pfyrqvx7eplyim6gmg2ijal67mpateobmtlq@gec7zewfm76r/
-> I'm thinking of replacing the lock/unlock pair with scoped_guard() as you suggest.
-
-Please see above, as long as there is no "goto out" inside the 
-scoped_guard, I think it is fine to have scoped_guard in function with goto.
-
-> Thanks for the review!
-Thank you for your help !
-
-[...]
-
--- 
-Best regards,
-Marek Vasut
+Thanks,
+Guenter
