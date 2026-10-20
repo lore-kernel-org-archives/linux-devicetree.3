@@ -1,53 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.102
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.161
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792484849;
-	b=azJch9M4MEDF8jY5/QZJbjdBUqGaQYCGiiYhYOpfYPbMX6M8l8qvRWTPnrZua1+hmTsS
-	 Vcu5VwWMkoRbmV/D0BzKqPW9bR71z+Hx3iCWDOqH7M4bSNxX5Z+bBIeiAm9J1g41EStFW
-	 Mhh+e3KdHcybA9AbNAzvVUFf6eI1X1fstoMgNIZl5yn1xbZsBd011HMQ8fvi6X+yr4rOU
-	 6+aVMQ1JYt4zo+uOjAc4ua6iQXwU9IZCUUi7FAEJ35bcQDtjJs9+IHe+onTixek4OJ+cv
-	 jDe2nYfE/jEg4MysjvEc9lIvtIacV0NDw0XbZfT7ZH9bTXG8ItcuZH+9yK2ACKK1how==
+	t=1792484855;
+	b=n4uMrGXjPB96qs4ylo9AKvqThOT1JqMSCyNE+VZq95LrVP1Gx1IlHdsbQyFIsguvRMvo
+	 prP/cDhQNl6Pfpb1axT5un/OWAQuw2sapNIp4VDB2qQPIziZ4RtTtEJDrdVHzF5BXNoQh
+	 sYsQCP+gJHGZ4j0P5NLSRyHb75G1Wb+O5UWDJqgoT0fNIigBbGXzSYs6IyEWv9uS4JHNQ
+	 anVZj5ErSdug66+6Nisw66UW67pvVEzFLx3ShvfckO6bWJl/ERAH51CRnM3RuiX+NehTT
+	 ePf89Rkg/cyP4lygoDPSZhx+adYc8nGAlbg249JScl1JwtnvYxtUUaA8hwy0EmlYFxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792484849;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792484855;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=yIxpS/nuJ0i6AS7+eZWK91Iqf/SzxpUyTm1wvTNr/u0=;
-	b=YofvQ5TStYSMIuBxuXsmxT0NN7LmKN7rnGLHAjXkZxq8DLhD/FXEfTa4lcomgHV4AAt9
-	 XD/akTKmgp2G9s62a3aUEcRlMJEB9ylW3mV9cJG/v3Qoa8aadP44/OU5yvGDuHK/JeHpv
-	 NqVf9yFY4Aixs12GRc3AAfy3jE44aLFxGOXsaej8DjkgtkKUaR/nz/YJO+dyX9PBjES4I
-	 2V1tNO5c/yMlgecjrvkaLyX6XMQPYjvJ6JGog+e+XA5T3ewA6BMFBS55lRTyVxkaXMdmj
-	 XZ/cqY8N02/Cd5DVRccTPJ1QXBB9DB8WQAEGryJkjT5PPDHL1wux3Y6OyE4Rv1KmzdQ==
+	bh=guE7ZJZ3qLp7RsghCUoXrScsS8RkMWxfffDe/dOb2Ac=;
+	b=XnjpEHEZ9d+at3oc84Bb0IumTzvX49tqc+JaS2TLfj0ju7/h9If0r51bkvEzewmelV8u
+	 q81U5skwSoZbBvLiImDmTHftfkLpfp1rkt4MHpOlC/qFlCqsQQyFH0E2TTbXq1sthnrdN
+	 /xgJPuSPet5Y9paiIgnHJK2kI9P8Rk9qFB9xl1ZYLh8OaWMPnN0Q4vSG1uKYcufRGz65G
+	 +MkLi500u/E2MxepdLyFoolrfVm0kcbzQbFovzL7XJ4yBmvhqpQRMECSN3ebs51ZvB4Nr
+	 HaIGD+RloVcsHjkpSGjdrB06WV91pzyt/EPqO0O4IooSR3tplR+XqDnt6NlsmUfyA5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=packett.cool;
 	spf=pass smtp.mailfrom=packett.cool;
-	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=fS8M2vLn;
-	arc=none smtp.remote-ip=91.218.175.102
-Received: from mta0.migadu.com (out-102.mta0.migadu.com [91.218.175.102])
+	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=AGFUYe9G;
+	arc=none smtp.remote-ip=95.215.58.161
+Received: from mta1.migadu.com (out-161.mta1.migadu.com [95.215.58.161])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F12760A261C
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 08:27:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F12760A261C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFB4C60A2600
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 08:27:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFB4C60A2600
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=fS8M2vLn
+	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=AGFUYe9G
 X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=oOYcLk8SgSFDbJWze+I2ylWBx/emk3yDYK2BxxUumHM=;
+DKIM-Signature: a=rsa-sha256; bh=1VR5x+ugKPEt0b9SEHSYjBwUNYlANCVfeg67lrVVgdg=;
  c=simple/simple; d=packett.cool;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792484845; v=1; x=1793089645;
- b=fS8M2vLnm5JXRpF2X4MlviCyLPU8Nxzy6AuKhy/obZNC5zS59PtD+8fNnSGAkqq4KQNHjzyB
- KbTWFwW/725TEDmJMF6RGQZWCs2hrDBmqf3nu1ElubPTyq2a7dJHnBsSTBdvnz0E44mo7Ebw7CG
- OYbDOGqwUeKF+YirVZ9KEtCxRzy3wTVitViakdAu6kyj/RlzjkXYyx6z9KvH0agQQpMCbI57DNG
- Zrbwt9AsDzuj2zvPp4WSUL4g0/z/P1Jjl276hDJZMW810OBtVzdo44EAKjXXIGniX9HX7DQ632Q
- p0lp6KckzXa5m1sRzdU8C01wzXj9uqhRlujY+ahtvJA/Q==
+ t=1792484853; v=1; x=1793089653;
+ b=AGFUYe9GpRlVhE9nlzvo13UF5KTU2V93loI0eYip8n/rMyuIbHaqkW3ByvxxiuVH/JVBq/5X
+ FisurBgG15DkPS14VlE6r86cz+kSinJqGl9XwlOovTS//67zN5EtDnt/hGrwIXjaEGiubWJd/qy
+ h5kNakn76vKOEpavUP115DMk1v2BNy7GV1LuxAHl1vrYdlhAJ8CAr5t3utJf41xmgGqeoSi5Am0
+ kDvkI8kFktUCi5CMSYDJMX6ncmsIqbSNVxMEwv41AlOVIM8OvBqBgzD7NGYoriy/GbLQrIau8yr
+ IPqpWsjBB9wsN4voyB260+AvYa89M499upDFKz5F2FNbg==
 X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0ee227f5af125605;
-	Tue, 20 Oct 2026 08:27:25 +0000
-X-Mizu-Trace-ID: 0ee227f5af125605
+Received: by smtp.migadu.com with ESMTPS id bf7a3a9bbbdbd63e;
+	Tue, 20 Oct 2026 08:27:32 +0000
+X-Mizu-Trace-ID: bf7a3a9bbbdbd63e
 X-Migadu-Flow: FLOW_OUT
 From: Val Packett <val@packett.cool>
 To: Srinivas Kandagatla <srini@kernel.org>,
@@ -67,9 +67,9 @@ Cc: Val Packett <val@packett.cool>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v2 3/4] ASoC: codecs: wcd-mbhc: guard against NULL cfg in typec_report_(un)plug
-Date: Tue, 20 Oct 2026 05:26:25 -0300
-Message-ID: <20261020082631.1509275-4-val@packett.cool>
+Subject: [PATCH v2 4/4] ASoC: codecs: wcd939x: fix ref leak and NULL deref with USB-C audio
+Date: Tue, 20 Oct 2026 05:26:26 -0300
+Message-ID: <20261020082631.1509275-5-val@packett.cool>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261020082631.1509275-1-val@packett.cool>
 References: <20261020082631.1509275-1-val@packett.cool>
@@ -84,43 +84,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mbhc->cfg is only set by wcd_mbhc_start() which is called by the codec's
-set_jack op. wcd_mbhc_typec_report_plug/unplug are called by the platform
-device's typec callbacks, which are not synchronized with codec ops, so
-a hotplug could be reported before set_jack was called. Though unlikely
-to happen in practice, add a check to be safe.
+Some code issues were found during review of a port of typec code from
+wcd939x to wcd937x, pointed out by sashiko-bot:
 
-Found by sashiko-bot via review of wcd937x Type-C integration patches.
+* wcd939x->wcd_mbhc may be accessed by the typec callbacks which are
+  independent of the ASoC codec lifecycle, don't leave it as NULL/PTR_ERR;
+* wcd939x->typec_switch reference was leaked on unbind, put it there;
+* the device_node reference returned by of_graph_get_remote_node() was
+  being leaked, add a __free annotation to the declaration.
+
+Fix them in wcd939x as well.
 
 Cc: stable@vger.kernel.org
-Fixes: 0c105997eefd ("ASoC: codec: wcd-mbhc-v2: add support when connected behind an USB-C audio mux")
+Fixes: 10f514bd172a ("ASoC: codecs: Add WCD939x Codec driver")
 Signed-off-by: Val Packett <val@packett.cool>
 ---
- sound/soc/codecs/wcd-mbhc-v2.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/codecs/wcd939x.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/codecs/wcd-mbhc-v2.c b/sound/soc/codecs/wcd-mbhc-v2.c
-index 850be84d65ce..fd40c1686d66 100644
---- a/sound/soc/codecs/wcd-mbhc-v2.c
-+++ b/sound/soc/codecs/wcd-mbhc-v2.c
-@@ -594,7 +594,7 @@ static irqreturn_t wcd_mbhc_mech_plug_detect_irq(int irq, void *data)
- int wcd_mbhc_typec_report_unplug(struct wcd_mbhc *mbhc)
+diff --git a/sound/soc/codecs/wcd939x.c b/sound/soc/codecs/wcd939x.c
+index 26fe0b6313cd..56e041e70fd4 100644
+--- a/sound/soc/codecs/wcd939x.c
++++ b/sound/soc/codecs/wcd939x.c
+@@ -2466,6 +2466,7 @@ static int wcd939x_mbhc_init(struct snd_soc_component *component)
  {
+ 	struct wcd939x_priv *wcd939x = snd_soc_component_get_drvdata(component);
+ 	struct wcd_mbhc_intr *intr_ids = &wcd939x->intr_ids;
++	struct wcd_mbhc *mbhc;
  
--	if (!mbhc || !mbhc->cfg->typec_analog_mux)
-+	if (!mbhc || !mbhc->cfg || !mbhc->cfg->typec_analog_mux)
- 		return -EINVAL;
+ 	intr_ids->mbhc_sw_intr = regmap_irq_get_virq(wcd939x->irq_chip,
+ 						     WCD939X_IRQ_MBHC_SW_DET);
+@@ -2482,9 +2483,12 @@ static int wcd939x_mbhc_init(struct snd_soc_component *component)
+ 	intr_ids->hph_right_ocp = regmap_irq_get_virq(wcd939x->irq_chip,
+ 						      WCD939X_IRQ_HPHR_OCP_INT);
  
- 	if (mbhc->mbhc_cb->clk_setup)
-@@ -611,7 +611,7 @@ EXPORT_SYMBOL_GPL(wcd_mbhc_typec_report_unplug);
+-	wcd939x->wcd_mbhc = wcd_mbhc_init(component, &mbhc_cb, intr_ids, wcd_mbhc_fields, true);
+-	if (IS_ERR(wcd939x->wcd_mbhc))
+-		return PTR_ERR(wcd939x->wcd_mbhc);
++	mbhc = wcd_mbhc_init(component, &mbhc_cb, intr_ids, wcd_mbhc_fields, true);
++	if (IS_ERR(mbhc))
++		return PTR_ERR(mbhc);
++
++	/* May be accessed by platform dev typec callbacks, only set if valid */
++	wcd939x->wcd_mbhc = mbhc;
  
- int wcd_mbhc_typec_report_plug(struct wcd_mbhc *mbhc)
+ 	snd_soc_add_component_controls(component, impedance_detect_controls,
+ 				       ARRAY_SIZE(impedance_detect_controls));
+@@ -2499,6 +2503,8 @@ static void wcd939x_mbhc_deinit(struct snd_soc_component *component)
+ 	struct wcd939x_priv *wcd939x = snd_soc_component_get_drvdata(component);
+ 
+ 	wcd_mbhc_deinit(wcd939x->wcd_mbhc);
++	/* May be accessed by platform dev typec callbacks, clear */
++	wcd939x->wcd_mbhc = NULL;
+ }
+ 
+ /* END MBHC */
+@@ -3171,7 +3177,7 @@ static int wcd939x_populate_dt_data(struct wcd939x_priv *wcd939x, struct device
  {
--	if (!mbhc || !mbhc->cfg->typec_analog_mux)
-+	if (!mbhc || !mbhc->cfg || !mbhc->cfg->typec_analog_mux)
- 		return -EINVAL;
+ 	struct wcd_mbhc_config *cfg = &wcd939x->mbhc_cfg;
+ #if IS_ENABLED(CONFIG_TYPEC)
+-	struct device_node *np;
++	struct device_node *np __free(device_node);
+ #endif /* CONFIG_TYPEC */
+ 	int ret;
  
- 	if (mbhc->mbhc_cb->clk_setup)
+@@ -3434,6 +3440,10 @@ static void wcd939x_unbind(struct device *dev)
+ 	put_device(wcd939x->txdev);
+ 	put_device(wcd939x->rxdev);
+ 	component_unbind_all(dev, wcd939x);
++#if IS_ENABLED(CONFIG_TYPEC)
++	if (wcd939x->typec_analog_mux)
++		typec_switch_put(wcd939x->typec_switch);
++#endif /* CONFIG_TYPEC */
+ }
+ 
+ static const struct component_master_ops wcd939x_comp_ops = {
 -- 
 2.55.0
 
