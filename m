@@ -1,34 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.6.134.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792509165;
-	b=UW8+4mlaLvfbccZaZUJkynA78zlEIEwwtbWOd0KdR6NSfJh9tQCtk2ciNyNAUZzLI4b6
-	 CXVBO6PnMBT9GfUc96cgsanWVvc5aCOAOIrqEsfOPSpA8eXO/SMAqQ6yeHR2lI8Xr4F/c
-	 a3mbDeC5EbUT+kmWhAAA1spjW7ham/X6VyLsOs0Xq9G6J2vD6Z4QftABJio+ckiJGK4gj
-	 O+ixcYx5z+gleBQjad1VKLsgYvfNOINHdZzjW9Ym7xeSphIHYICFOOiudY/jrbuF+mF3N
-	 JPCDHTxjxLpquN1ovKVO20y8TSanyrcCr89UWnmLWF9cUkwKNw/pk+H6JTTUDpq+1pQ==
+	t=1792509218;
+	b=0LUEx8qwEjSp9icdI0ewD/svJzQtpjPfXnwXgr6iCQ6qa/BdvM+3X/5fz11bYhf2kCbZ
+	 RTaSYixwVM/n4PF86X7DyTwZXu9cFl9Fh+nXucdAsEjvUlm7/Ps8SBkkZXxK6O8cFDjVT
+	 c36YB/NaSzuOu4oBCqqg0Zw4Im8vzIw6ap/4yPIrJU/ECAKKr3/uKw225Q20IkQsjUr7M
+	 Lb5KUKRhwWdT3nLcRkLxMJ87k/iYGT0Mu5rapNP35PV6eGrBbYhCvCW7GSMpq0w/rXU2p
+	 XgyBSZwU5+OW2BV1PVh/R5QajCFkSqRecM0DlIDvuskk7lTRsOqW0crmGYF22gl0YVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792509165;
-	h=Received:Date:Content-Type:Content-Transfer-Encoding:MIME-Version:
-	 From:Cc:To:In-Reply-To:References:Message-Id:Subject;
-	bh=icmdR51+Ir0zQ+jZQcpa/uVGmHPKZxVQjpIju4FRHr8=;
-	b=UBBtWm2dMsIu1dDO/vKnaYtsAvGkLFEHXif1SJ8PIgbddCmKskZjoU6H4bKsjyGoZdRu
-	 ctUPGW4YtVoUL7QVvQ9andVS4SDuRvf5ufnuNdpd9BosoUuNicqtH1XKn7cmrLKqgEyku
-	 yq6gCC4afnlNFiJ0JOgQO+0tiLJZDr8ogwWvPcvl0WLDS1GwRDDJLLX+vol89p8UHcm4f
-	 om+O61xw32cuHR5c4Kn55z7ARbDlFmywbBs+x0bwhET6zHbUzp7WddkoSCu1Jp8ZOgwVS
-	 7eaG8ja8BPPF1mZzdgsspXHVrVIsMC+GNEGATyju/XKLUvgh0m2kvH40nAGRllH7PCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792509218;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer;
+	bh=gW7rrrhTvNhaJ7ABkNTgkXkWHwGvVO8uazQn6vOaTgU=;
+	b=F+4LH9xHXSwrho3ydrfjvzMOWTX7UALWYXHoWRQdY5N1sGdQwhA2S8xf1+Y4XY7WvQuU
+	 7V9WFLw+HMYCw1jijx/02Klnj9bDrD37u/mo3Z8iRlUMluYvN+/KAowCa0ZNoQ2+Vmf1f
+	 RY7XrQnJ/sb/bsKUWZ5pDTeMxWE+YELmLcpaAPDvrV4hJORt+qyTeTUyG+XK/2Kmu0+/r
+	 m9s/v76iZ5dyInPdT7a1YMfjtJv9ck1duoNctCEjI8YjQDBTSR+F+Tb3Co1C4WwWuX+FY
+	 qAF/tZ7SnWSYy6ydeElvbIH1jraYrNG+otHmMGDqK6YYKIRbXJ+AKAuZ3+91rPTpiGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=yahoo.com;
+	spf=pass smtp.mailfrom=yahoo.com;
+	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=Zg2jwCsp;
+	arc=none smtp.remote-ip=74.6.134.41
+Received: from sonic307-2.consmr.mail.bf2.yahoo.com (sonic307-2.consmr.mail.bf2.yahoo.com [74.6.134.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60276606A31A;
-	Tue, 20 Oct 2026 15:12:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 081971F000C4;
-	Tue, 20 Oct 2026 15:12:44 +0000 (UTC)
-Date: Tue, 20 Oct 2026 10:12:44 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 078D060A262D
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 15:13:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 078D060A262D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=Zg2jwCsp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792509217; bh=gW7rrrhTvNhaJ7ABkNTgkXkWHwGvVO8uazQn6vOaTgU=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=Zg2jwCsp3P4iMf6pRdIUeLBSunTiSsyewr0xl+jmQAnHdf/piFw174yUvzoRExzOFK+i4/f6bUtWVgKgc7oGbFdQBCFJq7rxoa2WobQmoVRwEL53hHj2PxSbV7p/xfm/1xGkjxI8Qcpc0MdV4Z7IQTAkgTuxPCkJLS0bAC5X1P7fGRJVjTWP1Ta/5wjgoalO8l0cJPk8+Cc4Ug4LpCIm+ZTfO0gERO4MaXmQgsi3ymsGYli/iASTIQlP+/txsAuw5O7axIQQr6n0kGBB3Eqbx7n+pI+bWby2c9SwlR42RqXVYfVVirgf+19EPCOjWSTGChKtr84tvGtWpoTNi/CoLQ==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792509217; bh=gmW+bm26geerfJCjP9YQbjYnU5IJ4Zl4rDpAZaWUBKV=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=jnM2lNgJTnGWuKgQrtlNTcRKAYpKff0QTk5gJ9nlofuddaYs6U25QyNv+2SYyci4MLEOtqmAmYmIgnCrFJLbyxgEaTn8VvVVJ8V5DuJNXVsmSJIRF9ZIEge3S7t0FRUOE96UuvuzJIA1lqV+cfjgPpsnWsscXQoQ6v6bsY9E/ZRuNZZ5epy/l6QLYsV6FyjaMueibfBhCwY2oEXQddT987cmqSc4cKE05TKeYbbLSzd1Q1NnOUdATpml5rOy7rAf21zF38XNKid6r4nbbq2s3ql7IxM7h390va2FN3dioTWEn3K7GrH7IuGuiNTvSYp4qqTLYZ0rgxQohyFP9VeNLg==
+X-YMail-OSG: jCdKiA4VM1m7zt4OsFSXXgI_fAwkzi5Zm5csGs4LKuPiAa01PuRLbKdHG_Webvs
+ j2CosCrrbIcRxC5XmAys1VOYgDiUQ24TBm2.rDg3FRmivj8U1cKWwdMseRzOOT7rEgZXwutuu9Kv
+ y57cciW9USvDkiPX2uIFFpEI7XZ9EY.uoo50Ykmq0PklddEkV70f44_qLEwOACwhE.uWvRccuRPh
+ q_9KKlGvOcV_7gyLim5eXA36w_FDNQAfcpsnNgEbthL8.pmlAOWdt9eWkAbh4Ac0dLmawscnwzAi
+ wFQpMUAW9uRLjHDx6uiMdWdvttV169PFa01A42VBwmLUuMpRLPLvMNQVUgfugAA2iw0877JkxSae
+ h2KW8BmwruY6jBF2ORvlTOhwFMm7.QyVNqSRyXDAJQho9xT2lTPcnZ_SBw5QucqSqxX_Dl0e4wBa
+ yhm0ezh.DCt6MWEcAHTxwcQLShTTC7ImR6fzwqwpYE6fnp5l5tMdUhll.6Lwxaa9aLvy7P8bGWX6
+ cKmjhG0w493LIRe7I7OZJEElN6WFvaLO0xxPVAPFcNaFCJUsK2Z_bINKpe6LsJq7_m5nXfxLz3nD
+ 0zIaeOhJ6JFOulsnXb2NXV8onDLl4LjIgXbbHPjtd.W_WsSwH4oCqgLmoWabhceLXJ5EvGvzZ.jf
+ W7MLyOAT2w2a6naK2DYP0h2purBRJJiweaKJuOKkPYLjq9GQnKja2D3rEPLGmTMvG1tmdfAlbRRe
+ SERUsUIg5EncnbetEEKcvuy4PuTexNE7TWXXym6.2t_QOrs3y4Ngvi5MPgAonNIK8PMvKjJJ1Pk1
+ 7.ylkOLoBT15HnezKrbK6mcI4aZ3Kbb4N8HKNm1ELJnwp5.W_gnaWqCxuUDiNVN4du2tHg2w7tnO
+ A66sY82iIGHG2wttqCV0EACsopUL2sJkRq_N3CSfM8jzzdq9YFPDwlx7chwvhEPri46SPQG95lk_
+ TkHgcu2kNWch7EMi3_Z2L4tnAl0R01l509D2PzyM1YKvmY_SMoZQ0m7fHao.jbr0CV8ke8_SsVUc
+ E_d.4Lh8r9srRrx0j3khLLfCOLZ3DVqZUPL7l.lggzNtpyA67IDkOlr8nNF58l5mtpBud9i681px
+ U5Pp8p.dexvPAGhjbQ0fhXCYSUExBmNubDMP363WFz3Q8rjR9gE8lTbrja3Q2PfeRaTXEM2c9Bnn
+ XnYUwrP_2U8x.jt2g_lbfDez.H5KsS5fVuwM5XBSujsl0AlUQeceHtdk4c_i_wyJxFZSBce.jxGP
+ n1SAw68CK49JwUq0yw7_CLK3aLk4ul7DhIINnNRhHxb64Ki1VQsgDX5Hnz2WoqXRzB2I5iUNlJTO
+ eGoOSDk6ogmDPP2.p.t9Q1YLel3UOmD3y2n691jeINSlnkZ56nD4LOHaiaBGACAMXlCPYPn7BfCf
+ 4bQ8d2Merjk4X67Jgn9rg3e1_R3g.98EqskjY010vmEeGBJIL5y4pgFsJkeHHW10DZzmDGMcnRhB
+ OuUHcm7ZQZ7Twtf2uKQhe0cSWuw13d_DoPN0SrYtatam61XRsDp7ShW6DZ3VKQC4fo0Xs_ZcGmE2
+ O4QRLgPfcUSynoZg0NUj0xy0NgHzyUIjo5onPbidnygCnKXSmKI5v7znzX5PduFBl9PDd_8l1WO_
+ YHJg8.pfjoIsClik8GKgWO1ZZf_n39k9Q0fgFbTZbvjb4pgjqN6rfM_OXCZ8yAJptI7kWs3kqJPK
+ gk7NMUuNvdQXD.ENewdEvCflU9WxkNzJ.hRS7Kcz7Po3XlVeqQMIGJ2OAQ2BLyxBZN8vllNEpvY_
+ lUXsESPI.aB18Gtov.FrY_HyLPfARXQe.5iIFprw2Y.per9BTzDiuinhu80p1iue5CXood2C0XPI
+ jldgJLzcc7aGBkhhQAHGOmKSC8Ymu9nsV3bLgdWPM.uih_76SAmkSsvLWQdUjCmAdLdrEh3vdawh
+ sddnTdgmkFC8DQ5d1utVDD4leOhREQ7l6fFNpf7TS90zfRUh.q02RSnDl.rJMGvl2mRXJ0HXPNsi
+ jeKDbS4mbT_KB.C3bXJW_6JS4gJ0DHtTS8lFOfB2vw6e0AcZ8iwFcXp.zqjFu_54MusaKN5MtYyK
+ EXT9LTXsPWHzfctZp_.aKOxiNKMU6tvrRfE.kc2bGD7cbthqjH373fxgHfSvtLrZfZ8ipmFKFQoD
+ cV2cnfasJiDG4tg8vkAcYdyNH40myIYfYDjV.4FLngWbKgNbLW2a2HRl5brAqE3ZhaQP9u7KmR6m
+ ZZTqPOXRTew52tJsE6FyHibhOc41Qkw--
+X-Sonic-MF: <deaner92@yahoo.com>
+X-Sonic-ID: bd98e620-d938-40c4-8a3f-5b21ebedd5ce
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic307.consmr.mail.bf2.yahoo.com with HTTP; Tue, 20 Oct 2026 15:13:37 +0000
+Received: by hermes--production-bf1-6d6877594b-4fmm8 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID c27b5baec59ebcab6bc6425e1a3166a1;
+          Tue, 20 Oct 2026 15:13:32 +0000 (UTC)
+Message-ID: <8365f405-2686-4ea3-b216-7928b826f6a1@yahoo.com>
+Date: Tue, 20 Oct 2026 09:13:26 -0600
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -38,59 +83,42 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, linux-tegra@vger.kernel.org, 
- Simona Vetter <simona@ffwll.ch>, Jonathan Hunter <jonathanh@nvidia.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- David Airlie <airlied@gmail.com>, Conor Dooley <conor+dt@kernel.org>, 
- dri-devel@lists.freedesktop.org, Mikko Perttunen <mperttunen@nvidia.com>, 
- devicetree@vger.kernel.org, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thierry Reding <thierry.reding@kernel.org>, linux-kernel@vger.kernel.org, 
- Maxime Ripard <mripard@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-In-Reply-To: <20261019095705.91062-4-clamor95@gmail.com>
-References: <20261019095705.91062-1-clamor95@gmail.com>
- <20261019095705.91062-4-clamor95@gmail.com>
-Message-Id: <179250894267.3309780.15694845491721120765.robh@kernel.org>
-Subject: Re: [PATCH v3 3/7] dt-bindings: display: tegra: Document 8-bit CPU
- parallel interface
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] dt-bindings: pwm: Convert NXP PCA9685 PWM controller
+ to DT schema
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-pwm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261012140346.3065-1-deaner92.ref@yahoo.com>
+ <20261012140346.3065-1-deaner92@yahoo.com> <atH835VJLqo_mdjY@monoceros>
+Content-Language: en-US
+From: Jeremy Clifton <deaner92@yahoo.com>
+In-Reply-To: <atH835VJLqo_mdjY@monoceros>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Mailer: WebService/1.1.26740 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-
-On Mon, 19 Oct 2026 12:57:01 +0300, Svyatoslav Ryhel wrote:
-> Document 8-bit CPU parallel MIPI DBI Type B interface provided by
-> Tegra20/30 SoCs display controller.
+On 10/16/26 4:33 AM, Uwe Kleine-König wrote:
+> Hello Jeremy,
 > 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> ---
->  .../display/tegra/nvidia,tegra-dbi.yaml       | 138 ++++++++++++++++++
->  .../display/tegra/nvidia,tegra20-dc.yaml      |  15 ++
->  2 files changed, 153 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/tegra/nvidia,tegra-dbi.yaml
+> On Mon, Oct 12, 2026 at 02:03:46PM +0000, Jeremy Dean Clifton wrote:
+>> +maintainers:
+>> +  - Jeremy Dean Clifton <deaner92@yahoo.com>
+> 
+> What kind of commitment do you plan for this maintainer role? Do you
+> have the hardware?
 > 
 
-My bot found errors running 'make dt_binding_check' on your patch:
+I don't have the hardware, but I'm willing to get it and test on
+it if it comes to that. I'm glad to answer questions about the binding
+and to review future changes to it, also.
 
-yamllint warnings/errors:
+If you'd rather have someone closer to the driver listed as maintainer
+instead, that's fine with me too. I'm happy with either possibility.
 
-dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/display/tegra/nvidia,tegra-dbi.example.dtb: /example-0/dbi/panel: failed to match any schema with compatible: ['hit,tx10d07vm0baa']
+Jeremy
 
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20261019095705.91062-4-clamor95@gmail.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+> Best regards
+> Uwe
 
