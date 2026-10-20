@@ -1,57 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792481131;
-	b=ndU7AcTQY6a8z0LtWl4SETWAAyIIiIZyRhgSubNbMGTNrO2fkC4K+lyc/GyXK5Dfuuok
-	 mvJqmZkCl//HO8Ws+ZFWjpEumHAnrObKOOfgH4ieIxidgXC8GrZ2qRf/2gB/mlB+n9OFL
-	 buCXlcgTERpUZl77muVd4XbrG/TkLV/jDDNU5zHSyimOMMbzy12Xax/hVXCFJlqR3uhB/
-	 8J2M+eC/D6avbpjECAIxstfaoB5Tp1xJeiHOzHiv6GwdKxk3sFnlyfbNdVhxPYsg9o1Pu
-	 ewiIU+neZ4DGbZ4Wajj/awmh4lIiNoTGXRGD8Mk8i+rzZMZMfq6CH9bd7b9Vjumf4DQ==
+	t=1792481250;
+	b=5lBzRwlo/5bqkCSoIrJyyTHwRop2L+Ex2TsMgDnLH4Gu+eFTEPr6qPCPbfL0oXHYM9kH
+	 mcXaVypwqvuiGP+oOX+dt48UOmmeHS4HixLnstRm7uMzdcWVUX8yqj8iF023JMJ3zD3Uj
+	 hIVItyRqJjOIVW0KdGsxSQWmgg87jTjxg5zqpkjRT2/76FjzYrI/TO7NiEzst4DPrQbP2
+	 PJFQ5xi1DdOo12aexwuRAWEqp3iu2swWN/3c65KCCot+cOjx1DBbUKxzEm5/5Shq2dEx5
+	 5g9Z78yVLMP/dTbtqdZWokgf88BZUjL9LcUxcLZ0kUpufhfnJBaRH6Q1BhQIPBtDA9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792481131;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792481250;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=8xB8FYz4oxX2w21g5nKV4kypEOwJSPCjPKMx0/jwa8g=;
-	b=AMKANJeNM+tqYP0w3IvRIHx1wWPeOFutxX5QKqyi1zzz+cnxz6ayLZLGZEvP3Co9Ujxy
-	 uf+H84FyTEEqc7ll/X5S93cMISBDbvVhYX3wbKmoe0E5IM0/B/ekEvFnsHIb0+zzbtilY
-	 r1g+GJ2I5GhlbA3CUdv8XaepwSEq2UvhLvPG7AJ2nDF0idF+Yh/MiHWXP5Dt1tPJKJNba
-	 gcBcaSJeJ0RF85yl0bA5+wB+/fstFuO42pzsFxS9VdxLH3uhGYOOzW4iU8MReEBzO6RtB
-	 rfL4924SlghuJ54zr2F1lsK0Le5m3KLqqosRPMPWxDSRCDPFhwpluwwFAdT/tQogUiA==
+	bh=Eb4pIl+p0P9P4pch0J7z+pBarnBhT5r7oyHUjiBjFUI=;
+	b=d0ubA+c7zMkvBfeYnHE/mSqwSJL2wZ+j7EKD26YgmC+fe+Z8jgL/nexEjowsTH/F2lo8
+	 oQAG9nLvLci61j1dlyrKWVxsh083c37EMmdwoW3MgCJbLZDM87RjSXf8B/YMuB1t9mpXN
+	 cBmFMGjek3a8yEdNkP8G7sdnngVxkg/f8Pdwws/HUkujkEti9imeHqYGaHq61cDLnL243
+	 9ue6ABTF5yBu0ESwZc+YJgUPcvzNwf420NZuv3lMh0d7VHdU4oEbUYjzk3uqg6PepTMN3
+	 /JfHhCDJLdDn2CXUZ+R+Te4hIF1dOgnuBqL0OTv81Y+GrV2BWcM8wArflb23WYmNcLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oanCaXqW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f1zx3Pqr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD4FE606A319;
-	Tue, 20 Oct 2026 07:25:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D971606A325;
+	Tue, 20 Oct 2026 07:27:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oanCaXqW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D9151F000C4;
-	Tue, 20 Oct 2026 07:25:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f1zx3Pqr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E9371F000C4;
+	Tue, 20 Oct 2026 07:27:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792481130;
-	bh=8xB8FYz4oxX2w21g5nKV4kypEOwJSPCjPKMx0/jwa8g=;
+	s=k20260515; t=1792481250;
+	bh=Eb4pIl+p0P9P4pch0J7z+pBarnBhT5r7oyHUjiBjFUI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oanCaXqWqYLCzZkaQbIbhwCzF/OfbG8cZljO+8ElHv4AJidiUR5OLG9Mgw0cMn1Es
-	 nHbL0bKTulNnHIn3YJGXbzhw0knur2ojwkMO6h72votLsJDQlHMnYaoBfNRPBUny0Z
-	 rBv2fdhb8SLSSHmhvlmP2ChAF5zMYFkwENn97uyZAZQOAIKXgJjkTNqliK4MAFpP5a
-	 rP0Cfmn9RfA8eBI4KoUcBTOnV87CuB8QeNwXrbBmvRgVhRyHgEycLu/XoQbmi/+mzH
-	 HhxBLZzpelVoPBegoWypcPhyRapqRRVw6vaCyDn6ZFRrvndnxIL2PuU4eSMCBQhHxz
-	 p5jhrDCDmIbbw==
-Date: Tue, 20 Oct 2026 09:25:27 +0200
+	b=f1zx3Pqr3kynKf8YhnkwlNarW+yU7/7wR5eUdXXkX2bk4W3jPRHKbVIMFOSKzAiHO
+	 XDutryKB1Skrm+dJ5TdSWJ2w+v3hnZzFRCWNviyUY5Bbqcw4yH1xKXpYE3lEU8tFgv
+	 C3UR9LnDNleDzNMi3boSVLpcFmq2N3DJWnluKkv4K8hER5Dyhe7hFEjjgredAFKR3R
+	 T7wFfkcJ2hGRbbsTnKihxJlWxBHU8FuZ8VSuNbDVzNbVY9hx9hcboGdfVtYo5ORYSl
+	 c6xW1gyGpWEBuBRaHbCvaykPOzbXsR25pjDe+HX4eJcKY/PxhmkyKQAkyADdKckWI0
+	 3mdx84bTPgIwA==
+Date: Tue, 20 Oct 2026 09:27:27 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Yu-Chun Lin <eleanor.lin@realtek.com>
-Cc: tglx@kernel.org, radu@rendec.net, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, lee@kernel.org, afaerber@suse.com, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, mfd@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-realtek-soc@lists.infradead.org, james.tai@realtek.com, cy.huang@realtek.com, 
-	stanley_chang@realtek.com
-Subject: Re: [PATCH v5 1/8] dt-bindings: interrupt-controller: Add support
- for Realtek DHC SoCs
-Message-ID: <20261020-electronic-robin-of-infinity-f620ea@quoll>
-References: <20261018160653.3940371-1-eleanor.lin@realtek.com>
- <20261018160653.3940371-2-eleanor.lin@realtek.com>
+To: Sander Vanheule <sander@svanheule.net>
+Cc: Jonas Jelonek <jelonek.jonas@gmail.com>, 
+	Oleksij Rempel <o.rempel@pengutronix.de>, Kory Maincent <kory.maincent@bootlin.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, netdev@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 1/2] dt-bindings: net: pse-pd: realtek,pse: add
+ gen1 I2C transport
+Message-ID: <20261020-noisy-amorphous-jackal-1df08a@quoll>
+References: <20261018161248.376205-1-sander@svanheule.net>
+ <20261018161248.376205-2-sander@svanheule.net>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,163 +65,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261018160653.3940371-2-eleanor.lin@realtek.com>
+In-Reply-To: <20261018161248.376205-2-sander@svanheule.net>
 
-On Mon, Oct 19, 2026 at 12:06:46AM +0800, Yu-Chun Lin wrote:
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - realtek,rtd1319-intc-iso
-> +      - realtek,rtd1319-intc-misc
-> +      - realtek,rtd1319d-intc-iso
-> +      - realtek,rtd1319d-intc-misc
-> +      - realtek,rtd1619b-intc-iso
-> +      - realtek,rtd1619b-intc-misc
-> +      - realtek,rtd1625-intc-iso
-> +      - realtek,rtd1625-intc-isom
-> +      - realtek,rtd1625-intc-misc
+On Sun, Oct 18, 2026 at 06:12:47PM +0200, Sander Vanheule wrote:
+> Like the gen2 protocol, the gen1 protocol can also be used over both a
+> raw I2C transport and an SMBUs transport. Add a compatible for the
+> former and the compatible for the Ubiquiti Unifi Switch Lite 16 PoE
+> device that uses it.
+> 
+> Signed-off-by: Sander Vanheule <sander@svanheule.net>
+> ---
+>  .../bindings/net/pse-pd/realtek,pse-mcu-gen1.yaml          | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/net/pse-pd/realtek,pse-mcu-gen1.yaml b/Documentation/devicetree/bindings/net/pse-pd/realtek,pse-mcu-gen1.yaml
+> index 3bb32349c28c..526f8525bb4d 100644
+> --- a/Documentation/devicetree/bindings/net/pse-pd/realtek,pse-mcu-gen1.yaml
+> +++ b/Documentation/devicetree/bindings/net/pse-pd/realtek,pse-mcu-gen1.yaml
+> @@ -54,6 +54,12 @@ properties:
+>                - zyxel,gs1920-24hp-v2-pse
+>            - const: realtek,pse-mcu-gen1-smbus
+>  
+> +      # I2C, raw framing
+> +      - items:
+> +          - enum:
+> +              - ubnt,usw-lite-16-poe-pse
+> +          - const: realtek,pse-mcu-gen1-i2c
 > +
-> +  interrupt-controller: true
-> +
-> +  '#address-cells':
-> +    const: 0
-> +
-> +  interrupts:
-> +    minItems: 1
-> +    maxItems: 4
-> +    description:
-> +      Contains the GIC SPI interrupts mapped to the external interrupt lines.
-> +
-> +  "#interrupt-cells":
+>        # UART
+>        - items:
+>            - enum:
+> @@ -100,6 +106,7 @@ allOf:
+>            contains:
+>              enum:
+>                - realtek,pse-mcu-gen1-smbus
+> +              - realtek,pse-mcu-gen1-i2c
 
-Do not mix style of qotes.
+That's the same device as smbus, no? Same device, same compatible.
 
-> +    description:
-> +      Specifies the number of cells in an interrupt specifier.
-> +      For realtek,rtd1625-intc-misc, the first cell specifies the interrupt
-> +      bank and the second cell specifies the interrupt ID within that bank.
-> +      Other variants use one cell to specify the interrupt ID.
-
-Missing constraints, e.g. enum.
-
-> +
-> +required:
-> +  - compatible
-> +  - interrupt-controller
-> +  - '#interrupt-cells'
-> +  - '#address-cells'
-> +  - interrupts
-> +
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          enum:
-> +            - realtek,rtd1319-intc-iso
-> +    then:
-> +      properties:
-> +        interrupts:
-> +          items:
-> +            - description: Miscellaneous interrupts
-> +            - description: RTC interrupt
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          enum:
-> +            - realtek,rtd1319d-intc-iso
-> +            - realtek,rtd1619b-intc-iso
-> +    then:
-> +      properties:
-> +        interrupts:
-> +          items:
-> +            - description: Miscellaneous interrupts
-> +            - description: Watchdog interrupt
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          enum:
-> +            - realtek,rtd1319-intc-misc
-> +    then:
-> +      properties:
-> +        interrupts:
-> +          items:
-> +            - description: Miscellaneous interrupts
-> +            - description: Watchdog interrupt
-> +            - description: Uart1 interrupt
-> +            - description: Uart2 interrupt
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          enum:
-> +            - realtek,rtd1319d-intc-misc
-> +            - realtek,rtd1619b-intc-misc
-> +    then:
-> +      properties:
-> +        interrupts:
-> +          items:
-> +            - description: Miscellaneous interrupts
-> +            - description: Uart1 interrupt
-> +            - description: Uart2 interrupt
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          enum:
-> +            - realtek,rtd1625-intc-iso
-> +    then:
-> +      properties:
-> +        interrupts:
-> +          items:
-> +            - description: Miscellaneous interrupts
-> +            - description: Uart9 interrupt
-> +            - description: RTC interrupt
-
-RTC should be second
-
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          enum:
-> +            - realtek,rtd1625-intc-isom
-> +    then:
-> +      properties:
-> +        interrupts:
-> +          items:
-> +            - description: Miscellaneous interrupts
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          enum:
-> +            - realtek,rtd1625-intc-misc
-> +    then:
-> +      properties:
-> +        interrupts:
-> +          items:
-> +            - description: Miscellaneous interrupts
-> +            - description: Uart3 interrupts
-
-UART1
-
-> +            - description: Uart1 interrupt
-
-UART2
-
-> +            - description: Uart2 interrupt
-
-UART3
-
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          enum:
-> +            - realtek,rtd1625-intc-misc
-> +    then:
-> +      properties:
-> +        "#interrupt-cells":
-> +          const: 2
-> +    else:
-> +      properties:
-> +        "#interrupt-cells":
-> +          const: 1
+You can have property deciding about protocol, if this cannot be deduced
+from the clients.
 
 Best regards,
 Krzysztof
