@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792465319;
-	b=cgzXmLIZKpi8wN59s47kBiGf9vrA/i+yuq1e++NGhDug5xWZhghWpoYb1OLARqqTCvGi
-	 UitqE7ae635dfI3UiPT29eh3xZ3Z8Ie+R7PQ6KDqWdKEFV6Vy497U95XrtyL+zaO4Fln0
-	 aO9ADZ/pQ1n91BXSHTjFt8yQ/l+0PJaHMzBZYhQrj2FVx2yMxfDmVHQu0ziYOQXlUhsH9
-	 kEb6gfMMNHD/CpbDAwDuS7WvSxhtV7ZLWbeNdaarWEaRRc0ZwxGMJ2ZE7Lxa8fXd57T2d
-	 owJvXmBZvo7JdF002W/U8JwjicKGz9krvD9Nz6cJGNF7q81rzYzT68BssTM7/CPvneQ==
+	t=1792465320;
+	b=mgBLBzAwzQ9Y2ejpKH44FAae7PKsRot+8ynOcimjZ9Vo4Zt78h0QuF9QYosh5Jh64j7h
+	 rWCgbJn0rzLgoY7BFq4l/eagV0DfIIwdNIMUA3In/KZh5tyP/f5iPUKGVixwdsc86EzlC
+	 V7fc8DIprP3fmDEqbi/TM+qc0isMKENprmp63Cb3a1vpK/vmub8Jmb1crb03E3jbYlxMT
+	 ly7ZcJAsiMXBqj9S/uOpZZhFkYdy5DoWSTCvVpKEsLJfCKHV147QkAJ9ifvPD1Lpw8ro5
+	 H5u8gtmtRltendjBx8AP4hZqMMcd6RbwrFb9GKDKb+6F73u9FXO6F2c7N5Ib1moAIGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792465319;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792465320;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=s86V4lyVzxuh22a3JwSPvLI18pfbUJtOmFMZOFIG+vM=;
-	b=eePS0gf3g32Zicf6EU/DseJ7JxwyMmPpHzE0n0UkPNmNSoh0ybYlkDnSPx8BFITk6yj7
-	 aqBG32t+IxNADX1yq0vxQi8ApegmBxgs1McLxVG2vQR/2xaihtRspbkQQdVoFqZZwzErO
-	 cCCo3IC9BTDVzqmzcFAqB7EkWHO4nw9jgX2h4uHxJ0YGLF9k8Tn95kGmT8rQRzDFnf/R/
-	 gk15l/MTCc3bOYWfBnZ4DiV8v0xJ2S911Ce/srn6mXTtU5e5IcTDw6GrfhDywJ/fv3m3V
-	 tf5Fak3+dRxGVo6RSB1Lgv7uWR1ClF68ROOqedMxk7WNPh+t4Hg+heN6gLUrjNoWGqw==
+	bh=Rpi8eRJY+QpgufrsBkwNLoaSiaI73ZLy3XEg2jPcg+w=;
+	b=JKyAfQj/rugnZqzbALOMOgJCSdfDVLR4o9LKdMs43PcVB9iCRpaa8wy2OUzVjrvDAydC
+	 hoSNLVxCp63KbWCGiB9me7AzSqNZHU8lnmypt+0SvUyS4H4jsJsa30WT7sT6SmRAitAGZ
+	 hNczpX1e8U87njxY8dVB3spVy15PjYElbtyfhGktubMsJrQHIlbyXSy5mEQhXAyp4nvpX
+	 5DUNbcuDTeVuEecSOGF+B/jhsVegW/URwFjRMEJAafW3R6dv/WnKvIPXLX01+kySufBiS
+	 Mm+vTFd/7FGHCMsE5sXD2kV7Zx+sY54+KPDZMpCDwI1T/e2Jk/g5YAB51KfCqhxx1Ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DreKmRlR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RkkxYMsr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3173606A31C
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 03:01:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1470606A31C
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 03:01:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DreKmRlR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32BF11F000C5;
-	Tue, 20 Oct 2026 03:01:58 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RkkxYMsr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17AB91F000C6;
+	Tue, 20 Oct 2026 03:01:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792465318;
-	bh=s86V4lyVzxuh22a3JwSPvLI18pfbUJtOmFMZOFIG+vM=;
+	s=k20260515; t=1792465319;
+	bh=Rpi8eRJY+QpgufrsBkwNLoaSiaI73ZLy3XEg2jPcg+w=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DreKmRlRk7+2qoHnRQJHg23/NMlMT9cw/ZbZNsTDjxCAIadNR+5U5jiZ97Ha0LpJU
-	 ghhaWfSIhHA5VHNnGmCg3wrh8l3XdxuaFCMDmrmo2CEBMKNkYuvsB87Yftd+coIoJH
-	 C2mslGPujgDWE+qPtu2wH58kMYMwW9haA21J2GTL7LHbM6qhci1vxZMTGLDzIaMSB1
-	 p+GAvU6qClWFhQaG9gpIT/1CBM8JdNHvERBtl0QqcxwkGH5f29cAoqRrjjgGk4LIIf
-	 yhk5Sbflj8oX/Rgt5obJrXqc7t+ogxYG+Kz5jttM0upL9nqqpfx+WsdpHVX6lJa2cP
-	 bb2MsHJwPHimA==
-Message-ID: <sashiko-outbox-178427@kernel.org>
+	b=RkkxYMsr32A7zmiW8x/UcqzW89Or4fZ7rcxKW+xmtNxaOn1v5zzCBQ8VtWwfIIUh/
+	 r7kdSe7N1uladc/c8IgQVNN3zPPaaNssT4ixXnlafAKUoIvRm8H+VZGxUjrMXyEB4C
+	 0j7Hz5L50QTWBXaQ3WaE7PBXUVR2DDi1ji/JS+S1Lv+CiiAWfhz7IQmzINJiWzJlEm
+	 4TeIr9hp22vs+o/m3CBNF+Nm5tRK3plAtT4e6y04UKUYtxQhwhgr+9x5kngiSGgwb/
+	 6KVGdpbE53IJSzF4YokwBfwcTIYI3fZcq7bQZpsiIltV4Nb9rM36wHnxKX2Qb7La0d
+	 un2Rid3wFItDA==
+Message-ID: <sashiko-outbox-178430@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next 2/5] net: pcs: pcs-xpcs-regmap: support XPCS
- memory-mapped MDIO bus via regmap
+Subject: Re: [PATCH net-next 5/5] net: stmmac: support the TC9564 SoC
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Alex Elder" <elder@riscstar.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261019030129.1470307-3-elder@riscstar.com>
+In-Reply-To: <20261019030129.1470307-6-elder@riscstar.com>
 References: <20261019030129.1470307-1-elder@riscstar.com>
- <20261019030129.1470307-3-elder@riscstar.com>
+ <20261019030129.1470307-6-elder@riscstar.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 20 Oct 2026 03:01:57 +0000
+Date: Tue, 20 Oct 2026 03:01:58 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,97 +60,185 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] net: pcs: MDIO bus ID collision in devm_xpcs_regmap_register()
+- [High] net: stmmac: tc9564_reset_names mismatch with DT binding reset-nam=
+es
+- [High] net: stmmac: stmmac_get_platform_resources() zeroes DT MAC address
+- [Medium] net: stmmac: tc9564: unconditional reset and clock disable in su=
+spend breaks WoL
 --
 
-commit f4103deca1c1d0d48e4d0e095369247a1ba3779b
+commit d94523eb7296bd3578512ea2f1d63c42d3751631
 Author: Daniel Thompson <daniel@riscstar.com>
 
-net: pcs: pcs-xpcs-regmap: support XPCS memory-mapped MDIO bus via regmap
+net: stmmac: support the TC9564 SoC
 
-This commit introduces devm_xpcs_regmap_register() and indirect MDIO CSR
-access helpers so drivers can register a DesignWare XPCS instance backed by=
- a
-regmap.
+This commit adds stmmac glue layer support for the Ethernet XGMAC
+functionality on the Toshiba TC9564 SoC via a platform driver bound to a PCI
+endpoint bus node.
 
-> diff --git a/drivers/net/pcs/pcs-xpcs-regmap.c b/drivers/net/pcs/pcs-xpcs=
--regmap.c
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-tc9564.c b/drivers=
+/net/ethernet/stmicro/stmmac/dwmac-tc9564.c
 > new file mode 100644
-> index 0000000000000..f3f3aaaf0b75a
+> index 0000000000000..21098f91e3bbf
 > --- /dev/null
-> +++ b/drivers/net/pcs/pcs-xpcs-regmap.c
-> @@ -0,0 +1,169 @@
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-tc9564.c
+> @@ -0,0 +1,590 @@
 
 [ ... ]
 
-> +struct dw_xpcs *devm_xpcs_regmap_register(struct device *dev,
-> +					  struct regmap *regmap)
+> +enum {
+> +	RESET_ID_MAC,
+> +	RESET_ID_XPCS,
+> +	RESET_ID_PMA,
+> +};
+> +
+> +static const char * const tc9564_reset_names[] =3D {
+> +	[RESET_ID_MAC] =3D "mac",
+> +	[RESET_ID_XPCS] =3D "xpcs",
+> +	[RESET_ID_PMA] =3D "pma",
+> +};
+
+[Severity: High]
+Should the entries in tc9564_reset_names include the "-reset" suffix?
+
+In Documentation/devicetree/bindings/net/toshiba,tc9564-xgmac.yaml, the
+required reset-names property items are defined as:
+
+  reset-names:
+    items:
+      - const: mac-reset
+      - const: pma-reset
+      - const: xpcs-reset
+
+When tc9564_dwmac_probe() calls tc9564_reset_init() ->
+devm_reset_control_bulk_get_exclusive(), the reset lookup matches each
+td->resets[i].id against the device tree node's reset-names property. With
+"mac", "xpcs", and "pma", won't reset lookup fail during probe on a
+binding-compliant device tree?
+
+[ ... ]
+
+> +static void tc9564_mac_disable(struct tc9564_data *td)
 > +{
-> +	static atomic_t id =3D ATOMIC_INIT(-1);
-> +	struct dw_xpcs *xpcs;
-> +	struct mii_bus *bus;
+> +	WARN_ON(reset_control_bulk_assert(ARRAY_SIZE(td->resets), td->resets));
+> +
+> +	clk_bulk_disable_unprepare(td->clock_count, td->clocks);
+> +}
+
+[ ... ]
+
+> +static int tc9564_dwmac_suspend(struct device *dev, void *bsp_priv)
+> +{
+> +	struct tc9564_data *td =3D bsp_priv;
+> +
+> +	tc9564_mac_disable(td);
+> +
+> +	return 0;
+> +}
+> +
+> +static int tc9564_dwmac_resume(struct device *dev, void *bsp_priv)
+> +{
+> +	struct tc9564_data *td =3D bsp_priv;
+> +
+> +	tc9564_mac_enable(td);
+> +
+> +	return 0;
+> +}
+> +
+> +static int tc9564_probe_config_dt(struct tc9564_data *td)
+> +{
+> +	struct platform_device *pdev =3D to_platform_device(td->dev);
+> +	struct device_node *np =3D td->dev->of_node;
+> +	struct plat_stmmacenet_data *plat;
+> +	phy_interface_t phy_interface;
+> +	struct device *dev =3D td->dev;
 > +	int ret;
 > +
-> +	bus =3D devm_mdiobus_alloc_size(dev, 0);
-> +	if (!bus)
-> +		return ERR_PTR(-ENOMEM);
+> +	ret =3D device_get_phy_mode(dev);
+> +	if (ret < 0)
+> +		return -ENODEV;
+> +	phy_interface =3D ret;
 > +
-> +	bus->name =3D "DW XPCS MCI/APB3";
-> +	bus->read =3D xpcs_regmap_read_c22;
-> +	bus->write =3D xpcs_regmap_write_c22;
-> +	bus->read_c45 =3D xpcs_regmap_read_c45;
-> +	bus->write_c45 =3D xpcs_regmap_write_c45;
-> +	bus->phy_mask =3D ~0;
-> +	bus->parent =3D dev;
-> +	bus->priv =3D regmap;
+> +	/* The platform structure is allocated with devm_kzalloc() */
+> +	plat =3D devm_stmmac_probe_config_dt(pdev, td->res.mac);
+> +	if (IS_ERR(plat))
+> +		return PTR_ERR(plat);
 > +
-> +	snprintf(bus->id, sizeof(bus->id), "dwxpcs-%x", atomic_inc_return(&id));
+> +	/*
+> +	 * Core driver cannot deduce or validate fifo size because the bits
+> +	 * that provide FIFO size only worth in powers of two.
+> +	 */
+> +	if (plat->rx_fifo_size =3D=3D 0 || plat->tx_fifo_size =3D=3D 0)
+> +		return dev_err_probe(dev, -EINVAL, "fifo size is not set\n");
+> +	if (plat->rx_fifo_size > TC9564_RX_FIFO_SIZE ||
+> +	    plat->tx_fifo_size > TC9564_TX_FIFO_SIZE)
+> +		return dev_err_probe(dev, -EINVAL, "fifo size too big (%u/%u)\n",
+> +				     plat->rx_fifo_size, plat->tx_fifo_size);
+> +
+> +	/*
+> +	 * toshiba,tc9564-xgmac is *not* compatible with snps,dwxgmac because
+> +	 * generic drivers cannot possibly work on TC9564 (without clocks
+> +	 * reading registers wedges the bus). However, without snps,dwxgmac,
+> +	 * devm_stmmac_probe_config_dt(), can't figure of the core type and
+> +	 * won't parse a couple of extra properties. Let's handle that here!
+> +	 */
+> +	plat->core_type =3D DWMAC_CORE_XGMAC;
+> +	plat->pmt =3D true;
 
 [Severity: Medium]
-Can bus->id collide with an existing platform DW XPCS bus here?
+Does calling tc9564_mac_disable() unconditionally in tc9564_dwmac_suspend()
+break Wake-on-LAN?
 
-In drivers/net/pcs/pcs-xpcs-plat.c, xpcs_plat_init_bus() defines its own
-separate static atomic counter and uses the identical "dwxpcs-%x" format
-string:
+In tc9564_probe_config_dt(), plat->pmt is set to true. When Wake-on-LAN is
+enabled via ethtool and the system suspends, stmmac_suspend() programs the
+XGMAC receiver and PMT wakeup registers via stmmac_pmt() and keeps the link
+active via phylink_suspend(priv->phylink, true), before calling
+priv->plat->suspend().
 
-drivers/net/pcs/pcs-xpcs-plat.c:xpcs_plat_init_bus() {
-	static atomic_t id =3D ATOMIC_INIT(-1);
-	...
-	snprintf(pxpcs->bus->id, MII_BUS_ID_SIZE,
-		 "dwxpcs-%x", atomic_inc_return(&id));
-}
-
-If a system probes both a platform DW XPCS via xpcs_plat_probe() ->
-xpcs_plat_init_bus() and a regmap DW XPCS via devm_xpcs_regmap_register()
-(for example, an SoC with a platform XPCS and a PCIe Toshiba TC9564 card),
-both counters start at -1 and format their first bus->id as "dwxpcs-0".
-
-When devm_mdiobus_register() calls __mdiobus_register() -> device_register(=
-),
-device_add_class_symlinks() tries to create the class symlink under
-/sys/class/mdio_bus/dwxpcs-0, which fails with -EEXIST and causes
-__mdiobus_register() to fail with -EINVAL.
-
-Should devm_xpcs_regmap_register() use a distinct prefix (such as
-"dwxpcs-regmap-%x") or share a common counter or IDA with
-xpcs_plat_init_bus()?
-
-> +
-> +	/* MDIO-bus here serves as just a back-end engine abstracting out
-> +	 * the MDIO and MCI/APB3 IO interfaces utilized for the DW XPCS CSRs
-> +	 * access.
-> +	 */
-> +	ret =3D devm_mdiobus_register(dev, bus);
+Because tc9564_dwmac_suspend() unconditionally calls tc9564_mac_disable(),
+all three resets (RESET_ID_MAC, RESET_ID_XPCS, RESET_ID_PMA) are asserted
+and all clocks are disabled without checking device_may_wakeup(dev), which
+clears the programmed PMT state and shuts down the receive path.
 
 [ ... ]
 
-> +}
-> +EXPORT_SYMBOL_GPL(devm_xpcs_regmap_register);
+> +static int tc9564_dwmac_probe(struct platform_device *pdev)
+> +{
+
+[ ... ]
+
+> +	ret =3D tc9564_probe_config_dt(td);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D stmmac_get_platform_resources(pdev, &td->res);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "failed to initialize stmmac resources\n");
+
+[Severity: High]
+Does calling stmmac_get_platform_resources() after tc9564_probe_config_dt()
+wipe out the MAC address read from the device tree?
+
+In tc9564_probe_config_dt(), devm_stmmac_probe_config_dt(pdev, td->res.mac)
+populates td->res.mac from the device tree. However,
+stmmac_get_platform_resources(pdev, &td->res) is called immediately
+afterward, and it begins with:
+
+drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c:stmmac_get_platform_r=
+esources() {
+	int ret;
+
+	memset(stmmac_res, 0, sizeof(*stmmac_res));
+
+This zeroes the entire td->res structure, including td->res.mac, before it
+is passed to stmmac_dvr_probe(). Should stmmac_get_platform_resources() be
+called before tc9564_probe_config_dt()?
 
 [ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019030129.1470=
-307-1-elder@riscstar.com?part=3D2
+307-1-elder@riscstar.com?part=3D5
