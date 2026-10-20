@@ -1,40 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.131.191.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.224.81.183
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792466232;
-	b=iMiXLD2fsmKuhFjx2H5LFzrmVUl+enJYbiuELgghIs1kb4/KgSric3xqZaE53T/cbXK/
-	 dKcLk2zROaPgL6QOzRwP2UEjze6QLgBvh9GnqZEWWBPiAUqJEyMwxgu680mTsHgFeTpx3
-	 3uRTaJjPwLecyQNqbjnqqnMvzJW0DKORFKazNyZi4XFINj0LOMfPhY8WZf4bAf2NotHR6
-	 i0NAQkubTkyNfg6KNfsKAIHz19WdzoLeZ4BrlGPcDq1AhmKNrrHn9zZaw9ZKzjpsMixBy
-	 7lMgi3SECh2rrZuLQN46yuTiD2H4wyf5MskQSRMYdSKUnK0JHYJEd2BvB8GnYNA8EKg==
+	t=1792466236;
+	b=kIOv0uBHJSOp1XP61Xk47Cd2MfNEqpGAoGOQu3XhcLQuLfOg3MlZigrCQICXSBczyjbQ
+	 rM7kJwQ9zKJHslhVzqttEzI+qOu9gbUb14inhzEhsG2mnQIWBHZ+NznHsWb1uDmm04zs8
+	 0kiuxvr6Tz2vM7403VZd8Y52GhzTzD/3R0je+oXkeUnq9VjSDKBp5m4U2PnBdwjBpt9W9
+	 s31rItVE7jxUln3jRA9xH5KuyKYZoW3kw/BQOZ72WQOdksMUQQ+i+yUjLAGTWUw/AFg9h
+	 VtEczjpwZQDc/yYYwzLlQyu6L5xq3lU1A5t6LfvYNS5RpXsEuU0vn7qtZ+tOul82pPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792466232;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792466236;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=ftc33jgQlW0KLggFstEt64pjQN6kG8PbZUP4xreE04Y=;
-	b=McGk/sXjhNQ2z8fEKpVASXKdZUoRKF9hQn/6s0JYKTFc+/Zgm7IYqinnJRH8A1YbfrBx
-	 Zx+0bV/5okv7zBTWAGvOhakwr49Qc26oefe/lCR7tX8fpy/1SCqoDW3dMsbDlDdHQj7X7
-	 vt0CGWldu0hf2TsE11vkH4zRgrSlzG1+rte8Z7hwljy2kl3NcBCzClrezvOnjiU05tmBX
-	 npjNT1SMbGDxGtThQNTzdPfFlvg53Nnk02yBCdDSr0KsxJNgtfPIWtiUwHGTh4FkjSwpg
-	 TtX4X/fmDlkXqpJoIElrfWQVr2jYfUTXT4/0gH7R8Ta1PfwdYS6rsnwwWLrG2xVMaXA==
+	 In-Reply-To:References:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
+	 DKIM-Signature;
+	bh=rnLHPhFG/gXRDlU2dAZnibIxBciJw1AG1LGW/j1wmKY=;
+	b=b2AqDGLIXAtSA/qmpuftz5zquz4J8AGv1IglUZn86VjRVdtWDL9bjCl3D58fn4E45GY6
+	 h9xg5SSghjhjaZfOIZlRwtTpj8BYvW9TvnqqqgjYBV4BQ+py3gNKYEDx47CLz0vBtf8UX
+	 tP6/g6DAkWfU19kggy8/LKOb4QXoVCYmERURxKCKUbGfLASrj0nr+3/kTGq942wE+qXLe
+	 h/aTYZwdCD9kCZCVDwa7KcTb0igapB6HeIWq4WRGZfdpHr8spvMCtbjN0/HBSInDERtHm
+	 Ca2giHpKKz/hU4YDz3cWQq4h/sy0RgVI0ZtHW/NR+gSQHO4ocT2w1ymw7Ss32WWOyHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=rock-chips.com;
 	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Ninw0SC6;
-	arc=none smtp.remote-ip=103.131.191.56
-Received: from mail-m10313119156.xmail.ntesmail.com (mail-m10313119156.xmail.ntesmail.com [103.131.191.56])
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=dhcUOd5t;
+	arc=none smtp.remote-ip=156.224.81.183
+Received: from mail-m81183.xmail.ntesmail.com (mail-m81183.xmail.ntesmail.com [156.224.81.183])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19EA5606A31A
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 03:17:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19EA5606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCAF3606A31A
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 03:17:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCAF3606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Ninw0SC6
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=dhcUOd5t
 Received: from localhost.localdomain (unknown [58.22.7.114])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 51a517deb;
-	Tue, 20 Oct 2026 11:16:58 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 51a517e04;
+	Tue, 20 Oct 2026 11:17:02 +0800 (GMT+08:00)
 From: Shawn Lin <shawn.lin@rock-chips.com>
 To: Vinod Koul <vkoul@kernel.org>,
 	Heiko Stuebner <heiko@sntech.de>,
@@ -49,19 +50,21 @@ Cc: linux-rockchip@lists.infradead.org,
 	Samuel Holland <samuel@sholland.org>,
 	Coia Prant <coiaprant@gmail.com>,
 	Shawn Lin <shawn.lin@rock-chips.com>
-Subject: [PATCH 0/2] Support updating the PCIe3 PHY firmware on RK3568
-Date: Tue, 20 Oct 2026 11:16:44 +0800
-Message-Id: <1792466206-127946-1-git-send-email-shawn.lin@rock-chips.com>
+Subject: [PATCH 1/2] dt-bindings: phy: rockchip,pcie3-phy: Document firmware-name
+Date: Tue, 20 Oct 2026 11:16:45 +0800
+Message-Id: <1792466206-127946-2-git-send-email-shawn.lin@rock-chips.com>
 X-Mailer: git-send-email 2.7.4
-X-HM-Tid: 0aa1574fec6b03a4kunm7337cf0a9013ad
+In-Reply-To: <1792466206-127946-1-git-send-email-shawn.lin@rock-chips.com>
+References: <1792466206-127946-1-git-send-email-shawn.lin@rock-chips.com>
+X-HM-Tid: 0aa1574fff2203a4kunm7337cf0a90149d
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZQkJLGlYdSEsYHUNPQh
-	4YTE5WFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
-	tIVUpLSUJDQkpVSktLVUtZBg++
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZQ05ITVYaSx8ZQhodS0
+	0ZHh9WFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
 DKIM-Signature: a=rsa-sha256;
-	b=Ninw0SC6xo2ZqhBc/cdPFI8nTx/+SZqqS3vpbf4VOnu/excpHCcuUsJ9xmsPocLX82pFRjQUHiqweCs6YgRhAILO+yXdXAYQlS6+2/ptf8nzV39+9H2G40NObj0dx9FiBto7SxSVQ49CqyPlRlDf34jXS36R1zYSWVi35ibWTm4=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=ftc33jgQlW0KLggFstEt64pjQN6kG8PbZUP4xreE04Y=;
+	b=dhcUOd5t40dMKZ29YLHBvyBTJMaBuBFII57x8Cufud7wbY12fgE4qcsoDKpVEwjxpEckNqtr4/8rOWxlyN6aehhHTwG2kN4pxJD+yKgaidjSfcW+1QMsYfjOT3g2/qttKWZdrCtlICKV1mAX11hq0TUhE+ZCznfM9c6XwX1M6MY=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=rnLHPhFG/gXRDlU2dAZnibIxBciJw1AG1LGW/j1wmKY=;
 	h=date:mime-version:subject:message-id:from;
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,56 +75,40 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
+RK3568 can load an updated PHY firmware into its internal SRAM. The
+firmware file is named by the optional firmware-name property; when it
+is not described the microcode already present in the PHY is used.
 
-The RK3568 PCIe3 PHY contains a small controller that runs microcode
-from an internal SRAM. The microcode present in the PHY is not always
-the latest one; with a stale version the PHY may fail to establish a
-stable link or come up with other issues that are otherwise very hard
-to diagnose from the host side.
+Document the property and add it to the RK3568 example.
 
-The firmware stays optional: when firmware-name is not described in DT
-(older DTBs) or the file cannot be requested, the driver keeps the
-existing behaviour and runs with the microcode already present in the
-PHY, so there is no new hard dependency for existing boards.
+Signed-off-by: Shawn Lin <shawn.lin@rock-chips.com>
+---
 
-Patch 2 for the PHY driver depends on a pending patch that fixes another
-issue if anyone wants to apply this series for test:
+ Documentation/devicetree/bindings/phy/rockchip,pcie3-phy.yaml | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-lore.kernel.org/linux-rockchip/1792286036-208067-1-git-send-email-shawn.lin@rock-chips.com/
-
-
-The required firmware file is available in the rockchip directory of
-the linux-firmware repository:
-
-  https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
-
-Load firmware during kernel compilation using the extra firmware assignment:
-
-CONFIG_EXTRA_FIRMWARE="rockchip/pcie3-t22-c8g2-1.6.3-202a-p7.fw"
-CONFIG_EXTRA_FIRMWARE_DIR="/home/lt/linux-firmware"
-
-Tested on a RK3568 EVB1 with a PCIe3 x2 NVMe SSD, the firmware is loaded
-and the link comes up:
-
-  phy phy-fe8c0000.phy.0: lane number 0, val 1
-  rockchip-snps-pcie3-phy fe8c0000.phy: loaded PHY firmware rockchip/pcie3-t22-c8g2-1.6.3-202a-p7.fw, size 16384
-  rockchip-dw-pcie 3c0800000.pcie: host bridge /pcie@fe280000 ranges:
-  ...
-  pci 0002:21:00.0: [1e0f:0009] type 00 class 0x010802 PCIe Endpoint
-  pci 0002:21:00.0: BAR 0 [mem 0x00000000-0x00003fff 64bit]
-  pci 0002:21:00.0: 15.752 Gb/s available PCIe bandwidth, limited by 8.0 GT/s PCIe x2 link at 0002:20:00.0 (capable of 31.504 Gb/s with 8.0 GT/s PCIe x4 link)
-  pci 0002:21:00.0: ASPM: default states L1
-
-
-
-Shawn Lin (2):
-  dt-bindings: phy: rockchip,pcie3-phy: Document firmware-name
-  phy: rockchip: snps-pcie3: Load updated PHY firmware on RK3568
-
- .../bindings/phy/rockchip,pcie3-phy.yaml           |   6 ++
- drivers/phy/rockchip/phy-rockchip-snps-pcie3.c     | 101 ++++++++++++++++++++-
- 2 files changed, 105 insertions(+), 2 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/phy/rockchip,pcie3-phy.yaml b/Documentation/devicetree/bindings/phy/rockchip,pcie3-phy.yaml
+index d7de8b5..2356812 100644
+--- a/Documentation/devicetree/bindings/phy/rockchip,pcie3-phy.yaml
++++ b/Documentation/devicetree/bindings/phy/rockchip,pcie3-phy.yaml
+@@ -67,6 +67,11 @@ properties:
+       minimum: 0
+       maximum: 1
+ 
++  firmware-name:
++    description:
++      Name of the PHY firmware loaded into the internal SRAM on RK3568.
++      If omitted, the firmware already present in the PHY is used.
++
+ required:
+   - compatible
+   - reg
+@@ -113,4 +118,5 @@ examples:
+       resets = <&cru SRST_PCIE30PHY>;
+       reset-names = "phy";
+       rockchip,phy-grf = <&pcie30_phy_grf>;
++      firmware-name = "rockchip/pcie3-t22-c8g2-1.6.3-202a-p7.fw";
+     };
 -- 
 2.7.4
 
