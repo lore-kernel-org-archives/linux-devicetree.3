@@ -1,49 +1,34 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792508803;
-	b=w2U/wkeEKHAgNWEEY3Cu5sHDKR5ayZKqZ0uXYYyoq2z2LPuxm1mpdPpQQLkNmRY5tVmJ
-	 rLkfAhc5F0vB5qx3r+87dnINhJHtIv5GrKK4BsoC5zQnxgrahs/WHiDuhXGTP8sX1gx/8
-	 IBdWYqCfPQ/qFZVFNJQwz5zAYBm7rG7Rp8A2q4GBLeEW6L1CDH8hLcK0vlVpoqdQ+Up6W
-	 trAetQjxtwfFFzhEidp53iu6IzjCD/qyMVkTkNEOUEU1/+kogm/VSWvnBc5Rf76q9Zh5q
-	 cMRBpPKPzVFbmcOKmgQFr/gYDwfqUvOsJGlqNvDCdmLxg72AOLUg9wz0bjI8uuRIBBw==
+	t=1792509164;
+	b=ES0NRdlga7TDnLbgJDrEGIrNloDe6cTj/41C+lFa2KeyFsBb12mkK5moZ0XtcCmPBjHY
+	 xLC0/FYJombeTxI8q799TKEPAqvOZzsFK1oEAPoPYAVht56137wRjCrYOk/1K0yX9wTmH
+	 tFLI0wMRyLJxzAYjk8zoVmdjS9OPz8oJbNBUyDu4uhNUL3wq8c7HNfiY2opL4Tok3Ntlo
+	 Y3tVSY0D0S5db1/A/mVgHPSoxvY7pexc+JW+yBKmNRQaClay6CVUVXHwHBrzIPuMtcahz
+	 f0BFoxcVr+l75Hy9OD/792sk3GIfUIv2dEMXXki0VRMCq5UVSOYeep7BFrd0jfl8BmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792508803;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=0c2WAJ+A3fmtE5JIgmM33C+5uxJtcuzd3UjlEAxXX4c=;
-	b=hdk1QNMouph/DLkzJxnEWoEawFLLrIzm5DfyJ8CM2NOfVMrsPgFbhxFA+wwlXAg6Fw0t
-	 7W4o4yPGFxy76+pstS9XNIw9IpYkcHLpW8+svEUtRbyEhYNLmPPjVrPR8i2V4qRdwZ1vm
-	 pna5V18w4y57uod11xNGlBD4UgdFQp7F/Itf1hhOB9lwlO1HlI/c9ZYq/sRDLvPLB9TVO
-	 /l1dAUqeC4EsBnOJ4kKnoq+uL5aa5adIAbikoHZNNqnYwR0Mct60mvqQAKjvAE3m6z1fs
-	 O2wSOAqNnw5qVv8I5/4JRHtTtlJfv6wa7PKG+P7df9RckJxBp2iy/YF80PfXU8ufmWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792509164;
+	h=Received:Date:Content-Type:Content-Transfer-Encoding:MIME-Version:
+	 From:Cc:To:In-Reply-To:References:Message-Id:Subject;
+	bh=13Yuoyae55wiKNqti/LOAEL9RI5niDoBeik6pXc0Zx4=;
+	b=mKzhujc8cKb4YtGoFK7QOWHZ1bc3euRZyqC9x0d7KHsonNkulDebB7LmcBudNpDH9kXO
+	 5wYoc9MkSHSO6Ct97BByfvL2lXAOYRduHiSuZO32MAg3/PjI1GljO6mkPGpzpsoaua9rG
+	 PkzVPbSNxFttx7emWxiEI4R+jn5oLYDUDZVzoztmHRTDNIz1Hyw1xvS17iJy8S0fbcn2r
+	 HQje6kuFamzaKfIDpmLZ37CoGG+/sH43lF4Y3kQI5xqZSyoLVFUMJRHszUIQJC9xqSpF0
+	 qVZp7rAS0j2z8h+FzliTLchtVWg6s9Yh4hYoyH5U51EQ5OGxn6Bry3nvxv9yDxcstfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=qbsEPwkD;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B907C606A31A;
-	Tue, 20 Oct 2026 15:06:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B907C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=qbsEPwkD
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BACB516F8;
-	Tue, 20 Oct 2026 08:06:38 -0700 (PDT)
-Received: from [10.0.137.15] (XHFQ2J9959-5.cambridge.arm.com [10.0.137.15])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 023503F7B4;
-	Tue, 20 Oct 2026 08:06:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792508801; bh=B2p95+bauGKjmtB2lfd2lV6Dt4OS4tWv6hQlDp4Cj+Y=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=qbsEPwkDD7Lc4yU5KuGZCTmflk83ca1uakWmyzyB5V+G5xona4bnVrrf8HUO7SfBD
-	 hWcREG5/ibmRlF3zEEC0SajKDIYlVtmTByzKmcih5lFG3FO5cxnsZcCqcNRrejVtTV
-	 ofgzQDwH+CmP1BeWW8uCRXFv9mqJ7hmrpsqrKaQ8=
-Message-ID: <c367caf3-d462-42ea-b482-bf9c51c47a63@arm.com>
-Date: Tue, 20 Oct 2026 16:06:37 +0100
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CE3C606A320;
+	Tue, 20 Oct 2026 15:12:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1188E1F000C4;
+	Tue, 20 Oct 2026 15:12:44 +0000 (UTC)
+Date: Tue, 20 Oct 2026 10:12:43 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -53,68 +38,81 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 12/15] vfio: Support VFIO devices that access the
- CPU MMU
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
- Alex Williamson <alex@shazbot.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jean-Philippe Brucker <jpb@kernel.org>,
- Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
-References: <20261015142552.4128028-1-ryan.roberts@arm.com>
- <20261015142552.4128028-13-ryan.roberts@arm.com>
- <20261015164421.GD13920@nvidia.com>
- <95e0f9bd-0203-4c7a-9d09-622593bb3d4c@arm.com>
- <20261020140944.GA3008132@nvidia.com>
-From: Ryan Roberts <ryan.roberts@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20261020140944.GA3008132@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-kernel@vger.kernel.org, edumazet@kernel.org, 
+ devicetree@vger.kernel.org, mohd.anwar@oss.qualcomm.com, 
+ peppe.cavallaro@st.com, linux-stm32@st-md-mailman.stormreply.com, 
+ alexandre.torgue@foss.st.com, daniel@riscstar.com, joabreu@synopsys.com, 
+ pabeni@redhat.com, davem@davemloft.net, maxime.chevallier@bootlin.com, 
+ netdev@vger.kernel.org, linux@armlinux.org.uk, richardcochran@gmail.com, 
+ linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com, 
+ kuba@kernel.org, hkallweit1@gmail.com, krzk+dt@kernel.org, 
+ p.zabel@pengutronix.de, andrew+netdev@lunn.ch, conor+dt@kernel.org, 
+ lorenzo.bianconi@oss.qualcomm.com
+To: Alex Elder <elder@riscstar.com>
+In-Reply-To: <20261019030129.1470307-2-elder@riscstar.com>
+References: <20261019030129.1470307-1-elder@riscstar.com>
+ <20261019030129.1470307-2-elder@riscstar.com>
+Message-Id: <179250894164.3309593.6302141090126438838.robh@kernel.org>
+Subject: Re: [PATCH net-next 1/5] dt-bindings: net: add support for Toshiba
+ TC9564
 
-On 20/10/2026 15:09, Jason Gunthorpe wrote:
-> On Tue, Oct 20, 2026 at 12:51:26PM +0100, Ryan Roberts wrote:
->>> However.. you still have to affirm which single mm is the mm that the
->>> device is going to be doing DMA against. The process the opens the fd
->>> should not be forced to be the mm that it gets linked to.
->>
->> What is the mm representing here? Ultimately we want to install the KVM
->> instance's stage2 pgtables and (pinned) VMID. We currently get that via the
->> bound KVM instance (which looks like it still works using the cdev interface?)
->>
->> The guest will then install the stage1 pgtables and (pinned) ASID associated
->> with the relevant (guest) mm_struct.
->>
->> Do we _need_ an mm association in the host?
+
+On Sun, 18 Oct 2026 22:01:24 -0500, Alex Elder wrote:
+> The Toshiba TC9564 is an SoC that exposes two XGMAC 10 Gbps Ethernet
+> interfaces, each of which is attached to an embedded PCIe function.
 > 
-> Ah.. I see, I didn't quite follow that. OK.. Ah everyone else doing
-> this is using iommufd with a viommu to establish their connection
-> between device an KVM. eg Jacob Pan's series. That's a probably a
-> better idea to stay aligned with the common path. Though your reasons
-> are a little different..
-
-Just to check, you're referring to [1]?
-
-I was under the impression that I could open the VFIO device through the cdev
-interface, then bind it to the KVM instance via KVM_DEV_VFIO_FILE_ADD... Why do
-I need an iommufd at all?
-
-[1]
-https://lore.kernel.org/all/20260925190742.1575380-1-jacob.pan@linux.microsoft.com/#t
-
-Thanks,
-Ryan
-
+> These XGMAC interfaces have three resets, for the MAC, PMA, and XPCS
+> layers.  These resets differ from the standard two resets defined
+> in "snps,dwmac.yaml".
 > 
-> If you manage to get pinned VMID out of KVM then we can implement SMMU
-> BTM as well!
+> To permit these other resets to be used, modify the way resets are
+> defined in "snps,dwmac.yaml" to be similar to the way interrupts and
+> their names are defined earlier in the file.  That is, rather than
+> adding descriptions with the resets property values, just specify the
+> maximum number of items.  Then, in the reset-names property, provide
+> a list of description/constant value pairs, indicating which renames
+> may be used among the (three) reset items specified.
 > 
-> Jason
+> Signed-off-by: Alex Elder <elder@riscstar.com>
+> ---
+>  .../devicetree/bindings/net/snps,dwmac.yaml   |  26 +-
+>  .../bindings/net/toshiba,tc9564-xgmac.yaml    | 327 ++++++++++++++++++
+>  MAINTAINERS                                   |   7 +
+>  3 files changed, 351 insertions(+), 9 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/net/toshiba,tc9564-xgmac.yaml
+> 
+
+My bot found errors running 'make dt_binding_check' on your patch:
+
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/net/snps,dwmac.yaml: properties:reset-names: {'maxItems': 3, 'items': [{'oneOf': [{'description': 'GMAC stmmaceth reset', 'const': 'stmmaceth'}, {'description': 'AHB reset', 'const': 'ahb'}, {'description': 'MAC reset', 'const': 'mac-reset'}, {'description': 'PMA (Physical Medium Attachment) reset', 'const': 'pma-reset'}, {'description': 'XPCS reset', 'const': 'xpcs-reset'}, {'description': 'OCP reset (deprecated)', 'const': 'stmmaceth-ocp'}]}]} should not be valid under {'required': ['maxItems']}
+	hint: "maxItems" is not needed with an "items" list
+	from schema $id: http://devicetree.org/meta-schemas/items.yaml
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/net/snps,dwmac.yaml: properties:reset-names:items:0: 'oneOf' is not one of ['const', 'deprecated', 'description', 'enum', 'not', 'pattern']
+	from schema $id: http://devicetree.org/meta-schemas/string-array.yaml
+Documentation/devicetree/bindings/net/toshiba,tc9564-xgmac.example.dtb: ethernet@48000 (toshiba,tc9564-xgmac): False schema does not allow True
+	from schema $id: http://devicetree.org/schemas/net/toshiba,tc9564-xgmac.yaml
+Documentation/devicetree/bindings/net/toshiba,tc9564-xgmac.example.dtb: ethernet-phy@1c (ethernet-phy-id004d.d101): Unevaluated properties are not allowed ('vdd18-supply' was unexpected)
+	from schema $id: http://devicetree.org/schemas/net/qca,qca808x.yaml
+
+doc reference errors (make refcheckdocs):
+MAINTAINERS: Documentation/devicetree/bindings/net/toshiba,tc9564-dwmac.yaml
+
+See https://patchwork.kernel.org/project/devicetree/patch/20261019030129.1470307-2-elder@riscstar.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
