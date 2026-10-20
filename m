@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792487183;
-	b=wwq4EpB2Zlw7h1v5RFK4xEag2NxZQzh0uE3uc7tK+yWMILZC4bgqTTa8x3bEEtJygPjY
-	 liyTgOQo9T/6+PHddCnpXF+iYbPLQmT3QWdycU2XejW1F+IwcRUPsV+Mc+blpkLvK59VX
-	 mkDsXiO0cGVuXjFLYBMyHDCL/pG36KQGUa8aZpN1PJkYLvDnBUHPufN8quspIyXjigNtF
-	 zsTlOks1h2gXJ4805kWtOa9kT7uT05HXtU7KlR4JTfdU6cixftsX531cDXg4zwM09A7Ia
-	 tlhkZdU1lFCern2E5lqUKR+cwQ1hLICo/lgrlyJ9kvm48MPtMUG6jqFhxV2iw73oUZg==
+	t=1792487257;
+	b=JTPWAuA+W2WaZo1UmgELlcD2bgDu5sBts1hPslsyFdp5HYL6anWG0SiexGGa+kL5OCzM
+	 Igf9iY4JGIKpuzigK/Idjf7/6goD7VyjNhRPkk7zHBr0GcMzCqU+SJKpqnk6EqtOPJOgR
+	 3X+nJyIgBCgWNlIvIN+hFLBE5p5QbsqqKV7sOvSA4VXVRrbMu0rV7vlAbkBSX1iA/2JHk
+	 bzOViKvMuOMitYb3Fa2BQBNalo0JhmR5TSswcol04+cEXQ8jJVlIcB5fwOcISvN9jtLG5
+	 F6RkMPzb0xsaHx0hSS9jGYXD2xq5pSCUXVM3NtkBYyn8aZr2HGSRp+0NSNpMEuHrLnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792487183;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=pn49u1kwBs9dFgjt7RSgSDIwcLDGVuQNqoxWaFc4fQ4=;
-	b=kzUIQi8KX5Rpkx1tH+6JoBz1yW5GkgDW9RTGqiBrwgCRmvrWL/58eiwkxm/lPiRoS3xN
-	 E0MKpxhiEKk/22CzNNH2ZZ9Okwk26jn//LUhVlTnj/AIheP1fRCuDdt/uAOzzIF7oUZhG
-	 PqjuyPbcLpOYH6XdZtga+cLOidxPE3ltKhnDK5Wl+Qzz+GxdYPr0FqGFPzmnEckKnju04
-	 LA/zpf9F1b7hHdAATKq/tpZvFPCZrLmXSeH1YPnox8ZtoAPgMyN6TUxfgaoJ+HdEYGyEx
-	 s6+crh1osgjkJvRLd35HXhaulUrazNOg9h4soKIrKMQeCrGwh7XuVByYKziwgC3pkWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792487257;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=4bn3cWdwZrpBaWzYJtec/Ntiw0Eowff++j505Mm5iEg=;
+	b=FlOu+wLSU7kah1G6jr3FOPPLMRawfPNmcF2C/NND5GprI5DP01uQXp5EsRC/wahaSOAO
+	 k6D2+NosQnIMkadiQ6ahaW8Oumygoy+Rn16ud5eRvWZXiO5kFmLM+b0l7Inpz4d9d3i+x
+	 Dx3Z0Xz0pGtKP2FavBhe93aqwo99duFMElHKCzrXdf1VYpeAp/VvUA4sroMSzHggYeNWM
+	 5GkgAPL8c5Rf7h2aKJ6MeQNhtL8mf9xuSp8MNiKks9jXYOPWS/XJeL5C5InboyEcEjmCj
+	 ffnwLuF/xPFwPoC6vFWXQjTP8Rv5K+lUVFe42XPaNiYVOk2H3nbF+njYz3beWE4zi/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BkK3VV5O;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=JEWtc8B5;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F6C1606A322
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 09:06:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83990606A319;
+	Tue, 20 Oct 2026 09:07:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83990606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BkK3VV5O
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F97C1F000C4;
-	Tue, 20 Oct 2026 09:06:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792487182;
-	bh=pn49u1kwBs9dFgjt7RSgSDIwcLDGVuQNqoxWaFc4fQ4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BkK3VV5Oz0QqxTmIf24mGvXoigwwUL+otvyMKbZjJWV6+jdvvLNpnDT5VLtmAYhUa
-	 baswWCw3rlG4dLecHaTBOZg9/8oHcC+urL6KjWalFprci8E75yv6a2qF5WZeKRVyMu
-	 QPgycZw5v7RNdfHtRJvurKq5pCXGDQBehvywkJd2GPg9/OjR4SK1noM4sAqycGilxS
-	 sOzPlmeW8pgZuHHDR8xe6JtORqd0Xdw5hkqhriR/52BEDhtiZmhXbSurpGg1Ex4a4G
-	 iTlgWAHP5FbSOdm8Wsx0ZwaRIj5E27Ajl3aif1eA9WFi0dNHNh9tBnC6JNPi+U047R
-	 5DHOnbgSwnbYw==
-Message-ID: <sashiko-outbox-178688@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/4] ASoC: codecs: wcd937x: add USB Type-C analog
- audio mux support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Val Packett" <val@packett.cool>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261020082631.1509275-3-val@packett.cool>
-References: <20261020082631.1509275-1-val@packett.cool>
- <20261020082631.1509275-3-val@packett.cool>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 20 Oct 2026 09:06:21 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=JEWtc8B5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1792487254;
+	bh=oRGsM1bXUyoQFClOurpdXPfqoj3kEqrQ7E5LuNfjomU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=JEWtc8B5ei7AdnCgumD9wkGPxVmZIML9X0/Yp+0gePGNvkKYFhQ6trIgjFIuJmcmw
+	 +juMBVqWVYgBwBNztcO+GKU0qVKV5/YR8lmSZ8sKcjBG4hoaXh/X7/GJ2HFXvwiXHn
+	 GQl7ZKuGv6Ni3JlB1R3rHGeOA6WlV+nKUZVE5vE5DN+bCw7T8Ir1IURKlvcvq8CMty
+	 1ODove3DUBjKOYLnRfNmRSmyBOxkrVCRuEJz2gBQIqtS38KjLiyrA4GsXEUmbq2x2P
+	 mbTUdVmwVjtuOuaWphb36gnoQ8njOl7BO7TmpxKu1CLiBZ5p2pj+Z0GzLlr9lq7p4j
+	 sOM/TsMdMYt1A==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 1320317E05F3;
+	Tue, 20 Oct 2026 11:07:34 +0200 (CEST)
+Message-ID: <afc3ec2a-90b5-440d-9710-2b3892b01b6c@collabora.com>
+Date: Tue, 20 Oct 2026 11:07:33 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,187 +60,42 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH PARTIAL-RESEND v12 0/5] Add support MT6316/6363/MT6373
+ PMICs regulators and MFD
+To: Alexandre Mergnat <amergnat@baylibre.com>
+Cc: linux-mediatek@lists.infradead.org, lee@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
+ lgirdwood@gmail.com, broonie@kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ kernel@collabora.com, wenst@chromium.org
+References: <20260511101355.122478-1-angelogioacchino.delregno@collabora.com>
+ <179239867012.642420.15110854236483587234.b4-review@b4>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <179239867012.642420.15110854236483587234.b4-review@b4>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] ASoC: wcd937x: uninitialized __free(device_node) pointer in wcd937=
-x_probe()
-- [High] ASoC: codecs: wcd937x: use-after-free race in wcd937x_mbhc_deinit()
---
+On 10/19/26 10:31, Alexandre Mergnat wrote:
+> Hi Angelo,
+> 
+> I'm working on mainline support for the MT6363 MFD PMIC.
+> 
+> Are you planning to send a new revision addressing the review feedback
+> on v12? If you don't have time to pick it up again, I'd be happy to
+> help address the remaining comments and prepare a new revision,
+> if that works for you.
+> 
+> Thanks for your work on this!
+> 
+> Cheers,
+> Alexandre
+> 
 
-commit 4c12f167e90fb501eb42394e2202994cfc931062
-Author: Val Packett <val@packett.cool>
+Yes, I do have a new version locally which didn't get sent because of the SPMI
+series (introducing the new helpers) that didn't get picked yet.
 
-ASoC: codecs: wcd937x: add USB Type-C analog audio mux support
-
-This commit adds USB Type-C analog audio mux and orientation switch
-support to the WCD937x codec driver, handling hotplug notifications via
-MBHC and reporting GND-MIC pin swap orientation back to the external mux.
-
-> diff --git a/sound/soc/codecs/wcd937x.c b/sound/soc/codecs/wcd937x.c
-> index 7ffbb445f8ac4..48f8852d34513 100644
-> --- a/sound/soc/codecs/wcd937x.c
-> +++ b/sound/soc/codecs/wcd937x.c
-
-[ ... ]
-
-> @@ -2038,6 +2052,8 @@ static void wcd937x_mbhc_deinit(struct snd_soc_comp=
-onent *component)
->  	struct wcd937x_priv *wcd937x =3D snd_soc_component_get_drvdata(componen=
-t);
-> =20
->  	wcd_mbhc_deinit(wcd937x->wcd_mbhc);
-> +	/* May be accessed by platform dev typec callbacks, clear */
-> +	wcd937x->wcd_mbhc =3D NULL;
->  }
-> =20
->  /* END MBHC */
-> @@ -2634,6 +2650,40 @@ static const struct snd_soc_component_driver soc_c=
-odec_dev_wcd937x =3D {
->  	.endianness =3D 1,
->  };
-> =20
-> +#if IS_ENABLED(CONFIG_TYPEC)
-> +/* Get USB-C plug orientation to provide swap event for MBHC */
-> +static int wcd937x_typec_switch_set(struct typec_switch_dev *sw,
-> +				    enum typec_orientation orientation)
-> +{
-> +	struct wcd937x_priv *wcd937x =3D typec_switch_get_drvdata(sw);
-> +
-> +	wcd937x->typec_orientation =3D orientation;
-> +
-> +	return 0;
-> +}
-> +
-> +static int wcd937x_typec_mux_set(struct typec_mux_dev *mux,
-> +				 struct typec_mux_state *state)
-> +{
-> +	struct wcd937x_priv *wcd937x =3D typec_mux_get_drvdata(mux);
-> +	unsigned int previous_mode =3D wcd937x->typec_mode;
-> +
-> +	if (!wcd937x->wcd_mbhc)
-> +		return -EINVAL;
-> +
-> +	if (wcd937x->typec_mode !=3D state->mode) {
-> +		wcd937x->typec_mode =3D state->mode;
-> +
-> +		if (wcd937x->typec_mode =3D=3D TYPEC_MODE_AUDIO)
-> +			return wcd_mbhc_typec_report_plug(wcd937x->wcd_mbhc);
-> +		else if (previous_mode =3D=3D TYPEC_MODE_AUDIO)
-> +			return wcd_mbhc_typec_report_unplug(wcd937x->wcd_mbhc);
-> +	}
-> +
-> +	return 0;
-> +}
-> +#endif /* CONFIG_TYPEC */
-
-[Severity: High]
-Can wcd937x_typec_mux_set() race with wcd937x_mbhc_deinit() and cause a
-use-after-free on wcd937x->wcd_mbhc?
-
-The Type-C mux is registered in wcd937x_probe() via devres, so it remains
-active during component teardown:
-
-wcd937x_unbind()
-  snd_soc_unregister_component()
-    wcd937x_soc_codec_remove()
-      wcd937x_mbhc_deinit()
-        wcd_mbhc_deinit(wcd937x->wcd_mbhc)
-
-Inside wcd_mbhc_deinit(), the driver frees IRQs, cancels
-mbhc->mbhc_plug_detect_work, and calls kfree(mbhc), all before
-wcd937x_mbhc_deinit() sets wcd937x->wcd_mbhc =3D NULL:
-
-sound/soc/codecs/wcd-mbhc-v2.c:wcd_mbhc_deinit() {
-	...
-	mutex_lock(&mbhc->lock);
-	wcd_cancel_hs_detect_plug(mbhc, &mbhc->correct_plug_swch);
-	cancel_work_sync(&mbhc->mbhc_plug_detect_work);
-	mutex_unlock(&mbhc->lock);
-
-	kfree(mbhc);
-}
-
-Because there is no synchronization between wcd937x_typec_mux_set() and
-wcd937x_mbhc_deinit(), a concurrent wcd937x_typec_mux_set() callback can
-observe a non-NULL wcd937x->wcd_mbhc while or after wcd_mbhc_deinit() runs,
-calling wcd_mbhc_typec_report_plug() or wcd_mbhc_typec_report_unplug() on
-freed memory and scheduling mbhc->mbhc_plug_detect_work after
-cancel_work_sync() and kfree(mbhc).
-
-[ ... ]
-
-> @@ -2907,6 +3043,9 @@ static int wcd937x_probe(struct platform_device *pd=
-ev)
->  	struct device *dev =3D &pdev->dev;
->  	struct wcd937x_priv *wcd937x;
->  	struct wcd_mbhc_config *cfg;
-> +#if IS_ENABLED(CONFIG_TYPEC)
-> +	struct device_node *np __free(device_node);
-> +#endif /* CONFIG_TYPEC */
->  	int ret;
-> =20
->  	wcd937x =3D devm_kzalloc(dev, sizeof(*wcd937x), GFP_KERNEL);
-> @@ -2951,6 +3090,22 @@ static int wcd937x_probe(struct platform_device *p=
-dev)
-> =20
->  	wcd_dt_parse_mbhc_data(dev, &wcd937x->mbhc_cfg);
-> =20
-> +#if IS_ENABLED(CONFIG_TYPEC)
-> +	/*
-> +	 * If the node has a port and a valid remote endpoint,
-> +	 * consider HP lines as connected to a USB-C SBU mux
-> +	 */
-> +	np =3D of_graph_get_remote_node(dev->of_node, 0, 0);
-> +	if (np) {
-> +		wcd937x->typec_analog_mux =3D true;
-> +		cfg->typec_analog_mux =3D true;
-> +
-> +		ret =3D wcd937x_add_typec(wcd937x, dev);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +#endif /* CONFIG_TYPEC */
-
-[Severity: High]
-Does wcd937x_probe() pass an uninitialized np pointer to of_node_put() on
-early return when CONFIG_TYPEC is enabled?
-
-In wcd937x_probe(), np is declared with __free(device_node) without being
-initialized to NULL, and is not assigned until of_graph_get_remote_node()
-is called later in the function.
-
-Between the declaration and that assignment, there are five early return
-paths if devm_kzalloc(), devm_gpiod_get(), devm_gpiod_get_optional(),
-devm_regulator_bulk_get_enable(), or wcd_dt_parse_micbias_info() fails:
-
-sound/soc/codecs/wcd937x.c:wcd937x_probe() {
-	...
-	wcd937x =3D devm_kzalloc(dev, sizeof(*wcd937x), GFP_KERNEL);
-	if (!wcd937x)
-		return -ENOMEM;
-	...
-	wcd937x->reset_gpio =3D devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-	if (IS_ERR(wcd937x->reset_gpio))
-		return dev_err_probe(dev, PTR_ERR(wcd937x->reset_gpio),
-				     "failed to reset wcd gpio\n");
-	...
-}
-
-If any of those early returns is taken, the __free(device_node) cleanup
-handler runs on the uninitialized stack variable np. Should np be
-initialized to NULL at declaration, or declared where
-of_graph_get_remote_node() is called?
-
-[ ... ]
-
-> =20
->  	ret =3D wcd937x_add_slave_components(wcd937x, dev, &match);
->  	if (ret)
->  		return ret;
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261020082631.1509=
-275-1-val@packett.cool?part=3D2
+Cheers,
+Angelo
