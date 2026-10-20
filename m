@@ -1,18 +1,17 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.58
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.2
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792505607;
-	b=mRTCkM3hdeYNANWRpLBgdTUsYe8O6kBx093hiS/7RhSlgWZkveYjTNmIL7LQRYLjkZkv
-	 lFt9BfuMWVD1AejUMNoo0KZs1sjQ1124BQL0quz2JZBXgBDINl3ynPflrIbgFESnem8f1
-	 YJq4I0KlJL501s0JFd4zX0rz5xKlwcpvYTPE2Ryyuk6jFRUNzrpq22BxH6o9NT4sy3bGq
-	 IRIaRVWlox4cS1ESHPSV+7v3oViuIaUHNaytix4wT1IF2E0inSSy1cQvujrJdA1FfNhkp
-	 SM/TO7+ustTMT0JVNAgwZnrF/i9EdauQekKVvBBFFYNZn7rUKuIIkzdQDbj8u4sfZoA==
+	t=1792505751;
+	b=rMhhZU/mVHPVadL4grIEaOMqqEEE+eC7/sB6561oSxLS6DP/tg6INbF9Mjk8dodFpB96
+	 BKVBYc5602+oKHIhjYSfXMfCnf3gHYypmiM4yp18X/j501mqGKpsUOpbX3dFigdfGdf9+
+	 7eBGxvFWqttx6g984BOy4c/gdAMsaDx5Kqpgl+mKGLiWSthtpZjSLLMIAhknJfbhkompN
+	 ydC4DAtcYdE7d63sstwj02GfB670J4EMa7RVglyfAIYbizkjRccoZRaB7K+tb09EZGUjO
+	 bFA5UIMNcDrHofJHNV2EhabT+5AFaFDbF3wZ38cm72iXg7GaAPO2eSdFplAEUXSnSvA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792505607;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792505751;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
 	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
 	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
 	 X-Forefront-Antispam-Report:
@@ -25,81 +24,85 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Kxr0nhqtQIO/3hUHg1GyihSJWJiBv6AMeP9ii4uTwnw=;
-	b=VMHXqRB8YXS54ZZ/NP8VTVkRtgs7/HXQ20JnwAALbQUVMgIDNBywW6/TXMV8Akn7nzEZ
-	 NIn1RuerB1e9MQAvla5OXwS+ZRcbvoVo9pmEXv3CCFw6hHFV/eMc3sUMiNkYJ/rb4yIV8
-	 8b5LPzzU2AvZi5ak1pAd3Aul47cPBv9jOuOtaYssvWSzAlywKw7cSLRHe6vNHxAr9MvU6
-	 /T1zpC23HtaS313LwdJy/cy+TKPtwkHOS/PQydvYRj24fITmg6Oar9YGkpp+iFoFVpPYH
-	 k4vET6hjjjGOdbp63JRHOlua8T6dbQNyBvm6HaJPg0R/Z0CqWm4uPdgAU2Px2NqEPfg==
+	bh=1Grl+442tVBj2zWWfCC/7XqCpgD8fo8OS8qWEbvBQgo=;
+	b=mf9elstrOTxALqOTD7q0YISFb9NOlbIeRENoHpZuwWy+hfB6DLvDTxJ5Tj01pNXcYyJX
+	 CrGSuv8rOyN3uNrG6kk3SpSE7v2pBddqudb5l1xINl2q8pXIGIfyWMYNLuFU0nHF6lbIi
+	 LEiHW5LMd8mnpBEvZSMPbUO5Rs7+kaPkXIBZ0YWuQhfWX4ea0ZiPxMZvFvhtdAiWk09rf
+	 uDOjJpgFaKo3+O418AbQYsGPoquQyarJsJYjTuzLQZzfAeKsIz+rAqYypy5/SjQMwsJwJ
+	 SPaYNyvjyg7R2QziG0LiDxUDCunp1UsgxghBv0z2yzF61Ckrlli5/M59e5yUMeW4Kuw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=renesas.com;
-	spf=pass smtp.mailfrom=renesas.com;
-	dkim=pass header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=ps1Sms4n;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.58
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010058.outbound.protection.outlook.com [52.101.228.58])
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=dFq3AiwW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.2
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012002.outbound.protection.outlook.com [52.101.48.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A42C606C200;
-	Tue, 20 Oct 2026 14:13:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A42C606C200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39AD3606A325;
+	Tue, 20 Oct 2026 14:15:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39AD3606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=ps1Sms4n
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=dFq3AiwW
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wSeXiEkZxo6BNg6RFPwoM76pRoIuDAXmVr57H2fiG5BPMIuXF29G8RQDMLX4+4HYQPJWhzJQLII2phhWr5DtjujQU8zxHeoB/LyNAwKGFzt4D2espxgK5RcDjYnj/4aFpAXZpikV4GxA0GNNgGH6GzlMYtF2DTwa9Tr9TgLzAawu1aCP6WZC2mZfaeswcHQxW1IgkVjoUSAWg82bei63i7Rs0vSaM3OTFh43rnW6f6MDk7Hg6w3DgH2p5LasQpNQNGGG6vUu5hAybMOroCp7IL9mrmGe0yu9xSfE72sE+fRvmTq/v0xS0sjGxxLFoyG+IZiUa5eVTpt9HhY/1ILCsA==
+ b=QSr09M7SO0pyp2onnvFQJV7hw7LegJ13MFiJcWqB4cHfJTBpOYBCcYLFUvj2OrpSVvEWzov7glTxVeIsAtXEX4C3PKQvxCPpwD/UmROyBmfLX0HmlmBCbSgEhBpxQRQ+FLcpU9t5UuDnWTlru7IF1Gs5uUaLgFdRNnpVrrDHGVQx97U2f9AQz4XuWfUV+nQTpqXlVxlaF4jf0QoEbIdOBbCVh31DaHPHwTnEisHYcT5GDsolpJimUmUrHQ5wH3P6vWlpcI9stTiDKbQsTJe0KBRrP2eiGECV13ihUQ9RNfQN7keAKDUO/GH8e+MhuprKqKrE00EN9tH+BlWzWRiHgA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Kxr0nhqtQIO/3hUHg1GyihSJWJiBv6AMeP9ii4uTwnw=;
- b=ZP+7/D+okDIVjHWGodW1tNHbfbisHBX3D6ihOJyMlg8hDYqJMVYfF0+0oQqTH8UTT0r/Nrexfvdl5OmEAyNpIlF0qX8NE8AmXML3F7n2CREYwMaOA0WKo16tDDPy1cg7Wzrgfo4QSr/sKLl2J8Rr4WOtyGVf3o/xXpuuahOyslU4LXIHoC+8oRSjO7yXhkQ8n5b1uviC7aOgoRX038naY+vPD2F/Z2sHDfVRixgAaqq+GTSDnsrWOWbTvvHfPA45yKLnDl8zt9lft26BFY9GTm5FV20hvn+qCZ3Dds1ZHinZKkcvlmPEgtVFrtcQZwQ/n9j2S1oakctBN++6l3uO+A==
+ bh=1Grl+442tVBj2zWWfCC/7XqCpgD8fo8OS8qWEbvBQgo=;
+ b=gzqoHm3XIRP7YIzl94IJ9UFBlkbBAyRhhHKBmgdtm6U12xGWOEK4fpN456mc5qVrn8xFWBpSpOGkrsT/o8J+ReZsex92yHYWvgwKONcje4c9z0z+Yi1RLxjNOI7Ts83Lj0CBHsLr4kOkuPdLfQD+gNeuom3MMCdo6RcpLiGpIgMEVcBamyJ+3lwUn+oK8ZG/+J7GeC8f29wJ7Mdqk6DZ7nAvEWJGwhlFm8aOZ422VPnm9+mK4sC3kbEf3vvBthMiM6T8GplcFGr97POPoaoAu60G9ng+RtdFg5BLSxD6dyuwrENZG8q9oI/DMo/AWL5F2Y0Cx44RHM89fhqPK/4k+w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Kxr0nhqtQIO/3hUHg1GyihSJWJiBv6AMeP9ii4uTwnw=;
- b=ps1Sms4n82e8HanUCUS58eLxDmcL7uP/wloDPrtcsAg61nywXhnbzPrvgm0nYalgXEPmH+2AulMJyA4g+k4rbQxFg/Vdp59cEnop71D8HJxdVEByIEK+OP2OT6gLmxMOWgn6QBI5Fx1t3vFqjDxtSugozBFtVXs53+jtJUcNAak=
+ bh=1Grl+442tVBj2zWWfCC/7XqCpgD8fo8OS8qWEbvBQgo=;
+ b=dFq3AiwWD2G1EFflfWRVgemvol67s7m8jjWWK85phcemDFFEoppxB/0umTaDSZgjU/Gc8DX2IfHjmmfiSyb/va35d/fggsKYVDW5nMA0bTUuyrB7TX+49FNxkRlamSr6Epb2n70xedC32LtJVRuRWVyJPe+Emoj6MvVvVemBPlQYd/GKVW64JQk6OSlB20r55fw+OKoqIeA57ck2mLrkTb+uGfNTYf5F7QK9UyJBPRwH8LflVzy3VZRO5wtAA6iTiw1qOpI1jk1TUVSTfUEY9x1cV4WbhLhaSkrnC6kQJZxYkXt1F4YkDmFSVOUmrR91DqnV4zZ7XCxSkTAN2QMvCQ==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from TYYPR01MB15118.jpnprd01.prod.outlook.com
- (2603:1096:405:1a1::11) by OSOPR01MB12410.jpnprd01.prod.outlook.com
- (2603:1096:604:2d6::11) with Microsoft SMTP Server (version=TLS1_2,
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by CY1PR12MB9583.namprd12.prod.outlook.com
+ (2603:10b6:930:fe::18) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
- 2026 14:13:20 +0000
-Received: from TYYPR01MB15118.jpnprd01.prod.outlook.com
- ([fe80::1116:d56:8164:63b4]) by TYYPR01MB15118.jpnprd01.prod.outlook.com
- ([fe80::1116:d56:8164:63b4%6]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
- 14:13:19 +0000
-Message-ID: <c4677ed8-d682-4d05-afbb-d517e59de391@renesas.com>
-Date: Tue, 20 Oct 2026 15:13:07 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/8] i3c: renesas: Fix zero I2C SCL rate on pure I3C buses
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Linus Walleij <linusw@kernel.org>,
- linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, stable@vger.kernel.org
-References: <20261020-divo-ssgrlpcsrc-2966-i3c-v1-0-30a47f25e515@renesas.com>
- <20261020-divo-ssgrlpcsrc-2966-i3c-v1-1-30a47f25e515@renesas.com>
- <CAMuHMdWt8KV02C+N1dj=gcdJwX4s-_=+zRpsh+Za+f0HeHOkuw@mail.gmail.com>
-Content-Language: en-US
-From: Diogo Ivo <diogo.ivo.sx@renesas.com>
-In-Reply-To: <CAMuHMdWt8KV02C+N1dj=gcdJwX4s-_=+zRpsh+Za+f0HeHOkuw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: ZR0P278CA0154.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:41::9) To TYYPR01MB15118.jpnprd01.prod.outlook.com
- (2603:1096:405:1a1::11)
+ 2026 14:15:41 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
+ 14:15:41 +0000
+Date: Tue, 20 Oct 2026 11:15:40 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Jean-Philippe Brucker <jpb@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	Alex Williamson <alex@shazbot.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev, kvm@vger.kernel.org,
+	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linux-doc@vger.kernel.org
+Subject: Re: [RFC PATCH v2 15/15] misc/arm-cla: Add vfio-mdev user interface
+Message-ID: <20261020141540.GB3008132@nvidia.com>
+References: <20261015142552.4128028-1-ryan.roberts@arm.com>
+ <20261015142552.4128028-16-ryan.roberts@arm.com>
+ <20261015164102.GC13920@nvidia.com>
+ <CABCqBse_aZL-EH0us2uA5X10q6E4WP02MoHTYf+M9ezRZr26WQ@mail.gmail.com>
+ <20261016144202.GG13920@nvidia.com>
+ <375868af-d0bd-4278-83e6-f8429df130e9@arm.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <375868af-d0bd-4278-83e6-f8429df130e9@arm.com>
+X-ClientProxiedBy: BL1PR13CA0023.namprd13.prod.outlook.com
+ (2603:10b6:208:256::28) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -110,133 +113,110 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYYPR01MB15118:EE_|OSOPR01MB12410:EE_
-X-MS-Office365-Filtering-Correlation-Id: bc855cbe-2237-46a9-0656-08df2eb44acc
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|CY1PR12MB9583:EE_
+X-MS-Office365-Filtering-Correlation-Id: 69e80da7-28cd-4f62-b2b5-08df2eb49f8b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|366016|56012099006|4143699003|11063799006|261009223027099003|10067099003|18002099003|22082099003;
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|6133799003|22082099003|18002099003|4143699003|5023799004|11063799006|10067099003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	gjto73ifIC8j454DdpYMGqik7W2tXF1125gKqDchDBDjhEXDN/r7zXfkDwY2ry/nH1ZI9AlRMubeZVdXc/+UvIJ2TeZdppjdWP7mhbpZ7gCGYPqMWoV6Sb8qQc+j7S9e9zkdNU+BZYTbIkd3DQSNBB63C+NT3WsPOYwGkru5SDLQh6O3dmAK5FOXZr2JCp4mo7TjpYOKHcV7m3sR2bq0ZsxMhdVpusxT9xmjrefC5NR32K1I5BRNMa/8G/LMJkf/nStvD6uh3OQovx9LEv//4jiSi8anf7Qxr8d652AGhMLR7g+CXvKHrY8PgI18C65n8rKYcFGXnX9a6cKgQGi4lWzt3oSSxtwNYMXxZH+nzHaGUnJCm6Y3FyQqYWwtmoqwYFG61kv5Q0tfZ69elj97sjCYMo5okKa3h3zFM+UbqLo704piJywf3kG+76OAv9F4IqM/O85MIDFwqx8I+cghxfHM7/x6u5V7X4ip0E0pkhStrWIqrSre/VvnzOFs1oTYGUG3zsnAV5yHoc4jutx0zSsvzU5qu/+N5Ulw1eujQPO174ZyOWJYOj9yTMggl9jrCAXM7HMP4K/4xEoGdxp/T67xhiSpbUP5dsynGCkqr+q+QQBsVPer7omlFBwBw0fGHsIZbI4DLZgTHDm+9V6us/JYhL//YhKB1PW615fMIio=
+	4Nt8u2cbK+o6nWThaHKXJuGX9KrXU2VLuuGZXpMoleT4i3VjKxil+dHrTUQKD/hwTKgGmozBTib50a82CR5fN3XNE23HryxVsIifk+J7KgjzgOqqglIKgwMs0KmcMGpIlMkAoV/h6RhNWC1TTQr9S8kTh9cD9oRaaTfZezZR4xUQf3/g5K+LUt7/OsS4Z6b+z3e3KTRgCGMNJ/E4hovU5jYMlZSJxtPn5xO5eCjTiwQwcEspjeYHFD/XmkajzlvEH4qI8P7Ckdc4s7Eg1va1aeewkv74sSHffH3mfPGieLCKo4KCDT2wek3oRRkHW9hsTtaGtJb5PZ/7kUUhHRbVDXSVKpEDB3svtWsQ+U5NJuS/3vOFVkRRI4OAOWwFnJyRGWYIpfgS0huOPtFtsKTf/PMnnU3QN4ivVtMvmEhnzV4+JT6qcp+exh2vNEC8zcRdkQryVFpwHhk0diwjqAMDQEGzx2luj6VIwWXU2pFYWTgHYVm2e7VYtb3ROFwXRqzHeZAVicBuF+fwiXCr0LiJ0c95YNB0wTDp28ErHSCmwfbOgNzsXzKhH6rpYQPJTWpjD3f7hxtq+p84lOO/Jbys0Imp+J1PQb4yy8QnK9yUbDq5qz+i8ckyOHW6UlbtWGIskd9IaV3CSDP5haGqtpttYfnxqbbjJAF3/aCql8wAmjk=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYYPR01MB15118.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(366016)(56012099006)(4143699003)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(6133799003)(22082099003)(18002099003)(4143699003)(5023799004)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QklOY0QydWRObFhzL3c4b0VXZzk5ZlpnUGtHSDJZQW5UV2FDT3ZxSy9FWU9a?=
- =?utf-8?B?WWFFK1dDc0lzUUk1VVBoUy9NelM0VFJjL2l5MHNFSFpBZ3Z4YTlGVGVzbGw1?=
- =?utf-8?B?V3RDYUxxYTJ4QmFOWk4xb0JxUnB1a1hNckFuclRqZnRIS3hvNzBXdmNZVm1l?=
- =?utf-8?B?VE5PRmtUUUc4bk5STWt6MTFvVWFSdEhTSHNoaFRvUUZ3Zm80NC9GcmpDZTJU?=
- =?utf-8?B?TlNVMzlCejRkcEFQT3cxc0ZOVzdoaEJuZG5OUEpVWjRkaWRQNHFaM1BncmxB?=
- =?utf-8?B?NDNTYVdmN1pWTkFMR3N1TU84UkZvUVhjN1V0SHNqbExsYzkrNlJqWUNUOVRh?=
- =?utf-8?B?Q1dUSXBKeG9oRlozVE5kcmlUQXVwOFI3U1J5Ulh5VG56ek9EU09TTEttT1pG?=
- =?utf-8?B?Um9PTDgxays2WHFiY0x3M1NBaC9VaGN2ZXVoVDVtcm5HS1NxU0hpRG5aSStL?=
- =?utf-8?B?Z01CWlZwajFDQWhDdm5EbEJUK2M0R2k1WDk3RnZCT2ZBSWRyNFhjbklIVTlC?=
- =?utf-8?B?TFBpSG91V2l0dnFmc1FqRGh5cWtXQkkvYnZrZ0pBdi9lZmtXQWtjNndzeng5?=
- =?utf-8?B?aUViZ3BENFlRZ0RyWHcxWG5MTk04SEJ6ZHRwaklSQzFJeHhXL0RlNzdwRGVU?=
- =?utf-8?B?OUYrbFR0NnphT0ZoRkhhbVBJa1AyUmZpNjhIQnVxOTk1dm1XMnFhVkM1YUxF?=
- =?utf-8?B?MjQyYy81MXZodkJwNjA1MFNTQWJVU0RZd1hHR0pLZGJYQmx4UTROZ1gzU0dR?=
- =?utf-8?B?SENmNnV1Q1c3VEhneVZqK2c3c3lUbHlkNlpvR0pCbjBKVTV4M2huY0xIM2g3?=
- =?utf-8?B?dDFia1RoQ2NJaFNaQzV6VjdUdFl4ak5iVVZ0SzJadE1tZjhQc3d4ZHVabXpL?=
- =?utf-8?B?bUtjSkdHUVA3MHN1akxQRmJFNjRTUUFlbm9ybXFPV0dBNE14eG9ubStxU2w1?=
- =?utf-8?B?RnF3QjZxSTlLc1B3a3VBTE54OFVIM0MxS2JtdGJPeWtaOCt5d2dOM0ZxNWdu?=
- =?utf-8?B?QStKNzU1MVZqVVM5SDFHK0xWVWtDWEl1d0k0OFBVajJnRFBOVmxKcnBjckJZ?=
- =?utf-8?B?S1lFUEVoaDA2azBSWmZUVkdaQk9MMXVMZFBDaWZlamZsZFJIWGI3WnlOR1RG?=
- =?utf-8?B?Mm5xaWVSVWFENCs1VEp3VFI3R2VJeG5nS0h6MnFSSlQ0QTlRN044RHhobzc0?=
- =?utf-8?B?YVZZcGhkZ1hDTUVLM1lxRzd6YjNEdDRKMVVhWkRZWkRPZ0p0WGtSUEYxLzV4?=
- =?utf-8?B?dmFzUVgvMDhZNTJ1bEJSV1hVbktVMWpWUlNwVWlLRFBhTGF2YUcvbVcvL1Ir?=
- =?utf-8?B?NVVhWkZDd1RSSnVOVlo1RlFWOXcrSVE4akw2L3JPaDJJZlhtQ0J6TUk4NTFa?=
- =?utf-8?B?dUsvT0JITWwxZEVLMm02c2Vpbld5RHVCK3VKTFlpdWJIUkthZVczL00xcVla?=
- =?utf-8?B?R2ZoVUpWM3plQk43K3YxemRXemx1SFoxZ3FUdk1mQW43UzJmUmJpNlUvdWUw?=
- =?utf-8?B?V3hkTlBaWnM3OWRtZGlyR1J6bkJQNXpBNmExcmQ1ODVXSmNmYXRMRUl6akwv?=
- =?utf-8?B?ZkV3SkhzU1FmT1NWQ0g1emVRMnh1SytHbm1XOXByWVJMemE0Nyt1dGxYcGVU?=
- =?utf-8?B?UWt2N0N4SkNpbGdwQlpSaVI5bWM2LzZqRldzVGhqV3hzb1VxVktxWk9Helpr?=
- =?utf-8?B?S1hrbVRxdHNHY20zNDVpL0ltNytIRmNsQXBDdUkzeU8rTEF3MDYyYlRwaThU?=
- =?utf-8?B?ZHFCdEsyRFhxSGxreVM0VUlZNml1Mkk4Rk5ZWVZhNDAyazhNcUYzRk9yVEFz?=
- =?utf-8?B?UWNPUHVld0w5TWw4aDdySTVNaTZ4bHAyVTFpMlByb2t3bC9yeUEycEtnN0FQ?=
- =?utf-8?B?T1pvWjYrRnRTUkVncU41VVpUWTY3N2NEM3JzeWhYOUlaYmxpdG1wbXl5a3Fj?=
- =?utf-8?B?RVZ1MDBnZ2NETHBEM2NQc2ZEWXRxMUxQRXJZSERCL1AvRWJUeVpILzJJQmlW?=
- =?utf-8?B?NUR4R2t3b01yY0poanRaWmtpd2hmczR2WVJOcEN2NEJmSWszSkxwZUJ1TVlZ?=
- =?utf-8?B?M25xU3U2VGxSNGVsWGk0bXEyZEViZkJhQ1ZiWE5WbFQ4b1BTVjhwOEtJT3dj?=
- =?utf-8?B?bW9qKzZyVG5FSEdkazZFcG1ERys4eWhiTDhRYW9lSkF6MVVieG5MYVdQTFo1?=
- =?utf-8?B?d2dTR2Z0SUgyeVlpRTJGTkhrMkR1eEZUYkR2SC85Z1Fna0pYeFdDY1VNdzdY?=
- =?utf-8?B?OGJ2QUJYMDI2cEV2ZHdiTFp3bHNYM2lXWUhIMGMrd1NaYm5Ob1Q4eDFqWkZm?=
- =?utf-8?B?VnAyUkUvZkorUVp2R0hRQ0NzVzFGVWtNZFZCcDFuL2pyU2tDY0NBdz09?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bc855cbe-2237-46a9-0656-08df2eb44acc
-X-MS-Exchange-CrossTenant-AuthSource: TYYPR01MB15118.jpnprd01.prod.outlook.com
+	=?us-ascii?Q?aq5cgkkCcscL0cw72xNQ5KIz3KgvbqwEGmvCbcKlqDKFuAfyKsVNkYApO6zq?=
+ =?us-ascii?Q?VJchVlc3qM7WaxUXzer0IU9sSRUZ0Jhc0nRc0HbSyY2Mk1Jz4NnpruEWkRq0?=
+ =?us-ascii?Q?vSyu8dSmSAa9Ctfcfuw/GjAHe2wH67riE0pRl0qx8P/v2OqUB5Q3LLLaDi9t?=
+ =?us-ascii?Q?bJ2x6NEVRPz5kIXRrOxXudyyfsI3nv/hC3k4nJxtLBU1LMFOOzo/InX7FdSE?=
+ =?us-ascii?Q?+HcZ9Dwn8zYZrR6TEOdi9l8DPa5JLzpC1KgqUtUZeKbGlPTsLzSajZKmOfP6?=
+ =?us-ascii?Q?Mqa77OpBuLMa6xHxSENL9MLC6oFaHa/0qOqOyes5ihBmot6HVDDEKQ+gcORl?=
+ =?us-ascii?Q?26fCKwuS2HJ0qPXpPO7PgC7/9QFbtqKkMYSxY1drVRvLM0QnSbPhkz05R+hk?=
+ =?us-ascii?Q?dLSFlZY0tSav4aNPhVfYhbZgLjAjQFO/Lbr17kvBXDu5P1+IWo1hJlP+xf5G?=
+ =?us-ascii?Q?+63qDdpOBcTETZIUh7gwDs5kq1y5yQxsTLgl+aGeXYYWyjvjcZ/h3YPUmQjS?=
+ =?us-ascii?Q?mRJTDlI6+CKn8rbqTI/sTk8djUKpNXujDjqDC0gknAYFbbMO+Sh+zk5wvqZ0?=
+ =?us-ascii?Q?s0tXk73E6ompsQYFMd+e/zr2Kzb4DiJAeqdZUVDpLXRJaH3au5G+WZ6t5bXC?=
+ =?us-ascii?Q?rITz8cXvhFPPRPeEHux6aOVFJCVvfelN1vOq7eHkRLMXe6oSFoipEisIs3le?=
+ =?us-ascii?Q?jE1XUker14IygqF5gDdMasQAAYxnhL9ihBWXzRH9nkXADNCWpSpO6smZ8ZP4?=
+ =?us-ascii?Q?JdsIqYRsEcjfNIFqf2xCAjFdJgj70BxfZQFzUVOGM/z3bzz2uJjYKpjt4obC?=
+ =?us-ascii?Q?WFPkG1ZTC1CtJo7LwGX8LIyMZGjVOKseaD+rueclEMazNVto6HVQ1zee/14v?=
+ =?us-ascii?Q?ilu0+7vVeQsGbdS+yz4Nh2l7LFiDYt60lCAa72lC3xy2l6M3cnjJ1B3uiwBZ?=
+ =?us-ascii?Q?11LxoQxKtiX247fOEZd7OpHMWqAgysWSLkkXFDYkTdnsFogs6nhD0NCLLwTg?=
+ =?us-ascii?Q?0LJSjj9GgMDGDl+cb5bsBIZXDk66bpS+WbF3dBcTjX25zHtPwJgYkZ1dH8zN?=
+ =?us-ascii?Q?SCr9jh50Di3BtTLJA3vy9elGDq/q9ZyETud+8qPoa9ryZdc2zFPVMncR0Rv3?=
+ =?us-ascii?Q?xEoMCd7PEZbQ8epo8zcNJOeDXfimPdWiLWtm5GqeKpPna4wVYtpsWbpqNXeT?=
+ =?us-ascii?Q?7UySdXNo8kjmUVRCOkniatWewDXWibnpIObkzSNSxerz+Eq3wRMjVeHTORjH?=
+ =?us-ascii?Q?QmxUfyNdyePpgM2KtvE+igKxJcb1NOi7JcCw/SgMoBh+HWYcTo688Z0NnIyi?=
+ =?us-ascii?Q?yw4xPMBdieRM9KQIVz+46fj2oJkaDHT3dkDRlpzfOTh1I0zENQA9aRQEMYHV?=
+ =?us-ascii?Q?P7xHRDtkMoEhHa2b0v2HxGNTWfi15K1JYdSX3/4K1mp8RP9mt+BYfgFJR6ae?=
+ =?us-ascii?Q?KPsIyEqOjjbOBeJiMS0InFFnjOubNrPeMjAptzAjnUGvMJGDu45rKeirliHw?=
+ =?us-ascii?Q?iwj50y4gGPOO7WGR+dEbgMoUW6aKNuP76bCJNJQyVGOH3tEpn/o1F61s7eN2?=
+ =?us-ascii?Q?byZ7JmEooUF6znvssMHpJj+biZHrdpCq8A7q6djRJ9ZVGGhCcT2cU/Ojjisd?=
+ =?us-ascii?Q?Iw+LlU/HFQ2ft4iIWhyxqm7kut1TcQroq0MOapKAsFxqcZ8p+ib7pj8hQh7N?=
+ =?us-ascii?Q?JxI675dCPUAjfQoNQ42EokMr7x4S0QM/rNzv4W7Hd3IJySxa?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 69e80da7-28cd-4f62-b2b5-08df2eb49f8b
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 14:13:19.7204
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 14:15:41.6548
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YIep8+acIbn6lHubU+EW0HLQu2rFP4BT4kDKg5O/fkyvQOutISHLPeBY4Pfu+y58T1arZ/MXOH9BrZZZSE9yGJ+GSWyH0kMcALoG1qh6hUI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSOPR01MB12410
+X-MS-Exchange-CrossTenant-UserPrincipalName: Bs8WEqf6cya3k34FoXK1TQLK0hDME/Bt3xtKwYK243gytr3DtdlbB1yjiBEPEPlF
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9583
 
-Hi Geert,
+On Tue, Oct 20, 2026 at 11:41:57AM +0100, Ryan Roberts wrote:
+> On 16/10/2026 15:42, Jason Gunthorpe wrote:
+> > On Fri, Oct 16, 2026 at 03:22:00PM +0100, Jean-Philippe Brucker wrote:
+> >> On Thu, 15 Oct 2026 at 17:41, Jason Gunthorpe <jgg@nvidia.com> wrote:
+> >>> I think I said this last time, please don't use vfio mdev for
+> >>> anything. There is nothing mediated about this.
+> >>
+> >> We don't multiplex a device between guests, but the host driver must
+> >> control part of the device registers while the remainder is assigned to
+> >> a guest. The host configures accelerator access, stage-2 translation,
+> >> handles CPUHP and context save/restore. So we can't bind the device to
+> >> vfio-platform.
+> > 
+> > That's fine, you can make a proper vfio-cla driver.
+> 
+> Hi Jason,
+>
+> Thanks for taking a look at this! I've been chewing on this comment and trying
+> to educate myself deeper on the subject. I have a proposal...
+> 
+> Currently we create a struct device per CLA device instance. But multiple CLA
+> device instances cooperate within a domain and the domain is the "unit of
+> isolation"; 
 
-On 10/20/2026 10:27 AM, Geert Uytterhoeven wrote:
-> 
-> Hi Diogo,
-> 
-> On Tue, 20 Oct 2026 at 11:15, Diogo Ivo <diogo.ivo.sx@renesas.com> wrote:
->> On a pure I3C bus there are no I2C devices, so the I3C core leaves
->> bus->scl_rate.i2c at zero if i2c-scl-hz is not specified in DT.
->> Deriving i2c_total_ticks from that zero rate programs a zero-width
->> open-drain SCL into the STDBR open-drain fields, which are still used
->> in pure I3C mode for example in DAA.
->>
->> Fall back to the 1 MHz FM+ limit instead, the fastest rate an I2C
->> device could have, so that a sane open-drain timing is programmed.
->>
->> Fixes: d028219a9f14 ("i3c: master: Add basic driver for the Renesas I3C controller")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Diogo Ivo <diogo.ivo.sx@renesas.com>
-> 
-> Thanks for your patch!
-> 
->> --- a/drivers/i3c/master/renesas-i3c.c
->> +++ b/drivers/i3c/master/renesas-i3c.c
->> @@ -579,7 +579,18 @@ static int renesas_i3c_bus_init(struct i3c_master_controller *m)
->>          if (!i3c->rate)
->>                  return -EINVAL;
->>
->> -       i2c_total_ticks = DIV_ROUND_UP(i3c->rate, bus->scl_rate.i2c);
->> +       /*
->> +        * A pure I3C bus has no I2C devices, so the I3C core leaves
->> +        * scl_rate.i2c at zero if not explicitly defined in DT. The
->> +        * open-drain SCL fields of STDBR, which are used for the DAA
->> +        * pending read, are derived from it though, so fall back to
->> +        * the 1 MHz FM+ limit instead of programming a zero-width clock.
->> +        */
->> +       if (!bus->scl_rate.i2c)
->> +               i2c_total_ticks = DIV_ROUND_UP(i3c->rate, I3C_BUS_I2C_FM_PLUS_SCL_MAX_RATE);
->> +       else
->> +               i2c_total_ticks = DIV_ROUND_UP(i3c->rate, bus->scl_rate.i2c);
->> +
->>          i3c_total_ticks = DIV_ROUND_UP(i3c->rate, bus->scl_rate.i3c);
-> 
-> This looks like a good opportunity to use the shortened tertiary ?:-operator:
-> 
->      bus->scl_rate.i2c ?: I3C_BUS_I2C_FM_PLUS_SCL_MAX_RATE
+Well that's weird and a bit confusing.
 
-Ack, will change in v2.
+> we can't have some CLAs from a domain assigned to a VM, while others
+> from the same domain are used by the host. Therefore it didn't feel like the
+> correct model to unbind one of these devices from the native driver and rebind
+> it to a cla-vfio driver. mdev seemed to solve this problem nicely for us.
+> 
+> But looking into it in more detail, I guess something like this might be a bit
+> more standard:
+> 
+>  - Split the existing CLA driver into three components:
+>     - cla-core: Hardware discovery, domain configuration, struct device
+>       registration and CPU hotplug
+>     - cla-native driver: Provides the user space accelerator interfaces
+>     - cla-vfio driver: Enables domains to be assigned to virtual machines
+>  - Each domain has a struct device (created by the core)
+>     - An individual CLA is not represented by a struct device
+>  - Either cla-native or cla-vfio can then bind to a domain device
+>     - cla-native exposes a char device per domain, per accelerator class
+>     - cla-vfio
+> 
+> For VFIO, I guess we could use one VFIO region per CLA, which would allow the
+> VMM to construct a device tree. But it would need to additionally determine
+> which CPU each CLA is bound to; perhaps that's a sysfs interface that cla-core
+> could expose?
 
-Thanks for the review,
-Diogo
+I don't know alot about your CLA, but this sounds reasonable. There
+may be uses with containers to have the split exposed like this too.
 
->>
->>          i2c_parse_fw_timings(&m->dev, &t, true);
-> 
-> Gr{oetje,eeting}s,
-> 
->                          Geert
-> 
-> --
-> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-> 
-> In personal conversations with technical people, I call myself a hacker. But
-> when I'm talking to journalists I just say "programmer" or something like that.
->                                  -- Linus Torvalds
-
+Jason
