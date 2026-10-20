@@ -1,164 +1,43 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.29
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792508340;
-	b=MpYfEm1EHnZuZmWYxfxvw/1p2R225yGzeWisWlzacO6KLhF4R7KQQqPmc+b/sbDsOdw1
-	 rHDWIf1NM99bwyQeTS21o4LFJkHJp3ofuqH2m25I4lZmI3lj3kod2/ZPkkBg27ytnQ09P
-	 a14v2pjEUJOUmQuejzEMAxZdBEvMMwF6HYzDER4HQzL8aL4FmXRcq0ls4wj+/uqp5G2K2
-	 v0r4GY0/Us737WEwX6qmI01fMOarZDl6KiQxw8inktyjwVn4let+Zc5PQKjv3nx1VikNJ
-	 bMLvt91WoC/+QiLzWo9NljoYztadX7itu5t3grmezXK4RTQulZsoS4Q30vcAEE5b4ZA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792508340;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ld-processed:
-	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
-	 x-microsoft-antispam:x-microsoft-antispam-message-info:
-	 x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=snNU9mInYGXZZWGR3LB1b/11mrOsAcuQrKtW5eZsGGU=;
-	b=5aUmGY2S8dj4b9Amx4ohB2Vtbc6xgEI9sEcZmO4tuLJrqV0xokV3TkCge84FVmNjOuWj
-	 NJMrTfzIcx0o7Hl8AnZTBBCE3y/ARmJ+JtE3GK3JC7kx1lhkXvytjzGDJ8ZmvInlfOtOC
-	 JfRl2h6BFZz51ecySQSAXjuLqYdmZrPADkJtWtQkxc8Vtd0mhEliCuWItuWrqvR9jO52D
-	 9NYWu5pOA0Q6gzHXyn5EId487Eo5D3FIgylynEcv3ekO5UX9nd7+IvTEfrbvb/scLp1My
-	 flw6QbngCsaU1dmjbYy0+i14gf6UNUYR7pVa5JcSAOUJYNUp5tFqNCwUknDr+XC3S1w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bp.renesas.com;
-	spf=pass smtp.mailfrom=bp.renesas.com;
-	dkim=pass header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=v1+1+T8s;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.29
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011029.outbound.protection.outlook.com [40.107.74.29])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792508534;
+	b=Wv22adYX3SQk9W8E3csKy+SGDa5fzex+ZmPRYR46wN8ySCXy34QTHqde+isEVMDBD5uA
+	 5r0IZCBenDdeH0EzWJAuTflvomo6+ef22bZCJJzBEU8ktAXYL2N7qEVS9P8AoaFJrAcql
+	 HUDi1ruJJXN+IHWbDdHvoLkrhdsIwEkSYPKNJasRXihxb0j1cByXiu9Uedpr2KxXwu+rJ
+	 whM2zMsJYod/fLyxolINnRqWRBcwwglK95TPFvha8LOaa57pLSU7IL9YtQ7nWCjKQaXIc
+	 kFP4JkRwfpQ+mdpzayXMiKG9tp2jx+mSSo18ITQmhFAHgY6zEUKubfG8rXIQ2AnBDmw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792508534;
+	h=Received:Message-ID:From:Subject:Reply-To:To:Cc:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=CfSUf+YdhWSGHTTDYGQQ+rlk6c4F93xuK+t3aJxWJdE=;
+	b=ojx2KDzrukesa4F20VWPuC7P/GbCUPJZDxmgBwmTfPMfi1uto7AXNPrXFSacgGjjWkec
+	 FMPAJbM+xI9aMYsNX11yVbfKJSNCRvHa5EEnJFObi0bYM9nKmNkv+An5A0L9+UuMYyN9a
+	 ym0dMiga3JTYlKIDQjkCUiNrM0em1Kh5E9FMrnLhK1KB+D5FUJjhk0F17AN5FdQICfqsw
+	 oQF6x3W0x5rBkEqlZL2GiVJVrIAS7XeWgk4QqyOAOFNIMzcJ2qJNDrTjiueFnHaznRoXK
+	 YZ1kGem1x/ikcWdYh+hb49dsgFe6t92gTEKeVCmOfQlRCVmn6Bs7aKTHF4JZcA1lzpg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEAA0606A319;
-	Tue, 20 Oct 2026 14:58:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEAA0606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=v1+1+T8s
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fY1eNH2OKszhHa4lMDNZNT6EdR4LjKz+q7H+kkDDJ2phvKjZvMgah4MKUUh7RgH53KO1qi7UbGVm0e5SixQ3Cktb+FyMlOCO8qQPmMaoetEgSJFcSKg51ATFozL8MRWivxSG/kVGTsmyrxyv8/DhgwsHGK2Cd1S1xerkcxDMjQGerKriznG8tmrU2cF2q8zlbdLtxfpoRPtcbNZ+10MvLbT1FxrGZiLLlgQlrMxs9MdIMKIPY1FqnNkTmIE0QHkXbqu75YVrmqKVwFbnHWNlQIZynR3A5rmrnbC0th4GrtCyfDUwINJBrd6Du/6/MIGpn+xmLJ+ua6pCogEfJ7/YHg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=snNU9mInYGXZZWGR3LB1b/11mrOsAcuQrKtW5eZsGGU=;
- b=NfpbT9A9kWtLu6mqeiND6RSEq+WBnfyrxRUgmNAHcJEzjmFikGastJnl7AVuRA6ed6A6kRRZPjUp1FixUIcAQQR7WKKOdA49pwidv6mSgMMZhfwzCBT0rnXmUdzEXYLLnMdbPTubhRyGnr1ztja3CPyOosxlh33W4ZmPvlH6wwcGTJmJb4lrBUjTVKgOQDdLQF9r+iFAtmpbYRXORUQNdO4fLU66L7mJyY0AkXg6B+Wycbakz/tz95MajPsixE/u6XdwMOGdl1926B61R+Hu8q4cgPTWhiBtKtC/bGCjWgRK8Nghs6UWCOg7ZQwC4k7zQm6UAo5deL1Fyf19G/cTwQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=snNU9mInYGXZZWGR3LB1b/11mrOsAcuQrKtW5eZsGGU=;
- b=v1+1+T8sjP+4ty9mzGWquHQleYz1ou9MxApgRK8u+HAykMgwIuqxergiIMX2VKgOyrr+h9caZIqBIgsdry++l38sZJ7WR3zjcWr59L7Ep23vSXZxRdCoz/ziQj98tiKIBKfopwWJ2W5QVGgXcQJx3nmbXmjJOL17BaN5h3emL2k=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by TY4PR01MB12810.jpnprd01.prod.outlook.com (2603:1096:405:1e4::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
- 2026 14:58:54 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%6]) with mapi id 15.21.0496.021; Tue, 20 Oct 2026
- 14:58:54 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>, Krzysztof Kozlowski
-	<krzk@kernel.org>
-CC: "biju.das.au" <biju.das.au@gmail.com>, Vincent Mailhol
-	<mailhol@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven
-	<geert+renesas@glider.be>, "magnus.damm" <magnus.damm@gmail.com>, Fabrizio
- Castro <fabrizio.castro.jz@renesas.com>, "linux-can@vger.kernel.org"
-	<linux-can@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-renesas-soc@vger.kernel.org"
-	<linux-renesas-soc@vger.kernel.org>, Chris Paterson
-	<Chris.Paterson2@renesas.com>, Prabhakar Mahadev Lad
-	<prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: RE: [PATCH v5 0/4] Add support for Renesas RZ/G3L CANFD
-Thread-Topic: [PATCH v5 0/4] Add support for Renesas RZ/G3L CANFD
-Thread-Index: AQHdX8G33+JWXuwTZkSn31raahBWCLcGFjCAgAACNYCAAAHkgIAAQRrQgAArh/A=
-Date: Tue, 20 Oct 2026 14:58:53 +0000
-Message-ID:
- <TY3PR01MB11346B68BEC23DC6D9D58D6CC86672@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20261019120220.166163-1-biju.das.jz@bp.renesas.com>
- <20261020-auburn-kangaroo-of-diversity-dbd8e6@quoll>
- <20261020-bold-wealthy-wyvern-891012-mkl@pengutronix.de>
- <TY3PR01MB1134698B07654C48820BCD41986672@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <TY3PR01MB113468FBC526A79B0709866F086672@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-In-Reply-To:
- <TY3PR01MB113468FBC526A79B0709866F086672@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TY4PR01MB12810:EE_
-x-ms-office365-filtering-correlation-id: 092040ce-f8cd-4ea6-74ba-08df2ebaa8ca
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|366016|38070700021|56012099006|4143699003|11063799006|261009223027099003|10067099003|18002099003|22082099003|3023799007;
-x-microsoft-antispam-message-info:
- 279Ogg3eSxuh5vtuXNUJpGrG47TuZjB/7R47hZWVSueXlOPFhJunpUKFLnZ/0jsJK0qAWEEElX7dDYvC1Un1MuLzvGYbceLcqjMge9fnAgJN5aWt7YJCALfi+1L7hCztLGPQduBhi5Qk+8DZywcga3gMMato/58ypwC2p094jOZUpVgcElJqZo7x1ezwqm+QiXpxMxrxhrZ4t4qx9ldggr3cVHWeWUrwh+N/TaBZ4fguu0wPqKRoDoJy0s1nJ1G+U7AJJu/T3bKEJKntDVk77z9kDRL6vjkkNV6DW+PkkwYeTDJXg3SI8CsDRYeefZtIciLOs5b2EXiI+SVZzhJsCWSnSoG8emmiA2P4aGZw8t0oJ8gCASQboISBD9KgIEopMFPNjjRnjMJWLwbNVUKnREklKZSVdZW5+yIaCOepzDZjHlFwr4uXhxu9Cyg3/AKs7qfbJxFRzqag7M4Ne4yDVAt5oQsyqr78ZAr2+dc88e+86BZZsw64ubGRShqe6X0ns37Juj33tbTXubs5xR1/SEPrfX8QiOQThsZpcTDU4tI8HihhtcE38STh8X0G7LhmmfWoB8vGUcDc5YkHvRyliwKK82CifjgOGQogBeCKFzJNJHrpdsD1YL8pgdnwKPfgpVU8Tf/qKo/whVj8gM07dKAF7/n3XnWGHyhXbXa7n9Y=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(366016)(38070700021)(56012099006)(4143699003)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?L2lMOENEVVZ1MlY5VjRGbkUzZGRyU1hYUUhPbnFLNy91dzhibG9IOUtnU3Bn?=
- =?utf-8?B?ZXhEQjNLMUhDTkNNZHFyVCsrRzVIZ3ptVysxQ0tFT29YQ0pva0x3MDBoZ1Qx?=
- =?utf-8?B?dnZaK3lsV1JIWlo3Q0FhT3BLYjNNSGxQRHFJS1U2M1NWQTczWTVoam9PcEVS?=
- =?utf-8?B?cnFFVVRQbDYzTmtUdUV2a2lBdlBuNWZmN0x0Y2V1MGU3YW8zYzFSRlZrRFd3?=
- =?utf-8?B?dW1VbHMyb3ZwU2ppRmF0MmRvVTlXUDZxRHRrVnVGRjkrMzV6Q2RqdGZiMGY4?=
- =?utf-8?B?M253dFo1RWdtdjR6dG5RekF2M2VZUW1iRzZMcGJ6dHVSMEVXTGdHU3VZSldD?=
- =?utf-8?B?TVg4WUIwM2dZMVliQ2RENnJJOHVuNmk1OGlrc1RReGhkNmhPSElIZThlVTdu?=
- =?utf-8?B?bm1oL0l5NzdUd1pVUS9Fb1JTZGFsRHIwZFVsb2pLZXVIdHZtaktjMy9VMlc4?=
- =?utf-8?B?bmNhaXJDR3FST2xlKzl6eHhUeFVWVU9mekt6UmpTRFoyU2FLVXA4dGpONmQr?=
- =?utf-8?B?V2thWmd2V2Z2c0NRTWdaelYvQnhtYjc1ZWo4OUc3RTNKL0NpVm5DOWNVcUx1?=
- =?utf-8?B?VCs2VnNOWk5MQjVMODhXbHBEdVplQ0I0ZkxoNnc4eS9PLzVpUUdjNHZFckxN?=
- =?utf-8?B?N0xyU010cmNrQUxsWTBpU3FzZUZLZ2NyTE5sZUJuc2ZNMnRaNGFMNTJpeGN6?=
- =?utf-8?B?VXBlT1hDOXpkYkFmQ3FpZW53cVdYRVowUm1zR01iVnprK24rMTJXajAvTi9u?=
- =?utf-8?B?Rkd4N0FpVjFqQjFKK3lGTWorSUIxVmNOOFdpNmN4UDNvNy84SjFORkZPMWJk?=
- =?utf-8?B?dWZjbi9lb2pGREY5andsU3NndUtZdGh4OVZrV2hQbjcrVXMxb2hIQUZEMGND?=
- =?utf-8?B?VFZoUXFvUjRpTVV5V0FmeUllQ0J6YjRUaXhSdTZBeGZxTGphRW9rdDhlWDN6?=
- =?utf-8?B?RGdGR0ZJcE9MUkNNMGtOdUlURU4wcGZWemNSMzVwZUpIRzNwNzMxQnJUcVBM?=
- =?utf-8?B?aWI4YWlXZ1orTy9rQTR6UXllUXhCN2RJVjF5bzlMeFE1R214M0FUbDJ3UDhL?=
- =?utf-8?B?UWQycTVRRjdpNmQ3eUhidVlQc21FME10eG85UkU4OHdvSzdxTldkUDBNVXFS?=
- =?utf-8?B?c011T3dOOWE3dEI0K0RzdGkwQ0pBVXZmenZ5aWFHb0pVMWZGR1FSMzkrRzRS?=
- =?utf-8?B?eG9mb2c3SFYrMG1hMFdUTTZseGd1LzJ1RTVIOE4rS2ovNENFbGdlRnhTWllk?=
- =?utf-8?B?WDVOQjB4ODd3YWVhdFF4NkY0YVY1eWtqUUVQTFBmd3pqdkxuRVk5TTJnQUJE?=
- =?utf-8?B?WnhUNUtQQmVRa1diSDFVSGRuQmJxWXptek4reE0yK0pMQzVOb0Z5RGZRZjMy?=
- =?utf-8?B?UC9zY3NCV1dFQ0d2eGFpSnZzRmJGQW1jM2k5Wk53cXVxQVRUMHp2VHA2eDN4?=
- =?utf-8?B?Ymw3NDhIbjNLczcxYlpSOXEzb3RSeEx5UEh4cUZrcG1CK2ZQYTFNMGdFd2pO?=
- =?utf-8?B?aFl5cFpuN2xpRVhHWm1HWlc2YVNIMHo4Tk1DV2xndlJPVzFpblJCaG5Zc0U5?=
- =?utf-8?B?QmFBTjhhelcwUTVXMVJKNmc0OHZQNDIwN2Jsb0tQbWEvcmQ1RDdpTzJuRE5Z?=
- =?utf-8?B?ZVJUejZTV1ZHS2ZxS3JmckpJL0hFWGVlWEN5aWUvVGRXK3RWamJVYStxYTZi?=
- =?utf-8?B?b1dCb0s0V3AxYytoUXVDS0pScjVHdDVrT2JjR3FrQUw2MHlpbmZqVVI0eUh5?=
- =?utf-8?B?RVJMWGs4cmtJamhQUXQ0NkVpWkdNTE8rSjZFV1ZkY3BXT09OWEFvMng3Wmo2?=
- =?utf-8?B?TzlxWVBwUkNPZGplckh4bGpzSXRwRi9XZENOcU52aXJxT0Y4WnRDRWt6UnVJ?=
- =?utf-8?B?VHFDL0UyTEI4QnJtaEVOQTR6ZGZSUDZTY2RZaCtNTGNrNjdXbUJBdEQ4clgv?=
- =?utf-8?B?dzlMaHQwY0dVK3BPNG56QWZCL25tZzFCQ2ozbFpFWFRZM1ZOUmxiMVN6VXhV?=
- =?utf-8?B?dUlaZ0dNUGxoUWR6YkhOaEtmZzRLVjVsb254eHJ4L1FocDhGSUQ3eDFEL2Zu?=
- =?utf-8?B?NW5ueFUzZS9yYWFMMk4zTEJYZWF5NzQxQ3lJdVkrYXB1ZThEcGZpMUJaa053?=
- =?utf-8?B?MW1mem45Y0FMdUpIL0wzc1RlQ09iS1BTdDlNbE9BekIwQkxLWWNmRnpVbnhk?=
- =?utf-8?B?bXNHY2NmVTVYeE1XcmdDSUZhbGZRK013QUlKVkNRTkVLMzltLzBEa2RTQVd1?=
- =?utf-8?B?SHJIZys5MTM3UWtoRzZPRHg0cFgzMDhNZE03Tm96OWVuQ0ZIYnlkZi85L3hm?=
- =?utf-8?B?aEg0Q2lvM283TnB3TFlIL0pWaXM2WVZMR2ZFTVE0WXdYUTQyRXpjQT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCBF3606A319
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 15:02:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1170D1F000C5;
+	Tue, 20 Oct 2026 15:02:13 +0000 (UTC)
+Message-ID: <sashiko-outbox-179210@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 17/17] arm64: dts: apple: t6031: add avd nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sofus Forstreuter" <sofus.c@icloud.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261020-avd-v3-17-85cbaa2125d8@icloud.com>
+References: <20261020-avd-v3-0-85cbaa2125d8@icloud.com>
+ <20261020-avd-v3-17-85cbaa2125d8@icloud.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 20 Oct 2026 15:02:09 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -167,141 +46,382 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 092040ce-f8cd-4ea6-74ba-08df2ebaa8ca
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Oct 2026 14:58:54.0042
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: yv+e0Z9F3Bj6j/pVwLOz1nkXggr/p2u8BYYD9PaRruSzs6fS+YMqAC8NhJpRY74sj2WeZn17epvUEjjSKz3iLmBHAAYcCuQbyfXiWxz9XjQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4PR01MB12810
 
-SGkgS3J6eXN6dG9mLA0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IEJp
-anUgRGFzDQo+IFNlbnQ6IDIwIE9jdG9iZXIgMjAyNiAxMzozMw0KPiBTdWJqZWN0OiBSRTogW1BB
-VENIIHY1IDAvNF0gQWRkIHN1cHBvcnQgZm9yIFJlbmVzYXMgUlovRzNMIENBTkZEDQo+IA0KPiBI
-aSBNYXJjL0tyenlzenRvZiwNCj4gDQo+ID4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4g
-PiBGcm9tOiBCaWp1IERhcw0KPiA+IFNlbnQ6IDIwIE9jdG9iZXIgMjAyNiAwOTozMQ0KPiA+IFN1
-YmplY3Q6IFJFOiBbUEFUQ0ggdjUgMC80XSBBZGQgc3VwcG9ydCBmb3IgUmVuZXNhcyBSWi9HM0wg
-Q0FORkQNCj4gPg0KPiA+IEhpIE1hcmMvS3J6eXN6dG9mLA0KPiA+DQo+ID4gPiAtLS0tLU9yaWdp
-bmFsIE1lc3NhZ2UtLS0tLQ0KPiA+ID4gRnJvbTogTWFyYyBLbGVpbmUtQnVkZGUgPG1rbEBwZW5n
-dXRyb25peC5kZT4NCj4gPiA+IFNlbnQ6IDIwIE9jdG9iZXIgMjAyNiAwOToyMQ0KPiA+ID4gU3Vi
-amVjdDogUmU6IFtQQVRDSCB2NSAwLzRdIEFkZCBzdXBwb3J0IGZvciBSZW5lc2FzIFJaL0czTCBD
-QU5GRA0KPiA+ID4NCj4gPiA+IE9uIDIwLjEwLjIwMjYgMTA6MTM6MTMsIEtyenlzenRvZiBLb3ps
-b3dza2kgd3JvdGU6DQo+ID4gPiA+IE9uIE1vbiwgT2N0IDE5LCAyMDI2IGF0IDAxOjAyOjEyUE0g
-KzAxMDAsIEJpanUgd3JvdGU6DQo+ID4gPiA+ID4gRnJvbTogQmlqdSBEYXMgPGJpanUuZGFzLmp6
-QGJwLnJlbmVzYXMuY29tPg0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gQWRkIHN1cHBvcnQgZm9yIFJl
-bmVzYXMgUlovRzNMIENBTkZELg0KPiA+ID4gPiA+IFRoZSBSWi9HM0wgQ0FORkQgSVAgaGFzIDMg
-Y2hhbm5lbHMgYW5kIDExIGludGVycnVwdHMgY29tcGFyZWQgdG8NCj4gPiA+ID4gPiAyIGNoYW5u
-ZWxzIGFuZCA4IGludGVycnVwdHMgdGhhdCBvZiBSWi9HM1MuIFJaL0czTCBoYXMgMjg4DQo+ID4g
-PiA+ID4gYnVmZmVycyBjb21wYXJlZCB0byAxOTIgYnVmZmVycyBvbiBSWi9HM1MgU29DLg0KPiA+
-ID4gPiA+DQo+ID4gPiA+ID4gVGhpcyBwYXRjaCBzZXJpZXMgZGVwZW5kIHVwb24gWzFdIFsxXQ0K
-PiA+ID4gPiA+IGh0dHBzOi8vZ2l0Lmtlcm5lbC5vcmcvcHViL3NjbS9saW51eC9rZXJuZWwvZ2l0
-L21rbC9saW51eC1jYW4tbmUNCj4gPiA+ID4gPiB4dA0KPiA+ID4gPiA+IC5nDQo+ID4gPiA+ID4g
-aXQvY29tbWl0Lz9pZD0yYjRhNTA1NWQ1MTdiMTFiZjRhNTY3MWNlZjMyZTRkNzdiYzQ1NjI2DQo+
-ID4gPiA+ID4NCj4gPiA+ID4gPiB2NC0+djU6DQo+ID4gPiA+DQo+ID4gPiA+IGI0IGRpZmYgJzIw
-MjYxMDE5MTIwMjIwLjE2NjE2My0xLWJpanUuZGFzLmp6QGJwLnJlbmVzYXMuY29tJw0KPiA+ID4g
-PiBMb29raW5nIHVwIDIwMjYxMDE5MTIwMjIwLjE2NjE2My0xLWJpanUuZGFzLmp6QGJwLnJlbmVz
-YXMuY29tDQo+ID4gPiA+IENoZWNraW5nIGZvciBvbGRlciByZXZpc2lvbnMNCj4gPiA+ID4gR3Jh
-YmJpbmcgc2VhcmNoIHJlc3VsdHMgZnJvbSBsb3JlLmtlcm5lbC5vcmcNCj4gPiA+ID4gLS0tDQo+
-ID4gPiA+IEFuYWx5emluZyA1IG1lc3NhZ2VzIGluIHRoZSB0aHJlYWQgQ291bGQgbm90IGZpbmQg
-bG93ZXIgc2VyaWVzIHRvDQo+ID4gPiA+IGNvbXBhcmUgYWdhaW5zdC4NCj4gPiA+ID4NCj4gPiA+
-ID4gSSBkbyBub3QgZ2V0IHdoeSB5b3Uga2VlcCBtYWtpbmcgdGhpbmdzIGRpZmZpY3VsdCBmb3Ig
-cmV2aWV3LCBidXQNCj4gPiA+ID4gaXQncyB5b3VyIHJpZ2h0LiBJJ2xsIHNraXAgdGhlIHBhdGNo
-IGZvciBzb21lIHRpbWUuDQo+ID4gPg0KPiA+ID4gSWYgeW91IHVzZSBiNCBbMV0gZm9yIHNlbmRp
-bmcgcGF0Y2hlcywgeW91IG1ha2UgdGhpbmdzIGEgbG90IGVhc2llciBmb3IgdGhlIHJldmlld2Vy
-cyAoYW5kIHlvdXJzZWxmKS4NCj4gPg0KPiA+IFRoYW5rcyBmb3IgdGhlIHBvaW50ZXIuIFNvIGZh
-ciwgSSB1c2UgImdpdCBzZW5kLWVtYWlsIC0tYW5ub3RhdGUNCj4gPiAqLnBhdGNoIiB0byBzZW5k
-IHRoZSBwYXRjaGVzLiBJIG5lZWQgdG8gZXhwbG9yZSBob3cgdG8gc2VuZCB0aGUgcGF0Y2hlcyB1
-c2luZyBiNC4NCj4gDQo+IEkgaGF2ZSBleHBsb3JlZCBiNC4gTWF5YmUgSSBjYW4gcmVzZW5kIHRo
-ZSBzZXJpZXMgd2l0aCBiNC4gQnV0IHVuZm9ydHVuYXRlbHksIHNpbmNlIGl0IGlzIGZvcmNlZCB2
-ZXJzaW9uDQo+IHY1LA0KPiBiNCBkaWZmIDxtc2cgaWQgdjU+IHdvbid0IHdvcmsgbGlrZSB3aGF0
-ZXZlciBLcnp5c3p0b2YgdHJpZWQuDQo+IA0KPiBQbGVhc2UgbGV0IG1lIGtub3cuDQo+IA0KPiBW
-NTogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxsLzIwMjYxMDE5MTIwMjIwLjE2NjE2My0xLWJp
-anUuZGFzLmp6QGJwLnJlbmVzYXMuY29tLw0KPiANCj4gVjQ6IGh0dHBzOi8vbG9yZS5rZXJuZWwu
-b3JnL2FsbC8yMDI2MTAwMTA3NTc0Mi4yMTk2MS0xLWJpanUuZGFzLmp6QGJwLnJlbmVzYXMuY29t
-L1QvI3QNCg0KRllJLCBKdXN0IGF0dGFjaGluZyBiNCBkaWZmIGVxdWl2YWxlbnQgYmV0d2VlbiB0
-aGUgMiB2ZXJzaW9ucw0KDQpiaWp1QGJpanU6fi9saW51eC1uZXh0LXVwc3RyZWFtLWI0JCBnaXQg
-cmFuZ2UtZGlmZiBtYXN0ZXIuLmI0L2I0LWNhbmZkX3J6ZzNsX3Y0IG1hc3Rlci4uYjQvY2FuZmRf
-cnpnM2wNCiAxOiAgYjBmN2NiYmRjMDA5ID0gIDE6ICA0OWQzN2NlOTFjYWUgZHQtYmluZGluZ3M6
-IGNhbjogcmVuZXNhcyxyY2FyLWNhbmZkOiBEb2N1bWVudCBSWi9HM1MgU29DDQogMjogIDg5ZmFk
-YzgzZjBiYSA9ICAyOiAgNWI4NDVhZjE0NWM0IGNhbjogcmNhcl9jYW5mZDogRml4IHR5cG9zIGlu
-IG1hY3JvIG5hbWVzDQogMzogIGQ1MDYzOWFiZDRhZCA9ICAzOiAgNDg5ZDExNDQ1OTlmIGNhbjog
-cmNhcl9jYW5mZDogQWxsb3cgdGhlIENBTiBGRCBjbG9jayB0byBiZSBzb3VyY2VkIGZyb20gZmNr
-DQogNDogIGU5NWJhZWI2YjEwNiA9ICA0OiAgNzQ4YWUwMTdjNDBiIGNhbjogcmNhcl9jYW5mZDog
-RG8gbm90IHNldCByZWdpc3RlcnMgc2VsZWN0aW5nIHRoZSBDQU4gbW9kZQ0KIDU6ICA4ZTlhNWI1
-NmZjODIgPSAgNTogIDMyNmY4ZGQxYjQwYyBjYW46IHJjYXJfY2FuZmQ6IEFkZCBzdXBwb3J0IGZv
-ciBSZW5lc2FzIFJaL0czUw0KIDY6ICA5NjdkYzhlNzgxMDggPSAgNjogIGVmMmZmZjc2Zjc2MSBk
-dC1iaW5kaW5nczogY2FuOiByZW5lc2FzLHJjYXItY2FuZmQ6IFJlc3RyaWN0IHJlc2V0cyBpbiB0
-b3AtbGV2ZWwNCiA3OiAgMmE4OTAxYjQ1MGE5IDwgIC06ICAtLS0tLS0tLS0tLS0gQWRkIHN1cHBv
-cnQgZm9yIFJlbmVzYXMgUlovRzNMIENBTkZELg0KIC06ICAtLS0tLS0tLS0tLS0gPiAgNzogIDdh
-MTE2N2ZiNTlhZiBBZGQgc3VwcG9ydCBmb3IgUmVuZXNhcyBSWi9HM0wgQ0FORkQNCiAtOiAgLS0t
-LS0tLS0tLS0tID4gIDg6ICAwNTc3YjI4ZDU1YzAgZHQtYmluZGluZ3M6IGNhbjogcmVuZXNhcyxy
-Y2FyLWNhbmZkOiBEb2N1bWVudCBSWi9HM1MgaGFzIG5vIENsYXNzaWNhbCBDQU4gbW9kZQ0KIC06
-ICAtLS0tLS0tLS0tLS0gPiAgOTogIGE3NjQzYTE0MzM5ZiBjYW46IHJjYXJfY2FuZmQ6IERvY3Vt
-ZW50IHRoYXQgUlovRzNTIGhhcyBubyBDbGFzc2ljYWwgQ0FOIG1vZGUNCiA4OiAgM2I3MmE1MDcy
-Yjc3ICEgMTA6ICAwZTVmMmM2ZmYyM2MgZHQtYmluZGluZ3M6IGNhbjogcmVuZXNhcyxyY2FyLWNh
-bmZkOiBEb2N1bWVudCBSWi9HM0wgU29DDQogICAgQEAgQ29tbWl0IG1lc3NhZ2UNCiAgICAgICAg
-IGFuZCAyIENBTkZEIGNoYW5uZWxzIG9uIFJaL0czUy4gUlovRzNMIGhhcyAyODggYnVmZmVycyBp
-biB0b3RhbA0KICAgICAgICAgY29tcGFyZWQgdG8gMTkyIGJ1ZmZlcnMgaW4gUlovRzNTLg0KICAg
-ICANCiAgICAtICAgIFJldmlld2VkLWJ5OiBHZWVydCBVeXR0ZXJob2V2ZW4gPGdlZXJ0K3JlbmVz
-YXNAZ2xpZGVyLmJlPg0KICAgIC0gICAgUmV2aWV3ZWQtYnk6IEtyenlzenRvZiBLb3psb3dza2kg
-PGtyenlzenRvZi5rb3psb3dza2lAb3NzLnF1YWxjb21tLmNvbT4NCiAgICAtICAgIExpbms6IGh0
-dHBzOi8vcGF0Y2gubXNnaWQubGluay8yMDI2MTAwMTA3NTc0Mi4yMTk2MS0yLWJpanUuZGFzLmp6
-QGJwLnJlbmVzYXMuY29tDQogICAgKyAgICBMaWtlIFJaL0czUywgUlovRzNMIHN1cHBvcnRzIG9u
-bHkgQ0FOLUZEIG1vZGUsIHNvIHJlbmVzYXMsbm8tY2FuLWZkIGlzDQogICAgKyAgICBkaXNhbGxv
-d2VkIGZvciBpdCwgYW5kIHRoZSBkZXNjcmlwdGlvbiBvZiB0aGF0IHByb3BlcnR5IGlzIHVwZGF0
-ZWQgdG8NCiAgICArICAgIGV4Y2x1ZGUgUlovRzNMLg0KICAgICsNCiAgICAgICAgIFNpZ25lZC1v
-ZmYtYnk6IEJpanUgRGFzIDxiaWp1LmRhcy5qekBicC5yZW5lc2FzLmNvbT4NCiAgICAgICAgIC0t
-LQ0KICAgICsgICAgdjQtPnY1Og0KICAgICsgICAgICogRHJvcHBlZCB0aGUgdGFncyBhcyB0aGVy
-ZSBhcmUgbmV3IGNoYW5nZXMuDQogICAgKyAgICAgKiBVcGRhdGVkIHRoZSBkZXNjcmlwdGlvbiBm
-b3IgcmVuZXNhcyxuby1jYW4tZmQgdG8gZG9jdW1lbnQgUlovRzNMIGhhcyBubw0KICAgICsgICAg
-ICAgQ2xhc3NpY2FsIENBTiBtb2RlLg0KICAgICsgICAgICogUmVzdG9yZWQgbWF4SXRlbXMgb24g
-aW50ZXJydXB0cyBhbmQgaW50ZXJydXB0LW5hbWVzLg0KICAgICsgICAgICogQWRkZWQgcmVzZXRz
-L3Jlc2V0LW5hbWVzIHJlcXVpcmVkIHByb3BlcnR5IGZvciBSWi9HM0wuDQogICAgICAgICB2My0+
-djQ6DQogICAgICAgICAgKiBEcm9wcGVkIG1heEl0ZW1zIGZyb20gaW50ZXJydXB0cyxpbnRlcnJ1
-cHQtbmFtZXMgYW5kIHJlc2V0cy4NCiAgICAgICAgICAqIENvbGxlY3RlZCB0YWcuDQogICAgQEAg
-RG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL25ldC9jYW4vcmVuZXNhcyxyY2FyLWNh
-bmZkLnlhbWw6IHByb3BlcnRpZXM6DQogICAgICAgICAgICAgICAgLSByZW5lc2FzLHI5YTA5ZzA0
-Ny1jYW5mZCAgICAgICAgIyBSWi9HM0UNCiAgICAgICAgICAgICAgICAtIHJlbmVzYXMscjlhMDln
-MDc3LWNhbmZkICAgICAgICAjIFJaL1QySA0KICAgICAgDQogICAgK0BAIERvY3VtZW50YXRpb24v
-ZGV2aWNldHJlZS9iaW5kaW5ncy9uZXQvY2FuL3JlbmVzYXMscmNhci1jYW5mZC55YW1sOiBwcm9w
-ZXJ0aWVzOg0KICAgICsgICAgICRyZWY6IC9zY2hlbWFzL3R5cGVzLnlhbWwjL2RlZmluaXRpb25z
-L2ZsYWcNCiAgICArICAgICBkZXNjcmlwdGlvbjoNCiAgICArICAgICAgIFRoZSBjb250cm9sbGVy
-IGNhbiBvcGVyYXRlIGluIGVpdGhlciBDQU4tRkQgbW9kZSAoZGVmYXVsdCkgb3IgRkQtT25seQ0K
-ICAgICstICAgICAgbW9kZSAoUlove0cyTCxHM0V9IGFuZCBSLUNhciBHZW40KSBvciBDbGFzc2lj
-YWwgQ0FOIG1vZGUoZXhjZXB0IFJaL0czU30uDQogICAgKy0gICAgICBTcGVjaWZ5IHRoaXMgcHJv
-cGVydHkgdG8gcHV0IHRoZSBjb250cm9sbGVyIGluIENsYXNzaWNhbCBDQU4gbW9kZS4NCiAgICAr
-KyAgICAgIG1vZGUgKFJaL3tHMkwsRzNFfSBhbmQgUi1DYXIgR2VuNCkgb3IgQ2xhc3NpY2FsIENB
-TiBtb2RlKGV4Y2VwdCBSWi9HM0wNCiAgICArKyAgICAgIGFuZCBSWi9HM1MpLiBTcGVjaWZ5IHRo
-aXMgcHJvcGVydHkgdG8gcHV0IHRoZSBjb250cm9sbGVyIGluIENsYXNzaWNhbCBDQU4NCiAgICAr
-KyAgICAgIG1vZGUuDQogICAgKyANCiAgICArICAgcmVuZXNhcyxmZC1vbmx5Og0KICAgICsgICAg
-ICRyZWY6IC9zY2hlbWFzL3R5cGVzLnlhbWwjL2RlZmluaXRpb25zL2ZsYWcNCiAgICAgQEAgRG9j
-dW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL25ldC9jYW4vcmVuZXNhcyxyY2FyLWNhbmZk
-LnlhbWw6IGFsbE9mOg0KICAgICAgICAgICAgcGF0dGVyblByb3BlcnRpZXM6DQogICAgICAgICAg
-ICAgICJeY2hhbm5lbFs2LTddJCI6IGZhbHNlDQogICAgQEAgRG9jdW1lbnRhdGlvbi9kZXZpY2V0
-cmVlL2JpbmRpbmdzL25ldC9jYW4vcmVuZXNhcyxyY2FyLWNhbmZkLnlhbWw6IGFsbE9mOg0KICAg
-ICArICAgICAgcHJvcGVydGllczoNCiAgICAgKyAgICAgICAgaW50ZXJydXB0czoNCiAgICAgKyAg
-ICAgICAgICBtaW5JdGVtczogMTENCiAgICArKyAgICAgICAgICBtYXhJdGVtczogMTENCiAgICAg
-Kw0KICAgICArICAgICAgICBpbnRlcnJ1cHQtbmFtZXM6DQogICAgICsgICAgICAgICAgbWluSXRl
-bXM6IDExDQogICAgKysgICAgICAgICAgbWF4SXRlbXM6IDExDQogICAgICsNCiAgICAgKyAgICAg
-ICAgcmVzZXRzOg0KICAgICArICAgICAgICAgIG1pbkl0ZW1zOiAyDQogICAgQEAgRG9jdW1lbnRh
-dGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL25ldC9jYW4vcmVuZXNhcyxyY2FyLWNhbmZkLnlhbWw6
-IGFsbE9mOg0KICAgICAgICAtIGlmOg0KICAgICAgICAgICAgcHJvcGVydGllczoNCiAgICAgICAg
-ICAgICAgY29tcGF0aWJsZToNCiAgICArQEAgRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRp
-bmdzL25ldC9jYW4vcmVuZXNhcyxyY2FyLWNhbmZkLnlhbWw6IGFsbE9mOg0KICAgICsgICAgICAg
-ICAgIGNvbnRhaW5zOg0KICAgICsgICAgICAgICAgICAgZW51bToNCiAgICArICAgICAgICAgICAg
-ICAgLSByZW5lc2FzLHI5YTA4ZzA0NS1jYW5mZA0KICAgICsrICAgICAgICAgICAgICAtIHJlbmVz
-YXMscjlhMDhnMDQ2LWNhbmZkDQogICAgKyAgICAgICAgICAgICAgIC0gcmVuZXNhcyxyOWEwOWcw
-NDctY2FuZmQNCiAgICArICAgICAgICAgICAgICAgLSByZW5lc2FzLHJ6ZzJsLWNhbmZkDQogICAg
-KyAgICAgdGhlbjoNCiAgICAgQEAgRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL25l
-dC9jYW4vcmVuZXNhcyxyY2FyLWNhbmZkLnlhbWw6IGFsbE9mOg0KICAgICAgICAgICAgcHJvcGVy
-dGllczoNCiAgICAgICAgICAgICAgY29tcGF0aWJsZToNCiA5OiAgNTQ4MWJlZjQ0MTdkIDwgIC06
-ICAtLS0tLS0tLS0tLS0gY2FuOiByY2FyX2NhbmZkOiBEZXJpdmUgbWF4X2NoYW5uZWxzIGZyb20g
-dGhlIGRldmljZSB0cmVlDQoxMDogIGJlZjczMTEwNTBkYiA8ICAtOiAgLS0tLS0tLS0tLS0tIGNh
-bjogcmNhcl9jYW5mZDogQWRkIHN1cHBvcnQgZm9yIFJlbmVzYXMgUlovRzNMDQogLTogIC0tLS0t
-LS0tLS0tLSA+IDExOiAgYjc1NmExMGE1NjVhIGNhbjogcmNhcl9jYW5mZDogQWRkIHN1cHBvcnQg
-Zm9yIFJlbmVzYXMgUlovRzNMDQoNCkNoZWVycywNCkJpanUNCg==
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [Critical] media: apple: avd: missing bounds checks on HEVC tile and slic=
+e controls
+- [High] media: apple: avd: out-of-bounds copy in avd_h264_realloc_slices()
+- [High] media: apple: avd: missing bounds and dimension validation in AV1 =
+and H264
+- [Medium] media: apple: avd: swapped hdiv and vdiv in fill_comp()
+- [Medium] media: apple: avd: missing v4l2_fh_exit() in avd_open() and NUL =
+in avd_boot()
+- [Low] arm64: dts: apple: t6031: undocumented apple,t6031-dart compatible =
+string
+--
+
+commit 710cbe683a71adce1476927b8edd0e1212525500
+Author: Sofus Forstreuter <sofus.c@icloud.com>
+
+arm64: dts: apple: t6031: add avd nodes
+
+This commit adds the Apple Video Decoder (AVD) and its associated DART IOMMU
+device tree nodes for the Apple t6031 SoC.
+
+> diff --git a/arch/arm64/boot/dts/apple/t6031-dieX.dtsi b/arch/arm64/boot/=
+dts/apple/t6031-dieX.dtsi
+> index 2e9d3d2e6dea4..4959190e13a3c 100644
+> --- a/arch/arm64/boot/dts/apple/t6031-dieX.dtsi
+> +++ b/arch/arm64/boot/dts/apple/t6031-dieX.dtsi
+> @@ -98,6 +98,38 @@ DIE_NODE(pinctrl_ap): pinctrl@2b3000000 {
+>  		#interrupt-cells =3D <2>;
+>  	};
+> =20
+> +	DIE_NODE(avd_dart): iommu@2cd010000 {
+> +		compatible =3D "apple,t6031-dart", "apple,t8110-dart";
+
+[Severity: Low]
+Does the compatible string "apple,t6031-dart" need to be documented in
+Documentation/devicetree/bindings/iommu/apple,dart.yaml?
+
+Currently, the schema only permits:
+
+  compatible:
+    oneOf:
+      - enum:
+          - apple,t8103-dart
+          - apple,t8103-usb4-dart
+          - apple,t8110-dart
+          - apple,t6000-dart
+      - items:
+          - const: apple,t6020-dart
+          - const: apple,t8110-dart
+
+Without an entry for "apple,t6031-dart", running dtbs_check on device trees
+including t6031-dieX.dtsi will report a schema validation failure on
+iommu@2cd010000.
+
+> +		reg =3D <0x2 0xcd010000 0x0 0x4000>;
+> +		interrupt-parent =3D <&aic>;
+> +		interrupts =3D <AIC_IRQ DIE_NO 1192 IRQ_TYPE_LEVEL_HIGH>;
+> +		#iommu-cells =3D <1>;
+> +		power-domains =3D <&DIE_NODE(ps_avd_sys)>;
+> +	};
+> +
+> +	video-codec@2cd070000 {
+> +		compatible =3D "apple,t6031-avd", "apple,t8122-avd";
+
+[Severity: Medium]
+Instantiating video-codec@2cd070000 binds the AVD driver introduced earlier
+in this series (drivers/media/platform/apple/avd/). Looking at the driver
+implementation that this node enables on t6031, are horizontal and vertical
+subsampling divisors swapped in fill_comp()?
+
+In drivers/media/platform/apple/avd/avd-drv.c:fill_comp():
+
+	/* uv has 16x16 tiles and 8 bytes of metadata per tile */
+	calc_tile_meta(width / info->vdiv, height / info->hdiv,
+		       v4l2_format_info_bpp(info, 1), 16, 8, &uv,
+		       &uv_meta);
+
+When avd_open() or format/control ioctls (avd_s_output_fmt(),
+avd_try_capture_fmt(), avd_s_capture_fmt(), avd_s_ctrl()) call
+avd_fill_decoded_pixfmt() -> fill_comp() with a 4:2:2 format
+(AVD_IMG_FMT_ANY, AVD_IMG_FMT_422_8BIT, or AVD_IMG_FMT_422_10BIT),
+v4l2_format_info() returns hdiv =3D 2 and vdiv =3D 1.
+
+Passing width / info->vdiv and height / info->hdiv divides the width by 1 a=
+nd
+the height by 2 instead of width / info->hdiv and height / info->vdiv. For
+resolutions where DIV_ROUND_UP(width / 2, 16) * DIV_ROUND_UP(height, 16)
+differs from DIV_ROUND_UP(width, 16) * DIV_ROUND_UP(height / 2, 16) (such as
+720x1280), could this under-allocate uv, comp->size, and
+pix_mp->plane_fmt[0].sizeimage, causing the hardware to DMA past the end of
+the capture buffer when push_comp() programs comp->offsets?
+
+[Severity: High]
+Also in the H.264 decoder path enabled by this node, can
+avd_h264_realloc_slices() read out of bounds from job->buf.cpu or leave
+alloc_slice_num out of sync with job->segments?
+
+In drivers/media/platform/apple/avd/avd-h264.c:avd_h264_run():
+
+	if (ctx->job.segments &&
+	    h264_ctx->slice_num >=3D h264_ctx->alloc_slice_num) {
+		ret =3D avd_h264_realloc_slices(ctx);
+		if (ret)
+			goto postamble;
+	}
+
+On the first slice of a frame, avd_h264_run() calls avd_init_job() with
+num_segments =3D h264_ctx->alloc_slice_num + 1, and calls avd_end_segment()
+twice (for stream_hdr() and stream_slice()). Each subsequent slice incremen=
+ts
+h264_ctx->slice_num and calls avd_end_segment() once, incrementing job->num.
+
+When h264_ctx->slice_num reaches h264_ctx->alloc_slice_num, job->num is
+already equal to the old alloc_slice_num + 1 (which equals job->num_alloc, =
+the
+full size of job->buf). In avd_h264_realloc_slices():
+
+	h264_ctx->alloc_slice_num =3D alloc_slice_num;
+	memcpy(h264_ctx->slices, tmp,
+	       sizeof(*h264_ctx->slices) * h264_ctx->slice_num);
+	kfree(tmp);
+
+	/* we could already have the correct size */
+	if ((alloc_slice_num + 1) * sizeof(*job->segments) < job->buf.size)
+		return 0;
+
+	ret =3D avd_buf_alloc(ctx->dev, &tmp_buf,
+			   (alloc_slice_num + 1) * sizeof(*job->segments));
+	if (ret)
+		return -ENOMEM;
+
+	job->segments =3D tmp_buf.cpu;
+	job->num_alloc =3D (alloc_slice_num + 1);
+	memset(tmp_buf.cpu, 0, tmp_buf.size);
+	memcpy(job->segments, job->buf.cpu,
+	       sizeof(*job->segments) * (job->num + 1));
+
+Since job->buf only holds job->num elements at this point, doesn't copying
+(job->num + 1) elements read one struct avd_segment past the end of
+job->buf.cpu?
+
+Furthermore, because h264_ctx->alloc_slice_num is updated before checking
+job->buf.size and before avd_buf_alloc(), if the early return is taken
+(without updating job->num_alloc) or if avd_buf_alloc() fails with -ENOMEM,
+won't subsequent slices in the same frame see slice_num < alloc_slice_num,
+skip reallocation, and write out of bounds into job->segments?
+
+[Severity: Critical]
+In drivers/media/platform/apple/avd/avd-hevc.c, can crafted V4L2 HEVC
+stateless controls trigger out-of-bounds accesses and integer overflows dur=
+ing
+avd_hevc_run()?
+
+1. In avd_hevc_validate_pps() and compute_tiles_non_uniform():
+
+static int avd_hevc_validate_pps(struct avd_ctx *ctx,
+				 const struct v4l2_ctrl_hevc_pps *pps)
+{
+	if (pps->num_tile_columns_minus1 + 1 > HEVC_MAX_TILE_COLS ||
+	    pps->num_tile_rows_minus1 + 1 > HEVC_MAX_TILE_ROWS)
+		return -EINVAL;
+
+	for (i =3D 0; i < pps->num_tile_columns_minus1; i++) {
+		column_width[i] =3D MIN(pps->column_width_minus1[i] + 1,
+				      pic_in_cts_width);
+		sum +=3D column_width[i];
+	}
+	column_width[i] =3D pic_in_cts_width - sum;
+
+HEVC_MAX_TILE_COLS is 40 and HEVC_MAX_TILE_ROWS is 44, whereas struct
+v4l2_ctrl_hevc_pps defines column_width_minus1[20] and row_height_minus1[22=
+].
+Won't compute_tiles_non_uniform() read past the end of column_width_minus1[]
+and row_height_minus1[] when num_tile_columns_minus1 > 20 or
+num_tile_rows_minus1 > 22?
+
+In addition, if sum exceeds pic_in_cts_width (or pic_in_cts_height for rows=
+),
+pic_in_cts_width - sum underflows u16 column_width[i], causing compute_bd()=
+ to
+produce col_bd[] / row_bd[] values larger than the picture CTB dimensions a=
+nd
+causing compute_tile_ids() to read ctb_addr_rs_to_ts[] and write tile_ids[]
+out of bounds:
+
+	for (j =3D 0, tile_idx =3D 0; j <=3D pps->num_tile_rows_minus1; j++)
+		for (i =3D 0; i <=3D pps->num_tile_columns_minus1; i++, tile_idx++)
+			for (y =3D row_bd[j]; y < row_bd[j + 1]; y++)
+				for (x =3D col_bd[i]; x < col_bd[i + 1]; x++)
+					tile_ids[ctb_addr_rs_to_ts
+							 [y * pic_in_ctbs_width +
+							  x]] =3D tile_idx;
+
+2. In stream_slices() -> submit_slice_segment():
+
+		if (pps->flags & V4L2_HEVC_PPS_FLAG_TILES_ENABLED)
+			push(AVD_SL_DIM_END_ROW((hflip ? 4 : 0) |
+						(vflip ? 8 : 0)) |
+				     AVD_SL_DIM_END_COL(col) |
+				     AVD_SL_DIM_END_Y(row_bd[row + 1] - 1) |
+				     AVD_SL_DIM_END_X(col_bd[col + 1] - 1),
+			     "cm3_set_ctb_xy");
+
+stream_slices() increments pos for each segment with NEW_TILE_ID and comput=
+es
+row =3D pos / num_cols without checking that row <=3D pps->num_tile_rows_mi=
+nus1.
+Can this read row_bd[row + 1] (and row_bd[row]) out of bounds?
+
+3. In avd_hevc_validate_sps() and avd_hevc_compute_tiles(), are zero
+pic_width_in_luma_samples / pic_height_in_luma_samples or large coding block
+shift exponents (>=3D 31) rejected before computing max_cu_width =3D 1 << (=
+...)
+and dividing by max_cu_width?
+
+4. In avd_hevc_run_preamble():
+
+	for (i =3D 0; i < run->num_slices; i++)
+		sum +=3D (*run->sl)[i].num_entry_point_offsets;
+
+	if (sum && sum !=3D run->num_entry_point_offsets)
+		return -EINVAL;
+
+Since sum is a signed int and num_entry_point_offsets is u32, can sum overf=
+low
+and wrap to 0 (or a small value matching run->num_entry_point_offsets),
+causing avd_init_job() to under-allocate ctx->job.segments and leading to
+out-of-bounds accesses on run->entry_point_offsets in stream_slices() and
+job->segments in avd_end_segment()?
+
+[Severity: High]
+In drivers/media/platform/apple/avd/avd-av1.c and avd-h264.c, could missing
+validation on stateless AV1 and H.264 controls lead to out-of-bounds access=
+es
+or divide-by-zero errors?
+
+1. In drivers/media/platform/apple/avd/avd-av1.c:avd_av1_set_prob():
+
+	memcpy(vb2_plane_vaddr(&dst->base.vb.vb2_buf, 0) +
+		       AVD_AV1_CDFS_OFFSET(dst->base.vb.vb2_buf.planes[0].length,
+					   dst->av1.color_size),
+	       av1_ctx->bufs.probs.cpu, sizeof(struct avd_av1_cdfs));
+
+Neither avd_av1_try_ctrl() nor avd_av1_run_preamble() checks that
+frame->frame_width_minus_1 + 1 and frame->frame_height_minus_1 + 1 fit with=
+in
+ctx->decoded_fmt.fmt.pix_mp.width and height. If userspace passes larger fr=
+ame
+dimensions, dst->av1.color_size can exceed planes[0].length, underflowing
+AVD_AV1_CDFS_OFFSET() and writing sizeof(struct avd_av1_cdfs) bytes before
+vb2_plane_vaddr(). Also, if frame_width_minus_1 or frame_height_minus_1 is
+U32_MAX, width or height wraps to 0 in set_refs(), causing a division by ze=
+ro.
+
+2. In drivers/media/platform/apple/avd/avd-av1.c:set_ref_hdr():
+
+	for (i =3D 0; i < 6; i++) {
+		for (j =3D i + 1; j < 7; j++) {
+			if (frame->reference_frame_ts[frame->ref_frame_idx[i]] =3D=3D
+			    frame->reference_frame_ts[frame->ref_frame_idx[j]]) {
+
+frame->ref_frame_idx[] contains __s8 values from userspace. Unlike
+avd_av1_get_ref_buf(), set_ref_hdr() indexes the 8-element
+frame->reference_frame_ts[] array without checking that ref_frame_idx[i] and
+ref_frame_idx[j] are within 0..7.
+
+3. In drivers/media/platform/apple/avd/avd-av1.c:calc_upscale():
+
+	downscaled_plane_w =3D AV1_DIV_ROUND_UP_POW2(frame_width, sub_x);
+	upscaled_plane_w =3D AV1_DIV_ROUND_UP_POW2(upscaled_width, sub_x);
+	*step_x =3D ((downscaled_plane_w << SUPERRES_SCALE_BITS) +
+		   (upscaled_plane_w / 2)) /
+		  upscaled_plane_w;
+
+calc_upscale() is called from set_header() without checking that
+frame->upscaled_width is non-zero, which can divide by zero when
+upscaled_plane_w is 0.
+
+4. In drivers/media/platform/apple/avd/avd-av1.c:avd_av1_run_preamble():
+
+	run->tile_group =3D ctrl->p_cur.p;
+
+	if (run->frame->tile_info.tile_cols * run->frame->tile_info.tile_rows >
+		ctrl->new_elems)
+		return -EINVAL;
+
+Since run->tile_group reads from ctrl->p_cur.p, should this check ctrl->ele=
+ms
+rather than ctrl->new_elems?
+
+5. In drivers/media/platform/apple/avd/avd-h264.c:stream_slice():
+
+		/* sl->ref_pic_list1[0].index < ARRAY_SIZE(decode->dpb) */
+		/* bidirectional reference of previous mv */
+		ref =3D avd_get_ref_buf(
+			ctx, &dst->base.vb,
+			decode->dpb[sl->ref_pic_list1[0].index].reference_ts);
+
+sl->ref_pic_list1[0].index is an unvalidated u8 from userspace (v4l2-ctrls
+only validates num_ref_idx_l1_active_minus1, not the index fields in
+ref_pic_list1[]), so can this read past the 16-element decode->dpb[] array?
+Similarly, should avd_h264_validate_sps() validate the SPS macroblock
+dimensions against ctx->coded_fmt or ctx->decoded_fmt?
+
+[Severity: Medium]
+Finally, in drivers/media/platform/apple/avd/avd-drv.c, are there two small
+issues in avd_boot() and avd_open()?
+
+In avd_boot():
+
+	memcpy_fromio(version, avd->sram, sizeof(version));
+	dev_info_once(avd->dev, "fw version: %s\n", version);
+
+version is a 64-byte stack array filled from avd->sram without ensuring NUL
+termination; if SRAM does not contain a NUL byte in the first 64 bytes,
+formatting with %s will read past the stack buffer. Should version be
+explicitly NUL-terminated or printed with %.*s?
+
+And in avd_open():
+
+	v4l2_fh_init(&ctx->fh, video_devdata(filp));
+
+	ctx->fh.m2m_ctx =3D v4l2_m2m_ctx_init(avd->m2m_dev, ctx, avd_queue_init);
+	if (IS_ERR(ctx->fh.m2m_ctx)) {
+		ret =3D PTR_ERR(ctx->fh.m2m_ctx);
+		goto err_free_ctx;
+	}
+
+	ret =3D avd_init_ctrls(ctx);
+	if (ret)
+		goto err_cleanup_m2m_ctx;
+
+	v4l2_fh_add(&ctx->fh, filp);
+
+	return 0;
+
+err_cleanup_m2m_ctx:
+	v4l2_m2m_ctx_release(ctx->fh.m2m_ctx);
+
+err_free_ctx:
+	avd_buf_free(avd, &ctx->pipe_state);
+	avd_buf_free(avd, &ctx->inst);
+	kfree(ctx);
+
+If v4l2_m2m_ctx_init() or avd_init_ctrls() fails after v4l2_fh_init(), shou=
+ld
+err_free_ctx call v4l2_fh_exit(&ctx->fh) before freeing ctx?
+
+> +		reg =3D <0x2 0xcd070000 0x0 0x4000>,
+> +		      <0x2 0xcd080000 0x0 0x10000>,
+> +		      <0x2 0xcd090000 0x0 0x14000>,
+> +		      <0x2 0xcd0a4000 0x0 0x4000>,
+> +		      <0x2 0xcd100000 0x0 0x10000>;
+> +		reg-names =3D "piodma", "code", "sram", "mbox", "ctrl";
+> +		interrupt-parent =3D <&aic>;
+> +		interrupts =3D <AIC_IRQ DIE_NO 1185 IRQ_TYPE_LEVEL_HIGH>,
+> +			     <AIC_IRQ DIE_NO 1186 IRQ_TYPE_LEVEL_HIGH>,
+> +			     <AIC_IRQ DIE_NO 1187 IRQ_TYPE_LEVEL_HIGH>,
+> +			     <AIC_IRQ DIE_NO 1188 IRQ_TYPE_LEVEL_HIGH>,
+> +			     <AIC_IRQ DIE_NO 1189 IRQ_TYPE_LEVEL_HIGH>,
+> +			     <AIC_IRQ DIE_NO 1190 IRQ_TYPE_LEVEL_HIGH>,
+> +			     <AIC_IRQ DIE_NO 1191 IRQ_TYPE_LEVEL_HIGH>;
+> +		interrupt-names =3D "mbox0", "mbox1", "mbox2", "mbox3",
+> +				  "flag0", "flag1", "piodma";
+> +		iommus =3D <&DIE_NODE(avd_dart) 0>, <&DIE_NODE(avd_dart) 1>;
+> +		power-domains =3D <&DIE_NODE(ps_avd_sys)>;
+> +		resets =3D <&DIE_NODE(ps_avd_sys)>;
+> +	};
+> +
+>  	DIE_NODE(pmgr_gfx): power-management@408e80000 {
+>  		compatible =3D "apple,t6031-pmgr", "apple,t8103-pmgr", "syscon", "simp=
+le-mfd";
+>  		#address-cells =3D <1>;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261020-avd-v3-0-8=
+5cbaa2125d8@icloud.com?part=3D17
