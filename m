@@ -1,111 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792504891;
-	b=IbMG8J2xaMG6+8UER0OxzxWDV9ao8sSjzZV8UNUaBJ8XqLqFIoZgBKILdIL265uqdJI/
-	 CfwZMBgv9TFqY5hhfaiglRAXFHPOTsfVEWaqmgw2m5cvdfY0NffPlufprrSlOD9zOR+a0
-	 4tBdyosO6UAjzbmfxLjpxC82Mu0Usu8iYyt/EMa+/BM7WGUaveZH4AE2mKVhZ7V7qxwal
-	 eFH8duqIXZE3Uy0bunS6CNQ692Vb3ou9qq1EnyP3dsfDdhtMVsEZJoPigp8LCWJoY/YJE
-	 lTe7dE5kiJrDqb0FcPRipUHvvqiBVZopoRnA/Y9ZDBptA+Vu5tOm2D96VE9EXbxqKUw==
+	t=1792504934;
+	b=CzjvUgIcPsZcCF0l75VWciOJOAylDr3Wa2cAdTUQvKvofCRxDsVd/Pg1fdFfe4MxRvkV
+	 sLE696xxzZwSnoxqeTDbMcEGdp5F+UDYqRhSxTA7c4h4gcUuhHUSe8vE/6uG7ESTWm7OP
+	 A6t2EobNv56/9ACb3dTFQZhN/VZv0Dma4Od1wucZWagMTUXuRGxtZ2r/jYXhSXBoj+DFh
+	 nkRZO+m96L9MpdqS6JN7ogOkPd6eV2caItEjRp0oBpumqmyYe8xPvX5B/Rr8K5bRA2A6v
+	 QDMRf1ZUrTnqq1McLNhahiWCsnughnJnQl7du8Af7m3zu0GS6BerNFqkiO8PgZCWORg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792504891;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=H/IoJEoYhSTAQbIuolZNm4zMxhN1TVHU0cu+DfJKWZ8=;
-	b=E7GYTm9Klfz39LrTsItTSbSOwDxQi4dhvP6OZ6U2BXWWbIdJHygLSQ374GhhvZVuzXAf
-	 iPB2G56gUz/GwJIrE3eVGX9zJSC623xJr3nlpGJVLG9mn8/aEwqp9Sr/RclxiHYqi9oD3
-	 z7fvhucThDVRYKZmivIhGPIZYKH4pR7IRWyiYXJtA0KN+sNL7FBuTWjb0qysbrzkt4PoX
-	 nbi/p9AOGM2+gn/RdQWcviipL/5l0w7qV+mxail9xUZ/9BSEaAgAWkq5RUVgxSxw+b7Tn
-	 ovQ8bMdz1BrrzMlTWyp0m4XzSJ6hFRIipXfGix2z7e91+SuoRMeqeAuRlHTu5E50mgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792504934;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=ZGQlM0gMHLS8wCeNHD1FDFCkCU92i6mm87QAjBA8QDc=;
+	b=jbqwB/HTU3GNB6HIBIxvTiGRlri5MeN/6I1O3NmrIAwQq/JysNqsEmxD3ArMNwbimekA
+	 Et+R3xKM/8Xi2J5MoCOyU+GPLXGGabJT8Ko7CpTc6Zr2XctZvRpI5o9U36pt7UWJFV+yH
+	 lGE+rqKIiXtBlbqjM3kV5wtkDr4Kf7ErS5XXFQBE+oY3yiyQfw+45s2Ftgn8RdjHRx9yL
+	 qcgttohVflXa2lMWpcgkekuu4lae0wKiau7eksl2kyhcbhDPRprfPhf1TvNEEYl8wDJVN
+	 XYEBI0l16sc2GEcYraiVD8eiphkD8+pDnJT/fr5/mbXoB66Ec6WoY5p/BDzsDG24GWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QqNYPlK3;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fdfUd8Io;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iDotFdZR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71867606A31B
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 14:01:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71867606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE264606A31B
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 14:02:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QqNYPlK3;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fdfUd8Io
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KDAE2G702654
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 14:01:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	H/IoJEoYhSTAQbIuolZNm4zMxhN1TVHU0cu+DfJKWZ8=; b=QqNYPlK3iN0DZizd
-	jG0edZTjx7AzM9Os37g5vfDpBPvpa8eoDAlkhL1XjwDuuhMIqcNii/gyGtdwC/dQ
-	Duk9HhdRrssaJfnje4WOWusbTT6Zmdui7At6OMP33f8My2X8pf+YHPvjyHHMu74p
-	0D9kZah66xD02sxC6KjzHY+DSYSj+h/9IX/WxZ8+5w5WXQ68LdBo9WW3O++6WJLL
-	v0lxxwZGQ3j5cdgIESu2jNP0/qPscJ+UR5AZMgQMVl/HOK+Pt59CEaJLeeaVOY1n
-	P0q7/AsDmIO+thg9Ozh8C5zEQYCap0qgnY9K9CHb5Wh8k3uUrZs/fWPCInw5aVBG
-	7L/tDQ==
-Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5str1n-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 14:01:30 +0000 (GMT)
-Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-990758837bdso37742241.1
-        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 07:01:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792504890; x=1793109690; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=H/IoJEoYhSTAQbIuolZNm4zMxhN1TVHU0cu+DfJKWZ8=;
-        b=fdfUd8IoEMG8upHkv9XsdZXrVJxhfAxxy6Pp1K0peZIFDXic5NBPMGRXPMV2Cwu4Kq
-         gDvqnNhkAwM91i4aGRk7rhqX07Vbxqpjni+IY483Yw2BkDq65VSICqy2epTx0ijhxsxw
-         q+j2nU4ApG3jTXvdHRRnv2xY0n0VCC4retSi3VmWO+GVz2tBHJ6EW2PUc3lIzzSL+Aj2
-         NPdy3f5Yo2iNHE+y9pWZlWls+0G0kRjHIhs42I2T2VTZk9pIDxNgw9uaZCts/AQJW+si
-         cwpfCBoqTghOe3fx6m2Y5o2VLF3r5o+bnKZir3vUYBqsOth2o9GtJkiiD1gVZ/S1mb/B
-         oLVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792504890; x=1793109690;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=H/IoJEoYhSTAQbIuolZNm4zMxhN1TVHU0cu+DfJKWZ8=;
-        b=wo1VVEnWaFT7/xhsenyXnFYmvEfk8Vd4XqvqY3LzHaL+ECDEeCD8EJBU7LtgSXA/bS
-         azHXRDdjSPKlYaQzYW/3ooRJoc1Y9H1t5Y9tdZU5CPaeK7xIh8O3e6irMOS5q37Ilpfy
-         M+UdRXdlsOOg2M/SlMXLYSpG3W4JZreknl6sRFhe32kVo6x1Xo/rRJ1L1Vv5xuDUsSl2
-         mz6vr05tw3aFT8ZRA4C0F1fkm25JLtyngglB6XeBqtHrYsoVji3egpMk/NglyYqrbFpw
-         TihLztfw2P4+Qvxlu9dwVxC5tblkbxQPY+BETvWBkmNKbBB5krqcso74jabVCRWZjQAG
-         tpAw==
-X-Forwarded-Encrypted: i=1; AKwUvBwynMP1M7VcRC0ASw+Hk7NsFzYln5ps+SorFyzPGHMm+HhDc9AcMso1YvyuKTPxnZ3k9JMqSvMsSJd8@vger.kernel.org
-X-Gm-Message-State: AFq9FYKFVBa+JXNS6piA6LE15VygS14CFgQWqdBocYgh/Y2+L8lQfq03
-	NaIrl0WhAgKpWDHbJ9sUG1qI3DvqezLs8fLQJkrYezgUd808VYswhlnMlZ3QtQ13p+JZA7jyFXl
-	eM0RUHKBAuo2YVd+CqB/UDTg1FKh20ESXCQ71cG6u0X/aJ97/hDDqKxJH9/Ri6Q2Y
-X-Gm-Gg: AYBFou1HLhpXIeGMT+NEv4trkI+i1U6NH5ajDgkcbqnuE+7xGPr0GhMvrBzXkG44zns
-	jtH/1bYa+Fwb7fm4igYMp9wZ5gJHVAgQaB50gLEhOK+RGeEytbcurQPHfQOeXczeXMRG2KLjL28
-	Pv8HizoqBF4x9P1/mgeSFNWOqZuXYByG4C3SRFhLtDc0dFXE1g21gxG0jKhI0k9Ym1nGEaMW2XN
-	VkK3BVpyKfTL5N0fr9EG5NOnitgDCdqbO7FchoZWgqDGaZ9WgdZNW1DuFHl9/CBD4SNno3AsA+q
-	ElGLAG46xTqN14F0p+uFPu/myA/aoh8M6hQqu0AkGkOsQVR1rC3gPzKqvDrEZf9+7VK+rn85ti7
-	rjbme7/s1Bhys+qM7qal81Q==
-X-Received: by 2002:a05:6102:2907:b0:7c8:3b8c:82ae with SMTP id ada2fe7eead31-7cc368e81e9mr1651130137.2.1792504889518;
-        Tue, 20 Oct 2026 07:01:29 -0700 (PDT)
-X-Received: by 2002:a05:6102:2907:b0:7c8:3b8c:82ae with SMTP id ada2fe7eead31-7cc368e81e9mr1651074137.2.1792504888917;
-        Tue, 20 Oct 2026 07:01:28 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b38a1b0f75sm5333722a12.13.2026.10.20.07.01.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 07:01:27 -0700 (PDT)
-Message-ID: <ad849e0a-5ee8-4df6-a679-ffd44c2972b3@oss.qualcomm.com>
-Date: Tue, 20 Oct 2026 16:01:23 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iDotFdZR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CB1A1F000C4;
+	Tue, 20 Oct 2026 14:02:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792504933;
+	bh=ZGQlM0gMHLS8wCeNHD1FDFCkCU92i6mm87QAjBA8QDc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=iDotFdZRw/Rzp4blRYjvhNunW6H4o2zvc5gLM88+pcJzyMJKCrydMkfla98Wk0xeX
+	 yQfWZp8hNlCC+sIRhEOvcPAkVOlm2UZZnU9MGAThwCTose0eGg9WU60EEcqF+0U2ZD
+	 lWyAdtfp96G2yuDJt3gtegotb6AdkBVTata5j4BDc9V1ohwzMPGD1TIKD6es3ixfIb
+	 IWCWaz4JlbGYKlDfJBBClV4DzrGzEar1f5+IsrwYHHZG3IuYvDj5pDsBgdryyvaOO3
+	 VkfYHbQFv3+KEwVeK6ewpUYS7a9dv2KRhLsBrtNS5oNiW6SluzIJyPHAcrfQleaOmq
+	 vG8VgesWfKxQA==
+Message-ID: <sashiko-outbox-179077@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 13/17] arm64: dts: apple: t8122: add avd nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sofus Forstreuter" <sofus.c@icloud.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261020-avd-v3-13-85cbaa2125d8@icloud.com>
+References: <20261020-avd-v3-0-85cbaa2125d8@icloud.com>
+ <20261020-avd-v3-13-85cbaa2125d8@icloud.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 20 Oct 2026 14:02:12 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,86 +59,378 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/4] platform: arm64: Add a driver for the EC found on
- ASUS Glymur machines
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Guenter Roeck <linux@roeck-us.net>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, devicetree@vger.kernel.org,
-        LKML <linux-kernel@vger.kernel.org>,
-        platform-driver-x86@vger.kernel.org, linux-hwmon@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org
-References: <20261015-topic-asus_ec-v4-0-af6305ffcb10@oss.qualcomm.com>
- <20261015-topic-asus_ec-v4-2-af6305ffcb10@oss.qualcomm.com>
- <ba7830c7-9ad8-6695-f543-c4c419aa9133@linux.intel.com>
- <e4cec04d-2c66-4900-940c-d7d3d245cc64@oss.qualcomm.com>
- <f97000c4-496d-0ce1-318a-1df5c0de804b@linux.intel.com>
- <3fecb67c-81b2-6e6f-889c-01425090321f@linux.intel.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <3fecb67c-81b2-6e6f-889c-01425090321f@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA1NSBTYWx0ZWRfX8k2ynDP8MCgK
- zyX3jSSgrnCDlHXjRhxxEFigbsUrUwSvHCKrronBHKzxBensMCSXF6h4EimZRcAkAQ7OGQ64fNX
- Wrg00iXEQxyO1YwMt+O9oNk7GKGIcJDXn2XCAT0WDpXWS5zATIHEy9FhN4MOKpVj6Ftc5GPYeXK
- zNf0gznfzmeC2uX3aQUuitD8o7qkhZdrn6Vr9QeORlMfC/qJ+9USMBvMpCFbXRGWuq5Ig9Mwy1V
- 26Db5yQbYyxsq1fPJKXgvYh29xivIIcG75zBSB1f89z1bZZJVQW3Uo78VpQPqUEoVnv9cRwOtTR
- QO7TxsrL93x+XGu56EB485Ra8IWx1n7IYWjqnY+cQTixO+fSWBOHsmgJifIR8ec+WdXQTL710kn
- c38z3Mk6fEM/c9PxtjWDx1eKUrAIh8mCvcMEjGkYB6eHWx0Ch3Kgn/vikwzPpcXI5Jwg7lMd3DA
- LAMoSOCpadfGDZ6OaKg==
-X-Authority-Analysis: v=2.4 cv=fIusTpae c=1 sm=1 tr=0 ts=6ad7743a cx=c_pps
- a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=WnbzyOWOUeW_Ihyr:21 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=SB7vGQqGIbRnJ8eduEoA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=1WsBpfsz9X-RYQiigVTh:22
-X-Proofpoint-GUID: GhSejp7Lzc2358_K24jTemrW-Mc657p9
-X-Proofpoint-ORIG-GUID: GhSejp7Lzc2358_K24jTemrW-Mc657p9
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA1NSBTYWx0ZWRfXyTU/aPgFn9kB
- O/QsRHrXiHN+Th0THGdTOCzJYrdpL/uo8Mv2+CAblnsH1IUVbHT1JinlehH2agd7Pr2EMviRJnr
- NLGrgAbb+ok9t0EiUCHe1JgzaMRzyPs=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-20_02,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 spamscore=0 malwarescore=0 suspectscore=0
- clxscore=1015 priorityscore=1501 adultscore=0 phishscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200055
 
-On 10/20/26 4:00 PM, Ilpo Järvinen wrote:
-> On Fri, 16 Oct 2026, Ilpo Järvinen wrote:
-> 
->> On Thu, 15 Oct 2026, Konrad Dybcio wrote:
->>
->>> On 10/15/26 4:24 PM, Ilpo Järvinen wrote:
->>>> On Thu, 15 Oct 2026, Konrad Dybcio wrote:
+Thank you for your contribution! Sashiko AI review found 8 potential issue(=
+s) to consider:
+- [Critical] media: apple: avd: invalid tile bounds in avd_hevc_validate_pp=
+s()
+- [Critical] media: apple: avd: out-of-bounds access, NULL deref, and div-b=
+y-zero in codecs
+- [High] media: apple: avd: return -ENOMEM on slice allocation failure in a=
+vd_h264_start()
+- [High] media: apple: avd: unchecked ref indices in set_ref_hdr() and stre=
+am_slice()
+- [High] media: apple: avd: unsynchronized reset in avd_watchdog_func() vs =
+IRQ
+- [High] media: apple: avd: active ctx->comp mutation in avd_try_capture_fm=
+t()
+- [Medium] media: apple: avd: wrong plane length field in stream_slice_mv()
+- [Low] arm64: dts: apple: t8122: undocumented apple,t8122-dart compatible =
+string
+--
 
-[...]
+commit 8b4643c23145b16ec624d5c67d6b796e434e2d89
+Author: Sofus Forstreuter <sofus.c@icloud.com>
 
->>> Yeah I know. I still left it in deliberately so that in case anyone
->>> wants to audit the format here and compare it to the DSDT it's more
->>> obvious that this wasn't an oversight. Do you still prefer I resend
->>> (or maybe you'd like to fix that up while applying, which I don't
->>> mind either)?
->>
->> We can keep the member there but I'll change it to {}.
->>
->> I can try to remember to fix these while applying (I'm good in 
->> forgetting though :-)). But I at least try to check all the comments made 
->> to the last version.
-> 
-> This patch 2 has been applied to the review-ilpo-next branch. The rest of 
-> series will have to go through some other tree.
+arm64: dts: apple: t8122: add avd nodes
 
-Thank you!
+This commit adds the DART IOMMU and video-codec device tree nodes for the
+Apple Video Decoder on the t8122 SoC.
 
-Konrad
+> diff --git a/arch/arm64/boot/dts/apple/t8122.dtsi b/arch/arm64/boot/dts/a=
+pple/t8122.dtsi
+> index 1ee61c5b3409f..25e47755e0951 100644
+> --- a/arch/arm64/boot/dts/apple/t8122.dtsi
+> +++ b/arch/arm64/boot/dts/apple/t8122.dtsi
+> @@ -186,6 +186,38 @@ soc {
+>  		/* Required to get >32-bit DMA via DARTs */
+>  		dma-ranges =3D <0 0 0 0 0xffffffff 0xffffc000>;
+> =20
+> +		avd_dart: iommu@289010000 {
+> +			compatible =3D "apple,t8122-dart", "apple,t8110-dart";
+
+[Severity: Low]
+Does Documentation/devicetree/bindings/iommu/apple,dart.yaml need to be
+updated to include "apple,t8122-dart"?
+
+Currently the schema only documents:
+
+  compatible:
+    oneOf:
+      - enum:
+          - apple,t8103-dart
+          - apple,t8103-usb4-dart
+          - apple,t8110-dart
+          - apple,t6000-dart
+      - items:
+          - const: apple,t6020-dart
+          - const: apple,t8110-dart
+
+Because "apple,t8110-dart" selects apple,dart.yaml and "apple,t8122-dart"
+is not listed there, running make dtbs_check will fail schema validation
+on t8122 device trees.
+
+> +			reg =3D <0x2 0x89010000 0x0 0x4000>;
+> +			interrupt-parent =3D <&aic>;
+> +			interrupts =3D <AIC_IRQ 686 IRQ_TYPE_LEVEL_HIGH>;
+> +			#iommu-cells =3D <1>;
+> +			power-domains =3D <&ps_avd_sys>;
+> +		};
+> +
+> +		video-codec@289070000 {
+> +			compatible =3D "apple,t8122-avd";
+
+[Severity: Critical]
+Enabling video-codec@289070000 with "apple,t8122-avd" exposes the AVD
+driver (avd_t8122_variant) to userspace. Looking at the HEVC support in
+drivers/media/platform/apple/avd/avd-hevc.c added earlier in the series,
+can avd_hevc_validate_pps() and compute_tiles_non_uniform() read and write
+out of bounds when userspace submits V4L2_CID_STATELESS_HEVC_PPS and
+V4L2_CID_STATELESS_HEVC_SPS controls?
+
+In struct v4l2_ctrl_hevc_pps, column_width_minus1 has 20 elements and
+row_height_minus1 has 22 elements, but avd_hevc_validate_pps() checks
+against HEVC_MAX_TILE_COLS (40) and HEVC_MAX_TILE_ROWS (44):
+
+	if (pps->num_tile_columns_minus1 + 1 > HEVC_MAX_TILE_COLS ||
+	    pps->num_tile_rows_minus1 + 1 > HEVC_MAX_TILE_ROWS)
+		return -EINVAL;
+
+When V4L2_HEVC_PPS_FLAG_UNIFORM_SPACING is not set,
+avd_hevc_run() -> avd_hevc_compute_tiles() -> compute_tiles_non_uniform()
+loops i up to pps->num_tile_columns_minus1 - 1 and
+pps->num_tile_rows_minus1 - 1:
+
+	for (i =3D 0; i < pps->num_tile_columns_minus1; i++) {
+		column_width[i] =3D MIN(pps->column_width_minus1[i] + 1,
+				      pic_in_cts_width);
+		sum +=3D column_width[i];
+	}
+	column_width[i] =3D pic_in_cts_width - sum;
+
+	sum =3D 0;
+	for (i =3D 0; i < pps->num_tile_rows_minus1; i++) {
+		row_height[i] =3D MIN(pps->row_height_minus1[i] + 1,
+				    pic_in_cts_height);
+		sum +=3D row_height[i];
+	}
+	row_height[i] =3D pic_in_cts_height - sum;
+
+Can this read pps->column_width_minus1[i] and pps->row_height_minus1[i]
+out of bounds? Also, because each entry is only clamped individually to
+pic_in_cts_width or pic_in_cts_height, if sum exceeds pic_in_cts_width or
+pic_in_cts_height, column_width[i] and row_height[i] underflow u16, which
+then causes compute_bd() and compute_tile_ids() to index
+ctb_addr_rs_to_ts[] and tile_ids[] out of bounds:
+
+	for (j =3D 0, tile_idx =3D 0; j <=3D pps->num_tile_rows_minus1; j++)
+		for (i =3D 0; i <=3D pps->num_tile_columns_minus1; i++, tile_idx++)
+			for (y =3D row_bd[j]; y < row_bd[j + 1]; y++)
+				for (x =3D col_bd[i]; x < col_bd[i + 1]; x++)
+					tile_ids[ctb_addr_rs_to_ts
+							 [y * pic_in_ctbs_width +
+							  x]] =3D tile_idx;
+
+Furthermore, in avd_hevc_compute_tiles() (which runs in avd_hevc_run()
+before avd_hevc_alloc_scratch()):
+
+	max_cu_width =3D 1 << (sps->log2_diff_max_min_luma_coding_block_size +
+			     log2_min_cb_size);
+	pic_in_ctbs_width =3D (width + max_cu_width - 1) / max_cu_width;
+	pic_in_ctbs_height =3D (height + max_cu_width - 1) / max_cu_width;
+
+If the unvalidated SPS coding block size fields shift out to 0, or if
+sps->pic_width_in_luma_samples / pic_height_in_luma_samples is 0, can this
+divide by zero in avd_hevc_compute_tiles() or compute_rs_to_ts()?
+
+[Severity: Critical]
+Also in the AV1, VP9, and H.264 paths enabled by "apple,t8122-avd", are
+there several missing validations on userspace control and buffer parameter=
+s?
+
+1. In drivers/media/platform/apple/avd/avd-av1.c, frame->frame_width_minus_1
+and frame->frame_height_minus_1 are not checked against
+ctx->decoded_fmt.fmt.pix_mp.width and height. In avd_av1_set_prob():
+
+	memcpy(vb2_plane_vaddr(&dst->base.vb.vb2_buf, 0) +
+		       AVD_AV1_CDFS_OFFSET(dst->base.vb.vb2_buf.planes[0].length,
+					   dst->av1.color_size),
+	       av1_ctx->bufs.probs.cpu, sizeof(struct avd_av1_cdfs));
+
+If dst->av1.color_size (derived from frame_width_minus_1 + 1 and
+frame_height_minus_1 + 1) exceeds planes[0].length, can
+AVD_AV1_CDFS_OFFSET and AVD_AV1_COLOR_OFFSET underflow, causing memcpy()
+and hardware DMA to write out of bounds? Similarly, in avd-h264.c,
+avd_h264_validate_sps() does not check SPS dimensions against
+ctx->coded_fmt or ctx->decoded_fmt, while avd_h264_alloc_bufs() allocates
+scratch buffers using fmt_width(ctx) and stream_hdr() programs hardware
+with the SPS dimensions.
+
+2. In avd_av1_set_prob() (drivers/media/platform/apple/avd/avd-av1.c) and
+set_tiles() (drivers/media/platform/apple/avd/avd-vp9.c):
+
+	struct vb2_v4l2_buffer *src =3D v4l2_m2m_next_src_buf(ctx->fh.m2m_ctx);
+	const u8 *data =3D vb2_plane_vaddr(&src->vb2_buf, 0);
+
+Since avd_queue_init() enables VB2_DMABUF, can vb2_plane_vaddr() return
+NULL and trigger a NULL pointer dereference when accessed without a check?
+
+3. In avd_av1_run_preamble() (drivers/media/platform/apple/avd/avd-av1.c):
+
+	if (run->frame->tile_info.tile_cols * run->frame->tile_info.tile_rows >
+		ctrl->new_elems)
+		return -EINVAL;
+
+Since this validates ctrl->p_cur.p during a run, should this check
+ctrl->elems instead of ctrl->new_elems?
+
+4. In set_tiles() (drivers/media/platform/apple/avd/avd-av1.c):
+
+			tile_row =3D tile_group->tile_row;
+			tile_col =3D tile_group->tile_col;
+
+			if (tile_col >=3D V4L2_AV1_MAX_TILE_COLS ||
+			    tile_row >=3D V4L2_AV1_MAX_TILE_ROWS)
+				return -EINVAL;
+
+Because tile_row and tile_col are signed int while tile_group->tile_row
+and tile_group->tile_col are __u32, can values >=3D 0x80000000 become
+negative, bypass the upper-bound check, and index tile_info arrays out of
+bounds?
+
+5. In calc_upscale() (drivers/media/platform/apple/avd/avd-av1.c):
+
+	upscaled_plane_w =3D AV1_DIV_ROUND_UP_POW2(upscaled_width, sub_x);
+	*step_x =3D ((downscaled_plane_w << SUPERRES_SCALE_BITS) +
+		   (upscaled_plane_w / 2)) /
+		  upscaled_plane_w;
+
+And in set_refs() in the same file, can frame->upscaled_width =3D=3D 0 or
+frame_width_minus_1 / frame_height_minus_1 =3D=3D U32_MAX cause a division =
+by
+zero?
+
+[Severity: High]
+In drivers/media/platform/apple/avd/avd-h264.c, what happens if the slice
+array allocation fails in avd_h264_start()?
+
+	ret =3D avd_h264_validate_sps(ctx, ctrl->p_new.p_h264_sps);
+	if (ret)
+		return ret;
+
+	h264_ctx =3D kzalloc_obj(*h264_ctx, GFP_KERNEL);
+	if (!h264_ctx)
+		return -ENOMEM;
+
+	ctx->priv =3D h264_ctx;
+
+	/* assume one slice per row */
+	h264_ctx->alloc_slice_num =3D
+		ctrl->p_new.p_h264_sps->pic_height_in_map_units_minus1 + 1;
+	h264_ctx->slices =3D kzalloc_objs(*h264_ctx->slices,
+					h264_ctx->alloc_slice_num, GFP_KERNEL);
+	if (!h264_ctx->slices)
+		goto err_free_ctx;
+...
+err_free_ctx:
+	avd_h264_stop(ctx);
+	ctx->priv =3D NULL;
+	return ret;
+
+When kzalloc_objs() returns NULL, ret is still 0 from
+avd_h264_validate_sps(). Jumping to err_free_ctx frees h264_ctx, sets
+ctx->priv =3D NULL, and returns 0 to avd_start_streaming(), which then
+allows avd_h264_run() and avd_h264_done() to dereference a NULL h264_ctx.
+Should ret be set to -ENOMEM before goto err_free_ctx?
+
+[Severity: High]
+In drivers/media/platform/apple/avd/avd-av1.c and avd-h264.c, can
+userspace trigger out-of-bounds reads via unchecked reference indices?
+
+In set_ref_hdr() (drivers/media/platform/apple/avd/avd-av1.c):
+
+	for (i =3D 0; i < 6; i++) {
+		for (j =3D i + 1; j < 7; j++) {
+			if (frame->reference_frame_ts[frame->ref_frame_idx[i]] =3D=3D
+			    frame->reference_frame_ts[frame->ref_frame_idx[j]]) {
+
+Here frame->ref_frame_idx[] is an array of signed __s8 values from
+userspace used directly to index the 8-element frame->reference_frame_ts[]
+array without bounds checking. Also, in avd_av1_get_ref_buf():
+
+	if (idx < 0 || idx >=3D V4L2_AV1_TOTAL_REFS_PER_FRAME ||
+	    frame->ref_frame_idx[idx] >=3D ARRAY_SIZE(frame->reference_frame_ts))
+
+Should idx be checked against V4L2_AV1_REFS_PER_FRAME (7, the size of
+frame->ref_frame_idx[]) instead of V4L2_AV1_TOTAL_REFS_PER_FRAME (8), and
+should frame->ref_frame_idx[idx] also be checked for < 0?
+
+Similarly, in stream_slice() (drivers/media/platform/apple/avd/avd-h264.c):
+
+		/* sl->ref_pic_list1[0].index < ARRAY_SIZE(decode->dpb) */
+		/* bidirectional reference of previous mv */
+		ref =3D avd_get_ref_buf(
+			ctx, &dst->base.vb,
+			decode->dpb[sl->ref_pic_list1[0].index].reference_ts);
+
+Can sl->ref_pic_list1[0].index (an unvalidated __u8 from userspace) index
+past the 16-element decode->dpb[] array when sl->slice_type is
+V4L2_H264_SLICE_TYPE_B?
+
+[Severity: High]
+In drivers/media/platform/apple/avd/avd-v4l2.c, does calling VIDIOC_TRY_FMT
+on the capture queue corrupt the active ctx->comp state?
+
+avd_try_capture_fmt() calls avd_fill_decoded_pixfmt(ctx, pix_mp):
+
+	if (is_interchange(pix_mp->pixelformat))
+		pix_mp->plane_fmt[0].sizeimage =3D 0;
+	ctx->comp.start_offset =3D pix_mp->plane_fmt[0].sizeimage;
+
+	fill_comp(&ctx->comp, ctx->image_fmt, pix_mp->width, pix_mp->height);
+
+Because avd_fill_decoded_pixfmt() writes directly to ctx->comp, a
+VIDIOC_TRY_FMT ioctl will overwrite ctx->comp.start_offset,
+ctx->comp.offsets, and ctx->comp.size, which avd_run_preamble() then uses
+to compute DMA addresses for active capture buffers:
+
+	run->comp_out =3D run->y_out + ctx->comp.start_offset;
+	ctx->decomp =3D !is_interchange(ctx->decoded_fmt.fmt.pix_mp.pixelformat);
+
+	dst =3D vb2_to_avd_decoded_buf(&run->bufs.dst->vb2_buf);
+	memcpy(&dst->comp, &ctx->comp, sizeof(ctx->comp));
+
+[Severity: Medium]
+In stream_slice_mv() (drivers/media/platform/apple/avd/avd-hevc.c):
+
+	if (ref_valid) {
+		dma_addr_t mv_color_addr =3D
+			vb2_dma_contig_plane_dma_addr(&ref->base.vb.vb2_buf,
+						      0) +
+			(ref->base.vb.planes[0].length -
+			 mv_color_size(fmt_width(ctx), fmt_height(ctx)));
+		pusha(mv_color_addr, "mv_colo", 0);
+	}
+
+When userspace queues a VB2_MEMORY_DMABUF capture buffer with plane length
+0, ref->base.vb.planes[0].length remains 0 while the actual buffer size is
+stored in ref->base.vb.vb2_buf.planes[0].length (which is what
+avd_hevc_run_preamble() uses when computing run->addresses.mv_color).
+Doesn't using ref->base.vb.planes[0].length here underflow the 32-bit
+subtraction and produce an invalid DMA address?
+
+> +			reg =3D <0x2 0x89070000 0x0 0x4000>,
+> +			      <0x2 0x89080000 0x0 0x10000>,
+> +			      <0x2 0x89090000 0x0 0x14000>,
+> +			      <0x2 0x890a4000 0x0 0x4000>,
+> +			      <0x2 0x89100000 0x0 0x10000>;
+> +			reg-names =3D "piodma", "code", "sram", "mbox", "ctrl";
+> +			interrupt-parent =3D <&aic>;
+> +			interrupts =3D <AIC_IRQ 679 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <AIC_IRQ 680 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <AIC_IRQ 681 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <AIC_IRQ 682 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <AIC_IRQ 683 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <AIC_IRQ 684 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <AIC_IRQ 685 IRQ_TYPE_LEVEL_HIGH>;
+> +			interrupt-names =3D "mbox0", "mbox1", "mbox2", "mbox3",
+> +					  "flag0", "flag1", "piodma";
+> +			iommus =3D <&avd_dart 0>, <&avd_dart 1>;
+> +			power-domains =3D <&ps_avd_sys>;
+> +			resets =3D <&ps_avd_sys>;
+> +		};
+
+[Severity: High]
+With resets =3D <&ps_avd_sys> and the mbox0 interrupt wired up here, can
+avd_watchdog_func() race with the threaded handler avd_irq_handler() in
+drivers/media/platform/apple/avd/avd-drv.c?
+
+In avd_watchdog_func():
+
+	writel(0, avd->mbox + AVD_REG_MBOX_IRQ_ENABLE);
+	ret =3D avd_reset(avd);
+	if (ret)
+		dev_err(avd->dev, "failed to reset: %d", ret);
+
+	avd_job_finish(ctx, VB2_BUF_STATE_ERROR);
+
+And in avd_irq_handler():
+
+	status =3D readl(avd->mbox + AVD_REG_MBOX0_RETRIEVE);
+	writel(AVD_MBOX0_NOT_EMPTY, avd->mbox + AVD_REG_MBOX_IRQ_CLR);
+...
+	/* if the watchdog_work has run the work has already been submitted */
+	if (cancel_delayed_work(&ctx->watchdog_work))
+		avd_job_finish(ctx, state);
+
+If the mbox0 IRQ fires just as ctx->watchdog_work expires,
+avd_watchdog_func() only clears AVD_REG_MBOX_IRQ_ENABLE in MMIO without
+calling disable_irq() or synchronize_irq(). Can avd_irq_handler() execute
+concurrently on another CPU and read/write avd->mbox while avd_reset() ->
+reset_control_reset(avd->rstc) -> apple_pmgr_reset_assert() asserts
+APPLE_PMGR_DEV_DISABLE and APPLE_PMGR_RESET on ps_avd_sys? Also, if
+avd_watchdog_func() finishes the job and starts the next M2M job before
+avd_irq_handler() reaches cancel_delayed_work(&ctx->watchdog_work), can
+avd_irq_handler() cancel the new job's watchdog timer and call
+avd_job_finish() a second time?
+
+[ ... ]
+
+>
+> --=20
+> 2.51.2
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261020-avd-v3-0-8=
+5cbaa2125d8@icloud.com?part=3D13
