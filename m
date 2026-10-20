@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792503380;
-	b=veHk/OxSx18G8Nigg4Mq5rTp0Y31dNSoisVZuDxszWZCDgeBXh+I0Bduq8OUetkfENgi
-	 8ciYQq+RziEtWZ+Nw6BtlTZY7sapRvWeQgT3YbAw1Sm0W9/oZ7rkkt6/xlIgcrtCpCS+n
-	 lyY+8lriK4p8cKX3FJDmP855SqAkeaJhHGuy1QwT93PVkCsevtZk1XoD6BWgyH9oGmgBh
-	 plrRTM59pXuibugVhCvP437pBm6MetICVn99dpcwnB6mYB107MRudNQQ3QYcVEwek6XD7
-	 963iK5jqY7FUd7ZxEwM+bCL/1JFbmWfDN+SeenHSIh6M+Wq03irrFOzTHIPx6Nttz5g==
+	t=1792503387;
+	b=o1QUaEowyotxfzv5y7XibgCvJYMqVjpY9TqJ6ovFxR037Glb1cGvw35QXE7LvPnqAsz/
+	 PQ5J0admPWWT1ZlwFUOEDZd8Jjom9j1q3U0QcZNfAxhx89uWFvYUVEprklUz5d+iOBPrI
+	 iln8P31woeW0xixb5xPLYh6TyxdHL0GkQu/wIehhLCijBr0G5ZT2UtTVkn64XK0xFqTKb
+	 xgCHXFVXdEBNx8SgaisTzouSJmlA73DO4xJj/JI1RclpZUP55dQGV1+d4xBS+fFVNJjVH
+	 KGge+3MjQvcjUUAZ4Sg0zMq+lpTzPes4pk9ao+RwpfBCysUp12D0goqAnKAdlPaBW9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792503380;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792503387;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=4g2T0lgFGixZisGN9hGL+MJinxnor9rjQW+5QYUQkr0=;
-	b=OZiEe11DdXsuwjFpIJ4JDJ/dR6wl8R0KHFl76yPua6S8Cx4ANt33zae+79j1Y8eAa38U
-	 0HOkDsVa3xZ04nY+LDmaXkpbLqfXyY2cMaz1RqYEw3UfclNcJZIcA0X1UzL6VqCfx0KTq
-	 3Br3auCGI1VcIU4SGv3IvTzj95HVyvIx1UzB2yMgvPe7rVdJAJ9+WlzaZGAeZzOZXdGVs
-	 ciazn/UFWUEuuRuuCTju7KGFB+9712UJxN//uD8q1X5ZeriB9DJJXylXwhEfiQYwAcsY/
-	 n2pqfzG+FZjhAHhd8QAV/BkGWNBXhKhSRD7VBRa9VofAeYuphDhivcHejdt/QmkXUvA==
+	bh=F/efK23LeIOGaOPfvaxqK/IGnFt5fdIsZ71nTbD9mZM=;
+	b=n4ytqkCM/DhW/pBYiMAHkBjIcGPhCLOGmCw00lNe7mpnjiL8xpXMTBYh6efirKXGYehv
+	 tu1WCDnPf0WE1+qWrLiuw23mguxwHGCUbo67RFNvK9znfqo/v1+gHnAnQa1jeIOGTDqGh
+	 TixhevOotKtv8ZiDXDAuMIlMWav2lva8o5NSASWLtidaSFYCThjABEqqnDm15GUT7YBgE
+	 IwgfBPR/10/1xvxaoUpG56gV2Xsb4k4jdbiwIWeoJbno6hRINfGhdhcMgokMK1OeI5gSA
+	 6gIAzZpj3+rhxdmM3ElZ/QELDnr4dAjvmBH1fEzK1fmNkFFkaV1V45KZKxam+oo0hfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GIr6uhWV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lWSBL7sS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B19606A319;
-	Tue, 20 Oct 2026 13:36:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C902860A2612;
+	Tue, 20 Oct 2026 13:36:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GIr6uhWV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E4C21F000C4;
-	Tue, 20 Oct 2026 13:36:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lWSBL7sS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AA661F000C4;
+	Tue, 20 Oct 2026 13:36:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792503380;
-	bh=4g2T0lgFGixZisGN9hGL+MJinxnor9rjQW+5QYUQkr0=;
+	s=k20260515; t=1792503386;
+	bh=F/efK23LeIOGaOPfvaxqK/IGnFt5fdIsZ71nTbD9mZM=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=GIr6uhWVNcBMpHtrZ24bziY/EqfUphYURI8vuOYLpUJff4rJPberi/K2WtlIX+uEs
-	 CgtHS39Hs+sULa7s3hjJml1aUMi2tOM1kmtyvoWo6Yx1VDaqVRsiRZ9V7quT+yznnR
-	 s90d/Q7GSDDwNJTSgj+CXpyBAuvM1bg3R+XFvyIhTPNqIknkwYRaP7pvbNoexCl2V3
-	 TN2nOhCfUnZSsS8Shsncyv7me8SHMEdc3I+RQk0hMIKYlqI3fkXY0rmZW9ymNfljuH
-	 ZBrrfPtGA3UfD9egHmdiho6LuTrRi2Ll72NTbconz7XiLzgpQErXQ2fNgeIqWdqmQl
-	 /1MDwp1WHVhKQ==
-Subject: Re: [PATCH net-next v2 1/5] dt-bindings: net: maxlinear: add
- MxL86211C VDDP supply
+	b=lWSBL7sST/V2DDFFYF1LLU/cLmOhW8X0V0PLOyAvOLgtaPC2egSSongVCFWVijrNJ
+	 0oeuPYtAc/bsZ7wqDosGRoSph2HrUbjRUtJrssMaUbaQB7vHbhsnEiJw1ETKjmURUD
+	 PQ/JxX5mZzvT/9+UPWNoFS5DEEnlfXDeAdieW5bvyaYR/P3PZ4AS+Agwr+jP/3Aumk
+	 vBKHNxnKEKv0JcclODjNHYUrg3phHhUs0W7jnAC2uORqlNUFT/kIHOtdMfcOvW/Fbz
+	 8FuZMd/pb+TGula5W5jz/OtwcNUb/xVAB9tAl2/D/Bwtuo0b3mSS9ENXDRB62hjgut
+	 pxKFQ8kP6WcjQ==
+Subject:
+ Re: [PATCH net-next v2 5/5] net: phy: mxl-gpy: support MxL86211C lane mapping
 From: netdev-bot+sashiko@kernel.org
 To: robert.marko@sartura.hr
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
@@ -50,11 +50,11 @@ Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
  linux@armlinux.org.uk, michael@walle.cc, netdev@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, lrosu@maxlinear.com,
  luka.perkov@sartura.hr
-Date: Tue, 20 Oct 2026 13:36:18 +0000
-Message-ID: <179250337860.3135.8235082668261124184@kernel.org>
-In-Reply-To: <20261016112033.949026-1-robert.marko@sartura.hr>
-References: <20261016112033.949026-1-robert.marko@sartura.hr>
-X-sashiko-severity: Medium
+Date: Tue, 20 Oct 2026 13:36:25 +0000
+Message-ID: <179250338515.3135.6239703047800333744@kernel.org>
+In-Reply-To: <20261016112033.949026-5-robert.marko@sartura.hr>
+References: <20261016112033.949026-5-robert.marko@sartura.hr>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
@@ -67,134 +67,103 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The binding defines `vddp-supply` as "Regulator supplying the
-  VDDP pin", which powers the MDIO/MDC/MDINT pads, and makes it…
-- [Low] In Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml,
-  the `else: properties: vddp-supply: false` branch (lines 35-37) can…
+- [Low] The binding and the driver disagree about which nodes
+  `maxlinear,lane-asp-map` is valid on and how long it may be.
 
 --
 
-dt-bindings: net: maxlinear: add MxL86211C VDDP supply
+net: phy: mxl-gpy: support MxL86211C lane mapping
 
-This commit adds a vddp-supply property to the MaxLinear GPY2xx binding.
-The voltage of that supply selects 1.8 V or 3.3 V for the MDIO, MDC and
-MDINT pads. A top-level select restricts the schema to the MxL86211C PHY
-ID, and an if/then/else makes the supply required for that PHY.
+This commit lets the MxL86211C take an optional maxlinear,lane-asp-map DT
+property. The property programs the mapping from physical TPI lanes to
+analog front ends in VSPEC1_LANE_ASP_MAP. When the property is absent, the
+hardware reset mapping is left alone.
 
-> diff --git a/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml b/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
-> index 8a3713abd1ca9..a0dfb6192d81b 100644
-> --- a/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
-> +++ b/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
-> @@ -10,10 +10,38 @@ maintainers:
->    - Andrew Lunn <andrew@lunn.ch>
->    - Michael Walle <michael@walle.cc>
+> diff --git a/drivers/net/phy/mxl-gpy.c b/drivers/net/phy/mxl-gpy.c
+> index 8bc119655f104..acd5ad01a285d 100644
+> --- a/drivers/net/phy/mxl-gpy.c
+> +++ b/drivers/net/phy/mxl-gpy.c
+
+[ ... ]
+
+> @@ -423,6 +430,42 @@ static int mxl86211c_configure_mdio_voltage(struct phy_device *phydev,
+>  			      VSPEC1_PM_CTRL_MDIO_VOL, val);
+>  }
 >  
-> +select:
-> +  properties:
-> +    compatible:
-> +      contains:
-> +        const: ethernet-phy-idc133.5400
-> +  required:
-> +    - compatible
+> +static int mxl86211c_configure_lane_asp_map(struct phy_device *phydev)
+> +{
+> +	struct device *dev = &phydev->mdio.dev;
+> +	u32 lane_asp_map[4];
+> +	u16 val;
+> +	unsigned int seen = 0;
+> +	int i, ret;
 > +
->  allOf:
->    - $ref: ethernet-phy.yaml#
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: ethernet-phy-idc133.5400
-> +      required:
-> +        - compatible
+> +	if (!device_property_present(dev, "maxlinear,lane-asp-map"))
+> +		return 0;
 > +
-> +    then:
-> +      required:
-> +        - vddp-supply
-> +
-> +    else:
-> +      properties:
-> +        vddp-supply: false
+> +	ret = device_property_read_u32_array(dev, "maxlinear,lane-asp-map",
+> +					     lane_asp_map,
+> +					     ARRAY_SIZE(lane_asp_map));
 
 [Severity: Low]
-Can this else branch ever be evaluated?
+Should a maxlinear,lane-asp-map with more than 4 cells be rejected here?
 
-The new top-level select applies the schema only to nodes whose
-compatible contains ethernet-phy-idc133.5400. The if above tests the
-same predicate, so whenever the schema runs, only the then branch runs.
+With the OF backend, device_property_read_u32_array() ends up in
+of_property_read_variable_u32_array() with sz_max set to 0.
+of_find_property_value_of_size() treats that as "no upper bound":
 
-No other binding references this schema. Other GPY2xx nodes are not
-selected at all, so "vddp-supply: false" is never enforced for them.
-
-The later patch in the series, "dt-bindings: net: maxlinear: add
-MxL86211C lane mapping support", adds "maxlinear,lane-asp-map: false" to
-this same else branch. That constraint would not be enforced either.
-
->  
->  properties:
-> +  vddp-supply:
-> +    description: |
-> +      Regulator supplying the VDDP pin. Its voltage configures the MDIO,
-> +      MDC, and MDINT pad voltage and must be either 1.8 V or 3.3 V.
-> +
-
-[Severity: Medium]
-This makes vddp-supply mandatory for the MxL86211C and describes it as
-the supply for the MDIO, MDC and MDINT pads. Does anything in the series
-enable this supply?
-
-The later driver patch, "net: phy: mxl-gpy: add MxL86211C VDDP supply",
-does only two things with the regulator: it gets it, and it reads its
-voltage.
-
-drivers/net/phy/mxl-gpy.c:mxl86211c_probe() {
+drivers/of/property.c:of_find_property_value_of_size() {
     ...
-	vddp = devm_regulator_get(dev, "vddp");
+	if (max && prop->length > max)
+		return ERR_PTR(-EOVERFLOW);
     ...
 }
 
-drivers/net/phy/mxl-gpy.c:mxl86211c_configure_mdio_voltage() {
-    ...
-	voltage = regulator_get_voltage(vddp);
-    ...
-}
+So a value like <0 1 3 2 1> is accepted. Only the first 4 cells are
+used, and nothing is logged. The binding says the property has exactly
+4 items.
 
-Neither function calls regulator_enable() or devm_regulator_get_enable(),
-so rdev->use_count stays 0 for this rail. Take a board where VDDP can be
-switched and is not marked regulator-always-on. Could
-regulator_late_cleanup() turn the rail off there?
+The range and duplicate checks below still keep bad values out of
+VSPEC1_LANE_ASP_MAP. The problem is that the driver and the binding
+accept different things.
 
-drivers/regulator/core.c:regulator_late_cleanup() {
-    ...
-	if (rdev->use_count)
-		goto unlock;
-    ...
-}
+The schema may not catch this case either. The driver binds by PHY ID
+through PHY_ID_MATCH_MODEL(PHY_ID_MXL86211C), whatever the node's
+compatible is. However, maxlinear,gpy2xx.yaml (from the earlier
+"dt-bindings: net: maxlinear: add MxL86211C VDDP supply" patch) only
+selects nodes that carry this exact compatible:
 
-On DT systems have_full_constraints() is true, so the rail would be
-disabled and the PHY would lose power to its MDIO pads.
-regulator-boot-on does not prevent this, because late cleanup only checks
-always_on.
+select:
+  properties:
+    compatible:
+      contains:
+        const: ethernet-phy-idc133.5400
+  required:
+    - compatible
 
-If the rail is off at boot, nothing ever turns it on. The MDIO accesses
-in mxl86211c_probe() and gpy_probe() would then fail.
+An ethernet-phy@N node without that compatible is only checked against
+ethernet-phy.yaml, and that schema allows additional properties. So a
+malformed maxlinear,lane-asp-map on such a node would pass dtbs_check,
+and the driver would still read it.
 
-Other PHY drivers handle this by enabling the supply. For example,
-qcom/at803x.c calls devm_regulator_get_enable_optional(..., "vddio").
-Should the MxL86211C driver do the same?
+There is a related issue in "dt-bindings: net: maxlinear: add MxL86211C
+lane mapping support". The allOf if/then/else tests the same compatible
+that select already requires:
 
-The binding example uses a regulator-fixed with no GPIO, which cannot be
-switched off, so the example does not show this problem.
+    else:
+      properties:
+        vddp-supply: false
+        maxlinear,lane-asp-map: false
+
+Can this else branch ever be evaluated? No other schema references this
+one, so the ban on these properties for other GPY PHYs never seems to
+take effect.
 
 [ ... ]
 
