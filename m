@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792475490;
-	b=CEaJ7CYP+M9+6DQDkrNBYfvjjNOh/epEFOgs/s0aUroAbeflAF9mMjKsa+mrqBIldlGy
-	 xnNsHsM5PkUfmOnXdWNuxZKa78vXj+VaYmj3CPmkM/shc2pUzPWD96HM8+9GB9Q/NonIM
-	 NSm+JnGmTMrSJOa2VZzgl5wQQ24OWaWjWjCM5Q6jII+N3gmBCGUv47TKQsD+VRD1uHvE+
-	 26vuJ1s6c1lsDU9JlOYJWtY0+du5QEFXklYPb1Twb/hJC7RjRPcXsY5w+ZBTiQCJYmkPY
-	 vQ2VvnKPS5Esf7wEqQ7h3cH8cEE0IMB0rDGGcQHRpSfagZXKjZQVPm6dLaG+YvIp8jQ==
+	t=1792475670;
+	b=W9yXFG/bfUD7oHy2odtnVJZfvtSEG/wTsS6N9mL9vRCtmwFMBhP4zgvkBMnQKtPt6cbc
+	 OKfFgjH9ni2zjsvelnR1yMT+2akvziKDSoiQIFBA4q5CaFTe3HoIlWhsxztAvTIkdn3gl
+	 K+yJ9bh0WNRWo8dgQnzgwGwO3FevA+hlCrTRorCpg58FsJSuhNa4ZRIGTQLW969rmRIOu
+	 MMUJXldcOkAdMqMNkEIsUDeqaldcxBuJLgPQI4X8ReDZvVQCSr5IeVHlsU0NF9MrPcuvo
+	 1jsD+7jdNFfwdXFM0Uf7vSlNeN5tEsK6B+FpSLAaDND+tZVEIqxi2Jwf4xjFDH3Kbag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792475490;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792475670;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=zaYBirqJlNFDhtYAAgAIyKmleW4oIeh64C/jr9gyqY8=;
-	b=sW+SsNt4pBcjgfzygca1Fy+kQ66J3P/1AV1p5YqAwj4PPiY0v7IXeAum11mWChiBp6e/
-	 6p8MoYck7bEmH8xC1eNmCj5ylDMMN4lJ3OyFeA9vKWkGIPFgtyGr5ph33GqRc4PKsBswX
-	 ocyNu8lYFRiAdPdK+ZQ0PTYyRTyV4dJfAiYaQPbdr1+fEqPIrywk+t0TZzBX43qZLOvmr
-	 G71e8l18pOgEopJJobVqOws9oRGeTJJtd6cVnU3UZDPcLD8k5TjEaoFVZd5hLhopGEkia
-	 50Rtb75bGERZg9+rBBLaxtMl3oBE+nblq0jI7WsToA3fXxTbjmVQZxooBhUj0ERNYFQ==
+	bh=2rm4Tp2k0RqgpllE3qFFaci0f+Yvkf9cOiz7z+TNkUA=;
+	b=r2CRhFtmIeTLO7KoKOYAyNlUuKZRtO9EyayPmXpJUgNRKPX3S1mZAMs5jzL6f8v6uXgG
+	 AtJTiRasqBtpU/zmm9DTVyOXV4vfdKYwuvb7nGWrGWM/1KQ92YQ7+2qBDuCbzFFO00ORE
+	 t0u4QTds7flK+0HVbBZ7OtWY7If1F82q4lhxEXcNTBdcpknn8J8HLTzS42bmVUPsC/z95
+	 w49gfheqE2X9g1FHPupnT/IXrrzTuyzyUSMGu4yxks3dvClNs9u8Myu5TfEglw5TYv13c
+	 vGVk/LniY1UtP5ybyMPYtNJjWp7TT8/1wcIDENsIe5fOCNIh11sjPGSYnnwa6botckQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="BqazRWI/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="a/+YHFjX";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D6C5606A319;
-	Tue, 20 Oct 2026 05:51:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5000606A321;
+	Tue, 20 Oct 2026 05:54:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BqazRWI/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 362F41F000C4;
-	Tue, 20 Oct 2026 05:51:25 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a/+YHFjX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 085391F000C4;
+	Tue, 20 Oct 2026 05:54:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792475490;
-	bh=zaYBirqJlNFDhtYAAgAIyKmleW4oIeh64C/jr9gyqY8=;
+	s=k20260515; t=1792475669;
+	bh=2rm4Tp2k0RqgpllE3qFFaci0f+Yvkf9cOiz7z+TNkUA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BqazRWI/99gjeaPDDsQq8NwfyYs8JIXl/7d5eH2+9GFwYgpQGLhn8E4AU2LuofPzJ
-	 jqhgjFmoEPkUDiOZMvy6evFjCpVrVbDCCIPtTg/TBuMjDJrmAco+Ku/FksGklP3JnL
-	 wTPw2DX/Fyrpz1s64jW+33oqxhVUvHTp70NtitRXpoNcN/eCQf8hmXTn7HV57hq8w7
-	 DhTyC7e1r4d61gdMWmNZZ+4rV/YXkC0+HcZ3thehHqGpiaika1Gt+BDj4W5qGwmGk8
-	 wXxzrfzZWNmN0tIRJmdYAZbLIFn++cNHV+Oeq9TMSpp6VDxZk50vRqkEoEVnSSNH6w
-	 VA0tqZ67iUSCA==
-Message-ID: <d6d7c3ba-5329-4c90-8994-ea29cedd7c53@kernel.org>
-Date: Tue, 20 Oct 2026 07:51:23 +0200
+	b=a/+YHFjXG40L8kkNWKto7PFCZO4Rp480swjoQiImPCSYz7QYjeb+lVIr+WCamDyxU
+	 RhPqNe3oXL3Xu+HS1SnQkBMrYWhgKMI6Kdw58svhS1wdU42x2SswL7MZBEMpTme4SU
+	 l1EcflHlTkRsUWTwI1xD3OsS5gz7WKYK6AdjaNsuEPoAcWMhclSF90UlgKPsf/rcfB
+	 5l1+EIS7eJ8C4UNBK/3OIjK4IYD6fMbKMQzcdtyga3tuqtakkAr0Slj7X+5fKOTUWu
+	 DkYftZMqnsVu35ntkiQ6S45kpl4/IvFc1D63hP66DFFMZz4fTDgYiMKmZzqNqG4Tzc
+	 hEu+m/bkJThqw==
+Message-ID: <708b9edc-3ee9-49f4-ba62-9fc2806168dd@kernel.org>
+Date: Tue, 20 Oct 2026 07:54:22 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,27 +52,24 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/8] dt-bindings: mfd: realtek,rtd1xxx: Add interrupt
- controller child node
-To: =?UTF-8?B?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
-Cc: "tglx@kernel.org" <tglx@kernel.org>, "radu@rendec.net" <radu@rendec.net>,
- "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
- <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "lee@kernel.org" <lee@kernel.org>, "afaerber@suse.com" <afaerber@suse.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "mfd@lists.linux.dev" <mfd@lists.linux.dev>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-realtek-soc@lists.infradead.org"
- <linux-realtek-soc@lists.infradead.org>,
- =?UTF-8?B?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?= <james.tai@realtek.com>,
- =?UTF-8?B?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?= <cy.huang@realtek.com>,
- =?UTF-8?B?U3RhbmxleSBDaGFuZ1vmmIzogrLlvrdd?= <stanley_chang@realtek.com>
-References: <20261018160653.3940371-1-eleanor.lin@realtek.com>
- <20261018160653.3940371-4-eleanor.lin@realtek.com>
- <20261019-prophetic-moth-of-youth-40dbd6@quoll>
- <b12ff328ebca405f96a9b25decdb7c81@realtek.com>
+Subject: Re: [PATCH 2/7] dt-bindings: phy: qcom: Add qcom,sa8775p-csi2-phy
+ schema
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Cc: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>, bod@kernel.org,
+ vkoul@kernel.org, kishon@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, neil.armstrong@linaro.org, mani@kernel.org,
+ gjorgji.rosikopulos@oss.qualcomm.com,
+ hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
+ jigarkumar.zala@oss.qualcomm.com, loic.poulain@oss.qualcomm.com,
+ vladimir.zapolskiy@linaro.org, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+References: <20261016235502.2274268-1-anusha.nandi@oss.qualcomm.com>
+ <20261016235502.2274268-3-anusha.nandi@oss.qualcomm.com>
+ <851434b3-4cf1-4371-9b4a-57dba8022e13@oss.qualcomm.com>
+ <20261019-funky-real-skunk-eda6dc@quoll>
+ <7766382e-5187-465b-aa89-ff1bf9a16588@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -118,98 +115,28 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <b12ff328ebca405f96a9b25decdb7c81@realtek.com>
+In-Reply-To: <7766382e-5187-465b-aa89-ff1bf9a16588@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 19/10/2026 13:19, Yu-Chun Lin [林祐君] wrote:
-> Hi Krzysztof,
+On 19/10/2026 09:25, Nihal Kumar Gupta wrote:
 > 
->> On Mon, Oct 19, 2026 at 12:06:48AM +0800, Yu-Chun Lin wrote:
->>> Allow an interrupt controller as a child node by referencing the
->>> rtd1319-intc-iso schema, update additionalProperties to
->>> unevaluatedProperties, and append a usage example.
->>
->> I do not see that "update".
->>
 > 
-> Sorry about this. I updated the diff but missed updating the commit
-> message. Will fix.
+> On 19-10-2026 12:43, Krzysztof Kozlowski wrote:
+>>> DTS uses 2-cell reg but binding example uses 1-cell. Please align:
+>>>   reg = <0x0 0x0ac9c000 0x0 0x2000>;
+>> I don't understand what is supposed to be aligned here. The code is
+>> correct.
+> Right, the DTS change is correct.
 > 
->>>
->>> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
->>> ---
->>>  .../bindings/mfd/realtek,rtd1xxx.yaml         | 28
->> +++++++++++++++++++
->>>  1 file changed, 28 insertions(+)
->>>
->>> diff --git
->>> a/Documentation/devicetree/bindings/mfd/realtek,rtd1xxx.yaml
->>> b/Documentation/devicetree/bindings/mfd/realtek,rtd1xxx.yaml
->>> index 717e29c37b36..b21e14df2879 100644
->>> --- a/Documentation/devicetree/bindings/mfd/realtek,rtd1xxx.yaml
->>> +++ b/Documentation/devicetree/bindings/mfd/realtek,rtd1xxx.yaml
->>> @@ -65,6 +65,10 @@ properties:
->>>      const: 1
->>>
->>>  patternProperties:
->>> +  "^interrupt-controller":
->>> +    $ref: /schemas/interrupt-controller/realtek,rtd1319-intc-iso.yaml
->>> +    unevaluatedProperties: false
->>> +
->>>    '@[0-9a-f]+$':
->>>      type: object
->>
->> What is this for then? Should it be removed?
->>
+> My comment was about the binding example using a different address/size cell
+> layout from the real DTS. 
 > 
-> The original syscon compatible has other child nodes that do have 'reg'
-> properties and unit addresses, so this pattern is still needed for them.
-> 
->>>
->>> @@ -76,3 +80,27 @@ required:
->>>    - reg
->>>
->>>  additionalProperties: false
->>> +
->>> +examples:
->>> +  - |
->>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
->>> +    #include <dt-bindings/interrupt-controller/irq.h>
->>> +
->>> +    syscon@7000 {
->>> +        compatible = "realtek,rtd1625-iso", "syscon", "simple-mfd";
->>> +        reg = <0x7000 0x1000>;
->>> +        ranges = <0x0 0x7000 0x1000>;
->>> +        #address-cells = <1>;
->>> +        #size-cells = <1>;
->>
->> Why do you have cells it your child has no addressing?
->>
->>> +
->>> +        interrupt-controller {
->>
->> So the binding requires children with unit address, yes?
->>
-> 
-> The interrupt-controller does not need a unit address because it accesses
-> the registers via the parent's regmap.
+> Krzysztof, should the binding example mirror the SoC bus address/size cell
 
-That's not really relevant. Child drivers still access via parent's
-regmap and have unit address. This binding has bus addressing for
-children, so use it. Do not add random or inconsistent code.
-
-> 
-> Will update the example to remove the unnecessary properties from the
-> parent as follows:
-> 
-> syscon@7000 {
->     compatible = "realtek,rtd1625-iso", "syscon", "simple-mfd";
->     reg = <0x7000 0x1000>;
-> 
-
-Still incomplete. Where are other devices?
-
+Why are you suggesting in review something which maintainers never
+suggested? Or actually opposite to what some maintainers were suggesting
+before. Code has correct example.
 
 Best regards,
 Krzysztof
