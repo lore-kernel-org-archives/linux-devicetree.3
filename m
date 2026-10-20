@@ -1,44 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792517363;
-	b=lLqUvlz/ZurM0N7ofIdabav5cZyR+FpZ/GjulAm8iX4MLu9987x8TOv8+sUP64+r4stl
-	 xnacXIYQXV/nDZu/DCLrfEdDRw/jsZAzDnUa02ks+Zq9FXGGgW/kPkWVw62649O1AM2QL
-	 i+5ukHrqr1zHfjdt+KStV630qmvnifgnaYI4dfQZU8DpDVc1AkI+TStbofFJQMF/YvbhR
-	 sMZSC3k+IXHYrF7UucWkKyQ6yC9svDx5r0ntpQXqfO8habbtVDzguGQvzEZejz7eMDkDE
-	 0czhBIKZfPImfLaoOsqIvI0W000thX+vxpMmqPPpz4A+1FVaglH8HXjunldOuU2iKow==
+	t=1792517797;
+	b=T6gEIYiOYMRPLBGlrW6HMwEOWRXC0LZYOqADrzO3CRlNkAsQE/18TEYRHEsVXVLfMoj6
+	 XpEvs7XWsjYnmY0dQyPT1VL6PfqdHZRMM7Ac/jFQTf97awKNtLTzX68a2Q+vt1vGTeDlX
+	 ukmd4U10Dcn4kPVSl0j3BuuIyy0mzYe2oFFVxC06YSS5c7hjY3uWyTrdFVpkbw0iwFAjd
+	 1a0Cgbt2+YXdIOeU0YZ6+48SBHCALL3+rzIasmw4qdEFaQfgts3wQhsrLzhRaLlSjb6VY
+	 bpk9gHlSK6MSIxithR/jAzOo1G6EQr/bDcnRpPvkxw7eqTBS9zvDTv4qdoIFCSjxrTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792517363;
-	h=Received:Message-ID:From:Subject:Reply-To:To:Cc:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=gHo//PU+15Zb4tLXTqwrJl3+QDkpBTYC8X5b7pdf3AY=;
-	b=txRFfVqCnppyOr8Xo2/MQYMQdgMEdvI4Xi633Zsha/AAMWgom4KMCLGI/lgR6sRn/ngW
-	 OYhIq05zHFea907Ri5xzQyuKCgZ0BNZTyI9F4RdbTt2z9F2KgHG2KNYR7aAsYt1T0G0hr
-	 HRa4m10p1dmDUuy+HiyjvkZsxPnc4SlHTAkTPxOEr+tb3KEMm38t5rZn48kx6LqGFs/rZ
-	 5gto7o6hEy9QZZr7iDDOMABwyH//WH9NWOA2MW5PpDfx4gYT+rpIIu69DGuE89sdAkYEP
-	 FPJceFEwLOLg2qkrVOvurSDiEQqe3jImRyO2EKn4SL3QGk3hBhD5S8AVxdn134F+q9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792517797;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=8853baHqPNdH1KHeomuAl3JHZ/VQiqVZydafLmmOWWo=;
+	b=X4yYMojPYTL2TrHTBHjq0dKAj9FdUcxChnrYe1Rzy+BNv4L4cReAwrUn/33++7IN4B1G
+	 JUJTde3TkLFUQSH2pyRBJo2+5/gVZKRVVHXxakaZj3a/qeklVhgl31A+gEZ66100WoiwW
+	 KT1+a1JzbvkeKvJllEoAY/K+Q+OEubPssfXaCxwQ8XjbguzWQ09YwpDMDoT/odEuOULXU
+	 OzzrJ9eIrEchP2i9zzCtx4nCNAqq4Pm373dfhrXsaN7Z62KW6ogbh+hVCqyid9r7v78eY
+	 mL3xv08S9OiT6WZMQcYNRJrKa0Zau0zwuR5uKsOYk1/dEwfu8WhMb2Y/hMtCbotCKMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=M1pqBTNF;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CF65606A31F
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 17:29:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C92281F000C9;
-	Tue, 20 Oct 2026 17:29:22 +0000 (UTC)
-Message-ID: <sashiko-outbox-179421@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/4] ASoC: codecs: wcd937x: add USB Type-C analog
- audio mux support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Val Packett" <val@packett.cool>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261020170341.1641325-3-val@packett.cool>
-References: <20261020170341.1641325-1-val@packett.cool>
- <20261020170341.1641325-3-val@packett.cool>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 20 Oct 2026 17:29:22 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27046606A31A
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 17:36:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27046606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=M1pqBTNF
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a1d75f2f11so24431635e9.3
+        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 10:36:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792517794; x=1793122594; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8853baHqPNdH1KHeomuAl3JHZ/VQiqVZydafLmmOWWo=;
+        b=M1pqBTNF/69jm2Q4mikPCszRYfwVx1U+tkZKSh8lgZb5Jguhmai9AcMugyo3JJRfZe
+         2nA6jkwJhDaY8yaDFurE8pSpg6StnaO6fEQ8pOMyM8k9OxFpRPLKEdUtCWfpW8PLBi89
+         +lFcfbt24RiLxCLfXvIVHoBmES6b0AhZBSr7FiaeMiXmPvetQpcFFWIeR+RkkWqTZboW
+         QDU2I9oa3aUwy7EnrG75fNEEWbRwUFund+kSXoETMSDSeXXzNPmcMlsKcJz3KfPI1jJb
+         Q0bVTVt9CfB0zJLfwqpN0X9prVL0BMzCVPpMWlM2lMfIZJ5MR0aoB1udlj3+Y3lf4THV
+         sayw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792517794; x=1793122594;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8853baHqPNdH1KHeomuAl3JHZ/VQiqVZydafLmmOWWo=;
+        b=L0GNRTEiz3BXVi6VqSga2WmwBy4hD0TW+2Ofqwl4luXnffavE1Gqkwyv2UHopl43Zm
+         Bc8mTZ2gTwbU/vy3hpnws4sEtqwSH2PmVGRsHfTn6J+r7YcUqXZIMmLavM89ZXQRY5V7
+         oENscJGzdCOdeuxfBCw2F5d4v6F+kHWwhuQVsnnj9OHdF4rmaClLNt9x06QU7mZHXhLI
+         /s8axxhb+LvzCmZ+AJnvYkgoyTlYocBIAeUnLxa3zyIBi7BdZEOBZzj9mUcK/nyxKtob
+         aowaHcmtTdJGMBdlpB70mn7rLwNj+9mnx6uXptKBKeVQLRGsBEUXCme2tls7ERxENv0D
+         sJVw==
+X-Forwarded-Encrypted: i=1; AKwUvBwUxnuOERxcwD89IZeV+Yh4bn+E8C2+24/pjKltUBskLyx3Hcdq1yB8ML5ne6LyU0OowSMkaynyi6Xo@vger.kernel.org
+X-Gm-Message-State: AFq9FYJq5ivRUasF6eTr0csTZaJFFFtorx+X349sesbs/w7dzDBM+ilX
+	DgCx+HMDsPmZSjHKyNq0ePnechevSB+JSkkQSzRVGFd/bbpByw8I56xB
+X-Gm-Gg: AYBFou1uvJd6em6nXb60diJaAQfRxV21+5aGrJ3ED1/vNXLrfVT2FmXZ67n8s7kstqS
+	378gsR6MceS+0L/wA+9IFBal1iVL9Z6EKKuuHu6LGByoDOt1Q+zQOBiuhuIuhZmTiQNd1T2r3Og
+	2VdaZT4+G4b8wL3Xi2F6zmmd6jjE9pEFj5UPlo0hR2ffTI+/B5J0YZKkoUTBP7D9Mx0L9mayNVW
+	DCpQZ0bnhckIjB8DJ8UnpHvBjAzQwJCnLNomfn2yQOHTZN+yZIzfJBqp5/5LTaeJRKHRNAN7+VP
+	xWppt7UfY+K63MKm2OOXColgyOavi3cbVf/n9IuO4Mhi8GmqCl48Tkprgxu+CKyYYmUhUqobjFG
+	ndWlgIqtWAmDeSZOKQ201gMfLdfWYYVHhmy2aluQ4X3DYxZKCVdk+U6j1/zQmKirOmWaBGGOhAO
+	mQ/t24K9qCCGyXg3HheBZ53MSsj2DDsKwAdwheLuyVSORNbFIPNxGVblQ+oPJ1U46T+g==
+X-Received: by 2002:a05:600c:64c5:b0:4a1:d1f7:bea with SMTP id 5b1f17b1804b1-4a1d7603dddmr261762935e9.17.1792517794282;
+        Tue, 20 Oct 2026 10:36:34 -0700 (PDT)
+Received: from luca-vm.lan ([154.61.61.58])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f8016c93sm52505235e9.5.2026.10.20.10.36.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 10:36:33 -0700 (PDT)
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+To: linux-mediatek@lists.infradead.org
+Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sen Chu <sen.chu@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Macpaul Lin <macpaul.lin@mediatek.com>,
+	Lee Jones <lee@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Val Packett <val@packett.cool>,
+	Fabien Parent <parent.f@gmail.com>,
+	Akari Tsuyukusa <akkun11.open@gmail.com>,
+	Chen Zhong <chen.zhong@mediatek.com>,
+	linux-input@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	mfd@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-gpio@vger.kernel.org
+Subject: [PATCH RESEND v10 0/9] Add support for MT6392 PMIC
+Date: Tue, 20 Oct 2026 19:33:21 +0200
+Message-ID: <20261020173556.632798-1-l.scorcia@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -47,211 +114,188 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] ASoC: codecs: wcd937x: race and UAF on wcd_mbhc in wcd937x_typec_m=
-ux_set()
-- [High] ASoC: codecs: wcd937x: probe deferral deadlock in wcd937x_bind()
---
+The MediaTek MT6392 PMIC is usually found on devices powered by
+the MT8516/MT8167 SoC and is yet another MT6323/MT6397 variant.
 
-commit 11dd57a3e1840028ab1f5c083f76fea5c939b494
-Author: Val Packett <val@packett.cool>
+This series is mostly based around patches submitted a couple
+years ago by Fabien Parent and not merged and from Val Packett's
+submission from Jan 2025 that included extra cleanups, fixes, and a
+new dtsi file similar to ones that exist for other PMICs. Some
+comments weren't addressed and the series was ultimately not merged.
 
-ASoC: codecs: wcd937x: add USB Type-C analog audio mux support
+These patches enable four functions: keys, regulator, pinctrl and RTC.
+Mono speaker amp will follow later as I need to work further on the
+audio codec.
 
-This commit adds USB Type-C analog audio mux and orientation switch support=
- to
-the wcd937x codec driver, registering it in the Type-C graph when present in
-device tree and forwarding plug/unplug and GND-MIC swap events between MBHC
-and the external mux.
+I added a handful of device tree improvements to fix some dtbs_check
+errors, added support for the pinctrl device and addressed the comments
+from last year's reviews.
 
-> diff --git a/sound/soc/codecs/wcd937x.c b/sound/soc/codecs/wcd937x.c
-> index 7ffbb445f8ac4..9d5d1df41c365 100644
-> --- a/sound/soc/codecs/wcd937x.c
-> +++ b/sound/soc/codecs/wcd937x.c
+Please note that patch 0006 and 0008 depend on patch 0005 as they need the
+registers.h file, but belong to different driver areas. I'm not sure if
+I'm supposed to squash them even if they belong to different driver
+areas of if it's fine like this. Any advice is welcome.
 
-[ ... ]
+Patch 0009 also depends on patch 0003 because of mt6392-regulator.h.
 
-> @@ -2036,8 +2050,11 @@ static int wcd937x_mbhc_init(struct snd_soc_compon=
-ent *component)
->  static void wcd937x_mbhc_deinit(struct snd_soc_component *component)
->  {
->  	struct wcd937x_priv *wcd937x =3D snd_soc_component_get_drvdata(componen=
-t);
-> +	struct wcd_mbhc *mbhc =3D wcd937x->wcd_mbhc;
-> =20
-> -	wcd_mbhc_deinit(wcd937x->wcd_mbhc);
-> +	/* May be accessed by platform dev typec callbacks, clear it first */
-> +	wcd937x->wcd_mbhc =3D NULL;
-> +	wcd_mbhc_deinit(mbhc);
->  }
-> =20
->  /* END MBHC */
-> @@ -2634,6 +2651,40 @@ static const struct snd_soc_component_driver soc_c=
-odec_dev_wcd937x =3D {
->  	.endianness =3D 1,
->  };
-> =20
-> +#if IS_ENABLED(CONFIG_TYPEC)
-> +/* Get USB-C plug orientation to provide swap event for MBHC */
-> +static int wcd937x_typec_switch_set(struct typec_switch_dev *sw,
-> +				    enum typec_orientation orientation)
-> +{
-> +	struct wcd937x_priv *wcd937x =3D typec_switch_get_drvdata(sw);
-> +
-> +	wcd937x->typec_orientation =3D orientation;
-> +
-> +	return 0;
-> +}
-> +
-> +static int wcd937x_typec_mux_set(struct typec_mux_dev *mux,
-> +				 struct typec_mux_state *state)
-> +{
-> +	struct wcd937x_priv *wcd937x =3D typec_mux_get_drvdata(mux);
-> +	unsigned int previous_mode =3D wcd937x->typec_mode;
-> +
-> +	if (!wcd937x->wcd_mbhc)
-> +		return -EINVAL;
-> +
-> +	if (wcd937x->typec_mode !=3D state->mode) {
-> +		wcd937x->typec_mode =3D state->mode;
-> +
-> +		if (wcd937x->typec_mode =3D=3D TYPEC_MODE_AUDIO)
-> +			return wcd_mbhc_typec_report_plug(wcd937x->wcd_mbhc);
-> +		else if (previous_mode =3D=3D TYPEC_MODE_AUDIO)
-> +			return wcd_mbhc_typec_report_unplug(wcd937x->wcd_mbhc);
-> +	}
-> +
-> +	return 0;
-> +}
-> +#endif /* CONFIG_TYPEC */
+The series has been tested on Xiaomi Mi Smart Clock X04G, on the
+Lenovo Smart Clock 2 CD-24502F, on Sony PlayStation Classic Mini
+SCPH-1000R and on the Lenovo Tab E7 TB-7104F.
 
-[Severity: High]
-Can wcd937x_typec_mux_set() race with wcd937x_mbhc_deinit() and cause a
-use-after-free on struct wcd_mbhc?
+Changes in v10:
+- Removed the fallback on mediatek,mt6323 in the MFD binding document
+  and in the dtsi file. Suggested by Sashiko [11], thus removed the
+  Reviewed-by tag provided by Kryzsztof Kozlowski in patch #1, version 9.
 
-The Type-C mux is registered in wcd937x_probe() for the lifetime of the
-platform device, which outlives the ASoC component lifecycle
-(wcd937x_soc_codec_probe() and wcd937x_soc_codec_remove()).
+Changes in v9 [10]:
+- Correct binding for vrtc as it does not support mode setting.
 
-If a USB-C mode change invokes typec_mux_set() -> wcd937x_typec_mux_set() on
-one CPU while ASoC component removal runs wcd937x_soc_codec_remove() ->
-wcd937x_mbhc_deinit() on another CPU, there is no lock synchronizing access
-to wcd937x->wcd_mbhc:
+From Sashiko:
+- Added missing include in MFD documentation example.
+- Fixed constraints for regulator-initial-mode in regulator binding.
+- Fixed wrong register write while setting LDO standby mode.
+- Added missing pmic interrupt definition in the pumpkin-common include.
 
-CPU0                                     CPU1
-wcd937x_typec_mux_set()                  wcd937x_mbhc_deinit()
-  if (!wcd937x->wcd_mbhc)
-  ...
-  wcd_mbhc_typec_report_plug(mbhc)
-                                           wcd937x->wcd_mbhc =3D NULL;
-                                           wcd_mbhc_deinit(mbhc)
-                                             cancel_work_sync(&mbhc->mbhc_p=
-lug_detect_work);
-                                             kfree(mbhc);
-    mbhc->mbhc_cb->clk_setup(...)
-    wcd_mbhc_write_field(...)
-    schedule_work(&mbhc->mbhc_plug_detect_work);
+Changes in v8 [9]:
+From reviewers:
+- Added example code to the MFD device binding, removed it from the
+  regulators docs.
+- Added minItems/maxItems constraints on the regulator mode definitions,
+  improved the mode constants.
+- Fixed formatting issues in the regulator binding.
+- Import the mt6392.dtsi file in pumpkin-common.dtsi, as it was originally
+  meant in [8].
 
-This dereferences freed memory and schedules mbhc_plug_detect_work after
-cancel_work_sync() and kfree(mbhc) have completed.
+From sashiko:
+- Added more explicit constraints on the regulator modes definitions.
+- Use the appropriate modeget register for LDO regulators, Buck registers
+  don't have the corresponding register according to the data sheet.
+- Added the missing of_map_mode function.
+- Removed some debugging code that had no use and masked error codes.
 
-Additionally, because wcd937x_typec_mux_set() reads wcd937x->wcd_mbhc twice
-without locking, if wcd937x->wcd_mbhc becomes NULL between the initial check
-and the call to wcd_mbhc_typec_report_plug(), wcd937x->typec_mode is updated
-to state->mode even though wcd_mbhc_typec_report_plug(NULL) returns -EINVAL.
+Changes in v7 [7]:
+- Removed patch 0008 dependency on patch 0003.
+- Reintroduced the regulator driver. In earlier revisions of this series,
+  it was proposed to remove the dedicated compatible for the regulator
+  device [3]. The driver does not use actually it, but it is not possible
+  at this time to remove it from the bindings since it's a required
+  property.
 
-[ ... ]
+  Making the regulator-required property conditional was NACKed in [5],
+  with the suggestion to create a separate binding altogether for devices
+  that do not require the compatible property. I tried implementing this,
+  but since the parent device needs to be declared as compatible with
+  mt6323, it leads to a warning in dt_binding_check since mt6323 would
+  be declared as a compatible in both mt6392 and mt6397.
 
-> @@ -2761,10 +2819,24 @@ static int wcd937x_bind(struct device *dev)
->  	/* Give the SDW subdevices some more time to settle */
->  	usleep_range(5000, 5010);
-> =20
-> +#if IS_ENABLED(CONFIG_TYPEC)
-> +	/*
-> +	 * Get the USB Type-C switch to send GND/MIC swap events.
-> +	 * typec_switch is fetched now to avoid a probe deadlock since
-> +	 * the switch depends on the typec_mux register in wcd937x_probe()
-> +	 */
-> +	if (wcd937x->typec_analog_mux) {
-> +		wcd937x->typec_switch =3D fwnode_typec_switch_get(dev->fwnode);
-> +		if (IS_ERR(wcd937x->typec_switch))
-> +			return dev_err_probe(dev, PTR_ERR(wcd937x->typec_switch),
-> +					     "failed to acquire orientation-switch\n");
-> +	}
-> +#endif /* CONFIG_TYPEC */
+  In the end the only regulator driver from the mt6397 documentation that
+  still declares an of_match is mt6397-regulator and it does not seem
+  to be necessary, so it should be possible to remove it and make the
+  regulator compatible optional for all regulators, but that change would
+  probably deserve its own separate patch series.
 
-[Severity: High]
-Does fetching typec_switch in wcd937x_bind() still result in a probe deferr=
-al
-deadlock when the SoundWire slave devices have already probed?
+Changes in v6 [6]:
+- Dropped the regulators driver for the moment
+- Explained the FCHR key name origin in the commit message
+- Introduced the MFD_CELL_* macro in the sub-devices definitions.
+  A separate, independent commit introduced MFD_CELL_* to all the
+  subdevices in the mt6397-core.c file for consistency
+- Replaced of_device_get_match_data with device_get_match_data
+- Removed the mfd_match_data enum in favor of the preexisting
+  chip_id enum
+- Adjusted the error message if the device is unsupported
 
-The RX and TX SoundWire slave devices are registered from Device Tree by
-sdw_bus_master_add() -> sdw_of_find_slaves(), and wcd9370_probe() in
-sound/soc/codecs/wcd937x-sdw.c calls component_add() without depending on
-wcd937x_probe(). When built as modules, snd-soc-wcd937x.ko also depends on
-symbols exported by snd-soc-wcd937x-sdw.ko, so wcd9370_probe() runs before
-wcd937x_probe() (and when built-in, wcd9370_probe() can still finish first =
-if
-wcd937x_probe() defers once on regulators or GPIOs).
+Changes in v5 [5]:
+- Double checked regulator driver with data sheet and Android sources.
+  The data sheet I have misses a lot of register descriptions, but
+  Android sources have been helpful to fill the gaps
+- Reintroduced the required attribute for the regulator compatible
+  in the bindings
+- Fixed the missing reference to the MT6392 schema
+- Fixed casts/unused vars reported by kernel test robot
+- Removed Reviewed-by tags from the regulator patches as they have been
+  modified in this version
 
-When both slave components are already added, the call chain in
-wcd937x_probe() runs wcd937x_bind() synchronously:
+Changes in v4 [4]:
+- Dropped usage of the regulator compatible
+- Fixed commit messages text to properly reference the target subsystem
+- Added supply rails to the regulator
+- Reworked the regulator schema and PMIC dtsi. Now all supplies are
+  documented and the schema no longer includes voltage information
+- Removed redundant ldo- / buck- prefixes
+- Renamed the pinfunc header to mediatek,mt6392-pinfunc.h
+- Modified the MFD driver to use a simple identifier in the of_match
+  data properties
 
-wcd937x_probe()
-  wcd937x_add_typec()
-    typec_mux_register()
-    typec_switch_register()
-  component_master_add_with_match()
-    try_to_bring_up_aggregate_device()
-      wcd937x_bind()
-        fwnode_typec_switch_get() -> returns -EPROBE_DEFER
+Changes in v3 [3]:
+- Added pinctrl device
+- Changed mt6397-rtc fallback to mt6323-rtc
+- Added schema for regulators
+- Fixed checkpatch issues
 
-Because wcd937x_probe() has not returned yet, really_probe() has not called
-driver_bound() -> driver_deferred_probe_trigger(), so the external Type-C
-switch driver waiting on wcd937x's typec_mux has not re-probed. The
--EPROBE_DEFER from fwnode_typec_switch_get() propagates out of
-component_master_add_with_match() and fails wcd937x_probe(), triggering devm
-cleanup to unregister wcd937x's typec_mux and typec_switch and recreating t=
-he
-mutual probe deferral deadlock.
+Changes in v2 [2]:
+- Replaced explicit compatibles with fallbacks
 
-[ ... ]
+Initial version: [1]
 
-> @@ -2951,6 +3091,22 @@ static int wcd937x_probe(struct platform_device *p=
-dev)
-> =20
->  	wcd_dt_parse_mbhc_data(dev, &wcd937x->mbhc_cfg);
-> =20
-> +#if IS_ENABLED(CONFIG_TYPEC)
-> +	/*
-> +	 * If the node has a port and a valid remote endpoint,
-> +	 * consider HP lines as connected to a USB-C SBU mux
-> +	 */
-> +	np =3D of_graph_get_remote_node(dev->of_node, 0, 0);
-> +	if (np) {
-> +		wcd937x->typec_analog_mux =3D true;
-> +		cfg->typec_analog_mux =3D true;
-> +
-> +		ret =3D wcd937x_add_typec(wcd937x, dev);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +#endif /* CONFIG_TYPEC */
-> +
->  	ret =3D wcd937x_add_slave_components(wcd937x, dev, &match);
->  	if (ret)
->  		return ret;
+[1] https://lore.kernel.org/linux-mediatek/cover.1771865014.git.l.scorcia@gmail.com/
+[2] https://lore.kernel.org/linux-mediatek/20260306120521.163654-1-l.scorcia@gmail.com/
+[3] https://lore.kernel.org/linux-mediatek/20260317184507.523060-1-l.scorcia@gmail.com/
+[4] https://lore.kernel.org/linux-mediatek/20260330083429.359819-1-l.scorcia@gmail.com/
+[5] https://lore.kernel.org/linux-mediatek/20260420213529.1645560-1-l.scorcia@gmail.com/
+[6] https://lore.kernel.org/linux-mediatek/20260612200717.361018-1-l.scorcia@gmail.com/
+[7] https://lore.kernel.org/linux-mediatek/20260615071836.362883-1-l.scorcia@gmail.com/
+[8] https://lore.kernel.org/linux-mediatek/20190323211612.860-25-fparent@baylibre.com/
+[9] https://lore.kernel.org/linux-mediatek/20260620200032.334192-1-l.scorcia@gmail.com/
+[10] https://lore.kernel.org/linux-mediatek/20260820122242.120039-1-l.scorcia@gmail.com/
+[11] https://sashiko.dev/#/message/20260820125850.3B34D1F000E9%40smtp.kernel.org
 
-[ ... ]
+Fabien Parent (3):
+  dt-bindings: input: mtk-pmic-keys: Add MT6392 PMIC keys
+  mfd: mt6397: Add support for MT6392 PMIC
+  regulator: Add MediaTek MT6392 regulator
 
->  	ret =3D component_master_add_with_match(dev, &wcd937x_comp_ops, match);
->  	if (ret)
->  		return ret;
+Luca Leonardo Scorcia (4):
+  dt-bindings: mfd: mt6397: Add MT6392 PMIC
+  regulator: dt-bindings: Add MediaTek MT6392 PMIC
+  mfd: mt6397: Use MFD_CELL_* to describe sub-devices
+  pinctrl: mediatek: mt6397: Add MediaTek MT6392
 
-[ ... ]
+Val Packett (2):
+  input: keyboard: mtk-pmic-keys: Add MT6392 support
+  arm64: dts: mediatek: Add MediaTek MT6392 PMIC dtsi
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261020170341.1641=
-325-1-val@packett.cool?part=3D2
+ .../bindings/input/mediatek,pmic-keys.yaml    |   1 +
+ .../bindings/mfd/mediatek,mt6397.yaml         |  72 ++
+ .../regulator/mediatek,mt6392-regulator.yaml  | 112 +++
+ arch/arm64/boot/dts/mediatek/mt6392.dtsi      | 145 ++++
+ .../boot/dts/mediatek/pumpkin-common.dtsi     |   7 +
+ drivers/input/keyboard/mtk-pmic-keys.c        |  18 +
+ drivers/mfd/mt6397-core.c                     | 307 ++++---
+ drivers/mfd/mt6397-irq.c                      |   8 +
+ drivers/pinctrl/mediatek/pinctrl-mt6397.c     |  37 +-
+ drivers/pinctrl/mediatek/pinctrl-mtk-mt6392.h |  64 ++
+ drivers/regulator/Kconfig                     |   9 +
+ drivers/regulator/Makefile                    |   1 +
+ drivers/regulator/mt6392-regulator.c          | 764 ++++++++++++++++++
+ .../regulator/mediatek,mt6392-regulator.h     |  23 +
+ include/linux/mfd/mt6392/core.h               |  43 +
+ include/linux/mfd/mt6392/registers.h          | 488 +++++++++++
+ include/linux/mfd/mt6397/core.h               |   1 +
+ include/linux/regulator/mt6392-regulator.h    |  42 +
+ 18 files changed, 1974 insertions(+), 168 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/regulator/mediatek,mt6392-regulator.yaml
+ create mode 100644 arch/arm64/boot/dts/mediatek/mt6392.dtsi
+ create mode 100644 drivers/pinctrl/mediatek/pinctrl-mtk-mt6392.h
+ create mode 100644 drivers/regulator/mt6392-regulator.c
+ create mode 100644 include/dt-bindings/regulator/mediatek,mt6392-regulator.h
+ create mode 100644 include/linux/mfd/mt6392/core.h
+ create mode 100644 include/linux/mfd/mt6392/registers.h
+ create mode 100644 include/linux/regulator/mt6392-regulator.h
+
+-- 
+2.43.0
+
