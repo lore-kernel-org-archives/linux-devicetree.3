@@ -1,75 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792498859;
-	b=qA9FBa+HrTh0o828R79hXeYFHqzM8BVPv6zWB4ODjsCqojehjk/TDS/DHSj/fCyymPVS
-	 /C7gbfvvpf4+p8sC/RUSntCvRJdoBQH9qNS+9887PZywF1lyBuL+/gTTpA5vqJIQ/WlnO
-	 eoSb7Ln6uqBjiQYAbKVfL+5Zq/ijFgqvWQr2d/0ROfcUjF1Ob95S6HK/DFDE7FD957kXF
-	 YY0boBISwWU0hMJxkfLRd2TTjTINDsyd0T1mNAHHMLfN9iGn1t7BYHIx1OrvNQ7YMFuas
-	 dgvrNXB7c9dMuq5RJvk10MlUgcl/lEPlj/B0xKRcl3aOXzsJEVvtJ906fP6fOhGe99A==
+	t=1792499024;
+	b=XB2NYs64WYLgTqWvMK7LpCUDQVHnmsMbIuy4s/MRKEwA1g8OIsyNkgtdcH4d1fgRHO/R
+	 M05axzaTZurI3sNLp8FlfbY0T5A74FRezlm5Ai1FfAV0csl09rz+GR/FNIFTJ8g4xE6s7
+	 vh4BUvpKkrPal0iFWPZ+Ii0+yQaadHYhXxPYRgg2NC4gxqQZakUWXj0e9oLLegTqao3DB
+	 hrm91tppAEcdN/16rXum+NmbrprSt2tcc8LGipT4MsHMtVKYZRKEB1XsjDkOvXAotBRmL
+	 goDe7AQFS5z23As2R2LOFKULJpIO+GYgtJo+Z6hapJ7IMWzvanmq+JQ8dATBk0jZKXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792498859;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=w8ekeggAdWyBqH97gBi+p9TPg4z/iYMBplVI65cJ2lQ=;
-	b=pr7QFN2jDjjoU/yb0s7EvRrvs5uzukboGlLtXbzHKGJVEH953E1KBKitXzG2cLY0/6v2
-	 P5BbNg/sHKSxQ9Mre4lalZcIwxV1A59xmm0bfBID29tSuNsLH7S9wcaQb/X6ILQwNbUZS
-	 LoDDgK2JMeIgNzKU8FNUtC3D2BDfJ/8k2gUAM258YgUq4utvDS9FToH6DK0vPzsjr0/Yg
-	 K+svIcs3AZRoSy9KF6VDtO10YttzdXQS8hB0h/Rcdo8jhOjSLb0yBdYKIvxluQJYXEy1X
-	 Nw6eKiDajaLocALeK5RWozxArxZr86GxZ3sO4qLL2VVEgfRxfSiTVXDOFEd8KuO7whg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792499024;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=dmh4SEio2e2zB4dSZuzKozFuJ75qBwgCNF0O8LkaaMw=;
+	b=UwxRdnCpyUx7JUPwcMMtqdteva8PT8gRQ7V2Ol1C0oluQtG3rPqEP6IGlPsWBNkapZBn
+	 HmZbHr6mD7Cz8L4luWZ5CnaSl47fG19igVJkta2OSbqtQQg13hm3h/m+MnHSOQ/aaAQg4
+	 OIFkZ3lYnII3dxYjZ6WjlncrNoHDemyJXYnhESPhtwUI5MeB5uwjtK1d7evp16xCjXnVO
+	 3+bazv+OUo3/BQLNPXvm9Dohu6Y/50UQG1T5kiDgZ8N1szCRxzhlpM2k3ngq4HGoozrYZ
+	 7JJ7Yh+fNk7jpJP1XiFPmlNEHa7qZ0PC2iZgbe3xst41Vek6AREaMxf8UR++pywARPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.221.175
-Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com [209.85.221.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e6x4fg+h;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CEFF606A31D
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 12:20:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CEFF606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f175.google.com with SMTP id 71dfb90a1353d-5ead5ff47caso959601e0c.0
-        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 05:20:59 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792498858; x=1793103658;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=w8ekeggAdWyBqH97gBi+p9TPg4z/iYMBplVI65cJ2lQ=;
-        b=li7928AYo7M6k1oAXVSUlCWrc9KKKgOpOu9Y4n+XAjPxw/VkD7OPPQZmyIy8bCcoAT
-         3D1JuUKVqts2kKc7tymmnKfRcxw++Hj1uOiVcZZ9aNpAHU9mko/JQQMy+4oZujc/zS/A
-         sLa06TNH8VmJnPAPDa8xnk9MLXzhprewtc6KeKeiNoTDJGMpetCOnBGYA4JeE1vzhxqf
-         rDwfitlgbMG1Y45ZGbBSHUeDjCquV9AVtb3s/NzFz+G1pdHAQ4bUPAFKA5voHEf0xEM9
-         EN9qc8yyNf85Ip3pnOWVRoQMzE3WR0PnfxAyr/fwENGYSwTJ1z9PyPSHO7V6mK0SSTk+
-         RRag==
-X-Forwarded-Encrypted: i=1; AKwUvBxLYLqvKuES5cytiO0MCQtQDiD1rnIXpZprN5KOyzl5Q0AZKXflqIZi7cssEKKLtbN6oEZvc5CETFSt@vger.kernel.org
-X-Gm-Message-State: AFq9FYL3pHsfaYWBCkz0RIjV1u7OVuQR6WaS+OdAZUyxZG5xW3DCYCkf
-	qlqcPG5mtvgowlA62yTPrJcJ62/wjMQH5Ril2vdSUUz8mbXqlkjFlFa9DlvlRBJNO6g=
-X-Gm-Gg: AYBFou1qd3nganfvcHaKCpYoS0BVTOCZvdcXTeb9gRfGCrp04BVGB45HePc2OMRhqaM
-	beVnNaiXwymWkstPJg1+cCw6gAlmgmHcLqScN1lJdLSRE0CbtpbxT7Gw98qcL/1Gv89EUISfgbb
-	2wqNXNLRhVziBc+U0IaYjH67F9z2F0Fi4Z8Ews1jFA3Mig51wJIIF2oHE3F805HZ4BydqA/aCkq
-	WYdYLS7krGLafVOH5z2fSI11gaAoonYTYxenPM5xUBCdFwaaUWuVRPkeIt1vEpXqMHtG5vG1soj
-	X49ZotNoS1Uwo/KZn/AcMSzCaaWVPjMpVsNrEXxyGglPmHUloBEKoNYFitlTPTrtgsS+QSblmLN
-	GCYe94/aCatiQ9vkoF7PN15ZyoUyEulyBmV8gj2gKyvhVTvWkbZQ/ZG5+MHRJNK8hH/aReyolOY
-	pCvNXjrSHBgmUGQRA7cnIuRvpD9M5amq4NO848pbDHZxcyvckN3o4xDLo5zhUMxA6w+HvLOhBfy
-	iSUIgxcyQto6/nNIVgoHE9z0kPHn7WDU39V
-X-Received: by 2002:a05:6122:1d53:b0:5ea:c73d:48a6 with SMTP id 71dfb90a1353d-5eac73d596dmr1485493e0c.9.1792498858012;
-        Tue, 20 Oct 2026 05:20:58 -0700 (PDT)
-Received: from mail-ua1-f49.google.com (mail-ua1-f49.google.com. [209.85.222.49])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ea9b536ccdsm12526823e0c.13.2026.10.20.05.20.54
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 05:20:55 -0700 (PDT)
-Received: by mail-ua1-f49.google.com with SMTP id a1e0cc1a2514c-980c4f5c921so973558241.2
-        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 05:20:54 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz3NZTE85dusx0iwRdQUdbISGZF4BusgJ6J7Sdl1FpjAyJx7GbYYPbWf/VJ8lsXMqCk2L5vDrvDDUko@vger.kernel.org
-X-Received: by 2002:a05:6102:509f:b0:7b8:1a1b:8e79 with SMTP id
- ada2fe7eead31-7cc36495eeamr2517275137.0.1792498854605; Tue, 20 Oct 2026
- 05:20:54 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 9F058606A31B;
+	Tue, 20 Oct 2026 12:23:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e6x4fg+h
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id BD66E1F000C4;
+	Tue, 20 Oct 2026 12:23:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792499024;
+	bh=dmh4SEio2e2zB4dSZuzKozFuJ75qBwgCNF0O8LkaaMw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=e6x4fg+hVKPlf2jX7H+IVrTI1GS4Ja6Rd9ow0P5twU2QcW1CNYNYCVBoKdfxFIdrd
+	 w/6zvMfMwiOMYw2ZbPhUnC3z4K3jRDyBhmIj14tR44Zq/xgwRWB3fRnP4y5rfTMqlm
+	 us9Z7Ut3bLGJKFoDShskHkl0bjK8h3csi06fLw3rEPLURe3bhHRQujnPxKUeHYBHS9
+	 v7zmGEGquB3DScWBMKnukDEwhqZrZffR7jwtYOHBF1H8gD+1fIDGtXDyCd1dd8qiyZ
+	 G0uonBMpKP8dWQ+IM7tSSFleDDTqwLo0CWUXbpiRGHhbJfS0iRVJbdgJI0gqnX918B
+	 iBOo4tGYU1o1g==
+Date: Tue, 20 Oct 2026 14:23:41 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: rodrigo.alencar@analog.com
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux@analog.com, devicetree@vger.kernel.org, linux-pwm@vger.kernel.org, 
+	linux-doc@vger.kernel.org, Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>, 
+	Olivier Moysan <olivier.moysan@foss.st.com>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>
+Subject: Re: [PATCH 07/10] iio: frequency: ad9910: support drctl control
+Message-ID: <atdcOsaDbtaQJd-9@monoceros>
+References: <20261015-ad9910-backend-support-v1-0-3c21648c8e26@analog.com>
+ <20261015-ad9910-backend-support-v1-7-3c21648c8e26@analog.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -79,100 +64,106 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-0-e052903a3832@ideasonboard.com>
- <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-15-e052903a3832@ideasonboard.com>
-In-Reply-To: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-15-e052903a3832@ideasonboard.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 20 Oct 2026 14:20:43 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXLC7Zw9x6=iz2WMeuPr=rhqKMVPpRdVqFcHJxmAYC79w@mail.gmail.com>
-X-Gm-Features: AclHuK8ponr4NJ0lS94fhAlbo48BEUWSxi4Wc_0ZZ5rhhDlLA3L5w0smnHDD8jQ
-Message-ID: <CAMuHMdXLC7Zw9x6=iz2WMeuPr=rhqKMVPpRdVqFcHJxmAYC79w@mail.gmail.com>
-Subject: Re: [PATCH DNI v3 15/15] media: rcar-fcp: Check device revision at
- probe time
-To: Paul Elder <paul.elder+renesas@ideasonboard.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, linux-renesas-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-media@vger.kernel.org, 
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="qqr4vuuxuxl2n7wx"
+Content-Disposition: inline
+In-Reply-To: <20261015-ad9910-backend-support-v1-7-3c21648c8e26@analog.com>
 
-Hi Paul,
 
-On Thu, 15 Oct 2026 at 09:53, Paul Elder
-<paul.elder+renesas@ideasonboard.com> wrote:
-> From: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
->
-> Verify that the device revision register reports a valid value,
-> otherwise reject the device.
->
-> Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+--qqr4vuuxuxl2n7wx
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH 07/10] iio: frequency: ad9910: support drctl control
+MIME-Version: 1.0
 
-Thanks for your patch!
+On Thu, Oct 15, 2026 at 01:49:47PM -0300, Rodrigo Alencar via B4 Relay wrote:
+> +static int ad9910_drctl_sync(struct ad9910_state *st)
+> +{
+> +	struct pwm_state state;
+> +	bool ndh, ndl;
+> +	int ret;
+> +
+> +	if (!st->drctl_pwm)
+> +		return 0;
+> +
+> +	ndh = FIELD_GET(AD9910_CFR2_DRG_NO_DWELL_HIGH_MSK,
+> +			st->reg[AD9910_REG_CFR2].val32);
+> +	ndl = FIELD_GET(AD9910_CFR2_DRG_NO_DWELL_LOW_MSK,
+> +			st->reg[AD9910_REG_CFR2].val32);
+> +
+> +	pwm_init_state(st->drctl_pwm, &state);
+> +
+> +	if (!ndh && ndl) {
+> +		state.duty_cycle = st->ramp_down_time_ns / 2;
+> +		state.period = st->ramp_down_time_ns;
+> +		state.polarity = PWM_POLARITY_INVERSED;
+> +	} else if (ndh && !ndl) {
+> +		state.duty_cycle = st->ramp_up_time_ns / 2;
+> +		state.period = st->ramp_up_time_ns;
+> +		state.polarity = PWM_POLARITY_NORMAL;
+> +	} else if (!ndh && !ndl) {
+> +		state.duty_cycle = st->ramp_up_time_ns;
+> +		state.period = st->ramp_up_time_ns + st->ramp_down_time_ns;
+> +		state.polarity = PWM_POLARITY_NORMAL;
+> +	} else {
+> +		state.duty_cycle = 0;
+> +		state.period = st->ramp_up_time_ns + st->ramp_down_time_ns;
+> +		state.polarity = PWM_POLARITY_NORMAL;
+> +	}
+> +
+> +	if (!state.period) {
+> +		pwm_disable(st->drctl_pwm);
+> +		return 0;
+> +	}
+> +
+> +	state.enabled = true;
+> +	ret = pwm_apply_might_sleep(st->drctl_pwm, &state);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = pwm_get_state_hw(st->drctl_pwm, &state);
+> +	if (ret)
+> +		return ret;
 
-> --- a/drivers/media/platform/renesas/rcar-fcp.c
-> +++ b/drivers/media/platform/renesas/rcar-fcp.c
+Does enabling the PWM have any side effects? Are you doing that only to
+be able to call pwm_get_state_hw() and thus find out what the resulting
+output looks like? In that case, pwm_round_waveform_might_sleep() might
+be your friend.
 
 > +
-> +static const struct of_device_id rcar_fcp_of_match[] = {
-> +       { .compatible = "renesas,fcpf", .data = (void *)RCAR_FCPF },
-> +       { .compatible = "renesas,fcpv", .data = (void *)RCAR_FCPV },
-> +       { },
-> +};
-> +MODULE_DEVICE_TABLE(of, rcar_fcp_of_match);
+> +	if (!ndh && ndl) {
+> +		st->ramp_down_time_ns = state.period;
+> +	} else if (ndh && !ndl) {
+> +		st->ramp_up_time_ns = state.period;
+> +	} else if (!ndh && !ndl) {
+> +		st->ramp_up_time_ns = state.duty_cycle;
+> +		st->ramp_down_time_ns = state.period - st->ramp_up_time_ns;
+> +	}
 
-I don't see a good reason for moving this around?
+So the configuration depends on the previous state of the
+AD9910_REG_CFR2 register? That's a recipe for surprises?!
 
 > +
->  static int rcar_fcp_probe(struct platform_device *pdev)
->  {
->         struct rcar_fcp_device *fcp;
-> +       int ret;
->
->         fcp = devm_kzalloc(&pdev->dev, sizeof(*fcp), GFP_KERNEL);
->         if (fcp == NULL)
->                 return -ENOMEM;
->
->         fcp->dev = &pdev->dev;
-> +       fcp->type = (enum rcar_fcp_type)device_get_match_data(&pdev->dev);
+> +	return 0;
+> +}
+> +
 
-s/rcar_fcp_type/uintptr_t/, although this no longer seems to trigger
-a conversion between pointer and integer of different sizes warning?
+Best regards
+Uwe
 
->
->         platform_set_drvdata(pdev, fcp);
->
+--qqr4vuuxuxl2n7wx
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> @@ -215,13 +332,6 @@ static const struct dev_pm_ops fcp_pm_ops = {
->         RUNTIME_PM_OPS(fcp_pm_runtime_suspend, fcp_pm_runtime_resume, NULL)
->  };
->
-> -static const struct of_device_id rcar_fcp_of_match[] = {
-> -       { .compatible = "renesas,fcpf" },
-> -       { .compatible = "renesas,fcpv" },
-> -       { },
-> -};
-> -MODULE_DEVICE_TABLE(of, rcar_fcp_of_match);
-> -
->  static struct platform_driver rcar_fcp_platform_driver = {
->         .probe          = rcar_fcp_probe,
->         .remove         = rcar_fcp_remove,
->
+-----BEGIN PGP SIGNATURE-----
 
-Gr{oetje,eeting}s,
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrXXUsACgkQj4D7WH0S
+/k6OXAf/d+0pGyggG4T72U405o4MpvtL+k9Xo8s1ca6BnOzf6oX3P+2ME8TPhrb+
+tAbw9W7x2qZdaa9AfsihMrbotE1l8vdodoHQnT6SRG+xHJrBUD5rP+hKbq8Ty5Wj
+FoP3PuI+QYjoxUJu++Vni4rEVdR0MrpAntztgjxHGiORpDpzCeRq5/fsjeyjCjzc
+0qmjXAoTuaHprZJgINMMlAh8DaWEp1fIWncKJcv/unU58YYTJpduMC/ULDF3Gcy9
+nFc5vQe7UoKaoPHqcHofv/MbjJ2r21fHnZWLih6piUi7ATYfj88G/Q08R+ANcuer
+7xDjDYfwt2MDswuPJ8SVpUCA9TbOyw==
+=KbhQ
+-----END PGP SIGNATURE-----
 
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+--qqr4vuuxuxl2n7wx--
