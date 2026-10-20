@@ -1,83 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792489032;
-	b=sUu8SMSMexsqbX7nUqHLWGularFC/5rELeCt6fr1yJ+nFdngy+sxED/5v+uMVKr9wdcC
-	 Ys6PFzbbW8TcnELG89W2GErcsRjlKrOyjLtApkOdGRKh4lgXXm6Mnl6vkdFmOf+i0QiqV
-	 SpNBuDhnGK+ayQZzWKY4mZeSnhmLc6MahiYZS6gLPw6xiO+RGwPVExdnEkyWgaVMWR7Go
-	 zml3ShkpKviGx79qNyapYfMazMbcKJ4FqJDKeZQBNwNN6Au8yYgwmiYFBgjyPBG+oO6ve
-	 tnRG7QRCv0x22lC8XHOmOo9fL6PYms7RQtZ57N2sM9b1PNMXlCUnENOaslUzVzEyhSQ==
+	t=1792489028;
+	b=REewbAXNJLuRFODxSrZgql5hdC71dBhjLqMCUv3ZGzjdYv9cib7wTGb1QskAdElb0haP
+	 K57zkLZqUspVlhVb01EvX50JdpUa0k9g0FDblXucuo/VHrw3RxYKN2lqZtYDBWrwqy+W0
+	 ++Vje3TsQ/IYRLzcYksVd9z9busvoD03b3WENj6nJZ23GQbFFij1mAyp4Z2cuevqlGfGV
+	 UPfwsHkIfmv0DPlZ9IP3pxu2+U9W3deoFz5Lc8z/H3k1gr/08a8LT4v8MDWrtZgxYjfdI
+	 C8CM8vMobpkELixVosvvaQB6jlOrPwl+BvQ18GjTnFpwIliYDLyqVPHs60R7KwrjjjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792489032;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792489028;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=26eHFzDuq75BKMwszFnGzYlGwf+oiqj/3YNi48CTJwY=;
-	b=Oj8W4YBOWvDuuK9nzvBY0hZiGKzkgN5KiPX+GcgupyAvpZuXPAeeACuFR232G4awJjZW
-	 RZS6RTTgGDcn5HsUchpACVqhzJ8pTxXeJCnKRKHNbKDYgN5lRnuY/1sPoxWpyzQaZ4OBT
-	 ocXt62beZjCZmzwIWa5iC3xPISmW878nGGHEvguYx8XVRys7iXeJ4J/v5DydyLTKSWJLS
-	 IRsaMLZ8g38X3nqG2/JTTMYyafxaIIuDK/sWN0VAecoa1D77ibbEfoKfGQY4au7v1k1OH
-	 HpoFhsaQkox6APen292Zj4Xi1GZKXUHARBFSbOcWJVpkbsV+0Tt2XfwHCJfdDkhauig==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=hB8pffq+inNrwJYLPOGvC+P452XnrT72yy2Y6Woy5mE=;
+	b=lwLJXgaX4W7RwiSRoA81RvJ2sb9I5ogHnkDt575ECDM6Q8SBpkHglhAROItxsHelqp43
+	 7mPIVydgfUBRcwBb4IMQgN+9bTY1CdXJW42lXGgAZ/Z5bOEttippg9s1fDtStnZeL7JLg
+	 uMsSm0z7vpb2P2Kdh7lwjq4F3IXLRaVfG1NgQ3m0Xhw5Us5ktqk/qm5SVySmYGFm+h7eZ
+	 Au8j1KezsoXl0lgdSdtSXcESx4xPid4nebMx+ASoZEZqqw+gw+U0DeNCXKWvDUKFyurSY
+	 nDxJf60r2n+WkzSprSCwlWJ0dj+Hm7kK4CsE+ZnvHZa0Mot7laDJZr0GnNrCTQze2NA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=sartura.hr;
 	spf=pass smtp.mailfrom=sartura.hr;
-	dkim=pass header.d=sartura.hr header.i=@sartura.hr header.a=rsa-sha256 header.s=sartura header.b=LfG97JUD;
-	arc=none smtp.remote-ip=209.85.218.43
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	dkim=pass header.d=sartura.hr header.i=@sartura.hr header.a=rsa-sha256 header.s=sartura header.b=v9e42P2A;
+	arc=none smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE80606A33B
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 09:37:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDE80606A33B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B82E6606A329
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 09:37:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B82E6606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sartura.hr header.i=@sartura.hr header.a=rsa-sha256 header.s=sartura header.b=LfG97JUD
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c20ce3c118aso93974566b.0
-        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 02:37:11 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=sartura.hr header.i=@sartura.hr header.a=rsa-sha256 header.s=sartura header.b=v9e42P2A
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c4322d310e7so293749866b.0
+        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 02:37:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sartura.hr; s=sartura; t=1792489030; x=1793093830; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=26eHFzDuq75BKMwszFnGzYlGwf+oiqj/3YNi48CTJwY=;
-        b=LfG97JUDdY0f5xn16pZkZ0zfGlB14my7j7PRX3fpaoFMYMUGLVmkTTabUGQe6+uuJF
-         a7Jj061lJm7UkckA/KSvUewsSv8G1jdgD9Z0uw1Af6dWE09ixRIQPJOMM/t9y1ddsLOP
-         9sBEOOdmaNyqZeqiSF9DaSic3o1LcLADe9HDrlMju/Q/3xHz7LGKq9HUXNAQ1aAfVFTh
-         W+NPcsCLXzoLaQN3OcJ7YwKPCeJ8vqzOEU+vX7/6RlnRbukjcTTqrpy5vY6lMwH1wccf
-         RAHEsze2gwkUhKv6dJHMkkBknioOC9EogPdW8y31iUaMFim3Gdvrq17TZKeSD8JQvT4K
-         MB/A==
+        d=sartura.hr; s=sartura; t=1792489026; x=1793093826; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hB8pffq+inNrwJYLPOGvC+P452XnrT72yy2Y6Woy5mE=;
+        b=v9e42P2ASSkihNC4YkrSR/E/sDVt0s2qV/m+O0r7dcErfSBASUbr8PPAvzNF8sIi8W
+         tPcYDtC6my00/uciLmWKAehRS+R0yx8WtjBUIT6HmafA4G86s7RbbCNaeNqq/N/sUg/6
+         4efkr9P/9ImAyEl+vDVR6JQIQy4Pe0Si6zs9TsnVsCnhbO4Pvvj+TNqtVU3OfElnx7ap
+         xIEx0m0OEYj/7QqqFHrx7TWq/6ez1y7NOiu1HF9diNhOQficqQG3/r6ySMMCY+3Te8k8
+         TZhj1ZT8OCglQyBklN7DIv5+TmvxgftBXRo8WJHQxb0V+31jn9q3RrWH2sNx5oh9lo79
+         9e+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792489030; x=1793093830;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=26eHFzDuq75BKMwszFnGzYlGwf+oiqj/3YNi48CTJwY=;
-        b=LADOvmKNOwWi1dpu1C69FjseqZXcdkY+Zhy5LvT4XPooV2hNqKtsax1Z5PPRi1goVH
-         yTWMxRlvUKf2mSUg5w0qn9dii+d7kmEL3fjvIen/nH4GhiN5XeGJznU2npm7q0c8WmNC
-         vxRbcklkVrlkIzdp4rtT0BEskJMitzNxARrEh6NsvP8UV+eVJRDaP3tIUnf6Vw5pKikv
-         0Pag3aH3sLdJlF+r2le7TLvDZXLpl90LkBnJfYFfHhsOwKxhAGgoFYafxDDhtoanUVcM
-         LyOMCfUtlDIduD3exS0pJQ2V/YDYrgfkAj4fGLRnYpgNtSEWVJFoDjKbJax1q1u6SbJp
-         9cCg==
-X-Forwarded-Encrypted: i=1; AKwUvBy8PfoHMpRjzgkHD01aiPq5KrnkYGYLRnpvujye4TTG9GQrC4mUoEDggUHGODSN7XsYYIPIuIvagOzL@vger.kernel.org
-X-Gm-Message-State: AFq9FYK6LzGPTeHEHBBULuBFAJ/PUHOOoNVuyD67aXks9kqXi0WqecMv
-	/4P1gP/YaM3qorma+lV/npsRbDvbJ7hooXjGDVX62kuNEYmLVd4weMoCPE9qyr5P/Sg=
-X-Gm-Gg: AYBFou17JsR/aNprXhS5k0kAk46sNNrW5GYaYYSG3LBVBwCAknB6U6kjKlGga0pYUDh
-	NPx6TmdesxwJyFaSKOdzfAMJWFv71kzvfAp55emq/GSBoQym86zW/ljtmZImxqcOxN55ikqVmYW
-	iAaDc5KCZBR0o1Dms1uQ+E59xqEznAuZp5xJkN3jAqX7utj+nOBl+io6MJmQHkga5neIM3CFwf7
-	lks5M46IGEZIogDxJhugnNOmw+XkPBqMlZAUnLnqSon9GKHHs037ySRJpODjfZsKHDdWMLtb8Fm
-	qJOYU21jAgTzwC/SwVHlt/IPup9P6TmVbE+aCshnU6+TEAY/9Kmvo4OUR+TNxT6ccZVITFVj7QD
-	tUMeVIF0WzF/qTCAUIZtgYtMmkFHoBiBYebEucT8b9927l6edJNvs8THtnWaGkAgCBi1ii1aDv/
-	5qmlbiPuWHmtfrMPXSm4y2rmwtt+jvHI0YQbaC8AeO86FYBFW6pMo3tgvog2OabUoUFWFA/hQk3
-	Fgqsex0AhhqwwutY89VohHNwnpiUsYTF7jUnHQUC3pNB7ABWi/oSRmVbNoMizOSyQ1XPJVTGKr5
-	R2JJEGZI9HV+Sndh9BPNwuYo0sfHZqpwVvnU/WPzmXkHUtAl5e3WplGi
-X-Received: by 2002:a17:907:c081:b0:c43:bf29:1509 with SMTP id a640c23a62f3a-c4603c04e5fmr108178866b.12.1792489030235;
-        Tue, 20 Oct 2026 02:37:10 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792489026; x=1793093826;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hB8pffq+inNrwJYLPOGvC+P452XnrT72yy2Y6Woy5mE=;
+        b=LNTmjefO1VCzJLYfP1cauQksn/TebnPZ94Pe6+iT1+VF9cq+Vk8RijFVold4OHUg1x
+         CAOcJynz499UpKConTWgp//4vOk8+Yg66dgkOnSzJ0CbZ+iR6jKJFi9cpNaog6+GeTmj
+         GvtKdM+wHkUP9HLsEJHl8fo0UnShPG2AnB+MNjx/V8MHalKR+if2MapYJQ1E6oM1MeBg
+         jq9XtRVxh3TKkPzW5MZpYey2l9ZRjf9lC/6JVpV2Ua0ZH7ueJ2YYEwhCCxU6NAOIFa38
+         nKpduGo6TIT9qL/SUthmIWYcc1xeCVJ2KXIniJPPYBZ/snKOGmypSpnzdccD+kNwIt9f
+         zK1A==
+X-Forwarded-Encrypted: i=1; AKwUvBzrONRPsK1qSERjlAzQ5uia4R23sP07K9mLCkcW1+3Wxdf318TagNrQhYajqtthkziFZn2kvZmIyLRV@vger.kernel.org
+X-Gm-Message-State: AFq9FYLgO6hj/Z94qtlxh+cljlOKG26JSdaLJOk46vSyaZUnBSCtxT6S
+	5n55vjCnIr8X+yjSo95uMdWXaGXRmbVYm0DLKbQbQ3yYATgNOMvJLD2Rk8j7u0WoxGc=
+X-Gm-Gg: AYBFou1IE1N9kTDISSLfC9zfv00KLynVHQ6527e6lal+M9dQWxuptgJC2L1hb7RULEv
+	XFNHXZ9mFJ1x88dPn7in73NVVRfXHULaNxbTIIU0eD+44/ZrD7ctM0bYd84LkSX7TU+UhtsKNlT
+	uoJslRu4eGhirPlyPh25hQnBHQco+bnz6FL0AUI9sPmkFGKdgKSUbsBKuRGYMi6LzRcy2bC2P4l
+	+slwX7phoVYdcs6+Kkt0W9EYNMyFOK6JUg0uBBCU9JppI/q4ZlsPEYrkWj/dq6fc8jqcXMdpMsj
+	9tUtHrg0yaUYJfgDk4GPbLBf3hrw4L1BUdg6ITaXlEXFlVeUUUn21KWm/9LIvMdCGGSWvscHq+A
+	PhkMyKKonjzn3quaXyjNA4hr4O4k7ev6U65gwa2Pfv49elQ37j8qNoXXoKuHzIjEnN4NbmakXtp
+	j4AXCgfIeVlzkcvNxyqz8h5XCAiXtxTcua65U4zYE8sFfxE8L3yaJF5o6RojhdX+9CZL3wHa6TY
+	3LaWzfW7vVBO1t0rZTJtX21aNVKX4tGqvOC4Zn7v2xdfIzeym1VkKJ/yTH1dc3Ouszc+PmimJ/E
+	xlvV3yM7F8zts8aSpZkMJzJWzD1EoPlgyFMDcHCBIVqLwg==
+X-Received: by 2002:a17:907:3e83:b0:c46:6a50:40c2 with SMTP id a640c23a62f3a-c466a504adamr73352366b.39.1792489026177;
+        Tue, 20 Oct 2026 02:37:06 -0700 (PDT)
 Received: from threadripper-fedora-workstation (cpe-109-60-82-88.zg3.cable.xnet.hr. [109.60.82.88])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40912ceffesm462730966b.47.2026.10.20.02.37.09
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40912ceffesm462730966b.47.2026.10.20.02.37.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 02:37:09 -0700 (PDT)
+        Tue, 20 Oct 2026 02:37:05 -0700 (PDT)
 From: Robert Marko <robert.marko@sartura.hr>
 To: andrew+netdev@lunn.ch,
 	davem@davemloft.net,
@@ -99,12 +98,10 @@ To: andrew+netdev@lunn.ch,
 Cc: lrosu@maxlinear.com,
 	luka.perkov@sartura.hr,
 	Robert Marko <robert.marko@sartura.hr>
-Subject: [PATCH net-next v3 4/5] dt-bindings: net: maxlinear: add MxL86211C lane mapping support
-Date: Tue, 20 Oct 2026 11:35:37 +0200
-Message-ID: <20261020093655.344585-4-robert.marko@sartura.hr>
+Subject: [PATCH net-next v3 1/5] dt-bindings: net: maxlinear: add MxL86211C VDDP supply
+Date: Tue, 20 Oct 2026 11:35:34 +0200
+Message-ID: <20261020093655.344585-1-robert.marko@sartura.hr>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261020093655.344585-1-robert.marko@sartura.hr>
-References: <20261020093655.344585-1-robert.marko@sartura.hr>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,79 +113,100 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Describe the optional board-level mapping from physical TPI lanes to the
-MxL86211C analog front ends (ASPs). This allows DTS to describe wiring
-that differs from the hardware reset mapping.
+Describe the optional VDDP supply used by the MxL86211C PHY. Its
+voltage determines whether the MDIO, MDC, and MDINT pads use 1.8 V or
+3.3 V.
 
-Select nodes using the new property so invalid uses are checked even
-without the MxL86211C compatible.
+Existing device trees do not describe the supply and rely on the hardware
+reset default. Keep the property optional to preserve their compatibility.
+
+Select the MxL86211C PHY ID and nodes using the existing MaxLinear
+broken-interrupt property, so this binding is checked during normal DT
+validation. Restrict the new supply property to the MxL86211C with the
+compatible conditional.
 
 Signed-off-by: Robert Marko <robert.marko@sartura.hr>
 ---
 Changes in v3:
-- Select nodes using the lane-map property so misuse is validated.
-- Restrict the property through the negated compatible condition.
+- Make VDDP optional for existing device trees.
+- Select MxL86211C nodes and nodes using the legacy MaxLinear property.
+- Replace the empty then branch with a negated compatible condition.
 
 Changes in v2:
-- Define the lane-map property at the top level for type checking.
-- Describe ASPs as analog front ends.
+- Model VDDP as a supply instead of a regulator provider.
+- Select the schema for the MxL86211C PHY ID.
 
- .../bindings/net/maxlinear,gpy2xx.yaml        | 21 +++++++++++++++++++
- 1 file changed, 21 insertions(+)
+ .../bindings/net/maxlinear,gpy2xx.yaml        | 48 +++++++++++++++++++
+ 1 file changed, 48 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml b/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
-index 53f430e121510..7b6140baf1757 100644
+index 8a3713abd1ca9..53f430e121510 100644
 --- a/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
 +++ b/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
-@@ -20,6 +20,8 @@ select:
-         - compatible
-     - required:
-         - maxlinear,use-broken-interrupts
-+    - required:
-+        - maxlinear,lane-asp-map
+@@ -10,10 +10,37 @@ maintainers:
+   - Andrew Lunn <andrew@lunn.ch>
+   - Michael Walle <michael@walle.cc>
  
++select:
++  anyOf:
++    - properties:
++        compatible:
++          contains:
++            const: ethernet-phy-idc133.5400
++      required:
++        - compatible
++    - required:
++        - maxlinear,use-broken-interrupts
++
  allOf:
    - $ref: ethernet-phy.yaml#
-@@ -34,6 +36,7 @@ allOf:
-     then:
-       properties:
-         vddp-supply: false
-+        maxlinear,lane-asp-map: false
++  - if:
++      not:
++        properties:
++          compatible:
++            contains:
++              const: ethernet-phy-idc133.5400
++        required:
++          - compatible
++    then:
++      properties:
++        vddp-supply: false
  
  properties:
-   vddp-supply:
-@@ -41,6 +44,21 @@ properties:
-       Optional regulator supplying the VDDP pin. Its voltage configures the
-       MDIO, MDC, and MDINT pad voltage and must be either 1.8 V or 3.3 V.
- 
-+  maxlinear,lane-asp-map:
++  vddp-supply:
 +    description: |
-+      Mapping of physical TPI lanes A through D to analog front ends (ASPs)
-+      A through D. The array index identifies the physical TPI lane, while
-+      its value identifies the analog front end, encoded as 0 through 3.
-+      Each analog front end must be mapped exactly once. Omit the property to
-+      retain the hardware reset mapping.
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    minItems: 4
-+    maxItems: 4
-+    uniqueItems: true
-+    items:
-+      minimum: 0
-+      maximum: 3
++      Optional regulator supplying the VDDP pin. Its voltage configures the
++      MDIO, MDC, and MDINT pad voltage and must be either 1.8 V or 3.3 V.
 +
    maxlinear,use-broken-interrupts:
      description: |
        Interrupts are broken on some GPY2xx PHYs in that they keep the
-@@ -90,6 +108,9 @@ examples:
-             reg = <0>;
-             vddp-supply = <&vddp>;
- 
-+            /* Swap physical TPI lanes C and D. */
-+            maxlinear,lane-asp-map = <0 1 3 2>;
-+
+@@ -45,4 +72,25 @@ examples:
          };
      };
  
++  - |
++    vddp: regulator-vddp {
++        compatible = "regulator-fixed";
++        regulator-name = "vddp";
++        regulator-min-microvolt = <1800000>;
++        regulator-max-microvolt = <1800000>;
++    };
++
++    ethernet {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        ethernet-phy@0 {
++            compatible = "ethernet-phy-idc133.5400",
++                         "ethernet-phy-ieee802.3-c45";
++            reg = <0>;
++            vddp-supply = <&vddp>;
++
++        };
++    };
++
+ ...
 -- 
 2.56.0
 
