@@ -1,110 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.183.30.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792460248;
-	b=x8vdRR3TtEW/N7S6Z015In+KpS5ODl3tNNmbTvlsgn/GSOrGz/mLkp/CEtlrZd7OY1+7
-	 UVS78KK5W/kn8TJuTjecmxSluJWwCRgiJWl4e2Hzr1i4AJU2BGoNbYIugpd/9ZVTa7bkp
-	 n1i6bdt7QY/HZ2eBd0nAW1+g0rvTOKmk8GcaMJSVDyTZmsiaNM7Bq2lsyshIfa9mwjFVf
-	 5h3J9cNlPtIz7uLw4R8hv30/vJdYzYFnKLgjDy5sS1BdTW0Ilzr7NGlilieYpbaN8YT5w
-	 9S5LrT2N+AL6GQzFvW7Ae+xcG2FRv01tJFJyRwmsZ7LJw5ZY3hyd4unuGXr4x4QQGgw==
+	t=1792460270;
+	b=HT7/pfeEroAYTWTkNz0cAYTNvMjPXD2NQzN6LRMxMy9X93I2nHKnDcSvTpVLjM5sibQr
+	 xYzGeF2MIfWOkwIkmodhXz2R6+OKRya3C6AyNa2W/eTlUwY0JDDI0BqPnvX9CTL0XBY2z
+	 rYnqyFZfIifBS/mv5CsC0t4RvGDBMoIZVzpHjS/du01iXo6fwRM3wYRbTMnLZPNLkw7CN
+	 6wdvUhTRqMfEjsQQDLJO88NWI1ozIa3q/MSIxeC4lBm6Oelg3m2MEPpa69DS96CLU4kO/
+	 G0kXqxJh1pgk/fWWWX7suqaBT7Jw/GBv/Ej/9t6D5abZ6s6JY+k0B9IwzSdxxr1kBsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792460248;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=TcJGBZQnqhTqIvez5VyLtXAFQZOBgnnr6VaSTFruo8k=;
-	b=YAj/tVMnGsgN5g0JR2bgu9P5bq8zLKlia6ATMv7hPhH4ChxYYgwC49Rj0KKCOlOdOTVy
-	 GL8cIQxF/lFTkB/zXXx4qZ5tzp4SdXvWd7cDnJyR+W1c3p+E1SYX3e6iCg+GKL0qJo44F
-	 tolDDmvXYNG6VXi7z/8zU+/dequyX0RIrYHanpmjpPb7yEXjEowRN7rcox7PmQMOIVBhE
-	 NfBfwibrZNeY5sm4hBSF22xTQHodKFz90pdAreiHTqlhr7QzqyjQW6FhRSAqnVpPBuFkr
-	 HU5e1wumg9qHDTSfXXnojnZVNPnD0Yq3No1zZp04TjFj8WT5/usnq00D/oPNmlj4nXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792460270;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
+	 Cc:References:Content-Language:From:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Sony-BusinessRelay-GUID:
+	 X-Proofpoint-Virus-Version:X-Sony-EdgeRelay-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Sony-Outbound-GUID:
+	 X-Proofpoint-Virus-Version;
+	bh=5Wlhf+2RdwZwj9+OlXjfXJb1V6sCsvah1rFK3bKNefg=;
+	b=ksYoWKKfbUSYtTWjHHzOWNVt/qDlDvuaU67Q0UxfNKr5ny+ly+xYHFh/9dUiqc//74jv
+	 G9F2LFYIUOyKUGXVC2gw1rFewUM5QkCemfQAYkRpK6rB5rtw2Dq/PRBY+WtZWABsbv5Q5
+	 uuBPccwFS3grd6U8RVLwPlcIq19sOaHnWu2k2BKUA16dBYvvQfyXTjy4jP8paSeyjSlUt
+	 vspncJ0xF/lr0y/a1lfkwtVVgM6NozCsOe2KmHohyLjwapK5Eo0ah2TbGjjtcOL4EoR5K
+	 2gDgXpApDQhfWEZmqujIOWQha+wozn1x+dzugIxQ6Kz7T+jIsXECKhNLBXqrDXaV1RQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ecmXx3NR;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=sony.com;
+	spf=pass smtp.mailfrom=sony.com;
+	dkim=pass header.d=sony.com header.i=@sony.com header.a=rsa-sha256 header.s=p1 header.b=iuh+m4C7;
+	arc=none smtp.remote-ip=185.183.30.70
+Received: from mx08-001d1705.pphosted.com (mx08-001d1705.pphosted.com [185.183.30.70])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 022A9606A31D
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 01:37:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 022A9606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99074606A319;
+	Tue, 20 Oct 2026 01:37:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99074606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sony.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ecmXx3NR
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso1701579eec.0
-        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 18:37:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792460247; x=1793065047; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=TcJGBZQnqhTqIvez5VyLtXAFQZOBgnnr6VaSTFruo8k=;
-        b=ecmXx3NRtnKBb0bx3OKSgxIGlOywd+JyxPJp60E/ketB3hMnkmpLkH8L4kcdJeA6Jl
-         EMv31nRk4M5/ktlcZJcz0TUpYNZrDTjGmjF1tedEYBM7w+6xPr+Lrn+qPR8G3QZ6JbhG
-         NESF27cdh0velfvj+2DrkT1yLnB/vDSgAZOY4mATGCWkyZKYKXVEe9SoJOmfeDb++d4E
-         LsU8MtxwGj6M2KGicp3ue91OsgkOef1ZKEnqKl5cto1+sEfHdlu/c4CauXWRFZ7L2FpB
-         5HAi4OaYB6E5btRgmlcTXLc2QOcDGhYjgeNwmoMugrTDSGeJXWNPju0Z3o0fQLnWuN15
-         jnrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792460247; x=1793065047;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TcJGBZQnqhTqIvez5VyLtXAFQZOBgnnr6VaSTFruo8k=;
-        b=CQy4ALAYYGjRv8eClnlPLbcQmurdKIsNn658/8G9RSObeZgUDYo9brWS8SquSHNXit
-         zPI+XOTY5rw7GNfPNkkQM9cVsWTyqoIcY7F/ZN53eCHXwJ4LKl1UF1Opc13GAma2Y5f9
-         8715chQpIfOIynby/leYVVq8Cpv/w2sxnlkvJJGNZYK1ZQLUgFhyhpkNdjL/0fv6b9sm
-         yhyM1fZ7GYMNj/PZib10d4rj6n98t9yXdxPi0FCtLjLatRhZnu+HRMXlKyFLrY/kMfUH
-         lE5PxGICPL8LwBtgmHuo1AGRumkIHMork2B7sKuqKjOt6Xx1s2+VIs+bpr8bjfsCe3tG
-         g8xQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwKIXIQJQKSZNu3brbLpKWvVafoz24HxMtRkD+MU/OnsO/kD6TDTgkajc4JGtRulHYAa8/B9b241/hJ@vger.kernel.org
-X-Gm-Message-State: AFq9FYLiVlH61ojjhkIFLsvq1bB+WEJS3J4a5qWkLe2LfoHfMEMcVNl6
-	YeCnnfwKMBcZZpDn8dC+uBmvYgiPFJ+algVVa6DtwNwH1W9Lzbor/OqY
-X-Gm-Gg: AYBFou1R5U/SjMPeQ0BtGaXD/wNcmRA/m6HzJ9N8r9ts/1lB8A8s4VfOMfHewHekj3z
-	xaR1MDPU+1f4LcPsa+OhFnNPB62uOPRKAYnW7emadJx4QjBK/wrh5Co6b/lSX8quG3Y6YRPG9qi
-	OTg51e0ttBUHfZF9NDSLmBzj/jLBbyoIU+vLsvHi6vNPrVAYbCYjDh9Utb/efQBJMpqSOsnDtOo
-	eLnON8Kuc3yGeDzQznpqF18DyNiDsaED4rF6LMKInBcWqUeXO58+iVwPYLVUWokBNT79a0q28Bo
-	2SN+CMCBmyDkmsjcN6c3hrs+pVCnsIn18+u/lPaDfY0oRXH9YxRxWSlxk0Dic+5ZTRAPeWMfwP0
-	Q/F2J0UPEk5z25Ttn+n6M92/tnlyX/lhMyj6C1+uaYWIISQiHnZn55svOHOZlQm1r/8dtblDItT
-	iNrYejBo/JnrEvPXNV9xA9YrxSuWi5roJSqS2jT40n86S1LOvc8wibQs0oN5OX45uKZz5SFd92g
-	GCJF4K+2F3M
-X-Received: by 2002:a05:7022:120a:b0:171:a066:938e with SMTP id a92af1059eb24-18512c384b3mr12193156c88.21.1792460246891;
-        Mon, 19 Oct 2026 18:37:26 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1830f213ba7sm37626819c88.0.2026.10.19.18.37.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 18:37:26 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Mon, 19 Oct 2026 18:37:25 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Yureka Lilian <yureka@cyberchaos.dev>
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
-	Neal Gompa <neal@gompa.dev>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Hector Martin <marcan@marcan.st>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	Sasha Finkelstein <k@chaosmail.tech>,
-	Linus Walleij <linusw@kernel.org>,
-	Mark Kettenis <kettenis@openbsd.org>,
-	Andi Shyti <andi.shyti@kernel.org>, asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org
-Subject: Re: [PATCH v2 01/10] dt-bindings: watchdog: apple,wdt: Add t6041
- compatible
-Message-ID: <1a720dcf-9f67-423d-b998-d0db73f82899@roeck-us.net>
-References: <20261014-apple-m4-pro-max-initial-devicetrees-v2-0-961edd8d661b@cyberchaos.dev>
- <20261014-apple-m4-pro-max-initial-devicetrees-v2-1-961edd8d661b@cyberchaos.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=sony.com header.i=@sony.com header.a=rsa-sha256 header.s=p1 header.b=iuh+m4C7
+Received: from pps.filterd (m0209323.ppops.net [127.0.0.1])
+	by mx08-001d1705.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K0uE7M3979141;
+	Tue, 20 Oct 2026 01:37:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sony.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=p1; bh=5Wlhf+2
+	RdwZwj9+OlXjfXJb1V6sCsvah1rFK3bKNefg=; b=iuh+m4C7zlVgQ03Clz1Yogp
+	I4NnyMgpgj5tZUdXsQqO4yAdN8ZsABeLH/ZSnXtZPwMfEZciqGNFBi4GyGeuKbGh
+	+XlYtZ6xQM9g4/t/V2aMuydARxlodWirFjydpYwrRX8LwuJ6LV5e42085eo/kh0T
+	ULqlen4LwKZde6VboNxOu7zv0t0Zj58IRq+jWsrv9hzyhDrQLc3HVr6wmJIlkHGB
+	CK5YqhUHvI5AcXvN+XHvwTZRgE0ocDYuxxHvI2o3ANgaI1+uHSeB/JN9XU0O9Qi8
+	Z/Q3LQ0h1gjeloZfKkxfZ+v2/0ttTnf2NPJdcqlrFD9nlN43i2Do3W1Tz22qTAA=
+	=
+Received: from usculxsnt03v.am.sony.com ([160.33.194.235])
+	by mx08-001d1705.pphosted.com (PPS) with ESMTPS id 4hdw4x03w7-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+	Tue, 20 Oct 2026 01:37:27 +0000 (GMT)
+Received: from pps.filterd (usculxsnt03v.am.sony.com [127.0.0.1])
+	by usculxsnt03v.am.sony.com (8.18.1.11/8.18.1.11) with ESMTP id 69K0sHmu4156036;
+	Mon, 19 Oct 2026 18:37:26 -0700
+Received: from sgppsba01v.s.gdce.sony.com.sg ([146.215.113.218])
+	by usculxsnt03v.am.sony.com (PPS) with ESMTPS id 4hctk844rw-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 19 Oct 2026 18:37:26 -0700 (PDT)
+Received: from pps.filterd (SGPPSBA01v.s.gdce.sony.com.sg [127.0.0.1])
+	by SGPPSBA01v.s.gdce.sony.com.sg (8.18.1.11/8.18.1.11) with ESMTP id 69K0tLQW990024;
+	Tue, 20 Oct 2026 01:37:23 GMT
+Received: from [43.21.135.184] ([146.215.113.251])
+	by SGPPSBA01v.s.gdce.sony.com.sg (PPS) with ESMTPS id 4hc4gg1tjt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT);
+	Tue, 20 Oct 2026 01:37:23 +0000 (GMT)
+Message-ID: <a63dfe3d-9178-43a6-a9fb-ae82c86a047a@sony.com>
+Date: Tue, 20 Oct 2026 10:37:22 +0900
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,18 +81,115 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014-apple-m4-pro-max-initial-devicetrees-v2-1-961edd8d661b@cyberchaos.dev>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/2] media: dt-bindings: imx908: Add Sony IMX908 sensor
+To: Conor Dooley <conor@kernel.org>, sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
+        media-ci@linuxtv.org
+References: <20261019014720.2635-1-lachlan.michael@sony.com>
+ <20261019014720.2635-2-lachlan.michael@sony.com>
+ <sashiko-outbox-176511@kernel.org> <20261019-cause-decline-feb5a68f0d06@spud>
+Content-Language: en-US
+From: Lachlan Michael <Lachlan.Michael@sony.com>
+Organization: Sony Semiconductor Solutions Corporation
+In-Reply-To: <20261019-cause-decline-feb5a68f0d06@spud>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Sony-BusinessRelay-GUID: 9_K4QSbeUaHoBWPa5lZ4Jq4isaSR7w-_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Sony-EdgeRelay-GUID: Le1Dns-u0jodrHXVoQRr0RB86GejOWod
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAwNSBTYWx0ZWRfX4t1WMl6mqfmf
+ yeCyNGH6ZGFbcRodi/um2Yim3EFeprqyFy5nH8EcGJUcqk8EYUpjICSodhwnN93NxUUtoahOsX/
+ cab81mFcxODEPMvEX2XzEb6lTpUW8zKAmUSaQpoqz0zXLDPCGIGo
+X-Authority-Analysis: v=2.4 cv=Vbdir1p9 c=1 sm=1 tr=0 ts=6ad6c5d7 cx=c_pps
+ a=Ycsf2/9e4zkPkE23zi987Q==:117 a=Ycsf2/9e4zkPkE23zi987Q==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=KAb5x4SsHD3PzxGk7EmX:22 a=dNm3KQjjYUbhztXjLiFs:22 a=c92rfblmAAAA:8
+ a=z6gsHLkEAAAA:8 a=VwQbUJbxAAAA:8 a=ALUUi9MSbu_VYicB2QEA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-GUID: PrJmEJ2YR6oA-aNLmOv79CT9K6g4PpMf
+X-Proofpoint-ORIG-GUID: PrJmEJ2YR6oA-aNLmOv79CT9K6g4PpMf
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAwNSBTYWx0ZWRfX0J4F6Xfw8rk6
+ vUuS5Ymq8fl5xemFtpunr9P0REIKR2eAd+rDDlUw40FBa+a5rWF7ryya9y8jR7ZNqXGYNv5ruIM
+ ktKwtCyGXqiKNtsdGrWzjUbYuIHKPJ6OMCO+KW/Od2QVSxcj0sxbtm1SG3DgiNF4cZkesJPKXLU
+ rALb4ap156HwmZhFjK4Q4ficVAXlOhq5CJCgneZv6IvXE0dV6cewP+0iuwQDbAA3XGvxfC6d+H1
+ 5WuWiNSohYWY2fvkRt/5hTi/+Y+Id8qi7s6pdAn+k3QBUeECwSbIG76zhHnC7W+ArLf0kSS28t8
+ ktk6J3ICiUwjhV3UtlVsp2/zZtq8CPytpjqO7dHb0QOB8rdDvTEIzhabx7JEINqVBOcS6N12Z5m
+ REAjUcxjcTdbZOEVL9mxGe9rb0EAVMX+7lWiP3sYlVBht16SghLVRZJqGzpEK7SoKUCN/XAcE99
+ ZKT5WEJ1pS0IqiYcWWw==
+X-Sony-Outbound-GUID: PrJmEJ2YR6oA-aNLmOv79CT9K6g4PpMf
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
 
-On Wed, Oct 14, 2026 at 08:56:08AM +0200, Yureka Lilian wrote:
-> The watchdog on the Apple t604x (M4 Pro/Max) SoCs is compatible with the
-> M1-M4 SoCs. Add "apple,t6041-wdt" as SoC specific compatible.
+On 10/20/2026 3:21 AM, Conor Dooley wrote:
+> On Mon, Oct 19, 2026 at 01:53:48AM +0000, sashiko-bot@kernel.org wrote:
+>> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+>> - [Medium] dt-bindings: media: imx908: additionalProperties: false blocks allOf schema
+>> --
+>>
+>> commit ff8a8181af73cacaf3f8a03e0acde33eb53bb18b
+>> Author: Lachlan Michael <lachlan.michael@sony.com>
+>>
+>> media: dt-bindings: imx908: Add Sony IMX908 sensor
+>>
+>> This commit adds device tree bindings and a MAINTAINERS entry for the Sony
+>> IMX908 8.39 megapixel MIPI CSI-2 CMOS image sensor.
+>>
+>>> diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
+>>> new file mode 100644
+>>> index 0000000000000..828db1175e2f5
+>>> --- /dev/null
+>>> +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
+>>> @@ -0,0 +1,108 @@
+>> [ ... ]
+>>> +allOf:
+>>> +  - $ref: /schemas/media/video-interface-devices.yaml#
+>>> +
+>>> +properties:
+>>> +  compatible:
+>>> +    const: sony,imx908
+>> [ ... ]
+>>> +required:
+>>> +  - compatible
+>>> +  - reg
+>>> +  - clocks
+>>> +  - dvdd-supply
+>>> +  - ovdd-supply
+>>> +  - avdd-supply
+>>> +  - port
+>>> +
+>>> +additionalProperties: false
+>>
+>> [Severity: Medium]
+>> Should this be unevaluatedProperties: false instead of
+>> additionalProperties: false?
 > 
-> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Only if the properties outside of what's already explicitly used in the
+> binding are possible.
 
-Applied.
+IMX908 modules (i.e. IMX908 image sensor + board, made by various 
+companies) could specify rotation, orientation etc. so I think the 
+comment is valid.
 
-Thanks,
-Guenter
+I'll change as suggested:
+
+-additionalProperties: false
++unevaluatedProperties: false
+
+>> Because the schema references /schemas/media/video-interface-devices.yaml#
+>> in allOf without listing common properties such as rotation, orientation,
+>> lens-focus, or flash-leds under the local properties block, using
+>> additionalProperties: false will cause dtbs_check to reject any
+>> sony,imx908 node that uses those inherited properties.
+>>
+>> [ ... ]
+>>
+>> -- 
+>> Sashiko AI review · https://sashiko.dev/#/patchset/20261019014720.2635-1-lachlan.michael@sony.com?part=1
+
