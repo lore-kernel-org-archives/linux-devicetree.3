@@ -1,111 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792491300;
-	b=xOvKwiG22QTPlRxKigFv6pkTA56LSMyE2P9DYEgUeIG5isfm3hs40JfXDc+mxzpSELVs
-	 RfQ6PtkDUOt48tmJU2nn46ybClzmVUPWynE5U7GCSUIg16YUBbPY7KpolF81IadkLL3Oy
-	 x6rPv9GVCNnd8jOJdsiafLQV7QtExDF3FQ12KrvM54AuF8Uett/maMFtQkxQqch0D4+md
-	 63LdSeF6sbARaV1LguUYONdLIgPCTcmc+2jFiqomR/D32vgfFPlSzHrVBeIow21+Z3MnY
-	 nUWcO7YvgS1vnUJ3xJ4BjzyFvbUQCsaOSUoEuRaKBFMkXOzMtfIcYGlGlXhIgQ5d7pA==
+	t=1792491376;
+	b=JIm97pIwJ0aX2UPMQgt0qzqvsrzmZSq0h+s1D7WsFVLh+UlU5I0ubFpy4hh5UCLukrHg
+	 blRTUXdpBl8cHsJY7VAOGEJhnWYBoHm9yWRHsU85L6Px9S1ac9lyePUXT0ODQk2zC3D/8
+	 cvKkwuSnQ4OleieP+G2y1aWaB82sIJJRMuoPgUDxebCewoLVuEExeeYPmaa38EZofCJkD
+	 FtL6mjDQGW4uCa+Q/rQgXp2uX8qyvFUHQS4w65u83RS7Jci6B557pMO+QL96INAa3bvBR
+	 JZkV2qnqOrjr0o0wB10Z/OYqHiOezTTG0aJzgNxQAFNniaNU1/SNcR6YQmW1T8KBG6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792491300;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Oc+1ACYP0a1UmXoSDns3gFV8Olwj10Wp3zpKLGelbUg=;
-	b=p7mE4fV2cEGeGRY6dAjR/Lqe10ec9Lpuq1SGcD9lsQrxLDAvBnyOQMKD2HTpwkLZ6z9d
-	 7EaLHTVR3JL45SPGk6LgquzaXOfcLEMC+qcHvfzJzq9T+EqvMRv01AsbhLR9A8pfpGGPD
-	 /bO0FiTMrFm/MEEZA1YkCPOW+r3Od3orZZkRnMrhVWG78h/ceWduY7g1uAgIqQ6hmomfT
-	 bsMNt6k/bofXHyoArQv4EOcdGVbnOmOLveTUbk1WMKduOm4o0jhwNr5H+Xo5e5fpjnHBj
-	 GRa/xitxoM0OwthbspRIOE7tk5z0kkEtSAJvLlYBdlChXKiShHm2HrPbaTzbtrWHndQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792491376;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-AI-Review-Draft;
+	bh=hEUv31WpcCOcwIubujKrqCAngk4N82G4E550/XU4U0I=;
+	b=x1RxSfknLwcon2BqRqQOk2o4sv6ZLybg0QxzsylHbs+T5/wjrHpay0TN+eonjjsUSCIS
+	 21HXDrf3Ctg7ANiH1X2Q18kYVOwJwLvzyEAERzqYhmtZCt1DWIZaS0D6eVz+lKui0Se9Q
+	 AtdVC3ODGrUj/Gh54CtRhLVKiAZr6zWVTcJPhy4m5D9B6aREIbpwekpM3Ex+QEUQxvAzS
+	 RGsIlm1YRaaTX0HrEq948ZrwTBzrMvYZgx92pgyrxJSDAyy+aEviUCiWcvbSABv18JXcZ
+	 7Jtc1yaiHwGG7oWIBgqmHeB9P/+a+fKBLBCe0y1u5GZGbevNqHJzFNf8E+607iB+CpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cspKiUEI;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HUcFsqG0;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XNbpBszR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78E01606A31D
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 10:15:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78E01606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8A49606A31C;
+	Tue, 20 Oct 2026 10:16:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cspKiUEI;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HUcFsqG0
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K8Chhg186498
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 10:15:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Oc+1ACYP0a1UmXoSDns3gFV8Olwj10Wp3zpKLGelbUg=; b=cspKiUEIS7Jz+WsG
-	CL+hXvcNojI0UMBfCjMQzCzUOpF615gZAyQtaFg3vCuSoJLgvyr0RTx4s2U8Ai+I
-	snCerdWYAQVqIIWay+IZcgq6dDMTl4TNOIL9LxJEklqTSXp0RXJxIHmN+PktyP7V
-	ULw9cweFsISL2SjDcvYAuObRE3kADq42fGFLWrXKO1D59uHimup6yasFvpOsDaAG
-	7WbjHWJ3HvxT+xfSvEZ+lnU6m8rMuCwy8ohXLTcanZI7NY6XxSFGY3S+m2abOJbx
-	Uj+xBUOL88pJegolTad3D7sVwC5G8U87QzMouRBNCg3GHG1Ko8WykMeQU+VbpoD9
-	bXp0sg==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5nt15p-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 10:14:59 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f3960dca5so45990485a.0
-        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 03:14:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792491299; x=1793096099; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Oc+1ACYP0a1UmXoSDns3gFV8Olwj10Wp3zpKLGelbUg=;
-        b=HUcFsqG0qNlMmd89CavZCHBIRivguWI/hGES2joNfqm3YL5PekhTEOmDQivg6BYrGO
-         Aj9MS+pltxDPq870KjEc/4toGdmXSICrM2zvirwTJX7pI6nOVjbHgQ6usOA+ES9vXN6q
-         MuAl88600SvFJZ/8uOpUCEGuIKfycO6QCYXGLDDhPAo7egsddEJ2djWyMxoCtydb/7xy
-         dZZG3xGkA8s+QpcpfCewJeYfUfRalXmp25EgHFwpWlgSPOP5+RMxYN/2LKms0d9OiEZs
-         aa8SnSxgVWpP2CPHfXx2L7rsCNTZ9+XRPgbk0qL7ceB2kfjdkDy7nykGrXwzJ5mpRGW8
-         W3jA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792491299; x=1793096099;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Oc+1ACYP0a1UmXoSDns3gFV8Olwj10Wp3zpKLGelbUg=;
-        b=SwUmezeXxDP04LQ0M4LGZzIDbfL0Uu61PBCirSsWYc4LckEWfDxGHgu7CUFlns8xGl
-         wOsprsx59T0L73J6LafYZibZjcnVoNmaX9SmDT+tFsuPU8zpcDnn6kDSAOaxDzJHKbkJ
-         +y/JrGanVUU1Si+ZABnxZ8/V6Apvt21XDYkKM/DK9yH6if67ZW95eKkmv6/+JE4oF35G
-         aDeRwIo8JbNRLH7/ItQbkXdE2weiu2IxYorf/6rkakTaC6NwSRSqYdnfdfgVNBm0cvpK
-         O7bph0CDDYnSlxjvy1ngT1tCuZICm27lUAq7KOtiy8HGvFqbha8uB2/FTHd1YJZdlBbN
-         JrSQ==
-X-Forwarded-Encrypted: i=1; AKwUvByPopKKvvKhEGbzusVVYYRDsTGYVhkCcGtRVX/Yk/xR1QfVx3LrmVgTEde6L+d8p4HgfyloEwlNAEER@vger.kernel.org
-X-Gm-Message-State: AFq9FYKu9XJCzgPIGgtFEOw/2csBzGkGJxM9hOoIE24EVrKWHMxXV5RM
-	vk5IW0DVtIX4RN9yzXEdpPOYi/uLbLf7NBDOp4AWfCwr0HNhCC7tHpuc8Zu95AWmFlbOU8nXgx9
-	tTTidTp9E+CkgCBf6WdhFGBVlscJCvgqtZtKVjKvAWWwner3B629KiMdzkvRgn5aU
-X-Gm-Gg: AYBFou2H8N88y9n6Tb3OpYZumxmtptlZn0Y5AA92jcXP45xhm5t+ZsSCG115ki4+8XG
-	eZ4bx47USlsSfDGK9SawWDRo0rCXcOg4H23tr6TK2Zk5vjHh7XpsJFfV8J/Z70SVynfzyVyBrKy
-	a4120Af5KJ1KGQbsw4OvAQ7jQ54N/EFCHgZ2OV4zgUB05n80OT/luHV2usBUA8nPiek5T+oBQVq
-	jBcSjydEu9opR0e3nVN0C+CnaDLGsc/vRN29dhtacnFotOf7v4DCVNgfDsKDaCVSjG2ULkgb3O6
-	7DIr3eoND1LJkp8y6wNGpy2HunTTVSbF/7WKo4fYlJWqKQtRIB3JX5b66T+ttqBpNvFUId1rUOK
-	oFNFySwLQhsNalAyxXCM3+Q==
-X-Received: by 2002:a05:620a:2948:b0:93a:1312:ff19 with SMTP id af79cd13be357-93f29dcd9cdmr1729941785a.5.1792491298797;
-        Tue, 20 Oct 2026 03:14:58 -0700 (PDT)
-X-Received: by 2002:a05:620a:2948:b0:93a:1312:ff19 with SMTP id af79cd13be357-93f29dcd9cdmr1729937585a.5.1792491298279;
-        Tue, 20 Oct 2026 03:14:58 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b38a1c5e36sm5247373a12.17.2026.10.20.03.14.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 03:14:57 -0700 (PDT)
-Message-ID: <01b4728f-a78e-4932-96fa-795283e91cb6@oss.qualcomm.com>
-Date: Tue, 20 Oct 2026 12:14:55 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XNbpBszR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67F6B1F000C4;
+	Tue, 20 Oct 2026 10:16:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792491375;
+	bh=hEUv31WpcCOcwIubujKrqCAngk4N82G4E550/XU4U0I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XNbpBszRZCrAo1KUDmh4F/eflummKiYn3b7qa/FtnmQM5+O8puD71djIPsXjc0y5y
+	 N1FA9m77gEBsMw7QlrGcVPiWllUN8w0OQZZD5kykCOEg6ON0dCiI+iu7cGU5MUkUJF
+	 BCFW74KkMxKRXBV2Ix+yAX/xmOvHSJP7K91hWJH9VN5FUjEFr/l2RjXmlEGvZobTjq
+	 sl8AflyYe3wQt/BoHS5bW0qYTUyTqsPdHUS4J+K/dVQJBtw7w8edWgNz/ZEDAzzprn
+	 q2/i/a1vq/txrlHUgZ/CbkZOze3JNEahYwlY2pJHIKcSMiyu7PEgyYVR5cDmnlaiWi
+	 Y+WF9lP6f+xEw==
+Date: Tue, 20 Oct 2026 11:16:09 +0100
+From: Lee Jones <lee@kernel.org>
+To: Paul Sajna <sajattack@postmarketos.org>
+Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Nikita Travkin <nikitos.tr@gmail.com>,
+	Alexey Min <alexeymin@minlexx.ru>, Nikita Travkin <nikita@trvn.ru>,
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
+	~postmarketos/upstreaming@lists.sr.ht
+Subject: Re: [PATCH v3 2/6] leds: aw2013: Add AW2027 support
+Message-ID: <179198402838.839288.17911568760182808689@kernel.org>
+References: <20261012-aw2013-aw20xx-rename-v3-0-cab1fdd050b6@postmarketos.org>
+ <20261012-aw2013-aw20xx-rename-v3-2-cab1fdd050b6@postmarketos.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,89 +64,310 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] arm64: dts: qcom: purwa-iot-evk: add missing DP2 audio
- link
-To: Le Qi <le.qi@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        kernel@oss.qualcomm.com
-References: <20261009030404.1981995-1-le.qi@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261009030404.1981995-1-le.qi@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: oUlQhXlezyF1UizWRXpt-wUQZwNq3dCu
-X-Authority-Analysis: v=2.4 cv=DZOCOftW c=1 sm=1 tr=0 ts=6ad73f23 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=hFpWyfsUHjvwOGgMCfsA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-ORIG-GUID: oUlQhXlezyF1UizWRXpt-wUQZwNq3dCu
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA0MCBTYWx0ZWRfXx0MevoBgZBK2
- CoNx3U0IDbhFmwjOPG9YLnR5Jg83FHY3WoAVLtml88OH80VRx9Cfs2pu/mCeqjJmsedaeRBHXFS
- IptxVhpZc5eHZZONcz1uJ9puuTt8U5Ddurev5kbWVbxuR5jPIRmSEApBm/tymPPJhskrd2Bwmya
- 01y2h5f3kEc2S8iMwabRuLVT8Eqzfo7tGeAiShM11kQdrcfTlsd8R1jeVoG07acAomE+4bZHZ+6
- +Y9fFpJy0FENaYM9WeE3lcBq+lW+IC5Wi9npKcAqPFshSp8zv+P+BMQ8+BOJNrRffDTD3BPzlgq
- VUQIl13HtAKyT2V8/RzyZ6tJ+fant+Zrzi4WJb9IRUs2Mjy8hcQcNsAPN5dh9jFLrOzb1hUnw0E
- 2DhAFKclM/2N2T0MYhCKbMLglQxRAhlA/oHupGgBXUvxsmavFRgGQeOO4vHPq3qybUdU/2juv97
- RLu+PUZOZNz74QxpcAg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA0MCBTYWx0ZWRfX/QvJqZW3m59K
- PVlavOAvRs/9KrVf43wKYUjpDa7enfKiL0AikE1xo4AIxIAZGcFeI4Uj0Pfd9OsS4Nm4gTSVKyW
- 4hnUaIZY0vy8SJu7Jv4W/5zhlNIOb48=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 phishscore=0 priorityscore=1501 bulkscore=0
- adultscore=0 lowpriorityscore=0 spamscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200040
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012-aw2013-aw20xx-rename-v3-2-cab1fdd050b6@postmarketos.org>
+X-AI-Review-Draft: <20261012-aw2013-aw20xx-rename-v3-2-cab1fdd050b6@postmarketos.org>
 
-On 10/9/26 5:04 AM, Le Qi wrote:
-> The DP2 DAI link is missing from the sound card definition, preventing
-> audio playback over the third DisplayPort interface.
-> 
-> Add the required codec, CPU, and platform DAI configuration to enable
-> audio playback over DP2.
-> 
-> Signed-off-by: Le Qi <le.qi@oss.qualcomm.com>
+Please review, explain or fix the Sashiko review(s).
+
+If this is a set, this request includes the other patches too.
+
+--- checkpatch.pl (2 issues) ---
+Line 19: WARNING: Prefer a maximum 75 chars per line (possible unwrapped commit description?)
+Line 262: WARNING: DT compatible string "awinic,aw2027" appears un-documented -- check ./Documentation/devicetree/bindings/
+----------------------------------
+
+On Mon, 12 Oct 2026, Paul Sajna wrote:
+
+> The AW2027 is basically the same as the AW2013.
+>
+> It differs in:
+> - the max current (30mA rather than 15)
+> - the number of current levels for colour-mixing (16 rather than 4)
+> - the supply voltage max
+> - the charge indicator (unsupported by our driver at this time)
+>
+> The max current register (imax) also moves from LCFG to GCR2, and the
+> selectable current levels for colour-mixing (LCFG_CUR) take their place.
+>
+> The current driver implementation provided here sets the global imax to
+> it's maximum, and scales each led to the closest value using the local
+> imax. It's the best result achievable short of adding custom sysfs
+> entries and mucking up the linux interfaces.
+>
+> Comparison of all AW20XX chips https://www.awinic.com/en/productCompareList?id=47&ids=1022,74,96,75,72,71,928,927,73,76,578
+> AW2027 datasheet: https://doc.awinic.com/doc/202507/77b87097-27bf-48cd-af9b-9b615064c1e1.pdf
+> Vendor driver: https://www.awinic.com/en/driver/AW2027DNR/454
+>
+> Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
 > ---
->  arch/arm64/boot/dts/qcom/purwa-iot-evk.dts | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/purwa-iot-evk.dts b/arch/arm64/boot/dts/qcom/purwa-iot-evk.dts
-> index a811d8ca2dbf..93cefffd1f46 100644
-> --- a/arch/arm64/boot/dts/qcom/purwa-iot-evk.dts
-> +++ b/arch/arm64/boot/dts/qcom/purwa-iot-evk.dts
-> @@ -641,6 +641,22 @@ platform {
->  				sound-dai = <&q6apm>;
->  			};
->  		};
+>  drivers/leds/leds-aw2013.c | 137 ++++++++++++++++++++++++++++++++++++++-------
+>  1 file changed, 117 insertions(+), 20 deletions(-)
+>
+> diff --git a/drivers/leds/leds-aw2013.c b/drivers/leds/leds-aw2013.c
+> index 216755d6010f..4da33a86af16 100644
+> --- a/drivers/leds/leds-aw2013.c
+> +++ b/drivers/leds/leds-aw2013.c
+> @@ -1,5 +1,5 @@
+>  // SPDX-License-Identifier: GPL-2.0+
+> -// Driver for Awinic AW2013 3-channel LED driver
+> +// Driver for Awinic AW2013/AW2027 3-channel LED drivers
+>
+>  #include <linux/i2c.h>
+>  #include <linux/leds.h>
+> @@ -20,13 +20,15 @@
+>  #define AW2013_GCR 0x01
+>  #define AW2013_GCR_ENABLE BIT(0)
+>
+> +#define AW20XX_GCR2 0x04
+> +#define AW2013_IMAX_MASK (BIT(0) | BIT(1)) // Should be 0-3
 > +
-> +		dp2-dai-link {
-> +			link-name = "DP2 Playback";
+>  /* LED channel enable register */
+>  #define AW2013_LCTR 0x30
+>  #define AW2013_LCTR_LE(x) BIT((x))
+>
+>  /* LED channel control registers */
+>  #define AW2013_LCFG(x) (0x31 + (x))
+> -#define AW2013_LCFG_IMAX_MASK (BIT(0) | BIT(1)) // Should be 0-3
+>  #define AW2013_LCFG_MD BIT(4)
+>  #define AW2013_LCFG_FI BIT(5)
+>  #define AW2013_LCFG_FO BIT(6)
+> @@ -50,6 +52,13 @@
+>  #define AW2013_REG_MAX 0x77
+>
+>  #define AW2013_TIME_STEP 130 /* ms */
+> +#define AW2027_RSTR_CHIP_ID 0x09
+> +#define AW2027_REG_MAX 0x7F /* copied from vendor driver, but only up to 0x3F is documented */
 > +
-> +			codec {
-> +				sound-dai = <&mdss_dp2>;
-> +			};
-> +
-> +			cpu {
-> +				sound-dai = <&q6apmbedai DISPLAY_PORT_RX_2>;
-> +			};
-> +
-> +			platform {
-> +				sound-dai = <&q6apm>;
-> +			};
-> +		};
+> +#define AW2027_IMAX_15MA (0)
+> +#define AW2027_IMAX_30MA (1)
+> +#define AW2027_IMAX_5MA  (2)
+> +#define AW2027_IMAX_10MA (3)
 
-Srini, can/should this be in the SoC DT?
+Why the parentheses around simple integer literals?
 
-Konrad
+>  struct aw2013;
+>
+> @@ -60,16 +69,70 @@ struct aw2013_led {
+>  	unsigned int imax;
+>  };
+>
+> +struct aw2013_chipdef {
+> +	u8 chip_id;
+> +	const struct regmap_config *regmap_cfg;
+> +	u32 default_imax;
+> +	bool gcr2_imax;
+> +	unsigned int current_levels;
+> +	unsigned int current_max;
+> +};
+> +
+>  struct aw2013 {
+>  	struct mutex mutex; /* held when writing to registers */
+>  	struct regulator_bulk_data regulators[2];
+>  	struct i2c_client *client;
+>  	struct aw2013_led leds[AW2013_MAX_LEDS];
+>  	struct regmap *regmap;
+> +	const struct aw2013_chipdef *cdef;
+>  	int num_leds;
+>  	bool enabled;
+>  };
+>
+> +static const struct regmap_config aw2013_regmap_config = {
+> +	.reg_bits = 8,
+> +	.val_bits = 8,
+> +	.max_register = AW2013_REG_MAX,
+> +};
+> +
+> +static const struct regmap_config aw2027_regmap_config = {
+> +	.reg_bits = 8,
+> +	.val_bits = 8,
+> +	.max_register = AW2027_REG_MAX,
+> +};
+> +
+> +static const struct aw2013_chipdef aw2013_chipdef = {
+> +	.chip_id = AW2013_RSTR_CHIP_ID,
+> +	.regmap_cfg = &aw2013_regmap_config,
+> +	.default_imax = 1, // 5mA
+> +	.gcr2_imax = false,
+> +	.current_levels = 4,
+> +	.current_max = 15000,
+> +};
+> +
+> +static const struct aw2013_chipdef aw2027_chipdef = {
+> +	.chip_id = AW2027_RSTR_CHIP_ID,
+> +	.regmap_cfg = &aw2027_regmap_config,
+> +	.default_imax = 3, // 6mA
+> +	.gcr2_imax = true,
+> +	.current_levels = 16,
+> +	.current_max = 30000,
+> +};
+> +
+> +/**
+> + * aw2013_microamp_to_imax() - Finds the closest current step to the given microamp
+> + * @microamp: Desired current in microamps
+> + * @cdef: Chip definition
+> + *
+> + * Return: The closest current-step to the given microamp
+> + */
+> +static inline u32 aw2013_microamp_to_imax(u32 microamp, const struct aw2013_chipdef *cdef)
+> +{
+> +	return min_t(u32, (microamp * (cdef->current_levels - 1))
+> +			  / cdef->current_max,
+> +		     cdef->current_levels - 1);
+> +}
+
+This is hard to read, I think we can do better.
+
+Also, does it need to be a separate helper function when it only has a
+single call site?
+
+> +
+>  static int aw2013_chip_init(struct aw2013 *chip)
+>  {
+>  	int i, ret;
+> @@ -81,17 +144,50 @@ static int aw2013_chip_init(struct aw2013 *chip)
+>  		return ret;
+>  	}
+>
+> -	for (i = 0; i < chip->num_leds; i++) {
+> +	if (chip->cdef->gcr2_imax) {
+> +		/*
+> +		 * AW2027 supports 4-step global imax, and also a 16-step control for limiting
+> +		 * individual current per LED. This doesn't map to the single value the
+> +		 * devicetree provides super well, so set global imax to maximum, and
+> +		 * local imax to whatever gets us closest to the value in the devicetree.
+> +		 */
+>  		ret = regmap_update_bits(chip->regmap,
+> -					 AW2013_LCFG(chip->leds[i].num),
+> -					 AW2013_LCFG_IMAX_MASK,
+> -					 chip->leds[i].imax);
+> +				AW20XX_GCR2,
+> +				AW2013_IMAX_MASK,
+> +				AW2027_IMAX_30MA);
+>  		if (ret) {
+>  			dev_err(&chip->client->dev,
+> -				"Failed to set maximum current for led %d: %d\n",
+> -				chip->leds[i].num, ret);
+> +				"Failed to set maximum global current: %d\n",
+> +				ret);
+>  			return ret;
+>  		}
+> +
+> +		for (i = 0; i < chip->num_leds; i++) {
+> +			ret = regmap_update_bits(chip->regmap,
+> +						 AW2013_LCFG(chip->leds[i].num),
+> +						 AW2013_IMAX_MASK,
+> +						 chip->leds[i].imax);
+> +			if (ret) {
+> +				dev_err(&chip->client->dev,
+> +					"Failed to set maximum current for led %d: %d\n",
+> +					chip->leds[i].num, ret);
+> +				return ret;
+> +			}
+> +		}
+> +	} else {
+> +		/* AW2013 only supports 4-step individual current per LED */
+> +		for (i = 0; i < chip->num_leds; i++) {
+> +			ret = regmap_update_bits(chip->regmap,
+> +						 AW2013_LCFG(chip->leds[i].num),
+> +						 AW2013_IMAX_MASK,
+> +						 chip->leds[i].imax);
+> +			if (ret) {
+> +				dev_err(&chip->client->dev,
+> +					"Failed to set maximum current for led %d: %d\n",
+> +					chip->leds[i].num, ret);
+> +				return ret;
+> +			}
+> +		}
+>  	}
+
+Consider using functions instead of massive seconds of indented code.
+
+Also, the for() loops are identical and are the last pieces of both
+branches, so why are they duplicated?
+
+>  	return ret;
+> @@ -292,9 +388,9 @@ static int aw2013_probe_dt(struct aw2013 *chip)
+>  		init_data.fwnode = of_fwnode_handle(child);
+>
+>  		if (!of_property_read_u32(child, "led-max-microamp", &imax)) {
+> -			led->imax = min_t(u32, imax / 5000, 3);
+> +			led->imax = aw2013_microamp_to_imax(imax, chip->cdef);
+>  		} else {
+> -			led->imax = 1; // 5mA
+> +			led->imax = chip->cdef->default_imax;
+>  			dev_info(&chip->client->dev,
+>  				 "DT property led-max-microamp is missing\n");
+>  		}
+> @@ -323,18 +419,18 @@ static void aw2013_chip_disable_action(void *data)
+>  	aw2013_chip_disable(data);
+>  }
+>
+> -static const struct regmap_config aw2013_regmap_config = {
+> -	.reg_bits = 8,
+> -	.val_bits = 8,
+> -	.max_register = AW2013_REG_MAX,
+> -};
+>
+>  static int aw2013_probe(struct i2c_client *client)
+>  {
+>  	struct aw2013 *chip;
+> +	const struct aw2013_chipdef *cdef;
+>  	int ret;
+>  	unsigned int chipid;
+>
+> +	cdef = device_get_match_data(&client->dev);
+> +	if (!cdef)
+> +		return -ENODEV;
+> +
+>  	chip = devm_kzalloc(&client->dev, sizeof(*chip), GFP_KERNEL);
+>  	if (!chip)
+>  		return -ENOMEM;
+> @@ -346,9 +442,10 @@ static int aw2013_probe(struct i2c_client *client)
+>  	mutex_lock(&chip->mutex);
+>
+>  	chip->client = client;
+> +	chip->cdef = cdef;
+>  	i2c_set_clientdata(client, chip);
+>
+> -	chip->regmap = devm_regmap_init_i2c(client, &aw2013_regmap_config);
+> +	chip->regmap = devm_regmap_init_i2c(client, chip->cdef->regmap_cfg);
+>  	if (IS_ERR(chip->regmap)) {
+>  		ret = PTR_ERR(chip->regmap);
+>  		dev_err(&client->dev, "Failed to allocate register map: %d\n",
+> @@ -382,8 +479,7 @@ static int aw2013_probe(struct i2c_client *client)
+>  			ret);
+>  		goto error_reg;
+>  	}
+> -
+> -	if (chipid != AW2013_RSTR_CHIP_ID) {
+> +	if (chipid != chip->cdef->chip_id) {
+>  		dev_err(&client->dev, "Chip reported wrong ID: %x\n",
+>  			chipid);
+>  		ret = -ENODEV;
+> @@ -420,7 +516,8 @@ static int aw2013_probe(struct i2c_client *client)
+>  }
+>
+>  static const struct of_device_id aw2013_match_table[] = {
+> -	{ .compatible = "awinic,aw2013", },
+> +	{ .compatible = "awinic,aw2013", .data = &aw2013_chipdef },
+> +	{ .compatible = "awinic,aw2027", .data = &aw2027_chipdef },
+>  	{ /* sentinel */ },
+>  };
+>
+> @@ -437,5 +534,5 @@ static struct i2c_driver aw2013_driver = {
+>  module_i2c_driver(aw2013_driver);
+>
+>  MODULE_AUTHOR("Nikita Travkin <nikitos.tr@gmail.com>");
+> -MODULE_DESCRIPTION("AW2013 LED driver");
+> +MODULE_DESCRIPTION("AW2013/AW2027 LED driver");
+>  MODULE_LICENSE("GPL v2");
+>
+> -- 
+> 2.55.0
+>
+>
+
+-- 
+Lee Jones
