@@ -1,112 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.37
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792512105;
-	b=ImczN8CWa9MjlcvqtawP5/pUl8wIv2ATNu9YwPupxb9KvT8fsTC1ml9+LqGKGQUtNw37
-	 sWw62SdHKkanXoxmIcqC55DmAyGoCpfoRlhkRp2CrB7+OV0mDbESDIcZPenhjCQh9x0n+
-	 ZspTnO8yFUzHsU36jaAbqSsPr55voyIaG4MR5GdcwS/7x49fKCFZS4QCqmIlIv++reGC+
-	 9j9L4clYAPPgKAYwwyeEszGb2gTjDoZGnhA28rg+Aj6b6YfavTFjlDR8EfjAhyvAtjWUI
-	 3JAW2RsxLgwZfNmY/ejIAOJC6P+O+PX0RYoOCyewnV3AkMAfiSdCYd3vg8opcVMDWWw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792512105;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=ekoqrIm0WW21+sshVfBws0IBQcvJyBcAoqSMJQoB4Tw=;
-	b=nNMDa4c24t8Qvndj86x03ZXU0E/aMcgf1Jzi/TWWkGVJrUfmVh06FM8ExqwVIXlfx/LK
-	 D6qWRkei7LwuUn8W61SwLadqo1wAu+KuCOw7krl/dWxHGnRalFN2IHZEX3hxF5NIChb+u
-	 2HpmckR/sK2X+UthMa9hVSRNaf3cMa2UXRMWN+wFPyAGzk1j+lu6ykVOwyHkJUEa4TXew
-	 RP+gAbHRI2MZpQ39UoyIS/iS5u1Ao7DVUTBlAiKGeMBqKeVCSj8GuHP9GH3FaCTNtgIkk
-	 /5kcQfADhGp7RgSey/mWwmY7pbabS2Rh/Bal1ubBu/LKVmLRN8s7QPCfbt3/rKZL9vA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="ByiGL/R3";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.37
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011037.outbound.protection.outlook.com [52.101.65.37])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792512541;
+	b=NGOEWVIIUxa/LuVN/57K9icoor/GlVGRw7nNuSfgSWEhf95k/OTJZPirtN8W6h/bEr5r
+	 Mgs8LUJwznZFzDTElGDcNC2iepXV0SSTR/BE8Ytc/2RPBpo7iGCsAw9J8ghSYhGLfRQ49
+	 3u0ydfWIECUqgRAaAGxDt9X5wMqFvZtlU1xZhRz6rG7YVRy60E2Mn066duXL+83LCBJwA
+	 N5WVwARCEEFKAzrOeVm/uKne5cZ00Afg/qBtTS0E31/7BjwvVuEn1bA4v2wcPFwP/sYDu
+	 lnEr6Ro4leUe2TNKAo0E/NXnamjf4yZNftGpKrQTrj7ioyFjih0tJTW+WyTDuNWmn3A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792512541;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=dGBOooh6yznjMWE+A5X7fdt4uXbCVA3oHqWYs1djhQY=;
+	b=3LjsfAo7NWjBtWm7+eEspSsVKCpP7+HZlLZKioVCeJ0otYF8bXHM3rmjlpyIuNO3vgSY
+	 u7COFkRoR5zVlOWjc98NGdobalbdB04HS4BbWli5HYYwqfRYl/T08ePvKLX37CTugPITP
+	 bppyyeqwr8984L8rU8Hah2kdYWT68Y8Nd8sKzYaLPdtxeUh8BLq1JX6j7rQg3p2A/nTSO
+	 u6fm9xKVBQxmRsSvRQDmQ5UQX5cEoZbacX/MXgJ77osX2dbJupM/8Lqzn6fAJHvtON+j8
+	 DVjuHh9cuXg1BXn1LYVzZocNxCRYdvP+teTdB6TU5uA95p1XeIRNM4oRwnXLXn3qrmg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=WnI7EJLE;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AhD1ouOq;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F540606A31A;
-	Tue, 20 Oct 2026 16:01:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F540606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7A95606A323
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 16:09:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7A95606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ByiGL/R3
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oU8amHryrJ6QlFh4H+2k7Gg9/nacT+gh6mrXCUwPtj7s2NQzcfANxLU/neHmrqwVoni2HVy0vVQjjJLjvlV6siq6BJik7fMksb2yBUk+m35xcuHRFBnEpnaQiYBvJFZAOS8NKGAi9ZYd8IXQZBzMtzutI5w9vz1p7ot6ClRdL2tdRtfLuuvEfCi9b8vtE6pgm9119MUGLjx10+VNGQryrcJ28y0vNCqqwbQV9VqpdYE/TJjd+tRnhOwTnkRNN4JuPbCuuVoq1/wCU1nsSQVywabWQNNRLBYf6EhNmpe8jI5PCIZZ95tlE849yLvDvkVAL61d4tciQVrmR7Fz6FTc/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ekoqrIm0WW21+sshVfBws0IBQcvJyBcAoqSMJQoB4Tw=;
- b=OEJuaHbItgRBS+k0GuaKDThWrTEJ1jUe7LpnT7RGk1yCy5tOcTUhYAHe/m8Hx6R0Ju7oCG+/JE3RCxjq9TcovCh8wt/tWrexWtjrfFw1bIvqoC0phZjuaW6Gt6ffwssxKFcrEr+/rPvoMwe4iIskDE4H1wsue+8BtRGZxBqXKjHVaVOSa8KoKlmc8/o+6/srrgwsDP4LSbsr1Z4Gp+6SQKq74BkAwXl1jM1P7cszIXdUMcrttZ4hhN3SCBBN2kcRbevQsI0EmIZJD5nbGWETICDYvurMijI29eiKUFrUJwBWpwl0HZ6llm46hiNLPyTfweu7XG2/goII8F45EjFQqg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ekoqrIm0WW21+sshVfBws0IBQcvJyBcAoqSMJQoB4Tw=;
- b=ByiGL/R3hAyAt/Ps1YgEnUTJPOZRwvAAzfdWNyhFvP0PpzKmFPF3tU//CciMe2DnvVSfHXIA4In6nGjOY3rGlbAJ0N2mn0NTt5fFo0oo6gYRjbaK2IP3R2w1GNHgGvP9zk9H3OZWMm9NWkezNK5PipJT+m2zeso94f2TJp5IkLiBGzzcMfabJeAyplRFFhI8RCg5JA4WCBntDu2cCvevFr35kCf9qSpLaP/QnONkcInrKA6MBIE4/MSfyoNr6ppaau2+zSZ9ieo6n2+Thm0QivBZ+ivxOegVObTZv+Iwr4YBOfsGpX1YC68Iv7toBSBmbrj+vMEoNfSPa2VRBFN6+w==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by AM8PR04MB7731.eurprd04.prod.outlook.com (2603:10a6:20b:249::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
- 2026 16:01:42 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
- 16:01:42 +0000
-Date: Tue, 20 Oct 2026 11:01:30 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Leonardo Costa <leoreis.costa@gmail.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Leonardo Costa <leonardo.costa@toradex.com>
-Subject: Re: [PATCH v2 3/3] ARM: dts: imx6q-apalis: Add VGA overlay
-Message-ID: <ateQWqoTtXSBSBvm@SMW015318>
-References: <20261019-v2-apalis-imx6-enable-vga-v2-0-ef6a3a780472@toradex.com>
- <20261019-v2-apalis-imx6-enable-vga-v2-3-ef6a3a780472@toradex.com>
- <atZxhWaUWthEHkti@SMW015318>
- <lozimedmt3h7v6odvp4svvmatvk7726a4ztn3j7ft44oto7p5p@dmrudrmzyz3s>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <lozimedmt3h7v6odvp4svvmatvk7726a4ztn3j7ft44oto7p5p@dmrudrmzyz3s>
-X-ClientProxiedBy: SA0PR11CA0124.namprd11.prod.outlook.com
- (2603:10b6:806:131::9) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=WnI7EJLE;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AhD1ouOq
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KDAHpu702807
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 16:08:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	dGBOooh6yznjMWE+A5X7fdt4uXbCVA3oHqWYs1djhQY=; b=WnI7EJLEhLpgenKR
+	TSc5pJdCe7p7f6C49vSEMAegR4pqJemkIS/5FZ6I7FY7cjN/WsUjUCdmxw1EwY6a
+	5ibpygdhlRjIkVOQZfntu789v5VsaNppxtQbJjrUoyDIPtmRbNZJjs8uPTwNNepQ
+	ty6/ox738Ul/pUZ1uEd2KNRE99NxdlKMOgQfrmmziMG5Gc6eV58ELGoF9RFrzGtp
+	9DVcN8Q1oWpBAYbAo2cI0hBhTZl/234ZtBdsWt0V7cC9S++EPODIyPkf69KxFUFi
+	imXGO2yTCqnKyL7SA2WUcNRpMSuVBQK+Z98FkHhUZdrVxya4NecMwHwbnPOUPi6j
+	jLNKTg==
+Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5su9bg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 16:08:59 +0000 (GMT)
+Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-7bf08dc2fc8so665920137.0
+        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 09:08:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792512539; x=1793117339; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dGBOooh6yznjMWE+A5X7fdt4uXbCVA3oHqWYs1djhQY=;
+        b=AhD1ouOqAyyz/xHSFKdKiise2ee3PssdUrpc99D05Yr9pUYtsHG6m58WDYwl2c7aXr
+         qGBE87vGQZE/QFOZVUo5PgnCva/OXnpSIWiVUmzxpKwzI9SdFFXdYs8OFW3ouIkJBSe3
+         if/rww19RfqWjKFnH3O/qWLOtPA6V+HB0gTYcLB46phD56X/7p5X7MSyn7oxnHkgGi3f
+         ccnp0HQa2rnRdHiTyju5WAsHmTmjgaxk/aXA4VQo5M+Vr15ndV/azzY+H2i1AwcSLjv8
+         vJXauOArJFzswj4MLWQkREFA+VXMAGIWWbVDWXr2aSGfP0FK2TNH5CXel7f7+fY+WlyM
+         cTXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792512539; x=1793117339;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dGBOooh6yznjMWE+A5X7fdt4uXbCVA3oHqWYs1djhQY=;
+        b=boK8fl6X6GVVRGfdW3fsEEGe9a0HwntDDq1+TWvy03IwIcSvXPA1s5OSgl6bHKhPM5
+         a+jsyoYhXFlKUsnYvlKRfLIQ5s/Aw16HcIz7HuynFwNWJmfXUjaD+yeW7T8qBovMUxgT
+         8PDszUNIqdpiq0S7nARO0Z0nEifw2wjsmZx4iFQTa1vNL0ebQ0XqOrwgmV3TRD3/GNa3
+         sHB2jgauyXhwVBdNFwqcRoAQ40W48DSqppkBJztOAdn+cTD+dwJpjoM+Wj7UzN5U7FTE
+         lDqSklhLafA+8a6yCfSZxkT18MBV5+FFlEXB5vQtWzhEq6HFDHFZOdUP/6tdbqVbLHv1
+         c7vA==
+X-Forwarded-Encrypted: i=1; AKwUvBx28liZqqQBMOdhilGBNP3pl+mRCtCBZdh3z4zN0vzrZNPirhC1MT23/4st8t1K0ln8aPO9xYljXWbz@vger.kernel.org
+X-Gm-Message-State: AFq9FYKWM8kKhrGTDHJr0yi1T/60O77sK0Y+cP9BOY36/v+4toLOTt4+
+	Pa5HTclu2kqOg0VmqcYIXKP/L1uNB6qK/zS2uu0PK5KW93LNSFOR4NH1wcjAk37w4HoRJXkzlFU
+	MczgSKJQ1/juUVaSBYuDwLW4xrCQEUcJ1uVDo+b9uIkO502k87AfhokckOPEweI5V
+X-Gm-Gg: AYBFou3CufBGOHDEqjq7cEiGr3ccOrm/tEKJyxAZSNarDyXxDXZJy9kzXnuW2axpksj
+	u6fuXN6lvzmOpY0IFkFjDhmgmNgfCMLuuhbxhLX0OU24P+/eD1WfUxaPtLirs4Ce5VRLISB7SB1
+	qwygYJtX4J62G6LKYJn9Rl+GwYEsE4UehLEZyOsL/3nsKvNs/I/9GdA5OM+5/FHPmBzOY2lwO3n
+	rMa/y2bQDGUSkRnCPl1XGfZwLj4FGy8U5iQGL+7kWbVAd7qllhXtI3/Lfm5kQy+lQ6eNLuQSo6y
+	ABHkgAM+/PiE9T9tFrDA5ECsg2zo8w64tPd3IxOvJX0FpaxlKNd23IYIl2TLabuZIIK34OxnWH0
+	T48zZrfIYuP/O0IHiTAUFUKSV6FezPVnI2fzZPznVQyI8deG4WuchSQ7I4q8=
+X-Received: by 2002:a05:6102:f0c:b0:7cc:26e4:1943 with SMTP id ada2fe7eead31-7cc36acba14mr2586615137.28.1792512538828;
+        Tue, 20 Oct 2026 09:08:58 -0700 (PDT)
+X-Received: by 2002:a05:6102:f0c:b0:7cc:26e4:1943 with SMTP id ada2fe7eead31-7cc36acba14mr2586602137.28.1792512538216;
+        Tue, 20 Oct 2026 09:08:58 -0700 (PDT)
+Received: from ?IPV6:2a05:6e02:1041:c10:8d9e:b00d:491:1503? ([2a05:6e02:1041:c10:8d9e:b00d:491:1503])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fb859326sm7011895e9.10.2026.10.20.09.08.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 09:08:57 -0700 (PDT)
+Message-ID: <aca2cd5d-18e1-406d-a062-e219478b243c@oss.qualcomm.com>
+Date: Tue, 20 Oct 2026 18:08:56 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,108 +115,254 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM8PR04MB7731:EE_
-X-MS-Office365-Filtering-Correlation-Id: 480b77e6-972a-4aac-f975-08df2ec36e82
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|7416014|23010399003|19092799006|366016|56012099006|4143699003|11063799006|10067099003|261009223027099003|18002099003|22082099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	4sLI7FRJ+DBwq3BW4QA19l/UCAptdFTVQhO75x1jwXdvaB0/FXE+Er/aPwaeYE9S4yBl6e7OsqOS4XfSEuaqXwVYT6Tx8gfibeFWxPHiKQdTy3DSwJGlhCk3XUuc5EefolI9soVolhdo7Q4M/csIJ+buQfcVlxRbQtepQ2Acn0M/pSx4fmteizIMoszrI+p0KBtviO5PUX3G4Zt/SjzLuFdj935Gh92xxyGhe8AuRq1E6QUaXZaMvElGqlrql9MXGej/yc7EbHKc909ckqhtlF/m9ggY8mGbVKUHyWxiy/ZQmE7eRpMCgpagrl34YLBMqmW2+k7+vz/vqSEaf+AaqTly8luU51z+SKriizVXmP+M5yPR+mCHtFI4kG1F4maT8y6AOE6k6YKufQD2+4kis0XURAXEGe8eLsEM4OBn3LHXK5m4Dv2OB6NVQoN/i4449UH2Y0h3hqP5zIq09ek32fxdABYCazt2jnKJd9+YKEfraRKebSNSz/wtC521TieiJkf+eX0o8ZncU4KtA/VzKj+m28Zwt2IUP5n1J3J4PB9xZnC9C6P8ebpg/I1lAFbKrhB0ROYk9RR2eGTZv4KgHotVxbDfBEtbIWdA50z6dtLZFcP866PL3OOCE/t7+LwY
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(23010399003)(19092799006)(366016)(56012099006)(4143699003)(11063799006)(10067099003)(261009223027099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?sttDgcBfncwz0+uOi7/qcvzCMaWqNj5A7duqhWGsgRtSUaJi1p29MarYw9lW?=
- =?us-ascii?Q?MJLJKPUALmTOzYqFVC2Y1+rQqegUYTWJ04ZhxkwSdIo7AHfwGXBzu5w9fLY4?=
- =?us-ascii?Q?PldV0lH/kVid2bCEvwv2A0ChaRhSrkV11qmYJmhI/DCS8GPUZvfNAesRBUTR?=
- =?us-ascii?Q?53lV0jle7AqB2prVVzBjRiwnyBu0fuczFL1pK4R9fhAOILbady/AVRxnMz2K?=
- =?us-ascii?Q?RfpeFCm8GXxM2v7dzSzFwsYvDkaXxO+A/dpe9S5BnHnEVb9VFLytdl/KlkfX?=
- =?us-ascii?Q?wSt25awQakZ4IW1WL9njaZDxYOUdciuFGpkdxsFYcKtZzknEHnqHM6UDZE6V?=
- =?us-ascii?Q?Ho4E46mPOejBLzntnA0AjfqBMUGuBET3VhN13xjk6bEnfhRUbPxpn3rec2lA?=
- =?us-ascii?Q?iJuaLqJB9uwGxH4ns6d5qOylLJGiMX6Bw+FW5+FMOS6UEcw0IBJui6W5KwWC?=
- =?us-ascii?Q?eqfmzmk5uPqIH0fcvBk8w/emujDKtUvtFUMBefWe54ymjF5ApXFgPvPNwNpB?=
- =?us-ascii?Q?/dQCiFW6T3ER0/8sLbTdMJJulRVavV2ITnvj+r+3pT1wuOjB5jdDZF8Qs1+c?=
- =?us-ascii?Q?72Wgr8fkWdKGTJ/nklv0bd4YYbnupwVmKDoTwwc6GZKKRUEdtSskpL5gzQv7?=
- =?us-ascii?Q?O7Xg2bVAZN1pBr9Vf22E2j+KQtUFTkswQ/7sye07uQxcp5jpV2u9Rxz+jA/b?=
- =?us-ascii?Q?MmWhm8CPcVOqerIpUKRuuWebTbSNSleSAF2or56R3Bdfzwigg7vHA/TY1+FC?=
- =?us-ascii?Q?Q440rd+SvyT8pgUQb+hoqmu9R6Bk8se8G4dXOocj19czT8WkekKqaChhOMrh?=
- =?us-ascii?Q?cC7DI6K3Thj+rSNRGybS1L+yKtPDyeKwtW+DxLcOYboPIUGg26eh6DtuV4qX?=
- =?us-ascii?Q?FIAmvStHqoaS82/4IWGnfs0s0wuGUKMlzdYY0YsIQgwOyinq5S7ei1vlQQPS?=
- =?us-ascii?Q?yCJh05vx05E23E1pgPe3T/vvQENX5lip2QpsZABhd5ipYsvvceiIThpGtoG8?=
- =?us-ascii?Q?7jOryIi2Kg+W2iVUy0WZsCnP0ZzYIATtB34dySxVYL86zekcOg+IPbzIPKQs?=
- =?us-ascii?Q?cN2gQcmaj81Je/EjmWnQJ2k728wFQ9/sDYYPirfrbmy+CEPzOkNH6CZsVtxI?=
- =?us-ascii?Q?rzDcNdCJXXJWhvwPNX2v55d3+ZPgC2hRm9gW0P7AOC5ppg77nB7J1z7Kutxc?=
- =?us-ascii?Q?BFP4x80URMW16CXYt5e5AuKOUASqv+ZLPL0GLxbx7MAOnKvECzSjKB9voV+1?=
- =?us-ascii?Q?WUy1Fh+9I0uTPs7efMbZs/9ZIwH/zAQOOVTQfJuVZNzOmE5sqjQ1F5kzu5Y+?=
- =?us-ascii?Q?nBFz3jc5sVW2XgvX71Pl0hFn8m7l6mebPtpFk6dLqEdXIyw+qpocjBTB+qSH?=
- =?us-ascii?Q?lZkb4dcNA4R96s1efUgqzTz90m7Gqzq1s2vX+E78c2dXiYKedHdFWCd5mDiD?=
- =?us-ascii?Q?Ah5y2hSv++ryNmcdW+4LUB8AkwSw2B+76Rc1TrlrXdyfKqOBcg3EYokoqe0a?=
- =?us-ascii?Q?e/2c3sIXQf95443UOcHhNX7zf5d7WOKyXnp4YgDYx9VmRJ0mgUo5OqFoZkAQ?=
- =?us-ascii?Q?AGZP5pksKj+OYmXLALS78e+l9SbElsZ20tZS1rdyevdWDIaPNXSnMbmArAKL?=
- =?us-ascii?Q?fXjCCeOiBt9p6PApPb0q75DprmkC2/nb5IFooT0RaSRziGwsw5cDu6L5n24H?=
- =?us-ascii?Q?OPbsoyOi37HMsBZr1VG5kbPrhVKPKuS1vqYuPAYNdXjKQFK+zioa/vy2IL3v?=
- =?us-ascii?Q?x2IKLJ3Me8ae3hPH13+3sVntJZ1WLGzaImZKsc4mGqmGbxyoUri9?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 480b77e6-972a-4aac-f975-08df2ec36e82
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 16:01:41.9693
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RfRq3pwOd5jTlz2BNa2at7f8Zg7stGSheTp3fj0ZcNr+JBdo7mNnB97J3yLKEGr6rNWJII1Bqx4EmYyyvGgnHc+AzRLGMcYiZKBoheArzLeqAdbU4vyC3eqePM+/8rTS
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7731
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] arm64: dts: qcom: x1e78100-thinkpad-t14s: Add thermal
+ zones for PMICs
+To: Stephan Gerhold <stephan.gerhold@linaro.org>
+Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+        krzk+dt@kernel.org, johannes.goede@oss.qualcomm.com,
+        conor+dt@kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Mark Pearson <mpearson-lenovo@squebb.ca>
+References: <20261014193524.5590-1-daniel.lezcano@oss.qualcomm.com>
+ <atH0oW5j9pxsTty4@linaro.org>
+Content-Language: en-US
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+In-Reply-To: <atH0oW5j9pxsTty4@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA2NCBTYWx0ZWRfX07vbUnnYw3qW
+ pABQLePQJzMLQ42BH7zKtGM3NJjCv2Z/tBLkl21bzOdH5l5hqZiuKMLQ79u6+0f0235juK/WDbZ
+ ENYrG93FqyWWUpM4Xb/AX9Aw6m5wR+BWqIuF1B8RsH7sUArD0swGXp4HwE67mKGiqy3cTAmbgSM
+ Zm9da7K7vsDAj0I/4/i50Y2Lm/7r8vCcEE5DNRqUCGoEuLVKpYTgYC6gaF1voBQ4jL8iSCq0k1y
+ bnhVoxANoGVYTSi/5sorZSKeRO2A1j7u3Fit4yjQHUW/P/4seBMx8h6HpDYoiOGxMat7e5nI6pD
+ 9KdjCZzN693hs4PfL5m91Fd86UjnUC5ryEigWEkMUnKVdktwKBC+LP2qm/SQ4Co+XZG0xRDKKac
+ oN+5Ptajl51gdk1zQHvHIuOcwsJm3eulPHnfTfa2cva21krV3b74x9HzlzqxsXRYGnj1b0Ftphl
+ curBX/c6/zTOu8BJIRg==
+X-Authority-Analysis: v=2.4 cv=fIusTpae c=1 sm=1 tr=0 ts=6ad7921b cx=c_pps
+ a=P2rfLEam3zuxRRdjJWA2cw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=yw9hh2pf6h8ebXW9gWMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=ODZdjJIeia2B_SHc_B0f:22
+X-Proofpoint-GUID: aU4iZEQ3h40iNKaSvF2llZAkh4tCI6fd
+X-Proofpoint-ORIG-GUID: aU4iZEQ3h40iNKaSvF2llZAkh4tCI6fd
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA2NCBTYWx0ZWRfX+9pZpytLTgpM
+ VuboLAJQxDqsQ0cm9pJNXVK3wa3+1mlxJRqhvhJS3FewHpjxsu+zC+3QQCbKB8M4wTso+O9oMDG
+ sHkFBQFc24CuEYNUbfdhTUVqoCZqmhY=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_02,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 spamscore=0 malwarescore=0 suspectscore=0
+ clxscore=1015 priorityscore=1501 adultscore=0 phishscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200064
 
-On Tue, Oct 20, 2026 at 07:33:10AM -0300, Leonardo Costa wrote:
-> On Mon, Oct 19, 2026 at 02:37:41PM -0500, Frank Li wrote:
-> > On Mon, Oct 19, 2026 at 07:17:16AM -0300, Leonardo Costa wrote:
-> > > From: Leonardo Costa <leonardo.costa@toradex.com>
-> > >
-> > > Add a device tree overlay for the VGA output available on the Apalis
-> > > Evaluation Board, which is driven from a parallel RGB interface passing
-> > > through a non-programmable video DAC to a VGA connector, without VESA
-> > > DDC I2C signals.
-> > >
-> > > The non-programmable video DAC consists of a simple resistor ladder that
-> > > converts the digital 16-bit RGB signal to VGA. The VGA output is gated by
-> > > an active-low data-enable signal.
-> > >
-> > > The overlay is also combined with the various Apalis Evaluation Board
-> > > device trees to provide ready-to-use DTBs.
-> > >
-> > > Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
-> > > ---
-> > >  arch/arm/boot/dts/nxp/imx/Makefile                 | 21 ++++++
-> > >  .../boot/dts/nxp/imx/imx6q-apalis-eval-vga.dtso    | 80 ++++++++++++++++++++++
-> >
-> > what's difference with
-> >
-> > https://lore.kernel.org/imx/20261019-colibri-imx6-overlays-v1-5-e4d028727382@toradex.com/T/#u
-> >
-> > Is it possible share one dtso also?
-> >
-> > Frank
->
-> Hi Frank,
->
-> The Apalis iMX6 one needs to set up the connection between the IPU the
-> LCD interface (endpoints ipu2_di0_disp0 and vga_display_in), and the
-> Colibri iMX6 one uses a DVI connector instead of a VGA one. Most of all,
-> the bridge on the Colibri iMX6 doesn't have any control signals, while
-> this one on the Apalis iMX6 has an active-low data-enable signal
 
-This make sense to use difference dtso to cover it. Is it use name
-imx6q-ipu-di0-vga.dtso, because this dtso have not boards specific part,
-which can reuse for other similar hardware? Or we can rename it when reuse
-happen.
+Thanks Stephan for the additional information, that's very helpful.
 
-Frank
+We currently have an urgent thermal issue on this platform, and getting 
+this thermal mitigation upstream is important to prevent overheating 
+under sustained workloads.
 
-> specified on the input endpoint. Because of all of these, the overlay
-> needs to be different between these modules.
->
-> Best regards,
-> Leonardo
+Would it be acceptable to address the sensor naming and description 
+improvements in a follow-up patch, so that we can get the thermal 
+protection in place first?
+
+Of course, if any of these changes are critical for the correctness of 
+the thermal mitigation, we should address them now.
+
+
+
+On 10/16/26 11:56, Stephan Gerhold wrote:
+> On Wed, Oct 14, 2026 at 09:35:24PM +0200, Daniel Lezcano wrote:
+>> Add thermal zones for the ThinkPad T14s and describe the board
+>> temperature sensors exposed through the PMK8550 VADC.
+>>
+>> Add a passive thermal zone for the keyboard area, which is the main
+>> thermal constraint under sustained load. The EC reports a thermal alert
+>> at 57.85°C, so use this value as the passive trip point and allow the
+>> thermal framework to throttle all CPUs and the GPU when the threshold is
+>> reached. Use a 1000 m°C hysteresis and a 500 ms passive polling interval.
+>>
+>> An earlier approach used staged CPU cluster throttling in an attempt to
+>> start thermal mitigation before reaching the target temperature. Testing
+>> did not show a significant improvement compared to throttling all CPUs at
+>> the EC thermal alert threshold. It also introduced a latency imbalance
+>> between the different CPU clusters, which could negatively affect
+>> workloads depending on where tasks are scheduled.
+>>
+>> A more optimal solution would require a significantly more complex,
+>> system-wide approach, accounting for the workload distribution and the
+>> available power and thermal headroom across the CPU clusters and other
+>> devices. Such an approach would also require kernel mechanisms which are
+>> not currently available. Keep the thermal policy simple here and use a
+>> single passive trip, which at least ensures that the system is actively
+>> mitigated before reaching temperatures that could ultimately lead to a
+>> thermal shutdown.
+>>
+>> The mitigation temperature is derived from the platform behaviour when
+>> using the balanced power profile available under Windows. A separate
+>> change will adjust this trip point dynamically according to events
+>> reported by the embedded controller. Name the trip
+>> "keyboard-ec-alert" so that the EC driver can identify the corresponding
+>> trip point in the device tree.
+>>
+>> Also add a 73°C critical trip to shut the system down if the keyboard
+>> temperature reaches an unsafe level.
+>>
+>> Add a thermal zone for the back cover with a 73°C critical shutdown
+>> trip.
+>>
+>> Describe the SoC, SMB, SDX, east and west board temperature sensors as
+>> monitoring-only thermal zones.
+>>
+>> Thermal camera measurements were also used to compare the reported
+>> temperatures with the physical temperature of the chassis. The measured
+>> values appear to primarily represent temperatures inside the enclosure
+>> rather than the user-contact surface temperature. No unsafe external
+>> surface temperature was observed during these tests, although this should
+>> not be considered a substitute for formal platform thermal qualification.
+>>
+> Thanks to Mark, I was able to get some info on the location/purpose of
+> the thermal sensors in the T14s. As you noted already here, the sensors
+> are primarily focused on specific components inside the enclosure rather
+> than user-contact surface temperatures. Below I added some suggestions
+> for more accurate names for the thermal zones. Perhaps that helps to
+> optimize the thermal control further.
+> 
+>> Finally, enable ADC thermal monitoring on the corresponding PMK8550 VADC
+>> channels used by these thermal zones.
+>>
+>> Signed-off-by: Daniel Lezcano<daniel.lezcano@oss.qualcomm.com>
+>> ---
+>>   .../qcom/x1e78100-lenovo-thinkpad-t14s.dtsi   | 105 ++++++++++++++++++
+>>   1 file changed, 105 insertions(+)
+>>
+>> diff --git a/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi b/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi
+>> index 75ad74bcb042..2d0a434d2248 100644
+>> --- a/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi
+>> @@ -502,6 +502,81 @@ platform {
+>>   			};
+>>   		};
+>>   	};
+>> +
+>> +	thermal-zones {
+>> +		backcover-thermal {
+>> +			critical-action = "shutdown";
+>> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_THM_100K_PU(1)>;
+> dram-thermal or memory-thermal (or maybe keyboard-thermal if you want to
+> give it a user-surface name, although that purpose seems to be
+> secondary).
+> 
+> Next to DRAM memory, on the top part of the mainboard, facing upwards to
+> the keyboard. Unrelated to the backcover.
+> 
+>> +
+>> +			trips {
+>> +				backcover-critical {
+>> +					temperature = <73000>;
+>> +					hysteresis = <1000>;
+>> +					type = "critical";
+>> +				};
+> Is this critical temperature is appropriate for the DRAM temperature?
+> Windows seems to have 115°C here as critical trip point which is maybe a
+> bit too high.
+> 
+>> +			};
+>> +		};
+>> +
+>> +		east-thermal {
+>> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX4_THM_100K_PU(1)>;
+> gpu-pmic-thermal (next to GPU-related PMICs close to the SoC)
+> 
+>> +		};
+>> +
+>> +		keyboard-thermal {
+>> +			critical-action = "shutdown";
+>> +			polling-delay-passive = <500>;
+>> +
+>> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX2_GPIO_100K_PU(1)>;
+> fan-thermal or heatpipe-thermal (or maybe backcover-thermal if you want
+> to give it a user-surface name, although that purpose seems to be
+> secondary).
+> 
+> Next to fan/heat pipe, on the bottom part of the mainboard, facing
+> downwards to the back cover. Unrelated to the keyboard.
+> 
+>> +
+>> +			trips {
+>> +				keyboard_ec_alert: keyboard-ec-alert {
+>> +					temperature = <57850>;
+>> +					hysteresis = <1000>;
+>> +					type = "passive";
+>> +				};
+>> +
+>> +				keyboard-critical {
+>> +					temperature = <73000>;
+>> +					hysteresis = <1000>;
+>> +					type = "critical";
+>> +				};
+>> +			};
+>> +
+>> +			cooling-maps {
+>> +				map0 {
+>> +					trip = <&keyboard_ec_alert>;
+>> +					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+>> +							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+>> +							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+>> +							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+>> +							 <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+>> +							 <&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+>> +							 <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+>> +							 <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+>> +							 <&cpu8 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+>> +							 <&cpu9 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+>> +							 <&cpu10 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+>> +							 <&cpu11 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+>> +							 <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+>> +				};
+>> +			};
+>> +		};
+>> +
+>> +		sdx-thermal {
+>> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX3_THM_100K_PU(1)>;
+> wwan-thermal
+> 
+>> +		};
+>> +
+>> +		smb-thermal {
+>> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX2_THM_100K_PU(1)>;
+> charger-thermal
+> 
+>> +		};
+>> +
+>> +		soc-thermal {
+>> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_GPIO_100K_PU(1)>;
+> cpu-pmic-thermal (next to CPU-related PMICs close to SoC)
+> 
+>> +		};
+>> +
+>> +		west-thermal {
+>> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX5_THM_100K_PU(1)>;
+> typec-thermal or usbc-thermal
+> 
+> Next to USB-C ports, bottom part of mainboard, facing towards the back
+> cover.
+> 
+>> +		};
+>> +	};
+> There is also ssd-thermal @ SYS_THERM7
+> thermal-sensors = <&pmk8550_adc_tm ADC5_GEN3_AMUX6_THM_100K_PU(1)>;
+> as I mentioned before.
+> 
+> Windows uses the EC sensors for throttling, although given that we don't
+> have interrupt support for the EC yet, I think it is fine to initially
+> use the PMIC sensors.
+> 
+> Thanks,
+> Stephan
+> 
+
