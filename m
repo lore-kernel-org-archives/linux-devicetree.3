@@ -1,102 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792504799;
-	b=VB1viYNJz0H0vSmhoWn7HKDoUwRj9uEZsiLBa6u6089neDyOP8Rbz9SNqHO17U+BWB7Q
-	 wwAdGQdVkdltt431kEGtS2UvUf9l0eEURRwsY4bdo9Sm4BaeMcz3SgNUdpDGzctfvTIUV
-	 9g+1avZnF3gUqhbpu6C7ogI5dRwHm0aoZDOYfNlmSCKwT6JQmTrz6Ch7Y2EwPn0eFy12m
-	 +KpR7xDzfvCRTSwBTq6+kurKtsYAm/IIJb5Bb+WrHpRYxxiwu5CzN0dTQR9R6GjwTqxms
-	 AEjd6gNqsaTq3tfR/kYLKlrXbl3Ef6ziSv4wDxwCi1BIEtKjVr94QsaVlGXtltpH/nw==
+	t=1792504809;
+	b=hTaSb2dJbZb5YHndR6MXdsApJRgDp1kb2BVu6DqU9qV/4o3r3myATjVO1poUvF/qiL/l
+	 wHQb02YR4ohx7oy1yp3KjmabS1SCjo8GPLRYySIfqKZm6uON2kozKO4DhdvYnFJ11LEla
+	 C9BDUnmmo3z7W1vjaoGIjc3wv/bhc/r5YrZOBBckj1hzLovbxX+jobWLxryZXTBkrEOOG
+	 WuyImxsv4smj63UU8OdIH2BhA0GyRrXHXly6SigrRsG/hOtIorgjfsUWTceR8T3RIy3fI
+	 hCSnN1ZiQs+7lfqDGkTC8UUuO6kv0BYAk+HYTjBvu6gn0xQSaKhgvQlQpe+O54hw9iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792504799;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=PnBOhXvJIJK4VLpTdrp7cs6iUz2XtC8WuEePd4QSYVU=;
-	b=XDCTKr7siMZ/Yry6QzTsKsWfWhJ6yRhbyUUv5vQ7I0qW9aS0mNgpGyI216kYMthC3S8w
-	 qS6XFs3WW42NHp6SSX2QGviql48HABuLWtumCHSBNCZLUknNIOAhM8r3RegKWI1d0k4Pl
-	 AUUVZrWtsovTzzDRdMfwAkPOlGG99wj9/65kEAAKFyQZ7mM4b8dpMMeLxJ4h9Nqqu8WSM
-	 Dqhw5hYSIFO4YSLlVtM5nWLUo7UfQQIQbAQyHXXI3+RzD+GK3SUiRcNZkLQCYE2hvqM81
-	 TCyMl1bBcRykJmbVh6CtfheyZ5KnkXJh3986q9MpMNoqeRtC3/x/x3s2/hHYlrBW5bg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792504809;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=L2eGtHUGnzzO9epK47Pma4jOia1R+ecV8u3hnLDUFu0=;
+	b=pZecn75ZTOQhjfDjzUwQTPt62XQjMX+84q9EvFRhsp7uhDnb0grAbvBGkjf++LORYc5J
+	 TiJQR7m9cah8AvoO8dk8E3dUlU9wjgyt0PmakDaWhWdal33pW7rQ54kmfAmqEfm/aJyg1
+	 NRB98MjbQrktaD7ExNCELYFvuus+7RmTpmJcSD5rAH11MOcg5phAPH8Zt5NKHmgdFBZm3
+	 6mKlEd9K9uRPSVtcbxw0cJpNqwiUEcNufKPnuTFl9TLbMAQtR1qOh3YVvjgH6yo6jfLFZ
+	 Lw/JxbMU+vqluf/Uox2wEvvpDO4EIvJAzs2kgf0Qv4ooH5i0IO4kTPFzZAu56b8224w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="DP/IFoaO";
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FqXTZICB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AA1A606A319
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 13:59:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AA1A606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D483A60A2615;
+	Tue, 20 Oct 2026 14:00:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DP/IFoaO
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a16af2a232so22885275e9.1
-        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 06:59:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792504798; x=1793109598; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PnBOhXvJIJK4VLpTdrp7cs6iUz2XtC8WuEePd4QSYVU=;
-        b=DP/IFoaOO27sakoLsWxYmS8AMQcZ7aKaL51LH0a+Sp5yFDvBQZiJwmWrrRUjQjo/Le
-         Hs1aO6FN/Z0GghqkpZYecUqFeTfwMhmPT9gxEQw9ZkwzKnagwLTBZRRmK3r1ffv9MGlT
-         1gh/GyGe9+31357fwCPo5CzyNltWMGs0XzCKfSl/o95Wjb0E3osnTRw76HcJxIRMiM+K
-         vxbX2NIE3KIP8HShMWTO5uzYpPZ9oSeTAermMB5YrORWVQXZHU3Le/uhi5bTvCeGQ5cZ
-         /THmDjubibPzEBNY3b2lgZytV9NvcW8HmnQXaH3i4tH94m4rnyKkl1Ad/pWLoRj8zpjk
-         6oZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792504798; x=1793109598;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PnBOhXvJIJK4VLpTdrp7cs6iUz2XtC8WuEePd4QSYVU=;
-        b=DIW5H6tbbsG4Q/JRjv8hno+OMxTUr1oZqbD9VXW4MnTLhc8bPavgPNt9bgscH5Al5/
-         Ikn+UP/ip/1y1m0IKeE0yJZ0Qy+NE/fuAT1voK2JelXBOE/Ad4CFf0wIDbUpgp5scOzL
-         OhMpKrGGoOlaFzv7bTs4H6ClEbJZ8pGchx2RAKKyV1BrVWpNm1kx8lQdtGlBmthVby7f
-         4HTyCrfm/ix2aRKF16CJ8quBqvzGHaCpAy9dFXY6abOItISJyLFodn1CTz/E2Ito2pti
-         RkANDgKDzVfK+ScfY51mPiVHjm+TG9cYd7fBcj9Bk4pqvNp2C6auQPeVRoU4qAaZ9wfc
-         5nDA==
-X-Forwarded-Encrypted: i=1; AKwUvBzmHj5jYlIB6Ss0hJT1fZObbjQDEYrG3TC7tb5OO7G8Pk8kWOsHdSzhAcGpv3qETUxO7VAbKwuJgSLw@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRMG9utDKsCzT324F8fVGt6aBk19mGQ+FUuPdM6acB9mv4iijv
-	lfs1OLYKKulAv3RRfSlHmU6HF04WVqkpfiJqC/9syh6SQzPoDfOFAzAJ
-X-Gm-Gg: AYBFou1T8Gnwds+nKzKgrsBcSSwVMaV5wMKn8KPegV9h830KnBXxc6lWLDwtMK7GgsI
-	BnaOspiQbeA7wPNLLHjUU0ibN8rcKKhaNDMd8t4uvlQlEl7eYsFItb5l+zd+D7YTaCVWlF1Qafq
-	8tXY7/yKf+EM+ljRAAQ7g3Uech3AI86oW0qO0PVoLEeE3Q6ZGM5Y/pMGdTRnVDB5chbuEXtpRZN
-	mAShglZJKkMVvGaF8X0AScSJf5FaShkJFGSkDU1yY1rJc1T+e6+9LZvsSnk4TtbKpdWdLKtDwY6
-	f5OA8L8mMPQM80v78y5dOQXIkIITtebmghqGLB4OkCw0spW69B5VHvg9sH6foCA5hlEyytyn9i1
-	g2w0PnIK8npRA/U2N5+srMQZeUDknT1sEnxLogcsGAJ6EMNzmJLjwYEjXjRU7dfCFsp1kDzgo/k
-	CTZt2mBACiXhgVFqZ6DyY+r9vbSUvpDO+T7kXMypiUt0Lm21f7bAM3U/BEIHA3sur1ZbKvUuJv5
-	ezm0ft/xtj5e4YaYjaLTsxEdfMEhwVbj9asu4nUezjSZSnTnw6GRNu1DWipd/5aetNw/KGiAZBj
-	X3gLqIqr0GZVw8HNnpKq4q/Bb7ca
-X-Received: by 2002:a05:600c:c082:b0:4a1:f377:5c6b with SMTP id 5b1f17b1804b1-4a1f3775fa9mr44357515e9.7.1792504797648;
-        Tue, 20 Oct 2026 06:59:57 -0700 (PDT)
-Received: from Lord-Beerus.station ([93.66.71.207])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d8214e1sm6231804f8f.37.2026.10.20.06.59.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 06:59:56 -0700 (PDT)
-Date: Tue, 20 Oct 2026 15:59:53 +0200
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH v1 0/4] arm64: dts: Mark Variscite i.MX9 I2C recovery
- GPIOs as open drain
-Message-ID: <atdz2TonrGyL9Ox4@Lord-Beerus.station>
-References: <cover.1792326585.git.stefano.r@variscite.com>
- <20261020064106.197223-1-peng.fan@oss.nxp.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FqXTZICB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A21B1F000C4;
+	Tue, 20 Oct 2026 14:00:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792504808;
+	bh=L2eGtHUGnzzO9epK47Pma4jOia1R+ecV8u3hnLDUFu0=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=FqXTZICB510Pb3vwXhMbQLNw7owJUKI49QhSd1TaVVXBLzTywCc0YbAtHgvTKQxOd
+	 ZB7Sez3XCpro3CurfHpOnj5VLMuGHasxlPb6l9xez4GG/YWQM+ZrCrKvFljpMpJV6b
+	 ehdJjk+MedBt7pwY5qD/5vJWIaMcSR/a2W2ViXvxnNYcy0kIRtvDUKzvCAuXWnmP86
+	 vwDJjw6veLP6XLKs5p/XVDv+ew9qFslumimMwMQJV3wnSJGym1/ulWVmHSeneyHLXq
+	 Mw8zv4k8e8xh07em1+mcgCjXmYXx/anymQnAevi8IfQI/9wHJJsoXD3WxFW43pGR0k
+	 gBziCp4w6pwoA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A3E33808209;
+	Tue, 20 Oct 2026 14:00:08 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,48 +53,51 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020064106.197223-1-peng.fan@oss.nxp.com>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next v3 0/2] Support unaligned RTL8224 PHY packages
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179250480675.3753996.13961192946834391780.git-patchwork-notify@kernel.org>
+Date: Tue, 20 Oct 2026 14:00:06 +0000
+References: <20261013185635.1412452-1-oskari@lemmela.net>
+In-Reply-To: <20261013185635.1412452-1-oskari@lemmela.net>
+To: Oskari Lemmela <oskari@lemmela.net>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, hkallweit1@gmail.com, daniel@makrotopia.org,
+ vladimir.oltean@nxp.com, maxime.chevallier@bootlin.com, olek2@wp.pl,
+ javen_xu@realsil.com.cn, marek.vasut@mailbox.org, ih@simonwunderlich.de,
+ amadeus@jmu.edu.cn, jan@3e8.eu, f.fainelli@gmail.com, linux@armlinux.org.uk,
+ andrew@lunn.ch, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mensi@mensi.ch, dam.dejean@gmail.com
 
-On Tue, Oct 20, 2026 at 02:41:04PM +0800, Peng Fan (OSS) wrote:
-> On Sun, 18 Oct 2026 14:32:23 +0200 Stefano Radaelli <stefano.radaelli21@gmail.com> wrote:
-> 
-> > The I2C recovery GPIOs on VAR-SOM-MX91 and VAR-SOM-MX93, including their
-> > Symphony carrier boards, are missing the open-drain flag.
-> > 
-> > This series adds GPIO_OPEN_DRAIN to the SCL and SDA GPIO specifiers to
-> > match the I2C bus requirements and avoid the warning emitted when the
-> > I2C core enforces open-drain operation on SCL.
-> > 
-> > Stefano Radaelli (4):
-> >   arm64: dts: imx91-var-som: Mark I2C recovery GPIOs as open drain
-> >   arm64: dts: imx91-var-som-symphony: Mark I2C recovery GPIOs as open
-> >     drain
-> >   arm64: dts: imx93-var-som: Mark I2C recovery GPIOs as open drain
-> >   arm64: dts: imx93-var-som-symphony: Mark I2C recovery GPIOs as open
-> >     drain
-> > 
-> >  arch/arm64/boot/dts/freescale/imx91-var-som-symphony.dts | 4 ++--
-> >  arch/arm64/boot/dts/freescale/imx91-var-som.dtsi         | 4 ++--
-> >  arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts | 8 ++++----
-> >  arch/arm64/boot/dts/freescale/imx93-var-som.dtsi         | 4 ++--
-> >  4 files changed, 10 insertions(+), 10 deletions(-)
-> > 
-> 
-> LGTM:
-> 
-> Reviewed-by: Peng Fan <peng.fan@nxp.com>
-> 
-> BTW: Do you need fixes tag?
+Hello:
 
-Hi Peng,
+This series was applied to netdev/net-next.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-Thanks for the review!
-I treated this as a DT cleanup since the core already enforces
-open-drain operation on SCL, so I think it is fine to keep the series
-without Fixes tags.
+On Tue, 13 Oct 2026 21:56:33 +0300 you wrote:
+> RTL8224 packages contain four PHYs at consecutive MDIO addresses, but
+> their first address need not be a multiple of four. The Hasivo
+> S1100WP-8GT-2S+ uses two such packages at addresses 1-4 and 5-8.
+> 
+> This series adds a dedicated realtek,rtl8224-package binding and extends
+> the driver to use the explicit package base when provided. The
+> package-relative port index selects the MDI pair order and polarity
+> fields. Existing configurations without a package node retain the
+> aligned-address assumption.
+> 
+> [...]
 
-Thanks,
-Best Regards,
-Stefano
+Here is the summary with links:
+  - [net-next,v3,1/2] dt-bindings: net: realtek: add RTL8224 package binding
+    https://git.kernel.org/netdev/net-next/c/9f902fbc955e
+  - [net-next,v3,2/2] net: phy: realtek: support unaligned RTL8224 PHY packages
+    https://git.kernel.org/netdev/net-next/c/8f3a933fa1a7
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
