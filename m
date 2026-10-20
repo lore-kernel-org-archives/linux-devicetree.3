@@ -1,111 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.20.114.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792497547;
-	b=SC3J5rHc6Pba8xHSfgfqYpDR0mnuNk+WnYA1IuQ5NQiDYs75ApVP5ojScD15xMGbm5Sm
-	 DV/R5CWrvX1x0khH9LozSoOAf5dnx904aGpAlCkx5QeTZJRi5TlVkheM/sY2+/mOf28cI
-	 A8Gd9OY3Tl3g8ijm/63IB7yuB6/zCsvmXM6qrQFujC4GxIW5f5dgmu2XAjWmZDzxVP0sN
-	 dle2uvPTkQUFEDWLpgT6LQbp7C1Pm0iEFyZVx/dWfrt+xdEXSWv152j3LoKfg2JwcVl+t
-	 MuU/1pkOIdA+PNRrw0hdeJdfD3AV6h0ZTaU8OJL3Xnzw8caDBapxOfmQ+XukXsjIpUw==
+	t=1792497592;
+	b=Y9rzbFCNJvkRqA/92kSR54ytriwAPHIS5rmkLWBpwg8uvn4EL1BcvxETBVMDJDVixkOH
+	 dNsGCLomaIl+6MqM7+kyGFVLtaYLBtZQ3HJH047Rg4Jr3p4h3+Db7xCXpevSRY5eb9qpX
+	 B7hGR30KA4zAPfJCRMXlnAEM8qcw2IUgH+BDkD6rIL5Fb137slrahK26PC/dDc4UqV/Sp
+	 V7aThF0BHCuEH1AXoq5PxP33Z6lGN+GgipwDO4R1rw9HiYnRlLfW7dIpoJUaPTlFnLgG5
+	 IjJkwnOXr6bO8ers2AZLkKXEVk/X5HfYI6CfDURp7eMUxFv/6YYdoyQwMwkdNHRfeGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792497547;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=B7B0ogmG+yI8zgy4iQeMNyHKfdE1d/1H2LE3NA6bm4I=;
-	b=l36UvXffSXNgyRQehorMA4CQcY/XJjVCm/ccm1lavy1pZ43WOBXqZUbW4A3cJd9jnhol
-	 Q0YtCQmHQQRGt/2+JKXii/88esAIm7d3Ta6q5nAyhSFnJ8WRiZfZhE41XOXKWdQrvKR3/
-	 2nFN0QTIPU54vmr9elM+MXjatBWnCp2vHOcwrckukHzwXNrRDyxcDAHZ0oyrt+0GuOGYr
-	 YNtjRPRnPQFEtPk5j9AXrZhhPpfKiRXBvov/xv1yzuN1NRc4OHyV9d9S+3HPxlurz3hEc
-	 RmpcnbDWQNsLzN/aPinrcj/PUsL1npdTqeNfp3/WmEWKujyxIEAKT5RlA7Qyzroi4zw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792497592;
+	h=DMARC-Filter:Received:Received:From:Subject:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=46IyvM73UruEFoU5tvYGZme473bX8sHtZFFnADjSTtM=;
+	b=QgcjKFSg4ACXcgt8fj2Xrjl3XeiYPqgylkUVnSacVy7sn1vxU4p+wrfb/ORjNZPf1BLi
+	 BC3jNa/56KuR8biHaMfV98n62oBpcHAR4LgxTINMJzXHliDPdZCiOnw7+hWYD/ngX8att
+	 //lW8P1kQB2DdIkwDNk73WUbQYv55n/IqZqV1O8Eq+o3IV/dUGge2mZDr653mOHCHLpau
+	 fF0YmSfAgWCvqrwOQDx+SkFL+rQZoEllMq+J2Av5zjlKJ6Z7H97jFd6PVbWImXABQvt1W
+	 d2Hwum9uWjkUafK1q4FsiCE1pYycKA4FUPEKwd4RBnM0bdA2sWtouQMChk5gtTYJVyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CP2iwbvo;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HgGCpnxE;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=aspeedtech.com;
+	spf=pass smtp.mailfrom=aspeedtech.com;
+	arc=none smtp.remote-ip=211.20.114.72
+Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F23660A2611
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 11:59:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F23660A2611
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CP2iwbvo;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HgGCpnxE
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KBWVR21571787
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 11:59:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	B7B0ogmG+yI8zgy4iQeMNyHKfdE1d/1H2LE3NA6bm4I=; b=CP2iwbvoj9AxplqB
-	XtEYnOAUryPZSXQz4b96sLKEmHLqgy49V3FSllEBqwBhizNXO+xoEJBm+/bkr0W7
-	CCc7PrY5HGU6jL6GUxJ30LcaQFSiggwWq2ll/apkteFfT6rXPts1PQN/9dnF9OtM
-	l6NH4bLEyOr758vBG0QovrfpdRgPMfQrGn5LmKDxbtqBV3ph/H3CvAAa3yOmaBXh
-	+LyksrSIHbFLC1TiaJP1fKYAsG/SAmDiRuo0jm1CimGtqPy+HQmVbhm1MmBBhAIW
-	8AhZgXdKY7PxKoHn4idEsUwoSkvA+bd+xW+B1PCq0TeIRgYbYPQc6WaV8qu031Wt
-	/qctwg==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4he7h282ks-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 11:59:05 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-53389750985so4809491cf.3
-        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 04:59:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792497545; x=1793102345; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=B7B0ogmG+yI8zgy4iQeMNyHKfdE1d/1H2LE3NA6bm4I=;
-        b=HgGCpnxEBhkge1Z49EB/vhEsdhD5eMkHr79IrTXLfgO8apUtxkGbp455cpaRctktyD
-         ymHeGB3N9kFZ37Mtzm09nXf4I8i0yXsIDE6+fWIs9SmhYwG1KM9cnYQHwj8Y8LzwMt3I
-         DWT8CL1Xe0IkNfZ7itIcLHXMcozf3fgOcXypUR8FDhZBYgkKN/rZmhnoguPZ55ZFwK0o
-         V4aN5R19CJ77J77Jzrr1CkZA5z+JfuFX+jYwgMtrXy46qUiMu8tnA9IKrhGsnG2nURMR
-         g/3xNcasxFJ/kngRK7oIG1fm/ETOtEKol8tOfgi80e7dwAsqgLZBXza8REu+azigZzsf
-         GS+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792497545; x=1793102345;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=B7B0ogmG+yI8zgy4iQeMNyHKfdE1d/1H2LE3NA6bm4I=;
-        b=b4krFEgPzWw7YdrC4/VbE1WZjytNCa6RZ9yPqB1KJjt5wSpig5GDAxnfmBp/s80De/
-         zWtF6pAc6tc1oe1hHbblIzdSZJpnr1OotBhDXSY7XMkOZntnw8baHmtN5FaVgu5rNvsg
-         xk2gNV77SYyIBJXnLNZJgATyBJn/ZwMflH4v46wkZUj1GTeQS5FM0qr3C3RQ+r1BEuyn
-         ME1iHoV7KFu2/6T27nEXjZDNermb949d+l3hR7BJVF3mJW1IDYjoEMu7ZUtPon9n+2No
-         q33Km0Z/VraqiDIKITcn2YLCDkgCoWLCGsTcik1lo4K6RxyUXkGA3L6W4D1VsEgro082
-         VmwQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzNySxxFl6wDrnfz3aw3WDgCy5yEckvNQ7DYwrJdtUQtmbm4uO+iCs/Qy1H0sbcFCAF5KCPanztBesG@vger.kernel.org
-X-Gm-Message-State: AFq9FYJjX5LAY8MRWBAZFTwLA2kNixsLghKpuGKTai2x16ISle0rXAxV
-	J5jDKxo9C3Ard8bFUwlasVV8Mwk252LPOZj5AxX4qAgvgqAVsmB0s2bNdFBFb1ECwGU31QQcGUT
-	E/IJixHUUpXrr03K8EPVS3/GNfFyc6EESe2qswyRW0JjwzBpB3oDUC/bOSumeGI9+
-X-Gm-Gg: AYBFou2d+2KCA6NHU1huUk+ZG1XR60WTLOxhclwft8hv14rln1FqxvmzFRPNtw82d9V
-	GVC2OZF8glkpAmzF8m3gpO4eaOmynnrnJmkCPX9WdlO0gV1oFji1mU5/jfTQYJ9FS9rrORkkfsY
-	na/h485ST97jLT6SClslcFE9fbJW3zDyrfCqjsO/j36j/bOL2QVcEHPx2D91Jzr6NknroleqwGJ
-	fysj7iI5WCWbSgTKTv6lY5L1gZBJRUfrk1bgxotaQKCyvNo/gHwk/K+he5s4QZegGwxMJ4eDY/O
-	JZK/e9FjOneJ2AfZANKfflcOv94n9jXhZwuJEqcTyIOD/u+qvsCSlDLWZQFnjUlG4372lD5Dun3
-	N7nbSO84pBZ0Sfy2S782mSA==
-X-Received: by 2002:a05:622a:411:b0:535:162c:2e81 with SMTP id d75a77b69052e-5364616cceemr192543781cf.5.1792497544973;
-        Tue, 20 Oct 2026 04:59:04 -0700 (PDT)
-X-Received: by 2002:a05:622a:411:b0:535:162c:2e81 with SMTP id d75a77b69052e-5364616cceemr192543371cf.5.1792497544441;
-        Tue, 20 Oct 2026 04:59:04 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c408e32bc33sm476375366b.5.2026.10.20.04.59.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 04:59:03 -0700 (PDT)
-Message-ID: <372be891-fa8b-4d17-a9d4-2d7becf1ad8f@oss.qualcomm.com>
-Date: Tue, 20 Oct 2026 13:59:00 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 283D4606A31C;
+	Tue, 20 Oct 2026 11:59:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 283D4606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Tue, 20 Oct
+ 2026 19:59:50 +0800
+Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Tue, 20 Oct 2026 19:59:50 +0800
+From: Jacky Chou <jacky_chou@aspeedtech.com>
+Subject: [PATCH v10 0/3] Add ASPEED PCIe PHY support
+Date: Tue, 20 Oct 2026 19:59:48 +0800
+Message-ID: <20261020-upstream_pcie_rc-v10-0-fba209af8656@aspeedtech.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,96 +49,165 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: shikra: Enable CDSP & Modem cooling
-To: Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        gaurav.kohli@oss.qualcomm.com
-References: <20260911-shikra_qmi_tmd-v1-0-96c1cca82f30@oss.qualcomm.com>
- <20260911-shikra_qmi_tmd-v1-2-96c1cca82f30@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260911-shikra_qmi_tmd-v1-2-96c1cca82f30@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: pU__d78KR7Y1CdTW_YTWZroOGQaP2rgm
-X-Proofpoint-ORIG-GUID: pU__d78KR7Y1CdTW_YTWZroOGQaP2rgm
-X-Authority-Analysis: v=2.4 cv=EuJHPicA c=1 sm=1 tr=0 ts=6ad75789 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=2J1e7r4m5WDM-kp8FRYA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA0NyBTYWx0ZWRfX7FvMcpaiqXop
- t682oPAX3gm252FL141W1GW2wd8Th8OCy5GWx89YBUO5meHKMeTaN+OM5mSuanKthm4GEFxkvrT
- dbd/4Q5MGDesp1uec9Nt1MB1S4GieC8=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA0NyBTYWx0ZWRfXzqI1qotKKFDt
- s3i6y7jigHGttTis0pjy+QZh/VmEcz286I0dBEcmlMl8+Zr0Vv/Z3WvrIBV0wyv5k5vMKlZBeXP
- xN39dOS1k2xrhf/p78KSLV/mmlQDF/HXGhe/FRjWk1dHRb5RslT8YYo3C4DVV4HBHp1wmgVmWar
- MB/n82/8AIHLJMC2/Qj/wKNa1mSu0BrdwNDb+KDzmFPeQyzZ8o5oP7QWL/RYfxK5WNlxNFq7YqP
- EwtcYBirm/PU+SFmmWM4K80t4njpTNgY60iXHqai7F9T3AX2UR7scr4/TB31ImSKqYGDIYzBxtV
- kamkILVVlCynk1eGrjQiF60SrpSVSzcWh9uEl1ciXYJOSunR/nUWv6GFfyx38Kd6Y5rtc5hUxhP
- FCRG1R3YvgfV1FwdZlR/rhGFTuv0cXgm63hwj4GedGuScoBurBWWvGYwVbUsH04icaFvaNdF+lm
- +AWEnXw/dSWUeyPz8IA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 clxscore=1015 spamscore=0 adultscore=0
- priorityscore=1501 lowpriorityscore=0 suspectscore=0 phishscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200047
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALRX12oC/43R22rDMAyA4VcpuZ6DZEU+9GrvMUZxFHfJRpuQt
+ GGl9N3nFrYUauguJfg/gX0upjh2cSrWq3Mxxrmbun6fBoSXVSFt2H9E1TVpUWjQjAikjsN0GGP
+ YbQbp4mYU5aqKLfumdkhFyoYxbrvvm/n2nua2mw79eLqdmPG6vWFgkIAIAEtCJkNWofoM8nXaS
+ NsfX8M0xNgcorSl9LviKs16qS0yUEUaSs1M7j81LbUHBGavdYmpZobndfVXI2gLnp3mEh2iwec
+ xLzGifXzDmRWougroHVsTZJtVzKJowIxikuLEOQBhU6PJKvZOQZNRbFKqEGvYMkklMau4O4Ugo
+ 7ikALF30jQOpMkq/lcxgMgZxSelMeJ0SB9lgn1QLpfLD8KAQxjFAgAA
+X-Change-ID: 20251103-upstream_pcie_rc-8445759db813
+To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai <billy_tsai@aspeedtech.com>
+CC: <linux-aspeed@lists.ozlabs.org>, <linux-phy@lists.infradead.org>,
+	<devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, Jacky Chou <jacky_chou@aspeedtech.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792497590; l=6380;
+ i=jacky_chou@aspeedtech.com; s=20251031; h=from:subject:message-id;
+ bh=nsaiDKDcqqGMfom04v8aWN0Ba2aHC4xg9Hlr8F8E+a4=;
+ b=5UFcNODqu9txzKJ83jT+ocQVK77jeiXxOQwW6FRy6eVJJanU2IHEeSn1chJJb642IbW+uncc3
+ 9ptecfQeVuOCKpvxaobrKIRy6f5IurkWzCJm1vmqhcJaRb1wWIu1tfS
+X-Developer-Key: i=jacky_chou@aspeedtech.com; a=ed25519;
+ pk=8XBx7KFM1drEsfCXTH9QC2lbMlGU4XwJTA6Jt9Mabdo=
 
-On 9/11/26 7:03 AM, Dipa Ramesh Mantre wrote:
-> Unlike the CPU, the CDSP/Modem does not throttle its speed automatically
-> when it reaches high temperatures in shikra.
-> 
-> Set up CDSP/Modem cooling by throttling the CDSP and modem when they
-> reach 115°C using the QMI TMD cooling device framework.
-> 
-> Signed-off-by: Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>
-> ---
+This patch series adds support for the ASPEED PCIe PHY, including the
+device tree bindings and the PCIe PHY driver.
 
-[...]
+Summary of changes:
+- Add device tree binding documents for ASPEED PCIe PHY
+- Implement ASPEED PCIe PHY driver, including reference clock handling
+  and an AST2700 host bridge reset sequence
+- Update MAINTAINERS for the new bindings and driver
 
-> -				nsp-critical {
-> +				nsp_alert1: nsp-alert1 {
->  					temperature = <115000>;
-> +					hysteresis = <5000>;
-> +					type = "passive";
-> +				};
+This series has been tested on AST2600/AST2700 platforms and enables PCIe
+device enumeration and operation.
 
-No "hot" points? And no throttling at all until 115?
+Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
+---
+Changes in v10:
+- dt-bindings: add required 'clocks' property (fixed 100MHz PCIe
+  reference clock) to the PHY binding
+- Drop Rob Herring's Reviewed-by on the dt-bindings patch since the
+  binding gained the new 'clocks' property
+- Kconfig: allow building the driver with COMPILE_TEST
+- driver: get and enable the PHY reference clock in .init(), release it
+  in a new .exit() callback, for both AST2600 and AST2700
+- driver: add AST2700 host bridge internal reset sequence around the
+  port-type configuration in .set_mode()
+- driver: make pcie_phy_ast2600/pcie_phy_ast2700 platform data static
+- driver: fix ast2600_phy_set_mode() to read-modify-write PEHR_GLOBAL
+  instead of overwriting the whole register
+- driver: merge the identical ast2600/ast2700 .exit() callbacks into a
+  single aspeed_pcie_phy_exit()
+- driver: include <linux/of.h> directly for of_device_get_match_data()
+- driver: remove the unused dev field from struct aspeed_pcie_phy
+- MAINTAINERS: fix drivers/phy/aspeed/phy-aspeed-pcie.c file path
+- Link to v9: https://lore.kernel.org/r/20260115-upstream_pcie_rc-v9-0-d6c82a1556a7@aspeedtech.com
 
-> +
-> +				nsp-critical {
-> +					temperature = <118000>;
->  					hysteresis = <0>;
->  					type = "critical";
->  				};
->  			};
-> +
-> +			cooling-maps {
-> +				map0 {
-> +					trip = <&nsp_alert1>;
-> +					cooling-device = <&remoteproc_cdsp QCOM_TMD_CDSP_SW
-> +							 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+Changes in v9:
+- Remove '[v8,2/4] ARM: dts: aspeed-g6: Add PCIe RC and PCIe PHY node'
+  and send it separately.
+- Use FIELD_MODIFY to configure register.
+- Link to v8: https://lore.kernel.org/r/20251230-upstream_pcie_rc-v8-0-03598cdd80cd@aspeedtech.com
 
-Please align the arguments so that we have:
+Changes in v8:
+- Update the title of cover letter
+- Remove 'default y' from Kconfig
+- Change 'PHY:' to 'phy:' in the title of ASPEED PCIe PHY commit.
+- Remove unnecessary headers from phy-aspeed-pcie.c.
+- Add ASPEED PCIe PHY MAINTAINERS
+- Remove applied patches
+  [v7,2/7] dt-bindings: PCI: Add ASPEED PCIe RC support
+  [v7,5/7] PCI: Add FMT, TYPE and CPL status definition for TLP header
+  [v7,6/7] PCI: aspeed: Add ASPEED PCIe RC driver
+  [v7,7/7] MAINTAINERS: Add ASPEED PCIe RC driver
+- Link to v7: https://lore.kernel.org/r/20251216-upstream_pcie_rc-v7-0-4aeb0f53c4ce@aspeedtech.com
 
-<&foo bar
- FOO BAR>
+Changes in v7:
+- Add PCIe port into aspeed,ast2600-pci.yaml.
+- Remove aspeed_pcie_init_ports() and merge aspeed_pcie_port_init() to
+  aspeed_pcie_parse_port()
+- Refactor aspeed remap pcie addr to aspeed_pcie_map_ranges()
+- Link to v6: https://lore.kernel.org/r/20251201-upstream_pcie_rc-v6-0-8c8800c56b16@aspeedtech.com
 
-instead of
+Changes in v6:
+- Refer to pci-cpi-bridge.yaml to update aspeed,ast2600-pcie.yaml and
+  the pcie node of aspeed-g6.dtsi.
+- 'dt-bindings: pinctrl: aspeed,ast2600-pinctrl: Add PCIe RC PERST#
+  group' have applied, remove it from this version.
+- Adjust the defnitions in pci.h.
+- Link to v5: https://lore.kernel.org/r/20251117-upstream_pcie_rc-v5-0-b4a198576acf@aspeedtech.com
 
-<&foo bar
-FOO BAR>
+Changes in v5:
+- Remove legacy-interrupt-controller and the INTx points to pcie node itself.
+- Correct bar mapping description and implementation to PCIe address
+  configuration in pcie-aspeed.c driver.
+- Link to v4: https://lore.kernel.org/r/20251027095825.181161-1-jacky_chou@aspeedtech.com/
 
+Changes in v4:
+- Remove aspeed,ast2700-pcie-cfg.yaml
+- Add more descriptions for AST2600 PCIe RC in aspeed,ast2600-pcie.yaml
+- Change interrupt-controller to legacy-interrupt-controller in yaml
+  and dtsi
+- Remove msi-parent property in yaml and dtsi
+- Modify the bus range to starting from 0x00 in aspeed-g6.dtsi
+- Fixed the typo on MODULE_DEVICE_TABLE() in phy-aspeed-pcie.c
+- Add PCIE_CPL_STS_SUCCESS definition in pci/pci.h
+- Add prefix ASPEED_ for register definition in RC driver
+- Add a flag to indicate clear msi status twice for AST2700 workaround
+- Remove getting domain number
+- Remove scanning AST2600 HOST bridge on device number 0
+- Remove all codes about CONFIG_PCI_MSI
+- Get root but number from resouce list by IORESOURCE_BUS
+- Change module_platform_driver to builtin_platform_driver
+- Link to v3: https://lore.kernel.org/r/20250901055922.1553550-1-jacky_chou@aspeedtech.com/
 
-Konrad
+Changes in v3:
+- Add ASPEED PCIe PHY driver
+- Remove the aspeed,pciecfg property from AST2600 RC node, merged into RC node
+- Update the binding doc for aspeed,ast2700-pcie-cfg to reflect the changes
+- Update the binding doc for aspeed,ast2600-pcie to reflect the changes
+- Update the binding doc for aspeed,ast2600-pinctrl to reflect the changes
+- Update the device tree source to reflect the changes
+- Adjusted the use of mutex in RC drivers to use GRAND
+- Updated from reviewer comments
+- Link to v2: https://lore.kernel.org/r/20250715034320.2553837-1-jacky_chou@aspeedtech.com/
+
+Changes in v2:
+- Moved ASPEED PCIe PHY yaml binding to `soc/aspeed` directory and
+  changed it as syscon
+- Added `MAINTAINERS` entry for the new PCIe RC driver
+- Updated device tree bindings to reflect the new structure
+- Refactored configuration read and write functions to main bus and
+  child bus ops
+- Refactored initialization to implement multiple ports support
+- Added PCIe FMT and TYPE definitions for TLP header in
+  `include/uapi/linux/pci_regs.h`
+- Updated from reviewer comments
+- Link to v1: https://lore.kernel.org/r/20250613033001.3153637-1-jacky_chou@aspeedtech.com/
+
+---
+Jacky Chou (3):
+      dt-bindings: phy: aspeed: Add ASPEED PCIe PHY
+      phy: aspeed: Add ASPEED PCIe PHY driver
+      MAINTAINERS: Add ASPEED PCIe PHY driver
+
+ .../bindings/phy/aspeed,ast2600-pcie-phy.yaml      |  49 +++++
+ MAINTAINERS                                        |   8 +
+ drivers/phy/aspeed/Kconfig                         |  12 +-
+ drivers/phy/aspeed/Makefile                        |   1 +
+ drivers/phy/aspeed/phy-aspeed-pcie.c               | 230 +++++++++++++++++++++
+ 5 files changed, 299 insertions(+), 1 deletion(-)
+---
+base-commit: 8f56fdf3d8cb9f1dbdc93bf9ac816698aa6f70b7
+change-id: 20251103-upstream_pcie_rc-8445759db813
+
+Best regards,
+-- 
+Jacky Chou <jacky_chou@aspeedtech.com>
+
