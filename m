@@ -1,114 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.66
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792509963;
-	b=Hcetjae1ObkmOOmw+Cqs/sYWSzU//LYvKijWhvxdbnd51sWQ9l856gpzeXWAFWwGmVN1
-	 vk9xVY17i1N4UkkJ6IPiCNZCwKIBu4GA0CcaR+4tSdoXnPPLjBu1WA/wgKgdrdkGX86Lh
-	 ApKLu65ruXaaPi9VLnpF9jc7+MXV/mRPUCHwAMkx8JRymTxZx7VZiCcjyJzeX8ruYY5xf
-	 3SchV7TEg2MuNLdcoF+insfCvBNxNq1X5EAZYFcW5GQmC4ROlHYp/NyNfnhZdswSGvTIQ
-	 +0bHDf2sQCdhrFcRg7nK/ERNTc720mSPMU63sTUz66UqKirJ+Iy3oNluY1ubs/cg06Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792509963;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Hjm1FA8va8/+riv4h/WUvoDEQcAlFctPn/rN4qzQxkE=;
-	b=naurxvoCcoBMv+UngePu/9n7xuTz4EOdo17YYc9KF1Nk+KfvHur0wflPso677DaOFy+l
-	 245EK6KkriYutyxccZBN7PiTm2MeHlDuamPifdwGLgoislOwJAtbD8Eo0/5adFF77REp5
-	 pu79tiKiQ40taVJ9MRjCEUyZXSvmIFbicaA5C8VLy3BusfTnj2j+mPXnmo3uEg9rneNQA
-	 rUhStC/cwT3Xtj9fU8oMWZy4C1Lc94hCEbO5N4wBC5JeNLSyM7lMJaQmE7SCds47EkY7S
-	 i0OOy6N/+hkBvvhn2wa6pqibSfef9dAKTMe0VnNbAraaNhVf5YiYK4uzTXyIPGDyjPQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Vosm5vdR;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.66
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013066.outbound.protection.outlook.com [40.107.159.66])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792510049;
+	b=hj07uY1G6COpaCqd35I8tVXqaPsPRI2d7bKANQFyhSNqIlMoQ3/ndlAFA3pS/GRprgbE
+	 HQDWauogNoD7RGSOSAZ9TKlzTK0GSBq/AeCgQY8DA7Vad7It7IyRzTutw8vukXzEy4lXK
+	 7iozEe+h1N7AyfZSx5SsR+IZ4ob9yKh+jykeCrfjG/DPgkgGga+Umxe223SY3brmw2J2o
+	 8E0ChbnXvgI/Fzl5WPQJ2P+jxCQgKKQcVbVhq9VZaCLXBmPFHYKvM9p9MFJ62HlurlkWW
+	 7t2k8yrEHWTu6HaamUpPvHj2RiLfVj/2h/MZtF1x6ZOLxsGkX6FoP166pFxa2O4gaSA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792510049;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=PCcv4OBN0VPh1W63f9TMAAgG+ReJR6ejwfKM3zkBC4c=;
+	b=STTDjvMVaJuOq/ELAblqtTVY+Z4pikjz14dic0vLcKddEznBDfBt4o1AcuBylhENWr7N
+	 RVAvqfNroEQoWGJbUdGhQ9bib5eJoa2rSPiHWUF2oUeGyfX4bP4f/Kq94g9pVf9zpuaex
+	 R87J+zbnQ4RSArb/UAY0DbrgmAOyw2oJgG0iQoSoE1o8ljjIlJ9q4yHTmAM9BeFE2q/qI
+	 pm8kc/ie2Kg7ah5fsKT/0iY0xT6toc8D6M4n7FCVOqhIjKckSgyCL1R4zGtt33DUdtkqV
+	 L5azNVzzm3HiwxrSk81w2RiQUPmnN9YmIMtKsUflNKZjNxjraioQLdnPCbt3pf8WSuQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=roeck-us.net;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=eau4oVYG;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B42D606A31F;
-	Tue, 20 Oct 2026 15:26:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B42D606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C7F7606A331
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 15:27:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C7F7606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Vosm5vdR
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=j73ga/EIj06xp8exLnoUf0RlEzl+yxRKxex3cIwJuYrIZu64eq4+AxbhzzSJa/YB0Xj2exEvOlWskQYvk7aQgv0lsKaVW5hohqH8JgWI+wtbwCHfbEol1p/WcIBjIlMSM3bf0lZV2oAI9vjtk+o3NbpQ0rBNp1mjKVzGXn9mOfPcFD5yjljCYSNYVDKmXNiravmNfS7XjjrNTfHAkMokIK8dKIzKQ2u1kSmivR7f7hEx2lV1rsyo9rBrkxmHE9oiFJTMG8Fl881zIGU8Vy/j2Guvev59jPXeJa+aMJ9MmbHlfEb28rci2mcCVWouwSL2A4XZhxobGkqqvzO3s0mUlw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Hjm1FA8va8/+riv4h/WUvoDEQcAlFctPn/rN4qzQxkE=;
- b=vS5Gol4JKdcvBljiLKj77UnWF/d1btALrzO3hQYLNvtvKCQLX9IEfScbZaM9TqgnQ4xAhEZU71RW9ZzYSxDZ70Xdi5P8RSANLAJkJz+tj0DMCSBD6PJp1i4edughpMiZwENfACfynnRVhMWOOkNuYafSs2p0BsHcsYgwdhWxBCKdUFBcAHyNRNV2z1hCMJqyDrDisMsXcgLuSxbGU/nRuHnNeHd44FpWI3eXWRBQeBT0q3Exkr8EwaA8VemP4uddRPknsP9KrBkYfz/hpMpAyQhHMYi8tA4JzJ9dLQsE/YEmERF9khFfflTKPeDNXMRtiKno/vrJ9VI2BjQDkpEpwA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Hjm1FA8va8/+riv4h/WUvoDEQcAlFctPn/rN4qzQxkE=;
- b=Vosm5vdRnm78Xt2RGW+h4HT9tVnzLBhSCJVQAzNX9Qhlg8zcS6ReD9AdUZFM8jYXyNOlGw+FM9ZJ6SncJzZZSzGhG0dcfOKhTgRjdglGGKvkubTvNfJsfZqZ77veAlX7Vwh6ZTNFf61jHbWUCwD116Mi88l/zfDcergNgf8mwbZmezgrwlEYoE9KZXPNPwGcNot5H8wHvtQyqk84lVOSoXs2zXE0v1UIAqGvMhK9yta4kpYSMSwq4AbO4GH/RPENUcDpqlhCWz/EuZOUsm2QKnypmr3wxOM1CmXlcG9ZpoKJx3vIOySRfyaGnME5F6PdPiJS3cmkrTZtABrWOcEL7A==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by ZR6PR04MB456611.eurprd04.prod.outlook.com (2603:10a6:910:d9::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
- 2026 15:25:59 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
- 15:25:59 +0000
-Date: Tue, 20 Oct 2026 10:25:47 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Christoph Niedermaier <cniedermaier@dh-electronics.com>
-Cc: Conor Dooley <conor@kernel.org>, Marek Vasut <marex@nabladev.com>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Ashish Yadav <ashish.yadav@infineon.com>,
-	Colin Huang <u8813345@gmail.com>,
-	Sanman Pradhan <psanman@juniper.net>,
-	Thorsten Blum <blum@kernel.org>,
-	Troy Mitchell <troy.mitchell@linux.dev>,
-	Eddie James <eajames@linux.ibm.com>,
-	Rodrigo Gobbi <rodrigo.gobbi.7@gmail.com>,
-	"open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
-	kernel <kernel@dh-electronics.com>,
-	open list <linux-kernel@vger.kernel.org>,
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [PATCH 1/1] dt-bindings: spi: Add separate binding for
- dh,dhcom-board
-Message-ID: <ateH-6zjtfy2t_tS@SMW015318>
-References: <20261016205718.877668-1-Frank.Li@oss.nxp.com>
- <e7095176-44b8-4838-8443-2e515d34cb25@nabladev.com>
- <20261018-freeway-twitch-e813208aa9af@spud>
- <fd15f846-94d4-44d8-a42d-5f13a7b18794@nabladev.com>
- <20261019-cycling-unnatural-c1adbfb5c9d9@spud>
- <05e66d8f57a44c9aa87cac1c35e82184@dh-electronics.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <05e66d8f57a44c9aa87cac1c35e82184@dh-electronics.com>
-X-ClientProxiedBy: PH8P223CA0008.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:510:2db::7) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=eau4oVYG
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3514b90bb89so9089069eec.1
+        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 08:27:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792510048; x=1793114848; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=PCcv4OBN0VPh1W63f9TMAAgG+ReJR6ejwfKM3zkBC4c=;
+        b=eau4oVYGuhZ5lRwDnrXyWr27q9OM46W4f1Djd6/Od6qA7AlIeZfXtwpRhsDzfFk5Di
+         Mr9BDhRf9/l/asfO2WWs75Yz9pm9o2MMHlFs4+cxKwKG7QSMKPcfJuO6y6SmskwxcwrK
+         xHrQ0Je4mrLjAhsdCRlnXje2omZ2yhAUvMNdBIunacihg3uBZOkZBMZpxTtk35W3qzwE
+         lkN/rcYPfIJZsYrm0onZw9XVmzOw9oVFcp3FO1pGUo2LyLkln9J/0JHu4kbxrlSn6HvJ
+         2YN7WwFcoDbnN7dxGvrOZZUOlDyM2DYhUOnyYgLjQ/NymaZeStaT5tsZI2YCruYLF/77
+         TeBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792510048; x=1793114848;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PCcv4OBN0VPh1W63f9TMAAgG+ReJR6ejwfKM3zkBC4c=;
+        b=IUQaEYztp78f8bqD0E1FHlHqPm45226xwue+b9qeRlE2kEjhpzf7IgtMXiMwlO9YuC
+         ILegKMw+Siqfzw5Gp2X6k+0YmAUdvMhgRZQUDwmq1Lp2xgEuNllx3XyWppbWvx+qc0GK
+         ulmxMv1Gr2Dv9VDOEGps4cA9FIMNX4QaaeEvgFit/iYpeQC0E4gn6blSkrzN/X2BH5NY
+         G76zWU4ASPfKn1E1DrBIPIL88QG7dLFMia/yB0Z0sD8AEralLUegoITl2xKmvgSDI7c7
+         0GpPyQyeHXVQbcYBXZKzToSgjA9OLKyxho0jkzKxhlVAoTJAt7U1uTcx3wNHpaSqeoUQ
+         jJXA==
+X-Forwarded-Encrypted: i=1; AKwUvBzMXkC1KhTHhYBNDh7MLnjoe+mAmb1pKVh7fNROIrJOW1OM5lwC58Ip6D9moBOau18FmZtpswIvuXRo@vger.kernel.org
+X-Gm-Message-State: AFq9FYIigcM942Fd/ZWhN/W5NnFciq3+Sy7l6WMYF1/E0q702or8wMXS
+	153E2MbtDpLiACz+JdAQOhSI3PlXqF4temcR6oUxFCfVCsdzx2bX+4DykLCFxg==
+X-Gm-Gg: AYBFou1nI02Ts0UJXxE0Zm6c3CJM+htCUsR0uDk9zZXU0fWt80wd8JynzLRXy/mBe4h
+	c/EdNB6g7hPzKwoq/YWu8km/AEpAKhzA5wszZQCTDRKBujg6Pfz7aoNer+aY3E9uztYt0B55J3I
+	d5+AltyRAcCQx+Jfrj4Tk4mqxAGpG5tTJ3MXb2HCKayoJJYvFi2pu7srULP2P0v7NlT3IyYqfEU
+	SHjH6qWiTLx3MQnwoh4V/XIiTb6aJ/scZPOOgin8H4WuuP7AEOoZWod0B2oVZN/HuvHCu/sv0Oh
+	CsKWdvQEANxTMGE1oqZjhuzgzPgUCiJFCU9MKuTPykDid7Y09w9cQfN5bvcmI4JoVtpJXMdjxZC
+	xnc85utwk2adK0D0DBVmZj4sxk+AwwEkLtH1Pyyp7iz8y7U1aY/qTnm/6gkf9P3hByy14pUvr+g
+	Ci/ibNBpVDIxzYRIvm8xIHGjRFmZJ812aGnxHymDeatV2YSe6MV77jwx/KPXSrnQOHqZMTlqqiq
+	7Cazxc9Z1XQ
+X-Received: by 2002:a05:693c:6395:10b0:35e:60ca:81e9 with SMTP id 5a478bee46e88-361a1f53a9emr17584684eec.21.1792510048243;
+        Tue, 20 Oct 2026 08:27:28 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36081bafa7asm41307392eec.14.2026.10.20.08.27.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 08:27:27 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Tue, 20 Oct 2026 08:27:26 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+	linux-doc@vger.kernel.org, Guenter Roeck <groeck7@gmail.com>
+Subject: Re: [PATCH 3/3] hwmon: (pmbus/fs1412) Add TDK FS1412 driver
+Message-ID: <04519e94-3616-48c5-9db0-dceb90f3fd56@roeck-us.net>
+References: <20261008-hwmon-pmbus-fs1412-v1-0-0ae7e5ee4e41@nexthop.ai>
+ <20261008-hwmon-pmbus-fs1412-v1-3-0ae7e5ee4e41@nexthop.ai>
+ <a3ccc85b-aab6-44b4-9695-ecd78401102c@roeck-us.net>
+ <DM9HNFZ26I2H.348U7TRUKBLST@nexthop.ai>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -118,131 +104,126 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|ZR6PR04MB456611:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9bbd61ff-e13e-40f1-60aa-08df2ebe7165
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|366016|376014|1800799024|23010399003|19092799006|4143699003|11063799006|56012099006|261009223327099003|261009221727099003|261009223027099003|261009220027099003|261009221227099003|10067099003|18002099003|22082099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	/PurP4VqCAE6zktYmsZXAF+Zd2SaRWsekgNZTVH6LdN7m0a93wH/laGo/5dccRf6mCDzcOIe6kG18LVteACosOIf07M1SHN+cyURtd7J7XPyg9B3IcKmIGfP32f4ZtnX/Hk6igR6cyxeBSbGu7Xb0iPzvGa9xSXXJJc/1c3bJuNp/q/nsa1G5jFU1Ejz/DmOaat0J9w8YrtP/pXoe16aWIfzulI8K3P9RyqNXrsyTGb47wK7bM1Dag1iqV630KOw4NgleZ1l0P3MFn/csX1hg8AfyfrvPt/+/NfoXLgGXe0GHan3Uz1p6Y7WA/KGUaEPDfrlc/CAU8b0RoZirzlMCk+bdnUflxK4NxdU9d0XleKVpxjUnAAfGO0rHUrGezsPBuM3T8UezN79XIyHQ2XqNJ9bE1CxXTyY/TnbDVZmfjEyh3BCYPBxUnFlckAu1XjI8mR6dHxnpTuaza62iaiMg26F7t8hrSfZjoslyiSzrAEUDRiO+07fL1E77mbmhX7N23nBdFmkmE2S0MR0HFa0yi+yRdZyvFt6GTg9B523rtzmgi6M3cNuL0KaPK8lxZsZ4oPHM7IyFihd1Xtrp7G9qZrdNGWYTpQFCHmkK0j+j4PPk9mEWh184k+MMZWcTb+W
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(1800799024)(23010399003)(19092799006)(4143699003)(11063799006)(56012099006)(261009223327099003)(261009221727099003)(261009223027099003)(261009220027099003)(261009221227099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?zakmUAnIGJFDXP9KVywOupnpWLmjqpzW6ErqT9ZciXpOu+SM8kRqHH9iJ1Li?=
- =?us-ascii?Q?Z27eehebFWSD7QHK3B+Q1+jYbf1lNHwkhd9Mwbxi0HNpf1I7Q6PuJayqRiVu?=
- =?us-ascii?Q?NbtdSUeKokBnH3j5cAUuiTeC9h9pEL7a+eA/PnOJp8j/+PwXZ7D3+YHsa5ER?=
- =?us-ascii?Q?7aUmqGUr0n/YpsVZgacjL5r9eFj5sddeEbw61SvD3pNuGkVpzZXzxgpeE0wJ?=
- =?us-ascii?Q?S5q5YNbFA2D1RsizPom3EZBl2yJALaNpnhZ6hja482cXhGw9GvN1/rafG54p?=
- =?us-ascii?Q?qRHAMyjVvOtjJ/ue0HxlD/BYzXwpnAbTLfqeTSghaUPynPUqWOiPtB7Yz9lG?=
- =?us-ascii?Q?7ynPyidxocu/4V8V19j/Hz6/P15R2J86tW4YSEEufRXTo0uQ5TEePtbeTv09?=
- =?us-ascii?Q?fHl99MJJfemeVVIg0quduK/H7W/0tjth3TDYObeK8x26tgyczb+wFllYbgPv?=
- =?us-ascii?Q?jpMVeWVukSEwyqPAW9OROzx0GiGbYa5wuGw+YM38kgA2Be1sm3ue0TnNt0is?=
- =?us-ascii?Q?xEn1lnAAx4PsN5wOUIBnd1Arx2VLTcS/itgMOkP30SN9gnODIXfFDKdONn22?=
- =?us-ascii?Q?XsVjC9vdNnV729ztqLeSwGXYgzzTzwwErR/YeWsto5EU7AwCNgh6ApK5hHeX?=
- =?us-ascii?Q?EsARbMYt1cF89BrlEze26OV/TfFfAGDOulKgtF51v2GvZs7cdsUj5LtfcN+M?=
- =?us-ascii?Q?1ZnsaoWFCduJ51xWS27fC9rBeUaZhYtUU20v+xbxHu41ZNobDj3/Je7N1SJH?=
- =?us-ascii?Q?Hr6DQ6CS4bRRLjxQ4OKf6UAjzW37N6F5B097vPsU7uPLS1hbvRmgMRAi6wDG?=
- =?us-ascii?Q?SEnUbYyBIxtPeys0L5XSZ+jw80boVqVqwjM0xYeLu5DR6nLgDvOdUIJk4ECC?=
- =?us-ascii?Q?DfaOb1kxuUeDQfoWjU27y3pnRZndP87W4F4bQW4uquPwSRoIcn16MaON85/G?=
- =?us-ascii?Q?amHheq1coqN5eXz4V0v6dg78B3oe9svc5SphZAMKdAI4kMtMNGIt9zK3iWI4?=
- =?us-ascii?Q?Zxl7cST0ot0F51xOH+Y2pie2hn9hHCFBezBDSDR9uD028Xrh0nYWupwU5jUo?=
- =?us-ascii?Q?ZQh5WbZM+tp4GABOUy+WjHoTjGaZJK2O48OHBz2gemzt2rJi0RtULUY9vhWB?=
- =?us-ascii?Q?lqkvlop4+294ArutggfpwDtJ/NZtuxTresT1mMBwovTi1RdURQtsCb3DkKyc?=
- =?us-ascii?Q?GAlMJiqoXXFBa/lKlQXiRBp3E0WNBR3rRj5GyO08wU264A+Ya1W+nDUehLJ6?=
- =?us-ascii?Q?YVoZ8GiwrK4Ox576//sI4wkqOmYTYUcX2Z4RtbUfyY5dVl0YDyW+Q9wigyVm?=
- =?us-ascii?Q?L4QwhHvsZQAc8Ln3Z9iSj8DEmsB7+WcAF/hlCZolaaSWBXPnmnYZzMvmTgKS?=
- =?us-ascii?Q?iwYltzHGOR64UOqKX9ocJEK7b9IE7DWoPw5UzpjXhytTpy0YPa0B/uUZwGTd?=
- =?us-ascii?Q?5fNvhsdLSX30lJHNcj8HU0X66JIDFWMRHEw7QBFHnJE+tfTIdR/bynXD5usQ?=
- =?us-ascii?Q?HA7fiBB0gI2OxfWV/vb+jlEttol69lcqKerD7EAV5iy373N3BZ7eBvJoXJng?=
- =?us-ascii?Q?pRLKCP8J61P16yukPCvK8qZsK/E3BAx1ToD53hZsddOoLqpxam6yj29pWMiX?=
- =?us-ascii?Q?oqSNjV25DHe8a7iFazxF1Ohsw8ceApq6Sz2Zsuf3Sfuybf6JTxcPA17fjl88?=
- =?us-ascii?Q?oR16pVl0BDOyeuCtlO3qfNcEOxIwjkuaVWvX4qn7SjCPTNXRKICP8jSGj6ej?=
- =?us-ascii?Q?cOE+qJCmU6PC6atC3c8/qPcv5Fpd9RxDJQD7Y29Eb6/mqsG8UzAO?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9bbd61ff-e13e-40f1-60aa-08df2ebe7165
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 15:25:59.3820
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: le3gMquSBqZfcFu4UixS7aR4IdPcZqn/g0uU923Yoag+17KYd3LoST28TX3zlQ5h66csNe/0l0tSKbK2LUlHStLAauwJtYeuYLDUS3ScJUvSX7wbAo4fVvjOgoN1v7kJ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR6PR04MB456611
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DM9HNFZ26I2H.348U7TRUKBLST@nexthop.ai>
 
-On Tue, Oct 20, 2026 at 01:33:24PM +0000, Christoph Niedermaier wrote:
-> From: Conor Dooley <conor@kernel.org>
-> Sent: Monday, October 19, 2026 8:23 PM
-> > On Sun, Oct 18, 2026 at 11:38:09PM +0200, Marek Vasut wrote:
-> > > On 10/18/26 9:37 PM, Conor Dooley wrote:
-> > > > On Sat, Oct 17, 2026 at 12:01:55AM +0200, Marek Vasut wrote:
-> > > > > On 10/16/26 10:57 PM, Frank.Li@oss.nxp.com wrote:
-> > > > > > From: Frank Li <Frank.Li@nxp.com>
-> > > > > >
-> > > > > > The dh,dhcom-board SPI device uses spi-cpha and spi-cpol properties,
-> > > > > > which are not permitted by the trivial-devices schema. Move it to a
-> > > > > > dedicated binding file that references spi-peripheral-props.yaml and
-> > > > > > explicitly allows those SPI mode properties.
-> > > > > >
-> > > > > > Fixes below CHECK_DTBS warnings:
-> > > > > >     arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dtb: spidev@0 (dh,dhcom-board): 'spi-cpha', 'spi-cpol' do not match any of the regexes: '^pinctrl-[0-9]+$'
-> > > > > >           from schema $id: http://devicetree.org/schemas/trivial-devices.yaml
-> > > > >
-> > > > > How come this did not trigger until now ?
-> > > > >
-> > > > > > Assisted-by: LLM
-> > > > > > Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> > > > > > ---
-> > > > > >    .../bindings/spi/dh,dhcom-board.yaml          | 46 +++++++++++++++++++
-> > > > > >    .../devicetree/bindings/trivial-devices.yaml  |  2 -
-> > > > > >    2 files changed, 46 insertions(+), 2 deletions(-)
-> > > > > >    create mode 100644 Documentation/devicetree/bindings/spi/dh,dhcom-board.yaml
-> > > > > >
-> > > > > > diff --git a/Documentation/devicetree/bindings/spi/dh,dhcom-board.yaml b/Documentation/devicetree/bindings/spi/dh,dhcom-board.yaml
-> > > > > > new file mode 100644
-> > > > > > index 0000000000000..ed213cbe9b04c
-> > > > > > --- /dev/null
-> > > > > > +++ b/Documentation/devicetree/bindings/spi/dh,dhcom-board.yaml
-> > > > > > @@ -0,0 +1,46 @@
-> > > > > > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> > > > > > +%YAML 1.2
-> > > > > > +---
-> > > > > > +$id: http://devicetree.org/schemas/spi/dh,dhcom-board.yaml#
-> > > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > > > > +
-> > > > > > +title: DH electronics GmbH on-board CPLD trivial SPI device
-> > > > >
-> > > > > This does not look quite right, since compatible this is used only on:
-> > > > >
-> > > > > arch/arm/boot/dts/imx6ull-dhcor-maveo-box.dts
-> > > > >
-> > > > >         model = "DH electronics i.MX6ULL DHCOR on maveo box";
-> > > > >         compatible = "marantec,imx6ull-dhcor-maveo-box",
-> > > > > "dh,imx6ull-dhcor-som",
-> > > > >
-> > > > > So the whole
-> > > > >
-> > > > >         spidev@0 {
-> > > > >                 compatible = "dh,dhcom-board";
-> > > > >                 reg = <0>;
-> > > > >                 spi-cpha;
-> > > > >                 spi-cpol;
-> > > > >                 spi-max-frequency = <54000000>;
-> > > > >         };
-> > > > >
-> > > > > Should probably use a different compatible.
-> > > > >
-> > > > > Christoph, what device is this on this board ?
->
-> There is no device connected to these pins, only an extension connector.
-> The "dh,dhcom-board" device was used only to test the hardware and was
-> unfortunately forgotten to be removed. In the production version, no
-> device is connected to this interface. It should actually be removed.
-> Should I create a patch for this?
+On Tue, Oct 20, 2026 at 12:31:11AM -0700, Abdurrahman Hussain wrote:
+> On Mon Oct 19, 2026 at 1:25 PM PDT, Guenter Roeck wrote:
+> > This implementation is wrong. Support for relative mode should instead
+> > be added to the PMBus core. Or, rather, this driver should be tested with
+> > https://patchwork.kernel.org/project/linux-hwmon/patch/20240315151855.377627-2-lars.petter.mostad@appear.net/
+> > in place (with appropriate fixes for that patch if necessary), and the
+> > patches should be applied together.
+> 
+> Thanks! That is exactly what I was looking for, but my search for
+> fs1412 on lore didn't turn it up anything.
+> 
+> v2 will carry Lars' patch (Cc'd), rebased, with the driver reduced to
+> the MFR_ID check and hiding OT_WARN_LIMIT. v2 also adds the FS1525, a
+> 25A part from the same family that is relative-only as well, so the
+> core change has two users. Fixes on top of Lars' version:
+> 
+>  - check VOUT_MODE for 0xff before testing the relative bit; as posted,
+>    a chip that does not support VOUT_MODE (reads 0xff) is marked
+>    relative and gets a bogus exponent
+>  - signed division, and clamp the user value before scaling it
+>  - fail probe if VOUT_COMMAND reads 0 rather than divide by it later
+>  - only update the cached VOUT_COMMAND after the write succeeded
+> 
+> We have a board with four FS1412 and one FS1525, so I could test both
+> parts with these patches on 7.2.10. Since your concerns in the 2024
+> thread were about how these parts actually behave, here is what they
 
-Yes, thanks
+Not that I recall that ;-)
 
-Frank
+> do:
+> 
+> VOUT_MODE is read-only and relative-only. Both datasheets mark it
+> read-only. FS1412 returns 0x98 (exponent -8), FS1525 returns 0x96
+> (exponent -10). Writing 0x18 to VOUT_MODE on all four FS1412 is NACKed,
+> STATUS_CML reports invalid data (0x40), and VOUT_MODE stays 0x98.
+> 
+> Which commands are relative. The FS1525 command table marks
+> VOUT_MARGIN_HIGH/LOW, VOUT_OV_FAULT_LIMIT, VOUT_OV_WARN_LIMIT,
+> VOUT_UV_WARN_LIMIT, VOUT_UV_FAULT_LIMIT and POWER_GOOD_ON as "L16, 1.3
+> relative format". VOUT_COMMAND, VOUT_MAX and READ_VOUT are absolute.
+> That matches the list in Lars' patch; POWER_GOOD_ON is relative too,
+> but the core does not use it. The FS1412 datasheet says the same for
+> the limits it describes. Raw defaults, as a fraction of VOUT_COMMAND:
+> 
+>                      FS1412 (0x98)   FS1525 (0x96)
+>   VOUT_COMMAND       0x009a  0.602V  0x0266  0.600V
+>   VOUT_OV_FAULT      0x0133  1.199   0x04cc  1.199
+>   VOUT_OV_WARN       0x0126  1.148   0x1000  4.000
+>   VOUT_UV_WARN       0x00d9  0.848   0x0366  0.850
+>   VOUT_UV_FAULT      0x00cc  0.797   0x0333  0.800
+>   POWER_GOOD_ON      0x00e6  0.898   0x0365  0.849
+>   VOUT_MARGIN_HIGH   0x0119  1.098   0x0466  1.100
+>   VOUT_MARGIN_LOW    0x00e6  0.898   0x0399  0.899
+> 
+> With the patches the FS1412 reports in2_crit/max/min/lcrit as
+> 721/690/509/478 mV against an in2_input of ~560-580 mV. Writing
+> in2_max and in2_min stores 0x012e / 0x00d0 and reads back within one
+> 1/256 step. On the FS1525, writing 600 to in2_min stores 0x0402 and
+> writing 509 restores the original 0x0366. I did not exercise the
+> regulator path; the driver does not register a regulator.
+> 
+> Paging. Neither part implements PAGE. A PAGE read is NACKed and sets
+> STATUS_CML INVALID_CMD (0x80), so on these parts relative mode can only
+> be per chip. The patch tracks it per page, which also covers a
+> multi-page chip that sets the bit on every page.
+> 
+> Vendors getting it wrong. You were right to worry. Some things I ran
+> into:
+> 
+>  - The OV fault limit is rounded internally to one of four settings
+>    (105-120% in 5% steps on the FS1525), so only some values written
+>    to it take effect.
+>  - The parts are only partly consistent with their own command tables:
+>    OT_WARN_LIMIT and READ_IOUT are not listed for the FS1412, but both
+>    answer without a CML error, and OT_WARNING sets at room temperature.
+>  - The factory programming varies between parts on the same board: one
+>    FS1412 has VOUT_MAX 0xa500 and VOUT_MARGIN_HIGH 0xa400, the others
+>    0x0300 and 0x0119; another has VOUT_MARGIN_LOW 0x0000. The core does
+>    not touch these for hwmon.
+>  - The VOUT domain differs between the two parts. FS1412 reports
+>    READ_VOUT at the feedback pin, so it is in the same domain as
+>    VOUT_COMMAND and the converted limits. TDK told us that the FS1525
+>    reports READ_VOUT as the actual output regardless of an external
+>    divider. On our board that is 1.094V against a VOUT_COMMAND of 0.600V
+>    (a divider for a 1.1V rail).
+> 
+>    I checked what the FS1525 compares READ_VOUT against. Setting
+>    VOUT_OV_WARN_LIMIT to 1.5 sets VOUT_OV_WARNING; setting
+>    VOUT_UV_WARN_LIMIT to 1.5 does not. So the part compares the
+>    output-domain READ_VOUT against limit * VOUT_COMMAND (0.9V), which
+>    is exactly the value the core reports. That is presumably why this
+>    board's OV warn limit defaults to 400%.
+> 
+> One question before v2. The FS1525 over-voltage fault is the exception:
+> the datasheet says it is an analog comparison at the FB pin, at the
+> VOUT_OV_FAULT_LIMIT fraction of VOUT_COMMAND. So on a board with an
+> external divider in2_crit is in feedback-pin volts while in2_input is
+> the rail. On our board's FS1525 that is in2_crit 718 mV against
+> in2_input 1093 mV, with no alarm, and the actual trip point is about
+> 1.31V on the rail. The chip has no way to report the divider. Which
+> would you prefer?
+> 
+>  a) Hide VOUT_OV_FAULT_LIMIT on the FS1525, so there is no in2_crit.
+>     Nothing misleading, but boards without a divider lose a correct
+>     in2_crit too.
+>  b) Scale in2_crit by READ_VOUT / VOUT_COMMAND measured at probe.
+>     Right while the rail regulates, wrong if it is off, ramping or
+>     margined at probe time.
+>  c) Describe the divider in DT and scale in2_crit by it. The FS1525
+>     would then need its own binding instead of a trivial-devices entry.
+> 
+> I lean towards a).
+> 
+Either a) or c), your call. We already have a vout-voltage-divider
+property, but it looks like that won't work here (it sounds like only
+the limit is affected ?), so something new/similar would be required.
+
+Thanks,
+Guenter
