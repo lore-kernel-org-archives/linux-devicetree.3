@@ -1,102 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792494267;
-	b=RcwKhQZLq9762sOAdZTpUDtcjTa7HMkUTNH6mbMVdvBZZmDYxJGUMrjBi5B0nfITgA/Z
-	 5tFQP0Z6NUXseNy0l+EPKYooR4HLIdHUp3gfsRS5Dmf8Aup84Vp90SIgLcLMGJ7fQxiZp
-	 H9fTh007CNo/u6kALXegaC0/uGAvBmwO0T38zIacnnfpbjxijJXSjtDRbXel0438y8m+f
-	 kbx/JEOsSrh1HveUn4v8FlxcYvMBieaWm7Wyd04pfdPXi6YQfjDqAexvT6OHuL7FeiL+v
-	 RyKP6ccIy7gN+NfLznMX4cJ8BLRqqOESOCLRr2RpAswckuygXHgWS/mCrM1U9MX9skQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792494267;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spamd-Result:
-	 X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=wpVq8HTF6kp3l3+P+HlqkQvEgOT+i0h0AfpydZ4MNoA=;
-	b=TeCxwAkR3I/z9Dy8rNWu522oSmiMrL7ay9ZXnCK5xmfp3uS3g12cUEgKQ+o7TeWIOOAF
-	 xLsFKl2/T0W+MmqETaLCYVeaDp1R7N4EJDVzV1IiFRaCOHbXiiPekY66oKm7KIxs7s1ae
-	 7SnyIxfatHfYBW3//rBVeME7dJpJMs66jyraz3Y54NtJvyAfm46pI9YdJLSmzGwkYX5Hs
-	 HTgsWBl9ImaX6wAJOOncR+pkcfzS+VrGVGI8saCYiDkLe34rsgV6665pKLdDpEHeor+Ih
-	 YKuwkz1ADwAeJ469AQzFyFeTex2ADyQ5qls+L+4QoqD8D07YIzckaPx3WH/c6lWDg0Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=LZCVchYP;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UbP7T0A5;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=LZCVchYP;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UbP7T0A5;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792494701;
+	b=1gQ6Y/m284v4OcKjyT2opm2iJQQ6s3UaXGscmZ2NrtPYxXzaJi9qYzM4vygbrhoNA/P8
+	 tgSDgv9eMBG2tqHIcMgpGHJTJz4H+nGCduK2lD/VbcVQqkOILmaHmlP/EX85oYXiMRHXX
+	 dKvOn0dX0JcFS+PV6DqIlvmm75fihfmIOUaVmS8hXGghXi3/PsDVfQg7VUosIR/vxqqiC
+	 97HJZ3y3wRgIBn/bG1jGQOY+vGFJplbyTdCHba613JahLuK8hvDivCbs7PvQOolB6JPPW
+	 WKeMwASmvwWjbnM/GyRsR1WVJ1i8S2NLN7PxygiMrlE3SykqYupXLebuzOx9ixGg7Hw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792494701;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=uFeI3eOzn9Q8PN8lIwYRj3dAsVx+dzVqgUHf+UMhBGg=;
+	b=EXIqbw7BGeEwslhgQdZOkCQOeQ2I5M8Bb35Hutb49tCTf2WxCyy25aqHJuirqO5MmaP+
+	 +Sf/dpMZAXZxdsT7neryW0M3fryT8g0EgcIiEFgIaE1BfL8vBdfRvepY0eMBB/gsamdNc
+	 R3G8wLLMcMaNGyrK7aiyPblswxctlxHwaoYLkNxVXVffVm0Dk7XdhmLxi6EshTyXmvgjO
+	 IEIrSDRcsbzehWSH8YkJdlJOjmVRYpvUQOgQPOA8C2YPG77O0cBG4/5sRB4Gt1W9etjHg
+	 JMciLZZM8wD5fu9ufCcmqeDeWhYHDGNWg2HA3eiG0/VktRX2+v67JhiXR+LKEPv9fwQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bp.renesas.com;
+	spf=pass smtp.mailfrom=bp.renesas.com;
+	dkim=pass header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=crGhKwZu;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.46
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010046.outbound.protection.outlook.com [52.101.228.46])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EA8A606A31A;
-	Tue, 20 Oct 2026 11:04:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EA8A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8810B60A3809;
+	Tue, 20 Oct 2026 11:11:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8810B60A3809
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=LZCVchYP;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UbP7T0A5;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=LZCVchYP;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UbP7T0A5
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 49FEC21C99;
-	Tue, 20 Oct 2026 11:04:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792494264; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=wpVq8HTF6kp3l3+P+HlqkQvEgOT+i0h0AfpydZ4MNoA=;
-	b=LZCVchYPxngjyrTdwP7dDyGwjGeRlfwz6xzaWNSZtF8y3Qgf12SIhyh9Y6Nd0wcT7He1aK
-	YWofyhmxglbBVNhGLztczgk2ut0LSAYokiSZEVTLZunTZ4Jh8IVD6VEwHTFDIw5kayF9gZ
-	vwrWwtjorhJFX/VTys9hwrEgQyblgzQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792494264;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=wpVq8HTF6kp3l3+P+HlqkQvEgOT+i0h0AfpydZ4MNoA=;
-	b=UbP7T0A54+niJcsOuJ4B/+AeErov5GjTeJBZVnwBx1FlP4R5goEFKis3ur6UZEwIpgqvEs
-	JSlX8AaT2FdapVAA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792494264; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=wpVq8HTF6kp3l3+P+HlqkQvEgOT+i0h0AfpydZ4MNoA=;
-	b=LZCVchYPxngjyrTdwP7dDyGwjGeRlfwz6xzaWNSZtF8y3Qgf12SIhyh9Y6Nd0wcT7He1aK
-	YWofyhmxglbBVNhGLztczgk2ut0LSAYokiSZEVTLZunTZ4Jh8IVD6VEwHTFDIw5kayF9gZ
-	vwrWwtjorhJFX/VTys9hwrEgQyblgzQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792494264;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=wpVq8HTF6kp3l3+P+HlqkQvEgOT+i0h0AfpydZ4MNoA=;
-	b=UbP7T0A54+niJcsOuJ4B/+AeErov5GjTeJBZVnwBx1FlP4R5goEFKis3ur6UZEwIpgqvEs
-	JSlX8AaT2FdapVAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 90833136CC;
-	Tue, 20 Oct 2026 11:04:23 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id dCK0ErdK12o2ZQAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Tue, 20 Oct 2026 11:04:23 +0000
-Message-ID: <9834b569-935c-484b-befb-b913acead9c1@suse.de>
-Date: Tue, 20 Oct 2026 13:04:22 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=crGhKwZu
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=q3kyTTrH4uODD8ZDco5aB4LZvqdh9qFjeEl772LRU2qbzpI9eN6jEybt2ASHE6i8G2ebVBdNB7umAUOz+aX0KwixdR3QAV7/sbsOARynKF8GarRFWZ1TAY1m9e8L4Dv7nEvcy/Ec+6rJ/RJrTvVKZVzMwxX1ZnzIctbQXlCouZc6g/NE7vNcNI5xL0axk+fzfg3QAONX3EvK5VB8QwiGLu3RJVPIFf5pgwc5/uORV85j5Uj+LWgnXQ3Qdi/F529OPlbxQOGa2vUp8RJjtNtOlwPW4/dC0HUYV5rUy6ukkz2vTxOcBnOJRQpHiBkMXftgfCE/igwGJioejy3JCcPjAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uFeI3eOzn9Q8PN8lIwYRj3dAsVx+dzVqgUHf+UMhBGg=;
+ b=HyvlP870e1Spx3DQ0f1mcJgxLoWZbYn8H+T9claXizfBvxwHX89HKyMLYgdvpCjY7fNcbbR7VmBBz7djgAYsClDQU8RG+a5IybfCdSR/42uS1DQyHibvBCrAfNJPpC/Hloilpexz9EG+wl07/zdrXZAa/2t+xjivDWN0DsWTNI2NN0dwjmZACg1aLHUwV/GEpPvuvezp4y1sCZYlg2IIvlMZ1lIWIpcEg2YoycRLYE7/Z2tfl8l6DJH1BLzmCg29n1rMSivMG2AojwCli0vBKTcqj0iX/OkmZcmf1zKoEkSNKOvFa5PWttEUPC+3lafOTxdLkOlxp/mCLCMZfs36Hw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uFeI3eOzn9Q8PN8lIwYRj3dAsVx+dzVqgUHf+UMhBGg=;
+ b=crGhKwZukKNV2fQU8XLzVQc/Frv+3F5ogoEKV/gxrLCARnp/CnrRoz/l2dUKOKBcepcg3QQ4YufdRX0SO39f33FA31DTl0+TBS2QXTTxF2n9N0NKWkbH3Tp41PmRFzAJ1SXP5FXBJ0DNpzYoARzLI26IlJfGeNIC8EC+vkE6Xl0=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
+ by TY7PR01MB15038.jpnprd01.prod.outlook.com (2603:1096:405:244::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
+ 2026 11:11:38 +0000
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
+ 11:11:38 +0000
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+To: tomm.merciai@gmail.com,
+	prabhakar.mahadev-lad.rj@bp.renesas.com
+Cc: linux-renesas-soc@vger.kernel.org,
+	biju.das.jz@bp.renesas.com,
+	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	John Madieu <john.madieu.xa@bp.renesas.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 1/2] arm64: dts: renesas: r9a09g047: Move #clock-cells to the RZ/G3E SoC dtsi
+Date: Tue, 20 Oct 2026 13:11:06 +0200
+Message-ID: <1b8094e6af35d4844646bf2ab58f434874f863ec.1792493096.git.tommaso.merciai.xr@bp.renesas.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <cover.1792493096.git.tommaso.merciai.xr@bp.renesas.com>
+References: <cover.1792493096.git.tommaso.merciai.xr@bp.renesas.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: VIZP296CA0004.AUTP296.PROD.OUTLOOK.COM
+ (2603:10a6:800:2a1::11) To TYRPR01MB13588.jpnprd01.prod.outlook.com
+ (2603:1096:405:18d::7)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,383 +107,105 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 07/13] drm/client: splash: add a device tree image
- source
-To: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>
-Cc: Francesco Valla <francesco@valla.it>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Jocelyn Falempe <jfalempe@redhat.com>, Sam Ravnborg <sam@ravnborg.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-efi@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-embedded@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261013093243.505776-1-maximpedraza@gmail.com>
- <20261013093243.505776-8-maximpedraza@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261013093243.505776-8-maximpedraza@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.79 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	TAGGED_RCPT(0.00)[dt];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[25];
-	FREEMAIL_TO(0.00)[gmail.com,linux.intel.com,kernel.org,ffwll.ch,lwn.net];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:url]
-X-Spam-Score: -2.79
-X-Spam-Level: 
-X-Spam-Flag: NO
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|TY7PR01MB15038:EE_
+X-MS-Office365-Filtering-Correlation-Id: dff13a12-f0fe-44cb-1062-08df2e9ae92b
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|52116014|22082099003|18002099003|11063799006|261009223027099003|10067099003|56012099006|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	Sk5vH7Ie16ztDY/eEmo9Q67BC8TYMWkRMAs53zB8IH7FSCYYWr/qgMTrYIaJGjdGVNIvZIpf725E6dQzEscIlENtXgA7ldgr+reX2mqmhI0UEq+H2fd4kWCO+VryTsQuAqjVgCmX05OyNzb9UNaLszu5heK7EjqJW1D5w5ww+oLWmIZtkbHQ6nUhv+JEe4L1hPtsbjTxmCZBamlSynEU6cBzv8ys3qrrW+ar5EXjQziS0GOoGvW6AOR39OY8N5jMun/UAfUQRfNM2aCTJf6zBCW/55HiPRhaCJmmtMOrYlyI09iW217H1HyIqa8jqtLWsbvgrDEe5ZYTQCmpMj5QNE4vmMtm+0KjmOvBkug8sZRmkZGM9+ESPB3zZcJUAURUr9ZErJH2KdT47LugzwwqCIz82YMfbTcwf/JUFGg+V0m8fyv8jUwI8wMLg5jNKoMtGt7yZ9KWbsfZVHdrPKv8f3cNb49X4W9xSgNm9EDlKuP+q6mJsc0UMk9aIE9eMMIY42m8Ti4dMXjs6nART64qA8IvWTX43bX4+OaI+wS/X1iyFpCoSlSXbdPxf9mtrwHwYp4KKPftZdhSuuHzJOHAgbU5SuBPjKMVaG7NKLKyZLxcZf7/5F5gvW4bd1auEygDtwUbYDWxTKtPYlfKcYfeCtwHOUHCUAgc4Jg669xgpYK8uaCE7DZAF4W8NPE1Yk33t+6dD68Ly4E3GFgT9SY8mHf3rnA/perOvwBQjonH8Ek=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB13588.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(52116014)(22082099003)(18002099003)(11063799006)(261009223027099003)(10067099003)(56012099006)(38350700014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?u6sXXEcNdfaPhwbgAbP0w1CrmPOfcHjzb3h4NSxRqwYpKxC2nrf4a3i1uOa1?=
+ =?us-ascii?Q?qJvxvFKjPoUHJ71lTPL+90qk3PgfIqt7ZUb06IHrx4RwBAsdvJkyQ/v/vO2N?=
+ =?us-ascii?Q?0JMUduOl4pauGCwRIuv/1e9OLb7NZl705PrA8k++Kza43h5Dg1+9ReLmJDwh?=
+ =?us-ascii?Q?M8e4MUShG3hCGbldXLVvksmplJlP2TzUugn4S9qeLb0hcdpVNFh+E9mRWtWE?=
+ =?us-ascii?Q?DXpuQmK/trF0P0Wjx3ckN3gu7Ceja4w8Z0TxFd6ExYR4vjsgG452wNvxiR91?=
+ =?us-ascii?Q?Pku6ekhQTI5xV2JuPDAe1PofyMXS5EqzqtAx7PBNQ1UVYLhhDiRriQGVdTYF?=
+ =?us-ascii?Q?kv6AzvF/2bhKvTjO/NXe5NCiCwEt3pvHHRmP3ypBaLCp/2Y2kMxTdydMkFgI?=
+ =?us-ascii?Q?ALubcF+SGQeAG0c5ofryzDlHduKcI6Ii1B9MwSqHub6JOW3U7WSddS+2sdi+?=
+ =?us-ascii?Q?uW8fMt6QuBwW7waopVfM2LojTZ0K85pbNE+gZb9STgaVuqaEJfVS4KKli+l7?=
+ =?us-ascii?Q?3/NuH5Qp3ofJhaGo6Yp4rfKmyn5w3PxUMb8Q7gS5LxxiH48VVkp9vSwZD1LE?=
+ =?us-ascii?Q?st9Y8QzGOlY4XStkYsr6F875dHL4PcAQF8Zm9JYszuNzNqLxyx9a3Zl3vBxl?=
+ =?us-ascii?Q?QHdMVIFUecgRAB1HcmuM/MzY8L52Na/GezkQt8pU1N22a6uY/yMSQ95m9kzz?=
+ =?us-ascii?Q?l3iM4TupiGrL70rnZCTHFPudaHO452Kk30hzuaEMC4sdCeLHwuEgnT4f/9/u?=
+ =?us-ascii?Q?1io0tv5pt5Wel6TwPMtPo/oIlcrirLE0N/agkn/dBwJKx7CC5CBO4IECwTMU?=
+ =?us-ascii?Q?jmFXWhqyPufyDkNGmSFEkaovZbqlcLP7359bsbYPYT0olQFPThbZDZT6yc9O?=
+ =?us-ascii?Q?uB8hsgW9LVnK0FSNQH8zAUXA0BSuPeW3AptliVNTDZhOjGOWGCvPpA6sWYFj?=
+ =?us-ascii?Q?RA3vzQlez0CZJHV6uW3q92gNEiKv1olFVkA4Q3BDXHLflfOG8W9o5Qs30ULf?=
+ =?us-ascii?Q?Ffmi2v+iYn+SJH2CUOjFyKF08m2YPTp2Fa+vZoCMzEn0FwYgyNFP4ONxv/1F?=
+ =?us-ascii?Q?Bm2k/EVHzd4iDYWYK/sLSsPGcXzA5bYQ/sH95oaU3XjzNwN6oky76lZz+YYn?=
+ =?us-ascii?Q?n1YS44NaePHB9QUHInxkZlBXlwuMl5PGj+zM/Qxa6q+mooQPMKWNxHxUQhVD?=
+ =?us-ascii?Q?7jEYQKZ4H9krDmxOJfeGqyrw8esEUH0wKJ+AkW0t0XZbAKWzdHW41GzOfOFX?=
+ =?us-ascii?Q?Sto4mJpekESKudj2+j1Pc0Premc9M1wPC3Osh4fMSHpTpPqtavdToLLG79+V?=
+ =?us-ascii?Q?g9gKtumC/0mcCsN0u64k73xYkKJbAkisgrKGdiSb0lIJaxZAqLHITcPXt91z?=
+ =?us-ascii?Q?MXDtaAOdTRX+XMeLu3LJxoY5WNgW4cxGIFxNg3f2/e7Q8dAp5cuG+q8tkrKd?=
+ =?us-ascii?Q?ALJVdLuj5xzvmyEPqvh4MXCK6rER4EzE+zCUsUWp/4FPvrEhUDr59sDenAv7?=
+ =?us-ascii?Q?BioQlvk9/nQKWtl6Kb9his8BqyBEulsQhYDfHL0m1aoXzkkIDwjzgSh+RdMz?=
+ =?us-ascii?Q?0n25UalWoR6NJ2Iac5qL03G+jOnwwLlnM99O6ECYnDoTrwPMBX6YaX6c0nzS?=
+ =?us-ascii?Q?E5wdReRZU7UcQOIMfucfQslKKxYRvC+RPENwtGcwRdCPZTCudJp6F21uZI1+?=
+ =?us-ascii?Q?g8tWul+xV5gkLO8KHfF5RmwREyuYcw8BDuO8qMfWwkQId1qnOJRXn4sF6vwx?=
+ =?us-ascii?Q?sVohmmc1FVqHY0r8VlCL2DZBsl46V708s6Dw0zqnUDCpQrhlajFo?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dff13a12-f0fe-44cb-1062-08df2e9ae92b
+X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 11:11:38.3285
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Z2Xkh0GwskuNW0NmjDN3s2HGd9NtdzFCPHnIjp+MV0y7H+WYLMUlwPAYfTtFR/O7Pz4vQ7aP1r4Gr3QJFDL8zPLhFK0i+lSBJooDens2ppF1dV/B+D32Vn50if9Biw27
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY7PR01MB15038
 
-Hi
+The renesas,r9a09g047-sound bindings specified #clock-cells as 0, this
+is a SoC property rather than of the board.
+The commit 3e23d2548ddb ("arm64: dts: renesas: r9a09g047e57-smarc:
+Add DA7212 audio codec support") place this entry into the RZ/G3E SMARC
+EVK board dts which is wrong.
 
-Am 13.10.26 um 11:32 schrieb Màxim Pedraza Padilla:
-> Embedded products often share one kernel image and one board support
-> package across several models that differ in branding. The splash
-> client can show the firmware's BGRT image or a BMP loaded as firmware,
-> but a device tree system has no BGRT, and a BMP loaded as firmware is
-> either built into the kernel, which means one kernel per logo, or read
-> from a filesystem that is not there yet when the display comes up. With
-> U-Boot's Falcon mode the SPL starts the kernel directly, and the device
-> tree is the only thing that reaches it.
->
-> Add a source that takes the image from a "boot-logo" node under /chosen.
-> The BMP either sits in the node itself, in an "image" property that dtc
-> fills in with /incbin/, or in a reserved memory region the bootloader
-> loaded it into, named by "memory-region". Exactly one of the two must be
-> present; a node with both or neither is ignored with a warning.
->
-> The image in the node is used where it is: the device tree stays in
-> memory, so there is nothing to copy or release. The region is mapped
-> like the BGRT image, and the BMP header is checked against its size.
->
-> A node is only there if someone put it there for that board, so the
-> device tree goes first, then the BGRT, then the BMP loaded as firmware.
-> The boolean that chose between the latter two becomes an enum naming
-> the one source in use.
->
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Màxim Pedraza Padilla <maximpedraza@gmail.com>
-> ---
->   drivers/gpu/drm/clients/Kconfig      |  15 +++
->   drivers/gpu/drm/clients/drm_splash.c | 166 ++++++++++++++++++++++++---
->   2 files changed, 165 insertions(+), 16 deletions(-)
->
-> diff --git a/drivers/gpu/drm/clients/Kconfig b/drivers/gpu/drm/clients/Kconfig
-> index cbe271c3a23f..aef3781cc110 100644
-> --- a/drivers/gpu/drm/clients/Kconfig
-> +++ b/drivers/gpu/drm/clients/Kconfig
-> @@ -108,6 +108,21 @@ config DRM_CLIENT_SPLASH_BACKGROUND_COLOR
->   	  The color can be overridden through the drm_client_lib.splash_color
->   	  kernel command line parameter.
->   
-> +config DRM_CLIENT_SPLASH_SRC_DT
-> +	bool "Device tree as splash source"
-> +	depends on DRM_CLIENT_SPLASH
-> +	depends on OF
-> +	select DRM_CLIENT_SPLASH_BMP_SUPPORT
-> +	help
-> +	  Use a BMP image described by a "boot-logo" node under /chosen in
-> +	  the device tree, either carried in the node itself or placed by the
-> +	  bootloader in a reserved memory region. This lets one kernel image
-> +	  show a different logo on each board or product, chosen by the
-> +	  device tree it boots with.
-> +
-> +	  When present, the device tree image is preferred over the other
-> +	  sources.
-> +
->   config DRM_CLIENT_SPLASH_SRC_BGRT
->   	bool "EFI BGRT as splash source"
->   	depends on DRM_CLIENT_SPLASH
-> diff --git a/drivers/gpu/drm/clients/drm_splash.c b/drivers/gpu/drm/clients/drm_splash.c
-> index a7d627954158..50842922a7f8 100644
-> --- a/drivers/gpu/drm/clients/drm_splash.c
-> +++ b/drivers/gpu/drm/clients/drm_splash.c
-> @@ -9,9 +9,12 @@
->   #include <linux/efi-bgrt.h>
->   #include <linux/firmware.h>
->   #include <linux/init.h>
-> +#include <linux/io.h>
->   #include <linux/iosys-map.h>
->   #include <linux/kthread.h>
->   #include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/of_reserved_mem.h>
->   #include <linux/overflow.h>
->   #include <linux/types.h>
->   #include <linux/unaligned.h>
-> @@ -71,6 +74,14 @@ struct bmp_dib_header {
->   	__le32 colors_important;
->   } __packed;
->   
-> +/* Where the image comes from, in order of preference */
-> +enum drm_splash_source {
-> +	DRM_SPLASH_SRC_NONE,
-> +	DRM_SPLASH_SRC_DT,
-> +	DRM_SPLASH_SRC_BGRT,
-> +	DRM_SPLASH_SRC_BMP,
-> +};
+Move #clock-cells from r9a09g047e57-smarc.dts to the snd_rzg3e node in
+r9a09g047.dtsi.
 
-The logic behind this enum deserves a separate patch, I think.
+Fixes: 3e23d2548ddb ("arm64: dts: renesas: r9a09g047e57-smarc: Add DA7212 audio codec support")
+Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+---
+v1->v2:
+ - New patch.
 
-Best regards
-Thomas
+ arch/arm64/boot/dts/renesas/r9a09g047.dtsi         | 1 +
+ arch/arm64/boot/dts/renesas/r9a09g047e57-smarc.dts | 1 -
+ 2 files changed, 1 insertion(+), 1 deletion(-)
 
-> +
->   struct drm_splash_scanout {
->   	int id;
->   	/* Modesets scanning this buffer out, by position in the list */
-> @@ -110,7 +121,7 @@ struct drm_splash {
->   	bool render_done;
->   	void *map_data;
->   
-> -	bool use_bgrt;
-> +	enum drm_splash_source src;
->   };
->   
->   static struct drm_splash *client_to_drm_splash(struct drm_client_dev *client)
-> @@ -212,6 +223,114 @@ static int drm_splash_fw_request_bmp(struct drm_splash *splash)
->   }
->   #endif // CONFIG_DRM_CLIENT_SPLASH_SRC_BMP
->   
-> +#if IS_ENABLED(CONFIG_DRM_CLIENT_SPLASH_SRC_DT)
-> +#define DRM_SPLASH_DT_COMPATIBLE "boot-logo"
-> +
-> +/*
-> + * The boot logo node, if the device tree has a usable one. Only a child of
-> + * /chosen is considered, not anything compatible anywhere in the tree: the
-> + * image is configuration handed over by the firmware, not a device.
-> + */
-> +static struct device_node *drm_splash_dt_node(struct drm_splash *splash)
-> +{
-> +	struct drm_client_dev *client = &splash->client;
-> +	struct device_node *np;
-> +	bool image, region;
-> +
-> +	np = of_get_compatible_child(of_chosen, DRM_SPLASH_DT_COMPATIBLE);
-> +	if (!np)
-> +		return NULL;
-> +
-> +	if (!of_device_is_available(np))
-> +		goto out_put;
-> +
-> +	image = of_property_present(np, "image");
-> +	region = of_property_present(np, "memory-region");
-> +	if (image == region) {
-> +		drm_warn(client->dev,
-> +			 "splash: %pOF needs exactly one of image or memory-region",
-> +			 np);
-> +		goto out_put;
-> +	}
-> +
-> +	return np;
-> +
-> +out_put:
-> +	of_node_put(np);
-> +	return NULL;
-> +}
-> +
-> +static bool drm_splash_dt_available(struct drm_splash *splash)
-> +{
-> +	struct device_node *np = drm_splash_dt_node(splash);
-> +
-> +	of_node_put(np);
-> +
-> +	return np;
-> +}
-> +
-> +static int drm_splash_dt_load(struct drm_splash *splash, const u8 **data,
-> +			      size_t *size)
-> +{
-> +	struct drm_client_dev *client = &splash->client;
-> +	struct device_node *np;
-> +	struct resource res;
-> +	const void *prop;
-> +	int len, ret = 0;
-> +
-> +	np = drm_splash_dt_node(splash);
-> +	if (!np)
-> +		return -ENOENT;
-> +
-> +	/*
-> +	 * An image in the node is used in place: the device tree stays in
-> +	 * memory for as long as the system runs, so there is nothing to copy
-> +	 * and nothing to release.
-> +	 */
-> +	prop = of_get_property(np, "image", &len);
-> +	if (prop) {
-> +		*data = prop;
-> +		*size = len;
-> +		goto out_put;
-> +	}
-> +
-> +	/* Otherwise the bootloader loaded it into a reserved region */
-> +	ret = of_reserved_mem_region_to_resource(np, 0, &res);
-> +	if (ret) {
-> +		drm_warn(client->dev, "splash: %pOF: no usable memory-region: %d",
-> +			 np, ret);
-> +		goto out_put;
-> +	}
-> +
-> +	splash->map_data = memremap(res.start, resource_size(&res),
-> +				    MEMREMAP_WB);
-> +	if (!splash->map_data) {
-> +		drm_warn(client->dev, "splash: failed to map %pR", &res);
-> +		ret = -ENOMEM;
-> +		goto out_put;
-> +	}
-> +
-> +	/* The BMP header, checked against this size, says how much is image */
-> +	*data = splash->map_data;
-> +	*size = resource_size(&res);
-> +
-> +out_put:
-> +	of_node_put(np);
-> +	return ret;
-> +}
-> +#else
-> +static bool drm_splash_dt_available(struct drm_splash *splash)
-> +{
-> +	return false;
-> +}
-> +
-> +static int drm_splash_dt_load(struct drm_splash *splash,
-> +			      const u8 **data, size_t *size)
-> +{
-> +	return -EOPNOTSUPP;
-> +}
-> +#endif // CONFIG_DRM_CLIENT_SPLASH_SRC_DT
-> +
->   static bool drm_splash_bgrt_available(struct drm_splash *splash)
->   {
->   	struct drm_client_dev *client = &splash->client;
-> @@ -489,7 +608,7 @@ static int drm_splash_bmp_to_scanout(struct drm_splash *splash,
->   		return -EINVAL;
->   	}
->   
-> -	if (splash->use_bgrt) {
-> +	if (splash->src == DRM_SPLASH_SRC_BGRT) {
->   		x_pad = efi_bgrt_image_offset_x();
->   		y_pad = efi_bgrt_image_offset_y();
->   
-> @@ -582,19 +701,34 @@ static int drm_splash_bmp_to_scanout(struct drm_splash *splash,
->   static int drm_splash_image_load(struct drm_splash *splash, const u8 **img_data,
->   				 size_t *img_data_len)
->   {
-> -	int ret = 0;
-> -
-> -	if (splash->use_bgrt) {
-> -		ret = drm_splash_bgrt_load(splash, img_data, img_data_len);
-> -		if (ret)
-> -			splash->use_bgrt = false;
-> +	switch (splash->src) {
-> +	case DRM_SPLASH_SRC_DT:
-> +		return drm_splash_dt_load(splash, img_data, img_data_len);
-> +	case DRM_SPLASH_SRC_BGRT:
-> +		return drm_splash_bgrt_load(splash, img_data, img_data_len);
-> +	case DRM_SPLASH_SRC_BMP:
-> +		return drm_splash_fw_load(splash, img_data, img_data_len);
-> +	default:
-> +		return -ENOENT;
->   	}
-> +}
->   
-> -	/* BGRT failed to load */
-> -	if (!splash->use_bgrt)
-> -		ret = drm_splash_fw_load(splash, img_data, img_data_len);
-> -
-> -	return ret;
-> +/*
-> + * Pick the one source the image will come from. A device tree node is only
-> + * there if someone put it there for this board, so it goes first; the BGRT
-> + * is whatever the firmware shows, and the BMP loaded as firmware is the
-> + * fallback. With none of them, only the background colour is drawn.
-> + */
-> +static enum drm_splash_source drm_splash_pick_source(struct drm_splash *splash)
-> +{
-> +	if (drm_splash_dt_available(splash))
-> +		return DRM_SPLASH_SRC_DT;
-> +	if (drm_splash_bgrt_available(splash))
-> +		return DRM_SPLASH_SRC_BGRT;
-> +	if (IS_ENABLED(CONFIG_DRM_CLIENT_SPLASH_SRC_BMP))
-> +		return DRM_SPLASH_SRC_BMP;
-> +
-> +	return DRM_SPLASH_SRC_NONE;
->   }
->   
->   static void drm_splash_image_cleanup(struct drm_splash *splash)
-> @@ -909,10 +1043,10 @@ static int drm_splash_client_hotplug(struct drm_client_dev *client)
->   	get_task_struct(thread);
->   	splash->thread = thread;
->   
-> -	splash->use_bgrt = drm_splash_bgrt_available(splash);
-> +	splash->src = drm_splash_pick_source(splash);
->   
-> -	/* If no other image has been loaded, try to load a BMP as firmware */
-> -	if (IS_ENABLED(CONFIG_DRM_CLIENT_SPLASH_SRC_BMP) && !splash->use_bgrt) {
-> +	/* The BMP loaded as firmware is the only source that arrives later */
-> +	if (splash->src == DRM_SPLASH_SRC_BMP) {
->   		WRITE_ONCE(splash->fw_pending, true);
->   		ret = drm_splash_fw_request_bmp(splash);
->   		splash->fw_requested = !ret;
-
+diff --git a/arch/arm64/boot/dts/renesas/r9a09g047.dtsi b/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
+index 737bf1c60451..314298a6996d 100644
+--- a/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
++++ b/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
+@@ -970,6 +970,7 @@ snd_rzg3e: sound@13c00000 {
+ 				      "adg-ssi-6", "adg-ssi-7",
+ 				      "adg-ssi-8", "adg-ssi-9",
+ 				      "audmapp", "adg";
++			#clock-cells = <0>;
+ 			power-domains = <&cpg>;
+ 			resets = <&cpg 0xe1>,
+ 				 <&cpg 0xe2>, <&cpg 0xe3>,
+diff --git a/arch/arm64/boot/dts/renesas/r9a09g047e57-smarc.dts b/arch/arm64/boot/dts/renesas/r9a09g047e57-smarc.dts
+index 095acb87c20c..d242f2976296 100644
+--- a/arch/arm64/boot/dts/renesas/r9a09g047e57-smarc.dts
++++ b/arch/arm64/boot/dts/renesas/r9a09g047e57-smarc.dts
+@@ -379,7 +379,6 @@ &snd_rzg3e {
+ 	status = "okay";
+ 
+ 	/* audio_clkout */
+-	#clock-cells = <0>;
+ 	clock-frequency = <11289600>;
+ 
+ 	/* Multi DAI */
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
+2.54.0
 
