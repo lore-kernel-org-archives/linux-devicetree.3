@@ -1,71 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792459324;
-	b=hS2nGNmqm2bwwUwfuwqvjVeKsxlW0e7Nm0cytpHNb0+la1eugEQ9oRwNZXhJhghfqB7G
-	 NvGfoR/DVNr68jSTdRBZipzQF0jkSiIqaBCR/xd91aoh6EHxiJzWJy+JGFH57W20SoU4w
-	 8WOroa1Tf7gfgmeXFGllYBAk29WquHcIBtnmQwS50uWO/6h06YolG8707lOWNLQbAolF9
-	 svB7w3tHQcrMlITiUDhP+qXzqyjV+MknQAYeC1koS7w3yu5yHaLp2GovXMdBn/RAcKxGc
-	 d9VPZWtksAC7Lmlin/ilc/X3D2j1pBhDKIJo8bmIii6k7Xu4rDCG7pwf1wVeG75dfoQ==
+	t=1792459506;
+	b=Cd4VRxwc4kWsIkzW6DJbu6Th1yIACnCthgkeZTc1EkXRXLebeCLcOEfE1KT8vFEvmyZO
+	 GMhw1aTybmvmA2sousXDr89rM28RmMNwqH2CGkxmn5dZJ7S5teeEKVl0weSVNSK+7avQQ
+	 ZaCjDTd9/6imSJWMCxO+CNcLq8LF4Dk54Y/KuHt9/qQa6QDyKbGQbEK8gVaqL2qFH4WQt
+	 pPdI3qzUvExgOHqLFdBXygILZXG5i5ZhymxDVaxcOnud/hvDoUjaR0qBAWtFFL80o3TMx
+	 w77RtFslk87U6jchhEUDb4dg5gv7AVAbNSsllKTTayZ3HetwXqzd2aLm4in3l5mmnNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792459324;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Y5PuInUz/jG/sVc55vzwpQmtUc4DneWfMKEBS2B1HkA=;
-	b=h6Y+7FKdNjawAO5qvyB2A3c7KgTThQ8g3xx0t1rip0eiluFKzdf9mQ2/lh/SwP4vkHiw
-	 e7JWDmZbEUGJ/mKeFKtMg9pgHjLrqfHIN2I+feKE/ZLvtCWByqzo4OJC2coejqLG2uM7B
-	 XLRBA2jlOutMRi16yMo9OK916nL7zLZTnz1JaOjdZP8zO80ZaaYapysa4xDnzWujh+bFB
-	 0xtk852+JG3U2dlck5uOy3LAuyDdL0KsOnAdmRFp1BXwsXPTTq3Kkb969Q61TlKb3qVvp
-	 vxp6onemapaoG2ZNn50mW0gPLRd50+jH6I8zZ8jm4v6Ss6S0pLRMQsP/ktBUPvJXaQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792459506;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=G8hApdbjB2FWFRs0szr0ee40pXh05s3I5KLtI9DczSE=;
+	b=SUSGKScnrXp8GjWQsm5sI8WAnP8b5HNDFsJnmIX+jKlZbON820vVdY+7zFxF5JyI4Mqu
+	 PykLEdfbuvhJxG+tzyKHDThobCcWg3QzGb/MuJ9OyGCh0ZbTkLiKAl2F066VguaeU9uUE
+	 2UP8+IygYPmbxaUqsjDOELDRhFZSdfkWXl3E9d2m13pWIdfYVXoIL28nUW9zNSSXNWS0E
+	 WtoTd7A4rI7TL55FIEQd6SBwUJUCKLBULcF0Oz23lUfsoWM5pLPudP1fK/9Llz8Mwmi+H
+	 tDdR0tqKjFxSBj2hGt5CvF7atWBNjfaNE1bOToZs2TE0yH8zxk/3KU55GKwdfTt10aA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Ij/ZTfSV";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=roeck-us.net;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GkRT5n2e;
+	arc=none smtp.remote-ip=209.85.214.179
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 552BA606A319;
-	Tue, 20 Oct 2026 01:22:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71DF5606A31A
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 01:25:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71DF5606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ij/ZTfSV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36EE11F000C4;
-	Tue, 20 Oct 2026 01:21:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792459323;
-	bh=Y5PuInUz/jG/sVc55vzwpQmtUc4DneWfMKEBS2B1HkA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ij/ZTfSVf2swDQKjpQY+M1H2I5MkLeX5CF4dH4/9XKE165jBsDdvEwhW81eUmMMjb
-	 Qa7Npvl6yBb17a13UvFrx+F558g8qtjW3Jx8HQ2wmPfgDecd4FVrr176Pvye0m7huB
-	 b8gB3PVWN+ieA2OWvMaqKqc1pFccggf6hGdppcfcNIIzPb4SLFLMiOICvTaBe8MAMo
-	 ccYqYzmJWOF0vh9T+5mTGwhv1K8ArNjqo22DC2bm6gpAiLDfN6Zb7V8wILCD7w7hbg
-	 OGRinhBbeU5+ZdzL+gEGhTHiNXTwxiIjthvTzVDhkDx0SgvL4YvUPNJZZ9WRLDx3D2
-	 G3K1Ev46o1B/g==
-Date: Tue, 20 Oct 2026 09:01:50 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>, Lee Jones <lee@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-i2c@vger.kernel.org,
-	linux-i3c@lists.infradead.org, mfd@lists.linux.dev,
-	linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org,
-	linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 05/20] i3c: dw: switch to array-based exclusive reset
- control
-Message-ID: <ata9fqjAm09xnBQM@xhacker>
-References: <20260929061417.20733-1-jszhang@kernel.org>
- <20260929061417.20733-6-jszhang@kernel.org>
- <62860351b9ae360c174d36dd54d4110417f395ad.camel@pengutronix.de>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GkRT5n2e
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2e98798cbddso10589215ad.0
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 18:25:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792459505; x=1793064305; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=G8hApdbjB2FWFRs0szr0ee40pXh05s3I5KLtI9DczSE=;
+        b=GkRT5n2exhVq/bZWWaWrZfPBL5AwA74qNvh5AAr/Cgsx40W5miy0tb90dSrybPiAoA
+         KYS5YrJMDwOJXQVm76DgepdKqhnCx6Iqsq4sLd3shwUGNj+OzN/wzokmuCk94+5xm1SN
+         G2jJJDfuyh1SPZWyN+0RBm6NMNTfrQ12kcYn0FR2vl2C3JS3yLPcfijVc77wQLPIm6vq
+         0pp+oKwJaT2ebEfzBfEgJGVN+hRbpSnPAW5glKNFeZaeYEtDVNk1g9RqbjKbqRNL7hXS
+         Z5BfSnwFx/NFDkivzx6gPW43iJAAXPY0qzt+svke0gxc94DfosSykVf9sF432y8JhxHn
+         aWHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792459505; x=1793064305;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=G8hApdbjB2FWFRs0szr0ee40pXh05s3I5KLtI9DczSE=;
+        b=q3JGJTGgC0zWYiFWSRk8vnLbSsAqXj0RnBTtA8cqrt13TcfnqRLtTh5PJXif08BZrY
+         0H0VmPfr7UyntuH9NVP/etL3aWNESA9+Xo9Hk+Gjp+mqKGo4VyboKZdZ4fo47O82xfZ0
+         UUac/ifZ+WwaQWo2qNv3do4UDsTBhCG0ixhayIWQ2ZUkIsadP0dV27VrOdu2KD7hWxIP
+         BziJ2pWOdWyT3g6w3bjsErdkUQ9eYozmq6A6X+UeMyjtOnm0n/5DiJrMrxbRPqwWwRYC
+         B4nz/xFNcHvX0TE6+EJrQYlda6yfRyxPjHzdKkpj+6pDFw0G4EO18EsPzMkpkZQWdL4z
+         74AQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxZ6znDr3VuEHcLrGGN8g7d4QbD7KZfu2styEnQAH09WrylCAyvNAchIlm1Ullsvc5YG1UI83fsL0MP@vger.kernel.org
+X-Gm-Message-State: AFq9FYKXNTlbJ7BLClUf7iVmtrpxdWNglYHz9xP2vFw2IlcZZEyLUBz4
+	Q2YAanvbuTLD8zlw3QmIpHV+Fk+ZOGBOykVHOyWmp7d+2LIdEheubA/w
+X-Gm-Gg: AYBFou1GFQTP8mhxerQSXGweZgRZ66yvdvZbAZK8gNebK/wgb+RmIi2r+69HnibhRgS
+	VW3zYMo6wZqpSUkji7gQxYHrVJ9dRrw3bTaxhvIl4uuUlgiUM1QngWIKvfQQkH+dkrriglo9gTy
+	/CrHiakrgLzqjyfPlJYC6B3nXSJBuNJdgO+wCQ63Xxz7sck+TKZnYHSgjwgihq9zSTBfRWw3CdK
+	eTI4GBOcWwGNbUsL412f8FhwIOOGvHPFLMgqAu0EnbSnZMx0lcTSBn0ACuMpxTJdF9Z87342drU
+	zBYwZhWXzbJ2puDGn2YyyX8RXMWC+1YLeuQNpQm8uwbtKEtEWhC7ogfzFU7ESN9E5StdhiWtrC4
+	vcEOArAlgYO4Q3/qXEya1bUxRQimVOdYTGU+5l7+f/upCuTI3g8ipbytjNpQUV1rZHKJguFyEz3
+	eomAeCOjRtAZBx/ZXhOzuGH8yU3zS1qwK0yEO/aAMLCuQFRpmY2nbYBHUvgE8ow2+tGTUp8oDpY
+	T0ooXZiSTN4
+X-Received: by 2002:a17:902:f706:b0:2e8:2f95:764d with SMTP id d9443c01a7336-2e9a6f57a2emr77436145ad.59.1792459504698;
+        Mon, 19 Oct 2026 18:25:04 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea14dec6f0sm6844815ad.30.2026.10.19.18.25.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 18:25:04 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Mon, 19 Oct 2026 18:25:03 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Alim Akhtar <alim.akhtar@samsung.com>
+Cc: krzk@kernel.org, peter.griffin@linaro.org, robh@kernel.org,
+	conor+dt@kernel.org, linusw@kernel.org,
+	linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
+	hajun.sung@samsung.com, wim@linux-watchdog.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: watchdog: Add Exynos8855 watchdog
+ compatible string
+Message-ID: <63cac66c-98a7-4174-86c3-68c1e2f15805@roeck-us.net>
+References: <CGME20261006160157epcas5p37b8a0053c489b051dfb415c9b72ba178@epcas5p3.samsung.com>
+ <360067785.01791340382096.JavaMail.epsvc@epcpadp2new>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -75,75 +102,74 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <62860351b9ae360c174d36dd54d4110417f395ad.camel@pengutronix.de>
+In-Reply-To: <360067785.01791340382096.JavaMail.epsvc@epcpadp2new>
 
-On Mon, Oct 19, 2026 at 02:55:21PM +0200, Philipp Zabel wrote:
-> On Di, 2026-09-29 at 14:14 +0800, Jisheng Zhang wrote:
-> > The Synopsys DesignWare I3C master controller can have multiple reset
-> > lines, such as a core reset and APB reset.
-> > 
-> > Refactor the driver to use devm_reset_control_array_get_exclusive()
-> > instead of a single named reset handle. This automatically manages all
-> > resets allocated to the device node sequentially.
+On Tue, Oct 06, 2026 at 09:50:03PM +0530, Alim Akhtar wrote:
+> Add the 'samsung,exynos8855-wdt' compatible string to the Samsung
+> watchdog device tree binding documentation. The Exynos8855 watchdog
+> nodes use two clocks (bus clock and source clock), require
+> samsung,cluster-index and samsung,syscon-phandle properties, similar
+> to Exynos850 watchdog implementation.
 > 
-> Note that this does not guarantee any particular order. Are you sure
-> that this is good enough for all implementations of the DW I3C core?
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
 
-Per my understanding of the doc, it only requires the resets are
-asserted and de-asserted, didn't mention the order. And per my tests
-on syna SL2610 platforms, the DW I3C works perfectly no matter I
-reset apb reset or core reset firstly.
+Applied.
+
+This missed the start of the commit window, so queued for v7.5.
+Sorry for the delay.
+
+Guenter
+
+> ---
+> * Changes in V3:
+>  - Removed comment "for exynos8855" as recommended by Krzysztof
+>  - Added Reviewed-by tag
 > 
-> Otherwise it may be wise to at least specify the names in binding, to
-> be able to switch to the bulk API or individual control later, if
-> needed.
+> * Changes in V2:
+>  - Fixed Sashiko review comment
+> 	- [Low] dt-bindings: watchdog: missing comma in samsung,syscon-phandle description 
+>  Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
 > 
-> > Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-> > ---
-> >  drivers/i3c/master/dw-i3c-master.c | 24 ++++++++++++++++++------
-> >  drivers/i3c/master/dw-i3c-master.h |  2 +-
-> >  2 files changed, 19 insertions(+), 7 deletions(-)
-> > 
-> > diff --git a/drivers/i3c/master/dw-i3c-master.c b/drivers/i3c/master/dw-i3c-master.c
-> > index 4563d8761ba0..1c6c870f5bb3 100644
-> > --- a/drivers/i3c/master/dw-i3c-master.c
-> > +++ b/drivers/i3c/master/dw-i3c-master.c
-> > @@ -1657,6 +1657,11 @@ static const struct dw_i3c_platform_ops dw_i3c_platform_ops_default = {
-> >  	.set_dat_ibi = dw_i3c_platform_set_dat_ibi_nop,
-> >  };
-> >  
-> > +static void dw_i3c_resets_assert(void *data)
-> > +{
-> > +	reset_control_assert(data);
-> > +}
-> > +
-> >  int dw_i3c_common_probe(struct dw_i3c_master *master,
-> >  			struct platform_device *pdev)
-> >  {
-> > @@ -1696,10 +1701,17 @@ int dw_i3c_common_probe(struct dw_i3c_master *master,
-> >  	if (IS_ERR(master->pclk))
-> >  		return PTR_ERR(master->pclk);
-> >  
-> > -	master->core_rst = devm_reset_control_get_optional_exclusive_deasserted(&pdev->dev,
-> > -										NULL);
-> > -	if (IS_ERR(master->core_rst))
-> > -		return PTR_ERR(master->core_rst);
-> > +	master->resets = devm_reset_control_array_get_optional_exclusive(&pdev->dev);
-> > +	if (IS_ERR(master->resets))
-> > +		return PTR_ERR(master->resets);
-> > +
-> > +	ret = reset_control_deassert(master->resets);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	ret = devm_add_action_or_reset(&pdev->dev, dw_i3c_resets_assert, master->resets);
-> > +	if (ret)
-> > +		return ret;
 > 
-> This looks like we are missing
-> devm_reset_control_array_get_optional_exclusive_deasserted().
+> base-commit: bf1ee2bd5c2da8992f33c8950ef194aaff74ed6c
 > 
-> regards
-> Philipp
+> diff --git a/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml b/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
+> index a32c47831577..37d9fc9b68f4 100644
+> --- a/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
+> +++ b/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
+> @@ -25,6 +25,7 @@ properties:
+>            - samsung,exynos5515-wdt
+>            - samsung,exynos7-wdt                   # for Exynos7
+>            - samsung,exynos850-wdt                 # for Exynos850
+> +          - samsung,exynos8855-wdt
+>            - samsung,exynos990-wdt                 # for Exynos990
+>            - samsung,exynosautov9-wdt              # for Exynosautov9
+>            - samsung,exynosautov920-wdt            # for Exynosautov920
+> @@ -52,13 +53,13 @@ properties:
+>      enum: [0, 1, 2]
+>      description:
+>        Index of CPU cluster on which watchdog is running (in case of Exynos850,
+> -      Exynos990 or Google gs101).
+> +      Exynos8855, Exynos990 or Google gs101).
+>  
+>    samsung,syscon-phandle:
+>      $ref: /schemas/types.yaml#/definitions/phandle
+>      description:
+>        Phandle to the PMU system controller node (in case of Exynos5250,
+> -      Exynos5420, Exynos5515, Exynos7, Exynos850, Exynos990 and gs101).
+> +      Exynos5420, Exynos5515, Exynos7, Exynos850, Exynos8855, Exynos990 and gs101).
+>  
+>  required:
+>    - compatible
+> @@ -76,6 +77,7 @@ allOf:
+>              enum:
+>                - google,gs101-wdt
+>                - samsung,exynos850-wdt
+> +              - samsung,exynos8855-wdt
+>                - samsung,exynosautov9-wdt
+>                - samsung,exynosautov920-wdt
+>      then:
