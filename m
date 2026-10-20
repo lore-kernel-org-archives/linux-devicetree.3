@@ -1,57 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792487257;
-	b=JTPWAuA+W2WaZo1UmgELlcD2bgDu5sBts1hPslsyFdp5HYL6anWG0SiexGGa+kL5OCzM
-	 Igf9iY4JGIKpuzigK/Idjf7/6goD7VyjNhRPkk7zHBr0GcMzCqU+SJKpqnk6EqtOPJOgR
-	 3X+nJyIgBCgWNlIvIN+hFLBE5p5QbsqqKV7sOvSA4VXVRrbMu0rV7vlAbkBSX1iA/2JHk
-	 bzOViKvMuOMitYb3Fa2BQBNalo0JhmR5TSswcol04+cEXQ8jJVlIcB5fwOcISvN9jtLG5
-	 F6RkMPzb0xsaHx0hSS9jGYXD2xq5pSCUXVM3NtkBYyn8aZr2HGSRp+0NSNpMEuHrLnA==
+	t=1792487305;
+	b=InN8H5dklqF0/TjGahiywW8OE0vHuBPS9fm61kG1EEtwLFMW9bxdatdLbd9KNo54U90x
+	 QtzDnO5IrevoE2049jJfeBe65HbfRbi49kMmKljrMGxK0O8TGTsDtbMyy0HQbAJp/paAS
+	 xszCKdytKCcqpRAmC29noIRmtdOgNktYb+CCDCf0bkXyUkpudGyZsRQMEsdk1uQj7rV+x
+	 gtHI+TtksDeS8PwqCGMB82+te3J1/2NCRI5B2634/mbVd86a3cCfsqnMUFS4vZNVhpHWs
+	 842raUMggaOm2hqDeuFnKcXthT8JaEVgpal1jGUu3wy/uYIvNSOom9OkpLwlKXKTNdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792487257;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792487305;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=4bn3cWdwZrpBaWzYJtec/Ntiw0Eowff++j505Mm5iEg=;
-	b=FlOu+wLSU7kah1G6jr3FOPPLMRawfPNmcF2C/NND5GprI5DP01uQXp5EsRC/wahaSOAO
-	 k6D2+NosQnIMkadiQ6ahaW8Oumygoy+Rn16ud5eRvWZXiO5kFmLM+b0l7Inpz4d9d3i+x
-	 Dx3Z0Xz0pGtKP2FavBhe93aqwo99duFMElHKCzrXdf1VYpeAp/VvUA4sroMSzHggYeNWM
-	 5GkgAPL8c5Rf7h2aKJ6MeQNhtL8mf9xuSp8MNiKks9jXYOPWS/XJeL5C5InboyEcEjmCj
-	 ffnwLuF/xPFwPoC6vFWXQjTP8Rv5K+lUVFe42XPaNiYVOk2H3nbF+njYz3beWE4zi/A==
+	bh=Ue66AYZqnnN5Po4mP1VXfKgtTf/rt3AX0hFV+/ABXdY=;
+	b=3Qw+kPyEGfSDPQtAP5EgOcwXiWBHnOJpNoGnHnsqlTLiRaPTnhU26bvduE/WNsYJXnXm
+	 5h9jgKaBT0Z8MbM9J3aJVD1gvR4Fkk3Fq4q4A0qN/7tD4JzhOhcKJsJm4Pr/Por3Kap+8
+	 yeZpVrAAUfqbx30KVeorBULFP/xI06TpfHOQIjIBEJbJuHRQB2EaxF3v+Ix1Pqp5BEbam
+	 UHVKwW5/OCAwoiSDlMXzbHvkSfpxnbISyiqQtU2x3rpA4CqMUsJT9qFLSUbzcJfnjp0Wi
+	 1AOwQlg8sdhriud/xHjTLjS9D9oe6rGQbC7v9zAotdyYrcp9KXiSqfaliJ1nd87R0sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=JEWtc8B5;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b="m/vwQVGS";
+	arc=none smtp.remote-ip=109.224.244.17
+Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83990606A319;
-	Tue, 20 Oct 2026 09:07:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83990606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39650606A321
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 09:08:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39650606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=JEWtc8B5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1792487254;
-	bh=oRGsM1bXUyoQFClOurpdXPfqoj3kEqrQ7E5LuNfjomU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=JEWtc8B5ei7AdnCgumD9wkGPxVmZIML9X0/Yp+0gePGNvkKYFhQ6trIgjFIuJmcmw
-	 +juMBVqWVYgBwBNztcO+GKU0qVKV5/YR8lmSZ8sKcjBG4hoaXh/X7/GJ2HFXvwiXHn
-	 GQl7ZKuGv6Ni3JlB1R3rHGeOA6WlV+nKUZVE5vE5DN+bCw7T8Ir1IURKlvcvq8CMty
-	 1ODove3DUBjKOYLnRfNmRSmyBOxkrVCRuEJz2gBQIqtS38KjLiyrA4GsXEUmbq2x2P
-	 mbTUdVmwVjtuOuaWphb36gnoQ8njOl7BO7TmpxKu1CLiBZ5p2pj+Z0GzLlr9lq7p4j
-	 sOM/TsMdMYt1A==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 1320317E05F3;
-	Tue, 20 Oct 2026 11:07:34 +0200 (CEST)
-Message-ID: <afc3ec2a-90b5-440d-9710-2b3892b01b6c@collabora.com>
-Date: Tue, 20 Oct 2026 11:07:33 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=m/vwQVGS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1792487303; x=1792746503;
+	bh=Ue66AYZqnnN5Po4mP1VXfKgtTf/rt3AX0hFV+/ABXdY=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=m/vwQVGSTqkK20WARLHrqOK0a+OdFV2iRSncT3FNlMK7jTNC9uzfdsQIiEat4HsP/
+	 DS3OvBGIoo/bt05r8aljXvjeGrnXPPPqSw4U71NaaBPRqvcV1ywXv5grCNKNLVGxpk
+	 yGc1KyK72gAyIITFptYtzO5lZA3CrKb7ysCrd+Edo+pbViZdXFLuTDolLi5pnUJ9FO
+	 qGXySObSNCqOxBYrODWwmT7eMxr8mkQJAcisA2C0sKAe6bohnzFLY5Y4Dh7vOGgJVr
+	 ldZbjnq8DJALh2UO49GYZltltjD0nJ8lkpsktqbaoo20IRaQ317SSIIC+3PyJi6FWs
+	 aWjXyB7bPwdFw==
+Date: Tue, 20 Oct 2026 09:08:17 +0000
+To: Krzysztof Kozlowski <krzk@kernel.org>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: media: i2c: Add ST VD55G0 camera sensor
+Message-ID: <20261020090810.78033-1-lsa.uz@pm.me>
+In-Reply-To: <20261020-cute-peccary-of-attack-2376af@quoll>
+References: <20261019162722.25587-1-lsa.uz@pm.me> <20261019162722.25587-2-lsa.uz@pm.me> <20261020-cute-peccary-of-attack-2376af@quoll>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 35e71ddeebff9e99cd821125714fbc2d7e2cf39f
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,41 +64,29 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH PARTIAL-RESEND v12 0/5] Add support MT6316/6363/MT6373
- PMICs regulators and MFD
-To: Alexandre Mergnat <amergnat@baylibre.com>
-Cc: linux-mediatek@lists.infradead.org, lee@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
- lgirdwood@gmail.com, broonie@kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- kernel@collabora.com, wenst@chromium.org
-References: <20260511101355.122478-1-angelogioacchino.delregno@collabora.com>
- <179239867012.642420.15110854236483587234.b4-review@b4>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <179239867012.642420.15110854236483587234.b4-review@b4>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 10/19/26 10:31, Alexandre Mergnat wrote:
-> Hi Angelo,
-> 
-> I'm working on mainline support for the MT6363 MFD PMIC.
-> 
-> Are you planning to send a new revision addressing the review feedback
-> on v12? If you don't have time to pick it up again, I'd be happy to
-> help address the remaining comments and prepare a new revision,
-> if that works for you.
-> 
-> Thanks for your work on this!
-> 
-> Cheers,
-> Alexandre
-> 
+Hi Krzysztof,
 
-Yes, I do have a new version locally which didn't get sent because of the SPMI
-series (introducing the new helpers) that didn't get picked yet.
+On 20/10/2026 10:27, Krzysztof Kozlowski wrote:
+>> The properties follow st,vd55g1.yaml nearly line for line. If a
+>> compatible in that file is preferred, with an if/then for the
+>> link-frequency minimum, I can fold it in there.
+>
+> https://lore.kernel.org/all/20260902204549.657228-3-pm@petermarshall.ca/
 
-Cheers,
-Angelo
+Thank you. I read it as: no new file, the compatible goes into
+st,vd55g1.yaml. So in v2, 1/4 becomes one patch to st,vd55g1.yaml that:
+
+- adds st,vd55g0 to the compatible enum;
+- moves allOf below required, together with an if/then that sets the
+  375 MHz link-frequency minimum for st,vd55g0, as in Peter's patches
+  squashed per your review of his v2;
+- says in the description that the VD55G0 array is 644x604 and that
+  its I2C address comes from its NVM rather than being fixed at 0x10.
+
+If you meant something else, please say so.
+
+Sergey
+
