@@ -1,108 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792493286;
-	b=Th7xqtcvZDNr9jYMESwnKsbcfTyvNxm7or8tfWkWA9W/if21Y5Kp3tgPNBAze6aeTdO/
-	 h3MX4lir3V2VsIZ02Og8ZQPUrvKiWtc9b2jS55NBITXcaXCd+kl99Fehk7BZ8BlEBL3ao
-	 83tC2ft1FDnDlilkxAFOgTMe5yZL8kz6UqNFtdL++M5FlpztmjLBEgQ4vUOA0t88iKulo
-	 Wb0TdSOOv1FyXdznR1eNcu+qfC4jb1S+7nbT2W/xhnZieE0eAzlsu6EwBihrDH+A63z26
-	 kOEuf3pW4fQLDGNvh+avvyUG3GqK889FsNXbg99dw2BysGUesVJKIey31f51Y5edOPg==
+	t=1792493349;
+	b=X7SVI37qQuk9y5/cWVHo22z35OvHRfVEkiGdMk2KdSR09XmScxWx5l+kLOGBQl/8mKru
+	 XO5g+6e/bb+ebMjM0AQpTN2cxODOYGqu0iJ79ZfASowV9ed0zBx6BMG0Oye4HPdOVBCUF
+	 B5DJOeRhWLnomk5U7VWJu1ZsLmve48E6flRNpsCcYP5DKMaqUp5pMzn5S/YYRrYHRf21x
+	 CePvTAaelEXT/T8iZe7GXBL3/xcPEwSI7+5s4cPxa++4RebS7srUwElyJ63OLH49YcpLw
+	 f2oZ8NjfzftENeE02ifTiTsDz73vVvqnyzcl2GEP4uapaFQYJUmRX8SKcz8itxZJjig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792493286;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=6I3hZn5IrrtMWEjXHuQurKyJm+2cM5wqnfTX9gelMt0=;
-	b=Dud9aRVgV6dMQYBscRRFR80jw6X7Ey01p7k7FaQYLjzkG6lAmXnAPNGdrraquDSyww2u
-	 B1VY2cuHgrk5PaHhNG5UxzDCxAYVbF9enxEfP4i3fHghMuP+HYb7GwjY2WURdDzJ/Ocv1
-	 xROfYNXRnN0K8bRXy1GdQVGiU17CNOjdj+lK2Ant8CwnEiNlLRWhS4aOIXsUlsDCkV2Xl
-	 QRpIQelawNyHn9Zt6yLf34edcL1gzEwkNl52eCCVNTN1YMldAdjokA3PxVkKkyAKkfuNn
-	 n6NC7+hWTVLNSvO5m1apmsQQc06kR2LhHcAvCZGweOe1XlF9jgaaVvxR10Bpm7vAs4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792493349;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=trCl0IagpgcoO8afehRhGBb553RQMJrfCqZC+//rWNY=;
+	b=PuQ6knwKBTB+qxiez6GbUdXXuTDn2SWm7UHJgCbY8EvLIDM47Pv8xbIuGFisu5pT3wnx
+	 HArzbzznf60bZ+zE5b9Nzohai8q8Mt9yaAFBgu0+45Mvth4JoqoqsVEA+ub4VdZBvXiHM
+	 mEHlNOI6obtQkhLJXJouXy6ISQOowyvDh4Wyp0zYIc4weMEDr407gafvbSyb/7oMGe+iJ
+	 OOmrY6DbwTG7oRWK/d/MP6oRcwnxXcKPStjeM+T+wAvsM9nR6EQRbrLoxZkDPPB4BZ23o
+	 I5PC3qZQoEk5yOlWSPK1QlgpAXHso7+QU8G3p4uQkXqz++qaNbzfbn//W/8NxihACzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fiGsEbWV;
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AprRcdk4;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="KnF/8cI+";
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AC7E606A329
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 10:48:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AC7E606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4233F60A2605
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 10:49:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4233F60A2605
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fiGsEbWV
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-36661f953e4so621792eec.1
-        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 03:48:05 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AprRcdk4;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KnF/8cI+
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KAZvu61398831
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 10:49:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	trCl0IagpgcoO8afehRhGBb553RQMJrfCqZC+//rWNY=; b=AprRcdk4LR1jWCUu
+	ikTATDCUXNBzvj4py/NyCVz0Y08DJJQrwXULba6OSy/LnqcWRfd8m4zT8pyBYBYI
+	pRW0JACZOhkLwLkOaEpLqonPtNHEdcL3Wf/hwgBkVkXkHsNS9+cCf/5X56VpVv/H
+	FyYzaIHy95DvineVyNXf44lSFPoYZW9hT3c5Hw5Xy02jTkpB09VyZFwY3kdgF6sR
+	415q6sxraurE0DwtR4oJ6PCZ4b4xJOqIES0rWVzl3sjIC1LuBqcOMeHg1SWKVb93
+	DBHjZu6V2rIJEGXtqueCLC+c4fy3mwYvTsHt7KPAECmEn2AbVJ7O1Q6yPpE8iN6S
+	xv+igw==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5n24mn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 10:49:07 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f1440e081so52667785a.0
+        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 03:49:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792493285; x=1793098085; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6I3hZn5IrrtMWEjXHuQurKyJm+2cM5wqnfTX9gelMt0=;
-        b=fiGsEbWV8Q8RM6j7ZxuVSvjNOICcG6msaUt4ksLEKv+iwv6d8mxyjI+a+1OU0I2GKw
-         F6luj7kc9MNOSHVKmv+62GQZAdeQzjs0durajglBeRLj++pSzmkAq961oZr4j8SXZELj
-         JXdXl+6PIKVfjB48KQKvWRtyW8qHoTRIiGHSLRi5EVhek3fVAbfA/y6+onr+iY2O/bHx
-         KMmmpB8oRIDXzcsu3MVc8a1X9tfsNan5xDoWsVMKchyzXgoTALcRdTArn7Q0oDFxM1fp
-         glTTGMeSvFQkiHXwWmnRf74xc/RdAusZLhgtR0DICZDjNauabVu08HwZiM4jWCxGQ19J
-         SS/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792493285; x=1793098085;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1792493347; x=1793098147; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6I3hZn5IrrtMWEjXHuQurKyJm+2cM5wqnfTX9gelMt0=;
-        b=oMWVrjXuxRiuKKmfER3gFgxXnrisVdyWaOMTzgEf8ezOr8J34iymoM3Zgo21WOLr3L
-         BZ0+wDrcuYFUsR+aLL03XSZNrlrCJhEX2Ht0irOmBGT8UAliJk25eDC3slcn9M/2DHTo
-         9CzfzRVVOrykANpU/UmD4HhikszcemvlWd++LCXpSavUnTeP31JqqrYa5jCKFonTyY4A
-         rAeyien0KKZESrVyWNPKXnwYY/eBB7wFK5aQpOB+JQyknb52dYZeSwtqKY6/1xBichwt
-         C9rqnVBZZRC+wTnMKLPkz6dpc0VOmBATgtRDWTrY95w3hj7FTd1deCnyBLQ0p8MKF0Ph
-         kT8w==
-X-Forwarded-Encrypted: i=1; AKwUvBwK131270uKWWCP0hRL6Pr4ryrgqfVKtXaj/I2m6SnheUPR5zNCVm6A5Mo/dHDVWxnpN6+fplDlJamJ@vger.kernel.org
-X-Gm-Message-State: AFq9FYJGG8x55bbQGu1WMoX/etFU+sGVWkCUmcrOV/SRC6e8wkPq6J+Y
-	8ZA63ClIRXSgrHevmiR7noYHORIiY5mTJOEVb5nDat1Qz/KLVcTj6OXb
-X-Gm-Gg: AYBFou3xC8oJIBK6jVMGp1bBIDJX/YQF21xjGKYZBzVk5jYd9mzNLuJV7iJOf44StmT
-	+kGLuqRwMmkHkYQX2YJkklpEdx6bb/eKqXRgELIbUoz7pRKUE3Ig0JAWx/w58Iz7lff6NUWjcmP
-	CPxPos5+Qn1zfuxEgDThgprpSLEHT/E0/gMj9wxm9Rw74b20QNaYdwTT1878vRKuhnPGp8MuQLF
-	E5bDOqgW7wJLO80UkUIBnciIfGyI6q9qizus1cJcmQir6g2P0XyQ7zTQBXBN9H+pZVNtuj6mrFi
-	rnbi95DnXdpRYD9nFxxRAkZgfnO6BgBrBOWyF5Q9iiplyUKYkgNQ6KXWOChDogzK76j6Yg70YSY
-	0LgY6QHhRaH2OsCvv9qb7wThhQwEvnzjrkEN+33MCP+4Rd6o7ovk7y1bTJouvVpgNOZFtD/BfnC
-	SQL56n3mBbYT+w1hzHNqCsfiVjblAMaXPUSWTTiYdaQs2HD4ll5HxOrvu0Uj5CnapLxpM+pf2Eh
-	nXYr8g/u8wYvE22D2UgGWCCtLe8BH1CsMTQcHQr8vq0zRg90h6O1wpcK/cNket2tKRlPKtPtLKa
-	oJUoAEs=
-X-Received: by 2002:a05:7301:4305:b0:35f:227b:f8bc with SMTP id 5a478bee46e88-361a1465355mr13074342eec.11.1792493285129;
-        Tue, 20 Oct 2026 03:48:05 -0700 (PDT)
-Received: from MaquinaLab.. ([179.179.238.247])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36081bafa7asm39596320eec.14.2026.10.20.03.48.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 03:48:04 -0700 (PDT)
-From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: linux-serial@vger.kernel.org,
-	gregkh@linuxfoundation.org,
-	jirislaby@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-sunxi@lists.linux.dev,
-	Andre Przywara <andre.przywara@arm.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Enzo Adriano <enzo.adriano.code@gmail.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] serial: 8250_dw: Keep the BUSY-safe divisor hook when DLF is present
-Date: Tue, 20 Oct 2026 07:47:53 -0300
-Message-ID: <20261020104753.28703-1-vinicius.eduardo.pedrosa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <atcrpTI_R4kRM8pb@ashevche-desk.local>
-References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <atcrpTI_R4kRM8pb@ashevche-desk.local>
+        bh=trCl0IagpgcoO8afehRhGBb553RQMJrfCqZC+//rWNY=;
+        b=KnF/8cI+xuhttzsVE6aNOzwEdcDcSSJDCl45iRsBdYZuB7TwSpl+R1pwqFs24SE6RB
+         Ut49GZprbm/ZnULHvYX/cI7rF/HZYrLO9JV/Uh8DruwXCANL7kVROmxq1yJWfYBvrSCq
+         2RccJxvZESYaFJkS4b+qkfxKUNwyg4z5ExaaTP2zQ6fG54OXuVYideYMoevwJnWtVU64
+         EN8yQcGlBTKCXcwfuuT1Y8dK7Ttth3uahKEatYpVyA+DQ4nBFLq+5wBdPBVDrK3aOEs5
+         2LFwBvVrCRNU3oA68IvhKViRQo/F9zP7vO032zxkV/i2GRWi56doYU51bEhVilgNayo8
+         c8EA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792493347; x=1793098147;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=trCl0IagpgcoO8afehRhGBb553RQMJrfCqZC+//rWNY=;
+        b=MPmUJTgE8W+u41MjBCgFHAKLiv1C8CL1ihT/stsTnms/WWSxXaSWrZYf8rrkAW9PXX
+         lRW0aK78lJkS0PMKNzbdfvUl8gxXBBq5gJ6qrUHzk2FXLCsKpXDvtGDk9yG7zaQn5lAw
+         RitxV9l+6ut7YI3buyIuui0P+0Zlz/E0mlBGocW7Xyfq8Mqy8D5onSMgwsdHnumnTtl4
+         F3WabZA9Q4YXL7XRMQQ5coEPals2Kkm0Emd58F/5xHSdGwnvltOTjD/YD5o8e0XbT5Bf
+         eU8+z3sauVWyYkfGktgde0O4l6FNaxoWKgkFn/MvDiPHexaVT8jqiCEGSgiTBuBNdGFq
+         6vCg==
+X-Forwarded-Encrypted: i=1; AKwUvBxWS4iuXVL5+HZIV/Jh/ksUvargw3h7JVB8boziYVvsa4dA0sWqh3atRL2SI8baImnq0kiB02MUKMTd@vger.kernel.org
+X-Gm-Message-State: AFq9FYJDLydfy2zdzQ9YKyNf+8uf248YBNE6nkD1860XKdLLlVTxrTJ8
+	ncgX3Se27kaEi10oxlrrkxqJdcEYfydxcwrb56WjvrfNXbPK3EY3w2980cP75Gs01x8nok69FWB
+	fmFsm5/Tyin+D3WTdbdilzhAm6N/NMZN/kTXSn+b0yb2zFbenWGWrDvDCYTHXu6Ct
+X-Gm-Gg: AYBFou38X2Z0RB3b+s6nWddg0RLgAcDvSvdRZfcjRmtVBQaTwpcnGVbO0sFl2XnQ2rs
+	WepmVaWU4UIoSL+GnTO8g0RxHNLbGStQn8/RUu3d9OI7A1VqfK9PSfBJe34cBymg5F30NMllzhs
+	n00BliBkyQVxmqnQel0NsgTlzGmKFvtRyKOeJtJfcmTF5Smvke/pUG6u2ebQtz4dHBuzO1m7aKa
+	FF4KJK0LtfDk+y+u8kHdNFyPw3IdC0RLvEAoV+1XmKhc+sodVXHarjy3RaoPsXbNh55fN7HS/Hk
+	mZyikYrM9QdgFHZU4fhhIfkEnTnKLwnD2wJ1ON36l8v25sRUuhNLby9xuBQcOC8YmDurxxiZK4p
+	rwumJ4SlZlDbomCiBlGwEqA==
+X-Received: by 2002:a05:620a:2a0a:b0:93c:61e0:81ff with SMTP id af79cd13be357-93f29b88632mr1974420985a.1.1792493346582;
+        Tue, 20 Oct 2026 03:49:06 -0700 (PDT)
+X-Received: by 2002:a05:620a:2a0a:b0:93c:61e0:81ff with SMTP id af79cd13be357-93f29b88632mr1974417485a.1.1792493346081;
+        Tue, 20 Oct 2026 03:49:06 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c416a4be585sm407740466b.68.2026.10.20.03.49.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 03:49:05 -0700 (PDT)
+Message-ID: <d2719210-26a4-4f9d-82bc-e6aa5ff3f2b3@oss.qualcomm.com>
+Date: Tue, 20 Oct 2026 12:49:02 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -112,42 +115,68 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 4/6] phy: qcom: snps-femto-v2: Fix order of arguments
+ to qcom_snps_hsphy_write_mask
+To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
+        Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Wesley Cheng <quic_wcheng@quicinc.com>,
+        Manu Gautam <mgautam@codeaurora.org>, Stephen Boyd <sboyd@kernel.org>,
+        Philipp Zabel <pza@pengutronix.de>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20261009-phy-v6-0-50408e45bcc1@oss.qualcomm.com>
+ <20261009-phy-v6-4-50408e45bcc1@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261009-phy-v6-4-50408e45bcc1@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: 87gVf6APj84z-j3G69nUMrWTl_V9zNzq
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA0MiBTYWx0ZWRfXwL5yIwBoCLGB
+ Yyd40eO+/o4dRujwFsrO3t8fTDFElCSmJ26hi/kBYUbf8y0skoLld6X8kX6cGgrxnlp32POUQXC
+ TwUqyP70HBfe+X7KqFsc7VKZ2RIdx4w=
+X-Proofpoint-ORIG-GUID: 87gVf6APj84z-j3G69nUMrWTl_V9zNzq
+X-Authority-Analysis: v=2.4 cv=A5z5rKWG c=1 sm=1 tr=0 ts=6ad74723 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=Iap0342ROmGHmkRQeUEA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA0MiBTYWx0ZWRfX1nbvaKz+AgIy
+ XU0g4F0g+MDSYm67HshsqngQ8b4/OZHptHN9h29aeAskKbA8njGB1tB8m4jqBi3gkLzA7D6d1rh
+ 8kmjHq4O1xIRn1tH1hZ5YgPYH93Y1Nkqx/Anch2jGxfmxckXcggqPLCBnPKePURDxLb3li4yZdN
+ Y5HGQvmQ3hGZM2Z+x9H1wr/WQiCE2dXcuG14jYK4kdWNjmqUILzZQ8BF1h2ZZP0MhXNrJ8tcDbK
+ kD8XeULm59+B0ywIPmmq75J0hDGDOAoSJCKHdWrK2gb2jkcV5CgAVeh8csDLw8zyk8kfJs7Id+S
+ PB1tK2xym3NzcniQyGCgWBQA2E+BLwyiv9RCMaZANDLwYiJ7z9L3wCp9YWZ6EBWvKpT+vECtznG
+ rOhwyw2TvTjJS5YTRcMGxzf5UZ7REPEWZJjhlo6MJnWRRITNOG5OV3sEXSpuXcO6QZweCJ0OY+z
+ HpSjx/jpc08dy1Utfww==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 adultscore=0 priorityscore=1501 suspectscore=0
+ phishscore=0 spamscore=0 bulkscore=0 impostorscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200042
 
-Hi Andy,
+On 10/9/26 6:49 AM, Varadarajan Narayanan wrote:
+> Fix the register bit field mask & value argument order while programming
+> USB2_PHY_USB_PHY_REFCLK_CTRL in qcom_snps_hsphy_init() and USB2_AUTO_RESUME
+> in qcom_snps_hsphy_suspend().
+> 
+> Fixes: 51e8114f80d07 ("phy: qcom-snps: Add SNPS USB PHY driver for QCOM based SOCs")
+> Fixes: 0d75f508a9d56 ("phy: qcom-snps: Add runtime suspend and resume handlers")
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+> ---
 
-On Tue, 20 Oct 2026, Andy Shevchenko wrote:
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-> > +		/* Keep a hook the driver has already installed */
-> > +		if (!p->set_divisor)
-> > +			p->set_divisor = dw8250_set_divisor;
->
-> On top of my previous reply, why is this hunk needed?
-
-dw8250_probe() installs the BUSY-safe dw8250_set_divisor() before
-dw8250_setup_port() runs. Without the !p->set_divisor check, detecting
-DLF replaces it with the dwlib setter, which is the BUSY problem
-described in the commit message.
-
-> In the case of existing _set_divisor, do we want to keep the possible set
-> _get_divisor as well? Shouldn't we introduce a respective _get_divisor in
-> 8250_dw.c?
-
-8250_dw.c doesn't install a get_divisor, so there's no existing getter
-to preserve. The dwlib getter is still needed when DLF is present,
-because it computes the fractional part used by the preserved BUSY-safe
-setter.
-
-> But now I see that we have same function name in two files. Can we rename
-> those in dwlib to, for example,
-> dw8250_get_divisor --> dw8250_get_dfl_divisor
-> dw8250_set_divisor --> dw8250_set_dfl_divisor
-
-I'll also clean up the naming in v3: dw8250_update_dlf() with a frac
-parameter, static inline after dw8250_writel_ext(), and the dwlib-local
-helpers renamed to dw8250_get_dlf_divisor() and
-dw8250_set_dlf_divisor().
-
-Thanks,
-Vinicius
+Konrad
