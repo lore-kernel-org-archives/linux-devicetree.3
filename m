@@ -1,137 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.154
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792509215;
-	b=bufCjuudZKQhYYpTbtxc9kTer6K8FF8hVTn/shmdiEygVfF/5LbjIXqXGyAqtinoMf0T
-	 Nni980H3uStLFb3yp2iknbllGy2rhahYvnjVSoXm2YEyl+lN45m5KDR1x6Vi9qJZ6vn2k
-	 RoYcD63O7EzuPRywChV30EpOf6VawOFnSN9d0tEKK0/YegU616LjWghLFlJ/wjmxIDF9q
-	 ber80IsG2EEOS43hFbiNwGxCKoH/3p1qzSTVCrcHL3ZvYr/sJmFEvu5cAblxlKxMS56F+
-	 7z8yknL9bVVNBybD9ZKw2zv4UlaoJihIz3JaWxyMEvMUADFoJ+GpNSOoOwN/IJ1h9fw==
+	t=1792509243;
+	b=IUyx7VXn8CLbbrxrS5lYWY0gVoAgcOyH5A96aTQlzl3Y1jI4/ppx+IYW1jckAInkV3N6
+	 97KIsWmMGwOHp6sKxQ8EQsj7ORhJV3HjQWm1YOGKvWdPi1cilEGam0irWdiaLSOW4hSpf
+	 vuE63Cy5FAPD2JpHXZreONcV+7ZpwRoavcvg5cWnb7Tv7Kz2kql5Jvjz7gWR428OSWmxe
+	 5IpbM5VnCxondeR5uGmTkq96T0AtoMU3uuZYxpX8iZfnGEF39N4Bye6x/S5W0F47ApT59
+	 UjMOeyozrznfHkzF1qL9Wb2ItRvnTf5RJXGMAkXvPz3LbehU2wIXIQgzbweG3XDdDBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792509215;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ZEC5wGdX89Z82HsqXlE8mmJxfZaarGVbOVnr3hOAm0w=;
-	b=fpxY1bBjynLabF9oWBqH/penQ/MV3lz9SUW6tRkCptMUmq7fNL2S1LzqZctBsdPZv4F2
-	 hAiJOV3qKnhXPGYP66LdxkiXxeAIvJ0MPgwBnGZg8s8GaUnQcwRhHhz/bQZId9mVxBwMe
-	 SJGLR5JUi2GtaQn5734sFvUkwoiOpb9/9JNAn2YsbI5ZzIWMcuCRBqKomgbagEk7hWFH7
-	 sYWKVk4qMOJAOUy1WdXu+6fGS6CJ4dSHLBcNXxUdwqnOOXbcyMZiXo5WIrNidlec3W7KZ
-	 GhFZwn4v2J2R5QnwM7TXL8Dv9FxGreciYCt5WGKR6avIr2WGTZdrIiKlHCBcSAuvB5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792509243;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=4zrIfO2j5f1V0AGayWITQAFNyhl7js8bpZF+l1m8f4U=;
+	b=Bw1Hlsp57YHAmJI+Er+kUZ07V5qUDdxpB/VRD0cA7n2tPmUsP36hIX78pC0VPdvSjb8L
+	 dAzxM8iyJor9hGNkU1zgsAtvukjEyXBX87uldAefb8duzyvah1kD/g2cZjobD7ofNl7oi
+	 W8lSYItfJJLjEzSzNecGLmVDcd1fMKIVXQs8r0NTr5xxinE8Q/CsY85Rfu9XrACKnWXhr
+	 0Sl+r2eEb/UVfWQXgUNxTJwgdDX259i4uJTGPXeo0LQP3LXb2ANuG4HtWTK8ewHxUwXkP
+	 mEvb2TnZBJf6GB/hLFks3NzX6/EB7k5AyTXXBe3ARw8FhZkVRVfvAPdOtS+qOSIqh3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=shazbot.org;
-	spf=pass smtp.mailfrom=shazbot.org;
-	dkim=pass header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm1 header.b=M9tHlslt;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Ha+Oa72J;
-	arc=none smtp.remote-ip=202.12.124.154
-Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=roeck-us.net;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Mep1HLEV;
+	arc=none smtp.remote-ip=209.85.216.50
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AB8760A261D
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 15:13:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AB8760A261D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6115B60A2604
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 15:14:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6115B60A2604
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm1 header.b=M9tHlslt;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Ha+Oa72J
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 1A1967A012D
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 11:13:34 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Tue, 20 Oct 2026 11:13:34 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792509210;
-	 x=1792595610; bh=ZEC5wGdX89Z82HsqXlE8mmJxfZaarGVbOVnr3hOAm0w=; b=
-	M9tHlsltLlgw8brJIvmPNECIIqpgNSnV9Aufv+9Q/YQR5XCQxNS74hm7X+uiWKf+
-	r2RQNVFAkLu2UCbxuGYFHDOF9/v6jUpjNfYZ0uFnXRW1ErREow//PtDs1a2LgszU
-	pmrS6MQ70VSK5S5/sDWERsbWHCE48RDZz3xOQyhFs/nwOfBji48iH3bcHi+FloAu
-	0m3UNrWCg/A2ZVa9fhdLU1ivMoup6KWo0gqQeHZe+1OEw78Vl9fZrN8S68hcb3PC
-	I2No/U/KESQz8ffh4/L/YHalR6jT4wNDjnFtymJh42yuFhoaON06Zjz4mcqk5zfG
-	2zGSRmcFt/DGqQbYdvmz7Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792509210; x=
-	1792595610; bh=ZEC5wGdX89Z82HsqXlE8mmJxfZaarGVbOVnr3hOAm0w=; b=H
-	a+Oa72JoYaPNulergz8Vd5ZAv5El0DBJBfPwrT+W9h87CrR4EofXeAGQX3E0G8kC
-	NiQcCMrK71JtdrEhr0WY4qf3HSwYX7eC4NCAGq6YnNndrUH60nBjsCdZbgbLXLMe
-	XkKDuk2l6F3U5vDa7KX2xhn6V+kOvkCFnIFY3DYzCOMHOEw4Jgw4BsWVTwX0vK+Q
-	dILdWkR7Orx4djHrH7CnxQQewKfc7HBcxmu+hLFijP6CBsAAFecryEnzMJ7ZA9iN
-	Gu9qeRobLTJhRFK/WJNfy6uC58RIu3x2u8nt1voGG0wbZo1Iiqdvtr1P8qImJcoU
-	sPwUkVGgGaJ0TiTA/4uRg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=shazbot.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792509210; d=shazbot.org;
-	mf=PGFsZXhAc2hhemJvdC5vcmc+;
-	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
-	s=fm1:rsa-sha256:G+2u8WXsfr7YahY6rwLS750ImuunXE3zXPWtDC3XiUmHnyH
-	oEG0S9JhNDjXZm9I7rYt+HNfg8B2bRP+43dxL59nIQJvesH7ldSWRzRqKmjKw4Bh
-	2QreDmDGW3n5svel64ZhZevCbNBip2zW5bOrGsml9XK2mppPEBaIYLAov8IRKo3d
-	12rnpvgVlZdCXrAI/tHNLxZS+zrVwrH2xYYtald3iWbRQgH31u8+0Oyrvivyb4r8
-	AcIfd/isQE+WtVfq8UNRbI7QUIXtaQh5eWvXA0nU+p0IkyVbveOkMU1rwKZOrFnE
-	1DEOBuNiQNlAXljgQIU4HK4Ln7u0ko0BCjGZftw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:x6UoH16gURO7uNaEzSVSnnyT7fiCt2A6Q/EVxz0TqeY=:k2n1M8WM0uQ8ddJeYsWll/h/e8ny+5RBdyAfFdbkmOk=;
-X-ME-Sender: <xms:GoXXauZvwpfFcLL-YMIeiPXMeN17TKhhuiTr3CMrjX7NypTaKMea2g>
-    <xme:GoXXalWQhLgflFFbB6B7VSrcgA4XQG8sa5_CxEqQ6lkAYxvJGNydThokHEt0Kd6YI
-    3G9IaxbzymGYWRvC-4yTRh9IeFWnvcfeoS0FzTMQ4iNMehmAeOm3N8>
-X-ME-Received: <xmr:GoXXahcSN7dhSBTrJ5jB2YSaOXAisCe78Y6qrQbHkTU03YAv7z1vz_-sSE28gg>
-X-ME-Proxy-Cause: dmFkZTF781+OrsKyKgKiRJR6hUf4rOKz6QH6MhRz/dGUsBKW8dVXANdVTYJvd9I2M1Em0J
-    ntb8Q/VPXfsQlOyOmgO7UlmKg5nlLjY5MLTCPVBXDZzwpfNXtJQBRqG+uqKNvnimFs8omX
-    NbYKPofjgmmrHKRQ0PEt5abTXCvDu4QqG+70LRFtPhbTp/bF4uSYRUEpL0dX/M2KtG2fIe
-    6TzxzRRfwdRjIOo/0ePJqF7Ghyyo3cSRbJQTfr3gxXCMrDRnX+ycEDsPYiNgVbs7+WvPTM
-    X3rwBiFzgyUOnVb2VpybTiXuIO0AhiWs4CBKeRku1xbRknd0b7OrWBGur3xBRANIiI1oq9
-    l/fGSakfL3BFWEPT7znvBQdywUSL/kPWJgL3lbAMFwNSqYatJdrVV3l5JbF7Lhtz06Ad3e
-    PQojYG/WZYeJlGLA/mztvHnREAEblQOxi8hx/ZXtN3QTOk35uDKc7Bjsy4Xraxy8NVzccu
-    uFOc3MsykYs6+Lip7NFlaWELQAfel3Iv2V5Mt4HvmsuiQFiak5Z4tgGYunGaaMsOauzlX4
-    854Y9f0jyIQ2v0k0CG0IXcMgVYstJbrVFWOIihDISbxvK9r6wvQl63OQYlndnzK3cowV+G
-    DmtRKn9F6h4n+7wWgrswuN+oGLDoc8QFjojckSCCgUatKs1k4QjBf3FH64PQ
-X-ME-Proxy: <xmx:GoXXaqNuw42NB2jAicJhqF5QvCRhyjKy-GoGfoI8Fxe025FPzU6Pgg>
-    <xmx:GoXXahLgqBhkSScTPmFipkJPPQHMlew9D4bDAKoS_AXcNQ515lqG3Q>
-    <xmx:GoXXaomlGGWPhmXIZAXwmKp_Uvy-t_uQxGt-apbJ9OtpEuQlV1ae5g>
-    <xmx:GoXXaoa3dOjnfc5WG1PvG4M_BAUlXRn_sl-SvPAVK_HO4xI25lEZaQ>
-    <xmx:GoXXag0N2CAD-RSrji3mMAh0jPzDb8JkTsDaC3weXSh2ayhT8aeibPXS>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 20 Oct 2026 11:13:28 -0400 (EDT)
-Date: Tue, 20 Oct 2026 09:13:23 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Jason Gunthorpe <jgg@nvidia.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, Catalin
- Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Mark
- Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>, Oliver Upton
- <oupton@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Jean-Philippe
- Brucker <jpb@kernel.org>, Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet
- <corbet@lwn.net>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
- kvm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- alex@shazbot.org
-Subject: Re: [RFC PATCH v2 12/15] vfio: Support VFIO devices that access the
- CPU MMU
-Message-ID: <20261020091323.3c51258e@shazbot.org>
-In-Reply-To: <c367caf3-d462-42ea-b482-bf9c51c47a63@arm.com>
-References: <20261015142552.4128028-1-ryan.roberts@arm.com>
-	<20261015142552.4128028-13-ryan.roberts@arm.com>
-	<20261015164421.GD13920@nvidia.com>
-	<95e0f9bd-0203-4c7a-9d09-622593bb3d4c@arm.com>
-	<20261020140944.GA3008132@nvidia.com>
-	<c367caf3-d462-42ea-b482-bf9c51c47a63@arm.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Mep1HLEV
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3a4b3ac8fb7so1844777a91.0
+        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 08:14:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792509243; x=1793114043; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4zrIfO2j5f1V0AGayWITQAFNyhl7js8bpZF+l1m8f4U=;
+        b=Mep1HLEVIl9xVF2HMLTgkvOHjnBmwfBms7wzWTijsyCiiVnpuam6zgeyJ+xSGYSkJH
+         N9arguJbSH/sF6o06PLe7WxfdSiROvJf9pvaG0/b7YuTM0c82wMr+LZLxbcOTebMnIOL
+         SPMRXXLuX9Wlxgek+7y9i1bX+Mz2CgHTrP9gDjh5CdzseLXP2Oor5rPaUIcZcGzkBOgg
+         6xExXc9ilXTeYijd3NMNxbIUrvf5KmiI4r8ieIC7KhHx3pXNjoz4sXWu05QD6N6eEGa8
+         sbf8M72rtBSN0aOSaK1NwZZ3D1nxRmdMI2RNJHTbWf1KqtpQfChY+8j+58Jrf0u9PQrt
+         QG7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792509243; x=1793114043;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4zrIfO2j5f1V0AGayWITQAFNyhl7js8bpZF+l1m8f4U=;
+        b=NdcfL0J+TbFpw3j25IepNcjMNiAfGC4qCVjj9iqyQMoqMj4iBkIEj2mL/vIVUtDvUb
+         zVN1AHf8uhcSY5LbP2ylLCrYIBNDDS3bj2f/w95LQhvmRs1yd9JkAeow9pThlxcQdIvO
+         9JP3q8HUf+KcBaxIZX1rY3/e3H/Gp43LSDdtzHom0rn/g0HwLnkX1h0VkJq/sQRGoKcc
+         9qd7ojtDLM1MIgkNa0XMRbRf/z5aNpWUO19CIz9DyyIfPNtA+jzAzRmv9RrNMHIFv0tw
+         M3n/DaiPZGzcsAZXCzPOQNssMElFiunP2GFvK2CmqmuC5b/Si3REajgo6UoF6CdjdhwD
+         b+mQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxmFUPY1LxSIupyVgkqDhRciyJEo5jDbT7K0NXf1sUInPfA3o6sSJgYmFqvvRWJqezFE0K8uUwG3clB@vger.kernel.org
+X-Gm-Message-State: AFq9FYIvVsFWkkJmTn82o88OlTELzIpVWUnGw/O3keC/UUcBwfVa2PDE
+	LJe6CVco0RMdbmGdgZMoe7v+Txhz+3LWKbHsuqYmKYdqrQYLBF6R2cqG
+X-Gm-Gg: AYBFou2YDpc2Zy8A9VGAbpzGXzvuJ8pj7a8nGhwn8eXuMq223FvD8rFXCgaQmebjpam
+	kazT3PAM9ADLyw5goJ5Ih8zkZfhGSsYzRazph1jYdJWMTWHmPcBCdNlkenjnc1X7/E4KZzDe/Ix
+	IHuiqC3ylMuUdpxU3XaorKmQCiEBNLlEGqDtj2B164fQ6c5jxRKN/gHQQsl4SyU10580mtNFZxN
+	cmTF0Ej1EtJrjglwHEzrj6RKotaqhiMuxX2A+N1GGn45Y7RqQV/YwDW1lixoCOaUh1Q2z+Heaar
+	J79tloyniVv6gcMD93Tqju2mMNZ/PdC37aiWy7vCTZy3QY5hs/j/LE/ZuhlPk/oZDO+VJ9rUlEa
+	vPkL8qZ78SQ6cioIM4k47bexClInCOjTbZnau0hdRDTxwZzSeyqW43vXMK5VTLAK+WN0p52nagX
+	nwkbpyP0h6qw6fae5TsIq3C3FXe3KwdQhcG83TSa8/IV/EOau1DcmvvEMjQxjdCble6Ii/lTtGc
+	DKoeE/JgLyX+8o7iIczY6PQue02ioCfvAInBgUr+KQ988NI
+X-Received: by 2002:a17:90b:1dc3:b0:3ac:9e76:aa76 with SMTP id 98e67ed59e1d1-3aceefb0116mr10395555a91.13.1792509242546;
+        Tue, 20 Oct 2026 08:14:02 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad80214aefsm54820a91.3.2026.10.20.08.14.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 08:14:01 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <62872394-e64e-4ed1-9d73-ccae1336d7bd@roeck-us.net>
+Date: Tue, 20 Oct 2026 08:13:59 -0700
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -141,40 +92,188 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] hwmon: (pmbus/ltc2978) Add support for LT7175 and
+ LT7176P
+To: Christopher de Guzman <christopher.deguzman@analog.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+References: <20261020-upstream-lt7175-lt7176p-v1-0-86b9b728b95d@analog.com>
+ <20261020-upstream-lt7175-lt7176p-v1-2-86b9b728b95d@analog.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20261020-upstream-lt7175-lt7176p-v1-2-86b9b728b95d@analog.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Tue, 20 Oct 2026 16:06:37 +0100
-Ryan Roberts <ryan.roberts@arm.com> wrote:
-
-> On 20/10/2026 15:09, Jason Gunthorpe wrote:
-> > On Tue, Oct 20, 2026 at 12:51:26PM +0100, Ryan Roberts wrote:  
-> >>> However.. you still have to affirm which single mm is the mm that the
-> >>> device is going to be doing DMA against. The process the opens the fd
-> >>> should not be forced to be the mm that it gets linked to.  
-> >>
-> >> What is the mm representing here? Ultimately we want to install the KVM
-> >> instance's stage2 pgtables and (pinned) VMID. We currently get that via the
-> >> bound KVM instance (which looks like it still works using the cdev interface?)
-> >>
-> >> The guest will then install the stage1 pgtables and (pinned) ASID associated
-> >> with the relevant (guest) mm_struct.
-> >>
-> >> Do we _need_ an mm association in the host?  
-> > 
-> > Ah.. I see, I didn't quite follow that. OK.. Ah everyone else doing
-> > this is using iommufd with a viommu to establish their connection
-> > between device an KVM. eg Jacob Pan's series. That's a probably a
-> > better idea to stay aligned with the common path. Though your reasons
-> > are a little different..  
+On 10/20/26 04:45, Christopher de Guzman wrote:
+> Add support for LT7175/LT7175-1 and LT7176P/LT7176P-1 PMBus buck
+> regulators. These parts share the LT7170 family MFR_SPECIAL_ID
+> (0x1C1D masked to 0x1C10) and use the same PMBus register layout,
+> so they reuse the existing lt7170/lt7171 probe path. Variants are
+> distinguished by reading the PMBUS_IC_DEVICE_ID ASCII string.
 > 
-> Just to check, you're referring to [1]?
+> Signed-off-by: Christopher de Guzman <christopher.deguzman@analog.com>
+> ---
+>   drivers/hwmon/pmbus/Kconfig   |  6 +++---
+>   drivers/hwmon/pmbus/ltc2978.c | 28 +++++++++++++++++++++++++++-
+>   2 files changed, 30 insertions(+), 4 deletions(-)
 > 
-> I was under the impression that I could open the VFIO device through the cdev
-> interface, then bind it to the KVM instance via KVM_DEV_VFIO_FILE_ADD... Why do
-> I need an iommufd at all?
+> diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
+> index fd6641316454..63fb4d5dd87d 100644
+> --- a/drivers/hwmon/pmbus/Kconfig
+> +++ b/drivers/hwmon/pmbus/Kconfig
+> @@ -306,9 +306,9 @@ config SENSORS_LTC2978_REGULATOR
+>   	depends on SENSORS_LTC2978 && REGULATOR
+>   	help
+>   	  If you say yes here you get regulator support for Linear Technology
+> -	  LT7170, LT7171, LTC3880, LTC3883, LTC3884, LTC3886, LTC3887, LTC3889,
+> -	  LTC7841, LTC7880, LTM4644, LTM4673, LTM4675, LTM4676, LTM4677,
+> -	  LTM4678, LTM4680, LTM4686, and LTM4700.
+> +	  LT7170, LT7171, LT7175, LT7176P, LTC3880, LTC3883, LTC3884, LTC3886,
+> +	  LTC3887, LTC3889, LTC7841, LTC7880, LTM4644, LTM4673, LTM4675, LTM4676,
+> +	  LTM4677, LTM4678, LTM4680, LTM4686, and LTM4700.
+>   
+>   config SENSORS_LTC3815
+>   	tristate "Linear Technologies LTC3815"
+> diff --git a/drivers/hwmon/pmbus/ltc2978.c b/drivers/hwmon/pmbus/ltc2978.c
+> index aea7b6c93e74..a42cdc1fe124 100644
+> --- a/drivers/hwmon/pmbus/ltc2978.c
+> +++ b/drivers/hwmon/pmbus/ltc2978.c
+> @@ -23,7 +23,7 @@ enum chips {
+>   	/* Managers */
+>   	ltc2972, ltc2974, ltc2975, ltc2977, ltc2978, ltc2979, ltc2980,
+>   	/* Controllers */
+> -	lt7170, lt7171, ltc3880, ltc3882, ltc3883, ltc3884, ltc3886, ltc3887,
+> +	lt7170, lt7171, lt7175, lt7176p, ltc3880, ltc3882, ltc3883, ltc3884, ltc3886, ltc3887,
+>   	ltc3889, ltc7132, ltc7841, ltc7880,
+>   	/* Modules */
+>   	ltm2987, ltm4664, ltm4673, ltm4675, ltm4676, ltm4677, ltm4678, ltm4680,
+> @@ -540,6 +540,10 @@ static int ltc2978_write_word_data(struct i2c_client *client, int page,
+>   static const struct i2c_device_id ltc2978_id[] = {
+>   	{ .name = "lt7170", .driver_data = lt7170 },
+>   	{ .name = "lt7171", .driver_data = lt7171 },
+> +	{ .name = "lt7175", .driver_data = lt7175 },
+> +	{ .name = "lt7175-1", .driver_data = lt7175 },
+> +	{ .name = "lt7176p", .driver_data = lt7176p },
+> +	{ .name = "lt7176p-1", .driver_data = lt7176p },
 
-The cdev is not unlocked to actually access the device until it's bound
-to iommufd.  Thanks,
+We don't usually add -x variants unless really needed.
+Let's not start this here.
 
-Alex
+>   	{ .name = "ltc2972", .driver_data = ltc2972 },
+>   	{ .name = "ltc2974", .driver_data = ltc2974 },
+>   	{ .name = "ltc2975", .driver_data = ltc2975 },
+> @@ -645,6 +649,10 @@ static int ltc2978_get_id(struct i2c_client *client)
+>   			return lt7170;
+>   		if (!strncmp(buf, "LT7171", 6))
+>   			return lt7171;
+> +		if (!strncmp(buf, "LT7175", 6))
+> +			return lt7175;
+> +		if (!strncmp(buf, "LT7176P", 7))
+> +			return lt7176p;
+
+Sashiko has a point. It may be better to start using
+the same approach used for chips with no chip ID, which would
+be something like
+
+		for (id = &ltc2978_id[0]; strlen(id->name); id++) {
+                         if (ret >= strlen(id->name) &&
+			    !strncasecmp(id->name, buf, strlen(id->name)))
+                                 return (int)id->driver_data;
+                 }
+
+>   
+>   		return -ENODEV;
+>   	}
+> @@ -774,6 +782,20 @@ static int ltc2978_probe(struct i2c_client *client)
+>   		  | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT
+>   		  | PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP;
+>   		break;
+> +	case lt7175:
+> +	case lt7176p:
+> +		data->features |= FEAT_CLEAR_PEAKS | FEAT_NEEDS_POLLING;
+> +		info->read_word_data = ltc3883_read_word_data;
+> +		info->pages = LTC3883_NUM_PAGES;
+> +		info->format[PSC_VOLTAGE_IN] = ieee754;
+> +		info->format[PSC_VOLTAGE_OUT] = ieee754;
+> +		info->format[PSC_CURRENT_OUT] = ieee754;
+> +		info->format[PSC_TEMPERATURE] = ieee754;
+> +		info->func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_STATUS_INPUT
+> +		  | PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT
+> +		  | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT
+> +		  | PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP;
+
+Unless I am missing something, this is identical to lt7170 / lt71751.
+No need to duplicate the code, just add the case statements.
+
+> +		break;
+>   	case ltc2972:
+>   		info->read_word_data = ltc2975_read_word_data;
+>   		info->pages = LTC2972_NUM_PAGES;
+> @@ -962,6 +984,10 @@ static int ltc2978_probe(struct i2c_client *client)
+>   static const struct of_device_id ltc2978_of_match[] = {
+>   	{ .compatible = "lltc,lt7170" },
+>   	{ .compatible = "lltc,lt7171" },
+> +	{ .compatible = "lltc,lt7175" },
+> +	{ .compatible = "lltc,lt7175-1" },
+> +	{ .compatible = "lltc,lt7176p" },
+> +	{ .compatible = "lltc,lt7176p-1" },
+
+Same as above. Please do not add -1 variants.
+
+Thanks,
+Guenter
+
+>   	{ .compatible = "lltc,ltc2972" },
+>   	{ .compatible = "lltc,ltc2974" },
+>   	{ .compatible = "lltc,ltc2975" },
+> 
+
