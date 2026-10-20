@@ -1,58 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.28
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792483997;
-	b=An5Zj5H9hLx5JoKP086eJpfc0BlwGOMG0mpwoOPKoQAKzsP3hUhPNhZvbW0ZUhrp1ah/
-	 j/rT9czFxmzZjPyNc9w9cpGnOri4blNcP6BjM0ThkCGIFGoaizKvs3k9tTS8R7oQ/xMkV
-	 rF8lubCxvxLkgWQOaVpGqe9nx0SsWYjR7+3YDsVoZM58DjpDSAHZFytstJiq3+CHO35UR
-	 PFBVcC6mOyc4j0R6o3fRY/HGJZoadZ+PAWV/1RB4qc1zpNPe8sIltfJnBojXOSEps08nN
-	 uo8ysNSkr8zNx+2SrBKhe+oBhdZgKHlDoTYzwSDOqqIdT5Xmz5DTjGnt5M80gjQNv6w==
+	t=1792484040;
+	b=XttSLTzp2h5zpk6UB6PR+kx79WslqjGRWg+kh3iIs4NQOPqTuTWjkNzViVf1zRVhZH1O
+	 CAaxbhDYQgct2JpswaLBZkImGuHIuvT/BADCT6PjfZh9XYzfvTlMiRTLpNo20rUDXC0gt
+	 K83+t022wzzd0HEJ6VNLvw7s2bgzlBcvBdVgs+c/lI5IdC69VRaOAdsybncCwerxjHoe+
+	 DiQZkOFFdSbg8RMq8UEggkW28+ISzvLy+LRlRo4QMPfCGo4Ox2RIUf320C9MqEpze7Vd4
+	 qyPeeZS8I8IUAgBb7ASeoZuIdEl1CzwmFTH+6WLR29P6jwhib3ojIGERF0NoC0J8p/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792483997;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Kolx53a24KJUm5KZP2u9owqqcs8+ZfXKpqZQibh1BVw=;
-	b=lOU2ZzZ+4/b1xIFNt+wTTgcJ3HEdwTdPypncDojAknNdmk1U+YHTh8BlMXekGGluiyx4
-	 ZMPpq1WEUsz8mshP/MlMbQ4DcJQ8hlRrJwU5KP0TTWfi8W9cK25fsO2oyfhuhrd2N3uxd
-	 Tnoco0hNPgSzm8wpVQHj/Zrn1taD6rDRMB+GdDZ40MzMHudWzfwxc1c1+zh6CIjYZdraU
-	 V0tHuGnwqUVn6LDkgW1y4JKSyRh60BXmQmIhtAJ+G60rinCouI0XvdVjgCfEkZdX1um6b
-	 P55OETgqIdnHxg3/SYYlYx77v/UXPw1qWLii/OHX1aYQfjxOAFzhJY48OvbgTQ+8aHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792484040;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=X4bINhtKBaaElpvArj+vZ2TGO7bG1iKJJOaA7N4cXl0=;
+	b=OMaK/lyhyhVslXXUWwqXjeaT9Dy+koqKdrNemDky8mak7aj7d2MYSKjXbMCHLPe1a9Xr
+	 QTozxUisUj4hPORptITZA6/EquNA72Q3cZetlH2V/OLQUHBkGfuY1MShcUe43+HOoF0ZE
+	 J9SvKvv+G5P9p6RJ3kiuFl0VWLAiZEr/WCtOkzj7GzurM2gnUgR6bBZsA80zHhAg6RhKI
+	 kGT10tiWdAq84MzNfQSxErSFfsYP9GJ/7Nqxx0Rm8VAwDw30kY3YdMaoq8Ppr3x/YeG8d
+	 bcPCK8CbFfLwAHV60tdCWObMS6zLU5RFZ0hE5NYcH5KHFA/oiRkSo4kk6AGAL21ncUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QmBIa6zO;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=packett.cool;
+	spf=pass smtp.mailfrom=packett.cool;
+	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=A5DvPyUa;
+	arc=none smtp.remote-ip=91.218.175.28
+Received: from mta0.migadu.com (out-28.mta0.migadu.com [91.218.175.28])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D10B5606A31E;
-	Tue, 20 Oct 2026 08:13:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E66606A319
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 08:13:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66E66606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QmBIa6zO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C822D1F000C6;
-	Tue, 20 Oct 2026 08:13:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792483996;
-	bh=Kolx53a24KJUm5KZP2u9owqqcs8+ZfXKpqZQibh1BVw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QmBIa6zOe/FTx9F3YUSkB7CMu0VCxGvita0zo/cayueqEsHi1xj7wRQFDe1YR1D3W
-	 vGwPg8NlvmA1K0RBTMFdpWIcIHuHMmoi940uGHh5aad+b8s6XlvakaHpS4pJWWjELI
-	 l315XzprHxetRTlswm/56G8oFQp1tJhCEnhltFJPHrtz0HyxeYpixa8XJkbLFhT+hl
-	 emgoa7f+jXsIGxsd1uX4S7ZXPmkaVP+x1FLyucVqAiA/ZGxCU9uQXEffAPM1EjrRHB
-	 zohV71egnS4gUg99fZZVt3t12Yz6wwmBI9ilu5tg+AGJNjI4jtQIz+vI0s7+SLeW8S
-	 nYC+059anZ1ww==
-Date: Tue, 20 Oct 2026 10:13:13 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Biju <biju.das.au@gmail.com>
-Cc: Marc Kleine-Budde <mkl@pengutronix.de>, 
-	Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	linux-can@vger.kernel.org, devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	Chris Paterson <Chris.Paterson2@renesas.com>, Biju Das <biju.das@bp.renesas.com>, 
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH v5 0/4] Add support for Renesas RZ/G3L CANFD
-Message-ID: <20261020-auburn-kangaroo-of-diversity-dbd8e6@quoll>
-References: <20261019120220.166163-1-biju.das.jz@bp.renesas.com>
+	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=A5DvPyUa
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=t+xbYwZwz/irX9ML7U6cwCqnY9N37pIe4TbNWL6A6gc=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792484036; v=1; x=1793088836;
+ b=A5DvPyUaSKRFg0gGTWbB5dDM8mSWOYUwIDdrkG9aKUSeZuCcQnUV4fBHS9ScDNJlWAqVFV5q
+ qKkMCsgzYYmUq36IlPsXSA8xS1IptKYvXlHsaSISkxtj1LclCWESeSUy3FtEzDmUP1izxdySlZu
+ 9YBtxNo1MZNW0Zdv81NiDvwyAOU7Ccj/ho31x9X39Tq8hFzTwzA40uO/8/8la32OghjSY0HXlyf
+ xYKqZARh0kTGpX2IenbtjvZjJMyLT8jX15MyoRrs9Q752/AExfZKSDFWQDBvHN6DcEtxZ0U5KwI
+ uRLf+vgV4GDyMoaK7kWLdiOi7ahWLx7b+8PbRoEkBctoQ==
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 56071984f75ef8a4;
+	Tue, 20 Oct 2026 08:13:56 +0000
+X-Mizu-Trace-ID: 56071984f75ef8a4
+X-Migadu-Flow: FLOW_OUT
+From: Val Packett <val@packett.cool>
+To: 
+Cc: Val Packett <val@packett.cool>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	~postmarketos/upstreaming@lists.sr.ht,
+	phone-devel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH v2 0/2] usb: typec: fsa4480: Support reporting hotplug events to a codec
+Date: Tue, 20 Oct 2026 05:12:52 -0300
+Message-ID: <20261020081343.1507986-1-val@packett.cool>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,34 +77,37 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261019120220.166163-1-biju.das.jz@bp.renesas.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 19, 2026 at 01:02:12PM +0100, Biju wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
-> 
-> Add support for Renesas RZ/G3L CANFD.
-> The RZ/G3L CANFD IP has 3 channels and 11 interrupts compared to 2 channels
-> and 8 interrupts that of RZ/G3S. RZ/G3L has 288 buffers compared to 192
-> buffers on RZ/G3S SoC.
-> 
-> This patch series depend upon [1]
-> [1] https://git.kernel.org/pub/scm/linux/kernel/git/mkl/linux-can-next.git/commit/?id=2b4a5055d517b11bf4a5671cef32e4d77bc45626
-> 
-> v4->v5:
+Currently the fsa4480 USB-C SBU MUX is not actually used with audio
+codecs in mainline. I have gotten it to work with the wcd937x codec
+on sm7325-motorola-dubai (copying the Type-C notification handler
+code from wcd939x to wcd937x, will be sent after this).
 
-b4 diff '20261019120220.166163-1-biju.das.jz@bp.renesas.com'
-Looking up 20261019120220.166163-1-biju.das.jz@bp.renesas.com
-Checking for older revisions
-Grabbing search results from lore.kernel.org
+v2:
+  * Rephrase dt-binding commit/desc to be about hw connections (Krzysztof)
+  * Remove usb-switch-ports.yaml, inherit port instead of port-base
+    for port@1, require port@0 inside of ports (sashiko-bot)
+  * Put the codec/codec_switch references in fsa4480_remove (sashiko-bot)
+    (also I thought about this myself but assumed they were managed when
+     successfully attached.. but no, looks like they are not)
+v1: https://lore.kernel.org/all/20261018225906.1265299-1-val@packett.cool/
+
+Thanks,
+~val
+
 ---
-Analyzing 5 messages in the thread
-Could not find lower series to compare against.
 
-I do not get why you keep making things difficult for review, but it's
-your right. I'll skip the patch for some time.
+Luca Weiss (1):
+  usb: typec: fsa4480: Report switch & mux events to codec
 
-Best regards,
-Krzysztof
+Val Packett (1):
+  dt-bindings: usb: fsa4480: Add an optional audio port/endpoint
+
+ .../devicetree/bindings/usb/fcs,fsa4480.yaml  | 99 +++++++++++++------
+ drivers/usb/typec/mux/fsa4480.c               | 57 +++++++++--
+ 2 files changed, 118 insertions(+), 38 deletions(-)
+
+-- 
+2.55.0
 
