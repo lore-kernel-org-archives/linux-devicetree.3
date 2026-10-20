@@ -1,61 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792484339;
-	b=MRfsIy3Y8hcX6ClqUT0aE7C5ffs0OPbCx2r/sZOB0/R4/avZNTbzpYmbZpmujvRDwAvX
-	 jJwi9s/4coNVfB0Ot4SIcYqs3qLHpjhRecd4sJv0XaDP3OqwTSDb59dTkZA4+bz8MEFn9
-	 r18B+Ht1wbbtAmUS/ol59Y0vWkE2fvRB0V+lynCofL4IhswtLDIEPL8Fz6nmKmaKAvmGm
-	 DXmuyLnI2Ust9OHLYGKaa3u3DLhlEhtQ4nEwomsa9Z5th+dMXoKMzbaydGNSU3ND0nvKi
-	 qrTbn/jfxcIIT/l72bHkBaRIexsSHVzTBnl2NjM0alqGID1lz2PGYQeJZ9zhWEtyXmQ==
+	t=1792484350;
+	b=tKbqxnbOHupudvsQG/Gv6Y/a+gHCLnSMvqoa7th7MOJaIE1SRVV7JGYMzEKpF6eudsgY
+	 loWKU8r1HXDkQnk5qWf3kfuMI9sZgIJoAB3sj/qZACfmXsSpFSEqRuXIziLTrXZFqp2Ce
+	 gqpONzmFH8yehHr3sqOam1lc7IPqt2Ja3tbPcL6+fQuX44sqspsLvvck5/rWyrVKKkaT2
+	 K6Ki2n/p+02OEUDEkMh4O3y83pULlcoaS2m1OqdA29h4ujVFd9uKDn1WYhtgQcqLvbcDA
+	 3pBklfhiGYaLV4pDRISYERur9rekQti1Zaaa8KXeYzm8CqBCuS0Fsa4DbMLQDHNcp+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792484339;
-	h=DMARC-Filter:DKIM-Signature:X-Mailer:References:To:From:Date:
-	 X-Original-From:Content-Transfer-Encoding:Received:Mime-Version:
-	 In-Reply-To:Content-Type:Cc:Subject:Message-Id:X-Lms-Return-Path;
-	bh=kV+ysOu+6F/RM1Ge8MteVU55Vww6sMy8zKEuNEbejKQ=;
-	b=vut3RhQ+6DSpoQiLO3ZKWmX1PoBEG6O+DNh5eUzAQmpAHzEVSws4l11i2Q+2CW6ouDw8
-	 slyhXd5BM3SWmuPhZDH6lqiC/1uYxePttjyD6Nvt/Orj6qtVvU4S/KIecILCLKmRx3D+e
-	 LDyNJ7MXsqKW486P3AUxq1ncjsPmUY4C66PpWkpAH0/FLd6yX6JBWE4NeE8p2WKuUA4jf
-	 ihLVXqVrbyFAkHZHvAfhCb59CeHDxViJ+TvYUwl2+jb8zLb3qXzcEX+R8pCF9NEZPUFo9
-	 ltTG06JqzA2B1zzm/HPrS9aU3VUzMEGWMpARsscSv2p0rtIZMptFlvcgdKT8Y/sC9dQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792484350;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Pudx5xCxRUv6suJgUGtiqeQB3IDDovG/CUOHz82g0aI=;
+	b=ZAzdNerpMP6ct9+5DDDj3QX04Z0MJlF3oD9cMT6LtVekn2VTuQeUO+PsYARqaKs+vnsF
+	 5ig4OaxRYrKM19U0p2+zeqpauXjLvhe/9E+YTJY/yvNKAIcmmdoo/ZKfbXgInHVIpx0Yd
+	 1cugn71joRIbjdHLE5cjpdEiRQjypu7zoehJarwP2gUIq1JoQpyCjNDgWae0XdNU+y6GG
+	 BPwuAWgkBnfqspdq64ws4tsSmOHcsWMnyvG0OEUn6HBSPnhznIBUE9c2lH41VfF9e56Sr
+	 NxcQ0IIAySi2PMYOgNbVupZyTBVU46agh8+FXsAldJz/V6nKckg0MANvV2MKpZUbkFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=deepcomputing.io;
-	spf=pass smtp.mailfrom=deepcomputing.io;
-	dkim=pass header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=Rik6LH3x;
-	arc=none smtp.remote-ip=209.127.231.37
-Received: from va-2-37.ptr.blmpb.com (va-2-37.ptr.blmpb.com [209.127.231.37])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k57yaNSB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F835606A31B
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 08:18:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F835606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EDEA606A31C
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 08:19:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=Rik6LH3x
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1792484327;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=kV+ysOu+6F/RM1Ge8MteVU55Vww6sMy8zKEuNEbejKQ=;
- b=Rik6LH3xw2WgVTAswQttkhsFkbz/SdBV67CnAGhby8Ij9B8U6RhFYUAcADYznyJbFY+7w6
- GtN6kpAE6+oYE6Yd1h8bg9y4Kbl+5KgZXkzzTo0A7elwt6fLBRZXN2cpJZEVvHEDiMn+aP
- lL4prTi2CBpu/ewa0srn3XXvMZFdQCGDKSDDYs2fYtIJwpBSodT+h45icMFUg2thmwYNle
- bJOMUht3MlXO6rO97J15PAx8byiEZbrlqCkHxvIrtz0U2JmnCyOeI/SV3xC3qI8Mq6vCHO
- 7JEYdSW9+ceXoW8cusV2JncGJ6DXVm8IJWhll1REVlGF6j+kkua4RVQBN3Kd+Q==
-X-Mailer: git-send-email 2.43.0
-References: <20261020081633.3673704-1-sandie.cao@deepcomputing.io>
-To: "Yixun Lan" <dlan@kernel.org>, 
-	"Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
-	"Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
-	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
-	"Albert Ou" <aou@eecs.berkeley.edu>
-From: "Sandie Cao" <sandie.cao@deepcomputing.io>
-Date: Tue, 20 Oct 2026 16:18:31 +0800
-X-Original-From: Sandie Cao <sandie.cao@deepcomputing.io>
-Content-Transfer-Encoding: 7bit
-Received: from roma-Laptop-12th-Gen-Intel-Core.. ([14.155.180.235]) by smtp.feishu.cn with ESMTPS; Tue, 20 Oct 2026 16:18:43 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k57yaNSB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF84D1F000C4;
+	Tue, 20 Oct 2026 08:19:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792484350;
+	bh=Pudx5xCxRUv6suJgUGtiqeQB3IDDovG/CUOHz82g0aI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=k57yaNSByAN4beG5T9l+xTuP07qLXgdAZ8Qv78Ate+JavyTRWfXGXj0JAixc9RILw
+	 SDkSNc2QMdnhCQOd7utH1M5eTeEp0fWCRCgLTuRGmnk+b+v0KNiV3C06QUGL7OjnD8
+	 GrJ+zMyFPakOqof62aGNBf0baIBkkjuyLB/lV4rlgb/Zp8Xp5puemNK5K4XxztDKcT
+	 gIN89qs/6b+vlgD83DO3Zb/n2m+ooW0GmrDxeyfq0VBxGe3ffroTyO/ghkqgI2E64m
+	 itKuNiXd9xveW1BrqbMoYZGisTnFeHPzpTIAI1WGQvkCs1Le/oBrJOVf5fjX9cAgqB
+	 23pxBmsgt5XxQ==
+Message-ID: <sashiko-outbox-178516@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3] arm64: dts: qcom: shikra-iqs: add M.2 Wi-Fi and
+ Bluetooth overlay
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Linghui Wu" <linghui.wu@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261020020925.3915548-1-linghui.wu@oss.qualcomm.com>
+References: <20261012122934.3240030-1-linghui.wu@oss.qualcomm.com>
+ <20261020020925.3915548-1-linghui.wu@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 20 Oct 2026 08:19:09 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,189 +60,192 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-In-Reply-To: <20261020081633.3673704-1-sandie.cao@deepcomputing.io>
-Content-Type: text/plain; charset=UTF-8
-Cc: "Alexandre Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>, 
-	<linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>, 
-	<linux-kernel@vger.kernel.org>, 
-	"Sandie Cao" <sandie.cao@deepcomputing.io>
-Subject: [PATCH v2 1/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05: add P1 PMIC regulator tree
-Message-Id: <20261020081831.3673722-1-sandie.cao@deepcomputing.io>
-X-Lms-Return-Path: <lba+26ad723e5+dff7a6+vger.kernel.org+sandie.cao@deepcomputing.io>
 
-Add the P1 PMIC's regulator topology tree for DeepComputing FML13V05 board
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] arm64: dts: qcom: unapplied shikra M.2 overlay and missing base DT=
+B targets
+- [Medium] arm64: dts: qcom: missing address/size cells and status in i2c3 =
+overlay node
+- [Medium] arm64: dts: qcom: shikra-iqs: duplicate m2_keye_3p3 supply on pc=
+ie and M.2 connector
+--
 
-Signed-off-by: Sandie Cao <sandie.cao@deepcomputing.io>
----
- .../spacemit/k3-deepcomputing-fml13v05.dts    | 155 ++++++++++++++++++
- 1 file changed, 155 insertions(+)
+commit 09177a14c1310eacd965626caf4a52cacd777f25
+Author: Linghui Wu <linghui.wu@oss.qualcomm.com>
 
-diff --git a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-index b5d5112de358..804abc85602a 100644
---- a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-+++ b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-@@ -22,6 +22,161 @@ memory@100000000 {
- 		device_type = "memory";
- 		reg = <0x1 0x00000000 0x4 0x00000000>;
- 	};
-+
-+	reg_aux_vcc3v3: regulator-aux-vcc3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "AUX_VCC3V3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-always-on;
-+	};
-+
-+	reg_aux_vcc5v: regulator-aux-vcc5v {
-+		compatible = "regulator-fixed";
-+		regulator-name = "AUX_VCC5V";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-always-on;
-+	};
-+};
-+
-+&i2c8 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c8_cfg>;
-+	status = "okay";
-+
-+	p1@41 {
-+		compatible = "spacemit,p1";
-+		reg = <0x41>;
-+		interrupts = <64 IRQ_TYPE_LEVEL_HIGH>;
-+		vin1-supply = <&reg_aux_vcc5v>;
-+		vin2-supply = <&reg_aux_vcc5v>;
-+		vin3-supply = <&reg_aux_vcc5v>;
-+		vin4-supply = <&reg_aux_vcc5v>;
-+		vin5-supply = <&reg_aux_vcc5v>;
-+		vin6-supply = <&reg_aux_vcc5v>;
-+		aldoin-supply = <&reg_aux_vcc5v>;
-+		dldoin1-supply = <&buck4>;
-+		dldoin2-supply = <&buck4>;
-+
-+		regulators {
-+			buck1: buck1 {
-+				regulator-min-microvolt = <1050000>;
-+				regulator-max-microvolt = <1050000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck2: buck2 {
-+				regulator-min-microvolt = <1050000>;
-+				regulator-max-microvolt = <1050000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck3: buck3 {
-+				regulator-min-microvolt = <800000>;
-+				regulator-max-microvolt = <800000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck4: buck4 {
-+				regulator-min-microvolt = <2100000>;
-+				regulator-max-microvolt = <2100000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck5: buck5 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck6: buck6 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <500000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			aldo1: aldo1 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			aldo2: aldo2 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			aldo3: aldo3 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+			};
-+
-+			aldo4: aldo4 {
-+				regulator-min-microvolt = <3300000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo1: dldo1 {
-+				regulator-min-microvolt = <1200000>;
-+				regulator-max-microvolt = <1200000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo2: dldo2 {
-+				regulator-min-microvolt = <900000>;
-+				regulator-max-microvolt = <900000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo3: dldo3 {
-+				regulator-min-microvolt = <800000>;
-+				regulator-max-microvolt = <800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo4: dldo4 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-boot-on;
-+			};
-+
-+			dldo5: dldo5 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo6: dldo6 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+
-+			dldo7: dldo7 {
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+				regulator-boot-on;
-+			};
-+		};
-+	};
- };
- 
- &uart0 {
--- 
-2.43.0
+arm64: dts: qcom: shikra-iqs: add M.2 Wi-Fi and Bluetooth overlay
+
+This patch adds a device tree overlay for M.2 Key-E Wi-Fi and Bluetooth
+modules on the Qualcomm Shikra IQS EVK and disables the onboard WCN3988
+Wi-Fi and Bluetooth nodes when applied.
+
+> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom=
+/Makefile
+> index 1c86e7e98f55d..799faa32e2d98 100644
+> --- a/arch/arm64/boot/dts/qcom/Makefile
+> +++ b/arch/arm64/boot/dts/qcom/Makefile
+> @@ -339,6 +339,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+=3D sdx75-idp.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+=3D shikra-cqm-evk.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+=3D shikra-cqs-evk.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+=3D shikra-iqs-evk.dtb
+> +dtb-$(CONFIG_ARCH_QCOM)	+=3D shikra-iqs-evk-m2-wifi-bt.dtbo
+>  dtb-$(CONFIG_ARCH_QCOM)	+=3D sm4250-oneplus-billie2.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+=3D sm4450-qrd.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+=3D sm6115-fxtec-pro1x.dtb
+
+[Severity: High]
+Does adding shikra-iqs-evk-m2-wifi-bt.dtbo directly to dtb-$(CONFIG_ARCH_QC=
+OM)
+without a composite -dtbs target cause a Kbuild warning and prevent the base
+DTB from being compiled with symbols?
+
+In scripts/Makefile.dtbs, Kbuild checks that every .dtbo in dtb-y is applied
+to at least one base .dtb via a -dtbs rule:
+
+scripts/Makefile.dtbs:
+	applied-dtbo :=3D $(filter %.dtbo, \
+		$(call real-search, $(call multi-search, $(all-dtb), .dtb, -dtbs), .dtb, =
+-dtbs))
+	unapplied-dtbo :=3D $(filter-out $(applied-dtbo),$(filter %.dtbo, $(dtb-y)=
+))
+	$(if $(unapplied-dtbo), $(warning .dtbo is not applied to any base: $(unap=
+plied-dtbo)))
+
+In addition, scripts/Makefile.dtbs only passes -@ to dtc for base DTBs list=
+ed
+in a composite -dtbs rule (base-dtb-y). Without defining:
+
+	shikra-iqs-evk-m2-wifi-bt-dtbs :=3D shikra-iqs-evk.dtb shikra-iqs-evk-m2-w=
+ifi-bt.dtbo
+	dtb-$(CONFIG_ARCH_QCOM) +=3D shikra-iqs-evk-m2-wifi-bt.dtb
+
+shikra-iqs-evk.dtb is compiled without a /__symbols__ node, so the overlay
+cannot be applied to it. Furthermore, when attempting to apply this overlay
+to shikra-iqs-evk.dtb, the target labels &pcie, &pcie_port0, and &tc9563
+referenced below do not exist in shikra.dtsi, shikra-iqs-som.dtsi,
+shikra-evk.dtsi, or shikra-iqs-evk.dts, causing fdtoverlay to fail with
+FDT_ERR_NOTFOUND. Is this patch depending on unmerged base DTB changes?
+
+> diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-evk-m2-wifi-bt.dtso b/ar=
+ch/arm64/boot/dts/qcom/shikra-iqs-evk-m2-wifi-bt.dtso
+> new file mode 100644
+> index 0000000000000..985c728dd693d
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/shikra-iqs-evk-m2-wifi-bt.dtso
+> @@ -0,0 +1,105 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Copyright (c) 2026 Qualcomm Technologies, Inc. and/or its subsidiarie=
+s.
+> + */
+> +
+> +/dts-v1/;
+> +/plugin/;
+> +
+> +#include <dt-bindings/gpio/gpio.h>
+> +
+> +&{/} {
+> +	m2_keye_3p3: regulator-m2-keye-3p3 {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "VREG_3P3_KEYE";
+> +		regulator-min-microvolt =3D <3300000>;
+> +		regulator-max-microvolt =3D <3300000>;
+> +		gpio =3D <&qps_gpio_expander 6 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +	};
+> +
+> +	wifi-bt-connector {
+> +		compatible =3D "pcie-m2-e-connector";
+> +
+> +		vpcie3v3-supply =3D <&m2_keye_3p3>;
+> +		w-disable1-gpios =3D <&tlmm 61 GPIO_ACTIVE_LOW>;
+> +		w-disable2-gpios =3D <&tlmm 60 GPIO_ACTIVE_LOW>;
+
+[ ... ]
+
+> +&i2c3 {
+> +	qps_gpio_expander: gpio@3c {
+> +		compatible =3D "nxp,pca9534";
+> +		reg =3D <0x3c>;
+> +		gpio-controller;
+> +		#gpio-cells =3D <2>;
+> +	};
+> +};
+
+[Severity: Medium]
+Should the &i2c3 fragment include #address-cells =3D <1>, #size-cells =3D <=
+0>,
+and status =3D "okay"?
+
+When dtc compiles the .dtso plugin in isolation, check_reg_format() and
+check_avoid_default_addr_size() in scripts/dtc/checks.c evaluate gpio@3c
+against the fragment parent, which defaults to 2 address cells and 1 size
+cell when #address-cells and #size-cells are omitted, emitting reg_format
+and avoid_default_addr_size warnings on reg =3D <0x3c>.
+
+Also, in arch/arm64/boot/dts/qcom/shikra.dtsi, i2c3 is defined with
+status =3D "disabled" and is not enabled in the board DTS/DTSI files:
+
+arch/arm64/boot/dts/qcom/shikra.dtsi:
+	i2c3: i2c@4a8c000 {
+		compatible =3D "qcom,geni-i2c";
+		...
+		status =3D "disabled";
+	};
+
+Without status =3D "okay" on &i2c3, will qps_gpio_expander and the dependent
+m2_keye_3p3 regulator fail to probe?
+
+> +
+> +&pcie {
+> +	iommu-map =3D <0x0 &apps_smmu 0x0800 0x0 0x1>,
+> +		    <0x100 &apps_smmu 0x0801 0x0 0x1>;
+> +	vddpe-3v3-supply =3D <&m2_keye_3p3>;
+> +};
+
+[Severity: Medium]
+Will assigning &m2_keye_3p3 to both vddpe-3v3-supply on &pcie and
+vpcie3v3-supply on wifi-bt-connector cause the PCIe host controller and
+the M.2 power sequencer to contend over the 3.3 V regulator?
+
+During qcom_pcie_probe() -> dw_pcie_host_init() -> qcom_pcie_host_init()
+in drivers/pci/controller/dwc/pcie-qcom.c:
+
+	ret =3D pcie->cfg->ops->init(pcie);
+	if (ret)
+		return ret;
+
+	ret =3D qcom_pcie_phy_power_on(pcie);
+	if (ret)
+		goto err_deinit;
+
+	if (!pci->suspended) {
+		ret =3D pci_pwrctrl_create_devices(pci->dev);
+		if (ret)
+			goto err_disable_phy;
+	}
+
+	if (!pp->skip_pwrctrl_off) {
+		ret =3D pci_pwrctrl_power_on_devices(pci->dev);
+		if (ret)
+			goto err_pwrctrl_destroy;
+	}
+
+pcie->cfg->ops->init(pcie) enables vddpe-3v3 (&m2_keye_3p3) directly before
+pci_pwrctrl_create_devices() and pci_pwrctrl_power_on_devices() run. When
+pci_pwrctrl_power_on_devices() returns -EPROBE_DEFER while waiting for
+pci-pwrctrl-slot and pwrseq-pcie-m2 to bind, qcom_pcie_host_init() unwinds
+through err_deinit and disables &m2_keye_3p3, glitching the 3.3 V rail
+before re-probing. Once bound, &pcie also holds a direct enable vote on
+&m2_keye_3p3 outside of pwrseq-pcie-m2. Should vddpe-3v3-supply be omitted
+from &pcie so that &m2_keye_3p3 is managed solely via vpcie3v3-supply on
+wifi-bt-connector?
+
+[ ... ]
+
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261020020925.3915=
+548-1-linghui.wu@oss.qualcomm.com?part=3D1
