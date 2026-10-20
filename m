@@ -1,72 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792525932;
-	b=W7tCmiA86+M6yYzGwk3EW83DAuG154fLiQo6KEVHhTTUGo1osg+tscDkSUOsvI2DjibK
-	 OW11veGvI3JgBokhd2td3jKZgW1koi4LJcY8ad6FRPJWCKzeOeUwph0FI/jTN8eWqf5JS
-	 2BFRBS9kizICmBwWZ3V7Hg3Rb7U4ZSQMyW/aNQghmVcJtCxKOW8Op9C9FNFBxx1Ksaugb
-	 Xb9sFrLMRGLqIiQiujjQb0wS80c/yrA37iKUSgquyNhIQFRcU+EbXZAJk9Q2K0RelSi/j
-	 qwg+0Q0YaI6sE3lBPrD8AQjYToswwa+peZzPKMTUaPphgb0UAIh95N25U1M4O0XZnOw==
+	t=1792526857;
+	b=P6zd2g9Y6DTzqKhKg6H3JYgw2mU5NGdl64USlB6lBJ3fxYopl7mZbZhjeZlWosQiK385
+	 cmNIGtwnZmMerzVRfjVfN3B61adyA6O9Zq8bqvezGchez2i2P1d0dm78PDeSXviWUFf2k
+	 WiNmLibM7AejCSTqM+v4dXlXv7GRDnw59D9hzD1EiE3fFfdHM1o3GocVthtyjLYawvR25
+	 v8gVPg1z+czBFtkrW2+kxUs7pT1xAS7KG6+DX9lfO7IIBT4IGZfmCxuK29Er4m5ytulxL
+	 J9vg8HLtBJOLLfizBy/LYIOHzpPbLia/yxJwleIJDkflGCczAWiaEuFQgqHXK9Das9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792525932;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=WnKiBHjj/zZJZwT63i24hX+x8FOF0JDz2q0Gba8m/uk=;
-	b=MtUgIGppFvcBW95ZNmfk3PdIE1X0gpL5hdoaEUqBkF6sFzB9bPtvrEBFxTmeskREZgXo
-	 xXMjhnJP8p5MxWXTiy6UZ2kx9SU0BDUGhmljNNjBmx5q6oPbUKXqxnO5bK/CRjlSoCK8u
-	 qfBBDV5cMo0h8/NtsWxNsDf/m3xSE1yDXV9DlNLOzAP9wQhM0bQS4A/38YleQv1ctaeoJ
-	 NAo2VFkYIBD8whJf+ER3W6ZrsD11Gt1f+qUGmfriBWhNiFpG+80zMze8OjuSg35RT24Iq
-	 i6LdwbV8T+Aht6ax5Hwe3X9yw07EQkQjEy5fOSMJyJpt8uMx3mPLt/E1bcAVuvbB0Cg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792526857;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=E2BGEbDmLFbyDFnjpJoQXmoXVufyoU6uu+OtS+on9zk=;
+	b=hqex136JhiVNsROnywsqNl+LLJmV8Cc14F97aH/C1wtb9icl6M5PDeCm95yPWROmikub
+	 W4vaqIufLil5ZchTjAvUtckknETcz9TmxVtMXxHy4UqLAsiIXHtbLRYuzoDr7leE3zdgW
+	 fhEPJGsCBIEnoKULFUhVx0xjk3O8Xys+OU63p7u2JN2iJt81ZX5+hbYogY5KICYngsUNu
+	 x0uDUitXw4IHItde66BKte8WUmoA3YLh0jIlO4rfP0fn9fCCG4AM2TCWArQwvg6QRVLBs
+	 NAZPIggFu+Xn9YkBFqdViRsxxbojfzXmfeBgJmsbV/jLWOZpEbNQ05zFiDVnzy4TfFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kemnade.info;
-	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=HFsU7Bop;
-	arc=none smtp.remote-ip=178.238.236.174
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H9uaiLSu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10418606A31A;
-	Tue, 20 Oct 2026 19:52:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10418606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5748D606A319;
+	Tue, 20 Oct 2026 20:07:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=HFsU7Bop
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=WnKiBHjj/zZJZwT63i24hX+x8FOF0JDz2q0Gba8m/uk=; t=1792525931; x=1793735531; 
-	b=HFsU7BoplaQHjXNOGKNPI/WOz4SpjaN1vcj0K7wUbdI6Vvnfits560ErIdPZP+tmr4KGYXAGvYZ
-	lgPem0z+V2QGyWuA54HR3EkgxfPDpzq84UO6mAB7cniLA9PckKOdZ2dMv+QI3ZhX0NLuoHW6eDBrf
-	6Y+xjscljbbB9WW+RFavOzuIpKiyOZYIKn4NPWSUi868hdlFBSK+RRun+qjsOo6lPe4E6aiwYg7vn
-	3NndzHSAsHPLySPXGaAHdwSnmGLSoUrMgd7tdeWm/4ZmovRbmqUrZj5df8X9cL+J+5JpWfQMWVD2z
-	y7Pbo2kgPzW8wWApkJ6JsFblHYJTYwnsBj8g==;
-Date: Tue, 20 Oct 2026 21:51:43 +0200
-From: Andreas Kemnade <andreas@kemnade.info>
-To: "Ettore Chimenti" <ettore.chimenti@linaro.org>
-Cc: "Krzysztof Kozlowski" <krzk@kernel.org>, "Paul Walmsley"
- <paul@pwsan.com>, "Aaro Koskinen" <aaro.koskinen@iki.fi>, "Kevin Hilman"
- <khilman@baylibre.com>, "Roger Quadros" <rogerq@kernel.org>, "Tony
- Lindgren" <tony@atomide.com>, "Russell King" <linux@armlinux.org.uk>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Christopher Obbard"
- <chris.obbard@oss.qualcomm.com>, "Andrew Goodbody"
- <andrew.goodbody@linaro.org>, "Linus Walleij" <linusw@kernel.org>, "Rouven
- Czerwinski" <rouven.czerwinski@linaro.org>, <linux-omap@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-gpio@vger.kernel.org>
-Subject: Re: [PATCH 02/10] dt-bindings: pinctrl: Add devicetree bindings for
- DM816x SoC Pinctrl
-Message-ID: <20261020215143.7dd0ad5d@kemnade.info>
-In-Reply-To: <DM9L7QLLNMOR.1NHOUWGMQK181@linaro.org>
-References: <20261016-patch-ektor5-dm8168-dts-v1-0-b4ce30217028@linaro.org>
-	<20261016-patch-ektor5-dm8168-dts-v1-2-b4ce30217028@linaro.org>
-	<ec27fd26-1862-43cf-803a-428846d66663@kernel.org>
-	<DM6CUP7TSOMH.31T789KQ3Q6OB@linaro.org>
-	<46414ff2-1273-4690-9001-4d1f825d8cf6@kernel.org>
-	<DM9L7QLLNMOR.1NHOUWGMQK181@linaro.org>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H9uaiLSu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 427201F000C9;
+	Tue, 20 Oct 2026 20:07:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792526856;
+	bh=E2BGEbDmLFbyDFnjpJoQXmoXVufyoU6uu+OtS+on9zk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=H9uaiLSu6EN8ZMZq3/0JMSJPE29d2PjlBFMnCo4seWtCTz0f2ARFbSmnvnjmrbNbr
+	 r22afbzsogdoWoQFtLND62nuBZ5boJ5Kq94KNgfb63qfNSi3Un1J8MO2aChHSJsMjZ
+	 LyhNJL0TYaW/zhN/AcrBvXO/ahu6lOZpiOr3fAdXUD4sY2K4cYc/KAU8XklZJMtzu5
+	 3tL7eaI8RBuZ8pUC/Pvf2+LSADAZDP8oJNwyWTdoqk1Zww7hynaKaD1pvJOQ5utyzL
+	 2bP6TvWec1JC0u3mPd9wwV3QP3f3qqPGw5KGhj2x5vE5aPdAlN7qXa5mJQ/aAi5DNL
+	 QBbisxdPEIJ9w==
+Date: Tue, 20 Oct 2026 13:07:35 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: Reinette Chatre <reinette.chatre@intel.com>
+Cc: Adrien Ricciardi <aricciardi@baylibre.com>,
+	Alexandre Ghiti <alex@ghiti.fr>, Albert Ou <aou@eecs.berkeley.edu>,
+	Atish Patra <atish.patra@linux.dev>,
+	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>,
+	Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>,
+	Gong Shuai <gong.shuai@sanechips.com.cn>,
+	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
+	James Morse <james.morse@arm.com>,
+	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
+	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
+	Peter Newman <peternewman@google.com>,
+	Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>,
+	Rob Herring <robh@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Tony Luck <tony.luck@intel.com>,
+	Vasudevan Srinivasan <vasu@rivosinc.com>,
+	Ved Shanbhogue <ved@rivosinc.com>, Weiwei Li <liwei1518@gmail.com>,
+	yunhui cui <cuiyunhui@bytedance.com>,
+	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	x86@kernel.org, devicetree@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v9 2/5] riscv_cbqri: resctrl: Add cache allocation via
+ capacity block mask
+Message-ID: <atfKB-aHUdQAlmho@thelio>
+References: <20261003-dfustini-atl-sc-cbqri-dt-v9-0-52fd8be98dcf@kernel.org>
+ <20261003-dfustini-atl-sc-cbqri-dt-v9-2-52fd8be98dcf@kernel.org>
+ <49444078-0777-4318-9f8b-0d582d8a29ad@intel.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -76,44 +88,213 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <49444078-0777-4318-9f8b-0d582d8a29ad@intel.com>
 
-[...]
-> Sorry, does dm814x.h not look as bindings? I'm a bit confused.
+On Tue, Oct 20, 2026 at 11:37:52AM -0700, Reinette Chatre wrote:
+> Hi Drew,
 
-probably also not the ideal placement in bindings.
+Hi, thanks for your comments and Ack.
 
-> FWIW, dm8148-evm.dts is not including the header, dm814x.dtsi is.
-> Following 
+> On 10/3/26 12:12 AM, Drew Fustini wrote:
 > 
-> Basically PULL_ENA define in omap.h is wrong for DM8168 SoCs. 
+> ...
 > 
-> For a better solution, you would prefer:
-> - Keep omap.h in dm816x.dtsi
-> - Add a variant like DM816X_PULL_{ENA,DIS} in dm816x.h
-> - Replace defines in dm8168-evm.dts
-> - Add the header in dm8168-evm.dts
+> > diff --git a/arch/riscv/include/asm/resctrl.h b/arch/riscv/include/asm/resctrl.h
+> > new file mode 100644
+> > index 000000000000..867db663d958
+> > --- /dev/null
+> > +++ b/arch/riscv/include/asm/resctrl.h
 > 
-> or:
+> ...
 > 
-> - Keep omap.h in dm816x.dtsi
-> - Add a variant like DM816X_PULL_{ENA,DIS} in omap.h
-> - Replace defines in dm8168-evm.dts
+> > +/**
+> > + * resctrl_arch_mon_ctx_alloc() - allocate per-monitor-event arch context
+> > + * @r:     resctrl resource being monitored
+> > + * @evtid: which monitor event needs context
+> > + *
+> > + * The CBQRI driver implements no monitoring events, so there is no per-event
+> > + * context to allocate and the stub returns NULL. fs/resctrl references it
+> > + * unconditionally before checking resctrl_arch_mon_capable().
 > 
-Hmm, there is dm8168-evm.dts which uses PULL_UP / PULL_ENA
-in nandflash-pins. Do they factor in this inversion? Do you have that board
-by chance? We probably need to take the brush there anyways.
+> The last sentence is unexpected. fs/resctrl only calls resctrl_arch_mon_ctx_alloc()
+> from mon_event_read(), __check_limbo() and mbm_update_one_event(), and none of these
+> can run on a system that does not support monitoring.
 
-If I had my head in some OMAP3/4/5 dts files with non-prefixed
-defines, I would probably not object against any PULL_ENA without
-DM816X_ in front of it if I am not very awake.
+Good point, I will remove that final sentence.
 
-So better do the undef and not use DM816X_ prefixes there.
-Maybe rename that file to dm816x-pinctrl.h. That is a bit
-inconsistent with the other omap files but at least that inconsistency
-can be catched by the compiler.
-Other arm32 platforms have things like e.g. nxp/imx/imx6sll-pinfunc.h
+> > + */
+> > +void *resctrl_arch_mon_ctx_alloc(struct rdt_resource *r, enum resctrl_event_id evtid);
+> > +
+> > +/**
+> 
+> ...
+> 
+> > diff --git a/drivers/resctrl/cbqri_resctrl.c b/drivers/resctrl/cbqri_resctrl.c
+> > new file mode 100644
+> > index 000000000000..f10a24761b25
+> > --- /dev/null
+> > +++ b/drivers/resctrl/cbqri_resctrl.c
+> 
+> ...
+> 
+> > +void resctrl_arch_reset_all_ctrls(struct rdt_resource *r)
+> > +{
+> > +	u32 num_closid = resctrl_arch_get_num_closid(r);
+> > +	struct rdt_ctrl_domain *d;
+> > +	enum resctrl_conf_type t;
+> > +	u32 default_ctrl;
+> > +	u32 i;
+> > +
+> > +	lockdep_assert_cpus_held();
+> > +
+> > +	if (!num_closid)
+> > +		return;
+> > +
+> > +	default_ctrl = resctrl_get_default_ctrl(r);
+> > +
+> > +	list_for_each_entry(d, &r->ctrl_domains, hdr.list) {
+> > +		for (i = 0; i < num_closid; i++) {
+> > +			for (t = 0; t < CDP_NUM_TYPES; t++) {
+> > +				int rerr;
+> > +
+> > +				rerr = resctrl_arch_update_one(r, d, i, t, default_ctrl);
+> > +				if (rerr)
+> > +					pr_err_ratelimited("rid=%d reset RCID %u type %u failed (%d)\n",
+> > +							   r->rid, i, t, rerr);
+> > +			}
+> > +		}
+> 
+> 
+> Above looks to be an open-code of cbqri_init_domain_ctrlval(). The loop
+> is unexpected here due to the duplicate writes impacting types not used by current
+> CDP mode that the comment within cbqri_init_domain_ctrlval() justifies.
 
-Regards,
-Andreas
+Thanks for pointing this out. I'll simplify it by calling
+cbqri_init_domain_ctrlval() for each domain.
+
+> 
+> > +	}
+> > +}
+> > +
+> 
+> ...
+> 
+> > +
+> > +static int cbqri_init_domain_ctrlval(struct rdt_resource *r, struct rdt_ctrl_domain *d)
+> > +{
+> > +	u32 num_closid = resctrl_arch_get_num_closid(r);
+> > +	enum resctrl_conf_type t;
+> > +	int err = 0;
+> > +	u32 i;
+> > +
+> > +	for (i = 0; i < num_closid; i++) {
+> > +		/*
+> > +		 * Seed both DATA and CODE staged slots so a later mount
+> 
+> nit: This seems to refer to d->staged_config[] that is only populated by resctrl fs.
+
+I'll change the wording to refer to the hardware configuration for each
+type and not the staged config.
+
+> 
+> > +		 * with -o cdp does not see stale CODE values.
+> > +		 * On non-AT controllers cbqri_cc_alloc_op() masks AT to 0
+> > +		 * so all three iterations land on the same hardware state.
+> > +		 * The redundant writes are harmless.
+> > +		 */
+> > +		for (t = 0; t < CDP_NUM_TYPES; t++) {
+> > +			err = resctrl_arch_update_one(r, d, i, t,
+> > +						      resctrl_get_default_ctrl(r));
+> > +			if (err)
+> > +				return err;
+> > +		}
+> > +	}
+> > +	return 0;
+> > +}
+> > +
+> 
+> ...
+> 
+> > +/*
+> > + * Attach a CPU to the picked capacity controller at each cache level whose
+> > + * cache the CPU shares. On failure, detach the CPU from everything attached
+> > + * so far: the cpuhp core does not run this state's offline teardown when
+> > + * its startup fails, so a partial attach would otherwise leak into the
+> > + * domain cpu_masks. Caller holds cbqri_domain_list_lock.
+> > + */
+> > +static int cbqri_attach_cpu_to_all_ctrls(unsigned int cpu)
+> > +{
+> > +	static const u32 levels[] = { 2, 3 };
+> > +	struct cbqri_resctrl_res *hw_res;
+> > +	struct cbqri_controller *ctrl;
+> > +	struct rdt_ctrl_domain *d;
+> > +	struct list_head *pos;
+> > +	struct cacheinfo *ci;
+> > +	int i, rid;
+> > +
+> > +	lockdep_assert_held(&cbqri_domain_list_lock);
+> > +
+> > +	for (i = 0; i < ARRAY_SIZE(levels); i++) {
+> > +		ci = get_cpu_cacheinfo_level(cpu, levels[i]);
+> > +		if (!ci)
+> > +			continue;
+> > +
+> > +		rid = cbqri_cache_level_to_rid(levels[i]);
+> > +		hw_res = &cbqri_resctrl_resources[rid];
+> > +		if (!hw_res->nr_ctrls)
+> > +			continue;
+> > +
+> > +		ctrl = cbqri_resctrl_find_ctrl(hw_res, ci->id);
+> > +		if (!ctrl) {
+> > +			pr_warn_once("no L%u controller for cache id %u, CPU %u is not controlled at this level\n",
+> > +				     levels[i], ci->id, cpu);
+> > +			continue;
+> > +		}
+> > +
+> > +		d = cbqri_find_ctrl_domain(&hw_res->resctrl_res.ctrl_domains,
+> > +					   ci->id, &pos);
+> > +		if (d) {
+> > +			cpumask_set_cpu(cpu, &d->hdr.cpu_mask);
+> > +			continue;
+> > +		}
+> > +
+> > +		d = cbqri_create_ctrl_domain(ctrl, &hw_res->resctrl_res, cpu,
+> > +					     ci->id, pos);
+> > +		if (IS_ERR(d)) {
+> > +			cbqri_detach_cpu_from_all_ctrls(cpu);
+> > +			return PTR_ERR(d);
+> > +		}
+> 
+> Should a failure to set up one domain prevent the CPU from coming online?
+> 
+> As I understand the driver already brings a CPU online without a domain (albeit
+> with a pr_warn_once()) at a level when its cache has no controller (the earlier
+> cbqri_resctrl_find_ctrl()), so I wonder if here (on domain creation failure) the
+> CPU could just be left without a domain at this level without failing the CPU
+> online entirely? It looks like cbqri_detach_cpu_from_all_ctrls() keeps the domains
+> consistent.
+
+Good question. It does seem like an additional cpu would be beneficial
+to a system, even if the qos functionality is not working as expected.
+I will change the driver to warn but not fail the cpu online.
+
+> 
+> In the end this is a driver design question, so up to you.
+> 
+> I just have a few nits and a check-in on the design but all the resctrl filesystem 
+> interactions look good to me.
+> 
+> The one open is the coordination with Tony's series that moves the
+> resctrl_arch_alloc_capable() and resctrl_arch_mon_capable() work into
+> resctrl filesystem. Thanks for making the switch to use alloc_capable, that will
+> simplify the accompanying RISC-V changes.
+
+I'll remove the hooks if Tony's series lands first.
+
+> Acked-by: Reinette Chatre <reinette.chatre@intel.com>
+
+Thanks for your attention on this series!
+
+Drew
