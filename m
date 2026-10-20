@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792475670;
-	b=W9yXFG/bfUD7oHy2odtnVJZfvtSEG/wTsS6N9mL9vRCtmwFMBhP4zgvkBMnQKtPt6cbc
-	 OKfFgjH9ni2zjsvelnR1yMT+2akvziKDSoiQIFBA4q5CaFTe3HoIlWhsxztAvTIkdn3gl
-	 K+yJ9bh0WNRWo8dgQnzgwGwO3FevA+hlCrTRorCpg58FsJSuhNa4ZRIGTQLW969rmRIOu
-	 MMUJXldcOkAdMqMNkEIsUDeqaldcxBuJLgPQI4X8ReDZvVQCSr5IeVHlsU0NF9MrPcuvo
-	 1jsD+7jdNFfwdXFM0Uf7vSlNeN5tEsK6B+FpSLAaDND+tZVEIqxi2Jwf4xjFDH3Kbag==
+	t=1792475930;
+	b=ZYASpvTeAfNMPveYNjLMr373799HyXR3+4A+kY7rU4fc4SoJFOd2oMeS2Om1X/qNSh/K
+	 pkjzHIJ4PlqDFBl/RNrwq2V9hs144HhsALyf18b9ddXFn9/GQ3cpK1QgoEp6TcykFgRt1
+	 VG6pSw+eMSRPrWggyhH3Phs3WDQRWC/jegBwhBGFRVmgQc3Vxn/nky+4ZZtp2+BuINzt+
+	 LRGv8LKp+SHJeksVoXnoH745ZKARWQTAM1sWaLiuWgQV/BT7Fd1YCXwLA2DPuYiuqvkJ4
+	 +y5ySJFxQ8X1LVVjdp/LNGoqbSFDREUzO531befl+RVfInt8M4kQE8IO568gc8YHrKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792475670;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792475930;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=2rm4Tp2k0RqgpllE3qFFaci0f+Yvkf9cOiz7z+TNkUA=;
-	b=r2CRhFtmIeTLO7KoKOYAyNlUuKZRtO9EyayPmXpJUgNRKPX3S1mZAMs5jzL6f8v6uXgG
-	 AtJTiRasqBtpU/zmm9DTVyOXV4vfdKYwuvb7nGWrGWM/1KQ92YQ7+2qBDuCbzFFO00ORE
-	 t0u4QTds7flK+0HVbBZ7OtWY7If1F82q4lhxEXcNTBdcpknn8J8HLTzS42bmVUPsC/z95
-	 w49gfheqE2X9g1FHPupnT/IXrrzTuyzyUSMGu4yxks3dvClNs9u8Myu5TfEglw5TYv13c
-	 vGVk/LniY1UtP5ybyMPYtNJjWp7TT8/1wcIDENsIe5fOCNIh11sjPGSYnnwa6botckQ==
+	bh=v3YPirxc15vBVNIRikZXt3oNZLluPKaQOLNlWVqwmNQ=;
+	b=Ph1NyjRbf78mQNk6pay8tNcrDKgMHz53k4J/poM19N6qEx5YfsOf9iUWmKKli1ZQGboS
+	 tcCM2HmuxqQ8f/ePvAEuLIp1MgWPOhRBkH0VC7/wCoUA0kVN8jv2gwkD0BjwyECxpCfkH
+	 wz/+vflW7ddQXNvjUwe9vhfNWpparuqjnOJTchtmFpV+MRsGPuhcyU24tgc+lhxmiAsW7
+	 Iu1wb4/tsCgEnji1spZSa/YH6RiASPVXEwc3aVGDyd7VhJJXYz5HlvKi7NFQqGWnwIln2
+	 VTxo5eLJdqToL2swCSlvbQbSd+XgX9Ew7nhBhGWjwPXYFDQm+GJfUue4CtKBFtm4NDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="a/+YHFjX";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jSFruGtZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5000606A321;
-	Tue, 20 Oct 2026 05:54:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C68A0606A31B;
+	Tue, 20 Oct 2026 05:58:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a/+YHFjX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 085391F000C4;
-	Tue, 20 Oct 2026 05:54:23 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jSFruGtZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1D641F000C4;
+	Tue, 20 Oct 2026 05:58:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792475669;
-	bh=2rm4Tp2k0RqgpllE3qFFaci0f+Yvkf9cOiz7z+TNkUA=;
+	s=k20260515; t=1792475929;
+	bh=v3YPirxc15vBVNIRikZXt3oNZLluPKaQOLNlWVqwmNQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=a/+YHFjXG40L8kkNWKto7PFCZO4Rp480swjoQiImPCSYz7QYjeb+lVIr+WCamDyxU
-	 RhPqNe3oXL3Xu+HS1SnQkBMrYWhgKMI6Kdw58svhS1wdU42x2SswL7MZBEMpTme4SU
-	 l1EcflHlTkRsUWTwI1xD3OsS5gz7WKYK6AdjaNsuEPoAcWMhclSF90UlgKPsf/rcfB
-	 5l1+EIS7eJ8C4UNBK/3OIjK4IYD6fMbKMQzcdtyga3tuqtakkAr0Slj7X+5fKOTUWu
-	 DkYftZMqnsVu35ntkiQ6S45kpl4/IvFc1D63hP66DFFMZz4fTDgYiMKmZzqNqG4Tzc
-	 hEu+m/bkJThqw==
-Message-ID: <708b9edc-3ee9-49f4-ba62-9fc2806168dd@kernel.org>
-Date: Tue, 20 Oct 2026 07:54:22 +0200
+	b=jSFruGtZ9xBAiRqSUKWJz+6O3JRZJUvBKrvZeMapksDNhM9Vu92fjOMPDvxBiVaBG
+	 pjApYwr+8KJEDOMAmqyK1NIjvTuGA71evZm6a+Ky8RVwW0h6oNDSzQF76s/Dbhaj9M
+	 BK4d42XHVhKnQn58v9BZkfhhiADME3rDu8tsqHu3CDHyOrYS360gtxyP/bBDFIEe/l
+	 nY9s18oEWmHcieliuf1hVO1wxCWzV1sNCJojNel48KAwdoRmoPi52a0CKBUC7yQ87h
+	 6YLZqqVRKf1peECIAbDlnDQqq7OQeyITZgRNjj/fIhQVPEB1+lu78JgkUd7jVmOuGy
+	 7nzLhsTmDIDhQ==
+Message-ID: <5d43ce8c-18a8-44df-afa3-d0d1d7b771b1@kernel.org>
+Date: Tue, 20 Oct 2026 07:58:44 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,24 +52,15 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/7] dt-bindings: phy: qcom: Add qcom,sa8775p-csi2-phy
- schema
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Cc: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>, bod@kernel.org,
- vkoul@kernel.org, kishon@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, neil.armstrong@linaro.org, mani@kernel.org,
- gjorgji.rosikopulos@oss.qualcomm.com,
- hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
- jigarkumar.zala@oss.qualcomm.com, loic.poulain@oss.qualcomm.com,
- vladimir.zapolskiy@linaro.org, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20261016235502.2274268-1-anusha.nandi@oss.qualcomm.com>
- <20261016235502.2274268-3-anusha.nandi@oss.qualcomm.com>
- <851434b3-4cf1-4371-9b4a-57dba8022e13@oss.qualcomm.com>
- <20261019-funky-real-skunk-eda6dc@quoll>
- <7766382e-5187-465b-aa89-ff1bf9a16588@oss.qualcomm.com>
+Subject: Re: [PATCH v3] dt-bindings: iio: adc: add documentation for
+ adi,ad7816
+To: wrmfwv@163.com, nuno.sa@analog.com, jic23@kernel.org, robh@kernel.org
+Cc: Michael.Hennerich@analog.com, dlechner@baylibre.com, andy@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, linux@analog.com,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Tenglong Guo <admin@micronull.cn>,
+ Sashiko AI <sashiko-bot@kernel.org>
+References: <20261018110015.39497-1-wrmfwv@163.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -115,28 +106,22 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <7766382e-5187-465b-aa89-ff1bf9a16588@oss.qualcomm.com>
+In-Reply-To: <20261018110015.39497-1-wrmfwv@163.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 19/10/2026 09:25, Nihal Kumar Gupta wrote:
+On 18/10/2026 13:00, wrmfwv@163.com wrote:
+> From: Tenglong Guo <admin@micronull.cn>
 > 
+> Add a YAML binding document for the AD7816 family of ADCs.
+> This fixes the checkpatch.pl warning about un-documented
+> DT compatible strings in the staging driver.
 > 
-> On 19-10-2026 12:43, Krzysztof Kozlowski wrote:
->>> DTS uses 2-cell reg but binding example uses 1-cell. Please align:
->>>   reg = <0x0 0x0ac9c000 0x0 0x2000>;
->> I don't understand what is supposed to be aligned here. The code is
->> correct.
-> Right, the DTS change is correct.
-> 
-> My comment was about the binding example using a different address/size cell
-> layout from the real DTS. 
-> 
-> Krzysztof, should the binding example mirror the SoC bus address/size cell
+> Reviewed-by: Sashiko AI <sashiko-bot@kernel.org>
 
-Why are you suggesting in review something which maintainers never
-suggested? Or actually opposite to what some maintainers were suggesting
-before. Code has correct example.
+Drop, never happened.
+
+Do not invent fake tags.
 
 Best regards,
 Krzysztof
