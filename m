@@ -1,108 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.2
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792505751;
-	b=rMhhZU/mVHPVadL4grIEaOMqqEEE+eC7/sB6561oSxLS6DP/tg6INbF9Mjk8dodFpB96
-	 BKVBYc5602+oKHIhjYSfXMfCnf3gHYypmiM4yp18X/j501mqGKpsUOpbX3dFigdfGdf9+
-	 7eBGxvFWqttx6g984BOy4c/gdAMsaDx5Kqpgl+mKGLiWSthtpZjSLLMIAhknJfbhkompN
-	 ydC4DAtcYdE7d63sstwj02GfB670J4EMa7RVglyfAIYbizkjRccoZRaB7K+tb09EZGUjO
-	 bFA5UIMNcDrHofJHNV2EhabT+5AFaFDbF3wZ38cm72iXg7GaAPO2eSdFplAEUXSnSvA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792505751;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=1Grl+442tVBj2zWWfCC/7XqCpgD8fo8OS8qWEbvBQgo=;
-	b=mf9elstrOTxALqOTD7q0YISFb9NOlbIeRENoHpZuwWy+hfB6DLvDTxJ5Tj01pNXcYyJX
-	 CrGSuv8rOyN3uNrG6kk3SpSE7v2pBddqudb5l1xINl2q8pXIGIfyWMYNLuFU0nHF6lbIi
-	 LEiHW5LMd8mnpBEvZSMPbUO5Rs7+kaPkXIBZ0YWuQhfWX4ea0ZiPxMZvFvhtdAiWk09rf
-	 uDOjJpgFaKo3+O418AbQYsGPoquQyarJsJYjTuzLQZzfAeKsIz+rAqYypy5/SjQMwsJwJ
-	 SPaYNyvjyg7R2QziG0LiDxUDCunp1UsgxghBv0z2yzF61Ckrlli5/M59e5yUMeW4Kuw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=dFq3AiwW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.2
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012002.outbound.protection.outlook.com [52.101.48.2])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.163.59.57
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792505846;
+	b=k6heyOAX1e+jj9KgjRqf+x/L4dSPbqj2tN49sB5Qnc8mDwgnjXrmsT9ctx+ZYRLI4oSU
+	 j6wYJWvCVFz3aakTKq3qo7yHVqyoF+ZVLzUCxV2Acngha2yWgQfh8aALO36Z2nyb/gX9q
+	 5ll3BgAIsyFT6Ok0v/Odwk6cuYcy2FlvwZ9Ck7Md1AW7bIIsPIjElAHtt9giIetjgLeKI
+	 ymcOUTFx9kEHsP+R1C4Xfy3voincgSulY+21ETZWZqPMjAEOo7bIQc0TH+a02edahdJDu
+	 yHx6MjxLNnLQwBVWTrN7i8ntsP2qF/KeDk5NVks+L88KC9dSStQtRlWKHm8w3T8nW/Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792505846;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-Mailru-Src:X-7564579A:
+	 X-77F55803:X-7FA49CB5:X-C1DE0DAB:X-C8649E89:X-D57D3AED:
+	 X-Mailru-Sender:X-Mras;
+	bh=HShU1ajCTatn3U0+wXokY8SYUYSusu42a9leXTZGoqo=;
+	b=3EFH8+JjeOJhdtv9rn4VYynjNBJsoNmUAMHPxe7RYDAcl18GWiD/kht/sBzTGRooOl5v
+	 KsFa7uW9sX29xQrU/Gvl/vjJvixchLCT+KWbiI6fZiq1ce0gZpXmzVbNY5x+zPARtDnGm
+	 1eWGnczLM0sBussYnQAE1NI7jpVK5V0d7vaz7baw/Ag3CB/9oYu9crwvbqkRnlD1ODfRi
+	 IcrqmbkWYRFdDTnGl1KOBTJeZdq9tRzYxNeA45PdLtKYwBPmqkVnCsB/dfDw6sqiqHhm3
+	 ICVUfr/Swr5fsYd6SMi8mXJ+PVxI/QQSjcUOkwwNbTE5QEP3sR4GFFDSaTVGm8n3FDA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=mail.ru;
+	spf=pass smtp.mailfrom=mail.ru;
+	dkim=pass header.d=mail.ru header.i=@mail.ru header.a=rsa-sha256 header.s=mail4 header.b=UL24wGfH;
+	arc=none smtp.remote-ip=95.163.59.57
+Received: from send218.i.mail.ru (send218.i.mail.ru [95.163.59.57])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39AD3606A325;
-	Tue, 20 Oct 2026 14:15:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39AD3606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 259BF60A3817;
+	Tue, 20 Oct 2026 14:17:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 259BF60A3817
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mail.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=dFq3AiwW
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QSr09M7SO0pyp2onnvFQJV7hw7LegJ13MFiJcWqB4cHfJTBpOYBCcYLFUvj2OrpSVvEWzov7glTxVeIsAtXEX4C3PKQvxCPpwD/UmROyBmfLX0HmlmBCbSgEhBpxQRQ+FLcpU9t5UuDnWTlru7IF1Gs5uUaLgFdRNnpVrrDHGVQx97U2f9AQz4XuWfUV+nQTpqXlVxlaF4jf0QoEbIdOBbCVh31DaHPHwTnEisHYcT5GDsolpJimUmUrHQ5wH3P6vWlpcI9stTiDKbQsTJe0KBRrP2eiGECV13ihUQ9RNfQN7keAKDUO/GH8e+MhuprKqKrE00EN9tH+BlWzWRiHgA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1Grl+442tVBj2zWWfCC/7XqCpgD8fo8OS8qWEbvBQgo=;
- b=gzqoHm3XIRP7YIzl94IJ9UFBlkbBAyRhhHKBmgdtm6U12xGWOEK4fpN456mc5qVrn8xFWBpSpOGkrsT/o8J+ReZsex92yHYWvgwKONcje4c9z0z+Yi1RLxjNOI7Ts83Lj0CBHsLr4kOkuPdLfQD+gNeuom3MMCdo6RcpLiGpIgMEVcBamyJ+3lwUn+oK8ZG/+J7GeC8f29wJ7Mdqk6DZ7nAvEWJGwhlFm8aOZ422VPnm9+mK4sC3kbEf3vvBthMiM6T8GplcFGr97POPoaoAu60G9ng+RtdFg5BLSxD6dyuwrENZG8q9oI/DMo/AWL5F2Y0Cx44RHM89fhqPK/4k+w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1Grl+442tVBj2zWWfCC/7XqCpgD8fo8OS8qWEbvBQgo=;
- b=dFq3AiwWD2G1EFflfWRVgemvol67s7m8jjWWK85phcemDFFEoppxB/0umTaDSZgjU/Gc8DX2IfHjmmfiSyb/va35d/fggsKYVDW5nMA0bTUuyrB7TX+49FNxkRlamSr6Epb2n70xedC32LtJVRuRWVyJPe+Emoj6MvVvVemBPlQYd/GKVW64JQk6OSlB20r55fw+OKoqIeA57ck2mLrkTb+uGfNTYf5F7QK9UyJBPRwH8LflVzy3VZRO5wtAA6iTiw1qOpI1jk1TUVSTfUEY9x1cV4WbhLhaSkrnC6kQJZxYkXt1F4YkDmFSVOUmrR91DqnV4zZ7XCxSkTAN2QMvCQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by CY1PR12MB9583.namprd12.prod.outlook.com
- (2603:10b6:930:fe::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
- 2026 14:15:41 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
- 14:15:41 +0000
-Date: Tue, 20 Oct 2026 11:15:40 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Jean-Philippe Brucker <jpb@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	Alex Williamson <alex@shazbot.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=mail.ru header.i=@mail.ru header.a=rsa-sha256 header.s=mail4 header.b=UL24wGfH
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mail.ru;
+	s=mail4; h=In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:To:Cc:
+	Content-Type:Content-Transfer-Encoding:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
+	List-Archive:X-Cloud-Ids:Disposition-Notification-To;
+	bh=HShU1ajCTatn3U0+wXokY8SYUYSusu42a9leXTZGoqo=; t=1792505843; x=1792595843; 
+	b=UL24wGfHRszedxaBtsmS3U3TgdlRwCuBcUUF2COL7z4/r+oR31ZTgCLsdRnsnYuIQkb/zXVGLeV
+	Ag2kjvs6EWPK6oast/lU2r8WMstVO13pAM3Tj7QP/w6i0WdGxrafUH8Hj4MIOylhuhO59ayuuokmE
+	oG8PYDPhLeCt1woWn79Wnn8Ehbx/RGB9wEgYHXHzEYyzTeVVPHJos43S5guIt4vtmExsiKCMIzgwp
+	0S1n8Hi7D2pijzLpS2EtgxKkDxYG4wX/g6SE2jwj8LwdN9yarvj6tC1k2BetZ5vM+BOfH0JKrIxS1
+	tN8Hqkl/4ApuyAR/fxj83P5gZscLRzBSBpmw==;
+Received: by exim-smtp-558c7cf579-v8gmr with esmtpa (envelope-from <misha.zavertkin@mail.ru>)
+	id 1xJAeQ-000000006fd-3HL2; Tue, 20 Oct 2026 17:17:15 +0300
+Date: Tue, 20 Oct 2026 21:17:11 +0700
+From: Michael Zavertkin <misha.zavertkin@mail.ru>
+To: linux-i2c@vger.kernel.org
+Cc: Rustam Adilov <adilov@disroot.org>,
+	Chris Packham <chris.packham@alliedtelesis.co.nz>,
+	Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev, kvm@vger.kernel.org,
-	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [RFC PATCH v2 15/15] misc/arm-cla: Add vfio-mdev user interface
-Message-ID: <20261020141540.GB3008132@nvidia.com>
-References: <20261015142552.4128028-1-ryan.roberts@arm.com>
- <20261015142552.4128028-16-ryan.roberts@arm.com>
- <20261015164102.GC13920@nvidia.com>
- <CABCqBse_aZL-EH0us2uA5X10q6E4WP02MoHTYf+M9ezRZr26WQ@mail.gmail.com>
- <20261016144202.GG13920@nvidia.com>
- <375868af-d0bd-4278-83e6-f8429df130e9@arm.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <375868af-d0bd-4278-83e6-f8429df130e9@arm.com>
-X-ClientProxiedBy: BL1PR13CA0023.namprd13.prod.outlook.com
- (2603:10b6:208:256::28) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] i2c: rtl9300: add realtek,rtl9607c-i2c compatible
+Message-ID: <atd35wScRu958p-p@gamepc>
+References: <cover.1791611999.git.misha.zavertkin@mail.ru>
+ <e7186b18caf58f2fefa61093921805d5dc045e07.1791611999.git.misha.zavertkin@mail.ru>
+ <sashiko-outbox-166284@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -112,111 +73,96 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|CY1PR12MB9583:EE_
-X-MS-Office365-Filtering-Correlation-Id: 69e80da7-28cd-4f62-b2b5-08df2eb49f8b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|6133799003|22082099003|18002099003|4143699003|5023799004|11063799006|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	4Nt8u2cbK+o6nWThaHKXJuGX9KrXU2VLuuGZXpMoleT4i3VjKxil+dHrTUQKD/hwTKgGmozBTib50a82CR5fN3XNE23HryxVsIifk+J7KgjzgOqqglIKgwMs0KmcMGpIlMkAoV/h6RhNWC1TTQr9S8kTh9cD9oRaaTfZezZR4xUQf3/g5K+LUt7/OsS4Z6b+z3e3KTRgCGMNJ/E4hovU5jYMlZSJxtPn5xO5eCjTiwQwcEspjeYHFD/XmkajzlvEH4qI8P7Ckdc4s7Eg1va1aeewkv74sSHffH3mfPGieLCKo4KCDT2wek3oRRkHW9hsTtaGtJb5PZ/7kUUhHRbVDXSVKpEDB3svtWsQ+U5NJuS/3vOFVkRRI4OAOWwFnJyRGWYIpfgS0huOPtFtsKTf/PMnnU3QN4ivVtMvmEhnzV4+JT6qcp+exh2vNEC8zcRdkQryVFpwHhk0diwjqAMDQEGzx2luj6VIwWXU2pFYWTgHYVm2e7VYtb3ROFwXRqzHeZAVicBuF+fwiXCr0LiJ0c95YNB0wTDp28ErHSCmwfbOgNzsXzKhH6rpYQPJTWpjD3f7hxtq+p84lOO/Jbys0Imp+J1PQb4yy8QnK9yUbDq5qz+i8ckyOHW6UlbtWGIskd9IaV3CSDP5haGqtpttYfnxqbbjJAF3/aCql8wAmjk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(6133799003)(22082099003)(18002099003)(4143699003)(5023799004)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?aq5cgkkCcscL0cw72xNQ5KIz3KgvbqwEGmvCbcKlqDKFuAfyKsVNkYApO6zq?=
- =?us-ascii?Q?VJchVlc3qM7WaxUXzer0IU9sSRUZ0Jhc0nRc0HbSyY2Mk1Jz4NnpruEWkRq0?=
- =?us-ascii?Q?vSyu8dSmSAa9Ctfcfuw/GjAHe2wH67riE0pRl0qx8P/v2OqUB5Q3LLLaDi9t?=
- =?us-ascii?Q?bJ2x6NEVRPz5kIXRrOxXudyyfsI3nv/hC3k4nJxtLBU1LMFOOzo/InX7FdSE?=
- =?us-ascii?Q?+HcZ9Dwn8zYZrR6TEOdi9l8DPa5JLzpC1KgqUtUZeKbGlPTsLzSajZKmOfP6?=
- =?us-ascii?Q?Mqa77OpBuLMa6xHxSENL9MLC6oFaHa/0qOqOyes5ihBmot6HVDDEKQ+gcORl?=
- =?us-ascii?Q?26fCKwuS2HJ0qPXpPO7PgC7/9QFbtqKkMYSxY1drVRvLM0QnSbPhkz05R+hk?=
- =?us-ascii?Q?dLSFlZY0tSav4aNPhVfYhbZgLjAjQFO/Lbr17kvBXDu5P1+IWo1hJlP+xf5G?=
- =?us-ascii?Q?+63qDdpOBcTETZIUh7gwDs5kq1y5yQxsTLgl+aGeXYYWyjvjcZ/h3YPUmQjS?=
- =?us-ascii?Q?mRJTDlI6+CKn8rbqTI/sTk8djUKpNXujDjqDC0gknAYFbbMO+Sh+zk5wvqZ0?=
- =?us-ascii?Q?s0tXk73E6ompsQYFMd+e/zr2Kzb4DiJAeqdZUVDpLXRJaH3au5G+WZ6t5bXC?=
- =?us-ascii?Q?rITz8cXvhFPPRPeEHux6aOVFJCVvfelN1vOq7eHkRLMXe6oSFoipEisIs3le?=
- =?us-ascii?Q?jE1XUker14IygqF5gDdMasQAAYxnhL9ihBWXzRH9nkXADNCWpSpO6smZ8ZP4?=
- =?us-ascii?Q?JdsIqYRsEcjfNIFqf2xCAjFdJgj70BxfZQFzUVOGM/z3bzz2uJjYKpjt4obC?=
- =?us-ascii?Q?WFPkG1ZTC1CtJo7LwGX8LIyMZGjVOKseaD+rueclEMazNVto6HVQ1zee/14v?=
- =?us-ascii?Q?ilu0+7vVeQsGbdS+yz4Nh2l7LFiDYt60lCAa72lC3xy2l6M3cnjJ1B3uiwBZ?=
- =?us-ascii?Q?11LxoQxKtiX247fOEZd7OpHMWqAgysWSLkkXFDYkTdnsFogs6nhD0NCLLwTg?=
- =?us-ascii?Q?0LJSjj9GgMDGDl+cb5bsBIZXDk66bpS+WbF3dBcTjX25zHtPwJgYkZ1dH8zN?=
- =?us-ascii?Q?SCr9jh50Di3BtTLJA3vy9elGDq/q9ZyETud+8qPoa9ryZdc2zFPVMncR0Rv3?=
- =?us-ascii?Q?xEoMCd7PEZbQ8epo8zcNJOeDXfimPdWiLWtm5GqeKpPna4wVYtpsWbpqNXeT?=
- =?us-ascii?Q?7UySdXNo8kjmUVRCOkniatWewDXWibnpIObkzSNSxerz+Eq3wRMjVeHTORjH?=
- =?us-ascii?Q?QmxUfyNdyePpgM2KtvE+igKxJcb1NOi7JcCw/SgMoBh+HWYcTo688Z0NnIyi?=
- =?us-ascii?Q?yw4xPMBdieRM9KQIVz+46fj2oJkaDHT3dkDRlpzfOTh1I0zENQA9aRQEMYHV?=
- =?us-ascii?Q?P7xHRDtkMoEhHa2b0v2HxGNTWfi15K1JYdSX3/4K1mp8RP9mt+BYfgFJR6ae?=
- =?us-ascii?Q?KPsIyEqOjjbOBeJiMS0InFFnjOubNrPeMjAptzAjnUGvMJGDu45rKeirliHw?=
- =?us-ascii?Q?iwj50y4gGPOO7WGR+dEbgMoUW6aKNuP76bCJNJQyVGOH3tEpn/o1F61s7eN2?=
- =?us-ascii?Q?byZ7JmEooUF6znvssMHpJj+biZHrdpCq8A7q6djRJ9ZVGGhCcT2cU/Ojjisd?=
- =?us-ascii?Q?Iw+LlU/HFQ2ft4iIWhyxqm7kut1TcQroq0MOapKAsFxqcZ8p+ib7pj8hQh7N?=
- =?us-ascii?Q?JxI675dCPUAjfQoNQ42EokMr7x4S0QM/rNzv4W7Hd3IJySxa?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 69e80da7-28cd-4f62-b2b5-08df2eb49f8b
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 14:15:41.6548
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Bs8WEqf6cya3k34FoXK1TQLK0hDME/Bt3xtKwYK243gytr3DtdlbB1yjiBEPEPlF
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9583
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <sashiko-outbox-166284@kernel.org>
+Authentication-Results: exim-smtp-558c7cf579-v8gmr; auth=pass smtp.auth=misha.zavertkin@mail.ru smtp.mailfrom=misha.zavertkin@mail.ru
+X-Mailru-Src: smtp
+X-7564579A: 646B95376F6C166E
+X-77F55803: 4F1203BC0FB41BD9DFFC04176464C09E79E6E67BE48C2A2B1FB020C0B09AAE0C00894C459B0CD1B9D79830490D50202D2EB5D77EF37489D143B5C1FC6A22A2C0091016640989F49F35340226AAA953E0
+X-7FA49CB5: FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE72F22E6DC541F75D9EA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F7900637F28F4AF03526AA8F8638F802B75D45FF914D58D5BE9E6BC1A93B80C6DEB9DEE97C6FB206A91F05B2D7555A0FFE29A0962E070BE324C7D3C40801EA40693EA213BB0A4F435E46E6718B35066C979671628AA50765F7900637F924B32C592EA89F389733CBF5DBD5E9D5E8D9A59859A8B611E5B64A728E1589CC7F00164DA146DA6F5DAA56C3B73B237318B6A418E8EAB8090A508E0FED6299176DF2183F8FC7C073D3C14A638F3BE6CD04E86FAF290E2DB606B96278B59C421DD303D21008E29813377AFFFEAFD269A417C69337E82CC2E827F84554CEF50127C277FBC8AE2E8BA83251EDC214901ED5E8D9A59859A8B6CF00A2452BA722CE089D37D7C0E48F6C5571747095F342E88FB05168BE4CE3AF
+X-C1DE0DAB: 0D63561A33F958A5789F0309656BF0AE5002B1117B3ED69644C71410E482EB43E99897350C7C491E823CB91A9FED034534781492E4B8EEADEEA082C9A12FE455BDAD6C7F3747799A
+X-C8649E89: 1C3962B70DF3F0AD73CAD6646DEDE1918E10F71CB4DF9F9677DD89D51EBB774225B6776AC983F447FC0B9F89525902EE6F57B2FD27647F25E66C117BDB76D6590726D5EA13D43033CE201AFD005EF7468569706EDE2BA2D2312A344C19DC87FF680EFF2B3942D708B8341EE9D5BE9A0AF0BF99C353B921C24ED02CC49C473A4ECD1AA28F94FCD317546A885F7A58241B4C41F94D744909CE2D653CA06E969CEAC4926F5095E487D6D64CFEF34022E96A964550E41902C4E4
+X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu53w8ahmwBjZKM/YPHZyZHvz5uv+WouB9+ObcCpyrx6l7KImUglyhkEat/+ysWwi0gdhEs0JGjl6ggRWTy1haxBpVdbIX1nthFXOcIETfglQORZ0zpDET4Zrk3igikrdHlWPLPuVEUe1uNm5/lFOSIJYM=
+X-Mailru-Sender: 53225E476262CDFB4708A4528C9D2A7BB776C0B8A08BD75C3DE06ABAFEAF6705D72900F5CD64CF08F544F87C5664B7A31DBC9D26A80DBF048AFC883BAD50DDC9AB8642342C2B65EBADBD92A00C77E0473057BA2287F227EE22B820C1B2086D890DA7A0AF5A3A8387
+X-Mras: Ok
 
-On Tue, Oct 20, 2026 at 11:41:57AM +0100, Ryan Roberts wrote:
-> On 16/10/2026 15:42, Jason Gunthorpe wrote:
-> > On Fri, Oct 16, 2026 at 03:22:00PM +0100, Jean-Philippe Brucker wrote:
-> >> On Thu, 15 Oct 2026 at 17:41, Jason Gunthorpe <jgg@nvidia.com> wrote:
-> >>> I think I said this last time, please don't use vfio mdev for
-> >>> anything. There is nothing mediated about this.
-> >>
-> >> We don't multiplex a device between guests, but the host driver must
-> >> control part of the device registers while the remainder is assigned to
-> >> a guest. The host configures accelerator access, stage-2 translation,
-> >> handles CPUHP and context save/restore. So we can't bind the device to
-> >> vfio-platform.
-> > 
-> > That's fine, you can make a proper vfio-cla driver.
+On Sat, Oct 10, 2026 at 06:45:14AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] i2c: rtl9300: device_is_compatible check breaks DT fallback patterns
+> --
 > 
-> Hi Jason,
->
-> Thanks for taking a look at this! I've been chewing on this comment and trying
-> to educate myself deeper on the subject. I have a proposal...
+> commit 96f11e2144ef16398bba64fc512f5b346ab89571
+> Author: Michael Zavertkin <misha.zavertkin@mail.ru>
 > 
-> Currently we create a struct device per CLA device instance. But multiple CLA
-> device instances cooperate within a domain and the domain is the "unit of
-> isolation"; 
+> i2c: rtl9300: add realtek,rtl9607c-i2c compatible
+> 
+> This commit adds support for the realtek,rtl9607c-i2c compatible string to 
+> distinguish it from other RTL9607 variants. It avoids using the IO_MODE_EN 
+> register on the new compatible by restricting the select_scl call and emits 
+> a deprecation warning for the old compatible string.
+> 
+> > diff --git a/drivers/i2c/busses/i2c-rtl9300.c b/drivers/i2c/busses/i2c-rtl9300.c
+> > index 3a8225b0666c0..22aa3b38458c0 100644
+> > --- a/drivers/i2c/busses/i2c-rtl9300.c
+> > +++ b/drivers/i2c/busses/i2c-rtl9300.c
+> > @@ -200,10 +200,12 @@ static int rtl9607_i2c_config_chan(struct rtl9300_i2c *i2c, struct rtl9300_i2c_c
+> >  	if (ret)
+> >  		return ret;
+> >  
+> > -	drv_data = device_get_match_data(i2c->dev);
+> > -	ret = drv_data->select_scl(i2c, i2c->scl_num);
+> > -	if (ret)
+> > -		return ret;
+> > +	if (device_is_compatible(i2c->dev, "realtek,rtl9607-i2c")) {
+> > +		drv_data = device_get_match_data(i2c->dev);
+> > +		ret = drv_data->select_scl(i2c, i2c->scl_num);
+> > +		if (ret)
+> > +			return ret;
+> > +	}
+> 
+> [Severity: Medium]
+> Will this check break device tree fallback patterns?
+> 
+> If a new device tree provides a fallback compatible list like 
+> compatible = "realtek,rtl9607c-i2c", "realtek,rtl9607-i2c"; 
+> device_is_compatible() will return true because the legacy string is still 
+> present in the node.
+> 
+> If this happens, the driver will incorrectly execute the legacy select_scl 
+> hardware configuration (modifying the IO_MODE_EN register) on RTL9607C 
+> hardware, instead of delegating it to the pinctrl driver as intended.
+> 
+> Would it be safer to differentiate hardware capabilities based on the matched 
+> driver data (for instance, pointing the new compatible to a struct without 
+> a select_scl function) instead of dynamically searching the OF node for 
+> deprecated strings?
+> 
+> >  	i2c->sda_num = chan->sda_num;
+> >  	return 0;
+> > @@ -494,6 +496,10 @@ static int rtl9300_i2c_probe(struct platform_device *pdev)
+> >  		scl_num = 0;
+> >  	i2c->scl_num = (u8)scl_num;
+> >  
+> > +	if (device_is_compatible(i2c->dev, "realtek,rtl9607-i2c"))
+> > +		dev_warn(dev, "Compatible 'realtek,rtl9607-i2c' is deprecated. "
+> > +			      "Use 'realtek,rtl9607c-i2c' instead\n");
+> > +
+> 
+> [Severity: Medium]
+> Does this also trigger an incorrect deprecation warning when fallback 
+> compatibles are used?
+> 
+> Because device_is_compatible() matches any string in the list, providing a 
+> valid fallback to support older kernels will falsely trigger this warning 
+> even if "realtek,rtl9607c-i2c" is properly specified as the primary compatible 
+> string.
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/cover.1791611999.git.misha.zavertkin@mail.ru?part=1
 
-Well that's weird and a bit confusing.
-
-> we can't have some CLAs from a domain assigned to a VM, while others
-> from the same domain are used by the host. Therefore it didn't feel like the
-> correct model to unbind one of these devices from the native driver and rebind
-> it to a cla-vfio driver. mdev seemed to solve this problem nicely for us.
-> 
-> But looking into it in more detail, I guess something like this might be a bit
-> more standard:
-> 
->  - Split the existing CLA driver into three components:
->     - cla-core: Hardware discovery, domain configuration, struct device
->       registration and CPU hotplug
->     - cla-native driver: Provides the user space accelerator interfaces
->     - cla-vfio driver: Enables domains to be assigned to virtual machines
->  - Each domain has a struct device (created by the core)
->     - An individual CLA is not represented by a struct device
->  - Either cla-native or cla-vfio can then bind to a domain device
->     - cla-native exposes a char device per domain, per accelerator class
->     - cla-vfio
-> 
-> For VFIO, I guess we could use one VFIO region per CLA, which would allow the
-> VMM to construct a device tree. But it would need to additionally determine
-> which CPU each CLA is bound to; perhaps that's a sysfs interface that cla-core
-> could expose?
-
-I don't know alot about your CLA, but this sounds reasonable. There
-may be uses with containers to have the split exposed like this too.
-
-Jason
+There is no device-embedded device tree files with this compatibles,
+only embedded in kernel during build (OpenWRT approach), so fallback
+compatibles isn't expected, and proper fallback support would look like
+overkill right now.
