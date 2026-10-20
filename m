@@ -1,57 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792486512;
-	b=wUXCGnh/EMKa1hSVW5dmJxpRBYIeZWQW1BVBjCVd0ZcHsu2859t4IReM7rte5dO+zi52
-	 +Frxtmdzb+h+H7kVSRqD/YDbqmUU2uLco1MK2OcM1F7DSvh3aK6lqgBpdl97juuoIKQlH
-	 UilgHUoeHPtWhL6Gc9rfzugso+lodz3J56LewuNF9IUF6Y3B8T++NdjJYkn49KGP3K0UO
-	 n6TqgJexirslleHvxf+x4XkBCBsX2fJa4o27Cm06mXYmzxUIaiKafaRvoah5U0jLEeIYi
-	 voYf9zqeIKAh7970U/knZhi4gzL1DMRi4J02tKfI1H8z7PmJ8bIUsmMU29eJigOV01Q==
+	t=1792486569;
+	b=JesseUrArmZAVZqDM67hFeAHhkIKxA/f1D+b2uBJ0Qn+Som4aDEcmQiCfmP2mFJ5XxFs
+	 /FWLClhMx+eDmz7/2TccREHmXVhBbuLdW7J///8VbrwoIdtoK/KtjO1e9vrgwesPMAcL5
+	 hnxM1I8HXaQqC9ytdGSYADT8gzf+jlm2gdmpeCGDkNTC924SuiPRjZ+fNEy0t6Nx6wpWc
+	 mTRMjiKpq9uJ989MSKJM3DoGL308xTQYRAQdtaLLyVjHLd59QA6JK6lwsgdqy7IjC4Jss
+	 MZb5MOOAvQhvEKQ9dNLkP3w4906TVz/G7dtsxFGQyunc7F7Pbm/tKvrkjVlgashMHNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792486512;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=rkNyBHccCsNZrFzTEOZcB5gHz93twJ/WDA1ZlfSbYv4=;
-	b=OKLtZ8ZPF+w14LvaqBiF7MkiikZQdnkLvfdYtBxCy+GhMCMr4dGvrFKsY08YgF1FxR1J
-	 fLRP+srqxS2DFIur9YS6ktO3hia2nGN1mnB5USULd5TLNnw5naDfv4rpCZM7ovtuA/J2W
-	 eoeQWe9UVetczMOAoQ68ZAZx4VzyL/8kEBhwio+fFBqmuDg/uJNke4/wW+awj/2YaooL/
-	 nf+ac9SH5Xl/eX/NuoWd7JVi4wnsp9RDO9IQLg4w0FgYJRGEyhyN0UEWWfCcWixw2/uvl
-	 +XJD5xkOKuogZJ4RI+WwFB+cSd0rPpQtpj+zBiuhNl+n1Ix0gDQOq+dRM8hJnelRm8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792486569;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=BR1IwiAnPDQuLNombG0qRfBEZEt9D0S3/JVBy9369T0=;
+	b=skQrAwcjSkDXBXmisvJxAOnNECg5jGxAacTSBQ3+SFxD0oYX55nWzxDPbxIN62PHVvgA
+	 cXTlDJANeGjYG6QmD1DDtC0So+uvetTJrIKp7mr5NoiOE2C3Y7uLNIaW9tI4BXrVJQPas
+	 tlPwDW0v4AJ+zopqQ7/cm//qql8tZw/eCDA10VwDZHmByABoyEABs3NbX0A7vEujDEbh1
+	 E04oEh3rY0BlPsQ7fDgaDl02Sw3JZZtQuooYzygCN5tkyizq0gJrf+MAHWP2pqmxkA0Us
+	 uLakJejNENIuc6n/HGg1cAk6cQRZsPVC/EgO9JNZqkaunyMxy7fiKyiBck/PctMEiUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bbQkQQGr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Lo5VQHS7;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=R+PcTHbT;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0BE4606A321;
-	Tue, 20 Oct 2026 08:55:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E9B7606A328
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 08:56:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E9B7606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bbQkQQGr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D66101F000C4;
-	Tue, 20 Oct 2026 08:55:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792486511;
-	bh=rkNyBHccCsNZrFzTEOZcB5gHz93twJ/WDA1ZlfSbYv4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bbQkQQGr6JBAV3RXMd8jgHXXXDx9ivJqzsBOquuN93sSbhIRUQc2TbiR1FKDDLsBT
-	 SYCmkq+DNYjF0glaV/9pLrGJXTDnfg9YXuJcSl/4oSCjwGC/wmtZIIDw1S0utqWDbE
-	 bsYK3MLfeMd6Y4ecJhRhtznql9pkzv9CSuwuk+/KVjknDvRFXQYvrhxkzL1UUfb6Yb
-	 TfDbm5b79FC7u4R8kKEWyfEyrAlTkZOq4BxlP+U1FSgeE7UUkzgyNyN6eqp7eBac7v
-	 +5QLX2CFFo181HQdz9kkZpQcFbJNHRcCCOuGpjEvLtnw+ZSWltvQcLvle0TA8Ez82a
-	 JkLEFLl4T35Bg==
-Message-ID: <sashiko-outbox-178650@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/4] hwmon: (pmbus_core) Support relative encoding of
- vout related commands
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
-Cc: devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261020-hwmon-pmbus-fs1412-v2-3-3396c3a08251@nexthop.ai>
-References: <20261020-hwmon-pmbus-fs1412-v2-0-3396c3a08251@nexthop.ai>
- <20261020-hwmon-pmbus-fs1412-v2-3-3396c3a08251@nexthop.ai>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 20 Oct 2026 08:55:10 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Lo5VQHS7;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=R+PcTHbT
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K8E5ms1211293
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 08:56:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	BR1IwiAnPDQuLNombG0qRfBEZEt9D0S3/JVBy9369T0=; b=Lo5VQHS70Mh5HY8s
+	Y/wjJAyjJOogyBWSRcFAyz6KvtlqhUbvg+LBH9HXG1blFEMCv8OWoOpQwMbBnQLP
+	x7BBD4x8SSucQtiQHkTDnmm849QqM2M72XhOiymGaCzOHnQHyztCFNzUjGprdRMi
+	lB9TDDI34c+jdpCsV5vvbqDSnSQe6Gf/aLjbibe5Crn77SqqPvn4i3gyw3QJXqP3
+	/iTIsbIUeDOjGA9hZgjU7nI0kHHhtvF5bMicu2CzGn9AlZXAUWw+kdA/orai2QZS
+	tgvwDZL/yac0PVSJA99MxQkhSaNzC+B3sBV8wjxNRncGKJryOk768qdy9R4Qsn/f
+	TxVX2Q==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5p1qua-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 08:56:08 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-917a04d1cb2so8443126d6.0
+        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 01:56:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792486568; x=1793091368; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BR1IwiAnPDQuLNombG0qRfBEZEt9D0S3/JVBy9369T0=;
+        b=R+PcTHbTxTNLUxec47Sld5QsqUInnIjF2D+RmI7IYZDYlSWnXdrt/pTdq8RA9WEYJM
+         jSqPidYaipzfsx9eZTNAHHvEU4zcETNmW80fXRAdMp79bibOcblJUGE3ociqKip29+/T
+         6UgvbBhFYYqvRvqn9xqw6N8OyrGJxxUBrws3gQ55ZnuuHH7cCbXs5R/X/BdbqnG3/LtZ
+         y/Ze45Ed5DQY/KkNz6CMMp4L4vOm9FL2oTaNwNd+pxqRJfWTUFD691FVYhhay0WBHNOH
+         n/9e69qBqKn+36U+ec64J5/85k7/4vzQbXKDWlQQA5/mIQMptchD+sCYjG1li5QdDvz+
+         4nvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792486568; x=1793091368;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BR1IwiAnPDQuLNombG0qRfBEZEt9D0S3/JVBy9369T0=;
+        b=gATqrGFrJKtL2RDuZOrfMFpBUJgoIXRkqe4HSqKoL7oWY1Ghr/D1WvQrN25ojqe9K3
+         3VtfcSjbsJYgKqKHuI1gG4YY/vSMPR6h/uQ5ir/gakMNa/1yaABk3Tr5eCkvX1FjHBEo
+         2lDAz4fEasFRVtSH9J+9xgrR0p5tURJOpkAF3eomd7ocQCiK5Aq/IhkwCgTK1FSYu1aI
+         1oD2B7cWRhMj3RnHt++e0cuxTxv8uUgvSTNL/kBZWPFH2BpTXX/VyrJvUjderabdCg/b
+         PZoos2IHMhbMgOKjnB7o5kZ7s0UfM4qCpW5F4x0XatTdiJGv5d3vDDO9cIfqVVMnDG8u
+         zIqA==
+X-Forwarded-Encrypted: i=1; AKwUvBwc+DJ2m/swui9FYFtPQsqMepvcks3Iryt+Q5byxIQFgv6XAR7LZ13KXv7bJJFVzMmXU9TjctYNde6l@vger.kernel.org
+X-Gm-Message-State: AFq9FYLJHoEkP9VjvaALRJHVeb9hpiSsWum8NWg7mfFgTnwP5Og98TD3
+	85f92vzCRTbE70/oP8onjrfzJZf0EBzOZDrqHOJ2wLuHhOC8VcZfaHf00Ni3/7EuZ99xt61SCWU
+	o5EuFH4BIkS0uRrxWIlSSK9AQVOsDewPIy2rL/QFjK6u0/EBJBWfF7Lb1WC+ydnGG
+X-Gm-Gg: AYBFou1HgHm7Vrgz1n9BG2Zpv0S8YblMstgdS3Z4tNXjwwVHCRkfLiKKW1x71vAsBtd
+	4JAwov3dKgXnTVCI+dzsUm2colyTyJuHRFPbt/f4l5lKYwrOSn3Us+ZVQdiw7XAOmvorOepPzR7
+	i2OoU4PfDFqHgqee1BGvV3D82f6fImsas9YzOYNXoShE7lJrLfsek6Fst+hSgqPUtDJoEeYOuse
+	1NelCh7Go+wBZf/DJErOjlM25tOdbQ80RiQ3RALZrVQmb56Fh/iCN6EN+vouQ/sbbrgoDJd7ui4
+	lro/mJUyZ5KtnlbZnQ9v0+PrpiwueXdAxkTLV4rXRXL++6sBXIzo4UvIvTlBwhWxt5AxK72QxKN
+	MKCFKrIMz/3kRsv1Uy/XvVg==
+X-Received: by 2002:ac8:598d:0:b0:536:79aa:de1b with SMTP id d75a77b69052e-53679aae196mr67975901cf.4.1792486567660;
+        Tue, 20 Oct 2026 01:56:07 -0700 (PDT)
+X-Received: by 2002:ac8:598d:0:b0:536:79aa:de1b with SMTP id d75a77b69052e-53679aae196mr67975511cf.4.1792486567117;
+        Tue, 20 Oct 2026 01:56:07 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40919bd6besm458394566b.56.2026.10.20.01.56.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 01:56:06 -0700 (PDT)
+Message-ID: <58297c07-c94a-4a02-aecb-e0807c432a51@oss.qualcomm.com>
+Date: Tue, 20 Oct 2026 10:56:04 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,214 +114,73 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] arm64: dts: qcom: sda660-inforce-ifc6560: fix
+ ADV7535 interrupt parent
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Marijn Suijten <marijn.suijten@somainline.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261020-ifc6560-adv-v3-0-5da1a33fdcbd@oss.qualcomm.com>
+ <20261020-ifc6560-adv-v3-1-5da1a33fdcbd@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261020-ifc6560-adv-v3-1-5da1a33fdcbd@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: 0GULeWpaiByhTxQGpN-IzCugfVYNXurk
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAzNSBTYWx0ZWRfXx4x1KwklC6Pq
+ raEjU971wd9lMxzMogLH0M7wgYZrmJaNoJML4bB59vX/fZo9TtD1xbXIYeKvf8hVxdhZQKY4C2T
+ ly5nGfRurLsC+jZQ005xn5FfnTUfRqo=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAzNSBTYWx0ZWRfXzlRBkBFmwz6j
+ uj8Bis0FE+YqLabDWchNvMY2zhk1fYtL3DyQ41ih8lmgrcWcx5DneysRm75R2SAqRyI5U4C5nRQ
+ ZzknXhh8fKB4dKxnU8u5fJZw473WvZZXkbILTgx1q08IAZ40c+QVd1K6UzLHME9tL4grXwRXStW
+ 9XSfInjdXuak4oajOSb2xcW4UsT32X4WdiFVZKWlnEKdFeCBGm9eUcdMuOaBMzSwRDtLAhHgf8X
+ g1+tACM6pOr7geYSJlE0HIdTYRdi8y1ygX4RAxnsfkzAoHevXMKLXJsYe69NVZzg/qB0HgSqfsF
+ Jdo2wiqdTAUna3HidtzkOytkbXNPhgjBZF6nZUuRPL/kerc7m7La4P1pM3zNBwaJCebVjALTCMx
+ pz4VwmkTNm6TS4umrcNg1Tds1FX7+UnX5iRVHArtGinpKR1ir/5T5hjldvQRqvyRPdv+9sEqh6H
+ 1MHdGihnMKhCaxpkN6w==
+X-Proofpoint-GUID: 0GULeWpaiByhTxQGpN-IzCugfVYNXurk
+X-Authority-Analysis: v=2.4 cv=crUOAF4i c=1 sm=1 tr=0 ts=6ad72ca8 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=gQ1mbmYKsGZDk89HBR4A:9 a=QEXdDO2ut3YA:10
+ a=1HOtulTD9v-eNWfpl4qZ:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 malwarescore=0 bulkscore=0 adultscore=0
+ impostorscore=0 priorityscore=1501 phishscore=0 spamscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610200035
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] hwmon: (pmbus_core) divide-by-zero after pmbus_regulator_set_volta=
-ge()
-- [Medium] hwmon: (pmbus_core) broken relative VOUT margin handling in regu=
-lator ops
---
+On 10/20/26 10:44 AM, Dmitry Baryshkov wrote:
+> Probing the ADV7535 HDMI bridge fails on the IFC6560:
+> 
+>   gpio gpiochip3: (800f000.spmi:pmic@2:gpio@c000): gpiochip_lock_as_irq: tried to flag a GPIO set as output for IRQ
+>   gpio gpiochip3: (800f000.spmi:pmic@2:gpio@c000): unable to lock HW IRQ 10 for IRQ
+> 
+> The bridge's interrupt line, HDMI_INT_N, is wired to GPIO11 of the PM660,
+> not of the PM660L. PM660L GPIO11 is LPKs_CTRL, an output which the
+> bootloader drives high, so gpiochip_lock_as_irq() refuses to turn it
+> into an interrupt and requesting the interrupt fails.
+> 
+> Point the interrupt at the PM660 GPIO.
+> 
+> Fixes: 34279d6e3f32 ("arm64: dts: qcom: sdm660: Add initial Inforce IFC6560 board support")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
 
-commit 8ccb177073557cf9644c419b791da4a5cf494d3e
-Author: Lars Petter Mostad <lars.petter.mostad@appear.net>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-hwmon: (pmbus_core) Support relative encoding of vout related commands
-
-This patch adds support for PMBus 1.3 relative encoding of output voltage
-related commands, scaling limits relative to VOUT_COMMAND in
-pmbus_reg2data() and pmbus_data2reg() and updating the cached VOUT_COMMAND
-when setting regulator voltage.
-
-> diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus=
-_core.c
-> index 5f69c1420b4e1..47dff264d28bf 100644
-> --- a/drivers/hwmon/pmbus/pmbus_core.c
-> +++ b/drivers/hwmon/pmbus/pmbus_core.c
-
-[ ... ]
-
-> @@ -803,6 +806,26 @@ static void pmbus_update_sensor_data(struct i2c_clie=
-nt *client, struct pmbus_sen
->  						     sensor->phase, sensor->reg);
->  }
-> =20
-> +static bool pmbus_sensor_is_vout_relative(struct pmbus_data *data,
-> +					  struct pmbus_sensor *sensor)
-> +{
-> +	if (sensor->class !=3D PSC_VOLTAGE_OUT ||
-> +	    !data->vout_mode_relative[sensor->page])
-> +		return false;
-> +
-> +	switch (sensor->reg) {
-> +	case PMBUS_VOUT_MARGIN_HIGH:
-> +	case PMBUS_VOUT_MARGIN_LOW:
-> +	case PMBUS_VOUT_OV_FAULT_LIMIT:
-> +	case PMBUS_VOUT_OV_WARN_LIMIT:
-> +	case PMBUS_VOUT_UV_WARN_LIMIT:
-> +	case PMBUS_VOUT_UV_FAULT_LIMIT:
-> +		return true;
-> +	default:
-> +		return false;
-> +	}
-> +}
-
-[Severity: Medium]
-Can the PMBUS_VOUT_MARGIN_HIGH and PMBUS_VOUT_MARGIN_LOW cases in
-pmbus_sensor_is_vout_relative() ever match, and how does
-pmbus_regulator_list_voltage() behave in relative mode?
-
-No hwmon sensor attributes are registered for PMBUS_VOUT_MARGIN_LOW or
-PMBUS_VOUT_MARGIN_HIGH. The only callers in drivers/hwmon/pmbus/pmbus_core.c
-that read these registers and pass them to pmbus_reg2data() are
-pmbus_regulator_get_low_margin() and pmbus_regulator_get_high_margin():
-
-static int pmbus_regulator_get_low_margin(struct i2c_client *client, int pa=
-ge)
-{
-	struct pmbus_data *data =3D i2c_get_clientdata(client);
-	struct pmbus_sensor s =3D {
-		.page =3D page,
-		.class =3D PSC_VOLTAGE_OUT,
-		.convert =3D true,
-		.data =3D -1,
-	};
-
-	if (data->vout_low[page] < 0) {
-		if (pmbus_check_word_register(client, page, PMBUS_MFR_VOUT_MIN))
-			s.data =3D _pmbus_read_word_data(client, page, 0xff,
-						       PMBUS_MFR_VOUT_MIN);
-		if (s.data < 0) {
-			s.data =3D _pmbus_read_word_data(client, page, 0xff,
-						       PMBUS_VOUT_MARGIN_LOW);
-			if (s.data < 0)
-				return s.data;
-		}
-		data->vout_low[page] =3D pmbus_reg2data(data, &s);
-	}
-
-	return data->vout_low[page];
-}
-
-Neither pmbus_regulator_get_low_margin() nor
-pmbus_regulator_get_high_margin() initializes s.reg (leaving it as 0), so
-when they fall back to PMBUS_VOUT_MARGIN_LOW or PMBUS_VOUT_MARGIN_HIGH,
-pmbus_reg2data() -> pmbus_sensor_is_vout_relative() returns false and caches
-the unscaled permillage value as mV in data->vout_low[page] and
-data->vout_high[page].
-
-In addition, while pmbus_regulator_set_voltage() skips checking these margi=
-ns
-when data->vout_mode_relative[s.page] is true, pmbus_regulator_list_voltage=
-()
-still calls pmbus_regulator_get_low_margin() and
-pmbus_regulator_get_high_margin() unconditionally:
-
-static int pmbus_regulator_list_voltage(struct regulator_dev *rdev,
-					unsigned int selector)
-{
-...
-	low =3D pmbus_regulator_get_low_margin(client, rdev_get_id(rdev));
-	if (low < 0)
-		return low;
-
-	high =3D pmbus_regulator_get_high_margin(client, rdev_get_id(rdev));
-	if (high < 0)
-		return high;
-
-	if (val >=3D low && val <=3D high)
-		return val * 1000; /* unit is uV */
-
-	return 0;
-}
-
-Even if s.reg were populated when reading the margin registers,
-data->vout_low[page] and data->vout_high[page] are cached once and not
-updated when pmbus_regulator_set_voltage() changes VOUT_COMMAND. Should
-pmbus_regulator_get_low_margin(), pmbus_regulator_get_high_margin(), and
-pmbus_regulator_list_voltage() also account for relative mode?
-
-[ ... ]
-
-> @@ -3351,29 +3419,38 @@ static int pmbus_regulator_set_voltage(struct reg=
-ulator_dev *rdev, int min_uv,
->  		.data =3D -1,
->  	};
->  	int val =3D DIV_ROUND_CLOSEST(min_uv, 1000); /* convert to mV */
-> -	int low, high;
-> +	int low, high, ret;
-> =20
->  	*selector =3D 0;
-> =20
->  	guard(pmbus_lock)(client);
-> =20
-> -	low =3D pmbus_regulator_get_low_margin(client, s.page);
-> -	if (low < 0)
-> -		return low;
-> +	if (!data->vout_mode_relative[s.page]) {
-> +		low =3D pmbus_regulator_get_low_margin(client, s.page);
-> +		if (low < 0)
-> +			return low;
-> =20
-> -	high =3D pmbus_regulator_get_high_margin(client, s.page);
-> -	if (high < 0)
-> -		return high;
-> +		high =3D pmbus_regulator_get_high_margin(client, s.page);
-> +		if (high < 0)
-> +			return high;
-> =20
-> -	/* Make sure we are within margins */
-> -	if (low > val)
-> -		val =3D low;
-> -	if (high < val)
-> -		val =3D high;
-> +		/* Make sure we are within margins */
-> +		if (low > val)
-> +			val =3D low;
-> +		if (high < val)
-> +			val =3D high;
-> +	}
-> =20
->  	val =3D pmbus_data2reg(data, &s, val);
-> =20
-> -	return _pmbus_write_word_data(client, s.page, PMBUS_VOUT_COMMAND, (u16)=
-val);
-> +	ret =3D _pmbus_write_word_data(client, s.page, PMBUS_VOUT_COMMAND, (u16=
-)val);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	if (data->vout_mode_relative[s.page])
-> +		pmbus_init_vout_relative(data, s.page, val);
-> +
-> +	return 0;
->  }
-
-[Severity: High]
-Could updating data->vout_command[s.page] in pmbus_regulator_set_voltage()
-lead to a division by zero in pmbus_data2reg()?
-
-At probe time, pmbus_init_common() rejects non-positive values in
-data->vout_command[page] after calling pmbus_init_vout_relative(). However,
-in pmbus_regulator_set_voltage(), when data->vout_mode_relative[s.page] is
-true, margin clamping is skipped and pmbus_init_vout_relative(data, s.page,
-val) updates data->vout_command[s.page] without checking whether the decoded
-voltage is <=3D 0.
-
-If a consumer requests a small voltage (for example min_uv < 500 uV, or a
-value that rounds to 0 in pmbus_data2reg()), data->vout_command[s.page]
-becomes 0. A subsequent write to a relative VOUT limit attribute in sysfs
-will then call pmbus_set_sensor() -> pmbus_data2reg() and divide by zero:
-
-	if (pmbus_sensor_is_vout_relative(data, sensor)) {
-		val =3D clamp_val(val, -INT_MAX, INT_MAX);
-		val =3D DIV_S64_ROUND_CLOSEST(val * 1000,
-					    data->vout_command[sensor->page]);
-	}
-
-Should pmbus_regulator_set_voltage() or pmbus_data2reg() guard against a
-non-positive vout_command?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261020-hwmon-pmbu=
-s-fs1412-v2-0-3396c3a08251@nexthop.ai?part=3D3
+Konrad
