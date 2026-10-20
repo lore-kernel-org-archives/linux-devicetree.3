@@ -1,57 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792507750;
-	b=LG0FV6pvhB1/MEZSgDGvmQXETIMFEowemurhwO6qNtJHnhI24tsiJKUzgsZjdcpdAXV2
-	 YbcZ8X3L8DeymD9rApliHjcknfMas+sb0T0qa7Xhl2Gsm3OiBgu9t5tJI/Ffurh1biGw4
-	 3AQZU1dfTVQ/gSFYKg55bDoA5XdgV79LUBBa+OHLo0sXSCtcce9MYD2RNCsckFTaV1Er+
-	 oa3T7lhXa6ue9bv2di0R8EXi2VKmvTBX24K2BUJxZWuXfoZInvA5H/OoThWNH6ZoCy6m4
-	 JaKL34a8H/7g+M0j6qmYfaksC/nyAhhk/VMZshJWmNsXaDjrPmAr22+W6ATqSR7895w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792507750;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=po93OuJjOT9e1ZVPJZRxpXLH8Gv/o4VTm01+JBTQC5M=;
-	b=BATZTAIKJipBQacUk5q6I/6tkHNLmvrOy6ayTAkmrYXKhokw4pOqs7OGv9038gCQAqm4
-	 kdsCG3N6ARJHCLh9XL5usqH0Bab8JXagfFujJ0oqnbHKEQfFwsfwR3u30hCqFt4CQe3c2
-	 NJ8Tiw9rS6+plDUAkcNeimXiLy2jDqACJS3oO6NaJDPLxeJIevlI+6qjJISMOOCUGcC64
-	 b1wplpwWR1pU/9eMNdujUE79rxNeOCATT/hdII5RnRanZ/t9XN1baLTKQ1mABuh6xcuI7
-	 9eDEsfrplH6jQ7B1vUFW/mUCigyK5P339DMq5YR3ShLTaNZhEkMqQJBNWhw4VB2xzQQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZH4t6sNP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792507833;
+	b=Jndn4Q7lKelX1dLeRhhs3bV2ZLB8/OTn9UHYMpH2UygA8gr/kP/lhqd2Qii0ZawJQjWe
+	 uXH8c9EdXk9mGP5vb9IN4tCKCTCX2jJNuQdsy46/cwzs8mFhsZ43dnHyvky0z4jabzD+N
+	 FKSr8Mm3h1oADpGRS7kVYDGpOlyETVRPIzzxfAfHHcN6l+30s6PjxCK1cmaK3Fl8MnIGA
+	 l4keTY9XDz9n5nUxMT0vun3ly++1HL66Po4YsNTNrjZNHgUZBfRRUb38ZL98uiGPQq470
+	 h6Qe7aK/YTaCLcy/t5fFxEMJ2xHg45WlL59saKbZ/n11Txg+RhpdpJOqBPjP7Q/IR9w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792507833;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=wlkmGnexwUZqrSR6Z2ocUUR37fT6HoJKzxvPZMwVYqk=;
+	b=OoUxYCQ34gREpm3axnuhZbzzSfc1uIyJidl8b7+L8Vz5H6OMYT31DXUkOLnXUBskN/MQ
+	 jEwS0iub5MfkYYilvwjIGCMvK7A8zU+iCcY57wColCNmf1AGddPxHNITy/FvketBSfTLy
+	 MOgZB4dg87Ci7MTI4ndBCJaEyC63RsaYK/nCQA9islvtH5g+xW1tvEHo5FugZVTBRClKh
+	 O/KEPfwkjay/a1ZN0sDz0VdNMDHJfoPIj5KH/JbvtNwgAokap7ZFZCV631MMXjR82fhYT
+	 q8Vo4RIr6RtnxhXO/MreU4mKFR06/ipQvUuREsjGZMylaA4pIpgk34l0hAAYSyNjpbQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=raspberrypi.com;
+	spf=pass smtp.mailfrom=raspberrypi.com;
+	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=DmCj1Mhl;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.42
+Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com [209.85.160.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01869606A31A
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 14:49:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B36E6606A31B
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 14:50:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B36E6606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZH4t6sNP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9538B1F000C4;
-	Tue, 20 Oct 2026 14:49:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792507749;
-	bh=po93OuJjOT9e1ZVPJZRxpXLH8Gv/o4VTm01+JBTQC5M=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZH4t6sNPdpASHv5k/Ut09fElEj8+u5c1lUmALnxrSjkZWsGZibwVGp/XLbyXDTfvt
-	 utLrRSWRcOmh6dFEl7gSUXf0c90qmzeJ1u4zDb+4kUjlPAOwXo1kMtD3Cv16/i/zAk
-	 kRhgHrNH0dPgRz3ZzUpJ/XzRc5unguzRQNUIxAa8Y2l6Ot0InjTfLda6fHQG3rKJf7
-	 a1I/zyL+MVdRajUxQnbzvhHmnS3rI1v6bFQS2S10zddag7nglEtk10QYCJ29GdS3eT
-	 pdn0pntRvH2hXja7NNqG3sGxR3HU9SVR6m+43QkwFePSEglkP7t4xGVWWH3BqS+Bwr
-	 G/AXtzpIzJ81A==
-Message-ID: <sashiko-outbox-179194@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] ASoC: codecs: add support for Everest ES7202 PDM
- ADC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jun Yan" <jerrysteve1101@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261020143135.623897-3-jerrysteve1101@gmail.com>
-References: <20261020143135.623897-1-jerrysteve1101@gmail.com>
- <20261020143135.623897-3-jerrysteve1101@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 20 Oct 2026 14:49:09 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=DmCj1Mhl
+Received: by mail-oa1-f42.google.com with SMTP id 586e51a60fabf-43bf9548df4so2976059fac.0
+        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 07:50:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792507826; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NKIZ+0qiBfHmj5+yQcbXZB1H4Chw0vTN3vlygc4Nfb3BqpmL4BqOif2PxlZJ9+VLXF
+         BhFhD9CmPGerriyFxQumRVCNHzP+pxR2amZlVnMkMfR1fPZfn5AiWOFS0DaW8TL7epyg
+         KMmn5ICeisPXgQNYnUAU3oZg6kbbvyCb6WI+nqnvj08airIoVeW9sLVv+4s9WwWPPoOl
+         ZsKIbfKY0vLsp05wKPh+c+eRxbCf2STdXeulS7/1vRtgcenu4z8v2ha/ODNdy1MKOEGq
+         rDG2KbjSNTUYqwFI7NpKJ7rYhWnNNYrSTJDE/WLTX7lCZ42OapbfLsjdTh/JipF1oTg0
+         VWBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=wlkmGnexwUZqrSR6Z2ocUUR37fT6HoJKzxvPZMwVYqk=;
+        fh=wAPJ65wEFzCVdSbrdanQDsqgMg9izpYrX316rPpmQ0s=;
+        b=NF1tVQxAaSuOlmasy9v3kYt9UzR88M25lUZXtnVC1WIK2h2E83RoPO756wsMjOdGFJ
+         9GWQT24/1UTQRzGI/nq/AY0mgqVvUScmX6cV+HKD5Cg2hmUZPyUgCzRh62fF9vUM92pS
+         ujZ9HaxNHp19XAvReNqrHJRdh+cG2EQJj5VGtvF7YYQLT7tg4vpsACq++ecjZn34u61R
+         GazhILuGFIiq+MIdkJO2xlwK/CuwACXwM4LLivKUpMPr1cCm+R6rtJrK9+NicJffWp7C
+         dSlYNM2BLOzC4oOeWqoKkKYEQU95mFajJEkALF2G8MiUUzpMrJZ0wYqsbfxDTMpWNoIV
+         q7dw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1792507826; x=1793112626; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wlkmGnexwUZqrSR6Z2ocUUR37fT6HoJKzxvPZMwVYqk=;
+        b=DmCj1Mhln3zqO7y9erOlJM2Ywiu68q+JoJR/UR+crGO3/NhfvsvVsgGuvpXgKc+kUn
+         p97Q+8zY/X0ls6r2ZJh+tYeJZ4CALYBE6akJTIIXLqsLg6WvmQd5HTOWcVkJhiaZRfLq
+         lsYN2bSBEzuUvSk0s5Au3PVY9RgCxU6hrqOd83QM3rpUqbZX3NmfwvUV7odJZTfxtEFK
+         3L+joEWHomj/v9GTLz8IJ8DkwwZ6Qc4ID7hctC6IBEXQUkd4H0/wIUi5SouTDnOFMNhV
+         SYcpBNXsfPiN1/2FvWA2CB3lvq0h3UmKTkJLEsTtQ1oEiKaNiEyer0LDDRbnDPXlYc4s
+         BcKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792507826; x=1793112626;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=wlkmGnexwUZqrSR6Z2ocUUR37fT6HoJKzxvPZMwVYqk=;
+        b=OFQKmIGkc25Aj3SHpKkrWs0+ga/KKrYN8bXr3UmLh43zaaQGhHmtv40Zt/O+gvcNi0
+         BLx3Hu3jueDNSn/97SzQCe+ylBiV86bpElbguma5tRqQNEhqPU3xkb6Km+fXy1m+YCkW
+         Rjrj0kNqo4BZulKlweSH12sPEkjb/EFvYhV8E2vTftObXVKicdkd0vgVSyawdhfxQyMc
+         pd4GxecIbdsS+6qjZIaVaYgenlGOKpgemd12b1BqEoA9TzsBRrCvhKmUONYWSPx65Ib6
+         hxuwRl/xqZrFhkWLkt510XwZLk9sfhyZHdLoScEYwZwGgBGiruaHP9NOpXO3NR08tVxV
+         gPQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxfm9/XHjmU4huis6XnEz+IxoZpa98/27NspwrekVLT3lXdnyNHjB2fToNdNJcZILZvDHCnKF0ZBJGq@vger.kernel.org
+X-Gm-Message-State: AFq9FYJBInGIrisQu2S9JvQsp0djafFPT6bUtCztNLeRkyruRM2wZYGi
+	/PQ+heXB/Q5v2F1So8LdFzfyaQHiK+Gc/6VY4bkJyHPIk7Hov415PwBUw6roo8pqOk5b8WCQXJJ
+	0B9zOfUFxZZEzLNwpZTbSkwQSKGyExTUXQsdf+v2BSg==
+X-Gm-Gg: AYBFou35Ic9snWXIhPGIa/wGEKhaKWXlIb0nfMaxpauAFpoG0IvQhKjW+1MIgpIU+EZ
+	oBaYsILrUc/Sm9uYnBdbZr8Gzk/sQf7eYZmfj6UAUPhAM+lRLxewxmAuq6axy134YD6PzVtynon
+	CaIEX2NXnphFDCOlVg2hB0C9Kba2okYeq1p2xyx/mFQFnk367SJAILksMS0gWMNm0UnkcQ+JSRA
+	LEuAVBpYd44Z3bXKJEiU3zvCp4LjgPnd2Zz3qtTwThwNj1mhtEQr841kh92WhGHQs67U6pkI5VD
+	Uj4rVGuJgj030CDsdDip4xvPqaSyMuJGJtDNU3hreTvaHbKZ+MUFZQDV65SW8hPIWi20j7Xp8Ob
+	EtjHkQaikt5A5xsoy3x5rZuufLQylCb+xEhTjzA1eq9ctOwdvZMzwXToId8VW3XWkcPbaDhFvaK
+	gDdrnOH/4=
+X-Received: by 2002:a05:6870:b3e2:b0:4a7:424b:934 with SMTP id
+ 586e51a60fabf-4a75789dac0mr9577479fac.12.1792507826447; Tue, 20 Oct 2026
+ 07:50:26 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,291 +103,68 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261019014720.2635-1-lachlan.michael@sony.com>
+ <20261019014720.2635-3-lachlan.michael@sony.com> <atdGr8S2sf1kZFUw@kekkonen.localdomain>
+ <20261020125630.GA158670@killaraus.ideasonboard.com>
+In-Reply-To: <20261020125630.GA158670@killaraus.ideasonboard.com>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Tue, 20 Oct 2026 15:50:09 +0100
+X-Gm-Features: AclHuK9jchI3nSC4JyaTIAm_0oNifQyoET0OAG28wvGpwbLI8WQ-9SbVDsLY7f0
+Message-ID: <CAPY8ntBUncMWB2DqFG+iS9gFgW2aaeyMrD6x-c_4Da7rJDv6Mg@mail.gmail.com>
+Subject: Re: [PATCH v5 2/2] media: i2c: Add Sony IMX908 image sensor driver
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Lachlan Michael <lachlan.michael@sony.com>, mchehab@kernel.org, hverkuil+cisco@kernel.org, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, kieran.bingham@ideasonboard.com, 
+	jai.luthra@ideasonboard.com, Ryuichi.Tadano@sony.com, Kengo.Hayasaka@sony.com, 
+	Tim.Bird2@sony.com, Kazumi.A.Sato@sony.com, Yuji.John.Takahashi@sony.com, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Medium] ASoC: es7202: unsigned supply_uv breaks regulator_get_voltage() =
-error check
-- [Medium] ASoC: es7202: unmute in es7202_hw_init() skipped due to regmap c=
-ache default
-- [Medium] ASoC: es7202: broken power-up sequence and mute state in es7202_=
-resume()
-- [Low] ASoC: es7202: unused es7202_of_match warning with of_match_ptr() wh=
-en !CONFIG_OF
---
+Hi Sakari and Laurent
 
-commit 4a58517803f32764e08604ccc9d3e4df540a41cb
-Author: Jun Yan <jerrysteve1101@gmail.com>
+On Tue, 20 Oct 2026 at 13:56, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+>
+> Hello Sakari,
+>
+> On Tue, Oct 20, 2026 at 01:47:11PM +0300, Sakari Ailus wrote:
+> > On Mon, Oct 19, 2026 at 10:47:20AM +0900, Lachlan Michael wrote:
+> > > The IMX908 is an 8.39 MP (3856x2176) CMOS image sensor with a MIPI CSI-2
+> > > output interface. The driver supports RAW10 and RAW12 output formats,
+> > > exposure and analogue gain controls, image flipping, blanking controls
+> > > and test pattern generation.
+> >
+> > The imx908 appears to be a Starvis 3 sensor. How close is it to the Starvis
+> > 2, for which Dave (Cc'd) is working on a driver (see
+> > <URL:https://lore.kernel.org/linux-media/atdAsDGw_jvhaydM@kekkonen.localdomain/T/#m0c50ea017ef9ae0d3d76a36b840db9b6f7ac296c>)?
+> > The register defines in the two drivers appear to be quite well aligned.
 
-ASoC: codecs: add support for Everest ES7202 PDM ADC
+Asked and answered at v1
+https://lore.kernel.org/linux-media/TY6PR01MB17839FF48671E744E7E23A93E92D42@TY6PR01MB17839.jpnprd01.prod.outlook.com/
 
-This commit adds an ASoC codec driver for the Everest Semiconductor ES7202
-2-channel PDM analog-to-digital converter controlled over I2C.
+> The current version of the driver implements very few features of the
+> IMX908 sensor, as crop support has been removed pending the raw camera
+> sensor model, and Clear HDR3 is being developed. I expect more
+> differences to appear when those features will be merged, so I believe
+> it makes sense to have a separate driver here.
+>
+> In the future, I expect the raw camera sensor model to open the door to
+> more code sharing and more drivers supporting a wider variety of
+> devices. We can decide then if the imx908 should stay a standalone
+> driver, support other sensors as well, possibly across the Starvis 2 and
+> 3 families. I'm willing to help with the refactoring at that point if
+> needed, the maintenance burden won't be on you (and I'm sure that
+> Lachlan and his team will of course maintain the code base).
 
-Link: https://archive.org/details/es-7202-ds
+Agreed.
+I have compared the datasheet for imx908 against the Starvis2 ones,
+and when we start looking at HDR modes they diverge a reasonable
+amount.
 
-> diff --git a/sound/soc/codecs/es7202.c b/sound/soc/codecs/es7202.c
-> new file mode 100644
-> index 0000000000000..c30b0123c91f8
-> --- /dev/null
-> +++ b/sound/soc/codecs/es7202.c
-> @@ -0,0 +1,372 @@
+Even the later Starvis2 sensors (IMX585 and IMX676) have minor changes
+to the earlier ones, so adding Starvis3 would need some care.
 
-[ ... ]
-
-> +struct es7202_priv {
-> +	struct regmap *regmap;
-> +	struct regulator *supply;
-> +	struct gpio_desc *reset_gpio;
-> +	unsigned int supply_uv;
-> +};
-> +
-> +static bool es7202_volatile_reg(struct device *dev, unsigned int reg)
-> +{
-> +	/* status and device-id registers are read-only, never cached */
-> +	return reg =3D=3D ES7202_CHIP_STA ||
-> +	       reg =3D=3D ES7202_DEV_ID1 ||
-> +	       reg =3D=3D ES7202_DEV_ID0;
-> +}
-> +
-> +static const struct reg_default es7202_reg_defaults[] =3D {
-> +	{ ES7202_RESET,		0x10 },
-> +	{ ES7202_SOFT_MODE,	0x00 },
-> +	{ ES7202_CLK_DIV,	0x04 },
-> +	{ ES7202_CLK_EN,	0x00 },
-> +	{ ES7202_T1_VMID,	0x01 },
-> +	{ ES7202_T2_VMID,	0x18 },
-> +	{ ES7202_PDM_INF_CTL,	0x30 },
-
-[ ... ]
-
-> +static int es7202_mute_pdm(struct es7202_priv *es7202, bool mute)
-> +{
-> +	return regmap_update_bits(es7202->regmap, ES7202_PDM_INF_CTL,
-> +				  ES7202_PDM_INF_CTL_MUTE,
-> +				  mute ? ES7202_PDM_INF_CTL_MUTE : 0);
-> +}
-> +
-> +static int es7202_hw_init(struct es7202_priv *es7202)
-> +{
-> +	struct regmap *regmap =3D es7202->regmap;
-> +	bool is_1v8 =3D es7202->supply_uv > 0 &&
-> +		      es7202->supply_uv <=3D ES7202_SUPPLY_1V8_MAX_UV;
-> +	/*
-> +	 * Power-up sequence from the vendor driver.
-> +	 * The analog front-end is configured for the actual supply voltage
-> +	 * (1.8 V vs 3.3 V) and the analog blocks are ramped out of
-> +	 * power-down in stages.
-> +	 */
-> +	const struct reg_sequence init_seq[] =3D {
-> +		{ ES7202_SOFT_MODE,	ES7202_MODE_SOFT_MODE_SEL },
-> +		{ ES7202_ANALOG_MISC1,	ES7202_ANALOG_MISC1_OFFSETSEL1 |
-> +					(is_1v8 ? 0 : ES7202_ANALOG_MISC1_SUPPLYSEL) },
-> +
-> +		/* 30.75 dB gain */
-> +		{ ES7202_PGA1,		ES7202_PGA_SELMIC1 |
-> +					FIELD_PREP(ES7202_PGA_MIC1_GAIN, 11) },
-> +		{ ES7202_PGA2,		ES7202_PGA_SELMIC2 |
-> +					FIELD_PREP(ES7202_PGA_MIC2_GAIN, 11) },
-> +
-> +		/* analog on, rest powered down */
-> +		{ ES7202_ANALOG_EN,	ES7202_ANALOG_EN_PDN_ADCVREFGEN |
-> +					ES7202_ANALOG_EN_MODTOP1_RST |
-> +					ES7202_ANALOG_EN_MODTOP2_RST |
-> +					ES7202_ANALOG_EN_PDN_MOD1 |
-> +					ES7202_ANALOG_EN_PDN_MOD2 |
-> +					ES7202_ANALOG_EN_PDN_PGA1 |
-> +					ES7202_ANALOG_EN_PDN_PGA2 },
-> +
-> +		{ ES7202_BIAS_VMID,	FIELD_PREP(ES7202_BIAS_ADCBIAS_SWH1, 3) |
-> +					ES7202_BIAS_ENDITHER |
-> +					FIELD_PREP(ES7202_BIAS_VMIDSEL, 3) },
-> +
-> +		/* VREFGEN on; 3.3 V also drops MODTOP reset */
-> +		{ ES7202_ANALOG_EN,	is_1v8 ?
-> +					(ES7202_ANALOG_EN_MODTOP1_RST |
-> +					 ES7202_ANALOG_EN_MODTOP2_RST |
-> +					 ES7202_ANALOG_EN_PDN_MOD1 |
-> +					 ES7202_ANALOG_EN_PDN_MOD2 |
-> +					 ES7202_ANALOG_EN_PDN_PGA1 |
-> +					 ES7202_ANALOG_EN_PDN_PGA2) :
-> +					(ES7202_ANALOG_EN_PDN_MOD1 |
-> +					 ES7202_ANALOG_EN_PDN_MOD2 |
-> +					 ES7202_ANALOG_EN_PDN_PGA1 |
-> +					 ES7202_ANALOG_EN_PDN_PGA2) },
-> +
-> +		{ ES7202_ANALOG_EN,	0 },
-> +		{ ES7202_MOD1_BIAS,	FIELD_PREP(ES7202_MOD1_BIAS_SW0, 5) |
-> +					FIELD_PREP(ES7202_MOD1_BIAS_SW1, 8) },
-> +		{ ES7202_CLK_DIV,	FIELD_PREP(ES7202_CLK_DIV_MCLK_DIV, 1) },
-> +		{ ES7202_T2_VMID,	0x01 },
-> +		{ ES7202_MISC_CTL,	ES7202_MISC_DSM_DITHER_ON },
-> +		{ ES7202_RESET,		ES7202_RESET_CSM_ON },
-> +		{ ES7202_CLK_EN,	ES7202_CLK_ANA_CLK_ON | ES7202_CLK_MCLK_ON },
-> +		{ ES7202_BIAS_VMID,	FIELD_PREP(ES7202_BIAS_ADCBIAS_SWH1, 3) |
-> +					ES7202_BIAS_ENDITHER |
-> +					FIELD_PREP(ES7202_BIAS_VMIDSEL, 2) },
-> +	};
-> +	int ret;
-> +
-> +	ret =3D regmap_multi_reg_write(regmap, init_seq, ARRAY_SIZE(init_seq));
-> +	if (ret)
-> +		return ret;
-> +
-> +	return es7202_mute_pdm(es7202, false);
-> +}
-
-[Severity: Medium]
-Will es7202_mute_pdm(es7202, false) at the end of es7202_hw_init() ever
-write to the hardware?
-
-In es7202_reg_defaults[], ES7202_PDM_INF_CTL is initialized in the
-REGCACHE_MAPLE cache to 0x30, which already has the ES7202_PDM_INF_CTL_MUTE
-bits [1:0] cleared. Because init_seq does not touch ES7202_PDM_INF_CTL or
-reset the register file (ES7202_RESET_RST_REGS), regmap_update_bits() in
-es7202_mute_pdm(es7202, false) sees that the cached value is already 0x30
-and skips the I2C write.
-
-If the driver was previously unbound via es7202_i2c_remove() or the system
-went through es7202_i2c_shutdown() (both of which write 0x33 to mute
-ES7202_PDM_INF_CTL in hardware) and is then rebound or warm-rebooted on a
-board without the optional reset-gpios or a switched vdd-supply, both
-es7202_hw_init() and the subsequent es7202_mute_stream() on capture startup
-will be skipped by the regmap cache, leaving the hardware muted.
-
-[ ... ]
-
-> +static int es7202_suspend(struct snd_soc_component *component)
-> +{
-> +	struct es7202_priv *es7202 =3D snd_soc_component_get_drvdata(component);
-> +
-> +	return es7202_mute_pdm(es7202, true);
-> +}
-> +
-> +static int es7202_resume(struct snd_soc_component *component)
-> +{
-> +	struct es7202_priv *es7202 =3D snd_soc_component_get_drvdata(component);
-> +	int ret;
-> +
-> +	regcache_mark_dirty(es7202->regmap);
-> +	ret =3D regcache_sync(es7202->regmap);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return es7202_mute_pdm(es7202, false);
-> +}
-
-[Severity: Medium]
-Does es7202_resume() properly restore the hardware state and mute status
-after system suspend?
-
-In es7202_hw_init(), the chip requires a staged power-up sequence that
-enables ES7202_SOFT_MODE, configures ES7202_ANALOG_MISC1 for the supply
-voltage, ramps ES7202_ANALOG_EN across three writes while fast-charging VMID
-with VMIDSEL=3D3 in ES7202_BIAS_VMID, and finally switches ES7202_BIAS_VMID=
- to
-VMIDSEL=3D2.
-
-In es7202_resume(), regcache_sync() writes the final cached register values
-in ascending address order (0x00 to 0x1e). If the device lost power or was
-reset during suspend, this writes ES7202_RESET (0x00) before
-ES7202_SOFT_MODE (0x01) and powers on all analog blocks at once in
-ES7202_ANALOG_EN (0x10 =3D 0x00) before ES7202_ANALOG_MISC1 (0x1b) is
-configured for 3.3 V, skipping the analog ramp and VMID fast-charge stages.
-
-Additionally, es7202_suspend() calls es7202_mute_pdm(es7202, true), which
-updates the cached value of ES7202_PDM_INF_CTL to muted (0x33), and
-es7202_resume() then unconditionally calls es7202_mute_pdm(es7202, false),
-unmuting the PDM output even if no capture stream was active and the DAI was
-muted via es7202_mute_stream() prior to suspend.
-
-[ ... ]
-
-> +static int es7202_i2c_probe(struct i2c_client *i2c)
-> +{
-> +	struct device *dev =3D &i2c->dev;
-> +	struct es7202_priv *es7202;
-> +	unsigned int id1, id0, device_id;
-> +	int ret;
-
-[ ... ]
-
-> +	es7202->supply =3D devm_regulator_get_optional(dev, "vdd");
-> +	if (IS_ERR(es7202->supply)) {
-> +		if (PTR_ERR(es7202->supply) !=3D -ENODEV)
-> +			return dev_err_probe(dev, PTR_ERR(es7202->supply),
-> +					     "failed to get supply\n");
-> +
-> +		es7202->supply =3D NULL;
-> +		es7202->supply_uv =3D ES7202_SUPPLY_3V3_DEFAULT_UV;
-> +	} else {
-> +		ret =3D regulator_enable(es7202->supply);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "failed to enable supply\n");
-> +
-> +		ret =3D devm_add_action_or_reset(dev, es7202_disable_supply,
-> +					       es7202->supply);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "failed to add supply disable action\n");
-> +
-> +		es7202->supply_uv =3D regulator_get_voltage(es7202->supply);
-> +		if (es7202->supply_uv < 0)
-> +			es7202->supply_uv =3D ES7202_SUPPLY_3V3_DEFAULT_UV;
-> +	}
-
-[Severity: Medium]
-Since es7202->supply_uv is declared as unsigned int in struct es7202_priv,
-won't the check:
-
-	es7202->supply_uv =3D regulator_get_voltage(es7202->supply);
-	if (es7202->supply_uv < 0)
-		es7202->supply_uv =3D ES7202_SUPPLY_3V3_DEFAULT_UV;
-
-always evaluate to false?
-
-If regulator_get_voltage() returns a negative error code (such as -EINVAL
-when a regulator does not support voltage queries or when CONFIG_REGULATOR =
-is
-disabled), storing it directly into unsigned int es7202->supply_uv wraps it
-to a large positive value and skips the fallback to
-ES7202_SUPPLY_3V3_DEFAULT_UV.
-
-[ ... ]
-
-> +static const struct of_device_id es7202_of_match[] =3D {
-> +	{ .compatible =3D "everest,es7202" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, es7202_of_match);
-> +
-> +static const struct i2c_device_id es7202_i2c_id[] =3D {
-> +	{ "es7202" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(i2c, es7202_i2c_id);
-> +
-> +static struct i2c_driver es7202_i2c_driver =3D {
-> +	.driver =3D {
-> +		.name		=3D "es7202",
-> +		.of_match_table	=3D of_match_ptr(es7202_of_match),
-> +	},
-
-[Severity: Low]
-When CONFIG_OF is disabled, of_match_ptr(es7202_of_match) expands to NULL
-while es7202_of_match is defined unconditionally without __maybe_unused.
-Could of_match_ptr() be dropped here to avoid an unused-const-variable
-warning when building with !CONFIG_OF?
-
-> +	.probe		=3D es7202_i2c_probe,
-> +	.remove		=3D es7202_i2c_remove,
-> +	.shutdown	=3D es7202_i2c_shutdown,
-> +	.id_table	=3D es7202_i2c_id,
-> +};
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261020143135.6238=
-97-1-jerrysteve1101@gmail.com?part=3D2
+  Dave
