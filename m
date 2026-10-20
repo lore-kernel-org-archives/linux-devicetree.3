@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792482606;
-	b=FAEONAkV93THx8KSV6PGh8Cba++FlN9/YeWVt4PMY/knX+9y270ayuW1+DW9Fz0fM2Am
-	 VhULhAoX+m815gSL+XmFkuBUBaPCy7BcP1LW2CXdWoqxmT5xXWPE+oMw92NTCYx99hhFb
-	 Gl7TX4lksCkZe6om5mUAwb5/0GRzQIYZWdyWvI0FTCauisLXZCWnGpi2yvVhJX+erswEz
-	 fd7xHl54jUr/dQSoaElZJ+jeRHi8qWHnFfa4Fo4piPkv++59U0WeqbyfV1JtfvvkrWXjC
-	 iDHcFNlQuirCpiDJRZRbe4L4oFcEcEgXtt48jpno2oMBixSa5elGI/NBSsT8DVh+0Yg==
+	t=1792482720;
+	b=1ukKsHS3nIyqwGXtuseggtMFSEtghgetbBEfhTLXdhotuBtI5EC8Nnq3nmosjIMnm1cP
+	 7qZMfrAtfXtYK+lIEZSpYwDWfXYt5eBaGznOxYRR59xB8MjYlS9hffUKGVkp89ns+t9Vn
+	 3ZGI3lzTVHsGbrQyg56pNbyabiA4lv5V7QnE1GHKUpT+fE76azR0P8BW5+aFOmdwjlIFW
+	 TFIRh18OxrzdeEYo/cPsYFPyqEug5jLFhLzgCEGscRTVr01kMP0alq4BaQqqRHAXlc0UN
+	 di4UyWckmK1zlPEPUtRNtFP9w+t+NFic/EHnihX54Aw6NYfMIQzuUxdgeklVpFxThlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792482606;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792482720;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=hk8H9NwOSO/N+s33JI712rYWLRzTkJj0OwKivV3Ixt8=;
-	b=IN8sjBhCp58Ycvla9JGGiVqiXNGlDANAUZEMCqJIunX8K7hvHp8Prks+lc9BM2oWWnwu
-	 VG/PBHr6Qw810+QiFqH0KBKJkFewiJOMs1QwyZnJqV/NPPjYA06PJDiRm24+4aMNemLW5
-	 gKWczAOSkr+3Kn4lMgdUU6kM5YZNrUNut3wFYIye2O9ZFehpd3h+PLKyU15RfLfwyGxqA
-	 /IfOeH/wuMt6kVBYRFbZajwo9Xa49jA6dOzV5MEbqfW7Bq1KDSoGv2rVCOOy0ZAW4ZZ1z
-	 NvORHSCjFRE94sXoE0e1dOe5xJgQY/QnLJXQN232Ug0z9dELp7IXeyt6CraMYBgkZkg==
+	bh=EddoZMnDC5BQjmsaav6GLudp1Fqyzdns9EU0U/ed5sw=;
+	b=YdYy8iF5AT7CL2+BzYTZS3EVKb3FaRf7goiwpbvkqh26TsWaOsTxB6LZipS+E4i3jL7z
+	 WZeHULGl/P1TRAiCgf6EkBUQgbU5baVgtMjRWiFAudd67LP6M0qfbCTS7u8Cc+7wga/Ww
+	 Hyq+Lv+ASGh3qu+z0gyYbNafZWMd0yMxjml/sGBMU1XavdOL53gf9arBH2EYUdRMHIyyg
+	 QA1WbCgZNqov3WX3p/UgsYEZaSo4yubcMfyUtCnXqdZVF/FJCPscLa8VDjccFLIHvVtLH
+	 mr+YHuc5WHE8mCCS6+ksarfBnv8P7wXyKEdX5vFtucLyU6hvcXa6giO+tqNQZSC9saw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C4wHztlV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LCJ2aw5t;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97253606A319;
-	Tue, 20 Oct 2026 07:50:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D18B0606A319;
+	Tue, 20 Oct 2026 07:51:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C4wHztlV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ED691F000C5;
-	Tue, 20 Oct 2026 07:50:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LCJ2aw5t
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDA571F000C5;
+	Tue, 20 Oct 2026 07:51:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792482606;
-	bh=hk8H9NwOSO/N+s33JI712rYWLRzTkJj0OwKivV3Ixt8=;
+	s=k20260515; t=1792482719;
+	bh=EddoZMnDC5BQjmsaav6GLudp1Fqyzdns9EU0U/ed5sw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=C4wHztlVNEXdFWs2yr5vXvePYxV3EsdYff3yMFvPVPLnKHsFHz5S09Nf5uM8Cbmtp
-	 YdYwYWQdEp7oOjm2T6GcSKFMOxOGViOb3ZQzjrm41h9Ory5C3mHPifSNoV5vkVMr2A
-	 ArQSPa0d924niUQ9AXtdH61w8J6NyjLu82oUOuKjGH8y0rg7CxOVMPt4piRj+XpfA/
-	 JFC87t95253Ub74AD/p+AMA3vGoe1MBETkA834J4Zyfxjoy49XXl4HKJ1ily+1Czby
-	 s20ujL96XOK5ZaP571G9vLvW6yM0tvCEL51EztDMin4vMto6vLuMa9vDeikcm7cc+c
-	 NRG7wzIW2DMCw==
-Date: Tue, 20 Oct 2026 09:50:02 +0200
+	b=LCJ2aw5t8+HrHgixBOlbRwt98vnFSbsecGr1H4pykCS5gqWVhShIzoQdjVhCHge2h
+	 IOnqKWfOIzf/p4x7+Z0o7tphaB4HweLOOrYDPrgfnshiXeK4ohl4AKojXfAozj8uGc
+	 lzlVya6qTllIUo1iCml3BO+Z5xUrC9DK5QXvHsRPipncv+VCBF916s92zLgLYsgPHa
+	 MnFDNG1sUXH59KJrqzAnsZJ4hkxoWBO/BXzF6io7Jl0MOy5szzNy7e0+rBxrfU+8tZ
+	 oIMz6ReFBvfe+4gDLYCyLNkbih64B7A6pgy8o8Sq/rnz3DElac05NJsg+bdAP/E/XV
+	 GmiyKZgbdEy2w==
+Date: Tue, 20 Oct 2026 09:51:56 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Frieder Hannenheim <git@fhannenheim.net>
+To: Gopikishan Thawre <gopikishan.thawre@oss.qualcomm.com>
 Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Robert Oscilowski <drgitx@gmail.com>, =?utf-8?Q?Jean-Fran=C3=A7ois?= Bobier <jf.bobier@gmail.com>, 
-	phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/3] dt-bindings: arm: qcom: Document OnePlus 8T
-Message-ID: <20261020-musical-merciful-nautilus-aea420@quoll>
-References: <20261019-kebab_dts-v4-0-bb6db87ff15f@fhannenheim.net>
- <20261019-kebab_dts-v4-1-bb6db87ff15f@fhannenheim.net>
+	Richard Cochran <richardcochran@gmail.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: arm: qcom: Add LeMans Draco EVK board
+Message-ID: <20261020-accelerated-husky-of-whirlwind-ce022c@quoll>
+References: <20261019-lemans-draco-final-changes-bringup-v1-0-dcabe94f1074@oss.qualcomm.com>
+ <20261019-lemans-draco-final-changes-bringup-v1-1-dcabe94f1074@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,17 +62,15 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261019-kebab_dts-v4-1-bb6db87ff15f@fhannenheim.net>
+In-Reply-To: <20261019-lemans-draco-final-changes-bringup-v1-1-dcabe94f1074@oss.qualcomm.com>
 
-On Mon, Oct 19, 2026 at 12:18:08PM +0200, Frieder Hannenheim wrote:
-> Add compatible for OnePlus 8T
-> 
-> Signed-off-by: Frieder Hannenheim <git@fhannenheim.net>
-> ---
->  Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
->  1 file changed, 1 insertion(+)
+On Mon, Oct 19, 2026 at 03:57:32PM +0530, Gopikishan Thawre wrote:
+> Add the qcom,lemans-draco-evk compatible string for the LeMans Draco EVK
+> board, which pairs the LeMans Draco EVK SoM with a common carrier board.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+So here you explain any oddities, like why SoM has no dedicated
+compatible and why common carrier board means it is not common but
+SoM specific.
 
 Best regards,
 Krzysztof
