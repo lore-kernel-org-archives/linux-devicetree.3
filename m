@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792475930;
-	b=ZYASpvTeAfNMPveYNjLMr373799HyXR3+4A+kY7rU4fc4SoJFOd2oMeS2Om1X/qNSh/K
-	 pkjzHIJ4PlqDFBl/RNrwq2V9hs144HhsALyf18b9ddXFn9/GQ3cpK1QgoEp6TcykFgRt1
-	 VG6pSw+eMSRPrWggyhH3Phs3WDQRWC/jegBwhBGFRVmgQc3Vxn/nky+4ZZtp2+BuINzt+
-	 LRGv8LKp+SHJeksVoXnoH745ZKARWQTAM1sWaLiuWgQV/BT7Fd1YCXwLA2DPuYiuqvkJ4
-	 +y5ySJFxQ8X1LVVjdp/LNGoqbSFDREUzO531befl+RVfInt8M4kQE8IO568gc8YHrKw==
+	t=1792476053;
+	b=JEhpPIyMXEYyQ5yOP5/NlQE6Ph6dwhyRWRvmhQ5MZ1aJVmaqOnVfHq+4WhZhh+8Clhr2
+	 QCtVK5tOh+TEwJJw5/98mbqW2eUy54Zhj9XRA2vpEuaOPPUa8Of8mprfjLb3X+EgvDIhZ
+	 VALyNYjTofuBf9N1FJjE0GtBKNkJyVldgqa04MRzCbUShznqHLUNLexk1OmRrQ4wZ3X/J
+	 LJWjE0PjbGoy96Lkq9vrUKLWnnTd9XanzWMANnccQufa+a/s78SGQEDUew23FY3YCyLDo
+	 iqeYPevphEEWilTrCK5l5n/00psZm1R7bUYIryqT8KlT/w/uH5vsLjKMIU7vgQrgH/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792475930;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792476053;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=v3YPirxc15vBVNIRikZXt3oNZLluPKaQOLNlWVqwmNQ=;
-	b=Ph1NyjRbf78mQNk6pay8tNcrDKgMHz53k4J/poM19N6qEx5YfsOf9iUWmKKli1ZQGboS
-	 tcCM2HmuxqQ8f/ePvAEuLIp1MgWPOhRBkH0VC7/wCoUA0kVN8jv2gwkD0BjwyECxpCfkH
-	 wz/+vflW7ddQXNvjUwe9vhfNWpparuqjnOJTchtmFpV+MRsGPuhcyU24tgc+lhxmiAsW7
-	 Iu1wb4/tsCgEnji1spZSa/YH6RiASPVXEwc3aVGDyd7VhJJXYz5HlvKi7NFQqGWnwIln2
-	 VTxo5eLJdqToL2swCSlvbQbSd+XgX9Ew7nhBhGWjwPXYFDQm+GJfUue4CtKBFtm4NDA==
+	bh=tjahWStJaWAkZdXXLpQF/IAPVZCHaZCufugG+xHQea0=;
+	b=YI3m260eL2eZODOlq+qjvyMta4feLl6zQp8+w+w6tYpWT1UPoRyJJ/UPY6AKv61iumIO
+	 ECLbfLq4k0YBSqR+s27A2GTgEyiNW30TjxndVkNWXACKcfqKQ0Y5gm7pXEZRZTbNB86+2
+	 N9MIxbJNRDsUl8P2FQ2KllSWvqYCDCmc/uKTeRybMmD2Jy6PV3drfFn11Jzz03rrsLIwK
+	 /uE7+Msm2BRKRDKjJuAlEoQkW83mbhVfkrkYI8L9szGWuKrDzCzwKzsVhKaAr2kccQNQM
+	 DaKQi0umO2N3x0FkDss8WwXCOkAVzteokkgCziJL1c0EQSqxc+vrVUyhL0G5BZt5d9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jSFruGtZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wjhl2gV9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C68A0606A31B;
-	Tue, 20 Oct 2026 05:58:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FB1D606A319;
+	Tue, 20 Oct 2026 06:00:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jSFruGtZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1D641F000C4;
-	Tue, 20 Oct 2026 05:58:45 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wjhl2gV9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62EE11F000C4;
+	Tue, 20 Oct 2026 06:00:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792475929;
-	bh=v3YPirxc15vBVNIRikZXt3oNZLluPKaQOLNlWVqwmNQ=;
+	s=k20260515; t=1792476053;
+	bh=tjahWStJaWAkZdXXLpQF/IAPVZCHaZCufugG+xHQea0=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jSFruGtZ9xBAiRqSUKWJz+6O3JRZJUvBKrvZeMapksDNhM9Vu92fjOMPDvxBiVaBG
-	 pjApYwr+8KJEDOMAmqyK1NIjvTuGA71evZm6a+Ky8RVwW0h6oNDSzQF76s/Dbhaj9M
-	 BK4d42XHVhKnQn58v9BZkfhhiADME3rDu8tsqHu3CDHyOrYS360gtxyP/bBDFIEe/l
-	 nY9s18oEWmHcieliuf1hVO1wxCWzV1sNCJojNel48KAwdoRmoPi52a0CKBUC7yQ87h
-	 6YLZqqVRKf1peECIAbDlnDQqq7OQeyITZgRNjj/fIhQVPEB1+lu78JgkUd7jVmOuGy
-	 7nzLhsTmDIDhQ==
-Message-ID: <5d43ce8c-18a8-44df-afa3-d0d1d7b771b1@kernel.org>
-Date: Tue, 20 Oct 2026 07:58:44 +0200
+	b=Wjhl2gV9AJj254FHkZF+7CKdQCdvE20SmL91dGF/QylrOjGMzIG+pH0qGFHABSB9J
+	 pb78GQxC1NtOYNqDXATp+PfYyJ4N8CCZgMk6YPEDCoRgsazvhYQC0D+LtNa4OKNPYg
+	 wu6wGoWnWs/9fymyslDAFWwciUauiHXbyFxpICotOfa1aWeUaYmQ9ldFDyE/kZQ4jf
+	 HysdKsOtcRmJbDPGmoh37DtIJnMdCRV/Iv688KubOM/8N/FpV74m80N5ro0hXZp6m7
+	 4t3jbT+cf9L8lwuzizRyUWUKJsYGv/da/M0qNm9yQR/rzwxclTAoP3H/w7u/dSp8wq
+	 seB5wZccb2NzQ==
+Message-ID: <e43c4831-1a12-45b3-9614-97dbd2bc48d5@kernel.org>
+Date: Tue, 20 Oct 2026 08:00:47 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,15 +52,24 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] dt-bindings: iio: adc: add documentation for
- adi,ad7816
-To: wrmfwv@163.com, nuno.sa@analog.com, jic23@kernel.org, robh@kernel.org
-Cc: Michael.Hennerich@analog.com, dlechner@baylibre.com, andy@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, linux@analog.com,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Tenglong Guo <admin@micronull.cn>,
- Sashiko AI <sashiko-bot@kernel.org>
-References: <20261018110015.39497-1-wrmfwv@163.com>
+Subject: Re: [PATCH 1/7] dt-bindings: input: touchscreen: samsung,s6sy761: Add
+ S6SY791 and reset GPIO
+To: Lukas Timmermann <linux@timmermann.space>,
+ Lukas Timmermann <foss@timmermann.space>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
+ Tudor Ambarus <tudor.ambarus@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org
+References: <20261011-lat3st-google-raven-touch-upstream-v1-0-2a9f55159b9e@timmermann.space>
+ <20261011-lat3st-google-raven-touch-upstream-v1-1-2a9f55159b9e@timmermann.space>
+ <0a486a08-8d6c-4ca5-8a54-e7499630095c@kernel.org>
+ <atYlyqHToGjAr22T@archstation>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -106,22 +115,45 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261018110015.39497-1-wrmfwv@163.com>
+In-Reply-To: <atYlyqHToGjAr22T@archstation>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18/10/2026 13:00, wrmfwv@163.com wrote:
-> From: Tenglong Guo <admin@micronull.cn>
+On 19/10/2026 16:17, Lukas Timmermann wrote:
+> On Mon, Oct 12, 2026 at 01:30:48PM +0200, Krzysztof Kozlowski wrote:
+>> On 11/10/2026 14:44, Lukas Timmermann wrote:
+>>> S6SY791 is the SPI-based counterpart of S6SY761. The register map and
+>>> commands are identical for the subset the kernel currently implements.
+>>> Therefore add S6SY791 as a related touch controller.
+>>>
+>>> Optionally, the reset line can be controlled on some boards,
+>>> such as the Google Pixel 6 Pro (raven).
+>>>
+>>> Also reference spi-peripheral-props for the SPI bus properties.
+>>>
+>>> Signed-off-by: Lukas Timmermann <foss@timmermann.space>
+>>> ---
+>>>  .../input/touchscreen/samsung,s6sy761.yaml         | 37 +++++++++++++++++++++-
+>>>  1 file changed, 36 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml b/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml
+>>> index 1ffd17af3c53..d24f35038934 100644
+>>> --- a/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml
+>>> +++ b/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml
+>>> @@ -8,13 +8,17 @@ title: Samsung S6SY761 touchscreen controller
+>>>  
+>>>  maintainers:
+>>>    - Andi Shyti <andi.shyti@kernel.org>
+>>> +  - Lukas Timmermann <foss@timmermann.space>
+>>>  
+>>>  allOf:
+>>>    - $ref: touchscreen.yaml#
+>>> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
 > 
-> Add a YAML binding document for the AD7816 family of ADCs.
-> This fixes the checkpatch.pl warning about un-documented
-> DT compatible strings in the staging driver.
-> 
-> Reviewed-by: Sashiko AI <sashiko-bot@kernel.org>
+> Should I also hide this behind an if-else?
 
-Drop, never happened.
+Only if the other device is not SPI.
 
-Do not invent fake tags.
 
 Best regards,
 Krzysztof
