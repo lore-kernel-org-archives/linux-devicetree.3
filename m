@@ -1,52 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.79.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.79.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792489150;
-	b=GqujQ74NqiCVd2e+Ry/oY3bdTG62X5n4sCNYKyDmVB5GJXcVaXByaclQTG2yAliak8+k
-	 bXe8ostBwgekV0kcHk8JEkZqMgnTXgQ6JD5KkNyDWq5X1fyhAC7HdQO4C+v0VDZM3T0CF
-	 WLyFIe6C0S074auBi1tkFv79sbiz+DUbD9DR0WOVjxdDQsOVXX+tl65CJmvYS3kd02sN4
-	 FU0MsADcXg8V+JUvG5hPNplva17D9WgZrYSrdZa7rpVsL1yrEDEGR/EILdXi2sXAg6rWV
-	 a01yrz+2VeW5dkJ4gwHYOO5fZKA1+Ug96Mk93ogu3mFMTTXjNIwo4tyECGZOeqMYzGQ==
+	t=1792489157;
+	b=LOu84AWCjG35xd9XHWRfuDv3zg1c3HCavXTMfcJbRnNFLlvSJ1WdV1Tse9C2PmBoLkGm
+	 nDOchQRYSUoEk2LaMmA3ko4elxV0tG7K0y98eoMftxTbm9wU7VfHEg4iVJ8ci4TBqgtH/
+	 59p9fps2Z1wWyUWmESQRtihy14DyiP8lNRIUD08BoDeetmx9wLQBhb+B6gDsBbJBmOqXu
+	 isulLGZq8hwOccv2QA6p8JJ8vO8Hr47uSBW4QCm9O4zVuY9THaksFpVGbzT4w11vaspyX
+	 k9Y63eXn2I7j1ZC7nr/MBCQ81e6nFRRp317jarIh03IphSffjs0KP1ObpKtOvF0GIew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792489150;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792489157;
 	h=DMARC-Filter:Received:X-ICL-RepId:X-ICL-Out-Info:Dkim-Signature:
 	 Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
 	 X-Proofpoint-ORIG-GUID:X-Authority-Info-Out:X-JNJ;
-	bh=EtzUSsQ05RhzEVHsJvkbPqMye6Kh3/PXjMKcbrv3o9Q=;
-	b=aZlAMIxPChG6UQLaF4tPHz/BiBkd1OVACCEkwmO3caQg023aF5XJ/gPz0r5M7v6qHSwn
-	 avUJ2DYSqVHc0vtZRAfhWGbcrU2z4QwIhr1xkCpt/WdsW5cVdNnCxJUtcsoITlBTbzFmf
-	 gWS9YWvyS6YLGVVVojooCbRGWx6zqXwiL+h48h5YyxI6nkvoCqEMmIrr5YzOCj8LrEusO
-	 WSowjg9QFCo8SDn9d7Iip014wj2zUrDaYVOGIPw2vsrwZrQ04Z+Tpcx3RRjL0ixdxo5bN
-	 GONN3KhVMMn6RroSogXLmP+O/dsbO8IxRutWt46Sq5ytgHu4F8gSgLyP6vXzkXnbViQ==
+	bh=6RRowT7xHJs8A6zNEf76Dvwzc/XBDK8xSl9XH7Sx0So=;
+	b=GdPiiqWsKh0jbh9bbkygiqczIujT6EOrUvg9c1TeckRkHt6pelKitOjiwowzMkvRelpb
+	 ppf/ujEQXlKAdW5OOtgYZwsyUy1w8UZQ6t9XDyER+nn8gVY+9gjbbdvswrZltiV9nOaSb
+	 s0tsUldje2NB4AB941PldN0EFPy8W79a+JT7UcHw7e7Ja2zgjrn5LfBVA+up86n3rWZ1p
+	 OuoDmm/46L9TAZUrxxQSODTy8yfllExMp8Oik36GULIktjEQ9E1k4x1m9c2WJcqn30GQK
+	 w3/wYgi/i3dUGNSNH711+7F7OPTiKCjkWnQ+H7+/38GWJ/cbKWVqMQL+IxgKjnIhJHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=icloud.com;
 	spf=pass smtp.mailfrom=icloud.com;
-	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=r1S6aeMh;
-	arc=none smtp.remote-ip=57.103.79.46
-Received: from outbound.st.icloud.com (st-2005c-snip4-3.eps.apple.com [57.103.79.46])
+	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=fAZBTzRm;
+	arc=none smtp.remote-ip=57.103.79.56
+Received: from outbound.st.icloud.com (st-2005d-snip4-3.eps.apple.com [57.103.79.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 717BB606A332
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 09:39:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 717BB606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E435860A2618
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 09:39:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E435860A2618
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=r1S6aeMh
+	dkim=pass (2048-bit key, unprotected) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=fAZBTzRm
 Received: from outbound.st.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-east-1a-60-percent-11 (Postfix) with ESMTPS id F14661800111;
-	Tue, 20 Oct 2026 09:39:05 +0000 (UTC)
-X-ICL-RepId: 01a158ad-c638-7623-a036-481a4dd862ea
-X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQFMHV8EUxxCDFYAXRcOVk1KF1UYREVRMFAbXwJCDxwTVhUTC1NWWxNVF0YJGQhdHRkKUFAGXBIYXBRcUFgeRhJWDV0JGRhGXlAbXwJCDxwTVhUTHUMZDysISgRDB0UCXgslEwlTVlsTVRdGCRkIXR0ZFVoJClcAQAtOAl0FWx8RTxweGwRGA10BTVAPVgoAQQtNV1V3AlEcVg1XQ1QEX04ZDEodUlZbE1UXRgk=
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1792489149; x=1824025149; bh=EtzUSsQ05RhzEVHsJvkbPqMye6Kh3/PXjMKcbrv3o9Q=; h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:x-icloud-hme; b=r1S6aeMhRsQeFvCT88HDpI94DRctMTm0m7z6X9ev/hs/6HyCq0oJvu7rjZHkLAqgUcrQkqdKRXsIKE0Ypb3WhSNiin90gUN08NP6jjal+l40fY3BhLKo/Vkt9xscCg5ntBi0chb6AQR1oez3zNGvWgam55jzrHtmGMOxLoxHG3HVxpBwm9Pe4RlK50/vk0YAw4pDn3eoECVWncVojdy5LWQTt0jw/g6wNllq+W4flQBAixBitH81Q1IihOQlXdQ8nye0R+AdMXN2ZJfULiUDJzWjl0l9elxXC/Uuh9Y4CYqRjmCuOvcM99RaHnaZVXh1OZqkCb7EWsllLae1+DRmog==
+	by p00-icloudmta-asmtp-us-east-1a-60-percent-11 (Postfix) with ESMTPS id BCB3718006A4;
+	Tue, 20 Oct 2026 09:39:12 +0000 (UTC)
+X-ICL-RepId: 01a158ad-e0af-7edb-9223-19ee11044e0d
+X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQFMHV8EUxxCDFYAXRcOVk1KF1UYREVRMFAbXwJCDxwTVhUTC1NWWxNVF0YJGQhdHRkKUFAGXRIYXBRcUFgeRhJWDV0JGRhGXlAbXwJCDxwTVhUTHUMZDysISgRDB0UCXgslEwlTVlsTVRdGCRkIXR0ZFVoJClcAQAtOAl0FWx8RTxweGwRGBl0BTVAPVgoAQQtNV1V3AlEcVg1XQ1QEX04ZDEodUlZbE1UXRgk=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1792489155; x=1824025155; bh=6RRowT7xHJs8A6zNEf76Dvwzc/XBDK8xSl9XH7Sx0So=; h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:x-icloud-hme; b=fAZBTzRmS328JC55tvY1KE1xdYOmj4iuoCTTAcLXcU8GvSg30agRDemFcWznewNaASNSFZ+u3efAKvZWo5PAIXg20ChMUx+UF4GNLAFz0eIafGxxcay3OwW0mpoXnhKDjOJRO/A+mAhJfRKqlwadbWKRZayJXiyhko0HMSWhcnuM+h5vqcUIlNe8VgRBErzdfPrkO4bJjnW+rSL4al55mpbOrahulw0rujHsrHZPcEepDFJL99iDdZkyLHr86nrvwt4a+J0wl3gpK+vA6mxyL2TNSoArUbk2vK+HKySEzuzPlMoANgyGYYIboqwgWR5swUh0QYlGYnInhiUwkhePnA==
 Received: from [127.0.0.1] (unknown [17.156.216.30])
-	by p00-icloudmta-asmtp-us-east-1a-60-percent-11 (Postfix) with ESMTPSA id 55A071800231;
-	Tue, 20 Oct 2026 09:39:03 +0000 (UTC)
+	by p00-icloudmta-asmtp-us-east-1a-60-percent-11 (Postfix) with ESMTPSA id 2A3EA1800115;
+	Tue, 20 Oct 2026 09:39:10 +0000 (UTC)
 From: Sofus Forstreuter <sofus.c@icloud.com>
-Date: Tue, 20 Oct 2026 11:37:42 +0200
-Subject: [PATCH v3 01/17] dt-bindings: media: add apple,avd
+Date: Tue, 20 Oct 2026 11:37:45 +0200
+Subject: [PATCH v3 04/17] media: v4l2-ctrls: validate av1 tile info
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,7 +58,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-avd-v3-1-85cbaa2125d8@icloud.com>
+Message-Id: <20261020-avd-v3-4-85cbaa2125d8@icloud.com>
 References: <20261020-avd-v3-0-85cbaa2125d8@icloud.com>
 In-Reply-To: <20261020-avd-v3-0-85cbaa2125d8@icloud.com>
 To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
@@ -68,181 +68,78 @@ To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
  Philipp Zabel <p.zabel@pengutronix.de>, Heiko Stuebner <heiko@sntech.de>
 Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
  linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org
 X-Mailer: b4 0.15.2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAzOCBTYWx0ZWRfXz8ndQ2ZE6bPG
- SQnwzhhBdR8yEHva5YEs1W9iLlxYx4oZPvsQASnBXF4elD9uK0/G/Y2S7NnGF05DvC5IU3w6Xj+
- Qu/bpV0zynqPYbdHK5CmETPT/XYmmeqhXLrhAt4S9gi8ATKRjDoQx3dmMaXpeops6rmQ4Xh424Z
- K5WSMSROrtz10cQSvut5azkK82sGVOOHr9ERQiOudovVXR+OlP3qTFk28uevmhwiBliXowFlgZm
- mb3rGHiw7o+xOpCol7907rn3LGiraBQIS/ENcGY4v625wxqlUeOZVkfmR/smC+rh+sEgqoymwQ1
- yWJTnIJ6YZ+XTVR7bKpofR6jgoN9ZJoqRWk43My75SemgEknAVmHRHibUsj/yA=
-X-Proofpoint-GUID: gr1U8FhkXCl1X_zPvamuB6qgiUCO9EpB
-X-Proofpoint-ORIG-GUID: gr1U8FhkXCl1X_zPvamuB6qgiUCO9EpB
-X-Authority-Info-Out: v=2.4 cv=BqGQAIX5 c=1 sm=1 tr=0 ts=6ad736bb
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAzOCBTYWx0ZWRfX8xjb45bNmWAN
+ vEcmVqjrR9p7nIp3ft6RmL6KYSXVacvnE8qJioPIOqm373VTofwVp65tDmrGUKgQnmmx00cg9KE
+ W3pwTXaUgHjxkdPEC39ABO+HccZrFQ9yUnIKjQE+sjmq02l0W7SVzAbt9ijRI8ET2y619HyiQGv
+ qiMowGs/rSS1Li4PO9Lk766rLjEPQ95Blo/4bABziKM7B3JDsizICp3KfS1dETwvD+p/lvpOigF
+ z6mzZtDOxa+PBetif52+QYqmAFkK87duNpoqsd+mmumSCeTIG0UZxTRh7JYCfXQ6LJY+Nc7wl1V
+ 4R19uBV7Lyf+HubQ5vO+fcKDtr3re5Drxlv4yJFVNLR/3GqM2qZhHXWDCkgir8=
+X-Proofpoint-GUID: TCqKx8od3_A5hMzFSEhBt7AyYaGn9mUA
+X-Proofpoint-ORIG-GUID: TCqKx8od3_A5hMzFSEhBt7AyYaGn9mUA
+X-Authority-Info-Out: v=2.4 cv=FvkIPmrq c=1 sm=1 tr=0 ts=6ad736c2
  cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
  a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
  a=x7bEGLp0ZPQA:10 a=kLM9Tyy99jAA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=v3ZZPjhaAAAA:8 a=WCOQ0BZNcKcpk45iT-AA:9
- a=QEXdDO2ut3YA:10 a=sptkURWiP4Gy88Gu7hUp:22
-X-JNJ: AAAAAAABOdUjdhU7wci/o/nBlm003lo1KZGX2dTjkjqOVPDB8gAxb0VB2aOd9XWwvq97WlnwwooT9Ts1d/nfKTDM0h98TJ76fc/XYwjPibnBa1BzW9i9w9FbSfr9yzFJ+zwXvSS/F2NCGlMC9fty1zV9ofCnedRX3ujEf2bkcpoyxqr/nZX32saZx5ppCWo5tXsLmwajjerWPZ2E6jvEl3y9dFzxRlrJujMk158eICcGxdL11KU6ZTkBHNdBQ8W7XpGRLd42YLUyaT/HMqLKSXYg4P96XuvMiOMKcmCwyD/sWMEqQ8Z9q4FQeSSEFs79Img0a8xoiI7gqWkLk1lNwZ6T/VO8Dl7ai5Pyl0DHErR4IZzvqaFdyDGFCOgwOi/mq6Rftie69y2YXqPhck0I6vemW+uIYLQAIwPxZPJE/5yZ6AjFFXUykUEiJ8eeks7C0B6oJhf7J9jEeDfqoe2S9kn9BPxvDrWOjOXqq2EgN43Oie+rtCcIPIvrIWxyzbHcOpEFSnaJhbZOx5vEoP+h+eWa1nPFP2lPEi5xrxshb7w90HR0u1fy0pprrJmuJC+i5qlxqg8Actg0yHp8bldkLosNkQtXSCLyBDkkNNtGilnea/NiFDBxHrRjHIG+dgmgdu8r6InFSidmJHuFqmiI/CtOuAWkwN8xjyS69cBYnKd3Veo9f4vSBKtr+sfUR1tbx5nTc4FDiaE7Ldw0+Z2MPbf3QUvXWJ42fTOOkPt6hhPy9IVp6SpWJHvU13P8a0p3tH42vbFWyEl4lUbx16D16R7IQUyyVn+1sJzAcKBLPiPF5nKqmD0FbqogGsUQLLGiw9atuwejMYFBroPKhqnhD1HKzk7APYiYTk8wEhm2I/j8OcQ0nX0Oa4Dtub6gUmlN/08oYw3EIRmCg1579AncdxEb2gPaFEjbdzlqGYg09oC6FL++leD4ysztI5SdHsCep8hQlGvihA==
+ a=v3ZZPjhaAAAA:8 a=IjdaWMjaTc4ojD0rA64A:9 a=QEXdDO2ut3YA:10
+X-JNJ: AAAAAAABtWP6bfkHQcYuEQl+N1NNC+zUHk/D/3dDuVzmbOBY6nsLiBMOnx96fHzygYtqOfAINIxg0vgm3t9qFiNshawlm7rlq2dJP2LY4MqGjwr+Ypj6vyl42J5QSt1jahEqjJkoIXsJ9tdZISPHCoEmRNjuCLFrihO0axlqUHQ+qG4xq7D2FyFyeNq78rIDGhJz2UWxFavziCOtg3mD9Og1uKJZOWLBQISZqlCE8OBDEzXmqMiqNNxGYo40p2j0K4WK9fSrn9DfgUAX+3uy8YdGYvWMaX7kcJUp3Yl8lSAuIGQv4kP88Wlg8+YtwVmQVkZatjqA1e7neRq8nzFL3p3CW4ikk5Ew8A2uiZZg2QViWv+xvamT6Dlt7fkVVvQPU5Rfhozea5QxavC9YHGQALy1VQMdkdA7KZmpTwHRExY8K7pC0e7QkropePn5wBRdgryFJTwntyZSP2WwdanU52ecFR5s+ptZxdEizMIeYEgEfu7V4tk4FSyt2ix6YOvcoOBrt/v2Fn35XnhJzWNwNASwAndWEYXHUoTiZE1G5ZB+E6gOYwQEgOsP9QNvuPNH4qdzk0oGY8ehjXEMd6ckrs8j6dZWD/oKRGK5gFGCMFwyJo5a15BjrFwWR6OMldhD9t70SUHjiAXW4N+SnN6Y5cT0tBamfXMzI7BwZYi3cXyyN35MJL69MHm+UmdDU9Pv/YAIO0QLnLVWjlcRYwRStVeRz8OmtUxwg/bw0JJksmpeCE+WolF7q1w18G1AYZH2P1ZD1SwHcMco4AdhM3/aFcnXEaB0G80kkcKjGOjeaAW26KMy34KGT4UpH+ZkFck0JckVFSn8Ume815IFsPIN0pnhboAftcQlgDYqMlUyZYUDkxU5p9tEucv0XuHpxZpuJqibAU2r46EGRYZGt56YfwsXGT9fOLXXuzPp5LzVjOtj+7clPta6dgn4e2Ij
 
-Document the Apple Video Decoder. A hardware video decoder present on
-Apple hardware.
+Many drivers use tile_cols and/or tile_rows, so make sure they are
+valid.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Increase V4L2_AV1_MAX_TILE_COUNT to MAX_TILE_COLS * MAX_TILE_ROWS
+
 Reviewed-by: Neal Gompa <neal@gompa.dev>
 Signed-off-by: Sofus Forstreuter <sofus.c@icloud.com>
 ---
- .../devicetree/bindings/media/apple,avd.yaml       | 127 +++++++++++++++++++++
- MAINTAINERS                                        |   1 +
- 2 files changed, 128 insertions(+)
+ drivers/media/v4l2-core/v4l2-ctrls-core.c | 15 +++++++++++++++
+ include/uapi/linux/v4l2-controls.h        |  2 +-
+ 2 files changed, 16 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/media/apple,avd.yaml b/Documentation/devicetree/bindings/media/apple,avd.yaml
-new file mode 100644
-index 000000000000..108b4971914a
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/apple,avd.yaml
-@@ -0,0 +1,127 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/apple,avd.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+index 661a3a25da52..922cf74c4eb8 100644
+--- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
++++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+@@ -800,10 +800,25 @@ static int validate_av1_film_grain(struct v4l2_ctrl_av1_film_grain *fg)
+ 	return 0;
+ }
+ 
++static int validate_av1_tile_info(struct v4l2_av1_tile_info *ti)
++{
++	if (ti->tile_cols > V4L2_AV1_MAX_TILE_COLS ||
++	    ti->tile_rows > V4L2_AV1_MAX_TILE_ROWS)
++		return -EINVAL;
 +
-+title: Apple Video Decoder (AVD)
++	if (ti->context_update_tile_id >= ti->tile_cols * ti->tile_rows)
++		return -EINVAL;
 +
-+description: |
-+  AVD is a stateless video decode IP block present on Apple devices.
-+  Notably it includes an ARM Cortex-M3 and associated DMA controller.
-+  AVD is capable of decoding H264, H265, VP9 and AV1 on newer SoCs.
++	return 0;
++}
 +
-+  The IP does not change much, with changes being mostly the CM3 having more
-+  memory and interrupts.
-+
-+maintainers:
-+  - Sofus Forstreuter <sofus.c@icloud.com>
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - items:
-+          - enum:
-+              - apple,t6030-avd
-+              - apple,t6031-avd
-+          - const: apple,t8122-avd
-+      - enum:
-+          - apple,t6000-avd
-+          - apple,t6020-avd
-+          - apple,t8103-avd
-+          - apple,t8112-avd
-+          - apple,t8122-avd
-+
-+  reg:
-+    items:
-+      - description: DMA control
-+      - description: Cortex-M3 code (unsigned)
-+      - description: Cortex-M3 sram
-+      - description: Mailbox
-+      - description: Video decode control
-+
-+  reg-names:
-+    items:
-+      - const: piodma
-+      - const: code
-+      - const: sram
-+      - const: mbox
-+      - const: ctrl
-+
-+  iommus:
-+    items:
-+      - description: Decode related
-+      - description: DMA controller
-+
-+  power-domains:
-+    maxItems: 1
-+
-+  resets:
-+    maxItems: 1
-+
-+  interrupts:
-+    items:
-+      - description: mailbox 0
-+      - description: mailbox 1
-+      - description: mailbox 2
-+      - description: mailbox 3
-+      - description: flag 0
-+      - description: flag 1
-+      - description: DMA status
-+    description: |
-+      Notably there are no decode related interrupts. All decode related
-+      interrupts are sent to the CM3.
-+
-+  interrupt-names:
-+    items:
-+      - const: mbox0
-+      - const: mbox1
-+      - const: mbox2
-+      - const: mbox3
-+      - const: flag0
-+      - const: flag1
-+      - const: piodma
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - reg-names
-+  - iommus
-+  - power-domains
-+  - resets
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/apple-aic.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    soc {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+
-+        video-codec@289070000 {
-+            compatible = "apple,t8122-avd";
-+            reg = <0x2 0x89070000 0x0 0x4000>,
-+                  <0x2 0x89080000 0x0 0x10000>,
-+                  <0x2 0x89092000 0x0 0x14000>,
-+                  <0x2 0x890a4000 0x0 0x4000>,
-+                  <0x2 0x89100000 0x0 0x10000>;
-+            reg-names = "piodma", "code", "sram", "mbox", "ctrl";
-+            interrupt-parent = <&aic>;
-+            interrupts = <AIC_IRQ 679 IRQ_TYPE_LEVEL_HIGH>,
-+                         <AIC_IRQ 680 IRQ_TYPE_LEVEL_HIGH>,
-+                         <AIC_IRQ 681 IRQ_TYPE_LEVEL_HIGH>,
-+                         <AIC_IRQ 682 IRQ_TYPE_LEVEL_HIGH>,
-+                         <AIC_IRQ 683 IRQ_TYPE_LEVEL_HIGH>,
-+                         <AIC_IRQ 684 IRQ_TYPE_LEVEL_HIGH>,
-+                         <AIC_IRQ 685 IRQ_TYPE_LEVEL_HIGH>;
-+            interrupt-names = "mbox0", "mbox1", "mbox2", "mbox3",
-+                              "flag0", "flag1", "piodma";
-+            power-domains = <&ps_avd_sys>;
-+            resets = <&ps_avd_sys>;
-+            iommus = <&avd_dart 0>, <&avd_dart 1>;
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 760791e3635f..4fabca992fd4 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -2643,6 +2643,7 @@ F:	Documentation/devicetree/bindings/iommu/apple,dart.yaml
- F:	Documentation/devicetree/bindings/iommu/apple,sart.yaml
- F:	Documentation/devicetree/bindings/leds/backlight/apple,dwi-bl.yaml
- F:	Documentation/devicetree/bindings/mailbox/apple,mailbox.yaml
-+F:	Documentation/devicetree/bindings/media/apple,avd.yaml
- F:	Documentation/devicetree/bindings/mfd/apple,smc.yaml
- F:	Documentation/devicetree/bindings/net/bluetooth/brcm,bcm4377-bluetooth.yaml
- F:	Documentation/devicetree/bindings/nvme/apple,nvme-ans.yaml
+ static int validate_av1_frame(struct v4l2_ctrl_av1_frame *f)
+ {
+ 	int ret = 0;
+ 
++	ret = validate_av1_tile_info(&f->tile_info);
++	if (ret)
++		return ret;
+ 	ret = validate_av1_quantization(&f->quantization);
+ 	if (ret)
+ 		return ret;
+diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
+index d17e41d51d2e..abdfa102a77b 100644
+--- a/include/uapi/linux/v4l2-controls.h
++++ b/include/uapi/linux/v4l2-controls.h
+@@ -2939,7 +2939,7 @@ struct v4l2_ctrl_vp9_compressed_hdr {
+ #define V4L2_AV1_MAX_NUM_PLANES		3
+ #define V4L2_AV1_MAX_TILE_COLS		64
+ #define V4L2_AV1_MAX_TILE_ROWS		64
+-#define V4L2_AV1_MAX_TILE_COUNT		512
++#define V4L2_AV1_MAX_TILE_COUNT		4096
+ 
+ #define V4L2_AV1_SEQUENCE_FLAG_STILL_PICTURE		  0x00000001
+ #define V4L2_AV1_SEQUENCE_FLAG_USE_128X128_SUPERBLOCK	  0x00000002
 
 -- 
 2.55.0
