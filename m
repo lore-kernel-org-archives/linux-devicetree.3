@@ -1,65 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792501854;
-	b=Rl8yXqyAfCBNveJkPtbDfuyzZChP22i49eKOvJyJCfSBlj0En2NId5xivCoiTzGB2gZ2
-	 3PLN+1J7DHMRioKCam/3BumN0R6fC77P4TEa2IdIPP0gm1C5Be2zsr94iUvgYY9Qjmcxe
-	 H2kAGxF33x0MT7ttMKbHN2mr/X6mC+NmdGHHnydkTmBKEUOE6llNECtz0OPOWJGhKDZNc
-	 kYY0d/4AYnIa0CeyJpHrZLW92ykwJGV34XdIFkYZbVIuCH8t8eGKc2E6KA4YqX1dYfVT+
-	 7NPujcFsmuFQm3gfbfXkwT9gDXtvP8a6PgJTQ/iEgF7+GGzmrJIhSVvNKUIrDNKPhOw==
+	t=1792501962;
+	b=iKTyDQpKM40WjB1PeSsa5G60ec2WJSEm3Wkk5ns6OFchc95D2Ghhs/ywuy7BtADIRQei
+	 R4jj7JfP9qOxH00kMUCitVl9lS32+oR82RoILKtxNW1ZWLJHz6emaWRsC6oBwaVGOVOWg
+	 zwcGLcC426JrdVcSz8zxgL1qFY18uCKSLxkBZTg2VnoNXtoARahbFMh+i/AQKOlpxk/Rw
+	 3ZkCOhEeLOfgAPD+i061Rc0w25/hejLF49uwgHErBbBc9TeY+Mom5XFbWgIwZlOLTuCrc
+	 cYvB9OOw52hqfgfQFwgjpAYE3eAyCsPejg4dLCjLvcXpAVY4Mfhkby9RwYRS4QOzW6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792501854;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=zQNOmJxt2rSeS/12rmD03FzdRX9RNFsPZNdQNHDQyLg=;
-	b=lnD493We1iekv9SUhB2vVIkBpK3+dgpqJoQvxBbof7FUgqIPc4LTT0HCTnbECBVvP7Wo
-	 n8PMQRtGmaKRH3akD0ywaXKdWDAzSeV1dahaIeN9SWVQN+xVmeqRDY2ZRaoxFHKH9gZ2X
-	 t+fcAXb1uE3RFjWt1e9gxtPYVhqEvgxvibbld0UlIpBLzePVKwdi3DcsMXSI+MOuSsLXJ
-	 yNbbdxBsJG7Gux3+/KrstRjAeiLz9u/eQP2QGwiKJpn+JsUtvvX5DWaSN0uOedqYWwP7c
-	 Z7hXmGk3a8IbqSbGiFXYFuH+cRdFiEU5LKM5g/mP5RqhrmnNLDZExBQNkEZfvRpwsXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792501962;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=UW1vQbaFWJhWbULotNLMo4piEQJWdZbWypx45nJnwSg=;
+	b=UitNPfhDYvjr+W42+a2pfwqb85T+SCW7RH/SH8mlNwuJRuOCroYVrGuFNvMxe4le72ZC
+	 KOa0q6lx0RhePmwFonCSZg4RZG0D8zBb+M5UZBTytw4E4W3uu5o2dzN6vstoj37vY5Q2Y
+	 8JdoIW7kNXGtXqnM4UJItwOfOQC9BHs+/LFwFce+DiNzVPAm/H2uufi4ffLAORhp0jMdf
+	 pVHnhToMuIdL9Gpj9t5PR6CdX/ahPESOCma19kTLp2k/wWFxhE4RuC0UNvu59wdIa/EAg
+	 hHTkUitOIthUrwBEedk2z+RJLqXc1uTVokir+vk2WVZT/5ykAxXDz9OBKDHrHD9sVtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GY5hP0gu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="MP3ZJgF/";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CttkPhLZ;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8250F606A319;
-	Tue, 20 Oct 2026 13:10:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78399606A323
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 13:12:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78399606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GY5hP0gu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2C501F000C5;
-	Tue, 20 Oct 2026 13:10:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792501854;
-	bh=zQNOmJxt2rSeS/12rmD03FzdRX9RNFsPZNdQNHDQyLg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=GY5hP0gu+LmpD5EJhySCN7FoeRPxL/8LOHk68CUd10RUlpk7ulB6EQ5YJ/p6a6wcQ
-	 kbUl36HFvQZzNUUAOk+2vVLq7fXTP7rI5+8demneq2kvheF+EgZC0N7UjbEyeDuqm7
-	 X52unML1XWZciIG0vLLbaJzHkiZGaqS3T4a1W96x1nJg+R3MKLodnsnEqyEFZbFkO1
-	 186hnOZl9m4V4ecQYHxk0NBDV2LyuzKR6q40cbJ5yDOdhuWxXglfyUxvrfmKEsKLYI
-	 QTW3c/6AvdZzmef/E8ySo26VyZ8M7VakV1ZmSSGMt2P5sDNdNt1uprtKQ1Rg5NECD8
-	 x8Osww2bcJPQg==
-Subject: Re: [PATCH net-next v3 5/9] net: stmmac: mediatek: add RX/TX delay
- stage divider in platform data
-From: netdev-bot+sashiko@kernel.org
-To: louisalexis.eyraud@collabora.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
- pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- richardcochran@gmail.com, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, biao.huang@mediatek.com,
- maxime.chevallier@bootlin.com, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, edumazet@kernel.org, kernel@collabora.com,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Date: Tue, 20 Oct 2026 13:10:52 +0000
-Message-ID: <179250185245.3135.2311591498079484765@kernel.org>
-In-Reply-To: <20261016-dwmac-mediatek-mt8189-v3-5-25daf2bbcf35@collabora.com>
-References: <20261016-dwmac-mediatek-mt8189-v3-5-25daf2bbcf35@collabora.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MP3ZJgF/;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CttkPhLZ
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KDA7tk1575403
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 13:12:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=UW1vQbaFWJhWbULotNLMo4pi
+	EQJWdZbWypx45nJnwSg=; b=MP3ZJgF/FAlQUyDw6+XzcQi5v0bSP+XtRuLy50Le
+	fzNmSB3NjW6qchpcOAY2bNp3FTzVpERDE1qbj9t6SSwrT7cQersODq6vT1aBbwwj
+	EVImjOpK1o54RHAaeIpIMExbMjyaypbz9ARdxGL5DoYeBcDziJor30LsL80y/NpY
+	cizTIJ4RED5a20FCSFytRKs7FMp8oA5qf6UAJbKXgIRVwIZkRbBEqCm4uPiknK7P
+	ur9OkWND1Tm48bsnGb6GLtrsPUeL0Lb3l6Rxg/eTLz8XqW7qFm/Bg00rJSr4t2M/
+	eaZZy5WZkONdeNv6HOr0JN++S8KfnS7SfolkCXiyTyNYwg==
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5n2kmx-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 13:12:40 +0000 (GMT)
+Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-988bea8fed6so2532076241.2
+        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 06:12:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792501960; x=1793106760; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UW1vQbaFWJhWbULotNLMo4piEQJWdZbWypx45nJnwSg=;
+        b=CttkPhLZfpnX2Ae+1gxBfAcHoIhbwLTV+bx8gTovNjS/FvaUH40K93fQaGpUQjuE2O
+         zurhAZ6E+5cbt+/ycDYotvtTkL3ZgdXSqU6mY3umpKxYPY7AFvKr9FcUe246bnAm2IT5
+         002D+Aiz4zvaDCA3LLArIIKjOfIoT7V8oF0Rey7EeU7QPJyLcWEsTIZPNNtvtNdzE6ht
+         MIKzs8On9BSCJ+9wOaShmA5Zhp4y7RESZij5omuHFUPzECt9gqjO/1ElqT6sbAwdk8ef
+         grG7CDcZhrdnhU7MNwwyE/U+Rmo+A9EVEzgI8Uhh1NlYRoK4IBq+yJS0T9iZsfWnN8ZU
+         W8xA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792501960; x=1793106760;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UW1vQbaFWJhWbULotNLMo4piEQJWdZbWypx45nJnwSg=;
+        b=Nspg0+E+YjEytRGrhmLfdFXB8yhcKsayK6bPs5x3e1FAaTrcnJKOWNPvjXBR3xuEw7
+         umZARkXS9qggv6joouC4PB3kDV6dyzUqt1Jdbwl3ptGOdbsLLh7vCPi8R3wkS+B6p3qt
+         YuclSX9R9GEPsNxBrE/zMr5r8WUPA29TRlFprtLtWmRoMfV15Ru4lKFesbMT0idD1bNx
+         TeqNK+278TaPKaGCyU7hecRHBqNqRBns4n6aKgR2qtz0h1/TxNvgbyfSb8vKdwivYGy9
+         bTzo00ngZZg9UohxR2VU2stpeiHbeRWhvVVo1vHQOpEfq2tfP70jforIxFyw3PepN/eL
+         4B0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxpC5ZB6h6igoFZWQAIFS/yIMi/MCrGjo8TIY5gN7JMvBEXq5SDsBcmQ7GMAPf5YuyQm9EG56nNqI51@vger.kernel.org
+X-Gm-Message-State: AFq9FYL2msYTcCW5741stfWSvaYjIiTBT2XDRXMFqTF+ZJTkaAp3Ddwf
+	eEq3w8jR44iWVxzHppYt0OIBZc6ynreHda2vJJb18/gZMpByWEKEi+FSBlYmfiIx4bvg9In4gU9
+	hV4PZSOreTl8Y0ntLa6hgBWVNdrbUz/9Jr0L6j5uDaVm4Lcm0wEqXdvOcvIGtltaF
+X-Gm-Gg: AYBFou204risjc1N4DeiPCHIz3vQvRvReWSiCIWn78NeLXYdg6+pPWggTb27AxwXz0v
+	6fDMkCVSPOsToXr6l7UfmReEatUlUkT4eri7JksAH00gMvWcVgPAW88wmOlLvAhdgVHu++HzQgR
+	pyjVV9AXtH6l2S46sneQ9Wq3Eud8h6BlBOKGwZyYl9GchkHcERuiSLE8T0WJN3Kj2Qj0e77o7tW
+	ht3qps7dl1cosBIoama74Hyod5/dxbXm5YTXeU9UH7m3GCvK7sehLtQzuER/OIAto4Mb+Nyk0xg
+	OOj5Ssg6ADFaR2Ulynf7T50BkkESNXar8qz8uS2oZ87BWtV3A6g4F3NzFpAjelhWXnB1tPBRQeU
+	LQg1em/FWvmDnQwW7
+X-Received: by 2002:a05:6102:509f:b0:7c8:448:5237 with SMTP id ada2fe7eead31-7cc36a05fe8mr2648193137.24.1792501959613;
+        Tue, 20 Oct 2026 06:12:39 -0700 (PDT)
+X-Received: by 2002:a05:6102:509f:b0:7c8:448:5237 with SMTP id ada2fe7eead31-7cc36a05fe8mr2648176137.24.1792501959052;
+        Tue, 20 Oct 2026 06:12:39 -0700 (PDT)
+Received: from oss.qualcomm.com ([188.27.161.187])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f69d9b1esm47118715e9.7.2026.10.20.06.12.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 06:12:38 -0700 (PDT)
+Date: Tue, 20 Oct 2026 16:12:37 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Cheng Jiang <cheng.jiang@oss.qualcomm.com>
+Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+        krzk+dt@kernel.org, conor+dt@kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: shikra: Add RF_CLK2 clock to
+ wcn3988-pmu nodes
+Message-ID: <s2a5sfz2pbyvfzlmwwteh4tptrbaphpelvd5fomfcm4tfxoq4r@m6zdxbrmvrp5>
+References: <20261020130852.3049639-1-cheng.jiang@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,120 +120,47 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020130852.3049639-1-cheng.jiang@oss.qualcomm.com>
+X-Proofpoint-GUID: f1hO0l_2_Awh2U6PdAYHyB8jT6dDBQCy
+X-Proofpoint-ORIG-GUID: f1hO0l_2_Awh2U6PdAYHyB8jT6dDBQCy
+X-Authority-Analysis: v=2.4 cv=L7qI0OT8 c=1 sm=1 tr=0 ts=6ad768c8 cx=c_pps
+ a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=9xTM98GwyULmpW7hZsAA:9 a=CjuIK1q_8ugA:10
+ a=TD8TdBvy0hsOASGTdmB-:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA1MiBTYWx0ZWRfX9LhF3IJDqdjM
+ AOFSdfc8/APAMBzZaYNwxEAhpCNVlRx3mgK7tfWtQU+RRwLfwMlvR00VC3lxbaK0SfFmGFu95GF
+ P4rVVkD45SNfTqz8DJY0QwISnoQirRFIVs4/2L4QCE+DzQcO867CIFTN7uBzBNgAWJ8S5IzxH/u
+ 3JF4t8vtfEYHhAdHtqZJkakKbPU6FWDgUbypT3NX9iQ6uFp7ZFAtJx/cT8gVEdPHbUkt5eJnQXu
+ UDTVJT4Q11EgsAFP32SK8rdFIaZE47oysRfv2eUIh7zeL0D/GVXsKTFbJfCWoN39n08bK1DUGZ2
+ Bu4rTjYIehpoA2Wm2dUSHbQDvExSaeyfLlREMTCnmJ+V2M5wO87aSycgalVUjH7oDAEfMNHr5FI
+ 2WPVqV2o7GVLLi2BsI/iIrBY+DDLiuxOCv/hiEefgtLzUFNHr09CRrDn5UOXBOKYQM+9vh2/HLs
+ vj0Yic0RdQTP9njp6kA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA1MiBTYWx0ZWRfX0Mqoun+gEF6+
+ hr3O98glPWSxIZAT/hDhfR6MLWwx4R5755lgGN/xoLYb8r/f1cJVU+IF8JuosaYrVhAJsGAGG1Y
+ U2YfS7SiHC1OFWxGH6ywNGyFpG132hQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_02,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 adultscore=0 phishscore=0
+ priorityscore=1501 bulkscore=0 malwarescore=0 suspectscore=0 spamscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610200052
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On 26-10-20 21:08:52, Cheng Jiang wrote:
+> The WCN3988 on the Shikra SoMs takes its reference clock from the RPM
+> RF_CLK2 clock. It is not described in the device tree, so pwrseq-qcom-wcn
+> finds no clock to enable and RF_CLK2 stays off, leaving Bluetooth unable
+> to come up.
+> 
+> Describe the clock on the wcn3988-pmu nodes in both SoM dtsi files so
+> pwrseq-qcom-wcn enables it as part of the WCN3988 power-on sequence.
+> 
+> Signed-off-by: Cheng Jiang <cheng.jiang@oss.qualcomm.com>
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] In the variant data this patch adds for MT2712, the delay-stage
-  dividers are the wrong way round for the hardware, and the RGMII TX…
-
---
-
-net: stmmac: mediatek: add RX/TX delay stage divider in platform data
-
-This commit adds RMII and RGMII RX/TX delay stage divider fields to
-struct mediatek_dwmac_variant. It makes mt2712_set_delay() and
-mt8195_set_delay() read the dividers from the variant data instead of
-hardcoded constants, and it guards the divisions against a zero divider.
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> index 596411d4a5b2b..cb5bda53edb94 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-
-[ ... ]
-
-> @@ -258,6 +270,10 @@ static const struct mediatek_dwmac_variant mt2712_gmac_variant = {
->  	.num_clks = ARRAY_SIZE(mt2712_dwmac_clk_l),
->  	.rx_delay_max = MT2712_RGMII_DLY_RXC_MAX,
->  	.tx_delay_max = MT2712_RGMII_DLY_TXC_MAX,
-> +	.rx_rmii_delay_stage_div = MT2712_RMII_DLY_RXC_STAGE_DIV,
-> +	.tx_rmii_delay_stage_div = MT2712_RMII_DLY_TXC_STAGE_DIV,
-> +	.rx_rgmii_delay_stage_div = MT2712_RGMII_DLY_RXC_STAGE_DIV,
-> +	.tx_rgmii_delay_stage_div = MT2712_RMII_DLY_TXC_STAGE_DIV,
-                                    ^^^^
-
-[Severity: High]
-
-Should this be MT2712_RGMII_DLY_TXC_STAGE_DIV? The RX line above uses
-the RGMII constant, and after this line MT2712_RGMII_DLY_TXC_STAGE_DIV
-has no users.
-
-Compared with the parent commit, this changes the RGMII TX (GTXC)
-divider in mt2712_set_delay() from 550 to 170. The commit message
-doesn't mention that change.
-
-There also seems to be a wider problem with the values. The previous
-patch in this series defined:
-
-#define MT2712_RMII_DLY_RXC_STAGE_DIV	170 /* 170ps per stage */
-#define MT2712_RMII_DLY_TXC_STAGE_DIV	170 /* 170ps per stage */
-
-#define MT2712_RGMII_DLY_RXC_STAGE_DIV	550 /* 550ps per stage */
-[ ... ]
-#define MT2712_RGMII_DLY_TXC_STAGE_DIV	550 /* 550ps per stage */
-
-The original mt2712_delay_ps2stage() used the opposite mapping:
-
-	case PHY_INTERFACE_MODE_MII:
-	case PHY_INTERFACE_MODE_RMII:
-		/* 550ps per stage for MII/RMII */
-		mac_delay->tx_delay /= 550;
-		mac_delay->rx_delay /= 550;
-		break;
-	[ ... ]
-		/* 170ps per stage for RGMII */
-		mac_delay->tx_delay /= 170;
-		mac_delay->rx_delay /= 170;
-
-The binding in mediatek-dwmac.yaml matches the original code:
-
-      For MT2712 RGMII interface, Allowed value need to be a multiple of 170,
-      or will round down. Range 0~31*170.
-      For MT2712 RMII/MII interface, Allowed value need to be a multiple of 550,
-      or will round down. Range 0~31*550.
-
-The commit message of that earlier patch also seems to describe the
-original code the wrong way round (550 for RGMII, 170 for MII/RMII).
-
-With those values now stored in mt2712_gmac_variant, mt2712_set_delay()
-divides by:
-
-  RGMII RX:        550 (originally 170)
-  RGMII TX:        170 (correct only because of the constant above)
-  MII/RMII RX/TX:  170 (originally 550)
-
-Wouldn't this write the wrong stage counts to PERI_ETH_DLY?
-
-For example, RGMII with mediatek,rx-delay-ps = <1700> gives 3 RXC
-stages instead of 10. MII with 1100 ps gives 6 stages instead of 2.
-
-RMII with 5500 ps is inside the binding's 0~31*550 range, but
-5500 / 170 = 32. FIELD_PREP() masks that to 0 in the 5-bit
-ETH_DLY_*_STAGES field, while the ENABLE bit is still set from
-!!rx_delay_stage_val.
-
-The in-tree mt2712-evb (rgmii-rxid, tx-delay-ps = 1530) gets the
-expected 9 stages only because of the RMII constant on this line. The
-parent commit gave it 2.
-
-This still looks present at the end of the series. Should both parts
-be fixed together? That would mean swapping the macro values back
-(RGMII = 170, MII/RMII = 550) and using MT2712_RGMII_DLY_TXC_STAGE_DIV
-here. Fixing only one of them still leaves RGMII TX at 550.
-
->  	.dma_bit_mask = 33,
->  };
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016-dwmac-mediatek-mt8189-v3-0-25daf2bbcf35%40collabora.com
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
