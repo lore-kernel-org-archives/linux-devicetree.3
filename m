@@ -1,101 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.104.109.113
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792486610;
-	b=UTsz6M1lV1Z8Hu091irg92beOUW4e5VKiKQmII5QYuiX/GLLmHrXDmHgeKtCs5LM7pEx
-	 SzmZKeZRN8Bl+xEEl1dE2WGBosMbu7ikaXSSzDy4Q4eqnp9ygWXBojamdQm1+/IlcrDjD
-	 nOojJQQDu/jv/RV+/65NSsC235Mz+69Jqn2pOtUyfAEu2MzFZRCj6UEcKnKwP1DOS5efm
-	 f929n28ZNlv4vOL/QQKzWt2IrVEvs72TS5sVteGXJzfSoEw0W/GbJIqvaZPmPOQaNEoPH
-	 B90RKykDK6P5c9v/SvIGCSsIuZhBklwt4yxm53D5ROdUBRd7Dkn9hDSpwBHZnOidPEw==
+	t=1792486653;
+	b=D2CLUsrXSwCfSgIiMhBcga9LcWf2wslttbT6Ic8GI3zhns933xRLQvGE7ES5lAMlmWC4
+	 QlxxkZYICJRjv5yludmk+cgR66NONukjxfsI++MgaZ797xYDpCrx506+FhUn2zQhoEzkT
+	 Tea2Qkog7CBOJ4VEO6PEYuvNb4YMdp/gurIg9AGIHPMdArKsIqng51Xu0IAPLhp3zvJk4
+	 nOBR3PXfjy2D0600BTNGtd+CdNgIWZLJbBVvO9d1z5A8MO7B1xPdzh13AYvYFsqNzMF+I
+	 dVUnt4P9orAihDWWGbZqKtgwWuBGE9ulv6u5jm7xmMEq26EQRd4zCV+wOs+opZjGWLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792486610;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Mimecast-Spam-Score:X-Mimecast-MFC-PROC-ID:X-Mimecast-Originator:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
-	bh=u/ZKkzTjwfr3n/ITzObs2PSQp6GJy+fC0uLKRCdBMyk=;
-	b=CjgGJVZSj/quVdGFtkal9eNJyE45DmVa0H9+WMMr1JvXrICJZMbvn14dygtP0H4LnKi7
-	 1sJB6X+hdaMBQ+Mtc6p5r1ccBaYWpkeJbJJ9CY9YwsQzh/GO4rnJkIzOuviRCIRq9llse
-	 Aa3kgBxVgF/fWNeJGPeMPzV21Y2Ntk9gyM6gLK3z6NuG0XG7fSR8BTmdddNDrAt/c2AK/
-	 nGBvh86UiA4NigGmojZ1ZLAcYx0hqmeoqmUrQ/1lWKwChXdk6Phn+38mfveioexHpMtJX
-	 EJcGNPh1mkJqwr86N6JTBTUoPEZmuopQ6xoE+nm2eCaiW74PR1bsmGz+exSG4zXczTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792486653;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Xlb4s9/rePL26Nwqp4jBAJIgwIt84T5GQJxKlbgDZOE=;
+	b=Z8Kc98+VYPApyBHdSgkjgVbY9kQxpNhGn556z08gQT+QbNd2YkVaiLYBPKp5sRQNvGfz
+	 yThmFkci5aR7uo98RBFPwFjF3bIU99rWffUlioMsZ7DKHN6i1L2x3KR3O8K042ClbDuWh
+	 DzwprdqmuvqrnfRPlWKw7FpaeU4COY0gvKdL4jO9JGOUJLAcGDePmdlqq0QCRqSTZdqvR
+	 J8sFbFr1s3LMx1Qkn4N4gZcd/6HP5pc90DYYYS0ojf5D6I0YgNdJN9q2C2bqFr5tszqsd
+	 37RLxfLCSDW9u2+uTh0jUg0+GTnoKbvtcMpU+xYTInw1eOTg+Nrp7iQLVjZWoSPh84Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=toradex.com;
-	spf=pass smtp.mailfrom=toradex.com;
-	dkim=pass header.d=toradex.com header.i=@toradex.com header.a=rsa-sha256 header.s=toradex-com header.b=aY7wucE8;
-	arc=none smtp.remote-ip=194.104.109.113
-Received: from de-smtp-delivery-113.mimecast.com (de-smtp-delivery-113.mimecast.com [194.104.109.113])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HzUYhKbM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C41B8606A31F
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 08:56:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C41B8606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=toradex.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toradex.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63CE2606A327;
+	Tue, 20 Oct 2026 08:57:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=toradex.com header.i=@toradex.com header.a=rsa-sha256 header.s=toradex-com header.b=aY7wucE8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=toradex.com; s=toradex-com;
-	t=1792486602;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=u/ZKkzTjwfr3n/ITzObs2PSQp6GJy+fC0uLKRCdBMyk=;
-	b=aY7wucE8f5EkLFwn3pxqa/I1L8LRXo9MlNlF3m1xPFvGIS7Gi7jEa0zu9VArxkYp/mY3ye
-	SzrCnFHgRV5+clIKSeu2bqUzSkoHkFiggUaoqB99cJ0JlfZxsHTa9mAkcaALqOm940U0Z2
-	3oOvEivme/376PLhqSXEFhAGbIbP9bs=
-Received: from ZR1P278CU001.outbound.protection.outlook.com
- (mail-switzerlandnorthazon11022141.outbound.protection.outlook.com
- [40.107.168.141]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- de-mta-35-l11lLxbRMfG1mUtqDRJ7hA-1; Tue, 20 Oct 2026 08:56:39 +0000
-X-MC-Unique: l11lLxbRMfG1mUtqDRJ7hA-1
-X-Mimecast-MFC-AGG-ID: l11lLxbRMfG1mUtqDRJ7hA_1792486598
-Received: from ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:2e::8) by
- ZR4P278MB010980.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:bc::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
- 2026 08:56:36 +0000
-Received: from ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
- ([fe80::88:6821:13f5:a5b2]) by ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
- ([fe80::88:6821:13f5:a5b2%3]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
- 08:56:36 +0000
-Date: Tue, 20 Oct 2026 10:56:34 +0200
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Antoine Gouby <antoine.gouby@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Antoine Gouby <antoine.gouby@toradex.com>
-Subject: Re: [PATCH 2/5] ARM: dts: imx6dl-colibri: Add Toradex Capacitive
- Touch Display 7" Parallel
-Message-ID: <atcswu1h7We8bIEw@francesco-nb>
-References: <20261019-colibri-imx6-overlays-v1-0-e4d028727382@toradex.com>
- <20261019-colibri-imx6-overlays-v1-2-e4d028727382@toradex.com>
- <atZutHmYt1aNWTpP@SMW015318>
-In-Reply-To: <atZutHmYt1aNWTpP@SMW015318>
-X-ClientProxiedBy: ZR0P278CA0030.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:1c::17) To ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:2e::8)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HzUYhKbM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FFB21F000CA;
+	Tue, 20 Oct 2026 08:57:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792486653;
+	bh=Xlb4s9/rePL26Nwqp4jBAJIgwIt84T5GQJxKlbgDZOE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HzUYhKbMWHmTIq4CkV94LoAcYqlgctyuj/B7QTA29ePGT/QG12S8oAxAluk8iB9CC
+	 oc7EWtXq62SJjld0d5rRWvuicGnspVNN0RgqIDYcZpDPL0F2Nd+VpEJ3m3z+jjF6J3
+	 LjM+jVyGoNotmWT+NAHgZ8Jq2bj+GHwemgE1Ds7QigLQCC44JjbEB+qbbBQaRiMBDH
+	 eKFsvC6dSWAIfh3wKI/YyUrwNVbfeZO7s3hNbUcgiLcge5vtIJBMrUd08lVLjM3RZB
+	 XUbIKI0I6e5LwFHfGrNSqM5juZHHkQLhjY3AslJuAG+Z/mpQEsVsEs/fFs19cJU0LM
+	 mrTlcfTCdR3pw==
+Message-ID: <sashiko-outbox-178658@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] usb: typec: fsa4480: Report switch & mux events
+ to codec
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Val Packett" <val@packett.cool>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261020081343.1507986-3-val@packett.cool>
+References: <20261020081343.1507986-1-val@packett.cool>
+ <20261020081343.1507986-3-val@packett.cool>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 20 Oct 2026 08:57:32 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,140 +60,98 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZRAP278MB0495:EE_|ZR4P278MB010980:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6412736e-4109-4657-2014-08df2e880c13
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|7416014|18002099003|22082099003|13003099007|4143699003|10067099003|261009223027099003|56012099006
-X-Microsoft-Antispam-Message-Info: R4XvKjHI4McU0FtbqOTC7azxsGgsef5awbJkPtjzdk6hBvjaPfWHdtNWhPL2ezC1m0O72bEXTrHI/NXDsTy5WaTA34HOH71YSUmWraZ7yM05cfrKTnXe4Rke/yfbvp8ga3KcgL1pGoP2NSFrZnpU7t5Hp8i8XsAIqlAitWtNUTfaewb+hLEPG9Ym1zsUNG8jcAo+XlaTpgGeGkcQmIVe1Lh7rTBgyJM/dsk85zGCZD7NpRzJjdL7mgqZYMPYmmroUPZMUG9Lg9JXTt3xjOevFC9w5Q8SvsZaTZLhcJMNGY5hmJJtwi1ZjMddsteSCNfkB62BzVzhYj5rZdpziESq3/jiI36JkJeHAz40Dy0xfscCem/HhqDCNnupcj6pytHWp4S56kjydunyrcj5Ny2bH6D7Fy5L3yS15gMX81QDEhPF5fED1YxSlnY/2j4L8rMdP5iNlWb1Lt1Z+mxV2LJA8bGpdnSHeRimWHFVbVFzvoCl3ZXmva4z1Z6vhPkRdwX7VakefX0X624hQDRAet1QiQYRE1FLj60OM4wQxjrb69zgVe7Ozd3OK9P2VXXY25Avcf0rDQgazVZRLLYPQH3YNQGsFH7tglCQuvkAWGEC8AXgsDteDixyQwUiWu5WUeH1
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(7416014)(18002099003)(22082099003)(13003099007)(4143699003)(10067099003)(261009223027099003)(56012099006);DIR:OUT;SFP:1102
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?R3zOYKUov0WFQ4qHlX9n87k+pF2iR9sakGbKYjcckXnJ8hm6Wg6CjkEBwoNN?=
- =?us-ascii?Q?S2Tgnn9ftBF/0Gm9cSsoHNavFH9zfKYjlRqz+DMkfL2t7kHi7uvhCzGu/i5K?=
- =?us-ascii?Q?cK7else5ESs3oDMWtNsGvS2HfhC13uR/FEd/DWbTOZsQ6qi4rMXV/sihB1ih?=
- =?us-ascii?Q?mOFuCAtmrtLOQV/CRn/LsXZeEwILtdri/V8yi9UgTYYi0Yglqf1WEjO0SfE7?=
- =?us-ascii?Q?hFoBoS7pKfkTGWzqSfo4ZHGmD1OJcAw2yk3nhKNj9/rVTN/9TR4RWUYoORD3?=
- =?us-ascii?Q?PXWsRa0x88fCPd2wNaXMyYM9LoDeW1W1eL47PmAQ3PeFenFTXTibszlEskIK?=
- =?us-ascii?Q?9R2tg4f8PGgnLOxBEvFbcII9TzqGBEVGH3KlDRnF8eSI1wBi/R8Kxu/WUjFJ?=
- =?us-ascii?Q?S1WRcMa+gFqQClY9OgCtRuvBj6tCU7l5Nv2aRjlS47vZO2Fhr966zxkxt6ul?=
- =?us-ascii?Q?qmlZ9b0B9GhQ4a+HJMAfBLWScw4hOuKT/uRjwMLrSxxZMzvKgr8nHBb4e0/I?=
- =?us-ascii?Q?Jbmzm2HdJrOQnd/PnlUM934cWm2jKYEDMPc49UsObVdXNC9qk0tZGhpE3Mi/?=
- =?us-ascii?Q?6XphWnIaa6aRp4uScLSLSmGubVwMJzaNqmqp40mWbgZGmu5j6GIo+x3jPWyk?=
- =?us-ascii?Q?kv49H4Kp0ZuP/xbzITCyqBhfgYMXFWet14DhPfnHGSoTAL9YjtcLTWQilV+0?=
- =?us-ascii?Q?YaFUubKMSSxW3qr+LJZPYHVOxx+ByqeyuCm7Zi+IBstba54tcqfgxVWqIqQa?=
- =?us-ascii?Q?bgeO5JUpf3rlaXkTrCFB0B3Xn+6jvXg7IWMKW+2Ep5lUVUTU1Cxox82zfMjD?=
- =?us-ascii?Q?3pu6HfwEK6DuBS4ZuOh6Wdjk3w3P1R/TOWKJPEC4VWP3/tkbUXudqnF2pZvJ?=
- =?us-ascii?Q?RVW7PLS56v7xACKg50LR0fbXhePkuRBquuqqxvELngaUrNAiPL/YtTuiMTFp?=
- =?us-ascii?Q?fz00/c4YW7wo31cNPCNQRsZIhvSgZwCjb93liL8NVLw8PR/XzR9Ih9whjlQJ?=
- =?us-ascii?Q?NJjs/N4XU3UzaAgTpk0QMR4wwJiMGMLYvxMdzVHMjZBavhgKKhHmB3VynYse?=
- =?us-ascii?Q?ySYNyUrVHx7d+LQtrFt+5BSSrSYIH+ujXiUW13I10Lw3VGQGN4e6wLOU5QT8?=
- =?us-ascii?Q?QNmGsNoq9WfD1oSg60dBXWRMkSrVLbym75/ibspdWukaM/HGXvRw8lSr//of?=
- =?us-ascii?Q?End2o9SXGUejNhezoZsjQk06+ZsrixUGZq9sqtdxi/GA4Pa9ouMzE2JubH+7?=
- =?us-ascii?Q?bGx/ckQkIPtMypZAhef8iZGe7CuWzsRUEQv6mWKxMvxSSSKTKbQNdOpenClK?=
- =?us-ascii?Q?fHmXloqDJhbxBBmDV8/ZvzmKTvcovY0pKZ5s7YuB2sww32qSYJEaeOT2xEJG?=
- =?us-ascii?Q?nEb8A0T+HmONOZ2iCoi/opjp1Tm1wPz98wmwqlnTZ9G1zMlKMmgrZL0mZ/kT?=
- =?us-ascii?Q?CscwSGrMJ62aXbc5xCsxcINfE0xPcKpPl81eIdcIdjdkaRcRa/liGuk/ZkLP?=
- =?us-ascii?Q?c5TGLRkaD5xLRj0P9opVtGUOoLSyjJVxDTVRj5pmNUrRCiF8H/EuMiML0TFG?=
- =?us-ascii?Q?m+a2nzGdp1FKcLSiwft8yOUFHJE5QDkTi/HjkuKyIA7S5LNOaLGukVT2cQpH?=
- =?us-ascii?Q?X8bfo5QFZFZVfjuBzuw7LimZai8npYnaYKPMJczVxyLuVPPpT3IAiqWKDR+3?=
- =?us-ascii?Q?DPFVPvlE79rQ9MGxJLD/cE8x4ZH9R8CkLRt3B6iUUX3RivMI8Rj2BEXLg6sh?=
- =?us-ascii?Q?XQtTOp/OzkNuTU0RGvrf63XJbKtyZfg=3D?=
-X-Exchange-RoutingPolicyChecked: ABjYSMLcC2xAx8G3RnyEYK0AwQSkw6cvs/X9HsXVeKeGzXZIElYVvxQGZXTVwN7ndbCBJUDYbcbmli45cr2Cxvuaw9tA4zV/bPlse3JNtqMI02gN7NOBfF7R6QGT0fIxSZ2JAWGmAV48eZ2g/gStIaFk6H1Ed1ChzE0TXx+V2Cm/QnfoMyjJ8itwLEugNwridQd/4Mic77d/DeXfvnpy6smXOuA2Rp8Hfp1gz8S2LwFfr9o/T6HsOpK+BH2im9tM84ENH+OTzYnHh8VfqVHJedkWAukihYzHI+8KzQilqslHMmnfK6SYzadE81kHLzIXamx/bW2ockhmMIVk1Wm7+A==
-X-OriginatorOrg: toradex.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6412736e-4109-4657-2014-08df2e880c13
-X-MS-Exchange-CrossTenant-AuthSource: ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 08:56:36.4497
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: d9995866-0d9b-4251-8315-093f062abab4
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NpVYyFGouNLPYSdtvMsnQ869Cw+9EZKh7N0xdKgLQHAtm4Wu1jpKTnJPy9XxmYiHAL6fykWotaPZR99/0SEhNfJnCnp9FgssmCQIUQZkh6c=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR4P278MB010980
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: y2F9-vo83Z6MB_wFCLkYCTlo9eymeq6nP0i_9kWhaCM_1792486598
-X-Mimecast-Originator: toradex.com
-Content-Type: text/plain; charset=WINDOWS-1252
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-Hello Frank,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] usb: typec: fsa4480: use-after-free in fsa4480_remove() due to tea=
+rdown order
+--
 
-On Mon, Oct 19, 2026 at 02:25:40PM -0500, Frank Li wrote:
-> On Mon, Oct 19, 2026 at 01:18:31PM +0200, Antoine Gouby wrote:
-> > [You don't often get email from antoine.gouby@gmail.com. Learn why this=
- is important at https://aka.ms/LearnAboutSenderIdentification ]
-> >
-> > From: Antoine Gouby <antoine.gouby@toradex.com>
-> >
-> > Add a device tree overlay for the Capacitive Touch Display 7" Parallel
-> > on the Colibri iMX6 parallel RGB LCD interface.
-> >
-> > The panel is a LogicTechno LT161010-2NHC 7" WVGA TFT Transmissive LCD
-> > and the touch input is provided by an Atmel MaxTouch capacitive touch
-> > controller.
-> >
-> > The touch controller is connected to the Toradex 10-way Capacitive Touc=
-h
-> > Interface connector available on Iris v2 and Aster carrier boards.
-> >
-> > The touch interrupt and reset signals on SODIMM 107 and SODIMM 106 shar=
-e
-> > their pads with the WEIM nEXT_CS1 and nEXT_CS2 chip selects, disable
-> > WEIM to avoid the pin conflict.
-> >
-> > The overlay is also combined with the Colibri iMX6 V1.2 Iris v2 and
-> > Aster carrier board device trees to provide ready-to-use DTBs.
-> >
-> > Link: https://developer.toradex.com/hardware/accessories/displays/capac=
-itive-touch-display-7inch-parallel/
-> > Signed-off-by: Antoine Gouby <antoine.gouby@toradex.com>
-> > ---
-> >  arch/arm/boot/dts/nxp/imx/Makefile                 | 11 +++++++
-> >  ...6dl-colibri-panel-cap-touch-7inch-parallel.dtso | 38 ++++++++++++++=
-++++++++
->=20
-> File name include key componets, lt161010
->=20
-> such as
->=20
-> imx6dl-colibri-7inch-lt161010.dtso, like others
->=20
-> =09imx93-tqma9352-mba93xxla-lvds-tm070jvhg33.dtso
->=20
-> In case you will add more 7" panel in future, panel is quite easily EOL.
+commit 75fde299467e8267560849403da73d3c9962ad9c
+Author: Luca Weiss <luca.weiss@fairphone.com>
 
-Let's try to settle this topic.
+usb: typec: fsa4480: Report switch & mux events to codec
 
-What you are proposing is not ok, I have already provided a complete
-and detailed explanation on this topic here, please have a look again:
+This patch updates the FSA4480 driver to acquire a downstream Type-C mux
+and orientation switch for the audio codec and forward mux and orientation
+events to it. It also enables the SENSE and MIC bits when entering audio
+accessory mode.
 
- - https://lore.kernel.org/all/20261005075319.GA7692@francesco-nb/
- - https://lore.kernel.org/all/20261005075319.GA7692@francesco-nb/
+> diff --git a/drivers/usb/typec/mux/fsa4480.c b/drivers/usb/typec/mux/fsa4=
+480.c
+> index bea0c1deec94d..93faa81d08797 100644
+> --- a/drivers/usb/typec/mux/fsa4480.c
+> +++ b/drivers/usb/typec/mux/fsa4480.c
 
-In addition to that, I'd like to say that this is exactly the same as
-the raspberry pi display, see
+[ ... ]
 
- arch/arm64/boot/dts/ti/k3-am625-verdin-rpi-display-2-7in.dtso
- arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-rpi-display-2-5in.dtso
- arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-rpi-display-2-7in.dtso
- arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-rpi-display-2.dtsi
+> @@ -319,18 +347,33 @@ static int fsa4480_probe(struct i2c_client *client)
+> =20
+>  	fsa->mux =3D typec_mux_register(dev, &mux_desc);
+>  	if (IS_ERR(fsa->mux)) {
+> -		typec_switch_unregister(fsa->sw);
+> -		return dev_err_probe(dev, PTR_ERR(fsa->mux), "failed to register typec=
+ mux\n");
+> +		ret =3D dev_err_probe(dev, PTR_ERR(fsa->mux),
+> +				    "failed to register typec mux\n");
+> +		goto err_unregister_switch;
+>  	}
+> =20
+>  	i2c_set_clientdata(client, fsa);
+>  	return 0;
+> +
+> +err_unregister_switch:
+> +	typec_switch_unregister(fsa->sw);
+> +
+> +err_put_switch:
+> +	typec_switch_put(fsa->codec_switch);
+> +
+> +err_put_mux:
+> +	typec_mux_put(fsa->codec);
+> +
+> +	return ret;
+>  }
+> =20
+>  static void fsa4480_remove(struct i2c_client *client)
+>  {
+>  	struct fsa4480 *fsa =3D i2c_get_clientdata(client);
+> =20
+> +	typec_mux_put(fsa->codec);
+> +	typec_switch_put(fsa->codec_switch);
+> +
+>  	typec_mux_unregister(fsa->mux);
+>  	typec_switch_unregister(fsa->sw);
+>  }
 
+[Severity: High]
+Can releasing fsa->codec and fsa->codec_switch before unregistering
+fsa->mux and fsa->sw cause a use-after-free in fsa4480_mux_set() or
+fsa4480_switch_set()?
 
-If you are concerned about this name being too generic and the risk of
-name conflict or potential confusion my proposal is to add a `tdx`
-prefix to the name.
+In drivers/usb/typec/mux.c, both typec_mux_put() and typec_switch_put()
+drop their underlying device and module references and immediately call
+kfree() on the handle:
 
-The proposed name would be
-`imx6dl-colibri-tdx-panel-cap-touch-7inch-parallel.dtso`.=20
+drivers/usb/typec/mux.c:typec_mux_put() {
+	...
+	for (i =3D 0; i < mux->num_mux_devs; i++) {
+		mux_dev =3D mux->mux_devs[i];
+		module_put(mux_dev->dev.parent->driver->owner);
+		put_device(&mux_dev->dev);
+	}
+	kfree(mux);
+}
 
-With such prefix we would have a clear Toradex "namespace" that would
-prevent any kind of conflict and confusion.
+Because fsa->mux and fsa->sw are still registered when typec_mux_put()
+and typec_switch_put() are called in fsa4480_remove(), a concurrent call
+to fsa4480_mux_set() or fsa4480_switch_set() during removal will pass the
+freed fsa->codec or fsa->codec_switch pointer to typec_mux_set() or
+typec_switch_set().
 
-Can we find a way forward on this, that allow both to have a correct
-name and solve also your concerns?=20
+Should fsa4480_remove() unregister fsa->mux and fsa->sw before calling
+typec_switch_put() and typec_mux_put(), matching the reverse order used
+in the error unwind path of fsa4480_probe()?
 
-Francesco
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261020081343.1507=
+986-1-val@packett.cool?part=3D2
