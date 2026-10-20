@@ -1,49 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792513350;
-	b=Pxwir7u0RovVkKMNdD+0ICFr5AyM6gobcW2s7PiekBgvhq74BrBTPZawtbBggAvBWnrO
-	 sFtZ8UFx/XKMMzhWsLTIqe9dMH5BI4pV3oY8+b1X63mQSyEeTldmqGpSFdM+5jVWDql+s
-	 BvUHZoz1D4XaCeBR9uurdJVISqTVVpTJ5oaZqIIPcOU3eexrestgfRVM1dtKWj8ixgMZY
-	 vrBHdUlzQX6vQGI1Y7q/IpoMlQ5l9SeYTAJMvHAJe7mhynSd/qIXDtoqgZ9kee1Fcvbi1
-	 BmF/P9DJ9zyHEDVve4s55t2FxFoe8svmi+gaq+Srqy24ev0jPBLjLT+B+Dmv8eU/DpA==
+	t=1792513753;
+	b=Wo/nb3FMQrM5AS46iQPsmIurXWbMvkA257rm06wvq+1QxGL4GIlXkcY4cZE1tjl/GRoD
+	 67Th5EI2GktI/jlKbMx//kkQLnb7miyZ16ISwf2vJ1y/pLAICIvfLzk5p8E8z8NAx78pT
+	 vnjRYGpzLbJu0fC6jkeym3V56I2jdFwG54oa0vjpvNNEYA4lwMM6fjBCwOOG6HNwr2URG
+	 +jBxCAWB+8s9oQ/YsXAblheWhzu1Jjr1Akq7s8SWbBQwwY2s4Yos3vWQmzYV7Y/8rm0n8
+	 OA/zV0aU/6TOwmG9DngShrhHv30SCOi3wfr1JOhODSG/euKHNQ6nt02TkxjI+CftgQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792513350;
-	h=Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=exk3T5bgRFJr3BmOBEA0PPJMw3HotXBrd7zGVEotTSY=;
-	b=WSQB1wKyVUunXF2qaxa/de4HO/SxNi7XqXpVX/tRsFv8iiMkgrvH3r0rk3BdNK751XC4
-	 ZHTAG4C5N0OTta0Op6yiXGOJSXdu59BCyD2pqvfEAFhcMvIrMvdl83yE1qWwHNvJO7gco
-	 VgRIA4qF+ympMzlIgbbwJ4VwzG/Ls4a8X3+B05XWTjMvWq79l6iDlQFBtz/jfhTnjxkkY
-	 s16wt2MpFQZDV6jNGDMVbdFZ6sjq3CGMQFi+vW08b6BVLea3Np2uo7tanyO1bmcMvLiXG
-	 jWA4TuZnjN6JU6xj/ei2+ULhp+19pxoYGqrdm2B2ZaflQ6iYRGGTJ6ZO35qrEkSQttQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792513753;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=+jdyq0Zfmu33A//X/4Q8SrSfQyWMMoDDtV5zWpBiENk=;
+	b=SH59YE7r9b5dK5sGEhRwZmZ1IlJzN4DgEdsL1x5UN+pWA83QsxZ5i9zaQUrW7L+Tz0+A
+	 HldbvPMH/DDcUa+2m8N/KHCZdEJQGYEtoCiD6kBKeXHclcBYKI4QnTrLk7AErMdGcThgr
+	 qaWfWBcscoZgPniLyxhnBJXQbocEL45FoiNWpUWvlQL2sCv5FEgqp75WX+HHa1cK78D9c
+	 ++dx/hUVREY0ZafUGcr0C5OVaEB4GhnQrihbM4TetyfDQC90VDzGCW0oLMh7M6ZP44N5/
+	 JGmxd6AJHPgt6wl1bDIMFibbOw66fOXA5qB36eIsvtnkn+5eDchxmtbZcFPTrfReDUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a8foUJMU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0EDB606A325;
-	Tue, 20 Oct 2026 16:22:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36AE51F000C4;
-	Tue, 20 Oct 2026 16:22:29 +0000 (UTC)
-Date: Tue, 20 Oct 2026 11:21:58 -0500
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F3F0606A319;
+	Tue, 20 Oct 2026 16:29:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a8foUJMU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B7161F000C4;
+	Tue, 20 Oct 2026 16:29:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792513752;
+	bh=+jdyq0Zfmu33A//X/4Q8SrSfQyWMMoDDtV5zWpBiENk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=a8foUJMUqu5P8nKNaWlNLtBvXMXfnCOSwrfbCydwXzOCOwyOLWOebj+1l10GTer8h
+	 zsAEyQyGQeia0G4wyPi8tP1/HOz3S1r6tDqL0O0E+QAaxHrxPasJbjvusut16walxr
+	 2LyYRwbJnG68aDBb+FHDuG2OVSWQfJkotjPte4vOcuw+eISVmy0eBtTPL2Mz4eLmKk
+	 aidzs3wwJ0pkxCpHds+sahsI6kBunz76pRCaGuflKNYQ/kkZ5XJlFS2UGfO7rcRBKR
+	 d5Dd+DhMu5yPj6Lhbah+g+UMaR3fghb9giemCvasfEds9TP68TCT0zTjQU5q2mkom1
+	 GaGDfgsY9luRA==
+Date: Tue, 20 Oct 2026 11:29:10 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Sander Vanheule <sander@svanheule.net>
-Cc: Kory Maincent <kory.maincent@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>, netdev@vger.kernel.org,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	Jakub Kicinski <kuba@kernel.org>, devicetree@vger.kernel.org,
+To: Jacky Chou <jacky_chou@aspeedtech.com>
+Cc: Andrew Jeffery <andrew@codeconstruct.com.au>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-kernel@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jonas Jelonek <jelonek.jonas@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [PATCH net-next 1/2] dt-bindings: net: pse-pd: realtek,pse: add
- gen1 I2C transport
-Message-ID: <179251331810.3943448.15869673301901038184.robh@kernel.org>
-References: <20261018161248.376205-1-sander@svanheule.net>
- <20261018161248.376205-2-sander@svanheule.net>
+	Joel Stanley <joel@jms.id.au>,
+	Billy Tsai <billy_tsai@aspeedtech.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>, linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Conor Dooley <conor+dt@kernel.org>, linux-aspeed@lists.ozlabs.org,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	linux-kernel@vger.kernel.org, Ryan Chen <ryan_chen@aspeedtech.com>
+Subject: Re: [PATCH v10 1/3] dt-bindings: phy: aspeed: Add ASPEED PCIe PHY
+Message-ID: <179251375007.3988760.929772865298588176.robh@kernel.org>
+References: <20261020-upstream_pcie_rc-v10-0-fba209af8656@aspeedtech.com>
+ <20261020-upstream_pcie_rc-v10-1-fba209af8656@aspeedtech.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -55,19 +67,21 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261018161248.376205-2-sander@svanheule.net>
+In-Reply-To: <20261020-upstream_pcie_rc-v10-1-fba209af8656@aspeedtech.com>
 
 
-On Sun, 18 Oct 2026 18:12:47 +0200, Sander Vanheule wrote:
-> Like the gen2 protocol, the gen1 protocol can also be used over both a
-> raw I2C transport and an SMBUs transport. Add a compatible for the
-> former and the compatible for the Ubiquiti Unifi Switch Lite 16 PoE
-> device that uses it.
+On Tue, 20 Oct 2026 19:59:49 +0800, Jacky Chou wrote:
+> Introduce device-binding for ASPEED AST2600/2700 PCIe PHY.
+> The PHY provides the physical layer used by the PCIe
+> controller when operating in root complex mode.
 > 
-> Signed-off-by: Sander Vanheule <sander@svanheule.net>
+> Describe the compatible strings, register range, clocks and
+> phy-cells value required by the PHY provider.
+> 
+> Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
 > ---
->  .../bindings/net/pse-pd/realtek,pse-mcu-gen1.yaml          | 7 +++++++
->  1 file changed, 7 insertions(+)
+>  .../bindings/phy/aspeed,ast2600-pcie-phy.yaml      | 49 ++++++++++++++++++++++
+>  1 file changed, 49 insertions(+)
 > 
 
 Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
