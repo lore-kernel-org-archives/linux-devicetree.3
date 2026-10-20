@@ -1,80 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792506231;
-	b=Q8HpB7HxopqrCYQIQsSTpVBXBrxPqavK0Vdq315OhkL/7lWVyWSbS7ULO9mn1lgDzDjG
-	 BV8dwfZoOyQoQtsgS3xsYXBQ3MuFLQUahd2jrdMd4zCWpft9uFB5W+gQzxsLw32aQrQHy
-	 C2e3cDAJwsoBUvRlLrtxepzw86mhnXQk3DXbK1UUuLHJyA3EGBAuPPtCSkO6n8qGXaLXM
-	 fWR2u8yVJOXMsixOZKTiAHHAvx+l3eBL/9Pn4unLZWPqfEmIcXhpATZBCq8RjqJu/h/iF
-	 zugiQPuPki9FISlMckDTJpAuNqSLJcwdE1JY+dPDMvt6IoLmEirSWDH6Jf37zIKnCVg==
+	t=1792506418;
+	b=QoBBqxvXsz1FHe9WH9tYRebnvJfRtEefgHOzvv3LEru1Fq/ANM+pWlHyWIfZw1AKD0Vy
+	 g4pFwy+DF0bu90rKGPipRhP/VohJrscZBqsFI9nJSW89qMenregSoQP/ZDSZy47spdB72
+	 O56GzYDlfgH3a4syi90jUsGUh9f/YVCFppWqI6tEpYdmBt9FayqdksUd/GoVMfM9EzJSG
+	 vCg3GkzqntXM0i4W3aGh3kifVdN4AXS+wJjmykHDXxvJrBz85bDb1VsKsgwrEsHs4aux8
+	 KoxwrDD2ON0Jcsgl/N8j3vuimv12sbWOPuqJjTXpymGL8VdNX6UsnzHdX4q6rn5nz/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792506231;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
-	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=nIoCWNv4xGoCOetkLvsqI4aUF4MRfL4xBIuWjDY/SRg=;
-	b=Qc8AiSMGWntSmY8PN1Yjvw/gh0ce4hkiLeJS0uEA80GNpEX9GjLAqE+2Kd+7nffXQI/t
-	 7PJNoxIyDkEpox+TXoFSaEC30fpHKValfUWdF/riiyofuXq3/W6lBadvsiKRLo4EwF/Wj
-	 nLmkTI8XgpCheXLw5DucKX+qJzaE/lYzqH/VnnCYJX/lNcpYEL0IHPcG+n/gf7XKOYKWU
-	 KKAWyTaYD1ToyZf4RgF4ljApyCILDo/SEQ17DWfFlRMEHp5bR1AVN7pnioO5+yLTozwaJ
-	 +bEJhwm1NeD5oDxECv7VNVOCDXQ5Exqr+a/GkVDNQXaxCLMVpiw9aXdCkefWqtYvKOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792506418;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=+g08uAhXqYKhCa3FdEX1OoM2Qo5+lDEhNVXKFxBV9mM=;
+	b=GeTeNR0sKGJm6t5NFpod3a7p+BMjXYoke/Vyjz3F/Zvh4LgICEsLKqLWcR2v2el6itff
+	 GAkQxt89BFWnYqI6IVO7tUqG/WudEbu13Asz7f6epn2wgiB4Obz8qpWt+IUZh7ifPX62o
+	 kpLS9cLSa+Sk37Q9KU+OxEN9n4SPnO/IsmiEwY5Ngh2GuikzK2iWP0NSlSoI3L7lmGVMm
+	 DWE4LE9cPQ71b+kfukXQoO1ZYitlD9yWtDaLXLzPBdafNOV9gmyDD2pFwizRKndjOI9Mr
+	 QMSkSHW1Sxby71DCnJiB3lIezlPnjGzbCjqh56F23FM49oDqaD2fvmBZrWDnzEv8YlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=HWESPOVv;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=XbvtxDrq;
+	arc=none smtp.remote-ip=79.135.106.118
+Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch [79.135.106.118])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DE56606A324;
-	Tue, 20 Oct 2026 14:23:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DE56606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27EB8606A31F;
+	Tue, 20 Oct 2026 14:26:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27EB8606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=HWESPOVv
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 0D9BD4E41289;
-	Tue, 20 Oct 2026 14:23:48 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id CCF9560393;
-	Tue, 20 Oct 2026 14:23:47 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3472610328934;
-	Tue, 20 Oct 2026 16:23:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792506226; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=nIoCWNv4xGoCOetkLvsqI4aUF4MRfL4xBIuWjDY/SRg=;
-	b=HWESPOVvZ1YKTS4OCRK0Zwy4TnyNs8HUtJq4nfFSf0L/ljTdeMqZ+qSoUonOp5ALKK6/1D
-	bO3ewYux7JoZQsNcHuo5adDdQq0E6wiyopXFUn9qKKTjK92Q+5JLfrnAsumiy7ZRdmnHHR
-	fkCwmYJbis17XhjR7Uayts8fELwIA1wgiNETrMzaN76HFWcZfe1du38o0QQ8F/qs/2Q9+f
-	Ru8U8ZpQ/PsbLp6NJJFszbrnStD4G3bV3jeAca3fITiAY4HWuXl0WO3IRQKD+Wk9UkrsfB
-	oBWtHB8nHCK5LCxoZ8v0cPj1Ar4LZzFMCiUjiqAWFEOlP/XeswVoEpJZtVBYMA==
-Date: Tue, 20 Oct 2026 16:23:31 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
- "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, Frank Li
- <Frank.li@oss.nxp.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Linus Walleij
- <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Uwe
- =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <ukleinek@kernel.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Geert Uytterhoeven <geert@linux-m68k.org>,
- Leonardo Costa <leonardo.costa@toradex.com>, Frieder Schrempf
- <frieder.schrempf@kontron.de>, devicetree@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, Ernest Van Hoecke
- <ernest.vanhoecke@toradex.com>
-Subject: Re: [PATCH v3 7/8] of: property: fw_devlink: Follow clock nexus
- maps
-Message-ID: <20261020162331.379474aa@bootlin.com>
-In-Reply-To: <20261020-fw-devlink-nexus-ready-v3-7-fd6f1c17e16d@toradex.com>
-References: <20261020-fw-devlink-nexus-ready-v3-0-fd6f1c17e16d@toradex.com>
-	<20261020-fw-devlink-nexus-ready-v3-7-fd6f1c17e16d@toradex.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=XbvtxDrq
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1792506414; x=1792765614;
+	bh=+g08uAhXqYKhCa3FdEX1OoM2Qo5+lDEhNVXKFxBV9mM=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=XbvtxDrqduWmmBoKEMRi+kVEBP7YU8OeKKcMw0y0o83IGG13MSLea8Fgbn/k5VG9C
+	 4sDRuq30IQKTj2BTPNZ2xA85951V8DNxN3DIBjKkn5DNykCtA/oXo+FQSlPhcOSued
+	 j761N1o+fWrU6OsqcYlSPGlaImf0fUuB7y/dGFjZbwkreSeEwdEA9D5TNaz/gqt5CV
+	 YDcu3/vfNhZvvd+In5jvZ2C23ho6E4z4KeG/sKhy9/mMCyh+eZ6K8R4De34mTyNv/g
+	 MyeuTrzQQwipckeMSSAT+1IOV9t5HKCfGHgc1NYsJfpyi+OTagxpXQelGb1iJeGkZo
+	 NO7FnxjV377zg==
+Date: Tue, 20 Oct 2026 14:26:49 +0000
+To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, George Neacsu <geocausa@gmail.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, Hao Yao <hao.yao@intel.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/4] media: i2c: Add ST VD55G0 global shutter sensor driver
+Message-ID: <20261020142641.24808-1-lsa.uz@pm.me>
+In-Reply-To: <de8c6003-c7b5-40f0-beab-4c3370b98f09@foss.st.com>
+References: <20261019162722.25587-1-lsa.uz@pm.me> <20261019162722.25587-3-lsa.uz@pm.me> <179243379000.31842.4735750009847702427@gmail.com> <20261019193402.52923-1-lsa.uz@pm.me> <179247822513.25202.7960395606350309657@gmail.com> <20261020085200.60619-1-lsa.uz@pm.me> <de8c6003-c7b5-40f0-beab-4c3370b98f09@foss.st.com>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 85762cc40d38bca2648fe6e637be1ef3cf0e2070
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,60 +64,26 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Ernest,
+Hi Benjamin,
 
-On Tue, 20 Oct 2026 15:00:18 +0200
-Ernest Van Hoecke <ernestvanhoecke@gmail.com> wrote:
+On 20/10/2026 14:25, Benjamin Mugnier wrote:
+> I guess there could be an issue on the receiver side ? Maybe your
+> receiver is ignoring data types and completes the frame with ISL data,
+> effectively filling up the DMA ?
 
-> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> 
-> Clock consumers use of_parse_phandle_with_args_map() to resolve
-> specifiers through clock-map properties. fw_devlink instead parses the
-> clocks property as a direct phandle reference, so it records the nexus
-> node as the supplier rather than the mapped clock provider.
-> 
-> A nexus is a translation node, not the clock provider, and need not be
-> populated as a device. The resulting fwnode link can therefore remain
-> unresolved and indefinitely defer the consumer while
-> device_links_check_suppliers() waits for the nexus.
-> 
-> Use the map-aware parser for clocks so fw_devlink resolves the same
-> provider as the clock consumer API. Direct clock references continue to
-> work because the map-aware parser returns the original provider when no
-> clock-map property is present.
-> 
-> Fixes: aacc54c67869 ("clk: Add support for clock nexus dt bindings")
-> Link: https://lore.kernel.org/all/20260807-schneider-v7-2-rc1-eip201-upstream-v5-0-8785f9531cf0@bootlin.com/
-> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> ---
-> aacc54c67869 ("clk: Add support for clock nexus dt bindings") has been
-> in clk-next and linux-next with the same hash since next-20260907. There
-> is no build-time dependency on it, but this patch should not reach
-> mainline before it.
-> ---
->  drivers/of/property.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/of/property.c b/drivers/of/property.c
-> index 53301cdac6a9..2388d607136f 100644
-> --- a/drivers/of/property.c
-> +++ b/drivers/of/property.c
-> @@ -1422,7 +1422,7 @@ struct supplier_bindings {
->  	u8 fwlink_flags;
->  };
->  
-> -DEFINE_SIMPLE_PROP(clocks, "clocks", "#clock-cells")
-> +DEFINE_SIMPLE_NEXUS_PROP(clocks, "clocks", "clock")
->  DEFINE_SIMPLE_PROP(interconnects, "interconnects", "#interconnect-cells")
->  DEFINE_SIMPLE_PROP(iommus, "iommus", "#iommu-cells")
->  DEFINE_SIMPLE_PROP(mboxes, "mboxes", "#mbox-cells")
-> 
+Not on the Intel model: IPU7 drops them, as you expect. With 0x0329 at
+1, the test-pattern frames match those at 0 with no shift, and the top
+rows hold image data, not the embedded lines.
 
-Reviewed-by: Herve Codina <herve.codina@bootlin.com>
+On the Snapdragon model it runs the other way: George's stream stops
+with the status lines off and runs with them on, and on 16/10 his
+vd55g1 build streamed with them off. So I agree the register itself
+should not matter there; something else in v1 probably does, and George
+can narrow it down on CAMSS better than I can. v2 leaves the register at
+its default, which changes nothing on IPU7.
 
-Best regards,
-Hervé
+Sergey
+
