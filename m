@@ -1,85 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=116.203.31.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792503285;
-	b=WlnvadJ2B29up5mjIubPAb/Isypmj7d+Dh+ceKATE2CrYI1EEGS8+WBKIDH5sVvuXvtG
-	 fm79249/G7tPqMN1MVoapII7NZVd41s6VrrWM0zb8dFtMKf7fO30M/TYhH+LTNykev6ar
-	 Lli4Xi7k1yM50rHWjeNO2psewW1Lhw5kyojwrMV/z+q62nOLn3M1bcrJBKQgLVYL5lLtr
-	 mGChNiMx6FKeKEcLKvhVhGeD9l2hwJiX2DeZ9+LycZ30KD8UCcX96ohOkKW4oK/VDcmom
-	 D8Preuub7/Wqks56o0vdRNGu6q7tK+0YrOg0ocPYLbAzO/SsiY+HKtGROjluiLZZpEg==
+	t=1792503380;
+	b=veHk/OxSx18G8Nigg4Mq5rTp0Y31dNSoisVZuDxszWZCDgeBXh+I0Bduq8OUetkfENgi
+	 8ciYQq+RziEtWZ+Nw6BtlTZY7sapRvWeQgT3YbAw1Sm0W9/oZ7rkkt6/xlIgcrtCpCS+n
+	 lyY+8lriK4p8cKX3FJDmP855SqAkeaJhHGuy1QwT93PVkCsevtZk1XoD6BWgyH9oGmgBh
+	 plrRTM59pXuibugVhCvP437pBm6MetICVn99dpcwnB6mYB107MRudNQQ3QYcVEwek6XD7
+	 963iK5jqY7FUd7ZxEwM+bCL/1JFbmWfDN+SeenHSIh6M+Wq03irrFOzTHIPx6Nttz5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792503285;
-	h=DMARC-Filter:DKIM-Signature:X-secureTransport-forwarded:From:
-	 Complaints-To:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
-	 References:In-Reply-To:Accept-Language:Content-Language:
-	 X-MS-Has-Attach:X-MS-TNEF-Correlator:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792503380;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=lTF0a1BWo1WRyCO1Plz6IAaTuq5ujNdrBcn/XSxu1yU=;
-	b=2cw9L3cU8F6U7sRVRoBcMvREJ/Maqjhk2HecZo6EqzFnor84OemYWz8bi2NVKgw9ZE6q
-	 eo6NsiutFJvtGPO9qQpB9KWqx5cHxn4umLR4wj4+a323KogThN/IqlRqctzghvtlz0Y3s
-	 xoKfor33P6vOih7KJmcGh6U8O8QiRKjgirKAes6jISGR3QIW+8w1FDnSnsz/gS0DGMOYR
-	 pb4GLvIf4Dwly7DzZB0DQ5KQI07n/NQOekSy9Q6d1tNkratyCFboTCsON1qLRXGyyrmfi
-	 q4lfggb5+uJlhCtdt//gqmSlHOIVBiUsXtaS4FeW88VfjYvCNQSLyBDNgdn1yOAvgDg==
+	bh=4g2T0lgFGixZisGN9hGL+MJinxnor9rjQW+5QYUQkr0=;
+	b=OZiEe11DdXsuwjFpIJ4JDJ/dR6wl8R0KHFl76yPua6S8Cx4ANt33zae+79j1Y8eAa38U
+	 0HOkDsVa3xZ04nY+LDmaXkpbLqfXyY2cMaz1RqYEw3UfclNcJZIcA0X1UzL6VqCfx0KTq
+	 3Br3auCGI1VcIU4SGv3IvTzj95HVyvIx1UzB2yMgvPe7rVdJAJ9+WlzaZGAeZzOZXdGVs
+	 ciazn/UFWUEuuRuuCTju7KGFB+9712UJxN//uD8q1X5ZeriB9DJJXylXwhEfiQYwAcsY/
+	 n2pqfzG+FZjhAHhd8QAV/BkGWNBXhKhSRD7VBRa9VofAeYuphDhivcHejdt/QmkXUvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dh-electronics.com;
-	spf=pass smtp.mailfrom=dh-electronics.com;
-	dkim=pass header.d=dh-electronics.com header.i=@dh-electronics.com header.a=rsa-sha256 header.s=dhelectronicscom header.b=ltDx203P;
-	arc=none smtp.remote-ip=116.203.31.6
-Received: from mx3.securetransport.de (mx3.securetransport.de [116.203.31.6])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GIr6uhWV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68750606A31A;
-	Tue, 20 Oct 2026 13:34:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68750606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dh-electronics.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dh-electronics.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B19606A319;
+	Tue, 20 Oct 2026 13:36:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dh-electronics.com header.i=@dh-electronics.com header.a=rsa-sha256 header.s=dhelectronicscom header.b=ltDx203P
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dh-electronics.com;
-	s=dhelectronicscom; t=1792503206;
-	bh=lTF0a1BWo1WRyCO1Plz6IAaTuq5ujNdrBcn/XSxu1yU=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:From;
-	b=ltDx203PEt5czqr6p+OuZ8/EmItrMOubS5IB9cXsSWhH61Ja9jwl9pqggE6Qt8tzS
-	 EOSU9kYXjr4EHtXnbccLJch7z4qmqikJ8aCtG0E8Uka2bqwQ0TY+8PkbIlTw9VHGtV
-	 ZoGyDmt6cXPMWU2MpAJEb8500+rX7NfxGCfZEjLzoeen5VDKuEgQ/mG7Ved+z2IVon
-	 e+Rg2oy05EftyZ5rnH3/onFJW8PAzQTIk7BHdqt1Vb6ENGRCv+ZuVLVXN0AGFmcn2L
-	 /vOI04SJpr+6ryLhO/1WDOjAxrimRxU7qerjf2ORIk5bT4ft558ZG/GDhAM9gtwv3j
-	 509W4EU0b7yYA==
-X-secureTransport-forwarded: yes
-From: Christoph Niedermaier <cniedermaier@dh-electronics.com>
-Complaints-To: abuse@cubewerk.de
-To: Conor Dooley <conor@kernel.org>, Marek Vasut <marex@nabladev.com>
-CC: "Frank.Li@oss.nxp.com" <Frank.Li@oss.nxp.com>, "imx@lists.linux.dev"
-	<imx@lists.linux.dev>, Guenter Roeck <linux@roeck-us.net>, Jonathan Cameron
-	<jonathan.cameron@oss.qualcomm.com>, Frank Li <Frank.Li@nxp.com>, "Ashish
- Yadav" <ashish.yadav@infineon.com>, Colin Huang <u8813345@gmail.com>, "Sanman
- Pradhan" <psanman@juniper.net>, Thorsten Blum <blum@kernel.org>, Troy
- Mitchell <troy.mitchell@linux.dev>, Eddie James <eajames@linux.ibm.com>,
-	Rodrigo Gobbi <rodrigo.gobbi.7@gmail.com>, "open list:SPI SUBSYSTEM"
-	<linux-spi@vger.kernel.org>, "open list:OPEN FIRMWARE AND FLATTENED DEVICE
- TREE BINDINGS" <devicetree@vger.kernel.org>, kernel
-	<kernel@dh-electronics.com>, open list <linux-kernel@vger.kernel.org>, "Mark
- Brown" <broonie@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Subject: RE: [PATCH 1/1] dt-bindings: spi: Add separate binding for
- dh,dhcom-board
-Thread-Topic: [PATCH 1/1] dt-bindings: spi: Add separate binding for
- dh,dhcom-board
-Thread-Index: AQHdXhJ4wetEp3c+RUWeUdg1WJlLHbcAlj2AgAL8T4CAACG3gIABW++AgAFa0RA=
-Date: Tue, 20 Oct 2026 13:33:24 +0000
-Message-ID: <05e66d8f57a44c9aa87cac1c35e82184@dh-electronics.com>
-References: <20261016205718.877668-1-Frank.Li@oss.nxp.com>
- <e7095176-44b8-4838-8443-2e515d34cb25@nabladev.com>
- <20261018-freeway-twitch-e813208aa9af@spud>
- <fd15f846-94d4-44d8-a42d-5f13a7b18794@nabladev.com>
- <20261019-cycling-unnatural-c1adbfb5c9d9@spud>
-In-Reply-To: <20261019-cycling-unnatural-c1adbfb5c9d9@spud>
-Accept-Language: de-DE, en-US
-Content-Language: de-DE
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GIr6uhWV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E4C21F000C4;
+	Tue, 20 Oct 2026 13:36:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792503380;
+	bh=4g2T0lgFGixZisGN9hGL+MJinxnor9rjQW+5QYUQkr0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=GIr6uhWVNcBMpHtrZ24bziY/EqfUphYURI8vuOYLpUJff4rJPberi/K2WtlIX+uEs
+	 CgtHS39Hs+sULa7s3hjJml1aUMi2tOM1kmtyvoWo6Yx1VDaqVRsiRZ9V7quT+yznnR
+	 s90d/Q7GSDDwNJTSgj+CXpyBAuvM1bg3R+XFvyIhTPNqIknkwYRaP7pvbNoexCl2V3
+	 TN2nOhCfUnZSsS8Shsncyv7me8SHMEdc3I+RQk0hMIKYlqI3fkXY0rmZW9ymNfljuH
+	 ZBrrfPtGA3UfD9egHmdiho6LuTrRi2Ll72NTbconz7XiLzgpQErXQ2fNgeIqWdqmQl
+	 /1MDwp1WHVhKQ==
+Subject: Re: [PATCH net-next v2 1/5] dt-bindings: net: maxlinear: add
+ MxL86211C VDDP supply
+From: netdev-bot+sashiko@kernel.org
+To: robert.marko@sartura.hr
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, lxu@maxlinear.com, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, michael@walle.cc, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, lrosu@maxlinear.com,
+ luka.perkov@sartura.hr
+Date: Tue, 20 Oct 2026 13:36:18 +0000
+Message-ID: <179250337860.3135.8235082668261124184@kernel.org>
+In-Reply-To: <20261016112033.949026-1-robert.marko@sartura.hr>
+References: <20261016112033.949026-1-robert.marko@sartura.hr>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -90,134 +67,136 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-From: Conor Dooley <conor@kernel.org>
-Sent: Monday, October 19, 2026 8:23 PM
-> On Sun, Oct 18, 2026 at 11:38:09PM +0200, Marek Vasut wrote:
-> > On 10/18/26 9:37 PM, Conor Dooley wrote:
-> > > On Sat, Oct 17, 2026 at 12:01:55AM +0200, Marek Vasut wrote:
-> > > > On 10/16/26 10:57 PM, Frank.Li@oss.nxp.com wrote:
-> > > > > From: Frank Li <Frank.Li@nxp.com>
-> > > > >=20
-> > > > > The dh,dhcom-board SPI device uses spi-cpha and spi-cpol properti=
-es,
-> > > > > which are not permitted by the trivial-devices schema. Move it to=
- a
-> > > > > dedicated binding file that references spi-peripheral-props.yaml =
-and
-> > > > > explicitly allows those SPI mode properties.
-> > > > >=20
-> > > > > Fixes below CHECK_DTBS warnings:
-> > > > >     arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dtb: spidev=
-@0 (dh,dhcom-board): 'spi-cpha', 'spi-cpol' do not match any of the regexes=
-: '^pinctrl-[0-9]+$'
-> > > > >           from schema $id: http://devicetree.org/schemas/trivial-=
-devices.yaml
-> > > >=20
-> > > > How come this did not trigger until now ?
-> > > >=20
-> > > > > Assisted-by: LLM
-> > > > > Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> > > > > ---
-> > > > >    .../bindings/spi/dh,dhcom-board.yaml          | 46 +++++++++++=
-++++++++
-> > > > >    .../devicetree/bindings/trivial-devices.yaml  |  2 -
-> > > > >    2 files changed, 46 insertions(+), 2 deletions(-)
-> > > > >    create mode 100644 Documentation/devicetree/bindings/spi/dh,dh=
-com-board.yaml
-> > > > >=20
-> > > > > diff --git a/Documentation/devicetree/bindings/spi/dh,dhcom-board=
-.yaml b/Documentation/devicetree/bindings/spi/dh,dhcom-board.yaml
-> > > > > new file mode 100644
-> > > > > index 0000000000000..ed213cbe9b04c
-> > > > > --- /dev/null
-> > > > > +++ b/Documentation/devicetree/bindings/spi/dh,dhcom-board.yaml
-> > > > > @@ -0,0 +1,46 @@
-> > > > > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> > > > > +%YAML 1.2
-> > > > > +---
-> > > > > +$id: http://devicetree.org/schemas/spi/dh,dhcom-board.yaml#
-> > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > > > +
-> > > > > +title: DH electronics GmbH on-board CPLD trivial SPI device
-> > > >=20
-> > > > This does not look quite right, since compatible this is used only =
-on:
-> > > >=20
-> > > > arch/arm/boot/dts/imx6ull-dhcor-maveo-box.dts
-> > > >=20
-> > > >         model =3D "DH electronics i.MX6ULL DHCOR on maveo box";
-> > > >         compatible =3D "marantec,imx6ull-dhcor-maveo-box",
-> > > > "dh,imx6ull-dhcor-som",
-> > > >=20
-> > > > So the whole
-> > > >=20
-> > > >         spidev@0 {
-> > > >                 compatible =3D "dh,dhcom-board";
-> > > >                 reg =3D <0>;
-> > > >                 spi-cpha;
-> > > >                 spi-cpol;
-> > > >                 spi-max-frequency =3D <54000000>;
-> > > >         };
-> > > >=20
-> > > > Should probably use a different compatible.
-> > > >=20
-> > > > Christoph, what device is this on this board ?
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-There is no device connected to these pins, only an extension connector.
-The "dh,dhcom-board" device was used only to test the hardware and was
-unfortunately forgotten to be removed. In the production version, no
-device is connected to this interface. It should actually be removed.
-Should I create a patch for this?
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-> > > > (and this change should only be applied with RB from Christoph, I d=
-o not
-> > > > have the hardware so I cannot tell what it really is)
-> > > >=20
-> > > > > +maintainers:
-> > > > > +  - Marek Vasut <marex@denx.de>
-> > > >=20
-> > > > @nabladev.com
-> > > >=20
-> > > > > +  - Frank Li <Frank.Li@nxp.com>
-> > > > > +
-> > > > > +allOf:
-> > > > > +  - $ref: spi-peripheral-props.yaml
-> > > > > +
-> > > > > +properties:
-> > > > > +  compatible:
-> > > > > +    const: dh,dhcom-board
-> > > > > +
-> > > > > +  reg:
-> > > > > +    maxItems: 1
-> > > > > +
-> > > > > +  spi-cpha: true
-> > > > > +
-> > > > > +  spi-cpol: true
-> > > >=20
-> > > > Wouldn't it make more sense to allow those properties for trivial S=
-PI
-> > > > devices in general ?
-> > >=20
-> > > If the device requires them (which it probably does?), then standalon=
-e
-> > > makes sense to actually set that requirement.
-> >=20
-> > All right.
-> >=20
-> > But in any case, the compatible string should likely be fixed here, thi=
-s
-> > does not seem right. The dh,dhcom-board was describing some CPLD/FPGA o=
-n one
-> > of the evalboards.
->=20
-> Ye I don't disagree there. "dhcom-board" seems not nearly specific
-> enough about what the device is.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-There isn't actually a user for this device, see above. It's only used down=
-stream
-at DH electronics for a connection to a PSoC chip. But even for this purpos=
-e, it's
-not being used correctly. What should we do now?
+- [Medium] The binding defines `vddp-supply` as "Regulator supplying the
+  VDDP pin", which powers the MDIO/MDC/MDINT pads, and makes it…
+- [Low] In Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml,
+  the `else: properties: vddp-supply: false` branch (lines 35-37) can…
 
-Regards
-Christoph
+--
+
+dt-bindings: net: maxlinear: add MxL86211C VDDP supply
+
+This commit adds a vddp-supply property to the MaxLinear GPY2xx binding.
+The voltage of that supply selects 1.8 V or 3.3 V for the MDIO, MDC and
+MDINT pads. A top-level select restricts the schema to the MxL86211C PHY
+ID, and an if/then/else makes the supply required for that PHY.
+
+> diff --git a/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml b/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
+> index 8a3713abd1ca9..a0dfb6192d81b 100644
+> --- a/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
+> +++ b/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
+> @@ -10,10 +10,38 @@ maintainers:
+>    - Andrew Lunn <andrew@lunn.ch>
+>    - Michael Walle <michael@walle.cc>
+>  
+> +select:
+> +  properties:
+> +    compatible:
+> +      contains:
+> +        const: ethernet-phy-idc133.5400
+> +  required:
+> +    - compatible
+> +
+>  allOf:
+>    - $ref: ethernet-phy.yaml#
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: ethernet-phy-idc133.5400
+> +      required:
+> +        - compatible
+> +
+> +    then:
+> +      required:
+> +        - vddp-supply
+> +
+> +    else:
+> +      properties:
+> +        vddp-supply: false
+
+[Severity: Low]
+Can this else branch ever be evaluated?
+
+The new top-level select applies the schema only to nodes whose
+compatible contains ethernet-phy-idc133.5400. The if above tests the
+same predicate, so whenever the schema runs, only the then branch runs.
+
+No other binding references this schema. Other GPY2xx nodes are not
+selected at all, so "vddp-supply: false" is never enforced for them.
+
+The later patch in the series, "dt-bindings: net: maxlinear: add
+MxL86211C lane mapping support", adds "maxlinear,lane-asp-map: false" to
+this same else branch. That constraint would not be enforced either.
+
+>  
+>  properties:
+> +  vddp-supply:
+> +    description: |
+> +      Regulator supplying the VDDP pin. Its voltage configures the MDIO,
+> +      MDC, and MDINT pad voltage and must be either 1.8 V or 3.3 V.
+> +
+
+[Severity: Medium]
+This makes vddp-supply mandatory for the MxL86211C and describes it as
+the supply for the MDIO, MDC and MDINT pads. Does anything in the series
+enable this supply?
+
+The later driver patch, "net: phy: mxl-gpy: add MxL86211C VDDP supply",
+does only two things with the regulator: it gets it, and it reads its
+voltage.
+
+drivers/net/phy/mxl-gpy.c:mxl86211c_probe() {
+    ...
+	vddp = devm_regulator_get(dev, "vddp");
+    ...
+}
+
+drivers/net/phy/mxl-gpy.c:mxl86211c_configure_mdio_voltage() {
+    ...
+	voltage = regulator_get_voltage(vddp);
+    ...
+}
+
+Neither function calls regulator_enable() or devm_regulator_get_enable(),
+so rdev->use_count stays 0 for this rail. Take a board where VDDP can be
+switched and is not marked regulator-always-on. Could
+regulator_late_cleanup() turn the rail off there?
+
+drivers/regulator/core.c:regulator_late_cleanup() {
+    ...
+	if (rdev->use_count)
+		goto unlock;
+    ...
+}
+
+On DT systems have_full_constraints() is true, so the rail would be
+disabled and the PHY would lose power to its MDIO pads.
+regulator-boot-on does not prevent this, because late cleanup only checks
+always_on.
+
+If the rail is off at boot, nothing ever turns it on. The MDIO accesses
+in mxl86211c_probe() and gpy_probe() would then fail.
+
+Other PHY drivers handle this by enabling the supply. For example,
+qcom/at803x.c calls devm_regulator_get_enable_optional(..., "vddio").
+Should the MxL86211C driver do the same?
+
+The binding example uses a regulator-fixed with no GPIO, which cannot be
+switched off, so the example does not show this problem.
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016112033.949026-1-robert.marko%40sartura.hr
