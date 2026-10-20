@@ -1,55 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792510571;
-	b=5QTqtRjzQs88c7IqdDhYXtCnAcxkvEV0A3DhFUt6rj8EsFqZyI/5SQAWbLX0gvl3LVqm
-	 qd7ultvp+p6/EDf3Pm+9YNIOEKCWYU4rgLHzav3SL4MQ27wOyw7zFQl+Ch25H28ENloRh
-	 EDkJYgv/04YiNG2PHNu1GcXq2AxKL269G3kJBnnYd4UICh0cwnrJc2sSLb2kne4aMZzdk
-	 dfSYlVn6o0LGvQBM5UE1RiQ/H5zJAh3P6FiUqae3y9Yi/uCrQeZO+UxsGR8WLYu0Xmjp/
-	 Vkr5UiIbEDSswt5FNpdVSBlvY81saOT2cUh4BtQkTk7tmiftMzPR7iqLbq+ti1VRI/g==
+	t=1792510630;
+	b=3xcv7+vdDoHXQ/vtzW7fZuHDMraEnTKkjcTMO3fsuE69MSwEVRhsvSIfx/tKniCMVW5+
+	 os5syfXzkWJdCYh4nd3BzTE8ibPL9ZYSj4N4VW/U7rgS0q69aNQ5NcobBxFYP7ZqF5YDD
+	 x4wn6QnvLP8qtazlm1zZEH7d0LJmR0dThBbwK2YepicyYH/iouaYs5LxbvjQGHl0vsHNc
+	 Flg6D53Pjjghhq9JiswMQSh3IPPruIB4SNWbhTRNcGVGtnF1nb0n5I4n0fSYJaxoFhXFP
+	 sjC7Q1E3W3TGbMHmaXprplBBXw4F+R0kyJCOPcG4ubakjs79hTkwdrd1f2ADA2HZr8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792510571;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id:X-Mailer:X-Last-TLS-Session-Version;
-	bh=LFohBOrLJxnGJCYd3p6qNGOqsmehV4Rsw5Zp+Kdij5U=;
-	b=GOyb9sZuxXh6nRKs9DXBNzd8xGAwSiLECR7qa/VNRjUZUFMsTLk+b81P+1usemyf5bI6
-	 cz3v1TgsY64cwWAEl+fKGIMI+nEbfnn+9EpZ6Zp7niq8oyQHuTJ1KehaAmXgf5tbTPJab
-	 sdoEuQ2qBRM7oh11Z2+jYHlBIUno8yL0poSlwX9JTn8pt2r5WCFTZCawpI7jPvhIAKDLC
-	 8Z6qiseuNrxLhQfgdRj6PdINzwAJl8Pxhvy0VhytaDU+cF+YsoZzEcvc6xX3qP9hllfKU
-	 4hRe6yEYSibXpFPngKMY9nE4zCzuu1oo3J7fl0uKJ7p9KUMR/oA0dk/cqNX+AY/B1+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792510630;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Sender:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:Autocrypt:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=5G1bYmk4Cp+xcym+d9Gb+XVS8ngnxpeYifWGIoNpktY=;
+	b=Y+c+ce5bN1gsIdquNsnSqhk3i07hLuqy/xxYsNNB0a2NJTGfeO32TyiqSEy5ja9udACI
+	 W0s+/gTegR73yrdoum8/Fw4RFE/B5vWW9pl+oABpwKvCGEkj0H0G4Q4pOoRRa5CdDk6RA
+	 7oSM7YJUyfkrbg8U0dDgHFfuM5cUz8FEJsS5QiILzN9StFZPJXj2teC/bIYdf51v3WqGY
+	 80QCIx75y13ItXY2o5tdazRBAY7WwEtFgvkFAF7Y2G2fuKNY1n5cdoB4yVFokBK+lK/u+
+	 Z2VFXvUZBJkK1GJqxJovh9ucpD3x7iFrT17bVra/DtinCMyLyCnQJxHs7trvb/LnHvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=VpRGFpTL;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=roeck-us.net;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XsAvxCDq;
+	arc=none smtp.remote-ip=74.125.82.43
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 485FD60A263E
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 15:36:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 485FD60A263E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55999606A330
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 15:37:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55999606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=VpRGFpTL
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 618C14E41251;
-	Tue, 20 Oct 2026 15:36:02 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 0D68B60393;
-	Tue, 20 Oct 2026 15:36:02 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 10558103289A8;
-	Tue, 20 Oct 2026 17:35:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792510560; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=LFohBOrLJxnGJCYd3p6qNGOqsmehV4Rsw5Zp+Kdij5U=;
-	b=VpRGFpTLBDDiMTl6/NGSODWak25JpEcpjqfB+DUqvNA+YksPPTvVDqqw0N+dtA9sB08vcb
-	vMW/GCyrPOP5GCgump/RzvYP7lSGI1qdKf430eAAza0RqQec7tFf695VDwP/z/4Ush3g3N
-	VFWUOodkVNDN4b5YYkpmr1TY1Qt5w7Zpoksi2WAN1/7gPYcFVyex/MRgTBgeX6PNN1m7vZ
-	DewqcpC1vXJzZmoq216k93sPY1F0Z08KPLex+bn1YlAtgEJvFdM9EOMr8+Bqjev++eTIYA
-	JV7PsaDyBd2RiZiNn5cuNC0CgxVeYU44PC3ljOqQngNQqy36QokCKtQ5PhO+6Q==
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XsAvxCDq
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-18818daa3e7so21577c88.0
+        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 08:37:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792510629; x=1793115429; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5G1bYmk4Cp+xcym+d9Gb+XVS8ngnxpeYifWGIoNpktY=;
+        b=XsAvxCDquVq7G8gFiyZ830gAwxvp2AtfbMJEdcgoHT9yHmZBI6htdhoCChU60dzG3u
+         tp5GsgcbegL3nisvPlkMvYdkGrhg8oJg6yC6R+HSHtLNRDBDwAEbA/Q1ZIloFtr0U34t
+         gi2SUfYGcAU6SF0tTIG/9KE3FsD0dcGK4qdMkq9YDVGoZqDMjj23FChp8yMCrdlXP6xN
+         gY0Yp23sySiYbGZ+kqzSwq7zSpKhfxu16z9AsFcFtQAgRRlg7b9UI4JVK5R2NjRjYy93
+         6kmiVEhNCKkvSNIL6aaOuD9F5FqHMF1pcn7d5d4dI8+mSD94IFU3BTtGi9OnBKVf5f6k
+         hBCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792510629; x=1793115429;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=5G1bYmk4Cp+xcym+d9Gb+XVS8ngnxpeYifWGIoNpktY=;
+        b=vxZhBEpsFewvGojLS7u7DT7CY5Et1slDBklIt4B7NDc5ctzzhrcPaRxtiaZ58yiXhU
+         w1DivJPYmnmVHTE8VRTDV4BVLiBxUMc20XaBtloXeeFG1ivL6BAAFKJL4cmgaI1NJIH9
+         asBqywG69wdDqoETR7IY2EEzqW9F22RvGiDbm+zBPH29tXp6ZWvvJkY04/21OhR5WKQp
+         JwyKAH7D1caLvJkhx8VUYBzPbN4KPo41nJ/g4p4c/HKCIZsAx87jvfghTlY3gcvEZ0fA
+         FkLl133A0JxgiH/V2QUijmwPCVqQNnba0ilfsSdu9gUAF602IvmQ/4VVmT3kaCICWM/+
+         UGiA==
+X-Gm-Message-State: AFq9FYK9uVnX0QBrFURVgEnrLmWBxPpRDOAOb1yx0UbtHeCkQgLNypwi
+	DbP4FPq8Q/a3gQLR6PHE0dKn9T3MzaE77r9BFOTqXpuohM3l5wuguaIu
+X-Gm-Gg: AYBFou1jBnWMUd4O4oxV2YbLAHYyoACsigyEkV16MXqIyBoY3YiCFuB8bAH8NDJuC6x
+	yVdGI7MDIZnm+1+XZZwskCxH2HnUSCdcs9be9dzy+C4JXxaYWILk6YzSEVC4/oruHznyGH5rwaM
+	ehqA6yvQ0/IUvHkht1uhN6lyz8H+Ko/6tbAIl2hgDbYkOdRl/Cv8wjqqJ+1TYuyYcycRYWUL2Dn
+	ftBefaglDzDwNseVhUA6MXVUHXrZ8KDcWh8cdHd5j+7NI2DFnd6GzYRwHsoKuVk9umg2/r7H0ss
+	v9L3t5lyTR9wjkAzS/C/9cZXDAhq4ZVepueiKSfdakyzIaahdslDcCvrVM9j4PHdX4jaPWeaC2p
+	u35Unhj8x+RiNRBV1gMA1vScvIuPB+fDg3/8zZ1u64GLk1JpkTWFwu/cgS3k/XaaRdk4Pe+nyQk
+	oGqXMAFqawSI5+6zv4plMQ605AOyd2L2QunVCeMSH7Vws6391xEx6OlAsYe/yDkGrAqWy4ZF0Nj
+	bv+GBRG/0qH+DS63rYmuwvQTV2gmVt4ZEwj99lwTOBjEZkz8cA6QZvT7USZnHlx8PmG3YiEEljs
+	I8hW18YIy706zcAZ1j/ngKf48k2Q8YY=
+X-Received: by 2002:a05:701b:4210:20b0:159:f192:5290 with SMTP id a92af1059eb24-18dbf218391mr3054617c88.13.1792510629124;
+        Tue, 20 Oct 2026 08:37:09 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831a6f5a13sm44116282c88.12.2026.10.20.08.37.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 08:37:07 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <dd1781b2-4637-4997-bdfd-d71fc35837b0@roeck-us.net>
+Date: Tue, 20 Oct 2026 08:37:06 -0700
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,42 +91,266 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/4] hwmon: (pmbus_core) Support relative encoding of
+ vout related commands
+To: sashiko-reviews@lists.linux.dev,
+ Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Cc: devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org,
+ conor+dt@kernel.org
+References: <20261020-hwmon-pmbus-fs1412-v2-0-3396c3a08251@nexthop.ai>
+ <20261020-hwmon-pmbus-fs1412-v2-3-3396c3a08251@nexthop.ai>
+ <sashiko-outbox-178650@kernel.org>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
+ RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
+ nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
+ 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
+ gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
+ IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
+ kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
+ VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
+ jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
+ BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
+ ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
+ CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
+ oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
+ VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
+ 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
+ onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
+ DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
+ rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
+ WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
+ qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
+ 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
+ qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
+ 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
+ pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
+ J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
+ pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
+ 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
+ ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
+ I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
+ nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
+ HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
+ JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
+ H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
+ njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
+ dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
+ j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
+ scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
+ zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
+ RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
+ F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
+ FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <sashiko-outbox-178650@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 0/3] Add support for BeagleBone Black RevD
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Robert Nelson <robertcnelson@gmail.com>
-Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, 
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, linux-omap@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Jason Kridner <jkridner@beagleboard.org>, 
- Deepak Khatri <lorforlinux@beagleboard.org>, 
- Ayush Singh <ayush@beagleboard.org>
-In-Reply-To: <20260901-v7-3-rc1-beaglebone-black-revd-v1-0-f521950b777a@gmail.com>
-References: <20260901-v7-3-rc1-beaglebone-black-revd-v1-0-f521950b777a@gmail.com>
-Date: Tue, 20 Oct 2026 17:35:52 +0200
-Message-Id: <179251055253.74160.3565168560141526355.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hello Robert,
+On 10/20/26 01:55, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [High] hwmon: (pmbus_core) divide-by-zero after pmbus_regulator_set_voltage()
+> - [Medium] hwmon: (pmbus_core) broken relative VOUT margin handling in regulator ops
+> --
 
-> The BeagleBoard.org BeagleBone Black RevD and Industrial (00D0/EID0) are
-> redesigns of the BeagleBone Black Rev C3. They feature an IT66122 HDMI
-> PHY to replace the EOL NXP TDA19988.
->
-> Signed-off-by: Robert Nelson <robertcnelson@gmail.com>
+Good that I did not just apply this patch. Do you have time to look into
+those issues and fix them ?
 
-Tested on a BBB rev.D, with HDMI output working.
-
-Full series:
-Tested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Thanks,
+Guenter
+> 
+> commit 8ccb177073557cf9644c419b791da4a5cf494d3e
+> Author: Lars Petter Mostad <lars.petter.mostad@appear.net>
+> 
+> hwmon: (pmbus_core) Support relative encoding of vout related commands
+> 
+> This patch adds support for PMBus 1.3 relative encoding of output voltage
+> related commands, scaling limits relative to VOUT_COMMAND in
+> pmbus_reg2data() and pmbus_data2reg() and updating the cached VOUT_COMMAND
+> when setting regulator voltage.
+> 
+>> diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
+>> index 5f69c1420b4e1..47dff264d28bf 100644
+>> --- a/drivers/hwmon/pmbus/pmbus_core.c
+>> +++ b/drivers/hwmon/pmbus/pmbus_core.c
+> 
+> [ ... ]
+> 
+>> @@ -803,6 +806,26 @@ static void pmbus_update_sensor_data(struct i2c_client *client, struct pmbus_sen
+>>   						     sensor->phase, sensor->reg);
+>>   }
+>>   
+>> +static bool pmbus_sensor_is_vout_relative(struct pmbus_data *data,
+>> +					  struct pmbus_sensor *sensor)
+>> +{
+>> +	if (sensor->class != PSC_VOLTAGE_OUT ||
+>> +	    !data->vout_mode_relative[sensor->page])
+>> +		return false;
+>> +
+>> +	switch (sensor->reg) {
+>> +	case PMBUS_VOUT_MARGIN_HIGH:
+>> +	case PMBUS_VOUT_MARGIN_LOW:
+>> +	case PMBUS_VOUT_OV_FAULT_LIMIT:
+>> +	case PMBUS_VOUT_OV_WARN_LIMIT:
+>> +	case PMBUS_VOUT_UV_WARN_LIMIT:
+>> +	case PMBUS_VOUT_UV_FAULT_LIMIT:
+>> +		return true;
+>> +	default:
+>> +		return false;
+>> +	}
+>> +}
+> 
+> [Severity: Medium]
+> Can the PMBUS_VOUT_MARGIN_HIGH and PMBUS_VOUT_MARGIN_LOW cases in
+> pmbus_sensor_is_vout_relative() ever match, and how does
+> pmbus_regulator_list_voltage() behave in relative mode?
+> 
+> No hwmon sensor attributes are registered for PMBUS_VOUT_MARGIN_LOW or
+> PMBUS_VOUT_MARGIN_HIGH. The only callers in drivers/hwmon/pmbus/pmbus_core.c
+> that read these registers and pass them to pmbus_reg2data() are
+> pmbus_regulator_get_low_margin() and pmbus_regulator_get_high_margin():
+> 
+> static int pmbus_regulator_get_low_margin(struct i2c_client *client, int page)
+> {
+> 	struct pmbus_data *data = i2c_get_clientdata(client);
+> 	struct pmbus_sensor s = {
+> 		.page = page,
+> 		.class = PSC_VOLTAGE_OUT,
+> 		.convert = true,
+> 		.data = -1,
+> 	};
+> 
+> 	if (data->vout_low[page] < 0) {
+> 		if (pmbus_check_word_register(client, page, PMBUS_MFR_VOUT_MIN))
+> 			s.data = _pmbus_read_word_data(client, page, 0xff,
+> 						       PMBUS_MFR_VOUT_MIN);
+> 		if (s.data < 0) {
+> 			s.data = _pmbus_read_word_data(client, page, 0xff,
+> 						       PMBUS_VOUT_MARGIN_LOW);
+> 			if (s.data < 0)
+> 				return s.data;
+> 		}
+> 		data->vout_low[page] = pmbus_reg2data(data, &s);
+> 	}
+> 
+> 	return data->vout_low[page];
+> }
+> 
+> Neither pmbus_regulator_get_low_margin() nor
+> pmbus_regulator_get_high_margin() initializes s.reg (leaving it as 0), so
+> when they fall back to PMBUS_VOUT_MARGIN_LOW or PMBUS_VOUT_MARGIN_HIGH,
+> pmbus_reg2data() -> pmbus_sensor_is_vout_relative() returns false and caches
+> the unscaled permillage value as mV in data->vout_low[page] and
+> data->vout_high[page].
+> 
+> In addition, while pmbus_regulator_set_voltage() skips checking these margins
+> when data->vout_mode_relative[s.page] is true, pmbus_regulator_list_voltage()
+> still calls pmbus_regulator_get_low_margin() and
+> pmbus_regulator_get_high_margin() unconditionally:
+> 
+> static int pmbus_regulator_list_voltage(struct regulator_dev *rdev,
+> 					unsigned int selector)
+> {
+> ...
+> 	low = pmbus_regulator_get_low_margin(client, rdev_get_id(rdev));
+> 	if (low < 0)
+> 		return low;
+> 
+> 	high = pmbus_regulator_get_high_margin(client, rdev_get_id(rdev));
+> 	if (high < 0)
+> 		return high;
+> 
+> 	if (val >= low && val <= high)
+> 		return val * 1000; /* unit is uV */
+> 
+> 	return 0;
+> }
+> 
+> Even if s.reg were populated when reading the margin registers,
+> data->vout_low[page] and data->vout_high[page] are cached once and not
+> updated when pmbus_regulator_set_voltage() changes VOUT_COMMAND. Should
+> pmbus_regulator_get_low_margin(), pmbus_regulator_get_high_margin(), and
+> pmbus_regulator_list_voltage() also account for relative mode?
+> 
+> [ ... ]
+> 
+>> @@ -3351,29 +3419,38 @@ static int pmbus_regulator_set_voltage(struct regulator_dev *rdev, int min_uv,
+>>   		.data = -1,
+>>   	};
+>>   	int val = DIV_ROUND_CLOSEST(min_uv, 1000); /* convert to mV */
+>> -	int low, high;
+>> +	int low, high, ret;
+>>   
+>>   	*selector = 0;
+>>   
+>>   	guard(pmbus_lock)(client);
+>>   
+>> -	low = pmbus_regulator_get_low_margin(client, s.page);
+>> -	if (low < 0)
+>> -		return low;
+>> +	if (!data->vout_mode_relative[s.page]) {
+>> +		low = pmbus_regulator_get_low_margin(client, s.page);
+>> +		if (low < 0)
+>> +			return low;
+>>   
+>> -	high = pmbus_regulator_get_high_margin(client, s.page);
+>> -	if (high < 0)
+>> -		return high;
+>> +		high = pmbus_regulator_get_high_margin(client, s.page);
+>> +		if (high < 0)
+>> +			return high;
+>>   
+>> -	/* Make sure we are within margins */
+>> -	if (low > val)
+>> -		val = low;
+>> -	if (high < val)
+>> -		val = high;
+>> +		/* Make sure we are within margins */
+>> +		if (low > val)
+>> +			val = low;
+>> +		if (high < val)
+>> +			val = high;
+>> +	}
+>>   
+>>   	val = pmbus_data2reg(data, &s, val);
+>>   
+>> -	return _pmbus_write_word_data(client, s.page, PMBUS_VOUT_COMMAND, (u16)val);
+>> +	ret = _pmbus_write_word_data(client, s.page, PMBUS_VOUT_COMMAND, (u16)val);
+>> +	if (ret < 0)
+>> +		return ret;
+>> +
+>> +	if (data->vout_mode_relative[s.page])
+>> +		pmbus_init_vout_relative(data, s.page, val);
+>> +
+>> +	return 0;
+>>   }
+> 
+> [Severity: High]
+> Could updating data->vout_command[s.page] in pmbus_regulator_set_voltage()
+> lead to a division by zero in pmbus_data2reg()?
+> 
+> At probe time, pmbus_init_common() rejects non-positive values in
+> data->vout_command[page] after calling pmbus_init_vout_relative(). However,
+> in pmbus_regulator_set_voltage(), when data->vout_mode_relative[s.page] is
+> true, margin clamping is skipped and pmbus_init_vout_relative(data, s.page,
+> val) updates data->vout_command[s.page] without checking whether the decoded
+> voltage is <= 0.
+> 
+> If a consumer requests a small voltage (for example min_uv < 500 uV, or a
+> value that rounds to 0 in pmbus_data2reg()), data->vout_command[s.page]
+> becomes 0. A subsequent write to a relative VOUT limit attribute in sysfs
+> will then call pmbus_set_sensor() -> pmbus_data2reg() and divide by zero:
+> 
+> 	if (pmbus_sensor_is_vout_relative(data, sensor)) {
+> 		val = clamp_val(val, -INT_MAX, INT_MAX);
+> 		val = DIV_S64_ROUND_CLOSEST(val * 1000,
+> 					    data->vout_command[sensor->page]);
+> 	}
+> 
+> Should pmbus_regulator_set_voltage() or pmbus_data2reg() guard against a
+> non-positive vout_command?
+> 
 
