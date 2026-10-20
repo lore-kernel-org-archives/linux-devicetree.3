@@ -1,99 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792507212;
-	b=5qW/gCahGjTHdGRLKHdIqK71LJ7v4Yc8ENDceTosLMNZZNLNuu2kEhQWWP7FSIjm5Oqr
-	 p2EMEzXfhaNaQ6G2nj73812M4Dvl7f806P2A7YTPb/l1BQZ+AUli310rZBZnNXcJaPjSQ
-	 VtK8iavAxJZSV3ncKhmIrHQqPHBgx8JH9HO79g8k0iSUOiaHaeSg4SHgZKOVP1aE3LPM2
-	 Scd1B/cb7Y2tBviec4KzdGtJHEl3aQIjP9HmQiixbS6QRbqdAnxmItVfZf0ZPjOGloUrZ
-	 c0OxBhZiC8Tbc2+mPRaKYK4H8kn0RzGrXepI+HYWSmTyNa8i2vwVdErPjVY3fE7UxPA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792507212;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=zAYhqF7UHNil85yBBTWI6ys7OAUDS3/xjzlE+sXIqIM=;
-	b=N/JU1Fqm1dT4pfqVksT9Sb5w4lakNWJvW5uheSP5vmM05ZWKot4O4oGYVSmHNV+gVR/T
-	 /oyDS/rXCIUm+ZlTr4klFIH6RUjt7b/dnXn4kEdh8q2BE5gDq1hPCqpgfwJskvm/DyP9/
-	 ZYU4CJ5DdUxgyDGJ3koB07wtu9SV+amOFRt1HWCvN//T9ssYkqs4YqeVBroC7C+uzikx3
-	 3M0FfK4GMJO4L8Zv5RE0k66oyHl81RRV7Bs1dFvRy/YtGLBkbxoE7Wc1yQGIJYguFqi2k
-	 +DA+xosOAaC5ODTUvRq2LlzZ9Tv56FB8t+TDRqU0FWL7IMgiiz2W+bjkUQZtLVgyFeg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=raspberrypi.com;
-	spf=pass smtp.mailfrom=raspberrypi.com;
-	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=Z6ribNwS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.45
-Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792507219;
+	b=j5p76puCOCJXcCfJ3Q1V7R8m+YBNlOnDqZXhNil8DiN8DJMYDxR4RjJadcUf56bVUq2l
+	 RqXYgWslnZF+v5aoE/IgKQwgE18DFsEgr/pt4JG4t6eWo/yseDIPYTbarfY5IbQR20irh
+	 ul0UtQnhmmNvC25P4ycEnxd2qyQcEpGBdOY78dWynNgPDaDuyYrA8QS4LByvVU4yJBfR0
+	 CPF7cPLuH5cru/wAZBMHQLQ7/TSNrE5nqxoV1pQe3NMioVYFAWJu+Bwly6hHPfFN+pDhU
+	 +ZcTLmhCfVkO57KsZ68WndW4JPnsm6udXxEGR63rBoCyZqpmKQyqFlg42o495m6/fxg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792507219;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=bV3EG3t+jix2WDDptxZUopP1qrkVhSXIwiOD21oUDhs=;
+	b=jNKTefvN/oCKZHPtkR/UOZJJ6YUsLHugpVCD42fAKFs05sNlvPDD5QSbe56j7/bRN6TI
+	 IAOs0rbW7QFp2Rkvo7xmHVInehImor8c5p+B0kWaMwJaNII44UQwmuH6XA8czoYoCQbCH
+	 YQMUYNCH1BZeHjq+lE7RE51dXm7aGHHG15ketb+O7aRVSQZwbZalb31nb3Y/C2LvEred4
+	 +YUOzo51ZmL9GHF7Vu2Q0Uc95/tTMdbBNK/Ww8pyfZtFfiCtsJyl9kT3eY8eyxFcbu2If
+	 l+HvBYnpDFIWp0qTa6/72j2zIdP8nYB7JpEAcbnC1TszYANK/v9x6I3Zu6VhoL3WWPQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S9D8MjHI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE288606A321
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 14:40:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE288606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78F59606A31C
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 14:40:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=Z6ribNwS
-Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-70094949641so709752eaf.0
-        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 07:40:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792507210; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YtKf6nYGzQCa9yqOPIGEYQkJITHlb34PjUBsSlps6O5j383iyj+mseX/4qoZiWuZq7
-         NiLznU0gL9lyPRKEYCan+EPwZ5DtflaDZ8/Z5Y2e4bKNMsOGI4DJ+cJaz7NV7orSMiGo
-         1VHYe3X7i+PlVfppWd9Z5sHXDiwkrtkri/z+MjN6KhsebqHsF5rztFq6asf5yIa4zh74
-         RzxxyMRn66Y9YLs4Fm8XH/FJjZIhB3JXwVKFgthAvb3hd0rhZNOrOPfoeNWsIHEIQ5y5
-         Eg0g1LC+NCEVLuMsUYaQtAsLNp97CU7iavjGNfZttW4+nR/1KvTPmc96rPQx87lMDCeO
-         jpFQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=zAYhqF7UHNil85yBBTWI6ys7OAUDS3/xjzlE+sXIqIM=;
-        fh=adcJMZDZl4RhelsNmR3wNO9mm1pEJJNgznevP4/NnlI=;
-        b=GC/iMKpisMbHCLi0+zD6gsCKsfRhKmS0F9lFxjlWhU7X03g7+MTqwgYRxFu6eCi2v3
-         rYv8ow4Hidsaj845EhLfQZnKtFGjBESXVVLnk0Tjz4/vVR2FB0RsWqPRCcE9+4RzRz3n
-         /tI1Sq2aDU2Mp0AHwUNIwThg8l0qZDXL+z6cDEFAT1XqwV1Gy2OXEsXbgy4tlWPPZ90w
-         W1KNxp+5YkUOLcDMPXDlcNdSFWt9ADUoLR/0AIiFncyxFyffutvI/Ki1YxgfRKBZtD4o
-         sHbbjk0Ft+VBE9n24X++MJ7SVxxWPBS3U8B5nnwoL11yFMssJv4dX8zVrbVTZ18ieTY6
-         RbAA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1792507210; x=1793112010; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zAYhqF7UHNil85yBBTWI6ys7OAUDS3/xjzlE+sXIqIM=;
-        b=Z6ribNwSkuRORSRUqgJFndKt+a8pNkfz+uixDZBj2RIOvLAexORAwbiSKcQUVGCjop
-         no35lkWv9bv6vKlR8fbjqwM9NDFMSs7PVNzOG059ZrH9BBqxjCeiS56Yo2HUm46Yp1cS
-         KdMO2m7IWh5CC05+ItHv3vXvOMsde5bPxkYUJdhEfbmO8YOoM0g9+v0FLMvJVDrqo0Dz
-         npsVT+CmXl4AmmCH9Mp2ZyIwqARrrJr+fZx1BbWiHMRtgagoNolGfVCU8QRJ9mTMygzz
-         VIYfE057NaafOemF/r5oX5sh5UF+HIDpV3sRJdp1bOX03m3OwrlIh9aVXr+CRhMtyceS
-         aTSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792507210; x=1793112010;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=zAYhqF7UHNil85yBBTWI6ys7OAUDS3/xjzlE+sXIqIM=;
-        b=22dSaipk2JpIUaG0PjPONfCkqjHGVMxOXY0T3Ag+NPPUu+qqNdraCVK/OpJI1sUXIR
-         ScfALcJffIH1pos8WoppwcsIhmjPH8omYqDFeEsAeHYRFbDJ5R4YRNN7nS98Az1qxRms
-         XS12wxZboqrxWFekG8vVFrK3YuWde+Y1yyBmuVvvkXp83wT6nZKfcWE2CKbOvkL8hwPM
-         QT8HNXo3VqMRw35D6WLMa9La0I5BYC8mG1hNc1loybwFcykli8APFxqHZDeENoOWiGXZ
-         Kvcq2VfVxMf+JUe1yBmCaCigQtAdNxXJAKl7cH6HmWt8gHN2O+FXevdbP0Uc0iwVoq81
-         7wYA==
-X-Forwarded-Encrypted: i=1; AKwUvBxxvfqV3yKHKZ9aAnTjuLFR5iHda/r7007nFiZek0HoCfn0k8bIjqSaTFwjqr3NasL7NPWJz+9dNbIi@vger.kernel.org
-X-Gm-Message-State: AFq9FYJxwp0IwIzFwrWPzW9/Gy9AAE6gZZHeKoa+QG+iAKtWdeBoAXIg
-	+yYM9RvhTR5XSabzo4W8s3e9msbPyvUewrfDzhRLPu4IB73bYUyX1Qcj13yy0Rq5KqMPafsOlzK
-	xdbQ41zoGGfnj2bnnZ4ZrfYhTje/Nhjabt+OXr6nA7Q==
-X-Gm-Gg: AYBFou2m8MVus+W2mJ/aDJtKLzSNKh27EatKOxXeKYGg31+/hV8iSQINIdEDBnFaGDN
-	7nkXcM2tjovS4l7yD4f/xYf916GVbqiTJ1ZBN+hx6+wyIty3xey0Aa2gc4qcMG1DrSEqTcgrYn3
-	Xwtmb0Mgl6k1bZc7Fj+CZ03GfBZc76Jat7WRWuQE5fue3Qq95RzcDE9DkW9ulzN04cUOuPkwMXl
-	9xGjddZpZsZreZPJjQ6mRnRPSwhBDgYSAjEVdmJQP5fIX0bumBZeX9HE6FOYSidFvi82/aXKvUn
-	QPtioo5ygRT0zfV2GJVavnUh8NIFUiwCWDO39qr4iY9lAgA7kcFs7cr5aqjSlaRewyWmwFiCITp
-	hY/uBz6GqAKUUesAzQ0UQwz5kNHSujaxUfrhR5xrV8bI4dPIQ2qfw/3ddns7MUhjTyoGfQ4at
-X-Received: by 2002:a05:6820:2d03:b0:6c7:8dab:ca1a with SMTP id
- 006d021491bc7-707bbe2cd66mr1550317eaf.17.1792507209625; Tue, 20 Oct 2026
- 07:40:09 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S9D8MjHI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C254F1F000C4;
+	Tue, 20 Oct 2026 14:40:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792507219;
+	bh=bV3EG3t+jix2WDDptxZUopP1qrkVhSXIwiOD21oUDhs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=S9D8MjHIVUTUe8QTU6XTxceIilspN+5PIHjCD9+fKo6u6orUpXTBXywfG0V0Z+DXF
+	 GyU4PmOWfpLoZR+Kh/h77CTZPT4M+51K3bopdGV/x5poryeo0WF8yT0HmCpWj4LMu/
+	 Ul1snuNx2FvZW79T2ta84wI4cRCpt930Y8oSG2jP/JCjDy9WPemT+yve9WI6AFN65Q
+	 EtkBQaZ5tHAbBNrqktb5VGo15MwLYzgkrfqfQ4fjrxvlbbaZRoGa0LWyppajMduFq3
+	 ZnY+iuJHZj6uwh0cc1/Dv6IDcRfkMsT2AHLiBUKlldWqJSxZQ1xSyTijrx0R901dTy
+	 w/ZFNUMJYouNQ==
+Message-ID: <sashiko-outbox-179178@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 16/17] arm64: dts: apple: t6030: add avd nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sofus Forstreuter" <sofus.c@icloud.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261020-avd-v3-16-85cbaa2125d8@icloud.com>
+References: <20261020-avd-v3-0-85cbaa2125d8@icloud.com>
+ <20261020-avd-v3-16-85cbaa2125d8@icloud.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 20 Oct 2026 14:40:18 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -102,181 +59,356 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261015-media-starvis2-v4-0-75fcdb4163f3@raspberrypi.com>
- <20261015-media-starvis2-v4-10-75fcdb4163f3@raspberrypi.com> <atc9Uxt_hsyYu2o5@kekkonen.localdomain>
-In-Reply-To: <atc9Uxt_hsyYu2o5@kekkonen.localdomain>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Tue, 20 Oct 2026 15:39:52 +0100
-X-Gm-Features: AclHuK_b39VaTdZ3dmgtb-s5SV-tLyOzJVne1uRjIl6FFmaQNj3mm_E5Od-ztsk
-Message-ID: <CAPY8ntD2C-7UTKX2Srusn_Tzx5KS3tnUtPP+piMYbUKZP91Rpg@mail.gmail.com>
-Subject: Re: [PATCH v4 10/16] media: dt-bindings: sony,imx678: Add other
- Starvis 2 family members
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Jai Luthra <jai.luthra@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Alexander Shiyan <eagle.alexander923@gmail.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
 
-Hi Sakari
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [Critical] media: apple: avd: missing frame parameter validation in avd_a=
+v1_run()
+- [High] media: apple: avd: out-of-bounds access in avd_h264_realloc_slices=
+() and avd_h264_run()
+- [High] media: apple: avd: missing vb2_plane_vaddr() NULL checks in VP9 an=
+d AV1
+- [High] media: apple: avd: IRQ/watchdog race and lifecycle bugs in avd-drv=
+.c
+- [Low] arm64: dts: apple: undocumented apple,t6030-dart compatible in t603=
+0.dtsi
+--
 
-Thanks for the review
+commit 9b154ea927f0743f0c2465c6faf3859e38c47d5c
+Author: Sofus Forstreuter <sofus.c@icloud.com>
 
-On Tue, 20 Oct 2026 at 11:07, Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
->
-> Hi Dave,
->
-> On Thu, Oct 15, 2026 at 04:57:36PM +0100, Dave Stevenson wrote:
-> > There are multiple members of the Sony Starvis 2 image sensor family
-> > that have the same hardware requirements as imx678.
-> > Add them as options to the imx678 binding, rather than duplicating it.
-> >
-> > Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> > ---
-> >  .../devicetree/bindings/media/i2c/sony,imx678.yaml | 38 ++++++++++++++++++----
-> >  1 file changed, 32 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-> > index 098f72544216..027872a134f2 100644
-> > --- a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-> > +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-> > @@ -5,7 +5,7 @@
-> >  $id: http://devicetree.org/schemas/media/i2c/sony,imx678.yaml#
-> >  $schema: http://devicetree.org/meta-schemas/core.yaml#
-> >
-> > -title: Sony IMX678 Sensor
-> > +title: Sony IMX678 and Starvis 2 Sensors
-> >
-> >  maintainers:
-> >    - Jai Luthra <jai.luthra@ideasonboard.com>
-> > @@ -13,21 +13,47 @@ maintainers:
-> >  description:
-> >    Sony IMX678 diagonal 8.86 mm (Type 1/1.8) CMOS active pixel type solid-state
-> >    image sensor with a square pixel array and 8.40M (3856x2180) effective pixels.
->
-> You could rewrap this while at it.
->
-> > +  It is part of the Starvis 2 family of sensors.
-> > +  Other members of the Starvis 2 have the same hardware requirements, and
-> > +  therefore share this binding.
->
-> This paragraph could be rewrapped, too -- the limit is 80 characters per
-> line.
+arm64: dts: apple: t6030: add avd nodes
 
-OK, I'll rephrase it so that it makes sense as one reflowed paragraph.
+This commit adds the Apple Video Decoder (AVD) and its associated DART
+IOMMU nodes to the Apple T6030 device tree.
 
-> >
-> >  allOf:
-> >    - $ref: /schemas/media/video-interface-devices.yaml#
-> >
-> >  properties:
-> >    compatible:
-> > -    items:
-> > -      - enum:
-> > -          - sony,imx678-aamr
-> > -          - sony,imx678-aaqr
-> > -      - const: sony,imx678
-> > +    oneOf:
-> > +      - items:
-> > +          - enum:
-> > +              - sony,imx585-aamj
-> > +              - sony,imx585-aaqj
-> > +          - const: sony,imx585
-> > +      - items:
-> > +          - enum:
-> > +              - sony,imx662-aamr
-> > +              - sony,imx662-aaqr
-> > +          - const: sony,imx662
-> > +      - items:
-> > +          - enum:
-> > +              - sony,imx675-aamr
-> > +              - sony,imx675-aaqr
-> > +          - const: sony,imx675
-> > +      - items:
-> > +          - enum:
-> > +              - sony,imx678-aamr
-> > +              - sony,imx678-aaqr
-> > +          - const: sony,imx678
-> > +      - items:
-> > +          - enum:
-> > +              - sony,imx832-amr
-> > +              - sony,imx832-aqr
-> > +          - const: sony,imx832
->
-> Should we also have a sony,starvis2 compatible? Just wondering.
+> diff --git a/arch/arm64/boot/dts/apple/t6030.dtsi b/arch/arm64/boot/dts/a=
+pple/t6030.dtsi
+> index dda9568af11f9..805042bd9270d 100644
+> --- a/arch/arm64/boot/dts/apple/t6030.dtsi
+> +++ b/arch/arm64/boot/dts/apple/t6030.dtsi
+> @@ -361,6 +361,38 @@ pmgr_gfx: power-management@290e80000 {
+>  			/* child nodes are added in t6030-pmgr.dtsi */
+>  		};
+> =20
+> +		avd_dart: iommu@30b010000 {
+> +			compatible =3D "apple,t6030-dart", "apple,t8110-dart";
 
-I deliberately didn't based on the discussions Jai had with DT
-maintainers when upstreaming the original binding [1], particularly
-Conor's comment:
-"Remember, having distinct multiple compatibles for the same hardware so
-that you can induce different software behaviour is not something we
-typically permit. While we do want to support all use cases, it isn't
-always the case that devicetree is the right place to do it."
+[Severity: Low]
+Should "apple,t6030-dart" be documented in
+Documentation/devicetree/bindings/iommu/apple,dart.yaml before adding it
+here?
 
-Sorry, but when time is limited, IMHO debating dtbindings just isn't
-worth it. I've therefore taken the simple option.
+Currently, properties:compatible in apple,dart.yaml only permits:
 
-I do have patches that implement that compatible and fully autodetect
-the sensor[2], but I'll keep them downstream.
-Doing so means that we have one common overlay for connecting any of
-the supported Starvis2 sensors to a Pi.
+  compatible:
+    oneOf:
+      - enum:
+          - apple,t8103-dart
+          - apple,t8103-usb4-dart
+          - apple,t8110-dart
+          - apple,t6000-dart
+      - items:
+          - const: apple,t6020-dart
+          - const: apple,t8110-dart
 
-[1] https://patchwork.linuxtv.org/project/linux-media/patch/20260520-imx678-v3-1-8b5f9676486e@ideasonboard.com/
-[2] Currently the top 2 commits on
-https://github.com/6by9/linux/tree/mainline_starvis2_v2, but that
-branch will get rebased/reworked.
+Does running make dtbs_check on t6030-j514s.dtb and t6030-j516s.dtb fail
+schema validation on /soc/iommu@30b010000 without a corresponding binding
+update?
 
-> The driver isn't generic still as it requires sensor specific information
-> to be passed to it. CCS solves this with CCS static data (via firmware
-> loading mechanism) so there are no driver changes even if the capability
-> and limit information can't be obtained from device's registers or the
-> device requires MSRs.
+> +			reg =3D <0x3 0x0b010000 0x0 0x4000>;
+> +			interrupt-parent =3D <&aic>;
+> +			interrupts =3D <AIC_IRQ 795 IRQ_TYPE_LEVEL_HIGH>;
+> +			#iommu-cells =3D <1>;
+> +			power-domains =3D <&ps_avd_sys>;
+> +		};
+> +
+> +		video-codec@30b070000 {
+> +			compatible =3D "apple,t6030-avd", "apple,t8122-avd";
 
-I'm assuming you're referring to the patchset as a whole as I don't
-believe I've used the term generic in this patch. I'm happy to swap to
-"common Starvis 2 driver" where appropriate within the patchset
-instead.
+[Severity: Critical]
+Enabling video-codec@30b070000 with compatible "apple,t8122-avd" exposes
+the AV1 decoder path in drivers/media/platform/apple/avd/avd-av1.c via
+avd_device_run() -> avd_av1_run(). Since neither validate_av1_frame() in
+drivers/media/v4l2-core/v4l2-ctrls-core.c nor avd_av1_try_ctrl() validates
+ref_frame_idx, primary_ref_frame, upscaled_width, frame_width_minus_1, or
+frame_height_minus_1 from V4L2_CID_STATELESS_AV1_FRAME, can userspace
+trigger out-of-bounds memory accesses and divide-by-zero errors here?
 
-IMHO Pushing the config to firmware files doesn't help, particularly
-as these sensors don't have a common ID register and so identification
-isn't trivial. It also makes life more involved for a distribution
-maintainer to ensure they're picking up the relevant files, and that's
-assuming that someone is curating them.
+Specifically:
 
-My aim with the series was to reuse as much common code as possible,
-rather than submitting 5 separate drivers which are identical other
-than constants and arrays of registers. Jai now has IMX676 working
-with this driver, so that would make it 6 variants. Refactoring to use
-a firmware file adds complexity for minimal gain, and you'd have to
-special case IMX678 so it worked without a firmware file to avoid
-regressions.
+1. In set_ref_hdr() in drivers/media/platform/apple/avd/avd-av1.c:
 
-I guess the common core could be refactored to be a library, so that
-you could minimise module size by having the sensor specific config in
-a module that depends on the library. You're talking of saving a few
-kB uncompressed though, so that would be quite extreme. I'd be more
-tempted to have individual Kconfig entries and use #if
-IS_ENABLED(CONFIG_IMXxxx) to conditionally compile in the config to a
-common module.
+	for (i =3D 0; i < 6; i++) {
+		for (j =3D i + 1; j < 7; j++) {
+			if (frame->reference_frame_ts[frame->ref_frame_idx[i]] =3D=3D
+			    frame->reference_frame_ts[frame->ref_frame_idx[j]]) {
+				ref_slots[j] =3D ref_slots[i];
+				break;
+			}
+		}
+	}
 
-  Dave
+Since frame->ref_frame_idx[i] is an unvalidated __s8, can a negative value
+or a value >=3D 8 read out of bounds of the 8-element
+frame->reference_frame_ts[] array?
 
-> > +
-> >      description:
-> >        The IMX678 sensor exists in a colour variant (IMX678-AAQR) and a mono
-> >        variant (IMX678-AAMR). The variant-specific compatible describes the
-> >        exact sensor variant, with the generic IMX678 compatible as a fallback.
-> > +      The same applies for the other sensors in the family.
-> >
-> >    reg:
-> >      maxItems: 1
-> >
->
-> --
-> Regards,
->
-> Sakari Ailus
+2. In avd_av1_get_ref_buf() in drivers/media/platform/apple/avd/avd-av1.c:
+
+	if (idx < 0 || idx >=3D V4L2_AV1_TOTAL_REFS_PER_FRAME ||
+	    frame->ref_frame_idx[idx] >=3D ARRAY_SIZE(frame->reference_frame_ts))
+		ts =3D -1;
+	else
+		ts =3D frame->reference_frame_ts[frame->ref_frame_idx[idx]];
+
+frame->ref_frame_idx has V4L2_AV1_REFS_PER_FRAME (7) elements, whereas
+V4L2_AV1_TOTAL_REFS_PER_FRAME is 8. If avd_av1_set_prob() passes
+run->frame->primary_ref_frame (which is only checked for =3D=3D 7 rather th=
+an
+>=3D V4L2_AV1_REFS_PER_FRAME), or if idx is 7, doesn't this read
+frame->ref_frame_idx[7] out of bounds, or allow a negative
+frame->ref_frame_idx[idx] to underflow frame->reference_frame_ts[]?
+
+3. In set_header() -> calc_upscale() in
+drivers/media/platform/apple/avd/avd-av1.c:
+
+	downscaled_plane_w =3D AV1_DIV_ROUND_UP_POW2(frame_width, sub_x);
+	upscaled_plane_w =3D AV1_DIV_ROUND_UP_POW2(upscaled_width, sub_x);
+	*step_x =3D ((downscaled_plane_w << SUPERRES_SCALE_BITS) +
+		   (upscaled_plane_w / 2)) /
+		  upscaled_plane_w;
+
+Can an unvalidated frame->upscaled_width =3D=3D 0 cause upscaled_plane_w to=
+ be
+0 and trigger a divide-by-zero? Similarly, in set_refs(), can
+frame->frame_width_minus_1 =3D=3D 0xffffffff or
+frame->frame_height_minus_1 =3D=3D 0xffffffff wrap width or height to 0 when
+adding 1 and divide by zero?
+
+4. In update_dec_buf_info() and avd_av1_set_prob() in
+drivers/media/platform/apple/avd/avd-av1.c:
+
+	memcpy(vb2_plane_vaddr(&dst->base.vb.vb2_buf, 0) +
+		       AVD_AV1_CDFS_OFFSET(dst->base.vb.vb2_buf.planes[0].length,
+					   dst->av1.color_size),
+	       av1_ctx->bufs.probs.cpu, sizeof(struct avd_av1_cdfs));
+
+dst->av1.color_size is calculated from frame_width_minus_1 + 1 and
+frame_height_minus_1 + 1 without checking that they fit within the capture
+format dimensions in ctx->decoded_fmt.fmt.pix_mp or
+dst->base.vb.vb2_buf.planes[0].length. If dst->av1.color_size exceeds the
+plane length, doesn't AVD_AV1_CDFS_OFFSET() underflow and cause memcpy() to
+write before the start of the buffer?
+
+[Severity: High]
+Also in the H.264 decoder path enabled by this node (via
+v4l2_m2m_request_queue() -> avd_device_run() -> avd_h264_run() in
+drivers/media/platform/apple/avd/avd-h264.c), can slice reallocation and
+error handling access memory out of bounds?
+
+In avd_h264_realloc_slices():
+
+	h264_ctx->alloc_slice_num =3D alloc_slice_num;
+	memcpy(h264_ctx->slices, tmp,
+	       sizeof(*h264_ctx->slices) * h264_ctx->slice_num);
+	kfree(tmp);
+
+	/* we could already have the correct size */
+	if ((alloc_slice_num + 1) * sizeof(*job->segments) < job->buf.size)
+		return 0;
+
+	ret =3D avd_buf_alloc(ctx->dev, &tmp_buf,
+			   (alloc_slice_num + 1) * sizeof(*job->segments));
+	if (ret)
+		return -ENOMEM;
+
+	job->segments =3D tmp_buf.cpu;
+	job->num_alloc =3D (alloc_slice_num + 1);
+	memset(tmp_buf.cpu, 0, tmp_buf.size);
+	memcpy(job->segments, job->buf.cpu,
+	       sizeof(*job->segments) * (job->num + 1));
+
+1. On the first slice of a frame, avd_init_job() allocates
+job->num_alloc =3D h264_ctx->alloc_slice_num + 1 segments, and
+avd_end_segment() increments job->num for the stream header and for each
+slice. When h264_ctx->slice_num reaches h264_ctx->alloc_slice_num, job->num
+is already equal to the old job->num_alloc (alloc_slice_num + 1). Doesn't
+copying sizeof(*job->segments) * (job->num + 1) bytes read one
+struct avd_segment past the end of job->buf.cpu?
+
+2. Since h264_ctx->alloc_slice_num is updated before the early return and
+before avd_buf_alloc(), if the early return is taken (without updating
+job->num_alloc) or if avd_buf_alloc() fails with -ENOMEM, won't
+h264_ctx->alloc_slice_num remain enlarged while job->segments and
+job->num_alloc stay at their old capacity, causing subsequent slices to
+skip reallocation and write out of bounds on job->segments?
+
+3. In avd_h264_run(), avd_h264_realloc_slices() is only called when
+ctx->job.segments is non-NULL, yet h264_ctx->slices[h264_ctx->slice_num] is
+written and h264_ctx->slice_num is incremented before checking
+is_new_frame(run.slice_params) and !ctx->job.segments:
+
+	if (ctx->job.segments &&
+	    h264_ctx->slice_num >=3D h264_ctx->alloc_slice_num) {
+		ret =3D avd_h264_realloc_slices(ctx);
+		if (ret)
+			goto postamble;
+	}
+
+	h264_ctx->active_slice =3D &h264_ctx->slices[h264_ctx->slice_num];
+	ret =3D avd_buf_alloc(ctx->dev, h264_ctx->active_slice,
+			    vb2_get_plane_payload(&src->vb2_buf, 0));
+	if (ret)
+		goto postamble;
+
+	memcpy(h264_ctx->active_slice->cpu, slice,
+	       h264_ctx->active_slice->size);
+	h264_ctx->slice_num++;
+
+If userspace queues slices with first_mb_in_slice !=3D 0 and
+V4L2_BUF_FLAG_M2M_HOLD_CAPTURE_BUF set while ctx->job.segments is NULL,
+avd_h264_run() returns -EINVAL and avd_h264_done() skips resetting
+h264_ctx->slice_num because V4L2_BUF_FLAG_M2M_HOLD_CAPTURE_BUF is set. Can
+repeatedly queueing such buffers increment h264_ctx->slice_num past
+h264_ctx->alloc_slice_num without reallocating h264_ctx->slices[]? Also,
+should avd_h264_stop() clear ctx->job.segments =3D NULL on streamoff?
+
+[Severity: High]
+In avd_queue_init() in drivers/media/platform/apple/avd/avd-drv.c, both
+src_vq and dst_vq enable VB2_DMABUF with vb2_dma_contig_memops. Unlike
+avd_h264_run(), which checks the return value of vb2_plane_vaddr() for
+NULL, the VP9 and AV1 paths enabled by "apple,t8122-avd" do not check
+vb2_plane_vaddr() before dereferencing it:
+
+In avd_vp9_run() -> set_tiles() in
+drivers/media/platform/apple/avd/avd-vp9.c:
+
+	const u8 *data =3D vb2_plane_vaddr(&src->vb2_buf, 0);
+	...
+				tile_size =3D get_unaligned_be32(&data[offset]);
+
+And in avd_av1_run() -> avd_av1_set_prob() in
+drivers/media/platform/apple/avd/avd-av1.c:
+
+		memcpy(av1_ctx->bufs.probs.cpu,
+		       vb2_plane_vaddr(&ref->base.vb.vb2_buf, 0) +
+			       AVD_AV1_CDFS_OFFSET(
+				       ref->base.vb.vb2_buf.planes[0].length,
+				       ref->av1.color_size),
+		       sizeof(struct avd_av1_cdfs));
+	}
+
+	/*
+	 * AVD writes nothing when DISABLE_FRAME_END_UPDATE_CDF is
+	 * enabled
+	 */
+	memcpy(vb2_plane_vaddr(&dst->base.vb.vb2_buf, 0) +
+		       AVD_AV1_CDFS_OFFSET(dst->base.vb.vb2_buf.planes[0].length,
+					   dst->av1.color_size),
+	       av1_ctx->bufs.probs.cpu, sizeof(struct avd_av1_cdfs));
+
+If an imported DMABUF fails dma_buf_vmap_unlocked() in vb2_plane_vaddr()
+and returns NULL, won't these dereference a NULL pointer + offset?
+
+[Severity: High]
+Finally, in drivers/media/platform/apple/avd/avd-drv.c (bound via this
+video-codec@30b070000 node), there appear to be a few concurrency and
+lifecycle issues:
+
+1. In avd_watchdog_func():
+
+	writel(0, avd->mbox + AVD_REG_MBOX_IRQ_ENABLE);
+	ret =3D avd_reset(avd);
+	if (ret)
+		dev_err(avd->dev, "failed to reset: %d", ret);
+
+	avd_job_finish(ctx, VB2_BUF_STATE_ERROR);
+
+And in avd_irq_handler():
+
+	static irqreturn_t avd_irq_handler(int irq, void *data)
+	{
+		struct avd_dev *avd =3D data;
+		struct avd_ctx *ctx =3D v4l2_m2m_get_curr_priv(avd->m2m_dev);
+
+Can avd_watchdog_func() race with a concurrently running or pending
+threaded avd_irq_handler()? Without synchronizing the IRQ before calling
+avd_reset() and avd_job_finish(), if avd_job_finish() starts the next
+queued M2M job and re-arms watchdog_work, couldn't the in-flight
+avd_irq_handler() look up the newly started job via
+v4l2_m2m_get_curr_priv(avd->m2m_dev), cancel its watchdog, and prematurely
+finish it?
+
+2. In avd_probe(), devm_request_threaded_irq() registers avd_irq_handler()
+before avd_v4l2_init() allocates avd->m2m_dev, and in avd_remove(),
+avd_v4l2_cleanup() frees avd->m2m_dev via v4l2_m2m_release() before the
+IRQ is freed. If an interrupt fires during probe or remove, won't
+v4l2_m2m_get_curr_priv(avd->m2m_dev) in avd_irq_handler() dereference a
+NULL or freed avd->m2m_dev?
+
+3. In avd_boot():
+
+	memcpy_toio(avd->code, avd->fw->data, avd->fw->size);
+
+	writel_relaxed(AVD_MBOX_ENABLE, avd->mbox + AVD_REG_MBOX1_STATUS);
+	writel_relaxed(AVD_MBOX_ENABLE, avd->mbox + AVD_REG_MBOX0_STATUS);
+	writel_relaxed(AVD_MBOX0_NOT_EMPTY,
+		       avd->mbox + AVD_REG_MBOX_IRQ_ENABLE);
+	writel_relaxed(AVD_RUN_CTRL_UNK_RUN, avd->mbox + AVD_REG_RUN_CTRL);
+
+	/* wait for cm3 to boot */
+	ret =3D readl_poll_timeout(avd->mbox + AVD_REG_FLAG0_SET, val, val =3D=3D =
+1,
+				 10, 10000);
+	if (ret)
+		return ret;
+
+	memcpy_fromio(version, avd->sram, sizeof(version));
+	dev_info_once(avd->dev, "fw version: %s\n", version);
+
+Should avd_boot() verify that avd->fw->size does not exceed the "code"
+region size (0x10000 in this DT node) before memcpy_toio(), use writel()
+instead of writel_relaxed() when writing AVD_RUN_CTRL_UNK_RUN so the
+firmware copy is ordered before starting the coprocessor, and ensure
+version is NUL-terminated before printing it with %s?
+
+4. In avd_open():
+
+	v4l2_fh_init(&ctx->fh, video_devdata(filp));
+
+	ctx->fh.m2m_ctx =3D v4l2_m2m_ctx_init(avd->m2m_dev, ctx, avd_queue_init);
+	if (IS_ERR(ctx->fh.m2m_ctx)) {
+		ret =3D PTR_ERR(ctx->fh.m2m_ctx);
+		goto err_free_ctx;
+	}
+
+	ret =3D avd_init_ctrls(ctx);
+	if (ret)
+		goto err_cleanup_m2m_ctx;
+
+Should the err_cleanup_m2m_ctx and err_free_ctx error paths call
+v4l2_fh_exit(&ctx->fh) before freeing ctx?
+
+> +			reg =3D <0x3 0x0b070000 0x0 0x4000>,
+> +			      <0x3 0x0b080000 0x0 0x10000>,
+> +			      <0x3 0x0b090000 0x0 0x14000>,
+> +			      <0x3 0x0b0a4000 0x0 0x4000>,
+> +			      <0x3 0x0b100000 0x0 0x10000>;
+> +			reg-names =3D "piodma", "code", "sram", "mbox", "ctrl";
+
+[ ... ]
+
+> +		};
+> +
+>  		pinctrl_ap: pinctrl@347100000 {
+
+[ ... ]
+
+=E2=80=94
+=F0=9F=A4=96 Generated by Linux Kernel Patch Review Bot
+Christina Quast <contact@ayrton.dev>
+Based on prompts at https://github.com/masoncl/review-prompts
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261020-avd-v3-0-8=
+5cbaa2125d8@icloud.com?part=3D16
