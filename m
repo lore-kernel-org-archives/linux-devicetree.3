@@ -1,103 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792522210;
-	b=0q8qMViJFbxsh3ZvTwc81pOSgJvyrLkmHS8ERI+WG88hl+P3RfcQsBUDhk0W8U3P2viM
-	 jWm/bHU82sfF4PsiCw7/Baztnwh0L0H0xX8suGkC49RjT9TdPP+DlEhR8cZU/Dr8k1+wo
-	 rK9I4gcvl8xrNrnWJbsD41Y9hkeGvicTSRK32oOwQ/MjcehlIzrt6fZJJ/VkeNc2ApGpg
-	 YqpSv4sAnVK+4iunHWIhxBI5Ey0OcyROftZrH3BBPhWunQ6ncvZTejRya0eoIVejb91Xu
-	 A+k3MDXfp4m1obZ7ERVvsW5mXNGnASDzyYIGJFFxecEYS0W9f98B+R28l+O2jGXuBSg==
+	t=1792522490;
+	b=hgYMnppzaEnMoQDwQ5x/O7zeIO/OJnYVxMDx0hqGx+pzq+u35fPJN8bdpNHaSShIbjlu
+	 8tTtpkjCLdMFQfxuGIkwUvCNcwfhRmf0TfFDqjOJ2zyZjDhq4EbYrk4iw2hSL4X53MSPa
+	 HOMUo4wLXhhJLOae+Lf5LmKCCC5V/1253rU5OATUsFgeUtVkWyWES/FmpsizT5Dw4jhO1
+	 8TJNCtNadMjRM5rB4THfCsv4Q40h5tGZo8BTPzICbSrJs21rzvAD0TXN9EqphGcQjalwg
+	 JqV4W6UIyneMGJ4Te74gZLU5ewuR/09sZkPjv1KQVBjShJjfd0MCyt18H3cDltEkiqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792522210;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Subject:From:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
-	 MIME-Version:User-Agent:X-TM-AS-GCONF:X-Proofpoint-Reinject:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=CUipg4fJiQC0gX8LVYNaRjwOaAjhAgEsBQ5MnjXNco0=;
-	b=fnm7U5Db9gs64UqpPasynAWaAyYZyE7LI0HXyoG6CVCwiRy6+TA8RH2alZ3btH5wmHqp
-	 SBGc4zUVmCu3/jO9/cWEboI/8qLlhaPGqAmGV75Epl9JsdqRyHMrMvYUx4Ph510Gqcjsp
-	 w27QL3yot/fEBaV7DyOHB3C5TkEdWlG5gZNbJEFbXeGwuCvsDkZyZrgUPngC2CUNPOEBB
-	 TK+F5mHtO25olZC1gtWpRBJgGYV4SDuplmoqCIkQkMLnAsG2vYA5/XIQ6D7owXAqKFlq4
-	 l572up761n035C3GXPPobh1lloiUEbvUoAlKXXFqUcY/cS9DAX5TegFAuyPl5AKi6bw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792522490;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=a+YGUJeEL21flQxeJgEyROLOEEmxFMPwen0F3bt91wI=;
+	b=2Q4A/h0fgPtZUKILvnCiC45GY4UYIALdPInKybLNQu/sMlkc0Ow0y1AJiSL80o2O62iS
+	 1IAa738fbZas6Xad98M9N91M6Mt6dfX2QgA14uBJH0lmSOe6Z0F9dV1S0WAOtBtfTblpa
+	 PyK9yZJ83f1PllLtxVoSetNcs7sc4UiuwtP6YohG/0fBX1FkouLD55RHO/z4+ddi8kEzk
+	 Z7+43KLqSAvLJzcNrEXow1qO3pX/k5tbksUfW57kBexUG+5jJLw1c94w6Kt5BRqqX7YuW
+	 scptXFm0R1v0kA2zNTEzQH+JVBdxVd4p5Gc9h91HGV9RW74qmjVcIYq62D7Ru8FPzPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b="PyLs4m/b";
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cNpSjyVD;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 175B2606A326;
-	Tue, 20 Oct 2026 18:50:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 175B2606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39F84606A31D
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 18:54:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39F84606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=PyLs4m/b
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KHEGYY2978623;
-	Tue, 20 Oct 2026 18:49:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=CUipg4
-	fJiQC0gX8LVYNaRjwOaAjhAgEsBQ5MnjXNco0=; b=PyLs4m/bwKvEN1Xub2+nsy
-	RvDztJMNx/Z+zoVjhqf3OXsUqlQyAwKi6Di8U1rhrdN+ORF9bIIUy2WpblIgKMrY
-	wQz5uaGWAvaV+A7KvUL4yg9m/v9EDesHFCLuqNWzfGs8kRBM6IgqNGhQw8n0tdht
-	eA+deQAvJRxk3pWNsU0LIS6ntBFtiTy68Ba6SbC3Pc87D2WQ25G8+09mz4Ij+aqj
-	fYLWN3kFHFJa9s292QZL70nuHrDz+JW2NDEXBhYrt7nyY40OuZt07GGrc2GhUGlX
-	1gCPfU03Slx8kl4J391XkgR2GEiNQu4gyoA19xotJcjdqMfJj0AXeYXgDD9RM+7w
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hdw5ammmp-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 20 Oct 2026 18:49:13 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69KH4pQG1836498;
-	Tue, 20 Oct 2026 18:49:13 GMT
-Received: from smtprelay04.dal12v.mail.ibm.com ([172.16.1.6])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4he8vhsb58-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 20 Oct 2026 18:49:13 +0000 (GMT)
-Received: from smtpav04.dal12v.mail.ibm.com (smtpav04.dal12v.mail.ibm.com [10.241.53.103])
-	by smtprelay04.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69KInCjW27787960
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 20 Oct 2026 18:49:12 GMT
-Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8711458056;
-	Tue, 20 Oct 2026 18:49:12 +0000 (GMT)
-Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id AE8CB58052;
-	Tue, 20 Oct 2026 18:49:10 +0000 (GMT)
-Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com (unknown [9.61.74.192])
-	by smtpav04.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 20 Oct 2026 18:49:10 +0000 (GMT)
-Message-ID: <f6829d2023573445b0906b34812e5b0bfdfb2e4c.camel@linux.ibm.com>
-Subject: Re: [PATCH v2] kexec: Select ima_get/free_kexec_buffer() with
- CONFIG_HAVE_IMA_KEXEC(_OF)
-From: Mimi Zohar <zohar@linux.ibm.com>
-To: Roberto Sassu <roberto.sassu@huaweicloud.com>, catalin.marinas@arm.com,
-        will@kernel.org, mark.rutland@arm.com, chenhuacai@kernel.org,
-        kernel@xen0n.name, maddy@linux.ibm.com, mpe@ellerman.id.au,
-        npiggin@gmail.com, chleroy@kernel.org, pjw@kernel.org,
-        palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
-        tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
-        dave.hansen@linux.intel.com, hpa@zytor.com, robh@kernel.org,
-        saravanak@kernel.org
-Cc: x86@kernel.org, linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
-        linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
-        devicetree@vger.kernel.org, noodles@fb.com,
-        linux-integrity@vger.kernel.org, linux-security-module@vger.kernel.org,
-        Roberto Sassu
- <roberto.sassu@huawei.com>
-In-Reply-To: <20261020083727.1906495-1-roberto.sassu@huaweicloud.com>
-References: <20261020083727.1906495-1-roberto.sassu@huaweicloud.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 20 Oct 2026 14:49:10 -0400
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cNpSjyVD
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-36681e85e87so1419642eec.1
+        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 11:54:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792522488; x=1793127288; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=a+YGUJeEL21flQxeJgEyROLOEEmxFMPwen0F3bt91wI=;
+        b=cNpSjyVDxeZMqcqxOqB9EKCdiKtPdvBLoG6NwPB2ME90BEBUSoASCok3BTJCWRzmch
+         pNWcgsLpP4PYDmJr8a0L4mKvc7JsdLL2H7n7kPI2wZkDtIaq0W1rRg/MY6hUM/gy5Uoy
+         W+m7CWwruUbFTIYyqnOJmBOL0w946NXdRSpxe6jaOK0BT0sCvBvGsnj6H5fBmWcWNvLZ
+         msrgSrE2dYQ/4jED9CbuOpHR4ZW8ZY384J9TEKtFsWkaRluoI3p5WBWwaKkqlP4+GRbQ
+         U4HwE9gc512DhP6yTqnRZIiJQwgX36aA+yBDDi2k7JIy8yC1YZIs0MXwbGp1hJ1veg6G
+         SECw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792522488; x=1793127288;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=a+YGUJeEL21flQxeJgEyROLOEEmxFMPwen0F3bt91wI=;
+        b=orJn7434W7paAmVSgxRtitbUbSwMz1aXYjepIIWxxrzeFzyrqCHRvxF7g4mvc5i4BP
+         v/joKx7/lWKvociy/UZvaZOE9jfyfvRmi4S687V37NKONNkS7A24vCDTGTA6+yET2Eue
+         U1gXlTVPfINJ65oxsQXTkEJtOI+l31p6STjCG1o7KzGXSBpje1z/Y0HStnKpiIRg5Xjz
+         ighUD3gUo+dieagf3v5+Gwe9c3cZkRMetVxAKEb6W+vk6rSsj9sFBe6uezbD8fyzFNSb
+         RPGx6kGD6AFjDwQjVldNj1tNnkUsGDAgn0b4NuOGeo1/N8kRJxpr9rcD3cdUE57A3/3t
+         kDjw==
+X-Forwarded-Encrypted: i=1; AKwUvBxptzK8J5JFTyn6CjOVFko1YCYpElXF26Wt+bbIJzhlT7iNiWheEOpPfP1tZngMTSjMpDi/n+7IdNDC@vger.kernel.org
+X-Gm-Message-State: AFq9FYLqf8CswUaTTatYhqeecOA14woZN83JCSzeXjUW7lKiPCdua694
+	yOpZAD89oxMcqZ+6SO2EvUlDpJJV4NQRF9Vc8+lRMiQLCLBIEQtSGxgU
+X-Gm-Gg: AYBFou1UDZW8te2X+Oocufj87a3OCwE4fbltT+BXJ9Rz1F3EParw0wCz/ST8USlCJhV
+	YZLgD3Prn1aOMrPQ7G661wXj+p3+DDZu6QA1MSvF9q8Jm3vc7fflARbMqkbGKECxDaoeL4WdqH0
+	ePkWLIDb4phmeLQYofhq1q+R+H8ypGQNDa7WzWdjVGkiK8deNBGctF+KV2SQfGPWa2op4tsXnuq
+	LZOoHXjh8YjjhFkNeYPSjakWRR8uyodq4VkhDKOXu9aazURmkGmAidhB770qKP/OmAcumaxWypC
+	eamQjv8mn75VB7sNrW4MyAFRJ/TltMpq9XNajnDzgb0inRxtOlTTS+MWscgFLkbOkap2+ZePrgr
+	L+zGwYeptnKJZ29UCZXRJk+Ivc0Ww7XnTCnHiMKU/CU21yROLIrxRBBK9lwHLClZ14tmFhjXqZK
+	LiHY8FwV1aHbPzmBLu/84Z0CHtwMILwwnkAW+XvKriiWCgo7hXkEzBpqvuj8x2zvn/o9aNqXr0h
+	2hMAtvcOBdIADa9+zvacfWOSx+ff35WzSA+D4kU
+X-Received: by 2002:a05:693c:6382:10b0:35c:de00:93d3 with SMTP id 5a478bee46e88-3674f6143a2mr134088eec.40.1792522488031;
+        Tue, 20 Oct 2026 11:54:48 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:92d1:8038:c4e7:1f0c])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-367405ed2absm606896eec.5.2026.10.20.11.54.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 11:54:47 -0700 (PDT)
+Date: Tue, 20 Oct 2026 11:54:43 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
+	Pavel Machek <pavel@kernel.org>, Sebastian Reichel <sre@kernel.org>, 
+	Ion Agorria <ion@agorria.com>, =?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, 
+	Florian Krischer <florian.krischer@fkr.dev>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-input@vger.kernel.org, mfd@lists.linux.dev, linux-leds@vger.kernel.org, 
+	linux-pm@vger.kernel.org
+Subject: Re: [PATCH v12 4/7] input: keyboard: Add driver for ASUS Transformer
+ dock multimedia keys
+Message-ID: <ate3WJz8gg9LUG9u@google.com>
+References: <20261019100406.103687-1-clamor95@gmail.com>
+ <20261019100406.103687-5-clamor95@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,71 +103,118 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=X63Hu2Te c=1 sm=1 tr=0 ts=6ad7b7aa cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=i0EeH86SAAAA:8
- a=1ZqOMbZaXgEuhprhJ6sA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: Ia0JIwvxgpSWbtDkRhI4dPoRvql5U3OQ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA3NCBTYWx0ZWRfX6CxIfm/eOhQP
- +/wUaq+FQGOqNArpfZIrUA+k9rkfHNtq3LEC/MDGsUMQm3qiFtctCKcsB3g0dqzV/HMTrSQIcHS
- kh45avWcDz/fa+RP2uRW8fGU108iYPrT3oaL1/s8VqCXcyTI5mX9UO7rDq0gQiB05j54tUmphC5
- M3UcJKnVRjGR5yF0kTH+AndvbRuqhLZdXHW5xBZ63UpJUlNFZ1AmQFZZ7EjQIaYbCuxgzixRrQ4
- eA1AxoIEmsZQy6ehSvq9n5ynjA3GOuarZ2tJhvCrpsIWZZUbqTsIBLwtl23nBpUqhDTFfw9xvEL
- QBTaUenCPMupL6l8hjKV2oZW8fZ1wD/GoA5VHnl9m0fQzGO+tv8xrL/dlgroHuaczSHOq+fqX5E
- cpLrzXoAs3f5D20wkmuN/fXp+2uRCw2Ftp5wPit+Q/mAZN0Rv9mp3+/u1kRTBMxoWYlDJGKGZh2
- LBmMkOCw1SrNQ0gUpWw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA3NCBTYWx0ZWRfX/pCk1z+OIKUf
- 8bZpWSGlRHh+7LvRdNSDPEBz4dEG1doO2AZda9JjErBmhtY1k+w0Jzx8QJ2wYxxGwVf3bi3lXKC
- 57cA1acf9WI/uIkewDh2r98mkDuuQnM=
-X-Proofpoint-GUID: gj5Wz7vSF5n4aqUBRYZGldP83-pRH86l
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-20_03,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 bulkscore=0 adultscore=0 malwarescore=0
- clxscore=1015 spamscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200074
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261019100406.103687-5-clamor95@gmail.com>
 
-On Tue, 2026-10-20 at 10:37 +0200, Roberto Sassu wrote:
-> From: Roberto Sassu <roberto.sassu@huawei.com>
->=20
-> On x86, if CONFIG_OF_FLATTREE is enabled, the kernel uses the device tree
-> implementation of ima_get/free_kexec_buffer(). However, x86 passes the IM=
-A
-> buffer location through setup_data, not through the device tree, so the
-> buffer is never found and the IMA measurement list is not carried over
-> across kexec.
->=20
-> Introduce CONFIG_HAVE_IMA_KEXEC_OF (which selects CONFIG_HAVE_IMA_KEXEC)
-> and select it for the architectures that pass the IMA buffer location
-> through the device tree, via of_kexec_alloc_and_setup_fdt() (arm64,
-> powerpc and riscv). Build the device tree implementation of
-> ima_get/free_kexec_buffer() only if the new option is enabled.
->=20
-> Select the new option also on LoongArch, to preserve the current behavior
-> and avoid a link failure. LoongArch does not pass the buffer location to
-> the next kernel yet; this will be addressed separately.
->=20
-> Finally, don't select it for x86, and use x86's own setup_data-based
-> implementation regardless of CONFIG_OF_FLATTREE.
->=20
-> Fixes: b69a2afd5afc ("x86/kexec: Carry forward IMA measurement log on kex=
-ec")
-> Signed-off-by: Roberto Sassu <roberto.sassu@huawei.com>
-> ---
->=20
-> v2:
-> - Reworded the commit message (no code changes), suggested by Mimi
+On Mon, Oct 19, 2026 at 01:04:03PM +0300, Svyatoslav Ryhel wrote:
+> From: Michał Mirosław <mirq-linux@rere.qmqm.pl>
+> 
+> Add support for multimedia top button row of ASUS Transformer's Mobile
+> Dock keyboard. Driver is made that function keys (F1-F12) are used by
+> default which suits average Linux use better and with pressing
+> ScreenLock + AltGr function keys layout is switched to multimedia keys.
+> Only Dock keyboard input events are tracked for AltGr pressing.
+> 
+> Co-developed-by: Ion Agorria <ion@agorria.com>
+> Signed-off-by: Ion Agorria <ion@agorria.com>
+> Signed-off-by: Michał Mirosław <mirq-linux@rere.qmqm.pl>
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 
-Thanks, Roberto.
+Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 
-The patch and now the patch description look good.  Can we get some tags?
+> +
+> +static void asus_ec_keys_setup_keymap(struct asus_ec_keys_data *priv)
+> +{
+> +	struct input_dev *dev = priv->xidev;
+> +	unsigned int i;
+> +
+> +	BUILD_BUG_ON(ARRAY_SIZE(priv->keymap) < ARRAY_SIZE(asus_ec_dock_ext_keys));
+> +
+> +	dev->keycode = priv->keymap;
+> +	dev->keycodesize = sizeof(*priv->keymap);
+> +	dev->keycodemax = ARRAY_SIZE(priv->keymap);
+> +
+> +	input_set_capability(dev, EV_MSC, MSC_SCAN);
+> +	input_set_capability(dev, EV_KEY, KEY_UNKNOWN);
+> +
+> +	for (i = 0; i < ARRAY_SIZE(asus_ec_dock_ext_keys); i++) {
+> +		unsigned int code = asus_ec_dock_ext_keys[i];
+> +
+> +		if (!code)
+> +			continue;
 
-thanks,
+Nit: this check is not needed, input core will remove KEY_RESERVED (0)
+from the keybit when device is registered.
 
-Mimi
+> +
+> +		__set_bit(code, dev->keybit);
+> +		priv->keymap[i] = code;
+> +	}
+> +}
+> +
+> +static int asus_ec_keys_probe(struct platform_device *pdev)
+> +{
+> +	struct i2c_client *parent = to_i2c_client(pdev->dev.parent);
+> +	struct asusec_core *ec = dev_get_drvdata(pdev->dev.parent);
+> +	struct device *dev = &pdev->dev;
+> +	struct asus_ec_keys_data *priv;
+> +	int error;
+> +
+> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	platform_set_drvdata(pdev, priv);
+> +	priv->ec = ec;
+> +
+> +	priv->xidev = devm_input_allocate_device(dev);
+> +	if (!priv->xidev)
+> +		return -ENOMEM;
+> +
+> +	priv->xidev->name = devm_kasprintf(dev, GFP_KERNEL, "%s Keyboard Ext",
+> +					   ec->model);
+> +	priv->xidev->phys = devm_kasprintf(dev, GFP_KERNEL, "i2c-%u-%04x",
+> +					   i2c_adapter_id(parent->adapter),
+> +					   parent->addr);
+> +
+> +	if (!priv->xidev->name || !priv->xidev->phys)
+> +		return -ENOMEM;
+> +
+> +	asus_ec_keys_setup_keymap(priv);
+> +
+> +	error = input_register_device(priv->xidev);
+> +	if (error)
+> +		return dev_err_probe(dev, error,
+> +				     "failed to register extension keys\n");
+> +
+> +	priv->nb.notifier_call = asus_ec_keys_notify;
+> +
+> +	error = blocking_notifier_chain_register(&ec->notify_list, &priv->nb);
+> +	if (error)
+> +		return error;
+> +
+> +	ec->ext_keys_enabled = true;
+
+I think this block (after input_register_device()) can go into open()
+method for the input device.
+
+> +
+> +	return 0;
+> +}
+> +
+> +static void asus_ec_keys_remove(struct platform_device *pdev)
+> +{
+> +	struct asus_ec_keys_data *priv = platform_get_drvdata(pdev);
+> +	struct asusec_core *ec = priv->ec;
+> +
+> +	ec->ext_keys_enabled = false;
+> +	blocking_notifier_chain_unregister(&ec->notify_list, &priv->nb);
+
+And this into close().
+
+Thanks.
+
+-- 
+Dmitry
