@@ -1,81 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792483839;
-	b=cvhFFKVEXQ/gaIHZBdOnmVOLiAgfFRxvrXENPRuX5ZBcjnBE3Q+HnzAAyNyypiUmmItw
-	 fyUGU00kZ8rw2KRxygOqwZ9isylFE4rUKXRhGB9YO0Mh8EN4zHiQtcqPEr2uFJCgaXzKZ
-	 C4PfJIym1RxAiL97aoLB3Qa6reXymHK0QM2ojpJXJwmzTVHcRlsXwC0QV5nJFuqgTBU+Z
-	 7So7tEY1bf36syaQG+YutiZReyqUqz6YhahbcaAPjyG5QTFTTY6pu7e3Nqhjq1atgHgy4
-	 e2N2ugkKkhPx7Ro70C/N+lbXuk5Pgdy7k56vwgIk6j0zVdXdXW7sfWYv5H+lx17+nIA==
+	t=1792483881;
+	b=pNVzynK4BEdYv/CsCkZzOzJBejp3u5uvzD7ixQamDlmK26VwMnD3amb5/pmim7JJvZCt
+	 AMukcMduxNWCRPfYLK04GCfUksRrfMMsnAWRVxzoBPHGGymM5p9RBQXLTKdbxPvSy04tV
+	 U2YKaANZOfQ3Gtw/LHDS8SBUnltLue+UsnVHiasCyA6R3TKGWEb9zVn7E+YUzuYP064jx
+	 VJL8e1pKhgQzoEIugOUwmnpBmtzIeJkbzcfm3CJVQhkRe/uYcQgTKmeWAb5g5MoQk7UYg
+	 kfbzLu28t4AgEMTu3gYKIy/Tbwdrw4Qn4QD30pAC4SEUTTOCnmBqpiNlTU/X3KrOEPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792483839;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=+HbM2fnAiuFc369BfM90FYmeo4ajL0do8Ug+Pa2Ga0c=;
-	b=VBlFkZUOU5KjIWJ1AUiLS4Mgs5RtgW1khDAHyvi6QTW/CkF73dCGWw/eWe0cNkW+/TCC
-	 /Jo5JynmNiSISxSQhRjAWUqFdDMvQ+Rcnpf85MA2HJPsey6UIsAPJvNKUnDrLekKwWLhI
-	 m87SC2fGsUgD6gtGG7/NsfEifHM+1TMgqBO0TESvuSE4pGcsUf+2mFoln8Whr5VF+yIwo
-	 5Tm+8kwBAg4s2JRNUgPT2/WD0GNwU/0Mtf6en66Lyw8zAcRKL/Fp7YuZtGLP2t5Pv+ocH
-	 RzlMgNcCahUjNzX2lHGsqePpQUPUz3+NsA42ru6hFEFD86hwRotkFYgvQmHZep73cwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792483881;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=qaw7Vw5fhMfMSdjDzwyrNEoSf4wZhTYsgktagKs8aGc=;
+	b=LN6d5G9tkQ01ITkgRZIIp+oYTtPxuEJzp/dboUjLf3TRZeS1gzUGU0EccLY6Hzb3lRnm
+	 2EVNkg0w1kXNCRmNJ7qI9ToEymLzcwo7ZJKMYt/IWrO8iMDpXOxgtxpMqjQup/2nThL6K
+	 +bd8o5SO7yjscLKQFvro7z0Y/d7RdmRRL1LUVZ273WiF6A9eCdJ7AYVY0iDWA/qV/CKth
+	 zUViW74Fga5B/XqXwdjbiwbviUsxEIQ0EeLnWJU3ux6pgbHuZ9SI733/AmqWlEavYJYAT
+	 bGqCXdmOxn8OzwBsmLGJQtBq5LMgzSxM5DB6atdWPHR93Q/WwlToZRAt/4eE00O+kcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ux3Twm3l;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RNuZAY2C;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Nempdmhd;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8919F606A31B;
-	Tue, 20 Oct 2026 08:10:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8919F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2131606A31B
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 08:11:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2131606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ux3Twm3l
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792483839; x=1824019839;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=25f8hy5Y2bKimiVXz8+NoWweTrntm2IbNIZ2eSjEsrA=;
-  b=Ux3Twm3lWqKkq9revxlKs9uXUgjTF4o4K8iYNi2gJZBnyyr6zbXRPXYN
-   /TSP2n4B7mJCZ4JcE7XavYfKhhf30JDN2MHIrQ7OtcShEJt72OZJ5y9/1
-   vo+Iy03WJNtXIkMpinecWjV/eKF9CAmld/+K0hoznlWpHSC4gt4Sv8K2I
-   9LUIStgxNhoB+dBqWb/rq1JV4b3xSx/bmlr+sUx+MQ0UMYfE6k+4mDzmq
-   1Fnb9DdKO8l9Jd74MvzchotMcEw7nWwjkpcXZdf8Eo53Zd+qKIwnF2OS4
-   EOCeLp26p8VS3E/RQ+lXiVtPigy1NvJvje0BnHMmzrwuwjfcPGu+8ZBYK
-   A==;
-X-CSE-ConnectionGUID: 44Jm8SJ+S2yxYPQmnQHshQ==
-X-CSE-MsgGUID: qPCzpZ8DQuenhk3sUqESVA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1187391"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1187391"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 01:10:38 -0700
-X-CSE-ConnectionGUID: K9icsDRHSsS/miovNg3cTQ==
-X-CSE-MsgGUID: Qrstw2AtSp+MKb3a3XZzuQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="3115888"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.72])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 01:10:35 -0700
-Date: Tue, 20 Oct 2026 11:10:32 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: vidhu.linux@gmail.com
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
-	Shuah Khan <skhan@linuxfoundation.org>
-Subject: Re: [PATCH 3/3] iio: proximity: Add Benewake TF-Luna LiDAR driver
-Message-ID: <atch-NQ78VUdfgxW@ashevche-desk.local>
-References: <20261020-tf-luna-v1-0-53a88f93db24@gmail.com>
- <20261020-tf-luna-v1-3-53a88f93db24@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RNuZAY2C;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Nempdmhd
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K0tQf11211293
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 08:11:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	qaw7Vw5fhMfMSdjDzwyrNEoSf4wZhTYsgktagKs8aGc=; b=RNuZAY2C6t0dngjN
+	6QYzz+pUG8Zli4ytOvPQvGe/gaMR7MIQgQPz+JLRqjMnzL3FMoIhR7dr4FaBD9eG
+	wQvbdRXfIEZh96c1Pb0j8Y63av3Lj5z2DBOzL0OUOreg1THuzQmWqVn44XxCUCng
+	oL+OnIMwx2g1uxnQtyDtR8oSvxCiZ/4WRJaLvrhIUVJIDJIwV7ERJNvTScVItk2d
+	nMprMny3uloY6BKYu8FEZBI7FUStiZ8S7qBy+XIhqQtapb8MepB+jTyH+p+0SkyJ
+	adczw1VwvDCwfH6+X0RW50Vc3FojxrL789WoeRNmKcfrTw6lgTpWKhx/1a0nqFA0
+	DqTKKg==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5p1jfr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 08:11:20 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-533962f6bc9so5926731cf.1
+        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 01:11:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792483879; x=1793088679; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qaw7Vw5fhMfMSdjDzwyrNEoSf4wZhTYsgktagKs8aGc=;
+        b=NempdmhduzKFP2EE+uxvztF1mqYRDRQN6RBl2SnhurJCxpCl2IrUfTprkvxpbSKQls
+         g8h7/HaQJ0skxP9RQAl+ZkLzSAiOP8QJV7EfgavX1aBWLAVsej1E7ycAxffN7k+dHywM
+         vilTmVMTy91fUjWvdr0IxVoxJCPuvuo6zPcGz0UmlDmD+AFVVVazAdvwmfJhUhodO6Dh
+         ewKwYv/PWViYPv+EkJjs6JIwG8+g5RkyGfBnx0bRtNng82i2l55NvHbb8npjXue9tHSx
+         dkprlhusITvsLz39D55t1W4TilgRafaEOfZYe9zMpl6SdW5282spwHV7d2k7awvSYt2w
+         zh2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792483879; x=1793088679;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qaw7Vw5fhMfMSdjDzwyrNEoSf4wZhTYsgktagKs8aGc=;
+        b=Hy2PEYtBeiR3YlCIqxSVcU4WN2IXP4VYzztDnFgsPobK5Tk9esDgHmMBH3AHVIc+UV
+         9iZfzGnfAACrAeHTM/lbNKqcZWUMvDuXRTvPSXdiuu4060aVEcvVfAcSXtYjg+swylrA
+         tn9ERuls0C4DejZVP8N3t+ao5Nzk5jFxSUdr9kbEc1u+ceKqgTIvM5vX0n/lCoYjMG4d
+         Os4bxPQgNG9XRL0gAEarcE5+4owF/CTTpfivXyOvXiZ8k6Wnlx0Hz44aoJNhqi0O6LDR
+         P9FIvc5u7yXG/9CJqDQ/2D0wWYenBUuqTp3MD/OSfiFz0/C5Bt/fZgo9eomLozqT5fZB
+         8cDg==
+X-Forwarded-Encrypted: i=1; AKwUvBwngaG81XwfqH9ejQbXPFghsZESUe6/pF2XuS93Jqcn1jterj12bIDV7eG4eUsOO4qyD4IFor8ovawS@vger.kernel.org
+X-Gm-Message-State: AFq9FYI+7eZM5OWdZ3ZyoP1ufSmt4/pNH6f7aO3rsq4OKmSm33oduFyR
+	i4jpP+mH3wytISdONm8lN42p6z31UbFpMCtJ0KUNNr9RKZEMOKdsRqTW1ZiuLjZlK8CzXtz8Nzl
+	KD8C9IiQRMac/hXWfyxVpu0lNY7BLt4oItQ3uClxp8yzhDsCJkPK8zgVnTSqZV3A+zhHBCte5
+X-Gm-Gg: AYBFou0pws6DTvk+8bcpxrDFd2YrYJLaQyQV2UMFwzGdclXyM6hgW6n+rCzHDEQH/CS
+	e6xNTkesmuO4by7xCHNwLecZmt90UD+cynp4zWwjLnuN1sCmww+FeF2PyXE9TJhRZ0zDX4++OyM
+	K3ddWJ2LcO0rYowLS4x8PW8SG/ZaYALU1NwRoJW7cfy+koXmy48AlKMbe0iuPX0AcDYo3XdIioe
+	Bg1geWnfuTK8VlOCmdEdji4ZzgBJx7ffxutQXG9TO6giokyKya68bMrbyXeODikfmDZxrevpedW
+	VNi4F16IuzYtWHaEWdQGnI85IaR8dkNzMD7krZUo/QmjqX5ndp+Ud9naWBU8EDMBobhnEgp8Q2x
+	aG10B3RfcCmS2e2dXESGk1w==
+X-Received: by 2002:a05:622a:110c:b0:535:1e4b:53ed with SMTP id d75a77b69052e-536460b5145mr177951941cf.5.1792483879078;
+        Tue, 20 Oct 2026 01:11:19 -0700 (PDT)
+X-Received: by 2002:a05:622a:110c:b0:535:1e4b:53ed with SMTP id d75a77b69052e-536460b5145mr177951731cf.5.1792483878612;
+        Tue, 20 Oct 2026 01:11:18 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40919c0402sm461340166b.61.2026.10.20.01.11.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 01:11:17 -0700 (PDT)
+Message-ID: <40ca2a9c-55c0-43bb-bfa2-f6f94f35dbac@oss.qualcomm.com>
+Date: Tue, 20 Oct 2026 10:11:15 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -85,166 +115,76 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020-tf-luna-v1-3-53a88f93db24@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] arm64: dts: qcom: hamoa-crd: Add thermal control
+To: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
+References: <20260905-hamoa-sys-therm-v2-0-1cb8c958c981@oss.qualcomm.com>
+ <20260905-hamoa-sys-therm-v2-2-1cb8c958c981@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260905-hamoa-sys-therm-v2-2-1cb8c958c981@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: 94Z4Dqt2SieYf2e3b_6SbIpZirAyVtXD
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAzMiBTYWx0ZWRfX/SYEpQ4h4USx
+ GKPp0EDjRxLE3r+Z7VmmUAk5oVDZa1WB7YBi3+4I3Ofs4xSUn3fZsDFER52c/mrQ+GJRUMxn7kE
+ Y+KsdfILhDYWj/r2vkwCmsRaRnW7mmY=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAzMiBTYWx0ZWRfX6u7109Uhj6TH
+ JGVyLEKWc/mlCHHA2z5JHB7WYopKMwivRJFR5xrfRM87yh30ikMQN/alO69AiwEOv2Duavk/JkM
+ /Ktqwr7Rg3hpRjOpNP9pOWceazDoJdZPqERJf00hM73tZwi/YKTPFAsluDtC70DjtEdyOqYEjAR
+ n+bSMfcPeZHPpvqLizMYDvmltYnABztsCTwWaiVO3UPhpGqQjNJTyXmnFr4U491jX4FGC/SruTm
+ q7M/68SrXWnx3WGvxMbdTUUrkBQ7QzVAppyiiOtUM8fnJRhnJe3UJPRwyoP5Q6opwefld4OPGn5
+ r7TDBo1Tc8Cb7H1pXRfTB5aY4ZtRWUEtXlqknZ//tT0/+PHePylA1Elm1r08YpjpWFddMtBR8YE
+ 7XEmxx353nGO71lu9trbHN2puguCCiH7COe5mRhdfx2v+XSGVH10GnxljaNkFDAbG+MMgIXZUph
+ X3NZRtqVdsPfVMRPmBA==
+X-Proofpoint-GUID: 94Z4Dqt2SieYf2e3b_6SbIpZirAyVtXD
+X-Authority-Analysis: v=2.4 cv=crUOAF4i c=1 sm=1 tr=0 ts=6ad72228 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=4__AJpt3kqbA7IiQeHIA:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 malwarescore=0 bulkscore=0 adultscore=0
+ impostorscore=0 priorityscore=1501 phishscore=0 spamscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610200032
 
-On Tue, Oct 20, 2026 at 12:03:43AM +0530, Vidhu Sarwal via B4 Relay wrote:
+On 9/5/26 5:05 AM, Bjorn Andersson wrote:
+> The "limits" hardware performs rapid thermal management of the CPU
+> cores, but during prolonged CPU usage the system's overall temperature
+> need to be further managed by software.
 > 
-> Add a driver for the Benewake TF-Luna, a single-point time-of-flight
-> LiDAR distance sensor with a range of 0.2 m to 8 m, connected over I2C.
+> The reference design provides seven "system thermistors", connected to
+> the PMK8550 VADC. Particularly interesting is the "keyboard hotspot
+> thermistor", which is wired up to sys_therm1.
 > 
-> The sensor is run in trigger mode. Each read starts one measurement and
-> waits for the timestamp register to change before reading the result.
-> In continuous mode a read can catch the sensor in the middle of updating
-> its result registers unless it is synchronised to the data ready output,
-> which this driver does not use yet.
+> Use this to throttle the CPUs, in the same way that we're throttling
+> previous generation laptops based on "skin-temp". The trips are chosen
+> from those existing examples, but are comparable with the ACPI thermal
+> policy.
 > 
-> When the signal strength is too low the sensor reports a dummy distance
-> of 0, so such readings, as well as overexposed ones, return -ENODATA
-> instead of a distance.
+> While not used for cooling/throttling, also add the other thermal zones
+> for temperature reporting purposes.
+> 
+> Enable thermal-monitor mode for all 7 channels in the ADC.
+> 
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+> ---
 
-On top of my previous reply.
+A good start!
 
-...
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-> +static int tf_luna_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	struct tf_luna_data *data;
-> +	struct iio_dev *indio_dev;
-> +	unsigned int mode;
-> +	u8 signature[4];
-> +	u8 version[3];
-> +	int ret;
-
-It also makes sense to have local variable here
-
-	struct regmap *map;
-
-
-> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +
-> +	data = iio_priv(indio_dev);
-> +
-> +	ret = devm_mutex_init(dev, &data->lock);
-> +	if (ret)
-> +		return ret;
-
-> +	data->regmap = devm_regmap_init_i2c(client, &tf_luna_regmap_config);
-> +	if (IS_ERR(data->regmap))
-> +		return dev_err_probe(dev, PTR_ERR(data->regmap),
-> +				     "Failed to initialize regmap\n");
-
-	map = devm_regmap_init_i2c(client, &tf_luna_regmap_config);
-	if (IS_ERR(map))
-		return dev_err_probe(dev, PTR_ERR(map), "Failed to initialize regmap\n");
-	data->regmap = map;
-
-> +	ret = devm_regulator_get_enable(dev, "vcc");
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to enable vcc regulator\n");
-> +
-> +	/* Boot time is not documented, about 350 ms was measured */
-> +	fsleep(500 * USEC_PER_MSEC);
-> +
-> +	ret = regmap_bulk_read(data->regmap, TF_LUNA_REG_SIGNATURE, signature,
-> +			       sizeof(signature));
-
-Make it split logically and taking into account the above either
-
-	ret = regmap_bulk_read(map, TF_LUNA_REG_SIGNATURE,
-			       signature, sizeof(signature));
-
-OR
-
-	ret = regmap_bulk_read(map, TF_LUNA_REG_SIGNATURE, signature, sizeof(signature));
-
-(perhaps you can shorten the 'signature' to 'sign' to fit).
-
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to read signature\n");
-> +
-> +	if (memcmp(signature, "LUNA", sizeof(signature)))
-
-Hmm... No. Please, make signature to be __?e32 and use a definition for this
-FourCC [1] in the hexadecimal with the comment, and compare as regular integers...
-
-> +		dev_info(dev, "Unknown signature %*ph, continuing\n",
-> +			 (int)sizeof(signature), signature);
-
-...and here use %*p4c?.
-
-#define	TF_LUNA_SIGN	0x... /* "LUNA" in ASCII */
-
-	__?e32 signature;
-	u32 fourcc;
-	...
-	ret = regmap_bulk_read(map, TF_LUNA_REG_SIGNATURE, signature, sizeof(signature));
-	...
-	fourcc = ?e32_to_cpu(signature);
-	if (fourcc != TF_LUNA_SIGN)
-		dev_info(dev, "Unknown signature %p4c?, continuing\n", &fourcc);
-
-where '?' represents either 'b' or 'l' depending on what you have and what you
-want to see printed.
-
-> +	ret = regmap_bulk_read(data->regmap, TF_LUNA_REG_VERSION, version,
-> +			       sizeof(version));
-
-	ret = regmap_bulk_read(map, TF_LUNA_REG_VERSION, version, sizeof(version));
-
-(or 'version' --> 'ver', for example).
-
-> +	if (ret)
-> +		return ret;
->
-> +	dev_dbg(dev, "Firmware version %u.%u.%u\n",
-> +		version[2], version[1], version[0]);
-
-Yeah, I need to post my series to also make this to be a pointer extension.
-
-> +	/*
-> +	 * In continuous mode a read can catch the sensor updating its result
-> +	 * registers unless it is synchronised to the data ready output. Use
-> +	 * trigger mode and start each measurement on demand instead.
-> +	 */
-> +	ret = regmap_write(data->regmap, TF_LUNA_REG_MODE, TF_LUNA_MODE_TRIGGER);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/*
-> +	 * The sensor silently drops writes it is not ready for, so check that
-> +	 * the mode was set. A write takes up to 100 ms to read back.
-> +	 */
-> +	fsleep(100 * USEC_PER_MSEC);
-
-msleep() as it's known to be big enough.
-
-> +	ret = regmap_read(data->regmap, TF_LUNA_REG_MODE, &mode);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (mode != TF_LUNA_MODE_TRIGGER)
-> +		return dev_err_probe(dev, -EIO, "Failed to set trigger mode\n");
-> +
-> +	indio_dev->name = "tf-luna";
-> +	indio_dev->info = &tf_luna_info;
-> +	indio_dev->channels = tf_luna_channels;
-> +	indio_dev->num_channels = ARRAY_SIZE(tf_luna_channels);
-> +	indio_dev->modes = INDIO_DIRECT_MODE;
-> +
-> +	return devm_iio_device_register(dev, indio_dev);
-> +}
-
-[1]: https://en.wikipedia.org/wiki/FourCC
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Konrad
