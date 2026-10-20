@@ -1,62 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.79.60.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792465780;
-	b=h1mCPVOGtH6qFfzqWx3+Knm6zvONUxIztVRn59v3l4UUOMgFnBJfp9zt+kanbOSdFug5
-	 /KwFTbp70NCKLPtxRa/H+Mt4fVwOhJMnM9S4OfpchrKZWURs6WI5PR6X8b0T9gG+ZiAAt
-	 c60SSem6dkAujI+4AooDECGjxUhqzf0U68Iv0FTL9yObPR+AaEUQItzj0qqkba5NTbH3b
-	 VZ39GC9kOKiqnaB5yVfZAnvjU6Cxinsh7J38uOEIJSHKchtvEciPZzL2xuH5XvC0JTO5+
-	 +AgB5AI5DWaVGxWX2dZaRY3qcAttOZAdWZGbMPZ+aiQwvCNUU5RJ7mVlCAeNeMwDeYQ==
+	t=1792465781;
+	b=mwagevsobJibeds/kHyVOserI19L/GnSA8NZbR+zH4Q70qCzMZNEAQlNgAas4bkzCAAz
+	 YwtKpbJNhfv5Ih6gwCDjek/4/tBXWnrZJ4b7GOJUP2qbmUI/6CbfjMTXPpIX+hPnuuxLj
+	 EN7W3bMs8dGPGE8L1OoG+ImyystZsEVX4sL+esZ69VsMVG5L+hucMTzVDIcciv88FOorM
+	 VVX6oigtA6QEOhHTO3XVtfiWLzMk5bjdFca5Sw+emwTwPyCxkyto6HFhprp5pTJdpjB6D
+	 /x3pp4S4rcX0sXChtAcQiH/mihl7gt4eWkeFrI2QcrQM3SO7Eme+FlFBagPePtk6MOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792465780;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Ve17lLZjmHFU7QkEK3uFrRJlrH3bqy8ujTXSTOq1L2E=;
-	b=CiRyUDyPUZlzjnSZHFemYrg62IzTUJIJUXQQ5lg3UOKjb2ioF2xTXnr2VuKSUMvGUKM1
-	 yHyI9FsiVJhXRjVXumHXMo5dI9Uw+KLegjynRGlkeCYt77y4qToVE+o0JNE2ox9EK/kHR
-	 TViz1E4RgQ4Vf4tvF6TPJ9MVU19sp6btLPagJT4RhNMP81vR1Du6n4PGvhzTbtjmf6IR3
-	 ueePpXUzZlCmIgnzQegZ8i0rccrsuHwbGrSWEmiTg/D3bEy4TGiLmSI9KhMVD3EQmX8kR
-	 0yeH/nvdvzwMFxe3SU+8/qc3nWvJn59PlH2FURGnuB1ejPzLXMdUP26fiaIKLFwy0Bg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792465781;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
+	bh=tCtH0nSoUz9rfFDR40EGktb2UZ4joiDlZGZt7iSx0Yo=;
+	b=krlw3lpdZI7dyeTey8onjZFkABKKSWavytvl1GYyNQBnyoJN9F1OgnddSbslcH/KKfER
+	 SeMyW6Obnp/B1xovijjxNAvyHEfuJvgtBvwGUuCCPs6iyWWYfyBmmWF67C/0qw62ZKmhr
+	 co6XwyC0wyqPX4J3SJAMFTgLFtRdHBKK3wIjLtc/kFAcINgdHD4cESnFYjhPN8/PGZpPT
+	 272R8epU7DVRwrb+Kb+gymRX7S6QpWoFvXHjNdnp2UahYcYs7rPELci8KUiZDU4xu/m24
+	 FOfCNcjN9zJ/YuNY+Yj2l1X2XxgumS20I3fGtREgFgIuKgl8xKRWNYv/6RzO4zRpWTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KQAz7e2V;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=h47p+A9+;
+	arc=none smtp.remote-ip=210.79.60.18
+Received: from mail-m6018.netease.com (mail-m6018.netease.com [210.79.60.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6170D606A33B;
-	Tue, 20 Oct 2026 03:09:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 948D6606A32F;
+	Tue, 20 Oct 2026 03:09:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 948D6606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KQAz7e2V
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 011F31F000CB;
-	Tue, 20 Oct 2026 03:09:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792465779;
-	bh=Ve17lLZjmHFU7QkEK3uFrRJlrH3bqy8ujTXSTOq1L2E=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=KQAz7e2V3PQA3JBzvBgMs4fjiDS+tXq3Hr4EphjWWNY0HgyBOC9GxT9bI4qW/kLEH
-	 PqeNurGjKuY99pNbDjfqPCnsm0yYjCdmZPeoIUL53fieNeRcBng44S9NMfyQwCe3yp
-	 JvVVN7TN9zlbL8gxOF0DhnbRb8PBSTytaphtxe0SaBnVooFTSnakbVEpyuBTCS2Czx
-	 I8Xhot/eFPARk7MKi/zIYFsf1mv5DI5jfY+t16XI2IXkqOZutNl0fJPFh0l74nROfk
-	 fP8Wa5c2qqpEbXwy3r072ZhRwvQkNdt1CTdlZu6W3XTjKrA6mxWHQFtv8FPIxg4/4G
-	 mQMpeiV600vRA==
-Subject: Re: [PATCH net-next v14 02/12] dt-bindings: dpll: add SiTime SiT95316
- clock generator
-From: netdev-bot+sashiko@kernel.org
-To: arouhi@sitime.com
-Cc: jiri@resnulli.us, vadim.fedorenko@linux.dev,
- arkadiusz.kubalewski@intel.com, ivecera@redhat.com, kuba@kernel.org,
- pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- prabhakar.mahadev-lad.rj@bp.renesas.com, cjubran@nvidia.com,
- Oleg.Zadorozhnyi@devoxsoftware.com, devicetree@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 20 Oct 2026 03:09:38 +0000
-Message-ID: <179246577843.3135.4737368277316143256@kernel.org>
-In-Reply-To: <20261016005823.13690-3-arouhi@sitime.com>
-References: <20261016005823.13690-3-arouhi@sitime.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=h47p+A9+
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 51a4cee96;
+	Tue, 20 Oct 2026 11:09:29 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Sandy Huang <hjc@rock-chips.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Andy Yan <andy.yan@rock-chips.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Robert Foss <rfoss@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dave Jones <s.dave.jones@gmail.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v3 3/6] drm/bridge: analogix_dp: Add support for RK3568
+Date: Tue, 20 Oct 2026 11:09:13 +0800
+Message-Id: <20261020030916.3223833-4-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261020030916.3223833-1-damon.ding@rock-chips.com>
+References: <20261020030916.3223833-1-damon.ding@rock-chips.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,105 +81,63 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1574915ca03a8kunmfd20f05334c769
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGU1OVkoYQkgZQhofS0hCHVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=h47p+A9+Orjc5KlNRuQkCpXbdvutDh5O5pWKLKbspoOL4WfbkeNTL3uYbNUrsxlfwJdTx4EYX1VLEI/vyPprBwLxr8Wvi5HMJP8+kPEPowr6vkBjR3g505Yf5d0FjbXej104NoGdxvGqhhlB3r8rksg3lixw/LGZPTSJLU2Iz9I=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=tCtH0nSoUz9rfFDR40EGktb2UZ4joiDlZGZt7iSx0Yo=;
+	h=date:mime-version:subject:message-id:from;
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+The RK3568 SoC integrates an eDP transmitter based on the Analogix
+DisplayPort core.  Like RK3288 and RK3399, its main link consists of
+4 physical lanes running at 1.62/2.7 Gbps per lane.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Add a new RK3568_EDP device type and let it share the link rate and
+lane count limits of the RK3288/RK3399 variants.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+---
+ drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 1 +
+ include/drm/bridge/analogix_dp.h                   | 2 ++
+ 2 files changed, 3 insertions(+)
 
-- [Medium] The shared DPLL pin property `supported-frequencies-hz` now
-  uses two incompatible cell widths, depending on the device.
-
---
-
-dt-bindings: dpll: add SiTime SiT95316 clock generator
-
-This adds a devicetree binding for the SiTime SiT95316/SiT95317 clock
-generators. They are I2C-controlled DPLL providers with four PLLs, up to
-eight inputs and up to twelve outputs. The XO is given either as a clock
-or as clock-frequency, and the supplies are named after their pins.
-
-> diff --git a/Documentation/devicetree/bindings/dpll/sitime,sit95316.yaml b/Documentation/devicetree/bindings/dpll/sitime,sit95316.yaml
-> new file mode 100644
-> index 0000000000000..9a8163d121f24
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/dpll/sitime,sit95316.yaml
-
-[ ... ]
-
-> +            input-pins {
-> +                #address-cells = <1>;
-> +                #size-cells = <0>;
-> +
-> +                /* IN0P and IN0N: pair 0 runs single-ended */
-> +                pin@0 {
-> +                    reg = <0>;
-> +                    label = "clkin0";
-> +                    connection-type = "ext";
-> +                    supported-frequencies-hz = <10000000>;
-
-[Severity: Medium]
-Should this entry, and the other supported-frequencies-hz entries in this
-example, use /bits/ 64 like the existing binding for this shared property?
-
-The property comes from dpll-pin.yaml, which gives it no explicit width:
-
-  supported-frequencies-hz:
-    description: List of supported frequencies for this pin, expressed in Hz.
-
-The only other user, microchip,zl30731.yaml, always writes it as 64-bit
-cells:
-
-  supported-frequencies-hz = /bits/ 64 <10000 10000000>;
-
-Its driver also reads it as u64:
-
-drivers/dpll/zl3073x/prop.c:zl3073x_pin_props_get() {
-    ...
-	num_freqs = fwnode_property_count_u64(props->fwnode,
-					      "supported-frequencies-hz");
-	if (num_freqs <= 0) {
-		num_freqs = 0;
-    ...
-}
-
-This example uses 32-bit cells. The SiT9531x driver later in the series
-reads u32 on purpose in sit9531x_pin_props_get():
-
-	/* A -hz property is 32-bit; no rate of this part needs more. */
-	num_freqs = fwnode_property_count_u32(props->fwnode, "supported-frequencies-hz");
-
-So the driver in this series and this example agree with each other. The
-shared property, though, would now be encoded differently depending on the
-device.
-
-Suppose a SiT95316/7 board DT uses the existing /bits/ 64 form, for
-example /bits/ 64 <10000000>. Wouldn't sit9531x_pin_props_get() read that
-as two u32 values, [0, 10000000]? For an input, curr_freq = freqs[0] would
-then be 0, and the wired rate would never reach sitdev->ref[index].freq.
-
-The reverse case is also a problem. A reader that follows the u64
-convention, such as zl3073x or a future shared DPLL fwnode helper, would
-fail the element count on the 4-byte SiT encoding and silently skip the
-property.
-
-It is not clear whether dt_binding_check would reject the 64-bit form
-under the maxItems: 1 constraint in input-pins. That depends on how
-dtschema decodes -hz properties.
-
-Could the binding and driver use the same 64-bit encoding as
-microchip,zl30731? Alternatively, could dpll-pin.yaml define a single
-width for this property?
-
-> +                };
-
-[ ... ]
-
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index 6df6963740d2..8bb4c48aa3b4 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -1319,6 +1319,7 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
+ 	switch (dp->plat_data->dev_type) {
+ 	case RK3288_DP:
+ 	case RK3399_EDP:
++	case RK3568_EDP:
+ 		/*
+ 		 * Like Rk3288 DisplayPort TRM indicate that "Main link
+ 		 * containing 4 physical lanes of 2.7/1.62 Gbps/lane".
+diff --git a/include/drm/bridge/analogix_dp.h b/include/drm/bridge/analogix_dp.h
+index 6033137b651e..e05ff4bd689c 100644
+--- a/include/drm/bridge/analogix_dp.h
++++ b/include/drm/bridge/analogix_dp.h
+@@ -16,6 +16,7 @@ enum analogix_dp_devtype {
+ 	EXYNOS_DP,
+ 	RK3288_DP,
+ 	RK3399_EDP,
++	RK3568_EDP,
+ 	RK3576_EDP,
+ 	RK3588_EDP,
+ };
+@@ -25,6 +26,7 @@ static inline bool analogix_dp_is_rockchip(enum analogix_dp_devtype type)
+ 	switch (type) {
+ 	case RK3288_DP:
+ 	case RK3399_EDP:
++	case RK3568_EDP:
+ 	case RK3576_EDP:
+ 	case RK3588_EDP:
+ 		return true;
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016005823.13690-1-arouhi%40sitime.com
+2.34.1
+
