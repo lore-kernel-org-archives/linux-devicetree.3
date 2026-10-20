@@ -1,103 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.128
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792501839;
-	b=c8xC/UkHlp3WF4g2may1OqXNNgR1mhdTx/vs1xfWrjee2kIwzJ87Fvlp3qZsFmShoAeG
-	 M0Ku8SD6Nk8ukjBM1SZUGZjROdezofx1rxLxNkpx2ppsNMx0eDpH3CGehHJaUk6NxwZOR
-	 hqeZN9d+2hWFdmfGJ/AlkePIv7OpHC5HHW1ZB2pr8YYZogptwg2UuYrEq3vLZ4bhvzOeJ
-	 ipuW767ZwlRHs9UfmD2dCGCc0ErAOMb+cjtd+rXZY8RGDTZDIGMxXnzl0NyrGn2iv3+1v
-	 Ao49Ynssa9FBuiE5d0Syf2uBwYomj1uV4x+PFhrTdFMm872V6QLO0X9yMyYJhuBk5rw==
+	t=1792501857;
+	b=4vSfVQ9SFfWKvVMMReP78qUQ9239E6vwTQ1t1D8yhbKUcSCdQeDvlmcH7HT9NTKU7k8w
+	 7hXaom5okAG+m+PuyyXBqNNoheOKSllzhn6qZ58vhsDSA1tBay8LxgJu0VzV+zTGgi701
+	 XOXbGdakALk9PRBmH2uZw1X94bzvk1LAjJq4kilcmLmflkhX9r+sae3Tm9JV77avC02qK
+	 MvX+A9RgXdsj8KNRgXjyCpi9cnTLJNgp0vtURZDK3l5nWct1XQn2GCuur5d8ajBpublj3
+	 Q8vKCq4iLiUz8jZEYApVRTM1IsF0qz3yrhZAvpoDwZTpyXcGV0vAm3hh4pl46cc4RdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792501839;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=aVloLkPfmcmAFlVr0SVmoPwIgVisTJ/BPkXzuoo4z+Q=;
-	b=OztnChsSUkuJUwaBbdAfPdabwmsNFxKOx/Xm/E/8//239h6Lir2+LgPxAlTd8FIXOBKC
-	 qAg43HhidyvazyMBLIZHjI9bNoX0nURxwXSraVztIbtNX+7nD4vUtgtwa+TopA6eKfa4j
-	 b7rHkjJmQLDWxrXaRfZycMSLDLN6DttG21glZ8B84cqt2nGeRty3Qh1m5DMdznO+/W/F1
-	 KvdhZpNJkkTJ1GRwuu3HaDYx3g9PkZXHgjTVE32Z9S2lxq6U8R9w8O/xxrNwJOwVKbVmY
-	 JPbUVHc7/8zueuYaJwexHPv7cE2yCQOT8K9QzhOyAiPfpXw8i73PleeB9Qqw5aiImAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792501857;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=S3Sb419tcnHgsczc/SWcwDkky5azghj0g+2RQPB3KEA=;
+	b=PZBayuu4HJAZOBpvsPZNvQ70aY2JMGr4i/QkIZ0getO+eAvCaq/EQ18xm99IkUBCwAdx
+	 jvhFg9ShHSVINzxO9HldDAZgvnaDHXvHwDlbYGQebVnZLylNsinuQBUG85Vf/Z/wcJolf
+	 xpnholLOgT4FcIItgHduZZ9WnvDCToCaudzUA1rSBxOScPISusp/2XW42Xm6z0TsEmlWl
+	 xOPU1Ko7rTbPPJJr8ti9J3O/wD4uQMFXZmC0rRHXI7xScZunv9d6Q+dGQ+c5vEB6NFAKZ
+	 hyU0e45+kwXpCZlRODe9O5hWl/djssXDuxVepkJB6+L9HkMC8VIRRkidrtIcfmzbAbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oNZAFiiQ;
-	arc=none smtp.remote-ip=74.125.227.128
-Received: from mail-pj2-f0.google.com (mail-pj2-f0.google.com [74.125.227.128])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aPZ5KfkL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC253606A329
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 13:10:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC253606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 984A160A261E;
+	Tue, 20 Oct 2026 13:10:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oNZAFiiQ
-Received: by mail-pj2-f0.google.com with SMTP id 98e67ed59e1d1-3a476ee8669so900558a91.0
-        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 06:10:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792501838; x=1793106638; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aVloLkPfmcmAFlVr0SVmoPwIgVisTJ/BPkXzuoo4z+Q=;
-        b=oNZAFiiQBnAgEE//WT/WoN7QPRLwv2UWIbXqFxJ7qjvsb9o9b2y9kccvGBP4dR0OKT
-         510uxjpUhCleY7Msd0imRMl3eCmaU0ClGNFawA5Ar61FhahHlxn+kGR/CzBVFxLMq6Np
-         DZ6/q2YQPdX75qwq7Uh3Z3vVzEJY8w696vvcbYXtA22x0oyqrNDAb6M+iGCa/EzHKwjz
-         /ehSOfe55yziSbfHbBLW9lEXQHYy43V1gywASVmsyM4wEiilxBQWRuTQXY9SyF/vtyev
-         qE6HpbzZPHJsEkF88cRsKu+lj2RhBBUiieBPABJnTimahRGexvHvoM9d9prF2PUg7/BL
-         jAGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792501838; x=1793106638;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aVloLkPfmcmAFlVr0SVmoPwIgVisTJ/BPkXzuoo4z+Q=;
-        b=supZ3wwa/LMao+psyQ3/pdeuLd9cyZtWuAvUvwJ1SIn61srBa3XYORN/nFdGb0iyxn
-         e3j9GtzE4U6yXN2lYlTLsZUY+q6/7azSpBNgTgh673t/GesszIfM+3cfuUiq5xWATVYk
-         bOElgMf7QuavLT0soTWs4eXp7tZhiUvZgIkLNy0sLEsaTkHINWtVy9A3c/PVKlxY+aXa
-         l8DY3yX6CJdGGZvrtrLDqdByo3wNwa7tcfhDC4PgSDlrKmtznnI2jWgkVWKPCX07b/gU
-         AjavBXwLtD8Lsbre4vSU6RjDbiKCGXJL82zoK8sqBjgrJXFn77x52KHe4p+mVM3oBtGC
-         d4mw==
-X-Forwarded-Encrypted: i=1; AKwUvBz3FSJjhA0vM90PsHH/ZRFOgsReg1Q4Bn6oK3vRwwGAQixqUmov1ZOp+V4OUqG6+SUj7aYZf8ToajJN@vger.kernel.org
-X-Gm-Message-State: AFq9FYLqnmQpPNp5Ixjc/KGB8StoUKu9hG7XWdY69H+Mqi8J0BB8PNrq
-	Ddsz02p2eH+RdnqoHaN5wuTO00nBcccCDctTYEvrrmsA5xS1IIYoy1yB
-X-Gm-Gg: AYBFou3j1xBy1IKv227OMr5K/OK/TqfUCRO97ho2yx7vYcIJJwoyyne0KrTZExuTbmT
-	hGMdKH7nlszXRaYB3g+EO2Bti3NaPgliLSrK/HOCI1lEaZxI9XPRxaPVnLkk+MTsDwjGYiJiP08
-	E8hVcE8OoXJ9h4XSFqh9fLa21mj6YZTgJNl89XYM5zqHg7DlvILXvnyfwS06Lc5UPxWgR0vJtXT
-	BIxxGax7ehNPhW57u1TtR1eQDxz/nsAutpHAe21hx+MGNAnLsQuL93YhyxybGDbs+40ME4wR2fi
-	NyEbs1ZFKDfvOcZ8lzwxk5JyaU8ufa5Tetgo0ipKBtGTdSY/+XzGvUSFkKGGHsO0nZr6uo4J+52
-	6hlun56vHapvPwbtFp2y0usCrUJTxxwwhlrJYYsldUkKUtLRzCjn8g810fsVP/iWvr3b+KTamjZ
-	hNNPmnWGyEYTu8UPwDDTr0ZmnKKUb8rHd5pweE32D/A84sWgxcJntgGPs=
-X-Received: by 2002:a17:90b:570b:b0:3a4:fe48:d410 with SMTP id 98e67ed59e1d1-3acef29edffmr9320116a91.30.1792501837978;
-        Tue, 20 Oct 2026 06:10:37 -0700 (PDT)
-Received: from Linux-PC ([2a09:bac1:1980:20::1d3:a8])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd3cc73c7sm10131496a91.4.2026.10.20.06.10.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 06:10:37 -0700 (PDT)
-From: tianshi12127 <tianshi12127@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
-	dri-devel@lists.freedesktop.org
-Cc: Jessica Zhang <jesszhan0024@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Simona Vetter <simona@ffwll.ch>,
-	devicetree@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
-	linux-kernel@vger.kernel.org,
-	Lu Chen <tianshi12127@gmail.com>
-Subject: [PATCH v3 3/3] drm/panel: add driver for Smartisan TD4362
-Date: Tue, 20 Oct 2026 21:09:34 +0800
-Message-ID: <20261020130934.2289011-4-tianshi12127@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261020130934.2289011-1-tianshi12127@gmail.com>
-References: <20261017083531.766557-1-tianshi12127@gmail.com>
- <20261020130934.2289011-1-tianshi12127@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aPZ5KfkL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9FCE1F000C7;
+	Tue, 20 Oct 2026 13:10:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792501856;
+	bh=S3Sb419tcnHgsczc/SWcwDkky5azghj0g+2RQPB3KEA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=aPZ5KfkLYnGUCoEyYowA72827WT2AYMDPraxg7tQjRbHfbK7xQfbqq6EMnF5mcgTY
+	 dMhRaAr9lsTMy6lEdLKhzit1GSb3U4ZS3uNDAlumlimYtHhc2UCwxL5ly5PAHw20y9
+	 y3vEI7ywsh9sNzRth3PPWQLBFzF5oejKvg5le4QuGY7FvJkmsWGBoBunT4/BzmUCFt
+	 fzGjeOSpq6O8HSt/3JSjnqVqJWlZ56yZSFI7QJqMasnuXFehj0IN+MwqRvM1gHTx91
+	 BEa+y00+xKYrL8Qiri66Jc3Z4c7Gbr5VSVLst5A3VanHjXtlKsSl5zjQ1TTCBd8uKr
+	 GFFGB8mzJ9EqQ==
+Subject: Re: [PATCH net-next v3 7/9] net: stmmac: mediatek: use TX clock phase
+ shift in RGMII mode with 1Gbps speed
+From: netdev-bot+sashiko@kernel.org
+To: louisalexis.eyraud@collabora.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
+ pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ richardcochran@gmail.com, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com, biao.huang@mediatek.com,
+ maxime.chevallier@bootlin.com, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, edumazet@kernel.org, kernel@collabora.com,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Date: Tue, 20 Oct 2026 13:10:54 +0000
+Message-ID: <179250185440.3135.3867297612747113346@kernel.org>
+In-Reply-To: <20261016-dwmac-mediatek-mt8189-v3-7-25daf2bbcf35@collabora.com>
+References: <20261016-dwmac-mediatek-mt8189-v3-7-25daf2bbcf35@collabora.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,330 +69,157 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Lu Chen <tianshi12127@gmail.com>
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Add support for the Smartisan TD4362 1080x2242 command mode DSI
-panel found in the Smartisan R1 (trident) smartphone.
+Critical: 0 · High: 0 · Medium: 2 · Low: 0
 
-The initialization and power sequences were generated from the
-downstream device tree with linux-mdss-dsi-panel-driver-generator.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Tested on a Smartisan R1 (trident).
+- [Medium] At 1Gbps on RGMII, mt8195_fix_mac_speed()
+  (drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c) treats the DT…
+- [Medium] At 1Gbps, mt8195_fix_mac_speed()
+  (drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c) silently clears…
 
-Signed-off-by: Lu Chen <tianshi12127@gmail.com>
----
- drivers/gpu/drm/panel/Kconfig                 |  13 +
- drivers/gpu/drm/panel/Makefile                |   1 +
- .../gpu/drm/panel/panel-smartisan-td4362.c    | 262 ++++++++++++++++++
- 3 files changed, 276 insertions(+)
- create mode 100644 drivers/gpu/drm/panel/panel-smartisan-td4362.c
+--
 
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index b30d7781745c..0b413152267f 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -1124,6 +1124,19 @@ config DRM_PANEL_SITRONIX_ST7789V
- 	  Say Y here if you want to enable support for the Sitronix
- 	  ST7789V controller for 240x320 LCD panels
- 
-+config DRM_PANEL_SMARTISAN_TD4362
-+	tristate "Smartisan TD4362 DSI panel"
-+	depends on OF
-+	depends on DRM_MIPI_DSI
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	help
-+	  Say Y here if you want to enable support for the Smartisan TD4362
-+	  1080x2242 command mode panel found in the Smartisan R1 (trident)
-+	  smartphone. The panel is driven over four MIPI DSI lanes in
-+	  command mode.
-+
-+	  If unsure, say N.
-+
- config DRM_PANEL_SONY_ACX565AKM
- 	tristate "Sony ACX565AKM panel"
- 	depends on GPIOLIB && OF && SPI
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index 4532f79021ea..bc4fad310554 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -112,6 +112,7 @@ obj-$(CONFIG_DRM_PANEL_SHARP_LS060T1SX01) += panel-sharp-ls060t1sx01.o
- obj-$(CONFIG_DRM_PANEL_SITRONIX_ST7701) += panel-sitronix-st7701.o
- obj-$(CONFIG_DRM_PANEL_SITRONIX_ST7703) += panel-sitronix-st7703.o
- obj-$(CONFIG_DRM_PANEL_SITRONIX_ST7789V) += panel-sitronix-st7789v.o
-+obj-$(CONFIG_DRM_PANEL_SMARTISAN_TD4362) += panel-smartisan-td4362.o
- obj-$(CONFIG_DRM_PANEL_SUMMIT) += panel-summit.o
- obj-$(CONFIG_DRM_PANEL_SYNAPTICS_R63353) += panel-synaptics-r63353.o
- obj-$(CONFIG_DRM_PANEL_SYNAPTICS_TDDI) += panel-synaptics-tddi.o
-diff --git a/drivers/gpu/drm/panel/panel-smartisan-td4362.c b/drivers/gpu/drm/panel/panel-smartisan-td4362.c
-new file mode 100644
-index 000000000000..b3905aee1528
---- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-smartisan-td4362.c
-@@ -0,0 +1,262 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+// Copyright (c) 2026 Lu Chen <tianshi12127@gmail.com>
-+// Generated with linux-mdss-dsi-panel-driver-generator from vendor device tree:
-+//   Copyright (c) 2013, The Linux Foundation. All rights reserved.
-+
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/module.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <video/mipi_display.h>
-+
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_panel.h>
-+#include <drm/drm_probe_helper.h>
-+
-+struct smartisan_td4362 {
-+	struct drm_panel panel;
-+	struct mipi_dsi_device *dsi;
-+	struct regulator_bulk_data *supplies;
-+	struct gpio_desc *reset_gpio;
-+};
-+
-+static const struct regulator_bulk_data smartisan_td4362_supplies[] = {
-+	{ .supply = "vddio" },
-+	{ .supply = "vsp" },
-+	{ .supply = "vsn" },
-+};
-+
-+static inline struct smartisan_td4362 *to_smartisan_td4362(struct drm_panel *panel)
-+{
-+	return container_of(panel, struct smartisan_td4362, panel);
-+}
-+
-+static void smartisan_td4362_reset(struct smartisan_td4362 *ctx)
-+{
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+	usleep_range(10000, 10100);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	usleep_range(10000, 10100);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+	usleep_range(10000, 10100);
-+}
-+
-+static int smartisan_td4362_on(struct smartisan_td4362 *ctx)
-+{
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+
-+	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-+
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_SET_DISPLAY_BRIGHTNESS,
-+				     0xff);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY,
-+				     0x24);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_POWER_SAVE, 0x82);
-+	mipi_dsi_dcs_set_tear_on_multi(&dsi_ctx, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
-+	mipi_dsi_dcs_set_column_address_multi(&dsi_ctx, 0x0000, 0x0437);
-+	mipi_dsi_dcs_set_page_address_multi(&dsi_ctx, 0x0000, 0x08c1);
-+	mipi_dsi_dcs_set_tear_scanline_multi(&dsi_ctx, 0x07fa);
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 80);
-+
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb0, 0x04);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb9,
-+					 0x9b, 0x51, 0x07, 0xe6, 0x00, 0x10,
-+					 0x00);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xba,
-+					 0xbb, 0x2f, 0x1d, 0xbe, 0x00, 0x10,
-+					 0x04);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xce,
-+					 0x5d, 0x40, 0x60, 0x78, 0x87, 0x94,
-+					 0x9e, 0xab, 0xb8, 0xc4, 0xcd, 0xd6,
-+					 0xde, 0xe5, 0xec, 0xf3, 0xfd, 0xff,
-+					 0x04, 0x28, 0x04, 0x04, 0x42, 0x00,
-+					 0x69, 0x5a, 0x40, 0x01, 0xf4, 0x00,
-+					 0x00, 0x04, 0xfa, 0x00);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xca,
-+					 0x1d, 0xfc, 0xfc, 0xfc, 0x00, 0x07,
-+					 0x07, 0x00, 0x00, 0x00, 0xeb, 0xe7,
-+					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf9, 0x64);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb0, 0x03);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int smartisan_td4362_off(struct smartisan_td4362 *ctx)
-+{
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+
-+	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
-+
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-+	mipi_dsi_usleep_range(&dsi_ctx, 16000, 17000);
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 64);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int smartisan_td4362_prepare(struct drm_panel *panel)
-+{
-+	struct smartisan_td4362 *ctx = to_smartisan_td4362(panel);
-+	struct device *dev = &ctx->dsi->dev;
-+	int ret;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(smartisan_td4362_supplies),
-+				    ctx->supplies);
-+	if (ret < 0) {
-+		dev_err(dev, "Failed to enable regulators: %d\n", ret);
-+		return ret;
-+	}
-+
-+	msleep(100);
-+
-+	smartisan_td4362_reset(ctx);
-+
-+	ret = smartisan_td4362_on(ctx);
-+	if (ret < 0) {
-+		dev_err(dev, "Failed to initialize panel: %d\n", ret);
-+		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+		regulator_bulk_disable(ARRAY_SIZE(smartisan_td4362_supplies),
-+				       ctx->supplies);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int smartisan_td4362_unprepare(struct drm_panel *panel)
-+{
-+	struct smartisan_td4362 *ctx = to_smartisan_td4362(panel);
-+	struct device *dev = &ctx->dsi->dev;
-+	int ret;
-+
-+	ret = smartisan_td4362_off(ctx);
-+	if (ret < 0)
-+		dev_err(dev, "Failed to un-initialize panel: %d\n", ret);
-+
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	regulator_bulk_disable(ARRAY_SIZE(smartisan_td4362_supplies),
-+			       ctx->supplies);
-+
-+	return 0;
-+}
-+
-+static const struct drm_display_mode smartisan_td4362_mode = {
-+	.clock = (1080 + 44 + 2 + 60) * (2242 + 8 + 2 + 100) * 60 / 1000,
-+	.hdisplay = 1080,
-+	.hsync_start = 1080 + 44,
-+	.hsync_end = 1080 + 44 + 2,
-+	.htotal = 1080 + 44 + 2 + 60,
-+	.vdisplay = 2242,
-+	.vsync_start = 2242 + 8,
-+	.vsync_end = 2242 + 8 + 2,
-+	.vtotal = 2242 + 8 + 2 + 100,
-+	.width_mm = 64,
-+	.height_mm = 117,
-+	.type = DRM_MODE_TYPE_DRIVER,
-+};
-+
-+static int smartisan_td4362_get_modes(struct drm_panel *panel,
-+				      struct drm_connector *connector)
-+{
-+	return drm_connector_helper_get_modes_fixed(connector,
-+						    &smartisan_td4362_mode);
-+}
-+
-+static const struct drm_panel_funcs smartisan_td4362_panel_funcs = {
-+	.prepare = smartisan_td4362_prepare,
-+	.unprepare = smartisan_td4362_unprepare,
-+	.get_modes = smartisan_td4362_get_modes,
-+};
-+
-+static int smartisan_td4362_probe(struct mipi_dsi_device *dsi)
-+{
-+	struct device *dev = &dsi->dev;
-+	struct smartisan_td4362 *ctx;
-+	int ret;
-+
-+	ctx = devm_drm_panel_alloc(dev, struct smartisan_td4362, panel,
-+				   &smartisan_td4362_panel_funcs,
-+				   DRM_MODE_CONNECTOR_DSI);
-+	if (IS_ERR(ctx))
-+		return PTR_ERR(ctx);
-+
-+	ret = devm_regulator_bulk_get_const(dev,
-+					    ARRAY_SIZE(smartisan_td4362_supplies),
-+					    smartisan_td4362_supplies,
-+					    &ctx->supplies);
-+	if (ret < 0)
-+		return ret;
-+
-+	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(ctx->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
-+				     "Failed to get reset-gpios\n");
-+
-+	ctx->dsi = dsi;
-+	mipi_dsi_set_drvdata(dsi, ctx);
-+
-+	dsi->lanes = 4;
-+	dsi->format = MIPI_DSI_FMT_RGB888;
-+	dsi->mode_flags = MIPI_DSI_CLOCK_NON_CONTINUOUS;
-+
-+	ctx->panel.prepare_prev_first = true;
-+
-+	ret = drm_panel_of_backlight(&ctx->panel);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to get backlight\n");
-+
-+	drm_panel_add(&ctx->panel);
-+
-+	ret = mipi_dsi_attach(dsi);
-+	if (ret < 0) {
-+		drm_panel_remove(&ctx->panel);
-+		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
-+	}
-+
-+	return 0;
-+}
-+
-+static void smartisan_td4362_remove(struct mipi_dsi_device *dsi)
-+{
-+	struct smartisan_td4362 *ctx = mipi_dsi_get_drvdata(dsi);
-+	int ret;
-+
-+	ret = mipi_dsi_detach(dsi);
-+	if (ret < 0)
-+		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
-+
-+	drm_panel_remove(&ctx->panel);
-+}
-+
-+static const struct of_device_id smartisan_td4362_of_match[] = {
-+	{ .compatible = "smartisan,td4362" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, smartisan_td4362_of_match);
-+
-+static struct mipi_dsi_driver smartisan_td4362_driver = {
-+	.probe = smartisan_td4362_probe,
-+	.remove = smartisan_td4362_remove,
-+	.driver = {
-+		.name = "panel-smartisan-td4362",
-+		.of_match_table = smartisan_td4362_of_match,
-+	},
-+};
-+module_mipi_dsi_driver(smartisan_td4362_driver);
-+
-+MODULE_AUTHOR("Lu Chen <tianshi12127@gmail.com>");
-+MODULE_DESCRIPTION("DRM driver for Smartisan TD4362 1080p command mode DSI panel");
-+MODULE_LICENSE("GPL");
+net: stmmac: mediatek: use TX clock phase shift in RGMII mode with 1Gbps speed
+
+This commit adds a fix_mac_speed callback to the MediaTek dwmac glue and
+implements it for MT8195. When an RGMII link comes up at 1Gbps and the DT
+requests a TX delay, the callback turns on the fixed 2ns TX clock phase
+shift (RGMII_TXC_PHASE_CTRL). At other speeds it falls back to the coarse
+delay macro circuit.
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> index 7dd46cd5a49e1..4b2d5280f7030 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+
+[ ... ]
+
+> @@ -430,9 +433,65 @@ static int mt8195_set_delay(struct mediatek_dwmac_plat_data *plat)
+>  	return 0;
+>  }
+>  
+> +static void mt8195_fix_mac_speed(void *priv, phy_interface_t interface,
+> +				 int speed, unsigned int mode)
+> +{
+
+[ ... ]
+
+> +	if (!mac_delay->tx_delay ||
+> +	    (interface != PHY_INTERFACE_MODE_RGMII &&
+> +	     interface != PHY_INTERFACE_MODE_RGMII_RXID))
+> +		return;
+> +
+> +	/*
+> +	 * When link speed is 1Gbps with RGMII interface, and a TX internal
+> +	 * delay needs to be applied on MAC, prefer to override the delay
+> +	 * settings with a 2ns fixed delay which is controlled by
+> +	 * RGMII_TXC_PHASE_CTRL. Otherwise, fallback to HW delay macro circuit
+> +	 * for 10/100Mbps link speeds.
+> +	 */
+> +	if (speed == SPEED_1000) {
+> +		reg_val = MT8195_RGMII_TXC_PHASE_CTRL;
+
+[Severity: Medium]
+At 1Gbps, does this treat mediatek,tx-delay-ps as an on/off switch rather
+than as a delay amount?
+
+The gate checks the raw picosecond value in mac_delay->tx_delay.
+mediatek_dwmac_config_dt() stores that value without rounding:
+
+    if (tx_delay_ps < plat->variant->tx_delay_max) {
+        mac_delay->tx_delay = tx_delay_ps;
+
+Both mt8195_set_delay() and the new 10/100 branch round the value down to
+290ps stages (180ps on MT8189). So a value of 1..289ps means no delay at
+probe time and at 10/100. At 1G, the same DT value now gets the full ~2ns
+phase shift.
+
+For every other value (290ps, 870ps, 8990ps, ...), the configured amount is
+replaced by a fixed ~2ns at 1G. GTXC_ENABLE and GTXC_STAGES are in the
+update mask, so the coarse delay is also cleared, with no warning.
+
+The same DT setting therefore gives a different MAC TX delay depending on
+link speed. Could boards that tuned tx-delay-ps to their PCB skew end up
+with the wrong total skew at gigabit?
+
+The binding in Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
+still describes the property as:
+
+      For MT8188/MT8195 RGMII/RMII/MII interface, Allowed value need to be a
+      multiple of 290, or will round down. Range 0~31*290.
+
+The commit message also doesn't say that the configured value is ignored at
+1G.
+
+None of the in-tree boards seem to hit this. mt8395-genio-common and
+mt8395-radxa-nio-12l use rgmii-rxid with 2030ps. mt8390-grinn-genio-sbc uses
+30ps, but its phy-mode is rgmii-id, which skips this path.
+
+The later commit "net: stmmac: mediatek: add support for MT8189 SoC" also
+wires mt8195_fix_mac_speed() into the MT8189 variant, so MT8189 gets the
+same behaviour.
+
+> +	} else {
+> +		if (variant->tx_rgmii_delay_stage_div) {
+> +			tx_delay_stage_val = mac_delay->tx_delay /
+> +					     variant->tx_rgmii_delay_stage_div;
+> +		} else {
+> +			tx_delay_stage_val = 0;
+> +		}
+> +
+> +		reg_val |= FIELD_PREP(MT8195_DLY_GTXC_ENABLE,
+> +				      !!tx_delay_stage_val);
+> +		reg_val |= FIELD_PREP(MT8195_DLY_GTXC_STAGES,
+> +				      tx_delay_stage_val);
+> +		reg_val |= FIELD_PREP(MT8195_DLY_GTXC_INV,
+> +				      mac_delay->tx_inv);
+> +	}
+> +
+> +	reg_offset = variant->peri_eth_ctrl_offset + MT8195_PERI_ETH_CTRL0;
+> +	regmap_update_bits(priv_plat->peri_regmap,
+> +			   reg_offset,
+> +			   MT8195_RGMII_TXC_PHASE_CTRL |
+> +			   MT8195_DLY_GTXC_ENABLE |
+> +			   MT8195_DLY_GTXC_INV |
+> +			   MT8195_DLY_GTXC_STAGES,
+> +			   reg_val);
+> +}
+
+[Severity: Medium]
+Does the 1G path clear the TX clock inversion requested by
+mediatek,txc-inverse?
+
+MT8195_DLY_GTXC_INV is in the regmap_update_bits() mask. The SPEED_1000
+branch, however, sets only MT8195_RGMII_TXC_PHASE_CTRL in reg_val. GTXC_INV
+is therefore written as 0 whatever mac_delay->tx_inv says.
+
+The 10/100 branch above keeps the inversion. mt8195_set_delay() also
+applies it for all RGMII modes at probe and resume:
+
+    gtxc_delay_val |= FIELD_PREP(MT8195_DLY_GTXC_INV, mac_delay->tx_inv);
+
+The 1G case is also inconsistent with itself. With tx-delay-ps = 0, the
+early return leaves the inversion in place. With any non-zero tx-delay-ps,
+it is cleared.
+
+The binding describes mediatek,txc-inverse as "tx clock will be inversed in
+MII/RGMII case", with no exception for any speed. Should the SPEED_1000
+branch also include FIELD_PREP(MT8195_DLY_GTXC_INV, mac_delay->tx_inv)?
+
+No in-tree MediaTek board uses txc-inverse today. MT8189 is affected too,
+once "net: stmmac: mediatek: add support for MT8189 SoC" wires in the same
+callback.
+
+[ ... ]
+
 -- 
-2.56.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016-dwmac-mediatek-mt8189-v3-0-25daf2bbcf35%40collabora.com
