@@ -1,56 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792518540;
-	b=UsD/37+PCkxV2lJ6QFSCLcN3itTffIbIKUlYKJaJS2Q/tw+FzWJML+ijQXb1wFq5CRXH
-	 7H5tcYa7HhdrIco0zQY3sYgLnvdvwOAJmv5Ga2JNTZrMWpi1+xjuOirJp8h/Sf7kxVXvK
-	 LmULP7NMYltDT5P7o7y38DgZdDqMLsVrfe1AO5GRiyxOkaggESGpx9AVFBK8GUtLAzY9P
-	 UeoKOjSfV9MgF2SovPr/QaklW87SoIFQwZwzQzAHhz1+7OOcSQGu8ZIyw/WgAI3xupEXk
-	 wABadRhkL/MJua58ML5FjPTvupHAGudee0Qiy+BHEAi2kgPyvIJ0Uw4HsgvqkokBq5w==
+	t=1792519040;
+	b=FogTSuEcfYkMl3fZd+xwUyXg+ngzDxGVvWLh9RZpVmAoCWQrQQvoR6G7hPXkcrc5f3hJ
+	 JqZJzAko6+mwZWmpvzoROLHdA3vKpxFFfEO9xK/p+XD65+0rKDa2B4vUp9/FiI3dcWHGM
+	 UIhS7ZcvUCXACMLSrug8OpvXioW/UMYpAtLxba1IBa2lXekpfodJ9BGeOXDZ5/ItyBqbz
+	 JHB5350kka7s/zDoDo4EuK1z/JdtjDn1CjIAURyFMvDGLPLwfEnjXYkmbrh0dS0rybp0U
+	 R5YSnWJvs/ABUEo7VxbHkwf/++KbbNN8WrIIpTQVo5t+hLVYSxMj2rUooECFOV+/2yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792518540;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=M5rEvmXrfBoBjTv0yUsniidEuInq+pNnzfLGGWa+i24=;
-	b=AHWQijTNFY5N4cHL5cD9e9AtDFiSUBEYvmrH3nKt0G8cmTZFMy70qTFaxRLrFhr4WMK1
-	 0PcDuwmpXbd6pWpUpqNzpNXbouPWW6DDIKMxR6ByvoOFV+0Ot3rmRbrW/svfevDNI/Uzz
-	 kPGm3057+vzm8+HniUY6ahmNKr9Camqh+EkWoO6kjPdwEKRdv94Qo7YdhgQK0NSzGyhIt
-	 E7HzKzuhsF4dc3yKZnl+onkw/0PVJ19/+Ydpq2LliCwRfK+ixsgjikl3WsgDabmnvMsyv
-	 zjhiQ72JKg2w1nxrJ6vO+M30mRoL3cadKrnuYqzDhOF/vlAnlP/d1X6wja6eSxTUSGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792519040;
+	h=Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=qqjC+9vmR2qBmvg53MTaGTLKHl+DN6yRypiyKqm8GmQ=;
+	b=ngqiqLjZbEd0hucJ2plArf1xMozRN3GO7n8Ri5hVaXBmESUwbJvLK/a/YpYwmrCC/DbL
+	 h5KMkgpkaCPOyeGHdtty0BaeQ+1eawYzAjscYnhTcIYaWBIuzAOcTYAMflUhGvXQShIea
+	 aOo4/HN8Iz/x6rRl6wpG8qqtbgLLM5G5pvAzNsDjXNjI+A+0ZdkdDZ/wflNixfz4uH3GR
+	 LGDN9B8Y0DMC7d/1BKRxU8X2JRK/XIpT7BCCWqMqPyGuNgnOgYgseErci06M+tg4yTTu0
+	 AfnWdBZw1BMbYSMzSMbKXjGuqVkhpKxt7iWOm5LB/DtucthfuG3omtXg5m6jnq1Vxug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=chjXc4qA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 861D4606A319;
-	Tue, 20 Oct 2026 17:49:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=chjXc4qA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A6AB1F000C9;
-	Tue, 20 Oct 2026 17:48:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792518540;
-	bh=M5rEvmXrfBoBjTv0yUsniidEuInq+pNnzfLGGWa+i24=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=chjXc4qAETnD4VJQELmcQKY/u6qH974D2R065xAxVyPkDopxayIqEbdJpC52GSQaL
-	 8pydFBJ/Ql0G6dbM9fn7enoI3zLEJeACf5PjyPB7V+vKgefgI0bHe4OjUlPMHkrWhv
-	 fmqFGFYSP4OGEyGu6i2YSBsKVZE8/TqIOuekFombtkfCPcyHUYG0LFnacs4dPKJaSu
-	 D8tggGUYGUsCc4hqQbyn2b2X087hOPET98XAjrfokCr2+tRSK3A7JPhn5LT9puCkI5
-	 07cwehTD7fYj6h4Fmy8AS7GvSt+7rhX1hKyuM5je5yhRcQv4+/IojcU3b68xu6hbY3
-	 CTQQkzkVgwhFw==
-Message-ID: <sashiko-outbox-179446@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND v10 8/9] regulator: Add MediaTek MT6392 regulator
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Luca Leonardo Scorcia" <l.scorcia@gmail.com>
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, mfd@lists.linux.dev, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com, lee@kernel.org
-In-Reply-To: <20261020173556.632798-9-l.scorcia@gmail.com>
-References: <20261020173556.632798-1-l.scorcia@gmail.com>
- <20261020173556.632798-9-l.scorcia@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 20 Oct 2026 17:48:58 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9103606A319;
+	Tue, 20 Oct 2026 17:57:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC1A81F000CA;
+	Tue, 20 Oct 2026 17:57:14 +0000 (UTC)
+Date: Tue, 20 Oct 2026 18:57:12 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Jingyuan Liang <jingyliang@chromium.org>
+Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>, Mark Brown <broonie@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-input@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-spi@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, hbarnor@chromium.org,
+	tfiga@chromium.org, fqwqf@fqwqf.xyz, daleyo@gmail.com,
+	Dmitry Antipov <dmanti@microsoft.com>,
+	Jarrett Schultz <jaschultz@microsoft.com>
+Subject: Re: [PATCH v6 08/11] dt-bindings: input: Document hid-over-spi DT
+ schema
+Message-ID: <20261020-breach-aim-4a497c0089e6@spud>
+References: <20261019-send-upstream-v6-0-cb9ba4b3d6fa@chromium.org>
+ <20261019-send-upstream-v6-8-cb9ba4b3d6fa@chromium.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,92 +57,213 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="jkzaY7ASZ64whAJj"
+Content-Disposition: inline
+In-Reply-To: <20261019-send-upstream-v6-8-cb9ba4b3d6fa@chromium.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] regulator: mt6392: OF node reference leak in mt6392_regulator_pr=
-obe()
---
+--jkzaY7ASZ64whAJj
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit 04b22037bb949a80f26c6f5651752d61ee106b28
-Author: Fabien Parent <parent.f@gmail.com>
+On Mon, Oct 19, 2026 at 07:01:20PM +0000, Jingyuan Liang wrote:
+> Documentation describes the required and optional properties for
+> implementing Device Tree for a Microsoft G6 Touch Digitizer that
+> supports HID over SPI Protocol 1.0 specification.
+>=20
+> The properties are common to HID over SPI.
+>=20
+> Signed-off-by: Dmitry Antipov <dmanti@microsoft.com>
+> Signed-off-by: Jarrett Schultz <jaschultz@microsoft.com>
+> Signed-off-by: Jingyuan Liang <jingyliang@chromium.org>
 
-regulator: Add MediaTek MT6392 regulator
+Signoff chain is not right, since the nominal patch author is the last
+signoff.
 
-This commit adds a regulator driver for the MediaTek MT6392 PMIC.
-
-> diff --git a/drivers/regulator/mt6392-regulator.c b/drivers/regulator/mt6=
-392-regulator.c
+> ---
+>  .../devicetree/bindings/input/hid-over-spi.yaml    | 130 +++++++++++++++=
+++++++
+>  1 file changed, 130 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/input/hid-over-spi.yaml b/=
+Documentation/devicetree/bindings/input/hid-over-spi.yaml
 > new file mode 100644
-> index 0000000000000..3db52268363e0
+> index 000000000000..2a5fa0868a09
 > --- /dev/null
-> +++ b/drivers/regulator/mt6392-regulator.c
-> @@ -0,0 +1,764 @@
-
-[ ... ]
-
-> +static int mt6392_regulator_probe(struct platform_device *pdev)
-> +{
-> +	struct mt6397_chip *mt6392 =3D dev_get_drvdata(pdev->dev.parent);
-> +	struct regulator_config config =3D {};
-> +	struct regulator_dev *rdev;
-> +	int i;
+> +++ b/Documentation/devicetree/bindings/input/hid-over-spi.yaml
+> @@ -0,0 +1,130 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/input/hid-over-spi.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +	device_set_of_node_from_dev(&pdev->dev, pdev->dev.parent);
+> +title: HID over SPI Devices
 > +
-> +	// Initialize the bucks' vsel_reg and vsel_mask according to current HW=
- state
-> +	if (mt6392_set_buck_vsel_reg(pdev))
-> +		return -EIO;
+> +maintainers:
+> +  - Benjamin Tissoires <benjamin.tissoires@redhat.com>
+> +  - Jiri Kosina <jkosina@suse.cz>
+> +  - Jingyuan Liang <jingyliang@chromium.org>
 > +
-> +	config.dev =3D mt6392->dev;
-> +	config.regmap =3D mt6392->regmap;
+> +description: |+
+> +  HID over SPI provides support for various Human Interface Devices over=
+ the
+> +  SPI bus. These devices can be for example touchpads, keyboards, touch =
+screens
+> +  or sensors.
+> +
+> +  The specification has been written by Microsoft and is currently avail=
+able
+> +  here: https://www.microsoft.com/en-us/download/details.aspx?id=3D103325
+> +
+> +  The HID over SPI specification does not define fixed values for the
+> +  read/write opcodes and the input/output report addresses. The host
+> +  retrieves them from platform firmware (ACPI _DSM), and they differ
+> +  between devices. These properties provide the same values on Device
+> +  Tree systems, so devices that fully comply with the specification work
+> +  with the "hid-over-spi" fallback compatible.
+> +
+> +allOf:
+> +  - $ref: /schemas/input/touchscreen/touchscreen.yaml#
+> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - enum:
+> +          - microsoft,g6-touch-digitizer
+> +      - const: hid-over-spi
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  reset-gpios:
+> +    maxItems: 1
+> +    description:
+> +      GPIO specifier for the device's reset line. The HID over SPI
+> +      specification requires a dedicated, host-driven, active-low reset
+> +      line. The line must be flagged with GPIO_ACTIVE_LOW.
+> +
+> +  vdd-supply:
+> +    description:
+> +      Regulator for the VDD supply voltage.
+> +
+> +  input-report-header-address:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    minimum: 0
+> +    maximum: 0xffffff
+> +    description:
+> +      A value to be included in the Read Approval packet, listing an add=
+ress of
+> +      the input report header to be put on the SPI bus. This address has=
+ 24
+> +      bits.
+> +
+> +  input-report-body-address:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    minimum: 0
+> +    maximum: 0xffffff
+> +    description:
+> +      A value to be included in the Read Approval packet, listing an add=
+ress of
+> +      the input report body to be put on the SPI bus. This address has 2=
+4 bits.
+> +
+> +  output-report-address:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    minimum: 0
+> +    maximum: 0xffffff
+> +    description:
+> +      A value to be included in the Output Report sent by the host, list=
+ing an
+> +      address where the output report on the SPI bus is to be written to=
+=2E This
+> +      address has 24 bits.
+> +
+> +  read-opcode:
+> +    $ref: /schemas/types.yaml#/definitions/uint8
+> +    description:
+> +      Value to be used in Read Approval packets. 1 byte.
+> +
+> +  write-opcode:
+> +    $ref: /schemas/types.yaml#/definitions/uint8
+> +    description:
+> +      Value to be used in Output Report packets. 1 byte.
 
-[Severity: Medium]
-Does calling device_set_of_node_from_dev() here leak a reference on
-pdev->dev.parent->of_node when the platform device is released?
+I still dunno why any of these properties exist, especially when there's
+a patch in my queue for another microsoft touch device on top of
+this series that does not use any of them.
 
-In drivers/mfd/mt6397-core.c, the mt6392-regulator cell is defined without =
-an
-of_compatible string, so mfd_add_device() allocates the child device via
-platform_device_alloc() with pdev->dev.of_node and pdev->dev.fwnode set to
-NULL.
+The commit message really needs to explain why these exist and why
+compatibles cannot be used to determine these things - as is done for
+the microsoft,romulus13-touchpad. If the very next device that appears
+seems to require a specific compatible and cannot use these properties
+to get across what's needed to the kernel it calls into question why
+the binding is designed like this.
 
-Calling device_set_of_node_from_dev() in mt6392_regulator_probe() increments
-the reference count on pdev->dev.parent->of_node and assigns it to
-pdev->dev.of_node, without setting pdev->dev.fwnode:
+pw-bot: changes-requested
 
-drivers/base/core.c:device_set_of_node_from_dev() {
-	of_node_put(dev->of_node);
-	dev->of_node =3D of_node_get(dev2->of_node);
-	dev_set_of_node_reused(dev);
-}
+Thanks,
+Conor.
 
-When the platform device is later torn down, platform_device_release() only
-puts pa->pdev.dev.fwnode:
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - reset-gpios
+> +  - vdd-supply
+> +  - input-report-header-address
+> +  - input-report-body-address
+> +  - output-report-address
+> +  - read-opcode
+> +  - write-opcode
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    spi {
+> +      #address-cells =3D <1>;
+> +      #size-cells =3D <0>;
+> +
+> +      hid@0 {
+> +        compatible =3D "microsoft,g6-touch-digitizer", "hid-over-spi";
+> +        reg =3D <0x0>;
+> +        interrupts-extended =3D <&gpio 42 IRQ_TYPE_EDGE_FALLING>;
+> +        reset-gpios =3D <&gpio 27 GPIO_ACTIVE_LOW>;
+> +        vdd-supply =3D <&pm8350c_l3>;
+> +        pinctrl-names =3D "default";
+> +        pinctrl-0 =3D <&ts_d6_int_bias>;
+> +        input-report-header-address =3D <0x1000>;
+> +        input-report-body-address =3D <0x1004>;
+> +        output-report-address =3D <0x2000>;
+> +        read-opcode =3D /bits/ 8 <0x0b>;
+> +        write-opcode =3D /bits/ 8 <0x02>;
+> +      };
+> +    };
+>=20
+> --=20
+> 2.56.0.212.g129ede20d9-goog
+>=20
 
-drivers/base/platform.c:platform_device_release() {
-	...
-	if (!is_software_node(dev_fwnode(dev)))
-		fwnode_handle_put(pa->pdev.dev.fwnode);
-	...
-}
+--jkzaY7ASZ64whAJj
+Content-Type: application/pgp-signature; name=signature.asc
 
-Since pdev->dev.fwnode remains NULL, fwnode_handle_put() is a no-op and the
-reference on pdev->dev.of_node is never dropped.
+-----BEGIN PGP SIGNATURE-----
 
-Also, since config.dev is already set to mt6392->dev (the parent device),
-which the regulator core uses for DT node and supply lookups, could the
-device_set_of_node_from_dev() call simply be dropped (or replaced with
-platform_device_set_of_node_from_dev() if needed)?
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatereAAKCRB4tDGHoIJi
+0kWEAP9dgTuujf71BJq09846TgyNaj2epPE0o1kSGsd+fzTndAEA9nnH5FZ9TH7F
+cn2fMuPCManlEJTNSGD9qNKV2OnJMQs=
+=RKkd
+-----END PGP SIGNATURE-----
 
-[ ... ]
-
-> +	return 0;
-> +}
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261020173556.6327=
-98-1-l.scorcia@gmail.com?part=3D8
+--jkzaY7ASZ64whAJj--
