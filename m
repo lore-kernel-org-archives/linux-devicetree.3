@@ -1,104 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.56.87.4
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792476813;
-	b=rx6ab9Z58XCFinZrWxR7c6RamWXe3SMibz5eYODdRXJ1OG62qbk9XIk3Ug9SJvcl4wwd
-	 Qw8Ofl88W5dKwGgzevUC0mtdLO3BeSkkCwIVuflMLNtVAsjVsfK4DG25AwddCymkCMjGM
-	 lbOOAjV/oFpGbBarga6S86nLrf/c4JJv/KiD7dqkzA1KAYI7i/E5ehATXBMYrJKAKIB+l
-	 TeKJHU7Tl9tfIBBE/WE93IxSmMrcGAsmHvPTZ/8a1HV9Y/9D7gRwGuEznYw8Lu8yCmoXh
-	 8XAitmsJA7poUxm9BstSfQ2IxmxH+qm7+tFIR2LRc7IoiB+ycV+uqcEwFZvLLORkdhA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792476813;
-	h=DMARC-Filter:DKIM-Signature:Received:DKIM-Signature:Received:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-Source:X-Source-Args:X-Source-Dir:
-	 X-SGantispam-id:X-AntiAbuse:AntiSpam-DLS:AntiSpam-DLSP:AntiSpam-DLSRS:
-	 AntiSpam-TS:CFBL-Address:CFBL-Feedback-ID;
-	bh=VBod7zScKYToVtl6NM7uKvGih1bUiQG6dq4Lml4LGug=;
-	b=UGZ65aWQkqIHFFSsYkN4wHwzT+Iivplj9qI8v/u4lWAc7Q06QfihaDYkXqZddpToOFJi
-	 FIn9wWdeFTbNR1I13FSrK7V5iznlsbDXLLZl7hPCKipGY4e2XtVNHUxPQwUb1dWnw7uj5
-	 g2u+WkPyG95fE2Qa1ygFRw9yOZeRl5sDCSE7JTCi2GI3YAmx79ywSpDQyWtYwrBOABvvQ
-	 /G4epc+yjvWpqRaqc+jbjpU/8lbYieQFmZuK2pB661fxzcsKRgnxm/SKR00EpRY8JlQcl
-	 MqwyKCHGMQASkyKlxIhXhklTHzxX2NF7X9GM4fcFiTHby7DLtOUhKWIz+RKcxxOOnmQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=valla.it;
-	spf=pass smtp.mailfrom=valla.it;
-	dkim=pass header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b="I//iSo+7";
-	dkim=pass header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=Lu1GRVPG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.56.87.4
-Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.4])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792476863;
+	b=l0XaGFCXMBU5dzoepRb1tq5fPl08aHJ12EboKpKNjiqS47N30I9cDr73febjwpSvFc1K
+	 rWAX+VU9F8GK+280xpEhtXr+PFmZX56kQniMlDDLZ4mB7SzyYg9G/Hqz+ZqUiJeopVIiw
+	 Mn61styLKVry+EImA+26SF7+ux0omPHGoGBvDJvak0utKcXFY33oJTkjG8y15dFzIi64+
+	 pe9RuDSLxHWgW2PP2MPDmbtTWq+fWfUz4y3sujFgg2vt4cN5Wb0P4a8dbqhg/9MEmICJg
+	 kFKmCCn38Iw2xqsLfrhT1PePqw4YqPMq+2aIg6nvCeydDzYdpvnZqaUFEneEiar956g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792476863;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Hpn5/imhVLkyJfVtXA9ZyfLeHTm0l9wahpNmwyZ1iuY=;
+	b=Knn7HiLbtLegpZGiLuRA5O9NRxvGg93Gp+ohOCn1wV4l2c8rV1/F3OhaO7ziw4zWoytH
+	 WKiAvBsGhSjBg3oNyFc7dhFp09IB/yS0ffNaI1qOexy+5W2tH3cMg/KRlK7kWfhActe1e
+	 1JK8Ny4NubKVpcTgBykkJOKTLN9oM1jVMOKl3udxxfkxmEYe9Esr8svUIp9P+kBViv5z2
+	 on05Xe5flAvW113RYTUZeJa44EagbtXOlliAFFi1C9coahCEf59Ew8FSd5jEovkxT7A74
+	 4veyhp8yWw3WYfmM4+MhlmhJsRSXTk7LofytOi4vI3SnWlxDxVw+XW3nokXCQxsgSdg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZfKSDihK;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HOiV4n2e;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F194E606A319;
-	Tue, 20 Oct 2026 06:13:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F194E606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4694A606A31F
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 06:14:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4694A606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=I//iSo+7;
-	dkim=pass (1024-bit key, unprotected) header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=Lu1GRVPG
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-c54f.prod.antispam.mailspamprotection.com; s=arckey; t=1792476811;
-	 b=obnYuzMmbFzcfr2Yf13uEN2hIOnKk+6xJO8p7qzDg/hdumU5m25zT7/A3jln2AmUZi/sj+vs+P
-	  ucWc+UK1UQwpXcx9i8tPWr2dpWzMWPB6gNmAEKDjeAf6keMmHAPkAMkmROP8lxhARS9arrX+vH
-	  QosqnWBH9yG/zB/cEBUhnkN53wVxFtPNU9/AVO+QPP2HwiSa2MQi/fj8JF+Cyhw+d+D6PvT+et
-	  EoeACWlHgTwQ+M6rl5YoxvpKQXZFhvpjmKPrK98jzsHj49mS3VyhecrW+qM27b3D8wHHm+Pqt9
-	  DJ/gpsYqw5MjWRnitFjEI7a98H460IJJPI3dKva11Uhklg==;
-ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-c54f.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-c54f.prod.antispam.mailspamprotection.com; s=arckey; t=1792476811;
-	bh=BLyVi9noksr977RBj4Cms4tPuxnqjRaYZqn2pFov1I8=;
-	h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:
-	  From:Date:DKIM-Signature:DKIM-Signature;
-	b=XtBYdTjhkMkhVjaUeh+6iT2zb2/2SBN1Ho0NOfPSLEbNpJ81Eqydv79GWFeP5DleXcbbwcPnWx
-	  /ccEV/kiORGwfrXAIomnpUhPC6TSpKs/rH9sRGDO4GplmnqWclRh5EiEnBopOIGtWRi9OmiKwU
-	  N7mSaUTDfakw0ZgduzklUdhx85v+JlxwZC0a8f3Z74/2ukFgN2tQ1ePud8eNGIHHBS3v6leC6c
-	  wHwffAnKIYuH/vHfWIRTzEWxk5aBHrBDD9T2NAJh4z/GTAFJdySCDjqd+YyJjEk33Dt84S60SJ
-	  kQtGP2NEjK5icU0mjXbbp0ZvmDCFujLi75z3Z54B/iODLA==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
-	:Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	List-Unsubscribe:Content-Transfer-Encoding;
-	bh=VBod7zScKYToVtl6NM7uKvGih1bUiQG6dq4Lml4LGug=; b=I//iSo+7TD66i2BdewK5yU6xhQ
-	1XltXlNeBS1UwEYyWdc4US23l6sDr1lNbzr9smpi6LZnNfLf2z18EnO7QesfWw99twSGBFwHs1IqS
-	ShcLLIipyjbZ88+3aZpP0nCnTKflJsLLW2azEuotw6PFmxHlX29RUH5M4dUJw5ffY66Y=;
-Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
-	by instance-europe-west4-c54f.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xJ36A-00000005kW2-3wbo;
-	Tue, 20 Oct 2026 06:13:23 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
-	s=default; h=Subject:Cc:To:From:Date:list-help:list-unsubscribe:
-	list-subscribe:list-post:list-owner:list-archive;
-	bh=VBod7zScKYToVtl6NM7uKvGih1bUiQG6dq4Lml4LGug=; b=Lu1GRVPGNdmlqmsYH5zsLHzoUD
-	w9j7LpHN9aAToa+3AdoDIDlTFJZuelB/VAauhlvvjFMElg6G+qCBXQO/Zf3+sPVC9QqpJ7g85SQWQ
-	4xkAWIvKObsXe0uveYUhD1ZKj7JBvyjSPOIkiRw1J3crjBYNmE99zI+w5opamT2rKI3g=;
-Received: from [82.89.62.246] (port=60683 helo=bywater)
-	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xJ360-00000000CBU-2RNP;
-	Tue, 20 Oct 2026 06:13:12 +0000
-Date: Tue, 20 Oct 2026 08:13:10 +0200
-From: Francesco Valla <francesco@valla.it>
-To: Frank.Li@oss.nxp.com
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>, linux-remoteproc@vger.kernel.org, 
-	devicetree@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>, 
-	Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v6 2/3] remoteproc: imx_rpoc: use memory-region-names to
- avoid hidden ABI
-Message-ID: <atcF6uQh0LE1UzNG@bywater>
-References: <20261019-memory-region-name-v6-0-2e46b2e7d667@nxp.com>
- <20261019-memory-region-name-v6-2-2e46b2e7d667@nxp.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZfKSDihK;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HOiV4n2e
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K0t3vq1253890
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 06:14:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Hpn5/imhVLkyJfVtXA9ZyfLeHTm0l9wahpNmwyZ1iuY=; b=ZfKSDihKFacIqpqS
+	d2+KviIIWhZ2wrHxLy5ztQw7gBdTjQXQXvMIA9yBUS/2k9EgKzGeNcRGHTOUeaAV
+	IgJM5M84kimu5wAu2mN/VVJEyXSErm8ksu/ZNtJKioVKCaJ6CJPDFF1SnLNZtZ8b
+	s6Re+s5FmExW6AqeoacLL19yDIMr3KBi3KTLNcH98zPJyj39tBn6YJO5am/lVAgA
+	e4SEQYzbMmIbpYtJt6Dh/N7oZ8aclFn7mtXjjj5ll9L7PAvGPk2iD7KW62Y+fsbh
+	/YBm8H8YObw3Z/0G0zHhYJQoIvGfKEJ0bqizP1ASXqty5ouvbBuUEreZMRm4kqqt
+	Dlx3kA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5n93v2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 06:14:22 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f2005ce21so512359685a.3
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 23:14:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792476861; x=1793081661; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Hpn5/imhVLkyJfVtXA9ZyfLeHTm0l9wahpNmwyZ1iuY=;
+        b=HOiV4n2exjuLkrjSPhWReDJKCI581JGKeqSEzq2JzamYrDDYUFRn587f+3OpvGEcYL
+         VMVqCP9D1gRocl/qF36evYClOrtj8MBNHdR7BpTCQpuHXbpbNL72FjaoNskhSRPYSSbU
+         vjlzDlDzYBVoz96r/gCRdhr2/maCjKBlLkCC7aldsFZVDFDfj71/AsTidDRZ/m8mTZ64
+         5GjQR1pYwzQxQacp8VtaIV4KZ6fc6cM37IKM/IcL4yaZdBUTLG77WubJle/ziFA0/nyO
+         mCAYSkVBXxzl7EyGp08Ac5AhCPQ0KRZK4KZXarXjxdt8IAngUSOXjVgeweysdWQjwwNH
+         QBCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792476861; x=1793081661;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Hpn5/imhVLkyJfVtXA9ZyfLeHTm0l9wahpNmwyZ1iuY=;
+        b=FrWvAil+X/Uzt5sbirOw1t/AX4A7BBFFMZNUWeUSVHqSsM+asK8WYdGXJ02uYVfq9G
+         TLWDe01kaDlnzIRDy+0rsbrQLHIu5YMO4Y6eAhWM08ZkDhEjgye/Jo7ES1BArEM7KAWy
+         qrN1TO5Qt1w0L5NNISqy+Qp4cB6texAowfEKuMWHu/BHQn9Qk0Kz+xVcdztSA3zta5yH
+         PjLbDsPRZmLe6rhIsB2wkxw/2N8C3hKJnymNe2VqfA6MQBA/F1NdReP0+I21slrJUSkV
+         a/GdfyppI3oxhJ86+sEIcJlQ6PLF8Ee1H/dbSrpRJ5SIAyWQ/r2Kql7Yd2d7iFm11U5I
+         KeHQ==
+X-Forwarded-Encrypted: i=1; AKwUvByd567NNXnbJoNr4rvwame0W9I7kzcUyHdBxO+d1gG4b1IwVBiOvP3+lvERFwWbh6jmhoauXrSmDC82@vger.kernel.org
+X-Gm-Message-State: AFq9FYLTuRVXRpWL/Ts6ol/nkUq+HlP73dXYxF0BaTWmlbIwjs+r0/+p
+	iPPWDmBUJFzheesFMYSIy9F85bQ238HybtaM0xnEvZZ4oHyC03L20JOQosR3x9s8AhMzS9nlWWg
+	qEghoeR3MpyxaYejYPHDyd4GWFpmNDlyvuhdTDgSjrjOmpSZpRVvqwpNenSrHBwK9
+X-Gm-Gg: AYBFou3qX6lXzhUKx0BgaHYHgp13Szlne4FIZG5NuoOxyDUTJJt7MMJlDe5DaUOmxas
+	Js76+Un7GfolgwUVSoy6MbbKeSEJfL5uTI8lwXYYzpKU11yLjrwICKXuqakZiT26xGjgQ60DnFD
+	zPjO+aVcqb1RHqgtjCpg9yumbTa5FidoRa9vzpvh6EaBK5KMmIh51Rf6fxcHPAdAAJFHJ5YVzfx
+	TCTjsCKICojUcRx6YJsgaPgYDzWSoAe3EzIK8ULksY3Bc14e8dr873uex7ReYRc+Ulz2eN2wicM
+	mf9f9bG5+Mqz5rGonlzuqfzhHWVcvsW4jUzxkqfHOHtFSGPn9IX1HWdyfMPa1SGmHdbbDN2NSta
+	m8RunmYkvH9sLyiOGqMp+h2OXcA==
+X-Received: by 2002:a05:620a:3715:b0:93e:c12c:9dd3 with SMTP id af79cd13be357-93f29e0afd2mr1621876485a.83.1792476861462;
+        Mon, 19 Oct 2026 23:14:21 -0700 (PDT)
+X-Received: by 2002:a05:620a:3715:b0:93e:c12c:9dd3 with SMTP id af79cd13be357-93f29e0afd2mr1621873885a.83.1792476860971;
+        Mon, 19 Oct 2026 23:14:20 -0700 (PDT)
+Received: from [192.168.68.120] ([5.133.47.210])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a1ce33ad3fsm276350095e9.5.2026.10.19.23.14.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 23:14:20 -0700 (PDT)
+Message-ID: <cdb55ed3-b19f-48c8-8803-dfa32000dc1b@oss.qualcomm.com>
+Date: Tue, 20 Oct 2026 07:14:17 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -108,132 +115,89 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019-memory-region-name-v6-2-2e46b2e7d667@nxp.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - esm19.siteground.biz
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - valla.it
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-SGantispam-id: 70cb3b80dc2a3e4722b7395af5bc37d8
-X-AntiAbuse: ID - 70cb3b80dc2a3e4722b7395af5bc37d8
-AntiSpam-DLS: false
-AntiSpam-DLSP: 
-AntiSpam-DLSRS: 
-AntiSpam-TS: 1.0
-CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
-CFBL-Feedback-ID: 1xJ36A-00000005kW2-3wbo-feedback@antispam.mailspamprotection.com
-Authentication-Results: outgoing.instance-europe-west4-c54f.prod.antispam.mailspamprotection.com;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] leds: rgb: qcom-lpg: add qcom,pmk8850-pwm compatible
+To: Lee Jones <lee@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Pavel Machek <pavel@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261015194732.64428-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20261015194732.64428-3-srinivas.kandagatla@oss.qualcomm.com>
+ <179213351749.2581328.3338477962958404050@kernel.org>
+Content-Language: en-US
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <179213351749.2581328.3338477962958404050@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: rbtBqzsC-9stpStN87zFxOM50I9wl5XA
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAyNCBTYWx0ZWRfX4V86YDWUBW87
+ i2BxE2euO5O5MuesHX8HjL3MtL2SY7Fr/X6ZuEJ9MhfZgQmJbKjpvrDePNr7bubL0/uuCCeg5mz
+ 0XPavgcyFFYOZ6aq9wjqCPXlDza+Fkv8xu7Y0BadrJtCdy6KARzgAFb81k1zQsOe553odEDWG6I
+ SAwoViscb2vgdkESkg/M0wMtdHajEJ4vL9FPFbzfYttv3anQIWNIOFPA+nEZ0U7jgjp7XZgpW9I
+ LfGIQzd2jpWqW9NiITykuNJcNYjm9Acx/n4uvB8yDkcWXrKWitmVk0olGxlEjE8HvSUNWPydL5F
+ HX8eIOkyzsLAMpsyZD2heWoypLCJQpdI1MeVr0RVVORRQyWXSf9bXSRtR29aNNkRyuzQ++BUL2f
+ enW2wDciA2OtWhF7M/U5WRcf7u8BZfDRtcWM93lpHYogES8UNYwKwL8z2YDM3qurgkxfU82pC38
+ BvVhLKcM9tgRCt8EI3A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAyNCBTYWx0ZWRfX30rzGS4bS1Xe
+ vy3n053mc6PhBwybU/WL7ySaMWp+dInLrxpkJf8kzy6lzqsXA84mJSdq4EKe8OnV/eAJ0F54sxG
+ SQjkWJgyFx5+58T2heDAXuD+xYevEgQ=
+X-Authority-Analysis: v=2.4 cv=VI9IDNPX c=1 sm=1 tr=0 ts=6ad706be cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=VAR32ooWsMDrCBR8X2sA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-GUID: rbtBqzsC-9stpStN87zFxOM50I9wl5XA
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 adultscore=0 lowpriorityscore=0 spamscore=0
+ malwarescore=0 clxscore=1015 priorityscore=1501 bulkscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200024
 
-Hi Laurentiu,
-
-On Mon, Oct 19, 2026 at 02:55:49PM -0400, Frank.Li@oss.nxp.com wrote:
-> From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
+On 10/19/26 3:34 PM, Lee Jones wrote:
+> --- checkpatch.pl (1 issue) ---
+> Line 23: WARNING: DT compatible string "qcom,pmk8850-pwm" appears un-documented -- check ./Documentation/devicetree/bindings/
+this is in patch 1/4.
+> ----------------------------------
 > 
-> The driver currently derives the memory region type from the referenced
-> memory node name, creating a hidden DT ABI. Since memory node names are
-> not constrained by the binding, incorrect names can silently pass DT
-> validation, as seen in examples using "vdevbuffer" instead of
-> "vdev0buffer" ([1] and [2]).
+> On Thu, 15 Oct 2026, Srinivas Kandagatla wrote:
 > 
-> Parse memory-region-names to identify the expected memory regions and avoid
-> relying on memory node names as ABI.
+>> The PMK8850 sleep-clock PMIC on Snapdragon X2 Elite (Mahua) exposes
+>> the same two-channel LPG/PWM block as PMK8550 at 0xe800/0xe900, so
+>> reuse pmk8550_pwm_data.
+>>
+>> Used on the Lenovo ThinkPad T14s Gen 7 to drive the eDP backlight
+>> (EDP_BL/PWMR_BV_PS).
+>>
+>> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+>> ---
+>>  drivers/leds/rgb/leds-qcom-lpg.c | 1 +
+>>  1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/leds/rgb/leds-qcom-lpg.c b/drivers/leds/rgb/leds-qcom-lpg.c
+>> index 24ffe079f221..485fa2a7a848 100644
+>> --- a/drivers/leds/rgb/leds-qcom-lpg.c
+>> +++ b/drivers/leds/rgb/leds-qcom-lpg.c
+>> @@ -1837,6 +1837,7 @@ static const struct of_device_id lpg_of_table[] = {
+>>  	{ .compatible = "qcom,pmi8998-lpg", .data = &pmi8998_lpg_data },
+>>  	{ .compatible = "qcom,pmc8180c-lpg", .data = &pm8150l_lpg_data },
+>>  	{ .compatible = "qcom,pmk8550-pwm", .data = &pmk8550_pwm_data },
+>> +	{ .compatible = "qcom,pmk8850-pwm", .data = &pmk8550_pwm_data },
+> If PMK8850 is completely compatible with PMK8550, why are we adding a
+> new match entry here instead of using 'qcom,pmk8550-pwm' as a fallback
+> compatible?
+Yep, will update dts in v2 and drop this patch.
+
+--srini
+
+
 > 
-> Link: https://lore.kernel.org/imx/a3602ef8-2b77-4cc3-adef-2c4cba08a5d9@nabladev.com/ [1]
-> Link: https://lore.kernel.org/imx/alexXTYQHUs76J7v@SMW015318/T/#mb9dc709ff3adc24d9db6d30c973f37b580f6f1f9 [2]
-> 
-> Signed-off-by: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
-> Reviewed-by: Peng Fan <peng.fan@nxp.com>
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> ---
->  drivers/remoteproc/imx_rproc.c | 32 ++++++++++++++++++++++++++++++--
->  1 file changed, 30 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/remoteproc/imx_rproc.c b/drivers/remoteproc/imx_rproc.c
-> index 581bb07f5893f..714c3615d1884 100644
-> --- a/drivers/remoteproc/imx_rproc.c
-> +++ b/drivers/remoteproc/imx_rproc.c
-> @@ -28,6 +28,25 @@
->  #include "imx_rproc.h"
->  #include "remoteproc_internal.h"
->  
-> +static int imx_rproc_rmem_to_resource(struct device_node *np,
-> +				      int index,
-> +				      struct resource *res)
-> +{
-> +	int ret;
-> +
-> +	ret = of_reserved_mem_region_to_resource(np, index, res);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* "memory-region-names" is optional */
-> +	ret = of_property_read_string_index(np, "memory-region-names",
-> +					    index, &res->name);
-> +	if (ret == -EINVAL)
-> +		return 0;
-> +
-> +	return ret;
-> +}
-> +
-
-The position of this code here seems wrong - please move it down in this
-same file, near the other functions.
-
-With that fixed:
-
-  Reviewed-by: Francesco Valla <francesco@valla.it>
-
->  #define IMX7D_SRC_SCR			0x0C
->  #define IMX7D_ENABLE_M4			BIT(3)
->  #define IMX7D_SW_M4P_RST		BIT(2)
-> @@ -648,7 +667,7 @@ static int imx_rproc_prepare(struct rproc *rproc)
->  		int err;
->  		struct resource res;
->  
-> -		err = of_reserved_mem_region_to_resource(np, i++, &res);
-> +		err = imx_rproc_rmem_to_resource(np, i++, &res);
->  		if (err)
->  			break;
->  
-> @@ -823,11 +842,20 @@ static int imx_rproc_addr_init(struct imx_rproc *priv,
->  	if (nph <= 0)
->  		return 0;
->  
-> +	if (!of_property_present(np, "memory-region-names")) {
-> +		dev_warn(dev, "using node names for carveouts should be avoided\n");
-> +	} else {
-> +		if (nph != of_property_count_strings(np, "memory-region-names")) {
-> +			dev_err(dev, "invalid reserved memory name count\n");
-> +			return -EINVAL;
-> +		}
-> +	}
-> +
->  	/* remap optional addresses */
->  	for (a = 0; a < nph; a++) {
->  		struct resource res;
->  
-> -		err = of_reserved_mem_region_to_resource(np, a, &res);
-> +		err = imx_rproc_rmem_to_resource(np, a, &res);
->  		if (err) {
->  			dev_err(dev, "unable to resolve memory region\n");
->  			return err;
-> 
-> -- 
-> 2.43.0
-> 
->
-
-Thank you!
-
-Regards,
-Francesco
 
