@@ -1,80 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=14.137.139.23
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792485495;
-	b=qAe+OGkOZ1LJlQ2J5zIEN4ASa9qym7XRvPLYJkcd5dIL0y9hvwMFj0u4e9LpesSPv9xq
-	 DZxjIlCnLwbovMQ9W1m4mJMsAS8lBmmZZORFqkfIoGPTIN0Cq/TMCvcwMwiCQgkYxb2lb
-	 T1TB7+5nLpYxhEqZbhQS9hPWQiXaIM2rqVl1g6zhF9O6Faq1ThIrjKVkwqr/AQK5kMgkz
-	 d2F2oSmmIFlxg1ujqixHpjUddpTRj3VMyR6TIsy/X9ee16M4dV+J7Lo0C7dp71tQvL9Y1
-	 vPoG7MY6j8gTs6F7HLUldSn7gDVDQTz87cnpxX04BfOOs5c5QvVgf3OunRY5Jn3U30A==
+	t=1792485525;
+	b=kQB+XF1cV9D1IHvDpviEdtfAEdHT+QlhCmVmTMvPmeyae44UTuAWsPpAEtcAER/FeRW5
+	 KJWlGw/smKa48lnua0F2//kwvK7pGc2hJk0K9CORYYaEhyKGaVEQjjJtoYb2iUmHitrhX
+	 O6h/bPi1S2XxN1iOHv1bOVU0KbyoRtLAyIBHjTYAznJ3/du0RaGTpgHWWJ8KY46gwzG/+
+	 hJ/h3ks1PvHV62u3psTb/XDM2+NFEyMyeErEVkGViLfOZcToqCjFoPFGx0TpTiQoqSUbP
+	 y4ootG+lLeAUGT+MIFr72gGNsvhOcTb0M7Bm6A3F2QCZ9r0O8SVXcNsfMzFuIVvdiyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792485495;
-	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=ZdFOZo7LWaxQNBpUW6ZdsOmYz5y22ulR9ZW0yxAt+gA=;
-	b=Fh180+mM3zsQM1LeSWiW9cv7S+EdSCTboKkxpAFdWX2KHfgQYnOdMKlvZruheDJ0f/6g
-	 mVPSWVtXn4hRGB9+MelVdECm+DsLtLCZHbEqBWJJL+IYVCzYvYnvntTYG6IYRiv8IuNma
-	 Q3+jAh21WNNOWrfV9oaJmYpoLmZKnf7N7WJhFPwbQ7M0BFj6b3/XA7DQVAokrP9cv3Esv
-	 0IFLS74wZ8ATe2F12SuMrFkTq7y+3Ji5XKgx94e4qru+lSNHXpELg23VMZaAOMtxF1sDR
-	 CEpIVTur0gdTOvOHo3c9U1p1rmShBZcsYjbp6L7vLZwh/8YVZ9ye5qCk1gEthfYXKWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792485525;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:References:
+	 Content-Language:Autocrypt:Organization:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=hogL549jM3ExbqUca/Ckmvahf2uy1aT58g4/4SYGND4=;
+	b=X3BGBcz4eDohctSeNjzbQTyuKI8cs3MvHa9v+a9QKxjOAA4w3McoOmgC51r2jIv5TiOT
+	 pVTEIRyU8wZCuyw8ZMS2tM/EclUAwhtOUVckIjsow05gF0TcnTGy4mf/OAux9Tbocaxgg
+	 uwgdJZzZHqLRSQBn1jXjZeKDJCL3UyFsCjijLZ5WCrZ+cUNwn+zPMWWCuB1BNgW4HVvBz
+	 qq+Bw6xpzDdGstXXQ63+Vw3jOdw+zPuzC7RKJwkwGQ3Gz+OjfBeeIfOkqrFi4+y+0ZLv2
+	 W+cuShIXsUP6jEGkYOO1jiTNcXSgeDC9bMa3naJWe2bclRIRf4X29UglO/g86TYS0SQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=huaweicloud.com;
-	spf=pass smtp.mailfrom=huaweicloud.com;
-	arc=none smtp.remote-ip=14.137.139.23
-Received: from frasgout11.his.huawei.com (frasgout11.his.huawei.com [14.137.139.23])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=xlBYgdEl;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E12F1606A32F;
-	Tue, 20 Oct 2026 08:38:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E12F1606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.18.224.235])
-	by frasgout11.his.huawei.com (SkyGuard) with ESMTPS id 4j85GJ5pyHz1HCLQ;
-	Tue, 20 Oct 2026 16:30:48 +0800 (CST)
-Received: from mail02.huawei.com (unknown [7.182.16.157])
-	by mail.maildlp.com (Postfix) with ESMTP id B9D7C4055E;
-	Tue, 20 Oct 2026 16:38:04 +0800 (CST)
-Received: from huaweicloud.com (unknown [10.204.63.22])
-	by dep2_app1 (Coremail) with UTF8SMTPA id nRC2B0Dmy2FaKNdqLzcBAA--.5746S2;
-	Tue, 20 Oct 2026 09:38:04 +0100 (CET)
-From: Roberto Sassu <roberto.sassu@huaweicloud.com>
-To: catalin.marinas@arm.com,
-	will@kernel.org,
-	mark.rutland@arm.com,
-	chenhuacai@kernel.org,
-	kernel@xen0n.name,
-	maddy@linux.ibm.com,
-	mpe@ellerman.id.au,
-	npiggin@gmail.com,
-	chleroy@kernel.org,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	hpa@zytor.com,
-	robh@kernel.org,
-	saravanak@kernel.org
-Cc: x86@kernel.org,
-	linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	zohar@linux.ibm.com,
-	noodles@fb.com,
-	linux-integrity@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	Roberto Sassu <roberto.sassu@huawei.com>
-Subject: [PATCH v2] kexec: Select ima_get/free_kexec_buffer() with CONFIG_HAVE_IMA_KEXEC(_OF)
-Date: Tue, 20 Oct 2026 10:37:27 +0200
-Message-ID: <20261020083727.1906495-1-roberto.sassu@huaweicloud.com>
-X-Mailer: git-send-email 2.43.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A1BE606A326
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 08:38:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A1BE606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=xlBYgdEl
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a16af2a232so20796125e9.1
+        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 01:38:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1792485523; x=1793090323; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hogL549jM3ExbqUca/Ckmvahf2uy1aT58g4/4SYGND4=;
+        b=xlBYgdElvsfRXrajPPDKw8ho4L4t/qUulBARMacoY202Xep50AIKTQZfnoFA9tFwBn
+         qglQrZ0O9veXrheQg4PMZO8S7Xv9paZW5avbg3+y664JSKciEOEe9JveNBY2MtlOhn4I
+         qVaF7XSH1BW9WTfkpRyZ59fvlpttc3V0vjoW6ypWEOLEecmXsUXaFl0uiYyw/XhPeDPd
+         AiJmvQsFqyBLNxuzrKgBIbaXSn+tPiLDzcOaiye7xKzj4nDYjg0vENDXxfifJ0lsLy/h
+         hhEquvdzuvvV94X34Xd3bydCN7+Y8fH/b4rOPW2+NHqA53f9gyLFVFqOuZLrZd4y3CFe
+         71pA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792485523; x=1793090323;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hogL549jM3ExbqUca/Ckmvahf2uy1aT58g4/4SYGND4=;
+        b=oFwPaVFJ+KEdIDXuKFDi7nrde3jf/0cZnhVhKnlTeCzLDpV7KYFVSO8QSvo/LSqBim
+         6PmU5bFTQKB2wEhW6Ffevku+9cBfog9MUWYGJR4ulEXLLtWYTz7xppXTlByba5hfdPt1
+         4nx3G/9H3Rgr1TUc0ap7eypTIEWTM5NHhsmS9kB1cDOJK/lh5E05zDsfpK4eJI3JTQCr
+         RHcFkw3DcWxfY201nEZzYcfuyyr0NvDEx6NRffxWIPekRnm6e+BVN848WqghmMI7oVgM
+         /XEGjlIAW4VaWQBLcf5L4B4WlI28s9dM4pIbiuP4wFXvjcqYrYhAy1eJ7Hp4lDbqgf+p
+         4egw==
+X-Gm-Message-State: AFq9FYIJvO7W+MHyUWY43Qo79URL398oCvAOwjYdZCBJqUmW4KIq4vXm
+	d4yTG8sKNs2//yoqsDvynJu/Bz420Lr74IW7Z2JzQbDFOgTWUmBixN+LTjNehj7SFT0=
+X-Gm-Gg: AYBFou0xIPD2Pivk5lsiq4z74GrCh8h7lNVAWkY+jWqSVxL+R8NJK+DWCDYhBYD8/pR
+	0E06oD9ZsGTdqbSQaLdcrMdnOW6pGuR2X2eq5q4Fb/E3k+7vjDjcOewN/1Li8XlsqzAxQAzcl0O
+	bKbkuBxMgUDYpt17BcSfeQ2WyowKVisSO6LEQPnPA2Y8h+AeF4GKVWZvBQfYyYSJo6LIRs3xBh+
+	vW/9KVvQujLe4RmuQADbA1OiQofU1FtRom+lnpaAWLVHDRhJdKX90pkJzXBWOlGsohbG5mJmiAB
+	0TqcjYOry4xvUH46T3jKOonaZXeA27AyLgL3wQGvqE04MtdPaMLvh2B1sKscu6BNOi1dfg1tzBm
+	nykDf1OnKrpp7Cd5A/jMkifo8Bgt6rN/np+In1d0+5uwKT946CbxgF4t89Ok+sqBBcZ47M/jG87
+	S1rW/38sNTHDdPJmBqMB57wHDfuY7IjtzTGMVQN+4Ff92MAQbpRBdTTYnb1iO8HfroUBf0iW2uo
+	qm5oU4LXqeJbwI18t3WUm+lccHC1s0So5CqMEPEjRx6daAyGWjx3g==
+X-Received: by 2002:a05:600c:46cf:b0:4a1:f8cb:7d70 with SMTP id 5b1f17b1804b1-4a1f8cb7ecemr12546735e9.24.1792485522235;
+        Tue, 20 Oct 2026 01:38:42 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:e3a1:1a65:a394:be54? ([2a01:e0a:106d:1080:e3a1:1a65:a394:be54])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1df370381sm163461605e9.1.2026.10.20.01.38.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 01:38:41 -0700 (PDT)
+Message-ID: <7ccd519c-9c45-4a3c-a0d4-2a082c4c0306@linaro.org>
+Date: Tue, 20 Oct 2026 10:38:41 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,165 +90,96 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:nRC2B0Dmy2FaKNdqLzcBAA--.5746S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxGFWxJw17urW3JF48GF48WFg_yoWrKw4xpw
-	n0yr18JFZrWFs8t3yjga48Wry5Zan7JrW3urs5C34kZFy3A3yDur1vq3W7ZFyj9rWkKFy8
-	uFyrWFy09w4UKaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvFb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIEc7CjxV
-	AFwI0_Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
-	x7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
-	0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAa
-	w2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxV
-	Aqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a
-	6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6x
-	kF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AK
-	xVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvj
-	xUIF4iUUUUU
-X-CM-SenderInfo: purev21wro2thvvxqx5xdzvxpfor3voofrz/1tbiAgASDWrW3LUGaQAHsg
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH] arm64: dts: amlogic: meson-sm1-odroid-hc4: wire the RTC
+ alarm interrupt
+To: iav@iav.lv, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261019-hc4-rtc-alarm-irq-v1-1-078fc79e596f@iav.lv>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20261019-hc4-rtc-alarm-irq-v1-1-078fc79e596f@iav.lv>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Roberto Sassu <roberto.sassu@huawei.com>
+On 10/19/26 23:52, Igor Velkov via B4 Relay wrote:
+> From: Igor Velkov <iav@iav.lv>
+> 
+> The PCF8563 on the OLED/RTC add-on board drives its interrupt output
+> to GPIOX_5, pin 4 of the P1 header, but the rtc node does not describe
+> it. The alarm interrupt is therefore never delivered and cannot wake
+> the board.
+> 
+> Describe the line as a level-low interrupt of the GPIO interrupt
+> controller.
+> 
+> Tested on ODROID-HC4: the alarm interrupt fires and wakes the board
+> from s2idle.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Igor Velkov <iav@iav.lv>
+> ---
+> This needs commit 5831f5fef100 ("rtc: pcf8563: pass the driver data to
+> the alarm interrupt handler") in the rtc tree: without it the first
+> alarm oopses. Waking from s2idle also needs commit 5b6e2a46b80d
+> ("irqchip/meson-gpio: Allow the GPIO interrupts to wake the system")
+> in tip irq/drivers.
+> ---
+>   arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts b/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
+> index 5f15c2299509..25a8a60e152c 100644
+> --- a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
+> +++ b/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
+> @@ -105,6 +105,8 @@ rtc: rtc@51 {
+>   		status = "okay";
+>   		compatible = "nxp,pcf8563";
+>   		reg = <0x51>;
+> +		interrupt-parent = <&gpio_intc>;
+> +		interrupts = <IRQID_GPIOX_5 IRQ_TYPE_LEVEL_LOW>;
+>   		wakeup-source;
+>   	};
+>   };
+> 
+> ---
+> base-commit: b44e2be772f866985cafdf90355285069ea68495
+> change-id: 20261020-hc4-rtc-alarm-irq-b2b8c68d54f5
+> 
+> Best regards,
 
-On x86, if CONFIG_OF_FLATTREE is enabled, the kernel uses the device tree
-implementation of ima_get/free_kexec_buffer(). However, x86 passes the IMA
-buffer location through setup_data, not through the device tree, so the
-buffer is never found and the IMA measurement list is not carried over
-across kexec.
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Introduce CONFIG_HAVE_IMA_KEXEC_OF (which selects CONFIG_HAVE_IMA_KEXEC)
-and select it for the architectures that pass the IMA buffer location
-through the device tree, via of_kexec_alloc_and_setup_fdt() (arm64,
-powerpc and riscv). Build the device tree implementation of
-ima_get/free_kexec_buffer() only if the new option is enabled.
-
-Select the new option also on LoongArch, to preserve the current behavior
-and avoid a link failure. LoongArch does not pass the buffer location to
-the next kernel yet; this will be addressed separately.
-
-Finally, don't select it for x86, and use x86's own setup_data-based
-implementation regardless of CONFIG_OF_FLATTREE.
-
-Fixes: b69a2afd5afc ("x86/kexec: Carry forward IMA measurement log on kexec")
-Signed-off-by: Roberto Sassu <roberto.sassu@huawei.com>
----
-
-v2:
-- Reworded the commit message (no code changes), suggested by Mimi
-
- arch/arm64/Kconfig      | 2 +-
- arch/loongarch/Kconfig  | 2 +-
- arch/powerpc/Kconfig    | 2 +-
- arch/riscv/Kconfig      | 2 +-
- arch/x86/kernel/setup.c | 2 +-
- drivers/of/kexec.c      | 4 ++--
- kernel/Kconfig.kexec    | 4 ++++
- 7 files changed, 11 insertions(+), 7 deletions(-)
-
-diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index b5a51b0ef944..4b7e248b6c91 100644
---- a/arch/arm64/Kconfig
-+++ b/arch/arm64/Kconfig
-@@ -1697,7 +1697,7 @@ config ARCH_SUPPORTS_KEXEC_FILE
- config ARCH_SELECTS_KEXEC_FILE
- 	def_bool y
- 	depends on KEXEC_FILE
--	select HAVE_IMA_KEXEC if IMA
-+	select HAVE_IMA_KEXEC_OF if IMA
- 
- config ARCH_SUPPORTS_KEXEC_SIG
- 	def_bool y
-diff --git a/arch/loongarch/Kconfig b/arch/loongarch/Kconfig
-index 2067d1f2ad7a..b5420d482da4 100644
---- a/arch/loongarch/Kconfig
-+++ b/arch/loongarch/Kconfig
-@@ -690,7 +690,7 @@ config ARCH_SELECTS_KEXEC_FILE
- 	depends on KEXEC_FILE
- 	select KEXEC_ELF
- 	select RELOCATABLE
--	select HAVE_IMA_KEXEC if IMA
-+	select HAVE_IMA_KEXEC_OF if IMA
- 
- config ARCH_SUPPORTS_CRASH_DUMP
- 	def_bool 64BIT
-diff --git a/arch/powerpc/Kconfig b/arch/powerpc/Kconfig
-index 2580e27e4328..096c6061893b 100644
---- a/arch/powerpc/Kconfig
-+++ b/arch/powerpc/Kconfig
-@@ -643,7 +643,7 @@ config ARCH_SELECTS_KEXEC_FILE
- 	def_bool y
- 	depends on KEXEC_FILE
- 	select KEXEC_ELF
--	select HAVE_IMA_KEXEC if IMA
-+	select HAVE_IMA_KEXEC_OF if IMA
- 
- config PPC64_BIG_ENDIAN_ELF_ABI_V2
- 	# Option is available to BFD, but LLD does not support ELFv1 so this is
-diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
-index f8e26c4bed2b..161bf8a65beb 100644
---- a/arch/riscv/Kconfig
-+++ b/arch/riscv/Kconfig
-@@ -1118,7 +1118,7 @@ config ARCH_SUPPORTS_KEXEC_FILE
- config ARCH_SELECTS_KEXEC_FILE
- 	def_bool y
- 	depends on KEXEC_FILE
--	select HAVE_IMA_KEXEC if IMA
-+	select HAVE_IMA_KEXEC_OF if IMA
- 	select KEXEC_ELF
- 
- config ARCH_SUPPORTS_KEXEC_PURGATORY
-diff --git a/arch/x86/kernel/setup.c b/arch/x86/kernel/setup.c
-index cda6adb9f69c..bc17e353c099 100644
---- a/arch/x86/kernel/setup.c
-+++ b/arch/x86/kernel/setup.c
-@@ -421,7 +421,7 @@ static void __init add_early_ima_buffer(u64 phys_addr)
- #endif
- }
- 
--#if defined(CONFIG_HAVE_IMA_KEXEC) && !defined(CONFIG_OF_FLATTREE)
-+#ifdef CONFIG_HAVE_IMA_KEXEC
- int __init ima_free_kexec_buffer(void)
- {
- 	if (!ima_kexec_buffer_size)
-diff --git a/drivers/of/kexec.c b/drivers/of/kexec.c
-index 029903b986cb..724f29fef0c0 100644
---- a/drivers/of/kexec.c
-+++ b/drivers/of/kexec.c
-@@ -116,7 +116,7 @@ static int do_get_kexec_buffer(const void *prop, int len, unsigned long *addr,
- 	return 0;
- }
- 
--#ifdef CONFIG_HAVE_IMA_KEXEC
-+#ifdef CONFIG_HAVE_IMA_KEXEC_OF
- /**
-  * ima_get_kexec_buffer - get IMA buffer from the previous kernel
-  * @addr:	On successful return, set to point to the buffer contents.
-@@ -196,7 +196,7 @@ static void remove_ima_buffer(void *fdt, int chosen_node)
- 	size_t size;
- 	const void *prop;
- 
--	if (!IS_ENABLED(CONFIG_HAVE_IMA_KEXEC))
-+	if (!IS_ENABLED(CONFIG_HAVE_IMA_KEXEC_OF))
- 		return;
- 
- 	prop = fdt_getprop(fdt, chosen_node, "linux,ima-kexec-buffer", &len);
-diff --git a/kernel/Kconfig.kexec b/kernel/Kconfig.kexec
-index 15632358bcf7..c6ed60f04ea4 100644
---- a/kernel/Kconfig.kexec
-+++ b/kernel/Kconfig.kexec
-@@ -17,6 +17,10 @@ config KEXEC_ELF
- config HAVE_IMA_KEXEC
- 	bool
- 
-+config HAVE_IMA_KEXEC_OF
-+	bool
-+	select HAVE_IMA_KEXEC
-+
- config KEXEC
- 	bool "Enable kexec system call"
- 	depends on ARCH_SUPPORTS_KEXEC
--- 
-2.43.0
-
+Thanks,
+Neil
