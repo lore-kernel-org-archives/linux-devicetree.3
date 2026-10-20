@@ -1,56 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792496432;
-	b=THfQdmwJHH28+mFq384Ql9MzGewpEilzXPHVMZD9gAq4yaZAW2LPS7p66905VyvrVGUi
-	 VryaVVj5drT2x/MN74sMh12xmi5A52Zn9/lDxwRvdfxBq1bbA8pE8Zujwlk9+CsJ/FUYm
-	 yzbVyU+jR37HrrfooExY6r2pBxv7C3PSGPPcQDdgxoJnywSeIn/T69mHlrtO7DnoFRWWK
-	 u8h9KHee5bAUFB9AxMa/Lc61RYO80tjSjpX8lI8psobwn4kmvRLGvO00pczh4XNVCHFDv
-	 8T2lqv9usM/AG6Ji25XhJ6jG8/3CKWD+sBKmUtEfjr3RIDF+Fx9wa7Z+VNAZXQqVAfw==
+	t=1792496793;
+	b=NJq+4+9OT3TxesVHLglj+uj4isIAHJBjS1GiXi1odFCEMdCHKYoEqkTSJFsPyoC8jyMD
+	 9NSiXbBq/3d6RhG8IOhzLY7p5dj+CWW9+JE96xwGpbpcgIEt7icghbfux91G//IB8pg5E
+	 LRwBJYoJ2RoZqwCQ4t/UNXSnelD90r+ziIbR+m2hUHvhIW9esp3PCaAuBBvfMnN7YUGPt
+	 A/mTd/a6Ko/KrtZjeonya4++GP1UtFJbP55tQXK7a1qzJA5KrCM7vyPV/X9uOsR6J7jJZ
+	 gJAibQ7tMlvPhhxOsBWF2AJoFyCevp0YTbcfEharTpcQ1E7XRrWQqjgQ45vUoLpooKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792496432;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=TxynAdD6p0I+odTTtrDzfFXaWprv6f6Y40oWNeG36a4=;
-	b=BYet8BvA+zdakxoak+8PSsHaLaJCf8XxizUDvM+9677t/uXC4V3Gjj4XO7ZwF+SqRy9x
-	 g47qhDVTPtj0VZU9eGaLwyjD3qnLuDVOtLMx0vhbjsD5jA9ObqANigKeeCipAcHJ+952y
-	 /tZZv3WwPDNOrBVsq5OS7qYYaW/CkDcW6ZOYpDisvwM9NUl0J1al+6OuqS7pnuwErPexo
-	 mZ70u60y/kP+1f81rpfLME2wqO4oC/PC+vznSxH3H/3rUt1TON3UEWPu+6cmkiihl68fz
-	 5Pb6i+gDUm6ZC29OGz1Mb3M6FaPz4Rdt7lNC5mPA0VHCFiU0VomTng/eOcrNYdZhnWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792496793;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:Received:Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-ID:References:
+	 In-Reply-To:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-ADIRuleOP-NewSCL:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=0fGxgS5WLwiHPd/dWgW7OIuYkTSUUl1Dt+vcyfN+cZU=;
+	b=zlmeD/uwXIGAFLbxnfTDZ+mTn+AW/8heeqFZOilV3pqt3qbhshpdu/wiMn5YesN9hkPE
+	 BTaD9fYMzwMOtUdj48AzmgqBvsPHoO99//S8abRt05sgxDBaIhsdCXXp2ZWzbW8U3MKNL
+	 fbVEMEPLfhmK+ad4VGLXpXCk19pobTLOQAy63I1bsNE2LPtW3os84oJVWl1PDifj/kEwx
+	 JKS9CHsnbUV+athOHDiPQ9pSSwc6CBMRBir/13OwCRvffvWD+DMiN1I+yJfT4GTBFrkEO
+	 r9tnyO9RpTOU3d0pG2vw3YzlrOZT3udXx7KnYSkdNs0V0T/YDZh58Qrob6Z2+F9wHYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EhPOiV3o;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=analog.com;
+	spf=pass smtp.mailfrom=analog.com;
+	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b="uTu/pTJU";
+	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=ICjcBHMj;
+	arc=none smtp.remote-ip=148.163.135.77
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E61E2606A319
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 11:40:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 221B3606A31B;
+	Tue, 20 Oct 2026 11:46:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 221B3606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EhPOiV3o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21CA51F000C4;
-	Tue, 20 Oct 2026 11:40:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792496431;
-	bh=TxynAdD6p0I+odTTtrDzfFXaWprv6f6Y40oWNeG36a4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EhPOiV3osHnFb0jvT9aBUOhvn4xvbTVweiqA2v6NmW2J5Ak8/CgXCSQnXdEjS4In1
-	 ZeU5wUOSKxB34etUbSckcIj0ciNvjbHoJvMNwsUdQ9iC67hbOoah4j764Al+Y5InLU
-	 YZdSgRFvHlKjX3rxv9PbB050caqlPBNwvS0SiAOPZgpxkN4DcbWB8kp87O7lloxvsh
-	 WdAHvcn9ihoyrtfQG4asFeAubIH7S+ENF4EyrH3c8hanoMCZM+nyInW7Hs5Or7aDiU
-	 DVx6UjqMQmH9d54rLiZnkrolibnES1NJG+p5/dmJEWshRi27NKChpPwwK8ytWZtWab
-	 DiiDFr0h6DChA==
-Message-ID: <sashiko-outbox-178901@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 09/17] media: apple: avd: add hevc support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sofus Forstreuter" <sofus.c@icloud.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261020-avd-v3-9-85cbaa2125d8@icloud.com>
-References: <20261020-avd-v3-0-85cbaa2125d8@icloud.com>
- <20261020-avd-v3-9-85cbaa2125d8@icloud.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 20 Oct 2026 11:40:30 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=uTu/pTJU;
+	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=ICjcBHMj
+Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KAB5Om2992921;
+	Tue, 20 Oct 2026 07:46:02 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	DKIM; bh=0fGxgS5WLwiHPd/dWgW7OIuYkTSUUl1Dt+vcyfN+cZU=; b=uTu/pTJ
+	U1hXnLxKhZl2tNXRH5YI004HnhBf7LQJ05FF7V90p0HRvd0gXmliXVNLdpxIvLen
+	7eeKKrGgeOw5Yfma1n3qaCQJ5KEHCm9k+0fTQ60LP0RtdNyFRmb1uM4vmCEbK/5n
+	78u4d8khofseq7UjKylFbKSwFuGk8CSw3uaM/WpovYxM7BWwbBZdsDdLw0TmQMxZ
+	3RgtF2ZRZRpA+onkjrom+uHHY6PwZ0luUpolU0A+bZVkbOf9hkWdMevbVujWG9yU
+	7Oz+2j73XAl6BkfMKyRnCxOuJWpq7gorqdhhrf1uj5KZWLb3UQTwmq3d3f+bKF7o
+	NzbRMhT+xk+yGsA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=0fGxg
+	S5WLwiHPd/dWgW7OIuYkTSUUl1Dt+vcyfN+cZU=; b=ICjcBHMjZPdpaa40GvWMh
+	O9ERCEh0OGVB2KWNEOYzEY99Urh35P+juImLR8AyOQd2KEVU3RQEx/6Sphu8QvN/
+	pzZ64ImJbBC/AGeA9XgXVGPNvClxyNp3Qd3dOfV8SIP8NU2vwAe9/eIMZd3clKwT
+	hYOfWR+rpXmGzWqyfNhEKNSaw+9TzLCFfhbnhQmvbD9GlbBH6ov2L2QTsJH2QfMN
+	N2jv6mbSIdOJxrJTcUdfR/e32ZfJOAUDI78JG1xZWc490kUY8FFF2cwTvq0ALq18
+	OsZRefj0pueivsLl1FD7NApPp/GQ+MT4fJzsrmcc0RKZxDKCV5vtVJJC1ZmF0Ran
+	g==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hdw69u7ys-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 20 Oct 2026 07:46:01 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 69KBk0AT027434
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 20 Oct 2026 07:46:00 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Tue, 20 Oct
+ 2026 07:46:00 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Tue, 20 Oct 2026 07:46:00 -0400
+Received: from HYB-GHaNx595DZ2.ad.analog.com (HYB-GHaNx595DZ2.ad.analog.com [10.117.116.216])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 69KBjZVj012172;
+	Tue, 20 Oct 2026 07:45:54 -0400
+From: Christopher de Guzman <christopher.deguzman@analog.com>
+Date: Tue, 20 Oct 2026 19:45:32 +0800
+Subject: [PATCH 1/3] dt-bindings: hwmon: ltc2978: Add support for LT7175
+ and LT7176P
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,423 +92,93 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261020-upstream-lt7175-lt7176p-v1-1-86b9b728b95d@analog.com>
+References: <20261020-upstream-lt7175-lt7176p-v1-0-86b9b728b95d@analog.com>
+In-Reply-To: <20261020-upstream-lt7175-lt7176p-v1-0-86b9b728b95d@analog.com>
+To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+        Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan
+	<skhan@linuxfoundation.org>,
+        Randy Dunlap <rdunlap@infradead.org>
+CC: <linux-hwmon@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+        Christopher de
+ Guzman <christopher.deguzman@analog.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792496735; l=1345;
+ i=christopher.deguzman@analog.com; s=20261020; h=from:subject:message-id;
+ bh=4LZwthkM5BE+X7ipPo23i+IUr4MpgfotiG6+UuoxvIE=;
+ b=7Yeasx3D/kP7Xw6zkQmWmPS58pL87dX4+CqBgHT+3SR4H3nfAoP9O55WfcgDwD+muh9C87kKc
+ Hx9gNtL+c9rB1X3trCukn6+t/eRxHxlREgAFDyOEOB3pFIQY+Z+Vx7p
+X-Developer-Key: i=christopher.deguzman@analog.com; a=ed25519;
+ pk=nSwfp91RWULY/zCnrDkBvXulgnpfKy+5C6/Gh3ecLwo=
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-ORIG-GUID: 33EO4NIipM2R5FFzuBQ7y-rtG6PUx_VA
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA0NiBTYWx0ZWRfX5pIjE99fz1wX
+ Ek/Vvhbqme/PHFj0qUIZnCabOfEBi9wvO+NVn47Ej/80IEjRf5/AxNmWempOr5fhEJ/sne0pNwI
+ /JNlXhxNxZvU4igyc/4DIicNKYu+rAeXZsRYvGy0s4vL/v9P22oO
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA0NiBTYWx0ZWRfX9l6xxkocwjoe
+ aEvJifMg1SDnKPmbapRK+Y7u46+wa4tWBaAvGyv0XdBzTBi2lI0ATnnIxhT1kpwoyuyMiPqx4HT
+ d1f5zcm3TCfHoqr99T5CUvxrFHQiUpLFe7+5UHU7cEKhy/WD4HwV5rAKt1npQH39M4Ojbx7AZW6
+ j/7zSpO9Dqou1ELfffJpLyAb9DRzTp+dknYoclodWt34gtI3NVpR+QgslcjZndCGgk+2tNtwjAZ
+ Joa3RUCy3Ywfp18lQDYELwv4xDj9VYwTAuqSVi3O4qqkjn2YzRWVntGFMapwWehRHGf0n1XAYk6
+ VzPBXAlBherCTf55jvNCRc8BGjWdWPRwwoEWVCtcOC02psOTmUNIUm6eQZJQ8MvK0q14IDjZj+e
+ gbuZgxIr9Db+FgoMfJPILIcpOl3e09axV9O3/lYh7e6ZL9EZq0+JM8+gkatmfBnya3/cynT1mPR
+ wdKKE24MJw5+SVrwD8w==
+X-Authority-Analysis: v=2.4 cv=cdpHPXDM c=1 sm=1 tr=0 ts=6ad7547a cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=0sLvza09kfJOxVLZPwjg:22 a=Z0pTeXoby7EwIRygza74:22 a=gAnH3GRIAAAA:8
+ a=-ZOyYidC_C2AdzT2P28A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: 33EO4NIipM2R5FFzuBQ7y-rtG6PUx_VA
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 bulkscore=0 spamscore=0 phishscore=0 suspectscore=0
+ priorityscore=1501 adultscore=0 clxscore=1015 malwarescore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200046
+
+Document the compatible strings for the LT7175/LT7175-1 and
+LT7176P/LT7176P-1 PMBus buck regulators newly supported by the
+ltc2978 driver.
+
+Signed-off-by: Christopher de Guzman <christopher.deguzman@analog.com>
+---
+ Documentation/devicetree/bindings/hwmon/lltc,ltc2978.yaml | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/hwmon/lltc,ltc2978.yaml b/Documentation/devicetree/bindings/hwmon/lltc,ltc2978.yaml
+index ea8b1553a3e9..467c6ab4a29f 100644
+--- a/Documentation/devicetree/bindings/hwmon/lltc,ltc2978.yaml
++++ b/Documentation/devicetree/bindings/hwmon/lltc,ltc2978.yaml
+@@ -14,6 +14,10 @@ properties:
+     enum:
+       - lltc,lt7170
+       - lltc,lt7171
++      - lltc,lt7175
++      - lltc,lt7175-1
++      - lltc,lt7176p
++      - lltc,lt7176p-1
+       - lltc,ltc2972
+       - lltc,ltc2974
+       - lltc,ltc2975
+@@ -50,7 +54,7 @@ properties:
+     description: |
+       list of regulators provided by this controller.
+       Valid names of regulators depend on number of supplies supported per device:
+-      * lt7170, lt7171 : vout0
++      * lt7170, lt7171, lt7175, lt7175-1, lt7176p, lt7176p-1 : vout0
+       * ltc2972 vout0 - vout1
+       * ltc2974, ltc2975 : vout0 - vout3
+       * ltc2977, ltc2979, ltc2980, ltm2987 : vout0 - vout7
+
+-- 
+2.43.0
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [Critical] media: apple: avd: OOB read of PPS tile arrays in compute_tile=
-s_non_uniform()
-- [Critical] media: apple: avd: tile size sum underflow in compute_tiles_no=
-n_uniform()
-- [Critical] media: apple: avd: entry_point_offsets sum overflow in avd_hev=
-c_run_preamble()
-- [High] media: apple: avd: wrong plane length field in stream_slice_mv()
-- [High] media: apple: avd: OOB stack read of row_bd in submit_slice_segmen=
-t()
-- [High] media: apple: avd: missing SPS block size and dimension validation
---
-
-commit 9e1098e858acf03c63d37b3cb57614f4681a182e
-Author: Sofus Forstreuter <sofus.c@icloud.com>
-
-media: apple: avd: add hevc support
-
-This patch adds stateless V4L2 HEVC decoding support to the Apple Video
-Decoder (AVD) driver.
-
-> diff --git a/drivers/media/platform/apple/avd/avd-hevc.c b/drivers/media/=
-platform/apple/avd/avd-hevc.c
-> new file mode 100644
-> index 0000000000000..36ae24c640a10
-> --- /dev/null
-> +++ b/drivers/media/platform/apple/avd/avd-hevc.c
-
-[ ... ]
-
-> +#define HEVC_SCL_DIMS	0x127ffff
-> +
-> +/* this is for level 7.1 */
-> +#define HEVC_MAX_TILE_COLS	40
-> +#define HEVC_MAX_TILE_ROWS	44
-
-[ ... ]
-
-> +static void stream_slice_mv(struct avd_ctx *ctx, struct avd_hevc_run *ru=
-n,
-> +			    const struct v4l2_ctrl_hevc_slice_params *sl,
-> +			    bool is_first)
-> +{
-
-[ ... ]
-
-> +	if (ref_valid) {
-> +		dma_addr_t mv_color_addr =3D
-> +			vb2_dma_contig_plane_dma_addr(&ref->base.vb.vb2_buf,
-> +						      0) +
-> +			(ref->base.vb.planes[0].length -
-> +			 mv_color_size(fmt_width(ctx), fmt_height(ctx)));
-> +		pusha(mv_color_addr, "mv_colo", 0);
-> +	}
-> +}
-
-[Severity: High]
-Should stream_slice_mv() use ref->base.vb.vb2_buf.planes[0].length instead
-of ref->base.vb.planes[0].length here?
-
-In avd_hevc_run_preamble(), the destination buffer's mv_color address is
-computed from vb2_buf.planes[0].length:
-
-	dst_len =3D run->base.bufs.dst->vb2_buf.planes[0].length;
-	mv_color_len =3D mv_color_size(fmt_width(ctx), fmt_height(ctx));
-	run->addresses.mv_color =3D run->base.y_out + (dst_len - mv_color_len);
-
-When capture buffers are queued using VB2_MEMORY_DMABUF with
-v4l2_plane.length set to 0, __prepare_dmabuf() in videobuf2-core.c sets
-vb2_buf.planes[0].length =3D dbuf->size, while leaving
-vb2_v4l2_buffer.planes[0].length as 0.
-
-When decoding a P or B slice with
-V4L2_HEVC_SLICE_PARAMS_FLAG_SLICE_TEMPORAL_MVP_ENABLED and a non-intra
-collocated reference frame, subtracting mv_color_size() from
-ref->base.vb.planes[0].length (0) underflows the 32-bit unsigned value and
-programs the hardware with an out-of-bounds DMA address.
-
-Also, in set_slice(), coded_in and size are computed from sl->bit_size,
-sl->data_byte_offset, and entry_point_offsets without bounds checking
-against the source buffer plane size.
-
-> +
-> +static void set_slice(struct avd_ctx *ctx, struct avd_hevc_run *run,
-> +		      const struct v4l2_ctrl_hevc_slice_params *sl, u32 size,
-> +		      u32 offset, u32 flags)
-> +{
-> +	dma_addr_t coded_in =3D
-> +		run->base.coded_in + offset + sl->data_byte_offset;
-> +	push(AVD_OP_CODED_DATA | flags | AVD_OP_CODED_IN_HI(coded_in),
-> +	     "cm3_cmd_set_coded_slice");
-> +	push(AVD_OP_CODED_IN_LO(coded_in), "slc_bd8_slice_addr");
-> +	push(size, "slc_bdc_slice_size");
-> +}
-> +
-> +static int submit_slice_segment(struct avd_ctx *ctx, struct avd_hevc_run=
- *run,
-> +				const struct v4l2_ctrl_hevc_slice_params *sl,
-> +				int row, int col, u32 col_bd[23],
-> +				u32 row_bd[23], u32 pic_in_cts_width,
-> +				u32 pic_in_cts_height, bool first_slice,
-> +				bool hflip, bool vflip, u32 coded_flags,
-> +				u32 last_tile_block)
-> +{
-
-[ ... ]
-
-> +	} else {
-> +		tile_boundary =3D AVD_OP_SL_LOC_Y(row_bd[row]) |
-> +				AVD_OP_SL_LOC_X(col_bd[col]);
-> +	}
-> +
-> +	if (coded_flags & NEW_TILE_ID) {
-> +		push(AVD_OP_SL_DIM_START |
-> +			     (coded_flags & NEW_SLICE ? tile_block :
-> +							tile_boundary),
-> +		     "cm3_cmd_set_ctb_xy");
-> +
-> +		/* tile boundary end */
-> +		if (pps->flags & V4L2_HEVC_PPS_FLAG_TILES_ENABLED)
-> +			push(AVD_SL_DIM_END_ROW((hflip ? 4 : 0) |
-> +						(vflip ? 8 : 0)) |
-> +				     AVD_SL_DIM_END_COL(col) |
-> +				     AVD_SL_DIM_END_Y(row_bd[row + 1] - 1) |
-> +				     AVD_SL_DIM_END_X(col_bd[col + 1] - 1),
-> +			     "cm3_set_ctb_xy");
-
-[Severity: High]
-Can submit_slice_segment() read past the end of row_bd[] on the stack?
-
-In stream_slices(), pos is incremented for every segment where
-(slice_flag & NEW_TILE_ID) is set, and row is computed as:
-
-	row =3D pos / num_cols;
-	col =3D pos % num_cols;
-
-Across up to 1800 slices and 1760 entry point offsets, pos can reach up to
-3560 while num_cols (pps->num_tile_columns_minus1 + 1) can be 1. Because
-row is not checked against pps->num_tile_rows_minus1 or HEVC_MAX_TILE_ROWS,
-submit_slice_segment() can index row_bd[row] and row_bd[row + 1] past the
-end of run.tile_info.row_bd[HEVC_MAX_TILE_ROWS + 1].
-
-Note also that submit_slice_segment() declares u32 col_bd[23] and
-u32 row_bd[23], which do not match HEVC_MAX_TILE_COLS + 1 and
-HEVC_MAX_TILE_ROWS + 1.
-
-[ ... ]
-
-> +static void compute_tiles_non_uniform(struct avd_hevc_run *run,
-> +				      u16 log2_min_cb_size, u16 width,
-> +				      u16 height, u32 pic_in_cts_width,
-> +				      u32 pic_in_cts_height, u16 *column_width,
-> +				      u16 *row_height)
-> +{
-> +	const struct v4l2_ctrl_hevc_pps *pps =3D run->pps;
-> +	u32 sum =3D 0;
-> +	int i;
-> +
-> +	for (i =3D 0; i < pps->num_tile_columns_minus1; i++) {
-> +		column_width[i] =3D MIN(pps->column_width_minus1[i] + 1,
-> +				      pic_in_cts_width);
-> +		sum +=3D column_width[i];
-> +	}
-> +	column_width[i] =3D pic_in_cts_width - sum;
-> +
-> +	sum =3D 0;
-> +	for (i =3D 0; i < pps->num_tile_rows_minus1; i++) {
-> +		row_height[i] =3D MIN(pps->row_height_minus1[i] + 1,
-> +				    pic_in_cts_height);
-> +		sum +=3D row_height[i];
-> +	}
-> +	row_height[i] =3D pic_in_cts_height - sum;
-> +}
-
-[Severity: Critical]
-Can compute_tiles_non_uniform() read out of bounds from
-pps->column_width_minus1[] and pps->row_height_minus1[]?
-
-In include/uapi/linux/v4l2-controls.h, struct v4l2_ctrl_hevc_pps defines:
-
-	__u8 column_width_minus1[20];
-	__u8 row_height_minus1[22];
-
-However, HEVC_MAX_TILE_COLS is 40 and HEVC_MAX_TILE_ROWS is 44, so
-avd_hevc_validate_pps() allows pps->num_tile_columns_minus1 up to 39 and
-pps->num_tile_rows_minus1 up to 43. When V4L2_HEVC_PPS_FLAG_TILES_ENABLED
-is set without V4L2_HEVC_PPS_FLAG_UNIFORM_SPACING, these loops read
-pps->column_width_minus1[i] up to index 38 and pps->row_height_minus1[i]
-up to index 42, reading past both arrays and the end of struct
-v4l2_ctrl_hevc_pps.
-
-[Severity: Critical]
-In addition, what happens in compute_tiles_non_uniform() if the cumulative
-sum of column widths or row heights exceeds pic_in_cts_width or
-pic_in_cts_height?
-
-Clamping each individual column or row with MIN() does not prevent sum from
-exceeding pic_in_cts_width or pic_in_cts_height across multiple columns or
-rows. When sum > pic_in_cts_width (or sum > pic_in_cts_height), the final
-assignment:
-
-	column_width[i] =3D pic_in_cts_width - sum;
-	...
-	row_height[i] =3D pic_in_cts_height - sum;
-
-underflows in u16 to a large value (up to 65535). compute_bd() then
-computes col_bd and row_bd boundaries exceeding pic_in_ctbs_width and
-pic_in_ctbs_height, causing compute_tile_ids() to read
-ctb_addr_rs_to_ts[y * pic_in_ctbs_width + x] and write tile_ids[...] out of
-bounds on the heap:
-
-> +static void compute_tile_ids(struct avd_hevc_run *run, u32 pic_in_ctbs_w=
-idth,
-> +			     u32 *col_bd, u32 *row_bd, u32 *ctb_addr_rs_to_ts,
-> +			     u32 *tile_ids)
-> +{
-> +	const struct v4l2_ctrl_hevc_pps *pps =3D run->pps;
-> +	int j, i, y, x;
-> +	u32 tile_idx;
-> +
-> +	for (j =3D 0, tile_idx =3D 0; j <=3D pps->num_tile_rows_minus1; j++)
-> +		for (i =3D 0; i <=3D pps->num_tile_columns_minus1; i++, tile_idx++)
-> +			for (y =3D row_bd[j]; y < row_bd[j + 1]; y++)
-> +				for (x =3D col_bd[i]; x < col_bd[i + 1]; x++)
-> +					tile_ids[ctb_addr_rs_to_ts
-> +							 [y * pic_in_ctbs_width +
-> +							  x]] =3D tile_idx;
-> +}
-
-[ ... ]
-
-> +static int avd_hevc_validate_sps(struct avd_ctx *ctx,
-> +				 const struct v4l2_ctrl_hevc_sps *sps)
-> +{
-> +	if (sps->pic_width_in_luma_samples > ctx->coded_fmt.fmt.pix_mp.width ||
-> +	    sps->pic_height_in_luma_samples > ctx->coded_fmt.fmt.pix_mp.height)
-> +		return -EINVAL;
-> +
-> +	if (sps->bit_depth_chroma_minus8 !=3D sps->bit_depth_luma_minus8)
-> +		return -EINVAL;
-> +
-> +	if (sps->bit_depth_luma_minus8 > 2)
-> +		/* not implemented */
-> +		return -EINVAL;
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-Does avd_hevc_validate_sps() also need to validate that picture dimensions
-are non-zero and bound log2_min_luma_coding_block_size_minus3 and
-log2_diff_max_min_luma_coding_block_size?
-
-In avd_hevc_run(), avd_hevc_compute_tiles() runs before
-avd_hevc_alloc_scratch() (where the !max_cu_width check is located) and
-executes:
-
-	log2_min_cb_size =3D sps->log2_min_luma_coding_block_size_minus3 + 3;
-
-	max_cu_width =3D 1 << (sps->log2_diff_max_min_luma_coding_block_size +
-			     log2_min_cb_size);
-	pic_in_ctbs_width =3D (width + max_cu_width - 1) / max_cu_width;
-	pic_in_ctbs_height =3D (height + max_cu_width - 1) / max_cu_width;
-	pic_in_ctbs_size =3D pic_in_ctbs_height * pic_in_ctbs_width;
-
-If the shift exponent is >=3D 31, 1 << ... triggers signed 32-bit shift
-undefined behavior; if it is >=3D 32 (or wraps to 0), dividing by max_cu_wi=
-dth
-divides by zero, and if it is 31, max_cu_width is 0x80000000, making
-pic_in_ctbs_width =3D 0 and causing division by zero in compute_rs_to_ts() =
-or
-submit_slice_segment(), as well as 32-bit overflow in
-((max_col * max_cu_width) / 4) * bit_depth in avd_hevc_alloc_scratch().
-
-Similarly, if width or height is 0 (for example, if streaming starts before
-setting V4L2_CID_STATELESS_HEVC_SPS), pic_in_ctbs_size is 0 and
-kzalloc_objs() returns ZERO_SIZE_PTR, which is then dereferenced. Also,
-because avd_hevc_validate_sps() is only called from avd_hevc_try_ctrl(),
-decreasing the coded format dimensions via VIDIOC_S_FMT after setting the
-SPS control leaves stale SPS dimensions larger than the format.
-
-> +
-> +static int avd_hevc_validate_pps(struct avd_ctx *ctx,
-> +				 const struct v4l2_ctrl_hevc_pps *pps)
-> +{
-> +	if (pps->num_tile_columns_minus1 + 1 > HEVC_MAX_TILE_COLS ||
-> +	    pps->num_tile_rows_minus1 + 1 > HEVC_MAX_TILE_ROWS)
-> +		return -EINVAL;
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +static int avd_hevc_run_preamble(struct avd_ctx *ctx, struct avd_hevc_ru=
-n *run)
-> +{
-
-[ ... ]
-
-> +	for (i =3D 0; i < run->num_slices; i++)
-> +		sum +=3D (*run->sl)[i].num_entry_point_offsets;
-> +
-> +	if (sum && sum !=3D run->num_entry_point_offsets)
-> +		return -EINVAL;
-
-[Severity: Critical]
-Can sum overflow when accumulating (*run->sl)[i].num_entry_point_offsets in
-avd_hevc_run_preamble()?
-
-(*run->sl)[i].num_entry_point_offsets is an unvalidated __u32 accumulated
-into a 32-bit signed int sum. If two or more slices have
-num_entry_point_offsets values whose 32-bit sum wraps to 0 or to
-run->num_entry_point_offsets, this check passes while avd_init_job() only
-allocates run.num_slices + run.num_entry_point_offsets + 1 segments.
-
-In stream_slices():
-
-	to =3D tiles_enabled ? sl->num_entry_point_offsets + 1 : 1;
-
-	for (i =3D 0; i < to; i++) {
-		...
-		if (tiles_enabled && to > 1) {
-			if (i < sl->num_entry_point_offsets) {
-				size =3D (*run->entry_point_offsets)
-					       [entry_point_idx++];
-
-When tiles_enabled is true, this loop can then read
-(*run->entry_point_offsets)[entry_point_idx++] out of bounds on the heap
-and write past the end of ctx->job.segments via push() and
-avd_end_segment(). Moreover, if sl->num_entry_point_offsets >=3D 0x7fffffff,
-int to =3D sl->num_entry_point_offsets + 1 overflows to <=3D 0, skipping the
-inner loop and its sl->slice_segment_addr >=3D pic_in_ctbs_size check for
-slice s, so slice s + 1 indexes
-tile_info->ctb_addr_rs_to_ts[(*run->sl)[s].slice_segment_addr] out of
-bounds.
-
-> +
-> +	dst_len =3D run->base.bufs.dst->vb2_buf.planes[0].length;
-> +
-> +	mv_color_len =3D mv_color_size(fmt_width(ctx), fmt_height(ctx));
-> +
-> +	run->addresses.mv_color =3D run->base.y_out + (dst_len - mv_color_len);
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +static int avd_hevc_run(struct avd_ctx *ctx)
-> +{
-> +	struct avd_hevc_run run =3D {};
-> +	struct avd_decoded_buffer *dst;
-> +	int ret;
-> +
-> +	ret =3D avd_hevc_run_preamble(ctx, &run);
-> +	if (ret)
-> +		goto postamble;
-> +
-> +	dst =3D vb2_to_avd_decoded_buf(&run.base.bufs.dst->vb2_buf);
-> +	update_dec_buf_info(dst, &(*run.sl)[0]);
-> +
-> +	ret =3D avd_hevc_compute_tiles(ctx, &run);
-> +	if (ret)
-> +		goto done;
-> +
-> +	ret =3D avd_hevc_alloc_scratch(ctx, &run);
-> +	if (ret)
-> +		goto done;
-> +
-> +	ret =3D avd_init_job(ctx, AVD_CODEC_HEVC,
-> +			   run.num_slices + run.num_entry_point_offsets + 1);
-> +	if (ret)
-> +		goto done;
-
-[ ... ]
-
-> +	return ret;
-> +}
-
-[ ... ]
-
-> diff --git a/drivers/media/platform/apple/avd/avd-v4l2.c b/drivers/media/=
-platform/apple/avd/avd-v4l2.c
-> index 0f83a17f16fae..34db42e008332 100644
-> --- a/drivers/media/platform/apple/avd/avd-v4l2.c
-> +++ b/drivers/media/platform/apple/avd/avd-v4l2.c
-
-[ ... ]
-
-> +	{
-> +		.cfg.id =3D V4L2_CID_STATELESS_HEVC_ENTRY_POINT_OFFSETS,
-> +		.cfg.flags =3D V4L2_CTRL_FLAG_DYNAMIC_ARRAY,
-> +		.cfg.dims =3D { 1760 },
-> +		.cfg.max =3D 0xffffffff,
-> +		.cfg.step =3D 1,
-> +	},
-
-[ ... ]
-
-> diff --git a/drivers/media/platform/apple/avd/avd.h b/drivers/media/platf=
-orm/apple/avd/avd.h
-> index bd6177ab1eb25..828d25f85902e 100644
-> --- a/drivers/media/platform/apple/avd/avd.h
-> +++ b/drivers/media/platform/apple/avd/avd.h
-
-[ ... ]
-
-> +struct avd_hevc_decoded_buffer_info {
-> +	bool is_intra;
-> +};
-
-[ ... ]
-
->  extern const struct v4l2_ctrl_ops avd_ctrl_ops;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261020-avd-v3-0-8=
-5cbaa2125d8@icloud.com?part=3D9
