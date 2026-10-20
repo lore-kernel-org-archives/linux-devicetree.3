@@ -1,52 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792460285;
-	b=QPWcboIUCwsWuo77p1DvKL9S4dpqZYjK3sib3tj1/XzXC6mRS6ydjESwWBo3PFQM0Nx8
-	 p4MwuH5AqafoH5/x5ia6KvF3MFWswft5UDV82c/Y7ZPfn9FxPkvNGlabOWQsfiGniEP6U
-	 LpgqUnU4BWCDHJTR78DA4mBDZboQSGHw353qN9KrJGXlOUGK+/Kz2SfL4FJ6jiBdx9VIw
-	 DTONNUkR9c4EF8wfs0blP8Ybd5z3gPgvf8asboAO/LwI2TiloKMwnZAfCPHZqK7DYi4PW
-	 O6GCcQtZwNsDu0PXwA7Pia0OCXSh8RTvJgwikLJLDV+rHmfTEA+KgIUiUCvR1aTm6qQ==
+	t=1792460290;
+	b=AkauEah/HTAvNcLC67aCDiLjZUX73iwxouzZTRg5Vr9GJ77zvpJHOuMaqQnh+RD0qhv/
+	 +SHLxQcu5lYpJNMvhb323zDSK+mqTbdiBBIyrXz3bgSxkXzYZnaC9iWuvOtP7/alXiAx2
+	 v6CXitPOOidst2T2pa4bUcj786JK60mDxhQ6J56S/UE7/4vwRrAi2/EMv35dq4ffmYPBi
+	 W0eRkgaTspSUqg/oN7hNN4aZG6W6chhYf/Dn1x3aqizJFnyUrkWoiRosQ83L/DZ9YS8vM
+	 54V44qVLOd93HlOPFX/DZaLfEXK4QSyIKhIrDgdAR0mEO9/FbaBTCAQWcV0+T+CJ+fw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792460285;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=PbjFjYksln6X5VCuok/GYUEp4Jt2bFAm9SetP90rGcM=;
-	b=3yM1FUTxHf2jQ8exWJqIo0VVpiLZ02N3lYNzcxiNISTnwOKnJmUlP/STN/1h3zYttreO
-	 6uhGJXLjWeRwBxjylaT1NCx9i8Ex8MnTBiySKZAQGXI/ySJplgowKYKnn5oQ1tuBqiq0B
-	 QZ1II9lhRV7KhMJGk/amJ5avb0V6Ut0blK7dRBCJWOJ9mAwortDwFZCUQZ40/JR5WwoLQ
-	 dZQzyW29VtC+nIWsqA6KdW7cL8DkNh4qc2X/t2+UNTTg3oMvT1SvC+rOcoP/P7efcnBGJ
-	 QrFLPti5vaKCDfZcOzt7tW7RGs1AGq/xbICAHHT8QYUoKK90e130GrWEjiPPBeGm4jw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792460290;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=8Vg2HGC9f0RLK6KKMp0Lu8393a2H674YghRuAU4vlpU=;
+	b=t6mjw4c6HhUxFhYUXNJebS25jcWzorJl2FDCv984ABkAWzuGFDWvkCtQTLlyO/L9Io9G
+	 XhjHst4VsUEi7GIt0hFH/ViUp5NPxs3WHSXZdLAYzEE2cTX8XD9/b3uVKhkoibCIuHH07
+	 tR2STnejo9B6LvvMPicDCNKWmO/2dX8Ud7EZZAB28NuEx98JwbDCe0mhXbywg4bSGYGAy
+	 t5LDEUONCwvPUhO/hXWg/VoZUPc9xaz3vSOxhT1QvTr2hwdhJAU9A6ZfzLt1mrIcXPSFc
+	 Ny1r672HlbN8sG9zqfGEr9CuCF2olTWwrZlkTuFp2vjbNLbbQsOM0/kUWFBzdMDyFAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=gkhjrsVg;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=roeck-us.net;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=P8ClSeiq;
+	arc=none smtp.remote-ip=74.125.82.45
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ECFF606A319;
-	Tue, 20 Oct 2026 01:38:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4ECFF606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CACCA606A320
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 01:38:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CACCA606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=gkhjrsVg
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E71FA108825;
-	Tue, 20 Oct 2026 03:37:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1792460281;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=PbjFjYksln6X5VCuok/GYUEp4Jt2bFAm9SetP90rGcM=;
-	b=gkhjrsVg8YdzKJiWw+oBJJoGOWMSaX2plJh2ECGP6pobGez/hDtH0UV4Rc2GlxMKP/fXbF
-	mFRHOvJDQ5/kcprfkbErcvoAO2cidfW1VgzDUdVmsiwoKZq51M2pIyMSiB9+mFd5e2Y+XE
-	zIrWXd21uoO8qiwXwxlMoS1cEEkqb5V7RipLdtD1smpxlx42HVcI2xhjn7frxAydftEr9K
-	BRNUqGr0Hyai2/OODFby0KhwLg52WWQJ0Ndu4cZfDaERlK07618LcHO8wB2hrcFgrUvMa/
-	vQkCTJEDpb9ssDuGPZeYe/7oi7OrMmtFkutPvii2Ku6bc20iYPHtQno+K7cwGw==
-Message-ID: <fe920b05-6d89-4dc1-83d3-0664fbc2e00c@nabladev.com>
-Date: Mon, 19 Oct 2026 18:10:18 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=P8ClSeiq
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-15354aa70e8so3037724c88.1
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 18:38:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792460289; x=1793065089; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=8Vg2HGC9f0RLK6KKMp0Lu8393a2H674YghRuAU4vlpU=;
+        b=P8ClSeiq8iS2sLn5peXIWUrqLR8crS2ZbRIPFQ5r3UJoEOAy3kjbeUGU26ax0TW2vq
+         M/VWc0S7TLRXwewbaBB0KXRODfGmMO4tM4luke2JHR2duix4LJ77dgPVxn/Fqq+WGYu4
+         i2YLNUi/tFcRHmZtyqtwLpHEcMqeOyGD6igSrZ1Tki41ViKJ2IpD6nKi30soM30Co+vc
+         3tZ48V/eBWE//1mWWvEH20OsbxLQ93KVy5A3pfmEWQaqv2RcbICpMieGwdqcsaIShX+2
+         X39+mSi7/W0HTIMuO9ZGpGWzpFboaZzULMxmZp1zJAf0Fc6flUVOcpBqZHePvRvLvaFS
+         +Gfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792460289; x=1793065089;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8Vg2HGC9f0RLK6KKMp0Lu8393a2H674YghRuAU4vlpU=;
+        b=dEdL+m+guRQlrh8hev1tA76K1vqbrAITMcyyIb+zHhBdUrQ05G3QgWqLOGUM9BlIxH
+         mzwHrcA3BGXA3g2lB9BPdFxsPFpraB5aZXEBdHz+4kEWJSdsZre+Lj3DntPEKMUn/+bD
+         ZBR5kv0IHzeXK9D4FZn1Butq1ZD+ATxImLavyLMf0zvd04PkpmbBANqJDg1ISIBihe1S
+         RMu9ApH5H7QOBFejgKxBo569ymYFU9CpGD2+8PAaT/aigyFa7PVkWHr5eUwyhKaU/XqR
+         +PnIElMMWrEA24EAQGv10p/2Y9k/LpuzUR5w215l0HVsVfUIRn6xsyzpNgf2Dy+fj2Xk
+         3J3A==
+X-Forwarded-Encrypted: i=1; AKwUvBzKRNPPszYiatZ849kVCqC3Oeam2n/IE4rnYSI4MxTtSjDC9xJPqYbIC7dRbjAYy340Iu+TEkTOkHBp@vger.kernel.org
+X-Gm-Message-State: AFq9FYKini7MUxMECBYrxmAYk0oIaWCM7BqxamIqi4ygOGr0gJ7kxF8I
+	8yOLSZEQ2nE6h0ocbZcaT31uVNl5mlzJ8bOPOGiwPY05bMBVYh//SFkz
+X-Gm-Gg: AYBFou3z+oIWRdjxM/FZQedkFwhdVbMwubkPDPJkz7RA+sqKf0Sa+ccyAhR6oEWertP
+	PbOT1vYJfriejiZ4DcSheuzMYjgtBKaY4Uky8Nf8K2G4oT044R5DxolP3a/fvxK+XBvBOJX++vl
+	4I9OML5ne+jQ9JhBCgrhZI78ag43xik2BRq/OahxsPTPJkLTbH/rBVncAMOtgJSwasAVaCf6Eoq
+	7FnoyO8VncVXnHk3ClpxDz585TWJQIOzMPstIC7qq5McTEr3kgb63pDqirj4kJfkDmiz+uEd6MG
+	/KlDbDvKqcEgegT4R5X+evdVs9Zo9cs5L3aRKbF0pzWkXB9baRyf7C9+Tr1DXZ3xqi7n6FOuaIv
+	8KRfUCLtVAQF1tEPjeyg0MAHmMAqrizvyY2N3Lq9+oGNSi4D5rOhLK2cGHOP9ulpjZp7od8kK9e
+	j/LBy488EErQihxSJH7p1VkT588BJZPhxxuPP8yRS4zT9iZHCZ2wjl7eE5u7kOcAZsGBetzpeUx
+	v/0KuDmtkeT
+X-Received: by 2002:a05:701b:418a:20b0:187:eb7f:bb4 with SMTP id a92af1059eb24-187eb7f0d0amr9277157c88.46.1792460288841;
+        Mon, 19 Oct 2026 18:38:08 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1830f213ba7sm37629861c88.0.2026.10.19.18.38.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 18:38:08 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Mon, 19 Oct 2026 18:38:07 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Florian Fainelli <f.fainelli@gmail.com>
+Cc: linux-mips@vger.kernel.org, Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
+	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Mingyu Wang <25181214217@stu.xidian.edu.cn>,
+	Robert Marko <robert.marko@sartura.hr>,
+	"open list:WATCHDOG DEVICE DRIVERS" <linux-watchdog@vger.kernel.org>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>, manuel.lauss@gmail.com
+Subject: Re: [PATCH 1/5] watchdog: gpio: Allow devices described by software
+ nodes
+Message-ID: <74cb726a-b36c-437f-988f-c4f3bfa0a7b4@roeck-us.net>
+References: <20261016221617.2223004-1-f.fainelli@gmail.com>
+ <20261016221617.2223004-2-f.fainelli@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -56,86 +112,21 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [net-next,PATCH 2/2] enetc: Make eMDIO MDC rate configurable from
- DT
-To: Wei Fang <wei.fang@nxp.com>, "Frank Li (OSS)" <frank.li@oss.nxp.com>
-Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- Vladimir Oltean <vladimir.oltean@nxp.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Andrew Lunn
- <andrew+netdev@lunn.ch>, Clark Wang <xiaoning.wang@nxp.com>,
- Claudiu Manoil <claudiu.manoil@nxp.com>, Conor Dooley <conor+dt@kernel.org>,
- Eric Dumazet <edumazet@kernel.org>, Frank Li <frank.li@nxp.com>,
- Jakub Kicinski <kuba@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
- "UNGLinuxDriver@microchip.com" <UNGLinuxDriver@microchip.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "imx@lists.linux.dev" <imx@lists.linux.dev>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>
-References: <20261016193344.115518-1-marex@nabladev.com>
- <20261016193344.115518-2-marex@nabladev.com> <atKDNdxl0w65s8yQ@SMW015318>
- <DB9PR04MB933217F7ADCB6223A44DACA7889A2@DB9PR04MB9332.eurprd04.prod.outlook.com>
- <661412ff-3942-4d1c-be6f-1ef6c54620fd@nabladev.com>
- <AS4PR04MB933821150913BDCF35C4827F88982@AS4PR04MB9338.eurprd04.prod.outlook.com>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <AS4PR04MB933821150913BDCF35C4827F88982@AS4PR04MB9338.eurprd04.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016221617.2223004-2-f.fainelli@gmail.com>
 
-On 10/19/26 4:59 AM, Wei Fang wrote:
-
-Hello Wei,
-
->>>>> +int enetc_mdio_update_mdc_div(struct mii_bus *bus) {
->>>>> +	struct enetc_mdio_priv *mdio_priv = bus->priv;
->>>>> +	struct device *dev = bus->parent;
->>>>> +	struct clk *enet_clk;
->>>>> +	u32 div, mdc_freq;
->>>>> +
->>>>> +	if (device_property_read_u32(dev, "clock-frequency", &mdc_freq))
->>>>> +		return 0;
->>>>> +
->>>>> +	enet_clk = devm_clk_get(dev, NULL);
->>>>> +	if (IS_ERR(enet_clk))
->>>>> +		return dev_err_probe(dev, PTR_ERR(enet_clk),
->>>>> +				     "Input clock unknown, not changing MDC
->>>> frequency\n");
->>>>
->>>> binding said clock is optional. If return failure here, it will block
->>>> existing dts, which have not clock property.
->>>>
->>>
->>> For EMDIO device, the clocks property is not added to
->>> fsl,enetc-mdio.yaml, I suppose this property should be added to the
->>> dt-binding doc if the clock is really needed here.
->>
->> Isn't this what 1/2 in this series does ? (maybe I misunderstood this
->> paragraph)
+On Fri, Oct 16, 2026 at 03:16:13PM -0700, Florian Fainelli wrote:
+> The driver reads its configuration through device properties and obtains
+> its GPIO with the descriptor API. Neither operation requires ACPI or OF,
+> so allow the driver to be selected on platforms using software nodes.
 > 
-> Sorry, my email filtered out the 1/2 patch, so I missed it.
-
-No worries.
-
->>> For ENETC device, we already have a 'ref' clock in the enetc node, so
->>> devm_clk_get(dev, NULL) may get the 'ref' clock rather than the system
->>> clock of NETC.
->> Shouldn't the clock be described in the MDIO DT node ?
+> Add a platform module alias so a non-OF platform device can also load the
+> driver when it is built as a module.
 > 
-> The enetc_mdio_read_* and enetc_mdio_write_* interfaces are not only
-> used by EMDIO devices, the ENETCs and NETC switches also use them.
-> NETC switches and ENETCs can access external PHYs or internal PCS/Serdes
-> through their own port MDIO registers, instead of through EMDIO devices.
-> 
-> Your first patch only modified the EMDIO binding-doc, not the ENETC and
-> switch binding-doc.
-So I need to patch also 
-Documentation/devicetree/bindings/net/dsa/mscc,ocelot.yaml ? Any other 
-binding document ?
+> Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
 
-Thank you for your help !
+Applied.
+
+Thanks,
+Guenter
