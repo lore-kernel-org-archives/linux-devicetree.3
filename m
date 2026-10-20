@@ -1,153 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.14
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792516670;
-	b=xBiQMlSRY8vlH6QJN6oXzBpp/ogFMgO/ztnNC7aMdtb91ooH2+lsxn5aVmRD18M+Q7xE
-	 mjebWGMSlmY6doXzrJEaCYxIG0k5p/Sn9HA0szr0NseCF8Xzjhv1NrCnps+rE2P4dAfll
-	 9/Tngy/PfZ+WbuGTSlKm+t2u6fDq6u4SYVKehFq8ghNJUwUETNsL0j/cqG7nBrVBG0djd
-	 f+AcQGgrJTnuVCEtDhRfa7yVBayIaaFmrYfRhyIzBZ4Ox+/mCHt9WVOyOwmgQ5pGVasbD
-	 SUkgJY95xFhWr93yTQXwKW6Zro45wDbpk+NwQ8XWdUOUOqZ6MbLrtGO1UvBQZNUr7sg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792516670;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ld-processed:
-	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
-	 x-microsoft-antispam:x-microsoft-antispam-message-info:
-	 x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=/VhgduyTXcXNKOPMOwZVzcvhtrDpSe30acwqBs4ZFZA=;
-	b=Eh75BhqBJq+ae2dxyok5HkHSlHXrvQYjyWJ8ztMAkp5Wj/wZHAfKcqgOm1vLkuRSocOd
-	 fTlA7TxNvN9hMVsLQ/r9A8D6SQgz2jJ4vsYLZpHzGLhV1V5+0NnrWb5YRUk3lJQe4bbQu
-	 Ns7/PqsWb77YsStunD/tCFUY7GOnk3nhVS9tUNnEV8E3XdHmEWE9LuRc2uoiWlJzjFgY1
-	 nts4Ll1+4xnWYhoYN6R3UADVwM39dxjo/oGA7M32JUZ8/CUhJg7m8rDclXKivwoNEjH8Q
-	 F+3n+TPD4plBzUaALgBJHWiT3njpyrYomId6trGb++7wBDMXw6CBvJNfmWyBvZlGa2Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bp.renesas.com;
-	spf=pass smtp.mailfrom=bp.renesas.com;
-	dkim=pass header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=GeSW4yH3;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.14
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011014.outbound.protection.outlook.com [52.101.125.14])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792517127;
+	b=rxhlJ0dB9/XBUeJ//WJ7/MqDR7Qb0bEVpx8n1rgocbO7dOEZQULWjbrdNxc0ZDN7uwG/
+	 GFO6SUD0keBe9sq+K4sW8GWbUtmyVFmwwTLLPI3PV8U6y0BT9iqPGxBNwEHyEnZM4Q94E
+	 +tWDRMjQRvdPa7TKvhQiz83fVgY7rAkZtHuk0sx4A5aExoxhMpcqyMSqYxYkWoGE/CU8k
+	 cQ3DfokYSnC8mxMu3IiHfowosF7kHeKR0xMkeu8bU7lh8N/UZu7/f9aAf27AjVb2emdMV
+	 aWN8NOZij0DpjDQ7mF1lJUhWYrCvDv6U2QjX5fdpgFvLjnXxdgod9jK1kBpaErQbxiw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792517127;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=41GcUzN4XDaRMpPBkysR0QGcyhgarr2Sb5LXYMDsLOU=;
+	b=A9WnG4/LyQfVTm52zcT7SQ45M52bGoPUxBxpGa8qUGg/+Z//L1EJOq7o+hL2ISj+8FWW
+	 CLjaJLempB74Ep6BKC+K2xPHMDCTXuxhXooUGLnQy6kLi1bdnxaWuBPlwJQI8cyuvLMlJ
+	 0IoJUvIUsTpZb2nn6mRJfIc6QtJ6O7JcZAay+1dpuUci4TmEi7viUi/b8u/s4QsPLpxl7
+	 fq6MVm0fCh+LxdGIsFCNLIOKPtb5Q3Vw9VlCUNuur3IXdWRjISkLc1z4nKQBt0Z7UFHEK
+	 7wcq5+RMLUtZD+MT0567XzgdLTE+WTOjed7e7XDD9PhNAiYXyBAPYD6IWnslaO7EX6w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mQLGW5sj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F15C0606AA10;
-	Tue, 20 Oct 2026 17:17:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F15C0606AA10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DBAB606A31B;
+	Tue, 20 Oct 2026 17:25:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=GeSW4yH3
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GSYXBClMgn2x5AENgsiw5KBeVBppyB56tljUTU2lxPtQ4qXCbp7CX9nHngeOgai3UlQv3oUz2LmU3/Npm4vDzlpob5afHCLKNiRCsawdrRHLAulEfWC1xO4RM6oiRhYVu+JQMpc3R3bpslvYgOEhNjobEyH0iBaT0G2VFLrWFxBKVWTYhzj7nFixrjRX26HfwNHze4uCT4zEFwVACHnPR1QpOH5Dp4knB2YJha1eOeZXivRWcLweouKZR3SI25kQDVcalmI6y+UQ5G4Azn1tfVXonqI0hfxUIgikEJ9X5XpaNBrTOXUftXXXSPlhDnLi/Acc5gikj+sQF8qdc6Ickw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/VhgduyTXcXNKOPMOwZVzcvhtrDpSe30acwqBs4ZFZA=;
- b=OpnfPcamoZc7w+RI2qCbByLujz+Hiyn9WT5vAS4x3KZABiTIaOtjCGVSLLl57huNaojsYp9wD2asEk4YJ55eLtuYds1n6MgSA4s81+AM3GTF0ndTHZmlYRfULbek2x4N6pqids0Xp38LnpeHQ+uCFa1sCWtqwOZzSxKPLSU8ZNBmGQFMZQfYxbV/YHT7Qfbx0lZvsD6Swo34pssbTSThy9zSAIoXSPQt5mGKILRvATKlcUIHwGgNo0LYu8pITwR2JvrsClDqK+57ECtgvJco6P0LMaWgRW31F6SBlM6JfKnlE4qQM1Yd6mBo8xpMgtNVsF72Yjh7EqwZymn6jNm2Cw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/VhgduyTXcXNKOPMOwZVzcvhtrDpSe30acwqBs4ZFZA=;
- b=GeSW4yH3CbN0E8Prit2ii31gSNi1owJseig+zPMqbak6GUVewhrtNe3OGpppCX4bNPeBKo8TWmzpT0Ya6o1rvgzHJfxo6PCMMpfi5nP8oT4XTJy1/XwxszvOgz5Bc6lKrv05YIxQRgwyyLLswp+BYNjm/k001s+Mu6NROFc2U4Q=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by TYRPR01MB14300.jpnprd01.prod.outlook.com (2603:1096:405:221::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
- 2026 17:17:45 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%6]) with mapi id 15.21.0496.021; Tue, 20 Oct 2026
- 17:17:45 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Rob Herring <robh@kernel.org>, "biju.das.au" <biju.das.au@gmail.com>
-CC: Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol
-	<mailhol@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
-	"magnus.damm" <magnus.damm@gmail.com>, Fabrizio Castro
-	<fabrizio.castro.jz@renesas.com>, "linux-can@vger.kernel.org"
-	<linux-can@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-renesas-soc@vger.kernel.org"
-	<linux-renesas-soc@vger.kernel.org>, Chris Paterson
-	<Chris.Paterson2@renesas.com>, Prabhakar Mahadev Lad
-	<prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: RE: [PATCH v5 1/4] dt-bindings: can: renesas,rcar-canfd: Document
- RZ/G3S has no Classical CAN mode
-Thread-Topic: [PATCH v5 1/4] dt-bindings: can: renesas,rcar-canfd: Document
- RZ/G3S has no Classical CAN mode
-Thread-Index: AQHdX8G4aStep/9cyUCThDKyKA/iO7cGpjQAgAAGNDA=
-Date: Tue, 20 Oct 2026 17:17:45 +0000
-Message-ID:
- <TY3PR01MB11346F23C5532B7D9F23579A286672@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20261019120220.166163-1-biju.das.jz@bp.renesas.com>
- <20261019120220.166163-2-biju.das.jz@bp.renesas.com>
- <20261020164840.GA4094037-robh@kernel.org>
-In-Reply-To: <20261020164840.GA4094037-robh@kernel.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYRPR01MB14300:EE_
-x-ms-office365-filtering-correlation-id: ae9286a3-0bf2-4605-b957-08df2ece0e8a
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|376014|1800799024|7416014|366016|56012099006|38070700021|4143699003|11063799006|261009223027099003|10067099003|18002099003|22082099003|3023799007;
-x-microsoft-antispam-message-info:
- /Q5ZXEI6G8sXgM4o8Xys38M3/YHXDAyNkF0HXaSBeuYmKpNPHap6I8COWqFYibYHnOwooPV8PvUVhvLCRbUiizCEeC21PQhdCN5yvnFx9P/0v01PAjXaM4TLYBjwalWeaoxpSBX3u/b7DlNAJzK2MlteNztD/BaQ54P7hYKMl9XXajRGmNbDmUye1GqL6KY37PUdkjl9udJY8en3qkcWmhumCpIaq7Qu9vMrwLm3Qhdbd9CJPa9ORhack7j1m/X3t3FJ7z+qMyEl3ljuGBCPkF9TOQZFMn7dHVi9EGDI1KftiTFMRDzEF6XVD1rjjgUCBuoH8927CO0zLZxx2GsmmlwWblwIJ42PT5RDJP360lOT+9E4tWugojw9uVHMhrJ1gItwOLCfT1Hb9H1YI5skfExSEYNPnPyUUW0dwdA8jw5CKpxh9QmRfCz5cRh3Lywb+rzx1un18mCdLZbwiySRlUp2MsgrHhD3MaDDTqi8sFPqLHLXea4UzEPd3uQEzbUJqGrre9Dn7LEjwqg1PWvlJ6a4jJVX2rocF/cZW5RchSRfoSwrrAMJfAFDOj+YHmYqaTMpSDTrZHjkf5bCr7OcI0nGMrlx30AS4Ho94bjlwF1Hmt8NEq9qb2/JjQ0yUTyoiVG1bU/xlsOjhcObe+PT0OYnrCax6r0zTiY44gWLKFcmnD6su9C+J4xr5LXM4I636VinB6sJIdEnb+or85+gi/LDE8f32GSUgrSJhZyoZFs=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(7416014)(366016)(56012099006)(38070700021)(4143699003)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?cVqgEOvaF6JHWvqGJpac29wh5tJOcKiYlxvdxtfHMETnOqgteJiRdOCpvnoA?=
- =?us-ascii?Q?lrOSlQNUXXxx86sVfYoaK1E+elqdNI5lPnblKthiqfPiApO5B08jNpz0sUr5?=
- =?us-ascii?Q?YoGHtuJ3PzTgtY3/yXCa1uvGpXV4GGwZizKu/u4RitkgXIK0ggLsizRRkDLb?=
- =?us-ascii?Q?/6VOYxzsP26K0iaMxR4nbZ3tXaGTcz5xrRK5Fqk53VhXIFOZHqf0HsSmbN9v?=
- =?us-ascii?Q?eor+pE1yaL1wITustXSGWyo/lTHbmdEYrukWwL5DJPAciSHC77w/0UA5i8xF?=
- =?us-ascii?Q?y3gbDNSEjyo4wzL3n9znzmpcPeS/H+uaLenbfrurzeSaSoyzGueffcVpkFRT?=
- =?us-ascii?Q?8zfLqFZbeqKE5zrYXPhzR6P9bt1YaWPvoWO18sgKctDHhNVea9FuB4QE1Fy4?=
- =?us-ascii?Q?n1a8LJzqSfwN50wadMsURNaUHy9H5AjUfTE80b4V+8+P3HE0GALVNUXcaSs/?=
- =?us-ascii?Q?ao8jR9uphKipxMgwlPbNv8DGGlASGDUwJFJAFJuwky8N3xowYgCRn1q2p8q2?=
- =?us-ascii?Q?7Ia6FCSffAzYvl+lo6jWzMrwP4OCB6W+vCWT2u+1AHcDgtiUWSgIynr4QZ3T?=
- =?us-ascii?Q?FDSKKOTRy984I5RAlikxq1mZxeryad5rvgYPGPq65bTXNS3J4U+JAehbrAtx?=
- =?us-ascii?Q?szmyYS11K16YT3l/VAnTGAvuP/FkRVf8z3x1kf8GRWluSozBboz3NS0IZJZM?=
- =?us-ascii?Q?euEcYNM0l724BS2pCIz3OdouvW+cpqaxEco3wGjgrq3ZKmEBqixZ22KrQcaD?=
- =?us-ascii?Q?MOh2WMF8kjCBPhPKaVqM35+6XcfBWkC5w+Jb/gy8yjgZE2XSNzxQlLbcX6Vt?=
- =?us-ascii?Q?pXqPlDUhF5JFv2UWxqRBOqCd6T9khrWwsEumKdX/xcqe2KrQCQVAIJDmY0YI?=
- =?us-ascii?Q?eV59l4lTaCiki0ZJFR9jjr5rEtUiiqJRbFSqPFte6Fu09CcA17hMFwETH5K+?=
- =?us-ascii?Q?6neaXHjg6Fdxe56asEKMxubvTG8x9XkSyWKEQHgWRZp7pvfigrlSdjgVDO1I?=
- =?us-ascii?Q?HFqygS/QXPmSWHM70uskinF9WeUMFHtSjAiNXOeThxpPzWfv7aeU6qBn/snS?=
- =?us-ascii?Q?646IXYspx4Sd5GJTXnPu6PAlxPvPGATriRVqFAvUED+qHwCOeUdG1l8pTFXh?=
- =?us-ascii?Q?Tt8adfI1ZboCBOr8WVwai8Xa2c5dh1KTo/+CzDSGslSeyZLWfmDjSRALGaBC?=
- =?us-ascii?Q?NUM3vZ3/XsINxWIGCxe/ozl4eAYKJoGCkdJdOBBLy2xU6FkiWXH5Xmy5yKjl?=
- =?us-ascii?Q?SBccmAhCQzCT7GZkVqeSebx+KhiH9hE1cy9hkNEgf46MDUprajU2e96jQd+x?=
- =?us-ascii?Q?/alsUA9x7zM0/mlF7KMjvAFo1tSLrOyrM7W4bg+nt1X0P+6vK+14rcZtNH7Y?=
- =?us-ascii?Q?C6CvSUXIkiXn+yGk6TAyJ6n3mYDQBEvm3DYqaoGOIlighA/AA2DlS9AXOpI4?=
- =?us-ascii?Q?VICxVS5eiuai7ZXanZwWRyU9W5LOi5WcrJAbHo3ZrSpw90w78Jlry/dyhrFL?=
- =?us-ascii?Q?hlORrDn7SACRlwa2cVVVqVQuZN8VCa4YxU9F1uX1Ny4TbNneIOYQjT9oG0LT?=
- =?us-ascii?Q?JoF40BR+L0xy5WSrD8UQSLh0ir/3YcAWqsRKEqiiROO+v6IFkw61kuA0ulMX?=
- =?us-ascii?Q?SdRIHoOCEbF/Y0/KEKto3LJSbQyd0rtsZewTzxcEUrjVCBbKGvdG/4eBQNma?=
- =?us-ascii?Q?iqcDCrm3wQgLKlF5GPt6rPmh3p6H1KcJKZw5zcqbiazhrTP8llM2vIV+AU5d?=
- =?us-ascii?Q?5RDKJfMTCQ=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mQLGW5sj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A0E01F000C9;
+	Tue, 20 Oct 2026 17:25:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792517126;
+	bh=41GcUzN4XDaRMpPBkysR0QGcyhgarr2Sb5LXYMDsLOU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mQLGW5sjrhktucLERIORURV17rz6cGETr9P4eyl3MmKQ3mX0f33jcKT7NGcTOYoYp
+	 +Dodqkq9zERI2/j4HC2b8VDGbMwGc7mOkHLTWSYGsedGpGLNDbTuIJwp4XZZyjp+XD
+	 rx+V1VvI0V9jscNC8121bbsCrergl6Xv+jhv+0Fodgi0axAqMb5Cr/E3nRos6L6lVX
+	 O/T571rTIq7TKzTLTQLvZ5QR0kTnJiNZKLbMUh+DduTax1fG7A4LB7x3JkVf8AUMGi
+	 uqnLZSuAeTGIuKVHqvVKW3igQQ8k8K1zYJPjMI3X/wiOwevCWKepI/HI1LPzvKNKbe
+	 wiHoeAe3csCOw==
+Date: Tue, 20 Oct 2026 12:25:25 -0500
+From: Rob Herring <robh@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	David Heidelberg <david@ixit.cz>, Arnd Bergmann <arnd@arndb.de>,
+	linux-kbuild@vger.kernel.org, devicetree@vger.kernel.org,
+	conor+dt@kernel.org
+Subject: Re: [PATCH v4 2/2] kbuild: Support directory targets for building
+ DTBs
+Message-ID: <20261020172525.GA4166631-robh@kernel.org>
+References: <20261016-dtb-dirs-v3-v4-0-0ec42fd8ef9b@kernel.org>
+ <20261016-dtb-dirs-v3-v4-2-0ec42fd8ef9b@kernel.org>
+ <sashiko-outbox-175793@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -157,86 +62,142 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ae9286a3-0bf2-4605-b957-08df2ece0e8a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Oct 2026 17:17:45.1900
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: nSclax+wWj0TDBAxicZitwtB1rKh+c48IB6SR+H06eIFu/H9Wm/1zv/Za1WI+Gzy0rKGRf1O0JXYFuf0CNcD71YeMHQwrMwVsCL6JIU3sNs=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYRPR01MB14300
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <sashiko-outbox-175793@kernel.org>
 
-Hi Rob,
+On Sat, Oct 17, 2026 at 07:49:53PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] kbuild: parallel build race in dtbs target and extra boot/dts traversal
+> --
+> 
+> commit 3f00c18c0d96a2ac1d59c7335959fec4fa041ff7
+> Author: Rob Herring (Arm) <robh@kernel.org>
+> 
+> kbuild: Support directory targets for building DTBs
+> 
+> This commit enables building DTBs using directory targets so that all DTBs
+> for a vendor directory can be built, including base+overlay DTB targets,
+> and updates the dtbs target to use the directory target rule.
+> 
+> > diff --git a/Makefile b/Makefile
+> > index c307ee9293bcd..6d1d1c803ee86 100644
+> > --- a/Makefile
+> > +++ b/Makefile
+> > @@ -1664,8 +1664,8 @@ dtbindingtree := Documentation/devicetree/bindings
+> >  ifneq ($(dtstree),)
+> >  
+> >  PHONY += dtbs dtbs_prepare dtbs_install dtbs_check
+> > -dtbs: dtbs_prepare
+> > -	$(Q)$(MAKE) $(build)=$(dtstree) need-dtbslist=1
+> > +dtbs:
+> > +	$(Q)$(MAKE) $(dtstree)/
+> 
+> [Severity: High]
+> Does dropping dtbs_prepare from the dtbs target prerequisites and spawning a
+> separate top-level make for $(dtstree)/ introduce a parallel build race when
+> vmlinux and dtbs are built together (for example, during make -j all when
+> CONFIG_OF_EARLY_FLATTREE=y, make -j vmlinux when CONFIG_GENERIC_BUILTIN_DTB=y,
+> or make -j image.fit on arm64)?
 
-Thanks for the feedback.
+I think I just need to add back dtbs_prepare here.
 
-> -----Original Message-----
-> From: Rob Herring <robh@kernel.org>
-> Sent: 20 October 2026 17:49
-> Subject: Re: [PATCH v5 1/4] dt-bindings: can: renesas,rcar-canfd: Documen=
-t RZ/G3S has no Classical CAN
-> mode
->=20
-> On Mon, Oct 19, 2026 at 01:02:13PM +0100, Biju wrote:
-> > From: Biju Das <biju.das.jz@bp.renesas.com>
-> >
-> > The description of the property that selects Classical CAN mode
-> > implies that every supported SoC can operate in that mode. This is not
-> > true for RZ/G3S, whose CAN-FD controller supports only CAN-FD mode.
-> >
-> > Update the description to say that Classical CAN mode is not available
-> > on RZ/G3S, so the property is not mistakenly used for that SoC.
-> >
-> > Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
-> > ---
-> > v5:
-> >  * New patch.
-> > ---
-> >  .../devicetree/bindings/net/can/renesas,rcar-canfd.yaml       | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
-> >
-> > diff --git
-> > a/Documentation/devicetree/bindings/net/can/renesas,rcar-canfd.yaml
-> > b/Documentation/devicetree/bindings/net/can/renesas,rcar-canfd.yaml
-> > index 1a7a9ce45e97..7d3330f8fc1a 100644
-> > ---
-> > a/Documentation/devicetree/bindings/net/can/renesas,rcar-canfd.yaml
-> > +++ b/Documentation/devicetree/bindings/net/can/renesas,rcar-canfd.yam
-> > +++ l
-> > @@ -146,8 +146,8 @@ properties:
-> >      $ref: /schemas/types.yaml#/definitions/flag
-> >      description:
-> >        The controller can operate in either CAN-FD mode (default) or FD=
--Only
-> > -      mode (RZ/{G2L,G3E} and R-Car Gen4) or Classical CAN mode. Specif=
-y this
-> > -      property to put the controller in Classical CAN mode.
-> > +      mode (RZ/{G2L,G3E} and R-Car Gen4) or Classical CAN mode(except =
-RZ/G3S}.
-> > +      Specify this property to put the controller in Classical CAN mod=
-e.
->=20
-> Can't this be expressed as a schema?
+> Previously, vmlinux (via . -> prepare -> prepare0 -> archprepare) and dtbs
+> (via dtbs_prepare) shared the same top-level make dependency graph, which
+> serialized include/config/kernel.release, scripts_basic, and scripts_dtc:
+> 
+> Makefile:
+>     scripts: scripts_basic scripts_dtc
+>     	$(Q)$(MAKE) $(build)=$(@)
+>     ...
+>     archprepare: outputmakefile archheaders archscripts scripts include/config/kernel.release \
+>     ...
+>     dtbs_prepare: include/config/kernel.release scripts_dtc
+> 
+> With dtbs running $(MAKE) $(dtstree)/, the child make enables single-build
+> and evaluates $(build-dir): $(single-build-prep) where single-build-prep is
+> dtbs_prepare. In a parallel build, the parent make (building archprepare) and
+> the child make (building dtbs_prepare) have independent dependency graphs and
+> can run concurrently:
+> 
+> 1. Both make instances can run filechk for include/config/kernel.release at
+>    the same time, racing on the shared include/config/.tmp_kernel.release
+>    temporary file in scripts/Kbuild.include:
+> 
+>    define filechk
+>    	$(check-FORCE)
+>    	$(Q)set -e;						\
+>    	mkdir -p $(dir $@);					\
+>    	trap "rm -f $(tmp-target)" EXIT;			\
+>    	{ $(filechk_$(1)); } > $(tmp-target);			\
+>    	if [ ! -r $@ ] || ! cmp -s $@ $(tmp-target); then	\
+>    		$(kecho) '  UPD     $@';			\
+>    		mv -f $(tmp-target) $@;				\
+>    	fi
+>    endef
+> 
+> 2. Both make instances can concurrently invoke $(MAKE) $(build)=scripts/basic
+>    and $(MAKE) $(build)=scripts/dtc in the same output directory, racing on
+>    building the host binaries (fixdep, dtc, fdtoverlay) and their .*.cmd
+>    files.
+> 
+> [ ... ]
+> 
+> > diff --git a/scripts/Makefile.build b/scripts/Makefile.build
+> > index 4349108e75e1f..d22b3b2d43b32 100644
+> > --- a/scripts/Makefile.build
+> > +++ b/scripts/Makefile.build
+> > @@ -38,6 +38,13 @@ include $(srctree)/scripts/Makefile.compiler
+> >  include $(kbuild-file)
+> >  include $(srctree)/scripts/Makefile.lib
+> >  
+> > +# Make DT directory targets reachable for architectures with a DTS tree.
+> > +ifeq ($(obj),arch/$(SRCARCH))
+> > +ifneq ($(wildcard $(src)/boot/dts/),)
+> > +subdir-y += boot/dts
+> > +endif
+> > +endif
+> > +
+> 
+> [Severity: High]
+> Because subdir-y += boot/dts is added unconditionally whenever $(obj) is
+> arch/$(SRCARCH), won't the main "." build pass (as well as non-DT builds like
+> make vmlinux or make modules) now recurse into arch/$(SRCARCH)/boot/dts and
+> all vendor subdirectories even when need-dtbslist is not set?
+> 
+> During make -j, the parent make's "." traversal will descend into
+> arch/$(SRCARCH)/boot/dts in parallel with the child $(MAKE) $(dtstree)/
+> spawned by the dtbs target. In every vendor directory where dtb-y or dtb- is
+> non-empty, scripts/Makefile.build includes scripts/Makefile.dtbs (which adds
+> $(real-dtb-y) to targets) and then includes the .cmd files for existing
+> targets:
+> 
+> scripts/Makefile.build:
+>     ifneq ($(need-dtbslist)$(dtb-y)$(dtb-)$(filter %.dtb %.dtb.o %.dtbo.o,$(targets)),)
+>     include $(srctree)/scripts/Makefile.dtbs
+>     endif
+>     ...
+>     existing-targets := $(wildcard $(sort $(targets)))
+> 
+>     -include $(foreach f,$(existing-targets),$(dir $(f)).$(notdir $(f)).cmd)
+> 
+> If the parallel dtbs sub-make has just created a .dtb file and cmd_and_fixdep
+> is still writing the corresponding .*.dtb.cmd file while the "." build walk
+> is evaluating that directory, can the "." sub-make read a partially written
+> .*.dtb.cmd file and fail with a syntax error?
 
-OK.  I'll express this in the schema with an if/then that disallows renesas=
-,no-can-fd for renesas,r9a08g045-canfd, and Will update the description as =
-"Specify this property to put the controller in Classical CAN mode"
-and will remove the unwanted description "The controller can operate in eit=
-her CAN-FD mode (default) or FD-Only mode (RZ/{G2L,G3E} and R-Car Gen4) or =
-Classical CAN mode."
+This should fix the issue:
 
-  - if:
-      properties:
-        compatible:
-          contains:
-            const: renesas,r9a08g045-canfd
-    then:
-      properties:
-        renesas,no-can-fd: false
-
-Cheers,
-Biju
-
+diff --git a/scripts/Makefile.build b/scripts/Makefile.build
+index d22b3b2d43b3..22fbd5199091 100644
+--- a/scripts/Makefile.build
++++ b/scripts/Makefile.build
+@@ -40,7 +40,7 @@ include $(srctree)/scripts/Makefile.lib
+ 
+ # Make DT directory targets reachable for architectures with a DTS tree.
+ ifeq ($(obj),arch/$(SRCARCH))
+-ifneq ($(wildcard $(src)/boot/dts/),)
++ifdef need-dtbslist
+ subdir-y += boot/dts
+ endif
+ endif
