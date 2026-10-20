@@ -1,75 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792488447;
-	b=N3PAZXwXOm1N75FWp6ZkGxuOkegFuSQgXIU1ZCSWSmaAkp69IIWyNDEqboRWpovOMEKN
-	 zMW+m7J4dkWtL+rEFrTcb9GPx9vH//6fSR3xu9T+Yg4tKes8xWBkyqrkBEDr2YU3ku66p
-	 UVCY3C7H6zJGkSonIExN0NGIjxdRsxObHFUteqDg4lxntE5jmRLj7ZnU2RWkEjUv1axDb
-	 yaHVoOysTv96cLI5e3qcbUWQNTMslz/IRKF+AxzuAQhEV8kehDNZCnCtyV9yeoDq32BtG
-	 +xgYJOwbThRioX0dlVWTnUXjwG0oqqIzf20fzDKUQbR+e5kZQ3vD4BX0Iz87PjEYsww==
+	t=1792488756;
+	b=MCXoQWJLKHF1AKfxbdUvrKIOAflNfwgY+/Ossb28cUcNwyRT+6sJ7lxCwECposCmZHml
+	 AdBDEcsvYTvIELjDu9v8fkCXCY5vbjLw7zPCXcZdOHerKdKtWz8oFUR90Z0cwQgquZDb9
+	 9OTwPyd0XG6LdIP8N4Wa/FiSyCFrSfA7m5TjUVvznZIJSbDRWqqTm4VRet13SAp9UXxP9
+	 k2EV/yRGqQVa+M4hp5qU/hDkMQmBW+aKO6GBnX28Yq53gIaxQqfDtglEfKGdAX5fUXfC7
+	 VZR0UMURYWwmygkoOHfHKOt8PryeX+jR2u7UWLCJls0Ynwn8t0XMiws8BDXgk//oNLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792488447;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=BDWYvpCyYNbdlYdFIyikLQLsNfMBmKmrC2Q4BgdAcQ4=;
-	b=wqE9xwmQYHhTXP4WqXEhiLJjzLnI9R0euawJ2sGDMpzzORPZ5Y61gWjEtk5klIkV1w2o
-	 +NpijXZj+RNww/cJvw2teY2jctav1ZGgp4V+s4l31K8Hj4SHCgY41Q1/bFv1xlzVxcc9Z
-	 kpnx6WbRLNEffPxsotRHVBbePKN+TrfXAWwVt+CJgEe3o2KjOuutlaAyvFUcK9d1kOI8D
-	 G+ARXLXJFQP1m9f+rAQw91a3W6DWlR3gv/5bhCB7epmluFPdEfxmmFnHfMKgGF+etHXUX
-	 iXHds0e473IbuBwsyUha2vDADuYIIiIuudTK7hFzgE6i39QUvou6Zgtf3jkWu5RMrMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792488756;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=rIQLoOEKBXNrLzbv2XZ/zQysYmgcdHfBZRDwUOasa5E=;
+	b=Xt/+NpoLyyk1quxkld9lxyEO2GjbmMuNu5KYeXzQYnV8NSCdS2c7WD1nAqO3LV2pejLa
+	 AdWglSfezkLP0qCHj5nF4EqCPG5H4q52mQXCeEMb1S+iuh3Wx5SOhmHUqHkwrfgVI/uNh
+	 sjT16+ol34L2AYv2YY0Bj+2tq7ihIWe7vGYcw17Eke379fYtP+1PTI+Ko9+Ave3HJ4Okv
+	 34bO/SIA41+sEaw6uwOWA+VGO1eJdiiinL3h6w9b1QaJmOj4mY34FASA4lFDSWAR6b1lZ
+	 cchhkVGqWuw+kRJWayEBsgBks2WD9sTRofppRrCi67Y1BlRyVlesPZBvB8Rrt34qU6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.221.169
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com [209.85.221.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=noBcdUAG;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1C32606A32E
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 09:27:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1C32606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5ead32bc7d8so1046656e0c.1
-        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 02:27:26 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792488446; x=1793093246;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=BDWYvpCyYNbdlYdFIyikLQLsNfMBmKmrC2Q4BgdAcQ4=;
-        b=Y7aPZl2TNByl8RXu9A5yKNl1X1Q9iJ2ZxdLZM0P9dUIHxHU/JUSGne2hn71SVBmxdx
-         xaU0uSdN1TsVFIkTVS66IDBrno2JeRvkbojOQIle9yF2QyHjLF2hPUTWyBL5UlDNkXmE
-         6F8IEBtdL5rH7GRNbqcpKQfY/Cx+O+7UG1PGDHnLYxDXcRHx38qUkONgvLye4EohfRGC
-         88CS4DEuS9994ungj/39Ps5IuT7MMvzxps1w4sQYI5V7tuXLgQh7GGjW2QowM5+9XkFw
-         gZzsjrH1kbd1s0X4qmmRgeQa6nXPyLeW/QAQ7+psCQGaH+ejfITVmd83JdkILkAtijEP
-         DLrw==
-X-Forwarded-Encrypted: i=1; AKwUvBxUkDFVj2cfFvEAtB+f5EUJA6FuNOAN/O7g3onqUSamid37wOTMRyC+fvlmAj6UpsX/mcaf7d9Gsm85@vger.kernel.org
-X-Gm-Message-State: AFq9FYIM6quTvJG2lkc8iPQp4oaYS9KB8mdLTCRBRMzNETPZGYKpCcKQ
-	JFlrzuNpKjoHGLquTx4kxWWvXM1L84ZfO0MQRrZqLkIg8HbpqWLqFk1LHu/2c/0BAzM=
-X-Gm-Gg: AYBFou3+zNSUxyatAbqhVqc1F2wf7cZ2IfV2xTRrxATCmmjpcQEVGOsByFiEZqDxxk7
-	L5Xu/zSiThGVsU3NfZ85A7t7jNjJtIagRiQ+TL0mXHK/TKBpInbEyupa4sDreWQSVY4Eb/frgr9
-	ZEQMJ1IK7+oosAdsdfosKsaH7/ECsQBbbPQ21DWwpm0tQMEooxNToCd2r6RfFb7HpWA4rSNqxOx
-	YEfkrv7aPeNGW/JYUkjs7+TzUtO2ac9yM6u6mDeIScORapyzpGOT01xcxoj1idoq+oTTAKAXcVJ
-	8zw50CA8vsQnU4gsnO+TkW1ZVFimMju+lRKGZdE04rSvUxeZU31KM6vyCOT00BWUpiOS+AOCKND
-	G1H5pohjc3OQBoj0EJpA7jHs4+pIIIby5tmrImwNsPxNyb4039yYurIfofmqvIwp2kaZ7IL1VP+
-	QnFjR9z37Mmt+1Xey5uzkp+inrBtlCLzLHj4ekxvr1PO3NsWyR1oVpPC6PPFkuf57R0xZ7w5Xzw
-	a2Vqi29w4LIwE6BJZt8NZIS+Sy03KnWhbS6gf7R
-X-Received: by 2002:a05:6122:6d10:b0:5c9:c60e:3a48 with SMTP id 71dfb90a1353d-5eaaa941aebmr2992753e0c.20.1792488445840;
-        Tue, 20 Oct 2026 02:27:25 -0700 (PDT)
-Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com. [209.85.221.182])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ea9b518bc8sm11996053e0c.11.2026.10.20.02.27.25
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 02:27:25 -0700 (PDT)
-Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5ead32bc7d8so1046638e0c.1
-        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 02:27:25 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzXryWiDGxXiy6cMaQ6+7ob90UFk3dnLTx0gSLgEwbGpcWLfueVgko1kdI4fEDsBBVZaJQaWbeXgvmP@vger.kernel.org
-X-Received: by 2002:a05:6102:1625:b0:7af:fef2:8ecf with SMTP id
- ada2fe7eead31-7cc3691cf50mr3455060137.8.1792488445010; Tue, 20 Oct 2026
- 02:27:25 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5316A606A321;
+	Tue, 20 Oct 2026 09:32:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5316A606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=noBcdUAG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792488755; x=1824024755;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=GvnUxFc6AVOlVYC4bxqQi9nf+KtfB9StUXlyMrnCr0A=;
+  b=noBcdUAGmZcnS/jwKiDNolWIRz08vtLN2QRw5zB846UrG0jANOozTApa
+   EfZeBLg25IbVmv6watu1XiacJFfGeljt6rVaj3ZJgqLa0iGCLosv+JvdW
+   JZEBU6ZPD2jsTq+/cb1bUPl7N2wBFX1xFcKbaj5MK7EiCSoc1h/rqiEPT
+   TwpHHBet6wtfokK4DYNJIi0xY4F3Bwo9CJ8JhXe0Qs/R2N8dEkaKJvozw
+   FHd5L76e47dGArUnHlMkXN78UR9MjcjnyPix8xsZEf3+g89Vnz+dmgH0c
+   eYvxUxMzahO7yUm7/ChI4SmZ2aYMKJdNzwtXuCtfAdeZC7/Q2HvQ4s0ql
+   Q==;
+X-CSE-ConnectionGUID: SXU99PIhR6at5afZyrXylg==
+X-CSE-MsgGUID: HWGKybmlRWCU1XoQ1whw6A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1081640"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1081640"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 02:32:35 -0700
+X-CSE-ConnectionGUID: nZDl0sPmQESacK2cSQ3VCw==
+X-CSE-MsgGUID: 96mjSo4SSl6n+yhfY06P+g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="3143100"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.72])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 02:32:32 -0700
+Date: Tue, 20 Oct 2026 12:32:29 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: David Laight <david.laight.linux@gmail.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-hwmon@vger.kernel.org
+Subject: Re: [PATCH v3 3/3] iio: adc: add driver for the MAX34417
+ Four-Channel High Dynamic Range Power Accumulator
+Message-ID: <atc1LVsZzfVF4NI9@ashevche-desk.local>
+References: <20261013-topic-sm8x50-iio-max34417-adc-v3-0-d3604ae4a229@linaro.org>
+ <20261013-topic-sm8x50-iio-max34417-adc-v3-3-d3604ae4a229@linaro.org>
+ <20261020101312.47d2eaf0@pumpkin>
+ <729d7100-56b5-4826-be86-358e96be2882@linaro.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -79,80 +89,37 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020-divo-ssgrlpcsrc-2966-i3c-v1-0-30a47f25e515@renesas.com> <20261020-divo-ssgrlpcsrc-2966-i3c-v1-1-30a47f25e515@renesas.com>
-In-Reply-To: <20261020-divo-ssgrlpcsrc-2966-i3c-v1-1-30a47f25e515@renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 20 Oct 2026 11:27:13 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWt8KV02C+N1dj=gcdJwX4s-_=+zRpsh+Za+f0HeHOkuw@mail.gmail.com>
-X-Gm-Features: AclHuK-aAi-Edh8uIEyKFfeZ8ZpBiAefIme6DU1Cm8luHP5VW0oo3t3lyPOBTwA
-Message-ID: <CAMuHMdWt8KV02C+N1dj=gcdJwX4s-_=+zRpsh+Za+f0HeHOkuw@mail.gmail.com>
-Subject: Re: [PATCH 1/8] i3c: renesas: Fix zero I2C SCL rate on pure I3C buses
-To: Diogo Ivo <diogo.ivo.sx@renesas.com>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>, 
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li <Frank.Li@nxp.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	Linus Walleij <linusw@kernel.org>, linux-i3c@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <729d7100-56b5-4826-be86-358e96be2882@linaro.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Diogo,
+On Tue, Oct 20, 2026 at 11:18:31AM +0200, Neil Armstrong wrote:
+> On 10/20/26 11:13, David Laight wrote:
+> > On Tue, 13 Oct 2026 16:07:13 +0200
+> > Neil Armstrong <neil.armstrong@linaro.org> wrote:
 
-On Tue, 20 Oct 2026 at 11:15, Diogo Ivo <diogo.ivo.sx@renesas.com> wrote:
-> On a pure I3C bus there are no I2C devices, so the I3C core leaves
-> bus->scl_rate.i2c at zero if i2c-scl-hz is not specified in DT.
-> Deriving i2c_total_ticks from that zero rate programs a zero-width
-> open-drain SCL into the STDBR open-drain fields, which are still used
-> in pure I3C mode for example in DAA.
->
-> Fall back to the 1 MHz FM+ limit instead, the fastest rate an I2C
-> device could have, so that a sane open-drain timing is programmed.
->
-> Fixes: d028219a9f14 ("i3c: master: Add basic driver for the Renesas I3C controller")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Diogo Ivo <diogo.ivo.sx@renesas.com>
+...
 
-Thanks for your patch!
+> > I was thinking:
+> > 	struct { u64 pad:8; val:56 } buf;
+> > then using bswap64(buf.val) >> 8 on LE.
+> > But why not just:
+> > 	u64 buf;
+> > and be64toh(buf) & (BITULL(56) - 1)
+> 
+> Right, I mean all this could work but I would like to keep using something
+> simpler and get_unaligned_be56 matches all this.
+> I don't think the need for performance is enough to use complex ways to get
+> the value.
 
-> --- a/drivers/i3c/master/renesas-i3c.c
-> +++ b/drivers/i3c/master/renesas-i3c.c
-> @@ -579,7 +579,18 @@ static int renesas_i3c_bus_init(struct i3c_master_controller *m)
->         if (!i3c->rate)
->                 return -EINVAL;
->
-> -       i2c_total_ticks = DIV_ROUND_UP(i3c->rate, bus->scl_rate.i2c);
-> +       /*
-> +        * A pure I3C bus has no I2C devices, so the I3C core leaves
-> +        * scl_rate.i2c at zero if not explicitly defined in DT. The
-> +        * open-drain SCL fields of STDBR, which are used for the DAA
-> +        * pending read, are derived from it though, so fall back to
-> +        * the 1 MHz FM+ limit instead of programming a zero-width clock.
-> +        */
-> +       if (!bus->scl_rate.i2c)
-> +               i2c_total_ticks = DIV_ROUND_UP(i3c->rate, I3C_BUS_I2C_FM_PLUS_SCL_MAX_RATE);
-> +       else
-> +               i2c_total_ticks = DIV_ROUND_UP(i3c->rate, bus->scl_rate.i2c);
-> +
->         i3c_total_ticks = DIV_ROUND_UP(i3c->rate, bus->scl_rate.i3c);
-
-This looks like a good opportunity to use the shortened tertiary ?:-operator:
-
-    bus->scl_rate.i2c ?: I3C_BUS_I2C_FM_PLUS_SCL_MAX_RATE
-
->
->         i2c_parse_fw_timings(&m->dev, &t, true);
-
-Gr{oetje,eeting}s,
-
-                        Geert
+Also we need to be consistent with the existing implementations. If any of
+those tricks will be needed, we better to apply to other cases (like e24/e48,
+et cetera).
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+With Best Regards,
+Andy Shevchenko
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+
