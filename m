@@ -1,86 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792501234;
-	b=uinTg6wUYmB/FKkPCHCIhxV1Pw9qoPc4nDObVwkoCqkKDMKZ7dQyp/2KG04iRfn0v4ck
-	 zNs2IffFHaXmiSOmrpmY4rSpFuICBBfOr9cyZBxPztmTR//19NQ+otj/MBAfrXM+Gv+zm
-	 hbjw6uUTbwdRuD5biecGTNf00r8Y05Dv8I5PW/L8/3N//iIvOu3iemHxMJh5ZpIodaL8S
-	 dmOXlPPM6YfDl4zaU+VHb680PVRoYLyeOUh2+84liq7tWX5NlhYRg63ddERuQtKNqQ06D
-	 FIhydhNuLQcCKUUauT4pVRIx0ii4K8M+onwDsr7Sep0I5yXyuAgyzzKVYFiFkOj4AfQ==
+	t=1792501337;
+	b=2xYgjO5tSljUzObSYxSYs4gSRC9Csm2WYckHbsDK3KUOeCZuiVCD0Fa3xdDGcAKmkZpQ
+	 M0Y7ydQWADaRgTjn2QHj9Y4PT3b5xDIcyDgf3+9khRDVVMp0+Et04wd35qi6nwNZj64ay
+	 OIs2E6RK8j9euUJ6V/EzBMA0RSjTSFsi1j5KXJ1jUgbaFdztN+JheNqUK2mLOlFJTIltj
+	 D2PbU+Mfxd6Iu9Mu3OBkW1Czjr6wJFu7OV+OBX4MoOyZuVuxOg34ahlWYOwvnAl++Nxr+
+	 lU9yszsqvkMU3QQqi4Kab2PLPwdt9xEZRfjZ5BsUnMaDw8KOqILXw4YaPBWILvwbv5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792501234;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=V5mXplAJ6XQpaLaAHpeez9TEYogaPUChaxNtZ24iXK0=;
-	b=EY2qfyIJ8+zo24xJSM7skiN+pSxxa92dMVPV3jMxS9txhqLRFXaTvm8Zwfm0e8ynzhvG
-	 RCQIDnNcoQuMmB7yufDEc7VgQVUIRViEJlx0F3CheewWSs5f2NbhaM0UXTT2jmFxE+mH2
-	 3/PzK8s2eu1SWQt0KevkTwKAhRNsa0FF6RoiRgZtuzf7bECrl7BK3S2QoDQDbX1Got14d
-	 fX8hZR7pBlbcN6qB2t80a8RVjFJQm8h37WQoK5Lh6iiRcdVUKqMxgdw0h2nhR014PxSRh
-	 bNitZjqrLNebcdarUDSrMUkFfgwrpHKGeaBETuYI2Ba7g2GPz5FuOug03EZXP96U7mg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792501337;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=E9+isAu1JUaOE8ta5xXFojt04qILV/+xKrOOocJ3ry4=;
+	b=X1R2YnSdbPCNzZ9W2tw5YWLyt1H+kOgY+H46VKg5vd4jCBOYoNHpQ/XG5o0utIvPAjKb
+	 xFYpzYMwmuk8ZdURD7/0g6dTORxVuqex4yWCtz3lUe+gGVITBy5RFHWWReNOxE8eJGnaH
+	 JODnxN0QRwYNxrhg4zonRQKVq2L3hiDknnDSdU17M6bDKHKO0nc2qBAE7lU38dNdRG1Ns
+	 NSyDBwqrlkzPbG12kM5uCtAR3u9wSTpzkfKojizeiM/1m2s9PGyykmmmaWS0rPDGm5HYJ
+	 gTicemn27FAipXJ3ONFiA1Dmd8noNBlW4A8UOoJY8VZ3hmj/kMowP+Fx9N9F+n3Ga6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ecLSa4Oa;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Myij8ayj;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZeA81JMX;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27D760A4AFB
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 13:00:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C27D760A4AFB
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F37B4606A324
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 13:02:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F37B4606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ecLSa4Oa
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48af4d4e61fso1978889f8f.2
-        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 06:00:32 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Myij8ayj;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZeA81JMX
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KBWVZ71571787
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 13:02:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=E9+isAu1JUaOE8ta5xXFojt0
+	4qILV/+xKrOOocJ3ry4=; b=Myij8ayjac/6exWWxw46Sl9cnKLQku9yE5/PRtLy
+	al4LpuZucmwHA1anuwyfVkGZaVjBFA8zz1PzXqbsKlxGSiPNa2a0Ow0Bs3QkRox1
+	tE+S3d0TtvGHTkVSfSVVKs+5xlBb6cIdRsEAKwsJRSHFNNkF4i0NCMUdSfEMi6Uz
+	/4TzF+Hp9KahFPH92mcXbqQW4yDVq8pcyuvnhXfnWi1IffWkoeBbJPkRpsJQ0oNU
+	k+fEFjb/oYxdin1jmH81hZXPvrAMNtD4e9i9mKbVvhUndgYSy21UrzxkIcfLcI8S
+	klOy1q1vGwQ0H0f/LHRfxJWvSsBVX1q1Lt2VL+rMdHYhjA==
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4he7h289e8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 13:02:15 +0000 (GMT)
+Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5ead18311ebso367143e0c.3
+        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 06:02:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792501231; x=1793106031; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=V5mXplAJ6XQpaLaAHpeez9TEYogaPUChaxNtZ24iXK0=;
-        b=ecLSa4OamAr1JXHnOVbC+LVGLjRHmAV5oQgnEndvWjkaIQemPKJRMOAcS1Dc/d3hIg
-         beCl8Py+xnZ0AWDS/juvgzrRfx1cjCwOJrXwBpBUT6mnaGczVS9kPxNiayrdrswmRdCi
-         IzdM7KTvmGYuFt7ylRcgODLLIFWn6YqVTxAPYE8r+BFkSYrMM9TBoqh8FIjzvigp5dng
-         GS0L4w2pBBLKs3GZmHRz7vygWdyA4pG9O80y3YZIDmnb0ISvIiiAR7dAw7v+BKQWXldt
-         W9WaeUxCQGjkEytozN1+6Ow4TGzPrbi51FyVqSmfWWy/UEgNdKulJZFowC3hzmn99Jtg
-         YTvw==
+        d=oss.qualcomm.com; s=google; t=1792501335; x=1793106135; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=E9+isAu1JUaOE8ta5xXFojt04qILV/+xKrOOocJ3ry4=;
+        b=ZeA81JMXfFBJCIJNKiBUMkJ/T88B+giGRg6DVIaA92gvpnTZcmfMss6/DXCOd3ALPN
+         +v7BZS2iIwtgpqKs9iBpJxEZuKcQTGTUKstyvTdlM3PORGTW/LxdikhxZtibeDvndlLI
+         LggNJ/sFhTeF+O5OJU3yuxnzehNzeGwFvxJ810DjzRrmuP7/5w2Hn3CxXRx3AtruSz5U
+         RHGrfS1+13LlQu3O6HWCalqZLEL+1lfSaGzun+mo7LmkzYTwGsKQmfQ+ifqrWtnL/7qB
+         7nT5jekIPrl3kq3OZLG5vXv0TTRoMgJGgQyiADGe6gSKdbNurvohx4gbdubJonwDwXMU
+         XV6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792501231; x=1793106031;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1792501335; x=1793106135;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=V5mXplAJ6XQpaLaAHpeez9TEYogaPUChaxNtZ24iXK0=;
-        b=1p4H1aEv9iNV0Xm9AdMam1h0P8UeYN/5rgm/pKtoyO6xF6QHixjobOB43BKq/uoAam
-         lHGmDkBUOM4zcgXZtlGg+G7kHNE8R6S6f+h5+R0B93SH3H8B+EXZZa6mzqjjjwPUQEmn
-         JXMKylbIJfsjKVG1kOvsMpSHi8Ye+2O7k/lOKThSNW1KjgNrF5bT38kNlebxEpOvjAaq
-         Rl2yWeqVjYU7AQ394LwILOJs4DRoygxj8umK7AWZI1fLu6CEPsYiMI9cI2HvGSAuaBRR
-         51+OqSeZ1J3MU6xQS9h0dcST+yyJRyNPM0MAo5tyF0Ug9FPFwPXww3mpqqqyHacx3uUL
-         TPdw==
-X-Forwarded-Encrypted: i=1; AKwUvBzDMAt4lfWCVbTv1kDJmeCgzObYm3XTyBDXqea5NUk/lr5k2/eMsjrlV25w+We4X8mFROFXIayEwXse@vger.kernel.org
-X-Gm-Message-State: AFq9FYKI5lkSFET27FTMfBsyoG06Eqn8LEGc7v94dWLnvENwpNT9MyGZ
-	Y6p540xHlwfAzzImpKgoL2Wtoc+m1/DRiDv9xE4Rypln8NMhyBVF63NJ
-X-Gm-Gg: AYBFou2/K6ajjLwOFVdtLKPhSbV2VgDIszJqDgqs7+bFEyyPo6rK7vZSWQnNW4tTdb+
-	BBDwg+HvJy+pLRZwftne9ECZYRT5lPdPCalSD44jAX4GA15nzmYvXju/i+UyTFUTS+ErftEgGs+
-	M1cb/7NKO6QnLxo2Ec2nD0Ifu4Jy8czxU24rFyXa2iWw07WjT/gdTH0BNSMceMy+ZD8Nlslgik9
-	u3bFoRQTjlZb9hM3Jup3Z7+Mbm58qN6cssFn1tjKfZ6hN/owraF+BKBUACz5iv8tVb1mmNQlPJH
-	dEmxucbaLZJA5nUwxyNxraWI2CwLFM4lBUU05sAnArtEguZdiZYXQUIXYObrfMGT0PhOkZm/vc4
-	9N5o3ULKZuL4oSb+lW8QH8EGFel5ik/XEPrV6hdlieRR1eMukkw6KKd6km9f8wI51Ds162b0hTf
-	aPLzbjpz7TKRjCE9nsGd0Tk+xavLqZjFtvxAJ6HBs7Uxri+tiYoLzajrQYp0CoVD5zsSQbdGivT
-	eFfLTt2QbTqURMxylbkTNjU2SBNIngFGbcB1VsfTQs+cjjuAxf0zCjkz6syestrvX/qXa9gjA==
-X-Received: by 2002:a05:6000:1050:b0:48d:ecba:3cf8 with SMTP id ffacd0b85a97d-48e07fa82f3mr15476118f8f.43.1792501230056;
-        Tue, 20 Oct 2026 06:00:30 -0700 (PDT)
-Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d830e91sm6114754f8f.54.2026.10.20.06.00.27
+        bh=E9+isAu1JUaOE8ta5xXFojt04qILV/+xKrOOocJ3ry4=;
+        b=23dvvOPk62Qj/zmVYDfoM6SUK0ah5VCAYlc9knx8FyKnLMNcDLNo6EqXSGiT2aQx5C
+         KW9muwbvqbtrbiJnQ2VeeJs90EbgQ7J+fzkg7kC+uepxMKJhBXjrWhiGX94c7ZHb/VGF
+         JpxRgQSUuorHa8bUq4X70ZFnI5IeZYfkpE6zVxRgvUxN45zuHLm8ciu5liDUtlgt5SuZ
+         xEhA1Zr0JwYE8/sbQYxHGt11Y2sZH6nn2csR/bqKIe/5H1Gop33HGl37DiPcBzfipjHP
+         kCKrx2RjBlhV4SwaDFRPH2FBZOZ8rQo6klO2zPDxQ1JhHsC7Y0gUTmfDQwiyqCDIPCp/
+         iI5A==
+X-Forwarded-Encrypted: i=1; AKwUvBzSeDB5ZiVrIodHThJg7AaI6obWumbrS2Yndav61xslapXg861881f9c62eqQxxlBmHSJwEXuNDrTsc@vger.kernel.org
+X-Gm-Message-State: AFq9FYK4BZj08wH9qOK625jNQtcEiP6Q9H/wEopNwQsX4wYyzE7AhSl+
+	XsUl4r5xzlBqjPTYNUNqWzjdAQ3Gn+nxj6yHnaTRMmAXltgWyVviCNDZHHWsbEK7RF+nf0qY/2v
+	3Y3/1SWV0KmRlosDPtRTq/r2+bVLxSCaon0h7fqJzLzTUtEC6GVQUSSRjLORlgFYr
+X-Gm-Gg: AYBFou3CprQed5+oyD/kqXAV2EqoJb6IMdw+v91xFg5bZLjfeAkA+A1cij11yGI5Til
+	NPe8gPpnN36Tkl7Vhmn/9TIHO6dZLLVN3rISE3+5ZkgTam9Eg91KaarkYtpTblEYgf0pRBY0sh9
+	TO3NAJIbnc3bO5+mRoWdLOUe1IvmAqq0Es7hcs7K2dAGcm2Gejlzo1eiMbdWxnBXihZuWjAfCqM
+	EjKClLI0CFazFFzxBClYhPe8my8OJlyWCZnOB+1n9XjhSn/jp0pMCVBPeZjQ+AqB0yBTUXvY0HL
+	X2Js7V/9dC/VOPQYwvDfjaniBl8R7fujUSQ2jM7ccZAsmBjge4OcXIC8Hfjt8y08jtmUOGl/l6W
+	9FMqAyAOhk0Y4aczE
+X-Received: by 2002:a05:6122:2225:b0:5ea:bbd9:e33a with SMTP id 71dfb90a1353d-5eabbd9e95amr2468870e0c.11.1792501334681;
+        Tue, 20 Oct 2026 06:02:14 -0700 (PDT)
+X-Received: by 2002:a05:6122:2225:b0:5ea:bbd9:e33a with SMTP id 71dfb90a1353d-5eabbd9e95amr2468571e0c.11.1792501332538;
+        Tue, 20 Oct 2026 06:02:12 -0700 (PDT)
+Received: from oss.qualcomm.com ([188.27.161.187])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d80fdbbsm6393833f8f.17.2026.10.20.06.02.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 06:00:29 -0700 (PDT)
-From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Date: Tue, 20 Oct 2026 15:00:19 +0200
-Subject: [PATCH v3 8/8] of: unittest: Test fw_devlink with clock nexus maps
+        Tue, 20 Oct 2026 06:02:11 -0700 (PDT)
+Date: Tue, 20 Oct 2026 16:02:10 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Igor Belwon <igor.belwon@mentallysanemainliners.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] arm64: dts: qcom: Add support for Xiaomi 17 Ultra
+ phones
+Message-ID: <xg74bfkwbpdqvo6roqpnufcffeidgghtnenghmvmyq5ugd4i23@oyl27c746qre>
+References: <20261019-nezha-v4-0-19c1e31eb255@mentallysanemainliners.org>
+ <20261019-nezha-v4-2-19c1e31eb255@mentallysanemainliners.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -90,109 +124,61 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-fw-devlink-nexus-ready-v3-8-fd6f1c17e16d@toradex.com>
-References: <20261020-fw-devlink-nexus-ready-v3-0-fd6f1c17e16d@toradex.com>
-In-Reply-To: <20261020-fw-devlink-nexus-ready-v3-0-fd6f1c17e16d@toradex.com>
-To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
-Cc: "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, 
- Frank Li <Frank.li@oss.nxp.com>, 
- Kieran Bingham <kieran.bingham@ideasonboard.com>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Herve Codina <herve.codina@bootlin.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Geert Uytterhoeven <geert@linux-m68k.org>, 
- Leonardo Costa <leonardo.costa@toradex.com>, 
- Frieder Schrempf <frieder.schrempf@kontron.de>, devicetree@vger.kernel.org, 
- linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
- linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-X-Mailer: b4 0.13.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019-nezha-v4-2-19c1e31eb255@mentallysanemainliners.org>
+X-Proofpoint-GUID: GTSx-dAXnNtiasql0xA_Ktja_iHxLUfy
+X-Proofpoint-ORIG-GUID: GTSx-dAXnNtiasql0xA_Ktja_iHxLUfy
+X-Authority-Analysis: v=2.4 cv=EuJHPicA c=1 sm=1 tr=0 ts=6ad76657 cx=c_pps
+ a=wuOIiItHwq1biOnFUQQHKA==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=4I5MClDQAAAA:8 a=EUspDBNiAAAA:8 a=qo6UdcItuGezONPPF9wA:9 a=CjuIK1q_8ugA:10
+ a=XD7yVLdPMpWraOa8Un9W:22 a=1V3rjZ7Gd4_ILS_TCx9Q:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA1MSBTYWx0ZWRfX1m1gdNYQuj0X
+ eH/WatLbk5dcrJwuZOHkCQFuc5YEQk4khtc0rYjhV647X2xa2apdibrp1Qs0pSB975BLZnZt5Ex
+ pc12kLZMFFSvVDzzr5lbzYZESkUT5js=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA1MSBTYWx0ZWRfX09nqGe8meTqC
+ hIE5KX6sBiBZlEsoC1vB+0YMj4Pfy7TB+tJBBEnlhQQGXNl+7WrnaAVGlHekdakeQhvgV08MChH
+ qgrYDzFv1Z+7Z1cFqVYHW5SFaizaP+5wHh6QVxUbXH8GUw04yoR6rNVM8O6i6qYilV8wRYlcA7u
+ Gg6sT927Z1X/iOFq9FzVg4w5bM4sIlBxtPDbugGIt+SlNJfZwOPyK5Q7qYH8tsls0BD2rX9BPpR
+ fE8VH0jJoDiHJ/Zi8amqe7MFa6grEXVVzECY0423cGQu7YXHZiYFPfG3nZoDbQ9HbjtaU45dkFF
+ reRclSHtRA3RoNDjBjfN5gd4jY7rLMNwO7JIi2SXtQ82QUtk/m7YEKJcTVXAcktngLyyThRNtSD
+ Bbq73FXOf803OzHSdzK9xOPBsv4LTN0BxPy2LILuEU/tBZPiTdTtAiPtJkcJ4jVkgu/8Q+1YHqK
+ RPyuYs604uwl8HULriw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 clxscore=1015 spamscore=0 adultscore=0
+ priorityscore=1501 lowpriorityscore=0 suspectscore=0 phishscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200051
 
-From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+On 26-10-19 17:47:23, Igor Belwon wrote:
+> The Xiaomi 17 Ultra device, codenamed 'nezha', is a flagship mobile
+> phone released by Xiaomi in 2025 (China)/2026 (EEA). It uses the
+> Qualcomm Kaanapali SoC.
+> 
+> This device's configuration is based on the 'MTP' from Qualcomm,
+> as is also referenced in the downstream sources. Apart from the
+> usual differences (i.e. codecs, panel), it also uses the newer
+> WCN7860 (peach) connectivity chip, which is why WiFi/BT are not
+> brought up.
+> 
+> The difference between the EEA and the Chinese model is the battery
+> capacity, notably, the EEA model has a smaller 6000 mAh battery when
+> compared to the CN 6800 mAh SiC battery.
+> 
+> Currently implemented features are:
+>  - Booting
+>  - Power and volume keys
+>  - Storage (UFS)
+>  - USB-C Peripheral and Host modes
+>  - GPU
+>  - Fuel gauge
+>  - ADSP, CDSP, SoCCP remote processors
+> 
+> Signed-off-by: Igor Belwon <igor.belwon@mentallysanemainliners.org>
 
-Extend the fw_devlink OF unit tests with clock references routed through
-a nexus map. Verify that the mapped consumer has exactly one link to the
-final clock provider rather than to the nexus.
-
-Also cover a direct clock reference to ensure that it continues to
-resolve to the original provider when no map is present.
-
-Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
----
-v3: Route clock-map entries to two providers, use a middle entry (Herve)
-    No clock-map-mask: only clock-map applies to clocks (aacc54c67869)
-v2: https://lore.kernel.org/r/20260910-fw-devlink-nexus-ready-v2-7-17ac82dbe226@toradex.com
----
- drivers/of/unittest-data/tests-phandle.dtsi | 20 ++++++++++++++++++++
- drivers/of/unittest.c                       |  2 ++
- 2 files changed, 22 insertions(+)
-
-diff --git a/drivers/of/unittest-data/tests-phandle.dtsi b/drivers/of/unittest-data/tests-phandle.dtsi
-index 1fd465bb8f79..8f86fcee4093 100644
---- a/drivers/of/unittest-data/tests-phandle.dtsi
-+++ b/drivers/of/unittest-data/tests-phandle.dtsi
-@@ -81,6 +81,14 @@ consumer-b {
- 			};
- 
- 			fw-devlink-tests {
-+				clock_provider_a: clock-controller-a {
-+					#clock-cells = <1>;
-+				};
-+
-+				clock_provider_b: clock-controller-b {
-+					#clock-cells = <1>;
-+				};
-+
- 				gpio_provider_a: gpio-controller-a {
- 					#gpio-cells = <2>;
- 				};
-@@ -98,8 +106,12 @@ pwm_provider_b: pwm-controller-b {
- 				};
- 
- 				fwdevlink_nexus: nexus {
-+					#clock-cells = <1>;
- 					#gpio-cells = <2>;
- 					#pwm-cells = <2>;
-+					clock-map = <1 &clock_provider_a 3>,
-+						    <2 &clock_provider_b 5>,
-+						    <3 &clock_provider_a 7>;
- 					gpio-map = <1 0 &gpio_provider_a 3 0>,
- 						   <2 0 &gpio_provider_b 5 0>,
- 						   <3 0 &gpio_provider_a 7 0>;
-@@ -112,6 +124,14 @@ fwdevlink_nexus: nexus {
- 					pwm-map-pass-thru = <0 0xffffffff>;
- 				};
- 
-+				clock-consumer {
-+					clocks = <&fwdevlink_nexus 2>;
-+				};
-+
-+				clock-direct-consumer {
-+					clocks = <&clock_provider_a 1>;
-+				};
-+
- 				gpio-compat-consumer {
- 					gpios = <&fwdevlink_nexus 2 1>;
- 				};
-diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
-index 320a992c4310..40d010c55b8f 100644
---- a/drivers/of/unittest.c
-+++ b/drivers/of/unittest.c
-@@ -765,6 +765,8 @@ static void __init of_unittest_fw_devlink(void)
- 		const char *consumer;
- 		const char *supplier;
- 	} cases[] = {
-+		{ "clock-consumer", "clock-controller-b" },
-+		{ "clock-direct-consumer", "clock-controller-a" },
- 		{ "gpio-compat-consumer", "gpio-controller-b" },
- 		{ "gpio-compat-singular-consumer", "gpio-controller-b" },
- 		{ "gpio-consumer", "gpio-controller-b" },
-
--- 
-2.43.0
-
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
