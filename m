@@ -1,54 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792519040;
-	b=FogTSuEcfYkMl3fZd+xwUyXg+ngzDxGVvWLh9RZpVmAoCWQrQQvoR6G7hPXkcrc5f3hJ
-	 JqZJzAko6+mwZWmpvzoROLHdA3vKpxFFfEO9xK/p+XD65+0rKDa2B4vUp9/FiI3dcWHGM
-	 UIhS7ZcvUCXACMLSrug8OpvXioW/UMYpAtLxba1IBa2lXekpfodJ9BGeOXDZ5/ItyBqbz
-	 JHB5350kka7s/zDoDo4EuK1z/JdtjDn1CjIAURyFMvDGLPLwfEnjXYkmbrh0dS0rybp0U
-	 R5YSnWJvs/ABUEo7VxbHkwf/++KbbNN8WrIIpTQVo5t+hLVYSxMj2rUooECFOV+/2yg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792519040;
-	h=Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=qqjC+9vmR2qBmvg53MTaGTLKHl+DN6yRypiyKqm8GmQ=;
-	b=ngqiqLjZbEd0hucJ2plArf1xMozRN3GO7n8Ri5hVaXBmESUwbJvLK/a/YpYwmrCC/DbL
-	 h5KMkgpkaCPOyeGHdtty0BaeQ+1eawYzAjscYnhTcIYaWBIuzAOcTYAMflUhGvXQShIea
-	 aOo4/HN8Iz/x6rRl6wpG8qqtbgLLM5G5pvAzNsDjXNjI+A+0ZdkdDZ/wflNixfz4uH3GR
-	 LGDN9B8Y0DMC7d/1BKRxU8X2JRK/XIpT7BCCWqMqPyGuNgnOgYgseErci06M+tg4yTTu0
-	 AfnWdBZw1BMbYSMzSMbKXjGuqVkhpKxt7iWOm5LB/DtucthfuG3omtXg5m6jnq1Vxug==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792519525;
+	b=nY6T7hXeDDjAps39UEyJ1ESbBeKfof6Uk1Nc0cuxRAH5l+ddbKSbNaIIHENREt08GpyE
+	 nq+jQp33frUWUcT27p1GwFxi8uSMBfKrFA1GRR5N+x5gPo7ysBn0qQWiX2MOYZ7iEeFRr
+	 nr0EFA4+n7rpwNZeQmdKRux+IAiBppuAJ0zYe+jNobJKNB9FwPpBTWaF/x4/ky7LS1Oir
+	 XQzsl4HQIB6GMFsAx76g2NfdyYxXpQQfLz3aSTgyWbImpF7VKlWjivKRnNIqf+eYF8aiW
+	 9apASStqTNWHWKFMyDX8jLgmCCo4A8lEGElU8Nu8fZX1kN4xezXbRE2gUfeTw+YB8FQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792519525;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
+	bh=9eSaud7dFUgdPyFW0o5bdI3JdYL7Fm5AQErAMesA9t0=;
+	b=slwN6s+JKsiGGnaSIpObJz2EW5uR34c0feiLFc8HRAM1wHgiGQy9Br96bHEKnD1Dal8e
+	 FQfTRDvE7ofnc5KP0mM2zvlB7lReZmMZo+S8ucSEVtqRzzVs6P7F6EtQga+SpeAFdk5Xg
+	 f1Ec3G+s2NgbOiCGHnaLzaJfrT/QY/7/3A6z64SRHj5/+macdGeJUXxiN5DiL59Kbcya1
+	 65HmPZnJWSG2HSHF0JPz/iqT6v1U+5f949JdLnn/yLLT1UD1fZTe9pRnnqbjjHEzulM/g
+	 lXKOt2ERGfBhlMDAxqROVaYp0oJvj7Leq/5l+xyJiwzoVvtxP0Je8nwXWpqsiCFRgEg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=michael.riesch@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=YHdstS9E;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9103606A319;
-	Tue, 20 Oct 2026 17:57:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC1A81F000CA;
-	Tue, 20 Oct 2026 17:57:14 +0000 (UTC)
-Date: Tue, 20 Oct 2026 18:57:12 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Jingyuan Liang <jingyliang@chromium.org>
-Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>, Mark Brown <broonie@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-input@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-spi@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, hbarnor@chromium.org,
-	tfiga@chromium.org, fqwqf@fqwqf.xyz, daleyo@gmail.com,
-	Dmitry Antipov <dmanti@microsoft.com>,
-	Jarrett Schultz <jaschultz@microsoft.com>
-Subject: Re: [PATCH v6 08/11] dt-bindings: input: Document hid-over-spi DT
- schema
-Message-ID: <20261020-breach-aim-4a497c0089e6@spud>
-References: <20261019-send-upstream-v6-0-cb9ba4b3d6fa@chromium.org>
- <20261019-send-upstream-v6-8-cb9ba4b3d6fa@chromium.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 790E3606A319;
+	Tue, 20 Oct 2026 18:05:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 790E3606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=michael.riesch@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=YHdstS9E
+ARC-Seal: i=1; a=rsa-sha256; t=1792519481; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=cO8218ncU8S2STckPIoI6sh//5C20e0X4YryZKZF4JsnI8OI1xXGAQ109xvGisqckvR5aTrx+yWJJpNCQD1Ik4mGSDcmcxlCO3FrBqd/nOcN1qRETRXNe7l7CF7nGqmoezGCb1X/wqocu5k55kMc5fYf3PaKKKBE1a+pTNnOsqE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1792519481; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=9eSaud7dFUgdPyFW0o5bdI3JdYL7Fm5AQErAMesA9t0=; 
+	b=UCqDPq8Rr2ancdsrd+CRdkAmgGKt7SO94IJKA9UtkrH4euthKvtzBQ5NmaGmlAdI6fjyncqii6c4dIjXcY/PeGiG1kgR7J+SPUHuUL5x1xA5ydAZR5K7mFwx/+eYiDXvHDQL7ARK2mQ6wCUvVF/CAdz1ouUSAQjdP7ZKktNR3HM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
+	dmarc=pass header.from=<michael.riesch@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792519481;
+	s=zohomail; d=collabora.com; i=michael.riesch@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=9eSaud7dFUgdPyFW0o5bdI3JdYL7Fm5AQErAMesA9t0=;
+	b=YHdstS9E7BGjv2OfXeJ2yZfFlYEDODFcCUHON6STCZLLvpIVPsdTejFX2UUjqOHe
+	FXyn6YE9sE7NfFz57BRen2Ln3Ij/LiUIrocMDVAgWkbRREEIzkzHAUxkggmhPJJG5A7
+	/4HYL8d4Zb/KqlaVnBZ/a4NC4G7GCSN2dYDqgn/s=
+Received: by smtp.zohomail.com with SMTPS id 1792519478414682.148302063257;
+	Tue, 20 Oct 2026 11:04:38 -0700 (PDT)
+Message-ID: <94d47cab-10c6-4ec3-84a0-3bddc9d67f5f@collabora.com>
+Date: Tue, 20 Oct 2026 20:04:33 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,212 +64,212 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jkzaY7ASZ64whAJj"
-Content-Disposition: inline
-In-Reply-To: <20261019-send-upstream-v6-8-cb9ba4b3d6fa@chromium.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/8] dt-bindings: phy: rockchip,rk3588-mipi-dcphy: Add
+ a cell to select TX or RX
+To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Rob Herring <robh@kernel.org>
+Cc: =?UTF-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Guochun Huang <hero.huang@rock-chips.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
+ <2501273.NG923GbCHz@diego> <20261020141039.GB4157247-robh@kernel.org>
+ <25254818.ouqheUzb2q@diego>
+Content-Language: en-US
+From: Michael Riesch <michael.riesch@collabora.com>
+In-Reply-To: <25254818.ouqheUzb2q@diego>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
---jkzaY7ASZ64whAJj
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi all,
 
-On Mon, Oct 19, 2026 at 07:01:20PM +0000, Jingyuan Liang wrote:
-> Documentation describes the required and optional properties for
-> implementing Device Tree for a Microsoft G6 Touch Digitizer that
-> supports HID over SPI Protocol 1.0 specification.
->=20
-> The properties are common to HID over SPI.
->=20
-> Signed-off-by: Dmitry Antipov <dmanti@microsoft.com>
-> Signed-off-by: Jarrett Schultz <jaschultz@microsoft.com>
-> Signed-off-by: Jingyuan Liang <jingyliang@chromium.org>
+On 10/20/26 16:57, Heiko Stübner wrote:
+> Am Dienstag, 20. Oktober 2026, 16:10:39 Mitteleuropäische Sommerzeit schrieb Rob Herring:
+>> On Tue, Oct 20, 2026 at 03:37:35PM +0200, Heiko Stübner wrote:
+>>> Am Dienstag, 20. Oktober 2026, 00:20:47 Mitteleuropäische Sommerzeit schrieb Michael Riesch:
+>>>> Hi all,
+>>>>
+>>>> On 10/19/26 17:06, Rob Herring wrote:
+>>>>> On Mon, Oct 19, 2026 at 04:15:03PM +0800, 楊智成 wrote:
+>>>>>> Hi Krzysztof, Rob,
+>>>>>>
+>>>>>>> Existing OS should ignore surplus cell if the driver is coded properly.
+>>>>>>> Same as adding new properties or new front-compatible.  The question is
+>>>>>>> how the existing driver behaves?
+>>>>>>
+>>>>>> As you pointed out on 5/8, the xlate checks args_count != 1. The DC-PHY
+>>>>>> driver was merged in v6.15, so every kernel since 6.15 fails on a second cell.
+>>>>>>
+>>>>>> 1. Keep the second cell. Add the patch as follows:
+>>>>>>
+>>>>>> - if (args->args_count != 1) {
+>>>>>> + if (args->args_count < 1) {
+>>>>>>     dev_err(dev, "invalid number of arguments\n");
+>>>>>>     return ERR_PTR(-EINVAL);
+>>>>>>   }
+>>>>>>
+>>>>>> + if (args->args_count > 1 && args->args[1]) {
+>>>>>> +   dev_err(dev, "only the transmitter is supported\n");
+>>>>>> +   return ERR_PTR(-EINVAL);
+>>>>>> + }
+>>>>>>
+>>>>>>   With Fixes: and Cc: stable, the stable kernels maintained at that
+>>>>>>   time (currently 6.18.y and 7.2.y) keep DSI working with the new
+>>>>>>   dts, and the receiver fails cleanly instead of getting the transmitter.
+>>>>>>   But EOL kernels (6.15, 6.16, 6.17, 6.19, 7.0, 7.1) stay affected.
+>>>>>>   It goes in with the series, since two-cell dts only exist after it.
+>>>>>>
+>>>>>> 2. Use a flag in the upper bits of the existing cell, as Rob
+>>>>>>     suggested. Existing kernels are not affected, unless a board enables
+>>>>>>     the DC-PHY CSI-2 receiver on 7.0 or later without this series.
+>>>>>>
+>>>>>> I will write the impact clearly whichever  approach is selected in
+>>>>>> the related commit messages and the cover letter.
+>>>>>>
+>>>>>> I think the cell approach is easier to read and more symmetric in the
+>>>>>> long term,
+>>>>>> but it breaks more. Which one do you think is better? Thanks.
+>>>>>
+>>>>> I'm not a user of this platform, so I don't care. Up to the platform 
+>>>>> maintainers to decide if breakage is acceptible. You just need to 
+>>>>> document the issue in the commit message.
+>>>>>
+>>>>> Rob
+>>>>
+>>>> It's a bit of a pickle, all this.
+>>>>
+>>>> I gave it some more thought. In the end this is an IP block with two
+>>>> PHYs. No more, no less. One cell is sufficient to address those, and it
+>>>> could be 0 for the transmitting PHY (DSI, display) and 1 for the
+>>>> receiving PHY (CSI, camera).
+>>>>
+>>>> Of course the two PHYs can operate in either DPHY or CPHY mode. The
+>>>> phy-cells have been (mis?)used to select the proper mode of combo PHYs,
+>>>> and this principle has been applied here too.
+>>>>
+>>>> However, we have the special situation here that the mode can only be
+>>>> changed for the complete IP block (and thus for both PHYs at the same
+>>>> time). As Bryan points out, we need to check and complain if the PHY
+>>>> mode is not set to the same value for both PHYs.
+>>>>
+>>>> I suggest using a property
+>>>>     samsung,cphy-mode;
+>>>
+>>> I guess, a maybe nicer way would be mimicing
+>>> 	Documentation/devicetree/bindings/phy/intel,combo-phy.yaml
+>>>
+>>> with its
+>>> 	intel,phy-mode = <x>
+>>>
+>>> with x coming from include/dt-bindings/phy/phy.h
+>>> for the distinction between cphy and dphy, so we don't introduce yet
+>>> another way to describe this.
+>>
+>> We already have the plain 'phy-type' property which takes the same 
+>> PHY_MODE_x values. We don't need yet another vendor specific property.
+> 
+> even better then ... and I didn't look deep enough it seems.
+> 
+> 
+>>>> (name to be bikeshedded) that sets the complete IP block into CPHY mode
+>>>> (DPHY being the default) to distinguish between the modes. Since both
+>>>> modes use a different electrical interface, this is clearly a hardware
+>>>> thing and thus suitable for device tree.
+>>>>
+>>>> Then, we can address the two PHYs with the help of the already existing
+>>>> phy cell (without any bitflag tweaks to the value).
+>>>>
+>>>> The sole drawback is that we need to accept the PHY_TYPE_DPHY and
+>>>> PHY_TYPE_CPHY values that some OS in the field might pass. (For Linux,
+>>>> it should only be the former.) And we need to handle those values
+>>>> correctly. But I think this is not more painful than the other
+>>>> approaches. At the same time, this design seems to be the most correct
+>>>
+>>> The current cell values are 10 + 11, so as long as we don't re-use those
+>>> exact values for the other constants the driver should somewhat easily
+>>> be able to recognize an old DT?
+>>
+>> I think you will still have an ABI issue of what does old OS do with new 
+>> values?
+> 
+> wasn't the main contract, a newer kernel should support old DTs ?
+> 
+> Aka the DT is parked in some firmware part (u-boot?) and gets handed
+> to the newer kernel.
+> 
+> I don't see deliberately handing a newer DTB to an older kernel as a
+> very common occurence?
+> 
+> 
+> And from a practical standpoint:
+> 
+> We're talking about devices with DSI displays that are at stake here,
+> so we're in the embedded world.
+> 
+> In other areas we're still fighting basic functionality like actually
+> handling the type-c orientation correctly in the usbphy.
+> 
+> So I really don't see a device with a user-updateable mainline kernel out
+> in the field, apart from people hacking around on their devices to try
+> out new features and new kernels, simply because core functionality
+> is still evolving in mainline.
+> 
+> 
+> RK3576/RK3588 devices still ship with a vendor u-boot/kernel, with
+> completely incompatible DTB afterall.
+> 
+> 
+> So yes, supporting old devicetrees on new kernels I do see as important
+> but someone working extra hard to combine a new DT with an old kernel,
+> I really don't see as an issue here.
+>
 
-Signoff chain is not right, since the nominal patch author is the last
-signoff.
+Just to make sure I understood it correctly: the current suggestion
+would be the standard integer property (optional)
 
-> ---
->  .../devicetree/bindings/input/hid-over-spi.yaml    | 130 +++++++++++++++=
-++++++
->  1 file changed, 130 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/input/hid-over-spi.yaml b/=
-Documentation/devicetree/bindings/input/hid-over-spi.yaml
-> new file mode 100644
-> index 000000000000..2a5fa0868a09
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/input/hid-over-spi.yaml
-> @@ -0,0 +1,130 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/input/hid-over-spi.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: HID over SPI Devices
-> +
-> +maintainers:
-> +  - Benjamin Tissoires <benjamin.tissoires@redhat.com>
-> +  - Jiri Kosina <jkosina@suse.cz>
-> +  - Jingyuan Liang <jingyliang@chromium.org>
-> +
-> +description: |+
-> +  HID over SPI provides support for various Human Interface Devices over=
- the
-> +  SPI bus. These devices can be for example touchpads, keyboards, touch =
-screens
-> +  or sensors.
-> +
-> +  The specification has been written by Microsoft and is currently avail=
-able
-> +  here: https://www.microsoft.com/en-us/download/details.aspx?id=3D103325
-> +
-> +  The HID over SPI specification does not define fixed values for the
-> +  read/write opcodes and the input/output report addresses. The host
-> +  retrieves them from platform firmware (ACPI _DSM), and they differ
-> +  between devices. These properties provide the same values on Device
-> +  Tree systems, so devices that fully comply with the specification work
-> +  with the "hid-over-spi" fallback compatible.
-> +
-> +allOf:
-> +  - $ref: /schemas/input/touchscreen/touchscreen.yaml#
-> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - enum:
-> +          - microsoft,g6-touch-digitizer
-> +      - const: hid-over-spi
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  reset-gpios:
-> +    maxItems: 1
-> +    description:
-> +      GPIO specifier for the device's reset line. The HID over SPI
-> +      specification requires a dedicated, host-driven, active-low reset
-> +      line. The line must be flagged with GPIO_ACTIVE_LOW.
-> +
-> +  vdd-supply:
-> +    description:
-> +      Regulator for the VDD supply voltage.
-> +
-> +  input-report-header-address:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    minimum: 0
-> +    maximum: 0xffffff
-> +    description:
-> +      A value to be included in the Read Approval packet, listing an add=
-ress of
-> +      the input report header to be put on the SPI bus. This address has=
- 24
-> +      bits.
-> +
-> +  input-report-body-address:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    minimum: 0
-> +    maximum: 0xffffff
-> +    description:
-> +      A value to be included in the Read Approval packet, listing an add=
-ress of
-> +      the input report body to be put on the SPI bus. This address has 2=
-4 bits.
-> +
-> +  output-report-address:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    minimum: 0
-> +    maximum: 0xffffff
-> +    description:
-> +      A value to be included in the Output Report sent by the host, list=
-ing an
-> +      address where the output report on the SPI bus is to be written to=
-=2E This
-> +      address has 24 bits.
-> +
-> +  read-opcode:
-> +    $ref: /schemas/types.yaml#/definitions/uint8
-> +    description:
-> +      Value to be used in Read Approval packets. 1 byte.
-> +
-> +  write-opcode:
-> +    $ref: /schemas/types.yaml#/definitions/uint8
-> +    description:
-> +      Value to be used in Output Report packets. 1 byte.
+  phy-type:
+    description: D-PHY (default) or C-PHY mode
+    enum:
+      - 10 # PHY_TYPE_DPHY
+      - 11 # PHY_TYPE_CPHY
+    default: 10
 
-I still dunno why any of these properties exist, especially when there's
-a patch in my queue for another microsoft touch device on top of
-this series that does not use any of them.
+plus changing phy-cells to:
 
-The commit message really needs to explain why these exist and why
-compatibles cannot be used to determine these things - as is done for
-the microsoft,romulus13-touchpad. If the very next device that appears
-seems to require a specific compatible and cannot use these properties
-to get across what's needed to the kernel it calls into question why
-the binding is designed like this.
+  "#phy-cells":
+    const: 1
+    description: |
+      Argument defines whether receiver or transmitter PHY is used.
+        - PHY_DIRECTION_TX
+        - PHY_DIRECTION_RX
+      See include/dt-bindings/phy/phy.h for constants.
 
-pw-bot: changes-requested
+plus handling the case where an old DTS may still have a line
 
-Thanks,
-Conor.
+  phys = <&mipidcphy0 PHY_TYPE_DPHY>;
 
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - reset-gpios
-> +  - vdd-supply
-> +  - input-report-header-address
-> +  - input-report-body-address
-> +  - output-report-address
-> +  - read-opcode
-> +  - write-opcode
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    spi {
-> +      #address-cells =3D <1>;
-> +      #size-cells =3D <0>;
-> +
-> +      hid@0 {
-> +        compatible =3D "microsoft,g6-touch-digitizer", "hid-over-spi";
-> +        reg =3D <0x0>;
-> +        interrupts-extended =3D <&gpio 42 IRQ_TYPE_EDGE_FALLING>;
-> +        reset-gpios =3D <&gpio 27 GPIO_ACTIVE_LOW>;
-> +        vdd-supply =3D <&pm8350c_l3>;
-> +        pinctrl-names =3D "default";
-> +        pinctrl-0 =3D <&ts_d6_int_bias>;
-> +        input-report-header-address =3D <0x1000>;
-> +        input-report-body-address =3D <0x1004>;
-> +        output-report-address =3D <0x2000>;
-> +        read-opcode =3D /bits/ 8 <0x0b>;
-> +        write-opcode =3D /bits/ 8 <0x02>;
-> +      };
-> +    };
->=20
-> --=20
-> 2.56.0.212.g129ede20d9-goog
->=20
+and the new kernel will convert it to something equal to phy-type =
+PHY_TYPE_DPHY and phys = <&mipidcphy0 PHY_DIR_TX>;
 
---jkzaY7ASZ64whAJj
-Content-Type: application/pgp-signature; name=signature.asc
+plus ignoring the whether or not an old kernel can work with a new DTS
+or not.
 
------BEGIN PGP SIGNATURE-----
+By the way, if we handle the case of the old DTS with the new kernel
+correctly (which we should IMHO) then we do not need to change the
+existing DTS nodes, thus eliminating regressions.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatereAAKCRB4tDGHoIJi
-0kWEAP9dgTuujf71BJq09846TgyNaj2epPE0o1kSGsd+fzTndAEA9nnH5FZ9TH7F
-cn2fMuPCManlEJTNSGD9qNKV2OnJMQs=
-=RKkd
------END PGP SIGNATURE-----
+Is this summary correct?
 
---jkzaY7ASZ64whAJj--
+Best regards,
+Michael
+
