@@ -1,78 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792494860;
-	b=IrV7E+NMQDmPd4dBEi81mlKqtXB/Dmh/jNrES13k86k5ArnXwm8E5s95M/nIGdCZnCiV
-	 Z0bsSYO4E46liRrLy41p1lBN7juVhYFwJZmFXaTKauQ1GaaIesCfwev4uTeTn1qQBlhXA
-	 VDuCde12flJIqPahGNAPmDXBzV9T9eu/WTojuWyF7Guqkj59DYbQ5xE6NMNd0lshs448o
-	 4Ok/MS6XgChyA4UOq/7rp+U0K4A90UxUNFpJ/phDHq7iA/90YMLusTNkCj/Ixcd9CNcT9
-	 NMquoA0OT5QJt4/DndNdaDjVKHKpFFAZjPVd8RzmEAdy/XDdcTpH4RA0EzzfEgbOyWA==
+	t=1792494967;
+	b=ajrCtvX1Lme5joHKtA2UBarNsMMbHJACqpMsixRxO6XJIu7VrKwX8/09WPUGFJBPwZzL
+	 RzHRVztQxw6EjJG7jSMLeWsZ1KCL4nugNrhhgsMmergNtFa/9HDXt2PlQyemA4KhqsQ7y
+	 Ld7tpFOpyxTxuYbsFwbX7sDptk+8+5vOdXgPE/fUUYeyPNmAZzsRqMlYHHenh+cq7xos+
+	 13NVvJ2cjPE1ldtf2/4aFlQCjnOrhhrG9lBTTXEU76Jie79ch67IAbflA7AisYb355xPR
+	 pPF+gCLCw5ZJ+WodEn0rmQtTIKD88ZO+My8NBsQuK81dLGFyV4OGMXRCjZ6F8Q3AMrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792494860;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
-	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=VD9PXrKPsg52orzhOiFjXJRmRbfBHyc5RoWWdwKxF0M=;
-	b=ubRhZcjdP9y1Y3DhebdPOUcdUXu7INod+3rHjNcR5Hy9IYSN4Pb9eiHV7gI9JyZNBPo6
-	 JiKc1gCcRJ29q4qTC86rLDrmM9k41XxwsFpAo0ezngwxm3jmE1iWx5yLkQ8fbpL/tBG6A
-	 pqbw4+K7rsoyNqMW5t79ScyFfQgdUuKllKrxDZYYczRH1QnsXbmcNHESIpD6Z6QAQ1hI3
-	 Vo30+WNPFWoRcsqZrK8IJ9Jpmwklci9VvVQOL2iG2AAAhOOrjUFyZcgv3rbttXI5Oetrg
-	 TT046K5fyKk47S8Pbsciy/DtQHCCBakWoM0CUFRkRqDc395eXxQmr2f3gwSq+DAfpSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792494967;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=BKNUIkvvRElNLCz/nkWKn3YDTekvBpvFpeCv+ciRNW0=;
+	b=eLNOM7M4TH5VlvLVlQNg0lAhPux+3R2IfUc7k0VKIx+z8A6jKvzo8/5rtxam1rHPsUYs
+	 ZUDwJspHJ4wmhQ9auFm9Ocuheuon0X0oqLPq1HVn1/w+dsIgJxZzvNJdcobKD4rkbfLEZ
+	 bttOvO6p2xvMlTmAvtgMGFdeOAx7SpHf3bDfn+ZHtb/vlaeoelRnN2ekUpadi1So8Skf7
+	 IxNAcCgXXBPLGq0HHcBAVlR0HzmEGbe5WAigbiy5KCtJApaR/WhVejSkRy8YYOwg1mQEE
+	 96s/HuOPsNd5SceCPhqGnvniwXqC5XM22YntyXMDoVrivY03dUMdp24Bbfgksvc77qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=WKhtmytc;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FCHEkMMH;
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96221606A319;
-	Tue, 20 Oct 2026 11:14:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96221606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85BE2606A31C
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 11:16:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85BE2606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=WKhtmytc
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id E64EE4E41290;
-	Tue, 20 Oct 2026 11:14:15 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 98A9260393;
-	Tue, 20 Oct 2026 11:14:15 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9C205103289A8;
-	Tue, 20 Oct 2026 13:14:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792494853; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=VD9PXrKPsg52orzhOiFjXJRmRbfBHyc5RoWWdwKxF0M=;
-	b=WKhtmytcvf2MutFOnrTwk8Hyl4xsuxLJNdJN2WRMXFXZZLwzaI/lVjUDILPv0K4dMa6F6S
-	MB/Ca3ceDlD29We5fCzPLvqIcntcLr1FDjmgaFj86ibYCwk/J4atUSDUcuotG+45tItVqN
-	PoTEPdpR10zrh7bFc04uxHtbtUQL7qZiCrxfufI0JUaC/8eBHyAYW+c73+z7sUAJxRHvi4
-	OJ7uHDvYYvSgrazItH4tK/i41CsHShRG0nx05bXHfH4fauFlCHcRN3nTswrCcyl6rfhkW6
-	1wYWw38OR1tWNh322uXHRVgFQDqZ/z+HYjUjb6yiqI6SXc6+g2/W1EIcW6f8dw==
-Date: Tue, 20 Oct 2026 13:14:06 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [RFC PATCH v2 05/74] libfdt: Prepare for metadata tag support
-Message-ID: <20261020131406.02bd50ec@bootlin.com>
-In-Reply-To: <atcM7MFZTFXLbap8@gractus.seuss>
-References: <20260826094950.1088288-1-herve.codina@bootlin.com>
-	<20260826094950.1088288-6-herve.codina@bootlin.com>
-	<atVrHkfXl10FTEye@gractus.seuss>
-	<20261019155659.4badecfb@bootlin.com>
-	<atcM7MFZTFXLbap8@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FCHEkMMH
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-354ba08cfd1so5645265eec.1
+        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 04:16:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792494966; x=1793099766; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BKNUIkvvRElNLCz/nkWKn3YDTekvBpvFpeCv+ciRNW0=;
+        b=FCHEkMMHCZJvrzaBB5rate4Fph4Rq1kjhZI+VLv0rKL7jFOYNUgf0C069UkN7PQEjL
+         PUccoLadivPMR/aUAQvHUhbMnPXVkGWpOcEEhucRWqhXJcYE85lrvquDS7q6Nimm/IUW
+         k4EhWZU7yIGZ61lrl6Ey3KUIz6ztljPhP4JNh5x08h65TR9u5GdEeOmqfikdDQKCj1uZ
+         FyOQsZQx3YWCbpZinXk+SQcv3HqDXA+1/cfX6l6rn+4aNB4tcUeKphb5yBWYUtKMPJQJ
+         Q9j98tsyqAnvAOnqwdRATe0htn2FmQCsegS0PcWfCVZiVOOvs4kiExTtUZJ7AgkXVRfv
+         xXbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792494966; x=1793099766;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BKNUIkvvRElNLCz/nkWKn3YDTekvBpvFpeCv+ciRNW0=;
+        b=pT1C7+o6G/KCzpkll5AK8ioKSFaVu5kQOKA/E2sHHgeaqPKY6o1qdLVIIh0uoNhV6F
+         e93VHQ8+vn0CdfGYPVBlUVsNnILE0HU8B2Utlg7TvdZ+GbZYVwDrUcGoXOXufZ1WFbO9
+         g6ldZsI1OHoqTDjQssy/4e9ez+kfsq9ZKZAuxuQZm9ViwcL+8GQUic8bgluURJRZ37UI
+         o4aaHWo3YgOn0Ii+QC5IhUlfZRorE79acPfR0GcW/4tCECmccg3Ux3SHSX/s88qL1uQ5
+         9Im+kdQnHpkqIwMJR6+wtEbeFsTWMJv2EZv/2OOqeyh0lX5GXAmrxvHHwh/TtV54M5xc
+         iV7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxYV2kAZsbjNLQ7TRjmjCt0iVBzDwUFh7Kkum4sZrf1agz1Pz8z3Z8rbL+Pqw5egvhqowU37EhSv/XN@vger.kernel.org
+X-Gm-Message-State: AFq9FYKGHLB1Yq4O1HdTuXQFaWTAfn862oIM/qWVmiS5p10YEPK5cgHj
+	55Zeu64HywZJyt8yjPXwGufwQ5uNsbxM0gZDgWRtndc+wLgQpY8QcpXA
+X-Gm-Gg: AYBFou3zuvCO5OZUtxOzE2U+SNIDtXOZGhudrkIE2E4kIwQ403Npmn7umfk4fgHilQ7
+	t0AhTOK6m3OHoBDCyyAHGU1C7kaQquurIoxSPyWAa4lhYjKYUnLRUjLES+vJjdgKcRixYn7tTz0
+	Nc5PBUmujBXTQgd+MyUWKHefuLzc8l5s7xeZJgafmXhfodDLTDV+UGBfRV+aY1+MtZs1G3iTqT2
+	CFEeWYA9FKq4JrMY627RJUnOpR8fLTZHcCLNh600WJLc9rBKtFeK1BRuQLyn99xN8iLXP+ZbTAU
+	BiZHZKHgDTrOgJp7+7qWFJEuHBszsKyYSlqhIsBbSKzXbTaLsmASPROy8MyyTJNHdRlSARoKE5S
+	jZyL/N7bCK17TdmJHVpUoIkY3E+Sx36/GA4ga07vMU8GTqij/rCcOaQuE+VODJC2cKzsZlvWeGj
+	UpAH8jQPR7G5mvXcBQ8Fsp9TyR/+b5xeoZIehf/REiduoCG8GdRU43AX/TjpCfcexMzEeTSjA/s
+	2KF
+X-Received: by 2002:a05:693c:42ca:b0:35b:91da:7cb with SMTP id 5a478bee46e88-361a284198emr14197128eec.35.1792494966059;
+        Tue, 20 Oct 2026 04:16:06 -0700 (PDT)
+Received: from leonardoc-nb ([67.159.246.222])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36081fa5a6esm41461147eec.16.2026.10.20.04.15.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 04:16:05 -0700 (PDT)
+Date: Tue, 20 Oct 2026 08:15:57 -0300
+From: Leonardo Costa <leoreis.costa@gmail.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	Leonardo Costa <leonardo.costa@toradex.com>
+Subject: Re: [PATCH v2 2/3] drm/bridge: simple-bridge: Support
+ data-enable-active endpoint property
+Message-ID: <u3zistwpxmtjstw6lqh2qfvr3mrj5ozflxfnrln2qqitjnj6lw@5ea5j3zmonw7>
+References: <20261019-v2-apalis-imx6-enable-vga-v2-0-ef6a3a780472@toradex.com>
+ <20261019-v2-apalis-imx6-enable-vga-v2-2-ef6a3a780472@toradex.com>
+ <atZ0jECm5BDeROSI@SMW015318>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,175 +108,33 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atZ0jECm5BDeROSI@SMW015318>
 
-Hi David,
-
-On Tue, 20 Oct 2026 17:41:04 +1100
-David Gibson <david@gibson.dropbear.id.au> wrote:
-
-> On Mon, Oct 19, 2026 at 03:56:59PM +0200, Herve Codina wrote:
-> > Hi David,
-> > 
-> > On Mon, 19 Oct 2026 11:58:17 +1100
-> > David Gibson <david@gibson.dropbear.id.au> wrote:
-> >   
-> > > On Wed, Aug 26, 2026 at 11:48:34AM +0200, Herve Codina wrote:  
-> > > > Metadata tags are tags carrying extra information, either global to
-> > > > the DTB, specific to a node, or specific to a property.
-> > > > 
-> > > > In several places (e.g. node/property iterators), these tags just need
-> > > > to be skipped. Introduce fdt_next_tag_filter() which wraps
-> > > > fdt_next_tag() and uses a user-supplied filter function to decide
-> > > > whether a tag should be hidden from the caller. Filtered-out tags are
-> > > > returned as FDT_NOP.
-> > > > 
-> > > > Introduce fdt_tag_filter_skip_metadata() a filter function whose purpose
-> > > > is to filter metadata tags; actual metadata tag filtering will be added
-> > > > when metadata tags are defined.
-> > > > 
-> > > > Metadata tags must also be handled when a DTB is modified. They have to
-> > > > be removed or skipped depending on the modification.
-> > > > 
-> > > > Here also, introduce fdt_tag_is_property_metadata() to provide a central
-> > > > check for whether a tag is a property metadata tag; actual metadata
-> > > > check will be added when metadata tags are defined.
-> > > > 
-> > > > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> > > > ---
-> > > >  libfdt/fdt.c             | 34 +++++++++++++--
-> > > >  libfdt/fdt_ro.c          |  3 +-
-> > > >  libfdt/fdt_rw.c          | 90 +++++++++++++++++++++++++++++++++-------
-> > > >  libfdt/fdt_wip.c         | 23 +++++++++-
-> > > >  libfdt/libfdt_internal.h | 10 +++++
-> > > >  5 files changed, 140 insertions(+), 20 deletions(-)
-> > > > 
-> > > > diff --git a/libfdt/fdt.c b/libfdt/fdt.c
-> > > > index 7941632f..8c026f26 100644
-> > > > --- a/libfdt/fdt.c
-> > > > +++ b/libfdt/fdt.c
-> > > > @@ -323,6 +323,33 @@ uint32_t fdt_next_tag(const void *fdt, int startoffset, int *nextoffset)
-> > > >  	return fdt_next_tag_(fdt, startoffset, nextoffset, NULL);
-> > > >  }
-> > > >  
-> > > > +uint32_t fdt_next_tag_filter(const void *fdt, int offset, int *nextoffset,
-> > > > +			     bool (*tag_filter)(void *priv, uint32_t tag),
-> > > > +			     void *priv)    
-> > > 
-> > > I don't really see why a higher order function is more useful than
-> > > skipping tags you don't care about from the caller.  
-> > 
-> > Based on discussion we had related to fdt_next_tag() during the series introducing
-> > structured tags, I has been decided that fdt_next_tag() will return all tags and
-> > callers will handle them.
-> > 
-> > With that done, fdt_next_tag_filter() doesn't make sense anymore. I have already
-> > planned to fully remove it.  
+On Mon, Oct 19, 2026 at 02:50:36PM -0500, Frank Li wrote:
+> On Mon, Oct 19, 2026 at 07:17:15AM -0300, Leonardo Costa wrote:
+> > From: Leonardo Costa <leonardo.costa@toradex.com>
+> >
+> > Some simple bridges, such as a resistor ladder DAC, may include a
+> > data-enable input that must be driven at a specific polarity.
+> >
+> > Read the data-enable-active property from the input endpoint and fill
+> > the bridge's input bus flags accordingly, so the upstream encoder drives
+> > DE with the required polarity. The property is applied only if the
+> > bridge doesn't provide its own timings struct.
+> >
+> > Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+> > ---
 > 
-> Ok, great.
-> 
-> > > > +{
-> > > > +	int startoffset = offset;
-> > > > +	uint32_t tag;
-> > > > +
-> > > > +	tag = fdt_next_tag_(fdt, startoffset, nextoffset, NULL);
-> > > > +	if (tag == FDT_END)
-> > > > +		return tag;
-> > > > +
-> > > > +	if (tag_filter(priv, tag))
-> > > > +		return FDT_NOP;
-> > > > +
-> > > > +	return tag;
-> > > > +}  
-> > 
-> > ...
-> >   
-> > > >  
-> > > > +int fdt_prop_remove_metadata_tags(void *fdt, bool force_inplace,
-> > > > +				  int prop_offset)
-> > > > +{
-> > > > +	int nextoffset, offset;
-> > > > +	uint32_t tag;
-> > > > +
-> > > > +	/*
-> > > > +	 * Only inplace using nopify is supported even if we could use an other
-> > > > +	 * method involving splices if force_inplace is set to false.
-> > > > +	 */    
-> > > 
-> > > As with earlier things, I'd really prefer to see this splice, based on
-> > > principle of least surprise.  
-> > 
-> > Yes, splice will be done (already planned for unknown tags in the series
-> > adding support for structured tags).  
-> 
-> Ok.
-> 
-> > > > +
-> > > > +	tag = fdt_next_tag(fdt, prop_offset, &nextoffset);
-> > > > +	if (tag == FDT_END)
-> > > > +		return nextoffset;
-> > > > +
-> > > > +	/*
-> > > > +	 * Look at all tags related to the current property. I.e. tags after the
-> > > > +	 * current property and before either the next property, a sub-node  or
-> > > > +	 * the end of current node
-> > > > +	 */
-> > > > +	do {
-> > > > +		offset = nextoffset;
-> > > > +		tag = fdt_next_tag(fdt, offset, &nextoffset);
-> > > > +		if (tag == FDT_END)
-> > > > +			return nextoffset;
-> > > > +
-> > > > +		/* Remove metadata tags related to the property */
-> > > > +		if (fdt_tag_is_property_metadata(tag))
-> > > > +			fdt_nopify_area(fdt, offset, nextoffset);    
-> > > 
-> > > The distinction between "metadata" and other tags doesn't make much
-> > > sense to me.  Specifically why would the tag being "metadata" make it
-> > > more of a candidate for removal?  What we need to know (for the
-> > > callers so far) is whether the tag is invalidated by changing the
-> > > contents of the property: I can't see how that would be related to
-> > > whether it's "metadata" or not.  
-> > 
-> > All of this is going to be reworked based on discussion we've already had
-> > during the previous series (introducing structured tag) review.
-> > 
-> > The distinction was done because for "unknown" tags, downgrade should
-> > be done whereas for "known" tags it shouldn't.
-> > 
-> > Anyway, all of that is going to be reworked for the next iteration.  
-> 
-> Ok, fair enough.  Should I stop reviewing the current version of this
-> series, since it will probably need a lot of rework based on my
-> comments to the first series.
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-I wouldn't say you should stop reviewing.
+Hi Frank,
 
-Maybe you can have in mind that fdt_next_tag() will return all tags and so,
-filtering out tags at fdt_next_tag() or using fdt_next_tag_filter() will not
-be there anymore. This will not change fundamentally the way tags are used.
-If they are skipped by filter function in this series, they will be skipped
-by callers in the next iteration.
-
-New tags added in the series will be there in the next iteration. The meaning
-of those new tags will not be changed. As well as new dts keywords or other
-concepts such as referencing an orphan node by path.
-
-Tests introduced will also be there in the next iteration.
-
-A lot of things available in the series will be there in the next iteration.
-
-For all those reasons, I thing your review can still be useful.
-
-Maybe you will find some other patches that could be applied or move to the
-series introducing "structured" tags.
-
-IMHO, even if I (we) know that some modification discussed in the series
-adding support for structured tags will have impacts to this series, either
-due the modification itself or because I will keep things consistent, having
-your feedback and potential discussion on this series is still relevant.
+Sashiko's comment regarding atomic_check was a false positive, but I
+wasn't too sure about the one regarding devm_kzalloc. It seemed to make
+sense to me, but I'm not too familiar with this subsystem yet. Do you
+think this was also a false positive?
 
 Best regards,
-Hervé
+Leonardo
