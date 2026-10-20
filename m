@@ -1,89 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792482227;
-	b=BlnSkJVBM/nbc8F4FBWINjCJ8J8rEmYgpNf0ZClfkbphJHK4+JNMz7I1vuDQ0ARZtDur
-	 WDgY+EkMlHU8mOp6WAiEoFoCFGcG5m5rY3ARYEsTthQ0kCcH6+9eE94EQEp5c39x0iFVA
-	 Z28OOaKNbaZiuauYdg2MjlUUFTjuUa6EGTNqJ8BkZ59xLZmib3IxeyMK+wkoXux0pQgrR
-	 7mqWDoeN5elKDRhLdTvcWNOkq1H+flPq4D7NxSL6ftrV4pPkPJph39s+8t0cdyn4TXOMs
-	 G2cbrnljOMHmRQsZN8mKSG3AX7wkKmPl0qi7Fy1tAGc9mNsBVOFhrS65JAtfq8JWKbg==
+	t=1792482254;
+	b=jbwMybS76X65KRDEHC7cCGvn+LfUaIASyTeRtNl73m8DJ2dtOE9JdnIDzP52xRkNOhr7
+	 q2uSiu0T/IQx4WPiM5heWHxeAqYM1WEo43VI5RrFNkBPk2zQH+6nvGiZ1OaKE8Apbribh
+	 TC6rrVlTnLCH11a+Dx24bu24djiejmeEKx/Lcmo4mk1XTBcSiUFw/GV4yFOpqf2JMcMIa
+	 4+T7zmy42Anz2QEWXO8SJXBv7YDDTbn+Y2C7A69sqzzR58p1TtzXN8tDxHKqZLGIZ2GIi
+	 fwLMfJmJZ2gJUB90rap4KHbMhujzVYBZSIZP54x6OxMuqXcwsuQSQbUBRD5Na1YrGWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792482227;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=yC+gZPV4aotNwixKHOtH5yvTfu3V/PuIgqyMW818p0A=;
-	b=B8hO23FVDgGB87mYwFODzbMXR55TIHnC/IFQnaon1va4FkQ5Fz5fgWwNGTaYSCW9L535
-	 /gvrJI3qGFnT7Zbsmli/u7pNPVvCBEd4kVzfBX9XRKWDcF55VYafUjhhMsj0VTQYCDMTe
-	 T/IWdHlMBaH9nVXae8yBiMOHImSu8GtMX2IoYcdT/j3dM8VF60BAq1oUbtFNl9fs9EJcE
-	 OL0TAxrxxWB8Czwx1RJhU871mOR52fpL5V3VsPGwqSHauQsKPYeFIUWzIiBPiVjL6Io72
-	 wr1vFU9P8uDehooL2yqEN8Ghb9JsGwSNcsx/mwOQG9VjOYCHBxpfvQe/isBbJCPa14A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792482254;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=7Y4VaQCrShEsWxxC8upZ8USfPAGufEQjClAhPLxVnY8=;
+	b=0SXGOwYBpMo33ZwdXe32yfoMLStm8/ei7yE5Ym9IEdtHBNfDKlsRSHF56tnhr1x58ucU
+	 E8NoMAYfytdLBbsGGyXU463RX3gyeXnsqKfVuaxze507DpMTwmSEnpfUkAjSqZKVLQCM4
+	 JbUk6i7dWkpjEf/8R0bQDXhQ9z5Nw1O/REsLXiIi65+NvnkhTliy2Xo6PNUBs8upue1Mz
+	 phOGYMTTu9uc11VdxzNTo/QY1TkwCC0OTJVpZtW7DLq+FprTaBN3rwEQRT+XcliPqGboD
+	 eZ7XZhyUFAhzoH3Gq/bqv81sjszJJfvTumGovx5A42f/QMUCYyRX5gyRzB8Ja2hoOHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nexthop.ai;
-	spf=pass smtp.mailfrom=nexthop.ai;
-	dkim=pass header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=GDn9T631;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SCv57Sxi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83E1B606A31D
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 07:43:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83E1B606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C467A606A31B;
+	Tue, 20 Oct 2026 07:44:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=GDn9T631
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35c76e9614aso5524346eec.0
-        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 00:43:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1792482224; x=1793087024; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yC+gZPV4aotNwixKHOtH5yvTfu3V/PuIgqyMW818p0A=;
-        b=GDn9T631t40lyH1UVbWyfrqO2wY53BDnmdzrehZQ2IJwW6Log2x1p1Bcxo13teXjZe
-         S2wsXRftK/azjVLiiVcWlX+aqXAo/U/7DvDfEBj5nLg1jsOxzLmuVHGiWLAglDgo5Nvn
-         dl4CbxxzT5t4SxM4WB514iz4fde1by60lK0x7F4gmG0uYoz0aZHQz7eeWP2AOIDM972z
-         J/++zzNo8p6AwQRgg6xkmfbAEgf/nkyand6KmdTmPY9H/ONy5pii/tir0nWGz/B64xiG
-         7lCFPR1Kcx3KzO1angnGq2Bu/rD2zCxW9qeQOeLXCJwkP8vwuyXK6MjlBNdsx9i+FUGk
-         mS4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792482224; x=1793087024;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yC+gZPV4aotNwixKHOtH5yvTfu3V/PuIgqyMW818p0A=;
-        b=maUH5JSsyuTb35r4UnaAGT80EK68Fi/Ua1v76GIM53ibQmVpp0qyAeYqR6PTYdPwq7
-         XcTUVSkH5HnNXIeyrVmH5qZ1IPNV8PQEjO14fppkAXRVwQx7fP8JSr24stTZBTwwSJlC
-         Q1oNp4qdF4r+cttyd/TIXKAY1JL8QQlQXYizcq0VqY1pDFanQ/qddcIgs1NQ7YIQ6Ud0
-         /r4IH5cjo/C7fGClf2/6uBskU5AsLzDDiS4hQT3tgyscud/MTeStj8Lgwi/CUDFDxo5m
-         4zjMVLBCVSSjtNUd4afFEjHkJ656MQM/gwaceGwqihHBVlRgGI1ZuK7ZgEUh/wsD/Kxr
-         sxmw==
-X-Forwarded-Encrypted: i=1; AKwUvBypwof2U5HeungxKr6YYJ6I0T92Lj0H0tuH5Ej8MweYwJVjiUr0abjjbPJOxFFmHN2Ta0jPZxvLSpHB@vger.kernel.org
-X-Gm-Message-State: AFq9FYIHw4DjZnba9CqFEkYtcwicAM4ArCWHftiKsBCkhOrNgISZTd6v
-	oGpGwBjHbcPKQ0byDXErQKeieHldS1bSstAUs3PRp0FxxSbTDHrtA+m/RLhgEzb5z2dnZtVu4hn
-	YAG0fxi8=
-X-Gm-Gg: AYBFou3wqgEYfnw4N44aaLXM1KU41gxJWwLmCFoGkpLDjgvwszyljQizHxEvjaoH6gd
-	o8O6QEDu/8aPSScQb+ku+J00mbQ67h3tKQjdKS8t7cuTPsqbqNGIbI3JJotNaEpyZGf3Pzy7ZpR
-	xd8jkWib705q12ZNIgw9B3HYZ8j12tT/WfYCNuz37YlNI6l6S+kRGYQJMVVaEGPrRpGTOadt+Ic
-	VMqXj7wj1yXY241v4RXDXr65NaqMXU6LN8V2dsRkLitJJf4sYXC47xSfDX5SCRlDhKJfD7HfBe6
-	jbmRQxFAuWvnMmL8AA2EILRFY+f5y9UKjeelR4Tug+vYPB0xLoXSBmxxMw0IN+rXRiNycm3vZSR
-	ctt05W7pc89fjsv8Rl0AXFZ3CPcqtfy8N+XTDDMCpt7W4417UXj2ksjcIj0GuOQgzjkrQJRuRfu
-	MkdKFwGBLKzAJoeH0FKP+hiva1ZYOwFKZ3IJCEAkd3Qp2/KUfnYgGKmKldr+bdDok8K61BmsHaw
-	w==
-X-Received: by 2002:a05:7301:fd82:b0:35e:7bfd:4613 with SMTP id 5a478bee46e88-361a302ab1dmr13910871eec.40.1792482223591;
-        Tue, 20 Oct 2026 00:43:43 -0700 (PDT)
-Received: from [127.0.0.2] ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36083283478sm37010238eec.29.2026.10.20.00.43.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 00:43:43 -0700 (PDT)
-From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Date: Tue, 20 Oct 2026 00:43:38 -0700
-Subject: [PATCH v2 2/4] dt-bindings: trivial-devices: Add TDK FS1412 and
- FS1525
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SCv57Sxi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C90DD1F000C4;
+	Tue, 20 Oct 2026 07:44:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792482253;
+	bh=7Y4VaQCrShEsWxxC8upZ8USfPAGufEQjClAhPLxVnY8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SCv57SxiiuXtOSfzY0OYUlA0539SNx5dCCUTriu5hhXsrUAnxP4MafOSj4vu2pV1q
+	 9AYylJK2787bqXFQi6vE5KgasL4iCvHptC1a5VAt2zXoTeXBu6xx6Vr+/IKQUdaz1+
+	 4Y9uiuz/JsMJ+lk/bSD7KDqq5AocERifQq9awsUt51srkOwRBn+pzuloD/KtbVA3zW
+	 7MQA9HF1815+OqA2HxYr1g7prR8Up189vK2aC9C5s2pVBAbPqnFFQP0SktdEKQ7ZRZ
+	 FY6AepX5XJGJfh442KWGPXPNolXVyZ8Rc+0tqlgdr0PW246Lh909TDhM2NXX9f2LT/
+	 Kr692trdJ4w5Q==
+Date: Tue, 20 Oct 2026 09:44:10 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Stephan Costa Barros <stephanbrrs8@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Mike Looijmans <mike.looijmans@topic.nl>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: iio: adc: add TI ADS1299
+Message-ID: <20261020-fast-amber-myna-10b121@quoll>
+References: <20261019001247.483005-1-stephanbrrs8@gmail.com>
+ <20261019001247.483005-2-stephanbrrs8@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,53 +61,116 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-hwmon-pmbus-fs1412-v2-2-3396c3a08251@nexthop.ai>
-References: <20261020-hwmon-pmbus-fs1412-v2-0-3396c3a08251@nexthop.ai>
-In-Reply-To: <20261020-hwmon-pmbus-fs1412-v2-0-3396c3a08251@nexthop.ai>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>, 
- Abdurrahman Hussain <abdurrahman@nexthop.ai>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: Lars Petter Mostad <lars.petter.mostad@appear.net>, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792482219; l=1094;
- i=abdurrahman@nexthop.ai; s=20260510; h=from:subject:message-id;
- bh=TihSnAyU+oM6Z6xKPg8XulncCvOA3Lsm7O7YZANDhAs=;
- b=mp7sRHtCF878AE0rEF4+2BUgFCTEPTTF+jqzbW5O5Fcke5i00ovvP/Y7ZA7M9N0i9MNyG4mPk
- xxLm7V6x2itAYD2v5b+PsbOVOFtGTCznbSP8qYSxGqZRZoJ/NEX7OLK
-X-Developer-Key: i=abdurrahman@nexthop.ai; a=ed25519;
- pk=omTm9cCAbO0ZhS32aKfJDKue0W3sQGpG9ub5eYHif8I=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261019001247.483005-2-stephanbrrs8@gmail.com>
 
-The TDK FS1412 and FS1525 are 12A and 25A uPOL regulators with a PMBus
-interface. They need only a reg property, so document them as trivial
-devices.
+On Sun, Oct 18, 2026 at 09:12:46PM -0300, Stephan Costa Barros wrote:
+> The ADS1299 is an 8-channel, 24-bit, simultaneous-sampling biopotential
+> (EEG) analog front-end with an SPI interface. The ADS1299-6 and ADS1299-4
+> are the same part with six and four channels.
+> 
+> One converter can drive its clock out of its CLK pin to the others
+> (#clock-cells), and converters sharing a chip select in daisy-chain mode
+> are described as one node with #daisy-chained-devices.
+> 
+> Signed-off-by: Stephan Costa Barros <stephanbrrs8@gmail.com>
+> ---
+>  .../bindings/iio/adc/ti,ads1299.yaml          | 221 ++++++++++++++++++
+>  MAINTAINERS                                   |   6 +
+>  2 files changed, 227 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/iio/adc/ti,ads1299.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads1299.yaml b/Documentation/devicetree/bindings/iio/adc/ti,ads1299.yaml
+> new file mode 100644
+> index 000000000..a8966cd07
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/adc/ti,ads1299.yaml
+> @@ -0,0 +1,221 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/adc/ti,ads1299.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Texas Instruments ADS1299 biopotential analog front-end
+> +
+> +maintainers:
+> +  - Stephan Costa Barros <stephanbrrs8@gmail.com>
+> +
+> +description: |
+> +  Texas Instruments ADS1299 family: low-noise, 24-bit, simultaneous-sampling
+> +  biopotential (EEG) analog front-ends with an SPI interface. The ADS1299 has
+> +  eight channels, the ADS1299-6 six and the ADS1299-4 four.
+> +
+> +  Each channel has its own programmable gain amplifier and a multiplexer that
+> +  can select the electrode inputs, a shorted input, the internal test signal,
+> +  the supply or the temperature sensor. The part also provides lead-off
+> +  detection and a bias drive amplifier for the driven reference electrode.
+> +
+> +  The converter signals a completed conversion on its DRDY output and is read
+> +  over SPI in mode 1 (CPOL=0, CPHA=1).
+> +
+> +  Several converters can share one SPI bus in two ways. In cascaded mode each
+> +  has its own chip select and its own node; one of them can drive its internal
+> +  oscillator out of its CLK pin (#clock-cells) for the others to use as their
+> +  external clock. In daisy-chain mode they share the chip select and DIN, the
+> +  DOUT of each one feeds the DAISY_IN of the one before it, and the chain is a
+> +  single node with #daisy-chained-devices. A daisy chain shares DIN, so every
+> +  register write reaches every device: the devices run with one configuration
+> +  and from one external clock, and the bias drive amplifier cannot be used.
+> +
+> +  https://www.ti.com/lit/gpn/ads1299
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - ti,ads1299
 
-Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
----
- Documentation/devicetree/bindings/trivial-devices.yaml | 4 ++++
- 1 file changed, 4 insertions(+)
+This should be then "-8" variant?
 
-diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
-index 2de8eb09cb7d..996e1eab52bb 100644
---- a/Documentation/devicetree/bindings/trivial-devices.yaml
-+++ b/Documentation/devicetree/bindings/trivial-devices.yaml
-@@ -469,6 +469,10 @@ properties:
-           - synaptics,synaptics_i2c
-             # Ambient Light Sensor with SMBUS/Two Wire Serial Interface
-           - taos,tsl2550
-+            # TDK FS1412 12A uPOL regulator with PMBus
-+          - tdk,fs1412
-+            # TDK FS1525 25A uPOL regulator with PMBus
-+          - tdk,fs1525
-             # Digital PWM System Controller PMBus
-           - ti,cd9200
-             # Digital PWM System Controller PMBus
+> +      - ti,ads1299-4
+> +      - ti,ads1299-6
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +    description:
+> +      The DRDY output of the converter, asserted low when a conversion is
+> +      ready to be read.
+> +
+> +  reset-gpios:
+> +    maxItems: 1
+> +    description: The active-low RESET input of the converter.
+> +
+> +  powerdown-gpios:
+> +    maxItems: 1
+> +    description:
+> +      The active-low PWDN input.
+> +
+> +  clocks:
+> +    maxItems: 1
+> +    description:
+> +      External clock on the CLK pin, used when the CLKSEL pin selects an
+> +      external clock. Omit when the part runs from its internal oscillator.
+> +
+> +  clock-names:
+> +    const: clk
 
--- 
-2.54.0
+Drop clock-names
+
+> +
+> +  '#clock-cells':
+> +    const: 0
+> +    description:
+> +      The CLK pin as a clock output, for a part whose CLKSEL pin selects the
+> +      internal oscillator.
+> +
+> +  clock-output-names:
+> +    maxItems: 1
+
+Best regards,
+Krzysztof
 
