@@ -1,44 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.224.81.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792468474;
-	b=xjS6seG7vy/qEgJ8c+4PMwtLuGwnJRRT4OZx29tmpecbHIlt1NWMfQ0L42tHptGUJtYR
-	 rzCb9RqXrZoz/Zw81T5O55EBE0pK4+WWCcLCjjdRQz6ZYdeatyzx/k4lOk2QBAg6ocC8R
-	 bKB2c3/y5+IPMCI1wxinDgIje9cGtRxLj4gRidsoIG76iDq8+2gyERklw0gAsOKM5oA7X
-	 myGATVN6sQo1ht6EMPW3IlXxAoSnebNVXRs2OZ6EBOjVDZ5dnLKda0gHnvyDC0oEE6KFt
-	 9/ZXrCBNBRgHueqEsRAh/HSjptKw2oMhwHncPuRBwAzhNox/U0pg1OBtV5IUCwN12eQ==
+	t=1792471299;
+	b=fB/kMqZy+VJ/3oSpQofRQDcrrOUSQlD8Jsw2KS6V7767LgwgJYl7uwHCkdnSuu3l0Eud
+	 CsBs02FEL+FNpL8h1gpbai6PCSEPkAg9/+ntKqS5WBuNydxLT89kMSgAEsdDcKU6B2Jfn
+	 oAjv3+0yqsYv6mcDeR4t1bkImscvzjAVBokSmGQxt8KMkZdYa7nWWN1tQ08UfpnSBkW3b
+	 owDFiFGQaUH7z6kgu9lhbE3Oqy1dhlC5+XQtxzzJWlQWB9B6I0W4N2Yl/2y1F+jO2tSMt
+	 2gBK+eYsO3kqE4YR+IrBi0Onx9X8x+Yd9Bw8iR4AmDvXL1nRJ4cPqTi14KuG4EG8ChQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792468474;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
-	 Subject:To:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
-	 DKIM-Signature;
-	bh=unM+Wmu425LqozgSwnXty70TeWuAL+4t8eE8dEw9cXU=;
-	b=z7arhadlxf49V80BSTDU/SUVaCGRUK3mcMOwbCuQEdGovqGXoFy0ytYShUYp2lLvnC3J
-	 v7NSaW+oZYqq4ZHIDtfErPFBLvcrp3BTgG9nTpT9fp6Gddn7MNp55PChjEJl2HyHFis/W
-	 V0PZzBNLzphCd5HABAHKrSKMqVkqq6IE+sSeBBkjExgkajc4IsHYFwT9MKrOoKxF0hfaq
-	 /LW/NMil5DUooMFffBMfCXi80yJGo1AudsHPwDOQxeMzu1WLlC4D6VAKXTBRywAWkmogu
-	 L6AwOdWdUCpWsAZygTbO734tKDQZfAjRtU9yfo4OBUIJZ8xNno/1b4py4zPJUdugSrg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792471299;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=4K10gDOkZE3PD160wnpT0ljtcztdT1+fKIxqNnjTmeM=;
+	b=wX4gcoVSCVToN6olKd5of81+ek91aC8vfxdjXg22t94hwAO/zSf8vxVrMeUIfh28XRJg
+	 3PzwL1lNZzlWTPgxGcW3i0wfcBDLDK5SUy680WIyMnDmacvAQBRUVLC/iVuqGuuL9IjHd
+	 SDfOqRvN9hRopuyxFPh5hx4Dkd/3uB8/UXReqyyRyP7nyJxB3Q7/g9x+fQRsXNzzYfdGW
+	 0yNWajaVttc2OkdzsVbAAQGSvILOsYC1V3XqGNr2YKitGhTTMquSSzjho5a9Skvitb/r/
+	 Wmk7pR0SK0WFh3UHEJP7nvNsmRBVvN1EC0Rvq0vJXwXq5uqXTg8bZ3AUQnynQO8spFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=dWvFX6XN;
-	arc=none smtp.remote-ip=156.224.81.152
-Received: from mail-m81152.xmail.ntesmail.com (mail-m81152.xmail.ntesmail.com [156.224.81.152])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rCj6oB0T;
+	arc=none smtp.remote-ip=209.85.216.41
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CAFA606A31A;
-	Tue, 20 Oct 2026 03:54:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CAFA606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D94E3606A31A
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 04:41:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D94E3606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=dWvFX6XN
-Received: from [172.16.12.48] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 51a6837e1;
-	Tue, 20 Oct 2026 11:54:19 +0800 (GMT+08:00)
-Message-ID: <5f982595-f3b1-4d64-8b14-ad38dac2b3a1@rock-chips.com>
-Date: Tue, 20 Oct 2026 11:54:18 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rCj6oB0T
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ac451e128cso1758620a91.1
+        for <devicetree@vger.kernel.org>; Mon, 19 Oct 2026 21:41:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792471298; x=1793076098; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4K10gDOkZE3PD160wnpT0ljtcztdT1+fKIxqNnjTmeM=;
+        b=rCj6oB0Tts/buXDRhQwBOZ/wE3fvSFwMm4Romi3Kym5+buRZo/KSyoHyNk9oVOhnrY
+         LDqCvzoeLh6Ys4OJTn0CTU7ocVB+dvFL2wRQENTILVBo7ykIj5wxvrLwTFkm2cOglvqD
+         a278cqvnIkQkH/yGwDQVRo+tw9il34Xs4c4r1QGkdaeW6dnN9x6dzKD09CD31+um6e8+
+         Vp0bKxVrCJZ7g03nQ+C7zxsSwoUfomx4ayuQUMGFHjEhY+r2YaytKqDMMqeAAtx4Kvus
+         6nd0UYEp4N//9EA9GBkMFavNmGHzLKf7JMcE8AJp25l9rHhmfn6LQUu7cG24Ss9v7ZEv
+         WKRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792471298; x=1793076098;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4K10gDOkZE3PD160wnpT0ljtcztdT1+fKIxqNnjTmeM=;
+        b=w4WKaWWJSRrT0NvrpnXg+HbfHvxtM4gdYvHr/nITrWFlxR69tm3g+2sJ+bv6iAtZcz
+         P/0tCDYTBEv0XelCarRKWYdW7+6keCLw7vAvSPTqAZriu6AgRKw3DnSB278fQOefG19q
+         3cBLNfNqLnrzxe5CCVJ1eMJFfJYuUeK3xizl7MZAU80KpNe/7LjstypeOWnEezJMMQdP
+         Xrd7ZvFlIZn+FqFMF+VPr9AKZ3u1rQk27kNFwdkXKXD/7e/UEOZchaH9gY5TLa0e8Fhd
+         0gAVkd9mNd3fbDK/Wv0L61y/3XLk/JunNRAxSObJpG182b5zMhLL4Mh8xi5/EWdoY3Oo
+         dQ1g==
+X-Forwarded-Encrypted: i=1; AKwUvByyzPNIf85wes0BjgXIGYPbFvLNkGutIHMhMeUPRwO26Qyr9g6CdNpwoGLRP0x9tvGihHfAbgHmFCyi@vger.kernel.org
+X-Gm-Message-State: AFq9FYJQrNZRMiGoXk5/lZzAf5agqQknDh1RM0MKdm3IWTVGpkz/YGAA
+	kT7HzPUV+be7WJajjYrnVPnpHOdovFq5/Ctfbficx/UV9L8NTPx2hpqw
+X-Gm-Gg: AYBFou1AbmHMmEqZEAFSJLEzAx/u4tBRxAPhLSrWSpjDhQpfV9qz2iULSotKu8pcOGE
+	NqgareQKhFjDLSipXCYnjkYSBL70r8m14N4bOQpNybfiD+/0oRQwr+DM2SVw+g53+I0b5c8/1TI
+	O7BgFaxY3uf2H06JbPDzERhdUC53sL+kQI1pRdk0t/GVaUfO6PjF9/xi/O6RWeInznFa3tDjNLA
+	ixiE9JQfGpSOb6Lp7fq94Y5jlAUY7cuGVUv63auS4S5WY30T874AaAPkjKho/B9qcxT4vWxvvFh
+	bkvc1QBlzODvo+kDCrvp7cb+r+x2WQ3J5yCON5mFOqygk+vXhmbRacqEOY3CO4gxpM9wAHnWNtd
+	jSlL8w2ZO0nXu1vdpWRgLCnd4QMZVWcG3El8EF4v9NPb7vagHOUolLscPqv9VCTsg3zvaV0nfar
+	tqa8+zz19KRiKlzYUbq3wldJyxozbvNm6Rmtj00+nhcQwN91Sz51mWe4bMKi0fBjmoR9xIPxPpS
+	2CVNdcjENjY6s0soEq6OJIsNvlAb+Plkomhjm5h
+X-Received: by 2002:a17:90b:3851:b0:3ac:9e76:aa93 with SMTP id 98e67ed59e1d1-3acee2939b1mr7440626a91.7.1792471298112;
+        Mon, 19 Oct 2026 21:41:38 -0700 (PDT)
+Received: from [10.10.15.228] (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad60274fc1sm2242645a91.0.2026.10.19.21.41.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 21:41:37 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -48,161 +88,58 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: shawn.lin@rock-chips.com, Philipp Zabel <p.zabel@pengutronix.de>,
- Frank Li <Frank.Li@nxp.com>, Niklas Cassel <cassel@kernel.org>,
- Wilfred Mallawa <wilfred.mallawa@wdc.com>,
- Serge Semin <fancer.lancer@gmail.com>, linux-pci@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 10/17] PCI: dwc: Free the MSI domain after the host
- .deinit() callback
-To: Koichiro Den <den@valinux.co.jp>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>
-References: <20261020031049.969895-1-den@valinux.co.jp>
- <20261020031049.969895-11-den@valinux.co.jp>
-From: Shawn Lin <shawn.lin@rock-chips.com>
-In-Reply-To: <20261020031049.969895-11-den@valinux.co.jp>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa157721e3f03a4kunm5db5cf0491b23d
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHk1IVk8fTEpDHkIfSh0ZTFYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=dWvFX6XNnQNDR54IgdjXK6+k4kPUsSDESx0hmPEK9CoHYPoYPS0d77IXfq3s+v1Qxj3fTIBAwRaKWsn3O8elzaUYD1cu5iRW2dkO4UW8upfXaIscnbBGfY5xfMjKVXta5Qo0njIwP1rdhnzY6gY1cmozU5QeojPoA9OiMf/ExSM=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=unM+Wmu425LqozgSwnXty70TeWuAL+4t8eE8dEw9cXU=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v10 2/2] rtc: Add NXP PCF85053 driver support
+From: Potin Lai <potin.lai.pt@gmail.com>
+To: alexandre.belloni@bootlin.com, linux-rtc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org, devicetree@vger.kernel.org
+Cc: pankit.garg@nxp.com, vikash.bansal@nxp.com, priyanka.jain@nxp.com, 
+ Lakshay Piplani <lakshay.piplani@nxp.com>, 
+ Daniel Aguirre <daniel.aguirre@nxp.com>, potin.lai@quantatw.com
+In-Reply-To: <20260914141537.3881890-2-lakshay.piplani@nxp.com>
+References: <20260914141537.3881890-1-lakshay.piplani@nxp.com>
+ <20260914141537.3881890-2-lakshay.piplani@nxp.com>
+Date: Tue, 20 Oct 2026 12:39:05 +0800
+Message-Id: <179247114505.1909331.8772243042180533977.b4-review@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792471294; l=1059;
+ i=potin.lai.pt@gmail.com; s=20260522; h=from:subject:message-id;
+ bh=n5P1atnEZAPMo7JzNsBwROdmy+J5EY95ZUsmftBy8h0=;
+ b=EdjxSeP0LCf0fvkfNg8X4WS1akYfDY8F5W5JzCUosWEW6Mg2pEAecfdbNqRFLjP+GLLWXEXrp
+ qBasBTb3fAGBjoTyxOqGvZoH434FUHzjg32btWvTbtccwyuiA/ETbgh
+X-Developer-Key: i=potin.lai.pt@gmail.com; a=ed25519;
+ pk=j3/nMxzz1ZPpp1revghyZ8IqOnwi6RWfuxXN2XrNMRE=
 
-Hi Koichiro
-
-在 2026/10/20 星期二 11:10, Koichiro Den 写道:
-> dw_pcie_host_deinit() frees the iMSI-RX domain before calling the host
-> .deinit() callback. For a core-owned parent interrupt,
-> dw_pcie_free_msi() removes the chained handler right before the domain.
-> A glue driver that owns the parent interrupt and demultiplexes the MSIs
-> itself through dw_handle_msi_irq() can only stop its handler in
-> .deinit(), after the domain is gone, so a late interrupt can still
-> dispatch into the freed domain.
-> 
-
-I think you need a rebase anyway since there are two patches touching
-MSI irq naming stuff in pci-tree's next branch and will probably
-show up in tommorow's linux-next.
-
-...
-
-> +static void dw_pcie_free_msi_domain(struct dw_pcie_rp *pp)
-> +{
->   	irq_domain_remove(pp->irq_domain);
-> +	pp->irq_domain = NULL;
-> +}
+On Mon, 14 Sep 2026 19:45:37 +0530, Lakshay Piplani <lakshay.piplani@nxp.com> wrote:
+> diff --git a/drivers/rtc/rtc-pcf85053.c b/drivers/rtc/rtc-pcf85053.c
+> new file mode 100644
+> index 000000000000..2eb94b1da3ed
+> --- /dev/null
+> +++ b/drivers/rtc/rtc-pcf85053.c
+> @@ -0,0 +1,900 @@
+> [ ... skip 770 lines ... ]
 > +
-> +void dw_pcie_free_msi(struct dw_pcie_rp *pp)
-> +{
-> +	dw_pcie_remove_msi_handlers(pp);
-> +	dw_pcie_free_msi_domain(pp);
->   }
->   EXPORT_SYMBOL_GPL(dw_pcie_free_msi);
->   
-
-
-dw_pcie_free_msi() now calls freeing irq_domain unconditionally:
-
-The problem is that pcie-qcom.c uses the ECAM init path, which does not
-go through dw_pcie_host_init(), and registers its own devres action,
-see:
-drivers/pci/controller/dwc/pcie-qcom.c:2034
-      return devm_add_action_or_reset(dev, qcom_pci_free_msi, pp);
-
-drivers/pci/controller/dwc/pcie-qcom.c:1995
-      static void qcom_pci_free_msi(void *ptr)
-      {
-             struct dw_pcie_rp *pp = (struct dw_pcie_rp *)ptr;
-
-             if (pp && pp->use_imsi_rx)
-                     dw_pcie_free_msi(pp);
-      }
-
-This leads to the following sequence:
-
-   1. dw_pcie_host_init() succeeds and pp->irq_domain is created;
-   2. the driver is removed or probe fails, dw_pcie_host_deinit() calls
-      dw_pcie_free_msi_domain() and sets pp->irq_domain to NULL;
-   3. the devres action qcom_pci_free_msi() still holds the same pp and
-      calls dw_pcie_free_msi(), which enters dw_pcie_free_msi_domain()
-      again;
-   4. irq_domain_remove(NULL) dereferences a NULL pointer and the kernel
-      crashes.
-
-
-So I suggest you to add a safe check if (!pp->irq_domain) before doing
-that.
-
-
-> @@ -633,7 +643,7 @@ int dw_pcie_host_init(struct dw_pcie_rp *pp)
->   
->   	ret = of_pci_get_equalization_presets(dev, &pp->presets, pci->num_lanes);
->   	if (ret)
-> -		goto err_free_msi;
-> +		goto err_deinit_host;
->   
->   	/*
->   	 * Allocate the resource for MSG TLP before programming the iATU
-> @@ -649,7 +659,7 @@ int dw_pcie_host_init(struct dw_pcie_rp *pp)
->   
->   	ret = dw_pcie_edma_detect(pci);
->   	if (ret)
-> -		goto err_free_msi;
-> +		goto err_deinit_host;
->   
->   	ret = dw_pcie_setup_rc(pp);
->   	if (ret)
-> @@ -686,14 +696,16 @@ int dw_pcie_host_init(struct dw_pcie_rp *pp)
->   err_remove_edma:
->   	dw_pcie_edma_remove(pci);
->   
-> -err_free_msi:
-> -	if (pp->use_imsi_rx)
-> -		dw_pcie_free_msi(pp);
-> -
->   err_deinit_host:
-> +	if (pp->use_imsi_rx && pp->irq_domain)
-> +		dw_pcie_remove_msi_handlers(pp);
+> +	dev_set_drvdata(dev, pcf85053);
 > +
->   	if (pp->ops->deinit)
->   		pp->ops->deinit(pp);
->   
-> +	if (pp->use_imsi_rx && pp->irq_domain)
-> +		dw_pcie_free_msi_domain(pp);
-> +
->   err_free_ecam:
->   	if (pp->cfg)
->   		pci_ecam_free(pp->cfg);
-> @@ -718,11 +730,14 @@ void dw_pcie_host_deinit(struct dw_pcie_rp *pp)
->   	dw_pcie_edma_remove(pci);
->   
->   	if (pp->use_imsi_rx)
-> -		dw_pcie_free_msi(pp);
-> +		dw_pcie_remove_msi_handlers(pp);
->   
->   	if (pp->ops->deinit)
->   		pp->ops->deinit(pp);
->   
-> +	if (pp->use_imsi_rx)
-> +		dw_pcie_free_msi_domain(pp);
-> +
->   	if (pp->cfg)
->   		pci_ecam_free(pp->cfg);
->   }
+> +	if (of_property_read_string(dev->of_node, "nxp,interface", &iface))
+> +		return dev_err_probe(dev, -EINVAL,
+> +				     "Missing mandatory property: nxp,interface\n");
 
+Hi Lakshay,
+
+Would it be possible to provide a fallback default true for
+`pcf85053->is_primary` if the property is omitted?
+
+In the current implementation, nxp,interface is strictly mandatory.
+However, when users instantiate the device via the sysfs new_device
+interface (e.g., echo pcf85053a 0x6f > /sys/bus/i2c/devices/i2c-X/new_device),
+there is no way to pass Device Tree properties. Because of this, probe
+will always fail with -EINVAL.
+
+Thanks,
+Potin
+
+-- 
+Potin Lai <potin.lai.pt@gmail.com>
