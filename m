@@ -1,62 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792503384;
-	b=TL2OdW9LmymSKUrSScnPJQrtK+riUST7+zypbTm717FVwZ2UliBMlZc/IgtgJyaEvlpl
-	 7BsrmgImNxO4awGZwWzd1SdzCSHn9S7VU3b4H3AJGm7ozEqh/wJVlUtc5i0o6z/QbmE3l
-	 frDENW8HQ/gh41j6N8d8nswrsDfo5fTRZndIYHQddpFsGFlQcMScvi988lgNoRWcDza+Y
-	 IrJzji0KIj5oH1qXyW9pq5/REiBbZo2/U3mvtzvx1fmA8pfGY0k/5tsUlv3JgmfsOtrJM
-	 sC5f+rVKPYIsEih1CQuPd88YCD7kSWujJ0X/Sicyiw/Uavs+bzEMOTFt6478wcguPHA==
+	t=1792503472;
+	b=L9dq3lzOBt7DyU1fzpeoKD1Qo8iF3obgkvSvbGTIZ3YRD0KOm5yluBZARdAZFjdDfRJK
+	 jnKGCkSSZrYPdLXKNzI1fnbAdrjZRLlfQXXfEMx2nQCS9815eAm7ObB3YtdX+n4hxylag
+	 5j5vXB6LpKr4j5/VSMzVwlkXftGi3bywEqaH3sigSQWoyhEhBmtS+FBKsP6iwtQef+z3o
+	 jtUAj7kC8FSKXUq+1EPbNuJWBo4ZvrwU8Zuusds6X7eBCf0kcsiI+jK94Yipl2cw67Qp6
+	 QDh76C8f6mZXcPecgmKMZ2Rb6ioB+Ywbb3hKxldsDl6qTn6jVqwNrlFeR6SzOmLT4/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792503384;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=MGUvIugS+lpW0/60pXJG7rA3wOxjL11PdzpzXL8pcZo=;
-	b=upDb2f0vN1aCYY8MfV4l/G1PmYMutN2bjXg69t5BHzStR+qyXo5jlYbpwV4VSM0gMCKM
-	 nEGQaRc4EoIFG+k7+y9p+2t0rwTrd3g6CHS6OxI0bECVmL5f6diovPkI1uWVcYHXtkaPV
-	 LaNeSekiRyfCnRC0ForntZeAeZ37v9bHLnrb4KTbToEnOF8HG2Uvs5ffo5Y8ET7eqdxEl
-	 mdf5iJB8ZpHPn6vuVNrhO337hDI0HspIaJezACmkbRAfLkZUIvvW0YMlux5ueZCb/arZh
-	 L6sglhu/ihortMffLTvuZWNrZ+bbF60LKObsO56ZJ9jo63ow97cHYaVAUMbesO0UjHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792503472;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=m8yfQEcljjdCYG73U7/b7AoriibsdHfzmxVKPS8fPUs=;
+	b=4OLlFEr1MmX2+DrlvkheW3tvLH17DGq/dlMH7CLlxhOFU2x2m1XiKfs35Z8IrsON9Nby
+	 Y9RzvB7TmbFHgwvPnr1AhaglmwyeHXDDlyGj38AFTl+K5RkGbfYiYoRmd9PfEGr8ncGMI
+	 id9wAf9wLAuTmDlN7a6QXB5qi7w5UxJQaxputFYAXyX3XY1AgKoUwMHzkrHG8fiL4Bi5Y
+	 Q0ZlkZVwyleWn/h8s+ZgxV1Yz7kyRadaMEauYpk39Q9EYe1QU4w65iP4BRLFZIhRkPAZx
+	 wc/RyWIuaOog6DgS86KO5vzTO76bJnDTeZDcB/7+jEdXGLQPiedjJYCssAf7zMSFDVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qz86LGvj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=R8rsXKOl;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4247606A325;
-	Tue, 20 Oct 2026 13:36:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 734F2606A33C;
+	Tue, 20 Oct 2026 13:37:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 734F2606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qz86LGvj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6113F1F000C4;
-	Tue, 20 Oct 2026 13:36:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792503383;
-	bh=MGUvIugS+lpW0/60pXJG7rA3wOxjL11PdzpzXL8pcZo=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Qz86LGvj9yWwJN/K/AHZMy7IW8jhQJh1oKBhZloxbJCsWbH0+08ea4SJe1gaiTNpF
-	 Kq3SXPLD6rfVJmMzBl9fS4HggSUs9BXB/m80uC0gM6JQKqRfuRYFVxNs8NE/lIy/gW
-	 9InrqeD8s3ueIzMg/RHi66Ii4slBd9tcHwHGfhSMeUpiuGRXVFsQUTd848inK6wF77
-	 uMOTODJnnRJm3TNZVaG9efh9NbmsOv/lyuJGGSr9/gFQg7tGvyaVTvfVPLR5OXuqJq
-	 JcosddMyaKfwB8tZWzqbZZrjrEwqS4mj/eMDTZBIW2UTk+RR4We0TS3/TIHQPuyXCj
-	 PoRtpLyhrfcjg==
-Subject: Re: [PATCH net-next v2 3/5] net: phy: mxl-gpy: release MxL86211C
- Super Isolate
-From: netdev-bot+sashiko@kernel.org
-To: robert.marko@sartura.hr
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, lxu@maxlinear.com, hkallweit1@gmail.com,
- linux@armlinux.org.uk, michael@walle.cc, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, lrosu@maxlinear.com,
- luka.perkov@sartura.hr
-Date: Tue, 20 Oct 2026 13:36:21 +0000
-Message-ID: <179250338193.3135.601268020281366283@kernel.org>
-In-Reply-To: <20261016112033.949026-3-robert.marko@sartura.hr>
-References: <20261016112033.949026-3-robert.marko@sartura.hr>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=R8rsXKOl
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=m8yfQEcljjdCYG73U7/b7AoriibsdHfzmxVKPS8fPUs=; b=R8rsXKOlypisObnCg9uR6fNJlX
+	3Ubrwa1LV61x/Q2ZHgC5nkXY6zgx+U0J3139rGr7qgrXVCaOFicihD2ArvNXmk3po7ySxW+/iKiA+
+	ZSVKW6spvm8mn7dKG86W6sztHwm1Zaue5dFIOkgFPxaJDeZsyVWimViZN6t2uR58W/fgW2zSyADH/
+	8N77TIADYxy7+zZMLREv7YAkIfD5l6c7xqSXjnqB0poA9y0O92RuJavkgLP9bEJe05gVeX13vUjgk
+	nRHqV/V6MLrFK3mGyzBM96C2HURgOjSjJup1Yf6oMTK4ddLWw3jTrM9y2A+/+ivOZdy+vdYmznz+I
+	a1VDQpHA==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Rob Herring <robh@kernel.org>,
+ =?UTF-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>,
+ Michael Riesch <michael.riesch@collabora.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Guochun Huang <hero.huang@rock-chips.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH v5 2/8] dt-bindings: phy: rockchip,rk3588-mipi-dcphy: Add a cell
+ to select TX or RX
+Date: Tue, 20 Oct 2026 15:37:35 +0200
+Message-ID: <2501273.NG923GbCHz@diego>
+In-Reply-To: <73ef0d06-75c5-4c10-b4c3-c7b3c07a1e18@collabora.com>
+References:
+ <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
+ <20261019150631.GA265407-robh@kernel.org>
+ <73ef0d06-75c5-4c10-b4c3-c7b3c07a1e18@collabora.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,212 +75,119 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+Am Dienstag, 20. Oktober 2026, 00:20:47 Mitteleurop=C3=A4ische Sommerzeit s=
+chrieb Michael Riesch:
+> Hi all,
+>=20
+> On 10/19/26 17:06, Rob Herring wrote:
+> > On Mon, Oct 19, 2026 at 04:15:03PM +0800, =E6=A5=8A=E6=99=BA=E6=88=90 w=
+rote:
+> >> Hi Krzysztof, Rob,
+> >>
+> >>> Existing OS should ignore surplus cell if the driver is coded properl=
+y.
+> >>> Same as adding new properties or new front-compatible.  The question =
+is
+> >>> how the existing driver behaves?
+> >>
+> >> As you pointed out on 5/8, the xlate checks args_count !=3D 1. The DC-=
+PHY
+> >> driver was merged in v6.15, so every kernel since 6.15 fails on a seco=
+nd cell.
+> >>
+> >> 1. Keep the second cell. Add the patch as follows:
+> >>
+> >> - if (args->args_count !=3D 1) {
+> >> + if (args->args_count < 1) {
+> >>     dev_err(dev, "invalid number of arguments\n");
+> >>     return ERR_PTR(-EINVAL);
+> >>   }
+> >>
+> >> + if (args->args_count > 1 && args->args[1]) {
+> >> +   dev_err(dev, "only the transmitter is supported\n");
+> >> +   return ERR_PTR(-EINVAL);
+> >> + }
+> >>
+> >>   With Fixes: and Cc: stable, the stable kernels maintained at that
+> >>   time (currently 6.18.y and 7.2.y) keep DSI working with the new
+> >>   dts, and the receiver fails cleanly instead of getting the transmitt=
+er.
+> >>   But EOL kernels (6.15, 6.16, 6.17, 6.19, 7.0, 7.1) stay affected.
+> >>   It goes in with the series, since two-cell dts only exist after it.
+> >>
+> >> 2. Use a flag in the upper bits of the existing cell, as Rob
+> >>     suggested. Existing kernels are not affected, unless a board enabl=
+es
+> >>     the DC-PHY CSI-2 receiver on 7.0 or later without this series.
+> >>
+> >> I will write the impact clearly whichever  approach is selected in
+> >> the related commit messages and the cover letter.
+> >>
+> >> I think the cell approach is easier to read and more symmetric in the
+> >> long term,
+> >> but it breaks more. Which one do you think is better? Thanks.
+> >=20
+> > I'm not a user of this platform, so I don't care. Up to the platform=20
+> > maintainers to decide if breakage is acceptible. You just need to=20
+> > document the issue in the commit message.
+> >=20
+> > Rob
+>=20
+> It's a bit of a pickle, all this.
+>=20
+> I gave it some more thought. In the end this is an IP block with two
+> PHYs. No more, no less. One cell is sufficient to address those, and it
+> could be 0 for the transmitting PHY (DSI, display) and 1 for the
+> receiving PHY (CSI, camera).
+>=20
+> Of course the two PHYs can operate in either DPHY or CPHY mode. The
+> phy-cells have been (mis?)used to select the proper mode of combo PHYs,
+> and this principle has been applied here too.
+>=20
+> However, we have the special situation here that the mode can only be
+> changed for the complete IP block (and thus for both PHYs at the same
+> time). As Bryan points out, we need to check and complain if the PHY
+> mode is not set to the same value for both PHYs.
+>=20
+> I suggest using a property
+>     samsung,cphy-mode;
 
-Critical: 0 · High: 1 · Medium: 2 · Low: 0
+I guess, a maybe nicer way would be mimicing
+	Documentation/devicetree/bindings/phy/intel,combo-phy.yaml
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+with its
+	intel,phy-mode =3D <x>
 
-- [High] This series breaks existing MxL86211C setups, and this patch
-  makes the new Super Isolate (SI) release depend on the same supply.
-- [Medium] The VDDP (MDIO/MDC/MDINT pad) supply is acquired with
-  devm_regulator_get() in mxl86211c_probe() but never enabled.
-- [Medium] net: phy: mxl-gpy: firmware version read while PHY is halted
+with x coming from include/dt-bindings/phy/phy.h
+for the distinction between cphy and dphy, so we don't introduce yet
+another way to describe this.
 
---
+As you said, the electrical wiring is completely different between the dphy
+and cphy parts, so is a property of the board.
 
-net: phy: mxl-gpy: release MxL86211C Super Isolate
 
-This adds an MxL86211C config_init callback. It reapplies the MDIO pad
-voltage from the VDDP supply, then clears the Super Isolate bit in
-VSPEC1_PM_CTRL, then calls gpy21x_config_init(). A PHY strapped into
-Super Isolate is then released after each hardware reset.
+> (name to be bikeshedded) that sets the complete IP block into CPHY mode
+> (DPHY being the default) to distinguish between the modes. Since both
+> modes use a different electrical interface, this is clearly a hardware
+> thing and thus suitable for device tree.
+>=20
+> Then, we can address the two PHYs with the help of the already existing
+> phy cell (without any bitflag tweaks to the value).
+>=20
+> The sole drawback is that we need to accept the PHY_TYPE_DPHY and
+> PHY_TYPE_CPHY values that some OS in the field might pass. (For Linux,
+> it should only be the former.) And we need to handle those values
+> correctly. But I think this is not more painful than the other
+> approaches. At the same time, this design seems to be the most correct
 
-> diff --git a/drivers/net/phy/mxl-gpy.c b/drivers/net/phy/mxl-gpy.c
-> index fbac7c49b4759..8bc119655f104 100644
-> --- a/drivers/net/phy/mxl-gpy.c
-> +++ b/drivers/net/phy/mxl-gpy.c
+The current cell values are 10 + 11, so as long as we don't re-use those
+exact values for the other constants the driver should somewhat easily
+be able to recognize an old DT?
 
-[ ... ]
 
-> @@ -422,6 +423,23 @@ static int mxl86211c_configure_mdio_voltage(struct phy_device *phydev,
->  			      VSPEC1_PM_CTRL_MDIO_VOL, val);
->  }
->  
-> +static int mxl86211c_config_init(struct phy_device *phydev)
-> +{
-> +	struct gpy_priv *priv = phydev->priv;
-> +	int ret;
-> +
-> +	ret = mxl86211c_configure_mdio_voltage(phydev, priv->vddp);
-> +	if (ret)
-> +		return ret;
+Heiko
 
-[Severity: High]
-Does this make releasing Super Isolate depend on the VDDP supply
-reporting exactly 1.8V or 3.3V?
 
-If mxl86211c_configure_mdio_voltage() fails, mxl86211c_config_init()
-returns before VSPEC1_PM_CTRL_SI is cleared. Clearing the SI bit has
-nothing to do with the pad voltage.
-
-This adds to a problem from the earlier patch in this series ("net: phy:
-mxl-gpy: add MxL86211C VDDP supply"), where mxl86211c_probe() now
-requires the supply:
-
-drivers/net/phy/mxl-gpy.c:mxl86211c_probe() {
-    ...
-	vddp = devm_regulator_get(dev, "vddp");
-	if (IS_ERR(vddp))
-		return dev_err_probe(dev, PTR_ERR(vddp),
-				     "failed to get VDDP supply\n");
-	if (!vddp)
-		return dev_err_probe(dev, -EOPNOTSUPP,
-				     "VDDP supply requires regulator support\n");
-
-	ret = mxl86211c_configure_mdio_voltage(phydev, vddp);
-	if (ret)
-		return ret;
-    ...
-}
-
-MxL86211C support is older than this series and has never used a supply,
-so no existing DT has a vddp-supply property. Without that property,
-devm_regulator_get() returns the dummy regulator. The dummy has no ops,
-no fixed_uV, no supply and no supply_name, so
-regulator_get_voltage_rdev() returns -EINVAL for it:
-
-drivers/regulator/core.c:regulator_get_voltage_rdev() {
-    ...
-	} else if (rdev->supply_name) {
-		return -EPROBE_DEFER;
-	} else {
-		return -EINVAL;
-	}
-    ...
-}
-
-With CONFIG_REGULATOR=n, the stub returns NULL and probe fails with
--EOPNOTSUPP instead. Non-DT setups and PHYs found by MDIO scan go down
-the same paths.
-
-In every case mxl86211c_probe() fails and the mxl-gpy driver no longer
-binds to the PHY. That loses SGMII/2500BASE-X handling, LEDs, WoL and
-stats.
-
-The binding select only matches nodes with the ethernet-phy-idc133.5400
-compatible, and no in-tree DTS uses that compatible. So dtbs_check won't
-flag existing nodes that lack the supply.
-
-Neither commit message says existing setups stop working. The last patch
-in the series ("net: phy: mxl-gpy: support MxL86211C lane mapping") keeps
-the same probe and config_init ordering, so the problem is still there at
-the end of the series.
-
-Could the supply be made optional, with the pad voltage setup skipped
-when no supply is described and the SI bit cleared either way?
-
-> +
-> +	ret = phy_modify_mmd(phydev, MDIO_MMD_VEND1, VSPEC1_PM_CTRL,
-> +			     VSPEC1_PM_CTRL_SI, 0);
-> +	if (ret)
-> +		return ret;
-
-[Severity: Medium]
-Does gpy_probe() still read the firmware version while the PHY is
-halted?
-
-mxl86211c_probe() calls gpy_probe(), which reads PHY_FWV once and
-caches priv->fw_major and priv->fw_minor. With this version, Super
-Isolate is only cleared from mxl86211c_config_init(). That runs from
-phy_init_hw() on attach and resume, well after probe:
-
-mxl86211c_probe()
-  gpy_probe()
-    phy_read(phydev, PHY_FWV)
-...
-phy_attach_direct()
-  phy_init_hw()
-    mxl86211c_config_init()
-      phy_modify_mmd(..., VSPEC1_PM_CTRL, VSPEC1_PM_CTRL_SI, 0)
-
-The commit message says a strapped PHY stays halted after reset until
-software releases it. Suppose PHY_FWV is filled in by the PHY
-firmware. Then on a strapped board, probe caches whatever the register
-holds before the firmware has run, most likely 0. Nothing re-reads it
-after SI is cleared, so the bogus value sticks for the life of the
-device.
-
-That value is printed as the firmware version in dmesg. It is also
-used by gpy_sgmii_need_reaneg(), which compares it against
-ver_need_sgmii_reaneg to decide whether gpy_config_aneg() applies the
-SGMII re-ANEG workaround. A zeroed version would not match any of
-those entries, so the workaround would be skipped on firmware that
-needs it.
-
-v1 cleared SI in probe. Is PHY_FWV valid while the PHY is in Super
-Isolate? If not, should SI also be released in mxl86211c_probe()
-before gpy_probe() reads the version? Or should config_init read the
-version again after clearing the bit?
-
-[Severity: Medium]
-Is the VDDP supply ever enabled?
-
-mxl86211c_probe() gets it with devm_regulator_get(). There is no
-regulator_enable() or devm_regulator_get_enable() call, and the only use
-of the supply is regulator_get_voltage() in
-mxl86211c_configure_mdio_voltage(). So the consumer use_count stays at 0.
-
-Suppose the VDDP rail can be switched and is not always-on. Examples are
-a GPIO-controlled regulator-fixed, or a PMIC LDO marked only
-regulator-boot-on. In that case regulator_late_cleanup() turns the rail
-off after boot:
-
-drivers/regulator/core.c:regulator_late_cleanup() {
-    ...
-	if (rdev->use_count)
-		goto unlock;
-    ...
-	if (have_full_constraints()) {
-		rdev_info(rdev, "disabling\n");
-		ret = _regulator_do_disable(rdev);
-    ...
-}
-
-If the rail is off at boot, nothing turns it on.
-
-phy_init_hw() calls mxl86211c_config_init() on attach and on resume,
-often after late cleanup has run. It then does read-modify-writes on
-VSPEC1_PM_CTRL over MDIO pads that may have no power:
-
-phy_attach_direct() / mdio_bus_phy_resume()
-  phy_init_hw()
-    mxl86211c_config_init()
-      mxl86211c_configure_mdio_voltage()
-        phy_modify_mmd(..., VSPEC1_PM_CTRL, VSPEC1_PM_CTRL_MDIO_VOL, val)
-      phy_modify_mmd(..., VSPEC1_PM_CTRL, VSPEC1_PM_CTRL_SI, 0)
-
-Can these accesses fail, or read all-ones and write back bad values,
-leaving the PHY in Super Isolate?
-
-The binding does not require the rail to be always-on. The missing
-enable comes from the earlier "net: phy: mxl-gpy: add MxL86211C VDDP
-supply" patch in this series.
-
-Should probe keep the supply enabled, for example by using
-devm_regulator_get_enable()?
-
-> +
-> +	return gpy21x_config_init(phydev);
-> +}
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016112033.949026-1-robert.marko%40sartura.hr
