@@ -1,47 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792498707;
-	b=nz7g6S2eMB0ZKOYtATV+gYlll+Lfclr+s3MNtob/HV5yAq5DR3gsCeq4ix6lJcc2B3e5
-	 2O/xkwpb2K0oMySf03aPBEuRiRJ6kviIjftxHoyZHMLyQRjnWEbsncViIDl0m89py3XxK
-	 ZyLdPyAtCriBaET0QUTi5Nkua3Wo66QRV1Jfm3eO/GknLvI45QLPUk002N0kNG1jUNH3U
-	 BOI43o+S73+BARDD8jBiNY00OsLFsMp6WSAtVZnIWjlz06dHqyH+Zm4Vj/B+srynPVAb3
-	 HgY07O3ffk+ff8NxpVQr3jcwn9LSh0AVRKi8yINEBmambAA0pyeFNgbTF+cV1o4rweg==
+	t=1792498859;
+	b=qA9FBa+HrTh0o828R79hXeYFHqzM8BVPv6zWB4ODjsCqojehjk/TDS/DHSj/fCyymPVS
+	 /C7gbfvvpf4+p8sC/RUSntCvRJdoBQH9qNS+9887PZywF1lyBuL+/gTTpA5vqJIQ/WlnO
+	 eoSb7Ln6uqBjiQYAbKVfL+5Zq/ijFgqvWQr2d/0ROfcUjF1Ob95S6HK/DFDE7FD957kXF
+	 YY0boBISwWU0hMJxkfLRd2TTjTINDsyd0T1mNAHHMLfN9iGn1t7BYHIx1OrvNQ7YMFuas
+	 dgvrNXB7c9dMuq5RJvk10MlUgcl/lEPlj/B0xKRcl3aOXzsJEVvtJ906fP6fOhGe99A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792498707;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=yU6o+keIiSw29Qh3qTy6Rhe4KIjjNbDeXyqpDu2XIrY=;
-	b=SdwV3Wm9Ktm1vSJMfRwKOTr1/otWDkCTsgVB07e+fYXYGIO1oMD2Le/dQl+R4Bm7x5vr
-	 6vLbTopcJcuNFSafJyZQ7ykTRucwz9F5SprhAcgvcQ/6dUMFoy/k+mrsDT8KcJhDWY1Jq
-	 QVwiVF3d91ROkhO0JXf0aJx4/ZSw2rG4MdppR0ybQaO13YQiEnQzu5reEPwti7XNiDl7y
-	 BqKKHupyMdFcBi92vDrDTXK+gDLtnDSH3jBhVByR1Xib/9VjjavA+N9YCyewABVmfOrkX
-	 0ZJCYgxJoH0EZc+9BITMxGAuvLTs/hUlzQ1xZe6yxUISRuvJYRx81LCeDvjK/fSbebw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792498859;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=w8ekeggAdWyBqH97gBi+p9TPg4z/iYMBplVI65cJ2lQ=;
+	b=pr7QFN2jDjjoU/yb0s7EvRrvs5uzukboGlLtXbzHKGJVEH953E1KBKitXzG2cLY0/6v2
+	 P5BbNg/sHKSxQ9Mre4lalZcIwxV1A59xmm0bfBID29tSuNsLH7S9wcaQb/X6ILQwNbUZS
+	 LoDDgK2JMeIgNzKU8FNUtC3D2BDfJ/8k2gUAM258YgUq4utvDS9FToH6DK0vPzsjr0/Yg
+	 K+svIcs3AZRoSy9KF6VDtO10YttzdXQS8hB0h/Rcdo8jhOjSLb0yBdYKIvxluQJYXEy1X
+	 Nw6eKiDajaLocALeK5RWozxArxZr86GxZ3sO4qLL2VVEgfRxfSiTVXDOFEd8KuO7whg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y9Zyp8h3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.221.175
+Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com [209.85.221.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 302FE606A31B;
-	Tue, 20 Oct 2026 12:18:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y9Zyp8h3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 289B31F000C4;
-	Tue, 20 Oct 2026 12:18:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792498706;
-	bh=yU6o+keIiSw29Qh3qTy6Rhe4KIjjNbDeXyqpDu2XIrY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Y9Zyp8h3kzMOtJAUw6zQMoqzKWJZaxancFv93lkG3Tdv35/8/+g5n/FCeYZ8pczdJ
-	 FHiQxy7U69KaSDoFYFOulTz3zVvBdF7xA+U/6BvNbgZSln5iATJcbMelazyB07unGr
-	 UfSegyHFTspPt/gVEaOJgSED7O6ieY29vJk5KfxEC/frmyInD6LkQQThT3DZBrWK1d
-	 SXVmhgq67s2YGJfdZBrw+pupFAsVFGgDzbjwTGbyxEYPZZHHCQsXUkzuivZNTtkxph
-	 FeFnB+8M+UOQzmSyU4q3N+DWZySe27fXD7tGrnBbC77P6QpX1VcoCmxooZwr7TzKZb
-	 ywtUGBhUcfckw==
-Message-ID: <835fb494-ad66-474e-9fbc-71a9dd7d7608@kernel.org>
-Date: Tue, 20 Oct 2026 14:18:20 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CEFF606A31D
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 12:20:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CEFF606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f175.google.com with SMTP id 71dfb90a1353d-5ead5ff47caso959601e0c.0
+        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 05:20:59 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792498858; x=1793103658;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=w8ekeggAdWyBqH97gBi+p9TPg4z/iYMBplVI65cJ2lQ=;
+        b=li7928AYo7M6k1oAXVSUlCWrc9KKKgOpOu9Y4n+XAjPxw/VkD7OPPQZmyIy8bCcoAT
+         3D1JuUKVqts2kKc7tymmnKfRcxw++Hj1uOiVcZZ9aNpAHU9mko/JQQMy+4oZujc/zS/A
+         sLa06TNH8VmJnPAPDa8xnk9MLXzhprewtc6KeKeiNoTDJGMpetCOnBGYA4JeE1vzhxqf
+         rDwfitlgbMG1Y45ZGbBSHUeDjCquV9AVtb3s/NzFz+G1pdHAQ4bUPAFKA5voHEf0xEM9
+         EN9qc8yyNf85Ip3pnOWVRoQMzE3WR0PnfxAyr/fwENGYSwTJ1z9PyPSHO7V6mK0SSTk+
+         RRag==
+X-Forwarded-Encrypted: i=1; AKwUvBxLYLqvKuES5cytiO0MCQtQDiD1rnIXpZprN5KOyzl5Q0AZKXflqIZi7cssEKKLtbN6oEZvc5CETFSt@vger.kernel.org
+X-Gm-Message-State: AFq9FYL3pHsfaYWBCkz0RIjV1u7OVuQR6WaS+OdAZUyxZG5xW3DCYCkf
+	qlqcPG5mtvgowlA62yTPrJcJ62/wjMQH5Ril2vdSUUz8mbXqlkjFlFa9DlvlRBJNO6g=
+X-Gm-Gg: AYBFou1qd3nganfvcHaKCpYoS0BVTOCZvdcXTeb9gRfGCrp04BVGB45HePc2OMRhqaM
+	beVnNaiXwymWkstPJg1+cCw6gAlmgmHcLqScN1lJdLSRE0CbtpbxT7Gw98qcL/1Gv89EUISfgbb
+	2wqNXNLRhVziBc+U0IaYjH67F9z2F0Fi4Z8Ews1jFA3Mig51wJIIF2oHE3F805HZ4BydqA/aCkq
+	WYdYLS7krGLafVOH5z2fSI11gaAoonYTYxenPM5xUBCdFwaaUWuVRPkeIt1vEpXqMHtG5vG1soj
+	X49ZotNoS1Uwo/KZn/AcMSzCaaWVPjMpVsNrEXxyGglPmHUloBEKoNYFitlTPTrtgsS+QSblmLN
+	GCYe94/aCatiQ9vkoF7PN15ZyoUyEulyBmV8gj2gKyvhVTvWkbZQ/ZG5+MHRJNK8hH/aReyolOY
+	pCvNXjrSHBgmUGQRA7cnIuRvpD9M5amq4NO848pbDHZxcyvckN3o4xDLo5zhUMxA6w+HvLOhBfy
+	iSUIgxcyQto6/nNIVgoHE9z0kPHn7WDU39V
+X-Received: by 2002:a05:6122:1d53:b0:5ea:c73d:48a6 with SMTP id 71dfb90a1353d-5eac73d596dmr1485493e0c.9.1792498858012;
+        Tue, 20 Oct 2026 05:20:58 -0700 (PDT)
+Received: from mail-ua1-f49.google.com (mail-ua1-f49.google.com. [209.85.222.49])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ea9b536ccdsm12526823e0c.13.2026.10.20.05.20.54
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 05:20:55 -0700 (PDT)
+Received: by mail-ua1-f49.google.com with SMTP id a1e0cc1a2514c-980c4f5c921so973558241.2
+        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 05:20:54 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz3NZTE85dusx0iwRdQUdbISGZF4BusgJ6J7Sdl1FpjAyJx7GbYYPbWf/VJ8lsXMqCk2L5vDrvDDUko@vger.kernel.org
+X-Received: by 2002:a05:6102:509f:b0:7b8:1a1b:8e79 with SMTP id
+ ada2fe7eead31-7cc36495eeamr2517275137.0.1792498854605; Tue, 20 Oct 2026
+ 05:20:54 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,105 +79,100 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/6] dt-bindings: mailbox: Add AMD PL Mailbox IP
-To: tanmay.shah@amd.com, Ben Levinsky <blevinsk@amd.com>
-Cc: "jassisinghbrar@gmail.com" <jassisinghbrar@gmail.com>,
- "andersson@kernel.org" <andersson@kernel.org>,
- "mathieu.poirier@linaro.org" <mathieu.poirier@linaro.org>,
- "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
- <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "Simek, Michal" <michal.simek@amd.com>,
- "linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "Levinsky, Ben" <ben.levinsky@amd.com>
-References: <20261014213426.2957480-1-ben.levinsky@amd.com>
- <20261014213426.2957480-4-ben.levinsky@amd.com>
- <20261015-humble-eager-mushroom-9db4aa@quoll>
- <DM4PR12MB644859F1CA3A936684A3338B839C2@DM4PR12MB6448.namprd12.prod.outlook.com>
- <7067e343-24b9-4e3e-8e5e-42c98239ccae@amd.com>
- <0df4bfd4-2bcc-42fd-a22d-e704e4b41d5f@amd.com>
- <cbd2e370-c8f1-46c1-87a8-fa25fdf6ea97@kernel.org>
- <d89b656d-44cf-440a-8e06-6e13cef2dbe9@amd.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <d89b656d-44cf-440a-8e06-6e13cef2dbe9@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-0-e052903a3832@ideasonboard.com>
+ <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-15-e052903a3832@ideasonboard.com>
+In-Reply-To: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-15-e052903a3832@ideasonboard.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 20 Oct 2026 14:20:43 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXLC7Zw9x6=iz2WMeuPr=rhqKMVPpRdVqFcHJxmAYC79w@mail.gmail.com>
+X-Gm-Features: AclHuK8ponr4NJ0lS94fhAlbo48BEUWSxi4Wc_0ZZ5rhhDlLA3L5w0smnHDD8jQ
+Message-ID: <CAMuHMdXLC7Zw9x6=iz2WMeuPr=rhqKMVPpRdVqFcHJxmAYC79w@mail.gmail.com>
+Subject: Re: [PATCH DNI v3 15/15] media: rcar-fcp: Check device revision at
+ probe time
+To: Paul Elder <paul.elder+renesas@ideasonboard.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-media@vger.kernel.org, 
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 16/10/2026 16:11, Shah, Tanmay wrote:
-> 
-> 
-> On 10/16/2026 8:59 AM, Krzysztof Kozlowski wrote:
->> On 15/10/2026 17:31, Shah, Tanmay wrote:
->>> We use 'amd' vendor prefix for all new drivers & bindings. Also, there
->>> is dedicated IPI hardware which can be used as mailbox too, and we
->>> should distinguish it with this PL mailbox. So I that is included in the
->>> compatible string. (pl-mbox).
->>>
->>> If we are also to include SOC name as well (per compatible property
->>> guideline), then we should include one of the SOC name as well:
->>>
->>> So, I think 'amd,zynqmp-pl-mbox-2.1' is good.
->>>
->>> Krzysztof, are you okay with above name? The 2.1 is FPGA IP design
->>> version number and not the SOC version number. So in future let's say
->>> that FPGA IP design is improved then the name (pl-mbox) will remain
->>> same, but only version number will be updated i.e. (from 2.1 to 3.0). Is
->>> it okay if we explicitly mention this in the binding description?
->>
->> So you will release the same SoC with different versions of the block?
->>
-> 
-> Yes correct.
+Hi Paul,
 
-Well, then this does not look like SoC block at all.
+On Thu, 15 Oct 2026 at 09:53, Paul Elder
+<paul.elder+renesas@ideasonboard.com> wrote:
+> From: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+>
+> Verify that the device revision register reports a valid value,
+> otherwise reject the device.
+>
+> Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
 
-Best regards,
-Krzysztof
+Thanks for your patch!
+
+> --- a/drivers/media/platform/renesas/rcar-fcp.c
+> +++ b/drivers/media/platform/renesas/rcar-fcp.c
+
+> +
+> +static const struct of_device_id rcar_fcp_of_match[] = {
+> +       { .compatible = "renesas,fcpf", .data = (void *)RCAR_FCPF },
+> +       { .compatible = "renesas,fcpv", .data = (void *)RCAR_FCPV },
+> +       { },
+> +};
+> +MODULE_DEVICE_TABLE(of, rcar_fcp_of_match);
+
+I don't see a good reason for moving this around?
+
+> +
+>  static int rcar_fcp_probe(struct platform_device *pdev)
+>  {
+>         struct rcar_fcp_device *fcp;
+> +       int ret;
+>
+>         fcp = devm_kzalloc(&pdev->dev, sizeof(*fcp), GFP_KERNEL);
+>         if (fcp == NULL)
+>                 return -ENOMEM;
+>
+>         fcp->dev = &pdev->dev;
+> +       fcp->type = (enum rcar_fcp_type)device_get_match_data(&pdev->dev);
+
+s/rcar_fcp_type/uintptr_t/, although this no longer seems to trigger
+a conversion between pointer and integer of different sizes warning?
+
+>
+>         platform_set_drvdata(pdev, fcp);
+>
+
+> @@ -215,13 +332,6 @@ static const struct dev_pm_ops fcp_pm_ops = {
+>         RUNTIME_PM_OPS(fcp_pm_runtime_suspend, fcp_pm_runtime_resume, NULL)
+>  };
+>
+> -static const struct of_device_id rcar_fcp_of_match[] = {
+> -       { .compatible = "renesas,fcpf" },
+> -       { .compatible = "renesas,fcpv" },
+> -       { },
+> -};
+> -MODULE_DEVICE_TABLE(of, rcar_fcp_of_match);
+> -
+>  static struct platform_driver rcar_fcp_platform_driver = {
+>         .probe          = rcar_fcp_probe,
+>         .remove         = rcar_fcp_remove,
+>
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
