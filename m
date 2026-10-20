@@ -1,100 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792494700;
-	b=jPEOnyJNwxkc8q0uKMPVhszPmz8EkBtlNQt3WIsTbTDxjQNsRObJxP3lJt0eWllXWK+g
-	 eKr7vTBD5tJWnFYd2xyURU2cIh7JTtEW8WKUxf3GW67Zw4rjY23HJBve/YV/njng9KPq9
-	 rl7mNG/oIksId4sHOsn7kYF+0uL/+E2te25nRJYAiKEyjYElh0r9QF6eUfo2L6WPp1uwu
-	 jzg3QWhiN5RwO0d7bpRiPY9+RxcK3XT7yi1bFSDRtppIismCun49gqVJCylYeEiLDkX9n
-	 U3Kw5SW1UvV4uWdYlPG4yDRlvX5goIzaOLCB2LkRuycSwst5qZJZmHwpUuIENDItqNg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792494700;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=M3/YvbclvHZGFz11KVKs13d9WBWyLxdlSbU0gyPYeDE=;
-	b=UgKzAafhd4VoZWN3hChqHEL4PpyvXA10m3Fsj+t2BowExrhfnFfLoqWVeqH+ej3S7NN3
-	 r8rKtOrYvC6yPrvr0cCXcoExBkk696zkU52KwSp/TTy1sVI9DQc4O1E6V70GEk70PESlf
-	 mgWfs+3rpLmLkz0aNSQ5Pxo5AHbQmOtB9RXeq9hklThqrE8kq/ejyvRRKCx7GMP4FEkss
-	 0gqNKulYK+HlyPeDxlrpr8yedRwVQ/3d3p76bsQd8vrlmh3NNuXYKMya6nxIgMFM1CPvG
-	 hJqFKBV50mDAAdyNgirZLvYcREaUbT7UZtoWuqDUdyrJOCmWqA6+Rm5cVU8gwDbQmRA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bp.renesas.com;
-	spf=pass smtp.mailfrom=bp.renesas.com;
-	dkim=pass header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=oZNyYuCW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.46
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010046.outbound.protection.outlook.com [52.101.228.46])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792494860;
+	b=IrV7E+NMQDmPd4dBEi81mlKqtXB/Dmh/jNrES13k86k5ArnXwm8E5s95M/nIGdCZnCiV
+	 Z0bsSYO4E46liRrLy41p1lBN7juVhYFwJZmFXaTKauQ1GaaIesCfwev4uTeTn1qQBlhXA
+	 VDuCde12flJIqPahGNAPmDXBzV9T9eu/WTojuWyF7Guqkj59DYbQ5xE6NMNd0lshs448o
+	 4Ok/MS6XgChyA4UOq/7rp+U0K4A90UxUNFpJ/phDHq7iA/90YMLusTNkCj/Ixcd9CNcT9
+	 NMquoA0OT5QJt4/DndNdaDjVKHKpFFAZjPVd8RzmEAdy/XDdcTpH4RA0EzzfEgbOyWA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792494860;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=VD9PXrKPsg52orzhOiFjXJRmRbfBHyc5RoWWdwKxF0M=;
+	b=ubRhZcjdP9y1Y3DhebdPOUcdUXu7INod+3rHjNcR5Hy9IYSN4Pb9eiHV7gI9JyZNBPo6
+	 JiKc1gCcRJ29q4qTC86rLDrmM9k41XxwsFpAo0ezngwxm3jmE1iWx5yLkQ8fbpL/tBG6A
+	 pqbw4+K7rsoyNqMW5t79ScyFfQgdUuKllKrxDZYYczRH1QnsXbmcNHESIpD6Z6QAQ1hI3
+	 Vo30+WNPFWoRcsqZrK8IJ9Jpmwklci9VvVQOL2iG2AAAhOOrjUFyZcgv3rbttXI5Oetrg
+	 TT046K5fyKk47S8Pbsciy/DtQHCCBakWoM0CUFRkRqDc395eXxQmr2f3gwSq+DAfpSQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=WKhtmytc;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1548460A2603;
-	Tue, 20 Oct 2026 11:11:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1548460A2603
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96221606A319;
+	Tue, 20 Oct 2026 11:14:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96221606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=oZNyYuCW
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iKupLLQUKyhOGTV9NJylQD5c/xMzDK5ndY2EIN/SzYQo6oIoVXEHRifHC+k+3rn6IVuMtyndRTt7sPPGpDTB71UkoA4XICZOQ2FSYfzSvfsnQH01aQMouLso1DfKUXpNB0DZ7KVs2L0BprtWGToo5hC+x6MnnB5YqAxtPW6BHLoIrtlVokoOeYMxKpNRSgUSc7Fzhz6+ifMow+hDJXfymZ5mei0nu/oRsCQqLne/ChcIHqwiC2ek0hd6HoWEGzIxE1lHIHnvYqHkyun0vqb4svoMb6pS3qFgRQAt62utTIi2GeTLuSZuZrYKy/DTjE324y4XL1EQkRm0fEgZpXvVHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=M3/YvbclvHZGFz11KVKs13d9WBWyLxdlSbU0gyPYeDE=;
- b=gajKCqDofoNMJOvmr+oOxt2+tTsBbimmHDO7vdXySERJu+pRPZl/oS0LQtBs/h3TZPLJIC4vw8VJ814nKQBhzgW8X6GH9U2DzSPj6P7e/rvFR2QbgOAWaGYzilasKFUC4dTypJMM+EsWwWml3q0+xTebakciqI6LKgEJyfBQ4weyjkaCWHws6aJd7hF55ldN6bYuGk2BmJZq4If4LOWwpzIP+7yqIB8F8ZQ2Y797BwUALZW528vJ7mXEVSgvGiVhiLn4Nn1F5k34NgV8xeDQ0QTfCurJGj1OkCLfORKzYXxntHitek2B+XlLtHBTOHMPSeGI6juqwlkLV/afw29vMA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M3/YvbclvHZGFz11KVKs13d9WBWyLxdlSbU0gyPYeDE=;
- b=oZNyYuCWMSwX9bFJSMc3zPatoagPbuM8vQaWYAzm7lII9OoGJqsIFurLs5RaPypSjlmbqp+sWhtbzWLaBE8MC9oeOgSWZWt8OPd3s0bzeQsTlunakK/NkRWh0+TI7eVtJzl+BuDqpaZpLCcK/p3LVdifm9EjMKketkGfOq0Pd2A=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
- by TY7PR01MB15038.jpnprd01.prod.outlook.com (2603:1096:405:244::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
- 2026 11:11:33 +0000
-Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
- ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
- ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
- 11:11:33 +0000
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-To: tomm.merciai@gmail.com,
-	prabhakar.mahadev-lad.rj@bp.renesas.com
-Cc: linux-renesas-soc@vger.kernel.org,
-	biju.das.jz@bp.renesas.com,
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	John Madieu <john.madieu.xa@bp.renesas.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/2] Drop clock-frequency from RZ/G3E SMARC snd_rzg3e dts node
-Date: Tue, 20 Oct 2026 13:11:05 +0200
-Message-ID: <cover.1792493096.git.tommaso.merciai.xr@bp.renesas.com>
-X-Mailer: git-send-email 2.54.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: VIZP296CA0004.AUTP296.PROD.OUTLOOK.COM
- (2603:10a6:800:2a1::11) To TYRPR01MB13588.jpnprd01.prod.outlook.com
- (2603:1096:405:18d::7)
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=WKhtmytc
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id E64EE4E41290;
+	Tue, 20 Oct 2026 11:14:15 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 98A9260393;
+	Tue, 20 Oct 2026 11:14:15 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9C205103289A8;
+	Tue, 20 Oct 2026 13:14:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792494853; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=VD9PXrKPsg52orzhOiFjXJRmRbfBHyc5RoWWdwKxF0M=;
+	b=WKhtmytcvf2MutFOnrTwk8Hyl4xsuxLJNdJN2WRMXFXZZLwzaI/lVjUDILPv0K4dMa6F6S
+	MB/Ca3ceDlD29We5fCzPLvqIcntcLr1FDjmgaFj86ibYCwk/J4atUSDUcuotG+45tItVqN
+	PoTEPdpR10zrh7bFc04uxHtbtUQL7qZiCrxfufI0JUaC/8eBHyAYW+c73+z7sUAJxRHvi4
+	OJ7uHDvYYvSgrazItH4tK/i41CsHShRG0nx05bXHfH4fauFlCHcRN3nTswrCcyl6rfhkW6
+	1wYWw38OR1tWNh322uXHRVgFQDqZ/z+HYjUjb6yiqI6SXc6+g2/W1EIcW6f8dw==
+Date: Tue, 20 Oct 2026 13:14:06 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [RFC PATCH v2 05/74] libfdt: Prepare for metadata tag support
+Message-ID: <20261020131406.02bd50ec@bootlin.com>
+In-Reply-To: <atcM7MFZTFXLbap8@gractus.seuss>
+References: <20260826094950.1088288-1-herve.codina@bootlin.com>
+	<20260826094950.1088288-6-herve.codina@bootlin.com>
+	<atVrHkfXl10FTEye@gractus.seuss>
+	<20261019155659.4badecfb@bootlin.com>
+	<atcM7MFZTFXLbap8@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,98 +82,175 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|TY7PR01MB15038:EE_
-X-MS-Office365-Filtering-Correlation-Id: d0537ce5-23e3-4fdc-35ce-08df2e9ae5fd
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|52116014|18002099003|3023799007|11063799006|261009223027099003|10067099003|56012099006|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	Le+imNZdB3gIh9h0YN5+wXTcqHfOIq57Le0guz9DzYuQrWG3K92Ll5YyXchZSpstAiUA9SeAfFDccgXWKlz0hQdAJocuYK9WL8jp6G0SFf/myGFkh0CI4A8JpiMeeTEWnGiMLTIiBjDmjUfEUq4h6+Ll0X1uD6KVp8g+zr+Bti0Z/6DrXDCv+kMe30vU+n/FqtqXpV4GEcNYdzJzF9fLuBSv0C8bq4Y+7UIWI65/9qVuCBJrkt0n9mTYGnCRu0PCzre3u1mEfiywUwRHPwsEaPrNDQZxiaZlx0FL4XNwEX6vMzhfTuehIHLM/Vp3aBmHxgoIIAC3zGeVOVnoyDJQ0aZtjLn3Si79T7eUFjVEFpf4mofAeV0OM9jTOXlsOx0WNnEtVVnJ0uKYbTFFsKGiIf49wbBRCs939RPvzuxMRFILfhZuoj5/Flr/ocYclB9RIRRBf0oDiLbG9NSh3PFM8ZrQttg+G45NzEgY4unDQfSJJ3jCfMFqsCImmn21FPvvaZbJ54TPyj2mlkajykWLNbe2H7fv+VJ3bq3RhZRT0DvX26RvOE2M4hM9v0RZzBrhSMlBIRG9RmRi4DnyPO+GynXK7DqxhJNkKHTF9s1AWMbAiVmh7+VSODh+yRhzQmgFEc2PTrg79b++KQtRvjd/9yCa+xxClHMtV5loGLIm630=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB13588.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(52116014)(18002099003)(3023799007)(11063799006)(261009223027099003)(10067099003)(56012099006)(38350700014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?SKlt2REIgailOfzsuL7VJzXTet6RAY0ElyV717ufbx610FoWzInxVpeom8aY?=
- =?us-ascii?Q?IRmbYwEGBPTqGbbcERlEKFZyynzkE3e8IeE5BSv/hfuBalGXymN7XlDkW1F5?=
- =?us-ascii?Q?cQgj7QhEpzTZKB10uYbZ59CrzGeruwOgxN3W+GAqkJ1aZOhQ3dMJUd4kdLCZ?=
- =?us-ascii?Q?Ua3KuwnlVzJ4lRrtpDhn9ZaN+GO0YM9sngnBratb/gDsR4V5xJ0g/yEBSW9A?=
- =?us-ascii?Q?HXt3f/EHCwizhQBjnqcitGPwWvefnarVYDT6QUvd9NLp0Rt4x+kcLqtYSJwj?=
- =?us-ascii?Q?dq5m71lUqrtsyLpo6i27AaEkALExMMgwz9plRGfdWszGD9M357lHAG7XbiJm?=
- =?us-ascii?Q?Uy2YmsDiKv9DVdPHYsgvtzhGFHo+dsOlEUxl7LOPsWXJR5EyqYXux4ED15oR?=
- =?us-ascii?Q?L7topBVMirYEmsjTwo4OCtush5seWchTmLaWGPqFw8vu2mSQIDBpE/9fkgG5?=
- =?us-ascii?Q?5zrRalqtTZfURfsblHsRUdUN5zO6j9PPFxkXP507VVIawfoG8WAdtsm6Ys0E?=
- =?us-ascii?Q?UhI8globIRHYRyfP8iefH63bRkI5WCksE3Aq68kAudtv3qyULir5WJeD8UXe?=
- =?us-ascii?Q?YqLGtueIKoF6ERD2wbo6WKKNnm43YMxT+MEd9KkHim2ZFBdvexAzXXMcWd41?=
- =?us-ascii?Q?EtkqZgXgVEQG7hE+UmGckdw1iOywrjiD7qefymfXSvLaApmmJE4HfCLPu/BH?=
- =?us-ascii?Q?urwWbbjUta00Mc7bHFa5Q4jB5XW++FtvRQuhH2DJ4ClylOZKfTgagAjdvfjN?=
- =?us-ascii?Q?raPopcolKQ0UbA6uGmQcbJQFTnB1NhWSoXNZH4FuYek/LOcGHtkHcr6Aovw5?=
- =?us-ascii?Q?dJd3g6PiBW7pRx1jy+jIif9zWowYM5UVG4th9eVho8SLV7+AD3eJMSt7Kvfw?=
- =?us-ascii?Q?aUb5W54L4D5svu6aUBxFDasskSiQwVvMTFq1DaKxkLjfPHNHmnYARd4EIaDH?=
- =?us-ascii?Q?HjiF0JQmdCKOP6T+aqfkC4hc+yJYTG22LbVvWbvshmwBUCqf18YfpCcF5Vs5?=
- =?us-ascii?Q?SrcTiU4MIUCPkHsIWYjxi1ErFQBA7MUPCPNOKrH47AAsq8jZTYlaL/GX/gwU?=
- =?us-ascii?Q?scQE76YnsQNdhVJP+iNfRQeDIisnyNKwE81+y9Sx0REgfYRP/VXguU6TATlG?=
- =?us-ascii?Q?Usjz1NzEB+lWLTee/9FEyP3GBVnp+itUv+8ujwPO5TBj6scSJwYczx0GxHlh?=
- =?us-ascii?Q?eFWZQGDypq1/rp4sBtMhs2g0vEItoXhcGPLHRdSxdD+VPDzSfX9fORe9FT/H?=
- =?us-ascii?Q?lxSMF449ttPMUMv4Duc0jL8PVADq5dWJoT6ShOcUl9pJW9j2T/xFLeoinX5J?=
- =?us-ascii?Q?wjpY4riAQNRR0BI3uFjAT2buJl334QbnTLuyMNpYlLNKPcXqs8H7Mdz80tV5?=
- =?us-ascii?Q?rHG+Lm4Vg0swG0o6rq9zUySoGmgIyUgfTItIHtv6pBbPlxWvXE7olt5TVXBi?=
- =?us-ascii?Q?zr1Zyml/htfNsfB7EF/Z1GtI5YpmA3embDTEH9jtD4HlbPy4KcxOAcvZG52d?=
- =?us-ascii?Q?5edn5X0hgx58cEndwCHc7erNd6YL4q1mCoCAcj2023Jt29pDXz9suDYguo6g?=
- =?us-ascii?Q?h2pNKj26nC7hJNwHnMi9mGt8T2ydpISCCAZcQsoTe0EUy/2sMomKqqIP8h21?=
- =?us-ascii?Q?2VhYKUOEET4STq51xxc2PimX/j/Zs70gMDSx3kGjbbnbU+OyVXsOx48Ova1z?=
- =?us-ascii?Q?9rSKSRU1OjbupmS7U4HQPEXBrk9SnzsMOM9a8AxWdN+sxekk0LfcNF/XqKDz?=
- =?us-ascii?Q?QhoN5yXrx4kQtxh1pRhzMO2+JjqQfWszG7C0T59zsLt+mstCv+8f?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d0537ce5-23e3-4fdc-35ce-08df2e9ae5fd
-X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 11:11:33.0597
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1kXzvsDUyP0/hML33C4LlhKTLhgJwnhB3a7L0nFcMpUrnFKd0RIKkvva4b9s6YWsjPHi1FjDUnxpvH3rThu4hbJFJZA9u6o0qceh5Eh3rOLCyoEyVxudulSZRxEr63Vf
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY7PR01MB15038
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Dear All,
+Hi David,
 
-This series move #clock-cells from r9a09g047e57-smarc.dts to the snd_rzg3e
-node in r9a09g047.dtsi. Also AUDIO_CLKOUT is neither pinmuxed nor consumed
-on this board, then clock-frequency into r9a09g047e57-smarc.dts describe
-the frequency of an output that does not exist here. The DA7212 MCLK comes
-from the on-board versa3 clock generator, then drop this entry from the
-r9a09g047e57-smarc.dts.
+On Tue, 20 Oct 2026 17:41:04 +1100
+David Gibson <david@gibson.dropbear.id.au> wrote:
 
-This fix also addresses the following warning:
+> On Mon, Oct 19, 2026 at 03:56:59PM +0200, Herve Codina wrote:
+> > Hi David,
+> > 
+> > On Mon, 19 Oct 2026 11:58:17 +1100
+> > David Gibson <david@gibson.dropbear.id.au> wrote:
+> >   
+> > > On Wed, Aug 26, 2026 at 11:48:34AM +0200, Herve Codina wrote:  
+> > > > Metadata tags are tags carrying extra information, either global to
+> > > > the DTB, specific to a node, or specific to a property.
+> > > > 
+> > > > In several places (e.g. node/property iterators), these tags just need
+> > > > to be skipped. Introduce fdt_next_tag_filter() which wraps
+> > > > fdt_next_tag() and uses a user-supplied filter function to decide
+> > > > whether a tag should be hidden from the caller. Filtered-out tags are
+> > > > returned as FDT_NOP.
+> > > > 
+> > > > Introduce fdt_tag_filter_skip_metadata() a filter function whose purpose
+> > > > is to filter metadata tags; actual metadata tag filtering will be added
+> > > > when metadata tags are defined.
+> > > > 
+> > > > Metadata tags must also be handled when a DTB is modified. They have to
+> > > > be removed or skipped depending on the modification.
+> > > > 
+> > > > Here also, introduce fdt_tag_is_property_metadata() to provide a central
+> > > > check for whether a tag is a property metadata tag; actual metadata
+> > > > check will be added when metadata tags are defined.
+> > > > 
+> > > > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+> > > > ---
+> > > >  libfdt/fdt.c             | 34 +++++++++++++--
+> > > >  libfdt/fdt_ro.c          |  3 +-
+> > > >  libfdt/fdt_rw.c          | 90 +++++++++++++++++++++++++++++++++-------
+> > > >  libfdt/fdt_wip.c         | 23 +++++++++-
+> > > >  libfdt/libfdt_internal.h | 10 +++++
+> > > >  5 files changed, 140 insertions(+), 20 deletions(-)
+> > > > 
+> > > > diff --git a/libfdt/fdt.c b/libfdt/fdt.c
+> > > > index 7941632f..8c026f26 100644
+> > > > --- a/libfdt/fdt.c
+> > > > +++ b/libfdt/fdt.c
+> > > > @@ -323,6 +323,33 @@ uint32_t fdt_next_tag(const void *fdt, int startoffset, int *nextoffset)
+> > > >  	return fdt_next_tag_(fdt, startoffset, nextoffset, NULL);
+> > > >  }
+> > > >  
+> > > > +uint32_t fdt_next_tag_filter(const void *fdt, int offset, int *nextoffset,
+> > > > +			     bool (*tag_filter)(void *priv, uint32_t tag),
+> > > > +			     void *priv)    
+> > > 
+> > > I don't really see why a higher order function is more useful than
+> > > skipping tags you don't care about from the caller.  
+> > 
+> > Based on discussion we had related to fdt_next_tag() during the series introducing
+> > structured tags, I has been decided that fdt_next_tag() will return all tags and
+> > callers will handle them.
+> > 
+> > With that done, fdt_next_tag_filter() doesn't make sense anymore. I have already
+> > planned to fully remove it.  
+> 
+> Ok, great.
+> 
+> > > > +{
+> > > > +	int startoffset = offset;
+> > > > +	uint32_t tag;
+> > > > +
+> > > > +	tag = fdt_next_tag_(fdt, startoffset, nextoffset, NULL);
+> > > > +	if (tag == FDT_END)
+> > > > +		return tag;
+> > > > +
+> > > > +	if (tag_filter(priv, tag))
+> > > > +		return FDT_NOP;
+> > > > +
+> > > > +	return tag;
+> > > > +}  
+> > 
+> > ...
+> >   
+> > > >  
+> > > > +int fdt_prop_remove_metadata_tags(void *fdt, bool force_inplace,
+> > > > +				  int prop_offset)
+> > > > +{
+> > > > +	int nextoffset, offset;
+> > > > +	uint32_t tag;
+> > > > +
+> > > > +	/*
+> > > > +	 * Only inplace using nopify is supported even if we could use an other
+> > > > +	 * method involving splices if force_inplace is set to false.
+> > > > +	 */    
+> > > 
+> > > As with earlier things, I'd really prefer to see this splice, based on
+> > > principle of least surprise.  
+> > 
+> > Yes, splice will be done (already planned for unknown tags in the series
+> > adding support for structured tags).  
+> 
+> Ok.
+> 
+> > > > +
+> > > > +	tag = fdt_next_tag(fdt, prop_offset, &nextoffset);
+> > > > +	if (tag == FDT_END)
+> > > > +		return nextoffset;
+> > > > +
+> > > > +	/*
+> > > > +	 * Look at all tags related to the current property. I.e. tags after the
+> > > > +	 * current property and before either the next property, a sub-node  or
+> > > > +	 * the end of current node
+> > > > +	 */
+> > > > +	do {
+> > > > +		offset = nextoffset;
+> > > > +		tag = fdt_next_tag(fdt, offset, &nextoffset);
+> > > > +		if (tag == FDT_END)
+> > > > +			return nextoffset;
+> > > > +
+> > > > +		/* Remove metadata tags related to the property */
+> > > > +		if (fdt_tag_is_property_metadata(tag))
+> > > > +			fdt_nopify_area(fdt, offset, nextoffset);    
+> > > 
+> > > The distinction between "metadata" and other tags doesn't make much
+> > > sense to me.  Specifically why would the tag being "metadata" make it
+> > > more of a candidate for removal?  What we need to know (for the
+> > > callers so far) is whether the tag is invalidated by changing the
+> > > contents of the property: I can't see how that would be related to
+> > > whether it's "metadata" or not.  
+> > 
+> > All of this is going to be reworked based on discussion we've already had
+> > during the previous series (introducing structured tag) review.
+> > 
+> > The distinction was done because for "unknown" tags, downgrade should
+> > be done whereas for "known" tags it shouldn't.
+> > 
+> > Anyway, all of that is going to be reworked for the next iteration.  
+> 
+> Ok, fair enough.  Should I stop reviewing the current version of this
+> series, since it will probably need a lot of rework based on my
+> comments to the first series.
 
-sound@13c00000 (renesas,r9a09g047-sound): Unevaluated properties are not
-allowed ('clock-frequency' was unexpected)
+I wouldn't say you should stop reviewing.
 
-Found running dtbs_check with -W=1.
+Maybe you can have in mind that fdt_next_tag() will return all tags and so,
+filtering out tags at fdt_next_tag() or using fdt_next_tag_filter() will not
+be there anymore. This will not change fundamentally the way tags are used.
+If they are skipped by filter function in this series, they will be skipped
+by callers in the next iteration.
 
-Kind regards,
-Tommaso
+New tags added in the series will be there in the next iteration. The meaning
+of those new tags will not be changed. As well as new dts keywords or other
+concepts such as referencing an orphan node by path.
 
-v1->v2:
- - Improved/update cover letter subject and body.
- - Drop v1 patch 1/2 that Drop #clock-cells from required into the bindings
-   and instead move #clock-cells to the snd_rzg3e node in r9a09g047.dtsi and
-   drop only the clock-frequency entry from r9a09g047e57-smarc.dts.
- - Link to v1: https://lore.kernel.org/all/20260820095742.3094558-1-tommaso.merciai.xr@bp.renesas.com
+Tests introduced will also be there in the next iteration.
 
-Tommaso Merciai (2):
-  arm64: dts: renesas: r9a09g047: Move #clock-cells to the RZ/G3E SoC
-    dtsi
-  arm64: dts: renesas: r9a09g047e57-smarc: Drop AUDIO_CLKOUT
-    clock-frequency
+A lot of things available in the series will be there in the next iteration.
 
- arch/arm64/boot/dts/renesas/r9a09g047.dtsi         | 1 +
- arch/arm64/boot/dts/renesas/r9a09g047e57-smarc.dts | 4 ----
- 2 files changed, 1 insertion(+), 4 deletions(-)
+For all those reasons, I thing your review can still be useful.
 
--- 
-2.54.0
+Maybe you will find some other patches that could be applied or move to the
+series introducing "structured" tags.
 
+IMHO, even if I (we) know that some modification discussed in the series
+adding support for structured tags will have impacts to this series, either
+due the modification itself or because I will keep things consistent, having
+your feedback and potential discussion on this series is still relevant.
+
+Best regards,
+Hervé
