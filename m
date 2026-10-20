@@ -1,56 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792492670;
-	b=ronXHcObjmb65o7h53SW7VfextyPBnMdjfIBDypFcmKuKzCYpzFsXsns9HObnQSd4gFY
-	 eWNq4i2FErslBCLRatnZkLm01mrcJSiiLkPO04ZfxtCM8/jCKCf3caVtJdqJXVXxOA7FU
-	 DhDj8bOZuNgTtwSHtW9uofiO4RoaUqNKYJH483v+Diy4AQSI81ETCPBD3CXd/Q9kmrWpH
-	 NL4nxxVHbWe4F+t+oxZSgToREJKMLK5BoztXNZRx18mS0XEtMjV4c2WNxKgTKCCikUTXR
-	 5aAn/7cnMuuX+onxNOygc4DnqfFa7ESYglOp7HDvzM0U1Purya84aGUBBLmWix9nZGw==
+	t=1792492924;
+	b=V6T6MpXyWFTh3EzZMl9X/zfJVoEa0fUED70F0DPobLDT96jDnGVQ+EZFg3xqfP9OyrC+
+	 FGYaIUCM+53huvIZcfA5SE8yWioO9GZEef2++vt1AGfNthxSdpaRwLIjkp0WsomxyoILm
+	 p4AOdFUGL0TcWO44GGdvRh+4e+roPFoBHwbpNJ44o06PhEdCVi8jm6WHXBNTDRaZWxoik
+	 2SA9clMGhGeWFsfRDL7Uv31NGIiOoLY/QecGWdZkjWCsBwd8iN71xxVN+3iP48Z4jmF49
+	 bumYxRsURdvfzB0Cpo7Nv8WDPvairL0y/5On8S+RJs4Si+B0Hbtg2yJiECmTdnwqThw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792492670;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=pQ7BMpJBbKomkOvbdvd4pG9zo1vWZwj/fOjMBE4qlBw=;
-	b=dyQxIfanF2fDWzUXokhdi1ONejEhnohzH7buVa4QsH07a0bjMnNIwvsr3dIZ/18+prf1
-	 sc399XmhIPyi/K1zYFOP+2U9kxDJTZEmr6bQG3ITtKxlkRW89e+V30HpvNyS+kNWgYHUC
-	 KGGtE5SEREz5AS4fTA6l7avseh4EDepGm7WopV8a5D3OSzFhSahEU2ficVUsbt2GKB+vY
-	 6QAomQzlcc8u4wqqv1HnXyU+a7vwHVF4xuB9iyC9wFVWbuZ2/kHJAuFKB09dLcvaEuK5s
-	 YzSfNOsbP6NzFfKmP/NFre2XDnE5IXuRozQ67Y8kZr0zQ3eW8q+cxrLwAo7dmh5ysEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792492924;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=HOfrP9Gwhe+jGo5BWEDgZkkf4alGpvk7OGOLWLYgIaA=;
+	b=nVJFrgZTeDqLMd402G1lpDcCCeKcpKcHWYDbYug5Lo85XsDAnO9dbMpZYCSP5hyXQohM
+	 Avz01R6EkuqGvDvlEMWxn4dOpcb2E5FoAvwCrYEytUYUfinFX7F1GKx6w7msh7HdVEXCK
+	 hwlMpsBXZaNsIpWNryXY2iPA8G/Ckfl5Lwx22kiqmrXi5NZ1L8uEUYj54QFP0/FCrHr8X
+	 +k1uf4hhCGXbl8OyhnsYfUgSHRdYmwP+zxW4wwNKUBs7RBknghiCVJdXvUcIU4mBqLLL1
+	 Msi2nk8S5jzl81iJc3PgSVIybOiWq/MXb7UEWmx4sJGWs5h3sw6JkS9FT1URcRVJS1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YHZO7ujt;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9D7D606A31B;
-	Tue, 20 Oct 2026 10:37:49 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=R0X9Nmpp;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 40861606A31A;
+	Tue, 20 Oct 2026 10:42:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40861606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YHZO7ujt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B21531F000C6;
-	Tue, 20 Oct 2026 10:37:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792492669;
-	bh=pQ7BMpJBbKomkOvbdvd4pG9zo1vWZwj/fOjMBE4qlBw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YHZO7ujtOVIZxltquLVTT1oIJuSNp2iqSJq6Iw6bHLIra+5yetHQHAMeUP8vzbbWm
-	 iOdOQ8sjiGcTXkL2K7tq1Ocv8yl23zC52sPX42TKpbonGKHmHYs4EpHClEyVfGpKOZ
-	 QwP+a5vnZ6T/EHUva9ZO+gczps6mcfmy3dBmXkHLd7pJlod8/Jn9tNooZLzwoUlbb+
-	 BxOkiOnBZmYo+riboRxgkJSZdxV3+M/TSAjmZNr8Gt0BnsndOcUnnk19L6By5f9WI3
-	 XxBQEsz7A3CMUCXP6DOMh3rFz/hJYte6MbnK1iSuNOID/Rh3voT07pSHQNhoLP7BMH
-	 BHiamWTYnavWw==
-Date: Tue, 20 Oct 2026 11:37:44 +0100
-From: Lee Jones <lee@kernel.org>
-To: Rillian Grant <rillian.grant@gmail.com>
-Cc: sashiko-reviews@lists.linux.dev, linux-leds@vger.kernel.org,
-	conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-Subject: Re: [PATCH v3 3/4] leds: flash: lm3643: Describe the LED of ACPI
- boards without LED nodes
-Message-ID: <20261020103744.GA1795367@google.com>
-References: <20261011191026.149338-1-rillian.grant@gmail.com>
- <20261011191026.149338-4-rillian.grant@gmail.com>
- <sashiko-outbox-167402@kernel.org>
- <37Wk96VpSLOh-P0MeN457Q@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=R0X9Nmpp
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0EA711596;
+	Tue, 20 Oct 2026 03:41:59 -0700 (PDT)
+Received: from [10.0.137.15] (XHFQ2J9959-5.cambridge.arm.com [10.0.137.15])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2958D3F7D8;
+	Tue, 20 Oct 2026 03:41:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792492922; bh=OaSet948UMPKW/bEq7Gy7KB2ZNmZwB2hGOuIicxjXI8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=R0X9NmppaPctZe25oyvdRyxTPp7TrT33QgSmgyWht1QNwxUfP4JqEzNxdmziK123R
+	 XueQS3xiz/bfL8vBZ1yVww8k6Q6T25wedDXhj06BS3d1+I/XnwCjNfnm9GNFLMWDfn
+	 vC7cxViW1dKg0DcKnWi5Bhdwq1g6zBBbBiqLMygQ=
+Message-ID: <375868af-d0bd-4278-83e6-f8429df130e9@arm.com>
+Date: Tue, 20 Oct 2026 11:41:57 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,28 +53,81 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <37Wk96VpSLOh-P0MeN457Q@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 15/15] misc/arm-cla: Add vfio-mdev user interface
+To: Jason Gunthorpe <jgg@nvidia.com>, Jean-Philippe Brucker <jpb@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+ Alex Williamson <alex@shazbot.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Oded Gabbay <ogabbay@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+ kvm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
+References: <20261015142552.4128028-1-ryan.roberts@arm.com>
+ <20261015142552.4128028-16-ryan.roberts@arm.com>
+ <20261015164102.GC13920@nvidia.com>
+ <CABCqBse_aZL-EH0us2uA5X10q6E4WP02MoHTYf+M9ezRZr26WQ@mail.gmail.com>
+ <20261016144202.GG13920@nvidia.com>
+From: Ryan Roberts <ryan.roberts@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20261016144202.GG13920@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, 13 Oct 2026, Rillian Grant wrote:
-
-> > [Severity: High]
-> > Is there a potential race condition here when multiple devices probe
-> > concurrently?
-> > 
-> > If two threads execute lm3643_add_dmi_leds() simultaneously (for example,
-> > during concurrent sysfs bind or async probe of two LM3643 devices matching
-> > the same DMI table), they both might pass the lockless
-> > software_node_fwnode(nodes[0]) check before either registers the nodes.
+On 16/10/2026 15:42, Jason Gunthorpe wrote:
+> On Fri, Oct 16, 2026 at 03:22:00PM +0100, Jean-Philippe Brucker wrote:
+>> On Thu, 15 Oct 2026 at 17:41, Jason Gunthorpe <jgg@nvidia.com> wrote:
+>>> I think I said this last time, please don't use vfio mdev for
+>>> anything. There is nothing mediated about this.
+>>
+>> We don't multiplex a device between guests, but the host driver must
+>> control part of the device registers while the remainder is assigned to
+>> a guest. The host configures accelerator access, stage-2 translation,
+>> handles CPUHP and context save/restore. So we can't bind the device to
+>> vfio-platform.
 > 
-> This condition is currently unreachable. It would require two LM3643
-> instances on the same DMI entry.
+> That's fine, you can make a proper vfio-cla driver.
+
+Hi Jason,
+
+Thanks for taking a look at this! I've been chewing on this comment and trying
+to educate myself deeper on the subject. I have a proposal...
+
+Currently we create a struct device per CLA device instance. But multiple CLA
+device instances cooperate within a domain and the domain is the "unit of
+isolation"; we can't have some CLAs from a domain assigned to a VM, while others
+from the same domain are used by the host. Therefore it didn't feel like the
+correct model to unbind one of these devices from the native driver and rebind
+it to a cla-vfio driver. mdev seemed to solve this problem nicely for us.
+
+But looking into it in more detail, I guess something like this might be a bit
+more standard:
+
+ - Split the existing CLA driver into three components:
+    - cla-core: Hardware discovery, domain configuration, struct device
+      registration and CPU hotplug
+    - cla-native driver: Provides the user space accelerator interfaces
+    - cla-vfio driver: Enables domains to be assigned to virtual machines
+ - Each domain has a struct device (created by the core)
+    - An individual CLA is not represented by a struct device
+ - Either cla-native or cla-vfio can then bind to a domain device
+    - cla-native exposes a char device per domain, per accelerator class
+    - cla-vfio
+
+For VFIO, I guess we could use one VFIO region per CLA, which would allow the
+VMM to construct a device tree. But it would need to additionally determine
+which CPU each CLA is bound to; perhaps that's a sysfs interface that cla-core
+could expose?
+
+Does this feel like it's going in the right direction?
+
+Thanks,
+Ryan
+
 > 
-> I'd be happy to add a static mutex if preferred, or alongside any future
-> DMI entry for a board with more than one LM3643.
+> Jason
 
-Please.
-
--- 
-Lee Jones
