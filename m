@@ -1,82 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792481475;
-	b=Lgr0Olj3QoOPZTR8CekUH8r4+T1Fzd2UZHK3jzGnIGVC8nA5q15FssfLOJ7IvjAeI+SN
-	 asub8GkngSP+ubZJ7d/pXt8k3UkNxXQzcPj42Ejyju263UDdEDkmSY7GjzCW/RRScKc7l
-	 qzLOTtqFYWqL79nO8z5ow/RrbL1DzmedHH4T0QmwajNd8w+OwFXqdSpZmyJmDHQNdawQR
-	 Sqgpz75nuDeZJKnI/bB0cIkSJST8d0hkyOsfxYqkB82+pqzVSoqSfLWZMtpaDvTxyIokT
-	 TN0gUBGzmCkd3pQQQHFJUgIYglhzn3qmIWsb1yWwEpFMYGwvvyDmbM6enU+Nzuzy/+w==
+	t=1792481650;
+	b=q71705QZBTKnIwnR1zrcDJDHxTeaVBNoj2UsuLvlouPAsVwbrRQiWzgPfNjCdB8xsPDj
+	 O6Kfh3+ypgIHyGcU0w48/SOcGBzRoukp1MuoAJtq1munztBZpj7l7MXWkNQj5OFOEx+Ta
+	 1eiyfPdsO64Ya4jpIE/GqgxBnTYxpjwt7drPQL/jMLsV/MX1ja8CLYHQL5BCTKufNKsAK
+	 +Pb1GPCw/WGcXuhGIbGT+gusRmE+B/vj7QCi0Iu+juaUasLvxiLwvjXbxfBW7T0FiElLT
+	 5aQg0JFNvAyocr7ccD2FNHiJ/ZkZjlTe43N9WO+Bo4pwh4StIg7CYY4F6zMNUJQy+9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792481475;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=815SsM77bI103RTpPZ3otFe7kjVWH55eLpLwzR1qzZo=;
-	b=Lxd4IIECX7MPBNArP1jEbDKSBT2xJvKU3pATOFoj9ll1eNyYBNSaQmXykjlVIhEJBcJk
-	 6CMsrUirZDu420NXJ8YsRMfkgQWg0Vyu04IzU0kj2Czu/xbeg/yujhYCm4dIPre8iyLst
-	 9sw2iGdxR0I+84QTYBtwRQVhERbYaNA0B3OIJw2VCo+hqceYpMxzAVVToFaaH6oiHgRKZ
-	 sjoO1hmmRCrYIL3gTVKux60E5ksWNYp2nPtcW/x2bW+5Cpegad3OpN8FDVyEy6SYBW6uZ
-	 gBtPPx7Kz0V9BZr8Dh7CzEEhko2BPeQHQGjX1KqsVlXWX3AQLpxJI4tLFNGrQuiqTYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792481650;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=LWzrZZFQhSyO/FR7rQo4rKuqvNnZWfQyCXRPSU+R25I=;
+	b=wsP82pDFMwwDiJwWjGFOAxLODbgmfeINYpU2rU7dDNZPukupUeawy8oDbxURMl2m15LC
+	 FoVdxjdOBFjZm3eNIfRIWpJkJQIuptXvBLn55MKved9keHKsfbtHib5bfNvd1Tib8Yv+u
+	 kyjPGoDgXxZuHQCTcLJpFZ0eqqb7NGpWztPyrT7ydUxWMtgquzIaur26/FrWARi2hHMLU
+	 XA6qkAO3GqB6e/sofhE/yEEAapIVlEjcAN7UzQ4urKPk5lLI7TLFJej5EaDoQCrvIgmS7
+	 8oowkmzHXkJHHvv9q0lfCYShMKEBTMaaFD5GtWvBhidYdlwpg8wyxAZMyXlaM+FR88A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nexthop.ai;
-	spf=pass smtp.mailfrom=nexthop.ai;
-	dkim=pass header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=fKzmQ+wr;
-	arc=none smtp.remote-ip=74.125.82.45
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Jxe8ahch;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CCyd+vCS;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03CD0606A319
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 07:31:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03CD0606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F9FE606A319
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 07:34:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F9FE606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=fKzmQ+wr
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-15ea896ddc8so3621332c88.0
-        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 00:31:14 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Jxe8ahch;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CCyd+vCS
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K0tKYU4178122
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 07:34:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	LWzrZZFQhSyO/FR7rQo4rKuqvNnZWfQyCXRPSU+R25I=; b=Jxe8ahchk1wjRBJc
+	s4o4UFhlDXJ0jw+NqXMrnEh1GWL0YaAMDQR4nmF8AFWbthX5JqJhb9RBoawKuzR7
+	RA1hK3KqMQ0MySBNY9jS2cYOeLw383XT5U3HMmGmXTG5tmoOW8qURACbpH5MK+Be
+	1DliUpgwv+GwIvPWHxNQ6gfRrpa2qml4v5U6TPSI5MaTcYfHtF/EWaLoV35PU18C
+	zeJH5oWNEZ9f3RXXxRBQr7JwAKvbJ2yr+TNli3HzGMoQoM7xqZUf+rXQvK+lnb85
+	0cWqYTSvEztmg1yA3ILUPgvO6Mr5r4O0fekBS3NQpMsPxtDXiFesRHaClSLhjm/f
+	VqKgsg==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5n1cnv-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 07:34:09 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-9106bb33cdfso8448226d6.2
+        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 00:34:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1792481474; x=1793086274; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=815SsM77bI103RTpPZ3otFe7kjVWH55eLpLwzR1qzZo=;
-        b=fKzmQ+wr0iHs17XveY4mXkajGBGI1YSvWf6kd9PPtzThe5D+aBCdFVWtMShsP3Gqra
-         jKTDqQ9VeI2iwsS6AmcU0C4F7+Dn1v8uywxGAxmq5Ee/3jxeUJsbwUzp1JCIiTNKc7f1
-         hIJXVhEY9efZoYUbxGTkrhE2M4jAx2oaXzOeFedPfGWqoiFoIrXr32nrCTrx8bNYXhV8
-         3ykJHwUuksj4bIX0grzS6rgExvKmZJYMl/eltoSEyJlDdbPBHrF6mjEPAA0tZES3dFEM
-         bRR+/7RzCIpY9Op9GPtst4qj9xvh8LAJbwsEShgGjEpeEwXr7B2vaxyFuSl9Q+rUgmhb
-         UXfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792481474; x=1793086274;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1792481648; x=1793086448; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=815SsM77bI103RTpPZ3otFe7kjVWH55eLpLwzR1qzZo=;
-        b=AnS6pWtSTpBceuoMUmi25WIr8ARYH3f9hl7iArcsjT2g8ph1sxvhs4+FDW064Tt4g/
-         niodMg+HS+b/z1t7fqX0YNKKl0YC5qHWwFVSDeO0uQF+DC3lm4P48GYlMsMO6CwhVfAC
-         LjYmDoF9WmY+kzJKdHAR2l4YrU6b1+7ZhX9/O4WKp48LJLlUPHOw55fwfm9sYCPIAzH9
-         DBOZ9q9Yw8Yna2jlA6sNb3ChQVwersuVVexT4ywiWXJUTWbHinAkdRu7ho+E6sfxIZm2
-         4427xHNtdaRLw5oUc8JQhj9gNWjbSzsAq5pTE5Abf3kRbtkAue7sbImYSIyDOsZIObGQ
-         FGAg==
-X-Forwarded-Encrypted: i=1; AKwUvBxsaKCLtOCSgfOfyKlb1vS+NsBvkDC6rt7z5JdN6IaYFR6uNHYYx/ZRwUSelh/B5W6Ajh2SSIeNXZ3+@vger.kernel.org
-X-Gm-Message-State: AFq9FYLQ+honYnB62WLp8lGrbHlvjnIu1/lFUXJ3i/D5PkOK8O07zibm
-	JZn70qJVleZjai4QJtYhxJNJWmQJDObarU7iK3iMszqNKqSm5IOxVh8k1kRec48SzlQ=
-X-Gm-Gg: AYBFou28paW7qaLcSNMeQFJr0bMJusRvmy5QKQdKHeuJHIVG/0xsUsWPtD18eoE/1pE
-	o4mBSawtVgh6LuxcuCi5P686LXrS4j/8Pb0UmCISj5+2k4tG/a+rl99RsqKUmVCrCBIvJ7D1Xs3
-	334dV0fL1AwMnJuUIm9GG5ezmu47Sy4FB7tH3uUwLdInb1OWxjZ7Cg+9Ptp85UshP9/HMWF9XaJ
-	1tx8jw4EQYOS31wCsTWuQAb/8UXbCFtjIUdTsEbZRIWf/Ldl2KlDO5lCXuGM4GgguIGymYLD48Y
-	I1agvLZoiMggKbMvuGOrkU3vChJsM8Db+SdkYGV4d2vRGMAKYkUo6rVdZw90gA14bWH905wRuRL
-	WiZKCbdopkhtf2LHXNX4aXXqHj9wCIxrYo2uIJw3tVJ2T4UIYP/066KVzag9weUgkjgCap6X/Ey
-	nuKTDp3oKkGb6f0Bx1SXk94JuzaDs3dF8cTVYPfDtL3SDQev/1fBw3PgEWBcqR0hwM9yyUVuE=
-X-Received: by 2002:a05:7022:e804:b0:13b:3132:6e99 with SMTP id a92af1059eb24-18512c38164mr15634892c88.20.1792481473844;
-        Tue, 20 Oct 2026 00:31:13 -0700 (PDT)
-Received: from localhost ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831996071csm35059153c88.9.2026.10.20.00.31.11
+        bh=LWzrZZFQhSyO/FR7rQo4rKuqvNnZWfQyCXRPSU+R25I=;
+        b=CCyd+vCSudnDCf3jhn+M7KT5dOVEcUro6amKd3KMNZ2IbmMSaeigWpFN/oEg4+gpD+
+         z8WFkBkUKCjMEm2MXaphIn84LKB4h4q3UofYYUZQ702f0RbBL1FE+vHWquZICPNIktSq
+         PiRFxEl9Ce5Y9rrYekU8QJVQ7V0SyaRGEYPeZgBpParD48oo4APGsHBN5PSq5nFnizel
+         ID/edc2teUFDz3r7csGIQnjAM1SZT0RPePfW/wWdBD1ZzX0zlkFOcB4ldCspxoEc3axK
+         VNXx6WmPDd7q71Ux9zXZaHKvJBgDcg4Hy/fucDnoWrO+uGUbEIT4MTjzIoaBMbQtTUzs
+         iohw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792481648; x=1793086448;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LWzrZZFQhSyO/FR7rQo4rKuqvNnZWfQyCXRPSU+R25I=;
+        b=S9xXNWbq2hE3LQS1JyXoxAudhznqPqCQ+vBJen1RLKN4rYRq0GAE2pveKBu0aDSgVE
+         d5R9yL9UeP/mV7/6yzDYZ92th77RfY+91z5F9H8x/1XiaRm9HGpzb5DhnXKKNm9EpYnz
+         cKuhy/1nBdbXiir3Ak+XgA6Egvl1U2zzE0WWLV4Ov9sD812y/1WbtymLphd/TS5MZNgL
+         BwX82VpEXiWlw0JGKW8uvoSQ/tX56+mgRZzo1hkGJJEW9SLt34lPV6n8ZBZy+zInNhQj
+         swIELlvgAQnBa5x5cK05JeSnfjNvzDT/birnsPvhelTqtQQQnYfvhnyqNfKUfeDhnEB5
+         KBdw==
+X-Forwarded-Encrypted: i=1; AKwUvBxovADVIs7rCuDVrOm62h3TlMUySk1YeqApqScmu1QEzasAj9RUjlk+5gKtyx+EWT9pHILQ/EsYf76b@vger.kernel.org
+X-Gm-Message-State: AFq9FYK8yVGMxuA5lJ2JAwJ/EQYxiRmnKdEcE/35SrjgniINCYMjN0Aj
+	ub9c4vGosF0hoNaBpASHHxBRh5o+eHSPfTWvtaJjNqhhjfj8g0yrMcURq4IzDk5qu2AGFEZdJdi
+	S/aQmVIiP/t4nhlG1+2jk8XZEtUBa38l1OnMC8dlp/Ku86iwWb+P0IrErFpg6O7SW
+X-Gm-Gg: AYBFou0AicB/IiFV3HyQbiXo5UrXur/jcor04dBwTmAapB8rNyQJuxIslWBebLizfe3
+	jVxxIcNu+avn6bRqbFruMkvnDU4cDnt3N0HSpwmngPHx/6p9eRhG/U2u3YOswas705zup6g//Ux
+	0RBXmGc6ec1uyd0W3f8LlVX6T9N9vJBw/sSh9TR7Q8wt/GPwz0yYHptSaOJvfRPavra+D6zenMB
+	XG8EOMPcnm7rln/aFmK04fnzyTm+xGRQQEd9ZVm8/bYtQmWe/MBtjp3JGslDPR4mkyxfFnc5v8F
+	YcJsLdNqPBLg4UvzbM04DAFenV4IL4g47imoQTroZ17VJ9+LbA1rYUsA4vDyER7wljDalCt8qrG
+	Bhmpws8lDrMroQysowN8M7g==
+X-Received: by 2002:a05:622a:1304:b0:52e:3991:84c8 with SMTP id d75a77b69052e-53645d643e9mr179574621cf.2.1792481643550;
+        Tue, 20 Oct 2026 00:34:03 -0700 (PDT)
+X-Received: by 2002:a05:622a:1304:b0:52e:3991:84c8 with SMTP id d75a77b69052e-53645d643e9mr179572261cf.2.1792481638228;
+        Tue, 20 Oct 2026 00:33:58 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4090dceadesm461490166b.20.2026.10.20.00.33.54
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 00:31:13 -0700 (PDT)
+        Tue, 20 Oct 2026 00:33:57 -0700 (PDT)
+Message-ID: <720ed230-4284-49c6-9332-e29f23765944@oss.qualcomm.com>
+Date: Tue, 20 Oct 2026 09:33:53 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -85,140 +114,79 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] arm64: dts: qcom: Add Samsung Galaxy Book2 Go
+To: Luca Weiss <luca.weiss@fairphone.com>,
+        Douglas Anderson <dianders@chromium.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        cros-qcom-dts-watchers@chromium.org
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        Jasper Korten <jja2000@gmail.com>,
+        Federico Amedeo Izzo <federico@izzo.pro>,
+        Luca Weiss <luca@lucaweiss.eu>,
+        Hans de Goede <johannes.goede@oss.qualcomm.com>
+References: <20261012-book2go-v1-0-7188e7ea7a15@fairphone.com>
+ <20261012-book2go-v1-3-7188e7ea7a15@fairphone.com>
+ <fb634f17-de56-4f43-b139-3d040a35f019@oss.qualcomm.com>
+ <DM3MSNLF42BV.1UV490PXB0C07@fairphone.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <DM3MSNLF42BV.1UV490PXB0C07@fairphone.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 20 Oct 2026 00:31:11 -0700
-Message-Id: <DM9HNFZ26I2H.348U7TRUKBLST@nexthop.ai>
-Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Jonathan
- Corbet" <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "Randy
- Dunlap" <rdunlap@infradead.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-hwmon@vger.kernel.org>,
- <linux-doc@vger.kernel.org>, "Guenter Roeck" <groeck7@gmail.com>
-Subject: Re: [PATCH 3/3] hwmon: (pmbus/fs1412) Add TDK FS1412 driver
-From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
-To: "Guenter Roeck" <linux@roeck-us.net>, "Abdurrahman Hussain"
- <abdurrahman@nexthop.ai>
-X-Mailer: aerc 0.22.0
-References: <20261008-hwmon-pmbus-fs1412-v1-0-0ae7e5ee4e41@nexthop.ai>
- <20261008-hwmon-pmbus-fs1412-v1-3-0ae7e5ee4e41@nexthop.ai>
- <a3ccc85b-aab6-44b4-9695-ecd78401102c@roeck-us.net>
-In-Reply-To: <a3ccc85b-aab6-44b4-9695-ecd78401102c@roeck-us.net>
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: mnW_nLeN-0VTI-_XhkjSguGs-HZdKos-
+X-Proofpoint-ORIG-GUID: mnW_nLeN-0VTI-_XhkjSguGs-HZdKos-
+X-Authority-Analysis: v=2.4 cv=L7qI0OT8 c=1 sm=1 tr=0 ts=6ad71971 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=pGLkceISAAAA:8 a=nd-lUt6iTfUX6z0NebQA:9 a=QEXdDO2ut3YA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAyOSBTYWx0ZWRfX+rdmB3GggcGE
+ H2Wp8tChkLQrCnTBAuag71EXDcL4PkHMuk4zJnUG03j9OmblzyqvgzzZm8Oi4803JYpo+uqqmND
+ V7x8MCAeVMjwrm+LJTIOSnKp30NgH3Numxnw4VxjZT/Sa7uWoVhvKTpxhDTZzg2UrRcoLXqfBVh
+ mjXzeDFEa1d1orhAwUIB42meGZ2p2bYvZe07tM6Di2v0O2IpSg3eJbOghh9dCLJWRlJS9PbIv4J
+ rqj5TBODcu5IHur+j3pf2kGCA+1WD69Gol5VRKqdogWa5vBR4wHrwE4FlG52Syqgr2UUMv0WbK+
+ 9fZuZ9mJYAis5aek/cdxI14GdRXvaxPegPOqxSda+Ojd9rkeaw65Bx2bnJEgGXuqIKhYEixjzpW
+ NJAG+D13DCYs8mnqaxhEMky9KutmH/DvR0sVKePrf2i9T+h7d6YEO5OKMat0BtayVWvXyg64MTm
+ X6uiAmBX5KgVzqhBWtQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAyOSBTYWx0ZWRfXx9b2k5AuJkh0
+ tLuY9UXyn9pr3H9kNN/67/bKK+D6rw0UqwPxyvdrITEJMlsKFFHTUkdsu8GHc4Tishm3qcPPR1t
+ 5qePyQj00Bsax+udsOCOU3uf8Iz/KA0=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 adultscore=0 phishscore=0
+ priorityscore=1501 bulkscore=0 malwarescore=0 suspectscore=0 spamscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610200029
 
-On Mon Oct 19, 2026 at 1:25 PM PDT, Guenter Roeck wrote:
-> This implementation is wrong. Support for relative mode should instead
-> be added to the PMBus core. Or, rather, this driver should be tested with
-> https://patchwork.kernel.org/project/linux-hwmon/patch/20240315151855.377=
-627-2-lars.petter.mostad@appear.net/
-> in place (with appropriate fixes for that patch if necessary), and the
-> patches should be applied together.
+On 10/13/26 12:17 PM, Luca Weiss wrote:
+> On Tue Oct 13, 2026 at 12:10 PM CEST, Konrad Dybcio wrote:
+>> On 10/12/26 8:11 PM, Luca Weiss wrote:
+>>> From: Jasper Korten <jja2000@gmail.com>
 
-Thanks! That is exactly what I was looking for, but my search for
-fs1412 on lore didn't turn it up anything.
+[...]
 
-v2 will carry Lars' patch (Cc'd), rebased, with the driver reduced to
-the MFR_ID check and hiding OT_WARN_LIMIT. v2 also adds the FS1525, a
-25A part from the same family that is relative-only as well, so the
-core change has two users. Fixes on top of Lars' version:
+>> Drop the output-low, the consumers already take care of the state
+> 
+> For both enable and pwm?
 
- - check VOUT_MODE for 0xff before testing the relative bit; as posted,
-   a chip that does not support VOUT_MODE (reads 0xff) is marked
-   relative and gets a bogus exponent
- - signed division, and clamp the user value before scaling it
- - fail probe if VOUT_COMMAND reads 0 rather than divide by it later
- - only update the cached VOUT_COMMAND after the write succeeded
+Yeah
 
-We have a board with four FS1412 and one FS1525, so I could test both
-parts with these patches on 7.2.10. Since your concerns in the 2024
-thread were about how these parts actually behave, here is what they
-do:
-
-VOUT_MODE is read-only and relative-only. Both datasheets mark it
-read-only. FS1412 returns 0x98 (exponent -8), FS1525 returns 0x96
-(exponent -10). Writing 0x18 to VOUT_MODE on all four FS1412 is NACKed,
-STATUS_CML reports invalid data (0x40), and VOUT_MODE stays 0x98.
-
-Which commands are relative. The FS1525 command table marks
-VOUT_MARGIN_HIGH/LOW, VOUT_OV_FAULT_LIMIT, VOUT_OV_WARN_LIMIT,
-VOUT_UV_WARN_LIMIT, VOUT_UV_FAULT_LIMIT and POWER_GOOD_ON as "L16, 1.3
-relative format". VOUT_COMMAND, VOUT_MAX and READ_VOUT are absolute.
-That matches the list in Lars' patch; POWER_GOOD_ON is relative too,
-but the core does not use it. The FS1412 datasheet says the same for
-the limits it describes. Raw defaults, as a fraction of VOUT_COMMAND:
-
-                     FS1412 (0x98)   FS1525 (0x96)
-  VOUT_COMMAND       0x009a  0.602V  0x0266  0.600V
-  VOUT_OV_FAULT      0x0133  1.199   0x04cc  1.199
-  VOUT_OV_WARN       0x0126  1.148   0x1000  4.000
-  VOUT_UV_WARN       0x00d9  0.848   0x0366  0.850
-  VOUT_UV_FAULT      0x00cc  0.797   0x0333  0.800
-  POWER_GOOD_ON      0x00e6  0.898   0x0365  0.849
-  VOUT_MARGIN_HIGH   0x0119  1.098   0x0466  1.100
-  VOUT_MARGIN_LOW    0x00e6  0.898   0x0399  0.899
-
-With the patches the FS1412 reports in2_crit/max/min/lcrit as
-721/690/509/478 mV against an in2_input of ~560-580 mV. Writing
-in2_max and in2_min stores 0x012e / 0x00d0 and reads back within one
-1/256 step. On the FS1525, writing 600 to in2_min stores 0x0402 and
-writing 509 restores the original 0x0366. I did not exercise the
-regulator path; the driver does not register a regulator.
-
-Paging. Neither part implements PAGE. A PAGE read is NACKed and sets
-STATUS_CML INVALID_CMD (0x80), so on these parts relative mode can only
-be per chip. The patch tracks it per page, which also covers a
-multi-page chip that sets the bit on every page.
-
-Vendors getting it wrong. You were right to worry. Some things I ran
-into:
-
- - The OV fault limit is rounded internally to one of four settings
-   (105-120% in 5% steps on the FS1525), so only some values written
-   to it take effect.
- - The parts are only partly consistent with their own command tables:
-   OT_WARN_LIMIT and READ_IOUT are not listed for the FS1412, but both
-   answer without a CML error, and OT_WARNING sets at room temperature.
- - The factory programming varies between parts on the same board: one
-   FS1412 has VOUT_MAX 0xa500 and VOUT_MARGIN_HIGH 0xa400, the others
-   0x0300 and 0x0119; another has VOUT_MARGIN_LOW 0x0000. The core does
-   not touch these for hwmon.
- - The VOUT domain differs between the two parts. FS1412 reports
-   READ_VOUT at the feedback pin, so it is in the same domain as
-   VOUT_COMMAND and the converted limits. TDK told us that the FS1525
-   reports READ_VOUT as the actual output regardless of an external
-   divider. On our board that is 1.094V against a VOUT_COMMAND of 0.600V
-   (a divider for a 1.1V rail).
-
-   I checked what the FS1525 compares READ_VOUT against. Setting
-   VOUT_OV_WARN_LIMIT to 1.5 sets VOUT_OV_WARNING; setting
-   VOUT_UV_WARN_LIMIT to 1.5 does not. So the part compares the
-   output-domain READ_VOUT against limit * VOUT_COMMAND (0.9V), which
-   is exactly the value the core reports. That is presumably why this
-   board's OV warn limit defaults to 400%.
-
-One question before v2. The FS1525 over-voltage fault is the exception:
-the datasheet says it is an analog comparison at the FB pin, at the
-VOUT_OV_FAULT_LIMIT fraction of VOUT_COMMAND. So on a board with an
-external divider in2_crit is in feedback-pin volts while in2_input is
-the rail. On our board's FS1525 that is in2_crit 718 mV against
-in2_input 1093 mV, with no alarm, and the actual trip point is about
-1.31V on the rail. The chip has no way to report the divider. Which
-would you prefer?
-
- a) Hide VOUT_OV_FAULT_LIMIT on the FS1525, so there is no in2_crit.
-    Nothing misleading, but boards without a divider lose a correct
-    in2_crit too.
- b) Scale in2_crit by READ_VOUT / VOUT_COMMAND measured at probe.
-    Right while the rail regulates, wrong if it is off, ramping or
-    margined at probe time.
- c) Describe the divider in DT and scale in2_crit by it. The FS1525
-    would then need its own binding instead of a trivial-devices entry.
-
-I lean towards a).
-
-For other parts with relative mode I only know of the NCP3286 you
-mentioned.
-
-Thanks,
-Abdurrahman
-
+Konrad
