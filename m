@@ -1,82 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792493245;
-	b=NtxKBT9B5svuWqQy8wR53xsrvu9GuMEx7Fq9S5hPcAYcOWA39jINquDLJAtj3GPnppa9
-	 8c0MBZG+/e+VkhHvfgts+RDN1vLHiE2zgJFvwOpIqVxDmN4jXLNGs4c1ihPQIS8BfuRTL
-	 v8uu0bcc81vFEFtMtP/2LKdijcw2tg68qhO7F7DtiFWdKEOgOMByYZmsNvdrqsMJp+OB7
-	 ZAYojK8+HGuf9P8fwYNaEenGcpQrFXpictGw0oTIidybmuOfsf6ngmAHmJFQJmrd94DB3
-	 bN6dc51uWrH8skmqizDBcsRlaUPpjalk7EFmdVmkYfduW4DnB+nXaUV/9m9ReAwSTfA==
+	t=1792493268;
+	b=iK0Ny8/E1hzTm2mj72Zzps4ciCLtk3JmUxVFsLalQXYZvGBIBAmrd4PpjvqzKtvqjB37
+	 zeAdZQJ25eIH7mTWdHm+diRXG/XHpjUsEzd2tIb7SQHj6lcpAaZElIVR7PmV9M1iUClg4
+	 u2xinvc3eZA1j7PP++cOlGqZwGjBQy8hmKhl4i1ZYcJvJojktUX5xfkcj9z6+keJbhw1y
+	 OXxbQM9+9QS1RHFAderiPwjpSP5gjdNtje2uBOqSk/5RACYlFEbb/sETU6J56vkYrSbry
+	 a2KAxFOoCnFYCICgmX83PZlJ80ZSqFVaNRUl+/FntumXdN+GJZhgjOg7+YCzJ83haMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792493245;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=T6PCA4AXVWnGr3KDtpdwCDBebnMz6ofbTp9ca/ejWPE=;
-	b=lll4zLgo6cSViBuF5CzheFs5FC7/e0Ucx4QSXB90X9vJNF7MLjQ6oYdPJyI1jH78o9mD
-	 6U1PkrKdmZ6OjBLySg3eTGN4fRjSugkMFaKgT47K+Lp4b1ZxV3QHvxBZGWE1vWzTiT7Nk
-	 8/WUnG8kyiYUOyM0G3yG5LiBjnOEOL/F27L9C/EOAitYGSyTW9V2T08b92MBzFWn380n/
-	 2uq54MQXxmtIHX/q/JFPPRbawUQL72l2tVaoYEpuiW5k7X8YFJPND0Hs9LG5ALSEjxHFW
-	 Jjzkq3c8EkzM33HOFxcAws6hCfz2M2xg6obBE0rr9lBhzTjnKCVMJoGSSQ6X5+Hw8QQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792493268;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=0yRGXMpxwUTECTA0OiqRhmW1BI9DpdkM0ZTAbE3p3cU=;
+	b=yPA7rdWN0b54z1Id3aNg7PGNmsA2i6UEG0WI1pxx6O2PBeaH+nGba/snVWaug7Qy6nF7
+	 YMcjO5ECXx/uXOV+Lc/7DoU2IehKoiqxS5zHkg6qKj0/vPt4h3LT+vbyc5Mg8Clin5NwI
+	 LvBnWW5c1WfZeQtpYQy9OjjpS6KLwH8L+r6dAIGl2GXDRkl61lt9GstNn/3ifFWCOlZAo
+	 cqVdun0bqFNIGb0x0Bc+ERX+JbyZfEuOxoZ3ZNpNDW5dlxq4r+1ND0RLcN2Ewk2B9KQQs
+	 OXgncvwyKM/82ZVJAesKwgbLzKIT6Cy0E/J8ch+bUBU0RvNJtz3Fpz+cKb0cjzJWABg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	arc=none smtp.remote-ip=192.198.163.19
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JYrXLtbI;
+	arc=none smtp.remote-ip=74.125.82.45
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89F9E606A323;
-	Tue, 20 Oct 2026 10:47:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89F9E606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792493239; x=1824029239;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=gUEShXSjQiSvijsLSsznVTUFecw+QGpAx88VySy7BmU=;
-  b=Q2H4wOkiYoFQgeJ76yKs6HDS0NpsSI6RBKupM4yZuySjh82jtzQPC+B2
-   TFMrhulmTSYHqTdl6WM2/4xEX6AQ1q4ap8upfE+MXoDjkivnuxscexqU1
-   w2rT61ef7GTt/55Yjc/S4Az6NhEPNikLR117SxjfkcuWJrFGw4RdFrCVF
-   XizESiwf6ev6pndv6mo1D0nSHnXTgDEXEac9pSvJ4CKWRlZMkmwvtcma3
-   htEW+BgUzCOKiq1QEkVpP8uaDkTLYQJ5jfm79FysQVlx8ba4fVz4gEfiA
-   VRtaQ8o5HmHewKVs98OGpOVJcLoHHnI1Ppr1LxXYxlHhdyV48B8mMw6N7
-   A==;
-X-CSE-ConnectionGUID: 6vApGq+dTNGHraElU325AQ==
-X-CSE-MsgGUID: xQ2i/eVRTtWtUpynPIwzGQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1295641"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1295641"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 03:47:18 -0700
-X-CSE-ConnectionGUID: C0jt5v0ORH2kuEBI/tA1uQ==
-X-CSE-MsgGUID: pHHu8Q3ORiKNXvyiK3uGwg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="4539917"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.132])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 03:47:15 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 05DF011F7E8;
-	Tue, 20 Oct 2026 13:47:12 +0300 (EEST)
-Date: Tue, 20 Oct 2026 13:47:11 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Lachlan Michael <lachlan.michael@sony.com>
-Cc: mchehab@kernel.org, hverkuil+cisco@kernel.org,
-	laurent.pinchart@ideasonboard.com, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, kieran.bingham@ideasonboard.com,
-	jai.luthra@ideasonboard.com, Ryuichi.Tadano@sony.com,
-	Kengo.Hayasaka@sony.com, Tim.Bird2@sony.com, Kazumi.A.Sato@sony.com,
-	Yuji.John.Takahashi@sony.com, linux-kernel@vger.kernel.org,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>
-Subject: Re: [PATCH v5 2/2] media: i2c: Add Sony IMX908 image sensor driver
-Message-ID: <atdGr8S2sf1kZFUw@kekkonen.localdomain>
-References: <20261019014720.2635-1-lachlan.michael@sony.com>
- <20261019014720.2635-3-lachlan.michael@sony.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F07BA60A2604
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 10:47:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F07BA60A2604
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JYrXLtbI
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-16079d54c17so202249c88.0
+        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 03:47:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792493267; x=1793098067; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0yRGXMpxwUTECTA0OiqRhmW1BI9DpdkM0ZTAbE3p3cU=;
+        b=JYrXLtbIFCXTKM/cTXXtiv/Y8JVYTDcHoZER3E4Nb7kDkRKdFX6BeaNmLOtAhp8Ya6
+         dLmJUQ9N+TLQu6IAzgM9uo1kat4SU24m/CP5JMk63ifOZMiUtd5u+l/4SmCZsFdnQB/C
+         Ux/GMryUZGOW9Of4dphU5cwdq0J1jimF9NTg7mCFjzaOSdtGqEAHH6m8Lf2m1HVJmcrV
+         X7eNZuW0cug5+Iah0mXS8gr6ICaNNHZPZSvQTdvscfco16SCSudHS8fQe875Q3JqMxwB
+         HDylZVhAkUijOhUcihLhgbY2K7mOYthCTCihzwmZDhof4IfDCiYFlQYvYrOeBglHfBDE
+         Dkbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792493267; x=1793098067;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0yRGXMpxwUTECTA0OiqRhmW1BI9DpdkM0ZTAbE3p3cU=;
+        b=az7Pwaeg1aJ5P59DugWuYKlap1x3ASB/R5+t7OPRrwowCq+6R6BoQ6ysvGB198xM1q
+         S8+XuMu5uJR2aGVQPX2Am7TeoYAh97lJNZPoaWAaazRz5p57xYTBhA059eHiO2JpjXJG
+         Gw6SyAClQUTpHDJ2glmeAH4+vic7JsPK9gm+gIa4Mc1WiKgIRPSnQ8TeiTXqOE3kWUxQ
+         fltnejVU21Z0Sc8jf/LOca+Zbp/1ebRtBxqpt5vNA66WQ9X0IFlLxKJkF3GJBGKY39Xf
+         Z9HRrmLKeNXRuA3pKy2+bNowzineQbHZhNFDCZLPSV/t4ZqqVf+6wV8rU6UZjwb+wbRK
+         LVxg==
+X-Forwarded-Encrypted: i=1; AKwUvBydFEfhxqUVm/Oq/H+LeM44G/VVdU1UIDHJWfmnn2Ue1SVISUh30bLEOaGENkpEpAJKyxKxGwu+IkH1@vger.kernel.org
+X-Gm-Message-State: AFq9FYITQD8uJ7uCO8/wno7HKg8nL33EztfdE9qw6NIgrEmgPTbDcur4
+	vbh2yghDYnPgo5T4hbHC4JGmCXhArLT/84WHDwH7q1DtexxMvyJ6pu11
+X-Gm-Gg: AYBFou1fhRJyE8BRKaeCQl7YvmBNrR2pa5E4N/7feK3x91Jap9GvrU0DYmyBXsx/XGw
+	yJ5GGLkdNcZQuMXDgllSc8DpZtTXmYA52gk+dF3kU/CYjo2L1uXX432y0jAxYiHGn/3pABqxxoJ
+	3rqRmAYtEsCqpuVgO41E8g54iqyoETNh8RBj3JHSbCoteGmSOy+ZIvV3u3CrGGm+lNpFeDD25T7
+	DAuxsuSzAzwChO8n5uK2Of5K1OKuIAc4pP95sbUk7C5KS48pQ/bv2lrCumEJGkM58gcOL24Fk6j
+	HvFgXTTb4xkbA0nn9PrdnfrmtELAlTD/EBYXEeJKUHDXgIq73UY7MdkQnPN/8obYESQMAwv6qHz
+	QkIyhWeqJsQ7m5FZtoscNFYSr6m0+soqmIoAQCuNwFl0Psst4zjcQDWfQvm1WC29wy6bfXVL1Hu
+	QXsJjQbb8da2sG6MR+w4UuBHnBoVpTSodMK2miXuqOdxTQGBKtVN8OqSzHmz0tvFl56qGT+gBuR
+	fsmwOhUC3MmvBpb6zNhvcOht+dJ5OJasEqAgB2D8upOu1CHEbaa085TlfL2IeUJN8iKHkYj1aDb
+	ZRidNnQ=
+X-Received: by 2002:a05:701b:4511:20b0:151:2068:e81f with SMTP id a92af1059eb24-1851310a457mr14502929c88.27.1792493266915;
+        Tue, 20 Oct 2026 03:47:46 -0700 (PDT)
+Received: from MaquinaLab.. ([179.179.238.247])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-183190aa7bbsm34662429c88.5.2026.10.20.03.47.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 03:47:46 -0700 (PDT)
+From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+To: Jiri Slaby <jirislaby@kernel.org>
+Cc: linux-serial@vger.kernel.org,
+	gregkh@linuxfoundation.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andriy.shevchenko@linux.intel.com,
+	ilpo.jarvinen@linux.intel.com,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-sunxi@lists.linux.dev,
+	Andre Przywara <andre.przywara@arm.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Enzo Adriano <enzo.adriano.code@gmail.com>
+Subject: Re: [PATCH v2 2/4] serial: 8250_dw: Only accept a contiguous DLF readback
+Date: Tue, 20 Oct 2026 07:47:30 -0300
+Message-ID: <20261020104730.28646-1-vinicius.eduardo.pedrosa@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <d992e18d-31ab-4937-8780-9c9dc423082a@kernel.org>
+References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <a79114e72d029732db6764935dde12aa5d497706.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <d992e18d-31ab-4937-8780-9c9dc423082a@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -86,26 +111,26 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019014720.2635-3-lachlan.michael@sony.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Michael,
+Hi Jiri,
 
-Thanks for the update.
+On Tue, 20 Oct 2026, Jiri Slaby wrote:
 
-On Mon, Oct 19, 2026 at 10:47:20AM +0900, Lachlan Michael wrote:
-> The IMX908 is an 8.39 MP (3856x2176) CMOS image sensor with a MIPI CSI-2
-> output interface. The driver supports RAW10 and RAW12 output formats,
-> exposure and analogue gain controls, image flipping, blanking controls
-> and test pattern generation.
+> Do I understand correctly, that this equivalent to:
+>   if (is_power_of_2(reg + 1))
+> ?
 
-The imx908 appears to be a Starvis 3 sensor. How close is it to the Starvis
-2, for which Dave (Cc'd) is working on a driver (see
-<URL:https://lore.kernel.org/linux-media/atdAsDGw_jvhaydM@kekkonen.localdomain/T/#m0c50ea017ef9ae0d3d76a36b840db9b6f7ac296c>)?
-The register defines in the two drivers appear to be quite well aligned.
+Yes, given the existing reg != 0 check. I kept the explicit form in v2
+to keep the change minimal, but I'll use
 
--- 
-Kind regards,
+  reg && is_power_of_2(reg + 1)
 
-Sakari Ailus
+in v3, it reads better.
+
+The two forms only differ for U32_MAX, where reg + 1 wraps to 0. But that
+isn't a valid DLF readback here.
+
+Thanks,
+Vinicius
