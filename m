@@ -1,32 +1,32 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792509168;
-	b=s5FMCAOOxLseBSftCSS/RYwz36kicH5v16gHTMSxsfVFjphx8W+fQWuYMFhbTc1Ar4dn
-	 XD7Jn9+ny7AeLEKslGiDDOsgIT9qv2jPoFdIhgV0WugALNCtea3QC2U/so6bsllYmdYKp
-	 fJCVSYNXJgu+hRjP0ML/IJwlZXyTsG0R3J04t5WVPgpV4aXpY1SA/FUGGUAaf+ZofK1Mj
-	 11lH5jlvp99snDdQlRGitEAo3aHtMNrS7+0VPXl6immAj9sbk/iUacfzJ4xwIv8XofFJx
-	 7oe3MQcPGf5cQsG/xZI81tH1fUUEjkbrwA1Vuc16ExN2qsjKRl25ngre2LEFER1xMfg==
+	t=1792509165;
+	b=UW8+4mlaLvfbccZaZUJkynA78zlEIEwwtbWOd0KdR6NSfJh9tQCtk2ciNyNAUZzLI4b6
+	 CXVBO6PnMBT9GfUc96cgsanWVvc5aCOAOIrqEsfOPSpA8eXO/SMAqQ6yeHR2lI8Xr4F/c
+	 a3mbDeC5EbUT+kmWhAAA1spjW7ham/X6VyLsOs0Xq9G6J2vD6Z4QftABJio+ckiJGK4gj
+	 O+ixcYx5z+gleBQjad1VKLsgYvfNOINHdZzjW9Ym7xeSphIHYICFOOiudY/jrbuF+mF3N
+	 JPCDHTxjxLpquN1ovKVO20y8TSanyrcCr89UWnmLWF9cUkwKNw/pk+H6JTTUDpq+1pQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792509168;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792509165;
 	h=Received:Date:Content-Type:Content-Transfer-Encoding:MIME-Version:
 	 From:Cc:To:In-Reply-To:References:Message-Id:Subject;
-	bh=i5qbLg5CfgzGS4UQhdai288NHSkfA8TdxM+Oig2AJIU=;
-	b=wYq0sYKyFNOjXaIyCi1wHWPFa1eeOkL0Zbq+JNaoj6yAMCB2ryJ6LFoX79ysLsNp228k
-	 u1zV8oqp0yu6LGgapS/Xwtw15zyYZOI7dAwmp10AqwuYLKcTkqmaDdoVOve4XTR6fF3to
-	 65hUEDtltamF63oRzyAXHQXwzepxeqWkndOu2FYw0upFVZpHuRGYhXXZUF0lqLY4KS+FG
-	 7MuKAJOOICMReGKKfiw6Y1LVg0Njn64wI5+2bEHUtoAguVSoI2U9Ac0XiAKHq88M8OdCS
-	 ZVtdKD13Vg1SUHE9wcEMrH5wIlZ8+tk2ZKStcPU2F7HyuZSIFZVmC/WBsaJ5h1B4GhQ==
+	bh=icmdR51+Ir0zQ+jZQcpa/uVGmHPKZxVQjpIju4FRHr8=;
+	b=UBBtWm2dMsIu1dDO/vKnaYtsAvGkLFEHXif1SJ8PIgbddCmKskZjoU6H4bKsjyGoZdRu
+	 ctUPGW4YtVoUL7QVvQ9andVS4SDuRvf5ufnuNdpd9BosoUuNicqtH1XKn7cmrLKqgEyku
+	 yq6gCC4afnlNFiJ0JOgQO+0tiLJZDr8ogwWvPcvl0WLDS1GwRDDJLLX+vol89p8UHcm4f
+	 om+O61xw32cuHR5c4Kn55z7ARbDlFmywbBs+x0bwhET6zHbUzp7WddkoSCu1Jp8ZOgwVS
+	 7eaG8ja8BPPF1mZzdgsspXHVrVIsMC+GNEGATyju/XKLUvgh0m2kvH40nAGRllH7PCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48EF5606A331;
-	Tue, 20 Oct 2026 15:12:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 079E11F000C4;
-	Tue, 20 Oct 2026 15:12:47 +0000 (UTC)
-Date: Tue, 20 Oct 2026 10:12:45 -0500
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60276606A31A;
+	Tue, 20 Oct 2026 15:12:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 081971F000C4;
+	Tue, 20 Oct 2026 15:12:44 +0000 (UTC)
+Date: Tue, 20 Oct 2026 10:12:44 -0500
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
@@ -39,28 +39,35 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Conor Dooley <conor+dt@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Mark Brown <broonie@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, devicetree@vger.kernel.org, 
- linux-sound@vger.kernel.org, Takashi Iwai <tiwai@suse.com>, 
- linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-tegra@vger.kernel.org, 
+ Simona Vetter <simona@ffwll.ch>, Jonathan Hunter <jonathanh@nvidia.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ David Airlie <airlied@gmail.com>, Conor Dooley <conor+dt@kernel.org>, 
+ dri-devel@lists.freedesktop.org, Mikko Perttunen <mperttunen@nvidia.com>, 
+ devicetree@vger.kernel.org, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, linux-kernel@vger.kernel.org, 
+ Maxime Ripard <mripard@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>
 To: Svyatoslav Ryhel <clamor95@gmail.com>
-In-Reply-To: <20261019101357.117462-2-clamor95@gmail.com>
-References: <20261019101357.117462-1-clamor95@gmail.com>
- <20261019101357.117462-2-clamor95@gmail.com>
-Message-Id: <179250894523.3310093.11731102179479759179.robh@kernel.org>
-Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: Document FM34NE DSP
+In-Reply-To: <20261019095705.91062-4-clamor95@gmail.com>
+References: <20261019095705.91062-1-clamor95@gmail.com>
+ <20261019095705.91062-4-clamor95@gmail.com>
+Message-Id: <179250894267.3309780.15694845491721120765.robh@kernel.org>
+Subject: Re: [PATCH v3 3/7] dt-bindings: display: tegra: Document 8-bit CPU
+ parallel interface
 
 
-On Mon, 19 Oct 2026 13:13:55 +0300, Svyatoslav Ryhel wrote:
-> Document the FM34NE DSP based voice processor used in the ASUS Transformer
-> devices.
+On Mon, 19 Oct 2026 12:57:01 +0300, Svyatoslav Ryhel wrote:
+> Document 8-bit CPU parallel MIPI DBI Type B interface provided by
+> Tegra20/30 SoCs display controller.
 > 
 > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 > ---
->  .../bindings/dsp/asus,tf201-dsp.yaml          | 77 +++++++++++++++++++
->  1 file changed, 77 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/dsp/asus,tf201-dsp.yaml
+>  .../display/tegra/nvidia,tegra-dbi.yaml       | 138 ++++++++++++++++++
+>  .../display/tegra/nvidia,tegra20-dc.yaml      |  15 ++
+>  2 files changed, 153 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/tegra/nvidia,tegra-dbi.yaml
 > 
 
 My bot found errors running 'make dt_binding_check' on your patch:
@@ -68,13 +75,11 @@ My bot found errors running 'make dt_binding_check' on your patch:
 yamllint warnings/errors:
 
 dtschema/dtc warnings/errors:
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/dsp/asus,tf201-dsp.yaml: Unresolvable reference: dai-common.yaml#
-Documentation/devicetree/bindings/dsp/asus,tf201-dsp.example.dtb: codec@60 (asus,tf201-dsp): False schema does not allow {'compatible': ['asus,tf201-dsp'], 'reg': [[96]], 'clocks': [[4294967295]], 'bypass-gpios': [[4294967295, 222, 0]], 'reset-gpios': [[4294967295, 115, 1]], 'vdd-supply': [[4294967295]], '$nodename': ['codec@60']}
-	from schema $id: http://devicetree.org/schemas/dsp/asus,tf201-dsp.yaml
+Documentation/devicetree/bindings/display/tegra/nvidia,tegra-dbi.example.dtb: /example-0/dbi/panel: failed to match any schema with compatible: ['hit,tx10d07vm0baa']
 
 doc reference errors (make refcheckdocs):
 
-See https://patchwork.kernel.org/project/devicetree/patch/20261019101357.117462-2-clamor95@gmail.com
+See https://patchwork.kernel.org/project/devicetree/patch/20261019095705.91062-4-clamor95@gmail.com
 
 The base for the series is generally the latest rc1. A different dependency
 should be noted in *this* patch.
