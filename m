@@ -1,58 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792517127;
-	b=rxhlJ0dB9/XBUeJ//WJ7/MqDR7Qb0bEVpx8n1rgocbO7dOEZQULWjbrdNxc0ZDN7uwG/
-	 GFO6SUD0keBe9sq+K4sW8GWbUtmyVFmwwTLLPI3PV8U6y0BT9iqPGxBNwEHyEnZM4Q94E
-	 +tWDRMjQRvdPa7TKvhQiz83fVgY7rAkZtHuk0sx4A5aExoxhMpcqyMSqYxYkWoGE/CU8k
-	 cQ3DfokYSnC8mxMu3IiHfowosF7kHeKR0xMkeu8bU7lh8N/UZu7/f9aAf27AjVb2emdMV
-	 aWN8NOZij0DpjDQ7mF1lJUhWYrCvDv6U2QjX5fdpgFvLjnXxdgod9jK1kBpaErQbxiw==
+	t=1792517363;
+	b=lLqUvlz/ZurM0N7ofIdabav5cZyR+FpZ/GjulAm8iX4MLu9987x8TOv8+sUP64+r4stl
+	 xnacXIYQXV/nDZu/DCLrfEdDRw/jsZAzDnUa02ks+Zq9FXGGgW/kPkWVw62649O1AM2QL
+	 i+5ukHrqr1zHfjdt+KStV630qmvnifgnaYI4dfQZU8DpDVc1AkI+TStbofFJQMF/YvbhR
+	 sMZSC3k+IXHYrF7UucWkKyQ6yC9svDx5r0ntpQXqfO8habbtVDzguGQvzEZejz7eMDkDE
+	 0czhBIKZfPImfLaoOsqIvI0W000thX+vxpMmqPPpz4A+1FVaglH8HXjunldOuU2iKow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792517127;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=41GcUzN4XDaRMpPBkysR0QGcyhgarr2Sb5LXYMDsLOU=;
-	b=A9WnG4/LyQfVTm52zcT7SQ45M52bGoPUxBxpGa8qUGg/+Z//L1EJOq7o+hL2ISj+8FWW
-	 CLjaJLempB74Ep6BKC+K2xPHMDCTXuxhXooUGLnQy6kLi1bdnxaWuBPlwJQI8cyuvLMlJ
-	 0IoJUvIUsTpZb2nn6mRJfIc6QtJ6O7JcZAay+1dpuUci4TmEi7viUi/b8u/s4QsPLpxl7
-	 fq6MVm0fCh+LxdGIsFCNLIOKPtb5Q3Vw9VlCUNuur3IXdWRjISkLc1z4nKQBt0Z7UFHEK
-	 7wcq5+RMLUtZD+MT0567XzgdLTE+WTOjed7e7XDD9PhNAiYXyBAPYD6IWnslaO7EX6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792517363;
+	h=Received:Message-ID:From:Subject:Reply-To:To:Cc:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=gHo//PU+15Zb4tLXTqwrJl3+QDkpBTYC8X5b7pdf3AY=;
+	b=txRFfVqCnppyOr8Xo2/MQYMQdgMEdvI4Xi633Zsha/AAMWgom4KMCLGI/lgR6sRn/ngW
+	 OYhIq05zHFea907Ri5xzQyuKCgZ0BNZTyI9F4RdbTt2z9F2KgHG2KNYR7aAsYt1T0G0hr
+	 HRa4m10p1dmDUuy+HiyjvkZsxPnc4SlHTAkTPxOEr+tb3KEMm38t5rZn48kx6LqGFs/rZ
+	 5gto7o6hEy9QZZr7iDDOMABwyH//WH9NWOA2MW5PpDfx4gYT+rpIIu69DGuE89sdAkYEP
+	 FPJceFEwLOLg2qkrVOvurSDiEQqe3jImRyO2EKn4SL3QGk3hBhD5S8AVxdn134F+q9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mQLGW5sj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DBAB606A31B;
-	Tue, 20 Oct 2026 17:25:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mQLGW5sj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A0E01F000C9;
-	Tue, 20 Oct 2026 17:25:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792517126;
-	bh=41GcUzN4XDaRMpPBkysR0QGcyhgarr2Sb5LXYMDsLOU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mQLGW5sjrhktucLERIORURV17rz6cGETr9P4eyl3MmKQ3mX0f33jcKT7NGcTOYoYp
-	 +Dodqkq9zERI2/j4HC2b8VDGbMwGc7mOkHLTWSYGsedGpGLNDbTuIJwp4XZZyjp+XD
-	 rx+V1VvI0V9jscNC8121bbsCrergl6Xv+jhv+0Fodgi0axAqMb5Cr/E3nRos6L6lVX
-	 O/T571rTIq7TKzTLTQLvZ5QR0kTnJiNZKLbMUh+DduTax1fG7A4LB7x3JkVf8AUMGi
-	 uqnLZSuAeTGIuKVHqvVKW3igQQ8k8K1zYJPjMI3X/wiOwevCWKepI/HI1LPzvKNKbe
-	 wiHoeAe3csCOw==
-Date: Tue, 20 Oct 2026 12:25:25 -0500
-From: Rob Herring <robh@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	David Heidelberg <david@ixit.cz>, Arnd Bergmann <arnd@arndb.de>,
-	linux-kbuild@vger.kernel.org, devicetree@vger.kernel.org,
-	conor+dt@kernel.org
-Subject: Re: [PATCH v4 2/2] kbuild: Support directory targets for building
- DTBs
-Message-ID: <20261020172525.GA4166631-robh@kernel.org>
-References: <20261016-dtb-dirs-v3-v4-0-0ec42fd8ef9b@kernel.org>
- <20261016-dtb-dirs-v3-v4-2-0ec42fd8ef9b@kernel.org>
- <sashiko-outbox-175793@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CF65606A31F
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 17:29:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C92281F000C9;
+	Tue, 20 Oct 2026 17:29:22 +0000 (UTC)
+Message-ID: <sashiko-outbox-179421@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/4] ASoC: codecs: wcd937x: add USB Type-C analog
+ audio mux support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Val Packett" <val@packett.cool>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261020170341.1641325-3-val@packett.cool>
+References: <20261020170341.1641325-1-val@packett.cool>
+ <20261020170341.1641325-3-val@packett.cool>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 20 Oct 2026 17:29:22 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,143 +47,211 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <sashiko-outbox-175793@kernel.org>
 
-On Sat, Oct 17, 2026 at 07:49:53PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] kbuild: parallel build race in dtbs target and extra boot/dts traversal
-> --
-> 
-> commit 3f00c18c0d96a2ac1d59c7335959fec4fa041ff7
-> Author: Rob Herring (Arm) <robh@kernel.org>
-> 
-> kbuild: Support directory targets for building DTBs
-> 
-> This commit enables building DTBs using directory targets so that all DTBs
-> for a vendor directory can be built, including base+overlay DTB targets,
-> and updates the dtbs target to use the directory target rule.
-> 
-> > diff --git a/Makefile b/Makefile
-> > index c307ee9293bcd..6d1d1c803ee86 100644
-> > --- a/Makefile
-> > +++ b/Makefile
-> > @@ -1664,8 +1664,8 @@ dtbindingtree := Documentation/devicetree/bindings
-> >  ifneq ($(dtstree),)
-> >  
-> >  PHONY += dtbs dtbs_prepare dtbs_install dtbs_check
-> > -dtbs: dtbs_prepare
-> > -	$(Q)$(MAKE) $(build)=$(dtstree) need-dtbslist=1
-> > +dtbs:
-> > +	$(Q)$(MAKE) $(dtstree)/
-> 
-> [Severity: High]
-> Does dropping dtbs_prepare from the dtbs target prerequisites and spawning a
-> separate top-level make for $(dtstree)/ introduce a parallel build race when
-> vmlinux and dtbs are built together (for example, during make -j all when
-> CONFIG_OF_EARLY_FLATTREE=y, make -j vmlinux when CONFIG_GENERIC_BUILTIN_DTB=y,
-> or make -j image.fit on arm64)?
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] ASoC: codecs: wcd937x: race and UAF on wcd_mbhc in wcd937x_typec_m=
+ux_set()
+- [High] ASoC: codecs: wcd937x: probe deferral deadlock in wcd937x_bind()
+--
 
-I think I just need to add back dtbs_prepare here.
+commit 11dd57a3e1840028ab1f5c083f76fea5c939b494
+Author: Val Packett <val@packett.cool>
 
-> Previously, vmlinux (via . -> prepare -> prepare0 -> archprepare) and dtbs
-> (via dtbs_prepare) shared the same top-level make dependency graph, which
-> serialized include/config/kernel.release, scripts_basic, and scripts_dtc:
-> 
-> Makefile:
->     scripts: scripts_basic scripts_dtc
->     	$(Q)$(MAKE) $(build)=$(@)
->     ...
->     archprepare: outputmakefile archheaders archscripts scripts include/config/kernel.release \
->     ...
->     dtbs_prepare: include/config/kernel.release scripts_dtc
-> 
-> With dtbs running $(MAKE) $(dtstree)/, the child make enables single-build
-> and evaluates $(build-dir): $(single-build-prep) where single-build-prep is
-> dtbs_prepare. In a parallel build, the parent make (building archprepare) and
-> the child make (building dtbs_prepare) have independent dependency graphs and
-> can run concurrently:
-> 
-> 1. Both make instances can run filechk for include/config/kernel.release at
->    the same time, racing on the shared include/config/.tmp_kernel.release
->    temporary file in scripts/Kbuild.include:
-> 
->    define filechk
->    	$(check-FORCE)
->    	$(Q)set -e;						\
->    	mkdir -p $(dir $@);					\
->    	trap "rm -f $(tmp-target)" EXIT;			\
->    	{ $(filechk_$(1)); } > $(tmp-target);			\
->    	if [ ! -r $@ ] || ! cmp -s $@ $(tmp-target); then	\
->    		$(kecho) '  UPD     $@';			\
->    		mv -f $(tmp-target) $@;				\
->    	fi
->    endef
-> 
-> 2. Both make instances can concurrently invoke $(MAKE) $(build)=scripts/basic
->    and $(MAKE) $(build)=scripts/dtc in the same output directory, racing on
->    building the host binaries (fixdep, dtc, fdtoverlay) and their .*.cmd
->    files.
-> 
-> [ ... ]
-> 
-> > diff --git a/scripts/Makefile.build b/scripts/Makefile.build
-> > index 4349108e75e1f..d22b3b2d43b32 100644
-> > --- a/scripts/Makefile.build
-> > +++ b/scripts/Makefile.build
-> > @@ -38,6 +38,13 @@ include $(srctree)/scripts/Makefile.compiler
-> >  include $(kbuild-file)
-> >  include $(srctree)/scripts/Makefile.lib
-> >  
-> > +# Make DT directory targets reachable for architectures with a DTS tree.
-> > +ifeq ($(obj),arch/$(SRCARCH))
-> > +ifneq ($(wildcard $(src)/boot/dts/),)
-> > +subdir-y += boot/dts
-> > +endif
-> > +endif
-> > +
-> 
-> [Severity: High]
-> Because subdir-y += boot/dts is added unconditionally whenever $(obj) is
-> arch/$(SRCARCH), won't the main "." build pass (as well as non-DT builds like
-> make vmlinux or make modules) now recurse into arch/$(SRCARCH)/boot/dts and
-> all vendor subdirectories even when need-dtbslist is not set?
-> 
-> During make -j, the parent make's "." traversal will descend into
-> arch/$(SRCARCH)/boot/dts in parallel with the child $(MAKE) $(dtstree)/
-> spawned by the dtbs target. In every vendor directory where dtb-y or dtb- is
-> non-empty, scripts/Makefile.build includes scripts/Makefile.dtbs (which adds
-> $(real-dtb-y) to targets) and then includes the .cmd files for existing
-> targets:
-> 
-> scripts/Makefile.build:
->     ifneq ($(need-dtbslist)$(dtb-y)$(dtb-)$(filter %.dtb %.dtb.o %.dtbo.o,$(targets)),)
->     include $(srctree)/scripts/Makefile.dtbs
->     endif
->     ...
->     existing-targets := $(wildcard $(sort $(targets)))
-> 
->     -include $(foreach f,$(existing-targets),$(dir $(f)).$(notdir $(f)).cmd)
-> 
-> If the parallel dtbs sub-make has just created a .dtb file and cmd_and_fixdep
-> is still writing the corresponding .*.dtb.cmd file while the "." build walk
-> is evaluating that directory, can the "." sub-make read a partially written
-> .*.dtb.cmd file and fail with a syntax error?
+ASoC: codecs: wcd937x: add USB Type-C analog audio mux support
 
-This should fix the issue:
+This commit adds USB Type-C analog audio mux and orientation switch support=
+ to
+the wcd937x codec driver, registering it in the Type-C graph when present in
+device tree and forwarding plug/unplug and GND-MIC swap events between MBHC
+and the external mux.
 
-diff --git a/scripts/Makefile.build b/scripts/Makefile.build
-index d22b3b2d43b3..22fbd5199091 100644
---- a/scripts/Makefile.build
-+++ b/scripts/Makefile.build
-@@ -40,7 +40,7 @@ include $(srctree)/scripts/Makefile.lib
- 
- # Make DT directory targets reachable for architectures with a DTS tree.
- ifeq ($(obj),arch/$(SRCARCH))
--ifneq ($(wildcard $(src)/boot/dts/),)
-+ifdef need-dtbslist
- subdir-y += boot/dts
- endif
- endif
+> diff --git a/sound/soc/codecs/wcd937x.c b/sound/soc/codecs/wcd937x.c
+> index 7ffbb445f8ac4..9d5d1df41c365 100644
+> --- a/sound/soc/codecs/wcd937x.c
+> +++ b/sound/soc/codecs/wcd937x.c
+
+[ ... ]
+
+> @@ -2036,8 +2050,11 @@ static int wcd937x_mbhc_init(struct snd_soc_compon=
+ent *component)
+>  static void wcd937x_mbhc_deinit(struct snd_soc_component *component)
+>  {
+>  	struct wcd937x_priv *wcd937x =3D snd_soc_component_get_drvdata(componen=
+t);
+> +	struct wcd_mbhc *mbhc =3D wcd937x->wcd_mbhc;
+> =20
+> -	wcd_mbhc_deinit(wcd937x->wcd_mbhc);
+> +	/* May be accessed by platform dev typec callbacks, clear it first */
+> +	wcd937x->wcd_mbhc =3D NULL;
+> +	wcd_mbhc_deinit(mbhc);
+>  }
+> =20
+>  /* END MBHC */
+> @@ -2634,6 +2651,40 @@ static const struct snd_soc_component_driver soc_c=
+odec_dev_wcd937x =3D {
+>  	.endianness =3D 1,
+>  };
+> =20
+> +#if IS_ENABLED(CONFIG_TYPEC)
+> +/* Get USB-C plug orientation to provide swap event for MBHC */
+> +static int wcd937x_typec_switch_set(struct typec_switch_dev *sw,
+> +				    enum typec_orientation orientation)
+> +{
+> +	struct wcd937x_priv *wcd937x =3D typec_switch_get_drvdata(sw);
+> +
+> +	wcd937x->typec_orientation =3D orientation;
+> +
+> +	return 0;
+> +}
+> +
+> +static int wcd937x_typec_mux_set(struct typec_mux_dev *mux,
+> +				 struct typec_mux_state *state)
+> +{
+> +	struct wcd937x_priv *wcd937x =3D typec_mux_get_drvdata(mux);
+> +	unsigned int previous_mode =3D wcd937x->typec_mode;
+> +
+> +	if (!wcd937x->wcd_mbhc)
+> +		return -EINVAL;
+> +
+> +	if (wcd937x->typec_mode !=3D state->mode) {
+> +		wcd937x->typec_mode =3D state->mode;
+> +
+> +		if (wcd937x->typec_mode =3D=3D TYPEC_MODE_AUDIO)
+> +			return wcd_mbhc_typec_report_plug(wcd937x->wcd_mbhc);
+> +		else if (previous_mode =3D=3D TYPEC_MODE_AUDIO)
+> +			return wcd_mbhc_typec_report_unplug(wcd937x->wcd_mbhc);
+> +	}
+> +
+> +	return 0;
+> +}
+> +#endif /* CONFIG_TYPEC */
+
+[Severity: High]
+Can wcd937x_typec_mux_set() race with wcd937x_mbhc_deinit() and cause a
+use-after-free on struct wcd_mbhc?
+
+The Type-C mux is registered in wcd937x_probe() for the lifetime of the
+platform device, which outlives the ASoC component lifecycle
+(wcd937x_soc_codec_probe() and wcd937x_soc_codec_remove()).
+
+If a USB-C mode change invokes typec_mux_set() -> wcd937x_typec_mux_set() on
+one CPU while ASoC component removal runs wcd937x_soc_codec_remove() ->
+wcd937x_mbhc_deinit() on another CPU, there is no lock synchronizing access
+to wcd937x->wcd_mbhc:
+
+CPU0                                     CPU1
+wcd937x_typec_mux_set()                  wcd937x_mbhc_deinit()
+  if (!wcd937x->wcd_mbhc)
+  ...
+  wcd_mbhc_typec_report_plug(mbhc)
+                                           wcd937x->wcd_mbhc =3D NULL;
+                                           wcd_mbhc_deinit(mbhc)
+                                             cancel_work_sync(&mbhc->mbhc_p=
+lug_detect_work);
+                                             kfree(mbhc);
+    mbhc->mbhc_cb->clk_setup(...)
+    wcd_mbhc_write_field(...)
+    schedule_work(&mbhc->mbhc_plug_detect_work);
+
+This dereferences freed memory and schedules mbhc_plug_detect_work after
+cancel_work_sync() and kfree(mbhc) have completed.
+
+Additionally, because wcd937x_typec_mux_set() reads wcd937x->wcd_mbhc twice
+without locking, if wcd937x->wcd_mbhc becomes NULL between the initial check
+and the call to wcd_mbhc_typec_report_plug(), wcd937x->typec_mode is updated
+to state->mode even though wcd_mbhc_typec_report_plug(NULL) returns -EINVAL.
+
+[ ... ]
+
+> @@ -2761,10 +2819,24 @@ static int wcd937x_bind(struct device *dev)
+>  	/* Give the SDW subdevices some more time to settle */
+>  	usleep_range(5000, 5010);
+> =20
+> +#if IS_ENABLED(CONFIG_TYPEC)
+> +	/*
+> +	 * Get the USB Type-C switch to send GND/MIC swap events.
+> +	 * typec_switch is fetched now to avoid a probe deadlock since
+> +	 * the switch depends on the typec_mux register in wcd937x_probe()
+> +	 */
+> +	if (wcd937x->typec_analog_mux) {
+> +		wcd937x->typec_switch =3D fwnode_typec_switch_get(dev->fwnode);
+> +		if (IS_ERR(wcd937x->typec_switch))
+> +			return dev_err_probe(dev, PTR_ERR(wcd937x->typec_switch),
+> +					     "failed to acquire orientation-switch\n");
+> +	}
+> +#endif /* CONFIG_TYPEC */
+
+[Severity: High]
+Does fetching typec_switch in wcd937x_bind() still result in a probe deferr=
+al
+deadlock when the SoundWire slave devices have already probed?
+
+The RX and TX SoundWire slave devices are registered from Device Tree by
+sdw_bus_master_add() -> sdw_of_find_slaves(), and wcd9370_probe() in
+sound/soc/codecs/wcd937x-sdw.c calls component_add() without depending on
+wcd937x_probe(). When built as modules, snd-soc-wcd937x.ko also depends on
+symbols exported by snd-soc-wcd937x-sdw.ko, so wcd9370_probe() runs before
+wcd937x_probe() (and when built-in, wcd9370_probe() can still finish first =
+if
+wcd937x_probe() defers once on regulators or GPIOs).
+
+When both slave components are already added, the call chain in
+wcd937x_probe() runs wcd937x_bind() synchronously:
+
+wcd937x_probe()
+  wcd937x_add_typec()
+    typec_mux_register()
+    typec_switch_register()
+  component_master_add_with_match()
+    try_to_bring_up_aggregate_device()
+      wcd937x_bind()
+        fwnode_typec_switch_get() -> returns -EPROBE_DEFER
+
+Because wcd937x_probe() has not returned yet, really_probe() has not called
+driver_bound() -> driver_deferred_probe_trigger(), so the external Type-C
+switch driver waiting on wcd937x's typec_mux has not re-probed. The
+-EPROBE_DEFER from fwnode_typec_switch_get() propagates out of
+component_master_add_with_match() and fails wcd937x_probe(), triggering devm
+cleanup to unregister wcd937x's typec_mux and typec_switch and recreating t=
+he
+mutual probe deferral deadlock.
+
+[ ... ]
+
+> @@ -2951,6 +3091,22 @@ static int wcd937x_probe(struct platform_device *p=
+dev)
+> =20
+>  	wcd_dt_parse_mbhc_data(dev, &wcd937x->mbhc_cfg);
+> =20
+> +#if IS_ENABLED(CONFIG_TYPEC)
+> +	/*
+> +	 * If the node has a port and a valid remote endpoint,
+> +	 * consider HP lines as connected to a USB-C SBU mux
+> +	 */
+> +	np =3D of_graph_get_remote_node(dev->of_node, 0, 0);
+> +	if (np) {
+> +		wcd937x->typec_analog_mux =3D true;
+> +		cfg->typec_analog_mux =3D true;
+> +
+> +		ret =3D wcd937x_add_typec(wcd937x, dev);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +#endif /* CONFIG_TYPEC */
+> +
+>  	ret =3D wcd937x_add_slave_components(wcd937x, dev, &match);
+>  	if (ret)
+>  		return ret;
+
+[ ... ]
+
+>  	ret =3D component_master_add_with_match(dev, &wcd937x_comp_ops, match);
+>  	if (ret)
+>  		return ret;
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261020170341.1641=
+325-1-val@packett.cool?part=3D2
