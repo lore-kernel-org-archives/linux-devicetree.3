@@ -1,107 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792505391;
-	b=lG0Zmww6/KZ5ldHfYvSC5P417SGFZPGTJa6C6VyTcwVSr9QxFKWVe3+6tFpHY6TnKAC0
-	 ZoqxH932/cMp7rBHpI6NcZKaXGk1cI1ar+Lg3tCwDztTc5Kx+Y6y5SuvKg3+mvsizj0uJ
-	 4UbOB86/UcpNh881JkMh5VQ7oeOy9JvHQ2ZWdtiEe9SZi/YP0Xmc38bbLaq54Tp6KV3w0
-	 r339A/zfJfQuCY/U9cEB01J/ZLOdYluaAMrIjzxwBH0dsF8D7pr5mPzz332Br815virMm
-	 IlFbY7/2TyFdOKDWiZveQRdIA0vDQ+6vc1lofoCBbkxTMT/RVvWV+yS/QHRk+sD21HQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792505391;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=IAF6xD5cIQqwIJ5T8c6143w+PZ8zjeS48r8fgDdrypQ=;
-	b=Zfh3fWXIKolPaYyrIvFCjIoRlpnH8xzpH1JTM4vcfLuLBj3nrSHf83lAMu4S5pkbf3xz
-	 k4UtKS9K0ewpvGF7wlfROGR+Ha75qERUztbUtTFfNcpw83UV6Fc3i2Gq8VjjW+qpgkeoh
-	 alWIC3kFzBWm6ySKOJuIsCpwtVSSzgEIVo04cZWtinBfRM0hxdfSCiLd22UUVCvURoc9D
-	 Dez99RJvES45d2qwqYCjZ1w+saabzqxSAEWhEWe/3HPoUNBsdgdq61GjweCViiOfGOx+R
-	 gMsiJDyikIYln9xI1yeqUGie/3uSY12TE8I+rQaAq+uOhRJpRIxBn4MLpyp95Qwf/dA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=W+1Tpzxb;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.46
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013046.outbound.protection.outlook.com [40.93.196.46])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792505440;
+	b=WKsUP43MUN7l2y6mFy3hPnsqPMvmdlhC3Gr4XXHK4eoAWTi18z+VT/qxOiG0R7dr0Di+
+	 brjW+aH/iQIHnj4dZY2cVqMI6LdctOF+H26wIIeMk2aMOTyr77UCmnRpGtgfGE/LDn3JU
+	 gEQLUl0SHqp6z7Lt4zvPH+3AqVjlnQZfj+M5nU+xFVy5ExLjgpGWzTg9/cKXSSbhutWwe
+	 HRn3Q7yRUDfpfdC4nhfJ7e56iPpDB+63+tlCN/ZQVsEZc9MBSA+gCDz1gK14mwgqECz9o
+	 cX/GhG3dJs2W76/xxGS0nid+P3KxBbtiiHoaF5lmSiy0BOlCKNpoke6oS3w/ENeairA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792505440;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=6OFxyQtijBXYSbvcaeMGg6HSw20JVaD24lHAGl8RQ2E=;
+	b=XOFOlViIodfVwfEDaIZ+T0EVMWiO4GJHz9qzXHz6h1Liuf0nR8Sq2iBSOB0U+CtoQP57
+	 W8A2LmjPrQ+mXZy2FVrwaU1qhLDKi/EInpL0aP12df3jftEHXzdymvkEyokWg3ZOYQSkl
+	 s9R001vkJLYFegCryBZXb94xVq2J7Ze81/0VcqK+yWswJxpSZ62KhYOEFs+Zox5UnCADu
+	 ipRp5xbxAwDirRJJl5R1lzV1JhkHXgLp4fKbaNZTWQXrSbBAx+quPxbgDgiqC8Xdx2Ian
+	 xkIyuK8aXxvmVDMyW74hf55vkDEEzgRoMa0WyqE2O+oK4e2ZNXPTEjt7AdIcmoyCuTA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ol6g562a;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61D89606A31D;
-	Tue, 20 Oct 2026 14:09:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61D89606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67904606A319;
+	Tue, 20 Oct 2026 14:10:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=W+1Tpzxb
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XEFRx3FpCxoKBdz0GxWNR147hNCE5M/5SLCTz7DEgTRMVQpVBIHZK6lseTTuph0wuW4UGfu9qqQCL1KhXAbWgMTSwCZtWujB3Qwf8U9Ay9+x+/UNxzf1B2xGTPeBmJ/WTzvAzQFmItOWDRKzRdop6nYjjjF9cBs9fRMlZG05fxZEzDobiisB424mtUxeglgNP7zpa/a19IHuM/dscDgArGrZ3iMS3fcPRDD6PYFkv4c8HsKrWM/JiYCXKHZ/TFsL0MmYfeUZYYCFbke/FWZBj7V2WU8i3FAygaruNQTBVrR8HiFvrfPJjmHmfg8W6qgaAnYmCULJTbC2YvVteEQMng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IAF6xD5cIQqwIJ5T8c6143w+PZ8zjeS48r8fgDdrypQ=;
- b=lwjoZ/hOH6b6ccSvkEh9HsbttwrzFJQMNR4glj9szOAfOy/tfAuKj4CmYh+3nf38fjnW5EHoiOuFnCSZR3M0xQ57502izd8UMWqPqCbKRBtE6Snh0YKznqzaV4a025hKzG+qRw2THgp3aAAnE5NXUcacIyttOo88IuEmhbB80R9eKYeWQhWo5grLg2VV929zceu/fBJ/zJN+Is0QoafUyT3/QuJQDOLOrq42mBT3+7pDUgsY92y/nk6A5/BoGz5ySD7wGCMuL/MbGRoq7Dp4asWx6jpNd9IHG7Il4pOqPYGBbxrFodXDH6rwfGsWQKQ6VV1oi0W/n7dGaENi+YJcKw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IAF6xD5cIQqwIJ5T8c6143w+PZ8zjeS48r8fgDdrypQ=;
- b=W+1TpzxbsEfaA2Ml+KUj31px5w3L3wjRZYyB1Ixl9B/8VsF9dCduQU8hC1zEe2tzgMaMgLnnKttj9d45MUDyKUP6fx51va/oNamLdYijvNbZsECtJjtt8xjcqJhja/CQiRzkKHvXCgno3cuJFgyqGE5ld6ET967VKM1SwQlHTTDk786SZY/vgW07tNMuwDH8YM2gzqiya5vPHhm8+QmXM31TkNcCuvPe+OqUHuF2rqae3BYYVNm6JxEqXM8pLWqGEwqIjdgr9Gl0JnwwHq9MxjzSZnYZeqrpkCrbj2xK99B3bC+rqkhQiaDhaFckZOg1IViwM0YndrqsGDAko0C90A==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by SN7PR12MB7978.namprd12.prod.outlook.com
- (2603:10b6:806:34b::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
- 2026 14:09:45 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
- 14:09:45 +0000
-Date: Tue, 20 Oct 2026 11:09:44 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	Alex Williamson <alex@shazbot.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ol6g562a
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D3801F000C4;
+	Tue, 20 Oct 2026 14:10:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792505440;
+	bh=6OFxyQtijBXYSbvcaeMGg6HSw20JVaD24lHAGl8RQ2E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ol6g562a328HhuoljmZTxXatRs5NBevcNy7ffv0uafG1txZ5Lu89zsglQ57D+IXXj
+	 3fSewLLQaumJDPFb0wUgSpJr3hFmusYrkbHHJklEmQvOWf9leWpFmN7sYG0bBSa5vw
+	 1jsan5AGieccaW+dM+AfFdLheolL8u3WY7/I3CkVcMqi+aQLOVqbtw/5PGw+HrDpeO
+	 j2ynXCIrvUClI8Qfx96F+Jk1W5KfZUi6jwDR+/23DhmS5m7xLPMnF/zPOFg6VS5U75
+	 /dD9Tfm2dUDiC0Jn/92vk33QIHU6TSb49Y96N1Hj9vXn0SjITfNzLQk2Y5kdC7DPO2
+	 HbX4ELMkGaGwg==
+Date: Tue, 20 Oct 2026 09:10:39 -0500
+From: Rob Herring <robh@kernel.org>
+To: Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>
+Cc: =?utf-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>,
+	Michael Riesch <michael.riesch@collabora.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Jean-Philippe Brucker <jpb@kernel.org>,
-	Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev, kvm@vger.kernel.org,
-	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [RFC PATCH v2 12/15] vfio: Support VFIO devices that access the
- CPU MMU
-Message-ID: <20261020140944.GA3008132@nvidia.com>
-References: <20261015142552.4128028-1-ryan.roberts@arm.com>
- <20261015142552.4128028-13-ryan.roberts@arm.com>
- <20261015164421.GD13920@nvidia.com>
- <95e0f9bd-0203-4c7a-9d09-622593bb3d4c@arm.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <95e0f9bd-0203-4c7a-9d09-622593bb3d4c@arm.com>
-X-ClientProxiedBy: YT4PR01CA0295.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:10e::6) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+	Guochun Huang <hero.huang@rock-chips.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/8] dt-bindings: phy: rockchip,rk3588-mipi-dcphy: Add
+ a cell to select TX or RX
+Message-ID: <20261020141039.GB4157247-robh@kernel.org>
+References: <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
+ <20261019150631.GA265407-robh@kernel.org>
+ <73ef0d06-75c5-4c10-b4c3-c7b3c07a1e18@collabora.com>
+ <2501273.NG923GbCHz@diego>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -111,81 +74,114 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|SN7PR12MB7978:EE_
-X-MS-Office365-Filtering-Correlation-Id: 00731ed5-fd8b-4d9d-cf5d-08df2eb3cb07
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|56012099006|4143699003|11063799006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	Cz7BeM2k8TLaYCRI1wcVMG1vH3fs2+zCxx5jEUAxTsGXu7jXURwDzkbUO32iPvXgH/gNPhMVcU1rVID+1EV97Lv1jhKnVJ4RNPw/G0q7OOcu+O978/os12QkZbnUzbDX+I4d9y7TOGuJFKF5UO5JuxRUVqwaKw6FiG4kxxIsldoBbLG87vKhMRMW0Em29JK9OafDPpyj7yXvj4EY9IlUCsTPO/BiFUA7OrrdTiUBcLYbwO0F806pa1sjC15ACFm2vez6md0mWWLsN4yLonJUGDc8Z6sCZONTLOabIYY/GJoATIJ8sptlYJowG4i8+U7U2DQZuPJGc61UHmtwEHIzu+O60NUU9rF2PAzHiETKb42tsRbgcboiOBMV7O6uFBTO59Y0PeWbN2ce9Fu/K7j4tnLPWFYsyG3uQpLF/sozb+v5tXJu5ykhfZgxmGz8a4uGh0qkTekOjWJ68ZlMFM1EAfdBMI6ORqH4xIG9ug7fbUeF12FAolABleQONvvGIxw7Jx4eWjHxaY8yBfv/0XYFiGSi20sooN0yUYEkhm+NJP9C9TVUmKG95j1g+oHA/RzrxFOOBTcQTeReNGInm62kGsvrVd1ZS84g5Jj74UsgEV6JFq7HAoEzp3yk8MXFJ60E44vn6hso74Z4HKTGOyWXZfQp9vpWYlkHVR567+0qTFM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(56012099006)(4143699003)(11063799006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?RbyNzpgHf4nBHZ0rmqq+8dp14yfsOCAN5A7BbBVb5oQlZ7TXCyBFWTdOPcTi?=
- =?us-ascii?Q?CrYGMD9L5tqjTjkrHytRKYwJ7MEUs6qJR0S/Zt+klnlVn9WBYvOGbQHYA9zq?=
- =?us-ascii?Q?L78MUywrzWMdFcwOerjNMU2h3RjWFp/1ht9FYILCLCVx4J8Qi6BLoc3J6uzj?=
- =?us-ascii?Q?4iro8pTblpcxnouP3i8Mp76GV4vTzP0xWjmlv9MPHPgPv45wV8/jsdvJ1BqB?=
- =?us-ascii?Q?asCk2zcD38m1iYq+dZYsjJ1CzxGkoPNB3MVdsZmwXJDt1NdE4o+2JRkUdDHR?=
- =?us-ascii?Q?LPApyRdwCiO2dqS2lgRrmybPgCJjb3XsXMU1k2uLoMezGomniqPFRNRYhiRN?=
- =?us-ascii?Q?olnyZeHNcszv6F9sOt/tOowVjwHXdwoU3MCIERucwoqRn8FPjrAalY7aIxG7?=
- =?us-ascii?Q?dsKdZmv+zjsDm8t/3e501gvN6RUR5rKgZCM4MByhOaKbuLIsmRCPzHWkG4Mj?=
- =?us-ascii?Q?kyRoT4QVNDoF9EDdXJy3uPU8RvIjq1tM+17eUxjrccQWgJlrx2dsnL7LBUrM?=
- =?us-ascii?Q?QYccQO2m+9weSyTzd1xbbQ7KE92HV2It5Y3yDK0rIRUUD+xNIgRNBXXb5plp?=
- =?us-ascii?Q?FF/gp1gF41g0EtBeMm57BM00EWOkrxM6WWTggbFaZtwNMkBELeJLEqOE+eWB?=
- =?us-ascii?Q?/I0sqVj9Ufkn3YY6f6RA8zqKXg6WzoWs8PeVPzeRcW3I0BUxMCqun9CH2HBi?=
- =?us-ascii?Q?ce5i5eZb6l82RdXp/3N8/OvlmK11CCZM+HpUyybqV3Tu6OLd8OIlZ9FWROCB?=
- =?us-ascii?Q?6m6pMQwKsYe7O78DkDGfX1DKaF2EdiY5/tmLvrG/8cAkLE2SPd/AAgyXI2OU?=
- =?us-ascii?Q?Z+jd2lXpwPYZekQlhDCjjfFTP5R8qnxiL7yW8RK7DYz4KS2bo0gcvLWiVbeQ?=
- =?us-ascii?Q?b0YkRMS98C50RMzi2bk6qcFqBvKpOqQQg0yBv7Rjwe8A7K6QeW/k+2BC7Dpb?=
- =?us-ascii?Q?hqU+x0xsAwtSwQA27pFhchGpVa1qDKEFaIpnOzcnu4nvUSUcdQoVHAT1BVOl?=
- =?us-ascii?Q?4R1CM32x+fJYLe4vMvbBmLOnGEEDA9P46ByUs00EMLGwkZQEMqKooj/ErcQu?=
- =?us-ascii?Q?Kn1vl8rvugFy2G3N39LoAHh7lQSi/DUqxemP7fT/bp8FwheR0efQAzyiSkmh?=
- =?us-ascii?Q?Q09EZjyIO7nclvrc+w5wUkSXI766nFaJUW9vXPaR/tJPsBLS2KFOp86AFzNt?=
- =?us-ascii?Q?TiEqCMaFpIidHLPofWcde6LeOTBJ/TK8TSpWo58KjNoAizzhfAd2dXuG1X/Z?=
- =?us-ascii?Q?WK/zYwz9Go9IAK1+4ZTuD9C8PUEWjZShkUJnEczVdroqlWzjq138g3sIT8tm?=
- =?us-ascii?Q?WEFzQ3YGZI4nL7CCEnu1G6sdVnwnITWXi6b18zyQPFsiagilw3YiE1IoH0jN?=
- =?us-ascii?Q?oTlKwXmlRdIOpJbdOekjc5Bm/wU7ZvgMNN1Ln+8n/8Y36NToP+2h7fLujjHj?=
- =?us-ascii?Q?qGKNYJkVpZcrykrYCVwZTlaM737Ach8nmAQ8Z84QyW2UNcnFQy6OXQMFZR3Q?=
- =?us-ascii?Q?TvSgu8hjUCUwE59zSCM9y3Z1bx2kgvkN/M37P2uZU3fuTyjQwEzSxzBwJeBz?=
- =?us-ascii?Q?yOc9ZBo524xv69aFddCRpaMNKHv0RdQhyUSxBYAaLWl6uRnQugKFjHTRURgP?=
- =?us-ascii?Q?+DovbPiRd4HphqfdnBSBT5gPBmapPMlP0xR9eXz5cR3vt9G7aC2bKeCVw+5n?=
- =?us-ascii?Q?5e8ysMQjtiTnZPOvEcdELx9eg9Ws+xNwnkG4g+ao9ETHXanU?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 00731ed5-fd8b-4d9d-cf5d-08df2eb3cb07
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 14:09:45.1097
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: b0/fzE02P456IsXRnIUoxWq7jQnhLycnba1Cjf+inB2OpAFE7rqieT3Gsr6Gmouk
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7978
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2501273.NG923GbCHz@diego>
 
-On Tue, Oct 20, 2026 at 12:51:26PM +0100, Ryan Roberts wrote:
-> > However.. you still have to affirm which single mm is the mm that the
-> > device is going to be doing DMA against. The process the opens the fd
-> > should not be forced to be the mm that it gets linked to.
+On Tue, Oct 20, 2026 at 03:37:35PM +0200, Heiko Stübner wrote:
+> Am Dienstag, 20. Oktober 2026, 00:20:47 Mitteleuropäische Sommerzeit schrieb Michael Riesch:
+> > Hi all,
+> > 
+> > On 10/19/26 17:06, Rob Herring wrote:
+> > > On Mon, Oct 19, 2026 at 04:15:03PM +0800, 楊智成 wrote:
+> > >> Hi Krzysztof, Rob,
+> > >>
+> > >>> Existing OS should ignore surplus cell if the driver is coded properly.
+> > >>> Same as adding new properties or new front-compatible.  The question is
+> > >>> how the existing driver behaves?
+> > >>
+> > >> As you pointed out on 5/8, the xlate checks args_count != 1. The DC-PHY
+> > >> driver was merged in v6.15, so every kernel since 6.15 fails on a second cell.
+> > >>
+> > >> 1. Keep the second cell. Add the patch as follows:
+> > >>
+> > >> - if (args->args_count != 1) {
+> > >> + if (args->args_count < 1) {
+> > >>     dev_err(dev, "invalid number of arguments\n");
+> > >>     return ERR_PTR(-EINVAL);
+> > >>   }
+> > >>
+> > >> + if (args->args_count > 1 && args->args[1]) {
+> > >> +   dev_err(dev, "only the transmitter is supported\n");
+> > >> +   return ERR_PTR(-EINVAL);
+> > >> + }
+> > >>
+> > >>   With Fixes: and Cc: stable, the stable kernels maintained at that
+> > >>   time (currently 6.18.y and 7.2.y) keep DSI working with the new
+> > >>   dts, and the receiver fails cleanly instead of getting the transmitter.
+> > >>   But EOL kernels (6.15, 6.16, 6.17, 6.19, 7.0, 7.1) stay affected.
+> > >>   It goes in with the series, since two-cell dts only exist after it.
+> > >>
+> > >> 2. Use a flag in the upper bits of the existing cell, as Rob
+> > >>     suggested. Existing kernels are not affected, unless a board enables
+> > >>     the DC-PHY CSI-2 receiver on 7.0 or later without this series.
+> > >>
+> > >> I will write the impact clearly whichever  approach is selected in
+> > >> the related commit messages and the cover letter.
+> > >>
+> > >> I think the cell approach is easier to read and more symmetric in the
+> > >> long term,
+> > >> but it breaks more. Which one do you think is better? Thanks.
+> > > 
+> > > I'm not a user of this platform, so I don't care. Up to the platform 
+> > > maintainers to decide if breakage is acceptible. You just need to 
+> > > document the issue in the commit message.
+> > > 
+> > > Rob
+> > 
+> > It's a bit of a pickle, all this.
+> > 
+> > I gave it some more thought. In the end this is an IP block with two
+> > PHYs. No more, no less. One cell is sufficient to address those, and it
+> > could be 0 for the transmitting PHY (DSI, display) and 1 for the
+> > receiving PHY (CSI, camera).
+> > 
+> > Of course the two PHYs can operate in either DPHY or CPHY mode. The
+> > phy-cells have been (mis?)used to select the proper mode of combo PHYs,
+> > and this principle has been applied here too.
+> > 
+> > However, we have the special situation here that the mode can only be
+> > changed for the complete IP block (and thus for both PHYs at the same
+> > time). As Bryan points out, we need to check and complain if the PHY
+> > mode is not set to the same value for both PHYs.
+> > 
+> > I suggest using a property
+> >     samsung,cphy-mode;
 > 
-> What is the mm representing here? Ultimately we want to install the KVM
-> instance's stage2 pgtables and (pinned) VMID. We currently get that via the
-> bound KVM instance (which looks like it still works using the cdev interface?)
+> I guess, a maybe nicer way would be mimicing
+> 	Documentation/devicetree/bindings/phy/intel,combo-phy.yaml
 > 
-> The guest will then install the stage1 pgtables and (pinned) ASID associated
-> with the relevant (guest) mm_struct.
+> with its
+> 	intel,phy-mode = <x>
 > 
-> Do we _need_ an mm association in the host?
+> with x coming from include/dt-bindings/phy/phy.h
+> for the distinction between cphy and dphy, so we don't introduce yet
+> another way to describe this.
 
-Ah.. I see, I didn't quite follow that. OK.. Ah everyone else doing
-this is using iommufd with a viommu to establish their connection
-between device an KVM. eg Jacob Pan's series. That's a probably a
-better idea to stay aligned with the common path. Though your reasons
-are a little different..
+We already have the plain 'phy-type' property which takes the same 
+PHY_MODE_x values. We don't need yet another vendor specific property.
 
-If you manage to get pinned VMID out of KVM then we can implement SMMU
-BTM as well!
+> 
+> > (name to be bikeshedded) that sets the complete IP block into CPHY mode
+> > (DPHY being the default) to distinguish between the modes. Since both
+> > modes use a different electrical interface, this is clearly a hardware
+> > thing and thus suitable for device tree.
+> > 
+> > Then, we can address the two PHYs with the help of the already existing
+> > phy cell (without any bitflag tweaks to the value).
+> > 
+> > The sole drawback is that we need to accept the PHY_TYPE_DPHY and
+> > PHY_TYPE_CPHY values that some OS in the field might pass. (For Linux,
+> > it should only be the former.) And we need to handle those values
+> > correctly. But I think this is not more painful than the other
+> > approaches. At the same time, this design seems to be the most correct
+> 
+> The current cell values are 10 + 11, so as long as we don't re-use those
+> exact values for the other constants the driver should somewhat easily
+> be able to recognize an old DT?
 
-Jason
+I think you will still have an ABI issue of what does old OS do with new 
+values?
+
+Rob
