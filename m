@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.20.114.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792496065;
-	b=N/oOlTuvGOVMbx0PA7v0UYkkz4XPN0Yv2/o9+Beyvzl+9TgOcQEkuYmw1tB37WEFI4X3
-	 hOmw4BeRJmIysqRFUhmq3obHfZn5VtLmvJofuTkaQ2WOCXxvLuifXCE/SgMC+GOneYqG0
-	 4Nrt8yI8wyCbYCafzoLvomnk9iheAEGTI3PGEr4BN3LEk+sc759Y3TO/xTu1OGPcdXGrI
-	 Nzh8CUI6R6vwAXCYeeVGLS682vUnoYb9GZbN4jCd07ncz3+GTFE4e6HowEw+ctYazUvsQ
-	 p85lydvY2D05GMe5vsdvx/04QIIz1ElFDccj2HZafw5jHlPPyFPewFA1dAdt2ew9Ksg==
+	t=1792496077;
+	b=xpWUuNismoBSrf8m3e34DE0Hna4FsVhvNRin0yPe5K70GGBFMsI9quCAwhulEjnxP/j8
+	 yI09TEBkvecdu2chojL/r8GKi0W2/rMJjzHo6q6TTVb7ulkQAVDJZbuGSaIfEkmuqBWbT
+	 2cahF2jjfrjCxCZvktwkU9bakh9CSVEtycCuQ4tnTX6KRa53Y2jgtF/6t2yN6D/BgOcKl
+	 0O0FCp0eO0+VhpW19latN3vEkTYHArXPdpSMXsIsZSenxcnvsOOErAkBh/m+zK2FSp0CH
+	 VXa5ccibRJNFAG1m5mfqfEOkqdhaBfa4YoxN70fjV9RI9v8WTc+5Qrv+SoE+QNNeA+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792496065;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792496077;
 	h=DMARC-Filter:Received:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-ID:References:
 	 In-Reply-To:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=LyXFiOgSd/gS7t17gC6C4jnHNJdK0hrmfTDD2nscfFE=;
-	b=QzgqV2BH1unwwL0WRzIB4AgqLC5IaG6LbkC8zer+5eAQuV+pxHlEHeO1v2hJGQHGmvW5
-	 BDNtWj327vuNEa/c0e9m2EQuNb+urg691Ui7W+jkPSdjr75J9iMDmf8AkWrPTkcjMjSQq
-	 BN/R/CxqufE/uX610luCrXzWwQIBjTMcmvpw7G19nqYD0Z4oiAt3Akv2pE5eaJUqZ2OBY
-	 klBiQJTdvhg5ZnyOFxD9Ew93uprOGmo9Grhh9A+gJBpK50vjKyT8ifxQW+s8BPcMn8OUT
-	 zuoAMANTz8vbUDKlio4tMcvJqs8QuxOfIW/KBE77oXxj2B3kdVaHRx3MRNDzh2NT7fg==
+	bh=YDPaXizwmC/JpiKEr55NlOYCnlfjA2XwAZhmjmD4s7A=;
+	b=PyantAfbsgvEJ2tA065GXlSQDrJRUBdFPL51l/WPKWfoZKqIvZlZkub+apyHmDIf95U0
+	 hJX0URqkjuaUx/HQ1Gh6XHQfwXFhz4jcBwcYRmUn7pMyi6uUDCf+lJPg61v+GSoUkv+jc
+	 hNGRLFdrghJRBocucREhX/sJjOSs80bQ9xbR++LiBWtfYmVrVEWEszxxqnPewGXTsF4Ky
+	 qZzp5Ryf+EtlvydiZfczKBz9Bs8VpuCQEj2MUJbG7HoxaIHff3FfaRT1FiEwUsxsEn37O
+	 ZgXuB+F8LobqgQeFpaV7f2Wh5UzWKwaylanAt+JznazattN8YnUR9WVpeQ1LkHA/d4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=aspeedtech.com;
 	spf=pass smtp.mailfrom=aspeedtech.com;
@@ -24,22 +24,21 @@ ARC-Authentication-Results: i=1; smtp.subspace.kernel.org;
 Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9D79606A323;
-	Tue, 20 Oct 2026 11:34:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9D79606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7874460A2607;
+	Tue, 20 Oct 2026 11:34:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7874460A2607
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
 Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
  (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Tue, 20 Oct
- 2026 19:34:13 +0800
+ 2026 19:34:14 +0800
 Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
  (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
- Transport; Tue, 20 Oct 2026 19:34:13 +0800
+ Transport; Tue, 20 Oct 2026 19:34:14 +0800
 From: Jacky Chou <jacky_chou@aspeedtech.com>
-Date: Tue, 20 Oct 2026 19:34:14 +0800
-Subject: [PATCH net-next v4 3/7] net: ftgmac100: Add AST2700 compatible
- support
+Date: Tue, 20 Oct 2026 19:34:18 +0800
+Subject: [PATCH net-next v4 7/7] net: ftgmac100: Allow building on ARM64
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,7 +50,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261020-support_ast2700-v4-3-4d36b40939b3@aspeedtech.com>
+Message-ID: <20261020-support_ast2700-v4-7-4d36b40939b3@aspeedtech.com>
 References: <20261020-support_ast2700-v4-0-4d36b40939b3@aspeedtech.com>
 In-Reply-To: <20261020-support_ast2700-v4-0-4d36b40939b3@aspeedtech.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
@@ -65,68 +64,93 @@ CC: <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
 	<linux-kernel@vger.kernel.org>, Jacky Chou <jacky_chou@aspeedtech.com>,
 	Andrew Lunn <andrew@lunn.ch>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792496053; l=2037;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792496053; l=3621;
  i=jacky_chou@aspeedtech.com; s=20251031; h=from:subject:message-id;
- bh=Fhi2QQE0gYXCC0ZbXJOZaqvp8cju90o459tkZDIGBG4=;
- b=dABaLLkWM6y3NksRgOgAnw9zo8SUZl/UycrAM11WKsMqsPXhePPVyyHD81N+phBUdXwW/BrOy
- +xq5S8EDuCUCMXSmHVHViJrhUBhVeCVtfo9pt5n2Ufb/MkmjkxjbdP+
+ bh=b4nuOAGj7hDll45AfQpS7jJIfXwEMU2no6rHulerEMM=;
+ b=qcUc5ezFsLrjUbs+X0UWu2VVELHgsSpbRLyyGCcSxz3XQpOXUvPaXYZr6rUH4JJFcaZQUjalY
+ 6YXMLqbZ2prB30S/Uw63Uik3Dfg0cGe+o8p+TjZkwSg8vla5sFWnLQY
 X-Developer-Key: i=jacky_chou@aspeedtech.com; a=ed25519;
  pk=8XBx7KFM1drEsfCXTH9QC2lbMlGU4XwJTA6Jt9Mabdo=
 
-Add match data for the Aspeed AST2700 FTGMAC100 controller and wire
-its compatible string into the OF match table. This lets AST2700 device
-tree nodes bind to the ftgmac100 driver.
+Allow the Faraday vendor menu and FTGMAC100 driver to be selected on
+ARM64 so AST2700 platforms can enable the MAC. The driver now programs
+the upper DMA address fields, so it no longer needs to be marked BROKEN
+for 64-bit builds.
+
+AST2700 has no dedicated MACH_ASPEED_G7 symbol; unlike the 32-bit
+generations it is only gated by the common ARCH_ASPEED symbol. On
+32-bit Aspeed platforms, arch/arm/mach-aspeed/Kconfig nests
+MACH_ASPEED_G4/G5/G6 under "if ARCH_ASPEED", so MACH_ASPEED_G6 already
+implies ARCH_ASPEED and is redundant once ARCH_ASPEED is part of the
+condition. Drop it and select MDIO_ASPEED directly on ARCH_ASPEED.
+
+This does widen the MDIO_ASPEED select beyond AST2600: it is now also
+selected for AST2400/AST2500, which keep driving their embedded MDIO
+controller from FTGMAC100 itself and have no MDIO node for this driver
+to bind to, so it is built but stays unused there. Update the
+MDIO_ASPEED help text to describe this.
 
 Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
 ---
- drivers/net/ethernet/faraday/ftgmac100.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+ drivers/net/ethernet/faraday/Kconfig |  7 +++----
+ drivers/net/mdio/Kconfig             | 16 ++++++++++------
+ 2 files changed, 13 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
-index 6d2fe5c2f390..67b1fa464a42 100644
---- a/drivers/net/ethernet/faraday/ftgmac100.c
-+++ b/drivers/net/ethernet/faraday/ftgmac100.c
-@@ -37,7 +37,8 @@ enum ftgmac100_mac_id {
- 	FTGMAC100_FARADAY = 1,
- 	FTGMAC100_AST2400,
- 	FTGMAC100_AST2500,
--	FTGMAC100_AST2600
-+	FTGMAC100_AST2600,
-+	FTGMAC100_AST2700
- };
+diff --git a/drivers/net/ethernet/faraday/Kconfig b/drivers/net/ethernet/faraday/Kconfig
+index 474073c7f94d..9acc2d260c1f 100644
+--- a/drivers/net/ethernet/faraday/Kconfig
++++ b/drivers/net/ethernet/faraday/Kconfig
+@@ -6,7 +6,7 @@
+ config NET_VENDOR_FARADAY
+ 	bool "Faraday devices"
+ 	default y
+-	depends on ARM || COMPILE_TEST
++	depends on ARM || ARM64 || COMPILE_TEST
+ 	help
+ 	  If you have a network (Ethernet) card belonging to this class, say Y.
  
- struct ftgmac100_match_data {
-@@ -2017,7 +2018,8 @@ static int ftgmac100_probe(struct platform_device *pdev)
+@@ -28,11 +28,10 @@ config FTMAC100
  
- 	if (priv->mac_id == FTGMAC100_AST2400 ||
- 	    priv->mac_id == FTGMAC100_AST2500 ||
--	    priv->mac_id == FTGMAC100_AST2600) {
-+	    priv->mac_id == FTGMAC100_AST2600 ||
-+	    priv->mac_id == FTGMAC100_AST2700) {
- 		priv->rxdes0_edorr_mask = BIT(30);
- 		priv->txdes0_edotr_mask = BIT(30);
- 		priv->is_aspeed = true;
-@@ -2131,6 +2133,10 @@ static const struct ftgmac100_match_data ftgmac100_match_data_ast2600 = {
- 	.mac_id = FTGMAC100_AST2600
- };
+ config FTGMAC100
+ 	tristate "Faraday FTGMAC100 Gigabit Ethernet support"
+-	depends on ARM || COMPILE_TEST
+-	depends on !64BIT || BROKEN
++	depends on ARM || ARM64 || COMPILE_TEST
+ 	select PHYLIB
+ 	select FIXED_PHY
+-	select MDIO_ASPEED if MACH_ASPEED_G6
++	select MDIO_ASPEED if ARCH_ASPEED
+ 	select CRC32
+ 	help
+ 	  This driver supports the FTGMAC100 Gigabit Ethernet controller
+diff --git a/drivers/net/mdio/Kconfig b/drivers/net/mdio/Kconfig
+index d44278f26fab..d784782c230f 100644
+--- a/drivers/net/mdio/Kconfig
++++ b/drivers/net/mdio/Kconfig
+@@ -50,12 +50,16 @@ config MDIO_ASPEED
+ 	depends on OF_MDIO && HAS_IOMEM
+ 	help
+ 	  This module provides a driver for the independent MDIO bus
+-	  controllers found in the ASPEED AST2600 SoC. This is a driver for the
+-	  third revision of the ASPEED MDIO register interface - the first two
+-	  revisions are the "old" and "new" interfaces found in the AST2400 and
+-	  AST2500, embedded in the MAC. For legacy reasons, FTGMAC100 driver
+-	  continues to drive the embedded MDIO controller for the AST2400 and
+-	  AST2500 SoCs, so say N if AST2600 support is not required.
++	  controllers found in the ASPEED AST2600 and AST2700 SoCs. This is a
++	  driver for the third revision of the ASPEED MDIO register interface -
++	  the first two revisions are the "old" and "new" interfaces found in
++	  the AST2400 and AST2500, embedded in the MAC. For legacy reasons,
++	  FTGMAC100 driver continues to drive the embedded MDIO controller for
++	  the AST2400 and AST2500 SoCs. AST2700 has no dedicated MACH_ASPEED_G7
++	  symbol and is only gated by ARCH_ASPEED, so FTGMAC100 now
++	  unconditionally selects this driver on every ARCH_ASPEED platform,
++	  including the older AST2400/AST2500 SoCs where it has no MDIO node to
++	  bind to.
  
-+static const struct ftgmac100_match_data ftgmac100_match_data_ast2700 = {
-+	.mac_id = FTGMAC100_AST2700
-+};
-+
- static const struct ftgmac100_match_data ftgmac100_match_data_faraday = {
- 	.mac_id = FTGMAC100_FARADAY
- };
-@@ -2142,6 +2148,8 @@ static const struct of_device_id ftgmac100_of_match[] = {
- 	  .data = &ftgmac100_match_data_ast2500 },
- 	{ .compatible = "aspeed,ast2600-mac",
- 	  .data = &ftgmac100_match_data_ast2600 },
-+	{ .compatible = "aspeed,ast2700-mac",
-+	  .data = &ftgmac100_match_data_ast2700 },
- 	{ .compatible = "faraday,ftgmac100",
- 	  .data = &ftgmac100_match_data_faraday },
- 	{ }
+ config MDIO_BITBANG
+ 	tristate "Bitbanged MDIO buses"
 
 -- 
 2.34.1
