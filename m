@@ -1,57 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792497662;
-	b=a8NUFW+aDR6IOOkYfMfLWuTl7LhXEVCi1BkOQDpAUw5niOrxVFJJo549DUrVLXm9QUNg
-	 X6WeyZMDjczurPATozXx+3L3HDJeZNtVVZX4HJMt8+jtcrlL9lXrF26Yf9Jth3rj1mYiJ
-	 yQ7dUiy498RcreD+MqQr9EhBf31GdPxusLCbGYiqWgjIYWwe0VRv0ex3oHwUeq7bN/FGY
-	 JFHWpYwrrEIEK1I8B49+DD5/nyOQ2sJcNhbgUhK++82X5LJ9e7EkncHdPVgmDmTGi7Mhe
-	 W6AaxGAvwz/zrCxOlqS9Z1C/hD1qvApMEYVrZnewVihwtHrY4ESagNd83QNax+0/BMQ==
+	t=1792497708;
+	b=Xu8MIyG3lg5MNrvkNWCZjdUPdAMOjwYzLosevAMdqnzIskmdlrGko7IMaJ1UhmujxD3w
+	 BRahw/y08eTxF01rpI/rUb8ukV7Ew+OtXTMdoAOrLh2eLVeAs6gJv+Skl1/gzQfK8q7gc
+	 eyKnqyja8il8TJ2Y6zCe7FY9/k8g1TVae6PGGWRsEFCHW7KEUsT5x6zYDOVXAELNMyjIO
+	 CUYxiHrVeG8KnrUmP/8dmWLblajTiBc9hjyuBJTVuNv2k1KQ1BXrXHanrtZgV5vLcU8Gj
+	 cYK00kB5aRJbCcurE3EX8eRAqvC2FLf9gr4HbvPlGYfZKYbuMIUy5lzET98jjc9oN9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792497662;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=KXg39mHdTsetgdPucEjKGeP2zUPOX/PjWq1Ui18mlHY=;
-	b=DQAvTUV2+6GCTL0BfVAWxvvFdUlq8w0T9fq+6aQLatCFaCMJ0HXmwzSp6MaGDoQxxDSC
-	 BK4D7dX9G8OOd6BpNfC698qV971d5v2SPOlDHk+Xjw/3uhHjMvW+t/csvpI4jU/A6nVRS
-	 fYGtfwccf5F+HMK0QEalV70CMo4mqm1oe3ZhPIyjCCDuuxJ4p3TFR6PE2qEKCYEpJsexP
-	 jEPYH0uDMsGwW47X4Mzlb0K8oxJ1SxvXLXKtlokvYQPvyXNT+eV4gxrKNj7RtZMYkP53B
-	 dNevbS2itYToY0VXwa9EP/nwlCd7Svsr/LaoZGtxIuxtSBzlK91yp/Xj/jNsGFjjG6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792497708;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=21bLR2JmXTDddOKLW1hcjZrQEwDB8KnFMAgwcI186gA=;
+	b=RjhT8Z0pu0m66YiU/w6TrKtV3bMlj85Og2XteohYfCe8+ku839d34pgBK2pIGL4uMbDE
+	 RM8ir6slFLpIGSYpUEY9xgR5EGcx2LENObr+pxS5OFDm8d2BCXDObjTIL/SR6nPoh1rFK
+	 OvEVWNq92YxMm6Ci/ZjKh2QJYl72AfazUAY1yqFNb6FZ54SYmGHTHtExzpz5IZmoiVY3A
+	 zw3b6j5riyZ4TfZdYgLbYV3u/bZcPQ4ePyuaFmXLA4ThqyWxrv7BODCT4Y6Y1lBg3qG5l
+	 qDuRlGu6ccY1jNPYBpwUl8jjCgQWOmLK5+mVZqpzhQPSy57+qfv2S0fb9/viWL6BQew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="IQNj7t/w";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dKxBXOIN;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=j9xhNuMh;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A828606A31D;
-	Tue, 20 Oct 2026 12:01:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4744606A32A
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 12:01:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4744606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IQNj7t/w
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 933671F000C5;
-	Tue, 20 Oct 2026 12:01:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792497661;
-	bh=KXg39mHdTsetgdPucEjKGeP2zUPOX/PjWq1Ui18mlHY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IQNj7t/wO8XHL5bqaL4l2qNSaVohn28nll/PuQDuRURxaKZZ0BkA7qpw1+KSYBEdx
-	 eae6eqSf9GGfHGRWV/m/qcdX3tSJ6pY85wZLLJumjqO188Gur5CgTU3W7AjBS4+XIE
-	 6jZvvmcEKiSZoeYdFHRwdvRYfr+ePlBKMmeA6ZlNEr5/T4VMja4G1hF0UdCAE5KJRR
-	 ARM+QiKOQ3zmMNziUaJR7bId9+3Bl6xt1pqWTnkAJo4vR2NS6AA0H/vhtKY3tlCivh
-	 vMpDoBDZ2FgASsc+9FKMMjar2E2xBh2NpMcqzRfsz09LrvLMV0ZFokWT2z9ZXLB7jQ
-	 ZU5lKgxlJ1NnA==
-Message-ID: <sashiko-outbox-178914@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] hwmon: (pmbus/ltc2978) Add support for LT7175 and
- LT7176P
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christopher de Guzman" <christopher.deguzman@analog.com>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261020-upstream-lt7175-lt7176p-v1-2-86b9b728b95d@analog.com>
-References: <20261020-upstream-lt7175-lt7176p-v1-0-86b9b728b95d@analog.com>
- <20261020-upstream-lt7175-lt7176p-v1-2-86b9b728b95d@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 20 Oct 2026 12:01:01 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dKxBXOIN;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=j9xhNuMh
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KBWWb31571795
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 12:01:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	21bLR2JmXTDddOKLW1hcjZrQEwDB8KnFMAgwcI186gA=; b=dKxBXOIN03woNdVS
+	thwtuYdNCsc4hn3wnVlabqxaHdpgaqK7nE08iVjEja9F7EEAuMrEMiKLOzAo6G9u
+	XSi8pdplwkzQQH9nTvfuSPpmdxJTGVX5Lwm6t0rs9hOGaP8eTExB0XFDrbjREgqU
+	9D+pBdA/bw6Urk4adotjR78tUp0jbKuGlKxcbg4aNu9UxeH3q0kjhj6UUuB9mjlt
+	DMyvtYDKd1EbIBhYr4cdzuvubU9Xb2dMf7/+PLjFMn//VX31oh0ecTLs5uZQSStx
+	Y5cVU1VXznvA55Pmesj2GDI0X4HQzNlB9ORilDFEJrXP5RUPPh6vS+9x7566/KfV
+	c01KyA==
+Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4he7h2830c-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 12:01:46 +0000 (GMT)
+Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-5eacd73e83bso71299e0c.3
+        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 05:01:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792497706; x=1793102506; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=21bLR2JmXTDddOKLW1hcjZrQEwDB8KnFMAgwcI186gA=;
+        b=j9xhNuMh6BIXbgfAF5DCDA+DrgFTexEkXKhGqS8/HpCZQC3Ie2nLHgfAFuzHKSUV8n
+         ZbKRWNsF/Fu0Wwy1gkJ7Syhh1bLhxhIpfHYOiIKH0cfhNviIUKuvQGHC9clxn4Ih5Efq
+         WmvC035GaEccgYxIu30kHLn36FDjAkjeV4FTLg59vBKWcMV4CC5tu6gfnpft27wn+q+q
+         VqlJ0hmU+kcq4i0VhfEGG/ghUYZQM6iPXPjEd/f7iu+y5t4BDhC9qPfPrCGlN06M8dSH
+         tAn/w1LDvj1CCK4g2i7L+jshnCjqkWR7rCNj0rF+GRbGtMvE67EQZYAUPLFSrrjZIRZj
+         1tmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792497706; x=1793102506;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=21bLR2JmXTDddOKLW1hcjZrQEwDB8KnFMAgwcI186gA=;
+        b=0fUv9VvG8vVBOAcKTQ5Bih04KrxbMMGG7yBKaY/r0wJcRlYjx17y/nTDEg2ZIJClKC
+         k9kuz6pW3CZ4ozY2B1PIPlM1GZKAItmSE7Io6rOvf9UIeeYcGGcWeKo6jZuRI78vNPcz
+         Nyj26RnL81Xcv/5E79NFIXiSRRD6Q4H0G3OMbg9YzJDmQCmQj1ty3qPt10xB2E+uuGcN
+         gbZN9XNiRjyP61je6VSMgjKwTdkVgRESJlaW/uUaS3PAMjuNK/97XtEcxw5VC/tOctvs
+         fugh7X1ubnO/ENDGCXxmEeMxbfcY+LFryxjopCjvxtUBRZmXx1M/3bhdw1MvuN16Almz
+         R5Tg==
+X-Forwarded-Encrypted: i=1; AKwUvBybAqO7AmjI6NWrpviHkYx9BIUIm5FnJL0kbh4T4UKIFapERpUEc2nar3FRiNVDQae7KNDYdykbxkC8@vger.kernel.org
+X-Gm-Message-State: AFq9FYLa/S0nm6MztnAAUE2j9tMh1Xa3+n0YworQ7V86v4kOE/WVhdBh
+	L7Mrx+wvbq5pDgNOVxj11O8w3QIOm4mhrp1oVRd/QlKth9SLWnNFAAk3AK+NRETzFgtsK4wufGl
+	1o7qzC+BENdRqbUjiu2BWaHw/lviAYe2wvW//NO2uYlkz8EDGh4hc5XWjpmQYZjjr
+X-Gm-Gg: AYBFou38yZhpgiz5iV/jc1UmTGxXnF1pOvy6ZRAMW4YJuEoiO2SCuPB7C5iMPuCTtM8
+	cz4YzkUrOwrNJSqmrGrjyLM4gyZmoV4nmZlU0zUOJPT68sPXJD+Rdm7k2pzOeruFvR3f51+LUXR
+	qxxM8w2fj+N21kpnWRcGnVVWvd65vxNUPN7QNZ/CivfohwZk/iYHzLxT+pEJq9hM4b4jife5JZB
+	Yr1C9Dt29Qxu8Flfq8eT1m6GkU+MMCSwjHVlokvJGS5IMKrgP25V8+s41rgxUpOvp36IPg4nf1K
+	zTnwQY46hDvapeV1hVmAmTc3k0FVLkwL/Gmtv3+GbyerhWd7b3ZBYPKGJyzEs9iTPMO7XUnLcvM
+	m7wYxPd4DKMiTfJDwLnhyCA==
+X-Received: by 2002:a05:6122:4989:b0:5e9:2e3c:2f5 with SMTP id 71dfb90a1353d-5eaaa107d54mr1758165e0c.2.1792497705843;
+        Tue, 20 Oct 2026 05:01:45 -0700 (PDT)
+X-Received: by 2002:a05:6122:4989:b0:5e9:2e3c:2f5 with SMTP id 71dfb90a1353d-5eaaa107d54mr1758133e0c.2.1792497705320;
+        Tue, 20 Oct 2026 05:01:45 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c408e32876asm481579566b.10.2026.10.20.05.01.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 05:01:44 -0700 (PDT)
+Message-ID: <268aff60-c78f-4804-8125-c8a6aa10ed6f@oss.qualcomm.com>
+Date: Tue, 20 Oct 2026 14:01:42 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,128 +114,66 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/7] arm64: dts: qcom: Introduce lemans-embedded.dtsi
+ as a placeholder
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261015023711.721837-1-shengchao.guo@oss.qualcomm.com>
+ <20261015023711.721837-2-shengchao.guo@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261015023711.721837-2-shengchao.guo@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: BPd9A_2J81BGWbEk_KtYxcSzcGa2EQ2B
+X-Proofpoint-ORIG-GUID: BPd9A_2J81BGWbEk_KtYxcSzcGa2EQ2B
+X-Authority-Analysis: v=2.4 cv=EuJHPicA c=1 sm=1 tr=0 ts=6ad7582a cx=c_pps
+ a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=uVEy52KOV2DfC4Ai_b8A:9 a=QEXdDO2ut3YA:10
+ a=tNoRWFLymzeba-QzToBc:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA0NyBTYWx0ZWRfXy/bwOLZgA/Vv
+ 1qg+raLLNV7RQyeHsKbKhpHW8br1LRXpOSkeMYPn15onCOdu0rG/uDa1dBiq+zuhvpd3E/RB3ZD
+ 0raHg8qvxe00eobZbK4kph2t8wte/rA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA0NyBTYWx0ZWRfXzt1VDaPMaJ2F
+ UwMI5wam2bv227vn3qNyj5+pCdPr+fWD0NnVOIrUV873cDEVLuG3WicbbXBViXBHHQXLYLfCmLM
+ spJ1rcMzEmn4CAAyuD7n2Td1rN9tny6un0Fe1vWGxe9srgzftcz8jeKlROKvWadRgyUtgOQmnNj
+ IAN1/31ksQUae11v6HZq7+PXK1mXzVOWcHSzp3bidr9qmqrHfVBcqkj1ckr4uIJ9ycG74lq+W+o
+ xn2bunVrA+LYK9dyAyAtuCCNukceJyvEejLt+bvrBcUnu2Hs8SfTtxc0FTZRaHgOofrI/0f97dy
+ IUitShm9Y5BVEMMPSZ/nu3iF1ooUPu24ZF7QRAWcmRL2O+EzYtEFSYxRe6Lbf28ml4TLGjm7uhm
+ kwVGzP7BY4GzwzNDonS/uBIeQWLR/cfZNiMXbRWwyJroa2DCLpYZDorcPk+BJ/+UkTcdDcxc63A
+ +hW7mugboYprY7x+sPw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 clxscore=1015 spamscore=0 adultscore=0
+ priorityscore=1501 lowpriorityscore=0 suspectscore=0 phishscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200047
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] hwmon: (ltc2978) uninitialized stack read in ltc2978_get_id() fo=
-r LT7176P
-- [Medium] hwmon: (pmbus/ltc2978) IEEE754 peak values compared as LINEAR11 =
-in ltc_get_max()
---
+On 10/15/26 4:37 AM, Shawn Guo wrote:
+> Lemans is a Qualcomm SoC family that includes not only the Embedded
+> variant (IQ9/SA8775P) where platform resources are managed by HLOS, but
+> also the GearVM variant (SA8255P) where resources are managed by a VM
+> as SCMI server. The current lemans.dtsi covers the former variant only.
+> Introduce lemans-embedded.dtsi as a placeholder for now, while later
+> changes will move Embedded variant settings in there and introduce
+> GearVM variant support.
+> 
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
 
-commit 51707b0225138ad0d3a2b0dd58f194120d060f5a
-Author: Christopher de Guzman <christopher.deguzman@analog.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-hwmon: (pmbus/ltc2978) Add support for LT7175 and LT7176P
-
-This commit adds support for the LT7175/LT7175-1 and LT7176P/LT7176P-1 PMBus
-buck regulators to the ltc2978 driver, distinguishing them via the
-PMBUS_IC_DEVICE_ID string and configuring them with IEEE754 telemetry forma=
-t.
-
-> diff --git a/drivers/hwmon/pmbus/ltc2978.c b/drivers/hwmon/pmbus/ltc2978.c
-> index aea7b6c93e74b..a42cdc1fe1246 100644
-> --- a/drivers/hwmon/pmbus/ltc2978.c
-> +++ b/drivers/hwmon/pmbus/ltc2978.c
-
-[ ... ]
-
-> @@ -645,6 +649,10 @@ static int ltc2978_get_id(struct i2c_client *client)
->  			return lt7170;
->  		if (!strncmp(buf, "LT7171", 6))
->  			return lt7171;
-> +		if (!strncmp(buf, "LT7175", 6))
-> +			return lt7175;
-> +		if (!strncmp(buf, "LT7176P", 7))
-> +			return lt7176p;
-
-[Severity: Medium]
-Can strncmp() read uninitialized stack memory in buf[6] here?
-
-In drivers/hwmon/pmbus/ltc2978.c, ltc2978_get_id() reads PMBUS_IC_DEVICE_ID
-into an uninitialized stack buffer via pmbus_read_smbus_i2c_block_data(),
-which copies ret bytes without NUL-terminating buf, and then checks only
-for ret < 6:
-
-	if (chip_id =3D=3D LT7170_ID) {
-		u8 buf[I2C_SMBUS_BLOCK_MAX];
-		int ret;
-
-		ret =3D pmbus_read_smbus_i2c_block_data(client, PMBUS_IC_DEVICE_ID,
-						      buf);
-		if (ret < 0)
-			return ret;
-
-		if (ret < 6)
-			return -ENODEV;
-
-If a device returns a 6-byte PMBUS_IC_DEVICE_ID starting with "LT7176"
-(where ret =3D=3D 6), calling strncmp(buf, "LT7176P", 7) without checking
-ret >=3D 7 will read buf[6] from the uninitialized stack buffer and falsely
-match lt7176p if that byte happens to be 'P'.
-
-> =20
->  		return -ENODEV;
->  	}
-> @@ -774,6 +782,20 @@ static int ltc2978_probe(struct i2c_client *client)
->  		  | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT
->  		  | PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP;
->  		break;
-> +	case lt7175:
-> +	case lt7176p:
-> +		data->features |=3D FEAT_CLEAR_PEAKS | FEAT_NEEDS_POLLING;
-> +		info->read_word_data =3D ltc3883_read_word_data;
-> +		info->pages =3D LTC3883_NUM_PAGES;
-> +		info->format[PSC_VOLTAGE_IN] =3D ieee754;
-> +		info->format[PSC_VOLTAGE_OUT] =3D ieee754;
-> +		info->format[PSC_CURRENT_OUT] =3D ieee754;
-> +		info->format[PSC_TEMPERATURE] =3D ieee754;
-> +		info->func[0] =3D PMBUS_HAVE_VIN | PMBUS_HAVE_STATUS_INPUT
-> +		  | PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT
-> +		  | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT
-> +		  | PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP;
-> +		break;
-
-[Severity: Medium]
-Will wiring info->read_word_data to ltc3883_read_word_data cause corrupted
-peak readings when the sensor formats are set to ieee754?
-
-For lt7175 and lt7176p, virtual peak reads for PMBUS_VIRT_READ_VIN_MAX,
-PMBUS_VIRT_READ_IOUT_MAX, and PMBUS_VIRT_READ_TEMP_MAX go through
-ltc3883_read_word_data() -> ltc3880_read_word_data() ->
-ltc2978_read_word_data_common() -> ltc_get_max():
-
-static int ltc_get_max(struct ltc2978_data *data, struct i2c_client *client,
-		       int page, int reg, u16 *pmax)
-{
-	int ret;
-
-	ret =3D ltc_read_word_data(client, page, 0xff, reg);
-	if (ret >=3D 0) {
-		if (lin11_to_val(ret) > lin11_to_val(*pmax))
-			*pmax =3D ret;
-		ret =3D *pmax;
-	}
-	return ret;
-}
-
-Because lin11_to_val() treats bit 10 as the sign bit of an 11-bit two's
-complement mantissa, whereas in IEEE754 binary16 bit 10 is the least
-significant bit of the 5-bit biased exponent, any positive IEEE754 value wi=
-th
-an odd biased exponent (e.g. [1, 2), [4, 8), [16, 32), [64, 128)) has bit 10
-set and is decoded by lin11_to_val() as negative.
-
-As a result, when a peak reading increases from an even biased exponent into
-an odd biased exponent (such as temperature rising from 40 C to 75 C, or IO=
-UT
-rising from 2.5 A to 6.0 A), ltc_get_max() will treat the new higher reading
-as negative and fail to update *pmax, or overwrite a higher odd-exponent pe=
-ak
-with a lower even-exponent reading.
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261020-upstream-l=
-t7175-lt7176p-v1-0-86b9b728b95d@analog.com?part=3D2
+Konrad
