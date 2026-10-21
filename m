@@ -1,111 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792572855;
-	b=meNdLEY0FpHM8b6Lc2uRBXaLp4+cbxc2lbGjPMDU+LUMNWsKcYRnIV+WnFt/cVCaYrdH
-	 bZ5Po8437Xk7e7CveNLtZMUM/438BI19DlLLl3aaFFMQkYLl7+4nF8FBsHJB7xxIRtJic
-	 2zVIFTbsJUDVaDySBXRwLpi55Zb6N3YzygBeW4/riQ5i5f3xhatZK3wF+2sfx01RY/Cdh
-	 mWgVnaBllXuqdrE4e244n2tF7Qo1GhI3Pb7ROeSprkwJflIRyEKFXzjXMzajOZ7s7iNLp
-	 dn4OWT3uLws1qs7bmtEPunf3C/M5RkjJpPmmv9W9NpN6Fl31l7L+Bc8BvBaX1y/VdPA==
+	t=1792573026;
+	b=fEUi4tqpZG6O/VbPuz0zxvaoSu3z+HN2JQWG3Sz7w6u6D669TkjOOp/RkWIGl628PEyy
+	 kuIM6mAtd+AKpne67nOyJKOC51ALtOWXPArdwe1uWaKbCwgbBhdpbi63lHzULrTaGdZWy
+	 wzeTJzDP0BsIagEhvE4lWkB+3MLX3LX83xAHyHNOag6RdnP1dcYZe+9kK5gZ34JpNaPUL
+	 3vO0HBlE7slJ6MA6bhVsKQUIebddvEyJm4rwGfH4Z/Ls93oPpWpHGFaABK64jBQ1aief1
+	 nljmMtttv60A4fIggVMSdsSy4vmX9pHRlGX0btTjXQfCFnb4T1BQjniHGr49KARDmwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792572855;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=0r+7BMhF2phGSMt7OfziLY4BKvxh2W77vTTsK7xMOJo=;
-	b=twA/CqhEVQB9JWidqCDa/hTMw+V7kK/MdWu90mIMEHiJXJ498w63sEw5BA8VQIm7qnL8
-	 nXcShcdoYtmsuKwHzD1ilOsYlNJ/yzhWr6uHMog2e6rPXIThJ+L+T4yameVuea868MDeu
-	 j1oLsgo04i8ajYjs79IqAUgNj91CQI0kHkqhlJFt23ajdTCVa1MOKaV32O1GCQ+V8Texx
-	 yPOwdzYJ0B9IRSByxiuhFA2ygvDWQrP2nRJxzxhLlR6DENxAraECg9bSjx6kaufv1Ybdb
-	 v2j5o2NQNhKtmfkKod346ZIAhXbgNE9CP5epi44S157wgRU3DW7IJS5NxQ9PnWt7nyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792573026;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=JGIdOGckPHfzPo8zvqeRVofg7IdnaeDcECYqZI6o4t8=;
+	b=hAiQQssO2c59qqb3rkje8xIpi0L4i/WlS13JmbePE9G92Y/3ESg12/B9WaAepJIGMpov
+	 HMCnzTBpynhID+vYpfAOyOFLvxUxiKsHJ8z7UWTvK+h3/6E2ldIMm+r/2CqB0o+9tFEOV
+	 BUByGjhRJWmyGcnmU2xyvEPFMl5E+n+eC0hQaZ0nspaBSnha1HdUv2T2PcW3ex2XmGwDG
+	 Gw7REEly5Nfuf4RLlZviKPI/SLqtMWnh9L15trYjfhKeyx7+IQM/OGHP2Iq+Ce9cDtfKq
+	 MOddofIEvo1kpkKf5eV98NOOIMKi0+npRRyWPr/26y5vXPQbplh/er50uVemq89roXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UuXTUMT9;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JdS8auAn;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="COv/iAac";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEA07606A31A
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 08:54:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEA07606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84072606A319
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 08:57:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UuXTUMT9;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JdS8auAn
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69L5jI1w2848156
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 08:54:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	0r+7BMhF2phGSMt7OfziLY4BKvxh2W77vTTsK7xMOJo=; b=UuXTUMT9sHPc0oaJ
-	oGz/YooBQ4zlHr80gMeUyAfk0CopnKjtkEuGLk9FEJw4eT4K5MpGd9pgyKk1R4b2
-	Xcrj9E2GUNBVBCTIp13UVioEtK1m7vK2F2T6GgXSq8nhCkLk7MW8G6hRa/4C10GE
-	Q7CNPWnY1RFgj2hVwZ9IqBNnEWI1r0AMvNE65qGB08XNIfuYIsEaLPAmHHRoo6Pj
-	h33l9GTZuokOxj28o7OEKqjx2nTkl0Qh8dUK/qb77C6YX1P1S+TE3eM3Fm0KcMbq
-	eWwtfu4LnUHoJDy8NZN5vmPOE4v/HKcZG2Sqm+ddMZHDRgnOlDT5r2BHfrqufpOH
-	/h9qyg==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heeb9avu1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 08:54:13 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93ea8a9cfe6so14306385a.2
-        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 01:54:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792572853; x=1793177653; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0r+7BMhF2phGSMt7OfziLY4BKvxh2W77vTTsK7xMOJo=;
-        b=JdS8auAnw/hUHbTKueIWNoDhcfjNhZrupqcVGSkas7bRcCdo9KdYcQqJg4Eu7ZRjGl
-         fNTe+lC8nKULV31Vu3sYoyUCadvG4YmXo/6O/jQ/B+DEN2qexJIKeZ9GK7BqIN9TtCwG
-         Ke1Epb4GrcYL7tVyaXzMMPUOUVIt7IbBTM2vIAvuaHAy92U7No4LKtF2mR0Ojm974Lt7
-         t8aBi/1g4yjFEe1rlCarlNwKaRlOCDZpJzlEwyxbbp7qBWpfNHd+4ketP4a7AnYams6/
-         /4ETcnD+3+/w55IfxVfEWKAfdnfwezwZ7ExcEETq7OvucC3vnsT1nC0COrsFL/qoBdi3
-         M1UA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792572853; x=1793177653;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0r+7BMhF2phGSMt7OfziLY4BKvxh2W77vTTsK7xMOJo=;
-        b=SZa0HIuzKT3bPymGIiexdLrmHjmfWvzxikySg2Ajkq//ZdZ/nfnu3z/bGI73WevU84
-         6g9suLVegbIy026e3oZ1Y1FF9vDmbG2eXLqEivQ+L7QwFlTxq071ssgwztacb8tjLZ7Z
-         tgoztY0MbLSzDbnZ69o+kYAj00cEMrWjoraJ+s3gDxKK+yeaUWq4xYLL+FHWxGFY+jzS
-         VuyyOmJFG2S5Qe3L0/zfQlgEv5tz8zA9S3GjgiN8BIq13cQYzJsyiiNNewW4Npkx0Uoh
-         Rcc4XZs/5yLzyJsX/vnvNbrWZXvWS9GsYWGmWSkrJdDzE0HTZisCsLYpUzkxmkPv375r
-         7APA==
-X-Forwarded-Encrypted: i=1; AKwUvBypXoGHA9eig5oSZ4o7CVJxF424zyx+MdJquPAyFtxLWVKldMmyNXf5TzwyG9fXvbQ7UHb7jXU6mvA1@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ8zT9pNqQyFKNBCENBhSPMxJ5hEcD5G5kBtl/FJds911BlMkKI
-	BekE1oAU3aqovbBjo8g04niSiIFa35SnlYktGkfVUmfstBZqGG+87/wEIQG70nYe7+rmh+CsZjX
-	ccgkfubEZmYRfzAec/26NghR2o5aZNTx0t1uyKMAAS/7svuHNtWBa18mmuewrZM7F
-X-Gm-Gg: AYBFou1hNuLVSSfmTzx6iT/KsCcS0kdjEiLICefLgf4tOPvpLHEGCzOxT+XbA4taFtk
-	KsBwSZ5K0Gkxg3pAWa2vqu1+gf8on8mt5KPcolpSDC5qbVuzjf4m5Q+ARyh5owuR2ir9/b5/SUi
-	u5qyLUlSF0gaBYSgrsYpmWa3sTcxmghWeCMFUpJIUbyS+uf8TWFA7TBKoUznpC9m5MSl91DAcq/
-	aJRzXfrOVnCVnn1QypqGqfhpgoSOXu1lZjbUPhTd1JfqhfTFQrWLG0fY4IXAyqSIg+zwVqyoM/8
-	8YbB35/xboCa5TOkGzj9n9KgdmYZ9YrZKmgktQDvcvcvU7x9b6LwK1e6EnWOBu8ChI1kM9PoaZM
-	oPUvRl9OkhVoCdt8hjwqPig==
-X-Received: by 2002:a05:620a:4589:b0:93e:508b:7800 with SMTP id af79cd13be357-93f57d7628emr374396185a.0.1792572852963;
-        Wed, 21 Oct 2026 01:54:12 -0700 (PDT)
-X-Received: by 2002:a05:620a:4589:b0:93e:508b:7800 with SMTP id af79cd13be357-93f57d7628emr374394785a.0.1792572852579;
-        Wed, 21 Oct 2026 01:54:12 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4030dafe2sm610154a12.12.2026.10.21.01.54.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 21 Oct 2026 01:54:11 -0700 (PDT)
-Message-ID: <b5734dac-1285-452b-8107-9164e6a3e5fa@oss.qualcomm.com>
-Date: Wed, 21 Oct 2026 10:54:09 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=COv/iAac
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFA591F000C9;
+	Wed, 21 Oct 2026 08:57:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792573026;
+	bh=JGIdOGckPHfzPo8zvqeRVofg7IdnaeDcECYqZI6o4t8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=COv/iAacEZ4+Wpf255JattJm9vSVj9S/Dr11Z1ngYZTe5uf2Yy/OiP95y7kCgnnhK
+	 yn3GjJ7XWVPcAbb2DGFoeIw9zHnFlwoXBpMEoEP9hyryDaWKGZK0FsgoJbRm6C4Gay
+	 1bPsrSteOsXadqBi2ai3ZweFYYdHEyErH1QB9gOi4o3u+/3kwM64ZDK2HMUOIDEXD9
+	 IGtcwA/zdGvYhWZitC29n2ollEIBxQWoPdegSHK+hicqFs4WPzbVzaRmW5v5ByADbw
+	 jGZoV3rcIunVJ6rHLAF/LXzhtmISgb7Y17d7YQCNaSOGgi/xGNlj4ErY0efVG/iouJ
+	 ep8kzdFG2sxLw==
+Message-ID: <sashiko-outbox-179994@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 2/2] hwrng: starfive: rework clk/reset teardown order
+ for JHB100
+Reply-To: sashiko-reviews@lists.linux.dev
+To: lianfeng.ouyang <lianfeng.ouyang@starfivetech.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261021083712.3032-3-lianfeng.ouyang@starfivetech.com>
+References: <20261021083712.3032-1-lianfeng.ouyang@starfivetech.com>
+ <20261021083712.3032-3-lianfeng.ouyang@starfivetech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 21 Oct 2026 08:57:05 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,65 +60,258 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/6] arm64: dts: qcom: glymur: Add CAMSS and CSIPHY
- nodes for Glymur
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Suresh Vankadara <svankada@qti.qualcomm.com>,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20261015-glymur_camss_dts-v2-0-e7b1f403146f@oss.qualcomm.com>
- <20261015-glymur_camss_dts-v2-1-e7b1f403146f@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261015-glymur_camss_dts-v2-1-e7b1f403146f@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAzNSBTYWx0ZWRfX5KXT/GTpqgZG
- aGI+O6aWXqd/7YpmTRGiJPzxzzFDtI5nwgnOdj0LR3WyIPEuKOlbQMEliOLhy0HHEu4q4fDD57+
- eBe55Dq/AFk6nyposuSe4e1xTOZpblw=
-X-Proofpoint-GUID: W6BypANi5qff--vAgiM2D7LRZpN5-zS5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAzNSBTYWx0ZWRfX6ylNVh7RFnRE
- nnWPgO9R41c8l+fzC3x/30pgAA8jH7BDLmkkS1Hdo2s5d4c+UXIE7Asc+1QSMuSiCbPufXiIJ/S
- o2bX8rsF9pzLVGuBHvhffzvMC6A3/TtuAJbPrB1LZBuoQyThNabwFroeaeCUNYK7hDkdfhLX1sU
- UHN4xpFj7wsVgtlCnKUvUxXGjWwwlZNqYAZwYqUZyuezLfcsFeSlP5Ym/gRscTK+ZRzCAArT/1B
- sQ/kiLV4gkqUO9LYTrN1YyqQAgYHSUX9U6KNBlbhZq6hWjPZJAH5dSfD/fD7JlP+Fb/6454FD29
- p4nYj6oVw1eKv7BdZcaqpQ8CI5WRPcLQmrnZ+Y2xloy68H969NCn+yHSgweGpQIn1nSm7q7y0wD
- 0HJ15vN5bdonq3ahpXpuNrsBwfEek8Y0j7qPgnNDFqxjYIUFodrsFW8e3s9ZSYa6oEWz4CaGdzX
- +W9Je9WjZNYCSsGxvBg==
-X-Authority-Analysis: v=2.4 cv=R42WitRX c=1 sm=1 tr=0 ts=6ad87db5 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=Yiy9HrlOpii1y77HuFoA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-ORIG-GUID: W6BypANi5qff--vAgiM2D7LRZpN5-zS5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-21_02,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 lowpriorityscore=0 priorityscore=1501 suspectscore=0 spamscore=0
- malwarescore=0 adultscore=0 clxscore=1015 impostorscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210035
 
-On 10/15/26 12:52 PM, Nihal Kumar Gupta wrote:
-> Glymur shares the same IP as X1E80100, with three CSIPHYs that use
-> the new standalone PHY API. Compared to X1E80100, csiphy2 is absent
-> on Glymur.
-> 
-> Tested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com> # Zenbook A16
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> ---
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] hwrng: starfive: unqueued need_reseed stalls non-blocking starfi=
+ve_trng_read()
+- [Medium] hwrng: starfive: unbalanced enable_irq() in starfive_trng_init()
+--
 
-Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+commit a998deb7a1356bd18fe1c15b59933eacef0ded76
+Author: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
 
-Konrad
+hwrng: starfive: rework clk/reset teardown order for JHB100
+
+This commit reworks clock and reset power-down ordering in the StarFive TRNG
+driver to support the JHB100 SoC alongside JH7110. It also updates runtime =
+PM
+handling, moves SEU-triggered reseeding to a workqueue, and serializes
+command execution with a mutex.
+
+> diff --git a/drivers/char/hw_random/jh7110-trng.c b/drivers/char/hw_rando=
+m/jh7110-trng.c
+> index aee12caab5780..8678b35ecd4a5 100644
+> --- a/drivers/char/hw_random/jh7110-trng.c
+> +++ b/drivers/char/hw_random/jh7110-trng.c
+
+[ ... ]
+
+> @@ -120,276 +157,496 @@ MODULE_PARM_DESC(autoage, "Auto-reseeding after s=
+pecified timer countdowns to 0:
+>  				" 0 - disable timer\n"
+>  				" other - reload value for internal timer");
+> =20
+> -static inline int starfive_trng_wait_idle(struct starfive_trng *trng)
+> +static bool starfive_trng_idle(struct starfive_trng *trng, bool wait)
+>  {
+> -	u32 stat;
+> +	u32 stat, busy =3D STARFIVE_STAT_RAND_GENERATING | STARFIVE_STAT_RAND_S=
+EEDING;
+> =20
+> -	return readl_relaxed_poll_timeout(trng->base + STARFIVE_STAT, stat,
+> -					  !(stat & (STARFIVE_STAT_RAND_GENERATING |
+> -						    STARFIVE_STAT_RAND_SEEDING)),
+> -					  10, 100000);
+> +	if (!wait)
+> +		return !(readl_relaxed(trng->base + STARFIVE_STAT) & busy);
+> +
+> +	return !readl_relaxed_poll_timeout(trng->base + STARFIVE_STAT, stat,
+> +					   !(stat & busy),
+> +					   10, 100000);
+>  }
+> =20
+> -static inline void starfive_trng_irq_mask_clear(struct starfive_trng *tr=
+ng)
+> +static void starfive_trng_irq_clear(struct starfive_trng *trng)
+>  {
+> -	/* clear register: ISTAT */
+> -	u32 data =3D readl(trng->base + STARFIVE_ISTAT);
+> +	u32 istat =3D readl(trng->base + STARFIVE_ISTAT);
+> +
+> +	/* Do not lose an LFSR lockup that has not been serviced yet. */
+> +	if (istat & STARFIVE_ISTAT_LFSR_LOCKUP)
+> +		WRITE_ONCE(trng->need_reseed, true);
+> =20
+> -	writel(data, trng->base + STARFIVE_ISTAT);
+> +	writel(istat, trng->base + STARFIVE_ISTAT);
+>  }
+
+[ ... ]
+
+> +static int starfive_trng_init(struct hwrng *rng)
+> +{
+> +	struct starfive_trng *trng =3D to_trng(rng);
+> +	int ret;
+> +
+> +	ret =3D pm_runtime_resume_and_get(trng->dev);
+> +	if (ret < 0) {
+> +		dev_err(trng->dev, "Failed to wake device for init: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	mutex_lock(&trng->lock);
+> +
+> +	starfive_trng_irq_clear(trng);
+> +	starfive_trng_hw_setup(trng);
+> +
+> +	enable_irq(trng->irq);
+> +	writel(STARFIVE_IE_ALL, trng->base + STARFIVE_IE);
+> +
+> +	ret =3D starfive_trng_reseed(trng);
+> +	if (ret) {
+> +		writel(0, trng->base + STARFIVE_IE);
+> +		disable_irq(trng->irq);
+> +		starfive_trng_irq_clear(trng);
+> +	} else {
+> +		trng->initialized =3D true;
+> +	}
+
+[Severity: Medium]
+Can starfive_trng_init() in drivers/char/hw_random/jh7110-trng.c cause an
+unbalanced enable_irq(trng->irq) call when the RNG is deselected and quickly
+reselected via /sys/class/misc/hw_random/rng_current?
+
+In drivers/char/hw_random/core.c, deselecting the current RNG in
+drop_current_rng() drops rng->ref to 0 and schedules rng->cleanup_work
+asynchronously via cleanup_rng() -> schedule_work(&rng->cleanup_work).
+
+If the RNG is selected again via rng_current_store() -> set_current_rng() ->
+hwrng_init() before cleanup_rng_work() acquires rng_mutex, hwrng_init() sees
+rng->ref =3D=3D 0, invokes starfive_trng_init(), and sets rng->ref back to =
+1.
+When cleanup_rng_work() subsequently runs, it skips starfive_trng_cleanup():
+
+drivers/char/hw_random/core.c:cleanup_rng_work() {
+	...
+	/* Skip if rng has been reinitialized. */
+	if (kref_read(&rng->ref)) {
+		mutex_unlock(&rng_mutex);
+		return;
+	}
+
+	if (rng->cleanup)
+		rng->cleanup(rng);
+	...
+}
+
+In that case, starfive_trng_init() runs while trng->initialized is still tr=
+ue
+and trng->irq is already enabled, so calling enable_irq(trng->irq)
+unconditionally triggers an unbalanced IRQ enable warning in __enable_irq().
+
+Furthermore, if starfive_trng_reseed() fails during that re-initialization,
+the error path disables trng->irq without clearing trng->initialized, and
+when cleanup_rng_work() later runs for the failed init,
+starfive_trng_cleanup() will call disable_irq(trng->irq) a second time and
+leave TRNG interrupts permanently disabled.
+
+Should starfive_trng_init() check trng->initialized before enabling trng->i=
+rq
+(and clear trng->initialized on the error path)?
+
+[ ... ]
+
+>  static int starfive_trng_read(struct hwrng *rng, void *buf, size_t max, =
+bool wait)
+>  {
+>  	struct starfive_trng *trng =3D to_trng(rng);
+> -	int ret;
+> -
+> -	pm_runtime_get_sync(trng->dev);
+> +	unsigned long timeout;
+> +	int ret, retry =3D 1;
+> =20
+> -	if (trng->mode =3D=3D PRNG_256BIT)
+> -		max =3D min_t(size_t, max, (STARFIVE_RAND_LEN * 8));
+> -	else
+> -		max =3D min_t(size_t, max, (STARFIVE_RAND_LEN * 4));
+> +	ret =3D pm_runtime_resume_and_get(trng->dev);
+> +	if (ret < 0) {
+> +		dev_warn_ratelimited(trng->dev, "Failed to wake device for read: %d\n"=
+, ret);
+> +		return ret;
+> +	}
+> =20
+>  	if (wait) {
+> -		ret =3D starfive_trng_wait_idle(trng);
+> -		if (ret) {
+> -			ret =3D -ETIMEDOUT;
+> +		mutex_lock(&trng->lock);
+> +		timeout =3D msecs_to_jiffies(STARFIVE_RANDGEN_TIMEOUT_MS);
+> +	} else {
+> +		/* allow up to 1 jiffy for wait =3D=3D 0 */
+> +		if (!mutex_trylock(&trng->lock)) {
+> +			ret =3D 0;
+>  			goto out_put;
+>  		}
+> +		timeout =3D STARFIVE_RANDGEN_NOWAIT_TIMEOUT;
+>  	}
+> =20
+> -	ret =3D starfive_trng_cmd(trng, STARFIVE_CTRL_GENE_RANDNUM, wait);
+> -	if (ret)
+> -		goto out_put;
+> +	for (;;) {
+> +		/*
+> +		 * A pending LFSR lockup taints the next sample. Blocking
+> +		 * callers reseed here; non-blocking callers return no data,
+> +		 * the reseed work is already queued.
+> +		 */
+> +		if (READ_ONCE(trng->need_reseed)) {
+> +			if (!wait) {
+> +				ret =3D 0;
+> +				goto out_unlock;
+> +			}
+> +			ret =3D starfive_trng_reseed(trng);
+> +			if (ret)
+> +				goto out_unlock;
+> +		}
+
+[Severity: Medium]
+Could non-blocking calls to starfive_trng_read() (wait =3D=3D false) in
+drivers/char/hw_random/jh7110-trng.c stall indefinitely if trng->need_reseed
+is set without trng->work being queued?
+
+In starfive_trng_irq_clear(), if STARFIVE_ISTAT_LFSR_LOCKUP is set in
+STARFIVE_ISTAT, trng->need_reseed is set to true and the hardware interrupt
+status bit is cleared without queuing trng->work:
+
+drivers/char/hw_random/jh7110-trng.c:starfive_trng_irq_clear() {
+	u32 istat =3D readl(trng->base + STARFIVE_ISTAT);
+
+	/* Do not lose an LFSR lockup that has not been serviced yet. */
+	if (istat & STARFIVE_ISTAT_LFSR_LOCKUP)
+		WRITE_ONCE(trng->need_reseed, true);
+
+	writel(istat, trng->base + STARFIVE_ISTAT);
+}
+
+During runtime suspend and resume, starfive_trng_suspend() masks STARFIVE_IE
+before calling starfive_trng_irq_clear(), and starfive_trng_resume() calls
+starfive_trng_irq_clear() before re-enabling STARFIVE_IE_ALL:
+
+drivers/char/hw_random/jh7110-trng.c:starfive_trng_suspend() {
+	...
+	writel(0, trng->base + STARFIVE_IE);
+	starfive_trng_irq_clear(trng);
+	...
+}
+
+drivers/char/hw_random/jh7110-trng.c:starfive_trng_resume() {
+	...
+	if (trng->initialized) {
+		starfive_trng_irq_clear(trng);
+		writel(STARFIVE_IE_ALL, trng->base + STARFIVE_IE);
+	}
+	...
+}
+
+If STARFIVE_ISTAT_LFSR_LOCKUP is observed and cleared in either path,
+starfive_trng_irq() will not fire for that event and trng->work is never
+queued. Similarly, if a previous reseed attempt in starfive_trng_reseed_wor=
+k()
+or starfive_trng_read() failed, trng->need_reseed remains true after
+trng->work is no longer pending.
+
+Because the !wait path in starfive_trng_read() assumes trng->work is already
+queued and returns 0 immediately, wouldn't subsequent non-blocking reads ke=
+ep
+returning 0 until a blocking read occurs? Should the !wait path (or
+starfive_trng_irq_clear() / starfive_trng_resume()) queue trng->work when
+trng->need_reseed is true?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021083712.3032=
+-1-lianfeng.ouyang@starfivetech.com?part=3D2
