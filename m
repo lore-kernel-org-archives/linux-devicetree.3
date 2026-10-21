@@ -1,115 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792580079;
-	b=wngrQ/sVUQbOy2dgwqdctzbcyu363mtGERaj3UtBKL0ikFvihakdg783UW7WIE3U2FSo
-	 6CqIacixcUqMIkt4qT7XAVG30sOPD93wreZJnEEYsmuS4vUyyUM0C2X65luCBFxvfTlpt
-	 ceJRpIVRXr5iaqC5S9R4T8VOe+Gn8V5qJWt0+az5KOMd+wNlsfyUni1e1cQjCJ6OPQxFm
-	 Gf9I8RgTKrB/DM7Y51WFgXwilbCXFw4Nem4f/w3TePmK4+Wp7hnBhFRUh3hx9Zx/WxIBv
-	 XBGB2rddpWhTV9MBfKgDngT06+ueFPXOOFs4Lp39lfMltVKstdzgy59epFfKIBM2d/g==
+	t=1792580220;
+	b=F0/Geaa2ypiaUJH3WS+1ZTl7l+kOoLECAMte4vHdeQZF+LNaBEs7sdscT66+1/FkXAY4
+	 EOBmFQqlNk2vt77qFfJf1l4PdOfV8J90lX9wxgvxkDyjynfdP0EntD/9Eahzk344t/Jew
+	 bb6I9f07VrkB/jdSHonaM/pan3ZS15l6q71TXXXM683gxgVls3/34nYIX33gHPu9lqjO9
+	 9GZ3TQyRIHnUAXOFLg6aomvwU1ouF06BwBMp51B7ZWnJj5TtmKgRyiGHZ81+AZbrMjUKL
+	 NHgog3IXGUOvinqTtZOfrk26FA31zBRhev4XEXc5YMTjl9Mtt/7RVZfM+F6ieCY6eTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792580079;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ocwe/ua5bx6fTunJTjbDvG/Rp4d0BH8Fbx4UwIDjj0c=;
-	b=D3s4D+YBzf66awJWrVAwjnMP3tmOlmF9ygaSv8M1R1ZOtvs7gA1vBiZnK7RLASvXsvgU
-	 uIxYSsTt1xyXtA3g0YxnvefH3Jiv8dkBbtis6AJBON7EZ1qK44Nxp0iCUBJCmarb+chTF
-	 vxcVKoOtT6aDGgYdo40xkjngYi2XQK/Z4Oja5BGwk+aP68eIgyJDcY3I62lvnzITCUZAb
-	 8tb+7J23ojymrzk/XY9T6G6sATOFAUY6xy0KqGJfjVvZie/iaB1wKKFWtFN6CDqnM+/u9
-	 khulA4CfR0qeAA1Hjmohgmkm72kI9jjQVr0z8c9ewjgLLeA5WPACq7J4ue0HCdOTa3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792580220;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=rzk9z3hwjs0+L2ZusjvuQB1QJo7F0GloIXbRSYOb20o=;
+	b=KLTx/WB07GI3K3L4fmaNslOgmnPdOtuIN3/RKy+Z0qmp/+aXWVDrqFHuvFUNmrnuMCqM
+	 jgaA2lxNpKs9Ozco1wi1cVQCkfBqAZx4u94IdkiPa7V2zvKZ8Pu5vchkxABJlAO99yTOU
+	 s6wM4AdzSKVUgGjwetj70zHwLDsuc8B+ZsTcEySXqyMO9eEUJE58/tLme01UM2ZF4zQQk
+	 WtuFYTOk6u15Q4x945CgyW/H6y0FJ4QbKwXuZUdM2quDAWVI6IXF0mbHXAS5venixM5be
+	 m1+Yetl2ONM3fdg4KtWHrnMoIHQ6W3PEzg6wD7g4bs3wOsOJoQ2KKnb+GkKAkbTVtqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gfzKp+Jf;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hHBi59b3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D470D606A31D
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 10:54:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D470D606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADEEC606A323
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 10:56:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gfzKp+Jf
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a1fe9efc0eso5400845e9.2
-        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 03:54:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792580077; x=1793184877; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ocwe/ua5bx6fTunJTjbDvG/Rp4d0BH8Fbx4UwIDjj0c=;
-        b=gfzKp+Jfn9HGkFwZoxtkVcqi981cZV4VqtEWhYSXm2NmynKbW6dKPR3a8/uUURLl3R
-         vI9yz435S7jU4KQiqljr3ZwskHWkkF13uJcpLJVER1WSrG9P8U8ig6w3yDiIuUP+jHfO
-         oL3+ic7Trpf05BRLN4lJ861emswggMn3PXinsni5/T2RGhHmvDCiZSDqkpeNMxYkUQpF
-         NSpIfWQdi5/agxBX9Is4/5s1mwYAvyy0J/t35aETrsEDr1nNpY5USkXyYW+HkqhUyza4
-         GbUtDbYdCuOjga8YW9VFuP+srgb7925VYCsk8F/Zq0N0U06Euk0RMrrLi2slNppjlkDd
-         Duaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792580077; x=1793184877;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ocwe/ua5bx6fTunJTjbDvG/Rp4d0BH8Fbx4UwIDjj0c=;
-        b=YhAcz8eYAJ3plDH+i34NNkTNwKQxPMQVvWVGFNin/siLtY+EH64N7tsKDVEDr8nyd9
-         XNK8AJ+tbavkP0Rrkf/n2Fo8NejUGJ/ccrqiJljHNj95gLIf6bqSca+E6tHw/TIfIWO/
-         SaEQ3nlWuhU7M6M5gQyMkfjkYzbQUkWxbXxDvyX0WL1QE2jyHiEv1AEghF5IB6uqHe86
-         pbXxzblvtLQgXUIcuD93xt9Uodu/GSqEvw3Qq6D5rb65GfewdGxbGa7oxp4IkMXyrauA
-         BOrrSF9/vJXgfxUQUkwaSkDrtyLhLjfCMq69zv/4C6vwvD9mPcQj/PukNuEqAmPAg1Yh
-         TL1A==
-X-Forwarded-Encrypted: i=1; AKwUvBxLuEYB0UCaaHxx2cCgzfaWQ+bAQ5NdN+1UC7Rx4PTG50+DStnJF56uLjaLeoAeRRWm6rdXIA1415Gb@vger.kernel.org
-X-Gm-Message-State: AFq9FYIpaIfDMIt3nHcg9UMbcBUdxJ2UWTS8EwVcz7sFIRqtDu59LYD1
-	lPQlhqaF2JkEZvGBGQ9z1WjphZhmr0faf0yYP5Gwb0xBZ0FaaliWe8KC
-X-Gm-Gg: AYBFou3t6m1czyOzQ69t+wqgiFH5p/cDpSJiA8DLqLeUbs4u/Ag0POvtpJhu9oZbEC4
-	fHfAZ/n6nFESnNd3CIdNVSe5Za3Kdjodu/s2nF771dpASXIC5Gj+tzSzR4f5ZzxXY3B/UqgN/cY
-	GY5KHwdPLq4klSdSNcpn7z8EQR+FlmyrCXl3ZZ8k/I+hKLzbvqUnkcPTyMCC4xWvJzyiA8yJSgq
-	oAa1KBZP+m6cYYNO/lC/oZXAihHd8eidQqjIANFRMZaRUlC9rofJN6iY1uaFn7WD6s5LFijqlRi
-	F0loPIP9O4j/c5U8WxhvRUmqvZf+w+wgIw8/LKE4Q8Vyu6F6ubD5wv4w5x6Wdx3CoWDlVIOr5rL
-	Mm0wLQLdnZwlofqQo6mdUrQ5Hcvi/Vlm/HidEReawzj4R5blaxuNWx9aymnoq6a6eJTCxzAwLT5
-	RjCM2w3Hp9MSLQAczYDhoEAwL+UpRoFYMmRMNz255NwguwUdxgPu8liIxhk5O+B10toDT4ouodm
-	vvKFjobK4ek9Klt/eq2K6Mf60D/DqYvWSeTCiJ6HayM2NxdEy8=
-X-Received: by 2002:a05:600c:3488:b0:4a1:fa33:441a with SMTP id 5b1f17b1804b1-4a1fd8a0560mr37336685e9.2.1792580076920;
-        Wed, 21 Oct 2026 03:54:36 -0700 (PDT)
-Received: from luca-vm.lan ([154.61.61.58])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2d6e2dbsm153388305e9.13.2026.10.21.03.54.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 03:54:36 -0700 (PDT)
-From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-To: linux-mediatek@lists.infradead.org
-Cc: Val Packett <val@packett.cool>,
-	Luca Leonardo Scorcia <l.scorcia@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sen Chu <sen.chu@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Macpaul Lin <macpaul.lin@mediatek.com>,
-	Lee Jones <lee@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Fabien Parent <parent.f@gmail.com>,
-	Akari Tsuyukusa <akkun11.open@gmail.com>,
-	Chen Zhong <chen.zhong@mediatek.com>,
-	linux-input@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	mfd@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-gpio@vger.kernel.org
-Subject: [PATCH v11 9/9] arm64: dts: mediatek: Add MediaTek MT6392 PMIC dtsi
-Date: Wed, 21 Oct 2026 12:47:27 +0200
-Message-ID: <20261021105109.199886-10-l.scorcia@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261021105109.199886-1-l.scorcia@gmail.com>
-References: <20261021105109.199886-1-l.scorcia@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hHBi59b3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 185901F000CE;
+	Wed, 21 Oct 2026 10:56:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792580219;
+	bh=rzk9z3hwjs0+L2ZusjvuQB1QJo7F0GloIXbRSYOb20o=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hHBi59b3g65F5b/NhVOlL0GRuU/aicdciBimqp0Pfz6B/Knk+n7BKWFKQGY1I9DJd
+	 6QZJkxlRFvbCUv5+et7lg7GTOwkXvLYJCXYGkgr2XJWp0nqRW2xf+d9FPq3SvHOId6
+	 R19TInJ1kxN91jAiiZsknH0xhxAAWxz8W9Usy42deJQxmEUuQa9OK5Rj85Je/CMmm4
+	 mNDFXsjf8sdfivdjuB82wPRDjpkDjTrhoPxmop28NYvFLYoYhKfPGKaObz0bWkUwPj
+	 JmVprO/d8Crz0Z290EmuJaITQ+GHGni+78Ky6a2Xgdcb7/nnqcVO+9YwYkGPcBUQ+4
+	 QJB/mlEhqvBVw==
+Message-ID: <sashiko-outbox-180131@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 5/5] regulator: Add TI LM51772 support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Paul Louvel" <paul.louvel@bootlin.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261021-paul-lm51772-v1-5-25f0ffbffa8d@bootlin.com>
+References: <20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com>
+ <20261021-paul-lm51772-v1-5-25f0ffbffa8d@bootlin.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 21 Oct 2026 10:56:58 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -118,201 +59,306 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Val Packett <val@packett.cool>
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] regulator: lm51772: wrong register for CONV_EN in lm51772_set_conv=
+_en()
+- [High] regulator: lm51772: cached CLEAR_FAULTS read in lm51772_irq_renabl=
+e()
+- [High] regulator: lm51772: OVP lowered before VOUT in lm51772_regulator_s=
+et_voltage_sel()
+- [Medium] regulator: lm51772: multi-bit mask passed to regulator_err2notif=
+()
+- [Medium] regulator: lm51772: plain 64-bit division in lm51772_regulator_s=
+et_current_limit()
+- [Medium] regulator: lm51772: min_uA ignored in lm51772_regulator_set_curr=
+ent_limit()
+--
 
-Add the dtsi to be included by all boards using the MT6392 PMIC,
-providing support for regulator, keys, pinctrl and RTC.
+commit a4b40e7b6b6cb8eaba3df00e481d736c9bbb846f
+Author: Paul Louvel <paul.louvel@bootlin.com>
 
-Import the new file in the shared device tree for the Pumpkin boards.
+regulator: Add TI LM51772 support
 
-Signed-off-by: Val Packett <val@packett.cool>
-Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- arch/arm64/boot/dts/mediatek/mt6392.dtsi      | 145 ++++++++++++++++++
- .../boot/dts/mediatek/pumpkin-common.dtsi     |   7 +
- 2 files changed, 152 insertions(+)
- create mode 100644 arch/arm64/boot/dts/mediatek/mt6392.dtsi
+This commit adds an I2C regulator driver for the TI LM51772 buck-boost
+controller, supporting a configurable buck-boost output and a fixed 5 V LDO
+output with voltage setting, current limiting, and fault reporting.
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt6392.dtsi b/arch/arm64/boot/dts/mediatek/mt6392.dtsi
-new file mode 100644
-index 000000000000..cc4770d70246
---- /dev/null
-+++ b/arch/arm64/boot/dts/mediatek/mt6392.dtsi
-@@ -0,0 +1,145 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2019 MediaTek Inc.
-+ * Copyright (c) 2024 Val Packett <val@packett.cool>
-+ * Copyright (c) 2026 Luca Leonardo Scorcia <l.scorcia@gmail.com>
-+ */
-+
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/regulator/mediatek,mt6392-regulator.h>
-+
-+&pwrap {
-+	pmic: pmic {
-+		compatible = "mediatek,mt6392";
-+		interrupt-controller;
-+		#interrupt-cells = <2>;
-+
-+		mt6392keys: keys {
-+			compatible = "mediatek,mt6392-keys";
-+
-+			key-power {
-+				linux,keycodes = <KEY_POWER>;
-+				wakeup-source;
-+			};
-+
-+			key-home {
-+				linux,keycodes = <KEY_HOME>;
-+				wakeup-source;
-+			};
-+		};
-+
-+		mt6392pio: pinctrl {
-+			compatible = "mediatek,mt6392-pinctrl";
-+
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+		};
-+
-+		mt6392regulators: regulators {
-+			compatible = "mediatek,mt6392-regulator";
-+
-+			/* Fixed supply defined in the data sheet */
-+			avddldo-supply = <&mt6392_vsys_reg>;
-+
-+			mt6392_vcore_reg: vcore {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_BUCK_MODE_FORCE_PWM>;
-+			};
-+			mt6392_vproc_reg: vproc {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_BUCK_MODE_FORCE_PWM>;
-+			};
-+			mt6392_vsys_reg: vsys {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_BUCK_MODE_FORCE_PWM>;
-+			};
-+			mt6392_vaud28_reg: vaud28 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vxo22_reg: vxo22 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vaud22_reg: vaud22 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vadc18_reg: vadc18 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vcama_reg: vcama { };
-+			mt6392_vcn35_reg: vcn35 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vio28_reg: vio28 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vusb_reg: vusb {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vmc_reg: vmc {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vmch_reg: vmch {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vemc3v3_reg: vemc3v3 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vcamaf_reg: vcamaf {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vgp1_reg: vgp1 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vgp2_reg: vgp2 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vefuse_reg: vefuse {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vm25_reg: vm25 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vdig18_reg: vdig18 { };
-+			mt6392_vm_reg: vm {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vio18_reg: vio18 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vcn18_reg: vcn18 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vcamd_reg: vcamd {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vcamio_reg: vcamio {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vrtc_reg: vrtc { };
-+		};
-+
-+		mt6392rtc: rtc {
-+			compatible = "mediatek,mt6392-rtc", "mediatek,mt6323-rtc";
-+		};
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/mediatek/pumpkin-common.dtsi b/arch/arm64/boot/dts/mediatek/pumpkin-common.dtsi
-index 805fb82138a8..b19d5792bd89 100644
---- a/arch/arm64/boot/dts/mediatek/pumpkin-common.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/pumpkin-common.dtsi
-@@ -6,6 +6,8 @@
- 
- #include <dt-bindings/gpio/gpio.h>
- 
-+#include "mt6392.dtsi"
-+
- / {
- 	aliases {
- 		serial0 = &uart0;
-@@ -160,6 +162,11 @@ &i2c2 {
- 	status = "okay";
- };
- 
-+&pmic {
-+	interrupt-parent = <&pio>;
-+	interrupts = <28 IRQ_TYPE_LEVEL_HIGH>;
-+};
-+
- &uart0 {
- 	status = "okay";
- };
--- 
-2.43.0
+> diff --git a/drivers/regulator/lm51772-regulator.c b/drivers/regulator/lm=
+51772-regulator.c
+> new file mode 100644
+> index 0000000000000..b5259f2772433
+> --- /dev/null
+> +++ b/drivers/regulator/lm51772-regulator.c
+> @@ -0,0 +1,826 @@
 
+[ ... ]
+
+> +/* MFR_SPECIFIC_D0 bits */
+> +#define LM51772_EN_VCC1				BIT(5)
+> +
+> +/* MFR_SPECIFIC_D1 bits */
+> +#define LM51772_EN_THER_WARN			BIT(7)
+> +#define LM51772_THW_THRESHOLD_MASK		GENMASK(6, 5)
+> +#define LM51772_EN_NINT				BIT(4)
+> +#define LM51772_CONV_EN				BIT(0)
+
+[ ... ]
+
+> +static int lm51772_set_conv_en(struct regmap *regmap, bool enable)
+> +{
+> +	int ret;
+> +
+> +	ret =3D regmap_update_bits(regmap, LM51772_REG_USB_PD_CONTROL_0,
+> +				 LM51772_CONV_EN2,
+> +				 FIELD_PREP(LM51772_CONV_EN2, enable));
+> +	if (ret)
+> +		return ret;
+> +
+> +	return regmap_update_bits(regmap, LM51772_REG_MFR_SPECIFIC_D0,
+> +				  LM51772_CONV_EN,
+> +				  FIELD_PREP(LM51772_CONV_EN, enable));
+> +}
+> +
+> +static int lm51772_get_conv_en(struct regmap *regmap)
+> +{
+> +	unsigned int pd_ctrl, cfg0;
+> +	int ret;
+> +
+> +	ret =3D regmap_read(regmap, LM51772_REG_USB_PD_CONTROL_0, &pd_ctrl);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D regmap_read(regmap, LM51772_REG_MFR_SPECIFIC_D0, &cfg0);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return FIELD_GET(LM51772_CONV_EN2, pd_ctrl) || FIELD_GET(LM51772_CONV_E=
+N, cfg0);
+> +}
+
+[Severity: High]
+Should lm51772_set_conv_en() and lm51772_get_conv_en() access
+LM51772_REG_MFR_SPECIFIC_D1 instead of LM51772_REG_MFR_SPECIFIC_D0 for
+LM51772_CONV_EN?
+
+LM51772_CONV_EN is defined under the MFR_SPECIFIC_D1 bit definitions, and in
+lm51772_reg_defaults, LM51772_REG_MFR_SPECIFIC_D1 has a default value of
+0x09 (bit 0 set) while LM51772_REG_MFR_SPECIFIC_D0 defaults to 0x32 (bit 0
+clear).
+
+When lm51772_regulator_enable(), lm51772_regulator_disable(), or
+lm51772_regulator_is_enabled() is called on the vout regulator, updating and
+reading LM51772_REG_MFR_SPECIFIC_D0 leaves LM51772_CONV_EN set in
+LM51772_REG_MFR_SPECIFIC_D1, preventing the converter from being disabled in
+hardware while modifying bit 0 of LM51772_REG_MFR_SPECIFIC_D0.
+
+[ ... ]
+
+> +static int lm51772_set_ov(struct regulator_dev *rdev, int lim_uV)
+> +{
+> +	static const struct linear_range ovp_ranges[] =3D {
+> +		LINEAR_RANGE(4000000, 0, 0x17, 500000),
+> +		LINEAR_RANGE(16000000, 0x18, 0x3f, 1000000),
+> +	};
+> +	struct regmap *regmap =3D rdev_get_regmap(rdev);
+> +	struct device *dev =3D rdev_get_dev(rdev);
+> +	unsigned int selector;
+> +	bool found;
+> +	int ret;
+> +
+> +	ret =3D linear_range_get_selector_low_array(ovp_ranges, ARRAY_SIZE(ovp_=
+ranges), lim_uV,
+> +						  &selector, &found);
+> +	if (ret || !found)
+> +		return -EINVAL;
+> +
+> +	dev_dbg(dev, "OVP set to %d uV (selector 0x%02x)\n", lim_uV, selector);
+> +
+> +	return regmap_write(regmap, LM51772_REG_MFR_SPECIFIC_D5, selector);
+> +}
+> +
+> +static int lm51772_regulator_set_voltage_sel(struct regulator_dev *rdev,=
+ unsigned int selector)
+> +{
+> +	const struct lm51772_priv *priv =3D rdev_get_drvdata(rdev);
+> +	int ret;
+> +
+> +	/*
+> +	 * The LM51772 uses hardcoded OVP thresholds. Update the OVP threshold
+> +	 * to match the new voltage.
+> +	 */
+> +	if (priv->ovp_thres) {
+> +		ret =3D regulator_list_voltage_pickable_linear_range(rdev, selector);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		ret =3D lm51772_set_ov(rdev, ret + priv->ovp_thres);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return regulator_set_voltage_sel_pickable_regmap(rdev, selector);
+> +}
+
+[Severity: High]
+When decreasing the output voltage in lm51772_regulator_set_voltage_sel()
+while priv->ovp_thres is set, can calling lm51772_set_ov() before
+regulator_set_voltage_sel_pickable_regmap() trip a false over-voltage
+protection fault because VOUT is still at the higher voltage when the lower
+OVP threshold is written to LM51772_REG_MFR_SPECIFIC_D5?
+
+Also, in lm51772_set_ov(), ovp_ranges[0] ends at 15500000 uV (selector 0x17)
+and ovp_ranges[1] starts at 16000000 uV (selector 0x18), up to 55000000 uV
+(selector 0x3f). If ret + priv->ovp_thres falls between 15500001 uV and
+15999999 uV, or exceeds 55000000 uV, linear_range_get_selector_low_array()
+sets found to false and lm51772_set_ov() returns -EINVAL, causing the
+voltage change to fail.
+
+[ ... ]
+
+> +static int lm51772_regulator_set_current_limit(struct regulator_dev *rde=
+v, int min_uA, int max_uA)
+> +{
+> +	struct lm51772_priv *priv =3D rdev_get_drvdata(rdev);
+> +	u64 voltage_uV =3D ((u64)priv->sense_res_milliohms * max_uA) / 1000;
+> +	struct regmap *regmap =3D rdev_get_regmap(rdev);
+> +	u8 ilim_reg;
+> +
+> +	if (priv->iset_pin)
+> +		return -EOPNOTSUPP;
+> +
+> +	if (voltage_uV < LM51772_ILIM_THR_MIN_UV || voltage_uV > LM51772_ILIM_T=
+HR_MAX_UV)
+> +		return -EINVAL;
+> +
+> +	ilim_reg =3D voltage_uV / LM51772_ILIM_THR_STEP_UV;
+
+[Severity: Medium]
+Will dividing u64 values with the plain / operator in
+lm51772_regulator_set_current_limit() cause a link failure (__udivdi3 /
+__aeabi_uldivmod undefined) when building on 32-bit architectures? Should
+this use div_u64() instead?
+
+[Severity: Medium]
+What happens in lm51772_regulator_set_current_limit() if the truncated
+register value ilim_reg corresponds to a current limit strictly below
+min_uA? Because min_uA is not checked, can this program a hardware current
+limit lower than the minimum requested by the caller instead of returning
+-EINVAL?
+
+> +
+> +	dev_dbg(rdev_get_dev(rdev),
+> +		"set current limit: %d uA (ilim_reg 0x%02x, sense_res %d mOhm)\n", max=
+_uA, ilim_reg,
+> +		priv->sense_res_milliohms);
+> +
+> +	return regmap_write(regmap, LM51772_REG_ILIM_THRESHOLD, ilim_reg);
+> +}
+
+[ ... ]
+
+> +static int lm51772_irq_map_event(int irq, struct regulator_irq_data *rid,
+> +			     unsigned long *dev_mask)
+> +{
+> +	struct regmap *regmap =3D rid->data;
+> +	unsigned int reg, errors;
+> +	int ret;
+> +
+> +	ret =3D regmap_read(regmap, LM51772_REG_STATUS_BYTE, &reg);
+> +	if (ret)
+> +		return REGULATOR_FAILED_RETRY;
+> +
+> +	errors =3D lm51772_status2err(reg);
+> +
+> +	for (size_t i =3D 0; i < rid->num_states; i++) {
+> +		rid->states[i].errors =3D errors & rid->states[i].possible_errs;
+> +		rid->states[i].notifs =3D regulator_err2notif(rid->states[i].errors);
+
+[Severity: Medium]
+In lm51772_irq_map_event(), what happens when more than one fault bit is set
+in LM51772_REG_STATUS_BYTE at the same time?
+
+lm51772_status2err() ORs multiple REGULATOR_ERROR_* flags together, so
+rid->states[i].errors can have multiple bits set. However,
+regulator_err2notif() in include/linux/regulator/driver.h is a switch
+statement over single-bit REGULATOR_ERROR_* constants and returns 0 when
+passed a multi-bit mask, which drops the corresponding REGULATOR_EVENT_*
+notifications.
+
+> +
+> +		if (reg & LM51772_STAT_OFF)
+> +			rid->states[i].notifs |=3D REGULATOR_EVENT_DISABLE;
+> +
+> +		if (rid->states[i].errors || rid->states[i].notifs & REGULATOR_EVENT_D=
+ISABLE)
+> +			*dev_mask |=3D BIT(i);
+> +	}
+> +
+> +	rid->opaque =3D reg;
+> +
+> +	return 0;
+> +}
+> +
+> +static int lm51772_irq_renable(struct regulator_irq_data *rid)
+> +{
+> +	struct regmap *regmap =3D rid->data;
+> +	unsigned int reg;
+> +	int ret;
+> +
+> +	ret =3D regmap_read(regmap, LM51772_REG_STATUS_BYTE, &reg);
+> +	if (ret)
+> +		return REGULATOR_FAILED_RETRY;
+> +
+> +	if (rid->opaque && rid->opaque =3D=3D reg) {
+> +		ret =3D regmap_read(regmap, LM51772_REG_CLEAR_FAULTS, &reg);
+> +		if (ret)
+> +			return REGULATOR_FAILED_RETRY;
+> +
+> +		return REGULATOR_ERROR_ON;
+> +	}
+> +
+> +	rid->opaque =3D 0;
+> +
+> +	return REGULATOR_ERROR_CLEARED;
+> +}
+
+[ ... ]
+
+> +static const struct regmap_range lm51772_volatile_ranges[] =3D {
+> +	regmap_reg_range(LM51772_REG_PD_STATUS_0, LM51772_REG_PD_STATUS_0),
+> +	regmap_reg_range(LM51772_REG_STATUS_BYTE, LM51772_REG_STATUS_BYTE)
+> +};
+> +
+> +static const struct regmap_access_table lm51772_volatile_table =3D {
+> +	.yes_ranges =3D lm51772_volatile_ranges,
+> +	.n_yes_ranges =3D ARRAY_SIZE(lm51772_volatile_ranges)
+> +};
+> +
+> +static const struct reg_default lm51772_reg_defaults[] =3D {
+> +	{ LM51772_REG_CLEAR_FAULTS, 0x00 },	{ LM51772_REG_ILIM_THRESHOLD, 0x64 =
+},
+
+[Severity: High]
+Does regmap_read(regmap, LM51772_REG_CLEAR_FAULTS, &reg) in
+lm51772_irq_renable() actually reach the hardware over I2C?
+
+Because lm51772_regmap_config enables REGCACHE_MAPLE, seeds
+LM51772_REG_CLEAR_FAULTS in lm51772_reg_defaults, and omits
+LM51772_REG_CLEAR_FAULTS from lm51772_volatile_ranges, regmap_read() returns
+the cached 0x00 value without performing an I2C bus transaction. As a
+result, latched faults in LM51772_REG_STATUS_BYTE are never cleared and
+lm51772_irq_renable() will keep returning REGULATOR_ERROR_ON.
+
+Also, in lm51772_irq_renable(), if an additional fault bit becomes set in
+LM51772_REG_STATUS_BYTE so that reg is non-zero but no longer equal to
+rid->opaque, won't the (rid->opaque && rid->opaque =3D=3D reg) check evalua=
+te to
+false and return REGULATOR_ERROR_CLEARED while faults are still active?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021-paul-lm517=
+72-v1-0-25f0ffbffa8d@bootlin.com?part=3D5
