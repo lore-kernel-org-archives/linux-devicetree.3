@@ -1,111 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792581389;
-	b=OCIp+2syB/7XdyDFWcDE0aYynOA0QNaC2mDbX6/h1/zQHuv0oFRZPkXcv5u+YGNwLv+a
-	 ERrJj2oVEPty+XvQ1wmWpTDLWPF94nHvEofmssHpAyNJSVm60gJl+33zNYi/ghgzTgnyb
-	 Hq4Y+kzxUhjOEP8RnLR6C4v1f1jhTkttpD6IBT/hAPxBVn6eROao3Vjb4A7VOMbxXg7Ce
-	 BAU3uB8ubRH9XGdUl2fLzCX3AOmpJkvl2GrFeZ94x6pizv7J/bDrP4sQJxLcoSSG23rom
-	 qGEFm+6+2NgpUPAdOk78lcTn4wsoUSxo6Nim7I9A5BqY4tgormllbvRxwx4wdsAUIuQ==
+	t=1792581535;
+	b=YqllCyz+BWw8C88TDKZiPza1dJkGk4nntSF3ixFjINq+9m5boZxY32AXE/r5TdOKuNiZ
+	 jbSJO26y20JilKwoqclzY/k2w9mFr2JHrUoiYL9TTOcGFjdoQ39rS0T21cipbLD+ekpi3
+	 SAwzphQ9AputjIPP7FwNi9IMpV1Ik7riZElMEh55HUBGijGwNKCX0OE++2rydSGQc4T/J
+	 hyl9sd40dTj4njmg8Ic3seEp/tLO2KcG5C9DgJN18BrQOyDC4mQH5eN8Itl8VaOcpLJff
+	 530Ac2/Kz3vJnD1L/0oQ9o0+033Dm0v+3s4Ej5mWm4Iv6Db77eHjwUIl+C4KGd2JZrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792581389;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=fkPmOzv3OgvoRDjNIIWJpFQ5aARxfWx4gdCqfd4sloY=;
-	b=ZqWORo+kXeYrCJDkWkPHMj9r8bP1MFXn9h2kv8oFA4Nk56JWxw/VGd9ncM9iIXCqMP9f
-	 +bMfJOCYsiFJY0NaGLU4eTCPfMQdu19o1pHx9EE48rizsFFIX1jlGOmvdTcmJsQwA/BQA
-	 7Q+bOEPLcRaelVySAl9GYa/PvrtXxNNj6kq4a0+fWQskGxst2tT0itenL9PN4oMZDnSk3
-	 +KUpDjYIPQuEe9Ey6g5QQnpPW+iWjve9eO8/pckbAi1Y0uCYFp/vt5mtCUJFyrYbc+xyf
-	 +fvxj3yaVbWA4SlmK8SDSFfzKnDvfZHggSUM+MLMaIRYu2Oeq5KgCS9akZALgpbKP/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792581535;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=qiAtdamYvI0HTH3dxZ+yRCmF/UDrorWDWFan4mp6p1Y=;
+	b=bjvgKs9eJad9dPuOkU5a6m0tqhjGr76mNqZKR3oTCjXB4IEETDPLMQ3arDGy3wULB/mY
+	 e6Q3uabU+GEYqRhRFGad0ukjgqcEBmNxi43ESYWRiaMSxaylhesUti4HB9P6JckibRDcA
+	 mvMBiyhS5T8xDx/PcnxUBnKiQ3mOkc3sGhEsCy++qTZ6VWvRQQMxdBPEEf1py38zQJSyr
+	 fLZdqQIVThUX5AjudQUkCZfZ8aVbN6ZSTtLEwcNAqXKNCPIuHO9D5jsuT9xS++rAtEPgg
+	 Z2chmjI8yrDcDYnhqImFzYVvtj2YTbhnv16avZkaBgLy6bNMESDArG1qA+rDb3jITMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UlTyuTus;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=X2XhufjE;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c+LzK6D2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84089606A31B
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 11:16:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84089606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 312D4606A321;
+	Wed, 21 Oct 2026 11:18:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UlTyuTus;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=X2XhufjE
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LA5kaD3015991
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 11:16:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	fkPmOzv3OgvoRDjNIIWJpFQ5aARxfWx4gdCqfd4sloY=; b=UlTyuTuspJTbmMcH
-	TbrdWoyGP9Fc4ksN8AP603nQ5JSMitl6SGjKkcJL6A1xjJ+RvA5CB4Buzq0FYP6P
-	zO/EhRjitSuLTpqfPj/KiOqAZUouh1jnh2a29eP0ZMWFBaAfUiKryACuZmjToJdE
-	2+FB8XRZmYUKQupgsJ4TenV8dLAldxr+Mj5TQc+aMatuvNZfCsWHVqAXWRAbxUrq
-	1tyUC1rpg33NVSZeVbqngcKuycHB99rNqcs/FMRbujq5Lpmiwi7frL/ChtxIHlwz
-	rZqPFNvYjnNBGfgNjsk2MeOWjCeJ55jUug1EkcHLLTRg1rh+JJLh+EjZb4kh2q7J
-	fztWUA==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hesy78rqw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 11:16:28 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3ad30487d55so862614a91.2
-        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 04:16:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792581387; x=1793186187; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fkPmOzv3OgvoRDjNIIWJpFQ5aARxfWx4gdCqfd4sloY=;
-        b=X2XhufjEkGVtYy4/0d2hnzt9Pb/ztJzf0nZgZKmXMIWcHrMk4LumNrHjx6qaqjnAla
-         PB2f6k5OSmlqUdXhmteKkd/9upF3zY6+xI3ebae8ablMrrcmXhxbmF9iVGwdkBK1uhg3
-         au/1r7H84xLfQmi7dsu5WjX3+zPBFRFttSfzn3QvEJYnZ+sOKaZJ9A1Q0SQkVF0yZYJq
-         icig0ROEHeD86LcodXb2xeJSaOwH3yzjIJ1HLXOasth0E6JjDsCAz8ZVXYQRbdhuBUDX
-         J342jj4aqW5CehgFpoJGHUzaiCrHWBUlfZhB4do1tkl1QwHygWtD3SUwpbmJj6MmedYH
-         cstg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792581387; x=1793186187;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fkPmOzv3OgvoRDjNIIWJpFQ5aARxfWx4gdCqfd4sloY=;
-        b=pZgQyYWNNdOse9F341+YRn2v7TUCrzq3nCR1CGTWRHMRg4GTSv4V1YIHQkq5QiTnLF
-         L8awzys3Qu9sRo0BC4cm+PsxGIHPjY584BRMBK9e2ZxWa4cFLIHzZDXmmSRy+Ocr8PeU
-         1pS79Btir8KmlAF9Aam3EDdI1bVnWDQwIqEXHD4F01y82Fs2alNlSgoC3l8WQjVdmPk6
-         ap/fi9VclUvxd/yrsKjExGnpcCi5RcMxd6xAH77h2K+8UQmGpoKfqJdKdLf9Kt4plOGi
-         EwOXPLdOyCRBLhTvLIXoWpfO+hHKMv+ZeVqO1ogwXf9EuRmm7OeMIWjBUvXjUs+ubX3G
-         rCSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBywJmQXTkxyesP34zpxxcC9va5wfHGqLDD2cM5BRsBstcKvNSuGKyRwouYGFlMcf5VE1I1ItdDy059a@vger.kernel.org
-X-Gm-Message-State: AFq9FYIBU9wH5M4KG+KNDH+vDohVR08MRL2hRkaesdPFfl5QqqsNYe9F
-	g8jnMIxv5/Uhv8Pbs7YJ4L/xRPboC5S2npxNKJRzpjD8m30UtwPZP2lhuifkDDxIIjSZPmyw185
-	rJCnLVif0rjp3ZXmFZcU1+Mdf7Z9eag4b3ASgTa/mTOCtJUbtLxC/lp3UMd5VDODe
-X-Gm-Gg: AYBFou2TL4UWEIQsBh72Tgp9rAyOquVWkeuiFbiwavRkq3f2KafiXoq9xS/NdDiGymq
-	jgJsBtfrptlbRG92MK9T6LiHyf9ctOVd+pUEOAiLuY5TdnckKpplbfET7194Y6RzyVeCB1usSNy
-	WGua1AJtyPiG6vMKHHgRpi46gYkjMg56XlqvHHoyduwmyWt3Gr6PddcV434apSC+3hGWFCkeWtF
-	HjhvR27cZsi+izCqQK9jDYxE0FU+q+CVJF4vMEs2T8OJYWc9OdAZ+El/jobS1BTtRcHuc60GucF
-	iI256Cjjwzl4g9r2RG708JZOPDo42Jr1dKru5YHppCT/WFoatODyEtrAeihne5FCEjRwhCP4gAy
-	MjarHJjOxPGs8n5JS7cOFF20OyM7w
-X-Received: by 2002:a17:90b:55cd:b0:3ac:929d:ba5c with SMTP id 98e67ed59e1d1-3ad86f49b66mr1399590a91.45.1792581387566;
-        Wed, 21 Oct 2026 04:16:27 -0700 (PDT)
-X-Received: by 2002:a17:90b:55cd:b0:3ac:929d:ba5c with SMTP id 98e67ed59e1d1-3ad86f49b66mr1399567a91.45.1792581387068;
-        Wed, 21 Oct 2026 04:16:27 -0700 (PDT)
-Received: from [10.204.78.119] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad80912f26sm3948228a91.1.2026.10.21.04.16.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 21 Oct 2026 04:16:26 -0700 (PDT)
-Message-ID: <425ddb41-cfd7-4032-8666-0193ab6b5819@oss.qualcomm.com>
-Date: Wed, 21 Oct 2026 16:46:17 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c+LzK6D2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32DC31F000C9;
+	Wed, 21 Oct 2026 11:18:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792581534;
+	bh=qiAtdamYvI0HTH3dxZ+yRCmF/UDrorWDWFan4mp6p1Y=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=c+LzK6D2woPgYC+5TkT286YzOfx7JvDVrToCL1aiFiHlpzAtPqtmwrl0ojaHPPURm
+	 NzVJMKhXJ/rVDRRMH7TVxa+4p3xmODsS4bGV7aL8KG4gqqJJJHcNVkIKVBnXKkZIWS
+	 HeWadSJjd36r2ObqVlYeLDEyHDAOufrr5BtsI1FC8OwR17sTXWK58DNUfnVcayD1QO
+	 o9YGuGEqRo9j5T4Uz/hkY/4TY3BeKHGPlZoVMP2HWSEV2khxm6iK7HsiNYiSKJPJ3G
+	 at/5unYc08Tzl66bO2OkZuqZE7gFFU+VA2CbqeNOQjv5IViq/N+Uu+RaHipvImz89b
+	 4z4CZCpVHm6xw==
+Message-ID: <sashiko-outbox-180161@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 9/9] arm64: dts: mediatek: Add MediaTek MT6392 PMIC
+ dtsi
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Luca Leonardo Scorcia" <l.scorcia@gmail.com>
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, mfd@lists.linux.dev, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com, lee@kernel.org
+In-Reply-To: <20261021105109.199886-10-l.scorcia@gmail.com>
+References: <20261021105109.199886-1-l.scorcia@gmail.com>
+ <20261021105109.199886-10-l.scorcia@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 21 Oct 2026 11:18:53 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,103 +60,192 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/13] dt-bindings: display: msm: Document the Nord
- DiplayPort controller
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov
- <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Kuogee Hsieh <quic_khsieh@quicinc.com>,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        Ritesh Kumar
- <ritesh.kumar@oss.qualcomm.com>,
-        Mahadevan P <mahadevan.p@oss.qualcomm.com>
-References: <20261012-nord-drv-dt-v2-0-a2ab9af954d2@oss.qualcomm.com>
- <20261012-nord-drv-dt-v2-2-a2ab9af954d2@oss.qualcomm.com>
- <20261013-tangible-wakeful-swift-a38f8f@quoll>
- <20261013-honored-bear-of-cleaning-bd8108@quoll>
-Content-Language: en-GB
-From: Nabige Aala <nabige.aala@oss.qualcomm.com>
-In-Reply-To: <20261013-honored-bear-of-cleaning-bd8108@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 0I9ChANxW9hpHAwyE52Ymb2Amk6OikyJ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA0NCBTYWx0ZWRfXzo9mepVFjQvf
- PwDeeOozHojaowiXuNxCEwu4o6ot//e5VxaOokVu5ej+YKYPJjRv1T0Oe6j2leitnlxSByY5CCW
- HZ6XLpycUKw6lLi/D1l9QYLzfIIOLkn7wNhAnaGG3HBK2kshDvI4qGHwbpIkKzq2btqIyOtHUyc
- Z5xJlfG0/v53r+gpahTd8dU9KeX/0P95u0pew+gKcSAjvzZBQB9uIcDNEvQSuRmPrpfyHQRfEnk
- PxgPj7C1chY7QWQhctX3axk9HZ1J/QRLXbBpv/Dcadyth+DZak3cEvbDdZ/FksDpmI3cEpoS1wb
- c82Vq7lSeNH8oivDwxyRPiqnvYPCDKNvZnStwQCCBjDpbDBOhS5W3PTbYP1+PpVZwy61KR1UyTG
- 4BnliKJ5Gx/DhsEsq3cMzcf2gTq68cpDcjqSdR7pj9wGfI5yANLQrPVvYVCiTNGZRUiyqTSCpxv
- SbOKQK0Wm2oz3xj2Gew==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA0NCBTYWx0ZWRfX7XqMDi59UZdt
- XUDehQiuRqAgsWpqiFMeW5/aqHdmLDAnkSXzzwGtRDz8es/0PrqRdE9uEoqW+ItwWRlDtCtOJ6h
- IUCFXxhFYZgye2cw2PNJiMKvU4oqrC8=
-X-Proofpoint-ORIG-GUID: 0I9ChANxW9hpHAwyE52Ymb2Amk6OikyJ
-X-Authority-Analysis: v=2.4 cv=IPaXmQvG c=1 sm=1 tr=0 ts=6ad89f0c cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=D6Kic2Gw2dsiznywmRUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-21_03,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
- impostorscore=0 spamscore=0 priorityscore=1501 adultscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210044
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] arm64: dts: mediatek: pwrap_probe() fails due to unindexed mediate=
+k,mt6392
+- [High] arm64: dts: mediatek: mt6392: unconstrained rails disabled by regu=
+lator_late_cleanup()
+--
 
-On 10/13/2026 2:18 PM, Krzysztof Kozlowski wrote:
-> On Tue, Oct 13, 2026 at 09:44:15AM +0200, Krzysztof Kozlowski wrote:
->> On Mon, Oct 12, 2026 at 07:02:12PM +0530, Nabige Aala wrote:
->>> From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
->>>
->>> Nord uses MDSS 12.1 with two independent DP controller instances,
->>> each exposing two DP cores at new IO offsets. None of the existing
->>> compatibles match this layout, so add qcom,nord-dp.
->>>
->>> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
->>> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
->> Do I understand correctly:
->> Device is fully compatible with qcom,sa8775p-dp, but a simple to fix
->> driver limitation is preventing compatibility?
->>
->> If so, let's fix the driver - just add more addresses to the
->> msm_dp_desc_sa8775p array?
-> Or it does not matter, because top-level MDSS anyway cannot use
-> compatibility?
+commit d14bb1584df5376f55003a68da2a5898709dcb49
+Author: Val Packett <val@packett.cool>
 
-For MDSS0, the DP register offsets are same to those used on SA8775P. 
-However, the MDSS1 DP register offsets differ from SA8775P, and Nord 
-also utilizes a different MDSS instance. Because of these differences, 
-we introduced a separate compatible string for Nord.
+arm64: dts: mediatek: Add MediaTek MT6392 PMIC dtsi
 
-Are you suggesting that Nord should reuse the "msm_dp_desc_sa8775p"?  
-This would also pollute the sa8775p's desc table.
+This commit adds the device tree include file for the MediaTek mt6392 pmic,
+defining nodes for its keys, pinctrl, regulators, and rtc subdevices. It al=
+so
+includes the new file in pumpkin-common.dtsi for the Pumpkin boards.
 
- From your perspective, what would be the preferred approach here?
+> diff --git a/arch/arm64/boot/dts/mediatek/mt6392.dtsi b/arch/arm64/boot/d=
+ts/mediatek/mt6392.dtsi
+> new file mode 100644
+> index 0000000000000..cc4770d70246c
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/mediatek/mt6392.dtsi
+> @@ -0,0 +1,145 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (c) 2019 MediaTek Inc.
+> + * Copyright (c) 2024 Val Packett <val@packett.cool>
+> + * Copyright (c) 2026 Luca Leonardo Scorcia <l.scorcia@gmail.com>
+> + */
+> +
+> +#include <dt-bindings/input/input.h>
+> +#include <dt-bindings/regulator/mediatek,mt6392-regulator.h>
+> +
+> +&pwrap {
+> +	pmic: pmic {
+> +		compatible =3D "mediatek,mt6392";
 
->
-> Best regards,
-> Krzysztof
+[Severity: High]
+When pwrap_probe() in drivers/soc/mediatek/mtk-pmic-wrap.c probes the pwrap
+node on boards including this file, it matches np->child against
+of_slave_match_tbl[]:
+
+drivers/soc/mediatek/mtk-pmic-wrap.c:pwrap_probe() {
+	...
+	if (np->child)
+		of_slave_id =3D of_match_node(of_slave_match_tbl, np->child);
+
+	if (!of_slave_id) {
+		dev_dbg(&pdev->dev, "slave pmic should be defined in dts\n");
+		return -EINVAL;
+	}
+	...
+}
+
+However, of_slave_match_tbl[] in drivers/soc/mediatek/mtk-pmic-wrap.c only
+lists mediatek,mt6323, mediatek,mt6331, mediatek,mt6351, mediatek,mt6357,
+mediatek,mt6358, mediatek,mt6359, mediatek,mt6380-regulator, and
+mediatek,mt6397, and does not have an entry for mediatek,mt6392:
+
+static const struct of_device_id of_slave_match_tbl[] =3D {
+	{ .compatible =3D "mediatek,mt6323", .data =3D &pmic_mt6323 },
+	{ .compatible =3D "mediatek,mt6331", .data =3D &pmic_mt6331 },
+	{ .compatible =3D "mediatek,mt6351", .data =3D &pmic_mt6351 },
+	{ .compatible =3D "mediatek,mt6357", .data =3D &pmic_mt6357 },
+	{ .compatible =3D "mediatek,mt6358", .data =3D &pmic_mt6358 },
+	{ .compatible =3D "mediatek,mt6359", .data =3D &pmic_mt6359 },
+
+	/* The MT6380 PMIC only implements a regulator, so we bind it
+	 * directly instead of using a MFD.
+	 */
+	{ .compatible =3D "mediatek,mt6380-regulator", .data =3D &pmic_mt6380 },
+	{ .compatible =3D "mediatek,mt6397", .data =3D &pmic_mt6397 },
+	{ /* sentinel */ }
+};
+
+Will pwrap_probe() fail with -EINVAL before initializing wrp->regmap or
+calling of_platform_populate(), preventing the mt6392 pmic device and all of
+its subdevices from probing?
+
+> +		interrupt-controller;
+> +		#interrupt-cells =3D <2>;
+> +
+> +		mt6392keys: keys {
+> +			compatible =3D "mediatek,mt6392-keys";
+> +
+> +			key-power {
+> +				linux,keycodes =3D <KEY_POWER>;
+> +				wakeup-source;
+> +			};
+> +
+> +			key-home {
+> +				linux,keycodes =3D <KEY_HOME>;
+> +				wakeup-source;
+> +			};
+> +		};
+> +
+> +		mt6392pio: pinctrl {
+> +			compatible =3D "mediatek,mt6392-pinctrl";
+> +
+> +			gpio-controller;
+> +			#gpio-cells =3D <2>;
+> +		};
+> +
+> +		mt6392regulators: regulators {
+> +			compatible =3D "mediatek,mt6392-regulator";
+> +
+> +			/* Fixed supply defined in the data sheet */
+> +			avddldo-supply =3D <&mt6392_vsys_reg>;
+> +
+> +			mt6392_vcore_reg: vcore {
+> +				regulator-allowed-modes =3D <MT6392_REGULATOR_MODE_NORMAL
+> +							   MT6392_BUCK_MODE_FORCE_PWM>;
+> +			};
+> +			mt6392_vproc_reg: vproc {
+> +				regulator-allowed-modes =3D <MT6392_REGULATOR_MODE_NORMAL
+> +							   MT6392_BUCK_MODE_FORCE_PWM>;
+> +			};
+> +			mt6392_vsys_reg: vsys {
+> +				regulator-allowed-modes =3D <MT6392_REGULATOR_MODE_NORMAL
+> +							   MT6392_BUCK_MODE_FORCE_PWM>;
+> +			};
+
+[Severity: High]
+All 26 regulator child nodes under mt6392regulators are defined without
+regulator-always-on, and arch/arm64/boot/dts/mediatek/pumpkin-common.dtsi
+includes mt6392.dtsi without marking the core system rails as
+regulator-always-on or attaching consumers.
+
+When mt6392_regulator_probe() in drivers/regulator/mt6392-regulator.c
+registers each regulator through devm_regulator_register() ->
+regulator_register() -> regulator_of_get_init_data() ->
+of_get_regulation_constraints(), any matched node without regulator-always-=
+on
+allows status changes:
+
+drivers/regulator/of_regulator.c:of_get_regulation_constraints() {
+	...
+	constraints->always_on =3D of_property_read_bool(np, "regulator-always-on"=
+);
+	if (!constraints->always_on) /* status change should be possible. */
+		constraints->valid_ops_mask |=3D REGULATOR_CHANGE_STATUS;
+	...
+}
+
+Because the switchable regulators in mt6392_regulators[] provide
+regulator_is_enabled_regmap and regulator_disable_regmap operations and have
+rdev->use_count =3D=3D 0 when no consumers are attached,
+regulator_init_complete_work_function() -> regulator_late_cleanup() in
+drivers/regulator/core.c will turn off every enabled rail:
+
+drivers/regulator/core.c:regulator_late_cleanup() {
+	...
+	if (c && c->always_on)
+		return 0;
+
+	if (!regulator_ops_is_valid(rdev, REGULATOR_CHANGE_STATUS))
+		return 0;
+
+	regulator_lock(rdev);
+
+	if (rdev->use_count)
+		goto unlock;
+
+	/* If reading the status failed, assume that it's off. */
+	if (_regulator_is_enabled(rdev) <=3D 0)
+		goto unlock;
+
+	if (have_full_constraints()) {
+		/* We log since this may kill the system if it goes
+		 * wrong.
+		 */
+		rdev_info(rdev, "disabling\n");
+		ret =3D _regulator_do_disable(rdev);
+	...
+}
+
+Without regulator-always-on or consumer supplies on core system rails in
+mt6392.dtsi or pumpkin-common.dtsi, won't regulator_late_cleanup() disable
+active system supplies such as vproc, vcore, vsys, vm, vxo22, vio18, and
+vio28 after late init and power off or hang the Pumpkin boards?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021105109.1998=
+86-1-l.scorcia@gmail.com?part=3D9
