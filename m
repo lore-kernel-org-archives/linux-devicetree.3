@@ -1,59 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792588244;
-	b=4afVB/V2EcM4lG40KR8bakZYyQCH8U21M1KOsVMw2QclGXJoBzz/7KlfnBBAO72BcNKU
-	 qaqZO4Il1L8hZUKUxm8wa+TdZBuABJGAF4ujhmRKraXMF3Sf8ZPytDoLp/H1Tm1/hKCqu
-	 fsnKDDAGGhypmFjBlRDTODny1AY+DDiRIvW2c4Aj+/b13ZSZ1FpdDd6pP6lgz2EM/xTp/
-	 q7lHIU1nvVpXGG019oyS74OJ0QZ2usMrG8m4vcyNFCrRA5N4+b9bfMxOIDTgtALvi2fBT
-	 GiThgZf1HzNIsr1fQfuit+bULCeH4w0egNIqUnhnb/7fX06E6LypxiqG8RFJtgWQZzw==
+	t=1792588990;
+	b=aEPNiCnomqIOsvrI4qZnh1e9OYq5Nz7iHHI0RgsFWksZEhFWEXG+wzx6T++qioMHjGYJ
+	 2Imwa9Fzmw54qyf2Mg1Gob6i0+Q5hia6ojbP2tpwTBmo2awmMX4tOie79PtdR3JzjTm8d
+	 NYfCEC1LLjMMDvQa1saMO5j3papKjwTPcPcI+xWhQecGqP6HTLaFQ9lmTaeB8I64PbhjK
+	 V6wESdR5QJ4GwHZsJKcJ8JegfOj+A8gJKCx7y6XbO2A/CY67zuCq1DZvtdsQ5otumgRTZ
+	 xGVG0pASSmQdAbahcHeuBMxhNUV9a4eDxbHbfYabPEjqfJf5y4CbrTtpy5NMdW78I9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792588244;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Last-TLS-Session-Version;
-	bh=p45uZWS6r+fa4kUICgrgUA0w8yqag3p0NNOZUwZi7wM=;
-	b=nwTOFW0b+odGIRMAlSEse47E3yPqtCsWSI2UU2UY/qyPZp/tSNmOrnPetCgPYi3sTePy
-	 dRdmmraAAhYsxxvLFu8lZvQAnXZPuOMkjYAYB4/EFtenj1UMlJw90iygvnxcA7dTZThyx
-	 H3/KA1EBRpQgvgopElqQjRKdARcq0akFT2tPYnQP3GtP/1XC1Foerbj9kIGzBiUdLDAI1
-	 dkbnQwPWPvLL4mk1v9ejqMLsnhxYfCH4fhOiIAFk77EDQyjuIT9MuYdkI2VuaGF+BvjIR
-	 0SYLmJg6D86wRb+RRUqOEObS5KdmTs1Lq4m+Q2U+ZEqqPSBeYbwhJKULGXc4YM0gmqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792588990;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=pAAU30bwGvhgKc2fcWmaPUnM+q1nxRImGaxZJ4BonqU=;
+	b=AbE/7N3t1LAA4DgssqqmX8LtJfAqXtmZlQiT45Z889uZtBajXpcFl2KTnUgChc2vTsSm
+	 hRACr/Gv8g5G9hFbL11/zZTsRApvK4baxyrvAiwdITG+ctGumv2jn3yGmv2qvoA/J57wP
+	 k+jNxokaCBQGyh+aMBFn5fdKa+C72hVZ7ecrvqYD0JEcJ96op+svo+MGUlHlvY0pCKg9h
+	 GyqIrGyTiBqlntTbi8bKQqsaIWyEe60CJoG/oyUUpWM98HCUsPzW3kAse+zfzH5wBuv7i
+	 DsaYBxyvYVVGntn/Q5L9cpEhGMUFimsofoqZ8Whwg83XvxxFpe+q6DohwvnwHSFKFtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=s7X35nOR;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mt3hXrxe;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77098606A31A;
-	Wed, 21 Oct 2026 13:10:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77098606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B16A606A326;
+	Wed, 21 Oct 2026 13:23:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=s7X35nOR
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 5678A4E41296;
-	Wed, 21 Oct 2026 13:10:42 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 2C21D606E3;
-	Wed, 21 Oct 2026 13:10:42 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6A2FA10328E6F;
-	Wed, 21 Oct 2026 15:10:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792588240; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=p45uZWS6r+fa4kUICgrgUA0w8yqag3p0NNOZUwZi7wM=;
-	b=s7X35nORMe3Plo0FxJ0tkB4CXl/lwHTWKBepyvGE63ClvLCIp67QxZoey2tZr4lk1I1Wmo
-	o009ruqSpHMbMQh0IsTCVUoppBnioyuNRhrxlJAY1nyqtrS3didIKN1Yrq9K4H1d23q/Mq
-	EiNkXupk7zHjab9dPnamiwd5VGzLux+Q/RLvYrCeW4dMEphJmr5LvI0HVy0IUIywws+Cu8
-	dfys6SBPs/GrGOb3BsojDn+Ef7g5ldmvWstngxdqAK2KlfSw1cI2RUKjlnpPJSr5NsE7qx
-	dT/rHjpA7g5EFuqdSOvQ+Bimd75AqgTMZJZ78hLj//hCkjaQegi/nAvuVkMxKQ==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Wed, 21 Oct 2026 15:10:01 +0200
-Subject: [PATCH 5/5] arm64: dts: imx8mp: Drop VIDEO_PLL1 assigned rate
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mt3hXrxe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 039AE1F000C4;
+	Wed, 21 Oct 2026 13:23:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792588990;
+	bh=pAAU30bwGvhgKc2fcWmaPUnM+q1nxRImGaxZJ4BonqU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Mt3hXrxeKJoJfLibADZIcsXR7rI+NO9d5jFB7CsWQi7wKkA7Ivi+NuujoLsu6N0Sj
+	 xeAk+R1NrRVYx1sYEncPNYK1tOB4gOmoV/soXvOeMmPj9evSIL4UZE8ME5ru4NQo5h
+	 rdmao/ez90tKUwo3/XUgCH2iLLiz95UkX5/e2YrP1miGaCfo8O/R8cfIYLVig3VVnr
+	 r1iNDVPFLS7bpM7kU7EAqqH+8hkxOiLRbqqi3tb+hZaOnZwWSQEHk7khqjrR4q7t3A
+	 S0lU2etMBYUN25UboD24fjrlEjMmDt+fIwEsaB4T+GmpTzCmxcQVMevggk/I2FaJ6K
+	 4dRr3m+UTBq7A==
+Date: Wed, 21 Oct 2026 08:23:08 -0500
+From: Rob Herring <robh@kernel.org>
+To: Wandun Chen <chenwandun1@gmail.com>
+Cc: baoquan.he@linux.dev, rppt@kernel.org, m.szyprowski@samsung.com,
+	catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com,
+	chenhuacai@kernel.org, kernel@xen0n.name, pjw@kernel.org,
+	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
+	tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+	saravanak@kernel.org, akpm@linux-foundation.org,
+	pasha.tatashin@soleen.com, pratyush@kernel.org,
+	ruirui.yang@linux.dev, robin.murphy@arm.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org, kexec@lists.infradead.org,
+	linux-mm@kvack.org, iommu@lists.linux.dev
+Subject: Re: [PATCH v9 0/8] kdump: reduce vmcore size and capture time
+Message-ID: <20261021132308.GB3667411-robh@kernel.org>
+References: <20261021083011.2170525-1-chenwandun1@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,74 +67,40 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261021-ge-clk-lcm-v1-5-246cc35b5ffb@bootlin.com>
-References: <20261021-ge-clk-lcm-v1-0-246cc35b5ffb@bootlin.com>
-In-Reply-To: <20261021-ge-clk-lcm-v1-0-246cc35b5ffb@bootlin.com>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Abel Vesa <abelvesa@kernel.org>, 
- Peng Fan <peng.fan@nxp.com>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Ian Ray <ian.ray@gehealthcare.com>, 
- =?utf-8?q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- Miquel Raynal <miquel.raynal@bootlin.com>
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021083011.2170525-1-chenwandun1@gmail.com>
 
-This rate has never been assigned for good reasons. It was assigning a
-frequency only adapted to the panel of some evaluation board, while
-allowing a rate division by 7 and 14 for the needs of the LDB.
+On Wed, Oct 21, 2026 at 04:30:03PM +0800, Wandun Chen wrote:
+> From: Wandun Chen <chenwandun@lixiang.com>
+> 
+> On SoCs that carve out large firmware-owned reserved memory (GPU,
+> camera ISP, ...), kdump currently dumps those carveouts as part of
+> system RAM even though their contents are firmware state that is not
+> useful for kernel crash analysis.
+> 
+> ACPI systems already filter reserved memory out of the vmcore through
+> their existing path: firmware reports those carveouts as unusable in
+> the EFI memory map, they get MEMBLOCK_NOMAP set in memblock.memory
+> (is_usable_memory(), efi-init.c), and the ELF header builder has
+> always skipped nomap regions; only DT-based systems currently fail
+> to filter these regions, which is what this series addresses.
+> 
+> This series introduces a MEMBLOCK_NODUMP flag (suggested by Rob) in
+> memblock to filter reserved memory on DT-based architectures. A new
+> flag is needed because MEMBLOCK_NOMAP can only express regions without
+> a linear mapping, while MEMBLOCK_NODUMP can filter regions that are
+> linearly mapped. Reserved regions are marked MEMBLOCK_NODUMP by default
+> so kdump omits them; reusable CMA regions are different because their
+> pages are handed back to the buddy allocator and may carry crash-relevant
+> data.
 
-Linux now has an LCM-based divisor calculation that allows us from
-dropping that inappropriate assignment.
+There is little point in continuing to send new versions until Mike 
+agrees with MEMBLOCK_NODUMP being added. You didn't answer him on v7.
 
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
----
+Also, I intend to apply this[1] before any further reserved memory 
+changes which will greatly simplify the code.
 
-I believe most of the users of this DTS set their own frequency in their
-downstream DTS, just because the existing assignment won't fit their
-panels, so while in theory this change could break bootloaders/other OS
-pulling this file, in practice it is unlikely it will. I don't know if
-we really want to do that cleanup or not since at most it is an
-incorrect and useless assignment, but at least one should know that it
-can (should?) be removed.
----
- arch/arm64/boot/dts/freescale/imx8mp.dtsi | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+Rob
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp.dtsi b/arch/arm64/boot/dts/freescale/imx8mp.dtsi
-index 9cf9f6f08654..7691d917646e 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mp.dtsi
-@@ -1988,16 +1988,14 @@ media_blk_ctrl: blk-ctrl@32ec0000 {
- 						  <&clk IMX8MP_CLK_MEDIA_APB>,
- 						  <&clk IMX8MP_CLK_MEDIA_DISP1_PIX>,
- 						  <&clk IMX8MP_CLK_MEDIA_DISP2_PIX>,
--						  <&clk IMX8MP_CLK_MEDIA_ISP>,
--						  <&clk IMX8MP_VIDEO_PLL1>;
-+						  <&clk IMX8MP_CLK_MEDIA_ISP>;
- 				assigned-clock-parents = <&clk IMX8MP_SYS_PLL2_1000M>,
- 							 <&clk IMX8MP_SYS_PLL1_800M>,
- 							 <&clk IMX8MP_VIDEO_PLL1_OUT>,
- 							 <&clk IMX8MP_VIDEO_PLL1_OUT>,
- 							 <&clk IMX8MP_SYS_PLL2_500M>;
- 				assigned-clock-rates = <500000000>, <200000000>,
--						       <0>, <0>, <500000000>,
--						       <1039500000>;
-+						       <0>, <0>, <500000000>;
- 				#power-domain-cells = <1>;
- 
- 				lvds_bridge: bridge@5c {
-
--- 
-2.56.0
-
+[1] https://lore.kernel.org/all/20261015082315.56876-1-m.szyprowski@samsung.com/
