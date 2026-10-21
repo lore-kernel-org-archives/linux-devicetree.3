@@ -1,63 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792588990;
-	b=aEPNiCnomqIOsvrI4qZnh1e9OYq5Nz7iHHI0RgsFWksZEhFWEXG+wzx6T++qioMHjGYJ
-	 2Imwa9Fzmw54qyf2Mg1Gob6i0+Q5hia6ojbP2tpwTBmo2awmMX4tOie79PtdR3JzjTm8d
-	 NYfCEC1LLjMMDvQa1saMO5j3papKjwTPcPcI+xWhQecGqP6HTLaFQ9lmTaeB8I64PbhjK
-	 V6wESdR5QJ4GwHZsJKcJ8JegfOj+A8gJKCx7y6XbO2A/CY67zuCq1DZvtdsQ5otumgRTZ
-	 xGVG0pASSmQdAbahcHeuBMxhNUV9a4eDxbHbfYabPEjqfJf5y4CbrTtpy5NMdW78I9w==
+	t=1792589093;
+	b=NQeJ5TS4BjtNtUGC8Yua9aNVpSZfi3Rbtho192vsDQvUKpuDYwyY/zXxoTHHhxbdF8s/
+	 KAkCuXqEzH/I1Oe0FD6o2mLY1JP4w4ysdcDvr6FuuqPPy+fPTWziZYFWHczVd1PyqFB6c
+	 wZSpjbNNqrcJbiYPaYEAWw0YAryeXFmj5dqrTPXuEAuV2Aqs4spylXwis7o9JTUdfxKIn
+	 pKxVhA350TGBr8F0RDDxw11WbYfThwfRSvVfFhw4yoTtTGncvF9sx4j5kVdxDcgppx6Cf
+	 +AiDvO+Pbm8cESRbrEEfZ5gn01QgIny/r6kKWhDRKvw1yU/+q6zaBA5Yk9N0NG2AM0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792588990;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=pAAU30bwGvhgKc2fcWmaPUnM+q1nxRImGaxZJ4BonqU=;
-	b=AbE/7N3t1LAA4DgssqqmX8LtJfAqXtmZlQiT45Z889uZtBajXpcFl2KTnUgChc2vTsSm
-	 hRACr/Gv8g5G9hFbL11/zZTsRApvK4baxyrvAiwdITG+ctGumv2jn3yGmv2qvoA/J57wP
-	 k+jNxokaCBQGyh+aMBFn5fdKa+C72hVZ7ecrvqYD0JEcJ96op+svo+MGUlHlvY0pCKg9h
-	 GyqIrGyTiBqlntTbi8bKQqsaIWyEe60CJoG/oyUUpWM98HCUsPzW3kAse+zfzH5wBuv7i
-	 DsaYBxyvYVVGntn/Q5L9cpEhGMUFimsofoqZ8Whwg83XvxxFpe+q6DohwvnwHSFKFtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792589093;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=DfLg15d2NsC8WG4F+8NUyIDwq+mbAzZvSv8g7DgQuf0=;
+	b=rDR0qqcpBrjvm3LzFLpdrXpf1/lV86uZevd+PUr1vcZtmaS6lf3V1hzDHO5zD8mVphot
+	 LglOp85nromw+dhNbOXpLXz9RaijJKytdXfZa7CzDoryAAjgt6u8BzR8IE7uvGJknAMDK
+	 y3NMrXQ+QxN2V4QC46HN3Q4ZYQ+r0iVYJePP7PZyGlZeavpOt5F339/KkkZjcsOyVOeeV
+	 rQ/pSGf+vpbyWEoSCY2vehugQYNXbijVveY4azKPFzFtD2XjduD6gumQdM7+o6NCnq+9L
+	 xyBkwiCteLj2tOn0YLb2qE7punSPUslSlLuJRyaf6BTQ2XySVPTH8RL7sDLrS1b2tMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mt3hXrxe;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DFN1tklU;
+	arc=none smtp.remote-ip=209.85.218.43
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B16A606A326;
-	Wed, 21 Oct 2026 13:23:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81741606A331
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 13:24:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81741606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mt3hXrxe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 039AE1F000C4;
-	Wed, 21 Oct 2026 13:23:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792588990;
-	bh=pAAU30bwGvhgKc2fcWmaPUnM+q1nxRImGaxZJ4BonqU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Mt3hXrxeKJoJfLibADZIcsXR7rI+NO9d5jFB7CsWQi7wKkA7Ivi+NuujoLsu6N0Sj
-	 xeAk+R1NrRVYx1sYEncPNYK1tOB4gOmoV/soXvOeMmPj9evSIL4UZE8ME5ru4NQo5h
-	 rdmao/ez90tKUwo3/XUgCH2iLLiz95UkX5/e2YrP1miGaCfo8O/R8cfIYLVig3VVnr
-	 r1iNDVPFLS7bpM7kU7EAqqH+8hkxOiLRbqqi3tb+hZaOnZwWSQEHk7khqjrR4q7t3A
-	 S0lU2etMBYUN25UboD24fjrlEjMmDt+fIwEsaB4T+GmpTzCmxcQVMevggk/I2FaJ6K
-	 4dRr3m+UTBq7A==
-Date: Wed, 21 Oct 2026 08:23:08 -0500
-From: Rob Herring <robh@kernel.org>
-To: Wandun Chen <chenwandun1@gmail.com>
-Cc: baoquan.he@linux.dev, rppt@kernel.org, m.szyprowski@samsung.com,
-	catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com,
-	chenhuacai@kernel.org, kernel@xen0n.name, pjw@kernel.org,
-	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
-	tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
-	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
-	saravanak@kernel.org, akpm@linux-foundation.org,
-	pasha.tatashin@soleen.com, pratyush@kernel.org,
-	ruirui.yang@linux.dev, robin.murphy@arm.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org, kexec@lists.infradead.org,
-	linux-mm@kvack.org, iommu@lists.linux.dev
-Subject: Re: [PATCH v9 0/8] kdump: reduce vmcore size and capture time
-Message-ID: <20261021132308.GB3667411-robh@kernel.org>
-References: <20261021083011.2170525-1-chenwandun1@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DFN1tklU
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c445c95d553so89896166b.1
+        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 06:24:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792589092; x=1793193892; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DfLg15d2NsC8WG4F+8NUyIDwq+mbAzZvSv8g7DgQuf0=;
+        b=DFN1tklUulxevp5e23DDQwk12D6ac5gehXefCmPIk3ujm87X145Iltk3nXTTJy10Co
+         18aFMXxMs0ITa744yyaA8coIk8ixafXJoH+P2cxkRvVolGZtNXcjQJah39i86ygQ6vDa
+         +99t2ShsDmh/tvedHar6FjFJfigremGZZVxAJDG4o5coiF6bAcm6M6xs4ybCKGtgClnL
+         l5OOZx+SjoAEToexQ1PuerbtVhpUdLGXFFshGdvMRUly8FwJwMta5oyLxtSTvLLGsP3X
+         lt+BLgsYkcghrABTaGAGNrvkqd8/1EUZqnrVutMlXxygBFmBdiNYwNo5pnLVhrScVieF
+         RAMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792589092; x=1793193892;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DfLg15d2NsC8WG4F+8NUyIDwq+mbAzZvSv8g7DgQuf0=;
+        b=bJHctEg/a2wroNaSpJFNi6iQnakxKd1yXGLjw7FJLDMBFfTu8zwgCIto3iNka32SRa
+         cURdyGj4qUNJjKPg92Qo0Q89ztMl7f/s7YeWBY2nl/8oBuZy0BOoLjiCynn3cfdT6MAU
+         kvdQtozIWg/y4nOVsaTLn8ql0i/FXJpCDILfk7mlaRTJIdlJHaHJUYekqNEUxO5BjBok
+         MNdliVvSWBm3ekbWZ9O0YevuXg3rYEJsmsgx/6JFMdrbeYq7x8hcCHIxwZBocOM2zdul
+         HKY//bV4rVY55cIqCojcvxj+dlX23BlUYJ2bXV0EyrwN7vbkiuglI0AZYJJEh+z2/jCc
+         dWVg==
+X-Forwarded-Encrypted: i=1; AKwUvBzzgHP/l2uOr1Eql8rc9YFPWG2cLWwucBdntGGlkBPbrQDy+soHFpYOCC03iuVDJyT+eMjV7CyFxxsa@vger.kernel.org
+X-Gm-Message-State: AFq9FYJqDb6OrJvQHXWoszEfP1C0536fP8nNxC7QnjQmzM8Pvg2yGhRN
+	gaapfRnYlZ5V+XPg7+1gja0fZRYjU6vEuesZJ/d2MGR/WV+ZONOhEWkw
+X-Gm-Gg: AYBFou04eOBok9XkIkAQ/4WtgH1xXL9yhAyh3lzuxNmcvxgF9PmjBgmV4HrqAiXKGTD
+	TyJwWbZZTIGtLSzLH/fFqhJomFDhYO0OvSPdGz5D5noU/2UXpz/Cq4o2E5Vm9nXax5jvoXA1S5K
+	LAYOierS2BrXjA2cwgSUt728T5Z9nfFVpnre2PM0zmsz/+frZzMYy7+EqgnthJ4NDJWn/so/4hu
+	A5hAz0jF+DjQ4cczWiWANWsHO4tJVEajSRnOT49EY6BAAbkxCwdBKmfTG9VPZIAGyRwHzBpHphX
+	2ELIB6XLpSTg2TGN6m2jdxQr867xVsS3lthrjTDczy8RBRv0rT6XKLICeHGFawKFs+cMToLuPIx
+	BoioCnm/OA6xdMHa9ijWSwgJB5OkmBOd+ulVfRIh2EgusqUj7F0v8C7iHWxfpa3ogoHvAcNhOgA
+	kKgZiWm7ijxpm8DUcVYba5k/o2mNvKXOJ7xVXzrZTlHszXOykpb54Sak4ihVDx63FGcWvKtx7VW
+	KClqV/ALVNnbkegQVuP+cl57T3COQYRBREN9rDwoPMEpLqp3FgQoQ6YMHWUR41gaGwAz2QPc3ee
+	qmjCx+aiYebLKtk5xUliCou8d4qCEYqyCnkQNO8Qfh3X6xDkzWmPC4f3wuI4NWgFcpRe636Mkij
+	APIhrkevu
+X-Received: by 2002:a17:907:608d:b0:c2e:46d0:b802 with SMTP id a640c23a62f3a-c46797af00bmr188075166b.40.1792589091580;
+        Wed, 21 Oct 2026 06:24:51 -0700 (PDT)
+Received: from M-K2012N0113010.localdomain ([88.119.128.229])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c468a592333sm1418266b.46.2026.10.21.06.24.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 06:24:50 -0700 (PDT)
+From: Paulius Zaleckas <paulius.zaleckas@gmail.com>
+To: Rupesh Majhi <zoone.rupert@gmail.com>
+Cc: Paulius Zaleckas <paulius.zaleckas@gmail.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	linux-iio@vger.kernel.org,
+	Eddie James <eajames@linux.ibm.com>,
+	Joel Stanley <joel@jms.id.au>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 0/5] iio: pressure: dps310: add Zilltek ZTS8032
+Date: Wed, 21 Oct 2026 16:24:09 +0300
+Message-ID: <20261021132409.3742735-1-paulius.zaleckas@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261019141646.49599-1-zoone.rupert@gmail.com>
+References: <20261019083620.1285782-1-paulius.zaleckas@gmail.com> <20261019141646.49599-1-zoone.rupert@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,40 +112,11 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021083011.2170525-1-chenwandun1@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 21, 2026 at 04:30:03PM +0800, Wandun Chen wrote:
-> From: Wandun Chen <chenwandun@lixiang.com>
-> 
-> On SoCs that carve out large firmware-owned reserved memory (GPU,
-> camera ISP, ...), kdump currently dumps those carveouts as part of
-> system RAM even though their contents are firmware state that is not
-> useful for kernel crash analysis.
-> 
-> ACPI systems already filter reserved memory out of the vmcore through
-> their existing path: firmware reports those carveouts as unusable in
-> the EFI memory map, they get MEMBLOCK_NOMAP set in memblock.memory
-> (is_usable_memory(), efi-init.c), and the ELF header builder has
-> always skipped nomap regions; only DT-based systems currently fail
-> to filter these regions, which is what this series addresses.
-> 
-> This series introduces a MEMBLOCK_NODUMP flag (suggested by Rob) in
-> memblock to filter reserved memory on DT-based architectures. A new
-> flag is needed because MEMBLOCK_NOMAP can only express regions without
-> a linear mapping, while MEMBLOCK_NODUMP can filter regions that are
-> linearly mapped. Reserved regions are marked MEMBLOCK_NODUMP by default
-> so kdump omits them; reusable CMA regions are different because their
-> pages are handed back to the buddy allocator and may carry crash-relevant
-> data.
+On Mon, Oct 19, 2026, Rupesh Majhi wrote:
+> Tested-by: Rupesh Majhi <zoone.rupert@gmail.com>
 
-There is little point in continuing to send new versions until Mike 
-agrees with MEMBLOCK_NODUMP being added. You didn't answer him on v7.
+Thanks for testing on a real DPS310!
 
-Also, I intend to apply this[1] before any further reserved memory 
-changes which will greatly simplify the code.
-
-Rob
-
-[1] https://lore.kernel.org/all/20261015082315.56876-1-m.szyprowski@samsung.com/
+Paulius
