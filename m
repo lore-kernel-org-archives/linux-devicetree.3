@@ -1,78 +1,147 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.1
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792566514;
-	b=hi/U6fxZgVqXKB8ylrZ0eqAfPh7lPafUpsqkpB98lkgN03aC/VVsSCK2nlGubx5sROV0
-	 6M+axjnOfsrBu/qykwaQabWwu6ZQCxs0iNB36oc0mUXEnAXN0xIACAPXSzNhkaEbqB5ZA
-	 JpgeDTWlSSRl4wVibVyUNYdte6OYqDc1+STjLKa9V2A4oaHzZs3KKGp06moFajDSNtoN8
-	 MhB2x/TuOe0QTsfE87DqS/89RV+ccIdj8nrkG1N4ooX9/E03wRlDHgTKM+At2beOxRCTp
-	 6UebhbPz6qWjV1zdiGD246oCaeoylEekxFx+RHwpCEB7gyH3sfaH54WYPIbx/Qk7C4Q==
+	t=1792566542;
+	b=EkRkZRCFiX38xJbDoRmd8vkgjzqM+0LP3hMSpLuUHOubh9f0waih35eCo39fjiWKZCvj
+	 NgrB1vGC2OultYsAVu+FSGtTO6S5tbZ9+alAcB2MB+zdVAph03WFE/MalHtIdg3TxMGUS
+	 bInj8ztlCi5D5z4rtI7hfe3loqxkdwpdxdEBhx2Ifcob+cP+y/AaYltxRpgPKdpF7ZLEC
+	 il4f0jkpvMnPmGMvTS+bLu3PrvpWs8ufw3sdeTDG/zwLjjex9zzZFfg3qA5vrm5blOm34
+	 Vz3DHvK29sAvu0br3+8OLCjbE4dLNDGPPPGh/u9GaP2WDJMdDr2N+4l5kDLygIAjQAw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792566514;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=SJW7vyuKVcXC8ToYDDPwTZgI+QCFNKQur403kzUr/NM=;
-	b=FwlqmFu44f1eQpv2KE2aSK07uE0lJTUWAqppjC8gUOsxikG7qNc03/Td9Jt04u1B4a9P
-	 AJ9a3p/DONAjLvfsZcd+p7i/N5BEqtvIjBmt5Ibewx15LHLlexdCWo1HKoQerqby3FL45
-	 XYkrZA6FoKg0sXe0aWKyWVPzZ7osTMsnP4zI8mh9f2RMcNRBg469rwTqfQGQngV2xBtaA
-	 P0uIf8SpYANd1Uv1t1IczfxqOElNxRql5edbfMVc7O38e7n/0jy/Dd1n/pfFVK7VKFbLb
-	 WDsWcc91twAP1kOVANtNqNhayfahhDV879ll6G5IzNbyYZdQiH35SVnEhMAedPUCyjw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792566542;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:
+	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=WvefjNwL0DDMY81KSia7VX05cBSX+/APi7MhVHDBej0=;
+	b=GS3KoTiO1US90xS2EIRR1VUQ3CKGySRflhjM5Q6nuFBjyJaK3w05m6OLdi54UXmDDAGP
+	 hmKuA1dZ4ODcZZZDP7BYEfDiyo57sS+Co5m4hKWMyfnb8SvLeY0H1f9z+cUCkRrodO+iR
+	 Db3307JrxODIvwookTbhAqzOdU3KB5VABD4F6lIsvRfl/NwK2hr6hooWJAiGtDcKO5TEV
+	 TJdnNhoGtaSKEUhznhAs6s3Nm17PCXxpcKw03B0Vw00zKG5XNqePFBHZHLazIR8nYtgp7
+	 u50mVjmQtNx9mJrCf6vMcFIqohJ2wXiVt0Go9CKZwO0LU2zVL10Ayf0/50mp9WCzFlw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=izoG9jDX;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=2i64VF6l;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.1
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011001.outbound.protection.outlook.com [40.93.194.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4448A60A2606;
-	Wed, 21 Oct 2026 07:08:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF37D606A319;
+	Wed, 21 Oct 2026 07:09:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF37D606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=izoG9jDX
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792566514;
-	b=oIKBCOifjMoiQ9ocz0tqNnW/DbLe0poE8zpkviOgie1dJUHwuH1pBpMqXrYFg8S7tDvC
-	 dZsz3MxWRQfXLGTwOOLNhPtrlT3pq9Y1odZJV7+N95yTrPLxJ09c87igS9VGsG0d1lKfd
-	 wBnR2FLg3CcMXm8GzkDs9Iv1sAIYfAzYhW6OzDP+IDcIPrJOUavGQcf3pS/+vt25KNWWx
-	 DyhkUkWznQAagPK42srMYdhL13evsxAcFgl8ATy3+LaIRNLA2Lcn/f6fB5GK11FORYoV/
-	 0FmyGNYZdO8AMAearUNARtq0xfIWVkKIpgCn6RtL3QB50pSCR7xFJJggLztW/+TNTjg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792566514;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=SJW7vyuKVcXC8ToYDDPwTZgI+QCFNKQur403kzUr/NM=;
-	b=OjCib4i10or2TsOEbUZm/WaBBrnlYfwtXJ9iBLZt1S/rkWQCqlMzKWIzz4JF4Ise9qGk
-	 DJpKdrMPtHmkrXgrJ2JNSRYuRJ4BNQV4V+fdVXRrFT/lN5s6MRVfhWC2MJlZGafbqTCB3
-	 uojWAcx2bqnlj4qiLl3ZXsBMmeLg6B32+zY15PGALfPm5JyyCUCYp+MIGuywSsDkm3RsU
-	 QnzomMTYdJNRvxhwTM6iHRdoS7DqxBDntf3zrtvEAklOIknQ4BZUkOtLJqBqtlmJX9jwZ
-	 U8MhAZvml+BRgyAMt2ob33yJ4UxoxuMSTy4rm+lB3v1jADm575XTf5UT45+9a9EyhEw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C05C31F000D0;
-	Wed, 21 Oct 2026 07:08:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792566514;
-	bh=SJW7vyuKVcXC8ToYDDPwTZgI+QCFNKQur403kzUr/NM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=izoG9jDXCPqbXknugmCG/OeiMMMZKrqks7REye9nhzq3aSa4GeVUDywzEx0hDXMJz
-	 KiUh6boHsKPfshWpEuGikSL3YnDEGvu5SHsyWWqwLGYqsnwDAM+qZSUMATFnOfGbb1
-	 iTSCNmviphRDoM9XGSYYwsoMGFFrIuOCcaLaGraIB5GTaACfYQxlMQSpGnajHtqmY8
-	 RSvTSdho2ahjQwrjTiPR95pJLgUMXLgO99RuqZW5d+hpHK4ZOnrAevZ9dIum/l1sIm
-	 T6zilkZXWsb8NhPVwQm5mb3U2zBi4bxMaeuAmEa7ip3aUPLNY7XkUjomY5LZHQmb23
-	 2srMMWguHopXQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2CA5043302;
-	Wed, 21 Oct 2026 07:08:31 +0000 (UTC)
-From: Jiebing Chen via B4 Relay <devnull+jiebing.chen.amlogic.com@kernel.org>
-Date: Wed, 21 Oct 2026 15:08:32 +0800
-Subject: [PATCH v7 5/5] arm64: dts: amlogic: Add Amlogic S4 Audio
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=2i64VF6l
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cMAIRzQc+obt6dGZuZWSiCB5ZvGs5p44jJPF60YKRRiuNQyXG3Iz/HzgEUAjEyBNutQZo6ILua/jeZ/nmpVVSYAI0TGYCopjgIvmsenjps6LdxmXyLYG7PVnJ8Mz31STSWFMZSDuz7JtRBG+hfuqi4UuOfbWZHLgVUFspqgloJ7pjrHWQmssd90bk39O+1rjwfvH6fjkKRs8ApKA6u5I+GQ2qgoOY4o1yuZhWcVful8OYxvfVqo4kW2mqeWwUa54XNoYsi8Lxj5HGjS5Ahpo0Q18ZuR5U0fWB9SZd0ILiTcHP9qYhaM9azk4LC9Kuhy7+DMydgvgCi5G/hn4GdGXIw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WvefjNwL0DDMY81KSia7VX05cBSX+/APi7MhVHDBej0=;
+ b=UnfQWJFgSg2azjHt/VELq88szEppH/wR6vZ3nqvN0ZPhu+W6wpFJ8Pfuho2qt962yIsugIXdAoGjUlfQrxj/wqiQYi3wHgqrSGLV5i+O3CRq6YDO7uh4iWk7TKTu1DD7PuguEcbQmwuKaJyYJ+jFP0yv0wbE+CYE0rj62Bgw84ZLvvQnylnwortV2CIPXvqmFQcze4RMMS1yZZnUuBsY6DQwf3uN58AoohaL01GTLyB4LjEXoIar1ijwI+JZeUWIIgbcp7LtyCcCcXp0kMNC3+2168Bn/LHD5Toq40f+yeICqiuB9yEezIYh9eco6qUWcX07ExpDAkiWtHnYs7mB2g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WvefjNwL0DDMY81KSia7VX05cBSX+/APi7MhVHDBej0=;
+ b=2i64VF6lMljnGdvqu1NCJf8PqE92huxFIkwwErUWwoU8z1GmgfT9554RRnT9sNUfkRrmGM31lRjsOLGloDcxpprCBp07LIryvbGm+vKWZxtmInNnmhk7trE05MgRFpdvz6M/z0nfG8RYUhws1laLlNwyXDJxcnQHp8iXmhuHvAg=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from LV5PR12MB9779.namprd12.prod.outlook.com (2603:10b6:408:301::14)
+ by MN2PR12MB4319.namprd12.prod.outlook.com (2603:10b6:208:1dc::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
+ 2026 07:06:56 +0000
+Received: from LV5PR12MB9779.namprd12.prod.outlook.com
+ ([fe80::8ac8:e862:8ae9:9287]) by LV5PR12MB9779.namprd12.prod.outlook.com
+ ([fe80::8ac8:e862:8ae9:9287%5]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
+ 07:06:56 +0000
+Message-ID: <c1c4d983-795d-4fba-84f5-7bd62246df02@amd.com>
+Date: Wed, 21 Oct 2026 09:06:50 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/3] dt-bindings: i3c: xlnx: Add IBI and hot-join
+ capability properties
+To: "Patil, Shubham Sanjay" <shubpati@amd.com>, Rob Herring <robh@kernel.org>
+Cc: Shubham Patil <shubhamsanjay.patil@amd.com>,
+ alexandre.belloni@bootlin.com, Frank.Li@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, linux-i3c@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, git@amd.com
+References: <778da629-2f23-412b-885f-e87827ce2b5c@amd.com>
+ <20260922-ethics-flap-9760347e869d@spud>
+ <20260922-bullpen-reprise-f62e01922d88@spud>
+ <20260922-immersion-salvage-00450539f1ce@spud> <arKr-oapsl5qzo_E@SMW015318>
+ <20260922-purple-overnight-2cdd2ddd5270@spud> <arLKWE1tJrKnzGdp@SMW015318>
+ <20260922-unadvised-stalling-5cbeff8f982a@spud> <arL_Zgi1r1IFpNIO@SMW015318>
+ <20260923-overturn-acts-5abc2e4fe6ed@spud> <arPlFMhcL7Jxh4wP@SMW015318>
+ <8547c8c6-502f-4dca-a82f-893a5568f7d6@amd.com>
+Content-Language: en-US
+From: Michal Simek <michal.simek@amd.com>
+Autocrypt: addr=michal.simek@amd.com; keydata=
+ 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
+ mpwx1d8=
+In-Reply-To: <8547c8c6-502f-4dca-a82f-893a5568f7d6@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BY5PR04CA0004.namprd04.prod.outlook.com
+ (2603:10b6:a03:1d0::14) To LV5PR12MB9779.namprd12.prod.outlook.com
+ (2603:10b6:408:301::14)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,664 +151,120 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261021-audio_drvier-v7-5-2b9aeae9cb8a@amlogic.com>
-References: <20261021-audio_drvier-v7-0-2b9aeae9cb8a@amlogic.com>
-In-Reply-To: <20261021-audio_drvier-v7-0-2b9aeae9cb8a@amlogic.com>
-To: Jerome Brunet <jbrunet@baylibre.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, 
- jian.xu@amlogic.com, shuai.li@amlogic.com, zhe.wang@amlogic.com, 
- jiebing chen <jiebing.chen@amlogic.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792566509; l=19146;
- i=jiebing.chen@amlogic.com; s=20250110; h=from:subject:message-id;
- bh=dgb0ORCAd7QbyqEYT/Jy2O59Rp3SXZz0s2unDMxfeWU=;
- b=nL2ySGoVCASeF8UeWDHboaDjiPvm+SwCyd1QIBn2WXTuX16otkCKWzZytTSiX1IE6P6jgfw38
- DEWVa4UPl9dBtVgo8Y1uPnMKKsg6qbwRMpv1E8TtjSiPb4zMFjGbQOm
-X-Developer-Key: i=jiebing.chen@amlogic.com; a=ed25519;
- pk=6rFvvF45A84pLNRy03hfUHeROxHCnZ+1KAGw/DoqKic=
-X-Endpoint-Received: by B4 Relay for jiebing.chen@amlogic.com/20250110 with
- auth_id=316
-X-Original-From: Jiebing Chen <jiebing.chen@amlogic.com>
-Reply-To: jiebing.chen@amlogic.com
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV5PR12MB9779:EE_|MN2PR12MB4319:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8c5fd8de-1016-41ae-ea67-08df2f41e481
+X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|56012099006|4143699003|11063799006|261009223027099003|10067099003|22082099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	Rkbc0MBmvB1GuyrT4BAjDlAJwMERCqLg9JUXmOYyq2ANZYstsVKwAqED8uLecl3kOMqeaV7TZ0QjxGel0V/s6IDH62CfcNA4cYVtVRR61nWQAKEhYR1C9PjixY+X2Z92/vcBXCU+Ov/65F9rxtu1j5WU301VuvvqF2q+54ETW1P97totxJDQVmTd//VqaTDweyX+Q0GS4szYnLLnPv202c4pTTpp4zQJ6EvtjBjEDczCmCI0R7+ZP2S4pQPt0Z9aTlehbvokHqGRAFwrW9DHycueZflrUe/owRPlI5g5AHVc4n6v3wIJnOU8xK+/zXC8msjjsgxluU7KAQpxMW84IyOhaMbn0qHQ5uTTDcImc67UKIaIeEU511QuE/23chpn4VptFz6Whbmo22UjEPOtoearr9tEYXOOFK8NdTlt29AVTtWA9B49EUCVJJx4JtOP57rF3bkRvSQszXUMyYLslaWPBmhyL1dnKEfi/DHuAU1T79mcFPYDlrWUrc0QT++bmyCte/ZHBLlnxcA13Oc3CP9nwHbXww3UQ+KThMJhxWX0Z7UJupHlcKtWS77mvYOfHvqKoh+7IIECpighHPxWgkp9sqAS7ggE1/LXnjCb3NngwIWv9oxaCHyMyzpBCkRowmI8TsaB59S9od0VPOim1LCqmWE8sMw6+PDaydyTJvw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV5PR12MB9779.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(56012099006)(4143699003)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?YzdsbndRVUY3THFRRmdtRituUDFpMEE0Qi84SDMxZGFDREgvZmh3cUtaVkdF?=
+ =?utf-8?B?U3dWM3d5SmF5VUI2QVdQdTlhaDJGczJObzlkOTR0bjBzcXdUM1dOSWxLM3ZN?=
+ =?utf-8?B?NDN4bnBnM202ZTd5clVwU2tYOU5HcldEN3V4OGhQRS9qazcwUmprTG9iY2Ux?=
+ =?utf-8?B?OXZCWmdyUFhtSHExS3JZcW9OdkVTNmdncUZ5ejlOSjYxS2xsLzZkbnpzS1ow?=
+ =?utf-8?B?VUhydGY2bzYrMUZYZHVWdGhHU2RiemMwWlJWanRsS0FRV1NXdFZCNUlMQ2NK?=
+ =?utf-8?B?SGd1REFIT2E3cURkcG5QeDJXNC91S0FXV0V4N3ZBNUJReW9qTHkyc3RuNGUx?=
+ =?utf-8?B?UHNjcXd3VU0rOENYVEZFcXVIQlRXbHV1UGc4Vkh4T0o2WTlVQjJheXcrM2xr?=
+ =?utf-8?B?TGR2bUhtTy81bUN2eEQvTlBoSFBveVhyZzNLTVVPemFHalNNS2FDNWp1d1Yy?=
+ =?utf-8?B?QStjNFdUUHBBZWo4eFk3dmI2SDMwTjYzbkkwQk1VYmwwenVDQ1YxQ2RUTWpB?=
+ =?utf-8?B?VmlOL1Z2QzJlTkRBVE1mNzB1bmpRbXpjS3dJL09NeGV1Z0VTbXlOM2FtZll1?=
+ =?utf-8?B?OFFWQUFUaCtCcFlpZEJuMVR4WitxSW5aT3FBU0lVODJwTU02enQ3ZmkrSnV5?=
+ =?utf-8?B?NUVlRGN6c2FGMWJ1dVRad1kvWHlVeE5ZTThnVGFnY0VMcyt3SWJaQVB4OWwr?=
+ =?utf-8?B?cWpOUDJGRWQwSWVkV2lZeHU2SWd6Y0ljdVBTY01QRldaQlkwSHRUQ3loZmFq?=
+ =?utf-8?B?RHZPMS9SVHhTQktTQkkxR3c5VGhieFlMQi9qVTNlU3Y3RVJRNTJsYjhNdXhE?=
+ =?utf-8?B?dDNQSm1mZHNKTGt4VGlHTkdHUDZlNU50bDNlUmZTanpxRzJqVDNJOHByK2Jo?=
+ =?utf-8?B?TVhJaExlcXo2NlVYbVRFNjFqS2ROcGNpVWRDVlc1d29pWUoxN1p6cExpdC9B?=
+ =?utf-8?B?cjVLYkVMb05zWUc1VlM3Y1NwZWtRSE9SeG9qSUlweVNrM0Y2K1J6OTEzTVlJ?=
+ =?utf-8?B?N2xvZThUV1J1NHZGUzFrRmRON0FSVFdnVTZLU1BDbHIxVHdCMWVmUEJKY0pC?=
+ =?utf-8?B?K2pWT1RpQktZL3FpaVZST20xdU1EZFpKWHUwTytSSTVqaDUwRWRIUlc4NXN0?=
+ =?utf-8?B?bEhaOG8vejBFaS9jOFIxY1F1eWpYL3JKTytabU8vUG8xOCtCcnErYjdQenFD?=
+ =?utf-8?B?ZnE0QnJSQUhVWlBndkZjNUNIdDQ2ODBhSzRVVXcyV2pkM005UTRINE9BYnl1?=
+ =?utf-8?B?WFpocElXeEtERzFlZmxVTk5ycUIwNVVmaEg1NnN5VnlVTVFSb2x5MEFUZ3JZ?=
+ =?utf-8?B?SXg5TnFzU1k0a0p3bU8vQ0pPTjdETldHdkczNEJnZERmeW1qQkkzT09YVkM0?=
+ =?utf-8?B?bk1OVjQrRmp0aTIwMEhQVTFtWDNRMXdWdEFPY0U5VHBQUFNicFBVRDVSUHR5?=
+ =?utf-8?B?MUZvVlBuTDVaRVJ5WUdyblBSdmVFV2Z6WXRiVm9Ea05SS05COEEwVmNtOW85?=
+ =?utf-8?B?MTM2a2ZZMjRPNXRiVFZPUDN5ekpSSm1iVmcwMlQwcFdhbnlUcTcybngvdjZk?=
+ =?utf-8?B?MkpvVitLZEhmSGxhMVFQNEFwWXhXV0pxU2J0OEl2SExMMjRyUG5Mdk55YjVR?=
+ =?utf-8?B?N0gyOFIyRHM4ZllIa1VWTDFwQlB0TUF1VnpXUk9FQ0VNNU1hSVNrcUtUUkhu?=
+ =?utf-8?B?Y3BFODlxNElwakVvMFlKdVJJcEFMM0ZMTHFZTU5WYnd0WUQ2UWw3dmw0cmFy?=
+ =?utf-8?B?WjV1Ynp6Rk5LdHFBeG5ZbzZ0NG5pSjlhSEIvUGozUkdoY3M2OTFpR3l0bmc5?=
+ =?utf-8?B?Z3RZbFgxQjNQNEhOY1RWKytGdlB4OEhmMVpLa3dVa0pyY3NTeW15VlJmVWNm?=
+ =?utf-8?B?Tk82bGFhZWRTd2I5WG5FL05iTm9PYjllZkpZTTloR1Y0QlUrQUlyRDFVMllO?=
+ =?utf-8?B?NHFXVWV3eEc3bzdFOGo4MGFDbWdRSm5GczVnMUhyY0RDaDkwOFhDZ2dkN3Q0?=
+ =?utf-8?B?TTRNTGphQ242WjA2N3ZrZ0lrdjQrVFVoQnNjWlNWaDA4RHhoVEVDajEzTE52?=
+ =?utf-8?B?eGkzRXZVUU5DU0oxR2xHWFV2SGhuT20xU1hzeUJ3QVdFNXhNVVJoTk1iYnAr?=
+ =?utf-8?B?Z2w2YW1ZcmJwWHhaaS9NWHZucW4zQ0psd0tlQVlyZlJqNWJFK2FyTmgybks2?=
+ =?utf-8?B?QzRjaTNJSGxVQWR6NitiZTRjVXVtWElTMUt0dWVYL1p2dS9uTStqdHJJekIx?=
+ =?utf-8?B?MVE2T0NIZmJwTnJRNzlBdGs4SFIxdVdmSUg3ZjZ3UXJBaWgwRUtYS05PZ3dB?=
+ =?utf-8?Q?GL5YamaNEvAmE6Budj?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c5fd8de-1016-41ae-ea67-08df2f41e481
+X-MS-Exchange-CrossTenant-AuthSource: LV5PR12MB9779.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 07:06:56.4347
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pzc4crLkAQLTM3H6kVXeGDiQOSbcVOJUXVg/+RBsjRE2+BuyTqVGBtjxT4jxVNs/
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4319
 
-From: Jiebing Chen <jiebing.chen@amlogic.com>
+Hi Rob,
 
-Add basic audio driver support for the Amlogic S4 based
-Amlogic AQ222 board.
+On 10/7/26 08:03, Patil, Shubham Sanjay wrote:
+> Hi Rob, Just a reminder !
 
-Signed-off-by: Jiebing Chen <jiebing.chen@amlogic.com>
----
- .../boot/dts/amlogic/meson-s4-s805x2-aq222.dts     | 219 +++++++++++++
- arch/arm64/boot/dts/amlogic/meson-s4.dtsi          | 360 +++++++++++++++++++++
- 2 files changed, 579 insertions(+)
+<snip>
 
-diff --git a/arch/arm64/boot/dts/amlogic/meson-s4-s805x2-aq222.dts b/arch/arm64/boot/dts/amlogic/meson-s4-s805x2-aq222.dts
-index 0a3f81ea0fb0..d614dcd6933d 100644
---- a/arch/arm64/boot/dts/amlogic/meson-s4-s805x2-aq222.dts
-+++ b/arch/arm64/boot/dts/amlogic/meson-s4-s805x2-aq222.dts
-@@ -75,6 +75,19 @@ vddio_ao1v8: regulator-vddio-ao1v8 {
- 	       regulator-always-on;
- 	};
- 
-+	vcc5v_reg: regulator-vcc-5v {
-+		compatible = "regulator-fixed";
-+		vin-supply = <&main_12v>;
-+		regulator-name = "VCC5V";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		gpio = <&gpio GPIOH_7 GPIO_ACTIVE_HIGH>;
-+		startup-delay-us = <7000>;
-+		enable-active-high;
-+		regulator-boot-on;
-+		regulator-always-on;
-+	};
-+
- 	/* SY8120B1ABC DC/DC Regulator. */
- 	vddcpu: regulator-vddcpu {
- 		compatible = "pwm-regulator";
-@@ -129,6 +142,212 @@ vddcpu: regulator-vddcpu {
- 				<699000 98>,
- 				<689000 100>;
- 	};
-+
-+	dmics: audio-codec-1 {
-+		compatible = "dmic-codec";
-+		#sound-dai-cells = <0>;
-+		num-channels = <2>;
-+		wakeup-delay-ms = <50>;
-+		sound-name-prefix = "MIC";
-+	};
-+
-+	dioo2133: audio-amplifier-0 {
-+		compatible = "simple-audio-amplifier";
-+		enable-gpios = <&gpio GPIOH_8 GPIO_ACTIVE_HIGH>;
-+		VCC-supply = <&vcc5v_reg>;
-+		sound-name-prefix = "10U2";
-+	};
-+
-+	spdif_dir: audio-spdif-in {
-+		compatible = "linux,spdif-dir";
-+		#sound-dai-cells = <0>;
-+		sound-name-prefix = "DIR";
-+	};
-+
-+	spdif_dit: audio-spdif-out {
-+		compatible = "linux,spdif-dit";
-+		#sound-dai-cells = <0>;
-+		sound-name-prefix = "DIT";
-+	};
-+
-+	sound {
-+		compatible = "amlogic,axg-sound-card";
-+		model = "aq222";
-+		audio-widgets = "Line", "Lineout";
-+		audio-aux-devs = <&tdmout_a>, <&tdmout_b>, <&tdmout_c>,
-+				 <&tdmin_a>, <&tdmin_b>, <&tdmin_c>,
-+				 <&tdmin_lb>, <&dioo2133>;
-+		audio-routing = "TDMOUT_A IN 0", "FRDDR_A OUT 0",
-+				"TDMOUT_A IN 1", "FRDDR_B OUT 0",
-+				"TDMOUT_A IN 2", "FRDDR_C OUT 0",
-+				"TDM_A Playback", "TDMOUT_A OUT",
-+				"TDMOUT_B IN 0", "FRDDR_A OUT 1",
-+				"TDMOUT_B IN 1", "FRDDR_B OUT 1",
-+				"TDMOUT_B IN 2", "FRDDR_C OUT 1",
-+				"TDM_B Playback", "TDMOUT_B OUT",
-+				"TDMOUT_C IN 0", "FRDDR_A OUT 2",
-+				"TDMOUT_C IN 1", "FRDDR_B OUT 2",
-+				"TDMOUT_C IN 2", "FRDDR_C OUT 2",
-+				"TDM_C Playback", "TDMOUT_C OUT",
-+				"SPDIFOUT_A IN 0", "FRDDR_A OUT 3",
-+				"SPDIFOUT_A IN 1", "FRDDR_B OUT 3",
-+				"SPDIFOUT_A IN 2", "FRDDR_C OUT 3",
-+				"SPDIFOUT_B IN 0", "FRDDR_A OUT 4",
-+				"SPDIFOUT_B IN 1", "FRDDR_B OUT 4",
-+				"SPDIFOUT_B IN 2", "FRDDR_C OUT 4",
-+				"TDMIN_A IN 0", "TDM_A Capture",
-+				"TDMIN_A IN 1", "TDM_B Capture",
-+				"TDMIN_A IN 2", "TDM_C Capture",
-+				"TDMIN_A IN 3", "TDM_A Loopback",
-+				"TDMIN_A IN 4", "TDM_B Loopback",
-+				"TDMIN_A IN 5", "TDM_C Loopback",
-+				"TDMIN_B IN 0", "TDM_A Capture",
-+				"TDMIN_B IN 1", "TDM_B Capture",
-+				"TDMIN_B IN 2", "TDM_C Capture",
-+				"TDMIN_B IN 3", "TDM_A Loopback",
-+				"TDMIN_B IN 4", "TDM_B Loopback",
-+				"TDMIN_B IN 5", "TDM_C Loopback",
-+				"TDMIN_C IN 0", "TDM_A Capture",
-+				"TDMIN_C IN 1", "TDM_B Capture",
-+				"TDMIN_C IN 2", "TDM_C Capture",
-+				"TDMIN_C IN 3", "TDM_A Loopback",
-+				"TDMIN_C IN 4", "TDM_B Loopback",
-+				"TDMIN_C IN 5", "TDM_C Loopback",
-+				"TDMIN_LB IN 3", "TDM_A Capture",
-+				"TDMIN_LB IN 4", "TDM_B Capture",
-+				"TDMIN_LB IN 5", "TDM_C Capture",
-+				"TDMIN_LB IN 0", "TDM_A Loopback",
-+				"TDMIN_LB IN 1", "TDM_B Loopback",
-+				"TDMIN_LB IN 2", "TDM_C Loopback",
-+				"TODDR_A IN 0", "TDMIN_A OUT",
-+				"TODDR_B IN 0", "TDMIN_A OUT",
-+				"TODDR_C IN 0", "TDMIN_A OUT",
-+				"TODDR_A IN 1", "TDMIN_B OUT",
-+				"TODDR_B IN 1", "TDMIN_B OUT",
-+				"TODDR_C IN 1", "TDMIN_B OUT",
-+				"TODDR_A IN 2", "TDMIN_C OUT",
-+				"TODDR_B IN 2", "TDMIN_C OUT",
-+				"TODDR_C IN 2", "TDMIN_C OUT",
-+				"TODDR_A IN 3", "SPDIFIN Capture",
-+				"TODDR_B IN 3", "SPDIFIN Capture",
-+				"TODDR_C IN 3", "SPDIFIN Capture",
-+				"TODDR_A IN 6", "TDMIN_LB OUT",
-+				"TODDR_B IN 6", "TDMIN_LB OUT",
-+				"TODDR_C IN 6", "TDMIN_LB OUT",
-+				"10U2 INL", "ACODEC LOLP",
-+				"10U2 INR", "ACODEC LORP",
-+				"Lineout", "10U2 OUTL",
-+				"Lineout", "10U2 OUTR";
-+		clocks = <&clkc_pll CLKID_HIFI_PLL>,
-+				<&clkc_pll CLKID_MPLL0>;
-+		assigned-clocks = <&clkc_pll CLKID_HIFI_PLL>,
-+				  <&clkc_pll CLKID_MPLL0>;
-+		assigned-clock-rates = <1179648000>,
-+				       <270950400>;
-+
-+		dai-link-0 {
-+			sound-dai = <&frddr_a>;
-+		};
-+
-+		dai-link-1 {
-+			sound-dai = <&frddr_b>;
-+		};
-+
-+		dai-link-2 {
-+			sound-dai = <&frddr_c>;
-+		};
-+
-+		dai-link-3 {
-+			sound-dai = <&toddr_a>;
-+		};
-+
-+		dai-link-4 {
-+			sound-dai = <&toddr_b>;
-+		};
-+
-+		dai-link-5 {
-+			sound-dai = <&toddr_c>;
-+		};
-+
-+		dai-link-6 {
-+			sound-dai = <&tdmif_a>;
-+			dai-format = "i2s";
-+			dai-tdm-slot-tx-mask-0 = <1 1>;
-+			mclk-fs = <256>;
-+			codec-0 {
-+				sound-dai = <&tohdmitx TOHDMITX_I2S_IN_A>;
-+			};
-+			codec-1 {
-+				sound-dai = <&toacodec TOACODEC_IN_A>;
-+			};
-+		};
-+
-+		dai-link-7 {
-+			sound-dai = <&tdmif_b>;
-+			dai-format = "i2s";
-+			dai-tdm-slot-tx-mask-0 = <1 1>;
-+			mclk-fs = <256>;
-+			codec-0 {
-+				sound-dai = <&toacodec TOACODEC_IN_B>;
-+			};
-+			codec-1 {
-+				sound-dai = <&tohdmitx TOHDMITX_I2S_IN_B>;
-+			};
-+		};
-+
-+		/* 8ch HDMI interface */
-+		dai-link-8 {
-+			sound-dai = <&tdmif_c>;
-+			dai-format = "i2s";
-+			dai-tdm-slot-tx-mask-0 = <1 1>;
-+			dai-tdm-slot-tx-mask-1 = <1 1>;
-+			dai-tdm-slot-tx-mask-2 = <1 1>;
-+			dai-tdm-slot-tx-mask-3 = <1 1>;
-+			mclk-fs = <256>;
-+			codec-0 {
-+				sound-dai = <&tohdmitx TOHDMITX_I2S_IN_C>;
-+			};
-+		};
-+
-+		/* spdif hdmi and coax output */
-+		dai-link-9 {
-+			sound-dai = <&spdifout_a>;
-+
-+			codec-0 {
-+				sound-dai = <&spdif_dit>;
-+			};
-+
-+			codec-1 {
-+				sound-dai = <&tohdmitx TOHDMITX_SPDIF_IN_A>;
-+			};
-+		};
-+
-+		/* spdif hdmi interface */
-+		dai-link-10 {
-+			sound-dai = <&spdifout_b>;
-+
-+			codec {
-+				sound-dai = <&tohdmitx TOHDMITX_SPDIF_IN_B>;
-+			};
-+		};
-+
-+		/* spdif coax input */
-+		dai-link-11 {
-+			sound-dai = <&spdifin>;
-+
-+			codec {
-+				sound-dai = <&spdif_dir>;
-+			};
-+		};
-+
-+		dai-link-12 {
-+			sound-dai = <&toacodec TOACODEC_OUT>;
-+
-+			codec {
-+				sound-dai = <&acodec>;
-+			};
-+		};
-+	};
- };
- 
- &pwm_ef {
-diff --git a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-index dfc0a30a6e61..31e0c0cb47e1 100644
---- a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-@@ -11,6 +11,11 @@
- #include <dt-bindings/clock/amlogic,s4-peripherals-clkc.h>
- #include <dt-bindings/power/meson-s4-power.h>
- #include <dt-bindings/reset/amlogic,meson-s4-reset.h>
-+#include <dt-bindings/clock/axg-audio-clkc.h>
-+#include <dt-bindings/reset/amlogic,meson-axg-audio-arb.h>
-+#include <dt-bindings/reset/amlogic,meson-g12a-audio-reset.h>
-+#include <dt-bindings/sound/meson-g12a-toacodec.h>
-+#include <dt-bindings/sound/meson-g12a-tohdmitx.h>
- 
- / {
- 	cpus {
-@@ -863,4 +868,359 @@ emmc: mmc@fe08c000 {
- 			assigned-clock-rates = <24000000>;
- 		};
- 	};
-+
-+	tdmif_a: audio-controller-0 {
-+		compatible = "amlogic,axg-tdm-iface";
-+		#sound-dai-cells = <0>;
-+		sound-name-prefix = "TDM_A";
-+		clocks = <&clkc_audio AUD_CLKID_MST_A_SCLK>,
-+			 <&clkc_audio AUD_CLKID_MST_A_LRCLK>,
-+			 <&clkc_audio AUD_CLKID_MST_A_MCLK>;
-+		clock-names = "sclk", "lrclk","mclk";
-+	};
-+
-+	tdmif_b: audio-controller-1 {
-+		compatible = "amlogic,axg-tdm-iface";
-+		#sound-dai-cells = <0>;
-+		sound-name-prefix = "TDM_B";
-+		clocks = <&clkc_audio AUD_CLKID_MST_B_SCLK>,
-+			 <&clkc_audio AUD_CLKID_MST_B_LRCLK>,
-+			 <&clkc_audio AUD_CLKID_MST_B_MCLK>;
-+		clock-names = "sclk", "lrclk","mclk";
-+	};
-+
-+	tdmif_c: audio-controller-2 {
-+		compatible = "amlogic,axg-tdm-iface";
-+		#sound-dai-cells = <0>;
-+		sound-name-prefix = "TDM_C";
-+		clocks = <&clkc_audio AUD_CLKID_MST_C_SCLK>,
-+			 <&clkc_audio AUD_CLKID_MST_C_LRCLK>,
-+			 <&clkc_audio AUD_CLKID_MST_C_MCLK>;
-+		clock-names = "sclk", "lrclk","mclk";
-+	};
-+};
-+
-+&apb4 {
-+	acodec: audio-controller@1a000 {
-+		compatible = "amlogic,t9015";
-+		reg = <0x0 0x1a000 0x0 0x14>;
-+		#sound-dai-cells = <0>;
-+		sound-name-prefix = "ACODEC";
-+		clocks = <&clkc_periphs CLKID_ACODEC>;
-+		clock-names = "pclk";
-+		resets = <&reset RESET_ACODEC>;
-+		AVDD-supply = <&vddio_ao1v8>;
-+	};
-+
-+	clkc_audio: clock-controller@330000 {
-+		compatible = "amlogic,s4-audio-clkc";
-+		reg = <0x0 0x330000 0x0 0xd8>;
-+		#clock-cells = <1>;
-+		#reset-cells = <1>;
-+		power-domains = <&pwrc PWRC_S4_AUDIO_ID>;
-+		clocks = <&clkc_periphs CLKID_AUDIO>,
-+			 <&clkc_pll CLKID_MPLL0>,
-+			 <&clkc_pll CLKID_MPLL1>,
-+			 <&clkc_pll CLKID_MPLL2>,
-+			 <&clkc_pll CLKID_MPLL3>,
-+			 <&clkc_pll CLKID_HIFI_PLL>,
-+			 <&clkc_pll CLKID_FCLK_DIV3>,
-+			 <&clkc_pll CLKID_FCLK_DIV4>,
-+			 <&clkc_pll CLKID_FCLK_DIV5>;
-+		clock-names = "pclk",
-+				  "mst_in0",
-+				  "mst_in1",
-+				  "mst_in2",
-+				  "mst_in3",
-+				  "mst_in4",
-+				  "mst_in5",
-+				  "mst_in6",
-+				  "mst_in7";
-+		resets = <&reset RESET_AUDIO>;
-+	};
-+
-+	toddr_a: audio-controller@330100 {
-+		compatible = "amlogic,sm1-toddr",
-+				 "amlogic,axg-toddr";
-+		reg = <0x0 0x330100 0x0 0x2c>;
-+		#sound-dai-cells = <0>;
-+		sound-name-prefix = "TODDR_A";
-+		interrupts = <GIC_SPI 32 IRQ_TYPE_EDGE_RISING>;
-+		clocks = <&clkc_audio AUD_CLKID_TODDR_A>;
-+		resets = <&arb AXG_ARB_TODDR_A>,
-+			 <&clkc_audio AUD_RESET_TODDR_A>;
-+		reset-names = "arb", "rst";
-+		amlogic,fifo-depth = <8192>;
-+	};
-+
-+	toddr_b: audio-controller@330140 {
-+		compatible = "amlogic,sm1-toddr",
-+				 "amlogic,axg-toddr";
-+		reg = <0x0 0x330140 0x0 0x2c>;
-+		#sound-dai-cells = <0>;
-+		sound-name-prefix = "TODDR_B";
-+		interrupts = <GIC_SPI 33 IRQ_TYPE_EDGE_RISING>;
-+		clocks = <&clkc_audio AUD_CLKID_TODDR_B>;
-+		resets = <&arb AXG_ARB_TODDR_B>,
-+			 <&clkc_audio AUD_RESET_TODDR_B>;
-+		reset-names = "arb", "rst";
-+		amlogic,fifo-depth = <256>;
-+	};
-+
-+	toddr_c: audio-controller@330180 {
-+		compatible = "amlogic,sm1-toddr",
-+				 "amlogic,axg-toddr";
-+		reg = <0x0 0x330180 0x0 0x2c>;
-+		#sound-dai-cells = <0>;
-+		sound-name-prefix = "TODDR_C";
-+		interrupts = <GIC_SPI 34 IRQ_TYPE_EDGE_RISING>;
-+		clocks = <&clkc_audio AUD_CLKID_TODDR_C>;
-+		resets = <&arb AXG_ARB_TODDR_C>,
-+			 <&clkc_audio AUD_RESET_TODDR_C>;
-+		reset-names = "arb", "rst";
-+		amlogic,fifo-depth = <256>;
-+	};
-+
-+	frddr_a: audio-controller@3301c0 {
-+		compatible = "amlogic,sm1-frddr",
-+				 "amlogic,axg-frddr";
-+		reg = <0x0 0x3301c0 0x0 0x2c>;
-+		#sound-dai-cells = <0>;
-+		sound-name-prefix = "FRDDR_A";
-+		interrupts = <GIC_SPI 36 IRQ_TYPE_EDGE_RISING>;
-+		clocks = <&clkc_audio AUD_CLKID_FRDDR_A>;
-+		resets = <&arb AXG_ARB_FRDDR_A>,
-+			 <&clkc_audio AUD_RESET_FRDDR_A>;
-+		reset-names = "arb", "rst";
-+		amlogic,fifo-depth = <512>;
-+	};
-+
-+	frddr_b: audio-controller@330200 {
-+		compatible = "amlogic,sm1-frddr",
-+				 "amlogic,axg-frddr";
-+		reg = <0x0 0x330200 0x0 0x2c>;
-+		#sound-dai-cells = <0>;
-+		sound-name-prefix = "FRDDR_B";
-+		interrupts = <GIC_SPI 37 IRQ_TYPE_EDGE_RISING>;
-+		clocks = <&clkc_audio AUD_CLKID_FRDDR_B>;
-+		resets = <&arb AXG_ARB_FRDDR_B>,
-+			 <&clkc_audio AUD_RESET_FRDDR_B>;
-+		reset-names = "arb", "rst";
-+		amlogic,fifo-depth = <256>;
-+	};
-+
-+	frddr_c: audio-controller@330240 {
-+		compatible = "amlogic,sm1-frddr",
-+				 "amlogic,axg-frddr";
-+		reg = <0x0 0x330240 0x0 0x2c>;
-+		#sound-dai-cells = <0>;
-+		sound-name-prefix = "FRDDR_C";
-+		interrupts = <GIC_SPI 38 IRQ_TYPE_EDGE_RISING>;
-+		clocks = <&clkc_audio AUD_CLKID_FRDDR_C>;
-+		resets = <&arb AXG_ARB_FRDDR_C>,
-+			 <&clkc_audio AUD_RESET_FRDDR_C>;
-+		reset-names = "arb", "rst";
-+		amlogic,fifo-depth = <256>;
-+	};
-+
-+	arb: reset-controller@330280 {
-+		compatible = "amlogic,meson-sm1-audio-arb";
-+		reg = <0x0 0x330280 0x0 0x4>;
-+		#reset-cells = <1>;
-+		clocks = <&clkc_audio AUD_CLKID_DDR_ARB>;
-+	};
-+
-+	tdmin_a: audio-controller@330300 {
-+		compatible = "amlogic,sm1-tdmin";
-+		reg = <0x0 0x330300 0x0 0x40>;
-+		sound-name-prefix = "TDMIN_A";
-+		resets = <&clkc_audio AUD_RESET_TDMIN_A>;
-+		clocks = <&clkc_audio AUD_CLKID_TDMIN_A>,
-+			 <&clkc_audio AUD_CLKID_TDMIN_A_SCLK>,
-+			 <&clkc_audio AUD_CLKID_TDMIN_A_SCLK_SEL>,
-+			 <&clkc_audio AUD_CLKID_TDMIN_A_LRCLK>,
-+			 <&clkc_audio AUD_CLKID_TDMIN_A_LRCLK>;
-+		clock-names = "pclk", "sclk", "sclk_sel",
-+				  "lrclk", "lrclk_sel";
-+	};
-+
-+	tdmin_b: audio-controller@330340 {
-+		compatible = "amlogic,sm1-tdmin";
-+		reg = <0x0 0x330340 0x0 0x40>;
-+		sound-name-prefix = "TDMIN_B";
-+		resets = <&clkc_audio AUD_RESET_TDMIN_B>;
-+		clocks = <&clkc_audio AUD_CLKID_TDMIN_B>,
-+			 <&clkc_audio AUD_CLKID_TDMIN_B_SCLK>,
-+			 <&clkc_audio AUD_CLKID_TDMIN_B_SCLK_SEL>,
-+			 <&clkc_audio AUD_CLKID_TDMIN_B_LRCLK>,
-+			 <&clkc_audio AUD_CLKID_TDMIN_B_LRCLK>;
-+		clock-names = "pclk", "sclk", "sclk_sel",
-+				  "lrclk", "lrclk_sel";
-+	};
-+
-+	tdmin_c: audio-controller@330380 {
-+		compatible = "amlogic,sm1-tdmin";
-+		reg = <0x0 0x330380 0x0 0x40>;
-+		sound-name-prefix = "TDMIN_C";
-+		resets = <&clkc_audio AUD_RESET_TDMIN_C>;
-+		clocks = <&clkc_audio AUD_CLKID_TDMIN_C>,
-+			 <&clkc_audio AUD_CLKID_TDMIN_C_SCLK>,
-+			 <&clkc_audio AUD_CLKID_TDMIN_C_SCLK_SEL>,
-+			 <&clkc_audio AUD_CLKID_TDMIN_C_LRCLK>,
-+			 <&clkc_audio AUD_CLKID_TDMIN_C_LRCLK>;
-+		clock-names = "pclk", "sclk", "sclk_sel",
-+				  "lrclk", "lrclk_sel";
-+	};
-+
-+	tdmin_lb: audio-controller@3303c0 {
-+		compatible = "amlogic,sm1-tdmin";
-+		reg = <0x0 0x3303c0 0x0 0x40>;
-+		sound-name-prefix = "TDMIN_LB";
-+		resets = <&clkc_audio AUD_RESET_TDMIN_LB>;
-+		clocks = <&clkc_audio AUD_CLKID_TDMIN_LB>,
-+			 <&clkc_audio AUD_CLKID_TDMIN_LB_SCLK>,
-+			 <&clkc_audio AUD_CLKID_TDMIN_LB_SCLK_SEL>,
-+			 <&clkc_audio AUD_CLKID_TDMIN_LB_LRCLK>,
-+			 <&clkc_audio AUD_CLKID_TDMIN_LB_LRCLK>;
-+		clock-names = "pclk", "sclk", "sclk_sel",
-+				  "lrclk", "lrclk_sel";
-+	};
-+
-+	spdifin: audio-controller@330400 {
-+		compatible = "amlogic,g12a-spdifin",
-+				 "amlogic,axg-spdifin";
-+		reg = <0x0 0x330400 0x0 0x30>;
-+		#sound-dai-cells = <0>;
-+		sound-name-prefix = "SPDIFIN";
-+		interrupts = <GIC_SPI 151 IRQ_TYPE_EDGE_RISING>;
-+		clocks = <&clkc_audio AUD_CLKID_SPDIFIN>,
-+		<&clkc_audio AUD_CLKID_SPDIFIN_CLK>;
-+		clock-names = "pclk", "refclk";
-+		resets = <&clkc_audio AUD_RESET_SPDIFIN>;
-+	};
-+
-+	spdifout_a: audio-controller@330480 {
-+		compatible = "amlogic,g12a-spdifout",
-+				 "amlogic,axg-spdifout";
-+		reg = <0x0 0x330480 0x0 0x50>;
-+		#sound-dai-cells = <0>;
-+		sound-name-prefix = "SPDIFOUT_A";
-+		clocks = <&clkc_audio AUD_CLKID_SPDIFOUT>,
-+		<&clkc_audio AUD_CLKID_SPDIFOUT_CLK>;
-+		clock-names = "pclk", "mclk";
-+		resets = <&clkc_audio AUD_RESET_SPDIFOUT>;
-+	};
-+
-+	tdmout_a: audio-controller@330500 {
-+		compatible = "amlogic,sm1-tdmout";
-+		reg = <0x0 0x330500 0x0 0x40>;
-+		sound-name-prefix = "TDMOUT_A";
-+		resets = <&clkc_audio AUD_RESET_TDMOUT_A>;
-+		clocks = <&clkc_audio AUD_CLKID_TDMOUT_A>,
-+			 <&clkc_audio AUD_CLKID_TDMOUT_A_SCLK>,
-+			 <&clkc_audio AUD_CLKID_TDMOUT_A_SCLK_SEL>,
-+			 <&clkc_audio AUD_CLKID_TDMOUT_A_LRCLK>,
-+			 <&clkc_audio AUD_CLKID_TDMOUT_A_LRCLK>;
-+		clock-names = "pclk", "sclk", "sclk_sel",
-+				  "lrclk", "lrclk_sel";
-+	};
-+
-+	tdmout_b: audio-controller@330540 {
-+		compatible = "amlogic,sm1-tdmout";
-+		reg = <0x0 0x330540 0x0 0x40>;
-+		sound-name-prefix = "TDMOUT_B";
-+		resets = <&clkc_audio AUD_RESET_TDMOUT_B>;
-+		clocks = <&clkc_audio AUD_CLKID_TDMOUT_B>,
-+			 <&clkc_audio AUD_CLKID_TDMOUT_B_SCLK>,
-+			 <&clkc_audio AUD_CLKID_TDMOUT_B_SCLK_SEL>,
-+			 <&clkc_audio AUD_CLKID_TDMOUT_B_LRCLK>,
-+			 <&clkc_audio AUD_CLKID_TDMOUT_B_LRCLK>;
-+		clock-names = "pclk", "sclk", "sclk_sel",
-+				  "lrclk", "lrclk_sel";
-+	};
-+
-+	tdmout_c: audio-controller@330580 {
-+		compatible = "amlogic,sm1-tdmout";
-+		reg = <0x0 0x330580 0x0 0x40>;
-+		sound-name-prefix = "TDMOUT_C";
-+		resets = <&clkc_audio AUD_RESET_TDMOUT_C>;
-+		clocks = <&clkc_audio AUD_CLKID_TDMOUT_C>,
-+			 <&clkc_audio AUD_CLKID_TDMOUT_C_SCLK>,
-+			 <&clkc_audio AUD_CLKID_TDMOUT_C_SCLK_SEL>,
-+			 <&clkc_audio AUD_CLKID_TDMOUT_C_LRCLK>,
-+			 <&clkc_audio AUD_CLKID_TDMOUT_C_LRCLK>;
-+		clock-names = "pclk", "sclk", "sclk_sel",
-+				  "lrclk", "lrclk_sel";
-+	};
-+
-+	spdifout_b: audio-controller@330680 {
-+		compatible = "amlogic,g12a-spdifout",
-+				 "amlogic,axg-spdifout";
-+		reg = <0x0 0x330680 0x0 0x50>;
-+		#sound-dai-cells = <0>;
-+		sound-name-prefix = "SPDIFOUT_B";
-+		clocks = <&clkc_audio AUD_CLKID_SPDIFOUT_B>,
-+			 <&clkc_audio AUD_CLKID_SPDIFOUT_B_CLK>;
-+		clock-names = "pclk", "mclk";
-+		resets = <&clkc_audio AUD_RESET_SPDIFOUT_B>;
-+	};
-+
-+	toacodec: audio-controller@330740 {
-+		compatible = "amlogic,s4-toacodec",
-+				 "amlogic,g12a-toacodec";
-+		reg = <0x0 0x330740 0x0 0x4>;
-+		sound-name-prefix = "TOACODEC";
-+		#sound-dai-cells = <1>;
-+		resets = <&clkc_audio AUD_RESET_TOACODEC>;
-+	};
-+
-+	tohdmitx: audio-controller@330744 {
-+		compatible = "amlogic,sm1-tohdmitx",
-+				 "amlogic,g12a-tohdmitx";
-+		reg = <0x0 0x330744 0x0 0x4>;
-+		#sound-dai-cells = <1>;
-+		sound-name-prefix = "TOHDMITX";
-+		resets = <&clkc_audio AUD_RESET_TOHDMITX>;
-+	};
-+
-+	toddr_d: audio-controller@330840 {
-+		compatible = "amlogic,sm1-toddr",
-+				 "amlogic,axg-toddr";
-+		reg = <0x0 0x330840 0x0 0x2c>;
-+		#sound-dai-cells = <0>;
-+		sound-name-prefix = "TODDR_D";
-+		interrupts = <GIC_SPI 45 IRQ_TYPE_EDGE_RISING>;
-+		clocks = <&clkc_audio AUD_CLKID_TODDR_D>;
-+		resets = <&arb AXG_ARB_TODDR_D>,
-+			 <&clkc_audio AUD_RESET_TODDR_D>;
-+		reset-names = "arb", "rst";
-+		amlogic,fifo-depth = <256>;
-+	};
-+
-+	frddr_d: audio-controller@330880 {
-+		 compatible = "amlogic,sm1-frddr",
-+				  "amlogic,axg-frddr";
-+		reg = <0x0 0x330880 0x0 0x2c>;
-+		#sound-dai-cells = <0>;
-+		sound-name-prefix = "FRDDR_D";
-+		interrupts = <GIC_SPI 46 IRQ_TYPE_EDGE_RISING>;
-+		clocks = <&clkc_audio AUD_CLKID_FRDDR_D>;
-+		resets = <&arb AXG_ARB_FRDDR_D>,
-+			 <&clkc_audio AUD_RESET_FRDDR_D>;
-+		reset-names = "arb", "rst";
-+		amlogic,fifo-depth = <256>;
-+	};
-+
-+	pdm: audio-controller@331000 {
-+		compatible = "amlogic,sm1-pdm",
-+			     "amlogic,axg-pdm";
-+		reg = <0x0 0x331000 0x0 0x34>;
-+		#sound-dai-cells = <0>;
-+		sound-name-prefix = "PDM";
-+		clocks = <&clkc_audio AUD_CLKID_PDM>,
-+			 <&clkc_audio AUD_CLKID_PDM_DCLK>,
-+			 <&clkc_audio AUD_CLKID_PDM_SYSCLK>;
-+		clock-names = "pclk", "dclk", "sysclk";
-+		resets = <&clkc_audio AUD_RESET_PDM>;
-+	};
- };
+>>>>>> No reason to keep hj because the difference between HJ and IBI is the
+>>>>>> address when address arbitration. If hardware support IBI, it should support
+>>>>>> HJ. HJ just use special address 0x2.
+>>>>>
+>>>>> For this IP, they appear to be controlled by different configuration time
+>>>>> parameters, so I don't think conflating the two is the right thing to do
+>>>>> here:
+>>>>> https://docs.amd.com/r/en-US/pg439-axi-i3c/Configuration-Tab
+>>>>> Per this doc, and the original commit, hotjoin configuration is not
+>>>>> permitted when ibi is not supported but can be enabled and disabled
+>>>>> separately when it is.
+>>>>
+>>>> I am not sure why provide such flexiblity, only difference is that compare
+>>>> address 2 or other value.
+>>>
+>>> It's not unusual for FPGA IPs to provide extreme flexibility so that the
+>>> consumption of resources can be kept to a minimum, often to the point of
+>>> excessiveness. E.g. for a ethernet MAC IP each individual statistic might
+>>> have a configuration option.
+>>>
+>>>>
+>>>> This feature may be quite common for i3c, if other soft IP provider such
+>>>> flexiblity, still common property is the better than vendor specific one.
+>>>
+>>> I'm not at all in favour of speculatively adding properties for
+>>> configuration properties of FPGA IPs, particularly given the likelihood
+>>> of abuse by others. Without multiple demonstrated users, things shouldn't
+>>> be considered for being made common anyway.
+>>
+>> Rob:
+>>          What's your opinion? I predict we will met similar problem when
+>> I3C become popluar.
+>>          Do you perfer use vendor property fistly or direct add common
+>> property?
+>>          There will be back compatible problem if change vendor property to
+>> common property.
+>>
+>> Frank
 
--- 
-2.52.0
+It looks like this thread is stuck and everybody is waiting for your opinion 
+about it. Can you please take a look when you have time?
 
+Thanks,
+Michal
 
