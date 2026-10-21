@@ -1,88 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792565015;
-	b=WGYetNrAjEu5qnAxU1Kb6uPPlBQDaK/EUiBRNN9r80xDMzEbI5UeaLXU9di/juU0g/vC
-	 Cpsr6fkNVwrx2TtYKf4gDmpfK2uaC693H2m6JRLbaKegxNP1HnhHdbfKDHhfVQwHkf5R7
-	 yazL+8Ltf1G6Cnbefvix9Nl0sBJGucHt70omc6RZhgJCTtzhUdsImFr+esXtqjjPiNDhz
-	 7g6TRiIcXtgo8XWvCMbown1m67+r6GTkk4LhgBkXlwITjFwM8BLnfxam1Xv7smqU6Np31
-	 pw5JAZBtLGSJojCF9Q7FyruxPGLNFD3+/ORzvw6QxdSE+tgEqxw1Pl+gGz41r+YLYOg==
+	t=1792565115;
+	b=3MRsqRn2g+aByP6NNhiq7WsRqlr0QW91jW27QQ4Q29AL5zF/2FoBR67ymK0/HAI8fIuw
+	 8gs0cm5OelqmzY1VDK+CjjJ7p4UcGbq3C/IedHo3CWKpoHPvgHtYubr6n2c+5536ae2jg
+	 KNYriZcGtIPDd9NBWNm7c2pUFjDX6yeiJ0l/zsK3/p91OO6+dA8B8l2hQq0KfGwaV2NU4
+	 Hvj83MLXDFhcFs4vyZxhb5tb9A8hhKoiFaxJ9Kf5jKEsn+7deHKoB3ScqVCxXvp++mwu/
+	 gL2mt3IRd/7kyVRDivUx+T3nD3RWXanUMg32Q38LtwNPe/WkQgbM9yZMJAnc3XWOZYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792565015;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 Organization;
-	bh=hOcd/ybW41WQRIw4yk0tTChVIHQbGli2LRqLVjxW4rI=;
-	b=CFXeBGR61TH8ToFYMU33dKlcVqkdxKFuGzDrQzVqpNlaCug8mB4PtHGJi/Pf9NFdMYHw
-	 iLJMSu+af3CyfYOYufakmR8Wfike6fmHuT1wJ/jsUKGHBY7Y3qv2tz3yBcxPG2CxmM3gX
-	 FyXxy4HPxzutnWUuua/iOgk+r98b6myc6BfWemdirXWQILt4GpegO4VMl6R+JBXxj81HQ
-	 SDCeh5md3RSe6QGZIriQD9JNCrAa6e+zghjoRKg2Qe+YFKEbv3pWP22kW7b4aXntwNlYW
-	 IoXDh189UkHXabF6mhjbfKYJaIbK+bXs8fWLYFCk37X2VBdquxQQ3lW0dg8USa0+xSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792565115;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=/nBCr6h7YTgWAZoSn0j8NWNpVm8yzhO/7LgcWw3A+rA=;
+	b=HtruvfB+2Bzr/SX3thIt5jIIANYAy85JSIkFVI1lATj/8FCBSwbd4Kcu7VJXk2IZ8FB1
+	 W6otogZIXiI8YIBM86yse721Mo+7eRoSAiJw/n70B29+HpB7r1YTsUiP22fNGkc+y/E9j
+	 A/HkFtAj4UuPBTE3omHBdc5qmgXm62NBRcAVwcta3Jbelre3sLGRmzarGsgl8z0hG2nAz
+	 U6ITQ9Ecu0uZ6kNzC1328REX/UJWO7+fJJJIJQSXFRURfL1oYdX1p23gSSqM3hG7lN+vj
+	 9n2gLi4BY3hnvpszW6j4/i6/5RppEvO+LMZHc0dZBRFUBbDm3kRGGPGEDX+yrTtSQdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HtxnNQJt;
-	arc=none smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=na0xl22p;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BEEA606A324;
-	Wed, 21 Oct 2026 06:43:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BEEA606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C75BD606A31E;
+	Wed, 21 Oct 2026 06:45:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HtxnNQJt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792565010; x=1824101010;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=t7QuSbFm/OZPuXTWlsUtCNI9PFTEGuzt+w+5HV1IiWc=;
-  b=HtxnNQJtyasmV60Fjt8jrYqeED/BIH46PTy42inlfU9JsZWYrnlGWb5+
-   Fhdc6MyMjZ73aIym8FOFiF9oI0El9VbnPMNzgEVi9rrBU55cGqE6KUPNi
-   26MPVxL2gctVm5rjYWTBZIcae62O1ELquCh5KSa6DTGfpwz+RMFmov8sm
-   rcfs/xrkaSM0dbWLxPzrAHyRB5xKmGyX7rE4PUhUD3sfSPsdSB/jrj+s8
-   3XAfhu0nnCdeDQOgEWDJaghxB8WzgjO28C/fzV+PrTa/0F8f/xZ8R91Pa
-   iWpz6gEQTxlypUFK0WKyNZbj0iyD4H7XmgQGc0fjqu06M0GomPvtDHI3v
-   Q==;
-X-CSE-ConnectionGUID: EEBlMLjtQCaqjfBEHXSJ6g==
-X-CSE-MsgGUID: QlvvidoESr+xGzv35bM5jg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1262071"
-X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="1262071"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 23:43:29 -0700
-X-CSE-ConnectionGUID: EUWzumZPRr2YHD64Lu80qw==
-X-CSE-MsgGUID: 1d1oD7PaRWOdxkHTs7rzWg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="4810152"
-Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 23:43:26 -0700
-Date: Wed, 21 Oct 2026 09:43:23 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	linux-serial <linux-serial@vger.kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
-	LKML <linux-kernel@vger.kernel.org>, linux-sunxi@lists.linux.dev,
-	andre.przywara@arm.com, wens@kernel.org, jernej.skrabec@gmail.com,
-	samuel@sholland.org, enzo.adriano.code@gmail.com
-Subject: Re: [PATCH v2 2/4] serial: 8250_dw: Only accept a contiguous DLF
- readback
-Message-ID: <athfC3qGJuQGbITy@ashevche-desk.local>
-References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
- <a79114e72d029732db6764935dde12aa5d497706.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
- <d992e18d-31ab-4937-8780-9c9dc423082a@kernel.org>
- <atcm2zqDs1P_EDr0@ashevche-desk.local>
- <09812a6a-dd0d-9c47-e1ad-5220f1954648@linux.intel.com>
- <20261020122746.41699-1-vinicius.eduardo.pedrosa@gmail.com>
- <6c4a5613-7e10-64dc-a670-6407a4f1f6ed@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=na0xl22p
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 260061F000CB;
+	Wed, 21 Oct 2026 06:45:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792565114;
+	bh=/nBCr6h7YTgWAZoSn0j8NWNpVm8yzhO/7LgcWw3A+rA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=na0xl22pH13yPGxHmCd4cil7jTtNfouP+O6cSw3sPyuw4rhACDvcDIyov98+ugOUm
+	 9jL0wNivNztpF4ZvJHegRSJf2Ah0nCYNEnJubi58iSfryvLOvQ8AqiTOD+aTq/jAzM
+	 4GYeS1hcwApXvkiWHuh6P00/PI5mD3/eMBqKge4zZUHJ3gTTOSalJQ8Mum+EOVmXmn
+	 7YzYLQ9bxYJBumpZ8MHwmFgQVDru6HyFAvE0/oEjtQ4cnz7IPxLgHFszTPlaLsdHsn
+	 TD+c7D59NRG2vlG4lkRViKfJ6ZugiWtJzXDqNgwwpVhjQuarAz8YAHPLZ8d6cpjwX+
+	 zaAzezmxSV39w==
+Message-ID: <2426ffdd-9438-4166-a67b-96620650a59b@kernel.org>
+Date: Wed, 21 Oct 2026 08:45:06 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,40 +51,95 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <6c4a5613-7e10-64dc-a670-6407a4f1f6ed@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND v10 1/9] dt-bindings: mfd: mt6397: Add MT6392 PMIC
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: linux-mediatek@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Sen Chu <sen.chu@mediatek.com>,
+ Sean Wang <sean.wang@mediatek.com>, Macpaul Lin <macpaul.lin@mediatek.com>,
+ Lee Jones <lee@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Linus Walleij <linusw@kernel.org>, Val Packett <val@packett.cool>,
+ Fabien Parent <parent.f@gmail.com>, Akari Tsuyukusa
+ <akkun11.open@gmail.com>, Chen Zhong <chen.zhong@mediatek.com>,
+ linux-input@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, mfd@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org
+References: <20261020173556.632798-1-l.scorcia@gmail.com>
+ <20261020173556.632798-2-l.scorcia@gmail.com>
+ <43b58ad7-5934-4895-b48d-5b5a7b92e253@kernel.org>
+ <CAORyz2JaJ40+F1oyrvY_0WdqH=fritbPuuQaZ98sXagVayZPLA@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CAORyz2JaJ40+F1oyrvY_0WdqH=fritbPuuQaZ98sXagVayZPLA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 20, 2026 at 04:02:29PM +0300, Ilpo Järvinen wrote:
-> On Tue, 20 Oct 2026, Vinicius Pedrosa wrote:
-> > On Tue, 20 Oct 2026, Ilpo Järvinen wrote:
-> > 
-> > > For is_power_of_2(), 0 is not a power of two. And it also wouldn't make
-> > > sense to have zero bits in the bit field as it's same as no bit field so
-> > > using just is_power_of_2() should be enough.
-> > 
-> > I think the reg != 0 check still needs to stay here, since the test is
-> > is_power_of_2(reg + 1), rather than is_power_of_2(reg).
-> > 
-> > For reg == 0, reg + 1 is 1, and is_power_of_2(1) is true. So without
-> > the explicit reg check, a zero readback, meaning no DLF, would be
-> > accepted as a valid DLF.
-> > 
-> > I'll keep it as:
-> > 
-> >     reg && is_power_of_2(reg + 1)
-> > 
-> > in v3.
+On 21/10/2026 08:42, Luca Leonardo Scorcia wrote:
+>> And here you write clear note about dependency, once you fixed
+>> bisectability.
 > 
-> Ah, you're right.
+> Just to confirm, would the same text I put in the cover email be ok:
+> 
+> "Please note that patch 0006 and 0008 depend on patch 0005 as they need the
+> registers.h file, but belong to different driver areas. Patch 0009
+> also depends on
+> patch 0003 because of mt6392-regulator.h."
+> 
+> or did I misunderstand which dependency you are referring to?
 
-Sorry for being unclear, yes, that's what I meant, reg != 0 should stay.
+The dependency of this patch. This one uses compatibles defined in other
+patch.
 
--- 
-With Best Regards,
-Andy Shevchenko
+Just apply it yourself and run full testing - you will see notice about
+undocumented compatibles.
 
-
+Best regards,
+Krzysztof
