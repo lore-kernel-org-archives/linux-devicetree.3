@@ -1,85 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.12
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792579051;
-	b=fgPdoLuzC6fYK4EZkxJKqrXAZ9+kvNBF1YjWrDcvIpJ7BHUk+uwRSOzzmZGnfbPzJHiC
-	 F/iz1B2k5AEwlCC1QmB+FMDSDIRCv2YNPH5gp9Z9iqVgMdJ494+7MhXufJQCBzkTtYz+i
-	 PbCwmfrkjXolfTxsJbp1o1pUAf+RLAHkc9OYp6pfy3Tv1Knbr226sISsjXchq8yfx35/E
-	 s9ije+1vTGs26t+taYkvE2SWasS/eVdM6fbT+uf0mUvILm5TFikw/BVabxLRX5SGjhomc
-	 HLWUj2Zdp0gqwjgv4N1NIC/OeB6qQa96yHQbutpwpE118tjAf2gGq6RE4EBOJra0GCw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792579051;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Organization:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-ZohoMailClient;
-	bh=QjzGdWbiEqzzV/MbYQG4TopYjAr0X/I+MiCAzcAGLpI=;
-	b=wWZVyrgUj1qdhnEzEZYWIe7jZLplckC/mUiXUDkv1R7QqpmeQT7MgthJFEi3cLeIokgE
-	 /xlD3Os3agvWoQRZtbscDX6b/0duj8Q1WvrdunXpjy23Mxy8QGASnY/VBHkH8n7rGUL56
-	 y18ao31WZvsyJ66CYe/nqDAN29OcGjBoQMEK2qSg4d6/3Y766+f8C8hOk7hA+j5pJrr4u
-	 FDVW0AgWeFw5oWAtzBqooqGa+E2wU5tgtXnZ8sRPNS6RkQGDC5j3G0Yz9SHek6kQUVE9I
-	 Wfo2MAIlJDTHkbz09/UoegfAyyuo5nuJDXupxylOHyH3c6OMJKiuixecAvgicdwyYog==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=louisalexis.eyraud@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=kwBQM5Nb;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.12
-Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792579156;
+	b=B1ITiGIaHSJV6gcF9OtUUaQxyruqvBrZrbBhIeHWFv22ggqvjNKvpevZpkHL5S0AH70y
+	 7fve0kiuE/v8uXCsARm8ga9KW59uQTIJ4lt15Oh1zHtKT3JrLPID3pBGB2ccBBAlV0syZ
+	 e9KGD5Cbcftc6gC/KRvFzr+2usqPFc7A9xn0vkwEco67f0Wpk1y9vKVEPruUnKZDM3A+v
+	 BQvs39AOTnwQDhXJeVVC9Nc52ujMiYtISepZdPMxSnJ+4Z6/+HvCZVWf60t92mJgycwOm
+	 QboknPoP7xFZAYO4B0XoPEqIoeGkYjjTLE5G1R1LSJaeveFsz0JSA5uEKSxc3VW2U/w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792579156;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=sw7AqWlrFqvZ1QkzdIfdApSVhnuYiCOQAA2DeMcFAbM=;
+	b=b5VIcfBa7CfNDC3OE4r14YaLlP0V7leeg/I6viES1Pk59ziulY0JCzu3DsWsuoYcj/eA
+	 DnrkOeb+x8aYnOkEzy2K3VUkAIAolb5/XoIzFM3OkOs9ynCBn5GS6/x6JazJuqq6mGPTp
+	 XAOTejwOmjg30JY7qY1in1WqpEiK8SA2AFCTI9Jaxb7dQOeKklH7c6Iws77IuNEkiz+7X
+	 ax9k5cpy+dGc8CaCkn+lI1zS1DF3L0r35rOIflrE5ARlKZ/kbZYOfjfui+oN//lXc2EG+
+	 Ukk1D8Sv104WpsYceepuLkn0+TnqDosfjCA68jd07ZDUBjlJ7qjSOYey6cQ9/TqIt7Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LBrZ6vV9;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Q0C4IUtC;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E047A606A319;
-	Wed, 21 Oct 2026 10:37:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E047A606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57C4D606A324
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 10:39:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57C4D606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=louisalexis.eyraud@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=kwBQM5Nb
-ARC-Seal: i=1; a=rsa-sha256; t=1792579004; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Vg4ASxVe/gRrDD7T/H1HLXKpWWkQxEoEToUwf2gjVgQHhTYdsZF+0wcPe/aCT6kTTygdTn8+XsTD4KtGu2NKj4mneTRLu+o0VYhkjaQexiAmfxaPQXlcWkvJ8mu+as0fYuu1Z6VApa5hqNk6BEhCQW+lD4eLzEP2HGCw7Z54wTU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1792579004; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=QjzGdWbiEqzzV/MbYQG4TopYjAr0X/I+MiCAzcAGLpI=; 
-	b=XcQSfehKD8VgFwklFZJegFzqLTSxt+T60vRuu/Y6MC3JjpjUtQNDXGycZu7OPrKJ/c3933kKqODgfJqZ/u94N6+w9cbvIoSw6xnfamF74sy/IM1OJvKgt6HY5wh8Ew7eOg21XWfIY6gwNQI+nlUupDgA0qMT0k+bvuRoeCygFlQ=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=louisalexis.eyraud@collabora.com;
-	dmarc=pass header.from=<louisalexis.eyraud@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792579004;
-	s=zohomail; d=collabora.com; i=louisalexis.eyraud@collabora.com;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
-	bh=QjzGdWbiEqzzV/MbYQG4TopYjAr0X/I+MiCAzcAGLpI=;
-	b=kwBQM5NbKMKpWskOQ/UK068FN2dUY6f3Tqfsgf0xMc4o9dWO9sF6V3kiGe08IUg7
-	+naym6+93bNkSscqYsND5A/H5/jtiUtWzKFSSmAXBBabwt41p9RF3uJQantmcB+nqwR
-	EgGGkjq59XEsOgSNwGVkJJUUh8lRFRFDV5IdN8ro=
-Received: by smtp.zohomail.com with SMTPS id 1792579002564512.9314975124558;
-	Wed, 21 Oct 2026 03:36:42 -0700 (PDT)
-Message-ID: <b7d26b378e3cfdb54a113cca1d8d53293cad966c.camel@collabora.com>
-Subject: Re: [PATCH net-next v3 5/9] net: stmmac: mediatek: add RX/TX delay
- stage divider in platform data
-From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>, Andrew Lunn	
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
- <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Richard Cochran	 <richardcochran@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,  AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>, Biao Huang
- <biao.huang@mediatek.com>, Maxime Coquelin	 <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,  Eric Dumazet
- <edumazet@kernel.org>
-Cc: kernel@collabora.com, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, 	linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, 	linux-mediatek@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Date: Wed, 21 Oct 2026 12:36:37 +0200
-In-Reply-To: <34608ab8-18f3-4680-8276-cd8611c05cb1@bootlin.com>
-References: <20261016-dwmac-mediatek-mt8189-v3-0-25daf2bbcf35@collabora.com>
-	 <20261016-dwmac-mediatek-mt8189-v3-5-25daf2bbcf35@collabora.com>
-	 <34608ab8-18f3-4680-8276-cd8611c05cb1@bootlin.com>
-Organization: Collabora Ltd
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LBrZ6vV9;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Q0C4IUtC
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LA5toO3958124
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 10:39:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	sw7AqWlrFqvZ1QkzdIfdApSVhnuYiCOQAA2DeMcFAbM=; b=LBrZ6vV9wbfCWKyN
+	OgAUV5H/hxe1IAjXkR/Z8oQTaii0qMQ9HIYkXmwL5dBHk+rNCLykzKOJ9xhPSJhm
+	FFBvU62YZNPzgkH/+ni0ZsjwmFnF/7EBFaCk1XcOxUj2EaKYj/8QkbwQqRJ4fJEU
+	bsXQtTJQskbjLc6aU8Po4V0r+StW8HwISFRcTyu2w+aNSCBrIpftoncudeQN8ua3
+	T3BRizN9ZCLqr4bTXHU0YPlbe12pcWUO7nnKUzTfkr7YYYt5CM6W6U0sKy1xDsYy
+	1bnW/DBS6u1dIFMuDJNIg1jxO7z5AwDCy1U6EjgDaTV1bK89pweMc3ThAAVAXXrY
+	NWUrMA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heda0kg3g-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 10:39:15 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93ea8a9cfe6so16269385a.2
+        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 03:39:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792579154; x=1793183954; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sw7AqWlrFqvZ1QkzdIfdApSVhnuYiCOQAA2DeMcFAbM=;
+        b=Q0C4IUtC/bw2tDKyj0LFJeQOva2JOPNwbT3Kvd13egyTrGJjdSthLEdGedRhLHGHsd
+         /b+AxOhKhBex7PtiOrMQ45PmgUZ8XywgrcutJaw7keo5teD6o1gEc7D6jmx1LTuDqi9k
+         dt8xui3O/mTaoHc7E3u6j1OwPVgk4O/vZC/A2eTOJ0aFdJbT+rZblKCR2bBjUjcTsvyE
+         ESoy2cQc8Yd0EZKdduq26HFpWDXc6WhTMxQURKQLjMxmSPsoiN5Kunup46rIPq/aLq3L
+         GZJVo9LRJnbesuecLn4fRPH/DM5SzN4Ob5e+AmZEU8jW58b7oPOD1suDoWYmFl6MJZaH
+         URrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792579154; x=1793183954;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sw7AqWlrFqvZ1QkzdIfdApSVhnuYiCOQAA2DeMcFAbM=;
+        b=Wzfb7211oVsMZj/wVDAAR5K/BiazrKrY8WA8SKPhcaJ6Nvbe+0ueeB+wW/5TRxGEWb
+         xsJ6ixWEcqmf1NYAdldM8V9OCuVmsB/s7uhh0sRXmDNyUgGSnN/jAh9Vd8eLssJvZNgI
+         nsOBOngh+/4NdfEwmHRn+/CFU5P8LWWSM+Nd/PR6OcrME6mJerlnKMzkvrdxZAmZ/Pp4
+         dW4jfWh9Zg6zhnGhD0lFVe8KyxGS91XxNZo1YDnLrV68je//MntEZa4YeeapZe3V/GP4
+         nGOJqjIA74g3jVdibbp7GKAqWZ7BfUxsOxV4hHxV0REZKFpLyjFNrDUN1bSItdwjEQWp
+         Chmg==
+X-Forwarded-Encrypted: i=1; AKwUvByVOJG/UXQinRBxC66fVxjOTuq03uV7OwMClGDVj+pVVx6pTmqNIosH3zpR69KfQi3ZFWSShzMT5G33@vger.kernel.org
+X-Gm-Message-State: AFq9FYKBlJiM3pkrwXUH8D+DYXSUCbva2VWD7BE0NiBDDhgEF2SzJpUM
+	3oJjldrdHT4WN/NJnWsz7zw7b1HkcWzO8AqRgY0PaDy0ezsy57xRUnRXBQAsTB254js0sSFWJvM
+	uCtKrPo9S16WIOOmZ3jjcsXqjn25FXRxppbgrrGLg/6HLOleJDwVhxULgDmsdcE7A
+X-Gm-Gg: AYBFou2+rzk2sDO5bxP2WOy/6Yg/jfo8k9lJyKlPrA3agZHlbRDEh7367Gz3W/JBWqb
+	45le/nODJlToHrl6/ftLuDqYUqzffDF8YJ08t+RoUS5x+DUBOj9XYZ0LHONQOzk33J/NbksUyWm
+	mlSpOPxUdVa8TTNTyMXFPM3V9kS4wfeqZcEOTeuIVZ0FU/MjvDqz0xSa649KgJKTj11DA6Db5l+
+	y/Gjy29XaRLcZjf9GshD10o2xvUJdG1uMQErlr8r8SJIiUwfcacozKVPJb/mz7eWqC+uDdHbggK
+	q2FEW44HbHh5cJd9IVH0yig84tNJznkqea9ZbYKZdtwWA/S1/G9zxKxxKS3LccPC25CEQ31z4sd
+	ubbVSxQnCzSQ3uuWsvtLODA==
+X-Received: by 2002:a05:620a:4511:b0:93e:571e:94f0 with SMTP id af79cd13be357-93f57f23fbamr393138685a.3.1792579154390;
+        Wed, 21 Oct 2026 03:39:14 -0700 (PDT)
+X-Received: by 2002:a05:620a:4511:b0:93e:571e:94f0 with SMTP id af79cd13be357-93f57f23fbamr393135785a.3.1792579153968;
+        Wed, 21 Oct 2026 03:39:13 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4678f78b22sm63381166b.15.2026.10.21.03.39.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 03:39:13 -0700 (PDT)
+Message-ID: <dd641bbb-6012-4d6b-9bd6-5dbf4cd849dc@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 12:39:11 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,98 +115,76 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ZohoMailClient: External
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: mahua-t14s: store the RTC offset in
+ SDAM
+To: Luke Macken <luke@phorex.org>, andersson@kernel.org,
+        konradybcio@kernel.org
+Cc: abelvesa@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, srinivas.kandagatla@oss.qualcomm.com,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261016232528.4012876-1-luke@phorex.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261016232528.4012876-1-luke@phorex.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA0MiBTYWx0ZWRfX4vB22vKhRiEO
+ oKrSNqqdaURqmm4oHsQCp4xnQPGZ7Vwmyu91LWMqp+q/q78izJvamjzNfAZAqP1cmPliosiTmtV
+ ziikJMveBLAtJYAF4yGQnK55lDS50AaB4GoFHOpjnma2C/+fmvsLtXtGhNcLLQPb+t/XZnUp0td
+ VXb1pq2paw/fwZXw16euiPqBg6B9nH3gk6Q6SmdvEjp9SAbQjvmlCSgZPoA7ynwv/CHb5kcNX/6
+ 1WCnV8NBRn9KsFHe3nppJFSJheEne30Nq5hcpXxVOONlqbFP1T6EZrBkDIzBO3CbV8CJldP0FBF
+ bSX/JZUMXE7MNKpYzpIqnHwd3hirfOwOYzNF5r2F00nEeiEF/lZzZj7RS3jPwbRUJ+qasJokb8O
+ NtRnBqlD6r3aQzwnkQq1GXiq5KhkKNxcwhUBTa8jGQ2GWYGgsSu6IZb8aPmvgPFKMRnMMK/JxjD
+ XMF21W1kXy3OuFtiGFQ==
+X-Proofpoint-ORIG-GUID: HLDrD0U0_NPQZytq-juaCL6nngIfu_Ez
+X-Proofpoint-GUID: HLDrD0U0_NPQZytq-juaCL6nngIfu_Ez
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA0MiBTYWx0ZWRfX3fCwlARbwTHF
+ XU1jHwn2/Y9XsCU5s3LyUUwvjkBuJy7tD2s6RwgXH1Lr0l/KjygDwqTiW+e8DHCU1rnDI4aEFhX
+ igYN3uPLKOzlYzd6WDGTDzsogTMIluM=
+X-Authority-Analysis: v=2.4 cv=HL5WhYtv c=1 sm=1 tr=0 ts=6ad89653 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=supTg-EGvRqL_ogkzMIA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-21_03,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 adultscore=0 impostorscore=0
+ clxscore=1015 phishscore=0 suspectscore=0 bulkscore=0 malwarescore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610210042
 
-Hi Maxime,
+On 10/17/26 1:25 AM, Luke Macken wrote:
+> The PMIC RTC registers on the Lenovo ThinkPad T14s Gen 7 are read-only,
+> so an offset needs to be stored in machine-specific non-volatile memory
+> which the RTC driver can take into account when reading or updating the
+> time.
+> 
+> The firmware on this machine does not provide the RTCInfo UEFI variable
+> that other Glymur based machines use for this purpose, so, as on
+> sc8280xp-crd and the QCS8550 boards, reserve four bytes in one of the
+> PMIC SDAM blocks to hold the RTC offset. SDAM 2 on PMK8850 is 128 bytes
+> and its last word is not used by the firmware.
 
-On Fri, 2026-10-16 at 13:37 +0200, Maxime Chevallier wrote:
-> Hi Louis-Alexis,
->=20
-> On 10/16/26 12:31, Louis-Alexis Eyraud wrote:
-> > In preparation of newer SoC support, that have like MT8189 SoC
-> > different RX and TX internal delay stage steps than MT8188/MT8195,
-> > add
-> > the RX and TX delay stage divider values in the variant platform
-> > data
-> > and replace the hardcoded value uses in mt2712_set_delay and
-> > mt8195_set_delay.
-> >=20
-> > Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-> > Signed-off-by: Louis-Alexis Eyraud
-> > <louisalexis.eyraud@collabora.com>
-> > ---
-> > =C2=A0.../net/ethernet/stmicro/stmmac/dwmac-mediatek.c=C2=A0=C2=A0 | 46
-> > ++++++++++++++++++----
-> > =C2=A01 file changed, 38 insertions(+), 8 deletions(-)
-> >=20
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> > b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> > index 596411d4a5b2..cb5bda53edb9 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> > @@ -108,6 +108,10 @@ struct mediatek_dwmac_variant {
-> > =C2=A0
-> > =C2=A0	u32 rx_delay_max;
-> > =C2=A0	u32 tx_delay_max;
-> > +	u16 rx_rmii_delay_stage_div;
-> > +	u16 tx_rmii_delay_stage_div;
-> > +	u16 rx_rgmii_delay_stage_div;
-> > +	u16 tx_rgmii_delay_stage_div;
-> > =C2=A0	u8 dma_bit_mask;
-> > =C2=A0};
-> > =C2=A0
-> > @@ -146,14 +150,22 @@ static int mt2712_set_delay(struct
-> > mediatek_dwmac_plat_data *plat)
-> > =C2=A0	u32 fine_val =3D 0;
-> > =C2=A0
-> > =C2=A0	if (phy_interface_mode_is_rgmii(plat->phy_mode)) {
-> > -		rx_delay_stage_div =3D
-> > MT2712_RGMII_DLY_RXC_STAGE_DIV;
-> > -		tx_delay_stage_div =3D
-> > MT2712_RGMII_DLY_TXC_STAGE_DIV;
-> > +		rx_delay_stage_div =3D plat->variant-
-> > >rx_rgmii_delay_stage_div;
-> > +		tx_delay_stage_div =3D plat->variant-
-> > >tx_rgmii_delay_stage_div;
-> > =C2=A0	} else {
-> > -		rx_delay_stage_div =3D
-> > MT2712_RMII_DLY_RXC_STAGE_DIV;
-> > -		tx_delay_stage_div =3D
-> > MT2712_RMII_DLY_TXC_STAGE_DIV;
-> > +		rx_delay_stage_div =3D plat->variant-
-> > >rx_rmii_delay_stage_div;
-> > +		tx_delay_stage_div =3D plat->variant-
-> > >tx_rmii_delay_stage_div;
->=20
-> Looking closer at this, what's RMII delay ? There's no delays in
-> RMII, and
-> it's a single clock not a RX and TX clock like RGMII, there's no RMII
-> TXC/RXC.
->=20
-You are right, these structures field and define names are wrong for
-RMII/MII cases.
-The mediatek,tx-delay-ps and mediatek,rx-delay-ps vendor properties are
-used by this driver to fine tune different clocks depending on the phy
-mode:
- - RX_CLK/TX_CLK in MII
- - REF_CLK in RMII
- - TXC/RXC in RGMII
+Bold claim, there's a lot of firmware!
 
-I'll fix the fields and define names in next series revision, along the
-issues the Sashiko reviews found.
+On Glymur machines, the RTC is coordinated through SoCCP. We're working
+on providing an interface to that.
 
-> I think it's the same as on allwinner, the delay handling has been
-> mixed-up between
-> RMII and RGMII in the glue, you should be able to simplify this even
-> more by
-> ditching the RMII case.
-The register fields that the driver sets in RMII or MII mode to tune
-the needed clock(s) are different than the ones set in RGMII.
-So I cannot really ditch the case but I'll simplify the delay handling.
-For instance I could use a single divider field per mode, since for all
-compatibles the value is the same in both RX and TX.
+[...]
 
-Best regards,
-Louis-Alexis
->=20
-> Maxime
+
+> Note for reviewers: Qualcomm's "rtc: Add Qualcomm PMIC RTC-GLINK support
+> for Glymur" (August 2026) would move the RTC behind the charger firmware
+> on these machines, but it has not been resubmitted and needs firmware
+> that at least the ThinkPad does not ship yet. This patch uses the
+> existing rtc-pm8xxx nvmem offset mechanism in the meantime and does not
+> conflict with that work.
+
+There's another access mechanism to pmic-glink that may unblock this.
+
+Konrad
