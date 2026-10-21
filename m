@@ -1,83 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792571362;
-	b=hUJJrWZA1jH/7MgXBbd/9Q3Bmgwb+9DzcVh0LoCpKmqBmnijpzs8gZ/41hCklWuIrp+B
-	 vVGDdo/gBlxmYV6uiJGYodfFtHlYPAItfkC5LsPwvzd5hyjKeRQ2qdf/b5wqijnxyVX4V
-	 2GTb/5fRy10OZrplZVYY+3jDr4Qh7l2TVbHoSnEuCExwtkf+O+v7ncSyYAis1IJzn5xVW
-	 aVEZVohWuLaSqRYRP1WitoPWjKDHT/Sowrv9tzBta43VWH47f/Y6tfxcd4JA6QCiAdc4p
-	 oevWOdCCN9lPFiKSVFpcKA4EuHFvEju8I62mRgnwIPb7NpqLeH4R1xFmtZiDhaXyPwg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792571362;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=yx0qSyV+UGtbzKdEks876ij6X9lfTK+X0d1nDhdR9wA=;
-	b=axU/MCVSMetKiyed+BdBUKtbnzBy31BOz1SzXH4XjrY2Bi0MTBquIQjOiEj79MhG8KvB
-	 QSywEW6aJLyLn1QjQvr+IOZ804bgj6xvu6E9xz4s9qttvQkYzlY9QHf7Llz5mBXPs6UOQ
-	 K5n8MnYJSu+oOH2do5YrSMELNNtyVdPB9k0W23iWwfc5ab7Zm5VD1VBMYzojbNDO9zxRi
-	 5LqhRAxkHeSFmgXTCNx8R3qAtttAGGxSgyWyPZ441Mr1jkW/kHZm9m5WcFvU0wbf5ygt0
-	 I6E0o0UO/rjkxoWfHntv1eMHf87S7183qr5fignORS6cGvBYZE8XQlmXmlVtS98gIgQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=n+Up00cc;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.70
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792571368;
+	b=5UVF/8N3GxfXDUqkCaazk3BcaGamT8/0U5UXhwZYRFSOq9jVT7lg/TZ7Z+3cBDnz4/bk
+	 P0k71/b+rlQRewo9REN1y7tLW5Tfred72Io4yX9peeTnvIrA3HghbwKW1vn9qG/095OqN
+	 unMSeWYg/XTdx8w9Vxcn26HX+jUPxAI0VvY4YOeghBrS3vB1AOHxQW7b2Z0r14ntzg8fO
+	 7CvDS5Rsuyer8IoaOBTvj9X6PAGUlqs/QnMN/O+FCnof0bW+r268Kb3XDvX6+Ee2iWNdi
+	 U0X1K508ib9njz4NbXLZt89DHJlb1PrWEm3hOVmNQj7deILOqJaxedRd10ywNNCLnbA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792571368;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=WXnplFHSA+n1V+USpjituuMU/SvZYT9zn3kUlHcbnck=;
+	b=kVpYRS0rvQCyjxzz3z5Rxd0/XhqRh5ybQEgI/QdU74IDqaNSGbT9u6+bL4+IXcwbuifq
+	 B2SoY/KxophwvI0WXo4vK9gu8DQaatIaG1JQSXIeWFVRNR2PbK9kl8ZqNqq7CDhYGv1cn
+	 MI76pYmFQs2/yh5iA3lgeIJLCG9+9M/jlyDglYbAziQZAymJORCOqCyLVIQPwYz09aMZt
+	 N84irrHAvsbtWj1diQS3haLHcgaqj2OfJXHLU9Vh+3GrsrCheajPN5O8/rf0F08zwh6gC
+	 EOOgiDBJloqMgvuMaCvLT2shT/dtIw50G3HEmq79tfkqojU989nyi3/EFC79VqngVLA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nxp.com;
+	spf=pass smtp.mailfrom=nxp.com;
+	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=BXd5OouM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.70
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011070.outbound.protection.outlook.com [52.101.65.70])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 037D4606A31C;
-	Wed, 21 Oct 2026 08:29:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 037D4606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB426606A32F;
+	Wed, 21 Oct 2026 08:29:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB426606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=n+Up00cc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792571361; x=1824107361;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=jIjJRpSnJMk59B7h2RdoIG5jUOyefVhts5QEtquzHY8=;
-  b=n+Up00cctZZzD/OzHEpjTp9i7O4bHYWhfI1JQ5TfG0CYEFQ748ANWe/r
-   xy5lpxHvsN1hlOZ7cebXcQDZj0+9nA1vCNpA9MenRoWSxmCxJU/uKuz3N
-   WZ0nqCD0a4yl9TM1bSwqknm0OBPay50lTuJazxynImBqvG8wb/wPjwh9a
-   PDW98/eqap1Y6OyXu7UIayHk2cfGirbuiniS//OKZNZP29ClJGwbXRvwn
-   sQ2VYgzjvvON7aR2iH7fedr9cSMUAGwgIvV2SfbmIZBC3DyK3qwqrCPna
-   tBaNojurjd6XrS53usWngIuK5Z6b8VvpTu995krMLoZvXEZ1fy3TQbceD
-   g==;
-X-CSE-ConnectionGUID: NcPGT15wSLu31agNQgR2uA==
-X-CSE-MsgGUID: VVdV2eNMRMiS8VirztY9PA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1177194"
-X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="1177194"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 01:29:20 -0700
-X-CSE-ConnectionGUID: cd8Ivp2bT9qzasT4o4yXhA==
-X-CSE-MsgGUID: TRhdMaHMThiybE4TlUwOKg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="3093643"
-Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 01:29:17 -0700
-Date: Wed, 21 Oct 2026 11:29:14 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Christoph Rudorff <chris@rudorff.com>
-Cc: Linus Walleij <linusw@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=BXd5OouM
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=t42TGl7WFOnVRTirDbWJnNlu6GZHT0//Jj/UVZa663Cywnw6kin0jPvo8m9ZdPg5Z5wqLulfjgZJFkobu5LuxURqzGFpK6o6ftiRaq5U+W5f9BqwcQfXCOyeQ9r0YWX1fL4carn0+0TIznTpbjmVYahTXathQcSw8aDBvf8zfRoADcpOmYCV4nCj4IxQx5YpHyiBUMn44hMH0iHCDFsJiGagufOWJMNacawiA65UJTLWW/W+/ela2VsJOfTW2rwO+U+1gKWAMXgM8zuvn9/YrPA+FehlpFbDMdW4mLFZ0K1WYypp0EL7E0uQaGeiJ4VF6X/V5CrZ6NMhbvH94SLOQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WXnplFHSA+n1V+USpjituuMU/SvZYT9zn3kUlHcbnck=;
+ b=uCzfjgS2Oo9USerDXpivT0f7PgUvjKr2midxHNIftECV947rrCqjOtAIiXy6FsD/n7G0ru+JEashJv5DeO20ik3t+3eOz/7938nXhj1Mvc8R9OgaDY85mI0WwhovMBC0MFN0aKpzQ3bGvSD7nKm0tqnGgtKQX0u+jq1Lpqi+AgWSyF7drKsOkLGnvTzIps53+24DRTIUvSy6eTjp9gUEGJrlpJzHLTcPEZu2+RYsV5L4la14VLzyUJrZJS9yJKeGZ0+m+ABz41M51mtT2LuYMYEV6OqVP5O70oYQv9lwaCHLUr97emwvIPabX7KYhNw/kk9DNaFmr8pj50VQy8OHzQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WXnplFHSA+n1V+USpjituuMU/SvZYT9zn3kUlHcbnck=;
+ b=BXd5OouMUu3UF0xYqKFN7ePaZcMhSRs4MYgJ2z5trmgDPbIzSYVSDrVKhtvAIJOWD8CR3BNmjzjpJuIVuFAg+xlPp40OTPMSfa5T/FQUFzZWipy1uzJTeJMbn3I3H8YuU5O5fQvIUPZG93OTOUb4HA8Khto/XqIYyche6RaeueT3IoDLWTZDY0UjmlcTs7OGFCwrIFa12gqXS7Xdlt9zQDsJHA0tmT8295MJNcU9HmtoaGcX1d9wITxm8G1a8kPmAkj55C+MtkhBnHUuNi/kOGy1r0FmunjyWITsczduwYNgNLbPKyQI7MTgQ3j11RRiPzsFcReQUQoRp2TunmDVAw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from MI9PR04MB350878.eurprd04.prod.outlook.com (2603:10a6:290:c0::7)
+ by FRWPR04MB11269.eurprd04.prod.outlook.com (2603:10a6:d10:19c::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
+ 2026 08:29:24 +0000
+Received: from MI9PR04MB350878.eurprd04.prod.outlook.com
+ ([fe80::8537:1cdd:6c49:6151]) by MI9PR04MB350878.eurprd04.prod.outlook.com
+ ([fe80::8537:1cdd:6c49:6151%6]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
+ 08:29:24 +0000
+Date: Wed, 21 Oct 2026 16:31:00 +0800
+From: Liu Ying <victor.liu@nxp.com>
+To: Frank.Li@oss.nxp.com
+Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] iio: light: gp2ap002: add led power supply
-Message-ID: <ath32oZkOYl2UwqX@ashevche-desk.local>
-References: <20261020-iio-light-gp2ap002-v3-0-b7e0946c9e79@rudorff.com>
- <20261020-iio-light-gp2ap002-v3-2-b7e0946c9e79@rudorff.com>
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	Sam Ravnborg <sam@ravnborg.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Robert Chiras <robert.chiras@nxp.com>, Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 6/7] arm64: dts: imx8dxl-evk: Move ACM MCLK pin to ACM
+ pinctrl
+Message-ID: <ath4RHfj-rOTXFE5@raspi>
+References: <20261020-dxl_lcdif-v3-0-adc944659e14@nxp.com>
+ <20261020-dxl_lcdif-v3-6-adc944659e14@nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020-dxl_lcdif-v3-6-adc944659e14@nxp.com>
+X-ClientProxiedBy: SG2P153CA0039.APCP153.PROD.OUTLOOK.COM (2603:1096:4:c6::8)
+ To MI9PR04MB350878.eurprd04.prod.outlook.com (2603:10a6:290:c0::7)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -87,118 +111,74 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020-iio-light-gp2ap002-v3-2-b7e0946c9e79@rudorff.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI9PR04MB350878:EE_|FRWPR04MB11269:EE_
+X-MS-Office365-Filtering-Correlation-Id: cd36273e-efbe-4cac-cd6d-08df2f4d69c7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|1800799024|366016|376014|7416014|56012099006|11063799006|4143699003|261009223027099003|10067099003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	BJ2z7bJP/UB6AY2uKVfoRZ+Z+XyEBb5bGuE+zyj8ci4PlH4iUjuKbX+fFm3wCHcvA8KfmWb3+hiLoNEdoP9WFid4lOKm70iAZdrQNlrEF7wrXn5ycKmw7gR7GOvN+fPBw/GXQ0uETxxtKjvzPrYa0J9YWTd7kRiHebu8VM2l1vPkswQGeJf/nnvhWTnJ9BY5rnuFo3PhWRWF4/7ex179cVvQbOvPIVESbCJLBTBknPPLJnX6SPKBKUy/Z1PaUspX8v03lWSwV0IILyL60fO1MyOugRamuBi8C3WsdCLeNmb6oYpnjU2U4M2lz071iBqPEgTNwI5bhnrS/wOnArqS/kjrgD/yZdqNBvmZORsIB9VMli6O0i7ffa0LINiqkB0ufTHiCamjzKLFSxqHvVjC34icuwbfBDpSm/u21L24CdM6AX+wWgpjTepOnh4qT2MYb7zXh5drlSPgkmaYVrNgH3K6DPqeQ206K/QyasHwYjFagzMli1kbiDku5LtLfUzWu2/bh2rdGnUv3lcsr1+/vFNjxP2l3vf77/0AOcJ1vRkFUg4ilDD9IrGCMAePnldVs0MfGUOihloP2G0IUN2i395VpGMY/PFATxuVY4AW2ntalo53V51CPluQ/W0iTgJWRXreo6jKOCn3/HV0tPz2TDgukLOAjR1KsgBqQtrEGfM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI9PR04MB350878.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(1800799024)(366016)(376014)(7416014)(56012099006)(11063799006)(4143699003)(261009223027099003)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?2Ds8lmnDGMsgnptVzTkAHvomkgAi9BA12cgAHCT4d5vcI/jXV32aM6A4O+E9?=
+ =?us-ascii?Q?JxrZQja6w2L/Jroet6fi/EDm3QuKjSmiv1hhbg5mOWEed7ejIMN4TAHG9g/8?=
+ =?us-ascii?Q?62wtUygq8mf5gU4vGmnix66e339QqSnhU8x95P8W0ca5eWqBMBMjvosTPW7w?=
+ =?us-ascii?Q?YYtddSYKDagHYfAUKTF+DwMiqhk8RMsO+3/MlYAdDLpiQS7WFd//ICW+lufx?=
+ =?us-ascii?Q?GDlNqdHLCzF1176J7IjE5ojeIpYv+9AvHW/Sn1SQuWV+i8CFeA5dmoYkhH8t?=
+ =?us-ascii?Q?WzlnI+Qph2+30jJlri/MYoqSE2NJEnlG0eILNAnMiAQX28RLVr9PRLPBHtzK?=
+ =?us-ascii?Q?IniDOXSxIakIrH7yCDcfFoOTA9bBpHyWKtzRoiCJsiUka7FTp8zlD1VsLW3Y?=
+ =?us-ascii?Q?UtwuAQOftcukgZX9XwYERiecxPlMKbqDUPkfIMPtFL9MfdBPNW6iP2lfsoTQ?=
+ =?us-ascii?Q?HaPHT3c9tKZVhyl80a81vWc/obo6AN3EjXrEfstxEVe1pDNDRqGjUt6/4p2+?=
+ =?us-ascii?Q?TND/cGI+LWcgAPngTL9hOneHQFPZGZ4BGhDAgCTV8a0zDC/5a+/rXU3zhfGy?=
+ =?us-ascii?Q?CN2SnaONr4oDIzuIgwFtHMoBNtkHsY4TA7FXkKat96WzavMKfAdb4pv+nx26?=
+ =?us-ascii?Q?wAX3gt0RDyZ0G5R6GuB47ppsEJbYV1xtbY+qKJgi+50G14Too5yrrEjb6BEG?=
+ =?us-ascii?Q?hxvS4jSTxSXvBumphGwek3Lalsg3dlzwTYtyGZn1ZWEjdLBnNOW+7Sig9/w9?=
+ =?us-ascii?Q?0ZJpKuQ/MJ5u6PsBIfeW5Fjq2P0MMbJOd4Zip3mPKgDitnz5Ik3yPMHjKnm1?=
+ =?us-ascii?Q?zyXuVZSIoCgI/YggGVB8f+QsHEUXfenbOxKhnVFbtHp4RKaxPNo+ibapo7pf?=
+ =?us-ascii?Q?LJdhktYVJJ63zjWuzWpdvNDezyOneEhgctHNBLtIRy2kewes4cYDp6ealoRh?=
+ =?us-ascii?Q?EbjEm3z5X8Vnxjhs0oiccU9afPZmm5rkRYMyHSQmX/ZLWqGKUbHwc9hp/6My?=
+ =?us-ascii?Q?/byjBnxZPxgLYKDd7YFLyOXhM0/AdLqXWZsAwGT7AqAEi1gDQj0KaGFPBaRn?=
+ =?us-ascii?Q?71kPmKS23EovoHJnEuwVe8eZcZjBeDjvrK3vANHIe9tqE0TButJDgBLWpjU7?=
+ =?us-ascii?Q?H7QUZpmV7y/oN9EwYgRsPGEapBuA6k6PUDN9/xAIZU+g+Zal6yiNZm65599C?=
+ =?us-ascii?Q?QWV8I+eroEI3FbbcfUURJ+oLf62BvXRNdjKp+v+hSoP/J27uO0Ct4SHbtxjU?=
+ =?us-ascii?Q?PyxbsL2Ba4aVn4W/gHxQ7OtZYGNcdxV9CxGSt1KOn8ScSvGxushLmolRsKoJ?=
+ =?us-ascii?Q?WUYuItxt2s4/1Z03vbpN0WkS1hjhJmDpbk8cL7E5Dvxt7R8IJfYgncXav4mO?=
+ =?us-ascii?Q?ZYSVQ7n3XPaX1dbTbU/akq/OIopBHdH17OxRNjTBPRnuQQfXCRr9pIOynOMZ?=
+ =?us-ascii?Q?d3Ieu3qqcCLSOGm0oJjCNPVaphFn0Eaj1lO7WfLh89WIQ+OJsxiz2t2jvB/N?=
+ =?us-ascii?Q?/djW1Bjl32TYdXnMmX63uPB3nowU6Nio3YgG5ki5dNwBSsERfw3Fe3hnqEva?=
+ =?us-ascii?Q?/Assgbu3EQHBoouCA9GC/FJurRgRcrIIKZTCG06OMsrpSV+2lhH5E9r/0oln?=
+ =?us-ascii?Q?tsooDBclVLJvegVb74ooR6Z/SxZXHXrKxoOOIo3XZAhGYA9G56oa7U45kzxK?=
+ =?us-ascii?Q?F3CdEYsTAC0PpmiQZ6IwVDdE0ZxfN+z8JSY8hrOkF+eWvm953DPgOcsjGRSX?=
+ =?us-ascii?Q?ygntOJmRMA=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cd36273e-efbe-4cac-cd6d-08df2f4d69c7
+X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB350878.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 08:29:24.5884
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EorHDFRrnqxHpxVGo+LfP5UVzMflOeSFBOwTW5N/uk3NxhuzsU9AeWklPwTiOzlNalaNdoB2e23WaF+U503hrA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRWPR04MB11269
 
-On Tue, Oct 20, 2026 at 01:35:39PM +0200, Christoph Rudorff wrote:
-
-> tested on samsung-j5
+On Tue, Oct 20, 2026 at 04:12:56PM -0400, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
 > 
-> v2: Use regulator bulk api.
-> v3: pretty up, rename vled to leda
-
-The comment and changelog area is...
-
-> Signed-off-by: Christoph Rudorff <chris@rudorff.com>
+> Move the IMX8DXL_SPI3_CS0_ADMA_ACM_MCLK_OUT1 pin from the iomuxc hog
+> group to the ACM pinctrl state.
+> 
+> The pin is used as the ACM MCLK output and should be configured by its
+> actual consumer rather than unconditionally claimed by a pinctrl hog.
+> Prepare for LCDIF support, which uses the same pin.
+> 
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
 > ---
+>  arch/arm64/boot/dts/freescale/imx8dxl-evk.dts | 12 +++++++++++-
+>  1 file changed, 11 insertions(+), 1 deletion(-)
 
-...here, but the commit message is effectively missing. We may not accept such
-a change, so please provide a commit message and move unnecessary bits to the
-comment and changelog area.
-
-...
-
-> +enum {
-> +	SUPPLY_VIO,
-> +	SUPPLY_VDD,
-> +	SUPPLY_LEDA,
-> +	NUM_SUPPLIES
-
-Not critical, but the naming is too broad, better to have namespaced variants
-
-	GP2AP002_SUPPLY_VIO,
-
-et cetera.
-
-> +};
-
->  	struct regmap *regmap;
->  	int num_chan;
->  	const char *compat;
-> +	static const char *const gp2ap002_supply_names[NUM_SUPPLIES] = {
-> +		[SUPPLY_VIO] = "vio",
-> +		[SUPPLY_VDD] = "vdd",
-> +		[SUPPLY_LEDA] = "leda",
-> +	};
-
-Can be moved out of the function to see the static data (that's effectively
-global anyway).
-
->  	u8 val;
->  	int ret;
-
-...
-
-> +	ret = devm_regulator_bulk_get(dev, NUM_SUPPLIES, gp2ap002->supplies);
-
-> +
-
-Redundant blank line.
-
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to get regulators\n");
-
-...
-
-> +	ret = regulator_set_voltage(gp2ap002->supplies[SUPPLY_VDD].consumer, 2400000, 3600000);
-
-> -	ret = regulator_get_voltage(gp2ap002->vdd);
-> +	ret = regulator_get_voltage(gp2ap002->supplies[SUPPLY_VDD].consumer);
-
-> -	ret = regulator_set_voltage(gp2ap002->vio, 1650000, ret);
-> +	ret = regulator_set_voltage(gp2ap002->supplies[SUPPLY_VIO].consumer, 1650000, ret);
-
-To make these lines shorter you can introduce a temporary variable (or reuse
-"compat" if it's feasible, might require to rename the variable, though)
-
-	rname = gp2ap002->supplies[SUPPLY_VDD].consumer;
-	ret = regulator_set_voltage(rname, 2400000, 3600000);
-	...
-	rname = gp2ap002->supplies[SUPPLY_VIO].consumer;
-	ret = regulator_set_voltage(rname, 1650000, ret);
-
-(Side note: This ret = foo(ret) doesn't sound good, the rule of thumb to have a separate
- variable for the 'ret', so you will have ret = foo($VAR) in the code.)
-
-...
-
->  	ret = gp2ap002_init(gp2ap002);
->  	if (ret) {
->  		dev_err(dev, "initialization failed\n");
-> -		goto out_disable_vio;
-> +		goto out_disable_power;
->  	}
->  	pm_runtime_get_noresume(dev);
->  	pm_runtime_set_active(dev);
-> @@ -616,10 +619,8 @@ static int gp2ap002_probe(struct i2c_client *client)
->  	pm_runtime_put_noidle(dev);
->  out_disable_pm:
->  	pm_runtime_disable(dev);
-> -out_disable_vio:
-> -	regulator_disable(gp2ap002->vio);
-> -out_disable_vdd:
-> -	regulator_disable(gp2ap002->vdd);
-> +out_disable_power:
-> +	regulator_bulk_disable(NUM_SUPPLIES, gp2ap002->supplies);
->  	return ret;
-
-Wondering if we can use managed resources to disable regulators.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Acked-by: Liu Ying <victor.liu@nxp.com>
