@@ -1,158 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.126
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792549588;
-	b=hznwWudZQcr7AloFQZSlXuGpHmAhuA0OAPErIg/i6ggwmfKfHk6EOoBznDvF4iD2XI6L
-	 rK7HcGuveyRpQuEX2kIJ+GdPYiysZuhi2JSb7W2xPrqJ+o7zDnLH1K20Fb/Ubw27MMIVE
-	 hVUijfI2HAL3B/g0LGstQoQKMm+czb05uKfB4oVR/C+HmK0EyEfQ26P2ufeSiPnhWegSA
-	 gdOTgcoVp+T4mjtErfb3z7/XpZ8I3wNdIkiyOx8+xToy08fBB/F9l9k20SFUy0DzBvNKt
-	 ezNJQ7htC9OpxvS0uZsf3boz9hDeaJNUKB0jBEcFqtcD/MoJCkPozS+fXraLOKEXScw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792549588;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=OvxWtaPKvDvbOv6/AbwqebaMKi/tXwwjWKhZFnp53Ws=;
-	b=zzAhQqm2waTszRHq6Bddl14/aOQ2rNC2MDPcLbaB9GGaPe4xKTiIcmaK0RsUOV6vYxm9
-	 MbQp9PEsWIPvDhwFODBt6YXgQO5j5hrRC6KuTVRbUYphV2H934qv8xbYbrMSLIByEz0SH
-	 qOT6fPnbPER0d2NDxrHkaUUFgd92kmFOy/AJ4pd2al7GbHZZhGjHyA8uSPhmD7Lik6k7G
-	 WRVdUcAoRm3PUxoZH3OUCWta3FQNLezRQ487xLhD3dWUrxh2u0p5+b+xDmSyGINjjjW7H
-	 4/bXFfA0xK7Z2ga8E+uUL/Bh+BbtEWy+/Pu3r4fPF2qm866k+WFRtngmBi5XZXrAx4A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=aspeedtech.com;
-	spf=pass smtp.mailfrom=aspeedtech.com;
-	dkim=pass header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=ce8Wlo3R;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.126
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022126.outbound.protection.outlook.com [40.107.75.126])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792549703;
+	b=byIY4eascDFCaW4KjLxmJQ04B2fc+4BI0QzmO30dAU7bq7uQaNMsKBi3/fFdFBXQQ9rP
+	 mfNVr4Jx1bpW1LTxEsBk3jOZkDO9UTw1Vsueer7u7Q8xL3KMyvmm2i9gGr02rgsyJa4Rf
+	 k4xyBWw06v0QUmvHjKpvE7boUatSb9Z8qbtJyjsc2Ea2R8EriWX8MjJm9tr6kuBcn1tpL
+	 g2Ut3aVCmDqyqXkGKQrYLuurgC4zxRtiuExU2IVf4bYFRaotUjMia/0X9BpRagqV+NvgI
+	 pKw3Tmo74Pw+lco+m4nFn1rifgSRg71CnZeeRa+2qIUayg6zKLTxnSL3D/o9iGUtP8w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792549703;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=JuBIwquPBjH9UwLI5hrgg+Gnwhl/uhFDEqddy4XggAI=;
+	b=RsE7EIse8EnjKvEBDujSMTpdy8uLx9eC3ThIzNVNAin/IhbOoli1HeDBPC6kzdiGL0KV
+	 M+yzatiZvN1Kno92EqSdqRASqoBBxueJrDkRA7/yecGfeKLaFTyqBzDE4zFUwthg+FF4P
+	 dCB2fwtSvT5iv/i+OzqKhznXpQfWt4hI8yzf/UWNf4x9vxXK4UcOnQ+yznoDmzedoJC9L
+	 AWu4z+z42/aOiNhy01ochqjz0VfHAJSJesvK2kD7jabNKm/6U2UZUXtuEWevz3ijjarRp
+	 grY2nN57wrs8dniWRhTYepjrAoxGqjySQBRFPABGEc9ybkG5g+yx+PiLvn2mPsk8JnA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=gibson.dropbear.id.au;
+	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
+	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=gZyqGlfN;
+	arc=none smtp.remote-ip=150.107.74.76
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF660606A319;
-	Wed, 21 Oct 2026 02:26:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF660606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B6A5606A319;
+	Wed, 21 Oct 2026 02:28:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B6A5606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=ce8Wlo3R
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bhoUWBL5gCa9pqfBv1ZE7wqRcnRBp9I9M0U0Ia6NmZeMoGGG1Vn6L9DNGQ4jOMGGGsPE+AevHgmDNFWpQNrvFqT+ow7uqxT8EjWMx2W+3OSbX40UDqlUuLqLH1A13NKxjWyQL4WBbaAo6YKa7RdAwWxBaYS/j/cJfZgcaCpovWXIHIxr/QdDCMjHkxqvg2rJ2qqg8Cx/I3+/TvtPUSFzgn7Znh7ekEhz15j5vr94ir4zSBrA3ReTUKcHhzwFeDgqCUJgmD6WvFkUWCdvIO4Wl+7Y0uehzDCvHta8b/G+dj8xrrQcymvLZO5yB1wwh4X3FiLX1NT2EP3r9jEgo03djQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OvxWtaPKvDvbOv6/AbwqebaMKi/tXwwjWKhZFnp53Ws=;
- b=HjdRrRNEiKf40IB85QC8omAO4nbUNcQtbDGrFc1KR+kaQfTLlUervLxOHxeZIkh0AuTqVlbRmgoahZRtR2PxOEMWtL+Ike+4+RTwrLqq7D77La8ZtMU/iSJoS3gqiEkT34j0laMR9oVvPE/EKzxViQ2N3SFLjr/UX7Qj0FcLiJ7ETD31qbAN9epIVavrA3Bjf9xKAxj8wpTXBOsiN7W0MOxRXZebRMyI9AHbgOHsx3e6OqfwUBU7Qr97kX4mW6Z1SLQNuPVsT07wQXYm1tCIWKTxaE+KUaIYbJ8vS98CgV8c2+JTS0eIa/E6gbTJiXMWKX3dTazF0JdWTq8ceofPVA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
- header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OvxWtaPKvDvbOv6/AbwqebaMKi/tXwwjWKhZFnp53Ws=;
- b=ce8Wlo3RXF524xCFC0RnI5yvorniLLkd/UB6stnm3noCT+wXjM3QyKS38t2nBTXDo/Biq9h7+PedMP0eK0iXZCUjF62tVRzbpFUsPIin8QIn5lLGHN9LTTre2XOoX+0TA4jY43KOr3+E5fUJfbBHk0bwz2z/yTnpXXTUmt999Dhh3pvazwj/rnZ277OkmNAfiYiFiWKWgmvfewAzw/j9IgrmCW52cct3+tRgfmjcbr5j6Wpvup5OKqoE+2WgZ3X2R7+oilDwuHDWqU0LECoAHwmv7ADhIpPwuo5dki4Z1KdMyU7n6/Q9QuojOxPSLEvoFeb/FRYlkzOfjkfkxChOLA==
-Received: from SEYPR06MB5134.apcprd06.prod.outlook.com (2603:1096:101:5a::12)
- by TYUPR06MB6220.apcprd06.prod.outlook.com (2603:1096:400:35c::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
- 2026 02:26:23 +0000
-Received: from SEYPR06MB5134.apcprd06.prod.outlook.com
- ([fe80::f53d:547a:8c11:fc6c]) by SEYPR06MB5134.apcprd06.prod.outlook.com
- ([fe80::f53d:547a:8c11:fc6c%3]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
- 02:26:21 +0000
-From: Jacky Chou <jacky_chou@aspeedtech.com>
-To: Rob Herring <robh@kernel.org>
-CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Po-Yu Chuang <ratbert@faraday-tech.com>, Eric Dumazet
-	<edumazet@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>, Russell King
-	<linux@armlinux.org.uk>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject:
- =?big5?B?pl7C0DogW1BBVENIIG5ldC1uZXh0IHY0IDEvN10gZHQtYmluZGluZ3M6IG5ldDog?=
- =?big5?Q?ftgmac100:_Make_Aspeed_compatibles_standalone?=
-Thread-Topic: [PATCH net-next v4 1/7] dt-bindings: net: ftgmac100: Make Aspeed
- compatibles standalone
-Thread-Index: AQHdYIbxAmh+iGMhMkK1ggKf/t8dyrcGvLKAgACI6IA=
-Date: Wed, 21 Oct 2026 02:26:21 +0000
-Message-ID:
- <SEYPR06MB5134F12076DE6EA68586FF529D662@SEYPR06MB5134.apcprd06.prod.outlook.com>
-References: <20261020-support_ast2700-v4-0-4d36b40939b3@aspeedtech.com>
- <20261020-support_ast2700-v4-1-4d36b40939b3@aspeedtech.com>
- <20261020181441.GA510274-robh@kernel.org>
-In-Reply-To: <20261020181441.GA510274-robh@kernel.org>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=aspeedtech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SEYPR06MB5134:EE_|TYUPR06MB6220:EE_
-x-ms-office365-filtering-correlation-id: 55fab50c-6c89-4426-d9af-08df2f1ab226
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|38070700021|56012099006|261009223027099003|4143699003|10067099003|22082099003|18002099003|3023799007;
-x-microsoft-antispam-message-info:
- Np0fig0KwH/EQsbV7Qmi9GzCwsj9w3HftYx+k9TPYIefXGrf8Pm6SFfg/qGywcpBGQJv567aKW32CkXHweUBuH7T5rNz4r0I4or27JUeABHOqwPQOSs/t888q9GJ5vq39mdzNDDNFAxELYzdHUeHzcpNkmdaEdO8bNTCfsoDOW3tpuWtXLHwXZlfSKh6IM6BgmzhK4mwc14ACGoVH+KKl+GX3zaW6UvpK+z/k4A0/bf1bBfKA5GJ43D5T6PqaRa40IVHP2BxPYQGkLbMQOM9JZ5EaV+G+Y8rtlL0QjTcBCvUpUwKvkVkIKoaS5d7GAVjLSg4zYWF3+HZoCAJFALRHVc0BDoAP3q6uTgxc783gAjATbmT886ryjClBR7mB2oOc8pDiXatC9i7XJDFZD2yE/E4Mce3ZTCF4QnzL5sX+ZhahlPIt57EtYJPfQH3eZvyHGKUcgrbgbeAAJgp3Zg/JnM8zUPBzRXp99G+H4aos1lGAjvMfiHUuPMcUzymvpLlBkYVyXC1QIyuGR/hSPy/CSJkI2qU5ffLb8rh6WkQo5bwx1rrswzHugsI6w6uZC50qAgBN2N8kmaepCGxMCNOi98jda6lYzzWQgaKiLxP9z16DS3l95cX6mDFoXmF+/9fx0+DpD6owdVuEJKwCdEnlVwhhxWHfWFtGRFcCjAg/OdvhC6WsthKiGnBm0TnZ9KJBkh636mWTjOn25axpTbNBTlxN9dqJMwqATtrxGFWle8=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:zh-tw;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SEYPR06MB5134.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(38070700021)(56012099006)(261009223027099003)(4143699003)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?big5?B?WTFJWHhPdHNISTFkM2h6Y2NRUmk0dlFqL0gzVmFBcUFMU0NuTExHcCt1elVRRlFY?=
- =?big5?B?Tjl6S3NUYjhEdkMxN1gxSnplVjBjTWZsOXozMmdPSlo3NG1BNHRESjhaajBxbkQ2?=
- =?big5?B?T0JjV2VGaVdFVmZKa1FJZDZLNDVmam5IaUcreTlVWVBRME1VdVh6OUpJNmxiRXB5?=
- =?big5?B?ck5vdEwvMmpPNkJxeTRFc0dVeXBoaSt6MVliaEtVZTJkWG9jSGtxSHBJYW9lckZa?=
- =?big5?B?dWVKSm01eE52bHdxNWJHditCdjFmWmtKanFWYjlmNmZLaWZFbitidTNlMVMwVjZT?=
- =?big5?B?VUpJRmZWdkhWbGRlY01JMC8xbGQ1SG0rNUVBSUlwUG9NTkpKei9QVVdTeUY2SElU?=
- =?big5?B?aVFybmorYzJ6VEtvMDh6QXZiSGsxYUl6M2R5bzh4blpQNHNjQjlmS3RwTW9KWmVo?=
- =?big5?B?S0x1NmJIcDVxYkFVYmRtOFlhWEdobDV5Q2FwdUYzcHIvcjJQNGdockpOTEF3c0NR?=
- =?big5?B?emQ0eHBEeEVQeGUwc0M1UFMwNUVjNFgwRnpQK2Qvc3RnWEtWSHQzZnlGOU83elNE?=
- =?big5?B?akpqbU9HdTkzWFBHYzJnYzFvM0RjUmtaak0vbFRKTmYydDNhSWNjaktVa1lqTEZB?=
- =?big5?B?bzJKang0QkpraGNmbEM2WGNuMFVGRDRBay9QajVVc3hFcHBxaTdJUWJPcWZIbDJq?=
- =?big5?B?d3VuTkFteUkrYWpWeGgzT0dFbmFxOVNtdldJRmNiYzg1ZnFwcHFmL0JKSTVqQnpu?=
- =?big5?B?SVgyMVd4L0dxZXpTV3FaZ3E1UHJYNThrb2tzUWhjL0lJclhLNmRHMFBMZlFGMDJL?=
- =?big5?B?UW1YZ0xseUhyWW9RSVhQNUNKazhKcXp1TkRMSHVrSm9wRnhBS0M1TzFmU0ZYWkFM?=
- =?big5?B?TEFRalNNS21JS2J5M1Vvc2lZYWhObURFUkxFK0VQdTFEMHd0cmMzNUpiVmFkN2E0?=
- =?big5?B?amJnVEdvQlJwMWlER2UwWmNVS2RVRmhVRmlueTZqRXVNUW0yZVJVSktDa3NmWDFB?=
- =?big5?B?LzNKdmQ2SGdwczNoNmxEenI0VGE0MVhycGZtcjlPa2pqbHVjaDBETW05bUpMczRQ?=
- =?big5?B?NDdUcTR5VmJPNE9aYmVRd2g0TTNZU2s3ZWMyWmNodmJOaGtqcVBUZVh3dWE4VzZU?=
- =?big5?B?MmU4MVhMNGVmYjArbWNrN1lGUmVBTURDeFBQQ21ING8wdTQ2L08vQWlhTXk2WXMw?=
- =?big5?B?SWUxRHlKVkl1emJmM3NqT3VIaVhBWWtkQmhIclExckdoQXlVdFd6Q281cmNpVUJ1?=
- =?big5?B?ZEMvVjBwNmRON0VVODNNTWdPcnZjRWNta09aOTRpK21QYXg0blhib3hHM2t2R21i?=
- =?big5?B?SzAzeERDY2Z5RUlTcjk5cFkyNjErc2RFM0ZlWmVPQlNWYzVibHF6UFh6eXZwMGJq?=
- =?big5?B?YUd1NlM0YXR1VGVTNkxUMTAvUVE3K0VIL0NzZHQ1QlRGVCtneXVsUDlFUGpHU2Rk?=
- =?big5?B?aXBWNlFPd0RwbW02Q2g2ODJyaUp0ZUdMbWVUN2xsK3IycUVpUzMwUmhWNnltQ3Zy?=
- =?big5?B?T0RLTzlEVWJrSk11L3VWRUFsUE84WW1Sc3piK0N0Y3pNUi91dGZFMjVFeHJpcWpD?=
- =?big5?B?SkNZNitaMDNiZU0zdTZzLzAvc1ZaeG9jRTBDUjhCa3Q5Mm5ySzJ6RnZEMHhhSVAy?=
- =?big5?B?dmxkSkI5ODRaaXVwRmx6QjNXOVZJMUVqN3JQbU4wMnlzUDc1L1pvNXp0aE9qRVB4?=
- =?big5?B?Y1U2ZGExc2h3elBPcWhrRDc2c01JQy91TktpdlFWc0hvaEQ3RXBFakg1cHZwbExS?=
- =?big5?B?RDVSbWU5OEc5cXJUaFUwcUsxSHJoRng0cFQ1YWo2WW5BWkNaM0dIcXU2TjVsWWtO?=
- =?big5?B?L2xjbXBTQStxblNwY1lWZjYwWDgyL0YyZlNVSGJMREVpeFlkdUJnUE1MQVI2d3dE?=
- =?big5?B?YUw5Q3laK3FYWEE4Szh1OWdwUk9OV0ZmaWIzVk9XR1cwUkRueWEwOEovMXFNWGlC?=
- =?big5?B?ZWUxOWdWc01Dang3TnBObUc3aW5zSVZ5NFNZUVhydVdQOGRTVUpjbGtWS2lZMkVB?=
- =?big5?B?dlRFTUxvZjlabmdtRis3MlA1ZnU2SWl0TTV4VUVhdUpnZFlIeTNsZ0UrcVdOcmZ0?=
- =?big5?B?dWt6OVp5c00yQjd2Mmc0Ym50ZmdseDBpUCt1Z3MxeVZ0K0J2Vk4xQkR5ZFJUWkVq?=
- =?big5?B?NVBmK2JoMzBjbUdLVmROaWJINWhnUzFTRFJTSmJSUE5vaGI5WFl4SitmVC9jeDYy?=
- =?big5?B?TFVMQWRUREl5Tm84NmdQMXJBT2hGbFYvazRlaXltZjlyaURybzUzblIzVnFiM3BM?=
- =?big5?B?b3BFYXAxYXFrZHpXVGFZNTY4Qzd2Zz09?=
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=gZyqGlfN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202610; t=1792549699;
+	bh=JuBIwquPBjH9UwLI5hrgg+Gnwhl/uhFDEqddy4XggAI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=gZyqGlfNZQYrg20AtrUe2v/iCaUvWfNrbQ2LzvRZqb7ih2DAXfQXrqTMxBtNeux/8
+	 tdhI9+NEOpUHpTJMgSaD1FANdMh73pSYKnDn035FsL8fg54kBS84ljJ37nduyFKi5l
+	 oo6+tZTEAM9jf58yvPqFSPyi+TbdnWXpQfTmkbJTYLKlFy+q1tMesHLBnw49RCpVjN
+	 Lgod6wzqe914Rb/4btjgS+jOiU54xntJ/+YxZtdarcWrdmMzmxpqc4md/zmC+P/rRr
+	 ehPsBnzOoSdwLaXgf0IIFM5lm7HEt2Zc2mN1taMWZHZgU9KmFy3HrZ0CIeFxF5zI7B
+	 7RbIjlD0ypzyQ==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4j8Y9b3mk4z4wCH; Wed, 21 Oct 2026 13:28:19 +1100 (AEDT)
+Date: Wed, 21 Oct 2026 13:26:49 +1100
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Ayush Singh <ayush@beagleboard.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
+	Hui Pu <hui.pu@gehealthcare.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 15/15] Introduce v18 dtb version
+Message-ID: <atgi4rMsw5W6kKkS@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+ <20260826083146.304291-16-herve.codina@bootlin.com>
+ <arDMhoNNXcPi81sR@gractus.seuss>
+ <20260925152157.511dc65c@bootlin.com>
+ <as3ZWBr3wRonkxXF@gractus.seuss>
+ <20261013190347.4f1d9b9d@bootlin.com>
+ <atGzdxETQZ9ovJFh@gractus.seuss>
+ <20261019151121.26d99f30@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -162,78 +80,275 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	hObIfNwZL6+iG4gO9J2oHiKMYmo3MecScyuOT+mqORuAdUqMm6obaDottCThhh9TiSXUesmBfdALL8CF7puSEJU99Ldf1etcq7p1UyEw/t+GZcwWlg+VugXzEc5WVHd4HqKB8rHaPZfGI3KGhkg1kifHoJ/q2sMHmDKL7se8ndgGw8uapsDkw+Mu6r9qA9fZ1253S2jzrUeioot47YcR0ZjUL2fS2RywsuK21JKPfOPU1LnS3LRUJYBbeBvB8Jn2dbGFa9QCP1ft3qj5wCbHvjUeyyXl1UmsRGHKLB6dIZdadBBYIKhgNugSWRPvAwhEBb+veElPsUOQ51HoDSR+aA==
-X-OriginatorOrg: aspeedtech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SEYPR06MB5134.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 55fab50c-6c89-4426-d9af-08df2f1ab226
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Oct 2026 02:26:21.4260
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: bCCoTu8HpUwNMjD52IglR59CqBvxsFTABHK6w3sn+kaReDcmLbD7pP9134EOV8WPXGwcx42NrGNy1UPZgGxRMENPFp32BRaJZLWhK8r2zHg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYUPR06MB6220
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="lUZUhPJPDS1MELZu"
+Content-Disposition: inline
+In-Reply-To: <20261019151121.26d99f30@bootlin.com>
 
-SGkgUm9iLA0KDQo+ID4gVGhlIGFzcGVlZCxhc3QyNDAwLW1hYywgYXNwZWVkLGFzdDI1MDAtbWFj
-LCBhbmQgYXNwZWVkLGFzdDI2MDAtbWFjDQo+ID4gY29tcGF0aWJsZXMgYXJlIGN1cnJlbnRseSBv
-bmx5IHZhbGlkIHdoZW4gcGFpcmVkIHdpdGggdGhlIGdlbmVyaWMNCj4gPiAiZmFyYWRheSxmdGdt
-YWMxMDAiIGZhbGxiYWNrOiBpZiBhIG5vZGUgZXZlciBib3VuZCB0aHJvdWdoIHRoZSBnZW5lcmlj
-DQo+ID4gZW50cnkgYWxvbmUsIGZ0Z21hYzEwMF9wcm9iZSgpIHdvdWxkIHNldA0KPiA+IHJ4ZGVz
-MF9lZG9ycl9tYXNrL3R4ZGVzMF9lZG90cl9tYXNrIHRvIEJJVCgxNSkgaW5zdGVhZCBvZiB0aGUg
-QXNwZWVkDQo+ID4gQklUKDMwKSwgc2tpcCBBc3BlZWQgY2xvY2sgc2V0dXAsIGFuZCBsZWF2ZSB0
-aGUgRE1BIG1hc2sgdG9vIG5hcnJvdy4NCj4gPg0KPiA+IE1ha2UgZWFjaCBvZiB0aGVtIGEgc3Rh
-bmRhbG9uZSBjb21wYXRpYmxlIGluc3RlYWQsIHNvIG5vbmUgb2YgdGhlDQo+ID4gQXNwZWVkIGNv
-bXBhdGlibGVzIHJlcXVpcmUgdGhlIGdlbmVyaWMgZmFsbGJhY2sgYWxvbmdzaWRlIHRoZW0uDQo+
-ID4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBKYWNreSBDaG91IDxqYWNreV9jaG91QGFzcGVlZHRlY2gu
-Y29tPg0KPiA+DQo+ID4gLS0tDQo+ID4gZnRnbWFjMTAwX29mX21hdGNoW10gaGFzIGhhZCBkZWRp
-Y2F0ZWQgZW50cmllcyBmb3IgQVNUMjQwMCwgQVNUMjUwMCwNCj4gPiBhbmQgQVNUMjYwMCBzaW5j
-ZSBjb21taXQgMDNhMmFiYTUwYjJjICgibmV0OiBmdGdtYWMxMDA6IExpc3QgYWxsDQo+ID4gY29t
-cGF0aWJsZXMiKSwgc28gdGhlcmUgaXMgbm8ga25vd24ga2VybmVsICsgZGV2aWNldHJlZSBjb21i
-aW5hdGlvbg0KPiA+IHdoZXJlIGEgbm9kZSBoYXMgYWN0dWFsbHkgYm91bmQgdGhyb3VnaCB0aGUg
-Z2VuZXJpYyBlbnRyeSBhbmQgZ290dGVuDQo+ID4gdGhlIHdyb25nIEVET1JSIGJpdC4gVGhpcyBw
-YXJ0IGlzIGEgYmluZGluZyBjb3JyZWN0bmVzcyBmaXgsIG5vdCBhIGZpeA0KPiA+IGZvciBhbiBv
-YnNlcnZlZCBmYWlsdXJlLg0KPiA+DQo+ID4gTm90ZSB0aGF0IGFyY2gvYXJtL2Jvb3QvZHRzL2Fz
-cGVlZC9hc3BlZWQtZzQuZHRzaSwgYXNwZWVkLWc1LmR0c2ksIGFuZA0KPiA+IGFzcGVlZC1nNi5k
-dHNpIHN0aWxsIGRlY2xhcmUgdGhlaXIgTUFDIG5vZGVzIHdpdGggdGhlIHR3by1zdHJpbmcNCj4g
-PiAiYXNwZWVkLGFzdFhYWFgtbWFjIiwgImZhcmFkYXksZnRnbWFjMTAwIiBjb21wYXRpYmxlLCBz
-byB0aGlzIHdpbGwNCj4gPiBtYWtlIGR0YnNfY2hlY2sgd2FybiBhZ2FpbnN0IHRob3NlIGZpbGVz
-IHVudGlsIHRoZSByZWR1bmRhbnQgZmFsbGJhY2sNCj4gPiBjb21wYXRpYmxlIGlzIGRyb3BwZWQg
-dGhlcmUgYXMgd2VsbC4gVGhhdCAuZHRzaSBjaGFuZ2Ugd2lsbCBiZSBzZW50IGFzDQo+ID4gYSBz
-ZXBhcmF0ZSBzZXJpZXMgdGhyb3VnaCB0aGUgQXNwZWVkL2FybS1zb2MgdHJlZSwgc2luY2UgZHQt
-YmluZGluZ3MNCj4gPiBjaGFuZ2VzIGRvbid0IGdvIHRocm91Z2ggdGhhdCB0cmVlLg0KPiANCj4g
-Tm8uIFRoaXMganVzdCBjcmVhdGVzIHVubmVjZXNzYXJ5IHdhcm5pbmdzIGV2ZW4gaWYgb25seSB0
-ZW1wb3JhcnkuDQo+IA0KPiBXaGF0IGEgZHJpdmVyIHVzZXMgZG9lc24ndCBtYXR0ZXIuIFRoYXQg
-Y2FuIGV2b2x2ZSBvdmVyIHRpbWUsIGJ1dCB0aGF0IGRvZXNuJ3QNCj4gbWVhbiB3ZSBjaGFuZ2Ug
-dGhlIERUIHNjaGVtYS4NCj4gDQoNClRoYW5rcyBmb3IgdGhlIHF1aWNrIGxvb2suDQoNCkp1c3Qg
-c28gSSBkb24ndCBlbmQgdXAgcmUtc3Bpbm5pbmcgdGhpcyBiYWNrIGFuZCBmb3J0aDogdGhpcyBw
-YXRjaA0Kd2FzIHdyaXR0ZW4gaW4gcmVzcG9uc2UgdG8gQ29ub3IncyBjb21tZW50IG9uIHRoZSBw
-cmV2aW91cyByb3VuZCwNCndoZXJlIGhlIHN1Z2dlc3RlZCBmb2xkaW5nIHRoZSBBU1QyNDAwLzI1
-MDAvMjYwMCBmaXggaW50byB0aGlzDQpzZXJpZXMgcmF0aGVyIHRoYW4gZGVmZXJyaW5nIGl0Og0K
-DQogICJJJ2QgZml4IHRoZSBiaW5kaW5nIGhlcmUsIHNpbmNlIHlvdSdyZSBnb25uYSBnZW5lcmF0
-ZSBjb25mbGljdHMNCiAgIHdpdGggeW91cnNlbGYgb3RoZXJ3aXNlLiBUaGUgZHRzIGNoYW5nZXMg
-bmVlZCB0byBiZSBzZW50DQogICBzZXBhcmF0ZWx5IGFueXdheSAob3IgYXQgbGVhc3QgYXBwbGll
-ZCBzZXBhcmF0ZWx5KSBzaW5jZSBiaW5kaW5nDQogICBjaGFuZ2VzIGRvbid0IGdvIHZpYSBzb2Mg
-bWFpbnRhaW5lcnMuIg0KDQpNeSBvcmlnaW5hbCBwbGFuIHdhcyBhY3R1YWxseSBjbG9zZXIgdG8g
-d2hhdCB5b3UncmUgYXNraW5nIGZvcjogb25seQ0KdG91Y2ggYXNwZWVkLGFzdDI3MDAtbWFjICh6
-ZXJvIG1pZ3JhdGlvbiBjb3N0LCBubyBleGlzdGluZyBkdHMgdXNlcw0KaXQgeWV0KSBhbmQgbGVh
-dmUgQVNUMjQwMC8yNTAwLzI2MDAgcGFpcmVkIHdpdGggdGhlIGZhcmFkYXksZnRnbWFjMTAwDQpm
-YWxsYmFjayBhcy1pcywgc3BlY2lmaWNhbGx5IHRvIGF2b2lkIHRoZSBraW5kIG9mIHRyYW5zaXRp
-b25hbA0KZHRic19jaGVjayB3YXJuaW5nIHlvdSdyZSBwb2ludGluZyBvdXQgaGVyZS4gQ29ub3Ig
-YXNrZWQgbWUgdG8gd2lkZW4NCnRoZSBzY29wZSB0byBhbGwgZm91ciBjb21wYXRpYmxlcyBpbiB0
-aGlzIHNhbWUgc2VyaWVzIGluc3RlYWQuDQoNClNpbmNlIHRoZSB0d28gb2YgeW91IHNlZW0gdG8g
-d2FudCBkaWZmZXJlbnQgdGhpbmdzIGhlcmUsIGNvdWxkIHlvdQ0Kc3luYyB1cCBvbiB3aGljaCBh
-cHByb2FjaCB5b3UnZCBwcmVmZXI/IEknbSBoYXBweSB0byBnbyBlaXRoZXIgd2F5Og0KDQogKGEp
-IHJldmVydCB0byBteSBvcmlnaW5hbCBzY29wZSAtIGtlZXAgQVNUMjQwMC8yNTAwLzI2MDAgcGFp
-cmVkDQogICAgIHdpdGggdGhlIGZhbGxiYWNrLCBhbmQgb25seSBtYWtlIGFzcGVlZCxhc3QyNzAw
-LW1hYyBhIHN0YW5kYWxvbmUNCiAgICAgY29tcGF0aWJsZSwgc2luY2UgaXQncyB0aGUgb25lIGNh
-c2Ugd2l0aCBubyBleGlzdGluZyBkdHMgdXNlcnMNCiAgICAgdG8gYnJlYWssIG9yDQoNCiAoYikg
-a2VlcCB0aGUgc3RhbmRhbG9uZS1jb21wYXRpYmxlIGNoYW5nZSBmb3IgYWxsIGZvdXIgYXMgaW4g
-dGhpcw0KICAgICBwYXRjaCwgYW5kIGNvb3JkaW5hdGUgd2l0aCB0aGUgQXNwZWVkL2FybS1zb2Mg
-bWFpbnRhaW5lcnMgc28gdGhlDQogICAgIGFzcGVlZC1nNC9nNS9nNi5kdHNpIGZhbGxiYWNrIHJl
-bW92YWwgbGFuZHMgaW4gdGhlIHNhbWUgY3ljbGUNCiAgICAgKGUuZy4gdmlhIGFuIGltbXV0YWJs
-ZSBicmFuY2gpLCBzbyBkdGJzX2NoZWNrIG5ldmVyIHNob3dzIGENCiAgICAgd2FybmluZyBpbiBh
-biBhY3R1YWwgdGFnZ2VkIHJlbGVhc2UuDQoNCkxldCBtZSBrbm93IHdoaWNoIHlvdSdkIGxpa2Ug
-YW5kIEknbGwgc2VuZCB0aGUgbmV4dCB2ZXJzaW9uDQphY2NvcmRpbmdseS4NCg0KVGhhbmtzLA0K
-SmFja3kNCg0K
+--lUZUhPJPDS1MELZu
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, Oct 19, 2026 at 03:11:21PM +0200, Herve Codina wrote:
+> Hi David,
+>=20
+> On Fri, 16 Oct 2026 16:18:03 +1100
+> David Gibson <david@gibson.dropbear.id.au> wrote:
+>=20
+> > On Tue, Oct 13, 2026 at 07:03:47PM +0200, Herve Codina wrote:
+> > > Hi David, Rob,
+> > >=20
+> > > On Tue, 13 Oct 2026 18:10:39 +1100
+> > > David Gibson <david@gibson.dropbear.id.au> wrote:
+> > >  =20
+> > > > On Fri, Sep 25, 2026 at 03:21:57PM +0200, Herve Codina wrote: =20
+> > > > > Hi David,
+> > > > >=20
+> > > > > On Mon, 21 Sep 2026 16:20:02 +1000
+> > > > > David Gibson <david@gibson.dropbear.id.au> wrote:
+> > > > >    =20
+> > > > > > On Wed, Aug 26, 2026 at 10:31:46AM +0200, Herve Codina wrote:  =
+ =20
+> > > > > > > This v18 version will add support for
+> > > > > > >   - Structured tags.
+> > > > > > >     Those tags value definition will allow "old" libfdt, dtc =
+and other
+> > > > > > >     tools to skip unknown tags if encountered in future dtb v=
+ersion.
+> > > > > > >=20
+> > > > > > >     libfdt, dtc and other tools implementing version v18 will=
+ be able to
+> > > > > > >     skip unknown tags available in dtbd generated with later =
+version of
+> > > > > > >     dtc.
+> > > > > > >=20
+> > > > > > >   - dt_flags header field.
+> > > > > > >     For now this flag field is set to 0. It is a placeholder =
+for future
+> > > > > > >     dtb version and could be used to store some dtb related i=
+nformation
+> > > > > > >     such as the kind of dtb. For instance, the future addons =
+format will
+> > > > > > >     use this field to clearly identify that the dtb is an add=
+on dtb.
+> > > > > > >=20
+> > > > > > >   - last_comp_version_w header field.
+> > > > > > >     This field is similar to last_comp_version but for writin=
+g.
+> > > > > > >     It contains the lowest version of the devicetree data str=
+ucture with
+> > > > > > >     which the version used can safely perform modifications (=
+taking into
+> > > > > > >     account following rules related to unknown tags).
+> > > > > > >     If this lowest version is greater than the last known sup=
+ported
+> > > > > > >     version, modification are simply forbidden and lead to a
+> > > > > > >     FDT_ERR_BADVERSION error.
+> > > > > > >=20
+> > > > > > > For modification, when an unknown tag that can be skipped is =
+involved
+> > > > > > > and last_comp_version_w allows modifications, the following r=
+ules
+> > > > > > > apply:     =20
+> > > > > >=20
+> > > > > > "last_comp_version_w allows modifications" is a bit hard to
+> > > > > > understand.  What exactly is the version number against which w=
+e're
+> > > > > > comparing that value?   =20
+> > > > >=20
+> > > > > We had one last_comp_version.
+> > > > >=20
+> > > > > Now we have two last_comp_version, one for reading and one for wr=
+iting.
+> > > > > We compare again the dtb version supported by our libfdt version.
+> > > > >=20
+> > > > > This comes from the discussion [1]
+> > > > >=20
+> > > > > [1] https://lore.kernel.org/all/CAL_JsqLRrbZje_gGZPBDni6StFa+6rdi=
+ECtk49on8VfkP7CDvw@mail.gmail.com/   =20
+> > > >=20
+> > > > Ok, I now see that the logic is you simply fail to proceed with wri=
+tes
+> > > > if the library's latest understood version is < last_comp_version_w.
+> > > >=20
+> > > > As I said elsewhere, this approach doesn't particularly make sense =
+to
+> > > > me.  If lib_version >=3D last_comp_version you *can* write, even if=
+ it
+> > > > means stripping everything that's not understood at lib_version.
+> > > >=20
+> > > > So the real question here is how do we know, for any given structur=
+ed
+> > > > tag, what write operations require the version to be downgraded (wh=
+ich
+> > > > might in turn require this and/or other structured tags to be strip=
+ped
+> > > > entirely). =20
+> > >=20
+> > > The rules is well known. =20
+> >=20
+> > I really don't think they are.  You've proposed one set of rules (as
+> > code) - although I don't think they quite make sense.  I've proposed
+> > another.  Other variants are possible.
+> >=20
+> > > An old libfdt version will strip the tag and
+> > > downgrade the version. If, when we define a new tags this rules canno=
+t be
+> > > follow by olf libfdt version, last_comp_version_w will be set to prot=
+ect
+> > > against modification.
+> > >=20
+> > > Maybe the problem is just downgrading the version.
+> > >=20
+> > > Instead of downgrading it could be better if we mark the dtb "one or =
+more
+> > > 'unknown' tags have been removed due to a write by an old libfdt vers=
+ion" ?
+> > >=20
+> > > We have a dt_flags header field. We can dedicate one bit for this mar=
+ker.
+> > >=20
+> > > Could it make sense ? =20
+> >=20
+> > I really dislike this idea.  It means we effectively have at least two
+> > variants of every version which strikes me as pretty confusing.
+> >=20
+> > > > This is related to (though not the same as) the question of whether
+> > > > introducing a new structured tags requires a bump to the dtb version
+> > > > (though not to last_comp_version, of course).
+> > > >=20
+> > > > Here's the simplest model I can think of.  It's what I'd suggest,
+> > > > unless one of it's limitations is a showstopper for what you have i=
+n mind:
+> > > >=20
+> > > >  - version and last_comp_version retain their meanings.  No new hea=
+der
+> > > >    version.
+> > > >  - New structured tags *do* require a new version.  If a dtb wants =
+to
+> > > >    include a specific tag, it must label itself with a version that
+> > > >    defines that tag.  To enforce that:
+> > > >     - For read operations, if we encounter a (known) tag that
+> > > >       doesn't belong in the header version, we throw an error (eith=
+er
+> > > >       BADSTRUCTURE, or a new error for the purpose).
+> > > >        - If version <=3D FDT_LAST_SUPPORTED_VERSION and we encounte=
+r an
+> > > >          unknown tag that also trips the error (since if it was
+> > > > 	 defined in this version, we should know about it).
+> > > >     - For write operations (including in-place), we always error if
+> > > >       version > FDT_LAST_SUPPORTED_VERSION (done in fdt_rw_probe_()=
+).
+> > > >     - fdt_open_into() _is_ permitted if version > FDT_LAST_SUPPORTE=
+D_VERSION.
+> > > >       It will strip all unknown structured tags from the entire tree
+> > > >       and downgrade the version to FDT_LAST_SUPPORTED_VERSION.
+> > > >=20
+>=20
+> Ok, my proposal seems to be a no-go and so I will follow your proposal gi=
+ven
+> above.
+
+To be clear, I'm rejecting the original proposal because I think it's
+internally inconsistent (if you follow the consequences of decisions
+far enough).  I'm not necessarily opposed to something other than the
+above, as long as the rules for when unknown tags must be invalidated
+(and what that does to the version) are made very clear in the
+structured tag spec.  e.g. see an alternative proposal below.
+
+> Just to clarify, correct me if I am wrong.
+>=20
+> When read if we encountered a skippable unknown tag (this is possible if
+> version > FDT_LAST_SUPPORTED_VERSION), we just skip the tag without any
+> error.
+
+Correct.  Btw, I know I suggested "skippable tag" as a term, but given
+how that gets kind of misleading in the case of writes, I'm coming to
+prefer the orignal "structured tag" term.
+
+> For write, "we always error if version > FDT_LAST_SUPPORTED_VERSION".
+> If fdt_open_into() has been called before the write operation, this will
+> not happen. Indeed, we have downgraded the version to FDT_LAST_SUPPORTED_=
+VERSION
+> and removed all unknown skippable tags.
+
+Correct.
+
+> Also, during this downgrade process (downgrade version + remove skippable
+> unknown tags), if a unknown tag that cannot be skipped is found, the down=
+grade
+> process fails an return an error.
+
+Yes.  This kind of happens naturally: since non-skippable tags are no
+longer structured tags in current thinking, we won't be able to
+complete scanning the tree to strip tags if we encounter any
+non-skippable unknown tags.
+
+Essentially the theory of the proposal above is to be maximally
+conservative: any write (adding, removing, changing, in-place,
+whatever) will invalidate all unknown tags and downgrade the version.
+
+
+But, here's an alternative proposal for invalidation/version semantics
+that I think is consistent, while being a bit closer to your original
+proposal.
+
+1. version and last_comp_version retain their meanings.  No new header
+   version.
+2. If version >=3D 18 the tree may include any structured tags, even if
+   they weren't defined as of v18.
+3. Some future version might _require_ certain structured tags to be
+   present.  But a client must only rely on those tags if the version
+   indicates it can.
+     - e.g. suppose FDT_FOO tag is introduced in v20.  A client
+       reading a v19 tree _might_ see some FDT_FOO tags (because of
+       (2)), but cannot rely on them being present in all the places
+       they should be.
+4. Any write to a property (including in place) invalidates all
+   unknown tags on that property (they must be stripped)
+5. Any write to a property invalidates all unknown tags on that
+   property's node
+6. Adding or deleting a property on a node invalidates all unknown tags
+   on the node
+7. Adding or deleting a subnode invalidates all unknown tags on the
+   node
+8. Whenever a tag is invalidated and stripped, the overall version
+   must be downgraded (to let clients know they can't count on tags
+   being present)
+
+Points (4)-(7) are all somewhat negotiable.  In particular, I'm not
+sure how feasible (6) is to implement.
+
+Note that because writes don't invalidate tags on ancestor nodes
+beyond one level, this proposal doesn't permit tags to contain summary
+information about an entire subtree that could be invalidated by
+writes further down in that tree.
+
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
+
+--lUZUhPJPDS1MELZu
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrYIuIACgkQzQJF27ox
+2GcPWRAAmtwNzmo5KOuljAfXZAxccVRBwYtJqbv76fYzm7D+qRoO6uvcfIYV8jx8
+dGiZ0msZP2Pttm2SD42yn2R4wynOt4FqyfmhTBFUj6Zl095qSBtb+ObdRT00dXB7
+u5EBSiHdR30f+iw7NuPWrfTf8ZiZ6A1o/wmavXUw++4pXUskN07wub+qbpMMfyar
+gLrZLZSI4syjBhHhNm6EGxTvJFMBRVvaji+vyoAOJXU7Jf00Am0fGFC0yG1ByXqS
+nhsYsdAh4D7uWGIHAE0Jc65/EvlcwE2MiosHOaadShQlWodUyrRpBOgXjjT4uIGa
+cdc6S5GO67/gASrN/HTYw9qqQECughrQbwFpSdi5XY/nRIAiNdJF8VTFDTJUSjwU
+ezt77OWfvJepmXVG8rLDsKp2kYfmFg+LfGa0z0b0zP/ubVZojl16esU6ccpc1u32
+HsBumCtuLPKeoIzxGT1lzYh2ZbHAgA+GQZtGP6Y69hpvVsZdAFxgwnZQqBBEk0vC
+pkRpjjF/upbyWYgAAKLayr5LfDSkSoyOb+WT9BCLEonRepjXT+TBewqqN+SEc3j6
+YaeU59ijKyd+QX+RJpUVi+TvUP0J4YSDNydCWnOJOZ4kWvchPBUVKyjIED7+h2cT
+nH73MVjjg1iXuuSrggJLc1npkQjb0P4DjZDR/C9rRbVr87OBQG8=
+=2RAx
+-----END PGP SIGNATURE-----
+
+--lUZUhPJPDS1MELZu--
