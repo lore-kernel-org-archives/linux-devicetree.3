@@ -1,107 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.59
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792587461;
-	b=VeQFh2xP97Ljd4yPzK0CsuTss8cS3/cyQc0+bh+zOlk5+VbyDzbuOVBnFZXPY3MHWOlm
-	 eve6rDJOOAQezE8CFP970K8HQ/P/OjdwinwBNUswPNNi49x/9febs+iUPNfI7Nfyan/Te
-	 ZXm4pKbD4xtnjMxyPxf7vR3Msdd7IwekqryVArKA/rsZB+GunuIrzIburTZpq8+PkgSVF
-	 Y+DaTj0mz8wRcD5/Xa98zMBdBSuw7TElSJuE08YNXeLuQj5Boln43mQdNJ3t9HbIX7zI6
-	 PUR1kd5ZrgG6MKM0eyh+7yrlAz+0vjz3n964wh/crsmyYcRuNvJRFXt2au/a2oE7dtQ==
+	t=1792587682;
+	b=xXkcL56Q+Hq5wC4wkPbdChkqSoWoPnpLXN0G1eJ6N4TbRzyF5gK1HOCgy3XCRTMjJaDQ
+	 fDPUCEdvtQ9nc0IpJUqEQS01++S5tIPT/z0wRDJVXiEEbFbXLcQpPpWR254ttFglq/2Tg
+	 M/HV0AR58hzC3GpMnic9A1Ht9bNEUEuVgnaM+Ur5ecjlHpCRgXqpd4XWHqI82j8ncPg8U
+	 nndLLlbi6Y1yje+LYwgZUrVrtbBECL7OgP8sI3IbmY41ebbHnodmsrgX+rswVPtjGroRJ
+	 fEXO785kefSmCd4YP3dzykCHyJF3Xx2AWTtvR2wm4czlDjiSWCxl131CXrqlkfPhKdQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792587461;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Type:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=fu10l1/Okl7eOsc4INefiN1QUMRen4gczIg2g3SDI7g=;
-	b=Ys1KY2ulZwAfCzt00YoX8rh3Xn5h7N0vPxHp8h2S2WNwYoGKG5U7n1Kv8IR8BMznhujn
-	 7KqWFB9igOuzU2a1pxivjCsQoJu27EpOoFSyawf5brFH4u8kN3bwx0ZcamaEX6E/XaRPN
-	 esklprB40ljw0GdldMaFvLB6dkIWtWeaQqiWMIC5QDF7AuTDZDW6VzQ1ag6hFwNy2oa8C
-	 rJsI6qW+M5wO5ULmmz0xxC1adgfG6MTgWiup6lpBxRK6b0xeCm0FgoZM0b991qycCSwX+
-	 6PuAZw0suufldYUg7xSnYDAKXE59ZRdub+obtBtQA77++CjdukElXyx9vbe+2WgnLVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792587682;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=gVHN/KsBNoDpAY9h12G6JNzSl6eNu9q0U6rV/X0S7aE=;
+	b=UVZ2Aq7Q7ojGZ6FGPQCEIHFQbr/3W9RfETJGoss8VGJ4DGUyzJE/z4JJJHWdB+w23GEI
+	 aErz3JZJ3o1+qCN/mUAG44YHTaYPBK/V8o3t8QaQDxBXSJ6N/06YAdfzlB5DfLe7eQSLj
+	 6XKbk4n0+FtB+4UKk68AS5BRbtvH3as9ZBmyfNsSaz6PcXZ5Q6+snQwDSe4JnznBSqXvh
+	 PLWEDDTHuEHYFbKh+sLqI9HhxPJdfVEjXxIh9MGsi4SA1NCKKd31MzzUuv6vfaz5YAI0v
+	 h3VA0SDX9NJ7u37zw7U/6IGeWS5VemC5syQ92MzSvLfP7Vc4AX/raGLWlsBcrbWw4Aw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=lh8lpilx;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.59
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010059.outbound.protection.outlook.com [52.101.85.59])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HtE8uGub;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="L4CM/L1z";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AB1F606A31A;
-	Wed, 21 Oct 2026 12:57:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AB1F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8163B606A323
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 13:01:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8163B606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=lh8lpilx
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZPCwm/WkQUvycdXnX7QkdgNTovpXNDPZJH2OIXyPiAitZtCbqAmeFWzUPMTjrkfXTyQNuwzx/D54t57AUqLPeA5CQLIBJ6RjC8kdRyqcoCwtz3vLQYmFO2HAsadPAh33CtorFzhbdj1Nzi3aXthmDrMgdSYo6TGVmPC96GukUS7ftSuUatY7V9YcxkyRerfz7XihJ1GMI9PQwjDAIs71TDdT3GSYfrGckWyg4C5p4AjfxcMQTvkN5HSJv0jII5TlTKJZwXVCmUScdFaKGnqjK6x/ZrJANSWTIaTno4/wCxgGFfMBeinDmXdFnVdAAiN2rJmHN9+8NuScoaFyjuhs9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fu10l1/Okl7eOsc4INefiN1QUMRen4gczIg2g3SDI7g=;
- b=uAFrbgr0oewZCRHwd+OiKi2E6Yeacd0jnnBIAsYxGNG580is7BVtwj7wg7c8vWSOhV6+7IRHy7xc6eCe7c10tulXQVCKyX47RwMw4zu0PdMlWVeQMWTJ7G2pn1bQdsH5yNdCsq0dlls4llfj8+GqLCUSA9gaW00bO98ACwugLsHtZbA0793Zu2TX+onOCM/y4v27CY+bVNUcHxqvI0kLwVTLLuRwd8TBaIbTRYQkO9LE1KJAbmHhvAUdn2pEV7sE/UzbkLpA9B2cZvsMTGnBnx6CMR6lvHbM8jkiGcwiDKbkR08cZf9q4TExfp5L9h0I9o//ampFb9GGmf8H7+tuFg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=alien8.de smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fu10l1/Okl7eOsc4INefiN1QUMRen4gczIg2g3SDI7g=;
- b=lh8lpilxHZWVTlm7F7C1erP9QABr25PP22qH+5SDQI00vtGNHqctF2cXB/jV9gPDtoc3aXTpizXKZV/USPsqka4XIxXJ6uAS2LiSbrZ5XrLb4sEvhDmJx0BrLiLnfewajoIykTWF2sup/+ynHJxMy2jOLO33cOCcNtcIirJPzy0=
-Received: from BN0PR04CA0031.namprd04.prod.outlook.com (2603:10b6:408:e8::6)
- by CY1PR12MB9582.namprd12.prod.outlook.com (2603:10b6:930:fe::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
- 2026 12:57:33 +0000
-Received: from BN7PEPF000000A5.namprd05.prod.outlook.com
- (2603:10b6:408:e8:cafe::44) by BN0PR04CA0031.outlook.office365.com
- (2603:10b6:408:e8::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.20 via Frontend Transport; Wed,
- 21 Oct 2026 12:57:33 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN7PEPF000000A5.mail.protection.outlook.com (10.167.245.229) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 12:57:33 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 21 Oct
- 2026 07:57:32 -0500
-Received: from xhdrveggala50x.xilinx.com (10.180.168.240) by
- satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53
- via Frontend Transport; Wed, 21 Oct 2026 07:57:29 -0500
-From: Rama devi Veggalam <rama.devi.veggalam@amd.com>
-To: <bp@alien8.de>, <tony.luck@intel.com>, <michal.simek@amd.com>,
-	<robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>
-CC: <linux-kernel@vger.kernel.org>, <linux-edac@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <james.morse@arm.com>, <mchehab@kernel.org>,
-	<rric@kernel.org>, <git@amd.com>, Rama devi Veggalam
-	<rama.devi.veggalam@amd.com>
-Subject: [PATCH v4 1/3] dt-bindings: edac: xlnx,versal-ddrmc: Add xlnx,versal-xilsem compatible
-Date: Wed, 21 Oct 2026 18:27:20 +0530
-Message-ID: <1792587442-2794880-2-git-send-email-rama.devi.veggalam@amd.com>
-X-Mailer: git-send-email 1.9.5
-In-Reply-To: <1792587442-2794880-1-git-send-email-rama.devi.veggalam@amd.com>
-References: <1792587442-2794880-1-git-send-email-rama.devi.veggalam@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HtE8uGub;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=L4CM/L1z
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LBfuXD543795
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 13:01:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	gVHN/KsBNoDpAY9h12G6JNzSl6eNu9q0U6rV/X0S7aE=; b=HtE8uGub3OuGwgUi
+	LN4O1pHtrxZhZHfwkbZAYh56Waz3+wzJpEIkMSpjAu/Vbt6wT9CEqEm6Z/GyQ9HO
+	zBd12tdyz3Nnm9ltd6Zf1TgU/xI/QTj7Tizc01Sbz2ZpyhbrYdnlKykwZdeQq1is
+	7SfpCLhApJupbVSE7EHVAWEm10gcTxxWgw7EHUAbnZsfKuI8r/fTJJ2MGFX5hKtY
+	ywj97sa03Oi2TeuPau2XLUbpJzFu9uUeGQRp/Kd3YolAPWIUU7KjE2iv9bBNcL+7
+	IPtCe/vzjtcMSPh9OAX15PfKK8/3s5CNxmw5k1nI+qmQRGwkuuqWt++lHci6DBYD
+	o9M96g==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hetj48sk3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 13:01:14 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f2c0e6653so143234785a.1
+        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 06:01:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792587674; cv=none;
+        d=google.com; s=arc-20260327;
+        b=r/hHJEwZrTcb3eFaIAr4Ee3l58msBxM/x9LhLpS35Jr5rNSmPf8Q9Fl1GtNpVr4yQB
+         HKI1VsME4YZUXm/nMjqQO9e2nrHfyRvF4m1B8AuV2C/BopFhHRDy7NBSpln4h5SNrFh2
+         WdhjVcY8QWpwwv9VjPGZ14QlI7EKNH1uJjeD2MzMo+1wo6otToxSsDoVFx4djg0/PbfX
+         bJ0olBFNS4pVrsKpEnar2u7lhHzdFTA6Unt8bHvUvrzcZFdsubzMHFwVKYoyGUYk2Aqa
+         D1gvCvBHj0xocQLLd1zhYOVs3QEaIGCJjVTxr5XHUFHRu9aHcOfmFUKC0zotuNfkXn1Q
+         KFXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=gVHN/KsBNoDpAY9h12G6JNzSl6eNu9q0U6rV/X0S7aE=;
+        fh=mz259HwPayGfJ4G6RtIIsoBT59SBbuxeebfaF5N7NT8=;
+        b=jebUWS4e+PxeIQ+9CTX1rHTHBY8hMKc2Ju6uk2EWjeCzw4FWQI5Ubd17R+5U03lFho
+         A6yWn9ioOkWUAZVYKTG0Zho1yKYk9bqOpX1hnNO7ACFOfB6rniyBl1m0oN4gJUuJYbXx
+         JzaR2yOvTVg1A3qP4bgjTbiFyyHooAi3rDMazbB4xX238V09vQrzWjeLdH7JlzgyUZeh
+         c/SlNSXlL357cQfwV/X8TzYERzCnRNfDvpGK37hJi8FondWKUK07094yFJ1P1GmVGpvI
+         s+7yTjaTC3ICF6l85oBD+JCmoyToY/dGfhRzxidRKScn+1/O5MNGRL1HtloCl1pSEjLG
+         pVew==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792587674; x=1793192474; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gVHN/KsBNoDpAY9h12G6JNzSl6eNu9q0U6rV/X0S7aE=;
+        b=L4CM/L1zAz46OZ3NjYpuK/b4yMm0nveY1UMkFJ22X8NPXIR6n+Nl87QBC/FLpNSG4G
+         vVpZ7Ja4k/G1nO+Ni88YfrOA1DDWq2ydPq/BgEefNtrQfN/6jUwnFmB4Hxx52kT5Aode
+         xLqMQhyKcstapPtYsFYCd6uS0At0uUKFrI3Uf9Dt8nwoE0EW6E5/6zqECo4uHLcVHNsC
+         enNiUVtwCoLvtolhF83QhKpyl4p3/muwELVNu7kjOy1L/u7bNgG5vC4qEZrvD+tjFsiC
+         WvXQl4K6XOw9qn50beQvIUOP/ZStTvlx9MWFKJX2UYkyM4papJQCocs/EzLhn1IeJ6wd
+         x9Lw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792587674; x=1793192474;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gVHN/KsBNoDpAY9h12G6JNzSl6eNu9q0U6rV/X0S7aE=;
+        b=t9PpAdzg3p5Rsn6HpXLAdvFUDiUmi1f+ZVpguoj44mG7udgdkS/yufah8zWNq5SK/W
+         Xqy1zxJ8zZl3wAjFJ4FHwkUpSmW/RvRT/LHZtGUeaZwCzI9WkeGQ0UNAuxRJKkYQXQ0u
+         t+1wnvdxa0LDgUTUqfiu17JQSfuZp25Fq4z5t+tCaS1Xc+lZOfOP01myy8zARfST3uqP
+         x5Ihv4R7LnJO7cN4E0U57D+OBxkX/nbwIj1JnPr2j4mJUQqI1tiwDoGMyzlGOV7TdMa5
+         dZhkLyiu+iLm8Vf6wm2CxUjDYYEvdnkWGCmzaJN/7ahZKMEu2NBF3t7LRVMVHV1UDL4C
+         eoUw==
+X-Forwarded-Encrypted: i=1; AKwUvBw0NJUPHb3hOushCxEQv0T9Nh6UiJNuQCMivqLwxGBZDZ9CzJXJTlFAwbyKItgFnY3P3YGDSZcj1DnQ@vger.kernel.org
+X-Gm-Message-State: AFq9FYIy63jUtllvz8VJW7+Md+Zetb9z3wR8kfKEK/W4gzoAkAsraKp2
+	sUgtxY3T1LGGtEI0yFMeVsgJeZk5U7G6+F+AuVQaJndY3IBe2gnrvsl3GWix/RYtxW18grLdP3M
+	6u2eNMOh+99dttFHUjCFvscuE97lpS/dHUe9oPXLmbnWkTfEh2WYxZa0gGxkOichpKPYA9KMkx/
+	dMRqEh44cJWJAptiIrBNidZdvuFMkPK00oo0XvFbo=
+X-Gm-Gg: AYBFou3GkuUt/9sW+rTjWHnLRKIKsFq8SEsH3azwsuM9wMT6dWN7bQNj2irHKK24NaK
+	kjRbpgwj//HThGvyiHRTB5AoHIoqgdkFXVB3xeV3W5MEuiP8oQTCQf5MnbqSJtlqo6FjTxNvCn/
+	OLDcEvzzzJ3ZWV8LeOmJsuKjMmlg6F907LHgc1DiCQoLkWsebwZGivCnWek/+e0q7qkMak0kE4g
+	c61fMh+ENi4b7lHqItYC6NeaRyfiuZv4zT6h4lAesPwzynbxqUTwB5Qe2vx5sIx3aoFo0Sy2DU=
+X-Received: by 2002:a05:620a:394a:b0:93f:34c9:9248 with SMTP id af79cd13be357-93f57f04eebmr415406485a.22.1792587670440;
+        Wed, 21 Oct 2026 06:01:10 -0700 (PDT)
+X-Received: by 2002:a05:620a:394a:b0:93f:34c9:9248 with SMTP id
+ af79cd13be357-93f57f04eebmr415365085a.22.1792587666477; Wed, 21 Oct 2026
+ 06:01:06 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -111,167 +128,279 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF000000A5:EE_|CY1PR12MB9582:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4e538bfa-6690-48c4-1827-08df2f72df83
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|36860700016|82310400026|56012099006|11063799006|261009223027099003|261009221227099003|10067099003|18002099003|6133799003|22082099003|13003099007|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	6bM6psMjA44ORYWvtk7VsexqaU08Wxh2UABy0iamNr697TFGjKoUuGdyycjX2HXZWdwvGeT2H3Rwc4+AJCbesPgpAGzAHPmPH8VXYaPD285BRgEts77jpy0hyYYxsYfcfrgHXB/3gXIroPntXTimCzzTspbiTgIRlDKwzIaJvqSKI0qHQalja4YyXjHV8JLHhJ0xJxJmDwYVnjgbqsf2Mn1dJ5qIjtY25GTfrA1jBRfwj4UfMBwH5iklwYYWkYWMMirGuCa/e0hc5deFxNFQvMUM7pFqGp2ktvYB2Q3Zy0vJck0/DWQFNctF0rrh24ZfDQx+5WsKXDYcQAGX6ULn5xqgY053zHFWFt2mE56F2vee2rPevi8Kie2Wr1UDBaBzq9ooGHUJ8XesWrLcw9VaD3M7PmVuzaSxsiXE5QlcPrvxATsMg56JwIWGpYfgCCMlGWPEMiSstYS1h3mCwxkMX+XLfCce67LaWo6eTozBaXwpNExVfNh12fVurhhkVzsgj8UezftXfmCGWl60D0yz94wp8QBc+cYFyDDEnWRGnPkJ3FHOqO7onIiu8rIi9EOPTRPieP5tUIm4x6a2SjVRdGMZAqK6pQYvRbb6eTKUhGULo4ZZqWLYa4rg9TmI5eSPJbdm23RMcwUSBZnLYfAjYg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(36860700016)(82310400026)(56012099006)(11063799006)(261009223027099003)(261009221227099003)(10067099003)(18002099003)(6133799003)(22082099003)(13003099007)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	24kmnBB2CcMiuGdmMzP8fhfuCDSDnzX+iMfqW4MqJZBOr0JI+JevFIB/zd7YOYlDIpgy9f+tCWIsc5fnsCR8d25IsfNZdh/uDG8znZ7hDKHYGnSPFAUffgcPSbadMhn2eXEK9qZitGYb0k0DkgKyk0r4PR2c2gDUo4VvwnwAC3myghDdRQHa3VUaminxn3dZQ6HIIqUyHYVMtIDTwjXPWxhxAgOZfifOU2YV+RrWA8rhyVDI9xlKSnlvmxNuWmrLt67G1v0m+jxqDiCKmaOHjR3VbcaunzZHH9OaLdJ3E6mTcdG7jTtsKzTlThFP0LSfvDqYGA7u6aVsD3IoetYtEU2nHmyjERK9PYd7DlEXTaWb1scUY7Wt/9eQLrZGlbID3dFOHptKPHU4KCa21Zklf7W+zCppQtbqfKW8EPTxVcqQu0Gj50oPEU503L72eDBz
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 12:57:33.2148
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4e538bfa-6690-48c4-1827-08df2f72df83
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN7PEPF000000A5.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9582
+References: <20261011-kaanapali-camss-v21-0-04fd28d815c6@oss.qualcomm.com>
+ <20261011-kaanapali-camss-v21-4-04fd28d815c6@oss.qualcomm.com>
+ <3843110c-4766-4352-ab2a-6d3017336534@oss.qualcomm.com> <dbde0e35-8246-4f69-b3be-cd617a1767d9@linaro.org>
+ <c1a0dfe9-34bb-4d24-9644-0f758aff0af0@oss.qualcomm.com>
+In-Reply-To: <c1a0dfe9-34bb-4d24-9644-0f758aff0af0@oss.qualcomm.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 15:00:54 +0200
+X-Gm-Features: AclHuK-8q0aX4k5XsAnz-t3dRuV7UwkayPffcJ2itPbwK18KPuujnhjZ4aFGTag
+Message-ID: <CAFEp6-16PUJzLKZUBrC2g7oh8pN_Tygrf6wYX53nL+YM4ZvunQ@mail.gmail.com>
+Subject: Re: [PATCH v21 04/14] media: qcom: camss: Issue stream-on REG_UPDATE
+ from CSID
+To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+Cc: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
+        Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
+        "Bryan O'Donoghue" <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, linux-phy@lists.infradead.org,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        jeyaprakash.soundrapandian@oss.qualcomm.com,
+        Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-ORIG-GUID: Q1Td67i1kbv0PONC_cAC5OxJcmNWqGeJ
+X-Proofpoint-GUID: Q1Td67i1kbv0PONC_cAC5OxJcmNWqGeJ
+X-Authority-Analysis: v=2.4 cv=N768hG9B c=1 sm=1 tr=0 ts=6ad8b79a cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8 a=DWtyPYmOaO5ShKUgkzEA:9
+ a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA1MSBTYWx0ZWRfX6RF3i9PCASFy
+ R4p8hVGSVCKrVYBSSOVtBc/r1ixzQPxUhJcNcag5XQK6qAy4IzZ+0Fv5AKWHyQJ/WaovTvPYjQV
+ ThRMBJd49xLGgtAzq+nkEru7AIJ70czoVbzQf6xJ+/WypEggKZpIHvBJQMwF4EZAY9diJ7SGaIK
+ IfKP6c2E8DdfD5mnCi51tR97Vwrq0Zf7hZQ8tQjH2EkcnIMvxbkf+D3/ST/nDxBgLAUscVJYIQT
+ 9KKeOdsuQDDl/dMQj/i+k5kbo6YOf32ctgnXsgv0uliOBbLldTlcYm8VvdzRx2goOTM1gwNl5Pj
+ CkSgJUSYc4CgU1rpwismQZkqEUchf4yA/xTmF7hPJ6nKWma8Yjiura9TQ2COhFFPmERgCLdTAY8
+ cLNZ9/IqEWx/q3/GXkbbNnXtY+ac9A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA1MSBTYWx0ZWRfX5LfZlNob///B
+ K5TjElRfIF8YePtf+RLnxQtsZIGzgcTCWCICr5v4cR4gIDj0QUXKTCJyqEGL4ya/fjVprbqfZGA
+ Fa5K8dY3FAGSupi5JYXVV8fOKHM6ySw=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-21_03,2026-10-21_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 bulkscore=0 phishscore=0 suspectscore=0 adultscore=0
+ lowpriorityscore=0 spamscore=0 classifier=typeunknown authscore=0 authtc=
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.22.0-2610190000 definitions=main-2610210051
 
-Add the "xlnx,versal-xilsem" compatible string for the Versal
-XilSEM (Xilinx Soft Error Mitigation) hardware block.
+On Wed, Oct 21, 2026 at 1:24=E2=80=AFPM Hangxiang Ma
+<hangxiang.ma@oss.qualcomm.com> wrote:
+>
+> On 10/21/2026 4:53 PM, Bryan O'Donoghue wrote:
+> > On 21/10/2026 08:37, Wenmeng Liu wrote:
+> >>
+> >> Hi Bryan, Hangxiang,
+> >>
+> >> On 10/12/2026 2:45 PM, Hangxiang Ma wrote:
+> >>> On stream-on, CAMSS starts the subdevices upstream from the video nod=
+e
+> >>> through their sink pads, so the VFE is started before the CSID.
+> >>>
+> >>> Starting with CSID 680, the REG_UPDATE is issued through the CSID
+> >>> rather than the VFE. However, vfe_enable_output_v2() still issues a
+> >>> REG_UPDATE after queueing each initial buffer, before the CSID has
+> >>> configured the stream. The VFE then never signals BUF_DONE. Therefore=
+,
+> >>> the CAMSS now issues the REG_UPDATE from configure_stream() on CSID 6=
+80
+> >>> and CSID Gen3 instead. The operation happens after the RX configurati=
+on
+> >>> and before the RDI path is enabled.
+> >>>
+> >>> Skip the VFE-side stream-on REG_UPDATE only when the CSID connected t=
+o
+> >>> the VFE sink pad implements the reg_update callback. Platforms whose
+> >>> CSID does not provide this callback, as well as lines fed by ISPIF,
+> >>> keep the existing VFE-side REG_UPDATE.
+> >>>
+> >>> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+> >>> ---
+> >>>   drivers/media/platform/qcom/camss/camss-csid-680.c |  3 ++
+> >>>   .../media/platform/qcom/camss/camss-csid-gen3.c    |  3 ++
+> >>>   drivers/media/platform/qcom/camss/camss-vfe.c      | 37 +++++++++++
+> >>> + +++++++++-
+> >>>   3 files changed, 42 insertions(+), 1 deletion(-)
+> >>>
+> >>> diff --git a/drivers/media/platform/qcom/camss/camss-csid-680.c b/
+> >>> drivers/media/platform/qcom/camss/camss-csid-680.c
+> >>> index 345a67c8fb94..556cdfef6207 100644
+> >>> --- a/drivers/media/platform/qcom/camss/camss-csid-680.c
+> >>> +++ b/drivers/media/platform/qcom/camss/camss-csid-680.c
+> >>> @@ -296,6 +296,8 @@ static void __csid_configure_rdi_stream(struct
+> >>> csid_device *csid, u8 enable, u8
+> >>>       writel(val, csid->base + CSID_RDI_CFG0(port));
+> >>>   }
+> >>> +static void csid_subdev_reg_update(struct csid_device *csid, int
+> >>> port_id, bool is_clear);
+> >>> +
+> >>>   static void csid_configure_stream(struct csid_device *csid, u8 enab=
+le)
+> >>>   {
+> >>>       int i;
+> >>> @@ -307,6 +309,7 @@ static void csid_configure_stream(struct
+> >>> csid_device *csid, u8 enable)
+> >>>           if (csid->phy.en_vc & BIT(i)) {
+> >>>               __csid_configure_rdi_stream(csid, enable, i, 0);
+> >>>               __csid_configure_rx(csid, &csid->phy, 0);
+> >>> +            csid_subdev_reg_update(csid, i, false);
+> >>>               __csid_ctrl_rdi(csid, enable, i);
+> >>>           }
+> >>>       }
+> >>> diff --git a/drivers/media/platform/qcom/camss/camss-csid-gen3.c b/
+> >>> drivers/media/platform/qcom/camss/camss-csid-gen3.c
+> >>> index 0fdbf75fb27d..830c9c818d3d 100644
+> >>> --- a/drivers/media/platform/qcom/camss/camss-csid-gen3.c
+> >>> +++ b/drivers/media/platform/qcom/camss/camss-csid-gen3.c
+> >>> @@ -219,6 +219,8 @@ static void __csid_configure_rdi_stream(struct
+> >>> csid_device *csid, u8 enable, u8
+> >>>       writel(val, csid->base + CSID_RDI_CFG0(port));
+> >>>   }
+> >>> +static void csid_subdev_reg_update(struct csid_device *csid, int
+> >>> port_id, bool is_clear);
+> >>> +
+> >>>   static void csid_configure_stream(struct csid_device *csid, u8 enab=
+le)
+> >>>   {
+> >>>       u8 i;
+> >>> @@ -230,6 +232,7 @@ static void csid_configure_stream(struct
+> >>> csid_device *csid, u8 enable)
+> >>>           if (csid->phy.en_vc & BIT(i)) {
+> >>>               __csid_configure_rdi_stream(csid, enable, i, 0);
+> >>>               __csid_configure_rx(csid, &csid->phy, 0);
+> >>> +            csid_subdev_reg_update(csid, i, false);
+> >>>               __csid_ctrl_rdi(csid, enable, i);
+> >>>           }
+> >>>   }
+> >>> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/
+> >>> media/platform/qcom/camss/camss-vfe.c
+> >>> index 2680a9914765..16a0b5663fe2 100644
+> >>> --- a/drivers/media/platform/qcom/camss/camss-vfe.c
+> >>> +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+> >>> @@ -502,6 +502,37 @@ void vfe_buf_done(struct vfe_device *vfe, int wm=
+)
+> >>>       spin_unlock_irqrestore(&vfe->output_lock, flags);
+> >>>   }
+> >>> +/*
+> >>> + * vfe_upstream_csid_has_reg_update - Check whether the CSID feeding
+> >>> this line
+> >>> + * issues its own streamon RUP (i.e. its configure_stream does the
+> >>> RUP).
+> >>> + *
+> >>> + * The CSID->VFE link is created in camss.c for all CSIDs and VFEs,
+> >>> so the
+> >>> + * upstream entity of the sink pad is either a CSID (possibly with
+> >>> RUP) or an
+> >>> + * ISPIF (no RUP). Only enabled links are considered.
+> >>> + */
+> >>> +static bool vfe_upstream_csid_has_reg_update(struct vfe_line *line)
+> >>> +{
+> >>> +    struct vfe_device *vfe =3D to_vfe(line);
+> >>> +    struct camss *camss =3D vfe->camss;
+> >>> +    struct media_pad *remote;
+> >>> +    unsigned int i;
+> >>> +
+> >>> +    remote =3D media_pad_remote_pad_first(&line->pads[MSM_VFE_PAD_SI=
+NK]);
+> >>> +    if (!remote || !is_media_entity_v4l2_subdev(remote->entity))
+> >>> +        return false;
+> >>> +
+> >>> +    for (i =3D 0; i < camss->res->csid_num; i++) {
+> >>> +        struct csid_device *csid =3D &camss->csid[i];
+> >>> +
+> >>> +        if (&csid->subdev.entity !=3D remote->entity)
+> >>> +            continue;
+> >>> +
+> >>> +        return !!csid->res->hw_ops->reg_update;
+> >>> +    }
+> >>> +
+> >>> +    return false;
+> >>> +}
+> >>> +
+> >>>   int vfe_enable_output_v2(struct vfe_line *line)
+> >>>   {
+> >>>       struct vfe_device *vfe =3D to_vfe(line);
+> >>> @@ -511,6 +542,7 @@ int vfe_enable_output_v2(struct vfe_line *line)
+> >>>       unsigned long flags;
+> >>>       unsigned int frame_skip =3D 0;
+> >>>       unsigned int i;
+> >>> +    bool rup_in_csid;
+> >>>       sensor_pad =3D camss_find_sensor_pad(&line->subdev.entity);
+> >>>       if (sensor_pad) {
+> >>> @@ -523,6 +555,8 @@ int vfe_enable_output_v2(struct vfe_line *line)
+> >>>               frame_skip =3D VFE_FRAME_DROP_VAL - 1;
+> >>>       }
+> >>> +    rup_in_csid =3D vfe_upstream_csid_has_reg_update(line);
+> >>> +
+> >>>       spin_lock_irqsave(&vfe->output_lock, flags);
+> >>>       ops->reg_update_clear(vfe, line->id);
+> >>> @@ -552,7 +586,8 @@ int vfe_enable_output_v2(struct vfe_line *line)
+> >>>           output->gen2.active_num++;
+> >>>           ops->vfe_wm_update(vfe, output->wm_idx[0],
+> >>>                      output->buf[i]->addr[0], line);
+> >>> -        ops->reg_update(vfe, line->id);
+> >>> +        if (!rup_in_csid)
+> >>> +            ops->reg_update(vfe, line->id);
+> >>>       }
+> >>>       spin_unlock_irqrestore(&vfe->output_lock, flags);
+> >>>
+> >>
+> >> According to the hardware documentation:
+> >> Starting with CSID 680, CAMIF has moved into the CSID. As a result,
+> >> RUP is now issued by the CSID and propagated to the IFE.
+> >>
+> >> Starting with CSID 980, software must also set the SET bit in
+> >> RUP_AUP_CMD after issuing the RUP/AUP command. Otherwise, the hardware
+> >> ignores the command and the corresponding register update does not
+> >> take effect.
+> >>
+> >>
+> >> Bryan, according to the HW documentation, the change itself is
+> >> consistent with the required programming sequence. The main question
+> >> is whether this is the right implementation from the driver
+> >> perspective, or if there is a cleaner way to handle it.
+> >>
+> >> I have tested the change on the Hamoa EVK board.
+> >> Tested-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com> # Hamoa EVK
+> >>
+> >>
+> >> Thanks,
+> >> Wenmeng
+> >
+> > OK thank you for the explanation.
+> >
+> > OTOH I agree with Loic's statement - it is cleaner to subtract the
+> > callback and disjunct on its presence than to add a flag to the same
+> > effect in reverse.
+> >
+> > ---
+> > bod
+>
+> Hi Loic, Bryan, thanks for the review. I wonder if it would be better to
+> keep the check on the CSID side?
+>
+> vfe->reg_update() is also used outside stream-on, such as bufdone, queue
+> buffer. It must be implemented in VFE. We only want to change the VFE
+> behavior at stream-on stage, in function vfe_enable_output_v2(). So
+> making vfe->reg_update() optional could affect runtime updates.
 
-XilSEM runs as part of the Platform Loader and Manager (PLM) on the
-PMC and detects (and optionally corrects) soft errors in Versal
-Configuration Memory, notifying error events to user applications.
+But the patch says:
+'The REG_UPDATE is issued through the CSID rather than the VFE'
 
-The new compatible string only needs a single register region and
-does not use reg-names or interrupts, so the schema gates these
-requirements per compatible string.
+So you mean it's not always driven by CSID?
 
-Signed-off-by: Rama devi Veggalam <rama.devi.veggalam@amd.com>
----
-Changes in v4:
-- Added a new "xlnx,versal-xilsem" compatible string to the existing
-  xlnx,versal-ddrmc-edac.yaml binding, gated via allOf/if-then so
-  DDRMC and XilSEM requirements (reg, reg-names, interrupts) are
-  validated independently per compatible string.
+Also, today we perform a reg_update after queuing a buffer (i.e. after
+programming ADDR). However, as far as I know, this is no longer
+necessary in recent VFE/TFE/IFE generations. In those implementations,
+the ADDR register is not double-buffered and is not part of the
+reg-update set. Instead, it behaves as a FIFO entry, so issuing a
+reg_update only results in a useless RUP_DONE interrupt.
 
-Changes in v3:
-- Merged XilSEM edac with Versal Edac
-
-Changes in v2:
-- Changed "xlnx,versal-xilsem-edac" to constant
-- Removed "compatible: in required section
-- Removed "|" in description
-- Removed "items" in compatible
-- Fixed indentation in examples
-- Updated title and description
----
- .../memory-controllers/xlnx,versal-ddrmc-edac.yaml | 64 +++++++++++++++++++---
- 1 file changed, 57 insertions(+), 7 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/memory-controllers/xlnx,versal-ddrmc-edac.yaml b/Documentation/devicetree/bindings/memory-controllers/xlnx,versal-ddrmc-edac.yaml
-index 12f8e9f..b5dc320 100644
---- a/Documentation/devicetree/bindings/memory-controllers/xlnx,versal-ddrmc-edac.yaml
-+++ b/Documentation/devicetree/bindings/memory-controllers/xlnx,versal-ddrmc-edac.yaml
-@@ -4,25 +4,35 @@
- $id: http://devicetree.org/schemas/memory-controllers/xlnx,versal-ddrmc-edac.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
- 
--title: Xilinx Versal DDRMC (Integrated DDR Memory Controller)
-+title: Xilinx Versal DDRMC (Integrated DDR Memory Controller) and XilSEM EDAC
- 
- maintainers:
-   - Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
-   - Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
-+  - Rama Devi Veggalam <rama.devi.veggalam@amd.com>
- 
- description:
-   The integrated DDR Memory Controllers (DDRMCs) support both DDR4 and LPDDR4/
-   4X memory interfaces. Versal DDR memory controller has an optional ECC support
-   which correct single bit ECC errors and detect double bit ECC errors.
- 
-+  Xilinx Versal Soft Error Mitigation (XilSEM) is part of the Platform Loader
-+  and Manager (PLM) which is loaded into and runs on the Platform Management
-+  Controller (PMC). XilSEM is responsible for detecting and optionally
-+  correcting soft errors in Configuration Memory of Versal. Whenever an error
-+  is detected, be it correctable or uncorrectable, XilSEM notifies the errors
-+  to user applications via the firmware's event notification interface,
-+  rather than a devicetree-described interrupt.
-+
- properties:
-   compatible:
--    const: xlnx,versal-ddrmc
-+    enum:
-+      - xlnx,versal-ddrmc
-+      - xlnx,versal-xilsem
- 
-   reg:
--    items:
--      - description: DDR Memory Controller registers
--      - description: NOC registers corresponding to DDR Memory Controller
-+    minItems: 1
-+    maxItems: 2
- 
-   reg-names:
-     items:
-@@ -35,8 +45,39 @@ properties:
- required:
-   - compatible
-   - reg
--  - reg-names
--  - interrupts
-+
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: xlnx,versal-ddrmc
-+    then:
-+      properties:
-+        reg:
-+          items:
-+            - description: DDR Memory Controller registers
-+            - description: NOC registers corresponding to DDR Memory Controller
-+        reg-names:
-+          items:
-+            - const: base
-+            - const: noc
-+      required:
-+        - reg-names
-+        - interrupts
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: xlnx,versal-xilsem
-+    then:
-+      properties:
-+        reg:
-+          items:
-+            - description: XilSEM (Soft Error Mitigation) register region
-+        reg-names: false
-+        interrupts: false
- 
- additionalProperties: false
- 
-@@ -55,3 +96,12 @@ examples:
-         interrupts = <GIC_SPI 147 IRQ_TYPE_LEVEL_HIGH>;
-       };
-     };
-+  - |
-+    bus {
-+      #address-cells = <2>;
-+      #size-cells = <2>;
-+      edac@f2014050 {
-+          compatible = "xlnx,versal-xilsem";
-+          reg = <0x0 0xf2014050 0x0 0xc4>;
-+      };
-+    };
--- 
-1.9.5
-
+>
+> Maybe the cheapest way is still to check the CSID side reg_update
+> implementation at stream-on stage? I'm very glad to hear your
+> suggestions. Thanks a lot.
+>
+> ---
+> Best Regards,
+> Hangxiang
