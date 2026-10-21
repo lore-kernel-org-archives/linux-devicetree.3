@@ -1,87 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.138
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792576138;
-	b=1UZSJOc/P4FvvlulOaJvXe0mseFly/avN0gYXuDMCtBIB3bZmdwzZINYd96D3orDUF81
-	 nbNiiucWksWx24gd5SKqOECbKPeQ8WKkKQD3Upe0FVlk1Y6hqbEHoGtugcp8MYfY05bKc
-	 f57TnJMbqXfZqTo00I1aDgdEJHqz1nj6TcikdtFPS23EOZAt9PKPFLajlTzyqXUNxX+km
-	 ovXj4bLfncCYNM+P+49qVznuIH2nWxvHrz639JjQZzNb3S0NpDDKYxFKGzOenNsK2Q2ew
-	 VWlfoXuAlqGWaquc9RaPPUf21goL5AXO2xu9ayzPl56BdX3KmcT2Y9qWRUbWhFh1/Hg==
+	t=1792576621;
+	b=iC76GREevGw+OIZ/NhNOLIrSd3/PC9Ii9a6k+qJ/vfDc97CZtlAOtsyNhuYQl8vE8cYi
+	 l9DZnkdG5ioTc6sYptTMnJdc6zMlu4qhjZwyqFtsfdSdPGIjuAGRVgv4eHkgcL0h9auvk
+	 ZcErJgZBA09dE/8zBkPgdW9cXWIqjhO1GHKnbMXTKoAT1pPlYmlBskr40WyyKFhBAye/W
+	 s7T7fJEXMteuGGAGlHV8ytM5fUTL7rwwexEDRJbIVgExhzH6wZ45Am9bvL2w5HlB54HJ9
+	 HCIWryog2tGMdbf/ctP3Yq4UTJQRE7/KgJvcefoOHivEuoE/60Urbmbq9jhx3H2sq+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792576138;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792576621;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
 	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=qb8CCyZKDo3DU8wu9akhVT7quX2USeXAOK8NbuiE3KM=;
-	b=RbIEUjVAyMrzvI22BxAA1LYSGLhaiDw0OsE0eFszcZHfsCEbaaSumF0UIaexECbOcZOZ
-	 jt74dm2lEMCdgOM2U2QBbbKYjz5l2wDDAfcrW9/fxtUEha8VwRimRVJIQzRomtoKTuJ5+
-	 qcVbCAuPq3VcKaTjewYlB7GxT860UJkm645ei9Y4SxZUHrf8ZZMhZZnSWBuDlDVP1F4V9
-	 n3VDv6+5NYsJs1H78JdWeS26OmcNm4wZQOVB7qpkt8B8IAG5miWhdtjrgvQQ17fDE+FoU
-	 TagAwiWtP4bImn3xiWqLqAv4iUFquopQFqE+uSXI7Vcc98yjlEybwHwEuGfaC2pEr7g==
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=eKY9xsZpiB2hvy81yowzV1na85VWyKF8Dx5LqzKmNxg=;
+	b=Ymde+/Vu0V11JHkmZnv632GHY2PnNaytCY5tOWsqBEV9wB6DdXyPLBlbYfpKfVWAo373
+	 EjqFcHjSJeWTGbCd6v8o0NyIYJFnFMsRVpQpf6UmctUmxBLT//Bh+yeSxWMEGlZnSP22l
+	 lPXtFssiMKOJNm2yVkA7TffxK28UXQWCah/kxZAddPoTIl8zV50NitJtuLvhN33m+zXfJ
+	 O8lHBE3EYa9ULVFsM0UQ1KTGs1wmcHgzl5pRb31f7mLWQQHImeFNn6zXYPqjFtIO5Ow9v
+	 eDRfIszxfr0WDAUUtLITTcAr7gkY812HRrMY5DhgCZzJq1580TK44mJEiD0EMSB+80w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZcF1QtXg;
-	arc=none smtp.remote-ip=74.125.227.138
-Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kxntffuu;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NVZ6m1f2;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4985606A31B
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 09:48:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4985606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E88E606A328
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 09:57:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E88E606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZcF1QtXg
-Received: by mail-pj2-f10.google.com with SMTP id d9443c01a7336-2e934c6c20aso2703215ad.0
-        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 02:48:57 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kxntffuu;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NVZ6m1f2
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69L5j0rl756348
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 09:57:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	eKY9xsZpiB2hvy81yowzV1na85VWyKF8Dx5LqzKmNxg=; b=kxntffuuGMwXjxkn
+	gOl0blnyh5KYfX6lAiuPZWEnEZ+wI228RcmeF9Ft8brzaJuk9IVb/814q244u6TN
+	gja38tjFsMUFoqKhWFnJ7jDxENiouEG7sdfybPrUBkzpNIl3zSGcq0IyEvMD6399
+	+qQMm+0NjW7c5uzqS6f+U30Fe2e7lKuvsbKczcOoXeoFMXigll2lazoR88CoQehj
+	O6yQRbieWHV3xhjCVhW+vW6ljIgX6Osemgq3zPF46rbjr/mq02+JrwTBLFZn1Q3a
+	K0mTkor1CmAI+DBzshIeOTJYgfBujdIUFj3cBSz/7r5n+aowwvvhNNJiwDAfmrCr
+	ArcXqQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heda4ub07-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 09:56:59 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93e629c7b16so14096885a.1
+        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 02:56:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792576137; x=1793180937; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1792576619; x=1793181419; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=qb8CCyZKDo3DU8wu9akhVT7quX2USeXAOK8NbuiE3KM=;
-        b=ZcF1QtXgC1nrEzptZ5YfjL+EQbnJYpMyYo6GC2NF0ORQaIAHwW7I8Mu39Cxroz90hB
-         OxNLBauiLEH750+f3WjFLxNE1lSoMmFv4l1tHOJ6wjEdnVZN330MzloAbV45RqJiowFz
-         kcbgHdmQhUdT5s39OJmDXeSlAGTByWYs9lLwZW3swgWhn2/aNWpdhgsg2Al1MDKtM0YF
-         hD6jYUXvaFA5RhRpdp04ASgWu6z9fqgA0Tno0C98Dwa81nyUw+vrpFWUnArpPsrETq4/
-         99AhjLQKs0Kcjd5rW80B8ZwIyuaIDvKGLoPtV7E29ldKXJPVBTo7SQ406Szv6iU2Qf4f
-         JFKA==
+        bh=eKY9xsZpiB2hvy81yowzV1na85VWyKF8Dx5LqzKmNxg=;
+        b=NVZ6m1f2CGeIazpdKJhYEdF/4UQ0nQwMco6apm5ZPN/J/a+SveGWrRecDxqtNPxVWF
+         /Y/iMJ688gC6cUUsIo0ZNsz1nO6E/gvLSwhenzAqmyX3pPHKdcMSDyPQJsr+9g6oh2M/
+         ZtbEyfNskPbd4u1i8fGMNczcn06s7ArUbAX3CNO4XntKrbFZYg2716X1+glgu5QUfxvZ
+         7w12sG/v3mIQmd49Iu7dWnyBwzw0EiAcbclvVVMlxyaXYZMaQ0dgm2Zg/lYGvrMZMdJM
+         Q6OUpQR0JQEFiX6ZmNZJ2rG3OXpctjI8KqZoMwLmg8Tbyu21czVmM//7JxXhLMwkVHWG
+         7tFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792576137; x=1793180937;
+        d=1e100.net; s=20260707; t=1792576619; x=1793181419;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qb8CCyZKDo3DU8wu9akhVT7quX2USeXAOK8NbuiE3KM=;
-        b=z0IlDeaJ63ffkdWPodW+en1KmfDpvC1gR9M9o/Le8stgPx8VwekvVDB7drzBxkFNVD
-         Z2djqjBKxAceD4CUaPCJvr4eZ8rdqgeka9LEyJA1fx++I0jDM0PHrev63vgYZEFS+t7V
-         asYP/k0QqQLHQJC8aoPiAQ/XfLVK6tPK8N/5aYYvLOI/Ld0FBqebOjjWax+ZfKHVvgEV
-         87tMFHvbn58gYZArVqE/t9l6UbfdBLwm8yvAVdqa5eYieILSjBPnPkNt63pi9IsWVvJX
-         xDFbbApYUbzt4rcdDyrOjIW1kIGDQ0ndArLHLDFoaOXdBJZSReREGF2lEV1mHW3hHyj0
-         Xs7Q==
-X-Forwarded-Encrypted: i=1; AKwUvByfBO8QLXtPSS5y1iC69deEESYDhPsx3hkxBNpODU+x322L4sLw6ekF/xNiuofoEWtK/+FJCfDmTeEj@vger.kernel.org
-X-Gm-Message-State: AFq9FYKKr7vPo8dZtntyK2CicIY3/B0K2O77tbRwg0AE/XAlX15y7+xt
-	ShDukg0RK8msgNy8luAH010fjpFrAUpuUNUUazTHclcQDqVJlvQCxFBe
-X-Gm-Gg: AYBFou2iAkru5sbjnhkJMXP5xjJSignxYDBHdNgVJ42pxvNz0D0SSq+nqzj3aAvYF0L
-	MVsVgw9hA3p73Ihn57NuFF0y5CesYLj1GShazCFj+JBTymxWdp3yjXd3I+iNjPBPq8S986G7XDv
-	Cr2pMGSv6nwPmnnARzmNnqmP9rWXlsXdH65B0MGFeLQyKg6dLcAttGkiSLObhY0hsfYjDcuiE71
-	NXTgMaBEAsgdDjTpAXZPEIxwdCo0oJH9kBruLPdIqZXIHtWOc4MoGvQc4l5zNeDSOmMsVPda42w
-	A9J9dStelmrxgmDhdTeN5wSXnOicez6BJKsz8FFQUj09qNzZyVumIVo6V0N2BanIyBmwl/R/dOT
-	CzaSN0IgyKz0KjgIqxSOoHwh2Yg3U9KuNb0HJ7ItLhjrUMJHBT69pKj8t4CARJ1RZqktd9TGsDf
-	F+iJZWK0GJF4KQAl0jvVZ4Jjw+n5qkoOTFP3QPyK1nNQdHC5yZbz06M+7hBXqj0FkhDwIynW4LM
-	VSKSQ+ConpiEU3RUgut0Ug4InvGzAQXZgpKOzn8KA8FHqZnBkdGC9paO53nr1s=
-X-Received: by 2002:a17:902:f60e:b0:2ea:192a:13b8 with SMTP id d9443c01a7336-2ea43a13e4fmr10496695ad.20.1792576137131;
-        Wed, 21 Oct 2026 02:48:57 -0700 (PDT)
-Received: from [10.125.112.22] ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea3b486970sm8858055ad.62.2026.10.21.02.48.40
+        bh=eKY9xsZpiB2hvy81yowzV1na85VWyKF8Dx5LqzKmNxg=;
+        b=OnUIx+Tl/En7OC3almt4XTTRuOvepWa4tcpGiTq9ZugGzWDI40KcrWduDTvr2PkaQb
+         gEtLCEMn+CR06fy4xmrQZTD0AMIcy9rSV219hT3vvpoHIZdgFyp0ZWr8qWySCeXugwmG
+         tLM5OYopBBaOAToaIddS+Cm7UGZ6wLCUECk+ClYSRWqCDT0gyANSqvfucrV1Itlvs3F4
+         Um2GsNT8cUb4DvGowWUiuroz/EeopDURJU/a/8Cb/MTlIOVedPqO32SKAHIMYRYcDmDk
+         vX7bcVw6tLRgeYZO+jGCXIfWYATDccqZMdELA1l4BNQmGyQsN606QpC6MNdN/ZCPsiJi
+         ODmg==
+X-Forwarded-Encrypted: i=1; AKwUvBxStXKveTHH82SaKHjCP1McWinkKVJQgqrKHR0gWya9HBtulkr2+q73SepfX1OyZ5E25dZAakPkeKQK@vger.kernel.org
+X-Gm-Message-State: AFq9FYJdzCtDkg8iHrJLlyIYU3vPabSsYuiLA4IZConUWEHNYUxY4lJo
+	BxR0SHFj5wG9B1sby01SSnEnjmWaEoOvyT+9VvacnRU8Wn6EeOQUm465GjILFsnrojjkGgG+fGN
+	bxtUpCn3M0ADo9/YEkKKlgpaiTO5OGTDCMGihhNVnCm/C5Ikbgav0nXKv7GYmCPHd
+X-Gm-Gg: AYBFou2OK5DjBsGNEzzU2g/qeFjaJ2FDrLRXbXkjFGAk8JnfXM0vCKHnuKJ/UUqUO1Q
+	TKeliaXwIwGfWcPZLlAjtFMGsqW4vyI7Cdz5dlQ1rNlnqflB4qDzIz8i6TZMqzWSB3pw7GmcSxN
+	QZo+LOcQPGwJJNviAjMhYO7jxrempShEGUGbCveGoKn9wxeySeSF0/pL1XY95Bl1QNpH3J/6H4o
+	bn8K1niLbqEbRtJyUNfwdEnAc/G8hHP8UTgwRMEmloeqBfUL0fnXSJnwOWZErk0F972oe33tcLZ
+	PDQXQlN/GD3L3xrU3OvVHg8V75F7Xy9BMZOUe3mZ7lwOHYPDSDY11Lob+9C1upt7Pxw0+LMVVQp
+	lfDe9BsYY36GxMVASJqmK9w==
+X-Received: by 2002:a05:620a:6084:b0:939:8148:1e3d with SMTP id af79cd13be357-93f57eecdc6mr380062285a.2.1792576618779;
+        Wed, 21 Oct 2026 02:56:58 -0700 (PDT)
+X-Received: by 2002:a05:620a:6084:b0:939:8148:1e3d with SMTP id af79cd13be357-93f57eecdc6mr380059585a.2.1792576618283;
+        Wed, 21 Oct 2026 02:56:58 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4679035df0sm60238066b.84.2026.10.21.02.56.55
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 21 Oct 2026 02:48:56 -0700 (PDT)
-Message-ID: <a1665f9e-3116-47bc-974e-98dce408fa37@gmail.com>
-Date: Wed, 21 Oct 2026 17:48:37 +0800
+        Wed, 21 Oct 2026 02:56:57 -0700 (PDT)
+Message-ID: <d4349c3b-f6c7-41c1-963c-ca0e21e2f436@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 11:56:55 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,168 +116,72 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 3/8] crash_core: serialize crash header preparation
- against hotplug
-To: Jinjie Ruan <ruanjinjie@huawei.com>, robh@kernel.org,
- baoquan.he@linux.dev, rppt@kernel.org, m.szyprowski@samsung.com
-Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com,
- chenhuacai@kernel.org, kernel@xen0n.name, pjw@kernel.org,
- palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, tglx@kernel.org,
- mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org,
- hpa@zytor.com, saravanak@kernel.org, akpm@linux-foundation.org,
- pasha.tatashin@soleen.com, pratyush@kernel.org, ruirui.yang@linux.dev,
- robin.murphy@arm.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
- linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
- kexec@lists.infradead.org, linux-mm@kvack.org, iommu@lists.linux.dev
-References: <20261021083011.2170525-1-chenwandun1@gmail.com>
- <20261021083011.2170525-4-chenwandun1@gmail.com>
- <12e4e687-1ff0-41b2-bdf8-7f48b29e1f2f@huawei.com>
+Subject: Re: [PATCH RFC v2 1/5] soc: qcom: pd-mapper: Add support for Nord
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+        Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>,
+        Bartosz Golaszewski <brgl@kernel.org>, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261021073633.2163128-1-shengchao.guo@oss.qualcomm.com>
+ <20261021073633.2163128-2-shengchao.guo@oss.qualcomm.com>
 Content-Language: en-US
-From: Wandun <chenwandun1@gmail.com>
-In-Reply-To: <12e4e687-1ff0-41b2-bdf8-7f48b29e1f2f@huawei.com>
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261021073633.2163128-2-shengchao.guo@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: 20vfW9BrjA2U5gsK1R5yl9QZ3XfpawWW
+X-Proofpoint-GUID: 20vfW9BrjA2U5gsK1R5yl9QZ3XfpawWW
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAzOSBTYWx0ZWRfX2dOtQk4zOXOf
+ /kZtilqXgL0fUJqn9T/3cZwR5gfaCC8JFLayj5zKExD4gM05567nUpMNs7inta3LvRCRHLI5OdJ
+ 7DxZirq68ZIsLfvK6nxt7Av5gB1Q69g=
+X-Authority-Analysis: v=2.4 cv=R7aWitRX c=1 sm=1 tr=0 ts=6ad88c6b cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=kut_hORSmwJb1qpv2dgA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAzOSBTYWx0ZWRfXy4Xu4C/AgNz2
+ Z/fYGQavsGK4HV3Ro7P0kZcKvwFtMQR/D6IH4jyySG8vBknK4OeKR3L599Nbig8m1iEITBBvV3v
+ rYX6xVCWcOClI4yVELYaha4iJ/aHx9YEJnnzALTlfjqi0v6uJ0mKDamtL//ZXMqhcUqDRPl+OcP
+ AtMDN21MFe3Hl4iK3U/x5HgXs7U+pWtnMDQPFxuAIigKP+sIgwFyt7kxAp+XJhtXiErVN49hDmh
+ wvqpcPQ1+ERSS8T9oZYm2tVLRbiVtYUIL3llxHmDLi1/3iAtKjKQuDThLTHb4QE9G4bx/ANfcch
+ USw1rqjfRLwOHjX1rCOZHhcez/CYcHbF9qgH2SbWos9HbIH8edx4IJ9qElq9l9ixwY/XjHQNJ7/
+ vNtoedfYeDk9ytV3RRLYZkQiskbJDbI1T3UdXQujjPUZb8UNYYGu7VMc0rEmz88LnoZ6lNpICvp
+ TsUcwiE3HyNqc19eZ7g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-21_02,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 priorityscore=1501 lowpriorityscore=0
+ clxscore=1015 impostorscore=0 bulkscore=0 spamscore=0 suspectscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610210039
 
-
-
-On 10/21/26 17:13, Jinjie Ruan wrote:
+On 10/21/26 9:36 AM, Shawn Guo wrote:
+> From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 > 
+> Add support for the Qualcomm Nord SoC to the protection domain mapper.
 > 
-> 在 2026/10/21 16:30, Wandun Chen 写道:
->> From: Wandun Chen <chenwandun@lixiang.com>
->>
->> crash_prepare_headers() counts memory ranges before populating the
->> allocated crash_mem array. The weak implementation used by ARM64,
->> RISC-V and LoongArch walks memblock.memory, while x86 performs the same
->> two-pass operation over system RAM resources. Concurrent memory hotplug
->> can change range source between the two walks and make the populate
->> pass overflow cmem->ranges.
->>
->> Take device_hotplug_lock when preparing crash headers during
->> kexec_file_load(). The x86/riscv memory hotplug path already takes
->> device_hotplug_lock, so call __crash_prepare_headers() directly
->> to avoid recursive locking.
->>
->> Sashiko reported this issue in [1].
->>
->> Fixes: 3751e728cef2 ("arm64: kexec_file: add crash dump support")
->> Fixes: 1bcca8620a91 ("LoongArch: Add crash dump support for kexec_file")
->> Fixes: 8acea455fafa ("RISC-V: Support for kexec_file on panic")
->> Fixes: dd5f726076cc ("kexec: support for kexec on panic using new system call")
->> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
->> Link: https://sashiko.dev/#/message/20260806101002.1F84E1F000E9@smtp.kernel.org [1]
->> Acked-by: Baoquan He <baoquan.he@linux.dev>
->> ---
->>  arch/riscv/kernel/crash.c  |  2 +-
->>  arch/x86/kernel/crash.c    |  2 +-
->>  include/linux/crash_core.h |  2 ++
->>  kernel/crash_core.c        | 17 +++++++++++++++--
->>  4 files changed, 19 insertions(+), 4 deletions(-)
->>
->> diff --git a/arch/riscv/kernel/crash.c b/arch/riscv/kernel/crash.c
->> index fe5a4b306aae..ac8df2edf2a7 100644
->> --- a/arch/riscv/kernel/crash.c
->> +++ b/arch/riscv/kernel/crash.c
->> @@ -70,7 +70,7 @@ void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
->>  	 * Create the new elfcorehdr reflecting the changes to CPU and/or
->>  	 * memory resources.
->>  	 */
->> -	if (crash_prepare_headers(true, &elfbuf, &elfsz, NULL)) {
->> +	if (__crash_prepare_headers(true, &elfbuf, &elfsz, NULL)) {
->>  		pr_err("unable to create new elfcorehdr");
->>  		goto out;
->>  	}
->> diff --git a/arch/x86/kernel/crash.c b/arch/x86/kernel/crash.c
->> index e6f23933a6df..bef008a0cb22 100644
->> --- a/arch/x86/kernel/crash.c
->> +++ b/arch/x86/kernel/crash.c
->> @@ -465,7 +465,7 @@ void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
->>  	 * Create the new elfcorehdr reflecting the changes to CPU and/or
->>  	 * memory resources.
->>  	 */
->> -	if (crash_prepare_headers(IS_ENABLED(CONFIG_X86_64), &elfbuf, &elfsz, NULL)) {
->> +	if (__crash_prepare_headers(IS_ENABLED(CONFIG_X86_64), &elfbuf, &elfsz, NULL)) {
->>  		pr_err("unable to create new elfcorehdr");
->>  		goto out;
->>  	}
->> diff --git a/include/linux/crash_core.h b/include/linux/crash_core.h
->> index bc087124cd78..28e7a81cf263 100644
->> --- a/include/linux/crash_core.h
->> +++ b/include/linux/crash_core.h
->> @@ -61,6 +61,8 @@ extern int crash_prepare_elf64_headers(struct crash_mem *mem, int need_kernel_ma
->>  				       void **addr, unsigned long *sz);
->>  extern int crash_prepare_headers(int need_kernel_map, void **addr,
->>  				 unsigned long *sz, unsigned long *nr_mem_ranges);
->> +int __crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
->> +			    unsigned long *nr_mem_ranges);
->>  extern int crash_exclude_core_ranges(struct crash_mem **cmem);
->>  
->>  struct kimage;
->> diff --git a/kernel/crash_core.c b/kernel/crash_core.c
->> index faa0f22dbb41..8a861a946e26 100644
->> --- a/kernel/crash_core.c
->> +++ b/kernel/crash_core.c
->> @@ -16,6 +16,7 @@
->>  #include <linux/mm.h>
->>  #include <linux/cpuhotplug.h>
->>  #include <linux/memblock.h>
->> +#include <linux/device.h>
->>  #include <linux/kmemleak.h>
->>  #include <linux/crash_core.h>
->>  #include <linux/reboot.h>
->> @@ -344,8 +345,8 @@ int crash_exclude_core_ranges(struct crash_mem **cmem)
->>  	return 0;
->>  }
->>  
->> -int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
->> -			  unsigned long *nr_mem_ranges)
->> +int __crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
->> +			    unsigned long *nr_mem_ranges)
->>  {
->>  	unsigned int max_nr_ranges;
->>  	struct crash_mem *cmem;
->> @@ -382,6 +383,18 @@ int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
->>  	return ret;
->>  }
->>  
->> +int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
->> +			  unsigned long *nr_mem_ranges)
->> +{
->> +	int ret;
->> +
->> +	lock_device_hotplug();
->> +	ret = __crash_prepare_headers(need_kernel_map, addr, sz, nr_mem_ranges);
->> +	unlock_device_hotplug();
-> 
-> I think this patch conflicts with my changes and would also conflict
-> with the implementation of arm64 crash hotplug.
-> 
-> https://lore.kernel.org/all/20260921090450.807575-15-ruanjinjie@huawei.com/
-> 
-Have these patches already been merged? My current work is based on the latest
-linux-next. If they have already been merged into the maintainer's branch,
-please let me know, I will update my tree and rebase/re-adapt my changes accordingly.
+> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
 
+[...]
 
-Also, regarding the changes in kernel/crash_core.c: it looks like we modified
-the same spot, the change is not wrong, is that right?
+> +static const struct qcom_pdm_domain_data *nord_domains[] = {
+> +	&adsp_audio_pd,
+> +	&adsp_root_pd,
+> +	&adsp1_root_pd,
+> +	&cdsp_root_pd,
 
-> arm64 crash hotplug:
-> https://lore.kernel.org/all/20260918100442.3841135-18-ruanjinjie@huawei.com/
+I see 3 more CDSPs:
 
-In addition, if arm64 gains crash hotplug support, the code there would indeed
-need to be modified (to avoid a deadlock). As of now, arm64 crash hotplug
-support has not been merged yet either, has it? I just want to make sure I
-haven't missed anything.
+https://lore.kernel.org/linux-arm-msm/20260929155152.1898666-3-shengchao.guo@oss.qualcomm.com/
 
-> 
->> +
->> +	return ret;
->> +}
->> +
->>  /**
->>   * crash_exclude_mem_range - exclude a mem range for existing ranges
->>   * @mem: mem->range contains an array of ranges sorted in ascending order
-> 
-
+Konrad
