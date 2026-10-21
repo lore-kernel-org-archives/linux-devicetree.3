@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792587888;
-	b=4pVv1XQocsjGac5aEuw9h+6HWZim4RL95e9be0v1jR0mz7C+GDO1y2XLMmwbiFYJhjMj
-	 jMaYy0OQJ4BSw+AO+on3A25LC5lcF4Pc5rD4IwBQROvZcihBIpR9KgXgSBSRP85BXODl6
-	 ml/y6jLp7fuEpf7s185MESv9ca9pcd2dYdoj/iCa2ZYXB2mUDzGEFUxV/Q+A4thdy02Dr
-	 k+ik/AfPt9Z9Bs+HWDV+bfsfWzWEkqxCKLrM2ZRhFcWaNySceC+lzQh9+xWHGBvnZzFkS
-	 B92nSMxerGySydHWoJXe+lLGjrt4Q6/ow+wrY2kxNcZOl8V/D+CHBhbk+Tvm+fQCxGg==
+	t=1792588111;
+	b=HFuyDCBkA/IF0cBhEDD8XZpMoNQtWC4QPitxIvnQ7d0t/hWZ7j6u6Td4jMmiunX340NA
+	 l1NOB1Rt4C0sawa14XBNeRFgfyAX9tcqTkolthurNbWxPw8pEfmZlbXtR0nLqsGCJVKvt
+	 zHZYeCDjnDHoHun6xoo82X4pu0DLwGqs8zODmxext9+JpzyIvegom5ZQcQOFLEyPoObel
+	 pgHoStKcWmmKbEhvG/nX82cYnkaFKUOw5ZbTa/ZkHRGa2eVTaSBfhfK1HPTpFvUCcquBx
+	 tgyBljfpFeDcwWOdAeVP7s53p5AMhJF0M6Xeyw84YNTkPZnVaBq0Z3EKncnuEGum2qQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792587888;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792588111;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=gAe4auqetHGAeDwn3pXfHEfJRNoE+CKjzeK2bknG6OM=;
-	b=jSIYAqNHP0065J8dmvgpewiiM4zD05kIck0Abb5Ke8d1Fo4VPlwdVj0rggO/htCb6NcA
-	 yhw3plfEzOBFRfw6ODCpNpSrFQd4sb7O9QLxVoN06q18f/uXuwOefHNtGPJLLf1rVtkYD
-	 +eh5ofb0f9iGjBltZFOQR8d+p3JRZz2025Ug8VIkNkA3Ay8949WfIECn9noACrhHmXgtI
-	 FbDMvi5hpWTmP2IO8eaWPuLLPn1ESO/kR4QbmoSljlC2lSQaSQvlnuJY4GjkAudAzcHxA
-	 Gvf2tDmDX/lW4ik+7/q8+csGm8P72MPTarw6rSZro2R2LD4qEZtYHqn/Dg+upSYm/MA==
+	bh=4KUfIu4L4+E6H6oX3nMsk4mKP5oeak4eumfpt3iUsvY=;
+	b=EICpppf0SVmZd/e77JvUyK9/aeNWyFheOugQ7DcYb6rMMx0PzeWkMupetHONZjalZ5e+
+	 Scf2cPKu36jWbLzOCpE8PvCsdnqDXYQCzIvOODj/NWrs+Sjcrno7qLDYDlBjbWhJzH2aV
+	 oqrf/BOvKp1XUnwEmRkKlmL8Lb3YuFw8svlvkMGZ+GHih/OK0XEqyR6OXCAZmZ0X+HtfR
+	 M7vIwOuJwmeeX10fj+fmgCNeTGpREtelK9NN8bjSx9pY2vQhKo0k0oZIAEv7NNJTxPBq6
+	 q71fJ6x2f4q3ULbjJVCFxc1b5lSisiryb8Em9CLGaZ1H742UM2ZeK7MqAbzsKyna9fA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D8t6oj4k;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D0zJYRpJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B69606A31A;
-	Wed, 21 Oct 2026 13:04:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D0C9606A319
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 13:08:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D8t6oj4k
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 628D61F000C4;
-	Wed, 21 Oct 2026 13:04:47 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D0zJYRpJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AB751F000C4;
+	Wed, 21 Oct 2026 13:08:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792587887;
-	bh=gAe4auqetHGAeDwn3pXfHEfJRNoE+CKjzeK2bknG6OM=;
+	s=k20260515; t=1792588110;
+	bh=4KUfIu4L4+E6H6oX3nMsk4mKP5oeak4eumfpt3iUsvY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=D8t6oj4kizJCfiIXjOL9+yEEKx+QAFvottU4D/+u2ONFh0qVA7jTCGYGpbl+VWXaa
-	 rhQYcq9k8F7SpU45fbxMaCISdK7hZ/yGrHg0C+rg571jQfDqW69LNdna0riPD+Xj0Y
-	 +1gtzVzz8ylgSwOPZo/BwXRRV5P1nMkQ1283xLKWL722HzsL+oqYbeLbQwowSJeCrh
-	 /b14ALBYJRWRcyzJokJiZUlJSNhcNfQijxB4PPBqfxi72uBOlw/ozcXXwvLgf8CJy1
-	 u3CqPJ82b7EaXYM1Z5FF18WTjcWJ73O8N7LwNf4HA8Jo2hg/j2OCtXaP5e2dd09Vg/
-	 wxV5buTxCx5PA==
-Message-ID: <sashiko-outbox-180284@kernel.org>
+	b=D0zJYRpJZdWvXtHTm0Z0mc81xWlU8x6j7UkOolqVqQvviA0HgqPWW7J2jwokK3iUo
+	 kHZ86ihs4rGHmTqucEAid5yW4K+xLcRo+sWWu+n7zVTsTzGTc52v4XwLVgeZgWgRpd
+	 3d8d+Va9xOGnRQ9cwD+11fHcB8D8D47U8yL/SMQ28Y+Yt3GPPVZ619Nscbahm//nrb
+	 OOfbzhz5Yuilgin3pOcOIpV1yS5s/bORUJP9uZZEMnAN8CLzT6z6bwo3OFYCAYGt6e
+	 zfnvjOJpPRdvX5A5xvJSj0zqKixzCW7IMa3OlEZHrBPZ1+8AVv6kvJFEzeG3yeUQbH
+	 Mz+nquK9RPIPA==
+Message-ID: <sashiko-outbox-180288@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 2/2] clk: qcom: Add LPASS VA CSR heartbeat pulse
- clock
+Subject: Re: [PATCH v4 1/3] dt-bindings: edac: xlnx,versal-ddrmc: Add
+ xlnx,versal-xilsem compatible
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sarath Ganapathiraju" <sarath.ganapathiraju@oss.qualcomm.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261021-master-v12-2-9b3df51fd1d7@oss.qualcomm.com>
-References: <20261021-master-v12-0-9b3df51fd1d7@oss.qualcomm.com>
- <20261021-master-v12-2-9b3df51fd1d7@oss.qualcomm.com>
+To: "Rama devi Veggalam" <rama.devi.veggalam@amd.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <1792587442-2794880-2-git-send-email-rama.devi.veggalam@amd.com>
+References: <1792587442-2794880-1-git-send-email-rama.devi.veggalam@amd.com>
+ <1792587442-2794880-2-git-send-email-rama.devi.veggalam@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 21 Oct 2026 13:04:47 +0000
+Date: Wed, 21 Oct 2026 13:08:30 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,202 +61,185 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] clk: qcom: enable runtime PM after PM clocks in lpass_va_csr_probe=
-()
-- [Medium] clk: qcom: lpass-va-csr: stale REGCACHE_MAPLE state across runti=
-me suspend
+- [Medium] dt-bindings: edac: xlnx,versal-xilsem firmware service modeled a=
+s DDRMC MMIO node
 --
 
-commit 5fda051342340a0aea8fc87d53199c8e2fe790df
-Author: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
+commit 5dae9ede166dd1a988e3766f5755cc780a87b1f7
+Author: Rama devi Veggalam <rama.devi.veggalam@amd.com>
 
-clk: qcom: Add LPASS VA CSR heartbeat pulse clock
+dt-bindings: edac: xlnx,versal-ddrmc: Add xlnx,versal-xilsem compatible
 
-This commit adds the Qualcomm LPASS VA CSR clock driver, modeling the
-hardware rate generator as a clock provider that manages LPASS vote clocks
-and restores counter and delay registers via runtime PM.
+This commit adds the xlnx,versal-xilsem compatible string to the Versal
+memory controller binding in
+Documentation/devicetree/bindings/memory-controllers/xlnx,versal-ddrmc-edac=
+.yaml
+and gates the reg, reg-names, and interrupts constraints per compatible
+string using allOf/if-then blocks.
 
-> diff --git a/drivers/clk/qcom/lpass-va-csr.c b/drivers/clk/qcom/lpass-va-=
-csr.c
-> new file mode 100644
-> index 0000000000000..e5fb870aa36de
-> --- /dev/null
-> +++ b/drivers/clk/qcom/lpass-va-csr.c
-> @@ -0,0 +1,180 @@
-
-[ ... ]
-
-> +#define LPASS_RATE_GEN_CTRL		0xd000
-> +#define LPASS_RATE_GEN_COUNTER_0	0xd004
-> +#define LPASS_RATE_GEN_DELAY		0xd010
+> diff --git a/Documentation/devicetree/bindings/memory-controllers/xlnx,ve=
+rsal-ddrmc-edac.yaml b/Documentation/devicetree/bindings/memory-controllers=
+/xlnx,versal-ddrmc-edac.yaml
+> index 12f8e9f350bcf..b5dc32065e58d 100644
+> --- a/Documentation/devicetree/bindings/memory-controllers/xlnx,versal-dd=
+rmc-edac.yaml
+> +++ b/Documentation/devicetree/bindings/memory-controllers/xlnx,versal-dd=
+rmc-edac.yaml
+> @@ -4,25 +4,35 @@
+>  $id: http://devicetree.org/schemas/memory-controllers/xlnx,versal-ddrmc-=
+edac.yaml#
+>  $schema: http://devicetree.org/meta-schemas/core.yaml#
+> =20
+> -title: Xilinx Versal DDRMC (Integrated DDR Memory Controller)
+> +title: Xilinx Versal DDRMC (Integrated DDR Memory Controller) and XilSEM=
+ EDAC
+> =20
+>  maintainers:
+>    - Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+>    - Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
+> +  - Rama Devi Veggalam <rama.devi.veggalam@amd.com>
+> =20
+>  description:
+>    The integrated DDR Memory Controllers (DDRMCs) support both DDR4 and L=
+PDDR4/
+>    4X memory interfaces. Versal DDR memory controller has an optional ECC=
+ support
+>    which correct single bit ECC errors and detect double bit ECC errors.
+> =20
+> +  Xilinx Versal Soft Error Mitigation (XilSEM) is part of the Platform L=
+oader
+> +  and Manager (PLM) which is loaded into and runs on the Platform Manage=
+ment
+> +  Controller (PMC). XilSEM is responsible for detecting and optionally
+> +  correcting soft errors in Configuration Memory of Versal. Whenever an =
+error
+> +  is detected, be it correctable or uncorrectable, XilSEM notifies the e=
+rrors
+> +  to user applications via the firmware's event notification interface,
+> +  rather than a devicetree-described interrupt.
 > +
-> +#define LPASS_RATE_GEN_MAX_REG		LPASS_RATE_GEN_DELAY
+>  properties:
+>    compatible:
+> -    const: xlnx,versal-ddrmc
+> +    enum:
+> +      - xlnx,versal-ddrmc
+> +      - xlnx,versal-xilsem
+> =20
+>    reg:
+> -    items:
+> -      - description: DDR Memory Controller registers
+> -      - description: NOC registers corresponding to DDR Memory Controller
+> +    minItems: 1
+> +    maxItems: 2
+> =20
+>    reg-names:
+>      items:
+> @@ -35,8 +45,39 @@ properties:
+>  required:
+>    - compatible
+>    - reg
+> -  - reg-names
+> -  - interrupts
 > +
-> +#define LPASS_RG_CTRL_EN		BIT(0)
-
-[ ... ]
-
-> +static const struct regmap_config lpass_rate_gen_regmap_config =3D {
-> +	.name =3D "lpass_rate_gen",
-> +	.reg_bits =3D 32,
-> +	.val_bits =3D 32,
-> +	.reg_stride =3D 4,
-> +	.max_register =3D LPASS_RATE_GEN_MAX_REG,
-> +	.cache_type =3D REGCACHE_MAPLE,
-> +};
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: xlnx,versal-ddrmc
+> +    then:
+> +      properties:
+> +        reg:
+> +          items:
+> +            - description: DDR Memory Controller registers
+> +            - description: NOC registers corresponding to DDR Memory Con=
+troller
+> +        reg-names:
+> +          items:
+> +            - const: base
+> +            - const: noc
+> +      required:
+> +        - reg-names
+> +        - interrupts
 > +
-> +struct lpass_va_csr {
-> +	const struct lpass_va_csr_data *data;
-> +	struct clk_regmap hb;
-> +};
-> +
-> +static const struct clk_ops lpass_va_csr_hb_ops =3D {
-> +	.enable =3D clk_enable_regmap,
-> +	.disable =3D clk_disable_regmap,
-> +	.is_enabled =3D clk_is_enabled_regmap,
-> +};
-> +
-> +static int lpass_va_csr_runtime_resume(struct device *dev)
-> +{
-> +	struct lpass_va_csr *csr =3D dev_get_drvdata(dev);
-> +	const struct lpass_va_csr_data *data =3D csr->data;
-> +	int ret;
-> +
-> +	ret =3D pm_clk_resume(dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D regmap_write(csr->hb.regmap, LPASS_RATE_GEN_COUNTER_0,
-> +			   data->counter_0);
-> +	if (ret)
-> +		goto err_pm_clk_suspend;
-> +
-> +	ret =3D regmap_write(csr->hb.regmap, LPASS_RATE_GEN_DELAY, data->delay);
-> +	if (ret)
-> +		goto err_pm_clk_suspend;
-> +
-> +	return 0;
-> +
-> +err_pm_clk_suspend:
-> +	pm_clk_suspend(dev);
-> +	return ret;
-> +}
-> +
-> +static int lpass_va_csr_runtime_suspend(struct device *dev)
-> +{
-> +	return pm_clk_suspend(dev);
-> +}
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: xlnx,versal-xilsem
+> +    then:
+> +      properties:
+> +        reg:
+> +          items:
+> +            - description: XilSEM (Soft Error Mitigation) register region
+> +        reg-names: false
+> +        interrupts: false
+> =20
+>  additionalProperties: false
+> =20
+> @@ -55,3 +96,12 @@ examples:
+>          interrupts =3D <GIC_SPI 147 IRQ_TYPE_LEVEL_HIGH>;
+>        };
+>      };
+> +  - |
+> +    bus {
+> +      #address-cells =3D <2>;
+> +      #size-cells =3D <2>;
+> +      edac@f2014050 {
+> +          compatible =3D "xlnx,versal-xilsem";
+> +          reg =3D <0x0 0xf2014050 0x0 0xc4>;
+> +      };
+> +    };
 
 [Severity: Medium]
-Can setting .cache_type =3D REGCACHE_MAPLE in lpass_rate_gen_regmap_config
-cause clk_enable_regmap() and clk_is_enabled_regmap() to use stale cached
-state for LPASS_RATE_GEN_CTRL after LPASS register context is lost across
-runtime suspend?
+Is Documentation/devicetree/bindings/memory-controllers/xlnx,versal-ddrmc-e=
+dac.yaml
+the right place to model xlnx,versal-xilsem when a devicetree defines this
+node for xsem_edac_probe() in drivers/edac/versal_edac.c?
 
-Neither lpass_va_csr_runtime_suspend() nor lpass_va_csr_runtime_resume()
-marks the regcache dirty or drops cached registers, and
-lpass_va_csr_runtime_resume() only rewrites LPASS_RATE_GEN_COUNTER_0 and
-LPASS_RATE_GEN_DELAY.
+In Documentation/devicetree/bindings/memory-controllers/xlnx,versal-ddrmc-e=
+dac.yaml,
+the description section notes that XilSem is part of the Platform Loader and
+Manager running on the Platform Management Controller and notifies error
+events via the firmware event notification interface rather than a
+devicetree-described interrupt. In include/linux/firmware/xlnx-zynqmp.h,
+enum pm_module_id defines XilSem as a firmware module:
 
-If LPASS_RATE_GEN_CTRL has LPASS_RG_CTRL_EN set in hardware when first read
-(for example, when loaded as a module or booted with clk_ignore_unused and
-inspected via debugfs clk_summary -> clk_core_is_enabled() ->
-clk_is_enabled_regmap() -> regmap_read()), _regmap_read() caches that
-enabled bit in the maple cache.
+enum pm_module_id {
+	PM_MODULE_ID =3D 0x0,
+	XPM_MODULE_ID =3D 0x2,
+	XSEM_MODULE_ID =3D 0x3,
+	TF_A_MODULE_ID =3D 0xa,
+};
 
-If the device then runtime-suspends and loses LPASS register context,
-hardware resets LPASS_RATE_GEN_CTRL to 0 while the cache retains the set
-bit. On a subsequent clk_prepare_enable(), clk_enable_regmap() in
-drivers/clk/qcom/clk-regmap.c calls regmap_update_bits():
+and its control and query operations in drivers/firmware/xilinx/zynqmp-sem.c
+are performed through firmware calls.
 
-drivers/clk/qcom/clk-regmap.c:clk_enable_regmap() {
-    ...
-    return regmap_update_bits(rclk->regmap, rclk->enable_reg,
-                              rclk->enable_mask, val);
-}
+In the examples section above, edac@f2014050 uses reg =3D <0x0 0xf2014050 0=
+x0 0xc4>.
+As shown in struct xsem_edac_priv in drivers/edac/xsem_edac.h and in
+xsem_edac_probe() in drivers/edac/versal_edac.c (which maps resource 0 as
+plmrtca_baseaddr), 0xf2014050 is a shared-memory offset within the firmware
+Run-Time Configuration Area at 0xf2014000 in controller sram rather than a
+dedicated hardware peripheral register block.
 
-Because _regmap_update_bits() sees the cached value already has
-enable_mask set, it skips the hardware write and leaves the clock disabled
-in hardware.
+In addition, because XilSem monitors configuration memory and registers
+rather than acting as a memory controller, it shares no hardware properties
+with xlnx,versal-ddrmc. This forces the allOf section in
+Documentation/devicetree/bindings/memory-controllers/xlnx,versal-ddrmc-edac=
+.yaml
+to split reg, reg-names, and interrupts into mutually exclusive if/then
+branches solely because the drivers were combined in
+drivers/edac/versal_edac.c.
 
-Should .cache_type be omitted from lpass_rate_gen_regmap_config (or
-LPASS_RATE_GEN_CTRL marked volatile / the cache invalidated across runtime
-suspend)?
-
-> +
-> +static int lpass_va_csr_probe(struct platform_device *pdev)
-> +{
-
-[ ... ]
-
-> +	platform_set_drvdata(pdev, csr);
-> +
-> +	ret =3D devm_pm_runtime_enable(dev);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to enable PM runtime\n");
-> +
-> +	ret =3D devm_pm_clk_create(dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D of_pm_clk_add_clks(dev);
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "failed to get vote clocks\n");
-
-[Severity: High]
-What happens if runtime PM is enabled before the PM vote clocks are created
-and added in lpass_va_csr_probe()?
-
-In drivers/base/power/clock_ops.c, pm_clk_resume() returns 0 immediately
-when dev_to_psd(dev) is NULL or the clock list is empty:
-
-drivers/base/power/clock_ops.c:pm_clk_resume() {
-    struct pm_subsys_data *psd =3D dev_to_psd(dev);
-    ...
-    if (!psd)
-        return 0;
-
-Because devm_pm_runtime_enable(dev) is called before devm_pm_clk_create(dev)
-and of_pm_clk_add_clks(dev), a runtime resume triggered in that window (such
-as via sysfs power/control) runs lpass_va_csr_runtime_resume(), receives 0
-from pm_clk_resume(dev), and calls regmap_write() on
-LPASS_RATE_GEN_COUNTER_0 and LPASS_RATE_GEN_DELAY without the vote clocks
-enabled.
-
-In addition, because devres callbacks execute in reverse registration order
-on driver unbind or probe error, pm_clk_destroy() (registered by
-devm_pm_clk_create()) runs before pm_runtime_disable_action() (registered by
-devm_pm_runtime_enable()):
-
-drivers/base/power/clock_ops.c:pm_clk_destroy() {
-    ...
-    dev_pm_put_subsys_data(dev);
-
-    list_for_each_entry_safe_reverse(ce, c, &list, node) {
-        list_del(&ce->node);
-        __pm_clk_remove(ce);
-    }
-}
-
-This disables and removes the vote clocks and clears dev->power.subsys_data
-while runtime PM is still enabled on the device.
-
-Should devm_pm_clk_create(dev) and of_pm_clk_add_clks(dev) be called before
-devm_pm_runtime_enable(dev) in lpass_va_csr_probe()?
-
-[ ... ]
-
-> +}
-> +
-
-[ ... ]
-
->+MODULE_DESCRIPTION("Qualcomm LPASS VA CSR heartbeat pulse clock provider"=
-);
->+MODULE_LICENSE("GPL");
+Should this firmware service instead be represented under
+xlnx,versal-firmware or instantiated as a child platform device by the
+firmware driver (similar to xlnx_event_manager in
+drivers/firmware/xilinx/zynqmp.c), rather than modeling a firmware
+shared-memory offset as a memory controller bus node in devicetree?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021-master-v12=
--0-9b3df51fd1d7@oss.qualcomm.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/1792587442-2794880-=
+1-git-send-email-rama.devi.veggalam@amd.com?part=3D1
