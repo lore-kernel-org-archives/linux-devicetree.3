@@ -1,110 +1,112 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792574763;
-	b=VVyMJvLmBh5TKTbgn6A0uMiMOdxellcNqEDLeV+oJhBX87y8z0WnAJjf+y8UdUYWEQMy
-	 8PkLOUCxH6hh8u6fxPbletdI2P7DVct7V8tZXUNqEmbMSm89dsAH+8RsKOIQF/eqvPRI/
-	 fyPdrd/8IbXW7srGT7C6dU8XawEbzaMqxN/cLkGuzOnnI5X5+Oh/QbryNCQ3ck6mnGWAx
-	 nLUiB/HEVNwwDUO0+YZ8lr26ELOG/3xF6330d3F25DlpmyF/4eGd9cxSIw0/k470cMvwi
-	 07NCytqSYYWCGx9BRInlglgHbvzTItIHrdc5UtRwSnos0nuEGUrSNvoW29/99iFMarg==
+	t=1792574768;
+	b=FNnYTAc2f7l1QoX4wjkgdqODksR0Ux0IyKbFJKBi8KzSQPG7//y7V+YTw5dnfNU/GYMc
+	 VY4uG9H5BdO8zeXZDInhxXHriLx3ypFnGtdaxiRZK70FTilrk5pUvJabbm5BSupy0S4wH
+	 yWRIqwghTVXWj1Cn3gyCm0+s03qCQqll6492stzxUuxvQfjVZN+Znr98MKOtva0G0CLAk
+	 w8TKyhZj1IY7oZJPIn/Fg6jdjvBA4auqJb88RwgVCcOx3HiEve+ZUNS4+je92M7UzBnB2
+	 C7OyhyWycx7docPkfTOfvFGiywmNZMP55miPVrf2AzWunxxWIrhfetyS/uioGTVKmCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792574763;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792574768;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
-	 Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=uSuitGcPNAp6kDNTkufpaC9Ibk/iwsakxpW63Y9HaYg=;
-	b=hx+5H3A3jzgILq71Jwmhk2H6gX8Vbe13BoBi1DG8q/IJCZ4g9govf9XChtf+PDqOA2O+
-	 0QU1HbTppVoJb0d+clSafzjgQlj24ViVW0/3Wz2yRiJi1ObU0Wx9j13GGDSD5XGnXrO+i
-	 AY4K5srh7Iwhbb9Hi5n48hz3oUytNB/XpG8w4n0fj2YKQE7uf+mw6ICMRTwk3QhyEi7m8
-	 9Sb0KSc31MuT7A8hXzASryu8Jh8qQNmcf2RLNgaAILQxoGIk9D2vwzwM7FiaA4J/N9skX
-	 NOx4XrvOcFcBmn7jy/N3GcVUQm7PO/ZoEZVwuMVnd/A50LfZR+ZnG7TNrJloNPwAC0w==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=2iddebWXn7PUCxROMEP3SYghJdqyKc/W0mQtZfkMMkQ=;
+	b=1sqJElLgRy7vu5P/AgxfTy2Tlo5d4sbmYJM0sl/yk05aNT03VEqV/6duQhDKuIrGhaET
+	 dWLNldouZyIC3ZlByRjwozaRkcHEjkMdVSKMvD64FeJkpcKli3HafNVlfk5aC/2rgUDey
+	 vo/xbxwR39ebOBHEdfxDbUtgAAsKizTfLsAJPJqCkAez1WCbFWdVvAzDjsOG2v9v3rSvb
+	 giZEXKmxz30+NUKleptXknOqZ07fU5yf12f06mpIWywjNl6797wmbcWNrAYWmhfMIhXX6
+	 YWF0IEUqc3+VTV/XmwJsVjPS6UEfAyuJet2yGOIf8oCt8FvpCqx4/kpqAF/9KSihJiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PG9bddMN;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NHDEnhaf;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="E1KR00/r";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iHYnNkOG;
 	arc=none smtp.remote-ip=205.220.168.131
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E200606A319
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 09:26:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E200606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1865606A319
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 09:26:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1865606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PG9bddMN;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NHDEnhaf
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69L9CKJs214423
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 09:26:02 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=E1KR00/r;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iHYnNkOG
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69L8VR6f2795041
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 09:26:07 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=uSuitGcPNAp6kDNTkufpaC
-	9Ibk/iwsakxpW63Y9HaYg=; b=PG9bddMNbfwdNRNZcxRiCjIpHPEo/YxS4lJGou
-	QEPVRmelHHTCme7Q2rXbEWszwab0GPsntV6umf+3G5wVQLdP1qjjt+NV6YTttFH9
-	lGWoojt0ML3ujWkizVmmKiRrlYUGPMrU8cfuITIBYfKojpBAAdU06oHEkncUXJS+
-	EVWAk8BiW7TytSefN4iBTDK0BSkhyWXWxvaFRBLeEK9mSlVig+1VouRIiPUw5nCK
-	Dp59hIgbW/4IfwPne6wKlKUetwXy/KYyeLQRQA5Ws4NTDx4pIhLjwGqknvrm7a0g
-	OgeoKCdUHFM+HKwPEw1Ym9TOWU9LpxuTKIiLZ2YfiynIQmJQ==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hetj481pr-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	2iddebWXn7PUCxROMEP3SYghJdqyKc/W0mQtZfkMMkQ=; b=E1KR00/rz6olJNK/
+	RMOWFBIdpIq8s7x5gp3xdhyHzwD6De9nkB4o814y9VC9SdvMv/zRA4QLvOd7p5ci
+	g5pRVZU8n4EfLtq9Upk9Yue6fAn8MkKfPveVQgtI9ohnJmmS+58QtOC0fFCFb+N7
+	4LClWIJRcrsvOACaAoCd65AdDg8cQj2ErbsSlyi1gKWi4EaRGB6y2D/ZqFzza1pw
+	Nqnmefy0DHwOPLjwAkDba6BX+3Tuaq6lNERcLD9+u3citYoWMSRZLkkh1moQ9kdy
+	OM1bq6WitJc4tA3uhqHSiSexlc0kHryfXohoZJm7G/NrVJh3EnxP5e1r5XIGofUF
+	I3kfPA==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hesy78c34-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 09:26:01 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-36637676140so916572eec.0
-        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 02:26:01 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 09:26:07 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3662e7a9299so2181093eec.1
+        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 02:26:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792574761; x=1793179561; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=uSuitGcPNAp6kDNTkufpaC9Ibk/iwsakxpW63Y9HaYg=;
-        b=NHDEnhaf/eNal9ZqmE+oCcbccBXzxPAL0TPv3tHBuE5l2jvaoQbxsMocwmiY//54Q3
-         iPIBnb//xMAxb3dGhYJGFqoxrjBzZK6DC5QmB4Kn/LTLOrtKsd1BfweKWM+Dzt9IZUEV
-         qAoXz7YEfdx9vYFbwq4tJ6qihUr0fIHsPlUAmh+o7byBZNjuAsV/3IjNgQ/Bcc9bMUcp
-         cZd/dfovwwGR2vkp2SoM7+PXYOBbGjRlehTu3aFPfxZ+fAT58NP6C3Tbcc6GidTtvkWJ
-         4VkMriMUepqLQF6cdigb0F6xI3vFwLiq1fYWxOZSeAvm/XrmNAxoAPDXMDnJtJaYq68W
-         nqhQ==
+        d=oss.qualcomm.com; s=google; t=1792574766; x=1793179566; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2iddebWXn7PUCxROMEP3SYghJdqyKc/W0mQtZfkMMkQ=;
+        b=iHYnNkOGmvesr5OSA1AQLlFqcCEcGNqrWg61yoYE7NMQsUiyCBRRhdFM4OtrAhQVc5
+         DyKPcdzRJhISgxUEu+pXKHA54Vn2LVGQOyqy8GIYX+coU/9R/OWgV7GdJIvuFMwbkVVu
+         BnBAlz3OCC5j25iUEX60AgusKVySq5N844IOkF1V2SltZz6OY1Kha+pc1spiQ/kSusT2
+         3GWTuOZvPsm605lzaHb3FPCj1SDm6qWq7K/bSrA/WlQo61gvK+0oeZ5GTsA0ws9vi6Q+
+         dWHJ6NVGe9cZj9yYz2Rvg6sh0HaLoxM7QgieAXMq0gwT50pGDSmrJt6hqAoIfJJehh5P
+         kppQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792574761; x=1793179561;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=uSuitGcPNAp6kDNTkufpaC9Ibk/iwsakxpW63Y9HaYg=;
-        b=qJMxy0fyzMGUlmzt0BQ8DX17xXhE6ezQ7WOK7Z0AcbGIFkBZ+N7/dsDwUv4qHcmF+m
-         r+oHyaZIfmRES6h1mMbT0O6s+JNzWVv9SIorUzn9/44VdEtvF1lOWhAb7kzXth7IX0od
-         VHRssIwE95MPdrs+JQeG0NhaSHvsFei7TklBSeJwwepi7fUL9UCJhzzBPtHCLU/KgDCS
-         KZeEiAm9iHxy5hTz1SWcUSGOjOH4xhpIxzFBy/mc9FMeGzXn2lkxLmH0qlvOAKaLnqMq
-         SsFqYy+e3Rp0De7s3IihPUGUB3P1l662dyHOKc5BEuNLTWp30uzqvqHLen6QjYRUl4n2
-         /ZDw==
-X-Forwarded-Encrypted: i=1; AKwUvByRpoFVw4HOVeyFT8+pWCUiTSE54SHAH4gL99h2zLUpJn0zTxx7EfTHT85+WhdM5RQpQhWZbX7WYFHn@vger.kernel.org
-X-Gm-Message-State: AFq9FYIFL4Oze5xHBpfIzBotz8zQPMfJPS+LldOD/P02bmDo+KeTWxa5
-	SrlS71s2WrFANrAIjzoYzbWN2IcDPsdbwcywAZ13dWXRfFa//T8iK6Y4T6l96YLf7xd9LyhwKf7
-	uMXRJUzHVlKwLtEzGPQChd2azFBYvpdTijfH9PhGw/NMQPFI5WckOArn3WVC8S3Wh
-X-Gm-Gg: AYBFou3sUkIqlK34mkoh9g/Y+wXyUmu4n1epJ4YQM6qiTSB4XJ3OxyGCZghhovI9LAu
-	JmwZ46BMg6442kzIKfq2m3Z0ySmtj/CR2oruGTWvT/3AXHIVhVBTkDoZdkcmMRrOdCyd9KVBnPO
-	nS8O0ZHo0De7qdpDOAN8/hm4jpHdhqFGFi07ba7jx5eOz/xje75jqL6w+Ex8WQ16uhkNG+pyccJ
-	XRtB6Ktu+JT050qe17jzEJaNiMhe5neCypmxMAKKt1EAwd+CejUhXrl4ydQ789ig70xPk01PEft
-	S4vMkAsdCuQ+qHBUku2eKtvdo/MvMP55CJiUzdi3T7mhYxjykbjzVjFxmaWelk7TGVMrUu/h3PI
-	YV4lk4r2B2QJpFEHRxesafAJa9BC9Wo6r
-X-Received: by 2002:a05:7300:6a9e:b0:35b:c271:df19 with SMTP id 5a478bee46e88-3674ec2eac8mr2651356eec.32.1792574760814;
-        Wed, 21 Oct 2026 02:26:00 -0700 (PDT)
-X-Received: by 2002:a05:7300:6a9e:b0:35b:c271:df19 with SMTP id 5a478bee46e88-3674ec2eac8mr2651315eec.32.1792574760195;
-        Wed, 21 Oct 2026 02:26:00 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792574766; x=1793179566;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2iddebWXn7PUCxROMEP3SYghJdqyKc/W0mQtZfkMMkQ=;
+        b=hrJafvZ3q+iXFUIQA+6uG6BOZdK5A+7ygVBpT8PHiXboKJ668zZRZH+KBmwJS9p6n9
+         o4r3PEvNZBeLPtxC9GRLDnZUFziyonNh3kUDYMkZmCoY4Pv7pjxbzRlqOE9BbHibLrYB
+         A29GViR0G+N1uENz2eakURIuoA9Ypo+YK0doOVjEL3U8e/Ni+Mf38BlsKQpKNSALJXqj
+         qjJ7NKkQpEmOoVIEFQgCeoYjd52JZrZYWQ6BK+2BMnKCdY1RP1n6K21b6b7wKS26JzqC
+         8+Q0+GRuqz1zeADFR9e67qStJy68rBmSkX+WW9s48Hfd4J3+yonSKPQ0846FpVYEMhKz
+         gh0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxaW9m/sdZD6uUA5x8OAGDu6hpDZFYTLSJoWWyW3G3skxTJT6rD2VdylGWsLDQrPFQXTC2+UA52PDO+@vger.kernel.org
+X-Gm-Message-State: AFq9FYLpiQn9DIXJF7kin+9MSgGg9VY9kgK91bpMqHlGpBJiTWODljEg
+	bSM87HPU4HKbVSZxMSAl+omDJWnNeYHupYY29SbYmxWmsaIco+l2czYJ3dNmArY+tZGKZxWfIwr
+	3CE0s+uTLnDftYLMqiV0RJrww+wShR0YYAibWnMlFC72/CIsJuS3TyNLOSZxPIbmN
+X-Gm-Gg: AYBFou2HrtVr6HU34GSBLCtDTxwpiJG78luWcr5Ih581wKaPXL49mPDN/TxOpzuk/R7
+	ethybhNveLsNvSeYy3WfVEaZsfJOOCvNXUI04R7gL+9S1/cpqGPoQq2zpiDuBrFXWLOzg7ytugL
+	gp68vfJnldWWRlfvjYQyK8neuHPmD9gwbKalVG4ln+9RbO57g6BuAFXE4oaN+fhL3XZGhhJjrNX
+	m8z6rUCiAZcOia93GDsCpdgSR0xvPTOyt7Fd0jP3dbMxaF54Ou6a7gpfAxZ21JAOjzHlKXhYhJP
+	+PF6L4GlRpFP0Cg+Cam8V7Yt9WPthjcF7m0NXHNamIIyWJZu5Q7tR6Mq0I3yk0giOOgKGsTFN+W
+	0AzSOMPeeZYVTmkNoCIgJgrs+iDMrPqYu
+X-Received: by 2002:a05:7300:fe89:b0:360:8596:657d with SMTP id 5a478bee46e88-3674e04eb02mr2352393eec.32.1792574766400;
+        Wed, 21 Oct 2026 02:26:06 -0700 (PDT)
+X-Received: by 2002:a05:7300:fe89:b0:360:8596:657d with SMTP id 5a478bee46e88-3674e04eb02mr2352376eec.32.1792574765898;
+        Wed, 21 Oct 2026 02:26:05 -0700 (PDT)
 Received: from hu-vkatoch-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36740cc8439sm6155671eec.11.2026.10.21.02.25.54
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36740cc8439sm6155671eec.11.2026.10.21.02.26.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 02:25:59 -0700 (PDT)
+        Wed, 21 Oct 2026 02:26:05 -0700 (PDT)
 From: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-Subject: [PATCH v6 0/3] misc: fastrpc: fix ADSP duplicate session creation
-Date: Wed, 21 Oct 2026 14:55:46 +0530
-Message-Id: <20261021-dup-sessions-v6-0-578ab52ba66c@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 14:55:47 +0530
+Subject: [PATCH v6 1/3] misc: fastrpc: iterate CB nodes manually instead of
+ of_platform_populate
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,12 +118,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIABqF2GoC/3XMwW7CMAwG4FdBOS8ocdJQ78R7IA5O4oxIg7IGK
- hDquy/l0qlafbD0/7K/lyjcZy7ic/MSPQ+55O5Sg/vYiHCiyxfLHGsWoMApp1DG+1UWLtNdkUx
- AgShoRCvqy7XnlB9v7nCs+ZTLreufb33QU7sCDVpqCQ6NJe8xkdl3pWx/7vQduvN5W5eYvAFmY
- 6fahQFSyUhWJQzYEvgVw8xGC3ZhmGpYrzRGTpbVmmH/Gm5h2GqYpk4EnzjaFaOZDQSzMJpqMDZ
- GG0O6hd0/xjiOv9PJ6RK/AQAA
-X-Change-ID: 20260609-dup-sessions-ea2acaac1994
+Message-Id: <20261021-dup-sessions-v6-1-578ab52ba66c@oss.qualcomm.com>
+References: <20261021-dup-sessions-v6-0-578ab52ba66c@oss.qualcomm.com>
+In-Reply-To: <20261021-dup-sessions-v6-0-578ab52ba66c@oss.qualcomm.com>
 To: Srinivas Kandagatla <srini@kernel.org>,
         Amol Maheshwari <amahesh@qti.qualcomm.com>,
         Arnd Bergmann <arnd@arndb.de>,
@@ -134,106 +133,226 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
         linux-kernel@vger.kernel.org, Bharath Kumar <bkumar@qti.qualcomm.com>,
         Chenna Kesava Raju <chennak@qti.qualcomm.com>,
         devicetree@vger.kernel.org,
-        Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+        Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792574754; l=2894;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792574754; l=5896;
  i=vinayak.katoch@oss.qualcomm.com; s=20260609; h=from:subject:message-id;
- bh=Znw6rBmsrPLmZf1Xm4uaqF5JIwWwc/6CAx2/Oc7scWg=;
- b=xghwgq5+GYh7ydwRMy0+qeIwLDWK5mN9QP//SG9fG+vHyBfoekIfEE3Z+y1A9En8xk8nlljSp
- I06rkL2HJYoA40vi3w6fx+Nrw5d1iVbtFWuwz5aVF4Scqe/HcrZ4aG/
+ bh=lc7pys2jl8b6IeEdNwVX+R72jMwQXYcFVXfMeNww1go=;
+ b=I3hQVmbkOrOFRuheTwQMtCKvT+0RJmbh/FYnDX1zO0sMyKYnUeGHmBBvUoplAf9aLJVJmLVJB
+ 8yxr/o7d1QeApc/hWO0brnsOPoTKSo9SsThle8MD079927/1O5v5aQb
 X-Developer-Key: i=vinayak.katoch@oss.qualcomm.com; a=ed25519;
  pk=UrGeKKxjIjpHZIjsbQKS/8rrVaP9KVGki69pFclCH08=
-X-Proofpoint-ORIG-GUID: XetOSv7diqoOaGE_uL2NSE7ZCP5DT3fZ
-X-Proofpoint-GUID: XetOSv7diqoOaGE_uL2NSE7ZCP5DT3fZ
-X-Authority-Analysis: v=2.4 cv=N768hG9B c=1 sm=1 tr=0 ts=6ad88529 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-GUID: XfR0Y1Y0q-TVrO7XOiSIqPWP--nb5NLz
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAzNyBTYWx0ZWRfXyVJ5y1BRtBPh
+ a79QMPjmIzUvSwz3q8vrbu2+9gW8c0TIkilLehflEa1u/dn6I1KRD+npZdhvPIBmHHNKPfJDuEX
+ RRz5va8wDk7jqa2kvHlTm7ZtiJsTcwPru+xhPUQFP6KhZrXYZ8axb+C9ULwQf50ESrQsbY61lAa
+ vmTWONe0bRb+pPXY1RQqFYaLajZZ+yd2XNqvVvoChvHonxzJypCadUDwZdqo4CHY3UrJJ6rT2Rg
+ kOZCGTZhya1zA0WJyq3ALYQE1E2qaNmsHiUiwlsI/RoT5pGWRYOCvV64+hSHbYSrDx6tM7EMBJ3
+ spTfxgr4/ZlNXBh7qtBbZ8G3wZ08wI/G/Lf2iaHDgkqfOk+94w5NiLoDuNWJJgaPOTJxiWvgG27
+ f1qpypZQQvyttjWVfoU2ZR7eUW9725HymF4LOB+rxytEztjR23i08UwLaQecPz1fM+F/jvueX6s
+ kTOfnplroJzF6Co5oJw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAzNyBTYWx0ZWRfXw9rNOXQXtaYh
+ u4p/UIGhYmizSAzt6V7Q3/78Dhw95GDaDQTNuVZ3UTDKE3ujz8JD/HXxbBe1Aj+RAFnX/4deXtv
+ m/LzQdBECjzts4wifbJs/3CsmsXNk7s=
+X-Proofpoint-ORIG-GUID: XfR0Y1Y0q-TVrO7XOiSIqPWP--nb5NLz
+X-Authority-Analysis: v=2.4 cv=IPaXmQvG c=1 sm=1 tr=0 ts=6ad8852f cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=YTpWxnxjnte_hGW78hkA:9 a=QEXdDO2ut3YA:10
- a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAzNyBTYWx0ZWRfX16ZH0LCMiufI
- uz1SoAgZhcYATa3IrJe/7enO6MNUlV0uPqQfzi+0Sy43Q4mj34HWiW047Fs6zglCNx3zc323xW7
- oX1y4iuK7k/inwYZjpjFxUfZ0X2EegQl7l/qQn4pkctGMOcJL0MdePY4EHJs6aLSd1uJYD14oTt
- q/kkMRe5mGyzzgt9jpQP6nJ/P7Mgv+q+ROGNisYEyfj2Yma/sVx5CTsQzDdCeYDSzSyx/o4w62i
- EMGK9f8d2TGsVSRGhakVg1VkdNuCgLdS5jdbqbSbwZeLDKnhXLuAcbWxOIs31LfW7oKmo+i/GAr
- obpXmdG0J15tQGgDMo9/TKPU+TS/p4G+jGIPRRLO6kjqlnpJZkP0PpqYp5KDrz+tfck69CmhkIU
- 1Whnhp1KHCFbJtIsu52WNzyS/HdslTa8ZelqLUWpBno9LY2ZEjEWXduXhDJHdKEpCsyGtwHv0wI
- XxxlNCZ9gVnSmMdQ30w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAzNyBTYWx0ZWRfX2GBufWKrenDU
- N1FcN0cwvKOcaN1qEczQR1DBvdP5UhX/3qUL6TmxYSqYCQ5kTHx+DGfzecaL+QF92ZKE1v0lx3+
- 8MHiuC+T+sQTueC8nVhepu1nJE6FcCM=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=mOEaRXDu9pUODS4UlNoA:9 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-21_02,2026-10-19_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1015 malwarescore=0 suspectscore=0 phishscore=0
- bulkscore=0 adultscore=0 impostorscore=0 lowpriorityscore=0 spamscore=0
+ clxscore=1015 malwarescore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
+ impostorscore=0 spamscore=0 priorityscore=1501 adultscore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210037
 
-For ADSP, only a limited number of FastRPC context banks (CBs) are
-available. Each CB supports a single session, which means only a few
-processes can run on ADSP simultaneously. If all sessions are consumed
-by fastrpc daemons, no session remains available when a user application
-starts, causing the application to fail.
+of_platform_populate() only guarantees that child devices are registered,
+not that their probes have completed before it returns. This creates a
+window where fastrpc_cb_init() may not have run for all context bank
+nodes, leaving the channel context partially initialised.
 
-To work around this, some DT set:
-  qcom,nsessions = <5>;
-which duplicated sessions inline during context bank initialisation.
-Upstream feedback indicated that this policy does not belong in DT and
-should be handled at the driver level instead.
+Introduce fastrpc_cb_devices_create() to iterate over child DT nodes
+directly and call fastrpc_cb_init() synchronously for each
+qcom,fastrpc-compute-cb node. This ensures all context banks are fully
+initialised before fastrpc_rpmsg_probe() returns.
 
-This series iterates over CB child nodes directly and synchronously,
-replacing of_platform_populate() and of_platform_depopulate(), and moves
-the ADSP session duplication to the driver. The qcom,nsessions binding
-is deprecated in the same series.
+Introduce fastrpc_cb_devices_destroy() as the symmetric counterpart.
+Before destroying the CB platform devices, invalidate all sessions under
+the channel lock so that any fastrpc_user still holding a reference to
+the channel context cannot acquire a new session backed by a destroyed
+device.
+
+Since fastrpc_cb_driver is no longer needed as an independent platform
+driver, remove it along with its match table and remove callback. Use
+module_rpmsg_driver() now that only a single driver registration remains.
 
 Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
 ---
-Changes in v6:
-- Drop unused dev_set_drvdata() from fastrpc_cb_init()
-- Use device_for_each_child_reverse() to destroy CB devices
-- Return -ENODEV when of_platform_device_create() fails
-- Add a comment for FASTRPC_DUP_SESSIONS
-- Link to v5: https://lore.kernel.org/r/20260923-dup-sessions-v5-0-e953133a1827@oss.qualcomm.com
+ drivers/misc/fastrpc.c | 95 ++++++++++++++++++++++----------------------------
+ 1 file changed, 41 insertions(+), 54 deletions(-)
 
-Changes in v5:
-- Introduce fastrpc_cb_devices_create() and fastrpc_cb_devices_destroy()
-  for symmetric CB device lifecycle management in probe and remove.
-- Replace module_init/exit pair with module_rpmsg_driver().
-- Link to v4: https://lore.kernel.org/r/20260826-dup-sessions-v4-0-35555d2bfed4@oss.qualcomm.com
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index af18ff1992ee..caa479f304c1 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -2333,7 +2333,7 @@ static const struct file_operations fastrpc_fops = {
+ 	.compat_ioctl = fastrpc_device_ioctl,
+ };
+ 
+-static int fastrpc_cb_probe(struct platform_device *pdev)
++static int fastrpc_cb_init(struct platform_device *pdev)
+ {
+ 	struct fastrpc_channel_ctx *cctx;
+ 	struct fastrpc_session_ctx *sess;
+@@ -2355,7 +2355,7 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
+ 	spin_lock_irqsave(&cctx->lock, flags);
+ 	if (cctx->sesscount >= FASTRPC_MAX_SESSIONS) {
+ 		spin_unlock_irqrestore(&cctx->lock, flags);
+-		dev_err(&pdev->dev, "too many sessions\n");
++		dev_err(dev, "too many sessions\n");
+ 		return -ENOSPC;
+ 	}
+ 	dma_bits = cctx->soc_data->dma_addr_bits_default;
+@@ -2363,7 +2363,6 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
+ 	sess->used = false;
+ 	sess->valid = true;
+ 	sess->dev = dev;
+-	dev_set_drvdata(dev, sess);
+ 	sess->sid = sid;
+ 
+ 	if (cctx->domain_id == CDSP_DOMAIN_ID)
+@@ -2389,37 +2388,51 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
+ 	return 0;
+ }
+ 
+-static void fastrpc_cb_remove(struct platform_device *pdev)
++static void fastrpc_cb_devices_destroy(struct rpmsg_device *rpdev)
+ {
+-	struct fastrpc_channel_ctx *cctx = dev_get_drvdata(pdev->dev.parent);
+-	struct fastrpc_session_ctx *sess = dev_get_drvdata(&pdev->dev);
++	struct fastrpc_channel_ctx *cctx = dev_get_drvdata(&rpdev->dev);
++	struct device *rdev = &rpdev->dev;
+ 	unsigned long flags;
+ 	int i;
+ 
+ 	spin_lock_irqsave(&cctx->lock, flags);
+-	for (i = 0; i < FASTRPC_MAX_SESSIONS; i++) {
+-		if (cctx->session[i].sid == sess->sid) {
+-			cctx->session[i].valid = false;
+-			cctx->sesscount--;
+-		}
+-	}
++	for (i = 0; i < cctx->sesscount; i++)
++		cctx->session[i].valid = false;
+ 	spin_unlock_irqrestore(&cctx->lock, flags);
++
++	device_for_each_child_reverse(rdev, NULL, of_platform_device_destroy);
+ }
+ 
+-static const struct of_device_id fastrpc_match_table[] = {
+-	{ .compatible = "qcom,fastrpc-compute-cb" },
+-	{ }
+-};
++static int fastrpc_cb_devices_create(struct rpmsg_device *rpdev)
++{
++	struct device *rdev = &rpdev->dev;
++	struct platform_device *pdev;
++	struct device_node *np;
++	int err;
+ 
+-static struct platform_driver fastrpc_cb_driver = {
+-	.probe = fastrpc_cb_probe,
+-	.remove = fastrpc_cb_remove,
+-	.driver = {
+-		.name = "qcom,fastrpc-cb",
+-		.of_match_table = fastrpc_match_table,
+-		.suppress_bind_attrs = true,
+-	},
+-};
++	for_each_available_child_of_node(rdev->of_node, np) {
++		if (!of_device_is_compatible(np, "qcom,fastrpc-compute-cb")) {
++			of_node_put(np);
++			continue;
++		}
++
++		pdev = of_platform_device_create(np, NULL, rdev);
++		if (!pdev) {
++			of_node_put(np);
++			fastrpc_cb_devices_destroy(rpdev);
++			return -ENODEV;
++		}
++
++		err = fastrpc_cb_init(pdev);
++		if (err) {
++			of_node_put(np);
++			fastrpc_cb_devices_destroy(rpdev);
++			return err;
++		}
++	}
++
++	return 0;
++}
+ 
+ static int fastrpc_device_register(struct device *dev, struct fastrpc_channel_ctx *cctx,
+ 				   bool is_secured, const char *domain)
+@@ -2639,7 +2652,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+ 	data->rpdev = rpdev;
+ 	dev_set_drvdata(&rpdev->dev, data);
+ 
+-	err = of_platform_populate(rdev->of_node, NULL, NULL, rdev);
++	err = fastrpc_cb_devices_create(rpdev);
+ 	if (err)
+ 		goto err_deregister_fdev;
+ 
+@@ -2711,7 +2724,7 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
+ 				&cctx->remote_heap_addr, cctx->remote_heap_size, err);
+ 	}
+ 
+-	of_platform_depopulate(&rpdev->dev);
++	fastrpc_cb_devices_destroy(rpdev);
+ 
+ 	fastrpc_channel_ctx_put(cctx);
+ }
+@@ -2798,33 +2811,7 @@ static struct rpmsg_driver fastrpc_driver = {
+ 	},
+ };
+ 
+-static int fastrpc_init(void)
+-{
+-	int ret;
+-
+-	ret = platform_driver_register(&fastrpc_cb_driver);
+-	if (ret < 0) {
+-		pr_err("fastrpc: failed to register cb driver\n");
+-		return ret;
+-	}
+-
+-	ret = register_rpmsg_driver(&fastrpc_driver);
+-	if (ret < 0) {
+-		pr_err("fastrpc: failed to register rpmsg driver\n");
+-		platform_driver_unregister(&fastrpc_cb_driver);
+-		return ret;
+-	}
+-
+-	return 0;
+-}
+-module_init(fastrpc_init);
+-
+-static void fastrpc_exit(void)
+-{
+-	platform_driver_unregister(&fastrpc_cb_driver);
+-	unregister_rpmsg_driver(&fastrpc_driver);
+-}
+-module_exit(fastrpc_exit);
++module_rpmsg_driver(fastrpc_driver);
+ 
+ MODULE_DESCRIPTION("Qualcomm FastRPC");
+ MODULE_LICENSE("GPL v2");
 
-Changes in v4:
-- Rebased on latest linux-next (a8406e6c0b79, 2026-08-25)
-- Link to v3: https://lore.kernel.org/r/20260824-dup-sessions-v3-0-4b019def4e0b@oss.qualcomm.com
-
-Changes in v3:
-- Add patch to fix async probe race with of_platform_populate().
-- Rename fastrpc_cb_probe() to fastrpc_cb_init().
-- Reorder series: sync fix, nsessions, binding.
-- Collect Reviewed-by tags.
-- Link to v2: https://lore.kernel.org/r/20260708-dup-sessions-v2-0-da40f9c98a2b@oss.qualcomm.com
-
-Changes in v2:
-- Added patch to deprecate the qcom,nsessions dt-binding.
-- Kept the logic unchanged; only split into two patches.
-- Link to v1: https://lore.kernel.org/r/20260609-dup-sessions-v1-1-26934abb9fa3@oss.qualcomm.com
-
----
-Vinayak Katoch (3):
-      misc: fastrpc: iterate CB nodes manually instead of of_platform_populate
-      misc: fastrpc: move ADSP duplicate session creation to the driver
-      dt-bindings: misc: qcom,fastrpc: deprecate qcom,nsessions
-
- .../devicetree/bindings/misc/qcom,fastrpc.yaml     |   2 +
- drivers/misc/fastrpc.c                             | 128 ++++++++++-----------
- 2 files changed, 64 insertions(+), 66 deletions(-)
----
-base-commit: 8f7df005a7564bd7ffa75da9c3085d5b996f1e16
-change-id: 20260609-dup-sessions-ea2acaac1994
-
-Best regards,
 -- 
-Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+2.34.1
 
