@@ -1,60 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792578542;
-	b=fqFsVsn7jLt7v8nJ5uvvw3Dv4Sf2YmxkkBjpKfyFMi5Yd6x1Up9YF+4qZObNYu0HpzSz
-	 z3gzSlHJKT4fAXzV92I7gqjeECElE0o8hLtxVe/iBQdpiKF9Wmzoa/HQW6eUJ1joClKJy
-	 pSvUIkNnDA7DCD3o0LOG8zN4JvYKNTDruxnWxpZGRo806/NAvJP6JY/6pyaJ+yGLkInkW
-	 fFnnsT6185eyd/3jKGpCSLMl0WiOC4Me4o4vTeFDom1iz8I1nKFhxREXDLrWy+A+c5CNG
-	 JgpDVc4ZhiGoibYoQdFUtW8vU57oHLDQkGVsihTrqaC+Ymg5qSGVHR78Umap5aEB64w==
+	t=1792578584;
+	b=WWaF/v5RDPtiIDKXYkw7dXPv93/LssW/xSo0hCJio0FZGP+BgSGXptxS43YjWQLVPR8R
+	 UuJ3ZlWih2JJORQEpgBJW/McyLQQd2icCNZoSE6mZyreAxO4XNJ73mfljQLOweYM8cKjL
+	 Y8hXGAs68MKlky/XcTlAPWOrkreXF70MyAB3GGDV+yvccakPkKcSQ+iMBAW5qJBprG9yG
+	 ZoKExWhbJWbUrvnACPJKN+GUfAzoOcAsu7E3QqUpZkUq+eNxZWB2zQokgxuvHRLV/Jz41
+	 yEbJq4y5o9iZPW5PcHtchgLjJvxoDWnq6PQcrUgoiPdx/7SwtwWx3Olbg5UqaSGWyJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792578542;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Last-TLS-Session-Version;
-	bh=Dkf48jB4gCtlFc/BoafYwVHY7csJs+Epq6MjEAyZCls=;
-	b=4pz6WYfcBF7zK8TdEG6JMT6/KJuhKWveT2PthwggD354ZSueCs0F8y9nUNWJXE1Ma3VS
-	 5yiPySEw1FaFAQR/SEAb/V3r1/49/qlOijosEZD+hcXdsukpIWtj+ykiaVeAO3hbqc8Ct
-	 LgkRzSe+9gb3Z6caNQ0+iiWf6X6Ds/r4AZ/1lflMv/Q2eG+w/dA/uN40D61nYRe+TVwS1
-	 yAtyzB97U0IFZCPP1GO+k/QlhwnHPMKtRyieRePzB74fC3Xk4KCjRxuFxWkkQderRBnc/
-	 xPlrJpuses7Z0bXVn7dX7gcjtahnQGXzW/u7+oaehMF8YjyIqoCSq7dbFl0Fo8CXENw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792578584;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=4DA+9lB1827mjm1K1LsKgxeLWDvTL9wvtJA9r/c0C0I=;
+	b=A2WQU7L0D54QcNZebRN1gJ+M27qLmO4z4/d4oISzyouamUVpjMVrSpqqj78RtoDauyj+
+	 2I2Z6iOkU0H370+W9MglsJQM3KAchHfm9IDy6FHk5OjeKcvMiDlk3sSc5Cj81uaxeg25W
+	 qV06gNLyMiKVWIhYxT2yV443+u+YLlCl8dzKhAx0HaAs7F0pq3yjzqx4yJy+ltMoTZavQ
+	 V2JRMOlw6PUcUSDcBPbr2ZRgYu8F1DziVSA3w7WO83MXA/737MyvODRcV44CX99ry829L
+	 EqFC6moaF6B6fzBNNH6XVHpUTiueZO4uLqhJggKNu3LrfYmVrNy1Qhz9KXbThOxR4SQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=2uiwO+Bt;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KD0TTfdf;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RH2Avjfm;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49534606A330
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 10:28:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49534606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53C39606A31B
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 10:29:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53C39606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=2uiwO+Bt
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 083D31A12AF;
-	Wed, 21 Oct 2026 10:28:48 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C9904606E3;
-	Wed, 21 Oct 2026 10:28:47 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D2185103288F4;
-	Wed, 21 Oct 2026 12:28:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792578527; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=Dkf48jB4gCtlFc/BoafYwVHY7csJs+Epq6MjEAyZCls=;
-	b=2uiwO+BtqJLV4fSkAV3IaNO1mQJYmFiIw/UhGSicaDdoDQsLTj6wTkvmUZF+lFHWtZeP7u
-	AkAlMMWVgBzn+gHVibqkjIIcqYleynM0xefOP2iuGq+4zXB3G/1xk0+fOhZ7ZMkKQXyGi/
-	V+aeXYWRjVH99fnt6NQcdaFcyYv356ocF+6gslQTgvAjv+L6qGHyZVdVm5zxqxwXvRP0h+
-	X5prg4zMaMKv7HR2ZnZsUKYhAoNpNai9hfVD/ZeoyTqdCe0CO2jZW9W2/xMhwH3F6GMuP+
-	1rWyBifeozzHp1/vY3KDwQSgOge/wJQCY6E6Nw2jEba/dST1C3CeukqOFbrEkQ==
-From: Paul Louvel <paul.louvel@bootlin.com>
-Date: Wed, 21 Oct 2026 12:27:44 +0200
-Subject: [PATCH 3/5] regulator: core: Add mechanism to force disable a
- regulator at boot
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KD0TTfdf;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RH2Avjfm
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LA5kT13015991
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 10:29:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	4DA+9lB1827mjm1K1LsKgxeLWDvTL9wvtJA9r/c0C0I=; b=KD0TTfdfaEkJ+Yel
+	xsoKUVDsJoAGY8KnexfYH+f8Jv/TrEWvYh+k7bA+RhvgyLbR71zh6sWA8dHmswDo
+	FCf+o5rV+NA0ZOROJiYVnAqNm4qPWg128eE0yICi0VKaRYBliukjgOHvlsHWeeeK
+	70/jpNo/5wjEmOknYkaRhnK6WLrNi9N1AfiJSRmpwvdyRg+0sIsz53KhtLU/G/KG
+	Mu0848esElpWOWpMJmdyl3Vw1xQLbNCGsmEvbMuq/UQa8tnaVJCVSaix/P0FniVF
+	lWdLamL8lFa02RNlh3jBhsSl6DUGA7RqG4BYw1ECZa/MIeSG90ShUmxkmh+qaq0f
+	tptwvA==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hesy78ka6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 10:29:43 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91795e52969so1877766d6.3
+        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 03:29:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792578582; x=1793183382; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4DA+9lB1827mjm1K1LsKgxeLWDvTL9wvtJA9r/c0C0I=;
+        b=RH2AvjfmKI/+PNPwqAGug+RpM08POCDnGILP7/tJdH1tqHSCVUVYLat8Z9OSx90nMd
+         M452WzyDOVs6JHxZBAO/NfXqHPYhcmNBRZrkqC5noVUpoxKwtiSu5OOLPDNbHqljJDdV
+         Mrfk3IzlLIBcqTuJC0fqO5dvGHJDxc2az4zVdg+gvKo5xUbUHzyGlnVLO9G49yPX23gn
+         MYjtL3KDVp6wQDCtJORYdedElbETPAOwa7v5ZAxzF/K50dbx/dlTmqFza/6PTEcHsmJg
+         xYSc7t1iahrMtF/du0U4CzPMR8iQcl4gEr40pcNbnf0EAxCzurvN/WIzwxURhJGKsni7
+         xT0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792578582; x=1793183382;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4DA+9lB1827mjm1K1LsKgxeLWDvTL9wvtJA9r/c0C0I=;
+        b=dHbl4UuXp1aTjvV3S5IB9HUBthHiD7XP5QQGS1/r1DCqJPZsqO/5NBFy3M9l3xgVzW
+         mlUsnm5hQxHZqHrp7R/SE4xBPgGLxPEWFSS2ZYGHF4HJJOz3ZvQLfDAvG5I70Nh0upIn
+         Qhe0nwkcbcSlspRqYSILOI0ASAMeEzerhsz4pGibZhjaggb3BAejDfeDX8NFJFbRlBot
+         69LC/Vbzz0wTt1jWET4kVp2eoe2tXe4O16v5cRMu4QxM05y5xt5CnWY5KGonzsF8OJkz
+         8uDTNHjcLd52Mz8mXBT4IWn+RbQNXx/seD2IHNtmOEa1DcnNk5v1+uGK7vyGHUenzsD/
+         TITQ==
+X-Forwarded-Encrypted: i=1; AKwUvByqKREgtums0rqAmGvPDEIq5cwDOjTozrIWD2rJghJL9edQOzL2W/Zce49ym72FUy5MQXmeVS1wIxyh@vger.kernel.org
+X-Gm-Message-State: AFq9FYKGDSkX3sjXcrPCU0yp7WJ2rF5QNKR2D/DZ2l/YpsscBU8pFxas
+	bPrQr283gX3AVnF1l9POdiw3lQMEqe44ywpHSPa6U83NPTdOSctmnk5hGtSSF2wQge9oF1Pv392
+	eCSuHm+gpxhbhbBGVKWJLTHgk8CNKKVAkeegf5uBQ8632K+jzq+xAI37CzF/M3hqV
+X-Gm-Gg: AYBFou2PlmmSFvMnNZ66xyOBs5r0r6VgkkOSWN65Vb2s29T2liDRFnMjGi3mF9KpKh6
+	I0cF9flS8nE/M7ryOzMxAdyuLGXdX7SHGJYZv8rEa9fnIo+tRwApa5rdTM2EkNvHohBOscbeA8n
+	MaYDJibDXHqZeV8S5YF5a9F/hOqfk8BwBRMEqojnbrKdc3QLFWQhdp7vksIExPNuRK8kFpVKhpa
+	hHwb7Xb4+ynrcdzxv3yuci1aKIQei4jgV1CQbqpJvzAQxAs2lt1OKRSA/uWRwvYP9fmYkZhD0bj
+	l6Hmyv48wjf8uNlTqyj0CG6n8Gw8WdKMenMcz+INJ/ZgLX3A+tjchDeT+qDEUXlPvxBQINyXQFT
+	b+5EEJU5iEXyAB8wLBwjYzA==
+X-Received: by 2002:a05:622a:134b:b0:535:162c:2e81 with SMTP id d75a77b69052e-5369bb640a1mr26734071cf.5.1792578582578;
+        Wed, 21 Oct 2026 03:29:42 -0700 (PDT)
+X-Received: by 2002:a05:622a:134b:b0:535:162c:2e81 with SMTP id d75a77b69052e-5369bb640a1mr26733781cf.5.1792578582113;
+        Wed, 21 Oct 2026 03:29:42 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4679009aacsm64407466b.78.2026.10.21.03.29.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 03:29:41 -0700 (PDT)
+Message-ID: <9e60b65a-f412-4026-b84a-6a9bb8b5d42a@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 12:29:39 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,265 +115,66 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: sdm845-xiaomi-beryllium: Enable
+ gpi_dma0
+To: david@ixit.cz, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20261016-beryllium-gpi-dma-v1-1-76ade615c571@ixit.cz>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261016-beryllium-gpi-dma-v1-1-76ade615c571@ixit.cz>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261021-paul-lm51772-v1-3-25f0ffbffa8d@bootlin.com>
-References: <20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com>
-In-Reply-To: <20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Herve Codina <herve.codina@bootlin.com>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, 
- Paul Louvel <paul.louvel@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792578518; l=6769;
- i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
- bh=N/jhEKYj6ma9nFEN6xTyw+SfGZjRroybm0iZd6QPfe8=;
- b=hQfx0rfhX3wmKmGqLFJ2CmyaGyXCmun8jwrRJZXyCpwtQgy4tRT9vm14QKz5mIYSfJcPje3co
- u9kRrFkuqbmADJ4i9+TB3IsJKfBpUEw2TIolblI/KPabjFe5p1aNAZN
-X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
- pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
-X-Last-TLS-Session-Version: TLSv1.3
+X-Proofpoint-GUID: AFS_9Z0101-6egiaurH0P0uOgErkkGod
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA0MSBTYWx0ZWRfX+PgWOksgJMf+
+ 93PqoYLgha8GizM713C7Fs/aSHiD3R4PYfQhgSb0j5Toz5EASWxDpglG4Btt3J9fAQoXJBe7iYA
+ Uhi/IZ/r6hrpu8Ou1tQpDtbJ9/tMA28JvTJ1+0oHC8EcnZp/zA/uYKXMxiXZndPw5XTDPCayes5
+ DIE9GMppeiCbZh6PgOkDE1ONYSb8JYx0lclQVmk/kM3i3k5hic/0cVkK6KxoENOoSTbuod9IoD1
+ xzS9EGv8w5AMA+X3VPwvQIQW8zFZEAEq7z3wyocK6QMPNfLulX3Inl8T+cigO0q3SkYb0wQeKyU
+ MibbRcWMI+bTunikd0Qt2q8U/S1zJVlc+83Gaas1VxFyQGx9cHwy4XSKUBgsK6Nr27MQTANKA3t
+ PxAvUO6e+UN11azYnZTVzNNk8t41h4dbmNB93wLzeihGI5PqRjoTllzNOk7xcRIGKHjbKWmYrBJ
+ pRdM/5QvkIvOJtgH7eg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA0MSBTYWx0ZWRfX7lO+yF09NRlx
+ 6melueQf65OQPo9O68C+7HgzrQZ/7V3zfmNxbpiIecTQ9DiIHoOV2/z4/Q1q/XPh8uJ3Ai2bhdJ
+ liVuFeZegM4VDH6UesJQc0FkKujvKEc=
+X-Proofpoint-ORIG-GUID: AFS_9Z0101-6egiaurH0P0uOgErkkGod
+X-Authority-Analysis: v=2.4 cv=IPaXmQvG c=1 sm=1 tr=0 ts=6ad89417 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=qbaKm5uNP53N5VyfHtwA:9 a=QEXdDO2ut3YA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-21_03,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
+ impostorscore=0 spamscore=0 priorityscore=1501 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210041
 
-Regulation activity may be enabled by default when the device powers up.
-A consumer may query the regulator's state during probe and may disable
-it if it is already enabled, potentially resulting in an unbalanced
-disable operation:
+On 10/16/26 8:38 PM, David Heidelberg via B4 Relay wrote:
+> From: David Heidelberg <david@ixit.cz>
+> 
+> Used by not yet introduced tas2559 codec connected to the i2c5.
+> 
+> Signed-off-by: David Heidelberg <david@ixit.cz>
+> ---
+> We don't have upstream tas2559 driver which would use it yet,
+> but the gpi_dma0 is confirmed to be used, thus let's enable it.
+> ---
 
-ret = regulator_is_enabled();
-if (ret < 0)
-  return ret;
+I can't stay this patch is wrong, but I can say it's not
+particularly beneficial for both of us to go through the review
+process to offload 4 boilerplate LoC that don't have a functional
+effect..
 
-if (ret)
-  ret = regulator_disable();
-        ^^^^^^^^^^^^^^^^^^^^
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Add the 'regulator-boot-force-off' property, which disable the regulator
-when setting machine constraints.
-
-Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
----
- drivers/regulator/core.c          | 154 ++++++++++++++++++++------------------
- drivers/regulator/of_regulator.c  |   1 +
- include/linux/regulator/machine.h |   3 +-
- 3 files changed, 84 insertions(+), 74 deletions(-)
-
-diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
-index 14422cfe80e2..b45048ec084a 100644
---- a/drivers/regulator/core.c
-+++ b/drivers/regulator/core.c
-@@ -1450,6 +1450,81 @@ static int handle_notify_limits(struct regulator_dev *rdev,
- 
- 	return ret;
- }
-+
-+/**
-+ * regulator_ena_gpio_ctrl - balance enable_count of each GPIO and actual GPIO pin control
-+ * @rdev: regulator_dev structure
-+ * @enable: enable GPIO at initial use?
-+ *
-+ * GPIO is enabled in case of initial use. (enable_count is 0)
-+ * GPIO is disabled when it is not shared any more. (enable_count <= 1)
-+ *
-+ * Return: 0 on success or a negative error number on failure.
-+ */
-+static int regulator_ena_gpio_ctrl(struct regulator_dev *rdev, bool enable)
-+{
-+	struct regulator_enable_gpio *pin = rdev->ena_pin;
-+	int ret;
-+
-+	if (!pin)
-+		return -EINVAL;
-+
-+	if (enable) {
-+		/* Enable GPIO at initial use */
-+		if (pin->enable_count == 0) {
-+			ret = gpiod_set_value_cansleep(pin->gpiod, 1);
-+			if (ret)
-+				return ret;
-+		}
-+
-+		pin->enable_count++;
-+	} else {
-+		if (pin->enable_count > 1) {
-+			pin->enable_count--;
-+			return 0;
-+		}
-+
-+		/* Disable GPIO if not used */
-+		if (pin->enable_count <= 1) {
-+			ret = gpiod_set_value_cansleep(pin->gpiod, 0);
-+			if (ret)
-+				return ret;
-+
-+			pin->enable_count = 0;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static int _regulator_do_disable(struct regulator_dev *rdev)
-+{
-+	int ret;
-+
-+	trace_regulator_disable(rdev_get_name(rdev));
-+
-+	if (rdev->ena_pin) {
-+		if (rdev->ena_gpio_state) {
-+			ret = regulator_ena_gpio_ctrl(rdev, false);
-+			if (ret < 0)
-+				return ret;
-+			rdev->ena_gpio_state = 0;
-+		}
-+
-+	} else if (rdev->desc->ops->disable) {
-+		ret = rdev->desc->ops->disable(rdev);
-+		if (ret != 0)
-+			return ret;
-+	}
-+
-+	if (rdev->desc->off_on_delay)
-+		rdev->last_off = ktime_get_boottime();
-+
-+	trace_regulator_disable_complete(rdev_get_name(rdev));
-+
-+	return 0;
-+}
-+
- /**
-  * set_machine_constraints - sets regulator constraints
-  * @rdev: regulator source
-@@ -1701,6 +1776,12 @@ static int set_machine_constraints(struct regulator_dev *rdev,
- 		rdev->last_off = ktime_get();
- 	}
- 
-+	if (rdev->constraints->boot_force_off) {
-+		ret = _regulator_do_disable(rdev);
-+		if (ret < 0)
-+			return ret;
-+	}
-+
- 	if (!rdev->constraints->pw_budget_mW)
- 		rdev->constraints->pw_budget_mW = INT_MAX;
- 
-@@ -2910,51 +2991,6 @@ static void regulator_ena_gpio_free(struct regulator_dev *rdev)
- 	rdev->ena_pin = NULL;
- }
- 
--/**
-- * regulator_ena_gpio_ctrl - balance enable_count of each GPIO and actual GPIO pin control
-- * @rdev: regulator_dev structure
-- * @enable: enable GPIO at initial use?
-- *
-- * GPIO is enabled in case of initial use. (enable_count is 0)
-- * GPIO is disabled when it is not shared any more. (enable_count <= 1)
-- *
-- * Return: 0 on success or a negative error number on failure.
-- */
--static int regulator_ena_gpio_ctrl(struct regulator_dev *rdev, bool enable)
--{
--	struct regulator_enable_gpio *pin = rdev->ena_pin;
--	int ret;
--
--	if (!pin)
--		return -EINVAL;
--
--	if (enable) {
--		/* Enable GPIO at initial use */
--		if (pin->enable_count == 0) {
--			ret = gpiod_set_value_cansleep(pin->gpiod, 1);
--			if (ret)
--				return ret;
--		}
--
--		pin->enable_count++;
--	} else {
--		if (pin->enable_count > 1) {
--			pin->enable_count--;
--			return 0;
--		}
--
--		/* Disable GPIO if not used */
--		if (pin->enable_count <= 1) {
--			ret = gpiod_set_value_cansleep(pin->gpiod, 0);
--			if (ret)
--				return ret;
--
--			pin->enable_count = 0;
--		}
--	}
--
--	return 0;
--}
- 
- /**
-  * _regulator_check_status_enabled - check if regulator status can be
-@@ -3226,34 +3262,6 @@ int regulator_enable(struct regulator *regulator)
- }
- EXPORT_SYMBOL_GPL(regulator_enable);
- 
--static int _regulator_do_disable(struct regulator_dev *rdev)
--{
--	int ret;
--
--	trace_regulator_disable(rdev_get_name(rdev));
--
--	if (rdev->ena_pin) {
--		if (rdev->ena_gpio_state) {
--			ret = regulator_ena_gpio_ctrl(rdev, false);
--			if (ret < 0)
--				return ret;
--			rdev->ena_gpio_state = 0;
--		}
--
--	} else if (rdev->desc->ops->disable) {
--		ret = rdev->desc->ops->disable(rdev);
--		if (ret != 0)
--			return ret;
--	}
--
--	if (rdev->desc->off_on_delay)
--		rdev->last_off = ktime_get_boottime();
--
--	trace_regulator_disable_complete(rdev_get_name(rdev));
--
--	return 0;
--}
--
- /* locks held by regulator_disable() */
- static int _regulator_disable(struct regulator *regulator)
- {
-diff --git a/drivers/regulator/of_regulator.c b/drivers/regulator/of_regulator.c
-index 09e26febfc83..337629be58ca 100644
---- a/drivers/regulator/of_regulator.c
-+++ b/drivers/regulator/of_regulator.c
-@@ -132,6 +132,7 @@ static int of_get_regulation_constraints(struct device *dev,
- 	constraints->always_on = of_property_read_bool(np, "regulator-always-on");
- 	if (!constraints->always_on) /* status change should be possible. */
- 		constraints->valid_ops_mask |= REGULATOR_CHANGE_STATUS;
-+	constraints->boot_force_off = of_property_read_bool(np, "regulator-boot-force-off");
- 
- 	constraints->pull_down = of_property_read_bool(np, "regulator-pull-down");
- 	constraints->system_critical = of_property_read_bool(np,
-diff --git a/include/linux/regulator/machine.h b/include/linux/regulator/machine.h
-index 1fc440c5c4c7..35ab9de96e5c 100644
---- a/include/linux/regulator/machine.h
-+++ b/include/linux/regulator/machine.h
-@@ -227,7 +227,8 @@ struct regulation_constraints {
- 	unsigned int active_discharge;
- 
- 	/* constraint flags */
--	unsigned always_on:1;	/* regulator never off when system is on */
-+	unsigned always_on:1;		/* regulator never off when system is on */
-+	unsigned boot_force_off:1;	/* force regulator off at boot */
- 	unsigned boot_on:1;	/* bootloader/firmware enabled regulator */
- 	unsigned apply_uV:1;	/* apply uV constraint if min == max */
- 	unsigned ramp_disable:1; /* disable ramp delay */
-
--- 
-2.56.0
-
+Konrad
