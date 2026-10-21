@@ -1,61 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792575573;
-	b=SxL3JRh7Zma3U8GaWiSs8NodchWPHZS34su70lrzNmX2T9SJwemRfRqtqoN5VSCXtUwm
-	 jTAdPy1jFJDAoAEoQvZvYnBPTqrfcqNurNIkZWho6/G4y682wWPJ2mxhUqfIngoFikMKx
-	 Vqw5AwR5nqe/NtxBiOioB1zXTDCV/tjJvfoabgiNqm6jyHAbL/axw5K8AleXBiJgqjjw8
-	 cK6GZXIOOjuW3r6McNIneoP/Xe2g26Pjijwa7GF3EZ6xxn+2vlQz62aeXttOs4ELwGfzK
-	 8BBeGomWImKqMWCJpHShUEVYQk5Ps7IqA4sjm9aK8dvlb6WMf9anwunZLUqbYOIXp/g==
+	t=1792575680;
+	b=vUeq7qs04e/JpOUurO9PeZvaYZ2xuAUilqzI2/Z3b5IwaO+9ZseyHmXo4/6PW3cgvaDU
+	 JWSEXxM7dewEf6MtphUpAI7qDknkNnGkp4BLOe4O+P/+oZBxWIf/i3WXpLvP75G+8a61b
+	 Eb7Uw7Lrt13P5FUuehWoNGp4dpLAIZDHjHelnyFLnknZRQY6RezlLe+ZdDbe2/+DORHLC
+	 XM8jT7mj8GTiyeomLsAAii6GCymokbEHfQs3WylqUYMIYP5+XN8HHMYTzerQMdv8syJw+
+	 Nz2hIY+H21Wi06UwuUGcPlLeiEWUS5qN+EKI3VsQmlCn7wX5ZResjkNWXMztNalyVSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792575573;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792575680;
 	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
 	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
 	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=70XoP1PPly+GjGagYXdlQ+dXmkE7+Msm/jKOrxVn7O4=;
-	b=anhQAWFlwYcIu8HfIOpuwjYqC41RUgdpBlHDiiSO/JkzTorA8ubilwD6nxaHtnitdZ4n
-	 EMp8Oki0mn9I+faY0sfu/hi84HJjlOD4NIZeH1gaoY1CMn5/pVK6ZVxPu1DplpcdnAuhM
-	 QUk9c68eiv9gkz85uQ0sr4tQOschhN5pvbez0jR0LpYxttwzixKSqzARK/ddyZA2w2TIH
-	 J5ZIiJRs20XcicEeZcVwfRCOQxQL7Fttc2jPlxkfgQASwm0M/N/fHBDqac9vsHPIxOuQT
-	 wIUcHk4V/fVQ+9Qd5OksDaLa4cUndLorhMxDciv1iNugahLWl9qkGAiQrITifZYRAQA==
+	bh=fyZC70zcs2JyMZN3/MJ99iH36eA3idZcChdR9W7M0ws=;
+	b=0Jp0E3eyEE+jwVSXDIQk7Eop2TqeD16Ns0eWFssyJW5rrT2oRDIpUZeTxqwkfdm2nQ4T
+	 AfHprZrn8PBLpd4GF7HgK4KBMWm6srXWvViKxD0kxErikjTp0i9bTrdBe5CNEYG6w5phb
+	 Y7XnU1LeRe42FCcDQlMBIiKiSRLtYETAByshPjBNAYXxbQlwKrjwaV9Yv5llcCddSUd30
+	 IXmYp5VfcIn1fGTaYQD4p0Hyb0vz97qhSBZFwfwFO1o0f7M8pJgkdlfui8hdvGT6yXU1q
+	 s8hjbSiFl89vmg2OjEZEO/vxJSUbVQaSwGVum3jHVQ9kufO3S+2f+Umxp5rlZb9bjzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dYrMRrXO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U54cVHtg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D9BA606A31D
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 09:39:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ABE2606A320
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 09:41:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dYrMRrXO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92A001F000D1
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 09:39:31 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U54cVHtg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3C171F000CF
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 09:41:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792575571;
-	bh=70XoP1PPly+GjGagYXdlQ+dXmkE7+Msm/jKOrxVn7O4=;
+	s=k20260515; t=1792575679;
+	bh=fyZC70zcs2JyMZN3/MJ99iH36eA3idZcChdR9W7M0ws=;
 	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=dYrMRrXOZVPwE87XkUPFnPIL4zmTNwGQTmXPTW1tGLjj5zzr/JSEZi9/JeI5ucKDS
-	 +3hxNVxIymcCknzQICkVDEGBJyq/CxOzkShV0eu9eH+67dguFCjW0XJMyy9xb25Zgh
-	 8P+8LNu4JL29pzGpphMN8Dl8RxsjFJyYGdv8mylCzqyyfaA7NjutYmOSntu8NTut51
-	 Ak4aQYFHnHrbuXSiK/CRqS7jdeXM2OmB89fB4UpJq4DP7Cdq7uL5gMs1Ycwj3HfcFE
-	 8qulKn4mhHeVYQw7OZxua1Kaa8AsAyNrCnPLpCRIYhhAKUUJoOSjTuDtkf0UkrI3hd
-	 RY/msqjehUlmA==
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3ab3dd9681fso4976811fa.1
-        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 02:39:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx40ipQo1HjMiVztv55i70sBt/kjPVsI76nfn5w/cuZILnwZ1XjLsoiRPzjwu5Cn0DutpzxYv67dbbt@vger.kernel.org
-X-Gm-Message-State: AFq9FYKJNVLcsD2V8aGoa/tYLuY8ywbBtIiIqQNk0MPc82pf/ps+1PBv
-	2GJQ7s89o/ode7SKYDmSU2R8SNUX0MGkWkeueC5wCPufvgbcIYj8K+3maM/UcK3HO5Ag8jGf+hB
-	SX0aLphYhnl9bdnOeT2PgUKsG8fEWPbCJMRRvPeyx7A==
-X-Received: by 2002:a05:651c:1986:b0:3a9:f130:aaa8 with SMTP id
- 38308e7fff4ca-3ac441c09e6mr4586711fa.8.1792575570271; Wed, 21 Oct 2026
- 02:39:30 -0700 (PDT)
+	b=U54cVHtgyaYCzaVg6lv6nnSrhp5kOAx1Sp3i4Xuu2rpNCaq4iSulQKlepPuT3LpHL
+	 HtEHPuzqTixVtSC2VG3nrPnpOykscbOCeGErPz67XWoIuanXQBqgIX7UGZTB4J2VVG
+	 qOiVaxyXC6QjSW1Jb0UaBRqBv8JJvIKAztju2mCujS9lL+aI9MhyuKRph8KKBeoLyP
+	 EmTeFGCwR4y9PHOK8mjYVWY321DVOR/XVirs1V8usDxan04bQ7oH5c0F3TjOr0LFOL
+	 yMqJgoMipMmi07Y7qJGN4cs00QHUnFzS+su2gBp/YMQ8xgtozRzpqpJB7kY9MFyE3J
+	 2tE0IT1ke6koA==
+Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3ab4891fc73so4475001fa.0
+        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 02:41:19 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxA2u/hZ05gLdcNxFvEs7Ql9MMPORLfEubj7C0lj7SSElqblnmyPt9eKrrEgnbNq+v7DM3ow8Vd5Ouc@vger.kernel.org
+X-Gm-Message-State: AFq9FYIEX1WHR4bVf8z52BdeLEySyMB2oTu1uVKndZ1GZzZXBujzIylJ
+	M3/Wej/8hGmTTVm2xJErYO8lmRGCz5CoDn10ssPoHew4d4WHm+lTe0rRyv8kPorFgXk3+YIYxxf
+	EfEQyvSwC+gfFzeMeJX+qghPmhr4H1f46La6U/R6Kzw==
+X-Received: by 2002:a05:6512:6c2:b0:5bc:e661:d673 with SMTP id
+ 2adb3069b0e04-5bfa1d00cb6mr598516e87.56.1792575678483; Wed, 21 Oct 2026
+ 02:41:18 -0700 (PDT)
 Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 21 Oct 2026 10:39:28 +0100
+ HTTPREST; Wed, 21 Oct 2026 05:41:16 -0400
 Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 21 Oct 2026 10:39:28 +0100
+ HTTPREST; Wed, 21 Oct 2026 05:41:16 -0400
 From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20261021022921.2053957-6-shengchao.guo@oss.qualcomm.com>
+In-Reply-To: <20261021073633.2163128-2-shengchao.guo@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,86 +65,29 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021022921.2053957-1-shengchao.guo@oss.qualcomm.com> <20261021022921.2053957-6-shengchao.guo@oss.qualcomm.com>
-Date: Wed, 21 Oct 2026 10:39:28 +0100
-X-Gmail-Original-Message-ID: <CAMRc=Mc=to49PpyCf0Lj=07uuv0CirRcTSYbUHvHyQy0SgKe6g@mail.gmail.com>
-X-Gm-Features: AclHuK8rSP_D9_qUQP4SAxDy4Yr9zguQHwEm5ilA5D5ZiTUzh7Xtkyk4UtmqBsg
-Message-ID: <CAMRc=Mc=to49PpyCf0Lj=07uuv0CirRcTSYbUHvHyQy0SgKe6g@mail.gmail.com>
-Subject: Re: [PATCH RFC v3 5/5] arm64: dts: qcom: nord-ride-embedded: Add
- WCN7850 Bluetooth support
+References: <20261021073633.2163128-1-shengchao.guo@oss.qualcomm.com> <20261021073633.2163128-2-shengchao.guo@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 05:41:16 -0400
+X-Gmail-Original-Message-ID: <CAMRc=Mfth7nH3dkn7__N=o3P0zYvYYp8S58WjwX=zttoSPEusw@mail.gmail.com>
+X-Gm-Features: AclHuK8Sh9-m53G1_uADJjezLlpATsHIz1MTBlYIHav2b9m-Yl5DadTNtdz_ykI
+Message-ID: <CAMRc=Mfth7nH3dkn7__N=o3P0zYvYYp8S58WjwX=zttoSPEusw@mail.gmail.com>
+Subject: Re: [PATCH RFC v2 1/5] soc: qcom: pd-mapper: Add support for Nord
 To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, 
-	Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, Yu Zhang <yu.zhang@oss.qualcomm.com>, 
-	Shuai Zhang <shuai.zhang@oss.qualcomm.com>, devicetree@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Bjorn Andersson <andersson@kernel.org>
+	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>, 
+	Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 21 Oct 2026 04:29:20 +0200, Shawn Guo
+On Wed, 21 Oct 2026 09:36:29 +0200, Shawn Guo
 <shengchao.guo@oss.qualcomm.com> said:
-> From: Shuai Zhang <shuai.zhang@oss.qualcomm.com>
+> From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 >
-> The WCN7850 module on the connectivity adapter card exposes its HCI
-> interface on UART17, and BT_EN is routed to pmau0102_e GPIO9.
+> Add support for the Qualcomm Nord SoC to the protection domain mapper.
 >
-> Hook that GPIO up to the WCN7850 PMU, enable uart17 as serial1, and
-> describe the Bluetooth controller consuming the PMU outputs.
->
-> Signed-off-by: Shuai Zhang <shuai.zhang@oss.qualcomm.com>
+> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 > ---
->  .../boot/dts/qcom/nord-ride-embedded.dts      | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/qcom/nord-ride-embedded.dts b/arch/arm64/boot/dts/qcom/nord-ride-embedded.dts
-> index 916f583b882a..6dc405ed7ef5 100644
-> --- a/arch/arm64/boot/dts/qcom/nord-ride-embedded.dts
-> +++ b/arch/arm64/boot/dts/qcom/nord-ride-embedded.dts
-> @@ -18,6 +18,7 @@ / {
->
->  	aliases {
->  		serial0 = &uart15;
-> +		serial1 = &uart17;
->  	};
->
->  	chosen {
-> @@ -102,6 +103,7 @@ vreg_wcn_core_vh_1p95: regulator-wcn-core-vh-1p95 {
->  	wcn7850-pmu {
->  		compatible = "qcom,wcn7850-pmu";
->
-> +		bt-enable-gpios = <&pmau0102_e_gpios 9 GPIO_ACTIVE_HIGH>;
->  		wlan-enable-gpios = <&pmau0102_e_gpios 10 GPIO_ACTIVE_HIGH>;
->
->  		vdd-supply = <&vreg_wcn_3p3>;
-> @@ -583,6 +585,23 @@ &uart15 {
->  	status = "okay";
->  };
->
-> +&uart17 {
-> +	status = "okay";
-> +
-> +	bluetooth {
-> +		compatible = "qcom,wcn7850-bt";
-> +		max-speed = <3200000>;
-> +
-> +		vddaon-supply = <&vreg_pmu_aon_0p59>;
-> +		vddwlcx-supply = <&vreg_pmu_wlcx_0p8>;
-> +		vddwlmx-supply = <&vreg_pmu_wlmx_0p85>;
-> +		vddrfacmn-supply = <&vreg_pmu_rfa_cmn>;
-> +		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
-> +		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
-> +		vddrfa1p8-supply = <&vreg_pmu_rfa_1p8>;
-> +	};
-> +};
-> +
->  &ufs_mem_hc {
->  	reset-gpios = <&tlmm 181 GPIO_ACTIVE_LOW>;
->
-> --
-> 2.43.0
->
->
 
 Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
