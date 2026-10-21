@@ -1,55 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792595444;
-	b=Tuy03fHYYHHUplUAKsDY4imtS3XKA35gQwKeeqdIu1nWuk0rj6HsrbEebrCvmI+sa0JL
-	 22UtiYAjmIgUgM/IhoR4NHJfe0VfOs7AQlS2fGws/iXWZkj4pUXWtu65jw4uM2nyoiovc
-	 /LGanpSDPiyC68kbs44sAGlrCMyt8Wopp6osOp4zjGorc6hCvqPcj92A5nDXqnimPLVc/
-	 NMcXpGnM2s9p74VP/EkUICU73Oih76X/mKyzEPx7gYI+elOPaIDsjFyAmzXrD5yrL1ff1
-	 qTwqhuUDzgGzhOF+P9SnRcYMfEtrcy6F22+rvDTGEwWC1mB5G7dfm6F+2YXtZ6n+fGQ==
+	b=KxTnOdynbRdm2uUSNzvAo5x5g6g0AmcKF1FSKHxQYHN3rV2Fa+L7TZi684rzSKauqQv5
+	 knEKSoSStfOZXDEqBhsQiD4V+f5+W6R30IKQA/pm+6qlKWFf6Zx7i3EtEpyLmDUaTcQmi
+	 bkHncr3cCSjyyeznkZ2oLkxPuBtrZZadqnouXX4C6yd+n2b/GbySHBXFZRv0zGeB1bJEq
+	 zswm0lxKXYXqXKpZabMbH6lHeTi+3myngiPkSJ08yLE2VxL4QsrT/PEB4hMYk84UL01eJ
+	 ajcQOHL8MAcL5o9cLhBI4Iezxjp/x7rWI+YUramGmjALWhRhXhc1EQXkISGRG7nk25A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792595444;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
-	 From:To:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=BTYct/j+/0Ws2vB8nmOnlmkOgeD8ROKrN+03mIL8ddg=;
-	b=YQqkeq403z5Sy6hpMxQEo3Z7W/FSQn+hBbaOml4DdYSj75CEmxv6rgazwkAAMmHmhtxa
-	 w8kj3puFTWl81zX3WTAK8RMO2Gi2f7wgA6YOep8Mq6L7rDB+e2CVjKpZx3+LWfuNbWuJx
-	 7FJgedWmeWthT0YTicicy8Sk+I6gKCnpDpngYOzedqD9KdIt8d+hOgptZXORF7iqZ/wKw
-	 Hi20rxE+1O6z5VxwgwDGVeppbkFGYawnlWNTCAQ1+TOD4zFkuOENhhUArLQCgAxKsiUct
-	 iZieoCZK+E0lOMNgeuv29tv3i6JGJux+jS1IMWlYSd4JzBbpxeTbBf6lPwfNoCkhiuQ==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=W8mbMH/zd4LfA7Gj7RbbT0d7KvJilvfrispWtDi6taQ=;
+	b=ytVzEAkYF14ePdfaeMaISM9NO25Hnyx6Qo2LjVquwFjhP/9JMr1xwZ4GXbzhvpRrV7Cs
+	 YntOGRKO8w0CMF4izb/2yPvYDAkb3kq++sM+0Qx+TKK2WufA3/Y4zujwKnZ3KI6+Mfb1+
+	 S0PYK8FjeBIk0mAeqw7WY5W1jECnBMsE/fCL8ZNff4/EYOq8+oVOgdgo8SmyjB0e32Duq
+	 kEFvE+veIHNN/qlmSe0pjYxUv8+RjdTui7VTif9fRknmcmpb+jL/cuO0rkpETpLFtZkex
+	 L0NDOOdkrAwf444yRArc6Cjxd3UJeIW/owKYflZb1d3AUiV8WitU34tcCVdx0pJAiRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=1Qlqo6td;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b="jwTMR9D/";
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AE26606A31A
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 15:10:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AE26606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 188FE606A31E
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 15:10:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 188FE606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=1Qlqo6td
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 6D315C5CD75;
-	Wed, 21 Oct 2026 15:11:38 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 5D66B606E3;
-	Wed, 21 Oct 2026 15:10:39 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E4160103289F5;
-	Wed, 21 Oct 2026 17:10:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792595438; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=BTYct/j+/0Ws2vB8nmOnlmkOgeD8ROKrN+03mIL8ddg=;
-	b=1Qlqo6tdu8dw4HrT03d82q5HI1fdF44euAvzAvFEb57G2CKAUMkoJJ56KqZUvB11bbvw4w
-	xSpUKuTP3KuZOCikwRMDRShBZKzpZQfs8VFJXjNiiktJRnfI8z3HAMzRNKJkkNA1wisTO3
-	HuxrceQzSe3qilC1MvNRKnsBiBjD/yA92S8eWqSQ9g0Zl6ID8L0G+SZpzQnpsxcX3AMsR5
-	Khp9cog4vqfOQSHYP5WZSRDPISa0IB2mb3v5lRl4HyO8zRbECRpbQS6qlNLiKCmjPRsaZX
-	LjEhRHOO4zyuW0hY3VIP71wzqnOvhUrutsdzW71OuiduJMFHnvfGNzPbG8gpXA==
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=jwTMR9D/
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48afcd7ba9bso612454f8f.3
+        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 08:10:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1792595442; x=1793200242; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=W8mbMH/zd4LfA7Gj7RbbT0d7KvJilvfrispWtDi6taQ=;
+        b=jwTMR9D/gfasU3/o9bndwoGOsikOYd3KZcNt6YADXeFTnchLV78PDoLv4SYJX5BFBS
+         Eyj/6G8mH/ehvkBe4+u+i6t3hOBWF/Gk0ulUTgVFTElVCxTQHSRoL3dJmUds5/ydNZvd
+         HY/O5dHYG7C/mU1JtvWd9xt0qf1j4O52JM0M524yVle+uGYziWoz3TSSRHxFfmvTfib7
+         7KrCKvDsq+XRqXoNXUMwa8nPzyXizBSazY7dcvkJ3DIJjlsTGSX+wJK4j3+TQlhptZPr
+         PAYDXMR2Pe79rIPp0irRoaTfbkppt9XE01kSTtpMGfWYBZ5D/PT9j0jS87p5DWdigitm
+         kWAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792595442; x=1793200242;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=W8mbMH/zd4LfA7Gj7RbbT0d7KvJilvfrispWtDi6taQ=;
+        b=DGxQryY3dJqY7tuHoNRHYyHSsU4lFtZufvEPE7hFRnNneKzrdoqzvJeP+XcO0BEGh0
+         lsWV2rh1DdUXJqnzu471JdX10QZi1qjWKSzubRIje3zWbF8f9xa3g+fKC/Nh4JAsmheX
+         Gj+oifnKWTBUSXDniCy8oFZZXgmufpopx8kuGsnVpow7WdJ9c/OKxkteqG4+2CZzmIik
+         3Rr1YKd7qpPNkP4NaFVqHycAmgca4wHQlwfUeOl4jDQnBfdk5rewShOS22aAPKo2srcr
+         ZKbEe47C5I5FDEiH/Y6/JmC7Rztw4GBA39JF924NeDdP8J9A1SWfMIhmGAfk+slGgNm2
+         uFsw==
+X-Forwarded-Encrypted: i=1; AKwUvBxjyQoN3/tt+FJkp0Y0dGlTTO/cwIqnGaoctMidj/DQBH/8rPcm4LKgBlh2apJg2b4nwqPMDW/GsyiV@vger.kernel.org
+X-Gm-Message-State: AFq9FYLlgTgLu6tT08NjyJpDuwOy9PGJex2PA0woIF5eVow/rTuGCopG
+	+rh2Bj6SZiEhyP2wJsRMzGRIGjh3eImq6XydBpg9CfNCn6AhO7A9oLJZY7PVzTdBwic=
+X-Gm-Gg: AYBFou1xgfxS5HaCSjlU6aexVZeZYJgINYdrUgs5H8nC+uAl3uNnwkXYifYiuuJmYBc
+	tgiD51Lnn5oeUrw+Ho5aI1/ArlcArnDF0+KUsOA1Z4oTfTYzqYkIX0llacBO1sRuV1AsbNTOLsd
+	iKurfoD1ZdcmJAtcsswLe91KLeEA3zp/YKp3SyoYRtvzV+jnGHXoT+NoZqQnZJc/K5jHDMKd/Oz
+	RAThFiyQqhOnqMs3mUYLXDTajxLuFrbz797F0aaH94spoSDVhoqCSFpUCCFMpvLqJ/+pS233Lpm
+	gaoKos4xqcbYLIPvS4Ra31M537TafLWO6A3haUt+eAGcGEFg7pVRHxaozaaBg6sCSiFl8SS/CZe
+	EEPM7piPE6nZC8WOCD2Aq7H5BylA84+KRe8c3uw1blnK7aZxJF2DUb8322EKpciQl6CkLHAoWIN
+	uIS9D6s5VxOQExoTmM8LqNkmI4CxRzYYGez5O1eKl4LW/znFtB9xBRBwo7HuqyVn8OHBAiZ4HXq
+	RDpbs8tpshbFx58LF3HK5Kaw3Ia6ukGXnDGT22K7mZYA9Nx4tT0Ytem+e5CEQnGbzW8pt1waUBG
+	XgRhmNKSkt0w2FeUWxhRqqZax90thWhZmGS/5GMieQdhNmTG8Vv7MpIcPSYjACTb
+X-Received: by 2002:a05:600c:3d92:b0:4a1:dbb7:bb44 with SMTP id 5b1f17b1804b1-4a1fdb1d84fmr50055655e9.5.1792595442409;
+        Wed, 21 Oct 2026 08:10:42 -0700 (PDT)
+Received: from localhost (p200300f65f19a904634661a51962f5e0.dip0.t-ipconnect.de. [2003:f6:5f19:a904:6346:61a5:1962:f5e0])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a1fc0b42bdsm58202855e9.0.2026.10.21.08.10.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 08:10:41 -0700 (PDT)
+Date: Wed, 21 Oct 2026 17:10:40 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Paul Louvel <paul.louvel@bootlin.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Herve Codina <herve.codina@bootlin.com>, 
+	Miquel Raynal <miquel.raynal@bootlin.com>
+Subject: Re: [PATCH 5/5] regulator: Add TI LM51772 support
+Message-ID: <atjVWgpbnejKtblE@monoceros>
+References: <20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com>
+ <20261021-paul-lm51772-v1-5-25f0ffbffa8d@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,216 +99,65 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 21 Oct 2026 17:10:36 +0200
-Message-Id: <DMAM1QYR425F.19L40ES6Y3N8D@bootlin.com>
-Cc: <devicetree@vger.kernel.org>, <robh@kernel.org>, <conor+dt@kernel.org>
-Subject: Re: [PATCH 4/5] regulator: Support regulators where the voltage
- selector spans two registers
-From: "Paul Louvel" <paul.louvel@bootlin.com>
-To: <sashiko-reviews@lists.linux.dev>, "Paul Louvel"
- <paul.louvel@bootlin.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com>
- <20261021-paul-lm51772-v1-4-25f0ffbffa8d@bootlin.com>
- <sashiko-outbox-180118@kernel.org>
-In-Reply-To: <sashiko-outbox-180118@kernel.org>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5zdcowfgw4xunjqo"
+Content-Disposition: inline
+In-Reply-To: <20261021-paul-lm51772-v1-5-25f0ffbffa8d@bootlin.com>
 
-On Wed Oct 21, 2026 at 12:45 PM CEST, sashiko-bot wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [High] regulator: set_oversize_voltage_sel() clobbers bits outside vsel=
-_mask
-> --
->
-> commit 39998b76249529ca1e99e255be8cd5416b46d9ce
-> Author: Paul Louvel <paul.louvel@bootlin.com>
->
-> regulator: Support regulators where the voltage selector spans two regist=
-ers
->
-> This commit adds the vsel_reg_oversize flag to struct regulator_desc to
-> support regulators whose voltage selector spans two consecutive 8-bit
-> registers in little-endian order. It updates the regmap voltage selector
-> helpers to read and write the two-register selector using regmap bulk
-> operations.
->
->> diff --git a/drivers/regulator/helpers.c b/drivers/regulator/helpers.c
->> index 0def82eb8b46a..1221128dde988 100644
->> --- a/drivers/regulator/helpers.c
->> +++ b/drivers/regulator/helpers.c
->> @@ -118,6 +118,37 @@ static int regulator_range_selector_to_index(struct=
- regulator_dev *rdev,
->>  	return -EINVAL;
->>  }
->> =20
->> +static int get_voltage_sel_reg(struct regulator_dev *rdev, unsigned int=
- *sel)
->> +{
->> +	int ret, val_bytes;
->> +	unsigned int val;
->> +	__le16 buf;
->> +
->> +	if (rdev->desc->vsel_reg_oversize) {
->> +		val_bytes =3D regmap_get_val_bytes(rdev->regmap);
->> +
->> +		if (val_bytes !=3D 1)
->> +			return -EINVAL;
->> +
->> +		ret =3D regmap_bulk_read(rdev->regmap, rdev->desc->vsel_reg, &buf, 2)=
-;
->> +		if (ret !=3D 0)
->> +			return ret;
->> +
->> +		val =3D le16_to_cpu(buf);
->> +	} else {
->> +		ret =3D regmap_read(rdev->regmap, rdev->desc->vsel_reg, &val);
->> +		if (ret !=3D 0)
->> +			return ret;
->> +	}
->> +
->> +	val &=3D rdev->desc->vsel_mask;
->> +	val >>=3D ffs(rdev->desc->vsel_mask) - 1;
->> +
->> +	*sel =3D val;
->> +
->> +	return 0;
->> +}
->
-> [ ... ]
->
->> @@ -161,6 +189,19 @@ int regulator_get_voltage_sel_pickable_regmap(struc=
-t regulator_dev *rdev)
->>  }
->>  EXPORT_SYMBOL_GPL(regulator_get_voltage_sel_pickable_regmap);
->> =20
->> +static int set_oversize_voltage_sel(struct regulator_dev *rdev, unsigne=
-d int sel)
->> +{
->> +	int val_bytes =3D regmap_get_val_bytes(rdev->regmap);
->> +	__le16 val;
->> +
->> +	if (val_bytes !=3D 1)
->> +		return -EINVAL;
->> +
->> +	val =3D cpu_to_le16(sel);
->> +
->> +	return regmap_bulk_write(rdev->regmap, rdev->desc->vsel_reg, &val, 2);
->> +}
->> +
->>  static int write_separate_vsel_and_range(struct regulator_dev *rdev,
->>  					 unsigned int sel, unsigned int range)
->>  {
->> @@ -173,15 +214,17 @@ static int write_separate_vsel_and_range(struct re=
-gulator_dev *rdev,
->>  	if (ret)
->>  		return ret;
->> =20
->> +	if (rdev->desc->vsel_reg_oversize)
->> +		return set_oversize_voltage_sel(rdev, sel);
->
-> [Severity: High]
-> When rdev->desc->vsel_reg_oversize is enabled and rdev->desc->vsel_mask d=
-oes
-> not span all 16 bits of the two 8-bit registers, will
-> set_oversize_voltage_sel() clobber the bits outside vsel_mask in vsel_reg=
- and
-> vsel_reg + 1?
->
-> In get_voltage_sel_reg(), the 16-bit value read across the two registers =
-is
-> masked and shifted with rdev->desc->vsel_mask, and callers such as
-> regulator_set_voltage_sel_regmap() shift sel into position before calling
-> set_oversize_voltage_sel():
->
-> drivers/regulator/helpers.c:regulator_set_voltage_sel_regmap() {
-> 	sel <<=3D ffs(rdev->desc->vsel_mask) - 1;
->
-> 	if (rdev->desc->vsel_reg_oversize)
-> 		ret =3D set_oversize_voltage_sel(rdev, sel);
-> 	else
-> 		ret =3D regmap_update_bits(rdev->regmap, rdev->desc->vsel_reg,
-> 					 rdev->desc->vsel_mask, sel);
-> }
->
-> Unlike the regmap_update_bits() path, set_oversize_voltage_sel() writes t=
-he
-> 16-bit value directly with regmap_bulk_write() without reading the curren=
-t
-> register values and preserving bits outside rdev->desc->vsel_mask, which =
-will
-> overwrite any other control or reserved bits in those two registers with
-> zeroes.
 
-It is true that I could instead use two regmap_update_bits() calls to updat=
-e the
-two registers separately, respecting the vsel_mask and maybe avoiding writi=
-ng
-zeroes into reserved bits. For the LM51772, writing to unimplemented bits h=
-as no
-effect.
+--5zdcowfgw4xunjqo
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH 5/5] regulator: Add TI LM51772 support
+MIME-Version: 1.0
 
->
-> In addition, how does vsel_reg_oversize interact with
-> regulator_set_voltage_sel_pickable_regmap()?
->
-> If vsel_range_reg is vsel_reg + 1 (sharing the second register with the u=
-pper
-> bits of the voltage selector), write_separate_vsel_and_range() first upda=
-tes
-> vsel_range_reg via regmap_update_bits_base() and then calls
-> set_oversize_voltage_sel(), which bulk-writes two bytes starting at vsel_=
-reg
-> and overwrites the range bits just written to vsel_reg + 1.
->
-> Furthermore, if vsel_range_reg equals vsel_reg in
-> regulator_set_voltage_sel_pickable_regmap():
->
-> drivers/regulator/helpers.c:regulator_set_voltage_sel_pickable_regmap() {
->     ...
-> 	if (rdev->desc->vsel_reg =3D=3D rdev->desc->vsel_range_reg)
-> 		ret =3D regmap_update_bits(rdev->regmap, rdev->desc->vsel_reg,
-> 					 rdev->desc->vsel_range_mask |
-> 					 rdev->desc->vsel_mask, sel | range);
-> 	else
-> 		ret =3D write_separate_vsel_and_range(rdev, sel, range);
->     ...
-> }
->
-> won't this take the single-register regmap_update_bits() branch and drop =
-the
-> upper byte of the oversized selector?
+On Wed, Oct 21, 2026 at 12:27:46PM +0200, Paul Louvel wrote:
+> +#include <linux/i2c.h>
+> [...]
+> +#include <linux/mod_devicetable.h>
 
-For the moment, there is no such device that has vsel_reg_oversize set and
-vsel_range_reg equal to vsel_reg. I don't think that case is worth consider=
-ing
-right now.
+<linux/i2c.h> already provides both of_device_id and i2c_device_id.
+<linux/mod_devicetable.h> provides a plethora of more device_id structs
+and thus implies a lot more build dependencies. So please drop the
+latter.
 
->
->>[!NOTE]
->>Please reply to this email with feedback:
->>* Did I find a real bug? If not, what did I get wrong?
->>* Did I miss a bug on the lines I commented on?
->
-> =E3=81=8A=E4=BC=9D=E3=81=88=E3=81=97=E3=81=9F=E3=81=84=E3=81=93=E3=81=A8=
-=E3=81=AF=E4=BB=A5=E4=B8=8A=E3=81=A7=E3=81=99=E3=80=82
-> =E3=81=8A=E4=BC=9D=E3=81=88=E3=81=97=E3=81=9F=E5=86=85=E5=AE=B9=E3=81=AE=
-=E6=9C=80=E5=BE=8C=E3=81=AB=E3=81=AF=E7=A9=BA=E8=A1=8C=E3=82=92=E5=85=A5=E3=
-=82=8C=E3=81=A6=E3=81=84=E3=81=BE=E3=81=99=E3=80=82 Wait - I accidentally a=
-dded Japanese at the end! Let me check why that happened - no! I cannot out=
-put that! Let me be careful.
-> Wait: I already output the response token! Let me check if I can avoid th=
-at. No, I haven't ended the turn yet, wait - that was in the response strea=
-m!
-> Let me stop immediately.
+> +static const struct i2c_device_id lm51772_id[] = {
+> +	{ "lm51772" },
 
-What did I do to make Sashiko speak Japanese?! :)
+Please use a named initializer.
 
---=20
-Paul Louvel, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(i2c, lm51772_id);
+> +
+> +static struct i2c_driver lm51772_driver = {
+> +	.driver = {
+> +		.name = "lm51772",
+> +		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
+> +		.of_match_table = lm51772_of_match,
+> +	},
+> +	.probe = lm51772_probe,
+> +	.id_table = lm51772_id
 
+missing trailing comma
+
+Best regards
+Uwe
+
+--5zdcowfgw4xunjqo
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrY1ewACgkQj4D7WH0S
+/k4kQQf/amz6cRsSwMfisVWMIoPvzfkvufe/wPOqr7qIAWWvAEtFhzMZsmkejVae
+c9Q7/m+QGilqgpy6KS56ACE7J3TmBXUw5fMHjO5qhGj+8h8iMpA2RutXI1300yaQ
+oyLuHPmmiz1x3lXxR+otWDhP3/3L/F9ZWR5w3cLvqByO7OW6csRVpGWAK6UfTwpk
+XD1bMjsrYEgzyxgN+TL9DiF9ev/+UAWeJ/16y/dQnIbhcn0464hHA21F19xPn7v2
+rFnOwgYj4rkW993Vdjn28rkprvLYa1/QQPln2ZbOlhCzWuimfccuL7xJPzm2riL8
+i1ZX4Ou1mnRCuDoHqBSXeHwhtTRBlA==
+=Omu0
+-----END PGP SIGNATURE-----
+
+--5zdcowfgw4xunjqo--
