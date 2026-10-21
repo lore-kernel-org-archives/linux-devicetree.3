@@ -1,102 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.224
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792573947;
-	b=vQWTT77sd0hMrn4sFkPfMKhM2RFKwqpgZ0Q3dPn5ZGO2FZlm86Tv0TudJUsdDmLA0uK0
-	 h9fjn1Bf/LDF8CXOna5dRo3CJaH32FsyZQ2koNBEdUVOKgDLx3DnkSZj92Tu/5rTR4ekY
-	 h3rAdoZYHXINOf6F/IIkJPGvV/iLnmGpCiXE6BR5KteBIEiPuBUE/NF2izW94ZmjGfo5s
-	 N6U44Z/sF/ru8wiWBMA9yjOEfB2W15mPuiEqVYNcrFbPXHutmw/AttDKrVavtFfhsUFhW
-	 X+992ofWFqAwRFC7s4VTMeZIjI2JbmJMZdgcHHEux63kVSNDKUUhxVup9Pcg0U+HpJQ==
+	t=1792573995;
+	b=LvnBz7n/HhMFAkzbkV/Z42VWm/HgatL/go/xrJQWluHtrJOf7yofWUHABKy/bmoYAG8z
+	 BpOYFiGhcUYHCISTwtJYjZzxL0f8137NN1cAYy0X35TuH4uBgDhzI30h8b/gGlF9nb9lA
+	 AkMIbdvxyHXuiNRQ8OM1l1GtH4n/0wmb+ql2i9xylI/pw7bx8d6ZQAVkt46ZUDO1tAFX2
+	 N5iFNqUkXll0s0IBijVeHEw08W3C7FdHuGqZj0vZzbGWyOHvddI9yY6/SlSeSFGqj1jll
+	 xPmVq8nKGB1B0mCc4anSWaHjZQQxtD1PwBU/x6IKauxyhTf6NbV9v5g8Y/e9mASfW/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792573947;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=q5o4c9Se3qqfB0CkHzs+jJJ9WgHiDHng2N6iX71Z4eM=;
-	b=uaHXc/jUCuZoK38w/m3pcmkKF9hhAkyeZeGF6Oojr9KJUbbM9JxCkXGdSDQV8cKoO002
-	 oJ8mf++8uRPZz1rXg7Pqs3ZIB2qQqGxc9en85jtIdWA4o8CHg5TvFq1VdIhnGn/3vxsl1
-	 G88NMCGNYxDnDTGIgv3fdAf8pYVt69p0TbHHVympfezZYchU1eC15L7QfKaCOWGBB5UMu
-	 OqNNjmXAhYgk1BtN+R8azsYQfKCxpxDYSHCC8gS00+eyAN0Hc9Or1wYcVoiMvLuikUp+i
-	 KpKtR14tBdPB72PlFvfk2T28QllBGIdyDhwXazyCjaYafnSS4hRQcSx9ipuY3a58KLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792573995;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=nzADmYKv4GpvdMxYyHHtqrTYHk3osWUIWqWnEfBwJ1o=;
+	b=CvbdU4WgtiKUhIdo8oPGzkazoeA6FoeqnPj8CYzSUvDUbv0F7o46QWh6t5kB/7aeQsSl
+	 7UIo/NhOD9NCWPoFKJU9mrdqkdDCOG1qs/IM0yg1QSruaOD8IRY3C3A1iy0w644IGZeDY
+	 abibdoyvbAc9CHwDA0dImWmZc6WcU8zw8+Q3ydOgKABwBjIGnJaaKEVZuFdgQa3QN9Sqo
+	 dE7DYe0lmn/kwVH0Wc3qtr9iGsduWsfH5qqkDfvc+18eTgJzcWgHXVf2N9vt0oqON/o9l
+	 kZ0MRuIL98Das3X9j0lafBiiIaaAaB2wNvgtpiTawgiykTPjE67tUSAk4gnkHG0/Q0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZsUeF8C7;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=qy05oNmy;
+	arc=none smtp.remote-ip=113.46.200.224
+Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43376606A319;
-	Wed, 21 Oct 2026 09:12:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43376606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 875F2606A31A;
+	Wed, 21 Oct 2026 09:13:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 875F2606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZsUeF8C7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792573947; x=1824109947;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=smbmGXOgf53sUhVEG5nOCbt/F7K1bGkWUk3QHVbfxqM=;
-  b=ZsUeF8C7j17c55lCl8Kmi9Psgdg02yx3YrXxX1oDTne8InTbVSZw/ZN/
-   nchTLGzdAOTYNyQnrt/JqBk5AEkBQDLTflgrdGilqpspxhVZlRgotNIcN
-   OMprz7i5cbB5a7G5HNZGJ8FcLRRjBSAAniq8SZd6iGBKchhfOEbHbWjDg
-   bKbJKUOuQ/rnfqv7ydbyh0QmYedTUlSwsXCa+x5CrxnGYhofkCEtrjRaA
-   wqKdXeyNxRHgXVmkay/peTYs8TSf2ktDwKhAYLyz6kMw/KRMR1RedQHbc
-   jWiL3XvpPIxK8jwwc7HQnsgI3cNYBPOPfB+rF1CWmbInnnWMhfFIn2CUy
-   g==;
-X-CSE-ConnectionGUID: TpFyxcXUTwm2H/49uhkJLQ==
-X-CSE-MsgGUID: m6QN9GLaQKSXm7kglyQKLQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1286661"
-X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="1286661"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 02:12:26 -0700
-X-CSE-ConnectionGUID: zBKMWarpT7ayhJrrRQriow==
-X-CSE-MsgGUID: 1W7CIl06TNCcqn7kFEwRNQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="3059375"
-Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 02:12:18 -0700
-Date: Wed, 21 Oct 2026 12:12:15 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Inochi Amaoto <inochiama@gmail.com>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Frank Li <Frank.Li@nxp.com>, Arnd Bergmann <arnd@arndb.de>,
-	Niklas Cassel <cassel@kernel.org>,
-	Christian Bruel <christian.bruel@foss.st.com>,
-	Senchuan Zhang <zhangsenchuan@eswincomputing.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Randolph Lin <randolph@andestech.com>,
-	Xincheng Zhang <zhangxincheng@ultrarisc.com>,
-	Alex Elder <elder@riscstar.com>,
-	Siddharth Vadapalli <s-vadapalli@ti.com>,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Vidya Sagar <vidyas@nvidia.com>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
-	linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev, Yixun Lan <dlan@gentoo.org>,
-	Longbin Li <looong.bin@gmail.com>
-Subject: Re: [PATCH v7 1/6] PCI: spacemit-k1: Add device data support
-Message-ID: <atiB7-u5bxJbf-1q@ashevche-desk.local>
-References: <20260929083755.458238-2-inochiama@gmail.com>
- <20261019164108.GA2177470@bhelgaas>
- <athuYJjPMkrecGm3@inochi.infowork>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=qy05oNmy
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=nzADmYKv4GpvdMxYyHHtqrTYHk3osWUIWqWnEfBwJ1o=;
+	b=qy05oNmy3wvcAipAQKL4DCStOriRWTyczBtLbfPzPytLSmCWdRpIYENADIsJu88KlAJj0hmjc
+	e1p5428X8KTeWUYB9Vrw2GOPKCj13drNhfpLlgpoC2Z/ybSXrCDzqgJdySA25ihc7Us9rMXLO2x
+	ua/h/PISSyjS5+zO8Dkln2g=
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4j8jvf2rLvz1cySH;
+	Wed, 21 Oct 2026 17:01:50 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 1B4A840563;
+	Wed, 21 Oct 2026 17:13:10 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 21 Oct
+ 2026 17:13:08 +0800
+Message-ID: <12e4e687-1ff0-41b2-bdf8-7f48b29e1f2f@huawei.com>
+Date: Wed, 21 Oct 2026 17:13:07 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,41 +62,156 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <athuYJjPMkrecGm3@inochi.infowork>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 3/8] crash_core: serialize crash header preparation
+ against hotplug
+To: Wandun Chen <chenwandun1@gmail.com>, <robh@kernel.org>,
+	<baoquan.he@linux.dev>, <rppt@kernel.org>, <m.szyprowski@samsung.com>
+CC: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
+	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <pjw@kernel.org>,
+	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
+	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
+	<dave.hansen@linux.intel.com>, <x86@kernel.org>, <hpa@zytor.com>,
+	<saravanak@kernel.org>, <akpm@linux-foundation.org>,
+	<pasha.tatashin@soleen.com>, <pratyush@kernel.org>, <ruirui.yang@linux.dev>,
+	<robin.murphy@arm.com>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <loongarch@lists.linux.dev>,
+	<linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
+	<kexec@lists.infradead.org>, <linux-mm@kvack.org>, <iommu@lists.linux.dev>
+References: <20261021083011.2170525-1-chenwandun1@gmail.com>
+ <20261021083011.2170525-4-chenwandun1@gmail.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20261021083011.2170525-4-chenwandun1@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On Wed, Oct 21, 2026 at 03:51:20PM +0800, Inochi Amaoto wrote:
-> On Mon, Oct 19, 2026 at 11:41:08AM -0500, Bjorn Helgaas wrote:
-> > On Tue, Sep 29, 2026 at 04:37:47PM +0800, Inochi Amaoto wrote:
 
-...
 
-> > > +struct k1_pcie_device_data {
-> > > +	const struct dw_pcie_host_ops *host_ops;
-> > > +	const struct dw_pcie_ops *ops;
-> > > +	int (*parse_port)(struct k1_pcie *k1);
-> > > +};
-> > 
-> > Does the "const" here add anything useful?  This patch suggests maybe
-> > not:
-> > 
-> >   https://lore.kernel.org/all/20260911233541.1650895-2-james.quinlan@broadcom.com/
+在 2026/10/21 16:30, Wandun Chen 写道:
+> From: Wandun Chen <chenwandun@lixiang.com>
 > 
-> I am not sure whether the compiler can make use it.
-> And I have not seen any explaination for why no reason
-> for that. It is good to have a clarification.
+> crash_prepare_headers() counts memory ranges before populating the
+> allocated crash_mem array. The weak implementation used by ARM64,
+> RISC-V and LoongArch walks memblock.memory, while x86 performs the same
+> two-pass operation over system RAM resources. Concurrent memory hotplug
+> can change range source between the two walks and make the populate
+> pass overflow cmem->ranges.
+> 
+> Take device_hotplug_lock when preparing crash headers during
+> kexec_file_load(). The x86/riscv memory hotplug path already takes
+> device_hotplug_lock, so call __crash_prepare_headers() directly
+> to avoid recursive locking.
+> 
+> Sashiko reported this issue in [1].
+> 
+> Fixes: 3751e728cef2 ("arm64: kexec_file: add crash dump support")
+> Fixes: 1bcca8620a91 ("LoongArch: Add crash dump support for kexec_file")
+> Fixes: 8acea455fafa ("RISC-V: Support for kexec_file on panic")
+> Fixes: dd5f726076cc ("kexec: support for kexec on panic using new system call")
+> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
+> Link: https://sashiko.dev/#/message/20260806101002.1F84E1F000E9@smtp.kernel.org [1]
+> Acked-by: Baoquan He <baoquan.he@linux.dev>
+> ---
+>  arch/riscv/kernel/crash.c  |  2 +-
+>  arch/x86/kernel/crash.c    |  2 +-
+>  include/linux/crash_core.h |  2 ++
+>  kernel/crash_core.c        | 17 +++++++++++++++--
+>  4 files changed, 19 insertions(+), 4 deletions(-)
+> 
+> diff --git a/arch/riscv/kernel/crash.c b/arch/riscv/kernel/crash.c
+> index fe5a4b306aae..ac8df2edf2a7 100644
+> --- a/arch/riscv/kernel/crash.c
+> +++ b/arch/riscv/kernel/crash.c
+> @@ -70,7 +70,7 @@ void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
+>  	 * Create the new elfcorehdr reflecting the changes to CPU and/or
+>  	 * memory resources.
+>  	 */
+> -	if (crash_prepare_headers(true, &elfbuf, &elfsz, NULL)) {
+> +	if (__crash_prepare_headers(true, &elfbuf, &elfsz, NULL)) {
+>  		pr_err("unable to create new elfcorehdr");
+>  		goto out;
+>  	}
+> diff --git a/arch/x86/kernel/crash.c b/arch/x86/kernel/crash.c
+> index e6f23933a6df..bef008a0cb22 100644
+> --- a/arch/x86/kernel/crash.c
+> +++ b/arch/x86/kernel/crash.c
+> @@ -465,7 +465,7 @@ void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
+>  	 * Create the new elfcorehdr reflecting the changes to CPU and/or
+>  	 * memory resources.
+>  	 */
+> -	if (crash_prepare_headers(IS_ENABLED(CONFIG_X86_64), &elfbuf, &elfsz, NULL)) {
+> +	if (__crash_prepare_headers(IS_ENABLED(CONFIG_X86_64), &elfbuf, &elfsz, NULL)) {
+>  		pr_err("unable to create new elfcorehdr");
+>  		goto out;
+>  	}
+> diff --git a/include/linux/crash_core.h b/include/linux/crash_core.h
+> index bc087124cd78..28e7a81cf263 100644
+> --- a/include/linux/crash_core.h
+> +++ b/include/linux/crash_core.h
+> @@ -61,6 +61,8 @@ extern int crash_prepare_elf64_headers(struct crash_mem *mem, int need_kernel_ma
+>  				       void **addr, unsigned long *sz);
+>  extern int crash_prepare_headers(int need_kernel_map, void **addr,
+>  				 unsigned long *sz, unsigned long *nr_mem_ranges);
+> +int __crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
+> +			    unsigned long *nr_mem_ranges);
+>  extern int crash_exclude_core_ranges(struct crash_mem **cmem);
+>  
+>  struct kimage;
+> diff --git a/kernel/crash_core.c b/kernel/crash_core.c
+> index faa0f22dbb41..8a861a946e26 100644
+> --- a/kernel/crash_core.c
+> +++ b/kernel/crash_core.c
+> @@ -16,6 +16,7 @@
+>  #include <linux/mm.h>
+>  #include <linux/cpuhotplug.h>
+>  #include <linux/memblock.h>
+> +#include <linux/device.h>
+>  #include <linux/kmemleak.h>
+>  #include <linux/crash_core.h>
+>  #include <linux/reboot.h>
+> @@ -344,8 +345,8 @@ int crash_exclude_core_ranges(struct crash_mem **cmem)
+>  	return 0;
+>  }
+>  
+> -int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
+> -			  unsigned long *nr_mem_ranges)
+> +int __crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
+> +			    unsigned long *nr_mem_ranges)
+>  {
+>  	unsigned int max_nr_ranges;
+>  	struct crash_mem *cmem;
+> @@ -382,6 +383,18 @@ int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
+>  	return ret;
+>  }
+>  
+> +int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
+> +			  unsigned long *nr_mem_ranges)
+> +{
+> +	int ret;
+> +
+> +	lock_device_hotplug();
+> +	ret = __crash_prepare_headers(need_kernel_map, addr, sz, nr_mem_ranges);
+> +	unlock_device_hotplug();
 
-These const make no sense. First of all, the third one is missing it.
-And I have no idea what would be the proper syntax to add a such. But
-adding a such make it clear that there no sense to have them. Either
-you make the const the whole data type instance on the user level or
-don't do it at all.
+I think this patch conflicts with my changes and would also conflict
+with the implementation of arm64 crash hotplug.
+
+https://lore.kernel.org/all/20260921090450.807575-15-ruanjinjie@huawei.com/
+
+arm64 crash hotplug:
+https://lore.kernel.org/all/20260918100442.3841135-18-ruanjinjie@huawei.com/
+
+> +
+> +	return ret;
+> +}
+> +
+>  /**
+>   * crash_exclude_mem_range - exclude a mem range for existing ranges
+>   * @mem: mem->range contains an array of ranges sorted in ascending order
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+Best regards,
+Jinjie
 
