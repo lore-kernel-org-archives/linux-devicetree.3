@@ -1,111 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792569140;
-	b=AhkH4CWlu+ncdEGPKYUxjjiyuxZ30kG//UGbz512DuQi+0t6lqnbLrq6niHmrSjEv1j3
-	 mdRv0Th5xE+nFxH02evdrOVv23vlDS/kbnG6skbw5Gyjiw2wS7AV9WUSMmpXIrIvtSsww
-	 8CogHIxD6mDUVqYbwpm5id78APGa54rFK4MlU0FYJc3vqTtJf+FhufbwmkdzaojO/BkWI
-	 MEymOah2doZOBzQPN4QlDpdxE4pTvuQIUzbOUaS4ta3tRDmJl+wGjMhX++3DuZ6P7k1MP
-	 WcVOD6rVqt9zLaHRaR2eCYzQN2QBi2M+L/7c4R04LP9wlu5QlXvDODsaxYgBWmbTgkw==
+	t=1792569189;
+	b=nCSuE6WMrAt7uz+L8PdxpbHVp0ayjGL6KZ4M7qif3DSNx8LcaR+v8zf1oHqP/JDB0Tg8
+	 EY+8D1UIUB5ibikviHtZPOycnNcc0C8+l/6gjU7DT5rgbjQneD6gGtr7AESS50wu5dusk
+	 5TH7eGBzyGGSoHJmiR99n1jVpbM8Kh1d7bX9Ze3cyCIwNTbxRd2TJK3fd2PovuD7KUN8W
+	 yWop9Yr5VjYhA1co+1NgmYAPl0oWoKt0LekiImJCCg0rxE8GN6U0be5dG69mpgzm16tPZ
+	 MufscsE8I8Y+jMKB8HoG+vS91EQQy75qU3fJGGO/Zf90eRKdJyOQ2PjGbihi4F2oRrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792569140;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=uGEbX7ewHLXjKOrnEAwIQ5NuoQ6GYnuPMjFfMhRkmzY=;
-	b=Qh2Ov5HLjvoVGIW/axB3Sy5qoPghGIIBF7fw+cc/FIyRE8DqSxzqOhjsttbOYpAI9LmD
-	 0XPRegwMSwCON2P9o59qRMOxFCxuZEmERcFWOJE1L0nBnGF9DHUzynV/OZS5xdSMmMPs0
-	 laV3UEj08DLhnt2qmfx0XUDm4D72AWNDS0cTjuMrq+3QqKg8DiCEAk8ZGKqt8zJnOagar
-	 RokgoUZZmAAiGabAF53eAG1fvjBnWFYAkFZJznZ1bE0Hh9s5JbxXom4UjxJpJ9Y5v/7s4
-	 nN+CzzhAlJi1RSudseDUTNt/jkdS+jr5ucsb2mKYFjbvjIWbq5GGy0h39nIemWcjsrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792569189;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=fOZZ9r0CmT1iLV8NW5Ru9DBs2AykPQxWgR2/m3oBnjg=;
+	b=MYJEF/8eHqEJ0X0SgN+cuHjny2xkJhMfngHOMIlaFziXSU3nlzSzAqa7hAQLHOJTsPut
+	 /YtINWrByq309oDRMYVUYz+pdcW1tiC14m+ZWrpS9KSKJiGxwpHRufqduDRXO+ZXSr6VY
+	 VlqqrIrRAgEROs/1p+7BknjMbRlBzfkA1rKwF2O0jcTZIE2Td7R5GmQsNUvfIB+sdbdvq
+	 zhxb1vTPB4ykfb+3oFGN3Csr4DbVJRGTDG8CqJwE3Ia308c0y4MySkkdevjFKaXFFqnHo
+	 YoKfBR9Yt6rO+kQ4qp1hCHZ8XDGXhADuYVHsMjz3aGdPHY2Mu07sji0+nkVh/OEWvow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AyQbDhhI;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="L8oN0M/f";
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WIpnIDLH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76246606A31A
-	for <Devicetree@vger.kernel.org>; Wed, 21 Oct 2026 07:52:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76246606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CF7B606A31A;
+	Wed, 21 Oct 2026 07:53:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AyQbDhhI;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=L8oN0M/f
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69L5j03Z756343
-	for <Devicetree@vger.kernel.org>; Wed, 21 Oct 2026 07:52:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	uGEbX7ewHLXjKOrnEAwIQ5NuoQ6GYnuPMjFfMhRkmzY=; b=AyQbDhhIrkFWR6Vk
-	Qi2NR9JA3Zl2CUV7EWDi6niUDRqZIXrxHan5CO5/E/BXU7ve/rdkbmA1nMYiorTj
-	uUnreypvOJoV9NBh7qXqdcP2SpKXHgjoLhz89Rwh0hy6JheE85O54i4M3fuBy9+K
-	GPoUifUKk6HR/ZvKSW5RdHvWNFEesfA+HyQp4k8orY6iqKF5XuUB1191IkbZE+8P
-	plpke5EwWoQ+7NfxTqbvPFLeYU9SR35EZlpu5h8sxqbblJm3JCdRo8AnJX/ALU05
-	F/8Y9yWbh3i75DhlSJm/79KrlTXj29up/7QkDqsFQj2p0RS5n2rG7kpyuT0V4JEd
-	ihpS0Q==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heda4tm3f-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <Devicetree@vger.kernel.org>; Wed, 21 Oct 2026 07:52:18 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93ea8a9cfe6so13426685a.2
-        for <Devicetree@vger.kernel.org>; Wed, 21 Oct 2026 00:52:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792569138; x=1793173938; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uGEbX7ewHLXjKOrnEAwIQ5NuoQ6GYnuPMjFfMhRkmzY=;
-        b=L8oN0M/f0SafeWIOOTVJDB5c65jCkCoTZvBfUiRMPlv79Qlp1uSt0PZID56oUNL1Y3
-         /mx34q0anqB9jrjPoPoloKUxA0k20/cDdwgL0Wq7DJM9u+RX+2/pJLhnePXMH/x+36Ey
-         CJz/wyfjcuQFeC0CNDEv1vFOLLo12nCi1J1D2WtfNEAkfypaHZwosoXmRNCDvxrObGci
-         8fUT30fNrmJg2+hc/o61vBMeb8RSGI/fQdv1K2V1NdkGuiveeKRec/pzsA00U1OhfW9/
-         YWtK9bOFfof3MH53Ggd1J+jrLBbMSplt19rnpbV7HkzypY5YN8w9GdxuXNc0rtjwkaH/
-         bV7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792569138; x=1793173938;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uGEbX7ewHLXjKOrnEAwIQ5NuoQ6GYnuPMjFfMhRkmzY=;
-        b=wP2xA3Ee0E3RV95GysrZQsgj13dPyBICmCjf65mQuk7z8G0emnrzdaB3n/+1jnQGD2
-         VucXh8W2hkhcLrMglCWi88ZZ8qSj/pQl+qzslQAjGgSTDJ1cBbXm7v+cZiVF7cNoR2HK
-         ZCe5ajbnU7hhO0f6pZ9O86gQb+6EB04qsOLUI5gjHzBs1tS9uIWwC3xmDS/va5/80ifK
-         yCEAGRqXf5y7onI77wlQwlvI7BJBCAENQ7pQhMsWGqXxFLapHtbSwnS2RCj9Dt26KhxP
-         VDhoGvjldIv7hAeGUv5bPUkba3XNk/Bs9ISm5oV4O9V+bwNpzx6ShRPNj+Ozp5vV7LMG
-         JssQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwaufK1La9h+sksHQsptLghfKMLniSF9yzPF9sGZPiDDvv9aFcAwLm8PBP1bwGrbKRAQcJWynJVSRC0@vger.kernel.org
-X-Gm-Message-State: AFq9FYI9OsNpRL+BnWQAb0pGpbz9tJlE1eF1NXsAci5W2bDwz1MCINOS
-	JuanoD/VOxEgwGKR+ld2QMdMEz6ANQI6akYtP1B1dtb15QuRdIUd+QlAUl0kdW4ZKcCVkRFiQ8a
-	uKAsiiRW4SFHrSgx1q5M+ZUZLTHBPJlxtiaq3YTwaiozz9tT6DFx8D7IWlAhnodTa
-X-Gm-Gg: AYBFou1nMeD+mOaBeH28No5gNZTpUPoezEx3ZPDaQ+WDzLAf0wCue6ZLUutEvqfI0v6
-	2y+r6g13pNpTGdRMKV46jwkNFmmfCssbBBJHPjWSCBNz5Nfj/5rjv2KRFibVWe9gbsZlnnujTJc
-	4dp17OEQ5TGTKSi6RdtkOKPqirVppv+1C0d9cyrrKuu+gdHPrAGkeOGocaNIO2KtbPkAaoUS0Za
-	h6az1twj5SZ40+/5kYDQWJlEZK6uytvaLQ+f80L1kLJ47R2UiSGKdfdiAnZ6FiEF2xGfAOKHIIt
-	P9T1Kl+7/okRzbkvR09kgEp6Ztzfq/pvhcrX7AYIHX7rdQfhv3uW15UQjMFS2GnNxPhDkxWS8TQ
-	8ktkk9OjuNhemMWG7UW/W3g==
-X-Received: by 2002:ac8:5707:0:b0:535:6cc1:589b with SMTP id d75a77b69052e-5369b4a11bamr23255991cf.1.1792569137590;
-        Wed, 21 Oct 2026 00:52:17 -0700 (PDT)
-X-Received: by 2002:ac8:5707:0:b0:535:6cc1:589b with SMTP id d75a77b69052e-5369b4a11bamr23255851cf.1.1792569137150;
-        Wed, 21 Oct 2026 00:52:17 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4679009aacsm49878266b.78.2026.10.21.00.52.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 21 Oct 2026 00:52:16 -0700 (PDT)
-Message-ID: <08dea1cb-aaf2-4c62-ba9d-8bef2d6d44a1@oss.qualcomm.com>
-Date: Wed, 21 Oct 2026 09:52:10 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WIpnIDLH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3BA21F000C9;
+	Wed, 21 Oct 2026 07:53:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792569189;
+	bh=fOZZ9r0CmT1iLV8NW5Ru9DBs2AykPQxWgR2/m3oBnjg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=WIpnIDLHkRjjeWWAMLQx1uUyrlHx1WHqyrkoZZkue1ifNTze1Koe3dGRPB6oYr9G1
+	 ZNSvp1IEZEMYOcf9aQvUtC54Dezxl3YvgWawVqfBOcwFwKfHnhYu0jbLsw1HX0VZFp
+	 UKbO/pbX7/lgH8pknwL0iFgQCjS2fFBk2qT6FcXtoiA0EVBxqV6YZsgs7Uo3Fvj7Qm
+	 zFNUwTHgDWOSFES8Chjgp7k+RX3L7NkNu1OwRNisoD7g/wD6bAfvU0Bs5wvo7Yyyci
+	 DVxvGOSQrbIsqRzYchZqXqxBPlpptSP0Kn8WH2Q3Qm2UtykN7eaXTWwPS6kvIMRjUG
+	 6kmUUWrRA/NRA==
+Message-ID: <sashiko-outbox-179929@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 5/5] arm64: dts: amlogic: Add Amlogic S4 Audio
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jiebing Chen" <jiebing.chen@amlogic.com>
+Cc: devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20261021-audio_drvier-v7-5-2b9aeae9cb8a@amlogic.com>
+References: <20261021-audio_drvier-v7-0-2b9aeae9cb8a@amlogic.com>
+ <20261021-audio_drvier-v7-5-2b9aeae9cb8a@amlogic.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 21 Oct 2026 07:53:08 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,80 +59,149 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 7/7] arm64: dts: qcom: sc7180: Add sc7180-trogdor.its
- FIT image script
-To: Douglas Anderson <dianders@chromium.org>,
-        Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-kbuild@vger.kernel.org, Brian Norris <briannorris@chromium.org>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        Simon Glass <sjg@chromium.org>, Chen-Yu Tsai <wenst@chromium.org>,
-        linux-arm-msm@vger.kernel.org, Nicolas Schier <nsc@kernel.org>,
-        Peter Griffin <peter.griffin@linaro.org>,
-        Nathan Chancellor <nathan@kernel.org>,
-        Tudor Ambarus <tudor.ambarus@linaro.org>, Devicetree@vger.kernel.org,
-        Julius Werner <jwerner@chromium.org>,
-        Saravana Kannan
- <saravanak@kernel.org>, Will Deacon <will@kernel.org>,
-        Michal Simek <michal.simek@amd.com>,
-        =?UTF-8?Q?Andr=C3=A9_Draszik?=
- <andre.draszik@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        cros-qcom-dts-watchers@chromium.org
-References: <20261020153652.2907186-1-dianders@chromium.org>
- <20261020083501.RFC.7.I1683fb18dd1cb29680af5efb2c2d3c3f539af0f4@changeid>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261020083501.RFC.7.I1683fb18dd1cb29680af5efb2c2d3c3f539af0f4@changeid>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: ujUwMUhnDMuLyPCMeur0gtielLwl9oFN
-X-Proofpoint-GUID: ujUwMUhnDMuLyPCMeur0gtielLwl9oFN
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAzMSBTYWx0ZWRfXwMIRXnXqbAms
- hBZNE2koB8R2WhLCvE6apxKtZ+1QqQxPG7fhfq4hUsipALYweHagDOfk6O+daL7nlVWiCsHGmMH
- 4kcBLA1BSoWPpKUAlWAwVxBuJKPfW4o=
-X-Authority-Analysis: v=2.4 cv=R7aWitRX c=1 sm=1 tr=0 ts=6ad86f32 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=cm27Pg_UAAAA:8 a=EUspDBNiAAAA:8 a=hCCUOKFY6uXp-TWS5dAA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAzMSBTYWx0ZWRfXzNd16kLV9Typ
- 1Kv9Zu/6BZ34Dx1HXaN4Heshli8Y6L/L1yksZyUget46wZmnXLLLU32edODaine09OQXDI4Y54g
- a6N9/94xVCPDYXJxrOC/qLhZ/3cG1RzJzVdnbhbfF/txqIDEHd9kUyfOBwFOhm72769pi0E/xt2
- uR5k6n9xZghz69axHoDVP1LDxnlDlvdbyhFvADpn162uvEVizSr9dqSER9jVjm1lhB5PQgWIsDQ
- RMabT4jEL1ys6jSLFXqYt2CBUa0ayHY1UuWdFAIil1FIn3beD0+MBEdZtZYFZBgzNYJ5QCJdhuy
- +UIQ4/jAEOeCgCZREcrqjglFLyjdDzJ1J+IP74rCIakc46BxCnXn15/408WipzVbYahaWH9bxf3
- FtS+JmMtV+nMWfLiFSXdYb7fFEXeu/96vfQ1S/GkrB34k17Y/EKk8G4SmA5tLgzCTLgewNy060i
- eEUhsTuiwnlu0Vh2xFw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-21_02,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 priorityscore=1501 lowpriorityscore=0
- clxscore=1015 impostorscore=0 bulkscore=0 spamscore=0 suspectscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610210031
 
-On 10/20/26 5:35 PM, Douglas Anderson wrote:
-> Add an Image Tree Source (`sc7180-trogdor.its`) describing the FIT
-> image for SC7180 Trogdor family boards using `Image-framed.lz4` and
-> LZ4-compressed board DTBs (`*.dtb.lz4`), allowing the Trogdor FIT image
-> to be built with:
-> 
->   make FIT_ITS=qcom/sc7180-trogdor.its image.fit
-> 
-> Assisted-by: Gemini:gemini-pro-prerelease
-> Signed-off-by: Douglas Anderson <dianders@chromium.org>
-> ---
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [Medium] arm64: dts: amlogic: meson-s4.dtsi references board regulator in=
+ acodec
+- [Medium] arm64: dts: amlogic: meson-s4.dtsi leaves all audio nodes enable=
+d by default
+- [Medium] arm64: dts: amlogic: wrong spdifin interrupt number in meson-s4.=
+dtsi
+- [Medium] ASoC: meson: g12a-toacodec: wrong DAT_SEL shift in s4_toacodec_w=
+idgets
+- [Medium] arm64: dts: amlogic: missing pinctrl configuration for S4 AQ222 =
+S/PDIF coax
+- [Low] arm64: dts: amlogic: unused dmics codec node in meson-s4-s805x2-aq2=
+22.dts
+--
 
-Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+commit a71d27338262d3dbf5d4f70564ecc7b6b1940900
+Author: Jiebing Chen <jiebing.chen@amlogic.com>
 
-Konrad
+arm64: dts: amlogic: Add Amlogic S4 Audio
+
+This commit adds audio controller device tree nodes to the Amlogic S4 SoC
+dtsi and configures the sound card and audio peripherals on the Amlogic
+AQ222 board.
+
+[Severity: Medium]
+In arch/arm64/boot/dts/amlogic/meson-s4.dtsi at line 904, the acodec
+(audio-controller@1a000) node hardcodes AVDD-supply =3D <&vddio_ao1v8>;.
+However, vddio_ao1v8 is not defined in meson-s4.dtsi; it is a board-level
+fixed regulator defined in arch/arm64/boot/dts/amlogic/meson-s4-s805x2-aq22=
+2.dts
+at line 70.
+
+Compiling any other Amlogic S4 board device tree that includes meson-s4.dtsi
+without defining a board regulator with the exact label vddio_ao1v8 will fa=
+il
+during dtbs compilation with a non-existent phandle reference error.
+
+Should AVDD-supply be moved out of meson-s4.dtsi and provided in
+meson-s4-s805x2-aq222.dts via an &acodec node reference, matching the
+separation used in meson-g12-common.dtsi and meson-gxl.dtsi?
+
+[Severity: Medium]
+In arch/arm64/boot/dts/amlogic/meson-s4.dtsi (starting at tdmif_a at line
+872, acodec at line 904, and clkc_audio at line 915), all 25 audio
+controller nodes omit status =3D "disabled";.
+
+Unlike the other optional peripheral nodes in meson-s4.dtsi and the audio
+nodes in meson-g12-common.dtsi, meson-sm1.dtsi, and meson-axg.dtsi, leaving
+these nodes enabled by default causes of_platform_default_populate_init() to
+instantiate and probe all of them on every S4 board (such as
+meson-s4-s905y4-khadas-vim1s.dts, as well as unused audio blocks on AQ222
+like toddr_d, frddr_d, and pdm). At boot, this unconditionally powers on the
+PWRC_S4_AUDIO_ID power domain and runs axg_audio_clkc_probe(),
+t9015_probe(), and meson_audio_arb_probe(), keeping CLKID_AUDIO,
+CLKID_ACODEC, and AUD_CLKID_DDR_ARB permanently enabled via
+devm_clk_get_enabled() and deasserting RESET_AUDIO and RESET_ACODEC.
+
+In addition, the apb4 audio child nodes are appended at the bottom of
+meson-s4.dtsi via an &apb4 reference instead of being placed inside
+apb4: bus@fe000000, and the headers dt-bindings/sound/meson-g12a-toacodec.h
+and dt-bindings/sound/meson-g12a-tohdmitx.h are included in meson-s4.dtsi
+where their macros are unused rather than in meson-s4-s805x2-aq222.dts.
+
+Could the audio controller nodes in meson-s4.dtsi default to
+status =3D "disabled" and only be enabled in board dts files for the specif=
+ic
+components wired on each board?
+
+[Severity: Medium]
+In arch/arm64/boot/dts/amlogic/meson-s4.dtsi at line 1095, the spdifin
+(audio-controller@330400) node specifies:
+
+    interrupts =3D <GIC_SPI 151 IRQ_TYPE_EDGE_RISING>;
+
+Across Amlogic AXG (GIC_SPI 84 through 90) and G12A/SM1 (GIC_SPI 148 through
+154), the seven audio interrupts form a contiguous range ordered as toddr_a
+(+0), toddr_b (+1), toddr_c (+2), spdifin (+3), frddr_a (+4), frddr_b (+5),
+and frddr_c (+6).
+
+In meson-s4.dtsi (around line 976), toddr_a through toddr_c are at GIC_SPI
+32 through 34 and frddr_a through frddr_c are at GIC_SPI 36 through 38,
+leaving GIC_SPI 35 between them for spdifin, while spdifin still has the
+G12A/SM1 interrupt number 151.
+
+Was spdifin intended to use GIC_SPI 35 instead of GIC_SPI 151?
+
+[Severity: Medium]
+In arch/arm64/boot/dts/amlogic/meson-s4.dtsi at line 1168, the toacodec
+(audio-controller@330740) node uses compatible =3D "amlogic,s4-toacodec",
+which binds to s4_toacodec_match_data in sound/soc/meson/g12a-toacodec.c
+at line 317 (and is wired in dai-link-6, dai-link-7, and dai-link-12 in
+meson-s4-s805x2-aq222.dts).
+
+In sound/soc/meson/g12a-toacodec.c, S4 expands the Lane Select mixer control
+in TOACODEC_CTRL0 to 8 lanes (shift 16, max 7, occupying bits [18:16]) and
+defines field_dat_sel in s4_toacodec_match_data at bits [20:19] via
+REG_FIELD(TOACODEC_CTRL0, 19, 20). However, s4_toacodec_widgets at line 147
+reuses sm1_toacodec_mux for the SRC DAPM mux widget, whose soc_enum
+(sm1_toacodec_mux_enum) uses shift_l =3D 18 (CTRL0_DAT_SEL_SM1_LSB) rather
+than 19.
+
+While g12a_toacodec_mux_put_enum() writes the selected source to
+priv->field_dat_sel at bits [20:19], both dapm_connect_mux() during probe
+and snd_soc_dapm_get_enum_double() when userspace reads the "TOACODEC SRC"
+control read TOACODEC_CTRL0 using shift_l =3D 18 and mask =3D 0x3. This ext=
+racts
+bits [19:18], overlapping bit 18 of Lane Select and reading the wrong bits
+for the mux state.
+
+Does s4_toacodec_widgets need a dedicated S4 mux definition with shift 19 to
+match field_dat_sel?
+
+[Severity: Medium]
+In arch/arm64/boot/dts/amlogic/meson-s4-s805x2-aq222.dts, the sound node
+sets up external S/PDIF coax output in dai-link-9 at line 313 (connecting
+spdifout_a to spdif_dit) and S/PDIF coax input in dai-link-11 at line 334
+(connecting spdifin to spdif_dir).
+
+However, periphs_pinctrl in meson-s4.dtsi defines no pinmux nodes for the
+spdif_in (GPIOH_5) or spdif_out (GPIOH_4 or GPIOZ_9) groups present in
+drivers/pinctrl/meson/pinctrl-meson-s4.c, and meson-s4-s805x2-aq222.dts does
+not assign pinctrl-0 or pinctrl-names on spdifout_a or spdifin (defined at
+line 1089 of meson-s4.dtsi). When axg-spdifout and axg-spdifin probe,
+pinctrl_bind_pins() applies no pinmux configuration, leaving the external
+S/PDIF coax pads unmuxed.
+
+Are pinctrl definitions and pinctrl-0 properties needed on spdifout_a and
+spdifin for the AQ222 S/PDIF coax interfaces to function?
+
+[Severity: Low]
+In arch/arm64/boot/dts/amlogic/meson-s4-s805x2-aq222.dts at line 146, the
+dmics (audio-codec-1) node is defined with compatible =3D "dmic-codec" and
+sound-name-prefix =3D "MIC". However, the sound node (around line 231) has =
+no
+dai-link subnode connecting &pdm to &dmics and no audio-routing entries
+referencing MIC or PDM Capture, leaving dmics as an unconnected codec
+device.
+
+Is the dmics node an unused leftover that should be dropped, or was a PDM
+dai-link and routing configuration intended for this board?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021-audio_drvi=
+er-v7-0-2b9aeae9cb8a@amlogic.com?part=3D5
