@@ -1,107 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.63
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792571591;
-	b=PargFZ43kN4vijd1TCSM17/imkSh6o5NJ/LZlFyOMRC5DV0fzwHkf8xQZB7BEUAWp078
-	 VVe0EtjbXRphltd5hg+GdXXFG7LomY9CxhRa+FP92tZ1uLKGMCbt0H34aPY88EgOra5Po
-	 Z8cooRgty5uxMUtPrO/fIDXJIRxyC2eT2vGgRzxZPUxoaUVbxYRV2WjXfKjx6LxPRpEtY
-	 gJw3anAMkQ1xqJU9ajBvyIauIyCmr6/XY3DPczWIp0DuoF9J2VVb5iOEViGD0QtWanFIX
-	 V9ZRX2n32ArslCTHhNNcuvLOruyI+zYZLXkbtaZaIOwm/73YDu9PHwmBs1peAjrdvuw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792571591;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=ctfaXuyqgrDhfw4QYgalVFgsb15uENE8orIVx0T2lmc=;
-	b=yTPTASdZPpN6hgTQLW0aAb8nluCVodsj6L1M6+Ol0D9EUK0E41XtX5HebOaz0RbUR7vJ
-	 lMSL0or7n0n1eH8A75aiMSOelp99BPBCERsTxpbQmqRDnMDU2gAI37YGzlG44jvKNtyjV
-	 o48DCYS58P3Mi/JYCNkv68SpqOll09Y0PbA6jhb3ETSm/QAkMtTW3BsFZdG4hTr6NyftV
-	 QFL7KTVUnZHWsXVxJoR4Uz66mZqUuohVAsq4/CRkMC/ZfLVQZUcQNxhIMT2XC6wFYUljT
-	 Exzju9vRslXDw06z3ev7ZamKIbjMpLX/ILdVEqnaAay/5lIMh4ZHmJ5NjEikxGYcBhQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nxp.com;
-	spf=pass smtp.mailfrom=nxp.com;
-	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=dV274nEl;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.63
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013063.outbound.protection.outlook.com [40.107.162.63])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792571668;
+	b=Nb5ocivPSvsbZuEEJ4OLqk5DxpmfZqcycWSdTIJgduzTb2h6/eqbW4KwMegI3GSsxaUL
+	 QS1uEHGQXnNEm2LDsKOv0kuuno+EDw5Z5YMt9VvtT/a/aJ358m7o+c97jO9hlnm71i0MM
+	 hSt9QlNpRA5vy/rldvr//t4jtPueNyhANgVDUahTbXWdby+7fS5Yv/l1cQPwd+0dE6jDv
+	 Q2dc+OmCFTtjsdXbwrawo7LZXaM7Z008HDBtJXHjHVGMIycRUsJDCXPvLWOYaKH8R+wLu
+	 XxkdMqDbJeGKJVQvHG2WcsCCPCF9Wdv2/8LwBHcg2YodkCL7NgtLycKrmCutqRzfSRw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792571668;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=uu82sUWMY3UO2S+B1frGUyiwgloHLDcTt9LHkabvWD4=;
+	b=RVqEOL7/44kmDYX5leOkTrjjmqa0zXI6NfRPk51hQVXglkikkoWtnru8hl6g03bHUQQf
+	 FQ7SHLAcPGkJF0EBx3/F8UA0gYPjTv9om48hI33NOfm5dUAvoZM+Xng3SaCApKOEd/i67
+	 Cv2Q28Z10XDHlyQ/Y4Rl42/KSDagGW1/eJDdv8OdQ/i1rDBsm34YOcyYNumw6/qTRTIRQ
+	 CSnMpn6ws0nM9D3t/x58eQKJykRceId1J5qifOas1b/xInr2Q5wsJQ8O6FLGH76vo8aPj
+	 a49KXh97Nr53j5Cg95tpqDaVzJaqdq/QfYOT0cjO+gp+O+Nim5NnbEEhVIgnZPz7x0w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UlwMq3tf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CB41606A31A;
-	Wed, 21 Oct 2026 08:33:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CB41606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF054606A31A;
+	Wed, 21 Oct 2026 08:34:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=dV274nEl
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=i8WH2ynJuXrEvUphi18vadZQiC10R84eCLaapNi3tbI7U0rsnUpWtTvlPXp+kgbbG4yxmQO3xa8qmsLV053cCqLMDAThCSnpNDNZwZDq7uPgnNqulASvD0FK9o+olbnSrwXuIssJlb7j+28iOvbvLobrtxwXVo/7tMq8Fs7vV403nwj5SFjuvwYx4ISTJ0VjrDVp1tuhlreidqhXTdVSM+UQhY5EScQzHfW5/0n76ek7YZDAw0JIRdmP2DPefaeeN5rs9O/cofbfPwps9I+q9vUldtnJVuNZTI69+zb2PC0putDpzNuknBjZOfm2jGDp8JFmFVrcRTju8LuVLB9ItA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ctfaXuyqgrDhfw4QYgalVFgsb15uENE8orIVx0T2lmc=;
- b=oCGg+KHyEb2178fJYwhBbtW0SCSzkE8jc3QAwr0QJ3JRpYzRjkUe8Pq+LQppx645xpCgEOLR252kWf6Rt41XINYtlJd5H+nQd7RIRq6AIS6XtfbUOR1m/BrowhSqbbnF2GcOFW0Sm2YWdqpN2pLfNQMH4YO1JGJmhl6PbAJn91MnixHNPshtdT5H+iy+lhZfjcm+cyy06WOjIu75dpzMhUxNn42b6BVjDWKxeS9sniI6eqf8a0XAdV1k+LQSSi0OnE5alGoutt1OrBpGqctD2Qd9s75G28R6p9F4bYx2m5iybrC6zNhH0mQvkTnHSXb7+WTvhL+4NcKpjgwllKYI3w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ctfaXuyqgrDhfw4QYgalVFgsb15uENE8orIVx0T2lmc=;
- b=dV274nElv2AFWlOpMk2MHoSVgbgFaNcJqO7zMsqsNTxScvjX5vJrate76HtcpXS9QuNAco94zcm6eOoPjtIUd5RFNtJhwbKUIMJTHoEfwF6KELJKOTve+ci96mRUtgoFwL8M6vBVt0UjN8sTEe0kymoiOiPGVrUssYK2jkL/hjVAO2IWjjc+ukziui4EXwHsq8hOn8YV49AvTwK9OQXP8Dx+UGj/yO/A8u8W5FyuR4jAvZCztNY6tToqlpnMyUeivIeTX56aFHMxt/pKOPAjjLuIAT/tlW19rTAkXMAdqxD+kc69P+e5btPyilHA1zwhgyJg88T0d5Lzm+IgPP5M+Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from MI9PR04MB350878.eurprd04.prod.outlook.com (2603:10a6:290:c0::7)
- by AS8PR04MB8820.eurprd04.prod.outlook.com (2603:10a6:20b:42f::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
- 2026 08:33:05 +0000
-Received: from MI9PR04MB350878.eurprd04.prod.outlook.com
- ([fe80::8537:1cdd:6c49:6151]) by MI9PR04MB350878.eurprd04.prod.outlook.com
- ([fe80::8537:1cdd:6c49:6151%6]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
- 08:33:05 +0000
-Date: Wed, 21 Oct 2026 16:34:40 +0800
-From: Liu Ying <victor.liu@nxp.com>
-To: Frank.Li@oss.nxp.com
-Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UlwMq3tf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0D641F000C9;
+	Wed, 21 Oct 2026 08:34:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792571667;
+	bh=uu82sUWMY3UO2S+B1frGUyiwgloHLDcTt9LHkabvWD4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UlwMq3tfgNeCGm0knE2NHd1H1nC/VHez6eYOyAov1+G7J3SJedstaNa8dWk1vi05/
+	 DEVumOnzn4CUZr3JDoP/IWTw9vXaAAG0YxBV9evnOJcloOXZQX3y8wdqQ6NnBY4Hy1
+	 +3o8Oiu4AP6++UxF5QL1CtdWk2MlGFk39buC+KJ8ib9Bni/PhRSLFOFU65rDvK2jS9
+	 XSkuSn7WicBJyPromfIVJylErxjSc3M454U11yP28jjRjPHT/cUrZN2NPeYxmwXf1l
+	 49bBPnPOmSCPUmS1PS8nXiqbGgsVkCuP3nEvOuWRoZYeLEaqJ8//5g/dyDLXVomaud
+	 Pq27au8iHAKrg==
+Date: Wed, 21 Oct 2026 08:34:25 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
+Cc: E Shattow <e@freeshell.de>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	Sam Ravnborg <sam@ravnborg.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Robert Chiras <robert.chiras@nxp.com>, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 7/7] arm64: dts: imx8dxl-evk: add lcdif overlay
-Message-ID: <ath5IGyp8qv46GV3@raspi>
-References: <20261020-dxl_lcdif-v3-0-adc944659e14@nxp.com>
- <20261020-dxl_lcdif-v3-7-adc944659e14@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020-dxl_lcdif-v3-7-adc944659e14@nxp.com>
-X-ClientProxiedBy: MA5PR01CA0019.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:177::16) To MI9PR04MB350878.eurprd04.prod.outlook.com
- (2603:10a6:290:c0::7)
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] riscv: dts: spacemit: mark K1 board boot devices
+ bootph-pre-ram
+Message-ID: <20261021083425-GKA125937@kernel.org>
+References: <20261017180141.3477743-3-alan.tseng.cs@gmail.com>
+ <13d6926f-f085-4214-8051-7bf7b5d92b67@freeshell.de>
+ <20261019141752.2077207-1-alan.tseng.cs@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -111,130 +64,37 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI9PR04MB350878:EE_|AS8PR04MB8820:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1e1bada2-d90a-4e8d-990f-08df2f4ded99
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|7416014|23010399003|1800799024|19092799006|56012099006|4143699003|11063799006|261009223027099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	au0dtlBdVz7YZ1/pllq/p8wolb+BbksPD4qXPj1ERm69XMcT5IIUac4nkm9eRAykPQaaxAAkmhVLyQBrjN/rp1NmXFcLSb/sKrJNMY5n23uT+/5py/Z3a6PlpPkrpFq7Lz9E2XfVkD45b6LDgQkP2Km4ao4bp7FrjAWkRL26vfFxrAe+PnJ0XTQC57UEBosz1JyENyvu6agr9YiAL948zl9hyaz5gA5d7ESFEcdGIzAnK27ljobBXm/WwzWKa/1wJmzNPOGjDxRGBpAlZzVhaDffld+8pD6HZhsf5snTy4Rzp48lSbaeWR1iF+DmmT9vp6itlGw3x+MswG2rg4A3xvuK6UgB1Siq017GNuQahT8QrA6tJ1uSExiremIVOLsjt/cNlb01DWMRTxN9sYVpllf+EHvFYRC7+D7BjjCNefnmyXSmj+m1hc+63a0ajRFzljMsM4H7F1UQQccMxArjcs0nccY/C8lZytcWX1tFqWoIgUfdezMssCo9B6kp9IPPPoINR2W9UnaP3NQoWFINao3Jwmho418bMiyUO2YcHFwoW8bGQi5dVkyJS8Hh8EGZ6JigBPk+Y3uV3nIY8qP+GjEQPTcQM4IyareMGqoe2wzN4et/EDYvHtyyXlj+nPGTngkQQlyj9plNRQjZzS4bl+vduncsIx9o9J4o7Ds7YAc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI9PR04MB350878.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(23010399003)(1800799024)(19092799006)(56012099006)(4143699003)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?PCKYM8x4IjoXZNjrx+H4gpROntw85KwvcKjcip+9ygSt6usP+V6FYyp2sav/?=
- =?us-ascii?Q?dY9dHRa8MEI8N+9tWfDHZF4KGYi6581XC7h+d5szkhq/xuUl9558ym+SFwMv?=
- =?us-ascii?Q?rsTjy7e5mv52kfLM82W+LneaDYr4ohmXYd2H2Dxh4qEWSvW4K7cW9We1zKJe?=
- =?us-ascii?Q?bzscRl/qt98kZ/5uA2dSIaofEd4Xjtjxq3/6O7VRI8AjQfEsKHNIZdvtOy4k?=
- =?us-ascii?Q?HhjR2Tvh/7eZDu7wNkoTXKtlWKQruSAKLWzg5K7XZ1+rFhgWayo7Omewx2bP?=
- =?us-ascii?Q?NlwvrC0Q0YO81Zchv9TTUkyboozCg1t6rMM1ThvYHshQtl4y3IZViDxCKeKr?=
- =?us-ascii?Q?p9OC17zoDYkAaY5tX3U+V0qNpqUUHkn3t4q0nabqEiB0VOOgNgOYv/ilYKvI?=
- =?us-ascii?Q?s4Fo2Jq73b1Ycx6Q4l0vjsG9GCZtskZu5Gq4kt+sy+v8nAyohzucBlu3dZTr?=
- =?us-ascii?Q?uCj3OIfKBqXHZ78G55sSyr8UUuezNJ7ZpG2d9lohIVtG1Gs5tnJF/DEi4r1y?=
- =?us-ascii?Q?JvG03Z2AgcHxJB2KH7kOdAyACJC6RRerg0aQjAAZ2LxzWIH6Tasu844mX7G1?=
- =?us-ascii?Q?NtV1bI8BivXmvg1hmSz+o4e+tfvOKPQJ1JABteG5SlO6Jgzbt7dtc1ifL/eE?=
- =?us-ascii?Q?hka9lKuV7HZ2qe+cCsJvBGoxR63Rs4KHOARtYkmJoAC+8S7Nkra708yJsxvO?=
- =?us-ascii?Q?LRWqijFeDQa6BKo4RglVv8ZKcKQDqCz7NQQ8eNjLe5Y6UcTzpnkukHCjPng1?=
- =?us-ascii?Q?lu7S5Wsyxoi8RyjqtFd5eom8lTuAJcdiAjdPvqLONiZQz8dpNHKpGm2KaTz5?=
- =?us-ascii?Q?AMV6QJ3eZ6qJiOAmcpFrScXpMN5wjS7Ue7P2UUsCVXR/ZyO74ng35xdUNo8m?=
- =?us-ascii?Q?nWmuHSvwMCwRo5gPxvjuhWSZppxY0u3Ef7h7x8lOuzsCRm90EaU5MNha0124?=
- =?us-ascii?Q?/ZvVWHkXIpuWVoPp/oxaXdxRmg5s3sPfWTEdxjaNCbZI5eMAOgpkr9snQTD2?=
- =?us-ascii?Q?fB+UDOJnMc395tW8kLaXvgqH+y7wkxthQt9PuTwDX81YqrILRE4tbf2CZ2f9?=
- =?us-ascii?Q?KCkwYFYwKe7RYxpUndEPNxkHtfSWc/iPcySonr8pRmve+Hc1jSgAiPzytpWT?=
- =?us-ascii?Q?rvKa4AQVLouuwn2RI/HOB6QXi8wypkvVpLcYVLD+uqV+Q58rOd9H+pV3yMjS?=
- =?us-ascii?Q?LaefJDQq/LLnJEaHeNjJ/gpi5nZIsWRO7DK/9ezujSL/Qs0wPmcgQupha7UU?=
- =?us-ascii?Q?8ZRZTRidU2DdmjurciiIdUz1VMO8Pxfb1RiM5JLy9MHohMeXpfridZ15k9P3?=
- =?us-ascii?Q?JHeqBF4JUjcd4mg/DGjqIZ7fnXIoaimot3pKDuYBs3MHo5mhuZJAlfPBHQdM?=
- =?us-ascii?Q?98XTd0dj5GsmmFCaz6nA+GCZj9xtRv93w5umBUvDuGWPQuiVUN4oI9eNASiX?=
- =?us-ascii?Q?e8ribecJtWRIjFAeaDTs4+yDHUHIU5js+xIftYyxh6dcqMU7UqUhCiOskulO?=
- =?us-ascii?Q?GzXuC8oVcr99hQPM2zc73oBcQf/YCGs72T5wJ0pJAqc7x7hgAA1SU3wrCrW3?=
- =?us-ascii?Q?xQi4qYesHz1XFQZkTUvJNK2Ls47Pnv/xH8+UE0gc2LIFwK4pmKn6v++3l4e0?=
- =?us-ascii?Q?aNDNG5o5YsR5v97/OlE/zZRhSWtvIySgnQIJmxw1Bzkbn4uNG7DVVNHNtfD/?=
- =?us-ascii?Q?knME2X0uQYfQHAK4Gia/rsDJiy5YLHjpdISdx9sUSBCgZgn6XlGVh68D1AfE?=
- =?us-ascii?Q?zqfy+mQQCg=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1e1bada2-d90a-4e8d-990f-08df2f4ded99
-X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB350878.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 08:33:05.5763
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: noBLNu+xKy89jtfaQFpvBXVfbS4g5nj2FCdBS0pui9RYDg/KnOG1sXa1h8M2fS5KAtZqoguTzgAmbUe2OJfLFA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8820
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261019141752.2077207-1-alan.tseng.cs@gmail.com>
 
-On Tue, Oct 20, 2026 at 04:12:57PM -0400, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
+Hi Hung-Chun,
+
+On 22:17 Mon 19 Oct     , Hung-Chun Tseng wrote:
+> Hi E,
 > 
-> Add lcd panel (waiken,101wx001-wct) support. This panel is only used at
-> imx8dxl evk boards. And evk board only supports one panel.
+> E Shattow wrote:
+> > Does BootROM configure the EEPROM peripheral for access? If not, I
+> > think the justification is weak here to include this.
 > 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> ---
-> Change in v3
-> - add panel info at overlay file.
-> - add bus-width = <18>, which only connect 18 lines.
-> - rename to waiken,101wx001-wct
+> As far as I know it does not. The EEPROM is only read to tell the
+> boards apart, so I will drop the i2c2 and EEPROM tags in v3 and keep
+> the PMIC, whose rails are set before DRAM can be brought up, and the
+> SPI NOR flash, which the BootROM can boot from.
 > 
-> change in v2
-> - remove iomux hog (sashiko)
-> - add power-supply
-> ---
->  arch/arm64/boot/dts/freescale/Makefile             |   3 +
->  .../dts/freescale/imx8dxl-evk-lcdif-101wx001.dtso  | 119 +++++++++++++++++++++
->  2 files changed, 122 insertions(+)
+I've confirmed with vendor, the EEPROM isn't configured or accessed in
+BootROM phase
+
+> Yixun, is there a public description of the BootROM boot flows, or of
+> which peripherals it sets up in each? That would give a clear basis
+> for which nodes to tag.
 > 
-> diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-> index a80cccf34eb56..b5d5e6bd8ce06 100644
-> --- a/arch/arm64/boot/dts/freescale/Makefile
-> +++ b/arch/arm64/boot/dts/freescale/Makefile
-> @@ -113,6 +113,9 @@ dtb-$(CONFIG_ARCH_MXC) += imx8dx-colibri-iris-v2.dtb
->  dtb-$(CONFIG_ARCH_MXC) += imx8dx-colibri-iris.dtb
->  dtb-$(CONFIG_ARCH_MXC) += imx8dxl-evk.dtb
->  
-> +imx8dxl-evk-lcdif-101wx001-dtbs += imx8dxl-evk.dtb imx8dxl-evk-lcdif-101wx001.dtbo
-> +dtb-$(CONFIG_ARCH_MXC) += imx8dxl-evk-lcdif-101wx001.dtb
+The ever closest docs is 
+https://spacemit.com/community/document/info?lang=zh&nodepath=software/SDK/buildroot/k3_buildroot/device/boot.md
 
-Use full panel type:
-s/101wx001/101wx001_wct/
-
-> +
->  imx8dxl-evk-pcie-ep-dtbs += imx8dxl-evk.dtb imx-pcie0-ep.dtbo
->  dtb-$(CONFIG_ARCH_MXC) += imx8dxl-evk-pcie-ep.dtb
->  DTC_FLAGS_imx8dxl-hummingboard-telematics := -@
-> diff --git a/arch/arm64/boot/dts/freescale/imx8dxl-evk-lcdif-101wx001.dtso b/arch/arm64/boot/dts/freescale/imx8dxl-evk-lcdif-101wx001.dtso
-> new file mode 100644
-> index 0000000000000..39abf9b3884ea
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx8dxl-evk-lcdif-101wx001.dtso
-> @@ -0,0 +1,119 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-> +/*
-> + * Copyright 2026 NXP.
-> + */
-> +
-> +/dts-v1/;
-> +/plugin/;
-> +
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/pinctrl/pads-imx8dxl.h>
-> +
-> +&{/} {
-> +	lcd_backlight: backlight {
-
-Nit: s/lcd_backlight/backlight/
-
-> +		compatible = "gpio-backlight";
-> +		gpios = <&pca6416_1 5 GPIO_ACTIVE_HIGH>;
-> +	};
-> +
-> +	lcd-panel {
-
-Nit: s/lcd-panel/panel/
+but for bootph-pre-ram, isn't it about the DT nodes which needed before DDR
+initialization in SPL stage, and should have nothing to do with BootROM?
+https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/bootph.yaml#L70
 
 -- 
-Regards,
-Liu Ying
+Yixun Lan (dlan)
