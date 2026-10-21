@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.19.144.205
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.19.144.207
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792603707;
-	b=FclPfbgiHQu1yqD8xFh3Jv2ic+1yfU7DtaXTl8kSSzJT51rzeGi75Rln8n9c2WgptuHm
-	 zthYKwkXM+NqtJWkhaA1wXjechUZWUa9QpTJ22WlBzG0noKzNlZfRZRxf/C76joreim5x
-	 GTPANcvavnRcxCnt/JZStiXydV81N5IbJQoVL3A8dluB5c3hpiJPw1Ei3XabeejqSCgFg
-	 9g/8nDntNtO8YQnjoG6niy+K779YbOUgkmAx978PjJHQwhb/SuVFP8NijIb0GqepeGV+y
-	 SfkkajpLVkUWgX/ioEpAMpxKCMgDHhPgmsnecmerIRU/aKlv6CC+P+JOXxNv+kblweg==
+	t=1792603713;
+	b=SDGHuIf7+5Eft5J83Z/27TXb5q5gO+szIF4ojh2tUuigldR+srrNaV1KBY0SD2uz/zb/
+	 lPIa6Jp9EmXf3WRQDFVn1jo/UvEQHpHhZ3xaa1vnfHdV5cK40d9lmM0KXhha3c6DV5nfZ
+	 Qw0Uz+x8RPkpVbQWrp49u60GxfyfPehLdoY8xIZzeR/ph+MTmMiDDJ+aACZPLr7ipEOxU
+	 LbiSYusqNn97nXYhtGelPKQkiPUl0Pi7G9QaqEcFmM0d7xBhA3ngh8i/xi+Q5+9SBHHpf
+	 qZ6tSkYITQUYHQ6DG2TJVVkBSkdlpnGYAXzESSCa03beLXw+BqFuyynBjZyceBW9P/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792603707;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792603713;
 	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ZdsRy3FdNj9Kswl3REe6DGR89Sl6i9oOncs6NvWhlhI=;
-	b=QQkFJu1SNak7kDllOoUatLDTJLuMp6wwVpCzeFXl84UTlxtZQHmn+zFZGjTYnHmU+Gqp
-	 AelYEZOCWr94UsKKH73H1Vz2dwKH0v/idXRBCbcVIIblnAtDDgVaHauQyOKcLIqTNyOSy
-	 U3YFvT/SACEtYkXKeuZPBGzLviv8xlmZqKfp7G1nYASaq0m9qvIocx9IuDssOWZPZjpYv
-	 HxOuAUFyQltnIw2xgHChaMufwyxPYixdDHun00A17a6gql4k/JeraZCrg7BKwFmlxvT5U
-	 lPMA9qoAfZr91+QQ7cjz+ORXBBKjC4TFbuj4dUlO2ZcvNTCi3jV4ywOXV7iwrKeO5uQ==
+	 Content-Transfer-Encoding;
+	bh=dzbg2zxNg9TMlTzssEP+a2X6U+i+DC/oc+2adV0rwBw=;
+	b=OM86HUpoUlJpLh2E5wW/boVm4Hql0CUv79SJjHWqAPas4eGIiuy8bOgBHphSmK0+xpKR
+	 auud+QNjYR+ilV/YJEZOC7rO7PaMm/IPjE41DTvL5Dg7cFIOLhwv8P0NZIbhEPKV8S4hr
+	 +cRaPna/FYlN7IvMLiXQIeuxQlGiTwpG4kYUi+OD6JNvSDll9oJP7D5frYRCGu1jcllQm
+	 OvvXRLTnY61KPzRSdge3xCtEH3hBSmomF81ArMk+fdAJcVLdvgtoJM74JsmFFX+eR1gvu
+	 iTFWJEpuTtyhLGJSgFDaUGSuoP2Bit0Rr2RD9VwJMRXdsNVt7JKa+ifblYW2vIk8iKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=broadcom.com;
 	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=dkimrelay header.b=NDLGehXr;
-	arc=none smtp.remote-ip=192.19.144.205
-Received: from relay.smtp-ext.broadcom.com (lpdvsmtp10.broadcom.com [192.19.144.205])
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=dkimrelay header.b=khv1zKk8;
+	arc=none smtp.remote-ip=192.19.144.207
+Received: from relay.smtp-ext.broadcom.com (relay.smtp-ext.broadcom.com [192.19.144.207])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EA3F606A337;
-	Wed, 21 Oct 2026 17:28:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EA3F606A337
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D7D5606A324;
+	Wed, 21 Oct 2026 17:28:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D7D5606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=dkimrelay header.b=NDLGehXr
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=dkimrelay header.b=khv1zKk8
 Received: from mail-acc-it-01.broadcom.com (mail-acc-it-01.acc.broadcom.net [10.35.36.83])
-	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id 6F7EAC0003DA;
-	Wed, 21 Oct 2026 10:28:25 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com 6F7EAC0003DA
+	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id 99FA5C0003E3;
+	Wed, 21 Oct 2026 10:28:31 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com 99FA5C0003E3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
-	s=dkimrelay; t=1792603705;
-	bh=FtqWf2DPt79qNMVOTUeCCsa1564XmuQp15xUpDs450I=;
+	s=dkimrelay; t=1792603711;
+	bh=mF4gui/hs6R4l2uxd1JaFeVQL1X3LWEiSwJpnujsdW8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=NDLGehXrkry6eXTAIRQNMA8nxMTkQq0yzevWo0m07xo2UhCstGiPHLXmUIOsqfXGG
-	 I/+lG7M+N/lQZ0/zuKsgZfpajrtZR0/88GlnAxSDWWuAOT9oF3HhJxgpJBF3jpqmAU
-	 /us/ByY8Wa7wOwOPAwS8FH2SJ/YMqU6V0Lqsn1ks=
+	b=khv1zKk8stqHXizhingF94HJhdnUtHqv58PX1v25j6cQ171ay5Zm/YleJckLCW13t
+	 FRZtSEqPjGJk1drnM92w8NChiVxjfmGSyn/ZdfVoJgiv5+f/+aTpf8FLLs8KiHDoEF
+	 ERSbFdsmCA2qJm2wEXQEUmv7Al4jywgmLhQzwhNo=
 Received: from fainelli-desktop.igp.broadcom.net (fainelli-desktop.dhcp.broadcom.net [10.67.48.245])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail-acc-it-01.broadcom.com (Postfix) with ESMTPSA id 0DDD9AEA2;
-	Wed, 21 Oct 2026 13:28:23 -0400 (EDT)
+	by mail-acc-it-01.broadcom.com (Postfix) with ESMTPSA id 385BAAEA2;
+	Wed, 21 Oct 2026 13:28:30 -0400 (EDT)
 From: Florian Fainelli <florian.fainelli@broadcom.com>
 To: linux-arm-kernel@lists.infradead.org
 Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
@@ -71,9 +71,9 @@ Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
 	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
 	linux-kernel@vger.kernel.org (open list),
 	linux-usb@vger.kernel.org (open list:USB SUBSYSTEM)
-Subject: [PATCH 2/9] dt-bindings: phy: bcm-ns-usb3-phy: Describe the NSP variant
-Date: Wed, 21 Oct 2026 10:28:11 -0700
-Message-ID: <20261021172819.668120-3-florian.fainelli@broadcom.com>
+Subject: [PATCH 6/9] dt-bindings: usb: generic-ehci: Add the NSP compatible
+Date: Wed, 21 Oct 2026 10:28:15 -0700
+Message-ID: <20261021172819.668120-7-florian.fainelli@broadcom.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261021172819.668120-1-florian.fainelli@broadcom.com>
 References: <20261021172819.668120-1-florian.fainelli@broadcom.com>
@@ -86,77 +86,29 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Northstar Plus uses the Northstar Bx PHY register sequence but also
-requires coordinated USB2 and USB3 core resets and a USB2 IDM interface
-clock enable.
-
-Add an NSP compatible with a required USB2 DMP phandle. Describe the
-shared PHY relationship with EHCI, OHCI and xHCI so initialization
-finishes before any host starts operating.
+Describe the EHCI controller in Broadcom Northstar Plus SoCs with a
+SoC-specific compatible. It needs the same FIFO threshold programming
+as other iProc EHCI controllers, which generic-ehci alone cannot select.
 
 Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
 ---
- .../bindings/phy/bcm-ns-usb3-phy.yaml         | 23 +++++++++++++++++++
- 1 file changed, 23 insertions(+)
+ Documentation/devicetree/bindings/usb/generic-ehci.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/phy/bcm-ns-usb3-phy.yaml b/Documentation/devicetree/bindings/phy/bcm-ns-usb3-phy.yaml
-index 7fd419db45d0..00d69b86cbff 100644
---- a/Documentation/devicetree/bindings/phy/bcm-ns-usb3-phy.yaml
-+++ b/Documentation/devicetree/bindings/phy/bcm-ns-usb3-phy.yaml
-@@ -14,6 +14,9 @@ description: |
-   Known B1: BCM4707 rev 6
-   Known C0: BCM47094 rev 0
- 
-+  Northstar Plus uses the Bx programming sequence, with coordinated USB2 and
-+  USB3 resets. Its PHY is shared by the EHCI, OHCI and xHCI controllers.
-+
- maintainers:
-   - Rafał Miłecki <rafal@milecki.pl>
- 
-@@ -22,6 +25,7 @@ properties:
-     enum:
-       - brcm,ns-ax-usb3-phy
-       - brcm,ns-bx-usb3-phy
-+      - brcm,nsp-usb3-phy
- 
-   reg:
-     description: address of MDIO bus device
-@@ -32,6 +36,13 @@ properties:
-     description:
-       Phandle to the DMP (Device Management Plugin) syscon
- 
-+  usb2-dmp-syscon:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description:
-+      Phandle to the USB2 DMP on Northstar Plus, for its interface clock and
-+      reset. All USB host controllers must reference this shared PHY so that
-+      initialization completes before any of them starts using it.
-+
-   "#phy-cells":
-     const: 0
- 
-@@ -41,6 +52,18 @@ required:
-   - usb3-dmp-syscon
-   - "#phy-cells"
- 
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          const: brcm,nsp-usb3-phy
-+    then:
-+      required:
-+        - usb2-dmp-syscon
-+    else:
-+      properties:
-+        usb2-dmp-syscon: false
-+
- additionalProperties: false
- 
- examples:
+diff --git a/Documentation/devicetree/bindings/usb/generic-ehci.yaml b/Documentation/devicetree/bindings/usb/generic-ehci.yaml
+index ae9fb70d0212..6462772b51dc 100644
+--- a/Documentation/devicetree/bindings/usb/generic-ehci.yaml
++++ b/Documentation/devicetree/bindings/usb/generic-ehci.yaml
+@@ -48,6 +48,7 @@ properties:
+               - brcm,bcm7420-ehci
+               - brcm,bcm7425-ehci
+               - brcm,bcm7435-ehci
++              - brcm,nsp-ehci
+               - hpe,gxp-ehci
+               - ibm,476gtr-ehci
+               - nxp,lpc1850-ehci
 -- 
 2.53.0
 
