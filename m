@@ -1,57 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792582484;
-	b=REiYwTYjf0yRxLt5D+iCNW2KvIJL7BFuE+Wi7sXOzYkdiU2YLFU6toWnD8QTzINVB3rp
-	 Y36tDzwccXqQi5YnwkbbyJsq8QOv6m3fxGOctsCYtlDD6yo0rE804szzbuHBLLesgTb+A
-	 mcWrbST4y5uCehVUmxaJ7RjLbEA9poskRrCsnFVLXo33TixKp3tdE3ghVfUlqCD5eWkDk
-	 7kAuAylqPhN8RmmkE7YnWuz9DtaEzlnyFpWzWI897dtXKRolH0Ga6H4zmVfJGTl3rcydG
-	 y9HlmBn5n5LR/d8yzuUm55tVfGnPJ+kBuIVmbfdAcmfyOip7fOUMKotZ83HVNXp/O+w==
+	t=1792582691;
+	b=MuJBFrPz0bKfv2E7930h8rdkpnnK/RvNgrdcRu8bJ2VhJhdmsVyP+dcn3/zV5w5t90jF
+	 bIhL14EtHxwyIRfUwBc9NJrG0qrAuaF+NMcG5TUOIZKcb/PMH9f4OPUVwN/IiTry4cXsX
+	 i6T+f0H4rafUGTC0sW+D+XieB2gVWtd0FLdODBM2IYmfm6OxTQXHUz3J2Kk0kidxpqVlX
+	 E2sQF55Ybuz6FSEwc2mYHBj/DWSTf5YQ194sssvh8fQ5MexRkNoNPYzTKnjNhEEpeuZcZ
+	 m0e3hUdm2js3C3ifEuI2rQsviwK7C5CX0ZqFxlnaMuVv9KVHtDjmyJUv2SMFz7o+zuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792582484;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=9zWlc5AfanJxO35pJ/cR/6Q78xacvHn4M+Ah6CaDSJc=;
-	b=TQ2/Rnd3KRQf/4W+6Y07AaPxUXS3P0V+KG5N4PPHSLP/4lOCpSCAoI54UhWBIM4aV2sD
-	 Vq1puc6iNjSaAFJ2RDsqy+TDkF1x3NhSQbulCgAmkA0uWv2xENDCGUC07xjz5Ntkbkev+
-	 tLs8NrlTs/+qC4FXu06YzUs3gmkPMQSTkOsWuAhBydWqGtZJd7Lbz1QdrYaX9pPR8xlek
-	 jTC+aeQTkAVEGC4VMmNqtVwbMen6mvxUb+qsTIaVOANNrILrt8vN4XIWS3fi/qJTS2a66
-	 1ptAFvnFaZ0Av4szpAQdS9OPlXlJEW4xql8dtctXdQ3Ru+jOb1ph3Kq4MupUmm7UnYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792582691;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=LnA3nxFQKLVJsHSgevUcTeI6s0Y0Q/eJ7d0Dh717ddw=;
+	b=l7TaKE8mW8/AWkFiOXK4gDuRxyciF4netBktLrjPS/2i2r+JyvBENy7AT/N9E15Zd3Co
+	 9M9ZfzbDhTPxFQv0OID+YeazSmmz6dE3Uxb6y2GFWOWYBSEQIj3m50aHcB/qRnapyiIBG
+	 UAwypLDCY3zmo/JwvPx7ip1iyPOdyyilYQ2KEAohXkWfnw6LBjn+YNgz21dihRRcw4pS6
+	 CNfEGAMEK1L7XcVXidShk0YAOo5q5+TLaw2vCzcLtv02LXjI5KKgDVc/M/aHggXBohdGJ
+	 EMW+bFGbL6hA93YEgE/RnofCvMd+mQSiZf0dm0fvPXVmrwIpTU/Z6ZPWRTqTjOSZxnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m7OoVVGp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=beagleboard.org;
+	spf=fail smtp.mailfrom=beagleboard.org;
+	dkim=pass header.d=beagleboard.org header.i=@beagleboard.org header.a=rsa-sha256 header.s=google header.b=uNCgBPMI;
+	arc=none smtp.remote-ip=209.85.216.42
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2549606A325
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 11:34:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6B18606A319
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 11:38:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6B18606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=beagleboard.org
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=beagleboard.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m7OoVVGp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B5D31F000C5;
-	Wed, 21 Oct 2026 11:34:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792582483;
-	bh=9zWlc5AfanJxO35pJ/cR/6Q78xacvHn4M+Ah6CaDSJc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=m7OoVVGpeflw2n7gXVhvPiyXoAcJDp/SQyUy8wVYMo6cUVlbwc5uTrB9IW8eq6Fu3
-	 dlRyuuqqvc2FO3asxkdKqqTRBDL+23yDgxRWlKPaaCmrk57dnY5noZCZJ51RfW5pE/
-	 NDT06StIXIHntTB57C5e97/YCoQnpz8VQhpUteKAJJY6vdok0ivNb58tbRtKj7MYS2
-	 dWqlCYl64XtJ8omh1tDW27KcNVdGQJ4cwX4d7wmvuRcHc1oN1K+Kxtjt3DXbGQX1x3
-	 KkSm0Y1ZrIWfy0CWYrIN3UzXX/Pnu0uma4xQiZxV/I4u6MmnHgOik54bQENwClRhAZ
-	 6qmua+cQ2f7Dw==
-Message-ID: <sashiko-outbox-180169@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v4 5/7] net: ftgmac100: Require phy-mode for
- AST2700
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jacky Chou" <jacky_chou@aspeedtech.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261020-support_ast2700-v4-5-4d36b40939b3@aspeedtech.com>
-References: <20261020-support_ast2700-v4-0-4d36b40939b3@aspeedtech.com>
- <20261020-support_ast2700-v4-5-4d36b40939b3@aspeedtech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 21 Oct 2026 11:34:42 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=beagleboard.org header.i=@beagleboard.org header.a=rsa-sha256 header.s=google header.b=uNCgBPMI
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3ac78f4c10bso313761a91.1
+        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 04:38:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=beagleboard.org; s=google; t=1792582689; x=1793187489; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=LnA3nxFQKLVJsHSgevUcTeI6s0Y0Q/eJ7d0Dh717ddw=;
+        b=uNCgBPMIjp5KzXLfhAJ3bJ0wk40UU2FhM9hXxcwIsq6ld7G3bXhwhMRSU8NS+SNloD
+         NXBVRr7SPorMrkc244+Lo2bQCaEIkF+rUKbeAK7R0+ILa1Etr+ehU26IB61J/F4ikWKH
+         km6FsJe4FwnASmizhh3DxOAmPGmM3DAbqKJ9acCdgVPucV675WhzYrJdr/xKUMWePa5v
+         o++SRwmGuKK34gIlATcRxZ0vlkxeBu268TwUdan62qDMWw2r+aVyilrGtfQ6oBLj0Gq8
+         +e+PUDhg7bHgnhmR1YWSIq/uTng8B3qIDel9ISAR4CUdUF2mmFspk6lgWgaqe3Z2iCNv
+         hdag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792582689; x=1793187489;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=LnA3nxFQKLVJsHSgevUcTeI6s0Y0Q/eJ7d0Dh717ddw=;
+        b=ny4nMAG5OS3fsObRpyWgVeOqe4i4ERhQHfakksXc2NQjcI3i6EgH2OONWUdsbQs69A
+         LCljZiy2Xzs5T+Kvntq9jyIg/sR5cLuv/Rb7RSQnPyBzb2e/kF4mkitRR4JQg0bHrn7r
+         KWRWfy8tm5TxLZX0U5z1VMeNTxpuDFU3bJFtT5Vw2izJx7S6MwshKFy/hTQ0ewnIy+1N
+         BCprkjrVtI7/ab5xiv1AjWxVzJ0FgmqHqDwijv0tEuUkN23NSa9aCsCKuu8LPv//Lkoc
+         /BlanVC9DzWDXwmYBkPqZd9uXuUr597yqvcRiYZt3jiLbAkNJoZ+uPS6O0VMsZqr5fko
+         h0uA==
+X-Forwarded-Encrypted: i=1; AKwUvBzVvzZc2/NKRr6ws+dVndUJ1LtEb8uPl1r9zdTU08xh6hr1AGrRTe+KciM8s9DETOBBu1BAq355siHg@vger.kernel.org
+X-Gm-Message-State: AFq9FYLu1JGWiIevz0eUEKKq2gf6nh2PSVlAyIPfYZgyP3mn9uZm8mH0
+	aPyhx4AVxcl887wv/OPJZtCJ8FRYmp88CEFPgp/+m/b8RGgHZ8IkUYUkmNAgbpu4CA==
+X-Gm-Gg: AYBFou2hw7rNGC1NoSvT+6wbz2HZhsDa+VukACperLp+rtWFkloHQDXPjAIo+FmJEmC
+	XD5wdJr5S+ndCyXeSvHovybiN9ptpGvJyCehIKZZRLxivgwoQiaCPGcWVA26poAphMoAWBZoUSt
+	ZA4SCeJ2NlQB/QH7gX37c3tUt/SAe231htAhjPQo4nu/Cs8r9rthZtVgUnDBAM22qkbo3NDpTPt
+	7D/bc5ewQM+lx6h1pnNKXcdPYXUOcvju8iT2f0xVlC0cjXwYudUkSelkorHJPxhk6GAaoF9A9pQ
+	6fMRR7R2yFQSLnMKDLPSmy3NMpyncJEqZ1BYAFjbMwXDXuNgXuFwO7uR73ffSrxSZwPCXt5lI00
+	jB2sZ7xf9RHx+ju5vYzyTZvnQmdpNvfoMC91VXMIZLXg11SlzMnVfq2u/niyq3R1/tOv0+H5wcZ
+	dP7HeW1r8Fn6QlAz7SQcYxglu0m3VkPNamcjinNfL8blTqD0yVRtC6zY+IgsvGOfhh9UNIQwEPr
+	Gj49b6xWj6JgAaqyjvCyFjKWvtz2aBRrwIr+gSHTns2rQ5AKfEMHPKxLOsxHUzV9RY=
+X-Received: by 2002:a17:90b:5887:b0:3ac:17c:6e82 with SMTP id 98e67ed59e1d1-3ad86d0efa2mr1526965a91.45.1792582688977;
+        Wed, 21 Oct 2026 04:38:08 -0700 (PDT)
+Received: from [192.168.29.54] ([2405:201:4019:32fc:3c55:6b24:5147:322b])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad813eb9casm4023732a91.15.2026.10.21.04.37.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 04:38:07 -0700 (PDT)
+From: Ayush Singh <ayush@beagleboard.org>
+Subject: [PATCH v4 0/6] Add Greybus Sotfsvc and UART Node drivers
+Date: Wed, 21 Oct 2026 17:07:48 +0530
+Message-Id: <20261021-gb-uart-transport-v4-0-c308ce821d45@beagleboard.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,105 +90,236 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23OTQrCMBAF4KtI1kYyadNWV95DXEx+G5CmJLUop
+ Xc3LSIusps38L6ZhSQTvUnkclhINLNPPgw51McDUT0OzlCvcyac8YZ1wKiT9IlxolPEIY0hT2c
+ uhG6EaFWtSO6N0Vj/2s3bPefepynE935ihm371XhJm4EyyjuuEWqUrWyv0qB7GBkw6lOIjmzmz
+ P+dtuTw7CCrpAQrrNRQdqqfAwyqklNlpwPNsENAZQv/rOv6ASmlTRBIAQAA
+X-Change-ID: 20260810-gb-uart-transport-9255d6557c4c
+To: Jason Kridner <jkridner@beagleboard.org>, robertcnelson@gmail.com, 
+ Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Eric Biggers <ebiggers@kernel.org>, Ard Biesheuvel <ardb@kernel.org>, 
+ Ayush Singh <ayush@beagleboard.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Uladzislau Rezki <urezki@gmail.com>, 
+ Markus Probst <markus.probst@posteo.de>
+Cc: greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, linux-crypto@vger.kernel.org, 
+ devicetree@vger.kernel.org, Ayush Singh <ayush@beagleboard.org>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9289; i=ayush@beagleboard.org;
+ h=from:subject:message-id; bh=cE5A9sYdDEi2wwpwaPodlCoa7kF7qPSfXRCNfY9L3tA=;
+ b=owEBbQKS/ZANAwAKAQXO9ceJ5Vp0AcsmYgBq2KQTnyXkImG+PipIpDDKBXHq1U9KxOOKXSxaG
+ RAtZrq1hd6JAjMEAAEKAB0WIQTfzBMe8k8tZW+lBNYFzvXHieVadAUCatikEwAKCRAFzvXHieVa
+ dImGD/9j7rJDE1LsYWOKhyCthqYIXsitAH8l+aLCtocGlRF/uLJvsxs78iTXnIJfTr2iyFjTzAv
+ eWcMoWAK6y/DbkMtbYems+P02HvcX+iHXytCZQSj1VaHvDx/OBKPdfwa5bVyLrUHBHBpPWlBcnF
+ rrUiCZmcwcb8GtUFRXfSPQ+mXBZOoH/ECOPwmO0yZHJeRrL6Lmy1xH+cj4Uu9GroAs1jt6QaDOq
+ DKvtGcyJbzjlRwUXACuyAK4ACMuBV/zpZ+2r9DNikw66aXR0sBDBdHtec7EFnv3xfZjyJO59qsi
+ VC8Q+Arzft0W1eq9yeQvmoOKoBR+DaVtQZ5XNMevrQUp+QlmrreXD12mQ0V8O7GesL6ZsVcBnkh
+ JE84lHxBX+P/Kj0/PUupikvtakg0v1/njwF6fHzcQNciZiNmc34bxBb7ao/IoiRHw3ze5GY9J57
+ X4Uo+V0XXu/swIR4sJjiY4ih3b5toRd6mQj7M4CXYuN4Ub62NnseR2Y5Xdi0Ea6cqJNKAlZpL0o
+ CHoIlbFjYVQ4FSgJMrfdwCg+5wTr9F+nP3AcLM47GB9Ypei9llCLhJAxRXA67ZQCuhNRKCBqC/6
+ qwCk3NCxla6WUPHcBHvDWXn/dEIQkOrTCG42kzA7/RatYGwmGd+JfyoDchR9TaLkwyj3VNWPwlV
+ Vq6uVHlR5cZCOrw==
+X-Developer-Key: i=ayush@beagleboard.org; a=openpgp;
+ fpr=DFCC131EF24F2D656FA504D605CEF5C789E55A74
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] net: ftgmac100: unreachable AST2700 phy-mode check in ftgmac100_=
-mii_probe()
---
+A Greybus network needs an SVC (Supervisory Controller) to bring
+interfaces up, assign device IDs and connect CPorts to the AP. On a
+UniPro network the SVC is a real entity on the bus. On transports that
+merely carry Greybus messages - a UART, an I2C bus, a network link -
+nothing on the wire plays that role, so the SVC has to be emulated
+somewhere: in a user-space bridge (gbridge), in coprocessor firmware
+(cc1352p7 in gb-beagleplay), or open-coded inside the host driver itself.
 
-commit bef0234e231a9b711aa69253e6ec48a7d40857c2
-Author: Jacky Chou <jacky_chou@aspeedtech.com>
+This series moves the emulation into the kernel and makes it shared.
+This was discussed in a prior RFC as well [2], but to keep things short,
+removing the need for an external SVC greatly simplifies the greybus
+network setup when nodes are directly connected over common transports
+such as UART, I2C etc.
 
-net: ftgmac100: Require phy-mode for AST2700
+    gb-uart-node          gb-softsvc              greybus core
+   (transport, serdev) <-> (SVC + host device) <-> (bundles, protocols)
+        NodeOps            module_insert()
+     submit_message()      module_remove()
 
-This commit attempts to make the phy-mode property required for AST2700
-in ftgmac100_mii_probe() by failing probe with -EINVAL instead of
-defaulting to RGMII when the property is missing.
+gb-softsvc registers itself as a Greybus host device and answers the
+SVC-side operations the core expects during interface bring-up and
+teardown. A host driver implements the NodeOps trait to push data
+towards its node, calls module_insert() to announce a new node,
+submit_message() to hand incoming Greybus messages back to the core,
+and module_remove() on disconnect.
 
-> diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ether=
-net/faraday/ftgmac100.c
-> index 9b7becb017262..5a578a62df673 100644
-> --- a/drivers/net/ethernet/faraday/ftgmac100.c
-> +++ b/drivers/net/ethernet/faraday/ftgmac100.c
-> @@ -1526,8 +1526,13 @@ static int ftgmac100_mii_probe(struct net_device *=
-netdev)
-> =20
->  	/* Default to RGMII. It's a gigabit part after all */
->  	err =3D of_get_phy_mode(np, &phy_intf);
-> -	if (err)
-> +	if (err) {
-> +		if (priv->mac_id =3D=3D FTGMAC100_AST2700) {
-> +			dev_err(priv->dev, "phy-mode is required for this SoC\n");
-> +			return -EINVAL;
-> +		}
->  		phy_intf =3D PHY_INTERFACE_MODE_RGMII;
-> +	}
+The first user is gb-uart-node, a driver for Greybus nodes attached over
+a plain serial port. Framing is HDLC, with a one-byte address (0x01 for
+Greybus) and control byte, followed by the 16-bit CPort ID and the
+Greybus message. No SVC firmware is required on the far end, so the node
+can be a bare microcontroller speaking Greybus - a BeagleConnect Freedom
+over its serial link, in this case. The testing is performed with
+greybus-zephyr [0] implementation.
 
-[Severity: Medium]
-Can this new FTGMAC100_AST2700 check in ftgmac100_mii_probe() ever be
-reached?
+Both drivers are written in Rust, which is why the middle of the series
+is abstractions rather than drivers. Only the APIs these two drivers
+need are covered: protocols.rs abstracts the SVC-facing parts of
+greybus_protocols.h, and types such as Greybus Interface do not
+implement AlwaysRefCounted yet. The intent is to grow this as more Rust
+host drivers appear rather than to abstract the whole subsystem up
+front.
 
-In ftgmac100_probe(), ftgmac100_setup_mdio() is the only function that
-allocates priv->mii_bus, and it is not called for FTGMAC100_AST2700:
+Patches 1 and 2 are small C-side preparations to the Greybus core:
+exporting gb_connection_get()/gb_connection_put() and adding
+gb_connection_hd_find_by_intf(), a lookup by remote interface and CPort
+id for callers that only know the far end of a connection. Patch 3 adds
+a CRC-CCITT abstraction, needed for HDLC frame checks. Patch 4 adds the
+Greybus abstractions, patches 5 and 6 the two drivers, and patch 7 the
+device tree binding for BeagleConnect Freedom.
 
-drivers/net/ethernet/faraday/ftgmac100.c:ftgmac100_probe() {
-	...
-	if (priv->mac_id =3D=3D FTGMAC100_FARADAY ||
-	    priv->mac_id =3D=3D FTGMAC100_AST2400 ||
-	    priv->mac_id =3D=3D FTGMAC100_AST2500) {
-		err =3D ftgmac100_setup_mdio(netdev);
-		if (err)
-			return err;
-	}
-	...
-}
+Open questions
+***************
 
-When ftgmac100_probe_dt() falls back to ftgmac100_mii_probe(),
-priv->mii_bus is always NULL for FTGMAC100_AST2700, so
-ftgmac100_mii_probe() returns -ENODEV before reaching of_get_phy_mode():
+- gb-uart-node imports types from gb-softsvc, so the series carries the
+  Rust-to-Rust cross-module calling setup from nova-core [1]:
+  gb_softsvc_exports.c plus the Makefile plumbing that emits crate
+  metadata and generates the export list. This is a workaround for the
+  build system not supporting Rust cross-module dependencies natively,
+  and it should go away once that lands.
 
-drivers/net/ethernet/faraday/ftgmac100.c:ftgmac100_mii_probe() {
-	...
-	if (!priv->mii_bus) {
-		dev_err(priv->dev, "No MDIO bus available\n");
-		return -ENODEV;
-	}
+- Connection create/destroy and interface activate/resume in gb-softsvc
+  currently just acknowledge the request. Callbacks into NodeOps can be
+  added when a transport actually needs to act on them; I did not want
+  to invent an interface without a user.
 
-	/* Default to RGMII. It's a gigabit part after all */
-	err =3D of_get_phy_mode(np, &phy_intf);
-	...
-}
+- Zerocopy is currently not being used in grebeybus/protocols.rs. They
+  cannot be derived yet since types generated by bindgen do not have
+  them, and it seems explicitly forbindden to manually impl the traits.
+  So using old traits from transmute.
 
-Furthermore, in ftgmac100_probe_dt(), AST2700 nodes with use-ncsi (which
-calls ftgmac100_probe_ncsi() and hardcodes PHY_INTERFACE_MODE_RMII) or an
-mdio child node return without calling ftgmac100_mii_probe() at all:
+- The bindings are supposed to be created for actual device, but any MCU
+  that supports Zephyr, can run the greybus-zephyr firmware with UART
+  transport. So not sure if adding a beagle,beagleconnect-freedom
+  compatible is the correct choice here.
 
-drivers/net/ethernet/faraday/ftgmac100.c:ftgmac100_probe_dt() {
-	...
-	if (of_get_property(np, "use-ncsi", NULL))
-		return ftgmac100_probe_ncsi(netdev, priv, pdev);
+- The individual patches can be spun off into independent patch series
+  if required. The reason for this single patch series is to provide a
+  complete picture of usage.
 
-	if (of_phy_is_fixed_link(np) ||
-	    of_get_property(np, "phy-handle", NULL)) {
-		phy =3D of_phy_get_and_connect(priv->netdev, np,
-					     &ftgmac100_adjust_link);
-		...
-		return 0;
-	}
+- Since gb-softsvc currently is not being used from a C driver, no C API
+  is provided. However, if required, it can be added.
 
-	if (!ftgmac100_has_child_node(np, "mdio")) {
-		err =3D ftgmac100_mii_probe(netdev);
-	...
-}
+- Writing to UART from gb-uart-node is currently a bit broken. I am not
+  quite sure what the safe way is to go from a non-bound device to a
+  bound device. Any suggestions on this front are welcome.
 
-Should the phy-mode requirement for FTGMAC100_AST2700 be checked in
-ftgmac100_probe_dt() instead?
+- I am not sure if Rust abstractions should have a seperate entry in
+  MAINTAINERS with me as the maintainer, or if they should just be added
+  to the respective subsystem entries. As mentioned by Miguel Ojeda
+  [3], this is upto greybus maintainers. So waiting on their inputs. I
+  am available to be maintainer for the Rust abstractions for greybus
+  if required.
 
-> =20
->  	/* Aspeed only supports these. I don't know about other IP
->  	 * block vendors so I'm going to just let them through for
+[0]: https://github.com/beagleboard/greybus-zephyr
+[1]: https://lore.kernel.org/all/20260622-nova-exports-v5-0-6191773fc977@nvidia.com/
+[2]: https://lore.kernel.org/all/ecca8eb2-8e5a-4770-bcf6-3fb49773088b@beagleboard.org/
+[3]: https://lore.kernel.org/all/CANiq72mA6pTmPJUk8g7y3Z=wetFMXdzHLiPEPChpY4OTg3OHiw@mail.gmail.com/
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261020-support_as=
-t2700-v4-0-4d36b40939b3@aspeedtech.com?part=3D5
+Signed-off-by: Ayush Singh <ayush@beagleboard.org>
+---
+Changes in v4:
+- Remove gb_uard_node::GbUartNode::unbind. Suggested by Markus Probst,
+  since write is still valid after unbind.
+- Add inline attribute where suggested.
+- Remove patch 1. No longer required with modifications to the old patch
+  2.
+- Increse hdlc max buffer size to 512 bytes.
+- Send module_removed request before removing from map.
+- Also do not hold lock across interface drop.
+- Link to v3: https://lore.kernel.org/r/20261013-gb-uart-transport-v3-0-81d0a8a1acf7@beagleboard.org
+
+Changes in v3:
+- Fix incorrect email in MAINTAINERS.
+- Make CONFIG_RUST_GREYBUS_ABSTRACTIONS depend on sysfs like
+  CONFIG_GREYBUS.
+- Fix cleanup in hd::Registration::new in case of errors.
+- Fix comments.
+- Fix Msg AsBytes impl as suggested by sashiko-bot.
+- Use SpinLock for intf_map. This should be fine since we need locking
+  only for getting the interface. We do not hold locks across operations.
+- Properly drop message in case of buffer overflow in gb_uart_node.
+- Link to v2: https://lore.kernel.org/r/20260827-gb-uart-transport-v2-0-a03bb1f5fbd1@beagleboard.org
+
+Changes in v2:
+- Fix possible null pointer dereference in
+  gb_connection_hd_find_by_intf. Flagged by sashiko-bot.
+- Remove prompt CONFIG_RUST_CRC_CCITT_ABSTRACTIONS Kconfig symbol.
+- Add CONFIG_RUST_GREYBUS_ABSTRACTIONS to ensure that greybus is
+  built-in for rust abstractions to work.
+- Use gfp_mask in message_send callback.
+- Only provide a Message reference in message_cancel callback.
+- Add invariant comment for Registration.
+- Call Registration->add directly in new, before constructing
+  Registration.
+- Add Send and Sync bounds to T in Registration<T>
+- Set endo_id as 0. Is not used anywhere.
+- Fix module_insert intf_count. Was hardcoded to 1 by mistake. Flagged by
+  sashiko-bot.
+- Check for empty intfs slice in Module::new.
+- Remove module in serdev::Driver::unbind instead of on drop.
+- Make gb_uart_node write atomic. Using temp buffer to build frame.
+- Fix import style.
+- Reorder beagleconnect-freedom dtbinding patch to be before gb_uart_node.
+- Add vbat-supply and reg properties to beagleconnect-freedom dtbinding.
+- Reference spi-peripheral-props in beagleconnect-freedom dtbinding.
+- Link to v1: https://lore.kernel.org/r/20260820-gb-uart-transport-v1-0-282da14ab7b7@beagleboard.org
+
+---
+Ayush Singh (6):
+      greybus: connection: Add greybus_data_rcvd_by_intf()
+      rust: crc_ccitt: add CRC-CCITT abstraction
+      rust: kernel: Add greybus abstractions
+      drivers: greybus: Add software SVC implementation
+      dt-bindings: beagle: Add BeagleConnect Freedom
+      greybus: Add Rust UART node driver
+
+ .../beagle/beagle,beagleconnect-freedom.yaml       |  62 +++
+ MAINTAINERS                                        |  15 +
+ drivers/greybus/.gitignore                         |   1 +
+ drivers/greybus/Kconfig                            |  35 ++
+ drivers/greybus/Makefile                           |  50 ++
+ drivers/greybus/connection.c                       |  47 ++
+ drivers/greybus/gb_softsvc.rs                      | 520 +++++++++++++++++++++
+ drivers/greybus/gb_softsvc_exports.c               |  15 +
+ drivers/greybus/gb_uart_node.rs                    | 257 ++++++++++
+ include/linux/greybus/connection.h                 |   2 +
+ lib/crc/Kconfig                                    |   7 +
+ rust/bindings/bindings_helper.h                    |   2 +
+ rust/kernel/alloc.rs                               |   6 +
+ rust/kernel/crc_ccitt.rs                           |  26 ++
+ rust/kernel/greybus/hd.rs                          | 362 ++++++++++++++
+ rust/kernel/greybus/mod.rs                         | 220 +++++++++
+ rust/kernel/greybus/protocols.rs                   | 442 ++++++++++++++++++
+ rust/kernel/lib.rs                                 |   4 +
+ 18 files changed, 2073 insertions(+)
+---
+base-commit: becb95e45ef0dda9ffb35156d909d3da7a2789c3
+change-id: 20260810-gb-uart-transport-9255d6557c4c
+
+Best regards,
+-- 
+Ayush Singh <ayush@beagleboard.org>
+
