@@ -1,56 +1,43 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792612007;
-	b=MYMSQqEC5pe7VQ8+Hm5QLjWcP7IF3+f9U+gAWk6mjzJhiRszsctihfDsFtZl29KCrdWx
-	 +3F9mNlcg1NSOZzVz6LqCIIhSbnLuGFDwGJhRASy28iKv9XIsUd97c10DwF+9LOkp6EF6
-	 M+t+rQh2qknzQRV49EcnhhK5y2Qb1qsy3GA+l+jucqp24wwk+g1wdfC8bBq0isSfLvY10
-	 xiipS/j/8Aw9rdBLAlqGkuQBfkhrDbTojxIvF8reS/sU7uCRxXz5UHdOUN9UjXmwjPs7v
-	 rh7cH76ImVzdMwz/kfD1FWySrL35G99QwAuFjDb72AtgqhlPbmhGeGuLLkAca2XByXQ==
+	t=1792612125;
+	b=A9UQ0FUnkZ7Z64Tk/tz/jdx+ePS4mrPduySASe5BBs9p2k/MjBjwIRDlocsEHrPBIvmg
+	 BZXFYi62Jg2tbnzaosDwWgZucVKDSpCYnkDZZkO8TpoQ9fcrCQm/XtvtgStJZ4Z+irGaT
+	 ZsRsS6S/X0ErFeZ4KXoRTq1ax/+HC1teEp5xsnfhiTur8Jd97q7+rbRpHROscvxs+wjf7
+	 bUQtczLJiDAGSDGWE0eb/ia84xa48WT1j/9wizU19IalU0SCdXNfttLbsRnjM/TIA31ER
+	 WvNhztoP7qPHXiO60zCu7gfsAR1NC4vNvjN7X9eN8qo3GgDSYdQB0Vn7CJXmn9PuQmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792612007;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Ov4FasaxfoGYlTAYQZQ6wPy50m4JyMZky1AxK9uxQAk=;
-	b=aTjrINeZEnXTxBRyhBV3pqygnnEdiwABo174kOmlnypoZhBA0ZPyv9ikYMod3FMXmXr1
-	 RSla2o9K3Kr69Q3ZSyTlwMy4x0XPmSBia56tUA3n0Em1Jov9i4gsL6pHr8nFJxR9l1Eqr
-	 VMPpXjQ/4OLjXeht9atXP2ghBtx/1+HhDw7wS0BB/PEc42EPxHoWvTvWfMTAJEqI5iqYh
-	 XjnOx3Y9f8D221byLqUu0RvT4cNNTMw2gxkO17W/GYs76aqVJJNeFoZdoPHJ3UaU54++Q
-	 dXZy8d0j75OVjytXlxAAGvds0CRhqLsPRBCAxPEculVC5NC1/Xxhls6Hs/ZX/L0xx1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792612125;
+	h=DMARC-Filter:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
+	 X-CM-SenderInfo;
+	bh=Wg/4rCc9Y69RwQr7t1OslmfPJs2UBZmRz8gauVCMqkE=;
+	b=c/7uWWRNARoQOCxJpaEVOKboYr7ZMWGZUvNJxrExnMpq3ro0mqRTDNOeqLvRzZdlgZ0T
+	 ii0u4qIe13ooR4z0eoQgmXLRlaPkygSitEUz9LWWy7WSuYO4XbJM1m/QxkUWPgFn6U9NT
+	 4+8+qklrJh1aBRFL/DkberzKByZlxv/khcco24HLGwIPzyVdXFq+rvyshXl2UgRU5nFBR
+	 hRoM8s0GeTP5zGX2zlADjA+qh047+NhZ3hEyHbFFTo+YGxapkPCSevDDNpTX0ZqM0YdnI
+	 2VX+AOXFkup5SxI9AGNjyJNOKRMnVsXeJOLg5xIjoO9qRtSCVaM2QhDvmSMX7/Xvk+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kNPJ+wro;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FD24606A31A
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 19:46:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kNPJ+wro
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C13881F000C1;
-	Wed, 21 Oct 2026 19:46:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792612007;
-	bh=Ov4FasaxfoGYlTAYQZQ6wPy50m4JyMZky1AxK9uxQAk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kNPJ+wrovqjFm6hPh+U4KIcgKaue5GNtYuRk0mu71MWnuE4r1XPnMyoA9ojlVXO1I
-	 XwhZQR9eeiSAzHQfS9m3Eov+XQ7+WRn5y8+r/V7ZhZ3UN4wkmoM1vNJ9H7xY/k6neS
-	 9c1seLdHHBlVs2xq5L4HFXgv+lRpPSSBfPBaiLd4GzymJDA4Yz6rbX8NTF9e3C0fWv
-	 gf8PTWU6vTRGdwJ9f8AU7E25ZTDrW/2W6pA2FUOvLbcawi4+ezjCaL0sjcG1ERo00J
-	 OBCUeWGBR4smueE1YCdTAQA2GjiQaN5CaAqn+QG6d8w18s/Kp+mmhdJEAwoVb87qJG
-	 G9slJKTO0dpfg==
-Message-ID: <sashiko-outbox-180598@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/3] ARM: dts: aspeed: add Intel AVCRP BMC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dawid Glazik" <dawid.glazik@linux.intel.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <d9c937882d8c9dd9ad13ae6d22bbf2cec7c37a7a.1792613583.git.dawid.glazik@linux.intel.com>
-References: <cover.1792613583.git.dawid.glazik@linux.intel.com>
- <d9c937882d8c9dd9ad13ae6d22bbf2cec7c37a7a.1792613583.git.dawid.glazik@linux.intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 21 Oct 2026 19:46:46 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC464606A31F;
+	Wed, 21 Oct 2026 19:48:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC464606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [127.0.1.1] (unknown [223.166.93.48])
+	by APP-03 (Coremail) with SMTP id rQCowAB3gT_6Ftlqxu5hCw--.4480S12;
+	Thu, 22 Oct 2026 03:48:22 +0800 (CST)
+From: Han Gao <gaohan@iscas.ac.cn>
+Date: Thu, 22 Oct 2026 03:48:18 +0800
+Subject: [PATCH 10/18] dt-bindings: interrupt-controller: add Zhihe A210
+ PLIC
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,84 +46,72 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261022-a210-init-v1-10-09fb4d99da65@iscas.ac.cn>
+References: <20261022-a210-init-v1-0-09fb4d99da65@iscas.ac.cn>
+In-Reply-To: <20261022-a210-init-v1-0-09fb4d99da65@iscas.ac.cn>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Radu Rendec <radu@rendec.net>, Samuel Holland <samuel.holland@sifive.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Anup Patel <anup@brainfault.org>, Icenowy Zheng <uwu@icenowy.me>, 
+ Drew Fustini <fustini@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, linux-clk@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
+ Han Gao <gaohan@iscas.ac.cn>
+X-Mailer: b4 0.16.0
+X-CM-TRANSID:rQCowAB3gT_6Ftlqxu5hCw--.4480S12
+X-Coremail-Antispam: 1UD129KBjvdXoWrZrWDGFWkuF1fKr4xGryrXrb_yoWDXrg_u3
+	WfAa15Crs5JrySgrs0yws7Krn3X347Aw4Duwn8KF1kJasYvr4Y9as5G34UAw4UWw45ur13
+	XFZ3JrW093ZrGjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb9AFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAVCq3wA2048vs2
+	IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28E
+	F7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr
+	1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr1j
+	6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7V
+	C0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j
+	6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x0262
+	8vn2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE
+	7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI
+	8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW8JVW5
+	JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJwCI42IY6xAIw20EY4v20xvaj40_Jr
+	0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1U
+	YxBIdaVFxhVjvjDU0xZFpf9x0pRJ3kZUUUUU=
+X-CM-SenderInfo: xjdrxt3q6l2u1dvotugofq/1tbiBgIHDGrYxtWX2gAAsj
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] ARM: dts: aspeed: avcrp: pinmux conflicts on uart3, uart4, and g=
-pio0
---
+From: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
 
-commit 01d3c06dda0485c95a5f1bf0fb7cf7492e56bdd4
-Author: Dawid Glazik <dawid.glazik@linux.intel.com>
+Add the A210 PLIC compatible with the thead,c900-plic fallback.
 
-ARM: dts: aspeed: add Intel AVCRP BMC
+Signed-off-by: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
+Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+---
+ .../devicetree/bindings/interrupt-controller/sifive,plic-1.0.0.yaml      | 1 +
+ 1 file changed, 1 insertion(+)
 
-This commit adds the initial device tree for the Intel AVCRP BMC platform
-based on the Aspeed AST2600 SoC.
+diff --git a/Documentation/devicetree/bindings/interrupt-controller/sifive,plic-1.0.0.yaml b/Documentation/devicetree/bindings/interrupt-controller/sifive,plic-1.0.0.yaml
+index cde4bb691897..fd5b61db3f5f 100644
+--- a/Documentation/devicetree/bindings/interrupt-controller/sifive,plic-1.0.0.yaml
++++ b/Documentation/devicetree/bindings/interrupt-controller/sifive,plic-1.0.0.yaml
+@@ -80,6 +80,7 @@ properties:
+               - sophgo,sg2042-plic
+               - sophgo,sg2044-plic
+               - thead,th1520-plic
++              - zhihe,a210-plic
+           - const: thead,c900-plic
+       - items:
+           - const: ultrarisc,dp1000-plic
 
-> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.dts b/arch/a=
-rm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.dts
-> new file mode 100644
-> index 0000000000000..010ace09d90ff
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.dts
-> @@ -0,0 +1,322 @@
+-- 
+2.55.0
 
-[ ... ]
-
-> +&gpio0 {
-> +	gpio-line-names =3D
-> +		/*A0-A7*/ "", "", "", "", "SMB_CPU_PIROM_SCL", "SMB_CPU_PIROM_SDA",
-> +				"SMB_IPMB_STBY_LVC3_SCL", "SMB_IPMB_STBY_LVC3_SDA",
-> +		/*B0-B7*/ "", "", "", "FM_CPU1_ERR2_LVT3_N", "", "",
-> +				"FM_BMC_BMCINIT_R", "FP_ID_LED_N",
-
-[ ... ]
-
-> +		/*L0-L7*/ "", "", "", "", "PREQ_N", "TCK_MUX_SEL", "", "",
-> +		/*M0-M7*/ "", "", "", "", "", "", "SPA_SOUT", "SPA_SIN",
-
-[ ... ]
-
-> +};
-
-[ ... ]
-
-> +&uart1 {
-> +	status =3D "okay";
-> +};
-> +
-> +&uart3 {
-> +	status =3D "okay";
-> +};
-> +
-> +&uart4 {
-> +	status =3D "okay";
-> +};
-
-[Severity: Medium]
-Should &uart3 and &uart4 override pinctrl-0 =3D <>; here, and should the
-pinctrl-claimed pins in &gpio0 be cleared from gpio-line-names?
-
-In arch/arm/boot/dts/aspeed/aspeed-g6.dtsi, uart3 and uart4 default to
-pinctrl_txd3_default / pinctrl_rxd3_default (pins L4 and L5) and
-pinctrl_txd4_default / pinctrl_rxd4_default (pins B6 and B7). In &gpio0
-above, those pins are named as board lines PREQ_N, TCK_MUX_SEL,
-FM_BMC_BMCINIT_R, and FP_ID_LED_N.
-
-Because aspeed_g6_pinmux_ops in drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c
-sets .strict =3D true, probing &uart3 and &uart4 claims exclusive mux
-ownership of L4-L5 and B6-B7 via pin_request() in drivers/pinctrl/pinmux.c.
-This muxes those balls to TXD3/RXD3 and TXD4/RXD4 and causes any subsequent
-request for those lines via aspeed_gpio_request() -> pinctrl_gpio_request()
-to fail with -EINVAL.
-
-Also, in &gpio0, pins A4-A7 (SMB_CPU_PIROM_SCL, SMB_CPU_PIROM_SDA,
-SMB_IPMB_STBY_LVC3_SCL, SMB_IPMB_STBY_LVC3_SDA) and M6-M7 (SPA_SOUT,
-SPA_SIN) still have gpio-line-names entries even though they are claimed by
-&i2c12 (pinctrl_i2c13_default), &i2c13 (pinctrl_i2c14_default), and &uart1
-(pinctrl_txd1_default / pinctrl_rxd1_default).
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1792613583.gi=
-t.dawid.glazik@linux.intel.com?part=3D2
