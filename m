@@ -1,82 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792619897;
-	b=thSBTh0eCUUWMKbu8ix2qZFjX3MMhtpYRXGJmfSNRSUl1rOSFsfmQefcbrMH17mIHvdZ
-	 CMphXGejvi2vNUsae+TTPB8WLes2ZIZsM1FLU7chY7tQ3LSu6j4u3uPn4jF3g8LkBhx8x
-	 1I9XkixIzqewwgO3BwJEMj/4iveU6abpjwB0WFgezzwOj7+o1CMZV7WTD+jzyllusv0g9
-	 gwDcIEu3E1qzVgsD0xG+6xo+Ehp78NEP+eKg8XFAAiqTC1lSXfhFyYsUuKdMBj/CcKm1e
-	 Mbe8Ntn0O27kdKY5L5tpHHLKANDCYs8TwmqxbOs/FnagOIswduLTQItNoS6i6n/3YJQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792619897;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.178
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792621008;
+	b=hBD6eUUif6xtKTBe+pH+sj9cc6rLZg0QM1gME1PknY2xVZ4u7K76Bk2aQjQ4I5fALiRP
+	 KOEDfSGGa6ro9BGg8wkPmvsIC5eJKHDwRubHl2PVBfqaNoegJSJG9ae4jn6SiVDdJvNwf
+	 OSXwFxTii55HdlSDAknK2unxVkAGfeXg0zys2f/jnMfS/YQkxSviYSh51Fj8Odx8p7r8R
+	 +MkhF8aP3zjF+wakEat7SwoYrgYt9EM1k5kuAazLIQvYHKX0GPuiImYKLsPuCz7hIf9sO
+	 rdNQ5UHsN+6AOl3OjbsJ3RRJul4Xrx4u3cEAjsiazay8LrMmyJ5Cv36CL9O2esmaUVw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792621008;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
-	 From:To:X-Mailer:References:In-Reply-To;
-	bh=vjlrFc8ai6S+8VJ+lvNd8+aoLJdpX9LDqDVung6V/EU=;
-	b=NpqYOXIZZZmboMpExTE0RORvlZuZj59FpkGOgPnoBnWMM64W4ly4PGGplN8653hHaw6y
-	 L2AH+E0aAFIzVTRTMFiq7VzedYYOO43NCOhVWhGqjj6x0Ozs1qnX4xR8f1W+tQI2rTJU3
-	 dLRsqXeQuHNexfzfUk3g1+W90nTX/nPhayaTdigc6Wimgc/WtT/AnoXgNnYPgh31OTZKp
-	 qq7Cf30EAFoKCGrJxeP8lcKi/i/XD8edp23UawkXtALfaQi8+k6GqRRsSZ0FQnIOaOOyZ
-	 w4/UEQFD5ZdTXFozKaFd7KrB/PCoaAMx1XKd2HAUT2vABWwiE0M4TpE9D1jCtyK0vUw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nexthop.ai;
-	spf=pass smtp.mailfrom=nexthop.ai;
-	dkim=pass header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=Bv6yuU59;
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=pBxmybFhraH/PZu9TzxWt83yv/Plj5oQ+sfyrvjnp7k=;
+	b=ERgpQ1lEvbUE3p+3SfjcVmfQ9GI+J7cgDAjNeKL4S62Iy8f5NH3U73Y4ni0gnYs7Uw5z
+	 q6WFdN9is2yurJkMipfTrC5OssH5NA629CBhd9SeRIPCneEUxow5AYuAaVLBPa6j6N2Wi
+	 BGu3WXBJSzbnvQQC5E/3kDRrXhaothpSuXXdSACuZz6jbI2wi1ck3g/xDdLuJXfo9kmTL
+	 pbXaXdVaOSRC029xF6bJbxDlx7bdk2ze0rVeb6WS0DZTQiOb++H9wpLXG4tcDdh2zcxkZ
+	 OVMH2ssZ0avWZedFcMtPGSdjdM4EfWA/zOvlHgOINUIiSMWNibFySV2hKrm29XTvJVw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Pp3zPBI7;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.178
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B424C606A327
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 21:58:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B424C606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DBB6606A325
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 22:16:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DBB6606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=Bv6yuU59
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3535a54bed9so1674825eec.1
-        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 14:58:16 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Pp3zPBI7
+Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8b10d24345dso12151507b3.3
+        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 15:16:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792621007; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iWUOAR+BsCCnDGqdIhsrjcRQ1VteaE/ry8h3vNtdgWvWGialgiMHNqhAD+UygjxBQU
+         0alBJMbFhk5rW4f7tzJ7Te5Y4s2gckXjyd4iqdi1UQ6kiRhzT8i747RI+My390q/rmc7
+         4r3sxeSpxP1z2o1wDhuIBI9Cl4aBBP8DfRx+Wsn/YpLq39z8oMg7AcXOO3Gd3ZlG1LHv
+         48t0/3XBrienXqrRJXcCsutnwrHVjUL2nKYgYLsDMCGNM1c18DdhPUE/RodYDS5GBGw2
+         kNqeHTXDd2prEnuKq5LR2/jfCzhDwFsWQbqWf1FzXRkVh7+Atyz4cvlM3eDQl8WEE0OX
+         v2dA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=pBxmybFhraH/PZu9TzxWt83yv/Plj5oQ+sfyrvjnp7k=;
+        fh=PTJtvnM7jFBLrtyPbjEMeKNl5D5DBb32i2VKGZjLIhc=;
+        b=sl0ncRlTYQY7huw4mmRpbIh3xaBY5CnIRmm1DYE8FsYg4efGvUHww82ddS3BNcPlVJ
+         LbOuO7hq32bpVOFAlTaHUl/b/iBrQmZ4dFgOFHk6GAgftlX8zl08ynjl/PZUB6Uxib4q
+         wRsxs5sKEcjxx5tZ9RS9Q2UKTNtHzFJKx+Q4IzHyBbw+NDtAwGjD8k2F8teWfY3rR4dW
+         LJ/sPy3ACbvT4zsqcoKWHTkt4WnM0wEUqWhboGVi/kd2wvW1wcfygpGaYHVadeCp9xrr
+         CyHHti2mt9MxrRpj5H/BD7pR9xStqoFTb3d5+/5CgaVALehtKvP3ffMneM1w6M5mws3D
+         nSgA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1792619896; x=1793224696; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=vjlrFc8ai6S+8VJ+lvNd8+aoLJdpX9LDqDVung6V/EU=;
-        b=Bv6yuU59nd+Ut2wBNrms7x2KVr3ltVHDHJ9wPLhZWuAdYIXDzPPijQUJt41to4og+R
-         jhPbJQy8Bt3WMPnwCH71termvOtenXWFlVGmgYa3HgDXbvpBHQVbvetndgcqIP2boZdV
-         PsMkKFLYyn+sw2JrxhPKt6lLodquLrVRsXaQZV8G/YhIlJ8YD40I7vtJ2Hz9LZTz0X5T
-         vQkDNz4X9LkJUGHY3wKYLOqAxfBAbS0WP+USYsoVK//cGczx5os1MliU4u0uz+XQjk+O
-         U+aYNNgj0TJvz4y/VLuEjefu+wGRUxZrZz0aaWGlQeiU3kcqXXEB5h2ZcCO/JKVLOBxr
-         ss3Q==
+        d=chromium.org; s=google; t=1792621007; x=1793225807; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pBxmybFhraH/PZu9TzxWt83yv/Plj5oQ+sfyrvjnp7k=;
+        b=Pp3zPBI7GONExxATnfQd52OQh2njdUvt29F7MQp/AEVn70HzNcoaPB4/yDg8KSOeLq
+         7wfrAe7ITktoLrUPAlRn2bXTEEP+lCh5VC3UG57EE8x/1HrBVgZUuwFgvxtiwwCITWnx
+         k3x6DEkwQMjRO/7/TY5b4wQnKs0Yrbk+/XvFM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792619896; x=1793224696;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1792621007; x=1793225807;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vjlrFc8ai6S+8VJ+lvNd8+aoLJdpX9LDqDVung6V/EU=;
-        b=vshqoAzS8TcmbaApXGWJpALDkiP+cGR+wuCn3pKqBSMptNDVj/g7qSB68HvedTpsiM
-         DgHAHLC5IOIUvQ3r85f9bXr9QHVO1uZAWm+lVG4RSyKGxBaDYj0RPwsJxgebnyWizl5Y
-         rkl5KhkvvgCRQVrTKRJ+/OcNKw+FllXcRQxO+4+jVtE8fNRK14Ywv6LO7TUTW5RHs6gb
-         8u2CkHJoiHVrD1zeN7xA/WZ0iYRcuX4FqHJLGtH5MwbXF5BJzZ5LTUZo+xOCXS4bEkOm
-         uRdGg4mFEM2NZ/14ShTGWlLB7VYashc6X9aGLY5iKyhNTXa3FuQhf4e8LMTS/FoTQJvI
-         7Tag==
-X-Gm-Message-State: AFq9FYIcw+EI030uxkX4h8GPLTfuVM5MuqKQzyCcT2+opwytNKDc1PTU
-	svTT6ct+AL6FQAwvXIOjz6lNHrB1QnmJX8Muyr/ZkExfrENomWMaOLTH4dbEqf02FZU=
-X-Gm-Gg: AYBFou1i4h5ATmtoAKvXwJt4mEvm9D5Mor7S1uUZiVKQB8hsBhS5wMbtH5j0zR1XJIz
-	uSA+6hgohb5lBi+E5JZy/UTou7KdJ0UuxuDU4ryi71cXA/tvEnXWPwCuH7PfELe+IudVYGgomS6
-	lQX+Ez42MopwgtrLiimdeAbnFqlN44dFjwY1CtUTSkNQHIuq9LUa54l0X/uTTX6rAc78A15Kn1V
-	x3NRd7kZeItz3sY3usnb8F5mrtnzs8RO9l+UNN1ZhnGApBdg12XltPIKXfov0xbJyDoFRhOpJz5
-	z0oOdr5RX0EZFkhZu4TcvnGctAzwfFc8nLdlGLqBPEpAX/eQ13Kl8OYzx+5bqG2KBkWX3FOtSoR
-	lLX6iVZcqviM0Dd9vmYdrEUS/Q0upWnafXo2qaQ2R3JezOd910is907mHs97oB5uwH+ZO5P7jgK
-	qxVOCkKikUfNkvdTCUyD+rbvRDMceIe3f/NwpKntzbi3KH0nocmkWB1sMSPDWE0AjsF5XBLDgCk
-	NE9zcbfrBJMr2fhlZX2IJmWSVqLathpcDzyhs2tZzI16zAw2dvZsa/j
-X-Received: by 2002:a05:701b:4283:10b0:15f:28e1:7c7d with SMTP id a92af1059eb24-190a86ade90mr4009050c88.42.1792619895746;
-        Wed, 21 Oct 2026 14:58:15 -0700 (PDT)
-Received: from localhost ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903bf5d0a1sm8941979c88.14.2026.10.21.14.58.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 21 Oct 2026 14:58:15 -0700 (PDT)
+        bh=pBxmybFhraH/PZu9TzxWt83yv/Plj5oQ+sfyrvjnp7k=;
+        b=qAdiVJvsggNUETvuNDdBFu7RSXa7P64pW369+AiTUVj41qVAjZb3IQC42q4iyExPuO
+         rLuv++xYGnqQj4K9SegxcRvso5dAm8T+Uw0l2yLP1B3w6bUCKNWpBoYljyfe5C+D5iC9
+         kgYxXBdWAw3pjbC5Zet498kCID8tve3M8FX3RVq6fWGbWQO/VZ2rjfuRpntPmCavWH0C
+         OwX/vl4iksK3fs9Ml0+1IvMdcFnuHVU9jXkKQmnagq+n842HMAitzrFIO5MQm0c9Sz52
+         rkX6WtmYXTuoUUaGWmbjN9zd9oh2eaZmD+vbZa00is0gOUAzWKadJ46oXfMJvIJ9MI/2
+         lAAw==
+X-Forwarded-Encrypted: i=1; AKwUvBzN7RzLiBfdz1JA0P2TUaV5sxKI0zoU7SwTSc+aPeiWLSbIMHWBw8cvgdOb0VTn6+dakPltCGDGlgqn@vger.kernel.org
+X-Gm-Message-State: AFq9FYJO5T+XF1EIfTVBiFBW8Pk2E0t0iviLi+4x7HPsr9NT+UQE622G
+	s6sJrBKiW7FipMmHVzbGp5qE4g3u5LHhv8kwpQuX8zTKmzIu2UUPYkHVMIjmwuEJsO7tU/ycePm
+	LjVeBJNHZByR1aoSVWBFrlBCX6WRWxiKCTvYqjFY2
+X-Gm-Gg: AYBFou22FLpPcGy8qABaBmzuq8ocqrA7au+bu2T0k+R82VKj0wfSIgxcLH8KJJCRoWF
+	21WsDQ7Yfan1ROwRfL4nAQyYBHKlW8kNEpGC9xxyHgPyNMTBLOwWose4cZu+A6k5Q+vqTQX6OjI
+	6anMxQmr/pDGj83ri6pKkYXL3Vj7GrY6MPlKPAoe0OkzPAsQ7pi9j2ibUoI0xp7GN+hltB4GaPB
+	n14LTJuAiKCedQTBK+Haf/KrHIiYIjK2EbunK79clEvUWL+Ld7s0JZyUdfWcYYYKeiur4BnPYYz
+	G8SoMjG09YVWhhGY62des0TN3+ynXDrPfUgDjYEhrIChtaQRdOecdgEq3qlaI9wBPyeEHKrNZGK
+	VmfQpPQKt+GlPAF8xEmU5Xta/QdUevf6Wqu2UVag2bQwHT9uSEj5/l23GAY0ckqEzRg==
+X-Received: by 2002:a05:690e:14ca:b0:679:938d:a5e1 with SMTP id
+ 956f58d0204a3-67a0e5d5717mr1652923d50.106.1792621007076; Wed, 21 Oct 2026
+ 15:16:47 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -85,60 +100,131 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
+MIME-Version: 1.0
+References: <20261019-send-upstream-v6-0-cb9ba4b3d6fa@chromium.org>
+ <20261019-send-upstream-v6-3-cb9ba4b3d6fa@chromium.org> <sashiko-outbox-178136@kernel.org>
+In-Reply-To: <sashiko-outbox-178136@kernel.org>
+From: Jingyuan Liang <jingyliang@chromium.org>
+Date: Wed, 21 Oct 2026 15:16:36 -0700
+X-Gm-Features: AclHuK97y_1C_fXZ7yRJHnp3ya3ECqu5ReTQG8sTLOF0eRq_fLLRwG53TU5NjZo
+Message-ID: <CAEe3GZGsfB+zi3Qf6buPWP_3hkw9bsd4mB=PtBrp4irtM5Z0zA@mail.gmail.com>
+Subject: Re: [PATCH v6 03/11] HID: spi-hid: add transport driver skeleton for
+ HID over SPI bus
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-input@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, 
+	dmitry.torokhov@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 21 Oct 2026 14:58:14 -0700
-Message-Id: <DMAUPUPEBZ7W.DB96YQGOYZAI@nexthop.ai>
-Cc: <devicetree@vger.kernel.org>, <linux-hwmon@vger.kernel.org>,
- <robh@kernel.org>, <conor+dt@kernel.org>, "Guenter Roeck"
- <groeck7@gmail.com>
-Subject: Re: [PATCH v2 3/4] hwmon: (pmbus_core) Support relative encoding of
- vout related commands
-From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
-To: "Guenter Roeck" <guenter@roeck-us.net>, "Abdurrahman Hussain"
- <abdurrahman@nexthop.ai>, "Guenter Roeck" <linux@roeck-us.net>,
- <sashiko-reviews@lists.linux.dev>
-X-Mailer: aerc 0.22.0
-References: <20261020-hwmon-pmbus-fs1412-v2-0-3396c3a08251@nexthop.ai>
- <20261020-hwmon-pmbus-fs1412-v2-3-3396c3a08251@nexthop.ai>
- <sashiko-outbox-178650@kernel.org>
- <dd1781b2-4637-4997-bdfd-d71fc35837b0@roeck-us.net>
- <DM9W9SZZV7OK.33TH12KSMSBQS@nexthop.ai>
- <DMASAV68R9CA.GRPDV6UG4MEU@nexthop.ai>
- <599f18f1-7ef5-475f-9ea2-9a2059299751@roeck-us.net>
-In-Reply-To: <599f18f1-7ef5-475f-9ea2-9a2059299751@roeck-us.net>
 
-On Wed Oct 21, 2026 at 2:41 PM PDT, Guenter Roeck wrote:
-> On 10/21/26 13:04, Abdurrahman Hussain wrote:
->> On Tue Oct 20, 2026 at 11:58 AM PDT, Abdurrahman Hussain wrote:
->>> On Tue Oct 20, 2026 at 8:37 AM PDT, Guenter Roeck wrote:
->>>> On 10/20/26 01:55, sashiko-bot@kernel.org wrote:
->>>>> Thank you for your contribution! Sashiko AI review found 2 potential =
-issue(s) to consider:
->>>>> - [High] hwmon: (pmbus_core) divide-by-zero after pmbus_regulator_set=
-_voltage()
->>>>> - [Medium] hwmon: (pmbus_core) broken relative VOUT margin handling i=
-n regulator ops
->>>>> --
->>>> Good that I did not just apply this patch. Do you have time to look in=
-to
->>>> those issues and fix them ?
->>>>
->>> Looking into it,
->>>
->>> Thanks,
->>> Abdurrahman
->> Addressed all sashiko comments in v4.
->>
-> Yes, series looks good. I'll have to wait for the commit window to close =
-before applying it.
+On Mon, Oct 19, 2026 at 12:11=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
 >
-> Thanks,
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Low] HID: spi-hid: multi-value sysfs attributes and missing ABI docume=
+ntation
+> --
 >
-> Guenter
+> commit 4c66f3d16c395b79d0997b29357fb80b5a6f2708
+> Author: Angela Czubak <acz@semihalf.com>
+>
+> HID: spi-hid: add transport driver skeleton for HID over SPI bus
+>
+> This commit creates the spi-hid directory with its Kconfig and Makefile, =
+and
+> adds the initial core driver skeleton including basic device structures,
+> sysfs attributes, and probe/remove functions.
+>
+> > diff --git a/drivers/hid/spi-hid/spi-hid-core.c b/drivers/hid/spi-hid/s=
+pi-hid-core.c
+> > new file mode 100644
+> > index 0000000000000..02a7608c4b882
+> > --- /dev/null
+> > +++ b/drivers/hid/spi-hid/spi-hid-core.c
+> > @@ -0,0 +1,213 @@
+>
+> [ ... ]
+>
+> > +static ssize_t bus_error_count_show(struct device *dev,
+> > +                                 struct device_attribute *attr, char *=
+buf)
+> > +{
+> > +     struct spi_hid *shid =3D dev_get_drvdata(dev);
+> > +
+> > +     return sysfs_emit(buf, "%u (%d)\n",
+> > +                       shid->bus_error_count, shid->bus_last_error);
+> > +}
+> > +static DEVICE_ATTR_RO(bus_error_count);
+> > +
+> > +static ssize_t regulator_error_count_show(struct device *dev,
+> > +                                       struct device_attribute *attr,
+> > +                                       char *buf)
+> > +{
+> > +     struct spi_hid *shid =3D dev_get_drvdata(dev);
+> > +
+> > +     return sysfs_emit(buf, "%u (%d)\n",
+> > +                       shid->regulator_error_count,
+> > +                       shid->regulator_last_error);
+> > +}
+> > +static DEVICE_ATTR_RO(regulator_error_count);
+> > +
+> > +static ssize_t device_initiated_reset_count_show(struct device *dev,
+> > +                                              struct device_attribute =
+*attr,
+> > +                                              char *buf)
+> > +{
+> > +     struct spi_hid *shid =3D dev_get_drvdata(dev);
+> > +
+> > +     return sysfs_emit(buf, "%u\n", shid->dir_count);
+> > +}
+> > +static DEVICE_ATTR_RO(device_initiated_reset_count);
+> > +
+> > +static struct attribute *spi_hid_attrs[] =3D {
+> > +     &dev_attr_bus_error_count.attr,
+> > +     &dev_attr_regulator_error_count.attr,
+> > +     &dev_attr_device_initiated_reset_count.attr,
+> > +     NULL    /* Terminator */
+> > +};
+> > +
+> > +static const struct attribute_group spi_hid_group =3D {
+> > +     .attrs =3D spi_hid_attrs,
+> > +};
+> > +
+> > +const struct attribute_group *spi_hid_groups[] =3D {
+> > +     &spi_hid_group,
+> > +     NULL
+> > +};
+> > +EXPORT_SYMBOL_GPL(spi_hid_groups);
+>
+> [Severity: Low]
+> In drivers/hid/spi-hid/spi-hid-core.c, bus_error_count_show() and
+> regulator_error_count_show() format both an unsigned error count and a si=
+gned
+> last error code in parentheses ("%u (%d)\n") into a single sysfs file whe=
+n
+> userspace reads bus_error_count or regulator_error_count via spi_hid_grou=
+ps
+> (which is attached to .dev_groups in the later ACPI and Device Tree suppo=
+rt
+> commits in this series).
+>
+> Per Documentation/filesystems/sysfs.rst, sysfs attributes should export o=
+ne
+> value per file without custom formatting or mixing types, and new sysfs
+> attributes should be documented in Documentation/ABI/.
+>
+> Should bus_last_error and regulator_last_error be split into separate sys=
+fs
+> attributes (or moved to debugfs), and should Documentation/ABI/ entries b=
+e
+> added for the attributes in spi_hid_attrs?
 
-Thank You!
-Abdurrahman
+Will drop these attributes in v7. Already reported via dev_err() and
+tracepoints.
 
-
+>
+> [ ... ]
+>
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019-send-ups=
+tream-v6-0-cb9ba4b3d6fa@chromium.org?part=3D3
