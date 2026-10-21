@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1792566513;
-	b=Qn0k2TG9E8UMl1Hhfh9Yz0R+xUsMcN76dIJFBxb0Q8QbytSZGmmOe3Uv2hvPM/9gB5Ml
-	 7pEShF7nrP6AQPLRVc15LRrOooVCl70wm7abdFq9WnUuIZnicjXL0fwsVWeNBZ42NFHeT
-	 9ffZZYJe4C5JIBs8+yTX7/DAxZaJL4/gdnr1sF5wDpNXg41EUuw5o7I2mDd6eNCKktmNK
-	 5aYJtBaDACibmNl+zSNqCbryrzbpF7DI0mLgggIIeZlww0d4qundyB5wubUlDcC3BGpIA
-	 C/SJUHuaUHhHSZjsbrpOp7/4Zq3eBpRHnO+RmEeZXwjx39OoStRUsnhmPFtfAYTSvhQ==
+	b=VlKanz1HdtQQiEfNJvrLw452H6woZQyTyFo9wKQyQ2R/58P1I3/b+WGgjI+y70bu3JFA
+	 ARZf/H0WAv4TCL6u3oy3NOTLfRgZSQGCv5qkgbQ3rIx6gFJg15KwFxkSqeJfJdljwmxeR
+	 iG97DbicWT2CfDtzdRktkMJDWOM57HPTjgsRspomMLXr8sPABfCOBqHa5yA1Pzrw+4HPM
+	 eDuXaOz8J+TJ9B5w1W3ioL6yrWmXEho1jPqoemxUz59qbPJ71AZm4X/J9T0zahJ7cTEiK
+	 dbme63EwQJELK9AeNMjsGFiBp6r0F1oDdoMIj+IxZZ86u86UYh4NPQGLTrLofiPMtJQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792566513;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Uwm1M5LXW/yTgu/3JOzbMxTh7fefzGQL92I4Ehs9SNc=;
-	b=1ruAazxGYfavvLeCFxJHoOjrmpiBoMkU0Jl4PI0oKIs1y3yU2nlO5Yt8t75tOMxVQFOn
-	 enURxYFoWmYfDo4wV8T+422gnBbLAs8BjOQ5QNopZY8/Gc/8/bfMjJ7UeRG4h/ftucU5t
-	 4D3oQ7wGh9rdRz5uEXJb2VOm94aihMQ4qkOiCzhXBMO8Q0tD9j0BtNtZigKJwP0L7yTlp
-	 Vk1AFogBO8+i9i3jNmXgtPX1rnoUIxzMlDrEm3nUQAS8PcPljjHdJDH5FiE4NmCCtqN9Y
-	 j6DsWaIw1a43Szdg4Bgdaq5izscFef5PjHgRL4le0cEpX91CdSd5FT8ikt8Yql4BiHQ==
+	bh=+4XcTB8uaM0hhjpS8gstVWyDL4QHXRc1Kk4cu0DdNtY=;
+	b=NvKTP0aJ+9Kt4h7F16aca8xca5YD8z8fLEyBQXq/oHVBmcUmuVYScnlxHZGB1ToEwZZW
+	 C2mWniHpQFwmA7SjKcIZXzPa3XY7vDbyEGrAsndRvCMqCNLw3a/lPlXGpcQUb2haPnjV6
+	 hg1z+7cb3xnBdYDuoEOwHtKacg14YQCMyw7USKXqw9+8FOnFaaq03cJqDvyozUBYf6YXl
+	 ittmu3RVLHSPUpaYgqZ5oG7i3sz36YcR0VOgEim+v/7OMR+EDhjOSYpH7zvWLWFUcaaqc
+	 UTMfGlDmon5JpLW84EX+Av6NrOJIIpEH3ubGP1Ac2TpoCdq8il6itlCsnV47Dvj29hQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MlCS74vW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N6wPTEcw;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9777F606A324;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED468606A319;
 	Wed, 21 Oct 2026 07:08:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MlCS74vW
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N6wPTEcw
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1792566512;
-	b=g7eKeWPJCUx37Zh/lyEt33nZdUnWfAG4UpswDdgKYRuMNfDyPQa4x3XEbO50Z7265e8w
-	 MNq0teaD3pCUkPW4RkoKdS/Vw6mWoAx0WCeOaZVU+kHd20hzEqCcBsbzGV1DhgROWo2sF
-	 7v2vjagymPIWjcLrvzxv4NI4nrXYLDckCwR52Rq5XW2BwNKdzs/hDppQZXq57rTp3ffO9
-	 HT1NyJ0VrJKmbY9ej2snpTq5CpxXS9lDwbno6j+ZWxCWXCOajbHFRT7AilSpi5xiJyrXu
-	 SHxFYFxnBi/kH6JmsI7ypsbNveQO6zbaEvZ2i0JjPXd7TNGpRkJBDORm12n4e3Y1h6Q==
+	b=pTxMr2vbUKzkVVcweGd6HxPScQzEjvIeNH3VufyRDYhGM+xtr4CBVbH1yPEC44kVrOT5
+	 zOl+lf/gF4qT3mY3+s64ffPb6b8PjthhN2t3r73vFmAqkf5qAX8BAJU5O0nhdHcyCNB//
+	 3aX7jSYDokC9lTOVZv2vOtMOGcM/tXN6vzupUrAJQ4Emwvxvd1s8XWFS3mvH5WrHCPWX8
+	 n4o7kC6fQJvkTIHaUCAAyr7Ob22C66To/nwLFgcOdo6nEBm4UWkVF9KzTywyC01rFB2qE
+	 6rjaeoofueP+2jUqSiDjyxozawTqg1r+AOyyEQ9nC+ZR+RFqNZa3Y7E6E9PDtdrljyw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1792566512;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Uwm1M5LXW/yTgu/3JOzbMxTh7fefzGQL92I4Ehs9SNc=;
-	b=PcuAUzN/vBmv1rN/VjJ7Qs4Pgs8bm+m/2znN34SrRzs6ZdqUcZ0I/29sz27MJCYglzla
-	 yBAr5Usc8EpW5ezTJ9xn4eMW2abf4Jw3DQRlppQYd2hrqxBvpYEa7TUz+HhB9eboEFhvs
-	 0NDlJtAjcfy3ly5Sjh8/d4clFtYhwECJEj8lw0pk/4/39AVMDnyE5GCMa8FyIyYOQUIRm
-	 sc5vbxzndrcDhREJH8ywRqzXmX6+T8APvrdU8LevUBR8iVccvKiD3e0eh61Kyt2GxZF4C
-	 uWllIzJB0rkUakoAozRyfNT1K554+iakv/3o429YOAb63qhS+oGjmhGPxdnluoulYKQ==
+	bh=+4XcTB8uaM0hhjpS8gstVWyDL4QHXRc1Kk4cu0DdNtY=;
+	b=k9fVs/IfNc7fx8YMSR4u9WWu2lKvUUOIc+lJMvdQDa+3gxWZMdVVgrXMn+ih0Onk8u5g
+	 u0g9Awbs2YFyhhnbpH8OzXidDqGLVmN3AwoFINTXDayejQ9lSfxy0jIF5s5E6bDuQoZPZ
+	 VcQEjZqSlx3YQufcSbDHf5yBkzIqAuAirPW6+P1V2LVyR6RHKla02K3aUKquVyfaGefTw
+	 81Ngyj5BgwCM7mrqPLpC/ZheMI1g7PquGwqk3ObgkqDqtlY+8lT5fwUGNOECqPq8lhuCT
+	 M/6vsjXK+1Fkth2cOy+Y17cynzM1E81MS3OoXl8OzDMWVS4NLPZWDb8lq0fR3/Ti9NQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id A65641F000CD;
+	by smtp.kernel.org (Postfix) with ESMTPS id A58591F000CA;
 	Wed, 21 Oct 2026 07:08:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1792566512;
-	bh=Uwm1M5LXW/yTgu/3JOzbMxTh7fefzGQL92I4Ehs9SNc=;
+	bh=+4XcTB8uaM0hhjpS8gstVWyDL4QHXRc1Kk4cu0DdNtY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=MlCS74vW0+/Tk56hwXXuvqyD5R7kq4+7z32PhoNYCsp9pTpogzj/VhHyXpH4V0ybv
-	 KHMX5wkzgKZAjBhExTvrpWjjCziAJaoEjykE2uC3D72LMgMN+4O8Z+B1VruVnufLb9
-	 Du7B/bBiuIYLaoj1H6MbwOWvDsS4vaJ05HVZs6/MAFM2Wd3pbLut8rysmydbIsblE4
-	 eOmp0olXa8n6yKUy6PUgEQSJ/DOSyv1s21grq8fYVt0DwBznvA+geD6PxVvA9XpCIH
-	 8kwXgQV6Rog7kpkjS9vLu8Bmw/tUe4K4Cg0kXYkcrlLDKolpOtsHeS0dwySUc3maoK
-	 Y9l3/zOxHj06g==
+	b=N6wPTEcwvcIH8P3RGguNYWNg4LNiO5EXV9bs7FHsjQt1qdH9KoqSjpM2MtC2QgorU
+	 Wf/FBKK5hBqrELJcL9ba+WA2OEzJwUajNLPuhc3LL7lYv79LdIaplCQyHlIXq0xG/n
+	 HUDTtH5E7wMpotyWnTPJ2sryahjQ3+1QMViATwRQ2/c72rWV88CdXyNO8AkHrYMTIr
+	 jn11OuqWfPz0xBPEjNCW49GA67PocxsQuezNNfRxahT2t5s4Mpqh02QzTnLwrXcN3t
+	 IEiGNtGs+cVgByS9Yu5oVjMq5IPZrEl68licyeLPTe15EaDVQB3q6P1Y+BjThE1mVI
+	 52dkt9bAZPRzw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 164F3432F4;
+	by lkml.kernel.org (Postfix) with ESMTP id 0F167432EF;
 	Wed, 21 Oct 2026 07:08:31 +0000 (UTC)
 From: Jiebing Chen via B4 Relay <devnull+jiebing.chen.amlogic.com@kernel.org>
-Date: Wed, 21 Oct 2026 15:08:29 +0800
-Subject: [PATCH v7 2/5] dt-bindings: Asoc: axg-audio: Add S4 audio tocodec
+Date: Wed, 21 Oct 2026 15:08:28 +0800
+Subject: [PATCH v7 1/5] dt-bindings: clock: meson: Add audio power domain
+ for S4 soc
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261021-audio_drvier-v7-2-2b9aeae9cb8a@amlogic.com>
+Message-Id: <20261021-audio_drvier-v7-1-2b9aeae9cb8a@amlogic.com>
 References: <20261021-audio_drvier-v7-0-2b9aeae9cb8a@amlogic.com>
 In-Reply-To: <20261021-audio_drvier-v7-0-2b9aeae9cb8a@amlogic.com>
 To: Jerome Brunet <jbrunet@baylibre.com>, 
@@ -101,11 +102,11 @@ Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
  jian.xu@amlogic.com, shuai.li@amlogic.com, zhe.wang@amlogic.com, 
  jiebing chen <jiebing.chen@amlogic.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792566509; l=851;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792566509; l=1643;
  i=jiebing.chen@amlogic.com; s=20250110; h=from:subject:message-id;
- bh=DMgqU4dy+C9otoBnz7xzg+U2RUB122T3zVnjUiL76gQ=;
- b=dCsYNVktGOqd5dEGjsOmG2lMjfuS47nelfFKNm2BCt6lTYEPBOLYVtrCNBeRKAfUmbqTpAn03
- oFuHqEvTTysCXTSxRj/pA3/kvJFkPYNkTKfrUOdoRf/1oySron6CaoF
+ bh=Rx5wFB2nCKDMgS2AxdE5dKUFuTGBEHrm0nwe1wxO0Fc=;
+ b=eBhduL44M/Hu7Y49Qv9Ch18NOTLGupOewGkhCiJANoMMipUyXfSkugV1wPhCTVmX6IqGc6e1O
+ aYHYA0HYRvqBCf8ZzedfhFWWrzfRiOhCLQP46zS7kH0jK0336EZK5PD
 X-Developer-Key: i=jiebing.chen@amlogic.com; a=ed25519;
  pk=6rFvvF45A84pLNRy03hfUHeROxHCnZ+1KAGw/DoqKic=
 X-Endpoint-Received: by B4 Relay for jiebing.chen@amlogic.com/20250110 with
@@ -116,26 +117,63 @@ Content-Transfer-Encoding: 7bit
 
 From: Jiebing Chen <jiebing.chen@amlogic.com>
 
-Add S4 SoC tocodec compatibility support.
+The audio power domain has been found on S4 device.
+It must be enabled prior to audio operations.
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
 Signed-off-by: Jiebing Chen <jiebing.chen@amlogic.com>
 ---
- Documentation/devicetree/bindings/sound/amlogic,g12a-toacodec.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ .../bindings/clock/amlogic,axg-audio-clkc.yaml          | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/amlogic,g12a-toacodec.yaml b/Documentation/devicetree/bindings/sound/amlogic,g12a-toacodec.yaml
-index 23f82bb89750..7e053aaa0f59 100644
---- a/Documentation/devicetree/bindings/sound/amlogic,g12a-toacodec.yaml
-+++ b/Documentation/devicetree/bindings/sound/amlogic,g12a-toacodec.yaml
-@@ -25,6 +25,7 @@ properties:
-           - const: amlogic,g12a-toacodec
-       - items:
-           - enum:
-+              - amlogic,s4-toacodec
-               - amlogic,sm1-toacodec
-           - const: amlogic,g12a-toacodec
+diff --git a/Documentation/devicetree/bindings/clock/amlogic,axg-audio-clkc.yaml b/Documentation/devicetree/bindings/clock/amlogic,axg-audio-clkc.yaml
+index fd7982dd4cea..69f5fef5f14a 100644
+--- a/Documentation/devicetree/bindings/clock/amlogic,axg-audio-clkc.yaml
++++ b/Documentation/devicetree/bindings/clock/amlogic,axg-audio-clkc.yaml
+@@ -20,6 +20,7 @@ properties:
+     enum:
+       - amlogic,axg-audio-clkc
+       - amlogic,g12a-audio-clkc
++      - amlogic,s4-audio-clkc
+       - amlogic,sm1-audio-clkc
  
+   '#clock-cells':
+@@ -100,6 +101,8 @@ properties:
+   resets:
+     description: internal reset line
+ 
++  power-domains:
++    maxItems: 1
+ required:
+   - compatible
+   - '#clock-cells'
+@@ -115,6 +118,7 @@ allOf:
+           contains:
+             enum:
+               - amlogic,g12a-audio-clkc
++              - amlogic,s4-audio-clkc
+               - amlogic,sm1-audio-clkc
+     then:
+       required:
+@@ -122,7 +126,18 @@ allOf:
+     else:
+       properties:
+         '#reset-cells': false
+-
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - amlogic,s4-audio-clkc
++    then:
++      required:
++        - power-domains
++    else:
++      properties:
++        power-domains: false
+ additionalProperties: false
+ 
+ examples:
 
 -- 
 2.52.0
