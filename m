@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792536612;
-	b=TxBisJLoPsU+NjU0RJFhaIJ946A4IP5v2QJBJ4cef+o+GI8O1OU4XxYqrKD3Ym5+n9S4
-	 6rkNykv3t2DEQ2Edig0eSf4AaFR4+SpJJrSjwzDP4KbrWOOMzr06PbHnmR2wXbWG3gxJJ
-	 p9UBh5O1IAY+ZYrNE4bbaDKAv9aOeXMSkQC6M3qudt9GvAuYj+nT9H1h2I/1Wzl4OuMMa
-	 BuP/bu7Hl1FtsKnC0vLxRXgq/JjENVIhmMP+7h4GVq922cuCTDDswSe8C7RdGvQ8fwWqs
-	 vTLB455TaJOHCjgnpGnNMBTX62b+ktcVBvri+WWy1sZq5G9U5aVAlSqty5Q8SRpCXMw==
+	t=1792536615;
+	b=5lDFaWEp/lyxVI9KxGG62jMqP6NxkdR/6aUqKMWuODHADTc9wmIEMnvlvyepPTcfnHke
+	 c0SsSEY53bMwUfCKtd0YYAEzPFZaBoklQ6kE1DwC5dSaXDxDMTpAcYPTgHLr+kMPDM2+d
+	 COIQAgiw5qcwEDnJX6uZK9Fcx8JWEytFYQpGBNxidozmwozCmMzJ+c6lT1NWqE5OPsGVs
+	 n4D2z97DLMQ6krUc+hcZuNtyuMKuSlSM093cNNQkaFPa92anjWwuz0ypchLxuiAYtdLc8
+	 SBBT3Oy7h7IORDtwdJNnwRKta49cKxBCwJTJh1ZDBGem1DD074p2Y3BAVbYewN/s6sQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792536612;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792536615;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=fTuhXEhm4uQNNaPcVdFpwpAupMps3PVyoq78rLHpKEo=;
-	b=RRTCynexwdDyD1WHXuG+f8iIkqBZF070kVULXY3skOXZPeJHV9VRKzTW7fVnQEU37txz
-	 oiPQmjvTMXp6bzoGgrKPIMxIfnxKomFSkB4XMU+3aKr3oHzY7h1Gd5GY8rClpx9iqfb30
-	 Xyg3h+v5X1aNcXieI92OsTV0dPbsiQTDQJuDOqb0XEOk8Eag9mbcFy0hX6WAZr9B+Sgid
-	 yLSgKi71KpeZZw532O9lYnhZhzUjWtUDnsY0kQwqdo0fRljkeNe0o86ZMyMG3X94vlyia
-	 X6LaLylYJsqlP3C4T64d0pDtHhPmRP3We5NikRjbxnW/ITrK8Sgl9W1YNraIaU3HBuw==
+	bh=f0vC8nTatz/VfjL47eh+tNgjT4mJh4syjFrv8ctbkr8=;
+	b=xm5qs+si60lKXlqmWqUc/25rLJChwMhcYVoRqGVftK+4zRKW5fajYRNLJbXWrunr2NiM
+	 QOd1E/ufgzgayMmat9YgCGHa3C36/w6i74Bj7Sq9Q1ietFY0KgFnbzuvjbfwahM7VFH76
+	 m5OGQEA5gb3QeO1hmPGSqDWqk7hvclHPQ80ThIwLseiN4MQPkxDn+LXGFy3M5nVhdpaQC
+	 iVEUU7IQ3dMq7j3aUZ1l/ZNFIJq4r3U7QeaQNSv0xeWWwJujjhm/Te7tW4y1SwCy9z3m+
+	 QF6qgBgEfQhDbVeEEAf8peQwte4koszsIJ7Ik00R1nYaf0wLN55K2+qTZkJdL7mGsgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oMGtStFf;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ngk54pFO;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9680D606A31B
-	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 22:50:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9680D606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CAF360A261A
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 22:50:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CAF360A261A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oMGtStFf
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a018792ab3so720635e9.0
-        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 15:50:11 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ngk54pFO
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a1dede3c2cso1063785e9.2
+        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 15:50:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792536610; x=1793141410; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792536614; x=1793141414; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=fTuhXEhm4uQNNaPcVdFpwpAupMps3PVyoq78rLHpKEo=;
-        b=oMGtStFfhGsL+mBjIIOXSVYiVGOUixhfa02bRsi991TkgCyk0GIcCTt75OwAWONrt3
-         XyxUVpHQ6hS5K1bIte6yGRRfPJrwKq/BdNHY4/MKwW98pomtO8eR32TcUmg5eRs3vT0j
-         4vfj4Qati0/E+qbSKz2TDX3+AUdBzroKUb9HFKxqMw8GIyTxIZfMV18nnUmzSg5hXoWw
-         By4JWTOxBRV/qp54N78Use+YIBtMTyBYI2FcGlVPxD5AjWw10AE1hZ7OeZPBF9JSBynK
-         LIMboApvT8TOGuMsl/r9aUKdQNAAF7XKW/RY7q74qIswfthHsRlqDyb2ZzjsqPp/ZYRr
-         s8Vg==
+        bh=f0vC8nTatz/VfjL47eh+tNgjT4mJh4syjFrv8ctbkr8=;
+        b=ngk54pFOLWmfm72DmBQbR5ZFvu/68E0HsE/I5p7qjLhDU68EtREzXUUkOe1KdJtoJF
+         CO8uj2ApOXtd4ggTGsgelwDkrse81BoWG6/B8j7zHrKz29Y2YVJtiMU8XsQ1V0rAN5ED
+         74xyNd7xAR5wHmIF/hEm+j2q+/US/PxSOYg26nizg/eq0n0Qf+hcc88A4bVej//jOAhU
+         JIN+3z8//MTou4wGoqrqTvmO519jPRA4rOt6hJlK3RntWR9pJpMGmWggWPbEV0Prwgh9
+         KdomzFgOtRvIUay295YGeWpwSdA91x8jdDi30+Wild3BZCh6AF/DiaeZ2Opb6ZO5IZd4
+         mehQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792536610; x=1793141410;
+        d=1e100.net; s=20260707; t=1792536614; x=1793141414;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=fTuhXEhm4uQNNaPcVdFpwpAupMps3PVyoq78rLHpKEo=;
-        b=ccYsUp12SMZgqyM1uVoZiiVkfVj4WxTtXxsforGxDZ0EuyBTp9K92iya7PbcQy/+Uy
-         m8uYeG/agw1aRbRAdtV3J2nKB22fCua0WJ9zj05DLBoD6L/D6JI/zcDQWO7pYH3WtOho
-         3pYAGKF1qgI1Uq4AgI0rMT+b/QXjp4jr/uxXzyhPlJWZQM0ja7GTz4UgWDEpwnWwXAdg
-         Nel3qObNPvbkxeCuKIL0aZDdqN9OZEn258RTaFNqcNYI0HCKHLgVMSqfcS8RIDd+K/1T
-         1jvfNdVpAziEbHWtRCmIDHs0bjJ6mk5LM6tiRC2zwPFemZHz6yPhv6qvV4/VHVEUvh2c
-         TDGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxmpWyTU4lQChlA5ZjOQReMUBV0CddzyBdGeCO4y3MvGHSkfbubUwcwT1DGo2ZU0r3GgXQm6aEkY2Tw@vger.kernel.org
-X-Gm-Message-State: AFq9FYKi/Zd4ckQkFixw9U58OuH4paaoGHn7InCeqr8uJp5hQkDtn1WL
-	EbcT7FusE9KDqOojCrZKKsiVjDTHi7DOokim+saiDmW56drrtkV/JIfC
-X-Gm-Gg: AYBFou3CKMhd1krP6UJ/4NMNdgifYP2nGRYzs5oGKjmdTvU8csBVIzGY+9bZYs7qmul
-	RreDjWBaTawtGYvNwprzFt88AS129+vZTyA7Aif/8NVDe+1dXkO6vWNsC3DUlWR7PLAy4oX/Vbx
-	twW/93HCqXyKThrlQON6LN5ufQ1OAoYN9E7jesNAMkzmOBk/z/c/g7y1khJBPVDceRUM7JRXqkL
-	pjdZ9JNQjJv9o3MEOLrfSv4Al4WcQ2rB5expAO43+9qpmnCcwt7Oj3i3LgtiGlVdINpNjP0/AFO
-	tM/KfNoq10omrxjU1sstQjyArvFw1pPe/AcMzMcjlOys57v+str7uv50K7LUym7Yd5jx9L3y1ac
-	Ty95VYP212AdlPAkgObkz0S2dgdzUgB81pO5NUOJbKFFtWFaRFDFCgp85pmdMbZkQx9COgC4sSw
-	FH1GVoaevyVoVbIHwajqsS8VUIjiGD4LRxoFBB1zhAJFdMDe47oOkwWJV8DQW8Vec3o6bypww+q
-	jMw7gXAg4GCWQF6oYdrqXoY
-X-Received: by 2002:a05:600d:82c1:b0:4a1:811c:8069 with SMTP id 5b1f17b1804b1-4a1fdd20c2amr2908965e9.8.1792536609700;
-        Tue, 20 Oct 2026 15:50:09 -0700 (PDT)
+        bh=f0vC8nTatz/VfjL47eh+tNgjT4mJh4syjFrv8ctbkr8=;
+        b=tRdWHmElK7D7IBt73x9Clkfx9lF8FEEEGaClovjszDltxHLuAIbihDCGEVOBnenSUb
+         ree1QWfoSQUTeQ4F9Pft+Bg+IcFZqxA1Bu8iOz2NlEnYxUvWP0JyDFjt77Wr+5zOImAa
+         Q51MUgeWQIw5Wp/hDDHNUUOwZRixa/MZy5Yg68hf5QfvgJQ2okiy8DhYKmeqcxs7M1rJ
+         mVmloj1qmpvqaFf6optRzf7x0nJ6a0PSaQ8PdzqmAQFPtSVtOWoETyH5aFk235JmZVkf
+         tZYxoToDIQJqw3RgvREszqYyheg3SNKE9xC+91icPeNY+DC4Nc+Ctj24g6Hf758+Aj6W
+         d+fg==
+X-Forwarded-Encrypted: i=1; AKwUvBzQjWna4X1zqkLiW9JSYyfNFYX0KW8z/tvjcQIH/6T+yhMpW+DtfZM+Dl9AquweBKEl9rZh8RR0nh7d@vger.kernel.org
+X-Gm-Message-State: AFq9FYLxPxlSU8Q/hDOvFAJdf1gAULNv6jEkSWnH5csvNG6L4Zu+NhQA
+	ZAs7x7oKsogwgKK0k1aMuEeppohcWHXSroy4YmS9gHVCwA0HtR7n/1Qf
+X-Gm-Gg: AYBFou1xNfyZtN90OfPGMAr1hrSbWa4mgCrTUOF5hma6c4FrqpUrfBNpzu/COtIyP+/
+	rAs9RkW81+hvLAzRcv2mlOu/zcHFWIVMo7W8Hy2YQd4ekeB5T3PXNQqCv2fDbll21BNBp0lLpfX
+	unK0VxHJHKxZPX3XULBc+K1KNJIuhn7073O22fXhwWIO37sGK4ERbQtq+Zp1bfPRUjtC50dAkSN
+	/CHWXizMR6SX3sUB0AqqdfZmFwS11g6ECNAFXv8K9hpPp6A5wAEUFRPF+smGJ5mWaHC0Olldpfx
+	VA2aA/Mze4IjMYcDIk/mbxieml42Yuzu+UUSWUrLfcu2RoVxKgL+wc70ar4x+Q4xWTEzufwE3GJ
+	nwOyrecSyRxsxckyTTvjLEqWbcAK+BmpWfQxFZl0k61vtqivpob5H96DdnAFW7Nlcbd2xhfjdzF
+	PZSrEiVcweHhiEvyD0t14BCzogZmdnox2nKzOTeBaI+PXNHzlSCZTjUr5VvSqK4WYJICibVJ6m0
+	UedTdmJIbTXdmFS5Ie1YRA3Zg==
+X-Received: by 2002:a05:600c:a0b:b0:4a1:7bae:d80a with SMTP id 5b1f17b1804b1-4a1fdd245bcmr2271955e9.9.1792536613728;
+        Tue, 20 Oct 2026 15:50:13 -0700 (PDT)
 Received: from ingenieria31.oficinasStQ.local ([79.117.46.175])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fc0b42bdsm17511805e9.0.2026.10.20.15.50.07
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fc0b42bdsm17511805e9.0.2026.10.20.15.50.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 15:50:09 -0700 (PDT)
+        Tue, 20 Oct 2026 15:50:13 -0700 (PDT)
 From: =?UTF-8?q?M=C3=A0xim=20Pedraza=20Padilla?= <maximpedraza@gmail.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
+To: Rob Herring <robh@kernel.org>
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
 	David Airlie <airlied@gmail.com>,
 	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Ard Biesheuvel <ardb@kernel.org>,
@@ -104,12 +104,12 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	linux-doc@vger.kernel.org,
 	linux-embedded@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 02/13] efi: bgrt: add accessors for the boot graphics
-Date: Wed, 21 Oct 2026 02:50:00 +0200
-Message-Id: <20261021005006.2341200-1-maximpedraza@gmail.com>
+Subject: Re: [PATCH v5 06/13] dt-bindings: display: add a boot logo node under /chosen
+Date: Wed, 21 Oct 2026 02:50:02 +0200
+Message-Id: <20261021005006.2341200-3-maximpedraza@gmail.com>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <1d3aecdb-2537-4f08-a4d2-22c81ebaca03@suse.de>
-References: <20261013093243.505776-1-maximpedraza@gmail.com> <20261013093243.505776-3-maximpedraza@gmail.com> <1d3aecdb-2537-4f08-a4d2-22c81ebaca03@suse.de>
+In-Reply-To: <20261020164651.GA4017884-robh@kernel.org>
+References: <20261013093243.505776-1-maximpedraza@gmail.com> <20261013093243.505776-7-maximpedraza@gmail.com> <20261020164651.GA4017884-robh@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -122,17 +122,21 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Thomas,
+Hi Rob,
 
-Am 20.10.26 um 11:13 schrieb Thomas Zimmermann:
-> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+On Tue, Oct 20, 2026 at 11:46:51AM -0500, Rob Herring wrote:
+>> +  image:
+> A bit too generic for me. How about logo-image for consistency.
 
-Thanks! One change since v5, so you know before I carry the tag:
-efi_bgrt_has_image() now also checks that the image address, a u64 in
-the table, fits in phys_addr_t. On 32-bit kernels without PAE an image
-above 4 GiB would otherwise be reported as there, and
-efi_bgrt_image_address() would return the truncated address. I'll keep
-your Reviewed-by unless you object.
+Sure, logo-image it is, in line with logo-position and logo-offset.
 
-Best regards,
+> This property is already defined in panel-common.yaml, so you need a ref
+> to it. You probably don't want everything from there, so just 'rotation:
+> true' here. Though keeping the description here is probably worthwhile.
+
+OK, v6 will reference panel-common.yaml and list 'rotation: true',
+keeping the description, as it turns the image rather than describe
+how a panel is mounted.
+
+Thanks,
 Màxim
