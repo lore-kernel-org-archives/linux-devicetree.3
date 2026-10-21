@@ -1,99 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792564989;
-	b=GdUwDY8sljhyyoGojYceW0qzA2j+OSteaaZHCO5aUMW7N5MdY3Fj3m3AQuPTXdCR6J7j
-	 /pdBvciE0CADy8CRLvPKUE1Q758cpOaEwbIm0lMrhoMtuy16Dba9L1NYzpAabnpxALOl2
-	 5evhIjsPUrUGbWM8YEh849K3+sbWXGyt0M1BOUQKcNfr5reSavbJASBYRuEBzCQgzrMPF
-	 9PBsimj1WvOhBblmYU3NYnJl6nCL9rj9RCosq+LblpJroXBxxEUexlxhxHkgdy+2pYJTw
-	 t6chq3+5EkSjqSgMiMyI9eULX5cyDzM+Ueb6+w3zdbCiwh26WT6G2/ekJQUrfi+sQrQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792564989;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=75HaQkKBv/s4TtNxkrkKWGdW1y+fNkvn+Rmd7D3S10U=;
-	b=EPE7/9Mu3LIp2NwM3UoINxMXQLCEfvuxoLniHQvLio1a0wmcv1prSXZgPNOgBD3nQn4w
-	 IPoTMPnhdxIM2RkjobJgJ50ciYmb9JxrdpVpgUvDZZmOSSGLfsY8Zpmd2w4iqMOUhe0lM
-	 fGHIx5Ou4LJ88hZWfBYZ3anOHJMUhVEp0QBCoyjxTSwsFUaI/ByafvJr6XnfYZBupnVYM
-	 O1nF+daXkqw9HobkUUmqZz9ROJtH9hlnhYkilo0K5bszn69FfazxeXKiZjaEgWrfd7N6j
-	 93QvR1PTwjh2SuGTEL2h1+SHIAm5qiskCZRMS8BQKBUsTuT/ObrH18ktZ2tJtGD6GZw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="W/GZzHF2";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.41
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792565015;
+	b=WGYetNrAjEu5qnAxU1Kb6uPPlBQDaK/EUiBRNN9r80xDMzEbI5UeaLXU9di/juU0g/vC
+	 Cpsr6fkNVwrx2TtYKf4gDmpfK2uaC693H2m6JRLbaKegxNP1HnhHdbfKDHhfVQwHkf5R7
+	 yazL+8Ltf1G6Cnbefvix9Nl0sBJGucHt70omc6RZhgJCTtzhUdsImFr+esXtqjjPiNDhz
+	 7g6TRiIcXtgo8XWvCMbown1m67+r6GTkk4LhgBkXlwITjFwM8BLnfxam1Xv7smqU6Np31
+	 pw5JAZBtLGSJojCF9Q7FyruxPGLNFD3+/ORzvw6QxdSE+tgEqxw1Pl+gGz41r+YLYOg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792565015;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 Organization;
+	bh=hOcd/ybW41WQRIw4yk0tTChVIHQbGli2LRqLVjxW4rI=;
+	b=CFXeBGR61TH8ToFYMU33dKlcVqkdxKFuGzDrQzVqpNlaCug8mB4PtHGJi/Pf9NFdMYHw
+	 iLJMSu+af3CyfYOYufakmR8Wfike6fmHuT1wJ/jsUKGHBY7Y3qv2tz3yBcxPG2CxmM3gX
+	 FyXxy4HPxzutnWUuua/iOgk+r98b6myc6BfWemdirXWQILt4GpegO4VMl6R+JBXxj81HQ
+	 SDCeh5md3RSe6QGZIriQD9JNCrAa6e+zghjoRKg2Qe+YFKEbv3pWP22kW7b4aXntwNlYW
+	 IoXDh189UkHXabF6mhjbfKYJaIbK+bXs8fWLYFCk37X2VBdquxQQ3lW0dg8USa0+xSA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HtxnNQJt;
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AA29606A31B
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 06:43:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AA29606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BEEA606A324;
+	Wed, 21 Oct 2026 06:43:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BEEA606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=W/GZzHF2
-Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-6798eb0d190so225910d50.3
-        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 23:43:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792564988; cv=none;
-        d=google.com; s=arc-20260327;
-        b=A1WG+Tpj9TVc+UtrAFL3y5MA9L8/fd9O7emPC0ph50HihxBDDbtquW1Y9vV5ZKeADq
-         Z/Q0reLszeRzzVefhtH/KtGnH8r5tz8qXHu5lLuqwnvji23DX3CH7KqEUhkLK1pW6jGv
-         ArfnB1wtp4au+XvFNj9m7lRXd7gzeoqBn6GH35O4Sl99YBsZ6JSk9NY8aGZCxKS+MLHz
-         nlBGG3ivluGR/glIbzSX1rpOUnX4IWfPXAjmD/Vp6G9jDzTpggrx5lcrQTDgUHN2Gbrp
-         UQILPox5VMFjqlMRQ2qyQ0aboTu5LwPK2YBfk/KTwbfZVtLJjlOdC3dp03ZzyPVGjY47
-         UoSg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=75HaQkKBv/s4TtNxkrkKWGdW1y+fNkvn+Rmd7D3S10U=;
-        fh=srWGXvpEIdDqllo3ZLlgspiCgO6nZKRB4NZfXq/f0nM=;
-        b=TRsKDXScXsto8eQ8OK/JMUJ+QEW+Y5hXEgdHQ5pxSXR0AIHBZXE6rRlz+pFO4RGXO4
-         ktnGHf2u/7PwMORoNusTVRrsOWbO2TbQWjKjFZE8PN7bwSsJVdp1SKil37qgkV56Ynvl
-         SIKm2Xt13M/cpnPiAfmGCiQ9HN/32HosSLbd6d/gsOY2urd94rTi39qYYMu7ygL89X2o
-         I+7rSR8f/mS1GOWR4rzN44EhShbyM3RsX3T0LLx3rBJuD+elQgpbTUPNNvlxIZx9xCO/
-         nxfsXpZ7p8tptuSz+svvCpQS5or5Bj/9qqZJiYUp7ccThSc4ubnszUJCuQSuWVk1LjDM
-         mgzw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792564988; x=1793169788; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=75HaQkKBv/s4TtNxkrkKWGdW1y+fNkvn+Rmd7D3S10U=;
-        b=W/GZzHF2NY06v+oXZlgyivPlfoDTpJKe9CZuhEPaTuP3Qidpu3yorDYA41xB4bcPSC
-         /M1QCIYeBX3/6FCyGJwl0TF8pFqTe88oUv3XwwvX1E5VlPp1911HfPcH3d5saDWQgsVU
-         Nsll9UVTXZZuBMTm2Nwc2f03wOSjF5w+FPenbmn78a8sK+qlNzx+w1Y60DCOuAWUn1OR
-         UDv5dhCVm0SZxFlLUR/YUHiWZCrrR8+FOmbCrNDyDDz8KnODQNNH/R7qPMfSPlYd8n0k
-         Jxr2ymTOX88uWC8p/jyO/uN1fBbx888FwDve3IgT2GsonRNMcqXLmqB0eWi26eXiw5YH
-         ZjJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792564988; x=1793169788;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=75HaQkKBv/s4TtNxkrkKWGdW1y+fNkvn+Rmd7D3S10U=;
-        b=YjTCY7k56tSgrnHBWV7kOvyH0y/OaT8jD8dYXTR1BAf0+bSIkmVBzQZu/jqX926ljF
-         gFFy+M2wOTG8OkXI97hxplZNrhWOZ+3yW9TLeAAOR+wiebNKN76sdU294k6Yh0Bd3DkS
-         MQLE5c45kiGJtRvgV77bBzi4NwhTov9kxyNmKDwTZKm5UP50RGV+cII84MxGpn67/4LX
-         p9v4sRPebLERopf/HWIALn32UGA93yZuYW6/NzgetDazU0csqlko48HiD3TPvo3oRlm4
-         nxjldMw8qllLYD9KnTC75856qZg4oGPJywnIJAJo8jLnkMVGih6CLLr7AGjc8h3tGZHI
-         ytEA==
-X-Forwarded-Encrypted: i=1; AKwUvBzEz9s3kz4sfFizd/4nrmdKDWOH5Oy+T/78iLCXbEVghicfSyQfr0ja8z6fGSVKpjgY+NW/A+3sHXk6@vger.kernel.org
-X-Gm-Message-State: AFq9FYK4P89yMBB93QQL71uPo+ImFTpTfHwNfBelEYMadJAHc4Ha6XSc
-	6TR8dfFzIgqdYTye2zpwft3CMFLifUkhuQGNla2xyr2t/cg5DFGh4c0B0NOZTGS/vK3TkugOS6h
-	n3ZSxILHGtOSt5DAiJ9idFl7JmHiFV+g=
-X-Gm-Gg: AYBFou3hIL4cq+TpoycsfQkVVie2ZeYG573s4FKnFWUSfQoZHzjoX4Aq2BBv8hNxC1a
-	/sZLVXF2RIQuzGD5GORbska/ERlqri9NPLKoY09iWbiWh7acsyXHzRvFLhGzUTbQfPILw0C6lXi
-	h8a999iJrbmumoI0pvkvTI0jep0G4965jn5wL3l6m5Q9vbJQEL3/8foI3RNncfoW3Z94J5uck8F
-	Im+b0xSJcU7m6Yl6o9xa578qKv+GQu5aXkjMEbNRNB1PcxqkshJqY66V6Krg1KascdeGTrdnmnB
-	lxuWIjjf1EL8dTOQnrsbosZhyy1WgPYoJ6dYuPK4pU4ZTD2GVTkSWBuKR/+tlcyzQai9croSwwJ
-	JcnxNvgTPA3VI0r2cljG8HoEjuI8bBxSxsCk=
-X-Received: by 2002:a05:690e:b48:b0:677:db69:cc1a with SMTP id
- 956f58d0204a3-67a0e02fb85mr644184d50.7.1792564987934; Tue, 20 Oct 2026
- 23:43:07 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HtxnNQJt
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792565010; x=1824101010;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=t7QuSbFm/OZPuXTWlsUtCNI9PFTEGuzt+w+5HV1IiWc=;
+  b=HtxnNQJtyasmV60Fjt8jrYqeED/BIH46PTy42inlfU9JsZWYrnlGWb5+
+   Fhdc6MyMjZ73aIym8FOFiF9oI0El9VbnPMNzgEVi9rrBU55cGqE6KUPNi
+   26MPVxL2gctVm5rjYWTBZIcae62O1ELquCh5KSa6DTGfpwz+RMFmov8sm
+   rcfs/xrkaSM0dbWLxPzrAHyRB5xKmGyX7rE4PUhUD3sfSPsdSB/jrj+s8
+   3XAfhu0nnCdeDQOgEWDJaghxB8WzgjO28C/fzV+PrTa/0F8f/xZ8R91Pa
+   iWpz6gEQTxlypUFK0WKyNZbj0iyD4H7XmgQGc0fjqu06M0GomPvtDHI3v
+   Q==;
+X-CSE-ConnectionGUID: EEBlMLjtQCaqjfBEHXSJ6g==
+X-CSE-MsgGUID: QlvvidoESr+xGzv35bM5jg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1262071"
+X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
+   d="scan'208";a="1262071"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 23:43:29 -0700
+X-CSE-ConnectionGUID: EUWzumZPRr2YHD64Lu80qw==
+X-CSE-MsgGUID: 1d1oD7PaRWOdxkHTs7rzWg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
+   d="scan'208";a="4810152"
+Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 23:43:26 -0700
+Date: Wed, 21 Oct 2026 09:43:23 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	linux-serial <linux-serial@vger.kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+	LKML <linux-kernel@vger.kernel.org>, linux-sunxi@lists.linux.dev,
+	andre.przywara@arm.com, wens@kernel.org, jernej.skrabec@gmail.com,
+	samuel@sholland.org, enzo.adriano.code@gmail.com
+Subject: Re: [PATCH v2 2/4] serial: 8250_dw: Only accept a contiguous DLF
+ readback
+Message-ID: <athfC3qGJuQGbITy@ashevche-desk.local>
+References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
+ <a79114e72d029732db6764935dde12aa5d497706.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
+ <d992e18d-31ab-4937-8780-9c9dc423082a@kernel.org>
+ <atcm2zqDs1P_EDr0@ashevche-desk.local>
+ <09812a6a-dd0d-9c47-e1ad-5220f1954648@linux.intel.com>
+ <20261020122746.41699-1-vinicius.eduardo.pedrosa@gmail.com>
+ <6c4a5613-7e10-64dc-a670-6407a4f1f6ed@linux.intel.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,40 +92,40 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020173556.632798-1-l.scorcia@gmail.com> <20261020173556.632798-2-l.scorcia@gmail.com>
- <43b58ad7-5934-4895-b48d-5b5a7b92e253@kernel.org>
-In-Reply-To: <43b58ad7-5934-4895-b48d-5b5a7b92e253@kernel.org>
-From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Date: Wed, 21 Oct 2026 08:42:54 +0200
-X-Gm-Features: AclHuK9RBvE_tu1JJML2kndZnV_iY7Vg0PVQd2A9ECqRfA0-uzrQqgVwLULojEo
-Message-ID: <CAORyz2JaJ40+F1oyrvY_0WdqH=fritbPuuQaZ98sXagVayZPLA@mail.gmail.com>
-Subject: Re: [PATCH RESEND v10 1/9] dt-bindings: mfd: mt6397: Add MT6392 PMIC
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: linux-mediatek@lists.infradead.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Sen Chu <sen.chu@mediatek.com>, 
-	Sean Wang <sean.wang@mediatek.com>, Macpaul Lin <macpaul.lin@mediatek.com>, 
-	Lee Jones <lee@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Val Packett <val@packett.cool>, Fabien Parent <parent.f@gmail.com>, 
-	Akari Tsuyukusa <akkun11.open@gmail.com>, Chen Zhong <chen.zhong@mediatek.com>, 
-	linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, mfd@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <6c4a5613-7e10-64dc-a670-6407a4f1f6ed@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-> And here you write clear note about dependency, once you fixed
-> bisectability.
+On Tue, Oct 20, 2026 at 04:02:29PM +0300, Ilpo Järvinen wrote:
+> On Tue, 20 Oct 2026, Vinicius Pedrosa wrote:
+> > On Tue, 20 Oct 2026, Ilpo Järvinen wrote:
+> > 
+> > > For is_power_of_2(), 0 is not a power of two. And it also wouldn't make
+> > > sense to have zero bits in the bit field as it's same as no bit field so
+> > > using just is_power_of_2() should be enough.
+> > 
+> > I think the reg != 0 check still needs to stay here, since the test is
+> > is_power_of_2(reg + 1), rather than is_power_of_2(reg).
+> > 
+> > For reg == 0, reg + 1 is 1, and is_power_of_2(1) is true. So without
+> > the explicit reg check, a zero readback, meaning no DLF, would be
+> > accepted as a valid DLF.
+> > 
+> > I'll keep it as:
+> > 
+> >     reg && is_power_of_2(reg + 1)
+> > 
+> > in v3.
+> 
+> Ah, you're right.
 
-Just to confirm, would the same text I put in the cover email be ok:
+Sorry for being unclear, yes, that's what I meant, reg != 0 should stay.
 
-"Please note that patch 0006 and 0008 depend on patch 0005 as they need the
-registers.h file, but belong to different driver areas. Patch 0009
-also depends on
-patch 0003 because of mt6392-regulator.h."
+-- 
+With Best Regards,
+Andy Shevchenko
 
-or did I misunderstand which dependency you are referring to?
 
-Thank you
