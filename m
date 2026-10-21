@@ -1,55 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792602719;
-	b=zLg+w2WDeR231aWgFyAhPmzDf6XMeQcD7lvUIVhf7deQbBK4QPQM0HkYHzAng20TNShe
-	 YFUrGpBv+Xdq0YGohA9I5uDlfQEPP5ywgv0ok76pbF44y8aoTVB/KK6WN7bXiU3rY875A
-	 Ey6FMOp76VmlMmqLxeZwqpJTlrLmO1a5mFd60x1X1Wqp/po/D2bgnCKo8d90IYm+dJ4Kd
-	 KC+7Ir8U/ouQUQCvfVNwExnxwq/Z2xMUqP6j7q64k86yVSz3R+4kmXx4KmpEryaPORt5J
-	 W0ebNU5WXIxVBoApl5q6vU+2beq4iKeOwXVVB35PzZn+hG7vPjUcl+ROUdcStao6L1g==
+	t=1792602874;
+	b=wQsP9VkHCXvFjbgIbPbSszNEvWvt2FbWSnAb2F+4MAqte89Eh50HnbXoCiLDTcNU7CsC
+	 oS5qKZryFUk5/xLUzs0I8QBSyjeqbOn48v4f/0rze5A8KRu2gweFAMzeY97pEMe4ODvsb
+	 2zQ9Jwkp2pe+NCzRQ0lxwECmj3ktnJzF2ANWxK/5x7O8j/AjRBkJcQ7hXeWjEmyTAdBtu
+	 LdCCT0SAvO3F+A2Vpry+Z7in36+wgFY3ooCRYGIaMzf6c747uuUf/ISePQHNN+SG9U8Rx
+	 uLatetGGdSIeVQVpT4paKdrSCiKPyTMRA37GK13TllaGTXLPsjkWpVju03SOl/gqgwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792602719;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:From:
-	 To:Cc:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=1tnzbTVQ51uWZal+Jth6879qYR8Xa8UKPaBRBV/R8Yw=;
-	b=MUzIFIUavjmYVr09iPVA8ZgHunkvvfbyb6comVMYKKUge+8El10P7tXrpXdtHtv0/q32
-	 cQ1cKwFHZeKxOalqnSuRDIu6hnO6ImxeGNBkgM7V0Vz0HsW0hYtmB1ieBJahSx8CdkP9V
-	 d7K8WVStjlovLSkx1GEfblbx9wMORiUUOK9vR3D7OVHlj5m8oxdfSpUE+tWGft3J6fdt0
-	 bDfRZvXL4GBMVmnAKlity+bYVrNSixm9JEeLkaZiu+yGwshcxBT0jHsCEbMuaXRAvDekK
-	 prGmjfeAXLranR1YDslFvtIiEm1tB8TjGBynw59NRYIm1pT2WbM8KPxLwoZyD59naMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792602874;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=IIEwmheUGWh0VnqKa35MN/XtrDI3rgz5r0klSZQPba8=;
+	b=W9wSheQAOAiOw9PZPckqsRZ2pw0MBWELda007LPnRSGPAamNBUW94Bo8XGMfRlSm9Ze5
+	 8Hk13QkWDX7YQnl63gBnZhMkmAo3wmv8KplCJRSn/1nvmhmhgAbNeGzxmX6s9L6uawmdB
+	 gl95qejopi32Mvkznl/uK8zETIQorCwiCybFfnMmtM3Drg45i9ZjyUHpdhhzpIyMmBpSb
+	 F6WZoLYF6SJp83ItGGG4q5E0pO/mvhaPO6vsL2jB0dZvnzxVfFpJujRMWo+ZLHy9ax1c6
+	 e9dq26H+rPXYGrq8bpu3LO115TEehGWd9osfrKb7X3e4FwUU9bsRMv9BwNuI+Dstptw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=FFPDORY8;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=MV+0efPP;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8749606A33A
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 17:11:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8749606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BEAD606A31E
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 17:14:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BEAD606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=FFPDORY8
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id BC30CC5CD72;
-	Wed, 21 Oct 2026 17:12:54 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9F01D606E3;
-	Wed, 21 Oct 2026 17:11:55 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2218C103289F5;
-	Wed, 21 Oct 2026 19:11:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792602715; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=1tnzbTVQ51uWZal+Jth6879qYR8Xa8UKPaBRBV/R8Yw=;
-	b=FFPDORY8amXem0dXx+KM4QkcYhR4YxwcmnlvfN5R02wk3st8BP2sBZ8EytAUMvqU7W1+VF
-	cLEsbeHGkcZnXyr9i5aftrn3eLTe4nokqn5sT6sWlx+PBFv3prmA/GaOOoCJ2OrZYkUU/g
-	gTGgq0sbFmKONpet23SsyVRCYY9Jt2omxtxGpe22TVUdGD8KctUAojpZYvtgJzhd/I7f5R
-	rQqiUUtlDK1cnFX2u7InHqX7oPqL1L/Dk5nEE3LEHghx7jzVdzR07p2ZR3k6vC9q2+UnW0
-	B+f6ABGnRsNBOXq5pl9O6h4bxvF+6klq5m5HFm982uisSC/PlHhwZEYJqSAZUw==
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=MV+0efPP
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so7192715e9.0
+        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 10:14:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1792602872; x=1793207672; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IIEwmheUGWh0VnqKa35MN/XtrDI3rgz5r0klSZQPba8=;
+        b=MV+0efPPjre42SVRq3x08Nqwaif8RbXYpP/8z4IZC9aOkuID0XUwy/drnZy+oc2V7U
+         +x6j6MDkKPPCHgEtU/icfbi5YZkSM/4pmVt5kAgka6sSoh8m2MuL9dJTd33xZ+FSW3XF
+         M8/3m2BYNewTj5uqB9hTQ9xHHXtulTbRx55m0lgFdEHMP1PhhaUJzLEfeWYtVMVApNsy
+         +oRxH3bKVcRA1xc0HEFKiywzEspm3OzT9qmr/DFyMVDx7U8rgA+cGB/oXvHezl025tOC
+         s3IGb7yrvmwgqvg0P3/bFgd7xrwZT8KWG38ToEYi8hdgDilPMoZqn8/a/avR2AW9C1c0
+         erQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792602872; x=1793207672;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IIEwmheUGWh0VnqKa35MN/XtrDI3rgz5r0klSZQPba8=;
+        b=ye/YLfsNTPc4ou+UWsPVnh7jGpBL/FLBJi3Po3tKp/n9uBnqCDtmZEfvBPcUZ8Swgt
+         3i8NHAtoMYp3ZCAhp6/+S8cXFMGO3eaos7WFEszfnSGFVHhwOsnm4THxe4jGVerN9zie
+         X/sFxf/sQZFwdsw+wbCawVdYr8PVJ14PqgjaJEqB1cox8aePiCm8W07jjk60BGSR6+bQ
+         t12Ins5SK4gbhxDtpa8dM9uXkOF/+F+CWlu+BuHqwGQ7Pxc8llGlm2yIw73yy9gmzGne
+         61rYrMp4GeYkdufjhC9Qedr3RX03qjGqj2mNPYZlFYSJbhwX4Yh+ZM5lbn8hSxq0OlFS
+         8GwQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxFg7mXmjeeajacGVLyb0OBuZ9BCcgt/NPzdbog42T0d+QtyVLFx7MzOqk2FvXoCSM0OglYkc1mL0nm@vger.kernel.org
+X-Gm-Message-State: AFq9FYLRViVYGx/6mbcsD//7SLhsJZe4GkEndNAMZg63Fm7PoYh4NNox
+	b/RDmQTmqz8nUPEBVNtJkkF6phn98XSlcLzDZppcz6/Qo1qZxuEKS1OmByGOvJMJrtM=
+X-Gm-Gg: AYBFou2cXCB3FrHxivSt18RwG59vMborssK86tDAhnxINFu9IX9xJJSh1JPd/TTvVrl
+	wInwLPyxsdG5c6dTB0sj/kkWYAfL3I6untcgIDqrhUCezJk76GpU8/OeN6czPF5GCQrcPoGhe9d
+	M+A4fDciVCXRnQS7ZViRpqvv61TRMj/rPUol3cr9PmrdgRClUTK/hba7zTasyx7yX9BWlnOJ8Oh
+	qmDQSl8MN86UC4iAemOVIfKT0rb0K1lmYHbqlMVWFseDY4788vVEaiE0rs5DYnRhPakjGX8nOnS
+	WuVnAoPCCMJrlZ/Hx/DiRDrjlDC6ceMTmSlyGeOV2p7OWGTypu1mc9cI6tME3p06VxRUgQgyVdK
+	0cUagsX98T2b0Nnm4vD3cKWYu0xZZePLPWzX0B7OfQ2h6ctEazez+Ih/UnFUAFojCwdhwm8H1QW
+	fMUFI8Ol694i88MNtqMR9DubNr1n8HilgtpGUYaOe/tfQOvXuk0D4FjyE1tBiRiGw6z/itLCgEO
+	j3jn1FhwS3kFF68JUyDgDS0cmuejPyGb2a9fzajImUUACajrtkoZOWwd6ID2dI68IY=
+X-Received: by 2002:a05:600c:628e:b0:4a1:83f0:7c91 with SMTP id 5b1f17b1804b1-4a1fdb0a346mr56541315e9.18.1792602871904;
+        Wed, 21 Oct 2026 10:14:31 -0700 (PDT)
+Received: from linaro.org ([2a02:2454:ff25:4f10:9608:8385:755e:e1cc])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a203b42befsm4715775e9.8.2026.10.21.10.14.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 10:14:31 -0700 (PDT)
+Date: Wed, 21 Oct 2026 19:14:25 +0200
+From: Stephan Gerhold <stephan.gerhold@linaro.org>
+To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+	konradybcio@kernel.org
+Cc: andersson@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	johannes.goede@oss.qualcomm.com, conor+dt@kernel.org,
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mark Pearson <mpearson-lenovo@squebb.ca>
+Subject: Re: [PATCH v3] arm64: dts: qcom: x1e78100-thinkpad-t14s: Add thermal
+ zones for PMICs
+Message-ID: <atjy8ZVUW61VBa26@linaro.org>
+References: <20261014193524.5590-1-daniel.lezcano@oss.qualcomm.com>
+ <atH0oW5j9pxsTty4@linaro.org>
+ <aca2cd5d-18e1-406d-a062-e219478b243c@oss.qualcomm.com>
+ <ath8tHxHOdA7G-Bx@linaro.org>
+ <2d885d41-7d05-458c-8364-e206dab12792@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,99 +103,64 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 21 Oct 2026 19:11:51 +0200
-Message-Id: <DMAOMKRB8DT6.2DUZQCDZW47X2@bootlin.com>
-Subject: Re: [PATCH 1/5] regulator: dt-bindings: Add
- regulator-boot-force-off property
-From: "Paul Louvel" <paul.louvel@bootlin.com>
-To: "Conor Dooley" <conor@kernel.org>, "Paul Louvel"
- <paul.louvel@bootlin.com>
-Cc: "Liam Girdwood" <lgirdwood@gmail.com>, "Mark Brown"
- <broonie@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>, "Herve Codina"
- <herve.codina@bootlin.com>, "Miquel Raynal" <miquel.raynal@bootlin.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com>
- <20261021-paul-lm51772-v1-1-25f0ffbffa8d@bootlin.com>
- <20261021-wind-reopen-490475bc470d@spud>
-In-Reply-To: <20261021-wind-reopen-490475bc470d@spud>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2d885d41-7d05-458c-8364-e206dab12792@oss.qualcomm.com>
 
-On Wed Oct 21, 2026 at 7:01 PM CEST, Conor Dooley wrote:
-> On Wed, Oct 21, 2026 at 12:27:42PM +0200, Paul Louvel wrote:
->> Introduce a new property to immediately disable the regulator at boot
->> time.
->> This property is useful when a consumer device may query the state of
->> the regulator at boot time, and want to disable it right away, without a
->> prior regulator_enable().
->>=20
->> Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
->> ---
->>  Documentation/devicetree/bindings/regulator/regulator.yaml | 8 ++++++++
->>  1 file changed, 8 insertions(+)
->>=20
->> diff --git a/Documentation/devicetree/bindings/regulator/regulator.yaml =
-b/Documentation/devicetree/bindings/regulator/regulator.yaml
->> index 019aeb664cae..2da8f70d7e7a 100644
->> --- a/Documentation/devicetree/bindings/regulator/regulator.yaml
->> +++ b/Documentation/devicetree/bindings/regulator/regulator.yaml
->> @@ -41,6 +41,14 @@ properties:
->>      description: boolean, regulator should never be disabled
->>      type: boolean
->> =20
->> +  regulator-boot-force-off:
->> +    description: a regulator may be enabled by default when the system =
-powers up.
->> +      A consumer may query the regulator's state during boot and disabl=
-e it if
->> +      it is already enabled, potentially resulting in an unbalanced dis=
-able
->> +      operation. This property ensures that the regulator is disabled a=
-t boot,
->> +      regardless of its previous state.
->
-> To be honest, I'm not sure how the commentary about querying the state
-> or being unbalanced is relevant to the description - that sounds like
-> something specific to the linux regulator framework?
+On Wed, Oct 21, 2026 at 06:20:55PM +0200, Daniel Lezcano wrote:
+> On 10/21/26 10:49, Stephan Gerhold wrote:
+> > On Tue, Oct 20, 2026 at 06:08:56PM +0200, Daniel Lezcano wrote:
+> > > 
+> > > Thanks Stephan for the additional information, that's very helpful.
+> > > 
+> > > We currently have an urgent thermal issue on this platform, and getting this
+> > > thermal mitigation upstream is important to prevent overheating under
+> > > sustained workloads.
+> > > 
+> > > Would it be acceptable to address the sensor naming and description
+> > > improvements in a follow-up patch, so that we can get the thermal protection
+> > > in place first?
+> > > 
+> > > Of course, if any of these changes are critical for the correctness of the
+> > > thermal mitigation, we should address them now.
+> > > 
+> > 
+> > I have no intention to delay this patch. In fact, since I'm using the
+> > latest unmodified stable kernel on my T14s, I'm also suffering from
+> > these thermal issues. :-)
+> > 
+> > On the other hand, we are at the beginning of the merge window and Bjorn
+> > is unlikely to queue patches until that ends. The changes that
+> > I suggested are purely cosmetic (the names of the thermal zones), there
+> > is no need to repeat the thermal validation. The throttling behavior
+> > will be identical no matter which name is used for the thermal zones.
+> > 
+> > IMO we should use the remaining time until the merge window ends to
+> > correct the naming to avoid any confusion for people reading the patch
+> > once it lands.
+> 
+> Ok, fair enough
+> 
+> I propose the following names for the thermal zone:
+> 
+>  dram-board-thermal
+>  gpu-board-thermal
+>  fan-board-thermal
+>  wwan-board-thermal
+>  chg-board-thermal
+>  cpu-board-thermal
+>  typec-board-thermal
+> 
+> so we can capture with the name the ones related to the non-on-die sensors
+> 
+> Sounds good ?
 
-Yes it is. Maybe I miss something, does this binding is used outside linux =
-?
+That works for me, I don't have a strong opinion about the naming (maybe
+@Konrad has?). I guess people reading this might mistakenly assume that
+these refer to separate "sub-boards" in the sense that there is a
+"mainboard", a "Type-C board", a "DRAM board", a "GPU board", etc.
+But I can't think of a better name either. :-)
 
->
-> In fact, I'm not sure why this is needed at all? Can't you just change
-> the software so that it is okay to disable a regulator that has an
-> explicit enable count of zero?
->
-
-Do you mean by calling regulator_force_disable() instead ? I thinked about =
-that
-but I don't think this is ideal.
-Or just patch the core to allow unbalanced disable downstream ?
-My intent was to provide an upstream solution to the problem I described in=
- the
-cover letter.
-
->> +    type: boolean
->> +
->>    regulator-boot-on:
->>      description: bootloader/firmware enabled regulator.
->>        It's expected that this regulator was left on by the bootloader.
->>=20
->> --=20
->> 2.56.0
->>=20
-
-
-
-
-
---=20
-Paul Louvel, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+Thanks,
+Stephan
