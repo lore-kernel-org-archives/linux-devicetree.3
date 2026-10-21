@@ -1,70 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792550561;
-	b=5XN7PNi9eYAFEgGJHTZ1i339vBAtGMedkPvwVplNOJcd7suOOS5DYisxNsBfFyKApeoh
-	 OMtnpKK2D0KUWiGs+Yc5IV03aFgrAUdAJC4LgZLIyUVUIjT+03nWpNZVfQsJ251gTqGaH
-	 ywbAGXAVZvQ3/1UCWNil8NkoIqtjsttnzn4qKxOrgHqLmZhsdQt0IITZjfWd/pKHGwWhg
-	 7S821+r0FkM5/Qc14G2E74b71k8TM5cEN4HCB9XcbDW28f88bs6r2rIzfnRFeLKcuH2T8
-	 0sUjjKypvB2nqG31tvUwI0eEDGmVXkG4bnd8KwGhMCsbeJu+7Dj04jYTodrWaiOKgLw==
+	t=1792551012;
+	b=HTVC13OhUAWN6cOcTgBhQZsTcHq3Og6ikweXkqvtnhgnf9Ng7kWA4ZNXTCIAIdKR4B3F
+	 k0+7sHhUEWt00k8adWrX4yX+yT2GF8ZywvJNAV1wxtLnillns5rZdX6LPkeQ6LmkK6PQ4
+	 YW32J17SRLdPNToEwqMWHkPgQmJxfc7ruse7P0q/eCK+sDD7EeVtPhNhLxHfq5q/JfUvX
+	 d1L3NObDvQZ6m37ITEfnuiuRK8R+u74Pg/qaEjjMw4OvVcPEcK04Zwu0MPszPhG0+3Ji6
+	 s9QMthPwgGcSgJWRwoJ7KaRw8x1+P0s962irmD4uChJe1KD0snmo32sDY6U1ClW2L9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792550561;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=oLBODvbSr6gtJBJto96ISE7H3MJPrfgXiOoDCPQrvq8=;
-	b=JhyixxHHNHPH2kUPP/6zxL6obaKZcMnwrvuOAJBdIkrqwR7Xo/60HOonisV78bhydJEa
-	 cbxsp6k7zwIv0o1IMAUzv2HgUnRMDgZMMYFHrTTgQL7XFVr9OhXnDYxdAC/RooPG3K+gT
-	 2G3DDxqWIsAeWvlXjA5acPFsk3JbMPhL2UNX2DhXBHaf75UIjJzDGMpZu/7X0WLt8jBvy
-	 v6BYC1H1YW7UJH+rTcuKe3/45jjFhJx1JZQMgrqfOTZ3rOPZJybJoj1jQyuRFYPEot/rY
-	 26PXoND3wK0foJaXEU6K5fnwfxw0aicjIa14LVSgH4TB6Y/iZBShcvZ70+fRJH+AayA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792551012;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=ugcEjM+Zffc2p83YWbfwMX+zvra0v0JNG8Mbcujub0E=;
+	b=a30AAZOcu1lXTn9uy3kzx1mc5TU47ESEJpVmTK57pUKBewI2qGvEjnUbcGA8HpSnbMWZ
+	 4+fTkzOgJX8MBJ8kBo0EpZHFYC7symsJAxKU/eGZBpcoXAAfPo35h/Qw5Ccx85UgB/jTY
+	 ucvvhBZtMoVJbPy1qBMNso7NjkdwBEVqCryQ65B7ayVs2PtR9HmlMrQrNblH3HR277TF6
+	 tRkkeCVxNV1VpxPugU3/EoX7jGwZzXb3UtdyNU3eciB7ljk/Z0Tqk6LLmzmYF312/OJv5
+	 ErESis8iHuKlZyqUMYBK94hHRpeQKki5NMF3LWn1myqaV4pFh3KCMAgMOKpoc+tcqUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IY39tHg5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h6yXnwlN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10874606A31B;
-	Wed, 21 Oct 2026 02:42:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF30606A322;
+	Wed, 21 Oct 2026 02:50:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IY39tHg5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C02B1F000C9;
-	Wed, 21 Oct 2026 02:42:40 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h6yXnwlN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE3D11F000CA;
+	Wed, 21 Oct 2026 02:50:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792550560;
-	bh=oLBODvbSr6gtJBJto96ISE7H3MJPrfgXiOoDCPQrvq8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IY39tHg53XDT9wDChQziERP7v+ZcmXqAlg+Hg7cYkakX1Nov638ol1YuM8hp8XCRk
-	 9WcNhLLwS8Snk7dDeIWAVl7jkbA1HxsGv2WKZWOpqODHUpZKLJgPO3c4dw7emPUSOQ
-	 LfuNNjdN0JCHb9hKkA0Pf2y6PePRTtVyfL3s331SFoci7r3vFAQFFjrIJ9QoQNbmJg
-	 hTH14eicBbmzPbZQHmYYrUxjNel5YcCe9IRSw1UuRU5r+HjhSHRg9a3Qg0bRaCiIUY
-	 20ubXMuOUUL+4tDT7MQ75rQMrTKuQQ0+Q7dqu54hBYXbWrNHTZH5uOefRZq1kWawy+
-	 f6CI6jS93guPA==
-Date: Tue, 20 Oct 2026 21:42:39 -0500
-From: Rob Herring <robh@kernel.org>
-To: Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>
-Cc: =?utf-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>,
-	Michael Riesch <michael.riesch@collabora.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Guochun Huang <hero.huang@rock-chips.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/8] dt-bindings: phy: rockchip,rk3588-mipi-dcphy: Add
- a cell to select TX or RX
-Message-ID: <20261021024239.GA3667411-robh@kernel.org>
-References: <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
- <2501273.NG923GbCHz@diego>
- <20261020141039.GB4157247-robh@kernel.org>
- <25254818.ouqheUzb2q@diego>
+	s=k20260515; t=1792551011;
+	bh=ugcEjM+Zffc2p83YWbfwMX+zvra0v0JNG8Mbcujub0E=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=h6yXnwlNeVpugnaAz+ZarxMmRqKnP1tSS+8d3uMEjzhKSr1iwKCZTRCWijxhQqqzP
+	 HET/dFRzhxdzyODG+xRQt1auWtitqLzPdhECPRWUZod2JSSCUw+iua6CMG9wbfs9NW
+	 Lpao5UDSGTKlHuM4qqeHpnGeG2bQDL+ngUraCsTmv1X6DT4EVwuo3rHBSm2EZWWpaP
+	 9QxD9033yqzIcYbek8tZ9k+raxzp59foEzWN6V9RIY2A44QgU8gJGzcM6nktt9o1ls
+	 3bzn6aExax/1gyUSHmkPHMA5Ev8HsIAcNucErCQ/7V5LfvEfIFMI25p3vsp4jZzwrO
+	 PxfVHELWFpADQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B45FF3809A18;
+	Wed, 21 Oct 2026 02:50:11 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -74,155 +53,48 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <25254818.ouqheUzb2q@diego>
+Subject: Re: [PATCH net-next 0/2] net: pse-pd: Plain I2C transport for Realtek
+ Gen1
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179255101027.346551.1097123393993834413.git-patchwork-notify@kernel.org>
+Date: Wed, 21 Oct 2026 02:50:10 +0000
+References: <20261018161248.376205-1-sander@svanheule.net>
+In-Reply-To: <20261018161248.376205-1-sander@svanheule.net>
+To: Sander Vanheule <sander@svanheule.net>
+Cc: jelonek.jonas@gmail.com, o.rempel@pengutronix.de,
+ kory.maincent@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 
-On Tue, Oct 20, 2026 at 04:57:34PM +0200, Heiko Stübner wrote:
-> Am Dienstag, 20. Oktober 2026, 16:10:39 Mitteleuropäische Sommerzeit schrieb Rob Herring:
-> > On Tue, Oct 20, 2026 at 03:37:35PM +0200, Heiko Stübner wrote:
-> > > Am Dienstag, 20. Oktober 2026, 00:20:47 Mitteleuropäische Sommerzeit schrieb Michael Riesch:
-> > > > Hi all,
-> > > > 
-> > > > On 10/19/26 17:06, Rob Herring wrote:
-> > > > > On Mon, Oct 19, 2026 at 04:15:03PM +0800, 楊智成 wrote:
-> > > > >> Hi Krzysztof, Rob,
-> > > > >>
-> > > > >>> Existing OS should ignore surplus cell if the driver is coded properly.
-> > > > >>> Same as adding new properties or new front-compatible.  The question is
-> > > > >>> how the existing driver behaves?
-> > > > >>
-> > > > >> As you pointed out on 5/8, the xlate checks args_count != 1. The DC-PHY
-> > > > >> driver was merged in v6.15, so every kernel since 6.15 fails on a second cell.
-> > > > >>
-> > > > >> 1. Keep the second cell. Add the patch as follows:
-> > > > >>
-> > > > >> - if (args->args_count != 1) {
-> > > > >> + if (args->args_count < 1) {
-> > > > >>     dev_err(dev, "invalid number of arguments\n");
-> > > > >>     return ERR_PTR(-EINVAL);
-> > > > >>   }
-> > > > >>
-> > > > >> + if (args->args_count > 1 && args->args[1]) {
-> > > > >> +   dev_err(dev, "only the transmitter is supported\n");
-> > > > >> +   return ERR_PTR(-EINVAL);
-> > > > >> + }
-> > > > >>
-> > > > >>   With Fixes: and Cc: stable, the stable kernels maintained at that
-> > > > >>   time (currently 6.18.y and 7.2.y) keep DSI working with the new
-> > > > >>   dts, and the receiver fails cleanly instead of getting the transmitter.
-> > > > >>   But EOL kernels (6.15, 6.16, 6.17, 6.19, 7.0, 7.1) stay affected.
-> > > > >>   It goes in with the series, since two-cell dts only exist after it.
-> > > > >>
-> > > > >> 2. Use a flag in the upper bits of the existing cell, as Rob
-> > > > >>     suggested. Existing kernels are not affected, unless a board enables
-> > > > >>     the DC-PHY CSI-2 receiver on 7.0 or later without this series.
-> > > > >>
-> > > > >> I will write the impact clearly whichever  approach is selected in
-> > > > >> the related commit messages and the cover letter.
-> > > > >>
-> > > > >> I think the cell approach is easier to read and more symmetric in the
-> > > > >> long term,
-> > > > >> but it breaks more. Which one do you think is better? Thanks.
-> > > > > 
-> > > > > I'm not a user of this platform, so I don't care. Up to the platform 
-> > > > > maintainers to decide if breakage is acceptible. You just need to 
-> > > > > document the issue in the commit message.
-> > > > > 
-> > > > > Rob
-> > > > 
-> > > > It's a bit of a pickle, all this.
-> > > > 
-> > > > I gave it some more thought. In the end this is an IP block with two
-> > > > PHYs. No more, no less. One cell is sufficient to address those, and it
-> > > > could be 0 for the transmitting PHY (DSI, display) and 1 for the
-> > > > receiving PHY (CSI, camera).
-> > > > 
-> > > > Of course the two PHYs can operate in either DPHY or CPHY mode. The
-> > > > phy-cells have been (mis?)used to select the proper mode of combo PHYs,
-> > > > and this principle has been applied here too.
-> > > > 
-> > > > However, we have the special situation here that the mode can only be
-> > > > changed for the complete IP block (and thus for both PHYs at the same
-> > > > time). As Bryan points out, we need to check and complain if the PHY
-> > > > mode is not set to the same value for both PHYs.
-> > > > 
-> > > > I suggest using a property
-> > > >     samsung,cphy-mode;
-> > > 
-> > > I guess, a maybe nicer way would be mimicing
-> > > 	Documentation/devicetree/bindings/phy/intel,combo-phy.yaml
-> > > 
-> > > with its
-> > > 	intel,phy-mode = <x>
-> > > 
-> > > with x coming from include/dt-bindings/phy/phy.h
-> > > for the distinction between cphy and dphy, so we don't introduce yet
-> > > another way to describe this.
-> > 
-> > We already have the plain 'phy-type' property which takes the same 
-> > PHY_MODE_x values. We don't need yet another vendor specific property.
-> 
-> even better then ... and I didn't look deep enough it seems.
-> 
-> 
-> > > > (name to be bikeshedded) that sets the complete IP block into CPHY mode
-> > > > (DPHY being the default) to distinguish between the modes. Since both
-> > > > modes use a different electrical interface, this is clearly a hardware
-> > > > thing and thus suitable for device tree.
-> > > > 
-> > > > Then, we can address the two PHYs with the help of the already existing
-> > > > phy cell (without any bitflag tweaks to the value).
-> > > > 
-> > > > The sole drawback is that we need to accept the PHY_TYPE_DPHY and
-> > > > PHY_TYPE_CPHY values that some OS in the field might pass. (For Linux,
-> > > > it should only be the former.) And we need to handle those values
-> > > > correctly. But I think this is not more painful than the other
-> > > > approaches. At the same time, this design seems to be the most correct
-> > > 
-> > > The current cell values are 10 + 11, so as long as we don't re-use those
-> > > exact values for the other constants the driver should somewhat easily
-> > > be able to recognize an old DT?
-> > 
-> > I think you will still have an ABI issue of what does old OS do with new 
-> > values?
-> 
-> wasn't the main contract, a newer kernel should support old DTs ?
+Hello:
 
-Well, yes, it was. That was a position I inherited. I hear complaints 
-about the opposite though.
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-> Aka the DT is parked in some firmware part (u-boot?) and gets handed
-> to the newer kernel.
+On Sun, 18 Oct 2026 18:12:46 +0200 you wrote:
+> While for the Gen2 protocol both a plain I2C transport and an SMBus
+> transport were provided, Gen1 only got SMBus. The Unifi Switch Lite 16
+> PoE uses the Gen1 protocol to manage a single BCM59121, but does to
+> using plain I2C.
 > 
-> I don't see deliberately handing a newer DTB to an older kernel as a
-> very common occurence?
+> These patches simply add a new compatible for the plain I2C transport
+> and the associated match data. This is sufficient to let the existing
+> code talk to the management MCU.
+> 
+> [...]
 
-Do you want things to break when you do a firmware update that's picked 
-up a newer DT? I don't.
+Here is the summary with links:
+  - [net-next,1/2] dt-bindings: net: pse-pd: realtek,pse: add gen1 I2C transport
+    https://git.kernel.org/netdev/net-next/c/9e6df8d57ee5
+  - [net-next,2/2] net: pse-pd: realtek-pse-mcu: add gen1 I2C transport
+    https://git.kernel.org/netdev/net-next/c/ca4bd46de863
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
-> And from a practical standpoint:
-> 
-> We're talking about devices with DSI displays that are at stake here,
-> so we're in the embedded world.
-> 
-> In other areas we're still fighting basic functionality like actually
-> handling the type-c orientation correctly in the usbphy.
-> 
-> So I really don't see a device with a user-updateable mainline kernel out
-> in the field, apart from people hacking around on their devices to try
-> out new features and new kernels, simply because core functionality
-> is still evolving in mainline.
-> 
-> 
-> RK3576/RK3588 devices still ship with a vendor u-boot/kernel, with
-> completely incompatible DTB afterall.
-
-I can only keep my own house clean...
-
-I only ask that compatibility issues be documented. Up to individual 
-platforms to decide if they care or not. So, your decision.
-
-Rob
