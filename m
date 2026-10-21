@@ -1,108 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792597071;
-	b=SICWHrzVCqadj3U5e2iDUcLaz+1qPPo5Ktm6NQDUfC0z0/PjN4tKiyHbesfx868DIxN8
-	 EvnJS6R1E/8nE3u+6Usuf2/q1zDu4U/LF6z6e1PbskIUMxXxz5vkdJsS4Ila+HHgqn/AB
-	 aAtBALv/cC7zNfV0dMa/JJw/GnXXuxy/5kHMLxOfdkKfBhHJ2zHEoHk1akQmYovTTMQKA
-	 +BRKxoPfo3vI763DoK2kbJcgBm1nx7RL+c6z4ptq3U3Lc1No0UKJ07Yv01OWJFPlkCq+D
-	 PiGizb8A4XgcicSeDwD/VtfkhTVnL+Sa/FIn9CEt3yndPO7+qR5kO8WCOQbZD27DWRQ==
+	t=1792597202;
+	b=NDtKJYugHfRSWtLrUbGvGN8ugG2+GoBjFgPDSY2DCP9lJ477kdOw5voETZWnCEDzP0as
+	 8cxBJuW3tJ/px2mf3dpKLs56KhXSPBAwXI+3XB+oP9kyQ7uiNjYs8ETXZaKpNllQheQSJ
+	 97okqbFPNHZmEt1hMy5e4/fxbqVHEpIdWHGQLH3imZ5Xzo4Lt8LYJzafH1gfBDJThqFDH
+	 D0EoFnw8f33VTdgR+4ofOTx1YIpSfcEx7covU5qkSoYoyWUrvJ9wM8mPDUTVL3x5Sku76
+	 kgObpH70rzk4iNvANXuCov08NszXGtALPKnsWl6H+x71iDWehmMI8Yh16Hc3XroLpOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792597071;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792597202;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=pcUJNAa1d5gYFOvrKvELkQqk+wRTOdmweUM3ujZu374=;
-	b=KSfDQz0q5nevik29HfuDWWe1FYxyVjGa6BdQ7ianpw3niqcuU78YojMNuaOhlRCrnZI2
-	 mJpPWfbkUl+Pr5P6jxiwDuJXor1YcZPbs47Um/1Pg6j5awvyx4BTYEJTLOVPKl+EakmXb
-	 77T5JzU3Slkbs5cnFLOnEc7JUyWSD0K+5FtlWmluIRCC3h6xVJXhbiGSDl0Z6db64IjrR
-	 aMmCJWplL2ctM9P1gUKXR5P+DsvfmRzeNQj84SkcgqaAqxFb+AKiTyHI2vmOdFkAKuGl0
-	 rJwoHD0LJFEDTRHoIcCEXsUB95u/DYf8q3EORAmYDUOsVfiuRk3gpTPLB+R4YGpxR5w==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=C4B42IGcjj02HwNf34eRwrJxmCqj0YjAetyw+WBTjes=;
+	b=iwlmO3/FVOHWL5rCF3ihLfbfv354mf1ffsPGQ8YI/GR6zdHd1hdKWVYqeG2SXU/R54zu
+	 hvVvqO9lLGAT4p19DEZ2f1qWzs+/1XD7IuSx/5ADwllIQMAk8w8RwroiHcxq2uXK2Yuje
+	 liFOQvhKlgi62vApmvKZilrIg3PPrgwm7u2MmPB/ecxbfP4V7FUpI8rv2bY9mkikX42ZY
+	 Jcfe4jl9jDBu5irwI/ovsUvCXSJKdm8dF0przii6TIsC/bpVsdjmbmPHCEIt3aoBGnPMQ
+	 2zPUC5I25hZ8xu02KUr5SvzSHU9j6wo38JhOKQbLM3RpjQ3U0BeuLvIPkrTjgv5ubxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=U8WOfcfn;
-	arc=none smtp.remote-ip=209.85.221.179
-Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="rg/NwLb8";
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD1DD606A31A
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 15:37:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD1DD606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CD08606A31B
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 15:40:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CD08606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=U8WOfcfn
-Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5eabf243d05so338396e0c.2
-        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 08:37:50 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rg/NwLb8
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a1dec056ddso5636625e9.1
+        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 08:40:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792597070; x=1793201870; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pcUJNAa1d5gYFOvrKvELkQqk+wRTOdmweUM3ujZu374=;
-        b=U8WOfcfnMnpm6svYe5iJa9/W46YR4FzI8Nlj+7unkM7m0rftH2FoogDPMK26ILs3tw
-         ms9az8/IEBxBnq5+p+y8QpOkfxpbjyjMZpObKISMc1AlVpCtroY8L7HpWqaN9LJp7Av/
-         ikv7zKxySdsv74p2R/3OFIolqJNaymhzG9OFqPY65WDonlV5Pgagk71+wfZENoBDReGO
-         0Wi0rN+Y+MtHE2ZtMEgL2lJ1kLk0G8GP+JFXuGcKj/x824ojcSSn035B408ME33gWqMJ
-         ZSHXqIvQVikv3S5cRgsmonWb7b9tVLhoIH2cIzqoy0U/9rhbqQ6VhgYDS/9NOK7jFZHM
-         qLHg==
+        d=gmail.com; s=20251104; t=1792597201; x=1793202001; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=C4B42IGcjj02HwNf34eRwrJxmCqj0YjAetyw+WBTjes=;
+        b=rg/NwLb8t/dx1u3ms20054DPd+uqAc/PFciJysN5ahw3RUkjyXCYiu3TcXjMUbhssn
+         JBmW2XFUGvpEIZuXrRKWERvjjRRxuARfaimuWyukv9KagkSpAdVcb5F3oILdMHJIytv5
+         enINaPw57EX65qn03Sv7za0WUpq4VS8QdokhbAM9x3nt2icy2969M75Z2bN6MyURiTca
+         sIhUJpU6AXQQ3nUjMJ5ptX6z1PSaNC+mYQYv8vuhKJPT1FJFyxEQxUp5car28WYcB74g
+         IlrGayVarn2Hk8Sbstmn06bypann0+vygpt4LTAbOWFE0uoV7/rOhp64mUyq5OZzI+RT
+         KLNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792597070; x=1793201870;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pcUJNAa1d5gYFOvrKvELkQqk+wRTOdmweUM3ujZu374=;
-        b=uY72vzKWXfFxOZGOW432lXTK1eoAA4UbFstALv0wJh5iDLH/wxQ7rt8/++06Lr6bC2
-         +G4ac4r6eg6OOOlk7f6lIxnF7LtCPbs2zRXdsJ9xw/06jWzcj1DIeWVc225tQOj9E+6E
-         E3hpROuVFMpvYt6P63umskxnDdsRp9EiEHCwvVUZtbnmd5hnxW3LwXxbGm1PNgvxOJos
-         kznBmvGTfV5W7qRD6paguSEShgOQHKmEuFxc1xaGBv9B/rwMWFNrHamUVo74F/Fk4CY5
-         ksC7h3npdDuvU43FRTvkmtze2PinWejO9tsy/bjz3FMbdULo1JiI2K4AOwg/ba5lON73
-         coeQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy0fJbsV+IxI2R7f2vgy5dWmLk4TetQsdZGn+NB4J3Sh5v5vA0M/k7wYFbAjLdraCkBwWqCoczIhmSo@vger.kernel.org
-X-Gm-Message-State: AFq9FYIG4mBjAq4h9bx0KpdSaOuDXZPTUucbcJOGxuqEIoVuxHvombZi
-	MTzlzUXuGohCMIhDe1Iuv5LzIRh14+zAZsle0XZ7ZpjLBAo/8Mq9fZV/
-X-Gm-Gg: AYBFou1evYUGYxi14OJZ4011yBIwACfR5abZVu5Fx35P9SNT4EMMR3HnH7hIy9YkBCm
-	T12r9KJRKGL7JNECU99E7TdnIeE5RNRUfKtJZQqtsoy15MINssZbLs6QMNl59y+hE3SYTuro+21
-	f4gzGEcJ1+G5Yqo9+I9NMNMHa1sagZF1MeRudrDIIHh3zhwxueGJ8YjvLzSF3Fjzu76TTf8DoLn
-	NwjQfIAQR6/fjfo85kiDW+OryloX1/s5Fc5KfwJysqCXIS97luZm2IdJe4UsJDpB6c3SpZzg6Od
-	8or7KKXRdU/0LwZJ6biqJQ3tYRYLQ+5dkMvwGxAa8YqknOPqADSkxbl517qy3Tbfc2Tf7L7N/y0
-	uVQEk8G0OZvfSvhZyf2MRKz/zigxQ7MKbw5ZdNcugJ9DxElWG5RWibkCBQUQ2ON8ErtOoCwqtGc
-	Z4jcsRbHSENHHABlgWmuKEwzOPxc4M8OEs+qEislK0mW6nCu0WDPS9htPFiKBlhGSjDdwDmNfkk
-	hlZcxes9MW2UHbwYvbl5sbUkGX+FbXAjL+VydxImidmF+f+3xE9CS+ji/ByWpnrfLYnLAkMfx/G
-	uXR4UPZEQ0bT5m2yt8U7tUvpw+Z3+7G6jO53+16iCvQ5nBzL8u3a/H4P+NW6yAk=
-X-Received: by 2002:a05:6122:3122:b0:5ea:db3c:4a3f with SMTP id 71dfb90a1353d-5eaebc14cdemr1063889e0c.2.1792597069786;
-        Wed, 21 Oct 2026 08:37:49 -0700 (PDT)
-Received: from MaquinaLab.. ([179.179.238.247])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eae97f0a94sm3505688e0c.11.2026.10.21.08.37.43
+        d=1e100.net; s=20260707; t=1792597201; x=1793202001;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=C4B42IGcjj02HwNf34eRwrJxmCqj0YjAetyw+WBTjes=;
+        b=Wroogbzpr0aQnFGALRrVP3bksAyOoewFZ+jh5lbqh3HBQd2pZXVlFNsXnyDyEdJOMJ
+         a/Nruo17WRR05L+8hbdxKAnEraM+jGVs7657/KkCF3OyVxThrMJFeaEqtSWbfjOjWKmI
+         R2iyQtgIcJ/ShUFDQ3TrYiNpVbyyY4fgozgBeUFFCbrZ7IXCJs9GOHjYbpHeCFA9MBSX
+         7H2fLGl/Zydqc6tUIa3akGGu/+hB71Oit30Jxzjqeu4KjBV1Ar3G9gj0rSU68NivE2d/
+         td98jnIUs9XQx5sDF/D4evYAbVWSH0irzzMnlQYyEg55qSPO2YuZx+DNuaxxgvJ7fybY
+         0YvQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwXlWY6O5gyTgmxyLN3aNp1pyDRK3hVIRyf8ieGSChMtgPPFRSMrdkScOLkaxdAt/7CFH9xiz0XLSrQ@vger.kernel.org
+X-Gm-Message-State: AFq9FYIVx43WSY5jOO0vPXqAxVVLt9bafakcD3hkWWaBYBuwxgybhReq
+	pNqJ5/hCTU0bRu8MTrZz4nQ28OPthWMtJYtpQWvoqe3Rn3A2+IsxT9h9
+X-Gm-Gg: AYBFou2SSeo5eG6S2ypbkhIPDAE0AyYwwytvZxZBdATwS+kHIkdM5YikfpX/QH1wKYv
+	hNPjU9L9LmL8eYjMR+7OBZyPueXXC0ZbTQuIq4rpF9cBJwwEx4r4A63ZZ/OmlRR5tw0eTCSUBem
+	0kmzbfIS38upZa9o1llPDe3da8lVDo+c1Y6rbojFc5xtYlT8ujqLjC/ssHSzR8tFCLym0509br+
+	shoFE25qn0SABk0UXqwqywk7ym22xqDuYrMUYUPB5SnO1FglVvW+YCaHVH8d9YqQXFRp2oSNA5g
+	gwHckevJbxSk9bELuHZYlXmyWW6UjYj4O7pyUiMYiRtiIjy/B3W8fjA3m9aoAq51QIH79GNv3zl
+	9rPNZZ065H9WwE2WHBSZZjYuI68pPJ6Oj/1PgkqQaSjP4RvOW0tH7/lg/BBtXtaS4eBdBvxdCYA
+	kNNKOsot7epkkr1gXHR0f2wHjgW+utb7dRwqwWRfZm5aUfMvhUMKbrMlq/zTas5DCJVNXCgVrsM
+	x15A2wwbeij4Fh3G7BgUed1yri3cCKs9h4PE68Kp0Thx69ev2Yj3k11iN/9x9BottUKWW03v+n9
+	uKX6mR7IWnRzLTX7Ui871LGWwEgs2VrjiT9CJQI9hJ+1VscoTHhrv1EZKG+O
+X-Received: by 2002:a7b:ce82:0:b0:4a1:7ec7:a479 with SMTP id 5b1f17b1804b1-4a1fdd22b0dmr39355265e9.33.1792597200529;
+        Wed, 21 Oct 2026 08:40:00 -0700 (PDT)
+Received: from Ansuel-XPS24.localdomain (93-34-92-187.ip49.fastwebnet.it. [93.34.92.187])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a1fcd70027sm27793675e9.0.2026.10.21.08.39.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 08:37:49 -0700 (PDT)
-From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: linux-serial@vger.kernel.org,
-	gregkh@linuxfoundation.org,
-	jirislaby@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	ilpo.jarvinen@linux.intel.com,
+        Wed, 21 Oct 2026 08:39:59 -0700 (PDT)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Stefan Roese <sr@denx.de>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-i2c@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-sunxi@lists.linux.dev,
-	Andre Przywara <andre.przywara@arm.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Enzo Adriano <enzo.adriano.code@gmail.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] serial: 8250_dw: Keep the BUSY-safe divisor hook when DLF is present
-Date: Wed, 21 Oct 2026 12:37:32 -0300
-Message-ID: <20261021153732.1978410-1-vinicius.eduardo.pedrosa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <atjB-BnXclL3FcUm@ashevche-desk.local>
-References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <20261020104753.28703-1-vinicius.eduardo.pedrosa@gmail.com> <athe0QikG2mzCAtd@ashevche-desk.local> <20261021100049.16504-1-vinicius.eduardo.pedrosa@gmail.com> <atjB-BnXclL3FcUm@ashevche-desk.local>
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Cc: Christian Marangi <ansuelsmth@gmail.com>
+Subject: [PATCH 1/2] dt-bindings: i2c: mt7621: Document an7581 compatible
+Date: Wed, 21 Oct 2026 17:39:51 +0200
+Message-ID: <20261021153953.285222-1-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -112,41 +104,34 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Andy,
+Airoha SoC implement the same Mediatek logic for I2C bus with the only
+difference of not having SCL_STRETCH bit.
 
-On Wed, 21 Oct 2026, Andy Shevchenko wrote:
+Add a dedicated compatible for the Airoha AN7581 SoC to abbount for this
+minor bit variant.
 
-> Ah, dw8250_idle_*() are already BUSY-functionality aware. So, what we need
-> is to provide dw8250_idlej_*() callbacks via struct dw8250_port_data and
-> make current 8250_dw::dw8250_set_divisor() to be part of dwlib.
->
-> Patch 1 (dwlib): Add callback definitions for dw8250_idle_*() to struct dw8250_port_data
-> Patch 2 (dw): Assign new callbacks and use them in dw8250_set_divisor()
-> Patch 3 (lpss): Introduce stubs and assign new callbacks to them
-> Patch 4 (dwlib): Use dw8250_idle_*() in dw8250_set_divisor()
-> Patch 5 (dw): Kill now duplicate code pieces
->
-> Would it work?
+Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+---
+ .../devicetree/bindings/i2c/mediatek,mt7621-i2c.yaml          | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Yes, I think the approach works. Two details from checking the call
-paths.
+diff --git a/Documentation/devicetree/bindings/i2c/mediatek,mt7621-i2c.yaml b/Documentation/devicetree/bindings/i2c/mediatek,mt7621-i2c.yaml
+index 118ec00fc190..e6ea5bc1c681 100644
+--- a/Documentation/devicetree/bindings/i2c/mediatek,mt7621-i2c.yaml
++++ b/Documentation/devicetree/bindings/i2c/mediatek,mt7621-i2c.yaml
+@@ -14,7 +14,9 @@ allOf:
+ 
+ properties:
+   compatible:
+-    const: mediatek,mt7621-i2c
++    enum:
++      - airoha,an7581-i2c
++      - mediatek,mt7621-i2c
+ 
+   reg:
+     maxItems: 1
+-- 
+2.55.0
 
-dw8250_setup_port() is skipped for Octeon (skip_autocfg), so 8250_dw
-would still have to install the setter from probe.
-
-For LPSS, I wonder if the idle callbacks could simply be optional.
-8250_dw would provide them and LPSS could leave them NULL, avoiding
-stubs and a separate LPSS patch. The common setter in dwlib would use
-them when present.
-
-I'd still prefer to keep patch 1 as the small fix with the stable tag
-and do the refactoring as a separate follow-up series. Would that work
-for you?
-
-I don't have LPSS hardware, but I can build-test the LPSS side.
-
-Thanks,
-Vinicius
