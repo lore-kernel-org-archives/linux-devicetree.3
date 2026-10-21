@@ -1,100 +1,150 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=74.125.82.177
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1792565202;
-	b=P5+9v3lS9bX426zj1ddhOUZeyl60RyhQXRKE2LusVsAFQmhPZppltQUfUEqJba/gKl3k
-	 gnfE4urBn/uU/3NiSqj/3FHNt6AzeRQFT4/OGzgto+PFSbQly8Qb73rFRMynoEW09c1nX
-	 XgzZNb1KUgCeEnteWmGo13xhuraWcSVT97gKD5scxcKbNy+Dcv9a5bfn6GHLa/1XqxcNt
-	 g5edMUP3jqAlFN0L8nYE4h4fV4UWKmD7hCjKD6vmfGMMmtlqdSP4EyGPcL41PR5SwDhq0
-	 gOTH/YFlNz03P+Z/oUqscVEuDOh7g90+fIR5Eb8Ok2BYOxQGnKeZ02M3Y54R4SyX4SA==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792565280;
+	b=Pd/csjuxPm6w2oL0uHKEkMgcnGVOZeGrxqIwcNyhOBGaNuzw2yi/Q7XPiz6wQYKhXHem
+	 lgtuxSvECL3vV15AFCzqv0bnQLk5G2hbn4GEX2LGybVCHZwka7OtmNsxKFuWnbLodT86i
+	 S7PZIjESzkDRiAmPUedO5wZiLtddik2/nTUOPflOir5H5lYo4Er53LSKFZdFhOmo7OwOU
+	 sRG85/ivIahKyDJm4Y4Yex0SaLI/My8YGqLCZOehV9lGXWNvo+8T9nDNOLMXGDUuwHVtY
+	 lAxW+NIBcChu6ejaJQ/a9Bi5TY4i5GNEaI7Mxsa4ar3pt+fyEpz/t6RAgL2hoNBScPQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792565202;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=MFx6RfKZoDg30I8aWbaaH8/QBhrTkiLCB5URy2j6R9Y=;
-	b=ZXL3i1Q3rkumxRzpyX2iLuYXGhW7ZaEUqRtqo7IpqUz3cRF7s1DSEoa7pOPP4W3I/x9X
-	 VD2dw/YquLK81B/jpIFyARCDOJmroQkxYhb+2ckO5FKaIxOOgr2BH8W8gXX7AEAnLjnmJ
-	 zvHs2j50hCho4QKe+9BoeaiPGU5yhVWJJHc6Ct5xUE3XZi86RQ0EzIjqL7kJzpqB2q59I
-	 J1E1XafiHmFw5zD/y9B1D9WFhC9Q/0XJnepr5qwWzZtUPHLfFxWpgdQ1yzZkeoPC2jhhv
-	 lO5QjebYAVx67mL7T+hrMbcIXlUID88EBbryxQM5tS0j+NER2/CVTnWJMDmQxd/iFfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792565280;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:
+	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=FGKPA3MkEgAGFLbRl+EjDmGWqlqn/VM25hlpMpaYNsY=;
+	b=3/f5dB9BLhLhSUt8yX1yxYK3zfD9j9Wi81vIcio7KXAQ0FmLQtbbgdDs2NwezttknsUv
+	 vG6Rf4nFvcm349x9hcKg/+6sF6S410ptDIP3/5VMFr5dmVaKy+pIjs2CMTvTBk0UeyWd6
+	 cxuTO4g/fzuFcZsvm0UQMRH/Y7fYULRGH+9ZdHPXXH8ep1P6kkHLv9RpTHTPN340zYHKn
+	 Hh1pxpc5HzlTvG/brmHE9sNn2AfYdAKTL/jcVySL4yvWEBI4JcvmNtDvORdt5j2hwJ//2
+	 oWl7qals2oZzRoZ2YQ+omgjcZgQpxZlbWBifuc2QqrUcDuih/ccmfHv5jvFW+Nt4FmQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qhmxhi0T;
-	arc=fail smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=XA39V9Fh;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.11
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012011.outbound.protection.outlook.com [40.107.209.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE198606A31A
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 06:46:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE198606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E94F606A322;
+	Wed, 21 Oct 2026 06:48:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E94F606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qhmxhi0T
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36661f953e4so777335eec.1
-        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 23:46:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792565201; cv=none;
-        d=google.com; s=arc-20260327;
-        b=X0taIieBs9er1ouuGSpYrpsXn31I1zAT+ngnb0uHAF+kH5AQeQln7iF9UJu87CGa5a
-         s+WUCVgm+oLYD7Z7+hJ9ytiyzO5JAz8l0zy3ofBSYGA3Vxgy3W5DS0U797CIs+SGYOAK
-         RLj3y0NdfA1ahRXtSBzkUjS3gzVtffCdLwOYQ1nRWv3GgtZlP0rNI+GKZ6hSwwu0p4Bm
-         IYeJx1UiGvMOUclUqB43SAPzvx9HTe1qZRElxTxy4EFMfIMw25FwTrjym+4o1HttAoZa
-         Z8JUt+UKV3pjXPzIEzKZYnnMQBpwBLzlNYfR9rnbH1N8rJhKilXTFLY2/EQoy6pv7p/Z
-         j0oQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MFx6RfKZoDg30I8aWbaaH8/QBhrTkiLCB5URy2j6R9Y=;
-        fh=HiAPisdRCe3kBGOh0JO2mZSSjXHfsnpeG3bcfZ7Yjfo=;
-        b=KqNzAsfj5LD7EGYZ4M+07cIXh8IxLyCJiVMoR2spg/yJT5ocgO3mhmFM/4SrSsrKpP
-         IU7bIhpMJDM9SVyQ0hD9p+1ki5NQFhETYaaPLmFRN5lTRcW8GAqlNK8iv+QLRQIk/3nj
-         OEgaIdXe9s2tJgONF0uq/Snmyehp5YvSytm8OjrqsgYq1X0vzpL8VIYc0e7LraCVJmrP
-         CcltseHf8g9lFDDX86LxTzBPlq/4c2wXeWtPPo+gmVpWeSeCLLxNRd1KTREK9GlFnp4u
-         HF+YYTrsTYfGQuPjbAq7lSucC3Le+w0XWcI66UWjCwNmBjO7+mjGimtiSFkhse0vrZEj
-         eeAQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792565201; x=1793170001; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MFx6RfKZoDg30I8aWbaaH8/QBhrTkiLCB5URy2j6R9Y=;
-        b=qhmxhi0TbMwtXBvTVlFY4f2LPpHPl8poznD9dAUHw8+/Z9wZhQBqqYwfND7kTtB/dj
-         BDT7fy1OHPOT3SsXcIJoCO2P5QWvHhSGsWpWrDlHwCxU3wdGdBZJo+CJDKK8hjNN6KtJ
-         ZTBEpRPZ/CzppBKznbLND/WVtTUpHxpIjv8l4Dszl6GShVbqspGQMSfdEn1YLZCusCt9
-         8XZUeUrLgiEXnrc9s2V2o2rhr6TPF2UsE6frYfs2vuDhFHmb1RIg6wUfaQGU2siObxeN
-         QZxhnIASpBqZUpMRUn6UfJAhdRPi9Cf8ml1LkjDPLUFZ1OJH0H7A3t4eraOGGpReFZps
-         J94w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792565201; x=1793170001;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MFx6RfKZoDg30I8aWbaaH8/QBhrTkiLCB5URy2j6R9Y=;
-        b=k9FepLDHmdPZi/S5cKGxSgudI96eTP6enipjwtVrHLM7k3a/4jrvtQWLbdYRBBve29
-         pV4Do5P7xhUJBA/cyKmVSmPShnpPjSY6nkRIJNf7Z02tdQHz3UuGaG/7Uln1mpqkZJBh
-         dl3INwG6isoIuqEsNJN/vLG/hMmm+HX1u1I887zji8pCVo4sFTxK6v7X2MEG6P2pEFUv
-         dhlTo2kvE1s0/Qy8omaAnE7PsbwKDjtGKknnFDWqHP5JDNmcKlHdkXw6TSPLDfiSpPEX
-         XWywr15Nt8A9vBKka49wIkhurkOUMG6Njxrwz1QZGW7/VUoNbLct3uisXYzZHyXgNb87
-         Ll1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxt3tCO7qqGn/XolsKEjnL/tkvExkU0iyoDTFgStqNQh44TibZJ7nIahfFPsQGI2PBZO7meJZXBKr9H@vger.kernel.org
-X-Gm-Message-State: AFq9FYJtnBX0brIlnME7hLKdlewYac6B8ayoz6BxLHA40zEGZiypEjNF
-	sJRsY5lAmGei26eELkni3zfwaKQ0feoACP816vJEwUMwI+aOhEkzCEQWWwXfgF3NCcmrRlK59t5
-	UI7upJhaD7TeMMuGbk1P3Mq9Y5Hq/9Fc=
-X-Gm-Gg: AYBFou3JnfNIqT0a2Ih+PnZ0vkoqDwiSlaAMkKBxfZmi484aMGauRMSCcQSXt5ny2y8
-	96FhMyeqLsVte4MI+aGAjyQSIavtY7OEQBSPRSEuodKaCjwabFCrzSPk9hMNTLP5R6lL3F8MYxI
-	xR3mH/hP/z185t121KDmThQpuI90ewc3RVdiyuLDkhmnX6fA6KWNPoh+Qh5RA3Asn5NLh64+ktD
-	xhIWZgNFg3704gSTM0URCVxkSEZWcPiLf4A3wW9Vwnsm+ouE5YcubHPZrdzj/gqaWGEh8GvOpez
-	O4+IKAbPWPJ9i19ashnhjBVG/lCr7CoBzNJWBBOYAVS4XbfFaQT723Uy/95hpDuoe3NADY+YLA+
-	BzPuWKO/b7E5L0d10+r5AThLV2dXWcuJDyOaPqQ2Oc9JjNvSE9bOYuIXJXlGa/4IrfaE0vA==
-X-Received: by 2002:a05:693c:88c7:20b0:366:703c:5f0e with SMTP id
- 5a478bee46e88-3674ef1f33cmr2092100eec.35.1792565200654; Tue, 20 Oct 2026
- 23:46:40 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=XA39V9Fh
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gA/Fi+TTb7RJNzBNlIOO6S48AdemzQVP16GhkRxbqTk9Uu9EHrUYlCFy7TO1cjpSPYdvd2Lbf86emfWKOMhhMd6ijo1hQuXgHCIVQJmYphXtinD+pyvoiRLHeu11FR2vArwPBGHkgfh7vtlDb6Nh1B4Yh84zCHwwCr8+HdzPaziW6OWlVvW/FYTZg47tnzdZewCv9T/wS5J8x3CcbzkTdwHXp6MWViZXMzic7nlwohILktQuK2eBLpZaouxdc2YlM2M3Cq2437MYY9mUnRBbjvVQPoGDA83MuTLVfynyx7Fvf4pXSCs9D6AB98CAd4CykTuH4493Boi7jZK2V8uFTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FGKPA3MkEgAGFLbRl+EjDmGWqlqn/VM25hlpMpaYNsY=;
+ b=CyhSRohyf6e6m6tXARm0DhHl8IoIrvyXKX9Jp53YTq4ZRhwMlsspRP5cKqGqSGX6soa/EvsCO5VXvehTpu6BIKzaWPIPVcwBpeMWRRyr5p9rvBGzevUju1KZtWTodbVdHuCZhbcYCvvEoSpX8OTtTB+NJHIaQa4m8ft88SbDXnm9O+MU0Dhaz4ZR1E/fuVcnEtq+8ONUivxkDmmazidWh6xv4WpIoRqFoJep0nTEU0GtWnLuBocLO4fh4Ck9/xqkPG3qkyXsH7r5XKeAfPJlndZLXBwX7a7voCRK0vx2SPh/aJyM3psFMKIQ8vzMiCh3dXLypPjoo8U6EJ4gctiXyA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FGKPA3MkEgAGFLbRl+EjDmGWqlqn/VM25hlpMpaYNsY=;
+ b=XA39V9FhzfdLuRu24weSpzq1kTUG1+db6LHdJT9Easjm31+Ygvqr+RU9EV1ZQZzJeGGpnSgJp4wP7oHZL9lshUwaywDZU0n6WJNi+m6lfpTm9IKG/Q9oO3+QzQVJthcWrQjt4LZbvLjq6ydqw/xWdFzysVB/g2PGRL5jR3IRyaY=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from LV5PR12MB9779.namprd12.prod.outlook.com (2603:10b6:408:301::14)
+ by BY5PR12MB4275.namprd12.prod.outlook.com (2603:10b6:a03:20a::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Wed, 21 Oct
+ 2026 06:47:57 +0000
+Received: from LV5PR12MB9779.namprd12.prod.outlook.com
+ ([fe80::8ac8:e862:8ae9:9287]) by LV5PR12MB9779.namprd12.prod.outlook.com
+ ([fe80::8ac8:e862:8ae9:9287%5]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
+ 06:47:56 +0000
+Message-ID: <3142486c-9604-41bb-b7bd-d0708643d41f@amd.com>
+Date: Wed, 21 Oct 2026 08:47:46 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 6/7] arm64: dts: google: lga: Add lga.its FIT image
+ script
+To: Douglas Anderson <dianders@chromium.org>,
+ Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-kbuild@vger.kernel.org, Brian Norris <briannorris@chromium.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, Simon Glass <sjg@chromium.org>,
+ Chen-Yu Tsai <wenst@chromium.org>, linux-arm-msm@vger.kernel.org,
+ Nicolas Schier <nsc@kernel.org>, Peter Griffin <peter.griffin@linaro.org>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Tudor Ambarus <tudor.ambarus@linaro.org>, Devicetree@vger.kernel.org,
+ Julius Werner <jwerner@chromium.org>, Saravana Kannan
+ <saravanak@kernel.org>, Will Deacon <will@kernel.org>,
+ =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
+ linux-samsung-soc@vger.kernel.org
+References: <20261020153652.2907186-1-dianders@chromium.org>
+ <20261020083501.RFC.6.Idfb669fd6c518bc86e45d8555f159c0ec611a6f9@changeid>
+Content-Language: en-US
+From: Michal Simek <michal.simek@amd.com>
+Autocrypt: addr=michal.simek@amd.com; keydata=
+ xsFNBFFuvDEBEAC9Amu3nk79+J+4xBOuM5XmDmljuukOc6mKB5bBYOa4SrWJZTjeGRf52VMc
+ howHe8Y9nSbG92obZMqsdt+d/hmRu3fgwRYiiU97YJjUkCN5paHXyBb+3IdrLNGt8I7C9RMy
+ svSoH4WcApYNqvB3rcMtJIna+HUhx8xOk+XCfyKJDnrSuKgx0Svj446qgM5fe7RyFOlGX/wF
+ Ae63Hs0RkFo3I/+hLLJP6kwPnOEo3lkvzm3FMMy0D9VxT9e6Y3afe1UTQuhkg8PbABxhowzj
+ SEnl0ICoqpBqqROV/w1fOlPrm4WSNlZJunYV4gTEustZf8j9FWncn3QzRhnQOSuzTPFbsbH5
+ WVxwDvgHLRTmBuMw1sqvCc7CofjsD1XM9bP3HOBwCxKaTyOxbPJh3D4AdD1u+cF/lj9Fj255
+ Es9aATHPvoDQmOzyyRNTQzupN8UtZ+/tB4mhgxWzorpbdItaSXWgdDPDtssJIC+d5+hskys8
+ B3jbv86lyM+4jh2URpnL1gqOPwnaf1zm/7sqoN3r64cml94q68jfY4lNTwjA/SnaS1DE9XXa
+ XQlkhHgjSLyRjjsMsz+2A4otRLrBbumEUtSMlPfhTi8xUsj9ZfPIUz3fji8vmxZG/Da6jx/c
+ a0UQdFFCL4Ay/EMSoGbQouzhC69OQLWNH3rMQbBvrRbiMJbEZwARAQABzSlNaWNoYWwgU2lt
+ ZWsgKEFNRCkgPG1pY2hhbC5zaW1la0BhbWQuY29tPsLBlAQTAQgAPgIbAwULCQgHAgYVCgkI
+ CwIEFgIDAQIeAQIXgBYhBGc1DJv1zO6bU2Q1ajd8fyH+PR+RBQJn8lwDBQkaRgbLAAoJEDd8
+ fyH+PR+RCNAP/iHkKbpP0XXfgfWqf8yyrFHjGPJSknERzxw0glxPztfC3UqeusQ0CPnbI85n
+ uQdm5/zRgWr7wi8H2UMqFlfMW8/NH5Da7GOPc26NMTPA2ZG5S2SG2SGZj1Smq8mL4iueePiN
+ x1qfWhVm7TfkDHUEmMAYq70sjFcvygyqHUCumpw36CMQSMyrxyEkbYm1NKORlnySAFHy2pOx
+ nmXKSaL1yfof3JJLwNwtaBj76GKQILnlYx9QNnt6adCtrZLIhB3HGh4IRJyuiiM0aZi1G8ei
+ 2ILx2n2LxUw7X6aAD0sYHtNKUCQMCBGQHzJLDYjEyy0kfYoLXV2P6K+7WYnRP+uV8g77Gl9a
+ IuGvxgEUITjMakX3e8RjyZ5jmc5ZAsegfJ669oZJOzQouw/W9Qneb820rhA2CKK8BnmlkHP+
+ WB5yDks3gSHE/GlOWqRkVZ05sUjVmq/tZ1JEdOapWQovRQsueDjxXcMjgNo5e8ttCyMo44u1
+ pKXRJpR5l7/hBYWeMlcKvLwByep+FOGtKsv0xadMKr1M6wPZXkV83jMKxxRE9HlqWJLLUE1Q
+ 0pDvn1EvlpDj9eED73iMBsrHu9cIk8aweTEbQ4bcKRGfGkXrCwle6xRiKSjXCdzWpOglNhjq
+ 1g8Ak+G+ZR6r7QarL01BkdE2/WUOLHdGHB1hJxARbP2E3l46zsFNBFFuvDEBEACXqiX5h4IA
+ 03fJOwh+82aQWeHVAEDpjDzK5hSSJZDE55KP8br1FZrgrjvQ9Ma7thSu1mbr+ydeIqoO1/iM
+ fZA+DDPpvo6kscjep11bNhVa0JpHhwnMfHNTSHDMq9OXL9ZZpku/+OXtapISzIH336p4ZUUB
+ 5asad8Ux70g4gmI92eLWBzFFdlyR4g1Vis511Nn481lsDO9LZhKyWelbif7FKKv4p3FRPSbB
+ vEgh71V3NDCPlJJoiHiYaS8IN3uasV/S1+cxVbwz2WcUEZCpeHcY2qsQAEqp4GM7PF2G6gtz
+ IOBUMk7fjku1mzlx4zP7uj87LGJTOAxQUJ1HHlx3Li+xu2oF9Vv101/fsCmptAAUMo7KiJgP
+ Lu8TsP1migoOoSbGUMR0jQpUcKF2L2jaNVS6updvNjbRmFojK2y6A/Bc6WAKhtdv8/e0/Zby
+ iVA7/EN5phZ1GugMJxOLHJ1eqw7DQ5CHcSQ5bOx0Yjmhg4PT6pbW3mB1w+ClAnxhAbyMsfBn
+ XxvvcjWIPnBVlB2Z0YH/gizMDdM0Sa/HIz+q7JR7XkGL4MYeAM15m6O7hkCJcoFV7LMzkNKk
+ OiCZ3E0JYDsMXvmh3S4EVWAG+buA+9beElCmXDcXPI4PinMPqpwmLNcEhPVMQfvAYRqQp2fg
+ 1vTEyK58Ms+0a9L1k5MvvbFg9QARAQABwsF8BBgBCAAmAhsMFiEEZzUMm/XM7ptTZDVqN3x/
+ If49H5EFAmfyXCkFCRpGBvgACgkQN3x/If49H5GY5xAAoKWHRO/OlI7eMA8VaUgFInmphBAj
+ fAgQbW6Zxl9ULaCcNSoJc2D0zYWXftDOJeXyVk5Gb8cMbLA1tIMSM/BgSAnT7As2KfcZDTXQ
+ DJSZYWgYKc/YywLgUlpv4slFv5tjmoUvHK9w2DuFLW254pnUuhrdyTEaknEM+qOmPscWOs0R
+ dR6mMTN0vBjnLUeYdy0xbaoefjT+tWBybXkVwLDd3d/+mOa9ZiAB7ynuVWu2ow/uGJx0hnRI
+ LGfLsiPu47YQrQXu79r7RtVeAYwRh3ul7wx5LABWI6n31oEHxDH+1czVjKsiozRstEaUxuDZ
+ jWRHq+AEIq79BTTopj2dnW+sZAsnVpQmc+nod6xR907pzt/HZL0WoWwRVkbg7hqtzKOBoju3
+ hftqVr0nx77oBZD6mSJsxM/QuJoaXaTX/a/QiB4Nwrja2jlM0lMUA/bGeM1tQwS7rJLaT3cT
+ RBGSlJgyWtR8IQvX3rqHd6QrFi1poQ1/wpLummWO0adWes2U6I3GtD9vxO/cazWrWBDoQ8Da
+ otYa9+7v0j0WOBTJaj16LFxdSRq/jZ1y/EIHs3Ysd85mUWXOB8xZ6h+WEMzqAvOt02oWJVbr
+ ZLqxG/3ScDXZEUJ6EDJVoLAK50zMk87ece2+4GWGOKfFsiDfh7fnEMXQcykxuowBYUD0tMd2
+ mpwx1d8=
+In-Reply-To: <20261020083501.RFC.6.Idfb669fd6c518bc86e45d8555f159c0ec611a6f9@changeid>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR13CA0090.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c4::35) To LV5PR12MB9779.namprd12.prod.outlook.com
+ (2603:10b6:408:301::14)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,94 +154,119 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019100406.103687-1-clamor95@gmail.com> <20261019100406.103687-4-clamor95@gmail.com>
- <ate5K6ZdrSoBUI08@google.com>
-In-Reply-To: <ate5K6ZdrSoBUI08@google.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Wed, 21 Oct 2026 09:46:29 +0300
-X-Gm-Features: AclHuK9vSBGobmYgXVnmsJbAb2zJc_kKp_DYHLaIwx6A0bp9NGDYceSKiyk9FqE
-Message-ID: <CAPVz0n13NFbY1ChZRkc8_2CQd8HfjahA-gcRWzxsv7KbAxf5Ag@mail.gmail.com>
-Subject: Re: [PATCH v12 3/7] input: serio: Add driver for ASUS Transformer
- dock keyboard and touchpad
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
-	Sebastian Reichel <sre@kernel.org>, Ion Agorria <ion@agorria.com>, 
-	=?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, 
-	Florian Krischer <florian.krischer@fkr.dev>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-input@vger.kernel.org, 
-	mfd@lists.linux.dev, linux-leds@vger.kernel.org, linux-pm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV5PR12MB9779:EE_|BY5PR12MB4275:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4a2cd1bf-ddf1-47b0-cd58-08df2f3f3ccf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|7416014|366016|6133799003|22082099003|10067099003|18002099003|11063799006|261009223027099003|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	qA4VGlOMiYUKr57aHWtO9K7Mdl6rAEkiIOuw6g6WtfsP7UpcyCSymZyB7DyzIQZW+5h6ZaA+uYzmUcWCYonX3j5cshSP73ymoAOa1qBERuyowvfHi45ndZPAbwBQHB/f178MjBQ3+E/obP6RjSFon5maDN+5ImpYgJjE5a1A4xPC/vuM7GeaATuq8Rkx5EL2nGMUZPkTXLDADPexFa0OXmLaHr0SksmugeUWMnDyVnXilqUgHFAzuUsPB9BfXL2izvOnM1vbX+NMlOWwaC9PmvNjeeoeaUZs6D+NxfN+JgRQgV0iIY7aA1mw9DFIatPvSyqsgdr4oRSxT2MGBH7RlW3uJWrGWUYTbVALdDb42nya6JtK3L7JVZNqttYFFRGCjgfHkXUBz6znH+bHhZEd8KegJn8ExriDijf2aQK9p0FDXSYYWVEVM46caN9LzoXmFoTP+LC0JkXuGAP5CVldT0izn2lrz69EqaxI3RLNGiHIZXfQH1sfj09mhBdklkAdz19XS+BfCqcvfEpo77SA2WWiy8RXZZ34SmgtygzbrGyA74k4LmQjLPmGOHj5zB0rtfcklu3Bs8dtaML6dwRYC53mcpvxXxzj7BAw5t/GvHMdN2Hujgw3Vm5DHo7dW8VGd/UE0BNXt0zVJCY6zJATbfbdzzVPPI+mKp3CRme5GeY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV5PR12MB9779.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(7416014)(366016)(6133799003)(22082099003)(10067099003)(18002099003)(11063799006)(261009223027099003)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?S0VnclFoK3VQVkV1dHdaWGhzKzV0ZGpuWmlTZE9waTdSUGRXQXJvUWxKNHVt?=
+ =?utf-8?B?cnQxVmoxMkhwclhvQWJQdHdaNm8wUXNTUzRnbFlNOFp0akYxOC9MZjNHbXVM?=
+ =?utf-8?B?VUo3NVRlVFZWZGdwdmRDZzEvaHU0QUIvQTZBYTU0UWF1VmFnVzc3ZlFvNG5Q?=
+ =?utf-8?B?SUk2VjFTbU94cks1Y25oajdibjFkd1o3MncyOGZXTzJWbURReGZLQ0dKRnFy?=
+ =?utf-8?B?V1pBc21SVmQ3WEpYOWNjQS9ZcXl3NGU5VlNNVUYzTWNtK2JBcWFOeFI1NUNl?=
+ =?utf-8?B?bkFOWEQxSlVSRk0rRWJsaVZYWEp4S0tUQ3YyNm85SVFZMnVKRjlmMi8wNE82?=
+ =?utf-8?B?ZENCQkZqc0lTZEk4LzQwRGM5aTZCZjBVNEJkWVBJSUNmbE1RU0IzSlA1Vk1r?=
+ =?utf-8?B?ems0RUY1Tm1RYUJlREwxMXhsMXd6M1R2c1dTWmJLbnhmWDVLb3RjeTJpU1V1?=
+ =?utf-8?B?UWNMRThxMWIzR3ZxRjV2aUZLRWNEcTRucGdGcHBKNUsyd3p6eTJPMEpzblJG?=
+ =?utf-8?B?UEtZYUU0VC9oTDRhWllWWWc2a05LRllJTGMrTjhud2xOZXppWldEa0lzUWZt?=
+ =?utf-8?B?MjNIN1VmUThZenJqSllqOHdubjhxRFJqV3ZNbzlydHNLeFZkME93RDNURitj?=
+ =?utf-8?B?bWNUMjYyTEVzU3ZoQTRadjYxcUpWdGw0R2ZjQ3RxRHZGQlJxdlM4a3NsMHB5?=
+ =?utf-8?B?UHhVVkU3V2ZkdjduK25kUFpDcFMzV1JLd0xTWHZSdWhaa3lCbmk3c2VKQUtj?=
+ =?utf-8?B?STlIc3E2ZFplUU9vREpObE8yREpsOUlFVlBVWTBEdUtLRUU4UXdLc0RJeHpy?=
+ =?utf-8?B?YkV4SFpENTRQblYzNGl4M2s2Y0d2cHJ1eHd6Wm1TUGxDNFRRM2FndTZBNjhp?=
+ =?utf-8?B?dFV5aDJKY2hIZXpTeDhMZkxxcSt2UlpDZ0w4V0k1Mzlma25zNDQwSkFYMEhN?=
+ =?utf-8?B?MVZ6bi9LU08ySW81WHVFdXFtYk5tWTFpdTk1Nk54VzQreko4SWRpOGkxNmNu?=
+ =?utf-8?B?VVdDNUNVZks1NnlkM1JkMElBOXlFallCQ2U0NGFPaUo4OXp3MWJHQWdnSWVB?=
+ =?utf-8?B?dHlVUXNtZ3VqaHBKVVErUEhjZEZ3MmR0Y3E5STdIK2xKSWNYaDRmNFN0WFd2?=
+ =?utf-8?B?TXBlb2dYVlhqdnQwQVBhMzNqSWdvZHJIUk1sL2VDR0hiSUFCMDBYNmlyQS93?=
+ =?utf-8?B?UVlqYURvM015bVZ5OG5NNkhvMlh6NWlHeTZTclFzZjNVZ05DYldhL0pCVVFm?=
+ =?utf-8?B?NWo5U08yZXB1czc3RS9SY0RjTldnWTZQNlhuK3VsdlJ2REc5UmdsWVUzZDJi?=
+ =?utf-8?B?Z1IzYldDQTNhd0ZoOWpsL2tab1lQL0RkOTZiZXFVMVRyYTJTaWwvVXpNbG1z?=
+ =?utf-8?B?NmdoZHc3dUZaTUdsUTZHQ3JJRGdJd2tTRUhGbythY0dFSEFYQmg3TnRmK2Vs?=
+ =?utf-8?B?SEZBMWdpMzBCWHRRRTN4QXlPc2h3T0s0d05xQnNXOEFTTEhiN2pNWVROQWZv?=
+ =?utf-8?B?Y0pzaWxabGRWMUpsbWxWSnBTeDdPNm5jUCtBQkdVWDRXQnBxS003dlFvM2Q2?=
+ =?utf-8?B?QjA1MURqZ1lhc1MzaHRJQ0RtQ3E4SmJKcEtCVXViQTliOFNxVHhRVEdqa2E4?=
+ =?utf-8?B?UXdXS1NUYnZRK0FIQUM1SGJtTlZWNnAzMHU1MHJTZWtKUGFBSm1UOVhFbkwx?=
+ =?utf-8?B?VERGR0xneW5RbEhqeWE3VVRMWlBsSXZjajBCRVFqWDZTOE5zbWtvMVBXNnFF?=
+ =?utf-8?B?SUNrdk8vdEwwNS9raU12MWtzbCs2aUhwRUdsRjZhOXpZaEY5RmxTQmdpUHM1?=
+ =?utf-8?B?R2p4YXErb0tPOWxEY0RTTFROV1d1aTVCS3BURWJScGNRcWYyZEl2dU1vc0Rl?=
+ =?utf-8?B?ZmR5T0NDK1YrejVpMnZ3VVZNcGd6Wjh5VmRTdTFoNFp0M1JUL3VLNlJTOGxT?=
+ =?utf-8?B?ZHIzMU5YaVdQelppbkFGdHZZUlJBbDhXOW8rT2hRck9NL0tQNTJ2ZWN5ZHhQ?=
+ =?utf-8?B?Sy80M3FXaDB0MFNuWU43VHJpTk1wQ0lXOTUxeXNHLzZKVkZ3SkNOYlJ3Rm5p?=
+ =?utf-8?B?dEoxYTlYZDlKakpQT1loR3lIdUdKMytoVnU0Znhwdlg5OWt1b3R2THlMcGtO?=
+ =?utf-8?B?SDdsY3NRa0lGM2xYUXlXYy9pcGxZd20zK1oxZHdYeFpkemR6WmdVM3JWSVlo?=
+ =?utf-8?B?NlJLTWxXelpXdjVmZC9CaVRzREgzSUsrWEMvSkVacWt4SElCSHRRVzFkZm5U?=
+ =?utf-8?B?RW15WVQrMXZSUVgyaGhsZjJDcml5RVlLQm9KVUFhNkNCVU1CYnhwVFIxTyti?=
+ =?utf-8?Q?Uq1kqlYGmMNOI1lx0k?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4a2cd1bf-ddf1-47b0-cd58-08df2f3f3ccf
+X-MS-Exchange-CrossTenant-AuthSource: LV5PR12MB9779.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 06:47:56.0255
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tcaE3s1tKV3cMml+2Ck80G0BqZs52X6vzulxIPE3/hTHqkGOjNEFviJvazt3iWsi
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4275
 
-=D0=B2=D1=82, 20 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 22:0=
-4 Dmitry Torokhov <dmitry.torokhov@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Mon, Oct 19, 2026 at 01:04:02PM +0300, Svyatoslav Ryhel wrote:
-> > From: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
-> >
-> > Add input driver for ASUS Transformer dock keyboard and touchpad.
-> >
-> > Some keys in ASUS Dock report keycodes that don't make sense according =
-to
-> > their position, this patch modifies the incoming data that is sent to
-> > serio to send proper scancodes.
-> >
-> > Co-developed-by: Ion Agorria <ion@agorria.com>
-> > Signed-off-by: Ion Agorria <ion@agorria.com>
-> > Signed-off-by: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
-> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
->
-> Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
->
-> > +static int asus_ec_kbc_probe(struct platform_device *pdev)
-> > +{
-> > +     struct asusec_core *ec =3D dev_get_drvdata(pdev->dev.parent);
-> > +     struct asus_ec_kbc_data *priv;
-> > +     int error;
-> > +
-> > +     priv =3D devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
-> > +     if (!priv)
-> > +             return -ENOMEM;
-> > +
-> > +     platform_set_drvdata(pdev, priv);
-> > +
-> > +     priv->ec =3D ec;
-> > +     priv->parent =3D to_i2c_client(pdev->dev.parent);
-> > +
-> > +     error =3D asus_ec_register_serio(pdev, 0, "Keyboard", 0);
-> > +     if (error)
-> > +             return error;
-> > +
-> > +     error =3D asus_ec_register_serio(pdev, 1, "Touchpad", I8042_CMD_A=
-UX_SEND);
-> > +     if (error)
-> > +             return error;
-> > +
-> > +     priv->nb.notifier_call =3D asus_ec_kbc_notify;
-> > +
-> > +     error =3D blocking_notifier_chain_register(&ec->notify_list, &pri=
-v->nb);
-> > +     if (error)
-> > +             return dev_err_probe(&pdev->dev, error,
-> > +                                  "failed to register blocking notifie=
-r chain");
->
-> I think sashiko is right that we need to register the notifier first,
-> and in it check if serio ports are ready/registered or not. For that we
-> probably need a lock and set pointers or flags in serio's start()/stop()
-> or open()/close() methods.
->
-> This can be done as a followup I think.
->
 
-FYI, Sashiko likes to hallucinate. Initially notifier was registered
-after ports, then sashiko suggested to move it before. Then in v10 it
-fussed again and suggested to move after. Then v11 passed without
-regressions and now in v12 it fusses again that notifier should be
-before.
 
-> Thanks.
->
-> --
-> Dmitry
+On 10/20/26 17:35, Douglas Anderson wrote:
+> Add an Image Tree Source (`lga.its`) describing the FIT image for Google
+> Tensor G5 (LGA) Pixel 10 family boards (`lga-blazer.dtb`,
+> `lga-frankel.dtb`, and `lga-mustang.dtb`) with board and SoC ID/revision
+> metadata in the configuration descriptions, allowing the LGA FIT image
+> to be built with:
+> 
+>    make \
+>      FIT_ITS=google/lga.its \
+>      FIT_FACTOR_DTBS=1 \
+>      FDTFACTOR_ARGS="--strip-local-fixups --single-base-dtb" \
+>      image.fit
+> 
+> NOTE: At the moment, Pixel 10 doesn't directly boot from a FIT
+> image. However, packaging scripts will be able to take an image as
+> built above and convert it into a format that the bootloader can
+> handle.
+> 
+> It should also be noted that the "description" of the various
+> configurations here is expected to be parsed to help figure out which
+> configuration to use on which board. This idea came out of discussions
+> at Linux Plumbers Conference 2026 and means we don't need "loader"
+> info polluting device trees. Having a structured (and upstream) place
+> to store this data is part of the motivation for landing this FIT
+> image.
+> 
+> Side note: at the moment, the Pixel bootloader can't handle picking
+> overlays based on the soc_id and soc_rev (it only uses those to pick
+> base dtb files), so for now we won't be able to support boards that
+> might have different SoCs. I've included the soc_id and soc_rev in
+> this FIT image in the hopes that we can improve the bootloader in the
+> future, though.
+> 
+> Assisted-by: Gemini:gemini-pro-prerelease
+> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> ---
+> Note that building `image.fit` with `lga.its` requires the Pixel 10
+> (`lga-blazer.dtb`, `lga-frankel.dtb`, and `lga-mustang.dtb`) device
+> trees, which are currently in linux-next and not yet in mainline.
+> 
+>   arch/arm64/boot/dts/google/lga.its | 68 ++++++++++++++++++++++++++++++
+>   1 file changed, 68 insertions(+)
+>   create mode 100644 arch/arm64/boot/dts/google/lga.its
+Looks good to me.
+
+Acked-by: Michal Simek <michal.simek@amd.com>
+
+Cheers,
+Michal
+
