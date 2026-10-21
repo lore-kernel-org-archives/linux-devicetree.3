@@ -1,58 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.224
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792573995;
-	b=LvnBz7n/HhMFAkzbkV/Z42VWm/HgatL/go/xrJQWluHtrJOf7yofWUHABKy/bmoYAG8z
-	 BpOYFiGhcUYHCISTwtJYjZzxL0f8137NN1cAYy0X35TuH4uBgDhzI30h8b/gGlF9nb9lA
-	 AkMIbdvxyHXuiNRQ8OM1l1GtH4n/0wmb+ql2i9xylI/pw7bx8d6ZQAVkt46ZUDO1tAFX2
-	 N5iFNqUkXll0s0IBijVeHEw08W3C7FdHuGqZj0vZzbGWyOHvddI9yY6/SlSeSFGqj1jll
-	 xPmVq8nKGB1B0mCc4anSWaHjZQQxtD1PwBU/x6IKauxyhTf6NbV9v5g8Y/e9mASfW/g==
+	t=1792574120;
+	b=jhH2f55QK2aOJ3QQFdDlMENHjWEobUe0Bj12kwo+y8Q+VK+tpU2k74nGa23qKlDpZNrd
+	 RXcFW0xjXA4/cyrfw1cmTKQxA/uQ1OR0f7C0WaIa7VydJYQZx76lAN2E2XFFiJ5gM33ml
+	 4krN4Zb4KPzZ+9i13obkWEW6YU6Xf/BwiUHmpeLBQCxWKm9cBajk21x/uuIl+JWnxId2S
+	 sCV3z+5PxNx8jD5sVHOWY9oEn6LbRw8VimAsaBINuyjsvvWOmknJcF0z+llE1jg8JZRXB
+	 Bm49p4KTHwMgKllhSWR7P30lcy0ukzy9d4bF50GIZjxt+D+P0ctaRk5g/JPjsSD/t8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792573995;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=nzADmYKv4GpvdMxYyHHtqrTYHk3osWUIWqWnEfBwJ1o=;
-	b=CvbdU4WgtiKUhIdo8oPGzkazoeA6FoeqnPj8CYzSUvDUbv0F7o46QWh6t5kB/7aeQsSl
-	 7UIo/NhOD9NCWPoFKJU9mrdqkdDCOG1qs/IM0yg1QSruaOD8IRY3C3A1iy0w644IGZeDY
-	 abibdoyvbAc9CHwDA0dImWmZc6WcU8zw8+Q3ydOgKABwBjIGnJaaKEVZuFdgQa3QN9Sqo
-	 dE7DYe0lmn/kwVH0Wc3qtr9iGsduWsfH5qqkDfvc+18eTgJzcWgHXVf2N9vt0oqON/o9l
-	 kZ0MRuIL98Das3X9j0lafBiiIaaAaB2wNvgtpiTawgiykTPjE67tUSAk4gnkHG0/Q0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792574120;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=gnqxoqdPzbmnA6z7Madnb8lLgkBAcqXse1zxHCEfMLM=;
+	b=mMnj5kPxnGyUvsYXtB4xU8iD2kpdzY4qw5dy0dfLDCCqwmPZLV8A23KYJtg4KsfqW4WD
+	 NiAkKvVjlUliQqh/syMWvN4XKjWb0RTJ8lPmmekv8zgHa8uQW0YdavgQa0/ojnnyw4+Vh
+	 J1rU6EPo74dMRmu80IuH8/BlYYe5LwzmneByCynZ3eYSVCUleHyrKWIUOIn/ONZ6gHcwd
+	 xT0aZAZaOzKESOdN5QToBj+n+WBkdXR0xCqpdJJNuEArZUxkYND8bXkqut/BdCAHUlZkd
+	 F8LJ2wkC1wYW1Zrkqq5Nv7pN48s2/89+aEgjPTKmUJCp48ZiWdweUrQyXOocxPEew5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=qy05oNmy;
-	arc=none smtp.remote-ip=113.46.200.224
-Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="b12SUz/x";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OKlLD3o3;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 875F2606A31A;
-	Wed, 21 Oct 2026 09:13:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 875F2606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E0D4606A31E
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 09:15:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E0D4606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=qy05oNmy
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=nzADmYKv4GpvdMxYyHHtqrTYHk3osWUIWqWnEfBwJ1o=;
-	b=qy05oNmy3wvcAipAQKL4DCStOriRWTyczBtLbfPzPytLSmCWdRpIYENADIsJu88KlAJj0hmjc
-	e1p5428X8KTeWUYB9Vrw2GOPKCj13drNhfpLlgpoC2Z/ybSXrCDzqgJdySA25ihc7Us9rMXLO2x
-	ua/h/PISSyjS5+zO8Dkln2g=
-Received: from mail.maildlp.com (unknown [172.19.163.200])
-	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4j8jvf2rLvz1cySH;
-	Wed, 21 Oct 2026 17:01:50 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 1B4A840563;
-	Wed, 21 Oct 2026 17:13:10 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 21 Oct
- 2026 17:13:08 +0800
-Message-ID: <12e4e687-1ff0-41b2-bdf8-7f48b29e1f2f@huawei.com>
-Date: Wed, 21 Oct 2026 17:13:07 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=b12SUz/x;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OKlLD3o3
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69L5iqa93018337
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 09:15:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	gnqxoqdPzbmnA6z7Madnb8lLgkBAcqXse1zxHCEfMLM=; b=b12SUz/xLhut5xmq
+	2IjoHS0WxqtZODDh7nb7E8B6e4EmviGp76fFCN2nzgqmIHyqE339I0khvz6Z9iTp
+	uUR3GXs65UxoBg7E8EapYGbTO09B8z/c5D9D2I3vvah1IBx/nYpPJPBUj0tWSQUj
+	lzu0jmwLK750MI/AkGmskLGHSpwPmk0/Fpc/mo51MsA458n9dkY/BdtQ0f/HGBmw
+	vroFdkh8lMaZYuJvD32n8RnwfFPCqUoQF1/Sk1+jewoTkaYpXBE7H8FoBGlvJ8WB
+	f4lbkDjkczn3mhZsQ/SvdVxTYS70Z19U1PCkSWk3VdQduTq+sVP341/G2I4xrKCZ
+	Gj66Rw==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hebyd3kwa-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 09:15:19 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93e629c7b16so13669385a.1
+        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 02:15:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792574113; x=1793178913; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gnqxoqdPzbmnA6z7Madnb8lLgkBAcqXse1zxHCEfMLM=;
+        b=OKlLD3o3yO+/vB9adGz+imN+eEruFBnT8tQZT4R9+OyQXJdW6ttHt8+acqaarVLNew
+         gTWMwpd5QMXpxbIT1//M+d6w+XjcJPf5fWK1XzcNMEKNcTJDPk/c+XtAOITAafc78F6F
+         OsXdHGyvrL6w9X1mwI0PbalTLnR/J0z5j/wymwV+FLKqZYemv+arzv5NTG+kvx66tZxI
+         HzZaSa7t2bJ+oUpV42Q8Vcx/I9JGPPcBUc8Sv/x9phRzSeOLlC8xQiHbhwVOjE0t1FnJ
+         aDjNM0AgRarSc+YDT12VGhypv9TTrSZTUAqd+1eio97pKlHKKqU2B7WBgwV34aTINpJR
+         Tisg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792574113; x=1793178913;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gnqxoqdPzbmnA6z7Madnb8lLgkBAcqXse1zxHCEfMLM=;
+        b=G3DHEZMNPh54uumq2WHiQ2W6mnjlaD2KTiYUwMBsuv4vMdZQomrM+IQDBU+4XTdeu+
+         2A8cZC87+CFtEHRdxoYeLlicPyP+Qs00mapLmHbgjnnJ+n4A7l1EiQLTaos2wyVPd5D4
+         t+J10FtlS+RxLhq8Om6kS+1jb73zuVJICPJji6iHnDkMFJAx8Udt5royQcBf0LFTGxF5
+         MzBYC3MxThIcCQMCM1aecg4oRZjXplqAt9vEluS7LGfAXV7FOtrKAtCsepKEs3La9cqt
+         kD4tXsN3ddQX8cQTsuFTmDqk/v0/3ywBpxX39NLRkuQ5G4j6m6AUBN8m3m+VHA8TXqF1
+         Of5g==
+X-Forwarded-Encrypted: i=1; AKwUvBxsP8rjRySniVUf/ckUZTYsV92if1pJKQtWMoqVgnRl3C+TLWpu79oJjxrzsyZe2EcY42yuNhVhxqig@vger.kernel.org
+X-Gm-Message-State: AFq9FYIAlSY207kQX6mJdbAMHi2PnBcDiKT1fccEr9M/b2CUCwRH8fUL
+	Xap0cA0o5Ok7yekWGPdejCsTXDenNB1PFkuSSpcOsVb3bpSfPkACB7suF41cqHLpwusqPkSK7iU
+	0kGf+xSyGLv8yX5pLX/SPoAqMa2g0Ie7n8q9nMH8L5x7pKyav+FtP14Zm86QIJQkC
+X-Gm-Gg: AYBFou2igpD8HFQ44T5w1ruVczqaia29FKwcN8wCXpW3Hw14WQQsMJ4dvwQqbOhkmFA
+	In389tl+488dMhIWyiLqHA0Jkpvub1mt7oQxRslvKwKyKb5WeUHVkMibvlmKS5OhMDePLwIlMt9
+	LO8q48oNCUOGYVSPe2SFof7JPESPxBukk59JUnWlnxoHPserDyMz7tJmmzfQ8bTLAcH4h7DmypX
+	gxhKfW9G68kKKlqqjI4qFnGshFPat0PnAfVNRfYodTu5mJhZQlR92Lxhn+7y+YINpp3GoJ8MGRW
+	Q56S7UfYwuXV9w9A1B0UR7S6oXQlr2ZjiD0L/F3nxD3mWSZeL3V7ySACRrE8+riiflPfDwOtIii
+	iKj8hqR4pNX4jtjMeln+ZqA==
+X-Received: by 2002:a05:620a:4511:b0:93f:977:5d9 with SMTP id af79cd13be357-93f57dbe348mr367645885a.0.1792574113565;
+        Wed, 21 Oct 2026 02:15:13 -0700 (PDT)
+X-Received: by 2002:a05:620a:4511:b0:93f:977:5d9 with SMTP id af79cd13be357-93f57dbe348mr367643185a.0.1792574113116;
+        Wed, 21 Oct 2026 02:15:13 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4030db3e8sm620229a12.8.2026.10.21.02.15.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 02:15:12 -0700 (PDT)
+Message-ID: <3530adcb-a7ce-46c9-95b7-28aa544e8fef@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 11:15:09 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,155 +116,63 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 3/8] crash_core: serialize crash header preparation
- against hotplug
-To: Wandun Chen <chenwandun1@gmail.com>, <robh@kernel.org>,
-	<baoquan.he@linux.dev>, <rppt@kernel.org>, <m.szyprowski@samsung.com>
-CC: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
-	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <pjw@kernel.org>,
-	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
-	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
-	<dave.hansen@linux.intel.com>, <x86@kernel.org>, <hpa@zytor.com>,
-	<saravanak@kernel.org>, <akpm@linux-foundation.org>,
-	<pasha.tatashin@soleen.com>, <pratyush@kernel.org>, <ruirui.yang@linux.dev>,
-	<robin.murphy@arm.com>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <loongarch@lists.linux.dev>,
-	<linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<kexec@lists.infradead.org>, <linux-mm@kvack.org>, <iommu@lists.linux.dev>
-References: <20261021083011.2170525-1-chenwandun1@gmail.com>
- <20261021083011.2170525-4-chenwandun1@gmail.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20261021083011.2170525-4-chenwandun1@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Subject: Re: [PATCH] arm64: dts: qcom: shikra: Add RF_CLK2 clock to
+ wcn3988-pmu nodes
+To: Cheng Jiang <cheng.jiang@oss.qualcomm.com>, andersson@kernel.org,
+        konradybcio@kernel.org
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261020130852.3049639-1-cheng.jiang@oss.qualcomm.com>
+ <f3240952-f28c-4c2a-a4a8-4492aef3a88a@oss.qualcomm.com>
+ <CAOK0kb90wYEQU8e9wfQ8g_KfkfqwiQ9_ideg2=mSrU8OuTLxRQ@mail.gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <CAOK0kb90wYEQU8e9wfQ8g_KfkfqwiQ9_ideg2=mSrU8OuTLxRQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAzNiBTYWx0ZWRfX6TXzlzgBkEkx
+ 3zSpsE5Y1YzAPlewI4/RRgZI2pweZ5OelaKhKAZqScL2lZvv4hXq8MOp1AU8qJpnmGHjP8Cjyjd
+ 1GzDi9y6CiTP71kcLMOi7P9hSuHEHZK83tlKlvOm7nuTtkElZwGI+A6THPY3AGfvGwn5aLJvC5K
+ NrYvSFJKTcNhUIIpvIc+b5ZhIgC8NYRA5GIjZFIknz+7kMj6VnPchBW6WTnqU8n0H830R2Vx1jm
+ nawBXoiV9k1mcEUg4x3k1GzzJxN0h7HJFD2kxEj7li8Sea5TLgsOpFdkaIeqaZFd9/iQK4rcSlf
+ ZSyozUgqsV/ZzwiLrLe4Hi247/BN+IiGUwfrVDgo3HOMRbiXH2FF1hJEcQGXseOFXmq0fTL9ixH
+ Cr7ibHVknnnZlyQSbbLJ2GXeVQEQFew7SPFxoF+UQybEPGq+DTSSXMLRPPSlLEZxCBBLp4psMOP
+ zotHkw+49d6p6JiHX9A==
+X-Authority-Analysis: v=2.4 cv=TdsDJhQh c=1 sm=1 tr=0 ts=6ad882a7 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=s_4eQB3tgPlORBrTjR8A:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
+ a=zZCYzV9kfG8A:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: C067XuZQU1HMVoV4Ww_40vLw2jW2a4GO
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAzNiBTYWx0ZWRfX1WlMTJ5V866N
+ X0m7fVq6/z3CggaZz168k+6kaKdaylT1REtR90/wbhXrdosSL9rUWjaBkHwRfyvzxbQG65Vkkc9
+ LlXxQETwqj53XepwBzSOMy/ZUkKcLtc=
+X-Proofpoint-GUID: C067XuZQU1HMVoV4Ww_40vLw2jW2a4GO
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-21_02,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 phishscore=0 impostorscore=0 spamscore=0
+ clxscore=1015 malwarescore=0 priorityscore=1501 lowpriorityscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610210036
 
-
-
-在 2026/10/21 16:30, Wandun Chen 写道:
-> From: Wandun Chen <chenwandun@lixiang.com>
+On 10/21/26 11:05 AM, Cheng Jiang wrote:
+> Hi Bjorn, Abel, Konrad,
 > 
-> crash_prepare_headers() counts memory ranges before populating the
-> allocated crash_mem array. The weak implementation used by ARM64,
-> RISC-V and LoongArch walks memblock.memory, while x86 performs the same
-> two-pass operation over system RAM resources. Concurrent memory hotplug
-> can change range source between the two walks and make the populate
-> pass overflow cmem->ranges.
+> Please drop this patch.
 > 
-> Take device_hotplug_lock when preparing crash headers during
-> kexec_file_load(). The x86/riscv memory hotplug path already takes
-> device_hotplug_lock, so call __crash_prepare_headers() directly
-> to avoid recursive locking.
-> 
-> Sashiko reported this issue in [1].
-> 
-> Fixes: 3751e728cef2 ("arm64: kexec_file: add crash dump support")
-> Fixes: 1bcca8620a91 ("LoongArch: Add crash dump support for kexec_file")
-> Fixes: 8acea455fafa ("RISC-V: Support for kexec_file on panic")
-> Fixes: dd5f726076cc ("kexec: support for kexec on panic using new system call")
-> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
-> Link: https://sashiko.dev/#/message/20260806101002.1F84E1F000E9@smtp.kernel.org [1]
-> Acked-by: Baoquan He <baoquan.he@linux.dev>
-> ---
->  arch/riscv/kernel/crash.c  |  2 +-
->  arch/x86/kernel/crash.c    |  2 +-
->  include/linux/crash_core.h |  2 ++
->  kernel/crash_core.c        | 17 +++++++++++++++--
->  4 files changed, 19 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/riscv/kernel/crash.c b/arch/riscv/kernel/crash.c
-> index fe5a4b306aae..ac8df2edf2a7 100644
-> --- a/arch/riscv/kernel/crash.c
-> +++ b/arch/riscv/kernel/crash.c
-> @@ -70,7 +70,7 @@ void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
->  	 * Create the new elfcorehdr reflecting the changes to CPU and/or
->  	 * memory resources.
->  	 */
-> -	if (crash_prepare_headers(true, &elfbuf, &elfsz, NULL)) {
-> +	if (__crash_prepare_headers(true, &elfbuf, &elfsz, NULL)) {
->  		pr_err("unable to create new elfcorehdr");
->  		goto out;
->  	}
-> diff --git a/arch/x86/kernel/crash.c b/arch/x86/kernel/crash.c
-> index e6f23933a6df..bef008a0cb22 100644
-> --- a/arch/x86/kernel/crash.c
-> +++ b/arch/x86/kernel/crash.c
-> @@ -465,7 +465,7 @@ void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
->  	 * Create the new elfcorehdr reflecting the changes to CPU and/or
->  	 * memory resources.
->  	 */
-> -	if (crash_prepare_headers(IS_ENABLED(CONFIG_X86_64), &elfbuf, &elfsz, NULL)) {
-> +	if (__crash_prepare_headers(IS_ENABLED(CONFIG_X86_64), &elfbuf, &elfsz, NULL)) {
->  		pr_err("unable to create new elfcorehdr");
->  		goto out;
->  	}
-> diff --git a/include/linux/crash_core.h b/include/linux/crash_core.h
-> index bc087124cd78..28e7a81cf263 100644
-> --- a/include/linux/crash_core.h
-> +++ b/include/linux/crash_core.h
-> @@ -61,6 +61,8 @@ extern int crash_prepare_elf64_headers(struct crash_mem *mem, int need_kernel_ma
->  				       void **addr, unsigned long *sz);
->  extern int crash_prepare_headers(int need_kernel_map, void **addr,
->  				 unsigned long *sz, unsigned long *nr_mem_ranges);
-> +int __crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
-> +			    unsigned long *nr_mem_ranges);
->  extern int crash_exclude_core_ranges(struct crash_mem **cmem);
->  
->  struct kimage;
-> diff --git a/kernel/crash_core.c b/kernel/crash_core.c
-> index faa0f22dbb41..8a861a946e26 100644
-> --- a/kernel/crash_core.c
-> +++ b/kernel/crash_core.c
-> @@ -16,6 +16,7 @@
->  #include <linux/mm.h>
->  #include <linux/cpuhotplug.h>
->  #include <linux/memblock.h>
-> +#include <linux/device.h>
->  #include <linux/kmemleak.h>
->  #include <linux/crash_core.h>
->  #include <linux/reboot.h>
-> @@ -344,8 +345,8 @@ int crash_exclude_core_ranges(struct crash_mem **cmem)
->  	return 0;
->  }
->  
-> -int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
-> -			  unsigned long *nr_mem_ranges)
-> +int __crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
-> +			    unsigned long *nr_mem_ranges)
->  {
->  	unsigned int max_nr_ranges;
->  	struct crash_mem *cmem;
-> @@ -382,6 +383,18 @@ int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
->  	return ret;
->  }
->  
-> +int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
-> +			  unsigned long *nr_mem_ranges)
-> +{
-> +	int ret;
-> +
-> +	lock_device_hotplug();
-> +	ret = __crash_prepare_headers(need_kernel_map, addr, sz, nr_mem_ranges);
-> +	unlock_device_hotplug();
+> I re-tested on Shikra EVK with and without the RF_CLK2 clock described on
+> the wcn3988-pmu nodes, and Bluetooth comes up in both cases. The
+> commit message claim that Bluetooth fails to come up without the clock
+> does not hold, so the patch is not needed for Bluetooth. Thanks to
+> Abel and Konrad for the reviews.
 
-I think this patch conflicts with my changes and would also conflict
-with the implementation of arm64 crash hotplug.
+It may be that you're lucky on the timing (or that clk-smd-rpm keeps
+all clocks online). Please verify the schematic / clock map. If that
+clock signal is connected to WCN, please go ahead with this patch.
 
-https://lore.kernel.org/all/20260921090450.807575-15-ruanjinjie@huawei.com/
-
-arm64 crash hotplug:
-https://lore.kernel.org/all/20260918100442.3841135-18-ruanjinjie@huawei.com/
-
-> +
-> +	return ret;
-> +}
-> +
->  /**
->   * crash_exclude_mem_range - exclude a mem range for existing ranges
->   * @mem: mem->range contains an array of ranges sorted in ascending order
-
--- 
-Best regards,
-Jinjie
-
+Konrad
