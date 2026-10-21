@@ -1,62 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792610183;
-	b=4J6l1cS2rr6gGY7YYCcXv90jsS2csbiuf7J79mWAaVxOT6Ky3+5lYVIMT6ysaCuI7cqk
-	 aP22bL0B/eYcSDcJbeP2SSQA+XTV8LxjlekZNT4OGSlqCHlyZO784mwibG86atIjjICe+
-	 BUxf2oAMGT432kRM5eFupcB2TJynmQlwrJsTcv26Kk/wR7uFYJzhe9f6PeOVJu+OCHOp5
-	 5xD2tras+UMzbm+vy/blbhKQuUGpY0Fb6Y7CRlw15FaESpSwJWV9/e8zisMT9JC4H7gmO
-	 y5OFvP5rrc7m6nkBPzl7JYUjKMidOTrzo2b36WWgGHxEDOf/rwt2ZshCLiP9wrZwRRQ==
+	t=1792611104;
+	b=fHxImS75H+8CyBTd+7bcOGYzPJs4cb13UybwU+kll0DYEyeBj0TtRQ0FA2ELcmtO99kH
+	 kPkanHCcLRZgYMqsCh8bjzoAZfo0nuYHPCXNKnnpIp3vOed8hzverfo5YToS0PXOgmxbh
+	 yqV0qWsS8KVyZ2Fsu+mqi6ZP5xs7EKhlYgkDNxKagCRA2whRmWTLAdq2PFNjG4LWpJvJ/
+	 gOzeFt0t0kvomC3/xCZ6/RxfeHOQSfiacovFKaoGJA10L9RLwUZ3RD8ZacfV3K1yW1MkQ
+	 rRLGe9udfJoyuSXnBf25kOxjhHxHDrFwgc6hJBgnLHH+kBVlydY/LAndpgpqHvRV3xA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792610183;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=PX/0kvs4QlobqWwGN9vKI9fN7pNc+mhXK9E4ocGS1q0=;
-	b=xcupYZSh9/sTm/hGk24a9C7M58j0DUh9wnpFLtHxy0c7A9Hx4xl/Igg6WY/YJOQRck2g
-	 AqEzH98yW5KJY9wWDMHo49VmfeLAcrtFZAPOY7sk4llCwGlYsRH1LUEdrGxlNVQGwlx6+
-	 7rK8TOheg9xv8pLIbbSXwVikA5JiS7IaNGwvNKIwriF3RZ3Stkr0i1xQPh2fk26w4CI5j
-	 g9ZLrsrfT/8vp0FDZh/1eneCkEtQ06NP0D55DKTaTK3OPAcGsH3lat15GE9dEB5x7gpsy
-	 Blosr7XBxTSOkKXOE+/xwPDqiJqjC3b0ujJ4ZJz0cIl+yF0xhPxUU66zeWoUYw7SGTQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792611104;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Organization:Content-Transfer-Encoding;
+	bh=OPQGYY3ssesZJ1NL5DDQJezKH+tWGJ2i+1Yzkdudp0c=;
+	b=RgJGUbXh6FgNexXsYRhjGTVdVpcNRCJJUaIwxV1+QiC90prZRjUyO6OjWOqJ+/kcBUV2
+	 VgXVuxRLzW3qZ0BtFtAZ+49YFJ1DHdzjXw9zEytmGN8jgXJd6WgXMW1X540hMQ+rKxMwl
+	 2QKODvP6WuxK03jly4zxXRxlkKEujwtFOlcBsHluQBck/K+4qXORQ8mn/rcBSuqj6jlj5
+	 bJk+9p3Ab9Z5Tn3mhP8JXAkUWo6bHRO2iWNxCAZKhUMTpxlz+x3YO6NtqAzepgBDvGwxX
+	 XPU0YvYnU4xcD1OPMZ8QYlHqQo1QNDihqU9UfruHCLGUNT+/56bA6nq6LixVq1E+qOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hAqwIth7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="hVo/hID+";
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE3A9606A31A;
-	Wed, 21 Oct 2026 19:16:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69640606A31D;
+	Wed, 21 Oct 2026 19:31:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69640606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hAqwIth7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A47581F000C1;
-	Wed, 21 Oct 2026 19:16:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792610182;
-	bh=PX/0kvs4QlobqWwGN9vKI9fN7pNc+mhXK9E4ocGS1q0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=hAqwIth7FlP2IQIuXHwRpR8bQ6SELcmEvAlU0D2KJSjl39mZ376WVRxBZwnXnNew/
-	 Ro4wI3JUHgbD5N1ZdA6jpw7lrZQsQ9Sb7rE79yndBUmfKmaqpLoWEhGrzB2hN/Y0PD
-	 xqkg5Sv8oGnYQdGmmP4O3e21PdQYMrjsQbbL/6SPFV3CsjRMu1hcc7hsEil7WUuyXM
-	 DECziwzlmk8PjvT2JNd9/4VXjOm4lI23cTJesPOInOuTNRizPG4u50r6zHfvdyTiNG
-	 r+uIzaJ0dHb8vLu3qrLVQfG+QLBl9TVIvbo/jVVKRqIEufow4w1vEKbmAloxs9CU5m
-	 onFVPffYBm0xA==
-Date: Wed, 21 Oct 2026 20:16:13 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux@analog.com,
- nuno.sa@analog.com, dlechner@baylibre.com, andy@kernel.org,
- Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org
-Subject: Re: [PATCH v5 06/15] iio: adc: ad4134: Protect conventional device
- access from debug accesses
-Message-ID: <20261021201613.3d7833b5@jic23-hlaptop>
-In-Reply-To: <ataF3Bpop9cAYuXW@debian-BULLSEYE-live-builder-AMD64>
-References: <cover.1792200021.git.marcelo.schmitt@analog.com>
-	<b05978468abb537f7fe5b1d0ed2753df9a69decb.1792200021.git.marcelo.schmitt@analog.com>
-	<20261017194707.48f6f242@jic23-hlaptop>
-	<ataF3Bpop9cAYuXW@debian-BULLSEYE-live-builder-AMD64>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hVo/hID+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792611103; x=1824147103;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=RE/DoN/sfPcw1uq93Op79DBYUxbTWL4Fw9BZEGZudRo=;
+  b=hVo/hID+XiKRTw2Ghmb7oHigA8OdQrst6RewVzyOYyv1wbrPMSPLfQvo
+   1TlWadtpnxniq2wGDJSheKYmysm9kVq04dUQFuh1m8ok2Cy6u/zRZDU04
+   Se4BW/tPMDBAEgs4PCEdpDKfWChFxLxAKCZzBrKNqKrISX/8kA4Y0Irc/
+   q5EtqZD2DbVy9zs71MX2EqzNZqgbxk8hUW1ZwPPBUJiBI+SOoydg5Keg9
+   +YFGK34bN3/huRVMHxW9QNgXepCwR9jeGc3HfrQ8YphHYmSScVW85fYSm
+   NNAua9JnwelBE4xLY/BRcZfLpxA9KbAMvoFutcnwX8JHA/iZT0ZVdM7vy
+   w==;
+X-CSE-ConnectionGUID: 9+S5rHQnSVqIppFx1WevtA==
+X-CSE-MsgGUID: 7R3r2/xEQ4uN/Sk6ygEHXQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1382515"
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="1382515"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 12:31:43 -0700
+X-CSE-ConnectionGUID: BesEOpeUThK9bOpqFYKyFw==
+X-CSE-MsgGUID: sYgWBGvISyecZovlhkvEuQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="3170391"
+Received: from gklab-103a-129.igk.intel.com ([10.91.103.129])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 12:31:41 -0700
+From: Dawid Glazik <dawid.glazik@linux.intel.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	dawid.glazik@linux.intel.com,
+	maciej.lawniczak@intel.com,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v3 1/3] dt-bindings: arm: aspeed: Add Intel AVCRP and JNCRP boards
+Date: Wed, 21 Oct 2026 22:26:40 +0200
+Message-ID: <21929084fec468382460c52bf26d3b380393f732.1792613583.git.dawid.glazik@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1792613583.git.dawid.glazik@linux.intel.com>
+References: <cover.1792613583.git.dawid.glazik@linux.intel.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,59 +89,37 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
+Content-Transfer-Encoding: 8bit
 
-On Mon, 19 Oct 2026 18:04:28 -0300
-Marcelo Schmitt <marcelo.schmitt1@gmail.com> wrote:
+Add compatible strings for the Intel AVCRP and JNCRP BMC boards.
 
-> On 10/17, Jonathan Cameron wrote:
-> > On Fri, 16 Oct 2026 22:58:05 -0300
-> > Marcelo Schmitt <marcelo.schmitt@analog.com> wrote:
-> >   
-> > > Require debug access to acquire device synchronization locks before
-> > > allowing any transfer from the debug interface so to avoid disrupting
-> > > operations issued from usual (non-debug) interfaces.  
-> > 
-> > These needs more.  What sort of disruption are we talking?
-> > 
-> > A deliberate write to change state that breaks normal operation
-> > is a debug mess up that we don't guard against, but if a read
-> > is enough to break things, or there is an inherent disruption
-> > of other operations by using the bus at all then state that.  
-> 
-> A read is enough to break any ongoing buffered read because register reads will
-> cause the bus configuration to change to a state that invalidates any sample read
-> that happens afterwards. 
+Signed-off-by: Dawid Glazik <dawid.glazik@linux.intel.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+v2:
+ - Squash the separate AVCRP and JNCRP commits from v1 into a single
+   commit, since the changes are small and closely related
+ - Fix compatible string ordering so the new entries stay in
+   alphabetical order within the enum
+---
+---
+ Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
- Capture that in the commit message.
-
-> 
-> > 
-> > What isn't regmap locking covering?    
-> 
-> regmap doens't cover IIO device direct/buffered modes.
-> 
-> > 
-> > If this is all about the mux stuff and backend usage,
-> > then move it to nearer that in the series and refer to that.  
-> 
-> We also need the mux usage to be synchronized which is why debugfs_reg_access
-> now also locks on device state sync_lock.
-> 
-> In practice, because every device access will select then deselect the mux state,
-> we are not able to have two operations going on simultaneously (not even two
-> register read can run concurrently due to the needed mux state care).
-> 
-> On v3, there was a dedicated mutex for mux access synchronization. In an atempt
-> to make things more simple, that second mutex was removed and sync_lock is now
-> also utilized to prevent multiple threads from changing the mux state simultaneously. 
-> It shall work properly as long as any device access first
-> claims IIO direct + get sync_lock or claims IIO buffered mode.
-> Is it okay to have it like that?
-
-That seems fine.  Just add some documentation on the requirements in
-appropriate places.
-
-Jonathan
+diff --git a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
+index 8ec7a3e74a21..60e8e73da3f5 100644
+--- a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
++++ b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
+@@ -107,6 +107,8 @@ properties:
+               - ibm,sbp1-bmc
+               - ibm,system1-bmc
+               - ibm,tacoma-bmc
++              - intel,avcrp-bmc
++              - intel,jncrp-bmc
+               - inventec,starscream-bmc
+               - inventec,transformer-bmc
+               - jabil,rbp-bmc
+-- 
+2.43.0
 
