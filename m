@@ -1,47 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792563602;
-	b=M9ouuLU6r9J5dd2xjsxnLgUV+j4C4CoBhEHFMx/1+5rNPf7W0p73WKyVgktz/6G0FVER
-	 yUvD9V61izW8OMHD5Wq4hY29MdTbftGQGpM+M/gLTTlIZW4L43MIYTwyD8vUuUp5xZm9w
-	 YsaVX/5235ywXNoy/WhsVTOhRBSmOnaeH6wgHzexk7hVmECL54sS/yKDhzzxVWwbvxUam
-	 oOjE6V9Mr29SV6z1tqXwXj+egp9CENCBmP65+l4BB6iRMaujwzgYDEZ4cKGKusZDIbcVp
-	 SR5GZVjXoAYsGndvWtcz54D6ZnbP4C3DqKehPlbWF1I3a9ktpCqSHIj0wEiwV6P8p8g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792563602;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=8lIi6Wxim94VTF1Lz/7lzx3oFIGsH5NvdsmPH2L9hYo=;
-	b=4Cx4IcrH36DWudK1EV4w0UDAfb2AHk5uRseX7sZEXE6VQKHkxHNJPiGFuhuJ5azAZ0g2
-	 YyJjpWh/RZjmsw8OEP1vVCmPvstjv3PoO3mW+I9tlQAnrTAEkuziJmQY1qcKjF9WVLWzo
-	 RfkDvQvFqEnvB+k1KNnnXcAfCJE/7ZCM/DzWnmSe7b2ojAEOuDhMlYsU0dyXNFzYwifMt
-	 AtWDpBcwGqU3gnLybXPt8L0VJF62MEbBIBUHa10saleBycHG1Sz2/IFTHIp2oakChFU8M
-	 bRqtlUvEGRtqJwUZL7MMRxG6ab2mo2Ao5fUI9029U+E7zyh6JX+9hcoHWJGf9Q1NjWQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nu83bggr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.182
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792564321;
+	b=uNoas3pOIlzr0HKbwF5cX9MQTxZw4iXR4jAK/nKuSuk4QfxyS6IhcOp2UnzJal2Uj+Cg
+	 n4MGOzb9vb0BVMjYQt/mLBo9jOC42agBC7NcRr+lrD8u1aFKGDLo+O3wXbWe/qRllSdnt
+	 UhSeXwzukYBBj0257wUWDFizpeTekSlRjnf+xeSzLdfVh5XqNYo6b2ILNZtKa5brTH5q2
+	 AdHJQmWVa64SGM2htVHhrBEJ8mVuIiUKLgDOX5LJsh02FzX0rWJACLLt6RLpQB4WK7F+Y
+	 8VZ8iGwTbuPEMsGKy6EhwyKY2zPa/e6kGpMfYvYMmWsYcN5M5O4a9ebEbnV27VVG6vg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792564321;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=pBVO2WGNEDxlxaqbKxDIfwB41AhhM0dka0vUsjW37nQ=;
+	b=tWUhb5iY3x0D55mv1iRh/URYmdoX+7aiPMF9w2CWy9LAoHAJmIgIL9AzzTiZABrh8L+M
+	 +VC5nyXttXXeuilJfnHbnyIChVdBIVziwVQyYiF4KaE5Kq+VozsC6L0UPhDCx5cNC50xA
+	 piBBW4uCbWma7zHQC/t/0blw3mFxD0oDajspWcNAupNlO78nq6DePFhwqyrIny03BWsnH
+	 sF6aTjSIqTGBQySgDD7qRng1Vc36g8nFOQji1/IFv285JX3sw3pbXuylRiG0pi5hyy3GK
+	 Y7/ZUrAisquexClkoc7GmfMbjQDxVBEOuEzHPQ2TcobgKyeXZn0zgJG5xlY7BmhPcRA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NDb27SfH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31E4B606A31A;
-	Wed, 21 Oct 2026 06:20:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C6EC606A321
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 06:32:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C6EC606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nu83bggr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B69781F000CB;
-	Wed, 21 Oct 2026 06:19:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792563601;
-	bh=8lIi6Wxim94VTF1Lz/7lzx3oFIGsH5NvdsmPH2L9hYo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Nu83bggrfLN0ZENNo2MLmJar3l/dlksAx+0xHsARwM3jMUGj3Ml6GK98KhI0O9/jR
-	 EDV6rZ0z9f/5/bVbHuMiZ5Pg0r+fi9+/8Zwfkzj8T5EpO84ElCKJGAMJk3UpXmFpaG
-	 s5XK8i9dRoFozHDSOMNb4nhAjn9wvAmCv/tF1T5n3XU/KlGofqZnBoPVm0DWkSIwPP
-	 ztxT2lR+fdXp1bXz6yBIwyctDaiX5NsoWUbFLKUH9hDoiEpp2ypJgH4UeCbh58He5f
-	 Eqpw1nqro7LkZYXgJa/LVCGb9roScfGq+nI2gxjTAqSnsol7EWJYswiwXaZDu1a3BY
-	 8uEYB1TG9BNaA==
-Message-ID: <6673c9f4-fff6-4057-934e-d94d01519e68@kernel.org>
-Date: Wed, 21 Oct 2026 08:19:51 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NDb27SfH
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3535a54bed9so475934eec.1
+        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 23:32:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792564320; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DGk4HhcY8Ta8yod8sWoUVeNa5J5XP4ffV9rFf4sGHxEb//8UexOPPIt96ix3wplz6+
+         n6AdXmAdlwABXf+xQ+xdf2c9aj/C5W3LOndXX9sfc0a+CIUZ9c+mcBwuU1hvLYDBAtMz
+         GF4wV0OEE1H8Cn/LXvMJ8hU5sViJYHHGhbAPfHkPKizoqH5Xmzr7h5atYv+yJGhVZZjX
+         82nepFgCvMPPsmv2OlQKuf4MyRyurMe12+l5T9A/dZu///Z9bgqaZjjebPU7adcb1HRj
+         eMPQl7rNsXgNkv45aWW+mMtbzM1c7825qPnFWN/TM1kELE9zAGWy8G0ajXwZYTABWqIw
+         y22g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=pBVO2WGNEDxlxaqbKxDIfwB41AhhM0dka0vUsjW37nQ=;
+        fh=w5+UR+lUBCFn8S6P6BUz9nTz24jZ5iJUz1HhIZ4Qz0U=;
+        b=NugQulBy6FtZv79yiGiZ2VWuKLb3eWjno3dfr86H9r/sOhBhXMuMEnNe9pr2hFKYg4
+         Fg+9RT3+LrRkptuq4cg7NUD3n22tHVKg20KFzDCOEIGtu+eK8dDjqQEPGS+TqDJfyDLu
+         KaylMBz+AgkkOGESdQ0GH1onRRgErjSi2cbYbYYhJHQumTEJXmJDmmpz1Ui6/B/U/YjC
+         4ZkdEo7jifCmVnohtjnyTHWrbZfO5QjxuErSaEyLwdHmxRlyunvsO328eKKse6ijSQGW
+         qoRc7ClcGDkAlNp4rAaWQwW0azvoiW4JuqcU+bacDCm1sFg8t/35qFdqDQwju8+cea5f
+         hJPA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792564320; x=1793169120; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pBVO2WGNEDxlxaqbKxDIfwB41AhhM0dka0vUsjW37nQ=;
+        b=NDb27SfH0BlRaZpuZ8mtyCao8o1bV0M0rFx69HpK3CeifH54l/f+vPHYCab4u0FKvz
+         /TP7DdpyvoUAcGkCRde2el/wk/opkc7A1Rpl6aTc891wW1se96gBRqO+uentHKdIEcQ+
+         iPOLVVXX3DRijj9QwnPZ7+SOmCnLyV56jaJDEUpn3zTOR1Pvr/6jJ8AzImmA7Db65JWT
+         OSISPTr36QZxIczLfSM6Ui5Qx7+VK108R+mATAbj7Snmz1WB0Ln3cs0SHt0H18E4fxnV
+         hox71g2lyrY/h6bAbNi/lxzon25ChAJDj+b7OFeO1LtNuKqq8CIqO9+/RAf+qLOCKlqp
+         9JCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792564320; x=1793169120;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pBVO2WGNEDxlxaqbKxDIfwB41AhhM0dka0vUsjW37nQ=;
+        b=WpOJnJ888BTrpaWPDPdx1Tts7kaXeKdwTqV4aedsVD169+qV3ujmAe/7ZUYpM5xq1D
+         ZpJpU+Fd0X4Ho+lWpQxewRL7TBAdBU+6fp/W5wfXCy00TpwW3+kDNZSMl6d8Y9dlGvyi
+         13/Maz8ijVwUr2mwpuzP6HyUIc1zxWLedg55cic6q1RB+DGJ4g5IyAWBLrRQZ4KS7L6l
+         k/brdVfR8IUmiDYvB8yGEWTnNzCCsrV+9QcXM/xeExyUZTs4m5Ar1M201ugy8qwkgVrz
+         TkLl0iHjJ2zJjb52qampYDlD73/heNTtEwnkBAzD7RLpOXwEowHteMPTAgMaIFM7l8h3
+         HWUw==
+X-Forwarded-Encrypted: i=1; AKwUvByTYxdpC3VZCqhVYDRKsqnCOIezrGBnFD9MVRD8GYtGBOmyAuyZu7qTA7jvtykCadQ55pc4Eo6fiqDn@vger.kernel.org
+X-Gm-Message-State: AFq9FYLsHKjlX11Qp9pLTkL9Rql9q+qTIobzaXZIaPbzLulRwfel4zNT
+	yw45WILM7yVFyfVdoJheG7Ultxpbh62PwQBu3zim5Duc3iiVbkpZbv7+kxwxDg6QwH1huF6L2IJ
+	F2QeWuFNM2FkRv0xPfIHtctc+zz9vg85sRQ==
+X-Gm-Gg: AYBFou1NTEDQwb5Ghn7i/krRJrdJXE6L+O+2jBwir27POemf+InyVqKrrrohyLcA4sX
+	KJ5T59t5K2TU29PtHQyuHfJhpFrni1/cKBi+KZWVAi8DqU07TA94sG+qQhFoAbUTZDBSox6lAPO
+	lBpUV9bVmLWsBGt/RZ4uc2GoEEXKDcuH0cTearhhFnuHJihiCps8qCJpbmiBtKsaUSaldxRWTwq
+	1EuwOh18eyhqMHEPCAjEiPKcKxtD731D3KqaKmpMwyBVDTvr7T8J5I+FbWS5iMygmvf08SJLSdd
+	ZaFoeE4EUp0qqlUYrztPMikOEgZlQsygHYke2vgrih9zGKD1mkJr9x5BHgpWvrA8enoC8jTcElA
+	OsmSC/TOilJGjGdAyXZM6MkPS9F4yzrruXyiH+8ovoXh/tTEGCY662acO72EOwfoimBUaXw==
+X-Received: by 2002:a05:7300:fb83:b0:359:8492:2107 with SMTP id
+ 5a478bee46e88-3674c43c286mr3040666eec.10.1792564320159; Tue, 20 Oct 2026
+ 23:32:00 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,98 +104,186 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] dt-bindings: i3c: Add Amlogic A9 I3C controller
-To: Junyi Zhao <junyi.zhao@amlogic.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, imx@lists.linux.dev,
- linux-hardening@vger.kernel.org, xianwei.zhao@amlogic.com,
- Kelvin.Zhang@amlogic.com
-References: <20261019-a9_i3c-v1-0-329d819d621f@amlogic.com>
- <20261019-a9_i3c-v1-2-329d819d621f@amlogic.com>
- <c84d861a-2e28-45b0-80c8-e533864d5e6c@kernel.org>
- <d17dcb30-93bc-4b68-8969-11530946d33d@amlogic.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <d17dcb30-93bc-4b68-8969-11530946d33d@amlogic.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261019100406.103687-1-clamor95@gmail.com>
+In-Reply-To: <20261019100406.103687-1-clamor95@gmail.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Wed, 21 Oct 2026 09:31:46 +0300
+X-Gm-Features: AclHuK_QwW61N_9Foimi4NgaLY1jJdwADyBjJeIb9hmtc4k1Kv7HNMpLzSeTeY4
+Message-ID: <CAPVz0n1z1s9aCLk1OzhuOq6V0p2SYM+cJFEBcSopHzB-fvcr=g@mail.gmail.com>
+Subject: Re: [PATCH v12 0/7] mfd: Add support for Asus Transformer embedded controller
+To: Lee Jones <lee@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Pavel Machek <pavel@kernel.org>, Sebastian Reichel <sre@kernel.org>, Svyatoslav Ryhel <clamor95@gmail.com>, 
+	Ion Agorria <ion@agorria.com>, =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, 
+	Florian Krischer <florian.krischer@fkr.dev>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-input@vger.kernel.org, 
+	mfd@lists.linux.dev, linux-leds@vger.kernel.org, linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 21/10/2026 07:38, Junyi Zhao wrote:
-> Hi Krzysztof，
-> 	thanks for your review.
-> 
-> On 2026/10/19 14:00, Krzysztof Kozlowski wrote:
->> [ EXTERNAL EMAIL ]
->>
->> On 19/10/2026 07:34, Junyi Zhao via B4 Relay wrote:
->>> +properties:
->>> +  compatible:
->>> +    enum:
->>> +      - amlogic,i3c-a9
->>> +      - amlogic,i3c-ao-a9
->>
->> What is ao?
-> 
-> AO is the Always-On domain on Amlogic SoCs (remains powered in suspend).
-> I've documented it in the binding description.
+=D0=BF=D0=BD, 19 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 13:0=
+4 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> Add support for embedded controller used in Asus Transformers for
+> managing power and input functions.
+>
+> ---
+> Changes in v2:
+> - converted sysfs debug exports into debugfs
+> - added kernel-doc comments for exposed functions
+> - fixed minor typos and inconsistencies
+>
+> Changes in v3:
+> - dropped DockRAM commits (both schema and driver)
+> - integrated DockRAM functionality directly into the controller driver
+> - EC schema moved to embedded controllers folder
+> - removed all cell descriptions from the schema
+> - removed all compatibles from the cell drivers
+> - adjusted naming conventions to better align with the ASUS Transformers
+> - defined EC variant sets to provide coverage for all known devices
+>
+> Changes in v4:
+> - grouped known programming models of EC chronologically (both schema
+>   and driver)
+> - call debugfs init only if CONFIG_DEBUG_FS is enabled
+>
+> Changes in v5:
+> - added asus,tf600t-ec-dock compatible to schema
+> - rebased on top of v7.0
+> - kzalloc > kzalloc_obj in keys and kbc
+>
+> Changes in v6:
+> - removed asus_ec_handle_smi casting
+> - asus_dockram_access_ctl > asus_ec_get_ctl in control_reg_*
+> - fixed battery Kconfig description
+>
+> Changes in v7:
+> - added status check of devm_kasprintf where missing
+> - devm_asus_ec_register_notifier dropped, added .remove where it was used
+> - removed cell_to_ec, asus_dockram_read, asus_dockram_write, asus_ec_* pu=
+blic API
+>   asus_ec_i2c_command, devm_asus_ec_register_notifier, asus_ec_read, asus=
+_ec_write
+> - renamed asusec_info > asusec_core
+> - ec-kbc: added packed size check
+>           ret > error
+>           improved key remap logic
+> - ec-keys: improve formatting and comments
+>            ret > error
+>            switched to dev_err_probe
+> - ec-leds: reworked to register both leds via loop
+> - ec-mfd: adjusted Kconfig description
+>           fixed smbus operation sizes
+>           fixed saving of EC fw model
+>           adjusted IRQ flags
+>           converted to use definer for set cell composition
+>           added factory mode states enum and handling
+>           defined some "magic" values
+>           self > client, info > ec, ecreq > ecreq_gpio, priv > ddata
+>           asus_ec_chip_data data > asus_ec_chip_info info
+>           ec_data > ec_buf, ctl_data > ctl_buf
+>           added and improved comments, added structure descriptions
+>           asus_ec_magic_debug > asus_ec_susb_on_status
+>           removed all dev_dbg and most of dev_info
+>           pronts with model, fw behavior, factory and susb state preserve=
+d
+>           switched to MFD_CELL_* macros
+>           removed debugfs
+> - ec-battery: swithced to BIT macro
+>               lock usage moved to asus_ec_battery_get_value
+>               in asus_ec_battery_poll_work fixed possible rescheduling fa=
+il
+>               in asus_ec_battery_poll_work fixed missing not charging
+> - ec-charger: POWER_SUPPLY_PROP_MODEL_NAME set as the first check
+>
+> Changes in v8:
+> - added MODULE_ALIAS
+> - renamed DOCKRAM_* to ASUSEC_*
+> - ec-keys: input_handler moved into private structure
+> - ec-leds: added brightness_get
+> - ec-mdf:  fixed i2c_smbus_* return checks ()
+>            improved model storing
+> - ec-batt: added status check of devm_kasprintf
+>
+> Changes in v9:
+> - fixed i2c_smbus_read_i2c_block_data return check
+> - blocking_notifier_chain_register moved before serio registration
+> - adjusted get_unaligned_le16 bounds check
+> - unsigned long long > u64
+> - iterator vars made scoped
+> - removed "magic" values from ec-mfd
+> - simplified logging, detect split into detect and init
+> - improved error logs formatting
+> - adjusted handler in media keys to connect strictly to dock keyboard
+>
+> Changes in v10:
+> - ec-kbc: fixed possible out of buffer reads
+> - ec-kbc: set notifier_call before blocking_notifier_chain_register
+> - ec-keys: dropped input_unregister_device which should be handled by dev=
+m_input_allocate_device
+>
+> Changes in v11:
+> - applied changes from Florian Krischer (read_size parameterized and fix =
+keyboard response framing)
+> - ec-kbc: switch notifier and serio register calls
+> - ec-keys: used WRITE_ONCE()/READ_ONCE() for priv->special_key_pressed
+>
+> Changes in v12:
+> - removed unused includes
+> - fixed kernel-doc warns
+> - added check if dockram client and data are not NULL
+> - replaced handler in media keys with Dmitry's implementation
+> - calculate battery time props with unsigned value
+> ---
+>
+> Micha=C5=82 Miros=C5=82aw (6):
+>   mfd: Add driver for ASUS Transformer embedded controller
+>   input: serio: Add driver for ASUS Transformer dock keyboard and
+>     touchpad
+>   input: keyboard: Add driver for ASUS Transformer dock multimedia keys
+>   leds: Add driver for ASUS Transformer LEDs
+>   power: supply: Add driver for ASUS Transformer battery
+>   power: supply: Add charger driver for Asus Transformers
+>
+> Svyatoslav Ryhel (1):
+>   dt-bindings: embedded-controller: document ASUS Transformer EC
+>
+>  .../asus,tf201-ec-pad.yaml                    | 119 ++++
+>  drivers/input/keyboard/Kconfig                |  10 +
+>  drivers/input/keyboard/Makefile               |   1 +
+>  .../input/keyboard/asus-transformer-ec-keys.c | 212 +++++++
+>  drivers/input/serio/Kconfig                   |  15 +
+>  drivers/input/serio/Makefile                  |   1 +
+>  drivers/input/serio/asus-transformer-ec-kbc.c | 264 ++++++++
+>  drivers/leds/Kconfig                          |  11 +
+>  drivers/leds/Makefile                         |   1 +
+>  drivers/leds/leds-asus-transformer-ec.c       | 125 ++++
+>  drivers/mfd/Kconfig                           |  16 +
+>  drivers/mfd/Makefile                          |   1 +
+>  drivers/mfd/asus-transformer-ec.c             | 569 ++++++++++++++++++
+>  drivers/power/supply/Kconfig                  |  22 +
+>  drivers/power/supply/Makefile                 |   2 +
+>  .../supply/asus-transformer-ec-battery.c      | 289 +++++++++
+>  .../supply/asus-transformer-ec-charger.c      | 208 +++++++
+>  include/linux/mfd/asus-transformer-ec.h       | 100 +++
+>  18 files changed, 1966 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/embedded-controller=
+/asus,tf201-ec-pad.yaml
+>  create mode 100644 drivers/input/keyboard/asus-transformer-ec-keys.c
+>  create mode 100644 drivers/input/serio/asus-transformer-ec-kbc.c
+>  create mode 100644 drivers/leds/leds-asus-transformer-ec.c
+>  create mode 100644 drivers/mfd/asus-transformer-ec.c
+>  create mode 100644 drivers/power/supply/asus-transformer-ec-battery.c
+>  create mode 100644 drivers/power/supply/asus-transformer-ec-charger.c
+>  create mode 100644 include/linux/mfd/asus-transformer-ec.h
+>
+> --
+> 2.53.0
+>
 
-Does that mean your a9 SoC has TWO I3C controller variants?
+Hello Lee!
 
-And what is btw the name of the SoC? A9? Then why is it at the end? Do
-you see such pattern anywhere?
-
-Best regards,
-Krzysztof
+May you please pick this series? Dmitry Acked input commits. Regarding
+adjustments to input patches, Dmitry is fine if I send them as
+followup. Thank you!
