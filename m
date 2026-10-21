@@ -1,61 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792575864;
-	b=LfYqTRd5vlaEL97MGLYmSNwpgIXfMWCrerKOzJ5Ge9RGbB3rAJAKeyvb3v7hhIxT23QF
-	 9WoWPyB/iTEQpaaxGPC/XBtYUECt7edCxKzW7JP8gWswKwI+SxODXEIe9Xv2ZIGTCoka8
-	 TM/w4MAK5cpTSA3zOPQPv2C4DVdm7VMeG/uwhqHoeRYDsIBCm2kI9TJYIHSO4Rih6vxwH
-	 zpBT53XsyuYz4gVw4B2jYwew43cPFlGOaUOpMap2prFt+36o4Xscq79BXoDzRay5rg4Bc
-	 OYDHa+kNWBOAS3BAA/cAfhOifGAunlwRzXoFd7Nml4mEgJNH1jL6FWEMJJzC8ltcbSg==
+	t=1792575879;
+	b=QBnlbndy4dEeDMXz0CfVNTQZTFE4XXEo7vam0ITEOd40xxzL1/xwGPmNRHZweblAt0RL
+	 aMVqyPSLZLdsyhwzGPQGFr+cqWPBz83MfV8O7gxCraz82Z9Ef14cS05H6Xqf5sPHOwu3g
+	 z+hLArHP/KdlnpE9eh75Z6s154x0oWPoLY5rfRFLhIjhEgsXFBI8ZC7WNhlQo/GZlP5Xv
+	 bHseOCQ2xQYb8as3vT4HrjD4UmI5FG9l0LjbZeetwy+bYu3KwEZTK7cbkPuMxXQac/yNZ
+	 9QPOejLsHJhSKoV6YNdYOtrCNOli87fNNSM1LlRvW3VEkBTZ+EjWgG8HAh31v+I5ECw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792575864;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
-	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=ZfPMlrVQ9XLjh6kjdxO0ST3Jv2qXKJ/BPZ30eZyZokI=;
-	b=HhuvNPLZIpYZbO7OqIEkRd7K/Az7uH5PwdzkcMtPTJWIxAvuL4/lurtztxKhvR1dQKeA
-	 BO5emTCNVK9XmzgQHYFplYJf2e6pqr6RvpwNdM+lKgkbbWbn4XkhQoalq/cEMfykDX/tq
-	 xTp8lOraYxppbuPb/GchnSDjdaqQqn0JBD7KHv+q9WsTFrs7Vhpm81z5JaBrLu/20oCtj
-	 ugxYaRpk5LYLPYVVtnTHiy6lIafBJ4yP095Ftei/gdN2RcRPBQ0FWDIewexZqRGgRlXDG
-	 2Cln247lKJOB//Ux51cCAauQOBZgBEnahQGGIO36LZ5NuoquzLxkn/T8u18GU8XOi5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792575879;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=K6J8Ow9mb1LVZZK/gpyIhb1PAxP0aYI9zlWavgJixbo=;
+	b=0kTDF/GqyzHtyzC9r0czLsccBmCx5JBbatWQUAH5W33O/xF3H2Uq+LlsseWPHqjbGoeN
+	 0EQWzm8cCqDjiJLmfPcsja8PM7/GXXhOYkE6JnM3S80BxmBwbF68UtrzQ+UD0gGSjSm48
+	 ctuSJEV5zSU1cXULK2zeX3vjtF6RcvLs80PQavjo7uzobV3tDQzLLm2WM6042N4aXjHg2
+	 TSCTAQ4FdwQR0OhAjgUgiLDsIvQvFxq0K73yEyCLGsuayj25+K4i6PT/ZHCD0ltjlc1DO
+	 4fwXa3dLe3865EJeqJN+zY9Mkmk8u9gTQ7WVzvlOC6n4LFzwq6eYUDeSVVym8I711Fw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ZV8/07lx";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZKa+QwrQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E968606A31A
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 09:44:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90FF3606A31A
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 09:44:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZV8/07lx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BE5D1F000D1
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 09:44:24 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZKa+QwrQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02A4A1F000C9;
+	Wed, 21 Oct 2026 09:44:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792575864;
-	bh=ZfPMlrVQ9XLjh6kjdxO0ST3Jv2qXKJ/BPZ30eZyZokI=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=ZV8/07lxlb2aTrg1iON4ftQikyg6dlZTSDaPmGjBXyMjqGzj+HYdSe53s+ScYG2/h
-	 rrKEudW8pCnqznx6nrPMPVFvDBAOGrWtYXofY4adc/56hvHqmHuHazvA+Znau/qvYs
-	 iIk7MCySit3mrXDfx5FzkoxWyc7xwDWpmL/n5qM17SYCV+0JKOWLi6uVSXJP9eHuxb
-	 /nLDgVXgH6L0T2bw1KmbVQXqCwInLCvbe8qNFzbWRG54pOaWIm8716hxDX9gK3XZza
-	 s1bs0nMdLHPQ7Nox1cNsXkUchaWIz+QJiRehG3b2HsbdOyJlhWarRYmNpM+H6pTDvB
-	 XxmjgGO2olUDA==
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3ab4354db11so3919801fa.1
-        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 02:44:23 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzdESHgNznkd/hg0fWeKWmGAhxVo9uvewcCDv3kwwvJFUUQs3rH/vIzXuTCSaeyEWtCm22O5WT7AyOl@vger.kernel.org
-X-Gm-Message-State: AFq9FYLv9Iu7srfSXOrOwWOJV7auj26tr0ffMKY9d+hC5d9Sxy8UbXCu
-	ZybrdGSD0ti+08y88zST55fvX+zvsnTRKMJ2Rk+9PVxZ+F5ozIzdu9a1KACj5lreP8Z2WHaMhVT
-	JXoqX938O1weyHyqlPplrGBbumTQtJm2dz5vbn9Y8aA==
-X-Received: by 2002:a05:6512:10c1:b0:5be:50d5:594a with SMTP id
- 2adb3069b0e04-5bfa1c2a956mr580646e87.26.1792575862744; Wed, 21 Oct 2026
- 02:44:22 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 21 Oct 2026 05:44:21 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 21 Oct 2026 05:44:21 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20261021073633.2163128-4-shengchao.guo@oss.qualcomm.com>
+	s=k20260515; t=1792575879;
+	bh=K6J8Ow9mb1LVZZK/gpyIhb1PAxP0aYI9zlWavgJixbo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZKa+QwrQ240+gp046TR0ILq3qmKYip/k8ldNqiXZVNjPPabbo4Zu+weUcWCSkxUdt
+	 gRkfGOnLPNrTon9PsJMUCWslui1hI1wkRDlWxyqnpjNY7XdSnTaqloxz+3xIDj4R7O
+	 I7b7MG5K0YrDh0mBN5a+mv5AokNg9sU0vSsretAT3Ett1EPnR1nQQE2NUg9l7bzbqi
+	 AuD2zEJIq4yIDcSw1G4wcFMHMzGaJQIlsnLFeXikSZmz1l84DuDfo35srk4P3Ck3eg
+	 VYef3rpeQiq8KOjZI0KfBeWm/VCgntywaiWH8+SSyTnCQZMMOKiagS7/qpLlFr27Q4
+	 vxjyO7ICnPGmw==
+Message-ID: <sashiko-outbox-180052@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 2/3] misc: fastrpc: move ADSP duplicate session
+ creation to the driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vinayak Katoch" <vinayak.katoch@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261021-dup-sessions-v6-2-578ab52ba66c@oss.qualcomm.com>
+References: <20261021-dup-sessions-v6-0-578ab52ba66c@oss.qualcomm.com>
+ <20261021-dup-sessions-v6-2-578ab52ba66c@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 21 Oct 2026 09:44:38 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,30 +60,250 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261021073633.2163128-1-shengchao.guo@oss.qualcomm.com> <20261021073633.2163128-4-shengchao.guo@oss.qualcomm.com>
-Date: Wed, 21 Oct 2026 05:44:21 -0400
-X-Gmail-Original-Message-ID: <CAMRc=MdB3EbjBzrYDZHArERviS+J6g2dxAw7=VVoQ-1LYaJRkw@mail.gmail.com>
-X-Gm-Features: AclHuK9TBV6PrDwxsS95btH-rZknLNEJQWHFvY1vAuIKD57w503S4mKxDklkgVk
-Message-ID: <CAMRc=MdB3EbjBzrYDZHArERviS+J6g2dxAw7=VVoQ-1LYaJRkw@mail.gmail.com>
-Subject: Re: [PATCH RFC v2 3/5] arm64: dts: qcom: nord-embedded: Raise i2c18
- pad drive strength
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>, 
-	Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 21 Oct 2026 09:36:31 +0200, Shawn Guo
-<shengchao.guo@oss.qualcomm.com> said:
-> The i2c18 pins (gpio154/155) are configured for 2 mA. That is not
-> enough on nord-ride-embedded, where i2c18 is the audio control bus
-> carrying the TCA6408 expander, ADAU1979 ADC and PCM1681 DAC behind
-> TXS0102 level shifters. Transfers intermittently fail with arbitration
-> loss and unexpected start/stop conditions:
->
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] misc: fastrpc: session leak in fastrpc_rpmsg_probe() on race with =
+open
+- [High] misc: fastrpc: double of_node_put() in fastrpc_cb_devices_create()
+- [High] misc: fastrpc: use-after-free on fastrpc_cb_devices_create() failu=
+re in probe
+--
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+commit 810d79d90cb45359bb71f6c3439fb0921ee5af9c
+Author: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+
+misc: fastrpc: move ADSP duplicate session creation to the driver
+
+This commit removes the qcom,nsessions device tree property read and per-ba=
+nk
+session duplication from fastrpc_cb_init(), and instead appends four copies=
+ of
+the last session in fastrpc_rpmsg_probe() for the adsp domain.
+
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> index caa479f304c1c..5dd1990d3e2a9 100644
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+[ ... ]
+> @@ -2368,16 +2371,6 @@ static int fastrpc_cb_init(struct platform_device =
+*pdev)
+>  	if (cctx->domain_id =3D=3D CDSP_DOMAIN_ID)
+>  		dma_bits =3D cctx->soc_data->dma_addr_bits_cdsp;
+> =20
+> -	if (sessions > 0) {
+> -		struct fastrpc_session_ctx *dup_sess;
+> -
+> -		for (i =3D 1; i < sessions; i++) {
+> -			if (cctx->sesscount >=3D FASTRPC_MAX_SESSIONS)
+> -				break;
+> -			dup_sess =3D &cctx->session[cctx->sesscount++];
+> -			memcpy(dup_sess, sess, sizeof(*dup_sess));
+> -		}
+> -	}
+>  	spin_unlock_irqrestore(&cctx->lock, flags);
+>  	rc =3D dma_set_mask(dev, DMA_BIT_MASK(dma_bits));
+>  	if (rc) {
+> @@ -2656,6 +2649,22 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device=
+ *rpdev)
+>  	if (err)
+>  		goto err_deregister_fdev;
+
+[Severity: High]
+Could calling of_node_put(np) before continue in fastrpc_cb_devices_create()
+cause a double release of the device_node reference on np?
+
+Right before this check in drivers/misc/fastrpc.c, fastrpc_rpmsg_probe() ca=
+lls
+fastrpc_cb_devices_create(rpdev) (introduced earlier in this series by comm=
+it
+"misc: fastrpc: iterate CB nodes manually instead of of_platform_populate"):
+
+drivers/misc/fastrpc.c:fastrpc_cb_devices_create() {
+	for_each_available_child_of_node(rdev->of_node, np) {
+		if (!of_device_is_compatible(np, "qcom,fastrpc-compute-cb")) {
+			of_node_put(np);
+			continue;
+		}
+		...
+}
+
+In include/linux/of.h, for_each_available_child_of_node() advances the loop
+with of_get_next_available_child(parent, child), which already drops the
+reference on the previous child node:
+
+#define for_each_available_child_of_node(parent, child) \
+	for (child =3D of_get_next_available_child(parent, NULL); child !=3D NULL;=
+ \
+	     child =3D of_get_next_available_child(parent, child))
+
+When an available child node under rdev->of_node is not compatible with
+"qcom,fastrpc-compute-cb", calling of_node_put(np) before continue drops the
+reference on np a first time, and the loop increment drops it a second time,
+leading to a reference count underflow and potential use-after-free on np.
+
+> =20
+> +	if (data->domain_id =3D=3D ADSP_DOMAIN_ID && data->sesscount > 0) {
+> +		struct fastrpc_session_ctx *last_sess;
+> +		struct fastrpc_session_ctx *dup_sess;
+> +		unsigned long flags;
+> +
+> +		spin_lock_irqsave(&data->lock, flags);
+> +		last_sess =3D &data->session[data->sesscount - 1];
+> +		for (i =3D 0; i < FASTRPC_DUP_SESSIONS; i++) {
+> +			if (data->sesscount >=3D FASTRPC_MAX_SESSIONS)
+> +				break;
+> +			dup_sess =3D &data->session[data->sesscount++];
+> +			memcpy(dup_sess, last_sess, sizeof(*dup_sess));
+> +		}
+> +		spin_unlock_irqrestore(&data->lock, flags);
+> +	}
+
+[Severity: High]
+What prevents a race with fastrpc_device_open() from permanently leaking the
+duplicated dup_sess entries in data->session[] here?
+
+In drivers/misc/fastrpc.c, fastrpc_rpmsg_probe() registers the character
+device via fastrpc_device_register() -> misc_register() before calling
+fastrpc_cb_devices_create(rpdev):
+
+drivers/misc/fastrpc.c:fastrpc_rpmsg_probe() {
+	...
+	case ADSP_DOMAIN_ID:
+	case MDSP_DOMAIN_ID:
+	case SDSP_DOMAIN_ID:
+		data->unsigned_support =3D false;
+		err =3D fastrpc_device_register(rdev, data, secure_dsp, domain);
+		...
+	err =3D fastrpc_cb_devices_create(rpdev);
+}
+
+Previously, fastrpc_cb_init() duplicated the sessions inside the same
+cctx->lock critical section that initialized sess->used =3D false. With this
+regression, fastrpc_cb_init() sets sess->used =3D false and sess->valid =3D=
+ true,
+increments cctx->sesscount, and drops cctx->lock before calling
+dma_set_mask():
+
+drivers/misc/fastrpc.c:fastrpc_cb_init() {
+	...
+	sess =3D &cctx->session[cctx->sesscount++];
+	sess->used =3D false;
+	sess->valid =3D true;
+	sess->dev =3D dev;
+	sess->sid =3D sid;
+
+	if (cctx->domain_id =3D=3D CDSP_DOMAIN_ID)
+		dma_bits =3D cctx->soc_data->dma_addr_bits_cdsp;
+
+	spin_unlock_irqrestore(&cctx->lock, flags);
+	rc =3D dma_set_mask(dev, DMA_BIT_MASK(dma_bits));
+}
+
+If userspace (such as fastrpc daemons triggered when misc_register() exposes
+the device node) opens the device during this unlocked window,
+fastrpc_device_open() -> fastrpc_session_alloc() can allocate up to last_se=
+ss
+and set last_sess->used =3D true:
+
+drivers/misc/fastrpc.c:fastrpc_session_alloc() {
+	...
+	for (i =3D 0; i < cctx->sesscount; i++) {
+		if (!cctx->session[i].used && cctx->session[i].valid) {
+			cctx->session[i].used =3D true;
+			session =3D &cctx->session[i];
+			fl->client_id =3D i + 1;
+			break;
+		}
+	}
+}
+
+When fastrpc_rpmsg_probe() then checks data->sesscount > 0 (outside
+data->lock), acquires data->lock, and copies last_sess into each dup_sess v=
+ia
+memcpy(dup_sess, last_sess, sizeof(*dup_sess)), used =3D true is copied int=
+o all
+four dup_sess slots without resetting dup_sess->used =3D false.
+
+Because no fastrpc_user instance owns those dup_sess pointers,
+fastrpc_session_free() is never called on them, leaving all four duplicated
+sessions permanently marked used =3D true and unallocatable.
+
+> +
+>  	return 0;
+> =20
+>  err_deregister_fdev:
+
+[Severity: High]
+If fastrpc_cb_devices_create() fails after a session has been marked valid,
+can kfree(data) in the err_deregister_fdev path cause a use-after-free on
+data and the destroyed child platform devices?
+
+Premature registration of the miscdevice prior to child population and
+kfree(data) on the error path existed prior to this commit, and commit
+9b30a7a26899 ("misc: fastrpc: iterate CB nodes manually instead of
+of_platform_populate") in this series replaced of_platform_populate() with
+fastrpc_cb_devices_create() while this patch modifies fastrpc_cb_init() and
+fastrpc_rpmsg_probe().
+
+During fastrpc_rpmsg_probe() -> fastrpc_cb_devices_create() ->
+fastrpc_cb_init() in drivers/misc/fastrpc.c, once the first context bank se=
+ts
+sess->valid =3D true and drops cctx->lock, a concurrent open() on the regis=
+tered
+miscdevice can succeed in fastrpc_device_open():
+
+drivers/misc/fastrpc.c:fastrpc_device_open() {
+	...
+	/* Released in fastrpc_device_release() */
+	fastrpc_channel_ctx_get(cctx);
+	...
+	fl->sctx =3D fastrpc_session_alloc(fl);
+	...
+	spin_lock_irqsave(&cctx->lock, flags);
+	list_add_tail(&fl->user, &cctx->users);
+	spin_unlock_irqrestore(&cctx->lock, flags);
+}
+
+If dma_set_mask() then fails in fastrpc_cb_init(), or a subsequent child no=
+de
+fails in of_platform_device_create() or fastrpc_cb_init(),
+fastrpc_cb_devices_create() destroys the child platform devices via
+fastrpc_cb_devices_destroy(rpdev) and returns an error:
+
+drivers/misc/fastrpc.c:fastrpc_cb_devices_create() {
+	...
+		err =3D fastrpc_cb_init(pdev);
+		if (err) {
+			of_node_put(np);
+			fastrpc_cb_devices_destroy(rpdev);
+			return err;
+		}
+}
+
+fastrpc_rpmsg_probe() then jumps to err_deregister_fdev, calls
+misc_deregister() (which does not close existing open file descriptors), and
+unconditionally frees data with kfree(data) instead of releasing the initial
+reference via fastrpc_channel_ctx_put(data):
+
+drivers/misc/fastrpc.c:fastrpc_rpmsg_probe() {
+	...
+err_deregister_fdev:
+	if (data->fdevice)
+		misc_deregister(&data->fdevice->miscdev);
+	if (data->secure_fdevice)
+		misc_deregister(&data->secure_fdevice->miscdev);
+
+err_free_data:
+	kfree(data);
+	return err;
+}
+
+When the open file descriptor later performs an ioctl or closes the file in
+fastrpc_device_release() -> fastrpc_user_put(), it dereferences the freed
+cctx (data) to lock cctx->lock, remove fl->user from cctx->users, clear
+fl->sctx->used, and call fastrpc_channel_ctx_put(fl->cctx).
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021-dup-sessio=
+ns-v6-0-578ab52ba66c@oss.qualcomm.com?part=3D2
