@@ -1,56 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792539065;
-	b=5i6/6tU+LrSM3wrF7Y7Kq7fX5jHY2YKtmZvjuUkT5+UpbGDz/6L6XNQDjb+ihMFpCinN
-	 OeRJAWaahUdOusk5/hGdk5SZ0KJ95CmYPE819W9BX1tVGiuJyqOFfwQt3YKo2EjH1iXz0
-	 N3lmPu7lFNGQ9tc9FaVHZrZY90KTViL0ECOu+3xG6APpTJ6XcvfniNGaZfU/W6l7+Q7Jr
-	 gLHZqpC1rS8EUS2UXwFNVE0MMeFXavriTBnz9G6o4j7ygXYnx6rZNvGzvAyoY49eyeB68
-	 er/1tGMqVmIqje4QLXe77zbUSNG2nSjX47nzu1RU19SX7KBu9amK+V7fXmiX8zKIFeg==
+	t=1792546195;
+	b=hb0ow8bygYyj7erTnouuQ8YgMzH3L/yxWi5CbT+71rooSjxFVvQvrMKrRrmuGIvAMXYS
+	 x6T93nDm136FMQNf+Sp9ikzgKjfDj3jUTzBk19PmIBb2WGWj6eFQf6dSFYIkVN6r69Ne5
+	 ya+nDvsuF34/RrYM9TOZijxdKGdK6GhffH0ig1sxGrWVa39+0Bkt8/yVUd47F3O33pHpX
+	 TEC77SnqTBb1wwVb/uCLWCxBzac3r2YObEmmdPB4luo9opI/VePwWRmxo778XhOAkBvci
+	 bZb6V5pvrhIvyMrTjffDhkd/q/G10eQZBOhbkW1UhECoZpF6ar8VdH4NQrAcnwTnl0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792539065;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=WyTydnEI7HaZcYU8Jg8Dgk33OVrWs9PmKRbuXg17Oyw=;
-	b=wyav2YuQi1kf6cFOl1/uOPOjVcbQtYVjevGQLXuTGE9E2YjEuSiDM4fb1GQ5pJ6wFDmC
-	 VqOBUMay+e/mtMO8JxP9M0KKad6IF6Glbxkn+DgSZDagl6Pxfexoo5ExYA7I8Hs7i1Mwf
-	 tse1ILFlly+d3Edo46Xe7zkoA3kjFccTCP34CEjLYo5gvuCyyzGJWp9634wCE4mjrcPIS
-	 JfXEgHU10gPXNHDgjV0NSy/632bucL80RVayDPOMRzgur6FPLyhkMAK/unPNfZgdL9vsC
-	 BsRFRg82xaEyKga2XncbOLyLonRCOY9XgRl6mqxFQ994spw1uFf+9tzpOXqvIOcOE+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792546195;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=KZzJxPvWOpazC3XHnU+iFcOAPHLfI64CvA46Z0aosIk=;
+	b=Ylz8g8iAjtvO5lpsNfgQJAlnVdyKmUyuiwSSq4UXLktad2TwyfTjeUQ5dgwuI2Gs/MmT
+	 sKwh6/qqW/7p6Ol6zylCFLqCIhP4ENmlnT1gNFXX2R0XjKQeqJNZyfMzZsADqEzV3cran
+	 24IRcEn25y3uf7nBS2puJp+6HkhYq18075i00E9/QUEB/2qaF2VpZuG1ARCg48QghIZCq
+	 hZUMkFplKdpn+yta+vmoJ9kURlyERXbPM52nevPn/4OgHyUHxlU4hLMCTHGC7LebbBk++
+	 uBR6bLR8tf3HTolrBX32kt7hS6aDv3QL4uFwSOM4lhzTpJwCG59gWFCjsBEwafUVWVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EeiR2Hy4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NbuOtfpb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2376D606A31F;
-	Tue, 20 Oct 2026 23:31:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 184B1606A319;
+	Wed, 21 Oct 2026 01:29:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EeiR2Hy4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30D691F000CA;
-	Tue, 20 Oct 2026 23:31:04 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NbuOtfpb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 387131F000C9;
+	Wed, 21 Oct 2026 01:29:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792539064;
-	bh=WyTydnEI7HaZcYU8Jg8Dgk33OVrWs9PmKRbuXg17Oyw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EeiR2Hy4d4o/s/Rjqykrd8x8aJE3gcmxa3ZvBSN2zlwBCU+KaCsM+YvSB3xEQzBW3
-	 wkYsmSZH44UltBNiPI4Dk0iBdyrlkdDSLr+nfww91a/0SyhqPj6ej6xeSICEEMAme4
-	 rsESQJFAmJqwzlj9fCEOjH9Avb0BtpQtZtAPqlRt+U+7iyx70sxHt/ATgSyZL8DZJC
-	 i4JWEl7TADOlI585o4hJcbtfn1oN2Q71nEEK5Qs3BidT+EBT9T6EogIRn3N/z4+m/w
-	 5veoUoyL+Jl+zj9tAg5jLGI3VZJ1cNr/VpbTysy72iQi50Oi3NAt//EkN5KI8nZXkK
-	 iBL9gs3W4Aeaw==
-Message-ID: <sashiko-outbox-179604@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 7/7] arm64: dts: imx8dxl-evk: add lcdif overlay
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Frank.Li@oss.nxp.com
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261020-dxl_lcdif-v3-7-adc944659e14@nxp.com>
-References: <20261020-dxl_lcdif-v3-0-adc944659e14@nxp.com>
- <20261020-dxl_lcdif-v3-7-adc944659e14@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 20 Oct 2026 23:31:03 +0000
+	s=k20260515; t=1792546194;
+	bh=KZzJxPvWOpazC3XHnU+iFcOAPHLfI64CvA46Z0aosIk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=NbuOtfpbt/ObL+20tpFP5BzYZTstfiX4KdWy5IWfH+YpbHGMO0sAaxberP/+wUkPI
+	 YfUcHYUBR/sOAmIvr8DweW37mU051wuqoFQON6nENliZuoR+JnLcO3HQlGPesUwgGJ
+	 PxndraVZnC9l2uohLEEpFB7bYSfD3wXStLCxJLJ5/3+pO93BAChDgB/G7eWoklwNWp
+	 TTlQocaNJCvJUEjJM2swVa20Z+ylOuY5vRvjMABFPmEEpP/x1m2kk6dPGGVu4Jp8qG
+	 zYZ04pdKrXg3RtIVOHqd4rKsCJPty/nYMg5PT6Aenlt4LVWsZ24TTlEjZGecgKE9xc
+	 WEoC/9pSUJC2w==
+Date: Tue, 20 Oct 2026 18:29:53 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Jacky Chou <jacky_chou@aspeedtech.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Po-Yu Chuang <ratbert@faraday-tech.com>, Eric
+ Dumazet <edumazet@kernel.org>, "Heiner Kallweit" <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, <netdev@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Andrew Lunn
+ <andrew@lunn.ch>
+Subject: Re: [PATCH net-next v4 0/7] net: ftgmac100: Add AST2700 support
+Message-ID: <20261020182953.37b766a7@kernel.org>
+In-Reply-To: <20261020-support_ast2700-v4-0-4d36b40939b3@aspeedtech.com>
+References: <20261020-support_ast2700-v4-0-4d36b40939b3@aspeedtech.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,175 +63,35 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] arm64: dts: imx8dxl-evk: invalid and ignored bus-width in adma_lcd=
-if endpoint
-- [Medium] arm64: dts: imx8dxl-evk: incomplete audio disabling in lcdif ove=
-rlay
---
+On Tue, 20 Oct 2026 19:34:11 +0800 Jacky Chou wrote:
+> Add the pieces needed for the FTGMAC100 driver to run on Aspeed AST2700
+> systems.
+> 
+> AST2700 keeps using the FTGMAC100 MAC IP, but the enablement is not
+> limited to a new compatible string. The SoC can boot with the MAC on
+> ARM64, needs the Aspeed-specific RMII mode bit programmed when a port is
+> wired for RMII, and requires the driver to use the upper DMA address
+> fields in the ring base registers and packet descriptors. Those fields
+> expose a 35-bit DMA address range on AST2700, so the driver must request
+> a mask that matches the address bits the hardware can encode.
 
-commit 99ed2360e1f19a7e9e6652f9b6385f7a7a06174f
-Author: Frank Li <Frank.Li@nxp.com>
+## Form letter - net-next-closed
 
-arm64: dts: imx8dxl-evk: add lcdif overlay
+The merge window for Linux v7.4 has begun, and the net-next
+tree is now closed for new drivers, features, code refactoring
+and optimizations. We are currently accepting bug fixes only.
 
-This commit adds a device tree overlay to support the waiken,101wx001-wct L=
-CD
-panel on the i.MX8DXL EVK board, configuring the LCDIF controller pins and
-disabling conflicting peripherals.
+Please repost when net-next reopens. There is some uncertainty
+about how long this merge window will last, so please check
+https://netdev.bots.linux.dev/net-next.html
+before reposting. net-next _may_ reopen on Nov 2nd.
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8dxl-evk-lcdif-101wx001.dts=
-o b/arch/arm64/boot/dts/freescale/imx8dxl-evk-lcdif-101wx001.dtso
-> new file mode 100644
-> index 0000000000000..39abf9b3884ea
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx8dxl-evk-lcdif-101wx001.dtso
-> @@ -0,0 +1,119 @@
+See: https://www.kernel.org/doc/html/next/process/maintainer-netdev.html#development-cycle
+-- 
+pw-bot: defer
+pv-bot: closed
 
-[ ... ]
-
-> +&acm {
-> +	status =3D "disabled";
-> +};
-> +
-> +&adma_lcdif {
-> +	pinctrl-0 =3D <&pinctrl_lcdif>, <&lcd_0_fun>, <&lcd_1_fun>, <&lcd_2_fun=
->, <&lcd_3_fun>;
-> +	pinctrl-names =3D "default";
-> +	status =3D "okay";
-> +
-> +	port {
-> +		lcdif_out: endpoint {
-> +			bus-width =3D <18>;
-> +			remote-endpoint =3D <&panel_in>;
-> +		};
-> +	};
-> +};
-
-[Severity: High]
-Is bus-width =3D <18> in lcdif_out valid for the fsl,lcdif binding or handl=
-ed
-by the mxsfb driver?
-
-In Documentation/devicetree/bindings/display/fsl,lcdif.yaml, the port
-property references /schemas/graph.yaml#/properties/port directly without
-video-interfaces.yaml:
-
-  port:
-    $ref: /schemas/graph.yaml#/properties/port
-    description: The LCDIF output port
-
-Because /schemas/graph.yaml#/properties/port enforces additionalProperties:
-false on endpoint nodes, adding bus-width =3D <18> causes dtbs_check schema
-validation to fail on imx8dxl-evk-lcdif-101wx001.dtb.
-
-In addition, neither mxsfb, drm_panel_bridge, nor panel-simple parses
-bus-width from the endpoint node. When mxsfb_crtc_atomic_enable() calls
-mxsfb_set_formats() in drivers/gpu/drm/mxsfb/mxsfb_kms.c, the hardware bus
-width is selected from bridge_state->input_bus_cfg.format:
-
-	switch (bus_format) {
-	case MEDIA_BUS_FMT_RGB565_1X16:
-		ctrl |=3D CTRL_BUS_WIDTH_16;
-		break;
-	case MEDIA_BUS_FMT_RGB666_1X18:
-		ctrl |=3D CTRL_BUS_WIDTH_18;
-		break;
-	case MEDIA_BUS_FMT_RGB888_1X24:
-		ctrl |=3D CTRL_BUS_WIDTH_24;
-		break;
-
-Since waiken_101wx001_panel in drivers/gpu/drm/panel/panel-simple.c sets
-bus_format to MEDIA_BUS_FMT_RGB888_1X24:
-
-static const struct panel_desc waiken_101wx001_panel =3D {
-	...
-	.bus_format =3D MEDIA_BUS_FMT_RGB888_1X24,
-	.connector_type =3D DRM_MODE_CONNECTOR_DPI,
-	.bus_flags =3D DRM_BUS_FLAG_DE_HIGH | DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE,
-};
-
-mxsfb_set_formats() will program CTRL_BUS_WIDTH_24 instead of
-CTRL_BUS_WIDTH_18 even though only 18 data lines (D00..D17) are wired in
-pinctrl_lcdif, dropping the upper 6 bits of each pixel.
-
-[ ... ]
-
-> +&sai0 {
-> +	status =3D "disabled";
-> +};
-> +
-> +&sai1 {
-> +	status =3D "disabled";
-> +};
-> +
-> +&wm8960_1 {
-> +	status =3D "disabled";
-> +};
-> +
-> +&wm8960_2 {
-> +	status =3D "disabled";
-> +};
-> +
-> +&wm8960_3 {
-> +	status =3D "disabled";
-> +};
-
-[Severity: Medium]
-Should this overlay also disable the remaining audio nodes in
-arch/arm64/boot/dts/freescale/imx8dxl-evk.dts and
-arch/arm64/boot/dts/freescale/imx8-ss-audio.dtsi that depend on &acm, &sai0,
-&sai1, and &wm8960_1..&wm8960_3?
-
-Because of_link_to_phandle() in drivers/of/property.c does not create
-fw_devlink links to suppliers with status =3D "disabled", the enabled consu=
-mer
-devices still attempt to probe when this overlay is applied:
-
-1. The audio LPCG nodes in arch/arm64/boot/dts/freescale/imx8-ss-audio.dtsi
-(spdif0_lpcg, sai0_lpcg, sai1_lpcg, sai2_lpcg, sai3_lpcg, mclkout0_lpcg,
-mclkout1_lpcg, and mqs0_lpcg) remain enabled and reference disabled &acm. In
-drivers/clk/imx/clk-imx8qxp-lpcg.c, imx8qxp_lpcg_clk_probe() ->
-imx_lpcg_parse_clks_from_dt() fails with -ENODEV:
-
-	ret =3D of_clk_parent_fill(np, parent_names, count);
-	if (ret !=3D count) {
-		dev_err(&pdev->dev, "failed to get clock parent names\n");
-		return count;
-	}
-
-2. &asrc0, &sai2, and &sai3 remain enabled in
-arch/arm64/boot/dts/freescale/imx8dxl-evk.dts and fail clock acquisition in
-fsl_asrc_probe() and fsl_sai_probe() because their parent clocks in &acm,
-sai2_lpcg, and sai3_lpcg are unavailable.
-
-3. The four sound card nodes in arch/arm64/boot/dts/freescale/imx8dxl-evk.d=
-ts
-(sound-bt-sco, sound-wm8960-1, sound-wm8960-2, and sound-wm8960-3) remain
-enabled while referencing the disabled &sai0, &sai1, and &wm8960_1..&wm8960=
-_3
-nodes:
-
-	sound-bt-sco {
-		compatible =3D "simple-audio-card";
-		...
-		btcpu: simple-audio-card,cpu {
-			sound-dai =3D <&sai0>;
-		...
-	};
-
-	sound-wm8960-1 {
-		compatible =3D "fsl,imx-audio-wm8960";
-		model =3D "wm8960-audio";
-		audio-cpu =3D <&sai1>;
-		audio-codec =3D <&wm8960_1>;
-		audio-asrc =3D <&asrc0>;
-
-causing simple_probe(), fsl_asoc_card_probe(), and graph_probe() to defer
-probe indefinitely on boot.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261020-dxl_lcdif-=
-v3-0-adc944659e14@nxp.com?part=3D7
