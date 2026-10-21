@@ -1,96 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=52.101.66.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1792594672;
-	b=T7EOIzfPKM3J/PYEh3w0GwOQLUM5aAX5ZhJrR9agPy0AuH8yjVrQse6FcTGIqa21pXzQ
-	 eMVXR/aIMjxxmvLNwTKrXjNeihIVXiUQLvtHJUAlbIYxuygkl2fGxi88wLwC0H2jyqpJq
-	 FYgbYrVEevm9v4aGfyGh9+ShkQaTFTIilAE3iegkXaHN9hXtRowDc3guP7n4Z+3lsWFlt
-	 MSXfFrd0z5Zdy8qwLqkdsTQQJBl2X3MMaWIo8rIIpD8RxoPEPDTIVnHGKBhvAjUxn4kCc
-	 0guEjelKQcqofRjvlpKVP6mpjfnQXbfdiiIIAw1D3oLljUH2k2jLshVHMS4yqtFcXKw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594672;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=qmbD65mCKIcVRe2JJfXDH9G4nmVuWThovzZZcr2UehE=;
-	b=gOGJC8JyKamx+k7UwZMOT8zpOgBx6miUmtrsiWUm44QFzPYg+DYsOlQI0Mm2sAmn9A+L
-	 wKXlXCLa7Xi8qunjAKGWaT9BkoDk0pgvi1QvBExm0PtE8tBk5GmJiN1X1UNmoZsiVVi2K
-	 9WteyqnKeDGLuyAu6JYSApQ3/WFWfnWxKPdZBzNbDevq7ss6aSuU5ajzzTVMbeIsSqb7G
-	 AwEyPcV53EuTdhebSdYPTjNXmfRfgT46RMPM2DH68UItjX3N9/y2F1Lh739tUifCeH9kz
-	 PSb1G8mygkMaWZCigjD3tkOYpdq1ex5fySbeHzcfKV5DFnpgzBQ7iopdEiaarkCOLSA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=fail reason="signature verification failed" header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Pe4yFvMv;
-	arc=fail smtp.remote-ip=52.101.66.46
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012046.outbound.protection.outlook.com [52.101.66.46])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792594710;
+	b=bS1Kp9Csxy5tBTk8KqFhHGgMN5GoOi4NkecdQolURMH96WATTgB0O2NrOvse5ewbUGjx
+	 CcWImSbsIFVeWvh0brNOXH+Bz3Fsezz+GkxMJeAp6CazpInfQ4DEnJeABCpIa+0jGbo2s
+	 5hXkH3qaM816MBihFaeHZ2nsziFVYOK+Ge6ujwZTXXlXVjCvFZ6UgODfrgrnfBfRE9rfn
+	 ERJ4Ra2nNMjMRTDV3gj81/xQTlFe4hioJom8FcCe/nqPcp3KpbacHV59V5GerapYwa/MF
+	 VfyLZ+NlmUeFeeMle/56uAQDz3zGCoU/FP7t+VowFMqGpONSCQGElwQ1XZI53rUlEPQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594710;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=bPwFPmDv6+H0dJ0zxvyUSWS02FggSDh5d0vS5g3VO7c=;
+	b=RgDBG+c3lcEKmsJoVPDQGb4VRm6oJMueUcZfcyqkmK1SAQFmeMmBwbqBhKQODb1F+/UI
+	 U5YLqFVilKUfCeM+K5DDBNO2j4NR+PYY5SLf5YVbtV92B7tjvlmm7jm6eOGj9JUYUlK4L
+	 ECjZyYsSjBx8LcmDCWp9ZuEwJY22NToKakFaZORNuJH1ePK73Ego9oQp8t5EpIwFBAXld
+	 VGPsxbfdCe8Uh/aIRZ1/fa6H5zemereojJu/S2XcjAB95NplqXHvmkHR+6CqXjoopPIId
+	 H2RbZhIqCeB7viZldFHrJFRcBol0kpP2jsqWTB25S5wv3eUfa+kdOp6tPARdRW1hYqg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AE9vx6++;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6871606A323
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 14:57:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6871606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61C87606A31A;
+	Wed, 21 Oct 2026 14:58:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Pe4yFvMv
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=K8jm+hhRuJD6ml7BhJj5FF/qDKmlKO5jtnsTgn6bHf/aksn0qeJy+9FlsWd5QBW35mOdyLnZ0jBMqXwRgllDOdbNJuyi0iwNmozllx5JMjpoi8Zg3PiHUi7gQMkzB13xkwssN6ydFz9PjEcn7nE4uRv3UJHXxjFO2KqCOxB46wvudHcfWu5IL/SLV04qilraczke0fX8tdLl+083xK2ZsFu1dPqfSn2Zio3B5EhdcMTGUV/kpZcul5pCoxuK9FBmFtPMRV2VklEPGzDE9/jxaP4KSzMbeSMJSEze755e7KtILx6/47R7kBSdsfI0hjQDsnVJS91JeIrsubd/9rcQVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RA1zTFyP5q1JgRgN80v/T0cpLP1S5i4prgpFbfVzrM0=;
- b=NgR7ipndv46kTfdjz/Yp6jv3IvPxpHkYyMnDXOxHX89RkTJhlkJAAKyoLAvhxdDaorW4qTTpCGXaBXwiBhcpdQdZ75nPkMaenDqxaMkIQQHJwhK+GxszQhxkYQ2ZqwjgJXo61oHSpOjM/PmClEuxSxxJoOVK9Ib/KIYTajojmV1St/O2rlcA5odgEQo4KcXnT5fOHg1Icp8ZxpYtCePlVMVXm2QvKqMr+shAAtXvgWqHATYgBe9YnO1xhM7uYE7H/+gCnCusUsKAIyiF8wQkvU8nRd+R2Qy8CVajpLxjxjUIlM1mOduQuil9auC64kfguhGHW3/w7TGtP06BjF4/SQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RA1zTFyP5q1JgRgN80v/T0cpLP1S5i4prgpFbfVzrM0=;
- b=Pe4yFvMvDFa11xUMYnVRhDaZOk5oDLFO6+m4FMxaOaRU/AuENXmb/VAaHXz48xIyCItG535Pti1ee8qSQun7JaPZm3xuDtLHWjULfM3ksWceQpM3wut3O0RVmMAXMEzG2lGO8C4u7HeCaVLcnZ1kt/27vFVLmNH+2mYR0M8bCztZ1SAovs6iGlqr7oXmggVgenp0JjX9+GXV55Q2jQ0FmI9Xgihu8EupvHjlgrzIw6xPV+/7PyBnX6BNWT2y1rpezQH5v6A5h+Hv0K4CanSp1RhR9bSy3RCj0XyMdR0JM+xyzvChSzu1qqDwa34LWJEKJmrIaOEbHjXwd/0QNVThaA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by FRRPR04MB12593.eurprd04.prod.outlook.com (2603:10a6:d10:1cd::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
- 2026 14:57:49 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
- 14:57:48 +0000
-Date: Wed, 21 Oct 2026 09:57:41 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Petko Manolov <petko.manolov@konsulko.com>, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org,
-	Frank.Li@kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: arm: fsl: add Draeger M48 dual-cpu
- board
-Message-ID: <atjS5TA33rHlIjPO@SMW015318>
-References: <20261021092140.4142493-1-petko.manolov@konsulko.com>
- <20261021092140.4142493-2-petko.manolov@konsulko.com>
- <sashiko-outbox-180038@kernel.org>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <sashiko-outbox-180038@kernel.org>
-X-ClientProxiedBy: DS7PR06CA0044.namprd06.prod.outlook.com
- (2603:10b6:8:54::20) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AE9vx6++
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C70871F000C6;
+	Wed, 21 Oct 2026 14:58:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792594710;
+	bh=bPwFPmDv6+H0dJ0zxvyUSWS02FggSDh5d0vS5g3VO7c=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=AE9vx6++YLnAScM9+eWIVuBl9L8nhnLmLs3wThUAOd8nznUSjW7I1I3/hVOpiRGKW
+	 eshoJ9iEfdpFyDuNBsxm58ZD2En/s+PysdQ67+R5vgcvlyhGMGt5IXnSoXLE1IvSjP
+	 BJNl7TiWcBryV0BAtu/235Qk7Sg55Bwueb2bh3x0Ecbn9bdirF2/tuG5bkcTAvmVgn
+	 tHBchvVmoMj1mun27L5Ojf2f3QZJYullHNtcLmPrcSsYbAIb0+c7IH/mW9bM9JOltf
+	 MrX6/EbyrDKMoGDlIkowoSM3e0Y4rc0j4aszKdAqvlte5qPufhAhT6OezQ0eWg0FrC
+	 qwIzSr53AUU0Q==
+Message-ID: <sashiko-outbox-180405@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/3] ARM: dts: bcm2711: give the GENET MDIO controller
+ its clock
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Nicolai Buchwitz" <nb@tipi-net.de>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261020-devel-bcm2711-gisb-clk-v1-3-a1728724d0f8@tipi-net.de>
+References: <20261020-devel-bcm2711-gisb-clk-v1-0-a1728724d0f8@tipi-net.de>
+ <20261020-devel-bcm2711-gisb-clk-v1-3-a1728724d0f8@tipi-net.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 21 Oct 2026 14:58:29 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -99,120 +60,94 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|FRRPR04MB12593:EE_
-X-MS-Office365-Filtering-Correlation-Id: a8ddc0d2-529a-4ba9-d8a6-08df2f83ac35
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|19092799006|23010399003|1800799024|261009223027099003|10067099003|56012099006|3023799007|6133799003|18002099003|22082099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	K52oYPW19FjUdpwHlxM5WAzofgcFDlpf3kZvYMGdyuGRmtSHnAZmrvagxxBpfK+x5tfgnF++PVgf4RatRe6PszzoUq7eQWT52PVjz8sQbAKynMv7ePWc6Ejp8+GDCQX1S4WIF9UYwsBJY+Z2kuDA2msoPE47IWJ77k+ix697ZPZDjC6f2ID4OTmJ2oEFbcI6YkeXM2kulG7fLXyreSySjKGdYiEsQtBCaY2FSKay0JLObI1xHiWuGcdYD84kT7htHWSpHtuj+RYgzrALYndtCnZhqSC1WPZ5iY4JJByMdlu1TjoTw3T6PO3emnX6IcXqV3O653uhQdD3eTuDeJXtVp1cOr9pT0xZ3gXAixwJXhM/Uhexuck9WMy1bS1SkOmg0mLLwpY7b7yfKFF6MsjWuiLG0rcoloLKrQuLoeI7LpainGkuxa4X5rqB+W4mLwz1Lwc2H4bLjeVYXZ6xKOHeSl0p4fZZayX/8ji2tQm3OhfQ5lC7pvsQk/Es0S5IRtRNYskPd1x1GpB8am3JmWrFIjrZO/820FFUOVfjH2NNQWfxoNRMcBKJeQs6ZQrhe+nKt1dCUQ4c/NWn9cNfwE+WhNFiJk+MO3dCbD0lWoxLP34=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(19092799006)(23010399003)(1800799024)(261009223027099003)(10067099003)(56012099006)(3023799007)(6133799003)(18002099003)(22082099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?iso-8859-1?Q?KrSyb8JHRvuNXfQ8xbmy+Z0frYZKGd1UuPIbC8z00pb1RGGYJrX0s1892q?=
- =?iso-8859-1?Q?QeWLcui7vQMb4y+6r2NpnflKn4GL5g8/Glec06QafreE8ae7qd93Exd/z5?=
- =?iso-8859-1?Q?3OH6UX7bPCwE1o7CwYLNgjwPvIDu5TdGcv97QBaPxr7wL9efYOfhnM/06n?=
- =?iso-8859-1?Q?zGcTifTKNn84+37/6ovlq/IQhROQUhtbh2O0MY1UYAEYHDwSRZq38PMeCT?=
- =?iso-8859-1?Q?dRte/xRN6NzjyaLPAk7PwxEZvSiBdRwHEu6Ul9iOx9+ygAVphY4pIVPHg/?=
- =?iso-8859-1?Q?X3crGqsqomNSTWmOusRZKx5Gbr5CqxiNRjLeQhrZTveMH4gld7gVl1YYHD?=
- =?iso-8859-1?Q?yDmx30+YHDKpM5AblmjOz1kV80gkbCzahdPuMYefjLC4gfRYdC61Kp9Gp/?=
- =?iso-8859-1?Q?sz3BnaWpNn6Azf14xjCGkMtJCdaiaw3dQQrOlmsXQBZruKmvOlODRpfZN3?=
- =?iso-8859-1?Q?aD1Gn97UfJErC2UhJit30OeK9GAKxJRPwxKFVUxGzLCxBia2NPFnk8BiJU?=
- =?iso-8859-1?Q?uED39faYtUP3pheGRt6p6rophbyhh2HJOkg/6JXhoM0jAYUOVBjHe4hyQq?=
- =?iso-8859-1?Q?rXJe1IkBVzLb/YCu/stQd/OUG9fbHskfmHwGtw8BaXKeyZeBiEZhcBP5/s?=
- =?iso-8859-1?Q?iTA2nUuJ1GOKBhGGpL54q3xX3b0qXsCOGfFODTIIA05ESa6DzLQT0URgzz?=
- =?iso-8859-1?Q?7k/IphjSbgpStEC36rC5VdZOhpBGvK0gvggbqbZ0mnFt21bvv12/5CNd0Z?=
- =?iso-8859-1?Q?oIKl3Yon9x0q/EN+BGVNmkZxOr3isVRvpDJ4Pjo1mv6gqNk91o6GoSVDQw?=
- =?iso-8859-1?Q?sYZQbcPNRAXBoi7ul8rqU4HIwFwFotbn0Na1wPe6DlWR/NgGWq5hr9Mre9?=
- =?iso-8859-1?Q?mEGxnkYQYoX+b7Z6+DgJbCyBqKDZbjzQPwrG1qkYNhgPrsh5diurIHkFo/?=
- =?iso-8859-1?Q?FYB/lxQ1RojHbe+0jMHr4+QXFz3YGcTTBILLg7MBZoqA8u40JY+SBHueaJ?=
- =?iso-8859-1?Q?hX2we5mfsDRqKsBwd9zljQ5R6TmgW4ODlaFfUpIBH2s+p8jtbHEdVJMHH3?=
- =?iso-8859-1?Q?pDDQVPBP/mIIBfA2ejz9RAfXDDB6IbyQDR6fsNL3PEi5/bszndeZ3i/4AE?=
- =?iso-8859-1?Q?wpMzGMmB4Mb8+uYk9PDRmb3LMfO74nt4UDkAAlo/ztoWQj98NufQihr4cH?=
- =?iso-8859-1?Q?9+PKdsFvt2EHkqy/b7FYiCWNxFzYJ8jDJWs73sWAMPTcveNWYTQlXk7YRM?=
- =?iso-8859-1?Q?bCu8k6SEoxkRVLckmLPXm19eTq185dXIvj6gdVexZqcReukECRVF2pod9V?=
- =?iso-8859-1?Q?IJeptAO0PI2HA8fO++2vZXoPZ2Sa5KZmK7cHTmwzOlekOB10Awd/XSffZL?=
- =?iso-8859-1?Q?ndL7BhpdsCSY7garkeonGV0kTaEKhfqdg7hf5FuKAuH7r3nbk0Bqo4Tabw?=
- =?iso-8859-1?Q?0H9nZvj7Obo5z8oK4ZKPD8wLOBIeDm5PrZxfOeGsQHmpbgOt+1vXvQHcfO?=
- =?iso-8859-1?Q?3PGuoNWWwX7QgESQD7+Ns+ofChxcmqI6z9gbRuVSD9VBYwbc3/u9rADHtJ?=
- =?iso-8859-1?Q?iSlqFlMYKDWlhBQsvIoghbNMzH8HluqKS3F9tH8qFt9PN1nwvb8YhR82mx?=
- =?iso-8859-1?Q?IERPdVB/kWcYrDmZFNOTZ6EgmYEjLFpVnqngWPZHd1ZuIijA9FvUVqIXUb?=
- =?iso-8859-1?Q?IQzcmIcyH8k1MYAr4t/vavpR0Z8psFQqeQcjEw9o0x5pVZMS7Ovzj7pRYL?=
- =?iso-8859-1?Q?IsgXpkLDZBoln1OE4wAYonun8U0xQvhQyC0t0em4lL0Ok6RxksX7A1g6S7?=
- =?iso-8859-1?Q?wGDEutSt067qZtwH8jsMVvDygSCAg1cpf0xVemh5M6rF6EgOBxyV?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a8ddc0d2-529a-4ba9-d8a6-08df2f83ac35
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 14:57:48.8157
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 41PDYgUaFatys2FvAiuWJ352R7CRwNK/PEXrSheRAyzzmT5yMP1zVUdFH3I/DVQgPNUl5zTx2F8ykJJDALuTqOb/mDKK803/9nl9ErAwh5BTm9OIwAEmDv+eQzrkMh8D
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRRPR04MB12593
 
-On Wed, Oct 21, 2026 at 09:32:12AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Low] dt-bindings: arm: fsl: undocumented draeger vendor prefix
-> --
->
-> commit 795e5eabed6a73f1faa10f56606455efcbd039b8
-> Author: Petko Manolov <petko.manolov@konsulko.com>
->
-> dt-bindings: arm: fsl: add Draeger M48 dual-cpu board
->
-> This commit adds devicetree binding compatible strings for the imx6q and
-> imx6dl variants of the Draeger M48 board to
-> Documentation/devicetree/bindings/arm/fsl.yaml.
->
-> > diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
-> > index 656f2596e1d53..8f3a04228780a 100644
-> > --- a/Documentation/devicetree/bindings/arm/fsl.yaml
-> > +++ b/Documentation/devicetree/bindings/arm/fsl.yaml
-> > @@ -260,6 +260,7 @@ properties:
-> >                - boundary,imx6q-nitrogen6x
-> >                - compulab,cm-fx6           # CompuLab CM-FX6
-> >                - dmo,imx6q-edmqmx6         # Data Modul eDM-QMX6 Board
-> > +              - draeger,imx6q-m48         # Draeger imx6q variant of M48
-> >                - ds,imx6q-sbc              # Da Sheng COM-9XX Modules
-> >                - embest,imx6q-marsboard    # Embest MarS Board i.MX6Dual
-> >                - emtrion,emcon-mx6         # emCON-MX6D or emCON-MX6Q SoM
-> > @@ -458,6 +459,7 @@ properties:
-> >                - boundary,imx6dl-nit6xlite     # Boundary Devices Nitrogen6 Lite
-> >                - boundary,imx6dl-nitrogen6x    # Boundary Devices Nitrogen6x
-> >                - bticino,imx6dl-mamoj      # BTicino i.MX6DL Mamoj
-> > +              - draeger,imx6dl-m48        # Draeger imx6dl variant of M48
-> >                - eckelmann,imx6dl-ci4x10
-> >                - emtrion,emcon-mx6         # emCON-MX6S or emCON-MX6DL SoM
-> >                - emtrion,emcon-mx6-avari   # emCON-MX6S or emCON-MX6DL SoM on Avari Base
->
-> [Severity: Low]
-> Should the draeger vendor prefix also be documented under patternProperties
-> in Documentation/devicetree/bindings/vendor-prefixes.yaml?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] ARM: dts: bcm2711: genet_mdio clocks property ignored in unimac_=
+mdio_probe()
+--
 
-This need be fixed
+commit abe7b1908b1ca3d642c93b8cea72ce17c73c4c14
+Author: Nicolai Buchwitz <nb@tipi-net.de>
 
-Frank
->
-> Currently, Documentation/devicetree/bindings/vendor-prefixes.yaml has no
-> entry for draeger between dptel and dragino:
->
->   "^dptel,.*":
->     description: Guangdong Dapu Telecom Co., Ltd.
->   "^dragino,.*":
->     description: Dragino Technology Co., Limited
->
-> Without an entry in vendor-prefixes.yaml, process() in scripts/checkpatch.pl
-> reports an undocumented vendor prefix warning when device tree files (such
-> as arch/arm/boot/dts/nxp/imx/imx6q-draeger-m48.dts and
-> arch/arm/boot/dts/nxp/imx/imx6dl-draeger-m48.dts) or driver match tables
-> reference draeger,imx6q-m48 or draeger,imx6dl-m48, and any draeger,*
-> vendor-specific properties will fail schema validation.
->
-> --
-> Sashiko AI review · https://sashiko.dev/#/patchset/20261021092140.4142493-1-petko.manolov@konsulko.com?part=1
+ARM: dts: bcm2711: give the GENET MDIO controller its clock
+
+This commit adds the BCM2711_CLOCK_GISB clock phandle to the genet_mdio
+device tree node in bcm2711.dtsi so the mdio-bcm-unimac driver can query
+the 200 MHz clock rate.
+
+> diff --git a/arch/arm/boot/dts/broadcom/bcm2711.dtsi b/arch/arm/boot/dts/=
+broadcom/bcm2711.dtsi
+> index 5e3b4bb393967..82b38551d55cf 100644
+> --- a/arch/arm/boot/dts/broadcom/bcm2711.dtsi
+> +++ b/arch/arm/boot/dts/broadcom/bcm2711.dtsi
+> @@ -597,6 +597,7 @@ genet_mdio: mdio@e14 {
+>  				compatible =3D "brcm,genet-mdio-v5";
+>  				reg =3D <0xe14 0x8>;
+>  				reg-names =3D "mdio";
+> +				clocks =3D <&clocks BCM2711_CLOCK_GISB>;
+>  				#address-cells =3D <0x1>;
+>  				#size-cells =3D <0x0>;
+>  			};
+
+[Severity: Medium]
+Will mdio-bcm-unimac actually read the clocks property added to the
+genet_mdio child node here?
+
+When bcmgenet_probe() initializes the controller, it requests the parent
+genet node's "enet" clock via devm_clk_get_optional(&priv->pdev->dev,
+"enet"), which evaluates to NULL on BCM2711 because the parent
+ethernet@7d580000 node has no clocks property.
+
+Then bcmgenet_probe() -> bcmgenet_mii_init() -> bcmgenet_mii_register()
+registers the unimac-mdio platform device with platform_data attached:
+
+drivers/net/ethernet/broadcom/genet/bcmmii.c:bcmgenet_mii_register() {
+	...
+	ppd.clk =3D priv->clk;
+	...
+	if (dn)
+		platform_device_set_of_node(ppdev, bcmgenet_mii_of_find_mdio(priv));
+	else
+		ppd.phy_mask =3D ~0;
+
+	ret =3D platform_device_add_resources(ppdev, &res, 1);
+	if (ret)
+		goto out;
+
+	ret =3D platform_device_add_data(ppdev, &ppd, sizeof(ppd));
+	...
+}
+
+When unimac_mdio_probe() runs for that device, pdata is non-NULL, so it
+takes the if (pdata) branch and never calls devm_clk_get_optional() on the
+genet_mdio OF node:
+
+drivers/net/mdio/mdio-bcm-unimac.c:unimac_mdio_probe() {
+	...
+	if (pdata) {
+		bus->name =3D pdata->bus_name;
+		priv->wait_func =3D pdata->wait_func;
+		priv->wait_func_data =3D pdata->wait_func_data;
+		bus->phy_mask =3D ~pdata->phy_mask;
+		priv->clk =3D pdata->clk;
+	} else {
+		bus->name =3D "unimac MII bus";
+		priv->wait_func_data =3D priv;
+		priv->wait_func =3D unimac_mdio_poll;
+		priv->clk =3D devm_clk_get_optional(&pdev->dev, NULL);
+	}
+	...
+}
+
+As a result, priv->clk remains NULL and clk_get_rate(priv->clk) in
+unimac_mdio_clk_set() still returns 0 (and unimac_mdio_clk_set() also
+returns early unless clock-frequency is set).
+
+Should unimac_mdio_probe() fall back to devm_clk_get_optional() when
+pdata->clk is NULL, or should the clock be wired up through the parent
+genet node?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261020-devel-bcm2=
+711-gisb-clk-v1-0-a1728724d0f8@tipi-net.de?part=3D3
