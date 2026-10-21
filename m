@@ -1,47 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792589736;
-	b=3kIKq5Ag/uOJYM0gjJ3x7z58c/Be7/MwNZ7nhs7YiDSwkbPoP5PmtHx7NTY/HrkPw6by
-	 8FkA5uv2FlmLNKPrhWX3ALkmdGnYJfZ5MB2IJc9hfidI5zpBl33F+54S3y39lWTCGZux1
-	 MDzKmbJlTZ2vd/hIZtEMpM9MmRYL4pAJiYM4u8kxW1b3B3vo/DT41nqJhmoqZrShRWefm
-	 hFK0/oxM+ao2sl6JupzpitRLd4lnpraCEg10IbjWObb8/KtLD5bznQh/dLfbeI3BdaUD1
-	 FIbVZnfHiKL1sCahZXOog73LL6CHSnXwSbJtLzILKikVEGzzdEIwrA8K2kOsspsGiTA==
+	t=1792590099;
+	b=L6uSSVlfo5RHbK/rDoNB5XOI4y8rXhekkdkU16c8NytfPYbOa1UvpP/wN3aa6CUFwmAW
+	 yluB4ziT9l/iAHu8LpaamKC0lw8cuBj1CUjiMUml4SdzOWmHOhILV5E+e1nYhWQXKPLxQ
+	 +EoTY6k4kAUqyNM1lJNyU6ynNnFivk7XVzcQ935Sj3stG296lZrGOWmtsr4enP0TpTTz/
+	 E+C4rwASai8PP6ph6KAzoLHcUZ6x0nKPvmB3EtTi5WYuQDvGg2rTbDpfgXAraq5oAPKZG
+	 GiKkk2IcuP99NgErsQ0pthgqO1Sm5MPZD2F8mGu2lp8sUrqt4uN5tLJAYhwMepyZM0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792589736;
-	h=Received:DKIM-Signature:Date:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version:From:Cc:To:In-Reply-To:References:Message-Id:Subject;
-	bh=YHRQ66J0ycM2BkMm3oppEyXAyznPhNuSwZ7WOkiN094=;
-	b=aamUjZTISZCNHrXlcEAdJX8GI/aH5upg53Si5o9ffYeqxzA6mqAlybs4jmYKYeUOttxe
-	 5+IFevUztyRtjn+aeHWqqSq/573uJZC8SnZX/RPA0QEr0ZrKpzhcVMmNod7S5KNk9xBEF
-	 mn6TNCmGlvzlMX69BHVapCb+41E2u4psnnLPs3ogdAAU7m1TYr0Kj7mlzWtTIfPrMQEIo
-	 8bsWRWu2C3XoND3G7ARgv4VQ4+myfeKFALsJOr5dd0Db9cH7dyx42BScROJoGR8cjwsJ0
-	 7FUoZ7qLlcqql7CExX8Qhis/jfTeRi9wLlFRhudQ6FkmRXRpOLE/Tpn/jhuySvSt3+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792590099;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=lTFhtZqgicHqPLQLHq7f0+ApWdYensFNsFbqs8ibbZ8=;
+	b=TzZDomQoaTT2AX6OvBhzFEQN/FNfSFQrcjRRzmiGmXWNwqSH+Dwl6EDftK55R9AoqjWv
+	 yAnMx4P8H2b8i/kluHsNVuFOQ7kVr2Vgn1OL4BaFC8nPzKbasVbEL2fcUVLuFMb4Px18F
+	 fvrd5O9Q9G+bAIn02veIDD0KcWFl2F9d/wj+Xc94IY3RddZmmznXS37SV709xBRHF9EeE
+	 YmSK5kBqqeooFWuV5LG6u2vWN39zpPQU1ZgUuSL/m2QSAVLXo8vlk1PwRTvrSYsVqpPYg
+	 W773+WNEsv1IOssCqVdPjET5AzTSamZUrlOJOT3dx6NbUp749oj5fDEFiCsVWafgItw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ifywKWVo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aIPX+SlG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7595C606A31A;
-	Wed, 21 Oct 2026 13:35:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 995CA606A321;
+	Wed, 21 Oct 2026 13:41:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ifywKWVo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 820451F000C4;
-	Wed, 21 Oct 2026 13:35:35 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aIPX+SlG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF5051F000C6;
+	Wed, 21 Oct 2026 13:41:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792589736;
-	bh=YHRQ66J0ycM2BkMm3oppEyXAyznPhNuSwZ7WOkiN094=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=ifywKWVoH6rPr4qW+QJe/z+g+dXbeMzOgD6mVLQ5c/JVLZH4b1jaN4CFcWYgF4sTK
-	 siU/O8aQNcLNKCIFGbwiiu8yUZO+hAdTVuY1TkkdpAfx88Uo961jRZ0D3pchH6o/7x
-	 fBbr3o5jtG6TJVEIAzvjLnCL9dIZhf/WMhXCmEhoh6lXmUqX+BBl09iaVSmHK7DGi/
-	 kZ/xFeMg7Q1bufhhaO2cAoFSn8BzVPyg14XnWk2qLtXP/h3sC91TMbT+4aXv2Ktb2N
-	 p5TadN9ZuCOJ2vaxCwDT9Dpxb7sk8YeQ5dSP6WTDEhkVQsN0t9XWJUOtiCUtmjZyBM
-	 H+idlo9RbuyWA==
-Date: Wed, 21 Oct 2026 08:35:34 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1792590099;
+	bh=lTFhtZqgicHqPLQLHq7f0+ApWdYensFNsFbqs8ibbZ8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aIPX+SlG7yHmfF6l9Vgd8xZG0tgIQpxmgyph8tOgd8j+PPYZNdq1QjbE37zVFdcmO
+	 ztUF/I0qJQnq0n634ioclSbE1tc5KFfKuv1GVcF8TL7NDRewd7OAtuJsOr9zX5rd53
+	 7/DN9LPcwLgXw/lt/s6+hBabQpIgAG9a6nljg6UJaq8RegqQ4UZi4SEZrZbkdBnXeH
+	 xpVswCNUD9WTtU0jL9qSHqTZ8IMxYBRhwqOdD8IPNe3g7DtkkYAEJ+HXeYqRR5xtqX
+	 UEA3BTPnzlXGgZ6JmozO4UHtfUj7YbolwGEqOoebfYjmapFDqlCd4yxcysw3TuXF1F
+	 NVJ9/mpUwJxyw==
+Date: Wed, 21 Oct 2026 08:41:38 -0500
+From: Rob Herring <robh@kernel.org>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: linux-mm@kvack.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Mike Rapoport <rppt@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Oreoluwa Babatunde <oreoluwa.babatunde@oss.qualcomm.com>,
+	Wandun <chenwandun1@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH v3 0/2] of: reserved_mem: use dynamically allocated
+ reserved_mem array
+Message-ID: <20261021134138.GC3667411-robh@kernel.org>
+References: <CGME20261015082333eucas1p28bad74cde14ee0afac2eea11bbe6696c@eucas1p2.samsung.com>
+ <20261015082315.56876-1-m.szyprowski@samsung.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,58 +62,66 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
- mfd@lists.linux.dev, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-To: Christian Marangi <ansuelsmth@gmail.com>
-In-Reply-To: <20261021113419.283015-2-ansuelsmth@gmail.com>
-References: <20261021113419.283015-1-ansuelsmth@gmail.com>
- <20261021113419.283015-2-ansuelsmth@gmail.com>
-Message-Id: <179258971128.3919834.16686113021668771376.robh@kernel.org>
-Subject: Re: [RESEND PATCH 1/2] dt-bindings: mfd: Document support for
- Airoha AN8855 Switch SoC
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015082315.56876-1-m.szyprowski@samsung.com>
 
-
-On Wed, 21 Oct 2026 13:34:16 +0200, Christian Marangi wrote:
-> Document support for Airoha AN8855 Switch SoC. This SoC expose various
-> peripherals like an Ethernet Switch, a NVMEM provider and Ethernet PHYs.
+On Thu, Oct 15, 2026 at 10:23:10AM +0200, Marek Szyprowski wrote:
+> Mike Rapoport suggested [1] how to properly use dynamically allocated
+> arrays during early boot.
 > 
-> It does also support i2c and timers but those are not currently
-> supported/used.
+> Use this approach for reserved_mem array during early scan of the
+> reserved regions. Having all the reserved regions in a single array
+> removes the need of the two pass initialization introduced by commit
+> 8a6e02d0c00e ("of: reserved_mem: Restructure how the reserved memory
+> regions are processed"), so implement it to make the code simpler,
+> easier to understand and ready for adding proper error checking.
 > 
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
->  .../bindings/mfd/airoha,an8855.yaml           | 176 ++++++++++++++++++
->  1 file changed, 176 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/mfd/airoha,an8855.yaml
+> Tested on ARM32, ARM64 and RiscV64 based boards. Arch specific issues
+> with early mappings were discovered by LLM.
 > 
+> [1] https://lore.kernel.org/all/asc6brs_g0ky0wOM@kernel.org/
+> 
+> 
+> Best regards
+> Marek Szyprowski, PhD
+> Samsung R&D Institute Poland
+> 
+> 
+> Changelog:
+> 
+> v3:
+> - allocate the reserved_mem array only after all static regions are
+>   reserved or marked as no-map, so it cannot be placed inside any of
+>   them
+> - record failures of the early static reservations and print a single
+>   message asking to fix the device-tree
+> - restore conditional compilation of the early mapping code, because
+>   some architectures lack support for it (C-SKY & Sparc64 as reported
+>   by kbuild robot)
+> - allocate the array bottom-up, to avoid allocating from highmem, what
+>   might be an issue on Xtensa, C-SKY and MIPS32
+> - don't use the early mapping on PPC64, where the scan is done before
+>   early_ioremap_setup()
+> 
+> v2: https://lore.kernel.org/all/20261008152403.766439-1-m.szyprowski@samsung.com/
+> - removed superfluous ifdefs
+> 
+> v1: https://lore.kernel.org/all/20261008094125.3197971-1-m.szyprowski@samsung.com/
+> - initial version
+> 
+> 
+> Patch summary:
+> 
+> Marek Szyprowski (2):
+>   of: reserved_mem: group allocation helpers together
+>   of: reserved_mem: allocate and map the reserved_mem array early
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Can you confirm the sashiko issues are not issues?
 
-yamllint warnings/errors:
+I'll apply this after rc1. Are you willing to be added as reviewer or 
+maintainer for this code? I'd prefer not to have another entry just for 
+the reserved mem code, so you'd have to filter out the rest of the DT 
+code (not the bindings and dts firehose) which isn't too much.
 
-dtschema/dtc warnings/errors:
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/mfd/airoha,an8855.yaml: Unresolvable reference: /schemas/net/dsa/airoha,an8855-switch.yaml
-Documentation/devicetree/bindings/mfd/airoha,an8855.example.dtb: soc@1 (airoha,an8855): ethernet-switch: False schema does not allow {'compatible': ['airoha,an8855-switch'], 'ports': {'#address-cells': 1, '#size-cells': 0, 'port@0': {'reg': [[0]], 'label': ['lan1'], 'phy-mode': ['internal'], 'phy-handle': [[1]]}, 'port@1': {'reg': [[1]], 'label': ['lan2'], 'phy-mode': ['internal'], 'phy-handle': [[2]]}, 'port@5': {'reg': [[5]], 'label': ['cpu'], 'ethernet': [[4294967295]], 'phy-mode': ['2500base-x'], 'fixed-link': {'speed': 2500, 'full-duplex': True, 'pause': True}}}}
-	from schema $id: http://devicetree.org/schemas/mfd/airoha,an8855.yaml
-Documentation/devicetree/bindings/mfd/airoha,an8855.example.dtb: /example-0/mdio/soc@1/ethernet-switch: failed to match any schema with compatible: ['airoha,an8855-switch']
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20261021113419.283015-2-ansuelsmth@gmail.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+Rob
