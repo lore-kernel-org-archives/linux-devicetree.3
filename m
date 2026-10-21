@@ -1,100 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792602874;
-	b=wQsP9VkHCXvFjbgIbPbSszNEvWvt2FbWSnAb2F+4MAqte89Eh50HnbXoCiLDTcNU7CsC
-	 oS5qKZryFUk5/xLUzs0I8QBSyjeqbOn48v4f/0rze5A8KRu2gweFAMzeY97pEMe4ODvsb
-	 2zQ9Jwkp2pe+NCzRQ0lxwECmj3ktnJzF2ANWxK/5x7O8j/AjRBkJcQ7hXeWjEmyTAdBtu
-	 LdCCT0SAvO3F+A2Vpry+Z7in36+wgFY3ooCRYGIaMzf6c747uuUf/ISePQHNN+SG9U8Rx
-	 uLatetGGdSIeVQVpT4paKdrSCiKPyTMRA37GK13TllaGTXLPsjkWpVju03SOl/gqgwg==
+	t=1792602909;
+	b=UhbwxaRz0nXBmdFss7sVKxgMaHYCR30TvoGXjabcosVEapbSBCIEzpKNnfXpyu+scdpE
+	 AeQMqZvZ+UheK0va51vdafeM1upws+ZdVvUHSIc0cZuXJ5cenfFtTpC45dDLdMRu+6SJ3
+	 T+0KcWuYlxOT3tRMU+1Rhoeb2gMEvcRcq9aRMybkAkINZpspivBvf4hMQj9mjP8vGidHA
+	 f0XIeSGKoFKQJ+53CTCf83lv1gGq6mu9MjI54NEke3W3XFMg3fOwawUIuAyHhRFei0wXq
+	 bKEtJ8I3Dzp+4d8EYZE+54hbIiW1Irh1NGeyxW1cWxWjLoyUUMD+M6TJtVgVxcc+Jcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792602874;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=IIEwmheUGWh0VnqKa35MN/XtrDI3rgz5r0klSZQPba8=;
-	b=W9wSheQAOAiOw9PZPckqsRZ2pw0MBWELda007LPnRSGPAamNBUW94Bo8XGMfRlSm9Ze5
-	 8Hk13QkWDX7YQnl63gBnZhMkmAo3wmv8KplCJRSn/1nvmhmhgAbNeGzxmX6s9L6uawmdB
-	 gl95qejopi32Mvkznl/uK8zETIQorCwiCybFfnMmtM3Drg45i9ZjyUHpdhhzpIyMmBpSb
-	 F6WZoLYF6SJp83ItGGG4q5E0pO/mvhaPO6vsL2jB0dZvnzxVfFpJujRMWo+ZLHy9ax1c6
-	 e9dq26H+rPXYGrq8bpu3LO115TEehGWd9osfrKb7X3e4FwUU9bsRMv9BwNuI+Dstptw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792602909;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=Fp5SMzjGwR8UTbVROtVUKvftRt8E5iWuXvuIAwCI39M=;
+	b=zRTnmi1sk8RDSo5vHWEK6/Kr6MRuhmwtxKU/71Qd7gJh4z+UastSljLW8lAft3iPFgcQ
+	 LScscMWwb4xMnduNAImQCFwgajqjpZQw6DLVWDMSPgY9TmpGIPtVjiPXaOjOU96DXdlbx
+	 tGTklakM+yrHod6loFRYquOrkoZSpot/F0rKyQ4HJyA7JD4MRI8WcUmbfYpurBEp6gVQZ
+	 BMZVLHLk/S3P+hND8R3IkxGyIGjov2WbGTWlE58wfi3vX3hgwC6xEZunWDczYzLyzREuS
+	 0BEQClduXsSRYwgUtoiquwbZtAMY+Z86+JDg37el1Wz5ObT1MQOsPUoJj/OhW3w/ARw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=MV+0efPP;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=pB0gOMT+;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BEAD606A31E
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 17:14:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BEAD606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB6C7606A32F;
+	Wed, 21 Oct 2026 17:15:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB6C7606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=MV+0efPP
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so7192715e9.0
-        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 10:14:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792602872; x=1793207672; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IIEwmheUGWh0VnqKa35MN/XtrDI3rgz5r0klSZQPba8=;
-        b=MV+0efPPjre42SVRq3x08Nqwaif8RbXYpP/8z4IZC9aOkuID0XUwy/drnZy+oc2V7U
-         +x6j6MDkKPPCHgEtU/icfbi5YZkSM/4pmVt5kAgka6sSoh8m2MuL9dJTd33xZ+FSW3XF
-         M8/3m2BYNewTj5uqB9hTQ9xHHXtulTbRx55m0lgFdEHMP1PhhaUJzLEfeWYtVMVApNsy
-         +oRxH3bKVcRA1xc0HEFKiywzEspm3OzT9qmr/DFyMVDx7U8rgA+cGB/oXvHezl025tOC
-         s3IGb7yrvmwgqvg0P3/bFgd7xrwZT8KWG38ToEYi8hdgDilPMoZqn8/a/avR2AW9C1c0
-         erQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792602872; x=1793207672;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IIEwmheUGWh0VnqKa35MN/XtrDI3rgz5r0klSZQPba8=;
-        b=ye/YLfsNTPc4ou+UWsPVnh7jGpBL/FLBJi3Po3tKp/n9uBnqCDtmZEfvBPcUZ8Swgt
-         3i8NHAtoMYp3ZCAhp6/+S8cXFMGO3eaos7WFEszfnSGFVHhwOsnm4THxe4jGVerN9zie
-         X/sFxf/sQZFwdsw+wbCawVdYr8PVJ14PqgjaJEqB1cox8aePiCm8W07jjk60BGSR6+bQ
-         t12Ins5SK4gbhxDtpa8dM9uXkOF/+F+CWlu+BuHqwGQ7Pxc8llGlm2yIw73yy9gmzGne
-         61rYrMp4GeYkdufjhC9Qedr3RX03qjGqj2mNPYZlFYSJbhwX4Yh+ZM5lbn8hSxq0OlFS
-         8GwQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxFg7mXmjeeajacGVLyb0OBuZ9BCcgt/NPzdbog42T0d+QtyVLFx7MzOqk2FvXoCSM0OglYkc1mL0nm@vger.kernel.org
-X-Gm-Message-State: AFq9FYLRViVYGx/6mbcsD//7SLhsJZe4GkEndNAMZg63Fm7PoYh4NNox
-	b/RDmQTmqz8nUPEBVNtJkkF6phn98XSlcLzDZppcz6/Qo1qZxuEKS1OmByGOvJMJrtM=
-X-Gm-Gg: AYBFou2cXCB3FrHxivSt18RwG59vMborssK86tDAhnxINFu9IX9xJJSh1JPd/TTvVrl
-	wInwLPyxsdG5c6dTB0sj/kkWYAfL3I6untcgIDqrhUCezJk76GpU8/OeN6czPF5GCQrcPoGhe9d
-	M+A4fDciVCXRnQS7ZViRpqvv61TRMj/rPUol3cr9PmrdgRClUTK/hba7zTasyx7yX9BWlnOJ8Oh
-	qmDQSl8MN86UC4iAemOVIfKT0rb0K1lmYHbqlMVWFseDY4788vVEaiE0rs5DYnRhPakjGX8nOnS
-	WuVnAoPCCMJrlZ/Hx/DiRDrjlDC6ceMTmSlyGeOV2p7OWGTypu1mc9cI6tME3p06VxRUgQgyVdK
-	0cUagsX98T2b0Nnm4vD3cKWYu0xZZePLPWzX0B7OfQ2h6ctEazez+Ih/UnFUAFojCwdhwm8H1QW
-	fMUFI8Ol694i88MNtqMR9DubNr1n8HilgtpGUYaOe/tfQOvXuk0D4FjyE1tBiRiGw6z/itLCgEO
-	j3jn1FhwS3kFF68JUyDgDS0cmuejPyGb2a9fzajImUUACajrtkoZOWwd6ID2dI68IY=
-X-Received: by 2002:a05:600c:628e:b0:4a1:83f0:7c91 with SMTP id 5b1f17b1804b1-4a1fdb0a346mr56541315e9.18.1792602871904;
-        Wed, 21 Oct 2026 10:14:31 -0700 (PDT)
-Received: from linaro.org ([2a02:2454:ff25:4f10:9608:8385:755e:e1cc])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a203b42befsm4715775e9.8.2026.10.21.10.14.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 10:14:31 -0700 (PDT)
-Date: Wed, 21 Oct 2026 19:14:25 +0200
-From: Stephan Gerhold <stephan.gerhold@linaro.org>
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-	konradybcio@kernel.org
-Cc: andersson@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	johannes.goede@oss.qualcomm.com, conor+dt@kernel.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mark Pearson <mpearson-lenovo@squebb.ca>
-Subject: Re: [PATCH v3] arm64: dts: qcom: x1e78100-thinkpad-t14s: Add thermal
- zones for PMICs
-Message-ID: <atjy8ZVUW61VBa26@linaro.org>
-References: <20261014193524.5590-1-daniel.lezcano@oss.qualcomm.com>
- <atH0oW5j9pxsTty4@linaro.org>
- <aca2cd5d-18e1-406d-a062-e219478b243c@oss.qualcomm.com>
- <ath8tHxHOdA7G-Bx@linaro.org>
- <2d885d41-7d05-458c-8364-e206dab12792@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=pB0gOMT+
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=Fp5SMzjGwR8UTbVROtVUKvftRt8E5iWuXvuIAwCI39M=; b=pB0gOMT+fyr6rtWEChBRV7r7IT
+	jKdlJAhyeHmefQZV1x+Z3xhu/kaR+8JuTGSXi53eInrvAAJE/6KGlf9cZ6sid/bPGmBeJyuiV2G63
+	+baotz7vL9WSkRAtWN4z2lJE8tnFheyeJnkUbqlG/v0qp67qEW6kXutLT+keqS4mDvkU=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xJZtj-00C8Oq-Fd; Wed, 21 Oct 2026 19:14:43 +0200
+Date: Wed, 21 Oct 2026 19:14:43 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: 1579567540@qq.com
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Elaine Zhang <zhangqing@rock-chips.com>, Lee Jones <lee@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Ulf Hansson <ulfh@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Jisheng Zhang <jszhang@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	David Wu <david.wu@rock-chips.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	Jaehoon Chung <jh80.chung@samsung.com>,
+	Shawn Lin <shawn.lin@rock-chips.com>, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+	mfd@lists.linux.dev, linux-gpio@vger.kernel.org,
+	netdev@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-i2c@vger.kernel.org, linux-serial@vger.kernel.org,
+	linux-mmc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+	linux-phy@lists.infradead.org, linux-usb@vger.kernel.org
+Subject: Re: [PATCH 14/27] dt-bindings: net: rockchip-dwmac: Add RK3572
+Message-ID: <09c223e6-6872-4bb6-a915-870c3ee614cb@lunn.ch>
+References: <20261022-add-board-ok3572-c-v1-0-0b0fd85a31ee@qq.com>
+ <20261022-add-board-ok3572-c-v1-14-0b0fd85a31ee@qq.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,61 +101,19 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <2d885d41-7d05-458c-8364-e206dab12792@oss.qualcomm.com>
+In-Reply-To: <20261022-add-board-ok3572-c-v1-14-0b0fd85a31ee@qq.com>
 
-On Wed, Oct 21, 2026 at 06:20:55PM +0200, Daniel Lezcano wrote:
-> On 10/21/26 10:49, Stephan Gerhold wrote:
-> > On Tue, Oct 20, 2026 at 06:08:56PM +0200, Daniel Lezcano wrote:
-> > > 
-> > > Thanks Stephan for the additional information, that's very helpful.
-> > > 
-> > > We currently have an urgent thermal issue on this platform, and getting this
-> > > thermal mitigation upstream is important to prevent overheating under
-> > > sustained workloads.
-> > > 
-> > > Would it be acceptable to address the sensor naming and description
-> > > improvements in a follow-up patch, so that we can get the thermal protection
-> > > in place first?
-> > > 
-> > > Of course, if any of these changes are critical for the correctness of the
-> > > thermal mitigation, we should address them now.
-> > > 
-> > 
-> > I have no intention to delay this patch. In fact, since I'm using the
-> > latest unmodified stable kernel on my T14s, I'm also suffering from
-> > these thermal issues. :-)
-> > 
-> > On the other hand, we are at the beginning of the merge window and Bjorn
-> > is unlikely to queue patches until that ends. The changes that
-> > I suggested are purely cosmetic (the names of the thermal zones), there
-> > is no need to repeat the thermal validation. The throttling behavior
-> > will be identical no matter which name is used for the thermal zones.
-> > 
-> > IMO we should use the remaining time until the merge window ends to
-> > correct the naming to avoid any confusion for people reading the patch
-> > once it lands.
+On Thu, Oct 22, 2026 at 12:11:11AM +0800, Cunhao Lu via B4 Relay wrote:
+> From: Cunhao Lu <1579567540@qq.com>
 > 
-> Ok, fair enough
-> 
-> I propose the following names for the thermal zone:
-> 
->  dram-board-thermal
->  gpu-board-thermal
->  fan-board-thermal
->  wwan-board-thermal
->  chg-board-thermal
->  cpu-board-thermal
->  typec-board-thermal
-> 
-> so we can capture with the name the ones related to the non-on-die sensors
-> 
-> Sounds good ?
+> Add the RK3572 GMAC compatible using the snps,dwmac-4.20a fallback.
 
-That works for me, I don't have a strong opinion about the naming (maybe
-@Konrad has?). I guess people reading this might mistakenly assume that
-these refer to separate "sub-boards" in the sense that there is a
-"mainboard", a "Type-C board", a "DRAM board", a "GPU board", etc.
-But I can't think of a better name either. :-)
+Since this is a new device, please don't allow tx_delay and rx_delay,
+which should be considered deprecated, replaced by
+rx-internal-delay-ps and tx-internal-delay-ps.
 
-Thanks,
-Stephan
+We have to keep tx_delay and rx_delay for older devices because of
+backwards compatibility, but there is no reason new devices should use
+them.
+
+	Andrew
