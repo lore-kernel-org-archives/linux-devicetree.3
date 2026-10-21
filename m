@@ -1,73 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792548106;
-	b=cOhkaqw+JEB6KWLOke7ujyi7qnC4qEI76kLr8ndpa6+n257g2OEGF0odahNpRNx7aD3Y
-	 4c6K5q/aYVFLxnNN75aubAhtBnRlC8SdAl45Vu/faVDlG9yeBGxXOEhWR0qXKXRQqTyae
-	 e5vK8LH1E8JAhxEn0aNh7ETe0kWFAt3RWK/JANF4xU89AEZanU0X6Z6jRun0IVzJT2OEJ
-	 PyN+cl9ms+p9l++IBgy/l1YckBqIx7aC1Av76nYSV8KFm0GXVjc7mng4EU1XHQV/4W9VS
-	 drHPRy3eZaFvYKAhIg70Vt3YZUIPt+WTbVv/ioo+vpPdItQRWaA0BKeBFy6mJsmmcTQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792548106;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=fOjabxQvaz/pTvwO69ne1iH8snTeqttIoh/wjiL9lCI=;
-	b=hdt1aQOU+33gajrfXsa4Jyq5F4FFFeoU+KW0cpygSd/+HvjAsC/rzTJwm5v/gj9Yb3VH
-	 se62nfGNQ5sX+s0q7Uk4v5wiVpAeLSWtfTI1/gu6l8+KVm6WKBH92pMTKgCg0Lxi1qbQb
-	 0u/Nm0wRyA1wTcgvG/LHKarzrFvZ2a6a2SBoTz1rxvYoZSHBlvT/NXJRfQvg5cwnKWa4q
-	 o54xJ8Z5oEouGDWGLCsIb6e9o9YlAlSs3ksGh4UU6yTROif0XtGTQxwapqIXMUeVzm/U1
-	 DqqeA+dOcSkKyaZmzPvRcH6hg1QDFW9HrCEu++umr2KZDY8nVlbhnmmpwMf9WY1TlNw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gibson.dropbear.id.au;
-	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
-	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=Qln5plQf;
-	arc=none smtp.remote-ip=150.107.74.76
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792548153;
+	b=lWzDEFHPzGvwEtsbiMOL6mfzIoNMQjWFzOBjhjWQnqDhhvFz+YHfnso/kCNJx6Ynw78C
+	 pO/urJZn3guH1UXyJ/87Olw/TjBeKeQj8t+uuQbI5tMx15kxcTWEWusaF45N2YRFYTWC2
+	 n4hgZvWRHdIBHH72wjwpB94iAlQyjKfh9y/QgnRfusr0PLYW7vM997VNHJvsHeuKhWaQq
+	 JfYbZaFbPCn1szI+aEyQVnrHOBZoiIRn1tIXARcFmOZkW84ixPjOOyAdV40lLpnujyax5
+	 DinGcEwIAcq9eILmgF+4hYy4h8cjf4NYH01JOoaykvYIIpyku2nc9wsb5M9hFJrmlbQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792548153;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=f0yKeF4w4GH+4lXqeNbGng0xeltVKW31ll58aa+tTMY=;
+	b=zESQscpxbCHFM7Z8ra3er89OzYDvIl13Gt1j4IxOmOIi6ifYeEV8aF0EujMqJOUuKv++
+	 dF/kWweBeI8XwS9F82XuRbtNoC9+p/bcUxGca8Ms2WhiqAvAbGPHRpAeinmiIV8qPtYwY
+	 yOIc9Qp15Nak3OnKNafX+f86uKgadXvQ56StWnccEfQhmJbBw8fabwGVc/9TFvGiV0QNk
+	 lMp98STj/XJsqMNf0qZCKFN1MtGA10uvorhdfH55iuT0DwQ7TJbBvUITQEjGmiZOyAhlG
+	 QdUM+KwDOFVUo5CCp+yD/LDtLpZJYizplxgdI/oVZYDB3NK/QCN5YF2jC+orD3aijAA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eSD7Coup;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2DAC606A31A;
+	Wed, 21 Oct 2026 02:02:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eSD7Coup
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792548152;
+	b=hQ1W6tdyEFzXVuVZwcb9SD7JGXgDWAmguY+qAGBfvI0nRDYSGwuMOy6Htt1VHhusyt/e
+	 kSDr+6n+KZJGhYxKaO09aL4IbL2ZgZudoNiGax4ly3c0kpQptOpeyPR5zN9YpNE77C0bI
+	 aPuE4x0AfjxvxgseHfrVcX1nQV8J9e8Q/B51MOAQEDkVL7yupjEwTr4M8hh+hCdnLa8KA
+	 UCcJEegpHYIME/DgTiPy0B+e4SaEZg+v8Qw1A3kF/ZjuupTQGEPMb1H0Z25lOhfPv/3Mh
+	 GlrZgfr5f3affeCkbN6CCwPH7CmG9mHn59m8YUlJuaerVh1I5JTgM+roB6OT36rd5VA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792548152;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=f0yKeF4w4GH+4lXqeNbGng0xeltVKW31ll58aa+tTMY=;
+	b=W/4ZXCzJRmOslF46zwU0v2yhYioJyet2oDl5VdLCyp26KzaaSVt/9dXp/kT62EqqO4G0
+	 bCO4okQqmPGzHA1nXSHLp4C5ZGOgAa7u/+kWbN+sKHy/9A0ygCchv3Gn+wQYpCQUTKhR5
+	 qTAvov6a/nk7t3qghoMIJtZO153ZcM/wuSM1zHQ2lzTX7PObqqT8jHr+1GThuW6pR0dZt
+	 6yncQuZlQsl28trQoxQ1MqGRFOaWUk3NKS4ZYIapql2Jz0IvCs8LFdOq6bFlNBHAOV2ZA
+	 MlQ8OLyNUCilBtSQFX9pZwchhSu+kVl/8021gohLSFmvSt//W47CBHOWz7+qpxY2Fpg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F32C7606A319;
-	Wed, 21 Oct 2026 02:01:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F32C7606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=Qln5plQf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202610; t=1792548102;
-	bh=fOjabxQvaz/pTvwO69ne1iH8snTeqttIoh/wjiL9lCI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Qln5plQfQwiGy6s8Uz+7zRqJKHEHW/AjzBuvF8L0lQw8A+UkIKr0GCCzEbMFaezuZ
-	 0LauUd2XgrxdZ9ckjH3vl4rmJchvCe3QrfMD4jp5KocMRBOGR/bBlaR0XfFy4XtTS2
-	 CQ8QzCMLPF1LEOnvOW0CcPC6Ta1CLRGtt+RIpAXwZwkyuda58S1rIgfuKYy4QKilan
-	 viHZZbQ9Wt2aRPuG5T1g/gXc75km5UvmBDEYpKbDgkvRkE2Cgi5ptWyahz/+BEG/Oh
-	 xFWPTkKeP5uoD/fGrdx04NdtdPWZzYfS4MqIlVZiyhz+XTyfXnWgcaJc5FetQiNLiO
-	 Q0yEWKn5NRCUA==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4j8XZt13qKz4wBF; Wed, 21 Oct 2026 13:01:42 +1100 (AEDT)
-Date: Wed, 21 Oct 2026 12:44:32 +1100
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [RFC PATCH v2 05/74] libfdt: Prepare for metadata tag support
-Message-ID: <atgY-n1eaKX24PPj@gractus.seuss>
-References: <20260826094950.1088288-1-herve.codina@bootlin.com>
- <20260826094950.1088288-6-herve.codina@bootlin.com>
- <atVrHkfXl10FTEye@gractus.seuss>
- <20261019155659.4badecfb@bootlin.com>
- <atcM7MFZTFXLbap8@gractus.seuss>
- <20261020131406.02bd50ec@bootlin.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id EA6781F000C9;
+	Wed, 21 Oct 2026 02:02:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792548152;
+	bh=f0yKeF4w4GH+4lXqeNbGng0xeltVKW31ll58aa+tTMY=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=eSD7Couposucux9BBfClKOEFLwEoiFInTcZfcMuL22QeyB9Il3A3mLqtFMb3OYpUv
+	 z6HREFIMJLJSDgpwow3xoGobUeAprDaJm1Gu1+e1d+995hyBWgj/ETKCub5YP6B8te
+	 7EqE3WyT5srHrs+cxM+GtkyeXufO7w9TvH2TrbtFzaEswLE7ooc5W2lxcatrGueeay
+	 fv8F1PDNoefCjIbk+UAW7tmcl+MaT4BMRNIbZLlS7tWqAKvCNz8SlaCWzl6nk+f1tU
+	 iQXuxeONsL0Gzmi4CAEQ+FT6Ct9Un1wbKfFoJmzJw+yG5Se18P/5l+zQvVXOFQkKmJ
+	 HAXwJGj4KFWAg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 7A8474326F;
+	Wed, 21 Oct 2026 02:02:31 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Date: Wed, 21 Oct 2026 02:02:29 +0000
+Subject: [PATCH] arm64: dts: rockchip: Add vdd_log and vdd_center to Kobol
+ Helios64
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -77,245 +83,116 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cwD/UTWXTz39bYRM"
-Content-Disposition: inline
-In-Reply-To: <20261020131406.02bd50ec@bootlin.com>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261021-helios64-vdd-log-center-v1-1-4cafd110e0e5@iav.lv>
+X-B4-Tracking: v=1; b=H4sIADUd2GoC/x3MQQqAIBBA0avErBtoTCy6SrQwnWogNDQiiO6et
+ HyL/x/InIQzDNUDiS/JEkMB1RW4zYaVUXwxqEYZahThxrvEbDRe3uMeV3QcTk44U+sXPZuutwS
+ lPhIvcv/ncXrfDzkFkdJpAAAA
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2557; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=RDt7P+CwOHiaEZvswLkEBaOOUqR15G5E3l+XUXhUTd8=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFk3ZM28ok6uurQ4RuGJvaChU8C3vtWXs34WMTzvOV6gO
+ ofBseBRRykLgxgXg6yYIsuEQxq3MpZc/evvYf4AZg4rE8gQBi5OAZhI8SmG/1lfjils1Jsu0lPc
+ klw6+daeKx4PfI8siAiqF+btd3xrHsjIsCsy+OKF7YymHVIti1g23t9sLJ3R8S8h2Svyb/PRd0d
+ jGQE=
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
+Content-Transfer-Encoding: 7bit
 
---cwD/UTWXTz39bYRM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+From: Igor Velkov <iav@iav.lv>
 
-On Tue, Oct 20, 2026 at 01:14:06PM +0200, Herve Codina wrote:
-> Hi David,
->=20
-> On Tue, 20 Oct 2026 17:41:04 +1100
-> David Gibson <david@gibson.dropbear.id.au> wrote:
->=20
-> > On Mon, Oct 19, 2026 at 03:56:59PM +0200, Herve Codina wrote:
-> > > Hi David,
-> > >=20
-> > > On Mon, 19 Oct 2026 11:58:17 +1100
-> > > David Gibson <david@gibson.dropbear.id.au> wrote:
-> > >  =20
-> > > > On Wed, Aug 26, 2026 at 11:48:34AM +0200, Herve Codina wrote: =20
-> > > > > Metadata tags are tags carrying extra information, either global =
-to
-> > > > > the DTB, specific to a node, or specific to a property.
-> > > > >=20
-> > > > > In several places (e.g. node/property iterators), these tags just=
- need
-> > > > > to be skipped. Introduce fdt_next_tag_filter() which wraps
-> > > > > fdt_next_tag() and uses a user-supplied filter function to decide
-> > > > > whether a tag should be hidden from the caller. Filtered-out tags=
- are
-> > > > > returned as FDT_NOP.
-> > > > >=20
-> > > > > Introduce fdt_tag_filter_skip_metadata() a filter function whose =
-purpose
-> > > > > is to filter metadata tags; actual metadata tag filtering will be=
- added
-> > > > > when metadata tags are defined.
-> > > > >=20
-> > > > > Metadata tags must also be handled when a DTB is modified. They h=
-ave to
-> > > > > be removed or skipped depending on the modification.
-> > > > >=20
-> > > > > Here also, introduce fdt_tag_is_property_metadata() to provide a =
-central
-> > > > > check for whether a tag is a property metadata tag; actual metada=
-ta
-> > > > > check will be added when metadata tags are defined.
-> > > > >=20
-> > > > > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> > > > > ---
-> > > > >  libfdt/fdt.c             | 34 +++++++++++++--
-> > > > >  libfdt/fdt_ro.c          |  3 +-
-> > > > >  libfdt/fdt_rw.c          | 90 +++++++++++++++++++++++++++++++++-=
-------
-> > > > >  libfdt/fdt_wip.c         | 23 +++++++++-
-> > > > >  libfdt/libfdt_internal.h | 10 +++++
-> > > > >  5 files changed, 140 insertions(+), 20 deletions(-)
-> > > > >=20
-> > > > > diff --git a/libfdt/fdt.c b/libfdt/fdt.c
-> > > > > index 7941632f..8c026f26 100644
-> > > > > --- a/libfdt/fdt.c
-> > > > > +++ b/libfdt/fdt.c
-> > > > > @@ -323,6 +323,33 @@ uint32_t fdt_next_tag(const void *fdt, int s=
-tartoffset, int *nextoffset)
-> > > > >  	return fdt_next_tag_(fdt, startoffset, nextoffset, NULL);
-> > > > >  }
-> > > > > =20
-> > > > > +uint32_t fdt_next_tag_filter(const void *fdt, int offset, int *n=
-extoffset,
-> > > > > +			     bool (*tag_filter)(void *priv, uint32_t tag),
-> > > > > +			     void *priv)   =20
-> > > >=20
-> > > > I don't really see why a higher order function is more useful than
-> > > > skipping tags you don't care about from the caller. =20
-> > >=20
-> > > Based on discussion we had related to fdt_next_tag() during the serie=
-s introducing
-> > > structured tags, I has been decided that fdt_next_tag() will return a=
-ll tags and
-> > > callers will handle them.
-> > >=20
-> > > With that done, fdt_next_tag_filter() doesn't make sense anymore. I h=
-ave already
-> > > planned to fully remove it. =20
-> >=20
-> > Ok, great.
-> >=20
-> > > > > +{
-> > > > > +	int startoffset =3D offset;
-> > > > > +	uint32_t tag;
-> > > > > +
-> > > > > +	tag =3D fdt_next_tag_(fdt, startoffset, nextoffset, NULL);
-> > > > > +	if (tag =3D=3D FDT_END)
-> > > > > +		return tag;
-> > > > > +
-> > > > > +	if (tag_filter(priv, tag))
-> > > > > +		return FDT_NOP;
-> > > > > +
-> > > > > +	return tag;
-> > > > > +} =20
-> > >=20
-> > > ...
-> > >  =20
-> > > > > =20
-> > > > > +int fdt_prop_remove_metadata_tags(void *fdt, bool force_inplace,
-> > > > > +				  int prop_offset)
-> > > > > +{
-> > > > > +	int nextoffset, offset;
-> > > > > +	uint32_t tag;
-> > > > > +
-> > > > > +	/*
-> > > > > +	 * Only inplace using nopify is supported even if we could use =
-an other
-> > > > > +	 * method involving splices if force_inplace is set to false.
-> > > > > +	 */   =20
-> > > >=20
-> > > > As with earlier things, I'd really prefer to see this splice, based=
- on
-> > > > principle of least surprise. =20
-> > >=20
-> > > Yes, splice will be done (already planned for unknown tags in the ser=
-ies
-> > > adding support for structured tags). =20
-> >=20
-> > Ok.
-> >=20
-> > > > > +
-> > > > > +	tag =3D fdt_next_tag(fdt, prop_offset, &nextoffset);
-> > > > > +	if (tag =3D=3D FDT_END)
-> > > > > +		return nextoffset;
-> > > > > +
-> > > > > +	/*
-> > > > > +	 * Look at all tags related to the current property. I.e. tags =
-after the
-> > > > > +	 * current property and before either the next property, a sub-=
-node  or
-> > > > > +	 * the end of current node
-> > > > > +	 */
-> > > > > +	do {
-> > > > > +		offset =3D nextoffset;
-> > > > > +		tag =3D fdt_next_tag(fdt, offset, &nextoffset);
-> > > > > +		if (tag =3D=3D FDT_END)
-> > > > > +			return nextoffset;
-> > > > > +
-> > > > > +		/* Remove metadata tags related to the property */
-> > > > > +		if (fdt_tag_is_property_metadata(tag))
-> > > > > +			fdt_nopify_area(fdt, offset, nextoffset);   =20
-> > > >=20
-> > > > The distinction between "metadata" and other tags doesn't make much
-> > > > sense to me.  Specifically why would the tag being "metadata" make =
-it
-> > > > more of a candidate for removal?  What we need to know (for the
-> > > > callers so far) is whether the tag is invalidated by changing the
-> > > > contents of the property: I can't see how that would be related to
-> > > > whether it's "metadata" or not. =20
-> > >=20
-> > > All of this is going to be reworked based on discussion we've already=
- had
-> > > during the previous series (introducing structured tag) review.
-> > >=20
-> > > The distinction was done because for "unknown" tags, downgrade should
-> > > be done whereas for "known" tags it shouldn't.
-> > >=20
-> > > Anyway, all of that is going to be reworked for the next iteration. =
-=20
-> >=20
-> > Ok, fair enough.  Should I stop reviewing the current version of this
-> > series, since it will probably need a lot of rework based on my
-> > comments to the first series.
->=20
-> I wouldn't say you should stop reviewing.
+The Helios64 feeds VDD_LOG from a PWM regulator driven by PWM2 and
+VDD_CENTER from DCDC_REG1 of the RK808, but the device tree describes
+neither of them.
 
-Ok, I'll carry on as time permits.
+Describe both. The vdd_log range comes from the schematic (sheet 8):
+0.83 V with 3.0 V on LOG_DVS_PWM and 1.4 V with 0 V, so the PWM is
+inverted. vdd_center gets the same limits as vdd_cpu_l.
 
-> Maybe you can have in mind that fdt_next_tag() will return all tags and s=
-o,
-> filtering out tags at fdt_next_tag() or using fdt_next_tag_filter() will =
-not
-> be there anymore. This will not change fundamentally the way tags are use=
-d.
-> If they are skipped by filter function in this series, they will be skipp=
-ed
-> by callers in the next iteration.
+With U-Boot setting both rails to 950 mV, Linux 7.3-rc7 reports 949 mV
+and 950 mV.
 
-Ok, I'll bear that in mind.
+Assisted-by: LLM
+Signed-off-by: Igor Velkov <iav@iav.lv>
+---
+No regulator-state-mem: deep suspend does not resume on this board yet,
+so no suspend value is tested.
 
-> New tags added in the series will be there in the next iteration. The mea=
-ning
-> of those new tags will not be changed. As well as new dts keywords or oth=
-er
-> concepts such as referencing an orphan node by path.
->=20
-> Tests introduced will also be there in the next iteration.
->=20
-> A lot of things available in the series will be there in the next iterati=
-on.
->=20
-> For all those reasons, I thing your review can still be useful.
->=20
-> Maybe you will find some other patches that could be applied or move to t=
-he
-> series introducing "structured" tags.
->=20
-> IMHO, even if I (we) know that some modification discussed in the series
-> adding support for structured tags will have impacts to this series, eith=
-er
-> due the modification itself or because I will keep things consistent, hav=
-ing
-> your feedback and potential discussion on this series is still relevant.
+U-Boot sets both rails to 950 mV:
+https://lore.kernel.org/r/20261021-b4-helios64-v1-1-74afe8aa6d72@iav.lv
 
-Certainly.
+This conflicts with the pending power tree series in the list of fixed
+regulators; I will rebase whichever goes in second:
+https://lore.kernel.org/r/20261016-helios64-power-tree-v1-0-31d6c8dc5092@iav.lv
+---
+ .../boot/dts/rockchip/rk3399-kobol-helios64.dts    | 24 ++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
+diff --git a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
+index 63ad79b4c8ac..3c2ba805e999 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
+@@ -271,6 +271,17 @@ vcc12v_dcin_bkup: regulator-vcc12v-dcin-bkup {
+ 		regulator-max-microvolt = <12000000>;
+ 		vin-supply = <&vcc12v_dcin>;
+ 	};
++
++	vdd_log: regulator-vdd-log {
++		compatible = "pwm-regulator";
++		pwms = <&pwm2 0 25000 1>;
++		pwm-supply = <&vcc5v0_sys>;
++		regulator-name = "vdd_log";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <830000>;
++		regulator-max-microvolt = <1400000>;
++	};
+ };
+ 
+ /*
+@@ -370,6 +381,15 @@ rk808: pmic@1b {
+ 		#clock-cells = <1>;
+ 
+ 		regulators {
++			vdd_center: DCDC_REG1 {
++				regulator-name = "vdd_center";
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <750000>;
++				regulator-max-microvolt = <1350000>;
++				regulator-ramp-delay = <6001>;
++			};
++
+ 			vdd_cpu_l: DCDC_REG2 {
+ 				regulator-name = "vdd_cpu_l";
+ 				regulator-always-on;
+@@ -580,6 +600,10 @@ &pwm1 {
+ 	status = "okay";
+ };
+ 
++&pwm2 {
++	status = "okay";
++};
++
+ &saradc {
+ 	vref-supply = <&vcc1v8_s3>;
+ 	status = "okay";
 
---cwD/UTWXTz39bYRM
-Content-Type: application/pgp-signature; name=signature.asc
+---
+base-commit: d2abcbb905b0e4b2e06b257fa1e5bcf4faa6dbda
+change-id: 20261021-helios64-vdd-log-center-b13df4b678a1
 
------BEGIN PGP SIGNATURE-----
+Best regards,
+-- 
+Igor Velkov <iav@iav.lv>
 
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrYGPoACgkQzQJF27ox
-2GfVNA//RRJjSE9FRnaMBIJaZQSR0MY+iV+nQSTyBdGbqexoaBFLH54lDD7H8PrG
-Ivsh96Ub2EFrK2C+0Hyj3sRj1iQj345yk9ZlxHceg4XGMNpLPoZSwEE1wmXIB4FQ
-4qzkUC9S73FQxjtxDElYslMhth1HfZVRu5wthpt4I1WjTudy/2tdWSQgxQd+KHm0
-PQPpYo3Rl2nZGrPdSAnfl2YeFkZ1qWlNs3X4BrsmJxKysxBUOOvAtPl81MBxz28v
-CgmnPmEF+ExuBJs/bJJ/dsqlE2F9qHmTEFaH2wwyrDjA1PXWss1nrv7D3eHmKzvH
-8D59ZeScAGbL4M0c2Y+sRYrmBz64og86e5aMb6RXMIbtBnVTGllDOn67mj15rojm
-yhpMD5XAwFicj9Xl/Zz4mBj5ctJ3/Ihpelf4BBa3WlKNET3YRk1QAVtGnyQg2O1d
-kIY4KIR603x+wbcqdo9kf1eFTDt92rT2zewhDK0jbvPa1DjP7Yq7pumrOI4VzRrK
-qX4tlERpK+jGRcirj17WgNOKEHwOWQV43de3ossisgmRD9MmPo2qBEjMPFFDwhkC
-FepHnK3t6an+rIGhC87cTY6FIrYz//xC9nTAwe2qV7hgH4RcD1oG8iGSjacRItWj
-gl9NcGAk4PIEM7NlSgfZmFcFuDl96GQNzzaxvM55oWGdKzCXzxI=
-=zrgk
------END PGP SIGNATURE-----
 
---cwD/UTWXTz39bYRM--
