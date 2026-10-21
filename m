@@ -1,57 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792536454;
-	b=W/mtV/T0QW+1S4D3AdrFynko6s0At5JMIVWGD13mPtALpdNe9lTMgCNvLmtFVrBe2iT8
-	 e5th4qXptNd0rRMcNE/KwEMn+pPJ5GSxTfc/wmGjqW810cqwTz6FVHA0o4AHe/u1fRljX
-	 BQO+LREh3pN4sLKHLh9CIeXVjEBvtOk+afzhQLhfi8296wAQH/WbEQvt4JZNe/3NsUhV8
-	 7LijcYHTtZzRkpVncVWXfr1/8NEMQCIPD4AsEBFix2/22/ja2pAwSUO0WcZA5sBXjOO3l
-	 3RmpCTxVb+kShJ6ZLimjdQ6seLDAv0i6P+CnFPgiMftYzDuIs9KEqrGIXUsixane/wQ==
+	t=1792536612;
+	b=TxBisJLoPsU+NjU0RJFhaIJ946A4IP5v2QJBJ4cef+o+GI8O1OU4XxYqrKD3Ym5+n9S4
+	 6rkNykv3t2DEQ2Edig0eSf4AaFR4+SpJJrSjwzDP4KbrWOOMzr06PbHnmR2wXbWG3gxJJ
+	 p9UBh5O1IAY+ZYrNE4bbaDKAv9aOeXMSkQC6M3qudt9GvAuYj+nT9H1h2I/1Wzl4OuMMa
+	 BuP/bu7Hl1FtsKnC0vLxRXgq/JjENVIhmMP+7h4GVq922cuCTDDswSe8C7RdGvQ8fwWqs
+	 vTLB455TaJOHCjgnpGnNMBTX62b+ktcVBvri+WWy1sZq5G9U5aVAlSqty5Q8SRpCXMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792536454;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=/KhNV4gZdCqmWO+YzcnkwISAaODiEchAsMYCmePLj4c=;
-	b=efFYsfm8cTSuRWrxMSUiHun431EjCYSA7TKQmNbdWYEs2Pk2R22ROyncFSQ1dI3/2ghZ
-	 vk9YMjMgfyyf1C8nhCyj17TezeuFva/M/OtDemR8fcXNT5AUhIMBA2uw1Gg3qpGmT+CXs
-	 Pl3+UjyTJzTfEMgKjEkNU0Oy533hDJjeIbUJp64KxaTnvnjEcN6of/rjb69R801sAijS+
-	 2OYCknnZBpJquxh9yuszVAuCUEtZR8WutiyemmUv2BzKgOkxR3k11DF3cCW0QRiM1H8zO
-	 G5HZfhZZhNVoF3S7v1w5Da1vVvyN0mj69n0bPUJjBMupL/cdz0ZodvwFK2tKf8VexBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792536612;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=fTuhXEhm4uQNNaPcVdFpwpAupMps3PVyoq78rLHpKEo=;
+	b=RRTCynexwdDyD1WHXuG+f8iIkqBZF070kVULXY3skOXZPeJHV9VRKzTW7fVnQEU37txz
+	 oiPQmjvTMXp6bzoGgrKPIMxIfnxKomFSkB4XMU+3aKr3oHzY7h1Gd5GY8rClpx9iqfb30
+	 Xyg3h+v5X1aNcXieI92OsTV0dPbsiQTDQJuDOqb0XEOk8Eag9mbcFy0hX6WAZr9B+Sgid
+	 yLSgKi71KpeZZw532O9lYnhZhzUjWtUDnsY0kQwqdo0fRljkeNe0o86ZMyMG3X94vlyia
+	 X6LaLylYJsqlP3C4T64d0pDtHhPmRP3We5NikRjbxnW/ITrK8Sgl9W1YNraIaU3HBuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HVQnWYni;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oMGtStFf;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20846606A31B;
-	Tue, 20 Oct 2026 22:47:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9680D606A31B
+	for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 22:50:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9680D606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HVQnWYni
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C9851F000C9;
-	Tue, 20 Oct 2026 22:47:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792536453;
-	bh=/KhNV4gZdCqmWO+YzcnkwISAaODiEchAsMYCmePLj4c=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HVQnWYni6PCKTOrS6va1PTfrE29EqmKTnCa6jTG92rL9dSE/VSO/q1E1y9/D54J0p
-	 JGAfyyLfVhMpUIdWzl83FpijZF64k4xwYU982nV/1zgWeLvn8ViOJ4EqieIjmdskiA
-	 5jiN8nTn4s5rEExf/eZPJTwjD3/bGVJn2N9GP+5Nxs5f5A2tJ7UDY8SfD9D79Ohyap
-	 9Yp0M+4Ef3haNjpLVJSzIZS24wSflynHP4/CotQTvZl6LS5qhxyEgTWb2HMyMhFV/Q
-	 1xM9yrg+7jzthpCgL69cZoZv1uIePpjWDY5ARLMjAjAgHsvQCZmoAIETDObAHpaHbW
-	 DPaMzQ7mfF/nA==
-Message-ID: <sashiko-outbox-179576@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/4] hwmon: (pmbus_core) Support relative encoding of
- vout related commands
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
-Cc: devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261020-hwmon-pmbus-fs1412-v3-3-51df629e13d7@nexthop.ai>
-References: <20261020-hwmon-pmbus-fs1412-v3-0-51df629e13d7@nexthop.ai>
- <20261020-hwmon-pmbus-fs1412-v3-3-51df629e13d7@nexthop.ai>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 20 Oct 2026 22:47:32 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oMGtStFf
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a018792ab3so720635e9.0
+        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 15:50:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792536610; x=1793141410; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fTuhXEhm4uQNNaPcVdFpwpAupMps3PVyoq78rLHpKEo=;
+        b=oMGtStFfhGsL+mBjIIOXSVYiVGOUixhfa02bRsi991TkgCyk0GIcCTt75OwAWONrt3
+         XyxUVpHQ6hS5K1bIte6yGRRfPJrwKq/BdNHY4/MKwW98pomtO8eR32TcUmg5eRs3vT0j
+         4vfj4Qati0/E+qbSKz2TDX3+AUdBzroKUb9HFKxqMw8GIyTxIZfMV18nnUmzSg5hXoWw
+         By4JWTOxBRV/qp54N78Use+YIBtMTyBYI2FcGlVPxD5AjWw10AE1hZ7OeZPBF9JSBynK
+         LIMboApvT8TOGuMsl/r9aUKdQNAAF7XKW/RY7q74qIswfthHsRlqDyb2ZzjsqPp/ZYRr
+         s8Vg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792536610; x=1793141410;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fTuhXEhm4uQNNaPcVdFpwpAupMps3PVyoq78rLHpKEo=;
+        b=ccYsUp12SMZgqyM1uVoZiiVkfVj4WxTtXxsforGxDZ0EuyBTp9K92iya7PbcQy/+Uy
+         m8uYeG/agw1aRbRAdtV3J2nKB22fCua0WJ9zj05DLBoD6L/D6JI/zcDQWO7pYH3WtOho
+         3pYAGKF1qgI1Uq4AgI0rMT+b/QXjp4jr/uxXzyhPlJWZQM0ja7GTz4UgWDEpwnWwXAdg
+         Nel3qObNPvbkxeCuKIL0aZDdqN9OZEn258RTaFNqcNYI0HCKHLgVMSqfcS8RIDd+K/1T
+         1jvfNdVpAziEbHWtRCmIDHs0bjJ6mk5LM6tiRC2zwPFemZHz6yPhv6qvV4/VHVEUvh2c
+         TDGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxmpWyTU4lQChlA5ZjOQReMUBV0CddzyBdGeCO4y3MvGHSkfbubUwcwT1DGo2ZU0r3GgXQm6aEkY2Tw@vger.kernel.org
+X-Gm-Message-State: AFq9FYKi/Zd4ckQkFixw9U58OuH4paaoGHn7InCeqr8uJp5hQkDtn1WL
+	EbcT7FusE9KDqOojCrZKKsiVjDTHi7DOokim+saiDmW56drrtkV/JIfC
+X-Gm-Gg: AYBFou3CKMhd1krP6UJ/4NMNdgifYP2nGRYzs5oGKjmdTvU8csBVIzGY+9bZYs7qmul
+	RreDjWBaTawtGYvNwprzFt88AS129+vZTyA7Aif/8NVDe+1dXkO6vWNsC3DUlWR7PLAy4oX/Vbx
+	twW/93HCqXyKThrlQON6LN5ufQ1OAoYN9E7jesNAMkzmOBk/z/c/g7y1khJBPVDceRUM7JRXqkL
+	pjdZ9JNQjJv9o3MEOLrfSv4Al4WcQ2rB5expAO43+9qpmnCcwt7Oj3i3LgtiGlVdINpNjP0/AFO
+	tM/KfNoq10omrxjU1sstQjyArvFw1pPe/AcMzMcjlOys57v+str7uv50K7LUym7Yd5jx9L3y1ac
+	Ty95VYP212AdlPAkgObkz0S2dgdzUgB81pO5NUOJbKFFtWFaRFDFCgp85pmdMbZkQx9COgC4sSw
+	FH1GVoaevyVoVbIHwajqsS8VUIjiGD4LRxoFBB1zhAJFdMDe47oOkwWJV8DQW8Vec3o6bypww+q
+	jMw7gXAg4GCWQF6oYdrqXoY
+X-Received: by 2002:a05:600d:82c1:b0:4a1:811c:8069 with SMTP id 5b1f17b1804b1-4a1fdd20c2amr2908965e9.8.1792536609700;
+        Tue, 20 Oct 2026 15:50:09 -0700 (PDT)
+Received: from ingenieria31.oficinasStQ.local ([79.117.46.175])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fc0b42bdsm17511805e9.0.2026.10.20.15.50.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 15:50:09 -0700 (PDT)
+From: =?UTF-8?q?M=C3=A0xim=20Pedraza=20Padilla?= <maximpedraza@gmail.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Francesco Valla <francesco@valla.it>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Javier Martinez Canillas <javierm@redhat.com>,
+	Jocelyn Falempe <jfalempe@redhat.com>,
+	Sam Ravnborg <sam@ravnborg.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-efi@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-embedded@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 02/13] efi: bgrt: add accessors for the boot graphics
+Date: Wed, 21 Oct 2026 02:50:00 +0200
+Message-Id: <20261021005006.2341200-1-maximpedraza@gmail.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <1d3aecdb-2537-4f08-a4d2-22c81ebaca03@suse.de>
+References: <20261013093243.505776-1-maximpedraza@gmail.com> <20261013093243.505776-3-maximpedraza@gmail.com> <1d3aecdb-2537-4f08-a4d2-22c81ebaca03@suse.de>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,196 +118,21 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] hwmon: (pmbus_core) truncation and s64 overflow in vout_command =
-scaling
---
+Hi Thomas,
 
-commit 05161e0e5e17d81565feffc1dff16ea378c5e2e9
-Author: Lars Petter Mostad <lars.petter.mostad@appear.net>
+Am 20.10.26 um 11:13 schrieb Thomas Zimmermann:
+> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-hwmon: (pmbus_core) Support relative encoding of vout related commands
+Thanks! One change since v5, so you know before I carry the tag:
+efi_bgrt_has_image() now also checks that the image address, a u64 in
+the table, fits in phys_addr_t. On 32-bit kernels without PAE an image
+above 4 GiB would otherwise be reported as there, and
+efi_bgrt_image_address() would return the truncated address. I'll keep
+your Reviewed-by unless you object.
 
-This commit adds support for PMBus 1.3 relative encoding of output voltage
-limit and margin commands, scaling values relative to VOUT_COMMAND when the
-relative bit in VOUT_MODE is set.
-
-> diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus=
-_core.c
-> index 5f69c1420b4e1..ab91438b0c261 100644
-> --- a/drivers/hwmon/pmbus/pmbus_core.c
-> +++ b/drivers/hwmon/pmbus/pmbus_core.c
-> @@ -101,6 +101,9 @@ struct pmbus_data {
-> =20
->  	int exponent[PMBUS_PAGES];
->  				/* linear mode: exponent for output voltages */
-> +	bool vout_mode_relative[PMBUS_PAGES];
-> +				/* VOUT limits relative to VOUT_COMMAND */
-> +	int vout_command[PMBUS_PAGES];	/* VOUT_COMMAND in mV, relative mode */
-> =20
->  	const struct pmbus_driver_info *info;
-> =20
-
-[ ... ]
-
-> @@ -1005,6 +1028,12 @@ static s64 pmbus_reg2data(struct pmbus_data *data,=
- struct pmbus_sensor *sensor)
->  		val =3D pmbus_reg2data_linear(data, sensor);
->  		break;
->  	}
-> +
-> +	/* In relative mode, val is a permillage of VOUT_COMMAND */
-> +	if (pmbus_sensor_is_vout_relative(data, sensor))
-> +		val =3D DIV_S64_ROUND_CLOSEST(val * data->vout_command[sensor->page],
-> +					    1000);
-> +
->  	return val;
->  }
-> =20
-> @@ -1209,6 +1238,12 @@ static u16 pmbus_data2reg(struct pmbus_data *data,
->  	if (!sensor->convert)
->  		return val;
-> =20
-> +	if (pmbus_sensor_is_vout_relative(data, sensor)) {
-> +		val =3D clamp_val(val, -INT_MAX, INT_MAX);
-> +		val =3D DIV_S64_ROUND_CLOSEST(val * 1000,
-> +					    data->vout_command[sensor->page]);
-> +	}
-> +
->  	switch (data->info->format[sensor->class]) {
->  	case direct:
->  		regval =3D pmbus_data2reg_direct(data, sensor, val);
-> @@ -2736,6 +2771,21 @@ static int pmbus_init_coefficients(struct i2c_clie=
-nt *client,
->  	return 0;
->  }
-> =20
-> +/* Decode a raw VOUT_COMMAND value to mV */
-> +static s64 pmbus_vout_command_mv(struct pmbus_data *data, int page,
-> +				 int vout_command_raw)
-> +{
-> +	struct pmbus_sensor s =3D {
-> +		.page =3D page,
-> +		.reg =3D PMBUS_VOUT_COMMAND,
-> +		.class =3D PSC_VOLTAGE_OUT,
-> +		.convert =3D true,
-> +		.data =3D vout_command_raw,
-> +	};
-> +
-> +	return pmbus_reg2data(data, &s);
-> +}
-> +
-
-[ ... ]
-
-> @@ -2979,6 +3033,22 @@ static int pmbus_init_common(struct i2c_client *cl=
-ient, struct pmbus_data *data,
->  			return ret;
->  	}
-> =20
-> +	for (page =3D 0; page < info->pages; page++) {
-> +		if (data->vout_mode_relative[page]) {
-> +			ret =3D _pmbus_read_word_data(client, page, 0xff,
-> +						    PMBUS_VOUT_COMMAND);
-> +			if (ret < 0)
-> +				return ret;
-> +			data->vout_command[page] =3D
-> +				pmbus_vout_command_mv(data, page, ret);
-> +			if (data->vout_command[page] <=3D 0) {
-> +				dev_err(dev, "Invalid VOUT_COMMAND 0x%04x for relative VOUT mode\n",
-> +					ret);
-> +				return -ENODEV;
-> +			}
-> +		}
-> +	}
-> +
-
-[ ... ]
-
-> @@ -3351,7 +3441,8 @@ static int pmbus_regulator_set_voltage(struct regul=
-ator_dev *rdev, int min_uv,
->  		.data =3D -1,
->  	};
->  	int val =3D DIV_ROUND_CLOSEST(min_uv, 1000); /* convert to mV */
-> -	int low, high;
-> +	int low, high, ret;
-> +	s64 vout_mv =3D 0;
-> =20
->  	*selector =3D 0;
-> =20
-> @@ -3373,7 +3464,21 @@ static int pmbus_regulator_set_voltage(struct regu=
-lator_dev *rdev, int min_uv,
-> =20
->  	val =3D pmbus_data2reg(data, &s, val);
-> =20
-> -	return _pmbus_write_word_data(client, s.page, PMBUS_VOUT_COMMAND, (u16)=
-val);
-> +	/* Relative limits are scaled by VOUT_COMMAND, which must stay positive=
- */
-> +	if (data->vout_mode_relative[s.page]) {
-> +		vout_mv =3D pmbus_vout_command_mv(data, s.page, val);
-> +		if (vout_mv <=3D 0)
-> +			return -EINVAL;
-> +	}
-> +
-> +	ret =3D _pmbus_write_word_data(client, s.page, PMBUS_VOUT_COMMAND, (u16=
-)val);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	if (data->vout_mode_relative[s.page])
-> +		data->vout_command[s.page] =3D vout_mv;
-> +
-> +	return 0;
->  }
-
-[Severity: Medium]
-Can storing the s64 result of pmbus_vout_command_mv() into the 32-bit int
-data->vout_command[] truncate the voltage and cause division by zero or
-signed 64-bit multiplication overflow?
-
-In pmbus_vout_command_mv() -> pmbus_reg2data(), linear mode with a positive
-exponent (up to 15) or direct mode with a negative R can produce an s64
-value exceeding INT_MAX.
-
-In pmbus_init_common(), assigning that s64 return value to int
-data->vout_command[page] truncates the upper 32 bits before checking
-if (data->vout_command[page] <=3D 0), allowing values whose lower 32 bits a=
-re
-positive to pass with a wrapped value.
-
-In pmbus_regulator_set_voltage(), the check:
-
-	vout_mv =3D pmbus_vout_command_mv(data, s.page, val);
-	if (vout_mv <=3D 0)
-		return -EINVAL;
-
-validates the 64-bit vout_mv before truncating it into int
-data->vout_command[s.page]. If the lower 32 bits of vout_mv are zero or
-negative, data->vout_command[s.page] becomes zero or negative, which can
-trigger a division by zero in pmbus_data2reg() on subsequent writes to
-relative VOUT limit registers:
-
-	val =3D DIV_S64_ROUND_CLOSEST(val * 1000,
-				    data->vout_command[sensor->page]);
-
-Additionally, in pmbus_reg2data():
-
-	if (pmbus_sensor_is_vout_relative(data, sensor))
-		val =3D DIV_S64_ROUND_CLOSEST(val * data->vout_command[sensor->page],
-					    1000);
-
-val comes unclamped from pmbus_reg2data_linear() or pmbus_reg2data_direct()
-(for instance, in linear mode with exponent >=3D 7), so could multiplying v=
-al
-by data->vout_command[sensor->page] overflow s64?
-
-Would it make sense to reject vout_mv values above a safe bound (or clamp /
-use mul_s64_u64_div_s64) so that data->vout_command[page] cannot truncate
-and val * data->vout_command[sensor->page] cannot overflow S64_MAX?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261020-hwmon-pmbu=
-s-fs1412-v3-0-51df629e13d7@nexthop.ai?part=3D3
+Best regards,
+Màxim
