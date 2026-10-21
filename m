@@ -1,111 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792585055;
-	b=Ibg9b1wAJdpw7BRbIZGEKsw4wGXso+nSIXImRXx/lGrdarjzYE37qLcYH7s17g1YH54u
-	 nmKfZiRj+6wTMgIJ7LEfOTsnhx082Gfz1y8c+UkdW0DTPISEC4YLF7J44eYrXcqlHUXYo
-	 h0TizDlmWIbOGKmSYZ9kAlUYaeV8w4/TksZQ+v6rFT3sMQLKSqGSTqgYiH9G1Gf8e95dO
-	 SH4q/I4NbJOARe3MpMFq/40GcF3O79VOFHXZr2w58FF8OoxIT78rKXnxEQbhpAfKyNxFn
-	 7wAixTKZcmQf2qg33zKlN4UL/U0rcPim4h9e2MvUrWMJkagwYQFPlQaEfCcBKbyMAJA==
+	t=1792585117;
+	b=VCN87ga3buQQd766Tvu19IgeTYOVPGjYoFEHqHP4vHzOTPoN5V5C2hNeBG/D7wP+/7Xt
+	 /Fct+/BtpNODf0QQ44D9z0rxHoT+Sp6FRUPPb0uqxNUC7FUKJ5imoScqDMFhgYiYvPtME
+	 C874r/ZXDP/Bo0kRk1CDhOdVp5IOS7pCKyHxNpMq7XMk1ieLo99hky3B1aSUeV4Z6ISf1
+	 jt7dXYXct0u4HA3wAE8ZwWRmxudL3MRandcfEayDhlOboc/zitSllvszcYPWv7jDpbYpZ
+	 zSZIyuPOk8dqAbGsGzHvDEMEG1QYqOxiU/adulM2x3Hsg6FicqUqaUMrFnlTAr3T7xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792585055;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=ZU6PoNWZ5NCCd4q+Ok+vNmLM5ByE8F5bCoJ7jkP5aB4=;
-	b=QrEKujedzDNregtFSE/tC24a4AIcQvmdLNG6HS1m2I6hFukyEf1glj736k3d2mOALsS7
-	 0h4tcD3sm3SacsDu7ckDq+ayKWgEkwWAFRzwqDkGsOqsKgPLuPyNnUgoysyxxOvPie8II
-	 bamX74U6ewn4z5Op+L/Y7yw/ZsZiWxb/Zjhyb0/j+DM33rOdjiZ10gE+HDeEpS+8iFS5W
-	 J7zZHLhGmBUBYSnaZq8M9lzMDZhNQCg3lgdvmdOoc1UZLamvlib2RHXA5tKaAsXj5VQLV
-	 3YRGIC9psjelOCbuj/YV+9lGryK9F7ApYVjJh7uYT/uqR9sngduaPrbvqnVdu2aCCaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792585117;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=zspzlaIWpMVIY1GlZVCoHupae3pepPrDOAVpUxo3+Kc=;
+	b=FPgRMDmmIIyvEfh+HA2069y9zHaI1lqlmVV9Ky7hbZ3VJGRnL00Zs3ScnYcCTk/tqCNr
+	 k3NXc8ilIoazTnjxFmp1exinLY7Ki/4xawLfF5+4tenuZriW0xHLJzXY4OK9WPbY4I334
+	 HxwgznYreMINd2+xaX3CEORDFeKkA6OKOV0R9H9QAR3hlsVvpbfs0xy/sW1k2YePGOXSo
+	 zSnFKCA10Shd3uDeyHVpyirYNVafQzHhAiegczuSie21EQXkERjBs+/IyTIDjpN0qkLPS
+	 5PKG3x4qdntOHm57i1nIvjcRN5/zgYg0hDQezQOZdCzzkRlf1gHGfzPVi/fDi1C6InA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hq106wdr;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fKkrU0u6;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=A+182jiG;
+	arc=none smtp.remote-ip=192.198.163.16
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E6460A2607
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 12:17:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66E6460A2607
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30D6B606A319;
+	Wed, 21 Oct 2026 12:18:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30D6B606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hq106wdr;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fKkrU0u6
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LBfxDs1599796
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 12:17:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ZU6PoNWZ5NCCd4q+Ok+vNmLM5ByE8F5bCoJ7jkP5aB4=; b=hq106wdrCvnaZp0/
-	BDLD2cDahdCUmhRWtZjpB+7YCshF6VxeNFrTXtBUIvGmxn8HfZUQBQtFWdETR5vq
-	aYsCTkQ2WCNu0HvEYe+8sKcEXmkAKQ6+wxJsvtFiFQPQGE39zUTmrvtj0/GVRT5T
-	bAai/mO/sam/re1hV/u/G7r9+KNmOpzi4qG2FEEyEX7L9zIo/QklZBferOfvRFjH
-	JDO+ZG3pcHZtz4eeQTsjPvBqlg8PGlKrMZ3hV8rM6QPf3JNprzpU6Wjh+u5LZyLw
-	Vob4+9lHqLmibwB1StTXcUvs+Xhf3V0ORWrzQNNcAtVDBEvjfhAIvBJiPHwI/oFd
-	JLmlmA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heuhugc5t-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 12:17:34 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93cb1091fffso10199585a.3
-        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 05:17:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792585053; x=1793189853; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZU6PoNWZ5NCCd4q+Ok+vNmLM5ByE8F5bCoJ7jkP5aB4=;
-        b=fKkrU0u6A9fBdR3M++1pZHdvYPfCEB95kmPNClgzKscG2EiXw3swQIZIFBG3xKuMGf
-         BcfCcqU9eCvXcTd77EChyxcgqzn9qVEJdcXu2bcvtpSD9/IjDc87zlDO4fZgjT62AfZf
-         8HNk2bu44xeCv31uNynYyID3P1J2xLxUfpzC3pPD7jcdUrrarLcOv5ISm7Nc9L7Eij8X
-         sxu8JrAPfcQS+uwqWS5RJpURa02cnYkHjTJdZDh1U+bF/g8kaqM8qvjlR8RAdpIs6UvZ
-         DvaFQTF7JdSy4xwvABCAHj8+PMscWhjNqfZF8F1kbmZ3tJoMxpqFt906pgh5uv/hktNl
-         TGcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792585053; x=1793189853;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZU6PoNWZ5NCCd4q+Ok+vNmLM5ByE8F5bCoJ7jkP5aB4=;
-        b=Ge9IwoZRwDmo8DBDuASoPHgoiREmm00MN1MJGeRmIxQjiKx+U6S+65HgivcdSNfyM5
-         Mklh/U9WOALTurnmR8O2jP6/EmoEf3czM1jPzvM0QGkna3VhpF8OlVmdwghewHHdZ6Ng
-         5YDF7ATwbFewBt98j3j8xBtm/PbDdBTONXCG6KkcUrXEf1NOuEIng0bIwe5oo5xbPq2n
-         vkZpKHHntqaMWiV4QwgtkTZSZapS9tyYSTSFTV5P1BRBJRjXJ1JMKcvBxd6VIRqxe5EO
-         /FmuU+rOJxQ9VZ+c4dBKLh9ZvA+LplBO/PHJ74Kw0NUnyMNLT0bnvq7HOdtqWnG0FbGK
-         KhCQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwAJNyWNMusmbMrVPjYU1CnzPWzefJSiSpdZi+mGHuQQ87ONumVinX6cvfJi7y6AzNgpnqFd0oPEjtB@vger.kernel.org
-X-Gm-Message-State: AFq9FYJLmvgksB5BntgU5KmpqlZPXgwONIDQ401ddJAemI1Mei7p1GBd
-	qfnqFJ9F0OHP2XTdC7GhyG4hSync3pKM3PIsjdM5gHG8R/8zW0AMzy3BbIJGFKutvVn6ToY6Q2W
-	vGndgiZ7/bYgOGSagxwQyUVXL+efn+b3xN/yz8zYnmRwE1Vhxz7bFsBqT3tsoasaj
-X-Gm-Gg: AYBFou2R6xpLJrcMQmyE/60lI5w9hnM0ntS8QCbvyTFe8OpTvjeBZha89gOPRG2C2C3
-	/C6NwMArbJsSiBhwVwiuo5LzXZTv6iBGSV84gzdRu6XvHosYafBc7WHKdiErKC14ZyQxf6V4lb7
-	xzgqAc3AX/HtvNObipmOwhGhRCvD3d8YeX10eJdWEIpDI3TgyOnpKT+ALeS9MS75J7TaRfbEJ7l
-	WDFXcL421aAf2ih87v1KpXpzDunaLO0UYANTmOy1Xrt/AyllYwq7bcbCpzxqhC48j3HY37tSadg
-	ix0K34WOjuHU6Ey1n71vfVbuOjBYnSKVb7/4d3GlUKHMog/pjxDFBHBteEAEEKYq1J3YNb+SVp5
-	QYsr6OX5h0Zhz9jx5zb3SNQ==
-X-Received: by 2002:a05:620a:6493:b0:939:9ef4:79eb with SMTP id af79cd13be357-93f57ff1ff9mr436659485a.6.1792585053165;
-        Wed, 21 Oct 2026 05:17:33 -0700 (PDT)
-X-Received: by 2002:a05:620a:6493:b0:939:9ef4:79eb with SMTP id af79cd13be357-93f57ff1ff9mr436652385a.6.1792585052487;
-        Wed, 21 Oct 2026 05:17:32 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4678f7c55asm71894466b.20.2026.10.21.05.17.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 21 Oct 2026 05:17:31 -0700 (PDT)
-Message-ID: <eb5a2294-2e1e-4449-827d-eccea61198d8@oss.qualcomm.com>
-Date: Wed, 21 Oct 2026 14:17:28 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=A+182jiG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792585117; x=1824121117;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=OZV6ooIGai752f391GZMPaglES/lh8UXE+ChNXLkMQk=;
+  b=A+182jiGnhYbRFIap2llg2BYjmW1xD7QKqJ0owM1c00gMU1l/Y6wXMKp
+   tVeJbHTdneag72SwTREnc51+SQcOJXCkO4hZUHUngE5qN34sxSErVlCJr
+   Y2CSvUGpc3CUBWZydieocl17DXV5JeRsE+vkKYIIud6N5gEG5KhcruTVz
+   EMwQJzLGxNiIRSvHnXIkJF1PBQmlRBYkoplDIomged7i2xStgfv7GnNLA
+   06Pw+Z7+wJQYJMntXI0igf6JvFCtmhdbKuMUJGoEwR1bvDLm0i7HqBTaZ
+   EkDDENbLx3C22mRQmou2pmeSQhZiGUSSqK9A49oG6bc3MY2icIooixiuk
+   w==;
+X-CSE-ConnectionGUID: Xr9pm76hStagSZyo5JIHHg==
+X-CSE-MsgGUID: H6pUYop7Q2OiWH7FNyCrMg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1319674"
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="1319674"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 05:18:36 -0700
+X-CSE-ConnectionGUID: 2RnXLwLvSemDQeHHXuR2EQ==
+X-CSE-MsgGUID: rEqovWOfR5WY3CxaShZ9/g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="2959617"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.43])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 05:18:34 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 15382121BC4;
+	Wed, 21 Oct 2026 15:18:31 +0300 (EEST)
+Date: Wed, 21 Oct 2026 15:18:31 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Jai Luthra <jai.luthra@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Alexander Shiyan <eagle.alexander923@gmail.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v4 10/16] media: dt-bindings: sony,imx678: Add other
+ Starvis 2 family members
+Message-ID: <atitlzogStoHJ0E3@kekkonen.localdomain>
+References: <20261015-media-starvis2-v4-0-75fcdb4163f3@raspberrypi.com>
+ <20261015-media-starvis2-v4-10-75fcdb4163f3@raspberrypi.com>
+ <atc9Uxt_hsyYu2o5@kekkonen.localdomain>
+ <CAPY8ntD2C-7UTKX2Srusn_Tzx5KS3tnUtPP+piMYbUKZP91Rpg@mail.gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,68 +94,168 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/5] arm64: dts: qcom: eliza: Add iris video codec node
-To: Wangao Wang <wangao.wang@oss.qualcomm.com>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260921-add_iris_for_eliza-v2-0-5fe7be8c0230@oss.qualcomm.com>
- <20260921-add_iris_for_eliza-v2-3-5fe7be8c0230@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260921-add_iris_for_eliza-v2-3-5fe7be8c0230@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=d4JgWhjE c=1 sm=1 tr=0 ts=6ad8ad5e cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=Db7omukDTCqXEX29fTMA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA0OCBTYWx0ZWRfX47isWDk3IOZo
- ZTMMnJYQ+J4l8TYZCNK5I14BnSR2ATt6Rv2j4sQCY+ZJJ251TE9Qs2Phh7ZLGrQcBqIFYNavCmc
- uH9z01KnW06SNC4P7n+7rCe+slbAVSc=
-X-Proofpoint-GUID: 9HEJL_DLXE_jbVizL98pTzk4JaO1y6i5
-X-Proofpoint-ORIG-GUID: 9HEJL_DLXE_jbVizL98pTzk4JaO1y6i5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA0OCBTYWx0ZWRfX+9WLpS8E7eAC
- ydXAPsSxPGJESoxu74HBn9xYBc+6v6UDIoOdRDB93LJh49mWn7aTdyvXno9SkU+VbgG16KIP6uX
- LC/ifxJTz7GcP9oI3M3mwcdos9+3DUPTEX9TBhBVhgCg/cHhzHqFFyOSyff0Tj/YGuJiYgviTl+
- jAmMwt1b+RX5p4MmXrfMSTlyjQ3jfd3ecFw9Qu1CcE1Q5Mc+5yB0a9IE/4o9IJ7De3ybKkfkTFO
- msLAW4SV5chlMRbLfGIqoFbcYQUuMagOaaOgSOQuRCAes6F/vUO3lJ6YW6KmtFz2fKmQXyaEOxF
- uTprybsAV6cmeeF/vhT1qP+wQpx/jp+PO0aWZ/Xf+CB+AxGJShEYcBQsTavyyZQSfdUIZSVxv/Q
- rXZPkLuYutySJKlA272pkv9Frp/DbCgduz2alpM5H2fax2cdFfRw1cvaambe0HjJnY/lyjMP6n/
- K8bAsVRmKVd3RpxqkKg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-21_03,2026-10-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 spamscore=0 malwarescore=0 priorityscore=1501
- adultscore=0 impostorscore=0 bulkscore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210048
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAPY8ntD2C-7UTKX2Srusn_Tzx5KS3tnUtPP+piMYbUKZP91Rpg@mail.gmail.com>
 
-On 9/21/26 11:51 AM, Wangao Wang wrote:
-> Describe the Iris video codec hardware found in the Eliza SoC. The iris
-> node is placed at 0xaa00000 with VPU3.3 hardware capabilities. It uses
-> GCC_VIDEO_AXI0 for bus interface, and VIDEO_CC_MVS0C/MVS0 for core and
-> codec clocks respectively, along with SM8650-like AXI bus/XO/core reset
-> support.
+Hi Dave,
+
+On Tue, Oct 20, 2026 at 03:39:52PM +0100, Dave Stevenson wrote:
+> Hi Sakari
 > 
-> Signed-off-by: Wangao Wang <wangao.wang@oss.qualcomm.com>
-> ---
+> Thanks for the review
+> 
+> On Tue, 20 Oct 2026 at 11:07, Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
+> >
+> > Hi Dave,
+> >
+> > On Thu, Oct 15, 2026 at 04:57:36PM +0100, Dave Stevenson wrote:
+> > > There are multiple members of the Sony Starvis 2 image sensor family
+> > > that have the same hardware requirements as imx678.
+> > > Add them as options to the imx678 binding, rather than duplicating it.
+> > >
+> > > Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> > > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> > > ---
+> > >  .../devicetree/bindings/media/i2c/sony,imx678.yaml | 38 ++++++++++++++++++----
+> > >  1 file changed, 32 insertions(+), 6 deletions(-)
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+> > > index 098f72544216..027872a134f2 100644
+> > > --- a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+> > > +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+> > > @@ -5,7 +5,7 @@
+> > >  $id: http://devicetree.org/schemas/media/i2c/sony,imx678.yaml#
+> > >  $schema: http://devicetree.org/meta-schemas/core.yaml#
+> > >
+> > > -title: Sony IMX678 Sensor
+> > > +title: Sony IMX678 and Starvis 2 Sensors
+> > >
+> > >  maintainers:
+> > >    - Jai Luthra <jai.luthra@ideasonboard.com>
+> > > @@ -13,21 +13,47 @@ maintainers:
+> > >  description:
+> > >    Sony IMX678 diagonal 8.86 mm (Type 1/1.8) CMOS active pixel type solid-state
+> > >    image sensor with a square pixel array and 8.40M (3856x2180) effective pixels.
+> >
+> > You could rewrap this while at it.
+> >
+> > > +  It is part of the Starvis 2 family of sensors.
+> > > +  Other members of the Starvis 2 have the same hardware requirements, and
+> > > +  therefore share this binding.
+> >
+> > This paragraph could be rewrapped, too -- the limit is 80 characters per
+> > line.
+> 
+> OK, I'll rephrase it so that it makes sense as one reflowed paragraph.
+> 
+> > >
+> > >  allOf:
+> > >    - $ref: /schemas/media/video-interface-devices.yaml#
+> > >
+> > >  properties:
+> > >    compatible:
+> > > -    items:
+> > > -      - enum:
+> > > -          - sony,imx678-aamr
+> > > -          - sony,imx678-aaqr
+> > > -      - const: sony,imx678
+> > > +    oneOf:
+> > > +      - items:
+> > > +          - enum:
+> > > +              - sony,imx585-aamj
+> > > +              - sony,imx585-aaqj
+> > > +          - const: sony,imx585
+> > > +      - items:
+> > > +          - enum:
+> > > +              - sony,imx662-aamr
+> > > +              - sony,imx662-aaqr
+> > > +          - const: sony,imx662
+> > > +      - items:
+> > > +          - enum:
+> > > +              - sony,imx675-aamr
+> > > +              - sony,imx675-aaqr
+> > > +          - const: sony,imx675
+> > > +      - items:
+> > > +          - enum:
+> > > +              - sony,imx678-aamr
+> > > +              - sony,imx678-aaqr
+> > > +          - const: sony,imx678
+> > > +      - items:
+> > > +          - enum:
+> > > +              - sony,imx832-amr
+> > > +              - sony,imx832-aqr
+> > > +          - const: sony,imx832
+> >
+> > Should we also have a sony,starvis2 compatible? Just wondering.
+> 
+> I deliberately didn't based on the discussions Jai had with DT
+> maintainers when upstreaming the original binding [1], particularly
+> Conor's comment:
+> "Remember, having distinct multiple compatibles for the same hardware so
+> that you can induce different software behaviour is not something we
+> typically permit. While we do want to support all use cases, it isn't
+> always the case that devicetree is the right place to do it."
+> 
+> Sorry, but when time is limited, IMHO debating dtbindings just isn't
+> worth it. I've therefore taken the simple option.
 
-Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+The DT bindings are important to get right from the beginning, that's why I
+asked. But I see this has been considered so I'm fine with it.
 
-Konrad
+> 
+> I do have patches that implement that compatible and fully autodetect
+> the sensor[2], but I'll keep them downstream.
+> Doing so means that we have one common overlay for connecting any of
+> the supported Starvis2 sensors to a Pi.
+> 
+> [1] https://patchwork.linuxtv.org/project/linux-media/patch/20260520-imx678-v3-1-8b5f9676486e@ideasonboard.com/
+> [2] Currently the top 2 commits on
+> https://github.com/6by9/linux/tree/mainline_starvis2_v2, but that
+> branch will get rebased/reworked.
+> 
+> > The driver isn't generic still as it requires sensor specific information
+> > to be passed to it. CCS solves this with CCS static data (via firmware
+> > loading mechanism) so there are no driver changes even if the capability
+> > and limit information can't be obtained from device's registers or the
+> > device requires MSRs.
+> 
+> I'm assuming you're referring to the patchset as a whole as I don't
+> believe I've used the term generic in this patch. I'm happy to swap to
+> "common Starvis 2 driver" where appropriate within the patchset
+> instead.
+> 
+> IMHO Pushing the config to firmware files doesn't help, particularly
+> as these sensors don't have a common ID register and so identification
+> isn't trivial. It also makes life more involved for a distribution
+> maintainer to ensure they're picking up the relevant files, and that's
+> assuming that someone is curating them.
+> 
+> My aim with the series was to reuse as much common code as possible,
+> rather than submitting 5 separate drivers which are identical other
+> than constants and arrays of registers. Jai now has IMX676 working
+> with this driver, so that would make it 6 variants. Refactoring to use
+> a firmware file adds complexity for minimal gain, and you'd have to
+> special case IMX678 so it worked without a firmware file to avoid
+> regressions.
+> 
+> I guess the common core could be refactored to be a library, so that
+> you could minimise module size by having the sensor specific config in
+> a module that depends on the library. You're talking of saving a few
+> kB uncompressed though, so that would be quite extreme. I'd be more
+> tempted to have individual Kconfig entries and use #if
+> IS_ENABLED(CONFIG_IMXxxx) to conditionally compile in the config to a
+> common module.
+
+Fair points. CCS was made to scale and obviously the number of Starvis 2
+(or 3) sensors will be somewhat limited in any case. The identification
+information could also be put to DT, that's something we should do for CCS
+as some devices are simply missing the information.
+
+While we can proceed with this approach I guess this is something to
+consider in the future.
+
+-- 
+Regards,
+
+Sakari Ailus
