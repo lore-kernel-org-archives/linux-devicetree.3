@@ -1,89 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792600685;
-	b=r4Tvde4OfSbaz4mh+Cu8rzuwMz/AjBHQ3cfMcQccToll7V22PoJvywwVyXi3ZZpCyjq4
-	 xQsEtrK8HEWRSnF5XTLfEbrFgPgbmCG7qNu4zCrTGWXvmwPEqBpO6vUDKsm9XimGAqwsf
-	 UUkpBvq2fbDSjfSsqF+uQatDcD1PvMPzD3Fho8J5vDOzXOTUfOrN9gnKih94Y28OsC2AJ
-	 R5Ve9tpHox08cmSv848tEv4JF/6o5h2VPeBdvYg1DFFXu4w4dc75DC44oXLwOFud7NfKA
-	 xhu4tXPtlc5+iuAThwCzz++iikdfpsaN4nhwG4vNV9ucv3ALluK5IDFFa715lFRe+Vw==
+	t=1792601316;
+	b=Sq5DXw/fHCrvhxuk6ROUikb9uB16pv75FHv4n5yYi/qV86VdagqsLS6+AzehEUvcAl8O
+	 hlwbsECqaKCY6XRb0Ft8YmYd075WHnedJVuMY6IG8CD/GU9K7fYhJj76Eu4IitltK6nwn
+	 zuba3Xjs1heW0bQCDTFKVMtfWJvFj2hxRWYbAW48id+rK6JJYRU6Tdd4aqFz9zjS2BlnZ
+	 lqemERSIL6h/btgmZbsEgc2DQUHqZFqtZHNN5gaAROhwdQpdHFkcNE6D+knGjdy0OpN8U
+	 dNH/M6xaVvf9mOOCGwvvFdush9Xy/QTjOJvRJp3hr37GtO9w520C0R9u5U3kgiDADbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792600685;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=McunKYpk3SrrPsRKqQvoEpYeFEb35U72fbcZI0hzJ2Y=;
-	b=mOHFTYnalQMfTEtCbZAFX3Yaij840SaFMVpIzRjbDBZxPl260+K9v/L3gstfhmIFx1Sw
-	 DFCDRkyt86BpUbyMYqVQDunSK+Y13mzRdserV8WEKO/aDqZre6TWKaIXY97BvjbSde0xS
-	 j5yx0ad7w7GX0HGziHmlMv7PvEwAif4J5JhaEAuq0TWIMl7x21R1CYne0+EapSr1v0BL5
-	 f7SQyMcgfFRwdUMABVlq0ysEAw87ybBLXpmZBNBzkrhXt4w1vFFQR/YH40zLFsFLwJ4FH
-	 PRcH0NXgJHvWG2cLnFgbsL/93VI0pESbDQKS1vQqTKS0kTnrDS9drjCmOJx+XLA3RvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792601316;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=9Ut8c+AZuSz932GtggMAvxx5Mv2G1n5Wb+a4bDunPnY=;
+	b=aih+fUPiuoJ2xTFix4rjfIZlVjpnOyYne9b4VWSqce+CPDR4AZMgeALO8Wsf9fPI89sj
+	 KGoFsBTC77rp3Jhu97pnSpQUoaOZvPVQhB4yWYTEODXr7933hIoFwk0AB9UjCzLGqZ+kK
+	 47GXO3lAdnqBPrKNz1MIX6iI5dk5uaEpXPtUA1y20awiiYciWbBmpiCm7GEx5+fFZ5mnB
+	 XXQqqfeywqTPlLgHrPeTxHrlRg+FytwY5GBX6sE/xFZH2VsbbwEdrXxJv4DbjxXuDAv/R
+	 p1iViTRujCgl51NhOqKokxzcoYTK8wRpNwl0Ih1/StxJttOQzakSsvQJxRLz1gLsXag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SFaKqm+P;
-	arc=none smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H7jASWXJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BC83606A31B;
-	Wed, 21 Oct 2026 16:38:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BC83606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B19C606A319;
+	Wed, 21 Oct 2026 16:48:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SFaKqm+P
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792600684; x=1824136684;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=vMG801eKnNULxoZLCiadB9NVXk+XUs6yYYb1ZD5sjAw=;
-  b=SFaKqm+PgJpRCIjiRVjeeLjlr500iLB/yKNjqtN5b8JXYzHsiMbQGIBX
-   7tXcmUPeibM2P8PKzSNnjJ9GE4/0HVpiONZAeI7rh0iDcRU0zRQbwnqp6
-   IEwXrq+kfpSySssmyPTcU5KcA6650gjMWW1bsF1U6dHdGjNdlVmTfNU7T
-   SRyo1cCRczhmzeilaIkBTKGp5zxujSiqrXb4+68E1GaDU1KlZaqEsaV3F
-   eF2rWyUxlbMAT1f8Ud4vZow5I4L4WD4ESLFq4+bOLUquCnJjWjGhE8y7B
-   fYvP7bjpNIaUafNBsUCGjIBXHfOUVwagdOKvTt7qjt4dxBPCgklDVArCG
-   A==;
-X-CSE-ConnectionGUID: DvFrceVfTmGo7LJLUoTmdQ==
-X-CSE-MsgGUID: /mI7qV6CTv+fAJzNyY2lDw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1343769"
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="1343769"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 09:38:04 -0700
-X-CSE-ConnectionGUID: +ylwMqJRRJyt1ssj5HrsVA==
-X-CSE-MsgGUID: o0cne00uTyOdAzd0bOSipg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="3013059"
-Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 09:38:00 -0700
-Date: Wed, 21 Oct 2026 19:37:56 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-Cc: linux-serial@vger.kernel.org, gregkh@linuxfoundation.org,
-	jirislaby@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, ilpo.jarvinen@linux.intel.com,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-sunxi@lists.linux.dev,
-	Andre Przywara <andre.przywara@arm.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Enzo Adriano <enzo.adriano.code@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] serial: 8250_dw: Keep the BUSY-safe divisor hook
- when DLF is present
-Message-ID: <atjqZPuAbHDdaexv@ashevche-desk.local>
-References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
- <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
- <20261020104753.28703-1-vinicius.eduardo.pedrosa@gmail.com>
- <athe0QikG2mzCAtd@ashevche-desk.local>
- <20261021100049.16504-1-vinicius.eduardo.pedrosa@gmail.com>
- <atjB-BnXclL3FcUm@ashevche-desk.local>
- <20261021153732.1978410-1-vinicius.eduardo.pedrosa@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H7jASWXJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F9651F000C1;
+	Wed, 21 Oct 2026 16:48:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792601315;
+	bh=9Ut8c+AZuSz932GtggMAvxx5Mv2G1n5Wb+a4bDunPnY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=H7jASWXJYxQ4hb4kaSVYl1bH/F8jjVE/z66upPmBE9mhvahtR0JcieefGCapbvyFY
+	 7CLdjFtkc2a8Yz+7llAD8Hi/Z/G71yo07YRiry/spOeXALQnOU6okOnhrtSYHLQFT/
+	 NF+6sn+09NKKaj9aXGVWtf7sJA8b+05sqV5o5QeTbs94HaxEkS1FUS9nQxbjdg5wC/
+	 Nua7eacxO792+7UsjysfULdn0Qgme+4zhhali8ZkxBRp0UoM7VcgG2GoUORhtJeeZI
+	 ESN+kcfKTeAh92Ap79KCrk6EEIOI00z1+RuTaDMGTW9Ks7/K328EMnURLnisocBLlT
+	 N5xMwOCPugFPw==
+Date: Wed, 21 Oct 2026 17:48:31 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Cc: Jacky Chou <jacky_chou@aspeedtech.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Po-Yu Chuang <ratbert@faraday-tech.com>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v4 1/7] dt-bindings: net: ftgmac100: Make Aspeed
+ compatibles standalone
+Message-ID: <20261021-hedge-fiscally-9d2988325ed0@spud>
+References: <20261020-support_ast2700-v4-0-4d36b40939b3@aspeedtech.com>
+ <20261020-support_ast2700-v4-1-4d36b40939b3@aspeedtech.com>
+ <20261020181441.GA510274-robh@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,61 +68,72 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="yHehAASBh68+XO8o"
+Content-Disposition: inline
+In-Reply-To: <20261020181441.GA510274-robh@kernel.org>
+
+--yHehAASBh68+XO8o
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261021153732.1978410-1-vinicius.eduardo.pedrosa@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 21, 2026 at 12:37:32PM -0300, Vinicius Pedrosa wrote:
-> On Wed, 21 Oct 2026, Andy Shevchenko wrote:
-> 
-> > Ah, dw8250_idle_*() are already BUSY-functionality aware. So, what we need
-> > is to provide dw8250_idle_*() callbacks via struct dw8250_port_data and
-> > make current 8250_dw::dw8250_set_divisor() to be part of dwlib.
-> >
-> > Patch 1 (dwlib): Add callback definitions for dw8250_idle_*() to struct dw8250_port_data
-> > Patch 2 (dw): Assign new callbacks and use them in dw8250_set_divisor()
-> > Patch 3 (lpss): Introduce stubs and assign new callbacks to them
-> > Patch 4 (dwlib): Use dw8250_idle_*() in dw8250_set_divisor()
-> > Patch 5 (dw): Kill now duplicate code pieces
-> >
-> > Would it work?
-> 
-> Yes, I think the approach works. Two details from checking the call
-> paths.
-> 
-> dw8250_setup_port() is skipped for Octeon (skip_autocfg), so 8250_dw
-> would still have to install the setter from probe.
+On Tue, Oct 20, 2026 at 01:14:41PM -0500, Rob Herring wrote:
+> On Tue, Oct 20, 2026 at 07:34:12PM +0800, Jacky Chou wrote:
+> > The aspeed,ast2400-mac, aspeed,ast2500-mac, and aspeed,ast2600-mac
+> > compatibles are currently only valid when paired with the generic
+> > "faraday,ftgmac100" fallback: if a node ever bound through the
+> > generic entry alone, ftgmac100_probe() would set
+> > rxdes0_edorr_mask/txdes0_edotr_mask to BIT(15) instead of the Aspeed
+> > BIT(30), skip Aspeed clock setup, and leave the DMA mask too narrow.
+> >=20
+> > Make each of them a standalone compatible instead, so none of the
+> > Aspeed compatibles require the generic fallback alongside them.
+> >=20
+> > Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
+> >=20
+> > ---
+> > ftgmac100_of_match[] has had dedicated entries for AST2400, AST2500,
+> > and AST2600 since commit 03a2aba50b2c ("net: ftgmac100: List all
+> > compatibles"), so there is no known kernel + devicetree combination
+> > where a node has actually bound through the generic entry and gotten
+> > the wrong EDORR bit. This part is a binding correctness fix, not a fix
+> > for an observed failure.
+> >=20
+> > Note that arch/arm/boot/dts/aspeed/aspeed-g4.dtsi, aspeed-g5.dtsi, and
+> > aspeed-g6.dtsi still declare their MAC nodes with the two-string
+> > "aspeed,astXXXX-mac", "faraday,ftgmac100" compatible, so this will make
+> > dtbs_check warn against those files until the redundant fallback
+> > compatible is dropped there as well. That .dtsi change will be sent as
+> > a separate series through the Aspeed/arm-soc tree, since dt-bindings
+> > changes don't go through that tree.
+>=20
+> No. This just creates unnecessary warnings even if only temporary.
+>=20
+> What a driver uses doesn't matter. That can evolve over time, but that=20
+> doesn't mean we change the DT schema.
 
-No, just pass that as a 'bool autoconf' to it, and assign those callbacks
-there, while calling dw8250_setup_port() unconditionally from _probe().
+The reason I suggested changing this is because the device used as a
+fallback compatible is apparently not actually compatible at all and
+were it to be used the device would malfunction.
+The original code (from 2016) only worked because it checked the machine
+compatible and slightly later on matched on the ftgmac compatible but
+then explicitly checked for "ast2400-mac" etc using
+of_device_is_compatible().
 
-It might require another patch, though (to make it a parameter first).
+If you don't want the current stuff deleted, then at the very least it
+should be marked deprecated and the standalone aspeed compatible stuff
+added alongside it.
 
-> For LPSS, I wonder if the idle callbacks could simply be optional.
-> 8250_dw would provide them and LPSS could leave them NULL, avoiding
-> stubs and a separate LPSS patch. The common setter in dwlib would use
-> them when present.
+--yHehAASBh68+XO8o
+Content-Type: application/pgp-signature; name=signature.asc
 
-I think it would be less flexible, also it will add an additional branch
-(actually two) each time the set_divisor is called (not that it's critical
-but just wanted to mentioned that).
+-----BEGIN PGP SIGNATURE-----
 
-> I'd still prefer to keep patch 1 as the small fix with the stable tag
-> and do the refactoring as a separate follow-up series. Would that work
-> for you?
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatjs3wAKCRB4tDGHoIJi
+0iQVAP0d7Qt2pc38bsMe7twK7g/vPpMDjTATJMUxmCwKoQ8g7gEA4M6fAgsHYsgt
+qzMyDs7hUcuLTRYcZT17iHeP2I8w9AU=
+=v2Uv
+-----END PGP SIGNATURE-----
 
-I dunno, I prefer just a longer solution, but I don't know how big this issue
-is that we need to backport in that way (and not taking the whole series as a
-fix).
-
-> I don't have LPSS hardware, but I can build-test the LPSS side.
-
-I have Intel Galileo board that uses 8250_lpss.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+--yHehAASBh68+XO8o--
