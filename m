@@ -1,100 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792547956;
-	b=ayPzY1IGM30iO/JpaBH66n3CoLI4jMQ+FtxJNKfWaR0EaS0YfigAblpzNs5pwfITqHUN
-	 mhFaqoLYtkcXV/xnrv6QhOt9s4CTWVRiO+fiGu4xet/dMDI7jvSc6d5tW1kWlMMMwMJKK
-	 nRy97QpMFHPVBgfgxjeZhaBuvGPGiQLhVsu4IdAC3TlxGHTUqI1IQxaQZhIFX+gfUZDqs
-	 du9BRXg1sQGJqwE7qJmi2J9vc6sPK9vc1Vg7MqDLHomwfdqOFw1ZVCk1F0UpfIXroCUTj
-	 dTL6is8w9G2+i2tPDWZyLC5id2L7oc8VXMu1IokfRZsEZSN/Kt/jgOUZRiOuLGZhRcw==
+	t=1792548106;
+	b=cOhkaqw+JEB6KWLOke7ujyi7qnC4qEI76kLr8ndpa6+n257g2OEGF0odahNpRNx7aD3Y
+	 4c6K5q/aYVFLxnNN75aubAhtBnRlC8SdAl45Vu/faVDlG9yeBGxXOEhWR0qXKXRQqTyae
+	 e5vK8LH1E8JAhxEn0aNh7ETe0kWFAt3RWK/JANF4xU89AEZanU0X6Z6jRun0IVzJT2OEJ
+	 PyN+cl9ms+p9l++IBgy/l1YckBqIx7aC1Av76nYSV8KFm0GXVjc7mng4EU1XHQV/4W9VS
+	 drHPRy3eZaFvYKAhIg70Vt3YZUIPt+WTbVv/ioo+vpPdItQRWaA0BKeBFy6mJsmmcTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792547956;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-ADIRuleOP-NewSCL:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=URuwE5bz8eWMgV//wrlENNhPFo9Zn9170qnevD1nibo=;
-	b=3YWGGIlQLtzGhyprzMJn5KeEOow8BrXW7BHLV3iXhe4CiJ9LZrS7ctSdsOtX2jUP0vpR
-	 w6cpWnnwjlZjOil1sdurE1hgDgx9btI+eH0zyOmnxuJknxS7VFMWs9yziQ54YG4ikPnLB
-	 WRGA226f0FW+/eztZIzIVH5xIZay09LsucXlnuv8z5UOZKmZWnjczFPIEhyMxxiXsRC5H
-	 6lMncmalmc+9JwmoR+Wa5Le3Ft5YIFPCGdAF4uH8BGlZy0j2XK3SKfaUrzldXEZDGQ9/d
-	 ISLLN0Db5QEjUJ3a8uGsGk8JSkOpnFfCxS3PtpkWJGJzabVQVMHKlwE4Sc+vl0yBsCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792548106;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=fOjabxQvaz/pTvwO69ne1iH8snTeqttIoh/wjiL9lCI=;
+	b=hdt1aQOU+33gajrfXsa4Jyq5F4FFFeoU+KW0cpygSd/+HvjAsC/rzTJwm5v/gj9Yb3VH
+	 se62nfGNQ5sX+s0q7Uk4v5wiVpAeLSWtfTI1/gu6l8+KVm6WKBH92pMTKgCg0Lxi1qbQb
+	 0u/Nm0wRyA1wTcgvG/LHKarzrFvZ2a6a2SBoTz1rxvYoZSHBlvT/NXJRfQvg5cwnKWa4q
+	 o54xJ8Z5oEouGDWGLCsIb6e9o9YlAlSs3ksGh4UU6yTROif0XtGTQxwapqIXMUeVzm/U1
+	 DqqeA+dOcSkKyaZmzPvRcH6hg1QDFW9HrCEu++umr2KZDY8nVlbhnmmpwMf9WY1TlNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=analog.com;
-	spf=pass smtp.mailfrom=analog.com;
-	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=AsB1CyOr;
-	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=dcQNhire;
-	arc=none smtp.remote-ip=148.163.135.77
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	dmarc=none header.from=gibson.dropbear.id.au;
+	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
+	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=Qln5plQf;
+	arc=none smtp.remote-ip=150.107.74.76
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A31A3606A31D;
-	Wed, 21 Oct 2026 01:59:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A31A3606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F32C7606A319;
+	Wed, 21 Oct 2026 02:01:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F32C7606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=AsB1CyOr;
-	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=dcQNhire
-Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69L0sQHJ2442089;
-	Tue, 20 Oct 2026 21:59:12 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	DKIM; bh=URuwE5bz8eWMgV//wrlENNhPFo9Zn9170qnevD1nibo=; b=AsB1CyO
-	rPrL6gtPxA5i+tDkSe+TxTZmy12ReNO3dfY8E/QSBdFFX2pPcyyfdV0BK6H66him
-	zd4ICsZ4T46WmI7Q3lU3lKAVe+2TK7Gl/C1WOjCb9r2YLEgJqPe064LfXfjgAYqS
-	Pcbifp+sNpY6lHoZwn7Q3jCXLvxI9Q5dI3atTlYQWys1P0HWShhASlJn4kETXAlm
-	7YyLhIU6UenVlRB7dezHNqFOw1IPJP52zSjVMLO5f/tLirmgsteq1ydw2HurKBdm
-	8fHDEL/HIh2u3RH94f4bty69S9w55T3SRIjKYYjoIYhSETQCQOgbw2prmTr9pk/t
-	4I63tU/awu8GCMw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=URuwE
-	5bz8eWMgV//wrlENNhPFo9Zn9170qnevD1nibo=; b=dcQNhiresXVP2SnC51Om9
-	qxB1lmEzum3wCq8cAp4QjV5+2n2f6PU9eNj+xU6oIDXOeDJnwYaRjlRp2CRaA86M
-	GehcKBIkLa2Y4C8lfCfMuBwwvqAcX8k2J/8ksXMBAitId4uIUAnoTZSqBUakmoTk
-	S7pQn7RndT78lesPzb24l5+By7XMfSy2/fEgGkkLNIazwPVQI+svtCGRhS8LxGhZ
-	tHHnjlCJnp21kdOTd/KOUXO7LxQizlfLpjyv4MxhtvfJ2dpdOmUMzMsmybia4PqV
-	zry7OVEkU42G5T1lQeu+nNw6RR0aRpY7a5t6wrXazl/nPuTU5dbedeM2BYbG+bUL
-	Q==
-Received: from nwd2mta3.analog.com ([137.71.173.56])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hef2khjqp-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 20 Oct 2026 21:59:12 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta3.analog.com (8.14.7/8.14.7) with ESMTP id 69L1xBQg062433
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 20 Oct 2026 21:59:11 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Tue, 20 Oct
- 2026 21:59:11 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Tue, 20 Oct 2026 21:59:11 -0400
-Received: from JSANTO12-L01.ad.analog.com ([10.65.60.206])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 69L1ww6w029102;
-	Tue, 20 Oct 2026 21:59:01 -0400
-From: Jonathan Santos <Jonathan.Santos@analog.com>
-To: <linux-spi@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <linux-iio@vger.kernel.org>,
-        <linux@analog.com>
-CC: Jonathan Santos <Jonathan.Santos@analog.com>, <broonie@kernel.org>,
-        <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-        <Michael.Hennerich@analog.com>, <nuno.sa@analog.com>,
-        <jic23@kernel.org>, <dlechner@baylibre.com>,
-        <andriy.shevchenko@intel.com>
-Subject: [PATCH v4 9/9] iio: adc: ad7768-1: add support for multiple chip aggregation
-Date: Tue, 20 Oct 2026 22:58:53 -0300
-Message-ID: <7afbafd67ad52b2342af30c278b8b001413221ee.1792435248.git.Jonathan.Santos@analog.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1792435248.git.Jonathan.Santos@analog.com>
-References: <cover.1792435248.git.Jonathan.Santos@analog.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=Qln5plQf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202610; t=1792548102;
+	bh=fOjabxQvaz/pTvwO69ne1iH8snTeqttIoh/wjiL9lCI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Qln5plQfQwiGy6s8Uz+7zRqJKHEHW/AjzBuvF8L0lQw8A+UkIKr0GCCzEbMFaezuZ
+	 0LauUd2XgrxdZ9ckjH3vl4rmJchvCe3QrfMD4jp5KocMRBOGR/bBlaR0XfFy4XtTS2
+	 CQ8QzCMLPF1LEOnvOW0CcPC6Ta1CLRGtt+RIpAXwZwkyuda58S1rIgfuKYy4QKilan
+	 viHZZbQ9Wt2aRPuG5T1g/gXc75km5UvmBDEYpKbDgkvRkE2Cgi5ptWyahz/+BEG/Oh
+	 xFWPTkKeP5uoD/fGrdx04NdtdPWZzYfS4MqIlVZiyhz+XTyfXnWgcaJc5FetQiNLiO
+	 Q0yEWKn5NRCUA==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4j8XZt13qKz4wBF; Wed, 21 Oct 2026 13:01:42 +1100 (AEDT)
+Date: Wed, 21 Oct 2026 12:44:32 +1100
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Ayush Singh <ayush@beagleboard.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
+	Hui Pu <hui.pu@gehealthcare.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [RFC PATCH v2 05/74] libfdt: Prepare for metadata tag support
+Message-ID: <atgY-n1eaKX24PPj@gractus.seuss>
+References: <20260826094950.1088288-1-herve.codina@bootlin.com>
+ <20260826094950.1088288-6-herve.codina@bootlin.com>
+ <atVrHkfXl10FTEye@gractus.seuss>
+ <20261019155659.4badecfb@bootlin.com>
+ <atcM7MFZTFXLbap8@gractus.seuss>
+ <20261020131406.02bd50ec@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,295 +77,245 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAwNyBTYWx0ZWRfX4pex+0BXBLHt
- rf3cMi05e6T8nS49RfRkSvhSclmyIDRehUdrrCKgIWeKQxqfybfIZS3jycEgF1K9l9ciT7HLhuA
- cwpYEbRnPLQM9ZGQ/DRtxCV9OXaB30sE9hFBpB8dXQMFmqKGHay1B8fVIk7VAu92b4Yl/5E2eKX
- NEFaE9WdYhyErBmwI/mpQuJLl3b4yq82i/R11dc1A6pypKphPeTAKCmGxRmcJCe1JOhUKPDJws9
- 83eLd2HcbQ94vJF131XW15IIAl6Z6unz4EAFZgQPpaoncog8OaA45DHTWLxlWCLXsAvJ3/6atBP
- DUAf6CGe5ExoIV6WE9oD5LsNnxJ2HQckpx9smZBBPYmTfetoRc331ymkqUo3k7r8CxFTwIlD0bJ
- LStm5IJzeEPDBaHl7YZlzXSBrksCLrHTivDY6KgF/2GwPATkX2ilQC4XK4WjdebkI2AxvYrcSIg
- 0dxEbkJvJgXaVtlvgCQ==
-X-Proofpoint-GUID: yK2kILLSa7V3mjBjf7Y128AoC22LGoZw
-X-Authority-Analysis: v=2.4 cv=KIHPn1Fo c=1 sm=1 tr=0 ts=6ad81c70 cx=c_pps
- a=PpDZqlmH/M8setHirZLBMw==:117 a=PpDZqlmH/M8setHirZLBMw==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=uXIjobp8t2wMuQ0fPvqm:22 a=gAnH3GRIAAAA:8 a=1TctlgW-Hzn0q3-P7isA:9
-X-Proofpoint-ORIG-GUID: yK2kILLSa7V3mjBjf7Y128AoC22LGoZw
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAwNyBTYWx0ZWRfX3ePuSpbond4H
- v0j7vDZ0gY3zl1QoOZGlk17b6EPwQxRy4PZj3V4hQummkbq1ZQaqmJu0lQYdeejLT7styYsdVL0
- 0qhDVLpE00s1Bzm+7K6d12P1zQSxNE3C6IjYw5KrMI3jZtERw35I
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-20_04,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 priorityscore=1501 malwarescore=0 impostorscore=0
- lowpriorityscore=0 spamscore=0 bulkscore=0 suspectscore=0 adultscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610210007
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="cwD/UTWXTz39bYRM"
+Content-Disposition: inline
+In-Reply-To: <20261020131406.02bd50ec@bootlin.com>
 
-The AD7768-1 family is a single-channel ADC, but it is designed to allow
-connecting multiple devices to the same SPI controller, each on a
-dedicated CS and data lane, clocked synchronously, and sharing SDO and
-SCLK. The number of aggregated devices is derived from the number of
-CS.
+--cwD/UTWXTz39bYRM
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-The DRDY pins are combined to trigger the data interrupt when all
-devices are ready, and since the synchronization pins are tied, they
-stay in synchrony.
+On Tue, Oct 20, 2026 at 01:14:06PM +0200, Herve Codina wrote:
+> Hi David,
+>=20
+> On Tue, 20 Oct 2026 17:41:04 +1100
+> David Gibson <david@gibson.dropbear.id.au> wrote:
+>=20
+> > On Mon, Oct 19, 2026 at 03:56:59PM +0200, Herve Codina wrote:
+> > > Hi David,
+> > >=20
+> > > On Mon, 19 Oct 2026 11:58:17 +1100
+> > > David Gibson <david@gibson.dropbear.id.au> wrote:
+> > >  =20
+> > > > On Wed, Aug 26, 2026 at 11:48:34AM +0200, Herve Codina wrote: =20
+> > > > > Metadata tags are tags carrying extra information, either global =
+to
+> > > > > the DTB, specific to a node, or specific to a property.
+> > > > >=20
+> > > > > In several places (e.g. node/property iterators), these tags just=
+ need
+> > > > > to be skipped. Introduce fdt_next_tag_filter() which wraps
+> > > > > fdt_next_tag() and uses a user-supplied filter function to decide
+> > > > > whether a tag should be hidden from the caller. Filtered-out tags=
+ are
+> > > > > returned as FDT_NOP.
+> > > > >=20
+> > > > > Introduce fdt_tag_filter_skip_metadata() a filter function whose =
+purpose
+> > > > > is to filter metadata tags; actual metadata tag filtering will be=
+ added
+> > > > > when metadata tags are defined.
+> > > > >=20
+> > > > > Metadata tags must also be handled when a DTB is modified. They h=
+ave to
+> > > > > be removed or skipped depending on the modification.
+> > > > >=20
+> > > > > Here also, introduce fdt_tag_is_property_metadata() to provide a =
+central
+> > > > > check for whether a tag is a property metadata tag; actual metada=
+ta
+> > > > > check will be added when metadata tags are defined.
+> > > > >=20
+> > > > > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+> > > > > ---
+> > > > >  libfdt/fdt.c             | 34 +++++++++++++--
+> > > > >  libfdt/fdt_ro.c          |  3 +-
+> > > > >  libfdt/fdt_rw.c          | 90 +++++++++++++++++++++++++++++++++-=
+------
+> > > > >  libfdt/fdt_wip.c         | 23 +++++++++-
+> > > > >  libfdt/libfdt_internal.h | 10 +++++
+> > > > >  5 files changed, 140 insertions(+), 20 deletions(-)
+> > > > >=20
+> > > > > diff --git a/libfdt/fdt.c b/libfdt/fdt.c
+> > > > > index 7941632f..8c026f26 100644
+> > > > > --- a/libfdt/fdt.c
+> > > > > +++ b/libfdt/fdt.c
+> > > > > @@ -323,6 +323,33 @@ uint32_t fdt_next_tag(const void *fdt, int s=
+tartoffset, int *nextoffset)
+> > > > >  	return fdt_next_tag_(fdt, startoffset, nextoffset, NULL);
+> > > > >  }
+> > > > > =20
+> > > > > +uint32_t fdt_next_tag_filter(const void *fdt, int offset, int *n=
+extoffset,
+> > > > > +			     bool (*tag_filter)(void *priv, uint32_t tag),
+> > > > > +			     void *priv)   =20
+> > > >=20
+> > > > I don't really see why a higher order function is more useful than
+> > > > skipping tags you don't care about from the caller. =20
+> > >=20
+> > > Based on discussion we had related to fdt_next_tag() during the serie=
+s introducing
+> > > structured tags, I has been decided that fdt_next_tag() will return a=
+ll tags and
+> > > callers will handle them.
+> > >=20
+> > > With that done, fdt_next_tag_filter() doesn't make sense anymore. I h=
+ave already
+> > > planned to fully remove it. =20
+> >=20
+> > Ok, great.
+> >=20
+> > > > > +{
+> > > > > +	int startoffset =3D offset;
+> > > > > +	uint32_t tag;
+> > > > > +
+> > > > > +	tag =3D fdt_next_tag_(fdt, startoffset, nextoffset, NULL);
+> > > > > +	if (tag =3D=3D FDT_END)
+> > > > > +		return tag;
+> > > > > +
+> > > > > +	if (tag_filter(priv, tag))
+> > > > > +		return FDT_NOP;
+> > > > > +
+> > > > > +	return tag;
+> > > > > +} =20
+> > >=20
+> > > ...
+> > >  =20
+> > > > > =20
+> > > > > +int fdt_prop_remove_metadata_tags(void *fdt, bool force_inplace,
+> > > > > +				  int prop_offset)
+> > > > > +{
+> > > > > +	int nextoffset, offset;
+> > > > > +	uint32_t tag;
+> > > > > +
+> > > > > +	/*
+> > > > > +	 * Only inplace using nopify is supported even if we could use =
+an other
+> > > > > +	 * method involving splices if force_inplace is set to false.
+> > > > > +	 */   =20
+> > > >=20
+> > > > As with earlier things, I'd really prefer to see this splice, based=
+ on
+> > > > principle of least surprise. =20
+> > >=20
+> > > Yes, splice will be done (already planned for unknown tags in the ser=
+ies
+> > > adding support for structured tags). =20
+> >=20
+> > Ok.
+> >=20
+> > > > > +
+> > > > > +	tag =3D fdt_next_tag(fdt, prop_offset, &nextoffset);
+> > > > > +	if (tag =3D=3D FDT_END)
+> > > > > +		return nextoffset;
+> > > > > +
+> > > > > +	/*
+> > > > > +	 * Look at all tags related to the current property. I.e. tags =
+after the
+> > > > > +	 * current property and before either the next property, a sub-=
+node  or
+> > > > > +	 * the end of current node
+> > > > > +	 */
+> > > > > +	do {
+> > > > > +		offset =3D nextoffset;
+> > > > > +		tag =3D fdt_next_tag(fdt, offset, &nextoffset);
+> > > > > +		if (tag =3D=3D FDT_END)
+> > > > > +			return nextoffset;
+> > > > > +
+> > > > > +		/* Remove metadata tags related to the property */
+> > > > > +		if (fdt_tag_is_property_metadata(tag))
+> > > > > +			fdt_nopify_area(fdt, offset, nextoffset);   =20
+> > > >=20
+> > > > The distinction between "metadata" and other tags doesn't make much
+> > > > sense to me.  Specifically why would the tag being "metadata" make =
+it
+> > > > more of a candidate for removal?  What we need to know (for the
+> > > > callers so far) is whether the tag is invalidated by changing the
+> > > > contents of the property: I can't see how that would be related to
+> > > > whether it's "metadata" or not. =20
+> > >=20
+> > > All of this is going to be reworked based on discussion we've already=
+ had
+> > > during the previous series (introducing structured tag) review.
+> > >=20
+> > > The distinction was done because for "unknown" tags, downgrade should
+> > > be done whereas for "known" tags it shouldn't.
+> > >=20
+> > > Anyway, all of that is going to be reworked for the next iteration. =
+=20
+> >=20
+> > Ok, fair enough.  Should I stop reviewing the current version of this
+> > series, since it will probably need a lot of rework based on my
+> > comments to the first series.
+>=20
+> I wouldn't say you should stop reviewing.
 
-To reflect the multidevice setup, IIO channels are dynamically set
-based on the number of devices. Restrict buffered capture to the
-all-channels scan mask, since all devices sample in lockstep. Register
-an ancillary SPI device per lane for individual direct reads, and enable
-SPI_MULTI_LANE_MODE_STRIPE in offload mode to interleave samples from all
-lanes into the DMA stream.
+Ok, I'll carry on as time permits.
 
-Since all devices must be in sync, all configurations that affect the
-sampling rate are unified, so they always have the same sampling
-frequency.
+> Maybe you can have in mind that fdt_next_tag() will return all tags and s=
+o,
+> filtering out tags at fdt_next_tag() or using fdt_next_tag_filter() will =
+not
+> be there anymore. This will not change fundamentally the way tags are use=
+d.
+> If they are skipped by filter function in this series, they will be skipp=
+ed
+> by callers in the next iteration.
 
-Signed-off-by: Jonathan Santos <Jonathan.Santos@analog.com>
----
-Changes in v4:
-* Fixed the st->offload_xfer.len calculation to account for multiple 
-  devices.
-* The number of aggregated devices is now defined by the number of CS
-  instead of number of lanes.
-* Used devm_bitmap_zalloc() and bitmap_set() for the masks allocation
-  and definition, as requested.
+Ok, I'll bear that in mind.
 
-Changes in v3:
-* Modified channel mask allocation on ad7768_parse_aaf_gain() to get 
-  a static value, Since we assume the family is single channel. Added a 
-  comment explaining.
+> New tags added in the series will be there in the next iteration. The mea=
+ning
+> of those new tags will not be changed. As well as new dts keywords or oth=
+er
+> concepts such as referencing an orphan node by path.
+>=20
+> Tests introduced will also be there in the next iteration.
+>=20
+> A lot of things available in the series will be there in the next iterati=
+on.
+>=20
+> For all those reasons, I thing your review can still be useful.
+>=20
+> Maybe you will find some other patches that could be applied or move to t=
+he
+> series introducing "structured" tags.
+>=20
+> IMHO, even if I (we) know that some modification discussed in the series
+> adding support for structured tags will have impacts to this series, eith=
+er
+> due the modification itself or because I will keep things consistent, hav=
+ing
+> your feedback and potential discussion on this series is still relevant.
 
-Changes in v2:
-* New patch.
----
- drivers/iio/adc/ad7768-1.c | 100 +++++++++++++++++++++++++++++++++----
- 1 file changed, 90 insertions(+), 10 deletions(-)
+Certainly.
 
-diff --git a/drivers/iio/adc/ad7768-1.c b/drivers/iio/adc/ad7768-1.c
-index 3972821c295a..064b4b394a2e 100644
---- a/drivers/iio/adc/ad7768-1.c
-+++ b/drivers/iio/adc/ad7768-1.c
-@@ -6,6 +6,7 @@
-  */
- #include <linux/array_size.h>
- #include <linux/bitfield.h>
-+#include <linux/bitmap.h>
- #include <linux/cleanup.h>
- #include <linux/clk.h>
- #include <linux/completion.h>
-@@ -20,6 +21,7 @@
- #include <linux/minmax.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
-+#include <linux/overflow.h>
- #include <linux/rational.h>
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
-@@ -120,7 +122,8 @@
- 
- #define AD7768_TRIGGER_SOURCE_SYNC_IDX 0
- 
--#define AD7768_MAX_CHANNELS 1
-+#define AD7768_MAX_CHANNELS	1
-+#define AD7768_MAX_AGGR_DEVICES	4
- 
- #define ADAQ7768_PGA_PINS 3
- 
-@@ -300,10 +303,12 @@ struct ad7768_chip_info {
- 
- struct ad7768_state {
- 	struct spi_device *spi;
-+	struct spi_device *spi_anc[AD7768_MAX_AGGR_DEVICES];
- 	struct spi_offload *offload;
- 	struct spi_offload_trigger *offload_trigger;
- 	struct regmap *regmap;
- 	struct regmap *regmap24;
-+	struct regmap *regmap24_anc[AD7768_MAX_AGGR_DEVICES];
- 	int vref_uv;
- 	struct regulator_dev *vcm_rdev;
- 	unsigned int vcm_output_sel;
-@@ -322,11 +327,12 @@ struct ad7768_state {
- 	struct gpio_descs *pga_gpios;
- 	struct gpio_desc *gpio_sync_in;
- 	struct gpio_desc *gpio_reset;
--	const char *labels[AD7768_MAX_CHANNELS];
-+	const char *labels[AD7768_MAX_CHANNELS * AD7768_MAX_AGGR_DEVICES];
- 	struct gpio_chip gpiochip;
- 	struct spi_transfer offload_xfer;
- 	struct spi_message offload_msg;
- 	const struct ad7768_chip_info *chip;
-+	u8 num_devices;
- 	bool en_spi_sync;
- 	struct mutex pga_lock; /* protect device internal state (PGA) */
- 	/*
-@@ -335,7 +341,7 @@ struct ad7768_state {
- 	 */
- 	union {
- 		struct {
--			__be32 chan;
-+			__be32 chan[AD7768_MAX_AGGR_DEVICES];
- 			aligned_s64 timestamp;
- 		} scan;
- 		__be32 d32;
-@@ -478,9 +484,10 @@ static int ad7768_set_mode(struct ad7768_state *st,
- 				 AD7768_CONV_MODE_MSK, AD7768_CONV_MODE(mode));
- }
- 
--static int ad7768_scan_direct(struct iio_dev *indio_dev)
-+static int ad7768_scan_direct(struct iio_dev *indio_dev, unsigned int chan)
- {
- 	struct ad7768_state *st = iio_priv(indio_dev);
-+	struct regmap *regmap;
- 	int readval, ret;
- 
- 	reinit_completion(&st->completion);
-@@ -492,7 +499,8 @@ static int ad7768_scan_direct(struct iio_dev *indio_dev)
- 	if (!ret)
- 		return -ETIMEDOUT;
- 
--	ret = regmap_read(st->regmap24, AD7768_REG24_ADC_DATA, &readval);
-+	regmap = st->num_devices > 1 ? st->regmap24_anc[chan] : st->regmap24;
-+	ret = regmap_read(regmap, AD7768_REG24_ADC_DATA, &readval);
- 	if (ret)
- 		return ret;
- 
-@@ -989,7 +997,7 @@ static int ad7768_read_raw(struct iio_dev *indio_dev,
- 		if (!iio_device_claim_direct(indio_dev))
- 			return -EBUSY;
- 
--		ret = ad7768_scan_direct(indio_dev);
-+		ret = ad7768_scan_direct(indio_dev, chan->channel);
- 
- 		iio_device_release_direct(indio_dev);
- 		if (ret < 0)
-@@ -1388,9 +1396,11 @@ static int ad7768_offload_buffer_postenable(struct iio_dev *indio_dev)
- 	if (IS_ERR(scan_type))
- 		return PTR_ERR(scan_type);
- 
--	st->offload_xfer.len = spi_bpw_to_bytes(scan_type->realbits);
-+	st->offload_xfer.len = spi_bpw_to_bytes(scan_type->realbits) * st->num_devices;
- 	st->offload_xfer.bits_per_word = scan_type->realbits;
- 	st->offload_xfer.offload_flags = SPI_OFFLOAD_XFER_RX_STREAM;
-+	if (st->num_devices > 1)
-+		st->offload_xfer.multi_lane_mode = SPI_MULTI_LANE_MODE_STRIPE;
- 
- 	spi_message_init_with_transfers(&st->offload_msg, &st->offload_xfer, 1);
- 	st->offload_msg.offload = st->offload;
-@@ -1694,6 +1704,63 @@ static int ad7768_parse_aaf_gain(struct device *dev, struct ad7768_state *st)
- 	return 0;
- }
- 
-+static int ad7768_probe_multidevices(struct iio_dev *indio_dev)
-+{
-+	struct ad7768_state *st = iio_priv(indio_dev);
-+	struct device *dev = indio_dev->dev.parent;
-+	struct iio_chan_spec *channels;
-+	unsigned int mask_longs;
-+	unsigned long *masks;
-+	size_t num_chans;
-+	unsigned int i;
-+	u8 cs;
-+
-+	num_chans = size_mul(st->num_devices, st->chip->num_channels);
-+	channels = devm_kcalloc(dev, num_chans, sizeof(*channels), GFP_KERNEL);
-+	if (!channels)
-+		return -ENOMEM;
-+
-+	indio_dev->num_channels = num_chans;
-+	for (i = 0; i < num_chans; i++) {
-+		struct iio_chan_spec *chan = &channels[i];
-+
-+		*chan = *st->chip->channel_spec;
-+		chan->channel = i;
-+		chan->scan_index = i;
-+	}
-+
-+	indio_dev->channels = channels;
-+
-+	/*
-+	 * One scan mask with all devices enabled, plus a zero terminator. Each
-+	 * mask spans BITS_TO_LONGS(masklength) longs.
-+	 */
-+	mask_longs = BITS_TO_LONGS(indio_dev->num_channels);
-+	masks = devm_bitmap_zalloc(dev, 2 * mask_longs * BITS_PER_LONG, GFP_KERNEL);
-+	if (!masks)
-+		return -ENOMEM;
-+
-+	bitmap_set(masks, 0, num_chans);
-+	indio_dev->available_scan_masks = masks;
-+
-+	/* Setup ancillary SPI devices for single device access */
-+	for (i = 0; i < st->num_devices; i++) {
-+		cs = spi_get_chipselect(st->spi, i);
-+		st->spi_anc[i] = devm_spi_new_ancillary_device_with_lane(st->spi,
-+									 cs, i, 0);
-+		if (IS_ERR(st->spi_anc[i]))
-+			return dev_err_probe(dev, PTR_ERR(st->spi_anc[i]),
-+					     "failed to register ancillary device\n");
-+
-+		st->regmap24_anc[i] = devm_regmap_init_spi(st->spi_anc[i],
-+							   &ad7768_regmap24_config);
-+		if (IS_ERR(st->regmap24_anc[i]))
-+			return PTR_ERR(st->regmap24_anc[i]);
-+	}
-+
-+	return 0;
-+}
-+
- static bool ad7768_offload_trigger_match(struct spi_offload_trigger *trigger,
- 					 enum spi_offload_trigger_type type,
- 					 u64 *args, u32 nargs)
-@@ -1833,6 +1900,12 @@ static int ad7768_probe(struct spi_device *spi)
- 		return -ENODATA;
- 
- 	st->spi = spi;
-+	/* Infer the number of devices from the number of CS */
-+	st->num_devices = spi->num_chipselect;
-+	if (st->num_devices > AD7768_MAX_AGGR_DEVICES)
-+		return dev_err_probe(&spi->dev, -EINVAL,
-+				     "Too many devices (%u), max %d supported\n",
-+				     st->num_devices, AD7768_MAX_AGGR_DEVICES);
- 
- 	st->regmap = devm_regmap_init_spi(spi, &ad7768_regmap_config);
- 	if (IS_ERR(st->regmap))
-@@ -1856,11 +1929,18 @@ static int ad7768_probe(struct spi_device *spi)
- 
- 	st->mclk_freq = clk_get_rate(st->mclk);
- 
--	indio_dev->channels = st->chip->channel_spec;
--	indio_dev->num_channels = st->chip->num_channels;
- 	indio_dev->name = st->chip->name;
- 	indio_dev->info = &ad7768_info;
- 	indio_dev->modes = INDIO_DIRECT_MODE;
-+	if (st->num_devices > 1) {
-+		ret = ad7768_probe_multidevices(indio_dev);
-+		if (ret)
-+			return dev_err_probe(&spi->dev, ret,
-+					     "Failed to configure multidevice\n");
-+	} else {
-+		indio_dev->channels = st->chip->channel_spec;
-+		indio_dev->num_channels = st->chip->num_channels;
-+	}
- 
- 	/* Register VCM output regulator */
- 	if (st->chip->has_vcm_regulator) {
-@@ -1892,7 +1972,7 @@ static int ad7768_probe(struct spi_device *spi)
- 			return ret;
- 	}
- 
--	ret = ad7768_set_channel_label(indio_dev, st->chip->num_channels);
-+	ret = ad7768_set_channel_label(indio_dev, st->num_devices);
- 	if (ret)
- 		return ret;
- 
--- 
-2.34.1
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
 
+--cwD/UTWXTz39bYRM
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrYGPoACgkQzQJF27ox
+2GfVNA//RRJjSE9FRnaMBIJaZQSR0MY+iV+nQSTyBdGbqexoaBFLH54lDD7H8PrG
+Ivsh96Ub2EFrK2C+0Hyj3sRj1iQj345yk9ZlxHceg4XGMNpLPoZSwEE1wmXIB4FQ
+4qzkUC9S73FQxjtxDElYslMhth1HfZVRu5wthpt4I1WjTudy/2tdWSQgxQd+KHm0
+PQPpYo3Rl2nZGrPdSAnfl2YeFkZ1qWlNs3X4BrsmJxKysxBUOOvAtPl81MBxz28v
+CgmnPmEF+ExuBJs/bJJ/dsqlE2F9qHmTEFaH2wwyrDjA1PXWss1nrv7D3eHmKzvH
+8D59ZeScAGbL4M0c2Y+sRYrmBz64og86e5aMb6RXMIbtBnVTGllDOn67mj15rojm
+yhpMD5XAwFicj9Xl/Zz4mBj5ctJ3/Ihpelf4BBa3WlKNET3YRk1QAVtGnyQg2O1d
+kIY4KIR603x+wbcqdo9kf1eFTDt92rT2zewhDK0jbvPa1DjP7Yq7pumrOI4VzRrK
+qX4tlERpK+jGRcirj17WgNOKEHwOWQV43de3ossisgmRD9MmPo2qBEjMPFFDwhkC
+FepHnK3t6an+rIGhC87cTY6FIrYz//xC9nTAwe2qV7hgH4RcD1oG8iGSjacRItWj
+gl9NcGAk4PIEM7NlSgfZmFcFuDl96GQNzzaxvM55oWGdKzCXzxI=
+=zrgk
+-----END PGP SIGNATURE-----
+
+--cwD/UTWXTz39bYRM--
