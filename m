@@ -1,45 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.20.114.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792548587;
-	b=jYC/g0w3VsQzvJcnZi3RmvgyloVfdJuQO8t4OZGBN+dllR7YhhwS6GpupI/4+6u+C6i3
-	 I9qH/MnqxVLrjIITKIQ8QSYxZRXclcm0oT2eVRElgJ43HsFb1dvgGG/7fMS0AvrqrtweB
-	 WV0b4vLPug59uF11RMC4DIQF+kMSPxd+7vZN2QOKZe5738IoUjIYIZUOxApozmxlMuOku
-	 h7cYazZ/F8ntRDgoXzzd909cpdPqD9Iskre60UKRVHYtW8VbuVtJBlu1RtyYsZ5hd4g8R
-	 TRLsfavk1uSOZhIxMALOAruIBYrETDBMVo3pJDYQBf+dntutNA1gKLjP7xKH5gxpTtQ==
+	t=1792548707;
+	b=kHbJPwOQK7ppZbPu3C0URSeM+5MTtDXi5PVyPAUQK6pM0Hs0tetC56XdSs3+4VDO1zmb
+	 ZqLOtZpTIZtIqe66mVICaGHdJBHNYbljuF/dCkmtUOrGmJLpMTv6ATrQmMMagwR/IoNue
+	 C+aB7wmjxzTwX4WdCYsZw7fP++K1o/k4jmxKX2K8lPysTxC8pWt75Owx8IEceFUuFF6BQ
+	 t0iwMtUU3wTfGlgl8u/j7n8Z8A4tCF+QBEk/mSfbAXP1/4DfcvIpVKpnZn/A33xwjq5h6
+	 ygOuZcwrh4kRlJLEgar5t9CSQCD4HYyf32ovKkuE39pkk9vytXZqED8mNoyFsVngMnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792548587;
-	h=DMARC-Filter:Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-ID:X-B4-Tracking:
-	 X-Change-ID:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=zTvHoWVK2MnY6BXYoqcKq7jXZ7I8mh27KAsKSWJ+yVU=;
-	b=GexDPKOC910lCEbb9QRDLOs14GiRfn0vA3u2gKhuhA3rsbIbz7rD9/e/59vR48K9owwo
-	 3pKtJh+OM7tWHCQCs1EQKRcHFyFl5ZVqPFGqmYS9WuPxw2dbUd8h9NXVU3YB/TErPSQr9
-	 0nfl43MfHcdicKYdJBEXBTpibgzDP23AUT09dzJvlax6uwClsANX0VIZwbCsMQBopCGuC
-	 RDJ0gtwJh+bhdndyrXyaMhyuIXyt9/gA7tq7mBfKcDHbz2XDiE/S2AmSn2AVKuwTyGBcg
-	 GHFbDq/Dm+9zMnlh4w4UtJCejo225Ix0FafdbqAi3QmPGvA1kLQ41F5+9FT86xq9/Zw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792548707;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=ew9sfwCDjhu974kHAczCCuQpOD7C8mfyVsnsho8iBkE=;
+	b=oqjTf0AClPyMiEKyh6t1K5oQzSOlqaqcnhhA2UQ537HO+VO/JVadMtHOqzOGC40XS1e1
+	 DhLXKCOtE3LAN3Il/8XjRFecQ8BCnPyfApgSV3JRfV1D7m9pnujd2h95FoWhGIxhCuPqU
+	 LxX54UDQ0zS6pZ6DsFcIyrYW3TD+0i7xdpNUYZpPt3TDHUDGWoFxHk6aanhSiyuCfZzD0
+	 Pwh2q6Hdd53/6AibiRFEfVyuPg1qrCW3poarSQCmwLzLpUHMuHJhCSJnh+MhOIQ3RD9b2
+	 Ni8Qamk+WZQ2csVno7OD/yJbhOOIufY/iWrLE2+UiIODVApNQnAXOG9nAIwA5v9nDig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=aspeedtech.com;
-	spf=pass smtp.mailfrom=aspeedtech.com;
-	arc=none smtp.remote-ip=211.20.114.72
-Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="O/AKwGBF";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFF68606A319;
-	Wed, 21 Oct 2026 02:09:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFF68606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Wed, 21 Oct
- 2026 10:09:44 +0800
-Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
- Transport; Wed, 21 Oct 2026 10:09:44 +0800
-From: Billy Tsai <billy_tsai@aspeedtech.com>
-Date: Wed, 21 Oct 2026 10:09:39 +0800
-Subject: [PATCH v4] arm64: dts: aspeed: Add syscon phandle to AST2700 ADC
- nodes
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D05606A319
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 02:11:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O/AKwGBF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 353731F000C9;
+	Wed, 21 Oct 2026 02:11:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792548706;
+	bh=ew9sfwCDjhu974kHAczCCuQpOD7C8mfyVsnsho8iBkE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=O/AKwGBFb7JzSfwUz7dP2aM+irpwJkKdI+tdubY1Y5VmEe4slFMtZedyH4RSYVAvy
+	 tYis8HF5ronygmIKia+0YOFkwEaZSoEG9NimmH/DtZ4bI5C/aLXIZqKYZQkTiV8G7C
+	 0F1nvvEcyPRdIgJ5DeYjBLDRGRNYn13C3qWYRKcLUrGnOR3aVxEoO96BR9H7m2GPKu
+	 pgBtw8iggSEXX++5F7YWfShkq8uWuc0OZK50eKVOsXDpCQ49/iFcXYBAcff8Zo0DY3
+	 aKB6PUnjnTWVfLWfGC1+wpJNaSz+ifRO3O+unprnyn4BKwrXmTDbkmHdVgKtZ0xtyl
+	 K4TRCVTyoihXQ==
+Message-ID: <sashiko-outbox-179690@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 9/9] iio: adc: ad7768-1: add support for multiple
+ chip aggregation
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jonathan Santos" <Jonathan.Santos@analog.com>, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <7afbafd67ad52b2342af30c278b8b001413221ee.1792435248.git.Jonathan.Santos@analog.com>
+References: <cover.1792435248.git.Jonathan.Santos@analog.com>
+ <7afbafd67ad52b2342af30c278b8b001413221ee.1792435248.git.Jonathan.Santos@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 21 Oct 2026 02:11:45 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -48,76 +60,94 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261021-ast27xx-adc-dts-syscon-v4-1-4fab164f10b4@aspeedtech.com>
-X-B4-Tracking: v=1; b=H4sIAOIe2GoC/x3MPQqAMAxA4atIZgO1/qFXEYfSRM1SpRGpiHe3O
- H7Dew8oR2GFsXgg8iUqe8hoygL85sLKKJQN1tiuMrZCp6ftU0JHHulU1Fv9HnDwS0t9XTMZhhw
- fkRdJ/3ia3/cDMRTar2gAAAA=
-X-Change-ID: 20261021-ast27xx-adc-dts-syscon-9cf5d733ed0e
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, "Andrew
- Jeffery" <andrew@codeconstruct.com.au>, Ryan Chen <ryan_chen@aspeedtech.com>,
-	Arnd Bergmann <arnd@arndb.de>, Jonathan Cameron <jic23@kernel.org>
-CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
-	<linux-iio@vger.kernel.org>, Billy Tsai <billy_tsai@aspeedtech.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792548584; l=1915;
- i=billy_tsai@aspeedtech.com; s=20251118; h=from:subject:message-id;
- bh=IZUjXmUfedJ5IwJ86vwzPPmrXl0gfhcW6O8UO+QoZco=;
- b=hpsOaG9Ce6jXRrKDFl/kBKvsWHyz/Sq5Ys08ygSSCBVLWf1flEZBUOpaFZRR4mkAg5IG+L1WX
- lJXwEwYjufqDQ7syQ+sp8bYGfbzkOpnagPjO5KBXdfl6Ddg2O37HL7T
-X-Developer-Key: i=billy_tsai@aspeedtech.com; a=ed25519;
- pk=/A8qvgZ6CPfnwKgT6/+k+nvXOkN477MshEGJvVdzeeQ=
 
-Point the ADC nodes at their own syscon1 so the driver can correctly
-locate the reference-voltage trimming data on AST2700, where syscon0
-and syscon1 share the same device-tree node name and would otherwise
-resolve to the wrong SCU.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] iio: adc: ad7768-1: incomplete multi-device read in ad7768_trigger=
+_handler()
+--
 
-Fixes: e77bb5dc5759 ("arm64: dts: aspeed: Add initial AST27xx SoC device tree")
-Assisted-by: LLM
-Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
----
-This was patch 3/3 of "iio: adc: aspeed: Fix SCU lookup for multi-SCU
-AST2700" (https://lore.kernel.org/r/20261005-ast27xx-adc-upstream-v3-0-ef25552d3a59@aspeedtech.com).
-Jonathan has applied patches 1 and 2 to the testing branch of iio.git;
-this resends patch 3 on its own, now with a Fixes tag, since the
-driver falls back to the old global syscon lookup whenever this
-property is absent, so patches 1 and 2 alone don't change AST2700's
-behaviour without it.
----
- arch/arm64/boot/dts/aspeed/aspeed-g7-soc1.dtsi | 2 ++
- 1 file changed, 2 insertions(+)
+commit 093b4a79a74e19badb41a08df17fd753e9cf37ec
+Author: Jonathan Santos <Jonathan.Santos@analog.com>
 
-diff --git a/arch/arm64/boot/dts/aspeed/aspeed-g7-soc1.dtsi b/arch/arm64/boot/dts/aspeed/aspeed-g7-soc1.dtsi
-index bc990f79e693..053673cc4b8e 100644
---- a/arch/arm64/boot/dts/aspeed/aspeed-g7-soc1.dtsi
-+++ b/arch/arm64/boot/dts/aspeed/aspeed-g7-soc1.dtsi
-@@ -246,6 +246,7 @@ adc0: adc@14c00000 {
- 		clocks = <&syscon1 SCU1_CLK_AHB>;
- 		resets = <&syscon1 SCU1_RESET_ADC>;
- 		interrupts-extended = <&intc1 80>;
-+		aspeed,trim-syscon = <&syscon1>;
- 		#io-channel-cells = <1>;
- 		status = "disabled";
- 	};
-@@ -256,6 +257,7 @@ adc1: adc@14c00100 {
- 		clocks = <&syscon1 SCU1_CLK_AHB>;
- 		resets = <&syscon1 SCU1_RESET_ADC>;
- 		interrupts-extended = <&intc1 80>;
-+		aspeed,trim-syscon = <&syscon1>;
- 		#io-channel-cells = <1>;
- 		status = "disabled";
- 	};
+iio: adc: ad7768-1: add support for multiple chip aggregation
 
----
-base-commit: 43ffda3c7f8456bbe641ae8249a077a361b97880
-change-id: 20261021-ast27xx-adc-dts-syscon-9cf5d733ed0e
+This commit adds support for aggregating multiple ad7768-1 devices connected
+to the same spi controller using dedicated chip selects and data lanes. It
+dynamically configures the channels, registers per-lane ancillary devices f=
+or
+direct reads, and enables striped multi-lane transfers in offload mode.
 
-Best regards,
--- 
-Billy Tsai <billy_tsai@aspeedtech.com>
+> diff --git a/drivers/iio/adc/ad7768-1.c b/drivers/iio/adc/ad7768-1.c
+> index 3972821c295a1..667c09326f92f 100644
+> --- a/drivers/iio/adc/ad7768-1.c
+> +++ b/drivers/iio/adc/ad7768-1.c
+[ ... ]
+> @@ -335,7 +341,7 @@ struct ad7768_state {
+>  	 */
+>  	union {
+>  		struct {
+> -			__be32 chan;
+> +			__be32 chan[AD7768_MAX_AGGR_DEVICES];
+>  			aligned_s64 timestamp;
+>  		} scan;
+>  		__be32 d32;
 
+[Severity: High]
+While struct ad7768_state expands st->data.scan.chan[] for non-offload
+triggered buffer capture, does ad7768_trigger_handler() in
+drivers/iio/adc/ad7768-1.c also need to be updated when multiple devices are
+aggregated?
+
+When st->num_devices > 1 and spi offload is not present, ad7768_probe() sti=
+ll
+falls back to registering the triggered buffer path via
+ad7768_triggered_buffer_alloc():
+
+drivers/iio/adc/ad7768-1.c:ad7768_probe() {
+	...
+	st->offload =3D devm_spi_offload_get(dev, spi, &ad7768_spi_offload_config);
+	ret =3D PTR_ERR_OR_ZERO(st->offload);
+	if (ret =3D=3D -ENODEV) {
+		/* If not using SPI offload, fall back to low speed usage */
+		ret =3D ad7768_triggered_buffer_alloc(indio_dev);
+	...
+}
+
+However, when buffered capture is enabled and the interrupt fires,
+ad7768_trigger_handler() still performs a single-lane, single-sample read:
+
+drivers/iio/adc/ad7768-1.c:ad7768_trigger_handler() {
+	...
+	ret =3D spi_read(st->spi, &st->data.scan.chan,
+		       BITS_TO_BYTES(scan_type->realbits));
+	if (ret < 0)
+		goto out;
+
+	iio_push_to_buffers_with_ts(indio_dev, &st->data.scan,
+				    sizeof(st->data.scan),
+				    iio_get_time_ns(indio_dev));
+	...
+}
+
+Because spi_read() only reads a single sample of scan_type->realbits bits on
+one lane into the start of st->data.scan.chan[0] while asserting all chip
+selects on st->spi, the samples from devices 1 through st->num_devices - 1
+are clocked out and lost on the bus, pushing unpopulated channel data to the
+buffer.
+
+Furthermore, with multiple channels enabled, a 3-byte read in 24-bit mode
+(realbits =3D 24, storagebits =3D 32) or a 2-byte read in 16-bit mode
+(st->oversampling_ratio =3D=3D 8, realbits =3D 16, storagebits =3D 16) does=
+ not match
+the 4-byte __be32 element stride of st->data.scan.chan[].
+
+Should ad7768_trigger_handler() be updated to read and pack all
+st->num_devices channels according to scan_type->storagebits, or is
+non-offload buffered capture unsupported when st->num_devices > 1?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1792435248.gi=
+t.Jonathan.Santos@analog.com?part=3D9
