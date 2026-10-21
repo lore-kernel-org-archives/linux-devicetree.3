@@ -1,59 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792616279;
-	b=ARAxmK2HE48oquqIl9BY4q7pfwA4V+D0MmVNWn9ekLbm19u1emiOFLyYdkM9ODEfHw6N
-	 yVgn/Y6HOuZdcGrMtnmfG/Bnw6mS2mJVeE6DTiSs3JR0Ht9+anoFZk1ubB0unmU7z3XLq
-	 CnThvbyuYKBZSOcmcGc6++cc5Vi7VtC+SKD4XREzMBRwbOXc5o5pSLdVTj8aoIM3/fOUT
-	 B16z0R2nJJM8KoX8BEPMnUl0mHTwOYFjAqqt1kFcOh3avKX+h1XPv1ZW0ye+fsi2CFR4t
-	 i04glH0O1wC0wJLS1W4r22jgeIt1vtNOyBBIJLrlWSB5PuoRleoC2mrNq2WdNg9I7BA==
+	t=1792618388;
+	b=s97tFNRdpHPpEWCCnCHO2NSYb5pGSWoE8MQdbMUBEEd4xqj1f1jEP65TqxyTbwDGeidR
+	 oo97msGTQdwEfG6AR+ysp3P5wZP9/Frd3q1f4avLlWWO/dxSBqTSF/HcW4w7aE1ikHMGJ
+	 TzTLeUNeY9yhKK98r5CyHaNGVkou+xkUuFLsPA50Ov8DcZIBsLVaEomOPAagjuk/Cr/xL
+	 m7sBqzLgvA7V0c6aoR5rVIy1hNcXnoGb5OM6AyAVT/qPMtRbXrkz06ZIEeiJTxfR1uF4A
+	 dJKZ3t+mCopx9CWIFkBuCDZw5AD4GCXNWIZG3aZcV5zBX1pdH/xW2SOTvTXZlNj2dtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792616279;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=RoPYXNx8Lhh+gxboIK53SazpXFScKewuHPdEWXWClIQ=;
-	b=YXaj7OVpBTNuWPh32kd7Gzf1Cf+StTsaEtbO9gGd526cyB4giDIZiG5rMr0je2OK5wE5
-	 Cvgwn6coACEP63jctsZhok7WEGqwTZ80a00+Xd3OvFh2DZRASrBNfBMynMbKyYNA6h9ro
-	 EOwAiV+Jh5RT9uurz4ips4pPI+3JVEjg4TDfDH57vD1vr1XFG8O/fvIHEh3BC6FfX33Rq
-	 hnmHThPKDVVUZX4x6/Eg1Vz/MjiAe6gLHTxgNFbJNv5/hI7SHkicD38vRB7ECDbWkhm90
-	 Od2qkjyg4c5KFRgPWN07x3BFZRHRTpRZiH7OyKLwBKyMCv81fhVQD0eq7LcDbuH6ljw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792618388;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 To:Cc:Subject:From:X-Mailer:References:In-Reply-To;
+	bh=UCwQNMxH+F/zPUwqh6Mzh/IhhNr8THI51anSCThLEEg=;
+	b=R5470b7lKZ0j0K6WNb/Del+nIHVWIjE6Q3cK9PQx03DoZWLF/qoSffEusBRAu+UUs+cy
+	 b+o1dJx4Ps/as21JwahKSP5MBpNYA5JNl0EH/rPQ7Y2pX5RNck/ds+g4pf8rlQ+sqJzdl
+	 DtP3euyyJsWYr0kdetQuN7+hywifPY7+AG+I6w1g1wSmzz36xLgglQT2BZswlykzOLdhr
+	 CVj7lnaaQlYmYETZo8d6l4NrDstpK/A/NhhDbqY01+ma/FBlP9M71FqbmS/Ll7SsE7stn
+	 FS9/XJ3EFQX3v8p4Ck6OokWn0awL1lqrMxa8JjcSOapOXseI2hGjOscHl3mutcDZBTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TmDcETqQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SsntEoPx;
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9CCC606A319;
-	Wed, 21 Oct 2026 20:57:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E8B8606A320
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 21:33:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E8B8606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TmDcETqQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3A531F000C1;
-	Wed, 21 Oct 2026 20:57:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792616278;
-	bh=RoPYXNx8Lhh+gxboIK53SazpXFScKewuHPdEWXWClIQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TmDcETqQQWZ7UNAkdLQzZnoVagebGhDwyftfx54jk8oxVgT1sRrly36lUQ2WbL0B/
-	 zAh43+pssuDXP4y3IoaRoyNAc5lbsZQURPZb03aQ38uJUD2g98ttoHUnwBLrUWWHYS
-	 KxLcnNZPQppWxfhBH1FzoQ1edLnBl+Rb0JLn4WFfSaR7eGeoViZGfkdqAbTHm+2ZLu
-	 kFg+boKf7C4UcG0Fu4GPAc1QXyoEapG+fH5oQYCAQfxVUh2uNMIysuQBogv+6RgXLK
-	 ASBF2gPjIFTv7xzKWkq52hggyDPFSUL1fbbdDJ/G+mYMb3Kf2R+D99mPHq3Z86CAmd
-	 SLC/aL22fNHsw==
-Message-ID: <sashiko-outbox-180673@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/1] arm64: dts: freescale: ls208xa: correct USB
- compatible strings
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Frank.Li@oss.nxp.com, =?utf-8?b?b3BlbiBsaXN0OkFSTS9GUkVFU0NBTEUgSU1Y?=
- =?utf-8?b?IC8gTVhDIC8gTEFZRVJTQ0FQRSBBUk0gQVJDSElULi4u?= <imx@lists.linux.dev>,
- =?utf-8?b?b3BlbiBsaXN0Ok9QRU4gRklSTVdBUkUgQU5EIEZMQVRURU5FRCBERVZJQ0Ug?=
- =?utf-8?b?VFJFRSBCSU5ESU5HUw==?= <devicetree@vger.kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261021204516.4031644-1-Frank.Li@oss.nxp.com>
-References: <20261021204516.4031644-1-Frank.Li@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 21 Oct 2026 20:57:57 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SsntEoPx
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-14fd9dafb0dso515597c88.0
+        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 14:33:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792618386; x=1793223186; darn=vger.kernel.org;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=UCwQNMxH+F/zPUwqh6Mzh/IhhNr8THI51anSCThLEEg=;
+        b=SsntEoPxNYjf59X7OOg/LdIMa8dn6XV3gAPoqbAmwMfpoB75Xd/teNGbBc7/pZzBeq
+         Un+x6HCULBezBckOVhQ7iqYX86Q0Csw2zo0KnodTe93mReqvdNe4iWwzlVt2SXZuHDl0
+         e8wtjwjh+lzY98rroows9JxtQ1Pc1hh+myBfYo+iUxFTyGKzPSqiTtlwSmDBV2cQAUNo
+         5WDgIrs58BennY9eVCaVYc6jMujI5u7pUKdTSIoSwinvN/VxnT6NgWoV/Te/DUxMDEot
+         QnXVQVe/MOn9UJDgmNSDaJBAtEPZUK5xfk3ig10ZSme41lcOb5Nyng1gx0pG0G/AEBGs
+         p48Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792618386; x=1793223186;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UCwQNMxH+F/zPUwqh6Mzh/IhhNr8THI51anSCThLEEg=;
+        b=FgEcWIyRVyx4QaG1B5cxC/Jbw3USBGuBB3prizkpuGJbKfG5uhccYGS9yq7v8PiUB7
+         Xf22J5Xcebq2+XRueEvjK9pWpvKkgegC/RLCELakR2lay7uyFYufLuq9bvBsWRiZgw3e
+         N5/OMElcYwFKTdht4YSnXnbVPC3ZQADM4jZ6hyuw5nXSeeoZUi5Nf+a9viKV96STd+Qm
+         4sHSIbmqQcqnQNxvRt9Tl7Vz0SWRm4DPHcC0PRRivwCTsH52hD1z0Da/ynXetIEIa220
+         UVBmnp6SXg2/qLnthFbSj22FjYZkjRfn4jeeifOFF05vZzfoYka4gCxNX9mWlOMPEIj4
+         5Mag==
+X-Forwarded-Encrypted: i=1; AKwUvBwZLGFEkcQwNDLhoP6hjRVqgu5ln9FJ4quUD+e3G9aH7Pr+XXiAinFN8mFEn6Fzt839A7JklI1msLGh@vger.kernel.org
+X-Gm-Message-State: AFq9FYIXcigBqFOGuzAJqgDZ4M8nHV/jWXwtwjdgFZjcTgJKZBPSz6x8
+	0UREsoPC4jYF4dwGu+W4cr+xUsybhhGLmhx7kNp3URvdJHDADZySO2nT
+X-Gm-Gg: AYBFou2f85lRl3aZTN41ObqgR30zWhq2foL0o0V3bAEyBHO8ECMZk1t5KzhF7qlWHmO
+	eNHwc8yjCU3Eq/wXtleueC50+crkESDkAbRFo/LzJg4k0LliqNQOQY/ts5+CPJyKXwxd9eAYVlu
+	FwF4QHpo0mDVXLDiATLmikXBSJfBCxzDu9afQiqPobQNBLxz2kI3bN13bKhq4QTwpOouO2dFQaX
+	SCWziIlY89KpqNl2MnUEYcq2ps5aIkAJTlndscatXcQ0q/cAjShC+jSNn4f3p5vnRH1cRl9u744
+	So6a+ZPIBkH+4HHCYfr4Z35Mn8H+WEuh3E8WUYWtou4TblBS+c3Ko6HOC+S3q2nsgGDEKJy+XIf
+	M4rmP7/yBimH88VGBBzSZd6Rah5rPL3WLrxC2VAYnWOL6FXVATSBLYR+n4O+5Sfl0Y25rKjOyjN
+	srMKl9S7aqDrBRHEtFJP0FGqVjAc3SkjLI/TqbIhNcFHvibKTDlWzHbfaQEwd63Zv1cRodyIeIP
+	vNROGIrCfCNckQq6FJrooRLFXnI/ITyojfcJgjk7FIfVOeDxHVyZeIu5UzrX8zcp0rKwRu1X2p6
+	ElVarlbi3Lsv8Q==
+X-Received: by 2002:a05:7022:1709:b0:13b:4ab5:41d7 with SMTP id a92af1059eb24-190a051ddf3mr3686389c88.3.1792618386343;
+        Wed, 21 Oct 2026 14:33:06 -0700 (PDT)
+Received: from localhost (host-190-210-193-254.iplanisp.com.ar. [190.210.193.254])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903b3d0530sm9368959c88.11.2026.10.21.14.33.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 14:33:05 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,150 +87,61 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 21 Oct 2026 18:33:01 -0300
+Message-Id: <DMAU6JSPOTMP.2LNR04HDVF43T@gmail.com>
+To: "Jonathan Cameron" <jic23@kernel.org>, "Kurt Borja" <kuurtb@gmail.com>
+Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "David Lechner"
+ <dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ "Andy Shevchenko" <andy@kernel.org>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Conor
+ Dooley" <conor.dooley@microchip.com>
+Subject: Re: [PATCH v5 00/10] iio: adc: Add TI ADS126X ADC family support
+From: "Kurt Borja" <kuurtb@gmail.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261010-ads126x-v5-0-49e331cb2fed@gmail.com>
+ <20261018023129.3abeb679@jic23-hlaptop>
+ <20261021195611.14cd0a2a@jic23-hlaptop>
+In-Reply-To: <20261021195611.14cd0a2a@jic23-hlaptop>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] arm64: dts: freescale: missing dma-coherent on ls208xa usb0 and us=
-b1 nodes
-- [High] arm64: dts: freescale: missing iommus property on ls208xa usb0 and=
- usb1 nodes
---
+On Wed Oct 21, 2026 at 3:56 PM -03, Jonathan Cameron wrote:
+> On Sun, 18 Oct 2026 02:31:29 +0100
+> Jonathan Cameron <jic23@kernel.org> wrote:
+>
+>> On Sat, 10 Oct 2026 03:52:39 -0300
+>> Kurt Borja <kuurtb@gmail.com> wrote:
+>>=20
+>> > Hi all,
+>> >=20
+>> > I apologize for the long delays between versions. This month has been
+>> > very busy at university plus some personal stuff. I expect to have mor=
+e
+>> > time now, so development should be faster. Thanks for your patience!
+>> >=20
+>> > Signed-off-by: Kurt Borja <kuurtb@gmail.com> =20
+>>=20
+>> I took another look through and it looks good.  However, give
+>> the sheer scale of the driver I'll leave it a little longer before
+>> applying in case anyone else plans to give it another look.
+>> As normal, if anyone has it on their list but is snowed under
+>> just reply to the thread and I'll let it sit longer.
+>>=20
+> Long enough I think.  Though given I'll be rebasing on rc1 any feedback
+> people want to give is fine after this.
 
-commit 299ff7e71139430a2f497142fe0c4f1de05bde95
-Author: Frank Li <Frank.Li@nxp.com>
+Thanks a lot, Jonathan, David and everyone that contributed :) I'll
+submit the follow up series starting next month.
 
-arm64: dts: freescale: ls208xa: correct USB compatible strings
-
-This commit updates the usb0 and usb1 compatible strings in
-fsl-ls208xa.dtsi from "snps,dwc3" to "fsl,ls208xa-dwc3" with a
-"fsl,ls1028a-dwc3" fallback so that the controller programs the
-Layerscape-specific gsbuscfg0 value.
-
-> diff --git a/arch/arm64/boot/dts/freescale/fsl-ls208xa.dtsi b/arch/arm64/=
-boot/dts/freescale/fsl-ls208xa.dtsi
-> index cc1a64e63ed55..3b0a26bf609cc 100644
-> --- a/arch/arm64/boot/dts/freescale/fsl-ls208xa.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/fsl-ls208xa.dtsi
-> @@ -1288,7 +1288,7 @@ bus: bus {
->  			dma-ranges =3D <0x0 0x0 0x0 0x0 0x100 0x00000000>;
-> =20
->  			usb0: usb@3100000 {
-> -				compatible =3D "snps,dwc3";
-> +				compatible =3D "fsl,ls208xa-dwc3", "fsl,ls1028a-dwc3";
->  				reg =3D <0x0 0x3100000 0x0 0x10000>;
->  				interrupts =3D <GIC_SPI 80 IRQ_TYPE_LEVEL_HIGH>;
->  				dr_mode =3D "host";
-> @@ -1299,7 +1299,7 @@ usb0: usb@3100000 {
->  			};
-> =20
->  			usb1: usb@3110000 {
-> -				compatible =3D "snps,dwc3";
-> +				compatible =3D "fsl,ls208xa-dwc3", "fsl,ls1028a-dwc3";
->  				reg =3D <0x0 0x3110000 0x0 0x10000>;
->  				interrupts =3D <GIC_SPI 81 IRQ_TYPE_LEVEL_HIGH>;
->  				dr_mode =3D "host";
-
-[Severity: High]
-Should usb0 (usb@3100000) and usb1 (usb@3110000) in
-arch/arm64/boot/dts/freescale/fsl-ls208xa.dtsi also have the dma-coherent
-property when switching to "fsl,ls1028a-dwc3"?
-
-When usb0 and usb1 match "fsl,ls1028a-dwc3" in dwc3_generic_driver
-(drivers/usb/dwc3/dwc3-generic-plat.c), they select fsl_ls1028_dwc3:
-
-drivers/usb/dwc3/dwc3-generic-plat.c:
-    static const struct dwc3_generic_config fsl_ls1028_dwc3 =3D {
-        .properties.gsbuscfg0_reqinfo =3D 0x2222,
-    };
-
-During probe via dwc3_core_probe() -> dwc3_get_software_properties() ->
-dwc3_core_init() -> dwc3_config_soc_bus() in drivers/usb/dwc3/core.c, the
-driver writes 0x2222 to DWC3_GSBUSCFG0:
-
-drivers/usb/dwc3/core.c:dwc3_config_soc_bus()
-    if (dwc->gsbuscfg0_reqinfo !=3D DWC3_GSBUSCFG0_REQINFO_UNSPECIFIED) {
-        u32 reg;
-
-        reg =3D dwc3_readl(dwc, DWC3_GSBUSCFG0);
-        reg &=3D ~DWC3_GSBUSCFG0_REQINFO(~0);
-        reg |=3D DWC3_GSBUSCFG0_REQINFO(dwc->gsbuscfg0_reqinfo);
-        dwc3_writel(dwc, DWC3_GSBUSCFG0, reg);
-    }
-
-As noted in commit 1c97fc901fb6 ("usb: dwc3: dwc3-generic-plat: Add
-layerscape dwc3 support"), this configures the controller to issue
-cache-coherent snooping transactions.
-
-However, unlike the other Layerscape device trees updated in commit
-7b204755ebc214 ("arm64: dts: layerscape: add dma-coherent for usb node")
-(fsl-ls1012a.dtsi, fsl-ls1028a.dtsi, fsl-ls1043a.dtsi, fsl-ls1046a.dtsi,
-fsl-ls1088a.dtsi, and fsl-lx216x.dtsi) and sibling masters in
-fsl-ls208xa.dtsi (sata0, sata1, pcie1..4), neither usb0, usb1, nor their
-parent bus or soc nodes have dma-coherent.
-
-As a result, of_dma_is_coherent() in drivers/of/address.c returns false for
-the dwc3 sysdev and the child xhci-hcd device:
-
-drivers/of/address.c:of_dma_is_coherent()
-    while (node) {
-        if (of_property_read_bool(node, "dma-coherent"))
-            return true;
-
-        if (of_property_read_bool(node, "dma-noncoherent"))
-            return false;
-
-        node =3D of_get_next_dma_parent(node);
-    }
-    return dma_default_coherent;
-
-Won't this cause a coherency mismatch where the controller snoops caches
-while Linux maps coherent buffers (such as dwc3 event buffers and xhci
-rings) as Normal Non-Cacheable and omits IOMMU_CACHE in the stage-1 page
-tables?
-
-[Severity: High]
-Could removing "snps,dwc3" from usb0 (usb@3100000) and usb1 (usb@3110000)
-without adding iommus properties also break USB transfers when booting with
-U-Boot?
-
-In arch/arm64/boot/dts/freescale/fsl-ls208xa.dtsi, the arm,mmu-500 node
-(smmu: iommu@5000000) is enabled:
-
-arch/arm64/boot/dts/freescale/fsl-ls208xa.dtsi:
-    smmu: iommu@5000000 {
-        compatible =3D "arm,mmu-500";
-        reg =3D <0 0x5000000 0 0x800000>;
-        #global-interrupts =3D <12>;
-        #iommu-cells =3D <1>;
-        stream-match-mask =3D <0x7c00>;
-        dma-coherent;
-
-On Layerscape platforms with an smmu, U-Boot programs the hardware stream
-IDs for the USB controllers so their traffic routes through iommu@5000000,
-and U-Boot's device tree fixup dynamically injects the iommus property by
-searching for nodes matching compatible =3D "snps,dwc3".
-
-When commit 7b204755ebc214 ("arm64: dts: layerscape: add dma-coherent for
-usb node") removed "snps,dwc3" from the other smmu-equipped Layerscape
-device trees (fsl-ls1028a.dtsi, fsl-ls1088a.dtsi, and fsl-lx216x.dtsi), it
-added iommus =3D <&smmu 1> to usb0 and iommus =3D <&smmu 2> to usb1:
-
-arch/arm64/boot/dts/freescale/fsl-ls1088a.dtsi:
-    usb0: usb@3100000 {
-        compatible =3D "fsl,ls1088a-dwc3", "fsl,ls1028a-dwc3";
-        reg =3D <0x0 0x3100000 0x0 0x10000>;
-        interrupts =3D <GIC_SPI 80 IRQ_TYPE_LEVEL_HIGH>;
-        dr_mode =3D "host";
-        iommus =3D <&smmu 1>;
-        dma-coherent;
-
-Without "snps,dwc3" or explicit iommus =3D <&smmu 1> and iommus =3D <&smmu =
-2>
-properties on usb0 and usb1 in fsl-ls208xa.dtsi, won't U-Boot's fixup skip
-both nodes, leaving them unattached to smmu in Linux while hardware still
-routes their stream IDs through iommu@5000000 and triggers unmatched-stream
-faults?
+>
+> Applied to the testing branch of iio.git.
+>
+> Thanks,
+>
+> Jonathan
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021204516.4031=
-644-1-Frank.Li@oss.nxp.com?part=3D1
+Thanks,
+ ~ Kurt
