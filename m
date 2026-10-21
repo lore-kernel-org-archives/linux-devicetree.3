@@ -1,125 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792624849;
-	b=UhgMKqrXL8PXRfhI171d2QoJkBuppZkocJk0IUvHQnykPo9nt1C/UmzgbfJ5fc5ND91a
-	 bx7rxpHXZixr4GwhLhmwtvTJdE40m5tUQGEBt89sbqkDdq1GjGUGcjXhU0LqMNiZoDNQ7
-	 +k5NRTeps6vq4znea30qe349Q403NBlfn/8rHDiUn6ZPTXwAywYXWvFmXW1XMrvz5eVgP
-	 n/2sNnP7bZKDmxeKOlrS0IumoCE6ZmXQ0fAd0EoHzYlt1TnZVzI0MRnXT+oEGRU+ZiiZD
-	 SCw/vAIWMLdF8uxberO9z2VRbl9suiOlGtEOFqyk3oe6bVWeL4FdGS5Dqxjzut0ayQA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792624849;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=3/PkX2wBAHz4wgjVQm491Wme4i4LqDRLzwrJqI7Q9ZU=;
-	b=HKRadOhUG2p3l4U8v7xF74NpotK0oAJmSBIJfbeGhAYb7J+cW6tPUhHYvY4qDMCiTn2j
-	 jk0LcJZUrRQCD4D3mEN2n56dI/XQfWWyXCYHzEkyopUJkQHqeumNm8z3gVx2X7fa7S79O
-	 +37PdAXDo+NHJJPjU/Fd314IgSaFm4dfI78VhdNNcTEdeg2Fi10dJzbjm8AVzMft14F5E
-	 GGL+jV0MOF3y+jQ6fbG0Vtguh9b0BQU1XfObfINco7Mc/vqh+XIJfm7xK2eF8u6Q9Nrjw
-	 86z9fRLVOU6/WW5rpUsz97lyxJuxnP9BRvemdADaPthnpvx0myDw+NJ0NYR3ppLz1kg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=aoG5jBUt;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fX9i7s3k;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.128.170
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792625066;
+	b=ZDIDmN7Y0VFDFJhbsm9WkNSmIOFPb6bdwt0rbB+rpr1mec/G80MZ2rbDuuV3nBkqzaDs
+	 quTZj/lg5KBfZPQDt5j1bAp8Hy87u8DE0nDCgue1vWAACcMSCRbR5O7fMRHvO1EYOTMDL
+	 3tFERlzpjXcLKrD80OoXm2lZ/YXM9kyaFMYHYlSWyIotXt9GgJ32/H2w4H5ak5DBqkQoB
+	 XIz7BwghXFwPuSKgpmk5g5FYbzCqmVpsdT8/YPSxAp+W9irWEKCQ9QsTKpvRB63TNkhnO
+	 gG7mVFT2PPc81Mu+h7L32eK3c/vU0MCvEa9ayKPMAypsd+uvRnax0C29UoyCg9fmllg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792625066;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=OOnJLMePRidiRd6Zbc0eEriUIlHpT2oioIudJsKLtbo=;
+	b=vWTJRYR7Zv4Evvn9NB1pipRtmuySYsw8CxUh18Q/tk7YLAbdBMl9IjT9Zkh0G0r4OOTw
+	 CglJBdhrCvaRZyM0ccmUt14HZUvZzDr5Ljcu9HNWrr9XAEJ5Hyjm2La7Ig8HEBXkGkyk2
+	 jhtPMmkwzNnZZ17AWPdpK17sQh4ZRKVgKiV4dMVqku9EIkK4VSBMQ5/34Usfqq67h/r+g
+	 X6878M17yRRco+4S9PgaOA8q7JV6eR/yj5/uRj1jrhG8wVdMQDHljDF5vye6TeyG3v//7
+	 WSUjPcalajIL8orKJCZjHB3rpyZ0ljlswJkw4hTS2zxuwassTBczkWf4OHQOco/gbaQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=oLi8y7J2;
+	arc=fail smtp.remote-ip=209.85.128.170
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51E0F606A31D
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 23:20:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51E0F606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AFEA606A319
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 23:24:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AFEA606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=aoG5jBUt;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fX9i7s3k
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LKfrBV1157501
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 23:20:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=3/PkX2wBAHz4wgjVQm491Wme
-	4i4LqDRLzwrJqI7Q9ZU=; b=aoG5jBUtNK8kERS93tcIiM5kXorD1DsfgPMOmqxD
-	pw6PESFbT7AhDZy3SiSjzaKWVkEgP8LObCyg9l8vi3XTJvkwQ1Ai0NTfrY3i1uoT
-	b6ybuz7DL9SoB2KiWNFyM98Qp6wzp7lE7v2sRfgQZkq3p3/UysYffU/ipvwUp6Vb
-	N2zlaov2+Vjf2YKxK3GvfeT47bCzP6dCrhYaY3FQwUckiL87nEggLfdeS/HEsLwc
-	uQ7OEShk1wzsjG+kMLkumnu1lVbHk0ptrpwZfohvD/F6kS3YsWKrjI7monttrBha
-	BIhX9efcZO+zNIDbdQWCQWV/vemHrDoIpNWDeLTH+8EuBQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf0cv1k39-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 23:20:47 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93ce7a85f04so267260585a.0
-        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 16:20:47 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=oLi8y7J2
+Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8ac8a2ac52bso4271177b3.0
+        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 16:24:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792625065; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SdwGCqBn3qMdn87TdTMSG3eMuJ6tjMcUae+2A9bKZP6DDwn3xYyUgdCN7t69T9KdDi
+         7Ngfp4+U0zXutF/eIOOTFxSQfNxxcH/a7XEt/4yFBp/ysnxKI2TKveleRMfOB8GnKqpk
+         og4DbDSeqAUJNYwz68fqOXxfEKOPbC4K17GdCSDP1f/D5BODGXo7r10UycwpjVNgCuOm
+         6mmg3kk0zX5TE/qbtYmFT3Ul71oKGvyXpnhxkIAIM1eAyHnelulu30h1TWwo4JAwmqI1
+         PKuXQLYSLjF1QGy5xcQPbwz2iqaKmTzwRr1k0H6RkEmxHZuhdwl0RO+AOtL0767flrCG
+         m0YQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=OOnJLMePRidiRd6Zbc0eEriUIlHpT2oioIudJsKLtbo=;
+        fh=IzSB69vaZAYkKslkTihMMCrrXJeg2YLNELs+rkoaeb0=;
+        b=c4SBRzZ9YZ9t6dyo7hB6xwycyfs9mzQMkjVNyJJhCsUPiHK1sCD4hzKDtGGqlKYeaX
+         FcIvvJs/UgHiTLzxt+UGA/epHoYjoj+A+1rkh/6nabi/rxIrBA43lDndQQHXjnht/7ST
+         CowxVOdRUQwPboiRADjWlPWge2xMaCz1vV2Xt2ZpTB0LxAHgiv1SE6iVqgJ8v7ODJXvC
+         xs7v1m5k4WWbVwEdqbGaeZbPyXOFgupQW0QVvgz3nzlXh+zEvxFg+qdZYWZlfvNL1pnq
+         S1RTYjeVKGVhYUPBb+wcYOyjHfxmanh+ht/Z9ptghkEou5fk8mU/boHJtIyMAaEmZWBS
+         dvwQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792624846; x=1793229646; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=chromium.org; s=google; t=1792625065; x=1793229865; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=3/PkX2wBAHz4wgjVQm491Wme4i4LqDRLzwrJqI7Q9ZU=;
-        b=fX9i7s3kG3g9Es1fckdmdPRGdgkvWuT8GGGsIm+YA4EgQzNRE7jkFrL5hGm3uISA++
-         zD5Rwmz4b6LoAuMcA1p7oSi9OzovGfZoGpMDKDe2BPeU8bq0JsLJoBWmQZ2e7gePHFpd
-         AkiRZd/8uID1uq1ZqAWybSOn10oh26XNpCR9XcicMbexvXELZq7sdD+o1UmMLpwB0t9U
-         ggEDXVLaLCZoK0G76EVyExeNejX/FJ2/2qmLxJyPOvoZ095MDNT3wjuKnRT+GU/fFQpn
-         NV0CoFpplkXTvDCYHbuBZ4F8QUgvemXuxGHb99PtC270xfLcND09hRXPv8FN5Mjx9aow
-         KUzw==
+        bh=OOnJLMePRidiRd6Zbc0eEriUIlHpT2oioIudJsKLtbo=;
+        b=oLi8y7J2xgDhdaDp9fFCzXu3oc0F5lPk7JamTcvIw3le8Dw3lMLUBD6Gya+o37DXpE
+         UyBfigPn8dmOyI3/uwfbcVVf7J58WFe+Fgp/s64m8mG4IhYwl7IHHJI92+G6kAxadobP
+         XVMpG7fBQeNJo5ITGawxn7y6Io6uSkHTGov2U=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792624846; x=1793229646;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1792625065; x=1793229865;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3/PkX2wBAHz4wgjVQm491Wme4i4LqDRLzwrJqI7Q9ZU=;
-        b=QawpbwuA3rWRV650eGXdjTjbi36uLAjFOlNaIZiGJS5PTwJzSRRhEGqpTX8m0RxVui
-         Ez9fduefPouLTiTpNKZcONR1KDLT5lMRXS+lPZveS+iM3FSC1tnYbt78b+iENan1Fj+4
-         d2oX+ZVOdJYYQ4powUCCjgVksvUFeTBl9QXbS+PRgWYeP2XQS9Nb2cIWpYxH9htyFfBM
-         Tddi5yht0p8E9wCvcRGhMx5RFyH7F2+BEHLkn3x0jOtGm4iEJBRupR/SJZthADbddil/
-         iAYWVfoRPNJ7d0+1cmWs+RUiIZvUSjn6J2LxlW1LfNiECo/h1Sx7SEGjXdWsrrccrrev
-         M4Pg==
-X-Forwarded-Encrypted: i=1; AKwUvBzeKpTbfZZVLxP7qOteAKhSQ/GT7FhWuVvnAARfMRKOkHNCizZEFuOhImcsI8DWAZD1MkmTK5Gopxkg@vger.kernel.org
-X-Gm-Message-State: AFq9FYKBUVIENSfRyY6xrlZPH6XfET1wW0bsN5yD/IfJfVoxHe3wI38m
-	83kmdDDRUTjRPRJ3bt+M72BR5dnuMpyyGvuB8enAlj3kM8CotF7xGN+91CPy4A7q9Ee0w+vzEvv
-	I7fxr+vmbTXd2SvCK9eudKDPs0B0rtSHJFyPfTWoHYwWtDpqTt2T1QIJzyYXagstn
-X-Gm-Gg: AYBFou3Clxt1qALCFoHSLb8vunKKR0IKiUjXUOWFtCcUZ5pxn2cvA7HEC4t8JVIMbvk
-	92WEX742Ru0W3W+67d5ZMTGfNpz/eOYSZt+hxaTp6VthkZKr1NEAhweIBDYx0yZqjcNS+xw34y+
-	7LE9I/U35KMpGkO/mtD8h3LLuh1tAVgAQFz0D2CW19JTc91tDcnF9uC79nh9SQsAj2SSgS1EOAV
-	OkLYBPWWZBN5cDtYbrXSOKNQ2mDgpxFdlTYwWS6zYUGc8Fcxq4yIutPv5TskpxfYUgIjDuTt1sc
-	7cJ8M4sBDvOoWqsB04PgNxt5wTWb5XQBMbbWXxScEoZuvUEWpFLfEYmWa1Af3ZykwPp79HCZJET
-	L3SF87GzdNZQ4KtB/mQUotrFp181gRlXTfwp2SV0/5SSpvwv5Rt2vygOfZzLTVYU2XnDSChShzW
-	lVSdgQKQLE6O4c
-X-Received: by 2002:a05:620a:19a5:b0:93f:2d52:613a with SMTP id af79cd13be357-93f57fa0c36mr725659785a.29.1792624846313;
-        Wed, 21 Oct 2026 16:20:46 -0700 (PDT)
-X-Received: by 2002:a05:620a:19a5:b0:93f:2d52:613a with SMTP id af79cd13be357-93f57fa0c36mr725657585a.29.1792624845701;
-        Wed, 21 Oct 2026 16:20:45 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfa45b4a93sm404364e87.20.2026.10.21.16.20.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 16:20:43 -0700 (PDT)
-Date: Thu, 22 Oct 2026 02:20:41 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Linghui Wu <linghui.wu@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, kernel@oss.qualcomm.com,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>,
-        Hangtian Zhu <hangtian.zhu@oss.qualcomm.com>,
-        Cheng Jiang <cheng.jiang@oss.qualcomm.com>,
-        Wei Deng <wei.deng@oss.qualcomm.com>
-Subject: Re: [PATCH v3] arm64: dts: qcom: shikra-iqs: add M.2 Wi-Fi and
- Bluetooth overlay
-Message-ID: <3v7ya2xot7tjklzw2docgzt3vq2d2lwqxnaiux3ehjqg424rne@ealrgump25o6>
-References: <20261012122934.3240030-1-linghui.wu@oss.qualcomm.com>
- <20261020020925.3915548-1-linghui.wu@oss.qualcomm.com>
+        bh=OOnJLMePRidiRd6Zbc0eEriUIlHpT2oioIudJsKLtbo=;
+        b=MHWzYgavcCQhgVLXCQWm+gzqRp3RLJQmAvB5IH5xpgud5Y2KYwyj1JdA9eMUAf9Ho0
+         NpdTtgKjV+f7Bga5uDJnWHwOC1si+yUv0vh/gskqaiQR5pbkBVZEjL8k637d0mjV5/i2
+         rIUlxNXlrvB+g2INIAj/ps/LeYw1SiBGgkkrfi7rw5exHS9EgRldTQzYXWHDTvSmKbeo
+         iFDKPzxyYtt8PaBUL8yso09IcCQUcfynZBxY/wZ5QeVS1i5d4Ar4/tCdil2f5YxSrEwC
+         cRvX3qsr8m8wTyKvGWhErPcDqAhT54gHsStgQhL6W2llsGGy2j3VP9f4UmMgm/r19Yd1
+         ix5w==
+X-Forwarded-Encrypted: i=1; AKwUvBwbXsNujA5nGsu7NnJfNWwKhLzSzDR1EA0em2yixo86BcnYHog72XtMOfGlCM1t58CIID4XPJh8ZOP+@vger.kernel.org
+X-Gm-Message-State: AFq9FYKbjwAUkk8KOMYTKHXhsUOPPCCTp8pIiGyfrN26aHsugt0/LP+X
+	NUdjRf6/V5w0bxNth7hLSaP/WfJ4MOh1HWUsJM42NDd6LaksZ9PXv/L7bBjcu6+Hz+EVoqAa96x
+	XliJDJN3tR+45CFMgtMLBDgOXynkSlFX0Wpf2zEmf
+X-Gm-Gg: AYBFou2UuwQtXZK1RCAwEXygkoP7iKwJ53F54vDuN0QSAh7lOyym48XiZ+ZRgYsAXjr
+	R9wuMmDsFnGuPgiD2rciRPQMck870YNcA9uwT+iJkSK3BUVLX3MHuFcwzyWwdr4OwAmAbbdOumL
+	noOWqm5oKKAsVFSb/1/rdAROhzJY/ofEUh4RpfvdqPtTYD4evHmEIe49v0tbEb9f0cIwJDukKxD
+	7mF2uMII0rwPUJCzBixbGf0vKBimfIBRk0rdmvHSTf3XlqVWV+5BdevBDzroVKVsrDAR4vVKDOq
+	Q7CHd8I9xSQhikoZTfRu2Dvp+B/FlwECNnJMeV9p/thrK+Bl5/0px59syGwov/kLwYTwlsbNYaJ
+	u6KX5eufq8xoB+kTn86rdu1+VlkrsSfNBYLLhX7ojgFcw1wAJgTODkn3xEnTFx86dFjE=
+X-Received: by 2002:a05:690c:2786:b0:8b0:88c7:f184 with SMTP id
+ 00721157ae682-8b14551034emr3963617b3.4.1792625064963; Wed, 21 Oct 2026
+ 16:24:24 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -129,214 +101,185 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020020925.3915548-1-linghui.wu@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=NrRE4MdJ c=1 sm=1 tr=0 ts=6ad948cf cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=Wc9Em7cJ86xyjQT5_ZUA:9 a=CjuIK1q_8ugA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-ORIG-GUID: qDDVCOKmioO1kwPncUs7k03QsSjWXXlQ
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA5MyBTYWx0ZWRfX+u1Nao7ja5qK
- /LCcd+HpuatnzWNWy/GSsUmfa0A1IMBWVV+cp+KIbHzO7BXKd58QXCiLhd2zzLKOM4I2AuJ72Ni
- IGS77xY++sJWLotYsA6WvYahjpGJZKQ=
-X-Proofpoint-GUID: qDDVCOKmioO1kwPncUs7k03QsSjWXXlQ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA5MyBTYWx0ZWRfX/2wjecJFtsyw
- fpK1nUR90TAbaWM8ndK64gOkQ0pd5VT70tpA9UCpFiNif1iQ0uKUNIWJV6ZrICuxfwXL1KTsWS7
- RNHhZ9KPy6DffvlP9mYjNGQc6lwvLMTvBjv7NDye4uXPwXp3WYrlO1TuxV9I70jwNgf38vgjmJZ
- zcs8b+mZvIK27K6lNlofMg3shP1OqvjkovGLzJhxymrwNZCwqt+0/4CHH5kl3FJe5mRACGOClvv
- 3vklguLoHX1qnXkeugBX/O3O0mVFIBQ374QQmv/VXHB+FmI0krMcXC1oJ/saTE8bxB09xq+DqXo
- Uf9yCiNN5MfexOWXucLlRgrAmMDQmaVkPwTtPNg2ZcNZFRkq/68gU8TEI13lch2npwRPsPhbZRp
- NF/9ocu/Lso9H43Ihpd+UdsMVS/rBaSDnss9uDUuGU2F8zUP6QgRw4Ey5xAeK6Q/GzMdsnFXPb+
- /fquxxF7YK7bO3Tr3cw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-21_06,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 priorityscore=1501 impostorscore=0 clxscore=1015
- spamscore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210093
+References: <20261019-send-upstream-v6-0-cb9ba4b3d6fa@chromium.org>
+ <20261019-send-upstream-v6-4-cb9ba4b3d6fa@chromium.org> <sashiko-outbox-178143@kernel.org>
+In-Reply-To: <sashiko-outbox-178143@kernel.org>
+From: Jingyuan Liang <jingyliang@chromium.org>
+Date: Wed, 21 Oct 2026 16:24:13 -0700
+X-Gm-Features: AclHuK8I92dDi-a24-arJkNbKz40DybvKa54bpvCtfeFFEOTon1M-6c-zRbUBhQ
+Message-ID: <CAEe3GZG3rHcRtHmg=vB5WdfsQ38Fghi_o80dSnsuaog2_xrieQ@mail.gmail.com>
+Subject: Re: [PATCH v6 04/11] HID: spi-hid: add spi-hid driver HID layer
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-input@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, 
+	dmitry.torokhov@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 20, 2026 at 10:09:25AM +0800, Linghui Wu wrote:
-> Add an overlay for M.2 Key-E Wi-Fi and Bluetooth modules on the Qualcomm
-> Shikra IQS EVK.
-> 
-> The M.2 variant uses the external module connected through the Key-E
-> connector instead of the onboard WCN3988 devices. Disable the onboard
-> Wi-Fi and Bluetooth nodes when the overlay is selected so the device tree
-> matches the hardware variant and does not probe the unavailable onboard
-> connectivity path.
+On Mon, Oct 19, 2026 at 12:26=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+>
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Medium] HID: spi-hid: zero-length report descriptor accepted in spi_hi=
+d_ll_parse()
+> --
+>
+> commit 9328ec8c48a0b55cf1019d845ec2c37e89f4cdbb
+> Author: Jingyuan Liang <jingyliang@chromium.org>
+>
+> HID: spi-hid: add spi-hid driver HID layer
+>
+> This commit adds the HID low-level driver callbacks and device creation l=
+ogic
+> for spi-hid, handling report descriptor fetching, buffer allocation, and
+> output/feature report requests.
+>
+> > diff --git a/drivers/hid/spi-hid/spi-hid-core.c b/drivers/hid/spi-hid/s=
+pi-hid-core.c
+> > index 02a7608c4b882..fca7a44eeb9f9 100644
+> > --- a/drivers/hid/spi-hid/spi-hid-core.c
+> > +++ b/drivers/hid/spi-hid/spi-hid-core.c
+> [ ... ]
+> > @@ -84,11 +185,484 @@ static const char *spi_hid_power_mode_string(enum=
+ hidspi_power_state power_state
+> [ ... ]
+> > +/*
+> > + * This function returns the length of the report descriptor, or a neg=
+ative
+> > + * error code if something went wrong.
+> > + */
+> > +static int spi_hid_report_descriptor_request(struct spi_hid *shid)
+> > +{
+> > +     struct device *dev =3D &shid->spi->dev;
+> > +     struct spi_hid_output_report report =3D {
+> > +             .report_type =3D REPORT_DESCRIPTOR,
+> > +             .content_length =3D 0,
+> > +             .content_id =3D SPI_HID_OUTPUT_REPORT_CONTENT_ID_DESC_REQ=
+UEST,
+> > +             .content =3D NULL,
+> > +     };
+> > +     int ret;
+> > +
+> > +     ret =3D  spi_hid_sync_request(shid, &report);
+> > +     if (ret) {
+> > +             dev_err(dev,
+> > +                     "Expected report descriptor not received: %d\n", =
+ret);
+> > +             return ret;
+> > +     }
+> > +
+> > +     ret =3D shid->response_length;
+> > +     if (ret !=3D shid->desc.report_descriptor_length) {
+> > +             ret =3D min_t(unsigned int, ret, shid->desc.report_descri=
+ptor_length);
+> > +             dev_err(dev, "Received report descriptor length doesn't m=
+atch device descriptor field, using min of the two: %d\n",
+> > +                     ret);
+> > +     }
+> > +
+> > +     return ret;
+> > +}
+> [ ... ]
+> > +static int spi_hid_ll_parse(struct hid_device *hid)
+> > +{
+> > +     struct spi_device *spi =3D hid->driver_data;
+> > +     struct spi_hid *shid =3D spi_get_drvdata(spi);
+> > +     struct device *dev =3D &spi->dev;
+> > +     unsigned int rsize =3D shid->desc.report_descriptor_length;
+> > +     int error, len;
+> > +
+> > +     if (rsize > HID_MAX_DESCRIPTOR_SIZE) {
+> > +             dev_err(dev,
+> > +                     "Report descriptor size %d is greater than HID_MA=
+X_DESCRIPTOR_SIZE %d\n",
+> > +                     rsize, HID_MAX_DESCRIPTOR_SIZE);
+> > +             return -EINVAL;
+> > +     }
+> > +
+> > +     if (rsize > shid->bufsize) {
+> > +             error =3D spi_hid_alloc_buffers(shid, rsize);
+> > +             if (error)
+> > +                     return error;
+> > +     }
+> > +
+> > +     len =3D spi_hid_report_descriptor_request(shid);
+> > +     if (len < 0) {
+> > +             dev_err(dev, "Report descriptor request failed, %d\n", le=
+n);
+> > +             return len;
+> > +     }
+> > +
+> > +     /*
+> > +      * FIXME: below call returning 0 doesn't mean that the report des=
+criptor
+> > +      * is good. We might be caching a crc32 of a corrupted r. d. or w=
+ho
+> > +      * knows what the FW sent. Need to have a feedback loop about r. =
+d.
+> > +      * being ok and only then cache it.
+> > +      */
+> > +     error =3D hid_parse_report(hid, (u8 *)shid->response->content, le=
+n);
+> > +     if (error) {
+> > +             dev_err(dev, "failed parsing report: %d\n", error);
+> > +             return error;
+> > +     }
+> > +     shid->report_descriptor_crc32 =3D crc32_le(0,
+> > +                                              (unsigned char const *)s=
+hid->response->content,
+> > +                                              len);
+> > +
+> > +     set_bit(SPI_HID_READY, &shid->flags);
+> > +
+> > +     return 0;
+> > +}
+>
+> [Severity: Medium]
+> What happens in spi_hid_ll_parse() if the report descriptor length is 0?
+>
+> In spi_hid_ll_parse(), rsize (shid->desc.report_descriptor_length) is che=
+cked
+> against HID_MAX_DESCRIPTOR_SIZE, but not for zero. Later in the series, t=
+he
+> commit "HID: spi-hid: add HID SPI protocol implementation" validates
+> raw->rep_desc_len !=3D 0 in spi_hid_dev_desc_response(), but if a device =
+returns
+> a REPORT_DESCRIPTOR_RESPONSE with content_length =3D=3D 0 (shid->response=
+_length =3D=3D
+> 0), spi_hid_report_descriptor_request() computes min_t(unsigned int, 0,
+> shid->desc.report_descriptor_length) and returns 0.
+>
+> Both spi_hid_ll_parse() here and spi_hid_refresh_device() in the protocol=
+ patch
+> only check if (len < 0), treating len =3D=3D 0 as success.
+>
+> When len =3D=3D 0 is passed to hid_parse_report():
+>
+> drivers/hid/hid-core.c:hid_parse_report() {
+>         hid->dev_rdesc =3D kmemdup(start, size, GFP_KERNEL);
+>         if (!hid->dev_rdesc)
+>                 return -ENOMEM;
+>         hid->dev_rsize =3D size;
+>         return 0;
+> }
+>
+> kmemdup() returns ZERO_SIZE_PTR (non-NULL), so hid_parse_report() returns=
+ 0.
+> spi_hid_ll_parse() then caches a CRC32 of 0 and sets SPI_HID_READY, and
+> hid_add_device() sees a non-NULL hdev->dev_rdesc and calls device_add(),
+> registering an unusable hid_device while bypassing SPI_HID_ERROR reset
+> recovery.
+>
+> Should spi_hid_report_descriptor_request() or its callers reject a 0-leng=
+th
+> report descriptor (for example, checking !rsize in spi_hid_ll_parse() and
+> returning -EINVAL when shid->response_length =3D=3D 0 or len <=3D 0)?
 
-You already got a question on GitHub and ignored it there. Why are you
-disaling onboard WiFi/BT? What makes it unavailable?
+Will fix this in v7.
 
-> 
-> Describe the PCIe and UART connections through the M.2 connector, the
-> 3.3 V supply, the W_DISABLE signals and the PCIe reset signal.
-> 
-> The Wi-Fi PCIe path was tested on a Shikra IQS EVK with a QCC2072
-> module. The overlay was applied, the link trained at Gen2 x1 and the
-> endpoint enumerated. Bluetooth UART and HCI runtime validation is
-> pending.
-
-Please don't send unvalidated patches.
-
-> 
-> Co-developed-by: Wei Deng <wei.deng@oss.qualcomm.com>
-> Signed-off-by: Wei Deng <wei.deng@oss.qualcomm.com>
-> Signed-off-by: Linghui Wu <linghui.wu@oss.qualcomm.com>
-> ---
-> Changes in v2:
-> - Drop regulator-boot-on and startup-delay-us from the 3.3 V regulator.
-> 
-> Changes in v3:
-> - Drop the unused reg override from the disabled TC9563 node.
-> 
->  arch/arm64/boot/dts/qcom/Makefile             |   1 +
->  .../dts/qcom/shikra-iqs-evk-m2-wifi-bt.dtso   | 105 +++++++++++++++++
->  2 files changed, 106 insertions(+)
->  create mode 100644 arch/arm64/boot/dts/qcom/shikra-iqs-evk-m2-wifi-bt.dtso
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-> index 1c86e7e98f55..799faa32e2d9 100644
-> --- a/arch/arm64/boot/dts/qcom/Makefile
-> +++ b/arch/arm64/boot/dts/qcom/Makefile
-> @@ -339,6 +339,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sdx75-idp.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqm-evk.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqs-evk.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-evk.dtb
-> +dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-evk-m2-wifi-bt.dtbo
-
-How does the Makefile handle eother dtbos?
-
->  dtb-$(CONFIG_ARCH_QCOM)	+= sm4250-oneplus-billie2.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= sm4450-qrd.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= sm6115-fxtec-pro1x.dtb
-> diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-evk-m2-wifi-bt.dtso b/arch/arm64/boot/dts/qcom/shikra-iqs-evk-m2-wifi-bt.dtso
-> new file mode 100644
-> index 000000000000..9496c6558eef
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/shikra-iqs-evk-m2-wifi-bt.dtso
-> @@ -0,0 +1,105 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/*
-> + * Copyright (c) 2026 Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +/dts-v1/;
-> +/plugin/;
-> +
-> +#include <dt-bindings/gpio/gpio.h>
-> +
-> +&{/} {
-> +	m2_keye_3p3: regulator-m2-keye-3p3 {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "VREG_3P3_KEYE";
-> +		regulator-min-microvolt = <3300000>;
-> +		regulator-max-microvolt = <3300000>;
-> +		gpio = <&qps_gpio_expander 6 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +	};
-> +
-> +	wifi-bt-connector {
-> +		compatible = "pcie-m2-e-connector";
-> +
-> +		vpcie3v3-supply = <&m2_keye_3p3>;
-> +		w-disable1-gpios = <&tlmm 61 GPIO_ACTIVE_LOW>;
-> +		w-disable2-gpios = <&tlmm 60 GPIO_ACTIVE_LOW>;
-> +
-> +		ports {
-> +			#address-cells = <1>;
-> +			#size-cells = <0>;
-> +
-> +			port@0 {
-> +				reg = <0>;
-> +				#address-cells = <1>;
-> +				#size-cells = <0>;
-> +
-> +				m2_e_pcie_ep: endpoint@0 {
-> +					reg = <0>;
-> +					remote-endpoint = <&pcie_port0_ep>;
-> +				};
-> +			};
-> +
-> +			port@3 {
-> +				reg = <3>;
-> +				#address-cells = <1>;
-> +				#size-cells = <0>;
-> +
-> +				m2_e_uart_ep: endpoint@0 {
-> +					reg = <0>;
-> +					remote-endpoint = <&uart8_ep>;
-> +				};
-> +			};
-> +		};
-> +	};
-> +};
-> +
-> +&{/wcn3988-pmu} {
-
-Add a label to the PMU and update it by label rather than by the path.
-If the path changes, this node, I think, will happily create a new one.
-Using label will generate an error.
-
-> +	status = "disabled";
-> +};
-> +
-> +&i2c3 {
-> +	qps_gpio_expander: gpio@3c {
-> +		compatible = "nxp,pca9534";
-> +		reg = <0x3c>;
-> +		gpio-controller;
-> +		#gpio-cells = <2>;
-> +	};
-> +};
-> +
-> +&pcie {
-> +	iommu-map = <0x0 &apps_smmu 0x0800 0x0 0x1>,
-> +		    <0x100 &apps_smmu 0x0801 0x0 0x1>;
-> +	vddpe-3v3-supply = <&m2_keye_3p3>;
-> +};
-> +
-> +&pcie_port0 {
-> +	compatible = "pciclass,0604";
-> +	reset-gpios = <&tlmm 118 GPIO_ACTIVE_LOW>;
-> +
-> +	port {
-> +		pcie_port0_ep: endpoint {
-> +			remote-endpoint = <&m2_e_pcie_ep>;
-> +		};
-> +	};
-> +};
-> +
-> +&tc9563 {
-> +	status = "disabled";
-> +};
-> +
-> +&uart8 {
-> +	bluetooth {
-> +		status = "disabled";
-> +	};
-> +
-> +	port {
-> +		uart8_ep: endpoint {
-> +			remote-endpoint = <&m2_e_uart_ep>;
-> +		};
-> +	};
-
-How does the UART switch from the onboard WiFi/BT card to the M.2 slot?
-Is ther an automatic switch?
-
-> +};
-> +
-> +&wifi {
-> +	status = "disabled";
-> +};
-> -- 
-> 2.43.0
-
--- 
-With best wishes
-Dmitry
+>
+> [ ... ]
+>
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019-send-ups=
+tream-v6-0-cb9ba4b3d6fa@chromium.org?part=3D4
