@@ -1,64 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792601316;
-	b=Sq5DXw/fHCrvhxuk6ROUikb9uB16pv75FHv4n5yYi/qV86VdagqsLS6+AzehEUvcAl8O
-	 hlwbsECqaKCY6XRb0Ft8YmYd075WHnedJVuMY6IG8CD/GU9K7fYhJj76Eu4IitltK6nwn
-	 zuba3Xjs1heW0bQCDTFKVMtfWJvFj2hxRWYbAW48id+rK6JJYRU6Tdd4aqFz9zjS2BlnZ
-	 lqemERSIL6h/btgmZbsEgc2DQUHqZFqtZHNN5gaAROhwdQpdHFkcNE6D+knGjdy0OpN8U
-	 dNH/M6xaVvf9mOOCGwvvFdush9Xy/QTjOJvRJp3hr37GtO9w520C0R9u5U3kgiDADbg==
+	t=1792601486;
+	b=N9XZOZqfDQ/x9QqgyESmWhL2nflGmtmBvr78jVwzSA0vmrfNPcTJ0Ir+TTRUzNFxHdav
+	 fycA4PCqGg/Ja9SQrJXQ3LuCkVKlfI0xTnKRlcvfjbDipHzJWLlfv0+P0JbytKLxI4/bI
+	 YybbmD7cQKwNHASdiiTiypUo2Y8K1yCvzTJ68ROH0GTL1M/bU6ok0odPoC97S2vgc0xWa
+	 jDEAbwSYtpElqqHaI2DKxzjYE5W0GcjkgmPKWVftL/ci7juGlGC0aYULhUaefZ6bey1mn
+	 wRIrwP0cgiXII38HirrhqS5psJEsxbH1fMrEZkY+T634FBNHcbF0sgEaYg/1n1fxzqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792601316;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792601486;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=9Ut8c+AZuSz932GtggMAvxx5Mv2G1n5Wb+a4bDunPnY=;
-	b=aih+fUPiuoJ2xTFix4rjfIZlVjpnOyYne9b4VWSqce+CPDR4AZMgeALO8Wsf9fPI89sj
-	 KGoFsBTC77rp3Jhu97pnSpQUoaOZvPVQhB4yWYTEODXr7933hIoFwk0AB9UjCzLGqZ+kK
-	 47GXO3lAdnqBPrKNz1MIX6iI5dk5uaEpXPtUA1y20awiiYciWbBmpiCm7GEx5+fFZ5mnB
-	 XXQqqfeywqTPlLgHrPeTxHrlRg+FytwY5GBX6sE/xFZH2VsbbwEdrXxJv4DbjxXuDAv/R
-	 p1iViTRujCgl51NhOqKokxzcoYTK8wRpNwl0Ih1/StxJttOQzakSsvQJxRLz1gLsXag==
+	bh=hbdnG3aoWSjBlncyLDUr+YRS4FjLyxq83LeGwvz/hKs=;
+	b=SZgQKnEOBZU8c3NwmBcJAKvxhRE0ujQ0Evkhal8a+1T/rPq/hXyFOQVJf7qwzuqz1EWr
+	 y/46v/zz/2y5MnhWTOC08uDkAMR4tOkgkcftGOsHfbefYkxoUXgrvMfo3RJMQKP3Vo5xm
+	 ybUo4va4GH1o+GwkqhBJfMHw0E1QeD1x76db9lZVYy1jnJhC62gFZ07jWTTcK/zyuARPj
+	 6qick1F7fh6QSON6QkhoY2u+R8xluCfVDX8yF+lwnmPjS5vRaVIg+DxKM2VU5kR5Qo96F
+	 8kvFpjNRo1VbaUqb0eUuj0jwsLBsaax3tMczPBJm5Oxc/ff+kPt438POqOSzsfqq5FA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H7jASWXJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YjXyREZc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B19C606A319;
-	Wed, 21 Oct 2026 16:48:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5794606A31B;
+	Wed, 21 Oct 2026 16:51:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H7jASWXJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F9651F000C1;
-	Wed, 21 Oct 2026 16:48:32 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YjXyREZc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E5381F000C1;
+	Wed, 21 Oct 2026 16:51:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792601315;
-	bh=9Ut8c+AZuSz932GtggMAvxx5Mv2G1n5Wb+a4bDunPnY=;
+	s=k20260515; t=1792601485;
+	bh=hbdnG3aoWSjBlncyLDUr+YRS4FjLyxq83LeGwvz/hKs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=H7jASWXJYxQ4hb4kaSVYl1bH/F8jjVE/z66upPmBE9mhvahtR0JcieefGCapbvyFY
-	 7CLdjFtkc2a8Yz+7llAD8Hi/Z/G71yo07YRiry/spOeXALQnOU6okOnhrtSYHLQFT/
-	 NF+6sn+09NKKaj9aXGVWtf7sJA8b+05sqV5o5QeTbs94HaxEkS1FUS9nQxbjdg5wC/
-	 Nua7eacxO792+7UsjysfULdn0Qgme+4zhhali8ZkxBRp0UoM7VcgG2GoUORhtJeeZI
-	 ESN+kcfKTeAh92Ap79KCrk6EEIOI00z1+RuTaDMGTW9Ks7/K328EMnURLnisocBLlT
-	 N5xMwOCPugFPw==
-Date: Wed, 21 Oct 2026 17:48:31 +0100
+	b=YjXyREZcH8yb45lqeO/8RH9JKij2ZqO7EHrVipYnPOmBwYcw1pJy+Hz1HbSBmnptP
+	 Omw1hBypC9C3EQu7lVhxxJ4gaIoRCKJGAmc43bpG3S7xv/omZQFcIQKbwZkrt+rsR9
+	 mJeDlyM4J+8FVBoBoU4AxR1+pX4xOffZSaXt2YvwGNI8AR3C6EQbFVABCFgxeSQRtr
+	 ETg3g/WRdI4zIVPAimBBU27S3DxO7J8Uw49ovHhwSQp4qJd1tY5tHeY3s/iwoAb8Yn
+	 P5Yn7qovs6KbGaCmtO7LAanMnUu3H4i9/Ut3LlE+/Z2RTOhvPOt59YTjM/z30O+i9i
+	 D/x/VjI4hD2Fg==
+Date: Wed, 21 Oct 2026 17:51:22 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Cc: Jacky Chou <jacky_chou@aspeedtech.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Po-Yu Chuang <ratbert@faraday-tech.com>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v4 1/7] dt-bindings: net: ftgmac100: Make Aspeed
- compatibles standalone
-Message-ID: <20261021-hedge-fiscally-9d2988325ed0@spud>
-References: <20261020-support_ast2700-v4-0-4d36b40939b3@aspeedtech.com>
- <20261020-support_ast2700-v4-1-4d36b40939b3@aspeedtech.com>
- <20261020181441.GA510274-robh@kernel.org>
+To: Xincheng Ji <jixincheng@ultrarisc.com>
+Cc: sashiko-reviews@lists.linux.dev, devicetree@vger.kernel.org,
+	robh@kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH v4 7/7] riscv: dts: ultrarisc: Add Milk-V Titan board
+ device tree
+Message-ID: <20261021-badly-issuing-847ac366c9b9@spud>
+References: <20261019-ultrarisc-dts-v4-0-3979747cda2e@ultrarisc.com>
+ <20261019-ultrarisc-dts-v4-7-3979747cda2e@ultrarisc.com>
+ <sashiko-outbox-176776@kernel.org>
+ <179246063943.3442927.10941907832509473109.b4-reply@b4>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,71 +61,72 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="yHehAASBh68+XO8o"
+	protocol="application/pgp-signature"; boundary="6HsWZr+ABwcYqoMX"
 Content-Disposition: inline
-In-Reply-To: <20261020181441.GA510274-robh@kernel.org>
+In-Reply-To: <179246063943.3442927.10941907832509473109.b4-reply@b4>
 
---yHehAASBh68+XO8o
+--6HsWZr+ABwcYqoMX
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 20, 2026 at 01:14:41PM -0500, Rob Herring wrote:
-> On Tue, Oct 20, 2026 at 07:34:12PM +0800, Jacky Chou wrote:
-> > The aspeed,ast2400-mac, aspeed,ast2500-mac, and aspeed,ast2600-mac
-> > compatibles are currently only valid when paired with the generic
-> > "faraday,ftgmac100" fallback: if a node ever bound through the
-> > generic entry alone, ftgmac100_probe() would set
-> > rxdes0_edorr_mask/txdes0_edotr_mask to BIT(15) instead of the Aspeed
-> > BIT(30), skip Aspeed clock setup, and leave the DMA mask too narrow.
-> >=20
-> > Make each of them a standalone compatible instead, so none of the
-> > Aspeed compatibles require the generic fallback alongside them.
-> >=20
-> > Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
-> >=20
-> > ---
-> > ftgmac100_of_match[] has had dedicated entries for AST2400, AST2500,
-> > and AST2600 since commit 03a2aba50b2c ("net: ftgmac100: List all
-> > compatibles"), so there is no known kernel + devicetree combination
-> > where a node has actually bound through the generic entry and gotten
-> > the wrong EDORR bit. This part is a binding correctness fix, not a fix
-> > for an observed failure.
-> >=20
-> > Note that arch/arm/boot/dts/aspeed/aspeed-g4.dtsi, aspeed-g5.dtsi, and
-> > aspeed-g6.dtsi still declare their MAC nodes with the two-string
-> > "aspeed,astXXXX-mac", "faraday,ftgmac100" compatible, so this will make
-> > dtbs_check warn against those files until the redundant fallback
-> > compatible is dropped there as well. That .dtsi change will be sent as
-> > a separate series through the Aspeed/arm-soc tree, since dt-bindings
-> > changes don't go through that tree.
+On Tue, Oct 20, 2026 at 09:43:59AM +0800, Xincheng Ji wrote:
+> Hi,
 >=20
-> No. This just creates unnecessary warnings even if only temporary.
->=20
-> What a driver uses doesn't matter. That can evolve over time, but that=20
-> doesn't mean we change the DT schema.
+> On 2026-10-19 08:08 +0000, sashiko-bot@kernel.org wrote:
+> > Should the label properties be dropped from led@1 and led@2 here?
+> >=20
+> > When the PHY driver probes phy0, the call chain:
+> >=20
+> >   of_phy_leds() ->
+> >     of_phy_led() ->
+> >       devm_led_classdev_register_ext() ->
+> >         led_classdev_register_ext() ->
+> >           led_compose_name() ->
+> >             led_parse_fwnode_props()
+> >=20
+> > checks for the deprecated label property first in
+> > drivers/leds/led-core.c:led_parse_fwnode_props():
+> >=20
+> > 	if (fwnode_property_present(fwnode, "label")) {
+> > 		ret =3D fwnode_property_read_string(fwnode, "label", &props->label);
+> > 		if (ret)
+> > 			dev_err(dev, "Error parsing 'label' property (%d)\n", ret);
+> > 		return;
+> > 	}
+> >=20
+> > Because led_parse_fwnode_props() returns early when label is present, t=
+he
+> > color and function properties on led@1 and led@2 are never parsed and a=
+re
+> > completely ignored at runtime.
+> >=20
+> > In addition, Documentation/devicetree/bindings/leds/common.yaml depreca=
+tes
+> > label for new bindings in favor of color and function.
+> >=20
+> > Would it make sense to remove label from both nodes so that the LED core
+> > uses color and function to compose the standard LED names?
+> >=20
+> Thank you for the review. I understand that label is deprecated in favor
+> of color and function.Since the LED core still supports parsing label,=20
+> would you consider removing these properties necessary for this patch,
+> or more of a naming convention cleanup?
 
-The reason I suggested changing this is because the device used as a
-fallback compatible is apparently not actually compatible at all and
-were it to be used the device would malfunction.
-The original code (from 2016) only worked because it checked the machine
-compatible and slightly later on matched on the ftgmac compatible but
-then explicitly checked for "ast2400-mac" etc using
-of_device_is_compatible().
+You're asking a bot that will never reply to you.
 
-If you don't want the current stuff deleted, then at the very least it
-should be marked deprecated and the standalone aspeed compatible stuff
-added alongside it.
+I'd say that if the analysis provided is correct, then yes you should
+since the deprecated property overrides the replacement properties.
 
---yHehAASBh68+XO8o
+--6HsWZr+ABwcYqoMX
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatjs3wAKCRB4tDGHoIJi
-0iQVAP0d7Qt2pc38bsMe7twK7g/vPpMDjTATJMUxmCwKoQ8g7gEA4M6fAgsHYsgt
-qzMyDs7hUcuLTRYcZT17iHeP2I8w9AU=
-=v2Uv
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatjtigAKCRB4tDGHoIJi
+0qdHAQDJg7mVMZXbo3JBiVLR3Y/nJfObiBpvzM2Aksowbu4v5wD+Kki94ll+8U+k
+TLLC37znTzsBVhizgYQFByMjNA36Gg8=
+=dTSb
 -----END PGP SIGNATURE-----
 
---yHehAASBh68+XO8o--
+--6HsWZr+ABwcYqoMX--
