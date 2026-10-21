@@ -1,100 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.179
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792585739;
-	b=AGjuphntTKDl5GERcpRqN9tsoQ1yuqWL0lnuuNzI9MIhCxcybKTvObPu0EF6AJpB7c7e
-	 VzfF9ued3k66toPqGYJedBzj4QWjnudBi80EuXCS1vn3mZZumb6Y1sB6xMLbgHTyxs8s4
-	 13XX+ZtvFsaKeFwDVaMG3BPZj2iIDoiN6FDdOIvzbUuq5VJ4qJ33xBDIDtROSujC4/pzJ
-	 ApMcXuxUy4eh9LvNem3sUNRSyvqaojN4boaZq80I53ehLCIuSbyjXmBJceHMIVQtyPD0M
-	 +ns4vrFqTSeY94Ssav1FuOEBfvez3+yKzN2pSe5wiElTGC/z65XXvXLjMt7tGrv9t2Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792585739;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.182
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792586132;
+	b=fvPnPdURPHDB+SlPJzS/+DpX+xKBL9eSP29AYdlRHOll5VpiLt1ZYqO3lQTGUYl3vWBe
+	 hS1+SIgf9sz0iih8ScPPFsZdyciQDNpKlCdcXhmngCoEV+SmhdjAvFiw8S4ceoeBOtUT3
+	 Dd9vjfLBWHMrLLl3pAiPx4H7dF4gqahS4q6fdeSMd4iBOS8isk2HbpiItkuu93kTmf0Dz
+	 cHzGykMLar0LtY812LY0Yu+VdLamj9qbZJMUgjNPAzVpRZ8LaQx7ydKNQNmgFPhzcXCK7
+	 pRXLz4S8xvCIO0GrNX+QcTHhyXyjwWMqaiYo7br3Z1HgYN3H3caxNr8ttne+0KiX1sQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792586132;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=g4O8khcTpJs61vFbjSBcX9Y11r4LD3txGBsj73SOpGc=;
-	b=2vPiakPH3+sNH0W7TE1LEBGpnEpbt8xOYDoWbZCbYLatkEs9wFfBS9+VXWWWhlt8kwnG
-	 l8N7iINwH/u7BK0+ufaAbAVolQRYW6qZJl8DJU9/IrYYlxNRIkAyzJtb7yE8YL2Xp2C7T
-	 wo0blwIYcRscCScvqcuQ2eNAimvkZQXfNXWE74zckB+ATS44h+/ratJAOmnrdNjE7G6Pb
-	 pVY9kHmZEjRxma6TM6QCPKyXgT0ggO3mUGtCunT19QSVj5Opk/kv8VG8/e1sHyCeLBnKs
-	 1qP/NdbShC/IgqZYBE1H1rYyByNb/pEDcms7ybefeWNZ1amYjfOU3rScw+RwW307mXw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=raspberrypi.com;
-	spf=pass smtp.mailfrom=raspberrypi.com;
-	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=iWHcQh1I;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.179
-Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com [209.85.167.179])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=EYl3M1lNXMEDde5L6u4dnJnpfbfwZtPoUfD3SBMHOns=;
+	b=C9Gh5cyWuySVrS+Zj4QZ+/+JQGTO8SfTab4Y8siIE8OUoUn7QkrD+ze3OXZImuMxvkxA
+	 X0CRZ+GNfkFNWIItbBZB4b8StXrWEt0QAAbME8rjXwyy4RPAdwY42yMbIKNZpFjIg3Jvi
+	 zWzWChM5SAWQOm+PQC/6V2TlHSC2GhEjXE5hO38G2cwpr67+dFQK/GKbFHHBK9JeYfMaK
+	 7IUdb/DIZUvIAhHKMX8R2Wk/4EtQMUJYvCJX3dXFroPdpNlfF6s/FoleFp9wlb5NzPv61
+	 ihgHHUngEpL3y08RnQV+S1xzJeuAhgS4c2RahHJMlJzxuxn8/cx8FnnR0TZn+WNvjDg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PjUj8vec;
+	arc=none smtp.remote-ip=209.85.210.182
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3515E606A325
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 12:28:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3515E606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66755606ABC1
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 12:35:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66755606ABC1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=iWHcQh1I
-Received: by mail-oi1-f179.google.com with SMTP id 5614622812f47-539a57a0b1fso234135b6e.2
-        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 05:28:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792585737; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OuF2L6AB+A1xQgJRC6l3PdNMLAf6C7Z3TeigsZfRBkF4Mrvkwv+dvRxs43aZ5LFlW2
-         cC0M/e0m10gdCngHK8OKeS4n/6SDmnmMwnKabVL+o2/iC871D9nKSATHTBxBsPdjyFKJ
-         JYJMDAhIoAyriUcw71L/8dAWFh3fC6taJmde2XMUdtJsRtxNMVfFKdI16H6SIF/WmlUq
-         cBjM6/EJwgMXaxIDyXVSWavQ+ezQ/cJHTiGCwnf9lKWTEygla2hBAy+yMdKVx9MfL6Bx
-         +ZmNqMIHwzzmOnZ/2ijYE7n4AiT6FBArpTHlTvyf3LI5mBEk/DHXvHh0qFSkl6ogHV7B
-         3t7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=g4O8khcTpJs61vFbjSBcX9Y11r4LD3txGBsj73SOpGc=;
-        fh=EhVyRNMgftudRIyjC3LVCnTrpf+Cuj8P6cw3tAkELzU=;
-        b=GlnLAbW2mE8AxxJ8vug7ClPPUZZ80CPz41TuYRFcuGmllIrdGXIgsBByCOJ3rjDiOb
-         f5shvNkcOvK60XENLVT6DEu/LiZOtlwLFRduB7Lm1QsJmbqYMWdb1NwaADSV4X/LeTkB
-         DMo4jBveq0naQmdCtvbj35dopoaRY8BWqG9rm/+hIJkArpjvar/6fz6+QqEHIKR4plpw
-         v141gSId57IOytUrSlf+yRpRUO+DYtXH7TCkspEtNov1Ah1ccJVdEcwfLZ2ElmUaaG3Y
-         wY3NhG3O0edxufaEyEgwTpn3NYl5DA0y3fhvWBNRk5E7tF2GnC6Zm70CDPnGtE97V/4e
-         ccSg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PjUj8vec
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8a06ca6e8f4so473646b3a.1
+        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 05:35:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1792585737; x=1793190537; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=g4O8khcTpJs61vFbjSBcX9Y11r4LD3txGBsj73SOpGc=;
-        b=iWHcQh1IkvrgBrClBwmWfgr3B+2jRDqd4IWd9LwEJb7K6SmshP2PV5Dtkw2GLp2RD+
-         qTbDBnMJMqbsHCqqFkxeL7vW6geii9ppcHt9EJkuN9x5MSobo+B8s/EwhXIddAPdt2WV
-         KWwJbtYMAZQOhR+FIwn+9bdedWylxmkzE8oOGmRaeFhFXzKH0tE2nqh7akNsDXWcuTxZ
-         kn59h2zGgB+OCgK2stCKv3ItGkY8c9vQqi2mtF18p5r6oWawRhg0jL3Yeer3yoGNEITc
-         CMgm5HRAmDhAwNULU2HsjXbMPbPZISDpQVFnGj4XekNiPJX3zJzcYMPKGPk1u+OaKJp2
-         PIFw==
+        d=gmail.com; s=20251104; t=1792586132; x=1793190932; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EYl3M1lNXMEDde5L6u4dnJnpfbfwZtPoUfD3SBMHOns=;
+        b=PjUj8vecJnPAGe8RjqByiqB9Srfv7qD+YdaBM9MTShzsDrCv3AH3hAc01+sYO+TKRb
+         TkIsKinZrL9cGdn8qFZsc9EjFHEQyMTtqXTHYev2UIYSsHSq6027+d2XcC19O5SKBbBI
+         e0cGzJbTCZapOzoWLitTWVVGHDKTelTsV8b+/m5Zwm9ghPJBcKeO82EPP7MnZEzbTDrl
+         03s4vXZdPYi0bkhNWHy4/hU7TXOfYx922XT1dTUB2seX03OY5yShOt2w18IXjCsUllF9
+         mnmz9oSvP5+bSFk652m05RKZ3n9vTsUkR/sJFcjf3cOXptD4ZTfR4llnP95fM5TdVmEU
+         EiiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792585737; x=1793190537;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=g4O8khcTpJs61vFbjSBcX9Y11r4LD3txGBsj73SOpGc=;
-        b=jdH3FMs6+A0AuQAeWu41wJTgq6JQ75T8+8XhOkzr90kRYEr8OUBNscb7+9UeY5G6t+
-         TP9zjfwXhbwMaRvVZjImz4RVW03GAQribUMsS3Xg75dWk1hrBC0eqHq7ktfW4n9yK9NK
-         t1EbsFQMJM9I4IM98qIWR9jaDXMMDnEYtwybJJWEThZNVUSadNo1h47dxB2IrbIRsUc9
-         Oa5bTfepJEfSe8tHFWR8ik9e94eQkLXq00j8rSqEYnzdAHNQTSgUyFi53fDk76CElk0z
-         xHNk2yhpVQTXZhOYtDo94bQZg1042Nos6yOzOutrqlO5lhvWDK7uZ32AKxm8dWinmEX/
-         znEw==
-X-Forwarded-Encrypted: i=1; AKwUvBz+Jj4KshsquPilIRCLhPhFFfqrBVdRpNLTuKrIps0f9iYx9TrWjMKBQoGoRi4La+8TSzvHrgzdzBS+@vger.kernel.org
-X-Gm-Message-State: AFq9FYIx/0wuhcXSEk5Wa6IF68qbfxNYjLc+VKVV8GLIjRgvNVjhycHU
-	2/UJzsRY0tVP10DuJrk3wCMntE0TiPT+3WxdWZ4yH+CnfDTXiHuXUkYuKjUl158I7WSilcgW+ts
-	1IeY+j6wrx60rPwzbFzN3+DLBBsxqHk6g0yIRBbkbWg==
-X-Gm-Gg: AYBFou3Xwh2BojfsXHQAmxuejbrzUADX3Qfy1aTnXUG1gNLGK1k1B3CDthjpkOmcm1J
-	TOmNj99a1hwQG+d00DxUwh/N8saoc+O1ZssAi5a0RRaFAdvyGfLxo6KYTBajsgOJljXduJ8DSo4
-	c7EzsyevOsD3rjdtwxvtMg7ERFawIXUNLoKdgue47WLJYPMRTbbPbdMrRoAdhj6pGZVfjqlvxGs
-	A3JWnJZECT0KRsaB2E5MPJDtlV8sU9V/X0kI2Ur1aWil2vyRcgka2vKjZSS9tNi9Fj95P+QVCVJ
-	HeOaSDoWuMlP7ATcfD2mk+yDaJTlDzdlucxZA3q9xxFV+Ium7N39Z27FlSo30DGmGqzk9KqH4K8
-	p/gV3YF5uEuwgjp9rrKgU+6JjQU83I2i4yCwkwp8YZ452hCzH+yYs91TBVXEIwOWAY1kPSHDaTC
-	engLfp6fqqYHRIh5aySWET4Myf9rQSFDKccZorOR64Db/TaL7cW2BM4Q==
-X-Received: by 2002:a05:6808:4482:b0:4d3:9029:5ab3 with SMTP id
- 5614622812f47-553585760c1mr1050030b6e.35.1792585737133; Wed, 21 Oct 2026
- 05:28:57 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792586132; x=1793190932;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EYl3M1lNXMEDde5L6u4dnJnpfbfwZtPoUfD3SBMHOns=;
+        b=QnXVhmJhsDLbua+6JFjeUUo+PjCGpYTNMe4zSAwwfEytzq0eYbbUF9ekJJ64WvTz4d
+         w4byNdff5OGxRJUABPdBQl3TWiDP6KzfFkM8IQu+uIlLMDfFP30JIrHwlVr9t1XU6SH2
+         qV8u3OgrN0bC5+Be8hvv4LJiioi2HJsm1WXdwQ/L5bQXn7OMUjTPI8ee5vwDgT81XFzJ
+         R1ROInBgOPSdA2jN8IjkcZdrStvs4s8cid0tbIO6HjrRF7aq292Baw+0Oq4byGzukXVy
+         DrlJVJdDM0me8haVM8eTpEJoesqd6vPtjRyt1jneTNEoG9fynrcvSjqiTQoWfdMnxZJv
+         m5iQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxLrKJ1NBEa8PyHtCg4GYiPbkVjUb9CU4Dotz4UcxNCNBG/lHcwu0XRH8jPLiPbl3ZUpRB0v4p+4LVq@vger.kernel.org
+X-Gm-Message-State: AFq9FYKMiUmSTP/z6p+PhJLx+5+ota5/rXwSz40wyVjam74K1zLs7BeR
+	zcGQAg7CGiyghTAtVDN9IM43Z9Lsi8MNkT2lsq1kpzhG7bbsb5clq7Ns
+X-Gm-Gg: AYBFou1UvLhXIqL9VOoIdHbuF7MIrnG3+aOluk9NdYPxbg7OpTIaYnyCavm4QCrsF65
+	tkb6n2NFVs1DWdud5purKkqMxj9auP8RLRlImvusqmq70A2jHKxx6mavovgI0UqfQG0yTStSRgD
+	Vxm2/G4pKg1bLzAqFL+w0/qIgxsTL7Cha9+bWvkK9yyHAa/VG2xd0n1KQWwlxdh3Tp+dlUrfRWp
+	ewjXTvQ1zuc+DO003r9DZiVomgjn4eIP5brRe0BfQFe1cqO+S3SP3xqrb408ggZz3hbeplN2Xi/
+	v5q0zGR/NTh+g3EOlPVm8So0A+BXXGiIm0ebKf2sZIvOrxNA3sDg9IHzhUE2QF04hc32y+f+DdR
+	lMhBI7jdj0cJfL2T2d/fHqigdLcmKhYtpxn0M7R5Hiznm49Y+E3zuCMfQMEbqQuS+SoiBB3QSBn
+	xcCB+QvBGrn9GniPkf7uUmHx9ZBl5qE5X4MmBORxgpxF89s8wUn0ttumdjuDIpAa/bYZT17bHb2
+	GFwLlp97W+PoGPLzGFRXVBH2RNx6/NZd1oX546+XLXAxb7ctMVjk/Otuc54r85LYV6xyeXJ9yd1
+	fn28ZO0=
+X-Received: by 2002:a05:6a00:998:b0:89f:1b32:29a5 with SMTP id d2e1a72fcca58-8a089c4294dmr1551510b3a.7.1792586131851;
+        Wed, 21 Oct 2026 05:35:31 -0700 (PDT)
+Received: from FLK-B04Q314.global.tektronix.net ([87.58.102.86])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a0894b484esm825732b3a.13.2026.10.21.05.35.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 05:35:30 -0700 (PDT)
+From: Krzysztof Kaszubski <sympthicode@gmail.com>
+To: Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Fabio Estevam <festevam@gmail.com>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Alice Guo <alice.guo@nxp.com>,
+	Peng Fan <peng.fan@nxp.com>,
+	imx@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] ARM: dts: imx7ulp: Add TMP6 PWM node to i.MX7ULP
+Date: Wed, 21 Oct 2026 14:35:19 +0200
+Message-ID: <20261021123522.346317-1-sympthicode@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261021084602.121087-1-sympthicode@gmail.com>
+References: <20261021084602.121087-1-sympthicode@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,100 +107,47 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019014720.2635-1-lachlan.michael@sony.com>
- <20261019014720.2635-3-lachlan.michael@sony.com> <atdGr8S2sf1kZFUw@kekkonen.localdomain>
- <20261020125630.GA158670@killaraus.ideasonboard.com> <CAPY8ntBUncMWB2DqFG+iS9gFgW2aaeyMrD6x-c_4Da7rJDv6Mg@mail.gmail.com>
- <atiogo14sCFw4xlT@kekkonen.localdomain> <20261021120521.GA273922@killaraus.ideasonboard.com>
-In-Reply-To: <20261021120521.GA273922@killaraus.ideasonboard.com>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Wed, 21 Oct 2026 13:28:40 +0100
-X-Gm-Features: AclHuK9hqxcMJ0HhysTs5L34pzu1OSW612PUOHHd1l1X6LjoVQ847rGG4xISb-Q
-Message-ID: <CAPY8ntB6bbdX+3drOjubV4dNAxxKgNmHoE+uZ_1JmQ2-Y+ocbg@mail.gmail.com>
-Subject: Re: [PATCH v5 2/2] media: i2c: Add Sony IMX908 image sensor driver
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Lachlan Michael <lachlan.michael@sony.com>, mchehab@kernel.org, hverkuil+cisco@kernel.org, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, kieran.bingham@ideasonboard.com, 
-	jai.luthra@ideasonboard.com, Ryuichi.Tadano@sony.com, Kengo.Hayasaka@sony.com, 
-	Tim.Bird2@sony.com, Kazumi.A.Sato@sony.com, Yuji.John.Takahashi@sony.com, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Sakari (and Laurent)
+Add the Low Power Timer/Pulse Width Modulation Module 6 (TPM6)
+node to the i.MX 7ULP device tree.
 
-On Wed, 21 Oct 2026 at 13:05, Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> wrote:
->
-> On Wed, Oct 21, 2026 at 02:56:50PM +0300, Sakari Ailus wrote:
-> > On Tue, Oct 20, 2026 at 03:50:09PM +0100, Dave Stevenson wrote:
-> > > On Tue, 20 Oct 2026 at 13:56, Laurent Pinchart wrote:
-> > > > On Tue, Oct 20, 2026 at 01:47:11PM +0300, Sakari Ailus wrote:
-> > > > > On Mon, Oct 19, 2026 at 10:47:20AM +0900, Lachlan Michael wrote:
-> > > > > > The IMX908 is an 8.39 MP (3856x2176) CMOS image sensor with a MIPI CSI-2
-> > > > > > output interface. The driver supports RAW10 and RAW12 output formats,
-> > > > > > exposure and analogue gain controls, image flipping, blanking controls
-> > > > > > and test pattern generation.
-> > > > >
-> > > > > The imx908 appears to be a Starvis 3 sensor. How close is it to the Starvis
-> > > > > 2, for which Dave (Cc'd) is working on a driver (see
-> > > > > <URL:https://lore.kernel.org/linux-media/atdAsDGw_jvhaydM@kekkonen.localdomain/T/#m0c50ea017ef9ae0d3d76a36b840db9b6f7ac296c>)?
-> > > > > The register defines in the two drivers appear to be quite well aligned.
-> > >
-> > > Asked and answered at v1
-> > > https://lore.kernel.org/linux-media/TY6PR01MB17839FF48671E744E7E23A93E92D42@TY6PR01MB17839.jpnprd01.prod.outlook.com/
-> > >
-> > > > The current version of the driver implements very few features of the
-> > > > IMX908 sensor, as crop support has been removed pending the raw camera
-> > > > sensor model, and Clear HDR3 is being developed. I expect more
-> > > > differences to appear when those features will be merged, so I believe
-> > > > it makes sense to have a separate driver here.
-> > > >
-> > > > In the future, I expect the raw camera sensor model to open the door to
-> > > > more code sharing and more drivers supporting a wider variety of
-> > > > devices. We can decide then if the imx908 should stay a standalone
-> > > > driver, support other sensors as well, possibly across the Starvis 2 and
-> > > > 3 families. I'm willing to help with the refactoring at that point if
-> > > > needed, the maintenance burden won't be on you (and I'm sure that
-> > > > Lachlan and his team will of course maintain the code base).
-> > >
-> > > Agreed.
-> > > I have compared the datasheet for imx908 against the Starvis2 ones,
-> > > and when we start looking at HDR modes they diverge a reasonable
-> > > amount.
-> > >
-> > > Even the later Starvis2 sensors (IMX585 and IMX676) have minor changes
-> > > to the earlier ones, so adding Starvis3 would need some care.
-> >
-> > There's quite a bit of this in the CCS driver, due to the variance it
-> > allows for implementors. I don't see this being a problem as long as the
-> > foundations are reasonably similar, albeit we can see whether this could be
-> > further extended later on to other sensors.
-> >
-> > I'm fine with having a separate imx908 driver for now. Dave's driver also
-> > exposes the variant information through the media entity name so that
-> > should be done by the imx908, too (at least if there can be multiple ones).
+TPM6 is located in the Application Domain (Cortex-A7) at base
+address 0x40a10000. This enables PWM and timer support for
+peripherals connected to this domain, such as display backlight
+controllers.
 
-No it doesn't. My driver passes .name from the variant to
-v4l2_i2c_subdev_set_name, so the media entity name is common for both
-mono and colour variants.
-It's the same with the imx290 driver supporting the different variants
-of 290/327/462.
+Signed-off-by: Krzysztof Kaszubski <sympthicode@gmail.com>
+---
+v2:
+ - Move tpm6 node under ahbbridge1 (bus@40800000), before lpi2c6@40a40000
+   (reported by DT bot)
+ - Fix author/Signed-off-by email typo (simpthicode -> sympthicode)
 
-libcamera uses the media bus codes to determine whether the sensor is
-mono or colour, not the entity name.
-Having different entity names would mean duplicate entries in
-libcamera's sensor_properties, or otherwise manipulate the name.
+ arch/arm/boot/dts/nxp/imx/imx7ulp.dtsi | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-  Dave
+diff --git a/arch/arm/boot/dts/nxp/imx/imx7ulp.dtsi b/arch/arm/boot/dts/nxp/imx/imx7ulp.dtsi
+index 39e37ae9b2b1..6240750b84dc 100644
+--- a/arch/arm/boot/dts/nxp/imx/imx7ulp.dtsi
++++ b/arch/arm/boot/dts/nxp/imx/imx7ulp.dtsi
+@@ -366,6 +366,16 @@ ahbbridge1: bus@40800000 {
+ 		reg = <0x40800000 0x800000>;
+ 		ranges;
+ 
++		tpm6: pwm@40a10000 {
++			compatible = "fsl,imx7ulp-pwm";
++			reg = <0x40a10000 0x1000>;
++			assigned-clocks = <&pcc3 IMX7ULP_CLK_LPTPM6>;
++			assigned-clock-parents = <&scg1 IMX7ULP_CLK_SOSC_BUS_CLK>;
++			clocks = <&pcc3 IMX7ULP_CLK_LPTPM6>;
++			#pwm-cells = <3>;
++			status = "disabled";
++		};
++
+ 		lpi2c6: i2c@40a40000 {
+ 			compatible = "fsl,imx7ulp-lpi2c";
+ 			reg = <0x40a40000 0x10000>;
+-- 
+2.43.0
 
-> As far as I understand, the IMX908 does not have a mono version.
-> Lachlan, could you please confirm that ?
->
-> > I'll review the driver properly soonish but I reckon it's in a pretty good
-> > shape already.
->
-> --
-> Regards,
->
-> Laurent Pinchart
