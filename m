@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792593211;
-	b=mVhNH0LrJpjLslbgVn5XlrpHKYp0Yo+Jmwspez5k32pMnOiv02UnSLYiYXr6hozBAiDQ
-	 LwU/HYJ6ees5XeEuBO546SeKbF4UVnUMCGKD+bSarF27UiQzdx3xXRAFCoUj8bOkorrWK
-	 fiXMze26Nbcts1hrzopixSARVudSp332TnR6n/7iPJ4NGbqhl32uqXnu9u7uLpmtOfy61
-	 tMdJWjoxiU5FG50FM4VnC6LV+7CtmPNcZEY3Rtq0/FAi52i8RDm3mnPsDtx0/6UKxvhyK
-	 daX8TEPczdF6hOF5KclqJy3F8VFhdyCTWODGFRBS2lhUI4yKHyi7HjdgLTfv3aR4MLQ==
+	t=1792593428;
+	b=GpIJernQtxCFJkEl/zBv85/z3VNJfDx/pKPEpIOOQg7n427JBJqDJoJUmtRxeDYs57Nj
+	 lHppAwtJUE/ikVXnKWDDlea3L2pgzyjHPHFsIxr+XlQnuUpt6ic+oL9rykQRf85BNaltC
+	 D1llwpfdHYJZrnmcnrYqkfwkm6Lf8ZexYom3xAIF4/beH3O7+i9DymzIjBJ0mbqRzNeLg
+	 WbLg0+ABY1we9J30QU+N7i8deGq0VQ3QIanZT3fJVioeuPdbD7SYHH2p38cFMKg1WwY/b
+	 hL2cIoYViQDA1ooSm5Isr2UpDA4wUIRMnkoj+uzrefvEh+E8GrmQp81+z0zg6ZjmaBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792593211;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792593428;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Mq942IleiIzHrvI1POetZLl7VpsrY3Lu+KxZ4zssW40=;
-	b=JoAPACuCCQtTjrRIZ+fZp1UKrJu1XqLK2S4RI+TjaiYjG5mOgQxR/9JJqXfK4CQneWm3
-	 jr1doPgt8ccsium7uHxa29jz23MkugGUtXwxU1z7eM58fGWL+6/+CJ901ZsWaK8Az5PM5
-	 YZZSMARtycdswioIA7kPYUVfbXudKiQxzNQNa7XzxCoIEVXq4PRpKqMZiYXjYHX3oCqUm
-	 +oVwLWZcsGbZzbQ322CiLkvp3W6X2Q7ci1LNCSBydNtxJ4zy6MMQc7xWHP1jekZObrPal
-	 vYuEa2hdYz3vRZ14fKcEeixKsk4wxAesyGXzlvE9m51d1ZYxtTMkBZ7fP1pEInbK0xg==
+	bh=9ywfmRyOrMDZJEO0waa6Qwbf1ZDyisykmcC8A9v2Ln0=;
+	b=m1cDqPcbMffmzCFc5T3PEHAWGcKILpCRnylGk92GeM6imjZOrt1DjQpaBjyESnxghPvQ
+	 2KaSjHXVpv81TjutUmpxO1S7OMSwqNWWADAq9kaQtbB9Z/Iico/27zajZY+AHu0m8SDWx
+	 tCwfBeoJFHGLVNwBBVMkEx14APHCRniVizMQSWK/vlGxVAiflmGQy3gZMB8cU4UoE3Fzb
+	 H7bI+Zz+YV91xKl9rJ0W80QetylgtB214suyjKAzwYwsASHesTxMwfST3XLKCp++RwB+i
+	 uakYaiqYfnSMBRt8WmICNcc9iOlT2KfJ/I4Wj37uuXRs8M5mukoSvYA8LBop4fiQHfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=glefdBlU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hR9mNRH1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0E14606A319
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 14:33:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55430606A319
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 14:37:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=glefdBlU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 027B11F000C4;
-	Wed, 21 Oct 2026 14:33:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hR9mNRH1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAE861F000C1;
+	Wed, 21 Oct 2026 14:37:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792593210;
-	bh=Mq942IleiIzHrvI1POetZLl7VpsrY3Lu+KxZ4zssW40=;
+	s=k20260515; t=1792593428;
+	bh=9ywfmRyOrMDZJEO0waa6Qwbf1ZDyisykmcC8A9v2Ln0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=glefdBlUVoNIAwL1WLDg9INhkdeJJNo1zxfP0oEoc5w/WLGS/QMGrwYJKrdPpjtKr
-	 Ug6RRhsXbrqqMgWXsEWir87z6DBYoEt/GLcltZ/iTWBWMtHbVbHDYbrvOkvKIaiCip
-	 8lT5yckE3NTRzDpPXNRoJ6Bgp/ZHTjOVbqbAoh7YPWaO7XkAzrQ8IsqtlbBsCrBkuQ
-	 05j+bi/s2RxgYQ3FgVhSgEgXEn3SshyG/qjMglVn3TIKUDyg7K/PFQ7/wazYo6pN4T
-	 F3Uu6yNHsu10Z46pfp+/IwffR7H0afz4QilCCo9ASdgFPYRRS0+/xJupm3mhRMeeYG
-	 /BYjXaUsgplRw==
-Message-ID: <sashiko-outbox-180381@kernel.org>
+	b=hR9mNRH1Rb6xSOjiHZz+4mrN3aEXxhV62qALiIFMcINm0TMvrD4PARYFvs1r+/UFQ
+	 cK3BrnQ+rqUAMmsGHXBdQweYDEorGdZJqeaE4fO2Yaaas0N7sgjL+iaSecB+NuSI0m
+	 Oe5p1Oa4LLB/ESF0KjA2oPDtdtKlqX53L1sa/TQoUYGKIV+OU7c6bPPx2DhYak6yTq
+	 ayjzrK7d2Jg42BkcisXR2fo5Wc8boziYz9UYhhn6ciDszcv6OZcspSnJoW6m1pcEiS
+	 iqgC/Wg7fzqOHp8Gl6S/dJ5iJD5+SvySEX40iSgybxcw3N+lWwpd6kQxMsXU94kieQ
+	 6GawC57t8IuRg==
+Message-ID: <sashiko-outbox-180386@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 2/2] arm64: dts: rockchip: Add ALIENTEK QuarkPi-CA2
+Subject: Re: [PATCH 7/7] arm64: dts: qcom: shikra-iqs-evk: Add Waveshare
+ 8-inch DSI panel overlay
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Bob Hui" <bg9oxa@163.com>
+To: vishnu.saini@oss.qualcomm.com
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261021-quarkpi-ca2-v9-2-b75006b22bc5@163.com>
-References: <20261021-quarkpi-ca2-v9-0-b75006b22bc5@163.com>
- <20261021-quarkpi-ca2-v9-2-b75006b22bc5@163.com>
+In-Reply-To: <20261021-shikra_display_overlays-v1-7-adaea735999f@oss.qualcomm.com>
+References: <20261021-shikra_display_overlays-v1-0-adaea735999f@oss.qualcomm.com>
+ <20261021-shikra_display_overlays-v1-7-adaea735999f@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 21 Oct 2026 14:33:29 +0000
+Date: Wed, 21 Oct 2026 14:37:07 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,133 +61,127 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] arm64: dts: rockchip: missing rknn_mmu_0/1/2 enablement breaks NPU=
- open()
-- [High] arm64: dts: rockchip: missing domain-supply on pd_gpu and pd_npu
+- [High] arm64: dts: qcom: missing panel_vcc regulator on wsgpio 8 in Waves=
+hare overlay
 --
 
-commit e4632e8324e154e7c3c642a2039af079523bc6b6
-Author: Bob Hui <bg9oxa@163.com>
+commit 8859b55c691118c8af80fdf98b5e594862815afd
+Author: Shashank Maurya <shashank.maurya@oss.qualcomm.com>
 
-arm64: dts: rockchip: Add ALIENTEK QuarkPi-CA2
+arm64: dts: qcom: shikra-iqs-evk: Add Waveshare 8-inch DSI panel overlay
 
-This commit adds the device tree for the ALIENTEK QuarkPi-CA2, an RK3588S
-based board, enabling its onboard storage, regulators, display outputs,
-networking, USB, audio, GPU, and NPU peripherals.
+This commit adds a devicetree overlay for the Waveshare 8-inch DSI panel on
+the Shikra IQS EVK carrier board, configuring the jadard,jd9365da-h3 panel,
+the waveshare,dsi-touch-gpio expander, and the goodix,gt9271 touchscreen
+while disabling the default hdmi output.
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts b/arch/=
-arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts
+> diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-evk-waveshare-dsi-8inch.=
+dtso b/arch/arm64/boot/dts/qcom/shikra-iqs-evk-waveshare-dsi-8inch.dtso
 > new file mode 100644
-> index 0000000000000..68ee2c0ad9d80
+> index 0000000000000..d0aa115681ffd
 > --- /dev/null
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts
-
-[ ... ]
-
-> +&gpu {
-> +	mali-supply =3D <&vdd_gpu_s0>;
-> +	status =3D "okay";
+> +++ b/arch/arm64/boot/dts/qcom/shikra-iqs-evk-waveshare-dsi-8inch.dtso
+> @@ -0,0 +1,77 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +/dts-v1/;
+> +/plugin/;
+> +
+> +#include <dt-bindings/gpio/gpio.h>
+> +
+> +&{/} {
+> +	model =3D "Qualcomm Technologies, Inc. Shikra IQS EVK Waveshare 8inch D=
+SI Panel";
+> +
+> +	panel_avdd: regulator-panel-avdd {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "panel-avdd";
+> +		gpios =3D <&wsgpio 0 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +	};
+> +
+> +	panel_iovcc: regulator-panel-iovcc {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "panel-iovcc";
+> +		gpios =3D <&wsgpio 4 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +	};
+> +};
+> +
+> +&hdmi_bridge {
+> +	status =3D "disabled";
+> +};
+> +
+> +&hdmi_connector {
+> +	status =3D "disabled";
+> +};
+> +
+> +&i2c4 {
+> +	#address-cells =3D <1>;
+> +	#size-cells =3D <0>;
+> +
+> +	wsgpio: gpio@45 {
+> +		compatible =3D "waveshare,dsi-touch-gpio";
+> +		reg =3D <0x45>;
+> +		gpio-controller;
+> +		#gpio-cells =3D <2>;
+> +	};
+> +
+> +	touchscreen@5d {
+> +		compatible =3D "goodix,gt9271";
+> +		reg =3D <0x5d>;
+> +		reset-gpios =3D <&wsgpio 9 GPIO_ACTIVE_HIGH>;
+> +	};
 > +};
 
 [Severity: High]
-Should &pd_gpu and &pd_npu also specify domain-supply =3D <&vdd_gpu_s0> and
-domain-supply =3D <&vdd_npu_s0>?
+Does this leave the Waveshare vcc rail unpowered?
 
-In drivers/pmdomain/rockchip/pm-domains.c, rk3588_pm_domains marks both
-RK3588_PD_GPU (&pd_gpu) and RK3588_PD_NPU (&pd_npu) with
-need_regulator =3D true, and rockchip_pm_add_one_domain() powers those doma=
-ins
-off during PMU probe. When a consumer attaches or resumes via
-genpd_power_on() -> rockchip_pd_power_on() -> rockchip_pd_regulator_enable(=
-),
-the PMU driver looks up domain-supply on the power-domain node:
+In drivers/gpio/gpio-waveshare-dsi.c, the expander maps offset 8 to the vcc
+rail and offset 9 to touchscreen reset:
 
-drivers/pmdomain/rockchip/pm-domains.c:rockchip_pd_regulator_enable() {
-	if (!pd->info->need_regulator)
-		return 0;
+enum {
+	GPIO_AVDD =3D 0,
+	GPIO_PANEL_RESET =3D 1,
+	GPIO_BL_ENABLE =3D 2,
+	GPIO_IOVCC =3D 4,
+	GPIO_VCC =3D 8,
+	GPIO_TS_RESET =3D 9,
+};
 
-	if (IS_ERR_OR_NULL(pd->supply)) {
-		pd->supply =3D devm_of_regulator_get(pmu->dev, pd->node, "domain");
+During waveshare_gpio_probe()->waveshare_gpio_set(), state->poweron_state
+starts at 0 and asserting offset 9 writes the upper byte of
+state->poweron_state to the touch register:
 
-		if (IS_ERR(pd->supply))
-			return PTR_ERR(pd->supply);
-	}
+	last_val =3D state->poweron_state;
+	if (value)
+		last_val |=3D BIT(offset);
+	else
+		last_val &=3D ~BIT(offset);
 
-	return regulator_enable(pd->supply);
-}
+	state->poweron_state =3D last_val;
 
-In arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts, vdd_gpu_s0 is only
-regulator-boot-on (without regulator-always-on) and both vdd_gpu_s0 and
-vdd_npu_s0 configure regulator-off-in-suspend. Without domain-supply on
-&pd_gpu and &pd_npu, the regulator core falls back to a dummy regulator with
-a warning and rockchip_pd_power() attempts the PMU power-on handshake before
-vdd_gpu_s0 or vdd_npu_s0 has been enabled (such as when panthor probes as a
-module after unused boot-on regulators are disabled, or across system suspe=
-nd
-and resume).
+	err =3D regmap_write(state->regmap, REG_TP, last_val >> 8);
+	if (!err)
+		err =3D regmap_write(state->regmap, REG_LCD, last_val & 0xff);
 
-> +
-> +&rknn_core_0 {
-> +	npu-supply =3D <&vdd_npu_s0>;
-> +	sram-supply =3D <&vdd_npu_mem_s0>;
-> +	status =3D "okay";
-> +};
-> +
-> +&rknn_core_1 {
-> +	npu-supply =3D <&vdd_npu_s0>;
-> +	sram-supply =3D <&vdd_npu_mem_s0>;
-> +	status =3D "okay";
-> +};
-> +
-> +&rknn_core_2 {
-> +	npu-supply =3D <&vdd_npu_s0>;
-> +	sram-supply =3D <&vdd_npu_mem_s0>;
-> +	status =3D "okay";
-> +};
+Because the overlay only defines panel_avdd (offset 0) and panel_iovcc
+(offset 4) under &{/} and does not configure a regulator for wsgpio
+offset 8, bit 0 of the touch register is driven low on every
+waveshare_gpio_set() call and never enabled before goodix_ts_probe()
+accesses touchscreen@5d.
 
-[Severity: High]
-Will opening the NPU accel device fail with -ENODEV unless &rknn_mmu_0,
-&rknn_mmu_1, and &rknn_mmu_2 are also enabled?
-
-In arch/arm64/boot/dts/rockchip/rk3588-base.dtsi, rknn_core_0, rknn_core_1,
-and rknn_core_2 reference iommus =3D <&rknn_mmu_0>, <&rknn_mmu_1>, and
-<&rknn_mmu_2>, which default to status =3D "disabled":
-
-	rknn_mmu_0: iommu@fdab9000 {
-		...
-		power-domains =3D <&power RK3588_PD_NPUTOP>;
-		status =3D "disabled";
-	};
-
-Because arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts enables the
-three rknn_core_* nodes without setting status =3D "okay" on &rknn_mmu_0,
-&rknn_mmu_1, and &rknn_mmu_2, of_iommu_xlate() in drivers/iommu/of_iommu.c
-returns -ENODEV:
-
-	if (!of_device_is_available(iommu_spec->np))
-		return -ENODEV;
-
-This leaves the NPU core devices without an attached IOMMU. When userspace
-opens the NPU device, rocket_open() in drivers/accel/rocket/rocket_drv.c
-calls rocket_iommu_domain_create() -> iommu_paging_domain_alloc() ->
-__iommu_paging_domain_alloc_flags():
-
-drivers/accel/rocket/rocket_drv.c:rocket_open() {
-	...
-	rocket_priv->domain =3D rocket_iommu_domain_create(rdev->cores[0].dev);
-	if (IS_ERR(rocket_priv->domain)) {
-		ret =3D PTR_ERR(rocket_priv->domain);
-		goto err_free;
-	}
-	...
-}
-
-which checks !dev_has_iommu(dev) and fails unconditionally with -ENODEV.
+Should &{/} also define a panel_vcc regulator for wsgpio offset 8 (as in
+Documentation/devicetree/bindings/gpio/waveshare,dsi-touch-gpio.yaml, or
+wired to touchscreen@5d) so the vcc rail is enabled?
 
 [ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021-quarkpi-ca=
-2-v9-0-b75006b22bc5@163.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021-shikra_dis=
+play_overlays-v1-0-adaea735999f@oss.qualcomm.com?part=3D7
