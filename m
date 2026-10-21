@@ -1,57 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.20.114.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792548556;
-	b=OLFP53c5ywcnSt7ECXpe+Cn+a1Ao4Z/eIpCax0NCC2bHaKKzhL0N6ZfYGi0th+N6P14W
-	 T1pR06xymgzsq3ZqdxPxt91FMC20b1dEpRUSv69NeugBsZvYQNLnFGpyoW89ToHuupUxO
-	 xt5VTH3YgzVg1ZhHwewD19EE/KXElibECfEH8trOwXqPSopfsctr0jw5nICEvkO8ZMJJ7
-	 a/7huom8H2yQ0AAaUBzC8xcNANJ2hAX/cYPZJmKZC+9mXPWjGTqjfPQH+MG1+SMqHy/Nx
-	 ensBlcxbye29fyGSASfIHdzeM+SsZ2AWKoLfohDJreM6NM1taUY3/kiay3ooP7YmBIA==
+	t=1792548587;
+	b=jYC/g0w3VsQzvJcnZi3RmvgyloVfdJuQO8t4OZGBN+dllR7YhhwS6GpupI/4+6u+C6i3
+	 I9qH/MnqxVLrjIITKIQ8QSYxZRXclcm0oT2eVRElgJ43HsFb1dvgGG/7fMS0AvrqrtweB
+	 WV0b4vLPug59uF11RMC4DIQF+kMSPxd+7vZN2QOKZe5738IoUjIYIZUOxApozmxlMuOku
+	 h7cYazZ/F8ntRDgoXzzd909cpdPqD9Iskre60UKRVHYtW8VbuVtJBlu1RtyYsZ5hd4g8R
+	 TRLsfavk1uSOZhIxMALOAruIBYrETDBMVo3pJDYQBf+dntutNA1gKLjP7xKH5gxpTtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792548556;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=2Z2u/LqbanJ5eYp4UBxlkBsIw3VqDZJVfvk0OUOhg+A=;
-	b=G4PkmEYV24X3z39pscXsvNBmDdWnRRkBbLpZ9MPLMj6QiW5GzmjColzjlHxIdE1OkslN
-	 /O6KMaMo5gyatx0tx4oY3Qwjdprn3CLhz7oDLhgzJILPC3GJIE7Ln3b1Ly0d0YiH30oYL
-	 vQ9N6KURxHwcMThax2dhaX4mtzpmf1NwfixokGU8RX+cH1OcCs0wPo2ASvfcOQInvRk9B
-	 chSqeCYAEUdJio3eriWVsmSvfUdcLP3kRXhKXPUk66cOfOB0kNc5nGdkmPajb08iKYFbM
-	 Hwf8Q3yr6IaKYa412tlLct2lzTSV5Hf9SwJd7381+dvSR3rsIhA2+Q2Cxx6Zq+nW3vQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792548587;
+	h=DMARC-Filter:Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-ID:X-B4-Tracking:
+	 X-Change-ID:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=zTvHoWVK2MnY6BXYoqcKq7jXZ7I8mh27KAsKSWJ+yVU=;
+	b=GexDPKOC910lCEbb9QRDLOs14GiRfn0vA3u2gKhuhA3rsbIbz7rD9/e/59vR48K9owwo
+	 3pKtJh+OM7tWHCQCs1EQKRcHFyFl5ZVqPFGqmYS9WuPxw2dbUd8h9NXVU3YB/TErPSQr9
+	 0nfl43MfHcdicKYdJBEXBTpibgzDP23AUT09dzJvlax6uwClsANX0VIZwbCsMQBopCGuC
+	 RDJ0gtwJh+bhdndyrXyaMhyuIXyt9/gA7tq7mBfKcDHbz2XDiE/S2AmSn2AVKuwTyGBcg
+	 GHFbDq/Dm+9zMnlh4w4UtJCejo225Ix0FafdbqAi3QmPGvA1kLQ41F5+9FT86xq9/Zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KIo9GO2H;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=aspeedtech.com;
+	spf=pass smtp.mailfrom=aspeedtech.com;
+	arc=none smtp.remote-ip=211.20.114.72
+Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5A42606A31A
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 02:09:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KIo9GO2H
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36A291F000C9;
-	Wed, 21 Oct 2026 02:09:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792548555;
-	bh=2Z2u/LqbanJ5eYp4UBxlkBsIw3VqDZJVfvk0OUOhg+A=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KIo9GO2HIReJM42hhTsMiEIo9KI/jQk7nS8EWMZSYhzxTPM0HBMV37JGufgxlbRMe
-	 3IFDR8G5pfcT/GoweALuYKQqsTgQ5aT4RNXpCXfZXn8pRC2znNtGGJZp9p3dvetrzc
-	 gqOCpuPkFb32TWLxZFq63rURdM+DOhP53E0IQltnd+9LCJHXnZmlTSNsaaa9jQLYSX
-	 UXZQ0r5PnOlpoCA555qaw/aVIF5JteCNq132nyTwke0R1huKSU1fYb4czI+XHsCjdF
-	 BBibt3bWq5dh/K5rZk7ElZguhw6xu0XdASepdpKmsKg2rUwa6wQTk8bi2VyygPqbBV
-	 kZj9B7FqShKLQ==
-Message-ID: <sashiko-outbox-179687@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/9] spi: restrict CS logical values to a contiguous
- sequence
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jonathan Santos" <Jonathan.Santos@analog.com>, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <dd50e45bff4b59ad656f94fffecca28a49f1d2d3.1792435248.git.Jonathan.Santos@analog.com>
-References: <cover.1792435248.git.Jonathan.Santos@analog.com>
- <dd50e45bff4b59ad656f94fffecca28a49f1d2d3.1792435248.git.Jonathan.Santos@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 21 Oct 2026 02:09:14 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFF68606A319;
+	Wed, 21 Oct 2026 02:09:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFF68606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Wed, 21 Oct
+ 2026 10:09:44 +0800
+Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Wed, 21 Oct 2026 10:09:44 +0800
+From: Billy Tsai <billy_tsai@aspeedtech.com>
+Date: Wed, 21 Oct 2026 10:09:39 +0800
+Subject: [PATCH v4] arm64: dts: aspeed: Add syscon phandle to AST2700 ADC
+ nodes
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,102 +48,76 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261021-ast27xx-adc-dts-syscon-v4-1-4fab164f10b4@aspeedtech.com>
+X-B4-Tracking: v=1; b=H4sIAOIe2GoC/x3MPQqAMAxA4atIZgO1/qFXEYfSRM1SpRGpiHe3O
+ H7Dew8oR2GFsXgg8iUqe8hoygL85sLKKJQN1tiuMrZCp6ftU0JHHulU1Fv9HnDwS0t9XTMZhhw
+ fkRdJ/3ia3/cDMRTar2gAAAA=
+X-Change-ID: 20261021-ast27xx-adc-dts-syscon-9cf5d733ed0e
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, "Andrew
+ Jeffery" <andrew@codeconstruct.com.au>, Ryan Chen <ryan_chen@aspeedtech.com>,
+	Arnd Bergmann <arnd@arndb.de>, Jonathan Cameron <jic23@kernel.org>
+CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
+	<linux-iio@vger.kernel.org>, Billy Tsai <billy_tsai@aspeedtech.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792548584; l=1915;
+ i=billy_tsai@aspeedtech.com; s=20251118; h=from:subject:message-id;
+ bh=IZUjXmUfedJ5IwJ86vwzPPmrXl0gfhcW6O8UO+QoZco=;
+ b=hpsOaG9Ce6jXRrKDFl/kBKvsWHyz/Sq5Ys08ygSSCBVLWf1flEZBUOpaFZRR4mkAg5IG+L1WX
+ lJXwEwYjufqDQ7syQ+sp8bYGfbzkOpnagPjO5KBXdfl6Ddg2O37HL7T
+X-Developer-Key: i=billy_tsai@aspeedtech.com; a=ed25519;
+ pk=/A8qvgZ6CPfnwKgT6/+k+nvXOkN477MshEGJvVdzeeQ=
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] spi: __spi_add_device() contiguous CS check breaks non-consecutive=
- multi-CS
---
+Point the ADC nodes at their own syscon1 so the driver can correctly
+locate the reference-voltage trimming data on AST2700, where syscon0
+and syscon1 share the same device-tree node name and would otherwise
+resolve to the wrong SCU.
 
-commit fa819c18d6f789f30ff9ec769f0b81bb8ee9ca8a
-Author: Jonathan Santos <Jonathan.Santos@analog.com>
+Fixes: e77bb5dc5759 ("arm64: dts: aspeed: Add initial AST27xx SoC device tree")
+Assisted-by: LLM
+Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
+---
+This was patch 3/3 of "iio: adc: aspeed: Fix SCU lookup for multi-SCU
+AST2700" (https://lore.kernel.org/r/20261005-ast27xx-adc-upstream-v3-0-ef25552d3a59@aspeedtech.com).
+Jonathan has applied patches 1 and 2 to the testing branch of iio.git;
+this resends patch 3 on its own, now with a Fixes tag, since the
+driver falls back to the old global syscon lookup whenever this
+property is absent, so patches 1 and 2 alone don't change AST2700's
+behaviour without it.
+---
+ arch/arm64/boot/dts/aspeed/aspeed-g7-soc1.dtsi | 2 ++
+ 1 file changed, 2 insertions(+)
 
-spi: restrict CS logical values to a contiguous sequence
+diff --git a/arch/arm64/boot/dts/aspeed/aspeed-g7-soc1.dtsi b/arch/arm64/boot/dts/aspeed/aspeed-g7-soc1.dtsi
+index bc990f79e693..053673cc4b8e 100644
+--- a/arch/arm64/boot/dts/aspeed/aspeed-g7-soc1.dtsi
++++ b/arch/arm64/boot/dts/aspeed/aspeed-g7-soc1.dtsi
+@@ -246,6 +246,7 @@ adc0: adc@14c00000 {
+ 		clocks = <&syscon1 SCU1_CLK_AHB>;
+ 		resets = <&syscon1 SCU1_RESET_ADC>;
+ 		interrupts-extended = <&intc1 80>;
++		aspeed,trim-syscon = <&syscon1>;
+ 		#io-channel-cells = <1>;
+ 		status = "disabled";
+ 	};
+@@ -256,6 +257,7 @@ adc1: adc@14c00100 {
+ 		clocks = <&syscon1 SCU1_CLK_AHB>;
+ 		resets = <&syscon1 SCU1_RESET_ADC>;
+ 		interrupts-extended = <&intc1 80>;
++		aspeed,trim-syscon = <&syscon1>;
+ 		#io-channel-cells = <1>;
+ 		status = "disabled";
+ 	};
 
-This commit adds a check in __spi_add_device() requiring chip-select values
-for multi-CS SPI devices to form a consecutive ascending sequence, returning
--EINVAL otherwise.
+---
+base-commit: 43ffda3c7f8456bbe641ae8249a077a361b97880
+change-id: 20261021-ast27xx-adc-dts-syscon-9cf5d733ed0e
 
-> diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
-> index 7a0406ec200e1..2b2eeaa4c15d4 100644
-> --- a/drivers/spi/spi.c
-> +++ b/drivers/spi/spi.c
-> @@ -902,6 +902,16 @@ static int __spi_add_device(struct spi_device *spi, =
-struct spi_device *parent)
->  	for (idx =3D spi->num_chipselect; idx < SPI_DEVICE_CS_CNT_MAX; idx++)
->  		spi_set_chipselect(spi, idx, SPI_INVALID_CS);
-> =20
-> +	/* Restrict CS logical values to a contiguous sequence */
-> +	for (idx =3D 1; idx < spi->num_chipselect; idx++) {
-> +		if (spi_get_chipselect(spi, idx) !=3D spi_get_chipselect(spi, idx - 1)=
- + 1) {
-> +			dev_err(dev, "cs%d is not consecutive with cs%d\n",
-> +				spi_get_chipselect(spi, idx),
-> +				spi_get_chipselect(spi, idx - 1));
-> +			return -EINVAL;
-> +		}
-> +	}
-> +
+Best regards,
+-- 
+Billy Tsai <billy_tsai@aspeedtech.com>
 
-[Severity: High]
-In drivers/spi/spi.c, idx (0 .. spi->num_chipselect - 1) is the logical CS
-index, whereas spi_get_chipselect(spi, idx) returns spi->chip_select[idx],
-which is the physical controller CS number mapped to that logical index, as
-noted above SPI_INVALID_CS:
-
-/*
- * Zero(0) is a valid physical CS value and can be located at any
- * logical CS in the spi->chip_select[].
-
-During DeviceTree registration, of_register_spi_devices() ->
-of_register_spi_device() -> of_spi_parse_dt() populates spi->chip_select[]
-from the DT reg array before calling spi_add_device() -> __spi_add_device():
-
-	spi->num_chipselect =3D rc;
-	for (idx =3D 0; idx < rc; idx++)
-		spi_set_chipselect(spi, idx, cs[idx]);
-
-By checking spi_get_chipselect(spi, idx) !=3D spi_get_chipselect(spi, idx -=
- 1)
-+ 1, __spi_add_device() requires the physical CS numbers in
-spi->chip_select[] to be strictly consecutive and ascending.
-
-For example, arch/arm/boot/dts/nxp/imx/imx53-ppd.dts defines spidev0 with
-descending physical chip selects:
-
-	spidev0: spi@1 {
-		compatible =3D "ge,achc", "nxp,kinetis-k20";
-		reg =3D <1>, <0>;
-		vdd-supply =3D <&reg_3v3>;
-		vdda-supply =3D <&reg_3v3>;
-		clocks =3D <&achc_24M>;
-		reset-gpios =3D <&gpio3 6 GPIO_ACTIVE_LOW>;
-	};
-
-Per Documentation/devicetree/bindings/misc/ge-achc.yaml, reg entry 0 is the
-control interface (on CS 1) and reg entry 1 is the firmware programming
-interface (on CS 0), which drivers/misc/gehc-achc.c registers in
-gehc_achc_probe() via spi_new_ancillary_device():
-
-	ret =3D of_property_read_u32_index(spi->dev.of_node, "reg", 1, &ezport_reg=
-);
-	if (ret)
-		return dev_err_probe(&spi->dev, ret, "missing second reg entry!\n");
-
-	achc->ezport =3D spi_new_ancillary_device(spi, ezport_reg);
-
-With this check in __spi_add_device(), spi_get_chipselect(spi, 1) is 0 while
-spi_get_chipselect(spi, 0) + 1 is 2, causing __spi_add_device() to fail with
--EINVAL before gehc_achc_probe() can run.
-
-Won't this cause a regression for imx53-ppd.dts as well as any other
-multi-CS SPI peripheral wired to non-consecutive or descending physical
-controller chip-select lines (such as reg =3D <1>, <0> or reg =3D <0>, <2>)?
-
->  	/* Set the bus ID string */
->  	spi_dev_set_name(spi);
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1792435248.gi=
-t.Jonathan.Santos@analog.com?part=3D4
