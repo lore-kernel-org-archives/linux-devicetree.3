@@ -1,111 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792591343;
-	b=UtAIRxe0EXvo2N/HZFN8o9vcqHMuHhXC4uUu4jUfPpGXyGI9GQ4M8cfWV+Jlr8aqD5ax
-	 Bn+zVW/ZpE+9KgtyRqBpEpR7yMdmkLBNuVh9JhRkiuU5AQwoma6+dZNrTpLp4TSwLeZKF
-	 mhbaKxvvly/ekx3wAYRN8CKCYGf7QGPnLq99HnRR919SdxgeAdOoq9nLFE9ajJD7kgFU8
-	 akX1rmMX1KzA8M1yYCjJ0ESCwpooiNi7ZMqMQ+Xr0wJR34khKNiealNBueSp4ReJqOes0
-	 cONGASu5eeMmuXNzxIPQkm+nxubwEmLENaiubbojTTngDBYhFZrCF4g9TVjKJ3vyfyQ==
+	t=1792591573;
+	b=3M6aJho+BRGqHpH50wCpHd3x578arImVKWQoZoHkg603wK664Kkg0YwoZSjbUslZsMiT
+	 N3vfdvVQTV4ZoCn4gtjR9TdO1EJkW7zfEWVHG3EIV/GidkP1kmoCpexZIw3MRmMJokacn
+	 OIxc/yoztau6aft+XAbFVmYhYBGp553R6sQFsf9edZmzlTxPh1suOS6YxkPVyMQPVmMeA
+	 sbQwMHVHOw4o2QfJ8BFs2rHmqQdrmYoqRcBf3vadGprY25NMf5yCCihD6UyCa/j/Rfiq9
+	 2ePekfCRn3Dm2FLi1Ib9CKdibc8Iwv/QvzYbEkzMtpFW0NAJ5JhEM38jKVHZKNYccSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792591343;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=HdQ2R3se5w8ic9Lfj8qGSYTbGzQ/J+m8NimOyWriIrM=;
-	b=Fz8FGp1qCIUU7vvtlDy1WLztAGQJXVB4YZPAODmA/RJWEJX4F7ezBIjDaHpv8EmKefho
-	 nbEia4EJVcj+fGfUgIQED2OU7s8lnUGQ6RSwbKsNwj1aRRy24le6Zvvh09wnBX/voLeF7
-	 bf/T4TfpSXACmdpgH3NmD+xDZ6tV4qab93DFHYrOkCklb/48gPao+yOzJ8/NlERinI8nZ
-	 fTVT5xylQdPi3E6WsGHVcLMqwKWLdHaXJnb7P5zwstxAne39qHDmPwAn11HLDOdVC1V9v
-	 IYRavmDJTmFvNHmF9yf0faf2Qhz4CTk++gT3YPbVbArEVo08eQHCeZqji1CaxO9NA7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792591573;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=y7LYXebtPPjaPBHUpJOVdDqW1228929tSZVAiRMHhO0=;
+	b=syKa5O7qfA6ttLBs/EyPqpx4wai2c/nZKOQ9RByewVpJgIii8JPfLmjV3bDu7JA1RWbf
+	 Nz2A37SrIfghvkPS4Iwu7C4XOtPyiaBH7LIJbO1Ba+omAml2TwsJ3wZ1JsTmsK4+8z+tV
+	 VVGIX9BVSnR3OZk5WzvKFOnqIbCmYlRtk35w14tZ8IcqOdcw7bdDfxaXRaUzVm96Ftzl+
+	 upuLe/L0iG0wDrBEKh1I/OmW1UblaY5riJdS9dmks+QKqUACgVZjGxGTaQe8dHlELS275
+	 Pz7vWRYpI9BIDChft1g0NLKKdP67nlSWmvVFEDH4mxBQdcWL3yWhiDq77qIVDLK5aOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=di2bf290;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YnYgPett;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Odem8RpQ;
+	arc=none smtp.remote-ip=220.197.31.2
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7589606A31A
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 14:02:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7589606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AA61606A31D;
+	Wed, 21 Oct 2026 14:06:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AA61606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=di2bf290;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YnYgPett
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LDHOgU4038126
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 14:02:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	HdQ2R3se5w8ic9Lfj8qGSYTbGzQ/J+m8NimOyWriIrM=; b=di2bf290CClcfrhc
-	jKzh/qb1Tyb2Dez0KXF5lHo78AqpupmhKBvOqSewBsyOdqxvu8biDiIOPyNpDgNn
-	d2H+AVDxpSzD6SSAi48DYV6INTM+aWRzxMRvYt7zzVaJR0YrSzKd0NqQb2s1Koxw
-	khCwHPAmM+fkf3iov2OpGJ1FNwprBNQDSN5/a7u4BlRwjlXAxBBzWu0fN2Z8bRWD
-	eoWHsFeawCoo70HcizOlBf/b2NwqNtygHmlwUS0W5ZZ86SFNhcWOzi15TcM8z7iL
-	Fwe6fRKCa50MEhq1XertPSk1M3PByLk2NwK0C1sjzRa/I4/dAS9HCOySsLp9qVqY
-	lRPUHQ==
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hex58863g-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 14:02:21 +0000 (GMT)
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4c6f74efc47so16637b6e.1
-        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 07:02:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792591341; x=1793196141; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HdQ2R3se5w8ic9Lfj8qGSYTbGzQ/J+m8NimOyWriIrM=;
-        b=YnYgPettYe3RxdQG9r4/qhTs2eKwPOLdC6Zxq/RveeV2Zov6UiKlbawF9muxkq1E5a
-         OvyPyzANNyv1v+NYqWm0LotFp7BYa8VkXIIV6O4Ciud5WueCaWgcn/TZkCWWpE//ek5q
-         /9tYIutHlofKlUEUA/mvIkNXKHxAYc834V0fuu9jLcwgL4Zj8KozA8fomjlLha1ciKYl
-         KSPBCrWYnx6kDUPVwdSZax0uhdX4rKoWmoe03D2OMvBYO50VQt0MaBO1KrUGfH9izYmV
-         qF8iQ9JhP9qfeIxF7codRTaesY0y6JnattSV5/1OctaueqiS3zH7R0J4/VD28fZ5BmVt
-         uICQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792591341; x=1793196141;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HdQ2R3se5w8ic9Lfj8qGSYTbGzQ/J+m8NimOyWriIrM=;
-        b=K3p8rr9xJTZwwzo352qtH4q3oOsuIhyjuYpVf/lsLpLC5EIZEskjxGXiLcPcSUtZvq
-         5t4H/indfHk8p229TICnV6m1JZn0CkYKcPL7+1js5V4/sHy/4kUT2mLchN6FEXhbLvMf
-         Cyw0NGgDlnwEyvG4gqcuSrWz9WTSR8RzdWVHE8kBaAoyOp4pBqtmRP6vSySsHVZYLdmR
-         3j/eq/oD43saSJq+SD/kQp5h8r4N5BOUzBUu34rI3qXXHUEzhkKHmVM1GBTT3WGwkGeT
-         HzmCYECe7nRLhnOjndJMCQYhkVvkyjfSl9HwuSDxQ46XgkoTkDUIj9OqnPG0KBRRJpNe
-         GY6w==
-X-Forwarded-Encrypted: i=1; AKwUvByPLN902XBjRgZ2ESni0X0qeNbSuxfWk6OFHk566rf1beL+XLpFib+ls51mXHbtSOwy3SO8/SjCSLhR@vger.kernel.org
-X-Gm-Message-State: AFq9FYIaCJr5ZbmranMKy/UCy9foltJ+l7QdJpcDg5SotECDlMh4/jVj
-	ZD6dHjgqNR+oINcSor1nbHD8yME27VZtsxIQP27XN297JKsuhd5dyJxADMPVB/IZcXux2ypVmpg
-	+C2I48ghtQDaHn+43RuS5vnB7tPVj0S8eBb2iaZPF6+E9z7yxycvGYjEpohH26XtU
-X-Gm-Gg: AYBFou3pS4YCUpZ8iCAG9ymtUyg95QtdNqwS6e1sVxy7wmlXlWwkPXa13tIA2jFZJmZ
-	2SxTlvihY1ujrh1B6pc6TxaiAv4Fy9oaZG4N8AzjzxhlYtfmT+s47VdQTsDQ3t85Uar6CaWrer+
-	nQcdtF1FWQQWL22u1vnfuaDDEH2INtk6EhIiCerNgFQ7/jA7PGDTYpKTMoZQokgqQrTTVXeo69q
-	pT5hO3GXZbt/UbSRFOtVcnHbZ3uIMRafyvGP22iISK2/+A4TdY1Gn8m7VIRufnANfQw5nEBiqiA
-	NlAgd2FKTIBwfkgOcXHwcE+zP+xMoWRPeLmCG7xKPSk/8lFYHKbE36cKzNHtnXExF0vF2uFSz+y
-	NCD9DvxyiEeUMebtF5Ftjhg==
-X-Received: by 2002:a05:6808:1914:b0:4f3:890b:5fd3 with SMTP id 5614622812f47-55362b28972mr2213752b6e.6.1792591340785;
-        Wed, 21 Oct 2026 07:02:20 -0700 (PDT)
-X-Received: by 2002:a05:6808:1914:b0:4f3:890b:5fd3 with SMTP id 5614622812f47-55362b28972mr2213659b6e.6.1792591340150;
-        Wed, 21 Oct 2026 07:02:20 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b40316a2b3sm856108a12.35.2026.10.21.07.02.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 21 Oct 2026 07:02:18 -0700 (PDT)
-Message-ID: <92bb95d5-946e-4169-8382-487ed9ed2254@oss.qualcomm.com>
-Date: Wed, 21 Oct 2026 16:02:12 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Odem8RpQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:Subject:Date:Message-Id:MIME-Version:
+	Content-Type:To; bh=y7LYXebtPPjaPBHUpJOVdDqW1228929tSZVAiRMHhO0=;
+	b=Odem8RpQq+AFtvQ0n0WitCIP63af3uCyeSDpFvgzJL+zF7wizQJt21FJ/YU2gv
+	NBWZoS1sUFOl4u3YEtV/z9dkIdcF69tsK3G2ItNKwODNFMUxTVVnuOjTUMuQkHaO
+	jyIvOJrrwXQ4Xz6ZzbiU2ToDB9QA17DPkDLDOG3oFvApU=
+Received: from 4F-GAME.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wDnD6anxthqXSXxBg--.24760S2;
+	Wed, 21 Oct 2026 22:05:28 +0800 (CST)
+From: Bob Hui <bg9oxa@163.com>
+Subject: [PATCH v9 0/2] arm64: dts: rockchip: Add ALIENTEK QuarkPi-CA2
+Date: Wed, 21 Oct 2026 22:05:20 +0800
+Message-Id: <20261021-quarkpi-ca2-v9-0-b75006b22bc5@163.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,108 +56,192 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v21 14/14] arm64: dts: qcom: kaanapali-mtp-camera-s5kjn5:
- Add DT overlay
-To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
-        Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        jeyaprakash.soundrapandian@oss.qualcomm.com,
-        Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
-References: <20261011-kaanapali-camss-v21-0-04fd28d815c6@oss.qualcomm.com>
- <20261011-kaanapali-camss-v21-14-04fd28d815c6@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261011-kaanapali-camss-v21-14-04fd28d815c6@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA1NSBTYWx0ZWRfX+GxJtYDs8OT4
- sZo/5kA7IDnu/eHtK0yKX9LHtnVZJuvZi9iUIHJo9Z6A1MpreYfbhU5Zm/Y23z0//xrzb92Zmqr
- xXGW31lZt9e7TKiE0Kph5zJ3ZZKjS9M=
-X-Proofpoint-GUID: eCUQnE3KllnW45l0Vzps72IrRQT3IyND
-X-Proofpoint-ORIG-GUID: eCUQnE3KllnW45l0Vzps72IrRQT3IyND
-X-Authority-Analysis: v=2.4 cv=Ku7YSmWN c=1 sm=1 tr=0 ts=6ad8c5ed cx=c_pps
- a=AKZTfHrQPB8q3CcvmcIuDA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=g0yJHs1RHlB3dt4QKcIA:9 a=QEXdDO2ut3YA:10
- a=pF_qn-MSjDawc0seGVz6:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA1NSBTYWx0ZWRfXwLrrIWHGwver
- vqrrnzF7L/ho3kD/tIRAhUBHG9kz2gkC4SLXOswLdrfi43JaBj5xrbxyM4Ws/OI4VAIIufeUihF
- lbl3h2Hjco0h8TGKEeNSWyMGnToyTGote+vj3bEZmcFB0uoYTRsctFg5sqm6jKYgOceZtQCWPTu
- oFLuUBdun/k1hoGG+OR3nCznFKABULu2fevpRk+pwgqp53PafWO9zzzJlqxkKDKaDD0U5fBWyfT
- aEeoK2ZfoQd8LTxxr0Fc5rfrJcVbUGzjJbqOafxCi+2zwbaDwVt3LSa/SQOIhkAUywAqvy85Eq9
- UJiKu/ys9xm1QFMQ2JUychvpee8qiPT/QG+O1bVvsbFBMI+H+5SHvFT/dFrZgMaNRBsC07g/n+x
- zgyfrs1TpbrCNgoi0o9CSoOm3wBUwTAg5o88fRwDjmArvyNIqatDLQ4XyW5hBY2sdhceOiD6Uz3
- zJScoBrCD9Jaj57LvIg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-21_03,2026-10-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 impostorscore=0 malwarescore=0 adultscore=0 clxscore=1015
- priorityscore=1501 spamscore=0 phishscore=0 bulkscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210055
+X-B4-Tracking: v=1; b=H4sIAKDG2GoC/32NzQ7CIBAGX8VwFgO0BerJ9zAe+NlaNLYVWqJp+
+ u5CjTFeTPYyyTezMwrgHQS038zIQ3TB9V2CertBplXdGbCziREjjFNCSnyflL8ODhvFMKOWqao
+ 2FTEFSsbgoXGPtXY8vTlM+gJmzIm8aF0Ye/9c30WRd5+y+ClHkY9gJUvDbWU5NPxAebEz/Q3ld
+ JR/ZJlMLQtaMw2WCP01l2V5AdCJG0vzAAAA
+X-Change-ID: 20261004-quarkpi-ca2-21d2a59c50c3
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: Andrew Lunn <andrew@lunn.ch>, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Bob Hui <bg9oxa@163.com>
+X-Mailer: b4 0.15.2
+X-CM-TRANSID:_____wDnD6anxthqXSXxBg--.24760S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3WFW7Ar43ur18JF4DZw4DXFb_yoWDXr4kpF
+	ZxXrs8Jr4DGryI9an7Cw47Z34rZa18Jw4Ygr1vq34F9a1YvF18Arsa9r4Yqa4jkr95K3Wj
+	qFsxWa48Ka4DZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pREdgLUUUUU=
+X-CM-SenderInfo: lejz05rd6rljoofrz/xtbC+gqsGmrYxqrzugAA3R
 
-On 10/12/26 8:45 AM, Hangxiang Ma wrote:
-> Enable the S5KJN5 image sensor via CCI on Kaanapali MTP board.
-> 
-> The Kaanapali MTP board connect S5KJN5 with QUP I2C bus by default. This
-> DTBO enables S5KJN5 on CCI-0 interface connected to the CSIPHY2 in four
-> lane mode on a rework camera module.
-> 
-> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-> ---
+This series adds support for the ALIENTEK QuarkPi-CA2, an RK3588S based
+single board computer. The binding patch documents the board, the DTS
+patch describes the hardware.
 
-[...]
+The DTS was rebuilt from scratch against the vendor 5.10 BSP device tree
+and then translated to current mainline bindings, so that every node and
+property has a vendor-side or schematic origin instead of being carried
+over from the earlier revisions.
 
-> +&camss_csiphy2_in_port {
-> +	camss_csiphy2_inep: endpoint {
-> +		data-lanes = <1 2 3 4>;
-> +		remote-endpoint = <&csiphy2_out_ep>;
-> +	};
-> +};
+Changes in v9:
+ - SD card: drop enable-active-high again, the power switch of the card slot (vcc_3v3_sd_s0) is active low.  The v8 conclusion that it was missing came from a test run with the wrong DTB loaded; with the property present the regulator core drives the enable pin high and the card's rail stays off.
+ - Audio: the I2S0 MCLK pinmux moved from the I2S controller node to the codec node.
 
-Please define the endpoint in the SoC DTSI like the glymur submission:
+Testing: boots from microSD with this series on a v7.3 kernel, and the on-board hardware (microSD, eMMC, HDMI, USB-C DP altmode, USB 3.0 and USB 2.0, PCIe Wi-Fi, Bluetooth, GbE, ES8388 playback, PWM fan) works; "make CHECK_DTBS=y" is clean.
 
-https://lore.kernel.org/linux-arm-msm/b5734dac-1285-452b-8107-9164e6a3e5fa@oss.qualcomm.com/T/#m55a2d04f3fe573dbbc86fe89a874514494eca345
+Note: there is no fiq_debugger node, so the debug console is ttyS2 and console=ttyS2,1500000 has to be added to the bootargs manually.
+Capture from the headset microphone does not work with the in-tree es8328 driver; that is fixed by a separate ASoC patch series (sound/soc/codecs/es8328.c) and does not affect playback.
 
-[...]
+Link to v8: https://lore.kernel.org/all/20261007-quarkpi-ca2-v8-0-b83192bed07b@163.com/
 
+Changes in v8:
+- SD card: add the missing enable-active-high to the SD card power switch
+  (vcc_3v3_sd_s0).  Without it of_gpio_quirk_polarity() forces
+  OF_GPIO_ACTIVE_LOW onto the GPIO descriptor, so enabling the regulator
+  switched the rail off instead of on and the card lost its power.
+  Reported by the sashiko review; verified on hardware, the board now
+  boots from an SD card:
+  https://lore.kernel.org/all/sashiko-outbox-162297@kernel.org/
+- SPI0: describe the two chip selects as GPIOs (cs-gpios) instead of
+  muxing the dedicated SPI0_CS0_M3 / SPI0_CS1_M3 pins, so that both chip
+  select lines stay usable from the 40-pin header.  Verified on hardware:
+  both lines are claimed by the SPI core.
+- Link to v7:
+  https://lore.kernel.org/all/20261007-quarkpi-ca2-v7-v7-0-a84c6d5d6ef6@163.com/
 
-> +&csiphy2_in_port {
-> +	csiphy2_in_ep: endpoint {
-> +		bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
-> +		clock-lanes = <0>;
-> +		data-lanes = <1 2 3 4>;
-> +		remote-endpoint = <&s5kjn5_out_ep>;
-> +	};
-> +};
-> +
-> +&csiphy2_out_port {
-> +	csiphy2_out_ep: endpoint {
-> +		remote-endpoint = <&camss_csiphy2_inep>;
-> +	};
-> +};
+Changes in v7:
+- Rebuilt the board DTS from the vendor 5.10 BSP device tree.
+- USB-C: the connector now describes data-role "dual" with role-switch and
+  DP-altmode endpoints, the dwc3 uses usb-role-switch, and the VBUS switch
+  is marked enable-active-high.  v5 had set data-role "host", following the
+  vendor configuration; the port is a dual-role connector and the tested
+  behaviour is host mode with DP altmode on an attached display.
+  https://lore.kernel.org/all/20261001140429.1710C1F000FF@smtp.kernel.org/
+  https://lore.kernel.org/all/20260927140406.5C3381F000FF@smtp.kernel.org/
+- GbE: the RGMII delays are now documented as PHY-side only, matching
+  "rgmii-id" in the DTS; re-measured with this setting, a 500 MB transfer
+  completed with zero retransmissions.
+  https://lore.kernel.org/all/80eceb66-b573-463a-a577-30ba5793dbc4@lunn.ch/
+  https://lore.kernel.org/all/20261001153113.E4B131F000FF@smtp.kernel.org/
+- Audio: both the codec and the amplifier paths to the jack are kept,
+  with the hardware evidence in the patch description.
+  https://lore.kernel.org/all/20261001140429.1710C1F000FF@smtp.kernel.org/
+- Codec: the compatible list is "everest,es8388", "everest,es8328".
+  https://lore.kernel.org/all/20260927125456.4D5501F000FF@smtp.kernel.org/
+  https://lore.kernel.org/all/20260927140406.5C3381F000FF@smtp.kernel.org/
+- Microphone wiring matches the board schematic: the microphone signal
+  (HP_MIC) is on LINPUT1 and its reference (HP_MIC_GND) on RINPUT1.
+- rk806 DVS1 pin names, node names, indentation, blank lines and
+  regulator prefixes cleaned up to match the mainline style.
+  https://lore.kernel.org/all/20260927125456.4D5501F000FF@smtp.kernel.org/
+  https://lore.kernel.org/all/20260929-analytic-cocky-magpie-afefcc@quoll/
+- Recipients collected with "b4 prep --auto-to-cc".
+  https://lore.kernel.org/all/20260929-ambitious-festive-orca-b59ffe@quoll/
+- Link to v6:
+  https://lore.kernel.org/all/20261002-b4-quarkpi-ca2-v6-0-9fc33f27ebb9@163.com/
 
-likewise for these two
+Changes in v6:
+- My oversight, sorry for the noise: when I switched phy-mode to "rgmii-id"
+  in v5 I forgot to update the commit message of patch 2/2 at the same time,
+  so the message still described the v3/v4 approach (delays applied on the
+  MAC side) while the code had moved to the PHY-side delays.  The message now
+  describes what the code does: the PHY adds the delays internally and the
+  MAC adds none, so nothing is applied twice.  The device tree is not touched
+  by this change; the compiled .dtb is byte-for-byte identical to the one in
+  v5 (verified).
+- Keep the headphone routing as in v5.  On this board the 3.5 mm jack needs
+  the direct codec output routes: describing only the amplifier path gives
+  no output at the jack, which I verified on hardware with a test tone and
+  with music playback.  So the parallel routes are intentional here and
+  were not changed.
+- Link to v5: https://lists.infradead.org/pipermail/linux-rockchip/2026-October/077620.html
 
-With that:
+Changes in v5:
+- Use phy-mode = "rgmii-id" and let the PHY add the RGMII delays, instead of
+  "rgmii" with the delay applied on the MAC side, as pointed out by Andrew
+  Lunn.  The MAC adds no delay in this mode, so nothing is applied twice;
+  see the GbE note above for the details and the measurements.
+- Move the Makefile entry so that the list stays in alphabetical order.
+- Rename the headphone amplifier node to the generic name "audio-amplifier";
+  the labels are unchanged, so no reference is affected.  The audio routing
+  itself is unchanged, see the note above.
+- Set the Type-C connector data-role to "host".  The XHCI controller is
+  host-only on this board (dr_mode = "host" and no usb-role-switch), and
+  the vendor DT lists "dual" only because the vendor configures that
+  controller as OTG.  The power role stays "dual", as the board can be
+  powered over Type-C.
+- Link to v4: https://lists.infradead.org/pipermail/linux-rockchip/2026-October/077616.html
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Changes in v4:
+- Add the missing blank line between the include block and the root node.
+- Fix the node indentation in a few places.  That cleanup is whitespace only;
+  the compiled .dtb is unchanged by it (verified byte-for-byte).
+- Rename the Type-C controller node to the generic name "typec-port", as the
+  other boards using this part do, and drop its redundant status property.
+- Give the fixed regulator nodes the "regulator-" name prefix, as the other
+  boards do; the labels are unchanged, so no reference is affected.
+- Route the Type-C SuperSpeed lanes through the USBDP PHY, as the other
+  RK3588 boards do, so that the PHY does the orientation muxing.
+- Feed the headphone amplifier from one codec output pair only; that is what
+  the other ES8388 boards do.
+- Cc the people and lists reported by scripts/get_maintainer.pl.
+- Link to v3: https://lists.infradead.org/pipermail/linux-rockchip/2026-October/077611.html
 
-Konrad
+Changes in v3:
+- Rebase onto current mainline and re-run dtbs_check.
+- Drop the explanatory device tree comments, as requested.  The rationale
+  that was in them is in this cover letter instead; the compiled .dtb is
+  unchanged by that cleanup (verified byte-for-byte).
+- Use phy-mode = "rgmii" with the RGMII delay applied on the MAC side
+  instead of "rgmii-rxid", as pointed out by Andrew Lunn: phy-mode
+  describes the PCB wiring, and only one side should add the delay.
+- Rename the fixed regulators that used a different naming scheme so that
+  all of them follow the same style, and use generic node names.
+- Drop two redundant "status = \"okay\"" properties (rga3_core0 and
+  rga3_core1 are already enabled in rk3588-base.dtsi).
+- Add the missing "enable-active-high" to the Type-C VBUS regulator.
+- Use the binding-documented codec compatible pair and drop the
+  "clock-names" property, which everest,es8328.yaml does not allow; the
+  codec node now passes dtbs_check.
+- Drop the phy-supply of u2phy0_otg, the USB 2.0 PHY of the USB-C OTG
+  port.  That rail is the Type-C VBUS and is already owned by the TCPC;
+  while the PHY held it enabled as well, VBUS was powered from boot, the
+  TCPM state machine never saw a VBUS-off event, and the port could not
+  finish a source attach, so DisplayPort altmode never came up (the
+  monitor had power but no picture).  Verified on hardware: the port now
+  attaches at boot and the monitor gets a picture.
+- Add the LED color so the work LED is exposed as "green:heartbeat".
+- Drop the camera sensor and its regulator: camera modules are plug-in
+  devices, and enabling the CSI-2 receiver without a sensor attached makes
+  the driver fail to find its endpoint at probe.  Following the vendor
+  tree, camera and panel descriptions belong in overlays.
+
+Changes in v2:
+- Fix the RK806 DVS1 pin configuration: dvs1-null-pins used
+  "gpio_pwrctrl2" instead of "gpio_pwrctrl1", as reported by the
+  sashiko review.
+- Translate all device tree comments to English, and drop a stale
+  comment that no longer matched the Type-C / USB3 nodes.  Comment
+  changes only: the code is otherwise byte-for-byte identical to v1.
+
+Please review.
+
+---
+Bob Hui (2):
+      dt-bindings: arm: rockchip: Add ALIENTEK QuarkPi-CA2
+      arm64: dts: rockchip: Add ALIENTEK QuarkPi-CA2
+
+ .../devicetree/bindings/arm/rockchip.yaml          |    5 +
+ arch/arm64/boot/dts/rockchip/Makefile              |    1 +
+ .../boot/dts/rockchip/rk3588s-quarkpi-ca2.dts      | 1208 ++++++++++++++++++++
+ 3 files changed, 1214 insertions(+)
+---
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+change-id: 20261004-quarkpi-ca2-21d2a59c50c3
+
+Best regards,
+--  
+Bob Hui <bg9oxa@163.com>
+
