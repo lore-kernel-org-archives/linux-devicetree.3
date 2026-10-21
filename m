@@ -1,111 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792584043;
-	b=ygf7AIDpYKQ3nb2tvmbejX5hO7soFW69Ib7oQ3V+SklUngHsGdUS/ppyceejAJzA/6A0
-	 IqpNNIpaVuIKDPsNTVvsdoJmhF3BBu1ok9d7PRQ8OZc21BQfg9tjiRDLALLvvO2gBUCi/
-	 nrUNnwT6c86+eg4tJlEkJxZWxh/7Bzghx9STUGLXzJMUkT3yVY6jymbOInpbiiwbwXIcN
-	 GdbM5geFqKNqvb+qmvAowdTOmkLqg6OVWRQWGJ6CKO/sgf2aG4O3iL1s5sQaW7P6cBxtG
-	 0nUau7a8AoYN1ejrxYUYKyGAcFMKTsQxLslfSlAkKiHa3wL4Su/abAAFgbyGjlx5I+g==
+	t=1792584057;
+	b=4Ip4eSXsO9sv2t2wNzJNZC7B3DnzcSCvmw2J8u05i+MEbcdyCCsVqiu/azecInDMTZQ0
+	 0XVzdKJuOABjC/zcehmgnl8/gAjFf/6psAv1ZsoTg8B/X5nBTqsL8Y7TLZ20DbhmMOzHO
+	 EoZZTLyemwYQZEZbOmS/nP7NSgLN0pAs2NBo59RZykWNKlT5AspbzQ3qF+CmNCxOHCJFn
+	 jJtCa77EjXyd+4xRtJeaU9KUrcEtS4TsY/JrQ9/7TwrTE3bw1eyO+EcEgbF2FC9KcoTpG
+	 Vwv1xRv4fg3BA4wopD1zdZh+TiPWtSgaPVec0B0WwvqERzcRKQOIpwl7OIzLdA055Ig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792584043;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=7492lyDGCMJVk5RTZk51iOq1Kd3H7jR4clDwOkE2Xww=;
-	b=GRo6/fHuOSYBsqLK+yN9ZghV/shUdqq2Vh30aKEEdRAm0WEsOD4A4QSLinzWMRWTMOPK
-	 0EyK7e7qQyy+ZDGftJn27WYtkpIMJPGgsVcIMMI8kwDeB1/VPQRAV5/ATwPbLlPWWCV7d
-	 QHmS3lzKRukiONjeFwdDTCmrWsz8tGmM/wPkflBcGT9b5Xz86rGo+oLlk6ZJKtgan6ZiD
-	 8BNoijqScnuFX/sm61omN49AkKJBBiQrnTX0cufVxyIajLyMYoKWY5hpU5iCOT0UZlhxQ
-	 yzBjScw39o14CZAx4mPZGGZNIDwcht0N0nmrWvL1JK7zvI3iE1CkGfwnanRmlIXeP0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792584057;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=WG1izNJxdPYBR/AIRdSpRjLUMRkZFgk5V07n7hEry7U=;
+	b=QxMLV0p0jeWkOJldkqv7rqEZunQN6WvKDy2w0vYL5Irul2HJg26N7PBLgZK2a8/1+FCH
+	 4s93zulOFv7fQ1msIAljQDHwAdV7JPCCFLVgMdvKQhQZQ2pxBTb3iJqnhRuKwx4vm1+y2
+	 MCKo1V85e0Tx5nHvLQ/on/OIls0wd8ObaOeoU7FLPuUlZ/Eu610CBUpPmY3ISV4FyuCLH
+	 57oZ2dXBIi7xEa8SvF+ypdDdhjQUnbfPBRimbTBCDhGgRwv+piXoWxoJORCh7kL3aE3dp
+	 zcvC23quLFyTJC57RHHkVU1nEtCumisCr+/cAN/tDnMLrcJRIBDkPLfRyWKc5SXiang==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cKo3fbec;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SdPDcLR6;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="B8/RpBz4";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A61606A31B
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 12:00:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1A61606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB5C2606A31E;
+	Wed, 21 Oct 2026 12:00:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cKo3fbec;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SdPDcLR6
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LBg93j3830274
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 12:00:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	7492lyDGCMJVk5RTZk51iOq1Kd3H7jR4clDwOkE2Xww=; b=cKo3fbechJkj0j7V
-	/mI6/lX0+qidNJxs+cN+0pFj98rmr64pq4aGnU6tCHb7h3VnwzQ86KmbuH4XCbGQ
-	P/W9T4/49uonL0sr3trUtcZRVUPJvU8DNa5RivotrTAdnwuH1n0fEmgC+vi2x5fN
-	Rz7RLqiBtdUhnJ4rKS28zPImZf+jI5Q/h8mz2N38Kbbi4Ez1S4SyIWXsY7bFR8at
-	Ob1794tBR9wqLjHB3C/HP04bPHHF0WFz1APOcNp+mL+g1FxHQL0wZk+SuEAHiPUF
-	FHDFl5HY0AV2w1EEx0Sp43bIFhtMKwe1qNHzJMBItOtOBtvWG9aP68OBD+UZQxar
-	/g1OkQ==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hebyd460p-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 12:00:41 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e93f67358eso6946945ad.1
-        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 05:00:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792584041; x=1793188841; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7492lyDGCMJVk5RTZk51iOq1Kd3H7jR4clDwOkE2Xww=;
-        b=SdPDcLR6QzuTZW6Bw5cmgDV8D975ZXDHduDJlKPL+u5MQahUG02xe9bKk66UcJ4wWH
-         n3/1JLn66McXOaP8y/gPWnlMGuM+ct8O1r6Ami8YWk8UQwNI15xIT+J4F2wot0G7nwoQ
-         c9Dbx1XTIU6KREcDPtcXzPU3WQMsExl0wcGK0mn21ArPBT4ePzy783jpGNeQhfVlrr97
-         i90ZG9lwG7N2snwhEgYuOp6GsEhDSRtadBJHH/YmsRYgw4xBwGP4yTLL4QRk/I2048PQ
-         sGNAL/jbDWFjUR19PhyIntUExsAyTD3241j/QXe54CZTG1zOGmSpd2Jrwu4esbiHs6Hs
-         rSwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792584041; x=1793188841;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7492lyDGCMJVk5RTZk51iOq1Kd3H7jR4clDwOkE2Xww=;
-        b=Y97UFwo67A59k3c138QsnsPIO+qERlmb5uA6M3lCZFp+osP96njOGPyQgVs0oXEGGx
-         kdS5Q/QvIlTxtb/1utQrZ6YsubreFpLkWjJA6zvnE7+pncxuP5zoiKxjO1I3leoodQJE
-         +mlM5j7Mc7scgQsEieI+PWGBuMDAsM07VsGlQbhUJv+24/ID9KAnCoVB5WTj1qhnJPUd
-         RVbVH+Wbl2mHsQ/fuKcy12ijVvRGaJmTSmWGDccsGxFvGx4YZlnszZlnBER/qRE/V1nP
-         hIPg/44E0/rgJnIsg/vzxFYwivPjmFI9nM5qTQi1nZ8KVNw0UsdDD0L7n+9oUJkkhSYO
-         Omeg==
-X-Forwarded-Encrypted: i=1; AKwUvBw0+phTRVRAwASir3EhRJvyqHlrtqwLfaSFAx+hSxpW4qEdwhN0dPy1Twzjr1qA3ABbkdQevOV0thRF@vger.kernel.org
-X-Gm-Message-State: AFq9FYIrPTB+Ck6Iy0J3Foxdpz0XalRxqfLBfipbYgR5wC77HOz4oO85
-	Vg5AT/oVKP963Ya7X6dmBWpqp5XRb48NircXgxZJKvtuTTyRFa06OoWES6CoGSW6zrYFgSnHixu
-	RDtzgKjR08EGRaP9Y6IDZbPjjbyDzeRB6bI9AAnjfPZclmLVH+fA53nFY6ZCwxXMR
-X-Gm-Gg: AYBFou2wAI8XxnfJfKBJnAZkliphnWekeMOFKcQVNS1Vskipe4bf2810Wn+qV3inbLk
-	0KM7nJ7lT4IZ0S2zGvHfN42ibOryfuvk7nE71Sbj3SJmBj2g3iE6e+9YhMAn6EGIvJkeLXTOPxk
-	bJQ0OdPLda5K3cmBrWXS8TiIEY8AOpzFgL7/d5NCyCPiQNNlCY5De4d664/oMY0ZtR7nOb92jii
-	2wkKMK3k10NoXzAEgDZ09vnsdZ1obFp5SR/GATD0euVECD5XUSbQS2ZyB0kDo0+tetZa5eyRDlG
-	vHUxitJncMRRaNttaRBFj7RKzTNovp90kD5OtGKT9UTayxmoW7D5tPncAMAGQmNiGQ9o1gvBQCT
-	89tryzHePV2jk8lyZuuFCmxM0Kw84
-X-Received: by 2002:a17:903:2309:b0:2e9:4243:431d with SMTP id d9443c01a7336-2ea439a650bmr14235105ad.30.1792584038512;
-        Wed, 21 Oct 2026 05:00:38 -0700 (PDT)
-X-Received: by 2002:a17:903:2309:b0:2e9:4243:431d with SMTP id d9443c01a7336-2ea439a650bmr14234645ad.30.1792584038003;
-        Wed, 21 Oct 2026 05:00:38 -0700 (PDT)
-Received: from [10.204.78.119] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea3b486965sm10235045ad.63.2026.10.21.05.00.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 21 Oct 2026 05:00:37 -0700 (PDT)
-Message-ID: <dd18e6d5-cb7b-407f-8e7a-2c6fd00359cb@oss.qualcomm.com>
-Date: Wed, 21 Oct 2026 17:30:27 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B8/RpBz4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52F521F000C4;
+	Wed, 21 Oct 2026 12:00:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792584056;
+	bh=WG1izNJxdPYBR/AIRdSpRjLUMRkZFgk5V07n7hEry7U=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=B8/RpBz4SxfcOAmmCDSBzR2bd5qJeQTI2sPqykqMPCUKFsA6uH1Zar0OgvuRzSDYz
+	 pqH9RizNrAW1Wveh7YCEOqUi3oA9s3iKF3GXglQim2Hla6x3qRcN3k31t1TYTkMmMT
+	 llJ1VT4RSaKjAtJSlALqpQuU3/RrgtPpb/gjkdPApzwhsZDC1Vr2u67K6C1ZbstOFp
+	 6xl6Qv7xF2pLIa6m+6nUpHsZtiiqICPlr5lJRq2wlWxbG0wWu7l5UgWRpn8jWw7ha0
+	 ArsgIscuE5OSKiyhIU/9TTH/snofbMsmgbvsrZJRZKUjxBBbVWZMkvAdauY7I47tnz
+	 TZ8azFJ+Eh8MQ==
+Message-ID: <sashiko-outbox-180199@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [RESEND PATCH 2/2] mfd: an8855: Add support for Airoha AN8855
+ Switch
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Marangi" <ansuelsmth@gmail.com>, mfd@lists.linux.dev, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
+In-Reply-To: <20261021113419.283015-3-ansuelsmth@gmail.com>
+References: <20261021113419.283015-1-ansuelsmth@gmail.com>
+ <20261021113419.283015-3-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 21 Oct 2026 12:00:55 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,112 +60,204 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/13] dt-bindings: display: msm: Document the Nord
- DiplayPort controller
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov
- <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Kuogee Hsieh <quic_khsieh@quicinc.com>,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        Ritesh Kumar
- <ritesh.kumar@oss.qualcomm.com>,
-        Mahadevan P <mahadevan.p@oss.qualcomm.com>
-References: <20261012-nord-drv-dt-v2-0-a2ab9af954d2@oss.qualcomm.com>
- <20261012-nord-drv-dt-v2-2-a2ab9af954d2@oss.qualcomm.com>
- <20261013-tangible-wakeful-swift-a38f8f@quoll>
- <20261013-honored-bear-of-cleaning-bd8108@quoll>
- <425ddb41-cfd7-4032-8666-0193ab6b5819@oss.qualcomm.com>
- <565fd4c2-2d5a-4c2a-9ed1-c7bcb17efc9d@kernel.org>
-Content-Language: en-GB
-From: Nabige Aala <nabige.aala@oss.qualcomm.com>
-In-Reply-To: <565fd4c2-2d5a-4c2a-9ed1-c7bcb17efc9d@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA0NyBTYWx0ZWRfX/4v9NxMXPGh4
- eMzXfHqsFOyM7gDT/+fNFUdiMGAqXjFTecfq/Wjxux49YghtUeWMNB7jFwZaCScx3bspDSqtE+4
- a+JJXOVw1Doz4YdmwaSQkqb8S6exzuvKwdJ22zUUa3/A2FX91nOWw3R4+NRg4waaZbTyJgqq91K
- OlvS0dHqVksZtjx26oolimnCV7CwroXufZTjEhsbySYdFQJ2HHXbN68Zcd8QAuZkPAgIV6w/JdD
- 9P9gFGMd7Hp/ri4QHtqcaIT9Lr9TSC6bsJxUorFe5DG/dPOBJGfPxgInQKlp76qZrT1VrK5qdyt
- MKidUfmKX+U7AotCNkqtah4VfT0zOQMjqSU7vqCLC6YKcFp4Cmf37JFQMHnI3rrhSsItYLgczqi
- FsHgVJNriWZ07/TvCFDVLQiHqQSd5Lew4JIthNKUuUqZyZq3GeKZeAnHURoAggTJPpUGiacJplG
- crztPuetyyLhcwPmFZg==
-X-Authority-Analysis: v=2.4 cv=TdsDJhQh c=1 sm=1 tr=0 ts=6ad8a969 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=rLXGX9pe2IGxD4WxI2MA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-ORIG-GUID: pl1MyZ1SQPLiYh5TJiRgrpOCe7mjva3z
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA0NyBTYWx0ZWRfX9m4KMilkhJKK
- +cLV5PCBQvSRmklWLmRIXIs479pi7d22mBG6WOdlgIJalIXYfJQILZ6Sg2wNvWhQUizt1kz6ipx
- hSyDzC6n6ERpVW8jSwM8aOygRSL0RQs=
-X-Proofpoint-GUID: pl1MyZ1SQPLiYh5TJiRgrpOCe7mjva3z
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-21_03,2026-10-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 phishscore=0 impostorscore=0 spamscore=0
- clxscore=1015 malwarescore=0 priorityscore=1501 lowpriorityscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610210047
 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] mfd: an8855: missing reset-gpios handling in an8855_probe()
+- [Medium] mfd: an8855: missing MFD_AIROHA_AN8855 dependency on NVMEM_AN885=
+5_EFUSE
+- [Low] mfd: an8855: mixing __free() and goto cleanup in an8855_mdio_regist=
+er()
+--
 
-On 10/21/2026 5:23 PM, Krzysztof Kozlowski wrote:
-> On 21/10/2026 13:16, Nabige Aala wrote:
->> On 10/13/2026 2:18 PM, Krzysztof Kozlowski wrote:
->>> On Tue, Oct 13, 2026 at 09:44:15AM +0200, Krzysztof Kozlowski wrote:
->>>> On Mon, Oct 12, 2026 at 07:02:12PM +0530, Nabige Aala wrote:
->>>>> From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
->>>>>
->>>>> Nord uses MDSS 12.1 with two independent DP controller instances,
->>>>> each exposing two DP cores at new IO offsets. None of the existing
->>>>> compatibles match this layout, so add qcom,nord-dp.
->>>>>
->>>>> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
->>>>> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
->>>> Do I understand correctly:
->>>> Device is fully compatible with qcom,sa8775p-dp, but a simple to fix
->>>> driver limitation is preventing compatibility?
->>>>
->>>> If so, let's fix the driver - just add more addresses to the
->>>> msm_dp_desc_sa8775p array?
->>> Or it does not matter, because top-level MDSS anyway cannot use
->>> compatibility?
->> For MDSS0, the DP register offsets are same to those used on SA8775P.
->> However, the MDSS1 DP register offsets differ from SA8775P, and Nord
->> also utilizes a different MDSS instance. Because of these differences,
->> we introduced a separate compatible string for Nord.
->>
->> Are you suggesting that Nord should reuse the "msm_dp_desc_sa8775p"?
->> This would also pollute the sa8775p's desc table.
-> What are the differences? Only registers, so no pollution. You just need
-> them to match IDs.
+commit f927c03e4e8ef367f1a168337fd8954240810d42
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
-Yes, only registers are changed.
+mfd: an8855: Add support for Airoha AN8855 Switch
 
-Okay, I'll update the SA8775P descriptor table to also support Nord and 
-drop the "qcom,nord-dp" compatible string change.
+This commit adds the core driver for the Airoha an8855 switch, registering
+virtual mdio buses via mdio-regmap for the internal phys along with child
+devices for the nvmem efuse provider and dsa switch.
 
->
-> Best regards,
-> Krzysztof
+> diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
+> index e4fd4572472f9..afbdcec0fce8f 100644
+> --- a/drivers/mfd/Kconfig
+> +++ b/drivers/mfd/Kconfig
+> @@ -54,6 +54,20 @@ config MFD_ALTERA_SYSMGR
+>  	  using regmap_mmio accesses for ARM32 parts and SMC calls to
+>  	  EL3 for ARM64 parts.
+> =20
+> +config MFD_AIROHA_AN8855
+> +	tristate "Airoha AN8855 Switch Core"
+> +	select MFD_CORE
+> +	select REGMAP
+> +	select PHYLIB
+> +	select MDIO_REGMAP
+> +	depends on NETDEVICES && OF
+> +	help
+> +	  Support for the Airoha AN8855 Switch Core. This is an SoC
+> +	  that provides various peripherals, to count, i2c, an Ethrnet
+> +	  Switch, a CPU timer, GPIO, eFUSE.
+> +
+> +	  Currently it provides a DSA switch and a NVMEM provider.
+> +
+
+[Severity: Medium]
+Should drivers/nvmem/Kconfig also be updated so NVMEM_AN8855_EFUSE depends =
+on
+MFD_AIROHA_AN8855 || COMPILE_TEST?
+
+When drivers/nvmem/an8855-efuse.c was added in commit e2258cfd9b98 ("nvmem:
+an8855: Add support for Airoha AN8855 Switch EFUSE"), NVMEM_AN8855_EFUSE had
+depends on MFD_AIROHA_AN8855 || COMPILE_TEST, which was later narrowed by
+commit 4796eaafd6a1 ("nvmem: an8855: drop an unused Kconfig symbol") to:
+
+drivers/nvmem/Kconfig:
+config NVMEM_AN8855_EFUSE
+	tristate "Airoha AN8855 eFuse support"
+	depends on COMPILE_TEST
+
+Without restoring MFD_AIROHA_AN8855 in that dependency, NVMEM_AN8855_EFUSE
+cannot be enabled in non-COMPILE_TEST builds for the an8855-efuse cell
+registered in an8855_cells.
+
+[ ... ]
+
+> diff --git a/drivers/mfd/airoha-an8855.c b/drivers/mfd/airoha-an8855.c
+> new file mode 100644
+> index 0000000000000..6a270555db5cf
+> --- /dev/null
+> +++ b/drivers/mfd/airoha-an8855.c
+> @@ -0,0 +1,579 @@
+
+[ ... ]
+
+> +static int an8855_mdio_register(struct device *dev, struct an8855 *ddata,
+> +				struct an8855_phy_bus *phy_bus_infos)
+> +{
+> +	struct device_node *mdio_np;
+> +	int ret =3D 0;
+> +	int i =3D 0;
+> +
+> +	mdio_np =3D of_get_child_by_name(dev->of_node, "mdio");
+> +	if (!mdio_np)
+> +		return -ENODEV;
+> +
+> +	for_each_available_child_of_node_scoped(mdio_np, phy_np) {
+> +		if (i >=3D AN8855_MAX_PHY_PORT) {
+> +			ret =3D -EINVAL;
+> +			goto exit;
+> +		}
+> +
+> +		ret =3D an8855_phy_bus_register(dev, ddata, phy_np,
+> +					      &phy_bus_infos[i]);
+> +		if (ret)
+> +			goto exit;
+> +
+> +		i++;
+> +	}
+> +
+> +exit:
+> +	of_node_put(mdio_np);
+
+[Severity: Low]
+Could mdio_np be declared with __free(device_node) or should the loop avoid
+mixing for_each_available_child_of_node_scoped() with goto cleanup labels?
+
+an8855_mdio_register() uses for_each_available_child_of_node_scoped(), which
+declares phy_np with __free(device_node), while also jumping to the exit la=
+bel
+with goto to clean up mdio_np and phy_bus_infos[i].node, which goes against=
+ the
+cleanup helper guidelines in include/linux/cleanup.h against mixing __free()
+and goto in the same function.
+
+> +	if (ret) {
+> +		while (i--)
+> +			fwnode_handle_put(phy_bus_infos[i].node);
+> +
+> +		return ret;
+> +	}
+> +
+> +	return i;
+> +}
+> +
+> +static int an8855_probe(struct mdio_device *mdiodev)
+> +{
+> +	struct an8855_phy_bus phy_bus_infos[AN8855_MAX_PHY_PORT] =3D { };
+> +	struct device *dev =3D &mdiodev->dev;
+> +	struct regmap *regmap;
+> +	struct an8855 *ddata;
+> +	int num_phys;
+> +	int i, ret;
+> +
+> +	ddata =3D devm_kzalloc(dev, sizeof(*ddata), GFP_KERNEL);
+> +	if (!ddata)
+> +		return -ENOMEM;
+> +
+> +	ddata->bus =3D mdiodev->bus;
+> +	ddata->switch_addr =3D mdiodev->addr;
+> +	/* No DMA for mdiobus, mute warning for DMA mask not set */
+> +	dev->dma_mask =3D &dev->coherent_dma_mask;
+> +
+> +	/* Register virtual MDIO for each PHY */
+> +	num_phys =3D an8855_mdio_register(dev, ddata, phy_bus_infos);
+> +	if (num_phys < 0)
+> +		return num_phys;
+> +
+> +	regmap =3D devm_regmap_init(dev, NULL, ddata, &an8855_regmap_config);
+> +	if (IS_ERR(regmap)) {
+> +		ret =3D PTR_ERR(regmap);
+> +		dev_err_probe(dev, ret, "regmap initialization failed\n");
+> +		goto err_put_fwnodes;
+> +	}
+> +
+> +	/* Reset PHY page for switch address */
+> +	mutex_lock_nested(&ddata->bus->mdio_lock, MDIO_MUTEX_NESTED);
+> +	ret =3D an8855_mii_set_page(ddata, ddata->switch_addr,
+> +				  AN8855_PHY_PAGE_STANDARD);
+> +	mutex_unlock(&ddata->bus->mdio_lock);
+> +	if (ret)
+> +		goto err_put_fwnodes;
+> +
+> +	ret =3D an8855_read_switch_id(dev, regmap);
+> +	if (ret)
+> +		goto err_put_fwnodes;
+> +
+> +	/* Release global PHY power down */
+> +	ret =3D regmap_write(regmap, AN8855_RG_GPHY_AFE_PWD, 0x0);
+> +	if (ret)
+> +		goto err_put_fwnodes;
+
+[Severity: High]
+How is reset-gpios deasserted before accessing the switch registers in
+an8855_probe()?
+
+Documentation/devicetree/bindings/mfd/airoha,an8855.yaml defines reset-gpio=
+s on
+the top-level airoha,an8855 node, and drivers/mfd/airoha-an8855.c includes
+linux/gpio/consumer.h, but an8855_probe() never requests or deasserts the
+reset gpio.
+
+Because airoha,an8855 is registered as a non-phy mdio_device without
+MDIO_DEVICE_FLAG_PHY, mdiobus_register_device() in
+drivers/net/phy/mdio_device.c skips mdio_device_register_reset():
+
+	if (mdiodev->flags & MDIO_DEVICE_FLAG_PHY) {
+		err =3D mdio_device_register_reset(mdiodev);
+		if (err)
+			return err;
+
+		/* Assert the reset signal */
+		mdio_device_reset(mdiodev, 1);
+	}
+
+If reset-gpios is asserted at boot, won't an8855_mii_set_page() and
+an8855_read_switch_id() fail to read AN8855_ID over mdio and cause
+an8855_probe() to fail with -ENODEV?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021113419.2830=
+15-1-ansuelsmth@gmail.com?part=3D2
