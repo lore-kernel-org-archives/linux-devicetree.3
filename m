@@ -1,57 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792572153;
-	b=YYU4iX2k58vkhJ13hJYlmQgly7XF/VrTVih921B4vsdAD664ycrorq747qFKqja1nOUj
-	 uPcItRUVISuLmnBFdZhcP1ta6hTWCiVMipxkPSIv6BZX8ZHrRYozxtdpz29Q/tZdVRChV
-	 1m+14UbPoOPQuNzeV2Tqq+voZis3pqj7U++CE0858zu6mh3ld90+RiDEBh1LEdL1TS5uc
-	 BByRa+HWUuNkrb52ai1DCkhquC64TbcwVpSrNUfJC8FqtQQPea9W/1BkTPVZgcHXrk9Yz
-	 am4eMS8+N2VsiuDKom8q+xqMUqXFIrJqgI7QzPB96sYL04O3wo2vcAph9tBiI/rwTjA==
+	t=1792572332;
+	b=sWRPdQiL2+pxOGQcFitrlCHLFpm47kATGE20PmRIzNvmeePYwbKl+5ahpngAa+dkxZ7T
+	 nuNeFOisPSxJECQC/Q7g8Z6E1uoCjEhA9LPKHAKsnxgF+W9Mhvbv5rAdjH/APRX1URLWO
+	 VURehLENc+E9unRakos6b+wTsEkR13f8cWZUXZx98HkwXZPqDmBs6GVfwTz7KbsWJOtzV
+	 /sWLBFYNSgC95GQdGflaxvlD/ZTo/aNLaqJuPdSgjSLN5D98RfRHIKPDW4u57rN0n2Prb
+	 JAHL9qc2OPewO6/1Hwt3faY4GFPFrmOHBls2OZ6qCYKYWYi9+FgALOaHsXNRJLUh35g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792572153;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=BMCCRKg7bTdZFRCvcZYfC61/CcAuDazuklhXnWavkX8=;
-	b=WfPrvtQhBAfvOX6gYNy1c36/HAbiWdPoQ/pwy82Cms7UQiQ/dCDsEZwXCoO4Tktg5nit
-	 18dJFCQgyFaRCv7SrTVkFBpff3qqdlREEwnoJNkALbcxpDBOL119N61+GhMEu0nJ4Cf3G
-	 VXg2GJay9ZDZIZoQvwiXsPZwlJoiRJK8wlaLoyvYGJB58ZNyCP8gU965QpPA+Nr/yXGu/
-	 ciAI8V4R+3HXc+R0RUpw3PG4C30pimyIUEXWI9C5E02uShus5tBFgYKOZ7162xnP2sBLC
-	 NHDyGhA8z7/3GHKQGgoYtB4+sZnjA+5HwL0SEDQqfXVQvWU4LI71fLYsNr2u6riJD3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792572332;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=/L2H1lepN+Or++0TSx4iDmyDAjYluQVvW80vZis8J4c=;
+	b=PaFPeItiRxw6oKKNg0r/6/MY8Bj31JvjcUmNspLFK2Ddnt8E2cli7J4nDXQHmVrzBRms
+	 JxOW7IItNpHeQeBiYRvBIBPWkyLNWzsaQ6Uvbfjw357sJmO+gsF/KkLToZ46OS31xFOTD
+	 Vr+peQAkjG9NGGhkQfapWLXojsmRZmj1dImbcDUzcfNcl3bwb9seXKBkiDgQAf/xfottx
+	 SoYiRhO6/pA6ZRs569Cla7qSFI64xFTIhJ0vjq+CTfJjua+LzqTyHLhgt10667vISWUyV
+	 MAC2jREUGyqdo3m5krCdXeUqD/hqyCZAp72pNpYXFHrZ+19xPSrNHjOFEPI3MGpvj5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gsmBKLPc;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=EthEb8nU;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XZoAEtA5;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 241EA606A337
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 08:42:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB335606A321
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 08:45:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB335606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gsmBKLPc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 886DB1F000D4;
-	Wed, 21 Oct 2026 08:42:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792572152;
-	bh=BMCCRKg7bTdZFRCvcZYfC61/CcAuDazuklhXnWavkX8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gsmBKLPcf0+FiHDeqT2ok6Jnrc+r41D+7hEsXr6Q+Y6Xme0SLZDu+vtqYIdtIQ5t6
-	 6mm1YoPbmfcX+Lql4xYUzbI/hx/11ERrbpJHPRcOXPlUvG9XVnXUZF058kA0lvhUJ1
-	 X0z+k30Ml7FgdZ8z1dTlu3WISmjLON8a6TtRV+wJNQgVlR5id6HWdrVAM41nXCAPsf
-	 /DSWhRLMcTwyhx+MSIcc8aBERbrz7c5L8MRAVdZgBL08nEIrSGALFuI956Pblgma9a
-	 xWXjTsUjmrLdcKgtxlbupTJsegoB5HfziQdi03DmXT2EG1am7c19Y3nxbFEE6slSW4
-	 tFavsXCn/3RbQ==
-Message-ID: <sashiko-outbox-179982@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] power: supply: Add Qualcomm SMB1351 charger
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Adrian Nguyen" <thenguyen1024@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261021082841.79147-3-thenguyen1024@gmail.com>
-References: <20261021082841.79147-1-thenguyen1024@gmail.com>
- <20261021082841.79147-3-thenguyen1024@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 21 Oct 2026 08:42:32 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=EthEb8nU;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XZoAEtA5
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69L5jJC32848231
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 08:45:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	/L2H1lepN+Or++0TSx4iDmyDAjYluQVvW80vZis8J4c=; b=EthEb8nUYtdG+GyY
+	p5JwIaqB1vcxR0MDVovpnpyMxONuJ4ZHG08WVxoSSDhpRj+KpaTSVbN2mWNa/4nL
+	7ct40Sn0ZYs8Zuk7CWtHcCpE16wbYenupEcuoKP7WJNSDLu/HUj6SZ2rd3f2LiPD
+	xvfSaH3Av3eY4H7SgOJDWPNssbsQcp4jRK+HqVxAC3m1Fw458b30KFiGC1gr0mqa
+	J0EH145lExaJBfa6XLOuGThKyfqJZTG4yfQ/QNLa343VOMfX3emx3z4nE78Z8S9H
+	88O8+ejXsypEC3tg1Q2hcWwpVSRxDxQohEefz6JCnOf0iGlrRdLbd4+wR1mDQsqI
+	nFC8tA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heeb9astq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 08:45:30 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f3960dca5so16095985a.0
+        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 01:45:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792572330; x=1793177130; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/L2H1lepN+Or++0TSx4iDmyDAjYluQVvW80vZis8J4c=;
+        b=XZoAEtA5+SSc7uWEPnJSZ9bn54TDFTYfTZ18AKDtIPBb3+FD7+483UBiSzQF9LW1zU
+         mC4O8cKQH598793zsWIxX8RYa4USGbvTK9eIudqpSpLFlyetSK1ONlJhFCuJMPzJizIU
+         d8J3KRrQ6MuJA5B0sIDl7M4TkBByVj3HXzOsQRvWtR5BBMSFwKhnVbKMtQzGNVfCOytx
+         XUVDoCnMBB/Uyin33LhFVJh+LAsU75qKGS5haNReJEIgBFEC3VbOwPy6RBCGnkhNrldZ
+         cxhETrtJKSW1qYoNXqTvpU0TkAuDZibTriQC+SAwxCt1q1SJePGGxWlQVoiSqnt7NnRq
+         gFSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792572330; x=1793177130;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/L2H1lepN+Or++0TSx4iDmyDAjYluQVvW80vZis8J4c=;
+        b=lR4rpLm9Pzqyy5lLoljFz/d1V4tMBQI5X5PX0kwCIYyqkZTQn+A263L1r041WzK0fF
+         Lsk3+lr5/OR0e9fI0S5wvTMGwnEPLAVUQrK5wiUMBJSdzCr5kWWIJ1KRiWi7Bvuya4O+
+         MO/46ZaNLzU2OSPW6wMsxQZ2a9LRpkbbYMHsZLW6r8QYRX4V9hcjX+msxOJWwydsdsNR
+         lDt8RdHOF5IFYjiG0WVMc3gvQUPiCLKsHk43Bi5KSJCu852jEkmFuwWgv7levPtWdUJs
+         4d38pOzBDCu0aD9UEGCVfeI31srQWGRwTyImpG4bCCWkDkJngVFe5iyDB/nlbIX8Jr2d
+         9XFg==
+X-Forwarded-Encrypted: i=1; AKwUvBwokPCcbbB8lzzllAPV4O6w0uZT87jY7D54kZHHdlpJzh5dU57tsu6yOYs6Sn+T5tOJ+VGaqe3bH8Dx@vger.kernel.org
+X-Gm-Message-State: AFq9FYK89u7Ld+g2EiSznAJV/5YMoXoX1pRMm5lUndLasGgS/hHGyz7+
+	lC/akAjDl03E1kYeNLfyMP7311WVOPYKbfqS+MMLCRqo9rK932RvfyKr60xpj5YB62c3A0PpdyV
+	CI3w4rF6QIktU2aHOjOTV/bSAyHWGylDktwQ5W9rZyUqZFm9THfKBPSXFj+pP4Ii0
+X-Gm-Gg: AYBFou3htyHoFDVycNFpLlXJgh+qIBb73zkBF84LI3X6eGcVNaJmSMvWPtBDyv0PpoQ
+	StBAWqHU+CRXC7Slr6q4y7QPZBN/Iccuv/7OUaUcocOqkDAmyU/2XHlan+J4xlAeXDeJFjH6xu6
+	+AB272q1iuC7UwlOWwtbNLTXr0QPGuFf7y/QVoJF1rqCi9/4SJOEXJ4+YSxrL9U8G4uQWvBdlTO
+	Glnl9z+jhvhkZu7wkjHqPFOCCrtt6mBi85CYV1NkwTQBDEShpDZ1zg3WA7XmYenn0tLYvRuWJhr
+	8rlEugDmpXpWr0uVJPhphFFRnmiw/0hrvdBFrQDG/Yv2CNmx9ByPT0S9AeTRg3QfF/AL32vVsye
+	XI1pZ1eV3+Z68P5tkpSpz5Q==
+X-Received: by 2002:a05:620a:45aa:b0:939:9205:4d78 with SMTP id af79cd13be357-93f57f96010mr337844485a.3.1792572329847;
+        Wed, 21 Oct 2026 01:45:29 -0700 (PDT)
+X-Received: by 2002:a05:620a:45aa:b0:939:9205:4d78 with SMTP id af79cd13be357-93f57f96010mr337842885a.3.1792572329524;
+        Wed, 21 Oct 2026 01:45:29 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b40315a59esm601649a12.32.2026.10.21.01.45.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 01:45:28 -0700 (PDT)
+Message-ID: <fb6a7e59-5265-4eb5-9d41-504ded38454e@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 10:45:26 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,176 +114,65 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] arm64: dts: qcom: sdm845-sony-tama: Enable UFS host
+ controller and PHY
+To: Shujath Mohd <shujath@outlook.in>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org
+Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+        krzk+dt@kernel.org, conor+dt@kernel.org,
+        angelogioacchino.delregno@somainline.org, martin.botka@somainline.org,
+        linux-kernel@vger.kernel.org
+References: <PUZPR01MB514158F5EDA660AC85FA8D5BC3BB2@PUZPR01MB5141.apcprd01.prod.exchangelabs.com>
+ <TYSPR01MB6204401DDDDB12AC906BB9F7C3982@TYSPR01MB6204.apcprd01.prod.exchangelabs.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <TYSPR01MB6204401DDDDB12AC906BB9F7C3982@TYSPR01MB6204.apcprd01.prod.exchangelabs.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAzNCBTYWx0ZWRfX5iRQDZ6S9/ah
+ scdqQ3nhdoqhfP9RaVyLQXcANJnd6WFBEwsZLV/Uz3cl6LtGqbENXizP+5yaNeFjH1t7+kUr4cw
+ 4mwYhe+9IFW04Zi4PQD1XWd65KSGw+U=
+X-Proofpoint-GUID: vNu28O0tzQ0vrHJiCsxxtLlOuUOtrqff
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAzNCBTYWx0ZWRfX0Ry6dS1PdgCU
+ Tqw7qNTL7ccTf5RNRDHhUQXVwvpUgr25zbStJ7811YExUKohr7uQ/rj7xo06dmX5MwJ7DHMK3ju
+ LB9pzEDYi6MunlHQ9B5qOf6PLGtuuU3b3AjJxc9yP4cvVFbZYoB3q1AsmUCUMLq1tAJOR9QFYve
+ awWRFBpfgP0iECMEJbgTXkaqoqygx02PN8JmkEMYoWC8/7WCxqiVS4JbHynj0RRqOmDCp4P2S3/
+ /F32MYH6IWY/F47IkKUCwrrNJxUxfNfYz/U/PwyHlWfzRh4knQz/UUzOfdM9bmzmg2ScOPYIi/D
+ BgfBSr4f7v1TAFWmK5qdJDnwGCgXz4jfupSgBujQsMYlvBsS76RNFwUiqF1scS+2Y/dMm7RpOkT
+ B513HSpxLErJWiDZK3khK526ilP03P47TMEQvYOnY4+PsKfBZdy75NvV1tplWaaJ8DFtZXM0YS8
+ NesGLkoy07JPK5Hxe1w==
+X-Authority-Analysis: v=2.4 cv=R42WitRX c=1 sm=1 tr=0 ts=6ad87baa cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=CYTpYu_piMVnSvLoUqcA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22 a=zY0JdQc1-4EAyPf5TuXT:22
+X-Proofpoint-ORIG-GUID: vNu28O0tzQ0vrHJiCsxxtLlOuUOtrqff
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-21_02,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 lowpriorityscore=0 priorityscore=1501 suspectscore=0 spamscore=0
+ malwarescore=0 adultscore=0 clxscore=1015 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210034
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] power: supply: qcom_smb1351: race on retry_until in smb1351_get_=
-property()
---
+On 10/19/26 9:50 AM, Shujath Mohd wrote:
+> Hi,
+> 
+> I wanted to follow up on this patch and check if there are any
+> comments or concerns.
+> 
+> The UFS host controller and PHY have been tested on the Xperia XZ2
+> (Akari), XZ2 Compact (Apollo), and XZ3 (Akatsuki) across multiple
+> reboots without observing any UFS data loss or corruption.
+> 
+> Please let me know if any changes are needed.
+> 
+> Thank you for your time and review.
 
-commit 775470b6736c36c7e8120aec1a8d3f4b8da3feec
-Author: Adrian Nguyen <thenguyen1024@gmail.com>
+Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-power: supply: Add Qualcomm SMB1351 charger driver
-
-This commit adds a power supply driver for the Qualcomm SMB1351 and SMB1350
-switch-mode battery chargers when powered from VBUS alone. The driver keeps
-charging disabled via I2C, configures the float voltage from the monitored
-battery, and reports online status, charging status, charge type, and float
-voltage.
-
-> diff --git a/drivers/power/supply/qcom_smb1351.c b/drivers/power/supply/q=
-com_smb1351.c
-> new file mode 100644
-> index 0000000000000..8089051cb44ae
-> --- /dev/null
-> +++ b/drivers/power/supply/qcom_smb1351.c
-> @@ -0,0 +1,426 @@
-
-[ ... ]
-
-> +static int smb1351_get_property(struct power_supply *psy,
-> +				enum power_supply_property psp,
-> +				union power_supply_propval *val)
-> +{
-> +	struct smb1351 *chip =3D power_supply_get_drvdata(psy);
-> +	bool online =3D READ_ONCE(chip->online);
-> +	unsigned int stat, vfloat;
-> +	int ret;
-
-[ ... ]
-
-> +	/*
-> +	 * The chip can lose VBUS, and with it its configuration, without the
-> +	 * PMIC charger reporting a change. If it has been reset or does not
-> +	 * answer, run the work again, unless a run with its own deadline is
-> +	 * already pending. Report "Unknown" rather than an error, which would
-> +	 * drop the whole uevent.
-> +	 */
-> +	ret =3D smb1351_read_status(chip, &stat);
-> +	if (ret && !delayed_work_pending(&chip->work)) {
-> +		WRITE_ONCE(chip->retry_until, jiffies +
-> +			   msecs_to_jiffies(SMB1351_RETRY_TIMEOUT_MS));
-> +		queue_delayed_work(system_freezable_wq, &chip->work, 0);
-> +	}
-
-[Severity: Medium]
-Can smb1351_get_property() race with smb1351_work() or
-smb1351_external_power_changed() when updating chip->retry_until and queuei=
-ng
-chip->work?
-
-In process_one_work(), WORK_STRUCT_PENDING_BIT is cleared before invoking t=
-he
-work callback, so delayed_work_pending(&chip->work) returns false while
-smb1351_work() is actively executing its I2C transfers.
-
-When VBUS is lost while chip->online is true, if userspace reads the status
-or charge_type sysfs attributes via:
-
-  power_supply_show_property() ->
-    power_supply_get_property() ->
-      smb1351_get_property()
-
-while smb1351_work() is running, smb1351_read_status() fails and
-smb1351_get_property() sees !delayed_work_pending(&chip->work). It then
-overwrites chip->retry_until with a fresh timeout and queues chip->work with
-a delay of 0.
-
-When the running smb1351_work() subsequently checks chip->retry_until:
-
-	if (ret && time_before(jiffies, READ_ONCE(chip->retry_until))) {
-		queue_delayed_work(system_freezable_wq, &chip->work,
-				   msecs_to_jiffies(SMB1351_RETRY_MS));
-		return;
-	}
-
-it observes the extended deadline instead of expiring and setting
-chip->online to false, and its queue_delayed_work() call with
-SMB1351_RETRY_MS is ignored because WORK_STRUCT_PENDING_BIT was already set
-with delay 0, causing immediate back-to-back re-execution without the 200 ms
-backoff.
-
-Similarly, because power_supply_get_property() and
-power_supply_external_power_changed() both acquire psy->epc_sem for reading,
-smb1351_get_property() can also run concurrently with
-smb1351_external_power_changed() and overwrite the longer
-SMB1351_SETTLE_MS + SMB1351_RETRY_TIMEOUT_MS deadline in chip->retry_until.
-
-> +
-> +	if (psp =3D=3D POWER_SUPPLY_PROP_STATUS)
-> +		val->intval =3D ret ? POWER_SUPPLY_STATUS_UNKNOWN :
-> +				    smb1351_status(stat);
-> +	else
-> +		val->intval =3D ret ? POWER_SUPPLY_CHARGE_TYPE_UNKNOWN :
-> +				    smb1351_charge_type(stat);
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +static void smb1351_work(struct work_struct *work)
-> +{
-> +	struct smb1351 *chip =3D container_of(to_delayed_work(work),
-> +					    struct smb1351, work);
-> +	unsigned int version;
-> +	bool online;
-> +	int ret;
-> +
-> +	/* The chip only answers while it has VBUS */
-> +	ret =3D regmap_read(chip->regmap, SMB1351_VERSION_REG, &version);
-> +	online =3D !ret;
-> +
-> +	if (online && !chip->identified) {
-> +		bool smb1350 =3D version & SMB1351_VERSION_SMB1350;
-> +
-> +		dev_info(chip->dev, "found %s (version %#04x)\n",
-> +			 smb1350 ? "SMB1350" : "SMB1351", version);
-> +		chip->identified =3D true;
-> +	}
-> +
-> +	if (online)
-> +		ret =3D smb1351_configure(chip);
-> +
-> +	if (ret && time_before(jiffies, READ_ONCE(chip->retry_until))) {
-> +		queue_delayed_work(system_freezable_wq, &chip->work,
-> +				   msecs_to_jiffies(SMB1351_RETRY_MS));
-> +		return;
-> +	}
-> +
-> +	if (!online) {
-> +		/* Without VBUS the chip does not acknowledge its address */
-> +		if (ret !=3D -ENXIO)
-> +			dev_warn_ratelimited(chip->dev,
-> +					     "failed to read version: %pe\n",
-> +					     ERR_PTR(ret));
-> +	} else if (ret) {
-> +		dev_err_ratelimited(chip->dev,
-> +				    "failed to disable charging: %pe\n",
-> +				    ERR_PTR(ret));
-> +	}
-> +
-> +	if (online !=3D chip->online) {
-> +		dev_dbg(chip->dev, "VBUS %s\n", online ? "present" : "absent");
-> +		WRITE_ONCE(chip->online, online);
-> +		power_supply_changed(chip->psy);
-> +	}
-> +}
-> +
-> +static void smb1351_external_power_changed(struct power_supply *psy)
-> +{
-> +	struct smb1351 *chip =3D power_supply_get_drvdata(psy);
-> +
-> +	WRITE_ONCE(chip->retry_until,
-> +		   jiffies + msecs_to_jiffies(SMB1351_SETTLE_MS +
-> +					      SMB1351_RETRY_TIMEOUT_MS));
-> +	mod_delayed_work(system_freezable_wq, &chip->work,
-> +			 msecs_to_jiffies(SMB1351_SETTLE_MS));
-> +}
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021082841.7914=
-7-1-thenguyen1024@gmail.com?part=3D2
+Konrad
