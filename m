@@ -1,104 +1,166 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.180
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792586792;
-	b=fi17z6l/UhM0cRITo9bcDRTy4DMa1obj4bfdz77XFd9Rj/N/SiB2VBWbiHPgkmC0B+s0
-	 fVYHygX+YOmeV2j/5cFMgVPyMlENEjlrQVuuPfM5KCg9BxR/V8nnEbwYTlhxNhY0SQqa0
-	 5UQCj4hfSBZSxkmyYbN7wM5f1F8wAZuXVgsMjUx9zPVldIr1tLjLtI4T8Q9Oqot5n/xM1
-	 Mk/HcRsTFMSCEv460RHd1SGmIdS5wglrn+s1taAuV74op8BxzHGDz6uEj7OtFLmNTPYTx
-	 I3mvP88Ufj+HVpi/mN0PjEOKgTG6L6N7V4DRuiwVwTRlFLLlaGQoz0majwnFYasLueQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792586792;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=MLVbGav53ft6kJ2foiznp8VtjYYpSuaeeOTUWC5c7TQ=;
-	b=I8KWtRe+4vgEldwgJe/HPPgs5E4JC7ULIBv+uxwM2G9sbmGyd2uRLKU+zglgNoB/E/9W
-	 E7L737CxWf0l/k0goB/1L+DNEc5g4UrE3HzpewccT4s9c9ipoR4di7sjCsQOQ3yjaeFtA
-	 d/kQAJN3vJQjZEak/pDv+h6c8L381rZmlhEJ9TMVe+PlJav/86GajGsRUzKreTPDtRlZq
-	 cFWaSnB38SdTNvm4mrmFz+Nqj2FgHL7a5Gd1LVOR3sVxfvgH0tQdOtvLtbCuuFOss5hp0
-	 rvyqoGW8sYoZBiCaugG33nu3LIDbONXhPVlkd1XygE9ah7q6UORdBH442w1/rPTfbAQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=khWnXunu;
-	arc=none smtp.remote-ip=209.85.210.180
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.73.15
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792586816;
+	b=MhLG08n//RFeJd4yjHTNt/0rGriFuF7Ty7FL87z/v7Fpg25h/8zT02VQckf9OYaKclsI
+	 tTTgzSfbHwijNRf4s+VE4RtS6mnlVvOp3s/I85lKncO1rpx+dxEhR64YIe54tHVufEk0a
+	 nQDKWWHSJRAkpRibH8XQu7H1P5t7XXPLqrq1AbLFoAKCUUEniwB7d1U5KtMzLqTUTWEmL
+	 1KOZyNYCplioYQy5PawJdldxIM0W3U2wQVzo+v/gYQ70uhR7Eg+RX2SfWIYgAslooEVum
+	 23tpeCd5vwJA8NNvA0zj8maEObLT5Z4zbB/lEL8OajbyuT97EsNFZIKAWGLIMDl0NwA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792586816;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Reply-To:Accept-Language:Content-Language:X-MS-Has-Attach:
+	 X-MS-TNEF-Correlator:x-ms-publictraffictype:
+	 x-ms-traffictypediagnostic:x-ms-office365-filtering-correlation-id:
+	 x-microsoft-antispam:x-microsoft-antispam-message-info:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:Content-ID:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:
+	 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=QWdA06ynbqrRy7odjiyym5HJ5hnNaSb4hbTk6FAxoQ0=;
+	b=ddKkH8vpYnvCAp3le7A2ZgqFUTqA50QRH9LgG5U+6RTMYUt8rYxaYyd3JcLVYxRbm2A5
+	 D6Iwt+hexzbsZsMbpfZeIfqun4tGzW2LBOk9fJ4OLpyhOE2T84ZjMtDYIYQ7YZkh3BNqr
+	 C8LJYx9SlDnWcZHar9IUIYQj+FVMog5fAQm/6cCmEwthXaB4V0CarBL/95rbRPsM2dYNj
+	 6tCAYk2stXEO5uxp8ab9mdCQ263NMiQKEADOnh7xYcIu8B7DQgLpPGOL7+tVdNWprExet
+	 3FcTYBPj/zIXvve63kxyzX7bw4Ho1oaXiwLa1AR07EmstixnztYsXBhV+rnkT9l9wFw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=outlook.com;
+	spf=pass smtp.mailfrom=outlook.com;
+	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=pCs8jQTz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.73.15
+Received: from MEUPR01CU001.outbound.protection.outlook.com (mail-australiasoutheastazolkn19010015.outbound.protection.outlook.com [52.103.73.15])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41053606A323
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 12:46:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41053606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F16B606A31A;
+	Wed, 21 Oct 2026 12:46:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F16B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=khWnXunu
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8a06b44bd01so363740b3a.0
-        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 05:46:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792586791; x=1793191591; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MLVbGav53ft6kJ2foiznp8VtjYYpSuaeeOTUWC5c7TQ=;
-        b=khWnXunuCLVY6NoEw9DOJIPtkI7w9g73mrNDcuvKPBpoy6/wgW6OMTb2EksL/XA8e+
-         mM0OMG/H32yjU6L4d17rxOeeRZfBw4ZimamtgQR2G4poCNk+5kGL0qNQg4OSiNQh8cbm
-         X5HHTwL3FGuWCD+NSmZBskFztgYmfizuxwe+nK3YA3Ie5G01iczHNIL2DT9KEkB9tIaK
-         jeNVN+OGcvDY/74L8bp2MPHng1mgUxxoiF+GQ0O+9YpwBhvT+IUaytgTB7LxrKtDUOvw
-         o8MZej1iuJUxWpAL2Bpbh5I4DNY8L7Tnkd83wyLLxvHMMUes8wMjywUxng+UCDNn4lSP
-         cvKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792586791; x=1793191591;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MLVbGav53ft6kJ2foiznp8VtjYYpSuaeeOTUWC5c7TQ=;
-        b=FWOFUmMo21Fr5Io7AsXs/F4EU/Cm0qDb6mMBHcm7Ng1Cf/pJLpPf0dMgRjdMAMf4AV
-         PIrFmMc+6Nm/x6DmGg59m4R6uUKz1Rx42Pdg5B7uUP1MdJwIesJCZ0edzEicZtXYTTe6
-         UdYIHsw7IwWCf9Qo1srEiCSgidWr+5Q+8fVr5yn3wH0yqvJSAO/BdB6y9xUk+M/BdXTL
-         poWZurRokW5lm3DKCFBt0YDgksYF7I2Kbjga2rB1rtlCrKgrHVf6YUmtAs1ay4dyU3Aa
-         N54X+vrZ+O0CDmbtJvmpIokJCfp174jJLF7foScZYPr9ucKHf2nOMxT67hGIsJ/C/U8r
-         5Qmw==
-X-Forwarded-Encrypted: i=1; AKwUvBwZKPmYTeAlw4zei82l0gDbi+rF4dfK22wmSXvRyuXBEpv8y92upfjwmYKlbAvlD/mRjJdvZWoaJD2I@vger.kernel.org
-X-Gm-Message-State: AFq9FYLqpQCzyA4iYmKyanfTECjUSTGV9yE8kf1GoBil3Hg7Ki5axS0u
-	G5+oJv8rJe6hRfnliOVMUYGn3BXdd9EBdS/PmcXYdo3MZPSa21MuimVE
-X-Gm-Gg: AYBFou277qAozysJsG+TUJQsMvrb8G3q0H4x9eITtKaOJ0fpK+WxX4Tm9T+XhLfHVz4
-	7Y0EnJkYGSBQWFBjXx5+YIpJm8KXC+y6n7Y/lGuQKbN33y14Wo8b7V+2AJJCJ0W/RiFLeWFQVE4
-	F8lDoy0TyqI1NNF+gc3i+91ai9GXr5wZLifQg8mUxnHRjqO9EK6pI8GrHXOZHKGgeNQUL3jNlvW
-	ieEJoUHFqNZHmlFLyKdSYqBlkYUzH/Q/3QSsNvqUMbRnX3p6lDJgR6y1dfLE3EkmpoYNXck9j/T
-	QR7bB1oSk/ekLJoF9eLdS3DWbZBxeuGgf7RiPzsGcb+3f6Fd5vO2tG9BUXPmlCcw5+gUG3aNIOI
-	rCWGzUhNv7zC5JgopfrDJm0jz3HatfHDTi/LepjXfVAj2f/IZ7GOPKsNCFbR1Zz4xu0nMazcewE
-	FmY7xBf9m916ZJ/z8uJEGl5zkKqnOuT+yUr9ozuIBXI58SqhBVt7lnND6GMRngZ8AnYeQ3WMtss
-	8lrhR1Meb/9Gf9kJ8j2Ra88dN6fczGwQ29rTbaCKwNC9iDhdd6NjU4OgU79u9IzPu3wqmdbcHkq
-	PUZNYD04qPshUT4=
-X-Received: by 2002:a05:6a00:18a9:b0:8a0:6a3a:f853 with SMTP id d2e1a72fcca58-8a089d6be11mr1673366b3a.58.1792586791271;
-        Wed, 21 Oct 2026 05:46:31 -0700 (PDT)
-Received: from arch.localdomain (123202092053.ctinets.com. [123.202.92.53])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a08960fa88sm832964b3a.53.2026.10.21.05.46.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 05:46:30 -0700 (PDT)
-From: Jun Yan <jerrysteve1101@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jun Yan <jerrysteve1101@gmail.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org
-Subject: [PATCH v2 2/2] ASoC: codecs: add support for Everest ES7202 PDM ADC
-Date: Wed, 21 Oct 2026 20:45:48 +0800
-Message-ID: <20261021124552.767218-3-jerrysteve1101@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261021124552.767218-1-jerrysteve1101@gmail.com>
-References: <20261021124552.767218-1-jerrysteve1101@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=pCs8jQTz
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=r52wNNKqFcjMbzsNQWH3dx75Gi0KmezIIw5eTfk03XQZazRN58Mt3Lt4Or3rrsm6rFjtTNMDsSZe5FvbQ51rrRBxLC8qzphGL7EK1meS/Ukih5v9VaxLKu0xZ0MGDTwMWyBfZWTiBgHsMeho/rkcvCXqebWplnkAzTyz+4+MtpGNDaRx4xIvjpNa5v8zus38jZPSTVlrW81/kYeXyfyxjzqIpx6nzqPJMfmfYQ8KauPWFv8MxwczQx9gB8gxXRDFqMGgWUdbCtYxUk5ynjtJM/xT+fmJy2sae9n0jaY08IKp2mrsRl/dkguPdN68toqY+7fA205T9obbiXutPSZ/aA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QWdA06ynbqrRy7odjiyym5HJ5hnNaSb4hbTk6FAxoQ0=;
+ b=Pl0RZuUcRX+oUwjnfS9tQY16UxOn9RUvWDA7qFVOtO3K4ncxh4FqvR70DYqH+pODjPKqeTK4HNf+3f6liUuMmkzZRMI/fFHsxMjY+mjAk+8El4XMfKqeqEYBTXpyiylwOINnoeEPF09SrSf/xT6fTsSWv3AMqWfAejNyz09exaF5dk6WQva5pgoKCULrn9w8kTbMT5GypU33fcNLyii8yp1R156jOjH3IanEOcUb2TJcgeYfqTaLMwq6/ZljdUNMFpCAnAqoY5Qk3ts7pMIROp/NeJLoYONp9YT6ZJRJz4tvm53wwfJXdZ/H8Jxs/BlwPf4diKX9KpIM7uDEhhmxmA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QWdA06ynbqrRy7odjiyym5HJ5hnNaSb4hbTk6FAxoQ0=;
+ b=pCs8jQTzk3309SPndpqrjkG8uKStR3rfz0QHZFioeeYwXNQlvg13D3K0BneTnAmHtmM3dlVcvvA75i3vU1GUM5aUpoAiQ35iGSNFZfKai4WMW7N91d1pho8LrEO6dPzjfI+SLTLRPeMiSId0d53zzqmjFiHw5DDeda2gK8JvlCnZ2poBWuckISNlgmdTgdQhGOahYHK6fDyCoBLcSlHVG/ARt7QZwWvxREGWBZ1T28FMqhVFgH76gSiQRRJ/Q32v0N0znO/f69hI0PAQ78HUUifVGIQ4uqTEGqAh5WpS0b73bf6RRCelPsKGTTVeuB8oEyd2HOYvDpigfHl6Y/F7ww==
+Received: from SY5PR01MB10600.ausprd01.prod.outlook.com (2603:10c6:10:32c::14)
+ by SY7PR01MB257422.ausprd01.prod.outlook.com (2603:10c6:10:378::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
+ 2026 12:46:49 +0000
+Received: from SY5PR01MB10600.ausprd01.prod.outlook.com
+ ([fe80::db5f:2818:b791:cc19]) by SY5PR01MB10600.ausprd01.prod.outlook.com
+ ([fe80::db5f:2818:b791:cc19%3]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
+ 12:46:49 +0000
+From: Zhang Jiaxi <Z1529105815@outlook.com>
+To: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
+	<konrad.dybcio@oss.qualcomm.com>
+CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, "linux-arm-msm@vger.kernel.org"
+	<linux-arm-msm@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH RFC v3 2/2] arm64: dts: qcom: Add a minimal REDMI K90 Ultra
+ description
+Thread-Topic: [PATCH RFC v3 2/2] arm64: dts: qcom: Add a minimal REDMI K90
+ Ultra description
+Thread-Index: AQHdYVo9D47kW7wZZUOSQ6s1kdOJvg==
+Date: Wed, 21 Oct 2026 12:46:49 +0000
+Message-ID: <20261021-b4-warsaw-minimal-usb2-v3-2-9f4213ab83ef@outlook.com>
+References: <20261021-b4-warsaw-minimal-usb2-v3-0-9f4213ab83ef@outlook.com>
+In-Reply-To: <20261021-b4-warsaw-minimal-usb2-v3-0-9f4213ab83ef@outlook.com>
+Reply-To: Zhang Jiaxi <Z1529105815@outlook.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SY5PR01MB10600:EE_|SY7PR01MB257422:EE_
+x-ms-office365-filtering-correlation-id: 4111d5be-7ec0-4824-f258-08df2f715fcb
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|38102599003|41001999006|39105399006|4140399003|25010399006|22141099003|19110799012|8060799015|8062599012|15080799012|31061999003|22091999003|24121999003|24021099003|25031999004|40105399003|26121999007|102099032|440099028|3412199025|26104999009;
+x-microsoft-antispam-message-info:
+ =?utf-8?B?Nm5OTzltWEpaK2o3Rm1IU1BWYlg3SFdBYlI4OE91U0JGMEJUMTFSMDM4QmY5?=
+ =?utf-8?B?czVpTWF6L0pkcGtiMmdHaFlEQWg2Z1l6K3dqYUVtSVV0dXdmTXg5WUs1S0tG?=
+ =?utf-8?B?OHlyYklXRkN2ZmhKUmYwbXJNZmdkVEdNYWFueTQ4Uyt2M01nN1dXRmhLa2NJ?=
+ =?utf-8?B?ajFQemtUZzdXWlVCNVhOMXMydGhNMWFpMFcyV1VKZFZqUjYwS1B4bGJ4SGgx?=
+ =?utf-8?B?RWRCOG5WbUhMSmJPa2psZkZwaitHd3o0TWtCcDRvWEwyNDhJc29vWUg3MVZa?=
+ =?utf-8?B?djBaUllEbnFnWE9Od1g2blhrR0ZoSi9xNlV5NnI0SWxVNE5BOEpKOGEwRGpm?=
+ =?utf-8?B?eEs1WE4rRU5iMXlIQndwK2NiNkt4bmQrc2ZyYysxWXVOc2w5WWJGVjlabGND?=
+ =?utf-8?B?MnA3OGJTMHVaNG1BejNyZmw3U1VVaFpOVkVWbTJIWFZ1OUVQbXpsRzRHSnh6?=
+ =?utf-8?B?dmhnb1dvQVNmZEI0NVhOU3NsbEUvUmhkSjNPWk5Mc1p6NWo2bENUbGZuSUpj?=
+ =?utf-8?B?cC9hMU1ZejUxdThHdDN4NTdDdFUzYXo5SFliemRpWVlqckFrVDRJWVZDTFE5?=
+ =?utf-8?B?UnRDRFJBb2FSSEkveEVSSE9yVGNpdFN4Qm1GcVFYMk92VVQ3TXViMDhaOHlq?=
+ =?utf-8?B?TFVpWkJPTFQ5c1hyTk5hYjJaVkMzQU4xaTNHUTFwK3BpUHVsdFFrWG5xZXRl?=
+ =?utf-8?B?N1hZcXFDc0FSc2VmcVJpK3VWNnFMRGJKN3VRWkkweEg4bEQrWlp3WmEyT21E?=
+ =?utf-8?B?MS9sNVhsTUxCWHVUWWM3U2c0NThrbndYTE4wdUhzcWMyTFdUakMyK1ZBMkth?=
+ =?utf-8?B?TGZKcFNBaDZiMVkxUEdxaFBudHZPUm5Za0E5SjdEblAwMm14R0RDWHhOWWFy?=
+ =?utf-8?B?azdBamsycmpSU25KL3JRNEVIS0tmbFIrcXFRTjlaSXEydUpwallaR0hSdVRu?=
+ =?utf-8?B?SWNnMVU5bWZpT292NFpHWWd5NkxPN0RwVElSTW51Q21kZUUwcGtnalU2aStG?=
+ =?utf-8?B?U2pvSWFpM3dyZTJ0M2d5MkhwSkhVWW5BcHh3TTA0NDdMeENxNXVSbzFBZDVC?=
+ =?utf-8?B?STJLN2k3Sks5MHFPVExycHJNYm1SQnZWcFZKdFprbFlnZFFwQlJFMzAvb2hv?=
+ =?utf-8?B?TS9mdlIxN01jN3JISE01dUxETG9XUUdvYzBYZlJwS2w5WWdvMytTWW9haVFs?=
+ =?utf-8?B?QzFTMnFJYmZZOXJKNTJxdlFNcVZ3REZXdVk3S3Q3dmtFc21YVjZ5RFEyNGFm?=
+ =?utf-8?B?NS9ia0FxZlpaUDBIdllycWFuaTlpNFhGTDNwVnhvVm5NWmdXQWV0VkczODNY?=
+ =?utf-8?B?NThQM1RDeEFsTG5LNUd4WDJZR29jUWxzRjZEbGp2aWttc25nZFZmSG55cllu?=
+ =?utf-8?B?WGszR2N4YVpLaEhFWnNZMGdzUzVHd09HQUdDK1lXOGtab3VELzVEVXpEVUhL?=
+ =?utf-8?B?RUpWSWRUUTJoY0RGR3pXNmNybUt5aVVjNTV2eEw2dEhaa0c4VXV5c25BcWlS?=
+ =?utf-8?B?NzQvRTh4NEtYejBWUmN6bFlkbFh1TUhacE8vNFVwSmFqUDc2TlZhWW0yZUlM?=
+ =?utf-8?Q?+xcakxIzUlGxkpAmy/kS1AsBI=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?ZHhBazgwbWV2cjlqRDlqOER4Y2pLWUtaaG9IR3ZabVJGR1dGVU1kUDRHaDJr?=
+ =?utf-8?B?VXRKOGpLQVJoNWxVdGFwUFF6amUxU1VQbWNSbVg1anlqR1hUT2MzWmJuZEg0?=
+ =?utf-8?B?Mm02Y09GUnl6QkxwZGRnME9ZL3IwRk1FdnpzU0x1OUZhV2Z5YklIODYyTGt6?=
+ =?utf-8?B?TEEwanMrVk9mM1Izc0x0bmRjSWgzd0JDWkdjdE44T0RqNkpXTHVxMTM2alFO?=
+ =?utf-8?B?OHJiejBrSUgvai9xMUFkUXB4M0UvQzQ5MlVWUlhRcWtHRUNlNlNKQmdrUGZS?=
+ =?utf-8?B?RGpzUGU2NXo1bUhrc0JxRHlVQncwbTlsS29xNlJtS1JSMG5MYUJSSm11VlVU?=
+ =?utf-8?B?aFp6YVkza2kwYkVUOXBISWtkS1dvQ1hySkV2NnRKYnQxdDdpdnU3NFlmOTZl?=
+ =?utf-8?B?aUo4R0ZwRUlIQ29aVlZRdzdXL1JheW9mZnFsZWJEVDgvbXNzREx4ZzFldWln?=
+ =?utf-8?B?SlIwSEl4emZ6YVc4SGxjdU5wcWR6MGRZcTRHb29QWXUxZ0xPSWFWNkR0WnJG?=
+ =?utf-8?B?aG1jS3RiMC9YdFluemNsKzByRW4ya1pxYlB3NUpuYnBxVzJhV0F1dXNTb3lm?=
+ =?utf-8?B?amhrMFpuTzE5S2VXeHRjL0ZSYThScTBQMUFBaVVuaTRhMC9hL09OdCtkMEhS?=
+ =?utf-8?B?SjRiNXFkbFBjMXBMQUxGamZ6b0RNYkJnWW1LSUQ3dHo4UFVwamhQNG5SQTdS?=
+ =?utf-8?B?M1owRVVoWDZ2M0FWU3laM1c3LzVZK0NuOHFZenMzYlNCQUlIWTdlUktINWhS?=
+ =?utf-8?B?U0tFTEFVSTkwT1ZoYXdoQVVBQ1VCell0a1JtcHVDN1ErUGdVcGk5T2Qwc3lF?=
+ =?utf-8?B?VnVkM1RuREtZeVhyTXhRVjBjTm0vWjhYUjlHWkpEWEZuZEZtekNCZElTWUNi?=
+ =?utf-8?B?b1hzMVhLQXE3MzMxK3c4UURxQ1I1dERkd0hYSU1sekF1L2JaUzlOc3NWbnUv?=
+ =?utf-8?B?TEo5ZEt3VmlQbkY1MmVYbXhVOXZlMnluN1NvUEVhcWFKanZaUGFMb3VjeDJM?=
+ =?utf-8?B?SDNNd0xiZlNQUlhmSkxuSFlQWnhSNWkzMkRpcEVXdWpYVjE4dnpPMGtYY0gx?=
+ =?utf-8?B?R0J1bFAvM210aUNLS09vZjdMSGpiTkxqdmhsS1N5ejlBV0I2dCt1ckVnWU16?=
+ =?utf-8?B?NWRPM2Y0ME9VanRnN0pHMGxhK0JzTUIwVzgyQS90T1JhNnJwZ2YzK3U5NFJy?=
+ =?utf-8?B?VjhBU0lVSWY4RmlTbGFSSWR1VnJMUUVFN29yWllsVWJoalpmck1hV05XbmF4?=
+ =?utf-8?B?NWhiVGtUZ0ZnVnduc0JhQ2h3cjB0YzFnMVZCMWZ2TkJsZ0ZPeXB0cmY0bFc5?=
+ =?utf-8?B?aHVIUVArc2VBWThsVTZ4anh2SnQ4eXZvbytxRU4xTFJmRVhTRWFyS2hXeXN4?=
+ =?utf-8?B?aXFYQlp0ZU1ENFlNUVp1SG1uU2s5ZSt2NkJRNVN4REcyVlhpMnA0NnRDUEUy?=
+ =?utf-8?B?S1p3LzlKb043NWZHaHNaZCtOMnJGOU11bkZNSUpWMDE3K2tKTU5TdTE4R0RP?=
+ =?utf-8?B?ZXBLaVQvelNZemhXTGJtbWEzYStxcmtLNTZyaTdEVEtvZHJvWkRUYWkybUtl?=
+ =?utf-8?B?UTJKeDlWSW1HY3pudG9yL0pWZmRaSkpmaEk0TTIrUGVJTEEvcXpWKy9kSHZV?=
+ =?utf-8?B?Z0pkdHhkRjhBQk9PS3VqeUZScW1Xd2E4OTNLTHlaYTJKNWJGWGtUUngrUHZl?=
+ =?utf-8?B?Y0lUQUhlWWttc1NBcUkzSlRFS3V1bnpvVFlKMFZ5ZldsWFpGZnRMMktObHBB?=
+ =?utf-8?B?cjRubUpDRC90Wms1TUFGUGI3dEg5ZzEyU2tDUVFGbmcwVmxwQytGMWx0eE4w?=
+ =?utf-8?Q?KfPR3FdcDdCC+Or2qpTZU1SiOyo7qt4W2+2po=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <EA0F0C82915087499134A2DDAC6253AF@ausprd01.prod.outlook.com>
+Content-Transfer-Encoding: base64
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -108,581 +170,157 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SY5PR01MB10600.ausprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4111d5be-7ec0-4824-f258-08df2f715fcb
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Oct 2026 12:46:49.4679
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY7PR01MB257422
 
-Add support for the Everest ES7202, a 2-channel PDM analog-to-digital
-converter controlled over I2C. The device outputs PDM data to the SoC
-PDM controller and is configured through registers for supply voltage,
-analog front-end and per-channel PGA gain.
-
-Based on the Rockchip BSP driver[1] by Binyuan Lan <lby@rock-chips.com>
-(committed by Tao Huang <huangtao@rock-chips.com>), originally written
-by David Yang <yangxiaohua@everest-semi.com>.
-
-[1] https://github.com/rockchip-linux/kernel/blob/develop-6.1/sound/soc/codecs/es7202.c
-
-Link: https://archive.org/details/es-7202-ds
-Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
----
- sound/soc/codecs/Kconfig  |  10 ++
- sound/soc/codecs/Makefile |   2 +
- sound/soc/codecs/es7202.c | 367 ++++++++++++++++++++++++++++++++++++++
- sound/soc/codecs/es7202.h | 131 ++++++++++++++
- 4 files changed, 510 insertions(+)
- create mode 100644 sound/soc/codecs/es7202.c
- create mode 100644 sound/soc/codecs/es7202.h
-
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index ba59dabeeccd..c1eeebd12cf0 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -1274,6 +1274,16 @@ config SND_SOC_HDMI_CODEC
- config SND_SOC_ES7134
- 	tristate "Everest Semi ES7134 CODEC"
- 
-+config SND_SOC_ES7202
-+	tristate "Everest Semi ES7202 CODEC"
-+	depends on I2C
-+	select REGMAP_I2C
-+	help
-+	  Enable support for the Everest Semiconductor ES7202, a 2-channel
-+	  PDM analog-to-digital converter controlled over I2C. The device
-+	  outputs PDM data to a SoC PDM controller and is configured through
-+	  registers for supply voltage, analog front-end and PGA gain.
-+
- config SND_SOC_ES7241
- 	tristate "Everest Semi ES7241 CODEC"
- 
-diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
-index 3826f9e4fce8..2a56fad9073a 100644
---- a/sound/soc/codecs/Makefile
-+++ b/sound/soc/codecs/Makefile
-@@ -129,6 +129,7 @@ snd-soc-da732x-y := da732x.o
- snd-soc-da9055-y := da9055.o
- snd-soc-dmic-y := dmic.o
- snd-soc-es7134-y := es7134.o
-+snd-soc-es7202-y := es7202.o
- snd-soc-es7241-y := es7241.o
- snd-soc-es83xx-dsm-common-y := es83xx-dsm-common.o
- snd-soc-es8311-y := es8311.o
-@@ -577,6 +578,7 @@ obj-$(CONFIG_SND_SOC_DA732X)	+= snd-soc-da732x.o
- obj-$(CONFIG_SND_SOC_DA9055)	+= snd-soc-da9055.o
- obj-$(CONFIG_SND_SOC_DMIC)	+= snd-soc-dmic.o
- obj-$(CONFIG_SND_SOC_ES7134)	+= snd-soc-es7134.o
-+obj-$(CONFIG_SND_SOC_ES7202)	+= snd-soc-es7202.o
- obj-$(CONFIG_SND_SOC_ES7241)	+= snd-soc-es7241.o
- obj-$(CONFIG_SND_SOC_ES83XX_DSM_COMMON)    += snd-soc-es83xx-dsm-common.o
- obj-$(CONFIG_SND_SOC_ES8311)    += snd-soc-es8311.o
-diff --git a/sound/soc/codecs/es7202.c b/sound/soc/codecs/es7202.c
-new file mode 100644
-index 000000000000..36fb9f687f24
---- /dev/null
-+++ b/sound/soc/codecs/es7202.c
-@@ -0,0 +1,367 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (C) 2020 Everest Semiconductor Co Ltd.,
-+ * Copyright (C) 2026 Jun Yan <jerrysteve1101@gmail.com>
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/delay.h>
-+#include <linux/device.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
-+#include <sound/pcm.h>
-+#include <sound/pcm_params.h>
-+#include <sound/soc.h>
-+#include <sound/soc-dapm.h>
-+#include <sound/tlv.h>
-+#include "es7202.h"
-+
-+/*
-+ * The main supply voltage selects the analog front-end configuration:
-+ * below this threshold the device is configured for 1.8 V, otherwise 3.3 V.
-+ */
-+#define ES7202_SUPPLY_1V8_MAX_UV	1980000
-+#define ES7202_SUPPLY_3V3_DEFAULT_UV	3300000
-+
-+struct es7202_priv {
-+	struct regmap *regmap;
-+	struct regulator *supply;
-+	struct gpio_desc *reset_gpio;
-+	unsigned int supply_uv;
-+};
-+
-+static bool es7202_volatile_reg(struct device *dev, unsigned int reg)
-+{
-+	/* status and device-id registers are read-only, never cached */
-+	return reg == ES7202_CHIP_STA ||
-+	       reg == ES7202_DEV_ID1 ||
-+	       reg == ES7202_DEV_ID0;
-+}
-+
-+static const struct reg_default es7202_reg_defaults[] = {
-+	{ ES7202_RESET,		0x10 },
-+	{ ES7202_SOFT_MODE,	0x00 },
-+	{ ES7202_CLK_DIV,	0x04 },
-+	{ ES7202_CLK_EN,	0x00 },
-+	{ ES7202_T1_VMID,	0x01 },
-+	{ ES7202_T2_VMID,	0x18 },
-+	{ ES7202_PDM_INF_CTL,	0x30 },
-+	{ ES7202_MISC_CTL,	0x02 },
-+	{ ES7202_ANALOG_EN,	0xff },
-+	{ ES7202_BIAS_VMID,	0x0c },
-+	{ ES7202_PGA1_BIAS,	0x55 },
-+	{ ES7202_PGA2_BIAS,	0x55 },
-+	{ ES7202_MOD1_BIAS,	0x8c },
-+	{ ES7202_MOD2_BIAS,	0x33 },
-+	{ ES7202_VREFP_BIAS,	0x33 },
-+	{ ES7202_VMMOD_BIAS,	0x33 },
-+	{ ES7202_MODS_BIAS,	0x44 },
-+	{ ES7202_ANALOG_LP1,	0x00 },
-+	{ ES7202_ANALOG_LP2,	0x00 },
-+	{ ES7202_ANALOG_MISC1,	0x00 },
-+	{ ES7202_ANALOG_MISC2,	0xf8 },
-+	{ ES7202_PGA1,		0x18 },
-+	{ ES7202_PGA2,		0x18 },
-+};
-+
-+static const struct regmap_config es7202_regmap = {
-+	.reg_bits	= 8,
-+	.val_bits	= 8,
-+	.max_register	= ES7202_DEV_ID0,
-+	.reg_defaults	= es7202_reg_defaults,
-+	.num_reg_defaults = ARRAY_SIZE(es7202_reg_defaults),
-+	.volatile_reg	= es7202_volatile_reg,
-+	.cache_type	= REGCACHE_MAPLE,
-+};
-+
-+/*
-+ * PGA gain per the datasheet: code 0 is 0 dB, codes 1..10 step +3 dB from
-+ * 2.25 dB, and codes 11 and 12 are 30.75 dB and 32.25 dB respectively.  As
-+ * the steps are not uniform, a linear TLV (the vendor driver's
-+ * DECLARE_TLV_DB_SCALE(mic_boost_tlv, 0, 300, 0)) would misreport the gain,
-+ * so use a piecewise range matching the datasheet instead.
-+ */
-+static const DECLARE_TLV_DB_RANGE(mic_boost_tlv,
-+	0, 0, TLV_DB_SCALE_ITEM(0, 0, 0),
-+	1, 10, TLV_DB_SCALE_ITEM(225, 300, 0),
-+	11, 11, TLV_DB_SCALE_ITEM(3075, 0, 0),
-+	12, 12, TLV_DB_SCALE_ITEM(3225, 0, 0),
-+);
-+
-+static const struct snd_kcontrol_new es7202_controls[] = {
-+	SOC_SINGLE_TLV("PGA1 Capture Volume", ES7202_PGA1, 0, 0x0c, 0,
-+		       mic_boost_tlv),
-+	SOC_SINGLE_TLV("PGA2 Capture Volume", ES7202_PGA2, 0, 0x0c, 0,
-+		       mic_boost_tlv),
-+};
-+
-+static const struct snd_soc_dapm_widget es7202_dapm_widgets[] = {
-+	SND_SOC_DAPM_INPUT("MIC1"),
-+	SND_SOC_DAPM_INPUT("MIC2"),
-+	SND_SOC_DAPM_ADC("ADC", "Capture", SND_SOC_NOPM, 0, 0),
-+};
-+
-+static const struct snd_soc_dapm_route es7202_dapm_routes[] = {
-+	{ "ADC", NULL, "MIC1" },
-+	{ "ADC", NULL, "MIC2" },
-+};
-+
-+static int es7202_mute_pdm(struct es7202_priv *es7202, bool mute)
-+{
-+	return regmap_update_bits(es7202->regmap, ES7202_PDM_INF_CTL,
-+				  ES7202_PDM_INF_CTL_MUTE,
-+				  mute ? ES7202_PDM_INF_CTL_MUTE : 0);
-+}
-+
-+static int es7202_hw_init(struct es7202_priv *es7202)
-+{
-+	struct regmap *regmap = es7202->regmap;
-+	bool is_1v8 = es7202->supply_uv > 0 &&
-+		      es7202->supply_uv <= ES7202_SUPPLY_1V8_MAX_UV;
-+	/*
-+	 * Power-up sequence from the vendor driver.
-+	 * The analog front-end is configured for the actual supply voltage
-+	 * (1.8 V vs 3.3 V) and the analog blocks are ramped out of
-+	 * power-down in stages.
-+	 */
-+	const struct reg_sequence init_seq[] = {
-+		{ ES7202_SOFT_MODE,	ES7202_MODE_SOFT_MODE_SEL },
-+		{ ES7202_ANALOG_MISC1,	ES7202_ANALOG_MISC1_OFFSETSEL1 |
-+					(is_1v8 ? 0 : ES7202_ANALOG_MISC1_SUPPLYSEL) },
-+
-+		/* analog on, rest powered down */
-+		{ ES7202_ANALOG_EN,	ES7202_ANALOG_EN_PDN_ADCVREFGEN |
-+					ES7202_ANALOG_EN_MODTOP1_RST |
-+					ES7202_ANALOG_EN_MODTOP2_RST |
-+					ES7202_ANALOG_EN_PDN_MOD1 |
-+					ES7202_ANALOG_EN_PDN_MOD2 |
-+					ES7202_ANALOG_EN_PDN_PGA1 |
-+					ES7202_ANALOG_EN_PDN_PGA2 },
-+
-+		{ ES7202_BIAS_VMID,	FIELD_PREP(ES7202_BIAS_ADCBIAS_SWH1, 3) |
-+					ES7202_BIAS_ENDITHER |
-+					FIELD_PREP(ES7202_BIAS_VMIDSEL, 3) },
-+
-+		/* VREFGEN on; 3.3 V also drops MODTOP reset */
-+		{ ES7202_ANALOG_EN,	is_1v8 ?
-+					(ES7202_ANALOG_EN_MODTOP1_RST |
-+					 ES7202_ANALOG_EN_MODTOP2_RST |
-+					 ES7202_ANALOG_EN_PDN_MOD1 |
-+					 ES7202_ANALOG_EN_PDN_MOD2 |
-+					 ES7202_ANALOG_EN_PDN_PGA1 |
-+					 ES7202_ANALOG_EN_PDN_PGA2) :
-+					(ES7202_ANALOG_EN_PDN_MOD1 |
-+					 ES7202_ANALOG_EN_PDN_MOD2 |
-+					 ES7202_ANALOG_EN_PDN_PGA1 |
-+					 ES7202_ANALOG_EN_PDN_PGA2) },
-+
-+		{ ES7202_ANALOG_EN,	0 },
-+		{ ES7202_MOD1_BIAS,	FIELD_PREP(ES7202_MOD1_BIAS_SW0, 5) |
-+					FIELD_PREP(ES7202_MOD1_BIAS_SW1, 8) },
-+		{ ES7202_CLK_DIV,	FIELD_PREP(ES7202_CLK_DIV_MCLK_DIV, 1) },
-+		{ ES7202_T2_VMID,	0x01 },
-+		{ ES7202_MISC_CTL,	ES7202_MISC_DSM_DITHER_ON },
-+		{ ES7202_RESET,		ES7202_RESET_CSM_ON },
-+		{ ES7202_CLK_EN,	ES7202_CLK_ANA_CLK_ON | ES7202_CLK_MCLK_ON },
-+		{ ES7202_BIAS_VMID,	FIELD_PREP(ES7202_BIAS_ADCBIAS_SWH1, 3) |
-+					ES7202_BIAS_ENDITHER |
-+					FIELD_PREP(ES7202_BIAS_VMIDSEL, 2) },
-+
-+		/* keep the PDM outputs muted until a capture stream starts */
-+		{ ES7202_PDM_INF_CTL,	ES7202_PDM_NEG_DATA_VALID |
-+					ES7202_PDM_POS_DATA_VALID |
-+					ES7202_PDM_INF_CTL_MUTE },
-+	};
-+	return regmap_multi_reg_write(regmap, init_seq, ARRAY_SIZE(init_seq));
-+}
-+
-+static int es7202_mute_stream(struct snd_soc_dai *dai, int mute, int stream)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct es7202_priv *es7202 = snd_soc_component_get_drvdata(component);
-+
-+	if (stream == SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
-+	return es7202_mute_pdm(es7202, mute);
-+}
-+
-+static const struct snd_soc_dai_ops es7202_dai_ops = {
-+	.mute_stream = es7202_mute_stream,
-+};
-+
-+static struct snd_soc_dai_driver es7202_dai = {
-+	.name = "es7202-hifi",
-+	.capture = {
-+		.stream_name	= "Capture",
-+		.channels_min	= 1,
-+		.channels_max	= 2,
-+		.rates		= SNDRV_PCM_RATE_8000_96000,
-+		.formats	= SNDRV_PCM_FMTBIT_S16_LE,
-+	},
-+	.ops = &es7202_dai_ops,
-+};
-+
-+static int es7202_suspend(struct snd_soc_component *component)
-+{
-+	struct es7202_priv *es7202 = snd_soc_component_get_drvdata(component);
-+
-+	return es7202_mute_pdm(es7202, true);
-+}
-+
-+static int es7202_resume(struct snd_soc_component *component)
-+{
-+	struct es7202_priv *es7202 = snd_soc_component_get_drvdata(component);
-+	int ret;
-+
-+	/* re-run the power-up sequence to bring the analog front-end back up */
-+	ret = es7202_hw_init(es7202);
-+	if (ret)
-+		return ret;
-+
-+	regcache_mark_dirty(es7202->regmap);
-+	return regcache_sync(es7202->regmap);
-+}
-+
-+static const struct snd_soc_component_driver es7202_component_driver = {
-+	.controls		= es7202_controls,
-+	.num_controls		= ARRAY_SIZE(es7202_controls),
-+	.dapm_widgets		= es7202_dapm_widgets,
-+	.num_dapm_widgets	= ARRAY_SIZE(es7202_dapm_widgets),
-+	.dapm_routes		= es7202_dapm_routes,
-+	.num_dapm_routes	= ARRAY_SIZE(es7202_dapm_routes),
-+	.suspend		= es7202_suspend,
-+	.resume			= es7202_resume,
-+	.idle_bias_on		= 1,
-+	.endianness		= 1,
-+};
-+
-+static void es7202_disable_supply(void *data)
-+{
-+	regulator_disable(data);
-+}
-+
-+static int es7202_i2c_probe(struct i2c_client *i2c)
-+{
-+	struct device *dev = &i2c->dev;
-+	struct es7202_priv *es7202;
-+	unsigned int id1, id0, device_id;
-+	int ret;
-+	int voltage;
-+
-+	es7202 = devm_kzalloc(dev, sizeof(*es7202), GFP_KERNEL);
-+	if (!es7202)
-+		return -ENOMEM;
-+
-+	i2c_set_clientdata(i2c, es7202);
-+
-+	es7202->regmap = devm_regmap_init_i2c(i2c, &es7202_regmap);
-+	if (IS_ERR(es7202->regmap))
-+		return dev_err_probe(dev, PTR_ERR(es7202->regmap),
-+				     "failed to init regmap\n");
-+
-+	es7202->reset_gpio = devm_gpiod_get_optional(dev, "reset",
-+						     GPIOD_OUT_HIGH);
-+	if (IS_ERR(es7202->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(es7202->reset_gpio),
-+				     "failed to get reset gpio\n");
-+
-+	es7202->supply = devm_regulator_get_optional(dev, "vdd");
-+	if (IS_ERR(es7202->supply)) {
-+		if (PTR_ERR(es7202->supply) != -ENODEV)
-+			return dev_err_probe(dev, PTR_ERR(es7202->supply),
-+					     "failed to get supply\n");
-+
-+		es7202->supply = NULL;
-+		es7202->supply_uv = ES7202_SUPPLY_3V3_DEFAULT_UV;
-+	} else {
-+		ret = regulator_enable(es7202->supply);
-+		if (ret)
-+			return dev_err_probe(dev, ret,
-+					     "failed to enable supply\n");
-+
-+		ret = devm_add_action_or_reset(dev, es7202_disable_supply,
-+					       es7202->supply);
-+		if (ret)
-+			return dev_err_probe(dev, ret,
-+					     "failed to add supply disable action\n");
-+
-+		voltage = regulator_get_voltage(es7202->supply);
-+		if (voltage < 0)
-+			es7202->supply_uv = ES7202_SUPPLY_3V3_DEFAULT_UV;
-+		else
-+			es7202->supply_uv = voltage;
-+	}
-+
-+	/* take the device out of reset */
-+	gpiod_set_value_cansleep(es7202->reset_gpio, 0);
-+	usleep_range(1000, 2000);
-+
-+	/* verify the chip is present by reading its device id */
-+	ret = regmap_read(es7202->regmap, ES7202_DEV_ID1, &id1);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to read device id\n");
-+	ret = regmap_read(es7202->regmap, ES7202_DEV_ID0, &id0);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to read device id\n");
-+
-+	device_id = (id1 << 8) | id0;
-+	if (device_id != ES7202_DEVICE_ID)
-+		return dev_err_probe(dev, -ENODEV,
-+				     "unexpected device id 0x%04x, expected 0x%04x\n",
-+				     device_id, ES7202_DEVICE_ID);
-+
-+	ret = es7202_hw_init(es7202);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to init device\n");
-+
-+	return devm_snd_soc_register_component(dev, &es7202_component_driver,
-+					       &es7202_dai, 1);
-+}
-+
-+static void es7202_i2c_remove(struct i2c_client *i2c)
-+{
-+	struct es7202_priv *es7202 = i2c_get_clientdata(i2c);
-+
-+	es7202_mute_pdm(es7202, true);
-+}
-+
-+static void es7202_i2c_shutdown(struct i2c_client *i2c)
-+{
-+	struct es7202_priv *es7202 = i2c_get_clientdata(i2c);
-+
-+	es7202_mute_pdm(es7202, true);
-+}
-+
-+static const struct of_device_id es7202_of_match[] = {
-+	{ .compatible = "everest,es7202" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, es7202_of_match);
-+
-+static const struct i2c_device_id es7202_i2c_id[] = {
-+	{ "es7202" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, es7202_i2c_id);
-+
-+static struct i2c_driver es7202_i2c_driver = {
-+	.driver = {
-+		.name		= "es7202",
-+		.of_match_table	= es7202_of_match,
-+	},
-+	.probe		= es7202_i2c_probe,
-+	.remove		= es7202_i2c_remove,
-+	.shutdown	= es7202_i2c_shutdown,
-+	.id_table	= es7202_i2c_id,
-+};
-+module_i2c_driver(es7202_i2c_driver);
-+
-+MODULE_DESCRIPTION("Everest Semi ES7202 PDM ADC ALSA SoC Codec Driver");
-+MODULE_AUTHOR("David Yang <yangxiaohua@everest-semi.com>");
-+MODULE_AUTHOR("Jun Yan <jerrysteve1101@gmail.com>");
-+MODULE_LICENSE("GPL");
-diff --git a/sound/soc/codecs/es7202.h b/sound/soc/codecs/es7202.h
-new file mode 100644
-index 000000000000..f268722febcc
---- /dev/null
-+++ b/sound/soc/codecs/es7202.h
-@@ -0,0 +1,131 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (C) 2020 Everest Semiconductor Co Ltd.,
-+ * Copyright (C) 2026 Jun Yan <jerrysteve1101@gmail.com>
-+ */
-+
-+#ifndef _ES7202_H
-+#define _ES7202_H
-+
-+#include <linux/bits.h>
-+
-+/* Register addresses */
-+#define ES7202_RESET		0x00
-+#define ES7202_SOFT_MODE	0x01
-+#define ES7202_CLK_DIV		0x02
-+#define ES7202_CLK_EN		0x03
-+#define ES7202_T1_VMID		0x04
-+#define ES7202_T2_VMID		0x05
-+#define ES7202_CHIP_STA		0x06
-+#define ES7202_PDM_INF_CTL	0x07
-+#define ES7202_MISC_CTL		0x08
-+#define ES7202_ANALOG_EN	0x10
-+#define ES7202_BIAS_VMID	0x11
-+#define ES7202_PGA1_BIAS	0x12
-+#define ES7202_PGA2_BIAS	0x13
-+#define ES7202_MOD1_BIAS	0x14
-+#define ES7202_MOD2_BIAS	0x15
-+#define ES7202_VREFP_BIAS	0x16
-+#define ES7202_VMMOD_BIAS	0x17
-+#define ES7202_MODS_BIAS	0x18
-+#define ES7202_ANALOG_LP1	0x19
-+#define ES7202_ANALOG_LP2	0x1a
-+#define ES7202_ANALOG_MISC1	0x1b
-+#define ES7202_ANALOG_MISC2	0x1c
-+#define ES7202_PGA1		0x1d
-+#define ES7202_PGA2		0x1e
-+#define ES7202_DEV_ID1		0xfd
-+#define ES7202_DEV_ID0		0xfe
-+
-+#define ES7202_DEVICE_ID		0x7201
-+
-+#define ES7202_RESET_RST_REGS		BIT(5)
-+#define ES7202_RESET_RST_DIG		BIT(4)
-+#define ES7202_RESET_SEQ_DIS		BIT(1)
-+#define ES7202_RESET_CSM_ON		BIT(0)
-+
-+#define ES7202_MODE_SOFT_MODE_SEL	BIT(0)
-+
-+#define ES7202_CLK_DIV_MCLK_DIV		GENMASK(3, 0)	/* 0/1 = /16 ... 15 = /240 */
-+
-+#define ES7202_CLK_MCLK_INVERT		BIT(2)
-+#define ES7202_CLK_ANA_CLK_ON		BIT(1)
-+#define ES7202_CLK_MCLK_ON		BIT(0)
-+
-+#define ES7202_CHIP_STA_CSM_STATE	GENMASK(5, 4)
-+#define ES7202_CHIP_STA_FORCE_CSM	GENMASK(2, 0)
-+
-+#define ES7202_PDM_NEG_DATA_VALID	BIT(5)
-+#define ES7202_PDM_POS_DATA_VALID	BIT(4)
-+#define ES7202_PDM_CHN_CROSS		BIT(3)
-+#define ES7202_PDM_IF_DLY		BIT(2)
-+#define ES7202_PDM_DATA2_MUTE		BIT(1)
-+#define ES7202_PDM_DATA1_MUTE		BIT(0)
-+#define ES7202_PDM_INF_CTL_MUTE		(ES7202_PDM_DATA2_MUTE | \
-+					 ES7202_PDM_DATA1_MUTE)
-+
-+#define ES7202_MISC_CLKDET_RST_DIS	BIT(2)
-+#define ES7202_MISC_DSM_DITHER_ON	BIT(1)
-+#define ES7202_MISC_PDN_CLKDET		BIT(0)
-+
-+#define ES7202_ANALOG_EN_PDN_ANA	BIT(7)
-+#define ES7202_ANALOG_EN_PDN_ADCVREFGEN	BIT(6)
-+#define ES7202_ANALOG_EN_MODTOP1_RST	BIT(5)
-+#define ES7202_ANALOG_EN_MODTOP2_RST	BIT(4)
-+#define ES7202_ANALOG_EN_PDN_MOD1	BIT(3)
-+#define ES7202_ANALOG_EN_PDN_MOD2	BIT(2)
-+#define ES7202_ANALOG_EN_PDN_PGA1	BIT(1)
-+#define ES7202_ANALOG_EN_PDN_PGA2	BIT(0)
-+
-+#define ES7202_BIAS_ADCBIAS_SWH0	GENMASK(7, 6)
-+#define ES7202_BIAS_ENDITHER		BIT(5)
-+#define ES7202_BIAS_ADCBIAS_SWH1	GENMASK(3, 2)
-+#define ES7202_BIAS_VMIDSEL		GENMASK(1, 0)	/* 0 = off, 1 = 50k, 2 = 500k, 3 = 5k */
-+
-+/* bias levels 0x12-0x18 (SW0 for 1.8 V, SW1 for 3.3 V) */
-+#define ES7202_PGA1_BIAS_SW0		GENMASK(7, 4)
-+#define ES7202_PGA1_BIAS_SW1		GENMASK(3, 0)
-+#define ES7202_PGA2_BIAS_SW0		GENMASK(7, 4)
-+#define ES7202_PGA2_BIAS_SW1		GENMASK(3, 0)
-+#define ES7202_MOD1_BIAS_SW0		GENMASK(7, 4)
-+#define ES7202_MOD1_BIAS_SW1		GENMASK(3, 0)
-+#define ES7202_MOD2_BIAS_SW0		GENMASK(7, 4)
-+#define ES7202_MOD2_BIAS_SW1		GENMASK(3, 0)
-+#define ES7202_VREFP_BIAS_SW0		GENMASK(7, 4)
-+#define ES7202_VREFP_BIAS_SW1		GENMASK(3, 0)
-+#define ES7202_VMMOD_BIAS_SW0		GENMASK(7, 4)
-+#define ES7202_VMMOD_BIAS_SW1		GENMASK(3, 0)
-+#define ES7202_MODS_BIAS_SW0		GENMASK(7, 4)
-+#define ES7202_MODS_BIAS_SW1		GENMASK(3, 0)
-+
-+#define ES7202_LP1_LP_VRP		BIT(7)
-+#define ES7202_LP1_LP_VRPOUT		BIT(6)
-+#define ES7202_LP1_LP_VMMOD1		BIT(5)
-+#define ES7202_LP1_LP_VMMOD2		BIT(4)
-+#define ES7202_LP1_LP_MODS1		BIT(3)
-+#define ES7202_LP1_LP_MODS2		BIT(2)
-+#define ES7202_LP1_LP_MODI1		BIT(1)
-+#define ES7202_LP1_LP_MODI2		BIT(0)
-+
-+#define ES7202_LP2_LP_PGA1		BIT(5)
-+#define ES7202_LP2_LP_PGA2		BIT(4)
-+#define ES7202_LP2_PDN_DETCT		BIT(3)
-+
-+#define ES7202_ANALOG_MISC1_OFFSETSEL1	BIT(6)
-+#define ES7202_ANALOG_MISC1_OFFSETSEL0	BIT(5)
-+#define ES7202_ANALOG_MISC1_SUPPLYSEL	BIT(4)	/* 0 = 1.8 V, 1 = 3.3 V */
-+#define ES7202_ANALOG_MISC1_DITHERSEL	GENMASK(2, 0)
-+
-+#define ES7202_ANALOG_MISC2_VX2OFF_SW0	BIT(7)
-+#define ES7202_ANALOG_MISC2_VX1SEL_SW0	BIT(6)
-+#define ES7202_ANALOG_MISC2_VMIDLOW_SW0	GENMASK(5, 4)
-+#define ES7202_ANALOG_MISC2_VX2OFF_SW1	BIT(3)
-+#define ES7202_ANALOG_MISC2_VX1SEL_SW1	BIT(2)
-+#define ES7202_ANALOG_MISC2_VMIDLOW_SW1	GENMASK(1, 0)
-+
-+#define ES7202_PGA_SELMIC1		BIT(4)
-+#define ES7202_PGA_MIC1_GAIN		GENMASK(3, 0)
-+#define ES7202_PGA_SELMIC2		BIT(4)
-+#define ES7202_PGA_MIC2_GAIN		GENMASK(3, 0)
-+
-+#endif
--- 
-2.56.0
-
+RnJvbTogSmlheGkgWmhhbmcgPHoxNTI5MTA1ODE1QG91dGxvb2suY29tPg0KDQpBZGQgdGhlIFJF
+RE1JIEs5MCBVbHRyYSAoWGlhb21pIGludGVybmFsIGNvZGVuYW1lIFdhcnNhdykgYm9hcmQgaWRl
+bnRpdHksDQpyZWZlcmVuY2UgY2xvY2tzLCBQTTg1NTAvUE1LODU1MCBkZXZpY2VzLCBrZXlzLCBk
+ZWJ1ZyBVQVJUIGFuZCBVU0IyDQpwZXJpcGhlcmFsIGNvbm5lY3Rpb24uIEJ1aWxkIGZyb20gdGhl
+IFNvQyBhbmQgY29tbW9uIFBNSUMgaW5jbHVkZXMuDQoNClJldXNlIHBtaWgwMTA4LmR0c2kgb24g
+U004NzUwIFNQTUkgYnVzIDAgaW5zdGVhZCBvZiBkdXBsaWNhdGluZyBQTUlIMDEwOC4NCktlZXAg
+dGhlIGJvYXJkLXNwZWNpZmljIHJlcGVhdGVyIHN1cHBsaWVzIGFuZCB0dW5pbmcgdmFsdWVzLiBQ
+cmVzZXJ2ZSB0aGUNCk9FTSBmaXJtd2FyZSBHUElPIHJlc2VydmF0aW9ucyB3aXRob3V0IGFzc2ln
+bmluZyBhbiB1bnZlcmlmaWVkIGZ1bmN0aW9uDQp0byBHUElPcyA0OC01MS4NCg0KVGhlIE9FTSBj
+b25maWd1cmF0aW9uIHJldGFpbnMgT1RHIGFuZCBVQ1NJIHJvbGUgc3dpdGNoaW5nLiBUaGlzIFJG
+Qw0KcHJvdmlzaW9uYWxseSByZXN0cmljdHMgVVNCIHRvIHRoZSB2YWxpZGF0ZWQgaGlnaC1zcGVl
+ZCBnYWRnZXQgcGF0aDsgdGhlDQpjb25uZWN0b3IsIHJvbGUtY29udHJvbCBhbmQgVkJVUyBwYXRo
+IHN0aWxsIHJlcXVpcmUgYm9hcmQgaW50ZWdyYXRpb24gYW5kDQpyZXZpZXcuIFRoaXMgZG9lcyBu
+b3QgZXN0YWJsaXNoIGEgcGVyaXBoZXJhbC1vbmx5IHBvcnQgb3IgcnVsZSBvdXQgRFAuDQpVc2Fi
+bGUgUkFNIGFuZCBmaXJtd2FyZSByZXNlcnZhdGlvbnMgcmVtYWluIGEgYm9vdGxvYWRlciBjb250
+cmFjdC4NCg0KU2lnbmVkLW9mZi1ieTogSmlheGkgWmhhbmcgPHoxNTI5MTA1ODE1QG91dGxvb2su
+Y29tPg0KLS0tDQogYXJjaC9hcm02NC9ib290L2R0cy9xY29tL01ha2VmaWxlICAgICAgICAgICAg
+ICAgICB8ICAgMSArDQogYXJjaC9hcm02NC9ib290L2R0cy9xY29tL3NtODc1MC14aWFvbWktd2Fy
+c2F3LmR0cyB8IDI0NiArKysrKysrKysrKysrKysrKysrKysrDQogMiBmaWxlcyBjaGFuZ2VkLCAy
+NDcgaW5zZXJ0aW9ucygrKQ0KDQpkaWZmIC0tZ2l0IGEvYXJjaC9hcm02NC9ib290L2R0cy9xY29t
+L01ha2VmaWxlIGIvYXJjaC9hcm02NC9ib290L2R0cy9xY29tL01ha2VmaWxlDQppbmRleCAxYzg2
+ZTdlOTguLjIzYWM1Mzg4OCAxMDA2NDQNCi0tLSBhL2FyY2gvYXJtNjQvYm9vdC9kdHMvcWNvbS9N
+YWtlZmlsZQ0KKysrIGIvYXJjaC9hcm02NC9ib290L2R0cy9xY29tL01ha2VmaWxlDQpAQCAtNDA4
+LDYgKzQwOCw3IEBAIGR0Yi0kKENPTkZJR19BUkNIX1FDT00pCSs9IHNtODY1MC1tdHAuZHRiDQog
+ZHRiLSQoQ09ORklHX0FSQ0hfUUNPTSkJKz0gc204NjUwLXFyZC5kdGINCiBkdGItJChDT05GSUdf
+QVJDSF9RQ09NKQkrPSBzbTg3NTAtbXRwLmR0Yg0KIGR0Yi0kKENPTkZJR19BUkNIX1FDT00pCSs9
+IHNtODc1MC1xcmQuZHRiDQorZHRiLSQoQ09ORklHX0FSQ0hfUUNPTSkJKz0gc204NzUwLXhpYW9t
+aS13YXJzYXcuZHRiDQogZHRiLSQoQ09ORklHX0FSQ0hfUUNPTSkJKz0gdGFsb3MtZXZrLmR0Yg0K
+IA0KIHRhbG9zLWV2ay1lbDItZHRicwk6PSB0YWxvcy1ldmsuZHRiIHRhbG9zLWVsMi5kdGJvDQpk
+aWZmIC0tZ2l0IGEvYXJjaC9hcm02NC9ib290L2R0cy9xY29tL3NtODc1MC14aWFvbWktd2Fyc2F3
+LmR0cyBiL2FyY2gvYXJtNjQvYm9vdC9kdHMvcWNvbS9zbTg3NTAteGlhb21pLXdhcnNhdy5kdHMN
+Cm5ldyBmaWxlIG1vZGUgMTAwNjQ0DQppbmRleCAwMDAwMDAwMDAuLmY4Y2U1YTM1Nw0KLS0tIC9k
+ZXYvbnVsbA0KKysrIGIvYXJjaC9hcm02NC9ib290L2R0cy9xY29tL3NtODc1MC14aWFvbWktd2Fy
+c2F3LmR0cw0KQEAgLTAsMCArMSwyNDYgQEANCisvLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjog
+QlNELTMtQ2xhdXNlDQorLyoNCisgKiBDb3B5cmlnaHQgKGMpIDIwMjQgUXVhbGNvbW0gSW5ub3Zh
+dGlvbiBDZW50ZXIsIEluYy4gQWxsIHJpZ2h0cyByZXNlcnZlZC4NCisgKiBDb3B5cmlnaHQgKGMp
+IDIwMjYgSmlheGkgWmhhbmcgPHoxNTI5MTA1ODE1QG91dGxvb2suY29tPg0KKyAqLw0KKw0KKy9k
+dHMtdjEvOw0KKw0KKyNpbmNsdWRlIDxkdC1iaW5kaW5ncy9jbG9jay9xY29tLHJwbWguaD4NCisj
+aW5jbHVkZSA8ZHQtYmluZGluZ3MvZ3Bpby9ncGlvLmg+DQorI2luY2x1ZGUgPGR0LWJpbmRpbmdz
+L2lucHV0L2lucHV0Lmg+DQorI2luY2x1ZGUgPGR0LWJpbmRpbmdzL3JlZ3VsYXRvci9xY29tLHJw
+bWgtcmVndWxhdG9yLmg+DQorI2luY2x1ZGUgInNtODc1MC5kdHNpIg0KKyNpbmNsdWRlICJwbTg1
+NTAuZHRzaSINCisjaW5jbHVkZSAicG1paDAxMDguZHRzaSINCisjaW5jbHVkZSAicG1rODU1MC5k
+dHNpIg0KKw0KKy8gew0KKwltb2RlbCA9ICJSRURNSSBLOTAgVWx0cmEiOw0KKwljb21wYXRpYmxl
+ID0gInhpYW9taSx3YXJzYXciLCAicWNvbSxzbTg3NTAiOw0KKwljaGFzc2lzLXR5cGUgPSAiaGFu
+ZHNldCI7DQorDQorCWFsaWFzZXMgew0KKwkJc2VyaWFsMCA9ICZ1YXJ0NzsNCisJfTsNCisNCisJ
+Y2hvc2VuIHsNCisJCXN0ZG91dC1wYXRoID0gInNlcmlhbDA6MTE1MjAwbjgiOw0KKwl9Ow0KKw0K
+KwljbG9ja3Mgew0KKwkJYmlfdGN4b19hb19kaXYyOiBiaS10Y3hvLWFvLWRpdjItY2xrIHsNCisJ
+CQljb21wYXRpYmxlID0gImZpeGVkLWZhY3Rvci1jbG9jayI7DQorCQkJI2Nsb2NrLWNlbGxzID0g
+PDA+Ow0KKw0KKwkJCWNsb2NrcyA9IDwmcnBtaGNjIFJQTUhfQ1hPX0NMS19BPjsNCisJCQljbG9j
+ay1tdWx0ID0gPDE+Ow0KKwkJCWNsb2NrLWRpdiA9IDwyPjsNCisJCX07DQorDQorCQliaV90Y3hv
+X2RpdjI6IGJpLXRjeG8tZGl2Mi1jbGsgew0KKwkJCWNvbXBhdGlibGUgPSAiZml4ZWQtZmFjdG9y
+LWNsb2NrIjsNCisJCQkjY2xvY2stY2VsbHMgPSA8MD47DQorDQorCQkJY2xvY2tzID0gPCZycG1o
+Y2MgUlBNSF9DWE9fQ0xLPjsNCisJCQljbG9jay1tdWx0ID0gPDE+Ow0KKwkJCWNsb2NrLWRpdiA9
+IDwyPjsNCisJCX07DQorDQorCQlzbGVlcF9jbGs6IHNsZWVwLWNsayB7DQorCQkJY29tcGF0aWJs
+ZSA9ICJmaXhlZC1jbG9jayI7DQorCQkJY2xvY2stZnJlcXVlbmN5ID0gPDMyMDAwPjsNCisJCQkj
+Y2xvY2stY2VsbHMgPSA8MD47DQorCQl9Ow0KKw0KKwkJeG9fYm9hcmQ6IHhvLWJvYXJkIHsNCisJ
+CQljb21wYXRpYmxlID0gImZpeGVkLWNsb2NrIjsNCisJCQljbG9jay1mcmVxdWVuY3kgPSA8NzY4
+MDAwMDA+Ow0KKwkJCSNjbG9jay1jZWxscyA9IDwwPjsNCisJCX07DQorCX07DQorDQorCWdwaW8t
+a2V5cyB7DQorCQljb21wYXRpYmxlID0gImdwaW8ta2V5cyI7DQorDQorCQlwaW5jdHJsLTAgPSA8
+JnZvbHVtZV91cF9uPjsNCisJCXBpbmN0cmwtbmFtZXMgPSAiZGVmYXVsdCI7DQorDQorCQlrZXkt
+dm9sdW1lLXVwIHsNCisJCQlsYWJlbCA9ICJWb2x1bWUgVXAiOw0KKwkJCWxpbnV4LGNvZGUgPSA8
+S0VZX1ZPTFVNRVVQPjsNCisJCQlncGlvcyA9IDwmcG04NTUwX2dwaW9zIDYgR1BJT19BQ1RJVkVf
+TE9XPjsNCisJCQlkZWJvdW5jZS1pbnRlcnZhbCA9IDwxNT47DQorCQkJbGludXgsY2FuLWRpc2Fi
+bGU7DQorCQkJd2FrZXVwLXNvdXJjZTsNCisJCX07DQorCX07DQorDQorCXZwaF9wd3I6IHJlZ3Vs
+YXRvci0zdjcgew0KKwkJY29tcGF0aWJsZSA9ICJyZWd1bGF0b3ItZml4ZWQiOw0KKwkJcmVndWxh
+dG9yLW5hbWUgPSAidnBoX3B3ciI7DQorCQlyZWd1bGF0b3ItbWluLW1pY3Jvdm9sdCA9IDwzNzAw
+MDAwPjsNCisJCXJlZ3VsYXRvci1tYXgtbWljcm92b2x0ID0gPDM3MDAwMDA+Ow0KKwkJcmVndWxh
+dG9yLWFsd2F5cy1vbjsNCisJCXJlZ3VsYXRvci1ib290LW9uOw0KKwl9Ow0KK307DQorDQorJmFw
+cHNfcnNjIHsNCisJcmVndWxhdG9ycy0wIHsNCisJCWNvbXBhdGlibGUgPSAicWNvbSxwbTg1NTAt
+cnBtaC1yZWd1bGF0b3JzIjsNCisJCXFjb20scG1pYy1pZCA9ICJiIjsNCisJCXZkZC1ib2IxLXN1
+cHBseSA9IDwmdnBoX3B3cj47DQorCQl2ZGQtbDUtbDE2LXN1cHBseSA9IDwmdnJlZ19ib2IxPjsN
+CisJCXZkZC1sMTUtc3VwcGx5ID0gPCZ2cmVnX3MzZ18xcDg+Ow0KKw0KKwkJdnJlZ19ib2IxOiBi
+b2IxIHsNCisJCQlyZWd1bGF0b3ItbmFtZSA9ICJ2cmVnX2JvYjEiOw0KKwkJCXJlZ3VsYXRvci1t
+aW4tbWljcm92b2x0ID0gPDMwMDgwMDA+Ow0KKwkJCXJlZ3VsYXRvci1tYXgtbWljcm92b2x0ID0g
+PDQwMDAwMDA+Ow0KKwkJCXJlZ3VsYXRvci1pbml0aWFsLW1vZGUgPSA8UlBNSF9SRUdVTEFUT1Jf
+TU9ERV9IUE0+Ow0KKwkJfTsNCisNCisJCXZyZWdfbDViXzNwMTogbGRvNSB7DQorCQkJcmVndWxh
+dG9yLW5hbWUgPSAidnJlZ19sNWJfM3AxIjsNCisJCQlyZWd1bGF0b3ItbWluLW1pY3Jvdm9sdCA9
+IDwzMTAwMDAwPjsNCisJCQlyZWd1bGF0b3ItbWF4LW1pY3Jvdm9sdCA9IDwzMTQ4MDAwPjsNCisJ
+CQlyZWd1bGF0b3ItaW5pdGlhbC1tb2RlID0gPFJQTUhfUkVHVUxBVE9SX01PREVfSFBNPjsNCisJ
+CQlyZWd1bGF0b3ItYWxsb3ctc2V0LWxvYWQ7DQorCQkJcmVndWxhdG9yLWFsbG93ZWQtbW9kZXMg
+PSA8UlBNSF9SRUdVTEFUT1JfTU9ERV9MUE0gUlBNSF9SRUdVTEFUT1JfTU9ERV9IUE0+Ow0KKwkJ
+fTsNCisNCisJCXZyZWdfbDE1Yl8xcDg6IGxkbzE1IHsNCisJCQlyZWd1bGF0b3ItbmFtZSA9ICJ2
+cmVnX2wxNWJfMXA4IjsNCisJCQlyZWd1bGF0b3ItbWluLW1pY3Jvdm9sdCA9IDwxODAwMDAwPjsN
+CisJCQlyZWd1bGF0b3ItbWF4LW1pY3Jvdm9sdCA9IDwxODAwMDAwPjsNCisJCQlyZWd1bGF0b3It
+aW5pdGlhbC1tb2RlID0gPFJQTUhfUkVHVUxBVE9SX01PREVfSFBNPjsNCisJCQlyZWd1bGF0b3It
+YWxsb3ctc2V0LWxvYWQ7DQorCQkJcmVndWxhdG9yLWFsbG93ZWQtbW9kZXMgPSA8UlBNSF9SRUdV
+TEFUT1JfTU9ERV9MUE0gUlBNSF9SRUdVTEFUT1JfTU9ERV9IUE0+Ow0KKwkJfTsNCisJfTsNCisN
+CisJcmVndWxhdG9ycy0xIHsNCisJCWNvbXBhdGlibGUgPSAicWNvbSxwbTg1NTB2ZS1ycG1oLXJl
+Z3VsYXRvcnMiOw0KKwkJcWNvbSxwbWljLWlkID0gImQiOw0KKwkJdmRkLXMxLXN1cHBseSA9IDwm
+dnBoX3B3cj47DQorCQl2ZGQtbDItc3VwcGx5ID0gPCZ2cmVnX3MxZF8wcDk3PjsNCisNCisJCXZy
+ZWdfczFkXzBwOTc6IHNtcHMxIHsNCisJCQlyZWd1bGF0b3ItbmFtZSA9ICJ2cmVnX3MxZF8wcDk3
+IjsNCisJCQlyZWd1bGF0b3ItbWluLW1pY3Jvdm9sdCA9IDw4ODAwMDA+Ow0KKwkJCXJlZ3VsYXRv
+ci1tYXgtbWljcm92b2x0ID0gPDExMDAwMDA+Ow0KKwkJCXJlZ3VsYXRvci1pbml0aWFsLW1vZGUg
+PSA8UlBNSF9SRUdVTEFUT1JfTU9ERV9IUE0+Ow0KKwkJfTsNCisNCisJCXZyZWdfbDJkXzBwODg6
+IGxkbzIgew0KKwkJCXJlZ3VsYXRvci1uYW1lID0gInZyZWdfbDJkXzBwODgiOw0KKwkJCXJlZ3Vs
+YXRvci1taW4tbWljcm92b2x0ID0gPDg4MDAwMD47DQorCQkJcmVndWxhdG9yLW1heC1taWNyb3Zv
+bHQgPSA8OTEyMDAwPjsNCisJCQlyZWd1bGF0b3ItaW5pdGlhbC1tb2RlID0gPFJQTUhfUkVHVUxB
+VE9SX01PREVfSFBNPjsNCisJCQlyZWd1bGF0b3ItYWxsb3ctc2V0LWxvYWQ7DQorCQkJcmVndWxh
+dG9yLWFsbG93ZWQtbW9kZXMgPSA8UlBNSF9SRUdVTEFUT1JfTU9ERV9MUE0gUlBNSF9SRUdVTEFU
+T1JfTU9ERV9IUE0+Ow0KKwkJfTsNCisJfTsNCisNCisJcmVndWxhdG9ycy0yIHsNCisJCWNvbXBh
+dGlibGUgPSAicWNvbSxwbTg1NTB2ZS1ycG1oLXJlZ3VsYXRvcnMiOw0KKwkJcWNvbSxwbWljLWlk
+ID0gImciOw0KKwkJdmRkLXMzLXN1cHBseSA9IDwmdnBoX3B3cj47DQorCQl2ZGQtbDMtc3VwcGx5
+ID0gPCZ2cmVnX3M3aV8xcDI+Ow0KKw0KKwkJdnJlZ19zM2dfMXA4OiBzbXBzMyB7DQorCQkJcmVn
+dWxhdG9yLW5hbWUgPSAidnJlZ19zM2dfMXA4IjsNCisJCQlyZWd1bGF0b3ItbWluLW1pY3Jvdm9s
+dCA9IDwxODU2MDAwPjsNCisJCQlyZWd1bGF0b3ItbWF4LW1pY3Jvdm9sdCA9IDwyMDAwMDAwPjsN
+CisJCQlyZWd1bGF0b3ItaW5pdGlhbC1tb2RlID0gPFJQTUhfUkVHVUxBVE9SX01PREVfTFBNPjsN
+CisJCQlyZWd1bGF0b3ItYWxsb3ctc2V0LWxvYWQ7DQorCQkJcmVndWxhdG9yLWFsbG93ZWQtbW9k
+ZXMgPSA8UlBNSF9SRUdVTEFUT1JfTU9ERV9MUE0gUlBNSF9SRUdVTEFUT1JfTU9ERV9IUE0+Ow0K
+KwkJfTsNCisNCisJCXZyZWdfbDNnXzFwMjogbGRvMyB7DQorCQkJcmVndWxhdG9yLW5hbWUgPSAi
+dnJlZ19sM2dfMXAyIjsNCisJCQlyZWd1bGF0b3ItbWluLW1pY3Jvdm9sdCA9IDwxMjAwMDAwPjsN
+CisJCQlyZWd1bGF0b3ItbWF4LW1pY3Jvdm9sdCA9IDwxMjU2MDAwPjsNCisJCQlyZWd1bGF0b3It
+aW5pdGlhbC1tb2RlID0gPFJQTUhfUkVHVUxBVE9SX01PREVfSFBNPjsNCisJCQlyZWd1bGF0b3It
+YWxsb3ctc2V0LWxvYWQ7DQorCQkJcmVndWxhdG9yLWFsbG93ZWQtbW9kZXMgPSA8UlBNSF9SRUdV
+TEFUT1JfTU9ERV9MUE0gUlBNSF9SRUdVTEFUT1JfTU9ERV9IUE0+Ow0KKwkJfTsNCisJfTsNCisN
+CisJcmVndWxhdG9ycy0zIHsNCisJCWNvbXBhdGlibGUgPSAicWNvbSxwbTg1NTB2ZS1ycG1oLXJl
+Z3VsYXRvcnMiOw0KKwkJcWNvbSxwbWljLWlkID0gImkiOw0KKwkJdmRkLXM3LXN1cHBseSA9IDwm
+dnBoX3B3cj47DQorDQorCQl2cmVnX3M3aV8xcDI6IHNtcHM3IHsNCisJCQlyZWd1bGF0b3ItbmFt
+ZSA9ICJ2cmVnX3M3aV8xcDIiOw0KKwkJCXJlZ3VsYXRvci1taW4tbWljcm92b2x0ID0gPDEyMjQw
+MDA+Ow0KKwkJCXJlZ3VsYXRvci1tYXgtbWljcm92b2x0ID0gPDEzNDAwMDA+Ow0KKwkJCXJlZ3Vs
+YXRvci1pbml0aWFsLW1vZGUgPSA8UlBNSF9SRUdVTEFUT1JfTU9ERV9IUE0+Ow0KKwkJfTsNCisJ
+fTsNCit9Ow0KKw0KKyZwbTg1NTBfZ3Bpb3Mgew0KKwl2b2x1bWVfdXBfbjogdm9sdW1lLXVwLW4t
+c3RhdGUgew0KKwkJcGlucyA9ICJncGlvNiI7DQorCQlmdW5jdGlvbiA9ICJub3JtYWwiOw0KKwkJ
+Ymlhcy1wdWxsLXVwOw0KKwkJaW5wdXQtZW5hYmxlOw0KKwkJcG93ZXItc291cmNlID0gPDE+Ow0K
+Kwl9Ow0KK307DQorDQorJnBtaWgwMTA4X2V1c2IyX3JlcGVhdGVyIHsNCisJdmRkMTgtc3VwcGx5
+ID0gPCZ2cmVnX2wxNWJfMXA4PjsNCisJdmRkMy1zdXBwbHkgPSA8JnZyZWdfbDViXzNwMT47DQor
+DQorCXFjb20sdHVuZS11c2IyLXByZWVtID0gL2JpdHMvIDggPDM+Ow0KKwlxY29tLHR1bmUtdXNi
+Mi1hbXBsaXR1ZGUgPSAvYml0cy8gOCA8MTA+Ow0KKwlxY29tLHNxdWVsY2gtZGV0ZWN0b3ItYnAg
+PSA8KC0yMDAwKT47DQorfTsNCisNCismcG9uX3B3cmtleSB7DQorCXN0YXR1cyA9ICJva2F5IjsN
+Cit9Ow0KKw0KKyZwb25fcmVzaW4gew0KKwlsaW51eCxjb2RlID0gPEtFWV9WT0xVTUVET1dOPjsN
+CisNCisJc3RhdHVzID0gIm9rYXkiOw0KK307DQorDQorJnF1cHYzXzEgew0KKwlzdGF0dXMgPSAi
+b2theSI7DQorfTsNCisNCismdGxtbSB7DQorCS8qDQorCSAqIFRoZSBPRU0gdHJlZSByZXNlcnZl
+cyB0aGVzZSBwaW5zLiBHUElPcyAzNi0zOSBhbmQgNzQgc2VydmUgTkZDDQorCSAqIGVTRSBvbiBT
+TTg3NTAgcmVmZXJlbmNlIGJvYXJkczsgdGhlIHVzZSBvZiA0OC01MSBpcyBub3QgeWV0IGtub3du
+Lg0KKwkgKi8NCisJZ3Bpby1yZXNlcnZlZC1yYW5nZXMgPSA8MzYgND4sIDw0OCA0PiwgPDc0IDE+
+Ow0KK307DQorDQorJnVhcnQ3IHsNCisJc3RhdHVzID0gIm9rYXkiOw0KK307DQorDQorJnVzYiB7
+DQorCXBoeXMgPSA8JnVzYl9oc3BoeT47DQorCXBoeS1uYW1lcyA9ICJ1c2IyLXBoeSI7DQorCWRy
+X21vZGUgPSAicGVyaXBoZXJhbCI7DQorCW1heGltdW0tc3BlZWQgPSAiaGlnaC1zcGVlZCI7DQor
+CXFjb20sc2VsZWN0LXV0bWktYXMtcGlwZS1jbGs7DQorDQorCXN0YXR1cyA9ICJva2F5IjsNCit9
+Ow0KKw0KKyZ1c2JfaHNwaHkgew0KKwl2ZGQtc3VwcGx5ID0gPCZ2cmVnX2wyZF8wcDg4PjsNCisJ
+dmRkYTEyLXN1cHBseSA9IDwmdnJlZ19sM2dfMXAyPjsNCisJcGh5cyA9IDwmcG1paDAxMDhfZXVz
+YjJfcmVwZWF0ZXI+Ow0KKw0KKwlzdGF0dXMgPSAib2theSI7DQorfTsNCg0KLS0gDQoyLjU1LjAN
+Cg0K
