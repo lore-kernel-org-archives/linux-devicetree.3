@@ -1,111 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792577191;
-	b=hrP2z47ToFv1+LpSSEf2/3Dnciyhgs99bb6TviFHRT5WpRvHz/qydiNy0OZJrtsIEq6W
-	 6kcpQtQKH1MbwwkAtsRZVYeuokklAHa2AqboEv2gRsdjO+dg0w8pCzPOPwh+58wM0Ct99
-	 QxQ+Yxs5tMY/dEoikqqCeKngKrgDGDtj2AK1qJHQdAuTt18NtmKRh0LYOOK5G2iOztFdf
-	 YghbvLjJ+S1/3aGzM1uInzg84ia2B7CZ1+sbkL6er5PoYwFEoo0lXfEBn62T7OBQMrnhb
-	 0HjskEYbLiYEtTQaPU1PvrItVv++zrWM51cm46qncX/WFHPn9jzT/tM6nkieVU9GyEA==
+	t=1792577377;
+	b=1xCG3/HFmqXaVU7aw/mIIGtpxsoKShPkwf27Ve/bN3QRYYzPzp4M/Z58nSRImC/r/5Wz
+	 Z+h94RViVE+B/Dev9Fc8pKPsT3XWzFler4gSCtaXPA3uvvbspFlun9y+n4wmNAWKn5GV+
+	 oQvsW40f7EIMz5brUJTamMD8Q6PJ8L8swcYRrUfyfM1oLsd+iyhtZnQZaouYRrt1lwhFf
+	 +AOq8HeUVDHZWxd4p0G3Y6GOGYGcV842ns8rCTCD/98ekmkk4P8UVUVuGI4rhUYj1WqPH
+	 9QPu307VPijqKZtjFrBtIrn2+A9ckugBsK3mDBaCfMhLrS1dT+OkM849D9j8YUCjgKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792577191;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792577377;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=7L7auJZ784UGFaVop3WOyp9HDXHbqOIgfmUYN5iyHAY=;
-	b=W9F60Df7ucxlvEh3MtAKPmtseSt69OwVjxmL9UGvt177SMwSGjQfqL1UFbi/mfOH76z/
-	 LhLXqrCgqlkVbDtx+gURM47RB9hIOVsm9T8zcFohWcyQ1p+3J9792+AhVHSqnKCj3hKiC
-	 ltEOoBiLjq485cC1zUSYV1LSnXaAV/8RAbTDeNeo/8lvr7dy40lBL39ADIJSazO8LefS3
-	 1cZw2yyKHeZ+nvao6syAepBaamVHLR00XQhQnABGtSV1GPnB3JbwAOIh3DCZwUdgvr3er
-	 783fSu4iRofdgCXuf30KtJsGj6YA6tYe3a4oezbbFKvzdRuFOi9veJ8vKpvOC1L4qdQ==
+	bh=xX7w89EkaqYgsjNRtSfJ2R58JonXwvOwafkoVBNr9Wc=;
+	b=DeFfODyrTqttHaZ/+01Hwuoe8Jf3oWxBTsklndb4OigHeO15eelDwjhJyZEkhvCAJLfh
+	 8Oo3uWvres6qX8yyAoCsSPTx5du/GKtd/TEJ5OOID55zJ5GRB6WFIN12+1s9nilr/4RxL
+	 RhEEjILSNe/LG315DuRH2a1fZze0rd96pEPDePv3w2VNlnY0APDFyGOvwMIJb8XEdq2iu
+	 QX0xnqFTUI/GYznJSStXYoYE4mgXfaw8pt+xKCOdB6p/OJfk8rszlkrgaNbOsAh1hmMAM
+	 lU8L6P7XB7u8Jv5V8+k7HpVmRZWPvHMOxZDHwH4sbNPmw1AbpbxGS2xoO2TN0GVN3zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=aF9HjXVd;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HllQlJEE;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VuBnaPI0;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BJlgZfgO;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52CC0606A319
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 10:06:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52CC0606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34DE0606A325
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 10:09:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34DE0606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=aF9HjXVd;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HllQlJEE
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LA6R8n282252
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 10:06:29 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VuBnaPI0;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BJlgZfgO
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LA5e171356947
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 10:09:35 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	7L7auJZ784UGFaVop3WOyp9HDXHbqOIgfmUYN5iyHAY=; b=aF9HjXVdVXRObLw0
-	WVXnKJimB7hnAxD5r4fKqgXYO2WWVp2aTEziVkE3lkCzdXPUEgE5FvlCgn063/QE
-	A90+SCuU+PWIrl9x1nRHh6tDuA7OHgcrvnh0prwFpo+pQgFvuiVfgR6tdZA8fw6V
-	yYN8c6hSXHsFo4r18387JA4r4BpAkwKZalZVydNFDH59Arb9z8aBSOsMRwvw3TgW
-	utr5OmxzYqCARN5j4zG5GX+jiwPqUNU7NsX9V1H5/FpCMavOGQdvT1BLLHQiKcYg
-	Co9pkU6K3Sww8JATdou5694XVHRQ86q33zcpH1+8bXxqri4B5QC3fgWV8Ev8MhnF
-	08/VBg==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heh5r2g6c-1
+	xX7w89EkaqYgsjNRtSfJ2R58JonXwvOwafkoVBNr9Wc=; b=VuBnaPI0CPbl/Ewm
+	ui9CmMcphg4JRY61GGMhq5QiiG7poa/2e4xeNLERxfFGhgq66R36aVuK0apkS6eq
+	E2vYxbrjq+vxlH7S+kIMxds+ElDQB/Efv1pnpcWgBCBorjQHvg/3H0+1ly/TGxd4
+	PEM3asr+5vPiiUQbc2Xi0tSzddcexfYvgCyWY20LPxxUSIgUW15C0mPUEQ/WGbjy
+	etpMd4xdiS4202CR2/cCfdoJU3q2CtrlTjEeZeNBmzbDLi7bsSMxGHygx+Dh9LT9
+	ykEbYcy+QfBAPD+2DSvgeJxm9iUimpOO1q6aitxEGl/TytgzQ7DrH9ga1wJMxNb1
+	Q6vlwA==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heda4ucpg-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 10:06:29 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93df7a9466bso5165085a.2
-        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 03:06:29 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 10:09:35 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ac77c3ff6aso887315a91.0
+        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 03:09:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792577188; x=1793181988; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1792577375; x=1793182175; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=7L7auJZ784UGFaVop3WOyp9HDXHbqOIgfmUYN5iyHAY=;
-        b=HllQlJEEGBXNv4i94MKHJq6UGTfIEW0H8kYbcm6/92LkqFCk6ALqDdfl1keHWTwDqT
-         N3oQY/2w4OK3NhMm+Ii5lqp9nq6Lr5PrZKqXdQBkL1ihFy+ZhUolw1QAuWfc6I9fM0qT
-         /b2QTfB6JuS3eDQJhUCLnXYRckLMgR3s86KDUNKN74+BFpdBsRxuPzozjJrk9iAym3zy
-         dAnTMUcQXG5H1VxjDXxHkrCsQSvCT7snTKks/toXcg+t4+aOBK1B+Os8CaswWBSbxWIa
-         fxdeTXQ9W4gvzJg84E3qk4/lRnWc3VUZcs5NLtc7Ln8Z24dOAa00MnFUFYOcN+VACO7+
-         JnNg==
+        bh=xX7w89EkaqYgsjNRtSfJ2R58JonXwvOwafkoVBNr9Wc=;
+        b=BJlgZfgOtQMxxQnzCTTJ1Lfm5zRQ69y1CnJVrp2FCAeZH8v34DxeYha7kQFUggIouW
+         c8VbKjlDEI+2w9TOOHyr0a4I8UnfLe5IM5VYAkTzU9OBoREW0OQRv0ERZWrmZlfIVE9b
+         NGPPwphTQSYn500vzHoKYW1p5Q72/qOd6/Lkcf2Ourx4ZUgP0XsVaHcjsyAve98EPL8M
+         dFIdp2z4/HE6B1I0LgcllD5aCzTnDUCVYr4pezrV/atmCklCKXAwEeOIUVf8BuH7sn5o
+         sEIE38g2POES3AHDrATWU0DrsLiE1zl/0ETtwjZNnvu0bYlPfg8PA4qqGrmuZCMImGcn
+         p2Hw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792577188; x=1793181988;
+        d=1e100.net; s=20260707; t=1792577375; x=1793182175;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7L7auJZ784UGFaVop3WOyp9HDXHbqOIgfmUYN5iyHAY=;
-        b=PNjLxB8YAHBcoQ4iOD4dN9WKM4/AHwQ3PGxu0kSTF0rWsScuNEzC7LQKd8WYdmoqPd
-         KjBobVH/inbcfcpvIWdeZO5WwngH+qERzG7c9X/3RWFZVVjeRS/m/yor2+rh451cBwEk
-         gmHbg858m/Nr7N7xidOt5DZCTpT7+pmsoRwDn0tpBVQJwiL3STTc0duUxUSFEddwmEmh
-         i7EuypXmetKDDLuOw/SjYSmm2NIQo8vtnltMhfgWHatuqmrEARldm+Viu5Mv97i9aK1f
-         KmYxB7FRpA5XmO3G27b3lRf+0YI/C1cnXY36Pm8aOK+PylqHRpfblwJnLwz20AKwGIqW
-         6ssQ==
-X-Forwarded-Encrypted: i=1; AKwUvByeBmvYga8nyArGr5w2phehm78I5/XpwnUUvDABwACShpaBvDDrGS4OloVNDU34jU3JNKtVrZcm/jTq@vger.kernel.org
-X-Gm-Message-State: AFq9FYKyNSqmDlqn5lvRKTwmOre+ieJNTWAZIfg5znkmuBRsvzLpCaUh
-	a7ZNmaBgQrNNdUp7pp5UFsEIMuuaF19gQSY8eWOs3QIQ6sF0rpoZp+sCFaylc0vRGbtWqOrQi/x
-	TsruScVAAIEFjnOj5mRpo1xBPZKxCsLOE3zoK6n2bjfk1cXQa/rA6vrB3n/p2mcl7
-X-Gm-Gg: AYBFou3eH6eI94APXPi1tN94+f8Qme8mvDYBN1pqHaFnYgTTSP5f7PnkwcEsIEj3JQh
-	VxJnm4I+G/hB3oA+97Weh/k5CHCt979fDZdC+u4AnfAU4hcgZqhECyFG2nK7iibj5ditaZxJ1Li
-	7+YbDN8CCOF4sBWmheIxitjvBNsPNqa9TS720rzCjl9BRrIbVxi/g42xETs2TmxuF1ukiJ5mnX+
-	Qau21NTMhVUdeNioXyifAXHxgNwtOH4tf/V7ij88se+Usl6Y+etI0jcwKC0CajeblTMF6dR2Lb6
-	XQTmvyKuJmk4W+a+bI3roDEC5nnrkU5n6SSkx/7FFPr76CBZ3xLfMu0JK2w375IgkwHxPPQNh2t
-	vyMo0zd/J86VBclyiPx3Jwg==
-X-Received: by 2002:a05:620a:17ab:b0:93e:54d2:2283 with SMTP id af79cd13be357-93f57fd125bmr354620285a.6.1792577188379;
-        Wed, 21 Oct 2026 03:06:28 -0700 (PDT)
-X-Received: by 2002:a05:620a:17ab:b0:93e:54d2:2283 with SMTP id af79cd13be357-93f57fd125bmr354616485a.6.1792577187926;
-        Wed, 21 Oct 2026 03:06:27 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b40313258dsm679293a12.28.2026.10.21.03.06.23
+        bh=xX7w89EkaqYgsjNRtSfJ2R58JonXwvOwafkoVBNr9Wc=;
+        b=oSkNbBjm3ObN8C8F/hNVdjUO7MIVK7+2hWzFf8jKyl4EP99bvymo/AfosKRD5o0C9B
+         oSRAiqtdyTQzJZ7rrvyRQ6p9BImlVqUCydFgT1V2W43XxhY/s8JSaFBjXOcCsRSPetmc
+         yd+J77YGvR39jbv+dRql3ddb3C1hjoy51fBvZ5TjP/rParGdo4TszXEzIRmoexXcQaGp
+         LnnkVB6D7EK136G7KzVUMx1VKl4k97a43V8UAIlp0riGlZLMKUmKz44fol0AzhmICZd6
+         iIDLMEn0tl09qhYBOkjvh7sFS65AeO35qpJo+DtqEKXuI3EVrdiEzojOZr2MmZjO9nsa
+         +ARw==
+X-Gm-Message-State: AFq9FYLCXmBA+hECLnjrvgteLD8lyxbFXB5ACXVtiZg1rvVRf5JMeRyF
+	L1LLyMP9VLH0TItOusBnEqVcQQuU/Zx5iAkYUEZxrqIxjWd7LYJ1HA+BdG99AZuF0n3pveGvwew
+	45xkKHdyXt2PHzz+Nv9YXSGjoQG7kvlVK07bQJinfZAl6xoyeVuldRDFRY7rGLIvQ
+X-Gm-Gg: AYBFou1zA9u0Zu4cZXOveFVcY7FW4bnm1eVzHMtYavVWdYXpilaUo+QUy7RKqLsj6Zf
+	EPmojOb5MdJwTX/3A3+bmfHmJ2ODXJbcYdPRU9M/sRKcIvEhR6HSiecVib8sNyLezOr6aiHsJPD
+	5VE8XoOaRxkM/ly+0Qo0qD9vHK560LvgvielIXiiLchXpaLMbCMqwT1qqdFi3FWjFk93r1ggvlx
+	myI3rPAE4nE4c4J/D9Eh4xiLM5DxOEq/G6O/v+drmemARqAjAJUD2cuzVlzD70n4je7Y3S7W6ML
+	a3r0QEsPfQKMzGxQx88/xv4hnaYOkzwGH81wLMZvSb2U3A25xDe9XdHxhjWKd3dJvfd+pQVxb+F
+	IybgOZ2myZu+PvPji187ROCe2QrEqp1EJmg==
+X-Received: by 2002:a17:90b:5806:b0:3ab:5832:727d with SMTP id 98e67ed59e1d1-3ad86f28451mr1324862a91.35.1792577374380;
+        Wed, 21 Oct 2026 03:09:34 -0700 (PDT)
+X-Received: by 2002:a17:90b:5806:b0:3ab:5832:727d with SMTP id 98e67ed59e1d1-3ad86f28451mr1324843a91.35.1792577373707;
+        Wed, 21 Oct 2026 03:09:33 -0700 (PDT)
+Received: from [10.152.193.243] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6a859bad0sm627534a12.9.2026.10.21.03.09.31
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 21 Oct 2026 03:06:25 -0700 (PDT)
-Message-ID: <2196fe69-b520-4d1f-b04f-e32808b689f5@oss.qualcomm.com>
-Date: Wed, 21 Oct 2026 12:06:22 +0200
+        Wed, 21 Oct 2026 03:09:33 -0700 (PDT)
+Message-ID: <99df2266-677a-4d38-ab6d-e89f22c472c1@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 15:39:30 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,72 +114,166 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] arm64: dts: qcom: purwa-iot-evk: Add eDP display
- overlay
-To: Anand Tiwari <anand.tiwari@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, vishnu.saini@oss.qualcomm.com
-References: <20260922-edp_overlay_for-next-v3-0-2758d46ee174@oss.qualcomm.com>
- <20260922-edp_overlay_for-next-v3-2-2758d46ee174@oss.qualcomm.com>
+Subject: Re: [PATCH ath-next v2 08/17] wifi: ath12k: Add hif operation support
+ for QCN6432
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+References: <20261016-mpp-bringup-v2-0-f510c33bfcf5@oss.qualcomm.com>
+ <20261016-mpp-bringup-v2-8-f510c33bfcf5@oss.qualcomm.com>
+ <sashiko-outbox-173697@kernel.org>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260922-edp_overlay_for-next-v3-2-2758d46ee174@oss.qualcomm.com>
+From: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
+In-Reply-To: <sashiko-outbox-173697@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=aI5lOr9m c=1 sm=1 tr=0 ts=6ad88ea5 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+X-Proofpoint-ORIG-GUID: nilUExfSW5e6N8b5qiUbGgCf4RZps29W
+X-Proofpoint-GUID: nilUExfSW5e6N8b5qiUbGgCf4RZps29W
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA0MCBTYWx0ZWRfX3lyJeh8ptGXO
+ BIgjZExkHdyqoSFlXlfwMO55xU0qF6dy/SxduFLFUkccDsozOVwowsO+ShfaJjAXj30n/ihyH12
+ 0wI3VEk6XTYgkhz1rOKPuizaj+4fxS0=
+X-Authority-Analysis: v=2.4 cv=R7aWitRX c=1 sm=1 tr=0 ts=6ad88f5f cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=aQ57efiQKxvF-d_-SPoA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-ORIG-GUID: kHH9hvzG2k3xJKS4uTI2QwC-KAczpGI_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA0MCBTYWx0ZWRfX1DT/owd323kS
- 5nex1v7afdw51Y5DC4EZcfAW+1uY2q7R1+dWXIN20UZGa0yInUwWiAf27NULBjf4atoWo5BOau8
- HASdgb5CZFWfCglwRK4nu7p9/68R+nXlBq6jXK/YIm7GqAoo5GvQPIu93DcAlefVApYK8nHy7Y2
- rmaDQJVEJSouQmmZSeeZxQdqfTASnbbuQPH+5GxuSM0ZgUdUTZv9HttTkUYnkSLG0URMGvZvCHq
- livcvgmvMfe5qIWgV8we0wT91LSblMT1NA/fDTPyJOK627nLHt/wHijGzDLZO+p/zg6sXOAsZou
- bN5LqrvL+4G7O4C/4RGRtL9TQS8N4MgvRDWwvy+i3/FSmtaWea5MzB6yYsZuDqxj1XmP27HhQKn
- cs4BhrRzQ+tbVeBAJvLEnaaCSUPWJC0xyFxVvaos3atZ8KZ/a5qMumf7XrtTad6VHy6v/kI0BR7
- qgDi/RhptBeHDd6kbxA==
-X-Proofpoint-GUID: kHH9hvzG2k3xJKS4uTI2QwC-KAczpGI_
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA0MCBTYWx0ZWRfX6eenSLaOPeIN
- c0aIfdnDTjwmEe5G6XAHGBRAkOPc3GhmHcewBLbnWtcF4AwFK+Eu5J2xQfSWs/Uugb4qD/227Cp
- bdWcdbNWgT0IAZFk6qKGNJui3GZ3lrA=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=COk6AnOGAAAA:8 a=dyD3vpXHCcajTuVPfTYA:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA0MCBTYWx0ZWRfX64NFQ7k00Tzk
+ QiHd/NajHcJgD3ZFnUNdEq1pnLvdmZzR34+lkvPssFg2sUAnE4Nm4+VB7o27Ue6FcLMn5nkyVVM
+ mgRgtEOyv/wsPPqrQ9KcAUwpNZSjzk3ZsR7A5q114BjM6OuNGHkJUzOezbjg9tZXdb5+EQ2o2f3
+ UdpGrSr5qowcptWNqL+cdMBWh7usvK/NSda1oqCLvVWtzywuoGFV0ZT1AWbsCF+ZWPUNx4xE9NF
+ sspu0BXje+hDId9oF3Nsz5NEFCF70VEJR4op7ybeFwYcavQIJ6lxjZIhbwzn/ygGPrBJnlsjKTk
+ t95gU8PlBhVJqIhN7RE0/xtXu+Y5QHmuBuvsXGQmhqncq7CwAi5ls68mVnTAB7lnISSf6fzUYas
+ dVRw9oo95pceaKBS4ke9nVBXJWVGtA1N0uB4ZAbMWN5sErrylVEUnw0QT3sPqmqrFiPMU38mA+O
+ yctMYtCWAKHcUhwQb/g==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-21_03,2026-10-19_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1015 impostorscore=0 spamscore=0 bulkscore=0
- malwarescore=0 suspectscore=0 adultscore=0 phishscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210040
+ malwarescore=0 adultscore=0 priorityscore=1501 lowpriorityscore=0
+ clxscore=1015 impostorscore=0 bulkscore=0 spamscore=0 suspectscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610210040
 
-On 9/22/26 12:42 PM, Anand Tiwari wrote:
-> Purwa IoT EVK variants are available with and without an eDP panel.
-> When the panel is not connected, DP3 is unused, but the base
-> DTS still describes the eDP panel and display path.
-> 
-> This causes the eDP-panel driver to probe an unavailable panel, resulting
-> in AUX probe timeouts and missing display modes. Userspace then attempts
-> display commits through the eDP connector, causing repeated DPU vblank,
-> frame-done, and IRQ timeout errors.
-> 
-> Move the DP3 and eDP panel specific nodes into an overlay so the base
-> DTB describes the configuration without the panel, while the overlay
-> enables eDP panel for boards with the panel connected.
-> 
-> DT overlays cannot remove properties from a node defined in the base
-> DTB, so keeping the /delete-property/ of #sound-dai-cells in base DTS
-> where it takes effect.
-> 
-> Signed-off-by: Anand Tiwari <anand.tiwari@oss.qualcomm.com>
-> ---
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Konrad
+On 10/16/2026 9:16 AM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [Critical] net: ath12k: unconfigured dynamic window in pcic read32/write32 causes out-of-bounds MMIO
+> - [High] wifi: ath12k: use-after-free in timer callback ath12k_ce_rx_replenish_retry()
+> --
+> 
+> commit d724e1834e7dbd2c47e113791169e389fe945179
+> Author: Sowmiya Sree Elavalagan <quic_ssreeela@quicinc.com>
+> wifi: ath12k: Add hif operation support for QCN6432
+> 
+> This commit adds HIF operations for the QCN6432 Wi-Fi driver by reusing
+> existing methods from IPQ5332 and QCN9274 where applicable. It implements
+> QCN6432-specific operations in a new pcic.c file.
+> 
+>> diff --git a/drivers/net/wireless/ath/ath12k/pcic.c b/drivers/net/wireless/ath/ath12k/pcic.c
+>> new file mode 100644
+>> index 0000000000000..e3c8476af459c
+>> --- /dev/null
+>> +++ b/drivers/net/wireless/ath/ath12k/pcic.c
+> 
+> [ ... ]
+> 
+>> +void ath12k_pcic_stop(struct ath12k_base *ab)
+>> +{
+>> +	ath12k_pci_ce_irq_disable_sync(ab);
+>> +	timer_delete_sync(&ab->rx_replenish_retry);
+>> +	ath12k_ce_cleanup_pipes(ab);
+>> +}
+> 
+> [Severity: High]
+> Is there a mechanism preventing ab->rx_replenish_retry from re-arming itself
+> here?
+> 
+> If ath12k_pcic_stop() executes while the timer callback
+> ath12k_ce_rx_replenish_retry() is running concurrently, timer_delete_sync()
+> will wait. However, the callback invokes ath12k_ce_rx_post_buf(), which blindly
+> re-arms the timer on allocation failures (-ENOMEM):
+> 
+> drivers/net/wireless/ath/ath12k/ce.c:ath12k_ce_rx_post_buf() {
+>     ...
+>     ret = ath12k_ce_rx_post_pipe(pipe);
+>     if (ret) {
+>         if (ret == -ENOSPC)
+>             continue;
+>         ...
+>         mod_timer(&ab->rx_replenish_retry, ...);
+>         return;
+>     }
+> }
+> 
+> Could this cause the timer to be re-enqueued after timer_delete_sync()
+> unblocks, leading to a use-after-free regression when the timer fires after the
+> structures are freed?
+> 
+
+The CE IRQs are disabled and synchronized before timer_delete_sync() is called.
+This ensures that no new CE IRQ processing can trigger RX replenishment during
+shutdown. timer_delete_sync() also waits for any currently running timer callback
+to complete before the CE pipes are cleaned up.
+
+> [ ... ]
+> 
+>> +u32 ath12k_pcic_read32(struct ath12k_base *ab, u32 offset)
+>> +{
+>> +	u32 window_start;
+>> +
+>> +	if (offset < WINDOW_START)
+>> +		return readl_relaxed(ab->mem + offset);
+>> +
+>> +	window_start = ath12k_pcic_get_window_start(ab, offset);
+>> +	return readl_relaxed(ab->mem + window_start + (offset & WINDOW_RANGE_MASK));
+>> +}
+> 
+> [Severity: Critical]
+> Does this read from an unconfigured dynamic window?
+> 
+> When offset does not fall into the statically mapped UMAC or CE ranges,
+> ath12k_pcic_get_window_start() returns the fallback dynamic window address
+> (WINDOW_START, which is Window 1).
+> 
+> However, unlike the cmem accessors or the PCI equivalent (ath12k_pci_read32)
+> which explicitly lock and program Window 1 to the high bits of the target
+> offset, this function skips configuration entirely and blindly performs the
+> read.
+> 
+> Could this result in out-of-bounds MMIO reads, directing the read to whatever
+> physical memory address the dynamic window was previously configured to map?
+> 
+
+This should not happen for QCN6432, as it uses the CMEM read/write operations for
+accesses to windows that are not statically mapped. These accesses do not use this
+function.
+
+>> +
+>> +void ath12k_pcic_write32(struct ath12k_base *ab, u32 offset, u32 value)
+>> +{
+>> +	u32 window_start;
+>> +
+>> +	if (offset < WINDOW_START) {
+>> +		writel_relaxed(value, ab->mem + offset);
+>> +		return;
+>> +	}
+>> +
+>> +	window_start = ath12k_pcic_get_window_start(ab, offset);
+>> +	writel_relaxed(value, ab->mem + window_start + (offset & WINDOW_RANGE_MASK));
+>> +}
+> 
+> [Severity: Critical]
+> Similarly, does this write to the dynamic window without first programming the
+> hardware register to map the target offset?
+> 
+> Like the read path above, ath12k_pcic_write32() uses the dynamic window without
+> calling a window selection function such as ath12k_pcic_select_static_window().
+> 
+> Will this regression corrupt memory or hardware state by writing to a previously
+> configured but currently unrelated memory address?
+> 
+
+same explanation as above.
+
