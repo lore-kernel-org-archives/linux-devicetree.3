@@ -1,59 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792546342;
-	b=0E1FhAOcY2IAJp0NirI3iiotxl2MouM4+rWv2A4bT40LhauXIsxR3XcHBAJlEF+daxRS
-	 H4IxrE8MIdSJAqoadAoSPqlL0fDgrAPaGbl9xOueJFgcWLPwQCsGKDRiok6lNYvr/WLhA
-	 yj2VbjQbbgXEsj3Iy8Dvm7E8InC14wFWvvxEyzFKMkTWeR33coXCfhPCOMaxIBOTupWzC
-	 hCKAqzjuJxuMn2UyEpfXDUAA+plyuBcBawwPUnWLCD2pfwPyRDIEtbliHApp5qcN9sM5N
-	 1F7Zq06sWCf0UcYRn+wDxhmhdhkZ9nUHbCr3ShmkgbgNzTN8SwrNaEGglhD56b5bZ8Q==
+	t=1792546598;
+	b=MydLmn2pIF+kYQ0t5dh9JQpywm3+xCmK+l0u2mtRJWGM2w5ov1xi7qArV585qdrlw8g0
+	 LZPm/y3b09XZuFBtoVb4jHVJFaZoL3bQPcpjj/n7DgoGhavaIphtYneP7S03QSj8LxcaQ
+	 KCuZsg+qqyStA6CqcgLx0HPdA9szlG8po6pC3vQnmQZjEAnc9VvsmU0S+hO1wnrO5jjUB
+	 Dj5R23RvRDvR9F7MaYpQCOm972vBcBFYk2UpK/vcjgl0/JksO8kfHHyhp69BK9l3Bd63D
+	 KnQqAdqBc0GrXs6yUYLeRv573ZMaf7i/JZw/fihu+JgusWqCe4OGe4v5x7VCypirJUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792546342;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792546598;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=bE0yULH2/ZfxCs7e+7R9sMvGS9wp+yEHw8YDYWZQPHA=;
-	b=PvSg3sFPfmHjawyTcy3q9ES28ITvN2rPfGUWqiALME3w9PoWFimDsxinLdzpvlwsvZ6M
-	 A52cLZSZqfCCGpEhApFOohubFgkGtXYZJ+Js1zbw+8m2RQW4levqfkH8hHx1/n7kQ4CrJ
-	 irOxVZvglU6K9xT2QOWZNk65oPrNIZ+MkdnFwDaRT8sCcoCN84zjZK1s7C/WwLkbvbfPv
-	 CamETQ+tcXVatWBQOXXN7LukdYYFXmD6LO8J27Ztc1qUc7UV9moLB/SCnQPpAE9ecl4Kl
-	 V09RhHZvw6j8pm/mV7CBV8fyE8ZsDML/5THf7aHMemYogRpUDJ77d1s4zBAU3LkPa9Q==
+	bh=9DWXQQtxd/YTIhHjVZl8evK/hoMf2JH2xzvEAV82hQ0=;
+	b=gGLTxbwJUXR3fKAy3olJ1XpugGzysxF+br2Ur3CP8CVLwyaE3uwhUVNOPsVlstPPzfWM
+	 uqrqq4tVCd6ojeryUeo5Z+6FXnNxqIAlL3D0ua5qf3M4EUgdVjAri9RKYdAg1uYMA7jaG
+	 Kc4ceTOH0vmzTZQMNdt4HJlmQZMk6WI5NSsKVmLG6HqG2rL3ZDaNA1qNIHk5fLAiIzcEA
+	 noJdsepgwgA4ADnZCLyp2hHxQ5iO0F2S8ZLinx6h9cEL3LOlcA2Q+9VfLdmmoveP8FiVd
+	 0SnKrueqipGQax4MLe1Vji4eJMY9PUchv0yZ8wQ5ulZecN7a146D/3x/xF3JMQHkKBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oVOP4g9e;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WylmPhEm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F766606A31F;
-	Wed, 21 Oct 2026 01:32:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F511606A319;
+	Wed, 21 Oct 2026 01:36:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oVOP4g9e
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AA281F000C9;
-	Wed, 21 Oct 2026 01:32:21 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WylmPhEm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EFA91F000C9;
+	Wed, 21 Oct 2026 01:36:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792546342;
-	bh=bE0yULH2/ZfxCs7e+7R9sMvGS9wp+yEHw8YDYWZQPHA=;
+	s=k20260515; t=1792546597;
+	bh=9DWXQQtxd/YTIhHjVZl8evK/hoMf2JH2xzvEAV82hQ0=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=oVOP4g9eCl6RV3TbIj4WgZRjLCBrmrVYV/p06kWV7PN833Lma0l8igk0qAHycQQTw
-	 vGqLlvSzkhoQrTIElVANPysv1krbkYQsOqhROWli0TjdqpDU964devUalBSNLw8Ak0
-	 FtIRcJf7JLolM71vnfSIZ8RcZHol0Ew+Vdl2K3vRWD99aFEURDOZOF2dnMqic5JCep
-	 WhPcTZbON1Xx3YIQps/QUDtWHU0hcDH+DA6wPqMIrJDsMfH1S9+0qcto1OzLVwWTYn
-	 p1lYXnnLLa3J/asBxPVvL7u6qKogtzpX1uBzCs8OAsGiu73yY0Awwz1yNXFy9sY1CJ
-	 A+GrV9xj31DsQ==
-Date: Tue, 20 Oct 2026 18:32:21 -0700
+	b=WylmPhEm8Qw82UTPE2SDMvY93pvffU1ZuWG1/LmcqE+HCLtGjvWjsD7pgCrCW9hdN
+	 3W8wa/0LJ6O51jeTwmTAp4YK01yixY/s/dM2KGKNjoTEAqsVMAVa/cENxo4ava8dvt
+	 6vODoYEunR3cUvtTIVUCKariZS2Kih7zXcxK1tbjw7EeOwN7HTSZG7UW+r/Sdb7GRm
+	 o1oJ76BdWIbPSgNvrKZr1W1U8q3gBxttr5yocArlsnsRM3Q053ufEEF5A83KH7cEsq
+	 9NTZfHW4yhU7MluJ/MY9LKFxbo+od/7L4BEIVx40udolZLx3GZ2J3n4ltxyltwmZ7b
+	 rgODnPEWfPs2Q==
+Date: Tue, 20 Oct 2026 18:36:36 -0700
 From: Jakub Kicinski <kuba@kernel.org>
-To: Robert Marko <robert.marko@sartura.hr>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+To: Kyle Switch <kyle.switch@motor-comm.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, lxu@maxlinear.com, hkallweit1@gmail.com,
- linux@armlinux.org.uk, lgirdwood@gmail.com, broonie@kernel.org,
- michael@walle.cc, netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, lrosu@maxlinear.com, luka.perkov@sartura.hr
-Subject: Re: [PATCH net-next v3 1/5] dt-bindings: net: maxlinear: add
- MxL86211C VDDP supply
-Message-ID: <20261020183221.3fb74bf7@kernel.org>
-In-Reply-To: <20261020093655.344585-1-robert.marko@sartura.hr>
-References: <20261020093655.344585-1-robert.marko@sartura.hr>
+ conor+dt@kernel.org, andrew@lunn.ch, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, Frank.Sae@motor-comm.com, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com,
+ jianmin.wang@motor-comm.com
+Subject: Re: [PATCH net-next v27 0/3] net: phy: Add driver for Motorcomm
+ Quad 2.5GbE phy
+Message-ID: <20261020183636.77f631f5@kernel.org>
+In-Reply-To: <20261020021929.3028490-1-kyle.switch@motor-comm.com>
+References: <20261020021929.3028490-1-kyle.switch@motor-comm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,9 +67,30 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Tue, 20 Oct 2026 11:35:34 +0200 Robert Marko wrote:
-> Describe the optional VDDP supply used by the MxL86211C PHY. Its
-> voltage determines whether the MDIO, MDC, and MDINT pads use 1.8 V or
-> 3.3 V.
+On Tue, 20 Oct 2026 10:19:26 +0800 Kyle Switch wrote:
+> This patchset mainly implements the phy8824 driver. The phy8824 is
+> an Ethernet PHY that provides one 10G SerDes output to four 2.5G ports.
+> The driver mainly covers two application scenarios:
+>  1. external PHY8824
+>  2. PHY8824 embedded in a switch.
+> The patchset mainly consists of three parts:
+>  1. the DTS for the phy8824
+>  2. a generic template testmode configuration api.
+>  3. the phy8824 functional functions.
 
-Please note that net-next is now closed.
+## Form letter - net-next-closed
+
+The merge window for Linux v7.4 has begun, and the net-next
+tree is now closed for new drivers, features, code refactoring
+and optimizations. We are currently accepting bug fixes only.
+
+Please repost when net-next reopens. There is some uncertainty
+about how long this merge window will last, so please check
+https://netdev.bots.linux.dev/net-next.html
+before reposting. net-next _may_ reopen on Nov 2nd.
+
+See: https://www.kernel.org/doc/html/next/process/maintainer-netdev.html#development-cycle
+-- 
+pw-bot: defer
+pv-bot: closed
+
