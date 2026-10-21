@@ -1,55 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792595690;
-	b=jMtWUJhDmSrpz0hm0gDVj3N6p6z54/ojbGJLiu/6G5YBDaLw8VO/IwtgY+PJB3z7sTLv
-	 HI163RrOaMEW0yGQwOG4iW8VyCC723+kamnYiqhd3QAEP24xLVA+n442xyOLYykmPZOOD
-	 XZMR0JLsSBn6y8vpbjTypBzjSgT92eTmZjfPLl4h422Pa4z9tDCg7nUCig6Ct/LOq17CD
-	 bZi9a/13HeZ2GKXNZVic4NP0zV9gO8e12wWscAlzjtj3Nb5jHCW79ZmQ0HmOd6SlNeHcL
-	 VLnqNEXYV6nh30toY2liagtZSUwaVkKmzTiKVi7XcdGqDQn0MtxrwllfqFzdMUMzXTw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792595690;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
-	 From:To:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=oRQQ4eBkWGibC5XYs3zRzzFr1cAlLBlEj5FzcQuT9Ks=;
-	b=t6GCKZ5qDlYtf1C3YrToGk+n3j/A+S+VUpAv/ZtJpNr9OvI7ALY/tjwaJoK1FukTohF1
-	 O73dnsvu5A239kr1vXt4Aa72KHtqiRryauH1tls4SC1XXERG87msxagyojc80ICE3EW2D
-	 t1NEDYo+agnFyL4m9e4n3zU0uBIO/mWYgHPjTLqcDSZRFV6SU3v8LehFbRh3lIqEt3X4e
-	 hcxFU/Tbjh/4h0uXUJYBRInMcTr6NWu++lLuv1HaNGEFkcHeOgJJYdiyI9t/Z4sudigNR
-	 t3L7fqpg87MKAD3mLp7ubJVlCfA17BLwB4kNI18rAtVzckcPYbH8h0+H37AYIHbxbIw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=e4cLLepI;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.16
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792595743;
+	b=rQrWy7iWrN3kSKloawWrUQi41yMrLFHC4lq4h/ofCe/08GtVM6sr0+jrGII07yzR2Xd2
+	 HE+fdly9VAaJMeogiwQjiATqA38yyS2/fvkqHIO5Jrzjf+jUjMce9dAnJm7Q3m2saK8Hx
+	 3iHUwwyK6HlRgUlOP72e4IIHTWvxcfJRIMu621bJfOqQpJIS2lYbQ6Vpln82XhsYbyW3S
+	 RHjkI40X9xGBmwUZFcaD0qbdE49wHrzFHKfsINl2YgvlJL7AYfDgwfCpbwdz4Ribtoit3
+	 fyFHJ6haN5nc9vLC3SZpyOlsLbSOBQIevGk1BG3SiSojSIJV9CNDDtT3SI+VtmL0Dsw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792595743;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=AjeERqTMtTFCemJF8aYOEDp+NdgQGo5LMi0YqasZ8DU=;
+	b=X9V9tC5CGEOvKDs8j1RHLxxy/URcGEk2/qkfluQqiDtxjJV6tNoJ03mUPyt4GOvMGEqM
+	 WecV+0oHJXfoIIBrRv1zFBaQ7t2leuYLtXj9VppnW6vRTRgUZsOdRrXmwv0IJtSkqskSx
+	 3J9A6VRHQHTMimq1kreTq1RSbDvo93EIBhd1JBncWZOwo6i5Eq9/onW8OUmfe4oFM0pfo
+	 K7vlNaDwnPItZqBUQneX89DboiUWdDTEUt0+pY7uOEblBCet8bzJMuJLjhsBzYZ6QS/wU
+	 p+U6qyNl7LYXL0SOhDE3hTWqrVOu0zGhjrIUycu+8aCZBBm/aDD0FAi7OVic0aFw7rg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nxp.com;
+	spf=pass smtp.mailfrom=nxp.com;
+	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=TVTSRt29;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.16
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013016.outbound.protection.outlook.com [52.101.83.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17229606A31A
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 15:14:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17229606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38083606A31F;
+	Wed, 21 Oct 2026 15:15:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38083606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=e4cLLepI
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 4A6B3C5CD75;
-	Wed, 21 Oct 2026 15:15:46 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3ACB8606E3;
-	Wed, 21 Oct 2026 15:14:47 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 522E1103289F5;
-	Wed, 21 Oct 2026 17:14:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792595682; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=oRQQ4eBkWGibC5XYs3zRzzFr1cAlLBlEj5FzcQuT9Ks=;
-	b=e4cLLepIpKhdQ17Mcc1K1L9Dl6CdWHiMkthE4idkFLam+ygTjsC5BEFFiOZKDnASbqkK29
-	y4OHG2gBYUUIIDzwjP5bwDlEcVY4+5BSTR0nyQtcDiCsuldGr0eInKpglc23Sg3KEzELyu
-	3YXasE5zeSssZgObWbeDw5w6OWTroiCGnXQmMSjkZsgDt4qTtGNX1WMTQROA2p20ghJ24E
-	b1/ZK4wMHzYBQnxAfK4FdayxTWhl7Ca79W+CqfJxpCSvIm6pn1y9zOws/UOZzw5MvocVqT
-	ujTxdFHybMzZI9PbtIs6BBUYtTsjqibssuRhni4oUDGyFudBqmTiHJRdXRJWRg==
+	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=TVTSRt29
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cpl/KOPak2Lfb8qG1C0YPTxqctMCVpOTtJlze4MwQ+dDOXsA7eNAv/0QBMjtIz9vfEKLt+UM/TvIEGn86Z6hAvO9RsyzPBqqZ9A6/jp+Yu1EAlsiohI9+AZKIy3JM04HzqMzEoFVPp8ayfvw3CM97x3Oj/XB90ygbfc9+KoMuLYDCFykb7n7a1YnOqqd+bB4iY324m4XY0ijhJvJmGfSeIVNeGhCT4Hy/TyFdutPRjqkkky6a0amMP4N7dtd309qWlijpzm0OuYP4Xp8ZD1sBrqtsQV0fjecF8HQuAkUwupx+7j6jrqqRm+SsHT0nkWpVdixWl0MZ9cDeDknp1E31w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AjeERqTMtTFCemJF8aYOEDp+NdgQGo5LMi0YqasZ8DU=;
+ b=ZM++6YtnsDEjdj3PFb217JZvSp0u/i1brz34pdYXGem8r/hyTjgB4iR0phpPZyWVbhMJs/vF0bgU+LkZHlM+8ju2BAL4mNTB5t/UnBbYqRAF/vn2DdjuSqQtuaBzf4l68nbTQZ8higf8eygXuVjMHFStFWVcIaHorN6EGvrkwa8hc9CBdo3GvADxegEkeBDej4r5eEtWkWU80ZjN+FKn+BilaFCpZTeJ1o5Od3wKnDL/KUYy3qUuVPtQUm9/o3hwpxthnMuNKbkLzkZYhNvppxhDjLY0L2/ulPC2z470qzCsTgoh9sVxKHe3FXhYT4TQ9nsqZrQm+FZZ5WyXM5yyiw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AjeERqTMtTFCemJF8aYOEDp+NdgQGo5LMi0YqasZ8DU=;
+ b=TVTSRt29lXiD0sHZTzy3QcpsDXnfmVd8eRg1XNz941N8k7s2fUg9COIIQ9nT0k4HvtuFt0DT/oDnAJzfMYoC5ky8stvWyAweXGFxyrHFmUUA+udB7glt7q+RkxsCiMFltZ0aYXhrIZLLJ57aV53wM3fH21ppFpJP4nlBs9hQ3eriVlHbVER28e5tB+/ChvjoUS1ym5mAXp3Xv47S03jvNx32HRDhUK3mo2ycmrG9PHx4IYeHnr5h6Ja3rv9jrguHwIb6C26kTd6Zyk0xE/0Bf2cPyno+TwV1VVo3uInfWKRk84oy5eHccsK+YSATWyXoe5Pr2sDPRIqw102ZDcD2MA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM0PR04MB6900.eurprd04.prod.outlook.com (2603:10a6:208:17d::10)
+ by MA6PR04MB066831.eurprd04.prod.outlook.com (2603:10a6:250:56::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
+ 2026 15:15:40 +0000
+Received: from AM0PR04MB6900.eurprd04.prod.outlook.com
+ ([fe80::7fda:8431:ca1b:b023]) by AM0PR04MB6900.eurprd04.prod.outlook.com
+ ([fe80::7fda:8431:ca1b:b023%4]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
+ 15:15:38 +0000
+Date: Wed, 21 Oct 2026 18:15:34 +0300
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
+To: Wei Fang <wei.fang@nxp.com>
+Cc: Marek Vasut <marex@nabladev.com>, 
+	"Frank Li (OSS)" <frank.li@oss.nxp.com>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>, 
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, "David S. Miller" <davem@davemloft.net>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, Clark Wang <xiaoning.wang@nxp.com>, 
+	Claudiu Manoil <claudiu.manoil@nxp.com>, Conor Dooley <conor+dt@kernel.org>, 
+	Eric Dumazet <edumazet@kernel.org>, Frank Li <frank.li@nxp.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	"UNGLinuxDriver@microchip.com" <UNGLinuxDriver@microchip.com>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"imx@lists.linux.dev" <imx@lists.linux.dev>, 
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>
+Subject: Re: [net-next,PATCH 2/2] enetc: Make eMDIO MDC rate configurable
+ from DT
+Message-ID: <ucqfjqsvvnxp7csa53lsbtxxeti4n53wdrybzuemargqkt556y@amr6rfv5oq4f>
+References: <20261016193344.115518-1-marex@nabladev.com>
+ <20261016193344.115518-2-marex@nabladev.com>
+ <atKDNdxl0w65s8yQ@SMW015318>
+ <DB9PR04MB933217F7ADCB6223A44DACA7889A2@DB9PR04MB9332.eurprd04.prod.outlook.com>
+ <661412ff-3942-4d1c-be6f-1ef6c54620fd@nabladev.com>
+ <AS4PR04MB933821150913BDCF35C4827F88982@AS4PR04MB9338.eurprd04.prod.outlook.com>
+ <fe920b05-6d89-4dc1-83d3-0664fbc2e00c@nabladev.com>
+ <AS4PR04MB93389CB9849950CFD78411DE88672@AS4PR04MB9338.eurprd04.prod.outlook.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <AS4PR04MB93389CB9849950CFD78411DE88672@AS4PR04MB9338.eurprd04.prod.outlook.com>
+X-ClientProxiedBy: AS4P190CA0017.EURP190.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5d0::7) To AM0PR04MB6900.eurprd04.prod.outlook.com
+ (2603:10a6:208:17d::10)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,366 +110,95 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 21 Oct 2026 17:14:40 +0200
-Message-Id: <DMAM4V1UOAIZ.2OVWHIYOAWHG7@bootlin.com>
-Cc: <devicetree@vger.kernel.org>, <robh@kernel.org>, <conor+dt@kernel.org>
-Subject: Re: [PATCH 5/5] regulator: Add TI LM51772 support
-From: "Paul Louvel" <paul.louvel@bootlin.com>
-To: <sashiko-reviews@lists.linux.dev>, "Paul Louvel"
- <paul.louvel@bootlin.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com>
- <20261021-paul-lm51772-v1-5-25f0ffbffa8d@bootlin.com>
- <sashiko-outbox-180131@kernel.org>
-In-Reply-To: <sashiko-outbox-180131@kernel.org>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM0PR04MB6900:EE_|MA6PR04MB066831:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5dcd3e3c-7427-4f40-9a43-08df2f8629c3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|23010399003|19092799006|376014|1800799024|366016|6133799003|18002099003|22082099003|4143699003|11063799006|261009223027099003|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	kd64XkLt2PjbuJF+EItCjaaD38obEnIsDl71xCKC+D4aAdUZBv5+v3HEfCMk5z7S/ySmGgsdODOjvQTzPWHN2fhjwe6VSLUCn30BYwImF1KjhEm3cOYIruj/fdkEVfHYZhl56xBJWz0uGkNFCw9jOLmWV8xbWp5KOKEfCksg3ad4ACclXzKU51isMOxsORcHW7s68WJ5j+oL1TweDEmJoENi5MI6KXQKu6VfVg4VUKp3afk2m68Th4q9EpbFncDPqL8ME9XHtwvVnoGnWcYWi7xxjOMEA1cy9Fze0aWpd15tkOCJTreKsNgVpWvyczwobwTcRquG/pqwRusS/ZKKcfQLtTtPTlAmDmbbKo4dBJ+Nh2fXusui0yN8BUVSGa+m/pWXRkeUAOeh413Y2LiJhT8nxB7uPuC/0R1Gy+C71s6/ysszaqo4hkEjZpnnML8llmemAVDng/xfIqJVOJFU1+jZoipaxyN7JAYoDG9POs+bI3oAgUSGOGaSDqW5UgyX4BnYeoOxfLwnUamwOiDKeEVSiZi037Idxba+0K9/TRQBBmwfqSvYbu+F9l/fS3n3eZX0xfKIuHN9RO4XXTdtJx09NzM9QAw/raHAXinqI4heOW88jdAps6fUEqul6SdBX1AhEsobs75VviFmOExJUk9GJ+CYOgJYtafZJ/t/V8E=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB6900.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(19092799006)(376014)(1800799024)(366016)(6133799003)(18002099003)(22082099003)(4143699003)(11063799006)(261009223027099003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?TfTo8mYBA4yFQ42LgJBL5heWBuMOO3t8zebKRbHSe2nw6LXMwsqir2xfiuHD?=
+ =?us-ascii?Q?b/OzflaZFw5GR8U7zXcarSF8+ON3DKdMMOexj6MEBP7jaP/7BqIWROKJa6j1?=
+ =?us-ascii?Q?P+xlxbLg6/UlD1Hb6FowdDTwEPQKUW7CoFHkXkCSRCPG06yrla4lAQOfUlVt?=
+ =?us-ascii?Q?U9olkEqE8Aks5bcAP9puH80wk9ZB6TJRPdNFTNm1NDkF7z++dsgIx8QChrE4?=
+ =?us-ascii?Q?NtoSKR85dLbapHQNxjEAgfIV7BZdk4YGJ8ifbbi+4EWT/ZvWdtscV2+7KI2N?=
+ =?us-ascii?Q?60wMQp4XXwyRvpQVQc1QchtbYCwqjZXb2ef/obUd/5HvkE/DxYt5rlvoxXKX?=
+ =?us-ascii?Q?ufO3uRl0MyQuW717/Z7dHCBtr2jk3vcwiOoW1tfwr761L8ErDcE22a3trdu3?=
+ =?us-ascii?Q?TuApmHQbFsIM5QBE5Hs1clst+WNttLF9QFuD5UHCLhmLw95qXRWZs/Ia8oUP?=
+ =?us-ascii?Q?dWNrpJrqbkVXrETIozSfA3u1DMQpy/zb1Pfi3eBuO3a2vxT92FdEQcsB1dZz?=
+ =?us-ascii?Q?mdNZP7Hsu3rH/5zAXEdgxDsHu/AiG5odnc4N1lsWeEjSGNZzpPDNCpEK3RDp?=
+ =?us-ascii?Q?12K82cNuBNiHwV5JovNHTxZjglF1WTBBYD1r/9YB/9U3SlvW94YbEUo0jTPK?=
+ =?us-ascii?Q?kSFT8NBk1ijeTfjhB0ndWISmAAZneaEgYSMtQRWAW/Fr5eK9vzOuDmKDF+Id?=
+ =?us-ascii?Q?Oa0PMLpeGXTANZ/cckHVYN6rGp2Vu4P6HWefM5NhnAJJHUe6JKyxhU7JvTrL?=
+ =?us-ascii?Q?mSiWbYRlLo0nbmpson03D0QgzzMpiyK1NOlWKUjgnuXtXmmZ+Jmm1o3A/cdA?=
+ =?us-ascii?Q?qs4OowUfXsqIel+0OD2Ia2ej18SCh6+NmEvCP87e/sj2bqb7C+Sy8ImnOIr4?=
+ =?us-ascii?Q?9GSajwUplRU0JmbRC4mUUBMn7gzEI24sBwjCDBIQ9i2y8gz5DRZ052X5tGAj?=
+ =?us-ascii?Q?4+Hh0Rp+9VOdY5LwiLr0xveHQmWhxP7SV6crCe/vKCGlD4RAWwk3wyXLPpSJ?=
+ =?us-ascii?Q?oVskEmmMVZY/FrBHGARjN1CXnHAoec8ZM4wmMXIp9AcHO0ka8anzzJWS7mPI?=
+ =?us-ascii?Q?ouSSkfyb1kZZknfqpx3IO0a7OrN4CzaQUEmZmNHKGt7ubjyw3ksNGVMbFyDu?=
+ =?us-ascii?Q?EaLxZNjJ53RuAP/bH+xYMgZVFqNw2Zfkglycx2s83HDXYOrVbewhX9Y0ByVC?=
+ =?us-ascii?Q?PKtngXnnoz8sGHJCDYYhOu6DWce/fFAQiKJhk9EqaR39/JUeTs/5UWxsYL6y?=
+ =?us-ascii?Q?pUS3RlurWpZK0MsoZShj+OO0ZOKLEjLeA73Jjk/4BVQf9hXXIPHp9wT+F8nm?=
+ =?us-ascii?Q?elLin/pRXsXRuNfan2SnuWMa/VIQ6ESlAUjS2TFoq0Rj5kyOFI5mqjxEpGYS?=
+ =?us-ascii?Q?8HIc3H6fQNzlsrP4Hsn1T8pV/2YvuJ13EG0eNnp0bZRSL41SLALK0ac6eHgq?=
+ =?us-ascii?Q?0dejtpUxAxjeTnYnwSguuMZ3Nsi8n7JRckWpNhrK6nEEA7hCwFMBjOenB6aw?=
+ =?us-ascii?Q?26G2fHjPlUHphSUgjmBuSTvvMExFvHd9ch4mvEZaRhyl46IgU6PDnhTWj0Od?=
+ =?us-ascii?Q?QXRuDtQDTx3mEZjWbxrj+6yakAwzuWNV12cE/QPeojcE4hNaa7n02j+z524q?=
+ =?us-ascii?Q?YUJIGEgaAk2H49xmyufzpcfV/M0UvmON/dcblUpN2AZ/51HBrMteOM2fURdK?=
+ =?us-ascii?Q?URcwq5MFpMfdw451TQ/JspCwmI0dxry+CUW3+MakXksVm0vNsH1uYEZKDGJy?=
+ =?us-ascii?Q?O4+El6Kp6Q=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5dcd3e3c-7427-4f40-9a43-08df2f8629c3
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB6900.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 15:15:38.3740
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5Mtpaz+q1ErxyGWgaFTKVLaUSKfgDRSVWtR5+KDoHkXJMzNgiiAthZ/dbE957LCckkl6kP5FFmmQYrX3BiwF3g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA6PR04MB066831
 
-On Wed Oct 21, 2026 at 12:56 PM CEST, sashiko-bot wrote:
-> Thank you for your contribution! Sashiko AI review found 6 potential issu=
-e(s) to consider:
-> - [High] regulator: lm51772: wrong register for CONV_EN in lm51772_set_co=
-nv_en()
-> - [High] regulator: lm51772: cached CLEAR_FAULTS read in lm51772_irq_rena=
-ble()
-> - [High] regulator: lm51772: OVP lowered before VOUT in lm51772_regulator=
-_set_voltage_sel()
-> - [Medium] regulator: lm51772: multi-bit mask passed to regulator_err2not=
-if()
-> - [Medium] regulator: lm51772: plain 64-bit division in lm51772_regulator=
-_set_current_limit()
-> - [Medium] regulator: lm51772: min_uA ignored in lm51772_regulator_set_cu=
-rrent_limit()
-> --
->
-> commit a4b40e7b6b6cb8eaba3df00e481d736c9bbb846f
-> Author: Paul Louvel <paul.louvel@bootlin.com>
->
-> regulator: Add TI LM51772 support
->
-> This commit adds an I2C regulator driver for the TI LM51772 buck-boost
-> controller, supporting a configurable buck-boost output and a fixed 5 V L=
-DO
-> output with voltage setting, current limiting, and fault reporting.
->
->> diff --git a/drivers/regulator/lm51772-regulator.c b/drivers/regulator/l=
-m51772-regulator.c
->> new file mode 100644
->> index 0000000000000..b5259f2772433
->> --- /dev/null
->> +++ b/drivers/regulator/lm51772-regulator.c
->> @@ -0,0 +1,826 @@
->
-> [ ... ]
->
->> +/* MFR_SPECIFIC_D0 bits */
->> +#define LM51772_EN_VCC1				BIT(5)
->> +
->> +/* MFR_SPECIFIC_D1 bits */
->> +#define LM51772_EN_THER_WARN			BIT(7)
->> +#define LM51772_THW_THRESHOLD_MASK		GENMASK(6, 5)
->> +#define LM51772_EN_NINT				BIT(4)
->> +#define LM51772_CONV_EN				BIT(0)
->
-> [ ... ]
->
->> +static int lm51772_set_conv_en(struct regmap *regmap, bool enable)
->> +{
->> +	int ret;
->> +
->> +	ret =3D regmap_update_bits(regmap, LM51772_REG_USB_PD_CONTROL_0,
->> +				 LM51772_CONV_EN2,
->> +				 FIELD_PREP(LM51772_CONV_EN2, enable));
->> +	if (ret)
->> +		return ret;
->> +
->> +	return regmap_update_bits(regmap, LM51772_REG_MFR_SPECIFIC_D0,
->> +				  LM51772_CONV_EN,
->> +				  FIELD_PREP(LM51772_CONV_EN, enable));
->> +}
->> +
->> +static int lm51772_get_conv_en(struct regmap *regmap)
->> +{
->> +	unsigned int pd_ctrl, cfg0;
->> +	int ret;
->> +
->> +	ret =3D regmap_read(regmap, LM51772_REG_USB_PD_CONTROL_0, &pd_ctrl);
->> +	if (ret)
->> +		return ret;
->> +
->> +	ret =3D regmap_read(regmap, LM51772_REG_MFR_SPECIFIC_D0, &cfg0);
->> +	if (ret)
->> +		return ret;
->> +
->> +	return FIELD_GET(LM51772_CONV_EN2, pd_ctrl) || FIELD_GET(LM51772_CONV_=
-EN, cfg0);
->> +}
->
-> [Severity: High]
-> Should lm51772_set_conv_en() and lm51772_get_conv_en() access
-> LM51772_REG_MFR_SPECIFIC_D1 instead of LM51772_REG_MFR_SPECIFIC_D0 for
-> LM51772_CONV_EN?
->
-> LM51772_CONV_EN is defined under the MFR_SPECIFIC_D1 bit definitions, and=
- in
-> lm51772_reg_defaults, LM51772_REG_MFR_SPECIFIC_D1 has a default value of
-> 0x09 (bit 0 set) while LM51772_REG_MFR_SPECIFIC_D0 defaults to 0x32 (bit =
-0
-> clear).
->
-> When lm51772_regulator_enable(), lm51772_regulator_disable(), or
-> lm51772_regulator_is_enabled() is called on the vout regulator, updating =
-and
-> reading LM51772_REG_MFR_SPECIFIC_D0 leaves LM51772_CONV_EN set in
-> LM51772_REG_MFR_SPECIFIC_D1, preventing the converter from being disabled=
- in
-> hardware while modifying bit 0 of LM51772_REG_MFR_SPECIFIC_D0.
+Hi Wei,
 
-LM51772_CONV_EN bit is in MFT_SPECIFIC_D0. I put it under the wrong comment
-block.
+On Tue, Oct 20, 2026 at 10:43:12AM +0300, Wei Fang wrote:
+> > >>> For ENETC device, we already have a 'ref' clock in the enetc node, so
+> > >>> devm_clk_get(dev, NULL) may get the 'ref' clock rather than the system
+> > >>> clock of NETC.
+> > >> Shouldn't the clock be described in the MDIO DT node ?
+> > >
+> > > The enetc_mdio_read_* and enetc_mdio_write_* interfaces are not only
+> > > used by EMDIO devices, the ENETCs and NETC switches also use them.
+> > > NETC switches and ENETCs can access external PHYs or internal PCS/Serdes
+> > > through their own port MDIO registers, instead of through EMDIO devices.
+> > >
+> > > Your first patch only modified the EMDIO binding-doc, not the ENETC and
+> > > switch binding-doc.
+> > So I need to patch also
+> > Documentation/devicetree/bindings/net/dsa/mscc,ocelot.yaml ? Any other
+> > binding document ?
+> > 
+> 
+> fsl,enetc.yaml and nxp,netc-switch.yaml.
+> 
+> However, once again, I don't highly recommend adding a clocks property to
+> the DTS to obtain the MDC source clock frequency. My reasons are as follows:
+> 
+> 1. The MDC source clock is the NETC system clock, which is a fixed configuration
+> with a fixed frequency for each SoC, hardcode the rate in driver is simpler.
 
->
-> [ ... ]
->
->> +static int lm51772_set_ov(struct regulator_dev *rdev, int lim_uV)
->> +{
->> +	static const struct linear_range ovp_ranges[] =3D {
->> +		LINEAR_RANGE(4000000, 0, 0x17, 500000),
->> +		LINEAR_RANGE(16000000, 0x18, 0x3f, 1000000),
->> +	};
->> +	struct regmap *regmap =3D rdev_get_regmap(rdev);
->> +	struct device *dev =3D rdev_get_dev(rdev);
->> +	unsigned int selector;
->> +	bool found;
->> +	int ret;
->> +
->> +	ret =3D linear_range_get_selector_low_array(ovp_ranges, ARRAY_SIZE(ovp=
-_ranges), lim_uV,
->> +						  &selector, &found);
->> +	if (ret || !found)
->> +		return -EINVAL;
->> +
->> +	dev_dbg(dev, "OVP set to %d uV (selector 0x%02x)\n", lim_uV, selector)=
-;
->> +
->> +	return regmap_write(regmap, LM51772_REG_MFR_SPECIFIC_D5, selector);
->> +}
->> +
->> +static int lm51772_regulator_set_voltage_sel(struct regulator_dev *rdev=
-, unsigned int selector)
->> +{
->> +	const struct lm51772_priv *priv =3D rdev_get_drvdata(rdev);
->> +	int ret;
->> +
->> +	/*
->> +	 * The LM51772 uses hardcoded OVP thresholds. Update the OVP threshold
->> +	 * to match the new voltage.
->> +	 */
->> +	if (priv->ovp_thres) {
->> +		ret =3D regulator_list_voltage_pickable_linear_range(rdev, selector);
->> +		if (ret < 0)
->> +			return ret;
->> +
->> +		ret =3D lm51772_set_ov(rdev, ret + priv->ovp_thres);
->> +		if (ret)
->> +			return ret;
->> +	}
->> +
->> +	return regulator_set_voltage_sel_pickable_regmap(rdev, selector);
->> +}
->
-> [Severity: High]
-> When decreasing the output voltage in lm51772_regulator_set_voltage_sel()
-> while priv->ovp_thres is set, can calling lm51772_set_ov() before
-> regulator_set_voltage_sel_pickable_regmap() trip a false over-voltage
-> protection fault because VOUT is still at the higher voltage when the low=
-er
-> OVP threshold is written to LM51772_REG_MFR_SPECIFIC_D5?
->
-> Also, in lm51772_set_ov(), ovp_ranges[0] ends at 15500000 uV (selector 0x=
-17)
-> and ovp_ranges[1] starts at 16000000 uV (selector 0x18), up to 55000000 u=
-V
-> (selector 0x3f). If ret + priv->ovp_thres falls between 15500001 uV and
-> 15999999 uV, or exceeds 55000000 uV, linear_range_get_selector_low_array(=
-)
-> sets found to false and lm51772_set_ov() returns -EINVAL, causing the
-> voltage change to fail.
->
-> [ ... ]
->
+In the RCW project (https://github.com/nxp-qoriq/rcw), we have for LS1028A:
+- R_SQPP_0x85bb/rcw_800_sdboot.rcw and R_SQPP_0x85bb/rcw_800_emmcboot.rcw:
+  set CGA_PLL2_RAT=8, giving 800 / 3 = 266.67 MHz.
+- R_SQPP_0x85bb/rcw_1500_gpu700.rcw: sets CGA_PLL2_RAT=14, giving 1400 / 3 =
+  466.67 MHz.
 
-True. Then, shall I wait until the voltage settle ? Because even if I did i=
-t
-after setting the voltage, vout might still be above the new ovp threshold =
-for a
-short time.
-
->> +static int lm51772_regulator_set_current_limit(struct regulator_dev *rd=
-ev, int min_uA, int max_uA)
->> +{
->> +	struct lm51772_priv *priv =3D rdev_get_drvdata(rdev);
->> +	u64 voltage_uV =3D ((u64)priv->sense_res_milliohms * max_uA) / 1000;
->> +	struct regmap *regmap =3D rdev_get_regmap(rdev);
->> +	u8 ilim_reg;
->> +
->> +	if (priv->iset_pin)
->> +		return -EOPNOTSUPP;
->> +
->> +	if (voltage_uV < LM51772_ILIM_THR_MIN_UV || voltage_uV > LM51772_ILIM_=
-THR_MAX_UV)
->> +		return -EINVAL;
->> +
->> +	ilim_reg =3D voltage_uV / LM51772_ILIM_THR_STEP_UV;
->
-> [Severity: Medium]
-> Will dividing u64 values with the plain / operator in
-> lm51772_regulator_set_current_limit() cause a link failure (__udivdi3 /
-> __aeabi_uldivmod undefined) when building on 32-bit architectures? Should
-> this use div_u64() instead?
->
-> [Severity: Medium]
-> What happens in lm51772_regulator_set_current_limit() if the truncated
-> register value ilim_reg corresponds to a current limit strictly below
-> min_uA? Because min_uA is not checked, can this program a hardware curren=
-t
-> limit lower than the minimum requested by the caller instead of returning
-> -EINVAL?
->
-
-This is just sloppy programming on my part. In the first place, there is no=
- need
-for u64 integer, and the sense resistor should not exceed 10 mOhms.
-Also min_uA is completely ignored which is indeed not right.
-
->> +
->> +	dev_dbg(rdev_get_dev(rdev),
->> +		"set current limit: %d uA (ilim_reg 0x%02x, sense_res %d mOhm)\n", ma=
-x_uA, ilim_reg,
->> +		priv->sense_res_milliohms);
->> +
->> +	return regmap_write(regmap, LM51772_REG_ILIM_THRESHOLD, ilim_reg);
->> +}
->
-> [ ... ]
->
->> +static int lm51772_irq_map_event(int irq, struct regulator_irq_data *ri=
-d,
->> +			     unsigned long *dev_mask)
->> +{
->> +	struct regmap *regmap =3D rid->data;
->> +	unsigned int reg, errors;
->> +	int ret;
->> +
->> +	ret =3D regmap_read(regmap, LM51772_REG_STATUS_BYTE, &reg);
->> +	if (ret)
->> +		return REGULATOR_FAILED_RETRY;
->> +
->> +	errors =3D lm51772_status2err(reg);
->> +
->> +	for (size_t i =3D 0; i < rid->num_states; i++) {
->> +		rid->states[i].errors =3D errors & rid->states[i].possible_errs;
->> +		rid->states[i].notifs =3D regulator_err2notif(rid->states[i].errors);
->
-> [Severity: Medium]
-> In lm51772_irq_map_event(), what happens when more than one fault bit is =
-set
-> in LM51772_REG_STATUS_BYTE at the same time?
->
-> lm51772_status2err() ORs multiple REGULATOR_ERROR_* flags together, so
-> rid->states[i].errors can have multiple bits set. However,
-> regulator_err2notif() in include/linux/regulator/driver.h is a switch
-> statement over single-bit REGULATOR_ERROR_* constants and returns 0 when
-> passed a multi-bit mask, which drops the corresponding REGULATOR_EVENT_*
-> notifications.
->
-
-True. I don't know why, but I was convinced that it converted multiple erro=
-rs.
-Better reading what I use next time!
-
->> +
->> +		if (reg & LM51772_STAT_OFF)
->> +			rid->states[i].notifs |=3D REGULATOR_EVENT_DISABLE;
->> +
->> +		if (rid->states[i].errors || rid->states[i].notifs & REGULATOR_EVENT_=
-DISABLE)
->> +			*dev_mask |=3D BIT(i);
->> +	}
->> +
->> +	rid->opaque =3D reg;
->> +
->> +	return 0;
->> +}
->> +
->> +static int lm51772_irq_renable(struct regulator_irq_data *rid)
->> +{
->> +	struct regmap *regmap =3D rid->data;
->> +	unsigned int reg;
->> +	int ret;
->> +
->> +	ret =3D regmap_read(regmap, LM51772_REG_STATUS_BYTE, &reg);
->> +	if (ret)
->> +		return REGULATOR_FAILED_RETRY;
->> +
->> +	if (rid->opaque && rid->opaque =3D=3D reg) {
->> +		ret =3D regmap_read(regmap, LM51772_REG_CLEAR_FAULTS, &reg);
->> +		if (ret)
->> +			return REGULATOR_FAILED_RETRY;
->> +
->> +		return REGULATOR_ERROR_ON;
->> +	}
->> +
->> +	rid->opaque =3D 0;
->> +
->> +	return REGULATOR_ERROR_CLEARED;
->> +}
->
-> [ ... ]
->
->> +static const struct regmap_range lm51772_volatile_ranges[] =3D {
->> +	regmap_reg_range(LM51772_REG_PD_STATUS_0, LM51772_REG_PD_STATUS_0),
->> +	regmap_reg_range(LM51772_REG_STATUS_BYTE, LM51772_REG_STATUS_BYTE)
->> +};
->> +
->> +static const struct regmap_access_table lm51772_volatile_table =3D {
->> +	.yes_ranges =3D lm51772_volatile_ranges,
->> +	.n_yes_ranges =3D ARRAY_SIZE(lm51772_volatile_ranges)
->> +};
->> +
->> +static const struct reg_default lm51772_reg_defaults[] =3D {
->> +	{ LM51772_REG_CLEAR_FAULTS, 0x00 },	{ LM51772_REG_ILIM_THRESHOLD, 0x64=
- },
->
-> [Severity: High]
-> Does regmap_read(regmap, LM51772_REG_CLEAR_FAULTS, &reg) in
-> lm51772_irq_renable() actually reach the hardware over I2C?
->
-> Because lm51772_regmap_config enables REGCACHE_MAPLE, seeds
-> LM51772_REG_CLEAR_FAULTS in lm51772_reg_defaults, and omits
-> LM51772_REG_CLEAR_FAULTS from lm51772_volatile_ranges, regmap_read() retu=
-rns
-> the cached 0x00 value without performing an I2C bus transaction. As a
-> result, latched faults in LM51772_REG_STATUS_BYTE are never cleared and
-> lm51772_irq_renable() will keep returning REGULATOR_ERROR_ON.
->
-> Also, in lm51772_irq_renable(), if an additional fault bit becomes set in
-> LM51772_REG_STATUS_BYTE so that reg is non-zero but no longer equal to
-> rid->opaque, won't the (rid->opaque && rid->opaque =3D=3D reg) check eval=
-uate to
-> false and return REGULATOR_ERROR_CLEARED while faults are still active?
->
-> [ ... ]
-
-Yes, also true.
-
-
-
-
---=20
-Paul Louvel, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+Apart from these, yes, the other RCWs do set CGA_PLL2_RAT=12, giving 400 MHz.
+But the statement in general is false.
