@@ -1,99 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792579186;
-	b=iFNbg0qTBEYqs/IvZnSygK7ZgZGWjnAk2PdoInPrffQ+gL3KAtqmJja95gWtLIaoTUH2
-	 G4r/AQchCnSVZS0SRRthEgHJSaTFmUibrkjQAz4H+gX1kBueSb5ie91mJyVdcDLdE2HwP
-	 CPWOSqjjnorxUagjvbuLvCI7GJFByorqffv3deUjxrkQXjzyCYKRPVv02incR4upElCV1
-	 ONzZea4RTCO+1vfy/dHffzFthkMi0RoiT0UOTO3Si/2O+5EqnVyglgnrqpEq2EO9BcnPO
-	 h/J0PaEZ2XscynpipUmpGXr+rLOXZyCTMpnlpjFnAxk26+yCWJt7tGY6scMv272MUzQ==
+	t=1792579481;
+	b=BNoB0R9ktbLP2j0cfHLVRm+8GGma5OQcvfQWDEWNcpXbsA0RkLDufPyFRQ9KvBSL0LO8
+	 oTCDV7shYJPHSnsD5fnEsTOHWLqPOfb5Ymtp5hTPTa4abXk1jKlxLk/goCzUNMwVRilK7
+	 QRzEbOYgtjugxo8XknL36ltBPIpliYvRNVYmxcyRRgpa0k/kzKiPDRbeN4+IB9j9v6+f9
+	 66vBLsxatqvQYBDOZ+abey7GmTiU5wv1exqhg7kNCcq+Km9Fd/WaqyrWh6EV/Pu1aMFlg
+	 snTTthf6HuT96ko7hSCMUMHNUokbWd4uTCvMPRyFkuOEi6/TIwhXxdFEKloZO2f8LAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792579186;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=aafQ9iCPHSVe3sQfOa/qU9zZlkpiMt393ivgSciYmVQ=;
-	b=dsa4r/gvobUHhOy4yAy4l/5qutIxmFEc2PcHac9i6yJdmRP7MDNYOjm7z8+WU80Wd4vq
-	 8p/d8eQGCCwwBAK/s8cU/ZXGtSozFKXyWURfTbOGXJI1XFWBDv/2jibc5VyGkni/fTtpk
-	 xwbi0/n88oT94zmgv0/5UdQI/FcmcvnWfynwz1vfy2rKQUm+gyToleETN3ZBqx4LVV+VA
-	 JTvQYJRzu3e/t07t6uE2rXcN3S5DdMuvViQhRu9SOfPPNYX170oepdes1M1uG8AmrSpND
-	 dS954EZqtIZm34h6uwla2khZ/gTpe6TNxFglUn2nBQm3yD+u5zBXbWM101bDnDBVaDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792579481;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=xQ5ojqJ9pQ2W81X/8hJiJJ7TXi3U3wm7Fy13ge1ejVc=;
+	b=mXt/kczw4+s2TTk159Gnc463urVSAO/KmM6SAtHGfeupA/xpUugZzWRzTKlyIEas5rF3
+	 wkhIG4YgUO2+WjiQq8iE0ddhCYAULN+eLVrK64rN/MvrnhrSIif4+x+Zu/aOyhmGIk/+0
+	 7YKjYPc/m3CAWxzX8HNrRsAolhzYJ1BkSWO+RPTeATwASkeVdh0rrFTH26/ZL2Fikas9e
+	 iUyNIjxcD8PrYS1SoEptA6FQH+aoBJKzjGnGOcLDLan3QSdjmluh7Q3ynwnUQ+H+nMD2k
+	 S/OYMOPltq7mskf5x98kAmJOSw7024Gz8W/3wMkLBqxbREMgakZfCyRJFWaB/d1zoBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ke5PZvY6;
-	arc=none smtp.remote-ip=209.85.221.177
-Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EeXj2cUw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFA4C606A319
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 10:39:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFA4C606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65367606A31D
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 10:44:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ke5PZvY6
-Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5e931215e5fso404317e0c.3
-        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 03:39:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792579185; x=1793183985; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=aafQ9iCPHSVe3sQfOa/qU9zZlkpiMt393ivgSciYmVQ=;
-        b=Ke5PZvY6UDEbXFwtSoW2xo02clTM1UgMiilCTj51zE3m8JZ75Zl5/klNG5IMcKzyKl
-         MYyWUwpX2sJmG7YmF4xAcZmdnFWqKq009o9AOwuyhnYsBAqjBmtfKaZLUB5yl5WfTkL7
-         txEy/cAm7EAal6GfPCl5q7gTzs6PeYIk9LQWnP68jI5m6N75KRo0rbVD/KQ1JVODnP71
-         DpzkM5LpfiWr/GTffrrZTsHZHEN9+Ehs8aSTSpss6p7gQMsssCRjAp1RLGH8RekL1ofq
-         wZ0n3z1Mppb/WVLPpn/5cKwf2h/nocTwQd1/PO+xA2tZgDe9y+YdUGxVtRKYYbJTPjBA
-         Aeog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792579185; x=1793183985;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aafQ9iCPHSVe3sQfOa/qU9zZlkpiMt393ivgSciYmVQ=;
-        b=ygRlZlPdol/ghBZOr1V4tDqcrBgMg4AxUSjN6wcN3ebv5D9SiqVDNzkBFeVm3F/d1N
-         ewSJishVjJpCBs3VJT4oZM6g920giqKUN+w9NBfBVQAKX56rztAZSjbOBeUHQpAsYZEW
-         YEog/upLRFv8GA6AyuwBn4zbAOUn5T/6eX5UrtQ3CUuehftwAuK0sZc+J+xlVQiAZFBh
-         vy4mnqcl9UO8r8UCO3asA9PRNCYoZEC4zD38z/BrhXqHQFd3bkIWnqRHoCkA1iHK/U+f
-         acGzgyOTIQ4NXO2ogfWYVkCqwYlftQTYD9L4x/jBJEb7RLaDjxMInW6YoMeDwIZUA2nS
-         e4Sg==
-X-Forwarded-Encrypted: i=1; AKwUvBzoYIS+EKAV8cBFaQp59sNQGP9JP7NIsOJVMf5VjBOzoAYNUCoUxHngTK4kZbHJmpBMeolezgJxXQhn@vger.kernel.org
-X-Gm-Message-State: AFq9FYL8PVZVc6Fbd3i6RKJsrPpuMe1c1EIrQKek858egtWD6j5h6zGE
-	z4HK4gGeL4Y5dTxeaEr7WkcFmdzgT0Ck0SE/S5MEeCmxlQxsz053MNx2
-X-Gm-Gg: AYBFou2VdfMPPXDTW1kKvWQxJuO6AFRKqEzU5fswd7ruj/R7s2nxD3uxlJV86JwMTDe
-	Jqc0xZ7tbizerIA/HM9HzTQ7Lhnvr6SFrzVUOsa5bNkbc3Vpoq5zaAU/JTO09ToWqZ0tr4H1+h3
-	dzwBbJGzY0AYUoHsbDVq788DutExjQVc4ivlvAvMUH/e9ctllHnlNviE4P2OVl/RdXSHyw64jnR
-	hspESPBxnjpkuE9YMIy8wnSTS9XbT+FbiJju3iJqXfrx0x9fe6VbV4HHlz9mltLZyD/QeVucyA0
-	2ZtaW6H2u9fTpBqXUkqGtF15lnderyhxohiGgUwDwmW12zXt2ZhmZTesIau4Rf5AUaJi/m5Upfg
-	Pgp9mfVoPnyte8YiYgq1TxuzJaD6GrXLjAjzYO7uK+mTuvOG79wXRQ8IggbiHwLRYBCJlSb9wK1
-	up8mZtETbZciwt3BZo/YhytTvclvpTs/sh8uO6zuqvBwAXeY9LRlzYJyUPqXJjJLTJa/jLvLfYt
-	8iTQ3PnUVt6WkKnvzgqXp6CalW49Z9AC+KkD45JWt3NaNiFTYhP8RgHMhQnm9jF7TXeytAwVzjK
-	X+ps2Aty
-X-Received: by 2002:a05:6122:1b8c:b0:5ea:c722:b3a with SMTP id 71dfb90a1353d-5eaebd96736mr504117e0c.7.1792579184449;
-        Wed, 21 Oct 2026 03:39:44 -0700 (PDT)
-Received: from leonardoc-nb ([67.159.246.222])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eae97f0a94sm2630002e0c.11.2026.10.21.03.39.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 03:39:43 -0700 (PDT)
-Date: Wed, 21 Oct 2026 07:39:36 -0300
-From: Leonardo Costa <leoreis.costa@gmail.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de, 
-	festevam@gmail.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	ernest.vanhoecke@toradex.com, linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Leonardo Costa <leonardo.costa@toradex.com>
-Subject: Re: [PATCH 6/6] arm64: dts: freescale: imx8mp-verdin: Add Mezzanine
- with Toradex Display 10.1" LVDS V2
-Message-ID: <t77enz5e4sywcigwdjwpes66jywhtsruzrtf7opde2umfuaock@3aouga4ng3gc>
-References: <20260813133335.1941580-1-leoreis.costa@gmail.com>
- <20260813133335.1941580-7-leoreis.costa@gmail.com>
- <an3brO5COdw_F76m@SMW015318>
- <rglymw6p4c65yoqz3pjn6e6nq7cil2fa7m7dqghshgdpavby7d@kyza3ceavq6z>
- <an3tiDOUUYLb8PAq@SMW015318>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EeXj2cUw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFDA31F000C9;
+	Wed, 21 Oct 2026 10:44:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792579481;
+	bh=xQ5ojqJ9pQ2W81X/8hJiJJ7TXi3U3wm7Fy13ge1ejVc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EeXj2cUwpbh+gwb45L9VEK5uEklAyAGzVuqWkGZFkUpm6eeKB/s0242dxa5aZPljN
+	 ySPHKOdrvdR7jFXUsReaURN2t0N6hJK115pjcAEVTiE9kQhdFT+bADV83Tl8/7rEOd
+	 u+F4HK4z8DbuddZvREXyYYD+5cVXvRUTZKE6MYg7uo0aR3GGbdzXomKmSDrU/ZkiJe
+	 Jqkwu1wp8IV/WuXxsJJF1JumGlFvhy9Pw03guVOVHVfwycJ4VtqTimOGacf6XUwGh/
+	 WGRvr6tP6hwoUmbM3Sy0J4BZxTyFzxmr6xc1UlOr1Iu7czpxxSQy8FdqhNQISZIt7A
+	 daeoEBdLFrDJg==
+Message-ID: <sashiko-outbox-180117@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/5] regulator: dt-bindings: Add TI LM51772 support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Paul Louvel" <paul.louvel@bootlin.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261021-paul-lm51772-v1-2-25f0ffbffa8d@bootlin.com>
+References: <20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com>
+ <20261021-paul-lm51772-v1-2-25f0ffbffa8d@bootlin.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 21 Oct 2026 10:44:40 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -102,219 +59,318 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <an3tiDOUUYLb8PAq@SMW015318>
 
-Hi Frank,
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [Medium] regulator: dt-bindings: ti,lm51772: missing additionalProperties=
+ on regulators
+- [Medium] regulator: dt-bindings: ti,lm51772: invalid default: false on bo=
+olean properties
+- [Medium] regulator: dt-bindings: ti,lm51772: non-standard unit suffixes o=
+n vendor properties
+- [Medium] regulator: dt-bindings: ti,lm51772: gap in ti,ivp-thres-millivol=
+t range
+- [Low] regulator: dt-bindings: ti,lm51772: 10x typo in regulator-max-micro=
+amp maximum
+- [Low] regulator: dt-bindings: ti,lm51772: example fails dt-check-style st=
+rict checks
+--
 
-On Thu, Aug 13, 2026 at 11:15:04AM -0500, Frank Li wrote:
-> On Thu, Aug 13, 2026 at 12:43:29PM -0300, Leonardo Costa wrote:
-> > On Thu, Aug 13, 2026 at 09:58:52AM -0500, Frank Li wrote:
-> > > On Thu, Aug 13, 2026 at 10:33:35AM -0300, Leonardo Costa wrote:
-> > > > From: Leonardo Costa <leonardo.costa@toradex.com>
-> > > >
-> > > > Add a device tree overlay enabling the Toradex Capacitive Touch Display
-> > > > 10.1" LVDS V2 on the Verdin Development Board with Verdin iMX8M Plus
-> > > > Mezzanine expansion board. The panel connects via the i.MX8M Plus LCDIF
-> > > > on the Mezzanine LVDS interface (J10). The panel is an Opto Logic
-> > > > SCX1001511GGC49 10.1" WXGA TFT LCD LVDS and the touch input is provided
-> > > > by an ILITEK ILI251x capacitive touch controller.
-> > > >
-> > > > Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
-> > > > Link: https://developer.toradex.com/hardware/verdin-som-family/add-ons/verdin-imx8m-plus-mezzanine
-> > > > Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
-> > > > ---
-> > >
-> > > what's difference with Add Toradex Capacitive Touch Display 10.1" LVDS V2
-> > >
-> > > why not share one dtso?
-> > >
-> > > Frank
-> >
-> > Hi Frank,
-> >
-> > There are two main differences:
-> >
-> > 1. The mezzanine one uses different backlight controll pins, so here we
-> > use the 'backlight-mezzanine' node, instead of the 'backlight' one, used
-> > in the one without the mezzanine.
-> >
-> > 2. The touchscreen GPIO and interrupt pins are also different with the
-> > mezzanine board.
-> 
-> 
-> And there are for imx8mm
-> https://lore.kernel.org/imx/20260724-v1-verdin-imx8mm-dtbos-v2-3-9d7988bd76f6@toradex.com/
-> 
-> https://lore.kernel.org/imx/sr26lfvwasgcosfzcf4ydtwxwjjutlio2yqpgxldatpzjo7e4y@77k7gefnjzvl/
-> 
-> Any ways, it is too late for 7.3, we have enough time for 7.4 to discuss
-> work on optimization solution.
-> 
-> If use nexus connectors, we can share one dtso now if there are not
-> clock settings.
-> 
-> clock patches is close to pick up
-> https://lore.kernel.org/all/20260807-schneider-v7-2-rc1-eip201-upstream-v5-1-8785f9531cf0@bootlin.com/
-> 
-> Frank
+commit 791e5dd89a97fb0d36e798526e83309f0104b7b6
+Author: Paul Louvel <paul.louvel@bootlin.com>
 
-We tried to make the change to have a single overlay for the boards with and
-without the Mezzanine. However, in the current state of nexus connectors, this
-can't be done cleanly yet. When trying to describe the hardware at the level it
-exists in, following DT guidelines, and using nexus connectors, we still need
-two separate overlays to enable the native LVDS with and without the Mezzanine,
-so we don't really reduce the maintenance effort.
+regulator: dt-bindings: Add TI LM51772 support
 
-See the changes at the end of the email, this is the closest we got to a
-correct and clean implementation that would allow the usage of a single
-overlay.
+This patch adds the devicetree binding schema for the Texas Instruments
+lm51772 buck-boost voltage regulator and its auxiliary fixed 5v regulator.
 
-The root cause of the issue is that we need to claim pinctrl_i2s_2_d_in_gpio
-and pinctrl_i2s_2_sync_gpio for the touchscreen on the Mallow Carrier Board.
-Ideally, they would be defined in the nexus connector, as shown in the diff.
-However, after enabling the connectors in the overlay, the pinctrl groups
-remain unclaimed. The reason is that nexus connectors have no driver to claim
-the groups.
+> diff --git a/Documentation/devicetree/bindings/regulator/ti,lm51772.yaml =
+b/Documentation/devicetree/bindings/regulator/ti,lm51772.yaml
+> new file mode 100644
+> index 0000000000000..1e72ac13ddfc3
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/regulator/ti,lm51772.yaml
+> @@ -0,0 +1,239 @@
 
-    root@verdin-imx8mp-14777535:~# cat /sys/kernel/debug/pinctrl/30330000.pinctrl/pinmux-pins
-    ...
-    pin 112 (MX8MP_IOMUXC_SAI3_RXD): (MUX UNCLAIMED) (GPIO UNCLAIMED)
-    pin 113 (MX8MP_IOMUXC_SAI3_TXFS): (MUX UNCLAIMED) (GPIO UNCLAIMED)
-    ...
+[ ... ]
 
-There is nowhere else in the carrier dtsi's where the pinctrls belong.
+> +  The peak current limit threshold is programmed through software, betwe=
+en 0.5A
+> +  to 7A.
+> +  The LM51772 also provides an auxiliary fixed 5 V regulator output
+> +  (VCC1).
+> +
+> +properties:
+> +  compatible:
+> +    const: ti,lm51772
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +    description: Fault / warning irq.
+> +
+> +  vin-supply:
+> +    description: Regulator supply for the chip.
+> +
+> +  regulators:
+> +    type: object
+> +    description: List of regulators provided by this PMIC.
+> +
+> +    properties:
+> +      vout:
+> +        type: object
+> +        $ref: regulator.yaml#
+> +        description: Main output voltage.
+> +
+> +        properties:
+> +          ti,active-discharge-strength-milliamp:
+> +            description: Discharge current for VOUT.
+> +            $ref: /schemas/types.yaml#/definitions/uint32
+> +            multipleOf: 25
+> +            minimum: 25
+> +            maximum: 75
+> +            default: 25
+> +
+> +          ti,iset-pin:
+> +            description: |
+> +              Select the ISET pin as the source of the current limit, in=
+stead of
+> +              the ILIM DAC. When this property is present, the ISET pin =
+is forced
+> +              in its active configuration and the ILIM DAC is disabled, =
+so the
+> +              current limit can no longer be programmed through the
+> +              dedicated register.
+> +            type: boolean
+> +            default: false
 
-The pinctrl groups thus need to be added to the touchscreen node defined in the
-overlay. However, the pins on the Development Board (which uses the Mezzanine)
-are muxed by pinctrl_gpio2 and pinctrl_gpio3. These groups are in the SoM dtsi,
-and we cannot claim them in the overlay. Because of this, the Mezzanine needs
-a different overlay, which doesn't claim any pinctrl.
+[ ... ]
 
-We like the idea of a single overlay for both carriers, but sadly the nexus
-connectors, as they currently are, are not ready to enable this. We therefore
-have to move forward normally and once connector support matures, we're happy
-to refactor this and try to reduce the amount of overlays for the Verdin iMX8MP
-and for other modules.
+> +          ti,sense-res-milliohm:
+> +            description: |
+> +              Value in milliohms of the current sense resistor connected=
+ between the
+> +              ISNSP and ISNSN pins, used to translate the ILIM threshold=
+ voltage into
+> +              a current limit and vice versa.
+> +              TI recommands a value of 10 milliohms.
+> +            $ref: /schemas/types.yaml#/definitions/uint32
+> +            minimum: 1
+> +            default: 10
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin-dev.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-verdin-dev.dtsi
-index 72a4f846d694..d73a7e9042ea 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-verdin-dev.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin-dev.dtsi
-@@ -4,6 +4,41 @@
-  */
+[Severity: Medium]
+In Documentation/devicetree/bindings/regulator/ti,lm51772.yaml,
+ti,active-discharge-strength-milliamp, ti,sense-res-milliohm, and
+ti,ivp-thres-millivolt use -milliamp, -milliohm, and -millivolt suffixes
+with an explicit uint32 type reference.
 
- / {
-+	lvds_connector: lvds-mezzanine-connector {
-+		compatible = "toradex,lvds-connector";
-+		#gpio-cells = <2>;
-+		/* LVDS_BKL_EN_CON - Verdin GPIO 4 (SODIMM 212) */
-+		gpio-map = <0 0 &gpio1 6 0>;
-+		gpio-map-mask = <0xffffffff 0x0>;
-+		gpio-map-pass-thru = <0x0 0xffffffff>;
-+
-+		#pwm-cells = <3>;
-+		/* LVDS_PWM_CON - Verdin PWM_2 (SODIMM 16) */
-+		pwm-map = <0 0 0 &pwm2 0 0 0>;
-+		pwm-map-mask = <0x0 0x0 0x0>;
-+		pwm-map-pass-thru = <0x0 0xffffffff 0xffffffff>;
-+
-+		status = "disabled";
-+	};
-+
-+	touch_connector: touch-mezzanine-connector {
-+		compatible = "toradex,touch-connector";
-+		#gpio-cells = <2>;
-+		/* LVDS_TOUCH_RESET_CON# - Verdin GPIO_2 (SODIMM 208) */
-+		gpio-map = <0 0 &gpio1 1 0>;
-+		gpio-map-mask = <0xffffffff 0x0>;
-+		gpio-map-pass-thru = <0x0 0xffffffff>;
-+
-+		#address-cells = <0>;
-+		#interrupt-cells = <2>;
-+		/* LVDS_TOUCH_INT_CON# - Verdin GPIO_3 (SODIMM 210) */
-+		interrupt-map = <0 IRQ_TYPE_EDGE_FALLING &gpio1 5 IRQ_TYPE_EDGE_FALLING>,
-+				<0 IRQ_TYPE_EDGE_RISING &gpio1 5 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-map-mask = <0xffffffff 0xffffffff>;
-+
-+		status = "disabled";
-+	};
-+
- 	native-hdmi-connector {
- 		compatible = "hdmi-connector";
- 		label = "X37";
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin-mallow.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-verdin-mallow.dtsi
-index 846b36706821..736f034c7550 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-verdin-mallow.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin-mallow.dtsi
-@@ -11,6 +11,46 @@
- #include <dt-bindings/leds/common.h>
+When running make dt_binding_check, dtschema meta-schemas/vendor-props.yaml
+rejects new vendor properties that use deprecated or non-standard unit
+suffixes instead of standard suffixes from property-units.yaml (-microamp,
+-micro-ohms, and -microvolt, which also provide the uint32 type
+automatically).
 
- / {
-+	lvds_connector: lvds-connector {
-+		compatible = "toradex,lvds-connector";
-+
-+		#gpio-cells = <2>;
-+		/* LVDS_BKL_EN_CON - Verdin I2S_2_D_OUT as GPIO (SODIMM 46) */
-+		gpio-map = <0 0 &gpio5 1 0>;
-+		gpio-map-mask = <0xffffffff 0x0>;
-+		gpio-map-pass-thru = <0x0 0xffffffff>;
-+
-+		#pwm-cells = <3>;
-+		/* LVDS_PWM_CON - Verdin PWM_2 (SODIMM 16) */
-+		pwm-map = <0 0 0 &pwm2 0 0 0>;
-+		pwm-map-mask = <0x0 0x0 0x0>;
-+		pwm-map-pass-thru = <0x0 0xffffffff 0xffffffff>;
-+
-+		status = "disabled";
-+	};
-+
-+	touch_connector: touch-connector {
-+		compatible = "toradex,touch-connector";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_i2s_2_d_in_gpio>,
-+			    <&pinctrl_i2s_2_sync_gpio>;
-+
-+		#gpio-cells = <2>;
-+		/* LVDS_TOUCH_RESET_CON# - Verdin I2S_2_D_IN as GPIO (SODIMM 48) */
-+		gpio-map = <0 0 &gpio4 30 0>;
-+		gpio-map-mask = <0xffffffff 0x0>;
-+		gpio-map-pass-thru = <0x0 0xffffffff>;
-+
-+		#address-cells = <0>;
-+		#interrupt-cells = <2>;
-+		/* LVDS_TOUCH_INT_CON# - Verdin I2S_2_SYNC as GPIO (SODIMM 44) */
-+		interrupt-map = <0 IRQ_TYPE_EDGE_FALLING &gpio4 31 IRQ_TYPE_EDGE_FALLING>,
-+				<0 IRQ_TYPE_EDGE_RISING &gpio4 31 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-map-mask = <0xffffffff 0xffffffff>;
-+
-+		status = "disabled";
-+	};
-+
- 	native-hdmi-connector {
- 		compatible = "hdmi-connector";
- 		label = "X14";
-@@ -159,6 +199,16 @@ &i2c5 {
- 	status = "okay";
- };
+Could ti,active-discharge-strength-milliamp and ti,ivp-thres-millivolt use
+the standard -microamp and -microvolt suffixes, and could
+ti,sense-res-milliohm use the standard shunt-resistor-micro-ohms property?
 
-+&iomuxc {
-+	pinctrl_i2s_2_d_in_gpio: gpio4io30grp {
-+		fsl,pins = <MX8MP_IOMUXC_SAI3_RXD__GPIO4_IO30 0x1c4>;   /* SODIMM 48 */
-+	};
-+
-+	pinctrl_i2s_2_sync_gpio: gpio4io31grp {
-+		fsl,pins = <MX8MP_IOMUXC_SAI3_TXFS__GPIO4_IO31 0x184>;  /* SODIMM 44 */
-+	};
-+};
-+
- &lcdif3 {
- 	status = "okay";
- };
+[ ... ]
 
----
+> +          regulator-min-microamp:
+> +            minimum: 500000
+> +            maximum: 70000000
+> +
+> +          regulator-max-microamp:
+> +            minimum: 500000
+> +            maximum: 70000000
 
-Best regards,
-Leonardo
+[Severity: Low]
+Under properties:regulators:properties:vout in
+Documentation/devicetree/bindings/regulator/ti,lm51772.yaml, both
+regulator-min-microamp and regulator-max-microamp set maximum to 70000000
+(70 amperes), whereas the description at the top of the file states that
+the peak current limit threshold is programmable between 0.5A to 7A.
+
+Should maximum on regulator-min-microamp and regulator-max-microamp be
+7000000 instead of 70000000 so that invalid current limits above 7 amperes
+do not pass schema validation?
+
+> +
+> +        unevaluatedProperties: false
+> +
+> +      vcc1:
+> +        type: object
+> +        $ref: regulator.yaml#
+> +        description: |
+> +          LDO regulator for auxiliary use.
+> +          It can used to power, for example, a PD controller that will d=
+rive this PMIC.
+> +
+> +        properties:
+> +          regulator-min-microvolt:
+> +            minimum: 5000000
+> +            maximum: 5000000
+> +
+> +          regulator-max-microvolt:
+> +            minimum: 5000000
+> +            maximum: 5000000
+> +
+> +        unevaluatedProperties: false
+
+[Severity: Medium]
+In Documentation/devicetree/bindings/regulator/ti,lm51772.yaml,
+properties:regulators is defined with type: object and child properties
+vout and vcc1, but the regulators object itself does not specify
+additionalProperties: false.
+
+Without additionalProperties: false on properties:regulators, running make
+dt_binding_check fails meta-schema validation and undocumented child nodes
+under regulators silently pass validation. Should additionalProperties: fal=
+se
+be added to the regulators object?
+
+[ ... ]
+
+> +  ti,ivp-thres-millivolt:
+> +    description: |
+> +      Input Overvoltage Protection and Regulation Threshold.
+> +      It shall avoid any damage to the device in case the current flows =
+from the
+> +      output to the input and the input source cannot sink current.
+> +      This threshold is used for IVP (Input Voltage Protection) and IVR =
+(Input
+> +      Voltage Regulation).
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    oneOf:
+> +      - multipleOf: 125
+> +        minimum: 4750
+> +        maximum: 23250
+> +      - multipleOf: 250
+> +        minimum: 23750
+> +        maximum: 50000
+> +    default: 50000
+
+[Severity: Medium]
+In Documentation/devicetree/bindings/regulator/ti,lm51772.yaml, the oneOf
+constraints on properties:ti,ivp-thres-millivolt cover 4750 to 23250 in
+steps of 125 and 23750 to 50000 in steps of 250, which leaves a gap at
+23500.
+
+In drivers/regulator/lm51772-regulator.c (from commit "regulator: Add TI
+LM51772 support"), lm51772_of_parse() defines the hardware linear ranges
+as:
+
+  LINEAR_RANGE(4750000, 0x00, 0x94, 125000),
+  LINEAR_RANGE(23500000, 0x95, 0xff, 250000)
+
+where selector 0x94 is 23250 millivolts and selector 0x95 is 23500
+millivolts. Should the minimum of the second oneOf branch be 23500 (or
+23500000 microvolts) so that the valid 23.5 volt threshold is not rejected
+by schema validation?
+
+> +
+> +  ti,ivp:
+> +    description: Enable the IVP feature of the regulator.
+> +    type: boolean
+> +    default: false
+> +
+> +  ti,ivr:
+> +    description: Enable the IVR feature of the regulator.
+> +    type: boolean
+> +    default: false
+> +
+> +  ti,nint:
+> +    description: |
+> +      Configures the nFLT/nINT pin to act as an interrupt pin.
+> +
+> +      nFLT mode: The pin remains low until the cause of the status chang=
+e ceases.
+> +      In this mode use an level irq trigger.
+> +
+> +      nINT mode: The pin is asserted low to signal a status change.
+> +      In this mode use an edge irq trigger.
+> +    type: boolean
+> +    default: false
+> +
+> +  ti,cable-drop-compensation:
+> +    description: |
+> +      The cable drop compensation feature helps to keep the output volta=
+ge at the
+> +      nominal value over a wide range of load current without the need f=
+or
+> +      additional remote sensing. The cable drop compensation measures the
+> +      current and offsets the output voltage proportionally to the measu=
+red
+> +      current.
+> +    type: boolean
+> +    default: false
+
+[Severity: Medium]
+In Documentation/devicetree/bindings/regulator/ti,lm51772.yaml, the boolean
+properties ti,iset-pin, ti,ivp, ti,ivr, ti,nint, and
+ti,cable-drop-compensation all specify default: false alongside
+type: boolean.
+
+Because dtschema meta-schemas/boolean.yaml sets additionalProperties: false
+and does not allow the default keyword on boolean flag properties, running
+make dt_binding_check fails validation on these five properties. Should the
+default: false lines be removed from ti,iset-pin, ti,ivp, ti,ivr, ti,nint,
+and ti,cable-drop-compensation?
+
+[ ... ]
+
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +
+> +    i2c {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        pmic@6a {
+> +            compatible =3D "ti,lm51772";
+> +            reg =3D <0x6a>;
+> +            interrupt-parent =3D <&irqc>;
+> +            interrupts =3D <1 IRQ_TYPE_EDGE_FALLING>;
+> +
+> +            ti,nint;
+> +
+> +            regulators {
+> +              vout {
+> +                  regulator-name =3D "vout";
+> +                  regulator-min-microvolt =3D <5000000>;
+> +                  regulator-max-microvolt =3D <20000000>;
+> +                  regulator-ov-protection-microvolt =3D <1000000>;
+> +                  regulator-min-microamp =3D <1000000>;
+> +                  regulator-max-microamp =3D <5000000>;
+> +                  regulator-temp-warn-kelvin =3D <368>;
+> +              };
+> +
+> +              vcc1 {
+> +                  regulator-name =3D "vcc1";
+> +                  regulator-min-microvolt =3D <5000000>;
+> +                  regulator-max-microvolt =3D <5000000>;
+> +              };
+> +            };
+> +        };
+> +    };
+
+[Severity: Low]
+In the examples section of
+Documentation/devicetree/bindings/regulator/ti,lm51772.yaml, the vout and
+vcc1 child nodes under regulators are indented by 2 spaces instead of 4
+spaces relative to regulators, and the child nodes and regulator-*
+properties are not in canonical sort order.
+
+Running scripts/dtc/dt-check-style --mode=3Dstrict reports indent-consisten=
+t,
+child-name-order, and property-order warnings here. Could the example node
+indentation and ordering be aligned with dt-check-style?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021-paul-lm517=
+72-v1-0-25f0ffbffa8d@bootlin.com?part=3D2
