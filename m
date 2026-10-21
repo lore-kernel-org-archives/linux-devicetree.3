@@ -1,100 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792574513;
-	b=BULLPue0XjHkiHXC9uQ60Bc4iCG15lhb2GrbJMyq4Irda81v7lDPRILqLgozNdVn0bzX
-	 p+irwc9pVbLvn4qRg1KzHdFZw315QOydZNQghiin1tOmARVLhvzh0We5A+flFkZUFE6q1
-	 d/Tjx7cMyEuIxmiMQ+UWZGuEWs1fdyG/B7dVu1qLdKctMSGyGC1ibop4deqdODWAVtYes
-	 UJVZwyllA8GXhYHJJ7QIsgGP4mr8NVsUE5QAFFT4YIbvCgO5OLSpqbh/gIXLf15ssdLeY
-	 xk4FmrndWq204Joms+htprg0Ca4EkGDwo8QxcXUSZFG9O/nFLpU4Tuh3nUbFzahRVVw==
+	t=1792574573;
+	b=SWNqEZpOZ6wqi8hE1DOlfPhBkFIKqB1BvxqXXAAJPvv1S1+VKjdl2bOrAMr9FkWGne7K
+	 yIGNBRth0bn0qOGDJBRyRVUBCOxyNKJ2vtMz1HU90x0n7RxArZZdPPnf34TbbGc2EjMcP
+	 7viLeqsHtM+eMEc4VQAvQwWjSwdIssWyjOqBX3E2j+6hEC3P01PaGTOfnc+WnO2yza8Mf
+	 q1xjA7h+0TedIkQIPAfU/hHuRr5UGCk5qSqnc31aYIZ4Auf2bt0EJYoVQr3soh3l0bSAb
+	 Hf/IIXHJHCvHZsaeVp22ASFO0lW6cyOb6oIj5c4prVFGRJq/J0C8EN7Z7VMuQ2a/25Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792574513;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=fmQtxD5ltcvpFoaJbm6dtzVdLv6aa0Yf3BVfvtcHkks=;
-	b=t+G31JueuJoKmSc/73qKWQk/x/G9ugPRHTVRxJkkBHhXJAZoxpG67HUuHIE9x8/tSILO
-	 btsmp1ih740vXf71mi5HbIvcxr7tbqRtU7xXPkvAND1pPNM2t4+8NbT6rGEVOKd6ktRPM
-	 S/Gi3fzQhL875T0xFqfv2IPg3NEaoIJ1ZM0Sag8z5tVODO1UtwS9FP1Dgr72f7JNSDVZD
-	 Svv7MAJAJJ9qJeaZIoYYNNs4iywACFDADDxotjVIvpaCAdUs44TkmOZegtheFFwuJH1yq
-	 PrSdfXDhn3HidCdPxvoo+d2dAY4JEaf3uiCz2/5O8TgvU5XiSIKPEQqNyiA9OEAkt4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792574573;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=1qyY9vNJg35boytlmY8FgdP9XXj7oos7HKLsMRF6CNI=;
+	b=vZbSKSHkUvJbDfRRTmRgsne4OeiL4RUbJqCneo0CM0godtSFVwk9G23Uzmf1l1rWo42g
+	 hyXJBy2jHVMgn8SNPB7/i662cq5x2Pvi1rLPZzyNbsswYhE18wTuMP78MRHKiw5fyx+5H
+	 oV+Q1nznbi8nNipeeo49hfQpcpswwF0rAOl0MXcPsccTbF68cUjPRw5FfOsYTumhZjFJq
+	 xN71X5hhgEzQQiIog0KC3ptbsNvBLvk8tjWnKKQ3KiozJ4hGwuHD0HPK7P6pImOFK+nfB
+	 RPfB5iNtXgxmCvhlIlIGSM/UxHH5ZbsethklVuHDXlfsNc0kq3wIT4Kil8e9jEmljlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=konsulko.com;
-	spf=pass smtp.mailfrom=konsulko.com;
-	dkim=pass header.d=konsulko.com header.i=@konsulko.com header.a=rsa-sha256 header.s=google header.b="mJzLkx/m";
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Gp2PkA6G;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ewmEhvw3;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E23760A2605
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 09:21:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E23760A2605
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9FA4606A319
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 09:22:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9FA4606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=konsulko.com header.i=@konsulko.com header.a=rsa-sha256 header.s=google header.b=mJzLkx/m
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a16af2a232so2800815e9.1
-        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 02:21:52 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Gp2PkA6G;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ewmEhvw3
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69L8Nelg605627
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 09:22:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=1qyY9vNJg35boytlmY8FgdP9
+	XXj7oos7HKLsMRF6CNI=; b=Gp2PkA6Gay0NWw4nWoX7LGy3qwnvVM1dhbgzqwA+
+	OfbLIc70GMCuhPmIM6qldxx3yr72RFKnKJeNFRkCt9aCB7bu9vne1Ix9b5mbfzVZ
+	YBinjI4QoLYiXs07x4MQUt271rjCH/QYPcpmUXTD8vrKxGXOkA4rctJtM8g+J8lE
+	oBsiPVTeB6KNh7OThcV3Q75DfGYRpyaUIfhAfGbefL8KRMDLNK+FVge906XXOkQb
+	ZNSyIiwpvMZi18xhrhS7XCc7ZHYFqzbx6Vc8Mh7G8OwzveJutLHAyigIRtlZ/V4g
+	4Au35tOcXVkCTfkMNGap91FXPFfbidf8mHq6ufHr+YqACA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hedajk7wm-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 09:22:50 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93ecdc701a2so64150785a.3
+        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 02:22:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=konsulko.com; s=google; t=1792574511; x=1793179311; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fmQtxD5ltcvpFoaJbm6dtzVdLv6aa0Yf3BVfvtcHkks=;
-        b=mJzLkx/mX5plEzJKpYGQdmLVsv/t/v7vprdwevZrc4wORPIWycU1ivXNgusoCqIhId
-         us5eE/audDqmO+1Kr8oADrf+VsXR2+8+xRlGFQv3chRxC8uFtHXsDtsdcOc36/FvEflv
-         rp9SzCmabjkike7WTCnWS47HMN6Daxuipd2rk=
+        d=oss.qualcomm.com; s=google; t=1792574570; x=1793179370; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1qyY9vNJg35boytlmY8FgdP9XXj7oos7HKLsMRF6CNI=;
+        b=ewmEhvw3IfGKeS9mWlYQJjMzCCKzoi9oPEIk3J5OlddzJuP6XsOJr5gycVakjogfpN
+         tIuUoKzl1MkeNUlFRsAceEfW67xN5KF0tNoppfUsRgywv/A8LbfDDh6yXM/LCQCnvV6u
+         qwGkh5gFIjuyuB6Fc/PG0urC1zWAHv3ZTj0HDiQgoQ++2LKlFsCP5rBgvI07PugVjjpn
+         C9j6EMXYWaG/EannrkguZrkurYvH/IjG9mcoSLD3b/tXHEGhUKD0Sqs4V3lB4KSoffVI
+         yiopzJjMBjNi2ptuaGOq2iB1BIvBqlvQIZLZnCmjpVgXj/BqXH+axwHgLnA6UiMulfb8
+         LyWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792574511; x=1793179311;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fmQtxD5ltcvpFoaJbm6dtzVdLv6aa0Yf3BVfvtcHkks=;
-        b=aksT4FNFIXjmqflVYVDiBcEnrPcGB622zxwqUjrIWSp1lMSBCCf5bHTzZzr6lWchqx
-         6XmJpol4kYL1KjmcuEP4CwB07oI4lH96dcnhATF2wbDGia8EidVzDeWnOGEdS44UknfY
-         hr6pV9Vt/c7YuU4rEF7Ewg9k8LoJIVUrEqocTeWvP7+T3S4NaSmXCHZsN54dUsYsm8W0
-         CsaFuL5d18qE6upk2NQ+AE8+BCMXTt/4967qcF6kZG62t5D4iFHnEB+L4Gu55fyPY3Xk
-         seHtqvD3Hk3Z3YRzG+u4BLUuO3s6OWliful81K0w6UaDIup4GFJiN/cCLJZ/pDaVRmw4
-         nrOQ==
-X-Gm-Message-State: AFq9FYKBsXfa3eA1yacoRojitnoz1F5I0DwXJXAByweG7VsTe1N2jtvT
-	Z7InexCuihLS7gEApJP5ZAPogoZZlJK7maVzudVoyfOTPh4xRdRrbu6zFa09yYz3T8k=
-X-Gm-Gg: AYBFou1lhTFVTOhSKMxfu4aERUcEx0waEHW3pBw9Ru/AJEha/o4dQaNBZm1zJwO8Bks
-	tOS6IF9mOoJ7CMzittvd2eFfPPt7YzrzM9yYdPg5vCneg6IY0ClwsJCx0Oj/tmdb4cchBdobYQD
-	h6h9EejAuWrEmXKtMSlrSoeiR+s8lbfv2ma55u0ANXnz08fQenrRTQAqE5uvVppVqRDy5cT5kj0
-	+5N4RrdHheJcRfriqP3/jeiFUWkWvrkQey+U1PKX3GGxX2F+BACrfnLHb+wDnVvKqrk7qyXmAgn
-	XrEfFmR6t39LtNNVsS0TdqAHXI1VORa7HVoOJ1a8MjV4f/tA+Veawf+7oMTVE0VW4EMGoA/JKAK
-	qoL6xMVAnIpokrY90f/5GGvhFexGvjdSPYXcxB/SDxqPdIL+TydDK3n0ohuO5sJNOjUV17VfYaj
-	uNFXcUrSY7da3GLSQGb+MBgP0qHzKyyv8Ah+LoDKTeRncnSBEA+OqY5B6/TmfzCirUZ35NwejUN
-	OUleXsDkXuAhQlTiqohdS06PXLPPTg7G39KNn4b2TX12UqhbHtguIX3qJuz2QQew2jptgXmSYvJ
-	eQApyLhpfn2IWp8+hw==
-X-Received: by 2002:a05:600c:4e03:b0:49f:fe39:5bc8 with SMTP id 5b1f17b1804b1-4a1fdd14200mr25024955e9.12.1792574511333;
-        Wed, 21 Oct 2026 02:21:51 -0700 (PDT)
-Received: from tone.k.g (lan.nucleusys.com. [92.247.61.126])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a20049941dsm16130845e9.11.2026.10.21.02.21.50
+        d=1e100.net; s=20260707; t=1792574570; x=1793179370;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1qyY9vNJg35boytlmY8FgdP9XXj7oos7HKLsMRF6CNI=;
+        b=VpMX0s8cfGb9UBbd1a3hm8hrNg1zA19vqIcRpKS8+eURmhij5d7MKPUxsufPk5NJeG
+         BxBlWKF4R8qq/jFm2+ZAG6UyFk9h+70SPLsMOZOpOl7O5Of5wFxCZoNzkVRBoQlAyEHs
+         /JY94PzEsSrAaOymSTrloIV1QDRvDc+sXmDAAH8WdD/yYWCiAebUqCLMc6Rss8NNxrni
+         L5u44GND0ybtp3BKKTC0YIHyz6XLVbeMd/7+uHQTNv2eZpYT4cmWM0664Iz3oZSj/8zn
+         ntP8wOhxvMTghcPF5ZoQAi8/Ny10K3GkF6MlQhSd/Myzbp1P2/OT8b0YYgeh8gdjq2pv
+         sMLA==
+X-Forwarded-Encrypted: i=1; AKwUvBymNS72DNpHXPfLhIpzy4HuZoo17zH3K53L+fve0JWdqIGSpSFstRm0OiOE6IGtKjFiDJFMn9wEKhlE@vger.kernel.org
+X-Gm-Message-State: AFq9FYLeRixfnTYdDqYPZ/p+ksciMHN5tLnmoQSVgQYF4VvdE02lJCTt
+	ACZ3mBEyjYEXwsIczu80+WBtOPv/68mbPOqvK7OlQVhuQjD+0cqLIVUFW99iAqNhx/SH/JA/bc8
+	heEyCqp5QsIsDHrJMyJ2jhApvey+r2EwlSJu8/ScxTF2cv8LQTiwA4FT2ZyMPs69U
+X-Gm-Gg: AYBFou0xl2BUavdy+CimunTc37q9Yr80jgcJkTKPKWJOuVT5PB03tDTdE8+kxmsuDG3
+	AJmqET5wPOPetVG5SdpNJFE0YVauxVQ1/gTZrsuXJSL3fc2EGnS0y8U9L28mEmB2EnniiyuEdKE
+	nfjK9iUXGVlhE63g9uPtH0UwnN/VgNCTEuRE1QxaayPLw2gqJGhnPYjcZ9tbqdSLJsvwb/c32sq
+	34O2hsgIhPF6F0VfL2XrrpVVsOOoTJbAv9l7M7kFsgEgg2Ab4wjL21Novn1opMOlb79G8g+TPFJ
+	sEwOCu/KBfsYoj76zkTyQ3KXLlWgcOIkJja5XMbRoZtAWd4POfAVY2JfvdSiAw7mItRYMz8pMf4
+	J5Gw7aFiDO38jtr1E
+X-Received: by 2002:a05:620a:448e:b0:93b:d7a2:dd32 with SMTP id af79cd13be357-93f57faaa9bmr326673285a.66.1792574569759;
+        Wed, 21 Oct 2026 02:22:49 -0700 (PDT)
+X-Received: by 2002:a05:620a:448e:b0:93b:d7a2:dd32 with SMTP id af79cd13be357-93f57faaa9bmr326669885a.66.1792574569184;
+        Wed, 21 Oct 2026 02:22:49 -0700 (PDT)
+Received: from oss.qualcomm.com ([188.27.161.187])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e2581f412sm4446654f8f.16.2026.10.21.02.22.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 02:21:50 -0700 (PDT)
-From: Petko Manolov <petko.manolov@konsulko.com>
-To: linux-kernel@vger.kernel.org
-Cc: devicetree@vger.kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	Frank.Li@nxp.com,
-	s.hauer@pengutronix.de,
-	kernel@pengutronix.de,
-	festevam@gmail.com,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	arnemaximilian.richter@draeger.com,
-	martynas.grybauskas@draeger.com,
-	Petko Manolov <petko.manolov@konsulko.com>
-Subject: [PATCH v3 2/2] arm: dts: nxp: imx: Add devicetree files for M48
-Date: Wed, 21 Oct 2026 12:21:38 +0300
-Message-ID: <20261021092140.4142493-3-petko.manolov@konsulko.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261021092140.4142493-1-petko.manolov@konsulko.com>
-References: <20261021092140.4142493-1-petko.manolov@konsulko.com>
+        Wed, 21 Oct 2026 02:22:48 -0700 (PDT)
+Date: Wed, 21 Oct 2026 12:22:47 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] arm64: dts: qcom: eliza: Add FastRPC support
+Message-ID: <k4sf6tipaehtllokqlunyocxuecttbitewgzjzgbl5mdz22jfd@p4svha4g2vvm>
+References: <20261016-dts-qcom-eliza-add-fastrpc-v3-1-4e3fb632300b@oss.qualcomm.com>
+ <ec2vb232k5u6w4pqoiqc5lhq2zj3xuf6yaifpiyzjjgaffpcih@ulainigpj4l6>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,310 +124,82 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ec2vb232k5u6w4pqoiqc5lhq2zj3xuf6yaifpiyzjjgaffpcih@ulainigpj4l6>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAzNyBTYWx0ZWRfX9+9qIc4w1BIC
+ 9L7NAOTKioLo4eURpNrAd0SYTLstLzh87MlyGX9RB4BI4ceEZy5td+rSBtFfk6apTdSIKLHptzW
+ Q5IKKdWG5SOSdOShWp9kHlfMbms8hCf3FBxOV3xkG/H9zosjqsd5//8GkWUanYFlSWOeM1hSGzb
+ nnQBIs/otjcGgBYecp97zwHVh0IC/jNiv6m15WooM2x68VK9LdN6XI4OaZhEucjjk9crIO9joFy
+ uWjE1SKURo6C+jtEENyiQGGDcJA1iVkJ9eitu9Dz9mExrG+FTWq7WEBQQcrJOfl0YETEwzfMmqH
+ pGZgk9IyjZJyvHhuzLIZKkgrIiXHX3oIHOQxc6CInnXOKPjBHuPcTpbZcMo+Ubhp6IrnfTqLmkq
+ NcMGTURm8WZMLU+P6f0HQ5GOmcf9s51djr39+P2XccpDmhJSMGUiOD7riBe9yGlxWEVw0bqFlBK
+ duSw5MarSS+vHqgwLrA==
+X-Proofpoint-GUID: USX8MbXZh2iG3IfHnL6DvH0AElBBeMs5
+X-Proofpoint-ORIG-GUID: USX8MbXZh2iG3IfHnL6DvH0AElBBeMs5
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAzNyBTYWx0ZWRfX7JpppNTyH4cd
+ vTj8N7238VV3SEx2FfaVP/aLZuunSpO1NblHwO2SbYzYTvo7CBWLfNJRuyZiGXr+1Op6GVKYjeT
+ TDOPXCyyPukIelfBTQbmPc/CySVZCSo=
+X-Authority-Analysis: v=2.4 cv=HrTjiETS c=1 sm=1 tr=0 ts=6ad8846a cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=eVJ3CmYOr2qKXInMw8AA:9 a=CjuIK1q_8ugA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-21_02,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 impostorscore=0 suspectscore=0 bulkscore=0
+ adultscore=0 priorityscore=1501 spamscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210037
 
-M48 is a heterogeneous board made by Draeger that is based on two
-independent cpus, that are monitoring each other.  One of them is
-imx6, the other is Altera SoCFPGA Cyclone 5.  The latter is booting
-independently off qspi.
+On 26-10-20 11:49:10, Dmitry Baryshkov wrote:
+> On Fri, Oct 16, 2026 at 02:17:10PM +0300, Abel Vesa wrote:
+> > Describe the FastRPC nodes for both ADSP and CDSP remoteprocs, along with
+> > the ADSP remote heap memory region needed by the Audio PD.
+> > 
+> > Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> > ---
+> > Changes in v3:
+> > - Rebase onto next-20261015.
+> > - Add the ADSP remote heap memory region (no-map) and VMIDs.
+> > - Link to v2: https://patch.msgid.link/20260916-dts-qcom-eliza-add-fastrpc-v2-1-95ed704ff268@oss.qualcomm.com
+> > 
+> > Changes in v2:
+> > - Rebase onto next-20260915.
+> > - Drop the CDSP glink-edge description, as it was merged with the
+> >   CDSP remoteproc support.
+> > - Use the documented 0x1063-0x1066 secondary ADSP SID values.
+> > - Drop the undocumented tertiary ADSP CB7 stream (0x1087).
+> 
+> Hmm, you still have this in place.
 
-Add the DT for the two variants of M48 that are based on imx6q and
-imx6dl.
+The tertiary stream that was dropped in v2 is 0x1087.
 
-Signed-off-by: Petko Manolov <petko.manolov@konsulko.com>
----
- arch/arm/boot/dts/nxp/imx/Makefile            |   2 +
- .../boot/dts/nxp/imx/imx6dl-draeger-m48.dts   |  16 ++
- .../boot/dts/nxp/imx/imx6q-draeger-m48.dts    |  16 ++
- .../boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi | 213 ++++++++++++++++++
- 4 files changed, 247 insertions(+)
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx6dl-draeger-m48.dts
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx6q-draeger-m48.dts
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi
+The 0x1067 one on CB7 is the documented secondary stream.
 
-diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
-index 1a2539fa19b4..cdd252fd5109 100644
---- a/arch/arm/boot/dts/nxp/imx/Makefile
-+++ b/arch/arm/boot/dts/nxp/imx/Makefile
-@@ -104,6 +104,7 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
- 	imx6dl-dfi-fs700-m60.dtb \
- 	imx6dl-dhcom-pdk2.dtb \
- 	imx6dl-dhcom-picoitx.dtb \
-+	imx6dl-draeger-m48.dtb \
- 	imx6dl-eckelmann-ci4x10.dtb \
- 	imx6dl-emcon-avari.dtb \
- 	imx6dl-gw51xx.dtb \
-@@ -219,6 +220,7 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
- 	imx6q-display5-tianma-tm070-1280x768.dtb \
- 	imx6q-dmo-edmqmx6.dtb \
- 	imx6q-dms-ba16.dtb \
-+	imx6q-draeger-m48.dtb \
- 	imx6q-ds.dtb \
- 	imx6q-emcon-avari.dtb \
- 	imx6q-evi.dtb \
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6dl-draeger-m48.dts b/arch/arm/boot/dts/nxp/imx/imx6dl-draeger-m48.dts
-new file mode 100644
-index 000000000000..b0bc9a67f5b3
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx6dl-draeger-m48.dts
-@@ -0,0 +1,16 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * (C) Copyright 2020 Draeger and Licensors, info@draeger.com
-+ *
-+ * Device Tree file for Draeger M48 Board
-+ */
-+
-+/dts-v1/;
-+
-+#include "imx6dl.dtsi"
-+#include "imx6qdl-draeger-m48.dtsi"
-+
-+/ {
-+	model = "Draeger M48 i.MX6 DualLite";
-+	compatible = "draeger,imx6dl-m48", "fsl,imx6dl";
-+};
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6q-draeger-m48.dts b/arch/arm/boot/dts/nxp/imx/imx6q-draeger-m48.dts
-new file mode 100644
-index 000000000000..ff9c337e93fb
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx6q-draeger-m48.dts
-@@ -0,0 +1,16 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * (C) Copyright 2020 Draeger and Licensors, info@draeger.com
-+ *
-+ * Device Tree file for Draeger M48 Board
-+ */
-+
-+/dts-v1/;
-+
-+#include "imx6q.dtsi"
-+#include "imx6qdl-draeger-m48.dtsi"
-+
-+/ {
-+	model = "Draeger M48 i.MX6 Quad";
-+	compatible = "draeger,imx6q-m48", "fsl,imx6q";
-+};
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi
-new file mode 100644
-index 000000000000..19207d45764c
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi
-@@ -0,0 +1,213 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * (C) Copyright 2020 Draeger and Licensors, info@draeger.com
-+ * Based on work by Russell King
-+ *
-+ * Device Tree file for Draeger M48 Board
-+ */
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+/ {
-+	aliases {
-+		mmc0 = &usdhc3;
-+	};
-+
-+	chosen {
-+		stdout-path = &uart1;
-+	};
-+
-+	/* Will be filled by the bootloader */
-+	memory@10000000 {
-+		device_type = "memory";
-+		reg = <0x10000000 0x80000000>;
-+	};
-+};
-+
-+&fec {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_enet>;
-+	phy-mode = "rgmii-id";
-+	phy-handle = <&ethphy>;
-+	status = "okay";
-+
-+	mdio {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		ethphy: ethernet-phy@0 {
-+			reg = <0>;
-+			rxc-skew-ps = <1380>;
-+			rxd0-skew-ps = <0>;
-+			rxd1-skew-ps = <0>;
-+			rxd2-skew-ps = <0>;
-+			rxd3-skew-ps = <0>;
-+			rxdv-skew-ps = <0>;
-+			txc-skew-ps = <1860>;
-+			txd0-skew-ps = <0>;
-+			txd1-skew-ps = <0>;
-+			txd2-skew-ps = <0>;
-+			txd3-skew-ps = <0>;
-+			txen-skew-ps = <0>;
-+		};
-+	};
-+};
-+
-+&hdmi {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_hdmi>;
-+	status = "okay";
-+};
-+
-+&i2c2 {
-+	clock-frequency = <100000>;
-+	pinctrl-names = "default", "gpio";
-+	pinctrl-0 = <&pinctrl_i2c2>;
-+	pinctrl-1 = <&pinctrl_i2c2_gpio>;
-+	scl-gpios = <&gpio4 12 GPIO_ACTIVE_HIGH>;
-+	sda-gpios = <&gpio4 13 GPIO_ACTIVE_HIGH>;
-+	status = "okay";
-+
-+	eeprom_mac: eeprom@50 {
-+		compatible = "atmel,24c08";
-+		reg = <0x50>;
-+		pagesize = <16>;
-+	};
-+};
-+
-+&i2c3 {
-+	pinctrl-names = "default", "gpio";
-+	pinctrl-0 = <&pinctrl_i2c3>;
-+	pinctrl-1 = <&pinctrl_i2c3_gpio>;
-+	scl-gpios = <&gpio3 17 GPIO_ACTIVE_HIGH>;
-+	sda-gpios = <&gpio3 18 GPIO_ACTIVE_HIGH>;
-+	status = "okay";
-+};
-+
-+&ldb {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_lvds>;
-+	fsl,dual-channel;
-+	status = "okay";
-+
-+	lvds-channel@0 {
-+		fsl,data-mapping = "spwg";
-+		fsl,data-width = <24>;
-+		status = "okay";
-+
-+		display-timings {
-+			native-mode = <&timing0>;
-+
-+			/* LVDS split mode */
-+			timing0: timing-1920x1080 {
-+				clock-frequency = <71190000>;	/* pixclk / 2 */
-+				hactive = <1920>;
-+				vactive = <1080>;
-+				hback-porch = <60>;		/* left * 2 */
-+				hfront-porch = <60>;		/* right * 2 */
-+				vback-porch = <30>;
-+				vfront-porch = <3>;
-+				hsync-len = <60>;		/* hsync * 2 */
-+				vsync-len = <17>;
-+			};
-+		};
-+	};
-+};
-+
-+&uart1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_uart1>;
-+	status = "okay";
-+};
-+
-+&usdhc3 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_usdhc3>;
-+	bus-width = <4>;
-+	non-removable;
-+	status = "okay";
-+};
-+
-+&iomuxc {
-+	pinctrl_enet: enetgrp {
-+		fsl,pins = <
-+			MX6QDL_PAD_KEY_COL1__ENET_MDIO		0x1b0b0
-+			MX6QDL_PAD_ENET_MDC__ENET_MDC		0x1b0b0
-+			MX6QDL_PAD_RGMII_TXC__RGMII_TXC		0x13018
-+			MX6QDL_PAD_RGMII_TD0__RGMII_TD0		0x1b018
-+			MX6QDL_PAD_RGMII_TD1__RGMII_TD1		0x1b018
-+			MX6QDL_PAD_RGMII_TD2__RGMII_TD2		0x1b018
-+			MX6QDL_PAD_RGMII_TD3__RGMII_TD3		0x1b018
-+			MX6QDL_PAD_RGMII_TX_CTL__RGMII_TX_CTL	0x13018
-+			MX6QDL_PAD_ENET_REF_CLK__ENET_TX_CLK	0x1b0b0
-+			MX6QDL_PAD_RGMII_RXC__RGMII_RXC		0x13030
-+			MX6QDL_PAD_RGMII_RD0__RGMII_RD0		0x1b030
-+			MX6QDL_PAD_RGMII_RD1__RGMII_RD1		0x1b030
-+			MX6QDL_PAD_RGMII_RD2__RGMII_RD2		0x1b030
-+			MX6QDL_PAD_RGMII_RD3__RGMII_RD3		0x1b030
-+			MX6QDL_PAD_RGMII_RX_CTL__RGMII_RX_CTL	0x13030
-+		>;
-+	};
-+
-+	pinctrl_hdmi: hdmigrp {
-+		fsl,pins = <
-+			MX6QDL_PAD_EIM_D16__HDMI_TX_DDC_SDA	0x1b0b0
-+			MX6QDL_PAD_EIM_EB2__HDMI_TX_DDC_SCL	0x1b0b0
-+		>;
-+	};
-+
-+	pinctrl_i2c2: i2c2grp {
-+		fsl,pins = <
-+			MX6QDL_PAD_KEY_COL3__I2C2_SCL		0x4001b820
-+			MX6QDL_PAD_KEY_ROW3__I2C2_SDA		0x4001b820
-+		>;
-+	};
-+
-+	pinctrl_i2c2_gpio: i2c2gpiogrp {
-+		fsl,pins = <
-+			MX6QDL_PAD_KEY_COL3__GPIO4_IO12		0x1b820
-+			MX6QDL_PAD_KEY_ROW3__GPIO4_IO13		0x1b820
-+		>;
-+	};
-+
-+	pinctrl_i2c3: i2c3grp {
-+		fsl,pins = <
-+			MX6QDL_PAD_EIM_D17__I2C3_SCL		0x4001b820
-+			MX6QDL_PAD_EIM_D18__I2C3_SDA		0x4001b820
-+		>;
-+	};
-+
-+	pinctrl_i2c3_gpio: i2c3gpiogrp {
-+		fsl,pins = <
-+			MX6QDL_PAD_EIM_D17__GPIO3_IO17		0x1b820
-+			MX6QDL_PAD_EIM_D18__GPIO3_IO18		0x1b820
-+		>;
-+	};
-+
-+	pinctrl_lvds: lvdsgrp {
-+		fsl,pins = <
-+			MX6QDL_PAD_EIM_A22__GPIO2_IO16		0x1b010	/* DISPLAY_EN */
-+			MX6QDL_PAD_EIM_A20__GPIO2_IO18		0x1b010	/* BACKLIGHT_EN */
-+			MX6QDL_PAD_EIM_A18__GPIO2_IO20		0x1b010	/* DISP0_CONTRAST */
-+		>;
-+	};
-+
-+	pinctrl_uart1: uart1grp {
-+		fsl,pins = <
-+			MX6QDL_PAD_SD3_DAT7__UART1_TX_DATA	0x1b010
-+			MX6QDL_PAD_SD3_DAT6__UART1_RX_DATA	0x1b010
-+		>;
-+	};
-+
-+	pinctrl_usdhc3: usdhc3grp {
-+		fsl,pins = <
-+			MX6QDL_PAD_SD3_CMD__SD3_CMD		0x1b060
-+			MX6QDL_PAD_SD3_CLK__SD3_CLK		0x1b060
-+			MX6QDL_PAD_SD3_DAT0__SD3_DATA0		0x1b060
-+			MX6QDL_PAD_SD3_DAT1__SD3_DATA1		0x1b060
-+			MX6QDL_PAD_SD3_DAT2__SD3_DATA2		0x1b060
-+			MX6QDL_PAD_SD3_DAT3__SD3_DATA3		0x1b060
-+			MX6QDL_PAD_NANDF_CS1__SD3_VSELECT	0x1b060
-+		>;
-+	};
-+};
--- 
-2.47.3
-
+> 
+> > - Link to v1: https://patch.msgid.link/20260721-dts-qcom-eliza-add-fastrpc-v1-1-cbea68d8e01b@oss.qualcomm.com
+> > ---
+> >  arch/arm64/boot/dts/qcom/eliza.dtsi | 160 ++++++++++++++++++++++++++++++++++++
+> >  1 file changed, 160 insertions(+)
+> > 
+> > +					compute-cb@7 {
+> > +						compatible = "qcom,fastrpc-compute-cb";
+> > +						reg = <7>;
+> > +
+> > +						iommus = <&apps_smmu 0x1007 0x40>,
+> > +							 <&apps_smmu 0x1067 0x0>;
+> > +						dma-coherent;
+> > +					};
+> > +				};
+> > +
+> >  				gpr {
+> >  					compatible = "qcom,gpr";
+> >  					qcom,glink-channels = "adsp_apps";
+> 
+> -- 
+> With best wishes
+> Dmitry
