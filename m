@@ -1,112 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792595883;
-	b=w+yvNyqRGlDrMdHPFHU00msHIoHOeOpx1WD7X90m/D8f+J6KFNQ73NV8c9NgWbz+Tm3T
-	 S6tjcTj/MIYlxOy51GGXvl8SgdEsVHiC3Bdu8UjFjjkt4PkJxEXKGHJpnZ9PuSS2nWFSH
-	 Upb3stFJO74XVmz556wTTL9QbnQZKJoGP+SbO3QlB5Sv5ZqNNCaWGO9Vp048pe7l1lDvz
-	 hAGuiDaAyZKpDfyrZrsF5eqTkODKhc42/sOeoPqk/ybJ/j5BXt75ZaLHqAt9X7z0/U7GX
-	 YY4rZ13Nwpi1YYWKYmXg/w87/C42F2s9csaU1L3zQn9HSFvR3rgzh7k1RGOvfVCy72Q==
+	t=1792595879;
+	b=QD7gwGYvxbCegNbSHpRwglCJ7B4lI60Y3lQGYcpNCicL04bPW/dzBnv8rSCveYaW+doH
+	 BuRU2SY16+w1q7vokU8f4OgYuXa4HAcZBopLva+VH0jZlH2WQ/81rcrkjMTd9LUOvRABJ
+	 bK6vv7hDz6zs6Ky0ssfAJb4UXchLm5QiNIFFyKSS4YQlc78haOWTLIzkJUmT9flkYpb0r
+	 QM731gCrogTlZhPAzyHjpEaVevqXRRjG5U5lGM8XU8dR19Dyp6zbpCom0kA+LqT3KL/01
+	 2GBTKJG3H4vhgOgJJxdI7wWnUQSEQ1DaZ8LLjkkhMIAbSu0MNL1w75EvAwwrn2NAQ8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792595883;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=iN0RbpfLopjjwmy4y53t40HHiRST5oNV3u0vMBP1TbM=;
-	b=jF0nbPB0iknAfy0Rv80bAJkm8rSCoJiIZqqAbKd712hF5zGuZ1Fp/wnQmyel0UwBt7vl
-	 +uPqcFMYuE6DQ2JX7XLflYvlHWClE7+m814J9IxaO1Q/iE2RC/P5QziIXLR9rjyyYU2en
-	 +P9QnpZTTOMrWc96eROXMuZ0rvBzv4mw+qmCy60S7w7XT6vCU2uk3EP4Mf5Ir48QeAZK0
-	 xGhwdOq+SpEeAwIY4UIsC4sRiTDP1hXnP/yMD1NP9QTdtqH/7SWSGrW58ffeqQyYeNNuA
-	 Cfu5taLVFKKkJnZb2u1oHWbYlwUsuF3WD6AV1IE41GqKc/1lXz+LX9YFWGsmk9jRgoA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792595879;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
+	bh=i/xsAik0AiF4ZhaovobbhwcQ+i52DTyZxtRC73POBos=;
+	b=vG4/hEMflxdEexizSW9SCjsF8BH0vQ00wXRSuGa2WA259Aw5pf55j2VegaxT6HE0d4KU
+	 oeUlcJyEWTH3xXuttXh6sOx2nsWBuISWiPzL3Hz0JRJ6Sw9Kw42iQdRW9IqaUyqKzrL2R
+	 YEjYDq+YjLMBUI6IrCC41X+NklG6UKH5iMaBbwK8/IVloRzhhLq+y87xRf14w0eDFKbfL
+	 dZJiAOaKRe6MPukoR+Y8/W2tHgzhSsQlEZCodYyOWmQAdxkwEOSTbM+MyPrwP2ITFVbzB
+	 JnRTakuUe2mj9VFOlGZVsdOBCn2Pq5DsZU8sWFO8wZdACAgI/aKlIBqVV9w//WGed1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="O/M3bgE4";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=brMqUv7P;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=avNFwwVf;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97F4D60A2610
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 15:18:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97F4D60A2610
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9373E606A33B
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 15:17:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9373E606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=O/M3bgE4;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=brMqUv7P
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LEFImm3993065
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 15:18:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	iN0RbpfLopjjwmy4y53t40HHiRST5oNV3u0vMBP1TbM=; b=O/M3bgE47wpEgGvI
-	b0k8gpmn4QLzEYy6YxCiUpGQz1ISMbSDy4sDGC9LWywIOHbvqSXqjw7N0XiobhTg
-	P8zT1eb40VB6q0EJdjoVbRhQA0LC6WSlBzoNVb0b2pQienaNB+p9lNl++7I/i+9P
-	62b5/vrS6SBGJybeyZ1P0+LGqxfzOrGsorpIP9lfZs0S1+z8+PIOcasEJVY6OT22
-	F0WhUcMQEble0QQKA7u5pmvmVhn2vDzS/1Seg2C/+1gLe9DXGFV96a4NlKVQNxPr
-	YxIqhddav16qZhXleYBjClaQ8S8zz+Ezgm4IZhBVKlUjCXzVClEa4j/g4l3HwlS5
-	OJD/RQ==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hex5q8j4b-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 15:18:01 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3580c07911eso2332716eec.0
-        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 08:18:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792595880; x=1793200680; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iN0RbpfLopjjwmy4y53t40HHiRST5oNV3u0vMBP1TbM=;
-        b=brMqUv7PgDPxPXJBjZer8Z+7zOD+Q33drUh4c/9aWFTpGhb1DuGlQsois1ShIksJ5X
-         ZIrPsI/Fo4Ng4YMAeLS6Icvro0S/iDs595ZDA9tOGkAbb7Y+24uo/xZT0WdP8RgLClFL
-         KVeWgKHos1t1i4GQco3m40v/6tDBqW9fXyIU/lQevc3J2x4dhkPgA5RV5sxkjVUEebaD
-         z3V1QNfFFumLwokP+rQwZBki0nzXqnjNLioO6ieAAr/zdfKQabnq0HurAJoIS/EiYqOc
-         z0ylAy9h/VFkAttHZRkeInjURWpdVHyMGZsZwSuDHwt6poV5Ht0PwNgod1HqT4g3h8Y4
-         8GpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792595880; x=1793200680;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iN0RbpfLopjjwmy4y53t40HHiRST5oNV3u0vMBP1TbM=;
-        b=o77kW0Lw0sL+gWm69fxn4oKAx8FmEgtuN0qbOml4b4gdacPCDSMrhRF2NWDEq8kLSU
-         /bxwvo9L4cwoNhGrLRnrXL+TJTzFnLxY7ZHsUddHgVDBmoMBli41jk8GmzJf1imHK+S8
-         1AO1QqKL3KM4ZeSZZRYULLLhDuDAowGn4tR6dClov4Y4j1DKp2gKhgFTPkOnG29MtnI4
-         u+zY4PdH2cnXG1tPFWrFkHUQUVHjGVVhMW/8qLniRsStC+I9V9qkXSwC1G44r3mmbTNk
-         dXni1q+AD+bMiraYywClNvoaKMViNjOBJzlvCoLBJnBDHTZjZpK6tSiYHY77wtL+InGW
-         BCVw==
-X-Forwarded-Encrypted: i=1; AKwUvBxMmX+54T1UcrNGKfgBWfevx4MGOjoD2osACF0HfmjHbxGnyhL+a1J7UcsT7kRucWotadAu0DjgIR2K@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ5vx3t6rlurVAVGXMLjj9F7wbmIQa22QM05UzmPvdyPTW7/s7Z
-	diAY25k4HNvhS+ZjtbwUMWL6QFV7OKAQnC8WcNVwPnMA5WUcj1kGL8G6yioNxFox2agJ0I0c61q
-	6ax/V74QOKLDvx3r6rgeErv8zqEA4Nx6Nfme7ybT5ao6ePCptF0yyeLwYv4Y9BZRw
-X-Gm-Gg: AYBFou3FT4/u2c3gedsLtDdQTft9+5lklR92yySEVhKJcv9YZezWr+s8CG4gBvnk/jy
-	al2HwzU1/HxB8V+ZcFDfnXM8js+7pB0yZ6x6ZHjPgvnYovXP6WAcnSx+DEU2BNIdVPxnIHOyhNP
-	lj73xpkYvuKpojjBRfb089bJmwk+fQyzNnpU0elZc6ZabiZkYGV4x/U0xPwRLMhA4bmH9NGYy4I
-	TfkfhCoLFDjMs6v1bS9CDkBvr0QsYw4YuGrC7hWdHgMrLEij4loXUyczXKw3YqXZTaZhFUWwva8
-	j4nJfxgFe2eeivebcGpI7R/FwPpxT3Hftx/1RXoTbQO+CyIthmYw0SoeHGpUtGZHXo1Tq6NDD/L
-	3FIXta6k3GPJoJfhEK3Wo0zo6GMUBO/HY
-X-Received: by 2002:a05:7300:2552:b0:35f:6d9d:af68 with SMTP id 5a478bee46e88-3674f215a14mr3926431eec.23.1792595879186;
-        Wed, 21 Oct 2026 08:17:59 -0700 (PDT)
-X-Received: by 2002:a05:7300:2552:b0:35f:6d9d:af68 with SMTP id 5a478bee46e88-3674f215a14mr3926392eec.23.1792595878378;
-        Wed, 21 Oct 2026 08:17:58 -0700 (PDT)
-Received: from hu-anantiwa-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36740cc8c6dsm9142117eec.12.2026.10.21.08.17.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 08:17:58 -0700 (PDT)
-From: anand.tiwari@oss.qualcomm.com
-Date: Wed, 21 Oct 2026 20:47:28 +0530
-Subject: [PATCH 4/6] arm64: dts: qcom: talos-lyra-evk: Add Waveshare 8-inch
- DSI panel overlay
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=avNFwwVf
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id F39274E41294;
+	Wed, 21 Oct 2026 15:17:55 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C96DD606E3;
+	Wed, 21 Oct 2026 15:17:55 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7EB23103289F5;
+	Wed, 21 Oct 2026 17:17:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792595875; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=i/xsAik0AiF4ZhaovobbhwcQ+i52DTyZxtRC73POBos=;
+	b=avNFwwVfRBX6qEdr+In6mRaZPHt5OPunp7ZLlNfwbmtnGNa2jkshcYshINSic2K5kqC90b
+	27xYzxzKrRG5rIU1VQHPCp0e8zGH9zXhVJoOnQVgI2nJ+c1J24mvEMDuscWDxxNl3ERPF/
+	QB3oituci9pxbdmCZEU2l1H92eBhnLIfzZ6BpxPQSY3K38Q3p5nDtsIoOPXAe5LYE5IHJ/
+	YARxJmml2qze3AWoMRCPjef/9beV8ryYbHi1KI53jj+djNmKxO1f78NPntka5IVV7WvfId
+	XD6dxVGdSj/oaWYNK6saTQhoIyGUGfMh+mZ91jGPvHbParb4fY1VxzjqLuFWPA==
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,182 +58,285 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261021-lyra-display-upstream-post-v1-4-585caa39cd7c@oss.qualcomm.com>
-References: <20261021-lyra-display-upstream-post-v1-0-585caa39cd7c@oss.qualcomm.com>
-In-Reply-To: <20261021-lyra-display-upstream-post-v1-0-585caa39cd7c@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Florian Fainelli <florian.fainelli@broadcom.com>,
-        Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
-        linux-arm-kernel@lists.infradead.org,
-        Anand Tiwari <anand.tiwari@oss.qualcomm.com>,
-        venkata.valluru@oss.qualcomm.com,
-        Shashank Maurya <shashank.maurya@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792595849; l=3546;
- i=anand.tiwari@oss.qualcomm.com; s=20260717; h=from:subject:message-id;
- bh=Uyeo1BIG7EK9froOsnvpJ61uq9tkb4cEvrpBTfRl3vg=;
- b=ltnv/UqKW7UUOPAU4GsTjxkHxne/i9paXx5gRdSfiIe92c3PzYA3HytEtQwgiY/dUBC8it1SN
- I+mzUGh+3+tCDraiCHf1epXL2mLfZOMmi4kbMHFL2cXGgWEdf9b67qy
-X-Developer-Key: i=anand.tiwari@oss.qualcomm.com; a=ed25519;
- pk=ygURjl6LxwG8EhgPNHYYgCZLsaXFgWZZoHRRyud5B40=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA2MCBTYWx0ZWRfXwQe2cRO7EiRt
- P+SfGDt2QjaIGjny3My3V9Sv03zzaGkpgQ3kSyF//098vqqhzSipAWR9KhIFwf3fie5C4/gZMoJ
- sVuCBjqfiaqh82+GWbgiKzV2RR4g6YU=
-X-Authority-Analysis: v=2.4 cv=eJaGH3p1 c=1 sm=1 tr=0 ts=6ad8d7a9 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=CsxVdn2IL-oTZ3OAgFMA:9 a=QEXdDO2ut3YA:10
- a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-GUID: QXFl01NecUFqhPoPMZY4z_Qcux-iqoq2
-X-Proofpoint-ORIG-GUID: QXFl01NecUFqhPoPMZY4z_Qcux-iqoq2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA2MCBTYWx0ZWRfX9CVfOGT7+aU4
- Cxeol5/wyHeXiigtvTDc+vY6BjVroMluDHKPT/Mev72qpZfhznJkMuGcz99x8csQzUqNdpqqIIV
- h9IIWa6GQ/5gCt3j8eft4B/7jRNsQ9dXo6WjJyjQuizx1VnkHjVs7aYUqe0Wru41ILqFf1qIYQW
- cVPr3Q6Zh0roe7a27ZsJyJXZ/xHnfBtmxg6otAGz7MprbkUQDhUba+rKEMhp+LXdW9l7JHM5Ryo
- MvCKf991BDNfTGwHh8s3nYJKsXFsa/oMWY/Fk8BEcvDlLzYnVUMmuuXOJC2SWg5nBSME1IbFnMj
- BO1R5DU8xjkjEqxLhl2uae2eiQQY+HDZVQKBpWUsbZTrxVdUbAoGjItXaPeXdwJBoM7oS4ApahL
- NI+utR/pfNKDkMir95abaJwj/mnG3+4jljl8W7ElKaXFrqXod1CnzypjfH11W2G0BBxOx3AI+pg
- OlivDPowQUWfSMP34CA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-21_04,2026-10-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 malwarescore=0 suspectscore=0 priorityscore=1501
- adultscore=0 spamscore=0 clxscore=1015 bulkscore=0 phishscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610210060
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 21 Oct 2026 17:17:53 +0200
+Message-Id: <DMAM7BSH2RV7.7DWVA3SLFF5N@bootlin.com>
+Cc: <devicetree@vger.kernel.org>, <robh@kernel.org>, <conor+dt@kernel.org>
+Subject: Re: [PATCH 3/5] regulator: core: Add mechanism to force disable a
+ regulator at boot
+From: "Paul Louvel" <paul.louvel@bootlin.com>
+To: <sashiko-reviews@lists.linux.dev>, "Paul Louvel"
+ <paul.louvel@bootlin.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com>
+ <20261021-paul-lm51772-v1-3-25f0ffbffa8d@bootlin.com>
+ <sashiko-outbox-180119@kernel.org>
+In-Reply-To: <sashiko-outbox-180119@kernel.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Shashank Maurya <shashank.maurya@oss.qualcomm.com>
+On Wed Oct 21, 2026 at 12:46 PM CEST, sashiko-bot wrote:
+> Thank you for your contribution! Sashiko AI review found 4 potential issu=
+e(s) to consider:
+> - [High] regulator: core: missing mutual exclusion for boot_force_off in =
+set_machine_constraints()
+> - [High] regulator: core: boot_force_off is a no-op for GPIO-controlled r=
+egulators
+> - [Medium] regulator: core: boot_force_off works around consumer API misu=
+se
+> - [Low] regulator: missing kernel-doc for boot_force_off in struct regula=
+tion_constraints
+> --
+>
+> commit 934802b5e041e184ae3df8fc8a423b7e086bf66c
+> Author: Paul Louvel <paul.louvel@bootlin.com>
+>
+> regulator: core: Add mechanism to force disable a regulator at boot
+>
+> This commit adds the regulator-boot-force-off device tree property and th=
+e
+> corresponding boot_force_off constraint flag to disable a regulator in
+> set_machine_constraints() during registration.
+>
+>> diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
+>> index 14422cfe80e2d..b45048ec084a1 100644
+>> --- a/drivers/regulator/core.c
+>> +++ b/drivers/regulator/core.c
+>> @@ -1450,6 +1450,81 @@ static int handle_notify_limits(struct regulator_=
+dev *rdev,
+>> =20
+>>  	return ret;
+>>  }
+>> +
+>
+> [ ... ]
+>
+>> +static int _regulator_do_disable(struct regulator_dev *rdev)
+>> +{
+>> +	int ret;
+>> +
+>> +	trace_regulator_disable(rdev_get_name(rdev));
+>> +
+>> +	if (rdev->ena_pin) {
+>> +		if (rdev->ena_gpio_state) {
+>> +			ret =3D regulator_ena_gpio_ctrl(rdev, false);
+>> +			if (ret < 0)
+>> +				return ret;
+>> +			rdev->ena_gpio_state =3D 0;
+>> +		}
+>> +
+>> +	} else if (rdev->desc->ops->disable) {
+>> +		ret =3D rdev->desc->ops->disable(rdev);
+>> +		if (ret !=3D 0)
+>> +			return ret;
+>> +	}
+>> +
+>> +	if (rdev->desc->off_on_delay)
+>> +		rdev->last_off =3D ktime_get_boottime();
+>> +
+>> +	trace_regulator_disable_complete(rdev_get_name(rdev));
+>> +
+>> +	return 0;
+>> +}
+>
+> [Severity: High]
+> Does boot_force_off work for regulators that use an enable gpio
+> (rdev->ena_pin)?
+>
+> During regulator_register(), rdev is zero-allocated and
+> regulator_ena_gpio_request() attaches rdev->ena_pin without setting
+> rdev->ena_gpio_state. When regulator_register() -> set_machine_constraint=
+s()
+> calls _regulator_do_disable(rdev) for boot_force_off (with always_on and
+> boot_on unset), rdev->ena_gpio_state is still 0.
+>
+> In _regulator_do_disable(), when rdev->ena_pin is present and
+> rdev->ena_gpio_state is 0, the code skips regulator_ena_gpio_ctrl(rdev, f=
+alse)
+> and also skips the else-if branch for rdev->desc->ops->disable(rdev).
+>
+> Won't this leave gpio-controlled regulators enabled in hardware at boot?
 
-Add a DT overlay to enable Waveshare 8-inch DSI panel connected to
-DSI 22pin on the carrier card.
+Yes, any idea why there is a state instead of turning off the gpio instead =
+?
 
-DSI0 from SOC is routed through MUX which can be selected by DIP
-switch S1016.5 ON, for enabling this 22pin connector.
+>
+>> +
+>>  /**
+>>   * set_machine_constraints - sets regulator constraints
+>>   * @rdev: regulator source
+>> @@ -1701,6 +1776,12 @@ static int set_machine_constraints(struct regulat=
+or_dev *rdev,
+>>  		rdev->last_off =3D ktime_get();
+>>  	}
+>> =20
+>> +	if (rdev->constraints->boot_force_off) {
+>> +		ret =3D _regulator_do_disable(rdev);
+>> +		if (ret < 0)
+>> +			return ret;
+>> +	}
+>> +
+>>  	if (!rdev->constraints->pw_budget_mW)
+>>  		rdev->constraints->pw_budget_mW =3D INT_MAX;
+>> =20
+>
+> [Severity: High]
+> What happens in set_machine_constraints() if boot_force_off is set togeth=
+er
+> with always_on or boot_on?
+>
+> Neither of_get_regulation_constraints() nor set_machine_constraints() pre=
+vents
+> boot_force_off from being active at the same time as always_on or boot_on
+> (including when set_machine_constraints() implicitly sets
+> rdev->constraints->always_on =3D true when !rdev->ena_pin && !ops->enable=
+).
+>
+> Right before this boot_force_off check, set_machine_constraints() handles
+> always_on and boot_on:
+>
+> drivers/regulator/core.c:set_machine_constraints() {
+> 	if (rdev->constraints->always_on || rdev->constraints->boot_on) {
+> 		...
+> 		if (rdev->supply &&
+> 		    (rdev->constraints->always_on ||
+> 		     !regulator_is_enabled(rdev->supply))) {
+> 			ret =3D (is_locked
+> 			       ? _regulator_enable(rdev->supply)
+> 			       : regulator_enable(rdev->supply));
+> 			...
+> 			supply_enabled =3D true;
+> 		}
+>
+> 		ret =3D _regulator_do_enable(rdev);
+> 		...
+> 		if (rdev->constraints->always_on)
+> 			rdev->use_count++;
+> 	}
+> }
+>
+> Because boot_force_off is checked in a separate conditional afterwards,
+> set_machine_constraints() will enable rdev->supply and rdev, and then
+> immediately call _regulator_do_disable(rdev).
+>
+> If _regulator_do_disable(rdev) fails after rdev->supply was enabled,
+> set_machine_constraints() returns the error without disabling rdev->suppl=
+y,
+> and regulator_register() jumps to the wash cleanup path:
+>
+> drivers/regulator/core.c:regulator_register() {
+> wash:
+> 	regulator_put(rdev->supply);
+> }
+>
+> which triggers the warning in _regulator_put() and leaks the supply enabl=
+e
+> count:
+>
+> drivers/regulator/core.c:_regulator_put() {
+> 	/* Docs say you must disable before calling regulator_put() */
+> 	WARN_ON(regulator->enable_count);
+> }
+>
+> And if _regulator_do_disable(rdev) succeeds when always_on or boot_on is =
+set,
+> the hardware output is disabled while rdev->use_count remains 1 (for
+> always_on, preventing subsequent regulator_enable() calls from re-enablin=
+g the
+> hardware) and rdev->supply remains enabled with an unbalanced enable_coun=
+t.
+>
+> Should boot_force_off be mutually exclusive with always_on and boot_on?
 
-Add the JD9365DA-H3 panel, GPIO expander at I2C2 address 0x45 for
-panel power, reset and backlight, and the Goodix GT9271 touch
-controller.
+Yes probably.
+What was on my mind mind is that the boot_force_off property has higher
+priority. But this is not documented / I don't know if it is an acceptable
+behavior.
 
-Disable the default HDMI bridge and connector in favour of the
-Waveshare DSI panel.
+>
+> [ ... ]
+>
+>> diff --git a/drivers/regulator/of_regulator.c b/drivers/regulator/of_reg=
+ulator.c
+>> index 09e26febfc834..337629be58ca7 100644
+>> --- a/drivers/regulator/of_regulator.c
+>> +++ b/drivers/regulator/of_regulator.c
+>> @@ -132,6 +132,7 @@ static int of_get_regulation_constraints(struct devi=
+ce *dev,
+>>  	constraints->always_on =3D of_property_read_bool(np, "regulator-always=
+-on");
+>>  	if (!constraints->always_on) /* status change should be possible. */
+>>  		constraints->valid_ops_mask |=3D REGULATOR_CHANGE_STATUS;
+>> +	constraints->boot_force_off =3D of_property_read_bool(np, "regulator-b=
+oot-force-off");
+>> =20
+>>  	constraints->pull_down =3D of_property_read_bool(np, "regulator-pull-d=
+own");
+>>  	constraints->system_critical =3D of_property_read_bool(np,
+>
+> [Severity: Medium]
+> Is a new device tree property the right way to handle consumers that want=
+ to
+> disable a boot-enabled regulator during probe?
+>
+> In the regulator framework, regulator_enable() and regulator_disable() ca=
+lls
+> on a standard consumer handle must be balanced because regulator_get()
+> initializes regulator->enable_count to 0 regardless of hardware state.
+>
+> For consumers that have exclusive control of a supply and need to turn of=
+f a
+> regulator that was left enabled at boot without a prior regulator_enable(=
+),
+> regulator_get_exclusive() already syncs use_count and enable_count with t=
+he
+> hardware state in _regulator_get_common():
+>
+> drivers/regulator/core.c:_regulator_get_common() {
+> 	if (get_type =3D=3D EXCLUSIVE_GET) {
+> 		rdev->exclusive =3D 1;
+>
+> 		ret =3D _regulator_is_enabled(rdev);
+> 		if (ret > 0) {
+> 			rdev->use_count =3D 1;
+> 			regulator->enable_count =3D 1;
+> }
+>
+> Could the affected consumer driver use regulator_get_exclusive() (or
+> devm_regulator_get_exclusive()) instead of adding regulator-boot-force-of=
+f to
+> device tree?
+>
+>> diff --git a/include/linux/regulator/machine.h b/include/linux/regulator=
+/machine.h
+>> index 1fc440c5c4c7e..35ab9de96e5c7 100644
+>> --- a/include/linux/regulator/machine.h
+>> +++ b/include/linux/regulator/machine.h
+>> @@ -227,7 +227,8 @@ struct regulation_constraints {
+>>  	unsigned int active_discharge;
+>> =20
+>>  	/* constraint flags */
+>> -	unsigned always_on:1;	/* regulator never off when system is on */
+>> +	unsigned always_on:1;		/* regulator never off when system is on */
+>> +	unsigned boot_force_off:1;	/* force regulator off at boot */
+>>  	unsigned boot_on:1;	/* bootloader/firmware enabled regulator */
+>>  	unsigned apply_uV:1;	/* apply uV constraint if min =3D=3D max */
+>>  	unsigned ramp_disable:1; /* disable ramp delay */
+>
+> [Severity: Low]
+> Struct regulation_constraints in include/linux/regulator/machine.h has a
+> kernel-doc comment block above the definition describing its fields. Shou=
+ld an
+> @boot_force_off entry be added there as well to avoid a kernel-doc warnin=
+g?
 
-Signed-off-by: Shashank Maurya <shashank.maurya@oss.qualcomm.com>
-Signed-off-by: Anand Tiwari <anand.tiwari@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/Makefile                  |  5 ++
- .../qcom/talos-lyra-evk-waveshare-dsi-8inch.dtso   | 75 ++++++++++++++++++++++
- 2 files changed, 80 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index a2a2ffbbce3a..614152913cbb 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -485,6 +485,11 @@ talos-lyra-evk-raspberrypi-dsi-7inch-dtbs := \
-         talos-lyra-evk.dtb talos-lyra-evk-raspberrypi-dsi-7inch.dtbo
- dtb-$(CONFIG_ARCH_QCOM) += talos-lyra-evk-raspberrypi-dsi-7inch.dtb
- dtb-$(CONFIG_ARCH_QCOM) += talos-lyra-evk-raspberrypi-dsi-7inch.dtbo
-+
-+talos-lyra-evk-waveshare-dsi-8inch-dtbs := \
-+        talos-lyra-evk.dtb talos-lyra-evk-waveshare-dsi-8inch.dtbo
-+dtb-$(CONFIG_ARCH_QCOM) += talos-lyra-evk-waveshare-dsi-8inch.dtb
-+dtb-$(CONFIG_ARCH_QCOM) += talos-lyra-evk-waveshare-dsi-8inch.dtbo
- x1e001de-devkit-el2-dtbs	:= x1e001de-devkit.dtb x1-el2.dtbo
- dtb-$(CONFIG_ARCH_QCOM)	+= x1e001de-devkit.dtb x1e001de-devkit-el2.dtb
- x1e78100-lenovo-thinkpad-t14s-el2-dtbs	:= x1e78100-lenovo-thinkpad-t14s.dtb x1-el2.dtbo
-diff --git a/arch/arm64/boot/dts/qcom/talos-lyra-evk-waveshare-dsi-8inch.dtso b/arch/arm64/boot/dts/qcom/talos-lyra-evk-waveshare-dsi-8inch.dtso
-new file mode 100644
-index 000000000000..e9a8fdf0c179
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/talos-lyra-evk-waveshare-dsi-8inch.dtso
-@@ -0,0 +1,75 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+&{/} {
-+	panel_avdd: regulator-panel-avdd {
-+		compatible = "regulator-fixed";
-+		regulator-name = "panel-avdd";
-+		gpios = <&wsgpio 0 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	panel_iovcc: regulator-panel-iovcc {
-+		compatible = "regulator-fixed";
-+		regulator-name = "panel-iovcc";
-+		gpios = <&wsgpio 4 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
-+&hdmi_bridge {
-+	status = "disabled";
-+};
-+
-+&hdmi_connector {
-+	status = "disabled";
-+};
-+
-+&i2c2 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	wsgpio: gpio@45 {
-+		compatible = "waveshare,dsi-touch-gpio";
-+		reg = <0x45>;
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+	};
-+
-+	touchscreen@5d {
-+		compatible = "goodix,gt9271";
-+		reg = <0x5d>;
-+		reset-gpios = <&wsgpio 9 GPIO_ACTIVE_HIGH>;
-+	};
-+};
-+
-+&mdss_dsi0 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	panel@0 {
-+		compatible = "waveshare,8.0-dsi-touch-a", "jadard,jd9365da-h3";
-+		reg = <0>;
-+
-+		reset-gpios = <&wsgpio 1 GPIO_ACTIVE_LOW>;
-+		vccio-supply = <&panel_iovcc>;
-+		vdd-supply = <&panel_avdd>;
-+		backlight = <&wsgpio>;
-+
-+		port {
-+			panel_in: endpoint {
-+				remote-endpoint = <&mdss_dsi0_out>;
-+			};
-+		};
-+	};
-+};
-+
-+&mdss_dsi0_out {
-+	remote-endpoint = <&panel_in>;
-+};
 
--- 
-2.55.0
+
+
+--=20
+Paul Louvel, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
