@@ -1,57 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792573026;
-	b=fEUi4tqpZG6O/VbPuz0zxvaoSu3z+HN2JQWG3Sz7w6u6D669TkjOOp/RkWIGl628PEyy
-	 kuIM6mAtd+AKpne67nOyJKOC51ALtOWXPArdwe1uWaKbCwgbBhdpbi63lHzULrTaGdZWy
-	 wzeTJzDP0BsIagEhvE4lWkB+3MLX3LX83xAHyHNOag6RdnP1dcYZe+9kK5gZ34JpNaPUL
-	 3vO0HBlE7slJ6MA6bhVsKQUIebddvEyJm4rwGfH4Z/Ls93oPpWpHGFaABK64jBQ1aief1
-	 nljmMtttv60A4fIggVMSdsSy4vmX9pHRlGX0btTjXQfCFnb4T1BQjniHGr49KARDmwg==
+	t=1792573074;
+	b=CEeY18xB1EbhtSAgH3amqCJR6QGcWRVA+UKkc+bbSOssifkHlSocPCZyNhxjITyt9Pp3
+	 JcInzANE6IiUh30RxK0o1WAsNEOmrJZ3U5+GLj5p3WglrzmfphN+Sb6IYRq/tkp3gSe02
+	 LfFqUXB17mVjDgeBZhjF6EScXxoeos5Km4QWuYOgdzBxvQ8p6gVtlion7gnHmvBoSMg/x
+	 Xun0EhOumigbeLAMJz3NegH1Lqd0Zb1JGZqupYyOK8gFc86lJrtWKLHLmdyzDtrBjGhjl
+	 nCO1AV8T1D8Pg2GSyQKjh5C1+CLTd40Fg7E7YdIpfRceT7FhxVGeftH2Hm0+BmLx2jA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792573026;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=JGIdOGckPHfzPo8zvqeRVofg7IdnaeDcECYqZI6o4t8=;
-	b=hAiQQssO2c59qqb3rkje8xIpi0L4i/WlS13JmbePE9G92Y/3ESg12/B9WaAepJIGMpov
-	 HMCnzTBpynhID+vYpfAOyOFLvxUxiKsHJ8z7UWTvK+h3/6E2ldIMm+r/2CqB0o+9tFEOV
-	 BUByGjhRJWmyGcnmU2xyvEPFMl5E+n+eC0hQaZ0nspaBSnha1HdUv2T2PcW3ex2XmGwDG
-	 Gw7REEly5Nfuf4RLlZviKPI/SLqtMWnh9L15trYjfhKeyx7+IQM/OGHP2Iq+Ce9cDtfKq
-	 MOddofIEvo1kpkKf5eV98NOOIMKi0+npRRyWPr/26y5vXPQbplh/er50uVemq89roXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792573074;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=tSbUl6g1KEN/r5qj9L9Ad63cAJqZB7l4QVyz0bWrOQk=;
+	b=19q0rARED88SMIJ3o28eyYRv72FqWk75sqNGzx/1zO5HYlcUSECHakWKjhx5J0Vp6xTX
+	 NQd+/oWslGqOT2bSMzGqaL09dZWG6bADa4UEKXbhz4EPRhPfBqlYx0kM6LaOFDwF75ERw
+	 VQcp+PUHu4UfGJ2VzQruw+iAm7busczytf8MyRzkMp4ME6bLlGN+R69QQXgmVZs/NLvJx
+	 xoT6a95IqN/V0KmxMQvkFHxaSWZx7UtgOj+QYHy0q9ngEeOdJXgGIrw5ahapvxWHeYf2v
+	 8OcqNuroKUH75PQMxgS+zxuJ1LTxyE1eSfDyg2aP20LYFmGkCS/KN19Db7J5lvqj1lQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="COv/iAac";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OJgLUL0l;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EcuKOeG8;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84072606A319
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 08:57:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89BE6606A31A
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 08:57:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89BE6606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=COv/iAac
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFA591F000C9;
-	Wed, 21 Oct 2026 08:57:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792573026;
-	bh=JGIdOGckPHfzPo8zvqeRVofg7IdnaeDcECYqZI6o4t8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=COv/iAacEZ4+Wpf255JattJm9vSVj9S/Dr11Z1ngYZTe5uf2Yy/OiP95y7kCgnnhK
-	 yn3GjJ7XWVPcAbb2DGFoeIw9zHnFlwoXBpMEoEP9hyryDaWKGZK0FsgoJbRm6C4Gay
-	 1bPsrSteOsXadqBi2ai3ZweFYYdHEyErH1QB9gOi4o3u+/3kwM64ZDK2HMUOIDEXD9
-	 IGtcwA/zdGvYhWZitC29n2ollEIBxQWoPdegSHK+hicqFs4WPzbVzaRmW5v5ByADbw
-	 jGZoV3rcIunVJ6rHLAF/LXzhtmISgb7Y17d7YQCNaSOGgi/xGNlj4ErY0efVG/iouJ
-	 ep8kzdFG2sxLw==
-Message-ID: <sashiko-outbox-179994@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 2/2] hwrng: starfive: rework clk/reset teardown order
- for JHB100
-Reply-To: sashiko-reviews@lists.linux.dev
-To: lianfeng.ouyang <lianfeng.ouyang@starfivetech.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261021083712.3032-3-lianfeng.ouyang@starfivetech.com>
-References: <20261021083712.3032-1-lianfeng.ouyang@starfivetech.com>
- <20261021083712.3032-3-lianfeng.ouyang@starfivetech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 21 Oct 2026 08:57:05 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OJgLUL0l;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EcuKOeG8
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69L5j6R0793360
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 08:57:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	tSbUl6g1KEN/r5qj9L9Ad63cAJqZB7l4QVyz0bWrOQk=; b=OJgLUL0lZzDQy1/4
+	zf713iFJ8apkpA2+yOO1loGARBBzJoeXZ6DLtEkYwK0ck20lrOH1OZQL8JNGiOTA
+	Ezan32mStR8xqHcFxU+gmORjcffeOCQE8uVEwTAUBbdtG+gfqrKEC3Y+3RXqE94q
+	l+7hvgF6t4HeW21rr3Tr7c2rF2WKlHkJCNxr0jsoq9VVTmWrkeovQVHG4uOYiu4r
+	Hnn0ehj+Q3s+CWltTyq4tcfX28+N7E8bn8YOmdBDreQrI5xd53ASchmpC3uCCzWR
+	sX0hbj3n9m4Xej2noCJZD1HEt17cU6unOzqn3vQdpSCKShPkDF/KkL1sT/4pEUCT
+	ERjJoQ==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hedabk58r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 08:57:53 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3552883bd19so1905735eec.1
+        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 01:57:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792573073; x=1793177873; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tSbUl6g1KEN/r5qj9L9Ad63cAJqZB7l4QVyz0bWrOQk=;
+        b=EcuKOeG8hTfLo3Z4JZEXv6HSNxmfcyY+1aRl1l7EMpI+/vnL245XantQyf0zIqMYZC
+         H0LlTJY38oh8FnMrwSS4NmjgQgd1hGD16YdUl83WhRGKCgjYKXw5PapbkmZdoBn9kqcw
+         EtXV7vKdX2+PebkyMvPBwzY5DRWpoMSnceFQBqSUUNXBojKIKOtlBDnXUp94b0O+C9Gz
+         1gLYWmwE+fi2VA5212nsczg1LIaa2O7aIoF8D9ssuiXPdlIqYvaGOdNCHhKqa27+NW23
+         0SEAkNVdkw6+bWOgi90m2tEBA5qMJDlRfjBYiUa6R03sWOJNq710s5cGuCrMQ4FFjCp3
+         XPIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792573073; x=1793177873;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tSbUl6g1KEN/r5qj9L9Ad63cAJqZB7l4QVyz0bWrOQk=;
+        b=zHYqHvXw95hOWKXDEUszxW7uWZ3w+9R8aqw/I2fLtlmO7CdrrxrBjpNbCQ2B5BC0zk
+         XOZtX5ABW55YSd7y4Br5416TT+F4ICY0EORZMWL0RUmWehwTuoXsD76HUygzvtA38zy3
+         LyaB6mZH51TPT66xhGmz1J8vE4XS/kFBfa4ciQQ8X8n+QjEXPaB8wBwI9htFDi1aW+ib
+         qefmmZ6VmTfFU5fZpZSQG+EJlQ2TFam8x4w92q4etNT0qcANXVvZbP8Zitm0w1RUyiQF
+         wT1eRmed5N+JJQnN1pINknXDlsdAAIIvIAZDlSkTdieOeCtqqAfgj/Rgf7YYXc4wXUDi
+         BmIw==
+X-Gm-Message-State: AFq9FYKRlZrALyHtqmdnfIX7+ChqLz5pBmfIfgHb/APuV8TdXFnKi5zk
+	d1qQGBzNYPo7X2JjCuJIv+89aMwzd7pP4W7obxKJAN26z8Bt7717x+/v+RhGCtfQlYoS4lejkhh
+	IoliiZC6wTGwCUnAI+HpwGdyyWP3/9suSQlm8YZMEfi1T/NeMWCvpC+9F0TUCcb7nJB9Z7Z2b
+X-Gm-Gg: AYBFou1U32m1pZvZHeQ2tF7V5ScjTaDddLSE3xOBgIhEj8F76J/qTnyqpGtyHLoSq+N
+	pDk5NOL4CRuuPxTvFYNOQPL6/qq1FBd6KtS+SLexdTTmTQqBJk05qjxED6bRUC1UOZrmIopPNnx
+	d0fMBaS3n5kQhI89grDPIjlli7JV0IICymc7bIlI9qSqDg1tMlK/w8eJLZC//V6KTbUR9WZQCsz
+	CQRxc1Le5WvOuy8GUxCXogVTA1h8CXr0C/AwITM2zU1hntE2gdMqQPjTpX9PhQ72k3bO3GAmZA1
+	RrjV8+rsttWLFgMNziu63n3Kpqra3ySonf6h/D6h9Aodnr40vVfLBwWA41m4gcwFLAci6muKuo8
+	PYLpMW2j5pA/bC2cDLjj9gokiprF7r8s=
+X-Received: by 2002:a05:693c:88c7:20b0:366:846a:e21d with SMTP id 5a478bee46e88-3674ef200d1mr2486973eec.33.1792573072656;
+        Wed, 21 Oct 2026 01:57:52 -0700 (PDT)
+X-Received: by 2002:a05:693c:88c7:20b0:366:846a:e21d with SMTP id 5a478bee46e88-3674ef200d1mr2486941eec.33.1792573071922;
+        Wed, 21 Oct 2026 01:57:51 -0700 (PDT)
+Received: from [10.217.223.82] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-367405ed295sm5976131eec.9.2026.10.21.01.57.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 01:57:51 -0700 (PDT)
+Message-ID: <147d2906-917e-4e77-8447-085a67b84fd8@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 14:27:48 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,258 +112,139 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 7/7] arm64: dts: qcom: lemans: Enable
+ lemans-sa8255p-ride board support
+To: sashiko-reviews@lists.linux.dev,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+References: <20261015023711.721837-1-shengchao.guo@oss.qualcomm.com>
+ <20261015023711.721837-8-shengchao.guo@oss.qualcomm.com>
+ <sashiko-outbox-172176@kernel.org>
+Content-Language: en-US
+From: Shazad Hussain <shazad.hussain@oss.qualcomm.com>
+In-Reply-To: <sashiko-outbox-172176@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAzNSBTYWx0ZWRfX3jP5QMoj/RFv
+ XJrEF7BnW7+nCK0NGN78Mpkatc7REfDz6BF+dNc67V2J5SF+8IdS5VraW8BhuV8KbyneMLciVWA
+ rlKrtVzJd6d6KtFM7S5VBYbs/xWZFsY=
+X-Proofpoint-ORIG-GUID: dHdHgNJh3DX61nxXyjUOyGeBAvLk3OGV
+X-Proofpoint-GUID: dHdHgNJh3DX61nxXyjUOyGeBAvLk3OGV
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAzNSBTYWx0ZWRfX+LUp514ET0I2
+ tlRiJO5esLNXltZ2AKtKNPGDvMHgw7Q3cCYbf6ELSWzbRieUS2gC4Ca3nHn/gJOJ3LQimVEyFbg
+ 3V9cdUe/eQpP/SMo7U4PWtXrsnmHijVfR9GtwMmkZzS12Y62CU9v/pMYu0RuIaBn+f2PHMjS7RE
+ 8B+xxdVYQ7KxLQhSUmfJHQV66q1w7lX0B1VAsdfU/BN3j2td4nv4DJzOg0rSmJzBuY4/0poqcKJ
+ FP5geFi+XrDnDHHshSXATm1hGg4pMkJfnouRoL6JA2qwe7lKFJsoegQw94kvFDaiiva4RIhjSZ1
+ 5DDW4qv+KyILQ+ODR6uESgCbq2LQgkDFvA+b4qJuTSiJxvNlnjq/Xc9biRRx/HeCqI9+eNSESyG
+ FOfENGopR/0Cv9BGwd0LMkMeGFCCS0njwh/KqUvJ41sejCXf7YPpzKa+uf8lzcCzImuFxrCWkvw
+ hhml0C8/bbN//+W8xJg==
+X-Authority-Analysis: v=2.4 cv=NLpAaE6g c=1 sm=1 tr=0 ts=6ad87e91 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=VwQbUJbxAAAA:8 a=COk6AnOGAAAA:8 a=cyixkC-7dOoUwMZJH6MA:9 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-21_02,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
+ impostorscore=0 phishscore=0 spamscore=0 adultscore=0 lowpriorityscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610210035
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] hwrng: starfive: unqueued need_reseed stalls non-blocking starfi=
-ve_trng_read()
-- [Medium] hwrng: starfive: unbalanced enable_irq() in starfive_trng_init()
---
+Hi,
 
-commit a998deb7a1356bd18fe1c15b59933eacef0ded76
-Author: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+On 10/15/2026 8:18 AM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [Medium] dts: qcom: missing status = "okay" for pcie0_ep and pcie1_ep
+> - [Medium] dts: qcom: incorrect polarity for PCIe EP wake-gpios
+> --
+> 
+> commit 3fa46fe28ef2e9d52dd0b40b57be7d7192538595
+> Author: Nikunj Kela <quic_nkela@quicinc.com>
+> 
+> arm64: dts: qcom: lemans: Enable lemans-sa8255p-ride board support
+> 
+> Add initial device tree support for the Lemans SA8255P Ride board. Enable
+> UFS storage, UART10 as the serial console, PCIe EP interfaces, thermal
+> zones for PMM8654AU sensors, and SCMI protocol nodes.
+> 
+>> diff --git a/arch/arm64/boot/dts/qcom/lemans-sa8255p-ride.dts b/arch/arm64/boot/dts/qcom/lemans-sa8255p-ride.dts
+>> new file mode 100644
+>> index 0000000000000..4273f47c3dffc
+>> --- /dev/null
+>> +++ b/arch/arm64/boot/dts/qcom/lemans-sa8255p-ride.dts
+> 
+> [ ... ]
+> 
+>> +&pcie0_ep {
+>> +	pinctrl-names = "default";
+>> +	pinctrl-0 = <&pcie0_ep_clkreq_default &pcie0_ep_perst_default
+>> +		    &pcie0_ep_wake_default>;
+>> +	reset-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
+> 
+> [Severity: Medium]
+> Since the commit message states this patch enables the PCIe EP interfaces,
+> should pcie0_ep include a status = "okay"; property?
 
-hwrng: starfive: rework clk/reset teardown order for JHB100
+This needs not to be enabled by default as PCIe0 RC is enabled and both 
+cannot be status = "okay" at the same time.
 
-This commit reworks clock and reset power-down ordering in the StarFive TRNG
-driver to support the JHB100 SoC alongside JH7110. It also updates runtime =
-PM
-handling, moves SEU-triggered reseeding to a workqueue, and serializes
-command execution with a mutex.
+> 
+> Without explicitly overriding the status, the node will likely remain
+> disabled as typically defined in the base device tree, preventing the kernel
+> from probing the controller.
+> 
+>> +	wake-gpios = <&tlmm 0 GPIO_ACTIVE_HIGH>;
+> 
+> [Severity: Medium]
+> Is the polarity for the wake-gpios correct here?
 
-> diff --git a/drivers/char/hw_random/jh7110-trng.c b/drivers/char/hw_rando=
-m/jh7110-trng.c
-> index aee12caab5780..8678b35ecd4a5 100644
-> --- a/drivers/char/hw_random/jh7110-trng.c
-> +++ b/drivers/char/hw_random/jh7110-trng.c
+Yes.
 
-[ ... ]
+> 
+> The PCIe WAKE# signal is architecturally active-low and open-drain. By
+> configuring it as GPIO_ACTIVE_HIGH, the physical pad will be driven low
+> when the driver intends to initialize or deassert it, and high when
+> asserting it.
+> 
+> Could this invert the wake signal and break PCIe endpoint power management
+> wakeups?
 
-> @@ -120,276 +157,496 @@ MODULE_PARM_DESC(autoage, "Auto-reseeding after s=
-pecified timer countdowns to 0:
->  				" 0 - disable timer\n"
->  				" other - reload value for internal timer");
-> =20
-> -static inline int starfive_trng_wait_idle(struct starfive_trng *trng)
-> +static bool starfive_trng_idle(struct starfive_trng *trng, bool wait)
->  {
-> -	u32 stat;
-> +	u32 stat, busy =3D STARFIVE_STAT_RAND_GENERATING | STARFIVE_STAT_RAND_S=
-EEDING;
-> =20
-> -	return readl_relaxed_poll_timeout(trng->base + STARFIVE_STAT, stat,
-> -					  !(stat & (STARFIVE_STAT_RAND_GENERATING |
-> -						    STARFIVE_STAT_RAND_SEEDING)),
-> -					  10, 100000);
-> +	if (!wait)
-> +		return !(readl_relaxed(trng->base + STARFIVE_STAT) & busy);
-> +
-> +	return !readl_relaxed_poll_timeout(trng->base + STARFIVE_STAT, stat,
-> +					   !(stat & busy),
-> +					   10, 100000);
->  }
-> =20
-> -static inline void starfive_trng_irq_mask_clear(struct starfive_trng *tr=
-ng)
-> +static void starfive_trng_irq_clear(struct starfive_trng *trng)
->  {
-> -	/* clear register: ISTAT */
-> -	u32 data =3D readl(trng->base + STARFIVE_ISTAT);
-> +	u32 istat =3D readl(trng->base + STARFIVE_ISTAT);
-> +
-> +	/* Do not lose an LFSR lockup that has not been serviced yet. */
-> +	if (istat & STARFIVE_ISTAT_LFSR_LOCKUP)
-> +		WRITE_ONCE(trng->need_reseed, true);
-> =20
-> -	writel(data, trng->base + STARFIVE_ISTAT);
-> +	writel(istat, trng->base + STARFIVE_ISTAT);
->  }
+No, this will not break the EP power management.
 
-[ ... ]
+> 
+>> +};
+>> +
+>> +&pcie1_ep {
+>> +	pinctrl-names = "default";
+>> +	pinctrl-0 = <&pcie1_ep_clkreq_default &pcie1_ep_perst_default
+>> +		    &pcie1_ep_wake_default>;
+>> +	reset-gpios = <&tlmm 4 GPIO_ACTIVE_LOW>;
+> 
+> [Severity: Medium]
+> Similarly, should pcie1_ep also include a status = "okay"; property to
+> ensure it is enabled?
 
-> +static int starfive_trng_init(struct hwrng *rng)
-> +{
-> +	struct starfive_trng *trng =3D to_trng(rng);
-> +	int ret;
-> +
-> +	ret =3D pm_runtime_resume_and_get(trng->dev);
-> +	if (ret < 0) {
-> +		dev_err(trng->dev, "Failed to wake device for init: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	mutex_lock(&trng->lock);
-> +
-> +	starfive_trng_irq_clear(trng);
-> +	starfive_trng_hw_setup(trng);
-> +
-> +	enable_irq(trng->irq);
-> +	writel(STARFIVE_IE_ALL, trng->base + STARFIVE_IE);
-> +
-> +	ret =3D starfive_trng_reseed(trng);
-> +	if (ret) {
-> +		writel(0, trng->base + STARFIVE_IE);
-> +		disable_irq(trng->irq);
-> +		starfive_trng_irq_clear(trng);
-> +	} else {
-> +		trng->initialized =3D true;
-> +	}
+This needs not to be enabled by default as PCIe0 RC is enabled and both 
+cannot be status = "okay" at the same time.
 
-[Severity: Medium]
-Can starfive_trng_init() in drivers/char/hw_random/jh7110-trng.c cause an
-unbalanced enable_irq(trng->irq) call when the RNG is deselected and quickly
-reselected via /sys/class/misc/hw_random/rng_current?
+> 
+>> +	wake-gpios = <&tlmm 5 GPIO_ACTIVE_HIGH>;
+> 
+> [Severity: Medium]
+> Does this wake-gpios configuration also suffer from the same active-low
+> signal inversion issue as pcie0_ep?
 
-In drivers/char/hw_random/core.c, deselecting the current RNG in
-drop_current_rng() drops rng->ref to 0 and schedules rng->cleanup_work
-asynchronously via cleanup_rng() -> schedule_work(&rng->cleanup_work).
+No.
 
-If the RNG is selected again via rng_current_store() -> set_current_rng() ->
-hwrng_init() before cleanup_rng_work() acquires rng_mutex, hwrng_init() sees
-rng->ref =3D=3D 0, invokes starfive_trng_init(), and sets rng->ref back to =
-1.
-When cleanup_rng_work() subsequently runs, it skips starfive_trng_cleanup():
+> 
+>> +};
+> 
 
-drivers/char/hw_random/core.c:cleanup_rng_work() {
-	...
-	/* Skip if rng has been reinitialized. */
-	if (kref_read(&rng->ref)) {
-		mutex_unlock(&rng_mutex);
-		return;
-	}
+-Shazad
 
-	if (rng->cleanup)
-		rng->cleanup(rng);
-	...
-}
-
-In that case, starfive_trng_init() runs while trng->initialized is still tr=
-ue
-and trng->irq is already enabled, so calling enable_irq(trng->irq)
-unconditionally triggers an unbalanced IRQ enable warning in __enable_irq().
-
-Furthermore, if starfive_trng_reseed() fails during that re-initialization,
-the error path disables trng->irq without clearing trng->initialized, and
-when cleanup_rng_work() later runs for the failed init,
-starfive_trng_cleanup() will call disable_irq(trng->irq) a second time and
-leave TRNG interrupts permanently disabled.
-
-Should starfive_trng_init() check trng->initialized before enabling trng->i=
-rq
-(and clear trng->initialized on the error path)?
-
-[ ... ]
-
->  static int starfive_trng_read(struct hwrng *rng, void *buf, size_t max, =
-bool wait)
->  {
->  	struct starfive_trng *trng =3D to_trng(rng);
-> -	int ret;
-> -
-> -	pm_runtime_get_sync(trng->dev);
-> +	unsigned long timeout;
-> +	int ret, retry =3D 1;
-> =20
-> -	if (trng->mode =3D=3D PRNG_256BIT)
-> -		max =3D min_t(size_t, max, (STARFIVE_RAND_LEN * 8));
-> -	else
-> -		max =3D min_t(size_t, max, (STARFIVE_RAND_LEN * 4));
-> +	ret =3D pm_runtime_resume_and_get(trng->dev);
-> +	if (ret < 0) {
-> +		dev_warn_ratelimited(trng->dev, "Failed to wake device for read: %d\n"=
-, ret);
-> +		return ret;
-> +	}
-> =20
->  	if (wait) {
-> -		ret =3D starfive_trng_wait_idle(trng);
-> -		if (ret) {
-> -			ret =3D -ETIMEDOUT;
-> +		mutex_lock(&trng->lock);
-> +		timeout =3D msecs_to_jiffies(STARFIVE_RANDGEN_TIMEOUT_MS);
-> +	} else {
-> +		/* allow up to 1 jiffy for wait =3D=3D 0 */
-> +		if (!mutex_trylock(&trng->lock)) {
-> +			ret =3D 0;
->  			goto out_put;
->  		}
-> +		timeout =3D STARFIVE_RANDGEN_NOWAIT_TIMEOUT;
->  	}
-> =20
-> -	ret =3D starfive_trng_cmd(trng, STARFIVE_CTRL_GENE_RANDNUM, wait);
-> -	if (ret)
-> -		goto out_put;
-> +	for (;;) {
-> +		/*
-> +		 * A pending LFSR lockup taints the next sample. Blocking
-> +		 * callers reseed here; non-blocking callers return no data,
-> +		 * the reseed work is already queued.
-> +		 */
-> +		if (READ_ONCE(trng->need_reseed)) {
-> +			if (!wait) {
-> +				ret =3D 0;
-> +				goto out_unlock;
-> +			}
-> +			ret =3D starfive_trng_reseed(trng);
-> +			if (ret)
-> +				goto out_unlock;
-> +		}
-
-[Severity: Medium]
-Could non-blocking calls to starfive_trng_read() (wait =3D=3D false) in
-drivers/char/hw_random/jh7110-trng.c stall indefinitely if trng->need_reseed
-is set without trng->work being queued?
-
-In starfive_trng_irq_clear(), if STARFIVE_ISTAT_LFSR_LOCKUP is set in
-STARFIVE_ISTAT, trng->need_reseed is set to true and the hardware interrupt
-status bit is cleared without queuing trng->work:
-
-drivers/char/hw_random/jh7110-trng.c:starfive_trng_irq_clear() {
-	u32 istat =3D readl(trng->base + STARFIVE_ISTAT);
-
-	/* Do not lose an LFSR lockup that has not been serviced yet. */
-	if (istat & STARFIVE_ISTAT_LFSR_LOCKUP)
-		WRITE_ONCE(trng->need_reseed, true);
-
-	writel(istat, trng->base + STARFIVE_ISTAT);
-}
-
-During runtime suspend and resume, starfive_trng_suspend() masks STARFIVE_IE
-before calling starfive_trng_irq_clear(), and starfive_trng_resume() calls
-starfive_trng_irq_clear() before re-enabling STARFIVE_IE_ALL:
-
-drivers/char/hw_random/jh7110-trng.c:starfive_trng_suspend() {
-	...
-	writel(0, trng->base + STARFIVE_IE);
-	starfive_trng_irq_clear(trng);
-	...
-}
-
-drivers/char/hw_random/jh7110-trng.c:starfive_trng_resume() {
-	...
-	if (trng->initialized) {
-		starfive_trng_irq_clear(trng);
-		writel(STARFIVE_IE_ALL, trng->base + STARFIVE_IE);
-	}
-	...
-}
-
-If STARFIVE_ISTAT_LFSR_LOCKUP is observed and cleared in either path,
-starfive_trng_irq() will not fire for that event and trng->work is never
-queued. Similarly, if a previous reseed attempt in starfive_trng_reseed_wor=
-k()
-or starfive_trng_read() failed, trng->need_reseed remains true after
-trng->work is no longer pending.
-
-Because the !wait path in starfive_trng_read() assumes trng->work is already
-queued and returns 0 immediately, wouldn't subsequent non-blocking reads ke=
-ep
-returning 0 until a blocking read occurs? Should the !wait path (or
-starfive_trng_irq_clear() / starfive_trng_resume()) queue trng->work when
-trng->need_reseed is true?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021083712.3032=
--1-lianfeng.ouyang@starfivetech.com?part=3D2
