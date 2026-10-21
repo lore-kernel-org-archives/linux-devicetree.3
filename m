@@ -1,47 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792565115;
-	b=3MRsqRn2g+aByP6NNhiq7WsRqlr0QW91jW27QQ4Q29AL5zF/2FoBR67ymK0/HAI8fIuw
-	 8gs0cm5OelqmzY1VDK+CjjJ7p4UcGbq3C/IedHo3CWKpoHPvgHtYubr6n2c+5536ae2jg
-	 KNYriZcGtIPDd9NBWNm7c2pUFjDX6yeiJ0l/zsK3/p91OO6+dA8B8l2hQq0KfGwaV2NU4
-	 Hvj83MLXDFhcFs4vyZxhb5tb9A8hhKoiFaxJ9Kf5jKEsn+7deHKoB3ScqVCxXvp++mwu/
-	 gL2mt3IRd/7kyVRDivUx+T3nD3RWXanUMg32Q38LtwNPe/WkQgbM9yZMJAnc3XWOZYg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792565115;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=/nBCr6h7YTgWAZoSn0j8NWNpVm8yzhO/7LgcWw3A+rA=;
-	b=HtruvfB+2Bzr/SX3thIt5jIIANYAy85JSIkFVI1lATj/8FCBSwbd4Kcu7VJXk2IZ8FB1
-	 W6otogZIXiI8YIBM86yse721Mo+7eRoSAiJw/n70B29+HpB7r1YTsUiP22fNGkc+y/E9j
-	 A/HkFtAj4UuPBTE3omHBdc5qmgXm62NBRcAVwcta3Jbelre3sLGRmzarGsgl8z0hG2nAz
-	 U6ITQ9Ecu0uZ6kNzC1328REX/UJWO7+fJJJIJQSXFRURfL1oYdX1p23gSSqM3hG7lN+vj
-	 9n2gLi4BY3hnvpszW6j4/i6/5RppEvO+LMZHc0dZBRFUBbDm3kRGGPGEDX+yrTtSQdQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=na0xl22p;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=74.125.82.177
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792565202;
+	b=P5+9v3lS9bX426zj1ddhOUZeyl60RyhQXRKE2LusVsAFQmhPZppltQUfUEqJba/gKl3k
+	 gnfE4urBn/uU/3NiSqj/3FHNt6AzeRQFT4/OGzgto+PFSbQly8Qb73rFRMynoEW09c1nX
+	 XgzZNb1KUgCeEnteWmGo13xhuraWcSVT97gKD5scxcKbNy+Dcv9a5bfn6GHLa/1XqxcNt
+	 g5edMUP3jqAlFN0L8nYE4h4fV4UWKmD7hCjKD6vmfGMMmtlqdSP4EyGPcL41PR5SwDhq0
+	 gOTH/YFlNz03P+Z/oUqscVEuDOh7g90+fIR5Eb8Ok2BYOxQGnKeZ02M3Y54R4SyX4SA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792565202;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=MFx6RfKZoDg30I8aWbaaH8/QBhrTkiLCB5URy2j6R9Y=;
+	b=ZXL3i1Q3rkumxRzpyX2iLuYXGhW7ZaEUqRtqo7IpqUz3cRF7s1DSEoa7pOPP4W3I/x9X
+	 VD2dw/YquLK81B/jpIFyARCDOJmroQkxYhb+2ckO5FKaIxOOgr2BH8W8gXX7AEAnLjnmJ
+	 zvHs2j50hCho4QKe+9BoeaiPGU5yhVWJJHc6Ct5xUE3XZi86RQ0EzIjqL7kJzpqB2q59I
+	 J1E1XafiHmFw5zD/y9B1D9WFhC9Q/0XJnepr5qwWzZtUPHLfFxWpgdQ1yzZkeoPC2jhhv
+	 lO5QjebYAVx67mL7T+hrMbcIXlUID88EBbryxQM5tS0j+NER2/CVTnWJMDmQxd/iFfg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qhmxhi0T;
+	arc=fail smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C75BD606A31E;
-	Wed, 21 Oct 2026 06:45:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE198606A31A
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 06:46:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE198606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=na0xl22p
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 260061F000CB;
-	Wed, 21 Oct 2026 06:45:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792565114;
-	bh=/nBCr6h7YTgWAZoSn0j8NWNpVm8yzhO/7LgcWw3A+rA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=na0xl22pH13yPGxHmCd4cil7jTtNfouP+O6cSw3sPyuw4rhACDvcDIyov98+ugOUm
-	 9jL0wNivNztpF4ZvJHegRSJf2Ah0nCYNEnJubi58iSfryvLOvQ8AqiTOD+aTq/jAzM
-	 4GYeS1hcwApXvkiWHuh6P00/PI5mD3/eMBqKge4zZUHJ3gTTOSalJQ8Mum+EOVmXmn
-	 7YzYLQ9bxYJBumpZ8MHwmFgQVDru6HyFAvE0/oEjtQ4cnz7IPxLgHFszTPlaLsdHsn
-	 TD+c7D59NRG2vlG4lkRViKfJ6ZugiWtJzXDqNgwwpVhjQuarAz8YAHPLZ8d6cpjwX+
-	 zaAzezmxSV39w==
-Message-ID: <2426ffdd-9438-4166-a67b-96620650a59b@kernel.org>
-Date: Wed, 21 Oct 2026 08:45:06 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qhmxhi0T
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36661f953e4so777335eec.1
+        for <devicetree@vger.kernel.org>; Tue, 20 Oct 2026 23:46:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792565201; cv=none;
+        d=google.com; s=arc-20260327;
+        b=X0taIieBs9er1ouuGSpYrpsXn31I1zAT+ngnb0uHAF+kH5AQeQln7iF9UJu87CGa5a
+         s+WUCVgm+oLYD7Z7+hJ9ytiyzO5JAz8l0zy3ofBSYGA3Vxgy3W5DS0U797CIs+SGYOAK
+         RLj3y0NdfA1ahRXtSBzkUjS3gzVtffCdLwOYQ1nRWv3GgtZlP0rNI+GKZ6hSwwu0p4Bm
+         IYeJx1UiGvMOUclUqB43SAPzvx9HTe1qZRElxTxy4EFMfIMw25FwTrjym+4o1HttAoZa
+         Z8JUt+UKV3pjXPzIEzKZYnnMQBpwBLzlNYfR9rnbH1N8rJhKilXTFLY2/EQoy6pv7p/Z
+         j0oQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=MFx6RfKZoDg30I8aWbaaH8/QBhrTkiLCB5URy2j6R9Y=;
+        fh=HiAPisdRCe3kBGOh0JO2mZSSjXHfsnpeG3bcfZ7Yjfo=;
+        b=KqNzAsfj5LD7EGYZ4M+07cIXh8IxLyCJiVMoR2spg/yJT5ocgO3mhmFM/4SrSsrKpP
+         IU7bIhpMJDM9SVyQ0hD9p+1ki5NQFhETYaaPLmFRN5lTRcW8GAqlNK8iv+QLRQIk/3nj
+         OEgaIdXe9s2tJgONF0uq/Snmyehp5YvSytm8OjrqsgYq1X0vzpL8VIYc0e7LraCVJmrP
+         CcltseHf8g9lFDDX86LxTzBPlq/4c2wXeWtPPo+gmVpWeSeCLLxNRd1KTREK9GlFnp4u
+         HF+YYTrsTYfGQuPjbAq7lSucC3Le+w0XWcI66UWjCwNmBjO7+mjGimtiSFkhse0vrZEj
+         eeAQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792565201; x=1793170001; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MFx6RfKZoDg30I8aWbaaH8/QBhrTkiLCB5URy2j6R9Y=;
+        b=qhmxhi0TbMwtXBvTVlFY4f2LPpHPl8poznD9dAUHw8+/Z9wZhQBqqYwfND7kTtB/dj
+         BDT7fy1OHPOT3SsXcIJoCO2P5QWvHhSGsWpWrDlHwCxU3wdGdBZJo+CJDKK8hjNN6KtJ
+         ZTBEpRPZ/CzppBKznbLND/WVtTUpHxpIjv8l4Dszl6GShVbqspGQMSfdEn1YLZCusCt9
+         8XZUeUrLgiEXnrc9s2V2o2rhr6TPF2UsE6frYfs2vuDhFHmb1RIg6wUfaQGU2siObxeN
+         QZxhnIASpBqZUpMRUn6UfJAhdRPi9Cf8ml1LkjDPLUFZ1OJH0H7A3t4eraOGGpReFZps
+         J94w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792565201; x=1793170001;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MFx6RfKZoDg30I8aWbaaH8/QBhrTkiLCB5URy2j6R9Y=;
+        b=k9FepLDHmdPZi/S5cKGxSgudI96eTP6enipjwtVrHLM7k3a/4jrvtQWLbdYRBBve29
+         pV4Do5P7xhUJBA/cyKmVSmPShnpPjSY6nkRIJNf7Z02tdQHz3UuGaG/7Uln1mpqkZJBh
+         dl3INwG6isoIuqEsNJN/vLG/hMmm+HX1u1I887zji8pCVo4sFTxK6v7X2MEG6P2pEFUv
+         dhlTo2kvE1s0/Qy8omaAnE7PsbwKDjtGKknnFDWqHP5JDNmcKlHdkXw6TSPLDfiSpPEX
+         XWywr15Nt8A9vBKka49wIkhurkOUMG6Njxrwz1QZGW7/VUoNbLct3uisXYzZHyXgNb87
+         Ll1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxt3tCO7qqGn/XolsKEjnL/tkvExkU0iyoDTFgStqNQh44TibZJ7nIahfFPsQGI2PBZO7meJZXBKr9H@vger.kernel.org
+X-Gm-Message-State: AFq9FYJtnBX0brIlnME7hLKdlewYac6B8ayoz6BxLHA40zEGZiypEjNF
+	sJRsY5lAmGei26eELkni3zfwaKQ0feoACP816vJEwUMwI+aOhEkzCEQWWwXfgF3NCcmrRlK59t5
+	UI7upJhaD7TeMMuGbk1P3Mq9Y5Hq/9Fc=
+X-Gm-Gg: AYBFou3JnfNIqT0a2Ih+PnZ0vkoqDwiSlaAMkKBxfZmi484aMGauRMSCcQSXt5ny2y8
+	96FhMyeqLsVte4MI+aGAjyQSIavtY7OEQBSPRSEuodKaCjwabFCrzSPk9hMNTLP5R6lL3F8MYxI
+	xR3mH/hP/z185t121KDmThQpuI90ewc3RVdiyuLDkhmnX6fA6KWNPoh+Qh5RA3Asn5NLh64+ktD
+	xhIWZgNFg3704gSTM0URCVxkSEZWcPiLf4A3wW9Vwnsm+ouE5YcubHPZrdzj/gqaWGEh8GvOpez
+	O4+IKAbPWPJ9i19ashnhjBVG/lCr7CoBzNJWBBOYAVS4XbfFaQT723Uy/95hpDuoe3NADY+YLA+
+	BzPuWKO/b7E5L0d10+r5AThLV2dXWcuJDyOaPqQ2Oc9JjNvSE9bOYuIXJXlGa/4IrfaE0vA==
+X-Received: by 2002:a05:693c:88c7:20b0:366:703c:5f0e with SMTP id
+ 5a478bee46e88-3674ef1f33cmr2092100eec.35.1792565200654; Tue, 20 Oct 2026
+ 23:46:40 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,95 +104,94 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND v10 1/9] dt-bindings: mfd: mt6397: Add MT6392 PMIC
-To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Cc: linux-mediatek@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Sen Chu <sen.chu@mediatek.com>,
- Sean Wang <sean.wang@mediatek.com>, Macpaul Lin <macpaul.lin@mediatek.com>,
- Lee Jones <lee@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Linus Walleij <linusw@kernel.org>, Val Packett <val@packett.cool>,
- Fabien Parent <parent.f@gmail.com>, Akari Tsuyukusa
- <akkun11.open@gmail.com>, Chen Zhong <chen.zhong@mediatek.com>,
- linux-input@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, mfd@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org
-References: <20261020173556.632798-1-l.scorcia@gmail.com>
- <20261020173556.632798-2-l.scorcia@gmail.com>
- <43b58ad7-5934-4895-b48d-5b5a7b92e253@kernel.org>
- <CAORyz2JaJ40+F1oyrvY_0WdqH=fritbPuuQaZ98sXagVayZPLA@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CAORyz2JaJ40+F1oyrvY_0WdqH=fritbPuuQaZ98sXagVayZPLA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261019100406.103687-1-clamor95@gmail.com> <20261019100406.103687-4-clamor95@gmail.com>
+ <ate5K6ZdrSoBUI08@google.com>
+In-Reply-To: <ate5K6ZdrSoBUI08@google.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Wed, 21 Oct 2026 09:46:29 +0300
+X-Gm-Features: AclHuK9vSBGobmYgXVnmsJbAb2zJc_kKp_DYHLaIwx6A0bp9NGDYceSKiyk9FqE
+Message-ID: <CAPVz0n13NFbY1ChZRkc8_2CQd8HfjahA-gcRWzxsv7KbAxf5Ag@mail.gmail.com>
+Subject: Re: [PATCH v12 3/7] input: serio: Add driver for ASUS Transformer
+ dock keyboard and touchpad
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+	Sebastian Reichel <sre@kernel.org>, Ion Agorria <ion@agorria.com>, 
+	=?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, 
+	Florian Krischer <florian.krischer@fkr.dev>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-input@vger.kernel.org, 
+	mfd@lists.linux.dev, linux-leds@vger.kernel.org, linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 21/10/2026 08:42, Luca Leonardo Scorcia wrote:
->> And here you write clear note about dependency, once you fixed
->> bisectability.
-> 
-> Just to confirm, would the same text I put in the cover email be ok:
-> 
-> "Please note that patch 0006 and 0008 depend on patch 0005 as they need the
-> registers.h file, but belong to different driver areas. Patch 0009
-> also depends on
-> patch 0003 because of mt6392-regulator.h."
-> 
-> or did I misunderstand which dependency you are referring to?
+=D0=B2=D1=82, 20 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 22:0=
+4 Dmitry Torokhov <dmitry.torokhov@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Mon, Oct 19, 2026 at 01:04:02PM +0300, Svyatoslav Ryhel wrote:
+> > From: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
+> >
+> > Add input driver for ASUS Transformer dock keyboard and touchpad.
+> >
+> > Some keys in ASUS Dock report keycodes that don't make sense according =
+to
+> > their position, this patch modifies the incoming data that is sent to
+> > serio to send proper scancodes.
+> >
+> > Co-developed-by: Ion Agorria <ion@agorria.com>
+> > Signed-off-by: Ion Agorria <ion@agorria.com>
+> > Signed-off-by: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+>
+> Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+>
+> > +static int asus_ec_kbc_probe(struct platform_device *pdev)
+> > +{
+> > +     struct asusec_core *ec =3D dev_get_drvdata(pdev->dev.parent);
+> > +     struct asus_ec_kbc_data *priv;
+> > +     int error;
+> > +
+> > +     priv =3D devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
+> > +     if (!priv)
+> > +             return -ENOMEM;
+> > +
+> > +     platform_set_drvdata(pdev, priv);
+> > +
+> > +     priv->ec =3D ec;
+> > +     priv->parent =3D to_i2c_client(pdev->dev.parent);
+> > +
+> > +     error =3D asus_ec_register_serio(pdev, 0, "Keyboard", 0);
+> > +     if (error)
+> > +             return error;
+> > +
+> > +     error =3D asus_ec_register_serio(pdev, 1, "Touchpad", I8042_CMD_A=
+UX_SEND);
+> > +     if (error)
+> > +             return error;
+> > +
+> > +     priv->nb.notifier_call =3D asus_ec_kbc_notify;
+> > +
+> > +     error =3D blocking_notifier_chain_register(&ec->notify_list, &pri=
+v->nb);
+> > +     if (error)
+> > +             return dev_err_probe(&pdev->dev, error,
+> > +                                  "failed to register blocking notifie=
+r chain");
+>
+> I think sashiko is right that we need to register the notifier first,
+> and in it check if serio ports are ready/registered or not. For that we
+> probably need a lock and set pointers or flags in serio's start()/stop()
+> or open()/close() methods.
+>
+> This can be done as a followup I think.
+>
 
-The dependency of this patch. This one uses compatibles defined in other
-patch.
+FYI, Sashiko likes to hallucinate. Initially notifier was registered
+after ports, then sashiko suggested to move it before. Then in v10 it
+fussed again and suggested to move after. Then v11 passed without
+regressions and now in v12 it fusses again that notifier should be
+before.
 
-Just apply it yourself and run full testing - you will see notice about
-undocumented compatibles.
-
-Best regards,
-Krzysztof
+> Thanks.
+>
+> --
+> Dmitry
