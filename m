@@ -1,58 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.224
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792573540;
-	b=DPuTFl5/7JdYnTkNOVQPMswzZp8zcxI8a4ACZKDBtiGnaznS+Inq9DGvU94543Ax2PH0
-	 SnQbq0uUNc9QQWO0GWWjHohd2k9A6tetJMLIlWxfPQdTAr3qPsL6OUq6fv9+X6o6l23Z9
-	 EgwOMzk2OggIxLUqK6KNYqedDo+o11lelKTIudEPIfS/4fpmOcHI1TbcXMIH8/Kt4/2xF
-	 u49OIqO9p3eCuCvA4Xis3fTQCnxRndpij7GcRUIOdN5QRT8y49xdXHJtKQQIBlouzcOQU
-	 gGyCA1mZBat7vCl8XewirITiJYoBCFGaouWXNWnaXboOqrMtGsPkOcxlpjt1idIJX/g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792573540;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=qly2ZXVqJU8mRHFencdxpDDot1stjgFFpJM+J90ArtI=;
-	b=3XMjQA+gCJdNOLlfTymWN5nJrV/w7JGy87io8Jh4CEVSthqP7vvjqhdbc8nxbCu5EQBO
-	 pWxIrtmbMK1o2v/PpYk/tULILRH4GoEjI5CdApqy4tkZxCkix3KLEVJ4glnhR0RwYu5Wp
-	 Vc6fzcdGH9J5QsYtnwTzhVzHmkHb+lWjSB+g3N3qx4H/dOZwuRHbzgoUqrfebfB8jDTgw
-	 BlviWajxfr9yvSjQrsB5VtuxNJRn7ITyxpMFu7vWKeW0eXhDwzB3lD0Ru06TzJfqufHyW
-	 eC0BShkOLwDM0MQ3sJkSh0mJyuwkrnshmFTKjWRc433iOcZCpdzgy8rUXMiFM2CrISA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=VNIuT+eZ;
-	arc=none smtp.remote-ip=113.46.200.224
-Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792573565;
+	b=bhFtjCM80CPXmA42uS8CyhkDfhJClfeFLYA86X6Ni+WC4LlfO7c2edRVKa38KS3cL6T8
+	 LMFkPBa+qhKFcBumvjCs8PZgX/ALxwZ60CoudYgk9pMgobvYzSmSzmr37GJsszfShcnrR
+	 G8U2/FFKtcbx+WY/AUmP8aTTJCgNgkTIdMOnHu2bUTdDaXZRTJxiQpLTMyGfLUX0XZmvy
+	 US3jJJCLNYr8xJiyjV8CC9Eu90S+5i7JGlCvJ04+76V+aypxxdgG5hQ+IFshL2Jx7RFnv
+	 gqwIPMlNnGwb9DPlEpycB/Hl1yIRE8dZoalpTFbq+B7d0S4Y31SfFQlzabOGv32v3WQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792573565;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=n1ER3lUc97YATqDpNc22hGvkHDFIWxr4xKdKGaCIwaU=;
+	b=Mkd/RKfOmYPkqG0+t3RLhDwBdJOCmtmXi3Y/3eTqBBq0TMqqr8939uRByERwzLIyayQ6
+	 yCuuNZsPO9r1ExXr6fRJgeIRobhUGoOC0lzIxSUaKc77QvPLff/r48Qp0sy0oOhJsvO34
+	 RpbsOQyWE/fu8FKmcn+RfDbIgVKXg2uZKHSDxvAVyvIKeYr/XB1QTwcma8MV1OWLlQoal
+	 yer/uI2CUiKYvQSlni6v9auoATGxt0ZUuZzdISB+PGMav7fhbCgyuGu7kTlQaNa6lg6ky
+	 nqk6l8gmvGq4JU6DAZ3OM49ArNu8KnRx2e6XFr1ktyOniNy/gf1T+jnDiwiqcA3/6pA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Gog5hrfx;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BeZiMDHF;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19B88606A31F;
-	Wed, 21 Oct 2026 09:05:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19B88606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF486606A328
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 09:06:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF486606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=VNIuT+eZ
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=qly2ZXVqJU8mRHFencdxpDDot1stjgFFpJM+J90ArtI=;
-	b=VNIuT+eZ75BYq5bEgDxPMwxDJad0LsRd2qh8O5xIl6lSkVcMxoMw0iYMTpsMxZj6Jahuezyk/
-	yCYxoyiTPQ7Vzfr1pjBJxOpwsIQj3XOgI1W9mckRnRaKJwL0kZrJRME/xKwgmPeH9Mbs9PUKvqW
-	U5k8YRQq520iy9kJHkZbWqo=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4j8jks5JQPz1cySH;
-	Wed, 21 Oct 2026 16:54:13 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 682B34058E;
-	Wed, 21 Oct 2026 17:05:33 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 21 Oct
- 2026 17:05:32 +0800
-Message-ID: <6d4ba1c2-b672-465b-9683-0aa1ad8dee73@huawei.com>
-Date: Wed, 21 Oct 2026 17:05:31 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Gog5hrfx;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BeZiMDHF
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69L5jMvh3573312
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 09:06:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=n1ER3lUc97YATqDpNc22hGvk
+	HDFIWxr4xKdKGaCIwaU=; b=Gog5hrfx9VOZjtUe4doedrE8pLSZtW798ZiQCrjn
+	3u7L7DCuGYDQs2g/qi99SRpJJKIzm+g1xO661a+wLX/hmsGgYM+yDyk7NpUGt/Hp
+	BYJkX7UY0tgeltlzRXdH4wGaGCIF1NiZA61BACU46oIcTfTDvEqtfTIyGor+rXHL
+	yQE3cCVC/caHv8LzATHrnc08yb5piMgjpfBANf7C/tL/f/+datDAqYgrDfu5QHPu
+	SAzybmYqomti9iZg7npu50lZBZfGwZJcwU4vZDuctmpRYim81VoeESnoF+EjZcXR
+	dyz3T0rt568h2qsX8n4AWtHbBH5Qpfc/5KaD9rXjb/1d1A==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hed9hu4yq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 09:06:03 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e869e00005so7040825ad.2
+        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 02:06:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792573562; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QgfIclqvuTKzGygeY6HvU2SKymbdx9tZVzwXy9IT6MOoSickwUMDYVsltPDysZcecD
+         dCqjqS6Ik1Q6lUe/26K0e0XLoMPrNdcJvfBzU2X3Rk1W/PSw9Hy9IqLKWcNUZuh032Kq
+         APL2kjnOl9p/ZoBgxgXdF9YPwelT36DNMF4tUOWW4y8RiVo+/K6HYldcVOWm0DwjLIoS
+         acRNX8eGwCQdkZdnuxw+T3Mv2uYQXY4TNIyTvHfzSaCwxFJrTitF+39RdXxZnb8nXw4Q
+         wyaitU2ATlqXIwbRBFA1ougWA26Mpi1zKGyZ69NNf+prabc9j33QhgSdnppRa5MOq880
+         omyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=n1ER3lUc97YATqDpNc22hGvkHDFIWxr4xKdKGaCIwaU=;
+        fh=dcqL0NX8nVmsChD+3w47e8Ox5k+ckCNnYAsXPXcM+uQ=;
+        b=EVOA0x0jbMuA+R+84ZfjSgWk3a8F2C7fevNq4qWT+4A6z/f8KGy0dbHn2Fy94/A0jw
+         49HX/nG3qMMRytTTBwr2xgdlrJSuD9ykxborZrM9nA0TKek16gB29ix/+UdWNTZ7EKjx
+         HPHaIBWvGS+D2hpMCpdFscTzFEbJ1MSgvBn6bp3JyQOyvx3AoasNJklEOXMB9BwCeQdU
+         817RHxhfba3lO0RRjSqDsyUBKR/7991VIVNkiXIOzJULA7obUJb+orqY4UkJRhvIidwI
+         ASJleff+hXLBQ1Me+ppjy7K9X3gnrv0vY53MVnvO5FKZy9E0o6KTHbYPpYDLADsItInr
+         XJMw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792573562; x=1793178362; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=n1ER3lUc97YATqDpNc22hGvkHDFIWxr4xKdKGaCIwaU=;
+        b=BeZiMDHFcDmPivZ7zOPPIJLpxL5O1qdrR0Ai/ekMM0p8nWbIlBo+KTbqPjfA3a5PDY
+         EBIbjofxsPYqIPASyy3wmLKS+bBIU5UeU8y8T98g6y9r1aGyiQmNNZsDbE1DDvCpOo5R
+         YvbN/L6+fssUgClJd+81yMWQZTlLApQbVuOlCnClvPNXFeEYpamTY778zkWmFboPjOun
+         blDV+rY3sonnfm/RtOUGybZG9m7dtHvhaFXaz0doLas9OCs/pQ5spaL0JCjH+7+VuL/1
+         j9eRtaNnTUeRIqkWyvXycBWbAvIfgyyw9Qf158VwRGBZTOMALsG6s5B78qs+PYOuQnCs
+         UoYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792573562; x=1793178362;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=n1ER3lUc97YATqDpNc22hGvkHDFIWxr4xKdKGaCIwaU=;
+        b=d3TeBsBVjp4yMWcjl5nz3TMEHqcGD04cZAW0oH4ow+Pj56gfQlahpSNwHVx+w3+w94
+         1GMiXJjIc5vGOfpsxJzymDIrpq1aSom0hiG3zSft5/8XsS6RBSLFrC5RQao4egQgNRjJ
+         +8Mhx5aPxWTc5fA5CH9znj2Vi1ZrwNKhXf2iiWnMI4zwa5Q3Pzevq9VD1w68r18ujLgX
+         c6q2FBLfQqPuwEHD1q2rSmLwaF25+EuqfzXotNoMjkt78XaDqKpxCEFwj/ziMIwqjqTs
+         uG6CFBMY4vjtwtRUYlT47qCWEsmshNKadQ2oPBctslFyJM4Ls5OPOwYpBxMoGENz5lWv
+         ZcEw==
+X-Forwarded-Encrypted: i=1; AKwUvBwak2YTt4iBJwPcc9XU6nFELHcuLNb/k3SDNuztuS+R71Ns+y6NPyo/PI3YGDePFvOfQB9K5Cf1VwJa@vger.kernel.org
+X-Gm-Message-State: AFq9FYIk5Kb8IxzjIAIKxxJkihWWH0z3Z1na6f1HwaVAGFdR7juAGpwm
+	rkWSDyB8GVcpKkGMSrpoca/Yb9XTFae5uR6sbaeKi++Rs/cH3k9Yk0kq+h4E7jQ4jukww+iJLxk
+	78G12NQGpfLh05GzpmXzH1YBmca2nKxAx4JPha0fGT/Jo5jrE2+/nUry3MRZkrxedX//WQJ5ggn
+	RszT4K7RU0Tp7TXk9OAE19SQE8/YS6JK6wQWVBqSg=
+X-Gm-Gg: AYBFou0uJo1U+gWtVXrR99sUp7cVWb8LhTQyCVftLA/xjmTAHSjLbl0GCCokFXEy+hS
+	OiznhY9SMf3CTzPxpUqVzeGDl0yOY4NFbdy51WxtDoD2VdprkK2EuMo4i0En3sag2L+Yj44Eu0N
+	vHDAm+K+NgtnMhACqY/dRpfS/zEuCZASkQowej6uu1A2Q6Y5mF1xpONt45kQ==
+X-Received: by 2002:a17:902:c948:b0:2e2:dd98:59e8 with SMTP id d9443c01a7336-2ea4396c9c8mr11805485ad.3.1792573562349;
+        Wed, 21 Oct 2026 02:06:02 -0700 (PDT)
+X-Received: by 2002:a17:902:c948:b0:2e2:dd98:59e8 with SMTP id
+ d9443c01a7336-2ea4396c9c8mr11804805ad.3.1792573560244; Wed, 21 Oct 2026
+ 02:06:00 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,129 +125,73 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 1/8] riscv: build crash_mem ranges from memblock
- instead of resource tree
-To: Wandun Chen <chenwandun1@gmail.com>, <robh@kernel.org>,
-	<baoquan.he@linux.dev>, <rppt@kernel.org>, <m.szyprowski@samsung.com>
-CC: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
-	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <pjw@kernel.org>,
-	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
-	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
-	<dave.hansen@linux.intel.com>, <x86@kernel.org>, <hpa@zytor.com>,
-	<saravanak@kernel.org>, <akpm@linux-foundation.org>,
-	<pasha.tatashin@soleen.com>, <pratyush@kernel.org>, <ruirui.yang@linux.dev>,
-	<robin.murphy@arm.com>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <loongarch@lists.linux.dev>,
-	<linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<kexec@lists.infradead.org>, <linux-mm@kvack.org>, <iommu@lists.linux.dev>
-References: <20261021083011.2170525-1-chenwandun1@gmail.com>
- <20261021083011.2170525-2-chenwandun1@gmail.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20261021083011.2170525-2-chenwandun1@gmail.com>
+References: <20261020130852.3049639-1-cheng.jiang@oss.qualcomm.com> <f3240952-f28c-4c2a-a4a8-4492aef3a88a@oss.qualcomm.com>
+In-Reply-To: <f3240952-f28c-4c2a-a4a8-4492aef3a88a@oss.qualcomm.com>
+From: Cheng Jiang <cheng.jiang@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 17:05:48 +0800
+X-Gm-Features: AclHuK9BlICWHwxCq0lejQo5U0IbInRuJeKWromlRSOMPAdiPn8Fd4RwhwbW4Wc
+Message-ID: <CAOK0kb90wYEQU8e9wfQ8g_KfkfqwiQ9_ideg2=mSrU8OuTLxRQ@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: qcom: shikra: Add RF_CLK2 clock to
+ wcn3988-pmu nodes
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, andersson@kernel.org,
+        konradybcio@kernel.org
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+X-Authority-Analysis: v=2.4 cv=YuKa1IYX c=1 sm=1 tr=0 ts=6ad8807b cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8 a=m8YJvu37PK3QkMmK4r4A:9
+ a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAzNiBTYWx0ZWRfX5rNFBuHkgNwi
+ g4w/lpneZdgjOKcsgIdlSh+rVmzBpIHA/mKZyoaIqdrBrWpPFQm/qEOwmniPmaRgqGF6IgQnS/2
+ ZvmGmhCHSgXpNFbjc+LOdETqLfi+ZUY=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAzNiBTYWx0ZWRfXway/iAFoVzwc
+ nfhCvUnlrx3gTaYFTE4jHDyLpUrw7R0J+AGD2B3QZj9Oh+81NrNZw1PSPv/TIcbATNqqAbCgVfv
+ j5EP3H+RvCvrgBIWmBj1CqhNOdXD4g6VJ4h0UmeXthibf0KcQ/NROBnNYXK5BEX9HV7VYam1UVF
+ 1n1wsWCx2y7VcOx7X02vSo7YSwqKUBP1wNaK65E0T/IAhEF/sarbYGp6L4GCP3lY1kvdc/H+rWn
+ H6i7QkuTL0VV9uQbk2MQyMd5eeYtQbq8T4lHgK/b42c2O7V/pjXt5bDfjKSmi4dvzj8iQar/iPw
+ ZDZuF2AbtWThxTw1BinjpZZW7bnZj77eQYL2X1iYkMrLx7FE/8j3MKoOfe/YLM8aiRHO6ecR9SI
+ xf3CiiZznhofpv978nvaHKvfrEcRPAyBxw2HLjpiELv/nuTNyN4bpnHBcLH3+QR5KcrLXC+mBwH
+ OxOKLm9z/CjeTQijQbA==
+X-Proofpoint-GUID: kRIG0dg9h1aUvYFS5-HI3W-IVIKwE3Cl
+X-Proofpoint-ORIG-GUID: kRIG0dg9h1aUvYFS5-HI3W-IVIKwE3Cl
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-21_02,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 suspectscore=0 spamscore=0 clxscore=1015
+ phishscore=0 adultscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210036
+
+Hi Bjorn, Abel, Konrad,
+
+Please drop this patch.
+
+I re-tested on Shikra EVK with and without the RF_CLK2 clock described on
+the wcn3988-pmu nodes, and Bluetooth comes up in both cases. The
+commit message claim that Bluetooth fails to come up without the clock
+does not hold, so the patch is not needed for Bluetooth. Thanks to
+Abel and Konrad for the reviews.
+
+Sorry for the noise.
 
 
-
-在 2026/10/21 16:30, Wandun Chen 写道:
-> From: Wandun Chen <chenwandun@lixiang.com>
-> 
-> Replace walk_system_ram_res() with for_each_mem_range(). A later patch
-> introduces MEMBLOCK_NODUMP in memblock, the reserved-memory regions
-> marked with MEMBLOCK_NODUMP can be excluded from the vmcore by walking
-> memblock.
-> 
-> for_each_mem_range() iterates memblock.memory, which is freed after
-> init unless ARCH_KEEP_MEMBLOCK is selected. riscv needs ARCH_KEEP_MEMBLOCK
-> to filter reserved memory from the vmcore, so extend its condition
-> (ACPI || KEXEC) with CRASH_DUMP. arm64 and loongarch already select
-> ARCH_KEEP_MEMBLOCK unconditionally.
-> 
-> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
-> Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
-> Acked-by: Baoquan He <baoquan.he@linux.dev>
-> ---
->  arch/riscv/Kconfig                     |  2 +-
->  arch/riscv/kernel/machine_kexec_file.c | 31 ++++++++++----------------
->  2 files changed, 13 insertions(+), 20 deletions(-)
-> 
-> diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
-> index e7891a2a89da..e21d0bab77ee 100644
-> --- a/arch/riscv/Kconfig
-> +++ b/arch/riscv/Kconfig
-> @@ -58,7 +58,7 @@ config RISCV
->  	select ARCH_HAS_UBSAN
->  	select ARCH_HAS_VDSO_ARCH_DATA
->  	select ARCH_HAVE_NMI_SAFE_CMPXCHG
-> -	select ARCH_KEEP_MEMBLOCK if ACPI || KEXEC
-> +	select ARCH_KEEP_MEMBLOCK if ACPI || KEXEC || CRASH_DUMP
->  	select ARCH_MHP_MEMMAP_ON_MEMORY_ENABLE	if 64BIT && MMU
->  	select ARCH_OPTIONAL_KERNEL_RWX if ARCH_HAS_STRICT_KERNEL_RWX
->  	select ARCH_OPTIONAL_KERNEL_RWX_DEFAULT
-> diff --git a/arch/riscv/kernel/machine_kexec_file.c b/arch/riscv/kernel/machine_kexec_file.c
-> index 26cd2a8bd0cd..808e872f4063 100644
-> --- a/arch/riscv/kernel/machine_kexec_file.c
-> +++ b/arch/riscv/kernel/machine_kexec_file.c
-> @@ -37,39 +37,32 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image)
->  }
->  
->  #ifdef CONFIG_CRASH_DUMP
-> -static int get_nr_ram_ranges_callback(struct resource *res, void *arg)
-> -{
-> -	unsigned int *nr_ranges = arg;
-> -
-> -	(*nr_ranges)++;
-> -	return 0;
-> -}
-> -
->  unsigned int arch_get_system_nr_ranges(void)
->  {
->  	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* For exclusion of crashkernel region */
-> +	u64 i;
-> +	phys_addr_t start, end;
-
-The kernel prefers the reverse Christmas tree layout for local variables.
-
->  
-> -	walk_system_ram_res(0, -1, &nr_ranges, get_nr_ram_ranges_callback);
-> +	for_each_mem_range(i, &start, &end)
-> +		nr_ranges++;
->  
->  	return nr_ranges;
->  }
->  
-> -static int prepare_elf64_ram_headers_callback(struct resource *res, void *arg)
-> +int arch_crash_populate_cmem(struct crash_mem *cmem)
->  {
-> -	struct crash_mem *cmem = arg;
-> +	u64 i;
-> +	phys_addr_t start, end;
->  
-> -	cmem->ranges[cmem->nr_ranges].start = res->start;
-> -	cmem->ranges[cmem->nr_ranges].end = res->end;
-> -	cmem->nr_ranges++;
-> +	for_each_mem_range(i, &start, &end) {
-> +		cmem->ranges[cmem->nr_ranges].start = start;
-> +		cmem->ranges[cmem->nr_ranges].end = end - 1;
-> +		cmem->nr_ranges++;
-> +	}
->  
->  	return 0;
->  }
->  
-> -int arch_crash_populate_cmem(struct crash_mem *cmem)
-> -{
-> -	return walk_system_ram_res(0, -1, cmem, prepare_elf64_ram_headers_callback);
-> -}
-> -
->  static char *setup_kdump_cmdline(struct kimage *image, char *cmdline,
->  				 unsigned long cmdline_len)
->  {
-
--- 
-Best regards,
-Jinjie
-
+On 10/20/2026 9:40 PM, Konrad Dybcio wrote:
+> On 10/20/26 3:08 PM, Cheng Jiang wrote:
+>> The WCN3988 on the Shikra SoMs takes its reference clock from the RPM
+>> RF_CLK2 clock. It is not described in the device tree, so pwrseq-qcom-wcn
+>> finds no clock to enable and RF_CLK2 stays off, leaving Bluetooth unable
+>> to come up.
+>>
+>> Describe the clock on the wcn3988-pmu nodes in both SoM dtsi files so
+>> pwrseq-qcom-wcn enables it as part of the WCN3988 power-on sequence.
+>>
+>> Signed-off-by: Cheng Jiang <cheng.jiang@oss.qualcomm.com>
+>> ---
+>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>
+> Konrad
