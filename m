@@ -1,84 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792598611;
-	b=2KF0gTXzmvwk9PYwEwv2fMcgu+3V5+3n3RaF4qkuinQ3WjsB3cfva9mGbO5MXEpTu/0Q
-	 ZFy1joopbN8WkjWG0EO+pVb9EpTeYkTk5jXsdvADeCYeA4TctAqc8fZx5lT8tmW38uOaN
-	 RW5jit2m71NQZ0E8sQjnh4dMLZ5oVyDdG8NIrOEr2fVhXY+QaGfn9vmIKuyK66dUQkelo
-	 9+rYkqV6zzzJk8Q0exo9Da6y4djhAsGM3HSFRkRlojLWmvUQhQVRoj9KpD+lOEj7eTnxL
-	 y5bf8ccaV1EJbfmQFPEVyAWLCzJ4u+8BKbGUU5Yps8t0atO3P4kBWHtG7iuUAAgbJGA==
+	t=1792598719;
+	b=jtMlJ603inQ+5l4lbvNG2PT2ervuekeOIqZDP5pn2T4DvtAH1GzXGlh0wLLE7/aacv/G
+	 vVktN5zT0CMZYZ+32kd5GSvJzNaM59nraUtWVAi0W0Y3i4AvY9Oplp0YI1/lDURgduCjb
+	 KMLjYF3/CALb4YglEMpwCI9SCsHfznK3H0jh2uBVllYuuy2yYFp1Hy61foTQKkHYkdk25
+	 UwhQGuj7WSzeydH6A2vGcfM+gtz4iugjv/TS1WABrNhIhRyHevZPvf4RqfaX5vQEMo5qI
+	 JrVYOOzNRZ0kxVhO6rAesaWZP7U38i3empqLUuViuKV+9xrqYR9B5Y/29KvE2jbsszg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792598611;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792598719;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=o+0U5uc8o8aSpg/3Nq2d92vcnnoDIvQVEgNyLz/yOhM=;
-	b=sKpJdXB7DWIqOYTZi4gZFLD/5sTyQkENjl5N121NcBGntnXXJuK9HWujBhmdqoKgxDeM
-	 LG2UOlaOxYh+/5i+T/qlo1GNwJ1y5fz7zGGNhUTJa62jJk386PZmB9JiUsSj8xAG276GP
-	 e9/NWu5CVhGu0c1XaVnmqXVLQUj3hk0cPU0y8KiqPjMqKlOWwtDsl+ZMeY7fl1jAH+RxK
-	 FVaqXFdBVAV0+s+wTijbrC0i5mmjjE1LIM6oMfC3wm+kx9FJBC9eUBWfdW/KGIFC4jeoh
-	 OY8DnYU7a8Wdwz9i1abAhLTlSg3S8Yz9t0FaH+I313ejseF3PzAiQDKtML9wAO7QRzQ==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=OO/jQ74sz4moznSOIcQuGfT4C5O0ZbLQA+114JVzDVM=;
+	b=nmBwREjBKxPoXFOlDzJ3/NmZzZwO0VmOkAswLx9qMbQXUmeQsKAuZkeb66g6B3/xIN5N
+	 KpBvv25qC6Nrk2HYPzEa7at2OdnUr+HZQoCty600XwtaGClI2wFsjVzxI8A35Q9w38P8+
+	 tLrZuTAzNdAL3qxJVlX1/khT9nhjh+KBO1uiHAlsJUzrhd1fQxJvmrgvM0+bqwWuLU1hC
+	 Ht6EJIZEM0tW735Rjnw/oTS/dQqS5rM0ZqsVE0N4bUR7GHojmU4qBB8/wD2hYT153BrrE
+	 b/ssMJ1NWuUJrdzaOpDAYag4DzePNuVzrwwjzCQWLEEcM96SjEG58BWM6oIXFxn6JJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=abpGTXCU;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kC+JIqff;
+	arc=none smtp.remote-ip=209.85.218.54
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98BB3606A328
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 16:03:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98BB3606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B437F606A31F
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 16:05:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B437F606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=abpGTXCU
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a180fbeef5so6904475e9.1
-        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 09:03:30 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kC+JIqff
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c40e02b2ebaso138668066b.1
+        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 09:05:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792598609; x=1793203409; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=o+0U5uc8o8aSpg/3Nq2d92vcnnoDIvQVEgNyLz/yOhM=;
-        b=abpGTXCURGDONG81jxmVKNcLGAN0Gdj/VCCMt18rxdFNxVzOuhjViGTn5A0TUBKx9L
-         dbxkHdztm68zVkDQc4tnl2k77NqCqYc5OHtJsqWQ8QACnjMzTA9/UMSAjnLzTu2O8UWk
-         r68S9Q3YKpi0rIDLcz0oiM6mYC3JYOIV+uC6MGrPcwzKQzFYl1cnNfV4HuaJwKh4FBHR
-         ffDDdhSXewhj5Iy20HQF50u5a0To1UbEMCrjxQtZc3r3Wzk8ZAz+cragSU1HvGxduMdN
-         jawWxutsafJfgYBx03bxJuThOC+XF/WoKP7hlLgIkZYE2dpxhzFPkpyVc1bYiFT9Ds0e
-         aHPQ==
+        d=gmail.com; s=20251104; t=1792598717; x=1793203517; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OO/jQ74sz4moznSOIcQuGfT4C5O0ZbLQA+114JVzDVM=;
+        b=kC+JIqffK4rC46rQzGkmweYrHwrBuORYof+4Q79ymYrFiYUH108zupB7/K+ZHWFvg5
+         6xOMEzcIQKk42FqsC9rXViLfn/HI7mrYkiMCwCjy2GLBSIHSe0jlf9ikeluMqB2xJCvf
+         wuw08XQMARxGWnTiO3lAYlKBfESmd88wPoPL7a3CpuKi7CYtbUDBE+cz55xyBQx0hlxN
+         OHpkYrJGlCPqGb7vqH8696iSHlKSLDP7PRnmkwVILribmC4FvskE5nRy0nKReHoeTeXY
+         Ou9d9YdojPlS0rfqT4vfA5lfxBlWF6zjswU8Vkd/PQThdLBkIpim9CpG1Gp0SWIJnh3j
+         nwhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792598609; x=1793203409;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=o+0U5uc8o8aSpg/3Nq2d92vcnnoDIvQVEgNyLz/yOhM=;
-        b=Xei0RP4pFgGevK8mBKdeagGW0+5+3mVd7vBOskBGH+YflYcMNHZtMYxnOjMTfo6nD1
-         7h79nktJAAnMfnM0A8aZIPIx3ODV1gCEFWSoWK4qzNNQmNWoJLHplshBqMsAyDxJR3/L
-         1B5lZ6+sFeVLQCuMSe0DPPwiNm6ahGMVvMqJtJOoGnUv+71A2L/ESqbU4DHJ3bNC/RTp
-         0uCoxkEPO6nV6pnDtGNIVsHBeGaAuxTr9l7cwTXmKiJWQAwT5gzMmgpDD6Vb7QeOtlPL
-         VkTK8iYmu45gRSCI8Y4MIxHHmFyCrfe4cNnxXWCu52geigr7VtH2R0Wu1XDjHfaxq5Ii
-         E4eA==
-X-Forwarded-Encrypted: i=1; AKwUvByKSE/FDl4pGCIaNugitPgqruQhUy64lkxMhA4RKlWxOdawtHAXA9quhhV2KDdoZWcQv0lP8IaXN2YE@vger.kernel.org
-X-Gm-Message-State: AFq9FYKbNKc7Egad/xg6R/Os8XNWQ8jLj6I05AfuNRLI6VbNfMe/0dCn
-	IcgJ6kXkykYg6PkQ9BXrPbOcT/WBsfvTP9NHgtzhbdeCMYP0F2CE+OePLc/ksu++DpA=
-X-Gm-Gg: AYBFou21Llefn4UMY5P2iu8Q0hrQDHE0Bv8uHS8DbV1qoK+mncLtXIpZSRLb+vIuBcW
-	cedrIX+eKFNEaD/v94WjZUjHaUPTubdub+B3X8sdo281pbcKhDs3z2173+pe9T1Sfq9V5ki8CsD
-	gUG10k9Qdx/Mn/zr3zkeR1RFrKpyHB8XKiDy4ak0rW4iPe574W+AC03ozh1gKjQjJ2bPDk19lJK
-	wc4BWCVz2CRqRIOFqiCB+aBa/vCFUM5ZZ8KnGOJWJJsUqtiwdjH2R9tDWbnk6jwDKksOAm4JlAJ
-	AQjR7eAq74/6dmecdC1YItpWVhJDW9FittpwRLRRSPYretz49UgR2eZXWuuochpuaRMY8oYNpQv
-	PlsRnggDD+3OAQ38wek44NT1QRi8WWtW9TBYGFp0FNu1dgLPYJFEg+p91OVtHMtEqVcshPP+44o
-	FttqAeYEGRu2CHalOyyv4moa7LoMRO1UYDuaCXOK4iIVPJTUY7dBRiiZpDhLQjha1m12hWUlwNG
-	cofCm7zMxfo0KRXQNVWKmhJ2uIlZ1YJYXILu08VSfRb453WcbYwc5dnM5QgPVW9sIORXyqJURou
-	WOXZ3GePht+Du51/PdsGMbTcq41zISh+2H18tb+XdK7MH3Q=
-X-Received: by 2002:a05:600c:4fc8:b0:4a1:813f:2a60 with SMTP id 5b1f17b1804b1-4a1fdd2472emr58485645e9.11.1792598606167;
-        Wed, 21 Oct 2026 09:03:26 -0700 (PDT)
-Received: from localhost ([151.40.161.170])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fcd629bbsm53982045e9.5.2026.10.21.09.03.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 21 Oct 2026 09:03:25 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792598717; x=1793203517;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=OO/jQ74sz4moznSOIcQuGfT4C5O0ZbLQA+114JVzDVM=;
+        b=K7MtjKTGroDcmY479dQ3YdfMYlPiY3thBUdkfXNyrlJhla58ul55SwSC/Pc2ZXpe1Z
+         ToGBUtaf74YvTj7x25lYsYhr5M6GH/Qm1Bi6buwYREEuXkmRHjl+PY1WO2taZNkx9ZTN
+         srmmiXFomDbq5j+M9UPQ3dgsioVT4HjvXAEhUDECnzU9zz6PBla2r1wgvc2tpBQkenOL
+         6Yc8NEIk1BzgDtPDaysNdH8gXj926kIdqLiuB9KpZymW7aK0qur8FS4eByr4679gQegE
+         U1i4ZCMDSGQ+C/qTSl/fCjNWqk09y2TF5tKHYG3wLdI9O9RQH4VH73BhHAj8R1U5rztl
+         NDjg==
+X-Forwarded-Encrypted: i=1; AKwUvBzCNMnH6YFvlP2wT/ghGtG8DjFV57olVR1BQUFw1SZ+NhJT6xrzjpdGAHS9PXpRtjcePP5gYsq5J3r5@vger.kernel.org
+X-Gm-Message-State: AFq9FYK7+pjBZqEAVKXG2VuF+810vuK80IYQQM5MaJ4FpLO3f4Nbz5nR
+	l2UzwLIla1rcWHtFfsNmE4Vz/u4+uM3qhb/8pNUkDCDTnyO0RJBrS5IW
+X-Gm-Gg: AYBFou1zuVr4YZUjqKd5qTdo8vIuDjAN76sUITIEEsik5GeYqRxFtN/6pda9WcmvJS4
+	f4MnueKOl243GyYd1kiSNi5Fat4rb50oBkJWqHCyyBz/hcaQihR/S7pgwCZBXZf5xzuoSz8bnnl
+	fKvwhA8PWNqFFPJIoqSkfkmz1jpVkkfuNcLp2OADt68ddivp8F2wtbpVU+qW/Vj056JliKqVIwp
+	a7aa1hGklFH9w7MQX237AUqCGlgKjN6r0JNKpCmQwZlt5nyb8UOiBZnUIEibBJma2q4Z9PGhX7E
+	bO+uoZF5+epR1PIff3wNbMwTU4CgcfyuWPnYHDpFGHK9Ydmgpb8nhbTc0PDO2xOfGwPCbtY2CN0
+	1KSjNAX80zbAoXWEvirItQU8UY+ljO+GxnHr920hf0MPpvLVQcRwVh6fl7ReBc6vSBAPt2lbARK
+	IDuAxubBUjjs/RUtdSD6MDrat2d2vgcGYMD7S8eXI+zjknwXvVRyg9X5EJ+GuBOSyOgVzFM25ie
+	wVcXiXDbX/Om8p6h9/vyziuyo0/riyv2Fo5OMUZ5ATTkS5+d0SAiNcEC8dBj08uFaTYrNRkxC0o
+	GnxtjLi2JyDBKRvn4TOJ8k/qrKhntLReBEk5ucJwczAcINnfAeTyZiI=
+X-Received: by 2002:a17:907:d08f:b0:c16:4df6:176b with SMTP id a640c23a62f3a-c4679623434mr231451966b.20.1792598716864;
+        Wed, 21 Oct 2026 09:05:16 -0700 (PDT)
+Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25828c98sm6093433f8f.28.2026.10.21.09.05.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 09:05:16 -0700 (PDT)
+Date: Wed, 21 Oct 2026 18:05:14 +0200
+From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	"Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, Frank Li <Frank.li@oss.nxp.com>, 
+	Kieran Bingham <kieran.bingham@ideasonboard.com>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Leonardo Costa <leonardo.costa@toradex.com>, 
+	Frieder Schrempf <frieder.schrempf@kontron.de>, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 1/8] of: base: Fix stack overflow in
+ of_parse_phandle_with_args_map()
+Message-ID: <o4uzbsrfnpm4isk7kh7f6tsccd5qghur7vkjkyumgwrylvu2xl@dbeuv5cuxvxj>
+References: <20261020-fw-devlink-nexus-ready-v3-0-fd6f1c17e16d@toradex.com>
+ <20261020-fw-devlink-nexus-ready-v3-1-fd6f1c17e16d@toradex.com>
+ <20261020155841.59037c99@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -87,89 +108,86 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 21 Oct 2026 18:03:23 +0200
-Message-Id: <DMAN65SWMXQ0.125AVDDDSIG7@linaro.org>
-Cc: "Krzysztof Kozlowski" <krzk@kernel.org>, "Paul Walmsley"
- <paul@pwsan.com>, "Aaro Koskinen" <aaro.koskinen@iki.fi>, "Kevin Hilman"
- <khilman@baylibre.com>, "Roger Quadros" <rogerq@kernel.org>, "Tony
- Lindgren" <tony@atomide.com>, "Russell King" <linux@armlinux.org.uk>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Christopher Obbard"
- <chris.obbard@oss.qualcomm.com>, "Andrew Goodbody"
- <andrew.goodbody@linaro.org>, "Linus Walleij" <linusw@kernel.org>, "Rouven
- Czerwinski" <rouven.czerwinski@linaro.org>, <linux-omap@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-gpio@vger.kernel.org>
-Subject: Re: [PATCH 02/10] dt-bindings: pinctrl: Add devicetree bindings for
- DM816x SoC Pinctrl
-From: "Ettore Chimenti" <ettore.chimenti@linaro.org>
-To: "Andreas Kemnade" <andreas@kemnade.info>, "Ettore Chimenti"
- <ettore.chimenti@linaro.org>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261016-patch-ektor5-dm8168-dts-v1-0-b4ce30217028@linaro.org>
- <20261016-patch-ektor5-dm8168-dts-v1-2-b4ce30217028@linaro.org>
- <ec27fd26-1862-43cf-803a-428846d66663@kernel.org>
- <DM6CUP7TSOMH.31T789KQ3Q6OB@linaro.org>
- <46414ff2-1273-4690-9001-4d1f825d8cf6@kernel.org>
- <DM9L7QLLNMOR.1NHOUWGMQK181@linaro.org>
- <20261020215143.7dd0ad5d@kemnade.info>
-In-Reply-To: <20261020215143.7dd0ad5d@kemnade.info>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261020155841.59037c99@bootlin.com>
 
-Hi Andreas,
+On Tue, Oct 20, 2026 at 03:58:41PM +0200, Herve Codina wrote:
+> Hi Ernest,
+> 
+> On Tue, 20 Oct 2026 15:00:12 +0200
+> Ernest Van Hoecke <ernestvanhoecke@gmail.com> wrote:
+> 
+> > From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> > 
+> > of_parse_phandle_with_args_map() reads the #<stem>-cells property of the
+> > provider referenced by the consumer into list_size. It then copies that
+> > many cells of the consumer's specifier from out_args->args[] into the
+> > on-stack initial_match_array[]. Both arrays hold MAX_PHANDLE_ARGS cells,
+> > but list_size is never checked against that limit. A malformed
+> > Devicetree with a larger cell count therefore makes the copy read past
+> > out_args->args[] and write past initial_match_array[].
+> > 
+> > The cell count of each provider selected by a <stem>-map entry is
+> > already rejected when it exceeds MAX_PHANDLE_ARGS. Apply the same limit
+> > to the provider referenced by the consumer.
+> > 
+> > A plain reference to such a provider, without a map, now also fails.
+> > Previously it succeeded with the specifier truncated to MAX_PHANDLE_ARGS
+> > cells by __of_parse_phandle_with_args().
+> > 
+> > Fixes: bd6f2fd5a1d5 ("of: Support parsing phandle argument lists through a nexus node")
+> > Suggested-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
+> > Link: https://lore.kernel.org/all/aq1CSswlo57jZpMH@monoceros/
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> > ---
+> > v3: New patch (Uwe)
+> > ---
+> >  drivers/of/base.c | 5 +++++
+> >  1 file changed, 5 insertions(+)
+> > 
+> > diff --git a/drivers/of/base.c b/drivers/of/base.c
+> > index f63a9486b130..5abadab22392 100644
+> > --- a/drivers/of/base.c
+> > +++ b/drivers/of/base.c
+> > @@ -1587,6 +1587,11 @@ int of_parse_phandle_with_args_map(const struct device_node *np,
+> >  	if (ret < 0)
+> >  		goto put;
+> >  
+> > +	if (list_size > MAX_PHANDLE_ARGS) {
+> > +		ret = -EINVAL;
+> > +		goto put;
+> > +	}
+> > +
+> 
+> I would be stricter here and avoid the usage of MAX_PHANDLE_ARGS.
+> 
+> First I would check the arrays size to be sure that they are consistent and
+> then check list_size against the array size.
+> 
+> --- 8< ---
+> 	BUILD_BUG_ON(ARRAY_SIZE(initial_match_array) != ARRAY_SIZE(out_args->args))
+> 	if (list_size > ARRAY_SIZE(initial_match_array)) {
+> 		ret = -EINVAL;
+> 		goto put;
+> 	}
+> --- 8< ---
+> 
+> IMHO, this is more robust against modification of the 'args' field
+> definition in struct of_phandle_args or modification of the MAX_PHANDLE_ARGS
+> value which could lead to some inconsistencies.
+> 
+> Best regards,
+> Hervé
 
-On Tue Oct 20, 2026 at 9:51 PM CEST, Andreas Kemnade wrote:
-> [...]
->> Sorry, does dm814x.h not look as bindings? I'm a bit confused.
->
-> probably also not the ideal placement in bindings.
->
->> FWIW, dm8148-evm.dts is not including the header, dm814x.dtsi is.
->> Following=20
->>=20
->> Basically PULL_ENA define in omap.h is wrong for DM8168 SoCs.=20
->>=20
->> For a better solution, you would prefer:
->> - Keep omap.h in dm816x.dtsi
->> - Add a variant like DM816X_PULL_{ENA,DIS} in dm816x.h
->> - Replace defines in dm8168-evm.dts
->> - Add the header in dm8168-evm.dts
->>=20
->> or:
->>=20
->> - Keep omap.h in dm816x.dtsi
->> - Add a variant like DM816X_PULL_{ENA,DIS} in omap.h
->> - Replace defines in dm8168-evm.dts
->>=20
-> Hmm, there is dm8168-evm.dts which uses PULL_UP / PULL_ENA
-> in nandflash-pins. Do they factor in this inversion? Do you have that boa=
-rd
-> by chance? We probably need to take the brush there anyways.
+Hi Hervé,
 
-Andrew has one, AFAIK he already tested that, it should be fine.
-We are checking the schematics anyway to be *extra* sure, but the board
-boots and all the peripherals seem to work.
+That seems reasonable and like a nice way to do it, thanks for the
+suggestion. I'll incorporate this into the next version.
 
->
-> If I had my head in some OMAP3/4/5 dts files with non-prefixed
-> defines, I would probably not object against any PULL_ENA without
-> DM816X_ in front of it if I am not very awake.
->
-> So better do the undef and not use DM816X_ prefixes there.
-> Maybe rename that file to dm816x-pinctrl.h. That is a bit
-> inconsistent with the other omap files but at least that inconsistency
-> can be catched by the compiler.
-> Other arm32 platforms have things like e.g. nxp/imx/imx6sll-pinfunc.h
-
-Ok, it is a nice idea, I'll refactor in dts/omap/ti, using the same
-pattern as dm814x.h.
-
->
-> Regards,
-> Andreas
-
-Thanks,
-Ettore
+Kind regards,
+Ernest
 
