@@ -1,68 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792619168;
-	b=Iw+erZpJauX2sollFMQx40Daen/55n8xHNzY3qK9AnHXcdANmzypNZ6xDY1e/Muk/jH2
-	 3QsCCgh+hCw+psbOq48XXQyDH8V/zpOrs9IkiHDGO0vbYKZ2r842tyBsS3MBNpsDYmwCI
-	 q/M6iTGWvZd98O4L5b51a0O79HF156PbVeRSMMzaSJiD+X5w7jZH3HiMSuZjmNeWjeaT9
-	 HkbpAoTlVb9afIERADxN9ES5Lrc1D+PHtsAEzSfs5fiseehiVrdJPhX4BRLyGqCu6Uzj/
-	 4r37X0LEpGJdpBxjCj2vI5uK1Fy7HtpNoOow+feuTivBVReE2oUi1MGol0cfCTXxsRA==
+	t=1792619897;
+	b=thSBTh0eCUUWMKbu8ix2qZFjX3MMhtpYRXGJmfSNRSUl1rOSFsfmQefcbrMH17mIHvdZ
+	 CMphXGejvi2vNUsae+TTPB8WLes2ZIZsM1FLU7chY7tQ3LSu6j4u3uPn4jF3g8LkBhx8x
+	 1I9XkixIzqewwgO3BwJEMj/4iveU6abpjwB0WFgezzwOj7+o1CMZV7WTD+jzyllusv0g9
+	 gwDcIEu3E1qzVgsD0xG+6xo+Ehp78NEP+eKg8XFAAiqTC1lSXfhFyYsUuKdMBj/CcKm1e
+	 Mbe8Ntn0O27kdKY5L5tpHHLKANDCYs8TwmqxbOs/FnagOIswduLTQItNoS6i6n/3YJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792619168;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=9dqKRrfFGg+51GIVDQboPbf0ry89rz5bp1TrPxjcVJg=;
-	b=X4fiFynzY60JtDn5UjiW2CxFFRq9NaZn2iWJocNWjITlG7eP6sqRSLgTduI7A/d7STqR
-	 hqMwM1vC/v4fSqpOnbYqWlsKI4JnnNN4prJulz3BkCV3XInf9m8mlonjnahoZynR7qy94
-	 UTjvQv5Xt9MG3t7Y97Uc7v7RPoH+ahS9W03ZtEogPjrIo/382mGKaiRb7sxZRzEfmnTKS
-	 CtXhPQ9bAMXcyN66P/cjg0Hd5gB9Q3MtAURukYhu8HdzWzrlBd1Tb7bdAwIrQiTaBZdn/
-	 riFa3cuyzFnMxvru7Kp+r82Bt42PpIRGX4YRUpRfg8TRiFsHablDvlh3LkDjd+8PjHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792619897;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Mime-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:X-Mailer:References:In-Reply-To;
+	bh=vjlrFc8ai6S+8VJ+lvNd8+aoLJdpX9LDqDVung6V/EU=;
+	b=NpqYOXIZZZmboMpExTE0RORvlZuZj59FpkGOgPnoBnWMM64W4ly4PGGplN8653hHaw6y
+	 L2AH+E0aAFIzVTRTMFiq7VzedYYOO43NCOhVWhGqjj6x0Ozs1qnX4xR8f1W+tQI2rTJU3
+	 dLRsqXeQuHNexfzfUk3g1+W90nTX/nPhayaTdigc6Wimgc/WtT/AnoXgNnYPgh31OTZKp
+	 qq7Cf30EAFoKCGrJxeP8lcKi/i/XD8edp23UawkXtALfaQi8+k6GqRRsSZ0FQnIOaOOyZ
+	 w4/UEQFD5ZdTXFozKaFd7KrB/PCoaAMx1XKd2HAUT2vABWwiE0M4TpE9D1jCtyK0vUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b="RDTd/wG+";
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=nexthop.ai;
+	spf=pass smtp.mailfrom=nexthop.ai;
+	dkim=pass header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=Bv6yuU59;
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D553606A31B;
-	Wed, 21 Oct 2026 21:46:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D553606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B424C606A327
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 21:58:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B424C606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=RDTd/wG+
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B29B222B;
-	Wed, 21 Oct 2026 23:43:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1792619035;
-	bh=CFbNroF+MDRDj4J4znQgjUoh7M33r7h77T64ddF0ueM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=RDTd/wG+bct1YVgG0jPkZV5ktcrRJn9Y5oWMlKi9y55aXUvDoFQTtlR4/BNdJe5O3
-	 Kv1kpVzT7kWzrJ+VyYH43Ew5lcU8jWkNUVMcVImnXUsTxwuYBR9FqOglQ2299JxJd0
-	 +ZwIfyN7JJmnz9otTXw/U/3DzLLk5xNMan9bxXGo=
-Date: Thu, 22 Oct 2026 00:46:01 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Alexander Shiyan <eagle.alexander923@gmail.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v4 10/16] media: dt-bindings: sony,imx678: Add other
- Starvis 2 family members
-Message-ID: <20261021214601.GA170861@killaraus.ideasonboard.com>
-References: <20261015-media-starvis2-v4-0-75fcdb4163f3@raspberrypi.com>
- <20261015-media-starvis2-v4-10-75fcdb4163f3@raspberrypi.com>
- <atc9Uxt_hsyYu2o5@kekkonen.localdomain>
- <CAPY8ntD2C-7UTKX2Srusn_Tzx5KS3tnUtPP+piMYbUKZP91Rpg@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=Bv6yuU59
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3535a54bed9so1674825eec.1
+        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 14:58:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nexthop.ai; s=google; t=1792619896; x=1793224696; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=vjlrFc8ai6S+8VJ+lvNd8+aoLJdpX9LDqDVung6V/EU=;
+        b=Bv6yuU59nd+Ut2wBNrms7x2KVr3ltVHDHJ9wPLhZWuAdYIXDzPPijQUJt41to4og+R
+         jhPbJQy8Bt3WMPnwCH71termvOtenXWFlVGmgYa3HgDXbvpBHQVbvetndgcqIP2boZdV
+         PsMkKFLYyn+sw2JrxhPKt6lLodquLrVRsXaQZV8G/YhIlJ8YD40I7vtJ2Hz9LZTz0X5T
+         vQkDNz4X9LkJUGHY3wKYLOqAxfBAbS0WP+USYsoVK//cGczx5os1MliU4u0uz+XQjk+O
+         U+aYNNgj0TJvz4y/VLuEjefu+wGRUxZrZz0aaWGlQeiU3kcqXXEB5h2ZcCO/JKVLOBxr
+         ss3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792619896; x=1793224696;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vjlrFc8ai6S+8VJ+lvNd8+aoLJdpX9LDqDVung6V/EU=;
+        b=vshqoAzS8TcmbaApXGWJpALDkiP+cGR+wuCn3pKqBSMptNDVj/g7qSB68HvedTpsiM
+         DgHAHLC5IOIUvQ3r85f9bXr9QHVO1uZAWm+lVG4RSyKGxBaDYj0RPwsJxgebnyWizl5Y
+         rkl5KhkvvgCRQVrTKRJ+/OcNKw+FllXcRQxO+4+jVtE8fNRK14Ywv6LO7TUTW5RHs6gb
+         8u2CkHJoiHVrD1zeN7xA/WZ0iYRcuX4FqHJLGtH5MwbXF5BJzZ5LTUZo+xOCXS4bEkOm
+         uRdGg4mFEM2NZ/14ShTGWlLB7VYashc6X9aGLY5iKyhNTXa3FuQhf4e8LMTS/FoTQJvI
+         7Tag==
+X-Gm-Message-State: AFq9FYIcw+EI030uxkX4h8GPLTfuVM5MuqKQzyCcT2+opwytNKDc1PTU
+	svTT6ct+AL6FQAwvXIOjz6lNHrB1QnmJX8Muyr/ZkExfrENomWMaOLTH4dbEqf02FZU=
+X-Gm-Gg: AYBFou1i4h5ATmtoAKvXwJt4mEvm9D5Mor7S1uUZiVKQB8hsBhS5wMbtH5j0zR1XJIz
+	uSA+6hgohb5lBi+E5JZy/UTou7KdJ0UuxuDU4ryi71cXA/tvEnXWPwCuH7PfELe+IudVYGgomS6
+	lQX+Ez42MopwgtrLiimdeAbnFqlN44dFjwY1CtUTSkNQHIuq9LUa54l0X/uTTX6rAc78A15Kn1V
+	x3NRd7kZeItz3sY3usnb8F5mrtnzs8RO9l+UNN1ZhnGApBdg12XltPIKXfov0xbJyDoFRhOpJz5
+	z0oOdr5RX0EZFkhZu4TcvnGctAzwfFc8nLdlGLqBPEpAX/eQ13Kl8OYzx+5bqG2KBkWX3FOtSoR
+	lLX6iVZcqviM0Dd9vmYdrEUS/Q0upWnafXo2qaQ2R3JezOd910is907mHs97oB5uwH+ZO5P7jgK
+	qxVOCkKikUfNkvdTCUyD+rbvRDMceIe3f/NwpKntzbi3KH0nocmkWB1sMSPDWE0AjsF5XBLDgCk
+	NE9zcbfrBJMr2fhlZX2IJmWSVqLathpcDzyhs2tZzI16zAw2dvZsa/j
+X-Received: by 2002:a05:701b:4283:10b0:15f:28e1:7c7d with SMTP id a92af1059eb24-190a86ade90mr4009050c88.42.1792619895746;
+        Wed, 21 Oct 2026 14:58:15 -0700 (PDT)
+Received: from localhost ([50.145.100.174])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903bf5d0a1sm8941979c88.14.2026.10.21.14.58.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 14:58:15 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,169 +85,60 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAPY8ntD2C-7UTKX2Srusn_Tzx5KS3tnUtPP+piMYbUKZP91Rpg@mail.gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 21 Oct 2026 14:58:14 -0700
+Message-Id: <DMAUPUPEBZ7W.DB96YQGOYZAI@nexthop.ai>
+Cc: <devicetree@vger.kernel.org>, <linux-hwmon@vger.kernel.org>,
+ <robh@kernel.org>, <conor+dt@kernel.org>, "Guenter Roeck"
+ <groeck7@gmail.com>
+Subject: Re: [PATCH v2 3/4] hwmon: (pmbus_core) Support relative encoding of
+ vout related commands
+From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
+To: "Guenter Roeck" <guenter@roeck-us.net>, "Abdurrahman Hussain"
+ <abdurrahman@nexthop.ai>, "Guenter Roeck" <linux@roeck-us.net>,
+ <sashiko-reviews@lists.linux.dev>
+X-Mailer: aerc 0.22.0
+References: <20261020-hwmon-pmbus-fs1412-v2-0-3396c3a08251@nexthop.ai>
+ <20261020-hwmon-pmbus-fs1412-v2-3-3396c3a08251@nexthop.ai>
+ <sashiko-outbox-178650@kernel.org>
+ <dd1781b2-4637-4997-bdfd-d71fc35837b0@roeck-us.net>
+ <DM9W9SZZV7OK.33TH12KSMSBQS@nexthop.ai>
+ <DMASAV68R9CA.GRPDV6UG4MEU@nexthop.ai>
+ <599f18f1-7ef5-475f-9ea2-9a2059299751@roeck-us.net>
+In-Reply-To: <599f18f1-7ef5-475f-9ea2-9a2059299751@roeck-us.net>
 
-On Tue, Oct 20, 2026 at 03:39:52PM +0100, Dave Stevenson wrote:
-> On Tue, 20 Oct 2026 at 11:07, Sakari Ailus wrote:
-> > On Thu, Oct 15, 2026 at 04:57:36PM +0100, Dave Stevenson wrote:
-> > > There are multiple members of the Sony Starvis 2 image sensor family
-> > > that have the same hardware requirements as imx678.
-> > > Add them as options to the imx678 binding, rather than duplicating it.
-> > >
-> > > Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> > > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> > > ---
-> > >  .../devicetree/bindings/media/i2c/sony,imx678.yaml | 38 ++++++++++++++++++----
-> > >  1 file changed, 32 insertions(+), 6 deletions(-)
-> > >
-> > > diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-> > > index 098f72544216..027872a134f2 100644
-> > > --- a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-> > > +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-> > > @@ -5,7 +5,7 @@
-> > >  $id: http://devicetree.org/schemas/media/i2c/sony,imx678.yaml#
-> > >  $schema: http://devicetree.org/meta-schemas/core.yaml#
-> > >
-> > > -title: Sony IMX678 Sensor
-> > > +title: Sony IMX678 and Starvis 2 Sensors
-> > >
-> > >  maintainers:
-> > >    - Jai Luthra <jai.luthra@ideasonboard.com>
-> > > @@ -13,21 +13,47 @@ maintainers:
-> > >  description:
-> > >    Sony IMX678 diagonal 8.86 mm (Type 1/1.8) CMOS active pixel type solid-state
-> > >    image sensor with a square pixel array and 8.40M (3856x2180) effective pixels.
-> >
-> > You could rewrap this while at it.
-> >
-> > > +  It is part of the Starvis 2 family of sensors.
-> > > +  Other members of the Starvis 2 have the same hardware requirements, and
-> > > +  therefore share this binding.
-> >
-> > This paragraph could be rewrapped, too -- the limit is 80 characters per
-> > line.
-> 
-> OK, I'll rephrase it so that it makes sense as one reflowed paragraph.
-> 
-> > >
-> > >  allOf:
-> > >    - $ref: /schemas/media/video-interface-devices.yaml#
-> > >
-> > >  properties:
-> > >    compatible:
-> > > -    items:
-> > > -      - enum:
-> > > -          - sony,imx678-aamr
-> > > -          - sony,imx678-aaqr
-> > > -      - const: sony,imx678
-> > > +    oneOf:
-> > > +      - items:
-> > > +          - enum:
-> > > +              - sony,imx585-aamj
-> > > +              - sony,imx585-aaqj
-> > > +          - const: sony,imx585
-> > > +      - items:
-> > > +          - enum:
-> > > +              - sony,imx662-aamr
-> > > +              - sony,imx662-aaqr
-> > > +          - const: sony,imx662
-> > > +      - items:
-> > > +          - enum:
-> > > +              - sony,imx675-aamr
-> > > +              - sony,imx675-aaqr
-> > > +          - const: sony,imx675
-> > > +      - items:
-> > > +          - enum:
-> > > +              - sony,imx678-aamr
-> > > +              - sony,imx678-aaqr
-> > > +          - const: sony,imx678
-> > > +      - items:
-> > > +          - enum:
-> > > +              - sony,imx832-amr
-> > > +              - sony,imx832-aqr
-> > > +          - const: sony,imx832
-> >
-> > Should we also have a sony,starvis2 compatible? Just wondering.
-> 
-> I deliberately didn't based on the discussions Jai had with DT
-> maintainers when upstreaming the original binding [1], particularly
-> Conor's comment:
-> "Remember, having distinct multiple compatibles for the same hardware so
-> that you can induce different software behaviour is not something we
-> typically permit. While we do want to support all use cases, it isn't
-> always the case that devicetree is the right place to do it."
-> 
-> Sorry, but when time is limited, IMHO debating dtbindings just isn't
-> worth it. I've therefore taken the simple option.
-> 
-> I do have patches that implement that compatible and fully autodetect
-> the sensor[2], but I'll keep them downstream.
-> Doing so means that we have one common overlay for connecting any of
-> the supported Starvis2 sensors to a Pi.
-> 
-> [1] https://patchwork.linuxtv.org/project/linux-media/patch/20260520-imx678-v3-1-8b5f9676486e@ideasonboard.com/
-> [2] Currently the top 2 commits on
-> https://github.com/6by9/linux/tree/mainline_starvis2_v2, but that
-> branch will get rebased/reworked.
-> 
-> > The driver isn't generic still as it requires sensor specific information
-> > to be passed to it. CCS solves this with CCS static data (via firmware
-> > loading mechanism) so there are no driver changes even if the capability
-> > and limit information can't be obtained from device's registers or the
-> > device requires MSRs.
-> 
-> I'm assuming you're referring to the patchset as a whole as I don't
-> believe I've used the term generic in this patch. I'm happy to swap to
-> "common Starvis 2 driver" where appropriate within the patchset
-> instead.
-> 
-> IMHO Pushing the config to firmware files doesn't help, particularly
-> as these sensors don't have a common ID register and so identification
-> isn't trivial. It also makes life more involved for a distribution
-> maintainer to ensure they're picking up the relevant files, and that's
-> assuming that someone is curating them.
-> 
-> My aim with the series was to reuse as much common code as possible,
-> rather than submitting 5 separate drivers which are identical other
-> than constants and arrays of registers. Jai now has IMX676 working
-> with this driver, so that would make it 6 variants. Refactoring to use
-> a firmware file adds complexity for minimal gain, and you'd have to
-> special case IMX678 so it worked without a firmware file to avoid
-> regressions.
-> 
-> I guess the common core could be refactored to be a library, so that
-> you could minimise module size by having the sensor specific config in
-> a module that depends on the library. You're talking of saving a few
-> kB uncompressed though, so that would be quite extreme. I'd be more
-> tempted to have individual Kconfig entries and use #if
-> IS_ENABLED(CONFIG_IMXxxx) to conditionally compile in the config to a
-> common module.
+On Wed Oct 21, 2026 at 2:41 PM PDT, Guenter Roeck wrote:
+> On 10/21/26 13:04, Abdurrahman Hussain wrote:
+>> On Tue Oct 20, 2026 at 11:58 AM PDT, Abdurrahman Hussain wrote:
+>>> On Tue Oct 20, 2026 at 8:37 AM PDT, Guenter Roeck wrote:
+>>>> On 10/20/26 01:55, sashiko-bot@kernel.org wrote:
+>>>>> Thank you for your contribution! Sashiko AI review found 2 potential =
+issue(s) to consider:
+>>>>> - [High] hwmon: (pmbus_core) divide-by-zero after pmbus_regulator_set=
+_voltage()
+>>>>> - [Medium] hwmon: (pmbus_core) broken relative VOUT margin handling i=
+n regulator ops
+>>>>> --
+>>>> Good that I did not just apply this patch. Do you have time to look in=
+to
+>>>> those issues and fix them ?
+>>>>
+>>> Looking into it,
+>>>
+>>> Thanks,
+>>> Abdurrahman
+>> Addressed all sashiko comments in v4.
+>>
+> Yes, series looks good. I'll have to wait for the commit window to close =
+before applying it.
+>
+> Thanks,
+>
+> Guenter
 
-Once the raw sensor model gets merged, I want to explore creating
-helpers for that. Most of the code in this "starvis2" driver is not
-specific to Starvis 2 image sensors, or even to Sony image sensors. I
-expect there will be room for refactoring and making writing drivers for
-raw sensors much simpler.
+Thank You!
+Abdurrahman
 
-In the meantime, a starvis2 driver seems fine to me, even if drawing a
-boundary is difficult. Register sets for Sony sensors constantly evolve,
-they're not really designed by family as far as I can see.
 
-> > > +
-> > >      description:
-> > >        The IMX678 sensor exists in a colour variant (IMX678-AAQR) and a mono
-> > >        variant (IMX678-AAMR). The variant-specific compatible describes the
-> > >        exact sensor variant, with the generic IMX678 compatible as a fallback.
-> > > +      The same applies for the other sensors in the family.
-> > >
-> > >    reg:
-> > >      maxItems: 1
-> > >
-
--- 
-Regards,
-
-Laurent Pinchart
