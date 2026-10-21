@@ -1,79 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792548153;
-	b=lWzDEFHPzGvwEtsbiMOL6mfzIoNMQjWFzOBjhjWQnqDhhvFz+YHfnso/kCNJx6Ynw78C
-	 pO/urJZn3guH1UXyJ/87Olw/TjBeKeQj8t+uuQbI5tMx15kxcTWEWusaF45N2YRFYTWC2
-	 n4hgZvWRHdIBHH72wjwpB94iAlQyjKfh9y/QgnRfusr0PLYW7vM997VNHJvsHeuKhWaQq
-	 JfYbZaFbPCn1szI+aEyQVnrHOBZoiIRn1tIXARcFmOZkW84ixPjOOyAdV40lLpnujyax5
-	 DinGcEwIAcq9eILmgF+4hYy4h8cjf4NYH01JOoaykvYIIpyku2nc9wsb5M9hFJrmlbQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792548153;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=f0yKeF4w4GH+4lXqeNbGng0xeltVKW31ll58aa+tTMY=;
-	b=zESQscpxbCHFM7Z8ra3er89OzYDvIl13Gt1j4IxOmOIi6ifYeEV8aF0EujMqJOUuKv++
-	 dF/kWweBeI8XwS9F82XuRbtNoC9+p/bcUxGca8Ms2WhiqAvAbGPHRpAeinmiIV8qPtYwY
-	 yOIc9Qp15Nak3OnKNafX+f86uKgadXvQ56StWnccEfQhmJbBw8fabwGVc/9TFvGiV0QNk
-	 lMp98STj/XJsqMNf0qZCKFN1MtGA10uvorhdfH55iuT0DwQ7TJbBvUITQEjGmiZOyAhlG
-	 QdUM+KwDOFVUo5CCp+yD/LDtLpZJYizplxgdI/oVZYDB3NK/QCN5YF2jC+orD3aijAA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eSD7Coup;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792548518;
+	b=EeDCeZuKYK1R66sWT5BcGwPYarDoloJPU8h9VMSrfcEfQgslO7jRdwYsMB8pdUnej1En
+	 j2Pb2nIPO11zunRuaCJHkXBX6nqT1zseqSd7Ua3bP0ZNjYablTyRy7pG1gP3Z5g13vcTm
+	 eAwpxm4IoI7zx4CVOYpAjOoGW84A78VJdrMgdrhTzlLb96g25nEZ/KbgQ5xKNNN6Sg6C8
+	 yoAfQaG9F3tQPnCcAf/mlVmFJrZ1tgARgc86p0Eqhj/lDVWGMYLe+nZzpCN5DNc0QY6+k
+	 xXzhhEutOwA+JNq0nsGtpz63KjkfRaSUc0WsIJ2J4g2jOSxwgmNpX037THP1rqG0nCg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792548518;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=DPSIyIEk0FaAkUIZHXeI5kjH5kkKiAm2j6s3EqMnHss=;
+	b=nulSGutThjQIe5boTuHgTkVqSf1WHVK9JMqYVn3RtdjEWct84MrjU4ppfT3QPQiJjmok
+	 Y/TnuU4CuNRsWLTI+5etSZvcjTtiQqzfbWjENlxqc7BxMqTpxOn/Du35zShNHi5y5BfSW
+	 /4OZ/bWB27Og7ee4+F8Gsw7yS7Ya4iCV3lmoLqQRX0rxUwuZ4+B4OiSECYYUtCI8FNNWT
+	 3XGbptg15BQ5ZaMwR9Suwg3HdxvEDivGSZkqrb1FkD2tV385WfrywraoOAVrpYBoPwfwy
+	 8OKZ4ol/wWEGXm24GuTdeLn3rMqssqDSbwp2Hj/nGQs7p1XUXfKOW9Yibe3UzjlZ1fw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K5Gzn+hf;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2DAC606A31A;
-	Wed, 21 Oct 2026 02:02:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3243606A31A
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 02:08:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eSD7Coup
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792548152;
-	b=hQ1W6tdyEFzXVuVZwcb9SD7JGXgDWAmguY+qAGBfvI0nRDYSGwuMOy6Htt1VHhusyt/e
-	 kSDr+6n+KZJGhYxKaO09aL4IbL2ZgZudoNiGax4ly3c0kpQptOpeyPR5zN9YpNE77C0bI
-	 aPuE4x0AfjxvxgseHfrVcX1nQV8J9e8Q/B51MOAQEDkVL7yupjEwTr4M8hh+hCdnLa8KA
-	 UCcJEegpHYIME/DgTiPy0B+e4SaEZg+v8Qw1A3kF/ZjuupTQGEPMb1H0Z25lOhfPv/3Mh
-	 GlrZgfr5f3affeCkbN6CCwPH7CmG9mHn59m8YUlJuaerVh1I5JTgM+roB6OT36rd5VA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792548152;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=f0yKeF4w4GH+4lXqeNbGng0xeltVKW31ll58aa+tTMY=;
-	b=W/4ZXCzJRmOslF46zwU0v2yhYioJyet2oDl5VdLCyp26KzaaSVt/9dXp/kT62EqqO4G0
-	 bCO4okQqmPGzHA1nXSHLp4C5ZGOgAa7u/+kWbN+sKHy/9A0ygCchv3Gn+wQYpCQUTKhR5
-	 qTAvov6a/nk7t3qghoMIJtZO153ZcM/wuSM1zHQ2lzTX7PObqqT8jHr+1GThuW6pR0dZt
-	 6yncQuZlQsl28trQoxQ1MqGRFOaWUk3NKS4ZYIapql2Jz0IvCs8LFdOq6bFlNBHAOV2ZA
-	 MlQ8OLyNUCilBtSQFX9pZwchhSu+kVl/8021gohLSFmvSt//W47CBHOWz7+qpxY2Fpg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id EA6781F000C9;
-	Wed, 21 Oct 2026 02:02:31 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K5Gzn+hf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14C4C1F000C9;
+	Wed, 21 Oct 2026 02:08:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792548152;
-	bh=f0yKeF4w4GH+4lXqeNbGng0xeltVKW31ll58aa+tTMY=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=eSD7Couposucux9BBfClKOEFLwEoiFInTcZfcMuL22QeyB9Il3A3mLqtFMb3OYpUv
-	 z6HREFIMJLJSDgpwow3xoGobUeAprDaJm1Gu1+e1d+995hyBWgj/ETKCub5YP6B8te
-	 7EqE3WyT5srHrs+cxM+GtkyeXufO7w9TvH2TrbtFzaEswLE7ooc5W2lxcatrGueeay
-	 fv8F1PDNoefCjIbk+UAW7tmcl+MaT4BMRNIbZLlS7tWqAKvCNz8SlaCWzl6nk+f1tU
-	 iQXuxeONsL0Gzmi4CAEQ+FT6Ct9Un1wbKfFoJmzJw+yG5Se18P/5l+zQvVXOFQkKmJ
-	 HAXwJGj4KFWAg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 7A8474326F;
-	Wed, 21 Oct 2026 02:02:31 +0000 (UTC)
-From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
-Date: Wed, 21 Oct 2026 02:02:29 +0000
-Subject: [PATCH] arm64: dts: rockchip: Add vdd_log and vdd_center to Kobol
- Helios64
+	s=k20260515; t=1792548517;
+	bh=DPSIyIEk0FaAkUIZHXeI5kjH5kkKiAm2j6s3EqMnHss=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=K5Gzn+hfMZezDi4iWyzLC5vVMhiEaE/MzUdOyyAD4Mic3VRZ0LqZn9ARthaXbVI5q
+	 LVH12tx4GvgNePIuMGOwk4YtkGstcMPEMzrrjZzj9ifJx8GdNWg5M5YfzMTZBQvsUi
+	 AoLOuO7cfETHA3cKGObETa84CEKknHuWEJP8olnhUMUjfbzSEjTCrj6GwgZ7hnD1fg
+	 kMToMxY9Skb//64z3J++o9QLx0UO0nkngrR499Chd8dP9HyAZa2jyeIcUrx5Hz3Q3V
+	 MU723AURzAmvLj6wQ8Mn7Nmr1gIEM96p97PPhEz9cWvs1QqeeyCZsN1iZ8tV2x9C68
+	 wBFo8uyAN0oPA==
+Message-ID: <sashiko-outbox-179682@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 7/9] spi: add KUnit tests for the multi-CS framework
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jonathan Santos" <Jonathan.Santos@analog.com>, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <cb439b0d9a5b0daa5109929debfddee21b56778a.1792435248.git.Jonathan.Santos@analog.com>
+References: <cover.1792435248.git.Jonathan.Santos@analog.com>
+ <cb439b0d9a5b0daa5109929debfddee21b56778a.1792435248.git.Jonathan.Santos@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 21 Oct 2026 02:08:36 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,117 +59,167 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261021-helios64-vdd-log-center-v1-1-4cafd110e0e5@iav.lv>
-X-B4-Tracking: v=1; b=H4sIADUd2GoC/x3MQQqAIBBA0avErBtoTCy6SrQwnWogNDQiiO6et
- HyL/x/InIQzDNUDiS/JEkMB1RW4zYaVUXwxqEYZahThxrvEbDRe3uMeV3QcTk44U+sXPZuutwS
- lPhIvcv/ncXrfDzkFkdJpAAAA
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2557; i=iav@iav.lv;
- h=from:subject:message-id;
- bh=RDt7P+CwOHiaEZvswLkEBaOOUqR15G5E3l+XUXhUTd8=;
- b=owGbwMvMwCVmNH1q96v4SmbG02pJDFk3ZM28ok6uurQ4RuGJvaChU8C3vtWXs34WMTzvOV6gO
- ofBseBRRykLgxgXg6yYIsuEQxq3MpZc/evvYf4AZg4rE8gQBi5OAZhI8SmG/1lfjils1Jsu0lPc
- klw6+daeKx4PfI8siAiqF+btd3xrHsjIsCsy+OKF7YymHVIti1g23t9sLJ3R8S8h2Svyb/PRd0d
- jGQE=
-X-Developer-Key: i=iav@iav.lv; a=openpgp;
- fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
-X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
-X-Original-From: Igor Velkov <iav@iav.lv>
-Reply-To: iav@iav.lv
-Content-Transfer-Encoding: 7bit
 
-From: Igor Velkov <iav@iav.lv>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] spi: tests: spi_cs_config suite only tests local spi_validate_cs=
+_config()
+- [Medium] spi: tests: last_cs_index_mask_filters_slots() does not test mas=
+k filtering
+--
 
-The Helios64 feeds VDD_LOG from a PWM regulator driven by PWM2 and
-VDD_CENTER from DCDC_REG1 of the RK808, but the device tree describes
-neither of them.
+commit c0274670e3ec066a2b9eb903dcadd09d2e349d14
+Author: Jonathan Santos <Jonathan.Santos@analog.com>
 
-Describe both. The vdd_log range comes from the schematic (sheet 8):
-0.83 V with 3.0 V on LOG_DVS_PWM and 1.4 V with 0 V, so the PWM is
-inverted. vdd_center gets the same limits as vdd_cpu_l.
+spi: add KUnit tests for the multi-CS framework
 
-With U-Boot setting both rails to 950 mV, Linux 7.3-rc7 reports 949 mV
-and 950 mV.
+This commit adds KUnit test suites for the SPI multi-CS framework covering
+device naming, last-asserted CS tracking, and CS array validation. It also
+exposes SPI_INVALID_CS, spi_dev_set_name(), and spi_is_last_cs() in
+drivers/spi/internals.h for KUnit testing.
 
-Assisted-by: LLM
-Signed-off-by: Igor Velkov <iav@iav.lv>
----
-No regulator-state-mem: deep suspend does not resume on this board yet,
-so no suspend value is tested.
+> diff --git a/drivers/spi/tests/spi-multi-cs-kunit.c b/drivers/spi/tests/s=
+pi-multi-cs-kunit.c
+> new file mode 100644
+> index 0000000000000..314de7dc86064
+> --- /dev/null
+> +++ b/drivers/spi/tests/spi-multi-cs-kunit.c
 
-U-Boot sets both rails to 950 mV:
-https://lore.kernel.org/r/20261021-b4-helios64-v1-1-74afe8aa6d72@iav.lv
+[ ... ]
 
-This conflicts with the pending power tree series in the list of fixed
-regulators; I will rebase whichever goes in second:
-https://lore.kernel.org/r/20261016-helios64-power-tree-v1-0-31d6c8dc5092@iav.lv
----
- .../boot/dts/rockchip/rk3399-kobol-helios64.dts    | 24 ++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+> +/*
+> + * cs_index_mask only has bit 0 set even though num_chipselect=3D2:
+> + * slot 1 is skipped by spi_for_each_valid_cs, only slot 0 is checked.
+> + * last_cs[0] matches.
+> + */
+> +static void last_cs_index_mask_filters_slots(struct kunit *test)
+> +{
+> +	const u8 cs[] =3D { 0, 1 };
+> +	struct spi_device *spi =3D alloc_spi(test, cs, ARRAY_SIZE(cs), 8);
+> +
+> +	/* override mask: only slot 0 active. */
+> +	spi->cs_index_mask =3D BIT(0);
+> +	spi->controller->last_cs[0] =3D 0;
+> +	spi->controller->last_cs[1] =3D SPI_INVALID_CS;
+> +
+> +	KUNIT_EXPECT_TRUE(test, spi_is_last_cs(spi));
+> +}
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-index 63ad79b4c8ac..3c2ba805e999 100644
---- a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-@@ -271,6 +271,17 @@ vcc12v_dcin_bkup: regulator-vcc12v-dcin-bkup {
- 		regulator-max-microvolt = <12000000>;
- 		vin-supply = <&vcc12v_dcin>;
- 	};
-+
-+	vdd_log: regulator-vdd-log {
-+		compatible = "pwm-regulator";
-+		pwms = <&pwm2 0 25000 1>;
-+		pwm-supply = <&vcc5v0_sys>;
-+		regulator-name = "vdd_log";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <830000>;
-+		regulator-max-microvolt = <1400000>;
-+	};
- };
- 
- /*
-@@ -370,6 +381,15 @@ rk808: pmic@1b {
- 		#clock-cells = <1>;
- 
- 		regulators {
-+			vdd_center: DCDC_REG1 {
-+				regulator-name = "vdd_center";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <750000>;
-+				regulator-max-microvolt = <1350000>;
-+				regulator-ramp-delay = <6001>;
-+			};
-+
- 			vdd_cpu_l: DCDC_REG2 {
- 				regulator-name = "vdd_cpu_l";
- 				regulator-always-on;
-@@ -580,6 +600,10 @@ &pwm1 {
- 	status = "okay";
- };
- 
-+&pwm2 {
-+	status = "okay";
-+};
-+
- &saradc {
- 	vref-supply = <&vcc1v8_s3>;
- 	status = "okay";
+[Severity: Medium]
+In drivers/spi/spi.c, spi_is_last_cs() sets last =3D true whenever any acti=
+ve
+slot matches, and never clears last on a non-matching slot:
 
----
-base-commit: d2abcbb905b0e4b2e06b257fa1e5bcf4faa6dbda
-change-id: 20261021-helios64-vdd-log-center-b13df4b678a1
+drivers/spi/spi.c:spi_is_last_cs() {
+	u8 idx;
+	bool last =3D false;
 
-Best regards,
--- 
-Igor Velkov <iav@iav.lv>
+	spi_for_each_valid_cs(spi, idx) {
+		if (spi->controller->last_cs[idx] =3D=3D spi_get_chipselect(spi, idx))
+			last =3D true;
+	}
+	return last;
+}
 
+In last_cs_index_mask_filters_slots(), slot 0 is set to match
+(last_cs[0] =3D 0 with cs[0] =3D 0) and slot 1 is set not to match
+(last_cs[1] =3D SPI_INVALID_CS with cs[1] =3D 1) while cs_index_mask is BIT=
+(0).
+Because slot 0 matches, spi_is_last_cs() will return true even if
+cs_index_mask is ignored and slot 1 is also evaluated.
 
+To verify that cs_index_mask actually filters out inactive slots, shouldn't
+this test set the active slot 0 to a non-matching value (such as
+SPI_INVALID_CS), set the masked-out slot 1 to match (last_cs[1] =3D 1), and
+expect spi_is_last_cs(spi) to return false?
+
+[ ... ]
+
+> +/*
+> + * Validate and normalise the CS configuration of @spi against the contr=
+oller's
+> + * @num_chipselect limit. Arithmetic Analysis only, no device-model call=
+s or bus
+> + * scan.
+> + *
+> + * On success the unused chip_select[] slots are filled with SPI_INVALID=
+_CS.
+> + */
+> +static int spi_validate_cs_config(struct spi_device *spi,
+> +				  u16 ctlr_num_chipselect)
+> +{
+> +	int idx;
+> +
+> +	if (spi->num_chipselect > SPI_DEVICE_CS_CNT_MAX)
+> +		return -EOVERFLOW;
+> +
+> +	for (idx =3D 0; idx < spi->num_chipselect; idx++) {
+> +		if (spi_get_chipselect(spi, idx) >=3D ctlr_num_chipselect)
+> +			return -EINVAL;
+> +	}
+> +
+> +	/* No duplicate physical CS values within the same device. */
+> +	for (idx =3D 0; idx < spi->num_chipselect; idx++) {
+> +		for (int j =3D idx + 1; j < spi->num_chipselect; j++) {
+> +			if (spi_get_chipselect(spi, idx) =3D=3D spi_get_chipselect(spi, j))
+> +				return -EBUSY;
+> +		}
+> +	}
+> +
+> +	/* Fill unused slots before the contiguity check modifies chip_select[]=
+. */
+> +	for (idx =3D spi->num_chipselect; idx < SPI_DEVICE_CS_CNT_MAX; idx++)
+> +		spi_set_chipselect(spi, idx, SPI_INVALID_CS);
+> +
+> +	/* CS values must form a ascending contiguous sequence. */
+> +	for (idx =3D 1; idx < spi->num_chipselect; idx++) {
+> +		if (spi_get_chipselect(spi, idx) !=3D spi_get_chipselect(spi, idx - 1)=
+ + 1)
+> +			return -EINVAL;
+> +	}
+> +
+> +	return 0;
+> +}
+
+[Severity: Medium]
+All of the test cases in spi_cs_config_suite (cs_cfg_single_valid(),
+cs_cfg_multi_valid(), cs_cfg_overflow(), cs_cfg_out_of_range(),
+cs_cfg_duplicate(), cs_cfg_gap(), cs_cfg_descending(), and cs_cfg_max_cs())
+call this test-local spi_validate_cs_config() helper rather than exercising
+the SPI core validation logic in __spi_add_device() in drivers/spi/spi.c:
+
+drivers/spi/spi.c:__spi_add_device() {
+	...
+	if (spi->num_chipselect > SPI_DEVICE_CS_CNT_MAX) {
+		dev_err(dev, "num_cs %d > max %d\n", spi->num_chipselect,
+			SPI_DEVICE_CS_CNT_MAX);
+		return -EOVERFLOW;
+	}
+	...
+	/* Restrict CS logical values to a contiguous sequence */
+	for (idx =3D 1; idx < spi->num_chipselect; idx++) {
+		if (spi_get_chipselect(spi, idx) !=3D spi_get_chipselect(spi, idx - 1) + =
+1) {
+			...
+			return -EINVAL;
+		}
+	}
+	...
+}
+
+In addition, alloc_spi() initializes ctlr->num_chipselect =3D ctlr_num_cs,
+which is never read because spi_validate_cs_config() takes a separate
+ctlr_num_chipselect argument instead of checking
+spi->controller->num_chipselect.
+
+Could the CS validation logic in __spi_add_device() be factored out into a
+helper in drivers/spi/spi.c and exposed via VISIBLE_IF_KUNIT and
+EXPORT_SYMBOL_IF_KUNIT in drivers/spi/internals.h so that spi_cs_config_sui=
+te
+tests the actual SPI core implementation?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1792435248.gi=
+t.Jonathan.Santos@analog.com?part=3D7
