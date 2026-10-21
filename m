@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792613079;
-	b=25fxaw62oY3CSGiZ97QscN92xIUK2qNKcUhwKIwa2Mozn/AOD7B892o0JCdvjF+A9dKo
-	 jonX3u8UATEVHQMH8jQegE5BtpcNvxodGgxZ5Cl2DmSqEw+EzeV+P95MoOOIi1P61IYwZ
-	 967/LSqwIj4kmBypk2bqQ3+TZosT1wAv+yQuGuuwmJAd4pMtwgDRN9rj29NsMI96wZjSQ
-	 LlgIoQP8F3MELhSolz4zOdSeGg16u41WAAkOWOLedaqXlUotJtoJTCepkyCZpS0nLN9uE
-	 gwdfeDnusEVgDgYSGTInaA8QLpJ70dpa2u4FTQGyZNKlF4gb8Jfu9W1t3gbxh70n62Q==
+	t=1792613110;
+	b=trluMyMf7c9pUv95qjEUuIHmx+EOAecK3DiqV3dgW1UK4b4LqG7tDiBrxhFYxDCG9eZl
+	 aiqkNgqPITte9BoeZQi615Kde40TqnW4eE+twU2MQfpJHanB+VuAQehTaFcguGdTX89ma
+	 ECCvObZAND7leaLtm6pLXOy5H0wgiHHCwwAN2LvBO99atgY406K1Q01xwk+vh2/mD4wYF
+	 BXPpvIZWgK9/BVF0hgQLVryLs1LxyTjH72aiY+3s/RctWcHWqUmLauAYR6xcgXpVyixh1
+	 KFS4yMaF+viaXUB+rytcYstJVxIXbXS/rgEoP1kUGg6kmOnst2LKP5QRI2tbXzMb5Jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792613079;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792613110;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=JQcbBTTCNeW/OzCCgmDwiOJ4ikwv7Cb8Y/Xfb1GFEQc=;
-	b=zMKwsct2l+gIRLWQZ9BqEUIZKqUGmEvklcAP337TesJskX7NBgECvddZcpLCsjCXNN2w
-	 ik62O3OXdoN4kM9hQg7BpYWQqDBwi9WjJJ74tb9NyoWlqZuOtvNVLRpw9xRKEh3C4mEKo
-	 E3qngVvILVKkRW3Hu/K8XADrL9bOsX3EGr03GL3z/Ob3eLiF4UCUM9W5IAwjbmfRvp3Xf
-	 g4O8Lh8J+7kyYkUD2xtJnFhqtSh3kH+BVg7TMvniObJHCVyBCsoAN9p9UpCPdif7Uivby
-	 QXX5wtiscEKYnkzF7JmT+VV2OeqHcRlsS3De9BQqMDKC0jZv1jSpuwNJvIHKmkVTZjQ==
+	bh=E2I9rFrmH+ssQHB2ZUxn0iz6s6CMUbZpsCh/jqKStp8=;
+	b=FpsGgK5mTBsnHd5ZLyZ5F/is6b9gb7L+Zh/MbGi6IC696R5crP1+4NDwKaIjq2VihTQD
+	 8UT8ukKFOeazj4czR3M63/cbzRCfNnhLzCd3t4ieu/Hut9tzRe732MW0IPilhCOrlafTa
+	 RZdG9r87m9zzssRmV+5LZcAcN1qPvrWDdZhwDUx7tjqIIngkVL2UwYnUBLiXno5bzDHcM
+	 uB2ap5fdy0MUncNgRqjfdiIPeC47dwhQtyy7CsXmC0ZIeaHDtcRi0S2e5fHEIrO6CF4JP
+	 AmN6rS+BUY8MrgzkYsloQ3QFkbAgPML8bSgBqx1HJDToeK2QcYYSomFpuX7mMRDo+kA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hQCFWmdt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dAThXwNg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2EA5606A31B;
-	Wed, 21 Oct 2026 20:04:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEA63606A31B
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 20:05:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hQCFWmdt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 076751F000C1;
-	Wed, 21 Oct 2026 20:04:37 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dAThXwNg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 488DB1F000C2;
+	Wed, 21 Oct 2026 20:05:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792613078;
-	bh=JQcbBTTCNeW/OzCCgmDwiOJ4ikwv7Cb8Y/Xfb1GFEQc=;
+	s=k20260515; t=1792613109;
+	bh=E2I9rFrmH+ssQHB2ZUxn0iz6s6CMUbZpsCh/jqKStp8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hQCFWmdtHz4jog1ZUkZ1L/LUIpuNKY2lHezyWDZThDclcBUwceLwZpFEjTz6PQxqq
-	 E9kTicfGwSAk2eZvEbvvCU3GrwN03uBX6xnQhmQOiiwgayL9Ptf+gReGTKjAZeptoa
-	 XviCQGOaD02kTltsOYvCJtFIuWv4gvJ8b8rapeloX5nbgYh6vVpzmHgrgpJrHBxnU3
-	 TAa7Z7wMICU2WN0jNMxYkkcmsmsmpPo4o25WS9VilJukySBXLCNAKGhmoHtDpmvdW0
-	 B/qZ0OT/L0V1nydHNoohZXHa/bl1IKN446ISV6CSmjxPDGtUz3+V7ad3bLxoU8xHF6
-	 VOigrPb4/8Amw==
-Message-ID: <sashiko-outbox-180623@kernel.org>
+	b=dAThXwNgrlh2XHqLE50lVQ6EIa36/sSWFZbJ9BATc0amPLCE/dRrwRQKzBPioGXep
+	 4qubyDma2A+BxehSFyxyDrSX1d7y5DiD9nyz/HoX2U8bA1WZlzYHa/2g8V4t6X73CR
+	 c6GHrc/J4WypRD+nei69MPtOCBquH2DJWY8/uv9a7OYyNQn2a+QC0Y9S8FDvOCbe5j
+	 9UAu0d/WmR/vASlIDYa5AnAG7KRbHbQssGEbKsCgkAkBRijOQmePnpnSrY9y73MXru
+	 30R2nb49iXrMjpBS9QJC1QTihMTzgvZO+rI1nX2OZZgO6NEy4LF1N9TlYBcQC4pTOQ
+	 Gpy/cqW3V3phg==
+Message-ID: <sashiko-outbox-180625@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 03/18] dt-bindings: clock: add Zhihe A210 clock
- controllers
+Subject: Re: [PATCH v2 1/2] dt-bindings: bus: Add Altera AXI Timeout Bridge
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Han Gao" <gaohan@iscas.ac.cn>
-Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261022-a210-init-v1-3-5e438f972d24@iscas.ac.cn>
-References: <20261022-a210-init-v1-0-5e438f972d24@iscas.ac.cn>
- <20261022-a210-init-v1-3-5e438f972d24@iscas.ac.cn>
+To: "Vyacheslav Yurkov" <V.Yurkov.EXT@bruker.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261021-feature-timeout-ip-v2-1-a037be089518@bruker.com>
+References: <20261021-feature-timeout-ip-v2-0-a037be089518@bruker.com>
+ <20261021-feature-timeout-ip-v2-1-a037be089518@bruker.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 21 Oct 2026 20:04:37 +0000
+Date: Wed, 21 Oct 2026 20:05:08 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,233 +60,93 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] dt-bindings: clock: zhihe,a210-clk: missing subsystem controller=
- input clocks
-- [Medium] dt-bindings: clock: zhihe,a210-clk: disjoint register blocks mer=
-ged in one node
-- [Medium] dt-bindings: clock: zhihe,a210-clk: non-clock macros and global =
-IDs in header
+- [Low] dt-bindings: bus: undocumented compatible in axi-timeout-bridge exa=
+mple
+- [Low] dt-bindings: bus: non-canonical property order in axi-timeout-bridg=
+e example
 --
 
-commit f418ceaa00f70a29b9cfb989d2292f9ccba767ae
-Author: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
+commit b1b42eb61f1fec5cade8d2ad793870c54e4f6574
+Author: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
 
-dt-bindings: clock: add Zhihe A210 clock controllers
+dt-bindings: bus: Add Altera AXI Timeout Bridge
 
-This patch adds the devicetree binding schema and clock ID header for the
-Zhihe A210 SoC clock controllers.
+This commit adds the devicetree binding schema for the Altera AXI Timeout
+Bridge FPGA IP core, which monitors AXI transactions to downstream fabric
+peripherals and terminates timed-out accesses with an error response and
+interrupt.
 
-> diff --git a/Documentation/devicetree/bindings/clock/zhihe,a210-clk.yaml =
-b/Documentation/devicetree/bindings/clock/zhihe,a210-clk.yaml
+> diff --git a/Documentation/devicetree/bindings/bus/altr,axi-timeout-bridg=
+e-1.0.yaml b/Documentation/devicetree/bindings/bus/altr,axi-timeout-bridge-=
+1.0.yaml
 > new file mode 100644
-> index 0000000000000..a3546d2f5977c
+> index 0000000000000..3512494442d46
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/clock/zhihe,a210-clk.yaml
-> @@ -0,0 +1,231 @@
-
-[ ... ]
-
-> +  clocks:
-> +    description: Input reference oscillators.
-> +    minItems: 1
-> +    maxItems: 3
-> +
-> +  clock-names:
-> +    minItems: 1
-> +    maxItems: 3
-> +    items:
-> +      enum:
-> +        - osc-32k
-> +        - osc-24m
-> +        - rc-24m
-
-[Severity: Medium]
-In the A210 SoC clock hierarchy, zhihe,a210-clk (managing pll-wrap and
-top-crg) and zhihe,a210-aon-clk generate the root PLLs, dividers, muxes, and
-subsystem clock gates (such as top_cfg_aclk, uart_sclk, video_pll_foutvco,
-gmac_pll_foutpostdiv, dpu0_pll_foutpostdiv, aon_osc_clk_logic, aon_rtc_clk,
-npu_aclk, npu_cclk, vp_aclk, and tee_clk), which then feed the 8 subsystem
-clock controllers.
-
-In Documentation/devicetree/bindings/clock/zhihe,a210-clk.yaml, the
-top-level properties:clocks and properties:clock-names definitions only all=
-ow
-up to 3 external reference oscillators (osc-32k, osc-24m, rc-24m) with
-maxItems: 3, and in allOf only the zhihe,a210-clk branch requires clocks and
-clock-names.
-
-Any devicetree node using one of the 8 subsystem clock controller compatible
-strings (zhihe,a210-peri-clk, zhihe,a210-gpu-clk, zhihe,a210-pcie-clk,
-zhihe,a210-usb-clk, zhihe,a210-vi-clk, zhihe,a210-vp-clk, zhihe,a210-vo-clk,
-or zhihe,a210-npu-clk) that specifies its parent clocks from zhihe,a210-clk
-or zhihe,a210-aon-clk will fail dtbs_check schema validation, while omitting
-clocks leaves the hardware clock tree topology undocumented in devicetree a=
-nd
-forces the driver to rely on hardcoded global clock names.
-
-How can the 8 subsystem clock controller nodes declare their upstream input
-clocks in devicetree if clocks and clock-names only permit the 3 external
-reference oscillators, and should each subsystem compatible in allOf specify
-and require its input clocks?
-
-[ ... ]
-
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          const: zhihe,a210-clk
-> +    then:
-> +      properties:
-> +        reg:
-> +          minItems: 9
-> +        reg-names:
-> +          items:
-> +            - const: pll-wrap
-> +            - const: top-crg
-> +            - const: cpu-ss-clk-sysreg
-> +            - const: cpu-ss-cpu-pll
-> +            - const: ddr0-sysreg
-> +            - const: ddr1-sysreg
-> +            - const: slc-dual-sysreg
-> +            - const: top-crg-t
-> +            - const: cpu-ss-ccu
-> +        clocks:
-> +          minItems: 3
-> +        clock-names:
-> +          items:
-> +            - const: osc-32k
-> +            - const: osc-24m
-> +            - const: rc-24m
-> +      required:
-> +        - clocks
-> +        - clock-names
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          const: zhihe,a210-peri-clk
-> +    then:
-> +      properties:
-> +        reg:
-> +          minItems: 5
-> +          maxItems: 5
-> +        reg-names:
-> +          items:
-> +            - const: peri0-sysreg
-> +            - const: peri1-sysreg
-> +            - const: peri2-sysreg
-> +            - const: peri3-sysreg
-> +            - const: tee-crg
+> +++ b/Documentation/devicetree/bindings/bus/altr,axi-timeout-bridge-1.0.y=
+aml
+> @@ -0,0 +1,80 @@
 
 [ ... ]
 
 > +examples:
 > +  - |
-> +    #include <dt-bindings/clock/zhihe,a210-clk.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
 > +
-> +    clock-controller@260000 {
-> +        compatible =3D "zhihe,a210-clk";
-> +        reg =3D <0x00260000 0x1000>,
-> +              <0x00250000 0x1000>,
-> +              <0x10141600 0x100>,
-> +              <0x10141400 0x100>,
-> +              <0x04810000 0x1000>,
-> +              <0x05810000 0x1000>,
-> +              <0x04900000 0x1000>,
-> +              <0x20250000 0x1000>,
-> +              <0x10140000 0xe00>;
-> +        reg-names =3D "pll-wrap", "top-crg", "cpu-ss-clk-sysreg", "cpu-s=
-s-cpu-pll",
-> +                    "ddr0-sysreg", "ddr1-sysreg", "slc-dual-sysreg", "to=
-p-crg-t",
-> +                    "cpu-ss-ccu";
-> +        #clock-cells =3D <1>;
-> +        clocks =3D <&osc_32k>, <&osc_24m>, <&rc_24m>;
-> +        clock-names =3D "osc-32k", "osc-24m", "rc-24m";
+> +    timeout-bridge@10000 {
+> +        compatible =3D "altr,axi-timeout-bridge-1.0";
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <1>;
+> +
+> +        reg =3D <0x10000 0x10>;
+> +        interrupts =3D <0 12 IRQ_TYPE_LEVEL_HIGH>;
+> +        ranges =3D <0x0 0x10010 0x1000>;
+
+[Severity: Low]
+In Documentation/devicetree/bindings/bus/altr,axi-timeout-bridge-1.0.yaml
+under the examples section, the timeout-bridge@10000 node places
+#address-cells and #size-cells before reg, and interrupts before ranges.
+
+Per Documentation/devicetree/bindings/dts-coding-style.rst and
+check_property_order() in scripts/dtc/dt-check-style, properties in a node
+are expected to begin with compatible, reg, and ranges, followed by common
+properties sorted by their #-stripped names (#address-cells, interrupts,
+#size-cells). Running scripts/dtc/dt-check-style --mode=3Dstrict on this
+binding reports property-order warnings for reg and ranges.
+
+Should the properties in timeout-bridge@10000 be reordered so that
+compatible, reg, and ranges come first?
+
+> +
+> +        timeout-device@100 {
+> +            compatible =3D "timeout-device";
+> +            reg =3D <0x100 0x10>;
+> +        };
 > +    };
 
-[Severity: Medium]
-In Documentation/devicetree/bindings/clock/zhihe,a210-clk.yaml, the
-allOf:zhihe,a210-clk schema and the clock-controller@260000 example node
-aggregate 9 disjoint hardware register blocks across unrelated SoC
-subsystems into a single devicetree node: pll-wrap (0x00260000), top-crg
-(0x00250000), cpu-ss-clk-sysreg (0x10141600), cpu-ss-cpu-pll (0x10141400),
-ddr0-sysreg (0x04810000), ddr1-sysreg (0x05810000), slc-dual-sysreg
-(0x04900000), top-crg-t (0x20250000), and cpu-ss-ccu (0x10140000).
+[Severity: Low]
+In Documentation/devicetree/bindings/bus/altr,axi-timeout-bridge-1.0.yaml
+under the examples section, the child node timeout-device@100 uses
+compatible =3D "timeout-device", which has no vendor prefix and is not
+documented by any binding schema under Documentation/devicetree/bindings/.
 
-Similarly, allOf:zhihe,a210-peri-clk aggregates 5 separate hardware blocks
-(peri0-sysreg, peri1-sysreg, peri2-sysreg, peri3-sysreg, and tee-crg) at
-disjoint address ranges into a single devicetree node, even though those 5
-subsystems are independent hardware blocks (and are modeled as 5 separate
-nodes zhihe,a210-peri0-reset through zhihe,a210-peri3-reset and
-zhihe,a210-tee-reset in the reset binding). Merging these blocks into single
-virtual nodes also claims entire 0x1000 *-sysreg ranges that contain
-non-clock control registers.
+When make dt_binding_check runs without DT_SCHEMA_FILES set,
+scripts/Makefile.dtbs invokes dt-validate with -m:
 
-Should these separate hardware register blocks be modeled as individual
-devicetree nodes matching the physical SoC layout instead of grouping
-disjoint register ranges into zhihe,a210-clk and zhihe,a210-peri-clk?
+    DT_CHECKER ?=3D dt-validate
+    DT_CHECKER_FLAGS ?=3D $(if $(DT_SCHEMA_FILES),-l $(DT_SCHEMA_FILES),-m)
 
-> diff --git a/include/dt-bindings/clock/zhihe,a210-clk.h b/include/dt-bind=
-ings/clock/zhihe,a210-clk.h
-> new file mode 100644
-> index 0000000000000..aa59d91a9ad05
-> --- /dev/null
-> +++ b/include/dt-bindings/clock/zhihe,a210-clk.h
-> @@ -0,0 +1,649 @@
+This checks that every node with a compatible string in the compiled example
+matches a known schema, causing validation of
+/example-0/timeout-bridge@10000/timeout-device@100 to fail with:
 
-[ ... ]
+    failed to match any schema with compatible: ['timeout-device']
 
-> +#define VO_PLL2_DIV_EN                                     347
-> +#define VO_PLL2_DIV_NUM                                    348
-> +#define VO_PLL1_DIV_EN                                     349
-> +#define VO_PLL1_DIV_NUM                                    350
-> +#define VO_PLL0_DIV_EN                                     351
-> +#define VO_PLL0_DIV_NUM                                    352
-
-[ ... ]
-
-> +#define CLK_DUMMY                                          505
-> +#define OSC_32K                                            506
-> +#define OSC_24M                                            507
-> +#define RC_24M                                             508
-
-[ ... ]
-
-> +#define CLK_END 590
-> +
-> +#endif
-
-[Severity: Medium]
-In include/dt-bindings/clock/zhihe,a210-clk.h, all 9 clock controller
-compatibles share a single interleaved global 0..589 ID space rather than
-per-controller 0-based clock IDs, which requires every controller instance =
-in
-drivers/clk/zhihe/clk-a210-ap.c to allocate a 590-entry clk_hw_onecell_data
-array.
-
-In the VI_SYSREG, VO_SYSREG, and VP_SYSREG sections, hardware divider enable
-bits and divider ratio bitfields of the same composite divider clock are
-exposed as separate clock IDs (for example, VI_PRE_ISP_CORE_CLK_DIV_EN and
-VI_PRE_ISP_CORE_CLK_DIV_NUM, VO_PLL0_DIV_EN and VO_PLL0_DIV_NUM, and
-VP_DECOMP_DIV_EN and VP_DECOMP_DIV_NUM). In drivers/clk/zhihe/clk-a210-ap.c,
-only the *_DIV_NUM IDs are registered as composite dividers (using the
-corresponding *_DIV_EN bit as the gate bit), leaving all 16 *_DIV_EN macros
-as unused register-bitfield definitions in the devicetree ABI header.
-
-Additionally, CLK_DUMMY is a software driver implementation artifact,
-OSC_32K, OSC_24M, and RC_24M are external input reference clocks passed via
-the clocks property rather than outputs of the clock controller, and CLK_END
-is an internal array bound whose value changes whenever new clock IDs are
-added, breaking devicetree binding ABI invariance.
-
-Could CLK_END, CLK_DUMMY, OSC_32K, OSC_24M, RC_24M, and the unused *_DIV_EN
-bitfield macros be dropped from include/dt-bindings/clock/zhihe,a210-clk.h,
-and should each clock controller define its own 0-based clock IDs?
+Could timeout-device@100 in the example use an existing documented
+compatible string so that make dt_binding_check passes when dt-validate runs
+with -m?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022-a210-init-=
-v1-0-5e438f972d24@iscas.ac.cn?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021-feature-ti=
+meout-ip-v2-0-a037be089518@bruker.com?part=3D1
