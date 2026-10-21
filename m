@@ -1,57 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792583871;
-	b=IWoIemr4NqXr15gEyrBoynFB55DyUAKz3xRm7mjzuvAkZj1MzY0yChhecbJulqWRWj3n
-	 tCgdYXiujxDhmkRM/5vLpFoL6DM8KJGR8ItuMHhHmfrowboThK4Mkm9LjBsU7/2JaW5ls
-	 iVZBBhhy+GLg6Eje0dN+sKR5f1YR67NskB6r/Jq4J01YRK4qvus5hXNlqLX0w4s4eHJwt
-	 PLsuPpAlFJcyRi6vy6pmFHRTk9/VgB/onqRhRLm9pncnsRflXgU1NAe8dgGl0LbdFqUuS
-	 xu12Tlc//bsZpT9fN6GxkzvdIkfr8eYUc+WH/rB9htpkbUHISIREHf8uk1E3ZiKnW2Q==
+	t=1792583948;
+	b=p9SgRK8JJgh383iOhMIq/gINbsZnSukf0A6qTDz5jZOuqoiQywR/3BreMw5CIreu9obC
+	 S+ColZ6tmfJfU+9qUeAEI2kpDSrc+qLe+FpUBhL0Bh4a37v97RIFGOS103NvXLW+p8b8y
+	 r61fDw3psczqFY/HAkE+bVkDWwGexFPu5qCqy+d4ms5fga3VicgQqHNRSjIX21No2o2M/
+	 +3tNjEL8xW4w+xhN8Dq5iGdQtq/whtKswojag8UPbAvjZbC+pn1ySaDhiAWV+wGdaKLtk
+	 YwciEySFhiFV6sUdZjuT6AFN4PGtYUYLBEWpPSihiooFqqZ38DhTjgcoyAq1d8uyhiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792583871;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=VkmOqEZ/v+YCEM73Cli4e/3W/7vqKladdwa2VKuAB1s=;
-	b=RGnQm3Db83nHrQVzp2FGGifVVQeczA32oUJbyuovCD2wyRuyTTCmF6+X0D62uC2oVvk1
-	 6zUE7pHQu7FeURE1dWlRy70NVTZAhk4v1B90or96iPHg4WAqp/ru/IpHi6vkrXm69uGLE
-	 zzjlZNEEvvto8cqNJOoGm5DgUmnrxjUOmKs5I8haw428s2bxOuX3j23d+l32fFKKry9c4
-	 P+Fa2jLCOFklO6722lWjsuT8jWTDG/oolR3gZ5yZ3ekD4dVIwa23TuQ4XmQtGzg858JBM
-	 3cGAQ6KN25sB35bYmANweOOO/0eW41CAKsLNPmir9RkeGjpRnwkrTgwutQG7m+QHItQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792583948;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=8sVdcb9WOamSSxBX7E5eJsqhQ4h6DMMgPD6RZRCx7SM=;
+	b=eRcvn6NHmOwhlNB8fJIYwPBioGND5TA0DsIk8KinD6IUZDfmRZc8P/35G8FRpcuUhnar
+	 qo2og74GhDfkO52wAcRqeBF5kU5IQTRc2xagK9/Zk7pVz6nxdXBOanjD3b6PnZT7rwe0c
+	 L4qhtr4fPpAhjl/HfLacbnd9gIQt9pJfDghbV5s6kIhWT5jFKSDrBD+ngI08jsAzYa80W
+	 UrXoZuqGOHEy8Q+3IhXqnlgslX1fHVz/7mi7IjwKl+tje4fSaOrOyCtswI5q4nKLIZV1C
+	 vXLVd4jDBsrZ8ktfMrSKjSItMWVDdDAsOLUjlGXG9d3NJyhB6LP/aq4ubHyeHL9+74A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cNwcrcMV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=BfTav5Q6;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=adsgSzFe;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B97E9606A31D
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 11:57:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7632C606A31B
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 11:59:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7632C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cNwcrcMV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C7311F000C4;
-	Wed, 21 Oct 2026 11:57:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792583870;
-	bh=VkmOqEZ/v+YCEM73Cli4e/3W/7vqKladdwa2VKuAB1s=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cNwcrcMVu9ywbXYXOgH9VpKFye78rflEQKTPsrgDS8OFvrpVMK0WJ20ihc7tuedZc
-	 qGU8XVDrwIArmpl3zW3QwisEHE8cWkPhazA1J2+1kg3iZoo/mb+MsKYXFj42qO7CI7
-	 XLdJLZovA+xSWSOLmlTJ2Nnbpk1tQA5N6QKy8zZl4zrYLppjEc5+8eDEBngIuFOFuZ
-	 GXQplcqF6ES6tXj/MWl/3B0cxSRDcnPH/4SkaHEyS4hTJhlF22NK+FfvABisijuvxt
-	 6wevR66mH5v+CohCC7KvxTPMDMnV+CyRdWXgCjyPW5cJumUQUi4U9D9sr7Gz1Qc6qy
-	 BRFpcA6EQzqJQ==
-Message-ID: <sashiko-outbox-180197@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/6] drivers: greybus: Add software SVC
- implementation
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ayush Singh" <ayush@beagleboard.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, ojeda@kernel.org, gary@garyguo.net
-In-Reply-To: <20261021-gb-uart-transport-v4-4-c308ce821d45@beagleboard.org>
-References: <20261021-gb-uart-transport-v4-0-c308ce821d45@beagleboard.org>
- <20261021-gb-uart-transport-v4-4-c308ce821d45@beagleboard.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 21 Oct 2026 11:57:49 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=BfTav5Q6;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=adsgSzFe
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LBgEw43658390
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 11:59:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	8sVdcb9WOamSSxBX7E5eJsqhQ4h6DMMgPD6RZRCx7SM=; b=BfTav5Q6ZIKdf48c
+	eN2QC3GLYvzFJN6oqbfdhXg2MkVpRsB8+vRpV55k8QkMqT1G+JA5oxXnnpIv0WXO
+	wS5LCu+WXRBtF9SyiKtppPwJow/Kx4fQMoONS8t7lIBbzFV0+1jLSxKlUe46R54L
+	5Db8arC7BCe7YfsLI1tYVax+WREUXh7FPKprsRdw9mjCz6Bj52Gs+CRXbQqLRblL
+	r6H6zTtX3ctu3PeNetnwdMS/PAEP3XYpHuQWYf1fBOCHto7ZH7b4pE4SqMjzCA4F
+	h2BV4Ektne5nRGCJ1Ce5oYM+iv8eZX/O+SuFUaFFfNNK2OoqRpeFAp3Z9SvjPmjF
+	rzirxQ==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heeb9bjq2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 11:59:05 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-35c902e0da2so2254798eec.1
+        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 04:59:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792583945; x=1793188745; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8sVdcb9WOamSSxBX7E5eJsqhQ4h6DMMgPD6RZRCx7SM=;
+        b=adsgSzFetsmpguaXQwYnJvRhXc1fIXhk5mwY1dznWz2GRMXCD4xPxzM6MdtdJNHmyr
+         LQ9izTA3x9GMAukCYuNrm0+aeOI3+COmLWsOAq3tDjzZYW7fMl32m9L/kEy3ojW8654N
+         jZV3zrL/jkNrdRPJP5nqEwuMYMk6s6iHc+7Fa8CmUFMyhclYsEEq1MHbLTLfKbzpquaS
+         nauRXUJaP8HWiBQUON4uJ8ZVfbPXcKgYAbPItZr9zmBIATVOJws5oLaDiZe8imZpwr1C
+         fBVMQY95AlIYLXS8wslbtA+LgEn7fEB7LviiYsEsY1vSMS6RTHHvlisntvCMsb1bUP5/
+         b6/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792583945; x=1793188745;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8sVdcb9WOamSSxBX7E5eJsqhQ4h6DMMgPD6RZRCx7SM=;
+        b=drOSD3jUgEPkyLRo0P1LvEzWJEGTs7AZDAkuEvXESVIW7l2bdmsGJDP8KZnSF1YOWi
+         mI+RCx+XgwbCfq6Sv2BXVXO9j6d13+U7Nc2RGFe/yx4czBmAopcZwSDtb/lV03RsVC4s
+         9n8Ly+JGUwq2EDnd0bcfinBMrVBxn4qLGGDXEJvX20H3XQSUI8rirmD5BHV5vxI+XLiS
+         g7sXFW1oF8WfFshUPNGcyWLOkUhOprP56/WZkF/3bAL71GM88IHa+2LqyEvFR7nz2fGh
+         pIiYwc2b5Pyja7/aG/szhSJWagjujmwrS69ulRtO7s839o4sCiRAKwY8vG1Cd56tzqcW
+         Yt5w==
+X-Gm-Message-State: AFq9FYJA5nm4aXEzPspAWNUMoNb77lWnVtnp5P/9vPipO9cdDu6AdqbL
+	Eas7WvgtSlyl2SuLIpOn3WSVhAvDNAM6sRTPX4hwW+Pu4LHl1PbE+eG0ytcQRVCf8I+uauQmVx9
+	AWzPG8dO5Eu4P4fChEzJeD1ug1tjOHdnwecDRBIEJxiKmIBZvFBmXX6KywPn/2z2+
+X-Gm-Gg: AYBFou2g8pL8FT08opAXrf6rjtkyUQDVZNwTLzje4kMtC4HhUwWF2N4bsx4WsSa5hIk
+	EJ38kSL8FSF31v3OCfHcTr889Fdr3Du0e8OJz9HqPomnVTdvg1SqpLjIaGylOvImHIZJo6/JrrA
+	XwAMUDm1oZkFZpQ8usiarDDWkC3VaQ0EQD6kgMggbo6LNXT3ksLSoD41hpSJHSBFmaznMfEwQck
+	ThFSVll7NuXneZ9Y5mN4axChQ3PqMnh4MCgCBeKTCGea543y41lE26KE8JpIf954WGPx4+GZYzM
+	6b8sxp5h/PCGO4VwRFLnH9A63axZYLnePMTEATsFqLdUE9qb5P5nsOTIkp0DRQ3iBtgX1ziIKVh
+	hsPHikLQX3mtCNUH2xf2VJlqMei7DK2Q6
+X-Received: by 2002:a05:701b:4189:20b0:15e:12b6:7365 with SMTP id a92af1059eb24-190a1194331mr2367327c88.2.1792583944573;
+        Wed, 21 Oct 2026 04:59:04 -0700 (PDT)
+X-Received: by 2002:a05:701b:4189:20b0:15e:12b6:7365 with SMTP id a92af1059eb24-190a1194331mr2367302c88.2.1792583943897;
+        Wed, 21 Oct 2026 04:59:03 -0700 (PDT)
+Received: from [10.217.240.81] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903a180b9esm8969327c88.4.2026.10.21.04.59.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 04:59:03 -0700 (PDT)
+Message-ID: <80d3e29c-b46f-4250-9408-d4fffaabb987@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 17:28:59 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,457 +112,227 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] edac: qcom: add LCP/SRP DDR DRAM ECC support for
+ Shikra
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+References: <20261014-master-v1-0-aba3cfcfbac9@oss.qualcomm.com>
+ <20261014-master-v1-3-aba3cfcfbac9@oss.qualcomm.com>
+ <sashiko-outbox-171516@kernel.org>
+Content-Language: en-US
+From: Faiyaz Mohammed <faiyaz.mohammed@oss.qualcomm.com>
+In-Reply-To: <sashiko-outbox-171516@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA0NyBTYWx0ZWRfX4JcTjoKoZGEu
+ JsBnnGR5AAsllUWv94BYAgzxeSYcAoQ3fPKqJewJOdvvcCZ9qRtt9JajZdo5vrv3Whlpkxfz0Tj
+ W2DntGMfkfv03Lcn4NrzT55bPJpp6RU=
+X-Proofpoint-GUID: NQa4eJ6PjPnbTjHquGOXnr4DwgtXwsl7
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA0NyBTYWx0ZWRfX2i/PAlYGUCdd
+ LQZJBLJYtblK/hAx4jM0IBBb+zXHQK7ocylJOcCaEUKmpAmqqy5Wo2ozvryLBb3aSSbP3KP879a
+ Vv4nFCJlIMBylA7thZk9iA1vYCVzAo4P5JoCkBmU1YKyXPsJx7HGxyLYfgyU9HHVQIX8x4O+OdP
+ /aoBovHvSUuShm/o+yHV5vrf9l+xSaoMSJJUqrsQ0ir3EFzwHe+NicgYKhpNRAB6tPK7QHNG7eu
+ 0+pgN6sE1kMYVxU39hDuMD92KvcxV/E8kuyS0KbKnoW7jM4aM1u+mziQtKTTwZDaiAet/jHBj6a
+ 0hh4HeX4oW609ILYHr8hJJsPEpsQecdScadJhkyQ6OjL1+bEDjo+OvouEDQVo+CFVXv6lwP9WQe
+ +gMJpIxIoPqEMI0lP4nSCaZkegnA37pWIfpeswsR5b+Gz5QqKS4D230H05oW0sXwfyM45A2AfSi
+ tUysRPXW2JH9b/H8FeA==
+X-Authority-Analysis: v=2.4 cv=R42WitRX c=1 sm=1 tr=0 ts=6ad8a909 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=aujk0-q522kD59K_cGUA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-ORIG-GUID: NQa4eJ6PjPnbTjHquGOXnr4DwgtXwsl7
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-21_03,2026-10-21_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 lowpriorityscore=0 priorityscore=1501 suspectscore=0 spamscore=0
+ malwarescore=0 adultscore=0 clxscore=1015 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210047
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [Critical] greybus: gb_softsvc: synchronous data_rcvd() in message_send()=
- races timer
-- [High] greybus: gb_softsvc: GLOBAL_STATE published before SVC handshake i=
-n init()
-- [High] greybus: gb_softsvc: premature intf_map removal and race in module=
-_remove()
-- [Medium] greybus: gb_softsvc: drop under spinlock and non-atomic loop in =
-map_remove()
-- [Medium] greybus: gb_softsvc: Svc::handler() leaks internal ENOTSUPP to u=
-serspace
-- [Low] greybus: gb_softsvc: stale API docs and wrong constant in refclk he=
-lper
---
 
-commit 911de474c435921e03dc8049b26a79b5e9a04e61
-Author: Ayush Singh <ayush@beagleboard.org>
 
-drivers: greybus: Add software SVC implementation
+On 14-10-2026 21:39, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+> - [High] edac: qcom: UAF in llcc_lcp_ecc_irq_handler due to devm_request_irq lifecycle mismatch
+The identical race exists for the pre-existing ecc_irq INT mode path
+which also uses devm_request_irq() with edev_ctl as dev_id. Fixing
+only lcp_irq would create an asymmetry; a correct fix requires
+converting both IRQs to non-devm with explicit free_irq() before
+edac_device_free_ctl_info() in the remove path. That is a pre-existing
+driver-wide concern and is out of scope for this series.
 
-This commit adds gb-softsvc, an in-kernel Rust implementation of the Greybus
-supervisory controller for transports that do not have a hardware controller
-on the bus. It registers a Greybus host device and exposes an interface for
-transport drivers to attach modules and exchange Greybus messages.
+> - [Medium] edac: LCP/SRP handlers discard hardware ECC counts, causing under-reporting
+Good catch — this one is new and valid. Switched to
+edac_device_handle_ue_count(db_cnt) and
+edac_device_handle_ce_count(sb_cnt) to propagate the hardware-provided
+aggregated counts rather than hardcoding 1. The existing
+llcc_ecc_irq_handler correctly uses count=1 since it fires per-event.
 
-> diff --git a/drivers/greybus/gb_softsvc.rs b/drivers/greybus/gb_softsvc.rs
-> new file mode 100644
-> index 0000000000000..f88d9b3fd5655
-> --- /dev/null
-> +++ b/drivers/greybus/gb_softsvc.rs
-> @@ -0,0 +1,520 @@
+> - [Medium] edac: qcom: data race in EDAC counters due to concurrent IRQs
+The plain-increment counters in edac_device_handle_ue_count() and
+edac_device_handle_ce_count() are a pre-existing EDAC subsystem design
+that affects all edac_device drivers, not specific to this patch. Out
+of scope for this series.
 
-[ ... ]
+> --
+> 
+> commit 943c843f6548de65b2dfbf919c2a617470e1b5e9
+> Author: Faiyaz Mohammed <faiyaz.mohammed@oss.qualcomm.com>
+> 
+> edac: qcom: add LCP/SRP DDR DRAM ECC support for Shikra
+> 
+> Add qcom_llcc_lcp_setup() to enable LCP/SRP interrupt routing when
+> firmware has not pre-configured it, and llcc_lcp_ecc_irq_handler() to
+> report per-bank correctable and uncorrectable DDR DRAM ECC errors.
+> 
+>> diff --git a/drivers/edac/qcom_edac.c b/drivers/edac/qcom_edac.c
+>> index f3da9385ca0d8..b4f7b2493650c 100644
+>> --- a/drivers/edac/qcom_edac.c
+>> +++ b/drivers/edac/qcom_edac.c
+> 
+> [ ... ]
+> 
+>> @@ -334,6 +366,92 @@ static void llcc_ecc_check(struct edac_device_ctl_info *edev_ctl)
+>>  	llcc_ecc_irq_handler(0, edev_ctl);
+>>  }
+>>  
+>> +/*
+>> + * Handler for the optional LCP/SRP DDR DRAM ECC interrupt
+>> + * (ddrss_apps_interrupt[1]).  The LCP/SRP registers live in each LLCC
+>> + * instance's address space, so iterate over all banks and read status
+>> + * per-instance.  Broadcast-write the clear after the full loop, mirroring
+>> + * the TRP/DRP handler pattern.
+>> + */
+>> +static irqreturn_t llcc_lcp_ecc_irq_handler(int irq, void *edev_ctl)
+>> +{
+>> +	struct edac_device_ctl_info *edac_dev_ctl = edev_ctl;
+>> +	struct llcc_drv_data *drv = edac_dev_ctl->dev->platform_data;
+>> +	const struct llcc_edac_reg_offset *reg = drv->edac_reg_offset;
+>> +	irqreturn_t irq_rc = IRQ_NONE;
+>> +	u32 intr_status, err_status, clr_reg;
+>> +	int i, ret;
+>> +
+>> +	/* Iterate over banks: LCP/SRP status registers are per-LLCC instance */
+>> +	for (i = 0; i < drv->num_banks; i++) {
+>> +		ret = regmap_read(drv->regmaps[i], reg->lcp_srp_interrupt_status,
+>> +				  &intr_status);
+>> +		if (ret)
+>> +			continue;
+>> +
+>> +		intr_status &= LCP_SB_ECC_ERROR | LCP_DB_ECC_ERROR;
+>> +		if (!intr_status)
+>> +			continue;
+>> +
+>> +		irq_rc = IRQ_HANDLED;
+>> +
+>> +		ret = regmap_read(drv->regmaps[i], reg->lcp_srp_ecc_error_status1,
+>> +				  &err_status);
+>> +		if (ret) {
+>> +			edac_printk(KERN_ERR, EDAC_LLCC,
+>> +				    "LCP/SRP error status read failed for bank%u: %d\n",
+>> +				    i, ret);
+>> +			continue;
+>> +		}
+>> +
+>> +		if (intr_status & LCP_DB_ECC_ERROR) {
+>> +			u32 db_cnt = FIELD_GET(LCP_DB_ERR_COUNT_MASK, err_status);
+>> +
+>> +			edac_printk(KERN_CRIT, EDAC_LLCC,
+>> +				    "LCP/SRP DDR DRAM Double-bit ECC error in bank%u: count=%u status=0x%08x\n",
+>> +				    i, db_cnt, err_status);
+>> +			edac_device_handle_ue(edac_dev_ctl, 0, i,
+>> +					      "LCP/SRP DDR DRAM uncorrectable error");
+> 
+> [Severity: Medium]
+> Since db_cnt contains the exact number of double-bit errors, should this
+> code use edac_device_handle_ue_count(edac_dev_ctl, db_cnt, ...) instead?
+> 
+> The edac_device_handle_ue() wrapper hardcodes an error count of 1, which will
+> discard the hardware-provided count and lead to under-reporting if the
+> aggregated count is greater than 1.
+> 
+> [Severity: Medium]
+> Additionally, since edac_device_handle_ue() performs non-atomic increments on
+> the EDAC core counters, is a lock needed here?
+> 
+> The ecc_irq and lcp_irq are independent hardware interrupts. If their handlers
+> (llcc_ecc_irq_handler and llcc_lcp_ecc_irq_handler) run concurrently on
+> different CPUs, it could result in a data race on the shared edev_ctl
+> statistics.
+> 
+>> +		}
+>> +
+>> +		if (intr_status & LCP_SB_ECC_ERROR) {
+>> +			u32 sb_cnt = FIELD_GET(LCP_SB_ERR_COUNT_MASK, err_status);
+>> +
+>> +			edac_printk(KERN_WARNING, EDAC_LLCC,
+>> +				    "LCP/SRP DDR DRAM Single-bit ECC error in bank%u: count=%u status=0x%08x\n",
+>> +				    i, sb_cnt, err_status);
+>> +			edac_device_handle_ce(edac_dev_ctl, 0, i,
+>> +					      "LCP/SRP DDR DRAM correctable error");
+> 
+> [Severity: Medium]
+> Similarly, should this use edac_device_handle_ce_count(edac_dev_ctl, sb_cnt, ...)
+> to propagate the actual hardware count instead of defaulting to 1?
+> 
+>> +		}
+>> +	}
+> 
+> [ ... ]
+> 
+>> @@ -386,6 +506,33 @@ static int qcom_llcc_edac_probe(struct platform_device *pdev)
+>>  		return rc;
+>>  	}
+>>  
+>> +	/*
+>> +	 * Set up LCP/SRP DDR DRAM ECC after the EDAC device is published.
+>> +	 * Skip hardware routing setup if firmware already configured IRQ
+>> +	 * propagation (irq_configured); only request the IRQ handler.
+>> +	 * Guard on a non-zero lcp_srp_interrupt_enable offset to confirm
+>> +	 * this LLCC variant actually has an LCP/SRP block.
+>> +	 */
+>> +	if (llcc_driv_data->lcp_irq > 0 &&
+>> +	    llcc_driv_data->edac_reg_offset->lcp_srp_interrupt_enable) {
+>> +		if (!llcc_driv_data->ecc_irq_configured) {
+>> +			rc = qcom_llcc_lcp_setup(llcc_driv_data,
+>> +						 llcc_driv_data->bcast_regmap);
+>> +			if (rc) {
+>> +				dev_warn(dev, "LCP/SRP interrupt setup failed: %d\n", rc);
+>> +				goto lcp_done;
+>> +			}
+>> +		}
+>> +		rc = devm_request_irq(dev, llcc_driv_data->lcp_irq,
+>> +				      llcc_lcp_ecc_irq_handler,
+>> +				      0, "llcc_lcp_ecc", edev_ctl);
+> 
+> [Severity: High]
+> Does the use of devm_request_irq() here create a use-after-free risk during
+> device removal?
+> 
+> If the device is unbound, the remove callback (qcom_llcc_edac_remove) explicitly
+> frees the edev_ctl structure via edac_device_free_ctl_info(). However, because
+> the IRQ is registered with devm_request_irq(), free_irq() isn't called until
+> devres teardown, which happens after the remove callback completes.
+> 
+> If the LCP ECC interrupt fires in this window, llcc_lcp_ecc_irq_handler() will
+> dereference a freed edev_ctl pointer.
+> 
+>> +		if (rc)
+>> +			dev_warn(dev,
+>> +				 "failed to request LCP ECC irq %d: %d, DDR DRAM ECC reporting disabled\n",
+>> +				 llcc_driv_data->lcp_irq, rc);
+>> +	}
+>> +lcp_done:
+>> +	rc = 0;
+>>  	platform_set_drvdata(pdev, edev_ctl);
+>>  
+>>  	return rc;
+> 
 
-> +impl Svc {
-
-[ ... ]
-
-> +    fn map_remove(&self, primary_id: u8, intf_count: u8, dev: &kernel::d=
-evice::Device) {
-> +        let id =3D match primary_id.checked_sub(INTF_ID_START) {
-> +            Some(x) =3D> x,
-> +            None =3D> {
-> +                dev_warn!(dev, "Invalid interace id");
-> +                return;
-> +            }
-> +        };
-> +
-> +        for i in 0..intf_count {
-> +            let _ =3D self.intf_map.lock()[usize::from(id + i)].take();
-> +        }
-> +    }
-
-[Severity: Medium]
-In Svc::map_remove(), does the loop drop the removed Arc<dyn InterfaceOps>
-while holding the intf_map spinlock, and clear multi-interface ranges
-non-atomically?
-
-Because let _ =3D self.intf_map.lock()[usize::from(id + i)].take(); uses a
-wildcard pattern that does not bind the returned Option<Arc<dyn InterfaceOp=
-s>>,
-Rust drops the temporary Option<Arc<dyn InterfaceOps>> at the end of the
-initializer expression before dropping the statement-scoped temporary spinl=
-ock
-Guard returned by self.intf_map.lock() at the semicolon. When intf_map holds
-the last Arc reference, the transport driver's InterfaceOps destructor and
-kfree run inside the SpinLock section.
-
-In addition, acquiring and releasing self.intf_map on each iteration of the
-0..intf_count loop rather than holding the lock across the entire range all=
-ows
-a concurrent Svc::map_insert() to observe a partially removed multi-interfa=
-ce
-window.
-
-[ ... ]
-
-> +    fn module_remove(&self, hd: &hd::Device, intf_id: u8, intf_count: u8=
-) -> Result<()> {
-> +        let payload =3D protocols::GbSvcModuleRemovedRequest::new(intf_i=
-d);
-> +        let res =3D self.send_request(hd, protocols::GB_SVC_TYPE_MODULE_=
-REMOVED, payload);
-> +
-> +        if res.is_err() {
-> +            dev_warn!(
-> +                hd.as_ref(),
-> +                "Failed to send module_removed svc request for {}",
-> +                intf_id
-> +            );
-> +        }
-> +
-> +        self.map_remove(intf_id, intf_count, hd.as_ref());
-> +
-> +        Ok(())
-> +    }
-
-[Severity: High]
-When Module::drop() calls Svc::module_remove(), can clearing self.intf_map
-immediately after queuing GB_SVC_TYPE_MODULE_REMOVED race with asynchronous
-Greybus core teardown and concurrent GbHdDriver::message_send() calls?
-
-Svc::send_request() calls hd.data_rcvd(), which only queues operation->work
-onto svc->connection->wq, and gb_svc_request_handler() then queues
-gb_svc_process_module_removed() onto svc->wq. Until
-gb_svc_process_module_removed() runs gb_module_del() on svc->wq, the old
-module's struct gb_module, struct gb_interface, and struct gb_connection
-objects remain active in hd->modules and hd->connections:
-
-1. If Module::new() is called before gb_svc_process_module_removed() finish=
-es
-(or after send_request() in Svc::module_remove() fails), Svc::map_insert() =
-can
-reallocate the cleared intf_id to the new module while the old module is st=
-ill
-registered. Outbound messages on the old module's connections then look up
-intf_by_id(intf_id) in GbHdDriver::message_send() and are misrouted to the =
-new
-module's InterfaceOps::write(), inbound messages from the new module via
-Module::submit_message() match the old module's connections in
-hd->connections, and gb_svc_process_module_inserted() rejects the new module
-if the old gb_module is still present in hd->modules.
-
-2. While gb_module_del() tears down the old module's connections on svc->wq,
-clearing intf_map beforehand causes outgoing teardown messages to fail with
-ENODEV.
-
-3. In GbHdDriver::message_send(), data.0.intf_by_id() clones the
-Arc<dyn InterfaceOps> and drops the intf_map spinlock before calling
-intf.write(&buf, conn.intf_cport_id(), gfp_mask). Because Module::drop() do=
-es
-not synchronize with in-flight GbHdDriver::message_send() calls or wait for
-connection teardown, InterfaceOps::write() can still execute after
-Module::drop() returns, contrary to the doc comment on impl Drop for Module.
-
-[ ... ]
-
-> +    fn send_response<P: AsBytes>(
-> +        &self,
-> +        hd: &hd::Device,
-> +        msg: &protocols::GbOperationMsgHdr,
-> +        payload: P,
-> +    ) {
-> +        let msg =3D Msg::response(msg, 0, payload);
-> +        hd.data_rcvd(protocols::GB_SVC_CPORT_ID, msg.as_bytes());
-> +    }
-
-[Severity: Critical]
-When GbHdDriver::message_send() handles a request for GB_SVC_CPORT_ID by
-synchronously calling Svc::handler() -> Svc::send_response() ->
-hd.data_rcvd(), can the response completion race with timer setup in
-gb_operation_request_send() and leave an active timer on a freed
-struct gb_operation?
-
-Every synchronous request sent by the Greybus core with a non-zero timeout
-(such as gb_svc_pwrmon_rail_count_get(), gb_svc_intf_device_id(),
-gb_svc_intf_set_power_mode(), gb_svc_intf_vsys_set(),
-gb_svc_intf_refclk_set(), gb_svc_intf_unipro_set(), gb_svc_intf_activate(),
-gb_svc_dme_peer_get(), gb_svc_dme_peer_set(), gb_svc_route_create(), and
-gb_svc_connection_create()) calls gb_operation_sync_timeout() ->
-gb_operation_request_send().
-
-In drivers/greybus/operation.c:gb_operation_request_send(), gb_message_send=
-()
-is invoked before operation->timer is armed:
-
-drivers/greybus/operation.c:gb_operation_request_send() {
-    ...
-	ret =3D gb_message_send(operation->request, gfp);
-	if (ret)
-		goto err_put_active;
-
-	if (timeout) {
-		operation->timer.expires =3D jiffies + msecs_to_jiffies(timeout);
-		add_timer(&operation->timer);
-	}
-    ...
-}
-
-Because Svc::send_response() calls hd.data_rcvd() synchronously inside
-GbHdDriver::message_send() before gb_message_send() returns,
-gb_connection_recv_response() immediately queues operation->work
-(gb_operation_work()) onto gb_operation_completion_wq (WQ_PERCPU):
-
-drivers/greybus/operation.c:gb_operation_work() {
-    ...
-	} else {
-		ret =3D timer_delete_sync(&operation->timer);
-		if (!ret) {
-			/* Cancel request message if scheduled by timeout. */
-			if (gb_operation_result(operation) =3D=3D -ETIMEDOUT)
-				gb_message_cancel(operation->request);
-		}
-
-		operation->callback(operation);
-	}
-
-	gb_operation_put_active(operation);
-	gb_operation_put(operation);
-}
-
-If gb_operation_work() runs on another processor or preempts the sending
-thread before gb_operation_request_send() reaches add_timer(&operation->tim=
-er),
-timer_delete_sync(&operation->timer) runs while the timer is still unarmed,
-operation->callback() completes operation->completion, and the active
-reference is dropped.
-
-When the sending thread resumes in gb_operation_request_send(), it calls
-add_timer(&operation->timer) on the already-completed operation;
-wait_for_completion_interruptible() then returns immediately and
-gb_operation_sync_timeout() calls gb_operation_put(operation), freeing
-struct gb_operation to gb_operation_cache while operation->timer remains
-queued in the timer wheel and causing a use-after-free in
-gb_operation_timeout() when the timer expires.
-
-[ ... ]
-
-> +    fn intf_refclk_enable_disable(&self, hd: &hd::Device, hdr: &protocol=
-s::GbOperationMsgHdr) {
-> +        let payload =3D protocols::GbSvcIntfRefclkResponse::new(protocol=
-s::GB_SVC_INTF_VSYS_OK);
-> +        self.send_response(hd, hdr, payload);
-> +    }
-
-[Severity: Low]
-This isn't a runtime bug since GB_SVC_INTF_VSYS_OK and GB_SVC_INTF_REFCLK_OK
-both evaluate to 0x00, but should Svc::intf_refclk_enable_disable() pass
-protocols::GB_SVC_INTF_REFCLK_OK to protocols::GbSvcIntfRefclkResponse::new=
-()?
-
-There are also a few minor comment and documentation mismatches in
-drivers/greybus/gb_softsvc.rs and the commit description:
-
-1. The commit description and the comments in Svc::conn_create() and
-Svc::conn_destroy() refer to NodeOps, module_insert(), and module_remove(),
-whereas the public trait and lifecycle interface are InterfaceOps,
-Module::new(), and Drop for Module.
-
-2. The doc comment on Module::new() refers to parameter node (now intfs) and
-states that it returns the interface id rather than Result<Self>, while the
-doc comment on Module::submit_message() states that it fails with EAGAIN if
-the host device has not been brought up yet (which is checked in Module::ne=
-w()
-via GLOBAL_STATE, whereas Module::submit_message() calls
-hd::Device::data_rcvd_by_intf() and only returns Ok(()) or EINVAL).
-
-3. Svc::map_remove() logs "Invalid interace id" (missing 'f' in "interface"=
-).
-
-[ ... ]
-
-> +            (true, protocols::GB_SVC_TYPE_PROTOCOL_VERSION) =3D> self.se=
-nd_svc_hello(hd)?,
-> +            (
-> +                true,
-> +                protocols::GB_SVC_TYPE_MODULE_INSERTED
-> +                | protocols::GB_SVC_TYPE_SVC_HELLO
-> +                | protocols::GB_SVC_TYPE_MODULE_REMOVED,
-> +            ) =3D> {}
-> +            _ =3D> return Err(code::ENOTSUPP),
-> +        };
-> +
-> +        Ok(())
-> +    }
-> +}
-
-[Severity: Medium]
-Should the fallback arm in Svc::handler() return a standard user space error
-code such as EOPNOTSUPP or EPROTONOSUPPORT instead of internal kernel errno
-ENOTSUPP (524)?
-
-When gb_softsvc sends GB_SVC_TYPE_SVC_HELLO and attaches a module via
-Module::new() -> Svc::module_insert(), the Greybus core exposes the
-intf_eject sysfs attribute on the greybus_svc device, the eject sysfs
-attribute on the greybus_module device, and (because Svc::intf_activate()
-reports GB_SVC_INTF_TYPE_GREYBUS and interface_power_is_visible() in
-drivers/greybus/interface.c checks only intf->type) the voltage_now,
-current_now, and power_now sysfs attributes on the interface device.
-
-When user space reads voltage_now, current_now, or power_now or writes to
-eject or intf_eject, the Greybus core sends
-GB_SVC_TYPE_PWRMON_INTF_SAMPLE_GET or GB_SVC_TYPE_INTF_EJECT synchronously =
-via
-gb_operation_sync_timeout() -> gb_operation_request_send_sync_timeout() ->
-gb_operation_request_send() -> gb_message_send() ->
-HdDriverVTable::<GbHdDriver>::message_send() -> GbHdDriver::message_send() =
-->
-Svc::handler().
-
-Unlike wire responses that pass through gb_operation_status_map(), the
-Err(code::ENOTSUPP) returned from GbHdDriver::message_send() is propagated
-directly by gb_operation_request_send() to the sysfs callbacks, leaking -524
-(-ENOTSUPP) to user space.
-
-> +
-> +struct GbHdDriver(Arc<Svc>);
-> +
-> +#[vtable]
-> +impl hd::HdDriver for GbHdDriver {
-> +    fn message_send(
-> +        data: &Self,
-> +        hd: &hd::Device,
-> +        dest_cport_id: u16,
-> +        msg: &greybus::Message,
-> +        gfp_mask: Flags,
-> +    ) -> Result {
-> +        if dest_cport_id =3D=3D protocols::GB_SVC_CPORT_ID {
-> +            data.0.handler(hd, msg)
-> +        } else {
-> +            let conn =3D msg.operation().connection();
-> +            let intf =3D data.0.intf_by_id(conn.interface().unwrap().id(=
-))?;
-> +
-> +            let mut buf =3D KVec::with_capacity(msg.header().size().into=
-(), gfp_mask)?;
-> +
-> +            buf.extend_from_slice(msg.header().as_bytes(), gfp_mask)?;
-> +            buf.extend_from_slice(msg.payload_bytes(), gfp_mask)?;
-> +
-> +            intf.write(&buf, conn.intf_cport_id(), gfp_mask)
-> +        }
-> +    }
-> +
-> +    fn message_cancel(_msg: &greybus::Message) {}
-> +}
-> +
-> +struct GreybusSoftSvc {
-> +    _hd: hd::Registration<GbHdDriver>,
-> +    _faux: faux::Registration,
-> +}
-> +
-> +impl kernel::Module for GreybusSoftSvc {
-> +    fn init(_module: &'static ThisModule) -> Result<Self> {
-> +        pr_info!("gb_softsvc (init)\n");
-> +
-> +        // SAFETY: This runs once at module init, before anything else c=
-an reach `GLOBAL_STATE`.
-> +        unsafe { GLOBAL_STATE.init() };
-> +
-> +        let faux =3D faux::Registration::new(c_str!("gb-softsvc"), None)=
-?;
-> +        let svc =3D Arc::pin_init(Svc::new(), GFP_KERNEL)?;
-> +        let data =3D GbHdDriver(svc.clone());
-> +
-> +        let dev =3D faux.as_ref().as_ref();
-> +        let hd =3D hd::Registration::new(dev, GB_OPERATION_SIZE_MAX, CPO=
-RT_ID_MAX + 1, Ok(data))?;
-> +
-> +        svc.send_version(hd.as_ref())?;
-> +
-> +        let global_state =3D GlobalState::new(svc.clone(), hd.as_ref().i=
-nto());
-> +        let _ =3D GLOBAL_STATE.lock().replace(global_state);
-
-[Severity: High]
-In GreybusSoftSvc::init(), is GLOBAL_STATE published too early, before the
-asynchronous GB_SVC_TYPE_PROTOCOL_VERSION and GB_SVC_TYPE_SVC_HELLO handsha=
-ke
-completes?
-
-svc.send_version(hd.as_ref()) calls hd.data_rcvd(GB_SVC_CPORT_ID, ...), whi=
-ch
-invokes gb_connection_recv_request() and only queues operation->work onto t=
-he
-ordered workqueue svc->connection->wq without processing it synchronously.
-
-In drivers/greybus/svc.c:gb_svc_request_handler(), the state machine remains
-in GB_SVC_STATE_RESET until the work item for GB_SVC_TYPE_PROTOCOL_VERSION
-runs, sends its response back to Svc::handler() to queue
-Svc::send_svc_hello(), and the subsequent work item for GB_SVC_TYPE_SVC_HEL=
-LO
-transitions svc->state to GB_SVC_STATE_SVC_HELLO:
-
-drivers/greybus/svc.c:gb_svc_request_handler() {
-    ...
-	switch (type) {
-	case GB_SVC_TYPE_PROTOCOL_VERSION:
-		if (svc->state !=3D GB_SVC_STATE_RESET)
-			ret =3D -EINVAL;
-		break;
-	case GB_SVC_TYPE_SVC_HELLO:
-		if (svc->state !=3D GB_SVC_STATE_PROTOCOL_VERSION)
-			ret =3D -EINVAL;
-		break;
-	default:
-		if (svc->state !=3D GB_SVC_STATE_SVC_HELLO)
-			ret =3D -EINVAL;
-		break;
-	}
-    ...
-}
-
-If a consumer driver calls Module::new() after GLOBAL_STATE is populated in
-GreybusSoftSvc::init() but before the GB_SVC_TYPE_PROTOCOL_VERSION response
-triggers Svc::send_svc_hello(), Module::new() sees GLOBAL_STATE is Some
-(instead of returning EAGAIN) and calls state.svc.module_insert(), queuing
-GB_SVC_TYPE_MODULE_INSERTED onto svc->connection->wq ahead of
-GB_SVC_TYPE_SVC_HELLO.
-
-When gb_svc_request_handler() processes GB_SVC_TYPE_MODULE_INSERTED while
-svc->state !=3D GB_SVC_STATE_SVC_HELLO, it rejects the request with -EINVAL.
-Because Svc::handler() ignores the response status for
-GB_SVC_TYPE_MODULE_INSERTED, Module::new() returns Ok(Module) while no
-gb_module or gb_interface is created in the Greybus core, and the allocated
-interface ids and Arc<dyn InterfaceOps> entries remain occupied in
-Svc::intf_map until Module is dropped.
-
-[ ... ]
-
-> +impl Module {
-> +    /// Attaches `node` as a new module and returns the interface id ass=
-igned to it.
-> +    pub fn new(intfs: &[Arc<dyn InterfaceOps>]) -> Result<Self> {
-> +        let Ok(intf_count) =3D u8::try_from(intfs.len()) else {
-> +            return Err(code::E2BIG);
-> +        };
-> +
-> +        if intf_count =3D=3D 0 {
-> +            return Err(code::EINVAL);
-> +        }
-> +
-> +        let guard =3D GLOBAL_STATE.lock();
-> +        let state =3D guard.as_ref().ok_or(code::EAGAIN)?;
-> +        let id =3D state.svc.module_insert(&state.gb_hd, intfs)?;
-> +
-> +        Ok(Self {
-> +            id,
-> +            intf_count,
-> +            gb_hd: state.gb_hd.clone(),
-> +            svc: state.svc.clone(),
-> +        })
-> +    }
-
-[ ... ]
-
-> +/// Dropping the module drops all the interfaces of the module. So none =
-of the interface ops should
-> +/// be called after this point.
-> +impl Drop for Module {
-> +    fn drop(&mut self) {
-> +        let _ =3D self
-> +            .svc
-> +            .module_remove(&self.gb_hd, self.id, self.intf_count);
-> +    }
-> +}
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021-gb-uart-tr=
-ansport-v4-0-c308ce821d45@beagleboard.org?part=3D4
+Thanks & regards,
+Mohammed Faiyaz
