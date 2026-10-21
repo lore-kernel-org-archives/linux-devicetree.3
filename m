@@ -1,84 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792595305;
-	b=RhAa4o0f3O4KNptUq0/ynWyXAdDRw4/Dl9RYJfgMdXWd3APdQuic3MnhmWskMlvyWaNj
-	 nn/V6eZNrmMszVdjWAmtFEPU98u+ofGI3vA4ZFp+U/aS4V+ryAvF2NbdfYgMoNmsQw9rH
-	 uOYBcp9VaN9UGyZ/sBF1RwzIaA5t3PoUbwVWfSnsleuPQAkbseMGo9X49jL/YPFDX2vAS
-	 EDslECA0sR8jHHuewMlOeZQCWdCwwcbygy0zRsZlSPAzhFuCWQO+OcZmMlg8b51isv+k2
-	 M0qjosH6L/2iaijcKA0wmYobPzwgTHlsEOEB4YmZsAGlQSp0iTDNvbiDWnA8ZmMfVNg==
+	t=1792595403;
+	b=Z1I26cO0KXrikvnlOYXVkhOZR2m2h2JCYaCZW0NNlt1dk5TTKJcYLHdZYlSV5kkfvRab
+	 B7Ph1qIo4Z5IZEfcUty8MQR5qMS+rhqw3W7E5bWL23cxWcA2C3V6eiPehTm/c1KtFv2Jb
+	 9afGNmkmK7oW2AsrOYWjnHXHnsdSi9Rus6dnLq89C+StTqJ1nq3H0TgCTE6gYQUF8vOC8
+	 PC+KwNaqTpPNj4Izcc+16S+jM6n/EoO5IEThpPggb1I13XdNfNqDQFmODSspSRbt0HHfN
+	 K1/YSHLFV78ItXFc4NepFskcl3+FQBtjuzRAiRsRRjn1rbbrWvLOONsVvDxQoMurWgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792595305;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=8OE6HZ58afzSrCKfxYeVUqdKEpFKAmKlQXDzm52PrLw=;
-	b=kDlm6KU9CjYVbYKNTlP0fOpeJSZcDYfc2qQweSs+N8os8hZXi6h0yny07Zl9jr6SiTAo
-	 ee57Flke5ES54GvfjiHl/Q1i+227FC3OqepdS+6s+6F5k2EzSOcJLV/4h3AUIxMFwiB7g
-	 toCZOVpZ79FQmDhlSn7r7+AeaMIXoKghtsRGJUzwG/VFwzJu6NpAeQH9oRyDD3emiNKFz
-	 DZB2dWjkmgGcivD4y2v3tCT42ENQfYpYdPGDUwF2DaD+qhEcDM8PjA/e9xMLoDXP/ji9n
-	 894d2wVyY05kXaB3HUvZ6oeFzdTmHnJn90Rx6IczbFAm13wGlmAy+/Ax+YsCbipbsZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792595403;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer;
+	bh=ooClIQJea+34VK5wiBtJlCaB6JuJ+2mJGcxE8LJ7b9g=;
+	b=3NO3tu8ZzxYv7BsBMBg5kBkWhhDT/p41zLC0W0roh7H7k1t6SgMgtD3Ks8Aun1gt107y
+	 3AUe9xT8nOxQpkUhw5JHkIYKcYZNMR2x431dB5sucSrcYENrK8pdZIyoIu8ttg1pnTtXc
+	 wZbwH28unw9BpgXLKHpWg/FETJnCIYA04dk2qm6yLOcrbHY9sqYhHvnMXBINKq85RKMHQ
+	 fjMdgu2HlwzLta7pkUcSu/5jjoZdH+Qpxm9xyvQgafU8+TP8CIi/uiwW//ZhwauWCzlh4
+	 X6uJBjVT6rOkul5k5VD/u3hx3MxAYGblmmIYhxVpPVx70rO+GH4iEg/6Ha3XL83cK3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=piUDd26S;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c1mmn+KZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B48C860A4ACD
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 15:08:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B48C860A4ACD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76501606A31D
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 15:10:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=piUDd26S
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48afcd7ba9bso610254f8f.3
-        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 08:08:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1792595303; x=1793200103; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=8OE6HZ58afzSrCKfxYeVUqdKEpFKAmKlQXDzm52PrLw=;
-        b=piUDd26SiHJsttMQlpJF2RFcZTqVsNgoVjeOxs6QUlmSk2QvOxsnQe8Ezy6yQxygv9
-         bp3/hR8JIyALcdkS6SSpS2AHB4HdBi7PdgvYLqbsQRIf17orPMnj4ifgCQk5cHr+sPPm
-         tXiTnTTlcltLlPAu+s4rrXOfdiXteziwQdPn8dZSiCLWnzoztKR/MGbNflI0MIE8+Tyd
-         Htj0ZF4Jh9LkCr0Cx8FB5KGXm3CipfZl3kU2Ovndgb+u3Vd06mfWkbeZpNEJ/O/06DFM
-         e1m8vcZdExPaf4EvuTH9Uuw7fw7NVZXJUGQdVpYUNMMz1bcEHVskDrelamoQClz0Gbjb
-         /eFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792595303; x=1793200103;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8OE6HZ58afzSrCKfxYeVUqdKEpFKAmKlQXDzm52PrLw=;
-        b=UowWtoicIp92QTtIR3X/uqPMHAvmTbH6uoP+XaoXW4Ma4+egNHH3QwOaTF9Wyekkvy
-         IbZY2apkpRXncIZGUVyTE0Nl1Fn78gBZsYRyjTAYdV4F5ZVxNrONIDYS+u58MTJcETb4
-         QQ7yNBh32ddw+U1BDE3qLYmUvakJ6wP+vYPlUNXyq58jf8U+VDw8VosP38n9xrMpunSb
-         Rup55xXgDzeBSJBJXEFVayUU/A7p7kXHtyYchyKp8ZVDbRyTlXqQu6KqfIVvs+f/rGpX
-         4gEeQZADrpNXwXSi2DNEy/dGM73cUf/MgqF5Lle69TDgqF+wfJJdgNLcWiLqFRKOqU2B
-         RLvA==
-X-Forwarded-Encrypted: i=1; AKwUvBywE5MYgHyKQyKuGeozCvNsmO6dDXNMKuK/vFZBysqLocNCOivSUOcZAcWyH0AxS01ys9erMwykLurV@vger.kernel.org
-X-Gm-Message-State: AFq9FYI60tTJ+PCGl63yZiSfSsxQfhapyZ5KrYaIPFl5phuGD64LZWPL
-	mvQ0dwQ+6OyU0tgJhVu1ILHr4PfdppXeQJK/vLUgWRldeRmWG+1DIL178YUqqp/D0BI=
-X-Gm-Gg: AYBFou0oIAqzF4keGmRJkYJtaARv5jE0IKwMaaHuWNAIWyr8ogMGGvMNlDAB+1OJ4KH
-	jujUeeXzq+7Orh8ZzVDUF7u4bECnAeoS7soi07g1jZdgAJTUsqzqFCIVYyRqjPSVNYBtBaN5Q7D
-	Le2UfaLHfwJDUyD+3zVb+S/EXR/wbcfJyu9JWWEucYwj4ms2QlXOsWi06/bHFrzREZ1i9Os6xWe
-	1Ne0Cy2YCn4pcpJNkjsD0XUhH0n1eajKLFKhTyhW7TVupmM7fwPLLnEJ0t6Wb+sqF7qvkRiu83b
-	b32S7qljWS2i6S1jsSxsTkcdSPr0OnKehLfTC35bfOkEUjO1kkGoaQbCtvDy8yGfDz++CSmseyR
-	Q4tttm+mXKeD2nJLTZhjCnsKBl496ocqh1zVpuHJSZ37THxHTJ5Yz53ObcOgXQCqRnB1FKYrL9w
-	IOenjvIGFEzjzWtPojmxJkwjkPyzp0+tCgY2tsS4xdrE7Zrq+nXV2X1A7KiMzzTvvDeZF9aFfND
-	kV/S7233BtiS1Tx/BUU2K7V34iydOS7pTuRtUtn9TKQxHGoqTITAtcLOR/YVHekTKJtaxtuGJo=
-X-Received: by 2002:a05:6000:2301:b0:48d:e61d:68da with SMTP id ffacd0b85a97d-48e264ab2a1mr4944600f8f.20.1792595299491;
-        Wed, 21 Oct 2026 08:08:19 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25835404sm6652761f8f.42.2026.10.21.08.08.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 08:08:18 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c1mmn+KZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FF4D1F000C1;
+	Wed, 21 Oct 2026 15:09:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792595402;
+	bh=ooClIQJea+34VK5wiBtJlCaB6JuJ+2mJGcxE8LJ7b9g=;
+	h=From:Subject:Date:To:Cc;
+	b=c1mmn+KZaKLgYOnXQqI0JmUvUVMH7MO+7WWZauNJe2G5RJvpLBDQRVa11tcrbcxjY
+	 hKnkRbjc37UNOeMOh6oK3l7eds1teyzcoabGpdiZRkO9CK+c2j+I6wX53ciSBhMob0
+	 8cl99D6mmCnI5I8vXuqcJnPa3BTv6nYExc949C4HzUBu0MDbAEH0MMCqEbS6FZWr8d
+	 KAc7MG9GdBIVtodCS/UmR+ZYfT/I4O/IQyz4apVpESRAx9eFAgBthqGPzeaDMwY+rk
+	 AHN5T2DKqAUGMrLkykeQnyMhW3epOSKPllVGFFtAkSxX+zD/lGpmCnk8AhE/pvsSDX
+	 kVUNaNULAbe3A==
+From: Linus Walleij <linusw@kernel.org>
+Subject: [PATCH v3 0/3] ARM: bcm: Enable CFE SMP on BCMBCA
+Date: Wed, 21 Oct 2026 17:09:51 +0200
+Message-Id: <20261021-genexis-xg6846-smp-v7-3-rc1-v3-0-7c871f1755db@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -90,45 +55,67 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v7 4/5] clk: meson: axg_audio: add S4 support
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Jiebing Chen <jiebing.chen@amlogic.com>
-Cc: Jerome Brunet <jbrunet@baylibre.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, linux-sound@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
- linux-clk@vger.kernel.org, jian.xu@amlogic.com, shuai.li@amlogic.com, 
- zhe.wang@amlogic.com
-In-Reply-To: <20261021-audio_drvier-v7-4-2b9aeae9cb8a@amlogic.com>
-References: <20261021-audio_drvier-v7-0-2b9aeae9cb8a@amlogic.com>
- <20261021-audio_drvier-v7-4-2b9aeae9cb8a@amlogic.com>
-Date: Wed, 21 Oct 2026 17:08:09 +0200
-Message-Id: <179259528986.4070168.1199000664504589178.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=437; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=YqvMrgag+SS1YYwbYaYO3LQNDj+WNIZgZH/cwchSYXY=;
- b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFk3rsar1wWxnVjfVDGxa747u6jg0rYvk7MLdt3qiLDcW
- xS2IKGyo5SFQYyLQVZMkaWGu1r8naTWl1nTdW7DzGFlAhnCwMUpABOJUGX4H71gnX/nHxExLkv7
- tJyUPv9053drfe9zHuE8eLKWy4RpN8P/osR9DJwFEsw8Ljx5/LkOB3vFmap3fj1ptnpub2r9YQM
- GAA==
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NsQ7CIBSF4VdpmL0GKAXj5HsYB2gvlKi0AUNqm
+ r67tImJLh3/M3xnJgmjx0TO1UwiZp/8EErUh4q0vQ4OwXelCadcMsoYOAw4+QSTkychIT1HyAp
+ qiC0DIxS1FDkVqiFFGCNaP2369Va69+k1xPd2ltm6fl2+62YGFHTDOqFth0Kryx1jwMdxiI6sc
+ Oa/mNrHeMGMlUaYWgkj8Q9bluUDZ6+AzhQBAAA=
+X-Change-ID: 20261011-genexis-xg6846-smp-v7-3-rc1-b470f0e20475
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Russell King <linux@armlinux.org.uk>, 
+ William Zhang <william.zhang@broadcom.com>, 
+ Anand Gore <anand.gore@broadcom.com>, 
+ Kursad Oney <kursad.oney@broadcom.com>, 
+ =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <rafal@milecki.pl>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Linus Walleij <linusw@kernel.org>
+X-Mailer: b4 0.16.0
 
-On Wed, 21 Oct 2026 15:08:31 +0800, Jiebing Chen <jiebing.chen@amlogic.com> wrote:
-> Add S4 support the axg audio clock controllers, Compared with the
-> previous version, the selection of the audio's clock and data pad
-> will be designed in the form of pinmux control. The purpose of doing
-> this is to distinguish between clock control and pin control selection.
+When booted through CFE and mainline U-Boot, the XG6846B has no PSCI
+provider. CFE powers up CPU1 and leaves it waiting in a holding pen.
 
-Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
+Add a BCMBCA CFE SMP method selected by enable-method = "brcm,bca-smp".
+It uses a GPIO mailbox and a wakeup IPI, with PSCI retaining priority.
+On the XG6846B, preserve the holding pen and disable the board's inherited
+PSCI setup.
+Tested on the XG6846B with both CPUs coming online.
 
--- 
-Jerome
+These patches were authored with the assistance of an LLM.
+
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+Changes in v3:
+- Use BCMBCA naming for the CFE SMP implementation.
+- Add the brcm,bca-smp binding and select CFE SMP through the CPU
+  enable-method, retaining PSCI priority.
+- Squash the holding-pen reservation fix into the CFE bring-up DTS patch.
+- Boot tested successfully on the XG6846B.
+- Link to v2: https://patch.msgid.link/20261017-genexis-xg6846-smp-v7-3-rc1-v2-0-bf6b4b374b6e@kernel.org
+
+Changes in v2:
+- Read the CFE mailbox address from CPU1's cpu-release-addr property,
+  as suggested by William Zhang.
+- Link to v1: https://patch.msgid.link/20261012-genexis-xg6846-smp-v7-3-rc1-v1-0-a51d4afde4a7@kernel.org
+
+---
+Linus Walleij (3):
+      dt-bindings: arm: cpus: Add brcm,bca-smp enable method
+      ARM: bcm: Add CFE SMP support for BCMBCA
+      ARM: dts: broadcom: Use CFE CPU bring-up on the XG6846B
+
+ Documentation/devicetree/bindings/arm/cpus.yaml    | 36 ++++++++++++++
+ .../boot/dts/broadcom/bcm6846-genexis-xg6846b.dts  | 16 ++++++-
+ arch/arm/mach-bcm/Makefile                         |  2 +-
+ arch/arm/mach-bcm/board_bcmbca.c                   | 56 ++++++++++++++++++++++
+ 4 files changed, 108 insertions(+), 2 deletions(-)
+---
+base-commit: 6356fd3dd29d8b5620507a0ce037c644e052b5dd
+change-id: 20261011-genexis-xg6846-smp-v7-3-rc1-b470f0e20475
+
+Best regards,
+--  
+Linus Walleij <linusw@kernel.org>
 
