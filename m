@@ -1,83 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792596061;
-	b=BxliKTfwftTmt2fdYD/KR6Qh6fH5+dFkvumfX3Z6mCVIowLAw49KWmXzYD1FjqP8/lRe
-	 FcyQvfrqgMW2h5+41Y7v0wuHgbVtLoMYPXj9fMB69Hup9aIDNed68eBS5vLnqslZyAve2
-	 xdGQPO1TcA7zdgDtcgDoY2YED8m1HSaDTAlu/zmHCwV5xcbET2/DzvyognkRHUsVnvABX
-	 L0UA2Ys8aKPfq6RDxa3jf2vU6LQX7OE7RRNhViKLvvlyN06KrFMAbIceOxvqaKNMEvwkN
-	 ThLBO1xP9icjJ6LTc0gvGD2YdxgtmBt0OwcoqJtZCE3/E0+mAVUsoZKvjn5OPauX4nw==
+	t=1792596568;
+	b=NqcXWqUi24FgGtSvxtaJif4WSgCXsvqNTOKoweADKbt7GZkxL/Gp8M8PDyq1+RR0hxlD
+	 h7ZdAjIVzRI2B0hT2MS53lDyQJ98G+mlytPbs7zAJG9KWv5zUvVSXrjPZLXDW5MlgdDet
+	 WSuwOQEH+r6b2WMxgyItp3cDKuOJiLlosPK/H+IJiizyBp5QWJQdwPXzU8uMkvvSuG9dV
+	 /a5M7tqnmvDshsiabM2LTvxe10meZyLzcTWbQSdB3cGsi4IhYaFHrDZomYI47zlQ2ZfBg
+	 P8r6xCnYdarcle/AoauhcHbBWvb0Mod0282yI37RDKpP7NiWWJQo9TLV3yzoxZZh/Bg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792596061;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
-	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=qeUUc49iTPJXteXkFNDg1w8nSyOVubqVZaI+JbWQCK0=;
-	b=iTZYD39gb+0OB+JIIC/8k0bwPX47fxwMiQpqlOSpiyqZPQeWy8CBYAWaPHWhUXqYWXXh
-	 B5g+NpKlkOnn08DMNeV+W/MvBPwHHGjucRHzbPDduzI6FtWVibg8iXpFd8YSVwHBcmJF9
-	 rcwXAFpGDIHW1S97marL4UzLZ0u3hOUom6SYI+G0+FZmsxJFEtCQKEyiQ+ZDfcktXSazA
-	 EvkzaSjEb4iaJqu9QFNaoIZwF4P41YCGHQX8xFt5Qv9KaWqjvHEzRdS3/aVI/RGtRY7gx
-	 l8LEoOj6nAR4MVimsj/D4oq8aaV1qec4RrGuuIk/1kNH5kN47+XThQAhTEYHTNVY0vQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792596568;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Q3wDhvMsY6G1k7RSYnn4mB8ZZLNEZKRjNzijVBWnlHA=;
+	b=1ESvO9ktiuHO7MB21ju8C5SBhBLDA72Iwz/iHCrGv9o5AnhdMTcYDANEz16/kOQbSyHq
+	 o0N26+tdoUSSeIY+3/FpxHFGP49sSDORxovh63vOpSwcHqZV+FcoS79x4jMLb0kmYVf0l
+	 2EqygBjrGRVpRRjf5/VlagodjkMp9pCRHkXO5BDNESTgMy1IGnjKEvtEsNMB940Rqvjc7
+	 YMcWO3KWmhfIPihRppZMhhx0sr0Efa/0wN08dtvZI4DzwEK8b/C7SoYJrt7j1oVNoFPKM
+	 +Cz+r3eCbipQ+NRH5xOj7EOT9zNzcD9u9wvLG3HgmYnHyAi7IvGrB4oMKoITCuyFDnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ygmG22N1;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lXy2dsCT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA93606A31D;
-	Wed, 21 Oct 2026 15:21:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DA93606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 424DB606A321
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 15:29:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ygmG22N1
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id A72094E41294;
-	Wed, 21 Oct 2026 15:20:58 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 6CE52606E3;
-	Wed, 21 Oct 2026 15:20:58 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E12A7103289F5;
-	Wed, 21 Oct 2026 17:20:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792596053; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=qeUUc49iTPJXteXkFNDg1w8nSyOVubqVZaI+JbWQCK0=;
-	b=ygmG22N15GDQBbf7ScDnThNACy3au6xZ/o6vXJyjlJhHpaJZ0FHxcClNQLoXRi4ozLpOkj
-	INbqTMFPHEXjYdpDZU7dTFnXscTiUW8wxIaW77op9iHSsCPG7Lpu38rpQcMLTONQtjrjCK
-	9CvcGNtJmoIpN+u5PoCyp2uEJ3olaCQXXu1EYhLrUTGzcJirpy/MXIm5EYATdBzpnQh+fM
-	etHgCaRuwiiL4RhP2JuTSFQSFijVdCBz0846nwvXKyHG/lZLQYEAQRAXYDQ3DliSaIt0yw
-	0fzFdScFzvtKxt5oNSSYegkA1f5bvO0XqxG5yrs/V0BGIzWaT+qrLW+nA3Wn9Q==
-Date: Wed, 21 Oct 2026 17:20:43 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
- <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 15/15] Introduce v18 dtb version
-Message-ID: <20261021172043.4bbd2bc5@bootlin.com>
-In-Reply-To: <atgi4rMsw5W6kKkS@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
-	<20260826083146.304291-16-herve.codina@bootlin.com>
-	<arDMhoNNXcPi81sR@gractus.seuss>
-	<20260925152157.511dc65c@bootlin.com>
-	<as3ZWBr3wRonkxXF@gractus.seuss>
-	<20261013190347.4f1d9b9d@bootlin.com>
-	<atGzdxETQZ9ovJFh@gractus.seuss>
-	<20261019151121.26d99f30@bootlin.com>
-	<atgi4rMsw5W6kKkS@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lXy2dsCT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2BB41F000C1;
+	Wed, 21 Oct 2026 15:29:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792596568;
+	bh=Q3wDhvMsY6G1k7RSYnn4mB8ZZLNEZKRjNzijVBWnlHA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=lXy2dsCTFhjrN2Q+k8tbY/umXRB80U5qBJgCyOiax6ev9ll4RUFcSpny2OO6lKGcb
+	 +fhAeH3fdjTQ6WH/Aos9O/ceq/V7Mlwj/wTEGbEr+hEm4Wsj9QRPJBKtgNcW1QZAxk
+	 qfk8mhjqHL5L/I2NKCIg7uJsb/0R8jl0YaS0xm+fHN9JUPyN/6gdtDzQYjTKLp5nXz
+	 dN/B249FHczNMJ38MmBDLGnWVri9LUfzV0IPYreeVc+6A91vmRC4SS1vU3Fsz19suJ
+	 A7aYeHZ7oMjjxImcYUjJWGmLB/C6j76UW4VoxUMSK52DTyueRgqasXUrnrNcTzjcI7
+	 HkrLgizeVVetw==
+Message-ID: <sashiko-outbox-180435@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 3/3] ARM: dts: broadcom: Use CFE CPU bring-up on the
+ XG6846B
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Linus Walleij" <linusw@kernel.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261021-genexis-xg6846-smp-v7-3-rc1-v3-3-7c871f1755db@kernel.org>
+References: <20261021-genexis-xg6846-smp-v7-3-rc1-v3-0-7c871f1755db@kernel.org>
+ <20261021-genexis-xg6846-smp-v7-3-rc1-v3-3-7c871f1755db@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 21 Oct 2026 15:29:27 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -86,148 +60,150 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi David,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] ARM: dts: broadcom: xg6846b partial no-map removal breaks lowmem s=
+etup
+--
 
-On Wed, 21 Oct 2026 13:26:49 +1100
-David Gibson <david@gibson.dropbear.id.au> wrote:
+commit 83c5177a7db3728e4dd180472b439b349fdb5f65
+Author: Linus Walleij <linusw@kernel.org>
 
-> > 
-> > Ok, my proposal seems to be a no-go and so I will follow your proposal given
-> > above.  
-> 
-> To be clear, I'm rejecting the original proposal because I think it's
-> internally inconsistent (if you follow the consequences of decisions
-> far enough).  I'm not necessarily opposed to something other than the
-> above, as long as the rules for when unknown tags must be invalidated
-> (and what that does to the version) are made very clear in the
-> structured tag spec.  e.g. see an alternative proposal below.
+ARM: dts: broadcom: Use CFE CPU bring-up on the XG6846B
 
-No problem, I understand your point.
+This commit disables the inherited PSCI node on the Genexis XG6846B and
+configures the CPUs to use the Broadcom BCA CFE SMP bring-up method. It
+also removes the no-map property from the secondary-boot@0 reserved-memory
+node so the reservation does not fail when overlapping the initial page
+tables.
 
-...
+> diff --git a/arch/arm/boot/dts/broadcom/bcm6846-genexis-xg6846b.dts b/arc=
+h/arm/boot/dts/broadcom/bcm6846-genexis-xg6846b.dts
+> index a3616fb7b3a8d..45d4df5231109 100644
+> --- a/arch/arm/boot/dts/broadcom/bcm6846-genexis-xg6846b.dts
+> +++ b/arch/arm/boot/dts/broadcom/bcm6846-genexis-xg6846b.dts
+> @@ -34,7 +34,7 @@ reserved-memory {
+>  		ranges;
+> =20
+>  		secondary-boot@0 {
+> -			no-map;
+> +			/* Includes the kernel's initial page tables. */
+>  			reg =3D <0x00000000 0x00008000>;
+>  		};
+>  		pmc3-firmware@8000 {
 
-> 
-> Essentially the theory of the proposal above is to be maximally
-> conservative: any write (adding, removing, changing, in-place,
-> whatever) will invalidate all unknown tags and downgrade the version.
-> 
-> 
-> But, here's an alternative proposal for invalidation/version semantics
-> that I think is consistent, while being a bit closer to your original
-> proposal.
-> 
-> 1. version and last_comp_version retain their meanings.  No new header
->    version.
+[Severity: High]
+Could removing no-map from secondary-boot@0 while leaving no-map on the
+immediately adjacent pmc3-firmware@8000 node cause a boot regression in
+adjust_lowmem_bounds(), prepare_page_table(), and map_lowmem()?
 
-Ok
+In arch/arm/boot/dts/broadcom/bcm6846-genexis-xg6846b.dts, reserved-memory
+now has a mapped 32 KiB region followed by a 1 MiB no-map region:
 
-> 2. If version >= 18 the tree may include any structured tags, even if
->    they weren't defined as of v18.
+		secondary-boot@0 {
+			/* Includes the kernel's initial page tables. */
+			reg =3D <0x00000000 0x00008000>;
+		};
+		pmc3-firmware@8000 {
+			no-map;
+			reg =3D <0x00008000 0x00100000>;
+		};
 
-Ok
+On multi_v7_defconfig (which enables CONFIG_ARCH_BCMBCA=3Dy alongside
+CONFIG_ARCH_MESON=3Dy), arch/arm/Makefile sets TEXT_OFFSET to 0x00208000,
+placing swapper_pg_dir at physical [0x00204000, 0x00208000) and
+KERNEL_START (_stext) at 0x00208000.
 
-> 3. Some future version might _require_ certain structured tags to be
->    present.  But a client must only rely on those tags if the version
->    indicates it can.
->      - e.g. suppose FDT_FOO tag is introduced in v20.  A client
->        reading a v19 tree _might_ see some FDT_FOO tags (because of
->        (2)), but cannot rely on them being present in all the places
->        they should be.
+During setup_arch() -> arm_memblock_init() ->
+early_init_fdt_scan_reserved_mem(), secondary-boot@0 is reserved via
+memblock_reserve(0x0, 0x8000) and remains mapped in memblock.memory, while
+pmc3-firmware@8000 does not overlap the kernel at 0x00208000 and is marked
+MEMBLOCK_NOMAP via memblock_mark_nomap(0x8000, 0x100000). This splits
+memblock.memory into:
 
-Ok, kind of degraded mode. Whether or not a v20 compatible client can continue
-or not will depend of each tags known by this v20 client. For some tags, having
-them removed will not be a problem whereas it will be a problem for some other.
+  regions[0] =3D [0x00000000, 0x00008000) (MEMBLOCK_NONE)
+  regions[1] =3D [0x00008000, 0x00108000) (MEMBLOCK_NOMAP)
+  regions[2] =3D [0x00108000, 0x10000000) (MEMBLOCK_NONE)
 
-Makes sense.
+In arch/arm/mm/mmu.c:adjust_lowmem_bounds(), the first loop checks whether
+block_start of the first usable range [0x0, 0x8000) is aligned to PMD_SIZE
+(which succeeds because 0x0 is aligned) and breaks without aligning
+regions[2] (0x00108000). The second loop then checks block_end on
+[0x0, 0x8000):
 
-> 4. Any write to a property (including in place) invalidates all
->    unknown tags on that property (they must be stripped)
+	for_each_mem_range(i, &block_start, &block_end) {
+		if (block_start < vmalloc_limit) {
+			if (block_end > lowmem_limit)
+				lowmem_limit =3D min_t(u64,
+							 vmalloc_limit,
+							 block_end);
 
-Ok
+			if (!memblock_limit) {
+				if (!IS_ALIGNED(block_start, PMD_SIZE))
+					memblock_limit =3D block_start;
+				else if (!IS_ALIGNED(block_end, PMD_SIZE))
+					memblock_limit =3D lowmem_limit;
+			}
 
-> 5. Any write to a property invalidates all unknown tags on that
->    property's node
+		}
+	}
 
-Will see in the implementation. The offset of the written property will be
-incorrect after the write. Indeed, some tags (tags related to the node)
-available before the property can be removed. With splices instead of
-FDT_NOP, offsets change.
+Because block_end is 0x8000 (!IS_ALIGNED(block_end, PMD_SIZE)),
+memblock_limit is set to 0x8000, which round_down(memblock_limit, PMD_SIZE)
+rounds down to 0, calling memblock_set_current_limit(0).
 
-This also brings a question. Are API functions such as fdt_get_property_by_offset_w()
-need to be deprecated?
+Next, in paging_init() -> prepare_page_table(), end is computed from
+memblock.memory.regions[0] as 0x8000:
 
-Those kind of functions return a pointer to the data of a property for modification
-by the caller. We don't know if the caller will modify or not the property.
+	end =3D memblock.memory.regions[0].base + memblock.memory.regions[0].size;
+	if (end >=3D arm_lowmem_limit)
+		end =3D arm_lowmem_limit;
 
-Without deprecated it we can change the function to
----- 8< ----
-struct fdt_property *fdt_get_property_by_offset_w(void *fdt,
-						  int offset,
-						  int *lenp)
-{
-	int new_offset;
+	for (addr =3D __phys_to_virt(end);
+	     addr < VMALLOC_START; addr +=3D PMD_SIZE)
+		pmd_clear(pmd_off_k(addr));
 
-        /*
-         * The modification is goind to be done out of libfdt.
-         * Unknown tags are removed (rules for modification when unknown tags
-         * are involved) but also known tags. Indeed, we cannot know if the
-         * modification will have impacts on known tags
-         */
-	new_offset = fdt_remove_all_tags_due_to_property_modification(fdt, offset);
+This clears all kernel PMDs from __phys_to_virt(0x8000) up to
+VMALLOC_START, unmapping the running kernel at 0xc0208000. Immediately
+afterward in paging_init() -> map_lowmem(), processing regions[0]
+([0x0, 0x8000)) with kernel_sec_start =3D=3D 0 =3D=3D start and end (0x8000=
+) <
+kernel_sec_end hits Case 1:
 
-	return (struct fdt_property *)(uintptr_t)
-		fdt_get_property_by_offset(fdt, new_offset, lenp);
-}
----- 8< ----
+			if (kernel_sec_start =3D=3D start)
+				start =3D kernel_sec_end;
+			if (kernel_sec_end =3D=3D end)
+				end =3D kernel_sec_start;
+		...
+		map.pfn =3D __phys_to_pfn(start);
+		map.virtual =3D __phys_to_virt(start);
+		map.length =3D end - start;
+		map.type =3D MT_MEMORY_RW;
+		create_mapping(&map);
 
-The idea is to be conservative here also and consider that property data retrieved
-for writing will be modified by the caller.
+which sets start =3D kernel_sec_end while end remains 0x8000, underflowing
+map.length =3D end - start while memblock.current_limit is 0.
 
-Also, the offset used as parameter of fdt_get_property_by_offset_w() is no more
-valid after the call.
+Conversely, on configs where TEXT_OFFSET =3D=3D 0x00008000 (such as
+bcm6846_defconfig), KERNEL_START is at physical 0x00008000 and is already
+reserved by arm_memblock_init() before early_init_fdt_scan_reserved_mem()
+runs, so pmc3-firmware@8000 with no-map overlaps the kernel image and fails
+in early_init_dt_reserve_memory() with -EBUSY (which is the only reason
+memblock.memory is not split at 0x8000 on bcm6846_defconfig).
 
-Last point to have in mind, getting the node offset from the property offset will
-need to walk the tree from the beginning. It can be costly.
+Should no-map also be removed from pmc3-firmware@8000, or how is
+pmc3-firmware@8000 intended to coexist with the kernel image at physical
+0x00008000 and 32-bit ARM's PMD_SIZE lowmem alignment requirements?
 
-> 6. Adding or deleting a property on a node invalidates all unknown tags
->    on the node
+[ ... ]
 
-Ok.
+>
+>base-commit: 6356fd3dd29d8b5620507a0ce037c644e052b5dd
+>--=20
+>2.51.2
+>
 
-> 7. Adding or deleting a subnode invalidates all unknown tags on the
->    node
-
-Ok.
-
-> 8. Whenever a tag is invalidated and stripped, the overall version
->    must be downgraded (to let clients know they can't count on tags
->    being present)
-
-Ok.
-
-> 
-> Points (4)-(7) are all somewhat negotiable.  In particular, I'm not
-> sure how feasible (6) is to implement.
-
-Well, this new proposal is more complex to implement than your first
-proposal but it has a finer grain to handle unknown tags on modification.
-
-I can try to implement something based on this new proposal.
-
-> 
-> Note that because writes don't invalidate tags on ancestor nodes
-> beyond one level, this proposal doesn't permit tags to contain summary
-> information about an entire subtree that could be invalidated by
-> writes further down in that tree.
-> 
-
-Well this doesn't look like an issue on my side. At some point if such tags
-are added, we can avoid any modification using the last_comp_version field.
-
-Best regards,
-Hervé
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021-genexis-xg=
+6846-smp-v7-3-rc1-v3-0-7c871f1755db@kernel.org?part=3D3
