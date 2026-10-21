@@ -1,60 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792546195;
-	b=hb0ow8bygYyj7erTnouuQ8YgMzH3L/yxWi5CbT+71rooSjxFVvQvrMKrRrmuGIvAMXYS
-	 x6T93nDm136FMQNf+Sp9ikzgKjfDj3jUTzBk19PmIBb2WGWj6eFQf6dSFYIkVN6r69Ne5
-	 ya+nDvsuF34/RrYM9TOZijxdKGdK6GhffH0ig1sxGrWVa39+0Bkt8/yVUd47F3O33pHpX
-	 TEC77SnqTBb1wwVb/uCLWCxBzac3r2YObEmmdPB4luo9opI/VePwWRmxo778XhOAkBvci
-	 bZb6V5pvrhIvyMrTjffDhkd/q/G10eQZBOhbkW1UhECoZpF6ar8VdH4NQrAcnwTnl0Q==
+	t=1792546342;
+	b=0E1FhAOcY2IAJp0NirI3iiotxl2MouM4+rWv2A4bT40LhauXIsxR3XcHBAJlEF+daxRS
+	 H4IxrE8MIdSJAqoadAoSPqlL0fDgrAPaGbl9xOueJFgcWLPwQCsGKDRiok6lNYvr/WLhA
+	 yj2VbjQbbgXEsj3Iy8Dvm7E8InC14wFWvvxEyzFKMkTWeR33coXCfhPCOMaxIBOTupWzC
+	 hCKAqzjuJxuMn2UyEpfXDUAA+plyuBcBawwPUnWLCD2pfwPyRDIEtbliHApp5qcN9sM5N
+	 1F7Zq06sWCf0UcYRn+wDxhmhdhkZ9nUHbCr3ShmkgbgNzTN8SwrNaEGglhD56b5bZ8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792546195;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792546342;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=KZzJxPvWOpazC3XHnU+iFcOAPHLfI64CvA46Z0aosIk=;
-	b=Ylz8g8iAjtvO5lpsNfgQJAlnVdyKmUyuiwSSq4UXLktad2TwyfTjeUQ5dgwuI2Gs/MmT
-	 sKwh6/qqW/7p6Ol6zylCFLqCIhP4ENmlnT1gNFXX2R0XjKQeqJNZyfMzZsADqEzV3cran
-	 24IRcEn25y3uf7nBS2puJp+6HkhYq18075i00E9/QUEB/2qaF2VpZuG1ARCg48QghIZCq
-	 hZUMkFplKdpn+yta+vmoJ9kURlyERXbPM52nevPn/4OgHyUHxlU4hLMCTHGC7LebbBk++
-	 uBR6bLR8tf3HTolrBX32kt7hS6aDv3QL4uFwSOM4lhzTpJwCG59gWFCjsBEwafUVWVA==
+	bh=bE0yULH2/ZfxCs7e+7R9sMvGS9wp+yEHw8YDYWZQPHA=;
+	b=PvSg3sFPfmHjawyTcy3q9ES28ITvN2rPfGUWqiALME3w9PoWFimDsxinLdzpvlwsvZ6M
+	 A52cLZSZqfCCGpEhApFOohubFgkGtXYZJ+Js1zbw+8m2RQW4levqfkH8hHx1/n7kQ4CrJ
+	 irOxVZvglU6K9xT2QOWZNk65oPrNIZ+MkdnFwDaRT8sCcoCN84zjZK1s7C/WwLkbvbfPv
+	 CamETQ+tcXVatWBQOXXN7LukdYYFXmD6LO8J27Ztc1qUc7UV9moLB/SCnQPpAE9ecl4Kl
+	 V09RhHZvw6j8pm/mV7CBV8fyE8ZsDML/5THf7aHMemYogRpUDJ77d1s4zBAU3LkPa9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NbuOtfpb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oVOP4g9e;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 184B1606A319;
-	Wed, 21 Oct 2026 01:29:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F766606A31F;
+	Wed, 21 Oct 2026 01:32:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NbuOtfpb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 387131F000C9;
-	Wed, 21 Oct 2026 01:29:54 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oVOP4g9e
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AA281F000C9;
+	Wed, 21 Oct 2026 01:32:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792546194;
-	bh=KZzJxPvWOpazC3XHnU+iFcOAPHLfI64CvA46Z0aosIk=;
+	s=k20260515; t=1792546342;
+	bh=bE0yULH2/ZfxCs7e+7R9sMvGS9wp+yEHw8YDYWZQPHA=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=NbuOtfpbt/ObL+20tpFP5BzYZTstfiX4KdWy5IWfH+YpbHGMO0sAaxberP/+wUkPI
-	 YfUcHYUBR/sOAmIvr8DweW37mU051wuqoFQON6nENliZuoR+JnLcO3HQlGPesUwgGJ
-	 PxndraVZnC9l2uohLEEpFB7bYSfD3wXStLCxJLJ5/3+pO93BAChDgB/G7eWoklwNWp
-	 TTlQocaNJCvJUEjJM2swVa20Z+ylOuY5vRvjMABFPmEEpP/x1m2kk6dPGGVu4Jp8qG
-	 zYZ04pdKrXg3RtIVOHqd4rKsCJPty/nYMg5PT6Aenlt4LVWsZ24TTlEjZGecgKE9xc
-	 WEoC/9pSUJC2w==
-Date: Tue, 20 Oct 2026 18:29:53 -0700
+	b=oVOP4g9eCl6RV3TbIj4WgZRjLCBrmrVYV/p06kWV7PN833Lma0l8igk0qAHycQQTw
+	 vGqLlvSzkhoQrTIElVANPysv1krbkYQsOqhROWli0TjdqpDU964devUalBSNLw8Ak0
+	 FtIRcJf7JLolM71vnfSIZ8RcZHol0Ew+Vdl2K3vRWD99aFEURDOZOF2dnMqic5JCep
+	 WhPcTZbON1Xx3YIQps/QUDtWHU0hcDH+DA6wPqMIrJDsMfH1S9+0qcto1OzLVwWTYn
+	 p1lYXnnLLa3J/asBxPVvL7u6qKogtzpX1uBzCs8OAsGiu73yY0Awwz1yNXFy9sY1CJ
+	 A+GrV9xj31DsQ==
+Date: Tue, 20 Oct 2026 18:32:21 -0700
 From: Jakub Kicinski <kuba@kernel.org>
-To: Jacky Chou <jacky_chou@aspeedtech.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Po-Yu Chuang <ratbert@faraday-tech.com>, Eric
- Dumazet <edumazet@kernel.org>, "Heiner Kallweit" <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>, <netdev@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Andrew Lunn
- <andrew@lunn.ch>
-Subject: Re: [PATCH net-next v4 0/7] net: ftgmac100: Add AST2700 support
-Message-ID: <20261020182953.37b766a7@kernel.org>
-In-Reply-To: <20261020-support_ast2700-v4-0-4d36b40939b3@aspeedtech.com>
-References: <20261020-support_ast2700-v4-0-4d36b40939b3@aspeedtech.com>
+To: Robert Marko <robert.marko@sartura.hr>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, lxu@maxlinear.com, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, lgirdwood@gmail.com, broonie@kernel.org,
+ michael@walle.cc, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, lrosu@maxlinear.com, luka.perkov@sartura.hr
+Subject: Re: [PATCH net-next v3 1/5] dt-bindings: net: maxlinear: add
+ MxL86211C VDDP supply
+Message-ID: <20261020183221.3fb74bf7@kernel.org>
+In-Reply-To: <20261020093655.344585-1-robert.marko@sartura.hr>
+References: <20261020093655.344585-1-robert.marko@sartura.hr>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,31 +66,9 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Tue, 20 Oct 2026 19:34:11 +0800 Jacky Chou wrote:
-> Add the pieces needed for the FTGMAC100 driver to run on Aspeed AST2700
-> systems.
-> 
-> AST2700 keeps using the FTGMAC100 MAC IP, but the enablement is not
-> limited to a new compatible string. The SoC can boot with the MAC on
-> ARM64, needs the Aspeed-specific RMII mode bit programmed when a port is
-> wired for RMII, and requires the driver to use the upper DMA address
-> fields in the ring base registers and packet descriptors. Those fields
-> expose a 35-bit DMA address range on AST2700, so the driver must request
-> a mask that matches the address bits the hardware can encode.
+On Tue, 20 Oct 2026 11:35:34 +0200 Robert Marko wrote:
+> Describe the optional VDDP supply used by the MxL86211C PHY. Its
+> voltage determines whether the MDIO, MDC, and MDINT pads use 1.8 V or
+> 3.3 V.
 
-## Form letter - net-next-closed
-
-The merge window for Linux v7.4 has begun, and the net-next
-tree is now closed for new drivers, features, code refactoring
-and optimizations. We are currently accepting bug fixes only.
-
-Please repost when net-next reopens. There is some uncertainty
-about how long this merge window will last, so please check
-https://netdev.bots.linux.dev/net-next.html
-before reposting. net-next _may_ reopen on Nov 2nd.
-
-See: https://www.kernel.org/doc/html/next/process/maintainer-netdev.html#development-cycle
--- 
-pw-bot: defer
-pv-bot: closed
-
+Please note that net-next is now closed.
