@@ -1,48 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792595410;
-	b=ghcc3M8LtlQlO1JSmnEMqZdCIHW6cwwoDoIvM95fpFsE0/YKdjUruZaGx2mscXJqNOHP
-	 2BZvIhNkTOUG13pMIw8uH/TtRs3Pt/itLeYgK+N8889P5wAkqbKZp/xDKTUrG4wvCs0V6
-	 bbe/uBwu4igIMiupOH7a5R+4mplVTXBYFgI2WsSI1R/TLAhK5XG2iGJ7R35oEE6Eolev4
-	 oYnfshnCQfpKBForJ1pMRHFy6Y06TopRL4nYx82fOyURJghFEpQdyVi300/lRqzej9plp
-	 9zzCXR2ie8pf1zj/cBgPMtkQhU2j9IyT7eB16+N3CsZJTG7zXbC6iYHYtZPbbdbgWmQ==
+	t=1792595413;
+	b=NG0GqWZMEI2dsbBKbMQa99s1nH2j1bJFHBCpWP+XEEgsE2iCfxN7kGzWWTZafuuf81Q1
+	 NcNu3mLSpW7zCsjXnh+LaCn9Q/RcLDvkZRifsuN+Xd4UDXWyrFK+ahnuQnKbLPPCOYTp0
+	 Q6KFCo/+JpyuyVaanJlFB0wRItO9TUeU1aM6RJeQujV9oWQZHlZcB/Ux1jELeshAB4VhX
+	 ZfrMELUgopG1v0S1BKM9SZb/0kchcFp2vx1f7QEFnPoDEhNnojxT3sgyCmvCrUiQG4aZZ
+	 /nqZp7u8FWnzRoTAgIyDY8eEL5TEFNuGhktPZ9J87tuhmeR8honm/h4MVbwXVuWnLuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792595410;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792595413;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=3MFuFsvLHFPkgtt8IbAaO8N35a8KIBK7VxEX8eQmHzE=;
-	b=SokAYLglSMLoUsy3HLxsIPbsscAXDsHsARWzReaowZu2FSh5oZdeLtYKKrcRmCAD4RHD
-	 dKQvibkEUnpcjZri4kxZiJW3LE7qzwkxLK7TwmNK9xw+TBL7vk87c5fgJGGTGmQcvvFRS
-	 tIda9C/sfjGkKE6vP3QlR1YeQihE8Oayb2MnW+t65P+QCq9cQ3PYkDijMtnAldCbXVMtu
-	 BFZ7sI/GhlNL6Ybq0Pyep0+COryGFqKFkNc5AcXpJRaD8cmTNAgq7wFNazD8qfwT5NiB4
-	 uxBrArnFbR9/QGf9MUmWOAfMU+s8tEZz+XhefUJKzwRlcapVKT2WX/fjOfomxI76+rw==
+	bh=gtKwLPlOlCqNT8hZcnvMmZ2KrgTo5rJvR8kXM2xT3ac=;
+	b=aPWzKThlC8InXQY+aNBKuVUBNZjrLrsvNNkXFnlU0B5/rMUphIUe4oHDnU2xe57FswCa
+	 ZAaLciFro/WztOGqsWRefgjZdsaISO+3W5lmtSQ5NKsJj5GwmEjYp2KnQwtcHKQFAypEe
+	 EfihBEb/WdhoLmYVpx3gaRZwoQLRWIUebOzOSunaStHrGbOMLmyWAhXySeYjS9Tzu0AzC
+	 eKnBn5wRZgIUNx0TCxrYPcZKK7LYbgozXBizwNW0kWALzWRdMIV3HrUjpUmSar0I/PQLE
+	 dsnsqGLQWLsTecGDiG2dDM4/0hjyWafoCyDa3xYrTyYdmIJLbzT/dtdIrPwpmKtZ4Gg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ecT6v2JY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YHmtbv84;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F0F9606A31B
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 15:10:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85406606A31B
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 15:10:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ecT6v2JY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF9C51F000C1;
-	Wed, 21 Oct 2026 15:10:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YHmtbv84
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30C561F000C4;
+	Wed, 21 Oct 2026 15:10:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792595409;
-	bh=3MFuFsvLHFPkgtt8IbAaO8N35a8KIBK7VxEX8eQmHzE=;
+	s=k20260515; t=1792595413;
+	bh=gtKwLPlOlCqNT8hZcnvMmZ2KrgTo5rJvR8kXM2xT3ac=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=ecT6v2JYPzcQxZtDRxZBBmXyzG9AwYuL5DrzppLar5yGMEGWfsIYDPp7+X9TvCGdG
-	 aE3wq/0c0LyyHAYdt83Ps2V6YEFfpuwoFwqjgLuftvQswyh1ledj8pY8G+z4NNKSxG
-	 MBNoo+bpv11c3eyJq4xt7Zgc5O0TPoCGRBdRq7q1oCuZSDgNFMfrut7KRyxdakv02A
-	 OlyA5/PAUcLF5A5w8NXhlmmXxiYRwF7w+WFmdbcJbD6iAkHxAcWEcGwhYXau9EhYI1
-	 aJy5TMsGvyggBEk2usu7Ml/OjvyxfOc/wXu8hKaVdapPyZugcrzaax5jDYeVDR/QCK
-	 Nf5HpRJ3KGxtQ==
+	b=YHmtbv84uqw6wxTgOdiUnXVgLwMLMCAu6ddLE1Bvs9gQH6s1t3sM6Yhr8x5dhZo5N
+	 9+krQNWiGom8ycMP2IfOcMES6XvjmTtCYnWyGnhPvsDWs0TkCHkBGs93RhDLVMz3Oq
+	 g7j4VEClVtl87zOOoKQ6YKmhi3979NUORMog5IR42O425oeJkgGuhiTBYfd5f0Eiwj
+	 coYo8YVGa6vo0xxxHHY53/Ae7I2c401pdBtelhRgtbBprUa32+UevYCSrk+6P1VFmz
+	 b0M/3r3nh5jeqzPkSU0NCOyP6aBIn8KlZpltqjTp7iR1hIBOJWPkRq+pCNDafOYdul
+	 UIVNccasVhfJw==
 From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 21 Oct 2026 17:09:53 +0200
-Subject: [PATCH v3 2/3] ARM: bcm: Add CFE SMP support for BCMBCA
+Date: Wed, 21 Oct 2026 17:09:54 +0200
+Subject: [PATCH v3 3/3] ARM: dts: broadcom: Use CFE CPU bring-up on the
+ XG6846B
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -54,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261021-genexis-xg6846-smp-v7-3-rc1-v3-2-7c871f1755db@kernel.org>
+Message-Id: <20261021-genexis-xg6846-smp-v7-3-rc1-v3-3-7c871f1755db@kernel.org>
 References: <20261021-genexis-xg6846-smp-v7-3-rc1-v3-0-7c871f1755db@kernel.org>
 In-Reply-To: <20261021-genexis-xg6846-smp-v7-3-rc1-v3-0-7c871f1755db@kernel.org>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -71,127 +72,60 @@ Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  Linus Walleij <linusw@kernel.org>
 X-Mailer: b4 0.16.0
 
-The XG6846B CFE bootloader powers up CPU1 and leaves it in a holding pen
-waiting for an interrupt. After waking, the stub reads the GPIO
-GeneralPurpose register at 0xff800568 and branches to the stored address
-in ARM state. The vendor kernel uses this mailbox and a wakeup IPI.
+The XG6846B boots through CFE, which parks CPU1 in a holding pen and does
+not provide PSCI. Starting Linux from CFE does not install a PSCI
+implementation either. The working PSCI interface in newer GenXOS
+firmware belongs to a different boot stack.
 
-Implement the brcm,bca-smp CPU enable-method for BCMBCA systems
-booted through CFE.
-Read the mailbox address from the secondary CPU's cpu-release-addr
-property. Map it as device memory, write secondary_startup_arm and
-complete the write before sending the wakeup IPI. CPU1 is already
-running, so no power or reset sequence is needed. Using the ARM entry
-also supports kernels built in Thumb-2 mode. Clear any Thumb function
-pointer tag before programming this ARM entry address.
+Disable the inherited PSCI node on this board so Linux does not issue
+SMCs to an interface that is absent. Set the CPUs' enable-method to
+brcm,bca-smp to select the BCMBCA CFE SMP operations. Describe the CFE
+mailbox in CPU1's cpu-release-addr property. Keep both CPU nodes enabled
+and leave the SoC's PSCI defaults available to other boards.
 
-Register the operations with CPU_METHOD_OF_DECLARE() so the CPU
-nodes select CFE bring-up explicitly. Build the BCMBCA machine
-description independently of DEBUG_BCMBCA, keeping the debug UART
-mapping conditional. The generic ARM startup code retains PSCI priority.
+Also remove no-map from the secondary-boot reservation. Its overlap
+with ARM's initial page tables otherwise causes the reservation to be
+rejected, leaving CFE's holding pen unprotected.
 
-Suggested-by: William Zhang <william.zhang@broadcom.com>
 Signed-off-by: Linus Walleij <linusw@kernel.org>
 ---
- arch/arm/mach-bcm/Makefile       |  2 +-
- arch/arm/mach-bcm/board_bcmbca.c | 56 ++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 57 insertions(+), 1 deletion(-)
+ arch/arm/boot/dts/broadcom/bcm6846-genexis-xg6846b.dts | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm/mach-bcm/Makefile b/arch/arm/mach-bcm/Makefile
-index 6baedf4c6304..fcc4e0174adc 100644
---- a/arch/arm/mach-bcm/Makefile
-+++ b/arch/arm/mach-bcm/Makefile
-@@ -58,6 +58,6 @@ endif
+diff --git a/arch/arm/boot/dts/broadcom/bcm6846-genexis-xg6846b.dts b/arch/arm/boot/dts/broadcom/bcm6846-genexis-xg6846b.dts
+index a3616fb7b3a8..45d4df523110 100644
+--- a/arch/arm/boot/dts/broadcom/bcm6846-genexis-xg6846b.dts
++++ b/arch/arm/boot/dts/broadcom/bcm6846-genexis-xg6846b.dts
+@@ -34,7 +34,7 @@ reserved-memory {
+ 		ranges;
  
- # BCMBCA
- ifeq ($(CONFIG_ARCH_BCMBCA),y)
--obj-$(CONFIG_DEBUG_BCMBCA)	+= board_bcmbca.o
-+obj-y				+= board_bcmbca.o
- obj-$(CONFIG_SMP)		+= bcm63xx_smp.o bcm63xx_pmb.o
- endif
-diff --git a/arch/arm/mach-bcm/board_bcmbca.c b/arch/arm/mach-bcm/board_bcmbca.c
-index b510d959870a..248b8bd77645 100644
---- a/arch/arm/mach-bcm/board_bcmbca.c
-+++ b/arch/arm/mach-bcm/board_bcmbca.c
-@@ -1,9 +1,15 @@
- // SPDX-License-Identifier: GPL-2.0-only
- // Copyright (C) 2024 Linus Walleij <linus.walleij@linaro.org>
- 
-+#include <linux/io.h>
-+#include <linux/of.h>
-+#include <linux/smp.h>
-+
- #include <asm/mach/arch.h>
- #include <asm/mach/map.h>
-+#include <asm/smp_plat.h>
- 
-+#ifdef CONFIG_DEBUG_BCMBCA
- /* This is needed for LL-debug/earlyprintk/debug-macro.S */
- static struct map_desc bcmbca_io_desc[] __initdata = {
- 	{
-@@ -13,12 +19,62 @@ static struct map_desc bcmbca_io_desc[] __initdata = {
- 		.type = MT_DEVICE,
- 	},
+ 		secondary-boot@0 {
+-			no-map;
++			/* Includes the kernel's initial page tables. */
+ 			reg = <0x00000000 0x00008000>;
+ 		};
+ 		pmc3-firmware@8000 {
+@@ -56,6 +56,20 @@ button-restart {
+ 	};
  };
-+#endif
  
- static void __init bcmbca_map_io(void)
- {
-+#ifdef CONFIG_DEBUG_BCMBCA
- 	iotable_init(bcmbca_io_desc, ARRAY_SIZE(bcmbca_io_desc));
-+#endif
- }
- 
-+#ifdef CONFIG_SMP
-+static int bcmbca_boot_secondary(unsigned int cpu, struct task_struct *idle)
-+{
-+	struct device_node *np;
-+	void __iomem *mailbox;
-+	u32 release_addr;
-+	int ret;
-+
-+	/* CFE has already powered up CPU1 and left it waiting in WFI. */
-+	if (cpu_logical_map(cpu) != 1)
-+		return -EINVAL;
-+
-+	np = of_get_cpu_node(cpu, NULL);
-+	if (!np)
-+		return -ENODEV;
-+
-+	ret = of_property_read_u32(np, "cpu-release-addr", &release_addr);
-+	of_node_put(np);
-+	if (ret) {
-+		pr_err("CPU%u: missing or invalid cpu-release-addr property\n", cpu);
-+		return ret;
-+	}
-+
-+	mailbox = ioremap(release_addr, sizeof(u32));
-+	if (!mailbox)
-+		return -ENOMEM;
-+
-+	/*
-+	 * The CFE stub reads GPIO GeneralPurpose after an interrupt and
-+	 * branches to it in ARM state. Clear any Thumb function pointer
-+	 * tag and complete the MMIO write before sending the wakeup IPI.
-+	 */
-+	writel(__pa_symbol(secondary_startup_arm) & ~1, mailbox);
-+	dsb(sy);
-+	arch_send_wakeup_ipi_mask(cpumask_of(cpu));
-+	iounmap(mailbox);
-+
-+	return 0;
-+}
-+
-+static const struct smp_operations bcmbca_smp_ops __initconst = {
-+	.smp_boot_secondary = bcmbca_boot_secondary,
++/* CFE parks CPU1 in its holding pen and does not provide PSCI. */
++&{/psci} {
++	status = "disabled";
 +};
 +
-+CPU_METHOD_OF_DECLARE(bcmbca_smp, "brcm,bca-smp", &bcmbca_smp_ops);
-+#endif
++&CA7_0 {
++	enable-method = "brcm,bca-smp";
++};
 +
- static const char * const bcmbca_dt_compat[] = {
- 	/* TODO: Add other BCMBCA SoCs here to get debug UART support */
- 	"brcm,bcm6846",
++&CA7_1 {
++	enable-method = "brcm,bca-smp";
++	cpu-release-addr = <0xff800568>;
++};
++
+ &gpio0 {
+ 	status = "okay";
+ };
 
 -- 
 2.56.0
