@@ -1,88 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792582701;
-	b=Ej/LRLDOX97BInM8bwX8mzfou9DXh7uEWM1dvpBTIIZNlViixEA6fWyT0pZzhRbQDom7
-	 g/BcQIzgmji88uv2rTkxIfv3U2B9qDGckzaknE1zZlIOaBNE/n69FjtatzD1poSPYLdVR
-	 x4N6AjnfBJ5MvrzTlnzwNCu2JPoscSfHasielzpoEqTKnpW+IHQEKGecvxDhmg+MYfPt/
-	 hr7U6nbXeLwOHk7BWIlKvuM8j8OjiJYKJcag/iY+ep18WLHl0NMAFrlPJUE3c/xVXGg7V
-	 f/nhp82iej0psxAcxCZVC5ODc+XbmEXoCjp5rj0rmdR/XnYb9fq0lhc2A4v3oWWvcWQ==
+	t=1792582713;
+	b=ka0BWn20Z7nBXF5vkaWwXrSPcxR5NvDoZ/Q5FOFWQqGBJN7fRizwCbUsgCu/C8LmUDaw
+	 NKHKesJJ9/vDZJ0ZgJ2RM6b8RygQzmhD9zKUGnxP6+cEDoKQ6/TvCE593xYFZceAO+R+o
+	 oqjagVGEHbh7BoOfS+M3hRtxzjFFr+sgxwzh74cWyn98gJ8B7yHoTbNc4v77vn/E0SoDI
+	 E1SqKuiXoh/eupT9PfgkndofUpGf67ASBYe1D6pTp1mTSshtt1t1etCWBLPRFiIOA47CI
+	 JS5Yz0bnkxdHdr7aZfJ9n3hQ68kQL0rGRjQ869fpZlQrvFyRt3nctU/FIpGEgdELJQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792582701;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792582713;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=lZvKug11Qy1xOLHr4w2brybIfbioQkbDZg8gHZ1x0Vg=;
-	b=Q6AfvZ6vKHfxXiPAMuxf8pQ72DYAY8ownfbBNaZqM6Fd8uI3JJ4ViJ765MflMH4FNmzb
-	 u9a+YNTJZ/zDW5/MtlHYDBb88NBzBajKg8Xq65vGYJvExGD/9B2zx+tzE43lk4kJ9TKAA
-	 WvSNqTLuvP/A9egXcd4kdRLZpm9aspy0S+eIMDUUUnxag7QIAGoId2AHGtzXhoEMTMqHH
-	 RECnVZXfzO53vgPu07fbsNihEWkX8ZkfH4sBMiav0tqjumDWNfoDZZXB3MWnrAcVbwD6h
-	 8puHYSuQIHH2m0FdTBaDtQ0e4g7Lu2Sls7oEJXaCykt4F2SaEgEtOA/vceTQmKvSQVA==
+	bh=wWz643dbsj/ZlYo+epLXd9Iw2Mt+qid7bAcxch49zgs=;
+	b=cXzlDTi54CuFtS1Ij+iE0015XZPlJStaijvpXqzlLEq9nabjJguasJ5w1AALfF88xH5b
+	 GNQQbBGIi1612hfRT4Dx0y9XatmT+uQ6hnqQiym6OyCf27j5HZrs1ElHG4ZHA/lL3iUR9
+	 z3/261HM456Ya2hlGFujOBwudw5IbQafEVzQZZG1dDXeLa3pUEGDz7QJOFllEbTIccADn
+	 xucP2ru+naVA2mE5Rm2FMWptRZUahmq8HWj/Tafxd6Lcv+27DvI9oD0nwqdTQgZOo4Ki4
+	 CWboerj7cngPwbjaoFD6Ku1ONuXyEuXjFayTtTRYuMq9B8EZ7+6BF1J7O50yJ99zAqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=beagleboard.org;
 	spf=fail smtp.mailfrom=beagleboard.org;
-	dkim=pass header.d=beagleboard.org header.i=@beagleboard.org header.a=rsa-sha256 header.s=google header.b=YzRsx4QB;
-	arc=none smtp.remote-ip=209.85.215.177
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	dkim=pass header.d=beagleboard.org header.i=@beagleboard.org header.a=rsa-sha256 header.s=google header.b=cJGv3AXp;
+	arc=none smtp.remote-ip=209.85.216.51
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 699AA606A31E
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 11:38:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 699AA606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FBC0606A319
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 11:38:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FBC0606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=beagleboard.org
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=beagleboard.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=beagleboard.org header.i=@beagleboard.org header.a=rsa-sha256 header.s=google header.b=YzRsx4QB
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cc52c1b8286so362694a12.1
-        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 04:38:20 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=beagleboard.org header.i=@beagleboard.org header.a=rsa-sha256 header.s=google header.b=cJGv3AXp
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ac5b090d16so324398a91.0
+        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 04:38:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=beagleboard.org; s=google; t=1792582700; x=1793187500; darn=vger.kernel.org;
+        d=beagleboard.org; s=google; t=1792582712; x=1793187512; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=lZvKug11Qy1xOLHr4w2brybIfbioQkbDZg8gHZ1x0Vg=;
-        b=YzRsx4QBfV/m9qTXtJPNXP25sUBMq92tcfW4vxziuNNnF9FHtp5mNpo+CwYjs/xiDC
-         qgZW8b5mJ/Tj2VLcwxKXikGb67DxVWBpvjrMzhn0PBK8hsJ+a4w1eOVfwDoSg4LyAWvJ
-         f8J7n08SSwsDl0Utfgcaw8c9UtLkD3PAm4EtbTo7r/pAGaj+EmVM9OX18Kkg5dUGYan7
-         JC56OXo4up+IkpNngWRND+h7cmwAA4dVWPnZ7BmPTDToXfecbLMZhyqWc4fBKjTyvuYs
-         JMpsZf94zbqrcAxNcEibwYmUHaiDff10RwpV1989a278AiZ/yUTGoYRYItl4dCJLb8TZ
-         49Aw==
+        bh=wWz643dbsj/ZlYo+epLXd9Iw2Mt+qid7bAcxch49zgs=;
+        b=cJGv3AXpnzoDMycDhzUQcXIqU+devmFsnBPW6LT9HviQ80FIvQmkYWpFHd13GosVs2
+         cr4JCxpb4H4em4AJmgcJRsuojb+4lNxFjtK8D7tPdQD2etqm4rxd3IUV2taS52Bzc9Yw
+         3FZAiD93Vwosw/TsDWpbjzwL3E6cPs4Ob23NgWRVHPwKQjmvijJjjUdggJQBnHftJ5bY
+         ap01OxvPU9ubnYFda2OEqaIM5EGA6OXFBleHILh4KfexhdY8oUX7RLUwZTasWNLOxW0U
+         LD8fYDIRFFxaM6wnd9SylhenQb5OcXwZwmDtBOhkPDKGJ+Y/HEdXpnIB4ro8tmxzPxNP
+         eO4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792582700; x=1793187500;
+        d=1e100.net; s=20260707; t=1792582712; x=1793187512;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=lZvKug11Qy1xOLHr4w2brybIfbioQkbDZg8gHZ1x0Vg=;
-        b=YDQ0oquvhpwdJJ7ZNoaf2xFolds46/Wue40S//ajvOTtXH9G2ucMXXjIshWoHeEb6P
-         lCGrDC34NUGsTuc148nFnZYFiPWewHdDM9oiu32g+LfxCQoMI0Xj9W2k4jNE9D7Yq0ny
-         ucbybSxpPUV8Mboxj8IOyTrH0KxKl7wRIEmGefcZcyMgdj3HLRcBpKaJklXqJxKHxruf
-         97muzTVDF3B1lMRpoQg/BKcFmsoXCzjD7BPos9sCqnSAMsKkbuEZSKWxuYHX+yHKxx+v
-         Xvbej7GFSXydtj6NwQYFLDwc0x6L9e0G8UL+z3/L6AtOiepuCj0kd0ZqeQSFbTUdLa5l
-         mt1g==
-X-Forwarded-Encrypted: i=1; AKwUvBzh1x7lKpMCrj91s2ahos+wSk+u8vh8jilgIiQnCwYba2BpW/TkNeUpdVYRheV3Z2/+UXcshxY97ERt@vger.kernel.org
-X-Gm-Message-State: AFq9FYI56cOrjaBRER/0pTLoEmOHHpS82YCriIA5cwDyJzjs5pmCKPDr
-	ozK/uHY+n+CzuvnEL7J5wxyP6I+pOcA+JgH1dfyxNb9RHxQg/HJbreoVKiJHaHkzOA==
-X-Gm-Gg: AYBFou0+RLE+S9kld8Lo5HJbzB4JqNia7MagB82RPOVOUKWPCWW86hyOu6DrwA1KWA7
-	uW5745qcN4SBrbw1uXLDjOVUbSypGlrWZWcxB3a8Zek23gCHce9QzrLtPNu5Uf3AmDPTtcFV6FO
-	GrXAhPtvbQ3VHoPY1RXpCyOxX4zWEKKeeJHaS7kK/75xtlpXcM0a2TiZLGuLXxUJ6ynqsIouAtK
-	VPIifx9x9mueKu+Y0iDpDwcc4H+/BSjiiBN6Ptef9kP4M97ZKhXBLqsXm7CaxRnyEzSdJbxYaoK
-	yxTzd1H4I/6L9mw9xE2AkHWPbAK4YQTRsL6PN0ZAkb4/fOCTNWoqJ18rdkqz2iXRtaxkOroAiHp
-	S9M/R0CBOTJWsEA/7W0aRQW9knddaC8l1+R6RFyQ3HUmNB0sPnsY6BSoXE2uHGrAIf1DGZaQObW
-	5ePpMRyA2vrk9UdvzeBVkWXyIPM85eOlV6ao7TlyYts4SutmX+w7GTl2gwPH3LNwt5V8pbs4IqZ
-	g8K9q8LBUEYQ6pZ+ZPcu4d5viwpm7+Jh1q6CPrk95ra/8nI3LeFXUtLPgChHqPoOds=
-X-Received: by 2002:a17:90b:1b04:b0:3ac:9ed8:f30e with SMTP id 98e67ed59e1d1-3ad86f4e243mr980248a91.35.1792582699721;
-        Wed, 21 Oct 2026 04:38:19 -0700 (PDT)
+        bh=wWz643dbsj/ZlYo+epLXd9Iw2Mt+qid7bAcxch49zgs=;
+        b=PzKJ9wD4BFtmeuPLhyJOfc7VZN6LfrgosF+EIQT7jI9So0W0/fWeZ90wdfiEoPjuXc
+         itQOuXvda/beISqdqJ4Wrccp6rNUt9XeQ7bYBsmZh2Iza1Nzi0TxiZ+VjZH0Eqweimry
+         XdI5ITtafI6E/k0WVZ5S1MqplgnDvKhHXu/WQ70JpQ3g997aqMiNXhC66sU1C66Tyogd
+         nMnurT5AfBnOmPRaedrU1/ScubH4S6arMZhS10+MxsCr7Ybhg/OWV/M4deOhZtYt/7yb
+         l9PE/rlCTvny10EG+341sJDoU9FG/rhJ3AqI6S7P/wT6xma7v+BigQ5gRiH8YZQzNswu
+         6vYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzA+b0DmeuWeC1ZNEqxE6lrl91sF1lrZwykHY/83g0BfUSBcMtuGW098+hlFTREchwltkjW/wBjYE7t@vger.kernel.org
+X-Gm-Message-State: AFq9FYKw3ZtiHBGjvIDpyhNEHIJXaYGlnDD7hQfUD9amS9ZPfC7nkTtJ
+	MkQGw019V7QIcTZY/EEoFErIJCZDC7s10miQl/WbiCSoCBIyT7AxxXj0ukqLcTCi6A==
+X-Gm-Gg: AYBFou1QCByphJ+RbXbCBlluUwsc+4wCDsiBORUN3seFNF/wnM54h5daBZPkXgB9kf5
+	2seRqW7vIYVXTu6TRUYIxH1d9ucua2H5rHenxmt8eOtZDfKfaGzL8RXPFxOV0agfWD3SpoLzCoH
+	Q2UxlIrG9ZRnkJL2/uqFASU1y2Y9pu2l3d3rmJ3jT7HxPovxJoUQxY/SZZyAXCQf69QB/EAIXTi
+	o5rKMApsvNrBYJ9ql2LKkSg5dbZFcijB1ajgy9zvHCldYWdp+Jxc62ltUuC2aqfam5Q4ldfzsMC
+	vyZO5Zt10Z/gxDnKnu/6o41EGcfaVoaw59D8MBINw3o1y+n1CcaHaKbvo4zBZZ1S7VWGbnODXKo
+	nM9PHaLW8Zk6FDbFQCTilyB3Rai60D4nHkJ6HKaSp/yr/nArb2J/UOCUR3uJ0DKTZRz8aKBaHQ2
+	LwsgRuGl5EWhDT/iTNUh2s/U45jcSyiSZJPUfjR8A4BL21gAUaY+sbLN7OFH1y14fCR0J3KbGjR
+	+ckb3VAbCO1YEDuA4vv6hXdcGtBcHeVabFU7BX/CecYcjkRzHIA/dfx1XLO4746W0tT
+X-Received: by 2002:a17:90b:1348:b0:39b:5622:d645 with SMTP id 98e67ed59e1d1-3ad86c8f9eemr895764a91.0.1792582711694;
+        Wed, 21 Oct 2026 04:38:31 -0700 (PDT)
 Received: from [192.168.29.54] ([2405:201:4019:32fc:3c55:6b24:5147:322b])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad813eb9casm4023732a91.15.2026.10.21.04.38.09
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad813eb9casm4023732a91.15.2026.10.21.04.38.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 04:38:18 -0700 (PDT)
+        Wed, 21 Oct 2026 04:38:30 -0700 (PDT)
 From: Ayush Singh <ayush@beagleboard.org>
-Date: Wed, 21 Oct 2026 17:07:49 +0530
-Subject: [PATCH v4 1/6] greybus: connection: Add
- greybus_data_rcvd_by_intf()
+Date: Wed, 21 Oct 2026 17:07:50 +0530
+Subject: [PATCH v4 2/6] rust: crc_ccitt: add CRC-CCITT abstraction
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,7 +93,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261021-gb-uart-transport-v4-1-c308ce821d45@beagleboard.org>
+Message-Id: <20261021-gb-uart-transport-v4-2-c308ce821d45@beagleboard.org>
 References: <20261021-gb-uart-transport-v4-0-c308ce821d45@beagleboard.org>
 In-Reply-To: <20261021-gb-uart-transport-v4-0-c308ce821d45@beagleboard.org>
 To: Jason Kridner <jkridner@beagleboard.org>, robertcnelson@gmail.com, 
@@ -121,117 +120,123 @@ Cc: greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org,
  rust-for-linux@vger.kernel.org, linux-crypto@vger.kernel.org, 
  devicetree@vger.kernel.org, Ayush Singh <ayush@beagleboard.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3382; i=ayush@beagleboard.org;
- h=from:subject:message-id; bh=NQkRap6CrOtYznHYWCc3/Rny1VeDCr57c/dGW/aAz94=;
- b=owEBbQKS/ZANAwAKAQXO9ceJ5Vp0AcsmYgBq2KQTir9RS0e7OqmIJkCLUEaMm/mJ8o5D+lUxX
- ELoU3IDcwKJAjMEAAEKAB0WIQTfzBMe8k8tZW+lBNYFzvXHieVadAUCatikEwAKCRAFzvXHieVa
- dOv8D/9RePHi4bb9upiHyBECA2O/ZADrraGRh97/0d9ZxIW2rhvHM9sLbtuz07cslcMpmXfavgG
- 19hsaZX9WcterTlip0Ny3mMvlWP0ZMMaCBt/pt0qBYLtKQ8/VjR6DR+f25ZYGIpfK8vHj5w1zOZ
- n9/6Xl/Tlg/k6lqu8jhJrr07MhD1230XOVIRuEm8tGQY2/x7L6qhYokjdySTTQ/3JnuSCRFjudO
- 9P4e6LFSuHfXMliDrQQNiC7eYWswSYEySuM8uyGipdAaPRFKgmTg5U2KzeOZMXceqCa5APTQFbM
- n3EpIlkdjpblilMV42PhbwX/vQQFP8q6VQ5rGlHnuso3oNZPLUKw9QXvRuVIm56oG50YTf2KJLv
- 7QiEsRCUzk9IkYSFNdQ/H0LrNAFF4WSnV1dE0N2A1+qoI+wOrSZ5+kRKAvl1E22KXmoeMb5Gx11
- 6YatPkm1n5pMXJslRYnR/lNayyJRbDVRIjzK01gCGq/k2kI4JOD8hI7qL3K74yi1Gyfyu5YSYSY
- wrS9rcE4d6/ktWMiR5kq4SVE8Y0kslSUXQdj++3fYHi/6F2jeT7pF+OXja6e3vkw0+O4402FiY+
- VT/aCU03zk9pWEStksEyRN7xdRbz4VXW8TJ9fTHqS9RrdWDf9cJP140Ah6XVlJT9Un/ZZeKSSU3
- VyiBOzZ3GLeSwyg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3228; i=ayush@beagleboard.org;
+ h=from:subject:message-id; bh=0tQbZbHo8xI21dpA2bFknxB1c/WDEfciyAdGxnoZAag=;
+ b=owEBbQKS/ZANAwAKAQXO9ceJ5Vp0AcsmYgBq2KQTQnIftl+noEjMJ8/XEZ9Vw9FJN+PHvbr0D
+ EGbn4VaEriJAjMEAAEKAB0WIQTfzBMe8k8tZW+lBNYFzvXHieVadAUCatikEwAKCRAFzvXHieVa
+ dE0TD/9d1fp4dvMbYCOl3n2qgYzevhGpBPpkCPYapWpVAxTE5M8PjQkmlR29Aeth1obsL27ttVh
+ WQvbmzZv8KCIzdbhG1R0fV0h9ZAy0c1MK/h2yhmtq2mh2Llx0kyvx9LFd8slNm6ShiL5KjYNnxb
+ sqf33Ehp+eFPkR5rfD3ylQp2tnFLd91RYYO2+0logX9I0jaFJ/bcwvonOM4spZcM3zQtUegH0R9
+ 2JzfYvcpcn4c3zGxl3Bb0RBd8CF+aOPb6s6MqDC9ODOr9XKyO62bZmPbbOFad6mZ5mS6CqCzUYX
+ wW2ukfojE7BLnHx7vMPb2W3cFi41gK8hjPsykvfGldN4PpRDUWWSidrMFFwVt7QzOWsbgoIK2gF
+ 1azyIH2bBi/rUcyctDvN5m0Lx7gNZyTtoAwMAZpy/tPvldsT3f5pineT1NysKg1td1OPvcwwxkj
+ sTJjwS8C0ftNelnP4AeXAbew/jG/wIqx+FbskVRC7Ws+I7FQ9lSosFsrP10f9up3mZ8RjxsM4NG
+ Lu5JRAJTa/z7raBgKYVXkQAXYUp7Mf/xHii/l0q5R6CFAIT+w8c/rWE29rpk7QafNRHhFMY8/0m
+ DbshmxQO9B+Lv6YJcDf2VQzHLQ3hUYqhM/KrYCIWi3eCkZWH2aNQ+NIQDJJMIYeHALmtRMq8T7Q
+ xkYmrZPrVWfDZYw==
 X-Developer-Key: i=ayush@beagleboard.org; a=openpgp;
  fpr=DFCC131EF24F2D656FA504D605CEF5C789E55A74
 
-greybus_data_rcvd() finds the receiving connection by its host-side
-CPort id. A host driver such as a software SVC sees only the remote end
-of a connection, the interface id and the interface CPort id, and cannot
-deliver data that way.
-
-Add greybus_data_rcvd_by_intf(), which looks the connection up by
-interface id and interface CPort id and passes the data to it.
-It returns -EINVAL if no such connection exists. The first user is the
-gb-softsvc driver, added later in this series.
+The module is gated behind the new RUST_CRC_CCITT_ABSTRACTIONS Kconfig
+symbol, which selects CRC_CCITT, so the C library is only built when a
+Rust user actually needs it.
 
 Signed-off-by: Ayush Singh <ayush@beagleboard.org>
 ---
- drivers/greybus/connection.c       | 47 ++++++++++++++++++++++++++++++++++++++
- include/linux/greybus/connection.h |  2 ++
- 2 files changed, 49 insertions(+)
+ MAINTAINERS                     |  1 +
+ lib/crc/Kconfig                 |  7 +++++++
+ rust/bindings/bindings_helper.h |  1 +
+ rust/kernel/crc_ccitt.rs        | 26 ++++++++++++++++++++++++++
+ rust/kernel/lib.rs              |  2 ++
+ 5 files changed, 37 insertions(+)
 
-diff --git a/drivers/greybus/connection.c b/drivers/greybus/connection.c
-index bd04485decb3..ce8646299ce8 100644
---- a/drivers/greybus/connection.c
-+++ b/drivers/greybus/connection.c
-@@ -69,6 +69,32 @@ gb_connection_hd_find(struct gb_host_device *hd, u16 cport_id)
- 	return connection;
- }
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 252b6d7ee163..772023e0e5a4 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -7036,6 +7036,7 @@ T:	git https://git.kernel.org/pub/scm/linux/kernel/git/ebiggers/linux.git crc-ne
+ F:	Documentation/staging/crc*
+ F:	include/linux/crc*
+ F:	lib/crc/
++F:	rust/kernel/crc*
+ F:	scripts/gen-crc-consts.py
  
-+/*
-+ * Returns a reference-counted pointer to the connection if found.
-+ */
-+static struct gb_connection *
-+gb_connection_hd_find_by_intf(struct gb_host_device *hd, u8 intf_id,
-+			      u16 intf_cport)
-+{
-+	struct gb_connection *connection;
-+	unsigned long flags;
+ CREATIVE SB0540
+diff --git a/lib/crc/Kconfig b/lib/crc/Kconfig
+index 927fc6a6b2b9..628da2d30fc8 100644
+--- a/lib/crc/Kconfig
++++ b/lib/crc/Kconfig
+@@ -32,6 +32,13 @@ config CRC_CCITT
+ 	  The CRC-CCITT library functions.  Select this if your module uses any
+ 	  of the functions from <linux/crc-ccitt.h>.
+ 
++config RUST_CRC_CCITT_ABSTRACTIONS
++	bool
++	depends on RUST
++	select CRC_CCITT
++	help
++	  This enables the Rust abstraction for the CRC-CCITT API.
 +
-+	spin_lock_irqsave(&gb_connections_lock, flags);
-+	list_for_each_entry(connection, &hd->connections, hd_links) {
-+		if (connection->intf &&
-+		    connection->intf->interface_id == intf_id &&
-+		    connection->intf_cport_id == intf_cport) {
-+			gb_connection_get(connection);
-+			goto found;
-+		}
-+	}
-+	connection = NULL;
-+found:
-+	spin_unlock_irqrestore(&gb_connections_lock, flags);
+ config CRC_ITU_T
+ 	tristate
+ 	help
+diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
+index 3791af0aadc7..55d1a2d7655a 100644
+--- a/rust/bindings/bindings_helper.h
++++ b/rust/bindings/bindings_helper.h
+@@ -49,6 +49,7 @@
+ #include <linux/cpu.h>
+ #include <linux/cpufreq.h>
+ #include <linux/cpumask.h>
++#include <linux/crc-ccitt.h>
+ #include <linux/cred.h>
+ #include <linux/debugfs.h>
+ #include <linux/device/faux.h>
+diff --git a/rust/kernel/crc_ccitt.rs b/rust/kernel/crc_ccitt.rs
+new file mode 100644
+index 000000000000..6042ada16967
+--- /dev/null
++++ b/rust/kernel/crc_ccitt.rs
+@@ -0,0 +1,26 @@
++// SPDX-License-Identifier: GPL-2.0
 +
-+	return connection;
++//! CRC-CCITT computation.
++//!
++//! C header: [`include/linux/crc-ccitt.h`](srctree/include/linux/crc-ccitt.h)
++
++/// Computes the CRC-CCITT of `data`, starting from the seed value `crc`.
++///
++/// Pass the result back in as `crc` to compute the checksum of a buffer
++/// incrementally.
++///
++/// # Examples
++///
++/// ```
++/// use kernel::crc_ccitt::crc_ccitt;
++///
++/// let one_shot = crc_ccitt(0xffff, b"hello world");
++/// let split = crc_ccitt(crc_ccitt(0xffff, b"hello "), b"world");
++/// assert_eq!(one_shot, split);
++/// ```
++#[inline]
++pub fn crc_ccitt(crc: u16, data: &[u8]) -> u16 {
++    // SAFETY: `data.as_ptr()` is valid for reads of `data.len()` bytes for the
++    // duration of the call, since it is derived from a live shared slice.
++    unsafe { bindings::crc_ccitt(crc, data.as_ptr(), data.len()) }
 +}
-+
- /*
-  * Callback from the host driver to let us know that data has been
-  * received on the bundle.
-@@ -91,6 +117,27 @@ void greybus_data_rcvd(struct gb_host_device *hd, u16 cport_id,
- }
- EXPORT_SYMBOL_GPL(greybus_data_rcvd);
- 
-+/*
-+ * Callback from a host driver that only knows the remote end of a connection
-+ * (interface id and interface CPort id), such as a software SVC.
-+ */
-+int greybus_data_rcvd_by_intf(struct gb_host_device *hd, u8 intf_id,
-+			      u16 intf_cport, u8 *data, size_t length)
-+{
-+	struct gb_connection *connection;
-+
-+	trace_gb_hd_in(hd);
-+
-+	connection = gb_connection_hd_find_by_intf(hd, intf_id, intf_cport);
-+	if (!connection)
-+		return -EINVAL;
-+	gb_connection_recv(connection, data, length);
-+	gb_connection_put(connection);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(greybus_data_rcvd_by_intf);
-+
- static void gb_connection_kref_release(struct kref *kref)
- {
- 	struct gb_connection *connection;
-diff --git a/include/linux/greybus/connection.h b/include/linux/greybus/connection.h
-index d59b7fc1de3e..e8be67a936a6 100644
---- a/include/linux/greybus/connection.h
-+++ b/include/linux/greybus/connection.h
-@@ -92,6 +92,8 @@ void gb_connection_mode_switch_complete(struct gb_connection *connection);
- 
- void greybus_data_rcvd(struct gb_host_device *hd, u16 cport_id,
- 		       u8 *data, size_t length);
-+int greybus_data_rcvd_by_intf(struct gb_host_device *hd, u8 intf_id,
-+			      u16 intf_cport, u8 *data, size_t length);
- 
- void gb_connection_latency_tag_enable(struct gb_connection *connection);
- void gb_connection_latency_tag_disable(struct gb_connection *connection);
+diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
+index f9ef36217bb5..637442761d34 100644
+--- a/rust/kernel/lib.rs
++++ b/rust/kernel/lib.rs
+@@ -61,6 +61,8 @@
+ #[cfg(CONFIG_CPU_FREQ)]
+ pub mod cpufreq;
+ pub mod cpumask;
++#[cfg(CONFIG_RUST_CRC_CCITT_ABSTRACTIONS)]
++pub mod crc_ccitt;
+ pub mod cred;
+ pub mod debugfs;
+ pub mod device;
 
 -- 
 2.56.0
