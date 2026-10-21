@@ -1,104 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792580408;
-	b=R7df8z1mqvlWqjTzxX2IiOVfmar0n+Vmwfpj5zlT04JXRbxYDIRRRcT+KV4lMgfv4UWV
-	 LRKrKKeiBChR0ajUpJ9SQJwPy9YSAPRtYopdfpcJT7p+yF+iMnwZQYcU4sGMBm9JILY+3
-	 D8EHuyR1P8P2Y8fUlOlvA0VD7JowmFl5OHD9VYA0zNvkKbKdTVPBMu7Z8bPpBxJ4Jp4nK
-	 j9Y1ZBJH5OOKFN4t4txhL0xvhz7RIefLcHUQA+eS7b54abayfdBh1qkr7v3laBpFKlTGM
-	 h2G/sGEhTsvbO7HllYg5eC5PPVdbh5iGs+U00zLJV7FRqVRAKMB+12VKqJK4GQCIl3A==
+	t=1792580868;
+	b=3OL10g6LvCXmJBnc9mx5kwm+jHRWzg6RjgWdbockzxanRlFbIOg77jiDBZA7xvKSz+Lu
+	 y9P1xOTu5VPpzmO+btsekEAzu8aMVKAhCce0zv+XVfTjSkg59aizsi9EyS9S098evCGlN
+	 rFL17zAZAvxHn5ympW8sOXpxy2cMSqjbdCmxxsTDGvoQ3EYrtQKEjjSv0LQTjkzK9CTpi
+	 weZyxb9cvOLBPVtibi9BLAheJAyf2wl6D0CotCCWyYdrHSPNBNOHCFYJzBi5AkrlDxrDz
+	 s+ycexje0rrKxApy5rUhPqv1RxKdIArWCuCbkUmfuBF6VURXOwU5J6gmkgQyD4lf/lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792580408;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=An+ETgbADntwtFKiPu43Mts6liLduZLS5iQIAQ+a5W8=;
-	b=Lwuftjsoj71WxHcJORcC6hGKOurBp2Qnvt8wivK0376w1UUQEIjHgxBOizpbcHpN53AC
-	 xmoFRhzhDvw0WydlFG7l0N9VntZSXEZYczrJjz6lV34fQEWgSrp1K4oA4AUdaqXoFvYWX
-	 O8tAEGOIL4o9+IpZLzHVn/iNaXs/fn3m9irO2hVG00Hnf6flgpX73XYnYEY1aZfTe8bOf
-	 puDm0G+OKs3yXZBFmc0pW5LBs7RjAxQD5pTMJQrfWz8dswaeWzsYy4pQjLnXNHc+ykS+K
-	 4EhX9vcXg86aHXDisblV80K6Khgj4/jcYlvHNL9ky+W2ekI8mFw7eSdjPJ0LROZIhAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792580868;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=9zQAcmsM+2Tsxdew3yxZz+TMabeVeJCxxpaiKMkdx4g=;
+	b=prSRdW7+b99Q1euQeA4V29Sdh6RQvYS9E+moFdGknvC1YVUe+V8ZJXKyXCK/C15ndX4a
+	 991azWNcu8Eyb3gJSM3IMzjBuWc9+ml/VLyyTJ1G9gUEVCwx6PbnGXXgjBkwZWOh0/xvc
+	 cJvrHlL34seH2C2elw/M7K/XLUCWcArS500XMuOL13ar5nVDMsGRrKXy5uw/X8RM5Gvtm
+	 L9bVAm4srt9FWJOKgoXApF6afyhh8krY00sPM2Cp4iREMw8gOUhy5FF0DA2OXxlQl6Kry
+	 j4Gl5a0XoJ29EetPK9nm4SwgBBpkXuZZaNrD0IqeyMvZ86kya6iB3XYfHmF5pASDt+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cD9VTAj5;
-	arc=none smtp.remote-ip=209.85.215.179
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VL3XAbSn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67249606A327
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 11:00:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67249606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92141606A31B;
+	Wed, 21 Oct 2026 11:07:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cD9VTAj5
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc4c02ddd62so236088a12.0
-        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 04:00:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792580408; x=1793185208; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=An+ETgbADntwtFKiPu43Mts6liLduZLS5iQIAQ+a5W8=;
-        b=cD9VTAj53OPERn37dHuTGUZB4REtJ1I7VzpktNygl/tR2wuIKZ9E6n4EQ94oL/kd9k
-         8PakWWnAKJDJ2Nh4TzQBv6fX6/Q1nGDKDjr0Xn2LasBQk8k2VWtlG5nYn836bLakBvLz
-         55ZQIwApzttJb2OlV5vPm08MUh1qTO+wx53c0cIlBVelREQvymTN8sdvIE45yD8FQCu6
-         vhTvSlM3skR92w4GTAj95bOkHVkafXBkctfpbF3ATYznm5QeKPLB0Npr7QFKEy9yEfux
-         J0lQvUii9GJ+pQoxKhi1SqX9iJuiQnc3wNJkP2IdX/CJsuCGT/CcPBbbajWPu8aF4cCm
-         FINA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792580408; x=1793185208;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=An+ETgbADntwtFKiPu43Mts6liLduZLS5iQIAQ+a5W8=;
-        b=ATjzvshKfKYEGtCS8mze48hWu+vufW+Urc2aMv/n7ZgmN4oF17oq+i/zCbDftscLyt
-         d3cQ2mWlYTzfuYwYgcvrieneriB77KpA6ptNouvz8HXyv/o1B6HYHnHUJ9IASovxqDlN
-         VQmM15j3bwrWmQPf04/hIBScTvKi+meS+25/4Gki4R+dw3Y+eP/Jxs2l5W8j1ecs1r2X
-         eMhqd67kIHpOgFunGaCpDSo4yN3Fh/tNKgUfwKZY/twUPJuiQJFpx65E8XTR+85rzW2x
-         mMVAMpRbwJc1kGDM3BdOOPZeoKNoo8QRyK6dItUjKZWIO2IUD/M53bOoSFarViLzSsSR
-         +8pg==
-X-Forwarded-Encrypted: i=1; AKwUvBwDYTmLN/gE/Y43g095IxlrdGaj29viGurJDa3HeQGsxEh+zuTvJ6rM2flRWcilYUioFpasjTKD75T1@vger.kernel.org
-X-Gm-Message-State: AFq9FYIKorUGtScMHBHjq2FobX5fWVxSMumBDW2LnrMYVq2HsZPybZgB
-	6UIF/Zqudc6g5xbRTJTYUw9hV4kUg//7fFfCQDgUPLj08bbKN4c+sURgCeYlNp9xPY8=
-X-Gm-Gg: AYBFou1BZiKiqxt1JF5cI5HJhg8X2mEhC1aHyEs0EHgh+SGhTmn+IACRFMx6z0KCfi2
-	HyMT6iG0U8m0Lv40u8g5Kn0b19Zk1KVFHC3tFPaBmKGN0OmJVW0wZwjhuoDTyC0ZIVAUadzHJq8
-	9afNAcDSK2/z+SWVSu0Occ/60c1PnAEYxU5uiakQNSlN0HLiQ1kqwUmguGX22MnfQK2CSej8Ors
-	PaupvtmNM7HsY3aO/biv+TPOhd006npZJeXuN/uwFeQvz1nV9UsCapiIjg4RWhpoCd8iRvr1YK/
-	QpI7xp7Cdk0V4Z7f7snBfQWsHaXh855l/OhThkjbR16dspj6djcLVOLhiZgtVExhVsS0wycVPPp
-	k+8v0mAIxADnzwVDVCM6jOlE7tlVWeOzxj3WpyvZaGHI6RcHP3zDkLwtmMTztiBvjC61PxUKqbS
-	FF0UCNE4vf01/TlxFeBfq7H5MjjHIq4f73+7xLoF63m1bD1+ShENyZIOf0vlDzg7tUuQwmvD6no
-	oYyRAflvwal0vfV4LdLTOCKL7JQ+NoEoP4jdsrpsrNj4fll7o3lVN2T/KctcpuTB023PIkWpMsW
-	pcoxw5zawUU42K3CtXR4YQjLd56vmg1OffPrLfLo0moXi2lDLhSxzHReFXhY6dHGGfnLYBLodQ4
-	ys8nDKiC5vAaeoeD+oVFU4CakhNGz1rJJ7jg=
-X-Received: by 2002:a05:6300:210e:b0:3d3:ae1f:d7f8 with SMTP id adf61e73a8af0-3e287df515emr1543449637.24.1792580407543;
-        Wed, 21 Oct 2026 04:00:07 -0700 (PDT)
-Received: from alanhc-14700.tailb22ec2.ts.net (180-177-138-120.dynamic.kbronet.com.tw. [180.177.138.120])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6a85c6fbesm656992a12.11.2026.10.21.04.00.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 04:00:06 -0700 (PDT)
-From: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
-To: Yixun Lan <dlan@kernel.org>
-Cc: E Shattow <e@freeshell.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] riscv: dts: spacemit: mark K1 board boot devices bootph-pre-ram
-Date: Wed, 21 Oct 2026 18:59:59 +0800
-Message-ID: <20261021110001.2905669-1-alan.tseng.cs@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261021083425-GKA125937@kernel.org>
-References: <20261017180141.3477743-3-alan.tseng.cs@gmail.com> <13d6926f-f085-4214-8051-7bf7b5d92b67@freeshell.de> <20261019141752.2077207-1-alan.tseng.cs@gmail.com> <20261021083425-GKA125937@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VL3XAbSn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E26A81F000C9;
+	Wed, 21 Oct 2026 11:07:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792580868;
+	bh=9zQAcmsM+2Tsxdew3yxZz+TMabeVeJCxxpaiKMkdx4g=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VL3XAbSnz+NlFeJoPc8/a2ol2tzKc3tgqMTtHFwn0A2RwYdtly54WvXRXm3GTCBpn
+	 74ng2B1F00FKhPrXUOAYYC5Cz2kUlMKhn0DFa7c94TWneT5bsURHuGAK5l0Y2mXwMU
+	 yziuFD3l8DIt3ScXyKC2fNgWcl+G8QyFplOiu1Fg8vUXLPp175SkGFA0pEKOj71VIl
+	 lggABs7ONUuTZux2fFuQ32qhrBsXBNVbZF12p4CPZAZWeJLmxRUIgWdHR4JMdxRRqI
+	 NsGYYE+3YW9h59ktMkpO6BhhpJ5U88Hsq2ykBz5W3Jlyw3tFYpSNvTPub4KvpFplq9
+	 zUR7EbpQWbWPQ==
+Message-ID: <sashiko-outbox-180142@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 8/9] regulator: Add MediaTek MT6392 regulator
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Luca Leonardo Scorcia" <l.scorcia@gmail.com>
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, mfd@lists.linux.dev, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com, lee@kernel.org
+In-Reply-To: <20261021105109.199886-9-l.scorcia@gmail.com>
+References: <20261021105109.199886-1-l.scorcia@gmail.com>
+ <20261021105109.199886-9-l.scorcia@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 21 Oct 2026 11:07:47 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,29 +59,127 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Hi Yixun,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] regulator: mt6392: OF node leak in mt6392_regulator_probe()
+- [Low] regulator: mt6392: malformed kernel-doc comment on mt6392_regulator=
+_info
+--
 
-Yixun Lan wrote:
-> but for bootph-pre-ram, isn't it about the DT nodes which needed before DDR
-> initialization in SPL stage, and should have nothing to do with BootROM?
+commit e3d039af08fd4f6095c705dd23ad9451cd2c1fd1
+Author: Fabien Parent <parent.f@gmail.com>
 
-Thanks for checking with the vendor. I agree, the schema defines it as
-"the phase that sets up SDRAM".
+regulator: Add MediaTek MT6392 regulator
 
-I also need to correct what I said earlier: the EEPROM is not only
-used to tell the boards apart. It also holds the board's DRAM
-configuration (number of chip selects, data rate and DDR type), which
-has to be read before DRAM can be trained [1].
+This commit adds a regulator driver for the MediaTek MT6392 power management
+integrated circuit, supporting buck and linear regulators controlled over
+regmap.
 
-So in v3 I'd like to keep the i2c2 and EEPROM tags, and also tag the
-EEPROM on the OrangePi RV2 and R2S, which I missed in v2.
+> diff --git a/drivers/regulator/mt6392-regulator.c b/drivers/regulator/mt6=
+392-regulator.c
+> new file mode 100644
+> index 0000000000000..3db52268363e0
+> --- /dev/null
+> +++ b/drivers/regulator/mt6392-regulator.c
 
-E, does that address your concern?
+[ ... ]
 
-[1] board/spacemit/k1/spl.c in U-Boot, ddr_early_init() -> read_ddr_info()
+> +/**
+> + * MT6392 regulators' information
+> + *
+> + * @desc: standard fields of regulator description.
+> + * @qi_status_reg: Register to query enable signal status of regulators
+> + * @qi_status_mask: Mask to query enable signal status of regulators (RO)
+> + * @vselctrl_reg: Vsel control mode selector register
+> + * @vselctrl_mask: Vsel control mode selector mask (RO)
+> + * @vsel_reg_mode_reg: Vsel register when Vsel control mode selector =3D=
+ 0 (Register mode)
+> + * @vsel_reg_mode_mask: Vsel register mask in Register mode (RW)
+> + * @vsel_normal_mode_reg: Vsel register when Vsel control mode selector =
+=3D 1 (Normal mode)
+> + * @vsel_normal_mode_mask: Vsel register mask in Register mode (RW)
+> + * @pwm_modeset_reg: Register to control buck mode (Auto/Force PWM)
+> + * @pwm_modeset_mask: Mask to control buck mode (RW)
+> + * @lp_modeget_reg: Register to get LDO low-power mode
+> + * @lp_modeget_mask: Mask to get LDO low-power mode (RO)
+> + * @lp_modeset_reg: Register to control LDO low-power mode
+> + * @lp_modeset_mask: Mask to control LDO low-power mode (WO)
+> + */
+> +struct mt6392_regulator_info {
 
-Thanks,
-Hung-Chun
+[Severity: Low]
+Because this comment above struct mt6392_regulator_info in
+drivers/regulator/mt6392-regulator.c starts with /**, scripts/kernel-doc
+parses it during W=3D1 builds and warns that the opening line does not match
+"struct mt6392_regulator_info - ...".
+
+Also, @vsel_normal_mode_mask is described as "Register mode" rather than
+"Normal mode".
+
+Should the header line be formatted as a kernel-doc struct header and the
+@vsel_normal_mode_mask description updated?
+
+[ ... ]
+
+> +static int mt6392_regulator_probe(struct platform_device *pdev)
+> +{
+> +	struct mt6397_chip *mt6392 =3D dev_get_drvdata(pdev->dev.parent);
+> +	struct regulator_config config =3D {};
+> +	struct regulator_dev *rdev;
+> +	int i;
+> +
+> +	device_set_of_node_from_dev(&pdev->dev, pdev->dev.parent);
+> +
+> +	// Initialize the bucks' vsel_reg and vsel_mask according to current HW=
+ state
+> +	if (mt6392_set_buck_vsel_reg(pdev))
+> +		return -EIO;
+> +
+> +	config.dev =3D mt6392->dev;
+
+[Severity: Medium]
+Does calling device_set_of_node_from_dev(&pdev->dev, pdev->dev.parent) in
+mt6392_regulator_probe() in drivers/regulator/mt6392-regulator.c leak a
+reference to pdev->dev.parent->of_node when the platform device is released
+(for example, if mt6392_set_buck_vsel_reg() or devm_regulator_register()
+fails, or when the parent device is unbound)?
+
+In drivers/mfd/mt6397-core.c, the regulator child is defined with
+MFD_CELL_NAME("mt6392-regulator"), so mfd_add_device() allocates the child
+platform_device with pdev->dev.of_node and pdev->dev.fwnode both set to
+null.
+
+Calling device_set_of_node_from_dev() increments the reference count on
+dev2->of_node and assigns it to pdev->dev.of_node without setting
+pdev->dev.fwnode:
+
+drivers/base/core.c:device_set_of_node_from_dev() {
+	of_node_put(dev->of_node);
+	dev->of_node =3D of_node_get(dev2->of_node);
+	dev_set_of_node_reused(dev);
+}
+
+When the platform device is destroyed, platform_device_release() only drops
+the reference on pa->pdev.dev.fwnode:
+
+drivers/base/platform.c:platform_device_release() {
+	...
+	if (!is_software_node(dev_fwnode(dev)))
+		fwnode_handle_put(pa->pdev.dev.fwnode);
+	...
+}
+
+Because pdev->dev.fwnode is still null, the reference held by
+pdev->dev.of_node is never dropped (unlike
+platform_device_set_of_node_from_dev(), which also assigns
+pdev->dev.fwnode =3D of_fwnode_handle(pdev->dev.of_node)).
+
+Since mt6392_regulator_probe() already sets config.dev =3D mt6392->dev for
+regulator_register() to look up the regulators node and supplies on the
+parent device, should device_set_of_node_from_dev() be removed here (or
+replaced with platform_device_set_of_node_from_dev())?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021105109.1998=
+86-1-l.scorcia@gmail.com?part=3D8
