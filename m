@@ -1,77 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792603593;
-	b=QbeiSjy25jf/L9EhfqpzOoWWRhwkIViU5EZGSy5ZftdHHqA5DHtY8VwbOat5MMUqX0t4
-	 SHLVhyhHC47AVhbkqVlqG87JWxfQIEde0bcYDpXVtyeHjsHfaDApDnBNFHjZMgEF4pU3i
-	 gs4HRBgOWVX6eDzMe79oFm87sSh+VSDGdOVYZE4Dv6Br02nV+vFVBF+WvqNjUPiPIyOjQ
-	 ZjxdLjk4RsP2Pi+JnoOHutJHmpC+D5RDtfKB7+JRP7I2fE+L/TdDOCLKmL8T5ckjEfyYi
-	 Lh1OBx9sA7tJ0RJCHwPDHoOkrl+f8VLbPf9ULSuKY8Hmmgxb/3gIeyKQApChdHxAmeQ==
+	t=1792603649;
+	b=zxXui1EdFAs+UIKE0LHSuRoq0tgxTnS7GsSqk+PNuPJlmVIiYHk/CesFHQCtOwXeGThj
+	 suJ61t+jKxiAMqTvEsrDZY6gix7IPUmjCTXYN7WYquj5TgqI5rPHf974Je8yhmGMMmYm9
+	 7JU7dfppXY5EJmhXjRGraS74zaueu/L+25dNQyEwPnBgtD/CH7ugPG73lzJgKBj4goc23
+	 azacL69PGN6+be1jLoTY6/HRmBjIc4Bxg11ia5ePWbivyXF33GcBc47azeKXEQeo9fKQd
+	 Q99u+phcFOc6hZrclEErV78xkxw10mNe2WyYQFBHgBquM8UqvqcjJ1cKbU++Q0cHipg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792603593;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
-	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=zTaav9JJqi7o41CWz6I8xC0Eiog2roG1fHHx2DjpFK4=;
-	b=tmvmOBmPL4Fsrx+UhlAGjl40H1Uk9XtFLFYPMDHJe/Hs2XLfRCJxPxclHWJymZcc5QdF
-	 NVJX7MMM4NAh8kjNlOjJc/tms+F01rHDvBwPaAWP/Fo+qq5HUJa888gH4X2Vpzq1E1yJN
-	 ApD8KQ/eit0jw5PLAxIrbkyAIkxT+QoPxBJvFlt+jvTzFzehMU5ZdQnEEXOQo6k17iyUN
-	 xCHQYc/mxBaU4oKl2ZPCDHgRtl9R8K2GLgMUKIki1lEZCAhjJEm8rSljvYTArScYX6aNM
-	 BSL59jdmYDaLfutFS+AUMer2kifF/Z3Eob0oemJWpLh2p7WTbeD0AaU+4MjND7O/smQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792603649;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=YB5yQqRd5W36BK9HMhW5ML/kvdBxgZ9LdSmIEm0cRT0=;
+	b=WuZ1Y5vbV2Bhsa40pE/e68DQyWrxoHtw/rzXgxpJB9CvmvzQQgwcca4HLcQmALOy8kvP
+	 VTh2izt5VvnRgnoBwm2wEU7m9YtR8YR1Yz4r9LISEMJaaB/+SPaSWXyS8s2KQan5HT4Nu
+	 D8KTZe1Q5mEHfoPTl0lVUKWG9LbSSq5CewJ3ytBHtmhQ6vKBdCdy/H8OPNkdncNHW+eV2
+	 v22sZEpuXPuaBuvyx1z696VuFE9ijkUYCt7aBRs7HG20RbAeuZqmoJ+S/RCaxPrHrQyv5
+	 7qbMW0GsjLFqW7RaW3w3yHuoIi34EGUdiBAlT0IrYA0lRH0LS1ArKCAhNIjMMt75oGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=0YocWKM+;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=l72kTAxN;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBF08606A319
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 17:26:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBF08606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FE7E606A31B;
+	Wed, 21 Oct 2026 17:27:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FE7E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=0YocWKM+
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 302B31A12B4;
-	Wed, 21 Oct 2026 17:26:30 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id EFFB3606E3;
-	Wed, 21 Oct 2026 17:26:29 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A2A0A103289F5;
-	Wed, 21 Oct 2026 19:26:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792603585; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=zTaav9JJqi7o41CWz6I8xC0Eiog2roG1fHHx2DjpFK4=;
-	b=0YocWKM+QJdGzkfXaBT5rSZcx4bgm8BVHIKJqiSBJw3ubpoqN9w/sAKkdzXpfUUx2Yg32f
-	UskT3sFESnz1osFU5n8O7Lw7VLbe1YxMjueSsw6XV/8VyqCl+4ZLGfp0qLh3mo2VcN/0eV
-	1ce3hl6rtavaZLjhHu7etB7ZZ0WLq7QwFtrAyy544KXZqoFG6WxgyvfV5ipEwMwq99iJEW
-	1FqaAzCP/uveEYTDdVxxpCcHph3gbEEwFqryy30jRGF87tI+238C8Z7I6xJGUNb1248Xvo
-	wTGTebbGkZxQVSOYaQu11VKdVXLYnsVXXsisuaEyDxsyEwMJ0OqnODibPZn0lQ==
-Date: Wed, 21 Oct 2026 19:26:15 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [RFC PATCH v2 07/74] Add support for FDT_PROPDATA_PHANDLE dtb
- tag
-Message-ID: <20261021192615.1f5b91ff@bootlin.com>
-In-Reply-To: <atgtw8QubzVfWMYP@gractus.seuss>
-References: <20260826094950.1088288-1-herve.codina@bootlin.com>
-	<20260826094950.1088288-8-herve.codina@bootlin.com>
-	<atgtw8QubzVfWMYP@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=l72kTAxN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792603649; x=1824139649;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=d96yl160fsvZqmtq2GUgRGHWBGTzWfYJwPm1PGSVih4=;
+  b=l72kTAxNVb7wp1QMku00RL4xXlSbe50MrzT9ZH7cofsPHqO/Gc8h366j
+   L+cEw+suGaq0N3YGJivtv+GQ+SnBhKivAR7mcrCdOXRON9pO8nEUucurY
+   IIk1B/AULyfZufb0W7c3m7Qd5sNssXVCBA9mWpcZfSEYQsCXRV9kvV11c
+   IgB2JJpXrHwO5R9YHyjY7SfOZctgC0S5IY8WMEALIBQTFM4Bx+CxzPMQn
+   1EmGxkbtBGIyeb9DjFRS3ulEbhEU9L6oTmNv5sCSat7E9/N4Bv/4PS+t+
+   dsW2FQVvx82OqOscDQwcFf/2sjP4Pq3up+W6Urxtj0X3h5y+znm+qq0NY
+   g==;
+X-CSE-ConnectionGUID: fv+tpsqLQ/ic4pZcxF/f7g==
+X-CSE-MsgGUID: TPp9yymjS1K4OkM29psYGg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1345505"
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="1345505"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 10:27:29 -0700
+X-CSE-ConnectionGUID: f0yVNm/pS/mxDQ4v+rWsTg==
+X-CSE-MsgGUID: w+93Z9l2SlmzmJoHjgZ9FA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="3071817"
+Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 10:27:25 -0700
+Date: Wed, 21 Oct 2026 20:27:23 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: longzhao@ambarella.com
+Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
+	Linus Walleij <linusw@kernel.org>,
+	Michael Walle <mwalle@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v11 7/9] gpio: pl061: keep the parent device in a local
+Message-ID: <atj1-0OckTqIktsY@ashevche-desk.local>
+References: <20261020-cv75-gpio-v11-0-e058bae19571@ambarella.com>
+ <20261020-cv75-gpio-v11-7-e058bae19571@ambarella.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -81,732 +85,58 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020-cv75-gpio-v11-7-e058bae19571@ambarella.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi David,
+On Tue, Oct 20, 2026 at 03:54:11PM +0800, Long Zhao via B4 Relay wrote:
 
-On Wed, 21 Oct 2026 14:13:11 +1100
-David Gibson <david@gibson.dropbear.id.au> wrote:
+> IRQ logging uses gc->parent. Keep that device in a local so the
+> gpio-regmap switch can change where it comes from without rewriting
+> every log line.
 
-> On Wed, Aug 26, 2026 at 11:48:36AM +0200, Herve Codina wrote:
-> > FDT_PROPDATA_PHANDLE dtb tag is a meta-data tag attached to a property.
-> > 
-> > It indicates that the property defined before this tag (FDT_PROP) uses a
-> > phandle value and the node related to this phandle value is local (i.e.
-> > the node is present in the device-tree blob).
-> > 
-> > It is followed by one value:
-> >  - offset (32bit):
-> >      Offset in the property data where the phandle is available.  
-> 
-> The definition of the tag seems fine.  As a general rule, data within
-> properties is not aligned, so it might be worth noting explicitly that
-> offset can be any integer, not just multiples of 4.
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-Yes, it was obvious on my side but sure, I will explicitly mention that.
+Also see some side notes (for the future development) below.
 
-> 
-> The name seems a little clunky, but I'm struggling a bit to come up
-> with a better one.  FDT_PHANDLE_LOCAL maybe?  FDT_PLINK_LOCAL?
+...
 
-I would like to identify in the name that the tag is related to data in
-the property.
+>  	if ((trigger & IRQ_TYPE_LEVEL_MASK) && (trigger & IRQ_TYPE_EDGE_BOTH)) {
+> -		dev_err(gc->parent,
+> +		dev_err(parent,
+>  			"trying to configure line %d for both level and edge "
+>  			"detection, choose one!\n",
 
-If we look at all tags added by the addon series so far we have:
+It's better to join string literals as one might grep by the say 'and edge
+detection' phrase and won't find any match in the code. This can be done
+for all messages in the driver in a single, but separate, patch (I haven't
+checked how many of the messages like this here, though).
 
-- Tags related to properties
-  - FDT_PROPDATA_PHANDLE: A well defined phandle (local) value in the property
-  - FDT_PROPDATA_PHANDLE_REF: A phandle value that needs to be resolved
+>  			offset);
 
-- Tags related to node
-  - FDT_EXPORT_SYM: Export a symbol whose the target is a local node (local phandle)
-  - FDT_EXPORT_SYM_REF: Export a symbol whose the target needs to be resolved
+...
 
-- Global Tags
-  - FDT_IMPORT_SYM: Import a symbol
-  - FDT_BEGIN_NODE_REF: Only available at top level, the node is not local but
-      we reference an existing node in the base tree (resolution needed).
+> -		dev_dbg(gc->parent, "line %d: IRQ on %s level\n",
+> +		dev_dbg(parent, "line %d: IRQ on %s level\n",
+>  			offset,
+>  			polarity ? "HIGH" : "LOW");
 
-I choose to not mention _LOCAL or any other suffix for local resources.
-I use _REF when a reference is used that need to be resolved and I use PROPDATA
-for tags related to property data.
+Since it's debug message, we may use str_high_low() from string_choices.h.
 
-Having FDT_PHANDLE_LOCAL will be consistent if we add the _LOCAL suffix in
-all local resources.
+...
 
-FDT_PHANDLE can be ambiguous. Are we talking about the phandle (or linux,phandle)
-property available in a node or the phandle value available in property data ?
+> -		dev_dbg(gc->parent, "line %d: IRQ on %s edge\n",
+> +		dev_dbg(parent, "line %d: IRQ on %s edge\n",
+>  			offset,
+>  			rising ? "RISING" : "FALLING");
 
-FDT_PLINK moves out of the known terminology used in devicetree. No "plink" nor
-"phandle link" are found in documentation.
+IIRC there was a patch in mailing list to add str_rising_falling(). But for now
+I don't see it in the upstream.
 
-What do you think is clunky ?
-Is it the PROPDATA term itself ?
+-- 
+With Best Regards,
+Andy Shevchenko
 
-> 
-> > Example:
-> >   FDT_PROP 0x00000008 xxxxxxxx 0xca 0xfe 0xde 0xca 0x01 0x02 0x03 0x04
-> >   FDT_PROPDATA_PHANDLE 0x00000004
-> > 
-> >   This means that at the offset 4 of the property data, the value
-> >   (0x01020304) is a phandle and the related node is available in the
-> >   dtb.
-> > 
-> >   This is what is encoded in the dtb when the related dts has a property
-> >   with the value set to <0xcafedeca &foo> with 'foo' a reference to an
-> >   existing node where the phandle value is 0x01020304.
-> > 
-> > If several local phandles are used in the property data, several
-> > FDT_PROPDATA_PHANDLE are present after the FDT_PROP tag. Each of them
-> > points with its offset value to the position of one phandle.
-> > 
-> > For instance, if a first property with 8 bytes of data has a phandle
-> > value at offset 4 and a second property with 16 bytes of data has
-> > phandle values at offset 0 and 8, the following tags sequence is
-> > present:
-> >   FDT_PROP 0x00000008 xxxxxxxx <data bytes>
-> >   FDT_PROPDATA_PHANDLE 0x00000004
-> >   FDT_PROP 0x00000010 xxxxxxxx <data bytes>
-> >   FDT_PROPDATA_PHANDLE 0x00000000
-> >   FDT_PROPDATA_PHANDLE 0x00000008
-> > 
-> > Add support for this new dtb tag.
-> > 
-> > Suggested-by: David Gibson <david@gibson.dropbear.id.au>
-> > Link: https://lore.kernel.org/all/aL-2fmYsbexEtpNp@zatzit/
-> > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> > ---
-> >  data.c             |  3 ++-
-> >  dtc.h              |  2 ++
-> >  fdtdump.c          | 15 ++++++++++-
-> >  flattree.c         | 63 ++++++++++++++++++++++++++++++++++++++++++++--
-> >  libfdt/fdt.c       | 37 ++++++++++++++++++++++++++-
-> >  libfdt/fdt.h       | 11 ++++++++
-> >  libfdt/fdt_check.c | 46 ++++++++++++++++++++++++++++++---
-> >  libfdt/libfdt.h    |  3 ++-
-> >  treesource.c       |  1 +
-> >  9 files changed, 171 insertions(+), 10 deletions(-)
-> > 
-> > diff --git a/data.c b/data.c
-> > index 5b25aa06..9bae7047 100644
-> > --- a/data.c
-> > +++ b/data.c
-> > @@ -127,7 +127,7 @@ struct data data_insert_at_marker(struct data d, struct marker *m,
-> >  	return d;
-> >  }
-> >  
-> > -static struct data data_append_markers(struct data d, struct marker *m)
-> > +struct data data_append_markers(struct data d, struct marker *m)
-> >  {
-> >  	struct marker **mp = &d.markers;
-> >  
-> > @@ -288,6 +288,7 @@ struct marker *alloc_marker(unsigned int offset, enum markertype type,
-> >  	m->type = type;
-> >  	m->ref = ref;
-> >  	m->next = NULL;
-> > +	m->is_local = 0;  
-> 
-> Storing is_local in the marker doesn't make sense to me.  I think the
-> locality should be calculated only when we actually go to emit the dtb
-> - I believe we should be able to deduce it from m->ref.
 
-When we parse a dtb, we do not have any reference for local phandle, we have
-only the phandle value.
-
-Later in build_dt_info(), complete_references() is called. This new function
-is introduced in patch 9 ("dtc: Complete REF_PHANDLE markers with ref strings
-and is_local flags"). It completes the reference either filling the ref field
-based on the phandle value for all local reference (parsing from a dtb) or
-setting is_local based on the reference (parsing from a dts).
-
-> 
-> >  	return m;
-> >  }
-> > diff --git a/dtc.h b/dtc.h
-> > index ef3f2682..64eaffde 100644
-> > --- a/dtc.h
-> > +++ b/dtc.h
-> > @@ -128,6 +128,7 @@ struct  marker {
-> >  	enum markertype type;
-> >  	unsigned int offset;
-> >  	char *ref;
-> > +	bool is_local;
-> >  	struct marker *next;
-> >  };
-> >  
-> > @@ -187,6 +188,7 @@ struct data data_insert_data(struct data d, struct marker *m, struct data old);
-> >  struct marker *alloc_marker(unsigned int offset, enum markertype type,
-> >  			    char *ref);
-> >  struct data data_add_marker(struct data d, enum markertype type, char *ref);
-> > +struct data data_append_markers(struct data d, struct marker *m);
-> >  
-> >  bool data_is_one_string(struct data d);
-> >  
-> > diff --git a/fdtdump.c b/fdtdump.c
-> > index f26d3a89..4ee9acc3 100644
-> > --- a/fdtdump.c
-> > +++ b/fdtdump.c
-> > @@ -84,8 +84,9 @@ static void dump_blob(void *blob, bool debug, int dump_unknown)
-> >  	const char *p_strings = (const char *)blob + off_str;
-> >  	uint32_t version = fdt32_to_cpu(bph->version);
-> >  	uint32_t totalsize = fdt32_to_cpu(bph->totalsize);
-> > -	uint32_t tag;
-> > +	uint32_t tag, offset;
-> >  	const char *p, *d, *s, *t;
-> > +	const char *last_prop_name = NULL;
-> >  	int depth, sz, shift;
-> >  	int i;
-> >  	uint64_t addr, size;
-> > @@ -138,6 +139,7 @@ static void dump_blob(void *blob, bool debug, int dump_unknown)
-> >  		        (uintptr_t)p - blob_off - 4, tag, tagname(tag));
-> >  
-> >  		if (tag == FDT_BEGIN_NODE) {
-> > +			last_prop_name = NULL;
-> >  			s = p;
-> >  			p = PALIGN(p + strlen(s) + 1, 4);
-> >  
-> > @@ -151,6 +153,7 @@ static void dump_blob(void *blob, bool debug, int dump_unknown)
-> >  		}
-> >  
-> >  		if (tag == FDT_END_NODE) {
-> > +			last_prop_name = NULL;
-> >  			depth--;
-> >  
-> >  			printf("%*s};\n", depth * shift, "");
-> > @@ -176,6 +179,16 @@ static void dump_blob(void *blob, bool debug, int dump_unknown)
-> >  			printf("%*s%s", depth * shift, "", s);
-> >  			utilfdt_print_data(t, sz);
-> >  			printf(";\n");
-> > +			last_prop_name = s;
-> > +			continue;
-> > +		}
-> > +
-> > +		if (tag == FDT_PROPDATA_PHANDLE) {
-> > +			p = get_structured_tag_data(tag, p, &d, &sz);
-> > +			offset = fdt32_to_cpu(GET_CELL(d));
-> > +
-> > +			printf("%*s// [FDT_PROPDATA_PHANDLE] %s[%"PRIu32"]\n", depth * shift, "",
-> > +				last_prop_name, offset);
-> >  			continue;
-> >  		}
-> >  
-> > diff --git a/flattree.c b/flattree.c
-> > index dd451f0c..92d191d5 100644
-> > --- a/flattree.c
-> > +++ b/flattree.c
-> > @@ -15,6 +15,7 @@
-> >  #define FTF_NOPS	0x40
-> >  #define FTF_DTFLAGS	0x80
-> >  #define FTF_LCVERSW	0x100
-> > +#define FTF_PROPDATA_PHANDLE	0x200
-> >  
-> >  static struct version_info {
-> >  	int version;
-> > @@ -38,7 +39,7 @@ static struct version_info {
-> >  	 FTF_LCVERSW},
-> >  	{20, 18, 18, FDT_V20_SIZE,
-> >  	 FTF_BOOTCPUID|FTF_STRTABSIZE|FTF_STRUCTSIZE|FTF_NOPS|FTF_DTFLAGS|
-> > -	 FTF_LCVERSW},
-> > +	 FTF_LCVERSW|FTF_PROPDATA_PHANDLE},
-> >  };
-> >  
-> >  struct emitter {
-> > @@ -49,6 +50,7 @@ struct emitter {
-> >  	void (*beginnode)(void *, struct label *labels);
-> >  	void (*endnode)(void *, struct label *labels);
-> >  	void (*property)(void *, struct label *labels);
-> > +	void (*propdata_phandle)(void *);  
-> 
-> The only reason begginnode, endnode and property have custom function
-> pointers here, and don't just re-use emitter->cell, is that in -Oasm
-> mode we attach symbols to nodes and properties, based on the labels.
-> 
-> That's not a concern for this new tag, so we shouldn't need a custom
-> emitter function.
-
-Ok, I will remove the emitter.
-
-> 
-> >  };
-> >  
-> >  static void bin_emit_cell(void *e, cell_t val)
-> > @@ -98,6 +100,11 @@ static void bin_emit_property(void *e, struct label *labels)
-> >  	bin_emit_cell(e, FDT_PROP);
-> >  }
-> >  
-> > +static void bin_emit_propdata_phandle(void *e)
-> > +{
-> > +	bin_emit_cell(e, FDT_PROPDATA_PHANDLE);
-> > +}
-> > +
-> >  static struct emitter bin_emitter = {
-> >  	.cell = bin_emit_cell,
-> >  	.string = bin_emit_string,
-> > @@ -106,6 +113,7 @@ static struct emitter bin_emitter = {
-> >  	.beginnode = bin_emit_beginnode,
-> >  	.endnode = bin_emit_endnode,
-> >  	.property = bin_emit_property,
-> > +	.propdata_phandle = bin_emit_propdata_phandle,
-> >  };
-> >  
-> >  static void emit_label(FILE *f, const char *prefix, const char *label)
-> > @@ -217,6 +225,14 @@ static void asm_emit_property(void *e, struct label *labels)
-> >  	asm_emit_cell(e, FDT_PROP);
-> >  }
-> >  
-> > +static void asm_emit_propdata_phandle(void *e)
-> > +{
-> > +	FILE *f = e;
-> > +
-> > +	fprintf(f, "\t/* FDT_PROPDATA_PHANDLE */\n");
-> > +	asm_emit_cell(e, FDT_PROPDATA_PHANDLE);
-> > +}
-> > +
-> >  static struct emitter asm_emitter = {
-> >  	.cell = asm_emit_cell,
-> >  	.string = asm_emit_string,
-> > @@ -225,6 +241,7 @@ static struct emitter asm_emitter = {
-> >  	.beginnode = asm_emit_beginnode,
-> >  	.endnode = asm_emit_endnode,
-> >  	.property = asm_emit_property,
-> > +	.propdata_phandle = asm_emit_propdata_phandle,
-> >  };
-> >  
-> >  static int stringtable_insert(struct data *d, const char *str)
-> > @@ -249,6 +266,7 @@ static void flatten_tree(struct node *tree, struct emitter *emit,
-> >  	struct property *prop;
-> >  	struct node *child;
-> >  	bool seen_name_prop = false;
-> > +	struct marker *m;
-> >  
-> >  	if (tree->deleted)
-> >  		return;
-> > @@ -279,6 +297,17 @@ static void flatten_tree(struct node *tree, struct emitter *emit,
-> >  
-> >  		emit->data(etarget, prop->val);
-> >  		emit->align(etarget, sizeof(cell_t));
-> > +
-> > +		if (vi->flags & FTF_PROPDATA_PHANDLE) {
-> > +			m = prop->val.markers;
-> > +			for_each_marker_of_type(m, REF_PHANDLE) {
-> > +				if (m->is_local) {
-> > +					emit->propdata_phandle(etarget);
-> > +					emit->cell(etarget, m->offset);
-> > +					continue;
-> > +				}
-> > +			}
-> > +		}
-> >  	}
-> >  
-> >  	if ((vi->flags & FTF_NAMEPROPS) && !seen_name_prop) {
-> > @@ -674,6 +703,7 @@ static uint32_t flat_read_tag(struct inbuf *inb)
-> >  		case FDT_PROP:
-> >  		case FDT_NOP:
-> >  		case FDT_END:
-> > +		case FDT_PROPDATA_PHANDLE:
-> >  			return tag;
-> >  		default:
-> >  			break;
-> > @@ -811,9 +841,11 @@ static struct node *unflatten_tree(struct inbuf *dtbuf,
-> >  				   struct inbuf *strbuf,
-> >  				   const char *parent_flatname, int flags)
-> >  {
-> > +	struct property *prop = NULL;
-> >  	struct node *node;
-> >  	const char *flatname;
-> >  	uint32_t val;
-> > +	uint32_t offset;
-> >  
-> >  	node = build_node(NULL, NULL, NULL);
-> >  
-> > @@ -826,8 +858,8 @@ static struct node *unflatten_tree(struct inbuf *dtbuf,
-> >  		node->name = xstrdup(flatname);
-> >  
-> >  	do {
-> > -		struct property *prop;
-> >  		struct node *child;
-> > +		struct marker *m;
-> >  
-> >  		val = flat_read_tag(dtbuf);
-> >  		switch (val) {
-> > @@ -840,11 +872,13 @@ static struct node *unflatten_tree(struct inbuf *dtbuf,
-> >  			break;
-> >  
-> >  		case FDT_BEGIN_NODE:
-> > +			prop = NULL;
-> >  			child = unflatten_tree(dtbuf,strbuf, flatname, flags);
-> >  			add_child(node, child);
-> >  			break;
-> >  
-> >  		case FDT_END_NODE:
-> > +			prop = NULL;
-> >  			break;
-> >  
-> >  		case FDT_END:
-> > @@ -859,6 +893,28 @@ static struct node *unflatten_tree(struct inbuf *dtbuf,
-> >  			/* Ignore */
-> >  			break;
-> >  
-> > +		case FDT_PROPDATA_PHANDLE:
-> > +			if (!(flags & FTF_PROPDATA_PHANDLE))
-> > +				die("PROPDATA_PHANDLE tag found in flat tree"
-> > +				    " version <20\n");
-> > +
-> > +			if (!prop)
-> > +				die("PROPDATA_PHANDLE tag found without a previous PROP tag");
-> > +
-> > +			offset = flat_read_word(dtbuf);
-> > +
-> > +			/*
-> > +			 * A reference to a phandle is present in the property
-> > +			 * Mark the whole property as TYPE_UINT32.
-> > +			 */
-> > +			property_add_marker(prop, TYPE_UINT32, 0, NULL);
-> > +
-> > +			/* Mark the offset as a local phandle reference */
-> > +			m = alloc_marker(offset, REF_PHANDLE, NULL);
-> > +			m->is_local = true;
-> > +			prop->val = data_append_markers(prop->val, m);  
-> 
-> This doesn't properly populate m->ref which is an essential field in a
-> REF_PHANDLE marker.  Of course, doing so is kind of tricky - it
-> requires searching for the node with the referenced phandle, which
-> might not have been parsed yet.  So, alas, it will require a second
-> pass to fix up the REF_PHANDLE markers.
-
-We cannot do it here. The whole dtb needs to be parsed to set correctly
-m->ref.
-
-This is done by complete_references() introduced in patch 9.
-
-> 
-> Also, markers are required to be inserted in order of offset (other
-> parts of the code rely on this).  So you'll either need to sort as you
-> insert, or require that FDT_PROPDATA_PHANDLE tags also come in offset
-> order (but then you need to check and enforce that).
-
-I will insert the marker at the correct place in data_append_markers()
-based on the offset value.
-
-> 
-> > +			break;
-> > +
-> >  		default:
-> >  			die("Invalid opcode word %08x in device tree blob\n",
-> >  			    val);
-> > @@ -981,6 +1037,9 @@ struct dt_info *dt_from_blob(const char *fname)
-> >  	if (version >= 18)
-> >  		flags |= FTF_DTFLAGS | FTF_LCVERSW;
-> >  
-> > +	if (version >= 20)
-> > +		flags |= FTF_PROPDATA_PHANDLE;
-> > +
-> >  	inbuf_init(&memresvbuf,
-> >  		   blob + off_mem_rsvmap, blob + totalsize);
-> >  	inbuf_init(&dtbuf, blob + off_dt, blob + totalsize);
-> > diff --git a/libfdt/fdt.c b/libfdt/fdt.c
-> > index 8c026f26..3762fbef 100644
-> > --- a/libfdt/fdt.c
-> > +++ b/libfdt/fdt.c
-> > @@ -213,7 +213,7 @@ int fdt_get_structured_tag_data(uint32_t tag, const void *fdt, int offset,
-> >  
-> >  static uint32_t fdt_next_tag_all(const void *fdt, int startoffset, int *nextoffset)
-> >  {
-> > -	const fdt32_t *tagp, *lenp;
-> > +	const fdt32_t *tagp, *lenp, *tmp32p;
-> >  	uint32_t tag, len, sum;
-> >  	int offset = startoffset;
-> >  	int tmp_offset;
-> > @@ -262,6 +262,25 @@ static uint32_t fdt_next_tag_all(const void *fdt, int startoffset, int *nextoffs
-> >  	case FDT_NOP:
-> >  		break;
-> >  
-> > +	case FDT_PROPDATA_PHANDLE:
-> > +		tmp_offset = fdt_get_structured_tag_data(tag, fdt, offset, &len);
-> > +		if (tmp_offset < 0)
-> > +			return FDT_END; /* premature end */
-> > +
-> > +		sum = tmp_offset + len;
-> > +
-> > +		if (!can_assume(VALID_DTB) && len < FDT_CELLSIZE)
-> > +			return FDT_END; /* premature end */
-> > +
-> > +		/* Check offset value */
-> > +		tmp32p = fdt_offset_ptr(fdt, tmp_offset, sizeof(*tmp32p));
-> > +		if (!can_assume(VALID_DTB) && !tmp32p)
-> > +			return FDT_END; /* premature end */
-> > +
-> > +		/* Skip the whole data bloc */  
-> 
-> s/bloc/block/
-> 
-> ("bloc" is used in English, but has specific meanings that don't apply
-> here).
-
-Will be fixed.
-
-> 
-> > +		offset = sum;
-> > +		break;
-> > +
-> >  	default:
-> >  		if (!(tag & FDT_TAG_STRUCTURED) || !(tag & FDT_TAG_SKIP_SAFE))
-> >  			return FDT_END;
-> > @@ -290,6 +309,7 @@ static bool fdt_tag_is_unknown(uint32_t tag)
-> >  	case FDT_PROP:
-> >  	case FDT_NOP:
-> >  	case FDT_END:
-> > +	case FDT_PROPDATA_PHANDLE:
-> >  		return false;
-> >  	default:
-> >  		break;
-> > @@ -342,11 +362,26 @@ uint32_t fdt_next_tag_filter(const void *fdt, int offset, int *nextoffset,
-> >  
-> >  bool fdt_tag_filter_skip_metadata(void *data, uint32_t tag)
-> >  {
-> > +	switch (tag) {
-> > +	case FDT_PROPDATA_PHANDLE:
-> > +		return true;
-> > +
-> > +	default:
-> > +		break;
-> > +	}
-> > +
-> >  	return false;
-> >  }
-> >  
-> >  bool fdt_tag_is_property_metadata(uint32_t tag)
-> >  {
-> > +	switch (tag) {
-> > +	case FDT_PROPDATA_PHANDLE:
-> > +		return true;
-> > +	default:
-> > +		break;
-> > +	}
-> > +
-> >  	return false;
-> >  }
-> >  
-> > diff --git a/libfdt/fdt.h b/libfdt/fdt.h
-> > index 7c59fed2..2f681088 100644
-> > --- a/libfdt/fdt.h
-> > +++ b/libfdt/fdt.h
-> > @@ -84,6 +84,17 @@ struct fdt_property {
-> >  #define FDT_TEST_VARLEN_CAN_SKIP	FDT_TAG_CAN_SKIP(FDT_TAG_DATA_VARLEN, 0)
-> >  #define FDT_TEST_NONE_NO_SKIP		FDT_TAG_NO_SKIP(FDT_TAG_DATA_NONE, 0)
-> >  
-> > +/*
-> > + * local phandle tag (meta-data). 1 cell: offset
-> > + *
-> > + * It indicates that the property defined before this tag (FDT_PROP) uses a
-> > + * phandle value and the node related to this phandle value is local (i.e.
-> > + * the node is present in the device-tree blob).
-> > + *
-> > + * offset: Offset in the property data where the phandle is available
-> > + */
-> > +#define FDT_PROPDATA_PHANDLE   FDT_TAG_CAN_SKIP(FDT_TAG_DATA_1CELL, 0x1000)
-> > +
-> >  #define FDT_V1_SIZE	(7*sizeof(fdt32_t))
-> >  #define FDT_V2_SIZE	(FDT_V1_SIZE + sizeof(fdt32_t))
-> >  #define FDT_V3_SIZE	(FDT_V2_SIZE + sizeof(fdt32_t))
-> > diff --git a/libfdt/fdt_check.c b/libfdt/fdt_check.c
-> > index 2fd5b61d..ac297841 100644
-> > --- a/libfdt/fdt_check.c
-> > +++ b/libfdt/fdt_check.c
-> > @@ -14,12 +14,15 @@ int fdt_check_full(const void *fdt, size_t bufsize)
-> >  {
-> >  	int err;
-> >  	int num_memrsv;
-> > -	int offset, nextoffset = 0;
-> > +	int offset, nextoffset = 0, d, tmp;
-> >  	uint32_t tag;
-> >  	unsigned int depth = 0;
-> > -	const void *prop;
-> > +	const void *prop = NULL;
-> >  	const char *propname;
-> > +	int proplen;
-> >  	bool expect_end = false;
-> > +	const fdt32_t *pfdt32;
-> > +	uint32_t val;
-> >  
-> >  	if (can_assume(PERFECT))
-> >  		return 0;
-> > @@ -58,6 +61,7 @@ int fdt_check_full(const void *fdt, size_t bufsize)
-> >  			return 0;
-> >  
-> >  		case FDT_BEGIN_NODE:
-> > +			prop = NULL;
-> >  			depth++;
-> >  			if (depth > INT_MAX)
-> >  				return -FDT_ERR_BADSTRUCTURE;
-> > @@ -77,6 +81,7 @@ int fdt_check_full(const void *fdt, size_t bufsize)
-> >  			break;
-> >  
-> >  		case FDT_END_NODE:
-> > +			prop = NULL;
-> >  			if (depth == 0)
-> >  				return -FDT_ERR_BADSTRUCTURE;
-> >  			depth--;
-> > @@ -86,9 +91,42 @@ int fdt_check_full(const void *fdt, size_t bufsize)
-> >  
-> >  		case FDT_PROP:
-> >  			prop = fdt_getprop_by_offset(fdt, offset, &propname,
-> > -						     &err);
-> > +						     &proplen);
-> >  			if (!prop)
-> > -				return err;
-> > +				return proplen;
-> > +			break;
-> > +
-> > +		case FDT_PROPDATA_PHANDLE:
-> > +			/* Be sure that a property is available before this tag */
-> > +			if (!prop)
-> > +				return -FDT_ERR_BADSTRUCTURE;
-> > +
-> > +			d = fdt_get_structured_tag_data(tag, fdt,
-> > +							offset + FDT_TAGSIZE, NULL);
-> > +			if (d < 0)
-> > +				return d;
-> > +
-> > +			/* Retrieve the offset of the phandle in the property */
-> > +			pfdt32 = fdt_offset_ptr(fdt, d, sizeof(*pfdt32));
-> > +			if (!pfdt32)
-> > +				return -FDT_ERR_BADSTRUCTURE;
-> > +			tmp = fdt32_to_cpu(*pfdt32);  
-> 
-> You can use fdt32_ld_() for this.
-
-Yes indeed, I will update.
-
-> 
-> > +
-> > +			/* Check this offset */
-> > +			if (tmp % sizeof(fdt32_t))
-> > +				return -FDT_ERR_BADVALUE;  
-> 
-> I don't think we can insist these are aligned.  A binding which had a
-> string followed by a phandle could naturally lead to unaligned phandle values.
-
-Ok, will handle unaligned offset.
-
-> 
-> > +			if ((uint32_t)proplen < tmp + sizeof(fdt32_t))  
-> 
-> Need to check for overflows here.
-
-What do you think about
-	if ((tmp + sizeof(fdt32_t) < tmp) ||
-	    (uint32_t)proplen < tmp + sizeof(fdt32_t))
-		return -FDT_ERR_???
-
-Probably using an uint32_t for tmp here.
-
-> 
-> > +				return -FDT_ERR_BADSTRUCTURE;  
-> 
-> I'm not sure BADSTRUCTURE makes sense for this.  I think it's probably
-> worth adding a new error code for bad metadata tags.
-
-#define FDT_ERR_BADMETADATA	20
-	/* FDT_ERR_BADMETADATA: The device tree has corrupt metadata. */
-
-Is it ok on your side ?
-
-> 
-> > +
-> > +			/* Retrieve the phandle value from the property */
-> > +			pfdt32 = prop;
-> > +			pfdt32 += tmp / sizeof(fdt32_t);  
-> 
-> Again, this will need updating for non-aligned phandles.
-
-Will handle unaligned offset.
-
-> 
-> > +			val = fdt32_ld(pfdt32);  
-> 
-> ... which reminds me the entire fdt32_ld() interface is kind of
-> broken.  They're specifically intended to handle misaligned accesses,
-> strictly speaking it's already UB to generate a misaligned pointer, so
-> there's a problem before we even call it.  Fixing this within API/ABI
-> constraints is a nasty problem :(.
-
-I can introduce and use the following:
----- 8< ----
-static inline uint32_t fdt32_ld_unaligned(const uint8_t *pfdt32)
-{
-	return ((uint32_t)b[0] << 24)
-		| ((uint32_t)b[1] << 16)
-		| ((uint32_t)b[2] << 8)
-		| b[3];
-}
----- 8< ----
-
-> 
-> > +
-> > +			/* Check the phandle value */
-> > +			tmp = fdt_node_offset_by_phandle(fdt, val);  
-> 
-> Oof.  fdt_check_full() is already pretty expensive, but this is a big
-> step up: this takes it (roughly speaking) from O(n) to O(n^2).  Don't
-> really see a way to avoid that if this remains a "full check".
-> 
-> > +			if (tmp < 0)
-> > +				return tmp;  
-> 
-> Error code probably needs translation here: the most likely error here
-> is NOTFOUND, which is a weird think to get from fdt_check_full().
-
-Ok, I will translate to -FDT_ERR_BADPHANDLE
-
-> 
-> >  			break;
-> >  
-> >  		default:
-> > diff --git a/libfdt/libfdt.h b/libfdt/libfdt.h
-> > index 5e1e0d06..ee811266 100644
-> > --- a/libfdt/libfdt.h
-> > +++ b/libfdt/libfdt.h
-> > @@ -150,7 +150,8 @@ static inline void *fdt_offset_ptr_w(void *fdt, int offset, int checklen)
-> >   * be set to the offset immediately following the tag.
-> >   *
-> >   * returns:
-> > - *	the tag type (FDT_BEGIN_NODE, FDT_END_NODE, FDT_PROP, FDT_NOP, FDT_END),
-> > + *	the tag type (FDT_BEGIN_NODE, FDT_END_NODE, FDT_PROP, FDT_NOP, FDT_END
-> > + *	or any other known tags),  
-> 
-> This hunk looks like it belongs in an earlier patch.
-
-Well we add FDT_PROPDATA_PHANDLE and this is the first known tag added other
-the existing ones already listed. Do you prefer an exhaustive list of known tags?
-
-Also worth noting that fdt_next_tag() can return all unknown strutured tags that
-can be skipped this has to be mentioned in the series adding support for structured
-tag.
-
-> 
-> >   *	FDT_END, if offset is out of bounds
-> >   */
-> >  uint32_t fdt_next_tag(const void *fdt, int offset, int *nextoffset);
-> > diff --git a/treesource.c b/treesource.c
-> > index bf648bf6..0e33e3e1 100644
-> > --- a/treesource.c
-> > +++ b/treesource.c
-> > @@ -168,6 +168,7 @@ static struct marker **add_marker(struct marker **mi,
-> >  	nm->offset = offset;
-> >  	nm->ref = ref;
-> >  	nm->next = *mi;
-> > +	nm->is_local = 0;
-> >  	*mi = nm;
-> >  
-> >  	return &nm->next;
-> > -- 
-> > 2.55.0
-> > 
-> >   
-> 
-
-Best regards,
-Hervé
