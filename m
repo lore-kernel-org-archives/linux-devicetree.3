@@ -1,82 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.19.166.231
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792601765;
-	b=V94idvLFxQPmCt/PVof5RwPMK3buJfRgmunU6X99KAcle3Eh9Au/t3mOVOmkOAoEHPbG
-	 g1KZtrws1jQqf2ZjBYv4+RTxT6S5gnejiVJV+1KYdTfl9/HrkfkRoUbVUNW5A6y5HjiJk
-	 k3CVHBE3fz0FYCu/uc01U092xinAxoTYrLWdVzY+oKmkeg3l022zopva79AnkUTJowvtO
-	 VJlH+ZWfK4l1b5NyNW9ThpKEXQzHwQdOg3PclwNy6tw9jjkmgdPxmB8qzDqOkZT/81GkD
-	 TXFvCuFgmrhyv+KojM19AEHgTa5wbRGreHv/RAmVW0NB1nKPOac2lP40GlxVwU9tczw==
+	t=1792602083;
+	b=pegkE+GCjFLkFZeTN/5ZE82+pDnB3c+IB/N/YNRTQvWLRm+M1Ihke2nfVqvjp9o+ysn4
+	 Sk6bK5DDbNeBYWi/p7b3NnDy08Nr/P1Mq3AyrzhOGuXz6lVXgwYoLOGboSHGIHXn0jRdC
+	 76rx2DFEX2hA16Q3oJCirZu/24TBZURkSiOGjboAk12bqvL6jIm2xXsD7zEy7ehqJJq+f
+	 Hj75xk263LHT77eWOJBr7PDPB+bwu61rA27nx8wwAr5FZT/w6F4EPd4+xhJ3U40PTK5j+
+	 YJQZivNWHvR2EQEo5EAJonLHWIVtaNeeoh6bK4Hm/TcIQ5iDdKkkH2LVELiZ+17cpAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792601765;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=LpNaT8q0SGvIEMd/N1soAJa02WC3uqlIifzAi5jpoGQ=;
-	b=mY80kkiLsmd1KiGrE37CpksKIwQalKO00Sb5RKLz6yFB0U45TR70aT1FO2Q2ZpAGL+/B
-	 uZ6Nsxm0B4r2cixBBMTW3cACBuSdHyMbjPmbjJUDivateR4d4wQMmp9slN8Ygxb4XjJYp
-	 I4lAqdY0Ml5OyVqNCsCz4A6CXN61tTi2Ul3RIgI0PvkvE8drLUMseCEYg75XmHfGefBZ4
-	 OfBhWbpfNvvI8WhMkRfbz9uWK1W5ZzsJvY3wU4jc7XnYI4cCvc/C3Ky9HgbxrFqTLGq9V
-	 rkC7NkIMWm+4lprQ78j4R+i26FGv0JAcaXSnsU4MBOvJk7aqoJ2y1PRh60XrbDWhrig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792602083;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=cFfUUxDHxpkOld3n52gWPJ2Iw6UD2gBOUzrE3m1Iksg=;
+	b=n4dzxqoFL+8B60QW/Wa0mVHN0uKFlk/9zIzV7TWh48d6VmOA9eRvz5VvzQ5xnmNoCp/Z
+	 pBuyt1WU0+moxqMk70WeCptgjR/UA3xHNs11t8DHkvh3c2TmntQHemkQbP4Jta6DvpsVP
+	 Cpxsvv3UE5vRX+MpqCXUD6xRazlsiBbfyJOHIQCOo8xt8aSSzZZLdAayG9svfNgZnrJw3
+	 jFqorlOLqPKp76oRskm2ehlR5LB2MGUDk+aXAbfNUFBTPSUEflw8dcYUJnujrQQkBwDgV
+	 zg0C4jtsNa1Op1Klcu5+AhQ1nNe1dhsuTOgHI2yFPL7eusUwygxBgWQr/BvUMkSEniA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=dkimrelay header.b=mQNYpKnm;
-	arc=none smtp.remote-ip=192.19.166.231
-Received: from relay.smtp-ext.broadcom.com (relay.smtp-ext.broadcom.com [192.19.166.231])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Wt/Uh1tJ";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8204C606A33A;
-	Wed, 21 Oct 2026 16:56:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8204C606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36A56606A322;
+	Wed, 21 Oct 2026 17:01:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=dkimrelay header.b=mQNYpKnm
-Received: from mail-lvn-it-01.broadcom.com (mail-lvn-it-01.lvn.broadcom.net [10.36.132.253])
-	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id CEADDC0000EC;
-	Wed, 21 Oct 2026 09:55:58 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com CEADDC0000EC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
-	s=dkimrelay; t=1792601758;
-	bh=8PvXMAPnHZBo9OfRhqyepdZP9PSU6DTIqmxQXyhYrUA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=mQNYpKnmg5+IACQuRTd7T0hzVsDZi6RXnQYPNGZ2r8i27la6on31zs5xKmYYAfJ3z
-	 DicOaMT1QC7BOgfXcaAFaSoYk2IR0lqDKQQxC8QCpcwpiDpDpL8HSrAWCm2lF9poSF
-	 5bEqqGh3au4IR9go0cMHsHbAVumkm6O6Om6QP1hM=
-Received: from fainelli-desktop.igp.broadcom.net (fainelli-desktop.dhcp.broadcom.net [10.67.48.245])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail-lvn-it-01.broadcom.com (Postfix) with ESMTPSA id 9DA1FA83;
-	Wed, 21 Oct 2026 09:55:58 -0700 (PDT)
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-To: linux-arm-kernel@lists.infradead.org
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wt/Uh1tJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC6E81F000C1;
+	Wed, 21 Oct 2026 17:01:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792602082;
+	bh=cFfUUxDHxpkOld3n52gWPJ2Iw6UD2gBOUzrE3m1Iksg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Wt/Uh1tJhO4jyTKqtj7hVmwSFhbV+tzY2GUETLVrOAp5u5PDh2WzGLNiZ8dY3w1zk
+	 j047T0x1oxKZIbfhDMHoasBl1tArQm1Yd7D33RnLQas5FFDMwvbqEiuwHyk6UoIExB
+	 ye52yq7NT7sIMbNRd3LOWv672F9C951Zl9pgJwCQM+Qq7W3Py1vB5oswBVp3UPPyja
+	 XcsG8DhQL/hee2pveUfNQjmeupSJ8AmG4Wy8GVqM4QQ+nAjDxsY5Xtit1s+f39IMeg
+	 RfAj+Jk6sF+gBQEcWl+PNZjMzmtSmP0AvM8N76+e+hGiFeXWv3egW1jmmOqvikDX3p
+	 Y2eLWk+swJ4Yg==
+Date: Wed, 21 Oct 2026 18:01:18 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Paul Louvel <paul.louvel@bootlin.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ray Jui <rjui@broadcom.com>,
-	Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Yendapally Reddy Dhananjaya Reddy <yendapally.reddy@broadcom.com>,
-	linux-ide@vger.kernel.org (open list:LIBATA SUBSYSTEM (Serial and Parallel ATA drivers)),
-	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
-	linux-kernel@vger.kernel.org (open list),
-	linux-phy@lists.infradead.org (open list:GENERIC PHY FRAMEWORK)
-Subject: [PATCH 5/6] ARM: dts: broadcom: Use noncoherent SATA DMA on BCM958625HR
-Date: Wed, 21 Oct 2026 09:55:53 -0700
-Message-ID: <20261021165555.652102-7-florian.fainelli@broadcom.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261021165555.652102-1-florian.fainelli@broadcom.com>
-References: <20261021165555.652102-1-florian.fainelli@broadcom.com>
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>
+Subject: Re: [PATCH 1/5] regulator: dt-bindings: Add regulator-boot-force-off
+ property
+Message-ID: <20261021-wind-reopen-490475bc470d@spud>
+References: <20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com>
+ <20261021-paul-lm51772-v1-1-25f0ffbffa8d@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -86,41 +64,75 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="W6R3E/++oicwYK05"
+Content-Disposition: inline
+In-Reply-To: <20261021-paul-lm51772-v1-1-25f0ffbffa8d@bootlin.com>
 
-The AHCI controller on BCM958625HR fails with the dma-coherent property
-inherited from bcm-nsp.dtsi. Soft reset times out waiting for the first
-FIS command, subsequent engine resets fail, and the disk is not detected.
+--W6R3E/++oicwYK05
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-AHCI allocates its command tables and received-FIS buffers with the DMA
-API. Declaring the controller coherent bypasses the cache handling that
-these buffers require on this board. Removing the property restores
-hard disk detection and operation, as confirmed with a diagnostic DTB
-that changed only this property.
+On Wed, Oct 21, 2026 at 12:27:42PM +0200, Paul Louvel wrote:
+> Introduce a new property to immediately disable the regulator at boot
+> time.
+> This property is useful when a consumer device may query the state of
+> the regulator at boot time, and want to disable it right away, without a
+> prior regulator_enable().
+>=20
+> Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
+> ---
+>  Documentation/devicetree/bindings/regulator/regulator.yaml | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/regulator/regulator.yaml b=
+/Documentation/devicetree/bindings/regulator/regulator.yaml
+> index 019aeb664cae..2da8f70d7e7a 100644
+> --- a/Documentation/devicetree/bindings/regulator/regulator.yaml
+> +++ b/Documentation/devicetree/bindings/regulator/regulator.yaml
+> @@ -41,6 +41,14 @@ properties:
+>      description: boolean, regulator should never be disabled
+>      type: boolean
+> =20
+> +  regulator-boot-force-off:
+> +    description: a regulator may be enabled by default when the system p=
+owers up.
+> +      A consumer may query the regulator's state during boot and disable=
+ it if
+> +      it is already enabled, potentially resulting in an unbalanced disa=
+ble
+> +      operation. This property ensures that the regulator is disabled at=
+ boot,
+> +      regardless of its previous state.
 
-Use noncoherent DMA for SATA on BCM958625HR, matching the downstream SDK.
+To be honest, I'm not sure how the commentary about querying the state
+or being unbalanced is relevant to the description - that sounds like
+something specific to the linux regulator framework?
 
-Fixes: 56e2ff0346a3 ("ARM: dts: NSP: Add dma-coherent to relevant DT entries")
-Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
----
- arch/arm/boot/dts/broadcom/bcm958625hr.dts | 4 ++++
- 1 file changed, 4 insertions(+)
+In fact, I'm not sure why this is needed at all? Can't you just change
+the software so that it is okay to disable a regulator that has an
+explicit enable count of zero?
 
-diff --git a/arch/arm/boot/dts/broadcom/bcm958625hr.dts b/arch/arm/boot/dts/broadcom/bcm958625hr.dts
-index a9b6aa04d573..53acae385822 100644
---- a/arch/arm/boot/dts/broadcom/bcm958625hr.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm958625hr.dts
-@@ -182,6 +182,10 @@ partition@700000 {
- 	};
- };
- 
-+&sata {
-+	/delete-property/ dma-coherent;
-+};
-+
- &sata_phy0 {
- 	status = "okay";
- };
--- 
-2.53.0
+> +    type: boolean
+> +
+>    regulator-boot-on:
+>      description: bootloader/firmware enabled regulator.
+>        It's expected that this regulator was left on by the bootloader.
+>=20
+> --=20
+> 2.56.0
+>=20
 
+--W6R3E/++oicwYK05
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatjv3gAKCRB4tDGHoIJi
+0tDOAP9lQU0EZt/M39eiCT/Z/ePUzPIlYse/mAM53khCiIfDzQEAvAiyhRZ3wdeA
+mGwHiIe2zbdBJrsEbUyKe7vmVqN6hAU=
+=p70v
+-----END PGP SIGNATURE-----
+
+--W6R3E/++oicwYK05--
