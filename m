@@ -1,56 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792579481;
-	b=BNoB0R9ktbLP2j0cfHLVRm+8GGma5OQcvfQWDEWNcpXbsA0RkLDufPyFRQ9KvBSL0LO8
-	 oTCDV7shYJPHSnsD5fnEsTOHWLqPOfb5Ymtp5hTPTa4abXk1jKlxLk/goCzUNMwVRilK7
-	 QRzEbOYgtjugxo8XknL36ltBPIpliYvRNVYmxcyRRgpa0k/kzKiPDRbeN4+IB9j9v6+f9
-	 66vBLsxatqvQYBDOZ+abey7GmTiU5wv1exqhg7kNCcq+Km9Fd/WaqyrWh6EV/Pu1aMFlg
-	 snTTthf6HuT96ko7hSCMUMHNUokbWd4uTCvMPRyFkuOEi6/TIwhXxdFEKloZO2f8LAg==
+	t=1792579502;
+	b=XFCXFmSIRxaq26+Mwgz0xWKE8wmnBkE4O8owsA+qTjce49hZJyE2jZR34uM7m55/m6Uo
+	 DaGMOqCOSnOgXrGWnPgTUlxCe2vuiMyrp8b76CTDUBWJiNWFgl95YlIUWou73lGFxoFox
+	 Jl6J5o48+faErVH/8GY4Dve55brtSEWPZuaLUn/B4tPvcbAixiYs/rww/HQvmVCKxsNbx
+	 DNWcvQe62cMDXceuh/UL+DWXt80arePBhmd22z1u+HVr1fCdLz8gIJBMxMmgkHEfx4Npk
+	 P5fvS1mmGQCnJr5GFh4OfKl5MMzm75P27FHrY2em2s53oyH9aergv3Js8E2eCVJzjTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792579481;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=xQ5ojqJ9pQ2W81X/8hJiJJ7TXi3U3wm7Fy13ge1ejVc=;
-	b=mXt/kczw4+s2TTk159Gnc463urVSAO/KmM6SAtHGfeupA/xpUugZzWRzTKlyIEas5rF3
-	 wkhIG4YgUO2+WjiQq8iE0ddhCYAULN+eLVrK64rN/MvrnhrSIif4+x+Zu/aOyhmGIk/+0
-	 7YKjYPc/m3CAWxzX8HNrRsAolhzYJ1BkSWO+RPTeATwASkeVdh0rrFTH26/ZL2Fikas9e
-	 iUyNIjxcD8PrYS1SoEptA6FQH+aoBJKzjGnGOcLDLan3QSdjmluh7Q3ynwnUQ+H+nMD2k
-	 S/OYMOPltq7mskf5x98kAmJOSw7024Gz8W/3wMkLBqxbREMgakZfCyRJFWaB/d1zoBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792579502;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=ik84gjJhQXZyxzqpUBYq3dSc7Euo+Avkq4FYME9dfpE=;
+	b=aa76IhSTH98AHhTvPJ5biEKvTCBUPiyrwUDnN5rOf7JREzz3UQ/PFqVPu/h0s5fkpGtj
+	 nHbyXKWlgxiKlPJ4dRCFv3Wenx9jsnWOXOCHLkKCWvgb1GU0UPMcYCDR/POUupq84/bbP
+	 npJN4J5+Ljx4eIddJ0GGTKZ5r7vbzjjaNXWbRE1rLTqynm1WzgUiKncqFlzP0vYPt4V0Q
+	 SfaMgonU9HPvoliKpy5yxj+h25H8ZJQK/k3gPQVgDCE9r9KEtS9sirnMFp7fAbkfVJWMI
+	 0d5TYSLouEBdce/vE6vmMcX8WJUeK3cNsttxJha9HQVgd73+fd9JFBnLEyNag2SLYKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EeXj2cUw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=c90OVmmj;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bw1t8EXw;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65367606A31D
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 10:44:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC581606A31E
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 10:45:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC581606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EeXj2cUw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFDA31F000C9;
-	Wed, 21 Oct 2026 10:44:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792579481;
-	bh=xQ5ojqJ9pQ2W81X/8hJiJJ7TXi3U3wm7Fy13ge1ejVc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EeXj2cUwpbh+gwb45L9VEK5uEklAyAGzVuqWkGZFkUpm6eeKB/s0242dxa5aZPljN
-	 ySPHKOdrvdR7jFXUsReaURN2t0N6hJK115pjcAEVTiE9kQhdFT+bADV83Tl8/7rEOd
-	 u+F4HK4z8DbuddZvREXyYYD+5cVXvRUTZKE6MYg7uo0aR3GGbdzXomKmSDrU/ZkiJe
-	 Jqkwu1wp8IV/WuXxsJJF1JumGlFvhy9Pw03guVOVHVfwycJ4VtqTimOGacf6XUwGh/
-	 WGRvr6tP6hwoUmbM3Sy0J4BZxTyFzxmr6xc1UlOr1Iu7czpxxSQy8FdqhNQISZIt7A
-	 daeoEBdLFrDJg==
-Message-ID: <sashiko-outbox-180117@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/5] regulator: dt-bindings: Add TI LM51772 support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Paul Louvel" <paul.louvel@bootlin.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261021-paul-lm51772-v1-2-25f0ffbffa8d@bootlin.com>
-References: <20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com>
- <20261021-paul-lm51772-v1-2-25f0ffbffa8d@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 21 Oct 2026 10:44:40 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=c90OVmmj;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bw1t8EXw
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LA6925117875
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 10:45:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ik84gjJhQXZyxzqpUBYq3dSc7Euo+Avkq4FYME9dfpE=; b=c90OVmmjPQw+bVBp
+	JuYLpaUHzF8pry/dvoE4zMJMbkN0UdZ51c/FJja3NdSEUtUiah+V2X+l59iOSQ82
+	I1+hlzYmRIlQLt8wLJk/qxQsQW9rKylm6h4df5Mi5lRnYKD9JSok7UkP3ppu9QrL
+	yyNlTyC0FYPRTvzJKJ5ZqnKn/bTwWDUI00TJpmwhuMo3+XP1NlI3Eq5zEtYpCTFO
+	RrNlyuExnTD101II9Vhn17xbwC6Loz9oFFoXmByLZKB0z+pphx3352XtZ75+sOQm
+	8YT1NhLx+wRKQDCSbtZF0XaIiodo19RhocKwEPp0oBmaG3Lx97bfK36RzXIXCTGI
+	8l1ziA==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hed9v3jxj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 10:45:00 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-89e96c03cd0so476364b3a.1
+        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 03:45:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792579499; x=1793184299; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ik84gjJhQXZyxzqpUBYq3dSc7Euo+Avkq4FYME9dfpE=;
+        b=bw1t8EXwLOSNRpyRpCvDwYhaw2z7ocnwv79u5pYav96n5AEBLfIqcjKCz7wTuPBh9G
+         EmttSRs+od83ComViNlsYeD0k7AqnMKSAy6+GWkdk3L2gwbep00WUTJQU6qf6EEvHZm4
+         3me8GAZ5CXIPanejx4iGaoEgggUITbsjyZxNf8tmjx3p+tClD+E1nIGTf4iqZTTQYIO9
+         IJ7eId6/4gQ4lL3OIhsaCTT3kMgm04j9Cm1+RVlwFpgTquiACvQ3xoYTfZBqh+iEDxS7
+         UNn0IpEQB/y76BOOKlK+xLb0TsI3abme6mO9LhuvdnLqqbERQTi1CQx3nc8/Jd9bmmkb
+         r+lQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792579499; x=1793184299;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ik84gjJhQXZyxzqpUBYq3dSc7Euo+Avkq4FYME9dfpE=;
+        b=0YLA8g9EqeXg1kRNcVGVZJLgTEMKGeeF94lJpZibjCtdI9cULpdm/iNE9Ca73mYvFw
+         WSgvC4dX+uWxM1Ww73Ex6mks+BLRs/9HK2giULAoO2D4Zh48VgE5pt1x+xuBLnRo69qT
+         aw9rLU9rVc9pEcWIHgCgQHDFJI7b3Yubl1pcmWsmt/J3Ou13nM4P6olhKiKJsUbo9mO/
+         iPg/I0B0oyBs876sje0SYVTQAAQ8MEdrB0vnCPjMuVTFihO6cxqXRBSg5votiMDuvU8E
+         Z2z9GS8VG+2y8UtuTY7NAeZYfzi7O/PQxcmVqjCs3x/DLxoYgKDxbILoOEa8NrL/YLap
+         TG8w==
+X-Gm-Message-State: AFq9FYJRnXeO/2gHycMQV4vLI6JHsiIRLiUKo1r7PGospPoqMChwbixp
+	YA9B+XWqbf9IR+qsoWTk4Q4LtMMx7xuRXrA6pqBqT/rb8GcM9AhAy4N+jBGb6dRGkalhjRaI3gR
+	mu1PvS4kJbeQuPgktjustt/O360AUQMIwd8x/pqjRx/cqFzT3lffWiVuLUfYNtyhSSlhXedRw
+X-Gm-Gg: AYBFou2LPfo6dxwsiZWq3M8v1o6WQXJXlV1ml8+hMmJF5JOYgYdtzjU8kRnXYr9wu6i
+	G+B642uLmnZK3ohylfLMBoOiCDjxVGWfE+RCg3jyOeGoPmvsZaavjC8BsT+Br8fM6oT8x8iuQjV
+	QxUryV9C5rgI3dPNU75gF3NwZxcOqMYzbY0u4e+8mJ5fIu8cl5E33rFgXtVpAX+hV3FJKUJCnbm
+	lTv1kwT0r2i2lJPaeRaqBo2Lqk8wNYRxtJsg5qOn5Dc4sYOgj00ifzaGBBOFqku7bBR0jyi3pkn
+	3Rm824ePrVbuXDULMVi5uDIJuU8rG25Ojtf7dV2IBsy532hItbwNXUVFREJDJEtx0kRjaQAbT8y
+	QrDsvBSKv/fA/GiKA/x5zDe5KYP4EgPS6fA==
+X-Received: by 2002:a05:6a00:3687:b0:89f:28c3:aab0 with SMTP id d2e1a72fcca58-8a089d43a8fmr1242642b3a.40.1792579499380;
+        Wed, 21 Oct 2026 03:44:59 -0700 (PDT)
+X-Received: by 2002:a05:6a00:3687:b0:89f:28c3:aab0 with SMTP id d2e1a72fcca58-8a089d43a8fmr1242630b3a.40.1792579498886;
+        Wed, 21 Oct 2026 03:44:58 -0700 (PDT)
+Received: from [10.152.193.243] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a0895dba2bsm729437b3a.36.2026.10.21.03.44.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 03:44:57 -0700 (PDT)
+Message-ID: <3fee0897-a878-459d-89c8-c9dd772c1976@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 16:14:54 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,318 +112,104 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH ath-next v2 12/17] wifi: ath12k: Enable MSI interrupt
+ support for DP interrupt
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+References: <20261016-mpp-bringup-v2-0-f510c33bfcf5@oss.qualcomm.com>
+ <20261016-mpp-bringup-v2-12-f510c33bfcf5@oss.qualcomm.com>
+ <sashiko-outbox-173689@kernel.org>
+Content-Language: en-US
+From: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
+In-Reply-To: <sashiko-outbox-173689@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA0MiBTYWx0ZWRfX2QYBroNjDDML
+ nHWQXS4dbHaWbgfdnhkeC+4dRqZKnZ/K/dARKUDDdiMOSaW3Oxf9D29EIFhCLqcZWRIPDJ2S6ja
+ dGffZWdBfB9YCiJA6ALMqgHFppBep0Q=
+X-Proofpoint-ORIG-GUID: xezuKJwmjPuM-LIKNplerWhnrajMaKvA
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA0MiBTYWx0ZWRfX3dx+qCktJorc
+ yX+debGJBFua7YwEzZnhop7Xt5JUQpm+CFT5dh6wcOJkmaC0CepPKii0at2zI7MYPQkBPGRI66D
+ cuxs41liPKxi+kOoNkrtmPcAiQNWFiQkO3UUNXqeLBIZBN6X46EiAGCrzAkhpUFRzWlZFv873UU
+ jaYODi5In7UMirIujavCAazNwtEcvRNUko+9SXdvSobk5Pmg43qAPeRnvi1pt5x9ZnLpiUHo+pT
+ 1ksmzH+sqnerULs+RRD1b7hQhHpGmRvQajiy2Yybw9VBG6IDfPQuexGaaW/JWRiEwaXwzGP9J9z
+ xPBHuVFxifwvL9Eyq+xiy1jpJt+gZH/42VNY+k3GqA5cP9gZO9cSsIusC4fUefPyqbuhjvqaWZ+
+ 1VTYdfRTe+M+hgkKMlk7Be8Nnrm2Sh5Kh9NA2tFtlwhSWnQqQqDoJ9KXFKzz/UkT6Ipett9Jomd
+ QDgpGGlAlvRCu8jT3FQ==
+X-Authority-Analysis: v=2.4 cv=I6zw19gg c=1 sm=1 tr=0 ts=6ad897ac cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=COk6AnOGAAAA:8 a=JXgSEGKP8_NlnuhlkvkA:9 a=QEXdDO2ut3YA:10
+ a=IoOABgeZipijB_acs4fv:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: xezuKJwmjPuM-LIKNplerWhnrajMaKvA
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-21_03,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 suspectscore=0 clxscore=1015 bulkscore=0 lowpriorityscore=0
+ impostorscore=0 spamscore=0 priorityscore=1501 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210042
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [Medium] regulator: dt-bindings: ti,lm51772: missing additionalProperties=
- on regulators
-- [Medium] regulator: dt-bindings: ti,lm51772: invalid default: false on bo=
-olean properties
-- [Medium] regulator: dt-bindings: ti,lm51772: non-standard unit suffixes o=
-n vendor properties
-- [Medium] regulator: dt-bindings: ti,lm51772: gap in ti,ivp-thres-millivol=
-t range
-- [Low] regulator: dt-bindings: ti,lm51772: 10x typo in regulator-max-micro=
-amp maximum
-- [Low] regulator: dt-bindings: ti,lm51772: example fails dt-check-style st=
-rict checks
---
 
-commit 791e5dd89a97fb0d36e798526e83309f0104b7b6
-Author: Paul Louvel <paul.louvel@bootlin.com>
 
-regulator: dt-bindings: Add TI LM51772 support
+On 10/16/2026 9:11 AM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] wifi: ath12k: TOCTOU race drops edge-triggered MSI DP interrupts causing permanent stall
+> --
+> 
+> commit d922087bb1f873dbadddf00fcba276c1d612d2d7
+> Author: Sowmiya Sree Elavalagan <quic_ssreeela@quicinc.com>
+> 
+> wifi: ath12k: Enable MSI interrupt support for DP interrupt
+> 
+> This commit configures and requests external MSI interrupts for DP ring groups.
+> It creates a NAPI context for each active external interrupt group and disables
+> the corresponding IRQs while NAPI polling is in progress.
+> 
+>> diff --git a/drivers/net/wireless/ath/ath12k/pci.c b/drivers/net/wireless/ath/ath12k/pci.c
+>> index a26fdb3c0ad27..4bb14a95aec98 100644
+>> --- a/drivers/net/wireless/ath/ath12k/pci.c
+>> +++ b/drivers/net/wireless/ath/ath12k/pci.c
+> [ ... ]
+>> @@ -1118,7 +1122,7 @@ void ath12k_pci_ext_irq_enable(struct ath12k_base *ab)
+>>  	for (i = 0; i < ATH12K_EXT_IRQ_GRP_NUM_MAX; i++) {
+>>  		struct ath12k_ext_irq_grp *irq_grp = &ab->ext_irq_grp[i];
+>>  
+>> -		if (!irq_grp->napi_enabled) {
+>> +		if (irq_grp->napi_ndev && !irq_grp->napi_enabled) {
+>>  			napi_enable(&irq_grp->napi);
+>>  			irq_grp->napi_enabled = true;
+>>  		}
+> 
+> [Severity: High]
+> Can unmasking the hardware IRQs race with setting the software flag?
+> 
+> In ath12k_pci_ext_irq_enable(), ath12k_pci_ext_grp_enable() is called just
+> after this block to unmask the hardware IRQs, but the software flag
+> ATH12K_FLAG_EXT_IRQ_ENABLED is only set after the loop completes:
+> 
+> 	ath12k_pci_ext_grp_enable(irq_grp);
+> }
+> set_bit(ATH12K_FLAG_EXT_IRQ_ENABLED, &ab->dev_flags);
+> 
+> If an MSI interrupt fires immediately after unmasking,
+> ath12k_pci_ext_interrupt_handler() drops it because the flag is still clear:
+> 
+> 	if (!test_bit(ATH12K_FLAG_EXT_IRQ_ENABLED, &ab->dev_flags))
+> 		return IRQ_HANDLED;
+> 
+> Since MSI interrupts are edge-triggered, dropping the interrupt without
+> scheduling NAPI leaves the hardware condition unacknowledged. No further MSI
+> will be generated, which could permanently stall the DP ring.
+> 
+> Since NAPI is already enabled for the group before unmasking the hardware IRQ,
+> is it safe to drop this interrupt, or could the flag be set earlier?
+> 
 
-This patch adds the devicetree binding schema for the Texas Instruments
-lm51772 buck-boost voltage regulator and its auxiliary fixed 5v regulator.
-
-> diff --git a/Documentation/devicetree/bindings/regulator/ti,lm51772.yaml =
-b/Documentation/devicetree/bindings/regulator/ti,lm51772.yaml
-> new file mode 100644
-> index 0000000000000..1e72ac13ddfc3
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/regulator/ti,lm51772.yaml
-> @@ -0,0 +1,239 @@
-
-[ ... ]
-
-> +  The peak current limit threshold is programmed through software, betwe=
-en 0.5A
-> +  to 7A.
-> +  The LM51772 also provides an auxiliary fixed 5 V regulator output
-> +  (VCC1).
-> +
-> +properties:
-> +  compatible:
-> +    const: ti,lm51772
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +    description: Fault / warning irq.
-> +
-> +  vin-supply:
-> +    description: Regulator supply for the chip.
-> +
-> +  regulators:
-> +    type: object
-> +    description: List of regulators provided by this PMIC.
-> +
-> +    properties:
-> +      vout:
-> +        type: object
-> +        $ref: regulator.yaml#
-> +        description: Main output voltage.
-> +
-> +        properties:
-> +          ti,active-discharge-strength-milliamp:
-> +            description: Discharge current for VOUT.
-> +            $ref: /schemas/types.yaml#/definitions/uint32
-> +            multipleOf: 25
-> +            minimum: 25
-> +            maximum: 75
-> +            default: 25
-> +
-> +          ti,iset-pin:
-> +            description: |
-> +              Select the ISET pin as the source of the current limit, in=
-stead of
-> +              the ILIM DAC. When this property is present, the ISET pin =
-is forced
-> +              in its active configuration and the ILIM DAC is disabled, =
-so the
-> +              current limit can no longer be programmed through the
-> +              dedicated register.
-> +            type: boolean
-> +            default: false
-
-[ ... ]
-
-> +          ti,sense-res-milliohm:
-> +            description: |
-> +              Value in milliohms of the current sense resistor connected=
- between the
-> +              ISNSP and ISNSN pins, used to translate the ILIM threshold=
- voltage into
-> +              a current limit and vice versa.
-> +              TI recommands a value of 10 milliohms.
-> +            $ref: /schemas/types.yaml#/definitions/uint32
-> +            minimum: 1
-> +            default: 10
-
-[Severity: Medium]
-In Documentation/devicetree/bindings/regulator/ti,lm51772.yaml,
-ti,active-discharge-strength-milliamp, ti,sense-res-milliohm, and
-ti,ivp-thres-millivolt use -milliamp, -milliohm, and -millivolt suffixes
-with an explicit uint32 type reference.
-
-When running make dt_binding_check, dtschema meta-schemas/vendor-props.yaml
-rejects new vendor properties that use deprecated or non-standard unit
-suffixes instead of standard suffixes from property-units.yaml (-microamp,
--micro-ohms, and -microvolt, which also provide the uint32 type
-automatically).
-
-Could ti,active-discharge-strength-milliamp and ti,ivp-thres-millivolt use
-the standard -microamp and -microvolt suffixes, and could
-ti,sense-res-milliohm use the standard shunt-resistor-micro-ohms property?
-
-[ ... ]
-
-> +          regulator-min-microamp:
-> +            minimum: 500000
-> +            maximum: 70000000
-> +
-> +          regulator-max-microamp:
-> +            minimum: 500000
-> +            maximum: 70000000
-
-[Severity: Low]
-Under properties:regulators:properties:vout in
-Documentation/devicetree/bindings/regulator/ti,lm51772.yaml, both
-regulator-min-microamp and regulator-max-microamp set maximum to 70000000
-(70 amperes), whereas the description at the top of the file states that
-the peak current limit threshold is programmable between 0.5A to 7A.
-
-Should maximum on regulator-min-microamp and regulator-max-microamp be
-7000000 instead of 70000000 so that invalid current limits above 7 amperes
-do not pass schema validation?
-
-> +
-> +        unevaluatedProperties: false
-> +
-> +      vcc1:
-> +        type: object
-> +        $ref: regulator.yaml#
-> +        description: |
-> +          LDO regulator for auxiliary use.
-> +          It can used to power, for example, a PD controller that will d=
-rive this PMIC.
-> +
-> +        properties:
-> +          regulator-min-microvolt:
-> +            minimum: 5000000
-> +            maximum: 5000000
-> +
-> +          regulator-max-microvolt:
-> +            minimum: 5000000
-> +            maximum: 5000000
-> +
-> +        unevaluatedProperties: false
-
-[Severity: Medium]
-In Documentation/devicetree/bindings/regulator/ti,lm51772.yaml,
-properties:regulators is defined with type: object and child properties
-vout and vcc1, but the regulators object itself does not specify
-additionalProperties: false.
-
-Without additionalProperties: false on properties:regulators, running make
-dt_binding_check fails meta-schema validation and undocumented child nodes
-under regulators silently pass validation. Should additionalProperties: fal=
-se
-be added to the regulators object?
-
-[ ... ]
-
-> +  ti,ivp-thres-millivolt:
-> +    description: |
-> +      Input Overvoltage Protection and Regulation Threshold.
-> +      It shall avoid any damage to the device in case the current flows =
-from the
-> +      output to the input and the input source cannot sink current.
-> +      This threshold is used for IVP (Input Voltage Protection) and IVR =
-(Input
-> +      Voltage Regulation).
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    oneOf:
-> +      - multipleOf: 125
-> +        minimum: 4750
-> +        maximum: 23250
-> +      - multipleOf: 250
-> +        minimum: 23750
-> +        maximum: 50000
-> +    default: 50000
-
-[Severity: Medium]
-In Documentation/devicetree/bindings/regulator/ti,lm51772.yaml, the oneOf
-constraints on properties:ti,ivp-thres-millivolt cover 4750 to 23250 in
-steps of 125 and 23750 to 50000 in steps of 250, which leaves a gap at
-23500.
-
-In drivers/regulator/lm51772-regulator.c (from commit "regulator: Add TI
-LM51772 support"), lm51772_of_parse() defines the hardware linear ranges
-as:
-
-  LINEAR_RANGE(4750000, 0x00, 0x94, 125000),
-  LINEAR_RANGE(23500000, 0x95, 0xff, 250000)
-
-where selector 0x94 is 23250 millivolts and selector 0x95 is 23500
-millivolts. Should the minimum of the second oneOf branch be 23500 (or
-23500000 microvolts) so that the valid 23.5 volt threshold is not rejected
-by schema validation?
-
-> +
-> +  ti,ivp:
-> +    description: Enable the IVP feature of the regulator.
-> +    type: boolean
-> +    default: false
-> +
-> +  ti,ivr:
-> +    description: Enable the IVR feature of the regulator.
-> +    type: boolean
-> +    default: false
-> +
-> +  ti,nint:
-> +    description: |
-> +      Configures the nFLT/nINT pin to act as an interrupt pin.
-> +
-> +      nFLT mode: The pin remains low until the cause of the status chang=
-e ceases.
-> +      In this mode use an level irq trigger.
-> +
-> +      nINT mode: The pin is asserted low to signal a status change.
-> +      In this mode use an edge irq trigger.
-> +    type: boolean
-> +    default: false
-> +
-> +  ti,cable-drop-compensation:
-> +    description: |
-> +      The cable drop compensation feature helps to keep the output volta=
-ge at the
-> +      nominal value over a wide range of load current without the need f=
-or
-> +      additional remote sensing. The cable drop compensation measures the
-> +      current and offsets the output voltage proportionally to the measu=
-red
-> +      current.
-> +    type: boolean
-> +    default: false
-
-[Severity: Medium]
-In Documentation/devicetree/bindings/regulator/ti,lm51772.yaml, the boolean
-properties ti,iset-pin, ti,ivp, ti,ivr, ti,nint, and
-ti,cable-drop-compensation all specify default: false alongside
-type: boolean.
-
-Because dtschema meta-schemas/boolean.yaml sets additionalProperties: false
-and does not allow the default keyword on boolean flag properties, running
-make dt_binding_check fails validation on these five properties. Should the
-default: false lines be removed from ti,iset-pin, ti,ivp, ti,ivr, ti,nint,
-and ti,cable-drop-compensation?
-
-[ ... ]
-
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    i2c {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        pmic@6a {
-> +            compatible =3D "ti,lm51772";
-> +            reg =3D <0x6a>;
-> +            interrupt-parent =3D <&irqc>;
-> +            interrupts =3D <1 IRQ_TYPE_EDGE_FALLING>;
-> +
-> +            ti,nint;
-> +
-> +            regulators {
-> +              vout {
-> +                  regulator-name =3D "vout";
-> +                  regulator-min-microvolt =3D <5000000>;
-> +                  regulator-max-microvolt =3D <20000000>;
-> +                  regulator-ov-protection-microvolt =3D <1000000>;
-> +                  regulator-min-microamp =3D <1000000>;
-> +                  regulator-max-microamp =3D <5000000>;
-> +                  regulator-temp-warn-kelvin =3D <368>;
-> +              };
-> +
-> +              vcc1 {
-> +                  regulator-name =3D "vcc1";
-> +                  regulator-min-microvolt =3D <5000000>;
-> +                  regulator-max-microvolt =3D <5000000>;
-> +              };
-> +            };
-> +        };
-> +    };
-
-[Severity: Low]
-In the examples section of
-Documentation/devicetree/bindings/regulator/ti,lm51772.yaml, the vout and
-vcc1 child nodes under regulators are indented by 2 spaces instead of 4
-spaces relative to regulators, and the child nodes and regulator-*
-properties are not in canonical sort order.
-
-Running scripts/dtc/dt-check-style --mode=3Dstrict reports indent-consisten=
-t,
-child-name-order, and property-order warnings here. Could the example node
-indentation and ordering be aligned with dt-check-style?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021-paul-lm517=
-72-v1-0-25f0ffbffa8d@bootlin.com?part=3D2
+The expectation is that ATH12K_FLAG_EXT_IRQ_ENABLED is set after the IRQ
+configuration and enable sequence is completed. NAPI is already enabled before
+the hardware IRQs are unmasked.
