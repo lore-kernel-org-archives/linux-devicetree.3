@@ -1,60 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792578527;
-	b=CogVwimJYXxbnytKW+vnKqZwjHto/awtONKC+CPylU0UR+TXja7uPd/6ZvX1RMGRevkt
-	 iVr4sQq/6RdoH+yUgfpAUQa3XqERlmJfk61iTzMYGsymguA7Z5gaXXbKawFsQBozhSjrV
-	 YOrH1vNZxeu01EldRdg8/rKZRXB8Fgtnvw9ws0tzjfKfY/x5poT/bCxUr7LfVKGNo+PRX
-	 IJZgDSeqHLO3NQmxy7HwADgIP71hEqQLln5meYRMSSD5igo5ZTrjw9U1jYNZGg2WlCfQw
-	 OYpA7r7u8JcCdX1uMxCFpQQhj6Znjlzr4HktcdlY6VNXI5yOgtrFwzzi0VUdOEgyYWw==
+	t=1792578529;
+	b=Cr1rwagaqNMiR7lwqbueKWnyPfFvdwR2RecgAmPgP2bKaPFqc+YMH4ow5ie1wPP9R3qK
+	 /eJ+MNxCgmXn+6RbOaWLfOZf9MNzLPbzJl7fECUZgOFfQDw71XwSdBj5w17n77+0ylIP3
+	 1fk2CMePQ9K8Hab2Crd1BlNWDGUuhnfuVprlaokZU0GiRQo4R+NyLEqDbn3BCakPna3qN
+	 m9ztRuuZ3zlxYcWkJRoAE7PcK0oiM9dgdAOCsjEm7/kG5+f21oAsPBLIzs3vTymJTxrUM
+	 XBSiVRbVf7eVtKcXwyW4EQkXCb4NxnnlDWl9k+fvZ6SAO0eevMtqmutQtsA+c7pjrDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792578527;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792578529;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Last-TLS-Session-Version;
-	bh=s/TRyX/520vy7EF9H/TtmbEkI4iO56nUSXKyQ+mKRvQ=;
-	b=lu/wwjQ3uSq6K/EGRJ9BRUrI2NvgUgYvWMyHdFe1RFbe7/SAr1za62gdSQklirwGaWYr
-	 4zb6Y0UAtON+rSyDKydoe1AtkvLztckZY1c5bSNQJ8Zet/NPsdKC69g9tKEqF/dGCOSMb
-	 AKHNKwjUWtK7dnug7xx91GeNOnYSYu7WJDNNCwE19siXyufz1KjUk1vlIxKwApFLX2Pc8
-	 qSCygYeux2ga8ZKzwCI5V9/gsKdMbHPLZbRkHda7phjd1xjy66Lb+XUI3rHcyGWDof6sC
-	 yUK4Myt0OcNr2WpkPRhR4wb7YIlnDh6a3KTbBXcnfuC7AFvIkQuUcVNnlyfGcs5X+qA==
+	bh=wkTncgtGM4wE/4VuWxOB/zkDY/DAVz++M7SSce1gSjI=;
+	b=CzqpLjAlceoeElxctcOC9+P7ZQ/x/YbrgnfsJ4nQA9KZyi/c+URoXR5TaXxBI4bl5EY4
+	 2CLEJf2CcUpB+SStfvydIsMryjdKATXjd0x2iANeps9UvxIh91tcsGQT7K8R6xUn8e3lu
+	 AIQnQHET37vf2FriWOB7v7P2hrcBn6q2F8GRwcCx+i2b/cI+KdqHpASKT1ZGQHhbHP6rg
+	 QSi+aPUh+6thZHxgvuoiCj4Lokrx6z7QFb5txrjvcuhe8wUqKhmmoOQRxaWjodbwQrpWG
+	 DjJq3TJqggG7hgXrzYaeK3Ccik5yPs7b89pCHlgKAXeH46gGagRO1Kq9GVJfIpysY1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="fEkP9/tS";
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=U5gUwm1L;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04521606A31F
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 10:28:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04521606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3832606A32D
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 10:28:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3832606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=fEkP9/tS
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=U5gUwm1L
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 839944E41297
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 10:28:44 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 1B9DDC5CD77;
+	Wed, 21 Oct 2026 10:29:45 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 5163A606E3;
-	Wed, 21 Oct 2026 10:28:44 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DF09810328E44;
-	Wed, 21 Oct 2026 12:28:41 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 36E75606E3;
+	Wed, 21 Oct 2026 10:28:46 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F1D5510328E21;
+	Wed, 21 Oct 2026 12:28:43 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792578523; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1792578525; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=s/TRyX/520vy7EF9H/TtmbEkI4iO56nUSXKyQ+mKRvQ=;
-	b=fEkP9/tStpTjkCmUw8rEPCV/QgRw6ciGPb271vndyM20VQugqhwQQy3UeIBy3vetY6jqmd
-	JpJowN3xL7fEIc7TUxWfuSgBoFkAqivGy3aQX+FOa1XTu9+hY8cFSoFWqY3W5bJCkd/gXA
-	y4CjxAjlva1Y6Ne2279INkvGrranvpyzIkbAX2hmCht1t43BZoNLPXnH/mMBqt534jl2Be
-	NqoaWt26I67vQYBmQiG/8atWQL4aCtzIMxlncSPVRJg0+evJn2IUNgGInDLvd7PGsLCOYe
-	DEWkHI2S/p7DhY+X5OJEHeteeaIQ2t9ZKkGjZQ1dgEqcRH2eIwRa9RGzq6FLkw==
+	bh=wkTncgtGM4wE/4VuWxOB/zkDY/DAVz++M7SSce1gSjI=;
+	b=U5gUwm1LsLMF8Rsk0/4NeiXVKWXeWbwioxp+LynPBRJItszq5CV+nGiPDNd2Y90Okt23Ov
+	c3Z9PLwAWNoh3gSMigfgO6otS27/4XX/YyRrXlV34Sa3X+cz5qO05JmT0ESubi5aq5Qllq
+	Umqc5bWjFrMBuff+HMbP2EgImtVb3k4q+y9kZOgd+idk47t7yCJAnUn/sYieeB+jbr6wYD
+	bsHgtE71BpzZ9N/Pd+CoQv28DddlYYGg0XYS75ICncR1k7cyI/cuokDAKwaKR+cY22dw2q
+	5ATf6OtT8QyLxgMA2pv30vk0zLxua3/ojIzVdeQrQBe3Shrw4aTS019vazlHPA==
 From: Paul Louvel <paul.louvel@bootlin.com>
-Date: Wed, 21 Oct 2026 12:27:42 +0200
-Subject: [PATCH 1/5] regulator: dt-bindings: Add regulator-boot-force-off
- property
+Date: Wed, 21 Oct 2026 12:27:43 +0200
+Subject: [PATCH 2/5] regulator: dt-bindings: Add TI LM51772 support
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,8 +64,8 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261021-paul-lm51772-v1-1-25f0ffbffa8d@bootlin.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261021-paul-lm51772-v1-2-25f0ffbffa8d@bootlin.com>
 References: <20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com>
 In-Reply-To: <20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
@@ -78,45 +77,285 @@ Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  Miquel Raynal <miquel.raynal@bootlin.com>, 
  Paul Louvel <paul.louvel@bootlin.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792578518; l=1434;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792578518; l=8804;
  i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
- bh=Rky+fawFgYd09Kma7y0J1qbj5XumQ2idL5idZojc6OI=;
- b=hnqZth1yFVLPOJJslPzyXWRw1cYEkib5W39iQA2Pmuqj2RhRkwu8FwqYVcNx5WUBnHWtJLY1e
- qJPKmaRVxDEDfGG0UEk0eibbETLpxKIN5V3tkiJW19BGtzVy3ueGY0H
+ bh=oLmSCiTuR92xAp+hIN3gbmgBhgx4dZIO8nNffPeq99g=;
+ b=Lj/+44RynQQO65Qdwu9vosPervoWlg4V4iVta7VMOssASdgbYPLT5r2179PrD2YXgiJ/evS3p
+ NC9BTIC6xS+D+x+V5CVEaru6LX+hzFtI6zg49N5j0Uu1vLYUkd2b9l5
 X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
  pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
 X-Last-TLS-Session-Version: TLSv1.3
 
-Introduce a new property to immediately disable the regulator at boot
-time.
-This property is useful when a consumer device may query the state of
-the regulator at boot time, and want to disable it right away, without a
-prior regulator_enable().
+Add device tree binding for the TI LM51772 buck-boost voltage regulator,
+which consist of a primary VOUT output, and a fixed 5V LDO.
 
 Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
 ---
- Documentation/devicetree/bindings/regulator/regulator.yaml | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ .../devicetree/bindings/regulator/ti,lm51772.yaml  | 239 +++++++++++++++++++++
+ MAINTAINERS                                        |   5 +
+ 2 files changed, 244 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/regulator/regulator.yaml b/Documentation/devicetree/bindings/regulator/regulator.yaml
-index 019aeb664cae..2da8f70d7e7a 100644
---- a/Documentation/devicetree/bindings/regulator/regulator.yaml
-+++ b/Documentation/devicetree/bindings/regulator/regulator.yaml
-@@ -41,6 +41,14 @@ properties:
-     description: boolean, regulator should never be disabled
-     type: boolean
- 
-+  regulator-boot-force-off:
-+    description: a regulator may be enabled by default when the system powers up.
-+      A consumer may query the regulator's state during boot and disable it if
-+      it is already enabled, potentially resulting in an unbalanced disable
-+      operation. This property ensures that the regulator is disabled at boot,
-+      regardless of its previous state.
-+    type: boolean
+diff --git a/Documentation/devicetree/bindings/regulator/ti,lm51772.yaml b/Documentation/devicetree/bindings/regulator/ti,lm51772.yaml
+new file mode 100644
+index 000000000000..1e72ac13ddfc
+--- /dev/null
++++ b/Documentation/devicetree/bindings/regulator/ti,lm51772.yaml
+@@ -0,0 +1,239 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/regulator/ti,lm51772.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-   regulator-boot-on:
-     description: bootloader/firmware enabled regulator.
-       It's expected that this regulator was left on by the bootloader.
++title: TI LM51772 buck-boost voltage regulator
++
++maintainers:
++  - Paul Louvel <paul.louvel@bootlin.com>
++
++description: |
++  The LM51772 is a buck-boost controller with I2C control, designed for
++  USB Power Delivery applications. The output voltage is software
++  configurable between 1V to 48V, with:
++
++    – 1V up to 24V in 10mV monotonous steps.
++    – 3.3V up to 48V in 20mV monotonous steps.
++
++  The peak current limit threshold is programmed through software, between 0.5A
++  to 7A.
++  The LM51772 also provides an auxiliary fixed 5 V regulator output
++  (VCC1).
++
++properties:
++  compatible:
++    const: ti,lm51772
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++    description: Fault / warning irq.
++
++  vin-supply:
++    description: Regulator supply for the chip.
++
++  regulators:
++    type: object
++    description: List of regulators provided by this PMIC.
++
++    properties:
++      vout:
++        type: object
++        $ref: regulator.yaml#
++        description: Main output voltage.
++
++        properties:
++          ti,active-discharge-strength-milliamp:
++            description: Discharge current for VOUT.
++            $ref: /schemas/types.yaml#/definitions/uint32
++            multipleOf: 25
++            minimum: 25
++            maximum: 75
++            default: 25
++
++          ti,iset-pin:
++            description: |
++              Select the ISET pin as the source of the current limit, instead of
++              the ILIM DAC. When this property is present, the ISET pin is forced
++              in its active configuration and the ILIM DAC is disabled, so the
++              current limit can no longer be programmed through the
++              dedicated register.
++            type: boolean
++            default: false
++
++          ti,pcm-window-low-permille:
++            description: |
++              When VIN is inside a programmable window around VOUT, the PWM
++              logic stops switching entirely and the regulator connect VIN to VOUT.
++              This mode is called the Programmable Conduction Mode (PCM), and is an
++              efficiency features allowing the unit to avoid unnecessary switching
++              operation when VIN ≈ VOUT.
++
++              Lower threshold of the Programmable Conduction Mode (PCM)
++              window, expressed in permille (1/1000) below VOUT target.
++              If this property is zero, PCM is disabled.
++            $ref: /schemas/types.yaml#/definitions/uint32
++            multipleOf: 25
++            minimum: 0
++            maximum: 775
++            default: 300
++
++          ti,sense-res-milliohm:
++            description: |
++              Value in milliohms of the current sense resistor connected between the
++              ISNSP and ISNSN pins, used to translate the ILIM threshold voltage into
++              a current limit and vice versa.
++              TI recommands a value of 10 milliohms.
++            $ref: /schemas/types.yaml#/definitions/uint32
++            minimum: 1
++            default: 10
++
++          regulator-temp-warn-kelvin:
++            enum: [0, 1, 368, 383, 398, 413]
++
++          regulator-ramp-delay:
++            enum: [40000, 20000, 1000, 500]
++
++          regulator-min-microvolt:
++            minimum: 1000000
++            maximum: 48000000
++
++          regulator-max-microvolt:
++            minimum: 1000000
++            maximum: 48000000
++
++          regulator-min-microamp:
++            minimum: 500000
++            maximum: 70000000
++
++          regulator-max-microamp:
++            minimum: 500000
++            maximum: 70000000
++
++        unevaluatedProperties: false
++
++      vcc1:
++        type: object
++        $ref: regulator.yaml#
++        description: |
++          LDO regulator for auxiliary use.
++          It can used to power, for example, a PD controller that will drive this PMIC.
++
++        properties:
++          regulator-min-microvolt:
++            minimum: 5000000
++            maximum: 5000000
++
++          regulator-max-microvolt:
++            minimum: 5000000
++            maximum: 5000000
++
++        unevaluatedProperties: false
++
++  ti,sync-pin:
++    description: |
++      Selects the function of the SYNC pin, used when several converters
++      operate in parallel.
++    $ref: /schemas/types.yaml#/definitions/string
++    enum: [input-rising, input-falling, output-rising, output-falling]
++    default: input-rising
++
++  ti,ivp-thres-millivolt:
++    description: |
++      Input Overvoltage Protection and Regulation Threshold.
++      It shall avoid any damage to the device in case the current flows from the
++      output to the input and the input source cannot sink current.
++      This threshold is used for IVP (Input Voltage Protection) and IVR (Input
++      Voltage Regulation).
++    $ref: /schemas/types.yaml#/definitions/uint32
++    oneOf:
++      - multipleOf: 125
++        minimum: 4750
++        maximum: 23250
++      - multipleOf: 250
++        minimum: 23750
++        maximum: 50000
++    default: 50000
++
++  ti,ivp:
++    description: Enable the IVP feature of the regulator.
++    type: boolean
++    default: false
++
++  ti,ivr:
++    description: Enable the IVR feature of the regulator.
++    type: boolean
++    default: false
++
++  ti,nint:
++    description: |
++      Configures the nFLT/nINT pin to act as an interrupt pin.
++
++      nFLT mode: The pin remains low until the cause of the status change ceases.
++      In this mode use an level irq trigger.
++
++      nINT mode: The pin is asserted low to signal a status change.
++      In this mode use an edge irq trigger.
++    type: boolean
++    default: false
++
++  ti,cable-drop-compensation:
++    description: |
++      The cable drop compensation feature helps to keep the output voltage at the
++      nominal value over a wide range of load current without the need for
++      additional remote sensing. The cable drop compensation measures the
++      current and offsets the output voltage proportionally to the measured
++      current.
++    type: boolean
++    default: false
++
++dependencies:
++  ti,ivr: ["ti,ivp"]
++
++required:
++  - compatible
++  - reg
++  - interrupts
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        pmic@6a {
++            compatible = "ti,lm51772";
++            reg = <0x6a>;
++            interrupt-parent = <&irqc>;
++            interrupts = <1 IRQ_TYPE_EDGE_FALLING>;
++
++            ti,nint;
++
++            regulators {
++              vout {
++                  regulator-name = "vout";
++                  regulator-min-microvolt = <5000000>;
++                  regulator-max-microvolt = <20000000>;
++                  regulator-ov-protection-microvolt = <1000000>;
++                  regulator-min-microamp = <1000000>;
++                  regulator-max-microamp = <5000000>;
++                  regulator-temp-warn-kelvin = <368>;
++              };
++
++              vcc1 {
++                  regulator-name = "vcc1";
++                  regulator-min-microvolt = <5000000>;
++                  regulator-max-microvolt = <5000000>;
++              };
++            };
++        };
++    };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 57285ff29a16..c958e116cd66 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -27461,6 +27461,11 @@ S:	Maintained
+ F:	sound/soc/codecs/isabelle*
+ F:	sound/soc/codecs/lm49453*
+ 
++TI LM51772 BUCK-BOOST REGULATOR DRIVER
++M:	Paul Louvel <paul.louvel@bootlin.com>
++S:	Maintained
++F:	Documentation/devicetree/bindings/regulator/ti,lm51772.yaml
++
+ TI LMP92064 ADC DRIVER
+ M:	Leonard Göhrs <l.goehrs@pengutronix.de>
+ R:	kernel@pengutronix.de
 
 -- 
 2.56.0
