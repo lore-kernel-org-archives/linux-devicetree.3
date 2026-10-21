@@ -1,20 +1,20 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.35
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792594579;
-	b=lyFjrFmhs3HiFSFUZ3pgu3Vt1hFtSRmVNGxF14J6Mch/aPvOG8lmB8PWhz7AJZK2ZiHc
-	 oLE7ezgJamfBiWNz/Z92BmsuvcnvXE8XeRo3gvwLxSQqUGy59FXKqqrXYCmyKRx3NqmK8
-	 mzf+2RNYG54OZnZRx1vGsnIhIViJMxBJYGhOj1jD+oKQiPQqH39tgS+TwjRXev/jczmrx
-	 1RNo2xdJLMSRb1uZnVQD2BRvjFcmeLfn8MImAIdpIn+1VbiCP3to2wTBylC0/GnUxliep
-	 uNM0y5eqs1TsEodSDfEzNLxJY4uaY3OSmIzSTOMAjuQdqobucPjselL2em7o0YOk6oQ==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=52.101.66.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792594672;
+	b=T7EOIzfPKM3J/PYEh3w0GwOQLUM5aAX5ZhJrR9agPy0AuH8yjVrQse6FcTGIqa21pXzQ
+	 eMVXR/aIMjxxmvLNwTKrXjNeihIVXiUQLvtHJUAlbIYxuygkl2fGxi88wLwC0H2jyqpJq
+	 FYgbYrVEevm9v4aGfyGh9+ShkQaTFTIilAE3iegkXaHN9hXtRowDc3guP7n4Z+3lsWFlt
+	 MSXfFrd0z5Zdy8qwLqkdsTQQJBl2X3MMaWIo8rIIpD8RxoPEPDTIVnHGKBhvAjUxn4kCc
+	 0guEjelKQcqofRjvlpKVP6mpjfnQXbfdiiIIAw1D3oLljUH2k2jLshVHMS4yqtFcXKw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594579;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594672;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
+	 Content-Transfer-Encoding:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
@@ -24,77 +24,72 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=IdAL/YjEfxfTzIMDorklJXWKOEh6Ee/0BL1CYebq/G4=;
-	b=PvZ1Q2yys6LIgTS7l1xQ1+AynCbHTta4l8TSZs9lTPgitCaJ3h4ZpgLPxXt2oEVDztYe
-	 1oWynarcMf6HuAdFgfeMwUSQTyTu8OtaoxCmBTAAkzKn8DqV8qLn+qjtWS3OMNxuja+mH
-	 aKjoaC/I6HB/amkBjKATVdGnEwMjKPw4R6NwgkPl1kbiwSr6CdtKPOxx0tdaoF5AOph/A
-	 trHv/O6e01st0gWV71TCjZfVgPjnHYvW75iAaxLF3K4oe1on5J60N8TLbnC8tarChohPs
-	 5vLf8anAPtF4tEnOLKXwQWnrhwwx8yfCO3nwGUZ+vlM5E7JnVs9KzkhKdaqhanbv49g==
+	bh=qmbD65mCKIcVRe2JJfXDH9G4nmVuWThovzZZcr2UehE=;
+	b=gOGJC8JyKamx+k7UwZMOT8zpOgBx6miUmtrsiWUm44QFzPYg+DYsOlQI0Mm2sAmn9A+L
+	 wKXlXCLa7Xi8qunjAKGWaT9BkoDk0pgvi1QvBExm0PtE8tBk5GmJiN1X1UNmoZsiVVi2K
+	 9WteyqnKeDGLuyAu6JYSApQ3/WFWfnWxKPdZBzNbDevq7ss6aSuU5ajzzTVMbeIsSqb7G
+	 AwEyPcV53EuTdhebSdYPTjNXmfRfgT46RMPM2DH68UItjX3N9/y2F1Lh739tUifCeH9kz
+	 PSb1G8mygkMaWZCigjD3tkOYpdq1ex5fySbeHzcfKV5DFnpgzBQ7iopdEiaarkCOLSA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.nxp.com;
 	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Ap3yGvVY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.35
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013035.outbound.protection.outlook.com [52.101.72.35])
+	dkim=fail reason="signature verification failed" header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Pe4yFvMv;
+	arc=fail smtp.remote-ip=52.101.66.46
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012046.outbound.protection.outlook.com [52.101.66.46])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96F94606A31B;
-	Wed, 21 Oct 2026 14:56:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96F94606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6871606A323
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 14:57:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6871606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Ap3yGvVY
+	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Pe4yFvMv
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=u8ncPU2L1jGg9ROrdlTYv7b65oHBxx9WUGQADHUYw0b8KEfu8HNjtz5kD1/tE+o/Fdi6aD/cJiBHNpsnmXr7BRMvcKsZ7k7627txqLFX9xG73KH7Co8jz45u88cW/ijWkxKX1vOFapIPrDX6GhXH1BRiYkJ19yHBSx9baKYnlvQq+b5J3leybjJZrZTu03YiXglm8j33VpzxfhvodybGcJQyuesXPZNHmooer+RrR/YtDxcYn/U3QXmUPJRzOD+AW8tHL2Wu5m79HYHZMEgR8qij3O8o2BG/X+prMomLggbvWgvebdo4n8zB5r0xZCnaBOtZo3xkprXoSuIe0FJE/A==
+ b=K8jm+hhRuJD6ml7BhJj5FF/qDKmlKO5jtnsTgn6bHf/aksn0qeJy+9FlsWd5QBW35mOdyLnZ0jBMqXwRgllDOdbNJuyi0iwNmozllx5JMjpoi8Zg3PiHUi7gQMkzB13xkwssN6ydFz9PjEcn7nE4uRv3UJHXxjFO2KqCOxB46wvudHcfWu5IL/SLV04qilraczke0fX8tdLl+083xK2ZsFu1dPqfSn2Zio3B5EhdcMTGUV/kpZcul5pCoxuK9FBmFtPMRV2VklEPGzDE9/jxaP4KSzMbeSMJSEze755e7KtILx6/47R7kBSdsfI0hjQDsnVJS91JeIrsubd/9rcQVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IdAL/YjEfxfTzIMDorklJXWKOEh6Ee/0BL1CYebq/G4=;
- b=B1rKtu56XHCa4HTwQj3HRRpl10bixxYIPbPzh64ekeXm4EeYReOmFjVw9MRmYC/WQFK9wTnsyl10KbsFj1lcW0JxTU3Ncv3RvMQ7DD0otKNwADHhZvGCwYdIk+GNk335wEnjzqOR9nCNf7NWN0ztSvufkqDhVjVin+s+KtF3xoRnQttoclmPkd7oxsv1PAOPLKnHCQRsg2DOIFQ7+PDjI3rNOPZJnrPqKjzdhFqOlQtrrHjGCK3pnIZpPI60HEr9YEh2dQgXecoZwaRMFVyPYdEgHeZyfxZBEKYPtiA1l+i1ZjQ+Cm5YGM13/kbDDmr1RVYn4nrp0q9jlxnu/jDTdA==
+ bh=RA1zTFyP5q1JgRgN80v/T0cpLP1S5i4prgpFbfVzrM0=;
+ b=NgR7ipndv46kTfdjz/Yp6jv3IvPxpHkYyMnDXOxHX89RkTJhlkJAAKyoLAvhxdDaorW4qTTpCGXaBXwiBhcpdQdZ75nPkMaenDqxaMkIQQHJwhK+GxszQhxkYQ2ZqwjgJXo61oHSpOjM/PmClEuxSxxJoOVK9Ib/KIYTajojmV1St/O2rlcA5odgEQo4KcXnT5fOHg1Icp8ZxpYtCePlVMVXm2QvKqMr+shAAtXvgWqHATYgBe9YnO1xhM7uYE7H/+gCnCusUsKAIyiF8wQkvU8nRd+R2Qy8CVajpLxjxjUIlM1mOduQuil9auC64kfguhGHW3/w7TGtP06BjF4/SQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
  s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IdAL/YjEfxfTzIMDorklJXWKOEh6Ee/0BL1CYebq/G4=;
- b=Ap3yGvVYFyRfg/JF0GF60b7knrGsTxTsDej3XO5s2tTpgPXHNK/xg37CQUOJv5b26YjGe7xJ18wpE6uwv+urerO3o8dyJhQvD6kpvYnS+zCbMSRI0Yq5FlNU1G8KD8OOvM2RqdHDYMkt2cs65RJdgKTUBcUT3a/Q/OF32bz7JN+WuUtqYZeCbPJ6ejuR24m/KUOKcULpxapX1lt07n2vjUyXyaqQ1pzgWU7ssALDBwxCSIOChpUoAzAvLoYOuD3tilGzRhljOfISCNR1HU26Lj3m5oMDItwMv/F7yMcSOQGjyC+YIbobdNY39JaLup2njxmXF+hmAG9J5sr8D7OU9g==
+ bh=RA1zTFyP5q1JgRgN80v/T0cpLP1S5i4prgpFbfVzrM0=;
+ b=Pe4yFvMvDFa11xUMYnVRhDaZOk5oDLFO6+m4FMxaOaRU/AuENXmb/VAaHXz48xIyCItG535Pti1ee8qSQun7JaPZm3xuDtLHWjULfM3ksWceQpM3wut3O0RVmMAXMEzG2lGO8C4u7HeCaVLcnZ1kt/27vFVLmNH+2mYR0M8bCztZ1SAovs6iGlqr7oXmggVgenp0JjX9+GXV55Q2jQ0FmI9Xgihu8EupvHjlgrzIw6xPV+/7PyBnX6BNWT2y1rpezQH5v6A5h+Hv0K4CanSp1RhR9bSy3RCj0XyMdR0JM+xyzvChSzu1qqDwa34LWJEKJmrIaOEbHjXwd/0QNVThaA==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by GV4PR04MB11729.eurprd04.prod.outlook.com (2603:10a6:150:2da::22) with
+ by FRRPR04MB12593.eurprd04.prod.outlook.com (2603:10a6:d10:1cd::24) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
- 2026 14:56:15 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
+ 2026 14:57:49 +0000
 Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
  ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
  ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
- 14:56:14 +0000
-Date: Wed, 21 Oct 2026 09:56:06 -0500
+ 14:57:48 +0000
+Date: Wed, 21 Oct 2026 09:57:41 -0500
 From: Frank Li <Frank.li@oss.nxp.com>
-To: Leonardo Costa <leoreis.costa@gmail.com>
-Cc: Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de,
-	festevam@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, ernest.vanhoecke@toradex.com,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Leonardo Costa <leonardo.costa@toradex.com>
-Subject: Re: [PATCH 6/6] arm64: dts: freescale: imx8mp-verdin: Add Mezzanine
- with Toradex Display 10.1" LVDS V2
-Message-ID: <atjShkhCdLzf921d@SMW015318>
-References: <20260813133335.1941580-1-leoreis.costa@gmail.com>
- <20260813133335.1941580-7-leoreis.costa@gmail.com>
- <an3brO5COdw_F76m@SMW015318>
- <rglymw6p4c65yoqz3pjn6e6nq7cil2fa7m7dqghshgdpavby7d@kyza3ceavq6z>
- <an3tiDOUUYLb8PAq@SMW015318>
- <t77enz5e4sywcigwdjwpes66jywhtsruzrtf7opde2umfuaock@3aouga4ng3gc>
-Content-Type: text/plain; charset=us-ascii
+To: sashiko-reviews@lists.linux.dev
+Cc: Petko Manolov <petko.manolov@konsulko.com>, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org,
+	Frank.Li@kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: arm: fsl: add Draeger M48 dual-cpu
+ board
+Message-ID: <atjS5TA33rHlIjPO@SMW015318>
+References: <20261021092140.4142493-1-petko.manolov@konsulko.com>
+ <20261021092140.4142493-2-petko.manolov@konsulko.com>
+ <sashiko-outbox-180038@kernel.org>
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <t77enz5e4sywcigwdjwpes66jywhtsruzrtf7opde2umfuaock@3aouga4ng3gc>
-X-ClientProxiedBy: SA1P222CA0170.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:806:3c3::26) To MI3PR04MB12438.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <sashiko-outbox-180038@kernel.org>
+X-ClientProxiedBy: DS7PR06CA0044.namprd06.prod.outlook.com
+ (2603:10b6:8:54::20) To MI3PR04MB12438.eurprd04.prod.outlook.com
  (2603:10a6:290:76::14)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -106,287 +101,118 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|GV4PR04MB11729:EE_
-X-MS-Office365-Filtering-Correlation-Id: c6c75ee4-87fa-4f73-6285-08df2f837407
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|FRRPR04MB12593:EE_
+X-MS-Office365-Filtering-Correlation-Id: a8ddc0d2-529a-4ba9-d8a6-08df2f83ac35
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|376014|19092799006|366016|1800799024|4143699003|5023799004|11063799006|56012099006|261009223027099003|261009221227099003|10067099003|22082099003|18002099003|6133799003;
+	BCL:0;ARA:13230040|366016|376014|19092799006|23010399003|1800799024|261009223027099003|10067099003|56012099006|3023799007|6133799003|18002099003|22082099003|4143699003|11063799006;
 X-Microsoft-Antispam-Message-Info:
-	xt6NNfBSf2udV6nLj/Z2tkl2ESqfymIaVuL43+oKWLoT0589+0ztvNVdcN+obDc6nJCdwizqHlRGWUwZ4oolbANvtBHBmg10rMK9Kq7hIiW4NaYTeYxplejOMnRG1cVaO6ezSlECSh87nauE9ZcFubRS6SbD8+4GjwHfEvW7bAzU0fo9U6sq1viRVpP9ipiNF6hEwGg1ccOCh9XhpA/wbQBzLRhk6jG7XBq4dE8fwAduihfS783U6ypp3fnmjyEyvbkl1TAFxm87NTlECAZfl+XMv+7hSy/rbt5qGt8eSsitZ3afuNbUBl6ADt/wDJX7KQAr+yXdv2sVdu65uauj1C86mQ0cbrKCHiA6w+JYY9T+MqutvNCjnYHhMgkC4RN5slxfwMn7FB5csDWGShpPTOwNxcAM9CaMiL1KgbdFgflVZ5hpXUgGDnGWT1uKPGX1XM3J05eOMNf/zpnpHNRQjmYoVutf+Hse7Qeoz627JCcOqiFntsJYAoI7SfYyBWNWwF6/1UKYJPfMasYg2LpVAOyzgyKD0QtvFrU1d5RYYHQIgmldDxj6PURHylLRqBqYXKULSlCURafEVKkIOrf56J9e9ZVcXeNHD0mT9FLctGmUr8Ft1rdRJpWYOGSleJIm
+	K52oYPW19FjUdpwHlxM5WAzofgcFDlpf3kZvYMGdyuGRmtSHnAZmrvagxxBpfK+x5tfgnF++PVgf4RatRe6PszzoUq7eQWT52PVjz8sQbAKynMv7ePWc6Ejp8+GDCQX1S4WIF9UYwsBJY+Z2kuDA2msoPE47IWJ77k+ix697ZPZDjC6f2ID4OTmJ2oEFbcI6YkeXM2kulG7fLXyreSySjKGdYiEsQtBCaY2FSKay0JLObI1xHiWuGcdYD84kT7htHWSpHtuj+RYgzrALYndtCnZhqSC1WPZ5iY4JJByMdlu1TjoTw3T6PO3emnX6IcXqV3O653uhQdD3eTuDeJXtVp1cOr9pT0xZ3gXAixwJXhM/Uhexuck9WMy1bS1SkOmg0mLLwpY7b7yfKFF6MsjWuiLG0rcoloLKrQuLoeI7LpainGkuxa4X5rqB+W4mLwz1Lwc2H4bLjeVYXZ6xKOHeSl0p4fZZayX/8ji2tQm3OhfQ5lC7pvsQk/Es0S5IRtRNYskPd1x1GpB8am3JmWrFIjrZO/820FFUOVfjH2NNQWfxoNRMcBKJeQs6ZQrhe+nKt1dCUQ4c/NWn9cNfwE+WhNFiJk+MO3dCbD0lWoxLP34=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(19092799006)(366016)(1800799024)(4143699003)(5023799004)(11063799006)(56012099006)(261009223027099003)(261009221227099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(19092799006)(23010399003)(1800799024)(261009223027099003)(10067099003)(56012099006)(3023799007)(6133799003)(18002099003)(22082099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?gq1S5Aa49jOMb5EKtslEUanF/YdLJx5qXpaaHGIco1UApJ2mCH2Wn87pOvpj?=
- =?us-ascii?Q?wGB7i8hECTqDTQvhgV/beMhmCe6aMlcgusz7tF/MXkgGn86lfGsWGcsQSEk9?=
- =?us-ascii?Q?dZ8uB3xHiYqATW5TmYhiHKw40LllGQHfGjs4q/vx7CURaE2ddDN/JHcFSew6?=
- =?us-ascii?Q?RfcusYHuLcJn+cBWR/tfQI1bdIbFpI3I56/nNoJbAj2N2mc8WYcLpdGmq3WY?=
- =?us-ascii?Q?tIGZkSyrzYr8mmTGHQJzyRYZRaKtOscZSXmKyJXTv08vCGXjLUCy0Kk13PkG?=
- =?us-ascii?Q?+I/0IMkLXpof7Q1hrbLwFWLPq8G8lUMuw9XLHOEHktc5+5jRxBcjAAZGcjPE?=
- =?us-ascii?Q?6PYLIUcTaY7LVpUA7Wc3XRFShvh1PTfIrB2CJxP629qjRSTgN9gx1pQdKs42?=
- =?us-ascii?Q?+B+/FuTEE89LAUxB5Kb7imMqVxuu91c6Xb2PYETo1Kvr51CBO1+h7N4ct2kH?=
- =?us-ascii?Q?rgW2tZNE8X5nqyiyHqkyZmU2JyGRLitQGGj+vDC5oD4Wnh+ht+lVU7p0JV1B?=
- =?us-ascii?Q?LHPr/LA6c+1TBGbJR5iWYkRmp9KzWyVmouSKVpgXfSxaH8bsSEf+hpWgv3i5?=
- =?us-ascii?Q?xPvSqo5A0fik5jYVTmVq8cgNw7ODuhiEM9qAL5MntG2Pg7F08/3VUeodPLOk?=
- =?us-ascii?Q?cLQXEsp/oZkv8JRX8xeS0y+ucJEizcmV+T8vI28Rw8oD9lc8XsVWytReIoqj?=
- =?us-ascii?Q?O1nQeMEgiRFbhr2LrtPWbukCKsBm3VF6SnlD8Xtb9kYBX5poLWY9sbXmNSl+?=
- =?us-ascii?Q?vf+LcmDZgr5pidzi4E44sGGVjKhMi73lyDLnFIbU5/6NeiuTaUzpC27ZsN/l?=
- =?us-ascii?Q?h6CaJ7y38//OOOn2lqbCi9hlZhPQmluJs8k4oYs7CxfvQDlzqO6LoYDyM/7n?=
- =?us-ascii?Q?LTQLTiLAn2Rlzgv+PLLpV1DOaOZrzm2ZL4vGgdc3gfPffe1Pjd9Z6/s71zor?=
- =?us-ascii?Q?/qdkGbhWdbiJ4ekRkLYqSyR1K5QfcDTBNGHlhopNNdFkEzCuKmHiMUA/lJul?=
- =?us-ascii?Q?Y99vTQMkvn6WX9xT3SWCoBZH9mmx1bX0d20U2WxlmYdGIBibv5PP3vG+wBf7?=
- =?us-ascii?Q?n8nWLpXpohOCrEqAJHsU2HtaRr96mptBtbVwGuncvjlZcRl0/JtPKRzjAkUn?=
- =?us-ascii?Q?iUgpEmqW8bFGZjhG7qFajsCuwgbf4htxUXy+pczJVyrp6qkjQ6UQjXXFvD4V?=
- =?us-ascii?Q?VkrEqlctow6VodDRpJd5+EYat0pos/vF9gy6FQ6/eLCMC8B00fbTcNpj79DI?=
- =?us-ascii?Q?zelQrkLWzcSea2Vjvru/1bHD1BkUEBcy3RtiTiOazXTm2xQx6mspwp8Mhihr?=
- =?us-ascii?Q?v5j6ZBx/t7ygwK5JizdYtivsh0NSz+SEk7RefLUOA26DKnGYLKFV2gGlGCok?=
- =?us-ascii?Q?MkNpMQaSrlJLLwpLNV9HuCXOguv6TCzs1Zt2SkmjQly2ewIfzODrYexxDLzh?=
- =?us-ascii?Q?qSMZhOXBAclThyd58y32FePxS4pt4WdWyiYbMoHUYnNFsFxMBolFbWHDr0hf?=
- =?us-ascii?Q?FJxwHROqj3bBUDQ8+fsTi8dD/2GBy2liDrVb2NodPk82ImxbJwI0ymZzPCdR?=
- =?us-ascii?Q?I4vwCMVWwNOaILc2Tz4YFL5RE2vz+VfJqWlwWMCG7AEkHoUx/E1qU/xVD2Ec?=
- =?us-ascii?Q?jV2nFwEZyqYs15YIDXi89ZGNSN2pl8Yjf4h2dubLj1pdjMi4GCS65SvMMJpf?=
- =?us-ascii?Q?usygSZ3u/tjD7i1zpFlvI+4UFKGmzOxu1c7gwAnCP30SLRAYsHgkncXlHjBj?=
- =?us-ascii?Q?gusxgpYkxW0dNN5PMYCi/RMVwiuibbUf6/q20MhxZ9IRAIGJ78/6?=
+	=?iso-8859-1?Q?KrSyb8JHRvuNXfQ8xbmy+Z0frYZKGd1UuPIbC8z00pb1RGGYJrX0s1892q?=
+ =?iso-8859-1?Q?QeWLcui7vQMb4y+6r2NpnflKn4GL5g8/Glec06QafreE8ae7qd93Exd/z5?=
+ =?iso-8859-1?Q?3OH6UX7bPCwE1o7CwYLNgjwPvIDu5TdGcv97QBaPxr7wL9efYOfhnM/06n?=
+ =?iso-8859-1?Q?zGcTifTKNn84+37/6ovlq/IQhROQUhtbh2O0MY1UYAEYHDwSRZq38PMeCT?=
+ =?iso-8859-1?Q?dRte/xRN6NzjyaLPAk7PwxEZvSiBdRwHEu6Ul9iOx9+ygAVphY4pIVPHg/?=
+ =?iso-8859-1?Q?X3crGqsqomNSTWmOusRZKx5Gbr5CqxiNRjLeQhrZTveMH4gld7gVl1YYHD?=
+ =?iso-8859-1?Q?yDmx30+YHDKpM5AblmjOz1kV80gkbCzahdPuMYefjLC4gfRYdC61Kp9Gp/?=
+ =?iso-8859-1?Q?sz3BnaWpNn6Azf14xjCGkMtJCdaiaw3dQQrOlmsXQBZruKmvOlODRpfZN3?=
+ =?iso-8859-1?Q?aD1Gn97UfJErC2UhJit30OeK9GAKxJRPwxKFVUxGzLCxBia2NPFnk8BiJU?=
+ =?iso-8859-1?Q?uED39faYtUP3pheGRt6p6rophbyhh2HJOkg/6JXhoM0jAYUOVBjHe4hyQq?=
+ =?iso-8859-1?Q?rXJe1IkBVzLb/YCu/stQd/OUG9fbHskfmHwGtw8BaXKeyZeBiEZhcBP5/s?=
+ =?iso-8859-1?Q?iTA2nUuJ1GOKBhGGpL54q3xX3b0qXsCOGfFODTIIA05ESa6DzLQT0URgzz?=
+ =?iso-8859-1?Q?7k/IphjSbgpStEC36rC5VdZOhpBGvK0gvggbqbZ0mnFt21bvv12/5CNd0Z?=
+ =?iso-8859-1?Q?oIKl3Yon9x0q/EN+BGVNmkZxOr3isVRvpDJ4Pjo1mv6gqNk91o6GoSVDQw?=
+ =?iso-8859-1?Q?sYZQbcPNRAXBoi7ul8rqU4HIwFwFotbn0Na1wPe6DlWR/NgGWq5hr9Mre9?=
+ =?iso-8859-1?Q?mEGxnkYQYoX+b7Z6+DgJbCyBqKDZbjzQPwrG1qkYNhgPrsh5diurIHkFo/?=
+ =?iso-8859-1?Q?FYB/lxQ1RojHbe+0jMHr4+QXFz3YGcTTBILLg7MBZoqA8u40JY+SBHueaJ?=
+ =?iso-8859-1?Q?hX2we5mfsDRqKsBwd9zljQ5R6TmgW4ODlaFfUpIBH2s+p8jtbHEdVJMHH3?=
+ =?iso-8859-1?Q?pDDQVPBP/mIIBfA2ejz9RAfXDDB6IbyQDR6fsNL3PEi5/bszndeZ3i/4AE?=
+ =?iso-8859-1?Q?wpMzGMmB4Mb8+uYk9PDRmb3LMfO74nt4UDkAAlo/ztoWQj98NufQihr4cH?=
+ =?iso-8859-1?Q?9+PKdsFvt2EHkqy/b7FYiCWNxFzYJ8jDJWs73sWAMPTcveNWYTQlXk7YRM?=
+ =?iso-8859-1?Q?bCu8k6SEoxkRVLckmLPXm19eTq185dXIvj6gdVexZqcReukECRVF2pod9V?=
+ =?iso-8859-1?Q?IJeptAO0PI2HA8fO++2vZXoPZ2Sa5KZmK7cHTmwzOlekOB10Awd/XSffZL?=
+ =?iso-8859-1?Q?ndL7BhpdsCSY7garkeonGV0kTaEKhfqdg7hf5FuKAuH7r3nbk0Bqo4Tabw?=
+ =?iso-8859-1?Q?0H9nZvj7Obo5z8oK4ZKPD8wLOBIeDm5PrZxfOeGsQHmpbgOt+1vXvQHcfO?=
+ =?iso-8859-1?Q?3PGuoNWWwX7QgESQD7+Ns+ofChxcmqI6z9gbRuVSD9VBYwbc3/u9rADHtJ?=
+ =?iso-8859-1?Q?iSlqFlMYKDWlhBQsvIoghbNMzH8HluqKS3F9tH8qFt9PN1nwvb8YhR82mx?=
+ =?iso-8859-1?Q?IERPdVB/kWcYrDmZFNOTZ6EgmYEjLFpVnqngWPZHd1ZuIijA9FvUVqIXUb?=
+ =?iso-8859-1?Q?IQzcmIcyH8k1MYAr4t/vavpR0Z8psFQqeQcjEw9o0x5pVZMS7Ovzj7pRYL?=
+ =?iso-8859-1?Q?IsgXpkLDZBoln1OE4wAYonun8U0xQvhQyC0t0em4lL0Ok6RxksX7A1g6S7?=
+ =?iso-8859-1?Q?wGDEutSt067qZtwH8jsMVvDygSCAg1cpf0xVemh5M6rF6EgOBxyV?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c6c75ee4-87fa-4f73-6285-08df2f837407
+X-MS-Exchange-CrossTenant-Network-Message-Id: a8ddc0d2-529a-4ba9-d8a6-08df2f83ac35
 X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 14:56:14.5959
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 14:57:48.8157
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vQOqSphsfaFb4Lwe6Ym10o8gO/iRuLzWJwGq+k/w0YcQDVZRiO3EPTLESepahJkvuZV1erFZGOI1UC6j/q7bhFhuS35BFqk8HllQHD3d+XCYdrDOpMCwQcEtKHzhpqOc
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV4PR04MB11729
+X-MS-Exchange-CrossTenant-UserPrincipalName: 41PDYgUaFatys2FvAiuWJ352R7CRwNK/PEXrSheRAyzzmT5yMP1zVUdFH3I/DVQgPNUl5zTx2F8ykJJDALuTqOb/mDKK803/9nl9ErAwh5BTm9OIwAEmDv+eQzrkMh8D
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRRPR04MB12593
 
-On Wed, Oct 21, 2026 at 07:39:36AM -0300, Leonardo Costa wrote:
-> Hi Frank,
+On Wed, Oct 21, 2026 at 09:32:12AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Low] dt-bindings: arm: fsl: undocumented draeger vendor prefix
+> --
 >
-> On Thu, Aug 13, 2026 at 11:15:04AM -0500, Frank Li wrote:
-> > On Thu, Aug 13, 2026 at 12:43:29PM -0300, Leonardo Costa wrote:
-> > > On Thu, Aug 13, 2026 at 09:58:52AM -0500, Frank Li wrote:
-> > > > On Thu, Aug 13, 2026 at 10:33:35AM -0300, Leonardo Costa wrote:
-> > > > > From: Leonardo Costa <leonardo.costa@toradex.com>
-> > > > >
-> > > > > Add a device tree overlay enabling the Toradex Capacitive Touch Display
-> > > > > 10.1" LVDS V2 on the Verdin Development Board with Verdin iMX8M Plus
-> > > > > Mezzanine expansion board. The panel connects via the i.MX8M Plus LCDIF
-> > > > > on the Mezzanine LVDS interface (J10). The panel is an Opto Logic
-> > > > > SCX1001511GGC49 10.1" WXGA TFT LCD LVDS and the touch input is provided
-> > > > > by an ILITEK ILI251x capacitive touch controller.
-> > > > >
-> > > > > Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
-> > > > > Link: https://developer.toradex.com/hardware/verdin-som-family/add-ons/verdin-imx8m-plus-mezzanine
-> > > > > Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
-> > > > > ---
-> > > >
-> > > > what's difference with Add Toradex Capacitive Touch Display 10.1" LVDS V2
-> > > >
-> > > > why not share one dtso?
-> > > >
-> > > > Frank
-> > >
-> > > Hi Frank,
-> > >
-> > > There are two main differences:
-> > >
-> > > 1. The mezzanine one uses different backlight controll pins, so here we
-> > > use the 'backlight-mezzanine' node, instead of the 'backlight' one, used
-> > > in the one without the mezzanine.
-> > >
-> > > 2. The touchscreen GPIO and interrupt pins are also different with the
-> > > mezzanine board.
-> >
-> >
-> > And there are for imx8mm
-> > https://lore.kernel.org/imx/20260724-v1-verdin-imx8mm-dtbos-v2-3-9d7988bd76f6@toradex.com/
-> >
-> > https://lore.kernel.org/imx/sr26lfvwasgcosfzcf4ydtwxwjjutlio2yqpgxldatpzjo7e4y@77k7gefnjzvl/
-> >
-> > Any ways, it is too late for 7.3, we have enough time for 7.4 to discuss
-> > work on optimization solution.
-> >
-> > If use nexus connectors, we can share one dtso now if there are not
-> > clock settings.
-> >
-> > clock patches is close to pick up
-> > https://lore.kernel.org/all/20260807-schneider-v7-2-rc1-eip201-upstream-v5-1-8785f9531cf0@bootlin.com/
-> >
-> > Frank
+> commit 795e5eabed6a73f1faa10f56606455efcbd039b8
+> Author: Petko Manolov <petko.manolov@konsulko.com>
 >
-> We tried to make the change to have a single overlay for the boards with and
-> without the Mezzanine. However, in the current state of nexus connectors, this
-> can't be done cleanly yet. When trying to describe the hardware at the level it
-> exists in, following DT guidelines, and using nexus connectors, we still need
-> two separate overlays to enable the native LVDS with and without the Mezzanine,
-> so we don't really reduce the maintenance effort.
+> dt-bindings: arm: fsl: add Draeger M48 dual-cpu board
 >
-> See the changes at the end of the email, this is the closest we got to a
-> correct and clean implementation that would allow the usage of a single
-> overlay.
+> This commit adds devicetree binding compatible strings for the imx6q and
+> imx6dl variants of the Draeger M48 board to
+> Documentation/devicetree/bindings/arm/fsl.yaml.
 >
-> The root cause of the issue is that we need to claim pinctrl_i2s_2_d_in_gpio
-> and pinctrl_i2s_2_sync_gpio for the touchscreen on the Mallow Carrier Board.
-> Ideally, they would be defined in the nexus connector, as shown in the diff.
-> However, after enabling the connectors in the overlay, the pinctrl groups
-> remain unclaimed. The reason is that nexus connectors have no driver to claim
-> the groups.
+> > diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
+> > index 656f2596e1d53..8f3a04228780a 100644
+> > --- a/Documentation/devicetree/bindings/arm/fsl.yaml
+> > +++ b/Documentation/devicetree/bindings/arm/fsl.yaml
+> > @@ -260,6 +260,7 @@ properties:
+> >                - boundary,imx6q-nitrogen6x
+> >                - compulab,cm-fx6           # CompuLab CM-FX6
+> >                - dmo,imx6q-edmqmx6         # Data Modul eDM-QMX6 Board
+> > +              - draeger,imx6q-m48         # Draeger imx6q variant of M48
+> >                - ds,imx6q-sbc              # Da Sheng COM-9XX Modules
+> >                - embest,imx6q-marsboard    # Embest MarS Board i.MX6Dual
+> >                - emtrion,emcon-mx6         # emCON-MX6D or emCON-MX6Q SoM
+> > @@ -458,6 +459,7 @@ properties:
+> >                - boundary,imx6dl-nit6xlite     # Boundary Devices Nitrogen6 Lite
+> >                - boundary,imx6dl-nitrogen6x    # Boundary Devices Nitrogen6x
+> >                - bticino,imx6dl-mamoj      # BTicino i.MX6DL Mamoj
+> > +              - draeger,imx6dl-m48        # Draeger imx6dl variant of M48
+> >                - eckelmann,imx6dl-ci4x10
+> >                - emtrion,emcon-mx6         # emCON-MX6S or emCON-MX6DL SoM
+> >                - emtrion,emcon-mx6-avari   # emCON-MX6S or emCON-MX6DL SoM on Avari Base
 >
->     root@verdin-imx8mp-14777535:~# cat /sys/kernel/debug/pinctrl/30330000.pinctrl/pinmux-pins
->     ...
->     pin 112 (MX8MP_IOMUXC_SAI3_RXD): (MUX UNCLAIMED) (GPIO UNCLAIMED)
->     pin 113 (MX8MP_IOMUXC_SAI3_TXFS): (MUX UNCLAIMED) (GPIO UNCLAIMED)
->     ...
->
-> There is nowhere else in the carrier dtsi's where the pinctrls belong.
->
-> The pinctrl groups thus need to be added to the touchscreen node defined in the
-> overlay. However, the pins on the Development Board (which uses the Mezzanine)
-> are muxed by pinctrl_gpio2 and pinctrl_gpio3. These groups are in the SoM dtsi,
-> and we cannot claim them in the overlay. Because of this, the Mezzanine needs
-> a different overlay, which doesn't claim any pinctrl.
+> [Severity: Low]
+> Should the draeger vendor prefix also be documented under patternProperties
+> in Documentation/devicetree/bindings/vendor-prefixes.yaml?
 
-I met similar problem, see below.
-
->
-> We like the idea of a single overlay for both carriers, but sadly the nexus
-> connectors, as they currently are, are not ready to enable this. We therefore
-> have to move forward normally and once connector support matures, we're happy
-> to refactor this and try to reduce the amount of overlays for the Verdin iMX8MP
-> and for other modules.
->
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin-dev.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-verdin-dev.dtsi
-> index 72a4f846d694..d73a7e9042ea 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mp-verdin-dev.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin-dev.dtsi
-> @@ -4,6 +4,41 @@
->   */
->
->  / {
-> +	lvds_connector: lvds-mezzanine-connector {
-> +		compatible = "toradex,lvds-connector";
-> +		#gpio-cells = <2>;
-> +		/* LVDS_BKL_EN_CON - Verdin GPIO 4 (SODIMM 212) */
-> +		gpio-map = <0 0 &gpio1 6 0>;
-> +		gpio-map-mask = <0xffffffff 0x0>;
-> +		gpio-map-pass-thru = <0x0 0xffffffff>;
-> +
-> +		#pwm-cells = <3>;
-> +		/* LVDS_PWM_CON - Verdin PWM_2 (SODIMM 16) */
-> +		pwm-map = <0 0 0 &pwm2 0 0 0>;
-> +		pwm-map-mask = <0x0 0x0 0x0>;
-> +		pwm-map-pass-thru = <0x0 0xffffffff 0xffffffff>;
-> +
-> +		status = "disabled";
-> +	};
-> +
-> +	touch_connector: touch-mezzanine-connector {
-> +		compatible = "toradex,touch-connector";
-> +		#gpio-cells = <2>;
-> +		/* LVDS_TOUCH_RESET_CON# - Verdin GPIO_2 (SODIMM 208) */
-> +		gpio-map = <0 0 &gpio1 1 0>;
-> +		gpio-map-mask = <0xffffffff 0x0>;
-> +		gpio-map-pass-thru = <0x0 0xffffffff>;
-> +
-> +		#address-cells = <0>;
-> +		#interrupt-cells = <2>;
-> +		/* LVDS_TOUCH_INT_CON# - Verdin GPIO_3 (SODIMM 210) */
-> +		interrupt-map = <0 IRQ_TYPE_EDGE_FALLING &gpio1 5 IRQ_TYPE_EDGE_FALLING>,
-> +				<0 IRQ_TYPE_EDGE_RISING &gpio1 5 IRQ_TYPE_EDGE_RISING>;
-> +		interrupt-map-mask = <0xffffffff 0xffffffff>;
-> +
-> +		status = "disabled";
-> +	};
-> +
->  	native-hdmi-connector {
->  		compatible = "hdmi-connector";
->  		label = "X37";
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin-mallow.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-verdin-mallow.dtsi
-> index 846b36706821..736f034c7550 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mp-verdin-mallow.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin-mallow.dtsi
-> @@ -11,6 +11,46 @@
->  #include <dt-bindings/leds/common.h>
->
->  / {
-> +	lvds_connector: lvds-connector {
-> +		compatible = "toradex,lvds-connector";
-> +
-> +		#gpio-cells = <2>;
-> +		/* LVDS_BKL_EN_CON - Verdin I2S_2_D_OUT as GPIO (SODIMM 46) */
-> +		gpio-map = <0 0 &gpio5 1 0>;
-> +		gpio-map-mask = <0xffffffff 0x0>;
-> +		gpio-map-pass-thru = <0x0 0xffffffff>;
-> +
-> +		#pwm-cells = <3>;
-> +		/* LVDS_PWM_CON - Verdin PWM_2 (SODIMM 16) */
-> +		pwm-map = <0 0 0 &pwm2 0 0 0>;
-> +		pwm-map-mask = <0x0 0x0 0x0>;
-> +		pwm-map-pass-thru = <0x0 0xffffffff 0xffffffff>;
-> +
-> +		status = "disabled";
-> +	};
-> +
-> +	touch_connector: touch-connector {
-> +		compatible = "toradex,touch-connector";
-> +		pinctrl-names = "default";
-> +		pinctrl-0 = <&pinctrl_i2s_2_d_in_gpio>,
-> +			    <&pinctrl_i2s_2_sync_gpio>;
-
-Thank you try this method.  Can make a pre-defined label for it, such
-such as touch_conn0_pinctrl_gpio0, touch_conn0_pinctrl_gpio1, ....
-
-So touch overlay use this label directly, like other port, i2c ...
-
-After nexus improve by support mapping pinctrl, only few line needs be
-changes.
-
-The bad things is that it need define NULL pintctrl for i2c gpio expander.
-
-It is worth to try.
+This need be fixed
 
 Frank
-
-> +
-> +		#gpio-cells = <2>;
-> +		/* LVDS_TOUCH_RESET_CON# - Verdin I2S_2_D_IN as GPIO (SODIMM 48) */
-> +		gpio-map = <0 0 &gpio4 30 0>;
-> +		gpio-map-mask = <0xffffffff 0x0>;
-> +		gpio-map-pass-thru = <0x0 0xffffffff>;
-> +
-> +		#address-cells = <0>;
-> +		#interrupt-cells = <2>;
-> +		/* LVDS_TOUCH_INT_CON# - Verdin I2S_2_SYNC as GPIO (SODIMM 44) */
-> +		interrupt-map = <0 IRQ_TYPE_EDGE_FALLING &gpio4 31 IRQ_TYPE_EDGE_FALLING>,
-> +				<0 IRQ_TYPE_EDGE_RISING &gpio4 31 IRQ_TYPE_EDGE_RISING>;
-> +		interrupt-map-mask = <0xffffffff 0xffffffff>;
-> +
-> +		status = "disabled";
-> +	};
-> +
->  	native-hdmi-connector {
->  		compatible = "hdmi-connector";
->  		label = "X14";
-> @@ -159,6 +199,16 @@ &i2c5 {
->  	status = "okay";
->  };
 >
-> +&iomuxc {
-> +	pinctrl_i2s_2_d_in_gpio: gpio4io30grp {
-> +		fsl,pins = <MX8MP_IOMUXC_SAI3_RXD__GPIO4_IO30 0x1c4>;   /* SODIMM 48 */
-> +	};
-> +
-> +	pinctrl_i2s_2_sync_gpio: gpio4io31grp {
-> +		fsl,pins = <MX8MP_IOMUXC_SAI3_TXFS__GPIO4_IO31 0x184>;  /* SODIMM 44 */
-> +	};
-> +};
-> +
->  &lcdif3 {
->  	status = "okay";
->  };
+> Currently, Documentation/devicetree/bindings/vendor-prefixes.yaml has no
+> entry for draeger between dptel and dragino:
 >
-> ---
+>   "^dptel,.*":
+>     description: Guangdong Dapu Telecom Co., Ltd.
+>   "^dragino,.*":
+>     description: Dragino Technology Co., Limited
 >
-> Best regards,
-> Leonardo
+> Without an entry in vendor-prefixes.yaml, process() in scripts/checkpatch.pl
+> reports an undocumented vendor prefix warning when device tree files (such
+> as arch/arm/boot/dts/nxp/imx/imx6q-draeger-m48.dts and
+> arch/arm/boot/dts/nxp/imx/imx6dl-draeger-m48.dts) or driver match tables
+> reference draeger,imx6q-m48 or draeger,imx6dl-m48, and any draeger,*
+> vendor-specific properties will fail schema validation.
+>
+> --
+> Sashiko AI review · https://sashiko.dev/#/patchset/20261021092140.4142493-1-petko.manolov@konsulko.com?part=1
