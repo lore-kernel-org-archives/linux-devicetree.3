@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792595403;
-	b=Z1I26cO0KXrikvnlOYXVkhOZR2m2h2JCYaCZW0NNlt1dk5TTKJcYLHdZYlSV5kkfvRab
-	 B7Ph1qIo4Z5IZEfcUty8MQR5qMS+rhqw3W7E5bWL23cxWcA2C3V6eiPehTm/c1KtFv2Jb
-	 9afGNmkmK7oW2AsrOYWjnHXHnsdSi9Rus6dnLq89C+StTqJ1nq3H0TgCTE6gYQUF8vOC8
-	 PC+KwNaqTpPNj4Izcc+16S+jM6n/EoO5IEThpPggb1I13XdNfNqDQFmODSspSRbt0HHfN
-	 K1/YSHLFV78ItXFc4NepFskcl3+FQBtjuzRAiRsRRjn1rbbrWvLOONsVvDxQoMurWgg==
+	t=1792595407;
+	b=4EaU7M7y5a3NgfMo+2sOzR4YLdftPucJOI48gNk6BvgD+EjnSbuuLjikMFiyW5CLzPHY
+	 cIRWk2/Bvl9E77MAf//z+8r3ia8qu2MW90rfqEQRO/z7XVan/58fS+ApLa1C+eD+u0N/A
+	 qh4IFXREdM88rB9vRgobl04Ws1CTvTvZP7xiV8QrGwSvCzFI5V3RxjNoAHLFlcADnQlZg
+	 sHm4Gd0FJaexGZ9d5f420NEbsw4E6EQz2w7q3wQWW6I+ihF3o46TLQHaxSa5sxw2Fx5gY
+	 xK1RwxZFR1TLC9eOnt/JERxjyYbvbqBZB+VCBp0yf2fMQByYkv+0LltYStpy93AMTQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792595403;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer;
-	bh=ooClIQJea+34VK5wiBtJlCaB6JuJ+2mJGcxE8LJ7b9g=;
-	b=3NO3tu8ZzxYv7BsBMBg5kBkWhhDT/p41zLC0W0roh7H7k1t6SgMgtD3Ks8Aun1gt107y
-	 3AUe9xT8nOxQpkUhw5JHkIYKcYZNMR2x431dB5sucSrcYENrK8pdZIyoIu8ttg1pnTtXc
-	 wZbwH28unw9BpgXLKHpWg/FETJnCIYA04dk2qm6yLOcrbHY9sqYhHvnMXBINKq85RKMHQ
-	 fjMdgu2HlwzLta7pkUcSu/5jjoZdH+Qpxm9xyvQgafU8+TP8CIi/uiwW//ZhwauWCzlh4
-	 X6uJBjVT6rOkul5k5VD/u3hx3MxAYGblmmIYhxVpPVx70rO+GH4iEg/6Ha3XL83cK3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792595407;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer;
+	bh=IoDg+6sqbvUXMf1vHdHQLEEmPOtq36GA//34shPshDU=;
+	b=VLa0lBaAuQFGtpsZorA81okyvm0IjCBmqL73BQ9lph0D67F2Tq+s6xBEOOwnYABSlXzX
+	 efbsGlP+OtkXvEb1ZsS/yXEmMR/qSS1zWHXftHPBkj6Tc7XBdW6FluMLhhm+U/7XORkpk
+	 NrJHI8AvBUBab2obLntSghVpUgI+yhV9jj+PST/jO9kqrVe1GeTDPMLL3DMtn1sHRT7vt
+	 mPg0Aje8AwnUeOQOSAMFQTTGkG8HiKtn8BEATxuvAuSlCsVA4sdiuD/XDPpWi8WUSnfjV
+	 iWpDF4y3LAK/tUKnrJqQ1DUy3WUmHACcM6twfiSZK4yHz5LeZKmKqiCJtwhGGS5kUDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c1mmn+KZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H8fhbLDD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76501606A31D
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 15:10:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C71CC606A319
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 15:10:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c1mmn+KZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FF4D1F000C1;
-	Wed, 21 Oct 2026 15:09:59 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H8fhbLDD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A1761F000C2;
+	Wed, 21 Oct 2026 15:10:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792595402;
-	bh=ooClIQJea+34VK5wiBtJlCaB6JuJ+2mJGcxE8LJ7b9g=;
-	h=From:Subject:Date:To:Cc;
-	b=c1mmn+KZaKLgYOnXQqI0JmUvUVMH7MO+7WWZauNJe2G5RJvpLBDQRVa11tcrbcxjY
-	 hKnkRbjc37UNOeMOh6oK3l7eds1teyzcoabGpdiZRkO9CK+c2j+I6wX53ciSBhMob0
-	 8cl99D6mmCnI5I8vXuqcJnPa3BTv6nYExc949C4HzUBu0MDbAEH0MMCqEbS6FZWr8d
-	 KAc7MG9GdBIVtodCS/UmR+ZYfT/I4O/IQyz4apVpESRAx9eFAgBthqGPzeaDMwY+rk
-	 AHN5T2DKqAUGMrLkykeQnyMhW3epOSKPllVGFFtAkSxX+zD/lGpmCnk8AhE/pvsSDX
-	 kVUNaNULAbe3A==
+	s=k20260515; t=1792595406;
+	bh=IoDg+6sqbvUXMf1vHdHQLEEmPOtq36GA//34shPshDU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=H8fhbLDDPNiI2ncHf3xu8XiCDPdr7k4iXQCmaLsdskqFeeRwR0Fn1ykfY7a8cMBNb
+	 r2LE7Wy2NE48KduOkNmAoJjYN5PzgaWZpt9NI/HARuGEXXIelMsoKN/koGjC5BSrSj
+	 ydCiCUzpsFWTF0mnG7ZaPE2s+wcLu5/KNADT9ag9kSWgtB3IEImFc9CilXFlBaiakN
+	 YLrfulL7/QGaThRS+tUYu5pxutwgZkGoS92X//CeOAWuzJ/b/uFH7wPmIT0KeV3OkS
+	 /OG7p5q4qAA5VO0F1j6L2AbCTaO9/1VorXhDJxYsZFeDjOVme6bxxCBRYfU82vCEJ6
+	 ihCA5hGj19MBQ==
 From: Linus Walleij <linusw@kernel.org>
-Subject: [PATCH v3 0/3] ARM: bcm: Enable CFE SMP on BCMBCA
-Date: Wed, 21 Oct 2026 17:09:51 +0200
-Message-Id: <20261021-genexis-xg6846-smp-v7-3-rc1-v3-0-7c871f1755db@kernel.org>
+Date: Wed, 21 Oct 2026 17:09:52 +0200
+Subject: [PATCH v3 1/3] dt-bindings: arm: cpus: Add brcm,bca-smp enable
+ method
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -55,11 +55,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NsQ7CIBSF4VdpmL0GKAXj5HsYB2gvlKi0AUNqm
- r67tImJLh3/M3xnJgmjx0TO1UwiZp/8EErUh4q0vQ4OwXelCadcMsoYOAw4+QSTkychIT1HyAp
- qiC0DIxS1FDkVqiFFGCNaP2369Va69+k1xPd2ltm6fl2+62YGFHTDOqFth0Kryx1jwMdxiI6sc
- Oa/mNrHeMGMlUaYWgkj8Q9bluUDZ6+AzhQBAAA=
-X-Change-ID: 20261011-genexis-xg6846-smp-v7-3-rc1-b470f0e20475
+Message-Id: <20261021-genexis-xg6846-smp-v7-3-rc1-v3-1-7c871f1755db@kernel.org>
+References: <20261021-genexis-xg6846-smp-v7-3-rc1-v3-0-7c871f1755db@kernel.org>
+In-Reply-To: <20261021-genexis-xg6846-smp-v7-3-rc1-v3-0-7c871f1755db@kernel.org>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
  Lorenzo Pieralisi <lpieralisi@kernel.org>, 
@@ -74,48 +72,80 @@ Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  Linus Walleij <linusw@kernel.org>
 X-Mailer: b4 0.16.0
 
-When booted through CFE and mainline U-Boot, the XG6846B has no PSCI
-provider. CFE powers up CPU1 and leaves it waiting in a holding pen.
+BCMBCA systems booted through CFE can release a secondary CPU by
+writing its ARM-state entry address to a 32-bit MMIO mailbox and
+sending a wakeup interrupt.
 
-Add a BCMBCA CFE SMP method selected by enable-method = "brcm,bca-smp".
-It uses a GPIO mailbox and a wakeup IPI, with PSCI retaining priority.
-On the XG6846B, preserve the holding pen and disable the board's inherited
-PSCI setup.
-Tested on the XG6846B with both CPUs coming online.
+Document brcm,bca-smp and its single-cell cpu-release-addr property.
+The boot CPU does not need a mailbox; secondary CPUs do. Add a
+Cortex-A7 example showing both CPU nodes.
 
-These patches were authored with the assistance of an LLM.
-
+Suggested-by: William Zhang <william.zhang@broadcom.com>
 Signed-off-by: Linus Walleij <linusw@kernel.org>
 ---
-Changes in v3:
-- Use BCMBCA naming for the CFE SMP implementation.
-- Add the brcm,bca-smp binding and select CFE SMP through the CPU
-  enable-method, retaining PSCI priority.
-- Squash the holding-pen reservation fix into the CFE bring-up DTS patch.
-- Boot tested successfully on the XG6846B.
-- Link to v2: https://patch.msgid.link/20261017-genexis-xg6846-smp-v7-3-rc1-v2-0-bf6b4b374b6e@kernel.org
+ Documentation/devicetree/bindings/arm/cpus.yaml | 36 +++++++++++++++++++++++++
+ 1 file changed, 36 insertions(+)
 
-Changes in v2:
-- Read the CFE mailbox address from CPU1's cpu-release-addr property,
-  as suggested by William Zhang.
-- Link to v1: https://patch.msgid.link/20261012-genexis-xg6846-smp-v7-3-rc1-v1-0-a51d4afde4a7@kernel.org
+diff --git a/Documentation/devicetree/bindings/arm/cpus.yaml b/Documentation/devicetree/bindings/arm/cpus.yaml
+index 5be89c584026..6771b85f757b 100644
+--- a/Documentation/devicetree/bindings/arm/cpus.yaml
++++ b/Documentation/devicetree/bindings/arm/cpus.yaml
+@@ -255,6 +255,7 @@ properties:
+           - amlogic,meson8b-smp
+           - arm,realview-smp
+           - aspeed,ast2600-smp
++          - brcm,bca-smp
+           - brcm,bcm11351-cpu-method
+           - brcm,bcm23550
+           - brcm,bcm2836-smp
+@@ -471,6 +472,20 @@ allOf:
+     then:
+       required:
+         - secondary-boot-reg
++  - if:
++      properties:
++        enable-method:
++          const: brcm,bca-smp
++      required:
++        - enable-method
++    then:
++      properties:
++        cpu-release-addr:
++          $ref: /schemas/types.yaml#/definitions/uint32
++          description:
++            Physical address of the 32-bit MMIO mailbox read by CFE after
++            a wakeup interrupt. Required on secondary CPUs. The kernel
++            writes the ARM-state entry address before sending the interrupt.
+   - if:
+       properties:
+         enable-method:
+@@ -712,4 +727,25 @@ examples:
+         cpu-release-addr = <0 0x20000000>;
+       };
+     };
++  - |
++    // Example 5 (Broadcom BCMBCA with CFE):
++    cpus {
++      #size-cells = <0>;
++      #address-cells = <1>;
++
++      cpu@0 {
++        device_type = "cpu";
++        compatible = "arm,cortex-a7";
++        reg = <0>;
++        enable-method = "brcm,bca-smp";
++      };
++
++      cpu@1 {
++        device_type = "cpu";
++        compatible = "arm,cortex-a7";
++        reg = <1>;
++        enable-method = "brcm,bca-smp";
++        cpu-release-addr = <0xff800568>;
++      };
++    };
+ ...
 
----
-Linus Walleij (3):
-      dt-bindings: arm: cpus: Add brcm,bca-smp enable method
-      ARM: bcm: Add CFE SMP support for BCMBCA
-      ARM: dts: broadcom: Use CFE CPU bring-up on the XG6846B
-
- Documentation/devicetree/bindings/arm/cpus.yaml    | 36 ++++++++++++++
- .../boot/dts/broadcom/bcm6846-genexis-xg6846b.dts  | 16 ++++++-
- arch/arm/mach-bcm/Makefile                         |  2 +-
- arch/arm/mach-bcm/board_bcmbca.c                   | 56 ++++++++++++++++++++++
- 4 files changed, 108 insertions(+), 2 deletions(-)
----
-base-commit: 6356fd3dd29d8b5620507a0ce037c644e052b5dd
-change-id: 20261011-genexis-xg6846-smp-v7-3-rc1-b470f0e20475
-
-Best regards,
---  
-Linus Walleij <linusw@kernel.org>
+-- 
+2.56.0
 
