@@ -1,85 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792611113;
-	b=kFa+Ao5ATbpeqKTfizHb8/c6HE6AyjI/Gx6pJwFKRiQEcS5EsLjjBmEEIOYkq5TqGHgx
-	 Zqs99nWBJiAGwd7XmmKBarj+vTOatxXOY0XLkNDLu8nhbmmgZf8TOSG67idKbpxoNzuoY
-	 LiAvmjTrlYol/mBYVc6Ib/Hxm47xiLc0WBRb5ksC/Wyw4IS4eEypd7hjbJ5gHkpHGYwNv
-	 ZOtFcrYuN/HEbVjUwqYI7VXXccXvpNS4Umsn9mQn/IO2CPSOPvPvC4/pKk2ODt/8sR0xY
-	 sx7j6BJwoOwwIC3Iv3/aXXxEFi2SaWQhZve2PjgfZAolE/JAsYLlJpJHyQs2yxMFJyQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792611113;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Organization:Content-Transfer-Encoding;
-	bh=M0e56pUsZC6h1nsirS1qJ7H5bNpP7pMCwPwc6QaN6uw=;
-	b=ySn0AB9dN+UlM/8ttHch02Tw1AX/2vCH436CSG0kv2GnvII5AQigXGHE0mykgX0NQZCb
-	 VAUPVCO8Np+tE+GSWzChk++URJvcB7CG/CJo767eLLHlKU5lWjwl1ha0B/n2ZYTQKgdSY
-	 KyNOxRxpYRLNfBZ04Hl/bQrJKsOm01/5H0/iunbisj9k0bLn9qt3gAC0Oxlx/7Hm62gJJ
-	 aWPC5i5lkYommd+rlMwYfFzcyL+npgXsPwc4/daWwMzA9foy63N2uh5YpnyEsEb9orwPE
-	 iTkQmr1PcYBEdbK260+l4pRh8Mt2m2kcYot4HoUzZr7GsZfOTNi990Md9H4bgj5Vq6w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GGwhMosh;
-	arc=none smtp.remote-ip=192.198.163.18
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792611226;
+	b=HNjM4vFyW+uzMYFR7SJQIJx8KQJQNvC280ofyEmGbINaduaDj7qWWPAYenamqVdqJeca
+	 Vu8PXXhZTjpe41ppDX/nQiZu+Wko6t/6Q9WW6UjFc6NIaVFabc4RWX9k6IPxvNwI/Aliy
+	 otgKCUdtEJukKsPWqWFwYEpVlzOq7M8v1lF1ayE6KYUi29BfH3BRiBQpegN80h5AbBhG9
+	 NM5wgbiZDDL+lIP8tSv0XdrWIHxCBMVFZCo5s1ePNOYRhSdyK7uvhVX/YyZeIP9bZ44+4
+	 pModQitfcDVRE7nsNfgaOnLkzH4D/OxjDBHwFGMk6T7HXhnWW6c1cycjfiuoD+sAffA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792611226;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=9txDIgQwheV+fR7k/v+i+WYoRf4iUo+S9yPZXzd4p68=;
+	b=wMRAreNHyLXsVC0eJZWYDj/uEe+USKt73+ZhNwegD6ZBrPlA3PWKcWTPDLSCKQpJouVU
+	 ZzARaPq0MFLYNlfWBABcnUwP3G4TY2I6NHm/hJBwSFmJM71mQbDdCKbA+Eonz5rKKOHMx
+	 GB8QaGBkiTiWQcHqIQgB6XJ0jKPIumyCeM07uYYuSjBFavhI8JQqvKWbVbUzkWoZYChf2
+	 I50dFjrEeQAH5gdZbYN7h+CfZ9bCkTsk+vbMsF/gZWwM5NbqbVKBOcSuFR/TxOShkh9LU
+	 4cEZuu+uDoqLf1cgnGIfHat6SBcCInjFtfgysz3K9V+gv6ikE/MaA+wlvlKUnJXgMMQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WJS4+NyK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0094A606A31D;
-	Wed, 21 Oct 2026 19:31:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0094A606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9FDB606A320;
+	Wed, 21 Oct 2026 19:33:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GGwhMosh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792611113; x=1824147113;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=4KnIuqLQdcMUh13r9RuCTYbhXJrdP0hn2ceXs9y2fec=;
-  b=GGwhMoshcjuollI7LTuf+N5IgyIwYVRJslsW955j6hMTPifmKcUCzHin
-   0wbN8RnAk9wxNpZ6IUTpZvUXqVRkPx4HgFfKtp+EAXwAuuHkQpBL1/X+r
-   VKS0d5qB7QwQjmOPrwJ3sTYpmbTQ4XkXppPCIlaLCCIFHM1IbSjyhV6vD
-   HfG5xHyoBa7/mtspED0toM5eKa/321tlSggpoWqsKCNTVp/L5FWGLzuUj
-   uSYjZDgsWxTRyvBsxa5anpmaMpxkoh6aXNlj0Bg9cQtpnIm4nf1T96BXZ
-   AhkhiJ4qD91AY2aFEJvrfT6Uz+23BAAUclIoNeFSxRsOqvAZmrMP6QHjp
-   Q==;
-X-CSE-ConnectionGUID: 9EugbITETOWYy5VIupGbNw==
-X-CSE-MsgGUID: p7MQM4FCQpyOFFDbUvyesg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1382543"
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="1382543"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 12:31:52 -0700
-X-CSE-ConnectionGUID: fpRHLT0QSnugO5kStplgTA==
-X-CSE-MsgGUID: kxd4kgYKRVuNN0xx+hdNLQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="3170408"
-Received: from gklab-103a-129.igk.intel.com ([10.91.103.129])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 12:31:50 -0700
-From: Dawid Glazik <dawid.glazik@linux.intel.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>
-Cc: devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	dawid.glazik@linux.intel.com,
-	maciej.lawniczak@intel.com,
-	Andrew Lunn <andrew@lunn.ch>
-Subject: [PATCH v3 3/3] ARM: dts: aspeed: add Intel JNCRP BMC
-Date: Wed, 21 Oct 2026 22:26:42 +0200
-Message-ID: <202a66934cde5273507b7b05dd3cbc28b98ebcda.1792613583.git.dawid.glazik@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1792613583.git.dawid.glazik@linux.intel.com>
-References: <cover.1792613583.git.dawid.glazik@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WJS4+NyK
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792611225;
+	b=mGozZY10PPaFRLLpvF+wSOLdtg+iccDZUBbNNEVXu1fIS/J1b3ALP49bTntMj/cMZ+39
+	 6h1h3rlpFbgB9zn190E8wK7oKSBNUoyOLdgQKySL9p9HRNWqO7lv/tGKpAUvkI1rhYPHc
+	 1Ba01ZZm9EZANnQ8f3HrdKAawEcbPQ+iYXlKqoEmBjLHlBl4njIKM9W6y9hIpxPzuHG0n
+	 RgN2+9XZ1ZvjEBBeV6X0PBFqaVRme1u+w+2qD+L/YH/bZ6dQoiZ7GXl8JOnwj4LYc3u1A
+	 jAEdB28hIF3mRxMWvil2s1d7OHQ/rKTHDU6Zwj4fVB/DFBDDVd4f01MmpkI6pAD62Eg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792611225;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=9txDIgQwheV+fR7k/v+i+WYoRf4iUo+S9yPZXzd4p68=;
+	b=VilLlmoZy3jbbFybgKqLnVJoI66vmKXLfdyKmhZqcxo6/aphQWYkD2CiSMMeaDyHo1SX
+	 Flk0HdwXRY1XuxSRwGRrrY7X2TwQSRjsrXJo/QtLGaHlVhJ8lI+F9EGTy3SxMF5VSWTBW
+	 FfNdRf8bA/oytIY/GgHRiQb5VSFq5XpFdXhkoYpxNAQuzVINI4HtFqmkrBTJ/eozl8Fh5
+	 OjFDu3Ua92Phw2xuEj3WwwzC7jy+DZ3pJdWsKc9gQAP/HViFupwvFCPVekzmiFQx7hROL
+	 gs4cA8L7xZawkwyS1jP+ZHT6h/zlXnlPyz/VM97X1rAR1Y+6AfQNi2ftjhlm42IU+kQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 4028E1F000C3;
+	Wed, 21 Oct 2026 19:33:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792611225;
+	bh=9txDIgQwheV+fR7k/v+i+WYoRf4iUo+S9yPZXzd4p68=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=WJS4+NyKgAnoNnFVaRQp3yctNORS6NwcUyS2PaFUTLMbtLK00vqDUKXsxL9qkNGJo
+	 gmFBT+iCfGiJJ4RoalyPccyD0cfdNWWRoFHXWuKa57/sW2VjBPvLAX6sQzGWpXp4K4
+	 mj/L9uhLViXo0U6CEdEHln43H7JU9XQ8Xg9YzeOQH1GJq1nqnAAZNO470vl2Pnw9/P
+	 Mmw5+jlP9avkxkVZTSrgoLmMlq9YLO1OMeSDIOvztG/8YOer4f6JgU5ys8KkgWdVrG
+	 bkKOl1pubo/ATlPrPFDhr8Hmy8EtzYiaJbBaiWWCXB/gqDBONxb7y+BppP1KcbpfZF
+	 12HSnW0v7PusQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id A574743426;
+	Wed, 21 Oct 2026 19:33:43 +0000 (UTC)
+From: Serv Pol via B4 Relay <devnull+servpol.tuta.io@kernel.org>
+Date: Wed, 21 Oct 2026 19:33:44 +0000
+Subject: [PATCH v2 2/2] power: supply: Add GL.iNet GL-E750 MCU battery
+ driver
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,325 +83,480 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261021-gl-e750-mcu-v2-2-9bd7e7c2e0e1@tuta.io>
+References: <20261021-gl-e750-mcu-v2-0-9bd7e7c2e0e1@tuta.io>
+In-Reply-To: <20261021-gl-e750-mcu-v2-0-9bd7e7c2e0e1@tuta.io>
+To: Serv Pol <servpol@tuta.io>, Sebastian Reichel <sre@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792611222; l=13812;
+ i=servpol@tuta.io; s=20261005; h=from:subject:message-id;
+ bh=JoHLZy5I9ek9rN5BkWAaEmApO4fNgS8RBNNh6SSQmEE=;
+ b=iip1tQrUBlCKgnbS5K6e9PdzN79hxfyWURzBvoVpD+Qjkr2ssmd0bdTjXizvo8Vcz2FW5BTgS
+ vEMrqb4ljnEDHrDlID/EACywhZFKgmCuQTtCWNtIWkjQuH5ZsXE0cLV
+X-Developer-Key: i=servpol@tuta.io; a=ed25519;
+ pk=2HCjaqYjXxgwTYu30Nem9DOHT8mtKgjitt1vEXKpwrE=
+X-Endpoint-Received: by B4 Relay for servpol@tuta.io/20261005 with
+ auth_id=1120
+X-Original-From: Serv Pol <servpol@tuta.io>
+Reply-To: servpol@tuta.io
+Content-Transfer-Encoding: 7bit
 
-Add the initial AST2600 device tree for the Intel JNCRP BMC platform.
+From: Serv Pol <servpol@tuta.io>
 
-Signed-off-by: Dawid Glazik <dawid.glazik@linux.intel.com>
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
----
-v3:
-  - Sorted nodes alphabetically
-  - Sorted properties per dts-coding-style
-  - Removed lpc-snoop label
-  - Removed &i3c_global since it's enabled by default
-  - Added &kcs3 and replaced flash layout with 128MB one
-  - Restored Reviewed-by from Andrew Lunn, dropped by mistake in v2
-v2:
-  - Reviewed-by: Andrew Lunn for nodes: &mdio1, &mac1
-  - Replace bootargs console=ttyS4,115200n8 with stdout-path = &uart5
----
----
- arch/arm/boot/dts/aspeed/Makefile             |   1 +
- .../dts/aspeed/aspeed-bmc-intel-jncrp.dts     | 276 ++++++++++++++++++
- 2 files changed, 277 insertions(+)
- create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-intel-jncrp.dts
+The status MCU of the GL.iNet GL-E750 (Mudi) travel router sits on the
+SoC UART and talks in text lines: the host sends JSON objects whose values
+are all strings, and a request containing "mcu_status": "1" is answered
+with
 
-diff --git a/arch/arm/boot/dts/aspeed/Makefile b/arch/arm/boot/dts/aspeed/Makefile
-index ea4645ef9872..f0d665b3dcee 100644
---- a/arch/arm/boot/dts/aspeed/Makefile
-+++ b/arch/arm/boot/dts/aspeed/Makefile
-@@ -55,6 +55,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
- 	aspeed-bmc-ibm-sbp1.dtb \
- 	aspeed-bmc-ibm-system1.dtb \
- 	aspeed-bmc-intel-avcrp.dtb \
-+	aspeed-bmc-intel-jncrp.dtb \
- 	aspeed-bmc-intel-s2600wf.dtb \
- 	aspeed-bmc-inspur-fp5280g2.dtb \
- 	aspeed-bmc-inspur-nf5280m6.dtb \
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-intel-jncrp.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-intel-jncrp.dts
+  {OK},<percent>,<temperature>,<charging>,<cycles>
+
+Poll that every 30 seconds and expose the result as a power_supply.
+
+When the power switch is turned off, the MCU sends {"shut_down": "1"},
+without a line ending, and cuts the power a few seconds later. Shut the
+system down cleanly in that case.
+
+The MCU also renders the status screen from JSON fields (SSIDs, clients,
+cellular state...). That vendor-specific content is not handled here.
+
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Serv Pol <servpol@tuta.io>
+---
+ MAINTAINERS                        |   1 +
+ drivers/power/supply/Kconfig       |  13 ++
+ drivers/power/supply/Makefile      |   1 +
+ drivers/power/supply/gl-e750-mcu.c | 369 +++++++++++++++++++++++++++++++++++++
+ 4 files changed, 384 insertions(+)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 247432449..505aa205c 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -11110,6 +11110,7 @@ M:	Serv Pol <servpol@tuta.io>
+ L:	linux-pm@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/power/supply/glinet,gl-e750-mcu.yaml
++F:	drivers/power/supply/gl-e750-mcu.c
+ 
+ GNSS SUBSYSTEM
+ M:	Johan Hovold <johan@kernel.org>
+diff --git a/drivers/power/supply/Kconfig b/drivers/power/supply/Kconfig
+index ee7dc5f26..e87c76c18 100644
+--- a/drivers/power/supply/Kconfig
++++ b/drivers/power/supply/Kconfig
+@@ -1203,4 +1203,17 @@ config MACSMC_POWER
+ 
+ 	  Say Y or M here if you have an Apple Silicon based Mac.
+ 
++config BATTERY_GL_E750_MCU
++	tristate "GL.iNet GL-E750 status MCU battery driver"
++	depends on SERIAL_DEV_BUS
++	depends on OF || COMPILE_TEST
++	help
++	  Say Y or M here to enable the battery driver for the status
++	  microcontroller of the GL.iNet GL-E750 (Mudi) travel router.
++	  It reports the battery state and shuts the system down when
++	  the power switch is turned off.
++
++	  To compile this driver as a module, choose M here: the module
++	  will be called gl-e750-mcu.
++
+ endif # POWER_SUPPLY
+diff --git a/drivers/power/supply/Makefile b/drivers/power/supply/Makefile
+index f3c0d1006..5d405556e 100644
+--- a/drivers/power/supply/Makefile
++++ b/drivers/power/supply/Makefile
+@@ -78,6 +78,7 @@ obj-$(CONFIG_CHARGER_TWL4030)	+= twl4030_charger.o
+ obj-$(CONFIG_CHARGER_TWL6030)	+= twl6030_charger.o
+ obj-$(CONFIG_CHARGER_LP8727)	+= lp8727_charger.o
+ obj-$(CONFIG_CHARGER_LP8788)	+= lp8788-charger.o
++obj-$(CONFIG_BATTERY_GL_E750_MCU)	+= gl-e750-mcu.o
+ obj-$(CONFIG_CHARGER_GPIO)	+= gpio-charger.o
+ obj-$(CONFIG_CHARGER_MANAGER)	+= charger-manager.o
+ obj-$(CONFIG_CHARGER_LT3651)	+= lt3651-charger.o
+diff --git a/drivers/power/supply/gl-e750-mcu.c b/drivers/power/supply/gl-e750-mcu.c
 new file mode 100644
-index 000000000000..e66ea7f00fed
+index 000000000..37541915e
 --- /dev/null
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-intel-jncrp.dts
-@@ -0,0 +1,276 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+// Copyright 2025 Intel Corporation
++++ b/drivers/power/supply/gl-e750-mcu.c
+@@ -0,0 +1,369 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * GL.iNet GL-E750 (Mudi) status MCU battery driver
++ *
++ * The MCU sits on the SoC UART. It drives the OLED screen, monitors the
++ * battery and watches the power switch. The host sends one JSON object per
++ * line, where every value is a string. When a line contains
++ * "mcu_status": "1", the MCU answers with
++ *
++ *	{OK},<percent>,<temperature>,<charging>,<cycles>
++ *
++ * When the power switch is turned off, the MCU sends {"shut_down": "1"} and
++ * cuts the power a few seconds later.
++ *
++ * Copyright (C) 2026 Serv Pol <servpol@tuta.io>
++ */
 +
-+/dts-v1/;
++#include <linux/completion.h>
++#include <linux/ctype.h>
++#include <linux/devm-helpers.h>
++#include <linux/math.h>
++#include <linux/module.h>
++#include <linux/power_supply.h>
++#include <linux/property.h>
++#include <linux/reboot.h>
++#include <linux/serdev.h>
++#include <linux/spinlock.h>
++#include <linux/string.h>
++#include <linux/workqueue.h>
 +
-+#include "aspeed-g6.dtsi"
-+#include <dt-bindings/gpio/aspeed-gpio.h>
++#define MCU_BAUDRATE		115200
++#define MCU_RX_LINE_MAX		128
++#define MCU_POLL_INTERVAL_MS	30000
++#define MCU_REPLY_TIMEOUT_MS	1500
 +
-+/ {
-+	compatible = "intel,jncrp-bmc", "aspeed,ast2600";
-+	model = "Intel JNCRP BMC";
++static const u8 mcu_status_req[] = "{ \"mcu_status\": \"1\" }\n";
 +
-+	aliases {
-+		serial4 = &uart5;
-+	};
++struct gl_e750_mcu {
++	struct serdev_device *serdev;
++	struct power_supply *psy;
++	struct delayed_work poll_work;
++	struct work_struct poweroff_work;
++	struct completion reply;
 +
-+	chosen {
-+		bootargs = "earlycon";
-+		stdout-path = &uart5;
-+	};
-+
-+	memory@80000000 {
-+		device_type = "memory";
-+		reg = <0x80000000 0x40000000>;
-+	};
++	/* receive buffer and battery state, filled from the serdev callback */
++	spinlock_t lock;
++	char rx_line[MCU_RX_LINE_MAX];
++	size_t rx_len;
++	bool valid;
++	int capacity;		/* percent */
++	int temp;		/* tenths of a degree Celsius */
++	bool charging;
++	int cycles;
 +};
 +
-+&fmc {
-+	status = "okay";
++/* "37.4", "40" or "-1.5" -> tenths of a degree */
++static int mcu_parse_tenths(const char *s, int *out)
++{
++	const char *dot = strchr(s, '.');
++	char whole_str[8];
++	int whole, frac = 0;
 +
-+	flash@0 {
-+		label = "bmc";
-+		spi-max-frequency = <50000000>;
-+		spi-rx-bus-width = <4>;
-+		m25p,fast-read;
++	if (!dot) {
++		if (kstrtoint(s, 10, &whole))
++			return -EINVAL;
++		*out = whole * 10;
++		return 0;
++	}
 +
-+		status = "okay";
++	if (dot == s || dot - s >= sizeof(whole_str))
++		return -EINVAL;
++	memcpy(whole_str, s, dot - s);
++	whole_str[dot - s] = '\0';
++	if (kstrtoint(whole_str, 10, &whole))
++		return -EINVAL;
++	if (isdigit(dot[1]))
++		frac = dot[1] - '0';
++	*out = whole * 10 + (*s == '-' ? -frac : frac);
++	return 0;
++}
 +
-+#include "openbmc-flash-layout-128.dtsi"
-+	};
++/*
++ * "{OK},<percent>,<temperature>,<charging>,<cycles>", called with the lock
++ * held. Returns true if the line was a valid status reply.
++ */
++static bool mcu_parse_status(struct gl_e750_mcu *mcu, char *line)
++{
++	char *p = line + 4, *f[4];
++	int capacity, temp, charging, cycles, i;
++	bool changed;
++
++	if (*p++ != ',')
++		return false;
++	for (i = 0; i < ARRAY_SIZE(f); i++) {
++		f[i] = strsep(&p, ",");
++		if (!f[i] || !*f[i])
++			return false;
++	}
++
++	if (kstrtoint(f[0], 10, &capacity) || mcu_parse_tenths(f[1], &temp) ||
++	    kstrtoint(f[2], 10, &charging) || kstrtoint(f[3], 10, &cycles))
++		return false;
++	if (capacity < 0 || capacity > 100)
++		return false;
++
++	changed = !mcu->valid || mcu->capacity != capacity ||
++		  mcu->charging != !!charging || mcu->cycles != cycles ||
++		  abs(mcu->temp - temp) >= 10;
++	mcu->capacity = capacity;
++	mcu->temp = temp;
++	mcu->charging = !!charging;
++	mcu->cycles = cycles;
++	mcu->valid = true;
++
++	complete(&mcu->reply);
++	if (changed)
++		power_supply_changed(mcu->psy);
++	return true;
++}
++
++/* called with the lock held */
++static void mcu_handle_line(struct gl_e750_mcu *mcu, char *line)
++{
++	if (!strncmp(line, "{OK}", 4))
++		mcu_parse_status(mcu, line);
++	else if (strstr(line, "\"shut_down\""))
++		schedule_work(&mcu->poweroff_work);
++	else
++		dev_dbg_ratelimited(&mcu->serdev->dev, "unhandled: %s\n", line);
++}
++
++/* hand the buffered message over, called with the lock held */
++static void mcu_flush_line(struct gl_e750_mcu *mcu)
++{
++	mcu->rx_line[mcu->rx_len] = '\0';
++	mcu_handle_line(mcu, mcu->rx_line);
++	mcu->rx_len = 0;
++}
++
++/* a status reply is waiting in the buffer, called with the lock held */
++static bool mcu_status_pending(struct gl_e750_mcu *mcu)
++{
++	return mcu->rx_len > 4 && !strncmp(mcu->rx_line, "{OK}", 4);
++}
++
++static size_t mcu_receive_buf(struct serdev_device *serdev, const u8 *data,
++			      size_t count)
++{
++	struct gl_e750_mcu *mcu = serdev_device_get_drvdata(serdev);
++	unsigned long flags;
++	size_t i;
++
++	spin_lock_irqsave(&mcu->lock, flags);
++	for (i = 0; i < count; i++) {
++		char c = data[i];
++
++		if (c == '\r' || c == '\n') {
++			if (mcu->rx_len)
++				mcu_flush_line(mcu);
++			continue;
++		}
++
++		/*
++		 * Status replies and JSON events may come without a line
++		 * ending. Every message starts with '{', so a new one ends
++		 * the previous message, and a JSON event ends with '}'.
++		 */
++		if (c == '{' && mcu->rx_len)
++			mcu_flush_line(mcu);
++		if (mcu->rx_len < MCU_RX_LINE_MAX - 1)
++			mcu->rx_line[mcu->rx_len++] = c;
++		if (c == '}' && mcu->rx_line[0] == '{' &&
++		    strncmp(mcu->rx_line, "{OK}", 4))
++			mcu_flush_line(mcu);
++	}
++	spin_unlock_irqrestore(&mcu->lock, flags);
++
++	return count;
++}
++
++static const struct serdev_device_ops mcu_serdev_ops = {
++	.receive_buf = mcu_receive_buf,
++	.write_wakeup = serdev_device_write_wakeup,
 +};
 +
-+&gpio0 {
-+	gpio-line-names =
-+		/*A0-A7*/ "", "", "", "", "", "", "", "",
-+		/*B0-B7*/ "PWRGD_AUX_PWRGD_BMC_CPU", "", "", "", "", "", "",
-+				"FP_ID_LED_N",
-+		/*C0-C7*/ "FM_FORCE_BMC_UPDATE_N", "RST_RGMII_PHYRST_N",
-+				"FM_TPM_EN_PULSE", "", "", "",
-+				"DBP_HOOK3_CPU_FBRK_OUT_R_N", "DBP_PRSNT_IN_N",
-+		/*D0-D7*/ "CPU_ERR0_N", "CPU_ERR1_N", "CPU_ERR2_N", "DBP_ASD_BMC_PRDY_N",
-+				"FM_SPD_SWITCH_CTRL_N", "", "", "",
-+		/*E0-E7*/ "", "", "", "ID_BUTTON", "", "", "", "",
-+		/*F0-F7*/ "", "", "FM_AGGREGATOR_MODE_N", "", "", "",
-+				"FP_LED_STATUS_GREEN_R_N", "FP_LED_STATUS_AMBER_R_N",
-+		/*G0-G7*/ "", "", "", "", "", "", "", "",
-+		/*H0-H7*/ "", "", "", "", "", "", "", "",
-+		/*I0-I7*/ "", "", "", "", "", "", "", "",
-+		/*J0-J7*/ "", "", "", "", "", "", "", "",
-+		/*K0-K7*/ "", "", "", "", "", "", "", "",
-+		/*L0-L7*/ "", "", "", "", "PREQ_N", "FM_P3V3_SW_ENA", "", "",
-+		/*M0-M7*/ "", "", "", "", "", "", "", "",
-+		/*N0-N7*/ "", "", "", "", "", "", "", "",
-+		/*O0-O7*/ "", "", "", "", "", "", "NMI_BUTTON", "",
-+		/*P0-P7*/ "RESET_BUTTON", "RESET_OUT", "POWER_BUTTON", "POWER_OUT",
-+				"", "", "", "LED_BMC_HB_LED_N",
-+		/*Q0-Q7*/ "", "", "", "", "", "", "", "",
-+		/*R0-R7*/ "", "", "", "", "", "", "", "",
-+		/*S0-S7*/ "CPU_CATERR_IERR_N", "CPU_CATERR_MCERR_N", "FM_BMC_FRU_WP_N",
-+				"FM_INTRUSION_CABLE_PRES_N", "PWRGD_CPU_AUXPWRGD",
-+				"FM_P3V_BAT_SCALED_EN", "REMOTE_DEBUG_ENABLE", "",
-+		/*T0-T7*/ "", "", "", "", "", "", "", "",
-+		/*U0-U7*/ "", "", "", "", "", "", "", "",
-+		/*V0-V7*/ "SIO_S3", "SIO_S5", "", "SIO_ONCONTROL",
-+				"SIO_POWER_GOOD", "", "", "",
-+		/*W0-W7*/ "", "", "", "", "", "", "", "",
-+		/*X0-X7*/ "", "", "POST_COMPLETE", "", "", "", "", "",
-+		/*Y0-Y7*/ "FM_BMC_CMOS_CLR_R_N", "PLTRST_N", "FM_BMC_SAFS_EN",
-+				"IRQ_PSU_ALERT_LVC3_N", "", "", "", "",
-+		/*Z0-Z7*/ "", "", "", "", "", "", "", "";
++static void mcu_poll_work(struct work_struct *work)
++{
++	struct gl_e750_mcu *mcu = container_of(to_delayed_work(work),
++					       struct gl_e750_mcu, poll_work);
++	unsigned long timeout = msecs_to_jiffies(MCU_REPLY_TIMEOUT_MS);
++	unsigned long flags;
++	int ret;
 +
-+	status = "okay";
++	/*
++	 * Only an earlier status reply is consumed here; a partially received
++	 * event stays in the buffer.
++	 */
++	spin_lock_irqsave(&mcu->lock, flags);
++	if (mcu_status_pending(mcu))
++		mcu_flush_line(mcu);
++	reinit_completion(&mcu->reply);
++	spin_unlock_irqrestore(&mcu->lock, flags);
 +
-+	spd-switch-cpu-hog {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(D, 4) GPIO_ACTIVE_HIGH>;
-+		output-low;
-+	};
++	ret = serdev_device_write(mcu->serdev, mcu_status_req,
++				  sizeof(mcu_status_req) - 1, timeout);
++	if (ret < 0) {
++		dev_warn_ratelimited(&mcu->serdev->dev, "write failed: %d\n", ret);
++	} else if (!wait_for_completion_timeout(&mcu->reply, timeout)) {
++		/* the reply may come without a line ending */
++		spin_lock_irqsave(&mcu->lock, flags);
++		if (mcu_status_pending(mcu))
++			mcu_flush_line(mcu);
++		else
++			dev_dbg(&mcu->serdev->dev, "no status reply\n");
++		spin_unlock_irqrestore(&mcu->lock, flags);
++	}
++
++	schedule_delayed_work(&mcu->poll_work,
++			      msecs_to_jiffies(MCU_POLL_INTERVAL_MS));
++}
++
++static void mcu_poweroff_work(struct work_struct *work)
++{
++	struct gl_e750_mcu *mcu = container_of(work, struct gl_e750_mcu,
++					       poweroff_work);
++
++	/* the MCU cuts the power a few seconds after reporting the switch */
++	dev_info(&mcu->serdev->dev, "power switch turned off, shutting down\n");
++	orderly_poweroff(true);
++}
++
++static const enum power_supply_property mcu_battery_props[] = {
++	POWER_SUPPLY_PROP_PRESENT,
++	POWER_SUPPLY_PROP_STATUS,
++	POWER_SUPPLY_PROP_TECHNOLOGY,
++	POWER_SUPPLY_PROP_CAPACITY,
++	POWER_SUPPLY_PROP_TEMP,
++	POWER_SUPPLY_PROP_CYCLE_COUNT,
 +};
 +
-+&i2c4 {
-+	status = "okay";
++static int mcu_battery_get_property(struct power_supply *psy,
++				    enum power_supply_property psp,
++				    union power_supply_propval *val)
++{
++	struct gl_e750_mcu *mcu = power_supply_get_drvdata(psy);
++	unsigned long flags;
++	int ret = 0;
++
++	spin_lock_irqsave(&mcu->lock, flags);
++	switch (psp) {
++	case POWER_SUPPLY_PROP_PRESENT:
++		val->intval = 1;
++		break;
++	case POWER_SUPPLY_PROP_TECHNOLOGY:
++		val->intval = POWER_SUPPLY_TECHNOLOGY_LION;
++		break;
++	case POWER_SUPPLY_PROP_STATUS:
++		if (!mcu->valid)
++			val->intval = POWER_SUPPLY_STATUS_UNKNOWN;
++		else if (mcu->charging)
++			val->intval = mcu->capacity >= 100 ?
++				      POWER_SUPPLY_STATUS_FULL :
++				      POWER_SUPPLY_STATUS_CHARGING;
++		else
++			val->intval = POWER_SUPPLY_STATUS_DISCHARGING;
++		break;
++	case POWER_SUPPLY_PROP_CAPACITY:
++		if (mcu->valid)
++			val->intval = mcu->capacity;
++		else
++			ret = -ENODATA;
++		break;
++	case POWER_SUPPLY_PROP_TEMP:
++		if (mcu->valid)
++			val->intval = mcu->temp;
++		else
++			ret = -ENODATA;
++		break;
++	case POWER_SUPPLY_PROP_CYCLE_COUNT:
++		if (mcu->valid)
++			val->intval = mcu->cycles;
++		else
++			ret = -ENODATA;
++		break;
++	default:
++		ret = -EINVAL;
++	}
++	spin_unlock_irqrestore(&mcu->lock, flags);
++
++	return ret;
++}
++
++static const struct power_supply_desc mcu_battery_desc = {
++	.name = "gl-e750-battery",
++	.type = POWER_SUPPLY_TYPE_BATTERY,
++	.properties = mcu_battery_props,
++	.num_properties = ARRAY_SIZE(mcu_battery_props),
++	.get_property = mcu_battery_get_property,
 +};
 +
-+&i2c5 {
-+	multi-master;
++static int gl_e750_mcu_probe(struct serdev_device *serdev)
++{
++	struct device *dev = &serdev->dev;
++	struct power_supply_config psy_cfg = {};
++	struct gl_e750_mcu *mcu;
++	int ret;
 +
-+	status = "okay";
++	mcu = devm_kzalloc(dev, sizeof(*mcu), GFP_KERNEL);
++	if (!mcu)
++		return -ENOMEM;
++
++	mcu->serdev = serdev;
++	spin_lock_init(&mcu->lock);
++	init_completion(&mcu->reply);
++	serdev_device_set_drvdata(serdev, mcu);
++	serdev_device_set_client_ops(serdev, &mcu_serdev_ops);
++
++	/*
++	 * devm teardown runs in reverse: the poll work is cancelled before the
++	 * port is closed, the power-off work (queued from the receive path)
++	 * and the battery only after it.
++	 */
++	psy_cfg.drv_data = mcu;
++	psy_cfg.fwnode = dev_fwnode(dev);
++	mcu->psy = devm_power_supply_register(dev, &mcu_battery_desc, &psy_cfg);
++	if (IS_ERR(mcu->psy))
++		return dev_err_probe(dev, PTR_ERR(mcu->psy),
++				     "failed to register battery\n");
++
++	ret = devm_work_autocancel(dev, &mcu->poweroff_work, mcu_poweroff_work);
++	if (ret)
++		return ret;
++
++	ret = devm_serdev_device_open(dev, serdev);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to open serdev\n");
++
++	serdev_device_set_baudrate(serdev, MCU_BAUDRATE);
++	serdev_device_set_flow_control(serdev, false);
++	ret = serdev_device_set_parity(serdev, SERDEV_PARITY_NONE);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to set parity\n");
++
++	ret = devm_delayed_work_autocancel(dev, &mcu->poll_work, mcu_poll_work);
++	if (ret)
++		return ret;
++
++	schedule_delayed_work(&mcu->poll_work, 0);
++	return 0;
++}
++
++static const struct of_device_id gl_e750_mcu_of_match[] = {
++	{ .compatible = "glinet,gl-e750-mcu" },
++	{ }
 +};
++MODULE_DEVICE_TABLE(of, gl_e750_mcu_of_match);
 +
-+&i2c6 {
-+	status = "okay";
++static struct serdev_device_driver gl_e750_mcu_driver = {
++	.probe = gl_e750_mcu_probe,
++	.driver = {
++		.name = "gl-e750-mcu",
++		.of_match_table = gl_e750_mcu_of_match,
++	},
 +};
++module_serdev_device_driver(gl_e750_mcu_driver);
 +
-+&i2c7 {
-+	multi-master;
-+
-+	status = "okay";
-+};
-+
-+&i2c8 {
-+	multi-master;
-+
-+	status = "okay";
-+};
-+
-+&i2c9 {
-+	multi-master;
-+
-+	status = "okay";
-+};
-+
-+&i2c10 {
-+	multi-master;
-+
-+	status = "okay";
-+};
-+
-+&i2c11 {
-+	status = "okay";
-+};
-+
-+&i2c12 {
-+	multi-master;
-+
-+	status = "okay";
-+};
-+
-+&i2c13 {
-+	multi-master;
-+
-+	status = "okay";
-+};
-+
-+&i2c14 {
-+	status = "okay";
-+};
-+
-+&i2c15 {
-+	multi-master;
-+
-+	status = "okay";
-+};
-+
-+&i3c1 {
-+	i2c-scl-hz = <1000000>;
-+	mctp-controller;
-+
-+	status = "okay";
-+};
-+
-+&kcs3 {
-+	aspeed,lpc-io-reg = <0xca2>;
-+
-+	status = "okay";
-+};
-+
-+&lpc {
-+	lpc-snoop@80 {
-+		snoop-ports = <0x80>;
-+
-+		status = "okay";
-+	};
-+};
-+
-+&mac1 {
-+	clocks = <&syscon ASPEED_CLK_GATE_MAC2CLK>,
-+		 <&syscon ASPEED_CLK_MAC2RCLK>;
-+	clock-names = "MACCLK", "RCLK";
-+	phy-handle = <&ethphy1>;
-+	phy-mode = "rgmii-id";
-+	pinctrl-0 = <&pinctrl_rgmii2_default>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+&mdio1 {
-+	status = "okay";
-+
-+	ethphy1: ethernet-phy@0 {
-+		compatible = "ethernet-phy-id001c.c916";
-+		reg = <0>;
-+		reset-assert-us = <10000>;
-+		reset-deassert-us = <50000>;
-+		reset-gpios = <&gpio0 ASPEED_GPIO(C, 1) GPIO_ACTIVE_LOW>;
-+	};
-+};
-+
-+&rtc {
-+	status = "okay";
-+};
-+
-+&sgpiom0 {
-+	bus-frequency = <2000000>;
-+	gpio-line-names =
-+		/*A, 0-7*/ "CPU0_VRHOT_N", "LED_POSTCODE_0_LSB",
-+				"CPU0_THERMTRIP_N", "LED_POSTCODE_1",
-+				"CPU0_MEMTRIP_N", "LED_POSTCODE_2",
-+				"CPU0_MEM_VRHOT_N", "LED_POSTCODE_3",
-+				"CPU0_MEM_HOT_N", "LED_POSTCODE_4",
-+				"CPU0_MON_FAIL_N", "LED_POSTCODE_5",
-+				"CPU1_VRHOT_N", "LED_POSTCODE_6",
-+				"CPU1_THERMTRIP_N", "LED_POSTCODE_7_MSB",
-+		/*B, 8-15*/ "CPU1_MEMTRIP_N", "FM_ASYNC_WARM_RESET_REQ",
-+				"CPU1_MEM_VRHOT_N", "HPM_FRU_READ_DONE",
-+				"CPU1_MEM_HOT_N", "FM_ASYNC_GLOBAL_RESET_REQ",
-+				"CPU1_MON_FAIL_N", "BMC_BOOT_DONE",
-+				"CPU2_VRHOT_N", "NMI_OUT",
-+				"CPU2_THERMTRIP_N", "AGGREGATOR_MODE",
-+				"CPU2_MEMTRIP_N", "RST_I3C_PCIE_HUB_N",
-+				"CPU2_MEM_VRHOT_N", "",
-+		/*C, 16-23*/ "CPU2_MEM_HOT_N", "HPM0_PRESENT",
-+				"CPU2_MON_FAIL_N", "HPM1_PRESENT",
-+				"CPU3_VRHOT_N", "HPM2_PRESENT",
-+				"CPU3_THERMTRIP_N", "HPM3_PRESENT",
-+				"CPU3_MEMTRIP_N", "HPM0_SOURCE_TO_DESTINATION_FAIL",
-+				"CPU3_MEM_VRHOT_N", "HPM1_SOURCE_TO_DESTINATION_FAIL",
-+				"CPU3_MEM_HOT_N", "HPM2_SOURCE_TO_DESTINATION_FAIL",
-+				"CPU3_MON_FAIL_N", "HPM3_SOURCE_TO_DESTINATION_FAIL",
-+		/*D, 24-31*/ "FM_BMC_VAL_EN", "HPM0_FRU_VALID",
-+				"FM_SERIAL_BOOT", "HPM1_FRU_VALID",
-+				"FM_INTRUSION_CABLE_PRES_N", "HPM2_FRU_VALID",
-+				"USB_OC_P2_3_N", "HPM3_FRU_VALID",
-+				"FM_SYSTEM_COOLING_MODE0", "FM_S2D_DISCOVERY_DONE",
-+				"FM_SYSTEM_COOLING_MODE1", "", "", "", "", "",
-+		/*E, 32-39*/ "DBP_PMODE_S0_PWROK", "", "DBP_PMODE_PLTRST", "",
-+				"DBP_PMODE_GLOBALRESET", "", "DBP_PMODE_CPU_PWRGD", "",
-+				"FM_SMBUS_RDY", "", "FM_LEAK_DETECTION", "",
-+				"FM_LEAK_CBL_PRSNT_N", "", "FM_LEAK_CBL_FAULT_N", "",
-+		/*F, 40-47*/ "CPU0_SKTOCC1_N", "CPU0_SKT_FAULT_LED",
-+				"CPU0_SKTOCC2_N", "CPU1_SKT_FAULT_LED",
-+				"CPU0_MISMATCH", "CPU2_SKT_FAULT_LED",
-+				"CPU1_SKTOCC1_N", "CPU3_SKT_FAULT_LED",
-+				"CPU1_SKTOCC2_N", "", "CPU1_MISMATCH", "",
-+				"CPU2_SKTOCC1_N", "", "CPU2_SKTOCC2_N", "",
-+		/*G, 48-55*/ "CPU2_MISMATCH", "", "CPU3_SKTOCC1_N", "",
-+				"CPU3_SKTOCC2_N", "", "CPU3_MISMATCH", "",
-+				"HPM0_PRSNT_N", "", "HPM1_PRSNT_N", "",
-+				"HPM2_PRSNT_N", "", "HPM3_PRSNT_N", "",
-+		/*H, 56-63*/ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-+		/*I, 64-71*/ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-+		/*J, 72-79*/ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-+		/*K, 80-87*/ "FM_BOARD_REV_ID0", "", "FM_BOARD_REV_ID1", "",
-+				"FM_BOARD_REV_ID2", "", "FM_BOARD_SKU_ID0", "",
-+				"FM_BOARD_SKU_ID1", "", "FM_BOARD_SKU_ID2", "",
-+				"FM_BOARD_SKU_ID3", "", "FM_BOARD_SKU_ID4", "",
-+		/*L, 88-95*/ "FM_BOARD_SKU_ID5", "", "FM_BOARD_SKU_ID6", "",
-+				"FM_BOARD_SKU_ID7", "", "", "", "", "", "", "",
-+				"", "", "", "",
-+		/*M, 96-103*/ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-+		/*N, 104-111*/ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-+		/*O, 112-119*/ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-+		/*P, 120-127*/ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "";
-+	ngpios = <128>;
-+
-+	status = "okay";
-+};
-+
-+&uart1 {
-+	status = "okay";
-+};
-+
-+&uart5 {
-+	status = "okay";
-+};
++MODULE_AUTHOR("Serv Pol <servpol@tuta.io>");
++MODULE_DESCRIPTION("GL.iNet GL-E750 status MCU battery driver");
++MODULE_LICENSE("GPL");
+
 -- 
-2.43.0
+2.47.3
+
 
