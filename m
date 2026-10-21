@@ -1,52 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792603239;
-	b=tE4E33YWu3v0E7AWHGPxrQVKP860AtptXUj/c/sqgHYKGYiF3R0TBVkbmBE4veTliFXs
-	 wgQeD8XpZnAmwYQIleuAONnRLymlVxpi4YoBbC88JG0Q5GKE60uso2RiMrc8EHV8SKeG5
-	 8cySzInXv3BTl02zFlxBCP+9wCZH1A7nlIr5PX9uBEq5HcrZc8+NZCp3iGsdRpcEMXpvt
-	 yFdmGsro+Tgw1rM9KAlchFMhMFwxQyRlpJmQNNhsID80uVmbB4BDyucVPN1C65HVvPdBb
-	 7f0hwAk2HVjBnLcV3e9lFEM5bsnIBEwfIMOJeZD3haBlsxpodCyvjsU0xyk1U5ISQaw==
+	t=1792603280;
+	b=ho6MZH2dXqi+I2nYjtqMp3lpe75ltzDs0J40aJpo5AHKbeoZJ1k/buJhcdzrBfyyCIdR
+	 v9dqRnUxaUkxqYj6mOEIQxGJZd840YL1PXBasJtO7RxhRqHxs9mKRWfFGD/pHv8qlK3Bz
+	 jEV+pIV5WIZT5th68w50auLZb5r8gaP497K+eFBacy73ve7PjhISxe2ZYgxNKJLaMgah+
+	 B2+oBDlIeqnlAgI2kB4iUknR4DK1RvZkKxCPCblXu3bdy9Yg7I0cRpH7xea9Z17tIYWdb
+	 E+KDUc+9dGOsdF/4dKdfJLqCGM7iu/BkoyfFUzBdq086DbkenVZA9OJMMAPm7jwxlhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792603239;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=SuDvx00jor0zB+rk10Hah3tZomTrz/6EdT+On4Upk9g=;
-	b=xqe//jdBNC5JtNzapSpLpXa77d/QkGaI0aMvfP9m3b+o9NEuGaV6K1OYuhIz1sFsF7uH
-	 Bv2uvfMnL8Y+rEpsr6oUZAdqCc5afJEQiNK4MCgmNNSmc4kzjWghqxO+lVnQHtTBZ9SR8
-	 FeKOer+J4gJQ7CyWV0aEkth+8YeNL/yAK2hq5ExMk3I0Jp0ECViNfcFub+OzhtLc3evpo
-	 1eqhR68NxT4mK8kawJcEoAqiwZqZCxwyOdITzwgRw0YJp1pyv50lAVUMy8jF1X5MWa8Gc
-	 WGSpa1KGGdjNSfUfQTJkWYgDJc1650507Q8S76MXxLVEJCMRwblNJDGFvQvAeULH1lg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792603280;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=aYnP9EzvQu5c7OzWw3Xivytyue2e+5YkT93F7KbL5/Q=;
+	b=1fdQbJVgGIDSvuMDjQiAeRDAYiDDCnKYcdeSvVtmTyroM3/+lF6su6mz+S1tnMvrkYT9
+	 vPBAAufuo9oA7HJp/nHkGoBvv4Q+R2Xa5H0PBUO7+WhHOxTUr+l5yrDzrLoz2CZMlAyP0
+	 5TK50eyoyz8Xbml06M3A0g9q0OsArih+Gx9d7dLL2piyXZ8QBbcZ7FJwTeIhYhnFpPELr
+	 U+ZnnAZ3js7/+xI1joKAoL+SuVhqOH4yYBWbdune//G8vAPxhxZjS7iR7HzjE/ZWA6l+p
+	 e0B4CjKW8GSnEai9e8RHfbDYqVyc3Z0LbAdlPxPc2tPpsUzFXwREnNplWNvYg9Oz9tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=XuBYSPHg;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=D2LCNvwu;
+	arc=none smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3857606A31B;
-	Wed, 21 Oct 2026 17:20:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3857606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D300606A31D;
+	Wed, 21 Oct 2026 17:21:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D300606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=XuBYSPHg
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 07E231051F7;
-	Wed, 21 Oct 2026 19:20:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1792603232;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=SuDvx00jor0zB+rk10Hah3tZomTrz/6EdT+On4Upk9g=;
-	b=XuBYSPHgIeqY/Zc+aoRhwxC2Koif9dMn8TiYbm+/fpd+cuKrZE9gVoaOEwTbUvKl5jX2fx
-	iozIXA3WwRrIcH8f5LZHJhdPOVNcJTnHN+9O9nT99HmPO1tbfSEv4LWkaz8DqMszURdO0D
-	ou8YSL5AujzVwu+rG1AI3ryFt/4z9enkbIlZXTPgVNIrDtG7iBF4kt26w3wkdOiWVUi+9Q
-	Vv1Ic19nDJ96rDT83NQyfUMQ+jti4RJV7M6LRWxczrNxq1lUIorAn5konHJ2rho/0jmxrr
-	yKNedkmkv5AZqgw9PvRLEc2v3l/hcNAmxp0HbxTSKV0BQRvfCDgBa/p97J7l2w==
-Message-ID: <3ca82faf-dc5a-4ef7-ad8a-f6273b3e0388@nabladev.com>
-Date: Wed, 21 Oct 2026 19:20:31 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=D2LCNvwu
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792603281; x=1824139281;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=v7fSLTfyM6AlbgewY7IYOSHnM8YIN5meuZi9253LlHg=;
+  b=D2LCNvwuOlF+wzPz9LdAodIh78N8/jFbepQ+fAC0lfzCLwzAGipagTcq
+   BSPhFrG61TC0ojpij0RyeIKEjOScnuoUci7XDV33+UtrhqYcndU4U/hXC
+   PQliKTkqcXz4S7cWuYHxHROfP5tn85t2yx1IL/pj9dlQqii3LLOqnrrz0
+   B/svgvtFgYRJxh0InT1qV5lBm7+/B7M08KtrG/196QBCOzrHGM9LovJGA
+   4qGWKeHkNLFRkhedkocROkOiMaEGaSbmXYTG+Crwx1/CMmg9oGUyCBjmm
+   ct52SQmNSLMPtx8QaYBOOlNE7q8zXmceIQI4uC9vDSwinsum+U2ZXEozX
+   w==;
+X-CSE-ConnectionGUID: nWhcBqz/Ql6WIkni4RXEXQ==
+X-CSE-MsgGUID: 9e/hdHWyQBK5JDYM38KQYw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1344986"
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="1344986"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 10:21:20 -0700
+X-CSE-ConnectionGUID: Z0kXF4sbQEeShgBC25pcTQ==
+X-CSE-MsgGUID: ooYRJCglToWIM3GUM965iw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="4939386"
+Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 10:21:16 -0700
+Date: Wed, 21 Oct 2026 20:21:13 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+Cc: linux-serial@vger.kernel.org, gregkh@linuxfoundation.org,
+	jirislaby@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, ilpo.jarvinen@linux.intel.com,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-sunxi@lists.linux.dev,
+	Andre Przywara <andre.przywara@arm.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Enzo Adriano <enzo.adriano.code@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] serial: 8250_dw: Keep the BUSY-safe divisor hook
+ when DLF is present
+Message-ID: <atj0iRFTxHKmhxVG@ashevche-desk.local>
+References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
+ <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
+ <20261020104753.28703-1-vinicius.eduardo.pedrosa@gmail.com>
+ <athe0QikG2mzCAtd@ashevche-desk.local>
+ <20261021100049.16504-1-vinicius.eduardo.pedrosa@gmail.com>
+ <atjB-BnXclL3FcUm@ashevche-desk.local>
+ <20261021153732.1978410-1-vinicius.eduardo.pedrosa@gmail.com>
+ <atjqZPuAbHDdaexv@ashevche-desk.local>
+ <20261021170403.2052449-1-vinicius.eduardo.pedrosa@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -56,56 +95,43 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] ARM: dts: imx6ull-dhcor-maveo-box: Correct PCB number
-To: Christoph Niedermaier <cniedermaier@dh-electronics.com>,
- linux-arm-kernel@lists.infradead.org
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
- imx@lists.linux.dev, kernel@dh-electronics.com, linux-kernel@vger.kernel.org
-References: <20261021134435.17350-1-cniedermaier@dh-electronics.com>
- <20261021134435.17350-2-cniedermaier@dh-electronics.com>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <20261021134435.17350-2-cniedermaier@dh-electronics.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021170403.2052449-1-vinicius.eduardo.pedrosa@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 10/21/26 3:44 PM, Christoph Niedermaier wrote:
-> The PCB number of the maveo box isn't 525. Change the
-> number to the correct number, 625.
+On Wed, Oct 21, 2026 at 02:04:03PM -0300, Vinicius Pedrosa wrote:
+> On Wed, 21 Oct 2026, Andy Shevchenko wrote:
+
+...
+
+> > I dunno, I prefer just a longer solution, but I don't know how big this issue
+> > is that we need to backport in that way (and not taking the whole series as a
+> > fix).
 > 
-> Fixes: 145e2732a5e9 ("ARM: dts: imx6ull-dhcor: Add Marantec maveo box")
-> Signed-off-by: Christoph Niedermaier <cniedermaier@dh-electronics.com>
-> ---
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Frank Li <Frank.Li@nxp.com>
-> Cc: Sascha Hauer <s.hauer@pengutronix.de>
-> Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
-> Cc: Fabio Estevam <festevam@gmail.com>
-> Cc: Marek Vasut <marex@nabladev.com>
-> Cc: devicetree@vger.kernel.org
-> Cc: imx@lists.linux.dev
-> Cc: kernel@dh-electronics.com
-> Cc: linux-kernel@vger.kernel.org
-> ---
->   arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts b/arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts
-> index eb0b91040110..bb82d97f9d84 100644
-> --- a/arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts
-> +++ b/arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts
-> @@ -6,7 +6,7 @@
->    * DHCOM iMX6ULL variant:
->    * DHCR-iMX6ULL-C080-R051-SPI-WBT-I-01LG
->    * DHCOR PCB number: 578-200 or newer
-> - * maveo box PCB number: 525-200 or newer
-> + * maveo box PCB number: 625-200 or newer
-Is the rev.200 correct , or is the base board still rev.100 ?
+> On the severity: the IER restore comes from a7b9ce39fbe4. On the A733 I
+> saw hardware IER left at 0 and the console stop taking TX/RX
+> interrupts. I haven't tested this on hardware with a real DLF.
+
+Yes. but is it only a single device/platform affected or a big class of the
+devices? I assume only narrow part of them which unfortunately use DFL register
+offset for something else in their RTL.
+
+> Given that, how about keeping the small fix as patch 1 with the stable
+> tag, and putting the refactoring after it in the same series? That would
+> keep the fix independently backportable if needed, while mainline would
+> still end up with the structure you proposed.
+
+It all depends on the outcome of the above discussion. Maybe others can share
+their opinions, but I lean towards a series-as-a-fix rather than a bit ugly fix
++ proper refactoring on top.
+
+The whole approach doesn't seem to me like a pile of changes. The deduplication
+patch can be deferred for later actually.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
