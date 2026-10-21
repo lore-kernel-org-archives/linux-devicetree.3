@@ -1,55 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792595879;
-	b=QD7gwGYvxbCegNbSHpRwglCJ7B4lI60Y3lQGYcpNCicL04bPW/dzBnv8rSCveYaW+doH
-	 BuRU2SY16+w1q7vokU8f4OgYuXa4HAcZBopLva+VH0jZlH2WQ/81rcrkjMTd9LUOvRABJ
-	 bK6vv7hDz6zs6Ky0ssfAJb4UXchLm5QiNIFFyKSS4YQlc78haOWTLIzkJUmT9flkYpb0r
-	 QM731gCrogTlZhPAzyHjpEaVevqXRRjG5U5lGM8XU8dR19Dyp6zbpCom0kA+LqT3KL/01
-	 2GBTKJG3H4vhgOgJJxdI7wWnUQSEQ1DaZ8LLjkkhMIAbSu0MNL1w75EvAwwrn2NAQ8Q==
+	t=1792595888;
+	b=BSj+VWE7RXOBy2zjlal3h+AOYgLIoG47Wm4+xN/9lLwA2mAziWhc7uu86ZY0qxyPNEo/
+	 YFgzcyNZExN3xblhCdUnYCkmV0gzplv7A7Rp6agIx+H5YEVTJ/5C53DaBsYqoa2n71dXN
+	 9pJyf545cZhcOScmI5LI80ISwnWzFZrpQlAUMHjLok65nqkJAx3Q5UU/P9KI8Pf3tY/Y1
+	 DE6hZwx6tsav8gOJ9cg2b4HbAGxx2Td6GB77vRWDQI8LkhFpHBWu4A/TiRypDprEBLrdM
+	 8nAzTbwiLvU8FMVgsnaEqss14j5CXvQ2ZdHMd/6m3LCfKettU6EY2bPzr+KHxnwkPDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792595879;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
-	 From:To:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=i/xsAik0AiF4ZhaovobbhwcQ+i52DTyZxtRC73POBos=;
-	b=vG4/hEMflxdEexizSW9SCjsF8BH0vQ00wXRSuGa2WA259Aw5pf55j2VegaxT6HE0d4KU
-	 oeUlcJyEWTH3xXuttXh6sOx2nsWBuISWiPzL3Hz0JRJ6Sw9Kw42iQdRW9IqaUyqKzrL2R
-	 YEjYDq+YjLMBUI6IrCC41X+NklG6UKH5iMaBbwK8/IVloRzhhLq+y87xRf14w0eDFKbfL
-	 dZJiAOaKRe6MPukoR+Y8/W2tHgzhSsQlEZCodYyOWmQAdxkwEOSTbM+MyPrwP2ITFVbzB
-	 JnRTakuUe2mj9VFOlGZVsdOBCn2Pq5DsZU8sWFO8wZdACAgI/aKlIBqVV9w//WGed1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792595888;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=VtTNcob6wDI6W4Rur9wkYiGVF70PDqK7oa/KU9FOQJk=;
+	b=W8jl5coZJMqYLD687EfaXabSs28Be9/x5T69AQqsJCYZps7ZbBN1NFCWEK6WI86S3COo
+	 ASf/FMFkFYvzKXykRKYMGlFjtxtUimFDH0dR3Xcr18FCzy2OpTZRvRUacFIgye7F6hzh3
+	 tmjZmAa/b5CEiawYkQJGs3AoWF14cvhySDeS3UdT4ByOJnYkLtffV/lZ55PhcqZY9Y8zD
+	 7Q/zbfR76JnCY+iOUuNk3yvcDaGeo38w4JI4XDMIp7Sh17mjd8eWmlo0GB78xm3JsecKY
+	 xIUdsLkoYt1xcymadpPqWr6cvzTogtH0euw5g+k7NTm1mwIRBnOA+NRLrYK2rtnDsdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=avNFwwVf;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=juMBFt5f;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=PuC+0OEB;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9373E606A33B
-	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 15:17:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9373E606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7276360A381B
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 15:18:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7276360A381B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=avNFwwVf
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id F39274E41294;
-	Wed, 21 Oct 2026 15:17:55 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C96DD606E3;
-	Wed, 21 Oct 2026 15:17:55 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7EB23103289F5;
-	Wed, 21 Oct 2026 17:17:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792595875; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=i/xsAik0AiF4ZhaovobbhwcQ+i52DTyZxtRC73POBos=;
-	b=avNFwwVfRBX6qEdr+In6mRaZPHt5OPunp7ZLlNfwbmtnGNa2jkshcYshINSic2K5kqC90b
-	27xYzxzKrRG5rIU1VQHPCp0e8zGH9zXhVJoOnQVgI2nJ+c1J24mvEMDuscWDxxNl3ERPF/
-	QB3oituci9pxbdmCZEU2l1H92eBhnLIfzZ6BpxPQSY3K38Q3p5nDtsIoOPXAe5LYE5IHJ/
-	YARxJmml2qze3AWoMRCPjef/9beV8ryYbHi1KI53jj+djNmKxO1f78NPntka5IVV7WvfId
-	XD6dxVGdSj/oaWYNK6saTQhoIyGUGfMh+mZ91jGPvHbParb4fY1VxzjqLuFWPA==
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=juMBFt5f;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=PuC+0OEB
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LEEwW9657190
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 15:18:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	VtTNcob6wDI6W4Rur9wkYiGVF70PDqK7oa/KU9FOQJk=; b=juMBFt5fQg6G/ln9
+	RkrfhmZCpWEYfGry4aXOj4/+pMiGw6UMNV/pX+x7BdIxsXxxbIZOyKvzH4/HT12z
+	zFcBgJpDibSmsig15qm7ZJyPW0jtPmIJ1ZW4Y29pWbPHHrQusT4ViQTTSlOa7BNs
+	JDSkcPiMEBa2DhxDA6WAes9SwVwQ24l9XGAW24OeqKH0xVXI0e4l8OzNzgn+YHz2
+	EJLtDt4yQO+2PIU+rZVNpc5PnDjyfiOsAK7LlfllYuIFahPPL5XkSvLT42lQcAoN
+	DVKH0drXCZPCOwEUfLATZUB+rVeylG2f57P0W4GkJg8gdEM/LsSS5QTjTK9dGr++
+	7f1DQA==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hed9v4p13-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 15:18:06 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-33713e5e6daso1386194eec.0
+        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 08:18:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792595885; x=1793200685; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VtTNcob6wDI6W4Rur9wkYiGVF70PDqK7oa/KU9FOQJk=;
+        b=PuC+0OEBcTxg3Awhw3aX8SIySTCnFlB9TWX2KpyySf5U+epwNtwaqyhlkq/jHSxBCI
+         CRe9ER07teSMaIJhYKZNrpKd71BMDyr1rHp/zBLGra+zFNjqXa/OkMWyDK8ZvZUW4Bhm
+         WkXAchSJatyBpEPZ/DdIgN0+91VwRspvMzdGteMWHWg6EpigAIEMlCnW4T07HD4qJLDj
+         c6OCngaqpWNTWfeZB2+1QeJb43e6TCEw3RUIPTOd18uQFspPYPOYQwtld/fto4lC+9Fy
+         Y3IepwNdGxQPHAtN35qqHVPK345xG/tGRb9uvWRmun+bWePv5Z1znkcKQybPQlr/X6sW
+         dBjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792595885; x=1793200685;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VtTNcob6wDI6W4Rur9wkYiGVF70PDqK7oa/KU9FOQJk=;
+        b=jCkJG4yR3BQ7hpgWY55mDPRoNrgT/XB5qVKXsheNxHtVX/0ptj7jSvfYMXVPjjpsEI
+         F7DPkCN2iyiPmAYM+zwAu1TWmJusIsEFlMPjjIp8M8URD1Vo2mpTPh05Tjg6Nanr8rn9
+         rTHWwuOpT8uYZ6vAzK05Vbpl4cwltXNHDsO1NhQVDRElW3ABW6mW2sK0s5irkcR7cmkY
+         sHwfPhW4bsjpOaT9dj12LAYty7KfnRceQqO4fkLQzq7FIdORHABF5x+ubuYjKdCcuuSf
+         ElAjRQ0NRunOKgKY1vz1fgdx1I2zke4UXvO5/1kM9u9MiWSH0+wNI4tcZvRiu6OxmSIm
+         AdTA==
+X-Forwarded-Encrypted: i=1; AKwUvBxL8smZp6qLrYhTWp7WUVib9xrQrD9Gj1qwZSt0w7LzscALu8BrZY8FIJzpzmCVdg8SMXz1Jbu1wi3X@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ9qtcuJb8FhomaU0jg9qtfiUEMf7xbENpsP1fIdJaoKF2wvnZ+
+	ie2GANqNVTY7Ew1nfyDPSOW0oqeDGcv7SyNmiPL4ftIOJlbiFVuLsIe90D0ugydm7sSaYrj7sX5
+	iNQfc7plVzvQ7MSyfeS/2omODRr8farPBl2mWZgmyFTvoMarDEiNqzTMr66lfBXKf
+X-Gm-Gg: AYBFou1ZxWMSeTsXjQjCGGDxrnNTVeEzsgInlPbxOgOmZeda7YAS6DI215pxULC53Sj
+	pXuPqSNA2ScZbvOHPCph8Gy2QrvGaoa9fCtnd6hZE95fuWEuv4rPfu8+tdPmzvF2wys1ZC1KkOq
+	6J8AuM5eovmyTCKeJMp7JiBgykYOUFWBwYmfSF4mMDfjU6GztV1B4z/7U9VK9jGU+Qhm/Vlg8FD
+	vESlPUSz0qo9dnFg2pfKZY8KCcmO8IUFJwMeIf+W7dRaXwJC2ExYcTBw9DxQJepUvTiyjjYGBjS
+	XnYK4t6b9fDgN05SQXxiXy4bR92LiCDFYNTCJcV70PDsImTUsxO9Xyrr6lcYDZ3O+mbd9TCAI1v
+	/18j47YfdBbn67JkJnXbp41mA9aPpoTN9
+X-Received: by 2002:a05:7301:d813:b0:360:f13a:ff0e with SMTP id 5a478bee46e88-3674d753a4cmr3341573eec.23.1792595884449;
+        Wed, 21 Oct 2026 08:18:04 -0700 (PDT)
+X-Received: by 2002:a05:7301:d813:b0:360:f13a:ff0e with SMTP id 5a478bee46e88-3674d753a4cmr3341545eec.23.1792595883840;
+        Wed, 21 Oct 2026 08:18:03 -0700 (PDT)
+Received: from hu-anantiwa-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36740cc8c6dsm9142117eec.12.2026.10.21.08.17.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 08:18:03 -0700 (PDT)
+From: Anand Tiwari <anand.tiwari@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 20:47:29 +0530
+Subject: [PATCH 5/6] arm64: defconfig: Enable PWM_CLK for backlight PWM
+ support
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,285 +115,81 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 21 Oct 2026 17:17:53 +0200
-Message-Id: <DMAM7BSH2RV7.7DWVA3SLFF5N@bootlin.com>
-Cc: <devicetree@vger.kernel.org>, <robh@kernel.org>, <conor+dt@kernel.org>
-Subject: Re: [PATCH 3/5] regulator: core: Add mechanism to force disable a
- regulator at boot
-From: "Paul Louvel" <paul.louvel@bootlin.com>
-To: <sashiko-reviews@lists.linux.dev>, "Paul Louvel"
- <paul.louvel@bootlin.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com>
- <20261021-paul-lm51772-v1-3-25f0ffbffa8d@bootlin.com>
- <sashiko-outbox-180119@kernel.org>
-In-Reply-To: <sashiko-outbox-180119@kernel.org>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261021-lyra-display-upstream-post-v1-5-585caa39cd7c@oss.qualcomm.com>
+References: <20261021-lyra-display-upstream-post-v1-0-585caa39cd7c@oss.qualcomm.com>
+In-Reply-To: <20261021-lyra-display-upstream-post-v1-0-585caa39cd7c@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Florian Fainelli <florian.fainelli@broadcom.com>,
+        Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+        linux-arm-kernel@lists.infradead.org,
+        Anand Tiwari <anand.tiwari@oss.qualcomm.com>,
+        venkata.valluru@oss.qualcomm.com
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792595849; l=673;
+ i=anand.tiwari@oss.qualcomm.com; s=20260717; h=from:subject:message-id;
+ bh=PvJgpXbjwbKmN5hdDTOHLEi0wLguTf8dYpZBKf8nIB0=;
+ b=QD7bkVOSV9SdvGpM2J2FTKAwcB/SWheGW/3C0KQYWHaSnIMXjLZrXgJmlttGvhy3Chng6xe3x
+ 7tOviLzTbojBgyDV6TwzXknfvvMOCGL9TJV8pOjb4Qeslv3iArQqBfr
+X-Developer-Key: i=anand.tiwari@oss.qualcomm.com; a=ed25519;
+ pk=ygURjl6LxwG8EhgPNHYYgCZLsaXFgWZZoHRRyud5B40=
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA2MCBTYWx0ZWRfX3SFFdfoZYHh1
+ M5MRL3m8Ge/2PE8DVc6+VErujtxirSXbJqbBGYc4mqgFDMmzV5YQXpvQhzypc9dJry+AZ6poBS2
+ s77r5sDyo664Nfjl54TjS0MAh/sqhq0=
+X-Proofpoint-ORIG-GUID: bC7PrmM5L8A3IPkBa0Erm1pAUzHJQk3y
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA2MCBTYWx0ZWRfX8RaWZA95NBmq
+ 6nR5OCY/mk4l4B1DnzD5kWQGt+67cQEWoX3Ulh2HiEaPd7aeX3X82RVXU0sw3aOopphpdhQzz5v
+ AolYzace0RMqQxqQzYjZnuI7QvZRNvCOVIJdcSOGZ1y4HFjo4iGk2+SUI2yVnXi/EUXXk5fJ9Eb
+ k1g7QzzhXWpzrwciyNQqe+wAJoxxTO9llNJZgWs7wzEgsaP9kh0I/IOlFFXYuDPOtXgv1VJ52jo
+ V9dVPfE6LH4kzT6Yw14j/V/YucbdjO6khchLkAh1R7eNaENjJIMt7lTmWX6TpoTBdjjPds2DTi+
+ UiRUIpM+YyUZ3KgqYOXLSjYwCcxvI7tiE3Xe45pk57gJ7e3esB6UrOn+FcHk9nkG/ddv1ZNnbB/
+ N+9tk12+FALTzHknkLYyz2c7+KkfboS49yadHyYxa1np7NuggZ84bvEbsuXLdxNOB2AvcYikSpm
+ eZC1XIwoNwnwq+X5KQw==
+X-Authority-Analysis: v=2.4 cv=I6zw19gg c=1 sm=1 tr=0 ts=6ad8d7ae cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=FxRAHWTHE1z7yW8SwP0A:9 a=QEXdDO2ut3YA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-GUID: bC7PrmM5L8A3IPkBa0Erm1pAUzHJQk3y
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-21_04,2026-10-21_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 suspectscore=0 clxscore=1015 bulkscore=0 lowpriorityscore=0
+ impostorscore=0 spamscore=0 priorityscore=1501 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210060
 
-On Wed Oct 21, 2026 at 12:46 PM CEST, sashiko-bot wrote:
-> Thank you for your contribution! Sashiko AI review found 4 potential issu=
-e(s) to consider:
-> - [High] regulator: core: missing mutual exclusion for boot_force_off in =
-set_machine_constraints()
-> - [High] regulator: core: boot_force_off is a no-op for GPIO-controlled r=
-egulators
-> - [Medium] regulator: core: boot_force_off works around consumer API misu=
-se
-> - [Low] regulator: missing kernel-doc for boot_force_off in struct regula=
-tion_constraints
-> --
->
-> commit 934802b5e041e184ae3df8fc8a423b7e086bf66c
-> Author: Paul Louvel <paul.louvel@bootlin.com>
->
-> regulator: core: Add mechanism to force disable a regulator at boot
->
-> This commit adds the regulator-boot-force-off device tree property and th=
-e
-> corresponding boot_force_off constraint flag to disable a regulator in
-> set_machine_constraints() during registration.
->
->> diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
->> index 14422cfe80e2d..b45048ec084a1 100644
->> --- a/drivers/regulator/core.c
->> +++ b/drivers/regulator/core.c
->> @@ -1450,6 +1450,81 @@ static int handle_notify_limits(struct regulator_=
-dev *rdev,
->> =20
->>  	return ret;
->>  }
->> +
->
-> [ ... ]
->
->> +static int _regulator_do_disable(struct regulator_dev *rdev)
->> +{
->> +	int ret;
->> +
->> +	trace_regulator_disable(rdev_get_name(rdev));
->> +
->> +	if (rdev->ena_pin) {
->> +		if (rdev->ena_gpio_state) {
->> +			ret =3D regulator_ena_gpio_ctrl(rdev, false);
->> +			if (ret < 0)
->> +				return ret;
->> +			rdev->ena_gpio_state =3D 0;
->> +		}
->> +
->> +	} else if (rdev->desc->ops->disable) {
->> +		ret =3D rdev->desc->ops->disable(rdev);
->> +		if (ret !=3D 0)
->> +			return ret;
->> +	}
->> +
->> +	if (rdev->desc->off_on_delay)
->> +		rdev->last_off =3D ktime_get_boottime();
->> +
->> +	trace_regulator_disable_complete(rdev_get_name(rdev));
->> +
->> +	return 0;
->> +}
->
-> [Severity: High]
-> Does boot_force_off work for regulators that use an enable gpio
-> (rdev->ena_pin)?
->
-> During regulator_register(), rdev is zero-allocated and
-> regulator_ena_gpio_request() attaches rdev->ena_pin without setting
-> rdev->ena_gpio_state. When regulator_register() -> set_machine_constraint=
-s()
-> calls _regulator_do_disable(rdev) for boot_force_off (with always_on and
-> boot_on unset), rdev->ena_gpio_state is still 0.
->
-> In _regulator_do_disable(), when rdev->ena_pin is present and
-> rdev->ena_gpio_state is 0, the code skips regulator_ena_gpio_ctrl(rdev, f=
-alse)
-> and also skips the else-if branch for rdev->desc->ops->disable(rdev).
->
-> Won't this leave gpio-controlled regulators enabled in hardware at boot?
+Enable CONFIG_PWM_CLK so the generic clock-based PWM driver is
+available, used by the Talos Lyra EVK LVDS panel overlay backlight.
 
-Yes, any idea why there is a state instead of turning off the gpio instead =
-?
+Signed-off-by: Anand Tiwari <anand.tiwari@oss.qualcomm.com>
+---
+ arch/arm64/configs/defconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
->
->> +
->>  /**
->>   * set_machine_constraints - sets regulator constraints
->>   * @rdev: regulator source
->> @@ -1701,6 +1776,12 @@ static int set_machine_constraints(struct regulat=
-or_dev *rdev,
->>  		rdev->last_off =3D ktime_get();
->>  	}
->> =20
->> +	if (rdev->constraints->boot_force_off) {
->> +		ret =3D _regulator_do_disable(rdev);
->> +		if (ret < 0)
->> +			return ret;
->> +	}
->> +
->>  	if (!rdev->constraints->pw_budget_mW)
->>  		rdev->constraints->pw_budget_mW =3D INT_MAX;
->> =20
->
-> [Severity: High]
-> What happens in set_machine_constraints() if boot_force_off is set togeth=
-er
-> with always_on or boot_on?
->
-> Neither of_get_regulation_constraints() nor set_machine_constraints() pre=
-vents
-> boot_force_off from being active at the same time as always_on or boot_on
-> (including when set_machine_constraints() implicitly sets
-> rdev->constraints->always_on =3D true when !rdev->ena_pin && !ops->enable=
-).
->
-> Right before this boot_force_off check, set_machine_constraints() handles
-> always_on and boot_on:
->
-> drivers/regulator/core.c:set_machine_constraints() {
-> 	if (rdev->constraints->always_on || rdev->constraints->boot_on) {
-> 		...
-> 		if (rdev->supply &&
-> 		    (rdev->constraints->always_on ||
-> 		     !regulator_is_enabled(rdev->supply))) {
-> 			ret =3D (is_locked
-> 			       ? _regulator_enable(rdev->supply)
-> 			       : regulator_enable(rdev->supply));
-> 			...
-> 			supply_enabled =3D true;
-> 		}
->
-> 		ret =3D _regulator_do_enable(rdev);
-> 		...
-> 		if (rdev->constraints->always_on)
-> 			rdev->use_count++;
-> 	}
-> }
->
-> Because boot_force_off is checked in a separate conditional afterwards,
-> set_machine_constraints() will enable rdev->supply and rdev, and then
-> immediately call _regulator_do_disable(rdev).
->
-> If _regulator_do_disable(rdev) fails after rdev->supply was enabled,
-> set_machine_constraints() returns the error without disabling rdev->suppl=
-y,
-> and regulator_register() jumps to the wash cleanup path:
->
-> drivers/regulator/core.c:regulator_register() {
-> wash:
-> 	regulator_put(rdev->supply);
-> }
->
-> which triggers the warning in _regulator_put() and leaks the supply enabl=
-e
-> count:
->
-> drivers/regulator/core.c:_regulator_put() {
-> 	/* Docs say you must disable before calling regulator_put() */
-> 	WARN_ON(regulator->enable_count);
-> }
->
-> And if _regulator_do_disable(rdev) succeeds when always_on or boot_on is =
-set,
-> the hardware output is disabled while rdev->use_count remains 1 (for
-> always_on, preventing subsequent regulator_enable() calls from re-enablin=
-g the
-> hardware) and rdev->supply remains enabled with an unbalanced enable_coun=
-t.
->
-> Should boot_force_off be mutually exclusive with always_on and boot_on?
+diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
+index 50d6357727af..365a69470d13 100644
+--- a/arch/arm64/configs/defconfig
++++ b/arch/arm64/configs/defconfig
+@@ -1620,6 +1620,7 @@ CONFIG_PWM_ADP5585=m
+ CONFIG_PWM_APPLE=m
+ CONFIG_PWM_BCM2835=m
+ CONFIG_PWM_BRCMSTB=m
++CONFIG_PWM_CLK=m
+ CONFIG_PWM_CROS_EC=m
+ CONFIG_PWM_IMX27=m
+ CONFIG_PWM_MEDIATEK=m
 
-Yes probably.
-What was on my mind mind is that the boot_force_off property has higher
-priority. But this is not documented / I don't know if it is an acceptable
-behavior.
-
->
-> [ ... ]
->
->> diff --git a/drivers/regulator/of_regulator.c b/drivers/regulator/of_reg=
-ulator.c
->> index 09e26febfc834..337629be58ca7 100644
->> --- a/drivers/regulator/of_regulator.c
->> +++ b/drivers/regulator/of_regulator.c
->> @@ -132,6 +132,7 @@ static int of_get_regulation_constraints(struct devi=
-ce *dev,
->>  	constraints->always_on =3D of_property_read_bool(np, "regulator-always=
--on");
->>  	if (!constraints->always_on) /* status change should be possible. */
->>  		constraints->valid_ops_mask |=3D REGULATOR_CHANGE_STATUS;
->> +	constraints->boot_force_off =3D of_property_read_bool(np, "regulator-b=
-oot-force-off");
->> =20
->>  	constraints->pull_down =3D of_property_read_bool(np, "regulator-pull-d=
-own");
->>  	constraints->system_critical =3D of_property_read_bool(np,
->
-> [Severity: Medium]
-> Is a new device tree property the right way to handle consumers that want=
- to
-> disable a boot-enabled regulator during probe?
->
-> In the regulator framework, regulator_enable() and regulator_disable() ca=
-lls
-> on a standard consumer handle must be balanced because regulator_get()
-> initializes regulator->enable_count to 0 regardless of hardware state.
->
-> For consumers that have exclusive control of a supply and need to turn of=
-f a
-> regulator that was left enabled at boot without a prior regulator_enable(=
-),
-> regulator_get_exclusive() already syncs use_count and enable_count with t=
-he
-> hardware state in _regulator_get_common():
->
-> drivers/regulator/core.c:_regulator_get_common() {
-> 	if (get_type =3D=3D EXCLUSIVE_GET) {
-> 		rdev->exclusive =3D 1;
->
-> 		ret =3D _regulator_is_enabled(rdev);
-> 		if (ret > 0) {
-> 			rdev->use_count =3D 1;
-> 			regulator->enable_count =3D 1;
-> }
->
-> Could the affected consumer driver use regulator_get_exclusive() (or
-> devm_regulator_get_exclusive()) instead of adding regulator-boot-force-of=
-f to
-> device tree?
->
->> diff --git a/include/linux/regulator/machine.h b/include/linux/regulator=
-/machine.h
->> index 1fc440c5c4c7e..35ab9de96e5c7 100644
->> --- a/include/linux/regulator/machine.h
->> +++ b/include/linux/regulator/machine.h
->> @@ -227,7 +227,8 @@ struct regulation_constraints {
->>  	unsigned int active_discharge;
->> =20
->>  	/* constraint flags */
->> -	unsigned always_on:1;	/* regulator never off when system is on */
->> +	unsigned always_on:1;		/* regulator never off when system is on */
->> +	unsigned boot_force_off:1;	/* force regulator off at boot */
->>  	unsigned boot_on:1;	/* bootloader/firmware enabled regulator */
->>  	unsigned apply_uV:1;	/* apply uV constraint if min =3D=3D max */
->>  	unsigned ramp_disable:1; /* disable ramp delay */
->
-> [Severity: Low]
-> Struct regulation_constraints in include/linux/regulator/machine.h has a
-> kernel-doc comment block above the definition describing its fields. Shou=
-ld an
-> @boot_force_off entry be added there as well to avoid a kernel-doc warnin=
-g?
-
-
-
-
-
---=20
-Paul Louvel, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+-- 
+2.55.0
 
