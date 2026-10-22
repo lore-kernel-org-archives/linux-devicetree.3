@@ -1,87 +1,87 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792673493;
-	b=hxTMtCbDO0eSTHehXZOHwyalz+Vy3WTtDSsXfeIjmulFx5TsSddEcHRAZrgtkoOrqXrI
-	 7YamU2rYv9YLnLnQ519B5bxRHomgJWKB5DEhPDeB/+Mn/7goWD6HNUYn1y4AK33vWzyRU
-	 EnNf3BtrT2yJBOFVoQnBxTC7VCeWZ3hZnAh7XTJWU6+JddCn6zq86eQPng4HGWdTPbW3z
-	 DAAeBpSvzGplk/GXr/YWykUNit1EauMN0dMcY14uIcz8zxAwSDDYjv3yGfIs/s6AUhS53
-	 zJYOONeQ2P46q2DiYwe6Z/u17EIkB0YbBeKw//lfe3AwDHz8JQKGaqFufCk2Ea2wUuQ==
+	b=3tNoWaQjoLqwcU3aW610oOqi6niOQKb7iTkiQ06oVJFCDi2SGfpS2U+2orUfUb4kirty
+	 eqr2OkQZGQyAzh4boc1uWG4H7Gn3difmrJuK3GUMWyA5UNynKg6GV/KHz2Yn+j5FoRG9w
+	 EhsIu6WiiYUaPp5ykCE+jPfrF9MLleFYW3FlI6WU1vFIvMYmlOdHcNSqa/UJkDr1O4Ydx
+	 xj5Upwim2UYOnWWfj+qtg2vOCGViGykNiXNqXmqriZJvmhgpCdHvg1CAybkfl2yYLrSGb
+	 9hmCGFZUvh6XRTJYgu+2JZEW9fJUVzHM5gv5uzpk6Dbl8ZjnupqF6dxU+MA3mjKf8Mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792673493;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=UC1n9q3EpmPuUpvBqt4fP3LiFXC+thJA0wBcCFtVB2o=;
-	b=WgQSR0bC/AQP7LqtQSg4r/ZQpS63htr8VQxqxFoVf+iR1Um8T2He122L8Y60ASm+Zpvc
-	 b3DcyCiB9D0ta+KjoHrt4yIQgImiXbNFEHJ1sz7r1PEvzVThsCcnKMR6yEpF8l1YCKgmP
-	 kT8cYEks0Va9YF8orycsiFDwWtin0od7zSbWzVDy85ap0h0VuhdnNosMLU3HzYd1WJjFi
-	 NhvUKbhnLZEC2eyRDggSEvrbgd+t+LI8Dux/hX8WTiOT9aTxlP0BQYRXh/UaBBFBqA/3w
-	 88I1ElE2mRr9o2ER2dUXclTU6mwaV43DT4iEeG7S4hzXM3GhO0hfeoefkTPsOqeY2OQ==
+	bh=hNm/9g8tvXvdrBfPLA0jc0/PXVgX5xc+si2+Vq6b1jY=;
+	b=ARGdpOkM0HQNFeVvC2h+gCjIEZemnIn06Wp3GDSfTyoN+T61u35EDKup8Y0Vcwyb4PqZ
+	 5blWqLXzWQjAo6FvdFANAEZ+bu1ui/DtfY68QhmdN2T0Tiscy0S9fC9aB4RTAEhy5wWEt
+	 8HxjCpL1u0wLjNbqBrnd0K4x9xCXPXgA7PnR6MTIM1UHbz0NPaYf9/EKe9WVzTMFiQWDK
+	 GF62G9zY2GLCgmBKCvsWrPHBtEqhNn/+zj4JTR/F1enk716921PZMH3Agjh4x+rRrm7Xt
+	 js9DG1JWvDxLXTNI0NDLUn0BUSimu1s7vBkAcMJgF6v8HfW9oSJhezm/Mf9y++gqTyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AkeELCE3;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=E1w25YHn;
 	arc=none smtp.remote-ip=209.85.128.53
 Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD021606A331
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 12:51:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD021606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59FA6606A32D
+	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 12:51:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59FA6606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AkeELCE3
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso16566535e9.1
-        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 05:51:32 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=E1w25YHn
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so3783105e9.3
+        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 05:51:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792673491; x=1793278291; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792673492; x=1793278292; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UC1n9q3EpmPuUpvBqt4fP3LiFXC+thJA0wBcCFtVB2o=;
-        b=AkeELCE3sWsU1rOvCd4inWtQzOkmV1djxnvyC0OXF6tvKMkXf8xs1HmivsgstqroCu
-         UjGYI+vQj726+wUPSYTgeqGmQ8Y7GjOfuN8JnzY2ZM5pcP/aN9AuTOZc07F+MmSgXAMq
-         keMBXIb2uLAZKrOGe2iVal1dyIEbnjcaisanFDcr9zHixGnvHVQOHqD/vKCM6sdmuD53
-         WeOyO0SFZxJxq7tusNLCvubWqtM40i3KhLMWcKosDZ0HnpiILDf2rXs00puYK5uMuD63
-         MNF1lxFJCDnlIPAuc8eByykvb4LJ6dUtjEE1WnofRfyjVlWHj7NDHh2cMIc89+tnFCbL
-         Dhkw==
+        bh=hNm/9g8tvXvdrBfPLA0jc0/PXVgX5xc+si2+Vq6b1jY=;
+        b=E1w25YHny1AJRGVNYW78qTt8QgfUcTbK1RntrWXZukPC77/wsdZDvJi9GZdjZWf3jE
+         OBz+gO8vt6Bh4LEyLm0FrSG504PUUpaOzxSSmsh46jSmy8XnSO3InWEMfkO1S5z0ppno
+         7uMiDLVGpHo1QAnuyrw7330CPAycwzBfw49FlzAxESOtRvthkG8mHhofsRHPjGVGUm3G
+         UfbNIVjgvaq2kF49mzHU7gVufhIqIS4Jg68Rd5n5yclLKINTiX+rpKWMksglpu/u98FP
+         AA1Eq/I/dBlJN0y2sqvLmwEUchoQtVRrEkVg/nRDNerg1mAkKA2v5VQJjw/CgJyTyUQC
+         Ge3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792673491; x=1793278291;
+        d=1e100.net; s=20260707; t=1792673492; x=1793278292;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UC1n9q3EpmPuUpvBqt4fP3LiFXC+thJA0wBcCFtVB2o=;
-        b=kq9HAUIDlSZHf9h9QB8MGX7u12wRgYjNk/B3UUeMkztyUBbV6pzYMTrC4HjD3kW+Ey
-         66DaXQmUoK6OZMvmhFnwRMCDd+ZKsrwjSAYNZL1Q5Z7G11xvlLG5zSe+AtI4vRDT4hgI
-         4tk/gWbMnT/d7jmbxhIYMnA+SPgus0XPGPDbSaDedWX7tZLf285cO8DrVgnYfNIkiuGO
-         iUKUVa0SpvcBbneXuuaeEX9LlNZvEJBAP6SEjueOynGScfxmh2NpWKe8tKyoxz/jRbHm
-         x/gxIfMnCWql9lh6ZjpxjXbvl8VqMgGCO1LgnHZbN0YGYrrV9CZ0TnFkySr9nwM1DQWW
-         5hzw==
-X-Forwarded-Encrypted: i=1; AKwUvBwhT8/fKQ81jfGh3qzHtWC2QxuG5AiG3eZvCA2rBjZ4LJNu7DbK35fYLuUwIPKTLUhsk0XhW5Cszy98@vger.kernel.org
-X-Gm-Message-State: AFq9FYKQ4OYwUbscpzO8s7329r237yigbbqzZ1QL7ZtBo9ADPfhwSLih
-	SRKO+65YbyE+KaxLf0Mpc3ZhADQwnODshhY1Lym4tNkwpp4NTKYHmp97
-X-Gm-Gg: AYBFou0IVGJcwlbdIhKcvuOEgIeW1mrN6UzRgJNlAX2UscwjZsk5MeQ0m4OVRVRXQZF
-	HooGlabst/UCvMWI3ddg0hLd5/lJ0SMaZOWxV3gpXB6ZgKyyfXr4Ugiyhl1WbdwIPZx6TbUQcy5
-	PCfPLie83dYCMPA+dBNpOQ15IYFGa7Ra0CNJoqTdL21ndQVBmbrk+myKGLOZJUldt2V15DbiGL3
-	9CkzJvjrLuErwhseHcBkfAmQ2BW8as8c6PN70GNLnUqheJSg/+RY0VuCdtU7qCyuyWlmBXjbfk3
-	OECxKMFfOZ+y/bMHh5rJTHervzjondvP9ie2aTYXDeaUnopfuxfsftlxETcXY7U7EHZa8k6HEh2
-	7feLUwHogvsVx6Ay3j5UwAweAW1cy5j9+ny7w9YvrvDvxboRGBC7tt4yRAsmFQ7N0gw5gVuxMgJ
-	o9DRcA+tGJ+0Zck/k1LIJsZhp5vcaed+hlGBdD23D8v6H6Zj0XAa+m4UmqV4U/+/vynTaOc9D5r
-	5ScV8jaY3yvtG7Q6HzVfYLCw6htztlj68Pssi9ZFihTq25a0PMH7m9OSiGxB/xYpxA9gAvvSmaE
-	Jgd4Q8aPVJ9aoA7Kps6X6MFaXZ1XLy3VDl+4AAZkWlbJ7jJoNkaMPSk=
-X-Received: by 2002:a05:600c:8b6a:b0:4a1:9831:a69c with SMTP id 5b1f17b1804b1-4a1fdd3bc69mr97539725e9.30.1792673490763;
-        Thu, 22 Oct 2026 05:51:30 -0700 (PDT)
+        bh=hNm/9g8tvXvdrBfPLA0jc0/PXVgX5xc+si2+Vq6b1jY=;
+        b=l1HO9UdnViKXjJPT+I7PFx/c2xDK7WIntzOfmOw+i+RVOsFZE8j6bn3Ag7w70QpLsy
+         ZaXnRLJ0aemJcR1KgT5WDF0q0MqqtNueB7ygTljrdaauk5KN6bsY0JXkyg90i522OX87
+         m/tY4Bn3U4lojnWrKI17C/ZE+4PPOJ3Ch+iwvSZqUGhUA1Ox7h/FdB1RT2rFiAzWl37Q
+         6dj41RCXNVQD+httPKorVyIaxiyDGRpRTVEsSpMzWsQpO6y3BGaGtmt4BRthFKPcdL0U
+         CZgRyriGIEoImlMrGXRBiyV2wSjQILYMyL5WpfklkDOLUdFcLN8MDQMAMSHmnZFoeOxY
+         7wxA==
+X-Forwarded-Encrypted: i=1; AKwUvBxrYgFutRQnotlqrGsWTJ6xUeKNd/pw4wIG3Vo6IWXFm4uea+reHCvs6+sm0j+rvnnOEqgmzW6geKg3@vger.kernel.org
+X-Gm-Message-State: AFq9FYJPlu3U0v8MHjwaF2RjsiaB/FD06C2PDHzEsKbPsP7OEfCrYXXY
+	DY96R8aYlvFRPJzWPlUgx3CYiUI7lRRsvBNwvmKBLuSWoEe74u3L3R20
+X-Gm-Gg: AYBFou1HlfixzrtDUz3pzo9q+y1p+8bI0xUvXhFYalqhpcgNJFxxyHjylt+O2HVQb9o
+	3yDsNVI3+0m4P1cvuAArJ/0wTGbjsEpdXaA9AtTXQLwFfnn+heaRm/D92s65p4UhYsL2Pk9yfwy
+	skbfeBSg9GZ6QskYLgBviVYqT5waWEJhj44nX4wnPlkhQVhZ8Cx36HM0IFU+DENwY6jv7izxmFQ
+	gB7T80MYJ+VIZiZEFIe11UWdj4fvdMSranOv/hFG1IHIqlCREXI+9glH+Y2vaSQZwZmPeRzk8mE
+	RU3w58TDL7HWXnz9BfwWxVVFE1w64GVq/iVDOdVR7A4QwhG4tKVGvrV+sa+fu0akZfiNy3s3psS
+	j0iF6jDMks+ANNMIyYJDuK00eCP7JEPHMG8vCDsGeT8ChmLwcJUKun64dxyr/eV/jTjLcFA2Spn
+	GnhH069h7I+/v+b7M/Q83pqxF0/AH6oufx5qrRY/SUgTJ0/xkutA8zX/OUozvHHQkB9n1k55u5h
+	P7n1P8VmKGtlBPV7ELCwI9eiN/iX5FGxkYhZtV93COcHfeKgRHxib1PRT67rKM1urRWBbKW/4+l
+	fWGYpOsqHnYugykWdeI6HKyTrlo9fYkK1a1ebbh6PEWIeztv4y2AoF4=
+X-Received: by 2002:a05:600c:1c2a:b0:4a1:e57b:667c with SMTP id 5b1f17b1804b1-4a1fdd4fe80mr121580035e9.26.1792673491651;
+        Thu, 22 Oct 2026 05:51:31 -0700 (PDT)
 Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a203a0f243sm64112995e9.5.2026.10.22.05.51.29
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a203a0f243sm64112995e9.5.2026.10.22.05.51.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 05:51:30 -0700 (PDT)
+        Thu, 22 Oct 2026 05:51:31 -0700 (PDT)
 From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Date: Thu, 22 Oct 2026 14:51:06 +0200
-Subject: [PATCH v2 2/5] arm64: dts: freescale: imx8mp-verdin: Add NAU8822
+Date: Thu, 22 Oct 2026 14:51:07 +0200
+Subject: [PATCH v2 3/5] arm64: dts: freescale: imx8-apalis: Add NAU8822
  Bridge Tied Load
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-imx-nau8822-btl-v2-2-b4221ed43650@toradex.com>
+Message-Id: <20261022-imx-nau8822-btl-v2-3-b4221ed43650@toradex.com>
 References: <20261022-imx-nau8822-btl-v2-0-b4221ed43650@toradex.com>
 In-Reply-To: <20261022-imx-nau8822-btl-v2-0-b4221ed43650@toradex.com>
 To: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
@@ -109,35 +109,57 @@ X-Mailer: b4 0.13.0
 
 From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 
-Combine the shared NAU8822 Bridge Tied Load (BTL) overlay with the
-Verdin iMX8M Plus Development Board device tree to provide a
-ready-to-use DTB.
+The NAU8822 on the Apalis Evaluation Board V1.2 is labelled nau8822_1a,
+like on the Verdin Development Board, and can use the same Bridge Tied
+Load (BTL) overlay.
+
+Combine the overlay with the Apalis iMX8QM V1.1 on Evaluation Board
+V1.2 device tree to provide a ready-to-use DTB, and mention the board in
+the overlay description. The overlay supports both Apalis iMX8QM and
+iMX8QP modules.
 
 Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 ---
- arch/arm64/boot/dts/freescale/Makefile | 3 +++
- 1 file changed, 3 insertions(+)
+ arch/arm64/boot/dts/freescale/Makefile                 | 3 +++
+ arch/arm64/boot/dts/freescale/imx-tdx-nau8822-btl.dtso | 5 +++--
+ 2 files changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index a4f26aef77fc..3821e3f16210 100644
+index 3821e3f16210..0b8f497c5c6e 100644
 --- a/arch/arm64/boot/dts/freescale/Makefile
 +++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -738,12 +738,15 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-mallow.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-yavia.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-zinnia.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dahlia.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dev-nau8822-btl.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dev.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-ivy.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-mallow.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-yavia.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-zinnia.dtb
+@@ -810,12 +810,15 @@ dtb-$(CONFIG_ARCH_MXC) += imx8qm-apalis-eval-v1.2.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8qm-apalis-ixora-v1.1.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8qm-apalis-v1.1-eval.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8qm-apalis-v1.1-eval-v1.2.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx8qm-apalis-v1.1-eval-v1.2-nau8822-btl.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8qm-apalis-v1.1-ixora-v1.1.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8qm-apalis-v1.1-ixora-v1.2.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8qm-mek.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8qm-tqma8qm-mba8x.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8qm-var-som-symphony.dtb
  
-+imx8mp-verdin-wifi-dev-nau8822-btl-dtbs := imx8mp-verdin-wifi-dev.dtb imx-tdx-nau8822-btl.dtbo
++imx8qm-apalis-v1.1-eval-v1.2-nau8822-btl-dtbs := imx8qm-apalis-v1.1-eval-v1.2.dtb imx-tdx-nau8822-btl.dtbo
 +
- imx8mp-evk-lvds0-imx-dlvds-hdmi-channel0-dtbs += imx8mp-evk.dtb imx8mp-evk-lvds0-imx-dlvds-hdmi-channel0.dtbo
- imx8mp-evk-lvds0-imx-lvds-hdmi-dtbs += imx8mp-evk.dtb imx8mp-evk-lvds0-imx-lvds-hdmi.dtbo
- imx8mp-evk-lvds1-imx-dlvds-hdmi-channel0-dtbs += imx8mp-evk.dtb imx8mp-evk-lvds1-imx-dlvds-hdmi-channel0.dtbo
+ imx8qm-mek-ov5640-csi0-dtbs := imx8qm-mek.dtb imx8qm-mek-ov5640-csi0.dtbo
+ dtb-${CONFIG_ARCH_MXC} += imx8qm-mek-ov5640-csi0.dtb
+ imx8qm-mek-ov5640-csi1-dtbs := imx8qm-mek.dtb imx8qm-mek-ov5640-csi1.dtbo
+diff --git a/arch/arm64/boot/dts/freescale/imx-tdx-nau8822-btl.dtso b/arch/arm64/boot/dts/freescale/imx-tdx-nau8822-btl.dtso
+index e4b662519a6b..cdbe7bb1ba90 100644
+--- a/arch/arm64/boot/dts/freescale/imx-tdx-nau8822-btl.dtso
++++ b/arch/arm64/boot/dts/freescale/imx-tdx-nau8822-btl.dtso
+@@ -2,8 +2,9 @@
+ /*
+  * Copyright (c) Toradex
+  *
+- * Enable Bridge Tied Load (BTL) speaker mode on the Verdin Development Board,
+- * combining the two loudspeaker outputs for higher output power.
++ * Enable Bridge Tied Load (BTL) speaker mode on the Verdin Development Board
++ * and the Apalis Evaluation Board V1.2, combining the two loudspeaker outputs
++ * for higher output power.
+  */
+ 
+ /dts-v1/;
 
 -- 
 2.43.0
