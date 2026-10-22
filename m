@@ -1,100 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.170
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792649722;
-	b=nF0heh3Y+mz/VmN8dTFsvP74yhzqn2Ur9wES6pWyGJXEuIdDHcZ6k3HHsCxqaKn8ezEc
-	 GDVNbax+Okk7Xeymrw2N4Q9AcMc5Ex+zTUZtoGUm4+kNERI19b1vvr5hCiVQK+NTB9NzJ
-	 7LVqGoaQRvdU8v9mjfaIMWlUtOtnDlmxraZ1z6uxc4wg2JnHt/HpoSV0iuyUoKVr3u0R2
-	 +NBenGDZ5jcvob9SDFS9FQeaZ/gUi5BVG2+PJycjTUoI5O6fYMHFEvi3e3xnb00lKVDE9
-	 zZZRp/EVrQOKxKAmci3IOz4JsPKhSbYbYq9rG8Q1n+bt0GdP9PH+Toi7ayRkvGSeQPQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792649722;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=tNAW4moukw1CSqvHk1qqjH8bwOSbgrDYX8YbwR8FDio=;
-	b=Tz2br9+bDE0dUUhulu2Gc3CAJIlJkwMNk9//GYKAmeHCKZW1D9LYmAdQ2SrAqknTnr2i
-	 URECnzORb9l7h+/C8d9kQmPLXUKr9G6qOnnMTAKpvoJRd9Pgl6uhHTJV6G7SWgS/217UP
-	 +VoqedklopZmEyoRXYMOkEtNfR1UwAsv4ucERU61KUH874eb0Uvfd/csFZhIjV4pbNpDs
-	 L1DH5S6kiuCX9UqXSq/4789MIztE6AJf0SRGmx9ElRpXKYhbnp65NK5ykIy9H+2s1EG5z
-	 ayRdbm24nA6LV9BhrLN1u3Ril96FL2G8xsbpmMOiuZdO5fE827YsIkYVrBGhBi8ALLw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cKTdbRlH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.170
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792650080;
+	b=XIa4rXcZIYYfDifE+Wn3KhBTgNpvKSSJYF+JTfKGIBiuYouaYg16KhXKnmhLOA1lL4Ew
+	 J0xo7SNXqdWC/c6tTgQPd1twUSE+qvD/Zh8BNFTxSKPqSEmLkUKB7hsl5S5zngVZAKjlf
+	 T2Ypg3pjiVPhv7yxp4fYfd895XWYLJondROK9kxiTKpSIQG3XhkhG63YUdd5dQJ+LN2pK
+	 zoXh9FRm9QTslpgAjSHtAaHQbLxxQHnJAy7mGHT/e7QvtP0j6Gz8NIe8GfQ9sFO9uD1Cu
+	 L6G28Zlcsmqu7a00jk0wwTzsz/i9/2xIXhsdsCrcXdkuN3EArAleyYGb7vXvmzbz15Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792650080;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=kLoT6phYi/A+cLNwU4p9qS9UyNpDJ712B+SXizxIHc0=;
+	b=XzT73xpBiSZXUBHKHVFFAW33wdbXT7sBKLJmLoHjia5WpyoH42fNsYhcEmIWTodp+3is
+	 kLyq81SdpJnkhDSsufMFco3MPop2Ei247OnBuBIYP72EnKnB46DuYLskjgyDt4hEV2Tld
+	 cqZ79K0Roh6R85qJqvyAMKsljU1CaHG5gBRWZ/JpUZvkeTQimdUaXWRwiQceJzA+7EIxh
+	 L+nmB3yRv2pLNSJ7slqG/PSm9zu77IqPSqkez/rFqkX/1HwdmfC0Jf9UqNwSknYZrTa8/
+	 hkoaSthuDBOV+mFUMOTmyZqtPRilRKiaYNPbBHP7Gpt+vudwxD3SRaWpFp7TpDCBMOQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P4Lfhhap;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5526E606A320
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 06:15:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5526E606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E206A606A319;
+	Thu, 22 Oct 2026 06:21:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cKTdbRlH
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8ac4806e210so14082947b3.1
-        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 23:15:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792649721; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LQ/+t8u+mBzafW+MsDbAqZ0jY83ssZC1PbWfz2X6GZSMOthFyTM+3qEBeQxbZuBJob
-         RhSHWz4wCXiXu82knEDSjOh7Zabt3oO9ktdFyuXIdWwr4AtUe8II2fddJiOaYiyVbvyu
-         8+W0/27YLgwqIOles9QRJNlnVAWL6q08zwnW7BegaNnmSo0+wmza/zdshWbxNj7I/TDJ
-         8/Y8hr+xu9iWzj1T3hhUqG6yFoKQZwafWFSyy5t49rNRM1mVN2aLWh/N1TeZg/qL5RF3
-         4XV438V1jt53OzLWp/YQADjvEybHPyncaSnhck7YZ1MM1uBvKq/hu6oU6f34ebInjqXc
-         5hNA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=tNAW4moukw1CSqvHk1qqjH8bwOSbgrDYX8YbwR8FDio=;
-        fh=F5FSPRWYcQzJ7hzC4G0NxsDuZ2rolKsoUr4pZJ76+8Q=;
-        b=YNWsWRONjHRlAri5OklSXvsQPqdFgKGe/+ghT/z8qGI/SnJoKjxL23+iCEy2sFwUpO
-         H+roARG5vaLU1imwkqm/GzsEskWj7h6TtByGlr8nwxojQJl0CstHhMXTEWYbcEfIN3ac
-         gT1tXV+a4ztRBPKSyidcXU3691+gq2TQotPRq4E5lb7Sn0WH7AEGdU3j69kxdSUwsgdr
-         pkbbVYa9pQLSctKdtXu2DrtQKzh3iKFrVAN7Hr4JJL9sgEDdPjKJzflDEn4AMB8FYG2T
-         H8jhkTx1EnP2UU7HwB/X7bhPqI+PwOuK9LFjTayJi4m+IGEUyFL2t0D3zQzOI2W0g8Fj
-         hT9A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792649721; x=1793254521; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tNAW4moukw1CSqvHk1qqjH8bwOSbgrDYX8YbwR8FDio=;
-        b=cKTdbRlH93tw3PHlpA+KIqygaBRjO0n5TBKcvu5IkjSlTY7T8koruWcRN9DthktJ3+
-         l3d7ex8Dt3ArSl3mOX+SL1D9ICQdP9zY9W5kdqc1YW7e3/fZWFt0QgnDzNNysDsrD6i0
-         8oCyZbNM+StCCCXlaJ6tYb6DfJ57pi/FEphV0G/XG73LIqojiujgd4bG2UT15GdWbPvG
-         Or4hdqQCCVAe7pxQ+xYwhylXBjJtRKZTU3KtqwG8zNPOGBMqkYA41bHh69Xh5aTA4TsM
-         1NRemldPZKt78zGFT50bVGLW/JPFgG8LGy2Wb3Sqxl18l8UcSjrw+VeZDPOaf6eZE2Vm
-         v2DA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792649721; x=1793254521;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tNAW4moukw1CSqvHk1qqjH8bwOSbgrDYX8YbwR8FDio=;
-        b=IZ0bIFlj3eNr/PVTF89txyWDGNuOqx5JpAEOFokVJOW4aGtdJqe/BP0h1ZUxisjGt8
-         5cdeS9cPbgItkQZOHE++pAvTKZqTr+ICERYeQqy7Bfe128DTrqr7MnGpLefm26HMrR3B
-         O2zEonswqvXGix9iaH2slYJueAP8wNwMRro2drHUkd3d8MnYPPeZLflL1raINzdhzUHO
-         WEHD4weZD9RKkLbyffyneB2BUVWN3Lhfi1cR9vQYPbhJ9dVIZBqZQ/fbCTPSWTWySN2j
-         QaK4QTtogFiiHuL6kFth54VM03Rr0tC/RQ+vU7A50vTrfbGz9/80g9SH4UqXp4VQv5Iu
-         bZ0Q==
-X-Forwarded-Encrypted: i=1; AKwUvByImSZaZ2qq4cj+R5M1t/1U5k1xGuTfJbNV3xS0AV2HjOMcLrF+doQfK/UbDSMPDA6Dm4OOs6yTeIB0@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRH1U/75pqxhsm7kOK99VTomlUxE7qxSF0/LifAnkufvyr3Ow4
-	F9K4LzK16D+Z+n1QuRrt+8a5oyI0aHoMrMZ+DHFNJstv9KLnY5E0VKvyNRoZnGFUJ8V6lYUHTCm
-	A5fIOuCDFvHig6lO2gB64vvLNO+V9FBw=
-X-Gm-Gg: AYBFou09QM8uBAy8ooxZFZQFnYEkHSA8EUgqgkWQwjvOlLZ/4r05b4X8yMu6SKUb0qr
-	LMbwV9ipmHOZWtrUnMyhIhQbFRvETvyNE4tFABkN+b6Nyuhv8Oa1f9uUOK23jubbjSTXAC+OVe1
-	b7VKKXcKxQhDhovKXcis70qMCcJaXPKRi7fBp8LTleLM5zYwZamARgcjXhrVbq2CtpC1zzvGusU
-	/a0ZpmNHvjgQTgw7I1d3Frt0DOzfBgvFuaE5ChpKFOPzBS5AZvpHgW1VczdSn7Jh5WZ/cHaTIn5
-	tqcf4gwkQ0JrWp2YVUP9W1HjvVJCqheWzQlCismhJKGrdO5b5jjUU2B42UKAb/Jgn+K9mZbPxfq
-	/wi0YXwGTvhFWNsGugvcZdbFS2mVwjVyl
-X-Received: by 2002:a05:690c:ec7:b0:8ac:cbaa:1704 with SMTP id
- 00721157ae682-8b133fdcf05mr30804577b3.25.1792649721338; Wed, 21 Oct 2026
- 23:15:21 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P4Lfhhap
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FC841F000C1;
+	Thu, 22 Oct 2026 06:21:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792650079;
+	bh=kLoT6phYi/A+cLNwU4p9qS9UyNpDJ712B+SXizxIHc0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=P4Lfhhap0InRwKsCs0/dkg1EyfULyHn9OIBtWgvqdwGGsRbP35VwBxUMtusts7Q24
+	 a0KI9Q7y8yy8IshZgAdMXx/MSAzjEh10l5rcmOSX0E/1SApLeF0MTYJr4z4Gy4h5Ur
+	 LC3vUdkYSbjuhEBBbaJsN4YYtTx42ag5gGJSgg7+5Dojd8r9sr372vWNnJmdar+gCI
+	 cSQqY6fxEY/zSNlYzfE5c0X2+shq5Cs+a5eHjOpldmev2l5m9205gD7twxQDo287QT
+	 1Wyu/yvZVPuuLqGl2IbBgkQe8dXXzchWXD27+XGb/i68h8TOubDV4lFNXkIHcby9F/
+	 OaLL4WWRZs8CA==
+Message-ID: <sashiko-outbox-181088@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] arm64: dts: allwinner: h6: Add Orange Pi 3 LTS
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Cristian Filipescu" <filipescu.cristian@gmail.com>, linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261022-sunxi-orangepi-3-lts-v2-2-70b899252c6a@gmail.com>
+References: <20261022-sunxi-orangepi-3-lts-v2-0-70b899252c6a@gmail.com>
+ <20261022-sunxi-orangepi-3-lts-v2-2-70b899252c6a@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 22 Oct 2026 06:21:18 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,38 +59,165 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <13181dfa-b92c-43b5-ae12-912abaf79c41@gmail.com>
- <20261013015728.43307-1-liujianfeng1994@gmail.com> <74d7c3dc-0880-40a4-b056-f9a089a0ddc4@oss.qualcomm.com>
-In-Reply-To: <74d7c3dc-0880-40a4-b056-f9a089a0ddc4@oss.qualcomm.com>
-From: Kaipeng Zeng <kaipeng94@gmail.com>
-Date: Thu, 22 Oct 2026 14:15:09 +0800
-X-Gm-Features: AclHuK_IAy1t3yMlza72vaYDqeOJBevwsP67Waq6VJ7l78GWxOLa1DEch8zh9BE
-Message-ID: <CAHk8ZdvrVt8TkZrSd7qyzi5AirL+FtwUpHT0QLcUd5qBJmhy+w@mail.gmail.com>
-Subject: Re: [PATCH v4 0/2] Add device tree for Acer Swift Go Pro AI
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Jianfeng Liu <liujianfeng1994@gmail.com>, jactry92@gmail.com, andersson@kernel.org, 
-	conor+dt@kernel.org, devicetree@vger.kernel.org, konradybcio@kernel.org, 
-	krzk+dt@kernel.org, linux-arm-msm@vger.kernel.org, robh@kernel.org, 
-	krzysztof.kozlowski@oss.qualcomm.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Konrad,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] arm64: dts: allwinner: per-PHY reset-gpios and c22 compatible brea=
+k YT8531C
+- [Medium] arm64: dts: allwinner: orangepi-3-lts: swapped LED default-state=
+ values
+--
 
-Thanks for your reply.
+commit e75611867d87d079b20765ad9c1ddf5482d2d71a
+Author: Jernej Skrabec <jernej.skrabec@gmail.com>
 
-On Wed, Oct 21, 2026 at 8:48=E2=80=AFPM Konrad Dybcio
-<konrad.dybcio@oss.qualcomm.com> wrote:
->
-> This makes it sound like the retailer made up / confused some names,
-> let's just go with what the manufacturer says
->
+arm64: dts: allwinner: h6: Add Orange Pi 3 LTS
 
-Just want to make sure I don't misunderstand anything, if this is what
-you preferred:
-```
-model =3D "Acer Swift Go Pro AI (SFA14-11)";
-compatible =3D "acer,swift-sfa14-11", "qcom,x1e78100", "qcom,x1e80100";
-```
-Thanks.
+This commit adds a device tree for the Allwinner H6-based Orange Pi 3 LTS
+board, describing its regulators, storage, wireless module, LEDs, USB ports,
+HDMI, and Motorcomm YT8531C Gigabit Ethernet PHY.
+
+Link: https://lore.kernel.org/linux-sunxi/20250413134318.66681-3-jernej.skr=
+abec@gmail.com/
+
+> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3-lts.dts b=
+/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3-lts.dts
+> new file mode 100644
+> index 0000000000000..e6aa0b2e17ebe
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3-lts.dts
+[ ... ]
+> +	leds {
+> +		compatible =3D "gpio-leds";
+> +
+> +		led-0 {
+> +			function =3D LED_FUNCTION_STATUS;
+> +			color =3D <LED_COLOR_ID_RED>;
+> +			gpios =3D <&r_pio 0 4 GPIO_ACTIVE_HIGH>; /* PL4 */
+> +			default-state =3D "on";
+> +		};
+> +
+> +		led-1 {
+> +			function =3D LED_FUNCTION_POWER;
+> +			color =3D <LED_COLOR_ID_GREEN>;
+> +			gpios =3D <&r_pio 0 7 GPIO_ACTIVE_HIGH>; /* PL7 */
+> +			default-state =3D "off";
+> +		};
+> +	};
+
+[Severity: Medium]
+The commit message notes that the green PL7 LED is used as the power
+indicator. When gpio_led_probe() -> create_gpio_led() in
+drivers/leds/leds-gpio.c parses the leds node, led-0 (red PL4,
+LED_FUNCTION_STATUS) is turned on and led-1 (green PL7, LED_FUNCTION_POWER)
+is turned off.
+
+When the LED functions were swapped relative to sun50i-h6-orangepi-3.dts,
+were the default-state values on led-0 and led-1 accidentally left unswappe=
+d?
+
+> +
+> +	reg_gmac_3v3: gmac-3v3 {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "gmac-3v3";
+> +		vin-supply =3D <&reg_vcc5v>;
+> +		regulator-min-microvolt =3D <3300000>;
+> +		regulator-max-microvolt =3D <3300000>;
+> +		startup-delay-us =3D <150000>;
+> +		enable-active-high;
+> +		gpio =3D <&pio 3 6 GPIO_ACTIVE_HIGH>; /* PD6 */
+> +	};
+[ ... ]
+> +&mdio {
+> +	ext_rgmii_phy: ethernet-phy@1 {
+> +		compatible =3D "ethernet-phy-ieee802.3-c22";
+> +		reg =3D <1>;
+> +
+> +		motorcomm,clk-out-frequency-hz =3D <125000000>;
+> +		rx-internal-delay-ps =3D <1950>;
+> +		tx-internal-delay-ps =3D <1950>;
+> +
+> +		reset-gpios =3D <&pio 3 14 GPIO_ACTIVE_LOW>; /* PD14 */
+> +		reset-assert-us =3D <15000>;
+> +		reset-deassert-us =3D <100000>;
+> +	};
+> +};
+
+[Severity: High]
+Will the YT8531C PHY fail to probe or lose its 125 MHz clock output with
+compatible =3D "ethernet-phy-ieee802.3-c22" and reset-gpios placed on the
+ethernet-phy@1 node?
+
+First, during MDIO bus registration:
+
+  sun8i_dwmac_init()
+    regulator_enable(gmac->regulator) /* enables reg_gmac_3v3 (PD6) */
+  stmmac_mdio_register()
+    of_mdiobus_register()
+      __of_mdiobus_parse_phys()
+        fwnode_mdiobus_register_phy()
+
+In drivers/net/mdio/fwnode_mdio.c:fwnode_mdiobus_register_phy():
+
+	is_c45 =3D fwnode_device_is_compatible(child, "ethernet-phy-ieee802.3-c45"=
+);
+	if (is_c45 || fwnode_get_phy_id(child, &phy_id))
+		phy =3D get_phy_device(bus, addr, is_c45);
+	else
+		phy =3D phy_device_create(bus, addr, phy_id, 0, NULL);
+	if (IS_ERR(phy)) {
+		rc =3D PTR_ERR(phy);
+		goto clean_mii_ts;
+	}
+	...
+	} else if (is_of_node(child)) {
+		rc =3D fwnode_mdiobus_phy_device_register(bus, phy, child, addr);
+
+Because compatible is not "ethernet-phy-id4f51.e91b" (which is also required
+by Documentation/devicetree/bindings/net/motorcomm,yt8xxx.yaml),
+fwnode_get_phy_id() fails and get_phy_device() -> get_phy_c22_id() reads
+MII_PHYSID1 and MII_PHYSID2 over MDIO before
+fwnode_mdiobus_phy_device_register() -> phy_device_register() registers and
+deasserts the per-PHY reset-gpios (PD14):
+
+  phy_device_register()
+    mdiobus_register_device()
+      mdio_device_register_reset()
+    phy_device_reset(phydev, 0)
+
+If PD14 is low when the kernel boots (for example, when U-Boot has not
+initialized Ethernet) or on driver rebind after phy_device_remove() asserts
+reset, the PHY is still held in reset during get_phy_c22_id(), causing MDIO
+reads to return 0xffff and PHY registration to fail with -ENODEV.
+
+Second, because reset-gpios is attached to the PHY node rather than the MDIO
+bus, bringing the network interface down calls:
+
+  stmmac_release()
+    phylink_disconnect_phy()
+      phy_disconnect()
+        phy_detach()
+          phy_device_reset(phydev, 1)
+
+This asserts hardware reset on PD14, resetting YTPHY_SYNCE_CFG_REG back to
+its 25 MHz default. When the interface is brought back up via stmmac_open()
+-> stmmac_init_phy() -> phylink_fwnode_phy_connect() -> phy_attach_direct()
+-> phy_init_hw(), PD14 is deasserted and yt8531_config_init() runs, but
+motorcomm,clk-out-frequency-hz is only applied once in yt8531_probe() in
+drivers/net/phy/motorcomm.c:
+
+	if (device_property_read_u32(dev, "motorcomm,clk-out-frequency-hz", &freq))
+		freq =3D YTPHY_DTS_OUTPUT_CLK_DIS;
+	...
+	return ytphy_modify_ext_with_lock(phydev, YTPHY_SYNCE_CFG_REG, mask,
+					  val);
+
+Should ethernet-phy@1 use compatible =3D "ethernet-phy-id4f51.e91b" (or move
+the reset handling so the PHY is out of reset before ID reads and not hard
+reset across interface down/up cycles)?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022-sunxi-oran=
+gepi-3-lts-v2-0-70b899252c6a@gmail.com?part=3D2
