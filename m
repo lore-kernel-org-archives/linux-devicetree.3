@@ -1,133 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792689943;
-	b=aNpCoi78BUFQLl+vKUIyY2FPVKL3eLXdCv7CeFWysLPp1Y5edMuHqLtQV30j8AnQYH6e
-	 nftHPueb3oCTN9AyhENFmpdpAhLAxGngeyyn9Xhh0VbEmMmDJQuvdUJYCiJa1LoWLV4dy
-	 RVRktLR1DlC26SheccE2/sWyQMfqoQi320SEM30JzMLx5cTVBGlRxsOQQCAHVAgxVVboh
-	 K/S2otcg/shiqDzR1PakdbCZxMHPjmscDKKb0Y5JyZOogx25otVcOK3Q8QedQ6JjUlYO5
-	 WppC/kpG4s4mxeZ0hH8jhC0tGiAYSF5r4n0SnKsAPmxlHr/vl4c6D6ZlVmKu5/fqaBQ==
+	t=1792690122;
+	b=jT4ctBMr5+U/r3Ezp6wW5PNKmc5c66kAG4ArF8OJ3TRrsCNOU1QG103eWgg5jE1mtWR4
+	 SeeweSRCr7UNzAsFGHtPDP5MoL2Su7rV7z/SYLCZi0n+ivHbS83IESbeZgns8ZH/SWRln
+	 TTccD7tlvcmrAQTeOShEZqcK6o3TLlq3QCFfV4GPy8GYxXOfac9wZwxcT0p46jrDr+2Hn
+	 PCOenAEn+eOgWGRMUHZjU0fKFdVyUE0CB2qRbgQUxWINuezU304HmYNjkLKc98oslHJTb
+	 kNWA1tJkUfO/0ExosftgD8Es+dnOFXd/YCOBI2j5TAU5Y4ibETL61bCraMyFK3Xkdjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792689943;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=z6AktrNRc2FXQ2aAgAi4RpcR1aHmqBhSrhbs1Sqm0ko=;
-	b=HquIM6bXTRN1lY94MwcmBU8HphQkzftmXD5j9qChJpfyiL3DjHeYkQnBTPnX8JB0Qspq
-	 +Myfr4AYmsLjc/slNnG0qTK+/ej1S6J4GNHetk/cARhqKo0aNTnRtOL0nTfJqsZFoXnZN
-	 lUCyOPy2ggQzc8cY6V8YbPmNOp9H6mpctT1c1SYDqV7Ri5ihwNSaZRRGK7SP9HUFsRAW3
-	 uqWAD/48rC/+my8alksDYGwnd2gM1y2Gm0RbdlfHcsllm8D2PhDGBilzl/SjMAucEVYsl
-	 JhLW4j44LXbMSDSC34zgQwvFDuoELXnA6xVLSeM/DCbGXAW7vZl64kcXy0zk1qSPgiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792690122;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=aIigL8Htvs1Eri4VcHQ6P7by4WWQ9ht1cFwpEUONgJM=;
+	b=FVu2RT/7VNUzO4E3jmE70/tzVgfyfo+OWfQrtP7rohuySyX92iieTWl2wdDi8AgWI6Ml
+	 ks9FZ2x4xwTQXy5gCUTPnHLi1LCNMoEca6ysWLE1OU8zqfltYgv9PMOdSjsD41RV93fFh
+	 jwZk390z2BtUrbqLXRbTDZAqci8zXmSQpLdftDq1Q/mTlWbadfTh3r8c5E5e7zR/zjp4x
+	 5hBRXDvX3EuHMDC8CGb9PaMZUF8KkPpcVMZ3lX8wnnMvyrzkhnNZbR0E/AnPnki3l852v
+	 yJKp0OTqyzi2FIl2Bj5I2yAeUdqfLJZ19fXeEWHpoqdquNFlGVfPUAbBpTMEKanl/5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CWVb6AWS;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FfzXVGVJ;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=linux.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFDD4606A31B
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 17:25:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFDD4606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CWVb6AWS;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FfzXVGVJ
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MGk0Uu207580
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 17:25:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=z6AktrNRc2FXQ2aAgAi4RpcR
-	1aHmqBhSrhbs1Sqm0ko=; b=CWVb6AWSVmzhe1s1IEiTSHJAt5TbC5Fd9U2+RPS+
-	JnmomB6jHHsWXmJce9U0I3dO8SR9Z726fBDPaUo0K6/inE0LsBOvrbEvFJ0IzbFa
-	/EASM4VnVPXEoz8jb4SAQcU+Wm0nASBcW8AGtILybFMcHNEUj7Qd1upYAm1+XXc5
-	2WUi76Ln4SCO5SgLlaZrK4T/LeaUwihuKYhbaJaCEn8G9UAoZenNIaxdKc7MIdQh
-	0+JMTe9QnNbWHYLST+1TfBsZfpbuORYt/uLp00/0JY5A0nIK0fDNaMF2zVKDdHRN
-	AZUPMG4x59TUf4Ldrf/nukMKEzn9NePnIalbRpk2YVbPmQ==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfnyw08yc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 17:25:41 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91b92acedd9so2888226d6.2
-        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 10:25:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792689941; x=1793294741; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=z6AktrNRc2FXQ2aAgAi4RpcR1aHmqBhSrhbs1Sqm0ko=;
-        b=FfzXVGVJHBoXo7g611hnctNhOLrSjfw3dV6SOTnuepYkI8fYIpLC9jfFRLPDsUyu4W
-         MPxIGTkxMOR/EhYFrwtRyp/fqsSgLYf3Z3wkkdeAkP12ujqflOdgbOjx7DI6z+6S0+H9
-         ZDrN+ajJaxZ/o7J2Z2XlNQQfFP2wikUexoEbOykqlWOA+3ZyczsMbkisEwTkIDB8AbwV
-         /pJlUWjCjxX5zVMbFv/FMSB4MrZmqHntoLMXgfpGUrnhDn5/8raBgfNpCj+hurqtgF2d
-         i+qHMwMahuXpnBORydOUoXMOhUUzMMaQKgvmnmiLHHnw7NkrHaufIOq1B0d/IJphs+3Z
-         taAw==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2505E606A31B
+	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 17:28:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2505E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a2001dd4e7so448605e9.3
+        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 10:28:41 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792689941; x=1793294741;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=z6AktrNRc2FXQ2aAgAi4RpcR1aHmqBhSrhbs1Sqm0ko=;
-        b=DyxTMvJzPLtiLdWyWokSfeqJjJqEzqOy2SS3POtBG6BWnm3YRbFlfkyc7dG2+bKc8y
-         wtXrw/ZZdHc4CilXr1tTsdHa7HFxbBDa58yeNh7IBSCtrLI6Px0ZahBAQehxTZRoHKwt
-         uaFdde/dQMoZVgh957OiN3LeEmO2St4q6vVpQfx7jlb6dA1vkmiupKrzCakroebfRgT4
-         NHvtkLPFqcKnkiz1oWAeYoD9AQEOdqwOxohxcPF9pquANI5flZEs4sO41rQ17nBdxVP2
-         dW+QK2CIInithrnsx2RgMj7GT4pJGac6nq27LiqxqOdYheSGa+UJD2ra2flSOE7SSu1I
-         cD8Q==
-X-Forwarded-Encrypted: i=1; AKwUvByPxVeUNAGhGQUPVIqveEJpwsAB2WnZvPEIr9ql2hCpxCoKqDpSU1prums35CcOrRiuemeP+B93W6Z7@vger.kernel.org
-X-Gm-Message-State: AFq9FYI5UWlgkxqttjRxdsXsMkrAlCjcgrZJG3EjnzWC6CnpqVpL/EXg
-	VPC8YF/I16qDZ3CULLZxZVRQroQMb/IBiwXYx6d6HZJ8Ouj24nDI8w7lclSLDwgnI/tztKFVE25
-	PjGwVam25TO/QLywf9ff2pSZnF/775xhlTl2l/i1ezUjgH0QgfbQ8nqLZ0BzM03Wj
-X-Gm-Gg: AYBFou1ecp3RKJqMDwh01UGIOPf3jhMPfwrY0wJsPLMWCWUPa1nZ85xdoaYw/6n649C
-	RIUzhnKVHH24e6tAtpSDtw55nHLW0qMMtS/xn1QCqCGmRS6Q2/BmPM82VoBenfWBaEDhXDtAVPF
-	ZjWW79tHK18wQ78slPxilPBVTBZtG1P9deszuRhf7pOV/33MWIH5u2lWIvBvR4jza9wyDAeNUpl
-	jvHdBsBaWRsv6V8k/W58VAOpaxbBQN019AFkVKYS7K3/LREFBO3po7vEzHCsBKP4hcfMr4EG46W
-	ZISy7MLrY9hj8FKW6QjGdcdtCsHPfmZ/giccOL2Pe2ocphB+gEdz8rVwK2G7/dHj6akbH4EyTGt
-	BZHOByJEQY0Ow1g==
-X-Received: by 2002:a05:620a:17a1:b0:93c:80d8:57ec with SMTP id af79cd13be357-93f6f851357mr22881985a.64.1792689940985;
-        Thu, 22 Oct 2026 10:25:40 -0700 (PDT)
-X-Received: by 2002:a05:620a:17a1:b0:93c:80d8:57ec with SMTP id af79cd13be357-93f6f851357mr22875785a.64.1792689940357;
-        Thu, 22 Oct 2026 10:25:40 -0700 (PDT)
-Received: from localhost ([188.216.77.92])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e254eeef6sm13786270f8f.8.2026.10.22.10.25.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 10:25:39 -0700 (PDT)
-Date: Thu, 22 Oct 2026 19:25:38 +0200
-From: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Bjorn Helgaas <bhelgaas@google.com>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
-        Linus Walleij <linusw@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Michael Walle <mwalle@kernel.org>, Alex Elder <elder@riscstar.com>,
-        Daniel Thompson <daniel@riscstar.com>,
-        Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>,
-        linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: Re: [PATCH v5 5/5] arm64: dts: qcom: qcs6490-rb3gen2: Enable TC9563
- embedded GPIO controller
-Message-ID: <atpHEpzw27_8wu7t@lore-desk>
-References: <20261015172620.GA1780580@bhelgaas>
- <20261019220111.GA2271378@bhelgaas>
+        d=1e100.net; s=20260707; t=1792690120; x=1793294920;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aIigL8Htvs1Eri4VcHQ6P7by4WWQ9ht1cFwpEUONgJM=;
+        b=zkTKRKlxUgWYiW41KSvLj6GE0T4CJEpzzA3s0FzC2fWDSlxyzV5kuHs26szcJ5KS/G
+         2JjdUgskV/EyeSi19i9MS/rzfqwOBxbVrdIJ++4hW8qkfi72xKQ4jPxA4jd5Vn30De8V
+         y/kKZ+TIVOEbQj7IBwhsJLyX87LCJLa8H5srNnqaxMSK6lpHPYVdo8Ca3cXYhj1Y9rAk
+         44+joIILtBICTAtd8GqRP36TW+564BtzfrUvXmLnsbY8ZIeN6SongQ2hdHah2CLPnJBc
+         RNbHPU+sYUQ084tMlag1tlkvVSVM4HlxNCR+cRYBSHzEzkmLLUREGYUmWBMOzwbUOCmU
+         1ARA==
+X-Forwarded-Encrypted: i=1; AKwUvByDi4k6brvVec5jdTPID6povPzY6ypVCNS0yuzEWiKWFQ9qi6ixykV4S1FAlEl9LE22weu10WZP7Lu0@vger.kernel.org
+X-Gm-Message-State: AFq9FYI5jFrFvmqNUiE+sAakWjJ//MntVDCkL6W7FQz+YRSL8WR7M8aj
+	5GGxZDkq8w0wm7qdVqM0jgC2TaTwneWEfNMSw79HW1DcHYFAcdPl3Wqr
+X-Gm-Gg: AYBFou1qcqaxBzEBfj/o2QRZDq2Ie122u9TyVcJtXrW4kflksnWt+g4mdY3NXAj65od
+	E2PP42T8YTEnl7s52XQW01dxZhKnclolOy+XjY4XifKXWXlRFLaz3yzM9VR6gYMWnxpjMfyqKK7
+	nXOZUgQmKmtJeoKW27cOqE2PI2ZJvYvLwOoOGPjcYHppKQEKw0o9W9omjwvDKqca8QnuX8/216I
+	zUNK/W7R4xcuzsxbfOf/MMADejU+7zDZf6EUIBK84OOtM30/BxPuWz/muqQgbpZGpOMCDSUdUo9
+	BxCiIA26hBoJZJHVSlI20nKKG7TJFMKjLKroJ7S72n9F2pX2I5qSR5O7UcB3Kq4rieS8foItBx8
+	2aRFHznjiqzNJsRWU8Gb9kEAMsGetSLIp8PgC7NwUC1bf5dJNOayV6yMVjzrm0P3Xsfc1VqibDc
+	r+aBt6fBnH7dyztbd2JwG/RHlKxhi6TtvpTLZJMeBalzivZtpE2RG3IAFAyiPlTkHEnCfTl15Pp
+	rV/m+mXWbWWCAfe8huD+TGq18m21UxOzXHnmeEhXtIXpKX4eXdKfzbz1e9LQnNSlGw6eeaWaC5Y
+	Sw3NMi9AkQ==
+X-Received: by 2002:a05:600c:8b4c:b0:4a2:729:f7ce with SMTP id 5b1f17b1804b1-4a20729f92bmr52278535e9.8.1792690120279;
+        Thu, 22 Oct 2026 10:28:40 -0700 (PDT)
+Received: from [192.168.1.135] ([81.79.62.202])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a210361ad6sm11491635e9.7.2026.10.22.10.28.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 22 Oct 2026 10:28:39 -0700 (PDT)
+Message-ID: <1ca9d46b-02aa-41bf-b184-2a62f8a284bb@linux.com>
+Date: Thu, 22 Oct 2026 18:28:39 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -137,138 +75,88 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="THddspKwcrT7mb3a"
-Content-Disposition: inline
-In-Reply-To: <20261019220111.GA2271378@bhelgaas>
-X-Proofpoint-GUID: 1K24Px0MTwMUX--2lDB9pn4gYBAscvu4
-X-Proofpoint-ORIG-GUID: 1K24Px0MTwMUX--2lDB9pn4gYBAscvu4
-X-Authority-Analysis: v=2.4 cv=dphOmFg4 c=1 sm=1 tr=0 ts=6ada4715 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=WpTaRW6qxYHRGzLzQsVYzg==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=ee_2aqc6AAAA:8 a=tAtCrcrtAcaxr7tUyVkA:9 a=QEXdDO2ut3YA:10
- a=plpxFqqDF8Z-DRInVI0A:9 a=pJ04lnu7RYOZP9TFuWaZ:22 a=VOpmJXOdbJOWo2YY3GeN:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA2OSBTYWx0ZWRfX9Rz9IHV4JuJe
- F1GpL5ueQWwVDaB9nqPUI2VShBLHNN0o/GLP+Ot2aCRBK58HVvCRepry+3LBf0LRId7jbOLH6ic
- eJiITFfXuVL6vGWHdyQVDwZPItitYLk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA2OSBTYWx0ZWRfX2jg8rbnnTd4u
- jlnGSF/Peu6hIKStZouye1smDOgxyXHMgawwW5GgyuSSc/LRmmIGoRI9qG3McgzCY1FLZ99CGXP
- OnnG8JdzrN5t9OWHFAcLW4nP1t/aGWtakfhdlmgEPBrPY9Yl24oZJey9kfqhcPxrBfpsUBd2lG/
- VeZr7pUGsS3WvPI1wG0/qX0WVOFwzJedLzWE8BsUhMzUWM2wpRfcm6Fpqxzi3kjHCFrPAKjaU0U
- hHXYzFkjLCHhT36aeX5Z+LIQQWpDQTIWuAnBhSTnLdcR134gRM5ntvtnuFqvqws21zux6Hll44k
- IS/G1he4+MEgwVpwTJsBLusYjNvgHLBS7B/Kbf2LwqXNBZ2/Nx6CA6A2/2PjPQYMbcwRi/ww3CS
- XYtsH8bID3CdpQsdFbUifxMENUNuMqvfrDx93xyvxkKfLEqg4lpslD6dDhPMZ8imoAvMg5vbtgi
- RWE1BEvGFw5oPvu/M+g==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_05,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 clxscore=1015 impostorscore=0 adultscore=0
- lowpriorityscore=0 priorityscore=1501 suspectscore=0 phishscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220069
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/8] net: stmmac: dwmac-meson8b: apply the RGMII delays
+ the T7 way
+To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261010105900.247342-1-tanure@linux.com>
+ <20261010105900.247342-5-tanure@linux.com>
+ <CAFBinCCpo28jZkQnup2=iofwh02GOMzxJ82hGHWctiWzcKTxUw@mail.gmail.com>
+Content-Language: en-US
+From: Lucas Tanure <tanure@linux.com>
+In-Reply-To: <CAFBinCCpo28jZkQnup2=iofwh02GOMzxJ82hGHWctiWzcKTxUw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
---THddspKwcrT7mb3a
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 10/10/2026 22:49, Martin Blumenstingl wrote:
+> Hi Lucas,
+> 
+> $subject caught my eye because I didn't understand why there's a "T7
+> way" for adding RGMII delays since we should be following a standard.
+> Patch 8/8 in this series documents the standard. Can you please find a
+> more suitable $subject for this patch?
 
-> On Thu, Oct 15, 2026 at 12:26:21PM -0500, Bjorn Helgaas wrote:
-> > On Wed, Sep 09, 2026 at 04:55:57PM +0200, Lorenzo Bianconi wrote:
-> > > The Toshiba TC9563 PCIe switch embeds a GPIO controller providing 37 =
-GPIO
-> > > lines. The controller is registered as an auxiliary device by the TC9=
-563
-> > > power controller driver and accessed through the same i2c device.
-> > >=20
-> > > Describe the switch node itself as the embedded GPIO controller and us
-> > > it to drive the PERST# reset lines of the two external downstream port
-> > > (pcie@1,0 and pcie@2,0), as expected by the TC9563 power controller a=
-fter
-> > > switching to the GPIO descriptor API for per-port resets.
-> > >=20
-> > > Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> > > Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.co=
-m>
-> > > Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> > > Reviewed-by: Alex Elder <elder@riscstar.com>
-> > > Signed-off-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-> >=20
-> > Bjorn A, I first applied this arch/arm64 DTS patch to the PCI tree
-> > along with the rest of this series, but that was a mistake because=20
-> > those changes should go through your tree instead.
-> >=20
-> > I dropped it from pci/pwrctrl.  Do you want to pick it up?
->=20
-> Just following up to make sure this DTS patch gets merged somewhere...
+Ok.
+> 
+> On Sat, Oct 10, 2026 at 12:59 PM Lucas Tanure <tanure@linux.com> wrote:
+> [...]
+>>   static int meson8b_init_rgmii_delays(struct meson8b_dwmac *dwmac)
+>>   {
+>>          u32 tx_dly_config, rx_adj_config, cfg_rxclk_dly, delay_config;
+>> @@ -411,32 +455,34 @@ static int meson8b_dwmac_probe(struct platform_device *pdev)
+>>          dwmac->dev = &pdev->dev;
+>>          dwmac->phy_mode = plat_dat->phy_interface;
+>>
+>> -       /* use 2ns as fallback since this value was previously hardcoded */
+>> -       if (of_property_read_u32(pdev->dev.of_node, "amlogic,tx-delay-ns",
+>> -                                &dwmac->tx_delay_ns))
+>> -               dwmac->tx_delay_ns = 2;
+> The 2ns default value in case "amlogic,tx-delay-ns" is absent hasn't
+> been necessary since commit 093d23db4fff ("ARM64: dts: amlogic: add
+> the ethernet TX delay configuration").
+> That commit is part of v4.12. So boards using RGMII and a .dtb without
+> that property haven't been updated in more than 9 years.
+Ok, so for v4 the code is moved probe into the function only the older 
+SoCs use, so it is isolated there and the T7 path never sees it. We can 
+drop it future patch.
 
-Hi Bjorn A,
+> 
+> [...]
+>> -       ret = meson8b_init_rgmii_delays(dwmac);
+>> +       if (dwmac->data->mac_applies_dt_delays)
+>> +               ret = meson_dwmac_init_dt_delays(dwmac, plat_dat);
+>> +       else
+>> +               ret = meson8b_init_rgmii_delays(dwmac);
+>  From the discussion in v2 I couldn't understand the overall way forward.
+> I get that new compatible strings should not rely on old, incorrect
+> behavior. But what's the path forward for the other SoCs?
+> 
+> [...]
+>>   static const struct meson8b_dwmac_data meson_t7_dwmac_data = {
+>>          .set_phy_mode = meson_axg_set_phy_mode,
+>> -       .has_prg_eth1_rgmii_rx_delay = true,
+>>          .has_pipeline_clk = true,
+>> +       .mac_applies_dt_delays = true,
+> This should be a callback function pointer (apply_delays or similar,
+> to match set_phy_mode) unless there's a way to make older SoCs also
+> follow the "correct" RGMII delay specification.
 
-is this patch supposed to be applied to your tree?
+Agreed. V4 will do it.>
+> 
+> Best regards,
+> Martin
+Thanks
+Lucas
 
-Regards,
-Lorenzo
-
->=20
-> > > ---
-> > >  arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 7 ++++++-
-> > >  1 file changed, 6 insertions(+), 1 deletion(-)
-> > >=20
-> > > diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm6=
-4/boot/dts/qcom/qcs6490-rb3gen2.dts
-> > > index a13315bf0fb0..4da7342ca90d 100644
-> > > --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> > > +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> > > @@ -867,7 +867,7 @@ &pcie1_phy {
-> > >  &pcie1_port0 {
-> > >  	reset-gpios =3D <&tlmm 2 GPIO_ACTIVE_LOW>;
-> > > =20
-> > > -	pcie@0,0 {
-> > > +	tc9563: pcie@0,0 {
-> > >  		compatible =3D "pci1179,0623";
-> > >  		reg =3D <0x10000 0x0 0x0 0x0 0x0>;
-> > >  		#address-cells =3D <3>;
-> > > @@ -891,6 +891,9 @@ pcie@0,0 {
-> > >  		pinctrl-0 =3D <&tc9563_resx_n>;
-> > >  		pinctrl-names =3D "default";
-> > > =20
-> > > +		gpio-controller;
-> > > +		#gpio-cells =3D <2>;
-> > > +
-> > >  		pcie1_switch0_dsp1: pcie@1,0 {
-> > >  			reg =3D <0x20800 0x0 0x0 0x0 0x0>;
-> > >  			#address-cells =3D <3>;
-> > > @@ -899,6 +902,7 @@ pcie1_switch0_dsp1: pcie@1,0 {
-> > >  			device_type =3D "pci";
-> > >  			ranges;
-> > >  			bus-range =3D <0x3 0xff>;
-> > > +			reset-gpios =3D <&tc9563 2 GPIO_ACTIVE_LOW>;
-> > >  		};
-> > > =20
-> > >  		pcie@2,0 {
-> > > @@ -909,6 +913,7 @@ pcie@2,0 {
-> > >  			device_type =3D "pci";
-> > >  			ranges;
-> > >  			bus-range =3D <0x4 0xff>;
-> > > +			reset-gpios =3D <&tc9563 3 GPIO_ACTIVE_LOW>;
-> > > =20
-> > >  			/* Renesas =CE=BCPD720201 PCIe USB3.0 Host Controller */
-> > >  			usb-controller@0,0 {
-> > >=20
-> > > --=20
-> > > 2.55.0
-> > >=20
-
---THddspKwcrT7mb3a
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCatpHEgAKCRA6cBh0uS2t
-rIAcAQD9XMFk9P0Wcr2AnQ1Vo7zfOmzMMBX19nW9jYUu4UxD3wD/b0ihb2VzRcme
-Iwdwa1q9ZZQu+2CgZgGygpLAkLGRqQc=
-=CJkx
------END PGP SIGNATURE-----
-
---THddspKwcrT7mb3a--
