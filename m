@@ -1,53 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792699063;
-	b=A6lfWOUIiv+23TxL3axtgi4mOggG07O1hlnvzw9O7KLmMHUtz4JIySLXWPUJbSZnMzXF
-	 ZcuAlmTOh/C3C3ZD8S1OC9qdxwYIDsHDc7KJYsbiCD9i5E+lxfJqGfxd/hMoJ5GO4OlBe
-	 Bq/WOoGiLVLH9yf1E8Eaa/SIMujHgeqm2buVBZc22VdVPDJMR8DmZrT4eTCZ4Dm5AI3wA
-	 y2mZDI/UuoXXx0ge3MZWRSXUnHLRriGMFhUi81eByKtbHgz9wJ0gkO6tLLRc+eUFjDQ2u
-	 AQlgjz4+E+hC9Vu2ot8nxZKkEOTktjeNdeywki4FKAeHeSiujRYfP2Z3Or396YeB6Uw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792699063;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=Z7bkg+7eewHqh3zV5wrmPtrIxCgsH6oKpK/iMAi0XHc=;
-	b=zs5zT3RrOuHtu/55gmfRGjv7nEMVjVFX1vlP8CYQPzNBqapuFbQJ2Z8aas1odkpOGu4h
-	 FYTfnzTSd/kyZbVg23iWsP02OQPQOTRG8X0iratoG50d0h1w/u6QLRb1Q2/nNkXQsifBe
-	 t9xUohgUAkiRT1MbciMZfpSoeifmY/Yr6Ab6OcDmWZo+6KrwrM1cdatmcRhZGaz+dGllm
-	 p7GCvy4mwKjdZkNGNpbv8OkQKwtikw/ORuHa/wU9ePLa0CbqErzXjFAggSoxtF5sJEQeK
-	 OjJmwn6cCgRBYpLMETWMQ0H9tVo7e/xYUZrURT/hefOLVlRnCJNgyw1/g0GvE3QQfng==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J+ZGHmor;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.28
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792699086;
+	b=GO3ikuiFU4ssB3Z4vf7482so1Bvsd6s8H8PiXNj6/FxTbxEYzzvtQp7UitRd+0fhLO39
+	 TuyzItzKpdyjWJugpg4yWU8fZByrYgwfwZmyMHtHghG0XLLUS4THEa27wGk9Zo/qD8JvN
+	 fwB1CgllUy6XP6EbYc4ii5ZXKNQg6RCDSe9EieVWXHnSmGffffp1ZQO+PnKvYCr85GLuV
+	 IuiD1S1XD0EtToxcXMU8wNd573FNXmIdUCT+ycGshHO6J4OYvKIaVyv/JbrOk/i7Hquzr
+	 auGOP5Cig49JMn+HZRkVugDeTDJ468ygqrLFszpy5G+HgOnWF60ezG2uSPWjaBpqWoQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792699086;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=4oKrObT4dg5MjaPFDRRKANsk4vrisCJ5HcM9AAZtbBA=;
+	b=yuGtTbFyewT/eyPfs7JD8BU96tWHDyTYx9LsPlD0jWQXB/om12wHdwsROR6lw+t06z9+
+	 +sQHvhO8bTOZRP3XqUPDA6uWdev40SJP0jEzq5LzoVtYGnHIB7RT45cc0Qs0Fdi8NhnL1
+	 0Z0qHAwLG9Si0BTi/fLYePC9zalLYpVHOdyLa6IYV+Y0VGn4rgeATR0gPqaHNmWf97TKS
+	 OTtVQKWNjpUoI9KDwXjDqq4SNgfm43wQ912GOoA5D6/tFGcZrI7yDCYayPXLReMVwtcK6
+	 UF3Or355GDSRYu/d+dEaK7tq9cdeFWi+KAn4WVgeX3vpI1DdDsiRDlPADvbAmE+npFQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Qpkn38cg;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.28
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010028.outbound.protection.outlook.com [52.101.69.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86E0B606A31A;
-	Thu, 22 Oct 2026 19:57:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36AA5606A31F;
+	Thu, 22 Oct 2026 19:58:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36AA5606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J+ZGHmor
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35BA61F01825;
-	Thu, 22 Oct 2026 19:57:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792699062;
-	bh=Z7bkg+7eewHqh3zV5wrmPtrIxCgsH6oKpK/iMAi0XHc=;
-	h=Date:From:To:Cc:Subject;
-	b=J+ZGHmorlBDuZJcRd1Q/QDcaBpwXs7i1cbkaG11H/J+19S1Jzawmfbv9p20AFj6k/
-	 jqd6pMuo2ouxS736MyN4oDsxpBSkM59SG1safGNCqx+yzAGCG7BB3gEPejuS5AEMf0
-	 DpJYupXguUFiBNr+Qa2yg86g4KboJaNORdqBYyxKKGLsEoEOFzJFhf1uNZPLbsEzSW
-	 yv1VCesHFfIowxvawH+HkRKotnvdIxwd+z3wb61oNnwkDLsjZbPrSJfX0TylE47D2y
-	 zBVY286aIjMOBUoqeEtpcmYFy9i4x2JpvzCMZFEHgXwmxxdOB8gP3O3/dYyKNhO7wD
-	 1Q+zqesH8Z1jw==
-Date: Thu, 22 Oct 2026 14:57:41 -0500
-From: Rob Herring <robh@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Saravana Kannan <saravanak@kernel.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Qpkn38cg
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vYlvIyG8jkbF37U9MXIPh7CEwP9l482PJSxs5wMEs/l+vnxLVhdJJJ8F10Rslj9KQye7ZMDTAWQ31Un+rIETofG2Cf8NEkJvHkSgKLJU7gWs9FmP4cEhclci2RT65aWvWiJMSu3X4JAMtvQSj9oxpJj1uddtTQV+YKNjK9wR1dyvHNXLo+FNUfTbDOe049B9gU0OGEptG8f3xXPCj+VCjBRBIs/XuCHI0zUQmxVPJOzE2Pu8uvFFls1ZO8itfiyNY36dsmmaoo6u95QfqCxweZ2pICPfrGFQUrk8jbUk7jdlxJc2rT7g+JfBKwpW705vkuoAPvBOv8xPi+C94pcCVw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4oKrObT4dg5MjaPFDRRKANsk4vrisCJ5HcM9AAZtbBA=;
+ b=X40tppE6gqpL58mf/DNdz+J6UURXbaX+lFjTWQ3K2EM53mLIxf8yGfZXa/HzCb26493A9U/1ovhaAOFgfPcR51zH6RJr8NuK9D2fOwlwzOkH5hZKsdFmLzMJ3nNeNjowoRLyo8UuCFpm0mAmTC0R1hea4hG6Gbgspuuf+SXp/m8VB3lHnfIosU60AnlGlvfQUDzAjEq5Jl00gqDuLNB0EtqmihS0MrjBnRQ4G3PlpVA3oW/M7H2+5gVaWtzqTmbOcUBtwmTzoSgjx7HzEyfTFinZy+SRo01dGeCBpluehSELmpq6EHURS7bqRVM6S2jy8vpaggusqxlDqUcPvTIt1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4oKrObT4dg5MjaPFDRRKANsk4vrisCJ5HcM9AAZtbBA=;
+ b=Qpkn38cgqr2Y+wKANVHqz8hnqKrRiZeg0emvYVghbuovpTNtTcqKnZKnKGk6xwaekySRYe8GQmFWV1ryRKd/J+aDvcM8kxO03BhyQw50RpTwxPJvk866V1xqHpFoiGRPdQ3s88irrZMHLajoG+D+AhwbKawMwb2N7tVtnhtmAaHG4pr5UW4+x8B5jmVA/qcVwnEngHBZ2f1OIdTxONJIRny6LPQs+0qfLLWDU8pDAMiliki1WILaxxlVxBRnyNtnaWPJJoe+jla73oPzdOI3azRgjsY+BgG1jJleFVYPRTVQRNoA1S/rLJrrJ+Mp9+Ne2xLFi6Hpcso7IBrIV7uk3Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by AS1PR04MB9699.eurprd04.prod.outlook.com (2603:10a6:20b:482::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
+ 2026 19:58:02 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
+ 19:58:02 +0000
+From: Frank.Li@oss.nxp.com
+To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: [GIT PULL] Devicetree updates for v7.4
-Message-ID: <20261022195741.GA3409202-robh@kernel.org>
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Francesco Dolcini <francesco@dolcini.it>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 0/3] arm64: dts: freescale: imx95-toradex: fix vdev buffer reserved memory node name
+Date: Thu, 22 Oct 2026 15:57:54 -0400
+Message-ID: <179269903686.1276702.32511351112816245.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261002103757.70065-1-francesco@dolcini.it>
+References: <20261002103757.70065-1-francesco@dolcini.it>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PH5P220CA0013.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:34a::10) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,461 +107,97 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AS1PR04MB9699:EE_
+X-MS-Office365-Filtering-Correlation-Id: e4d126a9-cc59-4c56-ede0-08df3076c784
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|366016|23010399003|376014|7416014|1800799024|18002099003|10067099003|261021121427099003|22082099003|11063799006|261009221227099003|261009221727099003|261009223327099003|56012099006|261009223027099003|261009220027099003;
+X-Microsoft-Antispam-Message-Info:
+	sugkaHC1R4dVY1GUbOqbTbPvhPGA69O300C7xjjohLXRIeWgR0sYRCYCKIRELYdQyl7yeE1skKDJ8CcpFalUenQ54jFggpaM6kweyHEoH+yBq3gDIDSxlUEHRag8zifLek+TBdwvaskBoj82nvqgC0mHlTitMzNLcBHo2+EemZRXKCMxZpTmIXMs0TWCqcVg/SDcsj5j/XPzrwbxeESYSBM0J44dqWtRAhkZzJbvqjNhBlQSLi9QAiI7vN0L2FeFkP4+3HyzoK8Sy/XLQMtrLfJleZZUp8s9FyB5ONJ7xHnCBafxbkF7YTlEmP13U2P9H9XDKm1NFrFkjRlUF62umDqSlV5/O3VNrsSO5uZNtbtwwl0zxxgAx6qPG4Q5aXj3dAe9X1hRK/jv7+shJlrJFWDOq5o8kSsKooqhOCUfIieku9QJrn9DVlY7j/R2Itm9GcYJMGDGQoNEB8l3oa4EqiQRVx2HrBu3mTujApu47gtg8DRxmWS3GuRCeh+qLMeU43tTNcf2Ogk4ZxeP/KppWXOA8vsLGzwYLqGXDvANg3DaC9AEcbN7nYF69uDsttMICgF8+klNCsBshuHPR2L09JFNVVmptt7jzpIKnywII7s3BMJvxWWV6i/upyWRC7SOwzu6HWg+CjExXtVj1gD4/C1avZiutBHW86HuSg1WUh0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(23010399003)(376014)(7416014)(1800799024)(18002099003)(10067099003)(261021121427099003)(22082099003)(11063799006)(261009221227099003)(261009221727099003)(261009223327099003)(56012099006)(261009223027099003)(261009220027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?L0pvNm4rcGZVTHZ0MFRRUjRyNkRXa1lDdG9TbFVlTXUxUkU0ZG40UUN2ODYy?=
+ =?utf-8?B?ZUNsQk5rM1JKMjYzbU04cEl4RHFrYzJodFNyU1YrNm9tTXAzM054OG1zNmhw?=
+ =?utf-8?B?SGd0bHhOZThFTG8zdFVVeFlnNEdiTzJlaEJLRkFqaDVXR1A0KzRDVTdid1V0?=
+ =?utf-8?B?dWpzaytDclh0QURKUk9GZjlxZ2htOFlHOXNmWlZqOGNVV1NIVGJKR3FkSHpv?=
+ =?utf-8?B?anlncDBRQ1VtOUpFcm0waXlYbjIvMVA5REpMeUE4UzdQdkd1MzJFTzNSRktm?=
+ =?utf-8?B?R0UwMVdDanRCaEpyTVZGUnh0MkdvcmI0eEVnMnVKdnJ2bTVtTnErK2IxUk95?=
+ =?utf-8?B?SkJCTnN6dEE2N2RoS0ZoSTNLZ29keWNRd3VUQU53M0ZTb3VPbWYyeXZlU0JT?=
+ =?utf-8?B?NmN4aEJOUmdvZFFIUGJob1pXczkvNkNwdUVaM0Y5ay9xOW4xMDlnWXZ6bTBt?=
+ =?utf-8?B?QlB1K0gzT3BKcEo2RHdFL2ZDZUZaRERuMDA2WkhKVVdQVW54VDc4WGk2TWlP?=
+ =?utf-8?B?ZGQxOWlPNU4yR1BqMlI3VmhZVkJIQWd1YXVvWnRpQk5Rd2RFUWUwdXRqNlV0?=
+ =?utf-8?B?aHh2cEtVR0pjYllaSTVLWWNQdW5IRERGb3BQYUwzMFdCdndTdmNvY21FV0d5?=
+ =?utf-8?B?amJpdlJXVlFtTndRZHJFRWNiV3NvZ1RuWkphNWtZdXJRcWh1eXN2Nmxxdk0x?=
+ =?utf-8?B?RGp0dllCbDgra3lncnhMSlFuaGROWTVFWGlKSmJCY0NPV216Sis5K21OcXht?=
+ =?utf-8?B?S2thellmby8yUnZvSUU4WXNXN2p5SVh3QU9xc1htYU9UclNmd010K1NZTW9o?=
+ =?utf-8?B?aXcreEVFc1pjaEVnWngxZ1R2UUpVWi9KZjZQMzEvdDNvelhhZGlxb3lHZU90?=
+ =?utf-8?B?MTNJQUwrWFVEOEM5VWNHaHFJZ2pqY2dSTVRPajhZdy80S3BzNWFkT0NJYmE2?=
+ =?utf-8?B?Z3pXZkxVa3Z1Zm5ZZjFETkNpeWFGRWJGOG1GYWYyY09iamNaRjZqeklRL2xn?=
+ =?utf-8?B?R25DT3E3M2RyTTh5WTJyd0ZtTGNyTEtiWUkwOEJuR1dINmZZcDhGSk5ZSFB3?=
+ =?utf-8?B?WmIwYm5Fc2kxckJrcG82NFVhWnhDc0FJWVNyYml6Qk5ZWlkxdXpCRHZrWEw1?=
+ =?utf-8?B?NGxJa1FGTzZqZ3cwTEFNaGgvaURXYkNzZVRNakFvTmxacXZ4V2tIaldySXNX?=
+ =?utf-8?B?MDMwSUs0UnRjN045L093TThGZVVkQk5wa2h6YnhNNE1rWTYwVEFjRjJlRlhi?=
+ =?utf-8?B?N2ZyTnBUTVBDZjd1ZS9ONWlRazE0MFIyYUlsSGdZYUM4WmZQaDBRSnB3aVVU?=
+ =?utf-8?B?Sm1iOVJoWGUwK2VOVXFmbTN0UVAzWDRTVG5NUVhWeDhJRWIwOW0vcDJrNFNx?=
+ =?utf-8?B?S1dWM3IxbHVNYUI1cnRYL0tYa3VLdEJETzRwemhzWXNFaS9FbTZMZTJXdEM4?=
+ =?utf-8?B?SXRERmpZc2gzK0ZZUm9HMC9lbnd6UHVyTWdhMjkrOS9yOHdPS2w4alptdzc1?=
+ =?utf-8?B?Z2VpYzdvVXpkT2gvVjdJRkNnYTZjcVIwd1VKZ2JQcGhjU1hFOXFOOGpLMHVq?=
+ =?utf-8?B?Y3B4WmRtak9Rcnk4cndvMndCc1lJcytNRXlBbi8yZ1l6cjVhcFFnUFlLSWNO?=
+ =?utf-8?B?WWFOSHg5K3FONGJpZEFUT1RPTmVZVWZTVVlKTmFaVy9YM2w1NVZJaWtJZ1Bt?=
+ =?utf-8?B?Qm9JU2VzMmVNek1ERG1kNGtaZEdzSUdKb1lkdzdtMXFEeDhmcEladjF4T0Q4?=
+ =?utf-8?B?MTRBMFdkK0h5K05rRGJuVTRvUFQ3TUd3UGJWOFZOcEgxdGpZejh4WGEwdkVw?=
+ =?utf-8?B?QzQ1YWlseWxIcnNnVURNU1I4bE9UaElFR1FnVWNWNXBUNkZ1NUlkTE0wdlV5?=
+ =?utf-8?B?WnFLWU9LS2dVaFpjR3pUY0kzdUoxQWxRRmJYMCtGeG1POHgwM2VkSjZKamlC?=
+ =?utf-8?B?KzNVc1BSMWNCL3NvQWMzbzJLbjhiVEhpcHhGY2lCcnVGOG10bnFrOUNGUDhF?=
+ =?utf-8?B?azIrc1pTcTdiSXRIeHFvMzcrRncwaXhhUVgrS1BYd2dsTHU2YnI2UXlzZWVp?=
+ =?utf-8?B?RHlFVGlJdWFsRGJoNGdDaUlyYVpxMDNiWFUzb0tjTFFZRHdZc0p2cjRIdnVv?=
+ =?utf-8?B?K1V1RU03TW14NVhIYmFiSkhSSFhCdXpkWFIyYnYzV2VsQi92RDhlcFhPQ3gy?=
+ =?utf-8?B?ckJXWE50Nk5GTGNOd0VhdFRwc3FhWURFOWZmNHpzODR5RCtBcWVJb3JQbURB?=
+ =?utf-8?B?NXdFQ05IZmtXTFVDcG1vREM5bk9LNHY3QjZVam9Lb2NNTWxTaFNYdGR1NFRh?=
+ =?utf-8?B?Q3FtSTZCa2IxQkFoWjd2b3l4V2MxL1ZSTnVlNHRHZUR0TWtBV2prZkh0T1Iv?=
+ =?utf-8?Q?VZZZioykPsDOyFDMEjWPf27ToqAUKoIGJgc9I?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e4d126a9-cc59-4c56-ede0-08df3076c784
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 19:58:02.2382
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iIapsFeqR8wPPUQJWf10FYLO0KfiARdP0hDN0hbFxyVAdmIACNsPutPrqQAVd4Wl10llag2UKKQ7GpGRQIMp+SZu9q+C+cIJ+GOMClPQz+M29pBTpFAMi26wkXYyrv43
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9699
 
-Linus,
-
-Please pull DT updates for v7.4. There's one merge conflict with 
-mailbox tree and the mailbox.txt removal. Take the deleted files.
-
-Rob
+From: Frank Li <Frank.Li@nxp.com>
 
 
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+On Fri, 02 Oct 2026 12:37:53 +0200, Francesco Dolcini wrote:
+> From: Francesco Dolcini <francesco.dolcini@toradex.com>
+>
+> The imx_rproc driver uses node names to identify reserved memory regions.
+> It checks for "vdev0buffer" to skip mapping and "vdev" prefix to filter
+> vdev regions.
+>
+> Rename the reserved memory nodes to use the expected names so the driver
+> can correctly identify and handle each region.
+>
+> [...]
 
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+Applied to imx/dt64-intend (will appear to linux-next after v7.4-rc1),
+thanks!
 
-are available in the Git repository at:
+[1/3] arm64: dts: freescale: imx95-verdin: fix vdev buffer reserved memory node name
+      commit: 429806a56097ecc82409e8658d6bc43c37ead1dc
+[2/3] arm64: dts: freescale: imx95-toradex-smarc: fix vdev buffer reserved memory node name
+      commit: b1067e3e920f068d035b37fba8201739dfc3340c
+[3/3] arm64: dts: freescale: imx95-aquila: fix vdev buffer reserved memory node name
+      commit: 49b64740fa4c8af94d929b69371ac10ad2f113f7
 
-  ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/robh/linux.git tags/devicetree-for-7.4
-
-for you to fetch changes up to e8ff9af18e80279b80cf7063244db91b12f5e27e:
-
-  dt-bindings: usb: dwc3: Document ST STM32MP2 DWC3 xHCI USB controller (2026-10-22 10:30:06 -0500)
-
-----------------------------------------------------------------
-Devicetree updates for v7.4:
-
-- A bunch of improvements in dt-check-style. Fix various bindings based
-  on these additional checks.
-
-- Convert hisilicon,hix5hd2-ir, hisilicon,hi6220-ade,
-  hisilicon,hi6220-dsi, hisilicon,hip05-sas-v1, MediaTek RT5650 codecs,
-  mediatek,g3dsys, mediatek,mt2701-scpsys, ti,omap-mpu,
-  and ti,omap-ocp2scp to DT schema format
-
-- Add schemas for ST STM32MP2 DWC3 xHCI USB, ST STM32MP25 USB2-FEMTO
-  PHY, spacemit,k1-gpu and spacemit,k3-gpu, HiSilicon local bus,
-  HiSilicon HIP05 CPLD, SDMC DM2016, and QCom SM7250 and Kuno PDC
-
-- Various binding updates to fix schema warnings in .dts files
-
-- Drop obsolete .txt bindings for STM32(MP1) RCC, VExpress hwmon and
-  regulator, and mailbox.txt
-
-- Remove the unused of_overlay_remove_all() function
-
-- Fixes for of_check_msi_parent()
-
-- Add "i2c-parent" tracking to fw_devlink
-
-----------------------------------------------------------------
-Abdurrahman Hussain (2):
-      of: property: add i2c-parent to fw_devlink supplier bindings
-      of: overlay: remove unused of_overlay_remove_all()
-
-Ariel D'Alessandro (1):
-      dt-bindings: ASoC: Convert MediaTek RT5650 codecs bindings to DT schema
-
-Baihui Liang (1):
-      dt-bindings: gpu: img,powervr-rogue: add spacemit,k1-gpu and spacemit,k3-gpu
-
-Bhargav Joshi (2):
-      dt-bindings: bus: ti,omap-ocp2scp: Convert to DT schema
-      dt-bindings: arm: ti,omap-mpu: Convert to DT schema
-
-Douglas Anderson (1):
-      dt-bindings: mailbox: Delete old 'mailbox.txt' bindings file
-
-Frank Li (1):
-      dt-bindings: trivial-devices: Add SDMC DM2016
-
-Fuad Tabba (2):
-      of/irq: Fix device node refcount leak in of_check_msi_parent()
-      of/irq: Stop the MSI walk at the first msi-parent
-
-Geert Uytterhoeven (3):
-      of: property: Drop superfluous !!
-      dt-bindings: interrupt-controller: chrp,open-pic: Typo s/pci/pic/
-      dt-bindings: interrupt-controller: chrp,open-pic: Fix dangling reference
-
-Genevieve Chan (1):
-      dt-bindings: clock: agilex: mark mpu_l2ram_clk deprecated
-
-Hardeep Sharma (1):
-      dt-bindings: interrupt-controller: qcom,pdc: Add Kuno compatible string
-
-Hemanth Selam (1):
-      of: fdt: fix "Cound" typo in fdt_translate_address()
-
-Karl Mehltretter (1):
-      docs: dt: unittest: Use unittest_data_add()
-
-Krzysztof Kozlowski (31):
-      dtc: dt-check-style: Handle sorting of top-level nodes and properties
-      dtc: dt-check-style: Drop stray backslash before quote for continuation-alignment
-      dtc: dt-check-style: Fix alignment of values in continued property lines
-      dtc: dt-check-style: Consistently call 'kind' as 'file_type'
-      dtc: dt-check-style: Introduce 'stricter' mode
-      dtc: dt-check-style: Replace Test User email with Rob Herring
-      dtc: dt-check-style: Call _strip_strings_and_comments() only once
-      dtc: dt-check-style: Add test for trailing white-space in DTS
-      dtc: dt-check-style: Add warning for redundant white-spaces
-      dtc: dt-check-style: Sort rule directory by name
-      dtc: dt-check-style: Sort rule functions by name
-      dtc: dt-check-style: Process property names with a question mark
-      dtc: dt-check-style: Add test for node and property name styles
-      dtc: dt-check-style: Check for indentation also in continued lines of DTS
-      dtc: dt-check-style: Check for indentation also in continued lines of bindings example
-      MAINTAINERS: dt-bindings: Include dt-check-style in DT binding entry
-      dt-bindings: Drop redundant white-space around values in <>
-      dtc: dt-check-style: Handle continued lines in check_hex_case()
-      dtc: dt-check-style: Handle continued lines in check_line_length()
-      dtc: dt-check-style: Handle continued lines in check_trailing_whitespace()
-      dtc: dt-check-style: Unduplicate checks in check_mixed_indent_chars()
-      dtc: dt-check-style: Right strip whitespaces, leftovers before comments
-      dtc: dt-check-style: Properly detect comments in multi-line properties
-      dtc: dt-check-style: Relax property ordering rules (drop alphabetical)
-      dtc: dt-check-style: Re-work classifying property continuations
-      dtc: dt-check-style: Handle multiple blank lines in continued properties
-      media: dt-bindings: Correct white-space style
-      media: dt-bindings: Use consistent indentation in the example
-      dt-bindings: display: Use consistent indentation in the example
-      dt-bindings: display/msm: Use consistent indentation in the example
-      dt-bindings: arm: keystone: ti,sci: Correct reg and mboxes constraints
-
-Linus Walleij (1):
-      dt-bindings: display: faraday,tve200: Use a level-high interrupt
-
-Long Zhao (1):
-      dt-bindings: vendor-prefixes: add Ambarella
-
-Luca Leonardo Scorcia (1):
-      dt-bindings: mediatek: hdmi-ddc: Correct the compatibles for mt7623-mt8167
-
-Marek Vasut (1):
-      dt-bindings: usb: dwc3: Document ST STM32MP2 DWC3 xHCI USB controller
-
-Pankaj Dev (1):
-      dt-bindings: phy: Document ST STM32MP25 USB2-FEMTO PHY
-
-Quchaosheng (1):
-      dt-bindings: arm: vexpress: drop the obsolete hwmon and regulator text files
-
-Rob Herring (Arm) (15):
-      dt-bindings: mux: reg-mux: Allow zero-cell controls
-      dt-bindings: soc: hisilicon: Add HIP05 CPLD
-      dt-bindings: arm: cci: Allow syscon fallback
-      dt-bindings: arm: mediatek: Fix MT6779 audsys compatible
-      dt-bindings: gpu: Allow Hi6220 Mali resets
-      dt-bindings: soc: nuvoton: Fix NPCM845 GCR compatibles
-      dt-bindings: scsi: Convert hisilicon,hip05-sas-v1 to DT schema
-      dt-bindings: reset: Drop obsolete STM32(MP1) RCC bindings
-      dt-bindings: bus: Add HiSilicon local bus
-      dt-bindings: power: Convert mediatek,mt2701-scpsys to DT schema
-      dt-bindings: display: Convert hisilicon,hi6220-dsi to DT schema
-      dt-bindings: display: Convert hisilicon,hi6220-ade to DT schema
-      dt-bindings: media: Convert hisilicon,hix5hd2-ir to DT schema
-      dt-bindings: clock: mediatek: Add MT8516 fallbacks
-      dt-bindings: iommu: Describe MT8195 infra IRQs
-
-Sreeshankar K (1):
-      dt-bindings: interrupt-controller: qcom,pdc: Document SM7250 PDC
-
-Udaya Kiran Challa (1):
-      dt-bindings: arm: mediatek: mediatek,g3dsys: Convert to DT schema
-
-Zhijian Han (1):
-      dt-bindings: fix typos in various bindings
-
- .../devicetree/bindings/arm/arm,cci-400.yaml       |   6 +-
- .../devicetree/bindings/arm/arm,coresight-cti.yaml |   2 +-
- .../devicetree/bindings/arm/keystone/ti,sci.yaml   |   4 +-
- .../bindings/arm/mediatek/mediatek,audsys.yaml     |   2 +-
- .../bindings/arm/mediatek/mediatek,g3dsys.txt      |  30 -
- Documentation/devicetree/bindings/arm/omap/mpu.txt |  54 --
- .../devicetree/bindings/arm/ti/ti,omap-mpu.yaml    |  58 ++
- .../devicetree/bindings/arm/vexpress-config.yaml   |   4 +
- .../bindings/bus/hisilicon,hisi-localbus.yaml      |  44 +
- .../devicetree/bindings/bus/omap-ocp2scp.txt       |  29 -
- .../devicetree/bindings/bus/ti,omap-ocp2scp.yaml   |  74 ++
- .../bindings/clock/mediatek,apmixedsys.yaml        |   2 +-
- .../bindings/clock/mediatek,topckgen.yaml          |   2 +-
- .../display/allwinner,sun6i-a31-mipi-dsi.yaml      |  10 +-
- .../display/bridge/fsl,imx8qxp-pxl2dpi.yaml        |   4 +-
- .../bindings/display/bridge/lontium,lt8912b.yaml   |   8 +-
- .../bridge/megachips,stdp2690-ge-b850v3-fw.yaml    |   2 +-
- .../bindings/display/bridge/nxp,tda998x.yaml       |   2 +-
- .../bindings/display/bridge/sil,sii9022.yaml       |   2 +-
- .../bindings/display/bridge/toshiba,tc358764.yaml  |   2 +-
- .../bindings/display/bridge/toshiba,tc358775.yaml  |  12 +-
- .../bindings/display/faraday,tve200.yaml           |   2 +-
- .../devicetree/bindings/display/himax,hx8357.yaml  |   2 +-
- .../bindings/display/hisilicon/dw-dsi.txt          |  72 --
- .../bindings/display/hisilicon/hisi-ade.txt        |  64 --
- .../display/hisilicon/hisilicon,hi6220-ade.yaml    |  95 +++
- .../display/hisilicon/hisilicon,hi6220-dsi.yaml    |  68 ++
- .../bindings/display/imx/fsl,imx-lcdc.yaml         |   2 +-
- .../bindings/display/imx/fsl,imx6q-ldb.yaml        |  52 +-
- .../bindings/display/mediatek/mediatek,ethdr.yaml  |  90 +-
- .../display/mediatek/mediatek,hdmi-ddc.yaml        |  11 +-
- .../bindings/display/mediatek/mediatek,hdmi.yaml   |  24 +-
- .../bindings/display/msm/qcom,qcs8300-mdss.yaml    |   6 +-
- .../bindings/display/msm/qcom,sar2130p-mdss.yaml   |   4 +-
- .../bindings/display/msm/qcom,sm6150-dpu.yaml      |  14 +-
- .../bindings/display/msm/qcom,sm8350-mdss.yaml     |   2 +-
- .../bindings/display/msm/qcom,x1e80100-mdss.yaml   |  68 +-
- .../bindings/display/panel/samsung,ams495qa01.yaml |   2 +-
- .../bindings/display/sitronix,st7567.yaml          |   4 +-
- .../devicetree/bindings/display/st,stm32-dsi.yaml  |  52 +-
- .../devicetree/bindings/display/st,stm32-ltdc.yaml |   6 +-
- .../bindings/display/st,stm32mp25-lvds.yaml        |   4 +-
- .../devicetree/bindings/dts-coding-style.rst       |   5 +-
- .../bindings/firmware/nvidia,tegra186-bpmp.yaml    |   6 +-
- .../devicetree/bindings/gpio/delta,tn48m-gpio.yaml |   2 +-
- .../devicetree/bindings/gpu/arm,mali-utgard.yaml   |  25 +-
- .../devicetree/bindings/gpu/img,powervr-rogue.yaml |  17 +-
- .../devicetree/bindings/hwmon/adi,ltc2991.yaml     |   2 +-
- .../devicetree/bindings/hwmon/vexpress.txt         |  23 -
- .../bindings/i2c/xlnx,xps-iic-2.00.a.yaml          |   4 +-
- .../bindings/iio/light/upisemi,us5182.yaml         |   2 +-
- .../devicetree/bindings/input/matrix-keymap.yaml   |   3 +-
- .../devicetree/bindings/input/ti,tca8418.yaml      |  21 +-
- .../interrupt-controller/chrp,open-pic.yaml        |   7 +-
- .../bindings/interrupt-controller/qcom,pdc.yaml    |   2 +
- .../devicetree/bindings/iommu/mediatek,iommu.yaml  |  18 +-
- .../mailbox/allwinner,sun6i-a31-msgbox.yaml        |   3 -
- .../devicetree/bindings/mailbox/altera-mailbox.txt |  12 +-
- .../bindings/mailbox/hisilicon,hi3660-mailbox.txt  |   2 +-
- .../bindings/mailbox/hisilicon,hi6220-mailbox.txt  |   2 +-
- .../devicetree/bindings/mailbox/mailbox.txt        |  60 --
- .../bindings/mailbox/ti,omap-mailbox.yaml          |   3 +-
- .../bindings/media/amlogic,c3-mipi-csi2.yaml       |   4 +-
- .../devicetree/bindings/media/arm,mali-c55.yaml    |   2 +-
- .../devicetree/bindings/media/atmel,isc.yaml       |  14 +-
- .../bindings/media/brcm,bcm2835-unicam.yaml        |  10 +-
- .../devicetree/bindings/media/cdns,csi2rx.yaml     |  58 +-
- .../bindings/media/hisilicon,hix5hd2-ir.yaml       |  52 ++
- .../devicetree/bindings/media/hix5hd2-ir.txt       |  26 -
- .../bindings/media/i2c/galaxycore,gc05a2.yaml      |   2 +-
- .../devicetree/bindings/media/i2c/ovti,ov2680.yaml |  30 +-
- .../devicetree/bindings/media/i2c/ovti,ov2732.yaml |   6 +-
- .../bindings/media/img,e5010-jpeg-enc.yaml         |  22 +-
- .../bindings/media/mediatek,vcodec-encoder.yaml    |   2 +-
- .../bindings/media/mediatek-jpeg-decoder.yaml      |   4 +-
- .../bindings/media/mediatek-jpeg-encoder.yaml      |   2 +-
- .../bindings/media/microchip,csi2dc.yaml           |  56 +-
- .../devicetree/bindings/media/microchip,xisc.yaml  |  14 +-
- .../devicetree/bindings/media/nxp,imx8-jpeg.yaml   |   4 +-
- .../bindings/media/qcom,msm8996-venus.yaml         |  40 +-
- .../bindings/media/qcom,x1e80100-camss.yaml        |  26 +-
- .../bindings/media/raspberrypi,pispbe.yaml         |  12 +-
- Documentation/devicetree/bindings/media/rc.txt     |   1 -
- .../devicetree/bindings/media/samsung,fimc.yaml    |  14 +-
- .../devicetree/bindings/media/st,stm32-dcmi.yaml   |  16 +-
- .../devicetree/bindings/media/st,stm32-dcmipp.yaml |  14 +-
- .../devicetree/bindings/media/ti,cal.yaml          |  52 +-
- .../devicetree/bindings/mfd/ti,tps65910.yaml       |   2 +-
- Documentation/devicetree/bindings/mux/reg-mux.yaml |   2 +-
- .../bindings/nvmem/zii,rave-sp-eeprom.yaml         |   2 +-
- .../bindings/pci/hisilicon,kirin-pcie.yaml         |   4 +-
- .../devicetree/bindings/phy/st,stm32-usb2phy.yaml  |  68 ++
- .../bindings/pinctrl/sunplus,sp7021-pinctrl.yaml   |   2 +-
- .../bindings/power/mediatek,mt2701-scpsys.yaml     | 184 ++++
- .../bindings/power/reset/xlnx,zynqmp-power.yaml    |   9 +-
- .../devicetree/bindings/regulator/vexpress.txt     |  32 -
- .../devicetree/bindings/reset/st,stm32-rcc.txt     |   6 -
- .../devicetree/bindings/reset/st,stm32mp1-rcc.txt  |   6 -
- .../bindings/scsi/hisilicon,hip05-sas-v1.yaml      | 158 ++++
- .../devicetree/bindings/scsi/hisilicon-sas.txt     |  98 ---
- .../soc/hisilicon/hisilicon,hip05-cpld.yaml        |  35 +
- .../soc/mediatek/mediatek,mt2701-g3dsys.yaml       |  58 ++
- .../devicetree/bindings/soc/mediatek/scpsys.txt    |  79 --
- .../bindings/soc/nuvoton/nuvoton,npcm-gcr.yaml     |  18 +-
- .../bindings/soc/qcom/qcom,aoss-qmp.yaml           |   2 +-
- .../bindings/sound/mediatek,mt8173-rt5650.yaml     |  73 ++
- .../devicetree/bindings/sound/mt8173-rt5650.txt    |  31 -
- .../bindings/spi/aspeed,ast2600-fmc.yaml           |   6 +-
- .../devicetree/bindings/thermal/thermal-idle.yaml  |   2 +-
- .../devicetree/bindings/trivial-devices.yaml       |   4 +-
- .../devicetree/bindings/usb/st,stm32mp25-dwc3.yaml |  97 +++
- .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
- Documentation/devicetree/of_unittest.rst           |   2 +-
- Documentation/devicetree/overlay-notes.rst         |   4 -
- .../zh_CN/devicetree/overlay-notes.rst             |   3 -
- MAINTAINERS                                        |   4 +-
- drivers/of/fdt_address.c                           |   2 +-
- drivers/of/irq.c                                   |  39 +-
- drivers/of/overlay.c                               |  23 -
- drivers/of/property.c                              |  23 +-
- include/dt-bindings/clock/agilex-clock.h           |   1 +
- include/linux/of.h                                 |   6 -
- scripts/dtc/dt-check-style                         | 948 ++++++++++++---------
- .../dtc/dt-style-selftest/bad/dts-blank-lines.dts  |  37 +
- .../bad/dts-child-name-order.dtso                  |  33 +
- .../dtc/dt-style-selftest/bad/dts-cont-align.dts   |  27 +
- .../dt-style-selftest/bad/dts-digit-node-order.dts |  40 +
- .../bad/dts-digit-node-order.dtso                  |  41 +
- .../bad/dts-extend-node-child-name-order.dtso      |  26 +
- .../bad/dts-extend-node-digit-node-order.dtso      |  34 +
- .../dtc/dt-style-selftest/bad/dts-line-length.dts  |  22 +
- .../dtc/dt-style-selftest/bad/dts-node-name.dts    |  60 ++
- .../dt-style-selftest/bad/dts-property-name.dts    |  28 +
- .../dt-style-selftest/bad/dts-property-order.dts   |  18 +
- .../dt-style-selftest/bad/dts-property-order.dtso  |  62 ++
- .../bad/dts-redundant-ws-strict.dts                |  27 +
- .../dtc/dt-style-selftest/bad/dts-redundant-ws.dts |  28 +
- .../dt-style-selftest/bad/dts-redundant-ws.dtso    |   9 +
- .../dtc/dt-style-selftest/bad/dts-trailing-ws.dts  |  16 +
- .../dtc/dt-style-selftest/bad/dts-unused-label.dts |  21 +
- .../dt-style-selftest/bad/yaml-blank-lines.yaml    |  54 ++
- .../bad/yaml-child-addr-order.yaml                 |   2 +-
- .../bad/yaml-child-name-order.yaml                 |   2 +-
- .../dtc/dt-style-selftest/bad/yaml-cont-align.yaml |   9 +-
- .../bad/yaml-digit-node-order.yaml                 |   2 +-
- .../dtc/dt-style-selftest/bad/yaml-hex-case.yaml   |   7 +-
- .../dt-style-selftest/bad/yaml-indent-strict.yaml  |   2 +-
- .../bad/yaml-label-in-string.yaml                  |   2 +-
- .../dt-style-selftest/bad/yaml-line-length.yaml    |   5 +-
- .../dt-style-selftest/bad/yaml-mixed-indent.yaml   |   4 +-
- .../dt-style-selftest/bad/yaml-multi-close.yaml    |   2 +-
- .../dtc/dt-style-selftest/bad/yaml-node-close.yaml |   2 +-
- .../dtc/dt-style-selftest/bad/yaml-node-name.yaml  |  54 ++
- .../bad/yaml-prop-order-device-type.yaml           |   2 +-
- .../dtc/dt-style-selftest/bad/yaml-prop-order.yaml |   7 +-
- .../dt-style-selftest/bad/yaml-prop-pairing.yaml   |   2 +-
- .../dt-style-selftest/bad/yaml-property-name.yaml  |  46 +
- .../bad/yaml-redundant-ws-strict.yaml              |  31 +
- .../dt-style-selftest/bad/yaml-redundant-ws.yaml   |  35 +
- .../dt-style-selftest/bad/yaml-required-blank.yaml |   2 +-
- scripts/dtc/dt-style-selftest/bad/yaml-tab.yaml    |   2 +-
- .../bad/yaml-trailing-comment.yaml                 |   2 +-
- .../dt-style-selftest/bad/yaml-trailing-ws.yaml    |   7 +-
- .../bad/yaml-unclosed-comment.yaml                 |   2 +-
- .../bad/yaml-unit-addr-prefix.yaml                 |   2 +-
- .../dtc/dt-style-selftest/bad/yaml-unit-addr.yaml  |   2 +-
- .../dt-style-selftest/bad/yaml-unused-label.yaml   |   2 +-
- .../bad/yaml-value-ws-multiline.yaml               |   2 +-
- .../dtc/dt-style-selftest/bad/yaml-value-ws.yaml   |   2 +-
- .../expected/dts-blank-lines.dts.txt               |   6 +
- .../expected/dts-child-name-order.dts.txt          |   1 +
- .../expected/dts-child-name-order.dtso.txt         |   3 +
- .../expected/dts-cont-align.dts.txt                |  11 +
- .../expected/dts-digit-node-order.dts.txt          |   2 +
- .../expected/dts-digit-node-order.dtso.txt         |   2 +
- .../dts-extend-node-child-name-order.dtso.txt      |   2 +
- .../dts-extend-node-digit-node-order.dtso.txt      |   2 +
- .../expected/dts-line-length.dts.txt               |   3 +
- .../expected/dts-mixed-indent.dts.txt              |   1 +
- .../expected/dts-node-name.dts.txt                 |  13 +
- .../expected/dts-property-name.dts.txt             |  14 +
- .../expected/dts-property-order.dts.txt            |  16 +-
- .../expected/dts-property-order.dtso.txt           |  12 +
- .../expected/dts-redundant-ws-strict.dts.txt       |  13 +
- .../expected/dts-redundant-ws.dts.txt              |  10 +
- .../expected/dts-redundant-ws.dtso.txt             |   2 +
- .../expected/dts-trailing-ws.dts.txt               |   3 +
- .../expected/dts-unused-label.dts.txt              |   2 +
- .../expected/yaml-blank-lines.yaml.txt             |   6 +
- .../expected/yaml-cont-align.yaml.txt              |   4 +-
- .../expected/yaml-hex-case.yaml.txt                |   2 +
- .../expected/yaml-line-length.yaml.txt             |   1 +
- .../expected/yaml-mixed-indent.yaml.txt            |   1 +
- .../expected/yaml-node-name.yaml.txt               |   7 +
- .../expected/yaml-prop-order.yaml.txt              |   1 +
- .../expected/yaml-prop-pairing.yaml.txt            |   4 +-
- .../expected/yaml-property-name.yaml.txt           |  14 +
- .../expected/yaml-redundant-ws-strict.yaml.txt     |   5 +
- .../expected/yaml-redundant-ws.yaml.txt            |   4 +
- .../expected/yaml-trailing-ws.yaml.txt             |   2 +
- .../expected/yaml-value-ws-multiline.yaml.txt      |   1 +
- .../good/dts-child-name-order.dtso                 |  44 +
- .../dtc/dt-style-selftest/good/dts-cont-align.dts  |  14 +-
- .../good/dts-digit-node-order.dts                  |   3 -
- .../good/dts-digit-node-order.dtso                 |  59 ++
- .../good/dts-extend-node-child-name-order.dtso     |  26 +
- .../good/dts-extend-node-digit-node-order.dtso     |  34 +
- .../dt-style-selftest/good/dts-property-order.dts  |   8 +
- .../dt-style-selftest/good/dts-property-order.dtso |  50 ++
- .../dtc/dt-style-selftest/good/yaml-4space.yaml    |   2 +-
- .../dt-style-selftest/good/yaml-cont-align.yaml    |  33 +
- .../good/yaml-tricky-parsing.yaml                  |   2 +-
- scripts/dtc/dt-style-selftest/run.sh               |   2 +-
- 213 files changed, 3416 insertions(+), 1589 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/arm/mediatek/mediatek,g3dsys.txt
- delete mode 100644 Documentation/devicetree/bindings/arm/omap/mpu.txt
- create mode 100644 Documentation/devicetree/bindings/arm/ti/ti,omap-mpu.yaml
- create mode 100644 Documentation/devicetree/bindings/bus/hisilicon,hisi-localbus.yaml
- delete mode 100644 Documentation/devicetree/bindings/bus/omap-ocp2scp.txt
- create mode 100644 Documentation/devicetree/bindings/bus/ti,omap-ocp2scp.yaml
- delete mode 100644 Documentation/devicetree/bindings/display/hisilicon/dw-dsi.txt
- delete mode 100644 Documentation/devicetree/bindings/display/hisilicon/hisi-ade.txt
- create mode 100644 Documentation/devicetree/bindings/display/hisilicon/hisilicon,hi6220-ade.yaml
- create mode 100644 Documentation/devicetree/bindings/display/hisilicon/hisilicon,hi6220-dsi.yaml
- delete mode 100644 Documentation/devicetree/bindings/hwmon/vexpress.txt
- delete mode 100644 Documentation/devicetree/bindings/mailbox/mailbox.txt
- create mode 100644 Documentation/devicetree/bindings/media/hisilicon,hix5hd2-ir.yaml
- delete mode 100644 Documentation/devicetree/bindings/media/hix5hd2-ir.txt
- delete mode 100644 Documentation/devicetree/bindings/media/rc.txt
- create mode 100644 Documentation/devicetree/bindings/phy/st,stm32-usb2phy.yaml
- create mode 100644 Documentation/devicetree/bindings/power/mediatek,mt2701-scpsys.yaml
- delete mode 100644 Documentation/devicetree/bindings/regulator/vexpress.txt
- delete mode 100644 Documentation/devicetree/bindings/reset/st,stm32-rcc.txt
- delete mode 100644 Documentation/devicetree/bindings/reset/st,stm32mp1-rcc.txt
- create mode 100644 Documentation/devicetree/bindings/scsi/hisilicon,hip05-sas-v1.yaml
- delete mode 100644 Documentation/devicetree/bindings/scsi/hisilicon-sas.txt
- create mode 100644 Documentation/devicetree/bindings/soc/hisilicon/hisilicon,hip05-cpld.yaml
- create mode 100644 Documentation/devicetree/bindings/soc/mediatek/mediatek,mt2701-g3dsys.yaml
- delete mode 100644 Documentation/devicetree/bindings/soc/mediatek/scpsys.txt
- create mode 100644 Documentation/devicetree/bindings/sound/mediatek,mt8173-rt5650.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/mt8173-rt5650.txt
- create mode 100644 Documentation/devicetree/bindings/usb/st,stm32mp25-dwc3.yaml
- create mode 100644 scripts/dtc/dt-style-selftest/bad/dts-blank-lines.dts
- create mode 100644 scripts/dtc/dt-style-selftest/bad/dts-child-name-order.dtso
- create mode 100644 scripts/dtc/dt-style-selftest/bad/dts-cont-align.dts
- create mode 100644 scripts/dtc/dt-style-selftest/bad/dts-digit-node-order.dts
- create mode 100644 scripts/dtc/dt-style-selftest/bad/dts-digit-node-order.dtso
- create mode 100644 scripts/dtc/dt-style-selftest/bad/dts-extend-node-child-name-order.dtso
- create mode 100644 scripts/dtc/dt-style-selftest/bad/dts-extend-node-digit-node-order.dtso
- create mode 100644 scripts/dtc/dt-style-selftest/bad/dts-line-length.dts
- create mode 100644 scripts/dtc/dt-style-selftest/bad/dts-node-name.dts
- create mode 100644 scripts/dtc/dt-style-selftest/bad/dts-property-name.dts
- create mode 100644 scripts/dtc/dt-style-selftest/bad/dts-property-order.dtso
- create mode 100644 scripts/dtc/dt-style-selftest/bad/dts-redundant-ws-strict.dts
- create mode 100644 scripts/dtc/dt-style-selftest/bad/dts-redundant-ws.dts
- create mode 100644 scripts/dtc/dt-style-selftest/bad/dts-redundant-ws.dtso
- create mode 100644 scripts/dtc/dt-style-selftest/bad/dts-trailing-ws.dts
- create mode 100644 scripts/dtc/dt-style-selftest/bad/dts-unused-label.dts
- create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-blank-lines.yaml
- create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-node-name.yaml
- create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-property-name.yaml
- create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-redundant-ws-strict.yaml
- create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-redundant-ws.yaml
- create mode 100644 scripts/dtc/dt-style-selftest/expected/dts-blank-lines.dts.txt
- create mode 100644 scripts/dtc/dt-style-selftest/expected/dts-child-name-order.dtso.txt
- create mode 100644 scripts/dtc/dt-style-selftest/expected/dts-cont-align.dts.txt
- create mode 100644 scripts/dtc/dt-style-selftest/expected/dts-digit-node-order.dts.txt
- create mode 100644 scripts/dtc/dt-style-selftest/expected/dts-digit-node-order.dtso.txt
- create mode 100644 scripts/dtc/dt-style-selftest/expected/dts-extend-node-child-name-order.dtso.txt
- create mode 100644 scripts/dtc/dt-style-selftest/expected/dts-extend-node-digit-node-order.dtso.txt
- create mode 100644 scripts/dtc/dt-style-selftest/expected/dts-line-length.dts.txt
- create mode 100644 scripts/dtc/dt-style-selftest/expected/dts-node-name.dts.txt
- create mode 100644 scripts/dtc/dt-style-selftest/expected/dts-property-name.dts.txt
- create mode 100644 scripts/dtc/dt-style-selftest/expected/dts-property-order.dtso.txt
- create mode 100644 scripts/dtc/dt-style-selftest/expected/dts-redundant-ws-strict.dts.txt
- create mode 100644 scripts/dtc/dt-style-selftest/expected/dts-redundant-ws.dts.txt
- create mode 100644 scripts/dtc/dt-style-selftest/expected/dts-redundant-ws.dtso.txt
- create mode 100644 scripts/dtc/dt-style-selftest/expected/dts-trailing-ws.dts.txt
- create mode 100644 scripts/dtc/dt-style-selftest/expected/dts-unused-label.dts.txt
- create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-blank-lines.yaml.txt
- create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-node-name.yaml.txt
- create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-property-name.yaml.txt
- create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-redundant-ws-strict.yaml.txt
- create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-redundant-ws.yaml.txt
- create mode 100644 scripts/dtc/dt-style-selftest/good/dts-child-name-order.dtso
- create mode 100644 scripts/dtc/dt-style-selftest/good/dts-digit-node-order.dtso
- create mode 100644 scripts/dtc/dt-style-selftest/good/dts-extend-node-child-name-order.dtso
- create mode 100644 scripts/dtc/dt-style-selftest/good/dts-extend-node-digit-node-order.dtso
- create mode 100644 scripts/dtc/dt-style-selftest/good/dts-property-order.dtso
- create mode 100644 scripts/dtc/dt-style-selftest/good/yaml-cont-align.yaml
+Best regards,
+--
+Frank Li <Frank.Li@nxp.com>
