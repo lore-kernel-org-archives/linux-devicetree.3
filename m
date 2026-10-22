@@ -1,61 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792666376;
-	b=OKlvniGEv9aqNHn24FFjylurYehcf+RBtDNjpF43IAIBP0lqV3KMNybB6Xp0WQggJaUL
-	 Vtk8+G6Jkr0ZcxhSU1YCG+NbI8Mqi57Q1oqdyp1+HDDE7hm2GuPWukIeOwxTMiaeEmPsq
-	 AxBVx7VV9G7BrtjVSvSoPbbbdipHF61ugzDc819WbeBwVVf7wUSqwnQBHJhjOpIOBsmCI
-	 tJnoriog14YuxhiyGMPWfSgE12U5L8JIL5426SRigt9fARp8jR5YcVqWpzyqNuny+yILH
-	 fvz3U+XFALAn751lB4r6Yx6IEscwSxLXiCuy1FYY5utho2EvgNsI1ukGPzu93byAJDQ==
+	t=1792666479;
+	b=5WYoiQ8C6txyQVkMg1aQuvJmpPJ0ubCfg8xh6bKUE8rMn40WMt1Ml79JnEGzi48qWC9n
+	 01xM/4M5Ua3yjBpSqs3zo3Kv6BkFKI7UPJLoFlx4jZyd9RAIH+mrbJbaCGBvNIrSl22gs
+	 RWE1SNtF74c6KpdobIt+bIakab2elYgdhBk0/Lt7NgCgZm5BmJ3JtNOk0W/Gf9BvF/FBv
+	 RY0ha2/uupTlCFwbbdHjdBNVPpoCFEw/JHHmYNqCJs2xM9FhleiCbvVHUEPFAZw4URGWr
+	 nVg4LMIjDlnhbOzm4U4S2a4zUGgL5xZSwZTpjNezlZGd7KRZLCRQO4/UL6PtV2MelzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792666376;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792666479;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=vwrggvuqHJQ/Cl+eQIsicnlth4Pru1SY3OAx2uBPjdM=;
-	b=WYW5wEm3GZCnElZxyNAWmDVVVhAth3xEMJbg3Jf8Y/e5j8DjhpX6IG2E2pE6ZZc+E2Wl
-	 BdL5K0kmFVBxFl9aDP5simXYzRQ+dFL0UUCY1bBr/n79NVq9DNXGhsbddE8kW5BMsV/5W
-	 FJKaEaAUeZXUvpSjxpZxtZfwkkCnmHzRZxqH4oRLbQNirnOHZymCFwAIFQeVGf6JmYp3a
-	 eStV5irJqPmoc4Hw0KmaCOSs6XcpRyDXZP8L6ROit33CLl9Y2szb6OhFh3eaJvXtFHa/b
-	 JiIv9sza8avFzvU3ckva2pG6Jg5londFZQ1TeHvUFPIaQGVlJprUntcmGBZOpBr4RvQ==
+	bh=nUJ4Tk40fTnCV+Cy38QOMLqYzWns1s//G/M3kf5ajUo=;
+	b=ciCvhgylLBiubE6ZpEgsCJ4ieSs2ZRXTv0oLbKd258GpD6ep7q+HEZKfcGEBhpb98+ka
+	 sniNRkv5O7cAFT0gLj5rZ825Bh31zcr2unERps+5RN11A6WIrxvmvVStEx2BlTgr2hgXn
+	 5ImNYXw3Pa2QxTd2zq0xYw4A5NyYvErWFZmShn0AHi/OQbvpq7Ctk1R5vLkL+cE5syb8z
+	 qm1ysRZd+U4rrC/pCbBY1IEh9VMOiIKAQJkfOxp0bT2kLVc6Cw92dGE8IkBVk47+VzAD3
+	 Jbi1BPQ/HIM0K9ak2OFhRhuxVLfv00hLQm4vn1KMyzWm8bFhHDN4dzxFRyuyON6nOMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m8UxxglD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lNe2Ms0e;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85C30606A31B;
-	Thu, 22 Oct 2026 10:52:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79EF3606A31B;
+	Thu, 22 Oct 2026 10:54:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m8UxxglD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 917541F000C3;
-	Thu, 22 Oct 2026 10:52:55 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lNe2Ms0e
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64E371F000C6;
+	Thu, 22 Oct 2026 10:54:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792666376;
-	bh=vwrggvuqHJQ/Cl+eQIsicnlth4Pru1SY3OAx2uBPjdM=;
+	s=k20260515; t=1792666479;
+	bh=nUJ4Tk40fTnCV+Cy38QOMLqYzWns1s//G/M3kf5ajUo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=m8UxxglDlElIQAXquf2pBWby7YOUVUv5RJAn+4ICUmScuaCAo7oKuwnIq50K7WMM3
-	 AnfNXcXBBNECPltXFvYsdtiNY6TOEYMZRD/9JYXynN4ZXV6mSJlE6rToWuCAK8I7tz
-	 hB91qJajKnaS5VBVCY8Tj4vI+hORSPk1W46SPS9HqNhjpTyZuiXpzosB3SbfNYM07p
-	 +vWMuPJcR7iw4YLLWw0pFddOBMP7Y/dm8hoaMFsT9ZUwHVZczA8mhwHeojJpVS6xH+
-	 Vo7AaspF7lyFKPettVS3Yp+k9eRo5aVTSWX+vBZxesEicfjoIt9Tu5SRmC+f4P93Au
-	 4tNo4AJckEfMg==
-Date: Thu, 22 Oct 2026 12:52:53 +0200
+	b=lNe2Ms0ex2kgkREOuWz2izGMJvXHqgSoSnrefWCiqRLnGziin5BqCccq3zn+1atME
+	 zZOUJWK7j5bJH8kg5YgvJe3dP8vhlFJ7IyhPH3AvJ97mC6QqCk1mScroWTK0y4kzFt
+	 fzWsKG8KEvrGX+1zUA2da6kmYoHnfNkzTssiMzKZyPP1M6tfRzZv8v7PIy+xlNoNz/
+	 KMotFlUwAi6TJC+2fDg6mjvIGmUHMV0fhFkV60QIIgFuhNzkDbIvyofd0anzTHOXSG
+	 +Tf3gzudckWU1NLCSAEtaV7rZzIXPJlaSaePimqAiNDbidWdfGQU+WcjfU47Czk7ZI
+	 vi7x6sVqeqpxA==
+Date: Thu, 22 Oct 2026 12:54:36 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Nicolai Buchwitz <nb@tipi-net.de>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Cc: Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Ray Jui <rjui@broadcom.com>, 
-	Scott Branden <sbranden@broadcom.com>, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>, Stefan Wahren <wahrenst@gmx.net>, 
-	Phil Elwell <phil@raspberrypi.com>, netdev@vger.kernel.org, James Clark <jjc@jclark.com>
-Subject: Re: [PATCH 1/3] dt-bindings: clock: bcm2835: add the BCM2711 GISB
- clock
-Message-ID: <20261022-prehistoric-wealthy-leech-0ec8ff@quoll>
-References: <20261020-devel-bcm2711-gisb-clk-v1-0-a1728724d0f8@tipi-net.de>
- <20261020-devel-bcm2711-gisb-clk-v1-1-a1728724d0f8@tipi-net.de>
+	Guenter Roeck <linux@roeck-us.net>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Lars Petter Mostad <lars.petter.mostad@appear.net>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v4 2/4] dt-bindings: trivial-devices: Add TDK FS1412 and
+ FS1525
+Message-ID: <20261022-translucent-slim-sheep-eee8f2@quoll>
+References: <20261020-hwmon-pmbus-fs1412-v4-0-27ece4e43d04@nexthop.ai>
+ <20261020-hwmon-pmbus-fs1412-v4-2-27ece4e43d04@nexthop.ai>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,17 +64,17 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261020-devel-bcm2711-gisb-clk-v1-1-a1728724d0f8@tipi-net.de>
+In-Reply-To: <20261020-hwmon-pmbus-fs1412-v4-2-27ece4e43d04@nexthop.ai>
 
-On Tue, Oct 20, 2026 at 04:58:09PM +0200, Nicolai Buchwitz wrote:
-> BCM2711 has a clock generator for the GISB bus that the firmware sets
-> up at 200 MHz. The GENET MDIO controller runs its MDC off it, so add an
-> id for it.
+On Tue, Oct 20, 2026 at 08:02:06PM -0700, Abdurrahman Hussain wrote:
+> The TDK FS1412 and FS1525 are 12A and 25A uPOL regulators with a PMBus
+> interface. They need only a reg property, so document them as trivial
+> devices.
 > 
-> Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+> Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 > ---
->  include/dt-bindings/clock/bcm2835.h | 1 +
->  1 file changed, 1 insertion(+)
+>  Documentation/devicetree/bindings/trivial-devices.yaml | 4 ++++
+>  1 file changed, 4 insertions(+)
 
 Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
