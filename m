@@ -1,73 +1,40 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.31.26.27
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792675792;
-	b=omM3nnGRul2lto06wvZ8zVL0tSF+nGE09SkjDGpaq8Tr1HbGyPrnXqWV+f+63U0UTkbX
-	 vFm1uB++XQPqVdfdRIylKQlr/osf6Cd/oKbhZuua7G1l8ttBwchszYpMA3u+WT92vGlvQ
-	 LzJqu27hTQvbmTf9iDXZE4yi1rFmahg13Y766zdcnhLyzaCV8fkhT+F+Ug1fYyGbMDjJD
-	 /f/rXfSpcnnfiodIh8u2oTYLDTrFSv3Zr6RyUIWeAAQMDn0USRyO6unU9l+YIIwQVLAMN
-	 /2VcPEF4DqarFKGvAkltMuvJufHR9e1uUT1JaEBewMupiASP4gDUmKtDMWJ2k8Z3T9A==
+	t=1792676118;
+	b=Wpcf6cdIOXBv/Ev0SpU/W+A0BiO+rWB8jW248xvrqbTKWrAeZtVMY8N1EFPh1H7L2N+i
+	 R0wkRtvViqMt051EKYbX+jpnpjf4eBYM+9dEku+4numiaXNT7DjpoyT3x6r/TR/LhyrKx
+	 LwJuiJOqbMYpBFZCrMCnzVrPlG1Weot75DL8pej1CNtu6scgTxywjPhgsEkzFkqve+1+O
+	 IHe6gXM14eB1RpjrTw+QM5tf/wprCgULlxzE50CR5/lFoEeHCbmAGv1e6K93RiCZ/pY4H
+	 lWiUCob7YxPTQAHamTqoMJdm/izOdEErpdl6CP3Hup1yGWwIrug45Lh69qxyaR/usuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792675792;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=BHloWhYz7GJBLiM/ipNU8e/tSSUGBZyPKJWypWVrUrM=;
-	b=fPXxQ7OLti8rvzfqm5FvthazY1qAcEmKNJzqVABLTd1lOWTCrZPQ8j87uSo2P1HxKF87
-	 fCeOqUn5xvCKMwQ766UZMplXueAdnHWH7NQ3e/5HpigcaafJgOg3BKzi7afTuq8inu1bD
-	 X1faldDm/pa8wLUG7wsSmgqpCEB/LiumbHGZpdCCaSF66tZ1jbamwKFdeZfvuGkoRKgU2
-	 GvUHCtkwI3Mdjs2RyH6uHII39YRcNTMJr+Z06DV3OB17V6sX5npChG334j95M7EITTIFC
-	 8Ip27cMXq2MoMY6cRJuHkNct76H0+cEP+4uf+GlgUA3PQI4nM0PA8vqI5v55es0bmxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792676118;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=oVTm7ek0li3Y8+8HmSzHDQ7p121jD4gpshcVEU+XW1A=;
+	b=eR/RVkLrLrGGdyHp7Y+zQpm1AIRC6KnK8YuaL3fPhP9zgyZMuqaZXZFuOgWuN5tO9/2q
+	 Vx+RZkHaBlzIj6snjfl4G+X9yFzeiRFN5yfg7yJ3dnpL8pj45N7n3zQE7eqKYCFkgizL/
+	 usmUCWKTlE20XDHS5PFvPDzy/ZOcvVCXm7Qysj17cjOyPpI/RmHBVZq62P9ts8mWQdVmI
+	 O+0wa0PnVt1aiQ62exmcBxINMBBYlVxlMt+RvGPM8KeG+1I3CDhKnBpjXJD+WVFQGNrbp
+	 l6Oe77d7AQTSM/7UGxbXFh877twOdzW9g6f7ceQC+JmTadN3zJihZejV1EnYBbL1ZcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ipjyl4WV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=rudorff.com;
+	spf=pass smtp.mailfrom=rudorff.com;
+	arc=none smtp.remote-ip=193.31.26.27
+Received: from rudorff.com (rudorff.com [193.31.26.27])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7CE960A2604;
-	Thu, 22 Oct 2026 13:29:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ipjyl4WV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E81D71F000C2;
-	Thu, 22 Oct 2026 13:29:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792675791;
-	bh=BHloWhYz7GJBLiM/ipNU8e/tSSUGBZyPKJWypWVrUrM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ipjyl4WVUMaePbP8eQPmaEfK7J/3RZ1TYrKdiNb92bEF42Dy9+KYZdsQFMRMsboSF
-	 zKu9HrcsnZenjyraJqvjlVuHMvgpWMorBB7kvBnawTj3Ld7pah59+zVPkaekC4FC4z
-	 b87E/GW1wE+3LrxDIpnlCtSHe+LyRpVtpS/hihPU=
-Date: Thu, 22 Oct 2026 15:29:43 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
-Cc: Donald Shannon <donalds@nvidia.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
-	Mark Brown <broonie@kernel.org>, Jiri Slaby <jirislaby@kernel.org>,
-	Corey Minyard <corey@minyard.net>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Hans de Goede <hansg@kernel.org>, Lixu Zhang <lixu.zhang@intel.com>,
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-	Oliver Neukum <oneukum@suse.com>,
-	Quan Nguyen <quan@os.amperecomputing.com>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Jeremy Kerr <jk@codeconstruct.com.au>, linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-leds@vger.kernel.org, linux-i2c@vger.kernel.org,
-	linux-spi@vger.kernel.org, linux-serial@vger.kernel.org,
-	openipmi-developer@lists.sourceforge.net,
-	linux-acpi@vger.kernel.org, linux-doc@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 00/11] Add NVIDIA LSTP USB adapter drivers
-Message-ID: <2026102222-oppose-saggy-983a@gregkh>
-References: <20261012-lstp-usb-adapter-v1-0-aambrozewicz@nvidia.com>
- <2026101355-species-glance-9ff8@gregkh>
- <20261022104025.3956402-3-aambrozewicz@nvidia.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB120606A31A;
+	Thu, 22 Oct 2026 13:35:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB120606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rudorff.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rudorff.com
+Received: from [IPV6:2a02:3102:b60c:d00:92f6:52ff:0:bd0] (dynamic-2a02-3102-b60c-0d00-92f6-52ff-0000-0bd0.310.pool.telefonica.de [IPv6:2a02:3102:b60c:d00:92f6:52ff:0:bd0])
+	by rudorff.com (Postfix) with ESMTPSA id DC2A0404C5;
+	Thu, 22 Oct 2026 15:35:07 +0200 (CEST)
+Message-ID: <2b091dc3-9588-4042-8908-2fc3adba6cf5@rudorff.com>
+Date: Thu, 22 Oct 2026 15:35:06 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -77,50 +44,50 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261022104025.3956402-3-aambrozewicz@nvidia.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] arm64: dts: qcom: msm8916-samsung-j5: Add proximity
+ sensor
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Linus Walleij <linusw@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org
+References: <20261016-iio-light-gp2ap002-v1-0-7c93312fa8d5@rudorff.com>
+ <20261016-iio-light-gp2ap002-v1-3-7c93312fa8d5@rudorff.com>
+ <5531e454-0d84-48f2-af0d-1ab34c149760@oss.qualcomm.com>
+Content-Language: en-US, de-DE
+From: "chr[]" <chris@rudorff.com>
+In-Reply-To: <5531e454-0d84-48f2-af0d-1ab34c149760@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 22, 2026 at 01:40:26PM +0300, Adrian Ambrozewicz wrote:
-> On Tue, Oct 13, 2026 at 01:37:11PM +0200, Greg Kroah-Hartman wrote:
-> > > Why the auxiliary bus, and why not MFD
-> > > --------------------------------------
-> >
-> > Neither is ok for USB devices, that's not an argument either way.
+Am 16.10.26 um 17:11 schrieb Konrad Dybcio:
+> On 10/16/26 4:43 PM, Christoph Rudorff wrote:
+>> J5 got a gp2ap002 sensor, add it and it's supplies to the device tree
+>>
+>> Signed-off-by: Christoph Rudorff <chris@rudorff.com>
+>> ---
+>>   .../boot/dts/qcom/msm8916-samsung-j5-common.dtsi   | 19 ++++++++++
+>>   arch/arm64/boot/dts/qcom/msm8916-samsung-j5.dts    | 40 ++++++++++++++++++++++
 > 
-> Here USB only carries the traffic. The I2C, SPI and GPIO channels are
-> ordinary controllers on the board, and their drivers register with
-> those subsystems; hosts describe what is wired to them with ACPI, BMCs
-> with device tree [1].
+> It's odd for the regulator and pin setting to be common, but the
+> sensor to only be there for one of these devices
 > 
-> usb-ljca is a recent driver for a very similar device, so we modelled
-> the core on it: one interface carries GPIO, I2C and SPI, and the core
-> creates an auxiliary device per function and attaches its ACPI node.
-> LSTP extends that model to device tree.
-> 
-> Whether the next version stays LSTP or becomes a set of divergences
-> from an OBMF-ICP driver, as Jeremy suggested, the need is the same: a
-> device behind a tunnelled channel is described like one wired straight
-> to the BMC, so a board can move between the two without rewriting its
-> description.
+> Konrad
 
-THat's exactly what USB is supposed to be on its own.  Just use that,
-don't attempt to "overload" a single USB device as somehow being a
-random set of devices attached that way, that's a peversion of the USB
-spec, don't you think?
+Hi Konrad,
 
-But if you REALLY want to do that, then again, do something that has
-already been defined, like greybus, which you can use your USB device as
-a greybus host device and "hang" the other devices off of that (i.e.
-your firmware knows the device types and describes it to the host.)
+in patchv3 I removed the settings from common
+and renamed some labels.
 
-To attempt to use a non-self-describing device/bus in this century for a
-brand new protocol and device that actually uses USB as a transport
-layer is insane.  Please learn from history and don't repeat the same
-mistakes.
+Is that ok?
 
-So, again, why not use greybus for this?
+regards
 
-thanks,
+chris
 
-greg k-h
+
