@@ -1,53 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792678593;
-	b=SWQ9xSfwLDs72Fpp12XuKyternKuQeiKItEUftdtOU00oECFYNL5vkL8eCnIR4KVbfKl
-	 UaPX6HXk9Tew78d3yoKxSyM2aC5reILFFn8lJ4Ig9zx8mXD88giBgLXA+h+BDy8vAJAft
-	 Q6/dgshmKe1m5nP6HpzlhCaCtFeG7J2V6AU+mYfh8OUniWzUWVedr2syTFdMkPtYa3ovb
-	 RW6GRRrrV/rWb069FG15v2VVXzIJqRNcIlbDenPHsg5W6lA6/A5bCvVC0EA6e6E6xprUu
-	 yTaZjnR0Mkw3x2iUfvldhfaFCIBpvlD0S8M3xBGU/2mEM5qvZ/3ftPqTp+tVvBbBtnQ==
+	t=1792678912;
+	b=S7xJFWE9FHuJQ4wjECHdD0M3zbeUgxidSWldLq1skV329yMOrGVEPJmcTPMRhszyjUs7
+	 lw2Hl27o9EzEnvn57sWXlJ+rHL2aNlOvnFQFRA+qUFpf0ZxXUVmbFOTFdlRg5TPInsAuF
+	 /1MexM5jGqpYghxSmZYHE7VonRtUAEuO9heFsFM8PHn1iBBqIYoNr9YLfYtFaEkEAW8cx
+	 NEJX3V9cGEv2oZv+VN0KdOeZHn4v85UsHie9xEkxXzEs7aT+546G9acQr5A/8+ngjzeUO
+	 keeEfUS9/ZgGPXX62hlXFxrfy/XctqRHWA5mTf39GZGCKSGH27mgauDBYEtXB303wUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792678593;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Qo2LeBxv5OkAJSNgBlJ5JOD4tGRiFhNDOXoyP7LP9nA=;
-	b=ZPKGKNycVrLPytBZZbOUbE61ZtNd/xcFvJrqCTd9zM5WqwhvCif2kDlZU4FWm/QwFvvV
-	 swyp/lgN7DexIlOX0hiSw4AKIIsFCh2mGlh432+17nRDRQHdnb3wJ6vQl83TDxOzn+7jD
-	 rL2uG8k1+grwjcpojbW6UoXZ9Y1EJo3yFYZoHf2UfG51M8CY4F3l7XpBDhulGP5IPb1jg
-	 Igx0NEaTsRFoSZYXaVVf9WKNpO0DunMthwBpcrj0biVPOPovz8Z+6FBDQaL1rp9UJ6vk4
-	 X1nCFwiLbi74AAMmh1l+liCth8yWtAh0LCZOiGl5dKIUjW/JjrXbElrtIwQrWLI6HIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792678912;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=UgVlXRgVv5/x1DXWmVGKmIRruqBZ1ifqROjMLIcwpQI=;
+	b=wERCfMDGYz302LiswWoCJZpsp5xGzMjZeoUSDAIc5L5bLLXtI0nmhXcsc1/5uixNfYwq
+	 f9WmCYUUCJS924kNBYLwuMTrGv3O1w1yfRpt85FMPGWkprueJsBYpMBfWEKirTgPmWsdm
+	 1OOxpQJCdMxjD358UQXAZT54ofX6OwNwgyyjWB/qKqTCPwP0NEC/lltkGXj69Eo3+3Ezh
+	 iHsK8ntZHscNE3mRJcaU/mvvCGPbikz48NHkh/bCiUl9K6wnARdLyVo1xSQlbgjrGz11R
+	 vr/ZkxWwsX5Yrxo9wpBScRPfC4Egn2sZ07A8bpc04Glf5ZCiEMQjivWgcLmxWXvv5nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eajDPUQj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C076606A319;
-	Thu, 22 Oct 2026 14:16:33 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=dniXRB4Z;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 21D7C606A31A;
+	Thu, 22 Oct 2026 14:21:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21D7C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eajDPUQj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6F041F000C1;
-	Thu, 22 Oct 2026 14:16:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792678593;
-	bh=Qo2LeBxv5OkAJSNgBlJ5JOD4tGRiFhNDOXoyP7LP9nA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eajDPUQjIGygbgk43cbknX0e23miJGV9zhPJGGV+gqyljbY3VrHytwqTOHttWZ9vi
-	 e+K90MbFepLEzGXJFIX6mI+gvvpgcPhZ8A+j81Fj0rEEtrq9FpdLug0thuIw8KQ+4k
-	 n2E+RLj7ZOBNcN/eO9SiM75MPx/y4pjb4YzdonMvOQerFP4OxH7vW0mj3X8BLmEO7y
-	 oMcD4qCYn6F9Tc/d9KTVjjs9Lqy9Nb2Rddtd23LdyWEDG6OAea5mSZ67svnrIXnGLz
-	 wkKlgzAYRGqmmyEEeZeVOPQQLgFzECaDsQ13P+3UAvt9+vPuG7MswnfYmrov7Y0opT
-	 ixPUqr1FEGBdQ==
-Date: Thu, 22 Oct 2026 09:16:32 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Artem Novak <artem122novak@gmail.com>
-Cc: daniel.lezcano@linaro.org, geert+renesas@glider.be,
-	devicetree@vger.kernel.org, conor+dt@kernel.org,
-	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: timer: renesas,tmu: Add SH7305 support
-Message-ID: <179267859148.1090186.14465037186984905301.robh@kernel.org>
-References: <20261022044135.275485-1-artem122novak@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=dniXRB4Z
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EBCFC2C34;
+	Thu, 22 Oct 2026 07:21:46 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E3BA83F7B4;
+	Thu, 22 Oct 2026 07:21:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792678910; bh=AjDgKxtJPU0cDSM8jjetpkKUyPIl0mcA2sgghiP/fy8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dniXRB4ZD77Kv5qxyizSr8v8KtL/ukXit7rt6xFRKUWRWqRwmE6iH72fHbbiOthgT
+	 t8pkLhHcMrKIjkL9hOIAKcTHcKAD8dALDouiCVdrInxKtCYCKPKtoN/P52CBgRrqBV
+	 0dUXbOk3kfv9WFL09chD0AKAzIdjKVCTHS+KjbMo=
+Date: Thu, 22 Oct 2026 15:21:42 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Roberto Sassu <roberto.sassu@huaweicloud.com>
+Cc: will@kernel.org, mark.rutland@arm.com, chenhuacai@kernel.org,
+	kernel@xen0n.name, maddy@linux.ibm.com, mpe@ellerman.id.au,
+	npiggin@gmail.com, chleroy@kernel.org, pjw@kernel.org,
+	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
+	tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+	dave.hansen@linux.intel.com, hpa@zytor.com, robh@kernel.org,
+	saravanak@kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
+	zohar@linux.ibm.com, noodles@fb.com,
+	linux-integrity@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	Roberto Sassu <roberto.sassu@huawei.com>
+Subject: Re: [PATCH v2] kexec: Select ima_get/free_kexec_buffer() with
+ CONFIG_HAVE_IMA_KEXEC(_OF)
+Message-ID: <atob9ulCwxZgyWyL@arm.com>
+References: <20261020083727.1906495-1-roberto.sassu@huaweicloud.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,26 +73,33 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261022044135.275485-1-artem122novak@gmail.com>
+In-Reply-To: <20261020083727.1906495-1-roberto.sassu@huaweicloud.com>
 
+On Tue, Oct 20, 2026 at 10:37:27AM +0200, Roberto Sassu wrote:
+> From: Roberto Sassu <roberto.sassu@huawei.com>
+> 
+> On x86, if CONFIG_OF_FLATTREE is enabled, the kernel uses the device tree
+> implementation of ima_get/free_kexec_buffer(). However, x86 passes the IMA
+> buffer location through setup_data, not through the device tree, so the
+> buffer is never found and the IMA measurement list is not carried over
+> across kexec.
+> 
+> Introduce CONFIG_HAVE_IMA_KEXEC_OF (which selects CONFIG_HAVE_IMA_KEXEC)
+> and select it for the architectures that pass the IMA buffer location
+> through the device tree, via of_kexec_alloc_and_setup_fdt() (arm64,
+> powerpc and riscv). Build the device tree implementation of
+> ima_get/free_kexec_buffer() only if the new option is enabled.
+> 
+> Select the new option also on LoongArch, to preserve the current behavior
+> and avoid a link failure. LoongArch does not pass the buffer location to
+> the next kernel yet; this will be addressed separately.
+> 
+> Finally, don't select it for x86, and use x86's own setup_data-based
+> implementation regardless of CONFIG_OF_FLATTREE.
+> 
+> Fixes: b69a2afd5afc ("x86/kexec: Carry forward IMA measurement log on kexec")
+> Signed-off-by: Roberto Sassu <roberto.sassu@huawei.com>
 
-On Wed, 21 Oct 2026 22:41:35 -0600, Artem Novak wrote:
-> Add the SH7305 compatible string to the Renesas TMU Device Tree
-> binding.
-> 
-> Exclude SH7305 from the mandatory resets property, following
-> the convention used for older SuperH TMU implementations.
-> 
-> Signed-off-by: Artem Novak <artem122novak@gmail.com>
-> ---
-> Changes in v2:
-> - Rename the compatible string to renesas,tmu-sh7305.
-> - Sort the compatible string alphabetically.
-> - Exempt SH7305 from the mandatory resets property.
-> 
->  Documentation/devicetree/bindings/timer/renesas,tmu.yaml | 2 ++
->  1 file changed, 2 insertions(+)
-> 
+For arm64:
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
-
+Acked-by: Catalin Marinas <catalin.marinas@arm.com>
