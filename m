@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792657990;
-	b=x1PZDtOyWnjzFq+0yxbX43EPi3cXYPzoD64YYnfVLQq8vnjqzcdr4PuFZvwaL9VFQ0qK
-	 yOBZX2zrQ/O0t2f/eoisXLLy1gbk+aDF8u/exPXPmqHTpltevbIico8cmmaWaPmnc6mfX
-	 ywV0x/5zP0W15UfqrWEBWQ6Uzvu3oigPn5MAei8TM4VPxSYL1a66HYMn7nTLHEbmmoV6f
-	 acHxGhkLQCuRDavlisKuwdr5HjsPU8QoJdhxdzzLUIyR1GQJgZavZgDbtQV+WajYowz5O
-	 BqP4Z0T+TedOs9T3OiLqdJkpoT2hhs/a+tnSylw9Z4WvC4syaQnsHmWMsJO2/pbpIKg==
+	t=1792658000;
+	b=SCALeIX258uy0L2ZsJO1kuOGn7nnm5EYLGE0qebOSKcXR5SQ1by9Yj8B5c/wIJeN4opl
+	 C+T6s8wSHm127Xf6u4Mc5alKLDi9nswpIoYmbhV7YXUYU8HmXyVYtoxMdCDUeJC/y2TaM
+	 FwNTntzjJPr8iSNIksrf+uxsDtlayd220ncxgfyLvls7HswtZZCwDIJljqDY10ZIag0tw
+	 +z+97/CRd3R/jfWaLhpp/Pz2Rg11wyxT6r+QjXVoBaZhqzYGvlxs64wwFQL/oj9kXRvhJ
+	 TM7tBZGS4ZGAsQeN9xLT4RtzHn7xu0cR+g0XS1w4zvJLrywM5eRiAsh2JeKfZuoU1Ww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792657990;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792658000;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=I7P4Z0m4H0zqdvZ0EHWJXAmTbybltS5XLjPO30+Sp4U=;
-	b=mjFz8M6OgBoF/VacM/Q5MLRVqBopNxnmp02+oqiWJg9HLnzSlr5wFhQsgafWTbo/QrrQ
-	 e3yt2CGmwvM+kOq22Ab2ua3vbbaKoRaDatzZh2vteSUYF3V4oVQzRoYMWlXEObP3fmHr4
-	 kQGH69mdPtdwzqqQLrK8fm3gS1uDtFHFRe0fFrrS9m5FVN88Ec68OKt++Cbf5xVwhHYGA
-	 iB+7W8Lx04vtMUMFg5XNlLHMsG8KtG1DwkvG9HQLShNZeBhz6Q1kca1JLjEeKnmqJc7rr
-	 /0Tuz75qdw+4OeUsk3KzGabJzpUBZ9Ox9AngZkJ9U+0HsVKMMXRJ0NGVifcpemj8Ljg==
+	bh=flFPZllbaKoBIHFswczsH7CR5as1Rw0sc8rUxUyOmGI=;
+	b=u4L1VVwhk6f8TmlOk/g+GZ6FmRZ+enBwH94DNGk33lUp08VvERfWM7Fj5D04xdh9LTX6
+	 2DS2DRpO3a2vw2q7375NGHC1f/H0OWo036N0Y3kggP3xiFp97VVwAo2vYyFQmIbnt5Xms
+	 7wjym+4id9r+WJsaUMyU/9pnPfTyl/qC8nz3Tfbjs529oC8Fvu6I1cmNsf62yGzSCdCsD
+	 CTH4csHnzXbSL+ghxtGDbWD+XfJm0zjQi9/24OE6KP3YrnkXMDw2BVoz9VquSHQYtBHag
+	 3thCKdzYkR3pY8nfvZpjMGYgotfv8PADpNxSwm5/7d0CSbbdAzB8Py1iClIVYaSOOhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HHd5gRUn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iNN9pxJF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D4A9606A319
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 08:33:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF470606A31A
+	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 08:33:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HHd5gRUn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3205D1F000C4;
-	Thu, 22 Oct 2026 08:33:08 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iNN9pxJF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7E4B1F000C2;
+	Thu, 22 Oct 2026 08:33:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792657989;
-	bh=I7P4Z0m4H0zqdvZ0EHWJXAmTbybltS5XLjPO30+Sp4U=;
+	s=k20260515; t=1792657999;
+	bh=flFPZllbaKoBIHFswczsH7CR5as1Rw0sc8rUxUyOmGI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HHd5gRUnE0JYDC3bp5XYFM4M/eFH8QH8Dc9624RyNopi6jrA63TrpPxiyLDK/Hxjp
-	 dw5vmKunP6b5VJRmYtyolQYedMj8zpkxe4kTSvv6Yx5TLKjoz7LVRCaaJRZ4SmqgXS
-	 RM6TsMCxzxI4Qw+eWb4axqtD9EgAr/ui5D8M22eqSDsnysEV9vlhxtFEAf7EDzaMV3
-	 LVkNFsb2Og6luB4nAm1yyk8i2bQVKZXnn3Wz1vbnU+J8D78hHl/zN+anlyf9In7npl
-	 qFa9L+D6YdrtMpgoGXVDuikaojWF4qso2fNrL2X5Luk7ZwdIzcdEo79jL6ezwFUHb2
-	 byjglWZorCaRg==
-Message-ID: <sashiko-outbox-181179@kernel.org>
+	b=iNN9pxJF/9PFRFCBOoaXQOn8ujjifNb20yGhbn2HabesYdauaidzpm/MkGmUUFCyy
+	 bE80P2WRFeGrj5ltvDXJVQQTy/i0/9MlWgJHD7XtemlXn0qec6E8ETp6L6Ieds9N30
+	 1O8kDzFxKbu713xi5/fU0j2Tg1chVMArbx7aOpw+Cwmlb+hr6kRPKnE36QGLhspWoT
+	 B7BpQvDA57hXsFMsy1NqMIkqcOsp9NuM+IYIckpuzqKuK7VAZEUZ3DiNl21ZzFLVHO
+	 lPEl7wm2qZYg7m0XifQ38ufLdsKeh+BQdnfINwPZjZXB57PkNf9XIYopp1SrVowRjL
+	 1xiGL7CycOLRA==
+Message-ID: <sashiko-outbox-181183@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 3/8] crash_core: serialize crash header preparation
- against hotplug
+Subject: Re: [PATCH v9 7/8] of: reserved_mem: mark /reserved-memory entries
+ with MEMBLOCK_NODUMP
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Wandun Chen" <chenwandun1@gmail.com>, robh@kernel.org, baoquan.he@linux.dev, rppt@kernel.org, m.szyprowski@samsung.com
 Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, chenhuacai@kernel.org, kernel@xen0n.name, pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, tglx@kernel.org, mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, saravanak@kernel.org, akpm@linux-foundation.org, pasha.tatashin@soleen.com, pratyush@kernel.org, ruirui.yang@linux.dev, robin.murphy@arm.com, devicetree@vger.kernel.org, kexec@lists.infradead.org, linux-mm@kvack.org, conor+dt@kernel.org
-In-Reply-To: <20261021083011.2170525-4-chenwandun1@gmail.com>
+In-Reply-To: <20261021083011.2170525-8-chenwandun1@gmail.com>
 References: <20261021083011.2170525-1-chenwandun1@gmail.com>
- <20261021083011.2170525-4-chenwandun1@gmail.com>
+ <20261021083011.2170525-8-chenwandun1@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 22 Oct 2026 08:33:07 +0000
+Date: Thu, 22 Oct 2026 08:33:17 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,160 +61,163 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] crash_core: cmem->ranges overflow via unlocked iomem_resource ho=
-tplug
+- [High] of: reserved_mem: unaligned memblock split in fdt_mark_reserve_mem=
+_nodump()
+- [Medium] of: reserved_mem: fdt_mark_reserve_mem_nodump() marks failed res=
+ervations
 --
 
-commit 24cd8bf08b74ae3e07f992972d3cd97b77d9fcf6
+commit a452b9d1fad838de511c25fe48e4541c58357355
 Author: Wandun Chen <chenwandun@lixiang.com>
 
-crash_core: serialize crash header preparation against hotplug
+of: reserved_mem: mark /reserved-memory entries with MEMBLOCK_NODUMP
 
-This commit serializes crash_prepare_headers() with device_hotplug_lock
-to prevent concurrent memory hotplug from changing the number of memory
-ranges between counting and populating cmem->ranges. It also introduces
-__crash_prepare_headers() for hotplug paths that already hold the lock.
+This commit adds fdt_mark_reserve_mem_nodump() to mark non-dumpable
+reserved-memory regions in memblock.memory so kdump omits them from the
+vmcore when crash dump support is enabled.
 
-Link: https://sashiko.dev/#/message/20260806101002.1F84E1F000E9@smtp.kernel=
-.org
-
-> diff --git a/kernel/crash_core.c b/kernel/crash_core.c
-> index faa0f22dbb41d..8a861a946e261 100644
-> --- a/kernel/crash_core.c
-> +++ b/kernel/crash_core.c
-[ ... ]
-> @@ -344,8 +345,8 @@ int crash_exclude_core_ranges(struct crash_mem **cmem)
->  	return 0;
+> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+> index 8c9d6395d6a39..db2bf76000d23 100644
+> --- a/drivers/of/of_reserved_mem.c
+> +++ b/drivers/of/of_reserved_mem.c
+> @@ -677,6 +677,24 @@ static void __init fdt_init_reserved_mem_node(unsign=
+ed long node, const char *un
+>  	reserved_mem_count++;
 >  }
 > =20
-> -int crash_prepare_headers(int need_kernel_map, void **addr, unsigned lon=
-g *sz,
-> -			  unsigned long *nr_mem_ranges)
-> +int __crash_prepare_headers(int need_kernel_map, void **addr, unsigned l=
-ong *sz,
-> +			    unsigned long *nr_mem_ranges)
->  {
->  	unsigned int max_nr_ranges;
->  	struct crash_mem *cmem;
-> @@ -382,6 +383,18 @@ int crash_prepare_headers(int need_kernel_map, void =
-**addr, unsigned long *sz,
->  	return ret;
->  }
-> =20
-> +int crash_prepare_headers(int need_kernel_map, void **addr, unsigned lon=
-g *sz,
-> +			  unsigned long *nr_mem_ranges)
+> +void __init fdt_mark_reserve_mem_nodump(void)
 > +{
-> +	int ret;
+> +	struct reserved_mem *rmem;
+> +	int i;
 > +
-> +	lock_device_hotplug();
-> +	ret =3D __crash_prepare_headers(need_kernel_map, addr, sz, nr_mem_range=
-s);
-> +	unlock_device_hotplug();
+> +	if (!IS_ENABLED(CONFIG_CRASH_DUMP))
+> +		return;
 > +
-> +	return ret;
-> +}
+> +	if (!IS_ENABLED(CONFIG_KEXEC_FILE) && !IS_ENABLED(CONFIG_CRASH_HOTPLUG))
+> +		return;
+> +
+> +	for (i =3D 0; i < reserved_mem_count; i++) {
+> +		rmem =3D &reserved_mem[i];
+> +		if (rmem->size && !rmem->dumpable)
+> +			memblock_mark_nodump(rmem->base, rmem->size);
+> +	}
 
-[Severity: Medium]
-Can cmem->ranges[] still overflow during __crash_prepare_headers() even when
-device_hotplug_lock is held?
+[Severity: High]
+What happens here when rmem->base or rmem->size is not page-aligned, or
+when rmem->size is smaller than a page?
 
-In __crash_prepare_headers(), arch_get_system_nr_ranges() counts the current
-system ram ranges (plus a fixed number of split slots for exclusions),
-allocates cmem via alloc_cmem(max_nr_ranges), and then populates
-cmem->ranges[] in arch_crash_populate_cmem().
+Previously, mapped reserved-memory regions were only recorded in
+memblock.reserved and did not split memblock.memory. Calling
+memblock_mark_nodump() splits memblock.memory at rmem->base and
+rmem->base + rmem->size, but reserved-memory regions are not guaranteed to
+be page-aligned:
 
-Neither the x86 callback in arch/x86/kernel/crash.c:
-
-static int prepare_elf64_ram_headers_callback(struct resource *res, void *a=
-rg)
-{
-	struct crash_mem *cmem =3D arg;
-
-	cmem->ranges[cmem->nr_ranges].start =3D res->start;
-	cmem->ranges[cmem->nr_ranges].end =3D res->end;
-	cmem->nr_ranges++;
-
-	return 0;
+drivers/of/of_reserved_mem.c:early_init_dt_alloc_reserved_memory_arch() {
+	end =3D !end ? MEMBLOCK_ALLOC_ANYWHERE : end;
+	align =3D !align ? SMP_CACHE_BYTES : align;
+	base =3D memblock_phys_alloc_range(size, align, start, end);
 }
 
-nor the weak implementation in kernel/crash_core.c:
+Static device tree regions without no-map can also be smaller than a page
+or unaligned to the page size (for example, cfe-stub@0 in
+arch/arm64/boot/dts/broadcom/bcmbca/bcm4908.dtsi with a 0x1000 size under
+16k or 64k page configurations).
 
-int __weak arch_crash_populate_cmem(struct crash_mem *cmem)
-{
-	phys_addr_t start, end;
-	u64 i;
+When memblock.memory is split at an unaligned or sub-page boundary,
+__next_mem_pfn_range() rounds each region inward to page boundaries and
+skips sub-page regions:
 
-	for_each_mem_range(i, &start, &end) {
-		cmem->ranges[cmem->nr_ranges].start =3D start;
-		cmem->ranges[cmem->nr_ranges].end =3D end - 1;
-		cmem->nr_ranges++;
+mm/memblock.c:__next_mem_pfn_range() {
+	while (++*idx < type->cnt) {
+		r =3D &type->regions[*idx];
+		r_nid =3D memblock_get_region_node(r);
+
+		if (PFN_UP(r->base) >=3D PFN_DOWN(r->base + r->size))
+			continue;
+}
+
+This drops any page frame straddling an unaligned split boundary from
+for_each_mem_pfn_range() and the page allocator.
+
+In addition, request_standard_resources() in arch/arm64/kernel/setup.c and
+init_resources() in arch/riscv/kernel/setup.c register each mapped
+memblock.memory region using memblock_region_memory_base_pfn() and
+memblock_region_memory_end_pfn():
+
+arch/riscv/kernel/setup.c:init_resources() {
+		res->start =3D __pfn_to_phys(memblock_region_memory_base_pfn(region));
+		res->end =3D __pfn_to_phys(memblock_region_memory_end_pfn(region)) - 1;
+
+		ret =3D add_resource(&iomem_resource, res);
+		if (ret < 0)
+			goto error;
+}
+
+For a sub-page region where PFN_UP(base) >=3D PFN_DOWN(base + size), res->e=
+nd
+becomes smaller than res->start (or underflows when end_pfn is 0), causing
+add_resource() on riscv to fail and tear down iomem_resource, and producing
+an inverted or underflowed resource on arm64.
+
+Splitting memblock.memory also splits hyp_memory[] on arm64 pkvm, where
+check_range_allowed_memory() in arch/arm64/kvm/hyp/nvhe/mem_protect.c
+requires checked ranges to fall within a single region:
+
+arch/arm64/kvm/hyp/nvhe/mem_protect.c:check_range_allowed_memory() {
+	reg =3D find_mem_range(start, &range);
+	if (!is_in_mem_range(end - 1, &range))
+		return -EINVAL;
+}
+
+Could memblock_mark_nodump() corrupt resource registration, drop straddling
+pages, or break pkvm range checks when regions are not page-aligned?
+
+[Severity: Medium]
+Can fdt_mark_reserve_mem_nodump() also end up marking active kernel memory
+as non-dumpable if an early static reservation failed?
+
+During early boot in fdt_scan_reserved_mem(), __reserved_mem_reserve_reg()
+logs an error if early_init_dt_reserve_memory() fails (for example, if a
+static region overlaps the kernel image or initrd), but still returns 0:
+
+drivers/of/of_reserved_mem.c:__reserved_mem_reserve_reg() {
+	if (size && early_init_dt_reserve_memory(base, size, nomap) =3D=3D 0) {
+		fdt_fixup_reserved_mem_node(node, base, size);
+		pr_debug("Reserved memory: reserved region for node '%s': base %pa, size =
+%lu MiB\n",
+			 uname, &base, (unsigned long)(size / SZ_1M));
+	} else {
+		pr_err("Reserved memory: failed to reserve memory for node '%s': base %pa=
+, size %lu MiB\n",
+		       uname, &base, (unsigned long)(size / SZ_1M));
 	}
 	return 0;
 }
 
-checks whether cmem->nr_ranges has reached cmem->max_nr_ranges before writi=
-ng
-to cmem->ranges[cmem->nr_ranges++].
+Later, fdt_scan_reserved_mem_late() scans all available static nodes in
+/reserved-memory and passes them to fdt_init_reserved_mem_node(), recording
+them in reserved_mem[] regardless of whether the early reservation
+succeeded:
 
-However, Xen balloon memory hotplug inserts new system ram resources into
-iomem_resource before acquiring device_hotplug_lock via the call chain:
-
-balloon_thread() / xen_alloc_ballooned_pages()
-  -> add_ballooned_pages()
-    -> reserve_additional_memory()
-      -> additional_memory_resource()
-
-Specifically, in drivers/xen/balloon.c:
-
-static struct resource *additional_memory_resource(phys_addr_t size)
-{
-	...
-	res->name =3D "System RAM";
-	res->flags =3D IORESOURCE_SYSTEM_RAM | IORESOURCE_BUSY;
-
-	ret =3D allocate_resource(&iomem_resource, res,
-				size, 0, -1,
-				PAGES_PER_SECTION * PAGE_SIZE, NULL, NULL);
-	...
+drivers/of/of_reserved_mem.c:fdt_scan_reserved_mem_late() {
+		if (size) {
+			uname =3D fdt_get_name(fdt, child, NULL);
+			fdt_init_reserved_mem_node(child, uname, base, size);
+		}
 }
 
-static enum bp_state reserve_additional_memory(void)
-{
-	...
-	resource =3D additional_memory_resource(balloon_hotplug * PAGE_SIZE);
-	if (!resource)
-		goto err;
-	...
-	mutex_unlock(&balloon_mutex);
-	/* add_memory_resource() requires the device_hotplug lock */
-	lock_device_hotplug();
-	rc =3D add_memory_resource(nid, resource, MHP_MERGE_RESOURCE);
-	unlock_device_hotplug();
-	mutex_lock(&balloon_mutex);
-	...
-	balloon_stats.total_pages +=3D balloon_hotplug;
-	...
-}
+Wouldn't fdt_mark_reserve_mem_nodump() then mark that unreserved range in
+memblock.memory, causing kdump to omit memory that is actually in use by
+the kernel?
 
-Because reserve_additional_memory() inserts the resource into iomem_resource
-and drops balloon_mutex before waiting on lock_device_hotplug(), and only
-updates balloon_stats.total_pages after add_memory_resource() completes,
-concurrent callers (such as balloon_thread() and xen_alloc_ballooned_pages(=
-))
-can insert new system ram entries into iomem_resource while
-crash_prepare_headers() or arch_crash_handle_hotplug_event() holds
-device_hotplug_lock.
-
-If those entries are inserted between arch_get_system_nr_ranges() and
-arch_crash_populate_cmem(), wouldn't the extra ranges consume the reserved
-split slots (causing crash_exclude_mem_range() to fail) or overflow
-cmem->ranges[]? Should arch_crash_populate_cmem() and
-prepare_elf64_ram_headers_callback() also bounds-check cmem->nr_ranges
-against cmem->max_nr_ranges?
+> +}
+> +
+>  struct rmem_assigned_device {
+>  	struct device *dev;
+>  	struct reserved_mem *rmem;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021083011.2170=
-525-1-chenwandun1@gmail.com?part=3D3
+525-1-chenwandun1@gmail.com?part=3D7
