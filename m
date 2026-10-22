@@ -1,100 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.228.135
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792689143;
-	b=ED70oF2960lGmxegG3q/f+DmblCDYHjS7n5l+6XdgkmoqzxHH4TxTO8xnmB4um+BiER+
-	 rXfrZiv+119t8zhEdG3htztUXWquaQtex6igg5OEh0sA6wGJIg1ml9WVvrfFv3JrsdkQw
-	 2LbeaEJOnp6GLP/wFN9hJGsbmhkhL+MIY0aAfEH+KlMP5Ay5iYEVpkKEsJ68F/Q9m0y7l
-	 BK1cJpeZOvyyL/Esfc8x1zNEU6syqTjdGkVMbO5taJm8C23s7PTV7Hwr121POc1WrbLnE
-	 m5WcxZEFK0wCP+rCs6u6ZWF4w50Iew5Gonq6gOp0tHrWuRTSxKK/DCXklgoz46US0uw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792689143;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=hs6z4qUCneEFm9kHDK24+LRTeO4FQK/dQ4HNM7ckJB8=;
-	b=XnRdFZ0Whp3Na9MDVKPplVhKyE4koMMoEXtdNxsv0oaFGvipQqDY0F9pimFGe/AE0Qyi
-	 mEH+tYy1IIXIkzt7mxYUbUEvbyPQSx+fICzW4ck6F8vNSPoeicKUKvoNDJgs+g3EO4A/O
-	 gFwxgUoafrtCGUfbOOegErXIMxf4WseRS7aJe6FRvJxtnhynCm6hd/cbP1g1oDKAy7EBL
-	 68Xue3lRzmWwt6VIY3sH1zM0CTfaBEBBLTfskxYiebs6d1Ifap8MbzxVoSvXrHsJtbX1l
-	 tz5+UuNRehSDxi0RJRx1W2hOn9m/TkoXHOCFndciYXhjDljJtszJvSMfFhPFgsKtetg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RRsdoMC4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.228.135
-Received: from mail-ej2-f7.google.com (mail-ej2-f7.google.com [74.125.228.135])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.42.129.46
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792689196;
+	b=GFaUJ217hNRnsshXlIBJ8dSw2T3Gv4a6+g9nyv6aDFNCKEd+B4I31rOh3/d6wnDSXNAb
+	 qlhtn8+rsv6G8XajPPFYSjn5zzvFH6o5nOSChzYRcbYrQR2r73AyPy0p85QLdAlMRymFn
+	 HbXXnr6lplAef1Segsne1jUTRQRp04LZYxx4kFgqkibv2I2GZHwYVy9xn2m4W9FNOiYvw
+	 dJ+E/fL+HzWx5SWtU7FPgoIF0q6UWjsDiO9iTcxxW6l5+37diutI8nJQP5EOHSkgivhox
+	 9bnA/rmzTcpdPcQbAkftC4lHZ74iCqMfqsFJzzJC5tnz0YWyvIUtUyRw1j7DlubR4eg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792689196;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=BxP4L3Q28QKs8ZX4ZIVySQQGIyqmdKOqnViS6m4Za3s=;
+	b=Kdre9ZWFqw5XW+LWJfrU0It5zEGk8sQN/jmu7seHcSA1ppbuUa3591b6Oi4rYBG8kQi3
+	 yGGIlfqXMUWhkRr/xCYIiufc41CN+gSamexhoR1ekCnjnI91JEyNyVal8JCvFqhZd75rz
+	 fVcqrf2SCCuf3Yh2t/Vh6WDUzw8hozhIEOiVDtqVV4WUQmzgcHxrMkGTQ3Q7Cu4IsfWec
+	 thWPEdKdYTnTPvScLvRmV4eWkd78VZgAErDcCdAbWXFaaV3x60rnJv9brlpG0toxTzkBf
+	 pBq1hMevRKnkVFcVYi7v8nIqjoBYWQZ7vtsPKs852e6KQ2Q9PtepgM/CBEBhYdgKOgQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ixit.cz;
+	spf=pass smtp.mailfrom=ixit.cz;
+	dkim=pass header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=Z3NFlIqi;
+	arc=none smtp.remote-ip=84.42.129.46
+Received: from ixit.cz (ixit.cz [84.42.129.46])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1CD9606A31A
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 17:12:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1CD9606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36254606A31A;
+	Thu, 22 Oct 2026 17:13:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36254606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RRsdoMC4
-Received: by mail-ej2-f7.google.com with SMTP id a640c23a62f3a-c3ff043bce9so1255166b.0
-        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 10:12:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792689141; cv=none;
-        d=google.com; s=arc-20260327;
-        b=EhN3QEKtBCcRjeyydTNZHGGc4UfcfDE67wsMa4hFEsy7Askuk/TAUkJjTeJJmQIcI3
-         oEJPCoBaxPtJnCvEtQudjaQVoreiHmbYfoSDzCBq2rDWZsl0TrZGZtE3hPjLE5oZBfpI
-         z9pak4zBqu0YQusRgZ8ZKWiFgSStOcFT9rEnsRhDnJIceujRWVoHk8KbduY5GVQUykml
-         5u5iWaglEhZqwgGRWvaAZY9Q6P9d1S6B7uRyIZLLA8C1qAX11Eo3d1FgEMSQ0mBDvuqs
-         sqMPbVC/Xt+kmEhcetX2zlqyQizq3521hNDAGaHFXd4qYZaJvj+2MBuOStr9cfBGIcma
-         cvdw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=hs6z4qUCneEFm9kHDK24+LRTeO4FQK/dQ4HNM7ckJB8=;
-        fh=hv6qPP/rHj80EowLpOQaS8M7Mti7k0gYPDO8CLqmjQk=;
-        b=IZTwb1NlKhFfLMGHkS2/i9hb9rEuQ6cjzMJLUrHS9iaX3hPyQb5LebObaiC5elGa+5
-         cGFp6DobbTMTfWtvHGu1JU8jdQrkZEIjYG45dtHzH/BVrdW0LvNFy37X/dsnDQHDjlaV
-         6nbE0HSyf5Sz/TCctV1kTm6fAtmEfQwMCgoxDuLJOQKUfk1ZennwvGvz6sFdjPO7XqAp
-         OS1OsaxCJAuhW5uDQU5edyC/6k/+WcXogY/3K/AgFiJtABknsTloTYsWZtYch3qB/63Z
-         Eu7hz6HsAlsEZyeWn0odSktZ0i2QCuOwKZq+vB+RFvAWEfg03QkaK92aQ4PfSEitzuqx
-         Qw0A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792689141; x=1793293941; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hs6z4qUCneEFm9kHDK24+LRTeO4FQK/dQ4HNM7ckJB8=;
-        b=RRsdoMC4w6FJhYM7da1YZGYH+aI7aUNA6hb0JJyxgACKGqJQPURvwxkRxFil4ma7Ku
-         +DuxaHMAPxbnSrT+hFH1YTS/fY3rl4rTWtt5YpBZ63/Lgrm0V/AR3+T+9mwDQPuMHm+V
-         BaXurUbGbIXrlNGzjov/ItXYqf1LgJMTgtrm1uleBFlopLYuqhOwXBS7joz1BXGDNAIM
-         JhFoY/y5XxJz3kyn3nKrHje70rTKkMo5ve40ovAnZQbQk1s1iRyOZRUJ8GL2PBuj4sn8
-         7ib+fgGOchAPXyq59g4fwhX2ObS/Q3yD7EQcszramjKqUKn0dc7wn6UFI7RYUdsOyPey
-         RszA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792689141; x=1793293941;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hs6z4qUCneEFm9kHDK24+LRTeO4FQK/dQ4HNM7ckJB8=;
-        b=Ydocgiq1+yHXJ5vXhYhlcNDhuctjTyNTge1Uqnp9xTpuBlWHrLbbLPzZixhlZyP3k+
-         EcDKu/k7vBAeYOZ9z9nWRfypswKDwJDmiesnbYXTRJDSeR53yBnceiV9fsqg+GlLoQYG
-         uBHv+icPckuRje3VjZUKCE+GPfB1O4N2QlNPU+bycSJWd4H+wn3KAlIA9HisMUGAXaKF
-         xzwa5TnS20+Sw/zPnk9r8A4buD45YslfhC3VI2bti5gPTwaEhMnyiWgVYKvUXOC6OLwA
-         DMT1R9Tt3Bt0nMgbb5DlAA8iTKSfzS05IaQoWJk7OzdOZ50lg4WCOxIvW2xSVhle4LQa
-         /x4A==
-X-Forwarded-Encrypted: i=1; AKwUvByVXxyE4pC1c/GOgL8utUfisbJiw2Em7tC9UQJt7bsBxSx51foF/km0zCDNBbkSkpEwWafsJ/cPNxHy@vger.kernel.org
-X-Gm-Message-State: AFq9FYJjzG8Mda/VMqQ97g45/AnZpDskaotkrWfoYGpWL5oKmVPZ0T47
-	zTtNEngJEguVp6kV801g2sZWO0bb9wXSP7ey1dAsmvZnw05rgfwvx7kqw2ixfgmoBakEeIEoPWW
-	0R3qaRR1ZH8FlZEpxPNZzJOI9sCzDr8g=
-X-Gm-Gg: AYBFou0Ze//P4gu2ibhjEQFgVfDXEmM5eYTaR5RajjV3yxwPtmE6T+wuxw00PFjYxvz
-	Z9Umen27S69clvZK7JJTL1/a0W3dq/KrS/i7sn422Nixypy18vCREhR0J8t1TaMVvQSD3q3AGVq
-	o4dm9nC8pU0jB2jBAba2C5QGWMJS0K72tuj6Eg/8WntF5uUmeS+8MEZK9K6sfHM/TWK5kAeWqkp
-	Vq2cq44BCMFtbliIRMRuLIumgIzPlpJEc4MbTBhO/kaOb4qTIR15CC3VbdwgiHaJia8JbRbZRIX
-	H9O/pQhv7Sr8k8CDs9yhUeHIhK6sguBOvgbhxnmKWIYswczBGTehLqU+vbwcbKibHvxAjxkJcp9
-	dB66kK4RXDKZIAExsMixkY3OPGllauVZgO6JuNh8Wd1vr/e/OiGn//qwvx0PT
-X-Received: by 2002:a17:907:1c95:b0:c26:19de:9aec with SMTP id
- a640c23a62f3a-c4679b577d3mr599686166b.43.1792689140926; Thu, 22 Oct 2026
- 10:12:20 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=Z3NFlIqi
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id F33D153401FC;
+	Thu, 22 Oct 2026 19:13:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1792689187;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=BxP4L3Q28QKs8ZX4ZIVySQQGIyqmdKOqnViS6m4Za3s=;
+	b=Z3NFlIqiL6ubHUlwUPgphNNqwfHWewXF4OTMvhmzNyMAr/K6OiwxM4Ty2Sr/pz/I0LvXqX
+	mnR93+lmvAB1WR0+KS9J8/9ZQX8cdBHtnwNWh1TL0manVbLnFWirPTBPKpGBpZkCb9Db7z
+	4u4NsKqaNnE3N7l4/jQSEa4R2NVXcnk=
+Message-ID: <fbd174d9-261d-4fed-b26e-2990de7af2d0@ixit.cz>
+Date: Thu, 22 Oct 2026 19:13:06 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,38 +60,83 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261022025844.150320-1-coiaprant@gmail.com> <20261022025844.150320-4-coiaprant@gmail.com>
- <e7f68299-1c0d-4b0f-948b-4835086c0df8@lunn.ch>
-In-Reply-To: <e7f68299-1c0d-4b0f-948b-4835086c0df8@lunn.ch>
-From: Coia Prant <coiaprant@gmail.com>
-Date: Fri, 23 Oct 2026 01:12:07 +0800
-X-Gm-Features: AclHuK9Aw-1KGTe0rcDr7TiLvHCZz-VKOsYzCIMnUV4-DQLpiOO8Gle6TTGKUh8
-Message-ID: <CALj3r0gMA45HG2khs2SyehftU5KAHR5i7__CKXSZR8GSE1Q19A@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v11 3/3] arm64: dts: rockchip: rk3568-photonicat: enable
  SGMII LAN port
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Shawn Lin <shawn.lin@rock-chips.com>, David Heidelberg <david@ixit.cz>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+To: Andrew Lunn <andrew@lunn.ch>, Coia Prant <coiaprant@gmail.com>
+Cc: Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Shawn Lin <shawn.lin@rock-chips.com>,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261022025844.150320-1-coiaprant@gmail.com>
+ <20261022025844.150320-4-coiaprant@gmail.com>
+ <e7f68299-1c0d-4b0f-948b-4835086c0df8@lunn.ch>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <e7f68299-1c0d-4b0f-948b-4835086c0df8@lunn.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Andrew Lunn <andrew@lunn.ch> =E4=BA=8E2026=E5=B9=B410=E6=9C=8823=E6=97=A5=
-=E5=91=A8=E4=BA=94 00:58=E5=86=99=E9=81=93=EF=BC=9A
->
-> > +     sgmii_phy: ethernet-phy@3 {
-> > +             compatible =3D "ethernet-phy-ieee802.3-c22";
-> > +             reg =3D <0x3>;
-> > +             max-speed =3D <1000>;
->
+On 22/10/2026 18:58, Andrew Lunn wrote:
+>> +	sgmii_phy: ethernet-phy@3 {
+>> +		compatible = "ethernet-phy-ieee802.3-c22";
+>> +		reg = <0x3>;
+>> +		max-speed = <1000>;
+> 
 > Pointless. SGMII cannot do faster, so there is no need to limit it.
->
->         Andrew
 
-Hi Andrew,
+device-tree is a description. whatever the device can do should be there,
 
-Right, SGMII tops out at 1000Mbps anyway. Dropping max-speed.
+"Maximum PHY supported speed in Mbits / seconds." thus 1000 is correct value.
 
-Coia
+thus max-speed <1000>; LGTM
+
+David
+
+> 
+> 	Andrew
+
